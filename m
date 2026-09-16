@@ -1,107 +1,108 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE61D4D0CC1;
-	Wed, 16 Sep 2026 17:19:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539EB3859DC;
+	Wed, 16 Sep 2026 17:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579196; cv=none; b=pWAHU2T0hxMDl9RAF0llUHWwJfrqBBEIFiiQ8CQnZqZPL07kCRMXiiscmQo/w0OEYUjh+KL+1L9pbU1YKCIbs6YWc4jZ/R+1A9z2OoNsHBP9b2mkSmGBYO1GeLjqtj/wadOVg+X6eTcVsS8+SQUdBYp+j282xs3juhwAALvSLHA=
+	t=1789579211; cv=none; b=NmtXfiMFSvNDF3k8dNPwSBwu5HPgyue9k3IsbRwZsNtzp99awUzOkH8cZDxB/ZbiudocxWDDNX4qEgq4FmAvVoGs0iF5NusF2iT+d9VwFl2trpBiU7QSWMSJT2xeLZTBH9dZaLvY/r+R+0f0Wm+BkpSSiv+bB232DFzTNlOjxOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579196; c=relaxed/simple;
-	bh=FyUcoQeIMsI1Rh3cyd//GfmLeaZ9O39jLHsxIx0aJgQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JNBOh4n4GnjsDAkGgmMEryPXHbfYp4wIQrvRYo9//ueROYKezzQ0JflmIKX26mYrcdxtpfzhLCs3eHgG4DsgWTriWaIMbX6RxuQqMtKDQQnUt9Cn4tSs7GF4vsimFOy0kVQlCrEuzi65sZkUTMfZLb3R1k13fgdN1IXeu+bB5LI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=WHK95Rd+; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="WHK95Rd+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=AL3TG6cS7IpvKn1WNOFBoSo//upiT7UQc8tclKdc+JQ=; b=WHK95Rd+UiwK0u/++Dx3yH/V+A
-	N34k2YOl3NcQR7joTpd4WJSPvDhnxzG9lUCXns2MVuGjeIUTNaH7EdxxyXAqPRvljUq2WUveE1pDy
-	Y3+OD7dIwBhRbHg92YSG2QkRDLhPcx2UnGbqfbMEb5sBPgpTqEpyAGYpUNkDcvOkB+WRmcUkN9hEq
-	lIO0l9I0Wig/kXsK56MME+Ssh24Az8G9xv4vyibKTMqEf5iARfbc3b7IUnHg6LU/AqDKcFhXMyggM
-	GXMv0YoHdkBb3smiaK3urFnEiUWCTPT650xmZdrdXkg9vnzT9YGUs8KF9hE6kxN/JtrjNj82fXMgl
-	RbOiRwew==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x6tI9-00000005XGQ-3v4u;
-	Wed, 16 Sep 2026 17:19:30 +0000
-Date: Wed, 16 Sep 2026 18:19:29 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: akpm@linux-foundation.org, David Hildenbrand <david@kernel.org>,
-	Boris Burkov <boris@bur.io>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>, Jann Horn <jannh@google.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>, Usama Arif <usama.arif@linux.dev>,
-	Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [RFC PATCH 0/5] mm: sub-folio dirty tracking for PTE-mapped mmap
- writes
-Message-ID: <aqrPobWbuOdsCnMc@casper.infradead.org>
-References: <20260903182943.662461-1-kirill@shutemov.name>
- <ap6LFvuOuWf_BkGi@thinkstation>
- <aqrDfoFFr8o0Mf0G@casper.infradead.org>
- <aqrJAX6nMTIo6Vnn@thinkstation>
+	s=arc-20240116; t=1789579211; c=relaxed/simple;
+	bh=QHmB75cRWIR08oEE2FPPuSZ9qFSE7RONmHJU5PRLuF0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pcJz0SX2YV3LTfv6P/s7pHpi1/kPynZve7T9kHdAlHN6x6a7n13rD2mAs2zuA/4WHDGXUfGlbl9S+DYt1tqvnu3BeloM8HvcUTZ4f3nnMvBC/CfWiXRdzWXYfIaH5zsEt58c1JVx3t8MOgCWiXud2+1fJ1RekGap6ivOh+s5xn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAD3J0LCz6pq0H5uCA--.23150S2;
+	Thu, 17 Sep 2026 01:20:03 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: andi.shyti@linux.intel.com,
+	dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	jani.nikula@linux.intel.com,
+	joonas.lahtinen@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	matthew.d.roper@intel.com,
+	rodrigo.vivi@intel.com,
+	simona@ffwll.ch,
+	sujaritha.sundaresan@intel.com,
+	tursulin@ursulin.net,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/i915: Fix vm reference leak in mock_gem_device()
+Date: Wed, 16 Sep 2026 17:19:35 +0000
+Message-Id: <20260916171935.2087305-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqrJAX6nMTIo6Vnn@thinkstation>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAD3J0LCz6pq0H5uCA--.23150S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw1ftw43uF18ZF43tw4Utwb_yoW8Ar48pF
+	4rJFW5KFW5JF1Ig3ZrZF1DZFyfCan0y3WrGw17Aw1a9r15Aa4DGa4F9ayUtrWjyrZ7X3yf
+	A347KF1I9r1jk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9S14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
+	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr
+	1UYxBIdaVFxhVjvjDU0xZFpf9x0JUDOz3UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQMA2qqozVoJQAAsJ
 
-On Wed, Sep 16, 2026 at 06:09:17PM +0100, Kiryl Shutsemau wrote:
-> On Wed, Sep 16, 2026 at 05:27:42PM +0100, Matthew Wilcox wrote:
-> > On Mon, Sep 07, 2026 at 11:15:15AM +0100, Kiryl Shutsemau wrote:
-> > > My proposal makes the distinction between making the folio writable and
-> > > making it dirty meaningful. ->page_mkwrite() allocates whatever is needed
-> > > on the filesystem side to track dirty state and drive writeback for the
-> > > *folio*, while ->dirty_folio_range() marks part of the folio dirty.
-> > 
-> > Why do you think that's a meaningful distinction?  We create a writable
-> > PTE because we've taken a page fault for write.  There's probably a few
-> > naoseconds where the PTE is writable+clean before it becomes
-> > writable+dirty, but even then sometimes we do both pte_mkwrite() and
-> > pte_mkdirty() as an optimisation in the write fault path.
-> 
-> This is true for the PTE that the fault was for. But we don't necessarily
-> want to dirty the other 511 pages at the same time.
-> 
-> The basic idea is to make the whole folio writable at fault and shift
-> dirtying to be per-PTE on write to it.
+mock_gem_device() takes a reference on the GGTT vm for gt->vm, but
+neither mock_device_release() nor the setup error paths drop it, unlike
+the real teardown where intel_gt_driver_release() releases gt->vm.
+Drop the reference before mock_fini_ggtt() and on the error paths.
 
-Hmm.  Is that something that filesystem people want?  I suspect not.
-I think they'd prefer to be told when we write-fault on each page.
-But let's see if we can gather feedback from FS people.
+Fixes: cdeea858d8df ("drm/i915: Remove unused i915->ggtt")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/i915/selftests/mock_gem_device.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> > It's very odd to be optimising for shared-writable-mmap.  This is a
-> > horrid model for I/O.  https://cs.brown.edu/people/acrotty/pubs/p13-crotty.pdf
-> 
-> Sure.
-> 
-> But not everybody got the memo[1] :P
-> 
-> I think it worth considering if we want to make large folio adoption
-> smoother.
-> 
-> [1] https://www.reddit.com/r/bcachefs/comments/1vepk4a/comment/p1sn4v1/
+diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+index 27dc0e40a8d7..12cd252d9250 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
++++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+@@ -71,6 +71,7 @@ static void mock_device_release(struct drm_device *dev)
+ 
+ 	i915_gem_drain_workqueue(i915);
+ 
++	i915_vm_put(fetch_and_zero(&to_gt(i915)->vm));
+ 	mock_fini_ggtt(to_gt(i915)->ggtt);
+ 	destroy_workqueue(i915->unordered_wq);
+ 	destroy_workqueue(i915->wq);
+@@ -145,6 +146,7 @@ struct drm_i915_private *mock_gem_device(void)
+ #endif
+ 	struct drm_i915_private *i915;
+ 	struct intel_display *display;
++	struct i915_address_space *vm;
+ 	struct pci_dev *pdev;
+ 	int ret;
+ 
+@@ -263,6 +265,9 @@ struct drm_i915_private *mock_gem_device(void)
+ err_drv:
+ 	intel_region_ttm_device_fini(i915);
+ err_ttm:
++	vm = fetch_and_zero(&to_gt(i915)->vm);
++	if (vm)
++		i915_vm_put(vm);
+ 	intel_gt_driver_late_release_all(i915);
+ 	intel_memory_regions_driver_release(i915);
+ 	drm_mode_config_cleanup(&i915->drm);
+-- 
+2.34.1
 
-Since I'm an idiot, I'm not inclined to be helpful.  But I think my
-proposal does fix this; we call page_mkwrite() for each page fault and
-then the filesystem knows which pages are actually dirty without having
-to be told under the PTL when they can't reserve space.
