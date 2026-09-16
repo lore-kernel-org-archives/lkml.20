@@ -1,100 +1,97 @@
-Received: from mta0.migadu.com (out-244.mta0.migadu.com [91.218.175.244])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF31D3C1D61
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.244
+Received: from outbound.baidu.com (mx22.baidu.com [220.181.50.185])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 6A8243DD847;
+	Wed, 16 Sep 2026 06:44:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.181.50.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541107; cv=none; b=E9VbSuMt4H+GLepKG8chQl4tmHYpZh246mn4GiZa/EDp23SWG2DPrpabTjIsOcgr7i+ZTKV3R7i3ZuVleMncVCFudpgPyFVTMboByX1qva8gW7RchfwM/N3zS+RynAqLxM3z44/38eFbaCkI8aatxblZgbmo2yWuCxyw1Tvw4Mg=
+	t=1789541102; cv=none; b=RZxcv+3jXZ9FrUUCByUD8/37YcJ0i9CY39v7HCgQsKm7hDpGAXjDkTDMfbeC1lPWBv4YdOk3h/AWVXMSM7RriyQmEry0UDaGWRR5uYw1ORNZ6Hg6ENDcPd9OKkAgpmwB6abpN7bApbMdltDb6uQOJCV3U1DshwZcsvmZD/VOYcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541107; c=relaxed/simple;
-	bh=CemCmch04q5mUKawMy0vidBfLn08c8QpxpUgzyNdQbo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QwtKDpe2yy4xy2LoPKHMBjjqb8qIzvnwveeZI7R6hpYQCHmIZsQRYGMT/iwjXpd1NHp5obTU/99JnCVm7B/e0KxyjIrxXh15WUIPiamCCdK3gMC28UVaMelNVqV+VP5uCgdzz71flexLMP2B4l8lpDovT4dlf2z84aBKHKc9SsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mXtBqUic; arc=none smtp.client-ip=91.218.175.244
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789541102; c=relaxed/simple;
+	bh=nZ7JLpEHMtrgZiX1Vtnm/Dcm6f6C9r2aMLKKdkDGaD0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qXC9XVXvpZcLg5FzpscTz/m5rzNfXn76nPrwCAQ1VPsoTq/fSsZI27TAPx1Bl9hPVESHr2YKtbCeRpfGt1WV14mGcLilz5Zjt4YGmnbNNAi5D1MrpGCTwSFOeYfsuoNIgteMU/6ptBnpXanlPDBBKdx7dbO7YrHlxe/f8S3mI0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=j4Ct4tOg; arc=none smtp.client-ip=220.181.50.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mXtBqUic"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CemCmch04q5mUKawMy0vidBfLn08c8QpxpUgzyNdQbo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789541101; v=1; x=1790145901;
- b=mXtBqUicZVuyi6kRAjPefsuJTqASG+Jfri2piloLrH/3hj9T6NVpUR3Dnh46JJTSnCZ898y9
- k3thCelzmNSsoxhG8dBjrc0j25MlHAaBH2CYyzB6A0QPqwa/D3aRWZp1dPJeeeZiRl6pE40sr8k
- B+XWHubvH1r+fr4GIda6ux60=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0ef214d3c88bf2cc;
-	Wed, 16 Sep 2026 06:45:01 +0000
-X-Mizu-Trace-ID: 0ef214d3c88bf2cc
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0efbf471-b74e-4dfa-9335-f1720854d880@linux.dev>
-Date: Wed, 16 Sep 2026 14:44:52 +0800
+	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="j4Ct4tOg"
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Jiri
+ Pirko <jiri@resnulli.us>, Yonatan Nachum <ynachum@amazon.com>, Kalesh AP
+	<kalesh-anakkur.purayil@broadcom.com>, Michael Margolin <mrgolin@amazon.com>,
+	Kees Cook <kees@kernel.org>, Parav Pandit <parav@nvidia.com>, Mark Zhang
+	<markzhang@nvidia.com>, <linux-rdma@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: Li RongQing <lirongqing@baidu.com>
+Subject: [PATCH] RDMA/core: Fix swapped list_add_tail() arguments in ib_add_sub_device()
+Date: Wed, 16 Sep 2026 14:44:35 +0800
+Message-ID: <20260916064435.2180-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge zero
- PMDs
-Content-Language: en-US
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: akpm@linux-foundation.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org,
- ljs@kernel.org, surenb@google.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <83a1287b-8589-4408-96f4-4f78dfca1bc9@kernel.org>
- <20260916044142.95044-1-lance.yang@linux.dev>
- <f784fec5-7261-4ebe-803e-eb26141a0fdc@kernel.org>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <f784fec5-7261-4ebe-803e-eb26141a0fdc@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-ClientProxiedBy: bjkjy-exc10.internal.baidu.com (172.31.50.20) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1789541085;
+	bh=978sEupC+WWvDTbE37Jvxlx9xT8iqIaTRDTUvABmM6M=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=j4Ct4tOgyUAXot9AYxq0xvbuj1gWPAhd6QTvBo2cOPlJZaqLmpx2QCwopOOMHhACZ
+	 BljzNQ/5wfMW4vuSzIKe+aXhaSdMC6Vs/9l1m9e8LkbmZkxo4mNS86uidgaWaZmbFK
+	 NeRye17wVmKRSk9pFTViThos7CVrDpxvqUYPWvARx193Xi/HuZoiSV2TD3+H1vGa35
+	 4If9P/KP/ZfZCJ8H+JxnCfCj2vWwSIZe1gKvLKyRu4uKfzw+B/pS9+DP3HlEncyaOQ
+	 Z6vY+efUdUZy3fbWm2sEIV6ky/Dg+XlylRD92nszcUHbICFnqBYkLoSr5W11v/zh5g
+	 jciKXd+QM6qMg==
 
+From: Li RongQing <lirongqing@baidu.com>
 
+ib_add_sub_device() links a new sub-device into its parent's sub-device
+list with:
 
-On 2026/9/16 14:11, David Hildenbrand (Arm) wrote:
-> On 9/16/26 06:41, Lance Yang wrote:
->>
->> On Tue, Sep 15, 2026 at 05:13:17PM +0200, David Hildenbrand (Arm) wrote:
->> [...]
->>>
->>> Ok, it's really only DAX and anonymous VMAs that use the huge zero folio. Other
->>> (module) code would have a hard time using it, as mm_get_huge_zero_folio() is
->>> not exported to modules.
->>>
->>> DAX uses dax_pmd_load_hole()->vmf_insert_folio_pmd()->insert_pmd() where we
->>> deposit a page table only if arch_needs_pgtable_deposit().
->>>
->>>
->>> So I think the rule is simply:
->>>
->>> arch_needs_pgtable_deposit() -> always deposited
->>> vma_is_anonymous() -> always deposited
->>>
->>> ?
->>
->> YES!
->>
->>>
->>> The trick is that we don't have anon THPs in non-anon VMAs.
->>>
->>> So could this be simplified further or am I missing something?
->>
->> Ah, cool! I hadn't thought of that :) You're right, anon THPs cannot live
->> in non-anon VMAs, so pmdval and folio aren't needed here. Will simplify
->> it as suggested :) and add a comment explaining the rule.
->>
->> static bool has_deposited_pgtable(struct vm_area_struct *vma)
->> {
->> 	return arch_needs_pgtable_deposit() || vma_is_anonymous(vma);
->> }
-> 
-> Yes, that's what I had in mind. (while at it, maybe call it "vma_has_*)
+	list_add_tail(&parent->subdev_list_head, &sub->subdev_list);
 
-Good point, will do. Thanks!
+list_add_tail(new, head) expects the node to insert as the first
+argument and the list head as the second, so the call above does the
+opposite of what was intended: it treats the parent's list head as the
+new node and the sub-device's node as the list head.
+
+Because _ib_alloc_device() initialises subdev_list to a self-referencing
+empty head, the misplaced insertion does not crash, but it corrupts the
+parent->subdev_list_head list.  After adding two or more sub-devices,
+only the last one is reachable through the parent's head, and
+ib_del_sub_device_and_put()'s list_del() on &sub->subdev_list rewrites
+the head pointers, potentially severing earlier sub-devices from the
+chain.  During parent teardown, the reverse iteration over
+subdev_list_head then skips the orphaned sub-devices, so their
+del_sub_dev() callbacks are never invoked and ib_device_put() on the
+parent is never paired, leaking both the HW sub-devices and a refcount.
+
+Swap the arguments to match the documented intent: insert the
+sub-device node into the parent's list head.
+
+Fixes: bca51197620a ("RDMA/core: Support IB sub device with type "SMI"")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+---
+ drivers/infiniband/core/device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/infiniband/core/device.c b/drivers/infiniband/core/device.c
+index 7a3ed5e..05dd890 100644
+--- a/drivers/infiniband/core/device.c
++++ b/drivers/infiniband/core/device.c
+@@ -3067,7 +3067,7 @@ int ib_add_sub_device(struct ib_device *parent,
+ 	sub->parent = parent;
+ 
+ 	mutex_lock(&parent->subdev_lock);
+-	list_add_tail(&parent->subdev_list_head, &sub->subdev_list);
++	list_add_tail(&sub->subdev_list, &parent->subdev_list_head);
+ 	mutex_unlock(&parent->subdev_lock);
+ 
+ 	return ret;
+-- 
+2.9.4
 
