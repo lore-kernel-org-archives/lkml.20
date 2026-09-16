@@ -1,169 +1,156 @@
-Received: from out28-99.mail.aliyun.com (out28-99.mail.aliyun.com [115.124.28.99])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5B44A2078;
-	Wed, 16 Sep 2026 10:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556147; cv=none; b=tXxBjQXuqKFaUT+5Y6Ry9WOxacBqMqdev3MA9sAqP31eRSIE1MsteAvU0Ki/1nEWHWBmdNj8ypUnOBTz9HGna4FC5/IHD21YL83XQlpOAxDWBzfPPcefwQocS8Vus6k3TE+7pLkVGNnmjyXH1KYsWNmutFCNfqM4Mf+neiOID8M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556147; c=relaxed/simple;
-	bh=5qmiCNozizY5EV5WEq3lx6ACtQkxoD64EVxnmHynTIo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YV+D/tLksduf02b4FatmXS6eQFbTXkoYjuC4Fd2PhQu9+NbBLmXm4TuBM6dIKjrGtI/9gcPXrI+dJyB2Lvi4l6Rsl+g1jYHmB1xZaa7ZKTpFPmq3Ix3nD1iKRBSLORypOy044pLiDjpQFnAage/FOs1af4R5cT9ezdhwVIx4j0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06735438|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0411268-0.000463663-0.958409;FP=16787544435581345010|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=19;RT=19;SR=0;TI=SMTPD_---.jExZdR8_1789556104;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jExZdR8_1789556104 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 16 Sep 2026 18:55:10 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	Frank.Sae@motor-comm.com,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	jie.han@motor-comm.com
-Subject: [PATCH net-next v19 0/3] net: phy: Add driver for Motorcomm Quad 2.5GbE phy
-Date: Wed, 16 Sep 2026 18:55:01 +0800
-Message-Id: <20260916105504.3262767-1-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA374CDA25;
+	Wed, 16 Sep 2026 10:55:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789556159; cv=pass; b=lFtIN+40MOFXM8Kvgweynl4B8KsN2nsj3kc2d0O48c04oZYQeeB03GJ3Lb+XdA4fCmmeGDD+0ZtmN7H7cH2GktOH4kMbdUqGgQUZZeN+eUnKAVoAWrPNOUkQC7Vj17mhoryCRPGL7NQar7163eTb9EuvDQpeqwR3/U9U63H8LM8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789556159; c=relaxed/simple;
+	bh=h7hwrBNm9KgLCgtXSIfqFteBSYkIeeEyEYqo+xhafss=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DWwtoM1qs2nga6CR5dw7qSkfFmbFxccOEk1AFzzWJ1SCYUCMyxBgNHnLRmHcjeXoaXLuwKdzK3M8HxPEAlyYKjlgXT14JQclqdOpOoq06iw7FG3PrSnBmJwKxz+icYKUEc/7VVmmzoK7yWmgRA1zzLpCAEu0MqeWk3zJQQ5Q9w0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=kaM1Hf24; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="kaM1Hf24"
+ARC-Seal: i=1; a=rsa-sha256; t=1789556121; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=jEaBHBWW5yD1J0TV/UbG5j9Ewwl04zZ0anGKtYuxZaxWTDAnAaAn9hIMaKxRayNED76FPKo9p4NTfRBSMdROVlzvQ8TJazYtmd9JoZffPyuH8Ys6Ryl7awiwFy0rutLa6WlEAaob6pyrymdltl3Sf1UC+CoeOu0EpWOGZwCu7OA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789556121; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Uva0NgB3KxuwVZLkt485f87mZRbvUkG56Nz1XWwQ3aQ=; 
+	b=ZBAYs5YLuR0GEBF34x5oeX6OxtXp/UjG18mSMlftfgaxj3TTDJ9YyL/Jpba/oammHpNpGGF5XPhCfv8YoZdGWcKbyoSBCrWVAfVAuuN15TjyZdwuNAn16r1DMYQuKU5lFtLBxZHf4xjfiatE58u9aqr0pGegHFXo9ycFJPy04bc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789556121;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=Uva0NgB3KxuwVZLkt485f87mZRbvUkG56Nz1XWwQ3aQ=;
+	b=kaM1Hf24gWrC/DYDPNrI1n9Mt7jEguW0zimgpIshelsPRysqaJLfZKM+rwO/tiPl
+	Q06kEQNpxhH8w/ZzLv5vXZ31v0cgwiyrNMTY6XH8pWKqVCuU/fROC9nVNp7ellxtBM0
+	UCW+fqrJkMfkzireW/BhnOYPIWmXGVWmgklpDe34=
+Received: by mx.zohomail.com with SMTPS id 1789556120046516.7994642098594;
+	Wed, 16 Sep 2026 03:55:20 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id EBB86180918; Wed, 16 Sep 2026 12:55:15 +0200 (CEST)
+Date: Wed, 16 Sep 2026 12:55:15 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andriy.shevchenko@linux.intel.com, brgl@kernel.org, heiko@sntech.de, 
+	linusw@kernel.org, linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, ye.zhang@rock-chips.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] gpio: rockchip: Fix bank clock leak in
+ rockchip_get_bank_data()
+Message-ID: <aqpxJaYqJ5NHG1No@venus>
+References: <20260916102258.2018689-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-changes in v19:
-patch 2: Replace the int type with the u16 type for test_mode.
-patch 3: 1) Merge yt8824_utp_normal_test_mode_paged() and
-         yt8824_utp_invalid_test_mode_paged() into 
-         yt8824_utp_set_template_test_mode().
-	 2) Add a fatal error return when phy-mode is missing in
-         the DTS.
-
-changes in v18:
-1. Split the template_testmode() into a small patch 
-   and optimize the implementation.
-2. Optimize the definition and initialization of 
-   interface_mode by adopting the existing approach.
-
-changes in v17:
-patch 1: Remove redundant description.
-         Use phy-mode instead of motorcomm,interface to describe the
-         interface.
-         Add the required checks.
-patch 2: Use phy-mode to get interface mode.
-         Need return after init configuration is done to avoid falling
-         into the error path.
-
-changes in v16:
-1. Add DTS documentation.
-2. Fix redundant initialization.
-
-changes in v14:
-1. Refactor the error return path to preserve and return the initial error,
-   rather than letting later errors mask it.
-
-changes in v13:
-1. Fix the lock release issue on the error path to prevent potential
-   deadlock or resource leak.
-2. Add a func yt8824_restore_defaults() to restore configuration on
-   the error path,ensuring the hardware/device is left in a known
-   good state upon failure.
-
-changes in v12:
-1. Refactor the yt8824_read_status() function to ensure proper state
-   synchronization between hardware registers and the phy_device structure.
-
-changes in v11:
-1. Clean build_clang warning.
-
-changes in v10:
-1. Within the interface that swaps to the USXGMII reg space,the lock
-   include shared_lock and mdio mutex must remain held throughout 
-   the entire operation and should only be released after all steps
-   have completed.
-2. Improve the template interface in phy-c45.c
-3. Fix the handling of some failure paths.
-
-changes in v9:
-1. Add shared_lock mutex prevents UTPs from interfering with each other 
-   due to swapping reg space.
-
-change in v8:
-1. Clean up format warning.
-2. Fix exception handling code logic based on Sashiko/Gemini.
-3. Remove interrupt/handle function
-
-changes in v7:
-1. Refactor the using of mdio lock
-  In all cases of swapping to the USXGMII side interface, lock the MDIO bus
-  at the beginning, switch to the UTP address space after the operation is
-  completed, and then release the lock.The purpose of doing this is to
-  ensure that it will not affect other UTPs operating in the UTP address
-  space.
-2. Rename YT8824_RSSR_FIBER_SPACE to YT8824_RSSR_USXGMII_SPACE.
-
-changes in v6:
-1. Add  test mode helper in phy-c45.c
-2. Refactor the using of swapping paged for utp and fiber
-
-changes in v5:
-1. Fix diffs issue which caused by unexpected whitespace.
-2. Fix "exceeding 80 columns" warning.
-
-changes in v4:
-1. Remove motorcomm,yt8xxx.yaml, will update in other patch thread
-2. Fix locking issue. Since every interface requires switching of space, 
-   the bus is already locked during the space switching process in
-   phy_select_page(), other operations within the interface cannot 
-   be locked again before unlock in phy_restore_page().
-3. Fix warning log identified during the inspection process using
-   checkpatch.pl.
-4. Fix the way of using common api in phy_package.c
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pceyosqab754y6el"
+Content-Disposition: inline
+In-Reply-To: <20260916102258.2018689-1-vulab@iscas.ac.cn>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.544.40
+X-ZohoMailClient: External
 
 
-changes in v3:
-1. Using common apis defined in phy_package.c to handle shared top
-extend register space.
-2. Add dts demo in motorcomm,yt8xxx.yaml.
-3. Fix unnecessary redundant judgments.
-4. Fix BMCR registers operation using magic number.
-5. Rename function based on its approximate functionality.
+--pceyosqab754y6el
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] gpio: rockchip: Fix bank clock leak in
+ rockchip_get_bank_data()
+MIME-Version: 1.0
 
-changes in v2:
-1. Remove duplicate code and replace it with existing api.
+Hi,
 
-Kyle Switch (3):
-  dt-bindings: net: Document Motorcomm YT8824 PHY package
-  net: phy: Add support for Template Control register for PMA
-  net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+On Wed, Sep 16, 2026 at 10:22:58AM +0000, Wentao Liang wrote:
+> rockchip_get_bank_data() obtains the bank clock with of_clk_get() and
+> enables it before reading the GPIO version ID.  The reference returned
+> by of_clk_get() is never dropped on the error paths that follow:
+>=20
+> When the debounce clock is missing, the bank clock is disabled with
+> clk_disable_unprepare() but the reference is never released with
+> clk_put().  When the version ID is unsupported, the function returns
+> -ENODEV leaving the bank clock prepared, enabled and referenced.
+>=20
+> Drop the reference with clk_put() on both error paths and disable and
+> unprepare the bank clock on the unsupported version path so that probe
+> failures no longer leak the clock.
+>=20
+> Fixes: 41209307cad7 ("gpio: rockchip: change the GPIO version judgment lo=
+gic")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
 
- .../bindings/net/motorcomm,yt8824.yaml        |   59 +
- drivers/net/phy/Kconfig                       |    3 +-
- drivers/net/phy/motorcomm.c                   | 1575 ++++++++++++++++-
- drivers/net/phy/phy-c45.c                     |   23 +
- include/linux/phy.h                           |    1 +
- include/uapi/linux/mdio.h                     |   12 +
- 6 files changed, 1670 insertions(+), 3 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+This got fixed in 3e46c18d5d87 ("gpio: rockchip: convert bank->clk
+to devm_clk_get_enabled()") and 950007767823 ("gpio: rockchip:
+teardown bugs and resource leaks") already. Please make sure to use
+latest kernel trees.
 
--- 
-2.25.1
+Greetings,
 
+-- Sebastian
+
+>  drivers/gpio/gpio-rockchip.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
+> index 44d7ebd12724..69a7cd8c9a1a 100644
+> --- a/drivers/gpio/gpio-rockchip.c
+> +++ b/drivers/gpio/gpio-rockchip.c
+> @@ -673,6 +673,7 @@ static int rockchip_get_bank_data(struct rockchip_pin=
+_bank *bank)
+>  		if (IS_ERR(bank->db_clk)) {
+>  			dev_err(bank->dev, "cannot find debounce clk\n");
+>  			clk_disable_unprepare(bank->clk);
+> +			clk_put(bank->clk);
+>  			return -EINVAL;
+>  		}
+>  		break;
+> @@ -682,6 +683,8 @@ static int rockchip_get_bank_data(struct rockchip_pin=
+_bank *bank)
+>  		break;
+>  	default:
+>  		dev_err(bank->dev, "unsupported version ID: 0x%08x\n", id);
+> +		clk_disable_unprepare(bank->clk);
+> +		clk_put(bank->clk);
+>  		return -ENODEV;
+>  	}
+> =20
+> --=20
+> 2.34.1
+>=20
+
+--pceyosqab754y6el
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqqdZAACgkQ2O7X88g7
++powAQ//a5Z8xeBh85w663VZhDaGQvR2X2ve7juhsvd1Tnd6nC8HkT0qj226YZIg
+RyT32AJg6xMJwpXYFHljIdJURzWF71WB/qIEn+JPwEeYM2pBrqcFK9ULt7fgeJ1N
+Jas1rkSyeFmHajw+9Hq3uWyLAcPLV7qJKZJcuuTFu4EtxDG9gmZTr1WxXk9x/wRe
+bGEAGtgmCqeXUiizIc1OklUVQ+mG3RxxckCd/KrmFQH1MPfTtAElPWI+kCaB018C
+4myy1GtEisUSYe4Oy9j8FR+d1olFCFVz2gtSWE7I/7U6E5zOAH0oJcY3wrdZ2UnQ
+kOtGhlU2lnyUtAvbhCpSx8P3Kv/9/sfBKKNW2g616VsV5ISco2tQMByEc+2f7yF8
+5iDs3ItxwmjTWuV4FTUPhOkjfm55ObQbK8TinY1GseG2ZZchJKuSnzMbkOKsxi2h
+pt62dmxrSpNR8DVL4o9kibM+ro/rjPTgCbWmTjq5oA2bL5/S28rATmewYcxS53Op
+9k1QWa5p+3++gRENV0RyswrGMB0KLbiGjR8lWbI1nrZGtYC7tSDRYfoMWTATx/YM
+R+Sh5hSDEZJXs8uLA0cFCPjWP7sz0FX0mA5VXY2FUhO1zxSWqAynsPNVrIz7MvIa
+r1Vo0ZPa5snWt7h0JRm7eYw64w4/raHcfk2PZlqu9pLwt8392kg=
+=JxUH
+-----END PGP SIGNATURE-----
+
+--pceyosqab754y6el--
