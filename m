@@ -1,110 +1,120 @@
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
+Received: from mail-qv2-f40.google.com (mail-qv2-f40.google.com [74.125.230.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAD65221C0;
-	Wed, 16 Sep 2026 16:21:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00B952B1E1
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575682; cv=none; b=kM3KPndkYg/aLn4dx6zQY/F32IzKA5TNqZWU1D1OFG56fl388SgGrhqUkYN8JGH31ZbVqUSqX1Ujxt1eXAaPWWtNGj4LHjjPHC4pKnMHSzSLZ+EasXSnslXcQQB/lkko8NFS4zyMDeUMUn1C33YWO8Ad3+izxsI2SFFZfpa+ED0=
+	t=1789575685; cv=none; b=UkyICZNITQ/+fTEPKRaVde7GCzQ80Dq2XMqrxYsBF0PWT0M8mzI+FT5EXJQbXLWXXnRryANQX7f5L9U0p/7L9IrHC3+hCfDjOE5UhknTIbmA6MYJCbPTsbLzSg170NusjLkcTTmWl8glKxGBnNuCuyK774RtsKaQaUJ+4dxUOgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575682; c=relaxed/simple;
-	bh=0lMncFdJAIyse8zps8m6szqNvRqud/6DYdLeuviKeP0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=PayKnBgjkQ/5q41rdRRXAGbKEgxGQcyG+1GfPwdo2mXLvhUPQLHDpGYV34yfCfXaMSYsa93cPw/uLYQAQJSZXThe//eNGM2dhdhCSU+7EsMy3W+cuBOThZSEXXp5BF3WvgE1l6kIhHdjsYh5xZ52pXzX7CLao6l/K2y7r292iNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from [192.168.2.104] (91.78.42.68) by exch16.corp.auroraos.dev
- (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Wed, 16 Sep
- 2026 19:21:05 +0300
-Message-ID: <b43350d5-09d7-4fc4-9791-16bb4322d794@auroraos.dev>
-Date: Wed, 16 Sep 2026 19:21:04 +0300
+	s=arc-20240116; t=1789575685; c=relaxed/simple;
+	bh=8aZkNP08PVvZg7BWbE33AZXpZ6tdXswnwBF9qWrlNhg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ddN1xRQjhH35pMJRBQPzAjGPj7iCFt8FrYV3kw8hBm2D60MMqP8WbDFbGw7c2mIgGFGCJxvtMD5zkx/eQBEqo3EKQfzERvDrkL+Js9/RMkREaYr5P37OfVNRvbTxLEDEiYHn5HDlxeQ6vsgNHRHIFNV0p+rJu5HUgy6HEVPuTC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jOVowhAj; arc=none smtp.client-ip=74.125.230.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jOVowhAj"
+Received: by mail-qv2-f40.google.com with SMTP id 6a1803df08f44-90cdfe57a3bso8830966d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:21:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1789575682; x=1790180482; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/muLCENQ3ztU+dyE1LuzDRQMa5pSiiT+WmL99wCRWBs=;
+        b=jOVowhAjMSUqLSMGs3Ddi94lMt4+OrizP4ZcNnmXKfuDh7uHyPMgfYwAQHtFfka6mr
+         zaOrljo4n818ISYogU4qf/8wUvUjQEVI6JQeDol275PqeS4id6Ii5vE1ZTY9CeFDFcwP
+         bLT39it4x2o6XfyOh96LknrvO97XRCsIBZZOY7caW1U14/1if56SKNpxWMNVv41Xup0q
+         y7NUYOvKxtgWf/eXf2j7A2j3ZuMFjl6bgKoAUZvbDodNl5oJmibA40hng/cYJX054nEn
+         RAde+Drj4rKkAf5FKGjFQpHUwceS0F2BJOSI4WH4a7fGr6fGc2l0NVlNvqt67OYsIniX
+         2Iug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789575682; x=1790180482;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/muLCENQ3ztU+dyE1LuzDRQMa5pSiiT+WmL99wCRWBs=;
+        b=y7OAcPaD0G+29uWPItG+qGTLM8OzRjalfyZRTCggXmX06NenchCF2bt74mxnxnEZBv
+         ds31lo+J6p9okNkpT/YVpouWIfEj4l/Jz2AiupEKUaJTMApThf4TpGfO8Tt8R7N+PYk7
+         CpNv+YDb5o+uw4iwzawUhEgZngHkEGtl9oWtAJV7X5TvBnQsuDhRxznPRDQZDp9U8Q11
+         lsQF0MtltUmqSQ3JKWM72rBmt2BZi+XRztrvcUS6GL1A41ysG6SQ3ohbRworLk20WmRa
+         wbq1EOKhTZ/0hiYvx0BmG6bKL9TKVijBXmE+UkIOVq0w+13ssP9Qob8NJWtmUzKpD6/+
+         J1Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBwvRsWS9TenBtYHfpZeAq2ADIyyMBI9Y14++sFUCnjiZlGvCTA4QvRyo3sHltMv1g37JXj1U5suhcI1cyY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nfI21s7paKrwRGUJ3pj6LE8CXrzLAIMjrSxL7kYRqRMlIxja+0
+	FSoRe7YJLRbBOfVDHE/3qWqJHwdHZX46k5ofATpbutpE00HSsNvDSRvWzlztEWRSnZg=
+X-Gm-Gg: AYBFou02U8Lsh4V/YMBnYudkeAvev7fGmhY5Ct4uu/wsbiTiJxFbagiCkabbRXKxP/7
+	D4sX0DNxMu4Ui53/+Q9+0atKOvCcrSzJPU2IkI6ri2Y61TeWhHTma2EPmyybIeI54iwH9FvVjTU
+	WcKP/gDLq6cXXwNqM1J7Y9LmPnB1i9mZmExcZKNMNFuNht8BHjf8TT7rJ6kF3wfhabFJwJNM8FT
+	Zf5wK1fLAx17ohQdQhC3f3VJFLBlbXmVuoum0ica0JbAn9A/BPy1rdp7z7f2srxP6mrWGsMsEqs
+	so9lv2pjC/b//okZ9DUK7b7JbfxbXHBRGHvJ1FlqRDkZsQoMw5rn1W78Z6ae2cFMk1LS3aCFAqa
+	yFTO3IWtkJs0FTtsjO3GHiwAu++MUGUOdRcqPSGC3F9GoWCE1Qhjfuf6wqBHA7uUuFPs0KCdu3h
+	JRhTRfpHqMJX1c2o3FZmLPAQ8N8rK+s8KB52oY5IvxhcnYGuDQajAFbBWJ4a1O9XHga8kpqUlh1
+	3ZJrCKO6QK0BDPrS+h2w0Lc1iDMbr4hNMoFH0WD5DP2vPWhBC/vmhA9d5sKPnsS0js=
+X-Received: by 2002:a05:6214:20a4:b0:90e:98c9:548 with SMTP id 6a1803df08f44-9123d722130mr58507346d6.1.1789575682451;
+        Wed, 16 Sep 2026 09:21:22 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123bddd42fsm28905456d6.7.2026.09.16.09.21.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 09:21:21 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x6sNt-00000009d5Z-0kli;
+	Wed, 16 Sep 2026 13:21:21 -0300
+Date: Wed, 16 Sep 2026 13:21:21 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Honggang LI <honggangli@163.com>
+Cc: Leon Romanovsky <leon@kernel.org>, zyjzyj2000@gmail.com,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] RDMA/rxe: Fix out-of-range unsigned-to-signed conversion
+ for RDMA message in 2GiB size
+Message-ID: <20260916162121.GF3196566@ziepe.ca>
+References: <20260915064532.194540-1-honggangli@163.com>
+ <20260915114914.GL13683@unreal>
+ <aqoLuVxDIOHMuePi@fedora>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] ch9200: do return USB errors from
- control_write()
-To: <netdev-bot+sashiko@kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <linux-usb@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260915185805.38712-1-s.shtylyov@auroraos.dev>
- <178954341078.22033.8722936070498955076@kernel.org>
-Content-Language: en-US
-From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-In-Reply-To: <178954341078.22033.8722936070498955076@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqoLuVxDIOHMuePi@fedora>
 
-On 9/16/26 10:23 AM, netdev-bot+sashiko@kernel.org wrote:
-
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
+On Wed, Sep 16, 2026 at 11:23:37AM +0800, Honggang LI wrote:
+> On Tue, Sep 15, 2026 at 02:49:14PM +0300, Leon Romanovsky wrote:
+> > > After fixed it, the active side of RDMA READ failed with error code
+> > > "IB_WC_LOC_PROT_ERR". When RDMA_READ_RESPONSE_FIRST packet recived by
+> > > the active side, `do_read` call `copy_data`. dma->resid is u32 0x80000000.
+> > > 
+> > >    int resid	= dma->resid;
+> > > 
+> > > This conversion set resid to -2147483648. `copy_data` abort as length
+> > > greater than resid. Change resid to int64_t fixes this issue.
+> > 
+> > Why not size_t?
 > 
-> Critical: 0 · High: 1 · Medium: 0 · Low: 0
+> First, size_t is u64. dma->resid is u32. If use unsigned type, u32 is enough.
 > 
-> - [High] Incomplete fix: after removing `return 0;` from control_write()
->   (drivers/net/usb/ch9200.c:137-171), the helper now returns the…
+> Second, I'm not sure it is right to use unsigned type. In `copy_data`,
+> the loop terminate on negative value of `length`.
+
+Please do not use signed values to store must-be-unsized quantities in
+rdma land..
+
+> > > -	payload = min_t(int, res->read.resid, mtu);
+> > > +	payload = min_t(u32, res->read.resid, mtu);
+> > 
+> > Why don't we use the proper types from the start to avoid the need for
+> > u32 casts?
 > 
-> --
-> 
-> ch9200: do return USB errors from control_write()
-> 
-> This removes the unconditional "return 0;" at the end of control_write()
-> in drivers/net/usb/ch9200.c so that the function falls through to
-> "return err;" instead. The stated intent is to propagate usb_control_msg()
-> errors to the callers.
-> 
->> diff --git a/drivers/net/usb/ch9200.c b/drivers/net/usb/ch9200.c
->> index a206ffa76f1b9..3a81e9e96fd33 100644
->> --- a/drivers/net/usb/ch9200.c
->> +++ b/drivers/net/usb/ch9200.c
->> @@ -168,8 +168,6 @@ static int control_write(struct usbnet *dev, unsigned char request,
->>               err = -EINVAL;
->>       kfree(buf);
->>
->> -     return 0;
->> -
->>  err_out:
->>       return err;
->>  }
-> 
-> [Severity: High]
+> Again, minimal the changes with u32 casts. We need something like this
+> to use u32.
 
-   But why? 8-)
+This seems better to me
 
-> The commit message says this will "propagate USB errors to the callers",
-> but do any of the callers actually consume the value?
-
-   Most will -- after another patch:
-
-https://lore.kernel.org/all/20260914202503.52920-1-s.shtylyov@auroraos.dev/
-
-[...]
-
-> There is a second point about the resulting contract.  On success
-> usb_control_msg() returns the transferred length, so control_write() now
-> returns a positive value (2 for these register writes) rather than 0:
-> 
->         err = usb_control_msg(dev->udev, ...);
->         if (err >= 0 && err < size)
->                 err = -EINVAL;
-> 
-> Would the obvious caller-side follow-up "if (retval) return retval;" then
-> treat every successful 2-byte register write as a failure?  Would it be
-> better to normalize success to 0 in control_write(), or to check
-> "retval < 0" in each caller and update the callers in the same patch so
-> the errors being returned are actually acted upon?
-   That's what the patch I linked to does...
-
-[...]
-
-MBR, Sergey
-
+Jason
