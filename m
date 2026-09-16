@@ -1,33 +1,40 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231FA4E50D4;
-	Wed, 16 Sep 2026 19:04:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D193D411D;
+	Wed, 16 Sep 2026 19:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585478; cv=none; b=aHyWQX7iUxfRngw8h+haSowbSqDhI4+90LCO9+xNDuG+r+NlP0xrA++9siYx5B89L9Ios4sxWlZph1P3pcoBrGQNqjzV7M0Emb0EVSrgLBJR8F4MUwXl+I3Dujx6u6GzPPLjN03t1+IxwZsTgZHJmFj9XyOIUgVJYDELTUFP/Hk=
+	t=1789585521; cv=none; b=pJpCfDG5JoLj7WhSD/QETAKuqr74G6q2AbXW04IVB8gPTo4jr31zu1PzVURI1FwuHJrUywS81Ml3b4TkRZFtkHnk6Ae+tacMEuoRTdrtI3jh9Xz1g90mNl8CrXCuRj/sK6hWfCVYbZkSnhNXTbLqifkO73hk8D4FwPaclOsBwp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585478; c=relaxed/simple;
-	bh=l5Alpd31AHP4TwtPAyrU5XR6XBBM++/h+LpzjcPl09g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qWp8zXTF7IMzRW5aY1fAiyRVEDepRXxnNUPdMKSPSisxmBGwLRLA/rsaWUfEqFcDEGXcOxE/mTxE7spVq06Q3qX5R7RtklclPlQjfpKT5hJn+t5WfyPljeoxiyk8nJwqjlADm2C4i6GLaaDGZRxBdtvyIURMV12kaNYuhXsVgbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnVD8w6Kpq0hBwCA--.24957S2;
-	Thu, 17 Sep 2026 03:04:16 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: claudiu.beznea@tuxon.dev
-Cc: linux-arm-kernel@lists.infradead.org,
+	s=arc-20240116; t=1789585521; c=relaxed/simple;
+	bh=UJ5kFpm9lZA/UhILHy/Wbf9REycc1Rg4PzqcUBRkqWA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jXZjML9BT2eK5o2qZ0y9BvDyC5wouZJb1IiCFrW6ER+r9qXeHMXZdsETdcj6C1VfVRp/a3BZazzkmVs11Xsq0D9vIDHPOpEIEMAvaDcKMA72NOg+hidG6n5JVqDQOHa1Kpt7+Up4430Ufnnkt/lD4izArDMzGURWsrXV3UjsHj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UBU8Pca0; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UBU8Pca0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=oR
+	/3eUkQf5EFBcnB06XpfVH0x6bMok+ngUzEvNVK3+A=; b=UBU8Pca06v8x1YzeCe
+	aC/p9E+Ktoux9kwYDsoi7UHKpJDFD8KZsPx2lW8vdAzBeJt9U5trchlpdGZRs+q3
+	H2jt4aQJnZbTycnSboFcXIwElOc21frAfmB6vqZQzz+X4+dTHE6v42rmbA/4Jpn0
+	0R6EOxCIdWesGBdUl8ouCWzXU=
+Received: from WZZ (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgC31w446Kpq8UfpQQ--.46080S2;
+	Thu, 17 Sep 2026 03:04:32 +0800 (CST)
+From: ZhuangZhuang Wang <wzz_123123@163.com>
+To: Shuah Khan <shuah@kernel.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+	=?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	maz@kernel.org,
-	tglx@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] irqchip/mchp-eic: Fix clock reference leak in mchp_eic_probe()
-Date: Wed, 16 Sep 2026 19:03:49 +0000
-Message-Id: <20260916190349.2094401-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	ZhuangZhuang Wang <wzz_123123@163.com>
+Subject: [PATCH] selftests: kselftest: Fix debug message formatting
+Date: Thu, 17 Sep 2026 03:04:23 +0800
+Message-ID: <20260916190423.1892-1-wzz_123123@163.com>
+X-Mailer: git-send-email 2.53.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,63 +42,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnVD8w6Kpq0hBwCA--.24957S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WFWUKF4ftr48AFW8Wry7GFg_yoW8GFW7pF
-	4UJa9avrs3GayFkrs5Aw4DZFyYyw1UKFy3K393G3ZrWwnxJ3srJFW0va4DZan8AFWxCa1v
-	kwn8tFy8AF4DZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
-	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWx
-	JVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	khL5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMMA2qqpViGvwABsO
+X-CM-TRANSID:PSgvCgC31w446Kpq8UfpQQ--.46080S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr1xWF1xJrWrAFWxZr17Awb_yoW8Aw1kpa
+	n3ZF4jgan8ArW7Ka1DArWDtr1rJrs3JF1fJr93CwnrZF45JaykWrZ7KFyUt3WkG3yFqr15
+	Za90gr1DCw47uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi5kurUUUUU=
+X-CM-SenderInfo: 5z22siqstrjji6rwjhhfrp/xtbC5QCPfWqq6EAkcwAA3o
 
-of_clk_get_by_name() returns the clock with an elevated reference count
-that mchp_eic_probe() keeps for the lifetime of the driver, but none of
-the probe error paths drops it, so the reference is leaked whenever
-probe fails after the clock has been obtained.
+ksft_print_dbg_msg() passes a va_list to ksft_print_msg() as a regular
+variadic argument. As a result, format specifiers consume the va_list
+representation instead of the caller's arguments and print garbage.
 
-Put the reference in the error cleanup.  The clk_prepare_enable()
-failure path must jump there directly as it cannot call
-clk_disable_unprepare() on a clock that was never enabled.
+Add a va_list-based helper and use it from both message printing
+functions. Also annotate ksft_print_dbg_msg() so the compiler can check
+its format arguments.
 
-Fixes: 00fa3461c86d ("irqchip/mchp-eic: Add support for the Microchip EIC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Fixes: f2662ec26b26 ("selftests: kselftest: Create ksft_print_dbg_msg()")
+Signed-off-by: ZhuangZhuang Wang <wzz_123123@163.com>
 ---
- drivers/irqchip/irq-mchp-eic.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ tools/testing/selftests/kselftest.h | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/irqchip/irq-mchp-eic.c b/drivers/irqchip/irq-mchp-eic.c
-index be007d325e67..5250e6baff63 100644
---- a/drivers/irqchip/irq-mchp-eic.c
-+++ b/drivers/irqchip/irq-mchp-eic.c
-@@ -233,7 +233,7 @@ static int mchp_eic_probe(struct platform_device *pdev, struct device_node *pare
+diff --git a/tools/testing/selftests/kselftest.h b/tools/testing/selftests/kselftest.h
+index ae18c491a..d815a8667 100644
+--- a/tools/testing/selftests/kselftest.h
++++ b/tools/testing/selftests/kselftest.h
+@@ -173,19 +173,25 @@ static inline void ksft_print_cnts(void)
+ 		ksft_cnt.ksft_xskip, ksft_cnt.ksft_error);
+ }
  
- 	ret = clk_prepare_enable(eic->clk);
- 	if (ret)
--		goto unmap;
-+		goto clk_put;
+-static inline __printf(1, 2) void ksft_print_msg(const char *msg, ...)
++static inline void ksft_vprint_msg(const char *msg, va_list args)
+ {
+ 	int saved_errno = errno;
+-	va_list args;
  
- 	for (i = 0; i < MCHP_EIC_NIRQ; i++) {
- 		struct of_phandle_args irq;
-@@ -270,6 +270,8 @@ static int mchp_eic_probe(struct platform_device *pdev, struct device_node *pare
+-	va_start(args, msg);
+ 	printf("# ");
+ 	errno = saved_errno;
+ 	vprintf(msg, args);
++}
++
++static inline __printf(1, 2) void ksft_print_msg(const char *msg, ...)
++{
++	va_list args;
++
++	va_start(args, msg);
++	ksft_vprint_msg(msg, args);
+ 	va_end(args);
+ }
  
- clk_unprepare:
- 	clk_disable_unprepare(eic->clk);
-+clk_put:
-+	clk_put(eic->clk);
- unmap:
- 	iounmap(eic->base);
- free:
--- 
-2.34.1
+-static inline void ksft_print_dbg_msg(const char *msg, ...)
++static inline __printf(1, 2) void ksft_print_dbg_msg(const char *msg, ...)
+ {
+ 	va_list args;
+ 
+@@ -193,7 +199,7 @@ static inline void ksft_print_dbg_msg(const char *msg, ...)
+ 		return;
+ 
+ 	va_start(args, msg);
+-	ksft_print_msg(msg, args);
++	ksft_vprint_msg(msg, args);
+ 	va_end(args);
+ }
+ 
 
