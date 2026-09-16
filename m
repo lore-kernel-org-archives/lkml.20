@@ -1,55 +1,55 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA35314A65
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:47:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772A62F1FE4
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:47:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570051; cv=none; b=BANHi6ETr5gxL2UbnVWSS0kQfLoVtB2qstM+rziUP66EYySRPSN4t0yAIQIQV/1EYelZhzrkqUjQwATQPOuMZ9Q9P9Sr93ocA4KnmK0lorOLd1pLHxaaoSc4rDFP1rm/IAHjuSxqUgdZJ/rCjjfUqiA/1iroWr0Arg8A/REHCVI=
+	t=1789570053; cv=none; b=sKbtf1i2T94WUVU5rUVGW1Osfi89oNeZLNNSN8/v8ESeRE5fBp1dvPRsNICA8/duKLo26+44FBs9u6/nQaMRaXFH2uq4blnRXR2bYCrZoIIVuAPlvQx/Gecl0mef9xI0oek6S0oeMGjCp5ym2UvZSg8DuOnGe8SnYXaWiglxVeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570051; c=relaxed/simple;
-	bh=C1oNciHcEscYHEFiBPOAp/Z1rml/FIlWarmSgscZ6yc=;
+	s=arc-20240116; t=1789570053; c=relaxed/simple;
+	bh=eqWkJSmv/tiBGGD3+FSHwBakwbSAKn+5SWHD5Y176es=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=muzozJjeL3H2pwNhyUebGaxnH1zjzV/1KSzVScPErEri91z/wCmaXiPZjNDkKRj19dUcib0i33WebXnb9Xga9dSgG7/N64G4mSxCirAtimROgAnGbOIO/JqIArTkFMzaoadEYk3N34iKM1PJzqL6+ULzn6tnSuZoKTSZP/Mg/fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ram7WL1U; arc=none smtp.client-ip=209.85.128.69
+	 To:Cc:Content-Type; b=WiFsZgQWqc6uB5t28/7gUSuKbURS0RHTJx2nUWU8qSnuoOMmWZSIqhArd43Q2FR+AxeHaOmt/EqMdPtAsznZY6pdgEqKXWeSbpLs2IydR7UHdTIFl+vzItcKEag5vwX1gkE8SP2BAWnnNq98EUHVUgS043RWSqx+I0jejprdoiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=moEFLI5z; arc=none smtp.client-ip=209.85.128.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ram7WL1U"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-495689bfcc8so47446985e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="moEFLI5z"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49e6b5c5f44so37943945e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789570048; x=1790174848; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789570049; x=1790174849; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SChD6gZN6HYF8sdEF4kgrqs3H/vnYWBrVFLBfW4Uqts=;
-        b=ram7WL1UkFun17DGGjfsO6e/gXDih8BVBZPFc6KbHc+b7rw+7UxT/tQ2XAvTuXTaqB
-         5oNh2oFIRZpK3VjWZpC0kSqSA5iIDhTIbO5Sds/bruL8eR+WkhjBiZj86N4sSaB3z7Aa
-         GmMy8M6ACk/70uM/tMNBkwRgGAWC6dInIXAAtCCSrQBYPBeSFEar/674vTThJZseCqY/
-         aB5t7kbNvAtUy9s6DYPdcvU8Fz0eIpyEYFZU3ZP+2562G88s/ASIzheutpWiFffoUgdo
-         emC4bPyNhYhoJuqFgIVLlyXEPATiFEvCzN8LBYzHSN1TjkddQal/bcw/eTKqHdpRPNIV
-         orrw==
+        bh=VEK2A1EMPHm2wewONLMkfK/EPHAjA+H6M8lM4TvNREg=;
+        b=moEFLI5z8hObgBF+l6eDz3V5/pSP7848c/fAi4BYcBbX6E38FiiScdnURwJJ3yxBSH
+         qL80Idx9zKC0ly1rGrjBHk0L+mwWVgA1vxrx0MM0vdJYbbcpMHqDRndRLYAB/KLzsBMA
+         H0my9/pCvik/k0L+aHn/y4Ez7HDzle3Cl/IFJE1GcLtmkngcTsOUqhGugw9LGWSATQYM
+         +2N5299SEtKpLBTrHwzJifdXHv6CuUFVUO7GGHcK9ktEzQUCtY06ztzheaOIpqDPh6OX
+         fxtcBgz5tUClOpBVMSaB1CuJ0kqAUQzpEajOZMNFZJpKzcHwFYuJdZel9a+3v44D7SiZ
+         xIkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570048; x=1790174848;
+        d=1e100.net; s=20260707; t=1789570049; x=1790174849;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SChD6gZN6HYF8sdEF4kgrqs3H/vnYWBrVFLBfW4Uqts=;
-        b=fGd137K5We2VYxlnij9jNbswloWztHHt0xK7EmjINIznpljrDxqUZ7rDAqEhnntvlH
-         ARpGSEomm01THXIC1k7oKkIUn49fjavRxEqEqLLJcgvnrmKNTGs0SWAEsRdEnEpfpeSq
-         0P8n/QpTCjzVOrXCa5JSSqjpA+/MktfKxgUF9EWl7HxORUAeKQiwrDoVNZfGwRDIy/M6
-         r7Xr7Bh90I4Ry2Uz6qm3tNFPMlayuSfyFP+0IPX+fKcTZPxk4qlXu5lGeh9FGe4HV6Fl
-         sS8KXixfUfipG245yv+6WvznLpvBwuXYB75fBpH83Ov+WUyb3sjsLvg2BQch9aZsWC1+
-         bwyg==
-X-Gm-Message-State: AFuF++nexjbJK7f8nPOXl7bmjzlcJARCY6zq0gqirw4pBfEybqgJcwi5
-	r6UJLYxqJTTJLc3FULT33jEeX5KAFsdVOxWhaQ3cfbZUG8FKyH7dkdbjSuCVyps0bctdGuWx6A=
+        bh=VEK2A1EMPHm2wewONLMkfK/EPHAjA+H6M8lM4TvNREg=;
+        b=RsOCT/2K0wQCL6D/m/4xO0JZFPERcPQ7cdhYzBPKmnR36lXiluC/1s0Gp8cL/9kvAg
+         uL6iSBwfGpFuUqDa3slt0G1UoDphV1Qb0zJxozgyqEX0hs54iOgYAtL/VfxCZymirxZl
+         QkApp3xwwMUX+6nKpihisFjpSwLQVevQYTjO9qR2sbUWZu4O1Iy2dLwYX7qSY9HN0tr+
+         EXQNdcRBo97L8dptUD76BlAleNVhXfzCJ2jwFxFtSubsW1tTrz172U4u/EAmHGnMIwU2
+         fPbl2UGMZLwB/sAfaRJAGYBas23vbYtZVi4ygjwGd8vrgbvkpx5J4XdYI6zyWdeV9S8I
+         vD7Q==
+X-Gm-Message-State: AFuF++mA/zvSMkK0fB5z3iogeityod6PlFzXum9uifnwYWJdntdfioZo
+	VlnRnygamqrfd8Jnkfz5WzCt9R3MP67MlavBFQDnL6Qr8b2/c3Tu3KFyklE8YuJJHaSlFcw1Og=
 	=
-X-Received: from wmbgx11.prod.google.com ([2002:a05:600c:858b:b0:49f:646f:58cf])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:3b29:b0:49c:fa21:e74a
- with SMTP id 5b1f17b1804b1-49eb733e4camr32594375e9.32.1789570048115; Wed, 16
- Sep 2026 07:47:28 -0700 (PDT)
-Date: Wed, 16 Sep 2026 16:46:50 +0200
+X-Received: from wmoo14.prod.google.com ([2002:a05:600d:10e:b0:499:b2b5:78e8])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:4713:b0:49d:4ef:bf70
+ with SMTP id 5b1f17b1804b1-49eac467915mr34495405e9.10.1789570049219; Wed, 16
+ Sep 2026 07:47:29 -0700 (PDT)
+Date: Wed, 16 Sep 2026 16:46:51 +0200
 In-Reply-To: <20260916144647.2651379-11-ardb+git@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,15 +59,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260916144647.2651379-11-ardb+git@google.com>
 X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=705; i=ardb@kernel.org;
- h=from:subject; bh=qgkzqtEAKN071Ee9/bQchBV2SIPhg66nmHFUwJgGBhA=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWvV6tt+qv/5vh6efeW1WvZCDaON99Uy1h/fbsCW8PJ8U
- GG1rLNYRykLgxgXg6yYIovA7L/vdp6eKFXrPEsWZg4rE8gQBi5OAZiIRRDDP8XLBYaKknVxKc+1
- dk897rVIyeXJI9vLkQG8B6x2Gj2pWsLIcGRGY0P9vA/Vou/Zp88LmcNlc31RyXOTjwttfZTsIw4 U8wIA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3279; i=ardb@kernel.org;
+ h=from:subject; bh=Lgsb/yq0Dq6T5v71CGxty1QuUmSRQI4tlUIGP++kj0I=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWvV6jsstjJcUfP+pp2QVK5huc4T4lP51VOkeYdP4DHBt
+ gmzv8R3lLIwiHExyIopsgjM/vtu5+mJUrXOs2Rh5rAygQxh4OIUgIms/cTIsMp0w4z8EhmXTo2d
+ oam89xeLaBRumS+36YM4z+P+1a/uGjP8Zl+8zynS0uZIGRPzZ3/B9c8/zWorV7mX6fPkxR42fvX ZXAA=
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260916144647.2651379-13-ardb+git@google.com>
-Subject: [PATCH v3 2/9] lib/ucs2_string: Suppress modinfo when
- __DISABLE_EXPORTS is set
+Message-ID: <20260916144647.2651379-14-ardb+git@google.com>
+Subject: [PATCH v3 3/9] lib/ucs2_string: Split out ucs2_as_utf8_l() taking a
+ separate limit
 From: Ard Biesheuvel <ardb+git@google.com>
 To: linux-efi@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
@@ -76,27 +76,89 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Ard Biesheuvel <ardb@kernel.org>
 
-Allow the UCS-2 string library to be reused in the EFI stub, by
-suppressing the modinfo data that is usually emitted so that the library
-can be built as a module.
+ucs2_as_utf8() takes a maxlength argument, which specifies how many
+bytes the function is permitted to store into the destination buffer.
+
+The same value is used as an upper bound for the ucs2_strnlen()
+invocation, which is reasonable in the general case, as each UCS-2
+character produces at least one byte of UTF-8 output, and so there is
+never a need to process more than 'maxlength' UCS-2 characters.
+
+However, if the UCS-2 string is not NUL terminated, ucs2_strnlen() may
+read past the end of the buffer if 'maxlength' is set to a high value.
+
+Current callers pass UCS-2 strings that are expected to be NUL
+terminated, but for processing the load options in the EFI stub, a
+version is needed that takes a separate limit argument. So split that
+off from the current implementation.
 
 Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- lib/ucs2_string.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/ucs2_string.h | 11 ++++++++++-
+ lib/ucs2_string.c           | 15 ++++++++-------
+ 2 files changed, 18 insertions(+), 8 deletions(-)
 
+diff --git a/include/linux/ucs2_string.h b/include/linux/ucs2_string.h
+index c499ae809c7d..74f23ca5a967 100644
+--- a/include/linux/ucs2_string.h
++++ b/include/linux/ucs2_string.h
+@@ -14,7 +14,16 @@ ssize_t ucs2_strscpy(ucs2_char_t *dst, const ucs2_char_t *src, size_t count);
+ int ucs2_strncmp(const ucs2_char_t *a, const ucs2_char_t *b, size_t len);
+ 
+ unsigned long ucs2_utf8size(const ucs2_char_t *src);
++unsigned long
++ucs2_as_utf8_l(u8 *dest, const ucs2_char_t *src, unsigned long limit,
++	       unsigned long maxlength);
++
++static inline
+ unsigned long ucs2_as_utf8(u8 *dest, const ucs2_char_t *src,
+-			   unsigned long maxlength);
++			   unsigned long maxlength)
++{
++	return ucs2_as_utf8_l(dest, src, ucs2_strnlen(src, maxlength),
++			      maxlength);
++}
+ 
+ #endif /* _LINUX_UCS2_STRING_H_ */
 diff --git a/lib/ucs2_string.c b/lib/ucs2_string.c
-index d66fef9c9b81..f75fb4f7961a 100644
+index f75fb4f7961a..6c067b4280b9 100644
 --- a/lib/ucs2_string.c
 +++ b/lib/ucs2_string.c
-@@ -165,5 +165,7 @@ ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
- }
- EXPORT_SYMBOL(ucs2_as_utf8);
+@@ -125,18 +125,19 @@ ucs2_utf8size(const ucs2_char_t *src)
+ EXPORT_SYMBOL(ucs2_utf8size);
  
-+#ifndef __DISABLE_EXPORTS
+ /*
+- * copy at most maxlength bytes of whole utf8 characters to dest from the
+- * ucs2 string src.
++ * Copy at most @limit whole utf8 characters to @dest from the ucs2 string
++ * @src, using no more than @maxlength bytes of buffer space.
+  *
+- * The return value is the number of characters copied, not including the
+- * final NUL character.
++ * The return value is the number of bytes copied, not including the final NUL
++ * character. No NUL character will be appended if the output length equals
++ * @maxlength.
+  */
+ unsigned long
+-ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
++ucs2_as_utf8_l(u8 *dest, const ucs2_char_t *src, unsigned long limit,
++	       unsigned long maxlength)
+ {
+ 	unsigned int i;
+ 	unsigned long j = 0;
+-	unsigned long limit = ucs2_strnlen(src, maxlength);
+ 
+ 	for (i = 0; maxlength && i < limit; i++) {
+ 		u16 c = src[i];
+@@ -163,7 +164,7 @@ ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
+ 		dest[j] = '\0';
+ 	return j;
+ }
+-EXPORT_SYMBOL(ucs2_as_utf8);
++EXPORT_SYMBOL(ucs2_as_utf8_l);
+ 
+ #ifndef __DISABLE_EXPORTS
  MODULE_DESCRIPTION("UCS2 string handling");
- MODULE_LICENSE("GPL v2");
-+#endif
 -- 
 2.55.0.1032.g73a4cd73de-goog
 
