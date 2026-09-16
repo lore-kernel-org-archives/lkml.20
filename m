@@ -1,62 +1,70 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257EF4A843F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:51:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 986804AF167
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:51:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552292; cv=none; b=ANy2u02Fq1VvY9CpGmoaKTTCw70dML/CqvqRfFL1c7w99aaYAquAsDPOcrVanVHZqm/mfxMlanTEv08zDsbJF4ge5Wzujbj4FgbjPK6frR3susgTo12udDWAS5p1gdaLI1VoMOpJDnDQq263CEQaExWA0IpGBf8E4Y9G8xWh6ww=
+	t=1789552303; cv=none; b=Bmg4Wck6E97eY5/B9bjuN1wLg2U3fjB7Bb5Oima+6UzNg6uYpVhnlDCGDGgwfEn1S0EJYuMFAEuTOjVoN3Sw+9hmL2ZS3CGO97+CRUDzn4yLSOE5R1vDPiraPVNdTK+McxG+4opEpVjEaiWXMy9jnU1bBOgMj4PPiMGo6it4Tuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552292; c=relaxed/simple;
-	bh=jlhtz27GSry8dABqGr+SGBe1KYYN8UQBI18T52Q8X+E=;
+	s=arc-20240116; t=1789552303; c=relaxed/simple;
+	bh=HsLRaYuEbq7ZzzRNl6uSIAKV4rQlZ2M6v1OhzKK4PeA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P16zEO9GNho8hw9jBlLlJU1Rylaj2SZxF4WDJPgwIgBaeJ/9AIjE08ihlUlBCfBnCuLcA2fdePVPkxVWdVd48W8b2kxUZsyL0Mb/3lD7UG1yyYv6KAykH15hsudQ0Tj6AtanIJX/PBCkiNNCMaUo9zQcR74P3a0aRU3vCIb+OBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W8sl86PY; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=YlKNwdccmcmXH4n6TVONjs4V/Bp2Fhk4Y6DTTAKzv+UuSkdC25+tWaEkNMyDKxoH61LTJ3b4bW8ZyXM/qtd/z5/fGWOyOrDN0Wit9g8cbR8D9EZ5k4ln008D4MAEtdfc9y2yV+9PR/VmiRzYZXdpv9kz7l1z341KCJkE7UwW5IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gy/CM2vE; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W8sl86PY"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gy/CM2vE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789552267;
+	s=mimecast20190719; t=1789552297;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=T46zRcaSlVLde9uhnONtqfo/sj56j7rPD8ZbLDPStgs=;
-	b=W8sl86PYzrr+IvZbCfJPNrZIfeY/0/2ohXAJ/H/lKHhRXlMXo5kc7WnTEzKuVCI3mTsfYT
-	GCXHzXW/UrzFRJeovVrMenLblrMsK7Ir5zAlRlHauQV9EFYmUEpo954EHsKPEyIvaU/cuM
-	91zQzItbWTZtTi641ZdSXTLtseLkTdg=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+	bh=hUSOoW0g30UFVhZc7yIBkWk1BVCAbM29mk2RKcbK+JY=;
+	b=gy/CM2vEMdBFAlkWT1h9m+VA7mZvSK7TkiXBGPgtHZWWFXwKc0HZ0d2ZHhNJLrt5oi9eLn
+	zXwHkwtURn1z9MLjDZEbj92scsCJVIhUp4S+nj+k1YYJUoG6jltBQ3nOMXBQUdZ/efPFO6
+	BehBOwyovOv6Kt4eUgw2pxOOyigr1xM=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-271-pIgKSMrqMYiixOzPDfL5Rg-1; Wed,
- 16 Sep 2026 05:51:00 -0400
-X-MC-Unique: pIgKSMrqMYiixOzPDfL5Rg-1
-X-Mimecast-MFC-AGG-ID: pIgKSMrqMYiixOzPDfL5Rg_1789552259
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-398-eQhTA5pfOC-RaQf07cCbfQ-1; Wed,
+ 16 Sep 2026 05:51:32 -0400
+X-MC-Unique: eQhTA5pfOC-RaQf07cCbfQ-1
+X-Mimecast-MFC-AGG-ID: eQhTA5pfOC-RaQf07cCbfQ_1789552289
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 56E32191FE1D;
-	Wed, 16 Sep 2026 09:50:56 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0B7D11954227;
+	Wed, 16 Sep 2026 09:51:29 +0000 (UTC)
 Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E30DC1800345;
-	Wed, 16 Sep 2026 09:50:52 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 50C471800446;
+	Wed, 16 Sep 2026 09:51:23 +0000 (UTC)
 From: Thomas Huth <thuth@redhat.com>
 To: Eric Biggers <ebiggers@kernel.org>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	"David S. Miller" <davem@davemloft.net>,
 	"Jason A. Donenfeld" <Jason@zx2c4.com>,
 	Ard Biesheuvel <ardb@kernel.org>,
-	Borislav Petkov <bp@alien8.de>
+	Borislav Petkov <bp@alien8.de>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
 Cc: linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: [PATCH v4 06/13] lib/crypto: sm3: Provide a function for zeroizing the sm3_ctx structure
-Date: Wed, 16 Sep 2026 11:50:08 +0200
-Message-ID: <20260916095022.604354-7-thuth@redhat.com>
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org
+Subject: [PATCH v4 12/13] smb: client: Use hmac_sha256_zeroize_ctx function to clear hmac_sha256_ctx
+Date: Wed, 16 Sep 2026 11:50:14 +0200
+Message-ID: <20260916095022.604354-13-thuth@redhat.com>
 In-Reply-To: <20260916095022.604354-1-thuth@redhat.com>
 References: <20260916095022.604354-1-thuth@redhat.com>
 Precedence: bulk
@@ -68,60 +76,35 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-In certain cases crypto code functions need to zeroize their local
-sm3_ctx structure after use to avoid leaking sensitive material. Provide
-a sm3_zeroize_ctx() helper function that e.g. can be used with __cleanup()
-to automatically zeroize the structure when it goes out of scope.
-
-While we're at it, replace the related memzero_explicit() call in
-lib/crypto/sm3.c with a call to the new helper function.
+It's just cosmetics, but now that we have a helper function for clearing
+hmac_sha256_ctx with a __cleanup() statement, we can also use it in the smb
+client code for good measure.
 
 Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
- include/crypto/sm3.h | 10 ++++++++++
- lib/crypto/sm3.c     |  2 +-
- 2 files changed, 11 insertions(+), 1 deletion(-)
+ fs/smb/client/smb2transport.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/include/crypto/sm3.h b/include/crypto/sm3.h
-index 371e8a6617054..d044ca80213ba 100644
---- a/include/crypto/sm3.h
-+++ b/include/crypto/sm3.h
-@@ -11,6 +11,7 @@
- #define _CRYPTO_SM3_H
+diff --git a/fs/smb/client/smb2transport.c b/fs/smb/client/smb2transport.c
+index c407f30e00401..080864b24a0c5 100644
+--- a/fs/smb/client/smb2transport.c
++++ b/fs/smb/client/smb2transport.c
+@@ -212,7 +212,7 @@ smb2_calc_signature(struct smb_rqst *rqst, struct TCP_Server_Info *server)
+ 	unsigned char smb2_signature[SMB2_HMACSHA256_SIZE];
+ 	struct kvec *iov = rqst->rq_iov;
+ 	struct smb2_hdr *shdr = (struct smb2_hdr *)iov[0].iov_base;
+-	struct hmac_sha256_ctx hmac_ctx;
++	struct hmac_sha256_ctx hmac_ctx __cleanup(hmac_sha256_zeroize_ctx);
+ 	struct smb_rqst drqst;
+ 	__u64 sid = le64_to_cpu(shdr->SessionId);
+ 	u8 key[SMB2_NTLMV2_SESSKEY_SIZE];
+@@ -250,7 +250,6 @@ smb2_calc_signature(struct smb_rqst *rqst, struct TCP_Server_Info *server)
+ 		memcpy(shdr->Signature, smb2_signature, SMB2_SIGNATURE_SIZE);
  
- #include <linux/types.h>
-+#include <linux/string.h>
- 
- #define SM3_DIGEST_SIZE	32
- #define SM3_BLOCK_SIZE	64
-@@ -41,6 +42,15 @@ struct sm3_ctx {
- 	u8 buf[SM3_BLOCK_SIZE] __aligned(__alignof__(__be64));
- };
- 
-+/**
-+ * sm3_zeroize_ctx() - Zeroize an sm3_ctx structure
-+ * @ctx: The sm3_ctx to zeroize
-+ */
-+static inline void sm3_zeroize_ctx(struct sm3_ctx *ctx)
-+{
-+	memzero_explicit(ctx, sizeof(*ctx));
-+}
-+
- /**
-  * sm3_init() - Initialize an SM3 context for a new message
-  * @ctx: the context to initialize
-diff --git a/lib/crypto/sm3.c b/lib/crypto/sm3.c
-index b02b8a247adf2..23059347b4493 100644
---- a/lib/crypto/sm3.c
-+++ b/lib/crypto/sm3.c
-@@ -258,7 +258,7 @@ static void __sm3_final(struct sm3_ctx *ctx, u8 out[SM3_DIGEST_SIZE])
- void sm3_final(struct sm3_ctx *ctx, u8 out[SM3_DIGEST_SIZE])
- {
- 	__sm3_final(ctx, out);
--	memzero_explicit(ctx, sizeof(*ctx));
-+	sm3_zeroize_ctx(ctx);
+ 	memzero_explicit(key, sizeof(key));
+-	memzero_explicit(&hmac_ctx, sizeof(hmac_ctx));
+ 	return rc;
  }
- EXPORT_SYMBOL_GPL(sm3_final);
  
 -- 
 2.55.0
