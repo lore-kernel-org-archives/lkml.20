@@ -1,235 +1,277 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011033.outbound.protection.outlook.com [52.101.70.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96517409292;
-	Wed, 16 Sep 2026 19:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586587; cv=fail; b=gOUxAzShAGPLHxlcGZTQbO0Dz/tn7ea0vHysixHkwQ/pfTMa0/OozZig/E1w5vWDrqBmyMeJqoSZ6inU8DUPF3QSf5qPLxK3MT4MJDYPZL377FinP/zo2zbjUtkxKe4uBqx+fC5/EqYjWhmTdoKSKUniEBw3+f7WlFY92E4iirs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789586587; c=relaxed/simple;
-	bh=vpP/S2AsgohgtzxdtLvYXzoOVJCOZvPff+/d6armDFw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=QaLh4AXJJ/9MTjCoNalgrwG+F8ZNLuYBKrG/lUm183i0vVDr16/e+fa67gv6Lvvf4wqtobJ3PaWZgO3oWY7HQXmkqsyDjF3+EgVInwlNylhJEtuDiZiDKvaQzjrFT4CfdKlWxbVDb1M9XdlttCrck9ZclperGPvnVc0SfuH6Gzw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ViStyHiX; arc=fail smtp.client-ip=52.101.70.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C0C3F3295
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789586608; cv=none; b=U4ecnUug/0O3HCweO+LSxypaXDWiTKc5T5eEroaFOXP3X3gVoJZhMyw7i3eJZK6fUckM0OPXZmjmz/tZIVzxyhToN0miczx+EWc+qOkG9baRanqzfAmvpzAraq5yaSaLAj8FCNYrbeI+WDApF1tvxYHth2+2HnXrsQpcIKS9eXM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789586608; c=relaxed/simple;
+	bh=tSqxziaVU7DF5FuLYqcx5CH3tkgUzOouCbPF5goNxT4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JBakiE5ZC0YpeG6K/nk9jPRTFVBXZv0xx9VaZRI15YLl3kOXs4wwuGlwtU3zzQudTx/YKeZSWVkEF0/h10rW7vwMBk4aBRA10jt7HV8pfFZFKHaNbPc9UkzM6n9aWvCybz8jIGU/lZdCOmMO5k4zNtlWHUqOxIGGxS76CJ4iTDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=w52hMXmG; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ViStyHiX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GdEbhW0u6ypHI65cqwKz7GjGSFgfZ8QjoIJV4YEw/LLJGt0e536daYP6x29h1X/mYwZrfDqPbYqP1L2frvHFmFbYSnnc1gEUN2UX7LAMdYiV9jO31mliDcEWc1Gu9pm2UIDjnv51EFwV//Sa9PA7a+peVhbU/EQlB5Hn1W1AFQwjWVZ44fM6Ib6Kj71ITE2efPgf31XFgbSTvTJZ89K6NU5ZY55l7a7X/uvWRa0G47OV59+0aPK8iXWdKJad0sBnN9GmCR9G2yWd5PjIRo2GCWcLzDe2ASCh2diN+MnYlLs+3G//bEVZoUFKJozCHyNN7isIcj8BgIu3grAXLDf6zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JGsWWXw3PEDSF1Qv0unEJ56iV+MuxuHv25uDhfl50kM=;
- b=euztCpPgf9YbHRINkZYrincE8iVReu1OutQZWu1ullNNLQeJA5foO/Y7q9/t+KkmhrgOL4AK+6kGVXvF0vkCcGkuX3D6vFh8e0893PjNO3WNwY6YKQwHj5//9wIrRJbufkxRFJfWY7q3TBzLVIxx87FUg4B4SM/GrSTfSQbm5GWKaws0FaXH6Mmi7uUdwMWwaWlIR4xeFCVSfYvBlrvTIgmqVb+EA9/X2BBCBk4egwRcq3AyiH5a5r0fb8Pu6l97x2TWIGenEooxULvlusLjCe7RHsLSapMMqBo3rwZ2v4vZL0leQeX/tmBud1J47AWElTVZbKC3KOaUJDdvkAVm5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JGsWWXw3PEDSF1Qv0unEJ56iV+MuxuHv25uDhfl50kM=;
- b=ViStyHiXqfW4rf2dT0PiUjcxBJV8oY6SaHDydIhRohj5F3LGmtsoHLqjCYayLDBCp88h+cEMohb1HEfQGyIE/U6Ovv5lp0jmYbT3q96zsXxEX28CfK0p9+Wy5DyJBJlWjqRJuYf1SErxDLvnhm0hfFEZPNumnZP7EwtbfPDcjXpnh3HtD6Y/U4y92djDwhpLtQFgigonfdjoem6JLnI6x7awIjzeyMKop/9SmlrvDHNYXj/5y4ZPulvzCiZeIhjBKkj10QOHO8iUWzSo260q5WlT5SCja5eKgIN3SUUlKhLf9fIXmajKBCGUvz/4EET9A29wTma4TFEmF+NRZIayzA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM9PR04MB8291.eurprd04.prod.outlook.com (2603:10a6:20b:3e5::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Wed, 16 Sep
- 2026 19:22:58 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
- 19:22:58 +0000
-Date: Wed, 16 Sep 2026 14:22:48 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sherry Sun <sherry.sun@nxp.com>, imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH] tty: serial: fsl_lpuart: use dmaengine_get_dma_device()
- for DMA mapping
-Message-ID: <aqrsiHDH0ebYo55w@SMW015318>
-References: <20260916-lpuart-dma-v1-1-021be5b03e53@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-lpuart-dma-v1-1-021be5b03e53@nxp.com>
-X-ClientProxiedBy: CY8P220CA0031.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:930:47::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="w52hMXmG"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2cso37449a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:23:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789586589; x=1790191389; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kiFVEsh+I4WNKTfJT4Epj9n55iRRTRrDI5RnRhBGvK8=;
+        b=w52hMXmGdIxwa7y6mU0IawD79YDBagmdZGxSL4CHw/EuZRoMjeEk0cS5k95QB/pwuJ
+         WJAi94zcfykfItffjZmkBWQ0BuUeWGBSou0APetJBcmwQs4VPdlMl+y5N7da7FIkflEb
+         1OqOq8mB0G5rVsV/wPyAn2j0kdirSa5D5QoLo/pqJ5z9Wwx5rp5vtBtCVCL7g1DIiKzI
+         zeAy7P5IhjJR4adVSz1Es/BIU2i5NxFITXUQImLHVaFDXTKvrn5kh7sqPuZOyMGIZCSz
+         luHQI9SUf5szWBRZ506gm+QvAzsVJs+FKr+RKgsgqwm2hcuWMK+ap6tVXxz6fqzDpoMW
+         ps8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789586589; x=1790191389;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kiFVEsh+I4WNKTfJT4Epj9n55iRRTRrDI5RnRhBGvK8=;
+        b=05LirQeBlFqpAAcQZ5Gp+cVJUkp7MQIyVYM1QKL7Rl+9xgq18q5yOD5sjskpWyPKqg
+         cyCnXcj2KLkfawJdMgWaj1M2/i4kcyvNbRdbQVvZch7CTv7xHa1VssRDIylzgqIk7jX0
+         dJBBK37X3gtnNUzxIwZmK6Y9ikM1Cf1KXT0Pz5mzZxsMA7lNgtWl612z4z053pwwHgTN
+         wvD8XKMnEBwWTLpVDrpHVGYnPw7cR0wj6G4r/lUbmgAEC/Z/JLnT5SXrwmLoIeuGB/Nj
+         A8ihFtVK7uJLhehgbnbkQd6cqkSEDCi92NDvJuK+SP73JLMAPpUMkun/p2JmAAhDYqHR
+         iofA==
+X-Forwarded-Encrypted: i=1; AKwUvBxW9KzfUaiWj3fNX5raI5qpWF4miYTToC22FjXsqPUKQeVHSMI6OI4qZbHiPuPtJNXDTZoRC6UYHew889A=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUxSMKM5y1TK1ZGxNchimpwGYAE8zssGkxOxvJ5SEAkhtZMIvd
+	U6Kfy0erzGmvMSykD/t8DQ7AvSlTXKkD8l60J6WS68pUUGONNf0IvR8a/OliuStZcVs=
+X-Gm-Gg: AYBFou1XUSRH4zBAPQvIRysES/gWqZHIHXCKGqmlq48VqKwiITAyu1RWhYujqyLdwJ9
+	nWWySFnrA7k9Afy16MmRzeVDwqeUv0cAk1EiiqtEOfqYomWaBDCtgivfQjYqsySUU8N8pGkbC+G
+	AP//hX5LwDTSNgu2OzP4p7YgjOfyzPhNVW6VSUXMpydTvhh4ORU9PpMRYjZOrF/+g4MrOGXkGPd
+	zuyVHnna0AYpC5l2n+zp3mACLNt8jI3CWUfJPg4esJ1alpLgZGRNg372gf18lK3tlPIdCwM1CXy
+	x+gWxWNZ0nfIPgPjkb2ZcPZmeO6wjnWqjSTGrmxMLS7Sk7e4KnoFoFnVOGf8fXnK+0d8xkVGqr2
+	jV0daGUSll1d7/OL+x3O2qIuTGEs1v1ONqgqku+OEptngd7+s6UeCWJ3INRGJ0w1nREmByvNg+8
+	0ocKAhdZEW5wgKELAdG7RyU/QS6Hrr6P4cOZC75vrV3dWl3fnzH0h8U20zbL8FQZydc7k6TFqKn
+	VQ=
+X-Received: by 2002:a17:90b:548f:b0:39d:f731:e5f3 with SMTP id 98e67ed59e1d1-39e1e4d2ce0mr8977702a91.24.1789586588851;
+        Wed, 16 Sep 2026 12:23:08 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:5703:e05c:9814:52a1])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e362f0f07sm931459a91.17.2026.09.16.12.23.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 12:23:08 -0700 (PDT)
+Date: Wed, 16 Sep 2026 13:23:05 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+	will@kernel.org, catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
+	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v18 00/23] KVM: arm64: CCA: Add basic plumbing for Realms
+Message-ID: <aqrsmUTxDVbKJn8k@p14s>
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8291:EE_
-X-MS-Office365-Filtering-Correlation-Id: d006b303-74b8-45c0-80bc-08df1427ea80
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|376014|1800799024|366016|22082099003|18002099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	NcVBGz2Q1RtELnUpOO7mIHvxhgOCT1w9YoP9H/+cJ1CL1P0g4OPmlxK9mrckGHPgI6i8zk9aIgi6XirgiNTCkVteFytV3jrWj8Tml+lrXDYWBg3jyznwHMZKQHR2OkMjhZqeAeLvhC7iEJCVhOA7RWjEY6qnHMc+qBfkXi+61jkaTEwGI9sGdfI2MKLqH+Cwg/faSLEI9iWYmnJNirYfgo3VIK4KMftOD7FDE47zSrNpdendp36vE7MXIrJwUYpCIU/cZIzSg+kli64NsjLrAvQUsHSDwdJf5565G9JPDWuwj89vFWw3KGe19WYnlKHrcOsuaJEi1alqtU8ahCU0Z0VythGthMqiWGwWdnCPJB+kH/AGJoPpiXW8KrLM1oyzV8+eT0eFCoH0TPBiqhS7QfDHxwAbgw7+iOQBC6QSOx4TD+KhpReL+UfU89Rf2CFbeNO0RugQGf6eC052Rl/QIhJWpfCGKs0nUQPCasw8w/6BJKBXIEd41aoXPSnrekW1Dtnw2fHq+/z3t8brtiA8UAzMJuVgecO2dQdobn1ZzeVYOMkVu/ItyM8JmbQJ/XBSPB1S6v+EmD0aOVGpCIe543fV40p9wtBFOV223Sw28uOGBp4ctMOuEPqT520lgUJMQRDPm9z5nKJTFID7glDuAMBkThw2/AbALAMb8r7rgU8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(1800799024)(366016)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cEz5VZdVSygoh7U8E+0mfrcVJMcapGWVuntcGXMDXlCI6fzig8iUP8mH4Ddz?=
- =?us-ascii?Q?WZUDdWuNZbMf26jONfJtKS2MALIHAEqKeeRZZfVZfEkzTCXoD15MAgKW8phM?=
- =?us-ascii?Q?vqIad1FD51irwZ6qR67Xut1A6u2I4EFap8adxxduE3nTXmnSNKMuPuFMTx1F?=
- =?us-ascii?Q?udINno91wHa0zGbwqJ1mSOGhPqfUPJhpJOpPH8Oh5cBahQUAGutJQKcmVWd5?=
- =?us-ascii?Q?KFlJLoCo2H+/mZlWmZsvmbCStmsZYvcyCcMXOLMkucR2kpw/h5s2SiNtKYCw?=
- =?us-ascii?Q?EtWMRkP86eWPlXxQ4i6XNAfnPMgVsIufP8PyzSI6Qp+Q1IWTNjaeU+uEgP43?=
- =?us-ascii?Q?Fq4V5OPRMZE1/FRLMmkBSnqXdkUPS6HWUu+ux5P9dcTGcKPwaFZjTDjHNqWg?=
- =?us-ascii?Q?gyFcvymOAjST9G1Tiaq7KPOQb2RH8fOPL4U1cgtKtgiMOabKWaSjeFbxwqwi?=
- =?us-ascii?Q?nY8ODsPZQxKiJRfApkm0hdxuxASonebgEhE3oxUlSn7RTAOxLEluGQ4q+n+S?=
- =?us-ascii?Q?zqwXgOpj8u3Sr27FOl0l9sJVZlRgDnAxHrWpaPpXiG61jLdNNkJGBpXogiI1?=
- =?us-ascii?Q?FFAkF3gjVTNzeKyiwOWdX6nrefcY0236evx/WpO33l93lmQy0Ezeg7RYUUVK?=
- =?us-ascii?Q?qjOV9sqwkAPu+R6i83thyNUwnouCNO4ws5i00iAupSXTUWUblwhfTMtXy8AC?=
- =?us-ascii?Q?4sKIHfFr57txeyNH5W0hjgVvvvfTC603c7YXZvi7lW5AgpCUq6ueE6+Rujsr?=
- =?us-ascii?Q?7z9zK5FFVB2lcIQbaEsg0XHBY5RHbEk7sX+noqG3cfPyi03HrKnE2yyoi6Rg?=
- =?us-ascii?Q?6Tw2iYyGpVQ89IOWwTPcweOi0+2renDHzYh8aKz50YupHnABfBUBe7vMRhJ+?=
- =?us-ascii?Q?w6x3QRmQ4YZX1aiFgHqW6phst1jfLYVqAI+OZsTFBTTPBwH3lIFwzFUrf3tU?=
- =?us-ascii?Q?7K8OttlfZ4AAFLI9Q6NEoPe5KhAo4Lp7zGUnlMdB6M+v5KHikJvOS+pCFYI+?=
- =?us-ascii?Q?7Qjk9M/R8/sQqAPP9UhbYMZwpUWZM8oE0botmAmXtVAAXB2BiDnFJDhYPcWG?=
- =?us-ascii?Q?NOrUqCyLDXoSXLQEf8ZqhrjIb3sbwG0t68jo6kvTroc1E9NkRX/ijerBYLxW?=
- =?us-ascii?Q?c44p4/1F0hkYGD8sbrlKvvXyxlOzHm/drefwtXbNm2jhhpV56s0TIC5ybGzI?=
- =?us-ascii?Q?/Jjs5ZjOBfNPetRyeG9ZaVCQFAbHpvvjuoZtf6gAXW6796pvKaiNTK+QU1HG?=
- =?us-ascii?Q?3/QrTSISkiRzsHmfQFItn/Q0fgGwL1W/4IvMGHpBjvocTiKSeF0IE84EFvpu?=
- =?us-ascii?Q?f3fA2E4XJrESmEaCvx3uCbI1HZZzh98vtc3haSYYStyxQR1CMw6DLE67iKDK?=
- =?us-ascii?Q?QYaFv2+8plZVjluxrGuuAc7yp3LMHLZUFHLcAi6Wr14mkT1gGKDFgL4DaL2X?=
- =?us-ascii?Q?F52z70HuEmcpvtSpOWtjvJXok1D2Vek/YQBsWwCuFYR7y4TaUFcqhEiiFvcB?=
- =?us-ascii?Q?abYw8cWB1tw+Y8R0qydjvYNlR2Rm6yn1eNAUd/O4eRKyVC/GhQPrf6evDXuD?=
- =?us-ascii?Q?uEp27FwHe8Ujpme+1fJNjSK3FBRhro2AqgpBVV1QIPRbLB5cfHe4nEzfvM94?=
- =?us-ascii?Q?GED/o1naJ/Aap58NGC9BxBaV4mwmXfKMVuxWMtkf2jY2u4kkokXxhFs+aI4e?=
- =?us-ascii?Q?RFeaTQ3A4EzTSxszRB3D1sZ2rlekR7bdZO+02LKqyyRz1wf/YG9lnJgD6J9U?=
- =?us-ascii?Q?BwqazkeZHRsGgSYqK07NbsW0qN5bcZRDvhI140e2lsAzo+UX6fMf?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d006b303-74b8-45c0-80bc-08df1427ea80
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 19:22:58.3579
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3EJtw/T5nHTIfS29gz/SSW8IkH/y53l/pcUMhXdUSnQqcDuAXsOvKa9Lkzowe6lHS1J9m7QQO6qdo7RLRJWE2u+fwG5NKMri7jR0j0uC14XbgH3wY0cM57283KGPKytB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8291
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915160141.3543048-1-suzuki.poulose@arm.com>
 
-On Wed, Sep 16, 2026 at 11:27:30PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Replace all chan->device->dev references with
-> dmaengine_get_dma_device(chan) so that DMA mapping goes through the
-> correct device when the DMA controller has per-channel IOMMU domains
-> (chan_dma_dev=true). Without this, DMA map/unmap/sync bypasses the
-> IOMMU context configured by the eDMA driver.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
+Hi Suzuki,
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+On Tue, Sep 15, 2026 at 05:01:18PM +0100, Suzuki K Poulose wrote:
+> This series is a trimmed down version of the Arm CCA KVM support, previously
+> posted here [0]. Like in the v17, we have tried to split the entire series
+> into the following chunks.
+> 
+>  1) Base RMM RMI support under drivers/firmware/arm_rmm -> [1]
+>  2) Linux Host support for handling GPFs - [2]
+>  3) NEW: Enlighten KVM arm64 about the different VM types and use call
+>     backs for the VM type, rather than spilling the is_this_type_of_vm()
+>     everywhere. Adds VCPU and Stage2 MMU related callbacks with support
+>     for the existing VM types. There are other places where we may be
+>     able to abstract, but those need careful performance evaluations
+>     to make sure they are fit (e.g., vcpu_run)
+> 
+>    Later in the series, we generalise the predicate "kvm_vm_is_protected()"
+>    to cover all  "Confidential" VMs (which includes Protected VM and Realms),
+>    which allows us to handle common themes without having to do things like :
+>      if (kvm_vm_is_protected() || kvm_vm_is_realm()),
+>      instead:
+>      if (kvm_vm_is_confidential())
+>    Also replaces the code with precise check for a given VM type to
+>    avoiding combination of if (). e.g,, kvm_vm_is_unprotected_pkvm(kvm).
+>    The checks under arch/arm64/kvm/{nvhe,pkvm} still retain the vm_is_protected()
+>    check as pVMs are the only possible protected VMs there.
+>    
+>  4) Bare minimal Realm VM support without the actual functionality to
+>     run a Realm. This would help the maintainers to review the series in
+>     smaller chunks. This doesn't depend on [1] and can be independently
+>     merged, without being "functional".
+>     This series includes vcpu operations and the s2 vm operations, which
+>     do need the RMI driver backend to be meaningful. But the KVM handler
+>     is in the right shape. The remaining changes would be added once the
+>     RMI firmware library lands.
+>  5) Core implementation of the RMI driver for KVM and actual enablement of the
+>     Realm support. This depends on (1), (2) and the guest-memfd-in-place
+>     conversion series v12 from Ackerley. This is available here at the integration
+>     branch [3]
+> 
+> This series is comprised of (3) and (4) above.
+> 
+> The integration branch has been tested with the following components:
+>   tf-RMM:   main branch (commit 5e6e2acd) compliant to RMM-v2.0-beta3 [4]
+>   kvmtool: git@git.gitlab.arm.com:linux-arm/kvmtool-cca.git cca/kvm-v18
+> 
+> [0] Arm CCA KVM Support v16 : https://lore.kernel.org/all/20260803134403.80630-1-steven.price@arm.com
+> [1] Linux firmware RMI https://lore.kernel.org/all/20260912083611.2513845-1-suzuki.poulose@arm.com
+> [2] Linux GPF Host https://lore.kernel.org/all/20260913070459.2547407-1-suzuki.poulose@arm.com
+> [3] https://git.gitlab.arm.com/linux-arm/linux-cca/ cca/cca-host/kvm-v18/integration
+> [4] https://support.arm.com/documentation/den0137/2-0bet3/
 
->  drivers/tty/serial/fsl_lpuart.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/tty/serial/fsl_lpuart.c b/drivers/tty/serial/fsl_lpuart.c
-> index b7919c05f0fb8..c8575c9652035 100644
-> --- a/drivers/tty/serial/fsl_lpuart.c
-> +++ b/drivers/tty/serial/fsl_lpuart.c
-> @@ -491,7 +491,7 @@ static void lpuart_dma_tx(struct lpuart_port *sport)
->  	sport->dma_tx_nents = kfifo_dma_out_prepare(&tport->xmit_fifo, sgl,
->  			ARRAY_SIZE(sport->tx_sgl), sport->dma_tx_bytes);
->
-> -	ret = dma_map_sg(chan->device->dev, sgl, sport->dma_tx_nents,
-> +	ret = dma_map_sg(dmaengine_get_dma_device(chan), sgl, sport->dma_tx_nents,
->  			 DMA_TO_DEVICE);
->  	if (!ret) {
->  		dev_err(dev, "DMA mapping error for TX.\n");
-> @@ -502,7 +502,7 @@ static void lpuart_dma_tx(struct lpuart_port *sport)
->  					ret, DMA_MEM_TO_DEV,
->  					DMA_PREP_INTERRUPT);
->  	if (!sport->dma_tx_desc) {
-> -		dma_unmap_sg(chan->device->dev, sgl, sport->dma_tx_nents,
-> +		dma_unmap_sg(dmaengine_get_dma_device(chan), sgl, sport->dma_tx_nents,
->  			      DMA_TO_DEVICE);
->  		dev_err(dev, "Cannot prepare TX slave DMA!\n");
->  		return;
-> @@ -535,7 +535,7 @@ static void lpuart_dma_tx_complete(void *arg)
->  		return;
->  	}
->
-> -	dma_unmap_sg(chan->device->dev, sgl, sport->dma_tx_nents,
-> +	dma_unmap_sg(dmaengine_get_dma_device(chan), sgl, sport->dma_tx_nents,
->  		     DMA_TO_DEVICE);
->
->  	uart_xmit_advance(&sport->port, sport->dma_tx_bytes);
-> @@ -606,7 +606,7 @@ static void lpuart_flush_buffer(struct uart_port *port)
->
->  	if (sport->lpuart_dma_tx_use) {
->  		if (sport->dma_tx_in_progress) {
-> -			dma_unmap_sg(chan->device->dev, &sport->tx_sgl[0],
-> +			dma_unmap_sg(dmaengine_get_dma_device(chan), &sport->tx_sgl[0],
->  				sport->dma_tx_nents, DMA_TO_DEVICE);
->  			sport->dma_tx_in_progress = false;
->  		}
-> @@ -1176,7 +1176,7 @@ static void lpuart_copy_rx_to_tty(struct lpuart_port *sport)
->  	}
->
->  	/* CPU claims ownership of RX DMA buffer */
-> -	dma_sync_sg_for_cpu(chan->device->dev, &sport->rx_sgl, 1,
-> +	dma_sync_sg_for_cpu(dmaengine_get_dma_device(chan), &sport->rx_sgl, 1,
->  			    DMA_FROM_DEVICE);
->
->  	/*
-> @@ -1237,7 +1237,7 @@ static void lpuart_copy_rx_to_tty(struct lpuart_port *sport)
->  	sport->last_residue = state.residue;
->
->  exit:
-> -	dma_sync_sg_for_device(chan->device->dev, &sport->rx_sgl, 1,
-> +	dma_sync_sg_for_device(dmaengine_get_dma_device(chan), &sport->rx_sgl, 1,
->  			       DMA_FROM_DEVICE);
->
->  	uart_port_unlock_irqrestore(&sport->port, flags);
-> @@ -1374,7 +1374,7 @@ static inline int lpuart_start_rx_dma(struct lpuart_port *sport)
->  		return -ENOMEM;
->
->  	sg_init_one(&sport->rx_sgl, ring->buf, sport->rx_dma_rng_buf_len);
-> -	nent = dma_map_sg(chan->device->dev, &sport->rx_sgl, 1,
-> +	nent = dma_map_sg(dmaengine_get_dma_device(chan), &sport->rx_sgl, 1,
->  			  DMA_FROM_DEVICE);
->
->  	if (!nent) {
-> @@ -1430,7 +1430,7 @@ static inline int lpuart_start_rx_dma(struct lpuart_port *sport)
->  	return 0;
->
->  err_unmap_sg:
-> -	dma_unmap_sg(chan->device->dev, &sport->rx_sgl, 1, DMA_FROM_DEVICE);
-> +	dma_unmap_sg(dmaengine_get_dma_device(chan), &sport->rx_sgl, 1, DMA_FROM_DEVICE);
->  err_free_buf:
->  	kfree(ring->buf);
->  	ring->buf = NULL;
-> @@ -1447,7 +1447,7 @@ static void lpuart_dma_rx_free(struct uart_port *port)
->  	if (!sport->dma_idle_int)
->  		timer_delete_sync(&sport->lpuart_timer);
->
-> -	dma_unmap_sg(chan->device->dev, &sport->rx_sgl, 1, DMA_FROM_DEVICE);
-> +	dma_unmap_sg(dmaengine_get_dma_device(chan), &sport->rx_sgl, 1, DMA_FROM_DEVICE);
->  	kfree(sport->rx_ring.buf);
->  	sport->rx_ring.tail = 0;
->  	sport->rx_ring.head = 0;
->
-> ---
-> base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-> change-id: 20260916-lpuart-dma-9923b7b2e1da
->
-> Best regards,
-> --
-> Peng Fan <peng.fan@nxp.com>
->
->
+When testing on the FVP model with the above baselines, I get the following
+error messagaes in a loop, preventing the system from reaching the command line:
+
+[    3.112577] Freeing unused kernel memory: 3520K
+[    3.115398] Run /sbin/init as init process
+[    3.142926] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+total 512 (slots), used 511 (slots)
+[    3.150111] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+total 512 (slots), used 511 (slots)
+[    3.177190] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+total 512 (slots), used 511 (slots)
+[    3.197194] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+total 512 (slots), used 511 (slots)
+[    3.217188] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+total 512 (slots), used 511 (slots)
+[    3.237194] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+total 512 (slots), used 511 (slots)
+[    3.257181] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+total 512 (slots), used 511 (slots)
+[    3.277189] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+total 512 (slots), used 511 (slots)
+[    3.297193] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+total 512 (slots), used 511 (slots)
+[    3.317188] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+total 512 (slots), used 511 (slots)
+[    8.157185] swiotlb_tbl_map_single: 241 callbacks suppressed
+
+I get the same result with v17.  Have you seen this before?  Perhaps a kernel
+option that needs to be adjusted?
+
+Thanks,
+Mathieu
+
+> 
+> Changes since v17:
+> https://lore.kernel.org/all/20260908162223.1683432-1-suzuki.poulose@arm.com 
+> 
+>  - Add a patch to fix pKVM handling of SYS_CNTVCT/CNTPCT to override the counter
+>    offset (Patch1)
+>  - Restrict Realms to VGIC v3 only - New patch
+>  - Add kvm_vm_is_unprotected() to replace is_protected_kvm_enabled() &&
+>    !kvm_vm_is_protected() - New patch
+>  - Use macro to initialize the per-flavor vcpu, s2_vm ops
+>  - Add a wrapper to initialise vcpu and s2_vm ops with a BUILD_BUG_ON()
+>    for the array size checks against VM flavour types
+>  - Drop forward decalaration of the vcpu, s2_vm operations that spoiled the
+>    fun ;-)
+>  - Remove irrelevant comment about the order of timer loading for !VHE
+>  - Use the explicti kvm_call_hyp_nvhe for pKVM specific ops
+>  - Don't call nvhe_vcpu_put from pkvm_vcpu_put, open code them
+>  - Drop cpu argument for vcpu_load() callback. We set the cpu
+>    before the callbacks are invoked
+>  - Drop kvm_vm_is_confidential(), instead widen the scope of kvm_vm_is_protected()
+>    to cover pVMs and Realms. Add an explicit helper kvm_vm_is_protected_pkvm()
+>    for the cases where we need to check for a "pVM on pKVM"
+>  - Add kvm_vm_hyp_is_pkvm() for checking if the VM is running on pKVM.
+>    covers both unprotected and pvms. But really uses is_protected_kvm_enabled()
+>    under the hood
+>  - Add kvm_vm_hyp_is_distrusting() to cover pKVM guests (both protected and
+>    unprotected) and Realms. Use this for preventing the vgic v2 mapping into
+>    Stage2 for a guest
+>  - Drop superfluous !kvm check from kvm_vm_ioctl_enable_cap() - Sashiko
+>  - Drop KVM_CAP_CREATE_IRQCHIP, as we don't support VGIC_V2 for Realms
+>  - Filter out the vm_ioctls that are based on blocked cap.
+>  - Repurpose the pkvm plumbing for filtering the caps and ioctl to generic
+>    and plumb the Realm support in
+>  - s/PKVM/pKVM for the comments
+>  - Drop type argument for pkvm_init_host_vm and also drop protected variable,
+>    now that we have the vm_flavor to check.
+>  - Use kvm_vm_hyp_is_pkvm() to replace is_protected_kvm_enabled() with valid
+>    kvm instance
+>  - CCA: Merge the GET/SET REG handling patches into a single patch
+>  - CCA: Reword the commit description for SVE VL access handling
+>  - Reordered the patches to group the Realm realted to changes to the rear end
+> 
+> Jean-Philippe Brucker (2):
+>   KVM: arm64: CCA: Expose SVE VL register before VCPU finalization
+>   KVM: arm64: CCA: Control user register access for Realms
+> 
+> Steven Price (3):
+>   KVM: arm64: Avoid including linux/kvm_host.h in kvm_pgtable.h
+>   KVM: arm64: CCA: Support timers in realm RECs
+>   KVM: arm64: CCA: WARN on injected undef exceptions
+> 
+> Suzuki K Poulose (18):
+>   KVM: arm64: protected VM: Handle set_one_reg CNTVCT_EL0/CNTPCT_EL0
+>   KVM: arm64: Disable Steal time accounting for protected guests
+>   KVM: arm64: Include kvm_emulate.h in kvm/arm_psci.h
+>   KVM: arm64: Track the type of VM in kvm_arch
+>   KVM: arm64: Refactor the vcpu_load to allow for VM specific callbacks
+>   KVM: arm64: Add vcpu load/put call backs for flavors
+>   KVM: arm64: Reuse kvm_stage2_unmap_range in kvm_unmap_gfn_range
+>   KVM: arm64: Add VM specific callback for S2 MMU operations
+>   KVM: arm64: Abstract out memory abort handling
+>   KVM: arm64: Use kvm_vm_is_unprotected() for !kvm_vm_is_protected()
+>   KVM: arm64: Widen the scope of "protected" VMs
+>   KVM: arm64: Add a helper for VMs running on hyp that don't trust the
+>     host
+>   KVM: arm64: CCA: Add a new mode for supporting Realm guests
+>   KVM: arm64: CCA: Add VCPU load/put for Realms
+>   KVM: arm64: CCA: Add bare minimal S2 operations for Realm
+>   KVM: arm64: CCA: Introduce Realms
+>   KVM: arm64: CCA: Mandate VGIC_V3 for Realms
+>   KVM: arm64: CCA: Don't expose unsupported capabilities for realm
+>     guests
+> 
+>  .../admin-guide/kernel-parameters.txt         |   3 +
+>  arch/arm64/include/asm/kvm_emulate.h          |  16 +
+>  arch/arm64/include/asm/kvm_host.h             |  63 +++-
+>  arch/arm64/include/asm/kvm_pgtable.h          |   6 +-
+>  arch/arm64/include/asm/kvm_pkvm.h             |  25 +-
+>  arch/arm64/include/asm/kvm_rmi.h              |  61 ++++
+>  arch/arm64/include/asm/virt.h                 |   1 +
+>  arch/arm64/kvm/Makefile                       |   2 +-
+>  arch/arm64/kvm/arch_timer.c                   |  37 +-
+>  arch/arm64/kvm/arm.c                          | 330 +++++++++++++++---
+>  arch/arm64/kvm/guest.c                        |  73 +++-
+>  arch/arm64/kvm/handle_exit.c                  |   2 +-
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c                |  28 +-
+>  arch/arm64/kvm/hyp/pgtable.c                  |   1 +
+>  arch/arm64/kvm/hypercalls.c                   |   4 +-
+>  arch/arm64/kvm/inject_fault.c                 |   1 +
+>  arch/arm64/kvm/mmu.c                          | 210 ++++++++---
+>  arch/arm64/kvm/pkvm.c                         |   6 +-
+>  arch/arm64/kvm/pvtime.c                       |  14 +-
+>  arch/arm64/kvm/rmi.c                          |  18 +
+>  arch/arm64/kvm/sys_regs.c                     |  29 +-
+>  arch/arm64/kvm/vgic/vgic-init.c               |   3 +
+>  include/kvm/arm_arch_timer.h                  |   3 +-
+>  include/kvm/arm_psci.h                        |   2 +
+>  24 files changed, 758 insertions(+), 180 deletions(-)
+>  create mode 100644 arch/arm64/include/asm/kvm_rmi.h
+>  create mode 100644 arch/arm64/kvm/rmi.c
+> 
+> -- 
+> 2.43.0
+> 
+> 
