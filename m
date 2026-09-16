@@ -1,229 +1,351 @@
-Received: from ps82.spcmail.jp (ps82.spcmail.jp [35.74.107.109])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3C0381EB4;
-	Wed, 16 Sep 2026 02:29:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=35.74.107.109
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789525750; cv=fail; b=cs2HFCesDm4ORqsSEEQ6N5EyF23GPmd1sNqCXoKf08/0gf4+6C34GRnJiQTA+v5sVnX6Ai22la/gMnfNMetSlCKUkyiAEoHyqneHLARwpaBLvKw2PK+uNnm1Y4oXYj6xMli740JLBXZNI4YuhY7YUicNNI3PK4B8xu+YMz8e850=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789525750; c=relaxed/simple;
-	bh=8xpCFKL6agTrx5A9cXfN5oK6Ov+BmlJh6VoqGs584xg=;
-	h=From:Subject:Date:Message-ID:References:In-Reply-To:Content-Type:
-	 MIME-Version:To:Cc; b=TUvX+sU5GpoBIv4BikVjsBJ4Wv3GkdhMWAjy/ahFLC+K7DLfZK8LmK8oj8Q/kt1MziAG0dsWwNYCUWS4OH33cEdCtn0wHEmdx8UOFhE0BJCntsbJ1CtG3AVCxPlnkc0uXgEcq2n3rMqVGb9oSb3wY8mBVHT/WAXjKhhGTBbYiWM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=socionext.com; spf=pass smtp.mailfrom=socionext.com; dkim=pass (1024-bit key) header.d=SocionextGlobal.onmicrosoft.com header.i=@SocionextGlobal.onmicrosoft.com header.b=oDGv1Un8; arc=fail smtp.client-ip=35.74.107.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=socionext.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=socionext.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2123672A8
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:29:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789525792; cv=none; b=WXWh5CXjS2c+esAMLwAwdXremLBO34zClRIGZ9qP39KIbisOZaXZcwJXGX/aNxMMCcR8hYsTMokrb5TeIGkTLcM1aZV58LvOwEgaZ3fz7PzYkubDfetzYGkqalTvyPJAhZYqhq5slYS6cY+axi9nTrJRwYOc/uYPkcHrtJIlgHE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789525792; c=relaxed/simple;
+	bh=ApIHJAmA/+8e83vwR5ra2EnXDhNzHiDGza0aTdN5jHo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DlglccirnQSVA5xvr8+7wrvUW0WYuexYzFNpm9Gt2Szam8wMcjyqF1FqW0rPxfPJHNhtzPna79tsHMowOuleqqFBgF6+cY1mTtWNcML8OnXNiS/ZxD5/KDzorsiiq+7/TuBGsmMjtKzCbYp1hBW6++Q/ypiZgJaTfGlqhi9WU9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kqdl1V1O; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YAIVSCxM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=SocionextGlobal.onmicrosoft.com header.i=@SocionextGlobal.onmicrosoft.com header.b="oDGv1Un8"
-Received: from ip-10-10-28-85.ap-northeast-1.compute.internal (localhost [127.0.0.1])
-        by ncs81.cs.local (8.18.1/8.17.2) with SMTP id 68G2StCN1773086;
-        Wed, 16 Sep 2026 11:28:55 +0900
-Received: from ip-10-10-30-82.ap-northeast-1.compute.internal (localhost [127.0.0.1])
-	by nmg82.cs.local (Postfix) with SMTP id 4hl2rR3PL6zMpsjF;
-	Wed, 16 Sep 2026 11:28:55 +0900 (JST)
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011016.outbound.protection.outlook.com [40.107.74.16])
-	by npr83.cs.local (Postfix) with ESMTPS id 4hl2r80Z9Fz3kMcZ;
-	Wed, 16 Sep 2026 11:28:40 +0900 (JST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XE3sDsESAroZdnJpnBLJN67x7/yUC2F7EMlzRtynGo6UUx54FmuhVB7mg1q9LY7ESRqMTwlqDr08ONS3WQJm/WHgGJsom548WNVN75MzvLm5z0EhawO024zzZUzB3q7MsvSWJSqzLTJmDPPYogIRGBR00sdZsAODBw4Y2HUHp/lKwmuOUmhhV46l5va1TjE1vV7OdX+cd+kkjJHqcaCtjmRXsK6kQsZiWm8t5iAi5mqGfwlJD8lxeNNy2wxGDkj2YgNHL0WKLQ0GZbDfFbBFkQIZ+NHNh+6L9QkdFCWhYK/K6LMNLPSLfq0T+vFc5RSseJaT9oTnZxffhbxTCNusWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iFtRpw66byt9o2+ni0uAQdTyvbYVEF9L2F5WhtqoPJA=;
- b=HaqsOSRW2kk7ybN60F10qAF6j5DzFdEQveUhP9Yifp1QMLvggPre5PJIO6YqAEum0EJzBirO2vlpXmi9u0Rfxc+7FP1si4brWgE1XEadHW/1aeivopxDLahWEB/eKJh0RcRo3L1Pyc1hYLfgemVm34+G31P3hr5FrtWCAVLqmzGp3+R3KKqXVTjvqxqfHWR4U93bvu7sex5z+cOB9bxsJkw36d0jIct1JR4AAfLOSQFYsZacYILq1Dragqfay/4pFNCrhQvf/MG+1m4DPNM/VbgE1Irw10oJ8ezS43po9NGI4rpvAtkfCIGthLzawmgCxa1ZtQJ08IgKE9pFXWvNjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=socionext.com; dmarc=pass action=none
- header.from=socionext.com; dkim=pass header.d=socionext.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kqdl1V1O";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YAIVSCxM"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLYfOG1668198
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:29:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	UpGhqUpVQqb/n6saMxotWbAoMDKWAg1M5PagdsTso4A=; b=kqdl1V1OM+OqHvIp
+	BVmWXlPgbEtCr/1GUwUhfXnLte557DAPHtvtUxyS9fZhTvr42JuKaV91Um1NJbPc
+	w5GT3qinYQDDWEBp0k326JGua63HInJdsnFlQO/S0g4TKUp38zKn8JSzktRzDzLK
+	FBgVjBJWiDNasWFEl3q8mGVAfiYZVtfqQ8JV+WTohjqxlmNn/tAHLZ6hAEsJFjND
+	6i7Qk4GunShob3BaYnlRYoL6GjVd/duPOd08jeODrLwBKPUkQUuhNGkoekl0MWUg
+	h6W0ejzZNmtZtrBaNSKMHuAfCaOcSNcbmnHsTlbsMuCvRwuGPmxBFosuTx60eB4A
+	mc91Hg==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq6kc3fa9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:29:45 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-862a0aa7d2aso7658326b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:29:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=SocionextGlobal.onmicrosoft.com;
- s=selector1-SocionextGlobal-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iFtRpw66byt9o2+ni0uAQdTyvbYVEF9L2F5WhtqoPJA=;
- b=oDGv1Un84lOpyo7gMUfzfgIqoemakIBF8fI6OIeaaHCiWk7/CE7y+JJcHeUg8YMVkopWxAr5ERUgH0ES3OkRBRCZxcNOlcH+kDzYHEOdfIUJ04CpDr0FYpQMQxPNtwpeuJkUwl96vS2TuwSysSqchrDnAKvY+CxQpZByuhg13aE=
-Received: from TYYP286MB0924.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:ca::13)
- by TYYP286MB1908.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:111::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 02:28:38 +0000
-Received: from TYYP286MB0924.JPNP286.PROD.OUTLOOK.COM
- ([fe80::1a2a:2bdc:a0d5:99d2]) by TYYP286MB0924.JPNP286.PROD.OUTLOOK.COM
- ([fe80::1a2a:2bdc:a0d5:99d2%5]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 02:28:38 +0000
-From: <kojima.masahisa@socionext.com>
-Subject: RE: [PATCH net-next] net: netsec: fix device_node reference leak on
- phy_np
-Thread-Topic: [PATCH net-next] net: netsec: fix device_node reference leak on
- phy_np
-Thread-Index: AQHdQ0rnaeFU+Oh4RUi9ApGJ9s5DJLbQfi8w
-Date: Wed, 16 Sep 2026 02:28:37 +0000
-Message-ID:
- <TYYP286MB0924762C90163A2A847D72CEE3B92@TYYP286MB0924.JPNP286.PROD.OUTLOOK.COM>
-References: <20260913064102.37452-1-yigejiang86@gmail.com>
-In-Reply-To: <20260913064102.37452-1-yigejiang86@gmail.com>
-Accept-Language: ja-JP, en-US
-Content-Language: ja-JP
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ccmail7: Relayed
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=socionext.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYYP286MB0924:EE_|TYYP286MB1908:EE_
-x-ms-office365-filtering-correlation-id: 11d13252-b750-4a1e-9ca0-08df139a370d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|22082099003|18002099003|1580799027|11063799006|56012099006|38070700021;
-x-microsoft-antispam-message-info:
- cDj1xwpdXn7JGKIWJiRww33d9aM4z/lcqWjEJRES/Qq45qMiLlQ3Tm1C6xPwKCi2F68tMqZkEPWWJv4AXEl+ujLWFX624xqBKokkUoW++GAZX+68DrwZX1pci0X0XAbOMjW7I87Zbhu5kJsDNlKb7Anvg6KrQ267T1tP6S4g4CYLtoIEKkoEJdu3NtHYEI23Y6/Zb1k6gekDKUz6gHMYDMYEC6kRp6ORvwRx05LVFD3OTakx2h6t5bl2LjyX4csoCRaZteOcZHoE68oCNTj4PLIPc74eCwY4QazcLV7XSO3YgnMNps0D2nfUFK8tvHy9lbLSc7UkyPQ8YHjQuLkspeSNqP3Ddjkp+9hJ8db4nZBsZlpGaIc3uZzAhgE0BbfdlfdbGoUT+KI0K+Wl7gRS/i60OYVeVBiqXDmtsVi4K0zpbk2mnSakuKO6ijFfgjW+dG4NeWSivzTa5kUlAqEZSwEdeWI1e6pq492zipa8MO/NKDciN2AszZrukrwZ5JvwljGTuQkJ9muXsY4h8jl3UJHY6Oe6HN95PcojoWmpuiP9SOYaok0xqygmXHkzVTxg/AAxdddTQ5lBfgNBNvXEyWHKIn5T7dif+h37KTP9nXS95tQX6EglNxnmAUGPQqdcORaAPdY1D48/Vum/BTuR4MLGtXwHgs6wczRMvDa/Mib5Js7R9cyuZRfaWtDfgiaK011PcEVVluxns8uwLAHaP6OJdvkPrYqd7EASsbk1WDgvvDmVuWgK2CLOfc1iQ5Lt
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYP286MB0924.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(22082099003)(18002099003)(1580799027)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-2022-jp?B?dU1TSHk5ZHRadTdNQXEzTThMQXVpNEFaTnRkcXRlY0NSQmhDY2F3ZGZu?=
- =?iso-2022-jp?B?a2RxOFpoUWJuZlpHdFFjYmdFeUluT2lkSGR1THJMSGs4NkZ0S3BHeXJx?=
- =?iso-2022-jp?B?ZmNDdlV4b29UZGtlemtJSjVHTUtsdDZVY2oyMGhpSnFwa1J2cU9BOWNo?=
- =?iso-2022-jp?B?QkpuajBGa1NFL2tFUndEREJJWld2WXNZMUJGOFpDeGZCMGVGM2c1Uysz?=
- =?iso-2022-jp?B?ZkRwU01Pa3haRUtUM0tMTlQyZktQVVE2ZytlbzgxUForQ1ZFbHZXQTBr?=
- =?iso-2022-jp?B?eGFZU09kV0VDWWhianpnU2hJRGIvRlV5SUYzMzJyNVh5blNhSEhVMzU3?=
- =?iso-2022-jp?B?bkpMTkFwZ1FBbytkRHlPaGhvbkgwR25tSXBmNFFzK1YyTDlDZXFWTWxn?=
- =?iso-2022-jp?B?ZDdPYVJ5SDU2cnNqWVZZdXhWMnZCbCtiYUJHWm9qc0VMYnoxbHBvY1ov?=
- =?iso-2022-jp?B?RzRVNjZMV25sWEtPa29hS3JvRkJsQ28vV3BkVXV0ZGRkSEQySGdESEQ4?=
- =?iso-2022-jp?B?ZnB6QnFETEd1cWdjTHNHc09sRUx5emE0REdqVFltV1FYQ2dGTTZNVjZj?=
- =?iso-2022-jp?B?NXVzcFpXOU8wTDR2dUhMTExJN1lUUGxrcGhLRG91aVI4NHZZeHJtT2dt?=
- =?iso-2022-jp?B?WG5xcEp1SGY0VkxTQnlMWWovaHhIVzNYRkxYbThwNlVzS2J5Q0NMMnBj?=
- =?iso-2022-jp?B?b1B3ZXZBMW5xUk4rRHp6VEsrcVc0cm00RjF3Zno4K0FKVmtNeHBzSzJt?=
- =?iso-2022-jp?B?SWRXakRsMm5uLzdHTEIycW1YY2F6M3dmeWtPUDVaVldmOUhpZHUwWm5v?=
- =?iso-2022-jp?B?eUpoQzZVWUxxNUYzQlhJNFdTVXRNZWxva1RTblR0S1BrcEEzVWpicWlR?=
- =?iso-2022-jp?B?VXF1S25aSkVFVy8zQ0g2c0E5NTlpTU50NUptVjBSd1N2dFhKeTFXbWlS?=
- =?iso-2022-jp?B?Ynk2cUczbkNDRlFDVEUxamttZVd4bm8zZUluSkh0aUNwS3F1bXRnbW94?=
- =?iso-2022-jp?B?VnBzQjhoNVJ4LzYzZTRpSG5tUDNhMkhIWjBOS3lyeUNieHZPcWE1cGV5?=
- =?iso-2022-jp?B?bmdhT2w1TUdMSU1CdHlIanVJVXRXVXpRNXNtcytKclBVU0NjTzJRV0Fh?=
- =?iso-2022-jp?B?a1F1U01vYVZGSlNXRGUxYzV1cjJjSHRudmZtVjc3R2NFOGVxQ3RsYUQ5?=
- =?iso-2022-jp?B?dUh4VjNnQjJKMm5uQjQwWU5JTHVraGdmSzJ0TXBBSmFCRGFSTlVyVWJE?=
- =?iso-2022-jp?B?Zmk2ZTgrWjdhNE1aMHl6WU81LysxbnIvdmVLdWM1WHdwSXBVMkQ0bU93?=
- =?iso-2022-jp?B?UG1FUndLU2JnSkVPeUxNRjNmV2lCMngzTkxyTE9FeFpVZTh4eEhUVnFE?=
- =?iso-2022-jp?B?Rit4WkpURk5PajhNNkVQR1AwcmdrcWt1NStzbGt5blg5eXJ3aEVSMnRa?=
- =?iso-2022-jp?B?L2VHaStqTEJ3dS9FMFRIV3N3QkdQc2Z6NnFaS0JYMk1xQytyOGNiaW1W?=
- =?iso-2022-jp?B?Q3FmcmhCM0xlMnhGbndlUExYbkhyc3MyT1JEbjlZKzN6V05BQWJzK1hh?=
- =?iso-2022-jp?B?d0ltTStjM2c3c3ord1JNemQzZ2l0UC9weVhiNW5xdkxtcXczUURyU0FY?=
- =?iso-2022-jp?B?MS8yRkZyaWFjMjd0TENzOURFMmxDbUhWRkQ2K25WUndrOGZLbUw1UGdk?=
- =?iso-2022-jp?B?bU42dHcxTTdwOW83TWNNcnZEbmF2T1ZpSnBFYUlXaDlLNHgzMHVERlpy?=
- =?iso-2022-jp?B?eGFlTTBOTU1aNlAwT044QkhGQkdLaWRnRGVNZFdNUlJwNjRha053ZlZm?=
- =?iso-2022-jp?B?YTkzNEhlaG5EMENwNjFtN0J1dHhLNHFGbVF4RGg3eDlyRHJCdTBFQ0U3?=
- =?iso-2022-jp?B?UHZzVGFQUXFWZVRnLzJiNlZORTBhaVlub21vUDVnaUJOV09SOGRLdWhQ?=
- =?iso-2022-jp?B?NUtHYnNCVXRUWTVKbHJjY3c5WmRrNVlHYmZxWCtqZXRZK0VTVjIxY0di?=
- =?iso-2022-jp?B?K3kxNjYrVkF4cHo0UGZHbEpvSm5NbUpiWm40cTBObExyeHIvTVZHdDdM?=
- =?iso-2022-jp?B?bm5BVkpVNHZ1VTY3WXZTdjVXRGFZZStNcTZFZUZPMkJQRmlZMVN5aEhU?=
- =?iso-2022-jp?B?cFVzMGtmN3F0MHY2QVh5dktKOEJUOEJLUTBXajRadTE2a01DektMcTVs?=
- =?iso-2022-jp?B?cHhwK0l4RDd2YmZaeTEvRG1VWWJpTDA1NUNydkJMbWNNOU92ZnM5bTRl?=
- =?iso-2022-jp?B?M3l2Y3FYRWNCdGNiUXdqTUNsMmNUS1NjVXlhNkhJQmx3bFd4ZmhCaWdy?=
- =?iso-2022-jp?B?am90TkxXVkozTjFyTjhHc3NpdG92bUpFZVNTK0YwN2dhWDdGU0dVSC95?=
- =?iso-2022-jp?B?VW1TcHdTU0o0ZnM3OWFueXRiVVhIbE9pRHY5R0RPZCthcUVxSXcxUThR?=
- =?iso-2022-jp?B?Vmg4R3JuaGtiYUNDR0dWcUlycnh6WjA1VHlJeWZQZFlSUUYwNVlsd3ZO?=
- =?iso-2022-jp?B?UWsvd1BpaEE2YkdPbjJ3UGZaY0IzcDR5TDZLNUd2SE1kWm1la0NlS1R1?=
- =?iso-2022-jp?B?MTU1ZVBkST0=?=
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
+        d=oss.qualcomm.com; s=google; t=1789525784; x=1790130584; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UpGhqUpVQqb/n6saMxotWbAoMDKWAg1M5PagdsTso4A=;
+        b=YAIVSCxMCzFCePqG4l0RkPjE8alYiORXz8Lf7fu9/bGAhp17+XRwXidOlx0QG4gDwn
+         +PnDKpXGEksYTCHONHpPCpPX5k2OQ1jtDdUNsOAwAutgKKgyWOnTv1V9QMAMbUyZ3jJj
+         Jig0e3HzHbmWNFH6kez/wnArguT3AubKxIv/YWAJOhct/rsKl/4LywlaNFTUn0CmVk+e
+         cMfCUPA6yHbp/TNebtMWWazD2VcBvworA0aawsdDKYOce33YG3VH3KaAKj3L6h15Ukvj
+         /mVY7kRVrg/4YBMowh1v6PxIA148f80hXiw4NNldrNCQdM0Y+q6OWwdej+pqzRx2tXmm
+         5C8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789525784; x=1790130584;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UpGhqUpVQqb/n6saMxotWbAoMDKWAg1M5PagdsTso4A=;
+        b=MjawDLBo3qqcNo2Ng5s3qEJJGOXAzURzxIiCTxV/fENf8pXVybwDqqpoHfXQSw1Ywh
+         f7BrF3m8rWGp+9G64J87ccv8BmyaZWU14UgIAZsV802LlcL7q0AyNsX2Z97vAzmhzKCF
+         ldW1zz7DawFdRt1pw7mNpggJkPvjB3Cbhpd5JUT1HIUGC8TyXkacGq0t2fKYPXcgWYIh
+         y62v+Szpmt1Akas53qcfVLB1Kac4b0Tl4NcX3GrzQEi0ocs6hXKaduLMmy0SLbq8MXvE
+         dUjUEyOJ0xnn2JZQf27f5h1QWmdnXrEknKgm4OeHo3el0qufhbROPrXnUnQzURSSITK1
+         LACg==
+X-Forwarded-Encrypted: i=1; AKwUvBywZcMz00hZ47nG039KTSovxE5u9BQMdkLsj00AmiaOFQg0FVzL7UvusPpM/BpJzmulYPyJP2YwSZMkIzs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/HS82TYGQaaehqCc/BQANSLffPcWItvrjeIk0Fo91ve3eeG5s
+	ii8ggiNzPEgGKBhOVqONAkvot1SnfBF1o/r99duwSxL81UNCpdkE3h4OXoE3IYHH9v10Flfonl2
+	8wJzqUOn4PcNA8V59waEwngTVDtGWNXyI36DE+CPdB57RaI7BO4M0eVUYZllxpO5LVQQ=
+X-Gm-Gg: AYBFou1OgbGovP72psYl2ZJm/8Q2CE3GMllclUC88mehS3uWRZSG8tyVFqBSrNqaLTj
+	cSHm14gO3vVzl2N+NXXwaEaycff/ABTj3pfVk/ns+LepZ+AauNgvceZDybSCvS9/lwKbqz4EwCw
+	5TgaTI4+9NT5RHTxCN0e7zrELAqncZcNTG+ZWv6t/C4I72DCqRHLKRTxUSZcmFNHYOKffHJ8ql9
+	FRCjJfC/fNZATSQJbPLOsGJ1XGNwI2DzHke3cqjGTveuCNG8isTLSSITm2vTu4gN0GQvYSXwQ+m
+	7aniIrZMpcJKGo5TqVVOGCwFztm7ziODuPE/fhvpWz49GDofKcOc6prR6qX2Q/V4Pyucdbo0S0o
+	R2WB7OEgx/H8Z/RcKDrF2M4IbDc8z/211pGaAnsn2Hrav7DV3T7ASeVjBWM4wQlF4
+X-Received: by 2002:a05:6a00:3698:b0:857:72f8:dc97 with SMTP id d2e1a72fcca58-8723b394555mr1364752b3a.24.1789525784543;
+        Tue, 15 Sep 2026 19:29:44 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3698:b0:857:72f8:dc97 with SMTP id d2e1a72fcca58-8723b394555mr1364691b3a.24.1789525784087;
+        Tue, 15 Sep 2026 19:29:44 -0700 (PDT)
+Received: from [10.133.33.134] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-872024e6a39sm411715b3a.56.2026.09.15.19.29.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 19:29:43 -0700 (PDT)
+Message-ID: <305e37ca-c576-4ded-b4ff-1f4eea3cb712@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 10:29:35 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	ouVPqVBsbCDimBmcERzddCKrs4/aQ7I4adcb+xNM9uAMnohfocJnfWBbNcDFtr3kJOzIdgJuwEBtBwOxK2ls34IQUEb5bFAI7vNuPgLNmT9INJzAAHAZXXFR/KYO/QKbHYCCtyO/peI2DYfcTaCqzkkswNHmKimi0x/ZvQUwQueTfkDZfm1HBb3n4Gy70YwSdglP2viyE4DqYwKKmd6Dn+dsLXdlTkSnGN6L/sC50SMaKwZFLMbO8CJqZjfG6hyU/CAuoVBpp7z2d4d217je22oh9SYkd8PHMmpZoCcq94nPtOdrO1za+HRzpXVaVDtq8CVELcfGvK9w5qyclDHm7Q==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	p/8UdO7zKi2REXCLKcwNna8bo0HKVvIGmT7U3IpJ8vhXbgjB6198L8GnwNT5dHsd8G6kBeqHYTMlw6hM0YGcYku2jbdXIqOaCyXj91ao5lE14PToSz+ZAYyoestxlp9FL5YvL/jW58nQcNdikaCWXWGWTr51dpcPS99V818jeocib0sPu2eCK2/rUnf0lTKB11Ezb2NTh21+JSF5fRAaDhr5GYF2y7dxPC6MBAi5PDYw2l56f+sBiQw+SDLrQT0rFB1sibyHdpUx2xlLC9fIVb48HXOslKiAzcxiCl6PUdfGGZV8eHG2bqJtSgB2q8Z1ALR7UoK/QbGGfhpoOWIjD3yOWkkGtp82W36YmNoxjNragAoT11QdbwOBMc7VWsolXWCPKERb0keoSLDe87t0NfzLMX37E24u/KzZTUEWnSCRlspLKXlRCzvt24z/fVWuVVZukUgNxXoVs7w5kNfuEb18yXHsWAfoan6N8FQCiXsSiS/zaR++fnxXzBTPs3uCbef3Qqt3So9RUFxIk4duueOKcrSQtlTNKCqZXCQVTiNA0ipwMcY4hGvY5uCsRESiKpPGOwpgym4YXcOrAgpX0vzntKbUesWsYErQdIm4pyAPu4v//yCFKr9cYXKjSUpCu2XLG19BQyBStlSbKGqUESuHnqCtzaT/l3wIDK6MoeibDO1Ho/hJnban0/PdefiSENlxC58adorb+fncp3uIImi4J/7RaOLaHaLbmm686zi04dYL2864bnn2449/k/Za
-X-OriginatorOrg: socionext.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYYP286MB0924.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11d13252-b750-4a1e-9ca0-08df139a370d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 02:28:37.8515
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 33c08a51-ea9e-46de-8669-aff1f467d3fe
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YJypcQFs2FmXGSI6mY4uKBp6HezuEo4RrVyT9wLtQpM6DTOSSiI7IzsYf9n3iNTp2B/fdXChgxzTsuNwY2YcDiSoHs9khq+3n39JEhObwK0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB1908
-X-CC-Mail-RelayStamp:CC/Mail Relayed
-X-CC-Mail-RelayStamp: CC/Mail EncServer Relayed
-To:  <yigejiang86@gmail.com>, <netdev@vger.kernel.org>
-Cc:  <ilias.apalodimas@linaro.org>, <andrew+netdev@lunn.ch>,
-        <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-        <pabeni@redhat.com>, <linux-kernel@vger.kernel.org>
-
-> netsec_of_probe() takes a reference on the PHY device_node with
-> of_parse_phandle() and stores it in priv->phy_np, but the driver never
-> drops it.  One device_node reference is leaked per probe, on the success
-> path as well as on every error path reached after netsec_of_probe().
->=20
-> Neither consumer takes ownership.  of_mdio_parse_addr() is a static
-> inline taking a const struct device_node * that only reads the "reg"
-> property.  of_phy_connect() borrows as well: of_phy_get_and_connect() in
-> drivers/net/mdio/of_mdio.c brackets its own call with of_node_get() at
-> :364 and of_node_put() at :373, which would be a double put if
-> of_phy_connect() consumed the reference.
->=20
-> The node is still in use at netsec_netdev_open() time, where it is
-> passed to of_phy_connect(), so it has device lifetime.  Release it at
-> the probe error label, which every failure path after the acquire
-> funnels through, and in netsec_remove().  Both releases precede
-> free_netdev(), since priv is netdev_priv(ndev).  The ACPI probe path
-> leaves priv->phy_np NULL and of_node_put(NULL) is a no-op.
->=20
-> There is no end-user visible symptom on currently supported platforms:
-> a device_node is only freed once OF_DYNAMIC is enabled and the node has
-> been detached, so on a static device tree the imbalance is inert.  It is
-> observable as a refcount that grows across bind/unbind cycles, and would
-> matter under device tree overlays.
->=20
-> Found by static analysis of reference acquire/release pairing rather
-> than from a runtime report.  No reproducer was produced and the change
-> has not been runtime tested; it is compile-tested only (arm64,
-> CONFIG_SNI_NETSEC=3Dm via COMPILE_TEST).
-
-Tested on SynQuacer.
-Verified repeated load/unload cycles and network connectivity.
-
-Tested-by: Masahisa Kojima <kojima.masahisa@socionext.com>
-
->=20
-> Fixes: 533dd11a12f6 ("net: socionext: Add Synquacer NetSec driver")
-> Assisted-by: LLM
-> Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
-> ---
->  drivers/net/ethernet/socionext/netsec.c | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/net/ethernet/socionext/netsec.c
-> b/drivers/net/ethernet/socionext/netsec.c
-> index d14a6584473c8..79a0a324c921d 100644
-> --- a/drivers/net/ethernet/socionext/netsec.c
-> +++ b/drivers/net/ethernet/socionext/netsec.c
-> @@ -2149,6 +2149,7 @@ static int netsec_probe(struct platform_device
-> *pdev)
->  	pm_runtime_put_sync(&pdev->dev);
->  	pm_runtime_disable(&pdev->dev);
->  free_ndev:
-> +	of_node_put(priv->phy_np);
->  	free_netdev(ndev);
->  	dev_err(&pdev->dev, "init failed\n");
->=20
-> @@ -2166,6 +2167,7 @@ static void netsec_remove(struct platform_device
-> *pdev)
->  	netif_napi_del(&priv->napi);
->=20
->  	pm_runtime_disable(&pdev->dev);
-> +	of_node_put(priv->phy_np);
->  	free_netdev(priv->ndev);
->  }
->=20
-> --
-> 2.50.1 (Apple Git-155)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 04/10] cacheinfo: Expose the code to generate a
+ cache-id from a device_node
+To: Andre Przywara <andre.przywara@arm.com>,
+        James Morse
+ <james.morse@arm.com>, Rob Herring <robh@kernel.org>,
+        Shanker Donthineni <sdonthineni@nvidia.com>,
+        Ben Horgan
+ <ben.horgan@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Catalin Marinas
+ <catalin.marinas@arm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Reinette Chatre <reinette.chatre@intel.com>,
+        Fenghua Yu
+ <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
+Cc: Drew Fustini <fustini@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+        ganapatrao.kulkarni@oss.qualcomm.com,
+        Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+        Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+        devicetree@vger.kernel.org
+References: <20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com>
+ <20260914-mpam-resctrl-dt-knp-support-v2-4-bf6645bb2f65@oss.qualcomm.com>
+ <317682e8-63e7-4047-9106-deea7bf96388@arm.com>
+ <a340505d-9495-4f68-8ed1-c7e8772c28e4@oss.qualcomm.com>
+ <e8a33eea-c54d-471c-9936-41762453feb7@arm.com>
+Content-Language: en-US
+From: Yin Li <yin.li@oss.qualcomm.com>
+In-Reply-To: <e8a33eea-c54d-471c-9936-41762453feb7@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDAzMyBTYWx0ZWRfX15ocem135huE
+ hPp+KT9oSvp3bwWCegc+teZBFyLb4LT0881WaI5+Y+0e40Qz8JEUAmCCXlTdgpDaNioxc2At4AN
+ h7moLjBskp+5DblMVkAWuh93QjpEkbo=
+X-Proofpoint-GUID: KDMjedoOC0QsAeY7ABLFjCPIMVHyZgWX
+X-Authority-Analysis: v=2.4 cv=ZINCCn7b c=1 sm=1 tr=0 ts=6aa9ff19 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=NSEGM1D4AEf8_kYA:21 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=brJ-6TMN6zN7E94x2iYA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: KDMjedoOC0QsAeY7ABLFjCPIMVHyZgWX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDAzMyBTYWx0ZWRfX/NAvnSxyaTwt
+ lna1ja8rayQ26eBspKC6sTFT7GnqUje6GEwaXyIwFUOv/Tq8o62PJP57Rqe0wcb3ihHStD+cWEl
+ D5v36aCGr7yALmh9xHQ7josJErPgg4cjk2MxNvpUD+DNGDQ8oAfhz85z/XlpZdWQOrMAACtZx2d
+ tRz9VU3YTodyNJp5gI5oMjgqNNVKMyzbW+M6cPyvRESvIrZqOxJl3K4fDFnc2g4tf3cwzmTDXpO
+ jYUNjqG9DFR4w2+0varUhY9/CYwK5BqyyeznWaclra0djS6FmDGRPkAQjJpXNUlG4zaPkqECsav
+ 5JOj/K6Pwu3FPZ54DYe/mpwqV+lf9n+wtoqdTgkElSQW2TDmruwJeqrRCmpWThAQvQC+aoOlmgy
+ E1vN9+qL4Y6XhBo4/0xrDYlvkCgmUpCccx8kGEaBv1iTuaGxrZ3vPT+woJ745QO+yL3eN1G0Pi7
+ GviWgOT0od3pMsPAZPw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
+ adultscore=0 bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160033
 
 
 
+On 9/15/2026 3:59 PM, Andre Przywara wrote:
+> Hi Yin,
+> 
+> thanks for the reply!
+> 
+> On 9/15/26 08:49, Yin Li wrote:
+>>
+>>
+>> On 9/14/2026 8:26 PM, Andre Przywara wrote:
+>>> Hi,
+>>>
+>>> On 9/14/26 11:37, Yin Li wrote:
+>>>> From: James Morse <james.morse@arm.com>
+>>>>
+>>>> The MPAM driver identifies caches by id for use with resctrl. It
+>>>> needs to know the cache-id when probe-ing, but the value isn't set
+>>>> in cacheinfo until device_initcall(). Even after device_initcall(),
+>>>> the cache-id is only available if at least one CPU associated with
+>>>> the cache is online.
+>>>>
+>>>> Instead of making the driver wait, expose the code that generates the
+>>>> cache-id. The parts of the MPAM driver that run early can use this to
+>>>> set up the resctrl structures before cacheinfo is ready in
+>>>> device_initcall().
+>>>>
+>>>> Signed-off-by: James Morse <james.morse@arm.com>
+>>>> [ Yin Li: fix context conflicts in cacheinfo.c and cacheinfo.h; 
+>>>> guard the
+>>>>    cache_of_calculate_id() declaration with CONFIG_OF to prevent build
+>>>>    errors when CONFIG_OF is not set ]
+>>>
+>>> You can shorten that part in square brackets: doing adjustments due 
+>>> to rebasing is surely implied, and you can shorten the rest, like:
+>>> [ Yin Li: guard cache_of_calculate_id() prototype ]
+>>>
+>>> Speaking of which ...
+>>>
+>>>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+>>>> ---
+>>>>   drivers/base/cacheinfo.c  | 17 ++++++++++++-----
+>>>>   include/linux/cacheinfo.h |  3 +++
+>>>>   2 files changed, 15 insertions(+), 5 deletions(-)
+>>>>
+>>>> diff --git a/drivers/base/cacheinfo.c b/drivers/base/cacheinfo.c
+>>>> index 9f9c72727a05..f75e7f64038b 100644
+>>>> --- a/drivers/base/cacheinfo.c
+>>>> +++ b/drivers/base/cacheinfo.c
+>>>> @@ -226,8 +226,7 @@ static bool match_cache_node(struct device_node 
+>>>> *cpu,
+>>>>   #define arch_compact_of_hwid(_x)    (_x)
+>>>>   #endif
+>>>> -static void cache_of_set_id(struct cacheinfo *this_leaf,
+>>>> -                struct device_node *cache_node)
+>>>> +u32 cache_of_calculate_id(struct device_node *cache_node)
+>>>>   {
+>>>>       struct device_node *cpu;
+>>>>       u32 min_id = ~0;
+>>>> @@ -238,15 +237,23 @@ static void cache_of_set_id(struct cacheinfo 
+>>>> *this_leaf,
+>>>>           id = arch_compact_of_hwid(id);
+>>>>           if (FIELD_GET(GENMASK_ULL(63, 32), id)) {
+>>>>               of_node_put(cpu);
+>>>> -            return;
+>>>> +            return ~0;
+>>>>           }
+>>>>           if (match_cache_node(cpu, cache_node))
+>>>>               min_id = min(min_id, id);
+>>>>       }
+>>>> -    if (min_id != ~0) {
+>>>> -        this_leaf->id = min_id;
+>>>> +    return min_id;
+>>>> +}
+>>>> +
+>>>> +static void cache_of_set_id(struct cacheinfo *this_leaf,
+>>>> +                struct device_node *cache_node)
+>>>> +{
+>>>> +    u32 id = cache_of_calculate_id(cache_node);
+>>>> +
+>>>> +    if (id != ~0) {
+>>>> +        this_leaf->id = id;
+>>>>           this_leaf->attributes |= CACHE_ID;
+>>>>       }
+>>>>   }
+>>>> diff --git a/include/linux/cacheinfo.h b/include/linux/cacheinfo.h
+>>>> index fc879ac4cc4f..c33bb3c8bd63 100644
+>>>> --- a/include/linux/cacheinfo.h
+>>>> +++ b/include/linux/cacheinfo.h
+>>>> @@ -113,6 +113,9 @@ int acpi_get_cache_info(unsigned int cpu,
+>>>>   #endif
+>>>>   const struct attribute_group *cache_get_priv_group(struct 
+>>>> cacheinfo *this_leaf);
+>>>> +#ifdef CONFIG_OF
+>>>
+>>> Why is that, exactly? First IIUC it's quite uncommon to use #ifdef 
+>>> guards around prototypes (unless they are stubbed without the symbol 
+>>> defined). Using types protected by those symbols if certainly another 
+>>> reason, and it looks like this would be the case here, but I had no 
+>>> trouble building the kernel for x86, where CONFIG_OF is not defined.
+>>> So can you share a .config example (or give a hint) as to where this 
+>>> fails building?
+>>> And if it does, wouldn't it be better to always include <linux/of.h> 
+>>> in that file instead? I think I see a similar pattern elsewhere 
+>>> (rfkill- gpio.c, sound/ac97/bus.c).
+>>>
+>>
+>> Hi Andre,
+>>
+>> On the #ifdef CONFIG_OF: I also verified that removing the guard doesn't
+>> break the build. However, since the implementation in cacheinfo.c is
+>> itself guarded by #ifdef CONFIG_OF, exposing the prototype
+>> unconditionally could cause a link error on CONFIG_OF=n builds if called
+> 
+> How so? Just exposing a prototype wouldn't be a problem, as long as you 
+> don't try to call that function. And that would be caught by the linker, 
+> and then you have a different problem anyway (the caller).
+> 
+> The only reason to protect the prototype would be if a type used in the 
+> parameters is not defined. And on the face of it "struct device_node" is 
+> an OF specific type, declared in include/linux/of.h, but as mentioned, I 
+> can't produce a compiler error, and even if so, would prefer to include 
+> of.h instead.
+> 
+
+Hi Andre,
+
+Thanks for the review.
+
+I'll drop the #ifdef guard in the next version.
+
+Just to clarify: MPAM depends on ARM64, which selects OF, so CONFIG_OF 
+is always set in any configuration that enables MPAM. I had kept the 
+guard as a precaution for potential callers outside that dependency 
+chain, though I take your point that this would be a caller-side issue 
+rather than something to address in the header.
+
+
+>> from outside the ARM64/MPAM path. A more idiomatic approach might be to
+>> use a stub to keep the header consistent with the implementation:
+>>
+>>    #ifdef CONFIG_OF
+>>    u32 cache_of_calculate_id(struct device_node *np);
+>>    #else
+>>    static inline u32 cache_of_calculate_id(struct device_node *np)
+>>    {
+>>        return ~0U;
+>>    }
+>>    #endif
+>>
+>> Would that work for you?
+> 
+> That's not necessary and doesn't solve the problem: the struct 
+> device_node would be present in both branches, so that doesn't help. And 
+> given there are no preprocessor protections for OF or ACPI in the whole 
+> of mpam_devices.c, that's a non-issue, I'd say.
+> 
+>> Otherwise I'm happy to just drop the guard in
+>> the next version.
+> 
+> So can you say whether you have a .config that does not build? Or was 
+> that issue just pointed out by some picky AI review tool?
+> Otherwise I would drop the guards, and wait for the kernel test robot or 
+> Arnd's infamous randconfig builds to show up the exact problem.
+> 
+
+For context: I did experiment with wrapping all the OF-specific code in
+mpam_devices.c with #ifdef CONFIG_OF, but dropped it for the same reason
+— the MPAM driver depends on ARM64 which selects OF. I then kept only 
+the header guard as a precaution for potential external users, but as 
+you point out, that's not necessary either.
+
+Thanks,
+Yin
+
+> Cheers,
+> Andre
+> 
+>>>
+>>>> +u32 cache_of_calculate_id(struct device_node *np);
+>>>> +#endif
+>>>>   /*
+>>>>    * Get the cacheinfo structure for the cache associated with @cpu at
+>>>>
+>>>
+>>
+> 
+
+-- 
+Thx and BRs,
+Yin
 
