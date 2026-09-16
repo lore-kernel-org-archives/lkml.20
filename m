@@ -1,226 +1,234 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011061.outbound.protection.outlook.com [52.101.52.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f3.google.com (mail-oi2-f3.google.com [74.125.231.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6064AAC45
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573988; cv=fail; b=kv590S3qI6b6mECtUzGtSObAA5qHD1GtAfhw3WhqsiwVe/SRsLbQhLoknk83HrTMsIbMM+XaJqhHvj5FUPD+d/Qd1I8TdEKN3FuVKNwASnWDO//EZaxjMS+hiVRIrAr0U0ftn9Ib0eXR6GF+xhz028sq05FRQNCtsz953TPFxkY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573988; c=relaxed/simple;
-	bh=t67eiOrMC2/QbJqpN5SinjATgBJyZozE91YyJ7sMsLY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=YnnuKMIL/pV1CxcwY7PRMSkjAVko9/JSk2cbJ3NbFA8GOdFD6MYaPXv4AMMU4hpdjR/xB4ULuqark4BaJXjhcDkOsaxLwmDyVNu5bqYxFVYc92b8BUhs4wwE7S/HgRCRMT1ILYpdpE2QZRt7ZJoZVdrrP5RYfDXGRZFvzIzb9R8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Zm4hHol6; arc=fail smtp.client-ip=52.101.52.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Zm4hHol6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N0m/63BhAG4H8EMtbVt625WDPo/3Ihf0PNl3Ls4fKG/SrKckM3l34WdwCzEid29SFs2MoGm95kSjxYDSwGXEXdS4ZEJINUtEV8M9Sfs3Q2agIE9PqJllS3H1kbpQLFqpyNd+yfBn0zes+fNrVHGge1ODdhUEtFggE91WnGmtHkdpnnZDGLQhyl2oY6iLdHP9yaODPVg/Adt6mXPRIZ6KiPl6QPK3xcJ2uOflg1rV5nZJd9LCkIz7W5idVBfT1ELx0tgqDsrBabShtI1wJk3/ApaCvRXG9Qapf4uDaEHuZV5sT76vlX8tseXFyGJfEhjRJf79GPOJBwzfWEeHTOJ9iQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LtSO09yKmxRrxElDkEpbb6EmNMag2dq+a3dr68tq5IA=;
- b=ah6NP8O2Ovk3msCywQOIyYa8hnRgmfcpNjW6YoTfSGH+znDMz9fNsiLMo3m+kNdixaeZMV+g20e3Ij7DnzOtKB72onKvgfJYH2Q2iRM+6aAMycQsaYfD3XLUtRsjvSRkFwBly5xYbdoDUS/hl9DjlF/zz9ivnglNpFKvkoElnRMiR6LtIaSgBnQZonGHlSZVTLh5JXXMXKrc259z4Ch2cAtsfgHTHQuApp2ws5PEVCSfxZhuaszF7VEVyNLBq/7QbNppqczVYSsLy4g+As0wd2CeFsb4fO/eEHDnBjDtsiZRl7BUjkJcR4oaR8IhJVKCPGuhi4zKYffVODE35BWWdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LtSO09yKmxRrxElDkEpbb6EmNMag2dq+a3dr68tq5IA=;
- b=Zm4hHol6pSFrgWhpLLBPWv3A1Ge7u/zo0VSkNbloF7svPqC3iGh4JQUL//6CTEw0QGINkmHiKqOGuEqvcwrCEFOKkKOs82CSSnn8Zu8ZG+dQKlwWFRYcplL/4SgtyBttbhY5mJr2DTDPHz6IUUwpdMZ1l9kHaD8Di7fQrdTjaoxMBcJZVjNWQKHUqIe3PTxSKgl9sxTtN9jqWdecnRVF6AJIk8+9a4ZoZuGP1w2jEwuPXChWNPQohXG8J6Rr1hDR1fupIeLKNd1mc6HoeNl+2cMO8OT2n6rE84mfqidMWsoIllEJKJZRo3hwb+qjOEk9DxPX1akZ/+5ONpnwD0tvoA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by CH3PR12MB9026.namprd12.prod.outlook.com (2603:10b6:610:125::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 15:52:50 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 15:52:50 +0000
-Date: Wed, 16 Sep 2026 17:52:42 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 07/18] sched: Add sched_ext hooks for proxy execution
-Message-ID: <aqq7Si1D3P2et_gw@gpd4>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
- <20260831134338.1531664-8-arighi@nvidia.com>
- <20260910103818.GH4120091@noisy.programming.kicks-ass.net>
- <aqmq7iahwiBR34zU@gpd4>
- <20260916090017.GF4121339@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916090017.GF4121339@noisy.programming.kicks-ass.net>
-X-ClientProxiedBy: MI2PEPF00000B85.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::41c) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73204D795E
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:53:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789574004; cv=none; b=L8ln5jMVnVbBJlObSGdIwHXp9NLjtpZapNz2KaETaU2eNXowreJoikapPoEBuPSWv8n7FPI+pcVFayZ0c3QvowvqvJbTwpvaNmzMxOsCHncm2cAzJj1IbzVo0HPYQxwzppEwJcrsemqoVxDp/0eBHadvUfOtUBX7ELSkv/mf9S0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789574004; c=relaxed/simple;
+	bh=H4dJSFg6iQExsnc8GmQ9MXm9bqW8/LCdhPf9gwQ9qsQ=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=AwuA0oEPyNM3revyj2reXtzuScyEPQiFYD0af/LI3KPmjGqGTzyvel8/NnstPC5CcFy/W4V7+/NZhMiD2W2MwtYdO4ouPNArpOghWELX9SpGMZxKvnjefiZioDcX01xq/jxxH2cT2HdxuaMFuoXB11uBfa8KKOpLOZ2+Oe2uKbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f3.google.com with SMTP id 5614622812f47-4b38a6e8c79so1961501b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:53:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789574000; x=1790178800;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oVuTkQSbYJyd5mxryohh1p8C995zu7x9GMGJgIy3IbA=;
+        b=E61Qz/h0hlJmRpsJi1zCYcxreOglBhSWZ9b8FNcHQgJsJdpssWSBtzrLCxW+f+p+Z7
+         IMCCTAH+348qv2+39H91KiQpNzYoMqiGr4uG1DEBDouUKrK4m3bYZiPlX3vcfVibIQvm
+         xA30nAwGyxpzBAaxxGW10oH258hxWE6wVqfnUjl4w8F9GCtqXGq4V1j1TBoVlw/AoBy/
+         jJdBxkuhWTZaOv1+2EHL0yqZDRr/87o+xwl5mzhRcgaYbUKcMy/yFRzXuDrGlHhH2dL2
+         Enhmcbu5/NLKh6j7gr0/QNoiAfGwzuQUyNdx4qHQmBrG9aKca7y8Rqbf17ss7QUEHjfL
+         saNw==
+X-Forwarded-Encrypted: i=1; AKwUvBzfc9LdZBhcCcDQ0aq1AjW95YfBEupV/zE4RIvlAvmvOva4D8UUsoV3KSz88RRvYyyr9drWaRrQHsmDvWk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHO3HRykZHmRwIWEftlJ2k1NHK3YpAWjIXjI+/f2TdYFSUCMH1
+	ZJPgNn/Qk/Cgi3cd3seoOdSlsl8GkiIpTZVRrG/zW9WXFtMD/TlZjBksL/nNWhIRsqX2sW4519y
+	xK5DaO5y+170pz8sNRukgRXrYcJ+6ae1qqPoilTQ9c4Z7p+fvbKiRCqNxCLU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CH3PR12MB9026:EE_
-X-MS-Office365-Filtering-Correlation-Id: c455f84c-a812-4982-264f-08df140a8f9c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	DCqqVot+WrnJkmsUBjglHnSIwzrY6LbSKBc4XBBbpnj6+tWflDWDODQjcjfTAEYM/67cRtkzJscn+xIvTR+3xexEQ/0CHVOima8FS7beR4gUhXtziGrYADP0N8u6vTYH+Hz/gsspJVkbLab1dRySpFomEoO24pE9j35Rl5w7yC+lCQPc4k1FYiEqoalvHL97JNuSAuCkV1e6nfXQUizesMRQmkWrkCpiU8KoTlYaECjIXKbFbTiG91zlKf3SeaCufy/o4w07Xs4sKF1JwGe9Uoz6mtiXsJiQqUi+FEZIbQzLMH0g03VVKsakjxDGThXfOJuoPMYmyeqRd7H6HnQ0jpbalzJcxPIm+PCCt+bH8UaxEwjdZykPK+8d8Gzxrn0UHzFkyV9tSzRmaO4mtJ4XGbGKWuMf2B2k6+u44KI+J3PjBY3Oin+XQPSXVNUid3b9OFMjLfD4K2MF64b8InH6v0D6Rw7MXPIo0+6/qRHC94yj5v+c6mC7DJz7uFtPfcRAajhwA9LsNlHp8Rn5aT3CHAXMzrx0jaHalGjZL9Mr1mcTC0Y92wsjf+YA1PpltSPvJU+rmiBDW3KFtj4JMSLLC0jCb1OZ7HZQ176tqJwmA2g3KyBjtJDWPAdTtfAwveLmiC0uZGkow6JYEf+3aDMVS7LARZ2uSaZL9ofxG9boyCY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VTCPA0v41OarCuK50Y487zt7sQeO5qgwEiEA0iyVZYt/lUbzCKAQZON/t9/i?=
- =?us-ascii?Q?CAKQXpLakLOHaR2T0LrqhtecxFSJngibfGQ4klfr6v3rS0ffL2IUjM+uclHy?=
- =?us-ascii?Q?OWd97KzTFLhJzTmODmRxFrNPkPBnwz6UBA3QSF8Z+psreqKgMVAWllrQ68Qq?=
- =?us-ascii?Q?Z0iMkFHyv4zzaBA8JNZ7rWchNYLbOAWZXo4954OnHcKmMQKygqpuA1Pj2dAN?=
- =?us-ascii?Q?HTxO14O9Pd8V2faMjCzMCcnARfxovzmDdq70TidivNcoxMAot8Fcoy7ui0Li?=
- =?us-ascii?Q?0tHUcG+HcTqtvPN14UjYZTJFP8mZean6EQWbIPSlu+4St/IIrgNmQCOJENyj?=
- =?us-ascii?Q?Q3re2CyiFCdH79p5nlboFrhh6pJA2hN4zpWb9L1GN1IF10+mCPVQaA54Giyn?=
- =?us-ascii?Q?8g4pvhZoZ3yyC5r4HchzgSTOcXkdsdf4SoUMj4cHfbRZ/tbTmm5GYqDO4x3n?=
- =?us-ascii?Q?nHMmEftN9oxAj6NyCwth7qjWFNsHVXh0H0baFw1uwHMtST1K63ugNa8rSYSB?=
- =?us-ascii?Q?rqlCr7cTKlgNqXahri44lHwRMhZ0uEe0Xht3iZigoWC47kfucZWUFwktVAIg?=
- =?us-ascii?Q?F/ZPbJ/Olqql7acbWgGsSUKY9VUKHZaY0kn27NX16y8tKLPZ+oTExtf793Ri?=
- =?us-ascii?Q?E91zBCMIUvEjb3KrBCw0hxaIuxF+iWZcw/SR0jy0ddyNNOr01llSYJDaZjHN?=
- =?us-ascii?Q?mGIGHffRNSbkjEu4S0FKQLWx9ySBns2yFgId8DwH3DE+zUptD4MHlurnjUJd?=
- =?us-ascii?Q?Hy4aE3DV10x3KNBGN/jvHl/hFXzs6wvnv/TDK2BdNjQtTkz/iuD/Ok01s93t?=
- =?us-ascii?Q?+W+itWYZ10dwkIyMy83EIcLtIvNIXdnKoU0WHJMSwY57veut/Pe3dCRdBLgK?=
- =?us-ascii?Q?hVD96Lt0s0AcMgJkyzxovIO7PabXuhF2q67anrdoiqZKfFdpa0BjJKnXicM9?=
- =?us-ascii?Q?mVfiaiRHOe+S1b3X9JJDbDqjTdZxjk8r14mpoO0Pp0/Nbq66bKl2lfKdZLUm?=
- =?us-ascii?Q?8LJa8Yy8DMp3nyBpxH1UCCZsje5QEaVWYZn4HqQN4ySw3a/bIJqvbiP/oQB+?=
- =?us-ascii?Q?ypHmNZSBpKC6cGWzPq0anhs1ghRcd2DRp7Xne2LuPNoAdoff2CHNz8p6d7dQ?=
- =?us-ascii?Q?5rv4bH605nfEayXiwSanKOy+Z9mt/4X42N2bYgs6XROOTw0XL2GKUyXfaI/q?=
- =?us-ascii?Q?MDwFLnt/oX60PaXsqQG6rA7/XwqaSkAe9KRKwXm84J1VqfXeuVZ9xASqRpZv?=
- =?us-ascii?Q?yB1groYfj04dbuPAm09Qif4wW6/T1Pf8lul2gZJLP9wWeQ56X8meOP9+X+q3?=
- =?us-ascii?Q?8Z6MvawFTO3AhDL+FgiYN+SBJaHzMbVkxBjGinGPvVoRj3OPhvaDSmtz209Z?=
- =?us-ascii?Q?PXoc9JI1Tb6hdT2ItpWjjAQ2m188kk6mAVHTpCL+jpYYrpW1rVy8AstIrdM3?=
- =?us-ascii?Q?Rm3KOe6S9q8XwhVG0x52xfL+jCBQri1Tx+eipPm+aTDag95hP8I5A+wcBzsF?=
- =?us-ascii?Q?uq7Bqx8aEaDN/MJ+Bb6y3ucDYliZ2tWecW6w8W4N6hHbeMKMw81KVbtShvB8?=
- =?us-ascii?Q?19PgYw8rKMHlvdJ9vzLKTwiLrGabqLaPwa3FRgWQT56UMrm4UMCDQ3olOYPx?=
- =?us-ascii?Q?81ELl09p8dadzN2pf4tmR8YHqKX0rrnpfQrLLwK2pN2hzDnCJeelCWvkXWe/?=
- =?us-ascii?Q?HzCwRcRZp7EYnU82K9vwAgwK0nsWqVMYOd8BqMQ/ptUMnYdtbZptRLamyHRb?=
- =?us-ascii?Q?/kvfRJ3swA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c455f84c-a812-4982-264f-08df140a8f9c
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 15:52:50.4518
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rlr1T5iYmWSTgCYKZKZS1bfeIfqzCylU25VWYW3PhaqmGMuW/sWjvpbCN2wQjuneWXlK/hvMjkrrvff1im9Xbw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9026
+X-Received: by 2002:a05:6808:1443:b0:4b9:e65b:8c2a with SMTP id
+ 5614622812f47-4ca4c285b2bmr3659574b6e.24.1789574000733; Wed, 16 Sep 2026
+ 08:53:20 -0700 (PDT)
+Date: Wed, 16 Sep 2026 08:53:20 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaabb70.86093f18.33004f.0003.GAE@google.com>
+Subject: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
+From: syzbot <syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com>
+To: code@tyhicks.com, ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Peter,
+Hello,
 
-On Wed, Sep 16, 2026 at 11:00:17AM +0200, Peter Zijlstra wrote:
-> On Tue, Sep 15, 2026 at 10:30:38PM +0200, Andrea Righi wrote:
-> > On Thu, Sep 10, 2026 at 12:38:18PM +0200, Peter Zijlstra wrote:
-> 
-> > > > @@ -7264,6 +7264,8 @@ static void __sched notrace __schedule(int sched_mode)
-> > > >  			donor->sched_class->put_prev_task(rq, donor, donor);
-> > > >  			donor->sched_class->set_next_task(rq, donor, true);
-> > > >  		}
-> > > > +		scx_proxy_donor_start(rq);
-> > > > +		scx_proxy_resolved(rq);
-> > > >  	} else {
-> > > >  		rq_set_donor(rq, next);
-> > > >  	}
-> > > 
-> > > Can you expand on the need for scx_proxy_resolved() ? I understand the
-> > > other two, but this one I'm struggling with a bit.
-> > 
-> > Yeah and the name is a poor choice, it should renamed
-> > scx_proxy_reenqueue_retry() or something similar.
-> > 
-> > It's the retry point for a task that sched_ext couldn't move while
-> > processing a dispatch from a remote DSQ (used later in the series).
-> > 
-> > When sched_ext consumes a task dispatched to a CPU other than the one
-> > whose rq currently owns it, it may find (after locking the task's
-> > source rq) that proxy exec has made the task either the physical
-> > current task or the active donor. It can't migrate the task in that
-> > state, so it parks the task on the source rq's reject DSQ.
-> > 
-> > If the deferred reject-DSQ drain runs while the task is still current
-> > or donating, the task must remain parked. Retrying immediately could
-> > spin until the proxy relationship changes. The hook provides the
-> > notification that proxy selection has run again, allowing sched_ext to
-> > schedule another deferred drain after the current context switch.
-> > 
-> > I couldn't find an existing event that covers this transition without
-> > periodically retrying the reject-DSQ drain. Is there a better place to
-> > trigger this retry?
-> 
-> Ah, so its a little like that problem we had with ->balance() and
-> ->pick_task(). Where a task gets taken off the DSQ and moved to the
-> local queue, but when not picked, it must be moved back.
+syzbot found the following issue on:
 
-Exactly, that is the same general kind of problem.
+HEAD commit:    f6e7b42bf05b Merge tag 'sysctl-7.03-fixes-rc4' of git://gi..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=148603f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e909ffe6b35dddb7
+dashboard link: https://syzkaller.appspot.com/bug?extid=b9529ebe6a9394ddf825
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=119813f9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=174acdf9580000
 
-> 
-> In this case, ->donor is visible to ext and all is well, but ->curr is
-> not so easy.
-> 
-> I'm still a little confused though, why not leave blocked tasks on this
-> reject queue. If they're needed, the proxy mechanism will move them
-> around. They won't actually ever run except through proxy.
-> 
-> The point where they will become runnable again, is through wakeup. So
-> why not delay everything until that point?
-> 
-> Or am I not understanding ext again?
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-f6e7b42b.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/93106cf47a8e/vmlinux-f6e7b42b.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/e73f0f00e455/bzImage-f6e7b42b.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/55bc8f3c0251/mount_0.gz
+  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=108603f9580000)
 
-I think the missing detail is that the task rejected by the remote DSQ transfer
-isn't necessarily blocked.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com
 
-Consider a blocked donor D proxy-executing a runnable EXT mutex owner O on CPU0.
-O is rq->curr and D is rq->donor. Since O is executing using D's scheduling
-context, O's own EXT scheduling entity may still be on a non-local DSQ.
+XFS (loop0): Ending clean mount
+XFS (loop0): Quotacheck needed: Please wait.
+XFS (loop0): Quotacheck: Done.
+==================================================================
+BUG: KASAN: slab-out-of-bounds in ecryptfs_verify_auth_tok_from_key+0x38f/0x3a0 fs/ecryptfs/keystore.c:473
+Read of size 2 at addr ffff88803ae2a71b by task syz.0.17/5484
 
-CPU1 could concurrently consume O from that non-local DSQ and start transferring
-it to CPU1. After dropping the DSQ lock and acquiring O's source rq lock, it
-discovers that O has become rq->curr on CPU0 and therefore can't be migrated.
-O is then parked on CPU0's reject DSQ.
+CPU: 0 UID: 0 PID: 5484 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ ecryptfs_verify_auth_tok_from_key+0x38f/0x3a0 fs/ecryptfs/keystore.c:473
+ ecryptfs_keyring_auth_tok_for_sig+0xec/0x250 fs/ecryptfs/keystore.c:1606
+ ecryptfs_init_global_auth_toks fs/ecryptfs/main.c:194 [inline]
+ ecryptfs_validate_options fs/ecryptfs/main.c:420 [inline]
+ ecryptfs_get_tree+0x563/0x1370 fs/ecryptfs/main.c:453
+ vfs_get_tree+0x92/0x2a0 fs/super.c:1933
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount+0x319/0xdc0 fs/namespace.c:3848
+ do_mount fs/namespace.c:4181 [inline]
+ __do_sys_mount fs/namespace.c:4397 [inline]
+ __se_sys_mount+0x31d/0x420 fs/namespace.c:4374
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f355439e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f35552a4028 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
+RAX: ffffffffffffffda RBX: 00007f3554625fa0 RCX: 00007f355439e159
+RDX: 0000200000000480 RSI: 0000200000000440 RDI: 0000200000000400
+RBP: 00007f355443506b R08: 0000200000000500 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f3554626038 R14: 00007f3554625fa0 R15: 00007ffd4f4b3c68
+ </TASK>
 
-When proxy exec switches away from O, O stops being rq->curr but remains
-runnable. There's no wakeup in this case, because O never blocked. If it remains
-on the reject DSQ, it's no longer visible to the BPF scheduler and can't
-subsequently run using its own scheduling context.
+Allocated by task 5484:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5414 [inline]
+ __kmalloc_noprof+0x36b/0x720 mm/slub.c:5439
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ user_preparse+0x9e/0x160 security/keys/user_defined.c:67
+ __key_create_or_update+0x3a9/0xa80 security/keys/key.c:857
+ key_create_or_update+0x42/0x60 security/keys/key.c:1021
+ __do_sys_add_key security/keys/keyctl.c:134 [inline]
+ __se_sys_add_key+0x349/0x420 security/keys/keyctl.c:74
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-The rq->donor case has a similar issue even though that task is blocked: a
-blocked donor can stop being the active donor before the mutex wakes it (for
-example, if another scheduling context is selected). The proxy exec mechanism
-follows the owner chain after the donor has been selected, it doesn't select
-tasks from the internal reject DSQ. Leaving the donor there until wakeup would
-prevent it from being selected again for proxy execution in the meantime.
+The buggy address belongs to the object at ffff88803ae2a700
+ which belongs to the cache kmalloc-32 of size 32
+The buggy address is located 0 bytes to the right of
+ allocated 27-byte region [ffff88803ae2a700, ffff88803ae2a71b)
 
-This is why the retry is tied to another proxy selection point, once the task is
-no longer rq->curr or rq->donor, it can be re-enqueued to through its BPF
-scheduler.
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x3ae2a
+flags: 0x4fff00000000000(node=1|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 04fff00000000000 ffff88801b041780 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000400040 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2800(GFP_NOWAIT|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5056, tgid 5056 (rm), ts 60539039982
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7417
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __kmalloc_cache_noprof+0x39b/0x600 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ slab_free_hook mm/slub.c:2700 [inline]
+ slab_free mm/slub.c:6508 [inline]
+ kmem_cache_free+0x156/0x650 mm/slub.c:6635
+ tear_down_vmas+0x31f/0x530 mm/mmap.c:1277
+ exit_mmap+0x4ca/0x9f0 mm/mmap.c:1335
+ __mmput+0x118/0x420 kernel/fork.c:1193
+ exec_mm_put_old fs/exec.c:919 [inline]
+ setup_new_exec+0x30d/0x360 fs/exec.c:1386
+ load_elf_binary+0xbc0/0x28d0 fs/binfmt_elf.c:1024
+ search_binary_handler fs/exec.c:1765 [inline]
+ exec_binprm fs/exec.c:1797 [inline]
+ bprm_execve+0x930/0x1590 fs/exec.c:1853
+ do_execveat_common+0x4f4/0x670 fs/exec.c:1951
+ __do_sys_execve fs/exec.c:2024 [inline]
+ __se_sys_execve fs/exec.c:2018 [inline]
+ __x64_sys_execve+0x97/0xc0 fs/exec.c:2018
+page last free pid 5056 tgid 5056 ts 60538565273 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
+ tlb_batch_list_free mm/mmu_gather.c:161 [inline]
+ tlb_finish_mmu+0x13e/0x220 mm/mmu_gather.c:552
+ exit_mmap+0x4b2/0x9f0 mm/mmap.c:1328
+ __mmput+0x118/0x420 kernel/fork.c:1193
+ exec_mm_put_old fs/exec.c:919 [inline]
+ setup_new_exec+0x30d/0x360 fs/exec.c:1386
+ load_elf_binary+0xbc0/0x28d0 fs/binfmt_elf.c:1024
+ search_binary_handler fs/exec.c:1765 [inline]
+ exec_binprm fs/exec.c:1797 [inline]
+ bprm_execve+0x930/0x1590 fs/exec.c:1853
+ do_execveat_common+0x4f4/0x670 fs/exec.c:1951
+ __do_sys_execve fs/exec.c:2024 [inline]
+ __se_sys_execve fs/exec.c:2018 [inline]
+ __x64_sys_execve+0x97/0xc0 fs/exec.c:2018
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Thanks,
--Andrea
+Memory state around the buggy address:
+ ffff88803ae2a600: 00 00 00 fc fc fc fc fc 00 00 00 00 fc fc fc fc
+ ffff88803ae2a680: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+>ffff88803ae2a700: 00 00 00 03 fc fc fc fc fa fb fb fb fc fc fc fc
+                            ^
+ ffff88803ae2a780: fa fb fb fb fc fc fc fc 00 00 00 00 fc fc fc fc
+ ffff88803ae2a800: fa fb fb fb fc fc fc fc 00 00 00 00 fc fc fc fc
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
