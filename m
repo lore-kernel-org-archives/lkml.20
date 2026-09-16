@@ -1,40 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5573D9DDF;
-	Wed, 16 Sep 2026 10:53:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25934E8DE6
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556022; cv=none; b=PkOJLpFdSe1CvIdzht7Hzv4ri1MY4VoSp7/+HQG+DsNoG1IiJD4Y2Xp8+SNqqYRUtvkN0RT25KB+i6+rdTQqVkQpv1Y2rPxEI8BzcFymU1mH8OiwvJMRBcerFUPAJz7ZPWYdragZUzKBe1SZl79sQlTMprZAbxEThiYYvjZuxVs=
+	t=1789556058; cv=none; b=VKtZo6YwuOw0kFG0IZ+XUjQrN4imonMTmqR/UshOGQtaQV1jLqHG9QXQ05RhPvJG7c3ZnO4QlzTrPsggFURvfvWaUSfz6IBgBYIsfaLt0HMukmm3BFoLY/UrCc0HvSecZ8U4NlzVTiM/WwlGpRNaih34iylRZg2xfEYfZZtQ/Fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556022; c=relaxed/simple;
-	bh=xSr8Uu2oKidqPxzSvVxRAoaqy4vM4BfWRXbMmHienkU=;
+	s=arc-20240116; t=1789556058; c=relaxed/simple;
+	bh=m4X7MRZWd3cNk0VKYyFRiUeErjk5zJGY72sxjbNNxKk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eeF3PkYZA0tUEbjdJ8fzxSQX631UOZCGFt/+F0H4qeYt/CNOC+y+yzhBjIVm3DEM/hYh4EpRinwZIYi2dMmOQgHBGYjnL0r9BC1hMe5EOItElOCNJRjoGI1bVuGbv6reAzaeqIcUjrWsLV8HlxQaNACyRnTOxkBY3AMcUqo4XPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kG4O9Br3; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Se3D6vmKnJbu2ZtolMCSugTJtYpKFgpBNl2jVYhDhYeqVpgIwqxGfMiBJZlXuxOWBiJhYA9ONTM0AaPQP6efjJms86QCgM01PaGd5iZzmz7zO+OUzUi/nfaYt+m1bfvVb95zWUyOpsYSvU1FtPqpmsrI1e7III0JLJWUTIlfdnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ETII8s4i; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kG4O9Br3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA071F00893;
-	Wed, 16 Sep 2026 10:53:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789556004;
-	bh=pefdrnbdIECiwgYAQfU7yIbEiMypmMVgKgxK480YuaY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kG4O9Br3WAK1PzkhJcbWSwDnlox1pO3Huy0+kgqvdmn0YwdK5CMq7R2HO2g6txwu6
-	 VxiqTD1d5EKKLa01nKWU4YdD6FPxwVPMpcOO53Hkf8/XtHkx6qFn0Q+YG/BVtqO/hY
-	 LRRuGSfrCvcFsl9Qo3ljdm2LGRlbTpYepVXarPzfOI9ag45xml/XrG17wFZf9thGBU
-	 brAAKIqQvRfi1MVPgO7Y1QevCiIlbjml2RJAl7zYhqDRsKruVIHyHYrAhUS4MemnjK
-	 ZY5/lvjQwOb7zzUDyURspTeAyPYSotuP8JGZQruN5SukZX+Tiy1C5RTpU/cE/FtGVM
-	 L4UwoDIt9ws/Q==
-Date: Wed, 16 Sep 2026 11:53:20 +0100
-From: Lee Jones <lee@kernel.org>
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	William Breathitt Gray <wbg@kernel.org>, linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/15] MTU3 counter fixes and improvements
-Message-ID: <20260916105320.GP11487@google.com>
-References: <20260914203614.2035277-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ETII8s4i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789556047; x=1821092047;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=m4X7MRZWd3cNk0VKYyFRiUeErjk5zJGY72sxjbNNxKk=;
+  b=ETII8s4iAi/buVGnMFYThsauIgUpejOlo/TTz9H/ihjzQpCVCBffTZuI
+   uJTfYiLgtvrJUvZQhMvZy5oVBVdeXr/QHCRoDq4jdlMH+n5gAz7Xfp8xZ
+   B997pfQoJWzru0SrSQ5s3PNATy0AeMsyyWTIkz6Tq8bYI9ya8Lc4wXz9A
+   E+5ru2FLixhfmirNNHfZKGaBH602J2HfPGLXe+BDD+L8MhpvlTCy7iWoQ
+   PGnt08v++U69b/GJwXVn6UhDu6uZ3OE1auU1mWbRFs2fSYDf/1j0Oy0YM
+   F6f7hJM+cLMaZw8DeQyRQJm0yznwMAZ4hn4wiD7egw9OO65bapxvOBUZk
+   A==;
+X-CSE-ConnectionGUID: 5GNyxhHpTDKe0eczv6glBQ==
+X-CSE-MsgGUID: R4LZ9wtrT5qfXHVYWOdoww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92435977"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="92435977"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:54:01 -0700
+X-CSE-ConnectionGUID: 3tBVsHOyRI+fdT7YcSwq/w==
+X-CSE-MsgGUID: QSVgFW3ST+i+qE11Rxk29w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="1528991"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:53:59 -0700
+Date: Wed, 16 Sep 2026 13:53:56 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Ziran Zhang <zhangcoder@yeah.net>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>,
+	David Howells <dhowells@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Jordan R Abrahams-Whitehead <ajordanr@google.com>,
+	Marco Elver <elver@google.com>, Nilay Shroff <nilay@linux.ibm.com>,
+	Edward Cree <ecree@solarflare.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] list: add missing empty list check to list_cut_before()
+Message-ID: <aqp1RMcCSBftjsyn@ashevche-desk.local>
+References: <20260916100001.10634-1-zhangcoder@yeah.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,41 +65,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914203614.2035277-1-cosmin-gabriel.tanislav.xa@renesas.com>
+In-Reply-To: <20260916100001.10634-1-zhangcoder@yeah.net>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 14 Sep 2026, Cosmin Tanislav wrote:
+On Wed, Sep 16, 2026 at 06:00:01PM +0800, Ziran Zhang wrote:
+> list_cut_before() lacks the list_empty() guard present
+> in list_cut_position().
+> 
+> With an empty head and an entry not on the list, it
+> corrupts the list.
 
-> This series does some code quality improvements to the MTU3 counter
-> subdriver, while also fixing bugs and adding caching support so that
-> registers are not touched when the counter is disabled, as there is no
-> request API.
-> 
-> Patch 3 relies on the following series to enable runtime PM on the
-> parent device so that the PM domain handles it automatically.
-> 
-> https://lore.kernel.org/lkml/20260914201456.2018403-1-cosmin-gabriel.tanislav.xa@renesas.com/
-> 
-> Cosmin Tanislav (15):
->   counter: rz-mtu3-cnt: put runtime PM on initialization error path
->   counter: rz-mtu3-cnt: do not assign struct rz_mtu3_channel::dev
->   counter: rz-mtu3-cnt: remove manual runtime PM handling
->   counter: rz-mtu3-cnt: use device-managed pm_runtime_enable()
->   counter: rz-mtu3-cnt: read enable value from cache
->   counter: rz-mtu3-cnt: disable channel before releasing
->   counter: rz-mtu3-cnt: unify ceiling values
->   counter: rz-mtu3-cnt: cache ceiling values
->   counter: rz-mtu3-cnt: cache count values
->   counter: rz-mtu3-cnt: cache function values
->   counter: rz-mtu3-cnt: cache external input phase clock value
->   counter: rz-mtu3-cnt: cache direction values
->   counter: rz-mtu3-cnt: keep cascade_counts_enable in sync with usage
->   counter: rz-mtu3-cnt: drop conditional locks
->   counter: rz-mtu3-cnt: use pm_runtime_resume_and_get()
-> 
->  drivers/counter/rz-mtu3-cnt.c | 443 +++++++++++-----------------------
->  1 file changed, 139 insertions(+), 304 deletions(-)
+Is it IRL case or the code analysis? If the former, add necessary information
+like hardware description (if applicable) and the important ~3-5 lines from
+traceback (I assume you rung with CONFIG_LIST_DEBUG=y).
 
-And these 16 emails are in my inbox because ... ?
+> Add the missing check.  When head is empty, initialize
+> @list as empty, consistent with the existing
+> head->next == entry case.
+
+Nice! Where is the test case?
 
 -- 
-Lee Jones
+With Best Regards,
+Andy Shevchenko
+
+
