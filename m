@@ -1,58 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87FD94DB54D;
-	Wed, 16 Sep 2026 22:42:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0474453A26;
+	Wed, 16 Sep 2026 22:45:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789598587; cv=none; b=cV4tFxZF4kr+OYevt0E+eZk8EdNYiqkETF2j/xuKznr5WF+v+EiBL2xkLPNHRL02kY/wxsrPxr9c/eL788zH0CvRJm2yf1IrHWwQlUkq78XhKxi2g+a9YdTjtoX51/b2IkepxJqtDqfgAHV69upIHzWczxyuToPkMMZh184fkfM=
+	t=1789598759; cv=none; b=XYye86viuPa0D4ouvHnWeCHvE+eqc3r72dk6Uldd05u5ZdsOKyDXlI2MxEYcSejUa0bcZOsJV95vHDR9XxJUVrgdKSixsCVjUzUe0k9UNrasTbW/jnmjEpd0Z0LbDjYJmt1K2kXaJMGJvc6uTFDkBGHEKcylU1Z0V4c4cdTEyMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789598587; c=relaxed/simple;
-	bh=NQInzHZEL8fqzVLolGkccH5qLsNLm/CzstawCeEqC2c=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=R03sBe6A0KmPJJ88PEtZpOgcrv+hHbmJDrHDgBhQ9KuTJEfDjtNlKdY5dRKFN6JvbIZOLZADI8ebIaHY3LkIP3eUo+McdBIQ2cFjfTpSHnMyowyL+647p7li9dXxII7TSjwr0q/m2zgSfKHyIXuQqTwTyDCl+lCuxd86d1kPkAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jxhGPYmp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789598759; c=relaxed/simple;
+	bh=QPJiK86gWczwyhvPZ/RtOdPnY9Fb/B11shcZsNCWri8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VPW7Vo0/KzgdCavUK21qg+D9W1Q4JvyF9ZKgje4bGwc09d/f2PTHUi4Wv56fHytCxDyXLYcLUJ/Rlh/Lso/Thc9jgGS7mtzZNx0hxEbL0woHF5tCAJUxNjXV5Scp6i/UGINzX5gOMiWVR+KdPNukmCEXAzWxS/bIwioFfx8Uveg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=fs+hCgF7; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jxhGPYmp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F7A21F000FF;
-	Wed, 16 Sep 2026 22:42:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789598567;
-	bh=qZCfPuOF3CwE/OcmSc0yij3ogOH6Mv1/81bgWBcOgD4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jxhGPYmpEI6Ybl89DleIf/AGD87BtCa2yG/BB6ZI8UdTKXBT+cl3vPNGzJiYGzuis
-	 1LHZ7jxzFOf2H21hQ+FthOtQVvvneSt+vFcDbrl0o5pncb9hiEv9m7P/B/6nknY97A
-	 wom5hdAwG83Eogel9CQNNBgWA/UjPq6S4XYnfRppjapxO8U5vhn3GwD32xO2bs81kb
-	 sH4OYjtPg2rmzPQiF4XW/xeFNJFFtKxUGxP3/ifEwL4zbiFLxv/+Ozwzh54VxaFTpP
-	 gs7N/9ESZfSv48ZjWK6dJYKp1810hjjAcz5jf5N7QrpVDzJYzUaNTZeQlnPNfE/hk0
-	 06+zoUjKx3L2w==
-Date: Wed, 16 Sep 2026 15:42:46 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Anton Danilov <littlesmilingcloud@gmail.com>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, David Ahern
- <dsahern@kernel.org>, Simon Horman <horms@kernel.org>, Ido Schimmel
- <idosch@nvidia.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 9/9] ip6_tunnel: add drop reasons to the
- transmit path
-Message-ID: <20260916154246.290ac83e@kernel.org>
-In-Reply-To: <20260916143717.1875082-10-littlesmilingcloud@gmail.com>
-References: <20260916143717.1875082-1-littlesmilingcloud@gmail.com>
-	<20260916143717.1875082-10-littlesmilingcloud@gmail.com>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="fs+hCgF7"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id DB2DB14C2D6;
+	Thu, 17 Sep 2026 00:45:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1789598748;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S0vKeMZP5O8XjD8NFaFZ+hYELsVn/1VFNg126B2KHt0=;
+	b=fs+hCgF7/LuEowH7wAbL5nKlzv1OH24p621QUlYZTo82FfDXJDAQNz7UiSEmskKXiH1nt8
+	zoqvDKRXSrtfstBCHKE07HMZ94E+S7viRMOTd3h9oZs+EM6xTFsufAegiuM3taPCCtqaWa
+	9dGTGnZ8hoZ7y0NuvdCy2S19ING1ImYye2oqJ6JYPH6P5zwHMgtyKQgn9FCFjOm0sorVKp
+	4GPZYbkaugumFBF9TrTMGowagXIRYJBjC+8sEJIOteShopY0rC1tTAfKGr32qiCdvKVFIH
+	aTnyUWlO6t6ERwO9VQEPHqH5hEAm4R3gg5u4laVBFv9Q0Qy1ZTuMx4DPDmVdmw==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 1d946a2e;
+	Wed, 16 Sep 2026 22:45:41 +0000 (UTC)
+Date: Thu, 17 Sep 2026 07:45:26 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Christian Schoenebeck <linux_oss@crudebyte.com>
+Cc: ericvh@kernel.org, lucho@ionkov.net, v9fs@lists.linux.dev,
+	Haobin Wu <853555@gmail.com>, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, aneesh.kumar@linux.vnet.ibm.com,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, jack@suse.cz, willy@infradead.org,
+	dhowells@redhat.com, viro@zeniv.linux.org.uk, brauner@kernel.org
+Subject: Re: [PATCH v2 2/2] 9p: skip directory entries with names longer than
+ NAME_MAX
+Message-ID: <aqscBuQli__0XUv4@codewreck.org>
+References: <20260916135403.15789-1-853555@gmail.com>
+ <20260916135403.15789-3-853555@gmail.com>
+ <3910569.MHq7AAxBmi@weasel>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3910569.MHq7AAxBmi@weasel>
 
-On Wed, 16 Sep 2026 17:37:17 +0300 Anton Danilov wrote:
-> -static inline int ip6gre_xmit_ipv6(struct sk_buff *skb, struct net_device *dev)
-> +static inline int ip6gre_xmit_ipv6(struct sk_buff *skb, struct net_device *dev,
-> +				   enum skb_drop_reason *reason)
+Christian Schoenebeck wrote on Wed, Sep 16, 2026 at 10:02:08PM +0200:
+> > +			if (namelen > NAME_MAX) {
+> > +				p9_debug(P9_DEBUG_VFS,
+> > +					 "skipping entry with %zu byte name\n",
+> > +					 namelen);
+> 
+> Fair to say why:
+> 
+>   "skip dentry: name length %zu > NAME_MAX"
 
-Pls ask claude to look thru the functions you're modifying and see if
-they can be changed to use the reason as the return code (using
-SKB_NOT_DROPPED_YET as success), instead of using the output argument.
+Agreed.
+
+I'd also say to keep this as P9_DEBUG_ERROR rather than VFS: it should
+be rare enough and nobody will enable DEBUG_VFS immediately, this keeps
+the message at the same log level as it was previously
+
+(P9_DEBUG_ERROR is not printed by default, but I've been meaning to
+try to change that eventually... Someday™)
+
+> This is only handled for 9p2000.L so far. For legacy 9p2000(.u) this should
+> then also be limited in v9fs_dir_readdir() IMO.
+
+In practice this was already the case because of the processing in
+p9dirent_read(), so I have no strong opinion here, but I do agree it
+makes more sense to be symetrical yes.
+If done it should be noted as a behavior change in the commit message
+(or split in yet another commit) though
+
+-- 
+Dominique Martinet | Asmadeus
