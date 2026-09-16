@@ -1,169 +1,241 @@
-Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4413E3DA8
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789538654; cv=none; b=GgFW9yqIbat53MeTFNIvaGSRhBNVJxd6ax8vVQfai1WPTG660aPypUnURQBvVCbs5OxItMv6yu6JXpFpNm6kLe9XBHoYUbUFsZ0+dy1Ax4IpOdbQZ2i0YEGN/Q4bQ2PUF4pTaw/kNaMZ6iTYMPGvs+l0/tPXYErhj9hPbheWEOU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789538654; c=relaxed/simple;
-	bh=Wjxk7Nkbncmp1+ATMZ2lzO7C1dQkbRu3+K8tHlPDmXk=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=f3CmKRk04CI1FJ4zWOfDJSisYGGkfbVmkjzzIKvbet9vLRmZqUz3UbEjS9px0ducqPhUabv8S3LMhahswk1I45jTr6f6GmqaVPzb+fnIzyYbTzMWA6tUNCKwk9RyX5M9/qQmkSDfGx9rYvFtAarECmJ1F4Zfp/jkP75SBU0+aTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hRLl4N7X; arc=none smtp.client-ip=91.218.175.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1AA3E3DA8;
+	Wed, 16 Sep 2026 06:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789538664; cv=fail; b=W8UNWbEopZwwEiwKlQ48BbOtlQV7yHbTUZH5ukYwzqiIm+OUmYdzQAgh0D5UV/9LFOUmVU+P4/si+AxNXhvRZBdX7m/IxpW/mH/XIzylHVET1oEy6SFlaBnc7q8uboMcGK8jxkbE2fCHmZcyYUgfyBYeRZ//eaLUShs+P3p7Syg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789538664; c=relaxed/simple;
+	bh=7vCqa5nHaa+GjdQ4rUd+XlJXIE7mOTGYLecHUafhgkI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=NER/dY4iNYuk17QNlJM5204ijCIAVObK+Qs0wcvUuCWkxHqGKLLDDD6IG/23PZt80/LE1or0zgui1m4cix/BxeagjW2F6XVLefSltToPi626yxBkSZq+40uwnBl02gLuwGUSTvBDk0BbZiXoiTtpVzlESXj5KjOfv6huVujE/nY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OsQmbxkb; arc=fail smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hRLl4N7X"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Wjxk7Nkbncmp1+ATMZ2lzO7C1dQkbRu3+K8tHlPDmXk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789538649; v=1; x=1790143449;
- b=hRLl4N7XdRohK/q0vgsb62X/bioqxaKPMgI1uejN0dj+a51QKxh0v89ZjFyqWr2ykVm0NAAn
- DKr+5piBu6j3OxnN1Eeegvrl1y48Yg2SH/8SrSQB0MGbl7QFVl1sSULduofyUSiGgmrCswBLzIt
- xaLoIxPCJ2NC17BBn4oVzGyE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id b599e5e885e3c597;
-	Wed, 16 Sep 2026 06:04:08 +0000
-X-Mizu-Trace-ID: b599e5e885e3c597
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 16 Sep 2026 09:04:04 +0300
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-rtc@vger.kernel.org, Sverdlin@mva-rohm,
-	Alexander <alexander.sverdlin@siemens.com>
-Subject: [PATCH v4 00/10] Support ROHM BD73800
-Message-ID: <cover.1789538455.git.mazziesaccount@gmail.com>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OsQmbxkb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789538663; x=1821074663;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=7vCqa5nHaa+GjdQ4rUd+XlJXIE7mOTGYLecHUafhgkI=;
+  b=OsQmbxkbjzu/fIMZ9hjJ/WkIkj1GkdXndyFkru7Agu2oyvvNIBBpFXJL
+   6WsWaa0aFsCAh7gGhgeGlWqqlGuRDJlihb+VeCdXbMIqdGHYhVpx//1tq
+   MQam0ox7qbr/5IjpyZQu7YBHvdx5RYLN6GkbxhvmfXvPzF4w5JQzo8xyV
+   V8iEwvYZdAtr50MzVHvyt/n7GOejPCyHLyLjJPct0vxEOGFkbAtk55aFH
+   8hbu8h1/LW8P7c5dmHyElJ94bToxMDHWgC8ZUjpp0BIYzL/iRioKGOFeM
+   lmNsxbV+OtoHeOq/BfrLGwazjJxDBkSF6B9UWSGV2akn/N2+/IX05iHpO
+   A==;
+X-CSE-ConnectionGUID: hREopjwpQvyXRHA6z3GqEw==
+X-CSE-MsgGUID: RlKOiqM1RG23fimCoemvWw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100233492"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100233492"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 23:04:22 -0700
+X-CSE-ConnectionGUID: d1L4kxLZRa6dFIGCRdvJMA==
+X-CSE-MsgGUID: yYAdE6BcSfK1f+1j3q3QVA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="273204288"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 23:04:23 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 23:04:22 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 15 Sep 2026 23:04:22 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.45) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 23:04:21 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WtXHz/HYzaJbwyC5YNgMnUBMaT890KfTE1f74UoWatLzk0SxoAeYXfn9YAuw35QM9NAFw0111a/F4eoyjnI+FpsBAeaiiWw6KFGmv14q/RbQml3BSlp84q1r4Fe4q2nk5ZlHeJeQVW03UGLmlRKuuxGgPmjhUnCA0peiNBP/ckL88PpzxWJcD29mbzYat/w1/9e+AMKSSDpeeHE4/wsmSaqiLDt1wREw1sCREe/linXD/tHuCJXtLFZNRUxt67f4mQDFC0jIGPXLv+YxU3Z9RnUThEZrOnHXFk0mzV1tpfnEZfDbxGbLWIJBkYJVvQg/cvjGVdkdni3kDYCrVu83xA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vEmPcP9TiEvZIaVyd10Sbnz3P5xZ8222/JZ9O9Rc20I=;
+ b=PRxSMf8a0ao0MLfm+M9nk9K6Ml3eSoqcdMiHm7lHyaWpvp+xcEJ8+RG6eKUW0sMpzqaudhzVsAoGO+hvGpKO64R38Iu+i+6eBbMxbOugQ9HqlF3ni2oNM5pudxBfGWCuj16m/mZ10WYAU+L7IcePgzGIBN+L9m+/klsvNR21VZiLYK+k/WtrvTuITNQsNNc7jdQsilOWxWmSZcFO2c6bSXurBIk5csT4hYxMOgyMLTkROpR6RzqFqj4HM2HoAGqQ3eXBfqHKwrG2Krfv7dmveR7WtKrr38iMcwMOCHh473QVizG1sqZ+hVR7npdFlmBMJQscwVqp+oeE85gumk+3/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
+ by CY8PR11MB7948.namprd11.prod.outlook.com (2603:10b6:930:7f::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 06:04:18 +0000
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
+ 06:04:18 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: Linkui Xiao <xiaolinkui@126.com>, "Nguyen, Anthony L"
+	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>
+CC: "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Linkui Xiao
+	<xiaolinkui@kylinos.cn>
+Subject: RE: [Intel-wired-lan] [PATCH] i40e: fix NULL pointer dereference in
+ i40e_lan_del_device()
+Thread-Topic: [Intel-wired-lan] [PATCH] i40e: fix NULL pointer dereference in
+ i40e_lan_del_device()
+Thread-Index: AQHdRQDP5WCebrtjFUG7Rd19ntyvtrbQuFtw
+Date: Wed, 16 Sep 2026 06:04:17 +0000
+Message-ID: <IA3PR11MB89869FA8496B0FAAC52BD47BE5B92@IA3PR11MB8986.namprd11.prod.outlook.com>
+References: <20260915105447.574951-1-xiaolinkui@126.com>
+In-Reply-To: <20260915105447.574951-1-xiaolinkui@126.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|CY8PR11MB7948:EE_
+x-ms-office365-filtering-correlation-id: 0b1d563a-bff3-49d3-00aa-08df13b857f9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|18002099003|22082099003|921020|38070700021|10067099003|56012099006|11063799006;
+x-microsoft-antispam-message-info: 5GtSp3HcqRwV5MRxJdPpG6S/TTGJ+CgWgWWzS++8kyCuX+0x9tsivph+Qjt4U8hNFE2Hy0etG0HHjlh1saIgGh9PFC0ZpkPaxQUNtbY8s1A1UfgRuLYVHiaiFDijCBH4CmxWOJeL+leVTCoNP2aTIwk7Zv8N9qi+XHqdD2phtxJ6hvPh48PO9QbHj0L8Ybhz5566e3m6boFNGJN6FRVjSXaZkNooLeo+PtydFtiOsLCdl3V0F939BJLr84c/dfKXKUm6Hl1SIefFmIsYx+pHrI5OSCm4eSB5+BTjF2Pg5aWNs9HzZsVinoU1vjn3n5dSyaZfqVqvqk6lw4iJujB8ixSikRl3slSaXr4she+jWSkiQZMHScFYvI9lfsujEz9gLVyE8l+CMAkoECD8KpqbLu35x+N7sOMdObo6pc3uoqx8XYlZ1lDW3fKgfXBGkckMwQBnn+zjQLElQqsnmtNtkiyGHY/fxkGVUCOZ9Zz2IV+afnTYsCTblKCuzgXten9tgfKhITQuQ4oMy9ctMwjms54BJIHzUtrsnO5rAXh68H19sq90ZG8SwzcHwqOChcifRuhzXsYce8UoxNddBiL/m0uo82ZxfIXBgZBkbM7ni8kiN7pue1GDXFLEb+291d2PNUspKduhbXNAaDoR8OhC4nl38LmGxHA9v+rvOIUG+7Ta/ErH3Aa9vxo0jzTgX0z064Rhm/aQt1SnZU+gc9iNXMXI+wNVgqWBv32/LlTUdII=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(921020)(38070700021)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QbhFyM+WvLjdHRgEBXCPywUheuq5XXXd56fVUCRUHBBf6r8+HPWPZk9xdOl0?=
+ =?us-ascii?Q?EWeoObLDswFVg3LzHZBqGLf/1AeX+3MMDqeO6g/bEzF0S+mRDsRZzj2v303L?=
+ =?us-ascii?Q?Fu5bH1VJ0DNrfLeJsoytHQ8tUOl4aEM/uA1aNV280j6hwE6CMpTCDrbgQOkb?=
+ =?us-ascii?Q?z/rIIGhASLB1AphL1wcqC1axOqDJUC+Akgm+hrRKa3WWVPYaGQoGyZRXbhUg?=
+ =?us-ascii?Q?R1OSmdbZ3RWvaJoIJClYf7TboDTDlHj4TzFxuqPN3j6ccDzqJP3lBsfwAV48?=
+ =?us-ascii?Q?CiZDgLIlygq44ulTxAyH5LmzlhS/UHy5U7fzxMPz/Z0kVUOP0801nvVjEpKC?=
+ =?us-ascii?Q?ARk+e8Hc2qSnCy70jCnkZ1Sd6PtdtMx7JGaf37oRI2nX6Xe69WLSNqJVuRwj?=
+ =?us-ascii?Q?/aOeGubRJ/xQDg2KKZFYOgYLXnCn/VuI3gDoapDUPv/Hqncf6PVMaX76GMbK?=
+ =?us-ascii?Q?uGFc7uOhTeZD0rnngN7J2fVyOM+ybJsh0yZgGPL9aHKue+TULG9z35ZheVei?=
+ =?us-ascii?Q?AjP4yTwzwHKgHyG/0EFf2yKvbxe3jttIYvMnJVNiK9Hh1m0N/+ZY+KRkVjcX?=
+ =?us-ascii?Q?C96+zk+2ybZQUegPlcj+w/RBdATN2HGkOZpnWrX6/wmsxhdWDfeWBC+cJ0rz?=
+ =?us-ascii?Q?Qrrc2TtMBaxJugnWSsiUgnjf4/OdMo+S78CXZKBCT/KDPf8kkBzsYC+BT+uB?=
+ =?us-ascii?Q?6ICyuyK8pwrPBtI67d2X0JJo8hT5+KxYFKLAWYGQ9DAgrvB/YwnfI/xZZ5QP?=
+ =?us-ascii?Q?Auv4pQoQ33wAW3jszd+3txn6fhofftdEEQ1PIzjV5LPlTIQFlRLceP8qaCfj?=
+ =?us-ascii?Q?pL+Y1MKzpgMgq6FSgA5psQau73uRyyf0/+11k+aD0jCJ077HUNh9X0Pmks6B?=
+ =?us-ascii?Q?5h/Zf2ianOpC/ygdVo3l3XcyVd9uHYE0b394nK5snNxjIqKWq4i7T7N0jGAd?=
+ =?us-ascii?Q?tGfEOcrPMzrvFZWDbVJajY0hE8UyMpA9JmQxDKj+zGDSsivSBhR8mFm5Drvy?=
+ =?us-ascii?Q?JLygPQli1UH09Isx2gbKiLc9EbSDFtN9jNUgKe1FAahEF7ubwKI+NJJRW854?=
+ =?us-ascii?Q?OWqCrRxjD0C027bKRoc/uzdFx+74tJ6/WV9A9PWCWjF5U2DbiX0vAeyuWgUg?=
+ =?us-ascii?Q?mK0CXngPTE5Wn+XFU53T/f03/4sVw7FkQeH4LAheK5SbP7mBVMUYCDbYwAs3?=
+ =?us-ascii?Q?/RrO2Ud4WVMru2PfaGYETB3lr5ux4uO2va3ubmI1046raAraTxZYLjnsV+wJ?=
+ =?us-ascii?Q?8GWfQVdSkBDA/XqhJKYUmLqtTRPARLNZiOIL7SUmaSE66oO2ZadLs/Ud3lTJ?=
+ =?us-ascii?Q?HxXQ8+ytDo+p/x05v0EpfzzxzC+pg29hfszy7hoSw70b8LHD3+TVsHr58xr0?=
+ =?us-ascii?Q?etCsFgo7880/zh8CDDTXJCbjzNAdvrt6qI+8mB8CiADEyE8g1V/neSkoZkq5?=
+ =?us-ascii?Q?pKwGRSyjkOXseQM0TCKNFngB3amBXsk7V73cqa8Wf6tVNBX6i6diQ1EFmdEr?=
+ =?us-ascii?Q?l4mX+hfa/kBUcLb4VczrW6R8KX7kFl8S0v0qVuevWkie0tf6vw4k8zc5eBvp?=
+ =?us-ascii?Q?c8knIoyk9lad1pEqo9bz9jp12E3L/IrPrpcE6ELi9by4tEM+fraj7KQuXZXd?=
+ =?us-ascii?Q?HUM710F8lto1O/lDSNhEx2HZp8TtxvYPCsqOOs9I9t91famfq4Hcw6YHDIl1?=
+ =?us-ascii?Q?dxuFbvayttEgfBXSie9H/gRfcqYfQgPs5DE+wq5WzqiPA/1vWVHExnlMwsEK?=
+ =?us-ascii?Q?AKyvxpMLmaXUGl9RPLAE1iw9VYsTHw8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XojVb7aV+M6rXB30"
-Content-Disposition: inline
-
---XojVb7aV+M6rXB30
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Add support for the ROHM BD73800 PMIC and compatibles.
-
-The ROHM BD73800 is a power management IC which integrates 8 BUCKs and 4
-LDOs. There is also an ADC and operation amplifier intended for current
-/ temperature measurement and accumulation. RTC and 32.768 kHz clock
-gate are also included. The PMIC can be customized via OTP and it has
-options for operating as a main PMIC in multi-PMIC installation. Some
-of the pins can also be used for GPO or GPI (including interrupt support).
-
-There are also ROHM BD71851 and BD71885 PMICs out there. These are, from
-the SW-perspective, similar to the BD73800. There is only some different
-default values and OTP settings. The driver should be able to handle them
-just fine.
-
-Revision history:
-
-v3 =3D> v4:
- - Minor styling
- More accurate change-log in individual patches.
-
-v2 =3D> v3:
- - Rebased on v7.3-rc1.
- - gpio: Use gpio-regmap as was suggested by Linus W.
- More accurate change-log in individual patches.
-
-v1 =3D> v2:
- - Rebased on regulator/for-7.3 as it carries dependency:
-   f29a8bf6fde1 ("regulator: dt-bindings: ROHM PMIC state-machine voltages")
- - dt-bindings: Various fixes, split generic stuff to own files.
- - gpio: Styling, return -ENODEV if no GPIOs found
- - MFD: Styling
- - regulator: Simplify dt-reading
- More accurate change-log in individual patches.
-
----
-
-Matti Vaittinen (10):
-  dt-bindings: mfd: common ROHM PMIC properties
-  dt-bindings: rohm,bd*: Ref common ROHM bindings
-  dt-bindings: regulator: ROHM BD73800 regulators
-  dt-bindings: mfd: ROHM BD73800 PMIC
-  mfd: Support for ROHM BD73800 PMIC core
-  rtc: bd70528: Support RTC on ROHM BD73800
-  regulator: bd71828: Support ROHM BD73800
-  clk: bd718x7: Support ROHM BD73800
-  gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
-  MAINTAINERS: Add ROHM BD73800 PMIC files
-
- .../bindings/mfd/rohm,bd71815-pmic.yaml       |   9 +-
- .../bindings/mfd/rohm,bd71828-pmic.yaml       |   9 +-
- .../bindings/mfd/rohm,bd72720-pmic.yaml       |  29 +-
- .../bindings/mfd/rohm,bd73800-pmic.yaml       | 218 +++++++
- .../bindings/mfd/rohm,pmic-pins.yaml          |  72 +++
- .../regulator/rohm,bd73800-regulator.yaml     |  99 ++++
- MAINTAINERS                                   |   2 +
- drivers/clk/clk-bd718x7.c                     |   8 +
- drivers/gpio/Kconfig                          |  12 +
- drivers/gpio/Makefile                         |   1 +
- drivers/gpio/gpio-bd73800.c                   | 209 +++++++
- drivers/mfd/Kconfig                           |  15 +-
- drivers/mfd/rohm-bd71828.c                    | 147 ++++-
- drivers/regulator/Kconfig                     |   4 +-
- drivers/regulator/bd71828-regulator.c         | 558 +++++++++++++++++-
- drivers/rtc/rtc-bd70528.c                     |   8 +
- include/linux/mfd/rohm-bd73800.h              | 306 ++++++++++
- include/linux/mfd/rohm-generic.h              |   1 +
- 18 files changed, 1661 insertions(+), 46 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/mfd/rohm,bd73800-pmic=
-=2Eyaml
- create mode 100644 Documentation/devicetree/bindings/mfd/rohm,pmic-pins.ya=
-ml
- create mode 100644 Documentation/devicetree/bindings/regulator/rohm,bd7380=
-0-regulator.yaml
- create mode 100644 drivers/gpio/gpio-bd73800.c
- create mode 100644 include/linux/mfd/rohm-bd73800.h
+X-Exchange-RoutingPolicyChecked: D/bd2w0qe6fR3lKEqQXhgQLyzZOFYYXIv+M/ZuRYIEut2XgckqiZs13kw6CC3MPGDkluuTIE4cwhKHNsMkPipdN/MelObAij0YZBd3aH0Oo6f3TSjMwZ05voqz3huEvU3ba+M5CDOncAdUAChlK1hEpmEVmvdl/s3R++ExL8Bj2JT694P6YMVqS1LI1lHz3VjdD43oXOjpXcNHePrg5iVJWdEaOL4oukpyo1JvA4wf+8GpQFCGDkM9d+iuSWBrVT6nWUZVQxs9FotKLGgXVA4M91At/o+LocYc+fd/lh1/TveC6CjFq0klDFYvXAc5dir88RnEr019rMfyEgKbFWVQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b1d563a-bff3-49d3-00aa-08df13b857f9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 06:04:18.0329
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: iS0PF1Al6nB8P+UR2EvXULMUXdMceporDXKqp+kWmK/HBCwXyfX0VxaK4Y+lFewGyqAtW23yDMhU+sR/AsEIoUhWp2zU/zoeHGDyvdkZgDk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7948
+X-OriginatorOrg: intel.com
 
 
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
---=20
-2.55.0
 
+> -----Original Message-----
+> From: Linkui Xiao <xiaolinkui@126.com>
+> Sent: Tuesday, September 15, 2026 12:55 PM
+> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel,
+> Przemyslaw <przemyslaw.kitszel@intel.com>; andrew+netdev@lunn.ch;
+> davem@davemloft.net; edumazet@google.com; kuba@kernel.org;
+> pabeni@redhat.com
+> Cc: intel-wired-lan@lists.osuosl.org; netdev@vger.kernel.org; linux-
+> kernel@vger.kernel.org; Linkui Xiao <xiaolinkui@kylinos.cn>
+> Subject: [Intel-wired-lan] [PATCH] i40e: fix NULL pointer dereference
+> in i40e_lan_del_device()
+>=20
+> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+>=20
+> i40e_lan_del_device() dereferences pf->cinst unconditionally. pf-
+> >cinst is only assigned by i40e_client_add_instance(), which resets it
+> to NULL whenever the i40e_client_instance allocation,
+> i40e_client_get_params() or i40e_register_auxiliary_dev() fails, and
+> it returns void so
+> i40e_lan_add_device() cannot report any of that to its caller.
+>=20
+> i40e_lan_add_device() can also fail before it ever gets there, for
+> example when the i40e_device allocation fails, and i40e_probe() only
+> prints a message instead of clearing I40E_FLAG_IWARP_ENA.
+> i40e_remove() therefore still calls i40e_lan_del_device() and
+> dereferences a NULL
+> pf->cinst.
+>=20
+> Only tear the auxiliary device down when an instance was actually
+> created. Removing the PF from the i40e_devices list below does not
+> depend on it.
+>=20
+> Fixes: f4370a85d62e ("i40e: Register auxiliary devices to provide
+> RDMA")
+> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+> ---
+>  drivers/net/ethernet/intel/i40e/i40e_client.c | 17 ++++++++++++-----
+>  1 file changed, 12 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/intel/i40e/i40e_client.c
+> b/drivers/net/ethernet/intel/i40e/i40e_client.c
+> index 84a97ca8a6d8..9a4f50af5347 100644
+> --- a/drivers/net/ethernet/intel/i40e/i40e_client.c
+> +++ b/drivers/net/ethernet/intel/i40e/i40e_client.c
+> @@ -496,15 +496,22 @@ int i40e_lan_add_device(struct i40e_pf *pf)
+>   **/
+>  int i40e_lan_del_device(struct i40e_pf *pf)  {
+> -	struct auxiliary_device *aux_dev =3D pf->cinst->lan_info.aux_dev;
+> +	struct auxiliary_device *aux_dev;
+>  	struct i40e_device *ldev, *tmp;
+>  	int ret =3D -ENODEV;
+>=20
+> -	auxiliary_device_delete(aux_dev);
+> -	auxiliary_device_uninit(aux_dev);
+> +	/* i40e_client_add_instance() leaves pf->cinst NULL when it
+> fails,
+> +	 * so there may be no auxiliary device to tear down here.
+> +	 */
+> +	if (pf->cinst) {
+> +		aux_dev =3D pf->cinst->lan_info.aux_dev;
+>=20
+> -	/* First, remove any client instance. */
+> -	i40e_client_del_instance(pf);
+> +		auxiliary_device_delete(aux_dev);
+> +		auxiliary_device_uninit(aux_dev);
+> +
+> +		/* First, remove any client instance. */
+> +		i40e_client_del_instance(pf);
+> +	}
+>=20
+>  	mutex_lock(&i40e_device_mutex);
+>  	list_for_each_entry_safe(ldev, tmp, &i40e_devices, list) {
+> --
+> 2.25.1
 
---XojVb7aV+M6rXB30
-Content-Type: application/pgp-signature; name=signature.asc
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmqqMVQACgkQeFA3/03a
-ocU6agf/erXoYpeXBfdNklLVkEaEgEF0ZxTUMKmzxvgR8WMZK1v8pTOKFx6Kyv0e
-caZgMbTSHqxiYvVIEkLR4tc4Shm1ER9i/Pz6xGPjjrru7UrIZxpXJ+LfHFFvbR0t
-N+Bw+MqwvNIXEMx8BuPYNnHj0UgFbXNA2hJmgXbS4RGGh3qCkr2Lumuj/4syAUUf
-tm6mPxFbzMcFu5lPky9W3bTLWPKgM2ZeppMq5xI9jlEOwETeitUHS2Cc2rhCoXcF
-y3K1Qdswxn+aWBP7bg+bWFCk3mMqakx3oKN8S5C49ssRA24OsXhAaMGsZ7OPniJe
-S93wHr4rphPHzhT7Mw16tyirnAhZxg==
-=qCdj
------END PGP SIGNATURE-----
-
---XojVb7aV+M6rXB30--
