@@ -1,97 +1,91 @@
-Received: from smtpdh20-2.aruba.it (smtpdh20-2.aruba.it [62.149.155.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8284CEE7E
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:51:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.155.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C944D0CD8;
+	Wed, 16 Sep 2026 16:51:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577496; cv=none; b=HljC25uL3OCQASDDg9elrHSZbRH9MF5TRNzdA/Xn42GbLRVf7DNHlbtSmXny9irI4bzIUXV4I37I0ERlBV0a1UNG+4rYF+SDVkbc1w3jdFVYtPpLMoB4zpSExRPiQVlIi+s4VE1AWK7+P8if2Ezo42u80g3cLSyXG9c7TlJIZEk=
+	t=1789577500; cv=none; b=YTRl5FyeczrpOlLYRlI1jmue9TZPsaC+GWNSBbwk6ZHzUjUGprpPcPAiZsob4HWay8IKITVCOyrJF0G0MymZd/8Sw/f6FnHPUakSGTsLM3APpt62W9pjtLhwaXD3hXtBSnIYdVhxMSjdiKryIeVtyHmnsShIQk8wuxNJSe2fcn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577496; c=relaxed/simple;
-	bh=HPSRZ48AkvH9m1oxdbpI+LdacqMP3XE7EC4swgFjtSk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZEBwfQmE89hykc8PrI2XesRFINKMjbI5rkQmHEIgQkSLEtVsPVPm1ID/l5noxYFtaVMG6bVMF8DTysXzRWkW0I1/D57TyC90J+yBBOvVvCDN1lx24T8ZqJbZENWrPFAhQf9eg1DYKB46iG2TsvBCpK6IH5gZYceJ5psWRwscmt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=aLGZyHlw; arc=none smtp.client-ip=62.149.155.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="aLGZyHlw"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id 6sntxjd1TaHPp6snuxGqRI; Wed, 16 Sep 2026 18:48:14 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1789577294; bh=HPSRZ48AkvH9m1oxdbpI+LdacqMP3XE7EC4swgFjtSk=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=aLGZyHlwqUU2hJ2ZOTv/FufjmkT2f2BibPupnLZHUbxBW/75RCissje3iVWQt7wUp
-	 JJf69/lXuchbx/OwjhV0LetRaJQ2osGYjP99wHx7mi5xrgUjGFWxBvRIXtxM1u1Lcf
-	 O99wYy3j3vRNTf4TazLtyYBMHy66R7ZLKZZ6BAM0ECO+F0jWMpsleqq8PCbaQq0OAL
-	 85YvFvBi5wvuIuCTmOz8SyZlh6Ri1lC1oUjySRC0+PDqxgTdk2DzpWwwK4T0jSH1rh
-	 ajs2aebuTlDwizB8FIKGk3Eipr8k36f04e4uNJXR5fxJkxZzaa8YZIcNKQ62s4EDCs
-	 dsC1ENzgj+e2g==
-Message-ID: <f44a5cc5-d6f3-4871-b86a-1693cbfc1bec@enneenne.com>
-Date: Wed, 16 Sep 2026 18:48:13 +0200
+	s=arc-20240116; t=1789577500; c=relaxed/simple;
+	bh=xxzakaPh0lUhoJAtvNnYoK1Ln5B4KdJOK7jGOreOChI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VvnMWX3141Yp3RUx1AduAvYoGRTJIJv2VKpAs3GHxALxMjaaXBsKUP1sW99lcSdomoTJcUQD98S4yw8Rmo0NoYqzaSofH6XjsI5mpXtZ5p/J8aq5egRbx8tOkQ6t4a1W/KD+c3qa1DPPHyQ2cIHEvzgiQzQfiK4OvNCevEsI88c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACH7zkKyapqDvxtCA--.22407S2;
+	Thu, 17 Sep 2026 00:51:22 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: b-liu@ti.com
+Cc: balbi@ti.com,
+	fabio.baltieri@linaro.org,
+	gregkh@linuxfoundation.org,
+	linusw@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: musb: ux500: Fix transceiver leak in ux500_musb_init()
+Date: Wed, 16 Sep 2026 16:50:55 +0000
+Message-Id: <20260916165055.2085246-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] pps-gpio: restore pin mux on unbind and shutdown
-Content-Language: en-US
-To: Eliav Farber <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260916134744.46354-1-farbere@amazon.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20260916134744.46354-1-farbere@amazon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfPqUUEGJXfnMs5VG4UpywwNVUD2VX3MQ8CjD5oEdTuzm1jKN+To7IcLQwZKe0fyTS0ar1tlsfuBc9o1VlycWq2nc3MGI5Vt1yOyCfeZXL/KWBVXj4Yst
- HAHVGQZwTnr7Ndk2SE5D3z5FrJZoiJatfgim5ZqwCc8IpGulW8tkhiWwYp9vjySaoUZOapJrQ6qMvKzSwkKpfoN5xHKN+o7/k2dBHiPwkaKgJBpg2UoFghS0
- YmBQMhrcDjYSHYa5lO4Ue+YYzEukQ+oi5ntvuJmcwSuvPSxHVaf7v37tF2WJfMRw4NK06EY6eU0/UpUh3BFOZHiT7QEVVxcHAgI/gXZ9EyUMK6piL5+iQgnx
- lgQBgDGvPbl9qdSTTQth5jXzkoytfyVTG4G0sCnMBoDqWGcvuRJYBDglofaAgKYn+CXZFFQJWrM/c1UdnPr16zSlhfMFAeduFqX718rZb2F277rLlIM=
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACH7zkKyapqDvxtCA--.22407S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrtrW5AF45uF17ArWxtFWUurg_yoW8Jr17p3
+	y3Gw48CrZFgay2qF4jqF4rAFy8Za92yryFk34xJ3sxZrsxJa47GrW5Ja4FgF18Cw4kAFW5
+	tw4YqFWUurW8ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
+	UPEDUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwAMA2qqpVhTIQAAsH
 
-On 16/09/2026 15:47, Eliav Farber wrote:
-> This series lets pps-gpio select an optional "idle" pinctrl state in
-> remove() and shutdown(), so a board can describe the alternate mux there
-> and have it restored. It is a no-op for boards that do not describe an
-> "idle" state, and depends on CONFIG_PM (which performs the idle-state
-> lookup).
+ux500_musb_init() takes a reference on the USB2 transceiver with
+usb_get_phy() and stores it in musb->xceiv. If the subsequent
+usb_register_notifier() call fails, the function returns without
+releasing the reference, leaking the transceiver. The only place the
+reference is put is ux500_musb_exit(), which is not run when the init
+fails.
 
-Thanks, the problem is real: the pinctrl core never reverts the mux on
-unbind, so the pins stay stuck in the GPIO function for whatever comes
-next, kexec included.
+Put the transceiver before returning on the notifier registration
+failure path. The notifier itself does not need to be unregistered
+since usb_register_notifier() failed.
 
-But "idle" does not mean "not bound", so are you sure this is the
-right-thing(TM) to do? pinctrl-state.h documents it as the runtime PM
-state and, AFAIK, that is how the rest of the tree uses it. If pps-gpio
-ever grows a real runtime PM or a .suspend(), "idle" is already taken
-with another meaning -- and 1/2 turns that choice into ABI.
+Fixes: 0135522c4898 ("usb: musb: ux500: add otg notifier support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/usb/musb/ux500.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Same question for the CONFIG_PM dependency: why should a CONFIG_PM=n
-kernel not get this? A PPS box built without PM is not an odd
-configuration, and there the board describes an "idle" state and
-nothing happens, silently.
+diff --git a/drivers/usb/musb/ux500.c b/drivers/usb/musb/ux500.c
+index 8c2a43d992f5..14c5e986937e 100644
+--- a/drivers/usb/musb/ux500.c
++++ b/drivers/usb/musb/ux500.c
+@@ -155,6 +155,7 @@ static int ux500_musb_init(struct musb *musb)
+ 	status = usb_register_notifier(musb->xceiv, &musb->nb);
+ 	if (status < 0) {
+ 		dev_dbg(musb->controller, "notification register failed\n");
++		usb_put_phy(musb->xceiv);
+ 		return status;
+ 	}
+ 
+-- 
+2.34.1
 
-Wouldn't looking the state up in the driver (devm_pinctrl_get() +
-pinctrl_lookup_state() + pinctrl_select_state()) avoid both, and leave
-you free to pick a name that says what it means?
-
-One thing that does not depend on any of the above: your shutdown()
-changes the mux but shuts nothing down. The IRQ is still requested
-(request_irq() here is not devm-managed) and the echo timer may still
-be armed, so a timer callback can still poke a pin that by then belongs
-to somebody else, and the PPS handler stays attached to a line that
-other function is now driving. And device_shutdown() is not the end of
-the road: the kernel keeps running to load and start the kexec image,
-which is the case you are after. Shouldn't it tear down in the same
-order remove() does, free_irq() and timer_delete_sync() first and the
-mux change last?
-
-Ciao,
-
-Rodolfo
