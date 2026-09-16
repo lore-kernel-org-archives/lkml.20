@@ -1,114 +1,391 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FA494BC00B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:08:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85DB4CA770
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789553337; cv=none; b=LeGzw2pRMYsdCYhzmHC1PcOXN7NFWXXCG5n1kaymCaA3JiodaU+6t/saTvieHbn8l8sMA8jxHl9IfpsjXQrCLQV6vB9G06yyYQvzX26ReQidgrNhNPFeB8rr4DKXvlQLI2ZQI0EQWc1u5JpUYfOv8uGsE6Lv1cwEf8atztGchTQ=
+	t=1789553418; cv=none; b=eUCLi44VIkC2qo+/5aKZtIKmaadvMoIooBJFzV7sPHjOLf7Uy43+KMYqieokhxLemzvj7H67p153RW7d/e5R3tz8e0B9iXlcy3ncs+iUCG4ph1LYJw4zIjtSMAH6ZhcPmxTf1VKC5QV3tYGL4Jdqgy0gphGKZwijqRHKBOB3/2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789553337; c=relaxed/simple;
-	bh=rPfrOTQ5oZS8SrKWqKFay5mhp8ATUr37rXa+UxcnFjs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P9NpLrtMWFuNUncMiDthcie17y9MZH576k/DhroNogtaxQ3yIhkNcosRdS6Ts5eRaYic/+ToN6GIRfq0nlF/tZWAWWRT1O1gGM839AfVjEOfhbYGpPdrCROgY1IrQrjJRY78yRevOCPpTHJ9atlzE8y9e8yjT6m1MvDw87xXUUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=D7hym+Dt; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789553418; c=relaxed/simple;
+	bh=vAlImrn8zFIEz9RZ3VtK76I+qydbkxHlLDF3Uw2YgUU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ponqHUPoNwUHLF77Xza6SfQCGiYPfznnO0FXU2CO5fDP+LEAjLRpx+UrvJjNCzyO7q4OusZH/nvSdMUtgVBPaOHr5CyKie8SHXgPnGKVxein+ZsUei7XHyIvG/4BaI10swhgP23XcwuD1wuJJPH1BXNzqRMd/7tEm0UdyjHCW7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EIJOOXbu; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="D7hym+Dt"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 55C3E152B;
-	Wed, 16 Sep 2026 03:08:35 -0700 (PDT)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8CB703F882;
-	Wed, 16 Sep 2026 03:08:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789553318; bh=rPfrOTQ5oZS8SrKWqKFay5mhp8ATUr37rXa+UxcnFjs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=D7hym+DtzqOo1Lr7h7LCEXYfKJE1jeuk5emATCzKr2bqhDmADUufXJ+d6DdYLD6ZX
-	 kP7jHOHxQ8ipABjdpHZ93BmcpJwE/+ampQmPsJu8PSzl8XA8IaA6PZA2he2ngzb25A
-	 e7yzrgQfJO8DmzYwcaWMcV0nLb+BL+bfIv4eHDeA=
-Date: Wed, 16 Sep 2026 11:08:28 +0100
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Marc Zyngier <maz@kernel.org>, 
-	Itaru Kitayama <itaru.kitayama@fujitsu.com>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Wang Han <wanghan@linux.alibaba.com>, Shuai Xue <xueshuai@linux.alibaba.com>, 
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: Re: [PATCH v6 0/7] KVM: arm64: nv: Implement nested stage-2 reverse
- map
-Message-ID: <pstlgffmaummwvxp6ldpel2y7ozubq77eqgrr7px2czc3f4qzn@nvmeyljx2anj>
-References: <20260915154305.3852871-1-weilin.chang@arm.com>
- <aqoh27cSs5gMHeAL@sm-arm-grace07>
- <86mrth65ii.wl-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EIJOOXbu"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so3305565e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:09:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789553381; x=1790158181; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H6hJX1yvGitafOsQwXmhzmUUV9h4tN5em7jsKe8Y0FE=;
+        b=EIJOOXbufiYrIsFd3bMH7Ne3vrqqqcB0OesYuKvo7hjGtpe9ROCGZHftdbzNnaOzEY
+         aSPfpadI7dyfskPBwMOgqGcZ2JaTEmGFLVJoP3z7js8FfyJYFFr7BQ1mjTu4SRYwbr21
+         U0UIwTczvTzW74XENZuOoR79Fsw63M6zaenrAcUY6AyQeHHyT8VZlcLmwOevsDIMDFLM
+         qvMBAsxaowCDyXVFhb4d9lI8Mkg8CrzVeXNawpmEw26J9qqID5IxLvXzDBUQBC49FecU
+         OigOjlFOFsnREm9x5agFtmJrzSZ7wQXuAHl/b0PKfVuAz9JvpG5UNx2QCZdZz9nKf6Yv
+         +9DQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789553381; x=1790158181;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H6hJX1yvGitafOsQwXmhzmUUV9h4tN5em7jsKe8Y0FE=;
+        b=dlMnJ6NQM67vnNzluhv1QlURYtqHQx8Muxh2WJQnaMRPyNlXNrKVX/x5HUFmaJmlqQ
+         d0VySnYpHza9yultmu549wri+RZ1SM0gu+9R0PkgAilSwyr2sCF+wplSmO3L3etr7VaZ
+         z7O5o9T3jHoPOuTKLsAxM+wwThhJ9nRBOvNjGXUXCRbyGZS9Vw0dlti7vHydiw9zeyR8
+         nV2bkmutXnTNO3bepYFn7R5+zvCqHMmm5GIZmP+GP1UKxniswi+gPCn6a0LnptiOkq3+
+         xrd/Zyw13pOL9zyAtSiwnyBlpounSQ20y+6zwTbmgKUrDa2241b6hseq2Rn8S0F+LWZf
+         FS4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwHEQt1OxVoVTrXTjpdoRpXbQ444u6ljvyzRs8EoeJ6X5vMNwsYnZCxkHi2XTrFUEsXUsoNV3sXa1Mym40=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldAzZ2ADmUb8Pdnv2uV/ZIkvyD8z8X7JFD1NVRvg21wromjADr
+	D0end7yyW+qMlwKZzPsISTBJEwg7m72tLTkag7H8d7wYJSZwaeQ5/ySu
+X-Gm-Gg: AYBFou2351QfsPkKhcKv8m+DX1X7l8ajPJVsXbBkquo12NFu4krOmcBH5yOOaKd/WU6
+	xoHq4wbVXDTxuOXtn77oTcg4Phe2apnQWOZX6Ob68+ggOLWI/2Lhv3QZZ79y5WZAIKQo3JC5ezR
+	293GpeYZpHJX/Bd+0sFuoExRpI8dvAQpRhIxdowfal+2bcfhMbwWxQRjOm+M8k2KHBTTiuFBow2
+	kfwJcPlyrIDo+2LXY4f73xdpw/3yeipR52ahufz9mxsolHS8sVvbsUHKfurACFlxnzRGH0/yM95
+	sKqa7wv2NedqBHpmezSyh+tfoTKTHo9pqgAI+/wag+GKdX+gIRNg2VZGWjdzV+lh2PHp8atfKqp
+	BLWnHhItOHXRvbMWoS3+4z2PpzLDRcmnREg1Gt0cho8kHGV9X+eHfzRBKzprG9gn1hFHRX3cNBD
+	fBdhaxYDA+2YdnsJLi2ea0jgg15twPbwdtMhxYYMh1eFBb+cSKF4SsLqKsBiJsiiURVPDjzTBpm
+	FOOnXBqiCWscZN21zzRUrVismX5gGeDvvnkYE7FngZlITaj0SbCL6HzNCINX0E0Ag==
+X-Received: by 2002:a05:600c:c4b8:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-49e8b6ae4ecmr22284805e9.2.1789553380939;
+        Wed, 16 Sep 2026 03:09:40 -0700 (PDT)
+Received: from moosama76.. ([156.193.15.50])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83d906d8sm80411775e9.5.2026.09.16.03.09.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 03:09:40 -0700 (PDT)
+From: Mohamed Osama <mohamed.osama189110@gmail.com>
+To: rust-for-linux@vger.kernel.org
+Cc: linux-block@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mohamed Osama <mohamed.osama189110@gmail.com>,
+	Gary Guo <gary@garyguo.net>
+Subject: [PATCH v3] rust: mem: add DropGuard
+Date: Wed, 16 Sep 2026 13:09:37 +0300
+Message-ID: <20260916100937.541933-1-mohamed.osama189110@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86mrth65ii.wl-maz@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 08:04:53AM +0100, Marc Zyngier wrote:
-> On Wed, 16 Sep 2026 05:58:03 +0100,
-> Itaru Kitayama <itaru.kitayama@fujitsu.com> wrote:
-> > 
-> > Hi Wei-Lin,
-> > 
-> > On Tue, Sep 15, 2026 at 04:42:58PM +0100, Wei-Lin Chang wrote:
-> > > Hi,
-> > > 
-> > > This is v6 of optimizing the shadow s2 mmu unmapping during MMU
-> > > notifiers.
-> > > 
-> > > This version fixes a few issues, and adds Marc's space optimization
-> > > for kvm_guest_s2_mapping [1]. Please see the changelog for the details.
-> > > 
-> > > Tested by booting L3, and running in-kernel targetted tests described
-> > > in [2]. v5 got some tested-by's from Itaru and Wang (thanks), I didn't
-> > > carry them over since some bugs fixed in v6 are non-obvious. Some
-> > > retest would be much appreciated!
-> > > 
-> > > Series based on v7.3-rc3 + Marc's nested mmu lifecycle fixes [3].
-> > 
-> > Observed on QEMU (accel tcg) only, but I saw:
-> > 
-> > [ 1812.052752] BUG: sleeping function called from invalid context at kernel/locking/rwsem.c:1630
-> > [ 1812.052896] in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 596, name: shadow_stage2
-> > 
-> > The kernel is built on top of Marc's fix and your version six series, but
-> > the fix for debugfs will be posted later?
-> > 
-> > Your hello_nested and shadow_stage2 ran without an issue.
-> > 
-> > Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-> 
-> So you have established that there is a critical locking bug, make
-> sure you don't communicate any information to help narrow where that
-> bug is, and yet give your Tested-by: tag?
-> 
-> What is the point? I'm baffled.
-> 
-> Can you at least provide an indication of what you did to get there as
-> well as the full backtrace?
+Add a `DropGuard` type to the Rust kernel memory module for running
+cleanup code when a scope is left.
 
-It is certainly the known shadow ptdump sleeping-in-atomic problem [1]
-reported by Itaru, and not a problem of the reverse map series.
+`DropGuard` runs a `FnOnce` callback when dropped and provides
+`dismiss()` to take the wrapped value without running the callback.
 
-I have the fix for that, will send it shortly.
+Replace the current `ScopeGuard` users in `gen_disk`, `serdev`, and
+`sync::lock` with `DropGuard`. Keep `ScopeGuard` since it is still used
+elsewhere.
 
-Thanks,
-Wei-Lin Chang
+Add KUnit tests for cleanup on drop and `dismiss()`.
 
-[1]: https://lore.kernel.org/kvmarm/aiuF0KSvvv-ZozI1@sm-arm-grace07/
+Tested with:
+- `make LLVM=1 -j$(nproc)`
+- KUnit: 8 tests passed
+- `make LLVM=1 rustfmtcheck`
+- `git diff --check`
+- `checkpatch.pl`
+- `make LLVM=1 rustdoc`
 
-> 
-> 	M.
-> 
-> -- 
-> Without deviation from the norm, progress is not possible.
+Suggested-by: Gary Guo <gary@garyguo.net>
+Link: https://github.com/Rust-for-Linux/linux/issues/1255
+Signed-off-by: Mohamed Osama <mohamed.osama189110@gmail.com>
+---
+ rust/kernel/Kconfig.test         |  10 +++
+ rust/kernel/block/mq/gen_disk.rs |  11 +--
+ rust/kernel/mem.rs               | 123 +++++++++++++++++++++++++++++++
+ rust/kernel/serdev.rs            |  10 +--
+ rust/kernel/sync/lock.rs         |   5 +-
+ 5 files changed, 146 insertions(+), 13 deletions(-)
+
+diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
+index e6a5c7a795f0..011c72f14e2c 100644
+--- a/rust/kernel/Kconfig.test
++++ b/rust/kernel/Kconfig.test
+@@ -33,6 +33,16 @@ config RUST_KVEC_KUNIT_TEST
+ 
+ 	  If unsure, say N.
+ 
++config RUST_DROP_GUARD_KUNIT_TEST
++	bool "KUnit tests for Rust DropGuard API" if !KUNIT_ALL_TESTS
++	default KUNIT_ALL_TESTS
++	help
++	  This option enables KUnit tests for the Rust DropGuard API.
++	  These are only for development and testing, not for regular
++	  kernel use cases.
++
++	  If unsure, say N.
++
+ config RUST_BITMAP_KUNIT_TEST
+ 	bool "KUnit tests for Rust bitmap API" if !KUNIT_ALL_TESTS
+ 	default KUNIT_ALL_TESTS
+diff --git a/rust/kernel/block/mq/gen_disk.rs b/rust/kernel/block/mq/gen_disk.rs
+index fc97dd873974..d9019fbbb361 100644
+--- a/rust/kernel/block/mq/gen_disk.rs
++++ b/rust/kernel/block/mq/gen_disk.rs
+@@ -10,11 +10,12 @@
+     block::mq::{Operations, TagSet},
+     error::{self, from_err_ptr, Result},
+     fmt::{self, Write},
++    mem::DropGuard,
+     prelude::*,
+     static_lock_class,
+     str::NullTerminatedFormatter,
+     sync::Arc,
+-    types::{ForeignOwnable, ScopeGuard},
++    types::ForeignOwnable,
+ };
+ 
+ /// A builder for [`GenDisk`].
+@@ -102,7 +103,7 @@ pub fn build<T: Operations>(
+         queue_data: T::QueueData,
+     ) -> Result<GenDisk<T>> {
+         let data = queue_data.into_foreign();
+-        let recover_data = ScopeGuard::new(|| {
++        let recover_data = DropGuard::new((), |_| {
+             // SAFETY: T::QueueData was created by the call to `into_foreign()` above
+             drop(unsafe { T::QueueData::from_foreign(data) });
+         });
+@@ -150,7 +151,7 @@ pub fn build<T: Operations>(
+         // SAFETY: `gendisk` is a valid pointer as we initialized it above
+         unsafe { (*gendisk).fops = &TABLE };
+ 
+-        let cleanup_failure = ScopeGuard::new_with_data((gendisk, data), |(gendisk, data)| {
++        let cleanup_failure = DropGuard::new((gendisk, data), |(gendisk, data)| {
+             // SAFETY: `gendisk` came from `__blk_mq_alloc_disk()` above and
+             // has not been added to the VFS on this cleanup path.
+             unsafe { bindings::put_disk(gendisk) };
+@@ -161,7 +162,7 @@ pub fn build<T: Operations>(
+ 
+         // The failure guard now owns both pieces of cleanup; the early guard
+         // must not run on this path anymore.
+-        recover_data.dismiss();
++        DropGuard::dismiss(recover_data);
+ 
+         let mut writer = NullTerminatedFormatter::new(
+             // SAFETY: `gendisk` points to a valid and initialized instance. We
+@@ -185,7 +186,7 @@ pub fn build<T: Operations>(
+             },
+         )?;
+ 
+-        cleanup_failure.dismiss();
++        DropGuard::dismiss(cleanup_failure);
+ 
+         // INVARIANT: `gendisk` was initialized above.
+         // INVARIANT: `gendisk` was added to the VFS via `device_add_disk` above.
+diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
+index f2d4cdf87d00..17807c8e67ac 100644
+--- a/rust/kernel/mem.rs
++++ b/rust/kernel/mem.rs
+@@ -4,6 +4,95 @@
+ 
+ use crate::prelude::*;
+ 
++use core::{
++    mem::ManuallyDrop,
++    ops::{Deref, DerefMut},
++};
++
++/// Wraps a value and runs a closure when dropped.
++///
++/// This is useful for running cleanup code when leaving a scope.
++///
++/// The [`DropGuard::dismiss`] function can be used to take ownership of the wrapped
++/// value without running the cleanup function.
++#[doc(alias = "ScopeGuard")]
++#[doc(alias = "defer")]
++pub struct DropGuard<T, F>
++where
++    F: FnOnce(T),
++{
++    inner: ManuallyDrop<T>,
++    f: ManuallyDrop<F>,
++}
++
++impl<T, F> DropGuard<T, F>
++where
++    F: FnOnce(T),
++{
++    /// Creates a new `DropGuard`.
++    #[inline]
++    #[must_use]
++    pub fn new(inner: T, f: F) -> Self {
++        Self {
++            inner: ManuallyDrop::new(inner),
++            f: ManuallyDrop::new(f),
++        }
++    }
++
++    /// Consumes the `DropGuard`, returning the wrapped value without
++    /// running the cleanup function.
++    #[inline]
++    pub fn dismiss(guard: Self) -> T {
++        let mut guard = ManuallyDrop::new(guard);
++
++        // SAFETY: We have taken ownership of the guard and prevent its destructor from running.
++        let value = unsafe { ManuallyDrop::take(&mut guard.inner) };
++
++        // SAFETY: We have taken ownership of the guard.
++        unsafe { ManuallyDrop::drop(&mut guard.f) };
++
++        value
++    }
++}
++
++impl<T, F> Deref for DropGuard<T, F>
++where
++    F: FnOnce(T),
++{
++    type Target = T;
++
++    #[inline]
++    fn deref(&self) -> &T {
++        &self.inner
++    }
++}
++
++impl<T, F> DerefMut for DropGuard<T, F>
++where
++    F: FnOnce(T),
++{
++    #[inline]
++    fn deref_mut(&mut self) -> &mut T {
++        &mut self.inner
++    }
++}
++
++impl<T, F> Drop for DropGuard<T, F>
++where
++    F: FnOnce(T),
++{
++    #[inline]
++    fn drop(&mut self) {
++        // SAFETY: `DropGuard` is in the process of being dropped.
++        let inner = unsafe { ManuallyDrop::take(&mut self.inner) };
++
++        // SAFETY: `DropGuard` is in the process of being dropped.
++        let f = unsafe { ManuallyDrop::take(&mut self.f) };
++
++        f(inner);
++    }
++}
++
+ /// Transmute between two types.
+ ///
+ /// Use this instead of [`core::mem::transmute`] when it is known that sizes are identical but this
+@@ -232,3 +321,37 @@ unsafe impl AsReprMut for $signed {}
+     // `usize` is not normalized to particular integer for portability.
+     usize isize,
+ }
++
++#[cfg(CONFIG_RUST_DROP_GUARD_KUNIT_TEST)]
++#[macros::kunit_tests(rust_drop_guard)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn test_drop_runs_cleanup() {
++        let mut cleaned = false;
++
++        {
++            let _guard = DropGuard::new(42, |value| {
++                assert_eq!(value, 42);
++                cleaned = true;
++            });
++        }
++
++        assert!(cleaned);
++    }
++
++    #[test]
++    fn test_dismiss_returns_value_without_cleanup() {
++        let mut cleaned = false;
++
++        let guard = DropGuard::new(42, |_| {
++            cleaned = true;
++        });
++
++        let value = DropGuard::dismiss(guard);
++
++        assert_eq!(value, 42);
++        assert!(!cleaned);
++    }
++}
+diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
+index 17ca504b7f8d..dd43b159b461 100644
+--- a/rust/kernel/serdev.rs
++++ b/rust/kernel/serdev.rs
+@@ -13,6 +13,7 @@
+         to_result,
+         VTABLE_DEFAULT_ERROR, //
+     },
++    mem::DropGuard,
+     new_mutex,
+     of,
+     prelude::*,
+@@ -21,10 +22,7 @@
+         Mutex, //
+     },
+     time::Jiffies,
+-    types::{
+-        Opaque,
+-        ScopeGuard, //
+-    }, //
++    types::Opaque, //
+ };
+ 
+ use core::{
+@@ -174,7 +172,7 @@ extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> kernel::ffi:
+             }))?;
+             // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
+             let private_data = unsafe { sdev.as_ref().drvdata_borrow::<PrivateData<'_, T>>() };
+-            let private_data = ScopeGuard::new_with_data(private_data, |_| {
++            let private_data = DropGuard::new(private_data, |_| {
+                 // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
+                 drop(unsafe { sdev.as_ref().drvdata_obtain::<PrivateData<'_, T>>() });
+             });
+@@ -204,7 +202,7 @@ extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> kernel::ffi:
+             drop(active);
+ 
+             result.map(|()| {
+-                private_data.dismiss();
++                DropGuard::dismiss(private_data);
+                 0
+             })
+         })
+diff --git a/rust/kernel/sync/lock.rs b/rust/kernel/sync/lock.rs
+index 10b6b5e9b024..15f9cbe76c8d 100644
+--- a/rust/kernel/sync/lock.rs
++++ b/rust/kernel/sync/lock.rs
+@@ -7,8 +7,9 @@
+ 
+ use super::LockClassKey;
+ use crate::{
++    mem::DropGuard,
+     str::{CStr, CStrExt as _},
+-    types::{NotThreadSafe, Opaque, ScopeGuard},
++    types::{NotThreadSafe, Opaque},
+ };
+ use core::{cell::UnsafeCell, marker::PhantomPinned, pin::Pin};
+ use pin_init::{pin_data, pin_init, PinInit, Wrapper};
+@@ -242,7 +243,7 @@ pub(crate) fn do_unlocked<U>(&mut self, cb: impl FnOnce() -> U) -> U {
+         // SAFETY: The caller owns the lock, so it is safe to unlock it.
+         unsafe { B::unlock(self.lock.state.get(), &self.state) };
+ 
+-        let _relock = ScopeGuard::new(||
++        let _relock = DropGuard::new((), |_|
+                 // SAFETY: The lock was just unlocked above and is being relocked now.
+                 unsafe { B::relock(self.lock.state.get(), &mut self.state) });
+ 
+-- 
+2.43.0
+
