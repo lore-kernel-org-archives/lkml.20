@@ -1,80 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13EA51355B;
-	Wed, 16 Sep 2026 14:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B6B4C1505;
+	Wed, 16 Sep 2026 14:25:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568678; cv=none; b=gWxYBW0E9Q+WlGCvgAh1RDkBUHVP6k8ydh1QQInpY0IrKhTzXLhBmeEebou2uGAn3QcnI3vP4XqavBwkR6H0wffuUX5Dm0M/+XcwIn9gUz91Y855zA4w5od8QnbBqHzDgHL5DQ8CWvOZ10LxkWrKhxTXdZEnfcEc4QUP9PggVB0=
+	t=1789568733; cv=none; b=YgnBp5PH70+PtP5dSjb982twyAMPm24dNSlg5a01JTrK2wwjH3Fqy1V7MyxxKh4rd52Rm1/7mMwiYP/iGpJ3Oul05RhlAO0f9hQp/0V6BgtyWVKbBELUbJcyeIdJSlRQY7XwzGtOxjkty/BXqlmbnQG1G+RSHUppUQDCxyN52IU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568678; c=relaxed/simple;
-	bh=yJ2NAM0LpWKZdnca4jMkeaTkoAipNu1J8SrBUIxHwDM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ODZayjlYJSQ6/YaEt82i+GGR6MWg0ivwuBuWC/usC7ROft0m2ooxDScrlVVOSSuAXtuaXkVfhvHZnxN5psLVOZpnxi7os6Qp0TkvwW9VE7VNZyhs3+usrWq9ipPSMSumtqsYKPfoi8v4GWxhBdQ7jFTem95x7SR/YM3pKxlx7U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DN9SkkW7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789568733; c=relaxed/simple;
+	bh=PXSGCK4XJImXzJ5Tnr0mvlaxq0Mq/XyWM5fDlTAcs/8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D7/PoojpHKuKEu8j+dXiB/joAXo0A26rMszBEtGvj/n2aIjXWpDAuJAydVHl8uEYT1kWaV5SHXkpde33MPWhWl0UZGjY6jX59pCXPeBcezAT/qXNrzo7HS7VBfFLfuQChzPNZtfvtKntpQpJEQpOuCk94h6dih24jGsr1WzleBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=jCbHDjhX; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DN9SkkW7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2797D1F000FF;
-	Wed, 16 Sep 2026 14:24:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789568677;
-	bh=r+t8TMvnEg/S8wMNGvfQI5r8XZzjEg9v2zKxhMkNNn4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DN9SkkW7u5UqnyyONVE82AwVzHBH7vtha+0LcgW2indjV8A+Tc0QxZZQ5/HcTzdMM
-	 QIl8j7TIF0WTHb/JV/tF6c77jYGlcKyBIFw4AnqZ1egdBCmT4rT9JAgJbiIsCOSeEY
-	 pcexPHO/n9Nkw9eSMSFaJU7/ZHX03ATOipsIv/VP5hiHSlJSmhAPwl+ximPH9K8Ijz
-	 KCSlaiRnr4U6MDkFOwRckrDFkOVrly5XA8cwp3/qBACDM7BOEQDo60S3z1dmkj+2QP
-	 A6DKb1UWZmW5ESACDodl9bIuZ9VGCeXdUWTXbDHASnceNDzLvuH+LEq8dBIXynV/PC
-	 PHzBxq+4yfooQ==
-Date: Wed, 16 Sep 2026 15:24:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the kvm-x86 tree
-Message-ID: <e3dc428b-7dae-4a1f-b2ca-6085b2343d8a@sirena.org.uk>
-References: <aqqap3DngKznNrSA@sirena.org.uk>
- <aqqiAbgDmfQBLPTA@google.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="jCbHDjhX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789568730;
+	bh=PXSGCK4XJImXzJ5Tnr0mvlaxq0Mq/XyWM5fDlTAcs/8=;
+	h=From:Subject:Date:To:Cc:From;
+	b=jCbHDjhXr35px6io3hf26zcFdpIELxPyr3fRYjU8uNWLarE5F14tZtXaGIFhiVFq5
+	 UiBcT2FBFyuoEZCNi4+PsM+c6M5XYZFvzGHDEcFVxFBZLroER9532dX69mnXVW55wf
+	 WwQ1cVHHSdW7DHsM0/vzNpvjtjYKd2Wfxjj8hHGZ1FrSr/8Uw1aw8Pgz/lISJP82He
+	 xR/fx2wJv6rydnYiZDaGUCl2x6ijiWoAJtOPEB7xGgOGYYTXAcgo35CP+ilOip+SgY
+	 CJqWGJjzN/FI6Lzi6LzGCQ+2SlHftHzVfF2LAImXFffRkhuGGjzMPBj7ugvSQqnGIL
+	 OGtC58cuISjGQ==
+Received: from [192.168.0.15] (unknown [100.64.0.170])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: detlev)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8D46E17E0070;
+	Wed, 16 Sep 2026 16:25:28 +0200 (CEST)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+Subject: [PATCH 0/4] media: Track v4l2 buffers through an allocator
+Date: Wed, 16 Sep 2026 10:25:25 -0400
+Message-Id: <20260916-v4l2-add-mem-tracker-v1-0-900fa45e3e6a@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="w0XxvTF6wZrZP78A"
-Content-Disposition: inline
-In-Reply-To: <aqqiAbgDmfQBLPTA@google.com>
-X-Cookie: Double!
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0WO0Q6CMAxFf4Xs2SVlzoL8iuGhlE6nIroNYmL8d
+ 4eY+HiT03P6UlGCl6ia4qWCzD768ZZHuSkUn+h2FO37vJUBg4Cl0bO9Gk19rwcZdArEFwm6J4C
+ 65soSWpVP70Gcf361h3bdcerOwmlx/Yggjyn30or9c02xxqD+x9xSEk3CKJVDIORmNouooyiax
+ 2HwqSkQyTnaVuyIIcP5Y2bbsbMEuOuAd8ZVUu5V+35/ALgbmPL7AAAA
+X-Change-ID: 20260612-v4l2-add-mem-tracker-da0088c74a64
+To: Tomasz Figa <tfiga@chromium.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
+Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Detlev Casanova <detlev.casanova@collabora.com>
+X-Mailer: b4 0.15.2
 
+Hello,
 
---w0XxvTF6wZrZP78A
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Currently, the only way to track buffers allocated by v4l2 from usespace
+is to use the subsystem available debug information (e.g.:
+/sys/kernel/debug/dma_buf/bufinfo).
+But that information is generic and cannot be matched to a v4l2 driver or
+to a userspace application: It is merely information about the allocation.
 
-On Wed, Sep 16, 2026 at 07:04:49AM -0700, Sean Christopherson wrote:
+Other types of allocations require the developper to find where they are
+exposed and how to link them to their test.
 
-> The test also needs to override/define the memory region.  Not fully tested, but
-> I think it's this:
+This can become hard to track when mutliple drivers are working at the
+same time.
 
-Thanks for checking, I'll roll your fixup into my resolution tomorrow
-unless someone says otherwise.
+To improve that, add a small wrapper around buffer allocations to keep
+track of them at the video device level so that we can add debug
+information to them like a name, userspace pid/fd that did the
+allocation,... and expose them to userspace via a debugfs entry.
 
---w0XxvTF6wZrZP78A
-Content-Type: application/pgp-signature; name="signature.asc"
+It currently only supports DMA buffer allocations and adds support for
+VB2 allocations too.
+Other kind of memory tracking can be added later.
+The verisilicon and rkvdec drivers have been ported to use the tracked
+dma alloactions.
 
------BEGIN PGP SIGNATURE-----
+Note that this depends on the ftrace support patch series[1] that
+provides fd/pid info in the v4l2_fh struct.
+That series is a bit old, so this is based on an older linux version, but
+that only changes things for the last 2 commits.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqqpqAACgkQJNaLcl1U
-h9CVCAf8CVG2G4jR1Fwwm2OzbHxx3PUgSERyb6vZQHWDV8wfHRELw9CbtnMuOIye
-Hd3UuhadFs1L8jENpVuON9uxC06VNUaNT/j5R2sJcajglDfUnfilF77KCEHGhYWL
-0w6XOFc7fsT3fedVhvjE30XzwoKaWODydjct3FjWv064HR0A0nOzEOecBeBHTn7D
-+yYSwQHvfsA222dJiWbhq03rSuW6CCoWE1F/+4PHaKgOiSG4kPAHmojj9YwdlQBU
-C+YWk//yRAu9eTyp9AC8T/27ECL9TIqGIGjxOwWcMg2gEayqfMxp28qKZU4Ssj1X
-ScUFOFww2DGE/eWdBB9Hm0Nb6v4nug==
-=/ej7
------END PGP SIGNATURE-----
+A v4l2top utility[2] has been made, to be used in parallel with the
+fdinfo patch series[3], to show the list of active streams with their HW
+and memory usage.
 
---w0XxvTF6wZrZP78A--
+With this, debugfs looks like this when decoding a HEVC 1080p stream with
+rkvdec on rk3588:
+
+  root # cat /sys/kernel/debug/v4l2/fdc38100.video-codec/mem 
+  created-by                      fd              pid             size            label
+  -------------------------------------------------------------------------------------
+  gst-launch-1.0                  7               635             39184           vdpu381-hevc-priv-tbl
+  gst-launch-1.0                  7               635             4177920         cap-00000000ac34392e-7
+  gst-launch-1.0                  7               635             4177920         cap-00000000ac34392e-6
+  gst-launch-1.0                  7               635             4177920         cap-00000000ac34392e-5
+  gst-launch-1.0                  7               635             4177920         cap-00000000ac34392e-4
+  gst-launch-1.0                  7               635             4177920         cap-00000000ac34392e-3
+  gst-launch-1.0                  7               635             4177920         cap-00000000ac34392e-2
+  gst-launch-1.0                  7               635             4177920         cap-00000000ac34392e-1
+  gst-launch-1.0                  7               635             4177920         cap-00000000ac34392e-0
+  gst-launch-1.0                  7               635             3133440         out-000000005c0230f6-1
+  gst-launch-1.0                  7               635             3133440         out-000000005c0230f6-0
+  =====================================================================================
+  Total size: 39729424
+
+[1]: https://lore.kernel.org/all/20260610-v4l2-add-ftrace-v2-0-9756edf72ac1@collabora.com/
+[2]: https://github.com/cazou/v4l2top/tree/upstream
+[3]: https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@collabora.com/
+
+Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+---
+Detlev Casanova (4):
+      media: Add a v4l2 memory allocations tracker
+      media: Store v4l2_fh in the vb_queue
+      media: verisilicon: Switch to tracked dma allocations
+      media: rkvdec: Switch to tracked dma allocations
+
+ drivers/media/common/videobuf2/Makefile            |   1 +
+ drivers/media/common/videobuf2/v4l2-allocator.c    | 186 +++++++++++++++++++++
+ .../media/common/videobuf2/videobuf2-dma-contig.c  |  27 ++-
+ .../media/platform/rockchip/rkvdec/rkvdec-h264.c   |  14 +-
+ .../media/platform/rockchip/rkvdec/rkvdec-hevc.c   |  14 +-
+ .../media/platform/rockchip/rkvdec/rkvdec-rcb.c    |  21 ++-
+ .../platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c |  14 +-
+ .../platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c |  14 +-
+ .../platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c |  14 +-
+ .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c |  14 +-
+ .../media/platform/rockchip/rkvdec/rkvdec-vp9.c    |  33 ++--
+ drivers/media/platform/rockchip/rkvdec/rkvdec.c    |   4 +
+ drivers/media/platform/verisilicon/hantro.h        |   1 +
+ drivers/media/platform/verisilicon/hantro_drv.c    |   4 +
+ drivers/media/platform/verisilicon/hantro_h264.c   |   7 +-
+ drivers/media/platform/verisilicon/hantro_hevc.c   | 100 ++++++-----
+ drivers/media/platform/verisilicon/hantro_mpeg2.c  |  16 +-
+ .../media/platform/verisilicon/hantro_postproc.c   |  14 +-
+ drivers/media/platform/verisilicon/hantro_vp8.c    |  25 +--
+ drivers/media/platform/verisilicon/hantro_vp9.c    |  34 +++-
+ .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 160 +++++++++++-------
+ drivers/media/v4l2-core/v4l2-device.c              |   4 +-
+ include/media/v4l2-allocator.h                     |  26 +++
+ include/media/v4l2-device.h                        |   2 +
+ include/media/videobuf2-core.h                     |   3 +
+ 25 files changed, 555 insertions(+), 197 deletions(-)
+---
+base-commit: 66affa37cfac0aec061cc4bcf4a065b0c52f7e19
+change-id: 20260612-v4l2-add-mem-tracker-da0088c74a64
+prerequisite-change-id: 20260608-v4l2-add-ftrace-aec6e7f60a6c:v2
+prerequisite-patch-id: bd45b4df66799a7f9f22b49973a78d1bd3590a4a
+prerequisite-patch-id: 6a5ed5615f08257cf854d441785066b5ff4d5d47
+prerequisite-patch-id: 02594c869498b9e91e416d70242afbaa6b3a8d6a
+prerequisite-patch-id: 9f25ec78f3b99ac1c5d42eb732f5bd9eae73fadd
+prerequisite-patch-id: 4ed2c2e8c3abfa7f6328d0ea4f488ca5a3eec8fb
+prerequisite-patch-id: 8787d50eb80e1a63a57a123268cade23c9e64618
+prerequisite-patch-id: bfe85822378fa771f9bbc3e1e8c8ff6bce0eb7fd
+prerequisite-patch-id: 784d0801da320f7b41194f4632ee422c32f1b5b8
+prerequisite-patch-id: 362c8366e2efbfb5e6f1a3f71cfddbd46e8d1506
+
+Best regards,
+--  
+Detlev Casanova <detlev.casanova@collabora.com>
+
