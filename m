@@ -1,181 +1,201 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388E114A8B;
-	Wed, 16 Sep 2026 00:06:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1CA2CCC6;
+	Wed, 16 Sep 2026 00:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789517198; cv=none; b=nsh23nYdC/GyMng6l0dWhb24gWxrszfvvldwEJQC80DPA9B1DeW3KfzJldEKJATqSxLxzMMSk/Jqyk6Sz1BTioH2cGj/2xvq0KIbQ2vbgr0boFlQ7QW8wWDtxMEiVgbl45Giodw90HPFjDy3WiJGemDykiZ+Jk5J6wJ99nAY88M=
+	t=1789517202; cv=none; b=SlMlaloWT4hmFdawSgD3ZWl+0LJR9wFWzReBs5PFSDpPvKLAgZJDC36SA5E7ic9VRk/ZlPqPXvZmOJ0GIBlLTYilkKV7X8zxcWs5jWz74E8vUVjkY6tijHffdoMf8eGOdiMS5VWAyqE87z5EE4xdD8U3Ybz6hdGguDMWPiilK0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789517198; c=relaxed/simple;
-	bh=sIi2Nl9mdw7kw+TPf0jG4ls9mQZuecEUkfWu8yA5BcE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CxpxaycYoRiPfvX2IXgHia80Jfi1pesddKBA9Em5Dok86ek41KWRVrNwDh825O9bjGmZM1iScKz7bkweV+8/q+1gZhDrwGL8qHiIc5sVT83C5RS2ggrtZITG1+6f1YtzHakqyZprxFMKNM6S08oIq4QAfzq5BeoUN4KY0YjiLTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=WOq7evNK; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789517202; c=relaxed/simple;
+	bh=ZZFWUFdLyLqX+KEF08cNtW9NQR9zr9Srp7duV1tD33w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dieBpREuIQ3s+E+eAJZ+1JZq5MK0euEqGehvhg5eCVydw6PWLsr8QiSmEn3p6DKKzujf9O0sGFt4yP0jUvEHjziN0FWQSlxQavy4yNMoOko4WZYXazKX/qKvlp62OZAZ8tTjdKbNJRzk/9KvEVGODanA9Z5LCmNe1PExfZCA2d8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXbeVBl6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="WOq7evNK"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLVilX1963947;
-	Wed, 16 Sep 2026 00:06:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=V5WpnStf+Rd0lBqWuatYSSuftAAMzABqYOVOc7JFF
-	ic=; b=WOq7evNKWEU9/SejKo6XWTqVyr1I9bPEy2VnDpZXvZpi93z7VYhqLBei6
-	3t7cgK4HndF798m9AxYCbKCPOieXhoOD/MAPs2Y90lDoVEzhbvEG5sc3lvBzl0fH
-	g98gwSXz8PKjKhw5Fy8NhIwA+HoDj0E1oXZHyfn3nbAaWGoWytio0Yu1eRnb/1mD
-	4PbLPBOH3JLBYqJbTFnTC7vTQem4jo+zM/ZyuNXEFBwUSzVU/9he4sE9+RLDsYtH
-	JqwQxRUO85PbL04A4kl2ohx0IKZgpYaZYBKn2OICnmIxhIJrYYSg14Z5bKj1vVEk
-	PzpJMsBg7l2Mw3QRQEHAWVAG4lczQ==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf51y8g-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 00:06:31 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLa2MY464062;
-	Wed, 16 Sep 2026 00:06:30 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gq03vbweu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 00:06:30 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68G06Ta739846254
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 16 Sep 2026 00:06:29 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1B07D58054;
-	Wed, 16 Sep 2026 00:06:29 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1EBA95804E;
-	Wed, 16 Sep 2026 00:06:28 +0000 (GMT)
-Received: from li-4c4c4544-0054-3910-8039-c3c04f423534.ibm.com.com (unknown [9.61.83.139])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 16 Sep 2026 00:06:27 +0000 (GMT)
-From: Tyrel Datwyler <tyreld@linux.ibm.com>
-To: james.bottomley@hansenpartnership.com, martin.petersen@oracle.com
-Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org, brking@linux.ibm.com,
-        davemarq@linux.ibm.com, Tyrel Datwyler <tyreld@linux.ibm.com>
-Subject: [PATCH] ibmvscsi: implement vio driver shutdown call back to quiesce ibmvscsi
-Date: Tue, 15 Sep 2026 17:06:26 -0700
-Message-ID: <20260916000626.1981569-1-tyreld@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXbeVBl6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA0E81F000FF;
+	Wed, 16 Sep 2026 00:06:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789517199;
+	bh=DAyopLKcKO7QlC84xkEPKTL4N3PEHjcMPO96WpWVREY=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=jXbeVBl6XPmlqxZujBviJ2BI0qZUOJlXpqxNVbcmup3UtYFLlUIlbEckNyv3M4n75
+	 CdRKB6BMdCvWzgs6s5TB+HdpWXkQ9EOT+0x4K4iSnRxvroVptryhXW8KNIyqQ9RO+g
+	 caY4z6JwEhUY4QzMfm7EiWgEjpzB9V/KmTyYLMp7lPvlGXO3xCfUwfEcyS8G5VMogh
+	 QkeAH4Nu03wZTS5mGW/UQDeyR5kWTf/52pFhXT/kUK3yH2g7sUNUfwlFhI5TC+PIk3
+	 ff8ppPEregbQ+AIuka1ZpX7MWTMosSvfFIPFvC94IGOmpT9DuQ7jTyj47qbTO8P0Eb
+	 igyJn6TrJdZWQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 615A9CE0996; Tue, 15 Sep 2026 17:06:39 -0700 (PDT)
+Date: Tue, 15 Sep 2026 17:06:39 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
+Cc: frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
+	josh@joshtriplett.org, boqun@kernel.org, urezki@gmail.com,
+	rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com, qiang.zhang@linux.dev, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rcu: Guard deferred QS on kernel exit behind
+ need_deferred_qs() check
+Message-ID: <dc328ed5-12fd-4e52-b340-d4a5adb575d2@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260915102241.1344738-1-mkchauras@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: gtdjm5p1bXhy66eL3-7cQlO0vVQFUJgM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDM1MiBTYWx0ZWRfX2sE1h8+o9prQ
- uy3mXomsh9BuggUUciUJ+h8hciBW9PmuJH7B2qBL3d6cSMT/kwNEHgt1dB1pzHeAY1IThPqOXka
- JR5Fo5jxJAA9bpxoViokonxzP5lNk6Y=
-X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aa9dd87 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=_VdnjSN4jw3ftuXtCEsA:9
- a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19
-X-Proofpoint-ORIG-GUID: gtdjm5p1bXhy66eL3-7cQlO0vVQFUJgM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDM1MiBTYWx0ZWRfXyrCy0gjYeJCw
- g2XyFnk7p/gD6eNgK6trAMSnxkKLxey9XQHEtd143t9Ljscm1Ltbv0pWKqXBt/lj+FOnOBGIuVO
- Ixy3sjITphrTijDwKVOP3i5r3TVun7uqK59PV78TpYRvYd9Cmthk+xArZ5RYex+VaFytbDf2gJR
- aGOFZByZ7kSn5yPHGy+8/f6oyzZNNW/Sx2djbV77RkQIfm5ykU1hwxDAJ7BMTtYuSHoVXOyOrAM
- FXg3GC5UdwpNvT1FkIeB/rLKyREKQIIKMUD/i02oog6GMNSuDNQbKwexhjqeU29PFL3PLGjmAU+
- 1AgWyqbTlDsrI2+S3CWcAL/6zz7fwdIqEtazqopisf9Z3naMoR1NnP8Fg2/rY5214K6et/KMn1A
- m6ldxETQa5G86BsDqjdZ4h3IWe6VNAlLDIXxbEFmuQ8GJlcyp8GInWlsRynd6NQv3Xxcjb43HB2
- D88eeCKTNSOyoibm2KQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150352
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915102241.1344738-1-mkchauras@gmail.com>
 
-Currently during kexec the vio driver implementation calls a drivers
-remove function as a big hammer when shutdown isn't implemented. This
-results in filesystem errors in the log as a result of the block device
-being removed while the filesystem is still mounted. Rectify this noise
-by quiescing the ibmvscsi driver and stopping short of tearing down the
-full host.
+On Tue, Sep 15, 2026 at 03:52:41PM +0530, Mukesh Kumar Chaurasiya (IBM) wrote:
+> ct_kernel_exit() unconditionally calls rcu_preempt_deferred_qs(current)
+> on every return to userspace.  On the common fast path nothing is
+> actually deferred, so this is a needless write to
+> current->rcu_read_unlock_special -- a word that lives on the task_struct
+> and is therefore subject to cross-CPU cache-line traffic.
+> 
+> On weakly-ordered architectures such as ppc64le, rcu_read_lock() and
+> rcu_read_unlock() already issue lwsync/isync barriers and touch that
+> same cache line in the syscall body.
 
-Move quiesce calls to their own helper function. Add a driver shutdown
-call back and implement with call to ibmvscsi_quiesce such that any
-outstanding commands are purged and failed back to the midlayer with
-DID_REQUEUE. Update ibmvscsi_remove to also use the new ibmvscsi_quiesce
-and failback outstanding commands with DID_ERROR prior to full transport
-teardown.
+You lost me on this one.  The non-debugging operations in preemptible
+rcu_read_lock() are:
 
-Signed-off-by: Tyrel Datwyler <tyreld@linux.ibm.com>
----
- drivers/scsi/ibmvscsi/ibmvscsi.c | 32 +++++++++++++++++++++++---------
- 1 file changed, 23 insertions(+), 9 deletions(-)
+	WRITE_ONCE(current->rcu_read_lock_nesting, READ_ONCE(current->rcu_read_lock_nesting) + 1);
+	barrier(); // Empty as with the "memory" clobber.
 
-diff --git a/drivers/scsi/ibmvscsi/ibmvscsi.c b/drivers/scsi/ibmvscsi/ibmvscsi.c
-index 4ecd3db08875..bc8da31fdfbd 100644
---- a/drivers/scsi/ibmvscsi/ibmvscsi.c
-+++ b/drivers/scsi/ibmvscsi/ibmvscsi.c
-@@ -2341,26 +2341,39 @@ static int ibmvscsi_probe(struct vio_dev *vdev, const struct vio_device_id *id)
- 	return -1;
- }
- 
--static void ibmvscsi_remove(struct vio_dev *vdev)
-+static void ibmvscsi_quiesce(struct ibmvscsi_host_data *hostdata, int scsi_error_code)
- {
--	struct ibmvscsi_host_data *hostdata = dev_get_drvdata(&vdev->dev);
--
--	srp_remove_host(hostdata->host);
--	scsi_remove_host(hostdata->host);
--
--	purge_requests(hostdata, DID_ERROR);
--	release_event_pool(&hostdata->pool, hostdata);
-+	scsi_block_requests(hostdata->host);
-+	kthread_stop(hostdata->work_thread);
- 
- 	ibmvscsi_release_crq_queue(&hostdata->queue, hostdata,
- 					max_events);
- 
--	kthread_stop(hostdata->work_thread);
-+	purge_requests(hostdata, scsi_error_code);
-+
-+	release_event_pool(&hostdata->pool, hostdata);
- 	unmap_persist_bufs(hostdata);
-+}
-+
-+static void ibmvscsi_shutdown(struct vio_dev *vdev)
-+{
-+	struct ibmvscsi_host_data *hostdata = dev_get_drvdata(&vdev->dev);
-+
-+	ibmvscsi_quiesce(hostdata, DID_REQUEUE);
-+}
-+
-+static void ibmvscsi_remove(struct vio_dev *vdev)
-+{
-+	struct ibmvscsi_host_data *hostdata = dev_get_drvdata(&vdev->dev);
-+
-+	ibmvscsi_quiesce(hostdata, DID_ERROR);
- 
- 	spin_lock(&ibmvscsi_driver_lock);
- 	list_del(&hostdata->host_list);
- 	spin_unlock(&ibmvscsi_driver_lock);
- 
-+	srp_remove_host(hostdata->host);
-+	scsi_remove_host(hostdata->host);
- 	scsi_host_put(hostdata->host);
- }
- 
-@@ -2398,6 +2411,7 @@ static struct vio_driver ibmvscsi_driver = {
- 	.id_table = ibmvscsi_device_table,
- 	.probe = ibmvscsi_probe,
- 	.remove = ibmvscsi_remove,
-+	.shutdown = ibmvscsi_shutdown,
- 	.get_desired_dma = ibmvscsi_get_desired_dma,
- 	.name = "ibmvscsi",
- 	.pm = &ibmvscsi_pm_ops,
--- 
-2.55.0
+I don't see how this emits lwsync or isync instructions.
 
+Now I do agree that rcu_read_unlock() will emit all sorts of heavyweight
+instructions in the case where there are deferred quiescent states,
+which is the only case where rcu_preempt_need_deferred_qs() is important.
+But I don't see how rcu_read_unlock() emits isync or lwsync in the normal
+case where the preceding RCU read-side critical section was not preempted.
+
+But on rcu_read_lock(), what am I missing?
+
+>                                       Bouncing it again at syscall exit
+> adds measurable overhead, particularly on workloads with a high syscall
+> rate (e.g. SELinux-heavy workloads where every AVC check issues a
+> system call).
+> 
+> Introduce rcu_ct_kernel_exit_qs() which wraps the deferred-QS call with
+> a rcu_preempt_need_deferred_qs() guard, matching the pattern already
+> used in rcu_flavor_sched_clock_irq():
+> 
+>   notrace void rcu_ct_kernel_exit_qs(void)
+>   {
+>           if (rcu_preempt_need_deferred_qs(current))
+>                   rcu_preempt_deferred_qs(current);
+>   }
+> 
+> The declaration is added to <linux/rcutree.h> and a stub no-op is added
+> to <linux/rcutiny.h> so that TINY_RCU builds are unaffected.
+> 
+> ct_kernel_exit() is updated to call rcu_ct_kernel_exit_qs() in place of
+> the direct rcu_preempt_deferred_qs() call.  Semantics are identical when
+> a deferred QS is actually pending; only the unnecessary write on the
+> fast path is eliminated.
+> 
+> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> ---
+>  include/linux/rcutiny.h   |  1 +
+>  include/linux/rcutree.h   |  1 +
+>  kernel/context_tracking.c |  2 +-
+>  kernel/rcu/tree.c         | 19 +++++++++++++++++++
+>  4 files changed, 22 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/rcutiny.h b/include/linux/rcutiny.h
+> index e56ded733b1b..dcad641eb2c2 100644
+> --- a/include/linux/rcutiny.h
+> +++ b/include/linux/rcutiny.h
+> @@ -120,6 +120,7 @@ static inline bool rcu_preempt_need_deferred_qs(struct task_struct *t)
+>  	return false;
+>  }
+>  static inline void rcu_preempt_deferred_qs(struct task_struct *t) { }
+> +static inline void rcu_ct_kernel_exit_qs(void) { }
+>  void rcu_scheduler_starting(void);
+>  static inline void rcu_end_inkernel_boot(void) { }
+>  static inline bool rcu_inkernel_boot_has_ended(void) { return true; }
+> diff --git a/include/linux/rcutree.h b/include/linux/rcutree.h
+> index 16a04202888b..d623f2a7d3fc 100644
+> --- a/include/linux/rcutree.h
+> +++ b/include/linux/rcutree.h
+> @@ -87,6 +87,7 @@ static inline void rcu_irq_exit_check_preempt(void) { }
+>  
+>  struct task_struct;
+>  void rcu_preempt_deferred_qs(struct task_struct *t);
+> +void rcu_ct_kernel_exit_qs(void);
+>  
+>  void exit_rcu(void);
+>  
+> diff --git a/kernel/context_tracking.c b/kernel/context_tracking.c
+> index a743e7ffa6c0..011018214c6d 100644
+> --- a/kernel/context_tracking.c
+> +++ b/kernel/context_tracking.c
+> @@ -118,7 +118,7 @@ static void noinstr ct_kernel_exit(bool user, int offset)
+>  	lockdep_assert_irqs_disabled();
+>  	trace_rcu_watching(TPS("End"), ct_nesting(), 0, ct_rcu_watching());
+>  	WARN_ON_ONCE(IS_ENABLED(CONFIG_RCU_EQS_DEBUG) && !user && !is_idle_task(current));
+> -	rcu_preempt_deferred_qs(current);
+> +	rcu_ct_kernel_exit_qs();
+
+You also lost me here.  The rcu_preempt_deferred_qs() function is as
+follows:
+
+notrace void rcu_preempt_deferred_qs(struct task_struct *t)
+{
+	unsigned long flags;
+
+	if (!rcu_preempt_need_deferred_qs(t))
+		return;
+	local_irq_save(flags);
+	rcu_preempt_deferred_qs_irqrestore(t, flags);
+}
+
+So the only savings is the local_irq_save(), and even then only in the
+uncommon case where rcu_preempt_need_deferred_qs() returns true.
+
+So again, what am I missing here?
+
+							Thanx, Paul
+
+>  	// instrumentation for the noinstr ct_kernel_exit_state()
+>  	instrument_atomic_write(&ct->state, sizeof(ct->state));
+> diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
+> index 96848fc1f02b..c23478f70c17 100644
+> --- a/kernel/rcu/tree.c
+> +++ b/kernel/rcu/tree.c
+> @@ -368,6 +368,25 @@ notrace void rcu_momentary_eqs(void)
+>  }
+>  EXPORT_SYMBOL_GPL(rcu_momentary_eqs);
+>  
+> +/**
+> + * rcu_ct_kernel_exit_qs - report deferred QS on syscall/exception exit if needed
+> + *
+> + * Called from ct_kernel_exit() on every return to userspace.  Guards the
+> + * rcu_preempt_deferred_qs() call with rcu_preempt_need_deferred_qs() so that
+> + * on the common fast path -- where nothing is deferred -- we avoid the
+> + * cache-line traffic on current->rcu_read_unlock_special that the unconditional
+> + * call causes.  This is particularly significant on weakly-ordered architectures
+> + * (e.g. ppc64le) where rcu_read_lock/unlock issue lwsync/isync barriers and
+> + * already touch that cache line in the syscall body.
+> + *
+> + * Follows the same pattern used by rcu_flavor_sched_clock_irq().
+> + */
+> +notrace void rcu_ct_kernel_exit_qs(void)
+> +{
+> +	if (rcu_preempt_need_deferred_qs(current))
+> +		rcu_preempt_deferred_qs(current);
+> +}
+> +
+>  /**
+>   * rcu_is_cpu_rrupt_from_idle - see if 'interrupted' from idle
+>   *
+> -- 
+> 2.55.0
+> 
