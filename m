@@ -1,96 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D57260565
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A217A375AA8
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562883; cv=none; b=LdOX9cwcXD6w2wxUZPP3kebJfowAF7vMicKLZEfm2Guya8J98waCJVHqVVua4AkeRh/iWDVPpgN82Y6WDmOueYfTzIZDDR8dVntpwAFYfwEgBMXoQHrNADiylgdelg22Ek4IS1C4dsLNrzotoc+miuhAW0gI+DkTzyRQBaYTI+A=
+	t=1789562933; cv=none; b=q2zKVCVFNN5rBswXE+FGl11LovVXKby33/Wd1RxgOJfNDPgv/3auXcptY90L1739F265RWeQSw6D02ARrjnvGmo/Hpee3KP3sbjQgcfvxl5FQrEwTgBlDxBbaopoUca1OS31IdIjhLpb5Nrp0hpRg0Cd4krUuSs3uepwuqzpEtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789562883; c=relaxed/simple;
-	bh=pF4Z1nahF4n/bVVB8LrpLu/J89R98KhciUBy0FswVAg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DwNXrT81XjqmPvGiNqif/R9E3BHga5wGnyPz+PwAvkkTkanwRmDET9LUsieyad0orRfoWy4QpucteiD8cfeNnt/GzNEykzBN7ZVHuVITxxB8SawIO52QyorthltVpIFIEuf1/RtIochcj0kxsHXQJGEa1BPR6QytxX57acF+YR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HO6rWiGG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789562933; c=relaxed/simple;
+	bh=H34k7SsIUJ0nZ0sEaZhQtlZ3Kbira6446GXQ2UQYvlA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nH4JumJTchjdTE3euHzILLMzWU7iSJXtqndHbPIgYH4ILJVFzFxXkhQoQ0Lxy8yelMBinzE8czzoKPBNtDEZzGmzGSA81c0so/lMsDBgzrNQtNlCwEIFoJYHLxpfOZ6FxUvYg0G1F+EUETht4dLhp7me8wXDs2grAsCQB35cRTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=UYHFLxHT; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HO6rWiGG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F9DA1F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:48:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789562881;
-	bh=pF4Z1nahF4n/bVVB8LrpLu/J89R98KhciUBy0FswVAg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=HO6rWiGGoXUibLEdm0OOC501JdPqHz9pjVMIvP1Hv3gNzqI0q7iSY7AElJfXzykw+
-	 rVScEEKhjlljY34PeC1lUtZprDNsl3HiZBmuGiHvmpzdSkRy9ZVh3ZDFQTfG1alN2N
-	 xbEIHh+VuqPerDqB3jgKj/fnECw/hq7CEHiyt8nw4AiM5ExrAEUVwyFKDFWPfa/1kG
-	 HiYZxv5UpP1mfjc8K03rAtfLRzLV4q3KsvvMYpR3r/ZrRaCoYP9hijnDXIfSzpIKSh
-	 6sNEn/Nqb9s8CNrjBncUADA8oOr9m69OpVPG3pXz7/JmS+pqe0GfQSLmICihyOQTdt
-	 gEXmOUb9GjRvg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1b846so1118518e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:48:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzIa2XRlHETXsNVmlgSazWSkBlWnxeldLavqIwzUoIig0x6LiM9ZZpsN+gMG5vfcrPqYLVKpOHmeN/LRVc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kemP/jHDs9Q0lFFnPKmxwpLGW5skYRr5EDm0nv3pKaJEQZzxM8
-	AwGbMI2d9Qe4BSoW7T2/qaYrvEIYYEzEOgy0wERKFNfw+u3r+NrZ0Tws1mcIPsLCNHsIB2amJgH
-	rJ2XUCv+Not7nSS8hWKrudqOQpUGurSQ=
-X-Received: by 2002:a05:6512:3f22:b0:5b8:23ef:34db with SMTP id
- 2adb3069b0e04-5b8b65ffbf7mr664198e87.6.1789562880080; Wed, 16 Sep 2026
- 05:48:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="UYHFLxHT"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910c9ff1fso104489185a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:48:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1789562930; x=1790167730; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VzaI7ZYbqdoJC4coFReri2t1Bm12kg0MhPi/KYFxqXI=;
+        b=UYHFLxHT4tZADRfpps3/kPdRToXmVpOT+yeTerpUx+frrD5S1Vd4xEsnYf2fUNAK+z
+         TJej/1g0956DfFk8A0HCE8pk2I0yXGuoBCJ9rRkqvWqECXzOo7Ri4Bz6/DwyL2x1Xwvm
+         Vf+HBexeoo3hCuE6HFiL+Im6mQzWPwXv+sOfdbz9EuSW/X1axwSKIvWY6kXcXIapema8
+         h1FCrw0ML5RMzigsKcZudElSnwPJbz1HGkEc7IZDAd7dM+4IrbtOAKmrpK97wL7MvWk/
+         jP7q1oc7Y9ERG7ZCDWYjtFOHpjuqt1gjg4E/R19mC2Cn8648kFnLgcZdFSxH9qLNXzPw
+         0Dgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789562930; x=1790167730;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VzaI7ZYbqdoJC4coFReri2t1Bm12kg0MhPi/KYFxqXI=;
+        b=AkLjTTilzpGkF100g6GShTRWccwqVg0BeDvDecgKoQqwwFEFSrJrnVYb9BFNb/7spc
+         gz8J6X38ED2VGoigZ1+UfM4z6Kz0CRM7ok4gMWeYOIpM3wamIguzeATloTXojBTuZgy8
+         wdDWBHetHc6SGn47F3/LOTuqDpQcP49Tx2fVnVjDtQcU/WK3GyxLaslz4xMVTv94ceuE
+         zdRCa+pTP4lrTXKSpp5qg7Sm4+Y4Id3800Yy4siYEPxq7BomlPecBp8WexLF6Gpho/RH
+         JncigsiZbvI/0QdH7CvVNqkxqR2gH0I2xu5ackMP9rh6wTIw6Go0FjhkF+zuvb5Xc1BZ
+         P+ww==
+X-Forwarded-Encrypted: i=1; AKwUvBy74yrnaWs2CaD1wZuXI0lyS4ComsVfoElq4aO9j9kVxbaVUxdUEul7HS5r/p0l8A0ykTW4D8/i+gNxv3s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSa80NjeKxhHy55UPSz4XzGCswomUOV7ehzzLDCFw6deCrVQev
+	cUHhDrmdErOA5IPmNKDVoGFipshXeLjNjpydyf2B2drpSpnuSV3/vM9myPXZk+8/+uo=
+X-Gm-Gg: AYBFou3v3TfERQSv/RlORlVnX5caQcir2atL9vxYWRqntN4Ky5sJHqc5l4eMSz6/gLq
+	HNeln1RpyF9k6aOm5CG3A5Gd28NPcpB9iFoUBoE+a5Xrzj0s6gUC++jEo9WZ3Sz4IhN0FdRB+PI
+	uL0LkF9wFEahwoDhNLHid/zIBM9Fr1WXkv3idEvBTmid3povnK5ghalHm+6ISbRT5Aq9dx28WBZ
+	cMXsUbVBnnaaB38UymwHPcuAjJzZHg1EvFIvjVD3OgkO3xP3HHmSn9LKoNHeWeQzmk9l7tYJp7b
+	hct7vcaa43w/xJXypjQJbQHmaEMfBFkyRLhMZA4hquUGXLGnjUgF3yC+WuWihQDsUEQJNOj1WVA
+	+X2XhmJ1jy3MBDdZGtq+GQ/paXrnSedDvnQY3b9h0rpEtdnLy1FRtSvg0bG3s1iiffbNGN1g3A0
+	kpJ9RJcia1y6m+ePDVoSa6UgLaAVCCFrbD6H6JsPT0lb6vb0p/6qSP12qrm8URXXHuQAMAxgEqs
+	v8lego/HV1SJo3sI9oc7LB+uKhOPsNvIHY44u0zv9h7b8DxKqsqws0BpA==
+X-Received: by 2002:a05:620a:d8e:b0:939:6de9:4cff with SMTP id af79cd13be357-93bb7907fecmr386232885a.45.1789562930363;
+        Wed, 16 Sep 2026 05:48:50 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b7821dcfesm208481285a.18.2026.09.16.05.48.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 05:48:49 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x6p4D-000000099Zm-0Jbp;
+	Wed, 16 Sep 2026 09:48:49 -0300
+Date: Wed, 16 Sep 2026 09:48:49 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Alexey Kardashevskiy <aik@amd.com>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-pci@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ashish Kalra <ashish.kalra@amd.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jini Susan George <jinisusan.george@amd.com>,
+	Kees Cook <kees@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
+	Nikunj A Dadhania <nikunj@amd.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Kim Phillips <kim.phillips@amd.com>, Joerg Roedel <jroedel@suse.de>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	"Tycho Andersen (AMD)" <tycho@kernel.org>,
+	Liam Merwick <liam.merwick@oracle.com>,
+	Michael Kerrisk <mtk.manpages@gmail.com>,
+	Suresh Siddha <suresh.b.siddha@intel.com>,
+	Xiaotian Feng <dfeng@redhat.com>,
+	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
+	Andi Kleen <ak@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Carlos =?utf-8?B?TMOzcGV6?= <clopez@suse.de>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Ian Campbell <ian.campbell@citrix.com>,
+	Jeremy Fitzhardinge <jeremy.fitzhardinge@citrix.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	David Howells <dhowells@redhat.com>,
+	Haavard Skinnemoen <hskinnemoen@atmel.com>,
+	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Ilias Stamatis <ilstam@amazon.com>,
+	Sumanth Korikkar <sumanthk@linux.ibm.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Toshi Kani <toshi.kani@hp.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Jiang Liu <jiang.liu@linux.intel.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	Palmer Dabbelt <palmerdabbelt@google.com>,
+	linux-coco@lists.linux.dev, xen-devel@lists.xenproject.org,
+	iommu@lists.linux.dev, linux-mm@kvack.org, aik@ozlabs.ru,
+	Santosh Shukla <santosh.shukla@amd.com>,
+	"Pratik R . Sampat" <prsampat@amd.com>,
+	Scott Soule Cheloha <scott.cheloha@amd.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [RFC PATCH kernel 10/17] x86, dma: Allow accepted devices to map
+ private memory
+Message-ID: <20260916124849.GD3196566@ziepe.ca>
+References: <20260916115159.1938195-1-aik@amd.com>
+ <20260916115159.1938195-11-aik@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916082623.3972767-1-arnd@kernel.org> <CAD++jLnsKoXxK5mdNUqWT+ggn+7k4D6H0HZuCcLu4_pv6QFS1w@mail.gmail.com>
- <75d05e40-789e-4cfe-a6f9-fc86af5864e0@app.fastmail.com>
-In-Reply-To: <75d05e40-789e-4cfe-a6f9-fc86af5864e0@app.fastmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 14:47:47 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=NqTsZWDyZe=KvFVjtBAHXDyQ-+yXikA8tdxrubBRmiA@mail.gmail.com>
-X-Gm-Features: AcwNN1XTVr7ctQab3bIfjuljjC9Jfq_rcYJ1ca5CFvzWyBtotnMTV1R6-o5sCQU
-Message-ID: <CAD++jL=NqTsZWDyZe=KvFVjtBAHXDyQ-+yXikA8tdxrubBRmiA@mail.gmail.com>
-Subject: Re: [PATCH] usb: fotg210: fix link error for CONFIG_USB=n
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Arnd Bergmann <arnd@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kees Cook <kees@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
-	Huacai Chen <chenhuacai@kernel.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916115159.1938195-11-aik@amd.com>
 
-On Wed, Sep 16, 2026 at 1:44=E2=80=AFPM Arnd Bergmann <arnd@arndb.de> wrote=
-:
->
-> On Wed, Sep 16, 2026, at 11:45, Linus Walleij wrote:
-> > On Wed, Sep 16, 2026 at 10:26=E2=80=AFAM Arnd Bergmann <arnd@kernel.org=
-> wrote:
-> >
-> >> From: Arnd Bergmann <arnd@arndb.de>
-> >>
-> >> Calling usb_hcd_platform_shutdown() is not possible if CONFIG_USB
-> >> is disabled:
-> >>
-> >> arm-linux-gnueabi-ld: drivers/usb/fotg210/fotg210-core.o: in function =
-`fotg210_shutdown':
-> >> fotg210-core.c:(.text+0x40): undefined reference to `usb_hcd_platform_=
-shutdown'
-> >>
-> >> Move this call into the hcd file to ensure this is only used
-> >> when USB host mode is actually available.
-> >>
-> >> Fixes: 7dbc2e1ba8fd ("usb: fotg210: use the common EHCI core")
-> >> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> >
-> > Good catch!
-> > Reviewed-by: Linus Walleij <linusw@kernel.org>
->
-> Apparently you you already fixed this yourself in commit 600334ef2f29
-> ("usb: fotg210: guard host shutdown in gadget-only builds") in today's
-> linux-next, so this one is no longer needed, the two patches are
-> equivalent.
+On Wed, Sep 16, 2026 at 09:51:50PM +1000, Alexey Kardashevskiy wrote:
+>  bool force_dma_unencrypted(struct device *dev)
+>  {
+>  	/*
+> -	 * For SEV, all DMA must be to unencrypted addresses.
+> +	 * Require unencrypted DMA unless the device has been "accepted",
+> +	 * enabled by a TSM driver to DMA to private encrypted memory.
+>  	 */
+>  	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
+> -		return true;
+> +		return !__device_cc_accepted(dev);
 
-Haha the solution was so different that I didn't understand it was
-the same problem :D
+I want this out of arch code, after Aneesh's recent rework Nicolin is trying
+this approach:
 
-Yours,
-Linus Walleij
+https://lore.kernel.org/all/abddd433493324a6bfdf8ba9710e96d90f0d1ccc.1789010941.git.nicolinc@nvidia.com/
+
+Jason
