@@ -1,208 +1,281 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021102.outbound.protection.outlook.com [52.101.100.102])
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A2943F4C2;
-	Wed, 16 Sep 2026 07:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.102
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544595; cv=fail; b=gTOyyaMX9+eeht0s47A7PvKzvn7CYGJEyiJ60K5LwSsV25sGUpXBQxOoMLcrEl/v2UczlaKXLDAjPOM3Fe/khUzQ6cVNG5T6T/YZCN7mZt44lXSbSOKzo15F2M71mvxCl4ENAfgBnh+6Byj8Hw5yo6s24eTrRqmE18TBRquuGmU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544595; c=relaxed/simple;
-	bh=/XBF05tZnOMc56yX2/fxGYIua5IpQs2Dg9t8XNiFyyo=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=pCHnhPi40WOKv20lxZHSczfihT+uV1RLtdJJeV6CGOoHXReg22FAzBnK60oTvFu9qaUs66tDIjEDxkbaTTtPdIKG1E3OMUi5K8MV8pD3wKlpmb+SromR3fqBPWqk3Un3wjsba1zwIaRcY/KTqcB5M/V3E/pAHo9nVpKaeG8kLNY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=cHpV1+ZR; arc=fail smtp.client-ip=52.101.100.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA9B446067;
+	Wed, 16 Sep 2026 07:43:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789544603; cv=none; b=DJxvWHj7UOOr1dP4c9uERQyhhGFS7gLPyNjbsccvvBEX8RDQ+i1Db3D4UwBpo7gMI4s2dIwNyg1dA3D1Qg2kkSx78wGeT+N3q9HzlX/9x3vfavb3G59FcuPdrGmzvOuFik9gzS7vFQXh6iudp7mt66jZR2mBzPvPxlKFKavvyTM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789544603; c=relaxed/simple;
+	bh=kcw6iirLp+8iv456bhv39U23DSOM9ROt6NVJrN79rr4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mDAuWguvR8jCV/5QYBr7oIokRBpdbcMLDINplV9t5d6HUrUAcN31QwKH4DBODIMnWv0QHnk2NcsOs7pdUfUfJPtarsUMfyvr+7bgMcTtwoDxJ1VJbGb54en0JdJvNjSaNqohEUH+KiF+lzupEqo71/9j7Dr0GNY5gqmJydnwSxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=UF4+HUeQ; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="cHpV1+ZR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TbHt1n3zySRQfvlGIyk03z+HoezNtSOgPUCTanPiGuCAjB0Y5AHx+9NbHbsXTDp6zw+fBtvGoBLTxszUv13zX0jH8yb6gIQEjIycxWsbjNS+UgzxUffx3jwX/nqHpo6aDZy1FdiRsXMj52i7ccN8xAviU9iCQZPs8bKrx2Lm/uDk5tjKYjqdqJQVxr0JuzvUA6rC9feojHgVnwhY5v1LXyts6ikM4aH+V8KLQcX+l2Jo5F2ww8+e3Y2RxspdFMv53sz4IhueewNEZYqBkLETmiUMqcyv9jkSCaiFjVm/Lj5CPTCSczuCCIXLI8/gf4n3hHMgfVRi+95/UOHng/9mqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7YBDxjuOhCIm+gGU+HHAa2pWA+FCSpxxwTwV6nJlKwQ=;
- b=HPAejlxy7yLGorKKjwisR/8s1vkjFbI24IYrLsaJTQNfSmTwLzArFZQimgsaAl+4085MM0wPRfDAq9OuF05qaGj7oW50a5wYvN9DEWN5bABHKjvwQeWontsFkDlhX+giD09EHcYkikODLGiuFfUxHlll3s6SSNdDmel8yLSMWFs91v29vKIGGy947GUEj2Tf8IDEHmuhLvTWcSWKjBfxiQI9J8lfUbuvD7zG0/SGGU/B5Nlexwp8NLK+hM4WxUQs84zbI/2N+AJ7Kh4KwvQsDVwvdyp9Mb54II2miF64P+OXoIH0sCIZ3KydKjmKG1HbxOVZlyiX/+RCC27LKv6eaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7YBDxjuOhCIm+gGU+HHAa2pWA+FCSpxxwTwV6nJlKwQ=;
- b=cHpV1+ZRbnI+Dr9jft6gBWb/uUDI5Xd9McZMBL3/nLtBUcaDEtONPJYRZonVolKDH9F/X4C2wyHLKnqevB4g0ypPaIv0M5CPHbjRBBZbGMlnSk5mWjsHGgGoIJGmxqLUxzxRfhB9dC1sufxuZFJ22bOcN6P4v0sAhV6dHpyMpJQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CW1P265MB8420.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:26f::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Wed, 16 Sep
- 2026 07:42:51 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
- 07:42:49 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Sep 2026 08:42:41 +0100
-Message-Id: <DLGKLQ9LJPBG.3QU14CCO1Y6Q@garyguo.net>
-Cc: "Linus Torvalds" <torvalds@linux-foundation.org>, "Nathan Chancellor"
- <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Nick Desaulniers"
- <ndesaulniers@google.com>, "Bill Wendling" <morbo@google.com>, "Justin
- Stitt" <justinstitt@google.com>, "Masahiro Yamada" <masahiroy@kernel.org>,
- "Alexey Gladkov" <legion@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>,
- "Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, "Dave
- Hansen" <dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
- <hpa@zytor.com>, "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt"
- <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre
- Ghiti" <alex@ghiti.fr>, "Arnd Bergmann" <arnd@arndb.de>, "Catalin Marinas"
- <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Mark Rutland"
- <mark.rutland@arm.com>, "Ard Biesheuvel" <ardb@kernel.org>, "Ilias
- Apalodimas" <ilias.apalodimas@linaro.org>, "Josh Poimboeuf"
- <jpoimboe@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Jonathan Corbet"
- <corbet@lwn.net>, "Randy Dunlap" <rdunlap@infradead.org>, "Gustavo A. R.
- Silva" <gustavoars@kernel.org>, <linux-kbuild@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <llvm@lists.linux.dev>,
- <linux-riscv@lists.infradead.org>, <linux-arch@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-efi@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-doc@vger.kernel.org>, "Jens Axboe"
- <axboe@kernel.dk>, <linux-hardening@vger.kernel.org>
-Subject: Re: [PATCH v2 20/21] kbuild: build rust crates in parallel with the
- rest of the build
-From: "Gary Guo" <gary@garyguo.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Kees Cook" <kees@kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <20260914-build-speedup-v2-20-39817ec5db23@kernel.org>
- <202609141133.7CA979C89@keescook> <aqkv9SqIdh0qKPFc@gremlin>
-In-Reply-To: <aqkv9SqIdh0qKPFc@gremlin>
-X-ClientProxiedBy: LO4P123CA0472.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a8::9) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="UF4+HUeQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1789544578;
+	bh=GC2uHY6TzEQ871y2a6vw3j4HAppRLJhpctXLjf5YSoc=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=UF4+HUeQ6S7X9M0YyVPsN34Ze5JkO1RQ1kXa+M0TG6lXdIAb+WgtUpfwgVUib+KNF
+	 wTyLYIvKmFfoefpjsKPGNXZy6sdkjM7NpLLYiXNFfWpo34tpO8V7Fn1yIALmMds54l
+	 X1cqfbKKufSwhmEAYPagVY5FofJBnE7PobnahYvE=
+X-QQ-mid: esmtpsz20t1789544575tdce502f5
+X-QQ-Originating-IP: MFlZU4grfHATUCmYhWGj7hiotv7USuKZFxkNblM3mXs=
+Received: from zzz-PC ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 16 Sep 2026 15:42:42 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 9278055536101676971
+From: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
+To: Kairui Song <kasong@tencent.com>,
+	linux-mm@kvack.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Chris Li <chrisl@kernel.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Nico Pache <nico.pache@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Gregory Price <gourry@gourry.net>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Hugh Dickins <hughd@google.com>,
+	SeongJae Park <sj@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Yu Zhao <yuzhao@google.com>,
+	Vernon Yang <vernon2gm@gmail.com>,
+	Zicheng Wang <wangzicheng@honor.com>,
+	Chen Ridong <chenridong@xiaomi.com>,
+	Tal Zussman <tz2294@columbia.edu>,
+	Kairui Song <ryncsn@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org
+Subject: Re: [PATCH RFC v2 00/15] mm/mglru: frequency guided promotion (MGLRU-FG) and flag cleanup
+Date: Wed, 16 Sep 2026 15:42:41 +0800
+Message-ID: <EF8E0336FFC4841B+20260916074241.3373002-1-zhaozhengzhuo@uniontech.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260911-mglru-fg-v2-0-f26e5cb26da7@tencent.com>
+References: <20260911-mglru-fg-v2-0-f26e5cb26da7@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB8420:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33a7bc71-b9bd-4a79-7118-08df13c61b9a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|10067099003|18002099003|6133799003|4143699003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	0efAcLjKSZs0H6OPnmEIAnSUgmlBnis60nffkIETUknOAxVN9DQx2ALCeedu9DtBaqYYheg2uPeZdQH4I1VVeOuKcE1HVLGxlZ8Ca+h1nWDvv0anmd2samMyEN+JfNo7UDcjK5v2tlEebf/gYFhZJXBuiS3ZnDsaYC36ne7/rt9NWts2FKU8R73GkBeMEqlCfdO2BduFgiQeZMfJUkDFcVErnbLl9/dUCA1t85nBy1Ot/5Air6pqow1N4olTxkYI0xIW7Cjy83Z6GSzgrYy88HXDwYPuqbV8FWXEK9Jj1qeSI9XQj0LtUU2oOuXrXGozqZr1DvUKd1APK9giYav0mpS8I+XoWVp66CJpTp8ia5ScwozGqFeinupQ3QloVq0Kv4WtD54riy+Vn3w5Ne2SLWtjruqtajv2xMpNbobAtwvXXxOhixR53mgXTKpeyyp92pSyrn2jRHaclPMV+v9wKTTMXfpKoh5VQ2c4mzMygmhOXVb0F8rFwgYtamAwW260J05kGFVnWa3a99ao9VuJJy0twO1h+3Mv3uF1WvS07cmswnlyqWlsXY/Sjpo5fqb7Eqgfw52/2clInS5kgh0BUBNaY9aicWI83KXCg5eMbdUlJCMNS6vpmp2QOrcstDZ2bTkrr7jWJ7YNUNlCeM6IYeYLSNgQT10X6McwpYWt2Lc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(10067099003)(18002099003)(6133799003)(4143699003)(56012099006)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?anpBT21UMEg2K2FMTUlqSHlEZnBaTnh3MGc1Ry9KbWNSaDBFUmVZd1plL3N4?=
- =?utf-8?B?V0VPZVRmZERzNktlRjBsbDJBSjR0T055aW10cXJkWDRhQkNxQ0t0TmhZcDdo?=
- =?utf-8?B?ZzJmS2xTRWJGVkdDVEJubXYxcTliYVhMVGc1UEVKSkxjR0NLZVFFZnhyL0pk?=
- =?utf-8?B?Ym00RlYrK3dSRWxUOUdSekQ4dEk3ZWlPRWhKNEorUzIybEJiQzRFc0I4eTBB?=
- =?utf-8?B?M3o2Njlqc3RyQ1h5NW44ZFpzODdYd0xiM0YvbzR6SzYyMVpJeFJ5TXQzN3ht?=
- =?utf-8?B?TkgySHF0TFJPZDlNbFIvdm5yY0ZYZ2lRTnl5WHJNSXAwTHdrNCtCdTRpY0pQ?=
- =?utf-8?B?bldZTDlyWmIwYTE0K2lYNG5kMXZTVUI2eTZITExOS3J2Y0FlZ1phenFCN0Fn?=
- =?utf-8?B?WUtaYXpVYVAwRm8zdC8vN2NWOEx2NERhVW1VUW93RGkwS09ZbTcyNXMyek41?=
- =?utf-8?B?RndYL2dJTFJ0ZnhYWTFZQ3ppS0hnL20yTDQ1M3dkQUZtUTI1OFk1UVNseXdZ?=
- =?utf-8?B?cG1PVjlpTkdFZTdYZ1RRSVl3ZnZGSlAzbi8yNjhvOVY4a1A4TzRDMllaaWlq?=
- =?utf-8?B?OE4vZnlRbVJ1czYxMUxHcCtsU0FUTkdoVW5sK09lME1KTDhTRFRJak9IVXBq?=
- =?utf-8?B?N0JEZ29tUFdPeS9qV3NGRUs5QnpvU3ZvSENCYkliUllwc1pJRklHcHVtR2kv?=
- =?utf-8?B?UzB5ejdIcjJiVnNOS2JFVUQvdU9kZUZJMjRJYUNINVdyd0EyRUJtZmxET3V3?=
- =?utf-8?B?OVZlZ3EwU0R6Z1dvWkdqZ1JySnRNUDZkUlRGQk53djNyL3E1NGVILy9ndWc4?=
- =?utf-8?B?NVlKV0Q5d09lQnBmY3dHVTBXbWFCcVVoVlN2ZjNUUDJzUVFLUXA4YzJYbXdZ?=
- =?utf-8?B?UEd4c1hROVQzdlY2dEJKUk9SK3ZaeHBPd3NmUU9kbFBENjViUmUzZ1N6Y1ZL?=
- =?utf-8?B?UWtRTWtncnk1NDRqck16b1hYUXUwRkR5NG1iUG5ERjlnRVVUMWx6djBzS0Q0?=
- =?utf-8?B?ODVXdzV3bU1BMERXTzlsekxIZzFYVmQvNEFPcnJ5TURoUzU1KzhkeGtGZUIz?=
- =?utf-8?B?dHVnbW9ubTk2b0pveFhBOXJkUWNFaWorWkZ4T3RJWERDWGVZVWc5YnJOa0dv?=
- =?utf-8?B?WXFVWEhLV04yMVYwSFBMczBWazIvdC9NM2U5NFNWSFJIaGlpdE5uTGk2eVZI?=
- =?utf-8?B?WkkzSXlQWW1GbU9LK2xJV3pwVmpYQjZWNzMvRFQwd2dva1JVSk83eTN6aFZs?=
- =?utf-8?B?U0lIMzVjK1gyWjEwZUtCcXF1RHdLREh1THdhRjF6S1Zwcmt3cXVDY25BaktH?=
- =?utf-8?B?OWM1NTBNU1RvaFVWTjFpbFNoZFBybXBid3ZFOTUxaEtNSE81Zk1jNE9iZUJa?=
- =?utf-8?B?RVp2TnMwcGdVY1JPLzBUdis1cTU5RW10U285Q2JwdHZGZWppVXp1Yzh1dkkr?=
- =?utf-8?B?cmw3NEJtV0ExUEVlblkzZkNOTHo2am5HKzA3aEFWUkNycEw0Umw5WTAzRU9t?=
- =?utf-8?B?MkU3d0t6aHBNcEFGbVVUV01SaGJFVUU0QlkraGpUczFNVkZSVmhIT2tTRDFI?=
- =?utf-8?B?b2pnYkd4Y3dXeXNtUEp0eXZmeUQyQXBDQTRNeGZsenJsblg4M0VuTE8rcC8r?=
- =?utf-8?B?bXllL05yWjB4YmRLUFFacmhnTDkyKzB5ODc2bzNZNnZKNzY1MXdOdVZVdmZW?=
- =?utf-8?B?azVXTzJKNUczR054U3FNWmlCYXFNamhMejdSSlhkV00yYjh2cHZ1QXRZcG51?=
- =?utf-8?B?SVYxSFQrcVRIcUlFK0VqeFd2Z3h4SlBsdHM4OUdDVFBrNTVSeGVyeW85Nzk0?=
- =?utf-8?B?ajdpV2pYQmJoSVptZFFHd0lxcW5tUkhSR2VXQjRBakE1VWJ3Yk9PYTBmdW5m?=
- =?utf-8?B?Yk1WcjliOVlibzg3Wjh1OWtsZGl6Z0UzQzEyTXY4TXQvMHFReWloVFBwZ0xn?=
- =?utf-8?B?ZUxmY1l3WW5lLzBqZXAyR21hU05sN1NCUUNaTFIySDllcnRMZWcwYjBjS0NJ?=
- =?utf-8?B?OFJWRllpa1oybEV2azFWMXF4S1pXZzhhSGJlS3FXOWhvdnNBSDJXTU1KOUpI?=
- =?utf-8?B?clJXMGZzbHJ6TlJSZWZ4aUxLbVVjdDI5MGFCYnhHdWpVbTYyeVQ4dXEwUHpP?=
- =?utf-8?B?NVpLU2pWS3U2MkMyU1pEMWNueXRvKzc0Qi9lQXZkS096NmJ5TmVKREFtTjBV?=
- =?utf-8?B?SFhRbytBeXVHOVRjN0ZLc2x1YWFlMWxLcGJrVlR0WFh2ZEc1SG85V2NtYm1E?=
- =?utf-8?B?amdjbjN5UkVwV0xidi9FQ0tDSFQwZSt6cEtyeUVQWE50b3FXQnIzRU9mOEZ4?=
- =?utf-8?Q?LTGTr34OJWIwy2BNht?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33a7bc71-b9bd-4a79-7118-08df13c61b9a
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 07:42:49.8723
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mS2Ijo/VLzsu75PkDXsh+naN/jpUaLkDSjvC68+B8bpYEOpQMXNhug4S+gsg51cq0rQx3LWvs9S8UNkphCt3Jw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8420
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: NAeO0+xU6W769OBubAh1qVtaxG3Zsynl5V5opSTVuZngx038riODAy4c
+	jNAK2gwCQUCfzrNgNUTlh8m2x9LaYXc1ucKyH1Qf0eshl5VJ5BGuurx2xudHuJVEt7OlZwf
+	Irnov5FoDZEn224OUQL1vkouLQAM9dVpZgKBXAHORBBsuCZJ/JXfOB6cnALyCMdoY8Xl7rQ
+	SIDVN/yws+wBtbWaOz1QWr+4k9KPtnU2AAmwyTsyb8k5ItGm8L2Qb9tIc0p/l5HrJ6Pdrwh
+	JldiHVPK+kOGUyBSXUoXdIxotIKs74fNgMLqcj7atvjDd3cqTFIK93XPG0+jll6f0lz1FCv
+	82OwCZcf8OHXkT+czht60Dhbb2z/40NC8kn95g5JZIeXhbjrNDsxGw68isXh8B3Z12lOnen
+	JuTkWQAi9MXObUIR/g7gdmJAcZ1+V7ApKWHbFA9GP2sK4EYSlMPqOEEWPfM4kCfQNBOVdyB
+	oxRBeJ6EJGM/+RsY1XOw1W6MIsVQNIEqi/c8+GHa/xea0HeSCH27fiSyp92nmSkd6oqp412
+	WDzgCEkpP5Iaj/NGn5k3LI1mi/0tzJsR3N/ZOCaB2I9UsP3SJ7Dpb5luYLNXZe1KRZRDzaR
+	fJ15MwT73c8vgE35ZCNfl/9PJDopezNcBg+vcKSuiXuAoWWtnRJAVlmnVyq6slX+mobiFOL
+	6GC7pZcoXDysIu8y94MGBdfjZ35Z5IZCuUg4ZdlqM1pMQYV1IARX8CDr8ZmLInOY8Bct99g
+	kUBM3ash4VJLKprtNchSy34G8TrIfu9oajEOkUeOLHowZltYou2xcT6kkViWXZwXal0YQ19
+	Qtb18ohIRXaNLiZYaTZkza0e1Djz+gE7EsAVdHWyNq5Cxoi4PjAnQzgpmai4oyaTOcpvlAG
+	CguEOwtveVqy74D8sgJ0PasRhGoc33R99NisVNiIb17xz56wA3wXPAVESq9LyYgHhPllEIJ
+	5OEVWyPxh/pQUmLnGZoIUgzCQAc33TL++N/IApraEXH2YHB70qLoW9AexaNSdEXp+rHWpys
+	jPnKq1S9R+yKvwJXvJYv8lCbAH6LKaRN1dAXjs8IIPIYQ/qvwTbZn9fbM7w5Vxiky0YRGyt
+	8aCTaEAkBmE
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-On Tue Sep 15, 2026 at 12:58 PM BST, Lorenzo Stoakes (ARM) wrote:
-> On Mon, Sep 14, 2026 at 11:37:54AM -0700, Kees Cook wrote:
->> On Mon, Sep 14, 2026 at 10:22:19AM +0100, Lorenzo Stoakes (ARM) wrote:
->> > +# Rust code elsewhere in the tree depends upon rust/.
->> > +ifdef CONFIG_RUST
->> > +$(KBUILD_RUST_DIRS): | rust
->> > +endif
->> > [...]
->> > +export KBUILD_RUST_DIRS :=3D drivers lib mm samples
->>
->> Doesn't this make all of drivers/, lib/, mm/ and samples/ wait for rust/=
-?
->> That's a lot of stall: drivers/ is most of the tree. I think then a
->> CONFIG_RUST build has most of its C work waiting on the rust chain;
->> only the other top-level directories start early? This didn't create new
->> build delays for those configurations?
->
-> Yeah good point.
->
-> For a defconfig+rust clean build on 128 threads the other top-level direc=
-tories
-> were done at ~14s while rust ran to ~18.6s, so there was 4-5 of idle.
->
-> However the patch improves things by net -3.9s regardless.
->
-> This is really only a big box issue though. With fewer threads the rest o=
-f the
-> tree takes longer so it has no impact on the build.
->
-> (An aside - this kind of trade-off is what the series is all about really=
- - the
->  'serial tail' - i.e. the single threaded stuff that _overlaps_ the end o=
-f the
->  build is what slows you down.)
->
-> Since this _still_ gives you a significant speed up on bigger boxes, I th=
-ink
-> it's fine as-is.
->
-> The LLM says a fix for this would need significant work - a cross-instanc=
-e lock
-> and an on-demand rust/ build. So I think best as a follow-up?
+Hi Kairui,
 
-If we do it we're basically reinventing a new build system. Not saying that
-Kbuild isn't one already :)
+Following up on my earlier v1 test report [1], I tested the complete v2
+series on a small WSL2 box. Applied on the stated base-commit
+9958290885035431e2494159f555e332c3c14906 (mm-new): all 15 patches
+applied with git am, zero conflicts, and the resulting diffstat matches
+the cover letter exactly (20 files, +812/-499).
 
-Best,
-Gary
+Environment
+===========
+WSL2 VM on a 32G Windows host, 12 CPUs, deepin 23 userspace, swap on an
+NVMe-backed virtual disk. VM memory was 15G/4G swap for the kernel
+build, fio and sqlite-grep runs, and 20G/8G for the DB and browser
+workloads. The distro WSL kernel ships without CONFIG_LRU_GEN, so both
+kernels were built from the distro config plus CONFIG_LRU_GEN=y +
+CONFIG_LRU_GEN_ENABLED=y; the two kernel configs differ only in
+LOCALVERSION. MGLRU was toggled at runtime via
+/sys/kernel/mm/lru_gen/enabled for the CLRU/MGLRU split, as in your own
+harness. Workloads were scaled proportionally to this smaller box as
+noted below.
 
+In summary: no After-vs-Before regression anywhere in my matrix, clear
+wins on fio miss rate, Chromium&Node and sqlite hot-path stability,
+both MGLRU modes consistently ahead of CLRU, and classical LRU
+untouched (MGLRU-off runs agree across the two kernels within <1% on
+every metric). Both kernels survived ~8h of heavy memory pressure with
+zero panics/BUGs/warnings. One caveat: your +13.4% MongoDB gain did not
+reproduce at my scaled 12-thread setup (+0.7%), but no regression
+either. Android was not tested (no real device here).
+
+Build kernel test
+=================
+make -j12 in a 3G memcg, disk swap, kernel and build output on the same
+disk (your -j48/NVMe setup scaled to 12 CPUs), single run per point.
+Your 16-point swappiness sweep scaled down to {60, 100}; note that with
+swappiness=0 the build gets OOM-killed inside the 3G memcg and never
+completes on this box, so that point could not be measured:
+
+swappiness 60:
+        real     refault_file  refault_anon  pswpout
+CLRU    1114.6s     4,645,990       825,316  3,401,489
+Before  1101.1s     3,772,987       628,921  2,871,346
+After   1091.9s     3,710,332       663,956  2,900,774
+
+swappiness 100:
+        real     refault_file  refault_anon  pswpout
+CLRU    1124.6s     4,475,974       741,947  3,470,739
+Before  1086.6s     3,764,594       757,247  3,002,297
+After   1078.8s     3,715,202       651,335  3,108,020
+
+MGLRU clearly beats CLRU (real -1.2~-4.1%, refault_file -16~-20%,
+pswpout -10~-16%); After is at par or slightly better than Before
+(-0.7~-0.8% real), matching the small deltas in your cover letter.
+Repeatability checks: a rerun of Before/sw60 landed within 0.7%
+(1093.0s), and CLRU agrees across the two kernels within 0.9% (sw60:
+1114.6s vs 1104.9s), so the series does not disturb classical LRU.
+
+MongoDB YCSB workloadb [2]
+==========================
+recordcount 20M, operationcount 6M (as yours), 16G memcg (as yours),
+default WiredTiger cache, 12 threads (scaled from 48), disk swap. One
+discarded warm-up run, then 5 measured runs, ops/s:
+
+CLRU:         21242 20607 19591 19595 19360  (median 19,595)
+MGLRU Before: 20943 20429 20085 20937 20842  (median 20,842)
+MGLRU After:  20993 20404 20922 21031 21332  (median 20,993)
+
+After >= Before (+0.7%) >> CLRU (+7.1%). Your +13.4% did not show up at
+this shallower thread count, but there is no regression either.
+Interesting side note: CLRU degraded monotonically across the 5
+back-to-back runs (-9%) while both MGLRU configs stayed flat.
+
+My own caveat: my first attempt capped WiredTiger's cache at 8G, which
+pushed the workload into a swap-thrash regime where Before actually
+won; with the default cache size that inversion disappears, so it was
+my test artifact, not a patch issue.
+
+Chromium & Node.js test [3]
+===========================
+Yu Zhao's original per-pair workload, scaled: 4 server+client pairs
+(each server capped at 4G as in the original), 30 min per config
+(yours: 1h), disk swap (yours: zram). Total requests:
+
+CLRU:         72572
+MGLRU Before: 76638
+MGLRU After:  84303 (+10.0% vs Before, +16.2% vs CLRU)
+
+After also had the best tail: 1 request >= 16s vs 8 for Before (CLRU
+had none, but at the lowest throughput).
+
+FIO cached with zipf
+====================
+Same recipe as yours, scaled down: 16 jobs x 1.5G files (24G total) in
+an 8G cgroup, 4k sync buffered randread, ramp 45s + run 600s, two of
+your zipf points, single run per config:
+
+Avg IOPS (higher is better):
++--------+-----------+-----------+-----------+
+| zipf   | CLRU      | Before    | After     |
++--------+-----------+-----------+-----------+
+|  0.9   |   450,323 |   449,141 |   473,428 |
+|  1.2   | 2,515,146 | 2,389,242 | 2,615,904 |
++--------+-----------+-----------+-----------+
+
+Miss rate (refault/read, lower is better):
++--------+--------+--------+--------+
+| zipf   | CLRU   | Before | After  |
++--------+--------+--------+--------+
+|  0.9   | 0.1735 | 0.1758 | 0.1641 |
+|  1.2   | 0.0211 | 0.0234 | 0.0195 |
++--------+--------+--------+--------+
+
+Reproduces your observations: After lowers the miss rate -6.7% (z0.9)
+and -16.7% (z1.2) vs Before (-5.4% / -7.6% vs CLRU) while IOPS also
+rise (+5.4% / +9.5%); Before being slightly worse than CLRU on miss
+rate also reproduced. Caveat: single run per config here.
+
+LevelDB Scan/Get [4]
+====================
+The cache_ext paper's own artifact (its My-YCSB + LevelDB fork),
+mixed_get_scan (95% get + 5% scan, scan_length 10000, zipf 0.99), 4
+threads, 240s warm-up + 240s measured, 3 iterations per config with a
+fresh DB copy per iteration. Scaled: 128M-entry ~28G DB (paper: 512M /
+110G) in a 2.5G memcg, keeping the paper's ~11:1 DB:memcg ratio, swap
+off as in the paper. ops/s per iteration:
+
+CLRU:         13718 / 14179 / 13262  (median 13,718)
+MGLRU Before: 18625 / 14433 / 14309  (median 14,433)
+MGLRU After:  13152 / 14328 / 14420  (median 14,328)
+
+After is at parity with Before (-0.7%, noise) and +4.5% vs CLRU -- same
+direction as your +7.7%, and consistent with your own table where After
+essentially matches mainline MGLRU on this test.
+
+SQLite and grep [5]
+===================
+Your harness as-is (300M memcg, as in run.sh), 5 runs per config after
+drop_caches. Hot lookup (1000 hot-index lookups):
+
+CLRU:         122 ms median, bimodal 10.7~183 ms
+MGLRU Before: 12.4 ms median, noisy 9.8~179 ms
+MGLRU After:  10.5 ms median, stable 10.1~11.5 ms
+
+Same ordering as your 10.58 < 14.51 << 567 story (CLRU degrades to a
+bimodal distribution here rather than the collapsed mode). On the cold
+scans, both MGLRU modes beat CLRU by ~17%.
+
+One observation: in the harness's multi-tier test (large cold scans
+coexisting with hot lookups), baseline MGLRU had an incidental win on
+the hot part (~2.35s vs CLRU 3.15s) and After returns to ~3.1s --
+consistent with your LevelDB discussion of dropping the refs==1
+second-oldest-gen bump. Not a problem, just something I noticed.
+
+Others
+======
+Not tested: Android (needs a real device; this box has no nested KVM).
+
+Full raw logs available on request.
+
+Tested-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
+
+Thanks,
+zhaozhengzhuo
+
+[1] https://lore.kernel.org/linux-mm/92DCEFFD13221261+20260828102344.1537874-1-zhaozhengzhuo@uniontech.com/
+[2] https://github.com/brianfrankcooper/YCSB/blob/master/workloads/workloadb
+[3] https://lore.kernel.org/all/20221220214923.1229538-1-yuzhao@google.com/
+[4] https://dl.acm.org/doi/10.1145/3731569.3764820 (artifact: https://github.com/cache-ext/cache_ext)
+[5] https://github.com/ryncsn/emm-test-project/tree/master/sqlite-grep
