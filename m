@@ -1,201 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC60030216D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576015; cv=fail; b=gn6mgl+iHAv0nFT0QYHvROeZFujaNw9lEt6wspfgTu4SvO3vqd1d9QETqX60UrucGIsaP+BHG13ysRISSXmlCJ4u+S/ksCOTmhF4t08vYWCX0pLJCtJrOYDad04rpC0AoG7xjqH9ejd+39/8KA3c9HedatG5SkanIFtGj9nVrLI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576015; c=relaxed/simple;
-	bh=jwDTbt0g9Cn3qSuNexURwDqVwPYPWyAxbJFa4gG2iz0=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Je2Hi2ADwxJEVcuTxgwbdDtmyd/FtZW4XbjqHTdvmzBoE7BjnRe1qRU1KM554Yuj1oaC6MIOoc/pIwL0t2rdXMMUJDeGaPUPOSPWYSE8oFrHJ1KnR3kJ0lFZlOhaf4sZSEr7wx2Rqlh6NXq0I7KhfCtt3k2qY8CQGiEjyX0YMAQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PN57CFLu; arc=fail smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PN57CFLu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789576008; x=1821112008;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=jwDTbt0g9Cn3qSuNexURwDqVwPYPWyAxbJFa4gG2iz0=;
-  b=PN57CFLu78BBx96OE95BKXrCt3PWWpEO/iqR9EBPVvnxMAg4J0IX3ka+
-   bZE1kna80wCITPonYx08jmtjPaVSVjUD+Q56QcoI8QduXH1gryZQ6lYPo
-   SwlJ6u8xnHbbiS5cTAKA9cI6wdK0iBkr5MPW3SKmROQJoPIvf9hkYtDZU
-   ZCobXfzlDJqmIn1mwsVy2ZiVUlEf45+avkqdyxdQtTNnQ5MRERpxoQwAT
-   SvM3qVvpi5dCwOZuSAjiHO6lcYSJlwOpoww3pWVKDX7TR0nbcDDWU34l7
-   kJdpk9+tVtG+1VGEzyDD+jgHJFku25adS558gALLCjFuzumERRvshcFnk
-   w==;
-X-CSE-ConnectionGUID: y5U+IgTdQw23qNAaXdWE8A==
-X-CSE-MsgGUID: E0moJOx9SJ+mZEWfQHEaUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93831707"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93831707"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 09:26:45 -0700
-X-CSE-ConnectionGUID: 9OPL1SanTHKsFWXC6A9KmQ==
-X-CSE-MsgGUID: 7Ikc/Ew/TayMuBmNFIFvHA==
-X-ExtLoop1: 1
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 09:26:44 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 16 Sep 2026 09:26:43 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 16 Sep 2026 09:26:43 -0700
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.5) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 16 Sep 2026 09:26:42 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kLhUCD88vtdlBLUC0yK1L5WG41bi3Y8pk8seCeOzu7vDDqawpuw5y6ipOZJsklcftCmYIQvliAxe1oWm2OIWeNwVbiZT+qE6wWSz2/eUKwX6uYdE+WokAVob14TbDPTi8rHOj8Uxd0XjwxxISCjIPgz8LFJDWsaeDKudVbG5IOoaw9Nc+s63wCc8w5uj+WvTtCRanUmu9AAU37Ut+HnFx0p17NIy2s/IIVGRPijZWFZQEKoQsv7V159tQcWGcIZcn3LdipZ5ZmILltabLjcQouBCUH8iaBCm3vYG+8wGTGpLAbvjilhZnuTx53xE2rWcOqUcBzfgGr51CEGFTFD+nw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=akCk/+1YBq5fJjXzlFS9BVP7hGUtVzlmTqGLm9HeZ2Y=;
- b=K9dF3zcO4HnAyT8ebiBvFyFx46NNW38noUeFPfRGXJRbQCeVyB1Q8Vq4HOZy/CtEJYWcispmqkQnvDLjmHgY2R6PpYUO408iCj0xg+3N6riJ9/BAC1jxp426ocF0Y9GebCzBTIxn28piYtl98+6fG5pd6ecuPD27xZ6XeKT8YTURKPFpqlZvcjyGw9rC2ZCX+9ZjF1NvoOc3ZnM8HM139YY3IDflzNAX937QlipAhWoVoO1so6wmUcmdgijE8ODqkK8+ib7VSJhx3WUDjHRlrAw2wLRbl3lY7m0WL14BJ/lJrqArQrDVOky17mxGRJ6LK1EMVvXyis6YRRbo2s/Bjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
- by IA1PR11MB6514.namprd11.prod.outlook.com (2603:10b6:208:3a2::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 16:26:35 +0000
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6%4]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
- 16:26:35 +0000
-Date: Wed, 16 Sep 2026 09:26:33 -0700
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Reinette Chatre <reinette.chatre@intel.com>
-CC: Fenghua Yu <fenghuay@nvidia.com>, Maciej Wieczor-Retman
-	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
-	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
- Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>, Chen Yu
-	<yu.c.chen@intel.com>, David E Box <david.e.box@intel.com>, <x86@kernel.org>,
-	Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-Subject: Re: [PATCH v11 19/23] x86/resctrl: Export interface to report
- telemetry unbind/remove
-Message-ID: <aqrDObHc99BX1Gmf@agluck-desk3>
-References: <20260831174421.13921-1-tony.luck@intel.com>
- <20260831174421.13921-20-tony.luck@intel.com>
- <1a418996-fe0a-4553-bd21-9881ab182e51@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <1a418996-fe0a-4553-bd21-9881ab182e51@intel.com>
-X-ClientProxiedBy: SJ0PR05CA0176.namprd05.prod.outlook.com
- (2603:10b6:a03:339::31) To SJ1PR11MB6083.namprd11.prod.outlook.com
- (2603:10b6:a03:48a::9)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D954351357E;
+	Wed, 16 Sep 2026 16:27:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789576044; cv=none; b=AGbuXV91N+SHrxmL0bHu5JHGyhFtR4dGf05eB91MznBBRw+BJBoo++kNC3HZPv8D9LMbAyrrDHQ/pzPwTRqy5qM6cN8oefx7vrDeiSZS+teiYelrRl2AFA56xjagcbTKy20/KWn27PfSfAQh02Lt0ScCXHXwGw1R7hBf3yqoaew=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789576044; c=relaxed/simple;
+	bh=18qSghsd4oFLTLNoXIdxtY0t3dPvtnegnVBCOHbmr/g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IMijlnd/ItbtqHZWeu4QH4yUgy2CUOH36m1Ue2M9t1MP+I4QE/NZZRSvt+RNzv5K5LOFFns/Eba+UXLA2l0Lj4TZ5BZZL7FYUHlTsZ7U7kyYUhfJ1F0fe8tGR4+5NlE5UF1zjsrM5MRSNPDspep/BmuBoaZoAJVoxyjECX+XKX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACXAj1aw6pqiqNtCA--.21368S2;
+	Thu, 17 Sep 2026 00:27:06 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andy@kernel.org
+Cc: dlechner@baylibre.com,
+	gustavograzs@gmail.com,
+	jic23@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	nuno.sa@analog.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: chemical: ens160: Fix trigger reference leak in ens160_setup_trigger()
+Date: Wed, 16 Sep 2026 16:26:38 +0000
+Message-Id: <20260916162638.2083538-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6083:EE_|IA1PR11MB6514:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf1a85d0-f3b9-4373-004e-08df140f4672
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|56012099006|18002099003|22082099003|4143699003|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: HcKbpU3Cj+zVcmQ74AXaQBI+TdeF5OTYb7vG3m0iBg9Qgqu8GYZ/vfv3FqCOEJdkqN+eMXCRus4nz48nRzmdbLa+3nbrHvgAIWLDgNc4TmcI25A+RJJkdgLuWBXueDmhbBGRzytiE9ZgG5uYn53BXl5ffFaZyamSB7mbZVDZczNtpXrTtAP5Uo2AWTdbEe34+C/GjhShgZq/KLfT1YUulMhHCvF54G7JaXWH2turtPcSKg6yuXg0D6ZKqAZ9jU9oD4Cbw3FIvombGJ1kVahhlA4OkiDjOr4LitpqC90LSenoJmXK505PYx+hFWjgU0LU9rqvJmcEHkg1bX3sWOuexCqePXFe4wTKmmRF+gHqSWRY7Z3ZwAAL6iYUAYLoqkfIYyCKlz1+WYEsXroUuCQy4CkJbjf75vmcPFnYACUwuuhVh3FwSbKespf2dsqUY1OyN5ccBW9wCqioV7uNGPWnIdrD1p0BBp5oGeCqezl7mGMMnA6Yrn80Z5r3FFDzoj5iSoiY/svZnUDaLD6LTXmjzfRHSPlmnmKu87ExWvcWHxcWwYoKgmWuh1A/qeGYUZsZqbeISF2xPRXtTLsANmbuzWRtsR+llnL68L6CCmbGxnx7yaxm7JBXWzsxQx0mJqtjUc9hNBmYAR5PglyDgk2JEigXkjkwrgrWF077Eih6p5g=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(56012099006)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?YUIpfnajDwXqHMFaQE0DbW0LPdQd+mk6ndnV7VLeiB1dvTBlUgNLBVfGg84l?=
- =?us-ascii?Q?+t8A9ILKqllxtz4cETmlCcxNv1rVAYj49vfMCRXREyp5V8P9pSimkkPTjWTw?=
- =?us-ascii?Q?r1I3mzo+a865gSiO5F4YXLeViqL3Jd83owuy/FsHoRuNZQ+dJGZswTIN4MHn?=
- =?us-ascii?Q?iRcbboXJ/3O+afYJqlUUUXVsG33H1PB0VLLzn7woP+YKBPAU4X8wsdOl3+vc?=
- =?us-ascii?Q?qQ3r9TCNIKUZkrov4KmealDFxFgOs1gzqP1TGXWRVsDGHE64O/oBLSYAfgKl?=
- =?us-ascii?Q?NemacXyYsb4MRp3tHoUXPp6OkM2ikWMfP5ZJpd00FQ/9tlEjredM9rw1dnns?=
- =?us-ascii?Q?r/WDWcfv+H0zsclNtQglZtbDwP5VYa6lnzoiyVlkRW6VKtr7q7z23KgIMLy9?=
- =?us-ascii?Q?2Xd8WWFI8l8PmKkyAoorTKpjmaSD/M/DHdlA6Z+ZOAXEQ+HBpi5OMU+Jb0f6?=
- =?us-ascii?Q?Puujg4IUxJtRan0itGEs/jE3myaevwr6+d7nQmABfannP5+kM3sXT8DO+65j?=
- =?us-ascii?Q?ECiUZ4sfhW7JstzFCi5p40L+3OO5dGw/vIadK5sDx8BnwethYqeNB9Z0XfzO?=
- =?us-ascii?Q?fhBmfXbcFNLLSVI68XR5FDj6+hV/zr4zSulxlfLvw+NF3mwTyb1Zmk8ipBrl?=
- =?us-ascii?Q?KdDfu5G0S4pkuyXHltWh3H0rUMQUoTjR0iN/kAF7JupGUpdLe35+PGHsZI+T?=
- =?us-ascii?Q?BCKNMo012O4sQKyApZ6UI9moeeEpWd5DRge5Q17bi0dJHHtg1PXagGVX0IFj?=
- =?us-ascii?Q?TH1J+ukU4TPj63Aa14PKH5BhgOdR4uXoFtRNeokCV8I8b3pWz8YLzl2oSi/i?=
- =?us-ascii?Q?R3SbWwLNT5RDPuOehSzWZ/CLDGNxbybrc1fy/zMSVR9YgfinpWSxefNpFcqb?=
- =?us-ascii?Q?S5urlrcSCDbq+MMyKNV5ISUfDrjvw9fq8Se8Zde37qJkDhCU7c8dHzuVpKB6?=
- =?us-ascii?Q?KNJu4L0N+pvrUy/hbBNGCEZMf1Uj533W2HeUL63M8ryIXqQE2tg9vEZPUoE8?=
- =?us-ascii?Q?9/71eTJeFH6ECYD1fxyDPkFTD/FYEOi2MxC6TXOUw6sRu6xFASJIC2WLxqVj?=
- =?us-ascii?Q?UZAWcEsYSriyvU9m22ptnxpKmUAosAi5hS4gtqhpU676LW+6s7nOu0J93wOq?=
- =?us-ascii?Q?CJYJLuljLxPNCWtY1alc2sG51tYwvwSb8nPt87CHcWb1VgIBjNAis05ZFIL/?=
- =?us-ascii?Q?QIzuCHurvZ5ADYOaomSlQLdx1V1f+PZs/t31vXLPvTxEOHaum6I9GdfZqNkO?=
- =?us-ascii?Q?0NbNNHODr8l3Qdsf70wNNgKMznuRN4wFdg/6cOHcvTtnhmJVc2yg7JKZwizH?=
- =?us-ascii?Q?jf5RlxubXhIcjlhbSdM5a22ajBONq+yJ7heuhL94Wu9N6z4ubb38shZmtKx8?=
- =?us-ascii?Q?FO4SkHAJeaqwUiZWWJj1QE1J4rmDx17IBuzgUYUr062IGaEyn9OWFh/zhO/d?=
- =?us-ascii?Q?BjHe5TzBt5XX/gso//K8Z3A+WBfz/UmV/obD4Xs9iA0JyKXjK4qmqmaDQnrW?=
- =?us-ascii?Q?QmbcHMZJ2Qwxkxy6Z6vNHrWa4hu6wmBK2lM51IZg+VRT+cCXv6nAMpLAqAMT?=
- =?us-ascii?Q?aKRAeejfjhodFy/ELyi2RhnkBWukdmNSoUIp9MKHqrdM0NqPhsY3QtPHx4eq?=
- =?us-ascii?Q?umuahfKFHHY606cj1abVBCpCXw1eLFcow5X7W4NFiw2nH/DzmX2J5o9gC3aj?=
- =?us-ascii?Q?sjtweYdUlUknnUpOKpOM6daIHTg2np0HX97fL1MNDF6eFSxnDBnM252TwgVH?=
- =?us-ascii?Q?EaAPf2Prsg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: IuCTuaHsZ58u6gbW1B6xcfyAWlHr1ZnGDScNWqL6OsTij675Ww4jgMWEbo9mt+tzqw08pJTKY3VThDESiuqNBtBEtGaCzn0LfvW4OcE7f8IzkeysO1XuIR3/wyWiArmhsxG4HUXrrC0QlX/HotEIvjB1FkWn/FKYV+FgwTNf803xw8XbmezNxUBk2ewjgYAEjdzTUm+7aLgULdfT29yPJPm3ji0xaaSzD5+DsOYEUb4C02hbKwfEgkA5IAgzNESOTf9flmcHwZriHQ0DfOdgJ082b1l8vvL7deCKmsJwYUuOLoKZA0HUMZlCtLE2bIRJHqtkfNonbx02Z206dpVzhw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf1a85d0-f3b9-4373-004e-08df140f4672
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 16:26:35.0205
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 79cY4lm7cem0AB4c17lzFMzk867IoE6TMsYORU8E5IQ+BvxZiWhSkMbmrOz54MLUio5dZuNMh6InNMmiQWOVXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6514
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXAj1aw6pqiqNtCA--.21368S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4rKFykKrWxtr4DAw1rXrb_yoW8Kw18pa
+	n7GFWYyFyUXrn7Aws7Zr1kCFy3tFn7trWrXw48Zas2v3s8Aw1jkryaqrWaqws5CFW8ZayU
+	JrZ5JryrCFW7ZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
+	0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU5d
+	gADUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUMA2qqpVhIsQAAsJ
 
-On Wed, Sep 09, 2026 at 09:08:29PM -0700, Reinette Chatre wrote:
-> Hi Tony,
-> 
-> On 8/31/26 10:44 AM, Tony Luck wrote:
-> 
-> ...
-> 
-> > diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-> > index c3bd3536c514..5cd2711d00e7 100644
-> > --- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
-> > +++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-> 
-> ..
-> 
-> > @@ -439,6 +462,8 @@ int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val)
-> >  	void *pevt0;
-> >  	u32 idx;
-> >  
-> > +	guard(mutex)(&aet_register_lock);
-> > +
-> 
-> hmmm ... this means that reading an event can sleep now ... but it is still
-> possible to call this via IPI (smp_call_function_any()) if the CPU is part
-> of the nohz_full subset?
+The reference taken with iio_trigger_get() is only dropped by
+iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. Failure of
+devm_request_irq() in ens160_setup_trigger(), or of chip init or
+triggered buffer setup in devm_ens160_core_probe(), returns before
+that mode is set and leaks the reference acquired for indio_dev->trig.
+Request the IRQ before taking the reference and set up the trigger
+after the triggered buffer so that only failures with the mode
+already set follow the iio_trigger_get().
 
-All AET events are implemented with counters in MMIO space and can be
-read from any CPU. So this check in mon_event_read() bypasses the
-check for nohz CPUs:
+Fixes: 0fc26596b4b3 ("iio: chemical: ens160: add triggered buffer support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/iio/chemical/ens160_core.c | 21 ++++++++++-----------
+ 1 file changed, 10 insertions(+), 11 deletions(-)
 
-	if (evt->any_cpu) {
-		mon_event_count(rr);
-		goto out_ctx_free;
-	}
-But even if it didn't, is there some prohibition for nohz CPUs to
-sleep? I can see possible issues with a timed delay that might rely on a
-clock tick to wake. But it would seem that any read(2) system call
-from a regular file might sleep waiting for I/O completion.
+diff --git a/drivers/iio/chemical/ens160_core.c b/drivers/iio/chemical/ens160_core.c
+index bbc96c4c6283..d2f56e4483ba 100644
+--- a/drivers/iio/chemical/ens160_core.c
++++ b/drivers/iio/chemical/ens160_core.c
+@@ -314,14 +314,13 @@ static int ens160_setup_trigger(struct iio_dev *indio_dev, int irq)
+ 	if (ret)
+ 		return ret;
+ 
+-	indio_dev->trig = iio_trigger_get(trig);
+-
+ 	ret = devm_request_irq(dev, irq, iio_trigger_generic_data_rdy_poll,
+-			       IRQF_NO_THREAD, indio_dev->name,
+-			       indio_dev->trig);
++			       IRQF_NO_THREAD, indio_dev->name, trig);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to request irq\n");
+ 
++	indio_dev->trig = iio_trigger_get(trig);
++
+ 	return 0;
+ }
+ 
+@@ -345,13 +344,6 @@ int devm_ens160_core_probe(struct device *dev, struct regmap *regmap, int irq,
+ 	indio_dev->channels = ens160_channels;
+ 	indio_dev->num_channels = ARRAY_SIZE(ens160_channels);
+ 
+-	if (irq > 0) {
+-		ret = ens160_setup_trigger(indio_dev, irq);
+-		if (ret)
+-			return dev_err_probe(dev, ret,
+-					     "failed to setup trigger\n");
+-	}
+-
+ 	ret = ens160_chip_init(data);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "chip initialization failed\n");
+@@ -364,6 +356,13 @@ int devm_ens160_core_probe(struct device *dev, struct regmap *regmap, int irq,
+ 	if (ret)
+ 		return ret;
+ 
++	if (irq > 0) {
++		ret = ens160_setup_trigger(indio_dev, irq);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "failed to setup trigger\n");
++	}
++
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
+ EXPORT_SYMBOL_NS(devm_ens160_core_probe, "IIO_ENS160");
+-- 
+2.34.1
 
-> >  	pevt0 = pevt - pevt->idx;
-> >  	e = container_of(pevt0, struct event_group, evts);
-> >  	idx = rmid * e->num_events;
-> 
-> Reinette
-
--Tony
