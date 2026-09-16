@@ -1,114 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648723BADB1;
-	Wed, 16 Sep 2026 08:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589CC473C73;
+	Wed, 16 Sep 2026 08:23:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546952; cv=none; b=Gd4F9QXTlGb8FrLHWffrjtIxgLI49XJ37R8WqFjJelStq4udeP8HzG7f+qTs+EIi8O4lm/vngHdhe+CTilDtOZ9QY4qhLiAnVlQJWEr2J9BUldKgZXZpOPBLKNcnhh/P0utky7kl8/vTtQ+HGBRGOrGfV/qLmAyrldljhFE9C/k=
+	t=1789547021; cv=none; b=OEWpKbMo5G0uL+kG696Wu9a9cIFFUn6juOizDnmUqypq/odhKvATzwloR9Cmv3bAhGhoQCAsQScla0dpvrHQoIiH168yhWhNw8UIwxIeki1FpNZidBVpvbuaetCQRQV7eycY8X6/NApQKD2ig0AbeNuBbrBhO96YiUcS2l2zDNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546952; c=relaxed/simple;
-	bh=/2DWkwAr4DbilIKZi5zshYXsB8JYRx9NpzZk7GA/7eY=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=e8+W0szN4AUKYcyUfiH/pE31GD3Ow/Ib/u74CNRDOS7Sr0iLz8Rrs6iJ4+3AahYg5JrUCagRia081kphFlc3HyamBaMOpeZstdSttBO2+A+X9DMF8Ndny6rU/FB7VcvY5yaYvaEjl7Zu696Yijs/d/P798Tt8hhUwrFdy15Guss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9kJ4uXT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789547021; c=relaxed/simple;
+	bh=/Ef6xJ/oX5ziPvVzOADL4FglLe5X/TcDsZJ25iJOyfo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YUo3vlOekWnd9CGxjl7+PPOvtOklTFnT8qT4Gy3dW5UkgwyiapfxZlfDCBim4hjWSoC2E80fdzwUFzTLopxfUFKdCOrnZ5UPfpf2cPPYrkvZPql9oqAnN3ub0qXRjysWoKU45NCFhX0ERgW6kTPmR6Dpjeov52qCx9tElaPxb7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=vek7Yt0A; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9kJ4uXT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C04841F000FF;
-	Wed, 16 Sep 2026 08:22:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789546935;
-	bh=ypMNq+uBTf3bV0CvKLttQpjmF2H7YeAIaADnmZI1vjM=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=Y9kJ4uXTO8jmgCrbabFZrGG+Cqu40q+3yBPBFjRCxeEkcAJ1SRZ/H89hbQe5z8w89
-	 Fi9gMsrOIaWTkPHU6Z1O9nZjGEXyqJhLCxwViizvownKur6BfX/MrBOJG6DXFnWAOH
-	 V5Dd5q4wz/bPTyZNGAQkocKkxZlk8034cB2zHzCbqVs6rCcVuv0u1J3fnY2JD/z/o+
-	 SyvrY+p1ei9y3FZx5Ge+FpI8UkcZ8j+XJiUY7/6hvmBbkIu+fs9J4x8oxFoHjRCoHt
-	 NWZhmCLG2N9BtlgxQExVcY/Nj3qeXi5ZkRzuZiQx+Bx+6u8i4mfb9U7IiXn0Lve3Xo
-	 7wsXa5wYt3CjA==
-Content-Type: multipart/mixed; boundary="===============0215795013638696076=="
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="vek7Yt0A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202608; t=1789546982;
+	bh=UisVH+zAA7Jkcdzds8fAYf6ZlF5YRN+sefWgI1lIMmc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vek7Yt0AhtYAt5p28dkvu9L4gkPBBUMqDEW6BZvnTUoyKPPJ3jQ6VszuTkDj+w3dQ
+	 NNXcPq8jN8P5PU1Hx2UO8bhvS/1fQs9jADcMHgoWuaujcBRq/WN/8B3IT2zZKtemWM
+	 7nCWFODRCcer/ptKNu0T/izdzlN5qqFO0LBQMM0OeqEFdis9oSS3/CRickJHUfQV1k
+	 /KuvjHGLGShL8piDHG4ZNWKtYd0vsKpJepT+i4an4Hn+gqf2VR71Z1kHFUFuFVU5lq
+	 +TDUDJ5PfPkVZoAV4TQXjN6LmZTiT6BxB94UwcJACpLiPotxJCa5y1dTJ3DqtgnLiG
+	 iDTP4GvL2LXew==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hlBj26vb1z4w9R; Wed, 16 Sep 2026 18:23:02 +1000 (AEST)
+Date: Wed, 16 Sep 2026 15:21:15 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
+Message-ID: <aqonNkbVqW9tf6Bg@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-7-herve.codina@bootlin.com>
+ <aqI3KnnQnUytqkEc@gractus.seuss>
+ <20260910094126.4bf4cae6@bootlin.com>
+ <aqJ5OhJcv4k-ZAj8@gractus.seuss>
+ <20260911091653.37b22b0f@bootlin.com>
+ <aqS6HmkaVYbrePtN@gractus.seuss>
+ <20260914121937.5b7fa2bb@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <a68ffeb7497f88f7798107f2d93c0ca707fbbb5f1a080f8f268eb5d13367159d@mail.kernel.org>
-In-Reply-To: <20260916072302.1068871-6-cui.tao@linux.dev>
-References: <20260916072302.1068871-6-cui.tao@linux.dev>
-Subject: Re: [RFC PATCH v4 5/5] docs: cgroup-v2: document io.cost model=<name> binding
-From: bot+bpf-ci@kernel.org
-To: cui.tao@linux.dev,tj@kernel.org,josef@toxicopanda.com,axboe@kernel.dk,ameryhung@gmail.com
-Cc: cgroups@vger.kernel.org,linux-block@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,andrii@kernel.org,ast@kernel.org,daniel@iogearbox.net,linux-kselftest@vger.kernel.org,cui.tao@linux.dev,cuitao@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 16 Sep 2026 08:22:14 +0000 (UTC)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OXpIoQ8msCZFwtww"
+Content-Disposition: inline
+In-Reply-To: <20260914121937.5b7fa2bb@bootlin.com>
 
---===============0215795013638696076==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+--OXpIoQ8msCZFwtww
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-> index 86a2a0099178e..5786d86eceeae 100644
-> --- a/Documentation/admin-guide/cgroup-v2.rst
-> +++ b/Documentation/admin-guide/cgroup-v2.rst
+On Mon, Sep 14, 2026 at 12:19:37PM +0200, Herve Codina wrote:
+> Hi David,
+>=20
+> On Sat, 12 Sep 2026 12:34:24 +1000
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> ...
+>=20
+> > > Do you mean that we should avoid the DATA_LEN_ENCODING and always hav=
+e the
+> > > 32-bit value right after the tag to give the size for all "skippable"=
+ tags? =20
+> >=20
+> > Yes.
+> >=20
+>=20
+> I did a test using a dts file available in kernel sources. I used (arbitr=
+ary
+> choice) juno.dts [0].
+>=20
+> Without any new tags, the size of the compiled dtb is 27067 bytes.
+>=20
+> With new metadata tags identifying phandles in properties (FDT_PROPDATA_P=
+HANDLE),
+> the size of the dtb becomes 29027 bytes and so 29027 - 27067 =3D 1960 byt=
+es for
+> those FDT_PROPDATA_PHANDLE tags (+7.2%).
+>=20
+> The tags used are composed of:
+> 32-bit: FDT_PROPDATA_PHANDLE value encoding 1 x 32-bit for data
+> 32-bit: offset in the property where a phandle is present.
+>=20
+> Removing the '1 x 32-bit' information from the tag value and adding a 32-=
+bit
+> 'length' in all cases will lead 3 x 32-bit values for a FDT_PROPDATA_PHAN=
+DLE
+> tag (tag + length + offset) instead of the 2 x 32-bit (tag + offset).
+>=20
+> Back to juno.dts instead of 1960 bytes, the FDT_PROPDATA_PHANDLE will need
+> 1960 * 3 / 2 =3D 2640 bytes (+9.7%). This leads to around +2.5% of the wh=
+ole
+> dtb just to have the 32-bit for length. This +2.5% can be easily avoided.
+>=20
+> Also, I will not be surprised to see more tags in the future adding some =
+more
+> metadata information and so increasing dtb sizes.
+>=20
+> Quite often you have mentioned memory constraints system where libfdt sho=
+uld
+> be as small as possible. On those system, the dtb itself is embedded in t=
+he
+> binary close to libfdt. The size of dtb should be taken into account.
 
-[ ... ]
+Yeah, those proportions are high enough that I think it's worth it.
 
-> @@ -2120,6 +2120,18 @@ IO Interface Files
->  	parameters are written to, "ctrl" become "user" and the
->  	automatic changes are disabled.
->
-> +	When CONFIG_BLK_CGROUP_IOCOST_BPF is enabled, "model" also accepts
-> +	the name of a registered iocost_model_ops BPF struct_ops model:
-> +	"model=<name>" binds the model to the device and the model fully
-> +	replaces the builtin linear pricing, for every operation including
-> +	flushes; "model=linear" (or "ctrl=auto/user") restores the builtin
-> +	model.  Writing an unknown name fails with ENOENT and nothing is
-> +	applied.  Unregistering a model removes its name so it can no
-> +	longer be selected; devices already bound keep using it, and keep
-> +	receiving cgroup lifecycle notifications, until switched back to
-> +	the builtin model.  See
-> +	include/linux/blk-iocost.h for the model interface.
-> +
+> If the SAFE_SKIP bit is removed, I even plan to use this now free bit in =
+the
+> length encoding part:
+>   0b000: No data
+>   0b001: 1 fdt32
+>   0b010: 2 fdt32
+>   ...
+>   0b110: 6 fdt32
+>   0b111: On additional fdt32 to encode the length of data.
+>=20
+> IHMO, length encoding bits in tag value definition should be kept and used
+> for all tags where the length is fixed and can be encoded using
+> these bits.
 
-Does this section need to document what io.cost.model reads back with
-a BPF model bound?
+Well, I'm convinced we want some sort of compact encoding of the
+length, but I think we can do better than the current proposal.  It
+seems implausible to me that we'll need 2^29 different metadata tags,
+so I think we can spend some more of the tag bits on the length.  How about:
 
-Looking at ioc_cost_model_prfill() in block/blk-iocost.c, when a BPF
-model is bound, the file prints:
+   0x80000000		structured tag bit
+   0x7fff0000		tag type
+   0x0000ffff		tag length
 
-    seq_printf(sf, "%s ctrl=%s model=%s\n",
-        dname, model ? "bpf" : ioc->user_cost_model ? "user" : "auto",
-        model ? model->name : "linear");
+So we have up to 2^15 (32k) different structured tags each with a
+length of [0..65534] bytes (length=3D=3D65535 reserved for those that need
+a full 32-bit length word).
 
-So with a model bound, io.cost.model reads back "ctrl=bpf model=<name>".
+I believe that will avoid the extra length word for everything you
+have currently drafted.
 
-The nested-key table nine lines above this paragraph lists the possible
-values:
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
-    =====           ================================
-    ctrl            "auto" or "user"
-    model           The cost model in use - "linear"
-    =====           ================================
+--OXpIoQ8msCZFwtww
+Content-Type: application/pgp-signature; name=signature.asc
 
-This table doesn't include "bpf" as a ctrl value or "<name>" as a model
-value. The new paragraph also doesn't mention that "ctrl=bpf" is accepted
-on write - ioc_cost_model_write() special-cases it so saved configurations
-can be restored:
+-----BEGIN PGP SIGNATURE-----
 
-    } else if (!strcmp(buf, "bpf")) {
-        /* readback value; keep the bound model */
-        continue;
-    }
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqqJzYACgkQzQJF27ox
+2Gedow/+PaKFeN38xKkeFSgxRHAuRdGV3THxlRq1m7Ax33zAL8H3uyVgWZ8BKEZT
+9fLR8z2sgh+ecfRE5RXykJjmYrdvGmzNN/CpSBHZYXo8JV3hTJoPpi/pNfZ2smJW
+eLKYjKNRLXEpOnQfslXzc72dLNdToQyOjyQnwG9wVe3dprXV2SxfPS8zk17hzNZS
+K5BweIrxQ4VQVOagDWV/L5K5I13sybB/H1T97oilDMdsCgXTEIwHQvigsqQqFL0J
+WEWmbkaEqzRPnDTk6DzrJbe8uo5/bTma90rD5SH9gWzzHTjBmRC1OzMo7ERcI6tu
+XcBMx0BWlkOAokZbkxF4WFY93vDsgmNll0Rhw0hCM29NXoQqBCs0Vix1+GvTTLFS
+bX593x1siQ3l47UGUboowLR92K9NtEWj5qWN84C5hWXdU7AGiYnmwphDkpbzZIVP
+m3lBUKlbdI0OgiHP5XnS0YYSSNmgxuGIILPq6+tbyBbJwmzYKvjwwdKcGXVb8JuL
+iPMRcact/lLS1xKDFG8fZt0KVADUQP+KfUKFTi4THXo34ADNfzsI9gzRm+QE8evz
+S/vAFS8s1bIVunhwV7ECxW6gCdcvXSmtRCon82+3HhGb7QSftUH7BGs/jTos2muu
+H7MBARXfodJoWAuwRqk8VB6igawZRQo53Mv92TqIng74NukWo4g=
+=hkgL
+-----END PGP SIGNATURE-----
 
-Should the table be updated to include the "bpf" ctrl value and the
-"<name>" model value, so the section documents what the kernel actually
-prints?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35070283830
---===============0215795013638696076==--
+--OXpIoQ8msCZFwtww--
