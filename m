@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0F33E95AE;
-	Wed, 16 Sep 2026 18:32:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B794C517BBA;
+	Wed, 16 Sep 2026 18:32:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789583588; cv=none; b=gFuklD5sF70x2GeYnEAa+mkpyZWRBhVMT2WM8c2hK2g632gQs1ywgjsPa2m/r07hBNd56IKMjt2duljnkFI44GSpsIpi4FqiIw/PyDJcAeNBgCE4/WZWGrBiB+UaaCLm7vFNwKxHqxVVhqNQ6c21TGVR5OJ3Z/LQmGYscRDrVUo=
+	t=1789583607; cv=none; b=Xdl2IqxQ+m0zJz998oW4KP+w22YVc6YCuta7NmT2+mNn3AqIl6m94H9wNnHeuhYuOm+3j0L4+3pzZ5zckFIshZVfYT7rBrU3lr10dkovhM3rha0kdUZGgJpjASSjcTUQtYvAOAmt3jZhIExKTdA1g2MHPDGJbnK9KcMctIRcQt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789583588; c=relaxed/simple;
-	bh=Ytpm/am8TbLHqiUqhZ7sU4G+ccKooQdYSniobfxb3ws=;
+	s=arc-20240116; t=1789583607; c=relaxed/simple;
+	bh=PG2JAp7aeLYQa3Zu2j5wqMEa3srEPNrMj8pq4dvXJ08=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jhjAr99/MFF2b+H+2ywJIxE0YW4LXKleBr+41J/f6UoH2HE9h5c7mL4A6Uzk5r3kZsz6FJH0aX07QI8nzPU5vmo5aZ5t3q9srPCNzur10QqXLCTToCv10v8I1Xsl04q+KRMMhxhQ7EtWcanfZjevKmwW9DMhV7rjV2QidgkmFvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUBXHWa7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=X9VVzfHV80/mcvk48cgNh5swWZ9QEYr45P4eBveEiSxzgHSz+pEohYzhXV1pOqJhilIm3o8rgE/dgWusYofj4oZYNmczDeqn04RPfBW9ue/5UMKsfY9SSgUysB3usKo8kj9r3mPFjYeQUklbMW3xo4Ah9hwCq+14PVelaWa5WCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KfhAitZ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUBXHWa7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FAD11F0089A;
-	Wed, 16 Sep 2026 18:32:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KfhAitZ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 583B21F00899;
+	Wed, 16 Sep 2026 18:32:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789583555;
-	bh=G73mPiNbqNi5jS9R06XuhUInSIvW+d8V75TUl3+PIsA=;
+	s=k20260515; t=1789583575;
+	bh=SnZTrGHN+omRBP5dqCHFSL07AE5VIkk0B2EGevQHf+8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JUBXHWa7ISFZnl/Q5FpAm89L5AMNm16xxv2RAftFdblGeyuWNeulVbI1cwOyYq9BU
-	 HoK3+ZwGeLb8jJVvtvcVf/tiCmp3D8X2xwZOMlf33tlxjk0d9c+YTG3sjvLc4iqYLr
-	 X+Cghcl8HxkWn7s1OhoEJsO+cOYx/mUNmX6cY2dDVX9Jio8SjX/KATVZ/759llnemN
-	 IMZXNNF9rSjXrUtUCXGJfZEk0UyZCIFRZBx5e12z6brsG7gGI+gW8Ctd5pg5PIJosa
-	 LFdOVIjpCOyozM2sS0tgIPdc0lz7gwoX9uCx9mWrEIUGDDee3kc3LIaP85UJqYKKOQ
-	 l9W5kDxpjY6ig==
+	b=KfhAitZ9cS9Gfvm+GntZdxgEXnhjj04hqhlzXjW4FvCiU1XcjQlc5nBrPGNzmACRv
+	 oEfUDjYpsXpbeFPUdEnHntCNNkL4Dj2k9KRPwPp2suBycspRBFzTaLYfuGQLwYSlVJ
+	 nS0oe2gDVb0Ev6mOhROaZQUDxaLgRfJIgu8hBCwX+kqTva516wkjp5vMTSrzNLcLkU
+	 ped/U3mymYi56CEFEtZoH/mRHHpKnMiPNZnwD+ovs2sYF8CliPu2yq3kTegaWo1DVO
+	 NT47iiCf1sBxeSYRgqC64O5TkiqGV9Glfziqd0CAf5EijQ2nprvfBDoiWdSfHpSqaY
+	 HSzLnyNowlwLg==
 From: Arnaldo Carvalho de Melo <acme@kernel.org>
 To: Namhyung Kim <namhyung@kernel.org>
 Cc: Ingo Molnar <mingo@kernel.org>,
@@ -38,9 +38,9 @@ Cc: Ingo Molnar <mingo@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org,
 	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH 04/12] perf debuginfo: Let the user skip and disable debuginfod fetches
-Date: Wed, 16 Sep 2026 15:32:05 -0300
-Message-ID: <20260916183215.54305-5-acme@kernel.org>
+Subject: [PATCH 10/12] perf annotate-data: Resolve type DIEs in the debug file they came from
+Date: Wed, 16 Sep 2026 15:32:11 -0300
+Message-ID: <20260916183215.54305-11-acme@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916183215.54305-1-acme@kernel.org>
 References: <20260916183215.54305-1-acme@kernel.org>
@@ -50,568 +50,706 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-When a fetch is in progress, the way it prints progress is how one
-gets out of it: 's' aborts the current fetch via the debuginfod
-client's progress callback protocol and remembers the build ID, so
-that the rest of the session doesn't ask for it again, the user may
-have skipped it for being too big; 'd' additionally disables debuginfod
-for the rest of the session, clearing DEBUGINFOD_URLS so that libdwfl's
-own client, that reads it in every query, stops fetching too, and, using
-perf_config__set_variable(), moved to util/config.c in the previous
-patch, writes core.debuginfod=false to the configuration file directly,
-the user's ~/.perfconfig or the one named by PERF_CONFIG, the same
-rewrite 'perf config' does -- the comments are not preserved, as the
-config set carries just the key-value pairs -- and SIGINT, SIGQUIT and
-SIGTERM are intercepted while the terminal is in raw mode, so that it is
-restored and the signal is re-raised when the user interrupts a fetch.
+A 'perf report -s type' on a 783 MB AMD IBS data type profiling session
+hangs, burning all of a CPU and producing no output:
 
-In the TUI nothing is shown yet, printing to stderr would garble the
-browser display and draining stdin would eat the keys the browser
-wants, that comes in the next patch.
+  ⬢ [acme@toolbx perf-tools-next]$ perf report --progress -s type -i perf.data.ibs > /dev/null
+  Processing events... [100.0%] 746M / 746M
+  Merging related events... [ 58.0%] 293828 / 506686
+  Merging related events... [ 59.0%] 298894 / 506686
+  Merging related events... [ 60.0%] 303960 / 506686
+  Merging related events... [ 61.0%] 309026 / 506686
+  [ ... nothing else, ever ... ]
 
-The interaction state -- the terminal settings, the signal dispositions
-and the progress and cancellation state -- is process global, so the
-fetches stay serialized: a second fetch resetting the cancellation
-state would drop the 's'/'d' keypress that was meant for the fetch
-already in progress, and the serialization the lookup state needs
-already provides the lock the interaction state uses.
+It is a spin and not a slow path: with perf-stuck the CPU time used
+grows by a whole interval on every sample, while the [stack] mapping,
+which would be moving down if this was recursion, stays put:
 
-Since the debuginfo fetching this builds on is opt-out, a fetch that
-the user asked to skip is not restarted by the next request for the
-same build ID in the same session, it is remembered as a cancellation
-on the misses list, where the debug message can tell it apart from a
-plain miss.
+  ⬢ [acme@toolbx perf-tools-next]$ tools/perf/scripts/perf-stuck.sh -i 15 -n 4 -l ibs.log $(pgrep -x perf)
+  watching 2297313 (perf report --progress -s type -i perf.data.ibs) every 15s
+  09:39:34 state=R cpu=+0 (0.00s) rss=664295kB stack=7ffc3ae31000-7ffc3ae52000 size=132kB  Merging related events... [ 39.0%] 197574 / 506686
+  09:39:49 state=R cpu=+1496 (14.96s) rss=665383kB stack=7ffc3ae31000-7ffc3ae52000 size=132kB stuck=1 Merging related events... [ 39.0%] 197574 / 506686
+  09:40:04 state=R cpu=+1497 (14.97s) rss=665383kB stack=7ffc3ae31000-7ffc3ae52000 size=132kB stuck=2 Merging related events... [ 39.0%] 197574 / 506686
+  09:40:19 state=R cpu=+1497 (14.97s) rss=502250kB stack=7ffc3ae31000-7ffc3ae52000 size=132kB stuck=0 Merging related events... [ 61.0%] 309026 / 506686
 
+Attaching gdb and stepping the loop, printing dwarf_dieoffset() and
+dwarf_tag() for the DIE being chased on each trip round it, shows the
+chase never moving, on a typedef that refers to itself:
+
+  ⬢ [acme@toolbx perf-tools-next]$ gdb -p $(pgrep -x perf) -batch -x tools/perf/scripts/perf-stuck.gdb -ex 'perf-die-chain die_get_pointer_type type_die 8' -ex perf-dso -ex detach
+  stuck in die_get_pointer_type():
+  #3  0x0000000000772421 in die_get_pointer_type (type_die=0x7ffc3ae4b710, type_die@entry=0x7ffc3ae4b6f0, die_mem=die_mem@entry=0x7ffc3ae4b710) at util/dwarf-aux.c:327
+  327			type_die = die_get_type(type_die, die_mem);
+  chain[0] die=0x7ffc3ae4b710 addr=0x7ff6811591ef cu=0x44ef0878 off=0x1f tag=22 name=(null)
+  chain[1] die=0x7ffc3ae4b710 addr=0x7ff6811591ef cu=0x44ef0878 off=0x1f tag=22 name=(null)
+  [ ... the very same DIE, forever ... ]
+  dso=/usr/lib64/libz.so.1.3.1.zlib-ng ip=0xe2e sym=build_tree
+
+The DIE is at offset 0x1f of the debug info of libz.so.1, which is
+zlib-ng, and is one of the dwz compressed ones: the type DIEs shared by
+more than one CU live in the common file, where 0x1f is a perfectly good
+DW_TAG_base_type:
+
+  ⬢ [acme@toolbx perf-tools-next]$ readelf --debug-dump=info /usr/lib/debug/.dwz/zlib-ng-2.3.3-3.fc44.x86_64 | sed -n '/Compilation Unit @ offset 0:/,/Compilation Unit @ offset 0x5f:/p'
+    Compilation Unit @ offset 0:
+     Length:        0x5b (32-bit)
+     Version:       5
+     Unit Type:     DW_UT_partial (3)
+   <0><c>: Abbrev Number: 1 (DW_TAG_partial_unit)
+   [...]
+   <1><1f>: Abbrev Number: 62 (DW_TAG_base_type)
+      <20>   DW_AT_byte_size   : 4
+      <21>   DW_AT_encoding    : 5	(signed)
+      <22>   DW_AT_name        : int
+
+while in the main debug file that same offset is not a DIE at all, it is
+the start of another unit's header:
+
+  ⬢ [acme@toolbx perf-tools-next]$ readelf --debug-dump=info /usr/lib/debug/usr/lib64/libz.so.1.3.1.zlib-ng-2.3.3-3.fc44.x86_64.debug | grep 'Compilation Unit @' | head -2
+    Compilation Unit @ offset 0:
+    Compilation Unit @ offset 0x1f:
+
+die_collect_vars() saves the dwarf_dieoffset() of the type DIE, which is
+relative to the file that DIE lives in, and update_var_state() then hands
+that offset to dwarf_offdie() together with the main debug file, where
+dwarf_offdie() parses whatever is there as a DIE, in this case the one
+typedef that refers to itself, which is what makes the "follow the
+typedefs and qualifiers until a pointer or an array type" loop in
+die_get_pointer_type() spin.
+
+So record, next to the offset, whether the type DIE was in the file the
+variable DIE came from or in the dwz common one, and resolve the offset
+in the file it came from, which is what the new die_get_type_die() does.
+
+Which of the two that is does not have to be guessed from what is at the
+offset: dwz encodes the references into its common file as
+DW_FORM_GNU_ref_alt, so elfutils resolves them into the alt Dwarf and
+the CU of the resulting type DIE belongs to that other file, so
+comparing the Dwarf each of the two CUs belongs to, die_same_file(),
+settles it exactly, for any number of hops from the variable DIE.
+
+Then bound the chases themselves: no sane chain of typedefs and
+qualifiers is 32 DIEs long, no sane nesting for the struct and union
+members that __add_member_cb() follows recursively is 8 deep, and the
+same recursion bound covers the type names die_get_typename_from_type()
+builds by following pointers and arrays, so that a debug info file
+broken in some other way makes perf give up on a type, telling about it
+with pr_debug, visible with -v, instead of looking like it hung.  The
+member nesting bound is reported with pr_debug_dtp (visible with -vvv or
+-D type-profile).
+
+Cycles can't occur in member trees from valid DWARF, embedded members
+can't be recursive in C, so the nesting bound only ever bites legitimate
+depth and the member where the recursion was cut is marked 'truncated',
+which the JSON exporter added in a subsequent series reports to its
+consumers, so that they can tell a truncated tree from one that really
+ends there.
+
+die_get_type_die() then has no fallback to the other file: resolving an
+alt file offset in the main file is the misparse above, so it resolves
+in the file the offset was recorded as belonging to, and gives up on the
+type when the offset does not resolve there.  The tag the type DIE had is
+kept as a sanity check, a mismatch means the debug info changed under
+perf or is broken in yet another way, and the bounds on the type chasers
+remain the backstop: a debug info file broken in some other way still
+makes perf give up on a type with a pr_debug instead of hanging.
+
+Testing:
+
+Before, on the 783 MB AMD IBS session, killed after some 8 minutes stuck
+at 61%:
+
+  ⬢ [acme@toolbx perf-tools-next]$ perf report --progress -s type -i perf.data.ibs > /dev/null
+  Processing events... [100.0%] 746M / 746M
+  Merging related events... [ 61.0%] 309026 / 506686
+  ⬢ [acme@toolbx perf-tools-next]$
+
+After, the whole session is processed, and the zlib-ng types, from the
+build_tree() hist entry that used to hang it, show up:
+
+  ⬢ [acme@toolbx perf-tools-next]$ perf report --progress -s type -i perf.data.ibs > ibs.out
+  Processing events... [100.0%] 746M / 746M
+  Merging related events... [100.0%] 506686 / 506686
+  Sorting events for output... [100.0%] 1428 / 1428
+  ⬢ [acme@toolbx perf-tools-next]$ grep -E "deflate_state|inflate_state|internal_state" ibs.out
+      0.00%  deflate_state
+      0.00%  deflate_state*
+      0.00%  struct inflate_state
+      0.00%  struct inflate_state*
+      0.00%  struct internal_state
+  ⬢ [acme@toolbx perf-tools-next]$ perf test 17 27 30 31 85 88
+  17: Match and link multiple hists                              : Ok
+  27: Filter hist entries                                        : Ok
+  30: Sort output of hist entries                                : Ok
+  31: Cumulate child hist entries                                : Ok
+  85: Test that perf report includes file offsets and event type names in diagnostic messages. : Ok
+  88: Test that perf report handles truncated perf.data gracefully (no crash, no segfault — clean error exit).: Skip
+  ⬢ [acme@toolbx perf-tools-next]$
+
+Requiring elfutils 0.160 for this: dwarf_cu_getdwarf(), the function
+that tells which Dwarf a CU belongs to, first appeared in 0.160 ("libdw:
+New functions dwarf_cu_getdwarf, dwarf_cu_die", elfutils NEWS), so the
+libdw feature test now probes for it, in tools/build/feature/test-libdw.c,
+and Makefile.config says 0.160 where it said 0.157.  The probe takes the
+address instead of calling it, as that is all that is needed to make a
+0.157-0.159 elfutils, from 2014 and without the symbol, disable dwarf
+support with the existing message rather than fail to link dwarf-aux.c.
+
+Fixes: 06b2ce75386df04b ("perf annotate-data: Maintain variable type info")
+Fixes: 55ee3d005d62279d ("perf annotate-data: Add a cache for global variable types")
 Assisted-by: LLM
 Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 ---
- tools/perf/Documentation/perf-annotate.txt |   4 +-
- tools/perf/Documentation/perf-report.txt   |  11 +-
- tools/perf/Documentation/perf-top.txt      |  10 +-
- tools/perf/util/debuginfo.c                | 311 ++++++++++++++++++---
- 4 files changed, 296 insertions(+), 40 deletions(-)
+ tools/build/feature/test-libdw.c |  15 ++-
+ tools/perf/Makefile.config       |   2 +-
+ tools/perf/util/annotate-data.c  |  59 ++++++++---
+ tools/perf/util/annotate-data.h  |   3 +
+ tools/perf/util/dwarf-aux.c      | 171 +++++++++++++++++++++++++++----
+ tools/perf/util/dwarf-aux.h      |  33 ++++++
+ 6 files changed, 247 insertions(+), 36 deletions(-)
 
-diff --git a/tools/perf/Documentation/perf-annotate.txt b/tools/perf/Documentation/perf-annotate.txt
-index 12edc3337b86f099..25af1d166dc4c877 100644
---- a/tools/perf/Documentation/perf-annotate.txt
-+++ b/tools/perf/Documentation/perf-annotate.txt
-@@ -64,7 +64,9 @@ OPTIONS
- 	configured in DEBUGINFOD_URLS, checking the local debuginfod
- 	client cache first, when it is not available locally, on for
- 	these commands by default.  See the --debuginfod option of
--	'perf report' for how to turn it off.
-+	'perf report' for how to turn it off, including the 's' and
-+	'd' keys that skip a fetch in progress while 'perf' is
-+	waiting for it.
- 
- --itrace::
- 	Options for decoding instruction tracing data. The options are:
-diff --git a/tools/perf/Documentation/perf-report.txt b/tools/perf/Documentation/perf-report.txt
-index 2e11c0a97a016853..0a821490d6a0f895 100644
---- a/tools/perf/Documentation/perf-report.txt
-+++ b/tools/perf/Documentation/perf-report.txt
-@@ -374,9 +374,14 @@ OPTIONS
- 	these commands by default.  It can be turned off per invocation
- 	with --no-debuginfod, per tool with the "report.debuginfod"
- 	config option or globally with "core.debuginfod" set to false.
--	It is disabled as well when the local build-id cache is turned
--	off, e.g. "buildid.dir" set to /dev/null, as that asks for
--	fetched files not to be kept on the box.
-+	While a fetch is in progress, 's' skips the current fetch and
-+	'd' skips it and disables debuginfod for the rest of the
-+	session, writing core.debuginfod=false to the configuration
-+	file so that it stays disabled in the next runs too; in the
-+	stdio interface the progress is a line on stderr.  It is
-+	disabled as well when the local build-id cache is turned off,
-+	e.g. "buildid.dir" set to /dev/null, as that asks for fetched
-+	files not to be kept on the box.
- 
- --kallsyms=<file>::
-         kallsyms pathname
-diff --git a/tools/perf/Documentation/perf-top.txt b/tools/perf/Documentation/perf-top.txt
-index 345dd9ee9b6bab88..f38b54267125cb08 100644
---- a/tools/perf/Documentation/perf-top.txt
-+++ b/tools/perf/Documentation/perf-top.txt
-@@ -90,9 +90,13 @@ Default is to monitor all CPUS.
- 	client cache first, when it is not available locally, on for
- 	these commands by default.  Turn it off per invocation with
- 	--no-debuginfod, with the "top.debuginfod" config option or
--	globally with "core.debuginfod" set to false.  Disabled as well
--	when the build-id cache is off, e.g. "buildid.dir" set to
--	/dev/null.
-+	globally with "core.debuginfod" set to false.  While a fetch is
-+	in progress, 's' skips the current fetch and 'd' skips it and
-+	disables debuginfod for the rest of the session, writing
-+	core.debuginfod=false to the configuration file so that it
-+	stays disabled in the next runs too; in the stdio interface the
-+	progress is a line on stderr.  Disabled as well when the
-+	build-id cache is off, e.g. "buildid.dir" set to /dev/null.
- 
- --kallsyms=<file>::
- 	kallsyms pathname
-diff --git a/tools/perf/util/debuginfo.c b/tools/perf/util/debuginfo.c
-index be5882d9c2204797..e2066fce2450c6fb 100644
---- a/tools/perf/util/debuginfo.c
-+++ b/tools/perf/util/debuginfo.c
-@@ -9,21 +9,25 @@
- #include <fcntl.h>
- #include <limits.h>
- #include <pthread.h>
-+#include <signal.h>
- #include <stdbool.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-+#include <termios.h>
- #include <unistd.h>
- #include <linux/list.h>
- #include <linux/zalloc.h>
- #include <api/fs/fs.h>
- 
- #include "build-id.h"
-+#include "config.h"
- #include "dso.h"
- #include "debug.h"
- #include "debuginfo.h"
- #include "mutex.h"
- #include "symbol.h"
-+#include "term.h"
- 
- #ifdef HAVE_DEBUGINFOD_SUPPORT
- #include <elfutils/debuginfod.h>
-@@ -146,6 +150,134 @@ struct debuginfo *debuginfo__new(const char *path)
- }
- 
- #ifdef HAVE_DEBUGINFOD_SUPPORT
-+/*
-+ * use_browser tells whether a full screen UI, the TUI for now, owns
-+ * the terminal and its input queue: the fetch progress and the
-+ * skip/disable keys below are stdio only when it doesn't.
-+ */
-+#include "ui/ui.h"
-+
-+static bool debuginfod_progress_started;
-+static bool debuginfod_fetch_cancelled;
-+
-+/*
-+ * A fetch can be interrupted with Ctrl-C, Ctrl-\ or SIGTERM while stdin
-+ * is in raw mode: the handler only records the signal, the progress
-+ * callback aborts the query, and debuginfod__fetch() restores the
-+ * terminal and raises the signal again, so that it is not left in raw
-+ * mode when perf dies mid-fetch.
-+ */
-+static volatile sig_atomic_t debuginfod_signal;
-+
-+static void debuginfod_signal_handler(int sig)
-+{
-+	debuginfod_signal = sig;
-+}
-+
-+/*
-+ * Say that the fetch in progress was skipped, and where disabling it
-+ * lands.
-+ */
-+static void debuginfod__skipped(const char *msg)
-+{
-+	fprintf(stderr, "\n%s\n", msg);
-+}
-+
-+/*
-+ * 's': skip this fetch, and remember the build ID so that the rest of
-+ * the session doesn't ask for it again, the query is aborted by
-+ * returning a non-zero value from the progress callback, as the
-+ * debuginfod client docs prescribe.  'd': also disable debuginfod for
-+ * the rest of the session, clearing DEBUGINFOD_URLS so that libdwfl's
-+ * own client, that reads it in every query, stops fetching too, and
-+ * write core.debuginfod=false to the configuration file, the same
-+ * rewrite 'perf config' does, the comments are not preserved as the
-+ * config set carries just the key-value pairs, pointing at
-+ * 'perf config' when that rewrite can't be done.
-+ */
-+static void debuginfod__cancel_key(int key)
-+{
-+	if (key == 's' || key == 'S') {
-+		debuginfod_fetch_cancelled = true;
-+		debuginfod__skipped("Skipping this debuginfod fetch, this build ID will not be fetched again in this session, press 'd' to also disable it for the other ones");
-+	} else if (key == 'd' || key == 'D') {
-+		debuginfod_fetch_cancelled = true;
-+		symbol_conf.debuginfod = false;
-+		/*
-+		 * libdwfl's own debuginfod client reads DEBUGINFOD_URLS
-+		 * in every query, so clear it to stop it as well.
-+		 */
-+		setenv("DEBUGINFOD_URLS", "", 1);
-+		if (perf_config__set_variable("core.debuginfod", "false"))
-+			debuginfod__skipped("Skipping this debuginfod fetch and disabling debuginfod for this session, run 'perf config core.debuginfod=false' to also disable it permanently");
-+		else if (config_exclusive_filename)
-+			debuginfod__skipped("Skipping this debuginfod fetch and disabling debuginfod for this session and in the configuration file");
-+		else
-+			debuginfod__skipped("Skipping this debuginfod fetch and disabling debuginfod for this session and in ~/.perfconfig");
-+	}
-+}
-+
-+/*
-+ * The stdio fetch UI: the terminal is in raw mode, see
-+ * debuginfod__fetch(), so the keypresses are on stdin, drain them.
-+ */
-+static void debuginfod__poll_cancel_keys(void)
-+{
-+	char ch;
-+
-+	while (read(STDIN_FILENO, &ch, 1) == 1)
-+		debuginfod__cancel_key(ch);
-+}
-+
-+/*
-+ * Print a warning and a progress indicator when the debuginfod client
-+ * ends up fetching a file, which can be big, such as the vmlinux for a
-+ * kernel profiled on another machine or before it got upgraded, so that
-+ * users know perf is not stuck, and let them bail out: 's' skips this
-+ * fetch and remembers the build ID, so that the rest of the session
-+ * doesn't ask for it again, 'd' also disables debuginfod for the rest
-+ * of the session.
-+ *
-+ * The client invokes this both while fetching, where 'a' is the number
-+ * of bytes transferred so far and 'b' the total size, zero when it
-+ * doesn't know it yet, and, before committing to a server, from the
-+ * cache cleanup, that scans the debuginfod client cache, with 'a' being
-+ * the number of cache files scanned so far and 'b' zero.
-+ *
-+ * In the stdio case the progress goes to stderr, a \r terminated line,
-+ * the keys are drained from stdin, that debuginfod__fetch() put in raw
-+ * mode.
-+ */
-+static int debuginfod_progress_fn(debuginfod_client *c __maybe_unused,
-+				  long a, long b)
-+{
-+	if (debuginfod_signal)
-+		return 1;
-+
-+	if (!isatty(STDERR_FILENO) || use_browser)
-+		return 0;
-+
-+	if (isatty(STDIN_FILENO)) {
-+		debuginfod__poll_cancel_keys();
-+		if (debuginfod_fetch_cancelled)
-+			return 1;
-+	}
-+
-+	if (!debuginfod_progress_started) {
-+		fprintf(stderr, "Fetching debuginfo by build ID from the debuginfod servers, this may take a while for large files such as the vmlinux, press 's' to skip, 'd' to skip and disable\n");
-+		debuginfod_progress_started = true;
-+	}
-+
-+	if (a >= 0) {
-+		if (b > 0)
-+			fprintf(stderr, "  %ld/%ld MiB fetched\r", a >> 20, b >> 20);
-+		else
-+			fprintf(stderr, "  %ld MiB fetched\r", a >> 20);
-+	}
-+
-+	return 0;
-+}
-+
- /*
-  * Users can disable the local build-id/.debug cache by setting
-  * buildid.dir to /dev/null, meaning they don't want fetched
-@@ -163,8 +295,11 @@ static bool debuginfod__cache_disabled(void)
-  * ones already searched for on the debuginfod servers without success,
-  * so that callers that see the same DSO over and over, such as the data
-  * type profiler switching between DSOs on every hist entry, don't pay a
-- * server round trip again for each miss.  The cache of successes is the
-- * debuginfod client's own, in the local filesystem.
-+ * server round trip again for each miss, and the ones whose search the
-+ * user cancelled, maybe because what was being downloaded is too big,
-+ * so that the next request for the same build ID doesn't restart a
-+ * download that was refused.  The cache of successes is the debuginfod
-+ * client's own, in the local filesystem.
-  *
-  * Guarded by debuginfod__fetch_lock: it is only read by the lookups
-  * below, that run with that lock held, and written by fetches, that run
-@@ -173,28 +308,37 @@ static bool debuginfod__cache_disabled(void)
- struct debuginfod_miss {
- 	struct list_head	node;
- 	struct build_id		bid;
-+	bool			cancelled;
- };
- 
- static LIST_HEAD(debuginfod__misses);
- 
- /*
-- * Was the search for this build ID already made and settled, i.e. the
-- * servers had nothing for it?
-+ * Was the search for this build ID already settled, by the servers
-+ * having nothing or by the user cancelling it?  When it was, @cancelled
-+ * tells the two apart, so that the debug message can say which one it
-+ * was.
-  */
--static bool debuginfod__missed(const struct build_id *bid)
-+static bool debuginfod__missed(const struct build_id *bid, bool *cancelled)
- {
- 	struct debuginfod_miss *miss;
-+	bool found = false;
-+
-+	*cancelled = false;
- 
- 	list_for_each_entry(miss, &debuginfod__misses, node) {
- 		if (miss->bid.size == bid->size &&
--		    !memcmp(miss->bid.data, bid->data, bid->size))
--			return true;
-+		    !memcmp(miss->bid.data, bid->data, bid->size)) {
-+			found = true;
-+			*cancelled = miss->cancelled;
-+			break;
-+		}
- 	}
- 
--	return false;
-+	return found;
- }
- 
--static void debuginfod__miss_add(const struct build_id *bid)
-+static void debuginfod__miss_add(const struct build_id *bid, bool cancelled)
- {
- 	struct debuginfod_miss *miss = zalloc(sizeof(*miss));
- 
-@@ -202,6 +346,7 @@ static void debuginfod__miss_add(const struct build_id *bid)
- 		return;
- 
- 	miss->bid = *bid;
-+	miss->cancelled = cancelled;
- 
- 	list_add(&miss->node, &debuginfod__misses);
- }
-@@ -209,11 +354,17 @@ static void debuginfod__miss_add(const struct build_id *bid)
- /*
-  * One fetch at a time.
-  *
-- * The lookup state below is process global, so two concurrent fetches,
-+ * The terminal settings, the signal dispositions and the progress and
-+ * cancellation state below are process global, so two concurrent fetches,
-  * which dso__debuginfo() makes possible by taking the fetch out of
-- * dso__lock, would race for it: the second one could answer from a list
-- * the first one is concurrently updating, and put the same build ID on
-- * the misses list twice.
-+ * dso__lock, would fight over them: the second one would take the first
-+ * one's raw mode as the state to restore and leave the terminal broken when
-+ * it is done, and resetting the cancellation state would drop the 's'/'d'
-+ * keypress that was meant for the fetch already in progress.  Serializing
-+ * also keeps the two from racing for the same keypresses and for the same
-+ * progress line, and a second fetch has nothing to gain from running in
-+ * parallel with a first one reading the same kind of file off the same
-+ * servers.
-  *
-  * Serializing also means a second request for a build ID that is being
-  * fetched waits here for the fetch to finish, instead of starting a second
-@@ -221,11 +372,16 @@ static void debuginfod__miss_add(const struct build_id *bid)
-  * published, or from the misses list, with no client at all.  Should the
-  * fetches ever run in parallel, that wait has to come back explicitly, with
-  * this lock split in two: one only for the lookup state, that the waiters
-- * sleep on, and one held around each fetch, with the thread that finds a
-- * fetch in progress waiting on the former for the entry to be published.
-+ * sleep on, and one for the process global state above, held around each
-+ * fetch, with the thread that finds a fetch in progress waiting on the
-+ * former for the entry to be published.
-  *
-  * What that costs is that a fetch for one build ID blocks a fetch for
-- * another one, and it is what parallel downloads would fix.  Worth doing
-+ * another one, and it is what parallel downloads would fix: the terminal
-+ * in raw mode, the signal dispositions, the progress line and the 's'/'d'
-+ * keys would have to become per fetch and refcounted, so that N fetches
-+ * share one terminal session and one signal handler, with the first one in
-+ * setting them up and the last one out putting them back.  Worth doing
-  * only if the wait turns out to be long, because it mostly is not: the
-  * lookups below answer the second and later requests for a build ID from
-  * memory, so after the first pass over the build IDs of a workload, which
-@@ -256,10 +412,11 @@ static void debuginfod__fetch_lock_init(void)
-  * cache is cleaned from under us.
-  *
-  * Guarded by debuginfod__fetch_lock.  Only a fetch that brought a file back
-- * gets an entry: one that didn't is recorded in debuginfod__misses as a miss,
-- * and that is what keeps the rest of the session from asking for it again.
-- * Like debuginfod__misses this grows with the number of build IDs in the
-- * workload, one small entry each, and is not trimmed.
-+ * gets an entry: one that didn't is recorded in debuginfod__misses, either
-+ * as a miss or as a user cancellation, and that is what keeps the rest of
-+ * the session from asking for it again.  Like debuginfod__misses this grows
-+ * with the number of build IDs in the workload, one small entry each, and is
-+ * not trimmed.
-  */
- struct debuginfo_lookup {
- 	struct list_head	 node;
-@@ -317,12 +474,18 @@ static void debuginfo_lookup__add(const struct build_id *bid, const char *path)
- }
- 
- /*
-- * The fetch itself.  Called with debuginfod__fetch_lock held for the
-- * whole of it, see the comment there.
-+ * The fetch itself, and, in the stdio case, the terminal in raw mode
-+ * and the signal dispositions swapped for the ones that restore it, so
-+ * that the caller has to hold debuginfod__fetch_lock for the whole of
-+ * it, see the comment there.
-  */
- static int debuginfod__fetch(const struct build_id *bid, char **path)
- {
- 	char sbuild_id[SBUILD_ID_SIZE];
-+	struct termios orig_termios;
-+	struct sigaction sa, orig_sigint, orig_sigquit, orig_sigterm;
-+	bool term_set = false, sigint_set = false, sigquit_set = false;
-+	bool sigterm_set = false;
- 	debuginfod_client *c;
- 	int fd;
- 
-@@ -330,20 +493,96 @@ static int debuginfod__fetch(const struct build_id *bid, char **path)
- 	if (c == NULL)
- 		return -1;
- 
-+	debuginfod_set_progressfn(c, debuginfod_progress_fn);
-+
-+	debuginfod_fetch_cancelled = false;
-+	debuginfod_signal = 0;
-+
-+	/*
-+	 * Make stdin deliver keypresses without waiting for a newline,
-+	 * the progress callback above polls it for the 's'/'d' keys,
-+	 * only in the stdio case with both stdin and stderr being a
-+	 * terminal: the pipe cases have no business being poked here,
-+	 * and in the TUI the terminal and its input queue are the
-+	 * browser's own.  Intercept SIGINT, SIGQUIT and SIGTERM so that
-+	 * the terminal is restored before the process dies, the handler
-+	 * only records the signal and the callback aborts the query.
-+	 * The handlers go in before the terminal mode changes, so that a
-+	 * signal landing in between is caught and the raw mode is
-+	 * restored.
-+	 */
-+	if (isatty(STDIN_FILENO) && isatty(STDERR_FILENO) && !use_browser) {
-+		memset(&sa, 0, sizeof(sa));
-+		sa.sa_handler = debuginfod_signal_handler;
-+		sigemptyset(&sa.sa_mask);
-+		if (sigaction(SIGINT, &sa, &orig_sigint) == 0)
-+			sigint_set = true;
-+		if (sigaction(SIGQUIT, &sa, &orig_sigquit) == 0)
-+			sigquit_set = true;
-+		if (sigaction(SIGTERM, &sa, &orig_sigterm) == 0)
-+			sigterm_set = true;
-+
-+		set_term_quiet_input(&orig_termios);
-+		term_set = true;
-+	}
-+
- 	fd = debuginfod_find_debuginfo(c, bid->data, bid->size, path);
- 
--	debuginfod_end(c);
-+	if (term_set)
-+		tcsetattr(STDIN_FILENO, TCSANOW, &orig_termios);
-+	if (sigint_set)
-+		sigaction(SIGINT, &orig_sigint, NULL);
-+	if (sigquit_set)
-+		sigaction(SIGQUIT, &orig_sigquit, NULL);
-+	if (sigterm_set)
-+		sigaction(SIGTERM, &orig_sigterm, NULL);
- 
-+	debuginfod_end(c);
-+	if (debuginfod_progress_started) {
-+		fputc('\n', stderr);
-+		debuginfod_progress_started = false;
-+	}
- 	if (fd < 0) {
- 		build_id__snprintf(bid, sbuild_id, sizeof(sbuild_id));
-+		if (debuginfod_fetch_cancelled || debuginfod_signal) {
-+			pr_debug("debuginfod search for build ID %s cancelled by the user\n",
-+				 sbuild_id);
-+			/*
-+			 * Remember it so that the rest of the session doesn't
-+			 * ask for the same file again: the user may have
-+			 * skipped it for being too big.
-+			 */
-+			debuginfod__miss_add(bid, true);
-+			/*
-+			 * The terminal is restored, die as the user asked;
-+			 * the original dispositions are back in place.
-+			 */
-+			if (debuginfod_signal)
-+				raise(debuginfod_signal);
-+			return -1;
-+		}
- 		pr_debug("No debuginfo found for build ID %s in debuginfod\n",
- 			 sbuild_id);
--		debuginfod__miss_add(bid);
-+		debuginfod__miss_add(bid, false);
- 		return -1;
- 	}
- 
- 	close(fd);
- 
-+	/*
-+	 * The interrupt can land after the file is already here, in which
-+	 * case there is no failure to report, but the user still asked for
-+	 * perf to stop, and the terminal and the signal dispositions are
-+	 * back to what they were, so honour it here as well instead of
-+	 * swallowing it and going on.
-+	 */
-+	if (debuginfod_signal) {
-+		build_id__snprintf(bid, sbuild_id, sizeof(sbuild_id));
-+		pr_debug("debuginfod found the debuginfo for build ID %s, but the search was interrupted, exiting\n",
-+			 sbuild_id);
-+		raise(debuginfod_signal);
-+	}
-+
+diff --git a/tools/build/feature/test-libdw.c b/tools/build/feature/test-libdw.c
+index aabd63ca76b4d7e6..23e1ba6ff3466b9f 100644
+--- a/tools/build/feature/test-libdw.c
++++ b/tools/build/feature/test-libdw.c
+@@ -49,8 +49,21 @@ int test_elfutils(void)
  	return 0;
  }
  
-@@ -397,7 +636,7 @@ static int debuginfo_lookup__find_build_id(const struct build_id *bid, char **pa
-  * Querying servers, possibly third party, sends the build IDs of the
-  * binaries being analysed off the box, so this is opt-out: on by
-  * default, switchable off with --no-debuginfod, with
-- * core.debuginfod=false, with the per-tool
-+ * core.debuginfod=false (what the 'd' key writes), with the per-tool
-  * report.debuginfod/top.debuginfod, and it is off too when the user
-  * disabled the local build-id/.debug cache, e.g. with
-  * buildid.dir = /dev/null, as is the case for users that don't want
-@@ -417,25 +656,31 @@ int debuginfo__find_build_id(const struct build_id *bid, char **path)
- 
- 	/*
- 	 * The checks below have to be made with the lock held, as they look
--	 * at the state the fetch changes: a build ID the fetch in progress
--	 * just settled as a miss is settled for whoever is waiting for the
--	 * lock as well.  Deciding here and fetching there would repeat a
--	 * fetch that was already made, and put the same build ID on the
--	 * misses list twice.
-+	 * at the state the fetch changes: debuginfod can be turned off while
-+	 * a fetch is in progress, by the 'd' key in its progress line, and a
-+	 * build ID the fetch in progress just settled, as a miss or as a
-+	 * cancellation, is settled for whoever is waiting for the lock as
-+	 * well.  Deciding here and fetching there would repeat a fetch that
-+	 * was already made, and put the same build ID on the misses list
-+	 * twice.
- 	 */
- 	debuginfod__fetch_lock_init();
- 	mutex_lock(&debuginfod__fetch_lock);
- 
- 	if (symbol_conf.debuginfod) {
-+		bool cancelled;
++/*
++ * elfutils 0.160 and later: used to tell which debug file a DIE lives in,
++ * the dwz alt file or the main one, see die_same_file() in
++ * tools/perf/util/dwarf-aux.c.  Only the symbol is needed, so take its
++ * address instead of calling it.
++ */
++int test_libdw_cu_getdwarf(void)
++{
++	void *sym = (void *)dwarf_cu_getdwarf;
 +
- 		if (debuginfod__cache_disabled()) {
- 			pr_debug("Build-id cache disabled (buildid dir is '%s'), not using debuginfod\n",
- 				 buildid_dir);
--		} else if (debuginfod__missed(bid)) {
-+		} else if (debuginfod__missed(bid, &cancelled)) {
- 			char sbuild_id[SBUILD_ID_SIZE];
++	return sym == NULL;
++}
++
+ int main(void)
+ {
+ 	return test_libdw() + test_libdw_unwind() + test_libdw_getlocations() +
+-	       test_libdw_getcfi() + test_elfutils();
++	       test_libdw_getcfi() + test_libdw_cu_getdwarf() + test_elfutils();
+ }
+diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
+index 4ee7393a39f91d85..0585d71e3182c6dd 100644
+--- a/tools/perf/Makefile.config
++++ b/tools/perf/Makefile.config
+@@ -470,7 +470,7 @@ else
+   else
+     ifneq ($(feature-libdw), 1)
+       ifndef NO_LIBDW
+-        $(warning No libdw.h found or old libdw.h found or elfutils is older than 0.157, disables dwarf support. Please install new elfutils-devel/libdw-dev)
++        $(warning No libdw.h found or old libdw.h found or elfutils is older than 0.160, disables dwarf support. Please install new elfutils-devel/libdw-dev)
+         NO_LIBDW := 1
+       endif
+     endif # Dwarf support
+diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
+index aff60a630fd05b01..e67c9a21a7a27af2 100644
+--- a/tools/perf/util/annotate-data.c
++++ b/tools/perf/util/annotate-data.c
+@@ -221,6 +221,15 @@ static bool data_type_less(struct rb_node *node_a, const struct rb_node *node_b)
+ 	return strcmp(a->self.type_name, b->self.type_name) < 0;
+ }
  
- 			build_id__snprintf(bid, sbuild_id, sizeof(sbuild_id));
--			pr_debug("Not searching build ID %s in debuginfod again, it was a miss earlier\n",
--				 sbuild_id);
-+			pr_debug("Not searching build ID %s in debuginfod again, %s\n",
-+				 sbuild_id,
-+				 cancelled ? "the user cancelled the search earlier" :
-+					     "it was a miss earlier");
- 		} else {
- 			err = debuginfo_lookup__find_build_id(bid, path);
++/*
++ * Members of struct/union members are added recursively, and the same DIE
++ * that is not what it looks like, the one that makes the type chasers in
++ * util/dwarf-aux.c spin, can make a member's type point back at one of its
++ * own ancestors, recursing until the stack is gone.  Nothing usable comes
++ * out of nesting members this deep anyway.
++ */
++#define MAX_MEMBER_DEPTH 8
++
+ /* Recursively add new members for struct/union */
+ static int __add_member_cb(Dwarf_Die *die, void *arg)
+ {
+@@ -235,6 +244,16 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
+ 	if (dwarf_tag(die) != DW_TAG_member)
+ 		return DIE_FIND_CB_SIBLING;
+ 
++	if (__die_get_real_type(die, &member_type) == NULL)
++		return DIE_FIND_CB_SIBLING;
++
++	if (dwarf_tag(&member_type) == DW_TAG_typedef) {
++		if (die_get_real_type(&member_type, &die_mem) == NULL)
++			return DIE_FIND_CB_SIBLING;
++	} else {
++		die_mem = member_type;
++	}
++
+ 	member = zalloc(sizeof(*member));
+ 	if (member == NULL)
+ 		return DIE_FIND_CB_END;
+@@ -242,12 +261,6 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
+ 	strbuf_init(&sb, 32);
+ 	die_get_typename(die, &sb);
+ 
+-	__die_get_real_type(die, &member_type);
+-	if (dwarf_tag(&member_type) == DW_TAG_typedef)
+-		die_get_real_type(&member_type, &die_mem);
+-	else
+-		die_mem = member_type;
+-
+ 	if (dwarf_aggregate_size(&die_mem, &size) < 0)
+ 		size = 0;
+ 
+@@ -289,10 +302,23 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
+ 	}
+ 	member->size = size;
+ 	member->offset = loc + parent->offset;
++	member->depth = parent->depth + 1;
+ 	INIT_LIST_HEAD(&member->children);
+ 	list_add_tail(&member->node, &parent->children);
+ 
+ 	tag = dwarf_tag(&die_mem);
++	if (member->depth >= MAX_MEMBER_DEPTH) {
++		/*
++		 * The JSON exporter added in a later series reports
++		 * this to its consumers, so that they can tell a
++		 * truncated tree from one that really ends here.
++		 */
++		member->truncated = true;
++		pr_debug_dtp("member nesting limit reached at %s\n",
++			     member->type_name ?: "(unknown type)");
++		return DIE_FIND_CB_SIBLING;
++	}
++
+ 	switch (tag) {
+ 	case DW_TAG_structure_type:
+ 	case DW_TAG_union_type:
+@@ -645,6 +671,8 @@ struct global_var_entry {
+ 	u64 start;
+ 	u64 end;
+ 	u64 die_offset;
++	int die_tag;
++	bool from_alt;	/* die_offset is relative to the alt (dwz) file */
+ };
+ 
+ static int global_var_cmp(const void *_key, const struct rb_node *node)
+@@ -682,7 +710,7 @@ static struct global_var_entry *global_var__find(struct data_loc_info *dloc, u64
+ }
+ 
+ static bool global_var__add(struct data_loc_info *dloc, u64 addr,
+-			    const char *name, Dwarf_Die *type_die)
++			    const char *name, Dwarf_Die *type_die, bool from_alt)
+ {
+ 	struct dso *dso = map__dso(dloc->ms->map);
+ 	struct global_var_entry *gvar;
+@@ -704,6 +732,8 @@ static bool global_var__add(struct data_loc_info *dloc, u64 addr,
+ 	gvar->start = addr;
+ 	gvar->end = addr + size;
+ 	gvar->die_offset = dwarf_dieoffset(type_die);
++	gvar->die_tag = dwarf_tag(type_die);
++	gvar->from_alt = from_alt;
+ 
+ 	rb_add(&gvar->node, dso__global_vars(dso), global_var_less);
+ 	return true;
+@@ -778,12 +808,14 @@ static void global_var__collect(struct data_loc_info *dloc)
+ 			if (pos->reg != -1)
+ 				continue;
+ 
+-			if (!dwarf_offdie(dwarf, pos->die_off, &type_die))
++			if (!die_get_type_die(dwarf, pos->die_off, pos->die_tag,
++					      pos->from_alt, &type_die))
+ 				continue;
+ 
+ 			get_global_var_info(dloc, pos->addr, &var_name, &var_offset);
+ 
+-			global_var__add(dloc, pos->addr, var_name, &type_die);
++			global_var__add(dloc, pos->addr, var_name, &type_die,
++					pos->from_alt);
  		}
+ 
+ 		delete_var_types(var_types);
+@@ -808,7 +840,8 @@ bool get_global_var_type(Dwarf_Die *cu_die, struct data_loc_info *dloc,
+ 
+ 	gvar = global_var__find(dloc, var_addr);
+ 	if (gvar) {
+-		if (!dwarf_offdie(dloc->di->dbg, gvar->die_offset, type_die))
++		if (!die_get_type_die(dloc->di->dbg, gvar->die_offset,
++				      gvar->die_tag, gvar->from_alt, type_die))
+ 			return false;
+ 
+ 		*var_offset = var_addr - gvar->start;
+@@ -838,7 +871,8 @@ bool get_global_var_type(Dwarf_Die *cu_die, struct data_loc_info *dloc,
+ 
+ ok:
+ 	/* The address should point to the start of the variable */
+-	global_var__add(dloc, var_addr - *var_offset, var_name, type_die);
++	global_var__add(dloc, var_addr - *var_offset, var_name, type_die,
++			!die_same_file(cu_die, type_die));
+ 	return true;
+ }
+ 
+@@ -893,7 +927,8 @@ static void update_var_state(struct type_state *state, struct data_loc_info *dlo
+ 				continue;
+ 		}
+ 		/* Get the type DIE using the offset */
+-		if (!dwarf_offdie(dloc->di->dbg, var->die_off, &mem_die))
++		if (!die_get_type_die(dloc->di->dbg, var->die_off,
++				      var->die_tag, var->from_alt, &mem_die))
+ 			continue;
+ 
+ 		if (var->reg == DWARF_REG_FB || var->reg == fbreg || var->reg == state->stack_reg) {
+diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
+index ca2096a9ee62cbfe..cc576232f55b5fb0 100644
+--- a/tools/perf/util/annotate-data.h
++++ b/tools/perf/util/annotate-data.h
+@@ -57,6 +57,9 @@ struct annotated_member {
+ 	char *var_name;
+ 	int offset;
+ 	int size;
++	unsigned int depth;
++	/* Children not expanded because the nesting limit was reached */
++	bool truncated;
+ };
+ 
+ /**
+diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
+index d7160f87ac7d7ab3..7acb431fd34a8ecb 100644
+--- a/tools/perf/util/dwarf-aux.c
++++ b/tools/perf/util/dwarf-aux.c
+@@ -266,16 +266,35 @@ Dwarf_Die *die_get_type(Dwarf_Die *vr_die, Dwarf_Die *die_mem)
+ 		return NULL;
+ }
+ 
++/*
++ * The chases below cross typedefs and qualifiers to get to the type that
++ * is actually meant, and a DIE that is not what it looks like, e.g. one
++ * parsed at an offset that is not the start of a DIE in the file it was
++ * resolved in, can have a DW_AT_type that refers back to itself, which
++ * makes them spin forever: 'perf report -s type' did exactly that on the
++ * dwz compressed debug info of zlib-ng (libz.so.1), burning all of a CPU
++ * with no output while resolving a hist entry in build_tree().
++ *
++ * No sane chain is this long, so give up instead of hanging, telling about
++ * it so that the broken debug info can be looked at.
++ */
++#define MAX_TYPE_CHASE 32
++
+ /* Get a type die, but skip qualifiers */
+ Dwarf_Die *__die_get_real_type(Dwarf_Die *vr_die, Dwarf_Die *die_mem)
+ {
+-	int tag;
++	int tag, chase = 0;
+ 
+ 	do {
+ 		vr_die = die_get_type(vr_die, die_mem);
+ 		if (!vr_die)
+-			break;
++			return NULL;
+ 		tag = dwarf_tag(vr_die);
++		if (++chase > MAX_TYPE_CHASE) {
++			pr_debug("DWARF: qualifier chase limit reached at DIE 0x%lx\n",
++				 (unsigned long)dwarf_dieoffset(vr_die));
++			return NULL;
++		}
+ 	} while (tag == DW_TAG_const_type ||
+ 		 tag == DW_TAG_restrict_type ||
+ 		 tag == DW_TAG_volatile_type ||
+@@ -296,8 +315,15 @@ Dwarf_Die *__die_get_real_type(Dwarf_Die *vr_die, Dwarf_Die *die_mem)
+  */
+ Dwarf_Die *die_get_real_type(Dwarf_Die *vr_die, Dwarf_Die *die_mem)
+ {
++	int chase = 0;
++
+ 	do {
+ 		vr_die = __die_get_real_type(vr_die, die_mem);
++		if (++chase > MAX_TYPE_CHASE) {
++			pr_debug("DWARF: typedef chase limit reached at DIE 0x%lx\n",
++				 vr_die ? (unsigned long)dwarf_dieoffset(vr_die) : 0);
++			return NULL;
++		}
+ 	} while (vr_die && dwarf_tag(vr_die) == DW_TAG_typedef);
+ 
+ 	return vr_die;
+@@ -314,7 +340,7 @@ Dwarf_Die *die_get_real_type(Dwarf_Die *vr_die, Dwarf_Die *die_mem)
+  */
+ Dwarf_Die *die_get_pointer_type(Dwarf_Die *type_die, Dwarf_Die *die_mem)
+ {
+-	int tag;
++	int tag, chase = 0;
+ 
+ 	do {
+ 		tag = dwarf_tag(type_die);
+@@ -324,6 +350,11 @@ Dwarf_Die *die_get_pointer_type(Dwarf_Die *type_die, Dwarf_Die *die_mem)
+ 		    tag != DW_TAG_restrict_type && tag != DW_TAG_volatile_type &&
+ 		    tag != DW_TAG_shared_type)
+ 			return NULL;
++		if (++chase > MAX_TYPE_CHASE) {
++			pr_debug("DWARF: pointer type chase limit reached at DIE 0x%lx\n",
++				 (unsigned long)dwarf_dieoffset(type_die));
++			return NULL;
++		}
+ 		type_die = die_get_type(type_die, die_mem);
+ 	} while (type_die);
+ 
+@@ -1118,17 +1149,27 @@ Dwarf_Die *die_find_member(Dwarf_Die *st_die, const char *name,
+ 			      die_mem);
+ }
+ 
+-/**
+- * die_get_typename_from_type - Get the name of given type DIE
+- * @type_die: a type DIE
+- * @buf: a strbuf for result type name
+- *
+- * Get the name of @type_die and stores it to @buf. Return 0 if succeeded.
+- * and Return -ENOENT if failed to find type name.
+- * Note that the result will stores typedef name if possible, and stores
+- * "*(function_type)" if the type is a function pointer.
++/*
++ * The name of a pointer or array type is built from the name of the type
++ * it points to or holds, so the recursion below follows DW_AT_type; a
++ * garbage DIE whose DW_AT_type refers back to itself makes it recurse
++ * forever, just like the chases above, so it gets the same bound.
+  */
+-int die_get_typename_from_type(Dwarf_Die *type_die, struct strbuf *buf)
++static int __die_get_typename_from_type(Dwarf_Die *type_die, struct strbuf *buf,
++					int depth);
++
++static int __die_get_typename(Dwarf_Die *vr_die, struct strbuf *buf, int depth)
++{
++	Dwarf_Die type;
++
++	if (__die_get_real_type(vr_die, &type) == NULL)
++		return -ENOENT;
++
++	return __die_get_typename_from_type(&type, buf, depth);
++}
++
++static int __die_get_typename_from_type(Dwarf_Die *type_die, struct strbuf *buf,
++					int depth)
+ {
+ 	int tag, ret;
+ 	const char *tmp = "";
+@@ -1155,7 +1196,12 @@ int die_get_typename_from_type(Dwarf_Die *type_die, struct strbuf *buf)
+ 		/* Write a base name */
+ 		return strbuf_addf(buf, "%s%s", tmp, name ?: "");
+ 	}
+-	ret = die_get_typename(type_die, buf);
++	if (depth >= MAX_TYPE_CHASE) {
++		pr_debug("DWARF: type name recursion limit reached at DIE 0x%lx\n",
++			 (unsigned long)dwarf_dieoffset(type_die));
++		return -ENOENT;
++	}
++	ret = __die_get_typename(type_die, buf, depth + 1);
+ 	if (ret < 0) {
+ 		/* void pointer has no type attribute */
+ 		if (tag == DW_TAG_pointer_type && ret == -ENOENT)
+@@ -1166,6 +1212,21 @@ int die_get_typename_from_type(Dwarf_Die *type_die, struct strbuf *buf)
+ 	return strbuf_addstr(buf, tmp);
+ }
+ 
++/**
++ * die_get_typename_from_type - Get the name of given type DIE
++ * @type_die: a type DIE
++ * @buf: a strbuf for result type name
++ *
++ * Get the name of @type_die and stores it to @buf. Return 0 if succeeded.
++ * and Return -ENOENT if failed to find type name.
++ * Note that the result will stores typedef name if possible, and stores
++ * "*(function_type)" if the type is a function pointer.
++ */
++int die_get_typename_from_type(Dwarf_Die *type_die, struct strbuf *buf)
++{
++	return __die_get_typename_from_type(type_die, buf, 0);
++}
++
+ /**
+  * die_get_typename - Get the name of given variable DIE
+  * @vr_die: a variable DIE
+@@ -1178,12 +1239,7 @@ int die_get_typename_from_type(Dwarf_Die *type_die, struct strbuf *buf)
+  */
+ int die_get_typename(Dwarf_Die *vr_die, struct strbuf *buf)
+ {
+-	Dwarf_Die type;
+-
+-	if (__die_get_real_type(vr_die, &type) == NULL)
+-		return -ENOENT;
+-
+-	return die_get_typename_from_type(&type, buf);
++	return __die_get_typename(vr_die, buf, 0);
+ }
+ 
+ /**
+@@ -1632,6 +1688,22 @@ Dwarf_Die *die_find_variable_by_addr(Dwarf_Die *sc_die, Dwarf_Addr addr,
+ 	return result;
+ }
+ 
++/*
++ * Whether two DIEs live in the same debug file.
++ *
++ * dwarf_dieoffset() is relative to the file the DIE is in, so this is what
++ * tells an offset that has to be resolved in the dwz alt file, where dwz
++ * moved the type, from one that belongs to the main file: dwz encodes the
++ * references into its common file as DW_FORM_GNU_ref_alt, elfutils resolves
++ * them into the alt Dwarf and the CU of the resulting DIE belongs to that
++ * other file, so comparing the Dwarf each CU belongs to settles it exactly,
++ * rather than inferring it from what happens to be at the offset.
++ */
++bool die_same_file(Dwarf_Die *die_a, Dwarf_Die *die_b)
++{
++	return dwarf_cu_getdwarf(die_a->cu) == dwarf_cu_getdwarf(die_b->cu);
++}
++
+ static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
+ {
+ 	struct die_var_type **var_types = arg;
+@@ -1676,6 +1748,8 @@ static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
+ 			vt->is_reg_var_addr = true;
+ 
+ 		vt->die_off = dwarf_dieoffset(&type_die);
++		vt->die_tag = dwarf_tag(&type_die);
++		vt->from_alt = !die_same_file(die_mem, &type_die);
+ 		vt->addr = start;
+ 		vt->end = end;
+ 		vt->has_range = (end != 0 || start != 0);
+@@ -1695,7 +1769,8 @@ static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
+  *
+  * Save all variables and parameters in the @sc_die and save them to @var_types.
+  * The @var_types is a singly-linked list containing type and location info.
+- * Actual type can be retrieved using dwarf_offdie() with 'die_off' later.
++ * Actual type can be retrieved using die_get_type_die() with 'die_off',
++ * 'die_tag' and 'from_alt' later.
+  *
+  * Callers should free @var_types.
+  */
+@@ -1741,6 +1816,8 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
+ 		return DIE_FIND_CB_END;
+ 
+ 	vt->die_off = dwarf_dieoffset(&type_die);
++	vt->die_tag = dwarf_tag(&type_die);
++	vt->from_alt = !die_same_file(die_mem, &type_die);
+ 	vt->addr = ops->number;
+ 	vt->end = 0;
+ 	vt->has_range = false;
+@@ -1752,6 +1829,55 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
+ 	return DIE_FIND_CB_SIBLING;
+ }
+ 
++/**
++ * die_get_type_die - Get a type DIE saved by die_collect_vars()
++ * @dbg: the main debug info
++ * @die_off: offset of the type DIE, from dwarf_dieoffset()
++ * @die_tag: tag that DIE had when the offset was saved
++ * @from_alt: whether the type DIE is in the dwz alt file
++ * @die_mem: where to store the resulting DIE
++ *
++ * See the comment in util/dwarf-aux.h: the offset is only meaningful in the
++ * file the DIE was in, which can be the dwz common file, so resolve it in
++ * the file @from_alt says it was in, the main file or its alt file, and use
++ * the DIE only when it has the @die_tag it had when the offset was saved.
++ * There is deliberately no fallback to the other file: resolving an alt
++ * file offset in the main file does not fail, it parses whatever is there
++ * as a DIE, and that is what hung 'perf report -s type'.
++ */
++Dwarf_Die *die_get_type_die(Dwarf *dbg, u64 die_off, int die_tag, bool from_alt,
++			    Dwarf_Die *die_mem)
++{
++	Dwarf *target = dbg;
++	Dwarf_Die die;
++
++	if (from_alt) {
++		/*
++		 * Deliberately no fallback to the main file when there is
++		 * no alt file, or when the offset does not resolve in it:
++		 * resolving an alt file offset in the main file does not
++		 * fail, it parses whatever is there as a DIE, and that is
++		 * what hung 'perf report -s type', see the comment in
++		 * util/dwarf-aux.h.
++		 */
++		target = dwarf_getalt(dbg);
++		if (target == NULL) {
++			pr_debug("DWARF: no alt (dwz) debug file to resolve the type DIE at offset 0x%lx in\n",
++				 (unsigned long)die_off);
++			return NULL;
++		}
++	}
++
++	if (dwarf_offdie(target, die_off, &die) && dwarf_tag(&die) == die_tag) {
++		*die_mem = die;
++		return die_mem;
++	}
++
++	pr_debug("DWARF: no DIE with tag %d at offset 0x%lx in the %s debug file\n",
++		 die_tag, (unsigned long)die_off, from_alt ? "alt" : "main");
++	return NULL;
++}
++
+ /**
+  * die_collect_global_vars - Save all global variables
+  * @cu_die: a CU DIE
+@@ -1759,7 +1885,8 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
+  *
+  * Save all global variables in the @cu_die and save them to @var_types.
+  * The @var_types is a singly-linked list containing type and location info.
+- * Actual type can be retrieved using dwarf_offdie() with 'die_off' later.
++ * Actual type can be retrieved using die_get_type_die() with 'die_off',
++ * 'die_tag' and 'from_alt' later.
+  *
+  * Callers should free @var_types.
+  */
+diff --git a/tools/perf/util/dwarf-aux.h b/tools/perf/util/dwarf-aux.h
+index 161f0bf980b6ee6a..149e0cbf63ccc82a 100644
+--- a/tools/perf/util/dwarf-aux.h
++++ b/tools/perf/util/dwarf-aux.h
+@@ -152,6 +152,8 @@ int die_get_scopes(Dwarf_Die *cu_die, Dwarf_Addr pc, Dwarf_Die **scopes);
+ struct die_var_type {
+ 	struct die_var_type *next;
+ 	u64 die_off;
++	int die_tag;
++	bool from_alt;	/* die_off is relative to the alt (dwz) file */
+ 	u64 addr;
+ 	u64 end;        /* end address of location range */
+ 	int reg;
+@@ -183,6 +185,37 @@ Dwarf_Die *die_find_variable_by_addr(Dwarf_Die *sc_die, Dwarf_Addr addr,
+ /* Save all variables and parameters in this scope */
+ void die_collect_vars(Dwarf_Die *sc_die, struct die_var_type **var_types);
+ 
++/*
++ * Get the type DIE saved by die_collect_vars()/die_collect_global_vars().
++ *
++ * The offsets those save are the dwarf_dieoffset() of the type DIE, which is
++ * relative to the debug file that DIE lives in: the dwz common file, the alt
++ * file in libdw terms, for the types shared by more than one CU, the main
++ * file for the rest.  Resolving an alt file offset in the main file does not
++ * fail: dwarf_offdie() parses whatever is at that offset there, and an offset
++ * that is a CU header in the main file reads back as a typedef whose
++ * DW_AT_type refers to itself, which is what hung 'perf report -s type' on
++ * the dwz compressed debug info of zlib-ng (libz.so.1).
++ *
++ * So @from_alt, recorded when the offset was saved, says which of the two
++ * files to resolve it in.  It is not inferred from the DIE contents: dwz
++ * encodes references into the common file as DW_FORM_GNU_ref_alt, so
++ * elfutils resolves them into the alt Dwarf and the CU of the type DIE then
++ * belongs to that other file, which die_same_file() compares exactly.
++ *
++ * There is deliberately no fallback to the other file when the offset does
++ * not resolve: that fallback is the misparse above.
++ *
++ * @die_tag is then only a sanity check: the offset is of a DIE that had this
++ * tag when it was saved, so a mismatch means the debug info changed under us,
++ * or is broken, and giving up on the type is the right answer.
++ */
++Dwarf_Die *die_get_type_die(Dwarf *dbg, u64 die_off, int die_tag, bool from_alt,
++			    Dwarf_Die *die_mem);
++
++/* Whether two DIEs live in the same debug file */
++bool die_same_file(Dwarf_Die *die_a, Dwarf_Die *die_b);
++
+ /* Save all global variables in this CU */
+ void die_collect_global_vars(Dwarf_Die *cu_die, struct die_var_type **var_types);
+ 
 -- 
 2.55.0
 
