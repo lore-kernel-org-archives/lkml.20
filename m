@@ -1,174 +1,87 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE004DAF91
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0834F49A3A2;
+	Wed, 16 Sep 2026 18:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584458; cv=none; b=A/xk2+gk//2oDIofQpa+RDmd1X3Iokf8TowIj+od9lJkXYqwxZ9pYoXE0k1uEgW/szlyYGLjTlYVmem4dammbrNgDWWg6tSlBXy0Ml+hnghszYRajT7De1s2rtn0lQlEyLnZTUGbTuwOk0P2gteneCzixrz99umv34tcbVtqBhU=
+	t=1789584477; cv=none; b=Gk/eKhtCJWn1HVCDbkx6CGBQnN+JIae/pYbxx7mhmjLMPEbaYCTwj4Rd/r2nzo4NNNLhZ9rLA33YjLr82lzc90G+RRdbx8SNnFsi3I9LByawNHNkNzgvE4f4uesGAXud6VTzakAE+Km+Z9PfBBzWoZUlRE82hTceP/1nDUj7oTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584458; c=relaxed/simple;
-	bh=Dl2mOkWxuEJmH6efH0xuQ0K5VoLefb/xYo6CedeIICc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Qwo/dJOwOQRQk5Ea4JF6FSg5n+Oo7vuDRGwDk1Pqy3/0jsC+gUo5pn52hEXg4VPbOUJglvknEkmKUMbzmo4csmaLyHJHuSegKp9KXpyQieebMuQWN49DfnzueIfqi2RcQ8H+FAZyJFKQis+Bhi2/fDx8p2TQOyn4HuJtadgyqMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E3Onb8w/; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E3Onb8w/"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so367545e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:47:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789584437; x=1790189237; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kIpgcpjulhrzjmnC5wF0dcase85PBIaYQH7p3PkSuY4=;
-        b=E3Onb8w/Nm72mNKr5Cvk0URbzhfIWgJCzBuhgrTz3b40gWj6O3ejHpK5fX2P8Q6Q4J
-         hsinOPf6uvyd64HCN+Qfjg1hffKvG6MjkhWt7jkMDZzlKCSQKeFiY9VW39soLCvhNXVT
-         rj/lbWvhgzQ1/maDsSPoX16EzQuZlqM2AC86BMQ3/qabSJ7LW29zQ2aKmQ3i4cMFmgpF
-         GeMyyxtlsOhUjZXQVxBnTaK4iJSS7P21pXHKSbXR0rpriLu5OUmZBYEffAsdlMt6YRQ+
-         Zz5Rtr9xbFFbK5l/fAhN6QHLoN0bgkl4gf22JEg1WYzj3qIhBF/fbbSa+BcBFDUK6P/e
-         12sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789584437; x=1790189237;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kIpgcpjulhrzjmnC5wF0dcase85PBIaYQH7p3PkSuY4=;
-        b=Gtg//IZVjCOCjJllx2IAGPgI+SwoZC4RpWd7wXxawIDuis2OdpZMuEKnLzVfHTm2d6
-         yZkBVVZ6Jnl2WEc5a0CcHWxU/OqiOWE5vjQ4RmX7UmqMkuaoky5yW0aoPcK3dfasbnfk
-         VDWi87lc+TKOIDTABcWveSUcbiT/7lHf73zfDGQMsgrCJYK1efgqNjzOZ4IU1jSKq85/
-         kgxZ4gavcXrLEk+GSbEKUnGzIWbEvMVMNYjzTinbGRO3KMMKqqxQetMsB1YT0p0uQjB6
-         OQuoBhulqCdm78F/m2nfuXwWXwFM/jcZssLuJiodzCd0sb3AzOHtZO0veGAGF4Kj18Sr
-         tflA==
-X-Forwarded-Encrypted: i=1; AKwUvByaPiBtW5FLa46xr6K5ZLKNzA7JYdZvAzD6AHfTOYFH7jfXHUSPNTeb6O/DMrRcR0Fgq4Q0pwZXlb+F4Ew=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqrQPBY8GEOVMaBGm8fiX3IZkpgvqxbd0gQ3WjpFWqU11supH0
-	a0TaYnZHk4J2sN2B31mnYRUq01fbGKyYHRxj8KtaBEvdnwoV5RbMcbi8
-X-Gm-Gg: AYBFou0PdQ19UH1Zl9UCH9D2d+jePeA47p28QSI3L9QEW7/Nbiay3kyHmJfczKNcM+q
-	EObZ+faiOBlLIltW9GfNEbPWd3XaTA3RyyaYHEzNZdv0hKi4eVU+WXK9ceLzuyL9io1FQesBWrb
-	JfVJ0pKBsIvmI7aLggOdCX3Q72MrP4lb/QnyGHQdVlZHTgM9XmWG7pAowD4VJ34+tGctvjjspx9
-	2deu/9FBHNu8jgGIqk1x5s8V8q+/rf3EQE5JA42bdh6f+ESGt/WJLaZPZeoeogBbEqRAbzH5bUj
-	NJR3TKPl4VBFyoHD1aiVNhxfEtuXVm9fSMgcJpTQ5tVWpr0jONRmmfYb0HrrMw6klgh0suKzW28
-	jP/xE3LY0So/FIV9bEv5f3apN9/EE1rnaMGI5fQrZa8nF9gNMbvjPBuatrVkamU0brCHh+plOVj
-	pAqrkRxb6QiEbigue6P9SF0i/KHk5RcPRPoBfEsrmo2yCGgYnjVj+LegdWJD850hIKktimiH4Hc
-	Cnr2WyjDcWXVKjrRYU78Q==
-X-Received: by 2002:a05:600c:350d:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-49eb73253ebmr43138425e9.20.1789584437531;
-        Wed, 16 Sep 2026 11:47:17 -0700 (PDT)
-Received: from foxbook (bfh234.neoplus.adsl.tpnet.pl. [83.28.45.234])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbda77d6fsm316845e9.0.2026.09.16.11.47.16
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Wed, 16 Sep 2026 11:47:17 -0700 (PDT)
-Date: Wed, 16 Sep 2026 20:47:13 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: djraszit <djraszit@gmail.com>
-Cc: Oliver Neukum <oliver@neukum.org>, Alan Stern
- <stern@rowland.harvard.edu>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] uas: JMS578 returns reproducibly incorrect data after
- host reboot
-Message-ID: <20260916204713.22c4f575.michal.pecio@gmail.com>
-In-Reply-To: <CAFKhL9fL++S1xh+aUCuYbk6EkLQnfUn95y7TBoWaGnPAVP1gYA@mail.gmail.com>
-References: <CAFKhL9eUM91rtywaz_7Mz+4mJH2b2csmOmc3+86ii3a0Ka3Q6g@mail.gmail.com>
-	<c335085d-a824-4632-ad3a-c06715258c81@suse.com>
-	<CAFKhL9f6aLZgerw_7bohbQWvzMxSfd-m-LFcuNP1_p1vWkN4=Q@mail.gmail.com>
-	<1320caa3-85b5-47dc-aa2d-56d3b003c6ef@neukum.org>
-	<CAFKhL9eTD7DxtxMSMuUVP9cDG7Nq4jvrkTCjYfwr9puZfuC4Gg@mail.gmail.com>
-	<20260915233818.5881ad97.michal.pecio@gmail.com>
-	<CAFKhL9fL++S1xh+aUCuYbk6EkLQnfUn95y7TBoWaGnPAVP1gYA@mail.gmail.com>
+	s=arc-20240116; t=1789584477; c=relaxed/simple;
+	bh=dDLKKajzXueqEhFJZ00uZet42bNEKHZTSnJsbB+OhEw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T2glJ1H/H7oz1V5cC6cX3UsmIMnPQTLcYYdppH0BYXnc5EVhdLCj3E+NhJh+UjKXRHNdRlr9i0rocc6oKATP4+FKs0dqeGdbA3jGfdD4UDMeJpFBP3IfjtCBsHEkcVVOa3b4y6Dtuw70QIWu6WeDn2O3vhHFgoTRwqC+I71ttxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAA3oDpU5KpqR9RvCA--.24262S2;
+	Thu, 17 Sep 2026 02:47:49 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	samuel@sholland.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] Input: Fix i2c_bus OF node reference leak in ppkb_probe()
+Date: Wed, 16 Sep 2026 18:47:21 +0000
+Message-Id: <20260916184721.2093344-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAA3oDpU5KpqR9RvCA--.24262S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKFy5Wry7tFWxJFyDtF1rCrg_yoWktFb_Wa
+	4rXas3Wr98KF42grn5Ars3Zr9Fkw10vF97AFyvg34SkrW5ZrWjga4UZrZ5Ar17uw4fKr1D
+	G3Wjkayvyrs8ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxxFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j
+	6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjfUYZ
+	XoUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUMA2qqpViDRQAAs2
 
-On Wed, 16 Sep 2026 19:56:25 +0200, djraszit wrote:
-> First, I tested the original enclosure (0080:a001, apparently JMS578)
-> connected to a USB 2.0 port of the Raspberry Pi 4.
-> 
-> Interestingly, it still uses UAS
+The device node reference returned by of_get_child_by_name() is
+stored as the adapter's of_node but never released, leaking one node
+reference on every probe, successful or not.
 
-Yes, UAS can run on USB 2.0. It uses a custom protocol to multiplex
-requests over ordinary bulk pipes, without USB 3.0 "streams".
+The adapter only borrows the node, so drop the reference once the
+adapter has been added, and also on the error path.
 
-So it's yet another different protocol and a different speed.
+Fixes: 63c5eb157cfd ("Input: pinephone-keyboard - support the proxied I2C bus")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/input/keyboard/pinephone-keyboard.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> RPi4 + USB3/SuperSpeed + UAS  -> BAD after reboot
-> RPi4 + USB3/SuperSpeed + BOT  -> GOOD
-> RPi4 + USB2/480M       + UAS  -> GOOD
+diff --git a/drivers/input/keyboard/pinephone-keyboard.c b/drivers/input/keyboard/pinephone-keyboard.c
+index 147b1f288a33..c82323713be8 100644
+--- a/drivers/input/keyboard/pinephone-keyboard.c
++++ b/drivers/input/keyboard/pinephone-keyboard.c
+@@ -384,8 +384,10 @@ static int ppkb_probe(struct i2c_client *client)
+ 		error = devm_i2c_add_adapter(dev, &ppkb->adapter);
+ 		if (error) {
+ 			dev_err(dev, "Failed to add I2C adapter: %d\n", error);
++			of_node_put(i2c_bus);
+ 			return error;
+ 		}
++		of_node_put(i2c_bus);
+ 	}
+ 
+ 	crc8_populate_msb(ppkb->crc_table, PPKB_CRC8_POLYNOMIAL);
+-- 
+2.34.1
 
-> As a control test, while the original enclosure was in a known-good
-> state I manually disconnected its USB cable for approximately three
-> seconds and reconnected it. This did NOT trigger the bad state.
-
-> enclosure in GOOD state
-> -> shutdown Raspberry Pi 4
-> -> remove Raspberry Pi power completely
-> -> wait several seconds
-> -> apply Raspberry Pi power
-> -> wait for complete boot
-> -> test data  
-> 
-> The enclosure remained powered and physically connected to the
-> Raspberry Pi during this test.
-> 
-> The result was BAD.
-
-> enclosure in GOOD state
-> -> disconnect USB
-> -> reboot Raspberry Pi 4
-> -> wait until the Pi has completely booted
-> -> reconnect USB  
-> 
-> The result was GOOD.
-
-Looks like JMS578 doesn't like being connected to a booting Pi 4.
-
-Or maybe it's shutdown? What happens if you:
-
-- disconnect, shutdown, connect, boot
-- shutdown, disconnect, boot, connect
-
-If the problem is boot (second case works, first case fails), then
-I wonder if it's the firmware or the kernel. Maybe you could plug
-the disk after the kernel beigns booting, but before xhci_hcd loads?
-You could blacklist it if it's a module, or bind pci-stub to VL805
-to prevent automatic xhci_hcd activation and widen the time window.
-
-> With the original enclosure, after the bad state had been triggered by
-> a Raspberry Pi 4 reboot, I disconnected its USB cable and connected it
-> to another Linux computer without power-cycling the enclosure. The
-> device could still be accessed there, but it returned the same
-> incorrect data.
-> 
-> For both JMicron devices there is also an interesting recovery behaviour.
-> 
-> Simply disconnecting and reconnecting USB does not recover them.
-> 
-> Switching the enclosure/dock off and on while the USB cable remains
-> connected does not recover them either.
-> 
-> Recovery requires both
-
-Clearly the persistent breakage occurs inside JMS578. Looks like
-either external PSU or VBUS suffices to maintain this state.
-
-So the chip is somewhat dodgy and the only hope is that maybe we
-could avoid triggering this failure.
-
-And it seems to be the chip, not the disk, because only USB 3.0
-UAS is broken. Though no harm in trying other HDD to be sure.
-
-> Finally, I also tested the original enclosure on a Raspberry Pi 5. I
-> performed several reboots with it connected and could not reproduce
-> the corruption.
-
-That was USB 3.0? What's the USB controller on this board?
-
-Regards,
-Michal
