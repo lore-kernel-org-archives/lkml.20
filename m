@@ -1,200 +1,167 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6963D4D0A05;
-	Wed, 16 Sep 2026 23:26:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656ED42CB1C;
+	Wed, 16 Sep 2026 23:27:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789601209; cv=none; b=E5D751v60JLaRUeEvbiDdIv2niku6dN/d3jxIJuqTca1jYq041tBM0+vNOBC5NqlcrW9tNnBUc1rONUsDzAaQ1A4pMcY2/ChUbf7z+NniP9uFPK2BY9E213KCdcxF4wRFtTDukO3as200ezUYBgUZSut+qEcZ6++tUD9R4/GQQA=
+	t=1789601242; cv=none; b=fKGXsWlMhHuQV2mwKAO0LHfGBiE/Z3U3yscc2txb32m6iMQ3Rm7YYIbz4PX7HEfoPJ1jB4wZ9/J5iW+tWJYMtgxOY3ogssa5m29crFLICcxr8Dh2V76s5R2/N3WFE9KfRblXrTg2YRiSuYfsTI2Lq7WG807PzwuGB6nKMtME5yE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789601209; c=relaxed/simple;
-	bh=IENOVcYtYsbWwSqusBc7BQfxm1iixDKMq7rNodyy1DM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JSIgxkfDu9RPhy5Tf6W/7AA1ib5NW20j81MlUYvykryTLlcRix1uUTDQS+X3NNaQWdfX3GGkYxIz2vXxK6cf1eY9Y+ulWe+oZA8NzmmngVnixpvXd9hht+uMRT02eAHab0znw55rfV96wJEY/DhfdToL5X+lO6+1ZYVtOrgLBvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=C3TnrklC; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789601242; c=relaxed/simple;
+	bh=kVukq6PGE++Zf2M92DLF9J8c1ZNhBniKUYbXKgjndWA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ftFFwG3P5y3kUzLfv1xjeUGFdiZ7F9+6eIcFQlO7SbuvO963vmyvp3RXTkcK3i0uRy0Hk1sziMoj1PBRA4n4NYiCDy4CJzYFCNmCCx0G333/KyGvhS4dsegZmXVhXIUS4kTwQh3mZpM2HUAme+bFEGa/HinZOZaGhfftYhYR9pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kequ4qrL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="C3TnrklC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789601209; x=1821137209;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=IENOVcYtYsbWwSqusBc7BQfxm1iixDKMq7rNodyy1DM=;
-  b=C3TnrklCrKzoW3nWRQTWGOGLIm37t9AeykLPORiKCKyrq/cMXK42Sram
-   9QYvRj9r8N4Rw9fTrmPJ9SxvwNTkXbyMtzC0jrmWbXqCnfx1mdcnQQ9pe
-   Xkr8TsY6G2zWslbAr7Up7V/uASrU+D92wviV6iEv+4+0UKNI6DJZBKqd3
-   yrHg/E3q7auQf5KHW7xsUqZNH1Qn4YtxggAwJASq8uJuqNMf2tqDd9wS6
-   1Y3VUx/fmh5D5EhkccCV7JRDRBqKgMLi6E64m/42F1OY6eHHS3PpcGmAJ
-   AZC8wkydoLsBGxmP5CQ9PWbjnDoq2AYfgNil+zJ1uA1nZ13PS1cGV9IMk
-   w==;
-X-CSE-ConnectionGUID: rFtaU3pdQA+hHw7tTknu5w==
-X-CSE-MsgGUID: Y3Mn/XwvTtOb1E4MzOgJxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90008527"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90008527"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:26:48 -0700
-X-CSE-ConnectionGUID: M9kAp7mCScKqJ296OMLjmw==
-X-CSE-MsgGUID: 1Fj8XpchQQiTMPSOCo9kvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="273457098"
-Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by orviesa007.jf.intel.com with ESMTP; 16 Sep 2026 16:26:47 -0700
-From: "Chang S. Bae" <chang.seok.bae@intel.com>
-To: linux-kernel@vger.kernel.org
-Cc: x86@kernel.org,
-	rust-for-linux@vger.kernel.org,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	ojeda@kernel.org,
-	nathan@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	chang.seok.bae@intel.com,
-	Omar Avelar <omar.avelar@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] x86/build/64: Prevent native builds from generating EGPR use
-Date: Wed, 16 Sep 2026 23:00:03 +0000
-Message-ID: <20260916230003.1144622-1-chang.seok.bae@intel.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kequ4qrL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD1371F000FF;
+	Wed, 16 Sep 2026 23:27:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789601241;
+	bh=DdxpGXS/wnimnfN1olqkWbYsmp9jSsthllf3I7l40Ts=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kequ4qrLA/stLLGW3CIkibGQx0JSpzNkkyEC2GB6l4KbXM1pbpDkBhKYpRYWyRIwm
+	 caDnU8ZHFn/B0sKQskme34CLjplcus9b7TlWQJacNToFnA5bAbOllLlXZYmDH6zMAm
+	 BXDoZnZZixhR6e0K0+UCYtZ5PemfnyR03j1heAsH8SrfhE6fWfTDnJoje2bpD5xFml
+	 DnzY5Qkw80HsnXUwaPjQDtVsHgv0yFNKNOwH0BcPlZ2kCqNFiEGbI5HkXrq3RxF3bS
+	 dCDvCwKGfBp8TcOEIkQbawKkW9Lox0zzpsfJ6q9uANwzcHOQHf6I8KpzbqcV35R5vS
+	 UCDetSCvp93rw==
+Date: Wed, 16 Sep 2026 16:27:19 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Leonardo Bras <leo.bras@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Tian Zheng <zhengtian10@huawei.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 5/5] KVM: arm64: Enable HAFDBS for guests not on
+ migration
+Message-ID: <aqsl1_IqnV2r8kUL@kernel.org>
+References: <20260901171558.2674031-1-leo.bras@arm.com>
+ <20260901171558.2674031-6-leo.bras@arm.com>
+ <aqneWnlsdpocLIl6@kernel.org>
+ <aqqhDs3NyjtkZzXK@LeoBrasDK>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqqhDs3NyjtkZzXK@LeoBrasDK>
 
-Omar reported this broad concern to me, when resolving a separate issue
-with his custom module. CONFIG_X86_NATIVE_CPU=y allows builds to
-opportunistically emit instructions using %r16-%r31 (EGPRs) when the
-build host supports APX since the commit:
+On Wed, Sep 16, 2026 at 03:00:46PM +0100, Leonardo Bras wrote:
+> On Tue, Sep 15, 2026 at 05:10:02PM -0700, Oliver Upton wrote:
+> > Hi,
+> > 
+> > On Tue, Sep 01, 2026 at 06:15:56PM +0100, Leonardo Bras wrote:
+> > > When dirty-logging is disabled, even non-write faults make a page dirty,
+> > > which avoids a second fault when the page is actually written to.
+> > > 
+> > > On dirty-logging enable, this approach causes all (writable) pages on the
+> > > memslot to be marked clean, even if they were not written to, which can
+> > > take a lot of time, while holding the MMU lock, doing atomic writes to
+> > > PTEs.
+> > 
+> > Do you have any performance numbers for this? Enabling HAFDBS seems a
+> > bit involved to avoid some stores on the first pass.
+> 
+> Not yet, but if the idea does not look too crazy I can find hardware and 
+> collect some data :)
 
-  ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
+TBH this looks like a micro-optimization so I'm not expecting the
+performance gains to justify the behavior change.
 
-But the kernel is not yet prepared to use new registers internally. For
-example, there is no context-switch support for general in-kernel use.
+> > > 						      has_vhe() &&
+> > 
+> > I don't see a reason why this needs to be constrained to VHE-only.
+> > 
+> 
+> Humm, in nVHE would not the host kernel run in EL1?
+> I thought that this being a feature that depends on EL2 registers host 
+> would need to be in EL2 to make use of it.
+> 
+> That being said, I understand very little of how this works, so I 
+> constrained to VHE only at the start.
+> 
+> Would this work in nVHE?
 
-Explicitly disable EGPR use when building with -march=native.
+We already pass a stage-2 MMU configuration to EL2 from EL1 in nVHE and
+hVHE. How is this any different?
 
-For C, since GCC 14 and Clang 18, both compilers support suppressing EGPR
-use with -mno-apx-features=egpr, whose availability can be detected via
-cc-option.
+I'm not opposed to making features VHE-only, but there needs to be some
+amount of reasoning to justify it.
 
-For Rust, pass features=-apxf through the generated JSON to avoid
-unstable-feature warnings [1]. Note Rust only accepts the option to
-disable APX instructions entirely or not.
+> > > +		!kvm_vcpu_has_nv(kvm) && cpus_have_final_cap(ARM64_HW_DBM);
+> > 
+> > Same thing goes for nested... KVM can make use of HAFDBS in the
+> > canonical stage-2 MMU (or even a shadow stage-2) independent of the
+> > guest hypervisor.
+> > 
+> 
+> Humm, I remember reaching the conclusion that it could not be used if the 
+> guest supported NV. Let's say:
+> 
+> L0 - Host	- Has HAFDBS enabled
+> L1 - Hypervisor - Has HAFDBS disabled
+> L2 - Guest	-
+> 
+> Let's say guest writes to a page, and the shadow S2 has DBM=1, so it's 
+> marked as WD by HAFDBS. Since no fault was taken, how would the L1 be able 
+> to update it's S2 pagetables to mark the page dirty?
+> 
+> (We would have to transverse the Shadow S2 Pagetable updating the original 
+> S2 pagetable)
+> 
+> I was wondering, thought, that we could emulate it in the last level 
+> hypervisor, if it's guest does not support nested guests. That would mean 
+> we can have the last-1 level hypervisor to update the S2 pagetable on the 
+> last level hypervisor without it having to fault. Ex:
+> 
+> L0 Host - HAFDBS disabled
+> [...]
+> Ln-1 Hypervisor - HAFDBS disabled
+> Ln   Hypervisor - HAFDBS enabled
+> Ln+1 Guest - No E2H feature
+> 
+> When the guest writes to a page, the host should receive a fault, that IIUC 
+> have to propagate down up to Ln Hyp. If Ln Hyp has HAFDBS, we could skip 
+> injecting a fault in Ln Hyp, as  Ln-1 Hyp could emulate HAFDBS and write 
+> the dirty bit to S2 pagetagle of Ln+1 guest, that resides in Ln memory.
+> 
+> Not sure if the troulbe would be worth, though.
+> Does it make sense?
 
-Support for this gating also depends on the Rust/LLVM combination. Rust
-1.88 introduced the `apxf` feature option, but versions prior to 1.93 may
-emit an `apxf` attribute to the backend that only LLVM 23 or later can
-interpret. Restrict native Rust builds accordingly.
+I'm not following your reasoning here. Treat the shadow stage-2 MMU as a
+TLB; that TLB is filled with a writable translation when S2AP[1]=1 in the
+L1 translation.
 
-Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
-Reported-by: Omar Avelar <omar.avelar@intel.com>
-Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
-Cc: <stable@vger.kernel.org>
-Link: https://github.com/rust-lang/rust/issues/139284 [1]
----
-V2 -> V3:
- * Specify to avoid EGPR use for C compilers.
- * Add a link to track Rust APX support (Miguel Ojeda)
- * Clarify the commit in the changelog (Miguel Ojeda)
- * Then, collect Ojeda's Ack tag
- * Massage changelog and comments
+The dirty state of the pseudo-TLB is completely internal. You could then
+layer HAFDBS for the L1 translation on top of this (which we don't
+support) by potentially relaxing the descriptor _before_ evaluating the
+resulting permissions. You'd then take write permission faults to set
+S2AP[1] in the L1 translation.
 
-Test for the C compiler sub-option:
- * Ensured apx-features= from the sample code [1], first
- * Earliest versions for the native builds were chosen to check EGPR emits.
- * Check EGPR strings appearance from kernel builds, like before [2].
-   Nothing was found.
- * Note PUSH2 as new instructions are not much found, either. But
-   regardless of the amount of APX bring-up to legacy GPR use,
-   mno-apx-features=egpr seems to just be fine for avoiding EGPR use
+> > The name would suggest this thing takes a vcpu pointer...
+> > 
+> 
+> Ah, that name was based on
+> #define kvm_vcpu_has_feature(k, f)  __vcpu_has_feature(&(k)->arch, #(f))
+> 
+> That takes a kvm struct to check the kvm_arch one, instead of looking into 
+> the vcpu. I did it like this because there were some scenarios it was not 
+> quite straightforward to get the vcpu to use vcpu_has_nv(), which takes a 
+> vcpu.
 
-[1] https://gcc.gnu.org/git/?p=gcc.git;a=tree;f=gcc/testsuite/gcc.target/i386
-[2] https://lore.kernel.org/all/fbbe2b57-19de-4480-b0c6-f44a6007a38f@intel.com/
----
- arch/x86/Kconfig.cpu            | 11 +++++++++++
- arch/x86/Makefile               |  5 +++++
- scripts/generate_rust_target.rs |  5 +++++
- 3 files changed, 21 insertions(+)
+This thing probably should've been "kvm_has_vcpu_feature()" or similar to
+massage the expected typing.
 
-diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
-index e4654388d794..6e7a366f0798 100644
---- a/arch/x86/Kconfig.cpu
-+++ b/arch/x86/Kconfig.cpu
-@@ -204,10 +204,21 @@ config CC_HAS_MARCH_NATIVE
- 	# usage warnings that only appear wth '-march=native'.
- 	depends on CC_IS_GCC || CLANG_VERSION >= 190100
- 
-+config RUSTC_HAS_APXF
-+	# The kernel isn't ready for in-kernel APX instructions. Without
-+	# explicit frontend gating of APX, the backend may emit those
-+	# instructions in native builds.
-+	#
-+	# Rust 1.88 added the `apxf` feature option, but versions before 1.93
-+	# emit an `apxf` target attribute that only LLVM 23+ can interpret.
-+	def_bool (RUSTC_VERSION >= 108800 && RUSTC_LLVM_MAJOR_VERSION >= 23) || \
-+		 RUSTC_VERSION >= 109300
-+
- config X86_NATIVE_CPU
- 	bool "Build and optimize for local/native CPU"
- 	depends on X86_64
- 	depends on CC_HAS_MARCH_NATIVE
-+	depends on !RUST || RUSTC_HAS_APXF
- 	help
- 	  Optimize for the current CPU used to compile the kernel.
- 	  Use this option if you intend to build the kernel for your
-diff --git a/arch/x86/Makefile b/arch/x86/Makefile
-index 598f178102ee..8af6b80cffdd 100644
---- a/arch/x86/Makefile
-+++ b/arch/x86/Makefile
-@@ -161,6 +161,11 @@ else
- 
- ifdef CONFIG_X86_NATIVE_CPU
-         KBUILD_CFLAGS += -march=native
-+        # Prevent the compiler from generating EGPR use. The kernel is
-+        # not yet prepared for general in-kernel use.
-+        KBUILD_CFLAGS += $(call cc-option,-mno-apx-features=egpr)
-+
-+        # generate_rust_target.rs handles Rust APX gating.
-         KBUILD_RUSTFLAGS += -Ctarget-cpu=native
- else
-         KBUILD_CFLAGS += -march=x86-64 -mtune=generic
-diff --git a/scripts/generate_rust_target.rs b/scripts/generate_rust_target.rs
-index 3bf296581a88..7687b0dd5474 100644
---- a/scripts/generate_rust_target.rs
-+++ b/scripts/generate_rust_target.rs
-@@ -224,6 +224,11 @@ fn main() {
-             features += ",+harden-sls-ijmp";
-             features += ",+harden-sls-ret";
-         }
-+        if cfg.has("X86_NATIVE_CPU") {
-+            // Prevent the backend from generating APX instructions. The kernel is not yet prepared
-+            // for general in-kernel EGPR use.
-+            features += ",-apxf";
-+        }
-         ts.push("features", features);
-         ts.push("llvm-target", "x86_64-linux-gnu");
-         ts.push("supported-sanitizers", ["kcfi", "kernel-address"]);
--- 
-2.53.0
-
+Thanks,
+Oliver
