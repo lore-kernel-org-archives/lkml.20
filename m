@@ -1,234 +1,151 @@
-Received: from mail-ua2-f15.google.com (mail-ua2-f15.google.com [74.125.226.207])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013027.outbound.protection.outlook.com [40.107.159.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260C53563F6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:04:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.207
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789524301; cv=none; b=T+CyIuFc/jTd88Z/cJkGf8SsIuy29/EmRLxsSg8Z4RWxViLgAErEXPzesQ0rd3t2vTJ4c1nKCbiPA2ycqw0LHZXiJB+EwaK7y49ZOSSW2bKYiBjlWjqmw7B3LYFspWfG3TyjtRwr599Lcco223HdqWQYle29kt7Hk7p7vhNYyEM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789524301; c=relaxed/simple;
-	bh=hKvJ3uZ4Y5+pLwSM/dL05OZ2SqiUT4YYz3BWKGgJMUk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=njzoRErPjLKN71zxWpHTznhlhJhkF10sgrNr5vtpFucABpYROZgSVgLNkW+hL2IsNCyoZC7h2NMoLp/RTIC1W7Meh/9hGVjmAv4EpzRcPCUaQKNvGndYFopaTDoN63Hx6eBzFZNM1crFVv8f4AKQfrx4DuXMVBD7fAM/2GoSquQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X0yCB+F6; arc=none smtp.client-ip=74.125.226.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A1339A079;
+	Wed, 16 Sep 2026 02:07:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789524458; cv=fail; b=tzmb1IbKSx9xxn/BJMrPAp6yEh1oijOAfv+Ycxu4gTn0QkxP/Zt/7UuiifRrqdX+QEDpuo97vrZdlkuJV1wzaWS4uR8KnxrK4Wydm/jvcNFpv/OHWMeBE23WWz8h/vPmOdnRtnDDQ8JwMF8uwTwD3wByzazwfSnM9yAfTDaoS6U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789524458; c=relaxed/simple;
+	bh=jywnkDp5ZopKBC/WF8RVvpbOCOYP/kfpmHsB72HHvvk=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=k/pBq772ytc95ypP4Ov4u6gawj+X+OQTjVRD7DAu8u1EirQEkxxZZpyuiK0kFP5gVHqBRrWu9Bo/oFg9Cjj7fQ2kwd563fe+cUNp/SC7DcFEKRjyvsHJYsSFfg7G60HkKZ2CFmJETFz+hoLDJPzhLzFRhS6odzgnt1UYfoPLjB8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Wr8YgL09; arc=fail smtp.client-ip=40.107.159.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X0yCB+F6"
-Received: by mail-ua2-f15.google.com with SMTP id a1e0cc1a2514c-97e7c7b4ed2so233312241.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:04:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789524288; x=1790129088; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g8tHdM1R8QWrfrycXdnSxkZx2URIKhlqCiEDWfYHPL0=;
-        b=X0yCB+F6i3IqZRH4oyMkkTdsIIj/r5LcO0hwtF3rQsX9Rp2vJxFbG9hLF0OeruvQs5
-         NmWeefGPH1xpVTfwZrT0EfsF44mR9VN2mxY4CY+i1EFplFXkWVU5f5dM0zqTQsoQZxYx
-         aS3ZDI1RX47AbIBZIbCuYW8NX9AqV57zGTof+pP1v6bCxR13UgpkjMixYHT453Vhsv7d
-         xaVr6y2obs3mj94gmfdJk2RTLk5JTBSveKAFQNgB5M2ECyEpqSYPXKGU5Zu5cB6lGq4j
-         ATs9iqiyknc9uE3WwL23Z4w7AfT0elm9WJhdBnEH3/d4TwmA0gPNW/mVsAx8Uhvi/Cnq
-         XAmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789524288; x=1790129088;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g8tHdM1R8QWrfrycXdnSxkZx2URIKhlqCiEDWfYHPL0=;
-        b=Fy05NhTGh9B3XTiiH0L7Sjq7AduCikZ13+uYB2SQXSs0uHl3JBs5TPpPJiwrNL3gOo
-         IjwaENRrBBMhqHD/PD5zEyaox60tyJrfhirfmd/hIFhObrRsMPnrFQEIurBkeh2gPuXP
-         5IkqfHQ/wW9RnFwPUnM5tjQ85yRuW9TcnIx7F0oCeztS8ENH0wGYwUnAEmmaKJ4n48mm
-         opd2kjvIfSDLH4RE7MrSHHcGYzx9Zt8TRzwBb5cBDnwIBIwpyA5yGFAtL/dTjBsobGf2
-         QZJlN6qOA07RUi3iI7weO2PpEc8Il/MFi7IGUtkSp2tTtxTQ6fltdJvvl1F/Jot6/bR/
-         mk4Q==
-X-Forwarded-Encrypted: i=1; AKwUvByNwQPI4c2Me3yxw2b6/kNVBRmTX1boEvi7WZNFj9p+9V3lC0/SuuGNxuEZQAKxtRcTFmGhvHE6o2nx2Cs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFwKCBpIw3bWQKEYZPGyDxwnVnE7sW6lPbSRPLjnOE+2gI3tXZ
-	5wxle33q5DbN26UjCelkJM+UUfydHA3f2f2hXGSxzDPFP73omAxrwMJq
-X-Gm-Gg: AYBFou14QmsGwQzuhXXB2fnoJ+k0AkV0gVpf0v3v3RITWhXOMNz4ZuMjPM2se1cbGx+
-	VGGOk84Ny1c4AyF9Xd2fND8Gjc/VaU8d8ZW+XR+RENeiPfsWiwNF8ztxVyd9Tu4/oo+nbyH6IBg
-	f8ac9nvD1CD0URzNPNHBt94OlqXElA1kUgL2E9XHIox7KS17HUHIdLSrkOJCxEAdDYER6POUbvm
-	g54kjw2DjYtI8Iw41ncX6Bkz1aGY50ivMtUYm+MlKESyJ6BvndsL6X0FTNu67qqBRfMlBkA94+8
-	J3fdtycG/82WMeMM+FyFSxMdDWk0MdIO6PX2jo6Osqzvwl/izQvpwW70BNiADvhQ6Xj8LR/CZhv
-	+gbviAjXp6zSNUCMl40u4vSnW5d6U6YLM4yiuv8YvDrJJDF5emdUTIhQfNI/Nuau4d7IjRichyL
-	yZS56Jy/+aPRv5AH1l2dq8Kev8sJciYPRc2JfT6vh2tLV9Ua0MwL1Ai28V+MpjXO2AXfDSxcZae
-	lxjZg6Kf5rD
-X-Received: by 2002:a05:6102:5812:b0:79e:3401:403a with SMTP id ada2fe7eead31-7a028791ee0mr1180582137.8.1789524287652;
-        Tue, 15 Sep 2026 19:04:47 -0700 (PDT)
-Received: from cachyos ([2804:7f0:9f80:834e:ff40:6e50:a18b:5455])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-79facab39basm1631051137.2.2026.09.15.19.04.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 19:04:47 -0700 (PDT)
-From: Ygor Otavio <ygorotavio.sjc@gmail.com>
-To: Daniel Pereira <danielmaraboo@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ygor Otavio <ygorotavio.sjc@gmail.com>
-Subject: [PATCH] docs: translations: pt_BR: translate generated-content.rst
-Date: Tue, 15 Sep 2026 23:03:33 -0300
-Message-ID: <20260916020335.17034-1-ygorotavio.sjc@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Wr8YgL09"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QdDlt8aWEKnVwVfcq/rEcVc050UknYCRYbuztE+6/E31un8mmnwq9Yqv5pyY82vMJs3Wz7Yh19ee2Ffjrv53v/PjQrD5xQuVsHDKS/oPnT7KllZKPbnmO6mnaMqsNwi+1ZCs/cXKizqBbnI0rGkIV9krO0umULGOphTo34WcQZYity17WKhLoaxQi5r6VGeIOUi+6iP5/lIQduynG7GbcK20m6SFT7GXlllLI3yXuOgNucTMYkviA3iUUJsJuMbuAT5LAM+M+MZh9LvGQDZ4E68fdV61BZ3GacuJhYTExjmE+yqldr8OboKXHFGN++5hbxJ0e8kJ0VUfFpX6hOO8/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7NQaDS1a8RBjWujTaGVEt4IqNitcubBB19s3bEjVl9c=;
+ b=uhiBBE7Mvqy5fsYtBDG0aykzlcWcBTMvkM0sYMze2jUruW8kcZk29g4hJa54qrVo4WTQuo1phndSqegdt0pLFPp83jzFFMmWf0HURNCA9pN9SyhQtpe44KL5ZpPnY4R0KuS7mQQ9ziVSAmVBDv92LnR3v2QQZ3cqyno53ZCkp2KIywIQ3WIlfI6EKX5kDGjDkllvkhoFyaJjvs6Gofxna45UzZXm6B5fRdgB+KO6B4j/g49pq/l3mme3cg9lhpnk8MzB9wpsGc1JnMCA/DMcTCXjps3pQvZVmIziMmkNuy54BIhqWmrnOu7bFlGgYbyr9m4kyom1bXPRpWiz7UDCFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7NQaDS1a8RBjWujTaGVEt4IqNitcubBB19s3bEjVl9c=;
+ b=Wr8YgL09/F6X9Z/Csd7lZesoFJYI6WwlNNMbwR8D9C910d2ZzF3425z+mRpr+DAcyXumINsfYaUaG4DvJdXrHCXhYK0T/QDkKZOTpvp+yNkqIWPsXV9PHqITT0lQHBN2Z7YHn6du0bvm1G1DoIcazTnEtj1JNptFX2pHO6deA01EQTLBNN7ALrfgd79f/6HKl/u6fzpCvdChu7kwaCEjw5Z8mknQcrpvPeNYXhi3oELVhMxfuIR9DeKKbHda0Rv0QMRQ0786nfj7npndO1weR0ayPltGx/7rL3O3P2AfXCSMnPXqWZ2mfmNTjhGyzN28JtoxXQj7vrEMwF7z7XTeAQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DBAPR04MB7335.eurprd04.prod.outlook.com (2603:10a6:10:1b1::22)
+ by AS5PR04MB9943.eurprd04.prod.outlook.com (2603:10a6:20b:67f::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Wed, 16 Sep
+ 2026 02:07:23 +0000
+Received: from DBAPR04MB7335.eurprd04.prod.outlook.com
+ ([fe80::b593:638:1155:c067]) by DBAPR04MB7335.eurprd04.prod.outlook.com
+ ([fe80::b593:638:1155:c067%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
+ 02:07:23 +0000
+From: alex.zhou@oss.nxp.com
+To: linux-kernel@vger.kernel.org,
+	luiz.von.dentz@intel.com,
+	luiz.dentz@gmail.com,
+	marcel@holtmann.org
+Cc: linux-bluetooth@vger.kernel.org,
+	amitkumar.karwar@nxp.com,
+	sherry.sun@nxp.com,
+	neeraj.sanjaykale@nxp.com,
+	song.xue_1@nxp.com,
+	alex.zhou@nxp.com
+Subject: [PATCH v1] MAINTAINERS: add entry for NXP wireless Bluetooth driver
+Date: Wed, 16 Sep 2026 04:07:19 +0200
+Message-Id: <20260916020719.61981-1-alex.zhou@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR0P281CA0259.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b5::18) To DBAPR04MB7335.eurprd04.prod.outlook.com
+ (2603:10a6:10:1b1::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DBAPR04MB7335:EE_|AS5PR04MB9943:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d5a8a1d-541a-4101-cbd1-08df13973ed3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|19092799006|366016|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	PLiONGXYmZrKAAJEvDgXXWxoh/gtrqAFIAkegg0tLyrjBs+kaXetWnV4vzUhcHb8dG1fFy8kCM8ou6UqXOg8kI5KD6Z62tv2KAmPiG36HzcQCen7by6IXtnHIaBamzpFbba40khbTb/1RBTtnQgu7BnRdxFVPWmXbh1T/ieQBztdz/jNoIi0h/Je5dr1vKBQj8xJ1fzz3mbWWMDgN6YC+9NsrRntssvuJpZKaSptfJYRcaFgjco1ikfX0oXX5fqXBRqoflhSqNf2s9U4PGd7WAhEaqWcXfHvanwGgghNmDxUiBeaUEUskh9iXzGkBP7d9MfQ7AnfnvWQ5eKHkJNiGy97z7dZa55bUKc+U2UD2n8ILUTONM/v+atJmCA+y90Z/4ILq8Udkp0kU3JP9NI37OVKZyL0gEs6nFTMQg5iErOJ5+4cVmsCDfqCiUeCd5hiCBecYvjb/a4iukSMgXdyQt6CID601Rhb87Ew77nUMnWIeaXvKI1xl0kzsOgk5YBgiPqr9kK3mh30TAc86KsuRKiRzmDfeIXJanWftmunZ/BMDjCqgdyko33DaZn1vOANHHBIbXa/DBpYVEB+dPhn/21zUHGnbsyirfHa2cgjKtfAcy8wREKQI8bzx6svqwCbzEqHniy4CpKQQCpWFnVa8vXALe6e96gbV+LY1EIvkuo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBAPR04MB7335.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(19092799006)(366016)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?vJ627+jeNTZZVRbzprUXvek/ofwe80fUvdQQUs9U38iJb6SvJX7vYFdsz383?=
+ =?us-ascii?Q?wPJt1VfaTmgu7qXq5CTscYsLQRlL/UKLUmuMP90/P7FlgXp0UlcX0DJkCEun?=
+ =?us-ascii?Q?RUKiRvWCu9gAi3aFy6KkphswikHkxGQKj/Om7YzKCb8JOli2wGgU7JfGtbXT?=
+ =?us-ascii?Q?gkSy4qE74t0CNCqUA8FmQIzRtCUbUpGcmsI/cegU7CzqTbKkUOLO2suhmOow?=
+ =?us-ascii?Q?1myef6V3G0SBDzJZwsCIpmEGoWfWhiZ2HHyOeOwmGddf9iKbT5dj+MKEv9qG?=
+ =?us-ascii?Q?CLGZvyh4OM3cdRwlqrrWw8vOYodbNNaLrr48LAXO2OCyqzcZ3d4VJ1UMJXo3?=
+ =?us-ascii?Q?8kqjdI6OCwcr3p255kSQkzP9ahudFfTMRJE4XfA+mklfChBZY+4oyyFkPtoa?=
+ =?us-ascii?Q?9r8SJD3rolxw1a+vciF7ZiLqbNg4z0bYXTI+wrhn4ou+laY/n0QoqAzhh52E?=
+ =?us-ascii?Q?9co5Pi8xKhqXYYVe3JIbeAOcI5D27EhdEg5b5g59yjvp2O8DeSZSjwagmS4T?=
+ =?us-ascii?Q?J5UWkByp1OQZgFmbgYAyDvuES0D27/qISgtm2xqHDdpN530ftPvQdPPVIkrO?=
+ =?us-ascii?Q?Q+JufyszE6+sR2xubTATiDKkWtGF+zjjJHYi5vI/WfqIz+oFWXMqB8APFNA0?=
+ =?us-ascii?Q?4sEUSxlmU9e5bp4qKpSZH5GRs5Ij8Jw+dhCjq7NQc0lKeVN2KQyCLep3NX/u?=
+ =?us-ascii?Q?e93XAGU+wp3MW68EjRF4R6uL7CUIBy6axDYSUOHgflrZmo/pNvbud4qHuN4R?=
+ =?us-ascii?Q?NZ58CWguKLZGdkE3bs+Jgn1hJF/ZOx/wQJSZpAKA0SQSXUYum4bMkbTdnDV5?=
+ =?us-ascii?Q?GbLtRr/Qr+Y9e1Y1acSkXgrSvgdyQSwiUbvAeylnTvZwO2qiHmyfyorphsx9?=
+ =?us-ascii?Q?937UNRqr5HYLYsLFcrDBVTu/JUIC9YWN0jEzdFhGGJ1vsPim/BrnH5QZfUDz?=
+ =?us-ascii?Q?f23yQ51Ype1DAMnJiUGlKHKuin7aqVT8gMDbfTZ1Vd3j7EYAaBE5tZmIpycf?=
+ =?us-ascii?Q?BWlSfo0jZ2coMd38iFM6ZZZEMsUVLnR7vhs1xzKuKAyxw4LKk2oyNrVd54ee?=
+ =?us-ascii?Q?FDuVbLBQ3YRqiQUXSKdX4tL/nlpBDAfKswG/uqXsE3xwICWadj/4nAq/m7j4?=
+ =?us-ascii?Q?wvJF/++XRpGvE54Wybgx4ztKhLFeP5XY0VKiFu+jaJlgw4nPwbp+Q+DsnzbZ?=
+ =?us-ascii?Q?QzZUGN46kPomvJvYS1UBCRk6D3AUL0BX5uCVv/LVqZ3f2nllqxT41vv5B0RB?=
+ =?us-ascii?Q?87pzLZVnu9HEuzEe0+gsif/IXCKzEeaaMb0Lby+CRp01EZrLPzuCl1g6jlKw?=
+ =?us-ascii?Q?crCyw+cev4QecEGwxnq1horKGEjgWeaWp9rVnvvjHI2IoUtDDu+UPHHIllZ5?=
+ =?us-ascii?Q?4I3uKmIgJb2C/2sIfTp1xJaz2StUKup466TJBMSPDWJn+uAt9s1iH/3/0QZ2?=
+ =?us-ascii?Q?2xOcC0ivM0vR4GF/5AYEC8X79lBnj1gccjjFk4utHoxWpm4SkV5s/VE2+Ovu?=
+ =?us-ascii?Q?M/gR1l4td4AMROIjfayTb0N/lofImzPb92GLeN6sPa6hXWoXJh0+oMNUIABh?=
+ =?us-ascii?Q?QGqm5DcqpwIxe0cIb6/y7OkmwCw4QGnSExahxW1W0AgCHPSDIwv301lrvL3p?=
+ =?us-ascii?Q?pFunhdZZuwPOwbcPsTBkAe4kzUbCot48kVWLzq3DbCD/XVA0kbwSZrnoRbF6?=
+ =?us-ascii?Q?c9jRWGYo9TogV57HJm24zTEYhFXbwTfypBztG3ygIxvZJ10lKiE/5iX/UC+B?=
+ =?us-ascii?Q?hlt+gaB/+wvdoT8Tl6eDMEyB/y2lZaticqzVq055L5r1Xs3DEwNs?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d5a8a1d-541a-4101-cbd1-08df13973ed3
+X-MS-Exchange-CrossTenant-AuthSource: DBAPR04MB7335.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 02:07:22.9955
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: E5Bc8iFIMaY70/74vEkqByuSmhBJ8jp5sVM1zfdZmKOX6WqqKa32LE3OfL/CB+ZaUe5B31C+NgPJSFO7U4Bjc1ps95dsVdKlSwT1GDWvvAPAgP5vznSxgp7Gg8eynJju
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB9943
 
-Translate genetated-content.rst into Brazilian Portuguese,
-maintaining consistency with original formatting rules.
-And add it to the pt_BR process documentation index.
+From: Alex Zhou <alex.zhou@nxp.com>
 
-Assisted-by: Claude:Sonnet-5
+Add Song Xue and Alex Zhou as maintainers for the NXP wireless
+Bluetooth driver.
 
-Signed-off-by: Ygor Otavio <ygorotavio.sjc@gmail.com>
-
+Signed-off-by: Alex Zhou <alex.zhou@nxp.com>
+Acked-by: Neeraj Sanjay Kale <neeraj.sanjaykale@nxp.com>
 ---
----
- .../pt_BR/process/generated-content.rst       | 117 ++++++++++++++++++
- .../translations/pt_BR/process/index.rst      |   1 +
- 2 files changed, 118 insertions(+)
- create mode 100644 Documentation/translations/pt_BR/process/generated-content.rst
+ MAINTAINERS | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/translations/pt_BR/process/generated-content.rst b/Documentation/translations/pt_BR/process/generated-content.rst
-new file mode 100644
-index 000000000000..1c66dd9c13a5
---- /dev/null
-+++ b/Documentation/translations/pt_BR/process/generated-content.rst
-@@ -0,0 +1,117 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+=========================================================
-+Diretrizes do Kernel para Conteúdo Gerado por Ferramentas
-+=========================================================
-+
-+Propósito
-+=========
-+
-+Os contribuidores do kernel vêm usando ferramentas para gerar contribuições há
-+muito tempo. Essas ferramentas podem aumentar o volume de contribuições. Ao mesmo
-+tempo, o tempo disponível de revisores e mantenedores é um recurso escasso.
-+Entender quais partes de uma contribuição vêm de humanos e quais vêm de ferramentas
-+ajuda a preservar esses recursos e manter o desenvolvimento do kernel saudável.
-+
-+O objetivo aqui é esclarecer as expectativas da comunidade em relação a ferramentas.
-+Isso permite que todos se tornem mais produtivos, mantendo ao mesmo tempo um alto
-+grau de confiança entre submetedores e revisores.
-+
-+Fora do Escopo
-+===============
-+
-+Estas diretrizes não se aplicam a ferramentas que fazem ajustes triviais em
-+conteúdo preexistente. Também não dizem respeito a ferramentas que ajudam em
-+tarefas menores. Alguns exemplos:
-+
-+ - Correções de ortografia e gramática, como reformular para o modo imperativo
-+ - Auxílios de digitação como completar identificadores, boilerplate
-+   ou completar padrões triviais
-+ - Transformações puramente mecânicas, como renomear variáveis
-+ - Reformatação, como executar o Lindent, ``clang-format`` ou ``rust-fmt``
-+
-+Mesmo quando o uso da sua ferramenta estiver fora do escopo, você
-+ainda deve sempre considerar se informar ao revisor qual ferramenta
-+você usou ajudaria na revisão da sua contribuição.
-+
-+No Escopo
-+==========
-+
-+Estas diretrizes se aplicam quando uma quantidade significativa de conteúdo em
-+uma contribuição do kernel não foi escrita por uma pessoa presente na cadeia de
-+Signed-off-by, mas sim criada por uma ferramenta.
-+
-+A detecção de um problema e o teste da correção para ele também fazem parte do
-+processo de desenvolvimento; se uma ferramenta foi usada para encontrar um problema
-+tratado por uma alteração, isso deve ser mencionado no changelog. Isso não apenas
-+dá o devido crédito, como também ajuda outros desenvolvedores a descobrir essas
-+ferramentas.
-+
-+Alguns exemplos:
-+ - Qualquer correção sugerida por ferramenta, como ``checkpatch.pl --fix``
-+ - Scripts do Coccinelle
-+ - Um chatbot gerou uma nova função no seu patch para ordenar entradas de lista.
-+ - Um arquivo .c do patch foi originalmente gerado por um assistente de codificação,
-+   mas foi limpo manualmente.
-+ - O changelog foi gerado entregando o patch a uma ferramenta de IA generativa e
-+   pedindo que ela escrevesse o changelog.
-+ - O changelog foi traduzido de outro idioma.
-+
-+Em caso de dúvida, escolha a transparência e presuma que estas diretrizes se
-+aplicam à sua contribuição.
-+
-+Diretrizes
-+==========
-+
-+Primeiro, leia o Developer's Certificate of Origin:
-+Documentation/process/submitting-patches.rst. Suas regras são simples e estão em
-+vigor há muito tempo. Elas já cobriram diversas contribuições geradas por ferramentas.
-+Certifique-se de que você entende toda a sua submissão e está preparado para
-+responder aos comentários de revisão.
-+
-+Segundo, ao fazer uma contribuição, seja transparente sobre a origem
-+do conteúdo em cover letters e changelogs. Você pode ser mais
-+transparente adicionando informações como:
-+
-+ - Quais ferramentas foram usadas?
-+ - A entrada fornecida às ferramentas que você usou, como o script de origem do
-+   Coccinelle.
-+ - Se o código foi majoritariamente gerado a partir de um único prompt ou um
-+   pequeno conjunto de prompts, inclua esses prompts. Para sessões mais longas,
-+   inclua um resumo dos prompts e da natureza da assistência resultante.
-+ - Quais partes do conteúdo foram afetadas por essa ferramenta?
-+ - Como a submissão foi testada e quais ferramentas foram usadas para testar a
-+   correção?
-+
-+Como em todas as contribuições, cada mantenedor tem a discricionariedade de escolher
-+como lidar com a contribuição. Por exemplo, eles podem:
-+
-+ - Tratá-la como qualquer outra contribuição.
-+ - Rejeitá-la de imediato.
-+ - Tratar a contribuição de forma especial, por exemplo, pedindo testes extras,
-+   revisando com escrutínio adicional, ou revisando com prioridade menor do que
-+   conteúdo gerado por humanos.
-+ - Pedir algum outro passo especial, como solicitar que o contribuidor detalhe
-+   como a ferramenta ou o modelo foi treinado.
-+ - Pedir ao submetedor que explique em mais detalhes sobre a contribuição, para
-+   que o mantenedor possa se assegurar de que o submetedor entende completamente
-+   como o código funciona.
-+ - Sugerir um prompt melhor em vez de sugerir alterações específicas de código.
-+
-+Se as ferramentas permitirem que você gere uma contribuição automaticamente,
-+espere escrutínio adicional proporcional a quanto dela foi gerado.
-+
-+Como com a saída de qualquer ferramenta, o resultado pode estar incorreto ou
-+inadequado. Espera-se que você entenda e seja capaz de defender tudo o que submeter.
-+Se você não for capaz de fazer isso, então não submeta as alterações resultantes.
-+
-+Se você o fizer mesmo assim, os mantenedores têm o direito de rejeitar sua série
-+sem revisão detalhada.
-+
-+Referências
-+============
-+
-+Para diretrizes específicas sobre assistentes de codificação de IA, veja:
-+
-+
-+* Documentation/process/coding-assistants.rst
-diff --git a/Documentation/translations/pt_BR/process/index.rst b/Documentation/translations/pt_BR/process/index.rst
-index eda2a3fc5166..cced028e12c9 100644
---- a/Documentation/translations/pt_BR/process/index.rst
-+++ b/Documentation/translations/pt_BR/process/index.rst
-@@ -59,6 +59,7 @@ Estas são as regras pelas quais tentamos viver na comunidade do kernel
-    Modelos de Maturidade para Contribuição no Kernel Linux <contribution-maturity-model.rst>
-    Declaração sobre Drivers do Kernel <kernel-driver-statement>
-    Estilo de gerenciamento do kernel Linux <management-style>
-+   Diretrizes do Kernel para Conteúdo Gerado por Ferramentas <generated-content>
-    Conclave (Continuidade do projeto) <conclave>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 891c064a881b..56e246710fa7 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19439,6 +19439,8 @@ F:	include/linux/nvmem-consumer.h
+ F:	include/linux/nvmem-provider.h
  
- Lidando com bugs
+ NXP BLUETOOTH WIRELESS DRIVERS
++M:	Song Xue <song.xue_1@nxp.com>
++M:	Alex Zhou <alex.zhou@nxp.com>
+ M:	Amitkumar Karwar <amitkumar.karwar@nxp.com>
+ M:	Neeraj Kale <neeraj.sanjaykale@nxp.com>
+ S:	Maintained
 -- 
-2.55.0
+2.34.1
 
