@@ -1,259 +1,127 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C0447DD7C;
-	Wed, 16 Sep 2026 08:56:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549010; cv=pass; b=ix1Y1BQT6O+kHPj1h9w2AAoV+AtN3obgHlhn3IFP6w7XjBTFsgdCUUH2YsMYiI3I6SFR992QOUVcWRl4+X8AgmIat1+LmemT0JG6UtB/2bWdmu9cYqnZZJlqI0IxQEUG56fbCxeBNL7exnrk6ZpRzWnjTgbkZ6r2z20sRoi+bG8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549010; c=relaxed/simple;
-	bh=XEv6d6bJdSTUPtUlJnfPrgdNMwC9r6COxl37Ji4f/v4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TMB38hMXrlupsrW1XyFzFebZnoUpQkiQd9eyJsfuzNFR+NPgd2Y6m/asn7SZn9D0fZsbNBLZoTkHOThQVi/X/HLpR7wLubn9x7JMwmBWo010sniBzGziY7Ow5pyCR6bMHJr1R94UQB7M9kG1C8FAC/Rep0Z5bO3fZJR4xVCDwc8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=poD7HyNx; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44EF485939;
+	Wed, 16 Sep 2026 08:57:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789549072; cv=none; b=eVYNrvss2qAvmXOiaB7LwaYz4udH5+jcAn1QCxAKMVlC5WS9zUmBgX6P4rl4J4vwup6GGnpsL7Zx4NvIwf9rqXaeTWtfDt4OO5qxSw4eoRidlT0iteUyKQocy8tfTsE2HZiDftFqsyyv9UlLQ5qG+F8cnfePISrd4NHvc+bW6FY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789549072; c=relaxed/simple;
+	bh=ZFsnv10b3I7EdjKsa23Ymp+lKDaNuAm+7Mdrw4VcRvo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tKa60cNeRHFMD/N1tLmSE4yg2KbJFAXM9nqVdbiLaTQrM/GyAEH436NipaAEUnGWf39xRlkPQAff3hbhT3kNqDxWCgn/koFKzOIqDNjRZPkwD3rfhAMsE9GAhjaarhNToJeRgYovT0vioo8P4hylIKs9JoC4CBLmsCacmXXF1jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mz3NSDTE; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="poD7HyNx"
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hlCRd5PDgz49PxH;
-	Wed, 16 Sep 2026 11:56:28 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1789548990;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ezQiH4GI5x0B5Nn8vmUNZz5LEmTUvo5o5R80qIpMy20=;
-	b=poD7HyNxO6VAFMS7x2lNSRmXgPgkTvuKmYliJRaxIjgDwQ/xHb64Isd94e3gJr0WQb57Ek
-	0hgThyDUShn0TqAxB2bHjwvjprsYxyeTM8HR7xYdQpCGE6AKYFenml4tHsvEmLxe/LJYY5
-	5lGMjjJSUwcLSkTcMsWfxiBd2USBcllbagAxL9c221T4KYLKL9Py+9pdB+Ecg1og2b9Tic
-	P04wKbc0OGfeEo7faXynOpQ7lvXsfV/piE7gM6osRRF2Ka33iWg+rS3+mliFKaBqikYLdv
-	5B2C1JmBLNzOY/PkjJRJpTgjY7io3YqfLtbRgJOuE+/N6n61M6ITwVekhLERJQ==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1789548990;
-	b=hiyBUYybyewFm5MAJvtYZMqY3TaZax+JtgmcubQJv8lSdZ/B592yiEFG7HOkXQP523x9Vo
-	IUmuj7ssQ65ZWBhIUFk00pb8Pef6vxXkNBcXi+JCA2i/pPMV5ORDZxDMAVtnh9deJCUCTI
-	7qBhjhFeMtDEFYuwchBXaNBfDNbab8k+eD3VLfLFcPxE3ZWAwf4DGuPcczXlZu59Vs0gKa
-	P2/gRX1h4NlckjWuOHAQR/CHZqNGz9Ztx9opbTe5g/hEX3BR3jWsG1OhvRBCbzCQt3Zlr5
-	iPiqf61GRxrmEz6wh93vT+hrz4Twmft0uooTYNoUVD+00WAlzHn6iSRB+h7PMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1789548990;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ezQiH4GI5x0B5Nn8vmUNZz5LEmTUvo5o5R80qIpMy20=;
-	b=u5c9gAAW1OBV7kdTpw26zgk3AAedsiTdq5l6SO78Xx7/mG+ZuNlVkKPJiGFHfJn4o6Jv/0
-	evlNoI7fxTAYaRC/JcnjKPyMY8zPOkeb4paMl9y1aaPLodtilv+NUHObrVd0UcHsIy2tx3
-	19ESkY7Ined9qpmBWw2ztVDPPYyIk+aXhnAxLO71HVOLtiXzut2yOXuiwRaIIKo2j5SKZR
-	1UWz3swn84rVk992lvXVpLMIcJD3RouTTEKE1FzGUnwI+bh/5id3ea2AthOrCOuYftHmna
-	SHbpQ2fXQuIlr58RZ/AGrcvNndaMykLDYqA/IvC45cfWvC208Ki8Y7lseCBCig==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id C3C9E634C51;
-	Wed, 16 Sep 2026 11:56:27 +0300 (EEST)
-Date: Wed, 16 Sep 2026 11:56:27 +0300
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Hermes.wu@ite.com.tw
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
- bridge binding
-Message-ID: <aqpZuwSx3lPXCda6@valkosipuli.retiisi.eu>
-References: <20260720-upstream-it6625-it6626-v1-0-475912f74459@ite.com.tw>
- <20260720-upstream-it6625-it6626-v1-1-475912f74459@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mz3NSDTE"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G69dNa1163413;
+	Wed, 16 Sep 2026 08:57:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=bdM4hjbMxAysnl7GgPyr+jTaRcFsj7rj26I
+	X2wnPqL0=; b=mz3NSDTEAMnqvQ2T0a41VRg9gZo0GsHfOMC2tihFYqRHSawPayo
+	2vJnxwX38gO4qmTGZ+bdrURDrMHZOMLwAnN9HoFGaHesYdW4wUeyCKsatB96y4AW
+	mkvfy0M3R2EVulLY9DRsp5YjtDf1Yk7Zupwir6Ak/QWR9UZJA0yVkSE7H3GEmNne
+	5P0o3BgFJBY6GSQB+DDdJkbjM5EizpAmiEA3GoDbRaOSoX2CVfdinOLijkbVLgHo
+	fkZ/5nfBYIAFz62JGk18wAfLJ41KFzHPSmmtFd6nS1VuXTlQtZZ7LoZ3fCxrsEZw
+	hjAhe4Hbc6vJ6Kz+oGnsRcGYBugmdMzIL5g==
+Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq9n63rd4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 08:57:27 +0000 (GMT)
+Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
+	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68G8vPex1071615;
+	Wed, 16 Sep 2026 08:57:25 GMT
+Received: from ap-kernel-sh03-lnx.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
+	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 68G8vOum1071606
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 08:57:24 +0000 (GMT)
+Received: from ap-kernel-sh03-lnx.qualcomm.com (localhost [127.0.0.1])
+	by ap-kernel-sh03-lnx.qualcomm.com (Postfix) with ESMTP id A90D94055A;
+	Wed, 16 Sep 2026 16:57:23 +0800 (CST)
+From: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+To: linusw@kernel.org, andersson@kernel.org, brgl@kernel.org
+Cc: pankaj.patil@oss.qualcomm.com, maulik.shah@oss.qualcomm.com,
+        dmitry.baryshkov@oss.qualcomm.com, shengchao.guo@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+Subject: [PATCH] pinctrl: qcom: nord: fix GPIO interrupt target width
+Date: Wed, 16 Sep 2026 16:57:20 +0800
+Message-ID: <20260916085720.771498-1-zhangfei.gao@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720-upstream-it6625-it6626-v1-1-475912f74459@ite.com.tw>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=BdVNQbt2 c=1 sm=1 tr=0 ts=6aaa59f7 cx=c_pps
+ a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=6wNvA0c_i9Qvwz773BMA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDExNSBTYWx0ZWRfX6ml1FjNllDsi
+ FW/hPti4+p2XwmsknSGfcMjNdsHSjWf5l2BBlbM0TgtY3luSwtAO3y3VYEFVs8rYS7vpTeNl6wQ
+ /mdbpNXH8EKcayqaiNM6rufVFYlyiYGvdC5Li2Hg7upaUt/1UDayTTFnFaWfuA8B4ZbqTrrH4HM
+ W7I2C+m4J0jDSJjygUAMpmkYNVqJTvbIfrMl0H+5ZLIdVJF4qIlsZ1OHYfwXcJL49FKXGs9XYkS
+ qRbrAQLdWOrSoe3bBk57WgAn6vsEPqmdHu4Mdk5nZDxYqo6mmmczmSXzisIFKRI1HExsPrLtYN4
+ 8mqF9bunGzMt/S4g1MITMh1IBs0/BOqcQZ1DCYuGZNaLNw7ofExH4R8qasrs6i/pUIq6Ohjlpke
+ mOfjrIeVtBPZqMav4c3MYLKG2piI/v9ag1TqdG5qUihGqQ1DM8BmRwIEqQsEfOoBboTqx0v5CMA
+ iTqZj6YIZAkh7xc5XMw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDExNSBTYWx0ZWRfXyppRl0kUMhQZ
+ jxM6IL66OSchp0qMPFzKBG9UAnNvzuPh35MZR4Q2lcfRkSivwYN3lLC1APdKcEJruutntw79BD2
+ 1CiCWh6/0NPDPS569yc/qyqQ1D5VMC8=
+X-Proofpoint-GUID: vIZQKhA0YrCzai_QXubsuD7EongZcgrV
+X-Proofpoint-ORIG-GUID: vIZQKhA0YrCzai_QXubsuD7EongZcgrV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 adultscore=0 spamscore=0 clxscore=1011
+ impostorscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160115
 
-Hi Hermes,
+The TARGET_PROC field in the Nord GPIO_INTR_CFG registers occupies bits
+11:8. Describe it as four bits wide so the common Qualcomm pinctrl code
+clears the complete field before routing an interrupt to the application
+processor.
 
-Thanks for the set. I know the set has been merged already so could you
-address the issues in follow-up patches, please?
+Without intr_target_width, the common code uses its three-bit default
+mask. Since GPIO_INTR_CFG resets with TARGET_PROC set to 0xf (NONE), bit
+11 remains set when the driver programs HMSS target 3. The resulting
+target is 0xb (HPASS_DSP_1), observed as an interrupt configuration value
+of 0xb1b instead of 0x31b.
 
-On Mon, Jul 20, 2026 at 03:57:45PM +0800, Hermes Wu via B4 Relay wrote:
-> From: Hermes Wu <Hermes.wu@ite.com.tw>
-> 
-> Document the devicetree binding for the ITE IT6625/IT6626 HDMI to
-> MIPI CSI-2 bridge. The device exposes three graph ports: port@0
-> (MIPI0) and port@1 (MIPI1) are the two selectable CSI-2 D-PHY/C-PHY
-> outputs, and port@2 is the HDMI connector input. Only port@0 is
-> required, since a board only needs to wire up as many of the bridge's
-> outputs as it actually uses.
-> 
-> Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
-> ---
->  .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 136 +++++++++++++++++++++
->  1 file changed, 136 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..102af5dcb380b0ad2462c376e5a87b22d7296f14
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-> @@ -0,0 +1,136 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/ite,it6625.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ITE IT6625/IT6626 HDMI to dual MIPI CSI-2 bridge
-> +
-> +maintainers:
-> +  - Hermes Wu <Hermes.wu@ite.com.tw>
-> +
-> +description: |-
-> +  The ITE IT6625 and IT6626 are HDMI to MIPI CSI-2 bridge devices.
-> +  IT6625 supports an HDMI 2.0 input and converts it to one or two D-PHY CSI
-> +  outputs, while IT6626 supports an HDMI 2.1 input and converts it to one or
-> +  two C/D-PHY CSI outputs. The bridges are programmable through I2C and
-> +  expose one HDMI input port and two selectable CSI-2 output ports. The
-> +  bridge can operate in split mode or clone mode.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ite,it6625
-> +      - ite,it6626
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    description:
-> +      GPIO connected to the active-low reset line.
-> +    maxItems: 1
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: CSI-2 output port MIPI0
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+The GPIO interrupt status is consequently latched, but the HMSS TLMM
+summary interrupt at GIC SPI 208 is never asserted. This affects all Nord
+GPIO interrupts using the TLMM summary path, including the Ethernet PHY
+interrupts on GPIO55 and GPIO141.
 
-If bus-type isn't required, a default need to be specified.
+Fixes: c24dd0826f06 ("pinctrl: qcom: add the TLMM driver for the Nord platforms")
+Signed-off-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+---
+ drivers/pinctrl/qcom/pinctrl-nord.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> +
-> +              clock-noncontinuous: true
-> +              link-frequencies: true
-> +
-> +            required:
-> +              - data-lanes
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: CSI-2 output port MIPI1
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-
-Ditto.
-
-> +
-> +              clock-noncontinuous: true
-> +              link-frequencies: true
-> +
-> +            required:
-> +              - data-lanes
-> +
-> +      port@2:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: HDMI connector input port
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
-> +            unevaluatedProperties: false
-> +
-> +    required:
-> +      - port@0
-> +required:
-> +  - compatible
-> +  - reg
-> +  - ports
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    i2c {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      hdmi-bridge@4c {
-> +        compatible = "ite,it6625";
-> +        reg = <0x4c>;
-> +
-> +        reset-gpios = <&gpio 2 GPIO_ACTIVE_LOW>;
-> +
-> +        ports {
-> +          #address-cells = <1>;
-> +          #size-cells = <0>;
-> +
-> +          port@0 {
-> +            reg = <0>;
-> +            csi_out0: endpoint {
-> +              remote-endpoint = <&csi2_rx0>;
-> +              bus-type = <4>; /* MEDIA_BUS_TYPE_CSI2_DPHY */
-> +              data-lanes = <1 2 3 4>;
-> +            };
-> +          };
-> +        };
-> +      };
-> +    };
-> 
-
+diff --git a/drivers/pinctrl/qcom/pinctrl-nord.c b/drivers/pinctrl/qcom/pinctrl-nord.c
+index 7f37f8e819ba..010760cf0bf5 100644
+--- a/drivers/pinctrl/qcom/pinctrl-nord.c
++++ b/drivers/pinctrl/qcom/pinctrl-nord.c
+@@ -32,6 +32,7 @@
+ 		.intr_wakeup_present_bit = 6,                         \
+ 		.intr_wakeup_enable_bit = 7,                          \
+ 		.intr_target_bit = 8,                                 \
++		.intr_target_width = 4,                               \
+ 		.intr_target_kpss_val = 3,                            \
+ 		.intr_raw_status_bit = 4,                             \
+ 		.intr_polarity_bit = 1,                               \
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
