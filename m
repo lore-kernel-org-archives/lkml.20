@@ -1,97 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29A44D6C24
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2E94D7D38;
+	Wed, 16 Sep 2026 17:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579893; cv=none; b=m/YpX3NDYIOInpfDU5gwhPcVH+CBSNha5FXZ/Ebx79pe3YlkIiEg6az2nRBYvxwpUNlwfD8xNBTWLaAUGbMXNjzXMZadt8bebAfIkuxUfz8ZFct+qB6hzxAoe86PZipmCldZbrEFkD855y61YSTXl2Pmf6JV1oDyuX4EU+e6umA=
+	t=1789579913; cv=none; b=rpizdAbPLrWsvRGpyLAgpDfhsLGvp69KDv3K/bSJWHlyq6dt/r4Wa2WJgIBNorDttWx1uKRobaNaYgdTpC8xVsZJ0OlcgnM8pmbqUvJROVHdLrpGjpsTgVqeU1Ep2zlW2f1XrCTr4bnn6zHCkoFpFx73Wu5EaWGyISHN43gjuIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579893; c=relaxed/simple;
-	bh=4h7CNgUTqPbXfiRuvyW7wmuQ+iQWLkvSQv8cBspOfWk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uMrZLpQQe2GyNe8hVcwgVTRCCz6hKnnfwIYHAInIO7zNfGOEucMgvhtKZrKVqWK3R66ebYAVQTIGo1jzELHBh50dqFB9ZMyiTiMvep8rnGYr2TjTolIo/4Vy8+f8gl6d8EXHN7ll9lm1cl0k0RfpFuysIpA+KzFx+xHwKpSm56g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UAF9f1rQ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UAF9f1rQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D89A1F0089F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:31:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789579881;
-	bh=4h7CNgUTqPbXfiRuvyW7wmuQ+iQWLkvSQv8cBspOfWk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UAF9f1rQ3RvSfZjIEqrlyW9dpvtTHzRlQsqmgoLfqbBKfdJE7bx/9Xbh6u24HkdJ6
-	 MO8I4JRR3WNK8FS95CzQN6qdgKxWqm4/5n9yn7RhbtGg9Ynq0W6S6ZP+pCswZQdkoy
-	 CytIJJ4vLyXKl+QhsSETsZaq3SKk5hFj4HlEy3fyVj16tC3Qv8hXGU6ugvw5Zc1zXV
-	 JU2mqnPMMc8h7dFG+cj+uqqpBCIo0RiVuoTjPGi6knnpN0nt2Ouh5htwMCbducer7F
-	 x/DYblxIKrXDArxzR69SXuBV+0IO5fF8z5yvpuwi42+3gUP4wm7Oki7MUKJz/MVKRP
-	 Awxp3goEzwOHQ==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b899bbd74bso1189677e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:31:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw7WtuisKwZs0O6knup7j2oD2t5VkqP4z+BzmsphudOLeSdMdlceJPs25vFh8bhp0uhDdOchqYaw1NOxvc=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldc9dcYjZKpYNHj59Bj5QQmB+/1/1o5Mp6x2DF5yn4cez29xhx
-	2ccht4P9JvVXIOgOnNBN07Xuy7Xbipgt/tlt7v2Kk4e9U6ZTmpdFkML2guVzMCGfSlyaQf99FEU
-	NrrQw95KXitmZPaPRfZGFQRHsrB/KtyY=
-X-Received: by 2002:a05:6512:39c7:b0:5b5:e86f:3550 with SMTP id
- 2adb3069b0e04-5b8b65ffbecmr902064e87.9.1789579879753; Wed, 16 Sep 2026
- 10:31:19 -0700 (PDT)
+	s=arc-20240116; t=1789579913; c=relaxed/simple;
+	bh=DTh8EqC0HXrZxEjbphEcqBqo+kVsUBYpL+Y1Ze7Dg7E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pbwy3X/f3TSBn67UgJ8daUnHQtp8z6mZjNS7mXLYFUg11RcOezRA6IX4wIHvrGGIAuRInnY5RPC/sVWkdQ68RmvHRiLnkjHTUt9yPh3yhV+glBDusl4qq9I9/AQwY/O50I33GE/X+F5GOdQaUom+MkvXa0VfKz2WcHBrjpFs/GE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACXADt60qpqpKduCA--.22649S2;
+	Thu, 17 Sep 2026 01:31:38 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	jani.nikula@linux.intel.com,
+	john.c.harrison@intel.com,
+	joonas.lahtinen@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	matthew.brost@intel.com,
+	rodrigo.vivi@intel.com,
+	simona@ffwll.ch,
+	tursulin@ursulin.net,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/i915/guc: Fix ce use-after-free in scrub_guc_desc_for_outstanding_g2h()
+Date: Wed, 16 Sep 2026 17:31:10 +0000
+Message-Id: <20260916173110.2088036-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789538455.git.mazziesaccount@gmail.com> <e3e6ac712519326cc25fcdd0a0c8e3cc42ef55ab.1789538455.git.mazziesaccount@gmail.com>
-In-Reply-To: <e3e6ac712519326cc25fcdd0a0c8e3cc42ef55ab.1789538455.git.mazziesaccount@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 19:31:06 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=vZr+naVBaixNkDbgx4_EpL8MosSyXYb9jg2hgKu+QNg@mail.gmail.com>
-X-Gm-Features: AcwNN1UIPEmUSS-eZ1VYSwu7-QImd7lzaWBhLtT17uVLR3LAyc5U_ziRVEemM5c
-Message-ID: <CAD++jL=vZr+naVBaixNkDbgx4_EpL8MosSyXYb9jg2hgKu+QNg@mail.gmail.com>
-Subject: Re: [PATCH v4 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
-	Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-rtc@vger.kernel.org, Sverdlin@mva-rohm.smtp.subspace.kernel.org, 
-	Alexander <alexander.sverdlin@siemens.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXADt60qpqpKduCA--.22649S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw13KF47XrWkAFWfXw48Crg_yoW8Ww17pr
+	4aqw1Y9Fy5AF4SvF9rA3WjqFyfK3WrJa4xWw1DGw15Jas5J3WDGr92yay5tFyDAr1xJ3sa
+	yF17KrW3W3Wa9FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9q14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
+	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F
+	4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwAMA2qqpVhkigAAsb
 
-On Wed, Sep 16, 2026 at 8:12=E2=80=AFAM Matti Vaittinen
-<matti.vaittinen@linux.dev> wrote:
+A context flagged SCHED_STATE_DESTROYED has already dropped its final
+reference, and __guc_context_destroy() frees it immediately (virtual
+engine contexts are kfree'd outright). The pending_disable block is not
+mutually exclusive with the destroyed state and kept using the context
+after that destroy. Defer __guc_context_destroy() until after the
+pending_disable handling.
 
-> From: Matti Vaittinen <mazziesaccount@gmail.com>
->
-> The ROHM BD73800 PMIC has 4 pins (named GPIO1, CLKOUT, FAULT_B and
-> EXTEN_OUT) which might have been set to operate as a GPI or GPO when OTP
-> (One Time Programmable memory) is written at device manufacturing.
-> Support the GPI/GPO use-case via GPIO framework.
->
-> The default OTP for these pins is to not use any of them as GPI or GPO.
-> (The GPIO1 defaults as an ADC input regardless the naming). Hence the
-> driver assumes none of these pins is a GPI/GPO unless explicitly pointed
-> as GPI or GPO via device tree.
->
-> Furthermore, pin's direction can't be changed after OTP configuration is
-> done. Also the default drive type for a GPO (CMOS / Open Drain) is set
-> by the OTP configuration. The BD73800 has a set of undocumented test
-> registers which should allow changing the drive type. Access to the test
-> register area or the test registers aren't documented and so this driver
-> does not support configuring the drive type even though it might be
-> doable.
->
-> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Fixes: eb5e7da736f3 ("drm/i915/guc: Reset implementation for new GuC interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Looks really nice now!
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 7b88e081c76d..5eab2baa1f7f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1122,7 +1122,6 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
+ 			if (destroyed) {
+ 				intel_gt_pm_put_async_untracked(guc_to_gt(guc));
+ 				release_guc_id(guc, ce);
+-				__guc_context_destroy(ce);
+ 			}
+ 			if (pending_enable || deregister)
+ 				intel_context_put(ce);
+@@ -1145,6 +1144,13 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
+ 			intel_context_put(ce);
+ 		}
+ 
++		/*
++		 * Finish the destroy last, as it may free the context while
++		 * the above states still need to access it.
++		 */
++		if (destroyed)
++			__guc_context_destroy(ce);
++
+ 		if (do_put)
+ 			intel_context_put(ce);
+ 		xa_lock(&guc->context_lookup);
+-- 
+2.34.1
 
-Yours,
-Linus Walleij
