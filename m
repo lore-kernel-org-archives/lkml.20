@@ -1,199 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F30514773
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:31:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8522037C119
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:32:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572711; cv=none; b=NMI55K/Tm/IZiZ3ZIAv8NyX2bMOGwwCB3fRcDs4YWnPMLIAqCLsJ5Y3Cy2cuSaip57FZa9cmFv3LIY84khmdMaVonmrHySJNl1rO/5ZZVnLryvk1bZdwvloMiLOechKAPzFV+h5Go3Xly6Kl3g6vuN2smnik7oA43GgME3HszTE=
+	t=1789572732; cv=none; b=A2jvZnQMgU28psbBrvi5+flDP6V85TCAhUotfVe9sJIFYvDBMfGGJhOhPYFzCvBo+RhQMF4YAJtdxLenxP7sPv77lvSSgmVtrcn8IJb2n877aWzA4meXUkukTANxpsfTrsuJBA+1FskPPoO6C4Pyq2liicvUTLcLscSp0/zo8PA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572711; c=relaxed/simple;
-	bh=GyxDv+TwpE2EbiCn+Im5k5aUknrx/boFm59u9MDvlqA=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=tmBilcupHKZMLypsZxSOJnXCEiWo8Mb8gOvBQaASiFVLwmvO66MMqcZGUGgil9UmSdccuopEvVylqiZV3YHfU6i/SCo9FDLcOEFwqL13Xm0c+THP0+VS0O4RzOthYLHvqVVK1W2gkNsMgxvYrkTuAw59EDw1BJxKCY7wuwGmevs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fRZ6jAnn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789572732; c=relaxed/simple;
+	bh=6cJZ3vF0dSDjjEMMG9H2JHANKMhOY+wqpAkHW2i9jYQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=osOYiVPE+iScUTa2U0KoTl0g+VFfDf3JBv+g1xQfRTmzA+6xFBcNvE1azDOkRSO8xpyRChyPT7BpLFJ7VtDVEZhZpvFV33AMLDUDJTuvbpVynWBQiPQUOrK1BLoT7CyHdYtgk7741QIV8m+bzyDG1NKuRLv6Y9qMQRGkvJNtXqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hzhTXwDa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fRZ6jAnn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C4B1F00893;
-	Wed, 16 Sep 2026 15:31:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hzhTXwDa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2864E1F00893;
+	Wed, 16 Sep 2026 15:32:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789572705;
-	bh=CSjuCrMzZ3KADO8PBzBUQROaVTo8c14vVwbdbZfVKt0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fRZ6jAnnt7Us8zikx98/qbo6mRjAuD1fVz4SSUxchKqmE1aGpTIAq4AoDHsxMf+OQ
-	 5NIEHyTYpaChtyDrGNBMerbsp2BRQBljhoIMK70U3YW8Vf2BxJHqWfdP+lXcpAJNE3
-	 rBr39V4vDwF3rcvB9i4oLD8fM3Y6VtlYg2LzZU5KzpdHPvKLvLKKTa5dZE1zTwkJRJ
-	 yR7sGNambQ7BU4tWb1TMS04dzo+UjyXUGnLpHA4r+1VEtfVaeCKWYRfe6VyvDzupO4
-	 9F6hJERXe9cpmtq9iZM7KmaQtf9soBO2rE2UGAItzplLFOrwbDNprYLMOZ82fuN0uM
-	 J7Y+wyNUB2N3Q==
-Date: Thu, 17 Sep 2026 00:31:38 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Cc: Jinke Han <jinkehan@didiglobal.com>, <tglx@kernel.org>,
- <mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
- <x86@kernel.org>, <hpa@zytor.com>, <laoar.shao@gmail.com>,
- <peterz@infradead.org>, <jgross@suse.com>, <kees@kernel.org>,
- <rppt@kernel.org>, <jpoimboe@kernel.org>, <calvin@wbinvd.org>,
- <pfalcato@suse.de>, <linux-kernel@vger.kernel.org>,
- <tiozhang@didiglobal.com>
-Subject: Re: [PATCH v3] x86/kprobe: Fix crash when probe cs call
-Message-Id: <20260917003138.d0756ffc57d4306254c1259c@kernel.org>
-In-Reply-To: <20260909094420.049df579134ec8525e1eef40@kernel.org>
-References: <20260908073742.GA10517@didi-ThinkCentre-M920t-N000>
-	<20260909094420.049df579134ec8525e1eef40@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=k20260515; t=1789572725;
+	bh=r+L+gdmlejhQNmtecvJQTWNGDQdwYrl4NsxaG1tw1go=;
+	h=From:To:Cc:Subject:Date;
+	b=hzhTXwDa2Qo+pmZ4YoZsP+RopMjaOH8/EFzDBkw4eb1XHwdMhB39araxeWwgADPOq
+	 pYnfRc9aTr+p+ELU3hp8lvVV3Qf5GnwWsEY0+Py7rbPdrm52t2D83Qy3MwvbSvemgK
+	 9NX0R3PvbM1aO6Qx6Db1XkwNRDELcXHR8WTw6Hr/EGJQAQTblRbXuHDLjNVgYmF27E
+	 sjRDoqy/UBenFAbuKFw3z9obu79qycztHMaAeUW0kk6+Sce2I5z4YViwmmKFQzZJ/Z
+	 F9MEqsFGzyFJx4xNzSO9ltdlMTmC+OBwLlP2V5SbhCs8MGZOPo0Eeu+XiHCNJC/5f7
+	 J6eKaT8Fwwt3Q==
+From: Thorsten Blum <blum@kernel.org>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>,
+	Thorsten Blum <blum@kernel.org>,
+	Aditya Gupta <adityag@linux.ibm.com>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] powerpc/kexec_file: Simplify add_usable_mem()
+Date: Wed, 16 Sep 2026 17:31:49 +0200
+Message-ID: <20260916153149.127278-3-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1962; i=blum@kernel.org; h=from:subject; bh=6cJZ3vF0dSDjjEMMG9H2JHANKMhOY+wqpAkHW2i9jYQ=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmrtqW6LnzKtdX5g/DrurMLlHqd1aT1H8UVRCp4J0TM+ f6theFARykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAEzkbSojw623mb/NhZbminyI 2f1yddMLg/fBsx6FhZmmnCqO2sO25B3D/1CBvUZrLVZu7J0dkhrQz1FrN/HcEx2FlTzH8zasYG0 15wAA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-Gentry ping?
+Use max() and min() to calculate loc_base and loc_end, respectively.
+Skip to the next range if loc_base > loc_end and drop the now-obsolete
+boolean add variable.
 
-If it is not picked via -tip tree, I will pick this through linux-trace tree.
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ arch/powerpc/kexec/file_load_64.c | 29 +++++++++--------------------
+ 1 file changed, 9 insertions(+), 20 deletions(-)
 
-Thank you,
-
-
-On Wed, 9 Sep 2026 09:44:20 +0900
-Masami Hiramatsu (Google) <mhiramat@kernel.org> wrote:
-
-> Thanks! Peter, Ingo, can you pick this via -tip tree? 
-> 
-> On Tue, 8 Sep 2026 15:37:42 +0800
-> Jinke Han <jinkehan@didiglobal.com> wrote:
-> 
-> > When I used eBPF to probe the call instructions within a function,
-> > we encountered a kernel crash.
-> > 
-> > The ebpf tool probes the 257 offset of the __hrtimer_run_queues
-> > function.
-> > 
-> > <__hrtimer_run_queues+249>:  nopl   0x0(%rax,%rax,1)
-> > <__hrtimer_run_queues+254>:  mov    %r14,%rdi
-> > <__hrtimer_run_queues+257>:  cs call <__x86_indirect_thunk_r12>
-> > <__hrtimer_run_queues+263>:  mov    %eax,%r12d
-> > <__hrtimer_run_queues+266>:  xchg   %ax,%ax
-> > <__hrtimer_run_queues+268>:  mov    %r13,%rdi
-> > 
-> > The scene of kernel crash is as follows:
-> > 
-> > [73665.737181] BUG: unable to handle page fault for address: 00000000000f41c9
-> > [73665.744253] #PF: supervisor write access in kernel mode
-> > [73665.749643] #PF: error_code(0x0002) - not-present page
-> > [73665.754843] PGD 0 P4D 0
-> > [73665.757390] Oops: 0002 [#1] SMP NOPTI
-> > [73665.761073] CPU: 1 PID: 0 Comm: swapper/1 Kdump: loaded Tainted: P
-> > [73665.782671] RIP: 0010:__hrtimer_run_queues+0x106/0x230
-> > 
-> > Note that __hrtimer_run_queues+0x106 is __hrtimer_run_queues+262, which is
-> > at the 6th byte of the above cs call instruction. Since the cs call
-> > instruction occupies 6 bytes, the exception occurred in the middle of that
-> > call instruction.
-> > 
-> > The root cause is that when using eBPF tools to probe in the middle of a
-> > function, kprobe with int3 is used as the underlying implementation.
-> > During single-step emulation of the original call instruction,
-> > int3_emulate_call assumes that the probed call instruction is 5 bytes
-> > long. However, the actual CS-prefixed call instruction occupies 6 bytes,
-> > so it constructs an incorrect exception return address. When the CPU
-> > returns from the kprobe handler, the next instruction to be executed is at
-> > the address of the last byte of that CS call instruction. Coincidentally,
-> > starting from that address, the CPU fetches and decodes a completely
-> > different instruction, which ultimately triggers a kernel crash.
-> > 
-> > Fix the issue by using the actual instruction length obtained from
-> > the instruction decoder when constructing the exception return
-> > address, rather than relying on the hardcoded CALL_INSN_SIZE macro.
-> > 
-> > Cc: stable@kernel.org
-> > Cc: linux-trace-kernel@vger.kernel.org
-> > Fixes: 6256e668b7af ("x86/kprobes: Use int3 instead of debug trap for single-step")
-> > Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > Suggested-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > Acked-by: Yafang Shao <laoar.shao@gmail.com>
-> > Signed-off-by: Jinke Han <jinkehan@didiglobal.com>
-> > ---
-> >  arch/x86/include/asm/text-patching.h | 4 ++--
-> >  arch/x86/kernel/alternative.c        | 6 ++++--
-> >  arch/x86/kernel/kprobes/core.c       | 5 ++---
-> >  3 files changed, 8 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/arch/x86/include/asm/text-patching.h b/arch/x86/include/asm/text-patching.h
-> > index f2d142a0a862..ea09381070e8 100644
-> > --- a/arch/x86/include/asm/text-patching.h
-> > +++ b/arch/x86/include/asm/text-patching.h
-> > @@ -164,9 +164,9 @@ unsigned long int3_emulate_pop(struct pt_regs *regs)
-> >  }
-> >  
-> >  static __always_inline
-> > -void int3_emulate_call(struct pt_regs *regs, unsigned long func)
-> > +void int3_emulate_call(struct pt_regs *regs, unsigned long ip, unsigned long func)
-> >  {
-> > -	int3_emulate_push(regs, regs->ip - INT3_INSN_SIZE + CALL_INSN_SIZE);
-> > +	int3_emulate_push(regs, ip);
-> >  	int3_emulate_jmp(regs, func);
-> >  }
-> >  
-> > diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-> > index add62db3e82c..d13bc5215d87 100644
-> > --- a/arch/x86/kernel/alternative.c
-> > +++ b/arch/x86/kernel/alternative.c
-> > @@ -2172,6 +2172,7 @@ int3_exception_notify(struct notifier_block *self, unsigned long val, void *data
-> >  	unsigned long selftest = (unsigned long)&int3_selftest_asm;
-> >  	struct die_args *args = data;
-> >  	struct pt_regs *regs = args->regs;
-> > +	unsigned long ip;
-> >  
-> >  	OPTIMIZER_HIDE_VAR(selftest);
-> >  
-> > @@ -2184,7 +2185,8 @@ int3_exception_notify(struct notifier_block *self, unsigned long val, void *data
-> >  	if (regs->ip - INT3_INSN_SIZE != selftest)
-> >  		return NOTIFY_DONE;
-> >  
-> > -	int3_emulate_call(regs, (unsigned long)&int3_selftest_callee);
-> > +	ip = regs->ip - INT3_INSN_SIZE + CALL_INSN_SIZE;
-> > +	int3_emulate_call(regs, ip, (unsigned long)&int3_selftest_callee);
-> >  	return NOTIFY_STOP;
-> >  }
-> >  
-> > @@ -2754,7 +2756,7 @@ noinstr int smp_text_poke_int3_handler(struct pt_regs *regs)
-> >  		break;
-> >  
-> >  	case CALL_INSN_OPCODE:
-> > -		int3_emulate_call(regs, (long)ip + tpl->disp);
-> > +		int3_emulate_call(regs, (long)ip, (long)ip + tpl->disp);
-> >  		break;
-> >  
-> >  	case JMP32_INSN_OPCODE:
-> > diff --git a/arch/x86/kernel/kprobes/core.c b/arch/x86/kernel/kprobes/core.c
-> > index 4e5f8c1736ec..133ff20caccd 100644
-> > --- a/arch/x86/kernel/kprobes/core.c
-> > +++ b/arch/x86/kernel/kprobes/core.c
-> > @@ -510,10 +510,9 @@ NOKPROBE_SYMBOL(kprobe_emulate_ret);
-> >  
-> >  static void kprobe_emulate_call(struct kprobe *p, struct pt_regs *regs)
-> >  {
-> > -	unsigned long func = regs->ip - INT3_INSN_SIZE + p->ainsn.size;
-> > +	unsigned long ip = regs->ip - INT3_INSN_SIZE + p->ainsn.size;
-> >  
-> > -	func += p->ainsn.rel32;
-> > -	int3_emulate_call(regs, func);
-> > +	int3_emulate_call(regs, ip, ip + p->ainsn.rel32);
-> >  }
-> >  NOKPROBE_SYMBOL(kprobe_emulate_call);
-> >  
-> > -- 
-> > 2.34.1
-> > 
-> 
-> 
-> -- 
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
-
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
+index bd80c5fb1b1f..6162afbe919a 100644
+--- a/arch/powerpc/kexec/file_load_64.c
++++ b/arch/powerpc/kexec/file_load_64.c
+@@ -20,6 +20,7 @@
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+ #include <linux/memblock.h>
++#include <linux/minmax.h>
+ #include <linux/slab.h>
+ #include <linux/vmalloc.h>
+ #include <asm/setup.h>
+@@ -104,31 +105,19 @@ static __be64 *check_realloc_usable_mem(struct umem_info *um_info, int cnt)
+ static int add_usable_mem(struct umem_info *um_info, u64 base, u64 end)
+ {
+ 	u64 loc_base, loc_end;
+-	bool add;
+ 	int i;
+ 
+ 	for (i = 0; i < um_info->nr_ranges; i++) {
+-		add = false;
+-		loc_base = um_info->ranges[i].start;
+-		loc_end = um_info->ranges[i].end;
+-		if (loc_base >= base && loc_end <= end)
+-			add = true;
+-		else if (base <= loc_end && end >= loc_base) {
+-			if (loc_base < base)
+-				loc_base = base;
+-			if (loc_end > end)
+-				loc_end = end;
+-			add = true;
+-		}
++		loc_base = max(base, um_info->ranges[i].start);
++		loc_end = min(end, um_info->ranges[i].end);
++		if (loc_base > loc_end)
++			continue;
+ 
+-		if (add) {
+-			if (!check_realloc_usable_mem(um_info, 2))
+-				return -ENOMEM;
++		if (!check_realloc_usable_mem(um_info, 2))
++			return -ENOMEM;
+ 
+-			um_info->buf[um_info->idx++] = cpu_to_be64(loc_base);
+-			um_info->buf[um_info->idx++] =
+-					cpu_to_be64(loc_end - loc_base + 1);
+-		}
++		um_info->buf[um_info->idx++] = cpu_to_be64(loc_base);
++		um_info->buf[um_info->idx++] = cpu_to_be64(loc_end - loc_base + 1);
+ 	}
+ 
+ 	return 0;
