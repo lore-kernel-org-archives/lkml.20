@@ -1,117 +1,205 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BF6469838
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E46B490BF7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:36:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789594628; cv=none; b=FJEDDI3CLEy/NR65s6uc2nRtAUqTPGxJchRK1T4fyQRaBwkC+Al3qqQCOCkzplZY0qrK7a5HRj2hSeLbPJlFr4XdignAHIhoREmmnfrAOWXGS3D0ztAIkSngkAq28G0K9HR5pCYzljAtk2g6nTn4yvVka8++Gs8rToNtEhyvA6c=
+	t=1789594628; cv=none; b=eg5pXGgYpOTIQ38HAQ5SFP7lQvUNDbbqZ3R3Q4SxB+LUZsXiQrKLf23gy6H8NvVZ1eApNsWfjg8ak4XMhMntKj22NXXTRpmfPfXQRa4Vxq7/JTCp/SmrBwNSnxUWgW6e3yhATO48OW1ThDTrE8kOVlrSOIMtNCYMgbOmRZ6HJ1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789594628; c=relaxed/simple;
-	bh=PxdfU+Dz3DRINCwhFDnbHX2btVncim5IdyZceKPMudg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XDa8gObjDGbzFMj2B4TCQyPqkOsqWArTOv+rmQCVDRNY+GKY4mU4kmdDNPDN4X9Dku153iqWP5sC9jXY8UGapDFAMWI4gt7aCEMuKCBv3djDigOS9A6Kil/djydLiWly9jTaN2K5DU0ZVPkH40W2yehLK+ovGkuVu1DgMbkACh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=m5+cM8Rh; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	bh=z2tQHhAwEFt+agCaRWeVzBR9XVTRt1GIp8bQCvmiYuk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PKQIst/BN0gpnMvnZ+wY02Q0i325KuGRPoiMdycROYpnycXdHyxOZMEOwhos+Oebgu+1MJ+E7rkU3Makyc1UphltlO7qtht1Ultx2J/QGvAWEIXNO5ro4EAbOLiyGxhAXoQVAXDzXhSqTgqVapzjDN2sV2XhuA857W3eXPJLDNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=EA81dlCD; arc=none smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="m5+cM8Rh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=eIzom9l75Ckl1oIs1hZ3G1vv0VhWavRdQ2NBh6zd7RU=;
-	b=m5+cM8RhkhvHnCW238m7jg5ZoEVF5hYMMBWrTOEphS7hCIRWQ+Vzb5tEKnSasP
-	DbgD70MNpHzGToYr5vadygXSEqCYQiT9bsCbd6vMqfJYWL8z7NsM2wdAkGDpUuPN
-	cgdveayaoGFWLT/+TRv+eXxVRaoYlUPW4FFqJ7GL9eA7U=
-Received: from [IPV6:2409:8900:21a7:a33a:b45d:31d1:c098:7d46] (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wBnut7PC6tqo9NTBA--.34434S2;
-	Thu, 17 Sep 2026 05:36:16 +0800 (CST)
-Message-ID: <2a0a1afd-250b-4e8c-9356-3e98e71aa46b@163.com>
-Date: Thu, 17 Sep 2026 05:36:15 +0800
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="EA81dlCD"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-469fdb78b1cso83594fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:36:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google09082023; t=1789594613; x=1790199413; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jhuOR/yTpkseeAWrvSpKFTY7Og9vlkZJ0CujlTEe3/8=;
+        b=EA81dlCDWK8Brg7yFLt12E8nZlqjwrkN0YEPpAojkNirkQk13Y9EBI8WkR5wMuziOn
+         J8PpG7hJn/L8j6WmijRAO6sk+rbNKqmXZtKJBS6VhM4TP9N5WXGrHvRaTGmydE2VgwDS
+         OaeLEKKULlqA19YKFhlEEUdIx2+cUr3TUXyGivcSng8lCnUT6cXJtyg6goStQi8X2chj
+         CzSy953u9/uyHqrpMumPFqGLQgdwU+LxIIiyRVB2WSkT1OwddN//BnZ4o802EtXzjv/S
+         Q3veP9F/7urB38Ozg8Yb6Lhy+2YVoH8NVVytMxhAafS/6CMYAnUBxrnaNaNEXuOrf4Bo
+         mHZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789594613; x=1790199413;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jhuOR/yTpkseeAWrvSpKFTY7Og9vlkZJ0CujlTEe3/8=;
+        b=0/25u4UvePcgvc6MEobCbBpCouuCcnvJ/Vk+2+jsGU9j9CJKYjyxPFR3w1Uvm6dlNZ
+         Z0r2GQyh0+W7BDLjVs59trmtj2dgS5R/G7ygXjhQlBHSXi+CER/Yxp7kfryYgy5YI5Am
+         Nfd2EX0Gx2bOtK3bH63Y8zpkEcOECtcZRrvlrLF+oskWuMV/1B8NltRwXRF6wum8TjAi
+         p0vI6LOr5KyzoohUVUSI89FbtvlGrSQjOLcOSzx1ohntiDEMp26y+iPXAE1y3m5Y3HvS
+         c5TivIxhxfYJy/2kjO/h9DneTcwTxeIzxA6HYzj/0g3/k5wdt83aLrc1tT6Iu+xNHt0V
+         C1Nw==
+X-Forwarded-Encrypted: i=1; AKwUvBzX2GtSrwRwhYemUTENSWpxWqZm+VlCbKuhHuXM88w+aoS4HKJIH+6PJieIHST9Om3maPT1usftYD3g0K4=@vger.kernel.org
+X-Gm-Message-State: AFuF++msW8R+vK98TB+m4MgWohWKEpOnrbXvIwa2ojf4OpUwigGcI4D5
+	0aMQvrazAd7q7CaZuRMb9HQm48mE5bzS6ISCYVf1PLuZnyIHRw39tHcbuv7XNDLrK8U=
+X-Gm-Gg: AYBFou0I1ygrZnIa95pYosk6a2LsTHQ0POmcepr5lAFgXovcgOHxnUVYBe6lzfEuXs2
+	dumsZyrlQCZTSqxUpksfFGQ+xprMNcONzMySEkA25zUxxM9fIwputqEReK8HQqpJwc75oYhN55c
+	rFCnPDhfhOep5lFKpkYq1M+SfZdHlUXKQXFT33e2qBMLp8UnEtDqYGRRpkT8OYJ1Wqln114hAAh
+	ygFKZBcgCSw5GPZsl4CojAoys9Cm9U7thw1keSE4BEYzHeSy/PJxQNp85WSPqg6YGaU8Ph5WCKh
+	ba9doqhXNLI5j+cfPwhKah9BFJ2TVP0uDZFYESOtnNAGGAvLZ3ZQyWyIV0vWjHPJUEjelEszH8j
+	WVVSdpScuJjGBUSz7UtqkVb/lYTnG8QJIsWqGH+5t04RacYc0e+Tejs7KBT6LAhhWGpMV3fw2gJ
+	I6pkPWIH2XHj75TeZQY/2mfx6Ivdek9I88Ja0P+HjN+dExxCA0C4phA8mapDIEZtZewidx
+X-Received: by 2002:a05:6870:b3d4:b0:475:a1ec:9621 with SMTP id 586e51a60fabf-484778f2bd2mr4152184fac.35.1789594613524;
+        Wed, 16 Sep 2026 14:36:53 -0700 (PDT)
+Received: from [127.0.1.1] ([2a09:bac6:947f:31f5::4fa:4b])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4842a23e310sm3387557fac.12.2026.09.16.14.36.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 14:36:52 -0700 (PDT)
+From: Frederick Lawler <fred@cloudflare.com>
+Date: Wed, 16 Sep 2026 16:36:38 -0500
+Subject: [PATCH v3 2/2] integrity: Replace integrity_audit_message() with
+ integrity_audit_msg()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 0/7] ntfs: fix volume flag races and persist the
- recorded error state
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, zhongling0719@126.com
-References: <20260915083252.812126-1-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260915083252.812126-1-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBnut7PC6tqo9NTBA--.34434S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFW3uFWDZw1xuF15XF47Jwb_yoW5XF4xpr
-	ZIyrnxGr4DA34IvwnI93y8Xa4S93s3Aa15Wry7J34Ivw1rGr18XF45t3W8Xa4vkrykJw10
-	qF4jg345W3WDAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UF0PhUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hB8R2qrC9Az0wAA37
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-report-hash-error-v3-2-73e5d95e9efe@cloudflare.com>
+References: <20260916-report-hash-error-v3-0-73e5d95e9efe@cloudflare.com>
+In-Reply-To: <20260916-report-hash-error-v3-0-73e5d95e9efe@cloudflare.com>
+To: Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>, 
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@cloudflare.com, 
+ Frederick Lawler <fred@cloudflare.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3985; i=fred@cloudflare.com;
+ h=from:subject:message-id; bh=z2tQHhAwEFt+agCaRWeVzBR9XVTRt1GIp8bQCvmiYuk=;
+ b=owEBbQKS/ZANAwAKAasltHYDktNtAcsmYgBqqwvrmVrK7ESQgDOkwOK2VK1kK4+HrtNpxxvea
+ iBnILRGMd6JAjMEAAEKAB0WIQTLNBqMVmu1PHvjOe2rJbR2A5LTbQUCaqsL6wAKCRCrJbR2A5LT
+ bV/uD/9wvueyIbMy+vcKKZMyE4dXComXFcTtuZRJhDcc5DnG+h+yNYsKK4JLnE1BKm5i3Vog4uP
+ DZXGjaJVBZ6dYP6FG5oIKKyE6xe5PQzylgbOhDCQQH1Ogj+kO9bwdc3aliPDrL2nCk8Iq4S/bVF
+ EtlxhXPDl9jQjhZUJIa5oaY03bXz05eZehXZhHxG6Pas6SLhZBbgSdmMrtcUDaFagzJT80OL3gq
+ jFmJngTlmZJUHZyfwazPDDTx/ltZTzrt/cCxjE98xkFEA04Gq5QkHfgb3dazPMuffaHI9sTGLzr
+ JqFqMHc+v1C0FZeYxI8SYGZM5/wwzyYwLsqhg/JadVucvL/64vh/s46S68VpsRUAXFD9jnPCXeD
+ 8pvpAQOVW+adIVTCdKVggnu85//0B1fgKXffGaznAde2/zAXwmTEZxb6f/03ygRr0HRrvsrRPEE
+ z1pF4piiWMlwVqorNuMn0hPNNHzdjvYyJNAIpRn/1VA/LpBHpw2Q7pyAUgjF0KPQgi+kda7hfaw
+ spcyEl7Xl6f4xGZPR8N8yQaFDNFUlPr8mMK5fha85Zutm9aikQE2nx/iwY/JpUEtldK3e/SCI1m
+ jxM6ZIvzlDVYF/nvfe37LanXSxyJIq2sloWsd7PGzWyz00BXBjgS2T+CiYMb5DcxBDPtdocdi2H
+ 7nBu+Ssj5st78Rw==
+X-Developer-Key: i=fred@cloudflare.com; a=openpgp;
+ fpr=CB341A8C566BB53C7BE339EDAB25B4760392D36D
 
+integrity_audit_msg() wraps integrity_audit_message(). Replace remaining
+call sites with the truncated function name. Then remove it since there
+are no more callers.
 
-After several rounds of review and Hongling's revisions, I think the 
-series is now in good shape.
+Signed-off-by: Frederick Lawler <fred@cloudflare.com>
+---
+ security/integrity/ima/ima_main.c       |  6 +++---
+ security/integrity/ima/ima_queue_keys.c |  8 ++++----
+ security/integrity/integrity.h          | 13 -------------
+ security/integrity/integrity_audit.c    |  9 ---------
+ 4 files changed, 7 insertions(+), 29 deletions(-)
 
-For the whole series:
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
+index 9e80f40680d7be08d14d26ba48ed334d4e4ab10c..bd9997b01633d6235fc2fcaa9bef1931d6ba7247 100644
+--- a/security/integrity/ima/ima_main.c
++++ b/security/integrity/ima/ima_main.c
+@@ -1196,9 +1196,9 @@ int process_buffer_measurement(struct mnt_idmap *idmap,
+ 
+ out:
+ 	if (ret < 0)
+-		integrity_audit_message(AUDIT_INTEGRITY_PCR, NULL, eventname,
+-					func_measure_str(func),
+-					audit_cause, ret, 0, ret);
++		integrity_audit_msg(AUDIT_INTEGRITY_PCR, NULL, eventname,
++				    func_measure_str(func),
++				    audit_cause, ret, 0, ret);
+ 
+ 	return ret;
+ }
+diff --git a/security/integrity/ima/ima_queue_keys.c b/security/integrity/ima/ima_queue_keys.c
+index b5ed33cbb272fdfaf7f5e945137c56e46e0d7db1..8adc8863ad5a540bf0c047ba47cc4817fcb46e9a 100644
+--- a/security/integrity/ima/ima_queue_keys.c
++++ b/security/integrity/ima/ima_queue_keys.c
+@@ -90,10 +90,10 @@ static struct ima_key_entry *ima_alloc_key_entry(struct key *keyring,
+ 
+ out:
+ 	if (rc) {
+-		integrity_audit_message(AUDIT_INTEGRITY_PCR, NULL,
+-					keyring->description,
+-					func_measure_str(KEY_CHECK),
+-					audit_cause, rc, 0, rc);
++		integrity_audit_msg(AUDIT_INTEGRITY_PCR, NULL,
++				    keyring->description,
++				    func_measure_str(KEY_CHECK),
++				    audit_cause, rc, 0, rc);
+ 		ima_free_key_entry(entry);
+ 		entry = NULL;
+ 	}
+diff --git a/security/integrity/integrity.h b/security/integrity/integrity.h
+index 2ab6b7e34e7ee2dd29ae03ae1fb45fa26d9c032a..52c5ec881cca468bde72c885cffa1c564877735e 100644
+--- a/security/integrity/integrity.h
++++ b/security/integrity/integrity.h
+@@ -221,11 +221,6 @@ void integrity_audit_msg(int audit_msgno, struct inode *inode,
+ 			 const char *cause, int result, int info,
+ 			 int errno);
+ 
+-void integrity_audit_message(int audit_msgno, struct inode *inode,
+-			     const unsigned char *fname, const char *op,
+-			     const char *cause, int result, int info,
+-			     int errno);
+-
+ static inline struct audit_buffer *
+ integrity_audit_log_start(struct audit_context *ctx, gfp_t gfp_mask, int type)
+ {
+@@ -240,14 +235,6 @@ static inline void integrity_audit_msg(int audit_msgno, struct inode *inode,
+ {
+ }
+ 
+-static inline void integrity_audit_message(int audit_msgno,
+-					   struct inode *inode,
+-					   const unsigned char *fname,
+-					   const char *op, const char *cause,
+-					   int result, int info, int errno)
+-{
+-}
+-
+ static inline struct audit_buffer *
+ integrity_audit_log_start(struct audit_context *ctx, gfp_t gfp_mask, int type)
+ {
+diff --git a/security/integrity/integrity_audit.c b/security/integrity/integrity_audit.c
+index 2dd2d7e3916e7bf35c753450315ff22e2d0292b7..22106aaeb0df21fef0990b80611dcd13cba112be 100644
+--- a/security/integrity/integrity_audit.c
++++ b/security/integrity/integrity_audit.c
+@@ -29,15 +29,6 @@ void integrity_audit_msg(int audit_msgno, struct inode *inode,
+ 			 const unsigned char *fname, const char *op,
+ 			 const char *cause, int result, int audit_info,
+ 			 int errno)
+-{
+-	integrity_audit_message(audit_msgno, inode, fname, op, cause,
+-				result, audit_info, errno);
+-}
+-
+-void integrity_audit_message(int audit_msgno, struct inode *inode,
+-			     const unsigned char *fname, const char *op,
+-			     const char *cause, int result, int audit_info,
+-			     int errno)
+ {
+ 	struct audit_buffer *ab;
+ 	char name[TASK_COMM_LEN];
 
-在 2026/9/15 16:32, Hongling Zeng 写道:
-> Hi all,
-> 
-> The fs/ntfs runtime metadata-corruption paths only record the in-memory
-> NVolErrors() flag, and the dirty-bit persistence used to race with
-> ntfs_sync_fs(): a volume could end up with a clean on-disk dirty flag
-> despite modification or recorded corruption, so chkdsk would not run on
-> the next mount.  This series fixes that.
-> 
->     1/6 makes the volume flag read-modify-write atomic under the
->        $Volume mrec_lock;
->     2/6 marks the volume dirty unconditionally on metadata changes,
->        dropping the racy caller-side checks in file.c and namei.c;
->     3/6 derives the on-disk dirty bit from the recorded error state at
->        the persistence points (sync_fs, remount-ro, put_super) and never
->        writes a hibernated volume;
->     4/6 persists the dirty state after the final put_super() commits so
->        late errors cannot unmount clean;
->     5/6 stops ntfs_sync_fs() from clearing VOLUME_IS_DIRTY: the clearing
->        moves to the quiescent transitions, a recorded error state is
->        still persisted at sync time, and sync now reports writeback and
->        flush errors instead of discarding them;
->     6/6 checks the dirty-state commit on remount and unmount.
->     7/7 ntfs: fail remount on sync errors and keep the dirty bit on
->        SB_FORCE
-> 
-> Changes in this revision, from the review:
-> 
->    - 5/6: with the clearing gone from the sync path, a recorded error
->      state is persisted without ever clearing the bit, and
->      sync_blockdev() and blkdev_issue_flush() are both called with the
->      first error returned.
-> 
->    - The IOCB_NOWAIT behavior and the per-operation $Volume mrec_lock
->      acquisition are outside the scope of this series.  The series keeps
->      the unconditional ntfs_set_volume_flags() call to preserve the
->      ordering that marks the volume dirty before the metadata
->      modification; a RWF_NOWAIT write still blocks in the marking when
->      the volume looks clean, as it already did on the base.  The
->      non-blocking and contended-lock handling (mutex_trylock, GFP_NOWAIT)
->      will be addressed in a separate follow-up patch.
-> 
-> Hongling Zeng (4):
->    ntfs: fix volume flag update races
->    ntfs: set the volume dirty bit unconditionally on metadata changes
->    ntfs: sync the volume dirty bit with the recorded error state
->    ntfs: persist the dirty state after the final put_super() commits
-> 
->   fs/ntfs/file.c   |  20 ++---
->   fs/ntfs/namei.c  |  24 ++----
->   fs/ntfs/ntfs.h   |   1 -
->   fs/ntfs/super.c  | 191 ++++++++++++++++++++++++++++++++++++-----------
->   fs/ntfs/volume.h |   4 +
->   5 files changed, 171 insertions(+), 69 deletions(-)
-> 
+-- 
+2.43.0
 
