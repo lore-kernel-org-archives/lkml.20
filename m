@@ -1,177 +1,103 @@
-Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
+Received: from mta0.migadu.com (out-17.mta0.migadu.com [91.218.175.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4978317557E
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:57:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FA8375ADF
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563465; cv=none; b=aTOGnOplxlWe+cZgIhDRf1QWEw2CaRK8xudh872nzTBCrwPtvNJXuBefAw02NGt7vs/Ek9AWlLlWSAUDwOr4QSRAWfTT+XMNIgagkJRFKCVw/eY8Vc3rHDEeFEpIdMB4lQci4Dao/i7M0vaUcAr/tI72RbHWCBj5XQehnkrR2YA=
+	t=1789563475; cv=none; b=f5fzf1LZHrz0vUp4US8En/gSMOhRjrPGCiqakLxEVa+0U8fEUMQFkE/7yRpyeev/p/uuRKs4LKrBMcjrL4Gh6/agx5qgZ2Wbwcstn5wzsjYq6aFPYPmWonDHdB3OIidLUN6ymrF99HiUdgYbLHrenngcgEKbHK64EnJCIn1fMTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563465; c=relaxed/simple;
-	bh=ALAoBp10WosS6M5BF145iCAdsHTQ4UWOwIDk/B+VOE4=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Kiy2pTn4KdDhfz07xRlYtSglaO8zixSCgSFk94NMQz8ofmq3JuiH7IvdgStWFam9+xKR83/wJ3gNaP1842Gdx76ncFXr7D6FGVYPapepZG5CsEOFmWF5HeWnACBdTjQ78hjZhJuKzBYPgXOjXT40kx6zIuOHmJJsXrVhZoU7+Sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4c112aaaee4so1834519b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:57:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789563460; x=1790168260;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qqOXltCLzmrKhZdKgvPqkXCy5qiS/WnyKMpTb+33Ndk=;
-        b=tQFba2TPxvcmjyRNGSxXblAY19Ulz718xWzlFBZLXxFmC5wliZkQFtJv1EV16t+xVq
-         QBn2MfEDin7hfiIgt0xLd46uP2G1PPwEhQN4NczhfBkfsAFLAoC6K270FaxI+AnaO3UI
-         Wy8Ilp/9skaMHnseguewEh3UJx2SXJ6WSkY6N8ahgWE7UI7YvI9Ut2IV5K6LdN6+gkkI
-         8/JYVlpJBpT6lYl4ehC0KRtN1EO4F3qOXv+QkhN6wHSj2oIKLUR0SOe5Xu5aiiMCUQFA
-         aWiJUJvVNFWd++Xid8djE+toMU4DGfE7/EwkVPtmmGDu9tptgnzfOb08KwIv8Q1XPHyx
-         FudQ==
-X-Gm-Message-State: AFuF++niCMlCJ035YAycNbATszZCaP1uqmycY5ul7OwE3EEzuTn3K802
-	9cTd3F6Kl/7z+s0k63VbMh8ZFSbkysgOFWFBsBfWMvmgad7iAjoNSdrOaNsOMZO9Q0jPL2G3cMn
-	lI5PRN01LQnebwKSdSVQ1HuC0YvLSFyidx2ez5NiqvpZwRvubdrfTjmnjmEb9Vg==
+	s=arc-20240116; t=1789563475; c=relaxed/simple;
+	bh=BDH6FArRRvE+3dLKSpGnjrGvHJG5nza7z7Yx6pA8U9k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bQisTG2VwXzmE3F6OhMRtn/HuW/DGEZn/LUC0O0YSgN1qS7U+LazhesGW0P2kalnCCJ77aEzjxrrbd6Nmk4XCrPJLpX269XxsFcaCLlwFehrorDB6lKHkrq7WE8TC/sYLyPfgMf446CFgy8XcqMA1KMjHwLJeoa98bjPfAuxhWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=s4Xh1WSK; arc=none smtp.client-ip=91.218.175.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="s4Xh1WSK"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BDH6FArRRvE+3dLKSpGnjrGvHJG5nza7z7Yx6pA8U9k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789563470; v=1; x=1790168270;
+ b=s4Xh1WSKdwOjNiQ8eD0NOLf522d0JY13f4oPJlpsW/yoG+ECbe6bVXYYjNdsKMjoa+4HUrIC
+ SZxDRESXo6Zf5xczH0y5JQBQKRdMm8kvxf7f3dXlhegtYFqjFzJuph7imecyqVUxmqjvIkDq3OT
+ aUEOCFwY5HYtVpxkzrNf/4tY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 13d5477597e6c301;
+	Wed, 16 Sep 2026 12:57:50 +0000
+X-Mizu-Trace-ID: 13d5477597e6c301
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: hannes@cmpxchg.org,
+	mhocko@kernel.org
+Cc: roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	muchun.song@linux.dev,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [RFC PATCH 0/3] mm, memcg: isolate deprecated v1 state from struct mem_cgroup
+Date: Wed, 16 Sep 2026 20:57:34 +0800
+Message-ID: <20260916125737.1095414-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1488:b0:4c4:3997:ef2f with SMTP id
- 5614622812f47-4ca4a3fe0dbmr2789797b6e.17.1789563459887; Wed, 16 Sep 2026
- 05:57:39 -0700 (PDT)
-Date: Wed, 16 Sep 2026 05:57:39 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aaa9243.e91c2013.3bdb06.0000.GAE@google.com>
-Subject: [syzbot] [raid?] kernel BUG in find_zone
-From: syzbot <syzbot+50f9bc7ab8eb224b7629@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
-	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Tao Cui <cuitao@kylinos.cn>
 
-syzbot found the following issue on:
+The legacy cgroup v1 memory controller has already been moved out of
+the shared implementation at the file level (mm/memcontrol-v1.c) and at
+the Kconfig level (CONFIG_MEMCG_V1, default n since 6.11).  Its
+per-cgroup state, however, still sits as individual members inside
+struct mem_cgroup, guarded by #ifdefs.
 
-HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=100769f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=50f9bc7ab8eb224b7629
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
+This series isolates the deprecated implementation from the shared hot
+structure: all v1-only members are grouped into a dedicated
+struct mem_cgroup_v1, and every access goes through memcg->v1.X.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+With this in place the v1 implementation is self-contained: its
+interface in mm/memcontrol-v1.c, its state in struct mem_cgroup_v1, and
+its eventual removal becomes a localized deletion of this struct
+together with mm/memcontrol-v1.c, instead of unwinding
+ifdef-scattered members across the shared header.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-50d05c7c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/303a0ade8f9e/vmlinux-50d05c7c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/70b8ca71442b/bzImage-50d05c7c.xz
+Patch 1 introduces the substruct behind a transitional union whose
+anonymous side preserves the historical layout, so the patch is
+semantically empty.  Patch 2 converts the access sites and drops the
+anonymous side.  Patch 3 documents the boundary.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+50f9bc7ab8eb224b7629@syzkaller.appspotmail.com
+This demonstrates one possible pattern for isolating deprecated cgroup
+v1 implementation from shared structures.
 
-------------[ cut here ]------------
-kernel BUG at drivers/md/raid0.c:318!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 1 UID: 0 PID: 8386 Comm: syz.2.584 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:find_zone drivers/md/raid0.c:318 [inline]
-RIP: 0010:find_zone.isra.0+0x129/0x150 drivers/md/raid0.c:305
-Code: f9 48 89 e8 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ef e8 a2 00 fe f9 e9 79 ff ff ff e8 c8 bf 8b f9 90 <0f> 0b 48 8b 3c 24 e8 8c 00 fe f9 e9 04 ff ff ff 48 89 df e8 7f 00
-RSP: 0018:ffffc9000557f090 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: 0000000000000001 RCX: 0000000000000000
-RDX: ffff888022b34b00 RSI: ffffffff887fa208 RDI: ffff888022b34b00
-RBP: ffff888042790b18 R08: 0000000000000004 R09: 0000000000000001
-R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000001
-R13: 0000000000000000 R14: dffffc0000000000 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888096a60000(0063) knlGS:00000000f53fdb40
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 0000000033863fff CR3: 0000000070ae4000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- raid0_map_submit_bio drivers/md/raid0.c:568 [inline]
- raid0_make_request+0x299/0x1660 drivers/md/raid0.c:626
- md_handle_request+0x824/0x1230 drivers/md/md.c:417
- md_submit_bio+0x1e9/0x350 drivers/md/md.c:458
- __submit_bio block/blk-core.c:681 [inline]
- __submit_bio+0x20e/0x3d0 block/blk-core.c:670
- __submit_bio_noacct block/blk-core.c:724 [inline]
- submit_bio_noacct_nocheck+0x736/0xc00 block/blk-core.c:792
- submit_bio_noacct+0xc93/0x2130 block/blk-core.c:925
- blk_crypto_submit_bio include/linux/blk-crypto.h:212 [inline]
- __bh_submit+0x7ce/0xaa0 fs/buffer.c:1132
- bh_submit fs/buffer.c:1146 [inline]
- block_read_full_folio+0x496/0x8c0 fs/buffer.c:2373
- filemap_read_folio+0xfc/0x3b0 mm/filemap.c:2520
- do_read_cache_folio+0x2d7/0x6b0 mm/filemap.c:4156
- read_mapping_folio include/linux/pagemap.h:1015 [inline]
- read_part_sector+0xd1/0x370 block/partitions/core.c:724
- adfspart_check_ICS+0x91/0x7d0 block/partitions/acorn.c:357
- check_partition block/partitions/core.c:143 [inline]
- blk_add_partitions block/partitions/core.c:591 [inline]
- bdev_disk_changed+0x7b1/0x1260 block/partitions/core.c:695
- blkdev_get_whole+0x187/0x290 block/bdev.c:793
- bdev_open+0x2c7/0xe40 block/bdev.c:1002
- blkdev_open+0x34e/0x4f0 block/fops.c:674
- do_dentry_open+0x6ab/0x14d0 fs/open.c:996
- vfs_open+0x82/0x3f0 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x19fa/0x2440 fs/namei.c:5000
- do_file_open+0x20e/0x430 fs/namei.c:5029
- do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_compat_sys_openat fs/open.c:1485 [inline]
- __se_compat_sys_openat fs/open.c:1483 [inline]
- __ia32_compat_sys_openat+0x12d/0x210 fs/open.c:1483
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf700efec
-Code: Unable to access opcode bytes at 0xf700efc2.
-RSP: 002b:00000000f53fd50c EFLAGS: 00000292 ORIG_RAX: 0000000000000127
-RAX: ffffffffffffffda RBX: 00000000ffffff9c RCX: 0000000080000300
-RDX: 0000000000004002 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000292 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:find_zone drivers/md/raid0.c:318 [inline]
-RIP: 0010:find_zone.isra.0+0x129/0x150 drivers/md/raid0.c:305
-Code: f9 48 89 e8 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ef e8 a2 00 fe f9 e9 79 ff ff ff e8 c8 bf 8b f9 90 <0f> 0b 48 8b 3c 24 e8 8c 00 fe f9 e9 04 ff ff ff 48 89 df e8 7f 00
-RSP: 0018:ffffc9000557f090 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: 0000000000000001 RCX: 0000000000000000
-RDX: ffff888022b34b00 RSI: ffffffff887fa208 RDI: ffff888022b34b00
-RBP: ffff888042790b18 R08: 0000000000000004 R09: 0000000000000001
-R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000001
-R13: 0000000000000000 R14: dffffc0000000000 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888096a60000(0063) knlGS:00000000f53fdb40
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f5315ff4 CR3: 0000000070ae4000 CR4: 0000000000352ef0
+As a validation detail, this does not regress the layout: the member
+order is preserved, so offsetof(struct mem_cgroup, v1.swappiness) and
+sizeof(struct mem_cgroup) are unchanged (verified with pahole), and the
+generated code of hot paths such as mem_cgroup_swappiness() is
+identical.  Build-tested with CONFIG_MEMCG_V1 both enabled and
+disabled, and boot-tested with both a v1 and a v2 hierarchy.
 
+Tao Cui (3):
+  mm, memcg: introduce struct mem_cgroup_v1
+  mm, memcg: move v1-only members into mem_cgroup_v1
+  docs: cgroup-v1: note the v1 memory controller implementation boundary
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ .../admin-guide/cgroup-v1/memory.rst          |   7 +
+ include/linux/memcontrol.h                    |  74 +++++------
+ include/net/sock.h                            |   2 +-
+ mm/memcontrol-v1.c                            | 122 +++++++++---------
+ mm/memcontrol-v1.h                            |   4 +-
+ mm/memcontrol.c                               |  22 ++--
+ mm/swap.h                                     |   2 +-
+ 7 files changed, 121 insertions(+), 112 deletions(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+-- 
+2.43.0
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
