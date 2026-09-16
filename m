@@ -1,144 +1,77 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BE33BE146;
-	Wed, 16 Sep 2026 06:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9405C3B6C1C;
+	Wed, 16 Sep 2026 06:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541118; cv=none; b=k7LUtZxJC9I09oJpCy8Yb0QFfFR8PBmWl9qhOucCYOmveAMqeo5EQKHVn21aAA4Y1eKnoGGERWPopko2iHJ6ufRkrbOjeuyFSmx2633+96UAEtq2CB3MFq3Hn4EgIgHvDMqmNZSwc1MKa1F/YcYImY465+zGsu0EyobaUb91y6g=
+	t=1789541159; cv=none; b=IDQGEr1VJk2RfrCY9ikhr24jZ0ybXB8QLoSaMGNGXhFX3QwB/amsAFjdXWaMX8bWHM+J9+pB1wT5b7qIZoOhj/OOagDwlLdS9sJKmyhVtaSq9vP8r3GSCkdSZKmAt5Z+oCfs8b9HT/3yzlb9VUG762aoVwSdmcWY6tCVn9pqSZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541118; c=relaxed/simple;
-	bh=M+Dy4hfdzKr1mC3pzwMJT0ZQBgMsvSHf4Z0mHzxQnL0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IVnt+vXHfFMjvY3o6HlBDutKWtSUcldKronLSm1SKZwiYv3qXDyxQANZz8xW1/XCcfRVTr6fjaF7vUyS3Zz7cLO9vm1NgAXdl76aLPHHrXYKelRlRGJw5AOG8sucwc3aMuspUSU1ekT9rBb78FeW92wTQOfDOqwk4xr10pBR5hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=DnXOpwgv; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1789541159; c=relaxed/simple;
+	bh=BzW1oySvud/ZXuyh8JK/hcMCRQXT2M+0osiULR2aS6w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AIDme61v4IOq5LQpZcvt0Tq+JY8xCnEMwsg3JeTQFl8xelJaWtSggf3bkK6L89yax72obUyHB2kwwJMi9lYoSwtLNAVC56xVUa7IUOctkV/58VOTOiue/z49qUxTIQMS8IAtZQ5r426vi1GAN/4GvTaxIkODnNCzpqBtNZzqhIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ACAVyIFh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="DnXOpwgv"
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id 90DC240B5A;
-	Wed, 16 Sep 2026 16:45:06 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1789541106;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=M+Dy4hfdzKr1mC3pzwMJT0ZQBgMsvSHf4Z0mHzxQnL0=;
-	b=DnXOpwgviacP2DhK2BYPRRrVyAIkSBt3eDumbyDy01rnRZwe63pGxFi3W4jlRmMeiSnnNf
-	10o9KN5ENRAjkCFq3eDiz2dfrwqhLg0av0ilv1uz7MbEqJb38ejgYcn3DBRvqsGr2GlHTH
-	PU999QCMrh0GHivRTeNnX3J9WG1CI8u6k9WFeaJ58KbpT+rkysguz8bKTgtwvTv76b6Iho
-	vK1vVUKmPV2Lv9PrbPD/u6Gvt83tC5ZsWH0fsYugJfCZzLSoXD8jbTM/UyhFAfODn9r8Ae
-	RJzMAH7c75wK4JH60HGaIShrKtjNjhLQ8bZ9Vz9SkO1llGJfv2nmLFdPzNkxeA==
-X-GPT-Reason: legitimate; the email is a technical discussion regarding
-	a Linux kernel patch (net-next) which perfectly matches the technical
-	content of a developer-focused mailbox; the sender domain (d-silva.org)
-	aligns with the personal mailbox (alastair@d-silva.org), and the
-	content includes a specific code diff and a link to a reputable
-	developer platform (lore.kernel.org); there are no indicators of
-	phishing, urgency, or unsolicited marketing.
-Message-ID: <4404f56f441a4f61e01ebde721ca0220cc96a948.camel@d-silva.org>
-Subject: Re: [PATCH net-next 4/4] net: stmmac: dwmac-sun8i: Add Allwinner
- H616 EMAC clock index and internal PHY support
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn	
- <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Russell
- King	 <linux@armlinux.org.uk>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>,  "David S . Miller"	 <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski	 <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,  Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, James
- Hilliard	 <james.hilliard1@gmail.com>, richard.genoud@bootlin.com
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland
- <samuel@sholland.org>
-Date: Wed, 16 Sep 2026 16:45:06 +1000
-In-Reply-To: <579d7650-583e-49bd-aa51-02fc52940ea1@bootlin.com>
-References: <20260916044119.475666-1-alastair@d-silva.org>
-	 <20260916044119.475666-5-alastair@d-silva.org>
-	 <579d7650-583e-49bd-aa51-02fc52940ea1@bootlin.com>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ACAVyIFh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15BE01F000FF;
+	Wed, 16 Sep 2026 06:45:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789541157;
+	bh=taOEqL4siH3lxxx1UH5RkTc6W3vPtQoc/t7GJVuIGJw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ACAVyIFhrftw/R6xa50icqAmL7UozbxRjlWRNvte13eswSGg7vgO0zg4mULqhyL2c
+	 iHCohyHxSHLyx5BlFuNe9obKCSnmsSGkSBUe89qjqvD9DFYidFmCKBv/eSv+ymQY8H
+	 mYdjt2/FWhqv8ofu4DF7EvbDkBSENNeoJfdkFMcoKM3W3nX46eQ8+lRPR41FAfmS6i
+	 88iNrayH1la8aNgoWASgJBIV3E9T42k2tE/SWZJRkb9HS+8JNdgLVfYu+tOWj1pPg4
+	 RCeXpfdsNs2YvvFUIbtO1AR0DJopyl0HLhV24eckCwHuX6KfLcY0QQ8k0q9HX8tucX
+	 /2rLyzN9JYGNw==
+Date: Wed, 16 Sep 2026 08:45:46 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+Cc: linux-arm-msm@vger.kernel.org, Jeff Hugo <jeff.hugo@oss.qualcomm.com>, 
+	Jeff Johnson <jjohnson@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Eric Dumazet <edumazet@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+	Willem de Bruijn <willemb@google.com>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, Mihai Moldovan <ionic@ionic.de>, 
+	Denis Kenzior <denkenz@gmail.com>, Marcel Holtmann <marcel@holtmann.org>, 
+	Andy Gross <agross@kernel.org>, linux-kernel@vger.kernel.org, mhi@lists.linux.dev, 
+	linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, ath12k@lists.infradead.org, 
+	netdev@vger.kernel.org
+Subject: Re: [PATCH v7 01/15] net: qrtr: ns: validate msglen before ctrl_pkt
+ use
+Message-ID: <uo3sk7ygezaysxs3xgizspx6usbtin63rrpoc42l2jp4yxrii4@2jcof2iillbd>
+References: <20260915054207.2513877-1-juha-matti.tilli@iki.fi>
+ <20260915054207.2513877-2-juha-matti.tilli@iki.fi>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260915054207.2513877-2-juha-matti.tilli@iki.fi>
 
-On Wed, 2026-09-16 at 08:24 +0200, Maxime Chevallier wrote:
-> Hi,
->=20
-> >=20
-<snip>
+On Tue, Sep 15, 2026 at 08:41:53AM +0300, Juha-Matti Tilli wrote:
+> From: Denis Kenzior <denkenz@gmail.com>
+> 
+> The qrtr_ctrl_pkt structure is currently accessed without checking
+> if the received payload is large enough to hold the structure's fields.
+> Add a check to ensure the payload length is sufficient.
+> 
+> Signed-off-by: Denis Kenzior <denkenz@gmail.com>
+> Reviewed-by: Marcel Holtmann <marcel@holtmann.org>
+> Reviewed-by: Andy Gross <agross@kernel.org>
+> Signed-off-by: Mihai Moldovan <ionic@ionic.de>
+> Fixes: 0c2204a4ad71 ("net: qrtr: Migrate nameservice to kernel from userspace")
+> Signed-off-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
 
-> > =C2=A0.../net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 65
-> > ++++++++++++++++---
-> > =C2=A01 file changed, 55 insertions(+), 10 deletions(-)
-> >=20
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> > index 48c52eb96233..1728893589a6 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> > @@ -130,6 +130,16 @@ static const struct emac_variant
-> > emac_variant_a64 =3D {
-> > =C2=A0 .tx_delay_max =3D 7,
-> > =C2=A0};
-> > =C2=A0
-> > +static const struct emac_variant emac_variant_h616_internal =3D {
-> > + .syscon_field =3D &sun8i_syscon_reg_field,
-> > + .soc_has_internal_phy =3D true,
-> > + .support_mii =3D true,
-> > + .support_rmii =3D true,
-> > + .support_rgmii =3D true,
-> > + .rx_delay_max =3D 31,
-> > + .tx_delay_max =3D 7,
-> > +};
-> James's series [1] says this SoC only supports RMII (yet includes
-> RGMII timing
-> control), and here for seemingly the same device, there's MII and
-> RGMII
-> support listed.
->=20
-> [1] : https://lore.kernel.org/r/20260915-submit-h616-emac1-v1-v1-0-
-> 195de0bb1f8a@gmail.com
->=20
-> Maybe you can coordinate with one another, can we connect that SoC to
-> a non-internal PHY ?
-> If so, can we use MII, RMII and RGMII ? or is it just RMII ?
->=20
-> Maxime
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-I just double checked, MII & RGMII are bogus.
+- Mani
 
-Only EMAC0 can be connected to an external PHY.
-
---=20
-Alastair D'Silva
+-- 
+மணிவண்ணன் சதாசிவம்
