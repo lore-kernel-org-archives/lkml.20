@@ -1,125 +1,103 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40813349CD2;
-	Wed, 16 Sep 2026 05:54:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789538079; cv=pass; b=QURu86YAYrvyBmfc0bKUOi8UV09oiZVi7fgeiEzQonpHkI3QpZzWRMJLHSbmWu3b0ecIKl9AMY+U55IoEby3MLW6iQRrn3V0AU9r7JuohgOtXsxZ19NLAo5kOVoAtbBYcfY5viVNOIWhdGJFsmOqPyExle3fgRd29fVHh07WP84=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789538079; c=relaxed/simple;
-	bh=7VPxp3B1Gl7oiT9mE1PYkfCbPRVbxVtu5CKXvqFiiEg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=GkLXsli+ZUkjXbw9O7VS3sjJugKLdn/FuKfDsXWIWLwoJPYcoiw+qAOzxLAT5AmczN6hAH575ycT89DuxON6cLxhVsD3p6v8xtDJ0GpqtstUPypCJ4QkNq9SZlMq722i3TRbqyFtACXqH8JL8sj3hfin5j+HPJGWpD5fyhTZR8M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=HCAAZXI/; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050943D969E
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789538111; cv=none; b=AEESLtOdfIcYb3k7HbtafJYsHVD7oYnCfMMTxY47WFG50I/hUNyLYhM2YaP1mbdhiSlDVZo2ODCQQkYZPmEcEAvKKEuyLUyjgsf4YmAzDIqPYsO4zLSa/K8/HwuMrxJjqWF4nuL8M57pTKKNCuzo6V//iPSpAqCmqJrPSoigk3M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789538111; c=relaxed/simple;
+	bh=JWWAPKswe9q6Q9rRu4uHaMyOLQMOHOHGC34gBz7wUMk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wz+mrFefrWOm/C5IC40JQh8C0cevxtp9FFuZifNVYje/G1D5+3w0Up/aIkFQYeePqMR2bs6oB/tzomxZLf/+hD35WD8cGiRfeYm3EKxvWhgTC5S+cHYc0a2hQkhOMSbbebhZLRNup6jXaGAKGU4xNCkIC3V+SFF9MJsUVD6cyZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WT5s+uWQ; arc=none smtp.client-ip=74.125.231.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="HCAAZXI/"
-Received: from fauth-c1-smtp.messagingengine.com (fauth-c1-smtp.messagingengine.com [204.75.18.200])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: jmtilli)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4hl7PW59MvzySb;
-	Wed, 16 Sep 2026 08:54:23 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1789538064;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qDqC/HPIfNfvuSsx83zdPTK1F3wWfSW0i1ycVhcmCBM=;
-	b=HCAAZXI/Wpif8qdTPcazQMbYWKUAl5VI2+yYU+JQNH4oNi5B8MZj6gOVN7wwgHyftTUdh7
-	gCkys/esi6FEwiBujajjzEy+EQm0Bsj+t2YoJBjscTl0DyMypEsfKVi34qfPvaCD3igsPE
-	1kNKok/SMZfWxrVjisF0hfUtUsShptE=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1789538064;
-	b=hKAl6R1RE1iXdFlgUsVWvEObXGGuZfu60UMna/ZHkX/YEVMKYt/AMrjeo08F6QS27yAz4P
-	z4ei9pcHVJe/UUGrM+jqEP6+El9wa6TxvhjoWmda7wPP9Ezi49N6OBCEsAkp4xoZZuQd9u
-	B+jlLjGypqt3uqAUrDwa6w0AIR6ZO+E=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1789538064;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qDqC/HPIfNfvuSsx83zdPTK1F3wWfSW0i1ycVhcmCBM=;
-	b=FlBRQ0zaq3tb0dpIKK/4nT0ORKOObw+xrmc9GLb3rr8h3wrcwMXEJeMW61SFWZebrsSnLO
-	b/K5mhksGcz/STICoRfWzfhS2JeVvxRJosVN0VmG6uEZryo7A5Nb88sVcD8hgl+4d2B5Gw
-	YAb28scRPtbyNmPabJqrNKLmqRNGips=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id AFA631980052;
-	Wed, 16 Sep 2026 01:54:22 -0400 (EDT)
-Received: from ams-imap-13 ([10.64.2.33])
-  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 01:54:22 -0400
-X-ME-Sender: <xms:Ci-qaiVMZFrwdhS6C9HxvFDOVM1z7iEPVeRkndxuakxpeiJivwQj1w>
-    <xme:Ci-qapZ9yLxHQ17k9xfIEjOdRk2zoiWaI8XbFeuvGxn-cbBVeTpn4vCMBqUji-znW
-    CGYEhlYZEPz9L65fL_Tk6fEwJf4d6a5PfEfxn-SmuPClQOLCOUR3tM>
-X-ME-Proxy-Cause: dmFkZTFURl2j0nXvDHDFYLB7Kc+qfRb/Fq1qdvpzuJNk/3e2E1JHui3UrZE2VVvNddZf0L
-    AV+TGoBl78YpaIVHnJMdDQ8JVuQRdwMk0ewqpfwEVJpON9+YKqDH46FGTGp61wWV9FUYo2
-    tq0G1TVu87vq6gu7WcV8CB4hgF664wxci3tFrqEpBBUMG5WXorW2TBjPn7BbZdxr5xUG7C
-    VGJpJKBuATFkQ8KsQSW66ZneIGPc/PPlCM2g0XToXhlSEKvDrRVQwodzgxylrwEY/y6igV
-    wbxdvsH7P2/gjvN+sa4VkEKZDNsdDMBhkXnq753Mw4f5Rc6MJgLMLRy2Q4G6r6pHj1rYgr
-    eE9tSoRaQUX4PdPnsQfVu2TZWA6r8y5LQNgn7lo/oYeoyrYYDjeovh1ZwXulgY2sEQ9iR9
-    2CBFaoEUlG0IsaOZ3POI6GNbqFs60exacJTRvCu/Of1zSQ27QEZ5xREUGufsA5j1RTslOG
-    jtSCiNQszBaNYBL+qTI8/H+mRwmnnS5hGUoucWdw5iMfBBB4FuMuE1W2SV4sN6uT8B/Vv3
-    kBWFvsNBo9ghedWk4NVGo8cysHntLdXoKXDMjZlRm9+OVPVHu3E969U0QHq5idi1R3KVkQ
-    9bu4yut1tEIRC+LNrpKcNznJPjANnuAJffWPPk2l267rGz7fr/TMOzTt/npw
-X-ME-Proxy: <xmx:Di-qaqeYe2x73OWTcAcE491AYG93_x69Z7OpMpdf-ocooh8qhKHosA>
-    <xmx:Di-qavoaA8fBPZN0i8hK9fCidfw_4DX4GKTupUahuJNF1-4xrxWs5Q>
-    <xmx:Di-qaqM--IBv2Nx_o4CEo_nVHw6-hmJ2Pu6QKGCbivBSEgU7Y1vpvQ>
-    <xmx:Di-qalFM32JGM2h9BDCVcFQWRXgl7eD23GD8pUW8fMzuS8S8i20dMQ>
-    <xmx:Di-qatGQmngdPE7_ClIkJL7y96JNuN8MQuDKDH2EZ96u8SXRu4gedR_O>
-Feedback-ID: i02414972:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id CA2CFF80089; Wed, 16 Sep 2026 01:54:18 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WT5s+uWQ"
+Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-7f748fe2947so2254714a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:55:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789538109; x=1790142909; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MqFU5BpLPG1Ad79y0zq7m4k9RGfhTKwi6mVEHKHgkMk=;
+        b=WT5s+uWQ8yhFW4GKyGzc1gE+2OW6sK12rALqMj9Iohnm/qdXfxUNGmV1+34zi9sf9N
+         kK8c9dmxNwGpZbZ1rH7UoHLjz8rkzs/UwABII3XT5xc8/ylxqrN82kmAooKKYjVYyo/U
+         8fhP5WuGK72jbLLG21o8dirPzUfaqAN/pmA3mCaNL1+ZUgr9Ho41gtrFIQMpIhmsJw68
+         DchcETbQNl+w+KZ2kmYmJEnWSOl26DJLDJaehHcqtPjh+9/QKvuIAKQzLm/mLlEHipQy
+         6w7Nd3DmWvAu5pcqScm7IHm7ZNMo+ZecALQVZHM+ntOuD+/iXLBN8NPRIHEAeCh9c9to
+         mBqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789538109; x=1790142909;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MqFU5BpLPG1Ad79y0zq7m4k9RGfhTKwi6mVEHKHgkMk=;
+        b=nZT5nRgk0YjmClBp2N8trAFdGg4WPp+iiHgWRIbZdGR/IMZCrw2aTSiO3B+6LFf5YO
+         gajf+LOE6N4Z8voOWULG3YABk+Hk78rL2/I5KH8RW/o1GQsyHFloo0pd51YaJIFZYA9N
+         AkFGy/7bkfyXpXe6P0rMqyLaFiNIY/TKDJIuKDDVlAXhsvWLyrj9nvI55E9uSu8vMUim
+         HFBwtCkyYZI7qLGwHHz17l3Xib3JzeShCstwN86zLv+LXV2CFKX5kdy52tD8dRY+2HqB
+         GocC54XuE/ugyppaotZLoM1xQns7HMThgileirJxchwxqZXiODWYh+22wdoW0289g1z1
+         SHmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBylXlVRW808ukWD2b4MOrHCEi3fOz+JL4nrBey3fd8F4x5FbwCBsItiCX7tc/7XOBDiUjM4Ox6Bji30itI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kN+plodiEBEK6QQ1C68GqbPJUcqLJqFKfgFdH8q5l5ez27hoo2
+	nR4slE9yed/Vmai7TLIe7pNHZNNKPkboCu3hJPXAVUoOZ5Iu27qH6X81
+X-Gm-Gg: AYBFou33W+bGK161jhkrtXoa0ZWYq345MkojaYgKRNHdNyGOFfs3uiDdvrXgOny6kJN
+	xM8tBzFID12TFQ9TF5SXlfHkjiHKenTfLtxctAavYDPxgYOsQezx+PQaiog/USg29RTVLEbFXR6
+	rKiZBfw8O9Zd+SJvwbO4LhToKlNgKBfLQ0+XhhPboYkxCvnmTN+7jVxBHIxiKdV40QefW6W94uH
+	uKQ70fyer9kNqeH3LURq+Iu9StifCsa1klYp5mbB6+FQAcyy73Jrv0n4JJ7htOJ3XbPjRN9HDDQ
+	EcQbpOBb2eTIGwUmxcq2sfHyuI13UvNK2DVzvqsDg1d+ju0BJjOoBIVOOYIskH61o+u0oakmZ+O
+	Yve+0+KmuAmN5cCHsn6mF4E0KuezkL/eG9ESIL+EOI5/lfI+iGLd4+F2a9GxKVEOjgrdnABCLdz
+	57F1FcB2W5l/DrUI+AyYVC+9VfLyPYWEe4keXQR+9+Rwbbb0BqBBgKEd27Hvx5toypQ5wuMBszv
+	2YcI/93ojqrkcw3
+X-Received: by 2002:a05:6820:188e:b0:6b3:f4b8:bb86 with SMTP id 006d021491bc7-6c7d1bc852cmr1410414eaf.22.1789538108821;
+        Tue, 15 Sep 2026 22:55:08 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c7a78ac1c6sm1949699eaf.13.2026.09.15.22.55.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 22:55:07 -0700 (PDT)
+Message-ID: <b9a58aac-4a49-43ed-93f9-32c295609312@gmail.com>
+Date: Wed, 16 Sep 2026 00:55:05 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A0bevnK5BUW7
-Date: Wed, 16 Sep 2026 08:53:26 +0300
-From: "Juha-Matti Tilli" <juha-matti.tilli@iki.fi>
-To: "Jakub Kicinski" <kuba@kernel.org>
-Cc: "Manivannan Sadhasivam" <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
- "Jeff Hugo" <jeff.hugo@oss.qualcomm.com>,
- "Jeff Johnson" <jjohnson@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>,
- "Eric Dumazet" <edumazet@google.com>,
- "Kuniyuki Iwashima" <kuniyu@google.com>, "Paolo Abeni" <pabeni@redhat.com>,
- "Willem de Bruijn" <willemb@google.com>,
- "David S . Miller" <davem@davemloft.net>, "Simon Horman" <horms@kernel.org>,
- "Mihai Moldovan" <ionic@ionic.de>, "Denis Kenzior" <denkenz@gmail.com>,
- "Marcel Holtmann" <marcel@holtmann.org>, "Andy Gross" <agross@kernel.org>,
- linux-kernel@vger.kernel.org, mhi@lists.linux.dev,
- linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
- ath12k@lists.infradead.org, netdev@vger.kernel.org
-Message-Id: <da6003cf-515b-4d97-8059-3f4553d0251d@app.fastmail.com>
-In-Reply-To: <20260915154705.67cfb94f@kernel.org>
-References: <20260915054207.2513877-1-juha-matti.tilli@iki.fi>
- <20260915154705.67cfb94f@kernel.org>
-Subject: Re: [PATCH v7 00/15] QRTR Multi-endpoint support
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
+To: Nickolay Goppen <setotau@mainlining.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
+ <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026, at 01:47, Jakub Kicinski wrote:
-> On Tue, 15 Sep 2026 08:41:52 +0300 Juha-Matti Tilli wrote:
-> > Subject: [PATCH v7 00/15] QRTR Multi-endpoint support
-> 
-> qrtr usually goes via core networking tree.
-> Please make sure you base your patches on net-next/main
+Not sure if I was supposed to reply with the trailer again, but to the 
+individual patch, or if I should leave it since I already messed it up 
+in the thread, so I hope I'm not doing this wrong:
 
-https://github.com/jmtilli/linux/tree/netnextmain_multi_qrtr_v8_multi_ath11k_ath12k_v5
+Tested-by: Ryan Brue <ryanbrue.dev@gmail.com> # Amazon Fire HD 10 
+(2017), boe,tv101wum-nm0
 
-That will be the next version. I'll wait for a while to see if other
-review comments pop up for v7, then I'll post v8. At least the
-current v8+v5 QRTR works just fine on my multi-card setup.
-
-BR, Juha-Matti
+Best regards,
+Ryan
