@@ -1,117 +1,346 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C583448BA8;
-	Wed, 16 Sep 2026 07:35:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE63445AE7;
+	Wed, 16 Sep 2026 07:36:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544166; cv=none; b=UxBmm9A/6Kkx2Gm2M09M4/R+yQKCsCKsIc82VKF+Vb4itsUx1H6IKgNiZgXzvo4t1EB71qvneyT9I7vrZSgTQGVREHk0NELb/ypPpNYBM0UmL/FzWvaGFvon0Vc82yhgAt8IRREE1tTEcE+eW0XHXo+WwB6cr89YwVp04uhDkvk=
+	t=1789544215; cv=none; b=cLu1+sC79XG+NjDDQOx9Hymw15fpP7VJ4dTaZ6gye165Fd8dT/pGOtKo2QFFmlQHL5MGrgi/g777xjAhVCuyWlr3o3xydWGI41k3bxPOpUrD8Wtez7xbfemWmC9khM8CDgzj346mYK1jTcJmANJAmJ0iwfgy1ZWjp6vplhWVIiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544166; c=relaxed/simple;
-	bh=GkzRMnHLUAmW3pw+F+QgiPFULxg/81kYYY7dmuCPp9U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m+4/pQ+Zb8UxKT59Ehvz1qZhLIjSIwuAiQZ+V1W6ZCZO0dIFpg0V/5zGM5T7wX7un/RbfY/hh44JbhRWBu5MKGlDfWc0lkMILTV/m/hLAgQPck8nG8V37iSqafY1eiVFDKPmEiEd2EUC9lhMb+hn6VFUeJqTVDnZEyWri9LUjQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZtTpbNLU; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789544215; c=relaxed/simple;
+	bh=jXs8L3ntwn+sux+3+z5thlN4+/HInoBh3H22H7HxkJw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aU544TG6pSgsS9ZZxvhabHoOjVhpysf1TBXJ5kS6ncoZfn6g+UUEhpWcky4OKqlmzgJTWr0ff4fMr4fLkYqPOZpAMcG02bn98kMHxqlh6hltxTjxSTarja+xmg337sLrEqP0VQQZZEZgqzC3XTMmqTmCqA/3LrvjpXOd+vubogY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=c+qUPlNI; arc=none smtp.client-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZtTpbNLU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789544149; x=1821080149;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GkzRMnHLUAmW3pw+F+QgiPFULxg/81kYYY7dmuCPp9U=;
-  b=ZtTpbNLUgmgo63ZMEqbwtHA8YhY3XW6BCAoZO2Kp2sGhPhVm0mipgZ7z
-   Z0d5ooc/7EP9Z4LUWLYQqHRita9Gonf+EyC4u+4Ms1wVyp0uaSk2z/KU+
-   vYTwjXVmkunH1vKIYGn5hl6Rx1pNk2Hxd4NN5WegMXaPiUkPzDRoT6Oty
-   XqJEBLTQUtS6FC18ZTGvMgr0+YmMJPpnsS7/lgMXv8llFTgCuD1cQFpYK
-   J2XUAHQwk815rHP48b+Jom46hktlSPiMLyDj6eS+HGIAegysAXRvda3Vf
-   WXuNqzFhww1PMoQXfVPD08F8VhA20NfEMoN8xNHNjgSMVD6tZpKEWEL2Q
-   w==;
-X-CSE-ConnectionGUID: mgO986L7Riem/cLgPbKw1w==
-X-CSE-MsgGUID: 5Uad1/FiS2KF6tykk3DA7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="88851660"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="88851660"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:35:45 -0700
-X-CSE-ConnectionGUID: GSN9yJVbRO2xpOZsPAj3VA==
-X-CSE-MsgGUID: VOs25VG+S32ijjFd8p0pTA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="267043796"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:35:41 -0700
-Date: Wed, 16 Sep 2026 10:35:39 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: stm32-adc: fix possible division by zero in
- processed channel
-Message-ID: <aqpGy9oQkDC-xZGW@ashevche-desk.local>
-References: <20260915-adc-fix-div0-v1-1-7daed9e52f2f@foss.st.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="c+qUPlNI"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789544188; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=5N6y73todGFEjw3G4hd08Cd9oQ/mDIgtZzl2iNBZx1c=;
+	b=c+qUPlNI1jdxZLLQqEZeJRMXdvItqItUcPweYEjQRJn0sN+anwuT8JBA2B8YUwMw2WAnSj52Gn0ZX/VnxrMef0qIx9NeoBMJyFcmM85buk/Fup5cecwPfjtjNgf0Tg3j4SZjcSD8jcbpc4u+KV/Uvc99csVpHsU9wQHAsm4A6O8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0XB4BNXs_1789544182;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XB4BNXs_1789544182 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 16 Sep 2026 15:36:27 +0800
+From: Chen Pei <cp0613@linux.alibaba.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	irogers@google.com,
+	mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	guoren@kernel.org
+Cc: linux-perf-users@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] perf riscv: Add perf_regs_load and enable the dwarf unwind test
+Date: Wed, 16 Sep 2026 15:36:21 +0800
+Message-ID: <20260916073622.1045-1-cp0613@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915-adc-fix-div0-v1-1-7daed9e52f2f@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 06:10:40PM +0200, Fabrice Gasnier wrote:
-> In case the conversion has failed or returned zero, processing *val
-> can lead to a division by zero.
-> Need to check for errors, or converted value is zero, before processing
-> the data.
-> In case converted value is zero, e.g. the Vrefint channel, this should
-> be considered as invalid in all case.
+riscv has no arch level perf test: tests/builtin-test.c only picks up
+arch_tests[] for x86, arm64 and powerpc64, tests/Build only builds the
+generic dwarf unwind test driver for x86, arm, arm64 and powerpc, and
+arch/riscv/tests/ did not exist. "Test dwarf unwind" was therefore never
+registered on riscv, even though DWARF is the only reliable way to walk a
+riscv user stack -- the arch callchain code walks frame pointers only --
+and both unwinders already support riscv, elfutils libdw generically and
+libunwind through util/libunwind-arch/libunwind-riscv.c.
 
-Something went very wrong with the indentation of the above.
+Add perf_regs_load() and the arch unwind sample helper modelled on the
+arm64 ones, and wire riscv into the two gates. The x1..x31 slots of enum
+perf_event_riscv_regs match the hardware registers one to one, and
+PERF_REG_RISCV_PC is filled with ra so that unwinding starts at the
+caller.
 
-...
+Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+Reviewed-by: Ian Rogers <irogers@google.com>
+---
 
-> -		if (mask == IIO_CHAN_INFO_PROCESSED)
-> -			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-> +		if (mask == IIO_CHAN_INFO_PROCESSED) {
-> +			if (ret >= 0 && *val)
-> +				*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-> +			else
-> +				ret = ret < 0 ? ret : -EINVAL;
-> +		}
+Changes since v1:
+- Add explicit #include <stdlib.h> per Ian Rogers' review.
+- Add Reviewed-by: Ian Rogers <irogers@google.com>
 
-Reuse of the *val makes code harder to follow. Add a temporary variable for
-this and do something like this (also note other simplifications)
+Tested on riscv64 (QEMU virt, kernel 6.18, rv64gcv userspace) with both
+the libdw and the libunwind unwinder, and in both callchain orders. All
+eight expected frames resolve, including the one in libc:
 
-		tmp_choose_good_name = *val;
-		...
-		if (mask == IIO_CHAN_INFO_PROCESSED) {
-			if (ret < 0)
-				return ret;
-			if (tmp == 0)
-				return -EINVAL;
+  # ./perf test -v "dwarf unwind"
+   71: Test dwarf unwind                                     : Ok
 
-			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / tmp;
-		}
+  got: test__dwarf_unwind 0x555593375c45, expecting test__dwarf_unwind
+  got: test_dwarf_unwind__krava_1 0x555593375b7f, expecting test_dwarf_unwind__krava_1
+  got: test_dwarf_unwind__krava_2 0x555593375b43, expecting test_dwarf_unwind__krava_2
+  got: test_dwarf_unwind__krava_3 0x555593375aff, expecting test_dwarf_unwind__krava_3
+  got: bsearch 0x7fff9aad575b, expecting bsearch
+  got: test_dwarf_unwind__compare 0x555593375a5d, expecting test_dwarf_unwind__compare
+  got: test_dwarf_unwind__thread 0x555593375939, expecting test_dwarf_unwind__thread
+  got: test__arch_unwind_sample 0x5555933788a0, expecting test__arch_unwind_sample
 
->  		iio_device_release_direct(indio_dev);
->  		return ret;
+The libunwind build links libunwind-riscv.so.8, so the riscv specific
+remote unwinder in util/libunwind-arch/libunwind-riscv.c is what runs.
 
+A build with DWARF unwinding disabled was checked too: it still links,
+arch_tests[] degrades to the NULL only array, and the test is simply
+absent from "perf test list".
+
+
+ tools/perf/arch/riscv/Build                |  1 +
+ tools/perf/arch/riscv/include/arch-tests.h |  9 +++
+ tools/perf/arch/riscv/include/perf_regs.h  |  2 +
+ tools/perf/arch/riscv/tests/Build          |  4 ++
+ tools/perf/arch/riscv/tests/arch-tests.c   | 10 ++++
+ tools/perf/arch/riscv/tests/dwarf-unwind.c | 65 ++++++++++++++++++++++
+ tools/perf/arch/riscv/tests/regs_load.S    | 58 +++++++++++++++++++
+ tools/perf/tests/Build                     |  2 +-
+ tools/perf/tests/builtin-test.c            |  3 +-
+ 9 files changed, 152 insertions(+), 2 deletions(-)
+ create mode 100644 tools/perf/arch/riscv/include/arch-tests.h
+ create mode 100644 tools/perf/arch/riscv/tests/Build
+ create mode 100644 tools/perf/arch/riscv/tests/arch-tests.c
+ create mode 100644 tools/perf/arch/riscv/tests/dwarf-unwind.c
+ create mode 100644 tools/perf/arch/riscv/tests/regs_load.S
+
+diff --git a/tools/perf/arch/riscv/Build b/tools/perf/arch/riscv/Build
+index e63eabc2c8f4..12ebc65ea7a3 100644
+--- a/tools/perf/arch/riscv/Build
++++ b/tools/perf/arch/riscv/Build
+@@ -1 +1,2 @@
+ perf-util-y += util/
++perf-test-y += tests/
+diff --git a/tools/perf/arch/riscv/include/arch-tests.h b/tools/perf/arch/riscv/include/arch-tests.h
+new file mode 100644
+index 000000000000..2b3834a5ddbb
+--- /dev/null
++++ b/tools/perf/arch/riscv/include/arch-tests.h
+@@ -0,0 +1,9 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef ARCH_TESTS_H
++#define ARCH_TESTS_H
++
++struct test_suite;
++
++extern struct test_suite *arch_tests[];
++
++#endif
+diff --git a/tools/perf/arch/riscv/include/perf_regs.h b/tools/perf/arch/riscv/include/perf_regs.h
+index af7a1b47bf66..30cfd3f63eb5 100644
+--- a/tools/perf/arch/riscv/include/perf_regs.h
++++ b/tools/perf/arch/riscv/include/perf_regs.h
+@@ -8,6 +8,8 @@
+ #include <linux/types.h>
+ #include "../../../../arch/riscv/include/uapi/asm/perf_regs.h"
+ 
++void perf_regs_load(u64 *regs);
++
+ #define PERF_REGS_MASK	((1ULL << PERF_REG_RISCV_MAX) - 1)
+ #define PERF_REGS_MAX	PERF_REG_RISCV_MAX
+ 
+diff --git a/tools/perf/arch/riscv/tests/Build b/tools/perf/arch/riscv/tests/Build
+new file mode 100644
+index 000000000000..bd15c6bbc1b2
+--- /dev/null
++++ b/tools/perf/arch/riscv/tests/Build
+@@ -0,0 +1,4 @@
++perf-test-y += regs_load.o
++perf-test-$(CONFIG_DWARF_UNWIND) += dwarf-unwind.o
++
++perf-test-y += arch-tests.o
+diff --git a/tools/perf/arch/riscv/tests/arch-tests.c b/tools/perf/arch/riscv/tests/arch-tests.c
+new file mode 100644
+index 000000000000..756706a09609
+--- /dev/null
++++ b/tools/perf/arch/riscv/tests/arch-tests.c
+@@ -0,0 +1,10 @@
++// SPDX-License-Identifier: GPL-2.0
++#include "tests/tests.h"
++#include "arch-tests.h"
++
++struct test_suite *arch_tests[] = {
++#ifdef HAVE_DWARF_UNWIND_SUPPORT
++	&suite__dwarf_unwind,
++#endif
++	NULL,
++};
+diff --git a/tools/perf/arch/riscv/tests/dwarf-unwind.c b/tools/perf/arch/riscv/tests/dwarf-unwind.c
+new file mode 100644
+index 000000000000..fe0c32ea0e05
+--- /dev/null
++++ b/tools/perf/arch/riscv/tests/dwarf-unwind.c
+@@ -0,0 +1,65 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <stdlib.h>
++#include <string.h>
++#include "perf_regs.h"
++#include "thread.h"
++#include "map.h"
++#include "maps.h"
++#include "event.h"
++#include "debug.h"
++#include "tests/tests.h"
++
++#define STACK_SIZE 8192
++
++static int sample_ustack(struct perf_sample *sample,
++		struct thread *thread, u64 *regs)
++{
++	struct stack_dump *stack = &sample->user_stack;
++	struct map *map;
++	unsigned long sp;
++	u64 stack_size, *buf;
++
++	buf = malloc(STACK_SIZE);
++	if (!buf) {
++		pr_debug("failed to allocate sample uregs data\n");
++		return -1;
++	}
++
++	sp = (unsigned long) regs[PERF_REG_RISCV_SP];
++
++	map = maps__find(thread__maps(thread), (u64)sp);
++	if (!map) {
++		pr_debug("failed to get stack map\n");
++		free(buf);
++		return -1;
++	}
++
++	stack_size = map__end(map) - sp;
++	map__put(map);
++	stack_size = stack_size > STACK_SIZE ? STACK_SIZE : stack_size;
++
++	memcpy(buf, (void *) sp, stack_size);
++	stack->data = (char *) buf;
++	stack->size = stack_size;
++	return 0;
++}
++
++int test__arch_unwind_sample(struct perf_sample *sample,
++		struct thread *thread)
++{
++	struct regs_dump *regs = perf_sample__user_regs(sample);
++	u64 *buf;
++
++	buf = calloc(PERF_REGS_MAX, sizeof(u64));
++	if (!buf) {
++		pr_debug("failed to allocate sample uregs data\n");
++		return -1;
++	}
++
++	perf_regs_load(buf);
++	regs->abi  = PERF_SAMPLE_REGS_ABI;
++	regs->regs = buf;
++	regs->mask = PERF_REGS_MASK;
++
++	return sample_ustack(sample, thread, buf);
++}
+diff --git a/tools/perf/arch/riscv/tests/regs_load.S b/tools/perf/arch/riscv/tests/regs_load.S
+new file mode 100644
+index 000000000000..703bbf3374a6
+--- /dev/null
++++ b/tools/perf/arch/riscv/tests/regs_load.S
+@@ -0,0 +1,58 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#include <linux/linkage.h>
++
++/*
++ * Fill the u64 array 'regs' at the slots of enum perf_event_riscv_regs:
++ * x1..x31 map one-to-one onto PERF_REG_RISCV_RA..PERF_REG_RISCV_T6, and the
++ * stride stays 8 bytes on RV32 because the slots are u64 and the caller
++ * zeroes them.
++ *
++ * PERF_REG_RISCV_PC is filled with ra, the return address of the call to
++ * this function, so that unwinding starts at the caller rather than here.
++ */
++
++#if __riscv_xlen == 64
++#define REG_S	sd
++#else
++#define REG_S	sw
++#endif
++
++#define STR_REG(r)	REG_S x##r, 8 * r(a0)
++
++	.text
++	.type perf_regs_load,%function
++SYM_FUNC_START(perf_regs_load)
++	STR_REG(1)
++	STR_REG(2)
++	STR_REG(3)
++	STR_REG(4)
++	STR_REG(5)
++	STR_REG(6)
++	STR_REG(7)
++	STR_REG(8)
++	STR_REG(9)
++	STR_REG(10)
++	STR_REG(11)
++	STR_REG(12)
++	STR_REG(13)
++	STR_REG(14)
++	STR_REG(15)
++	STR_REG(16)
++	STR_REG(17)
++	STR_REG(18)
++	STR_REG(19)
++	STR_REG(20)
++	STR_REG(21)
++	STR_REG(22)
++	STR_REG(23)
++	STR_REG(24)
++	STR_REG(25)
++	STR_REG(26)
++	STR_REG(27)
++	STR_REG(28)
++	STR_REG(29)
++	STR_REG(30)
++	STR_REG(31)
++	REG_S ra, 0(a0)
++	ret
++SYM_FUNC_END(perf_regs_load)
+diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
+index 66944a4f4968..c457504e052d 100644
+--- a/tools/perf/tests/Build
++++ b/tools/perf/tests/Build
+@@ -72,7 +72,7 @@ perf-test-y += tool_pmu.o
+ perf-test-y += subcmd-help.o
+ perf-test-y += kallsyms-split.o
+ 
+-ifeq ($(SRCARCH),$(filter $(SRCARCH),x86 arm arm64 powerpc))
++ifeq ($(SRCARCH),$(filter $(SRCARCH),x86 arm arm64 powerpc riscv))
+ perf-test-$(CONFIG_DWARF_UNWIND) += dwarf-unwind.o
+ endif
+ 
+diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+index 4d0784b16723..a0478dd3e9cc 100644
+--- a/tools/perf/tests/builtin-test.c
++++ b/tools/perf/tests/builtin-test.c
+@@ -67,7 +67,8 @@ static const char *workload_control;
+  * dependent on the initialization, as such GCC with LTO complains of
+  * conflicting definitions with a weak symbol.
+  */
+-#if defined(__i386__) || defined(__x86_64__) || defined(__aarch64__) || defined(__powerpc64__)
++#if defined(__i386__) || defined(__x86_64__) || defined(__aarch64__) || \
++	defined(__powerpc64__) || defined(__riscv)
+ extern struct test_suite *arch_tests[];
+ #else
+ static struct test_suite *arch_tests[] = {
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.50.1
 
