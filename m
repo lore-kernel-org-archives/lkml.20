@@ -1,148 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F903597B;
-	Wed, 16 Sep 2026 00:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B5A41754;
+	Wed, 16 Sep 2026 00:15:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789517600; cv=none; b=YjZ3NcTw+ZxtOArJDFjSeMyHnaxL+GhdY64e04ePXwiw8qMqoRVwCclfJboxRZFjth2upnqvWns28marmEkeqfLJxC9z8aaT7qou8IferJGTlr/Zyi5Og0iJkT1AmhviU7zL/vvG2QcPUR1Iu8IJHYHz9RVOe0chdmjyMHE4bd0=
+	t=1789517702; cv=none; b=rSkU2O2uw6gGYwnwNupraALxZFrgEZf65xRwINX+Z2wd+r0v1amyoh0p74hhgfstAkze/ilg/ZWPoaiMA7dzyXAck13Gakju258CtlqeuTrfSu0IgeSpmZW5QeJwtUz8UYqifn09MruoZ9wG6HBGB+SKdXtIjsnHqIc35FAqaJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789517600; c=relaxed/simple;
-	bh=QQkbmPZa6FzOkJZznNSjvTnbZVVcFugLnbH/fXVmVVU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vDV+Z+3Xpw2NV+/vXKBvd9uh9WrdVr649l1au8+zrPRZwQMsGfd7lMN6ZSsZBu1mABzoTrI63P7SCtr0vt4q/Jjbk9qUhvC1KcyrD2W/tXmiDHiS+DInaNxT6uiOTvuTmC261rcem1V+tJkq5ZcHbr6fooh4WvS1s4yPyyWSdOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m+bv99ac; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789517702; c=relaxed/simple;
+	bh=6wkzB37WCFKiZHUr29tzMDp7rsArxV0EsXrovr3/xAw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AuFKO0Z0DvkZq9w4Xs8/7gFZalc4tKVqzI9NPGBvK2hZyziJF9mCFT7g2g/aORxNNq4Qzzo7E4j9OdVyJvXDiXRe7SscoAtrb/+L6ysHnyXiZVY38ha8t3y28pZdgEZMlE8G2xEUyjtN1PT3vyQkRamMaEI2tDNDbR/2RvEcF1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m3X7B1Da; arc=none smtp.client-ip=192.198.163.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m+bv99ac"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A568C1F000FF;
-	Wed, 16 Sep 2026 00:13:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789517598;
-	bh=a2lhPSF5A/5CV1Lodrkn/7v4I07Gpj63s01SJKcdomg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m+bv99acZdpFAL97ydOR3AZHyf7sKcsXCrUMb32kvLoj9H9lyg3wioFfBCZ2W9IT/
-	 kOGZVQU5b1C6l+x2Aw/1b5u1wFTrfHkcd49xva39auAfyWtmr2HYbWu9ZPYcTnnxUJ
-	 ATikHTEWv66JWjpuPGrP/hbtv/jCMQjVJHsVRMHLvLShOrQr1KZqvFg6+Aysx+aodd
-	 stz4cOlw/lVwJ9yBnuP5FPiGz7jWbHMh4ECN9qbTPrRN8ZCbtv0WndhiYcuc5Lzw0p
-	 7geGvuPbQHEcWuc+R3wksSse8mHGP1OzZM0XBg7ne91VVvsnzYLeDeM5coZqyzKxNO
-	 DSSp0Xy0jBE5A==
-From: SJ Park <sj@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lian Wang <lianux.mm@gmail.com>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] mm/damon/core: score an unmeasured PSI goal as not achieved for the temporal tuner
-Date: Tue, 15 Sep 2026 17:13:11 -0700
-Message-ID: <20260916001311.101024-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <aqm1ZPUHiXf9PFWq@gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m3X7B1Da"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789517701; x=1821053701;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=6wkzB37WCFKiZHUr29tzMDp7rsArxV0EsXrovr3/xAw=;
+  b=m3X7B1DacrFYsMFof5eMqwWSDyFxFNY6+0AA+P90oZPFaVEPtkT6t/dy
+   wHj+Zd7fHBp2nVrXrMa3Fc/wx2QcQJz6IIIZZgsOAYiGtn+cnmk0y530R
+   knRHhSIFuOIVAGkTzX6ec20QiIFUrYgvEnsUDAPtVYGRCZ3imZadqvnZP
+   J2y9lYW8lRnvNcSqf5+UgD2a15DIMRO9jq93HUSE+AV/FslQNDum1V0hF
+   Gz4nUAnL6E1cd/KHNV7vUQndIApwtVzW2hJZam32LtZjJRx1N0BGuUQ5T
+   f51g3aausJeEnVs1o5HIqWOU1plSM85hB5n8xMfbROfGpoHYkIAOP44Fq
+   w==;
+X-CSE-ConnectionGUID: FxtPbHw3QV+gkJwqLjuymg==
+X-CSE-MsgGUID: 9VJ4PSBDT3y9PLq1O5E0Hw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="398264"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="398264"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 17:15:00 -0700
+X-CSE-ConnectionGUID: aNMzMdNOSCC+JCU+KgCHrA==
+X-CSE-MsgGUID: aNhXg/LeQWySfg1qHaCtvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="1405878"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 17:14:56 -0700
+Message-ID: <e812551f-8323-461e-a8ce-34551988f7c5@linux.intel.com>
+Date: Wed, 16 Sep 2026 08:14:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf/x86/amd/uncore: turn amd_uncore_ctx events into a
+ flexible array
+To: Ian Rogers <irogers@google.com>, Rosen Penev <rosenp@gmail.com>
+Cc: linux-perf-users@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
+ James Clark <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ "open list:PERFORMANCE EVENTS SUBSYSTEM" <linux-kernel@vger.kernel.org>
+References: <20260523011904.101720-1-rosenp@gmail.com>
+ <CAP-5=fXyyj6w1mR71B6e+j7sV9GA-Gs1ibfp5pCuY6T+W+xWjQ@mail.gmail.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <CAP-5=fXyyj6w1mR71B6e+j7sV9GA-Gs1ibfp5pCuY6T+W+xWjQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Tue, 15 Sep 2026 23:19:27 +0200 Karl Mehltretter <kmehltretter@gmail.com> wrote:
 
-> On Tue, Sep 15, 2026 at 07:50:54AM +0100, SJ Park wrote:
-> > 
-> > The intention is to make no effect this round.  Setting current_value to zero
-> > to temporal tuner means it will now have highest quota it could have.  If the
-> > effective quota before this was zero, it gets an effect.
-> > 
-> > Ideally, we should somehow remember what was the last esz and keep it.  I have
-> > no good idea for doing that with minimum change.  This is a corner case in my
-> > opinion (correct me if I'm wrong) so I want to keep the change as simple as
-> > possible.
-> > 
-> > If there is not easy way to do that, I think just keeping the behavior but
-> > making it explicitly explained might be better.
-> > 
-> 
-> Hello SJ,
-> 
-> I believe I have a version that addresses your concern without adding
-> too much complexity.
-
-Thank you for keep pursuing on improving DAMON, Karl!
-
-> 
-> In short, it leaves the tuners as they are and instead keeps
-> last_psi_total across a commit of an existing PSI goal, as the code
-> did before a68878f83ae6. The U64_MAX round then happens only once per
-> new goal.
-
-I actually considered this option when working on commit a68878f83ae6.  I had
-two following concerns though.  First, if the user commits multiple times
-before the next quota reset interval, the next tuning round will work with
-pressure times that cumulated for longer than the quota reset interval.  This
-is a quite rare corner case, but I didn't feel that comfortable.  Second, the
-behavior for new commit and update commit is different.
-
-So I'd still prefer to just making no effect this round.  And my commit was
-failed at doing that, because it didn't aware of temporal tuner.  Maybe we
-could show whether the goal was achieved or not, using esz and let the tuner
-show same achieveness?  What about something like below?
-
-'''
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3187,6 +3187,25 @@ static inline u64 damos_get_some_mem_psi_total(void)
-
- #endif /* CONFIG_PSI */
-
-+static void damos_set_psi_current_val(u64 now_psi_total, struct
-+               damos_quota_goal *goal, struct damos *s)
-+{
-+       if (goal->last_psi_total != U64_MAX) {
-+               goal->current_value = now_psi_total - goal->last_psi_total;
-+               return;
-+       }
-+       /* Uninitialized last_psi_total; make no effect this round */
-+       if (s->quota.goal_tuner == DAMOS_QUOTA_GOAL_TUNER_CONSIST) {
-+               goal->current_value = goal->target_value;
-+               return;
-+       }
-+       /* Let temporal tuner show goal achieveness same to the last round */
-+       if (!s->quota.esz)
-+               goal->current_value = goal->target_value;
-+       else
-+               goal->current_value = 0;
-+}
-+
- #ifdef CONFIG_NUMA
- static bool invalid_mem_node(int nid)
- {
-@@ -3439,12 +3458,7 @@ static void damos_set_quota_goal_current_value(struct damon_ctx *c,
-                break;
-        case DAMOS_QUOTA_SOME_MEM_PSI_US:
-                now_psi_total = damos_get_some_mem_psi_total();
--               /* uninitialized last_psi_total; make no effect this round */
--               if (goal->last_psi_total == U64_MAX)
--                       goal->current_value = goal->target_value;
--               else
--                       goal->current_value = now_psi_total -
--                               goal->last_psi_total;
-+               damos_set_psi_current_val(now_psi_total, goal, s);
-                goal->last_psi_total = now_psi_total;
-                break;
-        case DAMOS_QUOTA_NODE_MEM_USED_BP:
-'''
-
-The code could further cleaned and optimized, but hopefully that will give you
-my rough idea.
-
-What do you think?
+On 9/16/2026 4:58 AM, Ian Rogers wrote:
+> On Fri, May 22, 2026 at 6:19 PM Rosen Penev <rosenp@gmail.com> wrote:
+>> The events pointer was kzalloc_node()'d immediately after the parent
+>> struct allocation, with the count (pmu->num_counters) trivially
+>> available beforehand.  Move events to the struct tail as a flexible
+>> array member and fold the two allocations into a single kzalloc_node()
+>> with struct_size(), dropping the separate kfree(ctx->events) in the
+>> free path.
+>>
+>> Assisted-by: Claude:Opus-4.7
+>> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+>> ---
+>>  arch/x86/events/amd/uncore.c | 15 +++------------
+>>  1 file changed, 3 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/arch/x86/events/amd/uncore.c b/arch/x86/events/amd/uncore.c
+>> index 05cff39968ec..0e265fc1fef8 100644
+>> --- a/arch/x86/events/amd/uncore.c
+>> +++ b/arch/x86/events/amd/uncore.c
+>> @@ -39,11 +39,11 @@ static int pmu_version;
+>>  struct amd_uncore_ctx {
+>>         int refcnt;
+>>         int cpu;
+>> -       struct perf_event **events;
+>>         unsigned long active_mask[BITS_TO_LONGS(NUM_COUNTERS_MAX)];
+>>         int nr_active;
+>>         struct hrtimer hrtimer;
+>>         u64 hrtimer_duration;
+>> +       struct perf_event *events[];
+> As the number of counters is fixed and events doesn't grow, this makes
+> sense to me. Dapeng, what do you think?
+It looks good to me. But it seems there is no Sashikio review, so better
+resend to trigger Sashiko review for double check. Thanks.
 
 
-Thanks,
-SJ
-
-[...]
+>
+> Thanks,
+> Ian
+>
+>>  };
+>>
+>>  struct amd_uncore_pmu {
+>> @@ -488,10 +488,8 @@ static void amd_uncore_ctx_free(struct amd_uncore *uncore, unsigned int cpu)
+>>                 if (cpu == ctx->cpu)
+>>                         cpumask_clear_cpu(cpu, &pmu->active_mask);
+>>
+>> -               if (!--ctx->refcnt) {
+>> -                       kfree(ctx->events);
+>> +               if (!--ctx->refcnt)
+>>                         kfree(ctx);
+>> -               }
+>>
+>>                 *per_cpu_ptr(pmu->ctx, cpu) = NULL;
+>>         }
+>> @@ -536,18 +534,11 @@ static int amd_uncore_ctx_init(struct amd_uncore *uncore, unsigned int cpu)
+>>                 /* Allocate context if sibling does not exist */
+>>                 if (!curr) {
+>>                         node = cpu_to_node(cpu);
+>> -                       curr = kzalloc_node(sizeof(*curr), GFP_KERNEL, node);
+>> +                       curr = kzalloc_node(struct_size(curr, events, pmu->num_counters), GFP_KERNEL, node);
+>>                         if (!curr)
+>>                                 goto fail;
+>>
+>>                         curr->cpu = cpu;
+>> -                       curr->events = kzalloc_node(sizeof(*curr->events) *
+>> -                                                   pmu->num_counters,
+>> -                                                   GFP_KERNEL, node);
+>> -                       if (!curr->events) {
+>> -                               kfree(curr);
+>> -                               goto fail;
+>> -                       }
+>>
+>>                         amd_uncore_init_hrtimer(curr);
+>>                         curr->hrtimer_duration = (u64)update_interval * NSEC_PER_MSEC;
+>> --
+>> 2.54.0
+>>
