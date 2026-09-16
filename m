@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149F64AB1A0
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:51:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86C34B1269
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:51:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552320; cv=none; b=VfUWrHMZgQqHOD0FGb/E0CdChNExnfLvvjG5TFJJm0c84Ivls6omM/xr1QbV7a9JvxeCpiaXlR3qYPQRNbGegngnJrMeuNPpoz0dwMJOC3QU7UWpj4VIQSTwjpjo3fny+uvPx/hUZv0a7l/sIdLMCMzF2FiE0OyftJrmpynTZDE=
+	t=1789552325; cv=none; b=F0aQpMZbuYodazaOHi97ERwoc5ia3FmHqzidRu8a0doJmZQOwxYlq/kpGYjOK+cM/6wxDI19vksV1kxdbVW92KQG8oOL/FO97vG+wJpzm1ShpRBZspLt4wLQkCLTpfta9RB4x051z2jKVu4qtcfM+v2qZyCH3ZaoqhVBo8H7IAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552320; c=relaxed/simple;
-	bh=E6KPxvJHH1VHldmIFR1xanm+ALnTwrvx3H+X++MBV5U=;
+	s=arc-20240116; t=1789552325; c=relaxed/simple;
+	bh=t0TvZPm4bc6UM2noQD4veZ5BAJamKZP7g/xTbhK+DRE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nLu0vgZi1zQZRiSwWdaBW+u0ka6wz+JurRrOX3N/cHJ8okzcrupXnJt/cX87xOMfkoF9Kcg2G0FZrQTgfKJAyUX7heCMg62H1TXe1F9uvbfsmSt5VzB/1G8tmbY+abYVDHwrp43O/HakAsLkpbyk5skR95z3AOLwV6O4WGrhLQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fOrJCv5D; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=F7bOGec0yCFytI/BlkqLMFk6dwRS9SjUB4B6fSpaTwf6PbwK2nnHPqE+VOnkJ4Vkk9gRkE/cVfW6rlJPHtpqrO5gOOj6KfDA2P1ngSRKm2nTb5kMwQen/4Zm6/bJCha5McQDXKeu2ofISZIQbUAhw8V4zGyF3sL1M6PdDK/A85Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YYdwPnF9; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fOrJCv5D"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YYdwPnF9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789552285;
+	s=mimecast20190719; t=1789552301;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=A1COWvN1IxP74U37pvhe+s+4DbmU+5bH+TwCyZ5ozBA=;
-	b=fOrJCv5DehyCnN5vcPl0xECFm3773kWbb3DRUGo73drMKrVzcBsiJvNcQeYATNafAN9zq9
-	meDrJJ20cI4ahKQrXJcox7SzZtjjvza3oOjLM7Wm9EZjUmaomsPP4rmz+ug70v44MRtIvy
-	zNZHktl4BcIeh7vBXmUjgN2sV49v4iI=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+	bh=mPzM/yoe+rotV16ewh/fuu8dlIcugVfAA9aWoS3G1cQ=;
+	b=YYdwPnF94IFDjGvxtEUCdRWK5klfrjA1pkcub73y+yHdgXUbCJnsI9Fuin+oACJxDKCWuN
+	gjXkomXzSwgy9/X/aTIjRVbp0yPTa625yRqvrokX3PlEHGF3zJMiGjfcAT0dRoHfOwvBfx
+	xJXqFAiHxgrp87sRlrbF21SccatBRso=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-631-YwrMlN3-M7KbdZtlt_MnxQ-1; Wed,
- 16 Sep 2026 05:51:20 -0400
-X-MC-Unique: YwrMlN3-M7KbdZtlt_MnxQ-1
-X-Mimecast-MFC-AGG-ID: YwrMlN3-M7KbdZtlt_MnxQ_1789552278
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-7-dGwiUwAuM-iXxhhOynUJ5A-1; Wed,
+ 16 Sep 2026 05:51:37 -0400
+X-MC-Unique: dGwiUwAuM-iXxhhOynUJ5A-1
+X-Mimecast-MFC-AGG-ID: dGwiUwAuM-iXxhhOynUJ5A_1789552295
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E5B5D1955F2A;
-	Wed, 16 Sep 2026 09:51:17 +0000 (UTC)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 199EA195DE37;
+	Wed, 16 Sep 2026 09:51:35 +0000 (UTC)
 Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4210B1800446;
-	Wed, 16 Sep 2026 09:51:14 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 188651800446;
+	Wed, 16 Sep 2026 09:51:29 +0000 (UTC)
 From: Thomas Huth <thuth@redhat.com>
 To: Eric Biggers <ebiggers@kernel.org>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
@@ -49,16 +49,18 @@ To: Eric Biggers <ebiggers@kernel.org>,
 	"Jason A. Donenfeld" <Jason@zx2c4.com>,
 	Ard Biesheuvel <ardb@kernel.org>,
 	Borislav Petkov <bp@alien8.de>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v4 10/13] x86/purgatory: Compile purgatory with -D__NO_FORTIFY
-Date: Wed, 16 Sep 2026 11:50:12 +0200
-Message-ID: <20260916095022.604354-11-thuth@redhat.com>
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v4 13/13] lib/crypto: Add documentation about zeroization of key and context data
+Date: Wed, 16 Sep 2026 11:50:15 +0200
+Message-ID: <20260916095022.604354-14-thuth@redhat.com>
 In-Reply-To: <20260916095022.604354-1-thuth@redhat.com>
 References: <20260916095022.604354-1-thuth@redhat.com>
 Precedence: bulk
@@ -67,66 +69,186 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-A subsequent patch will add #include <linux/string.h> to <crypto/sha2.h>
-to use memzero_explicit() there. This will introduce a conflict with the
-purgatory code: purgatory.c includes both, the <crypto/sha2.h> header and
-the arch/x86/boot/string.h header. The latter provides its own prototypes
-for a lot of string functions which clash with the fortified macros
-from <linux/string.h>, causing the compiler to emit errors like this:
-
- In file included from .../linux/include/linux/string.h:383,
-                  from .../linux/include/crypto/sha2.h:10,
-                  from .../linux/arch/x86/purgatory/purgatory.c:14:
- .../linux/include/linux/fortify-string.h:576:63: error: expected identifier or ‘(’ before ‘{’ token
-   576 |                              p_size_field, q_size_field, op) ({         \
-       |                                                               ^
- .../linux/include/linux/fortify-string.h:644:27: note: in expansion of macro ‘__fortify_memcpy_chk’
-   644 | #define memmove(p, q, s)  __fortify_memcpy_chk(p, q, s,                 \
-       |                           ^~~~~~~~~~~~~~~~~~~~
- .../linux/arch/x86/purgatory/../boot/string.h:11:7: note: in expansion of macro ‘memmove’
-    11 | void *memmove(void *dst, const void *src, size_t len);
-       |       ^~~~~~~
- .../linux/include/linux/fortify-string.h:208:9: error: expected identifier or ‘(’ before ‘__builtin_choose_expr’
-   208 |         __builtin_choose_expr(__is_constexpr(__builtin_strlen(p)),      \
-       |         ^~~~~~~~~~~~~~~~~~~~~
- ./linux/arch/x86/purgatory/../boot/string.h:23:15: note: in expansion of macro ‘strlen’
-    23 | extern size_t strlen(const char *s);
-       |               ^~~~~~
-
-To avoid the problem, let's compile the code in the purgatory with
--D__NO_FORTIFY, so <linux/string.h> can properly be included from
-headers like <crypto/sha2.h> in the purgatory, too.
+Add a central document about zeroization in libcrypto so we don't
+have to repeat this information in the individual kernel docs of
+the zeroization functions all over the place.
 
 Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
- arch/x86/purgatory/Makefile | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../crypto/libcrypto-zeroization.rst          | 150 ++++++++++++++++++
+ Documentation/crypto/libcrypto.rst            |   1 +
+ 2 files changed, 151 insertions(+)
+ create mode 100644 Documentation/crypto/libcrypto-zeroization.rst
 
-diff --git a/arch/x86/purgatory/Makefile b/arch/x86/purgatory/Makefile
-index 5ce1d42630000..cde8463b4d841 100644
---- a/arch/x86/purgatory/Makefile
-+++ b/arch/x86/purgatory/Makefile
-@@ -11,7 +11,7 @@ $(obj)/string.o: $(srctree)/arch/x86/boot/compressed/string.c FORCE
- $(obj)/sha256.o: $(srctree)/lib/crypto/sha256.c FORCE
- 	$(call if_changed_rule,cc_o_c)
- 
--CFLAGS_sha256.o := -D__DISABLE_EXPORTS -D__NO_FORTIFY
-+CFLAGS_sha256.o := -D__DISABLE_EXPORTS
- 
- # When profile-guided optimization is enabled, llvm emits two different
- # overlapping text sections, which is not supported by kexec. Remove profile
-@@ -37,6 +37,7 @@ PURGATORY_CFLAGS := -mcmodel=small -ffreestanding -fno-zero-initialized-in-bss -
- PURGATORY_CFLAGS += -fpic -fvisibility=hidden
- PURGATORY_CFLAGS += $(DISABLE_KSTACK_ERASE) -DDISABLE_BRANCH_PROFILING
- PURGATORY_CFLAGS += -fno-stack-protector
-+PURGATORY_CFLAGS += -D__NO_FORTIFY
- 
- # Default KBUILD_CFLAGS can have -pg option set when FTRACE is enabled. That
- # in turn leaves some undefined symbols like __fentry__ in purgatory and not
+diff --git a/Documentation/crypto/libcrypto-zeroization.rst b/Documentation/crypto/libcrypto-zeroization.rst
+new file mode 100644
+index 0000000000000..76b6506711634
+--- /dev/null
++++ b/Documentation/crypto/libcrypto-zeroization.rst
+@@ -0,0 +1,150 @@
++.. SPDX-License-Identifier: GPL-2.0-or-later
++
++Crypto Key Zeroization
++======================
++
++This document describes the conventions for zeroizing crypto structures in the
++kernel.
++
++Note: the kernel follows traditional cryptographic terminology by using
++the term "zeroizing" to mean erasing sensitive parameters to prevent
++their disclosure if the system is later compromised.  This distinguishes
++it from zeroing memory for other purposes such as initialization.
++
++.. contents::
++
++Overview
++--------
++
++Cryptographic key material and intermediate state (such as HMAC contexts) must
++be zeroized after use to prevent sensitive data from lingering on the stack or
++heap, where it could be leaked through memory disclosure vulnerabilities,
++crash dumps, or cold-boot attacks.
++
++For memory that has been allocated with kmalloc() or a similar function,
++kfree_sensitive() should be used instead of kfree() to release the memory.
++
++For other cases, the kernel provides memzero_explicit() for clearing the
++memory.  Unlike plain memset(), memzero_explicit() is guaranteed not
++to be optimized away by the compiler, even when the memory being cleared
++appears to be dead.
++
++The crypto library builds on memzero_explicit() by providing typed
++zeroization helpers for each key and context structure.  These helpers serve
++two purposes:
++
++1. They make __cleanup() annotations possible, so that structures on
++   the stack are automatically zeroized when they go out of scope.
++
++2. They improve readability by replacing ``memzero_explicit(&key, sizeof(key))``
++   with a self-documenting call like ``aes_zeroize_key(&key)``.
++
++
++What to zeroize
++---------------
++
++The following types of structures hold sensitive material and should be
++zeroized after use:
++
++- **Key structures** (e.g. ``struct aes_key``, ``struct hmac_sha256_key``):
++  contain expanded round keys or prepared key material.
++
++- **HMAC/MAC context structures** (e.g. ``struct hmac_sha256_ctx``,
++  ``struct aes_cmac_ctx``): contain inner and outer hash states derived from
++  the key.
++
++- **Hash context structures** (e.g. ``struct sha256_ctx``): may contain
++  sensitive data being hashed.
++
++Not all of these require explicit cleanup by callers.  Many ``..._final()``
++functions already zeroize their context internally (see `Automatic vs. manual
++zeroization`_ below).
++
++
++Zeroization helpers
++-------------------
++
++Each crypto structure that callers may need to zeroize should have a
++corresponding inline helper function.  The naming convention is::
++
++    <algorithm>_zeroize_<type>(struct <algorithm>_<type> *p);
++
++For example::
++
++    void aes_zeroize_key(struct aes_key *key);
++    void aes_zeroize_enckey(struct aes_enckey *key);
++    void hmac_sha256_zeroize_ctx(struct hmac_sha256_ctx *ctx);
++    void aes_cmac_zeroize_key(struct aes_cmac_key *key);
++    void aes_cmac_zeroize_ctx(struct aes_cmac_ctx *ctx);
++
++Each helper is a ``static inline`` function in the algorithm's header that
++wraps ``memzero_explicit()``, for example::
++
++    static inline void hmac_sha256_zeroize_ctx(struct hmac_sha256_ctx *ctx)
++    {
++            memzero_explicit(ctx, sizeof(*ctx));
++    }
++
++
++Using __cleanup for automatic zeroization
++-----------------------------------------
++
++The preferred way to zeroize stack-allocated key and context structures is
++with the __cleanup() attribute.  This ensures zeroization happens on all
++exit paths, including error returns and early exits. For example::
++
++    static int my_aesxts_setkey(..., const u8 *key, unsigned int len)
++    {
++        struct crypto_aes_ctx aes __cleanup(aes_zeroize_ctx);
++        ...
++
++        /* Only half of the key data is cipher key */
++        keylen = (len >> 1);
++        ret = aes_expandkey(&aes, key, keylen);
++        if (ret)
++                return ret;
++
++        ... do something with the cipher key ...
++
++        /* The other half is the tweak key */
++        ret = aes_expandkey(&aes, (u8 *)(key + keylen), keylen);
++        if (ret)
++                return ret;  /* <-- Could leak cipher key without __cleanup */
++
++        ... do something with the tweak key ...
++
++        /* No need for memzero_explicit() at the end thanks to the __cleanup */
++        return 0;
++    }
++
++Note that __cleanup() attributes should not be used in functions that use
++"goto" statements. The benefit of cleanup helpers is the removal of "gotos",
++and that "goto" statements can jump between scopes, so the expectation is
++that usage of "goto" and cleanup helpers is never mixed in the same function.
++
++
++Automatic vs. manual zeroization
++--------------------------------
++
++Many ``..._final()`` functions in the crypto library automatically zeroize
++their context before returning.  When this is the case, the kernel-doc for the
++function documents it::
++
++    After finishing, this zeroizes @ctx.  So the caller does not need to do it.
++
++In these cases, callers on simple code paths (where ``..._final()`` is always
++reached) do not need to add __cleanup() or explicit zeroization.
++However, __cleanup() is still recommended whenever there are error paths
++that bypass ``..._final()``, as it ensures zeroization on all paths.
++
++For algorithms where ``..._final()`` does *not* zeroize the context (such as
++the SHAKE XOFs, where ``shake_squeeze()`` can be called multiple times),
++callers must explicitly zeroize the context by calling the appropriate helper
++or using __cleanup(), for example::
++
++    struct shake_ctx ctx __cleanup(shake_zeroize_ctx);
++
++    shake256_init(&ctx);
++    shake_update(&ctx, data, data_len);
++    shake_squeeze(&ctx, out, out_len);
++    /* ctx is automatically zeroized at end of scope */
+diff --git a/Documentation/crypto/libcrypto.rst b/Documentation/crypto/libcrypto.rst
+index e911e05215979..9533c12caa79d 100644
+--- a/Documentation/crypto/libcrypto.rst
++++ b/Documentation/crypto/libcrypto.rst
+@@ -165,4 +165,5 @@ API documentation
+    libcrypto-signature
+    libcrypto-unauth-encryption
+    libcrypto-utils
++   libcrypto-zeroization
+    sha3
 -- 
 2.55.0
 
