@@ -1,170 +1,247 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 046502D2385
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789519357; cv=pass; b=KBqQd0IrMIxjLSJeF8sEN0ROzXLW8fbQDeS9AiMfg8nZhHPi+fodirc73uR/4Qnso3LfEJyDLarWzOZUd5aZCC3qyb9XnoL1Oo1ZMQ7ooNEzFsh9fkZftuymZAudrD1Jfti3W97emtX3DDLgZAIcrgOZDb+wvgVZ6mGtOs/q/To=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789519357; c=relaxed/simple;
-	bh=PbG364MPVENhjhJYeI43ydcf+vQglhNA+/tpam14g5c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jLhJfw+704PI0VeKpAjZn8xUNmu82ytXfYq2K4LlnXMCIdOmEjU9EHKVnErOTHt6BsoBR/3wPROp7x1atYYhT2ROSdOYmd3oVokomyjBdmeSeUUMnTzP96mMMF6oquqIb0Kh28AF+0BwJ6ueIOe3CR5akWIQz1yUzD3iQ5m0OdU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tFvhxqCw; arc=pass smtp.client-ip=209.85.167.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88C9378D8C;
+	Wed, 16 Sep 2026 00:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789519379; cv=none; b=c6k/rZ0zWgW6cr57KGDmpYCC1WHPJ26eU3xbTiPhCNi1GFU5blyxVDxP4T0otAMIQL+2jd1puH4acEVnSR+vOZoJxOaluB2EguY+/IEAiAtQbYCSXHGhB9dp9kfuM69NrpcYKUH7qCyt8f4AQv/+95QeuyduPAPNAExTM48IqkU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789519379; c=relaxed/simple;
+	bh=M79rNXIuCXBavZscdTkcVfTLyKvWAUxuMw6XfalyHPA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ogjLCBSSdQqaISP7HP0igXujMqDD4Fl7D0jDGUYi8QHOlBRyUTHTePEK9xR6IMG0TyNbbzMUv+uPY5yzJAz6oxCPirD6SJEoMnsUnZin8MUcW3SX4Gh1U+v7dEeNY4Pyv5R6vN3Gbt88oW5aaknS5d/vBW3d0qL1mI+GEHhsU0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iwoU/MyH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tFvhxqCw"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b8997bc6e6so1214682e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:42:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789519344; cv=none;
-        d=google.com; s=arc-20260327;
-        b=J5M8AV9+yKyNpzqtRoI6ZqfwiKPork64XVXhA+DvLeuFmo/biQQmJfWTNAjdAdMVCh
-         cnSqsifJcaeT0wD1Tuzgl/w2cb1ECAuLhdWZSjpCuHaZJqrRZ6Gsiji+Aoywv/bEEB0w
-         nTb0c7XkhdaUF6EE8psL36nhfsYszqP2ANvMU3IeevdLSIqD8/p7o19Elrx12GoMyafd
-         3XkyhIPR24YCGZgmfAS7aJzGxhug39iTXioha0xQywV7NPmekgciAzIthQCBK2SCgmez
-         /cwWHuWU6pGA3SH6lAXpVev5QeREy5eafhtT7l7pC33sbymlAjAuRaCd5UQUd60yiKJ1
-         9q0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cqDbGCTIpau7yhm3u68hmiwG3pOJLS1rBW2yPgr/yNE=;
-        fh=m/41YvP/I2Q3ZwIduSdSG1L7df+fdI1BqwVLhYkKDjI=;
-        b=nq0I+IJlDbYUDkTC9nfvTXE7SrCgG6X4S+D4rKU+aM2TJ+R2CR6HXji6cpPPUJ4Uhl
-         ktV2I2MyVqHXWneFrsw4HbdR48JOdbREmXztqABnBL9FF3TucIdkdSlV03+7NGYOtbGT
-         D+ZATrIs2ONhHRlW2jqFIEnf13ay8jjNXm1h+MkXfhQK7Unrpdhrlqgf3g0JUe5GFmnX
-         YeSunrnBmrfWsXByncdof9FTomEhky/V86N4DWNKwxPESy3ZGq6muENen6E5dZzfQ1iI
-         HMSeDxchgUxNaFhQR2oIDJq/PpClR6w6GYL4aUAi2eUBp5qlMXNVfIndCSJ3rc+d4Jx5
-         yNvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789519344; x=1790124144; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cqDbGCTIpau7yhm3u68hmiwG3pOJLS1rBW2yPgr/yNE=;
-        b=tFvhxqCwXTvfqj7EO0huLdD/wu/UuRjcBmMuWy5q669r4wk9Eco0XKrJob3lfgGzVM
-         co55jgH3XcJ/6KgQjNKpWwbPoEv0YsBn6cpaA3TWK1WSSt26fG0/O+7oWZHpZ1yC4SHD
-         /hW8h8riu1IsOIHk5yw7rQ3vS7tw+NXlNwbt5EKef5fVuZOlRZmADfehN4bweqsBOAz5
-         PcCQky1J4xb0bN31ixpHz+19N8iK2kVuEr7gnwh+1XaBaMgS0fbZpvlBN57PhcjZN85M
-         3/l30hS9zOaOjKdDMOEhI8+z5obWK+OIf9RyfHB9EgaIHCejw3sKJrZ5Lk6+FPj46/kM
-         c5sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789519344; x=1790124144;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cqDbGCTIpau7yhm3u68hmiwG3pOJLS1rBW2yPgr/yNE=;
-        b=NVd2FjYXKIjo7lj0TEveXXpJNDV/o7XXF7GYxDNp9PIrXd5uFL+e/126erFMRnFzzM
-         VK5IlqtTjRTYWVXAx5W+J5tsUNkaynVahZVMSH6n2dRukpQ8GwwCMhFBYGTQ+qjGXxrl
-         I6cPnvntE95dB26iQekjHCsbu/aHb2IfGozYBEY1HcuECz/uvFflf06odXyIiTGsrkmB
-         3oF+hlx6ae0IAgNLj/dHem6wOo4rOv71okK7/knLtVno7AXns1XyR3k19gqvmdhXd4qN
-         VrL+VpwHPKAtKiNCJo8fR8llzGFDV9ju8wxZedA7YrkU8psFZmdxVo7LouqZSwNSFw5s
-         pmBw==
-X-Forwarded-Encrypted: i=1; AKwUvByoxbbiuIBDiFXC5a+BwUOTvtjudRqM9ZJZcowids/5vvFqvEaIJmkRIwr3AdHAfy6nHceq4pJkHJypJxQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHQoGtHnP+EyMHSmzpJ94wGygLkQkxRnycdso3xTu5EBANYgj+
-	XpDyYN64DnZa5GVrBbVXG1Z8lm4j+Txqcy0Kfq1SBHt6/Es0349483qvzaF9+lvfkdSRhhZxnA5
-	VqokLNk1bDyWiqglJvjz3VXQs916KGT0=
-X-Gm-Gg: AYBFou2V2SJz6+W80M6NZVeSyLY8nEiVNE/LnHJAJkhSErAvKVbsGhdXh4CS7hmvrAq
-	imPD07WgiSNuKvTwcvhD3/nweK/8AXeuRJdotZzA78GWpxiPLbFnyd3CGjz4hdz0S1W4xtYQouE
-	Lof0+b2fZysJX6XKe+VRwz90vVakVm+ZMd1ZuGXdS1/XD45Dca8YOJnLpKxvtk1w8WidxMstw1x
-	XEybhmkW036kzRgpX+aCGZlsVgl6BsrSMH8xZeJSbIxRQIG7MH0nkvVKxPnBitnpfH+zxeuBSYQ
-	gIODnSOyKkgu09HLtOM7mtaaopPPgMIWW9xdNZcFoRWGaOjq+Pga7go=
-X-Received: by 2002:a05:6512:3a95:b0:5b5:e8d6:8870 with SMTP id
- 2adb3069b0e04-5b8b2a4e2c0mr1448356e87.1.1789519343344; Tue, 15 Sep 2026
- 17:42:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iwoU/MyH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63ED11F000FF;
+	Wed, 16 Sep 2026 00:42:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789519358;
+	bh=lSFqgIB/QkG8NNxRnnvdrACKkHikqffoikxUFlVJO+0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iwoU/MyHU5H3ffHp5R6u8BJl2K2nKRPi4E6PniVHazaizPYr0Aqt3zBS8+NI2rCRv
+	 7X65gQjc+rdA63Vu9rhQiTWwVKJC/2y5wzUdcurQ5CZIsXikvkhE4hu0kWufoWww15
+	 1XUqlm1jBYClQqcaGA9+g4sVOOBwsdkmxmEoHwpwOc+25kylVsfulDQR51cOw0xlue
+	 xODeWztXJi4Mi5s9J/g4W42nzhg19DCGaA++Rf4rJTlNcQuWH6ztDUfTbWGOrKbNmM
+	 8eoeHDXRSbJB19rBoKj9xJjXtoEtnS8XFGoPGid8mGlAwFcQnZGsIela4PIGHQiAoF
+	 NN8jt0mOG4VOg==
+From: SJ Park <sj@kernel.org>
+To: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	akinobu.mita@gmail.com,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	akpm@linux-foundation.org,
+	corbet@lwn.net,
+	bijan311@gmail.com,
+	ajayjoshi@micron.com,
+	honggyu.kim@sk.com,
+	yunjeong.mun@sk.com,
+	rientjes@google.com,
+	weixugc@google.com,
+	jic23@kernel.org,
+	gourry@gourry.net
+Subject: Re: [RFC PATCH v2 0/9] mm/damon: hardware-sampled access reports
+Date: Tue, 15 Sep 2026 17:42:28 -0700
+Message-ID: <20260916004230.101408-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CALa+Y17GK7TQHA5FyoMdnOFM1Y38g7P9qc-nMgP-dO4zfRj8Ug@mail.gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915083252.812126-1-zenghongling@kylinos.cn>
-In-Reply-To: <20260915083252.812126-1-zenghongling@kylinos.cn>
-From: Hyunchul Lee <hyc.lee@gmail.com>
-Date: Wed, 16 Sep 2026 09:42:10 +0900
-X-Gm-Features: AcwNN1WK_IUeViOVCbm_pYd3k-reY-hb0BsKmeEqIXZ3EebRYR8Fe7soTkcW8yM
-Message-ID: <CANFS6bZAR-=acwiqtM8iWGzCHaTTKquKMdqbDfS6ebFGxa6Uag@mail.gmail.com>
-Subject: Re: [PATCH v13 0/7] ntfs: fix volume flag races and persist the
- recorded error state
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This patch set looks good to me.
+On Tue, 15 Sep 2026 14:23:02 -0700 Ravi Jonnalagadda <ravis.opensrc@gmail.com> wrote:
 
-For whole series:
+> On Fri, Sep 11, 2026 at 6:38 PM SJ Park <sj@kernel.org> wrote:
+> >
+> > Hello Ravi,
+> >
+> > On Thu, 10 Sep 2026 10:16:14 -0700 Ravi Jonnalagadda <ravis.opensrc@gmail.com> wrote:
+> >
+> > > This series lets DAMON take its access information from a hardware sampler
+> > > instead of from a page-table scan, and lets a scheme's score be weighted by what
+> > > that sampler reported.
+[...]
+> > First of all, thank you very much for sharing this great series.
+> >
+> 
+> Thanks SJ for the detailed review and the milestone 2 / phase 3 clarifications.
 
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+Glad to hear that!
 
-2026=EB=85=84 9=EC=9B=94 15=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 5:33, H=
-ongling Zeng <zenghongling@kylinos.cn>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
-:
->
-> Hi all,
->
-> The fs/ntfs runtime metadata-corruption paths only record the in-memory
-> NVolErrors() flag, and the dirty-bit persistence used to race with
-> ntfs_sync_fs(): a volume could end up with a clean on-disk dirty flag
-> despite modification or recorded corruption, so chkdsk would not run on
-> the next mount.  This series fixes that.
->
->    1/6 makes the volume flag read-modify-write atomic under the
->       $Volume mrec_lock;
->    2/6 marks the volume dirty unconditionally on metadata changes,
->       dropping the racy caller-side checks in file.c and namei.c;
->    3/6 derives the on-disk dirty bit from the recorded error state at
->       the persistence points (sync_fs, remount-ro, put_super) and never
->       writes a hibernated volume;
->    4/6 persists the dirty state after the final put_super() commits so
->       late errors cannot unmount clean;
->    5/6 stops ntfs_sync_fs() from clearing VOLUME_IS_DIRTY: the clearing
->       moves to the quiescent transitions, a recorded error state is
->       still persisted at sync time, and sync now reports writeback and
->       flush errors instead of discarding them;
->    6/6 checks the dirty-state commit on remount and unmount.
->    7/7 ntfs: fail remount on sync errors and keep the dirty bit on
->       SB_FORCE
->
-> Changes in this revision, from the review:
->
->   - 5/6: with the clearing gone from the sync path, a recorded error
->     state is persisted without ever clearing the bit, and
->     sync_blockdev() and blkdev_issue_flush() are both called with the
->     first error returned.
->
->   - The IOCB_NOWAIT behavior and the per-operation $Volume mrec_lock
->     acquisition are outside the scope of this series.  The series keeps
->     the unconditional ntfs_set_volume_flags() call to preserve the
->     ordering that marks the volume dirty before the metadata
->     modification; a RWF_NOWAIT write still blocks in the marking when
->     the volume looks clean, as it already did on the base.  The
->     non-blocking and contended-lock handling (mutex_trylock, GFP_NOWAIT)
->     will be addressed in a separate follow-up patch.
->
-> Hongling Zeng (4):
->   ntfs: fix volume flag update races
->   ntfs: set the volume dirty bit unconditionally on metadata changes
->   ntfs: sync the volume dirty bit with the recorded error state
->   ntfs: persist the dirty state after the final put_super() commits
->
->  fs/ntfs/file.c   |  20 ++---
->  fs/ntfs/namei.c  |  24 ++----
->  fs/ntfs/ntfs.h   |   1 -
->  fs/ntfs/super.c  | 191 ++++++++++++++++++++++++++++++++++++-----------
->  fs/ntfs/volume.h |   4 +
->  5 files changed, 171 insertions(+), 69 deletions(-)
->
-> --
-> 2.25.1
->
+[...]
+> > > What running it
+> > > across vendors needed on top of that direction is:
+> > >
+> > >   - per-CPU lockless rings between the NMI sample handler and the kdamond drain,
+> >
+> > I understand we need to make it lockless.  I wonder if we have to make it
+> > per-CPU.  I understand it will be better in terms of performance, especially on
+> > machines having many CPUs.  That said, this feels like somewhat we can discuss
+> > in phase 3.  And it would deserve to have sufficient discussions and
+> > performance evaluations.
+> 
+> The per-CPU structure is not a performance optimization we can defer -- it
+> is required by the calling context.  A perf-event overflow handler runs in
+> NMI context, which cannot take a mutex or any sleeping lock.
+> damon_report_access() takes a mutex, so it cannot be called from there.
+
+Thank you for clarifying, Ravi.  But, what I wanted to say is, we could update
+damon_report_access() to not use mutex but atomic operations.  Does that make
+sense?  FYI, damon_report_access() will also be renamed, say,
+damon_report_attr().
+
+[...]
+> Understood.  I included the page-fault source in v2 because the December
+> 2025 RFC [1] that introduced damon_report_access() had it as the primary
+> consumer, and I wanted to carry forward that ability.  Since it is out of
+> scope for milestone 2, I will drop it from v3.
+> 
+> Patches 1, 2, and 3 will be dropped from the v3 submission since they are
+> all tied to the page fault path.
+
+Makes sense, thank you!
+
+> 
+> >
+> > >   - per-CPU events that follow CPU hotplug, armed when the kdamond starts and
+> > >     disarmed and drained when it stops,
+> > >   - a per-PMU owner, so two contexts cannot claim the same PMU type,
+> > >   - whichever address a PMU does report carried on the report and matched
+> > >     against the context's own address space, so one source serves a paddr or a
+> > >     vaddr context without a backend per address space.
+> >
+> > These all soudns making sense to me.  Nonetheless, I think we can scope
+> > milestone 2 to support only physical address and defer these things to the
+> > phase 3.
+> >
+> 
+> Got it. Will scope v3 to PA only. so included results for v3 would be based on
+> AMD IBS testing.
+
+Sounds good!
+
+> 
+> > >
+> > > This is tested with PEBS on Intel and IBS on AMD, both configured as `perf_event`
+> > > attributes on a probe and using the perf core's event plumbing rather than
+> > > per-vendor MSR code.  A third source has already been written against the same
+> > > ring: Kunwu Chan's ARM SPE backend [5], which reaches it through an AUX buffer
+> > > drained in process context instead of an overflow callback, and which the
+> > > roadmap [2] places in its third milestone.
+> >
+> > Awesome, appreciate your huge effort on this!
+> >
+> > >
+> > > The partitioning is what lets promotion and demotion run in one context.  A
+> > > sampler says which regions are hot; it says nothing about which are cold, because
+> > > a sampler that reports nothing about a page cannot distinguish untouched from
+> > > unsampled.
+> >
+> > I'm not really sure.  I think absence of samples for an address range can also
+> > mean the address range is cold?  Actually the page table accessed bit based
+> > monitoring also use a sort of sampling, so I don't show real distinction.
+> >
+> > Maybe you're right, but I think this deserves sufficient discussions and
+> > testing that we could defer to the phase 3.
+> >
+> > > Region age is what a demotion scheme matches on, and age comes from
+> > > the page-fault primitive.
+> >
+> > We would have age in perf event based mode, too.  Isn't it?
+> >
+> 
+> You are right.  Region age accumulates whenever nr_accesses stays at zero
+> across aggregation boundaries, and that holds whether the zero comes from a
+> PTE scan or from an empty perf-event drain.
+> 
+> I was initially concerned that a sparse sampling PMU might not cover every
+> cold region in every aggregation window, leaving silence that could be
+> mistaken for cold,
+> whereas page faults provide higher spatial coverage for confirming
+> first-access.  Having both together was intended as a defence against that gap.
+> 
+> Based on your observation I retested this on hardware.  On AMD Turin
+> the cold demotion scheme found and demoted the idle working set
+> correctly using only the hardware-sampled IBS signal -- nr_accesses aged to zero
+> for regions that genuinely had no traffic, and the scheme acted on age as
+> expected.  The combined design may still be worth exploring later when
+> page fault
+> is considered to be reintroduced in phase 3.
+
+Sounds good, thank you for the testing Ravi!
+
+> 
+> > > With the ring partitioned by class both are live at
+> > > once: the probe supplies hotness, the primitive supplies age, and two schemes
+> > > over the same regions can move memory in both directions under one kdamond.
+> >
+> > Unless the needs are clearly confirmed, I'd prefer having single class for
+> > simplicity.
+> >
+> 
+> With the page fault primitive out of scope there is no case for two ring
+> classes.  I will prepare v3 with a single class.
+
+Sounds good!
+
+[...]
+> > >   4. `mm/damon: add damos_node_eligible_mem_bp tracepoint` -- a per-tick
+> > >      tracepoint over the node-eligible-memory quota goal evaluation, exposing
+> > >      the goal's target and current values, so the loop a bandwidth-driven
+> > >      controller steers is visible to a tracer.
+> >
+> > This seems doesn't need to wait anything.  If this turned out to be helpful,
+> > please feel free to separately send patches for this.
+> >
+> 
+> Yes. It is quite useful to track goal convergence. Will send a single patch
+> targeting mm-new.
+
+Looking forward to the patch!
+
+[...]
+> Summary of what v3 will contain (5 patches, former patches 5-9 of v2):
+>   - paddr-only, single ring class, no page fault primitive
+>   - per-CPU rings retained (required by NMI calling context, not an
+>     optimization)
+>   - perf-event overflow handler (paddr path, vaddr parts deferred to phase 3)
+>   - sysfs/lifecycle surface
+>   - probe-weighted score
+>   - kunit tests updated for the simplified scope
+
+Makes sense.  And regardless of my global ring idea, feel free to keep the
+per-CPU rings.  As long as it is an RFC, please feel free to implement it in an
+easy-to-implement way.
+
+Please also note that I'm still working on shaping the milestone 2
+deliverables.  I'm not yet in a stage that I can share how it will really look
+like.  So the final version of your work might need a significant amount of
+change to rebase on it.  I will also try to make it not unnecessarily delayed
+more than our planned timeline.  But please bear in mind with me.
+
+> 
+> Separate send targeting mm-new:
+>   - tracepoint (former patch 4)
+
+Looking forward to it.
+
+[...]
+> [1] RFC PATCH v3 00/37: mm/damon: introduce
+> per-CPUs/threads/write/read monitoring
+>     https://lore.kernel.org/damon/20251208062943.68824-1-sj@kernel.org/
 
 
---=20
 Thanks,
-Hyunchul
+SJ
+
+[...]
