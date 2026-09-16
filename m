@@ -1,145 +1,187 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBB7530DEA;
-	Wed, 16 Sep 2026 23:09:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AF34AF9F5;
+	Wed, 16 Sep 2026 23:10:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600197; cv=none; b=QzGEJFPTB1pMEfS12UeMMSDpZdsl3DRYs0VCAYF1pmYfJFHYfUDaZe+pjazvhZApPLoU7+g4SMXIlbuLWMISty+7Dsk/IgF5H4b9zc7T9snbkna5XDooUfAaGY3/r/NjQMuZG+QLOeXfQnod96JcBuqZIpXhNUsp+gfHOelMZ5w=
+	t=1789600232; cv=none; b=brwmHg0n/HFrngHpKQOSDxvFjO1sZkXqbTlBg2kgU6jq+jUfMguOkfKqoQ1iU4438GIr57OoAxelsNjONi1YOuHEFlgWABIIqKoJVs5XrNieeVksRQp1wMfRUbltc6Aq6gPVYQ0sWbm/8wZDMGcjOiNxPC6tQYlUFcxjHPZ6O6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600197; c=relaxed/simple;
-	bh=rgVT3wN05mtR0wVmodPRJgzZeltxN2x8DeHhU3FVo7Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YzZ7A4KdD9sGBE2w+LDBRUXGfO7avdALC0h+qjEnalPzvGzmo3TcpIgtNzPepIfhs/ZBBNnsi872RHE6yDOdtpTga+/bc9H9hG/M3RY1RVngSXSnHb6fHnr80Su2cIZsx+CSBKTFVnJGj4ePNPKvjiMvfQPu+2Fa2zqHahYdUq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ia3PeJ0k; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789600232; c=relaxed/simple;
+	bh=xCguHQMCYrAhxUbvncvb/JwqRF+LXT699cO5jsTk2qE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=boJb7yRfZJXKeqQpxOJmr5ir959+siT8DQizABSyv2VOaPY1ivzH4vgjPdIgNqndz5V3/aHYdY9+rJOf8QgFmTcWPT7FKElMygHjhcLOz9t/IvOwnRAdJvwHBW+1pxso2tPmkD6gUWc9xxxdHlmqiF9wcWGTM7Ozs34CyO7KUH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kwdgEypZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ia3PeJ0k"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GG1bMS4057200;
-	Wed, 16 Sep 2026 23:09:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=CUWkOg
-	NJs+S2I9guIEGrq4RU0vb6psXCglD3/VkXnr4=; b=Ia3PeJ0k3dnqRnXLmHi+wc
-	hwFT9LxrOnmEvUw/bnaCsIZSQYz8vLeU5n9wEXIgc82JSGhpA8BCz2H9mDI5Qcy4
-	YT+zcqlBgjm0GLiSjihHzvUE3K37Fk6MiUfczq/rHaWQ4cLFFS0ibcYMSW5ajnke
-	DEaHcbta1DCGnXQWe9Hqfm+S3vnt6KFSsmeqkVRSTY9D82sFwT3XOjAR5/xeY5Pe
-	pReoBUFG70mnOMTwBz5hrP1Adxy5963tVy8YvpGb0U0qice9DjK1/6w1WqBXpqWJ
-	xwMSIKd+rwryB/TTnYXxQwhmdRYP9m6NuEU2SU3cjH2iRAyH3HNjk2D3/OkIEy/A
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmv5hy9vj-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 23:09:49 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GN2IAV1699595;
-	Wed, 16 Sep 2026 23:09:48 GMT
-Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gq03vgug6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 23:09:48 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68GN9lDJ24117778
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 16 Sep 2026 23:09:47 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 57B2C58054;
-	Wed, 16 Sep 2026 23:09:47 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6CAAA5804E;
-	Wed, 16 Sep 2026 23:09:46 +0000 (GMT)
-Received: from li-4c4c4544-0054-3910-8039-c3c04f423534.ibm.com.com (unknown [9.61.141.190])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 16 Sep 2026 23:09:46 +0000 (GMT)
-From: Tyrel Datwyler <tyreld@linux.ibm.com>
-To: james.bottomley@hansenpartnership.com, martin.petersen@oracle.com
-Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org, brking@linux.ibm.com,
-        davemarq@linux.ibm.com, Tyrel Datwyler <tyreld@linux.ibm.com>
-Subject: [PATCH 18/20] scsi: ibmvfc: fix NVMe sub-queue registration failure disabling SCSI multiqueue
-Date: Wed, 16 Sep 2026 16:09:19 -0700
-Message-ID: <20260916230921.2204729-19-tyreld@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916230921.2204729-1-tyreld@linux.ibm.com>
-References: <20260916230921.2204729-1-tyreld@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kwdgEypZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D482E1F000FF;
+	Wed, 16 Sep 2026 23:10:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789600231;
+	bh=y00T1vmj1UNGlqOvYl58ewkG2IXit9qkBHxOO+JErbk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=kwdgEypZlQDkuCoFOh0C/E21c0yGWzeULgahWnxF1Iu1g+8uMV4XcSCFfZsj9Sy8N
+	 MbtJcyqXbrQaeCQmE05ttgEz2xMI4OMelHLRnlW7kVCX6quKsZJ4wu18xUwMZzd03s
+	 rJwLQDd4CRfL6kdxM/9uqkO2MC+5hjL6noZQ7dPNnfcko+72dvFQEY9Q88lcBacnPu
+	 30D2JY73JbWiXUCZ9mYTAVR0oJP/52ozLf6+/g8XYXFSQcRMjV8aFm3zSiNM5h+cZC
+	 dO7j3GNju0sVIT/SmgOZX90zZEajsBFBLAAPDlYPg+xhlBtbCnEfMIJPlntWdMauRQ
+	 rbOl0fOIZ9u6Q==
+Date: Wed, 16 Sep 2026 18:10:29 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Sangwoo Han <sangwoo.han@nearthlab.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, jim2101024@gmail.com,
+	florian.fainelli@broadcom.com, lpieralisi@kernel.org,
+	kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com,
+	bcm-kernel-feedback-list@broadcom.com, robh@kernel.org,
+	linux-pci@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Inochi Amaoto <inochiama@gmail.com>
+Subject: Re: [PATCH] PCI: brcmstb: Reserve only the MSI vectors that are
+ handed out
+Message-ID: <20260916231029.GA988000@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDMyMiBTYWx0ZWRfX2mRyg3CP3mu9
- Llbq6bokMo0MQmI4+jqWZNlYmegVdsBRGZMKhfhO6qnEMhVTGs3F7U91EKF9VDzMOQKImhYCGWw
- oksmMYlmauCYi+1cxpmPz6Yyvcln7mAlnAKc1ewUl5R7ZSXmtnFqexQhaka49W5sWpqWtuybdxj
- smz9RlrRaUVfMD21e2AWc+sS9pkikTGwXfjc/GoPLqMHqON2r/HEck+dKCkZcg3X6pjN+UDiiWy
- 2n81p5habBT6uk3sykxYCK4Zi1MMxGajUZdQVVif2qo45jYaRwKOyr+QQo+3dbqEygVryS5+Dhb
- OHvNdDO5nEEjI2ehOYITUl4mdrEgq8kKnqPK675F7/sEPusNeP3n/nMk65NFl1BNiOQjFxZBzJr
- nyo8uudjRcASqHSlRPXpy/0IxAbtLx6A3hdxmUHcUekT+a8+3GODMJ+LUjsdxn1SKu/z/++TdKo
- ZoPHPex55OeKTmxwraA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDMyMiBTYWx0ZWRfXxY5Vdo/emS4H
- 8uYs9phZnO+X+CXfA6S6JxqR51DZJFwJPzrQDZFJ90OyvsCH06AmJ8fREXxz09EO0/mztKXjc8v
- TmbBUUskxEAuQm9eL2RJEcGU/JZ45eM=
-X-Authority-Analysis: v=2.4 cv=Zsx4uN7G c=1 sm=1 tr=0 ts=6aab21bd cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=To5To57u1w-uQxo1Mx4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: oqtPaZAwKHanj0Mqrz0476d9XTXaaxtk
-X-Proofpoint-GUID: oqtPaZAwKHanj0Mqrz0476d9XTXaaxtk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160322
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87cxuo3fl9.ffs@fw13>
 
-ibmvfc_reg_sub_crqs() clears vhost->do_enquiry unconditionally when any
-channel registration fails.  The function is called for SCSI channels
-first and then for NVMe channels (in ibmvfc_init_sub_crqs(),
-ibmvfc_reset_crq(), and ibmvfc_reenable_crq_queue()).  If the NVMe
-channel registration fails, do_enquiry is cleared even though SCSI
-channels registered successfully, preventing the IBMVFC_CHANNEL_ENQUIRY
-MAD from being sent and silently disabling multiqueue support for SCSI.
+On Mon, Sep 07, 2026 at 11:40:34PM +0200, Thomas Gleixner wrote:
+> On Mon, Sep 07 2026 at 11:34, Bjorn Helgaas wrote:
+> > [+cc Thomas, Inochi for MSI expertise]
+> >
+> > I want to revive this thread because I think there's a real problem
+> > here, and we should solve it for all the PCI controller drivers.
+> >
+> > There's nothing brcm-specific about the bitmap alloc/free except the
+> > size of the msi->used bitmap, so I don't want to copy/paste this sort
+> > of fix in all the affected drivers.
+> >
+> > I'd also like to avoid the extra align_mask and
+> > bitmap_find_next_zero_area() followed by manual bitmap_set().
+> > bitmap_find_free_region() already takes care of the alignment and
+> > setting the allocated bits.
+> >
+> > The MSI Multiple Message Enable situation of enabling more vectors in
+> > the device than the driver wants is generic to all devices that
+> > advertise Multiple Message Capable, and I don't think we should have
+> > to deal with this in every host controller driver.
+> 
+> Correct.
+> 
+> > If a driver requests 3 vectors, we have to enable 4 because MSI only
+> > supports power-of-two number of vectors.  This tells the device it is
+> > allowed to use all 4 vectors, and I think the PCI MSI core should
+> > assume they all *will* be used instead of relying on the driver's
+> > claim that it will only use 3.
+> 
+> That's not really a good idea because e.g. the irq affinity stuff relies
+> on the accurate number of interrupts the driver requested with the
+> minvec/maxvec range. We can't magically spread more interrupts than the
+> driver is able/willing to handle.
+> 
+> But we can fix that without changing the consumer side (device drivers)
+> visible behaviour and handle it solely in the core code.
+> 
+>  1) MSI interrupts are special because they have msi_desc::nvec_used >
+>     1, so the allocation and the free path can take care of the power of
+>     two requirement. That just allocates more resources than the driver
+>     wants but they are just memory.
+> 
+>  2) All MSI parent domain implementations should be able to handle
+>     domain_ops::free() with nr_irqs > 1. That's something which can be
+>     trivialy audited.
+> 
+>     I really have no memories why the bulk remove function iterates the
+>     interrupts one by one instead of doing in one go, but this is also
+>     used by non MSI domains, which might have issues with a bulk remove.
+> 
+>     If we establish that all MSI parent domain implementations can
+>     handle the free() callback with nr_irqs > 1, then
+>     irq_domain_free_irqs_hierarchy can check whether
+>     IRQ_DOMAIN_FLAG_MSI_PARENT is set in the domain_flags and avoid the
+>     loop for that case.
+>     
+> Something like the completely untested below.
 
-ibmvfc_init_sub_crqs() already handles NVMe *allocation* failure
-correctly — it only clears nvme_enabled without touching do_enquiry.
-The same logic needs to apply when NVMe *registration* fails.
+Sangwoo, is there any chance you can test this and see whether it
+fixes the issue?
 
-Fix ibmvfc_reg_sub_crqs() to check channels->protocol in the failure
-path: clear do_enquiry only for a SCSI channel failure (preserving
-existing behaviour), and clear nvme_enabled instead for an NVMe channel
-failure.  This covers all three call sites in one place.
+If it does, I guess we'll have to ask Thomas to post it with the
+appropriate Signed-off-by, etc.
 
-Fixes: bf86ac3ca0d2 ("scsi: ibmvfc: alloc/dealloc sub-queues for nvme channels")
-Signed-off-by: Tyrel Datwyler <tyreld@linux.ibm.com>
----
- drivers/scsi/ibmvscsi/ibmvfc-core.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-index 93189692191e..d79a6ae278a2 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
-+++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-@@ -6527,7 +6527,10 @@ static void ibmvfc_reg_sub_crqs(struct ibmvfc_host *vhost,
- 		if (ibmvfc_register_channel(vhost, channels, i)) {
- 			for (j = i; j > 0; j--)
- 				ibmvfc_deregister_channel(vhost, channels, j - 1);
--			vhost->do_enquiry = 0;
-+			if (channels->protocol == IBMVFC_PROTO_SCSI)
-+				vhost->do_enquiry = 0;
-+			else
-+				vhost->nvme_enabled = 0;
- 			return;
- 		}
- 	}
--- 
-2.55.0
-
+> ---
+> diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
+> index 4fdcb6df5306..b3f6cc6ae2ce 100644
+> --- a/kernel/irq/irqdomain.c
+> +++ b/kernel/irq/irqdomain.c
+> @@ -1611,6 +1611,13 @@ static void irq_domain_free_irqs_hierarchy(struct irq_domain *domain,
+>  	if (!domain->ops->free)
+>  		return;
+>  
+> +	/* CHECKME: Are all MSI parent domains capable ? */
+> +	if (domain->flags & IRQ_DOMAIN_FLAG_MSI_PARENT) {
+> +		if (irq_domain_get_irq_data(domain, irq_base))
+> +			domain->ops->free(domain, irq_base, nr_irqs);
+> +		return;
+> +	}
+> +
+>  	for (i = 0; i < nr_irqs; i++) {
+>  		if (irq_domain_get_irq_data(domain, irq_base + i))
+>  			domain->ops->free(domain, irq_base + i, 1);
+> diff --git a/kernel/irq/msi.c b/kernel/irq/msi.c
+> index fb5f372215bf..2835b09899ea 100644
+> --- a/kernel/irq/msi.c
+> +++ b/kernel/irq/msi.c
+> @@ -1333,20 +1333,28 @@ static int __msi_domain_alloc_irqs(struct device *dev, struct irq_domain *domain
+>  
+>  		ops->set_desc(&arg, desc);
+>  
+> -		virq = __irq_domain_alloc_irqs(domain, -1, desc->nvec_used,
+> +		/* Make sure a MULTI-MSI allocation is power of two */
+> +		unsigned int nvec_aligned = roundup_pow_of_two(desc->nvec_used);
+> +
+> +		virq = __irq_domain_alloc_irqs(domain, -1, nvec_aligned,
+>  					       dev_to_node(dev), &arg, false,
+>  					       desc->affinity);
+>  		if (virq < 0)
+>  			return msi_handle_pci_fail(domain, desc, allocated);
+>  
+> -		for (i = 0; i < desc->nvec_used; i++) {
+> +		for (i = 0; i < nvec_aligned; i++) {
+>  			irq_set_msi_desc_off(virq, i, desc);
+>  			irq_debugfs_copy_devname(virq + i, dev);
+>  			ret = msi_init_virq(domain, virq + i, vflags);
+>  			if (ret)
+>  				return ret;
+>  		}
+> +
+>  		if (info->flags & MSI_FLAG_DEV_SYSFS) {
+> +			/*
+> +			 * This only exposes desc->nvec_used and ignores the
+> +			 * overallocated MULTI-MSI ones.
+> +			 */
+>  			ret = msi_sysfs_populate_desc(dev, desc);
+>  			if (ret)
+>  				return ret;
+> @@ -1610,13 +1618,15 @@ static void __msi_domain_free_irqs(struct device *dev, struct irq_domain *domain
+>  			continue;
+>  
+>  		/* Make sure all interrupts are deactivated */
+> -		for (i = 0; i < desc->nvec_used; i++) {
+> +		unsigned int nvec_aligned = roundup_pow_of_two(desc->nvec_used);
+> +
+> +		for (i = 0; i < nvec_aligned; i++) {
+>  			irqd = irq_domain_get_irq_data(domain, desc->irq + i);
+>  			if (irqd && irqd_is_activated(irqd))
+>  				irq_domain_deactivate_irq(irqd);
+>  		}
+>  
+> -		irq_domain_free_irqs(desc->irq, desc->nvec_used);
+> +		irq_domain_free_irqs(desc->irq, nvec_aligned);
+>  		if (info->flags & MSI_FLAG_DEV_SYSFS)
+>  			msi_sysfs_remove_desc(dev, desc);
+>  		desc->irq = 0;
