@@ -1,56 +1,56 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CE03F0A86
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2363F105F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789539207; cv=none; b=Y5Nc6JBRMEyMBxI4BhFTaGX6BOW1VEz0Z3wG/ts2oIUbkXLfFItxDcQUM8sCBoMTjcC5TDbCtkKSFMjbNTUyjkeAdm8z5c37Cy3u6DlG2QQ8RNRDTzhPZPO+ct83ZzW6zqNf38c5/Wk0uuSlrUKzLEGrGjJuu5sBmKSa1/zq0nM=
+	t=1789539210; cv=none; b=FCZVu5OtwZ/MQPQo2eCvePXQMK44dIAx8GExN8zbAEGVG3Q4NXETdV30/EvVvvUyegZd2xDeYJRRdxgn5dn+ME6WzK4+gW4dy8z0Bxk0k+tAjSsWnbwNqTSapWDAoV4lN223XvhDMjmX+plNRQAk9Xu6lACn/fSUGYhoq/YCgMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789539207; c=relaxed/simple;
-	bh=9AQBOX7WHaFtXKrai6q48Xl/HvE+e0N8DcJlpSobYXI=;
+	s=arc-20240116; t=1789539210; c=relaxed/simple;
+	bh=/UxG/z8oqDwP9CIwjcJWyPbDAUY4rJGItVrJwkdYtcs=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=uWefjo/mORj/9Pynj9WaZogyJU6jaQfbkZtd1JGpGduwhJkdXULwrlcFO02GEiPo140fU4nlBAkDC3nhhjwMFKAar2685hKrTaN0jbKvzrVqCe9ENS8pPcFv+Dw8pn7hVVRo+AQMdNtGww3zTMMVNAnYCX5CLpmquGHy38fZJA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rcr2L7sD; arc=none smtp.client-ip=209.85.215.200
+	 To:Content-Type; b=K63yPveu/6BwJ8kI0Exhf6gqLk5fbLkz8b4ff1yG6+aLPn3JkxAwtAtfs/7Al2YLGDZKPxfB7yvUSV7Gnj5baxnwqVsAzOTyvIQWGs/fqYRh62/5OQTRZzLGRGCOBnaGPH6ogO0LYQUbNrMzF23NVdYdigbKLqms8n4cbslKgpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=S5X1sQhf; arc=none smtp.client-ip=209.85.216.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rcr2L7sD"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4afc810bfso1700526a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:13:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="S5X1sQhf"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398dc3d8f0fso1894506a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:13:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789539205; x=1790144005; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789539207; x=1790144007; darn=vger.kernel.org;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=icwakIRxoRygxUn8RuGulJXMD/67KQ1hy2QcRu7qTfU=;
-        b=rcr2L7sDxZVTco3JJcBMrGiBH2FJI4pOWDgpEz+WDX8TE7SVe15tzeYAHFqLhLFoBD
-         WygyNCbivXUQWA8oiw2jNTk2U5g/wg5vniZV6zh1OXIXpihls5NTNEATd/AH9xGB0rGW
-         473FX/a5mzKlQ/v1t6KvdYy30Vuy0d7HRp/Zuo6aYWxlDH1b2Tw4sGkGvXastJilb+EG
-         6w5TGVDFgYlJ+UYYfHKdyVEzNqP5mXwUXN6CXob+NmVeACXFvtJN5V9dtcwJ2mBtkX+q
-         cTPws6PUj8E3xlub0B8AE0TvIX08Fby9O+09cBGwlQLQJ8uR6PWUVRh7gXcbgNQ0gXuX
-         G0OA==
+        bh=mE+VIvBqxJWeI7GLiq81u6doV2s7RHiOZIS5UCF0zbk=;
+        b=S5X1sQhf8PRD27TmBaTV9nyWZgFb4WxZheW59NQRHqiF4qGeGbjdZTBNjuf+5LTGoW
+         k7iRZHKHjfGiM3DGjU0Jk/HtYkqa5BxBfUCfxyWnADN4nQY45mZtG+Jaughht4oZ3ZAy
+         X8zTcTs9XhzYHOuk5jvxc+sgT5QsWd4F5ARVugsbdnuxtPlULrc0A9ZTVUscGSKtj5IM
+         ubV9HCiHt7sXGUCCb9bWtEOw3/Muaomv3OkoWskb0NoGYyU2GM/74lCGMFv8UWWyr1YD
+         ghOzHzmt6RdICW8tLOG79O3xfRLmS03tc8vBT9UrTbxoXS6essbUwVzhUzt1WrPlS9rV
+         /Kkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789539205; x=1790144005;
+        d=1e100.net; s=20260707; t=1789539207; x=1790144007;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=icwakIRxoRygxUn8RuGulJXMD/67KQ1hy2QcRu7qTfU=;
-        b=RjTNSsekFcqJy8/wfSHiRYBFEZUNy6sSxD/NwCMEUCJCTEwxOEBbuzT6Ow7CvIrvyr
-         7EzcFaz508ymuDLnSNBD7XoWMeDSK+G3iB8EPwQAAZHaaQEzL4N18qgsPzM7fhO6tXQC
-         SVHi/J606lwFqHXu3Dic7cxRaJV0ZKx3j6yfam6vT9OOyqtWDmwEx+hq7RKKskNMBtmd
-         kKVATVxCHnV/OnxKM/IbQ9Mq5KycvKCgWymTjywhIVnUqJDK5Bht6SX/i7Zei5vcI/kQ
-         LSED8STnHJQdNcuVVGRIkWedr9gmeJm+yKaH3GKU/t0VH+H7SDHnn5ouCTWvAq58uOoU
-         H/gw==
-X-Forwarded-Encrypted: i=1; AKwUvBwcwWyl+zucUOjBZSCoHVZc9ObydYYfMZ91I2aIz3h/HD7smQAShfzXYU/APm697+3+RZ9N7aIG3ph4pYk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kov6XzZSFSxQJa047s4+TpY7yxMmYDmKy+okuLkL1J3NEQ4+ao
-	p6DDNOTl9JUWud/VcALtx9YodxqT9zRj3+PTdV8JTbda9LMfmo7u5cS4HvYZ+v0MMJ697bz4I8w
-	/G7MDmsTA+A==
-X-Received: from dyhb21.prod.google.com ([2002:a05:7300:1495:b0:32b:7182:c3b7])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2446:b0:2d8:d4d2:d13a
- with SMTP id d9443c01a7336-2dd7655b5f3mr91909395ad.22.1789539204632; Tue, 15
- Sep 2026 23:13:24 -0700 (PDT)
-Date: Tue, 15 Sep 2026 23:12:16 -0700
+        bh=mE+VIvBqxJWeI7GLiq81u6doV2s7RHiOZIS5UCF0zbk=;
+        b=tqZHXHoCUcfnelTfVrCcHa37tykqiz9cUQjkkpwdA+iI2cSJBp8dnhFHZh1GaxRFqX
+         4M5GxY3d/ga3vVlZlVZUsSEyrF2zw6DNPH4BFhb89ojE5iOzi/N1BPJc8Agu8y6QBLVU
+         LzDuB0iu23xH5H4uZL0YXeBh9Mnu+k2eF84r0/EQCgXSc5NG8mcYfC3FduEitrZza0eQ
+         EUzR0GbhK+J0pYFgiIjD4vhjXnRRfky58OEmHETT/f+wWBNXcFzieTgIcK+ojKdTxwWX
+         JTG9BtYTEJ3qnhqjwsQNobam64UujOCZoxn3xzNCeuYIDw9OFnbtLaGhPkF/rXL2k0P1
+         mK/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxCYg3u9yTsYOFa6Yn641QVvLaNbfeuhbzloW1V53NB0zNekW7rC0+I745Grb+6/ke2YCzuKHLDU64BH6A=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzv6NDSsxbneHtOoZfQxjJ8iTjI9ln4goM4JP89ILKKGi1abcx
+	zHbFnwqbuB8XL0QnwH3jWJaLORiz67Ko+WyNwlbDZkYkZQaN7PKbCpodhqCsYLxA0+eKdE3IjSF
+	46EHkXUDtXQ==
+X-Received: from dlep14-n2.prod.google.com ([2002:a05:701b:458e:20b0:143:9704:de05])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3941:b0:39e:237c:50de
+ with SMTP id 98e67ed59e1d1-39e237c518amr1393784a91.3.1789539206454; Tue, 15
+ Sep 2026 23:13:26 -0700 (PDT)
+Date: Tue, 15 Sep 2026 23:12:17 -0700
 In-Reply-To: <20260916061218.3061216-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260916061218.3061216-1-irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260916061218.3061216-8-irogers@google.com>
-Subject: [PATCH 7/9] perf build: Check the version of the compiler that is used
+Message-ID: <20260916061218.3061216-9-irogers@google.com>
+Subject: [PATCH 8/9] perf build: Remove leftovers of removed build options
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -72,40 +72,69 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 
-The flex and bison flags are adjusted for clang older than 13.0.0, which
-doesn't grok -Wno-unused-but-set-variable. The test is reached because
-CC_NO_CLANG says CC is clang, but the version comes from $(CLANG), which
-defaults to plain "clang" and needn't be the compiler in use:
+NO_LIBDW_DWARF_UNWIND, NO_SYSCALL_TABLE and the embedded clang/LLVM
+support were all removed, but each removal left the matching entry in
+the build test suite behind:
 
-  $ make CC=clang-19 CLANG=clang-12
-  version from $(CLANG) -> 12.0.0, flag stripped
-  version from $(CC)    -> 19.1.7, flag kept
+  run += make_no_libdw_dwarf_unwind
+  run += make_no_syscall_tbl
+  run += make_with_clangllvm
 
-Dropping the flag lets the warnings it suppresses in the generated flex
-and bison code through, and those are errors under -Werror.
+None of these have a make_* variable defining what to build, so $($@)
+expands to nothing and each one silently repeats the plain "make_pure"
+build. The suite therefore spends six builds, as every test is also run
+with O=, appearing to cover options that no longer exist.
 
-Ask $(CC) instead, as that is what compiles the code.
+Remove them, along with the NO_LIBDW_DWARF_UNWIND comment that is still
+in Makefile.perf.
 
-Fixes: 878460e8d0ff ("perf build: Remove -Wno-unused-but-set-variable from the flex flags when building with clang < 13.0.0")
+Fixes: 2e9191573a69 ("perf build: Remove NO_LIBDW_DWARF_UNWIND option")
+Fixes: 3cc550f5bbcf ("perf tools: Remove dependency on libaudit")
+Fixes: 56b11a2126bf ("perf bpf: Remove support for embedding clang for compiling BPF events (-e foo.c)")
 Signed-off-by: Ian Rogers <irogers@google.com>
 Assisted-by: Antigravity:gemini-3.1-pro
 ---
- tools/perf/util/Build | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/perf/Makefile.perf | 3 ---
+ tools/perf/tests/make    | 3 ---
+ 2 files changed, 6 deletions(-)
 
-diff --git a/tools/perf/util/Build b/tools/perf/util/Build
-index d08f2af7d970..a4618e4e4848 100644
---- a/tools/perf/util/Build
-+++ b/tools/perf/util/Build
-@@ -339,7 +339,7 @@ bison_flags := -DYYENABLE_NLS=0 -Wno-unused-but-set-variable
- 
- # Old clangs don't grok -Wno-unused-but-set-variable, remove it
- ifeq ($(CC_NO_CLANG), 0)
--  CLANG_VERSION := $(shell $(CLANG) --version | head -1 | sed 's/.*clang version \([[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+\).*/\1/g')
-+  CLANG_VERSION := $(shell $(CC) --version | head -1 | sed 's/.*clang version \([[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+\).*/\1/g')
-   ifeq ($(call version-lt3,$(CLANG_VERSION),13.0.0),1)
-     bison_flags := $(subst -Wno-unused-but-set-variable,,$(bison_flags))
-     flex_flags := $(subst -Wno-unused-but-set-variable,,$(flex_flags))
+diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
+index 2438b40eaaec..53f538cc8e1a 100644
+--- a/tools/perf/Makefile.perf
++++ b/tools/perf/Makefile.perf
+@@ -64,9 +64,6 @@ include ../scripts/utilities.mak
+ #
+ # Define NO_LIBBIONIC if you do not want bionic support
+ #
+-# Define NO_LIBDW_DWARF_UNWIND if you do not want libdw support
+-# for dwarf backtrace post unwind.
+-#
+ # Define NO_LIBTRACEEVENT=1 if you don't want libtraceevent to be linked,
+ # this will remove multiple features and tools, such as 'perf trace',
+ # that need it to read tracefs event format files, etc.
+diff --git a/tools/perf/tests/make b/tools/perf/tests/make
+index f879f8109072..608470ff9c10 100644
+--- a/tools/perf/tests/make
++++ b/tools/perf/tests/make
+@@ -157,7 +157,6 @@ run += make_no_demangle
+ run += make_no_libelf
+ run += make_no_libdw
+ run += make_libunwind
+-run += make_no_libdw_dwarf_unwind
+ run += make_no_backtrace
+ run += make_no_libcapstone
+ run += make_libcapstone_dlopen
+@@ -167,10 +166,8 @@ run += make_no_libbpf
+ run += make_no_libbpf_DEBUG
+ run += make_no_libllvm
+ run += make_no_sdt
+-run += make_no_syscall_tbl
+ run += make_no_babeltrace2
+ run += make_with_coresight
+-run += make_with_clangllvm
+ run += make_no_libpfm4
+ run += make_refcnt_check
+ run += make_help
 -- 
 2.55.0.1032.g73a4cd73de-goog
 
