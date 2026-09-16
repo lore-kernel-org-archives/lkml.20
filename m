@@ -1,68 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECC84B04B1;
-	Wed, 16 Sep 2026 12:06:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A964718DC;
+	Wed, 16 Sep 2026 12:07:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789560423; cv=none; b=JWrtMeq0Lf7RAz70+P+ul9Zen8EU4zlDrY656SmJROfkLADxYH2+mMLqbjvrhm/TpLkmNXTDTya7/3DV2KXrWtA3F8QvywtcVic8biCLCTsIP62BkQ7+silvUet1YPdiChA2SOKX57807TDU29oCTyJPN0E0DCVys/dZxhnNGgU=
+	t=1789560442; cv=none; b=r3TU8t1gMblrWURHkI3vXbpEWaCBN/bacb0JA716qC24zjE3r4D5b6U4wNJPQWZCQ9bgjOHaR9/5oRF2mxR6gGz78o3GhmB1amZ6y4dP1IAuGn8ol1nleEoQZoVOk1pSVifEO4AJKgi5cdpd1zXVhrJY8v+lusW5Vhx6Uenv0DU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789560423; c=relaxed/simple;
-	bh=lwle7nNhHXThQ6j6tjhq/HCQUySFcf6JoA5CBw19P+I=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=GDJYzyY1dNEu3+zqwoRlaCF/IVaxDY6h5GI0ZOkX5QrhL1u60lf/nmZay0uU4JgEbIEdRr4CEQwBrg0Bn4LjHmrhdlJePJxXRCTwn7QRw1XPRyTde5Yrr6qHH2sec2aJHqLds29Nh0ShOo4i+t9HE3vQjRJVpnK1eXZvvvlwGP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DDmTjOwz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789560442; c=relaxed/simple;
+	bh=PNRAk987V0a41382WuED48cFT2Uq+Yw379j0Eft2v+I=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Qqvokgp367Gcyj7wyA8dlz/Q0EaRfGb0zLoo3aNLEnSAg9151/u+cT/FQ2SBNGmNDauVkRH7H50YCAAqVwcxuxDt2fgjN9jG+U8N+nswiJivoObanSnMiD/YwRuMwGfqhMUgluyLlr1QaEAjjwOOMFDtwSNe8r4y0vCuXKaxOu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=l9fPRdds; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=KBTH1pX9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=NVyCj7eB; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HuUMd/h+; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DDmTjOwz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AD221F0089D;
-	Wed, 16 Sep 2026 12:06:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789560410;
-	bh=B2EcF+GeyBALCfJnw1uehGbcGGfKtSbsTDDrT027Gd4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=DDmTjOwz/B319NFX/l+MtWn9XWrkXntxZszGbIcMhhrX2xuXaxmdPN12Ky6sWqDw3
-	 rLZBmNCUBYyzddioIWiWkEIu9Y+VmGCUav6owTqC7W3JQhpJh/SmhubVFvX+F7rwAu
-	 BJl0dAKZUVulTdQhTGu5ndjvBO1f2HOLW57H9/xvXetG4FV/94ve+lvzNVdHnYJWxx
-	 U0G2DeUSLhNHl1t9p7515yppodfvkQ6iJeycztiX0xoR8rM4CAo+4w1kwKscymOqtR
-	 eUI7Q7/jLiAzWxN92hEIJRYbCi6TxPcDjhpQm1aAv6yX9Q3Sbu5bLVl6fY2332aMu3
-	 LrUkUbSvCmhVA==
-From: Carlos Maiolino <cem@kernel.org>
-To: Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
-Cc: "Darrick J . Wong" <djwong@kernel.org>, Christoph Hellwig <hch@lst.de>, 
- linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260914093152.1698-1-aditya.ansh182@gmail.com>
-References: <20260914093152.1698-1-aditya.ansh182@gmail.com>
-Subject: Re: [PATCH v6 0/1] xfs: prevent close() hangs on frozen
- filesystems
-Message-Id: <178956040899.10466.11807387586827569205.b4-ty@kernel.org>
-Date: Wed, 16 Sep 2026 14:06:48 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="l9fPRdds";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KBTH1pX9";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="NVyCj7eB";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HuUMd/h+"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A4D6321BDE;
+	Wed, 16 Sep 2026 12:07:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789560425; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WIkdHuvhYcFKQDO092qbt/BCYCXyCcCSeupVTxMXLvE=;
+	b=l9fPRddsZ5OeFihDkUh3NW517xbh20E4XipzUITj6bImrnNmzmFbgEO4HsuFg0okrWaFrL
+	2hmbFiItdPla95HJP21104XBj2l12GN2bdnx+inu2rM2hAOSwDIAOjFE+vUZLXD1iXPVw5
+	4Gw/mYg+zCngINXWtNgJVS0uYairrwE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789560425;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WIkdHuvhYcFKQDO092qbt/BCYCXyCcCSeupVTxMXLvE=;
+	b=KBTH1pX9je7FsoaYb5RKBEB+veScSadY1mWpP2z5HUs3gbHtGnw9AmRHOIjQle6eNq0nfK
+	GBvxm6I/NVpQpPBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789560421; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WIkdHuvhYcFKQDO092qbt/BCYCXyCcCSeupVTxMXLvE=;
+	b=NVyCj7eBPMNSoH80EpydSzu8DWwTQ4QzQA0j/x3eekyUnToEcJNq96polV33hPykIBf84P
+	Gt+QKKdcTd+zL+OownagOY9BC79MZRzh/BDjxvVHUjx7VMY+B8WskJ8h6NdQ0H/qalCfCq
+	FYHfcXCnTrSZ5jq+5MvycFmxSvmXBHI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789560421;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WIkdHuvhYcFKQDO092qbt/BCYCXyCcCSeupVTxMXLvE=;
+	b=HuUMd/h+XLTK9/nuKXTVw6tUsZ1NKU/V8RRYymiIQRnU7bUWv1WXLXawUqKbVkPJ8j33kG
+	eiIO5d8hqNc+7NAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 49F221348F;
+	Wed, 16 Sep 2026 12:07:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id MN38BmWGqmrwRQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 16 Sep 2026 12:07:01 +0000
+Date: Wed, 16 Sep 2026 14:07:00 +0200
+Message-ID: <87se39jt7f.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: phucduc.bui@gmail.com
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	cassiogabrielcontato@gmail.com,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Cen Zhang <zzzccc427@gmail.com>,
+	Yilin Zhang <yilinzhang@moonshot.ai>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: pcm: Propagate snd_pcm_stop() errors in snd_pcm_drop()
+In-Reply-To: <20260916094014.33609-1-phucduc.bui@gmail.com>
+References: <20260916094014.33609-1-phucduc.bui@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,gmail.com,intel.com,moonshot.ai,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
-On Mon, 14 Sep 2026 09:31:50 +0000, Aditya Prakash Srivastava wrote:
-> This is version 6 of the patch series addressing the close() system
-> call hanging indefinitely on frozen XFS filesystems (Bugzilla #205833).
+On Wed, 16 Sep 2026 11:40:14 +0200,
+phucduc.bui@gmail.com wrote:
 > 
-> In v5, I introduced a transaction allocation flag
-> (XFS_TRANS_WRITECOUNT_TRYLOCK) to handle the trylock inside
-> __xfs_trans_alloc() and propagated it down to xfs_free_eofblocks().
-> Christoph suggested this design and reviewed the implementation.
+> From: bui duc phuc <phucduc.bui@gmail.com>
 > 
-> [...]
+> snd_pcm_drop() currently ignores the return value of
+> snd_pcm_stop() and returns a pre-initialized zero instead.
+> 
+> Store the return value of snd_pcm_stop() in 'result' so that any
+> error is propagated to the caller.
+> 
+> Found by manual code inspection.
+> 
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 
-Applied to for-next, thanks!
+Applied to for-next branch.  Thanks.
 
-[1/1] xfs: prevent close() from hanging on frozen filesystems
-      commit: 6fdfe8606f99d86bdd109c94ef0821b8529fe44b
 
-Best regards,
--- 
-Carlos Maiolino <cem@kernel.org>
-
+Takashi
