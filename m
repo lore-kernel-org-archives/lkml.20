@@ -1,148 +1,181 @@
-Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021120.outbound.protection.outlook.com [40.107.51.120])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C612B3DD500;
-	Wed, 16 Sep 2026 08:31:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.120
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547509; cv=fail; b=PSeYIh7D6f6HXnsgI5fGyDEVqxzNvYohxykEuCaED9rs9xWZTZKwItQ7EsP0GivrUfPQW9sc+3cjJxGjZ9Vdmzds5Vj72sy88oD1Ft8u5yznrHOMy5ulAoimUYrroFCf1eQhqHBcHyVN3O1+0GR17Tkknj2wwakYQI3KgOzLVkA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547509; c=relaxed/simple;
-	bh=REotQ+dGet7bPj6iPO+B8KfEvsEA9iIFcU4SNeM9H5I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QKEWOk4lEY98eZGkekeMgulPchggR9VJhrYOHiKc4DCONHZmVxSJ1rA8oookEobyAR+s23NC95hSIqF2dR9bmM0iSKbvvs7c6EHfa0e9AijO1D8gA1RoLJijr3pv5mrMXhXhRBYNWIpI/bwvIUQS6vGmHsaScnHezY/b2buMjjY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=40.107.51.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bpvDW+4/q7N3On5ZTB73Tch6BXqgqxF69Qg6VDfUJS0IxV6Iw8MCBvhbklSnagRC44qOen/O5jZp7l8lV2tomA05PJ9EyAuWU2DKxX4ZVN4xjsbThKVo2ff9LNNHE2oTY+AedBbfsWScfogj3FA8/N4CSHpRqdV9y/xnYecqXu22p1ad2wztZw13UEDgaW6sdoWH/GszjG1Cw/L3vevEWhch6EwWMYq2Y1b2dG3MiT52XPdYEe1oHzpMaI4SY1N3iKe9T7IJolKerTSwMto/iVjCca4dP94ahxBj7BeQXlynZpYKCmG2BND1otA1DniRPu9lIkJXLfWP9iyTOgz17A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kih0yMPbdHake1l9kRhIVaw2xjS6a9vSwG4GAfGzKYU=;
- b=PZCp65eXrPo698biZvWjwh4ipyPHyi+iQmY1NZTcal+KrOhfReassMfNBn53erwHTzuMd2udY3h9rhcHxNsw0CN2NOu2zEWnzItu59yYpswX1fRvipBgFLQAjPjy6wKw3I24J1qcPiYnh/L/7Ia53j7l8hb1kfijui81ZO/lWVkaEodMkhTKRMNkBQDSixf3LtOUdvzfBvtJ6jrmi+0csdDm52qmeHNpqjeFfP1Yo379YfJWodERnFz+3bxkdGnNV6nZMutZlo2P1i6KFraN3D3S+rZaM8oRCpqrDhDBfMNtZkX1Jo1cMZmDvA+NAUHnsWJEGDtQQk6YYtypaO7WDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by PNVP287MB5988.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:347::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
- 2026 08:31:43 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
- 08:31:43 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-Cc: Hitesh Patel <hitesh@ebytelogic.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-	Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com
-Subject: Re: [PATCH 2/2] media: qcom: camss: Enable the streams API on SC7280
-Date: Wed, 16 Sep 2026 14:01:33 +0530
-Message-ID: <20260916083135.1296317-1-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <fcf04e15-d47c-4b42-a94b-077486cf634a@linaro.org>
-References: <20260915121536.19207-2-hitesh@ebytelogic.com> <fcf04e15-d47c-4b42-a94b-077486cf634a@linaro.org>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PNYPR01CA0052.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25b::11) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8C746EC9E;
+	Wed, 16 Sep 2026 08:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789547561; cv=none; b=Xh4qFHzeEuwQhzSiWIdHKXO6Pxpoe9QMQwbjWP3CdZK20c0tEv0gxZ2yOGNI4+YThqDcbS1xKLgl8MkRblyhfeMcsx4EUC/HphrgwkWg3Qrv2DLJlrSNm/nLsIfbvmQKRSgMNZffgts5Hl7eahWzPPB9z93IfObPTpraRAKcFkg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789547561; c=relaxed/simple;
+	bh=WE/k9TNoQuxLy/adzDMb93nk36+/7ZgLnD6Vmh9pwTA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kc7BgTKKgCnVrohHgKe83eXDE2n3f0Cxe874qx/MdLMWvwokE9CjqQ608R6SwCxOfu1olPKQ3FKxByGISnRq+QHRST8S0MzUx2TRJlC6s/e+DpLE+sOOJH7xm1ugn2B2p2h1aUtvbqzYi6zXJKlJ5hFNfuo8H7u2QWjCqiGDlBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OE0zVRHy; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OE0zVRHy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211411F000FF;
+	Wed, 16 Sep 2026 08:32:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789547559;
+	bh=kryuK3liGiOsrOQQb3JdRd/XrDBXKZJdf0bb5gTtXVA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OE0zVRHywwZPRGzw7YjRr13x+B5BhcawMFrUjOnZ6UYVh2xMHPClEH7eMMRLHg1Ta
+	 7383xDBAZx8aiTXPifqvkjz/Mzlzyu/vPr1sVy0IqIqgj914UgaLVVLse6c+FvxiOe
+	 q/DsaHka4dg6nsJp1DoaOSMXlppy3fKbwLJsq+dhGQvACllR4eeE0uahd5SMJtHU/D
+	 Ip7/c+4nt3hgP6HiJhggCs8ScgA8TgUCedPyHUKgHP4POlPRNovh9CZHMb1C2g+Tk7
+	 tb0CIBNryPjpn7Njm5gW8fRbYiNZx1lPnJSzJsR/pj6WuKcX4F2sttv1kZw9KwyVEr
+	 1XcJsl3KPxL0w==
+Message-ID: <3c663c66-70ab-4c9b-a490-67deac9a572d@kernel.org>
+Date: Wed, 16 Sep 2026 10:32:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PNVP287MB5988:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c0a44da-904b-4a5e-68e5-08df13ccf013
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|52116014|376014|10070799003|23010399003|1800799024|10067099003|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	xOhI2eqTqZ68H1RxsbWeuqS1RnoYm/IryvtIAIDA0ltz0BzrR5X6bEBr5MDaKfI+Dt6MGK0/5sQQe6ygEAoUgbb1psvwIgNfiXuLB8/k+j6dEMy7StG8QL08Gh2lKDSiB/za9QnfqcmP1/n8DDAzsYml2eP9YiMf0Y9/ZoedxuGlEY8wyG412+V3U7VhUVoxQKApG2ZG407I2rpJDzHFAj3fd/5XJevBgW7JARppQr7mDYI8+ueL8O6P8WcC5eSa2qe8wjOA1GhOaI2xtXJW4Of8FHpMWgF9v/Gici/qtSyTTIW232fD1PUjru5+pqKxsV1OJrd+Ru5uvzZBNsDU0tYjlo00B9DnZ+K9EVM9nDdGnNsBjQN1Q4g+BrH1OaG/iHPtuLCkVTa+99P5WanI/coX4aP4K1gYl5ApFdhlyk2i2zakLlnZS139RuNg9QsV/2JEGp4cu68/BisimCAhH94k3lIzWLMPyJ84pbrCbp0gpAwafOFWH+/UnFFCJkI1WdxQk1OgPqlbe/zWeB38deGOimNJpCvSAwe/x9l8huiV0bC0nZ2YY6Ef+dgyfji/wu3u0qNwheWOf3uOnffRLRycShv9BvJEbv0I4J5ncEx4bDccVke90Dh6bE3n69UKK9zrJsNZbqUQqqegywnCr3Wjd2ZkJWvPgkAJXwQxqoI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(52116014)(376014)(10070799003)(23010399003)(1800799024)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?OT2K31uJvLfeiJqdR7/Qz0NBgvXcIyBTeQvYAKeoeG4lJ2y3iPSPZHDvknXc?=
- =?us-ascii?Q?+eOR6Yy4ZaTQMBqZBT74tKgsCB7G2HwsTdsCopsMYTdj2O2mLUiLgYFYuQ6q?=
- =?us-ascii?Q?HTxdQUERw6pR1JiBNzCiDL8jtKzr+uraICc7UhKfaaG2v2v/OUZGueFH+t/b?=
- =?us-ascii?Q?wDGwgxQe0nsVNkFEOwnimvsLbmP8cF8NECAkkCfCDRYVUWGE198gQL9LiqO6?=
- =?us-ascii?Q?QuxQXLKJWkICmu0LtTQUgqb8eCfNUWP5HYgGHBoETIyJjvXNFAopoGMYR+6E?=
- =?us-ascii?Q?9dguFaVTATiNXU+SK1UGjYx0TnufbDFKgAgogPJI6WEUYgPW7K0YAMIpPWri?=
- =?us-ascii?Q?XTO9VSuW5SnPy1YsmalIHT71n562wW3kTZf+Sqj4aBf/d3v5+etrV+oSSTbS?=
- =?us-ascii?Q?WbygLb5WBaue8ylDPJK8RfysLR7IRZf9dFvSzV4ge+gdqQTWM6pGx29XPEt1?=
- =?us-ascii?Q?UsveS/NVX5wn1ZN5m0sG5Pdfa/rD8wR3q51V5UokSvXUMA1cu4t2UdbEf7Dj?=
- =?us-ascii?Q?dvJ9MTs/+LdpQIJ1HELS+v1+nsSvSuBeFI9qWU3oqHtKCT7JybGNpZun10Pz?=
- =?us-ascii?Q?Je8/V6u04OA49R4Npeh490aA6+X/sVJXJNIS/aB5dWF6sZJYFDMNJPHocEMa?=
- =?us-ascii?Q?VEoTs6W7wDMlDFNe8cbHgUxiva3M2AnJXNH3By8qqfK/Y2JooNt91kz2HRHM?=
- =?us-ascii?Q?syDiOKBN0rD5XS36YVSdI3ltn2+1gy2xp4pXAjHCSPy5TfL+07wsc9SU4UmR?=
- =?us-ascii?Q?zm7RnsP5NadY7zjfL8jkmyCvTA75veLGMAXkB3GJxROdZ10AZlGdpTkx5Lah?=
- =?us-ascii?Q?tDRU9QSLqa6Z1QZbKYq0+7Gla+OLQJdPSeadRnPfBPxhfQ6qaxlH99foqtXq?=
- =?us-ascii?Q?2Uyx6dJUxi8sEP+o15/JGyDduFgx3FXEIwEaVe+WQoL5VP4PbMNk9S2G6DIz?=
- =?us-ascii?Q?wPQDRgzAk0EECnfXtlE5iPS8xsD/8DL/KZ6UaVRzeJ8cf4y3Tnz1cYqabLRj?=
- =?us-ascii?Q?SgvLcp6zXBezBbaTuqkcFcwI4PmKGsOvAkV3vLUpLHPT+KtJ3o2CSMKZQQjS?=
- =?us-ascii?Q?gVW912xlQkPCWThwUgd8axpBE/TXn01f/xBKRA1EdJ9qW3QM8JUchz2fZ9ib?=
- =?us-ascii?Q?YB+dMuPeSZyC7fdPXPi9ikm177q6gU9fPki9w3mrseuaqE0i9oJJhD2+gTBU?=
- =?us-ascii?Q?eCw5WfzTPd8srN8CZvnn/0Cl/Tfoff9h4VpLJp0UnuJ+/a32Ec+K+YCWA/Rr?=
- =?us-ascii?Q?Gge1IQVaRAPKEUcRuMpfSuaRLz0D2t2e+rZmpjv0dfq/NxKhjOguyqYvUE7A?=
- =?us-ascii?Q?d2384g2uLu35Zdz6d6KgYpwQkmkZAy4n/iWnK2uX49R+8HkPv0LXfl0WlPO/?=
- =?us-ascii?Q?VMbPJkmEEEO2pN3T7JXqjOqIjvPwxU4/sQPuKFKdTAencs2itXztdH3Ijh0W?=
- =?us-ascii?Q?jzumwHMd8r52N1TFIYw1V9+V1S+wST91YCb9k/bbToRiU3hyeFVB8RQDACou?=
- =?us-ascii?Q?FT7L82XUz1jFJtOa6f668RAYGNzgyKd94nh+fCuMMfxf+8qw8cKv6XmkzkNt?=
- =?us-ascii?Q?QFHtYgdW/GDN89qaWPlE583a1FhQrLbGc4QgYPikr5WaRtS5b4cXTS9rdc+u?=
- =?us-ascii?Q?Uy8ZI60Mj/vYUQHAhkdqurgphmyiLlKU0xqIfJB8D/aNkMrj8hfzN+m0nI1P?=
- =?us-ascii?Q?/ZRqbq6dOXwgWrjgXz0uLgNLXHYd0kYp59zQuLxWRSg4sKM2JgIjqfHt1L7h?=
- =?us-ascii?Q?LAYF1TKhpgtOONEL9ak20NqpxyJsY7ddX/1/JxU5Bski5uhbyPeC8x8JTx67?=
-X-MS-Exchange-AntiSpam-MessageData-1: u4BFIuWepkNy3w==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c0a44da-904b-4a5e-68e5-08df13ccf013
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 08:31:43.3845
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n+KE1aG+Bw3ndzWDnIHuBXBTaHlAj2k/CUY0CX8hvNHsNcQI4bhyl9Ccfec4ARlRewEN2xjZgwbBaatpy23k+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNVP287MB5988
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 9/9] mm/memory-failure: keep inherited poisoned frames
+ out of the buddy allocator
+Content-Language: en-US
+To: Breno Leitao <leitao@debian.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
+ <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
+ kas@kernel.org, kexec@lists.infradead.org,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ hannes@cmpxchg.or, shakeel.butt@linux.dev
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, harry@kernel.org,
+ linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, kernel-team@meta.com
+References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+ <20260915-hwpoison-kho-v5-9-3bc7a57bd503@debian.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260915-hwpoison-kho-v5-9-3bc7a57bd503@debian.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 16/09/2026 13:38, Bryan O'Donoghue wrote:
-> On 15/09/2026 13:15, Hitesh Patel wrote:
->> @@ -2280,6 +2280,7 @@ static const struct camss_subdev_resources csiphy_res_7280[] = {
->>                .reg = { "csiphy0" },
->>                .interrupt = { "csiphy0" },
->>                .csiphy = {
->> +                     .streams_enable = true,
->
-> Set it @ the SoC not for each csiphy and csid.
+On 9/15/26 14:53, Breno Leitao wrote:
+> When the pages are being given to the allocator, check if they are
+> poisoned, and mark them as such.
+> 
+> Similar to unaccepted memory, hook it in __free_pages_core(), and thus
+> the frames never enter the allocator, rather than being taken back out
+> of it.
+> 
+> A block runs up to MAX_PAGE_ORDER and a unit is 2MB, so hold back only
+> the frames the table covers and free the rest one at a time. The
+> allocator merges them back up, so a unit costs the frames it names, not
+> the whole block.
+> 
+> The frames that are freed go back through accept_and_free_block(), so a
+> clean frame in a block that is still unaccepted is accepted first.
+> 
+> A frame is flagged before its memory block exists, so the per block
+> counter is seeded from the page flag when the block is created rather
+> than incremented here.
+> 
+> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-Agreed. This patch only mirrors what 8/8 of the series does for SM8250
-because that is where the flag lives in v1; Gjorgji already agreed in the
-1/8 review to move it into struct camss_resources for v2, at which point
-this becomes a single .streams_enable = true in camss_resources_7280.
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Rather than respin against a shape that is about to change, I would
-prefer Gjorgji to fold the SC7280 enablement into his v2 as a one-liner
-(and 1/2 as well, if the CSID->VFE pairing rework discussed on 5/8 does
-not already make it unnecessary on SC7280: 5 CSIDs and 5 VFEs pair 1:1
-there). Gjorgji, is that OK with you? I will retest v2 on RB3 Gen2 as
-soon as it is out.
+> ---
+>  mm/page_alloc.c | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index b07b5f4751cb95..cca67a2702a421 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -1597,6 +1597,25 @@ static void __meminit accept_and_free_block(struct page *page,
+>  	__free_pages_ok(page, order, FPI_TO_TAIL);
+>  }
+>  
+> +static void __meminit free_poisoned_block(struct page *page, unsigned int order,
+> +					  enum meminit_context context)
+> +{
+> +	unsigned long i, nr_pages = 1UL << order;
+> +
+> +	for (i = 0; i < nr_pages; i++) {
+> +		struct page *p = page + i;
+> +		phys_addr_t phys = page_to_phys(p);
+> +
+> +		if (range_contains_poisoned_memory(phys, PAGE_SIZE)) {
+> +			hwpoison_boot_page(p, context);
+> +			continue;
+> +		}
+> +
+> +		/* this part of the block is not poisoned */
+> +		accept_and_free_block(p, 0);
+> +	}
+> +}
+> +
+>  void __meminit __free_pages_core(struct page *page, unsigned int order,
+>  		enum meminit_context context)
+>  {
+> @@ -1631,6 +1650,13 @@ void __meminit __free_pages_core(struct page *page, unsigned int order,
+>  		atomic_long_add(nr_pages, &page_zone(page)->managed_pages);
+>  	}
+>  
+> +	/* First: a block parked by __free_unaccepted() never returns here. */
+> +	if (range_contains_poisoned_memory(page_to_phys(page),
+> +					   PAGE_SIZE << order)) {
+> +		free_poisoned_block(page, order, context);
+> +		return;
+> +	}
+> +
+>  	accept_and_free_block(page, order);
+>  }
+>  
+> 
 
-Thanks,
-Hitesh
