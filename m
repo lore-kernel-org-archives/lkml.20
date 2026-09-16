@@ -1,247 +1,187 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6B050AC2A;
-	Wed, 16 Sep 2026 13:47:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C3A501F5C
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:47:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566429; cv=none; b=RoUxpWyGDB0elzAKX5FzMInBIjjCUmMuWdGgb1Uy1uCqzxmF+Twj5KUYZSTtgrugkMnaDYFREGIbSc//zmZdM8AX+G1De+sKIaTtrohQiLgixgFwjBgW64mMz84Yvqv4FsnPoe7NuOZjfdrD2aENIeZTXVT1fz3ot7Dm+PwY2ko=
+	t=1789566429; cv=none; b=S/zntXr0OOueNd5HXc8g7y1TGTbEFam96rTAH91He5JzWMF2vpP09zIkTCJgC1jzPJ4eQFw9CE4HTBZ9Mb/U+HCSuKxoHA/SkLP695EDfgKq4jJ2NChto5c2EwgFoS4Ob/Gvhoxf2zEbTisHmMwfNmusgL/SgKq9ZB0qG1nihAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789566429; c=relaxed/simple;
-	bh=fq7rgyr2/6hlii+ZIiIhHGuSwIiMwTuP95IbVtRDoSg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZOxB1XfcC1T6kG+uXJn6JvzCsk5uP+Ru1gI9gNOZCHhXvDdp3rxubSRU8CxIgfv/OHVKlYeN27v1hykB4G3W/BIrAPPAnJFHCGnpaytzXjwYddWm6ZN7sw5EhI5przVzCVB3+ebKF6NK55DWiolU+cOTJw08shQVmT/ra1DY4CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=b9FMJI36; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=q2MfE8fZqZKi+axKsVZEfQnx8mD9rMOHxGOWTSRWUQ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Us6V/odpiBaaXzfEK1c1AxmxCGRbUrEYTTyL+A3XqtGQ0Bl3N+yghXxz3KEGPsU19xbP9V+4Azs/RWPk8bRyBWjHhI0802kvDgpZeAZ0hM1rtubs609bV71HAS36cstT0Sb1y1MztIn55RvR/xYejDfpvRRVcDJwxtPSK/ID41Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jevcf4CK; arc=none smtp.client-ip=74.125.226.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="b9FMJI36"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id CC02B1A08D9;
-	Wed, 16 Sep 2026 13:47:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 95CE160337;
-	Wed, 16 Sep 2026 13:47:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B423011C7B03B;
-	Wed, 16 Sep 2026 15:46:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789566418; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=cPET2NhrdD6HSvBQlq/W5IT0tYfRgFI87leV1mZtICo=;
-	b=b9FMJI3689bW6Mbp3QP/ZTgl/CWUhb8O+HyJBznbODXELvvhwULKj8sn/RhTSRHvKohWrN
-	IoclnNC1/3J4nwYlZTnTFwM3INfHr04fEmprfB1H0qwZmdsyVA0Xio+nEQY9AYX7dByIrV
-	yzp6KnOX2F2QDWAMoOIy/ks3dPpzEZwNHvH7R9SJ6YlOL8aHTe5UmcZoEttoiXNE7o05Mh
-	D6qvEGQ5zVOsTsPfXMt71MkYGQXtedfNhSpWJ+vENj5Abz1dgOKbBANkTXr1jdPKYO0NRn
-	c9FWdb1D3hEnCMkxW9QebJz8Fh9o+t/4iSO/3myOXSqD+CBMjHhWPvghwb+94w==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 16 Sep 2026 15:45:33 +0200
-Subject: [PATCH v3 09/19] drm/bridge: tc358767: don't create a panel_bridge
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jevcf4CK"
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-97eaa1155fdso267988241.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:47:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789566421; x=1790171221; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0+3Jj7cpp/cVunwqo7Vx/u+kyap4pULeHcjbBhPp4VQ=;
+        b=jevcf4CKB01Y57BySuUsLjw/UXdK4IoGKn1eP/s77na+dTrh+iRyd0WTDrS8v+MJVd
+         UFpakBpBWpdikzswYUhazTu3KWBz0o+DQ13hHmd30nvlgr4i/AJ0F5hElW/wFTix3zMX
+         /ub6rS713JOM0YAuBpDFtFILXciYtgYsHq7H/GLLwbWpzVB/e9ipCjmoH/eEMy9SdK3u
+         nFtKkh552Y/n1CFxshw7srIhxQdi3HTIe78n2UjI0+Uv7h0NdxrqetDRsYndGTI1rJtC
+         qsaHItm8tvthPKdn48msWIeKZM0dCuNcHqyj1ujBqtomgi9vtgKFG+FPEHNqpw+WEgkG
+         3Ndw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789566421; x=1790171221;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0+3Jj7cpp/cVunwqo7Vx/u+kyap4pULeHcjbBhPp4VQ=;
+        b=muVKIniNi+UsIRGQKZozJm5otqeMT4SBRWdxhC3FV2YpM6J8oDDOE/pDt1kUw1K9Nn
+         Zu+O/9QrQvVtuZMv3BD0WCfml5nQlBaR9UqHrCE9JiC7m6/C/RsCkIiAQkC+ck91ypru
+         bcuHu9vzv4/3FmY5ttv3QYcKYwQFYDQSlGTNCEReDqvOlu8KB08a5GY43nfwQ56GTbIf
+         WLSB9YyXVUrGMw3og2w+3CgzS1NuPEK73n8YKfP1Ap9RekLzvtD9cX6lTxly2j+INsgH
+         YzxJfhI0ipYdZoLPZW2pENOPyLi2uUtMjZAfQbC//zfx2VsRSbn5VURfIIiV8cuJ+hRS
+         C49w==
+X-Forwarded-Encrypted: i=1; AKwUvBzCTbQO6RX2+4Gq6vO8ypUA/2Hjm+mAr3wgCiBByrWmeJqvzthgHsu9wRT7Qa5lxJ0ttxIOxoKGAsgr+Ek=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSN5p3PODmJkyBuMl0cIn3TSRvvc1cm6XQhtPcg9IIIszk3szx
+	qbfS7D1dAvJmWuPKMATkg/QLxwF4iYOzAR6nsbXlgL9tnwrNzYtx92Np
+X-Gm-Gg: AYBFou28rzh6hCbXms38y7eZQp0mGeUbeWG5bv9jF96oeEoGRMqGRrSLtVoqV78UB+P
+	/k6ZNkNRczTM1N21wP1/srnygom/sPR1rb28OglKie3hul1JYAjQyh0JhxobQobta1yC2XDmRd0
+	6g1msayMhjfRZYB3OXj/Tv0QkFlArcDAUQD9T9BolK4WvdC3WYw91Cc7TAjZtTA8shIiwNn6OmU
+	29Qj/coSWdHjhy6DBFOhLANXN/LZpW94QhfUFlPVo7gbnDqYlXyMb5RQRcZcZTrJbxcwpx6E0M8
+	kCGgOX4bn4vaC5ZrrjD9MymgrLWN0e9i9SYJbyVRM9NXznSdHuFtl3Jk611Cderr3Hg3I2T41x3
+	0iSE3mcYjJJdJQDv/8CxqLGIIqJaSED4t/GSwt+WEVE6BuKN8omjDfUhfcqPVMc1EuZ0Wk9xmM2
+	ej9SXhhqgyhUWJq1C0Smh+lE5H3ZGCXExT0VGaU99ySbLG0cy3UDddhgOX37re5IWgIJ3Q
+X-Received: by 2002:a05:6102:5247:b0:777:4e99:6f84 with SMTP id ada2fe7eead31-7a0250c1000mr2583083137.1.1789566420409;
+        Wed, 16 Sep 2026 06:47:00 -0700 (PDT)
+Received: from fedora ([206.42.51.82])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-79fb2fd68f7sm3005118137.12.2026.09.16.06.46.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 06:46:59 -0700 (PDT)
+From: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
+To: Daniel Pereira <danielmaraboo@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lucas Adryell Ramalho <lucasadramalho@gmail.com>
+Subject: [PATCH] docs: translations: pt_BR: translate maintainer-devicetree.rst
+Date: Wed, 16 Sep 2026 10:46:34 -0300
+Message-ID: <20260916134637.216062-1-lucasadramalho@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-drm-bridge-every-panel-v3-9-83afb4f1a707@bootlin.com>
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
- Paul Kocialkowski <paulk@sys-base.io>, Linus Walleij <linusw@kernel.org>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Sean Paul <sean@poorly.run>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Albert Esteve <aesteve@redhat.com>, 
- Anusha Srivatsa <asrivats@redhat.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Now a panel_bridge is automatically created for every drm_panel and the
-panel-bridge API is just a deprecated wrapper to access it.
+Translate maintainer-devicetree.rst to brazilian portuguese.
 
-Update and simplify the code by just getting a reference to the
-already-existing bridge using of_drm_get_bridge_by_endpoint().
-
-As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take care
-of putting the bridge reference by using bridge->next_bridge.
-
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Assisted-by: LLM
+Signed-off-by: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
 ---
- drivers/gpu/drm/bridge/Kconfig    |  2 --
- drivers/gpu/drm/bridge/tc358767.c | 64 ++++++++++++---------------------------
- 2 files changed, 20 insertions(+), 46 deletions(-)
+ .../translations/pt_BR/process/index.rst      |  1 +
+ .../pt_BR/process/maintainer-devicetree.rst   | 76 +++++++++++++++++++
+ 2 files changed, 77 insertions(+)
+ create mode 100644 Documentation/translations/pt_BR/process/maintainer-devicetree.rst
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 89e87460aefc..4766ae85da17 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -402,8 +402,6 @@ config DRM_TOSHIBA_TC358767
- 	select DRM_KMS_HELPER
- 	select REGMAP_I2C
- 	select DRM_MIPI_DSI
--	select DRM_PANEL
--	select DRM_PANEL_BRIDGE
- 	help
- 	  Toshiba TC358767 eDP bridge chip driver.
+diff --git a/Documentation/translations/pt_BR/process/index.rst b/Documentation/translations/pt_BR/process/index.rst
+index eda2a3fc5..a00fa52cd 100644
+--- a/Documentation/translations/pt_BR/process/index.rst
++++ b/Documentation/translations/pt_BR/process/index.rst
+@@ -88,6 +88,7 @@ mantenedores de subsistemas.
+    Processo do subsistema SoC <maintainer-soc>
+    Conformidade de DTS para SoC <maintainer-soc-clean-dts>
+    Processo do subsistema KVM x86 <maintainer-kvm-x86>
++   Subsistema de Devicetree e Open Firmware <maintainer-devicetree>
  
-diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/tc358767.c
-index ac83af7902cd..51f4baa62a53 100644
---- a/drivers/gpu/drm/bridge/tc358767.c
-+++ b/drivers/gpu/drm/bridge/tc358767.c
-@@ -35,7 +35,6 @@
- #include <drm/drm_edid.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_of.h>
--#include <drm/drm_panel.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- 
-@@ -370,7 +369,6 @@ struct tc_data {
- 	struct drm_dp_aux	aux;
- 
- 	struct drm_bridge	bridge;
--	struct drm_bridge	*panel_bridge;
- 	struct drm_connector	connector;
- 
- 	struct mipi_dsi_device	*dsi;
-@@ -1742,8 +1740,8 @@ static int tc_connector_get_modes(struct drm_connector *connector)
- 		return 0;
- 	}
- 
--	if (tc->panel_bridge) {
--		num_modes = drm_bridge_get_modes(tc->panel_bridge, connector);
-+	if (tc->bridge.next_bridge) {
-+		num_modes = drm_bridge_get_modes(tc->bridge.next_bridge, connector);
- 		if (num_modes > 0)
- 			return num_modes;
- 	}
-@@ -1788,7 +1786,7 @@ tc_connector_detect(struct drm_connector *connector, bool force)
- 	if (tc->hpd_pin >= 0)
- 		return tc_bridge_detect(&tc->bridge, connector);
- 
--	if (tc->panel_bridge)
-+	if (tc->bridge.next_bridge)
- 		return connector_status_connected;
- 	else
- 		return connector_status_unknown;
-@@ -1809,10 +1807,10 @@ static int tc_dpi_bridge_attach(struct drm_bridge *bridge,
- {
- 	struct tc_data *tc = bridge_to_tc(bridge);
- 
--	if (!tc->panel_bridge)
-+	if (!tc->bridge.next_bridge)
- 		return 0;
- 
--	return drm_bridge_attach(tc->bridge.encoder, tc->panel_bridge,
-+	return drm_bridge_attach(tc->bridge.encoder, tc->bridge.next_bridge,
- 				 &tc->bridge, flags);
- }
- 
-@@ -1825,9 +1823,9 @@ static int tc_edp_bridge_attach(struct drm_bridge *bridge,
- 	struct drm_device *drm = bridge->dev;
- 	int ret;
- 
--	if (tc->panel_bridge) {
-+	if (tc->bridge.next_bridge) {
- 		/* If a connector is required then this driver shall create it */
--		ret = drm_bridge_attach(tc->bridge.encoder, tc->panel_bridge,
-+		ret = drm_bridge_attach(tc->bridge.encoder, tc->bridge.next_bridge,
- 					&tc->bridge, flags | DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret)
- 			return ret;
-@@ -2318,53 +2316,31 @@ static int tc_probe_dpi_bridge_endpoint(struct tc_data *tc)
- {
- 	struct device *dev = tc->dev;
- 	struct drm_bridge *bridge;
--	struct drm_panel *panel;
--	int ret;
- 
- 	/* port@1 is the DPI input/output port */
--	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, 0, &panel, &bridge);
--	if (ret && ret != -ENODEV)
--		return dev_err_probe(dev, ret,
--				     "Could not find DPI panel or bridge\n");
--
--	if (panel) {
--		bridge = devm_drm_panel_bridge_add(dev, panel);
--		drm_panel_put(panel);
--		if (IS_ERR(bridge))
--			return PTR_ERR(bridge);
--	}
--
--	if (bridge) {
--		tc->panel_bridge = bridge;
--		tc->bridge.type = DRM_MODE_CONNECTOR_DPI;
-+	bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
-+	if (IS_ERR(bridge))
-+		return dev_err_probe(dev, PTR_ERR(bridge),
-+				     "Could not find DPI bridge\n");
- 
--		return 0;
--	}
-+	tc->bridge.next_bridge = bridge;
-+	tc->bridge.type = DRM_MODE_CONNECTOR_DPI;
- 
--	return ret;
-+	return 0;
- }
- 
- static int tc_probe_edp_bridge_endpoint(struct tc_data *tc)
- {
- 	struct device *dev = tc->dev;
--	struct drm_panel *panel;
--	int ret;
-+	struct drm_bridge *bridge;
- 
- 	/* port@2 is the output port */
--	ret = drm_of_find_panel_or_bridge(dev->of_node, 2, 0, &panel, NULL);
--	if (ret && ret != -ENODEV)
--		return dev_err_probe(dev, ret,
--				     "Could not find DSI panel or bridge\n");
--
--	if (panel) {
--		struct drm_bridge *panel_bridge;
--
--		panel_bridge = devm_drm_panel_bridge_add(dev, panel);
--		drm_panel_put(panel);
--		if (IS_ERR(panel_bridge))
--			return PTR_ERR(panel_bridge);
-+	bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 2, 0);
-+	if (IS_ERR(bridge) && PTR_ERR(bridge) != -ENODEV)
-+		return dev_err_probe(dev, PTR_ERR(bridge), "Could not find DSI bridge\n");
- 
--		tc->panel_bridge = panel_bridge;
-+	if (!IS_ERR(bridge)) {
-+		tc->bridge.next_bridge = bridge;
- 		tc->bridge.type = DRM_MODE_CONNECTOR_eDP;
- 	} else {
- 		tc->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
-
+ Outros materiais
+ ----------------
+diff --git a/Documentation/translations/pt_BR/process/maintainer-devicetree.rst b/Documentation/translations/pt_BR/process/maintainer-devicetree.rst
+new file mode 100644
+index 000000000..be26d89de
+--- /dev/null
++++ b/Documentation/translations/pt_BR/process/maintainer-devicetree.rst
+@@ -0,0 +1,76 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++=========================================
++Subsistema de Devicetree e Open Firmware
++=========================================
++
++Outros documentos sobre o processo
++----------------------------------
++
++Consulte os documentos em Documentation/devicetree/bindings/ para saber como
++escrever bindings de Devicetree corretamente e como enviar patches.
++
++Revisão e tratamento de patches
++-------------------------------
++
++Os patches sob responsabilidade dos mantenedores de Devicetree são processados
++de formas distintas, conforme o tipo de patch:
++
++1. Código central de drivers OF, por exemplo, drivers/of/:
++   os patches são revisados e aplicados pelos mantenedores de DT.
++
++2. Bindings de Devicetree:
++   os patches são revisados pelos mantenedores de DT, mas devem ser aplicados
++   pelos mantenedores do subsistema, exceto em alguns casos. Consulte também
++   *Para mantenedores do kernel* em
++   Documentation/devicetree/bindings/submitting-patches.rst.
++
++3. DTS e drivers:
++   os mantenedores de DT podem fazer comentários, mas, em geral, não se espera
++   uma revisão. Os DTS devem passar nas verificações de esquema
++   (dtbs_check) ou, ao menos, não gerar novos avisos.
++
++Patchwork
++~~~~~~~~~
++
++Os mantenedores de Devicetree revisam patches usando o Patchwork; portanto, o
++status atual de um patch pode ser consultado por lá. Em submissões típicas de
++drivers, o Patchwork recebe toda a série de patches, mas normalmente apenas
++alguns patches são bindings de Devicetree e, assim, revisados pelos
++mantenedores de DT.
++
++Explicação dos status do Patchwork:
++
++ - **New**: ainda não processado pelo conjunto de ferramentas de automação.
++ - **Needs ACK**: aguardando revisão dos mantenedores de DT.
++ - **Handled Elsewhere**: patch não relacionado a DT; não será revisado aqui.
++ - **RFC**: o patch provavelmente foi ignorado por ser um RFC incompleto.
++ - **Changes Requested**: o patch foi revisado e os mantenedores de DT esperam
++   alterações.
++ - **Accepted**: o patch foi revisado e aplicado pelos mantenedores de DT em
++   sua árvore.
++ - **Not Applicable**: o patch foi revisado e provavelmente está em boas
++   condições, com uma tag *Reviewed-by* ou *Acked-by* fornecida, mas os
++   mantenedores de DT esperam que outra pessoa o aplique.
++
++Nova revisão e pings de patches
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++Devido ao alto volume de e-mails, os mantenedores de Devicetree não leem todas
++as mensagens que recebem; em vez disso, eles dependem do Patchwork durante o
++processo de revisão. Além disso, muitas vezes deixam de lado patches que já
++foram revisados.
++
++Como resultado, os mantenedores podem não perceber:
++
++1. Perguntas sobre patches já revisados.
++2. Pings, por exemplo, quando um patch foi revisado pelos mantenedores de DT,
++   mas ainda não foi aplicado pelos mantenedores do subsistema.
++
++Esses casos podem ser tratados das seguintes formas:
++
++1. Enviando um ping aos mantenedores de DT no canal de IRC.
++2. Removendo a tag *Acked-by* ou *Reviewed-by* do mantenedor de DT ao enviar
++   uma nova versão da série de patches, junto com uma explicação no changelog
++   do patch sobre o motivo da remoção da tag e o que se espera dos mantenedores
++   de DT.
 -- 
 2.55.0
 
