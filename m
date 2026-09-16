@@ -1,264 +1,143 @@
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-48.mta0.migadu.com [91.218.175.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5523CA4AF;
-	Wed, 16 Sep 2026 06:09:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=183.62.165.209
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424FA3E6DD9
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789538981; cv=none; b=Ur8Sf7RdGbfA3lPusA8cTkwYYhv+MlccN1x5hDQ4GytRYKWRoRUVxZbly3a3N11eK8GcB/2biI5+BMuaVF51/f4BMqytCgjhTg1c11rqxzFLuxx6Vk57NZCHOpB/IYC+RrIwgr4Sf0+v4pd6zt7Y9Qqf8+GZLYIC0ogyO7of/90=
+	t=1789538985; cv=none; b=RouX7hBi1ZRPAn1x8GHj60d6VGqH7jWtM3AZayALwySOzRayFsXc7bTGEaE9ZL5eOoCaToYgn/S1/va3ivstFpiGsMPDO8OzzMl+yz26dLCKlsvs99B8S+j+ChdnpGjgnobNl9G7OK/rRyXQahXG4Q4wS4VIWXbFAKULlHRm+Nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789538981; c=relaxed/simple;
-	bh=vDErkoi7e/5qWch4mGVd8lRjKHPnQXY4oat/gseFrM8=;
-	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=DaOj29pV3QJ1yLc6NJZqlk0vUHTebdcu12bos5XLmkte4oCmWYExMXy5+8m2Mz+JSeif1lpsr9i+9Jtzzi31EjeLvR+R673NEEFvJaaYKbnYuSHL+lyqyZ99WmB6pGC21nt8jUuHj/Ofk8z8luY0aeutXkd8bR2+qSyHq9DRFRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=183.62.165.209
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4hl7l049Gmz4xPSq;
-	Wed, 16 Sep 2026 14:09:32 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 68G69ONI001113;
-	Wed, 16 Sep 2026 14:09:25 +0800 (+08)
-	(envelope-from hu.shengming@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 16 Sep 2026 14:09:26 +0800 (CST)
-X-Zmail-TransId: 2afa6aaa329631a-a143b
-X-Mailer: Zmail v1.0
-Message-ID: <20260916140926740-DCokXh6dAgtqDn1EWdCh@zte.com.cn>
-Date: Wed, 16 Sep 2026 14:09:26 +0800 (CST)
+	s=arc-20240116; t=1789538985; c=relaxed/simple;
+	bh=1FXPXUrDPcrYPLwRxPXtr4tpEmOLRIi+Rq2mTTRREaU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iNWGjKpM9MuMlfd9eOIHqnxec3AtCOr0NKwWZCaoLP715qUuHfwBYNqn7yuyPA1U6LMbmlqm1yM8sB1e+6SXfg89TVAi8ouhc4LQoHmCRMCqQeZF8yI8cT92sWULE19Q0NN/uudprAnJm+IccCTJLWZEev4LoWFugOTHf1GRBho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=P0LRIIU3; arc=none smtp.client-ip=91.218.175.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="P0LRIIU3"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1FXPXUrDPcrYPLwRxPXtr4tpEmOLRIi+Rq2mTTRREaU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789538981; v=1; x=1790143781;
+ b=P0LRIIU32CE79vjascQV+yMYtw82H/b6dQTfZMWX7/K6l+5JSQ9JaZDydMLCVvdjNAIE+kKq
+ 6LZUEeM5G36PWHYACJOahGES010/S5TjcAAW/Iux0fH+oJTZA+3+T9rFwNxsrxyoV7f3gw6gsuv
+ KpXCVlVwm74FZLfdRHZi/0rM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 56e648d48c427c41;
+	Wed, 16 Sep 2026 06:09:41 +0000
+X-Mizu-Trace-ID: 56e648d48c427c41
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 16 Sep 2026 09:09:32 +0300
+From: Matti Vaittinen <matti.vaittinen@linux.dev>
+To: Matti Vaittinen <mazziesaccount@gmail.com>,
+	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-rtc@vger.kernel.org, Sverdlin@mva-rohm,
+	Alexander <alexander.sverdlin@siemens.com>
+Subject: [PATCH v4 06/10] rtc: bd70528: Support RTC on ROHM BD73800
+Message-ID: <1ff511f419fcbd72dd241f598127608a6a0c9598.1789538455.git.mazziesaccount@gmail.com>
+Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
+References: <cover.1789538455.git.mazziesaccount@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <hu.shengming@zte.com.cn>
-To: <rafael@kernel.org>, <viresh.kumar@linaro.org>,
-        <zhongqiu.han@oss.qualcomm.com>
-Cc: <linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <luo.haiyang@zte.com.cn>, <zhang.run@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIIHYyXSBjcHVmcmVxOiBjb25zZXJ2YXRpdmU6IFJlc3RyaWN0IGRlZmVycmVkIGRvd25zY2FsaW5nIHRvIGxvdyBsb2Fk?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 68G69ONI001113
-X-TLS: YES
-X-ENVELOPE-SENDER: hu.shengming@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 16 Sep 2026 14:09:32 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AAA329C.001/4hl7l049Gmz4xPSq
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mUgRN4pDP+5ghfak"
+Content-Disposition: inline
+In-Reply-To: <cover.1789538455.git.mazziesaccount@gmail.com>
 
-From: Shengming Hu <hu.shengming@zte.com.cn>
+--mUgRN4pDP+5ghfak
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-For a shared cpufreq policy, dbs_update() derives the load used for the
-frequency decision from the maximum load among its CPUs, but it may
-also record deferred idle periods accumulated by an idle CPU in the
-policy.
+=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
 
-Consequently, a single update can contain both a high decision load
-from one CPU and multiple deferred idle periods from another CPU. The
-conservative governor applies the deferred down steps before evaluating
-the decision load. If that load subsequently triggers an up step, the
-deferred down steps can outweigh the single up step and produce a net
-frequency reduction.
+BD73800 contains similar RTC block as BD71828 and BD71815. Only the address
+offsets seem different. Support also BD73800 RTC using the rtc-bd70528.
 
-This was observed on a policy shared by CPUs 2 and 3. A CPU-bound
-SCHED_EXT task kept CPU 2 fully utilized while CPU 3 remained idle.
-On this system, SCHED_EXT generated update-util callbacks less
-frequently than CFS, resulting in sparse DBS updates such as:
-
- load=100 idle_periods=7 interval=59 ms
- load=100 idle_periods=4 interval=39 ms
- load=100 idle_periods=2 interval=19 ms
- load=100 idle_periods=7 interval=59 ms
-
-With the default 5% frequency step and a 2.6 GHz policy maximum, seven
-deferred periods reduce the requested frequency by seven 130 MHz steps
-before the high decision load adds only one step. Repeated updates
-therefore keep the policy near 530 MHz even though CPU 2 is fully
-utilized.
-
-There are two load values relevant to this behavior:
-
-  * sample_load is calculated from the busy and elapsed time of the
-    current sample.
-
-  * decision_load is returned by dbs_update() for the governor's
-    frequency decision. After a long idle interval, it may reuse
-    prev_load to improve the response to a waking task and can therefore
-    differ from sample_load.
-
-The problem is that idle_periods is derived from accumulated idle time
-and is applied independently of whether the current sample load is in
-the conservative governor's downscaling region. A high sample load and
-multiple deferred idle periods can therefore coexist, particularly
-when updates are sparse.
-
-As suggested by Zhongqiu Han, calculate the sample load separately from
-the decision load. If no time has elapsed, use prev_load for the sample
-load as the existing load calculation does, since no load can be
-calculated for that interval.
-
-Record the maximum sample load for the policy and apply deferred down
-steps only when it is below down_threshold. This makes deferred
-downscaling follow the same threshold that the conservative governor
-normally uses to determine whether the policy load is low enough to
-reduce the frequency.
-
-The existing code applies deferred down steps whenever idle_periods is
-valid, regardless of the sample load. When the decision load is in the
-hold region, the locally adjusted frequency is not submitted unless
-another frequency-update branch is taken. Thus, when the sample and
-decision loads are the same and both are in the hold region, this
-change does not alter the requested frequency.
-
-The difference becomes visible when the decision load causes a
-frequency update. In particular, if it exceeds up_threshold, the
-governor applies a single up step after the deferred down steps and
-submits the resulting request. Multiple deferred down steps can then
-outweigh that up step and cause a frequency reduction even when the
-sample load is above down_threshold.
-
-With this change, deferred down steps are skipped whenever the maximum
-sample load is at or above down_threshold, keeping deferred downscaling
-consistent with the conservative governor's threshold semantics. The
-requested frequency may therefore be higher than with the existing
-behavior when deferred idle periods are present and the decision load
-causes a frequency update. This is intentional, because the lower
-request previously resulted from applying deferred downscaling while
-the sampled policy load was outside the governor's downscaling region.
-Accelerated deferred downscaling remains available when the policy
-sample load is below down_threshold, including after a workload has
-completed and the policy has become idle.
-
-Cc: stable@vger.kernel.org
-Fixes: 00bfe05889e9 ("cpufreq: conservative: Decrease frequency faster for deferred updates")
-Reviewed-by: Luo Haiyang <luo.haiyang@zte.com.cn>
-Reviewed-by: Run Zhang <zhang.run@zte.com.cn>
-Suggested-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Signed-off-by: Shengming Hu <hu.shengming@zte.com.cn>
----
-Changes in v2:
-
-- Calculate the sample load separately from the decision load that may
-  reuse prev_load after a long idle interval, as suggested by Zhongqiu Han.
-- Preserve the existing prev_load fallback when time_elapsed is zero.
-- Gate deferred down steps on down_threshold.
-- Link to v1: https://lore.kernel.org/all/2026090215474182681fN7LLOSpqIc3s3OqJaW@zte.com.cn/
+Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 
 ---
- drivers/cpufreq/cpufreq_conservative.c |  8 ++++---
- drivers/cpufreq/cpufreq_governor.c     | 29 +++++++++++++++++++-------
- drivers/cpufreq/cpufreq_governor.h     |  2 ++
- 3 files changed, 29 insertions(+), 10 deletions(-)
+Revision history:
+ v1 =3D> :
+  - No changes
+---
+ drivers/rtc/rtc-bd70528.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/cpufreq/cpufreq_conservative.c b/drivers/cpufreq/cpufreq_conservative.c
-index 0b32ae28ec85..02bfd46543e9 100644
---- a/drivers/cpufreq/cpufreq_conservative.c
-+++ b/drivers/cpufreq/cpufreq_conservative.c
-@@ -85,10 +85,12 @@ static unsigned int cs_dbs_update(struct cpufreq_policy *policy)
- 	freq_step = get_freq_step(cs_tuners, policy);
-
- 	/*
--	 * Decrease requested_freq one freq_step for each idle period that
--	 * we didn't update the frequency.
-+	 * Apply deferred down steps only when the policy sample load is
-+	 * below down_threshold. Otherwise, multiple deferred down steps may
-+	 * cause a net frequency decrease outside the downscaling region.
- 	 */
--	if (policy_dbs->idle_periods < UINT_MAX) {
-+	if (policy_dbs->max_sample_load < cs_tuners->down_threshold &&
-+	    policy_dbs->idle_periods < UINT_MAX) {
- 		unsigned int freq_steps = policy_dbs->idle_periods * freq_step;
-
- 		if (requested_freq > policy->min + freq_steps)
-diff --git a/drivers/cpufreq/cpufreq_governor.c b/drivers/cpufreq/cpufreq_governor.c
-index 710d93ec89b5..f3bd3dbe7c41 100644
---- a/drivers/cpufreq/cpufreq_governor.c
-+++ b/drivers/cpufreq/cpufreq_governor.c
-@@ -124,7 +124,8 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
- 	struct policy_dbs_info *policy_dbs = policy->governor_data;
- 	struct dbs_data *dbs_data = policy_dbs->dbs_data;
- 	unsigned int ignore_nice = dbs_data->ignore_nice_load;
--	unsigned int max_load = 0, idle_periods = UINT_MAX;
-+	unsigned int max_load = 0, max_sample_load = 0;
-+	unsigned int idle_periods = UINT_MAX;
- 	unsigned int sampling_rate, io_busy, j;
- 	u64 cur_nice;
-
-@@ -147,7 +148,7 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
- 		struct cpu_dbs_info *j_cdbs = &per_cpu(cpu_dbs, j);
- 		u64 update_time, cur_idle_time;
- 		unsigned int idle_time, time_elapsed;
--		unsigned int load;
-+		unsigned int load, sample_load;
-
- 		cur_idle_time = get_cpu_idle_time(j, &update_time, io_busy);
-
-@@ -186,6 +187,20 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
-
- 		j_cdbs->prev_cpu_nice = cur_nice;
-
-+		/*
-+		 * Compute the sample load separately from the prev_load value
-+		 * that may be reused after a long idle interval. The conservative
-+		 * governor uses it to decide whether to apply deferred down steps.
-+		 * If no time has elapsed, retain the existing behavior and use
-+		 * prev_load.
-+		 */
-+		if (unlikely(!time_elapsed))
-+			sample_load = j_cdbs->prev_load;
-+		else if (time_elapsed > idle_time)
-+			sample_load = 100 * (time_elapsed - idle_time) / time_elapsed;
-+		else
-+			sample_load = 0;
+diff --git a/drivers/rtc/rtc-bd70528.c b/drivers/rtc/rtc-bd70528.c
+index 482810b61495..fd415e327ea6 100644
+--- a/drivers/rtc/rtc-bd70528.c
++++ b/drivers/rtc/rtc-bd70528.c
+@@ -8,6 +8,7 @@
+ #include <linux/mfd/rohm-bd71815.h>
+ #include <linux/mfd/rohm-bd71828.h>
+ #include <linux/mfd/rohm-bd72720.h>
++#include <linux/mfd/rohm-bd73800.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+@@ -284,6 +285,12 @@ static int bd70528_probe(struct platform_device *pdev)
+ 		bd_rtc->bd718xx_alm_block_start =3D BD72720_REG_RTC_ALM_START;
+ 		hour_reg =3D BD72720_REG_RTC_HOUR;
+ 		break;
++	case ROHM_CHIP_TYPE_BD73800:
++		bd_rtc->reg_time_start =3D BD73800_REG_RTC_START;
++		bd_rtc->bd718xx_alm_block_start =3D BD73800_REG_RTC_ALM_START;
++		hour_reg =3D BD73800_REG_RTC_HOUR;
++		break;
 +
- 		if (unlikely(!time_elapsed)) {
- 			/*
- 			 * That can only happen when this function is called
-@@ -220,11 +235,7 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
- 			load = j_cdbs->prev_load;
- 			j_cdbs->prev_load = 0;
- 		} else {
--			if (time_elapsed > idle_time)
--				load = 100 * (time_elapsed - idle_time) / time_elapsed;
--			else
--				load = 0;
--
-+			load = sample_load;
- 			j_cdbs->prev_load = load;
- 		}
+ 	default:
+ 		dev_err(&pdev->dev, "Unknown chip\n");
+ 		return -ENOENT;
+@@ -344,6 +351,7 @@ static const struct platform_device_id bd718x7_rtc_id[]=
+ =3D {
+ 	{ .name =3D "bd71828-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD71828 },
+ 	{ .name =3D "bd71815-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD71815 },
+ 	{ .name =3D "bd72720-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD72720 },
++	{ .name =3D "bd73800-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD73800 },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(platform, bd718x7_rtc_id);
+--=20
+2.55.0
 
-@@ -237,9 +248,13 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
 
- 		if (load > max_load)
- 			max_load = load;
-+
-+		if (sample_load > max_sample_load)
-+			max_sample_load = sample_load;
- 	}
+--mUgRN4pDP+5ghfak
+Content-Type: application/pgp-signature; name=signature.asc
 
- 	policy_dbs->idle_periods = idle_periods;
-+	policy_dbs->max_sample_load = max_sample_load;
+-----BEGIN PGP SIGNATURE-----
 
- 	return max_load;
- }
-diff --git a/drivers/cpufreq/cpufreq_governor.h b/drivers/cpufreq/cpufreq_governor.h
-index 73b8ed7cfaae..806d8fb4dff1 100644
---- a/drivers/cpufreq/cpufreq_governor.h
-+++ b/drivers/cpufreq/cpufreq_governor.h
-@@ -95,6 +95,8 @@ struct policy_dbs_info {
- 	/* Multiplier for increasing sample delay temporarily. */
- 	unsigned int rate_mult;
- 	unsigned int idle_periods;	/* For conservative */
-+	/* Maximum load from the current policy sample. */
-+	unsigned int max_sample_load;
- 	/* Status indicators */
- 	bool is_shared;		/* This object is used by multiple CPUs */
- 	bool work_in_progress;	/* Work is being queued up or in progress */
--- 
-2.25.1
+iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmqqMpwACgkQeFA3/03a
+ocWHywf/TpnLoThLOPyYyeFOZbqVLZ+ucK3WNz1ae/rLX+DhEKXRo1QVhzEd1MLU
+G7R6rQKd/0TcWu1aWVO/0+Gu7/AmOs1K0JRJToC6zxWekjznVQT3tZ6TOBZqupm0
+rRMq44S0MVjDhDVCRmt8iCTxF2wdsuVUzWQu3TRs3JhH6wi82Zgdz/SSC6xOPQB/
+nl7xJRLCF0JEAu2uJTPokEjZ1kv/xMHjz4W/LKVV2EBhwniv+UYt8+mXwhlJh3ks
+vRNYzlH7NmnaoVZdR8l7QhPHuu0qrFBjhfTajAVA5IczJee3JCQAp8YVZLcH80Qg
+zNUC1C5MxToP6G1mUQNQiv5w/HDoYA==
+=Hs+m
+-----END PGP SIGNATURE-----
+
+--mUgRN4pDP+5ghfak--
