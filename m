@@ -1,190 +1,157 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C123B71A2;
-	Wed, 16 Sep 2026 02:56:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF05175A88;
+	Wed, 16 Sep 2026 03:00:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789527405; cv=none; b=DcpzXA9f4+XkJbCebt94CTXPTPJkQYSJ3gOeCgpA8O/4fg1QAqS7OtJPHaz96UNr9RJxwBcs4quaKp0YBC9il8nVzbwqPzkDrrEJV/zQVH9BYTbLEnsyHiNiGhUTh6q3HdEOTknGLCUFsKFrdpQPk2MMew9U4LpSacrk6jOFMu0=
+	t=1789527614; cv=none; b=j9MDYSXOGHGNB/ZG2g18ee3YvIJSI3RyyHuivGpDJGJhd68FNIpbFbkH35YarIsNgtQnZJVmF4CIJ0PZNmhhzDR0/iGPp1x6DKJKoE518TWl7Pi95vvYueRNE+8i+v7UFv7tcGMVYt0sMF/NRpAK5cWlSRNZcrjHhLPGm8S8S/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789527405; c=relaxed/simple;
-	bh=J3qFvdLzZ394L9jRCrceXYYUiShywQS8LAyOf+npOb4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hhJYhzeXMTn+1tSOK6/KvEZGKJ6P035UsyaHbVzMBVcAZZoLg/rZTFnB76bBv/aEXGdK8Kuq7Q3LflL9e4KdvGBiimGsFijuRHUcHURWl1X5QZNqUh+IhjqrdmdsdmWxjn7t2YC9CYAUYaRMxtZExKa7X+Z1LzglbrGLL7rZtJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=WL01MGvS; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789527614; c=relaxed/simple;
+	bh=+SacVXUkr8j5POKRnHb0Al+tmH5nubSQVqCvfMvF4U8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bS4z28PC2cxoib7XOZsXqnQHM8f+i9/VBK6VvFJcVdu/rPggkBLgj+f0NpXJD/Mm6bKb632jzdz1cTX/PDtpmVr5SQoKziuusAy/czX176Fw/te4Z+HMEze9O1qrdMlHHGwpEzDctQ3oe69fgDQMT303sOj2eDw/e1aGcMZ9vO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L1IaNBKR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="WL01MGvS"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789527401; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=ltwHG9lHNDsQHaMaee1Lnu6kVGSGJpl1ybgHT6WGVmg=;
-	b=WL01MGvSeI7oaUh7Vt5BEq3MOTAUOantCIhBvcTmuLIpI6xDcsp7mQwXRMu5u1xhHa6sJn9D/VZmW6ClOB2HumwXG1QgfipnnikKNcgb9HpN9Xt56oi36YfoONx0IHRkgD/HzpKindXTZ3tQs5Mnn92MR/oWVkyUn23Vvt1QrOA=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XB3ZciG_1789527399;
-Received: from 30.74.144.115(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XB3ZciG_1789527399 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 16 Sep 2026 10:56:39 +0800
-Message-ID: <24690e82-3aab-4f2d-95a7-3bba332ca5bc@linux.alibaba.com>
-Date: Wed, 16 Sep 2026 10:56:38 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L1IaNBKR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C85C71F000FF;
+	Wed, 16 Sep 2026 03:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789527612;
+	bh=2bdF78kpI2KMtKEo1UhtIDs9SRrcav8S/mCxdPezFrE=;
+	h=From:Subject:Date:To:Cc;
+	b=L1IaNBKRMh7tkpx0TO4JxumQ+lDv54WoXC7lQc6Vff1HOHQ3LntVjYadJvNJ6qC5P
+	 mHY2MLjxGtBjg3Mx/CDJ7uy8kSvKdWZrb+kz08oyT84rsYROD9Ot9CU1Ba/3BZPx/8
+	 VrY+3oqpPiZ4fCByRXh5BNG7TVUry4Y7hauks/HMQgk90ihspl62d7n5ly0vHqPoP6
+	 SGfQmQV8VkKbN4YqaE0ksYjb0HjCBjdPQw0AV5Py8dMefOqb3e0HNdy/2T8Cgs0Q+I
+	 VHQJow0bRLwuxHVsLP2Z5xfd4YmL5OSEoKX8vb6PR7qdzduG6j7v25oNjTS9RM3E8i
+	 N1Sj5v+/GU1kA==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH v5 0/3] Add UFS Host driver support for SpacemiT K3 SoC
+Date: Wed, 16 Sep 2026 02:59:52 +0000
+Message-Id: <20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] kselftest: mm: fix intermittent failure khugepaged
- test
-To: Yeoreum Yun <yeoreum.yun@arm.com>, Zi Yan <ziy@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>
-References: <20260915-fix_khugepagd_fail-v1-0-bb6f04c8759f@arm.com>
- <20260915-fix_khugepagd_fail-v1-2-bb6f04c8759f@arm.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260915-fix_khugepagd_fail-v1-2-bb6f04c8759f@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23OQW6DMBAF0KtEXtfVeMYYJ6veo8rChiFxUwGyw
+ UoVcfeaZJFWYfml+e/PTSSOgZM47G4icg4pDH0J1dtONGfXn1iGtmSBgAYMVBKsvJCcuyTTPI5
+ DnGRjPYFlrSpGUXpj5C5c7+bn8ZHT7L+4mVZovTiHNA3x5z6a1Xr38GvADT8rCVI5ox05r9B2H
+ xeOPX+/D/Ek1oGMfwjcejEXV+oKyDh0qJV9IehJWDBbBBUCqO48Ibqm9S+EfhL70t8gdCFK2aF
+ v93VL/4llWX4BoBGquI4BAAA=
+X-Change-ID: 20260605-08-k3-ufs-support-c8b308e415e2
+To: Alim Akhtar <alim.akhtar@samsung.com>, 
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, "Martin K. Petersen" <mkp@kernel.org>
+Cc: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ Aurelien Jarno <aurelien@aurel32.net>, 
+ Jennifer Berringer <jberring@redhat.com>, linux-scsi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3425; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=+SacVXUkr8j5POKRnHb0Al+tmH5nubSQVqCvfMvF4U8=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqqgYrD6CluHigzTNYp9BAViOiHlWDbTZB+eC8q
+ XP28inYDTmJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCaqoGKxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+0FFg/9FLomF8pxFXX8jY0C0hu25u5AKgzCurSfBEExbJ65t4SfMgTDCZh6q
+ L5wTX5yeSAJy9upPc5KjXyECAWFqPD0Anl3zloVs/v4OJfhA5eQ2ILIMGnYT5jgYthEAiRwAEmN
+ 4ntY2aXhw3r093ukfQIc//TqnPlck0JamdQD1u2jUIEZI72QsBW1AIWBwnr/KejQyCOyZjdgcnY
+ PG4vesQOUPOeUBmhv54tNlLyvUubOZQ/bjOlEZRGPsnyFO6BtCH/ThzdrwvIxkPDl1FZXRawq0t
+ +Xe1nbL86+XUHzv2ZC0iLQoyi8xeK6g3hnt2CANG+bEoHhwZhDCHLowoR8DKpaw0dYUQ1y+U9b1
+ WEyaSLyyogYfSPX4al1rbI+hA8YtQjvuqYrk1D1eYt8HHiqY3wrVRcR8cXtbYcwQfI78Gbd9pYS
+ Jj6RNfAHQxhL/6bqDwSK2Nz4IdIllAeA9miGbwkcDCJRKri+XXoMIcr+Ia92zK/+o7Yfrj7MvnY
+ lArLsnQ66XLrjJQhZDJdvoxVFAHyTHLiZs4ALLxmINoR0laqfJ4NuSGj5bccNQHKz+QCZRLtCFx
+ D+2f+QQYe3CsHrWJH7YcHpsZw10XUWHu9quVmRhGa5wwzhPrwGM0VrRR2y5ov7Mr7hZMsVJSi4N
+ YWzuVg8uPdQT09zP4xsnyoNh1VICQc=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
+This series try to add UFS support for SpacemiT K3 SoC, the controller
+components consists of System Bus Interface Unit, UFS Host Controller
+Interface, UFS Transport Protocol Layer, UFS Host Registers, Device
+Management Entity (DME), Transport Layer, Network Layer, Data Link
+Layer, PHY Adapter Layer, and M-PHY Interface. A more detail functional
+block diagram can be found in SpacemiT website, chapter 9.7.3 [1]
 
+One known issue is that the device will occasionally raise BKOPS interrupt
+when doing some high load test, log from dmesg shows
 
-On 9/15/26 5:21 PM, Yeoreum Yun wrote:
-> There are intermittent failures in collapse_max_ptes_swap() and
-> collapse_max_ptes_shared() when using the khugepaged_context:
-> 
->    // while running ./khugepaged -s 2
-> 
->    # Run test: collapse_max_ptes_shared (khugepaged:anon)
->    # Allocate huge page... OK
->    # Share huge page over fork()... OK
->    # Trigger CoW on page 1023 of 2048... OK
->    # Maybe collapse with max_ptes_shared exceeded.... OK
->    # Trigger CoW on page 1024 of 2048... Fail
->    Bail out! Unexpected huge page
->    # Planned tests != run tests (26 != 23)
->    # Totals: pass:23 fail:0 xfail:0 xpass:0 skip:0 error:0
-> 
->    # Run test: collapse_max_ptes_swap (khugepaged:anon)
->    # Swapout 257 of 2048 pages... OK
->    # Maybe collapse with max_ptes_swap exceeded.... OK
->    # Swapout 256 of 2048 pages... OK
->    Bail out! Unexpected huge page
->    # Planned tests != run tests (26 != 17)
->    # Totals: pass:17 fail:0 xfail:0 xpass:0 skip:0 error:0
-> 
-> This happens because khugepaged may collapse the pages before wait_for_scan()
-> is called, causing a sanity check that expects uncollapsed pages to fail.
-> 
-> For example, in collapse_max_ptes_swap(), after faulting the pages back in
-> and paging out up to max_ptes_swap pages, khugepaged may collapse them again
-> before c->collapse() is called.
-> 
-> To prevent this, change the khugepaged setting from ALWAYS to MADVICE for
-> the affected tests, and mark the VMA with MADV_NOHUGEPAGE after it has been
-> collapsed by wait_for_scan(). This prevents khugepaged from collapsing it
-> again before c->collapse() is called.
-> 
-> This failure was observed on NVIDIA Spark with 16KB page.
-> 
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
->   tools/testing/selftests/mm/khugepaged.c | 15 +++++++++++++++
->   1 file changed, 15 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-> index c32244b565658..83e9386bbc842 100644
-> --- a/tools/testing/selftests/mm/khugepaged.c
-> +++ b/tools/testing/selftests/mm/khugepaged.c
-> @@ -578,6 +578,8 @@ static bool wait_for_scan(const char *msg, char *p, size_t len,
->   		usleep(TICK);
->   	}
->   
-> +	madvise(p, len, MADV_NOHUGEPAGE);
+[  806.710763] ufshcd-spacemit c0e00000.ufshc: ufshcd_bkops_exception_event_handler: device raised urgent BKOPS exception for bkops status 1
 
-This looks incorrect to me and would reintroduce the previous problem. 
-Please see commit 7962e05a835f ("selftests: khugepaged: fix the shmem 
-collapse failure").
+Link: https://spacemit.com/community/document/info?nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/09_memory_storage.md&lang=en [1]
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+Changes in v5:
+- adjust clock names
+- add runtime power support
+- collect tags
+- Link to v4: https://patch.msgid.link/20260908-08-k3-ufs-support-v4-0-22aa2bd97d3b@kernel.org
 
-> +
->   	return timeout == -1;
->   }
->   
-> @@ -839,6 +841,7 @@ static void collapse_swapin_single_pte(struct collapse_context *c, struct mem_op
->   
->   static void collapse_max_ptes_swap(struct collapse_context *c, struct mem_ops *ops)
->   {
-> +	struct thp_settings settings = *thp_current_settings();
->   	int max_ptes_swap = thp_read_num("khugepaged/max_ptes_swap");
->   	void *p;
->   
-> @@ -860,6 +863,9 @@ static void collapse_max_ptes_swap(struct collapse_context *c, struct mem_ops *o
->   	validate_memory(p, 0, hpage_pmd_size);
->   
->   	if (c->enforce_pte_scan_limits) {
-> +		settings.hugepages[collapse_order].enabled = THP_MADVISE;
-> +		thp_push_settings(&settings);
+Changes in v4:
+- fix clock and reset settings
+- drop function which retrieve value of tx_lanes
+- propagate return error of ufs_spacemit_dme_set()
+- check return value ufs_spacemit_check_hibern8()
+- drop call to ufshcd_vops_phy_initialization()
+- handle compiling warning if CONFIG_OF not enabled
+ add __maybe_unused to ufs_spacemit_of_match
+- Link to v3: https://patch.msgid.link/20260806-08-k3-ufs-support-v3-0-037fb322acdb@kernel.org
 
-I'm not sure why the collapse_order setting needs to be changed here. In 
-your test case, you did not use the '-c' parameter to specify the 
-collapse order.
+Changes in v3:
+- collect tags
+- fix dt-binding warning reported-by sashiko
+- fix low freq in opp-2 table
+- fix err checking in check_hibern8()
+- propagate err code in link_startup_notify()
+- update documents for event_notify()
+- ufs clock driver is merged into v7.3-rc1, update cover letter
+- Link to v2: https://patch.msgid.link/20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org
 
-> +
->   		ops->fault(p, 0, hpage_pmd_size);
->   		ksft_print_msg("Swapout %d of %d pages...", max_ptes_swap,
->   		       hpage_pmd_nr);
-> @@ -869,12 +875,15 @@ static void collapse_max_ptes_swap(struct collapse_context *c, struct mem_ops *o
->   			success("OK");
->   		} else {
->   			fail("Fail");
-> +			thp_pop_settings();
->   			goto out;
->   		}
->   
->   		c->collapse("Collapse with max_ptes_swap pages swapped out", p,
->   			    1, ops, true);
->   		validate_memory(p, 0, hpage_pmd_size);
-> +
-> +		thp_pop_settings();
->   	}
->   out:
->   	ops->cleanup_area(p, hpage_pmd_size);
-> @@ -1075,6 +1084,7 @@ static void collapse_fork_compound(struct collapse_context *c, struct mem_ops *o
->   
->   static void collapse_max_ptes_shared(struct collapse_context *c, struct mem_ops *ops)
->   {
-> +	struct thp_settings settings = *thp_current_settings();
->   	int max_ptes_shared = thp_read_num("khugepaged/max_ptes_shared");
->   	int wstatus;
->   	void *p;
-> @@ -1100,6 +1110,9 @@ static void collapse_max_ptes_shared(struct collapse_context *c, struct mem_ops
->   			    1, ops, !c->enforce_pte_scan_limits);
->   
->   		if (c->enforce_pte_scan_limits) {
-> +			settings.hugepages[collapse_order].enabled = THP_MADVISE;
-> +			thp_push_settings(&settings);
+Changes in v2:
+- fix missing interrupts property
+- move ufs node to k3-com260.dtsi
+- convert freq-table-hz to operating-points-v2
+- rework reset_control, fix header and drop global variable
+- drop dump_host_regs() debug interface
+- converge and refactor dme_set() operations
+- massive reduce of busy delay() loops
+- drop vendor specific hce_enable_notify(), fallback to default
+- drop unused member from struct ufs_spacemit_host
+- add COMPILE_TEST support to Kconfig
+- comment style fix
+- Link to v1: https://patch.msgid.link/20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org
 
-Ditto.
+---
+Yixun Lan (3):
+      scsi: ufs: spacemit: dt-bindings: Add UFS controller for K3 SoC
+      scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+      riscv: dts: spacemit: k3: Add UFS support
 
-> +
->   			ksft_print_msg("Trigger CoW on page %d of %d...",
->   			       hpage_pmd_nr - max_ptes_shared, hpage_pmd_nr);
->   			ops->fault(p, 0, (hpage_pmd_nr - max_ptes_shared) *
-> @@ -1111,6 +1124,8 @@ static void collapse_max_ptes_shared(struct collapse_context *c, struct mem_ops
->   
->   			c->collapse("Collapse with max_ptes_shared PTEs shared",
->   				    p, 1, ops, true);
-> +
-> +			thp_pop_settings();
->   		}
->   
->   		validate_memory(p, 0, hpage_pmd_size);
-> 
+ .../devicetree/bindings/ufs/spacemit,k3-ufshc.yaml |  56 ++
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi        |   4 +
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts       |   4 +
+ arch/riscv/boot/dts/spacemit/k3.dtsi               |  22 +
+ drivers/ufs/host/Kconfig                           |  12 +
+ drivers/ufs/host/Makefile                          |   1 +
+ drivers/ufs/host/ufs-spacemit.c                    | 688 +++++++++++++++++++++
+ drivers/ufs/host/ufs-spacemit.h                    |  79 +++
+ 8 files changed, 866 insertions(+)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260605-08-k3-ufs-support-c8b308e415e2
+
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
 
