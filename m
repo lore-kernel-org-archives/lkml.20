@@ -1,88 +1,112 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3808344237B;
-	Wed, 16 Sep 2026 20:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB0C4BFE8F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:04:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789589096; cv=none; b=YptdlyaCQKKRG3rqLpKUNRipFt3pui1QqzaOwmY83kiSK9pQg6VwLvb2waSz9H7DeiZARODQMYDxIoznZUp0h05EsHIPrM/r1BN60QVCub5JtaBHQcCzCFlR8cyt6YedSPujmyP/TG5YhzjCy9epNdKPgsP+uLlNRZCpc6HDj9c=
+	t=1789589105; cv=none; b=HRU8BX+4VGvG0Qb5D4Zl12dIxCAq1eqynXaIc2Bb2PNnzl5CCsRrv4jbot9vksV/39c/wjM1EWxVM8ObFaVXvq6KfCFVrqFP6qlNzq4n9EnQs5nipJX2BMHTKxHwcWHkamMGM+tEKjCpnhU0uqeV8ITLNe9AU9f+pPtpcQwf20s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789589096; c=relaxed/simple;
-	bh=q8VUuAMu4loyahpVZ49szfxRv+8c4UDMw+jk/d97UGQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QBklRKvS3exBJ8HIqfe6MlSow0Aug1wW/85+MneBsp1/h87tne7zNB9oiGw7mcvWN5whRRcEgVbdzxPDAbnWo4NRXRIn3dnH12ymIAhUmP2j0+vHp5fN7Ogz59VbfFRe59SKt3tLL3z4iTcZx3gcDQL/6woyIBi2cvPC+AqOzvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=QrcW/ZGs; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=GUPIOwdm; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789589105; c=relaxed/simple;
+	bh=ihZ35iU0VI/7mp+EmY0VgHI5ZWg7b+/5sEh2IzhBvNA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mSLnqa+xWSxj1xQTz+px1O5RpqJ77qy7TPqF0UWZKbjAc6ZX2pZmV56978z05i7I19a+t/h5L/3KUUcIJZptY98V4KdDvYWtgyVjmSWlqpqIyzmFENuCu/PwwCIBzIoNTE2L96ZUzsf0Ov8JFoxvo/zeTkh7tjkNm8PZXOiMhoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=AniVZPYl; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="QrcW/ZGs";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="GUPIOwdm"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1789588936; bh=Cmoc+LvxrB8XTyAuxieF0n1
-	oKRJqDrHiKarYKzS8wOk=; b=QrcW/ZGsGc/8zHko7LRpzYzG2forpReCVNUoEO/bRUiepdOsvJ
-	Vr1/YF1bZ3Bw296iaAHCQclAkdJYIUR6E02L/Nq8tZfvVx22f7rYSWrsMTbLU1cW0SCq8DSeYnN
-	BVg5WtgXATQq/GpIUm611bYcR9qe+DJR5ZKoAs7PnYH1aR23/+8gPaqNZIrUr/UxGocpngHCThG
-	6HdW+Z51I7gGEhp+ZvlZ1zvFuicUibVeNY7bBLL5ZQc36Yj4a2dB1Cftd463cVKFVEOrAXDUAFN
-	OOPI0h8Jmnqq22PWIuHK9IRam5z0qayaxb78HeVB4twBKIFxpaTu0fnjuLZrjs0ddrw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1789588936; bh=Cmoc+LvxrB8XTyAuxieF0n1
-	oKRJqDrHiKarYKzS8wOk=; b=GUPIOwdm1MvUm482CkvGoF26O4/6Ajr0KBRTAKBF4cQt4KT7lo
-	wqg+pzOKceAgkHmRUcBiSMNVP21Ag6YNpZDg==;
-From: Bradley Morgan <brads@mainlining.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vineet Gupta <vgupta@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-snps-arc@lists.infradead.org,
-	linux-csky@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bradley Morgan <brads@mainlining.org>
-Subject: [PATCH v2 5/5] xtensa: Emulate two-byte cmpxchg
-Date: Wed, 16 Sep 2026 20:02:15 +0000
-Message-ID: <20260916200215.21774-6-brads@mainlining.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260916200215.21774-1-brads@mainlining.org>
-References: <20260916200215.21774-1-brads@mainlining.org>
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="AniVZPYl"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-910531ea7feso531796d6.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:04:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1789589079; x=1790193879; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LYBE6fjhCC90VNWvARTLSCkVoVvNv7gfJ6w8/9LQtiY=;
+        b=AniVZPYlfP+Vq/g9a5qel0llK4FnJ/QoYiF5jhEig1PN1JchyCwapQJV8gaaAjeuto
+         Q0xCSqjxYCoi7+doIYvHs1rn/zCZRkZAZjN3aNfH+S11nud0kC0ejile9YlGQy9UGu9j
+         BpQroyO8mzr/0BPHIgUFhQoa63i7CcZOg4C2iaNBmhyyIfCEsuVO8ljGDqctz2dNbPsw
+         OqYxg6+FQ+VxnHvWWZm9J0fE/fzMMFxPx3qozKzETT4R8xnJspFbAAixThGpPh/r/jGu
+         C3b9OMMmVs3q7SqxN8DkYMbWoi5vF3surSSa7tH3qRBm2vASQL7X1M4q6WexUkkx1weN
+         qX1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789589079; x=1790193879;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LYBE6fjhCC90VNWvARTLSCkVoVvNv7gfJ6w8/9LQtiY=;
+        b=rx2ic0ZMa8wrqc6aHqfn7yCWm4eAbLpQFekfQPUqmtC4G49QdM2US39A5uYf+JDBi8
+         72KG1w73CroySNc8+e2LQC7J9h7VjKB0OumEZXAnXlV78zJOd7ObeoZmdESi1rWm0OIc
+         x0k4qfa4Pk9NW1VMizHniTy46HDsN/U/h+v/YGupR42ggGkOwHEayKJ92oGvhagugrvY
+         3emDFfEjH+D67buHNVez4FtkfJD0dBF2cwjWrdVsCYYVBWlrsXyh0vkNGj4KGamV/BRS
+         OffJKgdc4sm7QfthpWotDaABbYYzgh95IGtwP5r8Tdl0xvfPmoudT8EDzyMkdxfCek/n
+         aNPw==
+X-Forwarded-Encrypted: i=1; AKwUvBxLdwu9xZH4L/byUTRfrC6q7pHdpBmQkKX8FdN7z/4VftNwJLxcW5O87Jllw9t4jTxnHnNqdWEaWcP3HzA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m22OcJd43ehTuSQoMRZVNr8sJrrKeRePSOsH3wMObSfk+y6/AO
+	4Q0EPaOuMAT5QEX+I8sEas2IJT8wg0+m4Lw3wBvqbFWyfj5z9dCtmee23v2QOCLQRKE=
+X-Gm-Gg: AYBFou3CsRT4HAPg+IRQiFu+18BrkZ2svEI9zXFECjL3lvz81MjPklDZeK5+W32USV5
+	vkFMCJAQrnvW6GzX8O9nMhT+s434mzy6ldLaea4N+mSCy6CRKav75a/w/wIqoAMXsbSwxLyexQo
+	N4X/gKtdB0cFJZ3LVN2iqLDXyl97sC65fl7eYgcql/Z3J68vWQbA5vV/gj12lShN6skLid8rtod
+	bARi70Sz2H89AVwkIPTvI2/uLKbbq8kmP1eOV1jwQJBbIJo4MbDmrQNbXQMK1vQRCeWPcAOdnRf
+	4MHqsuQVJ0dI1VqAy2yuUWzaYeiTZdQ5h4IyXXqMqOCBlSWp4M7L1tbnuTIxP9LS0sspwaO2mzw
+	i06GaQw2bJcDj2Xb9GYTom9aaOWjNblXHHV63PFBF7l4ykki8X6zXxSJxzS20CA5C95YjNTBj6a
+	1vU+lJnPcT2BusTvRnzFULTx8jAj/h/03AufW44FGfSwTEhh18RTa91OYOZTTDC8LqvB77Tw==
+X-Received: by 2002:a05:6214:404:b0:8fd:d5a7:f970 with SMTP id 6a1803df08f44-9123d754226mr75992146d6.11.1789589079282;
+        Wed, 16 Sep 2026 13:04:39 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:1f35:22b6:fe30:2a34])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123be946f0sm33219756d6.27.2026.09.16.13.04.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 13:04:38 -0700 (PDT)
+Date: Wed, 16 Sep 2026 16:04:34 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Youngjun Park <youngjun.park@lge.com>
+Cc: akpm@linux-foundation.org, chrisl@kernel.org, linux-mm@kvack.org,
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kasong@tencent.com, mhocko@kernel.org, roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev, muchun.song@linux.dev,
+	shikemeng@huaweicloud.com, baoquan.he@linux.dev, baohua@kernel.org,
+	yosry@kernel.org, joshua.hahnjy@gmail.com, taejoon.song@lge.com,
+	her0gyugyu@gmail.com, lianux.mm@gmail.com
+Subject: Re: [RFC PATCH v11 0/4] mm/swap: priority-based swap tiers with
+ per-cgroup selection
+Message-ID: <20260916200434.GA5784@cmpxchg.org>
+References: <20260916183437.2946306-1-youngjun.park@lge.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916183437.2946306-1-youngjun.park@lge.com>
 
-Xtensa has no two-byte atomic compare and swap, so the __cmpxchg()
-switch lets case 2 fall through to __cmpxchg_called_with_bad_pointer(),
-which is declared but never defined, so a two-byte cmpxchg() fails at
-link time. Route case 2 through the new cmpxchg_emu_u16(), which takes
-natural u16 arguments, so the unsigned long old and new narrow at the
-function boundary.
+On Thu, Sep 17, 2026 at 03:34:33AM +0900, Youngjun Park wrote:
+> Per-cgroup swap in debugfs
+> ==========================
+> 
+> Patches 3 and 4 let a memory cgroup choose its tiers through debugfs.
+> 
+>   # swapon -p 100 /dev/nvme0n1p2
+>   # swapon -p 50 /dev/sdb2
+>   # cat /sys/kernel/debug/swap/tiers
+>   Idx   Prio
+>   0     100
+>   1     50
+>   # echo "/batch 0x2" > /sys/kernel/debug/swap/memcg_tiers
+> 
+> Bit i of the mask is tier i, so /batch swaps only to sdb2. A tier keeps
+> its index for its lifetime, so the mask keeps selecting the same tier
+> across swapon and swapoff.
 
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
----
- arch/xtensa/include/asm/cmpxchg.h | 1 +
- 1 file changed, 1 insertion(+)
+Can the cgroup be given a priority limit? That would have pretty
+obvious inheritance semantics:
 
-diff --git a/arch/xtensa/include/asm/cmpxchg.h b/arch/xtensa/include/asm/cmpxchg.h
-index b6db4838b175..8dea8e357fc0 100644
---- a/arch/xtensa/include/asm/cmpxchg.h
-+++ b/arch/xtensa/include/asm/cmpxchg.h
-@@ -76,6 +76,7 @@ __cmpxchg(volatile void *ptr, unsigned long old, unsigned long new, int size)
- {
- 	switch (size) {
- 	case 1:  return cmpxchg_emu_u8(ptr, old, new);
-+	case 2:  return cmpxchg_emu_u16(ptr, old, new);
- 	case 4:  return __cmpxchg_u32(ptr, old, new);
- 	default: __cmpxchg_called_with_bad_pointer();
- 		 return old;
--- 
-2.47.3
-
+root
+`- batch (memory.swap.prio.max = 20)
+   `- task (memory.swap.prio.max = max)
+   `- logs (memory.swap.prio.max = 10)
+`- interactive (memory.swap.prio.max = max)
+   `- task (memory.swap.prio.max)
