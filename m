@@ -1,65 +1,86 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011039.outbound.protection.outlook.com [52.101.52.39])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F9E3BCD3A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:08:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789528113; cv=fail; b=iDv/Mrw2SWTsHupEVyKKkOCOkRsh1++GbeT26WTj65I41MEsQ+XjaV+xenVF8VV6AEH2Anfa0ZztfqIW81mt5GVc+q674l1nDPNydMdl+3NaL9/8R3CzhuDVMagLZWrnyyYKF9Kk10FLQXP92nh0GNwZKvCCkPOHm6mf566aK3w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789528113; c=relaxed/simple;
-	bh=oBN5mwjzwcrcL2SpHxHKuTSRd9wDvu8oCTfceSgIaVM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=gCRTbe86rqBspoqUkJXcBmq6Oqg2oZckSkYzSVt+K24Gu/7EUN5e7XKv/OZ4G9fjoFL2ingy9cWBovEOpyBZpq55vDoMd+rsgr7jG498jwDlQqJYS5m/DB09w/GS6M0/OiPKdSp+mripn0MaXJ1hcaXu1VAYkVr9suGhSSSRuN0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ZUQ0EdQr; arc=fail smtp.client-ip=52.101.52.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A0E274650
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:09:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789528156; cv=none; b=TTbDCeljLSnI1ZurDCXVeAZR+54EnVv5Yl84rmLlffYBFK2QqibYfS5TG0KdUlshwK7Gx3e/c0NemGttqKaih/E9U8T5z+FhegL5eYMHqGIVZZODhs6Van4hgBbynqmhyXvtzqxr1uCZ7GwdIRbbjwSQMIc4A5+9ZFmowzdcnZI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789528156; c=relaxed/simple;
+	bh=yM62N2H1bOa/X/eOm9XfJAW2/IsPTDWnjWPkAJTwNSU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WxrYcBm8WNE3Pgdr0eb0WUKN9HSVf9fW2lCVRBTeyaDRv7725wfdykCNNAzWve24D+Y/lMHxbeKGZYNQKKLUK+iS4ARFO8iyyKBlFf+5bUBw9SpeZP9OJPaZYBOACwmpFPNFmNNLVPK/v/5b4/g1ADdEeI00aicOr0qGPYU15/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C2+SAIH3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IYgCtG97; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ZUQ0EdQr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ptrt7kQScvJit/5g12NDcVF9aqOkS6PQpjKl9+FSjTWuxF/WFt0gdCdVBYT9Z+bJKT/FjhPyorl3qqSQb7zQv0FdFd4IxrPjxl3eSK/6WLUPe0OnH+ZgBvOTsa3yXm3dBICUT02EW3gntE021LkQTAuWAnQk14qqNpfVlnpZ11ds7b/0tnw6IoPDGfeMOjKHrXIzWzFZSuf31Jyr23+I8cKWcBqL1NkAWfqE7zkT4bcxkSOYSHoKQhxOVuxX60OaJ/2orzmxf5uix/vxnQ+neUtbRruW0V0TTwJNWDglsQy4sC8S6IPx4q3aLy2oltrfsf7Pyzm70iILYsEHKkAeBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uSHpX/5mMSgmF9zwtmW14QBzOh2lq9neo71E4KXfU0s=;
- b=JM/a5Rp56Hg0rgBkPTFe7IY+bZ/XD2RnFu+Tj4/96eatxmS/zxEbOUGw7NYRZvWbfPJfavL2Izfo2K4roizaxitkaow7UTZ8S7U2G/4nbHNjm0yXEo505neB6JEnjxH6G3CRDrqJnewRxul6uv7IXLJN1tl37XWATviU7Jodp38NWgidcnsYv/ealjAaWIlgd4QLPBjgRq0XmyKB7n7rwUv2KuM97YO/LvmNMYRbWpqvNzBpSUobREQ/GOGgisqjTfhx+a3dSFGvh+WZ5NZW9DhDg+kcWR8BL/Ygln/gdgqGkCjcGDbu8KHaHthWuytlUnm2r2JaPeVV9OIVBwy7/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uSHpX/5mMSgmF9zwtmW14QBzOh2lq9neo71E4KXfU0s=;
- b=ZUQ0EdQr5mdVDgSGhf7SNMM9hlHVom2CIYyHG8v1UD52yZAjrgs3n0p9PHedG+N15/ig0KbXMaVmtD+RXs8mKKZjJdRFCOB90DyfFddR+1HgaK1qaUZwJz4d1jUW1StlARMZTqGITN6Eek3W8F6FmYeTSL3KcT1bDPrkrXzASRw=
-Received: from SJ0PR13CA0006.namprd13.prod.outlook.com (2603:10b6:a03:2c0::11)
- by CH3PR12MB7571.namprd12.prod.outlook.com (2603:10b6:610:147::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
- 2026 03:08:25 +0000
-Received: from SJ5PEPF00000206.namprd05.prod.outlook.com
- (2603:10b6:a03:2c0:cafe::a9) by SJ0PR13CA0006.outlook.office365.com
- (2603:10b6:a03:2c0::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 16
- Sep 2026 03:08:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF00000206.mail.protection.outlook.com (10.167.244.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 03:08:24 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
- 2026 22:08:23 -0500
-Received: from [192.168.0.152] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Tue, 15 Sep 2026 22:08:16 -0500
-Message-ID: <f871efd2-06b4-493f-87cc-919b6e0945c0@amd.com>
-Date: Wed, 16 Sep 2026 08:38:17 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C2+SAIH3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IYgCtG97"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLZ0F1079873
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:09:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Ag/Pmmtchq8t/DVKB8xq+CT8w46MUWWfnfZyBXqWQgw=; b=C2+SAIH3viTGtLwt
+	anuftS1UbBrRY8f6gP9mjistQDrN/AsiOiQf3x41sBtkTrxkv2qkMlbOelS7+vFH
+	IxyGug34Y/8nBg3B0mKx4XygsIaqK+JD22LiMRTr4Iy5BUaoywgK+ha9vuy514bj
+	Yv09UMS81I5PGX+OFQalGYMrKhGXhHuKYqG+0r2uQCrnEHQWgGabyWsvjY/Q0Lao
+	VN5Lj1mSx7kknMqcLPpKj1pebCw5TB3fCq4/rVDxP2uuD8c9A8X/6FqQ3xbfhJMO
+	olYD8haiGPL22qeTSxSnAJ5yAO7Drp62KAgx0RiblKph5ca7GqEBIgHXjfIu+Iaj
+	ZhKE/A==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqagej0ev-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:09:13 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39d865b11b4so3954011a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:09:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789528152; x=1790132952; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ag/Pmmtchq8t/DVKB8xq+CT8w46MUWWfnfZyBXqWQgw=;
+        b=IYgCtG97oCtgCwa7XV+JVsxNC/SVkSZfYICs+eB8xSAoGbzIHsWLwTf44jDRZQpXSV
+         vW/3w7r0iSIls7L7DvyVSv2+mq86/HVSVnGTzhF/9UdIN1XO/4ttOIMTC+5WZkan1T1r
+         udpsWj4YWdgmIKBzy0vWpds8+cGrXnA8q8w/zVtKzh3d4iBLU31FkY45Y4WuOXwo9cYv
+         nSfFLxFuK8Wz1a8Ekv6+1waxsKwQm0D6Ct4kmsOpQYJI05VHodh8intXVnXvfqyIs404
+         Sfq9ck2MdnLPMHVA0kT1K0JmaC2QactnZv0ux5OYeE+B11i15fXqtnpzkydD+gKCvwai
+         /W+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789528152; x=1790132952;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ag/Pmmtchq8t/DVKB8xq+CT8w46MUWWfnfZyBXqWQgw=;
+        b=jmq1T06Nw7i9EGuxrDuMDBvKEBb2BfsaF9CxuUt0NvkxscNzeBW068R9VHIBNLLtV9
+         FfX0nTpNk26QH1sICPtmR9PJSyUYbageHqL9Nsofrz6tECPP5ZECjpg281penLzgtXSS
+         mL8fRHxng4bMwiKjbYkH6+E4UhZ0GBXgOXVCsH8SS/EgO2NXpi5l4ocLtUBcf2L9cd5m
+         9PviOfvJxSDN5k9qOKMMPzhiZPbuVvgDRoOiNdvPPI8Ge/NjGEsFj1pN0t7CG9PIR0pH
+         hvXPxrr67Nj9hd60v0kV4DxOeaP0i4mCe3FHNostIGAobObuK0AwLqFDzRLr5GROWsyz
+         4dYg==
+X-Forwarded-Encrypted: i=1; AKwUvBza456Zxhgw62ora+AqqE9+CYAm2vfTywBZKUwuC8rxNTxsPxvf530smYSXHi5CwXqK2/FoHiDU7yASOCA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwL0Bxa/Ht3hiUSJ9mISkYhzqobRhJrYtDlaJpHi1AWkIjB7wA
+	2H+xbri+H6ULZpW1VQGkmVQ98Npq1UADHH9+KVT1KqYnEjMMgMpR34kE0LUI3HZn8GAs0Xx641D
+	5rkbdxIvLiavMv1rgMEZLqTD6yRWaLfKl1L9A2q8+zyq0npO+2gG96cuHZfD5WGbVxrg=
+X-Gm-Gg: AYBFou1n3JvZN3zi+FULdEacfiorWjC994GCKOnAxlPktMXt7rtj64/6AorxKEsCxuR
+	GzQ7+wAW2jM1ZGeuogUQXsQe77UVLpSudaw7DRWIRRIihnlLlpjgumBIioIwKgQIfGMoyQdklAb
+	YYeRIDcNz2Z+2RiId2QE5FFRjnBBZYp9OYpe/Ic3Uq13/7x0egzCxbKLWQwxB7tr38dN+b5/szJ
+	1I5QSJn8YEUnq2c9eDuXYDyNUuxwo9+j8j+s7AB4sJXooq/iQnDVIQFvpVhj5fYe5yYFtNB4tA5
+	2jRvS80/FwP84hPQyQvgC84VnF+P3U5qRLlBycUE3WOZnZct1ZYJBWaHJYrdY3O3N9M2bctw/HA
+	OLetePasDNyd1WrM0WW/Gg7hfHNrII6s/WPnY/ahN6aYvPrQGRpyKkaf8sQ==
+X-Received: by 2002:a17:90b:384c:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39e1e48a0c5mr2015588a91.16.1789528152060;
+        Tue, 15 Sep 2026 20:09:12 -0700 (PDT)
+X-Received: by 2002:a17:90b:384c:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39e1e48a0c5mr2015526a91.16.1789528151476;
+        Tue, 15 Sep 2026 20:09:11 -0700 (PDT)
+Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5e40494sm3191996eec.15.2026.09.15.20.09.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 20:09:10 -0700 (PDT)
+Message-ID: <6257c447-788d-4362-851e-0d552bcf7c56@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 20:09:07 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,120 +88,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/8] mm: Hot page tracking and promotion infrastructure
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<Jonathan.Cameron@huawei.com>, <dave.hansen@intel.com>, <gourry@gourry.net>,
-	<mgorman@techsingularity.net>, <mingo@redhat.com>, <peterz@infradead.org>,
-	<raghavendra.kt@amd.com>, <riel@surriel.com>, <rientjes@google.com>,
-	<sj@kernel.org>, <weixugc@google.com>, <willy@infradead.org>,
-	<ying.huang@linux.alibaba.com>, <ziy@nvidia.com>, <dave@stgolabs.net>,
-	<nifan.cxl@gmail.com>, <xuezhengchu@huawei.com>, <yiannis@zptcorp.com>,
-	<akpm@linux-foundation.org>, <david@kernel.org>, <byungchul@sk.com>,
-	<kinseyho@google.com>, <yuanchu@google.com>, <balbirs@nvidia.com>,
-	<alok.rathore@samsung.com>, <shivankg@amd.com>, <donettom@linux.ibm.com>
-References: <20260911210859.1359875-1-joshua.hahnjy@gmail.com>
+Subject: Re: [PATCH] net: qrtr: resend HELLO on MHI resume
+To: Vlastimil Babka <vbabka@suse.com>,
+        Manivannan Sadhasivam
+ <mani@kernel.org>,
+        Daniel J Blueman <daniel@quora.org>,
+        Linux regressions mailing list <regressions@lists.linux.dev>,
+        Thorsten Leemhuis <regressions@leemhuis.info>,
+        Takashi Iwai <tiwai@suse.de>
+Cc: "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Chris Lew <christopher.lew@oss.qualcomm.com>,
+        Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-wireless <linux-wireless@vger.kernel.org>,
+        "ath11k@lists.infradead.org" <ath11k@lists.infradead.org>,
+        "ath12k@lists.infradead.org" <ath12k@lists.infradead.org>
+References: <20260909055846.16539-1-daniel@quora.org>
+ <hcr4woicsnz3pbhzlguuwjlego7yli3znhjmsx4cdz66xa74zd@wjtle2yslc4b>
+ <c99d9feb-0a19-4f8d-915b-c2ece401e3fa@suse.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 Content-Language: en-US
-From: Bharata B Rao <bharata@amd.com>
-In-Reply-To: <20260911210859.1359875-1-joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <c99d9feb-0a19-4f8d-915b-c2ece401e3fa@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000206:EE_|CH3PR12MB7571:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1a53a73-fb35-42b5-2a15-08df139fc5ac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|36860700016|82310400026|23010399003|1800799024|10067099003|6133799003|18002099003|56012099006|11063799006|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	OPN/6dv4TLuaMh1KCrpFwwWsp/LSxirdKd02Bw8203JjMPpauIcGajstegxM6vaOt73NWWbLb4IgSA8uRjVqDZt652Mwcc1yOMOH4d0fajOPKuMVYg2m69yZEaTql+rPdcAGaQnY8Rg4hs+BndsfT3w0YngiJzTSzj/NVd7C/oBMNYdFOFryrB/CraKuS21ELB53rVwS655Cz+A1BhgiJdwSsral+6ok2y0UIHkXvLTBdtYi9zeJOZ/yoJDQQVPSqIhvAKIgQSZ9kqm24w6hSbrN64+sEa2qjYfbMDtVl4ZDG1wyaUOgymD5yocAvnwweMhg0LtF3jrlDPNeW873/jbYcPx4KIimSVf4rkMO17V4BeownBDYXDJwBQ3PdQtA4X+H9dxB7KnJvA5eThonXhwOhom6fpaEbM04SCxtjsfli6Ns1CaA7tb1EVcms2llSc8NQBAuV7heRSiln50tMcWgxPCsixMnsBVE7tPOPZQ2Lt7SPSS8nOIAi9BU3iSiayt5EL7/Wwd9554h3G/1+6xgG4NVOC+jfmmtxElYA9ha6P7ieyGfS86EpF4ZBE895pKqlzjleKkYOI+VE88OXSdX9KinZ0RTDwILBL4EUeAhhfgHyneYw7foNh1tPuTK019U+w/Ew9YB1JkEMSM6gY5Gm8lKKqiFKFm4tdFPHRoypT1Md5sGyA8PGT0McjIwrsIoUf7nQ9OqwCZ4Wb8qwQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700016)(82310400026)(23010399003)(1800799024)(10067099003)(6133799003)(18002099003)(56012099006)(11063799006)(22082099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	4yFLT0s8OELjPqFum2EEH2LAUeyCsLsEvICBVM3csRHztXlZ27PVqOTVDgiIEfY2cMTZ+wpvNGHtnXuqCbZNlzNh/ZX8ST8Js7QlnHrlUD4FwtY/+ftXpSyO+pfc58e/DkET86VJJOaZP9pLLxNKV0uSfTSsIVekPGvbyDxU31xKBxhBvY3wOOEe109fOggJNRWwAy9rOUIo4QDHVMz60YRRLOgDparbH8Hl+fCVGV8J/ZCHb/oMmvmhlFas/1tRkwGVgKVI5NyPgepJ/YCVJJuIuoL0eRgnPqZ1iTSlKdlMEUXdU967J6AtasNP3JqLSZN0ORYVwE0qttNrLyr99bIJYLiZgGj3fm6MVs1NdN2aa9OOCr48FFJMBkjWCEWppdck7TNqFHeBUXu4FnjbH6LXIeuenswhMiEj2i2fQivkPy40J3KgnHfqo8LAoV71
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 03:08:24.5758
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1a53a73-fb35-42b5-2a15-08df139fc5ac
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000206.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7571
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDAzOSBTYWx0ZWRfX8bhH6dPUWM2q
+ Rlid7rtovtKU9NnMslCWDTnLy/hX46djKkGYv8VpK1sDj3PfEvW9KIhBQMMU9GDqBaPJu3Z80Bo
+ cCVEwaf9QkILHpO2nXkxge8PvBp9YQw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDAzOSBTYWx0ZWRfX1QZNZmygT6Wm
+ W+ORJzci0yBlNm58tDp+H13ZUi1bZ2PYs4946uylAyJJ8fV7Dpg+O1TQduXprbfMfc4i5S9yD36
+ kaPBM8rnGzUGZ9qkfuxRkXIWTYZxTQYF4KLI/d4GaS9ZViCaTM2YBBqnpWWs9226h785ctSkNAi
+ ErIjWdDsH4CjZAuZsGdgueahj65BcfGFr6QLwYzpphFe2mOpbmAtMQzlV84hsxGdJo330mbceS9
+ Ds14+79kPI8MkUq6e20FWkoiD8w3wTb6MwZbhHRqlat9yklP9SxJUq2f2J6LkQVTUJvHWkXWyRD
+ fg0gYcihZxmYOpRWRSfNQ0lgG5Q8Cv36T5fpa1NaHgxaShcvX+KsDUp6BjLzojEkxnb+Xy3fDTB
+ 2RAeBCe5iVel5h8OgmPdJD7gVKRu3pLaujUgmaCfi4MrCz8su9gaYxq9XSDfP9XhT8fWbSw8Xd0
+ 3wquSvtGQv7qcENBfqA==
+X-Proofpoint-GUID: yq2SZIgyumfZdHPe6aaQO9Had_9lSFf5
+X-Proofpoint-ORIG-GUID: yq2SZIgyumfZdHPe6aaQO9Had_9lSFf5
+X-Authority-Analysis: v=2.4 cv=PcZqFShd c=1 sm=1 tr=0 ts=6aaa0859 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=t9ty7G3lAAAA:8 a=EUspDBNiAAAA:8 a=_wE0MnXGkHm9nJMVzvUA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=CsAS6f0m0zARWR-uHzm3:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 impostorscore=0
+ clxscore=1015 lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160039
 
-On 12-Sep-26 2:38 AM, Joshua Hahn wrote:
-> Hi Bharata,
+On 9/15/2026 3:48 AM, Vlastimil Babka wrote:
+> On 9/11/26 12:44, Manivannan Sadhasivam wrote:
+>> On Wed, Sep 09, 2026 at 01:58:44PM +0800, Daniel J Blueman wrote:
+>>> Since the MHI HELLO exchange was relocated, it is sent only at device
+>>> registration. During a suspend-resume cycle, the firmware in WiFi
+>>> cards such as WCN7850 indefinitely waits for another HELLO,
+>>> triggering:
+>>>
+>>>   ath12k_wifi7_pci 0004:01:00.0: timeout while waiting for restart complete
+>>>   ath12k_wifi7_pci 0004:01:00.0: failed to resume core: -110
+>>>
+>>> Fix this by triggering the handshake from resume_early in the MHI
+>>> transport.
+>>>
+>>> Validated on Qualcomm X1E-801800 on Lenovo Slim 7x across 10
+>>> suspend-resume cycles.
+>>>
+>>> Fixes: 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint register")
+>>> Signed-off-by: Daniel J Blueman <daniel@quora.org>
+>>> ---
+>>>  net/qrtr/af_qrtr.c | 13 +++++++++++++
+>>>  net/qrtr/mhi.c     | 10 +++++++++-
+>>>  net/qrtr/qrtr.h    |  2 ++
+>>>  3 files changed, 24 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
+>>> index 78347c937af7..2ffcfc2fdb4a 100644
+>>> --- a/net/qrtr/af_qrtr.c
+>>> +++ b/net/qrtr/af_qrtr.c
+>>> @@ -623,6 +623,19 @@ static void qrtr_hello_work(struct work_struct *work)
+>>>  	qrtr_port_put(ctrl);
+>>>  }
+>>>  
+>>> +/* Trigger the HELLO handshake after the remote has been reset, eg on resume */
+>>
+>> Use proper kernel-doc please.
 > 
-> We've been testing pghot in a Meta kernel with worklaods to try and see
-> what the performance characteristics look like. I wanted to report
-> some of the findings that we've found in our testing. Note that these
-> results are from a modified kernel that has my tiered memcg series [1]
-> backported, as well as Gregory's numa balancing scanning fixes [2]
-> as well. 
+> Please prioritize merging this sooner than later (it's a regression from
+> 7.3-rc2 that would hit people if it made it to 7.3 final) even if it means
+> fixing up non-critical aspects later, or by maintainer upon merging.
 
-Hi Joshua,
+Concur. I recently fast-forwarded my ath tree and picked up the buggy commit,
+so everyone using my tree is now affected.
 
-Thanks for testing pghot with your workload!
+And just want to point out that many of the function comments in this file do
+not use kernel-doc format, so I would not consider that a blocker. But it also
+would be trivial for the maintainer to add.
 
-> 
-> - Without tuning and using the default tunables that pghot comes with,
->   we've found around a slight performance regression against raw NUMAB2.
->   This was being run on a host with 750G DRAM and 250G CXL.
+I've tested this on my HP ZBook 14 where I've replaced the OEM Wi-Fi adapter
+with WCN7850...
 
-pghot promotes on 2nd access by default since pghot_freq_threshold is 2
-by default. This will result in slower promotions compared to NUMAB2
-which promotes on 1st access. Could you please try with setting
-pghot_freq_threshold to 1? I think I should make the default as 1 going
-forward.
+Tested-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 
-In any case, will it be possible to provide more information on what your
-workloads are, and the exact performance metrics? Any representative workload
-that can be substituted to reproduce this behaviour can also help.
-
-And when you say slight perf regression, how much is it exactly?
-
-> - However, we've found lower pgscan_direct, pgpromote, and pgdemote
->   rates as well.
-> - We've seen PSI dramatically drop on the host as well as the promotion
->   happens asynchronously. 
-
-That's good to see.
-
-> - I also found a bug where the kmigrated thread isn't created for nodes
->   that are onlined later after boot, like CXL nodes that get onlined
->   with memory later on. I've been using a small hack commit in
->   pghot_memhp_callback that just checks for the MEM_ONLINE case and
->   spawns a kmigrated thread.
-
-I will take care of this scenario (CXL node online after boot) in my next posting.
-
-> 
-> Finally, we've seen some issues with pghot causing userspace crashes,
-> which leads us to believe that there might be some bugs that manifest
-> in userspace as well (we have not been able to find out where in pghot
-> these bugs are introduced).
-
-That's something I have never seen till now with any of the benchmarks that I
-have run. Any kernel messages attributing the failure to pghot? Anything
-attributable to access reporting or  kmigrated threads?
-
-Any clues from coredump or gdb debug of userspace crash?
-
-Were you running your workloads as part of a non-root memcg?
-
-Do you see these failures without [1] and/or [2] ?
-
-> 
-> Thanks for working on pghot!
-> Joshua
-> 
-> [1] https://lore.kernel.org/all/20260807202059.2620949-1-joshua.hahnjy@gmail.com/
-> [2] https://lore.kernel.org/all/20260911001826.2109390-1-gourry@gourry.net/
-
-Regards,
-Bharata.
-
+/jeff
