@@ -1,77 +1,45 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEC33A48F6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79A9463B89;
+	Wed, 16 Sep 2026 16:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574432; cv=none; b=oYbxcAR644NDHo2QKrtDSdJN31QE9A5OQH5G1IGJOdgoruU/2bhQl3ahkeApdbbU+u1nLp470ZDtADvt7ImFVyhVYAVzbHTZVDAFgYYl/VjUScSAFuYB40Nz+dT4vMevF1bNIKEAEdBDPKUylDA3t9fs+zyfLFegXylsg2pg1/U=
+	t=1789574434; cv=none; b=HRorgyxm0GWXT0wNHRXQPymM2E9EGBZZI6se33lGdHB1lnyg1VWMVXVHXeYlX5mKU1K6w0OeTUe+NZQbvBj56IONbEOOisj9xYp1HBNfo7Yqg3tKzIqpVjILTDTPflmXUBw7EZDfCp5HZv7pchnpU6SkD1JYv94QK8rS8q6Jbes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574432; c=relaxed/simple;
-	bh=to2EUf71dq1OX8Z8rr+eYcIAovrkenSxGU0JaVVdRKA=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MHmkFD+MU2Em8nMTwAeOG1H2VCbb7qHc/x68ltLQQ62Tq/7Ykqoqudrln+OKMdqH54aKJHRxG9VGpSAhZKDu7Zz9AxuQQVVo4t136eaABPG6l8nNf/Vvj9QKGbH+RlnxMvF38+abGFF+MpfDxGNW08LphqMwGc6HHWfiVzbsMcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EzpnFf8v; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789574434; c=relaxed/simple;
+	bh=JSJRxy1ff5Wxo8AgsZLPdjck0U4/HiK7NpCm9ikDttc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cTdliBchkftUVNgHwTe7rLCtGP22y8+FW8IXV3wukXbP51Db56vC/zunhR64PZxFBhNo4G55zX5ZMfL6OvhLWb44zJ7WbeFWZNvuGBa0qPQUst7QDwMLY+FvQWcNsttr+KD+fvMpUaJ6BGlVjQS2d3/08FLaKpMNb5CpH5KHf40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I12MTJOT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EzpnFf8v"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c293c683202so172984466b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:00:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789574424; x=1790179224; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TsvLmFYjKq8EwshF1xfkN1TxmP1IiwbM+LSRU/xQAr8=;
-        b=EzpnFf8v+QGrCk/J8MMA+1OiEWEoR7A8sicFeJbGtnigwe/YXEYPvoZuY/ig+o1jqk
-         unqHI5odSrkw9Gp02dDjQjYDMoHOogqQPIcZzl0ygsD3PabpW8MCVtYLRUwUaU7Ejy8C
-         LPOz10qHDp6nvEZ9+sHxocYJPkAi5QZJdIQrhWOZEK7XN+Jq0WcdhTLUcq72iUQLxAZQ
-         M4tyndkVELfyihDnxRQeZ31svWZAoFexinJ+AOguEfQvvmbzRIJKr0KIJbFaQO6JLdHX
-         dob7J1AizdFJIaWrriQGV0Bo4VhRYITFEu58A/WMhVS5oLvHNHaCIV5Q0aNvn4K7Sum9
-         ZsDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789574424; x=1790179224;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TsvLmFYjKq8EwshF1xfkN1TxmP1IiwbM+LSRU/xQAr8=;
-        b=yyPFuj8UVSlHa/OQZBHSdctJjS8fFYadq5oUCo7Yj2Ppw7Ha6zi6EhYKymThNIRPUJ
-         IW48f2XsEgmbAT4XL02xYdSyC+Wdqm3lgE8DS0SQhPDZ8jNEkyVsfPVcbqN9vMXyBp/2
-         ma9/uDr5OBz3Nr+vm9cMXxwXS72iV9SgRCD7cHE/1+qrDpDoqTW014uXSq5mOM/QaNG7
-         XvKEPEL4E5RIK3HDglIiRYF8lVTl1+5KypQ7Of0avS06rA6BJT0KbRq6jw7xy3MEY51x
-         S7/MOV3V+NwEZpHVbToQ515q9KDd5Vz0p7dNXgto50uXmT1WBypEHPteZrpgJlK3sRdU
-         UILg==
-X-Forwarded-Encrypted: i=1; AKwUvBz8Lq7QYp7MnIIWejtdZlXGdH5QYt81xNXMFT8DiRFTMY9JtLWFGv0Xt1rWqX0oHKEUR8YISruscRx5+4Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7KrP+h8p32dKKUVN/h+oHrdnVDiNBmJV3Grk3tWlvGUuFzsHu
-	xlJNhKxEg+w0Y69bc2dOmluzMH62/hqQZqZODtHF6S7QuVhwUTOFKRLJ
-X-Gm-Gg: AYBFou3r2NyFaaaschZjGKlYrs3YA+KdbKP3zfCv2zrSZDBOmCTe7Vvav6yTp0yGxnx
-	iDd9S52vHTDtVJ4ALOX1Gz4dGHv1CbNrsF/b1UYaJG8+UzPs4tdJtwbB1QBFSJ3P9bhJco29Ud4
-	pTcdBGvg3txHiZYKR30NE6uhtxIiBdcbpM4E3Xf/wCxBNN6bxd89lOfu83vXxFfwdhraM5L8JOx
-	DbrTgpO9zWu0XfMryAxrkkF0B/1bIx9V/5bSIdJVAdcZshtcVAWBxV9Ug07q8UXGzzHCiWSJv56
-	SI3QWCo3bkWwyhCdU4BVmyJoQFFBUQCU2cpklxxS7ujrWaQ6NhQz8941uQYJ/j6VPSx3KFiBhSy
-	oLe9Nv42MnIj/AHV44QAdwhrlVcw2FU8YolNXKBaNaa5+DcEXElJscy+56l/K+mFVRi8vkGXq16
-	67AjANcJGet0bc4woifBlhPNcTQKKisV4V01qQ
-X-Received: by 2002:a17:906:6296:b0:c21:450d:cd88 with SMTP id a640c23a62f3a-c29e51e1395mr226379866b.6.1789574423786;
-        Wed, 16 Sep 2026 09:00:23 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de454b4csm165476666b.17.2026.09.16.09.00.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 09:00:23 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Wed, 16 Sep 2026 18:00:20 +0200
-To: Hillf Danton <hdanton@sina.com>
-Cc: Uladzislau Rezki <urezki@gmail.com>, linux-mm@kvack.org,
-	Baoquan He <bhe@redhat.com>, LKML <linux-kernel@vger.kernel.org>,
-	Dev Jain <dev.jain@arm.com>, lirongqing <lirongqing@baidu.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH RESEND] mm/vmalloc: Use dedicated unbound workqueues for
- vmap drain
-Message-ID: <aqq9FM3ti6NIHxQ0@milan>
-References: <aqgnOoOjWxRtaqxZ@milan>
- <20260916001228.644-1-hdanton@sina.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I12MTJOT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C11E41F000FF;
+	Wed, 16 Sep 2026 16:00:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789574427;
+	bh=tXUO3hhV/BcO6ha7fR2Plj/MRzQoCVi1BPi8atnSIQU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I12MTJOT66US23SmiJO/WTr6I7ThRFkI8hLhlaahj6gJ6L9WhZk3MDfMGc+1jg0kC
+	 WWV7G2wAEngHUTkZsLx/tbAu4Crog7wX7pOvjYxZn6wfnrg9qnIGfoGiPSXAVaUVdK
+	 G+gC+3F73J3d+QyILDA3tHpz9VA/26FaVjDt5dfsaRstHAQ3c4zMpLgajgOqnATwoo
+	 9RJ/37zvHLA9VL5Gq36Ou2VAMG2QXPT6J86+Ywufd44l/7KAtweIWIK1Io1FNh8Y+U
+	 CeCgFEr0ZRCgLtwHKm+OHO3pvOtZc1oTBWvssOUcR6fjUrAENtFIq7FdcZ/V61egvH
+	 70Y6H1+NHUeKA==
+Date: Wed, 16 Sep 2026 11:00:25 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v2 09/15] dt-bindings: iio: adc: adi,ad4134: Document SPI
+ connection mode
+Message-ID: <20260916160025.GA382310-robh@kernel.org>
+References: <cover.1789494473.git.marcelo.schmitt@analog.com>
+ <304d10f12a3418fbd5598160609a6eda09ed4100.1789494473.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,83 +48,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916001228.644-1-hdanton@sina.com>
+In-Reply-To: <304d10f12a3418fbd5598160609a6eda09ed4100.1789494473.git.marcelo.schmitt@analog.com>
 
-On Wed, Sep 16, 2026 at 08:12:27AM +0800, Hillf Danton wrote:
-> On Mon, 14 Sep 2026 18:56:26 +0200 "Uladzislau Rezki (Sony)" wrote:
-> > This patch does not use queue_work_on() semantic thus i do not want to
-> > queue all helpers on current CPU. Instead scheduler does balancing and
-> > that is it.
-> > 
-> [Fair queue in the Eric Dumazet accent]
+On Tue, Sep 15, 2026 at 04:14:44PM -0300, Marcelo Schmitt wrote:
+> Document how AD4134 chips are connected to the host SPI controller
+> according to different wiring configurations.
 > 
-> +static bool
-> +schedule_drain_vmap_work(struct workqueue_struct *wq,
-> +		struct work_struct *work)
-> +{
-> +	if (wq)
-> +		return queue_work(wq, work);
-> +
-> +	return false;
-> +}
-> +
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> ---
+> Change log v1 -> v2:
+> - Set default for adi,spi-mode property.
+> - Added '#daisy-chained-devices' property.
+> - Documented constraints for adi,spi-mode + #daisy-chained-devices combinations.
 > 
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/workqueue.h#n697
+>  .../bindings/iio/adc/adi,ad4134.yaml          | 51 ++++++++++++++++---
+>  1 file changed, 44 insertions(+), 7 deletions(-)
 > 
-> static inline bool queue_work(struct workqueue_struct *wq,
-> 			      struct work_struct *work)
-> {
-> 	return queue_work_on(WORK_CPU_UNBOUND, wq, work);
-> }
-> 
-> queue_work_on
->   __queue_work
-> 	if (req_cpu == WORK_CPU_UNBOUND) {
-> 		if (wq->flags & WQ_UNBOUND)
-> 			cpu = wq_select_unbound_cpu(raw_smp_processor_id());
-> 		else
-> 			cpu = raw_smp_processor_id();
-> 	}
-> /*
->  * When queueing an unbound work item to a wq, prefer local CPU if allowed
->  * by wq_unbound_cpumask.  Otherwise, round robin among the allowed ones to
->  * avoid perturbing sensitive tasks.
->  */
-> static int wq_select_unbound_cpu(int cpu)
-> {
->  	pr_warn_once("workqueue: round-robin CPU selection forced, expect performance impact\n");
-> }
-> 
-/**
- * worker_attach_to_pool() - attach a worker to a pool
- * @worker: worker to be attached
- * @pool: the target pool
- *
- * Attach @worker to @pool.  Once attached, the %WORKER_UNBOUND flag and
- * cpu-binding of @worker are kept coordinated with the pool across
- * cpu-[un]hotplugs.
- */
-static void worker_attach_to_pool(struct worker *worker,
-				  struct worker_pool *pool)
-{
-	mutex_lock(&wq_pool_attach_mutex);
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> index ea6d7e026419..012e09decf7a 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> @@ -131,6 +131,26 @@ properties:
+>      enum: [ free-running, gated ]
+>      default: gated
+>  
+> +  adi,spi-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
+> +    default: no-cs
+> +    description: |
+> +      This property indicates the SPI wiring configuration.
+> +      * no-cs: The datasheet calls this "minimum I/O mode". In this mode, the CS
+> +        line is not used (tied to GND).
+> +      * 4-wire: Specifies a conventional SPI wiring configuration.
 
-	/*
-	 * The wq_pool_attach_mutex ensures %POOL_DISASSOCIATED remains stable
-	 * across this function. See the comments above the flag definition for
-	 * details. BH workers are, while per-CPU, always DISASSOCIATED.
-	 */
-	if (pool->flags & POOL_DISASSOCIATED) {
-		worker->flags |= WORKER_UNBOUND;
-	} else {
-		WARN_ON_ONCE(pool->flags & POOL_BH);
-		kthread_set_per_cpu(worker->task, pool->cpu);
-	}
-...
-}
+Absence of this property should be conventional mode.
 
-A local CPU preference for WQ_UNBOUND is not the same as executing on
-the __bound__ per-CPU system kworker.
-
---
-Uladzislau Rezki
+> +      * one-channel-chain: In this mode, the DOUT0 line of one chip is connected
+> +        to DOUT2 of the next chip upstream in the chain. Only the data interface
+> +        of the upmost device in the stream is in direct connection with the
+> +        digital host.
+> +      * two-channel-chain: In this mode, the DOUT0 and DOUT1 lines of one chip
+> +        are respectively connected to DOUT2 and DOUT3 of the next chip upstream
+> +        in the chain. Only the data interface of the upmost device in the stream
+> +        is in direct connection with the digital host.
