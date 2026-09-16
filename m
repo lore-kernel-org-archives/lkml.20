@@ -1,160 +1,126 @@
-Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A49648BD54;
-	Wed, 16 Sep 2026 09:10:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B5C49CF45;
+	Wed, 16 Sep 2026 09:10:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549828; cv=none; b=j081OIGOcfnBcfh0GpvfY64byboGO4poDAd37byVwEP6y4kpq1Ifm2HNot5AYn8OTAW37mTx1WIlMa2A9nIIj8MLBSc4xJXkOnDkR7MJ7HWV7k6NhdYzHz4tNEtvbQk9607ENy56w2ll3vQUQr8ZFpyLBkWO8Mrjmi/Uu2ci8NQ=
+	t=1789549854; cv=none; b=DzhKZj52jHHZWln3WgPHS9ZfszyiJuaFuJiooa4OJhEZOBV9/Ela2BNVlpF21i9TF9VpR2OGuU+bfmmsh9ZqONC1/n1tOV4oeOm9DHB49NVcoy5tfRy6nn/TyCOeaP2lbBAGtz3xyzqccsFXdye2DOA/7dCVzGkmTYT1CFmh6cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549828; c=relaxed/simple;
-	bh=AEqSX65qBK51YRCjzACTfTXXqKYV8OXz+2tbKUCGkPs=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=IiDKyoyaihmkFWbcg1Kwxo0mCRnSLEQn4iRMsskrOX4HvfNWGo95pYBUrJ0w5DUf3gZdh2bayG+p+W9ofkPRI4ZLDkGNVvn+UV2P4yCLejRaIvCkI6rP0mrcdOADM4oTLXCF3BS1SeO0U05tvTu58hkT949HPcHi6vDHMCbFxKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=saa+zYdO; arc=none smtp.client-ip=203.205.221.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1789549854; c=relaxed/simple;
+	bh=GKSilOSfggdM8g6QQVBUfLbmwTwdsDHNdb3vbfuMqoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jay6jbw/+UiGu7UpHaIZijiBtbM5xgF6xQxXv1LtizKfrAfPupHUXsWrzQs79Osn7gi9+OkZaDHGw4ZAYqRq7Lgbli4ZefuRJh1pM+vfVkYIaA1NCOekSVkPvf9oVGT2Fdp/NViE04JQRyNq2dDCgvA4ltPikAe6wCpRhrLSegA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=ZFoRO0fP; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="saa+zYdO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1789549801; bh=aJ2RoaVrTR5lScqJ6fDtJfwi0fg4FnGoIrHJd1m6gsA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=saa+zYdOqn2vAfEPLskj8giuvnVq/3WactJ2bwt2rtAaJ92dBdkJbUAUlLKV4oIk9
-	 Kc2P8sCURuuqmeXC8cxL6wAH2n2jBorbWc49s93Z0xp9ZK+ubwSDTQerM2IunwVb63
-	 ma0o0jfpHeixRSMfmfXqQjgonUJQW98zztamj92g=
-Received: from WIN-U8J9BGQPJ22 ([61.136.26.125])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 277B8E5A; Wed, 16 Sep 2026 17:09:55 +0800
-X-QQ-mid: xmsmtpt1789549798ts0pxda6l
-Message-ID: <tencent_6BAAD177CBC8B253A2297594808F7D546606@qq.com>
-X-QQ-XMAILINFO: Ne0X32Z2O2BRPTa9PytJI71zJiFWkCoc+o02MwZhDmVH0c3wqBG5GK/XpRvZLO
-	 uVl9f/zxFqogwBdALUaKhNMLG1r8qO+IloMA+n/8iecW+ggbeLM5ltNPmlY8reX4+g2xWw/arILW
-	 UDkiOULB2BvS/Otf1o1eRNUhTNK0a6MzkSa3lO5muQrZaBiMQYlWthRj1mJAtvtbPFf6eii8zWZQ
-	 jcbnZPikeHzbcng1UuRN9koP+4llgI0ClWZupSk5EaP1Rw2HAl6JuLyCuv6a+iQ/FXMBaDZRDWdA
-	 N6GKf7f6XUuy4zKuMNvyln8lyXxDc0k7jF0V1xFfhJAoNcUU85+Q1V/E4+yj7d5Wkv5RQMyFlV7F
-	 PNCt8YkLD007l9xgFFkwbtvK+PMM/S8GN364ilajl2H2uAUI+7Rl0/xE2XJitNRCUBCjZ7vlOCQY
-	 LPwI0/8R2tXixQQD+ztIFWUTe4HFZqXKdLpwkmWYf4/uyoQHfR8UbOVVNaXSUmq+cjSEtq01L45/
-	 TwxIylFqsYLA390rQP8bwhwXDPIrAcLKHR2wKemT+1GxuM9tL5XDY6ok9M+dMsXyTCT0SxHuwoY0
-	 nUYAYJJLTxEEIibdKcahJPm0TSwdxSFyfeJt8mi0ZRUONXD4IztJSpeAOBe51j90K9hpG88CGDIY
-	 fm3qjSXuyTO7f/q/X44YQm7oDSu0FYrKhxOVGkz2UioIqBHpfQyVEeldxVnaCoWoWwGeez0/l0ST
-	 HviiDRtnftrkPQeitkpcxH1DLcVg5FHbGkFzOCKhwjwNqxqBt9r8nYAI7ZBMujLmoEKPQjvNdXBa
-	 UDTyKVLD6p/NLdthu6DROQpxHu/gXl3KjH2RU1nQsi8J2S/0Pt30nbLGULYbp7NEnF99ZPAYzTVq
-	 fjI0OYuhpe6a6vpdRwPp4kTl3us8dxCRaIqjmYgTXDM6fM1EghPC1l5H4UACeUXY0fr3KcKHSs6t
-	 ZmAoIX+VWB70mJ9Qu03hTe4Z/kNMx9JS66jFP3dcsV98l444S1R1n5Qf4AykYazQ7E4J3JQW/noE
-	 ZNDYjkt7pD1qC8O/UBz4gXPryrF9+hgfk6RlNi83xgEFtk70+2VlOekhfyy5Qv4baCjHMvLfzZKZ
-	 Rd7g8DEZ7reBQQCNSLYShDZPtQ9Q==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: 1sh1ro <yangguikun19@qq.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>
-Cc: 1sh1ro <yangguikun19@qq.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/1] hfs: don't let internal B-tree inodes leak into the VFS open path
-Date: Wed, 16 Sep 2026 17:09:54 +0800
-X-OQ-MSGID: <20260916080000.1-hfs-fix@localhost>
-X-Mailer: git-send-email 2.53.0.windows.1
-In-Reply-To: <20260916080000.0-hfs-fix@localhost>
-References: <20260916080000.0-hfs-fix@localhost>
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="ZFoRO0fP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202608; t=1789549822;
+	bh=pktJp8dL7X3z00M5ruTC2/04Ix43KOf7Wg32XhKGFlM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZFoRO0fPE82zDO0AA5XntPSHPUiEtPRLyVq2yURuRxipYLgRgnDqrLfZdJyC18tlo
+	 2QenSr3PzrYAQG+ybVylQ3yNbrC8C4VzNA5McKbsIEAJm7tVRui6mJUntnactskq74
+	 ULp4SN6l5mTUG+muug5pUsTlE+56QWKjuCmE+fvmbhzRFiqQoU3b7eshgfMVOzxBaJ
+	 TvYUkDatCPQdrMZAqZf9ozJ2gcu5heZb0ijfq4BkD8CjRjUNDLPXkNxP/kWo7GFu0r
+	 5hjVvP4mhobwf8U5DErzIdgfM9P+3o5Rm4PJl1z5LoXKxYyxmsAII5EfpyrG2ozmJs
+	 GMDzKjYXil6NQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hlClf40ZNz4wJj; Wed, 16 Sep 2026 19:10:22 +1000 (AEST)
+Date: Wed, 16 Sep 2026 18:27:53 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 08/15] flattree: Handle unknown tags
+Message-ID: <aqpS_ejYTENzaE6-@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-9-herve.codina@bootlin.com>
+ <aqevEJ_VlBxYUp81@gractus.seuss>
+ <20260915121635.39f13d34@bootlin.com>
+ <aqkxacdQHZuhhyxw@gractus.seuss>
+ <20260916083130.7b14e90e@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6GJWAqC257zHuXPW"
+Content-Disposition: inline
+In-Reply-To: <20260916083130.7b14e90e@bootlin.com>
 
-hfs_btree_open() creates the extents and catalog B-tree inodes with
-iget_locked() and never assigns them a file type, so both stay cached
-with i_mode == 0 after mount.
+--6GJWAqC257zHuXPW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-A crafted HFS image whose catalog contains a record whose DirID/FlNum
-aliases HFS_EXT_CNID (3) or HFS_CAT_CNID (4) makes hfs_lookup() ->
-hfs_iget() -> iget5_locked() return that already-cached internal inode
-(hfs_test_inode() only compares i_ino), without running
-hfs_read_inode().  The typeless inode then reaches the generic open
-path and, with CONFIG_DEBUG_VFS=y, deterministically panics:
+On Wed, Sep 16, 2026 at 08:31:30AM +0200, Herve Codina wrote:
+> Hi David,
+>=20
+> On Tue, 15 Sep 2026 21:52:24 +1000
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+[snip]
+> > > This avoid the need for 2 dtbs generated by treegen and also avoid to=
+ compare
+> > > binary files which are difficult to analyze when the comparison detec=
+ts a problem
+> > > due to something broken by some modifications. =20
+> >=20
+> > We _want_ to understand and test things at the binary byte level.
+> > Debugging differences is a little trickier, but it's really not that
+> > bad - -Odts or fdtdump or dtdiff can be used if/when there's a test
+> > failure.  I really think doing the comparison in binary is preferable
+> > - that's the level at which the behaviour is specified and should be
+> > tested.
+>=20
+> Right, will see what I can do. Probably generating using two specific dtbs
+> as suggested in your first proposal.
+>=20
+> Worth noting that each time a dtb will change due to, for instance, a new
+> dtb version (or any other header field update), this test will need to be
+> updated. DTC will generate the dtb with new headers value.
 
-  VFS_BUG_ON_INODE(!IS_ANON_FILE(inode)): inode:... fs:hfs mode:0 opflags:0xc flags:0x0 state:0x0 count:2
-  ------------[ cut here ]------------
-  kernel BUG at fs/namei.c:4271!
-  RIP: 0010:may_open+0x2ba/0x480 fs/namei.c:4271
-  Call Trace:
-   do_open fs/namei.c:4698 [inline]
-   path_openat+0x1600/0x3de0 fs/namei.c:4863
-   __x64_sys_openat+0x13f/0x1f0 fs/open.c:1385
+If you use the default call for the header in treegen, which always
+uses the latest version, then it should be fine.
 
-Fix it in two steps:
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
- - give the B-tree inodes an S_IFREG type in hfs_btree_open(), so the
-   "every cached inode has a valid S_IFMT type" VFS invariant holds
-   regardless of what is on disk;
+--6GJWAqC257zHuXPW
+Content-Type: application/pgp-signature; name=signature.asc
 
- - refuse, in hfs_iget(), catalog records that address the reserved
-   B-tree CNIDs so a malformed image cannot alias internal objects
-   into dentries at all.  Returning NULL follows the existing
-   convention for unaddressable records: hfs_fill_super() turns it
-   into a mount failure and hfs_lookup() into -EACCES.
+-----BEGIN PGP SIGNATURE-----
 
-Without CONFIG_DEBUG_VFS the assertion compiles away and the same
-crafted image silently makes a typeless inode openable, so this is not
-merely a debug-config nuisance.
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqqUv0ACgkQzQJF27ox
+2GcV3Q/+M96gs5YbYYewGX9Ulv6mDpBB1fjH499AOfIc+EXJggmkL+kos3EBZ+TD
+BWj8zgb5IUF+iYsEm0IxRyW6kr5WdeN7HO6N0/5KKGLsEeaueCoYzO53rVGOE/vm
+ySyW0+yvNruIislj9GVMlU+B/QiGkJVMevryUNyHA8yGma6CJbYeAMHfbqDBoNkB
+vjXbaSc/LkWWLAGaRUHtkflxDJStdxZUjr3Z3TmOH6ljDLJD90M7qiRyo0en4Ol2
+wLU9H3eqhK2DV62/YPVGzR34Hz3xhPevTOMxoPG+SjUvWD/u6nFbyrW7OzTZQzE2
+PcxPUWuPFeAfoB/fjj1fWO+Jz/GoHKL5p+eL26Z6Uk3B/fbNIFcvgsc1C/b0Oh0N
+N2fLtA1tDUst0ZCYA5OepOlwyuxnR09nmp8y6SaqBHyP+Lh1Yl6TuJSA3hdgZpAS
+IN7QPHO8Q3cyPlg3glGaUmAIYopNSdCm+iAKeWDri4IxvfPKKWD/ujPwNr8xjEAq
+Vk/OWdW5IExqevsmQctfmqqkfUx0W+pT4ZmxJeBsS2fX9YC3NCCfX/i1fKggsNv7
+llgy/Wyq31q/4u1DCwrgJ+TPhptpIQNHbdIExZEfoFTvX3Rj5/w9qZdlBf5mUdLY
+Bl0nqBvlCUgDFdSidpaQyZnSmWi+HHrRiZeDDAMvLP7z5EVqamg=
+=/SJM
+-----END PGP SIGNATURE-----
 
-Found by syzkaller-style fuzzing of v7.2-rc7; still reproducible on
-current mainline.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: 1sh1ro <yangguikun19@qq.com>
----
- fs/hfs/btree.c | 8 ++++++++
- fs/hfs/inode.c | 11 +++++++++++
- 2 files changed, 19 insertions(+)
-
-diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
-index 2eb37a2f64e8..bd69ace8f309 100644
---- a/fs/hfs/btree.c
-+++ b/fs/hfs/btree.c
-@@ -43,6 +43,14 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id, btree_keycmp ke
-    if (!tree->inode)
-       goto free_tree;
-    BUG_ON(!(inode_state_read_once(tree->inode) & I_NEW));
-+
-+   /* B-tree inodes are internal objects that must never be exposed
-+    * through directory entries.  Give them a REG type so the VFS
-+    * invariant "every cached inode has a valid S_IFMT type" holds even
-+    * when a corrupted image contains catalog records aliasing these
-+    * reserved CNIDs.
-+    */
-+   tree->inode->i_mode = S_IFREG;
-    {
-    struct hfs_mdb *mdb = HFS_SB(sb)->mdb;
-    HFS_I(tree->inode)->flags = 0;
-diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-index ac4a9055c5c0..bb759345f1fc 100644
---- a/fs/hfs/inode.c
-+++ b/fs/hfs/inode.c
-@@ -432,6 +432,17 @@ struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key *key, hfs_cat_
-    default:
-       return NULL;
-    }
-+
-+   /* Refuse catalog records that address the internal B-tree objects:
-+    * a crafted image can otherwise make hfs_lookup() return the cached
-+    * typeless B-tree inode, which then reaches may_open() with
-+    * i_mode == 0 and trips VFS_BUG_ON_INODE() there.  NULL follows the
-+    * existing convention for unaddressable records (mount failure /
-+    * -EACCES).
-+    */
-+   if (cnid == HFS_EXT_CNID || cnid == HFS_CAT_CNID)
-+      return NULL;
-+
-    inode = iget5_locked(sb, cnid, hfs_test_inode, hfs_read_inode, &data);
-    if (inode && (inode_state_read_once(inode) & I_NEW))
-       unlock_new_inode(inode);
---
-2.39.5
-
+--6GJWAqC257zHuXPW--
