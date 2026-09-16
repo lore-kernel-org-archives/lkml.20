@@ -1,181 +1,154 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1703EBF14
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541768; cv=pass; b=KTr7IoNBI6SKBvgZzfFh45jGfd5WDy64WX5HU2CgLgJtyjMXypNslI4dHQuigAb13jwhjTOpn542LH/lomILFYrueGmsEpd04NyUsAI2AbSU2wY91Yp2d9u5fDhfTSnv3nG9KszDYDWTcMOMWqGaTBIhEYDlyXL4q62vfYPGhn0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541768; c=relaxed/simple;
-	bh=NoE9nFRvmp4Ea/sSZ3r0K/eoMnt2p4WDblnCN36FMbk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pVwRvsTL0F1K7PVjICCF0nr8G+GlmVC3X1HxeHDphKABLLCnBTeurBkCp18JZYwBx+g40M20VDZPpI5O/mXpo3JFoShFX90ah4DmI8YR2J7NJyeNsxPXNz3Rmy32WoRAeEKMdfnpxHlHoxeVHVZLpvhxkRZJrSakAIgwTAx1yFU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NnQlTS57; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oeXMEgY3; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1F934F46F;
+	Wed, 16 Sep 2026 06:56:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789541808; cv=none; b=cciJz2laRVzuQmy73Tg4XHk3rQAZ09/eG/JqQbd8nbFsrdQvd9znl3A4BPJrpLmnHVkfPC7NiouJQX8/te8BALQbkAkGcXkcB/sN/u3vCZBAmU5nrPhjsmJucwQKQR3U3o3qCnN+VRK+5feMYfTwjibhrJz61+OO8KQagdpyg4Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789541808; c=relaxed/simple;
+	bh=wHhuB6awHceWBN/yAYkFZYu89qnzgnm7Ng3vzMpjqkc=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=I0hqQIlUmLNyzV/MIpIXlRv0uIkalhB4OP3VdfzQCMtroI8BAmP2mAbHpr/QvM1fXpQeSaz+XYK0KE+JS9CfCP31GN8BnCEzrtbOX45PizDM4k7g/B4yoYzzCjOweZOMMSAffLGDTmgmuvpk0Qkmlisl+Qx1agxPg8CbXYuUEgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=WJ5LGnmu; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ElCBSZe8; arc=none smtp.client-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NnQlTS57";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oeXMEgY3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789541765;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OSGe38PhJmGSFK46iAJT77WdJWyV03W3gLiL5YZ41tI=;
-	b=NnQlTS57GqVQZ9XP/BpVuvInB2NVBruiZPRVi7gckzGy5E666X0ufgjThv+WAGEHXTpNGx
-	c9mAnKwzL/pSg0j3ExdF/dqhsb125mImJJjLL/hnw+XSplPeGaCrLaPvY8BaBNjo9WHJA2
-	OIUXg1/f1o4u/0lsmgG8qoOsC7IapVM=
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
- [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-621-ojIFg_8QP8-CNmD5gZtGLA-1; Wed, 16 Sep 2026 02:56:04 -0400
-X-MC-Unique: ojIFg_8QP8-CNmD5gZtGLA-1
-X-Mimecast-MFC-AGG-ID: ojIFg_8QP8-CNmD5gZtGLA_1789541764
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8563c2a53dbso81081627b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:56:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789541764; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JCbbj13ml1p7uFz6ubzPvGRLpA/Qzdra5Vr3gB93zk2dRg3kzqKMXCur00iCbqa0wY
-         CxuWZBt7kQTh3hdabHQo/OZstDvCnnGLhZD4s7m9l31G/RNp4dB4+rRSyttfm/nvXUy6
-         h/3nkgKE04L7S1qjPDwibGVrhyXZunh+cxenSu9PqQ/rZ+GQcUhPiP5TNchBzYJ3BntZ
-         pBRMRnnQJiB2KFCvUrzaVqbluXj5ddj3K9yLIe7TcuOvBIvNOBcwhG4DiAnNZelmLCEZ
-         JDwf4VlsdTw3AQ9/FfOsx6lttJ5cTSnkNh7OslFBPUptXL6UMHxDqQwmhm3w4RJ2561L
-         YiQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OSGe38PhJmGSFK46iAJT77WdJWyV03W3gLiL5YZ41tI=;
-        fh=Bd41QYgsLZ7XQ7MdZrEqLwFo8cndNn1Z/DmuaBQg7z8=;
-        b=W+TOeqgjw9nvhBfx/qUw8G+NYCdSspwFGlayz9JNO5/6ecLHjXa/78xbc/swgk0juh
-         OwV4wQu0DGIMLPUClIdST/wuQlY7U1BHuZOoJJd2QZs3yvNvt5NoLF2PeIMYGmY51EB0
-         ekWa/+OI2EE3A64tSLK/Ggu0iYKiQo8gBWLsLO+TIlQJlhy0cBSgvfeH3Zwn6ScVZMC1
-         JdceerNp9/Uz2SEix6pucj2AVsGcq9gSuJU7mva7j1BY9SAsyXF9Hp7ueN5p+LfDwmhO
-         mV7H4/KdxUam2/oAZJk6e3Vfs1BqqcijOLIkBQQ1yjN9Rpq8egTLOyZyPL7b5l0fydB1
-         tvCw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789541764; x=1790146564; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OSGe38PhJmGSFK46iAJT77WdJWyV03W3gLiL5YZ41tI=;
-        b=oeXMEgY3lYoyPBurjzRTiTf4GunGAxst3Rn03wSP5untF9LPsMbV21WKleYIrHhJFu
-         J2AYfa34U60WeW+6bcy/3luhpMvxN6QQYoQ4qITeTwFMbEA0fF/YJrdc7BzHtxPe6kkR
-         5wB8R88nI3DHvzfwLFlzfJZMefFzl/p/CDV7898Q2KRKNxblZOAQEa4BAfHAVIPWW8R9
-         YTbAkbZtBCbGiC+60AGBvjfAeouZ/03U45dyKgw3ZaN/mdlxNyeg/Pjiy/3MPVCOf9Uz
-         114DTPDhZ6d7kbQU46mO8mit3U8Pwz5c9Gpi5Exz1uWK2ytNLFhi1aYBdhiFAlibVFiM
-         x6ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789541764; x=1790146564;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OSGe38PhJmGSFK46iAJT77WdJWyV03W3gLiL5YZ41tI=;
-        b=MPkMICugohZzEQ3WU5X3y2tnIyK7qGkH17qYcCjwUswG6/VctEqHVWtxePW6wklNst
-         rUsOsOVRB9SZoJfFaUd4lOxKcnKi98/a07SUReT1OG74a7PDIg5xD9gHyxIj/3YiCM3P
-         Y7lcRvkrfY1K85/JHWftBc0463cXNqPcFdyz7T8kbmTPRNQY29rqdJzxwGDSoXxVE0ip
-         D6TnjBSGNbeLngKyGZFG8Df4lmjD719jTzxGfBK4aeCZ235OJhhhsE3a7t8+Vfn283qG
-         mnQBZ1Ls2IgEjq/0qSGfmdWtJ0sj0VxOhHK2y25JVAIlo56AF0n7CZVmeIuxsaOWATO0
-         9F2A==
-X-Forwarded-Encrypted: i=1; AKwUvBzmS26u1wTG9ZgESf2xhIBN7Pm41sBrg2cYEiFGWiRHwcivimWVaWBlraT0BLkHrm5J68zRNN9SwhdlqtA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5yzqNIdsxVFZ4WPy4o6crfsv+wBqRGVVevJpyQNBnEAvywt30
-	vR5YKvEKMbTgb6dMn9n+/jmElCGHalyX0LdTzKMCzEjupAY9rXiceipoS3ZTx/mLj4PkpyKjJc9
-	1fweNnMKjG/0zAK+5wfRpkZmgGMFWKKPOjwhj1OATw2QRxCRnXmwknK/o8jLNO941UkKK7eKQws
-	qPwd3mT+1FdMq15w0JlZU/8L8P+NovlGHt3C33vXc5
-X-Gm-Gg: AYBFou19Nw8m7Vk4vhXTHfEWbPS0UPrFfCj7m3NDDX3wKJQL8AgK2+YjjwN8mun0nxE
-	M+Ut99p56ptB5aeAA/fNy6fMdVZEB4ltX/0lM9va1g9mJVvAIrfbK5ttRWQLpIREEkQ0IY3VYs4
-	C6f6u0GakYqEQKyUxfLh7X+FLSjJlBybZCMGCjgJWDmIXZlOlZjdgffg==
-X-Received: by 2002:a05:690c:f05:b0:873:5c6b:a303 with SMTP id 00721157ae682-892287f189fmr4701807b3.49.1789541763828;
-        Tue, 15 Sep 2026 23:56:03 -0700 (PDT)
-X-Received: by 2002:a05:690c:f05:b0:873:5c6b:a303 with SMTP id
- 00721157ae682-892287f189fmr4701707b3.49.1789541763437; Tue, 15 Sep 2026
- 23:56:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="WJ5LGnmu";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ElCBSZe8"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id E7E94EC0E95;
+	Wed, 16 Sep 2026 02:56:45 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 02:56:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789541805;
+	 x=1789628205; bh=M79NB03lCBDyuKbFMw+wzNI/AjNtbOzIZ5eYbZXjn8c=; b=
+	WJ5LGnmuEHCO96B4tiFDbDhlSXR+n/dc3QvQG2UOI3Opekg2OZ0DX0bfiGysncdE
+	MgNN3dGco/ZCJhlo7pCIZEr/GbItFk+813mL0YcWF7CiAYFBgz72Xm4UdoWa5/1l
+	TMdhsAnCZAVfBGhAfhZSltGgPpDr2bhgg2Bxt/t0isAXG1dHPqWsiAj0SgLsNKEB
+	t2zSOXcBRpjAiymCXGBzc6LiZaezNaR+SaM4bL2CcfkNoDGYOZtB1xbn5ODSi2mG
+	uwH9qZ0AR493QIm+nmdPaYeSsn8BvPS9XkU6+hWHp7aoVIepNQAZP8KI4GfZwBBX
+	3ynwrdrRoXsMvS9y7m0KyQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789541805; x=
+	1789628205; bh=M79NB03lCBDyuKbFMw+wzNI/AjNtbOzIZ5eYbZXjn8c=; b=E
+	lCBSZe8FrLDeKUFNMOuaMrDDgk3AL/vIWXFAb69pcQhNs4FbgiBbnaoE4TwBfo+3
+	Sc0z3cyr+jmw6o1MR31/kFjZrnVJijaNP+bHYcN+dJglaruKRYmIJsbS+mhwueRJ
+	vxACQ1Qac1d70wlW8UHPUQBXlonAIMVkv+oqGQfRQa5+i7A64Bar40sbqQxMNfs+
+	yULTTR/gUUMzz2d03gjRg3HrYKkatQChJ455bljzw7H7QgW8WbIWPYxK+VwHFwx6
+	axlcy22UWtFYJiNY1Y/wdSvtLvFRHL1VsE5XgwcBSrMdhT1jp5ifD8sGrPDQNpNf
+	Ls7nmyDBE54/6aVFbLcqg==
+X-ME-Sender: <xms:qz2qan2y-98uRn4numprGhlP8ao2tyqu3y92FNxrNaJGwrszuBslCw>
+    <xme:qz2qag4hUk2hWTh0C__-Is6Q01zyJPdj4ship7k7iduUHeFE4CO942yTWVrXyp8z2
+    wvPfm0qfCBeBMo-yve_E3TSI7EY20az7VqeMWsk921hc7b1eUMKZA>
+X-ME-Proxy-Cause: dmFkZTGlTRixtFUqWRbDPcFeCYs4Rp+D05ekXbAePbvN1C3h3mmf+LVUTQrUNW4kFHUKKL
+    HS49Ddxv6rHY5gTfoKBoR2IEie18wSginaEyEffpnhRXCh4ZgwoFELocO/Npxlr+Yh5Pod
+    R8TbPsJ62tLt30X5PjsgKKF4sV6dHrBD69r7keXQzMa1RwOMmW5L329PLWMazbmNsLa2lU
+    TqqgGd7KEhVAzA91RoaSMBwHxbTHrlUtsd8c6QvRjKhXog56s0yP8k82J0G68/XbfEkq4+
+    eH1bhc5+FKxgyKnyRna5W6zdD+kHHsOn4f5ZOmygFB3jqi0PBd2yROoPrspq/QndL64rN7
+    RtVu4C9Zn/wvn77OYoZpEBRQ+hjQX2FU7kVrKtwkxHD3waX8mhhZyZQqvO8oZUoECbIfGk
+    AgIzy/7ntylRnKnn5zp/LCYpokI5+LZz1IoY8FnhvAE620kv83zAvfASGZ13QQ993VhFav
+    Ke/nsP45dMfJ2kaIezjIZ/mUwk7ZtTiJoYqjL4AiIOqbz3bO7mUbAFaMmQsQVGtmF3eRxF
+    yAR052ZdqwuPwnnMoI2oKpnsOOPZTHoN8xEEgHMqXnlh/ecGtzeoE2YkL9+09yTlTV6fvu
+    6muPE1i4mYvshG8SboCntcOSoc8aMwaR6DfaPL7NvYeaHb/etG7spewKcYdg
+X-ME-Proxy: <xmx:rD2qag_uPVXx-hWp9IizX1r-j3z7l2yPnyaExqCmr-LaNsoVc5M8yw>
+    <xmx:rD2qakIkqrXNo4VSsQ4o8nDdbUE8VU7oOKW5ukayVNFx3pBTGiSNeA>
+    <xmx:rD2qapjPx2ZVUZXu5LEzxYZlUsdGdslg7btCW8WW-D0jgE4DoryApw>
+    <xmx:rD2qak7a4pKwayH7V8nDSGqFt88on2mRnhf2vJArbHieVOxqv8SgxA>
+    <xmx:rT2qalrpmJOFgsaJfkGksq8BE0b7dCNgpwo3BJM7kiPA7zhFlQb1n8iG>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 9824632A0084; Wed, 16 Sep 2026 02:56:42 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-fix-ath10k-dangling-v1-1-15c5089682b1@redhat.com> <aql_xwEy5POcVmyU@google.com>
-In-Reply-To: <aql_xwEy5POcVmyU@google.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Wed, 16 Sep 2026 08:55:52 +0200
-X-Gm-Features: AcwNN1W5FaZULdrsdUU_R6G0qyPldCKGYGglzM9AHIv81gsd1ujgPjiFMobViKg
-Message-ID: <CADSE00JiEr+k3ykLq+D9C-WxAcPpzXdF3uJnv_P47G1V_-jeNQ@mail.gmail.com>
-Subject: Re: [PATCH] ath10k: clear QMI if failed during init
-To: Brian Norris <briannorris@chromium.org>
-Cc: Jeff Johnson <jjohnson@kernel.org>, Kalle Valo <kvalo@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Govind Singh <govinds@codeaurora.org>, 
-	Niklas Cassel <niklas.cassel@linaro.org>, linux-wireless@vger.kernel.org, 
-	ath10k@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: ApDcdGHCsDIN
+Date: Wed, 16 Sep 2026 08:56:02 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>
+Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <59ba6707-c5d5-4fd8-9200-f910e61d9232@app.fastmail.com>
+In-Reply-To: <aqnHDxRIBncNH6qr@gmail.com>
+References: <20260914212537.1452-1-kmehltretter@gmail.com>
+ <7c020979-cf03-4ece-a7d4-b1475d1400c3@app.fastmail.com>
+ <aqnHDxRIBncNH6qr@gmail.com>
+Subject: Re: [PATCH] rtc: class: Make the time32 hctosys limit configurable
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 7:26=E2=80=AFPM Brian Norris <briannorris@chromium.=
-org> wrote:
+On Wed, Sep 16, 2026, at 00:37, Karl Mehltretter wrote:
+> On Tue, Sep 15, 2026 at 07:48:12AM +0100, Arnd Bergmann wrote:
+>> On Mon, Sep 14, 2026, at 23:25, Karl Mehltretter wrote:
+>> > On 32-bit systems with RTC_HCTOSYS enabled, rtc_hctosys() rejects
+>> > RTC dates whose seconds value exceeds INT_MAX, even when userspace
+>> > uses a 64-bit time_t. This leaves system time uninitialized by the RTC.
+>> >
+>> > Commit b3a5ac42ab18 ("rtc: hctosys: Ensure system time doesn't overflow
+>> > time_t") introduced this limit to protect time32 userspace from future
+>> > RTC dates that can break boot. The same limit prevents systems with
+>> > time64 userspace from initializing the clock from valid post-2038 dates.
+>> 
+>> What about the reverse: if COMPAT_32BIT_TIME is disabled, I don't
+>> see why we'd want to allow turning this on, so maybe
 >
-> On Mon, Sep 14, 2026 at 03:05:19PM +0200, Albert Esteve wrote:
-> > A failed ath10k_qmi_init() left a dangling
-> > pointer (ar_snoc->qmi) in the cleanup path.
-> > Clear the pointer on the way out for hygiene
-> > and consistency with deinit().
-> >
-> > Fixes: ba94c753ccb4 ("ath10k: add QMI message handshake for wcn3990 cli=
-ent")
+> I tried this and found a case where the limit may still be useful
+> with COMPAT_32BIT_TIME=n. Glibc can use time64 kernel interfaces
+> for applications with a 32-bit time_t. Conversion to time32 fails
+> with EOVERFLOW when the date is out of range.
 >
-> It's all going away (probe failure / removal) if we get here anyway, so
-> this hardly qualifies as a "fix". In fact, in a cursory check of the
-> driver, it seems the NULL-ability of the ar_snoc->qmi field is totally
-> irrelevant to this driver -- it never is actually checked.
+> I tested a small clock_gettime() program using Debian glibc 2.41
+> on 32-bit ARM in QEMU, with identical kernel configurations and
+> initramfs. With RTC_HCTOSYS=y, COMPAT_32BIT_TIME=n and RTC in 2040:
+>
+>   Kernel                 System year  time32 clock_gettime()
+>   ---------------------  -----------  ---------------------
+>   Baseline               1970         success
+>   Patch with dependency  2040         -1, errno=EOVERFLOW
 
-Yes, I agree...
+I think this is technically a bug in glibc: a task that calls the
+time32 clock_gettime() is supposed to fail with
+COMPAT_32BIT_TIME=n regardless of the date, according to the
+original design. I understand that this is hard to do in
+glibc based on how it deals with the three kernel variants
+(time32 only v5.0 and older, time64-only with COMPAT_32BIT_TIME=n,
+both present), but I still hope that we can one day do this
+e.g. by having allowing glibc to be built without the time32
+library interfaces to force a link failure.
 
+> The legacy clock_gettime syscall returned ENOSYS in both cases.
+> The same program built with a 64-bit time_t succeeded on both
+> kernels. Both builds also succeeded with the RTC in 2026. Both
+> kernels booted with time64 init.
 >
-> I suppose you can still call it "hygiene" though, and it's probably
-> reasonable to do the same here as we do in deinit().
+> Disabling legacy syscalls therefore does not establish that all
+> applications use a 64-bit time_t. The dependency would remove the
+> existing safeguard automatically and prevent restoring it without
+> re-enabling the legacy ABI.
 
-... that's why I phrased the patch body that way. I hesitated about
-using the Fixes tag here. I can send a follow-up removing the tag if
-you'd prefer.
+I'm not following your logic here, what is the safeguard?
 
-BR,
-Albert
+With a fixed C library, COMPAT_32BIT_TIME=n should act as a safeguard
+to ensure that no interfaces can be used that limit time to y2038
+and break unexpectedly in the future. The RTC_HCTOSYS interface
+has so far always thrown a wrench into that because it still truncates
+an important interface inside of the kernel. Your patch makes it
+possible to do the right thing here, but one still has to know
+that the Kconfig option exists and turn it off in order to
+actually make it work. Since we have COMPAT_32BIT_TIME as a global
+option already, it makes a lot of sense to actually use it here
+as well.
 
->
-> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
->
-> Reviewed-by: Brian Norris <briannorris@chromium.org>
->
-> > ---
-> >  drivers/net/wireless/ath/ath10k/qmi.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/drivers/net/wireless/ath/ath10k/qmi.c b/drivers/net/wirele=
-ss/ath/ath10k/qmi.c
-> > index 0d74548a5f34..08a64f737fb4 100644
-> > --- a/drivers/net/wireless/ath/ath10k/qmi.c
-> > +++ b/drivers/net/wireless/ath/ath10k/qmi.c
-> > @@ -1128,6 +1128,7 @@ int ath10k_qmi_init(struct ath10k *ar, u32 msa_si=
-ze)
-> >
-> >  err:
-> >       kfree(qmi);
-> > +     ar_snoc->qmi =3D NULL;
-> >       return ret;
-> >  }
-> >
-> >
-> > ---
-> > base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
-> > change-id: 20260914-fix-ath10k-dangling-15676d427cbb
-> >
-> > Best regards,
-> > --
-> > Albert Esteve <aesteve@redhat.com>
-> >
->
-
+       Arnd
