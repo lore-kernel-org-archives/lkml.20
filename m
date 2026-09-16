@@ -1,139 +1,226 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011061.outbound.protection.outlook.com [52.101.52.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF884AB3DF;
-	Wed, 16 Sep 2026 15:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573990; cv=none; b=WDWCM2BTh9MvYREyt6ljAqttfQ+WxxfiB0iBsizOx51+H/KTaTcUcPb31MWwDtKpi/I63zZ4NPL5wVwy7QoAXfm/hINsy30F9j17UGiGFd7wbfak277a9DJh4IrV+YXeBAF3T+eCVJbdJ1XicW2H0UqnSXBYZ91Wyae+uDkQE2s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573990; c=relaxed/simple;
-	bh=dataTan/ZXK5BwZivXrAZme5lbqY0TVdliRvlvdywFM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=psncD3jn0oUavVkVx6HDUO/EtjndDO583N2QSIKvrI1nrFOr8CxSTO6FkLoe9x/yKbOp5E38RZzdsp9xkGFATcOFPJ4sq3xBFotS98H4krg6YXUqKGS1lLElqL5Dtfrocf20IUKxX+aWa80o0eZOsYF47NVn7VNF8AZkGGgvsGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=VifcbxNy; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6064AAC45
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789573988; cv=fail; b=kv590S3qI6b6mECtUzGtSObAA5qHD1GtAfhw3WhqsiwVe/SRsLbQhLoknk83HrTMsIbMM+XaJqhHvj5FUPD+d/Qd1I8TdEKN3FuVKNwASnWDO//EZaxjMS+hiVRIrAr0U0ftn9Ib0eXR6GF+xhz028sq05FRQNCtsz953TPFxkY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789573988; c=relaxed/simple;
+	bh=t67eiOrMC2/QbJqpN5SinjATgBJyZozE91YyJ7sMsLY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=YnnuKMIL/pV1CxcwY7PRMSkjAVko9/JSk2cbJ3NbFA8GOdFD6MYaPXv4AMMU4hpdjR/xB4ULuqark4BaJXjhcDkOsaxLwmDyVNu5bqYxFVYc92b8BUhs4wwE7S/HgRCRMT1ILYpdpE2QZRt7ZJoZVdrrP5RYfDXGRZFvzIzb9R8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Zm4hHol6; arc=fail smtp.client-ip=52.101.52.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="VifcbxNy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=jW3EbuhQ9iZIHmNBC87FNoVwi6iyoQcMLiW7EUWxFww=; b=VifcbxNyGWbunNuYnrn0caisFm
-	smWTwAuo5gkP12+INmGZ80i5mq1Rp8MXF2yTL/teQ0iRTrakUedv4BKazS4wgadjERv0nElms+2z6
-	OAklmn4YlC+5/ShBtYDKQf7pumDg88tcJRfJt++YxyGWHlhaiRPLGePjhH6KP09UwWCLUT9qR8N/x
-	3Md2uc+j2bDDgzaJOU4DOKpLCnwt3CDOzX80+QHOS2B6AiaFNkZC+V6/5X5GvhgC5NafoiBxyGigz
-	7/9zZwibf/6w5bPwLXWrrbZzNQR8+7TWwnjL7QNiK48PtAi+rnSkTjyBDe1LmI7sxN6v/caGVAbnr
-	tQWHZA6A==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x6rwR-005HHv-22;
-	Wed, 16 Sep 2026 15:53:00 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Wed, 16 Sep 2026 08:51:02 -0700
-Subject: [PATCH v2] splice: pass a poll key when waking pipe readers and
- writers
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Zm4hHol6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N0m/63BhAG4H8EMtbVt625WDPo/3Ihf0PNl3Ls4fKG/SrKckM3l34WdwCzEid29SFs2MoGm95kSjxYDSwGXEXdS4ZEJINUtEV8M9Sfs3Q2agIE9PqJllS3H1kbpQLFqpyNd+yfBn0zes+fNrVHGge1ODdhUEtFggE91WnGmtHkdpnnZDGLQhyl2oY6iLdHP9yaODPVg/Adt6mXPRIZ6KiPl6QPK3xcJ2uOflg1rV5nZJd9LCkIz7W5idVBfT1ELx0tgqDsrBabShtI1wJk3/ApaCvRXG9Qapf4uDaEHuZV5sT76vlX8tseXFyGJfEhjRJf79GPOJBwzfWEeHTOJ9iQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LtSO09yKmxRrxElDkEpbb6EmNMag2dq+a3dr68tq5IA=;
+ b=ah6NP8O2Ovk3msCywQOIyYa8hnRgmfcpNjW6YoTfSGH+znDMz9fNsiLMo3m+kNdixaeZMV+g20e3Ij7DnzOtKB72onKvgfJYH2Q2iRM+6aAMycQsaYfD3XLUtRsjvSRkFwBly5xYbdoDUS/hl9DjlF/zz9ivnglNpFKvkoElnRMiR6LtIaSgBnQZonGHlSZVTLh5JXXMXKrc259z4Ch2cAtsfgHTHQuApp2ws5PEVCSfxZhuaszF7VEVyNLBq/7QbNppqczVYSsLy4g+As0wd2CeFsb4fO/eEHDnBjDtsiZRl7BUjkJcR4oaR8IhJVKCPGuhi4zKYffVODE35BWWdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LtSO09yKmxRrxElDkEpbb6EmNMag2dq+a3dr68tq5IA=;
+ b=Zm4hHol6pSFrgWhpLLBPWv3A1Ge7u/zo0VSkNbloF7svPqC3iGh4JQUL//6CTEw0QGINkmHiKqOGuEqvcwrCEFOKkKOs82CSSnn8Zu8ZG+dQKlwWFRYcplL/4SgtyBttbhY5mJr2DTDPHz6IUUwpdMZ1l9kHaD8Di7fQrdTjaoxMBcJZVjNWQKHUqIe3PTxSKgl9sxTtN9jqWdecnRVF6AJIk8+9a4ZoZuGP1w2jEwuPXChWNPQohXG8J6Rr1hDR1fupIeLKNd1mc6HoeNl+2cMO8OT2n6rE84mfqidMWsoIllEJKJZRo3hwb+qjOEk9DxPX1akZ/+5ONpnwD0tvoA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by CH3PR12MB9026.namprd12.prod.outlook.com (2603:10b6:610:125::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 15:52:50 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
+ 15:52:50 +0000
+Date: Wed, 16 Sep 2026 17:52:42 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 07/18] sched: Add sched_ext hooks for proxy execution
+Message-ID: <aqq7Si1D3P2et_gw@gpd4>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-8-arighi@nvidia.com>
+ <20260910103818.GH4120091@noisy.programming.kicks-ass.net>
+ <aqmq7iahwiBR34zU@gpd4>
+ <20260916090017.GF4121339@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916090017.GF4121339@noisy.programming.kicks-ass.net>
+X-ClientProxiedBy: MI2PEPF00000B85.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::41c) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-b4-splice-poll-key-v2-1-da9ff83469c3@debian.org>
-X-B4-Tracking: v=1; b=H4sIAOW6qmoC/22Nyw6CMBBFf4XM2jEtL8GV/2FY0HaAUUJJi0RC+
- HcLxp3Lk9x7zgqeHJOHa7SCo5k92yFAfIpAd/XQErIJDLGIc1HKDFWKfuxZE4627/FJCyp9MZk
- RRjR5AeE4Omr4fUjv1Zf9Sz1IT7tpX3TsJ+uWozrLffcL5P8Cs0SJaVLUskwySY26GVJcD2frW
- qi2bfsA4awsBMcAAAA=
-X-Change-ID: 20260915-b4-splice-poll-key-bc7d5d0d0f68
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
-Cc: mjguzik@gmail.com, oleg@redhat.com, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2173; i=leitao@debian.org;
- h=from:subject:message-id; bh=dataTan/ZXK5BwZivXrAZme5lbqY0TVdliRvlvdywFM=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqqrtX73Ed3WFzwAeUU78TPui5Ecu6XlT5bGZmV
- Atu9D2naQCJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqq7VwAKCRA1o5Of/Hh3
- beTyEACm0JQJZzhE1jkmPsFN/BSz1iwkDtk4C6LrtO1KfyNWr0MwKB8zuMPmX8LESWPbC96Fd73
- FhMqhlLddNhuY/Y5PSTWVsmBE+qznJrmIm7rktFYdYcArHmjnpXRB7oxmOwifhXXpCIiSFgOx6J
- Kvp4K5pS7GwtqbICmgiPcOP+BVatardgv3n69CSYVf6iiXEwpuW2YpgolFTJ5IClQf5AT97RFss
- 4ybXiquG3KXfzmDc1DcU5za7iE3YnsdRUW4OapFwO0/hZvdgrVAMVqsGnY5KCK+6UspB8TqhYUQ
- 6e8bzaCL7WQUGEA/GRkIOMgicAK4pSElqW7hWv+N3K7knwFfcCbIgLnxlCf6KTM9PLqHXIFk+Ax
- WBAbjbh18P9kSmBTSsixCZRJBoNS7S/bbyxQbFerZyP/GThK5WLe+WC6sVi8V4VKB9nhdkdqMXR
- iGrRFBMRRiAocxfY5NZGse0KNkHP+nctqGOCMhI/Umb/78tliI/kwUuZn4p2/6bnrhsfMPU1TOn
- /OwLHP2EWyRjWBMnlPGT1QudlVRf/N1yIBiRFdPVHqU1Kg2IpTMLCkH8SoLxan5j8vHnsltuDGH
- GI1DUadzVM9nHrCsRikFEbSgMOFmyndqqvCalWlEODsO3YZ26oPs3BQjGA6AY3Bg4dPQEH8dsIc
- 57mDtTRYVS3yoDA==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CH3PR12MB9026:EE_
+X-MS-Office365-Filtering-Correlation-Id: c455f84c-a812-4982-264f-08df140a8f9c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	DCqqVot+WrnJkmsUBjglHnSIwzrY6LbSKBc4XBBbpnj6+tWflDWDODQjcjfTAEYM/67cRtkzJscn+xIvTR+3xexEQ/0CHVOima8FS7beR4gUhXtziGrYADP0N8u6vTYH+Hz/gsspJVkbLab1dRySpFomEoO24pE9j35Rl5w7yC+lCQPc4k1FYiEqoalvHL97JNuSAuCkV1e6nfXQUizesMRQmkWrkCpiU8KoTlYaECjIXKbFbTiG91zlKf3SeaCufy/o4w07Xs4sKF1JwGe9Uoz6mtiXsJiQqUi+FEZIbQzLMH0g03VVKsakjxDGThXfOJuoPMYmyeqRd7H6HnQ0jpbalzJcxPIm+PCCt+bH8UaxEwjdZykPK+8d8Gzxrn0UHzFkyV9tSzRmaO4mtJ4XGbGKWuMf2B2k6+u44KI+J3PjBY3Oin+XQPSXVNUid3b9OFMjLfD4K2MF64b8InH6v0D6Rw7MXPIo0+6/qRHC94yj5v+c6mC7DJz7uFtPfcRAajhwA9LsNlHp8Rn5aT3CHAXMzrx0jaHalGjZL9Mr1mcTC0Y92wsjf+YA1PpltSPvJU+rmiBDW3KFtj4JMSLLC0jCb1OZ7HZQ176tqJwmA2g3KyBjtJDWPAdTtfAwveLmiC0uZGkow6JYEf+3aDMVS7LARZ2uSaZL9ofxG9boyCY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VTCPA0v41OarCuK50Y487zt7sQeO5qgwEiEA0iyVZYt/lUbzCKAQZON/t9/i?=
+ =?us-ascii?Q?CAKQXpLakLOHaR2T0LrqhtecxFSJngibfGQ4klfr6v3rS0ffL2IUjM+uclHy?=
+ =?us-ascii?Q?OWd97KzTFLhJzTmODmRxFrNPkPBnwz6UBA3QSF8Z+psreqKgMVAWllrQ68Qq?=
+ =?us-ascii?Q?Z0iMkFHyv4zzaBA8JNZ7rWchNYLbOAWZXo4954OnHcKmMQKygqpuA1Pj2dAN?=
+ =?us-ascii?Q?HTxO14O9Pd8V2faMjCzMCcnARfxovzmDdq70TidivNcoxMAot8Fcoy7ui0Li?=
+ =?us-ascii?Q?0tHUcG+HcTqtvPN14UjYZTJFP8mZean6EQWbIPSlu+4St/IIrgNmQCOJENyj?=
+ =?us-ascii?Q?Q3re2CyiFCdH79p5nlboFrhh6pJA2hN4zpWb9L1GN1IF10+mCPVQaA54Giyn?=
+ =?us-ascii?Q?8g4pvhZoZ3yyC5r4HchzgSTOcXkdsdf4SoUMj4cHfbRZ/tbTmm5GYqDO4x3n?=
+ =?us-ascii?Q?nHMmEftN9oxAj6NyCwth7qjWFNsHVXh0H0baFw1uwHMtST1K63ugNa8rSYSB?=
+ =?us-ascii?Q?rqlCr7cTKlgNqXahri44lHwRMhZ0uEe0Xht3iZigoWC47kfucZWUFwktVAIg?=
+ =?us-ascii?Q?F/ZPbJ/Olqql7acbWgGsSUKY9VUKHZaY0kn27NX16y8tKLPZ+oTExtf793Ri?=
+ =?us-ascii?Q?E91zBCMIUvEjb3KrBCw0hxaIuxF+iWZcw/SR0jy0ddyNNOr01llSYJDaZjHN?=
+ =?us-ascii?Q?mGIGHffRNSbkjEu4S0FKQLWx9ySBns2yFgId8DwH3DE+zUptD4MHlurnjUJd?=
+ =?us-ascii?Q?Hy4aE3DV10x3KNBGN/jvHl/hFXzs6wvnv/TDK2BdNjQtTkz/iuD/Ok01s93t?=
+ =?us-ascii?Q?+W+itWYZ10dwkIyMy83EIcLtIvNIXdnKoU0WHJMSwY57veut/Pe3dCRdBLgK?=
+ =?us-ascii?Q?hVD96Lt0s0AcMgJkyzxovIO7PabXuhF2q67anrdoiqZKfFdpa0BjJKnXicM9?=
+ =?us-ascii?Q?mVfiaiRHOe+S1b3X9JJDbDqjTdZxjk8r14mpoO0Pp0/Nbq66bKl2lfKdZLUm?=
+ =?us-ascii?Q?8LJa8Yy8DMp3nyBpxH1UCCZsje5QEaVWYZn4HqQN4ySw3a/bIJqvbiP/oQB+?=
+ =?us-ascii?Q?ypHmNZSBpKC6cGWzPq0anhs1ghRcd2DRp7Xne2LuPNoAdoff2CHNz8p6d7dQ?=
+ =?us-ascii?Q?5rv4bH605nfEayXiwSanKOy+Z9mt/4X42N2bYgs6XROOTw0XL2GKUyXfaI/q?=
+ =?us-ascii?Q?MDwFLnt/oX60PaXsqQG6rA7/XwqaSkAe9KRKwXm84J1VqfXeuVZ9xASqRpZv?=
+ =?us-ascii?Q?yB1groYfj04dbuPAm09Qif4wW6/T1Pf8lul2gZJLP9wWeQ56X8meOP9+X+q3?=
+ =?us-ascii?Q?8Z6MvawFTO3AhDL+FgiYN+SBJaHzMbVkxBjGinGPvVoRj3OPhvaDSmtz209Z?=
+ =?us-ascii?Q?PXoc9JI1Tb6hdT2ItpWjjAQ2m188kk6mAVHTpCL+jpYYrpW1rVy8AstIrdM3?=
+ =?us-ascii?Q?Rm3KOe6S9q8XwhVG0x52xfL+jCBQri1Tx+eipPm+aTDag95hP8I5A+wcBzsF?=
+ =?us-ascii?Q?uq7Bqx8aEaDN/MJ+Bb6y3ucDYliZ2tWecW6w8W4N6hHbeMKMw81KVbtShvB8?=
+ =?us-ascii?Q?19PgYw8rKMHlvdJ9vzLKTwiLrGabqLaPwa3FRgWQT56UMrm4UMCDQ3olOYPx?=
+ =?us-ascii?Q?81ELl09p8dadzN2pf4tmR8YHqKX0rrnpfQrLLwK2pN2hzDnCJeelCWvkXWe/?=
+ =?us-ascii?Q?HzCwRcRZp7EYnU82K9vwAgwK0nsWqVMYOd8BqMQ/ptUMnYdtbZptRLamyHRb?=
+ =?us-ascii?Q?/kvfRJ3swA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c455f84c-a812-4982-264f-08df140a8f9c
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 15:52:50.4518
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Rlr1T5iYmWSTgCYKZKZS1bfeIfqzCylU25VWYW3PhaqmGMuW/sWjvpbCN2wQjuneWXlK/hvMjkrrvff1im9Xbw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9026
 
-wakeup_pipe_readers() and wakeup_pipe_writers() wake the pipe wait queues
-with a NULL key.  ep_poll_callback() and pollwake() only filter on the
-registered event mask when a key is supplied, so every epoll, poll() and
-select() waiter on the pipe is woken, whether or not it asked for the
-event that occurred.
+Hi Peter,
 
-anon_pipe_read() and anon_pipe_write() already pass EPOLLIN | EPOLLRDNORM
-and EPOLLOUT | EPOLLWRNORM when waking the same wait queues.  Do the same
-here.
+On Wed, Sep 16, 2026 at 11:00:17AM +0200, Peter Zijlstra wrote:
+> On Tue, Sep 15, 2026 at 10:30:38PM +0200, Andrea Righi wrote:
+> > On Thu, Sep 10, 2026 at 12:38:18PM +0200, Peter Zijlstra wrote:
+> 
+> > > > @@ -7264,6 +7264,8 @@ static void __sched notrace __schedule(int sched_mode)
+> > > >  			donor->sched_class->put_prev_task(rq, donor, donor);
+> > > >  			donor->sched_class->set_next_task(rq, donor, true);
+> > > >  		}
+> > > > +		scx_proxy_donor_start(rq);
+> > > > +		scx_proxy_resolved(rq);
+> > > >  	} else {
+> > > >  		rq_set_donor(rq, next);
+> > > >  	}
+> > > 
+> > > Can you expand on the need for scx_proxy_resolved() ? I understand the
+> > > other two, but this one I'm struggling with a bit.
+> > 
+> > Yeah and the name is a poor choice, it should renamed
+> > scx_proxy_reenqueue_retry() or something similar.
+> > 
+> > It's the retry point for a task that sched_ext couldn't move while
+> > processing a dispatch from a remote DSQ (used later in the series).
+> > 
+> > When sched_ext consumes a task dispatched to a CPU other than the one
+> > whose rq currently owns it, it may find (after locking the task's
+> > source rq) that proxy exec has made the task either the physical
+> > current task or the active donor. It can't migrate the task in that
+> > state, so it parks the task on the source rq's reject DSQ.
+> > 
+> > If the deferred reject-DSQ drain runs while the task is still current
+> > or donating, the task must remain parked. Retrying immediately could
+> > spin until the proxy relationship changes. The hook provides the
+> > notification that proxy selection has run again, allowing sched_ext to
+> > schedule another deferred drain after the current context switch.
+> > 
+> > I couldn't find an existing event that covers this transition without
+> > periodically retrying the reject-DSQ drain. Is there a better place to
+> > trigger this retry?
+> 
+> Ah, so its a little like that problem we had with ->balance() and
+> ->pick_task(). Where a task gets taken off the DSQ and moved to the
+> local queue, but when not picked, it must be moved back.
 
-This is not visible in common pipe use: ordinary pipelines move data with
-read()/write(), which already passes the key.
+Exactly, that is the same general kind of problem.
 
-While here, both helpers open-code wq_has_sleeper(); use it instead.
+> 
+> In this case, ->donor is visible to ext and all is well, but ->curr is
+> not so easy.
+> 
+> I'm still a little confused though, why not leave blocked tasks on this
+> reject queue. If they're needed, the proxy mechanism will move them
+> around. They won't actually ever run except through proxy.
+> 
+> The point where they will become runnable again, is through wakeup. So
+> why not delay everything until that point?
+> 
+> Or am I not understanding ext again?
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Acked-by: Oleg Nesterov <oleg@redhat.com>
----
-Changes in v2:
-- Use wq_has_sleeper() helper, as suggested by Oleg Nesterov
-- Link to v1: https://patch.msgid.link/20260916-b4-splice-poll-key-v1-1-438a19351efb@debian.org
----
- fs/splice.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+I think the missing detail is that the task rejected by the remote DSQ transfer
+isn't necessarily blocked.
 
-diff --git a/fs/splice.c b/fs/splice.c
-index 9d8f63e2fd1ab..65f9090c3438c 100644
---- a/fs/splice.c
-+++ b/fs/splice.c
-@@ -177,9 +177,9 @@ static const struct pipe_buf_operations user_page_pipe_buf_ops = {
- 
- static void wakeup_pipe_readers(struct pipe_inode_info *pipe)
- {
--	smp_mb();
--	if (waitqueue_active(&pipe->rd_wait))
--		wake_up_interruptible(&pipe->rd_wait);
-+	if (wq_has_sleeper(&pipe->rd_wait))
-+		wake_up_interruptible_poll(&pipe->rd_wait,
-+					   EPOLLIN | EPOLLRDNORM);
- 	kill_fasync(&pipe->fasync_readers, SIGIO, POLL_IN);
- }
- 
-@@ -413,9 +413,9 @@ EXPORT_SYMBOL(nosteal_pipe_buf_ops);
- 
- static void wakeup_pipe_writers(struct pipe_inode_info *pipe)
- {
--	smp_mb();
--	if (waitqueue_active(&pipe->wr_wait))
--		wake_up_interruptible(&pipe->wr_wait);
-+	if (wq_has_sleeper(&pipe->wr_wait))
-+		wake_up_interruptible_poll(&pipe->wr_wait,
-+					   EPOLLOUT | EPOLLWRNORM);
- 	kill_fasync(&pipe->fasync_writers, SIGIO, POLL_OUT);
- }
- 
+Consider a blocked donor D proxy-executing a runnable EXT mutex owner O on CPU0.
+O is rq->curr and D is rq->donor. Since O is executing using D's scheduling
+context, O's own EXT scheduling entity may still be on a non-local DSQ.
 
----
-base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-change-id: 20260915-b4-splice-poll-key-bc7d5d0d0f68
+CPU1 could concurrently consume O from that non-local DSQ and start transferring
+it to CPU1. After dropping the DSQ lock and acquiring O's source rq lock, it
+discovers that O has become rq->curr on CPU0 and therefore can't be migrated.
+O is then parked on CPU0's reject DSQ.
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+When proxy exec switches away from O, O stops being rq->curr but remains
+runnable. There's no wakeup in this case, because O never blocked. If it remains
+on the reject DSQ, it's no longer visible to the BPF scheduler and can't
+subsequently run using its own scheduling context.
 
+The rq->donor case has a similar issue even though that task is blocked: a
+blocked donor can stop being the active donor before the mutex wakes it (for
+example, if another scheduling context is selected). The proxy exec mechanism
+follows the owner chain after the donor has been selected, it doesn't select
+tasks from the internal reject DSQ. Leaving the donor there until wakeup would
+prevent it from being selected again for proxy execution in the meantime.
+
+This is why the retry is tied to another proxy selection point, once the task is
+no longer rq->curr or rq->donor, it can be re-enqueued to through its BPF
+scheduler.
+
+Thanks,
+-Andrea
