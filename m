@@ -1,91 +1,89 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C944D0CD8;
-	Wed, 16 Sep 2026 16:51:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA98521207
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:51:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577500; cv=none; b=YTRl5FyeczrpOlLYRlI1jmue9TZPsaC+GWNSBbwk6ZHzUjUGprpPcPAiZsob4HWay8IKITVCOyrJF0G0MymZd/8Sw/f6FnHPUakSGTsLM3APpt62W9pjtLhwaXD3hXtBSnIYdVhxMSjdiKryIeVtyHmnsShIQk8wuxNJSe2fcn0=
+	t=1789577518; cv=none; b=aVs1W5q+nx5czZEu67sVDKQdMtY98vnphgnd9D8X1KY1PEf+i6WuIN/NcHAcwfGCaqr98qJDcTy5J/2i1uSz6aX0InUvrRe2J/PIOaXZFVZJGhgA+P8fz7112bl/d1fS3DWMujAtygy1c+xX8s0FtqstJoCi3mv1r0Y2V3sGfiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577500; c=relaxed/simple;
-	bh=xxzakaPh0lUhoJAtvNnYoK1Ln5B4KdJOK7jGOreOChI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VvnMWX3141Yp3RUx1AduAvYoGRTJIJv2VKpAs3GHxALxMjaaXBsKUP1sW99lcSdomoTJcUQD98S4yw8Rmo0NoYqzaSofH6XjsI5mpXtZ5p/J8aq5egRbx8tOkQ6t4a1W/KD+c3qa1DPPHyQ2cIHEvzgiQzQfiK4OvNCevEsI88c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACH7zkKyapqDvxtCA--.22407S2;
-	Thu, 17 Sep 2026 00:51:22 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: b-liu@ti.com
-Cc: balbi@ti.com,
-	fabio.baltieri@linaro.org,
-	gregkh@linuxfoundation.org,
-	linusw@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: musb: ux500: Fix transceiver leak in ux500_musb_init()
-Date: Wed, 16 Sep 2026 16:50:55 +0000
-Message-Id: <20260916165055.2085246-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789577518; c=relaxed/simple;
+	bh=jlDHHiMVqeXgdpn1Zj7e0N2hLgqwzeWFJxceKYb+YHU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fzFnUSrCsruaFcn79mbwedderz1vhDTs+oM/xr2mLQb2qdxhEY19nEuv+Fhz3suWHsI7tfh0GVOhhiUxF+nSmQTM3F2PF+rkCswFSqhz2EMvBgzOuyM8FDVkYy5IKMPzLDMxdX9Bj6wES1q40omZUbhyI/XC5FHXQoOxJ1c8gCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JcbHzxFv; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JcbHzxFv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B915A1F00893
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:51:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789577509;
+	bh=jlDHHiMVqeXgdpn1Zj7e0N2hLgqwzeWFJxceKYb+YHU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JcbHzxFvgLrpPJkR5R3XBY3y2SfCcwhDFnSiLhJ1B+/JTtnxdxndb4zLLznpRuxMr
+	 zDUB6DlQP+4KRhUFQ8qZIwmbtMSg4Sa213btbd920xJW3yvf/Rn4Qzedge0V2JpjlX
+	 DSseYM02zkMboFVManwZ9pkz7gBcwpL3z/fAJjcC2l/MJBjBv12ZukFan7Y5adtLR5
+	 PKISREbVUR980BR6UCPR2TSmSQ7nhb1eCTbfCo2hB8HPqtX95CCZxk0cjc1OeNxXHC
+	 wHby+UM/xrpkpvxH7mvJSJwmMZRLimAjK/eOXdvW4CtjMIwx6V8jFLqWrsv0qByTdb
+	 TzMjmwn1jm1BA==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b74e0c2e4dso1308866e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:51:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzHAxyt8rCvLBdao+uFmqP68jkrovq5iCq2w1KKohfyhUkJb51TP0z2RP6f6AYC+BzprGXNNhAdgi45i4o=@vger.kernel.org
+X-Gm-Message-State: AFuF++mv+fB5NNpabpYg1+LZ5jW4mEYue0KyGVvNpK4OPIREWNCD2E7B
+	xaxpbRxwTZnFY4+/ZiIjetSx/vBMGo4M1E6VnkrM5dvcPbeZtaeR8Z1uVQS/3E0UVYayOAOMiGf
+	4ezmIGUZTvWPv2aElbI2zBZIiZW9jgZ4=
+X-Received: by 2002:a05:6512:3d10:b0:5b6:17b6:2224 with SMTP id
+ 2adb3069b0e04-5b8b665478emr1974764e87.23.1789577508492; Wed, 16 Sep 2026
+ 09:51:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACH7zkKyapqDvxtCA--.22407S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrtrW5AF45uF17ArWxtFWUurg_yoW8Jr17p3
-	y3Gw48CrZFgay2qF4jqF4rAFy8Za92yryFk34xJ3sxZrsxJa47GrW5Ja4FgF18Cw4kAFW5
-	tw4YqFWUurW8ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	UPEDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwAMA2qqpVhTIQAAsH
+References: <20260909132153.1596191-1-arnd@kernel.org> <20260909132153.1596191-13-arnd@kernel.org>
+In-Reply-To: <20260909132153.1596191-13-arnd@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 18:51:35 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm253spmn1Tq2Jekiw2Q9xD_HDQ+AFRgWovLyE=veAfhA@mail.gmail.com>
+X-Gm-Features: AcwNN1Xrn_ibUNrql-q0n8N3iTosx-ZSLrxjHuJr9HzfGfgIlGS2dfpxQ3q588w
+Message-ID: <CAD++jLm253spmn1Tq2Jekiw2Q9xD_HDQ+AFRgWovLyE=veAfhA@mail.gmail.com>
+Subject: Re: [PATCH 12/14] mfd: remove unused mcp-sa11x0/ucb1x00 driver
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Arnd Bergmann <arnd@arndb.de>, 
+	Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Pavel Machek <pavel@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
+	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, 
+	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ux500_musb_init() takes a reference on the USB2 transceiver with
-usb_get_phy() and stores it in musb->xceiv. If the subsequent
-usb_register_notifier() call fails, the function returns without
-releasing the reference, leaking the transceiver. The only place the
-reference is put is ux500_musb_exit(), which is not run when the init
-fails.
+On Wed, Sep 9, 2026 at 3:24=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
+e:
 
-Put the transceiver before returning on the notifier registration
-failure path. The notifier itself does not need to be unregistered
-since usb_register_notifier() failed.
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> The sa1100 platform has been removed, so these drivers are no longer
+> used anywhere.
+>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Fixes: 0135522c4898 ("usb: musb: ux500: add otg notifier support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/usb/musb/ux500.c | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-diff --git a/drivers/usb/musb/ux500.c b/drivers/usb/musb/ux500.c
-index 8c2a43d992f5..14c5e986937e 100644
---- a/drivers/usb/musb/ux500.c
-+++ b/drivers/usb/musb/ux500.c
-@@ -155,6 +155,7 @@ static int ux500_musb_init(struct musb *musb)
- 	status = usb_register_notifier(musb->xceiv, &musb->nb);
- 	if (status < 0) {
- 		dev_dbg(musb->controller, "notification register failed\n");
-+		usb_put_phy(musb->xceiv);
- 		return status;
- 	}
- 
--- 
-2.34.1
-
+Yours,
+Linus Walleij
