@@ -1,97 +1,88 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B5B37AA78
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50052F0673;
+	Wed, 16 Sep 2026 15:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570836; cv=none; b=VPolrI7E143+julu7j/5kwSm6r3G0vDc2H/RiiZsUea+eRS/H41NEryHS5DoHTqied3+YKVeLHZZRXv0U0EWee8/S5BuLMGU/q3HkRb6KSVE8xPBfna55IbPXZhLVZp9HXyLikvOcTYOVCJ6KwI6ulBzIK77cGFaqWR+2A2gbeY=
+	t=1789570837; cv=none; b=f3eVWlOq3kz7Iesp7IvbUtQS+vsQ7n41QrYLxrVMryprJZ0Pn0tajVWp5Ghe7Wsv0KscI0U6OlmY2ZKAfTVk/+oN3scsykV31dyUgm8o7fhG5QhwJjGxxwC6me6Jn37OWLV87wzI8M7iutcPQq9Z6tgm7wlVTmOPJJDGiUJ9x/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570836; c=relaxed/simple;
-	bh=9tI4U4sigauxv7+vSOHtv7WRiUpJF6qwzNnTtt4QssI=;
+	s=arc-20240116; t=1789570837; c=relaxed/simple;
+	bh=4mYZuYY/4TWRRwSCtvsKG9o4ifIS9Tyl9n2rO1QSNAM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=trUOpHDk3iro6ZCcbkD5gwsY2mS+UdmuGIeKvU6FsjBcS0ykYT6EsWeZSdOxv7/hnwjogA9K05d6fzPv9h38pfaxC1XTDofVEwdb1H/UL77yPbqlwYfLIERaLWnY8vFe61G19XzQRG7maX+WLYDEyGtZnJ/YzI1TXAIndWBTQjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Wqu+5gFQ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QXxQs8FJ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=uvMXxk6j2SzH38bjEok2MM5rUeD9p7T2JFBTb3q0SjDQT10dtfJOgZbyXMg3es4zkSdBhdwz2mSqv+yuoUNA3JMPX63kofR00iKyPcyh9ZW8Sd/XgDo7WPIreNd27oz2Sdw/7HsU0jli+Pbh6lV+zYX7Db2PXzD0vnWlll5fKok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DSW5uGXc; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Wqu+5gFQ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QXxQs8FJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789570832;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vErMH5Jpyy8oa53cLRlOD7zEIY+iQEIFyTm7guhxWj0=;
-	b=Wqu+5gFQi9zgCXhlgpnOVok3EhljVRDmaAck6I/Mu86Dq8F3v3HarT/CRxtCf+WS6F0/qo
-	Ym9M66QQnvgOHi0gbJiio0vag22QWmNfHmb09blHrOjrNd7q8QMnhXzPpNC/lgbfnLNyuk
-	RESSonSDvihEmvQd8v/Fr9o14HNTPjo=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-205-njeImwDvMkCg1wIGGF36iw-1; Wed, 16 Sep 2026 11:00:30 -0400
-X-MC-Unique: njeImwDvMkCg1wIGGF36iw-1
-X-Mimecast-MFC-AGG-ID: njeImwDvMkCg1wIGGF36iw_1789570829
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c2939e341f7so667912466b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:00:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789570829; x=1790175629; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vErMH5Jpyy8oa53cLRlOD7zEIY+iQEIFyTm7guhxWj0=;
-        b=QXxQs8FJqTyJvR5kv52QhSTaXZnBKG9DBQAuiQMfti8jJV5Z+Fgm5RAEJLFqtd2eZT
-         CksvnKr5W+wSuhMzsljmCbYLig2fwtH/S7cJ06ospmIirW4vpC5sLfPvHgIt86ICTPW2
-         4JfupdNoHynDFOHEoMjo/AtaVyobJycXeV8QCPfZMl/pRGOM1hkImai5Jgcspx/DPih6
-         ypbx4N3ylfp/z28IpBejNd0ZptvxGCByB1hXzYf/DUvGlXtYf6Bh9bHCt2HDX4ly6epR
-         IevFLejeBOF7wLxGBx4HkJqEfz/omMiprnG4Qp2KqaQEFCwTJSBjR/9Gk0MQzWT2LQCx
-         c8Iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570829; x=1790175629;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vErMH5Jpyy8oa53cLRlOD7zEIY+iQEIFyTm7guhxWj0=;
-        b=novsJvdPf47VxnzcG1Wdi38bgRDhCY2MB6vfN2gOHBIzd/am+9kwIJ/pfzghU+vCMo
-         MTqtc3XMHcfWnEfWMRCPJkha01cAjPwfn0Q6hku4TXZW7i0BETOVjmMmKfWUpcaL/XUX
-         Kv/C4G119ZKX1hS/0V0jZbhRFX+pZujFFWzbTcTp1y2q+7/LsmWEmppfKSQ2LZohVZrj
-         HGRWBbQsnbszU6tQMLFv4TkrIp4ivdrJdyyAoGz7+KOapxI/rM5O82YQULo3kQUQIlgU
-         dyHjcI36DAmCxm4nznFWTUI3Xn/20yElkNcyJmWeKBjCtKeVeIZqMjytn/xmEIjRszID
-         wtNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwUZ9w9AS29CrQCG+rKFQv4VLTHJnKszftY5/3YMRLsz6Sjvd+tT+sKy1FCGH/L3AXHSRLsFFLKyEZbalI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGcjiEi7eLOmQ2MOiCkQ5GGQfgN1KCYn6dlSlJV57buWDHT+Ik
-	WuEhg7few3MwL8LM+HoNBeRc/PpTD2ha4BhMAWUmomAYhP6O1hpOmOC9SCIiypnqO5ZeI3qa9q8
-	jpRSM/Trraf2ECPrcUr18ZHQxXcbFCc4iMOjyLTpvQsxe2E96nrpX3iUNyd1PuK1EiQ==
-X-Gm-Gg: AYBFou1ixuLd/kGKEk8mUXfhRdoHJvvpOg9DLDmeBLs6ecies6aXylv01T3z0naT2YU
-	InxdreohGpSAu5nXm+4SlPuwHkNZlIKEz6JQhLP+SQgLQpxxr3CmBi/ubGMc4pxnfonmNluancs
-	x0sldXB7nzANz4fWh5FhLRfQVzcNdhJsvU86jww6TJjEbXbjIevvncBup1yr43Lmb5g0LBu/qwN
-	vZFt5faD98omD8I1yW/8pXLxH3Vr3893gyc/QraDkgCiB3wV4IIyVyvxJb2s5iPIRUgGoH3pUFW
-	Jw8l2jI7NkSvl41AE1Kze5iw1Bd02tlRTSpqG2pJ0CG9vNpmHreQiQlz6qNiSpCS3gq5UO77hxu
-	55oekB8iVYhkl4WmFYCw5nYE=
-X-Received: by 2002:a17:907:7287:b0:c26:19de:912c with SMTP id a640c23a62f3a-c29e530a4c5mr215296866b.31.1789570829139;
-        Wed, 16 Sep 2026 08:00:29 -0700 (PDT)
-X-Received: by 2002:a17:907:7287:b0:c26:19de:912c with SMTP id a640c23a62f3a-c29e530a4c5mr215291666b.31.1789570828446;
-        Wed, 16 Sep 2026 08:00:28 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de4893aasm153542566b.30.2026.09.16.08.00.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:00:27 -0700 (PDT)
-Date: Wed, 16 Sep 2026 11:00:24 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Sergii Ushakov <sergiiushakov@google.com>
-Cc: virtualization@lists.linux.dev, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@infradead.org>,
-	Jason Wang <jasowangio@gmail.com>, Jens Axboe <axboe@kernel.dk>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>
-Subject: Re: [PATCH v2] virtio-blk: clamp max_segments when indirect
- descriptors are disabled
-Message-ID: <20260916104218-mutt-send-email-mst@kernel.org>
-References: <20260814105954.4060627-1-sergiiushakov@google.com>
- <20260817134202.160669-1-sergiiushakov@google.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DSW5uGXc"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GEVxdJ3863290;
+	Wed, 16 Sep 2026 15:00:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=j9wYFqkMO68SYOCGbriFllUPMhixN2
+	gtllHySmb7w5g=; b=DSW5uGXcNBEav274LLwLVkQJJXunKRGXxm0hv6idwZZISp
+	jNx9tZ9aNgkx+oEM1BlRNdtXGx3Cc4ARJgmyUfNis7HfO07p6U0UKavc97fP4TvX
+	oUcKb36q2dUDMm8TJVws4WFM9cJ9al6mM7s9nLrvqdsO0eaFsWJLrcrt2t5Rxnmy
+	3t8fBs6c4Tiv/7v2y0dlBG0Fu4Dc2oqUQMAMGah5/jUTvPz8CLIwIe4myfy2ySV9
+	W/BBCPM2X/1Dd12JPrdXNmuwK4osTJfDO8sj2iYqVv41qJ9SUTMTBST9uZvh18Az
+	oRfEATaVPd6dFEd0FsIWB4YjaGjhMJuMTNVnbaCw==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmv5hw4vu-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 15:00:08 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GEaDkJ1571790;
+	Wed, 16 Sep 2026 15:00:08 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gq03bxty3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 15:00:07 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68GF03fh49873402
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 16 Sep 2026 15:00:03 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3DA662004B;
+	Wed, 16 Sep 2026 15:00:03 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5059C20040;
+	Wed, 16 Sep 2026 15:00:02 +0000 (GMT)
+Received: from osiris (unknown [9.111.20.35])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed, 16 Sep 2026 15:00:02 +0000 (GMT)
+Date: Wed, 16 Sep 2026 17:00:01 +0200
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: Janosch Frank <frankja@linux.ibm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v7 21/23] KVM: s390: arm64: Implement vCPU IOCTLs
+Message-ID: <20260916150001.202565-D-seiden@linux.ibm.com>
+References: <20260831144802.834315-1-seiden@linux.ibm.com>
+ <20260831144802.834315-22-seiden@linux.ibm.com>
+ <d706435a-3984-4ef3-b319-1efc92517650@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,203 +91,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260817134202.160669-1-sergiiushakov@google.com>
+In-Reply-To: <d706435a-3984-4ef3-b319-1efc92517650@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE5NiBTYWx0ZWRfXxeAY1ElL61t/
+ DSYaS/30ktfKLmCi1Je1B8oA5SSK0YMYFdINg32ZZXjlxEc9UVimA+x4ax64svDgzOof3EE+8Cq
+ Vl8VAQsLH6OyJehRfezU1Slb3TVCSuZRAL9WWS3smLcYBp41FSMALFI1GRXyRzvYpwhzchIjlIb
+ CkraEYnR4xehufNRYTAt45GmKn5YprnOrEXn+lXaPv8GrkVyfwHxDdUH/jkyYa+BwuOXTH5DASu
+ kDegQycer+tXRRKiwObfFg6xsGp1+6tFw5IjK0QCpvpWHQ01ArLIpW1V7WjxcWuRkSv3LPrY4WX
+ WTvUpoy2w1zB1MT+a+DaUVsEOXz87JpHkY8arJG1M5FfIGhZmq5O7Kpopd6aVb6eogrOYMABlIe
+ vitrrgpi7QOp3DeMtsyo4XAdnUcOb3Oh/j+6VjF+J1g12DjFVEw5gMZ+jmN4OVH6vugtF3ro7tt
+ US9PSysZIEbXkVY+LSw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE5NiBTYWx0ZWRfXxG44vfSHFzXS
+ 7DdX+PaMTaaPE/YyCzXnSUPL9HrecC741FwX1UnjFTWpWFPm3oI14f3lIBWA7I+3UY306cDUbZK
+ R4kIROXqO89uOkaiabda0mrXWcATLjE=
+X-Authority-Analysis: v=2.4 cv=Zsx4uN7G c=1 sm=1 tr=0 ts=6aaaaef9 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
+ a=2EDVkJ_xZdsl-fsxt_cA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: CcjZPhrNXuk_fD7ZBanhcQxmk7O2fTAK
+X-Proofpoint-GUID: pSdKo_eOc1M7lhhBdE68zGvs-QjHxbP6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_02,2026-09-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609160196
 
-On Mon, Aug 17, 2026 at 03:42:02PM +0200, Sergii Ushakov wrote:
-> When VIRTIO_RING_F_INDIRECT_DESC is not negotiated by the host, every
-> scatter-gather segment in a request must consume a physical slot in
-> the virtqueue ring.
+On Thu, Sep 03, 2026 at 03:27:16PM +0200, Janosch Frank wrote:
+> On 8/31/26 4:47 PM, Steffen Eiden wrote:
+> > Implement all required vCPU (arch) IOCTLs.
+> > 
+> > Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
+> > Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
+> > Co-developed-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+> > Signed-off-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+> > Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> > ---
 > 
-> If the host does not advertise VIRTIO_BLK_F_SEG_MAX and provides a small
-> virtqueue (e.g. 128 descriptors on QNX Hypervisor), the block layer
-> defaults max_segments to BLK_MAX_SEGMENTS (1024). When a multi-page
-> compound bio arrives from the page cache, virtqueue_add_split() rejects
-> the request with -ENOSPC and triggers:
+> [...]
 > 
->   WARNING: at drivers/virtio/virtio_ring.c:1493 virtqueue_add+...
->   WARN_ON_ONCE(total_sg > vq->split.vring.num && !vq->indirect);
+> > +static void arm_vcpu_run(struct kvm_vcpu *vcpu)
+> > +{
+> > +	struct kvm_sae_block *sae_block = &vcpu->arch.sae_block;
+> > +
+> > +	adjust_pc(vcpu);
+> > +
+> > +	local_irq_disable();
+> > +	guest_timing_enter_irqoff();
+> > +	guest_state_enter_irqoff();
+> > +	local_irq_enable();
+> > +
+> > +	sae_block->icptr = 0;
 > 
-> This permanently wedges the blk-mq queue and blocks all subsequent disk
-> I/O in uninterruptible sleep (D state).
+> We already do that in the function below, no?
+> If possible I'd like to avoid setting ictpr here.
+>
+
+yes, removed it at this location. thanks.
+
+
+...
+
+> > +		kvm_vcpu_srcu_read_unlock(vcpu);
+> > +
+> > +		arm_vcpu_run(vcpu);
+> > +
+> > +		vcpu->mode = OUTSIDE_GUEST_MODE;
+> > +
+> > +		kvm_vcpu_srcu_read_lock(vcpu);
+> > +
+> > +		ret = handle_exit(vcpu);
 > 
-> Automatically clamp sg_elems to (ring_size - 2) when indirect
-> descriptors are disabled.
+> ARM increases stat.exits here and since you copied the stat fields over we
+> could do that too.
+
+Good catch, thanks. Adding the stat.
 > 
-> Signed-off-by: Sergii Ushakov <sergiiushakov@google.com>
-> ---
-> v1 -> v2:
-> - Drop max_segments module parameter and rely solely on automatic clamping
->   when indirect descriptors are disabled (suggested by Christoph Hellwig).
-> - Guard (ring_size - 2) calculation with ring_size > 2 to prevent underflow.
-> - Update commit description accordingly.
+> General question to the ARM maintainers:
+> We'll be adding more stat fields in the very soon future.
+> Are you fine with us adding them under any name or should we prefix them so
+> it's clear they exist because of our architecture / implementation and will
+> likely never be added to ARM KVM?
 > 
->  drivers/block/virtio_blk.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-> index 32bf3ba07a9d..8f5a2d5323a6 100644
-> --- a/drivers/block/virtio_blk.c
-> +++ b/drivers/block/virtio_blk.c
-> @@ -1267,6 +1267,13 @@ static int virtblk_read_limits(struct virtio_blk *vblk,
->  	/* Prevent integer overflows and honor max vq size */
->  	sg_elems = min_t(u32, sg_elems, VIRTIO_BLK_MAX_SG_ELEMS - 2);
->  
-> +	if (!virtio_has_feature(vdev, VIRTIO_RING_F_INDIRECT_DESC)) {
-> +		u32 ring_size = virtqueue_get_vring_size(vblk->vqs[0].vq);
-> +
-> +		if (ring_size > 2)
-> +			sg_elems = min(sg_elems, ring_size - 2);
-> +	}
-> +
->  	/* We can handle whatever the host told us to handle. */
->  	lim->max_segments = sg_elems;
+> In the past we've added a lot of stats and I'd expect us to at least add
+> stats for every intercept reason.
 
+That is the exact reason I copied the struct and not reuse the arm64
+defenition. I already added a gmap stat we have but native arm not.
 
-I do not get why it does not clamp with VIRTIO_RING_F_INDIRECT_DESC.
-Spec says:
+If the stat is meaningfull I am all for adding the stat to arm as well.
 
- A driver MUST NOT create a descriptor chain longer than the Queue Size of the device.
-
-Also, pls add a comment explaining where does this 2 come from.
-
-What about ring size 2? I guess
-
-
-
-> When VIRTIO_RING_F_INDIRECT_DESC is not negotiated by the host, every
-> scatter-gather segment in a request must consume a physical slot in
-> the virtqueue ring.
-> 
-> If the host does not advertise VIRTIO_BLK_F_SEG_MAX and provides a small
-> virtqueue (e.g. 128 descriptors on QNX Hypervisor), the block layer
-> defaults max_segments to BLK_MAX_SEGMENTS
-
-Does it?
-
-        err = virtio_cread_feature(vdev, VIRTIO_BLK_F_SEG_MAX,
-                                   struct virtio_blk_config, seg_max,
-                                   &sg_elems);
-                 
-        /* We need at least one SG element, whatever they say. */
-        if (err || !sg_elems)
-                sg_elems = 1;
-
-so set to 1 without VIRTIO_BLK_F_SEG_MAX
-
-
-        /* Prevent integer overflows and honor max vq size */
-        sg_elems = min_t(u32, sg_elems, VIRTIO_BLK_MAX_SG_ELEMS - 2);
-
-unchanged here
-
-        /* We can handle whatever the host told us to handle. */
-        lim->max_segments = sg_elems;
-
-assigned to max_segments here
-
-
-> BLK_MAX_SEGMENTS (1024).
-
-In which tree does BLK_MAX_SEGMENTS equal 1024?
-
-git show next-20260915:include/linux/blkdev.h | grep -n 'BLK_MAX_SEGMENTS'
-1234:      BLK_MAX_SEGMENTS        = 128,
-
-
-
-
-> When a multi-page
-> compound bio arrives from the page cache, virtqueue_add_split() rejects
-> the request with -ENOSPC and triggers:
-> 
->   WARNING: at drivers/virtio/virtio_ring.c:1493 virtqueue_add+...
->   WARN_ON_ONCE(total_sg > vq->split.vring.num && !vq->indirect);
-> 
-> This permanently wedges the blk-mq queue and blocks all subsequent disk
-> I/O in uninterruptible sleep (D state).
-
-Please clarify the reproducer, including the negotiated features,
-max_segments, actual ring sizes, and total_sg at the failure. As
-described, it should not trigger and I do not see how
-the patch is supposed to change the failing configuration.
-
-> 
-> Automatically clamp sg_elems to (ring_size - 2) when indirect
-> descriptors are disabled.
-> 
-> Signed-off-by: Sergii Ushakov <sergiiushakov@google.com>
-> ---
-> v1 -> v2:
-> - Drop max_segments module parameter and rely solely on automatic clamping
->   when indirect descriptors are disabled (suggested by Christoph Hellwig).
-> - Guard (ring_size - 2) calculation with ring_size > 2 to prevent underflow.
-> - Update commit description accordingly.
-> 
->  drivers/block/virtio_blk.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-> index 32bf3ba07a9d..8f5a2d5323a6 100644
-> --- a/drivers/block/virtio_blk.c
-> +++ b/drivers/block/virtio_blk.c
-> @@ -1267,6 +1267,13 @@ static int virtblk_read_limits(struct virtio_blk *vblk,
-
-Well we only set the limit at probe. virtblk_restore_priv() recreates
-the queues on resume and reset recovery, then resumes dispatch without
-checking their sizes against the existing limit. ring allocation
-can reduce the size under memory pressure, including during recovery.
-
-Since you are now (correctly) tying request size to vq size,
-this needs to be resolved.
-
-
-
->  	/* Prevent integer overflows and honor max vq size */
->  	sg_elems = min_t(u32, sg_elems, VIRTIO_BLK_MAX_SG_ELEMS - 2);
->  
-> +	if (!virtio_has_feature(vdev, VIRTIO_RING_F_INDIRECT_DESC)) {
-
-Why exempt indirect descriptors? The virtio spec says:
-
-	A driver MUST NOT create a descriptor chain longer than the Queue Size
-	of the device.
-
-Even on devices ignoring that -
-there is a failure path even when indirect descriptors are
-negotiated: virtqueue_add_split() falls back to direct descriptors if
-the indirect-table allocation fails. So if the request exceeds the ring
-size, it returns -ENOSPC even on an empty ring. virtio_queue_rq() then
-stops the hardware queue, with no outstanding completion to restart it.
-
-
-> +		u32 ring_size = virtqueue_get_vring_size(vblk->vqs[0].vq);
-
-Why 0? VQ 0 is not necessarily the smallest queue. The transport specifies
-sizes per queue, and Linux can reduce individual split-ring sizes
-during allocation.
-
-> +
-> +		if (ring_size > 2)
-> +			sg_elems = min(sg_elems, ring_size - 2);
-
-The subtraction is correct: virtblk_add_req() uses separate outgoing
-and incoming header descriptors, including for zone append.
-However, we really should have a comment explaining that, here.
-
-And, ring_size <= 2 must be rejected rather than bypassing the clamp:
-A two-entry direct ring can pass probe, yet even one data segment
-needs three descriptors and hits the same permanent -ENOSPC condition.
-
-> +	}
-> +
->  	/* We can handle whatever the host told us to handle. */
->  	lim->max_segments = sg_elems;
->  
-> -- 
-> 2.55.0.691.gc56d675ccc-goog
-> 
-
->  
-> -- 
-> 2.55.0.691.gc56d675ccc-goog
-
+	Steffen
