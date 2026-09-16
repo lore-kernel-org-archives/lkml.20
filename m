@@ -1,100 +1,86 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA944BD35C;
-	Wed, 16 Sep 2026 17:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA434D6C22;
+	Wed, 16 Sep 2026 17:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579662; cv=none; b=cB/0almEyARvH/sLKpa1zJuOk/kGxE9FNeEjU3NsWk2U8AGtIAotvIhUb27Ucgm8zEJxnuP8XrIMLdEPOV+KQy5utgRQsQ6lQcxN7f//wx2G8qTHNSVz6bLKXk04g9C1D3snIbmP3xLXnpQypJmxvRY1AHp6zFNgACLqCoHGqsg=
+	t=1789579729; cv=none; b=aN2blgwcON7hcztQ3w7jb8SmYbAVTLVRenivlyOcLULL96BBBeI/8+jftiMczNH9V6Ur5bW0DPZ5DBc9QXr7veZYeZ6lNNP1USMS007/nlNQXzSY5kpB4FW51tpK00TqPQ/0GI4VYajSYBWw706UA5WYBe9XS7Hx+0TwtJzZiMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579662; c=relaxed/simple;
-	bh=BxO6rgLM9SfX8tEbiU9nwYK0vqz+F0hGK0aWbt8kezo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=so3UBGt94ZfeUSGN5jM/KrJdpqcwFHY8Bd5KPivcNk4mwIDmjHyaDAYSsix7tHp7eg7f2IcCelHp7fErvS7QUKp/iL0LAlqannNss1Ks4954uHtZELOla6eArcT3s01yQd3e/BcLk+xpvmx9wD7Crchc3eHlGMIsTKBzYvQjeH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mSuvysOB; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789579729; c=relaxed/simple;
+	bh=8NtqovApGf8dvKnjUST6br5s7d5zKceLLw06RUJrpIw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tr6gfIc/zhN8lWlJwvJ8z8MR13KyWVOCcnzBnv0N20O4IeuSxNDagLeVMqEBjz1VGcHqu7+NNojOKf/REnPDTQkkkHpPgcGXYyyrtHyf0PqjobINVxGQo17eILHpzesJ88D8ZQllEf1aorpJsq4pRZ64k94WY+EcTX+P5qt6qEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cnA3Mnwc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mSuvysOB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id C7FD8C5CD6B;
-	Wed, 16 Sep 2026 17:28:19 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AFDCD60337;
-	Wed, 16 Sep 2026 17:27:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0E4E811C7B00D;
-	Wed, 16 Sep 2026 19:27:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789579654; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=dCA8Ne2C7wLdhEcx1e006q+Jrs7Uu0Is5AQBioqBLFk=;
-	b=mSuvysOByqxjLwQqnHc7+WWWcyfDJDP7JEPeoSW7DjmMC2Jp/Oy/3LTLzTZtj80/zDxGB4
-	RrkHbDqBTDGdt2/hhm6H+I7/2NWWZOsVz0KyKfWeFI55w1rxhCIGBvoy/ghmZHnURbPzZb
-	2JqEixXywVAeVdVoBa/2CnuC1CZ6riAXv/Yh0gw+UKjzCNt5wHibTHPwlqB8IHDpDYR9Nc
-	QEfhIwFjU+jwOrUhrWTlvH2iDFr2v8mm2nN9qGALtLlzSdBakYhh2hab4yjqCtWol5CYDO
-	EsmAWYR8EL6/yp1EkbuQ1R34pYThZ9qSZaA41CDWrCztMfzdbymKfV/Lwa//OQ==
-Date: Wed, 16 Sep 2026 19:27:27 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 13/15] tests: Add wip_func utility
-Message-ID: <20260916192727.28850127@bootlin.com>
-In-Reply-To: <aqpoxzD14OQazE1y@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-14-herve.codina@bootlin.com>
- <aqpoxzD14OQazE1y@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cnA3Mnwc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADD261F000FF;
+	Wed, 16 Sep 2026 17:28:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789579726;
+	bh=8NtqovApGf8dvKnjUST6br5s7d5zKceLLw06RUJrpIw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cnA3MnwcbVLsJ11I+8hYtmzPV27C3NRL5NVBmMMsbRrnYusv1fuUyeDaEcrEylZ4Q
+	 TPDczkYw3kZbarkCsiptbpLP2ywaNSrq6VJL0PtRbMwBnbC53v0hDsYqujLYQL+YIh
+	 itAiwVGFDPnTEmWE6Fe2qmgdBc6Zqi7Sd98tgG0rMD8CE0BccS9nbJf4SAY37iQU/M
+	 5XbvEAV2bqAZf2L+E2GrKEaR2M58wnZUBUIOzdw/Lg63m1e0IYJVjq3WPaqKaxO+wP
+	 zMpQyU3Acqw6M8uuLPRGlXbJPV+B2zZbWYlphDkAFDyYkbFa9BzLOeZBiGJ5r+gN1N
+	 EVY6U32ALGvBw==
+Date: Wed, 16 Sep 2026 18:28:20 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Tal Zussman <tz2294@columbia.edu>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 00/11] mm: memcontrol: constify the read side of the
+ memcg API
+Message-ID: <aqrRewVuKfPk7y1U@lucifer>
+References: <20260915-folio_memcg-const-v3-0-c239a6010b58@columbia.edu>
+ <20260916035222.GA19557@shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916035222.GA19557@shakeel.butt@linux.dev>
 
-Hi David,
+On Tue, Sep 15, 2026 at 08:53:10PM -0700, Shakeel Butt wrote:
+> On Tue, Sep 15, 2026 at 07:20:04PM -0400, Tal Zussman wrote:
+> > The memcg accessors, lruvec helpers, and stat readers only read from
+> > the memcg, folio, or lruvec they are given, but take non-const
+> > pointers. Constify them, along with the page_counter readers and the
+> > swap I/O blkg helpers along the way.
+> >
+> > This started as a follow-up to [1] that quickly grew in proportions :)
+> >
+> > [1]: https://lore.kernel.org/linux-mm/anYqSDnC2BbJXv1h@casper.infradead.org/
+>
+> For the whole series:
+>
+> Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-On Wed, 16 Sep 2026 20:00:40 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+Oops, I replied on the v2 with the same:
 
-> On Wed, Aug 26, 2026 at 10:31:44AM +0200, Herve Codina wrote:
-> > wip_func is a test utility allowing to wrap the write inplace functions.
-> > 
-> > It allows to create tests with custom wip write sequence.
-> > 
-> > Also the modified dtb is saved allowing to perform later checks on this
-> > modified dtb.  
-> 
-> It's not clear to me what this is useful for that's not already
-> covered by the existing write-in-place tests (nop_node.c,
-> nop_property.c and setprop_inplace.c).
-> 
+https://lore.kernel.org/linux-mm/aqqaaDqTDahlZ7bR@gremlin/
 
-Used in tests to check dtb updates when "unknown" tags are involved.
-See '[PATCH v3 14/15] libfdt: Handle unknown tags on dtb modifications' [0]
-or full source at [1].
+but obviously, equally so for v3 :) thanks for doing this!
 
-Depending on modification performed, "unknown" tags must be removed or not
-and the version must be downgrade or not. The test checked for rules defined
-for modification when "unknown" tags are involved (see patch 14/15 commit log)
+For whole series:
 
-I don't think that this could be covered in a simple way by existing
-write-in-place tests.
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-[0] https://lore.kernel.org/devicetree-compiler/20260826083146.304291-15-herve.codina@bootlin.com/
-[1] https://github.com/bootlin/dtc/blob/2653bb9cd4414780c863051467b5e77eea6e5bdd/tests/run_tests.sh#L590
-
-Best regards,
-Hervé
-
+--
+Cheers, Lorenzo
