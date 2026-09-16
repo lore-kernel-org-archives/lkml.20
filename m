@@ -1,46 +1,54 @@
-Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D243EC812
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:00:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.134
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E02EF47DF98
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:00:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567243; cv=none; b=CV/U6nWEow+jHx5nP0wKeu28h5Q9Ora6vFjTUoLVLpcqR7ljXIKjKNxOCndnJdApCT+BmOZfMF6k3HibzME1QHh4iO+89oXwUgW6Kg2fBcoKB/IHw7/0FcmmYYleKy5XyEU9+CXXPy81mook2zaR36CtW2DZFlyMP9MpGHzVx+s=
+	t=1789567254; cv=none; b=hOyZM/ydziLlLvpoysUsfgb5ReZRIAZfLO5DHDBDc1hfm0T8JpBgwvTgG3nlP7eg5+z+lc1MSUrCEOouQTA9sjMhhADr/U8Z+J26A2A7atqXDzvWrZPbHzP65oYUihZXYJoJZzXaCIKi6xVWviAOzi4ihVALHkoTwqksa0iw3HY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567243; c=relaxed/simple;
-	bh=VnaTq5M5se49V/9M3c8zvRQnGAJq4+i+kTu1qxqaOlY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nYLGrkFORgO4/ukULE6Lmn3wkLEXbnLsgaY/TjVtjT+JIkjEQwY0fbtcdabmwn8G72+8VSpgFp2kDtA3BruThsXD/kyL4/L601j1qC0igAC6p11kcc2JlHG2mNjuzV3hb21bsAj55aCmAjFld1RH1WSh78awuJOke9izbMdEfY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dZ/K0710; arc=none smtp.client-ip=91.218.175.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789567254; c=relaxed/simple;
+	bh=X32TptwEZT8cNEFqLMIyufpmRkecQmhziZDP7tUEcFo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=na/pJcoyO3JHP7bD9tHXTCAb+0HNg7biZvlvGT04olvwg0K90XAQNXQXhBQqU0EsOhxQRiZI8GjbI5oP66EjIhFHF4LUJNFLyY086WA/AQ+CpXIf5o9JTASVNOjlcOGCsTQe092aTu82IuV2oQvcAyKdQDXGJUlAyejUrPcB/Yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KvTp87F3; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dZ/K0710"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VnaTq5M5se49V/9M3c8zvRQnGAJq4+i+kTu1qxqaOlY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789567238; v=1; x=1790172038;
- b=dZ/K0710yObmAG+nqd1rTazeVb+9Xjw1Y4sc2mahRs8b4ON1KXMv2wHgoVNCFsjfXAFcL6RK
- OUSfvlltt8yaWpY8Aie2xGPcrhAvnLlAuMFiCVg3ENYMyRfleAKepEdGigcIrgPHVuzfizpbCn1
- f05ucNYvb1Untg5iScLXE9Z4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id da512f38a1cd2b39;
-	Wed, 16 Sep 2026 14:00:37 +0000
-X-Mizu-Trace-ID: da512f38a1cd2b39
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 16 Sep 2026 22:00:24 +0800
-From: Hao Li <hao.li@linux.dev>
-To: Harry Yoo <harry@kernel.org>
-Cc: vbabka@kernel.org, akpm@linux-foundation.org, cl@gentwo.org, 
-	rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org, 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KvTp87F3"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 71178152B;
+	Wed, 16 Sep 2026 07:00:47 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (unknown [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B58283F86F;
+	Wed, 16 Sep 2026 07:00:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789567251; bh=X32TptwEZT8cNEFqLMIyufpmRkecQmhziZDP7tUEcFo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=KvTp87F375+25OWbtr4lzE6MhuYnnz7yrLqjKKabM/qIP0yCdpHFAvjv127/mHkyw
+	 zNK/AxgFUI+K0zz4un8xqXs2VJW/1sOtg4tVYTyk/wM+QBJ/JRcUWauDC6RwWYk5iI
+	 xzgbpyo1Dv8iqh6vr2jO7nw9f6phwndr1/BSrUOI=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Oliver Upton <oupton@kernel.org>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Tian Zheng <zhengtian10@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 1/2] mm/slub: make the case handling in __slab_free()
- easier to follow
-Message-ID: <aqqfP-bj2jh0pN56@fedora>
-References: <20260824122004.3652-1-hao.li@linux.dev>
- <20260824122513.3829-1-hao.li@linux.dev>
- <aqf4IsztnhrXBocx@thinkstation>
+Subject: Re: [RFC PATCH 5/5] KVM: arm64: Enable HAFDBS for guests not on migration
+Date: Wed, 16 Sep 2026 15:00:46 +0100
+Message-ID: <aqqhDs3NyjtkZzXK@LeoBrasDK>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <aqneWnlsdpocLIl6@kernel.org>
+References: <20260901171558.2674031-1-leo.bras@arm.com> <20260901171558.2674031-6-leo.bras@arm.com> <aqneWnlsdpocLIl6@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,69 +57,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqf4IsztnhrXBocx@thinkstation>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 02:39:16PM +0100, Harry Yoo wrote:
-> On Mon, Aug 24, 2026 at 08:25:09PM +0800, Hao Li wrote:
-> > There are 7 possible transitions in __slab_free():
-> > 
-> >   a. partial->partial
-> >   b. partial->empty, offlist
-> >   c. partial->empty, onlist, exceeding min_partial
-> >   d. partial->empty, onlist, not exceeding min_partial
-> >   e. full->empty, exceeding min_partial
-> >   f. full->empty, not exceeding min_partial
-> >   g. full->partial
-> > 
-> > (There is no offlist variant of e, f and g as a full slab is on no
-> > list.)
-> > 
-> > Clarify which case each branch handles, and replace the goto with a
-> > return at the end of the skipped block so that every branch explicitly
-> > states its coverage.
-> > 
-> > Case 'a' is the only path that needs neither list_lock nor list
-> > handling. Give it an early continue: handling it upfront is much clearer
-> > than forcing every other case into a nested block.
-> > 
-> > Also, read SL_partial once after the loop right where it is used, rather
-> > than re-reading it on every iteration.
-> > 
-> > No functional change.
-> > 
-> > Signed-off-by: Hao Li <hao.li@linux.dev>
-> > ---
+On Tue, Sep 15, 2026 at 05:10:02PM -0700, Oliver Upton wrote:
+> Hi,
 > 
-> Looks good to me (with Vlastimil's suggestions adjusted),
-> Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+> On Tue, Sep 01, 2026 at 06:15:56PM +0100, Leonardo Bras wrote:
+> > When dirty-logging is disabled, even non-write faults make a page dirty,
+> > which avoids a second fault when the page is actually written to.
+> > 
+> > On dirty-logging enable, this approach causes all (writable) pages on the
+> > memslot to be marked clean, even if they were not written to, which can
+> > take a lot of time, while holding the MMU lock, doing atomic writes to
+> > PTEs.
+> 
+> Do you have any performance numbers for this? Enabling HAFDBS seems a
+> bit involved to avoid some stores on the first pass.
+
+Not yet, but if the idea does not look too crazy I can find hardware and 
+collect some data :)
+
+> 
+> > So, if the system supports VHE + HAFDBS, keep the non-write-faulted page as
+> > writable-clean, and let HAFDBS update that on demand when a write happens.
+> > 
+> > When dirty-tracking actually starts, disable HAFDBS as having it on
+> > avoids the same fault that is used for dirty-logging.
+> > 
+> > Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+> > ---
+> >  arch/arm64/include/asm/kvm_mmu.h    |  6 ++++++
+> >  arch/arm64/include/asm/kvm_nested.h |  9 +++++++--
+> >  arch/arm64/kvm/arm.c                |  7 +++++++
+> >  arch/arm64/kvm/mmu.c                | 26 +++++++++++++++++++++++++-
+> >  4 files changed, 45 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/arch/arm64/include/asm/kvm_mmu.h b/arch/arm64/include/asm/kvm_mmu.h
+> > index 6eae7e7e2a68..3defa1a988d3 100644
+> > --- a/arch/arm64/include/asm/kvm_mmu.h
+> > +++ b/arch/arm64/include/asm/kvm_mmu.h
+> > @@ -383,20 +383,26 @@ static inline void kvm_fault_unlock(struct kvm *kvm)
+> >   * and CMOs are NOP'd. This has the effect of no longer requiring a
+> >   * KVA for addresses mapped into the S2. The presence of these features
+> >   * are thus necessary to support cacheable S2 mapping of VM_PFNMAP.
+> >   */
+> >  static inline bool kvm_supports_cacheable_pfnmap(void)
+> >  {
+> >  	return cpus_have_final_cap(ARM64_HAS_STAGE2_FWB) &&
+> >  	       cpus_have_final_cap(ARM64_HAS_CACHE_DIC);
+> >  }
+> >  
+> > +static inline bool kvm_supports_hafdbs(struct kvm *kvm)
+> > +{
+> > +	return IS_ENABLED(CONFIG_ARM64_HW_AFDBM) &&
+> 
+> cpucap_is_possible() is the right place to park this.
+> 
+
+Noted!
+
+> > 						      has_vhe() &&
+> 
+> I don't see a reason why this needs to be constrained to VHE-only.
+> 
+
+Humm, in nVHE would not the host kernel run in EL1?
+I thought that this being a feature that depends on EL2 registers host 
+would need to be in EL2 to make use of it.
+
+That being said, I understand very little of how this works, so I 
+constrained to VHE only at the start.
+
+Would this work in nVHE?
+
+> > +		!kvm_vcpu_has_nv(kvm) && cpus_have_final_cap(ARM64_HW_DBM);
+> 
+> Same thing goes for nested... KVM can make use of HAFDBS in the
+> canonical stage-2 MMU (or even a shadow stage-2) independent of the
+> guest hypervisor.
+> 
+
+Humm, I remember reaching the conclusion that it could not be used if the 
+guest supported NV. Let's say:
+
+L0 - Host	- Has HAFDBS enabled
+L1 - Hypervisor - Has HAFDBS disabled
+L2 - Guest	-
+
+Let's say guest writes to a page, and the shadow S2 has DBM=1, so it's 
+marked as WD by HAFDBS. Since no fault was taken, how would the L1 be able 
+to update it's S2 pagetables to mark the page dirty?
+
+(We would have to transverse the Shadow S2 Pagetable updating the original 
+S2 pagetable)
+
+I was wondering, thought, that we could emulate it in the last level 
+hypervisor, if it's guest does not support nested guests. That would mean 
+we can have the last-1 level hypervisor to update the S2 pagetable on the 
+last level hypervisor without it having to fault. Ex:
+
+L0 Host - HAFDBS disabled
+[...]
+Ln-1 Hypervisor - HAFDBS disabled
+Ln   Hypervisor - HAFDBS enabled
+Ln+1 Guest - No E2H feature
+
+When the guest writes to a page, the host should receive a fault, that IIUC 
+have to propagate down up to Ln Hyp. If Ln Hyp has HAFDBS, we could skip 
+injecting a fault in Ln Hyp, as  Ln-1 Hyp could emulate HAFDBS and write 
+the dirty bit to S2 pagetagle of Ln+1 guest, that resides in Ln memory.
+
+Not sure if the troulbe would be worth, though.
+Does it make sense?
+
+
+
+> >  #ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
+> >  void kvm_s2_ptdump_create_debugfs(struct kvm *kvm);
+> >  void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu);
+> >  void kvm_nested_s2_ptdump_remove_debugfs(struct kvm_s2_mmu *mmu);
+> >  #else
+> >  static inline void kvm_s2_ptdump_create_debugfs(struct kvm *kvm) {}
+> >  static inline void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu) {}
+> >  static inline void kvm_nested_s2_ptdump_remove_debugfs(struct kvm_s2_mmu *mmu) {}
+> >  #endif /* CONFIG_PTDUMP_STAGE2_DEBUGFS */
+> >  
+> > diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
+> > index 1ed708335809..9242b5d665af 100644
+> > --- a/arch/arm64/include/asm/kvm_nested.h
+> > +++ b/arch/arm64/include/asm/kvm_nested.h
+> > @@ -1,24 +1,29 @@
+> >  /* SPDX-License-Identifier: GPL-2.0 */
+> >  #ifndef __ARM64_KVM_NESTED_H
+> >  #define __ARM64_KVM_NESTED_H
+> >  
+> >  #include <linux/bitfield.h>
+> >  #include <linux/kvm_host.h>
+> >  #include <asm/kvm_emulate.h>
+> >  #include <asm/kvm_pgtable.h>
+> >  
+> > -static inline bool vcpu_has_nv(const struct kvm_vcpu *vcpu)
+> > +static inline bool kvm_vcpu_has_nv(const struct kvm *kvm)
+> 
+> The name would suggest this thing takes a vcpu pointer...
+> 
+
+Ah, that name was based on
+#define kvm_vcpu_has_feature(k, f)  __vcpu_has_feature(&(k)->arch, #(f))
+
+That takes a kvm struct to check the kvm_arch one, instead of looking into 
+the vcpu. I did it like this because there were some scenarios it was not 
+quite straightforward to get the vcpu to use vcpu_has_nv(), which takes a 
+vcpu.
+
 
 Thanks!
-
-> 
-> >  mm/slub.c | 95 ++++++++++++++++++++++++++++---------------------------
-> >  1 file changed, 49 insertions(+), 46 deletions(-)
-> > 
-> > diff --git a/mm/slub.c b/mm/slub.c
-> > index b0cd0572e2f2..e20375307770 100644
-> > --- a/mm/slub.c
-> > +++ b/mm/slub.c
-> > @@ -5748,76 +5748,79 @@ static void __slab_free(struct kmem_cache *s, struct slab *slab,
-> 
-> [...]
-> 
-> > +		/*
-> > +		 * The slab might need to be taken off (due to becoming empty)
-> > +		 * or added to (due to not being full anymore) the partial
-> > +		 * list.
-> > +		 *
-> > +		 * Speculatively acquire list_lock before calling cmpxchg(), as
-> > +		 * performing cmpxchg() prior to lock acquisition races with
-> > +		 * concurrent paths, such as the shrinker.
-> 
-> nit: it's bit weird to mention shrinkers specifically?
-
-Yeah, better to remove it to be more generic.
-
--- 
-Thanks,
-Hao
+Leo
