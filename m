@@ -1,163 +1,140 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC134A261D;
-	Wed, 16 Sep 2026 09:17:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550235; cv=pass; b=REk79QLwME3+JivYf0KxqCvqQA2ZxKpo4sa9AhCCMIsXxygvTz8YgUMxZYeWCHENitOcmojEheDpA/VMxvVL0yl9rWUCPaZtoZhlHtR1dI5iX7knokXEU3T79qIJJZQuqjBZ45si7K2/cLQBbcq10e4101iqbPMFFQyVhJ46SLI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550235; c=relaxed/simple;
-	bh=9apGcAGF+qN+WdJNOYa47ONmDgzcaDL77nJ6s3G6f94=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Cvs5kedTUs6rULUkrtRkt3UqF3IFA9l9+9GpG8DNCZQq0kCygNTlcj3Si8V7vKSNISdCWm+i5vzsNpJlr8Z9NiJY0QVnsstGq4M6KjbUC1SbWmQA3IhmUyJNj7ePfs65fAroC1IAKRW2A04C3IaPAYU+OHJXdioohniBZlsARRI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=mhYIpLkX; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7294D47DF98;
+	Wed, 16 Sep 2026 09:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789550274; cv=none; b=b6QzIlyXD8RAXBM9TASaNg/UAnvUM1Hmj6tBXvD4f3bgSDtq7q7fpFx73034Opetp1nbshP7YFRA4BUZBIEi9pre2K9+Hm86DYwpcgo9HgG+xuIhL+3m+YDwDrw1WnCCyWPjQYYk9zZVvT4594EOAa0kHsvUgkfSSkwSy99nk5o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789550274; c=relaxed/simple;
+	bh=7SqYTLL/LQu+GVTrCSG2kdGWYFKsSMlVXeHdAYBRRn8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LTVf4G5bZ6nL1nzKgVn+0eWhalDnKATLBiAolMIPGFjpeOuOLfBQkARQIM/LLUw3aobrAy2K6v+kH5q9LEA7zG6/y69Sqy3lLlEQ+m7/V4TCLHhzbQUVzNkxKI1cp/q/Rn7/nk2n5ApOGAzCSH5R49QdE0CsKc0rbsLLpotcLJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=kExiv4KF; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="mhYIpLkX"
-Received: from fauth-c2-smtp.messagingengine.com (fauth-c2-smtp.messagingengine.com [204.75.18.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: jmtilli)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4hlCvL6VJnzyc9;
-	Wed, 16 Sep 2026 12:17:02 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1789550224;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9ZXpwDz6DoWWBmQ6vDNVRxdpcZSSALaEWv74i0upVdU=;
-	b=mhYIpLkXxu0kwdpsCyg2ptsZ2zZmoKRTRe2nyzAjgJKINlpeMy/1QVvKiVordwsgA06nRw
-	WWwbwPc1mUFBBvlIjGr3S4+DCMYzBMPt3h7mJxYJvQ69SrFrSsj6NevJHmcAWOSJnqNtty
-	+GWRWvZbZiFoX/EOOehbP2rO5z7uZik=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1789550224;
-	b=c3hdnopAbUhZtfMwnqrW20N6KERXTE8cTeGgfkOcWFggZpG009s2rf5y0k7F9mZ5UZ+iRC
-	CcEo/8xHsBN1VKvYwb95jsx/ih6TEPwPQF6On/BFGIurtqqqzJwUv5EoUJ4NflC2LeZG8J
-	sYX3kxZpSkRwAM4BMH8fooNpmKjCSSQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1789550224;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9ZXpwDz6DoWWBmQ6vDNVRxdpcZSSALaEWv74i0upVdU=;
-	b=yCPVrohdICQmaggcHXB7UmJuA7G6Jq+PRk0WZ46pqYvIRSd9C6W+yrkVTuDmc9jKABfzF6
-	qkguW28IY2MUlnpqy2WsCpB8SWIdTlm9WCu17qKtiN1vHsFT0boF1XTC/GRVr6H+C93uFH
-	dE59THSTrlY0/wlrjn0HadMW4rhXPdg=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 8E28B198003A;
-	Wed, 16 Sep 2026 05:17:01 -0400 (EDT)
-Received: from ams-imap-13 ([10.64.2.33])
-  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 05:17:01 -0400
-X-ME-Sender: <xms:iV6qag3fwJZVElS11KOnACeO3JGDmX_uwUJvl8TgfoB81E3A3vBJTg>
-    <xme:iV6qal56Dzqp_NRsS9Es8Vuey_S8mDBuDqKiHnugv7udTKHByS_h2x7KhaWC9KEU3
-    ZFj6u_mUwXrGGZgRvLUvPqFAckzru_7RfuhLscUhqlA1JtFSH91NSE>
-X-ME-Proxy-Cause: dmFkZTGNFtvyF6MZNYMeLjLWJ41+we1JJ2Ix4Ro8hXfbflboz9ZBw6ovM/eey9Gijq0/Iq
-    aPwhDw8Qs0gEeTKSlITUHQSLt0dbFE5HrptM2obUWfKKcjNRHWOJjELo9P5f3QEsYpsE6d
-    hrW5Y+e/1UX012oUQk2r8ajWj1yE2k4hnhEzGiUXQ2NZpcbroifSXrsO8hYkY4GZvOPXW5
-    babRbJSvfgsF0DJ+bk/amnon7PS+3s261lu//dm2pq9kX+yE0j/XwQTCgkJ5QWBcdzXRyp
-    IvmjBKmjAjCc36wGn77wxm/mB3uS0XnN641PdGPuNW6NRJnwXoV5AaGiTKSGXWUb2sv2kW
-    srTKTE258K+d/Dwk2y/m0SKBTkVT7iUPkU1kdUtkFDK9au+RML61NpjAQSvMuS2QklOCAT
-    UAE0Hclbs+lQFAMq3R/mv2I+geAjMoF/L4gApGDO6Ok4deMGQcUNbcrZ2rTidFmHrHZzx/
-    gQMgSOeBNDvD9iy9e0dl1J5ZBX04VAXhXHLTuesqaH0VHp1GqpyU+6RzZ9I6Vnu/y6GVaA
-    BUHGfOrmUhAdNu0TKM/MpcKO7bndP+Kp/1Gmkn31I3yzIkbIc5y04Ohkm3zMV2cLZp4SOD
-    mE6ShLsWg4EeG8xoB2+/E/2wMsc/KbkcfJAiIpiyOo86TfLmsaLXCTMeEgZg
-X-ME-Proxy: <xmx:jV6qag_xAfBF4b7JfLUzVt_CTM_U8mWr7A_Fmw2jJJINzbR-C7OltQ>
-    <xmx:jV6qakIvhColpei7gd9PzH58eLkXDhYxtHsZOf4mSPorf1AdaldRnA>
-    <xmx:jV6qakuRhvl58_-z8GXRpFgARl3MkEUjJMCJkpvj-5fzdjVRb-5nDw>
-    <xmx:jV6qatltm3i7OvXc1xh20Y-yn0KjYy3bt86NYaMQOUa0ni1awM2SLg>
-    <xmx:jV6qarkHNZlZSzvbVHQJBCQkSeFEKTwE3m9W_toSFDjvBi2RYo-4MH1r>
-Feedback-ID: i02414972:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id C76DFF80089; Wed, 16 Sep 2026 05:16:57 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="kExiv4KF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1789550174;
+	bh=n25+JxY9MqK5iOVdfugBMvIEqa68PUtGXL1deEL5seM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=kExiv4KF+Fy2HutX4CQ6dfnbAq2hSnA4RSHtDFj+niLaiEPeM+Ae7vOjnUoxWNEjs
+	 faV6K2pDU8Xe/Gi3X+5R5TyBpt5skqj0Bqfg4jN5DPjpVEsWafdCET0q2xjcRtssvi
+	 dKUUE04dODVIgf30DhBY3a6OaWuG06bT9r/KO3MI=
+X-QQ-mid: zesmtpgz5t1789550173t40eaadf1
+X-QQ-Originating-IP: +RMT9ucGZ2OPfrEZNM3eoZ2h1QPwNAz8lywMTVvEtt4=
+Received: from [127.0.0.1] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 16 Sep 2026 17:16:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8074839530638732710
+Message-ID: <67E42B9AD8C47E8D+89af48d1-1b65-4acb-b76c-6c5f205a974f@linux.spacemit.com>
+Date: Wed, 16 Sep 2026 17:16:09 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AaJBIn-uFwMB
-Date: Wed, 16 Sep 2026 12:16:37 +0300
-From: "Juha-Matti Tilli" <juha-matti.tilli@iki.fi>
-To: "Manivannan Sadhasivam" <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, "Jeff Hugo" <jeff.hugo@oss.qualcomm.com>,
- "Jeff Johnson" <jjohnson@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>,
- "Eric Dumazet" <edumazet@google.com>,
- "Kuniyuki Iwashima" <kuniyu@google.com>, "Paolo Abeni" <pabeni@redhat.com>,
- "Willem de Bruijn" <willemb@google.com>,
- "David S . Miller" <davem@davemloft.net>, "Jakub Kicinski" <kuba@kernel.org>,
- "Simon Horman" <horms@kernel.org>, "Mihai Moldovan" <ionic@ionic.de>,
- "Denis Kenzior" <denkenz@gmail.com>, "Marcel Holtmann" <marcel@holtmann.org>,
- "Andy Gross" <agross@kernel.org>, linux-kernel@vger.kernel.org,
- mhi@lists.linux.dev, linux-wireless@vger.kernel.org,
- ath11k@lists.infradead.org, ath12k@lists.infradead.org,
- netdev@vger.kernel.org
-Message-Id: <9ffaeae1-3768-408b-8434-9f1704412fbe@app.fastmail.com>
-In-Reply-To: 
- <bjfwy4usrfbrabmcp4xsr65nqwdpuryvmrb6tzp6k2ckmdx27h@kvf7idvsugsm>
-References: <20260915054207.2513877-1-juha-matti.tilli@iki.fi>
- <20260915054207.2513877-4-juha-matti.tilli@iki.fi>
- <bjfwy4usrfbrabmcp4xsr65nqwdpuryvmrb6tzp6k2ckmdx27h@kvf7idvsugsm>
-Subject: Re: [PATCH v7 03/15] net: qrtr: fit node ID + port number combination into
- unsigned long
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 09/14] gtrace: Add RISC-V Trace ramsink driver
+To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <pjw@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Ian Rogers <irogers@google.com>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>,
+ Atish Patra <atish.patra@linux.dev>,
+ Andrew Jones <andrew.jones@oss.qualcomm.com>,
+ Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Anup Patel <anup.patel@oss.qualcomm.com>
+References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
+ <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
+From: Zane Leung <liangzhen@linux.spacemit.com>
+In-Reply-To: <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: OatzRg8pHEjpLcM8pE+CdWI2rV3k1w7+jxq9Z+OcP/42LTf3hPvCI15B
+	kHLrVpoP/9To/53w+HTLPQZRAs2I/SD2pK3/VFhqFdJXPSnMvpGsoYGiVeDQ23dXLtohB4o
+	kdervIELR7ZvUAoc7pDepxiQO3Mc65jaO4dS5drJuUtqJt785Q848FfNflZ2BRnGVUxE4fN
+	59T1ksSWNrxX5C3zdEXpj0ecwfgiEteuSwQQBhqFuW/QRcmnT5my+8pDn9x2st+cv1X6gkU
+	oYwhY5LAfHYVAOE1lOwmpnGECGkkLZLFpWIgyfb6CCRz/828Ry7crT/5coQQZGd+l3d3YGG
+	DUc4qSBDU+oLmoXwFd71ff+RuGYCZT8N7i+sglXhjPEUqgsdTh6t1liLDnqtqEorNVVRZDd
+	r8i3+j2c+iAxMKBx/WF+SdF0U3aLYntQWy4TrJlQT4yFyUJvnQw/t169iBEtM25ZFxO/c5I
+	JVYYGDTYHseP6vSpa7vR0hMPTADrF+KSKqv6Qt1BchR8c7nvUbvuGI7//PwjxxOqpNTNnR4
+	PFOM8Mr9Jenm27luErsLzKoeL6QvmnC8mZefbqLGiyZDbzxLxT5nKG+qr2kANVfvvPvDwfC
+	0xqafKjj901whKLT0l5+0dgrTlWHj4G5tU1AmHWT2JulcaFMLBEtWp5S0xDeJ2Dff1l2Kvu
+	mHwhSSxQPjOp3BTHI64fh9W6g5rQ5hJfw8DUu5q3vAOdemchlFhkJ6bTbq4Z05fNp40TPoc
+	HpOL2CDE39QgiCKqV+okSWAPUlC/0GOOM/9k4XHfREWz12YC3D2EI5PSph979RTIJkFBcxl
+	rnUftD0AXyTz4Z5s3hl/KanFYRrkXVHkaCeArtk13NOacZSvZySiVWkXkQTmvD00TgRdh6s
+	I4RwLIHzC+fuIqocZhoLvZB2A2s5did+IV5AtErcOPwloDgaeieFm9L5SIkyuXgsgm+UUF8
+	vipS+lJFE0MvqRC/vMwFE5SVwN0v55srT/L50XrUsACXHxV6aj14Ru/HEnKet4PgKHvpbyo
+	eqI8u55V5LldPqES07
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-On Wed, Sep 16, 2026, at 10:01, Manivannan Sadhasivam wrote:
-> On Tue, Sep 15, 2026 at 08:41:55AM +0300, Juha-Matti Tilli wrote:
-> > From: Mihai Moldovan <ionic@ionic.de>
-> > 
-> > The flow control implementation uses a radix tree to store node ID and
-> > port number combinations and the key length is hardcoded to unsigned
-> > long.
-> > 
-> > The original implementation shifted the node ID up by 32 bits and added
-> > the port number to the lower 32 bits of the unsigned long value to
-> > create a key.
-> > 
-> > Unfortunately, since both node IDs and port numbers are defined as u32,
-> > this will overflow on platforms where sizeof(unsigned long) < 8 (which
-> > are most 32 bit platforms) and essentially just drop the node ID part.
-> > 
-> > To fix this, build the key in a generic way, using half of the unsigned
-> > long space for the node ID and the other half for the port number.
-> > 
-> > This will be transparent to platforms where sizeof(unsigned long) >= 8
-> > and fix overflow issues otherwise.
-> > 
-> > The caveat, of course, is that, for platforms where
-> > sizeof(unsigned long) < 8, the supported amount of node IDs and port
-> > numbers will be severely limited - to half of sizeof(unsigned long),
-> > which typically will be 16 bits. Needless to say, we have to check if
-> > both values fit into this limit.
-> > 
-> > This limitation is probably not going to be an issue in real-world
-> > scenarios, but if it turns out to be one after all, we could switch from
-> > a radix tree implementation to an XArray implementation.
-> > 
-> 
-> Documentation/core-api/xarray.rst says:
-> 
-> "If your index can be larger than ``ULONG_MAX`` then the XArray is not the data
-> type for you."
-> 
-> So the fix is to not make XArray work, but switch over to some other storage
-> mechanism instead of XArray, like hashtable.
+On 8/10/2026 11:22 PM, Mayuresh Chitale wrote:
 
-I think I will drop this along with patch 04/15 from the next series,
-as it fixes one bug but introduces another, and those bugs should
-probably be irrelevant for this patch series.
+> +static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *comp,
+> +					    struct gtrace_perf_auxbuf *buf,
+> +					    u64 *format)
+> +{
+> +	struct rvtrace_ramsink_priv *priv = dev_get_drvdata(&comp->dev);
+> +	struct trace_buf src, dst;
+> +	u32 wp_low, wp_high;
+> +	size_t bytes = 0;
+> +	bool wrap;
+> +	u64 wp;
+> +
+> +	dst.base = buf->base;
+> +	dst.len = buf->length;
+> +	dst.cur = buf->pos;
+> +	src.base = priv->va;
+> +	src.len = priv->size;
+> +	wp_low = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_WPLOW_OFF);
+> +	wp_high = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_WPHIGH_OFF);
+> +	wp = (u64)(wp_high) << 32 | wp_low;
+> +	wrap = wp & RVTRACE_RAMSINK_WPLOW_WRAP;
+> +	wp &= ~RVTRACE_RAMSINK_WPLOW_WRAP;
+> +	if (wrap) {
+> +		gtrace_write32(comp->pdata, lower_32_bits(priv->start),
+> +				RVTRACE_RAMSINK_WPLOW_OFF);
+> +		gtrace_write32(comp->pdata, upper_32_bits(priv->start),
+> +				RVTRACE_RAMSINK_WPHIGH_OFF);
+> +		src.cur = wp - priv->start;
+> +		priv->prev_wp = priv->start;
+> +		/*
+> +		 * There is no way to tell if trRamWp wrapped around more than once. As a
+> +		 * result priv->prev_wp can't be used and the entire buffer must be copied
+> +		 * even though some data might be duplicated.
+> +		 */
+> +		bytes = priv->size;
+> +	} else {
+> +		src.cur =  priv->prev_wp - priv->start;
+> +		bytes = wp - priv->prev_wp;
+> +		priv->prev_wp = wp;
+> +	}
+> +
+> +	tbuf_to_pbuf_copy(&src, &dst, bytes);
+> +	dev_dbg(&comp->dev, "Copied %zu bytes\n", bytes);
+> +	*format = PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE;
+> +	return bytes;
+> +}
 
-Indeed, that commit message by Mihai wasn't entirely correct: XArray
-will not work here.
+If the discovery of trace parameters is delegated to the user-space decoder according to the cover
 
-BR, Juha-Matti
+letter, why are we explicitly setting PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE here? Taking a step back,
+
+the trace format should be determined by the  trTeControl's traceFormat rather than being hardcoded.
+
