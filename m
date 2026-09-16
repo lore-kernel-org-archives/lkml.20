@@ -1,169 +1,319 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB49D471422
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:34:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB946471422
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547671; cv=pass; b=VqbKThoYF6jBALp0Rw5SoZUJjgRkY2UaA52o5EJv1ZwFca3KyOIt+9MlPma0yHDc3nyafV14fO4VBQUB/1uMDdUdqpA+SiYFGEPYEGipHrbfvr6X2HyvFITIJ4zpvrg4cuuNIrVNHIelI6v5M+948CHj5Be0AnNgy/2+uPAWfIc=
+	t=1789547694; cv=pass; b=VRiVKJclN4H+kNNOCbV/PyLDoTHaf3X+lZfSQaK1YZUlQ+vOyqj+8HNxxC0We1aiAB6RCEWQsdp7wkCcmh7FR9OKVz4VmnvmG37cN/3hMBWdAjdfDh6OBVt3Jkb2Z933OjxQPlWAAtK+mie091uDX6wfoe2Y2HWu4joxxAO8RyQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547671; c=relaxed/simple;
-	bh=E0XqkUESiN1hlEBTC+r5MA1JM5vILVmKxSWQU9kfer0=;
+	s=arc-20240116; t=1789547694; c=relaxed/simple;
+	bh=iRhytWQvblSun1y5CflnWMVbcsOp9T6spJkGMvIPzkg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=PiIFRmjEoLkfRS3jPDytklvpCuKIxMUn5Fmkimj2yYQMfDC/48BeoPOFiJ4en20WxGJkZtJUq1+6l+Sy5iQNNokXSBftHzjQlYDBFJNi3GNflBQS2BjwCNlVepR68LiXHlc+gEUDKJTrEmT2fWhfLwlqFnfohg2ajr30MKiW5NY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CQ3FXUNS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JTao+uam; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=HUp8RPheNaw5DqAzylHM/GGbL+jPQrOihmNiaTSk7TcP6ZS6urH5LC2Qc1QxXv+H2vK1genV1iQ0Nbr2eEymlL3WR7Zoupo+A2kvul2LvSNn3KW6ERdlDoCuUL+OpFBIPYXfvcHyOxBmXRJdQLkO+NQkkiIuBoaM0dyzrbt/jcA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CdDjxpaP; arc=pass smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CQ3FXUNS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JTao+uam"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G7XZSi2970497
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:34:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	E0XqkUESiN1hlEBTC+r5MA1JM5vILVmKxSWQU9kfer0=; b=CQ3FXUNStXk3tAGJ
-	IEmrCn0FNgUKMCV6fCW1I/mJcErQZOUiKeDOJjjjoV88mBUoS/zqj4zJ4mBrsUMh
-	k95/J4WdG+f8ISMCX1BDhlGmE00A9i2tqLPT9oLppgSzcZEDtAqSvOrWZylf+kGb
-	PCB4jaX8QY3hFOcKlKIoNSuTx/6Le65gkVcYmMYE9jV5fy2JRKqPXBUslKo2+RQG
-	ejmCqDqF9ssBz8UzRV7sIDUtsOyjnDUZpDOo24Lv3y7zDO7d9pNU7LVzn+uIZSBZ
-	Lw6cpY+COKzJnPr8Ye133XYzSXqW00S/d2Cqnng9vQEcSRgZy2SGRlrd9U4VHVk7
-	xhTwbQ==
-Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com [74.125.224.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqpu2r7jk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:34:29 +0000 (GMT)
-Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-6711c640f79so1727102d50.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:34:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789547664; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CdDjxpaP"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e82ea30faso1059255e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:34:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789547691; cv=none;
         d=google.com; s=arc-20260327;
-        b=CTpPTSYKoUHr0elzEZOSWVxE8DZ6iSOvNOoWJvHAOyAcA7+Lk8vnhY96nr+WivArYz
-         pP5BM1TYMrJB7l7y1LxVwD+I1AHCIDZc/CoqrKRw1w7oew05qkiwP1JTYblB8yR+zNv1
-         Klss8Mx7VWigVRPX3ZG+urBqNNCVAsx/RLm1CRe/MJaDse9YPvqpJm2kXjMqpEmrwgXZ
-         7V65Y1lps7OFGrMkV4LVEogSThnNpEngBjVY2v6kvsufIURCqMb0jDZcDfhk5FR2xZk3
-         JxJU5Kr8cadnt9VNV4fwgkGrrfh8nxwcCiedQPQeyR4siRguMSQjw/0rdIQmBB34aF1J
-         BL8w==
+        b=Ge1NhIHvDsrfYCnd0/vbwQwOXl/VlfZxFtir3dcM3jUcxuzEX+G93OK3myEOhMJOm1
+         R5GnCQjmPfu0TffPA2aIlIEv8VkS6g+hPsoATDGKgc7twwgz0MWymrD8tKSKCHKaPyWH
+         vTSmh8gxOy0EI+Rh/IgmiT8tvqXJvZYLax6TBglkeXeelWZ642o4o5I4z9UG/67Vf6lC
+         q94Oskm1qUdTbble22GejL0cGLWYAAdjWdcV+CDBDaKXPxw98t4S9mQAx0k+LtG8YhwX
+         Z1tl0KwKw0HW4v350Vxtau4zoDoPOqRcEDaKllOGaHXpuq6ZYX0mSD2X2yahCYK/fbAl
+         pfxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:to:subject:message-id:date:from
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=E0XqkUESiN1hlEBTC+r5MA1JM5vILVmKxSWQU9kfer0=;
-        fh=EaH8kjrfmFsBuvW9J07p8Bo9JIUlA7r9IZ0kcDDeIkk=;
-        b=pWZdIxnNliYr44aPy/3mQN7cYWc151HCPQuU/l8oo+cZJbqV25jrKLLBbyEJgHkXKo
-         Lp8yPBENF8MAuROLirEOqDp0fRyvGZO2O3jiaL5bEQL1c6jrOIJNKJFyjdtoZlM/GZyf
-         SDDj8hV1Oal/vgi8my1YQ2XiLid2mDlA0qma4+jLO8XxjXjVLtz+b3tovWDc26YyumJi
-         CDagzb0/33S/ICP/2proLPEMuolyd99WLHRW3E3axdUAN6p3sL99BMz87HhQ9PSHnl+t
-         axCXmUhH8WdOsk2far/KQrSEWpmgsKhdneTXD7Z8GJItD0JM03fNgMrd+rXwAGl3sAHG
-         R6WA==;
+        bh=kxdCwKQjhFr24rYMozxK3imzxUOsehIR6WhMmOJ/bP0=;
+        fh=OOkV01c8odX/prrOquAWeu+8s35PQxiWgNlDQ8GjVbw=;
+        b=NCRcFX3s4dn7SXXi85NsiXDBT76EdW+eflTj0GhrymA7A36D6bipNA3HHKkUoyw3eU
+         /6xTqiwky4Y4Lprb3VtiP2IgKgB5vaHxc8G0JWBatYnEESL4cXQms4PRB7SDK86IWpSa
+         +RZVUM0PR2bHmrybPlRKjAjNSIaVyMvrC9wRj+BMDTb00FfXcKoEYloKGZmbfl/lbO9v
+         R/M5ReYyporD9MAuQeIsrHzDtCR7u4s0XKlFyP+YxxgRkjF0Bkaptbs/asXy9QO3CSys
+         NgSvk+FhR3NZnMsB2WRqAptxnadC/sR50uhNp+CZivj0AzuqOuKMtNhgmXXq50fdIvOS
+         F7Vw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789547664; x=1790152464; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E0XqkUESiN1hlEBTC+r5MA1JM5vILVmKxSWQU9kfer0=;
-        b=JTao+uamJ2HNiXaCj49vnNlrZoyO+BbipBuFYkZiV9j2j0lHeMCByC/n1C182Nmu1l
-         KyLQeMFxTuzENde/3YIM23t90MiIavfbnJbUool4ds0p7pj5c7My5bG92JbSE5g/HbQS
-         iMAd9vUl9qWQMhJSLU3roZCRpl32BG1i6uQB/VUfDNpO808qV3L2hLDfqlBE5pVoYDH0
-         dA+7j4V4wzhEkqPlrXGpp2b3evsY5IoRp2DrOziSiSVPGh84HVcAgr6Mpjas6m1JuOPk
-         3vSNigYTL49z6m6UE4ntIWG40yTCwtgfsvEFa2s/R/pQ6i280VZT7sspIoB1bdQo/Lok
-         1X4Q==
+        d=gmail.com; s=20251104; t=1789547691; x=1790152491; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kxdCwKQjhFr24rYMozxK3imzxUOsehIR6WhMmOJ/bP0=;
+        b=CdDjxpaPyOLvTzYUicl4VqD3cOkJXcDYhum2sCJou6ecilCrJW9ZLU4cPLj3BIQj1U
+         0EDAJ+QWpfJzt14bzm4/I7Pw/lG8bs1AaXHC3C62j9n1Iy+wbNSC7SZV3IUxAMuBCalX
+         cjyYBX2bE4RFu+s80akcmbxaoY2Fd3EVIKBfjGvuhROgg5srCkwCvGMzDx+Eu6/+22Gt
+         iJ7aXRLUHjfsILC0UNjO9Ji9TtOdfiRDjq6N6iqwHlICQPTvAqB5GntIIwtMDCCqklru
+         0MVdLb4Rxf4DgHogzAPZ2793i477NaPj3CnS55zaUrxd2CW10+CnJ5IDN/2VKReO1Ogv
+         CS8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789547664; x=1790152464;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E0XqkUESiN1hlEBTC+r5MA1JM5vILVmKxSWQU9kfer0=;
-        b=RBSXaUNOeT2fo+28TkvpwGumhhKDIeWmxJUNeD2FOO3waQDuFu3MahZq0q/0BxBSgR
-         +X6TwH0JB3bEDJ7bHXfSoGBt99sf5QQ3+HUAs6Zf8jvEWPU69H16mn/BckzbBdBsSUWq
-         XCNwObx3sDO36sKpKNz6N5sd/ptlrZ6ugXHDDusFU3drOGg9DIuvzCON5Pqh8O4RC6iC
-         6oCJ6Ljys4CJ5ivHrfuHVQyoTMT8Ev02C4xEqe7LK8HRgIWDp1GCKeH7FYBqHyuHE6bC
-         zRUTXnnRu5XKkBz4xGtQrNJoRMGD6T46TAIsIyIPnzL0GFC0nh0Xi8MK1kso+puHQS7T
-         4uXA==
-X-Forwarded-Encrypted: i=1; AKwUvBwgNgS4G9mr+cVkeLWp+McrICcYW2KrQoKBvJf2/pqLvL1jpt72wDqa4CA0Zzx+jpz6fky6SfLOO1rI4W4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcXrSpRiB70oWUh/lSc5DbBXX1xqWOFgaX/nVLD++HvMam5khh
-	qwP2fGbfopFznZH+u1HrBuPxHcTN2PPhSTQPIOATVYJcv46dOk0R8fnHBbm/CvMigl1d+TMDH0b
-	wKSeTNg/VLUFpUGNoccf129h51qKkcyzXXH9k5jk1df4CZYm0QKF5qP56ilgZsoNn2y1hW5J4wk
-	BF+xKqAbYd53t5Mi/a0I5I1F40g8YrTtBNyI/mrYk66w==
-X-Gm-Gg: AYBFou3JJlQy4jSu02hVJiGyTPSWmw5v6aQqzsNqVG9SLMzQrddKvfpxYWhU22PXLMI
-	TxsHQ/qO3yVzV3U/0fyI4C2eK9XBFmwiukLgy0+YwpIrnYHrw8RzMGZpxreUVOG4Fxej3Yj7O4E
-	YPxWuK2BcZqUrKW/4yFGITV7zAjjDkHCEXOxWK6LPB9XukRa0PgsZlyfw=
-X-Received: by 2002:a05:690e:d0b:b0:671:4b50:d72 with SMTP id 956f58d0204a3-67154f5116emr1586693d50.7.1789547663896;
-        Wed, 16 Sep 2026 01:34:23 -0700 (PDT)
-X-Received: by 2002:a05:690e:d0b:b0:671:4b50:d72 with SMTP id
- 956f58d0204a3-67154f5116emr1586688d50.7.1789547663523; Wed, 16 Sep 2026
- 01:34:23 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789547691; x=1790152491;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kxdCwKQjhFr24rYMozxK3imzxUOsehIR6WhMmOJ/bP0=;
+        b=lQFnRJ5SOXEE1QUEdksfNRuimAWpNVCrPpg8sz6k5PqNbxOglPtXreQhv1FEDwHDnn
+         UxdzNXug1Y/GcGggGLT//sP/C9pZMWu4L1vrbfwmKXt7GLOYTcqvfr9Lbiq+j1o6T4KZ
+         iY7dUFUv54Ho9xJ9nh0iuyc3Wr4ufwfw3QVABGrnmyjweI9Sb3I8YngpEVYzVcv+DtdP
+         SNj8qhVtq3trPc3LGD/N0U93/GpORV4btoOdCUwzkn07651V5Bh3uyQ/5P5STYTdXstd
+         FHy4dXrDI8ujcAQn5rR3SBv1fO9gQgFsn16ZlDoZ+TFuREn4xY/36YJ7s3aB3puCUJ/5
+         iEGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwF4i5rcDjLO+BK2YrSE9/+w9QRXXWV4Pi6UH2nv4E9iubZA7uct5JaeN+CIUDz8YaiuEqd8Ajxn8qdQdk=@vger.kernel.org
+X-Gm-Message-State: AFuF++myO7V9fjwUdJxCSiVV9XSz3ogtpRc7VZM/nPuFGcygaEYd7PBa
+	CWvLrYY6yqJA2kJ1oj5napJHkyLS0Y8vOqh+NMFN0yt/InACHg2NJe2zrwV4vU57z8ZbRC2Ndvo
+	eH11h0v6+OFIU4uRDZBaM+FGGvSF0BBQ=
+X-Gm-Gg: AYBFou0CdsSVSR/T4rl9fqvAJyja6sNl/SMq8AJjGbHMhf7oSd8BKCqem+VUE1aQiav
+	yYYKu6BDO9MCYFHSVp1Wmhr/L+Z2hNkr1JR6uhXtlS/1ZmO/1gTLBiozekMIpS/aMS0lv4p6Kh3
+	maFlsrsxy2p6GEA5BS/FAY425AWpWRHieNSIWpvwPeouOjufvl0b4crXhIITQnAjJzS+tpp0fmR
+	z6FSVm7OuKcgtIbgHeI+ioF+MEmt8MnSGHsGmsTtpwOCnRFFIdBFNlsEkS2g0rJWBQhLm6aR9fU
+	SSBYHGfS5FyC6z73pVw4TNDgVT60hGQbXSVci5SCqh1E2AJIxsdUcOwlHe00QAWsm5g=
+X-Received: by 2002:a05:6000:41f4:b0:487:ae2:4d0e with SMTP id
+ ffacd0b85a97d-4870d2a46bfmr1946490f8f.5.1789547690812; Wed, 16 Sep 2026
+ 01:34:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903175730.1909952-1-afd@ti.com> <aqJ0yCHd03ZLsSMT@sumit-xelite>
-In-Reply-To: <aqJ0yCHd03ZLsSMT@sumit-xelite>
-From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 10:34:12 +0200
-X-Gm-Features: AcwNN1UYhdhLkRJRl0-6L6I-0s392VyUVtYk5_XpwRYYKG_lQZfM1sxUpE9LJ04
-Message-ID: <CAGgiveVZurBzh++FrDvoxe4Cq2OBZD=r7A3k_i7_atCyVjzsXQ@mail.gmail.com>
-Subject: Re: [PATCH] tee: move tee_ioctl_shm_register_data to above IOCTL definition
-To: Sumit Garg <sumit.garg@kernel.org>, Andrew Davis <afd@ti.com>,
-        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org
+References: <20260916015440.2232938-1-chao@kernel.org> <20260916015440.2232938-12-chao@kernel.org>
+In-Reply-To: <20260916015440.2232938-12-chao@kernel.org>
+From: Zhiguo Niu <niuzhiguo84@gmail.com>
+Date: Wed, 16 Sep 2026 16:34:14 +0800
+X-Gm-Features: AcwNN1WUb2Oa2X_pDKeO-ABWDOZmdY9kADjwmdENNs0cfl8VmA1ikKzIjCwxY5s
+Message-ID: <CAHJ8P3+MS_py=0ofRpL_c1J7EHLL-Hdqr1+AXTgCkJb-1p7DzQ@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH v8 11/12] f2fs: cache: introduce tracepoints
+To: Chao Yu <chao@kernel.org>
+Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: ZI_hLIE99Rq7cCOzwYcdWfjwqNUgxHID
-X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aaa5495 cx=c_pps
- a=ngMg22mHWrP7m7pwYf9JkA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=b45o4kL6AAAA:8 a=sozttTNsAAAA:8 a=EUspDBNiAAAA:8
- a=pYuakFrei0FEQ6tmCC8A:9 a=QEXdDO2ut3YA:10 a=yHXA93iunegOHmWoMUFd:22
- a=dhdsR-PFWuPJUldTnwXm:22
-X-Proofpoint-GUID: ZI_hLIE99Rq7cCOzwYcdWfjwqNUgxHID
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDExMSBTYWx0ZWRfXwtvTFzgUiFdl
- 29Fl6LsIrvIjAUkBcffBzMx5pKodgAaLrxmFtjxcA0y0h6wYBd92feyJXxUfKigZXwro06TFPsc
- BVAwwDWfnOaOSabyV9sN9Q3RAC6TIvjYxCytSz4RTydeqTZWfp3XcWQY11ZzvkHblcr4Vvsahxa
- uDKSi+a6Ht/Wqn8nysXHVMJVvtFdxnBJFkbMQlJpCrf8kvYOdOoKoIElyDqJOvysJLJ3UH6pdEG
- o97MKsJAzyPc75c0xqJdX8rqx7EEf4hJ1x5h5eF+RMVKAkc3tRvQJTdBZBuESaJC4hrcyUrHRPv
- Zu5If2JasbsjPDbseo6wGyLdRec0KSJGf/wgGq0C6+Itz6Q28PI2ta301zvy5ayM5tjs6HjJG/c
- lMB0Pv/9O79Mb8AmjPeq8QZd6+rfiGQjOTk1bOjMy9TbBgF3yvbzh/BpRMQOTLYyvCJVD0YsLJ2
- PpBlQ2Dcv4edAU2SJLg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDExMSBTYWx0ZWRfXwn8G9mW0kJ5z
- MGQXmAXd8eg5rQJO2E7glwE0fRqm8opmZyQ2bT3g3IsartQh1vJAt5O6GPRK9ZnJzTo2TCcgw/P
- Akra40l/P//sY0Zqx+z2pHn1Z8EcWxQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 impostorscore=0 spamscore=0 clxscore=1015
- bulkscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160111
 
-On Fri, Sep 11, 2026 at 9:40=E2=80=AFAM Sumit Garg via OP-TEE
-<op-tee@lists.trustedfirmware.org> wrote:
+Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
+=E4=BA=8E2026=E5=B9=B49=E6=9C=8816=E6=97=A5=E5=91=A8=E4=B8=89 09:57=E5=86=
+=99=E9=81=93=EF=BC=9A
 >
-> On Thu, 03 Sep 2026 at 12:57:30 -0500, Andrew Davis via OP-TEE wrote:
-> >Most of the struct definitions for a given IOCTL definition immediately
-> >preceded that definition. The struct tee_ioctl_shm_register_data is an
-> >exception as it is placed above the TEE_IOC_SHM_REGISTER_FD definition,
-> >not the TEE_IOC_SHM_REGISTER one it is to be used with. Move it down
-> >to match the others.
-> >
-> >This is a non-functional change for consistency and to help prevent
-> >someone from accidentally using the wrong struct with the wrong IOCTL
-> >based on the struct's location.
-> >
-> >Fix a couple small spelling issues while here.
-> >
-> >Signed-off-by: Andrew Davis <afd@ti.com>
-> >---
-> > include/uapi/linux/tee.h | 40 ++++++++++++++++++++--------------------
-> > 1 file changed, 20 insertions(+), 20 deletions(-)
-> >
+> From: Chao Yu <chao@kernel.org>
 >
-> Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-
-I'm picking this up.
-
-Thanks,
-Jens
+> This patch introduces ftrace tracepoints to observe and profile metadata
+> cache operations:
+> - trace_f2fs_cache_set_dirty to trace marking a cached block dirty
+> - trace_f2fs_write_cache to trace single block writeback submission
+> - trace_f2fs_write_caches to tracesbatch writeback and sync sessions
+>
+> Signed-off-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+thanks!
+> ---
+>  fs/f2fs/cache.c             |  3 ++
+>  fs/f2fs/checkpoint.c        |  6 ++++
+>  fs/f2fs/node.c              |  4 +++
+>  fs/f2fs/segment.c           |  3 ++
+>  include/trace/events/f2fs.h | 71 +++++++++++++++++++++++++++++++++++++
+>  5 files changed, 87 insertions(+)
+>
+> diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
+> index 27624b6799a9..3f345e5d5186 100644
+> --- a/fs/f2fs/cache.c
+> +++ b/fs/f2fs/cache.c
+> @@ -15,6 +15,7 @@
+>  #include "f2fs.h"
+>  #include "cache.h"
+>  #include "node.h"
+> +#include <trace/events/f2fs.h>
+>  #include "segment.h"
+>
+>  void f2fs_cache_wait_writeback_cond(struct f2fs_cached_block *entry,
+> @@ -73,6 +74,8 @@ bool f2fs_mark_cache_dirty(struct f2fs_cached_block *en=
+try)
+>                 enum count_type type =3D IS_META_CACHE(cache) ?
+>                                 F2FS_DIRTY_META : F2FS_DIRTY_NODES;
+>
+> +               trace_f2fs_cache_set_dirty(entry,
+> +                               IS_META_CACHE(cache) ? META : NODE);
+>                 f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_NONE,
+>                                                 F2FS_CACHE_TAG_DIRTY);
+>                 inc_page_count(cache->sbi, type);
+> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+> index fe7e8bab644b..406bd3b1c77f 100644
+> --- a/fs/f2fs/checkpoint.c
+> +++ b/fs/f2fs/checkpoint.c
+> @@ -550,6 +550,8 @@ static bool __f2fs_write_meta_cache(struct f2fs_cache=
+d_block *entry,
+>  {
+>         struct f2fs_sb_info *sbi =3D entry->cache->sbi;
+>
+> +       trace_f2fs_write_cache(entry, META);
+> +
+>         if (unlikely(f2fs_cp_error(sbi))) {
+>                 if (is_sbi_flag_set(sbi, SBI_IS_CLOSE)) {
+>                         f2fs_cache_clear_uptodate(entry);
+> @@ -611,6 +613,8 @@ long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, =
+long nr_to_write,
+>         struct blk_plug plug;
+>         bool background =3D nr_to_write !=3D LONG_MAX;
+>
+> +       trace_f2fs_write_caches(sbi, nr_to_write, 0, META);
+> +
+>         blk_start_plug(&plug);
+>
+>         while ((nr =3D f2fs_cache_gang_lookup_tag(META_CACHE(sbi), entrie=
+s,
+> @@ -666,6 +670,8 @@ long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, =
+long nr_to_write,
+>
+>         blk_finish_plug(&plug);
+>
+> +       trace_f2fs_write_caches(sbi, nr_to_write, nwritten, META);
+> +
+>         return nwritten;
+>  }
+>
+> diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+> index fe5e4c4eff23..aa485a09ea6c 100644
+> --- a/fs/f2fs/node.c
+> +++ b/fs/f2fs/node.c
+> @@ -2110,6 +2110,8 @@ int f2fs_writeback_node_caches(struct f2fs_sb_info =
+*sbi, long nr_to_write,
+>         int ret =3D 0;
+>         int nr, done =3D 0;
+>
+> +       trace_f2fs_write_caches(sbi, nr_to_write, 0, NODE);
+> +
+>  next_step:
+>         index =3D 0;
+>
+> @@ -2217,6 +2219,8 @@ int f2fs_writeback_node_caches(struct f2fs_sb_info =
+*sbi, long nr_to_write,
+>         if (nwritten)
+>                 f2fs_submit_merged_write(sbi, NODE);
+>
+> +       trace_f2fs_write_caches(sbi, nr_to_write, nwritten, NODE);
+> +
+>         if (unlikely(f2fs_cp_error(sbi)))
+>                 return -EIO;
+>         return ret;
+> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+> index 87e24d0306e8..15cffbb5b407 100644
+> --- a/fs/f2fs/segment.c
+> +++ b/fs/f2fs/segment.c
+> @@ -4226,6 +4226,9 @@ void f2fs_do_write_node_cache(unsigned int nid, str=
+uct f2fs_io_info *fio)
+>  {
+>         struct f2fs_summary sum;
+>
+> +       if (fio->is_cache)
+> +               trace_f2fs_write_cache(fio->cache_entry, NODE);
+> +
+>         set_summary(&sum, nid, 0, 0);
+>         do_write_block(&sum, fio);
+>
+> diff --git a/include/trace/events/f2fs.h b/include/trace/events/f2fs.h
+> index d53be932df01..df4cd346ae72 100644
+> --- a/include/trace/events/f2fs.h
+> +++ b/include/trace/events/f2fs.h
+> @@ -1430,6 +1430,50 @@ DEFINE_EVENT(f2fs__folio, f2fs_set_page_dirty,
+>         TP_ARGS(folio, type)
+>  );
+>
+> +DECLARE_EVENT_CLASS(f2fs__cached_block,
+> +
+> +       TP_PROTO(struct f2fs_cached_block *block, int type),
+> +
+> +       TP_ARGS(block, type),
+> +
+> +       TP_STRUCT__entry(
+> +               __field(dev_t,  dev)
+> +               __field(pgoff_t, index)
+> +               __field(int,    type)
+> +               __field(int,    dirty)
+> +               __field(int,    uptodate)
+> +       ),
+> +
+> +       TP_fast_assign(
+> +               __entry->dev    =3D block->cache->sbi->sb->s_dev;
+> +               __entry->index  =3D block->index;
+> +               __entry->type   =3D type;
+> +               __entry->dirty  =3D f2fs_cache_test_dirty(block);
+> +               __entry->uptodate =3D f2fs_cache_test_uptodate(block);
+> +       ),
+> +
+> +       TP_printk("dev =3D (%d,%d), %s, index =3D %lu, dirty =3D %d, upto=
+date =3D %d",
+> +               show_dev(__entry->dev),
+> +               show_block_type(__entry->type),
+> +               (unsigned long)__entry->index,
+> +               __entry->dirty,
+> +               __entry->uptodate)
+> +);
+> +
+> +DEFINE_EVENT(f2fs__cached_block, f2fs_write_cache,
+> +
+> +       TP_PROTO(struct f2fs_cached_block *block, int type),
+> +
+> +       TP_ARGS(block, type)
+> +);
+> +
+> +DEFINE_EVENT(f2fs__cached_block, f2fs_cache_set_dirty,
+> +
+> +       TP_PROTO(struct f2fs_cached_block *block, int type),
+> +
+> +       TP_ARGS(block, type)
+> +);
+> +
+>  TRACE_EVENT(f2fs_replace_atomic_write_block,
+>
+>         TP_PROTO(struct inode *inode, struct inode *cow_inode, pgoff_t in=
+dex,
+> @@ -1574,6 +1618,33 @@ TRACE_EVENT(f2fs_writepages,
+>                 __entry->for_sync)
+>  );
+>
+> +TRACE_EVENT(f2fs_write_caches,
+> +
+> +       TP_PROTO(struct f2fs_sb_info *sbi, long nr_to_write, long nwritte=
+n, int type),
+> +
+> +       TP_ARGS(sbi, nr_to_write, nwritten, type),
+> +
+> +       TP_STRUCT__entry(
+> +               __field(dev_t,  dev)
+> +               __field(long,   nr_to_write)
+> +               __field(long,   nwritten)
+> +               __field(int,    type)
+> +       ),
+> +
+> +       TP_fast_assign(
+> +               __entry->dev            =3D sbi->sb->s_dev;
+> +               __entry->nr_to_write    =3D nr_to_write;
+> +               __entry->nwritten       =3D nwritten;
+> +               __entry->type           =3D type;
+> +       ),
+> +
+> +       TP_printk("dev =3D (%d,%d), %s, nr_to_write =3D %ld, nwritten =3D=
+ %ld",
+> +               show_dev(__entry->dev),
+> +               show_block_type(__entry->type),
+> +               __entry->nr_to_write,
+> +               __entry->nwritten)
+> +);
+> +
+>  TRACE_EVENT(f2fs_readpages,
+>
+>         TP_PROTO(struct inode *inode, pgoff_t start, unsigned int nrpage)=
+,
+> --
+> 2.49.0
+>
+>
+>
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
