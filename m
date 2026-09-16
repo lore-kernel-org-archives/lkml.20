@@ -1,342 +1,156 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98073932C4
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9FB387359;
+	Wed, 16 Sep 2026 06:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789540655; cv=none; b=XKkE+9Q+rQi1nIxUTVE95ODqzt2OeDIH9Qk09vfnqJ5retPqCqrsk/gl9fBXSz3RePY+uvmLEPHLTAUq8UNcLUzM1dp6XkSWtU9Y+bPYRX7YXU7/vldovfFUSakv0B2B4w1D6bCE1fEzabRG4oSnInUpTZKsr0Vw13YSu8RFs8Y=
+	t=1789540740; cv=none; b=m11oz6Tby2tcJT5hODgMGdcYZ6c62tbjRxzW6VkLJ2+HWj/nbQgSJ3d9pqiSNrM4qGbDALwH7oa9SJ4+/O0LRFTy2aCTjeP8ckVWT2qOm/2W3CbNMM7m4i86OoUmuEdaBz0CgexUabHEh7Ub+PcYHE+2fFOeZ0mUT2NFcfW4wmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789540655; c=relaxed/simple;
-	bh=Oza3YAP+5sFyhfrMYS12tMSr/hDhO4p8cOfFjjZ0lf8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uotVQJex9zOXzieZHhjs9HuzJo+TWLVdDz1rjjyBaLKldAY7a/DhA/YSB8MpXxaXx8kKqD/M1psp/RgwHVkQzeBpsykqeWMHs5k0i53dkXAw1xAlNd2sIucNhgdS2UDMPUJtdZ+xshk3Q/f0K5uosZAHamU17nPxckIDy6er3ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ILKqrp7+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I3ju3QPh; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789540740; c=relaxed/simple;
+	bh=iU6G2m+wrmWgfgn/0yBm7PYayX0WyU1SDB3L2Fyqpfs=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=XKBlvbVIRYSRnXhH+Udpl4piM0eDFPxpB5WAG1Y+IXUJTbc3u9P/6Kjg5xEZsl50nHa7MD2jmw3OsQtNAz7KVVDgHbXop9g8wCE3+XUWW2ngEljXTCQnRGEnxO06vtD22+TZ1TO9QGUuJw8mrZylgrEScTlRUx7Ywc/RNqN0jdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=WF8L+S0u; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=i/DWAvvF; arc=none smtp.client-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ILKqrp7+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I3ju3QPh"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G68v2V589892
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:37:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AQ+wFIcS7R/qaD+wlIu1vUybEb7TOl8vT6jhLZTSv0w=; b=ILKqrp7+N1wCkRrs
-	nLsngSEOjVJ4Se7FEQ1iUV1nCgLA7yCzm8iUPx6tsQrlSE+mvCg3a9WPt1Bxn7zL
-	KeUXGlzm+v1Ss8EMBjk4K7w9GhzYGcP9meburL+vh5BJGcXaoDUQV7CYJt5zuQT0
-	MyMVDiXjbqHsQRwTZSdoyS2O6wAnUpiUO1TnyOwQh/nmZZmJndPMDKuPbQmF6oBe
-	QZr0PEnlP2PINYvG4aYJqXvjBNpXITeXRfBlZPFr71GfC+Emzi1mKlMO1MkwSRkU
-	ZRxCADeLpv5CmwgeXaTX/iXVZ1mnewDdb52wg2TLcpWo9BPFJivl4tcQnpbuyANG
-	pkhS0g==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqe1r9skw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:37:32 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9102f07f2fdso35838556d6.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:37:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789540652; x=1790145452; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AQ+wFIcS7R/qaD+wlIu1vUybEb7TOl8vT6jhLZTSv0w=;
-        b=I3ju3QPhIk0kgqwyHhxhC7Rtlg3imbbs/PVW6ID1XiU2BLIdWsit4Vh4r09Hda+FRm
-         ggRuNs6D4LQRS1M1ZApnqzR9p+PqFdwBXG7yFntBr7zCtX7+8rFxeSL+chKKOQLLPV7n
-         /QTWhJQUcYcgAvcugUadc52PfHd1rroq3NQRnVeSnzO3ozjip66WruERJTf/8jdQrAWD
-         81O71iZvkefU3d7FqHUvL4IRG/aXdd+F388RnEc0a4M104dARiG47nIvPjBIl5IiO4OE
-         WDQz/k/v9+Nx379sSEyz9/jImMd0/Tv9p9uPhNQGMNAqIeXM0PJRgUtaELIP0uyHHmfb
-         /V5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789540652; x=1790145452;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AQ+wFIcS7R/qaD+wlIu1vUybEb7TOl8vT6jhLZTSv0w=;
-        b=djtXdjDuObObv7XK7w59Ln/gFHZnACUsVKu3WHrnK+wQJyjhPVY3bx+Su/oCqEiP4h
-         EKdjT2AnMRNrl1HnTTt1Lu7TUDX+NgFwn4fsPP6SuMtNFmwY1hLV4qHpr1tr2rsDmTPE
-         U2+t43THtMBWZypsyUYc+rUxLhRPmYgomKhIObKdhIn+Z9XhF8Kr3QVXhJmfZIfYPRsd
-         X7wWYpM8JshwXPUnibJ6IS2wN8wyVGXtMQlN7LSQoDUIq29EdyExIxAd8+L1cik2MRBC
-         QG7aX/zqWSud4G2E6mRWpizBRTAmOdb8FXWRjn2OSoOSyH3RWpBVBEpSgZk4mrNE5kCl
-         cioA==
-X-Forwarded-Encrypted: i=1; AKwUvBwmiAOne6VZS5vhR3gVvqKPurIXNi3CLGNbmbC9aT862JbE5Qd0hqQyw9UGrNv38WlZwYBLngcozz43CX8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+hjsd2uuMiGsM0sMRmUGd9JADeOPvGfPkIxf4sJu33zM9nWO7
-	ogmfNHGItoe2l9UutpXZZaOSyjoC6q13kpxjpEdWSmhvNEPeY1SyW0tthSahPgAWZhZaiuzpr6h
-	ugydmx1Z7NXH9sPu47m1Bwd36qS3DbhwpwkS4N5ppNN3dYc+kYHTM9h+DIkoscPRxASE=
-X-Gm-Gg: AYBFou06iRGUQQqty44zffF1O+/afOYO3/LHmS7vmNxpdf+wNNMbJWsk1D6dHGNHur4
-	r1AhrHpawkPy7Z8C/5vMumVnYVWSK9v9l1b+L/C4n2gRwwBSWOHHf2CXzpt/X7r9nD2loQeAhcv
-	akNGh6DYjhgFoiJ7NtmFOAZ8IzmXhA1evuIXTIqlkX1fs+5kk6yIUnTG/BnF0wRSpWclpswuSb8
-	iEeU8kLUEgI6KXyjcJObI+ZcuLdnoR915Xkq1A5zRAKnOdUWSOFXKj507rk/00QX+mkm4FnBLX8
-	4yzNgLVd6xeDVdWOT62ntJgIpZybuNwyauXN5gxdWG8f2FvWenji7XF1BqoxCi4Lp8ySnmrhzOO
-	gUmYd4QsMNbGKSk7vi4edBShufo4e1zgLrcfwe2ZnxznsLJGsAJSz9bRPKMdcU1GI
-X-Received: by 2002:a05:6214:3186:b0:910:3923:cc76 with SMTP id 6a1803df08f44-91234436ca6mr106063516d6.31.1789540651506;
-        Tue, 15 Sep 2026 23:37:31 -0700 (PDT)
-X-Received: by 2002:a05:6214:3186:b0:910:3923:cc76 with SMTP id 6a1803df08f44-91234436ca6mr106063206d6.31.1789540651009;
-        Tue, 15 Sep 2026 23:37:31 -0700 (PDT)
-Received: from [10.38.246.144] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123bddcf56sm18155886d6.2.2026.09.15.23.37.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 23:37:30 -0700 (PDT)
-Message-ID: <ec70fa7f-4e02-484a-b7f7-ced7b81d3e44@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 14:37:20 +0800
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="WF8L+S0u";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="i/DWAvvF"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 6CA02EC0E91;
+	Wed, 16 Sep 2026 02:38:56 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 02:38:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789540736;
+	 x=1789627136; bh=uVDBK2xNAXhHDNCHOU+SjarglqFyyWlJ3wc704FVprE=; b=
+	WF8L+S0ufzaPlWCsrRRscgGvgAxgZTFT+tJOeBIsio2KJN8+5FOYORwMwAkYdAOn
+	WyeMCKtF8mm6kAVkl3ezLOHPn4sWcfrc3TtTlIAVkU4Z+lC7DeFfiJxi9WUYc98v
+	xn6tB9DwYlFirjYuSyT2YIzx5LvmzTHXkA+Tyapwgr7/Ao1mghZIe0vXYCmEDt+7
+	lbXCembmc9Cb8C6tbXyDJura9NlgqslmfHKo1IyLcoHsYVSetjh24+avMUhllgSr
+	/QXXceV15HR5ULX4gpX4QQSe1yHg1LCrqr7/SWm9qR8HbV1R5tsY/ZXsNjnvBHC8
+	S4t6xtOCNjXtUKAflg7x3w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789540736; x=
+	1789627136; bh=uVDBK2xNAXhHDNCHOU+SjarglqFyyWlJ3wc704FVprE=; b=i
+	/DWAvvFomsvvHufwVst9thwX7fYCHQ2oKF0GOO8jVQBP9AOAWpiEWNiwy7iXoYuo
+	GVSODLAIaKAd4VwPl8FFtJ2ISCnR54cx2cfornWk1fpfK2pqQ4EcpeLV33LsEcyH
+	lO2bSNLqLWXa6BteDpaKhzFMCVZ9y+WDRf+yvcAYLUEqMf/AFnTSdlN9JQNgfuM4
+	uqbmAIzc+5ArvcKN/yNNUa7txHOX8ShOwyYSaUkecYH4MGoUW5iRatiT8nyxhwqw
+	9htHm5Uzj5D+MIx69PR0d6gDl2QXZ7oxN9e44hgjUmIuaD+YrUJ66oWoklLUOj/E
+	wPxRgiFz8nPw3KhMU/yRA==
+X-ME-Sender: <xms:fjmqaqyEN1YbAgTsJ-Wir-N55wt5sUmcN1R5LalCNvAYbKcgPQHL_A>
+    <xme:fjmqahHZ9OhzJM3m-4tSGeix_-mxmLAfGHrpO0rhS8qgDj8gf-sOGLcdFWMJmVWKG
+    xyX7rSOcSALowzF1EkkmxKQF1EpKrNbogfeihnCvrO1BCadeM2tx3g>
+X-ME-Proxy-Cause: dmFkZTFo6N+eyntVtdIU1AxyJCq4N9vnDxbCRp4nPjWrobmdZ9js/OvMMkuzKPVwg4e0XZ
+    KNa2/VrO5RBb0uLVonnkDz+3YlkFRo2YlsW3HfyBsnKAr33GeTytpiCOIwFe4kvaO8XuaF
+    UZahZ2N+1OqfNlHSjPd9W6d33Sl8sxqQUeYQRHlRR/idMGQHnNnj0Rf4gT6Gta+IqwfyJ3
+    /YQm3d0DvEYCvlE32FAUIP+fXws4+CzyhhD5Rny9z3/OH94gPlFQ/V2WMT9+ntOdGffMjp
+    1pBjB47EOGmdkWcGuNXmLdWlkxeJllX456XEd1f4jRNfcVOiBdTto84ZiSgTK8DC/XcFra
+    A5/RHA96DZHO48W9Zh+mbKakBgEHdZ6UNONXOjj0u3bcE81qxt2G8I19a35lqX9/a+JClc
+    X1IWP2OeEplF0bcl/INad4jbwjFZlpjyQ6u543mAJdtEz8rXvUO8UPhgdhkI8fuy+IE866
+    hObaIc7Cbw+i5mS7TTL/cj3W0aLToECIbQhNbon1tNVqHBn48ZDsnUyY/hebBu9rEz6NEw
+    2ySakRM0UbA97qmfTNzUUadV+57wKRI2sOzxWZjVJvv4V9qZ0lmzUmnDZt0cRyCb3HvwlR
+    B56SjiXOfV7HHm91yFsWFGbYK7K8PcEoM91m6HTdE2pK3aEw3swkohYrMYOQ
+X-ME-Proxy: <xmx:fjmqakdl21LlggRARau_1VgXYEZH13NWocxL-MTopr8K1oeNcdTorQ>
+    <xmx:fjmqatHPCG9_pDHZC1iZBWsJgkQ0p7XX0cxudVxvkXtc2IJh6eWd3Q>
+    <xmx:fjmqat3UNKe2j2B_Wwt6dVYh9emalHhLdYZmZms03RlEclBIJ5pCJQ>
+    <xmx:fjmqallaGhDc6jeLXPTsfz3ZwEK0BLgHR3EDJqkfsv9etYwYJUPUTg>
+    <xmx:gDmqakkPuKOn0yE_b_Yn5xtFj8dC9OR8213unWHyuqj03fKMM1qZQYj6>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id EA77F32A0085; Wed, 16 Sep 2026 02:38:53 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] drm/bridge: allow hpd_notify() to suppress connector
- hotplug events
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kevin Hilman <khilman@baylibre.com>,
-        Jerome Brunet <jbrunet@baylibre.com>,
-        Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        linux-amlogic@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        freedreno@lists.freedesktop.org
-References: <20260629-msm-dp-msttypec-v1-0-646a10256233@oss.qualcomm.com>
- <20260629-msm-dp-msttypec-v1-1-646a10256233@oss.qualcomm.com>
- <cgk2httvebzm2jnjnb437mutez66tfozzdk77mjwukfzngdioh@mu46u3pwlf2u>
- <af5f2e4f-42a2-49f3-9c6c-0f910c5f9208@oss.qualcomm.com>
- <pyqpajtjcnslk6g5ysn3ce2csrb76fhd5bif4vdb6wezomlmsg@fsl55exyufx2>
- <dd375289-0174-41ad-980f-f027fad976f6@oss.qualcomm.com>
- <fcc816d3-e3d4-4dbf-8ae5-bbbac6e2189a@oss.qualcomm.com>
- <z7a7c2pe7aqpqlh7z6ep4fhctujnwaxqxukqaywjwvt3w7ahnc@j5i5f53c4fqu>
-Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <z7a7c2pe7aqpqlh7z6ep4fhctujnwaxqxukqaywjwvt3w7ahnc@j5i5f53c4fqu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDA4MyBTYWx0ZWRfX5wVlrsvw/7Oc
- DmqrDuCZRBkkRpYhRINizy0yJJp4KwtKB7k/4Ex3Otlyr30kBhgYyD+cTqlvNwj5q8/BbWKFRqc
- TG7ol5/kPGE0IRP7tK1CrB1TxwTLNuk=
-X-Proofpoint-GUID: rFn73cZIuZnIIvrvD-D-7P0PbGk7Rm8d
-X-Proofpoint-ORIG-GUID: rFn73cZIuZnIIvrvD-D-7P0PbGk7Rm8d
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDA4MyBTYWx0ZWRfX78WDWsSjXQnh
- lmJ2tlH18g9add60hQTU1Ezr4hEJSvgZbvVIp4GmM0pVUA2VWXXbc0DgGPa31e0k+WW3LCdBMys
- Au9ibKC0F7O2t0byIMORYHedlXpizWUgvN0sBO7Ff4bif1i74WNK96NSwXMuaJ60RiRtkSMR02x
- kKajmxv+TDBii8ZScVkfPwlUfl9Rma09G//OMNeiEuweHqlZATNInRDcK3FwFzAGJGlhAn3dqEu
- Wtt4ATIruy44Xdk0ltIhfoE3znti9d7YOG8ZzGOypaF2OEKpIz9OKGIxslePjBpdlvJK+/XE9gn
- xKTmYdv8Dru/AjxFWCLr+fN4o+chzLqbNVhOQR3ZkgdiQ3t5pPpKeOBFuj2Sii5JvE4OIeTWAOj
- h5oCLeD55hHrW3JfFTNU6Lgkr7y4FjHUV2XFOVqnh8SWh/V4Tfkgym/5VR8vbxQ/rUqPyph8YEE
- T1dMM3+L29A+MX+9QeQ==
-X-Authority-Analysis: v=2.4 cv=ZIhCCn7b c=1 sm=1 tr=0 ts=6aaa392c cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=NHX6yGbTSU1aQjhbUZcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 clxscore=1015 spamscore=0 phishscore=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160083
+X-ThreadId: ArHA-gVR6p-N
+Date: Wed, 16 Sep 2026 08:38:33 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Kees Cook" <kees@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>
+Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
+ "Nathan Chancellor" <nathan@kernel.org>,
+ "Nicolas Schier" <nsc@kernel.org>,
+ "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Bill Wendling" <morbo@google.com>,
+ "Justin Stitt" <justinstitt@google.com>,
+ "Masahiro Yamada" <masahiroy@kernel.org>,
+ "Alexey Gladkov" <legion@kernel.org>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Borislav Petkov" <bp@alien8.de>,
+ "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>,
+ "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ "Catalin Marinas" <catalin.marinas@arm.com>,
+ "Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>,
+ "Ard Biesheuvel" <ardb@kernel.org>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Josh Poimboeuf" <jpoimboe@kernel.org>,
+ "Peter Zijlstra" <peterz@infradead.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ "Benno Lossin" <lossin@kernel.org>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>,
+ "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Jonathan Corbet" <corbet@lwn.net>,
+ "Randy Dunlap" <rdunlap@infradead.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+ Linux-Arch <linux-arch@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ "Jens Axboe" <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Message-Id: <081b2b60-e295-4cd7-b201-d996a88c5f28@app.fastmail.com>
+In-Reply-To: <202609151758.BA5732348@keescook>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-21-39817ec5db23@kernel.org>
+ <202609151758.BA5732348@keescook>
+Subject: Re: [PATCH v2 21/21] kbuild: use pigz for gzip compression if available
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
+On Wed, Sep 16, 2026, at 03:06, Kees Cook wrote:
+> On Mon, Sep 14, 2026 at 10:22:20AM +0100, Lorenzo Stoakes (ARM) wrote:
+>
+> Makefile:
+>
+> KPGZIP	:= $(if $(shell command -v pigz 2>/dev/null),$(PYTHON3) 
+> $(abs_srctree)/scripts/jobserver-exec 
+> $(abs_srctree)/scripts/parallel-gzip,gzip)
+>
+> and the same scripts/parallel-gzip:
+>
+> 	#!/bin/sh
+> 	exec pigz -p ${PARALLELISM:-1} "$@"
+>
+> And then replace the /boot/ KGZIP uses with KPGZIP. Then we don't need
+> to change modules, config_data, new users, nor cmd_gzip, etc, which all
+> continue to use the regular KGZIP and the "use python" part for the
+> KPGZIP case becomes is a 1-time cost?
 
+Nice, I like the idea and this this will work. I didn't know about
+scripts/jobserver-exec, but this does seem like a perfect fit.
 
-On 9/8/2026 9:10 PM, Dmitry Baryshkov wrote:
-> On Mon, Aug 24, 2026 at 11:15:44AM +0800, Yongxing Mou wrote:
->>
->>
->> On 8/21/2026 3:20 PM, Yongxing Mou wrote:
->>>
->>>
->>> On 8/18/2026 11:01 AM, Dmitry Baryshkov wrote:
->>>> On Mon, Aug 17, 2026 at 04:01:41PM +0800, Yongxing Mou wrote:
->>>>>
->>>>>
->>>>> On 7/12/2026 6:21 PM, Dmitry Baryshkov wrote:
->>>>>> On Mon, Jun 29, 2026 at 10:48:03PM +0800, Yongxing Mou wrote:
->>>>>>> The bridge connector framework currently invokes all bridge
->>>>>>> hpd_notify() callbacks and unconditionally emits a connector hotplug
->>>>>>> event afterwards.
->>>>>>>
->>>>>>> However, not every HPD notification requires a userspace
->>>>>>> hotplug event.
->>>>>>>
->>>>>>> In particular, DP MST bridges may use hpd_notify() to
->>>>>>> propagate HPD and
->>>>>>> IRQ notifications through the bridge chain while the actual hotplug
->>>>>>> handling is performed by the DRM DP MST core. Connector creation,
->>>>>>> removal and userspace hotplug events are already managed by the MST
->>>>>>> topology framework.
->>>>>>>
->>>>>>> Allow hpd_notify() implementations to suppress the bridge connector
->>>>>>> hotplug event by introducing a bool *send_hotplug parameter. Drivers
->>>>>>> can clear this flag when HPD processing should not result in a
->>>>>>> connector hotplug notification.
->>>>>>
->>>>>> Why? Worst case the kernel receives another hotplug notification which
->>>>>> gets ignored by the driver.
->>>>>>
->>>>> Hi, thanks for reviwing those patches.
->>>>> Let me try to explain the motivation.
->>>>>
->>>>> Semantically, IRQ_HPD is just an IRQ notification, not a
->>>>> connection state
->>>>> transition, and shouldn't be turned into a userspace hotplug in
->>>>> the first
->>>>> place. However, drm_bridge_connector_handle_hpd() currently calls
->>>>> drm_kms_helper_connector_hotplug_event() unconditionally after
->>>>> processing
->>>>> the event, so every IRQ_HPD ends up reported as a hotplug.
->>>>
->>>> What if the IRQ_HPD is delivered together with the first HPD event (for
->>>> example because of the TCPM processing those events)? See the mechanism
->>>> in the displayport.c AltMode driver.
->>>>
->>> The DRM API should simply pass both long HPD IRQs and short HPD IRQs to
->>> the driver as they are, and let the driver decide how to handle them.
->>> Based on my review of the implementations from all three vendors, when
->>> long and short HPD IRQs occur simultaneously, the long HPD IRQ is always
->>> handled first, followed by the short HPD IRQ.
->>>
->>> I have another thought regarding the current DRM API. Could we have the
->>> DRM layer pass only the HPD event information (long IRQ and/or short
->>> IRQ) instead of connector status, and leave all handling decisions to
->>> the driver? The DRM core would simply report LONG_HPD | SHORT_HPD, and
->>> each driver could decide how to process the event. This seems like a
->>> pattern that could be shared across different drivers.
->>>
->>> This is just my current understanding. Please let me know if I've missed
->>> anything or got something wrong. Thanks.
->> Sorry, after thinking about it again, this idea is not fundamentally
->> different from your current approach. In the end, we still need to handle
->> HPD state transitions in the driver. It seems my previous suggestion does
->> not really simplify the problem, so I apologize if it has caused any
->> confusion or misled the discussion.
-> 
-> No worries.
-> 
-> I'm currently stuck between two ideas: continue pursuing the current
-> "single API for both events" or implement new "two API for two events".
-> I think that the second might sound more plausible, but in the end it
-> would complicate drivers much more, because now they'd need to handle
-> synchronisation issues on their own.
-> 
-> If we start from the DP AltMode, we have a single state word which
-> specifies exactly, 'HPD pin status' and 'was the IRQ_HPD captured'. Our
-> DP controller also has about the same status word: the connected status
-> and the IRQ_HPD pulse. Which (for me) points out that the single API is
-> a correct way to handle the HPD/IRQ_HPD.
-> 
-I’m not objecting to the single-API approach. I’m just not completely 
-sure yet how it simplifies the driver-side handling, since the driver 
-may still need to deal with HPD and IRQ_HPD arriving at around the same 
-time, or IRQ_HPD arriving when the link is no longer present.
+I checked the other compression tools we support, and found that
+zstd is another one that has built-in support for parallel
+compression, so we probably want to have it there as well.
 
-For reference, Intel, AMD, and Nouveau appear to process HPD state 
-changes and IRQ_HPD handling in separate workers. I’m not sure whether 
-that is relevant here, but I thought it might be useful information.
-> Now, coming to the drivers/userspace side. Let's leave the MST story
-> aside for a moment. For the DP branch devices connected to the USB-C the
-> AltMode will always report 'connected', but the DP's detect callback
-> would rightfully report 'disconnected' if there is no actual monitor.
-> The kernel should do it's best in this case and report that the
-> connector is disconnected without any interim states. I think we do it
-> already. The compositor should do it's job and skip full scene
-> evaluation of the disconnected connector gets disconnected again.
-> 
-Agree.
-> Event filtering. Historically, drm_bridge_connector was trying to filter
-> HPD event. We had to remove it because for the DP prefiltering doesn't
-> work. This might have left the gap, which now needs to be filled. The
-> bridge_connector uses drm_kms_helper_connector_hotplug_event() which
-> just reports the even to the userspace. Consider reworking
-> drm_bridge_connector_handle_hpd() to behave more like
-> drm_connector_helper_hpd_irq_event(). Execute hpd_notify under the same
-> mutex lock, capture if the status has actually changed afterwards and
-> report it to userspace only if there was a change.
-> 
-Yes, i want to update a new verison to do this and update the 'HPD come 
-with irq' case. One question, do you have any rough timeline in mind for 
-the next revision of the IRQ series?
->>>>> Second, MST IRQ_HPD is level-sticky -- as long as the ACK has not been
->>>>> cleared, the IRQ keeps firing repeatedly, and MST bring-up (link
->>>>> training
->>>>> / MST enable handshake) itself generates a burst of IRQ_HPDs. So this is
->>>>> not about "one extra hotplug", but about a burst of them within a short
->>>>> window.
->>>>
->>>> Ok, if it is level-sticky, it should be handled as such.
->>>>
->>>>>
->>>>> Every one of those hotplugs is delivered to userspace via udev and
->>>>> prompts the compositor to re-probe the connector. In the window before
->>>>> mst_active is set, that re-probe walks back into msm_dp_bridge_detect()
->>>>> and performs aux/DPCD accesses, racing with the MST enable flow.
->>>>
->>>> If there is a race, the path needs to have a lock, preventing concurrent
->>>> access. Otherwise, you are just shortening the window instead of solving
->>>> the problem.
->>>>
->>>>>
->>>>> The amplification also isn't limited to a single connector: on Hamoa
->>>>> there are 4 connectors (3x DP + eDP), and we observe that a hotplug on
->>>>> any one connector causes the compositor to re-query all 4. So this burst
->>>>
->>>> Please fix the compositor, it should not need to query all 4 connectors
->>>> if the HPD event came from the single one.
->>>>
->>>>> of spurious IRQ_HPDs during MST enable ends up amplified across the
->>>>> whole card.
->>>>
->>>> How do i915, amdgpu and nouveau respond to IRQ_HPD? When do they send
->>>> the HPD event to the userspace?
->>>>
->>> The driver revalidates the actual connector state, and a hotplug event
->>> is triggered only when an actual connector state change or a link status
->>> change is detected.
->>>>>>> A NULL pointer indicates that hotplug suppression is not supported by
->>>>>>> the caller, such as the connector detect polling path.
->>>>>>
->>>>>> And nothing in this patch makes any use of it. I'd say, it's
->>>>>> questionable addition. Let me check other patches...
->>>>>>
->>>>> You are right, I will reorganize the patches in next patchset.
->>>>>>>
->>>>>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>>>>>> ---
->>>>>>>     drivers/gpu/drm/bridge/lontium-lt9611uxc.c     |  3 ++-
->>>>>>>     drivers/gpu/drm/display/drm_bridge_connector.c | 15 +++++++++------
->>>>>>>     drivers/gpu/drm/meson/meson_encoder_hdmi.c     |  3 ++-
->>>>>>>     drivers/gpu/drm/msm/dp/dp_display.c            |  3 ++-
->>>>>>>     drivers/gpu/drm/msm/dp/dp_drm.h                |  3 ++-
->>>>>>>     drivers/gpu/drm/omapdrm/dss/hdmi4.c            |  3 ++-
->>>>>>>     include/drm/drm_bridge.h                       |  3 ++-
->>>>>>>     7 files changed, 21 insertions(+), 12 deletions(-)
->>>>>>
->>>>>
->>>>
->>>
->>
-> 
-
+     Arnd
