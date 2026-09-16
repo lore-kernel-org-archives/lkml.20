@@ -1,134 +1,240 @@
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19A74F55D1
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567896; cv=none; b=NdxU+TBbACch2lIsxZ+wX9IAjU53q3tEaEu12nZWD8vprvvD5kRv1j6ezf3JjTrC6EUzSJn0c8/CmcMEfXDssuWmY9VdiSRddbOMZH6EGVCIq4NPEBw0gfnsJwnX7syZWT60Wz7Iwf51+KsDxh+vVbacvNcG3ivTuooAcQUBk/o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567896; c=relaxed/simple;
-	bh=w/eXQPGbd03iM9t96bJfR+o+/5L1N7pSYa1fCCqF8nc=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862E85013C5
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:12:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789567946; cv=pass; b=tYnWTFcelMQRrku7YL+7fzhqJSATAlJj99bz+YI+Av9fp9FHa1KMIuVDZsjJSkysr2GERkz3mxHaNtKJxQWHEKcDFFCEzf3jazv6kSSHUvkoUqHVTbf4f5eRK8ge83KfLKsTk9Yp1l8HCSw4pCQQe7+IZxMLVGNN6ztAzaX9B44=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789567946; c=relaxed/simple;
+	bh=d7Znp5NNZxYJd4Xe/QgaIbKxuaLC2x6XIlcie67IVG8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CrK10OUUF+IupEs54eGyOTk9W7uxTY0Wep0+aNVklKfZbmagBH+1QBkOicgZ2P82lWumSTAzQHj5hRU6aE/NPEzl+XJ9pMCmv/vumNW3+IoB6EiGMcFcvZdJ01W32VFvR4qdwrDqVUtzW59026MKIigPHItWEfc/wgJnYHDHomE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-97e7c62dde3so286875241.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:11:34 -0700 (PDT)
+	 To:Cc:Content-Type; b=HSt5uHu4pbpFg8//W9SB0Maan7NP0lmXtjSmHmcO2PuG1fPCRKPTpRXMD6zzEN15fVasIh3e7sNk8kkJ4xnvAXuojlo47Ug1RsPBSFlSvK2asCIJlyLUStjqQkGy22ICOWptCookzeytdOngrHtdr6VeZaOKAhPkvhhBGmZV9co=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hZbJrQCt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PvFZd0Je; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hZbJrQCt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PvFZd0Je"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GCYVJt2015222
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:12:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	d7Znp5NNZxYJd4Xe/QgaIbKxuaLC2x6XIlcie67IVG8=; b=hZbJrQCt7xfhxnKG
+	PbBGY+RlohLA50nEt3lLit+T5kj2GQb0umm1euW424NEYPuNvULZDQ/0HMxuAwzH
+	Ul74ycK1A/oUcAAOKrj5b6zt+rEzIEnQRcJdnB6lbCHGvtl0FQgR3gOd+VxtfqwK
+	HvhKsAlhSWYTSN7pDn87NeHlr2T9psF6uqPx38K5xRFOtGQAfTCDfxJuPulg2rZ9
+	5753pJkRtQ4XCSsAPtSBdx2nlUOgxZ42V/CFUA4fuFRZEXDIQUJs3TeKZeloFeiF
+	X7y5m4Cpi+DGYJHc4X9Vmv7bA7xX3csTnYCPLRum/B+bVTYsAsblHP2gRU4UYnnH
+	b4ldEQ==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqthnrk67-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:12:23 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-868f443cbd0so4944761b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:12:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789567943; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Y23ZXv5RrPzyRYylT8ycg8FSc80N1FwEatzgIi1GMFk/e1m+uU1R+opXIZdmwpvup5
+         pOppX/wDC8wB2VDCzr6faAdmkG6xQa70zgSA1nB08UBkNrpAeEdrYqmoaJWUM8x0ok+S
+         Za4gzN8tTvuDMPIXZP9152/xJpCHIFqw9e1JZk3KuJDj7aiapVOCuTjlteUSExFMOFEU
+         yyzhR18PAyVF57qccT4GtZJV4DcFp8UFULgWPwu8lWEiy4M74UWBJF69RQStCRPGJyqH
+         yYkIK5+4GgD3GMBA4AsjFf3TrSxZSos3VWov356Gx81gxAoJllVQnwQIAs8/9CFbNk5B
+         uqPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=d7Znp5NNZxYJd4Xe/QgaIbKxuaLC2x6XIlcie67IVG8=;
+        fh=nrc1QD/BgfaTq3DemZciTxCpAf7GI6W1ra4+T8GX0gQ=;
+        b=GRIwafOLJxrf13ybVC2YqBooHaWO0QCJ50eSdJ9YS8N7D5ce9NfxfWbOBMMvo3UWm8
+         fTQ61kd4QlAswyjOvFdX9Xe5BMyhEdDkASka4RBFpaR2cBIehAE+iVZxOo9lBECL4Mba
+         6ZbrbT8sqF2XCkcKdDSejOMGsF8wMFQ1iNqqkPQJF7yNjK3R4aqj1cv+O9/G64eEwsxv
+         XzTGyKcmoOOzceMhP2vizMg5fMjye/iTEZi692gIwzv4Wn0TGmx/0pvdDTjygvbg+zxU
+         mV77W7XAs1f06DH0NbPqZKvk38TvzEKqipuRamt+O5sMjqg5OvEerpCgiMz69VQLNLBm
+         wqiw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789567943; x=1790172743; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d7Znp5NNZxYJd4Xe/QgaIbKxuaLC2x6XIlcie67IVG8=;
+        b=PvFZd0JeK1BNCWNBzotqtYpJkNXcsj9lv7tilhT+PGxw95/7ydsERZ+qhX8yss2zOg
+         2/yqLKZGE7+EBXPYZ4a5e6YMrfdHl2XNC9+4iyRnfEFmYF5S4AcmEvrwUP6fUiOacDqz
+         yaw3qYNU+xJK/vgJfm1ShcInb72M03rcVrgke+r4NhOFRpO7PBp8QBI8FPD7KPrFKahP
+         mwy8W3fsGNdlG5RFmTLBitUTOQUFz9MusI54p5s3iJRylWLXRrA5RItDYZqnt9xRMN3V
+         w1uLI9Ha09/fmTz7KUGFEtKxyEuIusFX7QjDAZSG4z12bjTfSFPhWeXj7QbNqz7E/Cki
+         7rpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789567893; x=1790172693;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=R8tYTO2oWmvq4rR3J0AZylxe0N8AEtq4E2BxgNYjJbc=;
-        b=PDegEZQja+YBSaGdXS9nMTAbeXLbMi6qH5B7uNr/NZghPgBg/HfPKo0QkrpI1zhnya
-         YnawFCWL2ST1MKzol2GcCyxp7qYnvO4OZ/FMWXwlcEKyTgPwKYivv1pyh0WsXKSUE9Zc
-         JkM2cZAUtlIj1WOfmu74LdQmoCgODpagwQluvTK7uWW7cYExrnn0c6Ti//5m59KiNnfu
-         qqcbZK9hUNYhQqkOjWv2ZKSxlcvBPmVUfAhNa/LinTkd4AZyUwk583LvZnSdwFh222dn
-         /igGIs8cPKdLTYu1oR0/gP5PRt6egDlQBOiiJt1q6sENIdpzuj+IQZVYlVQDPdPtm1vN
-         1uPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw3rnMpTy8w2/+mtveDbxSxjqYBU1E3/cu4DpfKJGmfXSWBU8m8TS9aUVGuA4arBS6rLfbvOf6xA43BzZ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+ksfRRXLuy9xijb/yezkyfWkuiGMtWgcFYz6WHsCxELz8C4ix
-	N7C6wBGYfp/j3+laf47N/pjPacNgqnHK9MHB/tTtp3p2sCi/IdO3tYPYE4aJcRk6Los=
-X-Gm-Gg: AYBFou0nP7PUanOYpVQ2gVbLhnQFHV9xBbrZNEPFrHB7W5AMvkVz8jJahffcb4BkYJ1
-	F11bZZKEfXpiP6DDRgeX9nyeKMyVmmmpo+N8D/pG6rLGHlUIkZK8kCQJJMtuu9cTgJIchX4/ziV
-	l7RzmJSlRsozc3m/UlZZ/E9w7dtFZv68/m09QM+183JqXk6mY/FbampC7prsusqCn+9AlT8kmsc
-	gF6ZwbwM4Um5JsrC8f/X+fJurH6pB5h2mkefGP7MgO4dtkgtVluIMQpG88z3Zxnny6t5/gK7JvV
-	fUOODHQ4F/rUuTj54yPgckMYAkaMXXrQgx3MwgOaA/UbZhnor+XP6Z63s4Zd2GDLUQEytl33mJt
-	3flmLaxsbw0Hv0e0Uy0JwuYWYqlf7gVE8O9nlGLY3QXg1eQv6xtCu9uTVCXM1MVjEbEINkDjs7q
-	Q7KbSV78OauUFq6UTK/URe1ZRGAdGnbJ/G0NlnMvQSFccWEVVJ7xTGyCiGEK/++j8/2yHz7rxC5
-	9R9ANhVsGhu2S3eAmg9cUOWdttFOM52eSwI
-X-Received: by 2002:a05:6122:f8b:b0:5c6:58df:5826 with SMTP id 71dfb90a1353d-5c99ac9815amr3463441e0c.5.1789567893049;
-        Wed, 16 Sep 2026 07:11:33 -0700 (PDT)
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com. [74.125.227.42])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c998a65a83sm2845075e0c.10.2026.09.16.07.11.31
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 07:11:31 -0700 (PDT)
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c8319dd4a5so387704e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:11:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwlcmu+YrRLzdMZG4qD2RxnK0LXANmwN9HBP03pVgmCpsCAw/MglyEEg6jTZPimohfG/xZScLglj/1cChI=@vger.kernel.org
-X-Received: by 2002:a05:6122:2986:b0:56f:6cc0:681e with SMTP id
- 71dfb90a1353d-5c99ab5599emr3306736e0c.1.1789567890852; Wed, 16 Sep 2026
- 07:11:30 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789567943; x=1790172743;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d7Znp5NNZxYJd4Xe/QgaIbKxuaLC2x6XIlcie67IVG8=;
+        b=hBHJtI6FP9mKMdshuKnMMB21BtCmMyLwofCUbWXtMn7LrfD96ivZ5MMatPV3KWGDJ+
+         hfp3C8Ncv+KqOLNHha99aJKkC0/FN/qz6T0aE8BWxkaQYufArmwI/rwTSLFpniau/Ly0
+         v/hq6eNodiWeJUBcA5zTw2fCCP2k2aE2SxWuwY3O024Eq9c+P87qaIpjWmJx9oVeyUl1
+         oiDSYtxJAUWAXknk9TP/hBKn/1xdlshVKkrs7POv0jw8nLNnnd7V36oWApw8h75fL4It
+         uYz7gUkR0Ta/1wC9WxotgbtCnNSkSVNNsM3WJjj3LTeALgqIjW0G8XzfupzRfyiIIETf
+         ur9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxuedOUeltUWXIdsdZiy1WCF9ROQz6bM2QTVw/bhUUwFJuoPuGEr/FRnztqKDj7+dYRUdn0+GVv9B5sbTc=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4W4M+0pz0N07sXMkVWTexlhJi3tZDBomzVMI2LfYBGZwqOvph
+	OeIO1JmuHkYalsWnDqg03BwJQ5T/3nPli5GtY+sO33F7+CrsqQNUMnpjGydrjg9glXRBlmjXjcC
+	zKOkhaOVWQ3JRZHAUIpNxARYblUwkDjyntG+pW6F/XQiaI2nq0yLS07VXljiPcOd9PE60Y+5bS+
+	P55CaXumdIa32b2qyDhEp2T2z1sPsoAU6XV+YHudNofN9qFAaaXeEr
+X-Gm-Gg: AYBFou2bfr3+2PIe8QS6MaYx47qo21lzNi668BRgB7b2kc6n/1c0mFFeEWz6HwZv7kB
+	yNihW83DCWbmZoTRGHD7oOcp9OP7Db5ZXZ898Oz6oBRRABChZzjK158bjSP1x7cufkBzWCWfSLo
+	76QvpTjkGZEsI/JFBwBWCuI5ExfrhQ9bz0xFbkAC3BAMlrjThlWjqIGP5hdA==
+X-Received: by 2002:a05:6a00:300c:b0:848:2e3c:9955 with SMTP id d2e1a72fcca58-872372c3f18mr6019644b3a.4.1789567942634;
+        Wed, 16 Sep 2026 07:12:22 -0700 (PDT)
+X-Received: by 2002:a05:6a00:300c:b0:848:2e3c:9955 with SMTP id
+ d2e1a72fcca58-872372c3f18mr6019564b3a.4.1789567942091; Wed, 16 Sep 2026
+ 07:12:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912191442.99453-1-wsa+renesas@sang-engineering.com> <20260912191442.99453-4-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260912191442.99453-4-wsa+renesas@sang-engineering.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 16 Sep 2026 16:11:18 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX27+sdJYd06v3T9hj2=z3ADSKOVGvu+02-qe+Jp6R4Bw@mail.gmail.com>
-X-Gm-Features: AcwNN1WJafhDFv8HErK5k3kvDPcaoO0zG6c_BSadTCdG1pMVoaBKHlljZ751d3o
-Message-ID: <CAMuHMdX27+sdJYd06v3T9hj2=z3ADSKOVGvu+02-qe+Jp6R4Bw@mail.gmail.com>
-Subject: Re: [PATCH v7 3/3] hwspinlock: add low level debug capabilities
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bjorn Andersson <andersson@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	linux-remoteproc@vger.kernel.org
+References: <20260915132052.273212-1-ulf.hansson@oss.qualcomm.com>
+ <20260915132052.273212-3-ulf.hansson@oss.qualcomm.com> <aqpIl5NWCFiuKy9b@hovoldconsulting.com>
+ <CAPx+jO86Sy+of41dw3Gi5CNfyc5+iOyDU4CZypz4YGzG27QW0A@mail.gmail.com> <aqpovla0rTDnmwRh@hovoldconsulting.com>
+In-Reply-To: <aqpovla0rTDnmwRh@hovoldconsulting.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 16:12:10 +0200
+X-Gm-Features: AcwNN1UPNXOQLfdSFRPJAlCiq-g_reRwNd6uIUSpPLv6c1bEYkBTby_bsRYsWRY
+Message-ID: <CAPx+jO8WS3MqzS3txy1B3FnQ9OzRjDGzxMLLZ+Mys-jqego3_w@mail.gmail.com>
+Subject: Re: [PATCH 2/2] mmc: core: Turn mmc_alloc|free_host() into static functions
+To: Johan Hovold <johan@kernel.org>
+Cc: linux-mmc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
+        Rui Miguel Silva <rmfrfs@gmail.com>, Alex Elder <elder@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+        linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: B5JD8PTXQuXn8dkPtG4DogiLERfbushA
+X-Authority-Analysis: v=2.4 cv=IsKL47/g c=1 sm=1 tr=0 ts=6aaaa3c7 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=zitRP-D0AAAA:8
+ a=sgTPu796ueBBQ-pzyZoA:9 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+ a=xwnAI6pc5liRhupp6brZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE5MSBTYWx0ZWRfX1FWMjXoyPsnB
+ ofCeWJ1U6nC6G1A4rNgrFejrftRYTNAs8rHxwz7HNyyumexPzDt7IwUA9joY3f3/hnJxn+rE86v
+ BJG6jjap6igKwGvWiUuIJDe1TKJAFX29blwfWydlxI0BkYM/DROgEAVkrM6pn2T+tqurutDTdyo
+ MXKYwuY4pQBKk0T2Q92meuSI0blccCS2a/i8G0+lokqhgyG2EyryxORs46sc/C+UJW24i5WAP22
+ VqAnf0QSaeZwwOCTSYd69Jii6UDMeOv7E2RVJ6IzWhvnlj/gJxE4pN+sU/V2YjqqmJMWDe8M1WK
+ 7H3GsNhmVVF4nRnpPBBvscQx8F6cDn8kERZEk/22ebWUACDzIDee3bc03UUxRlHAELESSo0BioL
+ HzYTrv56+ri5NVB41eM70da6MB91Eaf3qw8O0XiYj6ju9m92DbFgktjJkOiy15JHcqmTw4voSEb
+ Hq5BM26GyKfpkZ9y7hQ==
+X-Proofpoint-GUID: B5JD8PTXQuXn8dkPtG4DogiLERfbushA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE5MSBTYWx0ZWRfX2zgLEpp9efxs
+ 1HCrSmusr2cN9Gdm8rFh0qZxI5r6W6by2yOH0MFfB+KYtC1RXLwKizKTaoviP1AUN1PRudW/KKW
+ nUtTr63t+ypDU7CmdJAXgk61/MsZ1jw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0
+ adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160191
 
-Hi Wolfram,
-
-Thanks for your patch!
-
-On Sat, 12 Sept 2026 at 21:19, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> While developing the hwspinlock core or a device driver, it can be
-> really helpful to change states from userspace. Add a debugsfs interface
-
-debugfs
-
-> to request, free, lock, unlock, and test hwspinlocks. Because this is a
-> potentially dangerous interface, it can only be enabled via source code.
-
-... code,
-
-> Similar to writeable attributes for clocks where this idea stems from.
-
-similar ...
-
-> The created files take a single id for a single lock. To test all locks
-> in a system, one could use this oneliner while in the debugfs directory:
+On Wed, Sep 16, 2026 at 12:00=E2=80=AFPM Johan Hovold <johan@kernel.org> wr=
+ote:
 >
-> for l in $(cut -d: -f1 hwspinlock_summary); do echo $l > test_lock; done
+> On Wed, Sep 16, 2026 at 11:36:25AM +0200, Ulf Hansson wrote:
+> > On Wed, Sep 16, 2026 at 9:43=E2=80=AFAM Johan Hovold <johan@kernel.org>=
+ wrote:
+> > >
+> > > On Tue, Sep 15, 2026 at 03:20:46PM +0200, Ulf Hansson wrote:
+> > > > From: Ulf Hansson <ulfh@kernel.org>
+> > > >
+> > > > As there are no longer any users of these functions, let's make the=
+m
+> > > > internal to the mmc core.
+> > >
+> > > Why would you want to do that? The devres helpers should just be simp=
+le
+> > > wrappers around these and sometimes devres just isn't a good fit.
+> >
+> > At the moment there seems to be no need for them. I would rather keep
+> > API/interfaces as simple as possible, so I prefer to remove them at
+> > this point.
+> >
+> > If we see a need for them, we can always add them back.
 >
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Devres generally only works when all resources are device managed.
+> Therefore you should always provide the underlying non-devres manages
+> interface as well so that you don't force devres on drivers where it
+> could cause trouble.
+>
+> > > Especially with the work cancellations present in mmc_free_host() (wh=
+ich
+> > > I have pointed out elsewhere should not be there), a driver may need =
+to
+> > > free the host before tearing down other non-devres managed resources
+> > > during unbind.
+> >
+> > Can you please point me to such an example so I can try to understand b=
+etter?
+>
+> We just discussed the renesas driver which can schedule rescan work
+> before registering the host controller. [1]
 
-> --- a/drivers/hwspinlock/hwspinlock_core.c
-> +++ b/drivers/hwspinlock/hwspinlock_core.c
+That isn't a problem, but it's not the right thing to do as
+host->rescan_disable is set.
 
-> +static void hwspin_lock_low_level_debug_init(struct dentry *rootdir)
-> +{
-> +       debugfs_create_file("request", 0200, rootdir, NULL, &fops_request);
-> +       debugfs_create_file("free", 0200, rootdir, NULL, &fops_free);
-> +       debugfs_create_file("lock", 0200, rootdir, NULL, &fops_trylock_raw);
-> +       debugfs_create_file("unlock", 0200, rootdir, NULL, &fops_unlock_raw);
-> +       debugfs_create_file("test_lock", 0200, rootdir, NULL, &fops_test);
+>
+> If such a driver also has non-devres managed resources that are freed
+> before the work is cancelled you have a use-after-free.
 
-Perhaps just "test"?
+If you are referring to the mmc rescan work; mmc_rescan() will just
+bail out as host->rescan_disable has been set as soon as
+mmc_remove_host() is called (see mmc_stop_host()). In other words, I
+don't see how a use-after-free would be possible in this regard.
 
-> +}
-> +#endif
-> +
->  /*
->   * subsys_initcall() is used here but controllers may already have been
->   * registered earlier or will be later. The rationale is that debugfs is
+If you are referring to an internal work for the host, yes that needs
+to be managed correctly. Although, that doesn't matter whether the mmc
+host has been allocated with the resource managed variant or not.
 
-The rest LGTM, so
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>
+> > > This may even be needed for greybus which currently destroys the
+> > > connection before freeing the host.
+> >
+> > I looked closer at gb_sdio_remove() (the greybus sdio driver's
+> > ->remove() callback) and I think the problem isn't about freeing the
+> > host.
+> >
+> > Instead it seems like the call to mmc_remove_host() is done too late.
+> > To me it looks like when the mmc core tries to power off the card
+> > gracefully, through mmc_remove_host() the driver has already moved
+> > into a state where it no longer accepts any requests.
+>
+> Yes, that looks wrong, but that's a separate issue.
+>
+> I only pointed at greybus as an example of a driver which has non-devres
+> managed resources. If there is (rescan) work still scheduled after
+> probe() or remove() returns, there's a potential use-after-free.
 
-Gr{oetje,eeting}s,
+See above. This should not be an issue, at least it has nothing to do
+whether we are using managed resources or not.
 
-                        Geert
+For the mmc_rescan() work to access the host internal data (for
+potential causing a use-after-free), the host must have been
+"started". See mmc_start|stop_host().
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+>
+> Johan
+>
+>
+> [1] https://lore.kernel.org/lkml/ap7CaVj82BJZgjf6@hovoldconsulting.com/
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Kind regards
+Uffe
