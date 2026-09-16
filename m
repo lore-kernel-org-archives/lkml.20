@@ -1,40 +1,64 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF764908C4;
-	Wed, 16 Sep 2026 09:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0678B4B2038
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552248; cv=none; b=idOM3uiGSnO4bPgwQFBLmMnROYPoe0i6DcShzKmGYlqx8HCu+rvQatSxnhT8UFsUoDGh955aUGkh0sATCA5ZRGpwIprh4r/+jrm15z15Gcq7PqOHrx5rBSjNQNgbguwMkHFYDGcJttAWqcRItKKxTk7chSJjvx4Iq1J//7Yo+IU=
+	t=1789552249; cv=none; b=nvL4xGBuRrReEt4zco5kuFTMW4GfRf979nPD1FwrSnU9xIkzpPU9nOToBfaNRrVziXu9exxrSc6al3mFeHeQjPQ478rba8tmR3xziXSUMyS2jy8mwTkxMuHSbVysQxNWLi7UH7pEgmAV6s8toFgsM2Ed9uZpKrOaDnAcDaZCSR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552248; c=relaxed/simple;
-	bh=u+xXkx+ozWpK6LR0MYCaUkHv35Z96MYakuUypumAtTc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FtOzDrPwhmf0DirEbb0+NfjGdbf58rOQ9FBwyMWpLAtQdh4qAzhXyXmt7BDCe1mDInWexQ9I0iy4fseSRcmTycgdDh+zgcB8a9KWTw8W74ezCmN3DIVZewWQilsJj7JLBBh97BnWcl78UvA2TaqLkNR4YFdOV39Ug2CJ2Yb2fEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3wkBgZqpqWKrgBw--.1636S2;
-	Wed, 16 Sep 2026 17:50:24 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Bhawanpreet.Lakha@amd.com
-Cc: airlied@gmail.com,
-	alexander.deucher@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	christian.koenig@amd.com,
-	dri-devel@lists.freedesktop.org,
-	harry.wentland@amd.com,
+	s=arc-20240116; t=1789552249; c=relaxed/simple;
+	bh=Pu553ZQkM91B4VrsGc9weFb5s0yBfWGWM2iMrF015hs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BwfKegoAzB/7nCjCzDw779IIBsfpN6/cdK1vXQARLIgexhgiZA8tCwgpUIR5ALfyaO/gn0B0nWN4izqUcw1dznJbBzSp+VaIzsPB3ZjI0F8Uj+Azm83yWsVqj8ou8p8+Lng7mhzpLRHGZRPNfgem5DJhvI42cO4ZTaITfzlvzMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BF1PObJN; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BF1PObJN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789552244;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iKydTuaKi3XtSbexoPJB1tXNpcTYcsS4RpRAKal/7tc=;
+	b=BF1PObJNeKXbD+uTUKEGwCJ6IeOXLCjVDCXwnXOkws+C0wOgg+qX6tHeJVFO6ZnPDtCjWt
+	3vEBYBm6boDsVLqndI6DIR3TM9rqERq4gLjXle3OMueRHgnSPpo0hRBrKKSRbTy20JaS4q
+	Maongfj9eMJa54YCQxd3oNO3edjM6vk=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-479-agQkf6kLMLu0ekoPCI2NKQ-1; Wed,
+ 16 Sep 2026 05:50:40 -0400
+X-MC-Unique: agQkf6kLMLu0ekoPCI2NKQ-1
+X-Mimecast-MFC-AGG-ID: agQkf6kLMLu0ekoPCI2NKQ_1789552239
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4C9F6189F8E0;
+	Wed, 16 Sep 2026 09:50:38 +0000 (UTC)
+Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1940F1800446;
+	Wed, 16 Sep 2026 09:50:33 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Eric Biggers <ebiggers@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Borislav Petkov <bp@alien8.de>
+Cc: linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	nicholas.kazlauskas@amd.com,
-	simona@ffwll.ch,
-	siqueira@igalia.com,
-	sunpeng.li@amd.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Fix dc stream excess put in dm_update_crtc_state()
-Date: Wed, 16 Sep 2026 09:49:56 +0000
-Message-Id: <20260916094956.2008436-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Subject: [PATCH v4 02/13] lib/crypto: aes-xts: Provide function for zeroizing aes_xts_key
+Date: Wed, 16 Sep 2026 11:50:04 +0200
+Message-ID: <20260916095022.604354-3-thuth@redhat.com>
+In-Reply-To: <20260916095022.604354-1-thuth@redhat.com>
+References: <20260916095022.604354-1-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,65 +66,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3wkBgZqpqWKrgBw--.1636S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WrW3trW3ury5Cw1UKF43GFg_yoW8Aw1xpr
-	s5Gw1Fvr9rAF1xta47J3WF9Fy0kw4fJFySkr4UCw1Sva45Jr1rJF1rXr4vgrZrCFZ3ZayY
-	qa98J3y7X3ZF93DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
-	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
-	UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgMA2qqQJWZugAAs2
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-In dm_update_crtc_state(), when a modeset is required the newly created
-stream is stored in dm_new_crtc_state->stream and an extra reference is
-taken with dc_stream_retain().  The reference returned by
-create_validate_stream_for_sink() is released as an extra reference at
-the skip_modeset label, leaving the stream owned by the new CRTC state.
+In certain cases crypto code functions need to zeroize their local
+aes_xts_key structures after use to avoid leaking sensitive material.
+Provide an aes_xts_zeroize_key() helper function that e.g. can be
+used with __cleanup() to automatically zeroize the struct when it
+goes out of scope.
 
-If amdgpu_dm_check_crtc_color_mgmt() fails afterwards, the code jumps
-to the fail label which releases new_stream again.  Since the extra
-reference was already released at skip_modeset, this drops the
-reference owned by dm_new_crtc_state->stream and the stream is
-released while the atomic state still points to it, leading to a
-premature free of the dc stream.
+While we're at it, replace the related memzero_explicit() call in
+lib/crypto/aes.c with a call to the new helper function.
 
-Set new_stream to NULL after releasing the extra reference at the
-skip_modeset label so that a later goto fail cannot release the
-reference owned by the new CRTC state.
-
-Fixes: 7cd4b70091a5 ("drm/amd/display: Rework CRTC color management")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ include/crypto/aes-xts.h | 13 +++++++++++--
+ lib/crypto/aes.c         |  2 +-
+ 2 files changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5fc5d5608506..28300a3e757a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -11706,8 +11706,10 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+diff --git a/include/crypto/aes-xts.h b/include/crypto/aes-xts.h
+index b9e828265e58a..3a52e1cf40b57 100644
+--- a/include/crypto/aes-xts.h
++++ b/include/crypto/aes-xts.h
+@@ -22,6 +22,15 @@ struct aes_xts_key {
+ 	struct aes_enckey tweak_key;
+ };
  
- skip_modeset:
- 	/* Release extra reference */
--	if (new_stream)
-+	if (new_stream) {
- 		dc_stream_release(new_stream);
-+		new_stream = NULL;
-+	}
++/**
++ * aes_xts_zeroize_key() - Zeroize an aes_xts_key structure
++ * @key: The aes_xts_key to zeroize
++ */
++static inline void aes_xts_zeroize_key(struct aes_xts_key *key)
++{
++	memzero_explicit(key, sizeof(*key));
++}
++
+ /**
+  * aes_xts_preparekey() - Prepare a key for AES-XTS encryption and decryption
+  * @key: (output) The key structure to initialize
+@@ -30,8 +39,8 @@ struct aes_xts_key {
+  * @flags: Optional flag XTS_FORBID_WEAK_KEYS to forbid keys whose two halves
+  *	   are the same.
+  *
+- * Users should use memzero_explicit() to zeroize the key struct at the end of
+- * its lifetime.  (But if this function fails, zeroization is unnecessary.)
++ * Users should use aes_xts_zeroize_key() to zeroize the key struct at the end
++ * of its lifetime.  (But if this function fails, zeroization is unnecessary.)
+  *
+  * Context: Any context.
+  * Return:
+diff --git a/lib/crypto/aes.c b/lib/crypto/aes.c
+index 07c1d912ac365..34ef5deca0a79 100644
+--- a/lib/crypto/aes.c
++++ b/lib/crypto/aes.c
+@@ -1223,7 +1223,7 @@ int aes_xts_preparekey(struct aes_xts_key *key, const u8 *in_key,
+ 	return 0;
  
- 	/*
- 	 * We want to do dc stream updates that do not require a
+ out_zeroize:
+-	memzero_explicit(key, sizeof(*key));
++	aes_xts_zeroize_key(key);
+ 	return err;
+ }
+ EXPORT_SYMBOL_GPL(aes_xts_preparekey);
 -- 
-2.34.1
+2.55.0
 
