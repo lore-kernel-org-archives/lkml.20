@@ -1,272 +1,107 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A287B4AB3C7
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBE64D7D49;
+	Wed, 16 Sep 2026 17:40:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580342; cv=none; b=saTdWwUMTCmfCAQYf4w8z98IUT3nbwsC2SV2xU9ngWCd1SSypI1e/+UeIcExbrPYHQA88Ta6x7PiN8KOS3h59DjmddhkxPUPr8hp4A0LKZcQe0cq7e+Rgw12k+rHrfy1hU3MYhhnmjqQY83msP3Mlr2C5sHlBj+hCqb3mlFjhwk=
+	t=1789580416; cv=none; b=FYANaIXLsP7feND7OnLai+RmeOpOUx45FBA1GS4fsnBtAyvYo0S3UHc1YcoglbusZlxj3SWzli/a/cdhyvExzMpnrPqLDJ1M1gEHdrA2wg3cb8UHpkRmyQf5122QAW4qxr+QJQLp78REwvwSGbgivAjkWdvWAlIgX6b3ZUnPYHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580342; c=relaxed/simple;
-	bh=t6HIyMUbz0E+eEqvpBo6BTSjlXKQbldSOqUj/2OSVU8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KjwOyBlnenT2zuN4igSl+Gv5Vgs3XBK4n7wzYnWUjTpvH96kVP/9SNVIqkZaLy+ao5s5rUOd5269QOTyoDNPBLD3CZK+5L2iLfPrDw8GI/OKMgIl5zz0slmIueJyPcEKqv806tJnh0xjrPoAt7FOkRwQWuE7amFU90+Ug0NWJCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=X4BufaVm; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="X4BufaVm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789580328;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cmdjUNL1XY7zBDucnHHtvP/PymRScu1lUWAizmkODYI=;
-	b=X4BufaVmFqhZw567ZHFqDRNk/0ruOj+1BrfVSSpe1+TmeOygt6tcfJtM8IZDhTVRsPlXOl
-	B+4yybX/sFXhuXswLADA5CIRmnYWh+FL0l7vtSIhtimQ5k8Y0qNJjJJdUqdjcSQdCfWV1l
-	N5K4lZstDhAQ2m9J8zklqGtdECX/5YM=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-673-AEY05fytPNudNZBo7klhJg-1; Wed,
- 16 Sep 2026 13:38:44 -0400
-X-MC-Unique: AEY05fytPNudNZBo7klhJg-1
-X-Mimecast-MFC-AGG-ID: AEY05fytPNudNZBo7klhJg_1789580321
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 817AA195422C;
-	Wed, 16 Sep 2026 17:38:40 +0000 (UTC)
-Received: from bfoster (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 83CE21956087;
-	Wed, 16 Sep 2026 17:38:35 +0000 (UTC)
-Date: Wed, 16 Sep 2026 13:38:33 -0400
-From: Brian Foster <bfoster@redhat.com>
-To: Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
-	surenb@google.com, mhocko@suse.com, hughd@google.com,
-	baolin.wang@linux.alibaba.com, willy@infradead.org, jack@suse.cz,
-	ziy@nvidia.com, joannelkoong@gmail.com, djwong@kernel.org,
-	yi.zhang@huawei.com, yizhang089@gmail.com, yangerkun@huawei.com,
-	chengzhihao1@huawei.com, wangkefeng.wang@huawei.com,
-	yukuai@fnnas.com
-Subject: Re: [PATCH v3 1/3] mm/truncate: fix data loss when splitting
- straddling large folios fails
-Message-ID: <aqrUGRd0JClEZNzN@bfoster>
-References: <20260916092450.654408-1-yi.zhang@huaweicloud.com>
- <20260916092450.654408-2-yi.zhang@huaweicloud.com>
+	s=arc-20240116; t=1789580416; c=relaxed/simple;
+	bh=6zDj+nDDyjh9YHrZ2JfzB1aq5DX481zW0e2Sp2qyLH8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pd4c8QXvRucFwsP+ZTvKB6K193WP1ltll+JietKm8uaw1IoqOZwnBlqxHKtnuQX0Cfdy523rqEEQ+7m8Ecic/0odhRyGmGCtxlr+H/HNHwM+WyawrVEx34P48s5P9EWNZ8F+aEEpzbUOIG2uER/6U47Tb60g+G2rQAiEQDDyHYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADH+EJs1Kpq68ZuCA--.23334S2;
+	Thu, 17 Sep 2026 01:39:56 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: anitha.chrisanthus@intel.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	sam@ravnborg.org,
+	simona@ffwll.ch,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/kmb: Fix dsi_pdev reference leak in kmb_probe()
+Date: Wed, 16 Sep 2026 17:39:29 +0000
+Message-Id: <20260916173929.2088602-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916092450.654408-2-yi.zhang@huaweicloud.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADH+EJs1Kpq68ZuCA--.23334S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF4rAr47tw48trW7WF45ZFb_yoW8XFWfpr
+	ZrJFyFvryqkr4xtrW7A3W5Za43Aa17Ka4fuF4kZ3s8WwsYqrW5tas3ZwnrA348AFWkWF4f
+	trZrJF1xur4UZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvF14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS
+	14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
+	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
+	6F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvj
+	fUruWLUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwAMA2qqpVhnYQABsy
 
-On Wed, Sep 16, 2026 at 05:24:48PM +0800, Zhang Yi wrote:
-> From: Zhang Yi <yi.zhang@huawei.com>
-> 
-> truncate_inode_partial_folio() splits a large folio so that the caller's
-> truncate loop can drop the in-range sub-folios while keeping the
-> out-of-range tail. The first split at the punch start edge is
-> non-uniform, which leaves the sub-folio at the truncation end edge as
-> large as possible, this means it may still straddle the range, holding
-> both zeroed in-range and valid out-of-range data. The function then
-> attempts a second split at offset + length to isolate that tail.
-> 
-> If the second split fails the straddling sub-folio stays merged. The
-> function returned true unconditionally on all exit paths of the success
-> block, telling the caller it was fully handled. The caller kept its
-> default end and the truncate loop truncated every sub-folio below it,
-> including the merged straddler, discarding the valid out-of-range tail.
-> 
-> For example, a 4-page order-2 folio punched from offset 0 to the middle
-> of the last page:
-> 
->   truncate_inode_pages_range()
->     truncate_inode_partial_folio()      # same_folio == true
->       1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
->       folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
->       2nd split of folio2 fails / cannot lock
->       return true                       # BUG: caller keeps default end
->     end = 3
->     loop truncates p0, p1, p2-3        # p3's valid tail is lost
-> 
-> This became reachable after commit 7460b470a131 ("mm/truncate: use
-> folio_split() in truncate operation") replaced the atomic split_folio()
-> with folio_split(), whose non-uniform split can partially split a folio
-> and leave the end edge merged.
-> 
-> It has gone unnoticed because a dirty large folio normally carries the
-> filesystem's private data, for example buffer_head, so
-> filemap_release_folio() -> iomap_release_folio() returns false on a
-> dirty folio and folio_split() aborts with -EBUSY before any split,
-> leaving the straddler safely unsplit. The bug is only reachable on paths
-> that produce dirty large folios without filesystem private data, and it
-> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
-> attached.
-> 
-> Rework the contract so the caller is told the page range to discard:
-> 
->   - Add pgoff_t *pstart and *pend out-parameters that receive the page
->     range fully covered by [lstart, lend] after any split (or none),
->     i.e. the pages wholly within the range and safe to discard.
-> 
->   - Adjust the ordering of the validate check when splitting folio2.
->     folio2->index is only reliable after the reference count and lock
->     have been successfully acquired, since it may have been split
->     concurrently, or freed and recycled to an unrelated mapping. On any
->     failure to obtain a reliable end position, fall back to
->     folio->index, which is safe but leaves the sub-folios split off at
->     the offset edge in the page cache.
-> 
->   - Rename the byte-range parameters start/end to lstart/lend to better
->     express their semantics.
-> 
-> Callers in truncate_inode_pages_range() and shmem_undo_range() pass
-> &pstart for the folio at the start edge and &pend for the folio at the
-> end edge, so the truncate loop drops exactly the fully covered pages and
-> never touches a straddling folio that still holds valid out-of-range
-> data.
-> 
-> Suggested-by: Brian Foster <bfoster@redhat.com>
-> Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
-> Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
-> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-> ---
->  mm/internal.h |  4 +--
->  mm/shmem.c    | 13 +++-----
->  mm/truncate.c | 89 ++++++++++++++++++++++++++++++++++++---------------
->  3 files changed, 71 insertions(+), 35 deletions(-)
-> 
-...
-> diff --git a/mm/truncate.c b/mm/truncate.c
-> index b58ba940be47..bec6d881d022 100644
-> --- a/mm/truncate.c
-> +++ b/mm/truncate.c
-...
-> @@ -259,32 +271,62 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
->  		 * for shmem truncate
->  		 */
->  		struct folio *folio2;
-> +		pgoff_t end, aligned_end = (pos + offset + length) >>
-> +					   PAGE_SHIFT;
->  
-> -		if (offset + length == size)
-> -			goto no_split;
-> +		if (pstart)
-> +			*pstart = round_up(pos + offset, PAGE_SIZE) >>
-> +				  PAGE_SHIFT;
-> +
-> +		if (offset + length == size) {
-> +			end = aligned_end;
-> +			goto out;
-> +		}
->  
->  		split_at2 = folio_page(folio,
->  				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
->  		folio2 = page_folio(split_at2);
->  
-> +		/*
-> +		 * folio2 may become stale due to a concurrent split or
-> +		 * freeing, so validate it before and after taking its lock.
-> +		 * If it fails, we can't get an accurate end position and fall
-> +		 * back to folio->index, which may leave sub-folios split off
-> +		 * at the offset edge in the page cache this round.
-> +		 */
-> +		end = folio->index;
->  		if (!folio_try_get(folio2))
-> -			goto no_split;
-> -
-> -		if (!folio_test_large(folio2))
->  			goto out;
->  
-> +		if (folio2->mapping != folio->mapping ||
-> +		    !folio_test_large(folio2))
-> +			goto out_put;
-> +
+The reference taken by of_find_device_by_node() is dropped on none of
+kmb_probe()'s error paths: the -EPROBE_DEFER retry, the DSI host bridge
+init failure, the drm device allocation failure and the later cleanup
+labels. Drop the reference on each of them.
 
-Hi Zhang,
+Fixes: 7f7b96a8a0a1 ("drm/kmb: Add support for KeemBay Display")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/kmb/kmb_drv.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-The only thing that sticks out to me in this version is the
-!folio_test_large() check above. If we split (or something happens) such
-that folio2 is no longer large, wouldn't it be more likely to catch it
-here and fail to update end like we do in the same check a bit further
-down after the folio lock? Maybe I'm missing something here, but it
-seems a little odd for the same condition to return two possible states
-like this. Otherwise I like the changes you've made and the rest of the
-patch LGTM.
-
-Brian
-
->  		if (!folio_trylock(folio2))
-> -			goto out;
-> +			goto out_put;
->  
-> -		/* make sure folio2 is large and does not change its mapping */
-> -		if (folio_test_large(folio2) &&
-> -		    folio2->mapping == folio->mapping)
-> -			folio_split_or_unmap(folio2, split_at2, min_order);
-> +		if (page_folio(split_at2) != folio2) {
-> +			folio_unlock(folio2);
-> +			goto out_put;
-> +		}
-> +		if (!folio_test_large(folio2)) {
-> +			end = aligned_end;
-> +			folio_unlock(folio2);
-> +			goto out_put;
-> +		}
-> +
-> +		/* Split failed: back off to the head of the straddler */
-> +		if (folio_split_or_unmap(folio2, split_at2, min_order))
-> +			end = folio2->index;
-> +		else
-> +			end = aligned_end;
->  
->  		folio_unlock(folio2);
-> -out:
-> +out_put:
->  		folio_put(folio2);
-> -no_split:
-> +out:
-> +		if (pend)
-> +			*pend = end;
->  		return true;
->  	}
->  	if (folio_test_dirty(folio))
-> @@ -413,11 +455,8 @@ void truncate_inode_pages_range(struct address_space *mapping,
->  	folio = __filemap_get_folio(mapping, lstart >> PAGE_SHIFT, FGP_LOCK, 0);
->  	if (!IS_ERR(folio)) {
->  		same_folio = lend < folio_next_pos(folio);
-> -		if (!truncate_inode_partial_folio(folio, lstart, lend)) {
-> -			start = folio_next_index(folio);
-> -			if (same_folio)
-> -				end = folio->index;
-> -		}
-> +		truncate_inode_partial_folio(folio, lstart, lend, &start,
-> +					     same_folio ? &end : NULL);
->  		folio_unlock(folio);
->  		folio_put(folio);
->  		folio = NULL;
-> @@ -427,8 +466,8 @@ void truncate_inode_pages_range(struct address_space *mapping,
->  		folio = __filemap_get_folio(mapping, lend >> PAGE_SHIFT,
->  						FGP_LOCK, 0);
->  		if (!IS_ERR(folio)) {
-> -			if (!truncate_inode_partial_folio(folio, lstart, lend))
-> -				end = folio->index;
-> +			truncate_inode_partial_folio(folio, lstart, lend,
-> +						     NULL, &end);
->  			folio_unlock(folio);
->  			folio_put(folio);
->  		}
-> -- 
-> 2.52.0
-> 
+diff --git a/drivers/gpu/drm/kmb/kmb_drv.c b/drivers/gpu/drm/kmb/kmb_drv.c
+index 7c2eb1152fc2..65df630bf888 100644
+--- a/drivers/gpu/drm/kmb/kmb_drv.c
++++ b/drivers/gpu/drm/kmb/kmb_drv.c
+@@ -518,17 +518,21 @@ static int kmb_probe(struct platform_device *pdev)
+ 	ret = kmb_dsi_host_bridge_init(get_device(&dsi_pdev->dev));
+ 
+ 	if (ret == -EPROBE_DEFER) {
++		put_device(&dsi_pdev->dev);
+ 		return -EPROBE_DEFER;
+ 	} else if (ret) {
+ 		DRM_ERROR("probe failed to initialize DSI host bridge\n");
++		put_device(&dsi_pdev->dev);
+ 		return ret;
+ 	}
+ 
+ 	/* Create DRM device */
+ 	kmb = devm_drm_dev_alloc(dev, &kmb_driver,
+ 				 struct kmb_drm_private, drm);
+-	if (IS_ERR(kmb))
++	if (IS_ERR(kmb)) {
++		put_device(&dsi_pdev->dev);
+ 		return PTR_ERR(kmb);
++	}
+ 
+ 	dev_set_drvdata(dev, &kmb->drm);
+ 
+@@ -577,6 +581,7 @@ static int kmb_probe(struct platform_device *pdev)
+  err_free1:
+ 	dev_set_drvdata(dev, NULL);
+ 	kmb_dsi_host_unregister(kmb->kmb_dsi);
++	put_device(&dsi_pdev->dev);
+ 
+ 	return ret;
+ }
+-- 
+2.34.1
 
