@@ -1,252 +1,425 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay15.grserver.gr (relay15.grserver.gr [46.62.234.254])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFBC53C8C60
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541191; cv=pass; b=cd0Xl7zvLQE0d1+1powM/BxNDxIoF+jphE1MqpZGH5A/cqQQoplxCJLxmw22rSg4+ndGoxvXPC49Oj7s3Z80IBzLWu75FhJ8/myj2IJQug2ks+GvmoBEEZq40Dr3nlqT7nJlXbDawbr+FlKYR2Fy8PAfcPtf3RPMSHsyKtcSYMY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541191; c=relaxed/simple;
-	bh=XlFiHTz+Dihyzf4MnSf1LVtKdUui8dM4W7PbZ/5Xzys=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9FB389E07
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:46:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.62.234.254
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789541202; cv=none; b=CNmtfNRVLJYAYpugvkYRtW/rjtQ8ei8DBUaqL8q8CrNcrTRPW7Y/YwhFhgYfaZwwfHVZuGdRiPMIUSx0mVVOujgjliKXrHWIdZ3N+Y88EDP++08P8sptIsNHE91riGH7CgETHhgJlA+BTPUXokSLijjI+DkisFRtTreZJ8YxpM8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789541202; c=relaxed/simple;
+	bh=2puRTV1u/gnRtwQSRRZJzoMDz8Ml96/IHmCDOm2s0V4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OQnuXGlNMeMsXjVB96659QI/feothD5MYWIoztxJ4dhpzK173d3uAjZoy8TqOvDxWuiCbe860F/bFcKmPa+eDJPj4sLFz6TDwKNC/2Mnrtkxfr1KMbtq9Y9y1Qr2GBgxtvCIhdyhHVjsW5rQS+Xg7+gA8pR//9z79ojjyfMG7mo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DbgIMqyb; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=FuNwvBMKwHwIOAl+OycVXdxGYuDQO8l1+wjROaarsjYrqmREDS4vor+qqxZEB0bDeIrSCO3mEzRbH4w/jicxEAL+fYtV94KEwsPTeGa6lStA8fo1QdC+pNKbQHm6YGAcRUKWM9QWCxBpbdFX1PH5AO4d0yTlHXyig7nTgCTQ58g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=jimxWVCz; arc=none smtp.client-ip=46.62.234.254
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DbgIMqyb"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b79784a6edso636206e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:46:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789541188; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Hh7NGZ9v6pYnNJo54NpXF/lA5tv+visusGl3UM6Uqs7y6p2CncgvJh9Omr4sTJE4qd
-         D8BYbyzyW2RVhxHzucNYMgQ+FKhoqfgQXZ8XwNOg+9b5GOwXzYX44BgPGOU1AVBDm4gN
-         +6KZD5Eu5kounzA2FYVTbUxkEPLVgRDAuwB/Teszi1UOfWKPlzRt0pxEMXhEBT55vlQU
-         LUm4DmaegpF9Di+CzlU1pbw64zRxY2Ax/pqhjFMhvB3SNkfDYiJr7Yr8StNo2IdiSOGH
-         ZlnLI4rzRNwIKLeSnn8CYtvwxXWQegf/mCKWajNJX/3y/jHyR7psDmd5GUvqACmzb9Hq
-         BZ3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=P6xB9GyEAaDD3YuwcLClG2nTPjFhbGFjC7xAq098W0Q=;
-        fh=xMA8rsav9xrk9mhx8FrF9ZUWpuKwEukl3+aS+0PaXxw=;
-        b=SiJWE3DFOW0Hn7h44VcbcMxO8lfK8QlG/UyyrfZ+FHnHN9Ili7W+wQtLluLBpjS4/A
-         3QZ3qytGU+JBdteCD6WUzYumT23chOaID4N5Tc+2SybJB3+1S4KUCrc6Qzr0XPUre99u
-         b1F3ZTUGdHOsKpFq65yT4S55hc+esSpjeSBm7d3v+nJqG9NEDbcdo4p04j5uEwWHJC5+
-         1KAhqLrVlBZc1g0uY+/v6dhkoMGC6qqBSoL5OKPnckF2rUIfj35KSHlpRqerkgKCl/Hq
-         N/zR7VNQPCzfDfV1J8iZhybLrttT/E2zL5XsI5AaHxueTF7sjlofFoU2nYxpjVAO5zT/
-         fOkg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789541188; x=1790145988; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P6xB9GyEAaDD3YuwcLClG2nTPjFhbGFjC7xAq098W0Q=;
-        b=DbgIMqybNMAHy3dFCLYZAOQaZXe30HdQLKVkW9dvcDfRyfG5cUnWvDUKt5ddF/N0zR
-         hTfELwzEbiibJKlEI/fhn97L3ZkOGYVjvC2WEGO3gtYAJAk+meTsmzna+Kj4X1jOf/LL
-         MA2eUF6H0LadtFQbC8yWvg8L+rOvNvtIpbMvQysKOnl31Sfzty/DYavwgreEyeHD3O5G
-         qjkMFLT6I3Xiloj8bGJuKjHfZbIntWF0pJ2ZYOzDw6qZ6frQNUhRVJ67+JoBvoHne7WG
-         /J6Z/oIYeGZTMJSFDGnuDC+4ucu7zN+eLcFD0ptHFVmlSVvYJIzwe9eOt3D7w1C+v1xp
-         VW7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789541188; x=1790145988;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=P6xB9GyEAaDD3YuwcLClG2nTPjFhbGFjC7xAq098W0Q=;
-        b=LiCIMOGfj7XNcyrQfOju089LKoNuhlLE9QCOcF/dTEto0Ep95Ebr1fOWcvz67ZQJLR
-         ugtLtl12bMGbXvjkc9pZC/mlML9fH9xddqYPDUVLtwXmIn89RfZCmYsh/0ybGQXNwE1N
-         u8CLj7d6TzqETVU5uOlkDwzjqIhYAY1FoZUCBH4oI23PyJ2BVU6h28zYlj+2dlabpAoX
-         yNgJpyQPSFwGBDBWwZ3EiAgw9g8076+TszLqYdl1Usv/A5KD6P2P5cI1ckWQb+qmR4uH
-         /A2d9WuaxWhiCQnj1ZbOEMpegmAUHwJdqp9HacXQWu/T8lTmGAVT1WmaMThMPa6i+hrO
-         yofA==
-X-Forwarded-Encrypted: i=1; AKwUvBz09qajgd/CZxl7KLJcvH3WtPyAINDmd9W1w4ZQJrn1a5k2yl3YGXEpHV+KGWR7tL8FuHxNIdazNmmxPrc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nd6+npXBRxRcWjmn73a++pkJboXSX2fx0EyNba+yor4dD3zLyd
-	j4fM7MPldagwJeq96g60WDbgDJ3aAj6HX+8RN4utYT0jpw35M+7AHpkwbSthPocQptENMATr6Uy
-	jtZ3Rge6hTCl1NFDCmORod3EPYCuf2TE=
-X-Gm-Gg: AYBFou2OrKT4p1ioPjrS0DMKv8kLeG6ksdcKRQWcKJ5MMfJggfcZQ37ah1WphzAx9Wo
-	Ipa6rkw/DwI2l+cRuC8FaHPzyW8Ig+SX+LXAayFZWjvAMTOSbSVnY+iEKg0dtq+dppeiU/JB3qr
-	Oc7r3pnCO/mABxJy8cjDChbcwnJXwqqO4luNgmuGD6xe02mF12jzN27EP7K5XmCyPAB8ogjo/V6
-	nyunTL7QIdJyZZND4N3ujOB+cXO7Q8Cu3n1bcqSBcFVr+d85cWAwixaFYDZh2KsqB02fYjcpTwN
-	qivm9h2+zu5DilqZgyENB9JwdSFsQo3kemWk7AjWxdq5iPwAMl8lrtrDj20dGZZajPzk
-X-Received: by 2002:a05:6512:1194:b0:5b6:17b6:f8d3 with SMTP id
- 2adb3069b0e04-5b8b661e63amr330005e87.24.1789541187235; Tue, 15 Sep 2026
- 23:46:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="jimxWVCz"
+Received: from relay15 (localhost [127.0.0.1])
+	by relay15.grserver.gr (Proxmox) with ESMTP id 08C7B3EA91
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:46:35 +0000 (UTC)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay15.grserver.gr (Proxmox) with ESMTPS id AD9BA3F9A8
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:46:33 +0000 (UTC)
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id 562861FF8AA
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:46:32 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1789541193;
+	bh=GOCa41YEk32wngz4kyFkqv7vv+cUqm9Sia7lMBJMx3I=;
+	h=Received:From:Subject:To;
+	b=jimxWVCz3V8ukVN+ANjeVD9ScBDjLxODOGrjpD5TMPXlMTWp6yVlovQndrp6psPxV
+	 UYnCatzTGm+jKTABRAxgaT0GrQ7o5tIaFbjUpDo/w7qgS0ZcwqLinU2SXDaQMcGrNM
+	 59X7DvmtKwaz/mWl3yS9JvvYMpJ8fCyfMXKSeItoP/NQEofm01nGHW9/DNFMhYcwyy
+	 FzvoV7ql1xtF4lDh7uDPtdL3iB9+dfFZhTJ4lbss7cFZsC7r1Aenwf9xiZdwR8X7I1
+	 s5jUgEaw7vmWS42YjXvzlyKa+uRqBpiDMvW63QLlVOG1/NisvkYfmKyIbe+Xymu+OL
+	 ASoM0GzNGPKpg==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 74.125.228.41) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pz2-f41.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pz2-f41.google.com with SMTP id
+ d2e1a72fcca58-85469a3490bso551341b3a.3
+        for <linux-kernel@vger.kernel.org>;
+ Tue, 15 Sep 2026 23:46:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxmugDYguPp51usVRG5raxl+T9GK4ZsgRx46TUI/dIE8rzjmvnJqlqj4QYe+NOdIBIuAXkoyCYyV4zd8rc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMFVINt60zYlVWz1y18cWgVnq7tzcpf2Zq7bBu0Z4Onf4qvyaC
+	bM2fI10wgoGbv5XMvnh+29bPek57pzhgTvbis5lOlGsavR7LL5pM7mdy9jgYFyv2XubCX3GOBoL
+	Dz7krEhTttyqgrpayCLPPBcU52xA2tVU=
+X-Received: by 2002:a05:6a00:299a:b0:871:fcff:e904 with SMTP id
+ d2e1a72fcca58-8723d432cccmr2971599b3a.25.1789541190078; Tue, 15 Sep 2026
+ 23:46:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908-fix-warning-in-sbitmap_get-v1-1-767c2c211a2b@gmail.com> <7a2ed1bc-bf7a-4744-84e2-72c79bd36f2a@oracle.com>
-In-Reply-To: <7a2ed1bc-bf7a-4744-84e2-72c79bd36f2a@oracle.com>
-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
-Date: Wed, 16 Sep 2026 14:46:12 +0800
-X-Gm-Features: AcwNN1WNBnS3VJCLq8kKpzJnYh_F0LVNR17Lgzi-0b2V4lV0sCpEsqAPTIpRIks
-Message-ID: <CA+kkGbsOD15psKucuvm2JEjHhjQdd3p+9439wK77JHkhqAvGYQ@mail.gmail.com>
-Subject: Re: [PATCH] vhost-scsi: initialize command pools for late I/O virtqueues
-To: Mike Christie <michael.christie@oracle.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
-	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260915181200.18086-1-denis.benato@linux.dev>
+ <20260915181200.18086-4-denis.benato@linux.dev>
+ <CAGwozwHe7dnSi1=NuqeQuXD0FtdPKLJvwyC53ff6LUmRU9Z7SQ@mail.gmail.com>
+ <9fd173d2-08c2-4455-b251-27af53db2028@gmail.com>
+In-Reply-To: <9fd173d2-08c2-4455-b251-27af53db2028@gmail.com>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Wed, 16 Sep 2026 08:46:18 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwHTZVrrC7zB4oGc3safznXKH3zkHv5EDVSyOYdNGZCpXw@mail.gmail.com>
+X-Gm-Features: AcwNN1VER_dyV6DxB_PLm2sbTlP899Szcff43tqjGfA4kEbafpApPF1mCYyKhGY
+Message-ID: 
+ <CAGwozwHTZVrrC7zB4oGc3safznXKH3zkHv5EDVSyOYdNGZCpXw@mail.gmail.com>
+Subject: Re: [PATCH 3/3] HID: asus: add support for xgm led
+To: Denis Benato <benato.denis96@gmail.com>
+Cc: Denis Benato <denis.benato@linux.dev>, linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org, Benjamin Tissoires <bentiss@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>, "Luke D . Jones" <luke@ljones.dev>,
+ Mateusz Schyboll <dragonn@op.pl>
 Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <178954119299.1486230.3135000396847464308@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-On Tue, Sep 15, 2026 at 04:38:38PM -0500, Mike Christie wrote:
-> On 9/8/26 9:30 AM, Linfeng Sun wrote:
-> > vhost_scsi_set_endpoint() allocates command pools only for I/O virtqueues that
-> > are already set up, but publishes the backend for every virtqueue. If userspace
-> > finishes configuring a skipped queue later, a kick reaches vhost_scsi_get_cmd() with
-> >
-> >
-> > vhost_scsi_set_endpoint() allocates command pools only for I/O virtqueues
-> > that are already set up, but publishes the backend for every virtqueue. If
-> > userspace finishes configuring a skipped queue later, a kick reaches
-> > vhost_scsi_get_cmd() with scsi_tags uninitialized and triggers the
-> > !sb->alloc_hint warning in sbitmap_get().
-> >
-> > Leave skipped I/O virtqueues inactive at SET_ENDPOINT. When SET_VRING_ADDR
-> > later completes their setup, allocate the command pools and activate the
-> > queues. Roll back both if access initialization fails.
-> >
-> > Fixes: 25b98b64e284 ("vhost scsi: alloc cmds per vq instead of session")
-> > Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
-> > ---
-> > I checked QEMU and found no evidence it's affected. I haven't checked
-> > VirtualBox because I am not familiar with it. However, the virtio spec
-> > doesn't require a specific operation order, so a new VMM could still
-> > trigger this issue.
-> >
-> > Crash log:
-> > [   34.698961] ------------[ cut here ]------------
-> > [   34.699385] WARNING: lib/sbitmap.c:286 at sbitmap_get+0x227/0x270, CPU#0: vhost-82/88
-> > [   34.700542] Modules linked in:
-> > [   34.701309] CPU: 0 UID: 0 PID: 88 Comm: vhost-82 Not tainted 7.3.0-rc2+ #14 PREEMPT(full)
-> > [   34.701958] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> > [   34.702717] RIP: 0010:sbitmap_get+0x227/0x270
-> > [   34.703247] Code: 41 8d 5d 01 89 df 44 89 fe e8 f5 3a 46 ff 31 c0 44 39 fb 0f 43 d8 e8 38 46 46 ff 65 41 89 1c 24 e9 25 ff ff ff e8 29 46 46 ff <0f> 0b eb ba e8 20 46 46 ff 44 89 fe 31 ff 45 31 e4 e8 c3 3b 46 ff
-> > [   34.704234] RSP: 0018:ffffc90000ec3bb0 EFLAGS: 00000246
-> > [   34.704677] RAX: 0000000000000000 RBX: ffff88800500dee8 RCX: 0000000000000000
-> > [   34.705166] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff88800500dee8
-> > [   34.705584] RBP: ffffc90000ec3be0 R08: 0000000000000000 R09: 0000000000000000
-> > [   34.705988] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000006
-> > [   34.706477] R13: 0000000000000000 R14: 0000000000000000 R15: ffff8880050094d0
-> > [   34.706955] FS:  0000000014d05380(0000) GS:ffff888099c36000(0000) knlGS:0000000000000000
-> > [   34.707463] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > [   34.707854] CR2: 00007c0c3c20e000 CR3: 0000000008e47000 CR4: 00000000000006f0
-> > [   34.708592] Call Trace:
-> > [   34.709259]  <TASK>
-> > [   34.709822]  vhost_scsi_handle_vq+0x4a9/0x1b20
-> > [   34.710437]  ? update_cfs_rq_load_avg+0x2e/0x230
-> > [   34.710874]  vhost_scsi_handle_kick+0x2c/0x40
-> > [   34.711292]  vhost_run_work_list+0xa6/0xf0
-> > [   34.711673]  vhost_task_fn+0x76/0x1b0
-> > [   34.712003]  ? __sanitizer_cov_trace_const_cmp1+0x1a/0x30
-> > [   34.712506]  ? recalc_sigpending+0xe1/0x130
-> > [   34.712890]  ? __pfx_vhost_task_fn+0x10/0x10
-> > [   34.713325]  ret_from_fork+0x37a/0x630
-> > [   34.713673]  ? __pfx_vhost_task_fn+0x10/0x10
-> > [   34.714031]  ret_from_fork_asm+0x1a/0x30
-> > [   34.714535] RIP: 0033:0x0
-> > [   34.715201] Code: Unable to access opcode bytes at 0xffffffffffffffd6.
-> > [   34.715587] RSP: 002b:0000000000000000 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> > [   34.716158] RAX: 0000000000000000 RBX: 000000000048bb20 RCX: 000000000041ca3d
-> > [   34.716571] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
-> > [   34.716957] RBP: 00007ffcac47c4e0 R08: 00000000ffffffff R09: 0000000000000000
-> > [   34.717418] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000004
-> > [   34.717826] R13: 00007ffcac47c778 R14: 00000000004af868 R15: 0000000000000001
-> > [   34.718363]  </TASK>
-> > ---
-> >   drivers/vhost/scsi.c | 44 ++++++++++++++++++++++++++++++++++++++++++--
-> >   1 file changed, 42 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
-> > index 4f8c0260bc9e..069a6ff4dd40 100644
-> > --- a/drivers/vhost/scsi.c
-> > +++ b/drivers/vhost/scsi.c
-> > @@ -2008,6 +2008,40 @@ static int vhost_scsi_setup_vq_cmds(struct vhost_virtqueue *vq, int max_cmds)
-> >     return -ENOMEM;
-> >   }
-> >
-> > +/* Callers must hold dev mutex. */
-> > +static int vhost_scsi_activate_vqs(struct vhost_scsi *vs)
-> > +{
-> > +   struct vhost_virtqueue *vq;
-> > +   int i, ret = 0;
-> > +
-> > +   if (!vs->vs_tpg)
-> > +           return 0;
-> > +
-> > +   for (i = VHOST_SCSI_VQ_IO; i < vs->dev.nvqs; i++) {
-> > +           vq = &vs->vqs[i].vq;
-> > +           mutex_lock(&vq->mutex);
-> > +           if (vhost_vq_get_backend(vq) || !vhost_vq_is_setup(vq))
-> > +                   goto unlock;
-> > +
-> > +           ret = vhost_scsi_setup_vq_cmds(vq, vq->num);
-> > +           if (ret)
-> > +                   goto unlock;
-> > +
-> > +           vhost_vq_set_backend(vq, vs->vs_tpg);
-> > +           ret = vhost_vq_init_access(vq);
-> > +           if (ret) {
-> > +                   vhost_vq_set_backend(vq, NULL);
-> > +                   vhost_scsi_destroy_vq_cmds(vq);
-> > +           }
-> > +unlock:
-> > +           mutex_unlock(&vq->mutex);
-> > +           if (ret)
-> > +                   break;
-> > +   }
-> > +
-> > +   return ret;
-> > +}
-> > +
-> >   /*
-> >    * Called from vhost_scsi_ioctl() context to walk the list of available
-> >    * vhost_scsi_tpg with an active struct vhost_scsi_nexus
-> > @@ -2105,6 +2139,9 @@ vhost_scsi_set_endpoint(struct vhost_scsi *vs,
-> >
-> >             for (i = 0; i < vs->dev.nvqs; i++) {
-> >                     vq = &vs->vqs[i].vq;
-> > +                   if (i >= VHOST_SCSI_VQ_IO && !vs->vqs[i].scsi_cmds)
-> > +                           continue;
-> > +
-> >                     mutex_lock(&vq->mutex);>                        vhost_vq_set_backend(vq, vs_tpg);
-> >                     vhost_vq_init_access(vq);
-> > @@ -2466,10 +2503,13 @@ vhost_scsi_ioctl(struct file *f,
-> >     default:
-> >             mutex_lock(&vs->dev.mutex);
-> >             r = vhost_dev_ioctl(&vs->dev, ioctl, argp);
-> > -           if (r == -ENOIOCTLCMD)
-> > +           if (r == -ENOIOCTLCMD) {
-> >                     r = vhost_vring_ioctl(&vs->dev, ioctl, argp);
-> > -           else
-> > +                   if (!r && ioctl == VHOST_SET_VRING_ADDR)
-> > +                           r = vhost_scsi_activate_vqs(vs);
-> Is it ok to just not support the delayed setup? So just do the
-> fix in vhost_scsi_set_endpoint?
+On Wed, 16 Sept 2026 at 02:54, Denis Benato <benato.denis96@gmail.com> wrote:
 >
-A later SET_VRING_ADDR would still succeed while leaving the queue
-inactive. If we donot support it, I think it should fail explicitly
-instead of causing a silent I/O stall.
-
-> Is this a useful feature?
 >
-No current VMM appears to rely on it, but the UAPI does not specify this
-ordering. A new VMM could reasonably use it.
-
-> I don't think net supports it. When it does the vhost_net_set_backend
-> call it does vhost_vq_access_ok. If it's not ready to go then it
-> returns failure.
+> On 9/15/26 23:52, Antheas Kapenekakis wrote:
+> > On Tue, 15 Sept 2026 at 20:12, Denis Benato <denis.benato@linux.dev> wrote:
+> >> XG mobile stations have very bright leds behind the fan that can be
+> >> turned either ON or OFF: add a cled interface to allow controlling the
+> >> brightness of those red leds.
+> > Hi Denis,
+> > as of last month, I am also the proud owner of a XG Mobile (2025 in my
+> > case). Therefore, I can now comment on this series and give you
+> > feedback.
 >
-Right, net returns an error for that VQ. Simply skipping a scsi VQ would
-make the later ioctl succeed without activating it.
+>
+> Perhaps. These two devices have nothing in common but the name.
+>
+> > First, I have some interim patches that are not ready yet to post. The
+> > device still has some led behavior that I need to investigate, but I
+> > attach them here for your reference. You may send them on my behalf if
+> > you want to see them sooner though.
+> >
+> > https://github.com/anatase-org/patchwork/commit/af3e5e1755f720a2fffd1b67cb1253e11efbc5bb
+> > https://github.com/anatase-org/patchwork/commit/7718c4b64b03ca9be043e8c56f1833e5c4880fff
+> >
+> > Note that these two patches are essentially a replacement for this
+> > patch essentially, except for the binding, where your device is I2C
+> > where mine is thunderbolt, so that still needs to be added. There are
+> > still leftover issues with the LED I have to investigate before I
+> > submit these patches.
+> >
+> > As you know, USB keyboards in Asus laptops are connected over WMI
+> > through s2idle as well, which is what makes them turn off their
+> > backlight during suspend. However, our devices are external and cannot
+> > use the same path. I suspect that there is a different notifier for
+> > these devices over armoury crate we need to investigate first.
+>
+> Your device is thunderbolt only, but 2022, 2023 and 2024
+> xg mobiles that his patch targets are devices for which the
+> ACPI of laptops supporting this weird connector is full of
+> references to and handling and custom code all over the place.
+>
+> They are nothing alike. They share the name....
+>
+> If I connect mine to my rog ally armoury crate gains a
+> slider that sends the exact same command my patch sends...
+>
+> I couldn't find anything else over USB with wireshark:
+> everything else is ACPI-driven.
+>
+> >> Let the led core manage the power transitions: the classdev is flagged
+> >> with LED_CORE_SUSPENDRESUME, so it is switched off at suspend and its
+> >> last brightness is restored at resume. The EC drives its own blinking
+> >> pattern during s2idle anyway, so the led state while the machine is
+> >> asleep is not meaningful.
+> >>
+> >> Cc: Antheas Kapenekakis <lkml@antheas.dev>
+> >> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+> >> ---
+> >>  drivers/hid/hid-asus.c | 84 ++++++++++++++++++++++++++++++++++++++++++
+> >>  1 file changed, 84 insertions(+)
+> >>
+> >> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> >> index 03150d29eec5..a427e272563d 100644
+> >> --- a/drivers/hid/hid-asus.c
+> >> +++ b/drivers/hid/hid-asus.c
+> >> @@ -51,6 +51,8 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+> >>  #define FEATURE_KBD_LED_REPORT_ID1 0x5d
+> >>  #define FEATURE_KBD_LED_REPORT_ID2 0x5e
+> >>
+> >> +#define ROG_XGM_REPORT_SIZE 300
+> > Here, you define an additional report size var. This is not necessary,
+> > as ROG_ALLY_REPORT_SIZE is only used for reads currently in the driver
+> > and we defer to hid core to set the write length. Therefore, you might
+> > increase ROG_ALLY_REPORT_SIZE to 300 universally instead, as a
+> > correctness fix. This way, when Aura devices attempt to write 300
+> > bytes, they still work regardless of the quirk. This is what
+> > af3e5e1755f720a2fffd1b67cb1253e11efbc5bb.
+>
+> I answer to this below, but I want to point out something here:
+> you are right in wanting to join these, but wrong on what to join:
+> the right thing to do is not to join the ALLY_REPORT_SIZE and the
+> XGM report size, but instead to join the  KBD report size and the
+> ally one as one NKEY_REPORT_SIZE since this is exactly what they
+> are: N-KEY devices.
 
-> If we supported this, then I think vhost_scsi_activate_vqs should
-> active the specific virtqueue that VHOST_SET_VRING_ADDR is called
-> for.
+You are right, NKEY_REPORT_SIZE. This is what my patch did. It was
+late yesterday.
 
-Agreed. I will change it to activate only that virtqueue.
+> >> +
+> >>  #define ROG_ALLY_REPORT_SIZE 64
+> >>  #define ROG_ALLY_X_MIN_MCU 313
+> >>  #define ROG_ALLY_MIN_MCU 319
+> >> @@ -144,6 +146,11 @@ struct asus_worker {
+> >>         bool removed;
+> >>  };
+> >>
+> >> +struct asus_xgm_led {
+> >> +       struct led_classdev cdev;
+> >> +       struct hid_device *hdev;
+> >> +};
+> >> +
+> >>  struct asus_touchpad_info {
+> >>         int max_x;
+> >>         int max_y;
+> >> @@ -170,6 +177,7 @@ struct asus_drvdata {
+> >>         unsigned long battery_next_query;
+> >>         struct asus_hid_listener listener;
+> >>         bool fn_lock;
+> >> +       struct asus_xgm_led *xgm_led;
+> >>  };
+> >>
+> >>  static int asus_report_battery(struct asus_drvdata *, u8 *, int);
+> >> @@ -1161,6 +1169,26 @@ static int asus_battery_probe(struct hid_device *hdev)
+> >>         return ret;
+> >>  }
+> >>
+> >> +static int asus_xgm_led_set(struct led_classdev *led_cdev, enum led_brightness value)
+> >> +{
+> >> +       const u8 buf[ROG_XGM_REPORT_SIZE] = {
+> >> +               FEATURE_KBD_LED_REPORT_ID2, 0xC5, (value) ? 0x50 : 0x00
+> >> +       };
+> >> +       struct asus_xgm_led *xgm = container_of(led_cdev, struct asus_xgm_led, cdev);
+> >> +       int ret;
+> >> +
+> >> +       ret = asus_kbd_set_report(xgm->hdev, buf, ROG_XGM_REPORT_SIZE);
+> >> +       if (ret < 0) {
+> >> +               hid_err(xgm->hdev, "Unable to set XG mobile led state: %d\n", ret);
+> >> +               return ret;
+> >> +       } else if (ret != ROG_XGM_REPORT_SIZE) {
+> >> +               hid_err(xgm->hdev, "Unexpected partial transfer to XG mobile: %d\n", ret);
+> >> +               return -EIO;
+> >> +       }
+> >> +
+> >> +       return 0;
+> >> +}
+> >> +
+> > Moreover, as this is an Aura device, and by setting
+> > ROG_XGM_REPORT_SIZE to 300, you can now reuse the initial inits and
+> > brightness handler instead of adding new ones as you did here. This
+> > way, for asus laptops with a wmi handler, the brightness keyboard
+> > shortcut of the device will also control the eGPU, which is preferable
+> > behavior. This is what 7718c4b64b03ca9be043e8c56f1833e5c4880fff does
+> > in part.
+>
+>
+> Absolutely bad idea, trust me: I have recently followed the fix
+> of a regression I introduced sending a 64-bytes command to
+> touchpads that accepts some other length as those stopped
+> working. Doing that is asking for troubles. Listen to who
+> caused the trouble already and make the most out of my
+> mistakes.
+>
+> I also had to make asusctl send exactly 64-bytes commands
+> because of random bugs to zephyrus and strix models.
+> Sending 65 bytes to anime matrix is not a very good idea either.
+>
+> Also Armoury Crate never sends anything different to 64 bytes
+> to N-key devices and I do not want to send anything different
+> than windows does.
+>
+> Do you remember what happens to rainbow on ROG ally if you send
+> commands the MCU doesn't like? I don't want having weird things
+> difficult to debug and nearly impossible to recover from only because
+> the code would look better/be shorter.
+>
+> These devices are fragile in handling, tied to the EC and low lever
+> hardware and I absolutely don't want to diverge from what
+> Armoury Crate does unless there is a very good reason to it.
+>
+> I agree that ASUS devices are somewhat forgiving in accepting
+> different lengths, unlike MSI claws that will not answer to
+> commands until you have sent a number of bytes multiple of
+> the length they want, but this is no reason to toy around this.
+>
+> > I have not tested the common path yet. I have been travelling so I
+> > have not flashed the new kernel on my z13. I have been using the eGPU
+> > with a different device.
+>
+> If with "the new kernel" you mean 7.3 I can tell you it appears
+> d3 is broken and some ASUS laptops stopped entering s2idle...
+>
+> > 7718c4b64b03ca9be043e8c56f1833e5c4880fff also fixes the "blinking
+> > pattern" of the EC, as you note in your subject. With the init,
+> > suspend and resume handlers sending the init of that patch, during
+> > boot the light blinks, it becomes solid once hid-asus binds, then
+> > during the transition to sleep, it starts to blink until it turns red,
+> > and does the reverse during resume. It would be good for you to give
+> > feedback for that. I have not verified the Windows behavior there, and
+> > we should do that for correctness. The init is referenced from
+> > g-helper in Windows, but maybe there is another command that signals
+> > sleep better.
+>
+> 2022, 2023 and 2024 models don't blink outside of s2idle...
+> Because ACPI is all over the place and the device gets informed
+> constantly of what the host is doing.
+>
+> If 2025 models blink until you bind the driver it that means they
+> rely on commands from the windows application... We will need
+> to replicate those as closely as possible.
+>
+> I can ask ASUS if wireshark captures don't shed some lights to it.
+
+If you can and forward me some info it should be great.
+
+> > I do not have an answer to the sleep leds unfortunately. My XG's RGB
+> > stays on while there is a device plugged in, regardless of whether its
+> > sleeping or shutdown. This makes me think that we are missing a
+> > notifier command, and the brightness patch you propose here just
+> > papers over the issue. So we should investigate that first.
+>
+> What I propose is correct for old models. Newer ones I know nothing
+> about except that there is no custom ACPI handling them.
+>
+>
+> > Let me know how you'd like to proceed.
+>
+> Honestly I think you should name those something like xgb_tb_.....
+> and handle them separately since they have pretty much nothing
+> in common... Except the price maybe. Lol.
+>
+> In general don't go crazy over refactors and trying to make the
+> code looks better at the expense of proven things: the priority
+> is for this driver to work reliably and to reuse as much things
+> proven to work as possible.
+
+Let me simplify. Please try to stay on topic.
+
+My XG Mobile is an Aura device using FEATURE_KBD_LED_REPORT_ID2 with a
+feature report size of 300. Your XG Mobile is an Aura device that uses
+the same. They both have the same sleep issue that you paper over by
+setting the brightness to 0. The LED stays on during sleep. It also
+stays on / off during boot and the power command works inconsistently
+with it. Which points to the device not knowing boot state and missing
+a command to inform it.
+
+The asusctl driver handles aura devices. However, instead of using the
+current aura cdev handler and init handling you introduce a SECOND ONE
+THAT DOES THE SAME THING and is not connected to the central keyboard
+brightness handler.
+
+Why do you do that? Can you justify the new cdev? What's wrong with
+the normal one? Why do we need a new ABI just for the 2022-2024 eGPU
+models?
+
+I am not arguing on which command is correct to send. Keep the flow
+the same if you want
+
+Antheas
+
+> > Best,
+> > Antheas
+> >
+> >
+> >>  static int asus_input_configured(struct hid_device *hdev, struct hid_input *hi)
+> >>  {
+> >>         struct input_dev *input = hi->input;
+> >> @@ -1406,6 +1434,49 @@ static void asus_initialize_reports(struct hid_device *hdev)
+> >>         }
+> >>  }
+> >>
+> >> +static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
+> >> +{
+> >> +       const char *name;
+> >> +       int ret;
+> >> +
+> >> +       drvdata->xgm_led = devm_kzalloc(&hdev->dev, sizeof(*drvdata->xgm_led), GFP_KERNEL);
+> >> +       if (drvdata->xgm_led == NULL)
+> >> +               return -ENOMEM;
+> >> +
+> >> +       name = devm_kasprintf(&hdev->dev, GFP_KERNEL, "asus:xgm-%s:led",
+> >> +                             strlen(hdev->uniq) ? hdev->uniq : dev_name(&hdev->dev));
+> >> +
+> >> +       if (name == NULL) {
+> >> +               ret = -ENOMEM;
+> >> +               goto asus_xgm_init_err;
+> >> +       }
+> >> +
+> >> +       drvdata->xgm_led->hdev = hdev;
+> >> +       drvdata->xgm_led->cdev.name = name;
+> >> +       drvdata->xgm_led->cdev.brightness = 1;
+> >> +       drvdata->xgm_led->cdev.max_brightness = 1;
+> >> +       drvdata->xgm_led->cdev.brightness_set_blocking = asus_xgm_led_set;
+> >> +       drvdata->xgm_led->cdev.flags = LED_CORE_SUSPENDRESUME;
+> >> +
+> >> +       /* LED state is arbitrary on boot, set a default */
+> >> +       ret = asus_xgm_led_set(&drvdata->xgm_led->cdev, drvdata->xgm_led->cdev.brightness);
+> >> +       if (ret) {
+> >> +               hid_err(hdev, "Asus failed to set xgm led: %d\n", ret);
+> >> +               goto asus_xgm_init_err;
+> >> +       }
+> >> +
+> >> +       ret = devm_led_classdev_register(&hdev->dev, &drvdata->xgm_led->cdev);
+> >> +       if (ret) {
+> >> +               hid_err(hdev, "Asus failed to register xgm led: %d\n", ret);
+> >> +               goto asus_xgm_init_err;
+> >> +       }
+> >> +
+> >> +       return 0;
+> >> +asus_xgm_init_err:
+> >> +       drvdata->xgm_led = NULL;
+> >> +       return ret;
+> >> +}
+> >> +
+> >>  static int __maybe_unused asus_resume(struct hid_device *hdev)
+> >>  {
+> >>         struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+> >> @@ -1545,6 +1616,16 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+> >>         if (!drvdata->tp)
+> >>                 asus_initialize_reports(hdev);
+> >>
+> >> +       if (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID) &&
+> >> +           ((hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2022) ||
+> >> +            (hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2023))) {
+> >> +               ret = asus_xgm_init(hdev, drvdata);
+> >> +               if (ret) {
+> >> +                       hid_err(hdev, "Failed to initialize xg mobile: %d\n", ret);
+> >> +                       goto err_stop_hw;
+> >> +               }
+> >> +       }
+> >> +
+> >>         /* Laptops keyboard backlight is always at 0x5a */
+> >>         if (is_vendor && (drvdata->quirks & QUIRK_USE_KBD_BACKLIGHT) &&
+> >>             (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID)) &&
+> >> @@ -1594,6 +1675,9 @@ static void asus_remove(struct hid_device *hdev)
+> >>         if (drvdata->listener.brightness_set)
+> >>                 asus_hid_unregister_listener(&drvdata->listener);
+> >>
+> >> +       if (drvdata->xgm_led)
+> >> +               devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
+> >> +
+> >>         asus_worker_stop(drvdata->worker);
+> >>         hid_hw_stop(hdev);
+> >>  }
+> >> --
+> >> 2.47.3
+> >>
+> >>
+>
+
