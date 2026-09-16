@@ -1,76 +1,76 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011030.outbound.protection.outlook.com [40.107.74.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DEB4E66DA
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:37:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789558647; cv=none; b=O/6dSvjtGEfVzvSo1KvEKEYeF5UHsbEB8GwoPBLEofclaoj1jCnctXs0ELahSCCN/ojl3YzPQR/SnGGAHzMk5zta6YrH/JsVjVYzQRZI0mj7O1cXdZsRhH7atBRhh65q2NgKGvk0c7xGJ17GVzPRV7uIdDRrzLF7W/7iXMxwIUE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789558647; c=relaxed/simple;
-	bh=3uaObKhY36qkdLUb4pvRy/Y7taGooeBUyJJlfhXMPyU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PPoqs2oDqrsdYX/+eXvNS4v6wEAzyD0NmxljX+a7eX/IaTvpgSBBgFeRJYoI9gYuqWBGB+V2uMbCOykHFH5px7UOjw5LqPEFBuZUSqUslAQMaGtr13O7DXoiGQJvuyn54b7LQ6M7Xj85a2ThmcprIfPyCb+3gkbvaMpgp6mc4RQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X8N5Jcs3; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF70485CE7;
+	Wed, 16 Sep 2026 11:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789558643; cv=fail; b=FJtz+bdSiAx/psByhcDw9DPvRotw7AtKw7Lkr1cGpaEd+vX1FR7ygSd0zbmiJehqdp0ttmCAYbff4Kd5lZ5izLCsEsc+Gn1FY0C7OQnD0p2CbFbepkwrtNv8WJJqcX1Bg5uxPLI2NZ+Ci/FkItXnoEEv/qYIH24gvq42Mc5Uwzk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789558643; c=relaxed/simple;
+	bh=NB5CeRLEjs8wuqi3BiHIJtqIwm5sgLuBxpbObxqHvNo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SUHihmeSGPpZ6BzmH+cBWg9mkrX9MjSbNr1ioL5VCtrg2xevvQVuyQdZwkGFFXRXIwc09WG4/LzN7lJUDK+dHZ5Zu4pSH/DY5smb5qy+0OFX/1INmFQUoZSdX2IdUy9CyKc2xh78wBU39lyW1HI8n25hgILg8X1du3SDlUoGKpA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=VpxkpRl/; arc=fail smtp.client-ip=40.107.74.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X8N5Jcs3"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91ede8035so9284045ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:37:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789558638; x=1790163438; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oOQF8lSD7wdJvBSJlzI6UX4BPG3ivMWDQsQe23mQk7c=;
-        b=X8N5Jcs3hPDyXmeaSlRypDxXcs9LPre+NLB/t6soDQBJyMteLrs00qojbyXgS3gjIQ
-         353omtc5s0xw4Tg/EKD9jPpIkoPccKwqDzAqnrVjPGOexvVO1Lkufq5V9XzL7FEMKjCc
-         up5//J5YvW1fYOW71km9urGjABEhVqvK5NGzpwwU+mMpKJxJ/6l2hbLPOLX6iCAMzGQ5
-         PiF7m+8vUcopxDQV2qjQNhZNxEu9M6DCgs2vmWfh2E3M2DWda3+Lo9B0oSqVIjgD5p9c
-         c2IWu6S6/aIHMDXzJlylkMCI7Op2QMY2/7u8Rs+Ur35ZE4vY86Rskasa0W2iazpydER1
-         dk3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789558638; x=1790163438;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oOQF8lSD7wdJvBSJlzI6UX4BPG3ivMWDQsQe23mQk7c=;
-        b=NCiL7xNH/AR4Xi+8OMM/6gkAXrd0J0qP9PBerNR0p3wn/AzutXEWOGhGWoGkJZT0+e
-         wOfrmbJOD/vdEu3+iSleAcad26yTgNRMT6JU4iUCckmZ8D4NdqSPIo08gwoyImYwQG7P
-         vXAkls5D+9aCHEBdsgG/XE2Xm6jxmm+/y6TJC9x/8Ux3vWmk1rZUrWApI0IyJ0Mz0Vvr
-         6EvdM1YHhSTeoFf5G1so/fVbTg8Z3OXlI0oiREIRUc/GfSVFXgl/iY7tosEeVynQ4SwH
-         P3aCjqkphk64eAmE66KhfvotMbGduSC5+nK8HDGuW17XVu86VST9MHlWOzDaOcDOcJih
-         AUbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybj6fOa/E7sqd0Z8/Av1SUKEF/3hmuUI1HUcJA9rQVGU4/t55q9nohUVaiI2gt3Posim3JgXxLR5mizH0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kI3Lbo0wIGpDn4r/mD5CdIXHhRe67s8HXHVzxgKwzzUqE5oghQ
-	AbrPSxp2m6VU6Q8Bm/9ltGYV0AQ9VKLmNANLKumlCFSLgyAaBn+asSTY
-X-Gm-Gg: AYBFou2N1fSkLgxjulG8P+eSD1noLJDKovFuLAFk2FEZOw46ADsxa0mj3YasBiZRZal
-	sbv/pQHRQu56o1fuWIDZkDt0BwVCtERKRwZ4aeyqwzAsLLjHXQi4mwwNywLX/WHhjO/cLqs0OM+
-	38qY7SCk0K1W9xB/7ZQ4hju39b+tdzmDhjv3GHJpqZx2+Qqrh1amjWRRc4P/2m5E+PSaV3fYnAS
-	h4sYFBK4sswHQ+9MMmygVoVriD4DZVjV/q9phnLOp4+IGc4X3BDudU+pl6k6uk6OHWGLFg0Z3Av
-	LUskuLM0NVM5tzsolYJqUi/+Opuls87UbDpHwce9APTUWqHLDKAB3K/lZxSAKLjmj/6KF+AyO/7
-	0ShX+I3KszYRloj1x3Cclg3asOp7n346xKIGPkhvsPZYGGAfiYaHntPUvno59FwX10PpuDZSPoc
-	0DhMPFf9wHoeyLVBAKT9H3EyazF10JdEek7ZHClZdzxxKKKbIWASLEOH10/8N0KmXkOPKFl2PSC
-	zaU5L4RwhHnvahm6AF5KPYln5Qngo+nLw==
-X-Received: by 2002:a17:903:46c7:b0:2db:8ae7:a5d2 with SMTP id d9443c01a7336-2dd8e026db9mr44702525ad.9.1789558638056;
-        Wed, 16 Sep 2026 04:37:18 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.247])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f02fc2sm9927045ad.59.2026.09.16.04.37.11
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 16 Sep 2026 04:37:17 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Bob Copeland <me@bobcopeland.com>,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="VpxkpRl/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H3dgjLEF3qSbzTu0FfOC9nhHNkSKz/OESzMFlMGkBI7guEkyNdmJoGf+sbsuQMHHwx+SGxH4/vd95vpKe6yOoySROWkkJxbqO6Kq+eGvfL2aivrIalnaX6y06DjtVx4L8R2DEKvGS4EcasT1PIZEAnpaL/2q1bZpaQI/lMb3VSO3zCjBntDPdrdztAOcRzU9YCLG1nBBUSbccWK2DYzrN6uixCQei4TroTWLGHM65I1zkyJNyBp7I4bmLv5pQFVxQWB6+ZGOujfvO4bx9wir5M+FG9RRMj2hohPRiIcN/Unqgr4I56R7mU+n+vCBtklGphZosH/l5w1YmOxLkMJXrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wawPGXmY7GS6HqtjHuTpmERU0a7vLBDhUObVQDhsT8E=;
+ b=SZVBM2Fithrv64JphBD+Xbt5ib8oBALyJiIbJWW/5ylByEEQuL3WV+T7V56R4fq1jJxwgfv828d3Xv3N7IYwrmDnskGH3/Exr45S+4253eOC1hEZo/kDRnNenj4+6q9lwEPJc3WnZdM+f5whVhJfOT6Dc1rLQW5Tmj/TwSWwarYw8UUlt49BRqxIrjPJukLpssUmmMIaPRsrzfcI+cO7QTBLuNA76KHJzCBwU4vp6UwvbAp5KxQnn0xVj9oN4Yowpae3uw4t2kz7dk9A7IcVok9LCEhxNE3nyh15sbpfzM1wg0gX0BeQMIpWyGwwqIcwUbAD6NCprMnehgdZEn4Sfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=baylibre.com smtp.mailfrom=renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wawPGXmY7GS6HqtjHuTpmERU0a7vLBDhUObVQDhsT8E=;
+ b=VpxkpRl/u5mGDJW8Bz8j2nbcaN+E3MxqNYAlrPmOdWMbGDTg3quaehfIVHZMfoLOnhqhbf22CKWih4h2DKxa4YAbPkthEfSGXJEL66olSmBXlpUwGZ/Jpbchodqd40nPDwZ6HUbahsfYzRHXz+gTNfXQ09uj/yCQF4zoadGwz8I=
+Received: from OS7PR01CA0107.jpnprd01.prod.outlook.com (2603:1096:604:258::9)
+ by OS3PR01MB10091.jpnprd01.prod.outlook.com (2603:1096:604:1e5::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Wed, 16 Sep
+ 2026 11:37:02 +0000
+Received: from OS1PEPF0000D213.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:258:cafe::6e) by OS7PR01CA0107.outlook.office365.com
+ (2603:1096:604:258::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
+ 16 Sep 2026 11:37:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
+ smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
+Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
+ OS1PEPF0000D213.mail.protection.outlook.com (10.167.240.20) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.7
+ via Frontend Transport; Wed, 16 Sep 2026 11:37:01 +0000
+Received: from vm01.adwin.renesas.com (DEU-5CG20946WF.adwin.renesas.com [10.226.92.205])
+	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id 971773000442;
+	Wed, 16 Sep 2026 20:36:57 +0900 (JST)
+From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+To: geert+renesas@glider.be,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com,
+	biju.das.jz@bp.renesas.com,
+	p.zabel@pengutronix.de,
+	niklas.soderlund+renesas@ragnatech.se
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] wifi: mac80211: release mesh path quota on failed additions
-Date: Wed, 16 Sep 2026 19:36:48 +0800
-Message-ID: <20260916113649.28315-2-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916113649.28315-1-enderaoelyther@gmail.com>
-References: <20260916113649.28315-1-enderaoelyther@gmail.com>
+	Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Subject: [PATCH 0/3] clk: renesas: Add missing of_genpd_del_provider() calls
+Date: Wed, 16 Sep 2026 11:36:34 +0000
+Message-ID: <20260916113637.86947-1-ovidiu.panait.rb@renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,62 +78,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS1PEPF0000D213:EE_|OS3PR01MB10091:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 74fa516a-2fd8-422e-e505-08df13e6d329
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|13003099007|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	V2AqsNkoQx+KvKVGeJgDGNmEPsQ9EiI+m8Ej5y3ra/z/k9BHPB0GpuTM+atETjsv4p6g1tO7Ul62aqmwKCrEa1SvHc+m2YfkefuW0jcVzc0D/uayu7tPKx3SfPN8TIU/Mlu+K9c75NWqJwC/LF2jWPyXdmlRlDSvQHjbJg7+mgPAlSED2jbRYZ3zsUyFDCJ13YcBRQ2ZLEtvkDBYdiZdCq/PNsfWHgMSH0S0mySBnBlfpReh2cpaptoNdjZUZOXYw4oHwMVANHj1IpKSSdtkRSlAPXjftYlqXwub3mTKvVwB5cQM1HtmUwTIAIOUmX3U0Ygm+mHLpkqN/COPkIXrjgkQX6en1Acr6z8SlXhBYLBioVwCPX8ColwSaTTWEZPpztmp2V81ZMPmSSBSWwq5K4kTXVRUDCp2Sh1fUZ71QBXrhcf3UnSYbhbGnqP83uPgmAjx9OPppDtNKMM4YRf0u6jvnCp9Y2jWTsetHeC/NuJy1+hmUtSfOciWCRjbuwMRlWdAVmyRnFE6Gja1IzzOyUAasASV9ZLFZ2+zl/oPDpww8tTNjZe521jSKl37siW//IPkFKGgkQGn5sOvj/WLBRTrl/djKUWdnEWq+1maR0h0i2RFyHvBBPKKbHBuvm9LGe44xWOvmgPS0OMbVeVoxA7SPzIzwZUB5GLgXct8LSxSY6LuNHM9n3CWvIj1jlPM65Q23/lifvbIZqhfP2ke5A==
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(13003099007)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pfavnA4E96FUXGe7DjIgIyqwIrowAfk+8vtDOG7HqIA3uaT9t60SdxxEh7/ByTu1Q245Zj2hn+gXajNTbmukhcTZCQMFcHivcyW+HIDtWq6goSuJD1vuGtVFHb0KJv754M/ALE8cy42MrqKCqwLvG+g8rOCt/ypeSfKWccsKD5ELXI1KavaZ05EtYiGFcsx69/neKTtD+DRBy5WP+sMfIQxNYlgCT+vRBnH945bdmRBYw/Zi2BtXpEINfTYx65jsP6lZVWiVZWH3Wk0+smKdJ3hgE86OSab++KON3ruI4pdq1PWtWQy8ZhAsBPLzBGJSc0s4oevJnFAL3+qV2XJ83OGMFMen1MVNQW/qBk/fBri1JINONcgGBoNNsS5JlcuGEpXo97rcjZOq5lPaHPI7/VYEIKRuo9jmUmmoaeplEMQYz+5LDbdiEd/7t+UvmYGf
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 11:37:01.5411
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74fa516a-2fd8-422e-e505-08df13e6d329
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: OS1PEPF0000D213.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB10091
 
-Repeated failed or duplicate mesh path additions can exhaust
-MESH_MAX_MPATHS while the path table holds fewer paths, which stops new
-paths to reachable destinations from being created.
+Sashiko reported that the RZ/V2H CPG driver registers a PM domain provider
+but doesn't remove it on probe failure:
+https://lore.kernel.org/all/20260902110443.959CD1F00A3A@smtp.kernel.org/
 
-mesh_path_add() reserves a slot before allocating and inserting a path.
-If allocation fails, the function returns without releasing the slot. If
-the rhashtable insertion reports an error or an existing destination, the
-function discards its candidate but retains the reservation. No new path
-is installed in any of these cases.
+The RZ/G2L and the CPG/MSSR drivers have the same issue. Add the missing
+of_genpd_del_provider() calls to all of them.
 
-Release the reservation whenever the candidate is not installed.
+Ovidiu Panait (3):
+  clk: renesas: rzv2h: Add missing of_genpd_del_provider() call
+  clk: renesas: rzg2l: Add missing of_genpd_del_provider() call
+  clk: renesas: cpg-mssr: Add missing of_genpd_del_provider() call
 
-Fixes: ae76eef027f7 ("mac80211: return new mpath from mesh_path_add()")
-Fixes: 60854fd94573 ("mac80211: mesh: convert path table to rhashtable")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM sparse kasan
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Validation:
-- GCC W=1 and Sparse C=2 produced no diagnostics.
-- A controlled production-helper matrix reproduced the allocation,
-  insertion, and duplicate reservation leaks. Allocation and insertion
-  errors used test-only fault injection; 24/24 concurrent same-destination
-  trials leaked a reservation before the fix and 0/24 after. That case used
-  no forced-failure hook.
-- A two-point hwsim 802.11s run reached production mesh_path_add() from
-  mesh_nexthop_resolve() and hwmp_route_info_get() during PREQ/PREP
-  processing. No physical-radio or layer-3 success is claimed.
+ drivers/clk/renesas/renesas-cpg-mssr.c | 17 +++++++++++------
+ drivers/clk/renesas/rzg2l-cpg.c        | 13 +++++++++----
+ drivers/clk/renesas/rzv2h-cpg.c        | 13 +++++++++----
+ 3 files changed, 29 insertions(+), 14 deletions(-)
 
- net/mac80211/mesh_pathtbl.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/net/mac80211/mesh_pathtbl.c b/net/mac80211/mesh_pathtbl.c
-index 03171cf00855..770fc16b439b 100644
---- a/net/mac80211/mesh_pathtbl.c
-+++ b/net/mac80211/mesh_pathtbl.c
-@@ -694,8 +694,10 @@ struct mesh_path *mesh_path_add(struct ieee80211_sub_if_data *sdata,
- 		return ERR_PTR(-ENOSPC);
- 
- 	new_mpath = mesh_path_new(sdata, dst, GFP_ATOMIC);
--	if (!new_mpath)
-+	if (!new_mpath) {
-+		atomic_dec(&sdata->u.mesh.mpaths);
- 		return ERR_PTR(-ENOMEM);
-+	}
- 
- 	tbl = &sdata->u.mesh.mesh_paths;
- 	spin_lock_bh(&tbl->walk_lock);
-@@ -708,6 +710,7 @@ struct mesh_path *mesh_path_add(struct ieee80211_sub_if_data *sdata,
- 
- 	if (mpath) {
- 		kfree(new_mpath);
-+		atomic_dec(&sdata->u.mesh.mpaths);
- 
- 		if (IS_ERR(mpath))
- 			return mpath;
 -- 
-2.55.0
+2.34.1
+
