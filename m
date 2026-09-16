@@ -1,129 +1,89 @@
-Received: from gentwo.org (gentwo.org [62.72.0.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30004D9F60
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:51:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4684E4E50DA;
+	Wed, 16 Sep 2026 18:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584745; cv=none; b=XaFiyyBDBOWatAvokvWe954jimsxWLPVyj6eiSCzrwGKbRlpNVVUa7yxjG5IHxRjMMqvMq5YXMPDbgyyd9EcwVrJymJdAU6jjTjxvzBenGkr0QIRZpkQ4FSrMbmgEjXF6Xakpp5WdePVOtWpcJZcMxEPZnTmdy/bgAPvTrW85XE=
+	t=1789584840; cv=none; b=GegAj5WLWd9t3ChhpZ56eNxz9qTpE9NFQDGhjmZdFNbOWwUw4Rk4p0ynle1SbNhlaXcQVG4o2YzS8qCm1dlNzggWZq/86bJ8Xtl8bmTj6bZTDv3uIrNZgMS7ZQJWailzXOLLOKYg9V1TJ3a811cYI8G1UR/xjjuXssKw8pEFFT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584745; c=relaxed/simple;
-	bh=6vepIx7Wn3Cy0YUG+bfeq8eP/V5gOOxJlhrvIIkclK8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=GiG35djl3KtySsUhjpFm2/CcsTptmsBjsv4a1CjmVjaWuVFRLtTiFPyKb32CTa5oIqQvFslTYg66ZL5gWTYH+RddWg5fTH6tNCyyG70R/+8hC7ukg4YnrQRgLgOy/YEgIzLqFUR+9mE+RbGn+koS5D3Dk1sRCQBXSsy6eJmr4pE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=H3jbGfV3; arc=none smtp.client-ip=62.72.0.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="H3jbGfV3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1789584116;
-	bh=6vepIx7Wn3Cy0YUG+bfeq8eP/V5gOOxJlhrvIIkclK8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=H3jbGfV3tN4x0QDxLPIgV/e1HAMGiMyuGYKZgYIgfefZkJAZSjp+dQ4zlmPOK6VLH
-	 I4GBKLBQHAFepdrGnHd04Nci30ho0rPQOu+SKAV9Xwq7JW/N99/+Cu3uX5C5eLO7xk
-	 FPAUH6AKw1TOgI2zh03xiD6ce+uSxv9qLLgQLK00=
-Received: by gentwo.org (Postfix, from userid 1007)
-	id 0D2F7401C8; Wed, 16 Sep 2026 11:41:56 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTP id 090184010E;
-	Wed, 16 Sep 2026 11:41:56 -0700 (PDT)
-Date: Wed, 16 Sep 2026 11:41:55 -0700 (PDT)
-From: Shubhang <sh@gentwo.org>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-cc: Zhan Xusheng <zhanxusheng@xiaomi.com>, Ingo Molnar <mingo@redhat.com>, 
-    Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-    Vincent Guittot <vincent.guittot@linaro.org>, 
-    Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-    Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
-    Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
-    K Prateek Nayak <kprateek.nayak@amd.com>, 
-    Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
-    Christoph Lameter <cl@gentwo.org>, Tejun Heo <tj@kernel.org>, 
-    David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
-    Changwoo Min <changwoo@igalia.com>, linux-kernel@vger.kernel.org, 
-    sched-ext@lists.linux.dev
-Subject: Re: [PATCH v3] sched: Restart fair hrtick after same-task repicks
-In-Reply-To: <20260916032150.487242-1-zhanxusheng@xiaomi.com>
-Message-ID: <53a32262-4391-ffa0-3391-3772505739b2@gentwo.org>
-References: <20260915-sched-fair-hrtick-restart-v3-1-7517f388f0c8@gentwo.org> <20260916032150.487242-1-zhanxusheng@xiaomi.com>
+	s=arc-20240116; t=1789584840; c=relaxed/simple;
+	bh=oZ74DBm5ryiVX5dnrDePlI2yqZz3F2DEUP8ILajCMyU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=q2GL5lxel1g3i18Blq74cyWa06mqxbFvrd536G4cbnqUBvsYU02vzBD6AsdyNE2a8HpNurZTX2hXxCwy95BNkP4LLwBtS9vNbBQYcYmk91p+nARqfsmQHvNfZHUJScU1QEjsJ+7F1BOiEhSq5c46ajKY9+PSvsKMyDyZa6w9yAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAD3J0Ky5apqU+pvCA--.24921S2;
+	Thu, 17 Sep 2026 02:53:38 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: iommu@lists.linux.dev
+Cc: joro@8bytes.org,
+	linux-kernel@vger.kernel.org,
+	mingo@elte.hu,
+	robin.murphy@arm.com,
+	suravee.suthikulpanit@amd.com,
+	will@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] iommu/amd: Fix IOMMU PCI device reference leak in iommu_init_pci()
+Date: Wed, 16 Sep 2026 18:53:10 +0000
+Message-Id: <20260916185310.2093691-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAD3J0Ky5apqU+pvCA--.24921S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKr4kCryUAFWxWw13tFykuFg_yoWDtwc_Cr
+	W0qFn7Xry5Ga1jkw1qqr93Zr1DKa4DZFn7XrW0kwsYy34S9F4UJ34Yvr98GFW7Ww4YyF9F
+	yr1DGay3J3srZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbx8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_
+	Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x0JUCNt
+	xUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQMA2qqpO+GbQABsm
 
-Hi Zhan,
+iommu_init_pci() takes a reference on the IOMMU's PCI device with
+pci_get_domain_bus_and_slot() and keeps it for the lifetime of the
+IOMMU, but free_iommu_one() frees the IOMMU without ever dropping that
+reference.  It is leaked whenever an IOMMU is torn down again on an
+init error path.
 
-Thanks for the review and testing. Yes, skipping 
-put_prev_task_*() does not distinguish fair from DL.
+Release the reference in free_iommu_one(), after the sysfs device that
+uses it as parent has been removed.
 
-For fair class, pick_task_fair() calls update_curr_eevdf() before 
-selecting the current task again. This refreshes the task entity used 
-by hrtick_start_fair(), including with group scheduling. When that update
-observes an expired slice, it advances the entity's virtual deadline 
-before hrtick_start_fair() computes the next expiry.
+Fixes: 3eaf28a1cd26 ("AMD IOMMU: save pci_dev instead of devid")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/iommu/amd/init.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-pick_task_dl() has no corresponding picker-side runtime update, so
-p->dl.runtime can be stale on SNT_REPICK.
+diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+index 3bdb380d23e9..4b155970151d 100644
+--- a/drivers/iommu/amd/init.c
++++ b/drivers/iommu/amd/init.c
+@@ -1810,6 +1810,7 @@ static void __init free_iommu_one(struct amd_iommu *iommu)
+ 	free_ga_log(iommu);
+ 	iommu_unmap_mmio_space(iommu);
+ 	amd_iommu_iopf_uninit(iommu);
++	pci_dev_put(iommu->dev);
+ }
+ 
+ static void __init free_iommu_all(void)
+-- 
+2.34.1
 
-I will clarify this in the changelog, add a comment on the fair repick 
-path, and document the SNT_NORMAL and SNT_PICK meanings.
-
-I also rebuilt with CONFIG_SCHED_CLASS_EXT=y and it compiled
-cleanly on my side.
-
-Thanks,
-Shubhang Kaushik
-
-On Wed, 16 Sep 2026, Zhan Xusheng wrote:
-
-> On Tue, Sep 15, 2026 at 06:13:18PM -0700, Shubhang Kaushik (Ampere) wrote:
->> Do not restart the DL hrtick for SNT_REPICK. put_prev_task_dl() is
->> skipped for next == prev, so dl_se->runtime may be stale.
->
-> put_prev_task_fair() is skipped for next == prev too, so as written this
-> reason applies to fair as well.
->
-> What separates them is that rq->cfs.curr holds the task entity rather
-> than the root-level one, so pick_task_fair()'s update_curr_eevdf()
-> refreshes exactly the entity hrtick_start_fair() reads, group scheduling
-> or not.  pick_task_dl() has no counterpart.  update_deadline() then exits
-> with deadline > vruntime, which is what keeps the repick out of
->
-> 	if ((s64)vdelta < 0) {
-> 		if (task_current_donor(rq, p))
-> 			resched_curr(rq);
-> 		return;
-> 	}
->
-> That branch arms nothing, and __schedule() clears TIF_NEED_RESCHED just
-> after pick_next_task(), so a repick reaching it would come out with no
-> preemption point at all, which is the state you are fixing.  Two lines in
-> the changelog, or a comment at the repick label, would stop that
-> invariant from being broken silently from three functions away.
->
->> +enum snt_e {
->> + SNT_NORMAL,
->> + SNT_PICK,
->> + SNT_REPICK,
->> +};
->
-> Three values, six classes reading them, no comment.  SNT_REPICK explains
-> itself; NORMAL versus PICK does not.  At the call sites they mean
-> "through set_next_task()" and "the running task changed".
->
-> I checked the conversion with the compiler rather than by grepping:
-> reverting any one class to bool fails on the incompatible function
-> pointer, and rt, stop, fair, idle and deadline build W=1 clean.
-> ext/ext.c I could not compile, SCHED_CLASS_EXT wants DEBUG_INFO_BTF and
-> pahole is broken here.  first is unused in set_next_task_scx()'s body so
-> the rename is safe, but someone with BTF should build it.
->
-> Booted 4 CPUs, HRTICK on, four spinners under panic_on_warn=1: clean.  I
-> did not reproduce the latency numbers.
->
-> Reviewed-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
->
