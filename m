@@ -1,114 +1,107 @@
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-44.ptr.blmpb.com (va-2-44.ptr.blmpb.com [209.127.231.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF2630E85D;
-	Thu, 17 Sep 2026 02:19:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.54.11.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 446BF35677E
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:20:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611547; cv=none; b=rsAgCuzVV/FzCinG9qYK7ofd5N4/Sn7K0zYnOKj6X1wKVWL4S06abOEY18We0N25E0YSh91Gg1INh6MGndpsdOl3UWVw2Nx894YXz8v7DbWX365Mw+CBh1jtkM+ee3s8/Cjx658E+ZSjTvYFJkj08tK8eRD5btq6A6XU7wiwfmc=
+	t=1789611632; cv=none; b=OeivJau+N/lYbq+kwhNq58i1TWKqHuvl6jfQn5GOro7bID6K90mqM96yhR3+A/7vMJpIWfTRR2X5mWQeU0W/32xK1lTd2wzbOn7JjjGWlM31/IxBBDEAF5JeCBN6IHfxWJDEzGRePomkVcZPXqfnChQM6TnLsG5rPtYmrAlwTug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789611547; c=relaxed/simple;
-	bh=DV7IrZzhW0ZJOvw4MA4FduMyWNZzIwGfbg+jo4e5oKQ=;
-	h=MIME-Version:Content-Type:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID; b=ZiR4vGyGuBfQBhJp1HnqDy05Unwbg2ENHuWcGdOk8mFa9ox8ELT3zHpa4UEmMZsL/0a/jJzEozAHngLb2FzSREkodZPvgFornFm8ubUOJlXXkRxub91f2qpkr5BmQ/nizNKJ4aBZocSD0WiOKHCJXuwBBmdhVrUmcKkWerEF6bo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br; spf=pass smtp.mailfrom=inf.ufrgs.br; dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b=QWz9KlBI; arc=none smtp.client-ip=143.54.11.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
+	s=arc-20240116; t=1789611632; c=relaxed/simple;
+	bh=YGqD+IFDIEdV8dvU4ixpK9NRMwtXwxwTm7PUXqf0dWA=;
+	h=Date:Mime-Version:To:Cc:Message-Id:Content-Type:From:Subject; b=EGL4BZfRQcT+Mh7Cd9a97VaShVFSzH0RJybLbwAQNQq/wmc3GhtA/Bt62J32Tuq1588cJ/tu191yR8Q/yVyEmP/SJcuWkx+t89RRhYcpgkOezQbnF5oB9pC/qCW+MRnTUYxh9LROzlp7L9kkvuABq7aprQZ0bwIawHnkTT2+5kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=PQ1r6Lgm; arc=none smtp.client-ip=209.127.231.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="QWz9KlBI"
-Received: from webmail.inf.ufrgs.br (webmail.inf.ufrgs.br [143.54.11.45])
-	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 4E8C012025C;
-	Wed, 16 Sep 2026 23:19:00 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
-	s=dkim2026; t=1789611540;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m4LJ6JTQUP6RLFPqNwfrGT1IcCZq1bI1TRPH/KCzkZ4=;
-	b=QWz9KlBISBRi07H1qGFRuzmtt6YlXS44hBRUR87hlGReT3cu9nQlKx32TzJp7z38Nmstjd
-	ru1gpYYeQ1kBoWMtnAkKcCg9dOUAzLgX7M9lfdZUp7WNkGElKVi57at6I7ZqGpdsACB0nz
-	bbgsfDGbVhFK7bmf+450zpRKQqyekQaM1etqE7CLgTcZyPai3LA9qCOoWGErlrHJcRmMti
-	jcplFRczC0OO4I/Nr3kS+2fn7Pxpj34w+HvnSukIQEQbDMuc3UrZUw6OMqje5H5xF5cboH
-	ctp1mFMt2ecew1obuB4e08rwxdtyIIW2AQiCTkixRHeqMlAZ46vdX9hibvKMCA==
-Received: from 186-210-028-117.xd-dynamic.algarnetsuper.com.br
- ([186.210.28.117])
- by webmail.inf.ufrgs.br
- with HTTP (HTTP/1.1 POST); Wed, 16 Sep 2026 23:19:00 -0300
+	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="PQ1r6Lgm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1789611619;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=oHh/5s3M6pXOjbNy0GxQxoiOTw0NvL602oW8qlAiArM=;
+ b=PQ1r6LgmbCgk4NHY8GtS4l3nJ77m4MXwpi6q+e7Yi+l4VCCkBRZwPRXF5mI14hcTDbL+Ol
+ 04WGOdIc0Qi7hUDKkpHvR4zgG8sa5ri1dEzprlDXSy6DcU2RTS9l+ugZXaoT/rdXtwdZ5h
+ /UNwZQU7G08KVUvTJUct73oWRMHaB2HdB/+qR3Roay3DeHsBkXzomi7aqNxQQiJOPlqVQb
+ syrwkb+xAedY16xBdPJ9dQfnEM3ZsqRkcjPers8Cvya+hfY+ESXPb3dgj7TgGWphCZDxyh
+ jXvcJrzl7TwqaX6o9Qe0G/QL4ztXpSVk1OP+AucJJogvWOM/akhTaWY1azxfiw==
+Date: Wed, 16 Sep 2026 16:12:38 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+Mime-Version: 1.0
+Received: from [127.0.1.1] ([36.141.79.164]) by smtp.feishu.cn with ESMTPS; Thu, 17 Sep 2026 10:20:16 +0800
+X-Original-From: Yanli Yang <yanli.yang@bedmex.com>
+X-Lms-Return-Path: <lba+26aab4e61+cb756a+vger.kernel.org+yanli.yang@bedmex.com>
 Content-Transfer-Encoding: 7bit
-Date: Wed, 16 Sep 2026 23:19:00 -0300
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com, Andrew
- Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 3/3] r8169: release firmware on application
- failure
-In-Reply-To: <fcaf8c8c-f6df-46c0-ac9d-7924c732283c@lunn.ch>
-References: <20260916152444.167196-1-matheus.aalmeida@inf.ufrgs.br>
- <20260916152444.167196-4-matheus.aalmeida@inf.ufrgs.br>
- <fe23c6bb-2cdf-4641-aae8-25b03b38be42@lunn.ch>
- <4ee3cd8a9a299d504fc95ba86a3f387a@inf.ufrgs.br>
- <fcaf8c8c-f6df-46c0-ac9d-7924c732283c@lunn.ch>
-Message-ID: <cc15edcbf76e8e70c89dd5ef5d838c3a@inf.ufrgs.br>
-X-Sender: matheus.aalmeida@inf.ufrgs.br
-User-Agent: Roundcube Webmail/0.9.5
+To: <linux-bluetooth@vger.kernel.org>
+Cc: <marcel@holtmann.org>, <luiz.dentz@gmail.com>, 
+	<devicetree@vger.kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>, 
+	<conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<zhirunliu@aicsemi.com>, <dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, 
+	<liheng.wei@bedmex.com>, <yanli.yang@bedmex.com>
+Message-Id: <cover.1789546358.git.yanli.yang@bedmex.com>
+Content-Type: text/plain; charset=UTF-8
+From: "Yanli Yang" <yanli.yang@bedmex.com>
+Subject: [RFC PATCH bluetooth-next 0/3] Bluetooth: Add AIC8800D80 SDIO firmware loader and UART HCI
 
-On 2026-09-16 19:02, Andrew Lunn wrote:
-> On Wed, Sep 16, 2026 at 06:15:00PM -0300, Matheus Alves de Almeida wrote:
->> > If the firmware cannot be written, is the device dead? Should this
->> > return an error, so the caller can abort the probe?
->> 
->> A timeout while applying firmware could indeed indicate a PHY access
->> problem. However, firmware loading failures are already non-fatal,
->> and the callers of r8169_apply_firmware() do not propagate errors
->> either. Making firmware application failures fatal would require
->> broader changes to several r8169 PHY initialization paths.
-> 
-> But you are making such changes, returning errors up the call chain.
-> Why are you making these changes? We either assume nothing can fail,
-> so we throw away the return code, or we should assume everything can
-> fail, and propagate the errors.
-> 
-> If we assume error can happen, if there is an error in firmware
-> download, isn't that fatal? Should we even care about care about PHY
-> read/write errors if firmware download has failed? And since firmware
-> download is probably the first thing to happen, if anything is likely
-> to fair, i would expect firmware download is what is going to fail.
-> 
->    Andrew
+Hi,
 
-Looking at this more in depth, I am leaning towards keeping the old
-non-fatal behavior.
+This RFC series adds initial Bluetooth support for the AIC8800D80.
+SDIO function 1 loads the Bluetooth firmware; HCI traffic uses a separate
+UART interface with H4 framing at 1500000 baud and hardware flow control.
 
-Right now, firmware application failures are ignored, so the device
-can keep going even if applying the firmware fails. The TODO also
-specifically says to release the firmware on failure, which seems to
-imply that continuing without it was the intended behavior, and that
-releasing it was mainly meant to prevent retrying the same failed
-firmware application later.
+The series adds the AIC vendor prefix, Device Tree bindings for the two
+interfaces, and the btaic driver with build and maintainer integration.
+The UART node references its SDIO firmware provider through the
+aic,firmware-sdio property.
 
-Making firmware application failures fatal also creates a state problem.
-If we release tp->rtl_fw after a failure, later initialization attempts
-will see no firmware and continue without retrying it. Avoiding that
-would require tracking the failure separately or keeping the firmware
-loaded, which would no longer follow what the TODO suggests.
+Validation status:
+- The vendor has confirmed that SDIO firmware loading works.
+- UART HCI communication, controller initialization, scanning, pairing,
+  connections and data transfer have not yet been validated.
+- Suspend/resume and Wi-Fi/Bluetooth coexistence have not been validated.
+- No hardware functionality beyond firmware loading is claimed.
 
-At that point this becomes a larger behavior change and could possibly
-break hardware where firmware application failures are currently
-tolerated.
+This is an RFC for implementation and binding review, not a request for
+merging at this stage. Feedback is particularly welcome on the SDIO/UART
+split, the firmware-provider association and the device lifetime handling.
 
-Because of that, I am leaning towards keeping the existing behavior:
-detect the failure, release the firmware as the TODO says, and continue
-without it.
+The driver requests the following external firmware files:
+  aic/aic8800d80/fw_adid_8800d80_u02.bin
+  aic/aic8800d80/fw_patch_8800d80_u02.bin
+  aic/aic8800d80/fw_patch_table_8800d80_u02.bin
+Firmware binaries are not included in this kernel patch series.
 
-What do you think?
+This copy is sent to my own mailbox for private review.
+
+Thanks,
+Yanli
+
+Yanli Yang (3):
+  dt-bindings: vendor-prefixes: Add AIC Semiconductor
+  dt-bindings: net: bluetooth: Add AIC8800D80
+  Bluetooth: btaic: Add AIC8800D80 SDIO loader and UART transport
+
+ .../net/bluetooth/aic,aic8800d80-bt.yaml      |  87 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |  11 +
+ drivers/bluetooth/Kconfig                     |  16 +
+ drivers/bluetooth/Makefile                    |   3 +
+ drivers/bluetooth/btaic.h                     |  26 +
+ drivers/bluetooth/btaic_core.c                | 180 ++++
+ drivers/bluetooth/btaic_sdio.c                | 886 ++++++++++++++++++
+ drivers/bluetooth/btaic_uart.c                | 331 +++++++
+ 9 files changed, 1542 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
+ create mode 100644 drivers/bluetooth/btaic.h
+ create mode 100644 drivers/bluetooth/btaic_core.c
+ create mode 100644 drivers/bluetooth/btaic_sdio.c
+ create mode 100644 drivers/bluetooth/btaic_uart.c
+
+
+base-commit: 6696072ffe07205255cf83621a95a1aa2f9f6e62
+-- 
+2.34.1
