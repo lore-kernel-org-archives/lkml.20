@@ -1,38 +1,47 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mta0.migadu.com (out-60.mta0.migadu.com [91.218.175.60])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D614D7973;
-	Wed, 16 Sep 2026 15:42:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812CF4D7969
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.60
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573338; cv=none; b=QuqnYz18vka9ZJBUymCrKZkIaAyqv0gPy51LkFVT8bwmfdSAJItgtqqcx3eJxL4YEpJeCWn6N4Y4TGib2vXdqm7Afdmj8ePiQarbebdJtYMI16ZlaEFRcq4dyo2wI+eCIeMMok96x9HalnAf9gwqNB7hdbpGvIDm1hhq1sTn+CE=
+	t=1789573342; cv=none; b=JH151dh8MsYoqICj69PYLNV4NWgIVav82nWTDcFTL2sbi74mlBjFeI0FMH5wz20+5RN/3gMTmX/jyhEyFFbnO4IejGZTipA3hMrUAP5K1MXp/0nJa2OrJZmONPbilI/4xp+R+NZFm3cW9Qb/4ahkp7DUmFuR0h/rQ5wIKgW9of8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573338; c=relaxed/simple;
-	bh=RWwc4/4k+cBPO5IZyYjzKjFn4s+3xlPPTlnWbcqLwcA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Hp6MhQBgytPr90sjnLA/0WyYl5sH42BxBwkTV2DNkilns5VTpn8aCtJvghpEaqsrYzBvYOk/VNe6BTEiRwDXrnow+jgUacwAcEltX6ElfgSGe/TsNpe5iuTVpl10So23SA2NKCJhYALhoSQWuDBL9m7Z2JVWOQNli8uOb2dowAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACX_znNuKpqXgFtCA--.21607S2;
-	Wed, 16 Sep 2026 23:42:05 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: dave.stevenson@raspberrypi.com,
-	dri-devel@lists.freedesktop.org,
-	kernel-list@raspberrypi.com,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mcanal@igalia.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
-Date: Wed, 16 Sep 2026 15:41:37 +0000
-Message-Id: <20260916154137.2058618-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789573342; c=relaxed/simple;
+	bh=oOstyTYjz1I8+csLyNOMelhDhYsc/ertqiEN+KDuRYI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AJbS6Jmjsx7o9+YpY5ft9xbaiA5IKewveVhxJ55c270uxevpsgHt9ulvpv7TD4u9MsvXn1Q+WHcvlKy4nRMisYNGDoLuzo2o8jtLURi/IMNQfjwRytz9l5J4KfoNz4eXdDQFdu6pIxGFRzqMbT2eUZMG2+Kt0RpBhMBqX6YVTmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=S03yl/MC; arc=none smtp.client-ip=91.218.175.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="S03yl/MC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oOstyTYjz1I8+csLyNOMelhDhYsc/ertqiEN+KDuRYI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789573337; v=1; x=1790178137;
+ b=S03yl/MCOOfvudbzF9n155tAjYEuB1d/2Kbl4202KOPcXGktrGpWlYTjkHH/L7/qhG1IhtZW
+ eB4lyD6P4VzBqonaoUayRDXsDbO2CXm2HwvspaBtfLUoqmt16KfJ9mu6vLxIeawz2w+quWZKnyG
+ muWgDW2DVTp6TkH5tLL7Z/rE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 049d7e770a5cc259;
+	Wed, 16 Sep 2026 15:42:17 +0000
+X-Mizu-Trace-ID: 049d7e770a5cc259
+X-Migadu-Flow: FLOW_OUT
+From: Denis Benato <denis.benato@linux.dev>
+To: platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Hans de Goede" <hansg@kernel.org>,
+	"Corentin Chary" <corentin.chary@gmail.com>,
+	"Luke Jones" <luke@ljones.dev>,
+	"busybox11" <busybox11th@gmail.com>,
+	"Denis Benato" <benato.denis96@gmail.com>,
+	Denis Benato <denis.benato@linux.dev>
+Subject: [PATCH v1 0/2] platform/x86: asus-armoury: reorganize visibility and extend dgpu_disable
+Date: Wed, 16 Sep 2026 15:42:08 +0000
+Message-ID: <20260916154210.181441-1-denis.benato@linux.dev>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,59 +49,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACX_znNuKpqXgFtCA--.21607S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1kGFWkZr47AFy8Cw4rZrb_yoW8Gry8pF
-	4UJFyFk3y5uF4ft343AFs5XF1fZan7tFWfCF9Y9wna9345try5JrySv34rKFyUZF4kA3Zx
-	KF1qvrWxAas8ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYx
-	BIdaVFxhVjvjDU0xZFpf9x0JUG_M-UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQMA2qqpVgy4AABsi
 
-The firmware reference taken via rpi_firmware_get() is leaked when
-either of the devm_clk_get() calls for the core or display clocks
-fails, as both error paths return without releasing it.
+Hi all,
 
-Put the firmware reference before returning from both clock lookup
-error paths.
+This patchset reorganizes the visibility of attribute groups in the Asus
+Armoury driver and extends the dGPU disable functionality with a fallback
+DEVID for the ProArt H7606 series.
 
-Fixes: 2a001ca00ad5 ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/vc4/vc4_hvs.c | 2 ++
- 1 file changed, 2 insertions(+)
+This good idea comes from Ilpo and this patchset is the result of our
+productive exchange (link below).
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-index ee8d0738501b..20dde4150068 100644
---- a/drivers/gpu/drm/vc4/vc4_hvs.c
-+++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-@@ -1680,6 +1680,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- 					     (vc4->gen >= VC4_GEN_6_C) ? "core" : NULL);
- 		if (IS_ERR(hvs->core_clk)) {
- 			dev_err(&pdev->dev, "Couldn't get core clock\n");
-+			rpi_firmware_put(firmware);
- 			return PTR_ERR(hvs->core_clk);
- 		}
- 
-@@ -1687,6 +1688,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- 					     (vc4->gen >= VC4_GEN_6_C) ? "disp" : NULL);
- 		if (IS_ERR(hvs->disp_clk)) {
- 			dev_err(&pdev->dev, "Couldn't get disp clock\n");
-+			rpi_firmware_put(firmware);
- 			return PTR_ERR(hvs->disp_clk);
- 		}
- 
+The original author of the patch has stated that he/she wants to remain
+anonymous, and asked me to respect that, therefore I will only reuse
+the DEVID information from that patch and the commit text as everything
+else has become irrelevant anyway after the reorganization of the driver.
+
+Link: https://lore.kernel.org/all/20260810-asus_armoury_dgpu_new_devid-v1-1-0a5c845414e4@gmail.com/
+
+Denis Benato (2):
+  platform/x86: asus-armoury: let attribute groups decide their own
+    visibility
+  platform/x86: asus-armoury: add dGPU disable fallback DEVID for ProArt
+    H7606 series
+
+ drivers/platform/x86/asus-armoury.c        | 113 +++++++++++++--------
+ drivers/platform/x86/asus-armoury.h        |  55 ++++++++++
+ include/linux/platform_data/x86/asus-wmi.h |   3 +
+ 3 files changed, 128 insertions(+), 43 deletions(-)
+
 -- 
-2.34.1
+2.47.3
 
