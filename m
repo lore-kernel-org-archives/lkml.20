@@ -1,262 +1,160 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A94B45FFA8;
-	Wed, 16 Sep 2026 20:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6924D45517D
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:20:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789590013; cv=none; b=X0Qk22L6s5sGkeBoPgolKclgxDzy5IwpqxE3rU59KbLlSnXFJs+UYMMy5HuaeJG+fz1Zmg0lKurXOkgC+HuzzWq4cJbLzxv04HHyhetNp+Gr6SWY1d6WzAu0UVQMWYNMN2dbUQ3RZ3pl2F6OroPbApU80RsJWY+HH7x9042AeRk=
+	t=1789590027; cv=none; b=Mmi3i7TjovhDCEsNuB7JlJzmObKFwFOTQeKZ626nXmdmYp8Vu/cKAE+LeXysqWlKbLbctyqILdtT7LBKcR6hSvLPW+wXlnrTHIj9kC5OKAEHBzipkfWnH0MYOuxPnuH5/9uhuSCGMCMgIgrzJIp0sWjNQQ3trCqRx7QwDykHPhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789590013; c=relaxed/simple;
-	bh=NX+p/xH9zYnkN23h9QHxqNzdlUoxsjnHcM/dLZ4hvJ0=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=ppNuWD5TXCpiAFDg5xCdr0C7N+DOXy0hM9COU/GtLuI1dQMXHChoIBjo3KHjYpZ10Tq6QFXd0e1unHyHnS/MGNdXBgV4jI/26X7S9XOBGrBfnrWIVuYB74q8+cjpyE8Y9Dyt+k1rBX+yvCHMQktDLDcFsFKNmmZ2dRk2vGsKL7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=BliPZ88q; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=E1ziTaOX; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789590027; c=relaxed/simple;
+	bh=Ej22vtckdvfQ+B6irJUNrCPNb/Gby576+ozFZBj1s5g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rEVV6wOw8HjtULg8aCMo8N9Vib3sL8emJpp1oLS1tB4m4cCwnA3e6fteHxyP0NPmqm2HRw6fh+1gQrBZqc0Vi6CLyogvGj022n0hDOU6fpZY0hyBiL7jqy3pF4zluIrnwp17QDDGguhzk6qzswc/X6NH5vsyiJho6djCZyQagPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lmddu+L/; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="BliPZ88q";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="E1ziTaOX"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789589863; bh=TUWjUBKNJj9TfTCFB/BT517
-	Urpo4IwIGcdVvkokhmI4=; b=BliPZ88qkp7Wg8FvLDhkjRfkhWDjp2xZXrXGVAVzRfRCbcrrVB
-	yonibSyZtqmrQE0lt+96GHS3imYJJtvbhRJwVbpIYyFytWo37GQw64hT6tFz5DJqIwz/a/BMHat
-	LCYHzk+sTAeyYOqRbWxGrnyOHuL2jsk4YuXl2vBXoYZgoC4cSl/JSVXo4+4gOA4row09G+mdibg
-	QIPXIhXFmfQCAvlPU0u4oYICR0LA578eXNoWXxQSEnWFQgR3JtHG3bVDe/LO/hiw+w9/nx0xykE
-	hbs5QrnBNdaYuepAlbw1Xd7mxMv3/EDOyE0Uoh3RokTdaGtJa4nVj3jgV/AJRpSU/Yg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789589863; bh=TUWjUBKNJj9TfTCFB/BT517
-	Urpo4IwIGcdVvkokhmI4=; b=E1ziTaOXepKpf0khVVHXAxlZCqCE3enE2EHPVPs6PDOORX6wA3
-	pL0Ltfe7g/LMcF98R0pwby6Bh2lleIkCxvCw==;
-Date: Wed, 16 Sep 2026 21:17:45 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Andrew Morton <akpm@linux-foundation.org>, Vineet Gupta <vgupta@kernel.org>,
- Guo Ren <guoren@kernel.org>, Yoshinori Sato <ysato@users.sourceforge.jp>,
- Rich Felker <dalias@libc.org>, Chris Zankel <chris@zankel.net>,
- Max Filippov <jcmvbkbc@gmail.com>
-CC: Arnd Bergmann <arnd@arndb.de>, "Paul E . McKenney" <paulmck@kernel.org>,
- David Laight <david.laight.linux@gmail.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
- linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] lib: Add two-byte cmpxchg emulation function
-In-Reply-To: <20260916200215.21774-2-brads@mainlining.org>
-References: <20260916200215.21774-1-brads@mainlining.org> <20260916200215.21774-2-brads@mainlining.org>
-Message-ID: <D574C4CB-D17D-40CD-A02B-D7AE7D7E8B8E@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lmddu+L/"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so1095165e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:20:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789590009; x=1790194809; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p0JU7NG9wWGfnbR02xknk5oExK7M/TW6csExg90umtY=;
+        b=lmddu+L/f1iUwEmQVkkOI3ZFWSpv5tSw/48+ly/d8AI8yN0TRkx7HuxOJlcVUp/l78
+         3Rjawz3CY+VT2e8rWlA7yxpKNGHBKd0t9kvW28TgXmJs9Dp39TtFr3QUBPjfMw3I3wQZ
+         tA44/QW3ixdrLGQ0ky8CJyGXTfpPtvCkSm4Ro9Ufer2UY22fr+eNbkxUc9XOMHoNlXGK
+         pI9IdbBF9baui4ThsaCcEqO8EZpiNLXjDklO/qJycN/cBRGPGMQuHxJBww/n109mdpiU
+         sBZ0UKRIyYGmsnSOx3PB3ETN8keGYT+r402ahVBYh3DZQ+fWi3t5WS2XmELboZdqX9tO
+         O5HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789590009; x=1790194809;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=p0JU7NG9wWGfnbR02xknk5oExK7M/TW6csExg90umtY=;
+        b=ZOEFiuad7hIpbfwsWqbD2z8cQ1HwqPkm4dAX/076CIVJJtm8p0p7sxniysY1aapZ18
+         pU2oQBXQqsQm0uZM7jBPi1UQCFxqf0gu7edWZ3GXunoZwl0j2k46FvqldCBi8Of8Vg2Y
+         QwsVQDNWFOi5E+/qTqKGMl7zTE0awCpBqtHfkVjRsd2tdfB3Yk4Zl0brdij9QAHI2SSA
+         wQSydzHdJpPNYbyeVbQz+/r1RaV/HjeekQJhSpZveW5m+7FIP4Zy2GFru8tTEW6TZYf5
+         6sP9bUTFdFvXx8R6rYTrKOir80YTMZyUj4GEThbiJJ+CJs/XnDzKcdVpPnX24piTGsf6
+         kNdg==
+X-Forwarded-Encrypted: i=1; AKwUvBwT55ejDy61IX9k/x07jzd/QvH7yFNmQb14cW+IdY43DidXxFxXBANXX2uQA2OnrZOOlc5xAs2UnHoZnVU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRONaIdCK08CMr30sdLBV6RFHCd/UdUxD6PvL8a4RgOeioBnJF
+	HsOgxbxsyjD6v+TByLw59t5dFzbgrK2+fYIlIRifkafP/sTievPHpj4z
+X-Gm-Gg: AYBFou2LcbJocPg03A0IWQO9e1KtI7+L/HtV84Dyj1gNHXtiz+eoY//n6ajQRQMK1eV
+	cbeELnLq9U1xbyQJ9vn5orIJzNhxm03UtBMgcvKrpU/EbdPbjiy8C6zrFUFb/6f9/gKaq/dH0Fc
+	wgrxINYM/wU/nX675gHidDNyf/dPbZXBdzMTqlGk2u/ASipqIGdNqF5A/BtKStAIpYd1X4NX9gQ
+	37KdmFMb+yYkmE2zs8Tjmse8GONmqEIihxBABCmuN5HRTJTNrertU8BbxTKpQgpdztgee9Al68s
+	FNtiuQZRz7yOpNGiIhO/gtwzhZlROzS/9UFQoc0Y+XbtRUQnoh4Kgmo3RQ6c5ICyh2SpEHuFvJN
+	mBTTkNX/+EuZSMmBKRxtcsC9w6iEtshbqFOVta7vVcjp4FpEbDgkyw8L97I2ICSocTmgJ1TNlgS
+	mCqWhe5Wwb7fCSpam/OO6+Ik60XboGcDL9Av4nQVPrFc0qoc4Jzy0FqPTlFQWB9r2aexr9PQmuR
+	jq+1MAHr25yq6EnBLir6uyD
+X-Received: by 2002:a05:600c:1907:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-49eb73143c7mr47167685e9.1.1789590008675;
+        Wed, 16 Sep 2026 13:20:08 -0700 (PDT)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd24774esm27685625e9.10.2026.09.16.13.20.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 13:20:08 -0700 (PDT)
+Date: Wed, 16 Sep 2026 22:20:03 +0200
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+	Justin Suess <utilityemal77@gmail.com>,
+	Paul Moore <paul@paul-moore.com>, ast@kernel.org,
+	daniel@iogearbox.net, andrii@kernel.org, kpsingh@kernel.org,
+	matt@bobrowski.net, viro@zeniv.linux.org.uk, brauner@kernel.org,
+	kees@kernel.org, casey@schaufler-ca.com, gnoack@google.com,
+	jack@suse.cz, song@kernel.org, yonghong.song@linux.dev,
+	martin.lau@linux.dev, eddyz87@gmail.com, memxor@gmail.com,
+	jolsa@kernel.org, m@maowtm.org, bpf@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
+ kfunc and policy object destructor
+Message-ID: <20260916.e518e5ee513e@gnoack.org>
+References: <20260909193719.518517-1-utilityemal77@gmail.com>
+ <20260909193719.518517-5-utilityemal77@gmail.com>
+ <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
+ <aqHUw6k0Mf83CGFT@zenbox>
+ <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
+ <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com>
+ <aqTZdCz6JaoK16Fp@zenbox>
+ <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
+ <20260915.ok8eig8Eishi@digikod.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260915.ok8eig8Eishi@digikod.net>
 
-On 16 September 2026 21:02:11 BST, Bradley Morgan <brads@mainlining.org>
-wrote:
->cmpxchg_emu_u8() emulates one-byte cmpxchg() in terms of four-byte
->cmpxchg() for the architectures lacking native one-byte atomics.
->The same architectures also lack native two-byte cmpxchg(), where
->such an operation is not supported and either fails to compile via
->BUILD_BUG() or fails to link, because the bad pointer sentinels
->these architectures declare are never defined.
->
->Add cmpxchg_emu_u16(), the two-byte sibling. It reads the enclosing
->word with READ_ONCE(), splices the two target bytes through a union
->and loops on cmpxchg() of the full word until the compare succeeds.
->Like cmpxchg_emu_u8() it is fully ordered.
->
->Unlike cmpxchg_emu_u8() it takes and returns the natural u16 type
->instead of uintptr_t, per the suggestion from David Laight. The
->macros and inline wrappers at the call sites pass their old and
->new values through (uintptr_t) casts today, so with u16 parameters
->the narrowing happens at the function boundary and the function
->compares and returns exactly the 16 bits the caller asked for,
->which matches the hardware cmpxchg r16 behaviour where a 16-bit
->compare only looks at the low 16 bits of the register.
->
->The Kconfig symbol gating this file is renamed from
->ARCH_NEED_CMPXCHG_1_EMU to ARCH_NEED_CMPXCHG_1_2_EMU, as it now
->selects both the one-byte and the two-byte emulation.
->
->Suggested-by: Paul E. McKenney <paulmck@kernel.org>
->Suggested-by: David Laight <david.laight.linux@gmail.com>
->Signed-off-by: Bradley Morgan <brads@mainlining.org>
->---
-> arch/Kconfig                |  2 +-
-> arch/arc/Kconfig            |  2 +-
-> arch/csky/Kconfig           |  2 +-
-> arch/sh/Kconfig             |  2 +-
-> arch/xtensa/Kconfig         |  2 +-
-> include/linux/cmpxchg-emu.h |  4 +++-
-> lib/Makefile                |  2 +-
-> lib/cmpxchg-emu.c           | 38 +++++++++++++++++++++++++++++++++----
-> 8 files changed, 43 insertions(+), 11 deletions(-)
->
->diff --git a/arch/Kconfig b/arch/Kconfig
->index 3bb2e568f5b1..d56064797e09 100644
->--- a/arch/Kconfig
->+++ b/arch/Kconfig
->@@ -1817,7 +1817,7 @@ config CC_HAS_SANE_FUNCTION_ALIGNMENT
-> 	# strict alignment always, even with -falign-functions.
-> 	def_bool CC_HAS_MIN_FUNCTION_ALIGNMENT || CC_IS_CLANG
+On Tue, Sep 15, 2026 at 11:25:13AM +0200, Mickaël Salaün wrote:
+> On Sat, Sep 12, 2026 at 12:33:13PM -0700, Alexei Starovoitov wrote:
+> > On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
 > 
->-config ARCH_NEED_CMPXCHG_1_EMU
->+config ARCH_NEED_CMPXCHG_1_2_EMU
-> 	bool
+> [...]
 > 
-> config ARCH_WANTS_PRE_LINK_VMLINUX
->diff --git a/arch/arc/Kconfig b/arch/arc/Kconfig
->index 80e61175bf52..0e91d254eccb 100644
->--- a/arch/arc/Kconfig
->+++ b/arch/arc/Kconfig
->@@ -14,7 +14,7 @@ config ARC
-> 	select ARCH_HAS_SETUP_DMA_OPS
-> 	select ARCH_HAS_SYNC_DMA_FOR_CPU
-> 	select ARCH_HAS_SYNC_DMA_FOR_DEVICE
->-	select ARCH_NEED_CMPXCHG_1_EMU
->+	select ARCH_NEED_CMPXCHG_1_2_EMU
-> 	select ARCH_SUPPORTS_ATOMIC_RMW if ARC_HAS_LLSC
-> 	select ARCH_32BIT_OFF_T
-> 	select BUILDTIME_TABLE_SORT
->diff --git a/arch/csky/Kconfig b/arch/csky/Kconfig
->index 4331313a42ff..5f26e8615d7d 100644
->--- a/arch/csky/Kconfig
->+++ b/arch/csky/Kconfig
->@@ -37,7 +37,7 @@ config CSKY
-> 	select ARCH_INLINE_SPIN_UNLOCK_BH if !PREEMPTION
-> 	select ARCH_INLINE_SPIN_UNLOCK_IRQ if !PREEMPTION
-> 	select ARCH_INLINE_SPIN_UNLOCK_IRQRESTORE if !PREEMPTION
->-	select ARCH_NEED_CMPXCHG_1_EMU
->+	select ARCH_NEED_CMPXCHG_1_2_EMU
-> 	select ARCH_WANT_FRAME_POINTERS if !CPU_CK610 && $(cc-option,-mbacktrace)
-> 	select ARCH_WANT_DEFAULT_TOPDOWN_MMAP_LAYOUT
-> 	select COMMON_CLK
->diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
->index d60f1d5a94c0..09e556fced01 100644
->--- a/arch/sh/Kconfig
->+++ b/arch/sh/Kconfig
->@@ -14,7 +14,7 @@ config SUPERH
-> 	select ARCH_HIBERNATION_POSSIBLE if MMU
-> 	select ARCH_MIGHT_HAVE_PC_PARPORT
-> 	select ARCH_WANT_IPC_PARSE_VERSION
->-	select ARCH_NEED_CMPXCHG_1_EMU
->+	select ARCH_NEED_CMPXCHG_1_2_EMU
-> 	select CPU_NO_EFFICIENT_FFS
-> 	select DMA_DECLARE_COHERENT
-> 	select GENERIC_ATOMIC64
->diff --git a/arch/xtensa/Kconfig b/arch/xtensa/Kconfig
->index f2f9cd9cde50..62019fd444d4 100644
->--- a/arch/xtensa/Kconfig
->+++ b/arch/xtensa/Kconfig
->@@ -14,7 +14,7 @@ config XTENSA
-> 	select ARCH_HAS_DMA_SET_UNCACHED if MMU
-> 	select ARCH_HAS_STRNCPY_FROM_USER if !KASAN
-> 	select ARCH_HAS_STRNLEN_USER
->-	select ARCH_NEED_CMPXCHG_1_EMU
->+	select ARCH_NEED_CMPXCHG_1_2_EMU
-> 	select ARCH_USE_MEMTEST
-> 	select ARCH_USE_QUEUED_RWLOCKS
-> 	select ARCH_USE_QUEUED_SPINLOCKS
->diff --git a/include/linux/cmpxchg-emu.h b/include/linux/cmpxchg-emu.h
->index 998deec67740..d7eb96a15f85 100644
->--- a/include/linux/cmpxchg-emu.h
->+++ b/include/linux/cmpxchg-emu.h
->@@ -4,12 +4,14 @@
->  * lacking direct support for these sizes.  These are implemented in terms
->  * of 4-byte cmpxchg operations.
->  *
->- * Copyright (C) 2024 Paul E. McKenney.
->+ * Copyright (C) 2024 Paul E. McKenney <paulmck@kernel.org>
->+ * Copyright (C) 2026 Bradley Morgan <brads@mainlining.org>
->  */
+> > landlock was designed for unprivileged users. bpf needs CAP_BPF.
 > 
-> #ifndef __LINUX_CMPXCHG_EMU_H
-> #define __LINUX_CMPXCHG_EMU_H
+> Yep, and this series would kind of bridge these two worlds. ;)
 > 
-> uintptr_t cmpxchg_emu_u8(volatile u8 *p, uintptr_t old, uintptr_t new);
->+u16 cmpxchg_emu_u16(volatile u16 *p, u16 old, u16 new);
+> > There is a fundamental disconnect. If you can tolerate CAP_BPF then
+> > just use bpf-lsm and implement whatever policy you need there.
+> > If bpf-lsm is missing a feature we can fix that.
 > 
-> #endif /* __LINUX_CMPXCHG_EMU_H */
->diff --git a/lib/Makefile b/lib/Makefile
->index 43421c39d21b..d0e69312176a 100644
->--- a/lib/Makefile
->+++ b/lib/Makefile
->@@ -202,7 +202,7 @@ obj-$(CONFIG_CODE_TAGGING) += codetag.o
-> lib-$(CONFIG_GENERIC_BUG) += bug.o
+> The question is not if BPF LSM can or cannot do what Landlock does.
+> Landlock provides a way for userspace to sandbox processes, and that
+> comes with a well-defined semantic, logs, and an user space ABI, which
+> are specific and dedicated to Landlock.  Some user space depend on that.
 > 
-> obj-$(CONFIG_HAVE_ARCH_TRACEHOOK) += syscall.o
->-obj-$(CONFIG_ARCH_NEED_CMPXCHG_1_EMU) += cmpxchg-emu.o
->+obj-$(CONFIG_ARCH_NEED_CMPXCHG_1_2_EMU) += cmpxchg-emu.o
+> The goal of this patch series is to improve BPF LSM to enable it to
+> (also) enforce a Landlock security policy defined by user space thanks
+> to the Landlock syscalls.  The security policy still has the properties
+> that makes it possible to safely compose different ones (e.g.
+> monotonicity/stacking enforcement, inheritance, separation of duty, no
+> cover channel, safe privilege reduction without confused deputy issues).
 > 
-> obj-$(CONFIG_DYNAMIC_DEBUG_CORE) += dynamic_debug.o
-> #ensure exported functions have prototypes
->diff --git a/lib/cmpxchg-emu.c b/lib/cmpxchg-emu.c
->index 27f6f97cb60d..6586f1a88178 100644
->--- a/lib/cmpxchg-emu.c
->+++ b/lib/cmpxchg-emu.c
->@@ -1,10 +1,11 @@
-> // SPDX-License-Identifier: GPL-2.0+
-> /*
->- * Emulated 1-byte cmpxchg operation for architectures lacking direct
->- * support for this size.  This is implemented in terms of 4-byte cmpxchg
->- * operations.
->+ * Emulated 1-byte and 2-byte cmpxchg operations for architectures lacking
->+ * direct support for these sizes.  These are implemented in terms of
->+ * 4-byte cmpxchg operations.
->  *
->- * Copyright (C) 2024 Paul E. McKenney.
->+ * Copyright (C) 2024 Paul E. McKenney <paulmck@kernel.org>
->+ * Copyright (C) 2026 Bradley Morgan <brads@mainlining.org>
->  */
-> 
-> #include <linux/types.h>
->@@ -43,3 +44,32 @@ uintptr_t cmpxchg_emu_u8(volatile u8 *p, uintptr_t old, uintptr_t new)
-> 	return old;
-> }
-> EXPORT_SYMBOL_GPL(cmpxchg_emu_u8);
->+
->+union u16_32 {
->+	u16 h[2];
->+	u32 w;
->+};
->+
->+/* Emulate two-byte cmpxchg() in terms of 4-byte cmpxchg. */
->+u16 cmpxchg_emu_u16(volatile u16 *p, u16 old, u16 new)
->+{
->+	u32 *p32 = (u32 *)(((uintptr_t)p) & ~0x3);
->+	int i = (((uintptr_t)p) & 0x2) / 2;
->+	union u16_32 old32;
->+	union u16_32 new32;
->+	u32 ret;
->+
->+	WARN_ON_ONCE(((uintptr_t)p) & 0x1);
->+	ret = READ_ONCE(*p32);
->+	do {
->+		old32.w = ret;
->+		if (old32.h[i] != old)
->+			return old32.h[i];
->+		new32.w = old32.w;
->+		new32.h[i] = new;
->+		instrument_atomic_read_write(p, 2);
->+		ret = data_race(cmpxchg(p32, old32.w, new32.w)); // Overridden above.
->+	} while (ret != old32.w);
->+	return old;
->+}
->+EXPORT_SYMBOL_GPL(cmpxchg_emu_u16);
->
+> A process can currently define such security policy, get a file
+> descriptor referring to it, and pass this FD to another process that
+> would enforce it.  This helps design secure architectures by splitting
+> ownership, trust, and privileges (e.g. CAP_BPF).  Being able to use BPF
+> programs instead of user space programs to enforce (e.g. an already
+> defined) security policy would make this enforcement more powerful
+> thanks to the context BPF have access to.  Of course, BPF LSM can (and
+> should) also enforce other kind of complementary restrictions.
 
-<Comment> Will this rename cause a build regression for ARM V6
-architectures?
-It appears that arch/arm/Kconfig was not updated alongside the others and
-still attempts to select the old symbol:
-	select ARCH_NEED_CMPXCHG_1_EMU if CPU_V6
-If ARM CPU_V6 code relies on __cmpxchg() calling cmpxchg_emu_u8(), could
-this result in an undefined reference since the Kconfig dependency chain is
-broken and the emulation library won't be compiled? <Comment>
+I'd like to voice my support for this here and maybe try to make more
+concrete the "bridging of the two worlds".
 
+For normal Landlock use, CAP_BPF can *not* be assumed because Landlock
+is designed to be used by unprivileged processes.  (See
+https://landlock.io/integrations/ for an incomplete list of programs
+already using it.)  It works similar to the unprivileged use of
+seccomp-bpf: The unprivileged process both defines and enforces the
+Landlock policy, by invoking unprivileged syscalls.
 
-Deliberate, will be dead code after ardbs series is merged.
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+So a full rewrite of Landlock in eBPF seems infeasible (and TBH, it
+would be quite a drastic deviation from the original scope of this
+patch set).
+
+However: It *is* true that a program that would use Justin's patch set
+*would* need CAP_BPF to use it, and therefore that program *could*
+also implement custom logic with the BPF-LSM.
+
+But then again, since Landlock anyway already ships with well-reviewed
+policy logic for the normal unprivileged use-case, I don't understand
+why it should not be allowed for CAP_BPF programs to lean on that?  It
+may be technically feasible to reimplement similar policies in eBPF,
+but it might also avoid a lot of complication and potential bugs if
+people could lean on a maintained solution like Landlock for the
+aspects where it fits the purpose?
+
+–Günther
