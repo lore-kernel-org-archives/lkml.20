@@ -1,127 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB8E2D7DFE
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B928354AE3
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563394; cv=none; b=Xc9qb2daJz22S8DpFAerxCS65OzvYt0QHuS1T7tTBXPRq7C8mc3QL9ey6HxnedrWDbbomhTq2bJ6sJGJ/u99iFsniAATElaEvqZNJVpqgbAGd3c36ISBM5VpuiQsYTousWkVhKHjtXkMJvl6zEP8wotGAe7Nb5/kTaCSOYUkqWo=
+	t=1789563398; cv=none; b=DL1mLDDwd+YJwDAAf/cWaRTJIucDsjOLEKIZOuuM+kwJXBoY9UYC8RDGTD1501AEQ3oK/S0a3dUHSqltSc9QxQ4wkmIX2Px2W4dUqiVWheOpqIzBweWJY4i+QDhbPLyU1XyET9D9bg4VvwbtjZDPKg/gzZXRGZs7Z6+m+4GDaDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563394; c=relaxed/simple;
-	bh=mOQCge9/NL7U40f4FB+GDQ19jN8sH/RGWQ26VJriIwM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZZGWvny4aUlZRKFBIFu181koebtM+fvP4tLIoQSq0SmVrPo5g9Ne6UjOO+gETB3k22UnVvmSygUY4lPAVHQR7+MUD2uPbHReM9REZRRDk+5l+D10J+shrKwImPbTGShvYu9RSnuQCjxrnXyxezq2uxgBxYEdmWoU3/0mJ18qm2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ixyy+vdt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789563398; c=relaxed/simple;
+	bh=97JmprBqbeoexeJnNQ50AWIZviL4S7SD0NO1tVXsgKc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Bcn67HWU3+eShI1p5pHbP1Xz20/j1e+iHpBCHvWUht4UOiofoGpwY4wf/8gH3h64TAJkgKwEpc7MeBIK/nd/R4sFGwRxPjHKlWnxpnwkBS1naAkieA0xkSkIiC9cYTHEf0+Vzq2K45pxjMjODWeREkD4EdwFhC9IAMx2yVHlYqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BWpz5N1r; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ixyy+vdt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AAB71F000FF;
-	Wed, 16 Sep 2026 12:56:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789563389;
-	bh=AqLUvHomg3hWR5yBgxyP4gBW1Bgw25ElzPGd1T6NF7I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ixyy+vdtLhrXUtT05jb9I8lprWYo3AvPFJiDX/Boi3gcudHpwT5LK+v7hg3m5o5bf
-	 Vw11tkLuNm4isAjEsDtI1guzXo2IXnYtC74DoCRQcRMWC6FRHN8T+L+I36zeoLVSY5
-	 f3E7I4GtphAmxORRsSwUOeQvc5u3XLE13cFbI5fXIznjAgVlzdThuRG6FeTN6Tm+rN
-	 h6hJqOWbEUvWxbWZeek7WEabsIGddlCInnVA4LZHGj+SUBqCmB4ntGO+Wuf6mVPtgi
-	 FD0h/EsIDZKjrZWku7OKkB30jF+RMvWPDQEtKcCxqqrvRuL5IjedRH/dJR+jzfysP6
-	 OnKEOjKfTkTwQ==
-Date: Wed, 16 Sep 2026 14:56:26 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] kthread: Report cpumask allocation failure
- without warning
-Message-ID: <aqqR-up8wovbEsv7@localhost.localdomain>
-References: <20260915014222.13423-2-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BWpz5N1r"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so472233f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:56:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789563390; x=1790168190; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ka5zpxp/jCsYjEbSlG1itlHgACxSBnD5svSTVFgMxoQ=;
+        b=BWpz5N1rKqSglVhiC7uzoHIaVvtCEIFpJuQ9DShTdK5FnCq6mm/eIizPONhVnkrUjD
+         4/IZtlWE8D4yFu7/wcQoi/AAd/if/4CfdYAruU6xaRaKDOacQq0B/2a8YrvqjVud74h3
+         jDnSOZt3X4EP6YSezi18J2TuD8Z6MAdKRbRtFECiUWiLC6EyTBVop1x/VdsytiJFJbO0
+         Zf/4QVY/bXHJkJw/LdlStS9yzStkSbNaEuvlgaIQK9qr2rOpzIS0EMgXIXXASiB3KfuP
+         tiWuehPLTlSD19B3QNDt78A2yCV3KPr+lbsD3UEAve5SvrFda0KWAqSipZJXDtj3piuE
+         KhKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789563390; x=1790168190;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ka5zpxp/jCsYjEbSlG1itlHgACxSBnD5svSTVFgMxoQ=;
+        b=ZjKmr2Jiq9RkWk8TCANMSG3oGjQJ620+uV5qF1lx3veX8xBNQoxUgTTGis5RjJNGWL
+         VWHRJdTPSJBEvoMIyKb20rxrTvq+ejIGUpsSMYlwqXifW21tYGTSoQvg+DL736gfSdLp
+         i0du8FlopzTDGtDqsHYCQ29GxjBJUrZKcJuqe5VlDNvkt+MrunckHtGyaI6hHEMv8Q36
+         ur3dPeUtJKuCspHjvyFUve9tYgnt+923Hc4lmCp52mGy/OG1h5R1jwohPjFmgpAsKGXg
+         EQ/TMtCJPgDY2QVxqbgEd2Gf5NVUQnFN8sf+9YO5hdugfjeoHFjtCEHH+m/Gc1SUl9ff
+         xzXw==
+X-Forwarded-Encrypted: i=1; AKwUvBxkpvNzgnHTm0QwFtoV2TYOkZZSXJppF+dVPPA7aaW+sRpy+oUuk/Pqyw55wsvxXqf6okRkOGmaispKFBM=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8y9gsHyiFdeUzaqLsP3cLXj6hgjQee6DAj+r5uBx/blXNBti6
+	oUoktg4pCvv4DTJXbI4DVXmjIOrpsKkIpR6fo+a4Tc2CHU+B3EiKyE/m
+X-Gm-Gg: AYBFou0kMjuOu9gjX87KX5E0Z5Jqog98NCFsuL8AzWRkRuKIqu8/nEfoPI4wX/r1gIz
+	FNmgl9hDIuFSmLMsZYO9CtCdxtb8/acKIhp2vhyfGLFV9PURSrhA9H+yDFacaAvjgU3wTRhN2jZ
+	+c44xHoREeAinMiVOu1pif7KjGrZ78mtP+Wv5HkfCUiOuaQCjTMwFYeaviu63eJF6kYVK83aM4P
+	KQI61XRrdJ2GlJTZv9TuAlaW5OpKUYAafl56vVknrRsvBJYnf5uL1XfDu30Yxag1W0t2er2SG5t
+	GDrNaENNEidZaxbP87c61aa/jqWnP5iAlt8yB+uoW00bqjao36RcfLePLoLbKYb2Vltuup+0j7y
+	OpN2NsAu9lpFj9SU7CiP0cYCQhZwVRhk3fOZoelmmMAtIvw7SkIyJXZQoWdy+U892+8lUMaGDBl
+	8ChygZe1yvRhsDEpvLZoHM8pOUtnLlSENIpRK7lzEJQXC3Kin11Al+43Kq3Ng+fpHZRhEzB0udK
+	Id4Vs38+fM=
+X-Received: by 2002:a05:6000:460c:b0:487:767:b301 with SMTP id ffacd0b85a97d-4870d2921d6mr2931012f8f.57.1789563390295;
+        Wed, 16 Sep 2026 05:56:30 -0700 (PDT)
+Received: from localhost.localdomain ([194.154.195.114])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4870bf342a0sm6750729f8f.24.2026.09.16.05.56.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 05:56:29 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Johan Hovold <johan+linaro@kernel.org>,
+	Bjorn Andersson <quic_bjorande@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH v2 2/2] phy: qcom: qmp-combo: check qmp_combo_com_init() in the typec callbacks
+Date: Wed, 16 Sep 2026 14:56:19 +0200
+Message-ID: <20260916125619.4587-3-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916125619.4587-1-okerixx@gmail.com>
+References: <20260916125619.4587-1-okerixx@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915014222.13423-2-quchaosheng000406@163.com>
 
-Le Tue, Sep 15, 2026 at 09:42:22AM +0800, Quchaosheng a écrit :
-> kthread_affine_node() warns when zalloc_cpumask_var() fails:
-> 
->   if (!zalloc_cpumask_var(&affinity, GFP_KERNEL)) {
->           WARN_ON_ONCE(1);
->           return;
->   }
-> 
-> The allocation uses GFP_KERNEL, so it can fail under memory pressure or
-> fault injection.  A failed allocation is a recoverable condition and not a
-> kernel bug, so the warning is noise.  syzbot reports it for a WireGuard
-> NAPI thread:
-> 
->   WARNING: kernel/kthread.c:359 at kthread_affine_node+0x200/0x2e8
->   CPU: 0 PID: 5207 Comm: napi/wg2-0
->   Call Trace:
->    alloc_cpumask_var_node+0xfc/0x138
->    zalloc_cpumask_var
->    kthread_affine_node+0x148/0x2e8
->    kthread+0x29c/0x3d4
->    ret_from_fork+0x10/0x20
-> 
-> The failure is not silent though: the early return also skips
-> list_add_tail() of kthread::affinity_node, so the thread never joins
-> kthread_affinity_list and kthreads_online_cpu() will not fix up its
-> affinity on a later CPU hotplug.  Keep the failure visible with
-> pr_warn_once() instead of dropping the message.
-> 
-> Reported-by: syzbot+37ca7ae3e98cb65c3209@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=37ca7ae3e98cb65c3209
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
-> ---
-> v2:
->  - Keep the failure visible instead of dropping the message silently
->    (Valentine Schneider, Waiman Long).  A WARN is not appropriate for a
->    recoverable GFP_KERNEL allocation failure, but the early return also
->    keeps the thread out of kthread_affinity_list, so report it with
->    pr_warn_once().
-> 
->  kernel/kthread.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/kthread.c b/kernel/kthread.c
-> index a3f95c904..b59fa7c7e 100644
-> --- a/kernel/kthread.c
-> +++ b/kernel/kthread.c
-> @@ -356,7 +356,14 @@ static void kthread_affine_node(void)
->  		return;
->  
->  	if (!zalloc_cpumask_var(&affinity, GFP_KERNEL)) {
-> -		WARN_ON_ONCE(1);
-> +		/*
-> +		 * The thread stays out of kthread_affinity_list, so a later
-> +		 * CPU hotplug will not fix up its affinity. Report it, but do
-> +		 * not warn: the allocation can fail under memory pressure or
-> +		 * fault injection, and that is not a kernel bug.
-> +		 */
-> +		pr_warn_once("kthread: %s: no cpumask, node affinity not set\n",
-> +			     current->comm);
+qmp_combo_typec_switch_set() and qmp_combo_reconfigure_phy(), which the
+typec mux callback and the USB4 init path use, tear the common block down
+and bring it straight back up on an orientation or altmode change, but
+they discard the result of the bringup:
 
-I'm mildy convinced that this is an improvement. The message now becomes easily
-missed and appears like any normal information in the logs.
+	qmp_combo_com_exit(qmp, true);
 
-Kthread creation happens mostly on boot and if there is memory pressure already
-on boot, the rest is not going to end well anyway.
+	qmp->qmpphy_mode = new_mode;
 
-Thanks.
+	/* Now everything's powered down, power up the right PHYs */
+	qmp_combo_com_init(qmp, true);
 
->  		return;
->  	}
->  
-> 
+	if ((qmp->usb_init_count || qmp->usb4_init_count) &&
+	    new_mode != QMPPHY_MODE_DP_ONLY)
+		qmp_combo_usb_power_on(qmp->usb_phy);
 
+If qmp_combo_com_init() fails - a regulator, a reset or
+clk_bulk_prepare_enable() - it unwinds what it had brought up and returns
+an error, leaving the clocks disabled.  Both paths then carry on and
+qmp_combo_usb_power_on(), and dp_aux_init() after it, write PHY registers
+with no clock running.  qmp_combo_usb4_init() already checks the return
+value of qmp_combo_reconfigure_phy(), but never sees a failure from it.
+
+Propagate the failure instead.  The PHY is then left logically
+initialised with its clocks off, which is the state any forced bringup
+failure already produces and which these callbacks have no way to report
+to the PHY consumers; what changes is that the register writes that
+would fault no longer happen.
+
+Fixes: 2851117f8f42 ("phy: qcom-qmp-combo: Introduce orientation switching")
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
+---
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+index f6d3320a59d9..ae70ebba36c4 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+@@ -4601,6 +4601,8 @@ static int qmp_combo_usb_set_mode(struct phy *phy, enum phy_mode mode, int submo
+ 
+ static int qmp_combo_reconfigure_phy(struct qmp_combo *qmp, enum qmpphy_mode new_mode)
+ {
++	int ret;
++
+ 	dev_dbg(qmp->dev, "qmp_combo_reconfigure_phy: switching from qmpphy mode %d to %d\n",
+ 		qmp->qmpphy_mode, new_mode);
+ 
+@@ -4615,7 +4617,9 @@ static int qmp_combo_reconfigure_phy(struct qmp_combo *qmp, enum qmpphy_mode new
+ 	qmp->qmpphy_mode = new_mode;
+ 
+ 	/* Now everything's powered down, power up the right PHYs */
+-	qmp_combo_com_init(qmp, true);
++	ret = qmp_combo_com_init(qmp, true);
++	if (ret)
++		return ret;
+ 
+ 	if ((qmp->usb_init_count || qmp->usb4_init_count) &&
+ 	    new_mode != QMPPHY_MODE_DP_ONLY)
+@@ -5166,6 +5170,7 @@ static int qmp_combo_typec_switch_set(struct typec_switch_dev *sw,
+ {
+ 	struct qmp_combo *qmp = typec_switch_get_drvdata(sw);
+ 	const struct qmp_phy_cfg *cfg = qmp->cfg;
++	int ret;
+ 
+ 	if (qmp->qmpphy_mode == QMPPHY_MODE_USB4) {
+ 		/* QMPPHY has no orientation handling in USB4 mode, don't cache the setting */
+@@ -5186,7 +5191,10 @@ static int qmp_combo_typec_switch_set(struct typec_switch_dev *sw,
+ 			qmp_combo_usb_power_off(qmp->usb_phy);
+ 		qmp_combo_com_exit(qmp, true);
+ 
+-		qmp_combo_com_init(qmp, true);
++		ret = qmp_combo_com_init(qmp, true);
++		if (ret)
++			return ret;
++
+ 		if (qmp->usb_init_count || qmp->usb4_init_count)
+ 			qmp_combo_usb_power_on(qmp->usb_phy);
+ 		if (qmp->dp_init_count)
 -- 
-Frederic Weisbecker
-SUSE Labs
+2.55.0
+
