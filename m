@@ -1,35 +1,53 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2A750C28D;
-	Wed, 16 Sep 2026 16:28:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 36D6E3876C9;
+	Wed, 16 Sep 2026 16:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576135; cv=none; b=AWHccbECOGSiMICQMxnPcGn6QwyqOHJ+BHEhucletG8p07Zor8u5Ry+4ho5JUh6aOF+pg6k91VFhzHhvv6HXb3Bu6W2XXaXOghGGtINmGE4WyJRS1HP3QZWiSLIt/iTbB2h9Ol6DaHAz6ork5MI8F2oDKYsU+H8+T9HOrjmiq5E=
+	t=1789576140; cv=none; b=SfJDZJts7962k+Zag2ouBYhi8iLtHoYQS3j/JKEbwtbc2mlAB36SztfvJASTYWdD543X34XZjHlQaprpjYthweOfR8A8p+FyzOuchT8ok3gDXh9t7dMMAp7qPnzLGgb7pfcMBTYXj57/bDHCnysCLUl3GtyBTJwstPyUbHCx8Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576135; c=relaxed/simple;
-	bh=5c13c6br1VNb439OxYGRCvv0YyDfGn/CnZe7LkB6p38=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Viaozca6wPAf2k7JgsW1uuffsIGFJ6OvJz155FmxGWVHyR4Nv1zF2fDeMzc9FC3oCW1g9akjtQRHyeIsLD2nUrJ6boHW+AHpMwyuaHJDqa3rFOgsTPcPBd0VJklyw23QqcOI/WjQ+c8aNSHPsswkZ0fO5mQogfcmhWjprDcne0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnTzq9w6pqt6htCA--.21920S2;
-	Thu, 17 Sep 2026 00:28:45 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andy@kernel.org
-Cc: dlechner@baylibre.com,
-	jic23@kernel.org,
-	linux-iio@vger.kernel.org,
+	s=arc-20240116; t=1789576140; c=relaxed/simple;
+	bh=y4x2hBtTKq/UTTtPQl7KCSgGM77FGT9bLH90ajPUoXw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=AIJZnQ//6+WhiSL4Yl4QrN9bdsal++RZsUNmkiv3E5xlE9UM4O3BQkrQ5kKFJXUZXUhe1TejJmR7tYzQOnFQ4H6bRYvWd0dOD/MAoAUrkTm+vaBZt81PriqYMEmmxGL36HL6/8jv3w0eAkEpX7vaS2wuHzdIvVapCmlv5Q+uPAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DBJG75gb; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DBJG75gb"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 390EC176A;
+	Wed, 16 Sep 2026 09:28:52 -0700 (PDT)
+Received: from e127648.carmbridge.arm.com (unknown [10.0.129.72])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D0A453F7B4;
+	Wed, 16 Sep 2026 09:28:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789576135; bh=y4x2hBtTKq/UTTtPQl7KCSgGM77FGT9bLH90ajPUoXw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=DBJG75gb5rQbE4dBv1xLoKjkNdRJw3Eo0Y3YDPludXjGQpVMTttRkCcA2CpbhXJOy
+	 UfgIcz3cLfSkoX0/tYGXSMfwrFtELrqpFMu+r92UmK1UOvMS2aiAqz7/EnYaUPNJwP
+	 yNbDKmDiXG0bisvfGspcWWRe+nEW+r4TnQNZz1Yw=
+From: Christian Loehle <christian.loehle@arm.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com,
-	tomasz.duszynski@octakon.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: chemical: scd30: Fix trigger reference leak in scd30_setup_trigger()
-Date: Wed, 16 Sep 2026 16:28:17 +0000
-Message-Id: <20260916162817.2083674-1-vulab@iscas.ac.cn>
+	Len Brown <lenb@kernel.org>,
+	Jie Zhan <zhanjie9@hisilicon.com>,
+	Lifeng Zheng <zhenglifeng1@huawei.com>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Ionela Voinescu <ionela.voinescu@arm.com>,
+	zhongqiu.han@oss.qualcomm.com,
+	Christian Loehle <christian.loehle@arm.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v7 01/20] ACPI: CPPC: Validate the _CPC package header
+Date: Wed, 16 Sep 2026 17:27:46 +0100
+Message-Id: <20260916162805.1039247-2-christian.loehle@arm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260916162805.1039247-1-christian.loehle@arm.com>
+References: <20260916162805.1039247-1-christian.loehle@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,84 +55,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnTzq9w6pqt6htCA--.21920S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47GF1kKrWDJFy3Cw4DArb_yoW8try5pF
-	Z7CFWYyryUXr48JF4kZr1kCryrtFZIqFWfKr48uas2v3s8ZwnYgr1agrWaqw48CFW8W34U
-	XFZ5Wrn5CFWIyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	o5l5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqpO9KqwAAso
 
-The reference taken with iio_trigger_get() is only dropped by
-iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. Failure of
-devm_request_threaded_irq() in scd30_setup_trigger(), or of triggered
-buffer setup in scd30_probe(), returns before that mode is set and
-leaks the reference acquired for indio_dev->trig. Take the reference
-after the IRQ request succeeds and set up the trigger after the
-buffer so that only failures with the mode already set follow the
-iio_trigger_get().
+The _CPC NumEntries field includes every package element, including
+NumEntries and Revision. acpi_cppc_processor_probe() nevertheless reads
+those first two elements before checking that they exist and trusts
+NumEntries when walking the remaining elements.
 
-Fixes: 64b3d8b1b0f5 ("iio: chemical: scd30: add core driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reject packages with fewer than two elements and NumEntries values which
+exceed the package count before accessing Revision or iterating over
+register descriptors. Although the specification defines NumEntries as the
+number of package elements, tolerate additional trailing elements because
+ignoring them is safe and avoids rejecting padded firmware.
+
+Revision is specified as a BYTE, but the parser assigns its 64-bit AML
+Integer to an unsigned int before validating it. Reject values above U8_MAX
+before conversion so, for example, 0x100000004 cannot truncate to revision
+4.
+
+Fixes: 337aadff8e45 ("ACPI: Introduce CPU performance controls using CPPC")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260724134251.1632824-1-christian.loehle%40arm.com
+Link: https://sashiko.dev/#/patchset/20260808082644.1251332-1-christian.loehle%40arm.com
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
- drivers/iio/chemical/scd30_core.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/acpi/cppc_acpi.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iio/chemical/scd30_core.c b/drivers/iio/chemical/scd30_core.c
-index a665fcb78806..dc56291e1892 100644
---- a/drivers/iio/chemical/scd30_core.c
-+++ b/drivers/iio/chemical/scd30_core.c
-@@ -644,8 +644,6 @@ static int scd30_setup_trigger(struct iio_dev *indio_dev)
- 	if (ret)
- 		return ret;
- 
--	indio_dev->trig = iio_trigger_get(trig);
--
- 	/*
- 	 * Interrupt is enabled just before taking a fresh measurement
- 	 * and disabled afterwards. This means we need to ensure it is not
-@@ -659,6 +657,8 @@ static int scd30_setup_trigger(struct iio_dev *indio_dev)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to request irq\n");
- 
-+	indio_dev->trig = iio_trigger_get(trig);
-+
- 	return 0;
- }
- 
-@@ -710,16 +710,16 @@ int scd30_probe(struct device *dev, int irq, const char *name, void *priv,
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to reset device\n");
- 
-+	ret = devm_iio_triggered_buffer_setup(dev, indio_dev, NULL, scd30_trigger_handler, NULL);
-+	if (ret)
-+		return ret;
-+
- 	if (state->irq > 0) {
- 		ret = scd30_setup_trigger(indio_dev);
- 		if (ret)
- 			return dev_err_probe(dev, ret, "failed to setup trigger\n");
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index fef54fcd00b7..3b8cdf88e31d 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -793,6 +793,11 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
  	}
  
--	ret = devm_iio_triggered_buffer_setup(dev, indio_dev, NULL, scd30_trigger_handler, NULL);
--	if (ret)
--		return ret;
--
- 	ret = scd30_command_read(state, CMD_FW_VERSION, &val);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to read firmware version\n");
+ 	out_obj = (union acpi_object *) output.pointer;
++	if (out_obj->package.count < 2) {
++		pr_debug("Unexpected _CPC package count (%u) for CPU:%d\n",
++			 out_obj->package.count, pr->id);
++		goto out_buf_free;
++	}
+ 
+ 	cpc_ptr = kzalloc_obj(struct cpc_desc);
+ 	if (!cpc_ptr) {
+@@ -803,12 +808,15 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 	/* First entry is NumEntries. */
+ 	cpc_obj = &out_obj->package.elements[0];
+ 	if (cpc_obj->type == ACPI_TYPE_INTEGER)	{
+-		num_ent = cpc_obj->integer.value;
+-		if (num_ent <= 1) {
+-			pr_debug("Unexpected _CPC NumEntries value (%d) for CPU:%d\n",
+-				 num_ent, pr->id);
++		if (cpc_obj->integer.value < 2 ||
++		    cpc_obj->integer.value > out_obj->package.count) {
++			pr_debug("Invalid _CPC NumEntries (%llu) for package count (%u) on CPU:%d\n",
++				 cpc_obj->integer.value, out_obj->package.count,
++				 pr->id);
+ 			goto out_free;
+ 		}
++
++		num_ent = cpc_obj->integer.value;
+ 	} else {
+ 		pr_debug("Unexpected _CPC NumEntries entry type (%d) for CPU:%d\n",
+ 			 cpc_obj->type, pr->id);
+@@ -818,6 +826,12 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 	/* Second entry should be revision. */
+ 	cpc_obj = &out_obj->package.elements[1];
+ 	if (cpc_obj->type == ACPI_TYPE_INTEGER)	{
++		if (cpc_obj->integer.value > U8_MAX) {
++			pr_debug("Invalid _CPC Revision (%llu) for CPU:%d\n",
++				 cpc_obj->integer.value, pr->id);
++			ret = -EINVAL;
++			goto out_free;
++		}
+ 		cpc_rev = cpc_obj->integer.value;
+ 	} else {
+ 		pr_debug("Unexpected _CPC Revision entry type (%d) for CPU:%d\n",
 -- 
 2.34.1
 
