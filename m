@@ -1,162 +1,211 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011018.outbound.protection.outlook.com [52.101.65.18])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1984B1D1D;
-	Wed, 16 Sep 2026 19:13:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586005; cv=fail; b=LJ47QqOS5Ox03N9Rytp4FlOm/MnMqgW4KzHQdxL6kT6JXV/wa0CUAKtGCbzVBVsmllYC0H8ehd2JYb5T7mnzX89gq7vg/jfY+UBs/O9v8iec2yZlIILTZEtEmaC6omJkJ2HUc5DOdmSCUwZQdonm0xKd4+oqxMmLmmoUV/626C8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789586005; c=relaxed/simple;
-	bh=JlWq1SX73hHMW4pYlB+TLJ75BJjI9WGci7uSmY2hHNA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KHFWsU8OLVVDYL6k9t6KIChaJL73/enQ8IT16F3PZ0gHJ1jd7BUHnm5G1UuM2UJ7TYwtSDDI2BA9pxDfHhCHlLNsKmozrKhT6MZuGelgpt8birYQL0VRoqOnle6NTfwFJId4IDGLEeXvlrrEVBGZsOSuTr4zPr1nrVQfdGL5joM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=aaceHL+A; arc=fail smtp.client-ip=52.101.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812E74BD373;
+	Wed, 16 Sep 2026 19:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789586064; cv=none; b=Ii+Bq6AGCsAvJzNJEsVl06UShq+CFttmf7+BCmx+q2r3QXM4i4fOrYg1GZCg1ieOg8kN0H2VYZ5YZ9HD0+aEU+6LlOLVEv+6mxs1fjnNhaboJsHi3Bpo0qODxFnI6IV8YvwHwSvK3fhTRaiLNIMfypQs5YrnnRGrl6x4YOLhZRk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789586064; c=relaxed/simple;
+	bh=e8JYdVCf4vsRGPnnwF8ZX7ui0EKVrgrE4g8EFhCxNqc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SyB+iSD83rVTNDzlsuwQ0BAIcRsnlqIkA+p0uWKhYQfVhGsImuVodR1xozeDv5Yn69jjxGJQO2RqcGOCCqyfEH8UUK08cVIz0CXUAexacAjxkL2Ciyk2mk12TAD/KHvo2DucoZoHLEOCSdEZ0xT/PlNO+GbdvfO2enJ1qqB7zAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=UYvyczCR; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="aaceHL+A"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MCBRBrunsiedP4XXdZsCAUSYXPT8LG5F8MpjKmirewOgpdrKizscnAnqid9S4bTP7JMPBQixpTpOIacSo8bta+Jk0E4XBTx6vBZpRj34GcX7ovD4zi9031NK1kMkUpceudrCtUea5FIKIkIBZL/VHmfEkzTcbVXy77SKcYre3+UN9FGSNO+P1ZfMNEOfWj8KK3YHcy0aXpI7RiEyzehsh3JRA7DyVzYDJEpvqIf8FkDs8yQ/ywNNFQk0poLXlzPO3QBTxCrN+Xyxh2aK8LcSgMHok79caypxkV2WEwVLfoVs1ekAmlvqYRZ7IdXVUFP90sxhLQ1Rs5lNUM2I8dbANw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gmF6nrYHFX7Rgwn2QslL7TP67rtDZfY39GsJpgrgs60=;
- b=t/CAe7Z5S5rdnJW4HiRi3k4kwJmsJDpWq2x9s1jU3nC+4t788NbL47rVYrLEJ4JmWvwKspEu79BuMPwzcCxlD1GNcxbmpm6OLsmSKleJzlzkXMbqRYHnzGNYcbX6RWCoSmA6vZyb1yX+qYF78ksKU+19al9xDqOe5Apid2QAOxgWc5w2HOEcVadmH/VwV8m/3aj9+RGK5jE1cfKQq01fv/z2+7L3xB12CaSg8tJ3b9X46+07TRydv4fzUBcCQemWdxffSrW9Qg1pFBK1q9zQxDR6OhEMbzQxA0HkGsiKPhl+F/QHCFbFpgrzuntArfYDoUJtF0IrfAJkZmlktx3SOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gmF6nrYHFX7Rgwn2QslL7TP67rtDZfY39GsJpgrgs60=;
- b=aaceHL+AjaLnyBIFOXDY8pLSAveKiQUYQHqTAIjd+lex0lRPtq9JbkG9wskWw7XqOgmb8J69lZPpX+IPKfS9+YghrXwbt1zsDMSWpCRqmesIQQka6AZutxZN5uBS8HYfRlWPa7ecvfrfTR1exfjQp+OP7wcLLkvWy9ZtB0Izp8vFQhNduMSnX5vZmi4nXpwwwu0Kiom0A/GM7EfXuJUVaiozKqenqayH8D3gJ77biHNv5Cww193N9ioefMXgbrOINsLExy/bmrCi7gj6DJHXwQXLgFKqX/RmRf1jezSuh/vAQbG4lulmHSD74SbMa9Gh2gsy5wYAqLnZ2tTuWzrEBg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GVXPR04MB10046.eurprd04.prod.outlook.com (2603:10a6:150:112::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 19:13:13 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
- 19:13:13 +0000
-Date: Wed, 16 Sep 2026 14:13:03 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Cc: Viresh Kumar <vireshk@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Binbin Zhou <zhoubinbin@loongson.cn>, Sinan Kaya <okaya@kernel.org>,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] dmaengine: xgene-dma: use named initializers for
- acpi_device_id
-Message-ID: <aqrqP9aHervoFsWy@SMW015318>
-References: <20260916-acpi-dma-v3-0-0dac05654967@thegoodpenguin.co.uk>
- <20260916-acpi-dma-v3-4-0dac05654967@thegoodpenguin.co.uk>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-acpi-dma-v3-4-0dac05654967@thegoodpenguin.co.uk>
-X-ClientProxiedBy: CY8PR19CA0018.namprd19.prod.outlook.com
- (2603:10b6:930:44::15) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="UYvyczCR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=R9Z5PkeqCCSetAVEiONleDi7aUQcufGI3Rz8fogM+rs=; t=1789586058;
+	x=1790190858; b=UYvyczCRjlKA9jBLR94YLcQ4hY0Q678vR7lw6IGH9HzVjp2gPjCgOTp7V0aYU
+	RvwogEV4AHs3dVv9fo4SqSGrGiZhd1l1qSeK3DFFfGjc/b3sENj4mXbn+QZYQHkzKanibkg7eHbg0
+	fqChTQm9g8ajEW2VIZwsZdD5NF7AtfsrCW6oEe+fAqswgtiwewo3reMRkIiFxfKxDMFsGd/jB1iSQ
+	sy6k7WohJjxuV6lfRpi4km/rMUHoUHuCG3IcFmt3FPuNmj9x8jLMvcPcUn2bT6BClJRUEokg6tYwE
+	1QGWYGCPmiH+5WIssnyl/N+9g/IAYo53NCiF6O+kw7roa0Sp8A==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.99)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1x6v57-00000001Bvy-0CPa; Wed, 16 Sep 2026 21:14:09 +0200
+Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.99)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1x6v56-000000033sC-3Hzz; Wed, 16 Sep 2026 21:14:08 +0200
+Message-ID: <fe0bcfeb105251f4d14a3cc96774a1d2f82562f8.camel@physik.fu-berlin.de>
+Subject: Re: [RESEND PATCH] sh: ecovec24: use static device properties to
+ describe the touchscreen
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rich Felker
+ <dalias@libc.org>,  Yoshinori Sato <yoshinori.sato@nifty.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>,  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>, jacopo mondi <jacopo@jmondi.org>, 
+	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Date: Wed, 16 Sep 2026 21:14:07 +0200
+In-Reply-To: <alUyZ2zVWCPhyHHX@google.com>
+References: <alUyZ2zVWCPhyHHX@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10046:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd58aa17-be2d-4055-754f-08df14268e1f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|19092799006|376014|366016|23010399003|18002099003|22082099003|10067099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	DruDrgUHclukT3h3fu80aJBkNm1ikfIb245h226Z256TYAuocmlLXSuLpySVB5qobjs3zuU8nb+CnaIsF11kzr7Wbogp6sTA+wxhzHfD49B5p9g9MD+ox+2QkPihPIJFMSuuJ9L9v/neG3MXcS3TLs44qOZmXpaHlHJmPJOwShaCBj2CBx176edaKj7TgIbaP/Xn3ppNwNsR5cCF47XjOxPP8O17F/dYo8LJ+h1HcnIrKLoqG1kCexd4MkXur4aaGONH03eGf+AHddWAIiW3BWhvBST8XryMY+7Qkym7qcsGX/AsmxRt/ZhEtDR88f8pHBs4zirU/Tsw/cJFsCFkqjCESysG3edMP3e9iL+I88OiG8rlHQ/cdJuuv94LOb/k+u6MoI1j5ifiQ6WaHp/7mJYg74wxyMBLFfncEUP7qWSzpQRYxqJDWhU9n6LKcBovUdB+WNmJZsMQ+hMnjDC6y/Wk8C6LNkE88g0gnImiRWChcJbKTZWMYmPBqLzsPZpnykDepuIS9XRTrqLTVvYbi2jBNDNRfBH7srcyGlw5r1DaK3Qa3YTvEfxRE9X4fT8r9FggjVtkly029/aMgV7UyuB8+Ubd0X9u0Y3qZan2VIXbWrxrjQr4M2WNY82NUHDkFOZ7eSyS8R4wiUd6VICoxwzbd0/w2nW7HKIjcIvSLTs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(19092799006)(376014)(366016)(23010399003)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5u4DMkg/7w9aecDa7BLKug4HOkantOLhUgb8ruWwFBRR7de8Kc3Ih7dou9O2?=
- =?us-ascii?Q?HQIIMHRMtKzjmPF6JivEL8VYEVrkwBfkAU6G9RmKjF/7h6X16da7cUrj26Pp?=
- =?us-ascii?Q?IM/2gcj4rh8V9K+optg6pGeJvr55099DK6fdw/HfaMwTi8US2IzEsCl6LtSc?=
- =?us-ascii?Q?5X3S/2DIPAI88tlaZwd5dVkkiYGdqqtJK3SGNVn9l6MWLnvJ4JY2GuIjHojP?=
- =?us-ascii?Q?IxvjwNhbzM+fFW0n5/h6YkW/0t0Z0q3CniViLDSS84oFx0r6Dhwz9H2lQuRk?=
- =?us-ascii?Q?Vey7PkGtdfcC6i0bwgExtdKI3dSnAp8YzQNsz6cax4JEEK88tAzNj5zzwzrJ?=
- =?us-ascii?Q?IN615lA4UZM/0nSHse2wwI/vnnlhnD8Y6qeac4ZzXLACgzZxkc0xKJ2Vq/WY?=
- =?us-ascii?Q?x1cUYyjo0ByPYYtm7F0x/3G22nwKEI6e7fWdz1sDbYhwh/NWpfF/VoGvt1kF?=
- =?us-ascii?Q?jU2J3/2FS9dCoYXjX7AZ9ds8TpKu+OJsr0konVNXcOXIC8HQK9LTVjkt7PPg?=
- =?us-ascii?Q?ZbpAaOibp28uRCm+kMk81Hdl47nZ4sxW0tyUHKhBNioVZpNk5UoY2VB2EU+A?=
- =?us-ascii?Q?wI3zwClgZG3p3xmubWboMiEZaG0V3dlUcY7I8Ttk0wE2x739HdxTgI02Qhn5?=
- =?us-ascii?Q?x//4HNhgXXXXgm9BwA2bQt1KAHmey0c5JK9zp4v45n5qO0eLQdRz9ryNjF8b?=
- =?us-ascii?Q?RgZBAKLI/75G82JCJekkAWuS1mjlSC/9BTex7zVg/JR90QiY8U6rSPwEB0wA?=
- =?us-ascii?Q?21cg31yGL1rxBf34vWEHZJ1A+RESn1zfMeTgQZkejiUTufodwvdKSpAOuxLY?=
- =?us-ascii?Q?P3IUz5G6DABY+EYA0V4xTcjFUtk0xjEIeNKiHhf4SlOXK3MP66lOTpQyDf9u?=
- =?us-ascii?Q?SKUcJ2ukWjHNT792b9e6wXoMU0Uy+8Yc/r5NLXEPPz4if1SC0nswLnJCTAEv?=
- =?us-ascii?Q?RQ9W3x+/J3tJhVO+3ZqR5Vff/27++I0rohNIiYK6n7r+/ZyBArgOSRoxljRp?=
- =?us-ascii?Q?93JdtwRxkItGM3GkC53skrWE6FkpqRuyuF0Z2y/jFRgTnfv0g3WQNLIhj6gF?=
- =?us-ascii?Q?RDFYLCiNyFoX4CWVXmzlHuWCGKPuLPCqbJhSHIh6yEPk2pWb+5jrZpbshAjW?=
- =?us-ascii?Q?aYMLPESnex8wmM/OXOlIEuk6VkdTg/cAtV4+AjtaPOT7RNYuhEQiMC+7A+vh?=
- =?us-ascii?Q?slbjvicQtibIcBE+kgUYL81vjxqqpsG4fQTKhNXy4Hj5jfZUAAZ6bKHeR/r7?=
- =?us-ascii?Q?y023z7h4HUU7a8iBOqJ4XMLyR51xrZdGdhEpvadcNeo7XUj310pERITgc6Tc?=
- =?us-ascii?Q?LfLm2PX2GqalhXKQwhaeC3J5UWcKpnHMrTW2qs8RpVv0zQ8MbmEWvrju0wIu?=
- =?us-ascii?Q?sDTavXmLgYuqM7DbkSEvrejV+OUb2ng8kBF+FvrlXlFwnMfkIiydPYei0cPZ?=
- =?us-ascii?Q?14VZh6JBIw2KFZZJffr4eOH1KXJ2w3MjCKd9KXl0tUc1DsV6/c5J8dxx8QbU?=
- =?us-ascii?Q?HBQdzCCbQltyIRurvZS7qZmhAlNe9utGNuoKadcS6uN0a4nj/0MOx9g1wpdy?=
- =?us-ascii?Q?7pI1AtIQarYw1f3fWFVN/nUk26yjf7RMyNYNiUof2RHbxSHWwAm75TGqqpsc?=
- =?us-ascii?Q?1FzpadTWHc6QzAG5jqNKVh2H/tR95lQ43XT6B2tTCqoaJyoh9E6QTb4e3Hzo?=
- =?us-ascii?Q?TrW+nBwPcmJdiu//WBKBIhzl7Ju53+E5XD8n/t7HwjqsevkxVzPlH/+e2tnC?=
- =?us-ascii?Q?gHv5yfuOve4nz/UBZFqntbMptTP6eMEtm0WGWxgvaLDvwEy3cO6D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd58aa17-be2d-4055-754f-08df14268e1f
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 19:13:13.8609
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NL4IBgv81Y6f8e5dn3mJYISHx7+bLjZ2KmV0mh6tpzJ+hORKVUR5KHuZaUe1FKM6bPMYQzVau3oEEmwowTmSmstbCLv9EoBJrTiMfawBz/nH5TMPMJV7DqauWfHIW2A/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10046
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-On Wed, Sep 16, 2026 at 04:27:57PM +0100, Pawel Zalewski wrote:
-> Use a designated initializer for the acpi_device_id fields which makes the
-> code more readable and consistent with how lists are initialized in the
-> rest of the kernel code base. Also drop explicitly setting fields to 0
-> where it is redundant.
->
-> Unify the list terminator to have a single space between the brackets and
-> no trailing comma.
->
-> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Hi Dmitry,
+
+On Mon, 2026-07-13 at 14:41 -0700, Dmitry Torokhov wrote:
+> Convert the board to use static device properties instead of platform
+> data to describe the touchscreen, so that support for platform data can
+> be removed from tsc2007 driver (ecovec24 is the last board using this
+> mechanism of describing tsc2007).
+>=20
+> Device properties do not allow custom board methods, so the method for
+> getting "pen down" state was removed (the driver is capable of working
+> without it). If this functionality is needed proper pin control/gpio
+> support needs to be implemented so that the same pin can serve as an
+> input GPIO and an interrupt.
+>=20
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 > ---
+>=20
+> This is a resend of the patch I sent in August of 2024. My fault of not
+> noticing reply from Adrian inquiring about potential negative impact
+> from not having GPIO-based "pen down" detection. I believe this is fine,
+> the "pen down" is an optional feature and the driver can detect the
+> touches even when it is not specified. Additionally, this is an
+> evaluation board, so user impact should be negligible.
+>=20
+> However the bigger question is whether ecovec24 board still relevant.
+> According to my research it has the following regressions currently
+> unfixed:
+>=20
+> 5716fb9bd9c6 ("mmc: spi: Convert to use GPIO descriptors")
+>   - MMC SPI device naming broken (broke SD fallback mode)
+>=20
+> 9fda6693335c ("spi: sh-msiof: Convert to use GPIO descriptors")
+>   - SPI CS polarity inverted (broke initialization on the MSIOF0 SPI bus)
+>=20
+> c2f9b05fd5c1 ("media: arch: sh: ecovec: Use new renesas-ceu camera driver=
+")
+>   - Camera array sentinel missing (causes out-of-bounds reads and
+>     potentially kernel panics)
+>   - Camera standby polarity inverted (enadvertently keeps cameras
+>     permanently powered off)
+>   - Camera disabled iby default (board defconfig points to a deleted
+>     driver)
+>=20
+> They are ~6 years old, so I wonder: do people actually *actively* use
+> this board with modern kernels? Should it simply be removed?
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+We want to switch arch/sh to using device trees in the future anyway, then
+we can decide which boards to keep and which ones to remove. We have a patc=
+h
+series by Yoshinori Sato to convert arch/sh to device trees. It still needs
+some work though.
 
->  drivers/dma/xgene-dma.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/dma/xgene-dma.c b/drivers/dma/xgene-dma.c
-> index fa1173e49900..8d1c58ca0d48 100644
-> --- a/drivers/dma/xgene-dma.c
-> +++ b/drivers/dma/xgene-dma.c
-> @@ -1800,8 +1800,8 @@ static void xgene_dma_remove(struct platform_device *pdev)
->
->  #ifdef CONFIG_ACPI
->  static const struct acpi_device_id xgene_dma_acpi_match_ptr[] = {
-> -	{"APMC0D43", 0},
-> -	{},
-> +	{ .id = "APMC0D43" },
+> Thanks!
+>=20
+>  arch/sh/boards/mach-ecovec24/setup.c | 38 ++++++++--------------------
+>  1 file changed, 11 insertions(+), 27 deletions(-)
+>=20
+> diff --git a/arch/sh/boards/mach-ecovec24/setup.c b/arch/sh/boards/mach-e=
+covec24/setup.c
+> index a641e26f8fdf..110a77f903b5 100644
+> --- a/arch/sh/boards/mach-ecovec24/setup.c
+> +++ b/arch/sh/boards/mach-ecovec24/setup.c
+> @@ -26,6 +26,7 @@
+>  #include <linux/platform_data/tmio.h>
+>  #include <linux/platform_data/tsc2007.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/property.h>
+>  #include <linux/regulator/fixed.h>
+>  #include <linux/regulator/machine.h>
+>  #include <linux/sh_eth.h>
+> @@ -589,39 +590,21 @@ static struct platform_device keysc_device =3D {
+>  /* TouchScreen */
+>  #define IRQ0 evt2irq(0x600)
+> =20
+> -static int ts_get_pendown_state(struct device *dev)
+> -{
+> -	int val =3D 0;
+> -	gpio_free(GPIO_FN_INTC_IRQ0);
+> -	gpio_request(GPIO_PTZ0, NULL);
+> -	gpio_direction_input(GPIO_PTZ0);
+> -
+> -	val =3D gpio_get_value(GPIO_PTZ0);
+> -
+> -	gpio_free(GPIO_PTZ0);
+> -	gpio_request(GPIO_FN_INTC_IRQ0, NULL);
+> -
+> -	return val ? 0 : 1;
+> -}
+> -
+> -static int ts_init(void)
+> -{
+> -	gpio_request(GPIO_FN_INTC_IRQ0, NULL);
+> -	return 0;
+> -}
+> +static const struct property_entry tsc2007_properties[] =3D {
+> +	PROPERTY_ENTRY_U32("ti,x-plate-ohms", 180),
 > +	{ }
+> +};
+> =20
+> -static struct tsc2007_platform_data tsc2007_info =3D {
+> -	.model			=3D 2007,
+> -	.x_plate_ohms		=3D 180,
+> -	.get_pendown_state	=3D ts_get_pendown_state,
+> -	.init_platform_hw	=3D ts_init,
+> +static const struct software_node tsc2007_swnode =3D {
+> +	.name =3D "tsc2007",
+> +	.properties =3D tsc2007_properties,
 >  };
->  MODULE_DEVICE_TABLE(acpi, xgene_dma_acpi_match_ptr);
->  #endif
->
-> --
-> 2.43.0
->
+> =20
+>  static struct i2c_board_info ts_i2c_clients =3D {
+>  	I2C_BOARD_INFO("tsc2007", 0x48),
+>  	.type		=3D "tsc2007",
+> -	.platform_data	=3D &tsc2007_info,
+>  	.irq		=3D IRQ0,
+> +	.swnode		=3D &tsc2007_swnode,
+>  };
+> =20
+>  static struct regulator_consumer_supply cn12_power_consumers[] =3D
+> @@ -1242,8 +1225,9 @@ static int __init arch_setup(void)
+>  		gpio_direction_output(GPIO_PTF4, 1);
+> =20
+>  		/* enable TouchScreen */
+> -		i2c_register_board_info(0, &ts_i2c_clients, 1);
+> +		gpio_request(GPIO_FN_INTC_IRQ0, NULL);
+>  		irq_set_irq_type(IRQ0, IRQ_TYPE_LEVEL_LOW);
+> +		i2c_register_board_info(0, &ts_i2c_clients, 1);
+>  	}
+> =20
+>  	/* enable CEU0 */
+> --=20
+> 2.55.0.795.g602f6c329a-goog
+>=20
+
+Looks good to me. I'll pick this up for v7.4.
+
+Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+
+Adrian
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
