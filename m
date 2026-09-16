@@ -1,171 +1,156 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1EF3A5E6F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789555664; cv=pass; b=tNw3wX4cKqkkxQNBGdiKmVIyZu0VVtqCBQ6RshLjFJJRvYBZ7XaUw/HJDaWOBKJPozTU4JIu6iP5WjBoG+i7/D3UAMB2Se2Etx8aHwHw0Glkq0rUEB3zoJVBD5z8GCt7e2LSvnpIjJBh+IpNCg7V3idsaFmH1/Q2enY8zz8woMo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789555664; c=relaxed/simple;
-	bh=VZMBuFp+DS/Db3b4NboyELLEnA2/j8cRPYrFMrmlnOY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YlBxcbve40XAtm0VirnyrNvHHxSJLTNcPWC6fyxCn5rNdMxUY+8/YvXl+CzBi9rvj1E79wxQbMRJFwBk+3OMdJqH8RE4w9XojUO7iQ9pXExdvU7ng1gitdfADB5pD2ZqbBs/Cshdit85A/wMX2xSIcBPLvNUbL0SbO5xaNXWVVA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mjZo/uZw; arc=pass smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958754E80D8
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789555685; cv=none; b=Jr5gC1Wdca0EZqVhewD2n+mBUEEmdYVC6aVM1VqKEyVuq6sf7YZJH3qCSz54CqgiHI4ChRb4FjHNyAp6E4z0cyEvufEZTyGqFZhufz8FMzMN7qOFK4mhbjf8h9Ct46et5dRfeBYmiewf/+CDF/up92szEsLGKIbJJozFDUFGXNQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789555685; c=relaxed/simple;
+	bh=gORq06kFiaKSuUrx2+KGXHaIgNprnR1kIbi63V6GOBg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KkF2laB1+nRnrbSfKHIIHUqdGBdPBDJp3Ig8y8hx3dGV4dHCfB6ORFoubH7wVw/YB61w4fLNKjJgEFdz6UnXCeu4aInH/d5fZ/+5ouB+8lTg6YhTp0Lp1aPZqSMDCI2lch6sQKNbIJa2NRgcpqFyYC107k7eDMs/RaLLcB9fdfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KirY8mi7; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mjZo/uZw"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f5603a0so123033166b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:47:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789555655; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Zk+ifMMH/3JKA1PYR2QGLvZsDviPXCfT4WiiCEencXfDM2cHjgjxEKrrS2xOpqxjJI
-         wYsa/BKB4iE2al++CPt0lg5GmpvKsw6etCXzQCSpWFoSKtnfpXcvsFb4AhlVr741+93e
-         SuN7cbTUResUhUcBem985IIxtTOqI91CsSvozD6cyKHWH4N+tC+5KFbTLYusspYaf2b6
-         HUGULpgypkJkGDKuDEngBi1MVak417pIuTfEDLQVFlmaIgSxBz+rJSitisRi4NyxPVhR
-         2EyuNUfjtta2R5UzxAm0uiiKJAHuLHc9H6Qd5xiC3/ymg2uW0bGlqdQq+fbyDh7D0HPE
-         FF4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZgcaJKY7C0H9SxJQu4Bxpc/+fGWLKWbb9DZVtk2QXZs=;
-        fh=fKo3VJWS1sog5wn4hI36dzhlHe1YyS75nPOg9pe0wss=;
-        b=EQmwkFPU42ze6j22iVnLRgyMjjeUWvJQ32P9GS2TrxDEAzT7yJYyj6fIDARxXpNemR
-         95yc5dbF6VqoBpmJhp2pwhUrftZybNszA4uNjKG19rXiBfae+UAfUDprfs7+VIK45FBC
-         MQfeAopwTcDCwqY6vveLXeC7AUcE2nGvgUBWZ7mjUafvsNBjFljXe8k/n57nqtDOlRJx
-         d3CanB61hd3L0ektfBrhizA5Kjl4a6iFbhYMHwC7KyGgvWbEXydc9NydSiTkhAVk60XA
-         ZQFppZdSXuQP8o9BeluH0gu40feoNFsdlBeoVq72dlnNQQg7hJgnkrn4Tq4zJMOF8VCK
-         iQHg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KirY8mi7"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482e1b55da9so82840f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:47:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789555655; x=1790160455; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789555658; x=1790160458; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZgcaJKY7C0H9SxJQu4Bxpc/+fGWLKWbb9DZVtk2QXZs=;
-        b=mjZo/uZwisbQ3pAu0+BLZrNRI28L7v4g5JehseIG5DxI4cxEmxziyyGD8bEwM/H3wW
-         rUfOuztG8BZ7hynsE3RXgB6cCCt0IsBIC+qWxgPStcxE9OuYcROLg/FiA/+9GofB2Nwc
-         RmqvBCZRilYC5NjY7m7NCh4TVKcUlv608n+uxghNwYtlpBjgufecokR6lGlIXPvOcsYn
-         +G9AA+8uiFuW8OcgfWptfqUGAieCaw4Zvj/04Pag7DDMIxiOK9mgMlIVIovcMMy2X0VZ
-         3sAJvgT9Aea9WcxUOwuV1eAXEQVnK29byUPhl8sOK8MOviOlxq0orbpNIb8ulPgqTQB0
-         V7BQ==
+        bh=76GMWQIvKjlJe1CdRTk0Pogc11DUdKxGhexn5fkeDUo=;
+        b=KirY8mi7gzJednMl68NK+QxUO/gQvCwByhbVaJEZHqalnwTGpp+3KDne9CgQ+Z569I
+         UtFIc4PQ4li6PzNkoSo4Yk0gZVK0Gs1DID1r8WFgb/4xH/hv4FAQP2WNcUnyalAAx7dd
+         7G93pyXbrLNYy8QafyGqEeuDRcLzB7w0yi0HdBnCaLsQ0MVgBxpTXvRcaktPvq/bH4EB
+         ulNUbXtGwtvNrdwYG7WWoVA9EdTGwITDu9eMS/ibbsLZy+olop4svJrzhhKUJ3M+jPnE
+         kjuDonIy5pW4AOCsah3u+eCnWYtfXt4yk+LH4Hy84wXBUG23Gp9jTGZXBtW3C8+QR98F
+         61Pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789555655; x=1790160455;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789555658; x=1790160458;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZgcaJKY7C0H9SxJQu4Bxpc/+fGWLKWbb9DZVtk2QXZs=;
-        b=Y63tozbSb8oy+B9Vcq91O5CKrpU6Nkf/PXN1eN5J2zpuJjHxOXf4T7odqP8WQ4sn9w
-         kjxD1Wt4QmLNBtQE/xFBp8OSG3DmffoybUVknGBex/u2EH987+L8q+hGpHDgXaTsQjIi
-         EsT/I3HxshGPxj42Of7LxzpXHABTlZv6Fqp4airw1JB0SsWKWaBbVaHH1HnIKerlzRJK
-         z77Ir0kcYUVDrJI6YNd15htfLauEdDhQCnxQ0CDwde+dp3fAU5Y9pMxz9p/edklVchl/
-         RZ0vA0PBHof0lVx82TpeEwkx4yW8bQGPs7zpzjBDin3ghT+Wp5tAHw8lXuz0woJEfcZA
-         /ohw==
-X-Forwarded-Encrypted: i=1; AKwUvBzKPqBXlsJjtIEiziY4y4OABY0Z8NDK5kUrEUwyk16TAVzBKVqEUJSBjio1nVi7nn2eR5cuH6nwwbQXfgo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiOwy5SyBjHYnEYEnWZRCTYmZiP/kJYuU5MiApcvQFKdM0UOXM
-	BfSRcxgzN6v3VLBzhxsK9/NXbQAc9mQOpGYkSP8MLtczLyVS6GSuov8x7CZ6Esnf5kXX0Dz39LV
-	EuihNMnwwPDO0UC4naTfxeR1k0+x8R3g=
-X-Gm-Gg: AYBFou1BR8eyhui44haVLRTLsGiEKV5jOvKbK7/PTc7OMgVsYXvL+CjdJuA7kaqmbF1
-	3TFF5Yo7VVWg5QcMZYLQ+7hiSjlowyojXpuZXOJ+MgzuEoNs/XMPiDZsNQPd6wEYf2Uk4cElfrh
-	3lpo5Ex0wHOip+9ZWLEJJjSXbCKuaXitFFztuzKnX4qoEAMnLIj2nMOZ7/bmKm7z9rPHu9wn9+0
-	TWgKkfuCUtfLYIzold/jrqRS9CGitTShnqTshWELvdZ1DL0cg4iZgB8oEe1e8D+1qezA9kkAdiT
-	hn77/+GlRKyBck4pMn6lbUduiOHwYDLncp79QkzpCQKlUJgzxGmyx230g8MR0ptgg5FQks/H4Wu
-	mdQ6fE7CHKbkA2JED1jeMRPMweTAcc722GJlc9lv1xbPb2QODFA==
-X-Received: by 2002:a17:907:9806:b0:c29:ab1d:b5be with SMTP id
- a640c23a62f3a-c29e5308f4emr140996666b.27.1789555655362; Wed, 16 Sep 2026
- 03:47:35 -0700 (PDT)
+        bh=76GMWQIvKjlJe1CdRTk0Pogc11DUdKxGhexn5fkeDUo=;
+        b=zdnEjg19m6vMWdKTHTNqBIP0EO6xEjr4g3xPeW45iOLQSsJ0iiws5xjIsZ1CRtaIA7
+         hmNwRN2mQuQg/mQYEkaLsVIfrFshC9ieWqEom9rvjBcnBZkAimrQeAnQ1wWQtaNMPQjh
+         cYMcbMz1b5gqVlQEb7uo7nDSZawydp3bVhyFqyYpFwaLVZvyj4gnrDHxk5NKD+5907DK
+         OkZDgcfGKCDRapUGhblDWCr1F8wDmibSxLqBkZ3FTRuR72DlZQhePEL5T0TFiO2ZZE51
+         Pvvbm+l49zstABqScIOq3WB3HMrHOaScTLZHnH93uFnbD/zDbdlefmFFRE7U6MCYWgdB
+         /RdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz3KIcrckRH/MkaQqQuXtZYSlDvw36LPn4IPmjwMx5zKbRyJtVr4VstsfFRKxTjgpYnAmJjCBXpstTISLo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDOkoiAalcE5m/+wMHLJHxUn5+Mf/jc9UJZsvEWrC9z6vvuV1R
+	MB8Z/uicXuEmSZIh1TeLGM6vkV62kSsFyz/BM0V+a0IDEZliBSvPLgUi
+X-Gm-Gg: AYBFou14VEpw0M12cI9cT926yGhQb4fSa16rbaVCmoC484rbEf1skZB+bRauxF41td7
+	D3zSxShR0w9jB3JfnnaNPrax4ITEyPv2sYSO/2YqhAgJpI5gCLAA8KAhlQECgfqJ5omQekOZ6Ad
+	zTHLG7pxQkadQVkj3Z6y78XUPgK/aiZfxFYRkNc/4dnS7pGTG+yWSQIy6SGMPG+hpNfJikIQnya
+	7S+Z+8xqzjUwcXaX/ufp1K2T0qouZPJ3o3QsvTixDJmcj0dPrf51jznW5120xA1v3doXvDL49I/
+	fToQmrx0qMfTPTqZnvbs1pfX39qZbTg92GEg4CdO39y7ErbLNCEsV4GQT/Uwjgg75efxCNyxZtZ
+	Y6qoFCpWsJaFxWX1sQj48r2y7MqNDBFGTuUYCJ28Z0h9Mfq0NCkVpJYq9JicK0kIRFoDsxD9i6u
+	cUPJGbr3OaLATlTmt1G+FvpB91v+FrANo2ISAVp91A5GsGI6cj053c+XzQa1V3n0LJdgGLNS+ah
+	VcyIllFDgtvqW5Vtx5CpsA5PmpHxTjHzcufc3g/0bfYaJs4Kkqpp19TJC7nyBitd0Wwv6+7Vsba
+	BfR4IMBbfgZ/ZgZ4zWqvSVIE
+X-Received: by 2002:a05:6000:460c:b0:487:aff:995e with SMTP id ffacd0b85a97d-4870d26fedamr2236660f8f.3.1789555657656;
+        Wed, 16 Sep 2026 03:47:37 -0700 (PDT)
+Received: from pop-os.. (98.102.222.87.dynamic.jazztel.es. [87.222.102.98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf34440sm6117407f8f.25.2026.09.16.03.47.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 03:47:37 -0700 (PDT)
+From: Miguel Garcia <miguelgarciaroman8@gmail.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+44efda9647c52be29d9c@syzkaller.appspotmail.com,
+	=?UTF-8?q?Miguel=20Garc=C3=ADa=20Rom=C3=A1n?= <miguelgarciaroman8@gmail.com>
+Subject: [PATCH net v2] llc: stop connection timers before dropping sap ref on release
+Date: Wed, 16 Sep 2026 12:47:35 +0200
+Message-ID: <20260916104735.3565609-1-miguelgarciaroman8@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260916074158.3375909-1-miguelgarciaroman8@gmail.com>
+References: <20260916074158.3375909-1-miguelgarciaroman8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <0380b8d6-cff5-383f-b47f-700d1d17fefa@linux.intel.com>
- <20260916004606.165065-1-meatuni001@gmail.com> <372e11de-9835-ef04-dba8-89faafa00ea6@linux.intel.com>
-In-Reply-To: <372e11de-9835-ef04-dba8-89faafa00ea6@linux.intel.com>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Wed, 16 Sep 2026 15:47:23 +0500
-X-Gm-Features: AcwNN1X723FFcCqfjG2Ew9yyYyMDw9AcuCD52yVJWN42G-AONas8nSu9MuyPPxI
-Message-ID: <CADqcGBnxHNwnQs+z4=HzF59HEk2Qhz2ZPoMTEjahTK3KnG7HDA@mail.gmail.com>
-Subject: Re: [PATCH] platform/x86: hp-bioscfg: zero the hex-string decode
- buffer in hp_convert_hexstr_to_str
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
-	platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thanks, Ilpo.
+From: Miguel García Román <miguelgarciaroman8@gmail.com>
 
-Noted. I'll include the parentheses in function names in the Subject
-line for future patches.
+syzbot reported a KASAN slab-use-after-free in
+llc_conn_ac_send_sabme_cmd_p_set_x() when a connection timer fires
+after the associated llc_sap has already been freed via RCU.
 
-Thanks for the review and for applying the patch.
+llc_ui_release() currently does:
 
---
-Muhammad
+  llc_sap_hold(sap);
+  llc_sap_remove_socket(...);   /* may drop last socket's sap ref */
+  release_sock(sk);
+  llc_sap_put(sap);             /* last ref -> llc_sap_close -> kfree_rcu */
+  ...
+  llc_sk_free(sk);              /* timer_delete_sync() only here */
 
+Connection timers (ack / P / REJ / busy) are embedded in llc_sock and
+their callbacks run llc_process_tmr_ev() -> state machine actions that
+dereference llc->sap (e.g. sap->laddr.lsap). Those timers are only
+synchronously cancelled in llc_sk_free(), which runs *after* the sap
+reference is dropped. If this was the last socket on the sap, the sap
+can be RCU-freed while a timer is still pending or running, and the
+softirq timer path UAFs the freed sap.
 
-On Wed, Sep 16, 2026 at 3:29=E2=80=AFPM Ilpo J=C3=A4rvinen
-<ilpo.jarvinen@linux.intel.com> wrote:
->
-> On Wed, 16 Sep 2026, Muhammad Bilal wrote:
->
-> > hp_convert_hexstr_to_str() allocates its output buffer for the
-> > worst-case decoded length, then fills in only as many bytes as the
-> > input actually decodes to before shrinking the allocation down to
-> > that length with krealloc(). Well-formed input can decode to
-> > noticeably fewer bytes than the worst case, so the buffer is
-> > frequently only partially written by the time it is realloc'd and
-> > returned to the caller.
-> >
-> > Use kzalloc() instead of kmalloc() for the initial allocation, so
-> > any unused capacity starts out zeroed instead of holding leftover
-> > heap contents, rather than relying on every current and future
-> > caller and code path to fill the buffer exactly.
-> >
-> > Suggested-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> > Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> > ---
-> > Applies on top of "platform/x86: hp-bioscfg: fix slab-out-of-bounds
-> > write in hp_convert_hexstr_to_str" (the DIV_ROUND_UP sizing fix),
-> > which Ilpo has applied to review-ilpo-next but is not yet in
-> > mainline. Sent as its own patch rather than a v3 of that one, since
-> > the sizing fix itself was applied as-is; this is the separate change
-> > requested on top of it.
->
-> Thanks, applied to review-ilpo-next.
->
-> In future, please try to add parenthesis into function names in the
-> shortlog (on Subject line) as well so I don't need to manually add them
-> myself.
->
-> --
->  i.
->
-> > ---
-> >  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/pla=
-tform/x86/hp/hp-bioscfg/bioscfg.c
-> > index ff28db7..2dab9c0 100644
-> > --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> > +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> > @@ -442,7 +442,7 @@ int hp_convert_hexstr_to_str(const char *input, u32=
- input_len, char **str, int *
-> >       *len =3D 0;
-> >       *str =3D NULL;
-> >
-> > -     new_str =3D kmalloc(2 * DIV_ROUND_UP(input_len, 5) + 1, GFP_KERNE=
-L);
-> > +     new_str =3D kzalloc(2 * DIV_ROUND_UP(input_len, 5) + 1, GFP_KERNE=
-L);
-> >       if (!new_str)
-> >               return -ENOMEM;
-> >
-> >
+llc_ui_release() already keeps an extra sap reference across
+release_sock() so backlog processing can still use the sap. Extend that
+window: after release_sock(), synchronously stop all connection timers
+while the sap is still held, then drop the sap reference.
+timer_delete_sync() must not run under lock_sock() (timer callbacks take
+bh_lock_sock()), so stopping after release_sock() is required.
+
+llc_sk_free() still stops timers again; a second sync delete is
+harmless.
+
+Fixes: 9708d2b5b7c6 ("llc: avoid blocking in llc_sap_close()")
+Reported-by: syzbot+44efda9647c52be29d9c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=44efda9647c52be29d9c
+Signed-off-by: Miguel García Román <miguelgarciaroman8@gmail.com>
+---
+v2: Correct Fixes: tag to 9708d2b5b7c6 ("llc: avoid blocking in
+    llc_sap_close()"), which introduced kfree_rcu() for sap teardown
+    and opened the timer vs RCU-free race. v1 used f7e43672683b.
+    No code change.
+
+ net/llc/af_llc.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/net/llc/af_llc.c b/net/llc/af_llc.c
+index b0447c33dbf0..4fc397fad4d2 100644
+--- a/net/llc/af_llc.c
++++ b/net/llc/af_llc.c
+@@ -215,6 +215,14 @@ static int llc_ui_release(struct socket *sock)
+ 		llc_sap_hold(sap);
+ 		llc_sap_remove_socket(llc->sap, sk);
+ 		release_sock(sk);
++		/*
++		 * Timers dereference llc->sap.  Cancel them while the sap is
++		 * still held; llc_sk_free() runs after the final sap put and
++		 * would otherwise race with kfree_rcu(sap).  Must run after
++		 * release_sock() to avoid deadlock with bh_lock_sock() in the
++		 * timer callbacks.
++		 */
++		llc_sk_stop_all_timers(sk, true);
+ 		llc_sap_put(sap);
+ 	} else {
+ 		release_sock(sk);
+-- 
+2.43.0
+
