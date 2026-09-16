@@ -1,36 +1,54 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp153-170.sina.com.cn (smtp153-170.sina.com.cn [61.135.153.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D5D4EBAF6;
-	Wed, 16 Sep 2026 10:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BBA4EA37A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:22:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554131; cv=none; b=cOmAttD+er9jUv61htEFKJR5R3awcEsrf/59R1oSOokTGm8JhHN5ySqpMzVCkVn2nNk79kUl6VPV/45/Sv7ii/0ag3PuUPBakqAUsz5hz+DzKLUsuZi0Dx2SMJS2H+O+GE4hlkkIDaTNrEq0vohwWZY+3SJDfESLQjwoI4HWqoU=
+	t=1789554165; cv=none; b=ml6qljpzQX+ezJJ8DD8CZCCxzjWCdrLzh6z1Nl8Id9tdsqiQLPs2GanqAxu1epo2fqV9dzyyIsQrJYfE4cDe3gZvlw5TkGvHetnXc+/7g3We2o36EEh9TzJKuE6V0iJx/R0Mg2sXgB61Qg8z7ESzdjSmZ3r2mKdUlHSMLjCXVoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554131; c=relaxed/simple;
-	bh=E16oMnpfd0PW+34fYwHbT7SFAKl7y3YUtrbfUExl9Kc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Sg+fnPKi1rZN/xNVOga1PrfX00fQJVy6XJH/BAhKlHPIqm0COErRW3WIWGpkELnxZ3d5crpxcf2dVHIVgkALbQKkGk1R+cyNr2TBZsCIeDsEIMeM+EGt+gMeH1g/7N2b93V1d0ctMgOKA8kWPMZnvXX/SxPXq7IOrotAMle2xWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABHUT+0bapqTQLhBw--.15107S2;
-	Wed, 16 Sep 2026 18:21:40 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org,
+	s=arc-20240116; t=1789554165; c=relaxed/simple;
+	bh=LaWqsRsY7lwyGYS9zC4kuEQHn/PDtAfdYiNfTA8uRno=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qmzBG28Oxw9/h0bJs93hjc/8s77zRAuPhM5pVwCD1LHZc879ApTzax6rmcWrWKoSn5G/rGpxDrCT9wM1NjIkz2OWyv08BQve4xoAW7j8dVFQi/3BxexFOzHgCIdHuUg5W2i/CQrjh3v5L80aKXmHOSizwebV0hq0yXoQnD1GeYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=JEa6cG0A; arc=none smtp.client-ip=61.135.153.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="JEa6cG0A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789554132;
+	bh=LYiYZd2BkCMNuO+KpS0oBAcTyuKwxRkARJdKFXdNRZY=;
+	h=From:Subject:Date:Message-ID;
+	b=JEa6cG0AjNHreCcz/OLFJ8OTV80VISziYBXBrnBO04jKBoSThkJewR1Q8Kot1tQIQ
+	 /wtraHKgvAqkhLvOVpxn/vMsIJ86+1gAL4XmgX7ppUl5rbDZKxX9qdupLx6HdR2iwl
+	 LJMWKe0d8VYlfrRLzHcXfgqNZCA5lVojAEnInmo8=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.34) with ESMTP
+	id 6AAA6D3200001432; Wed, 16 Sep 2026 18:19:32 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 8922956292237
+X-SMAIL-UIID: 380486D655394534ABB8D63D88346873-20260916-181932-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: gregkh@linuxfoundation.org
+Cc: dakr@kernel.org,
+	driver-core@lists.linux.dev,
+	eadavis@sina.com,
 	linux-kernel@vger.kernel.org,
-	liviu.dudau@arm.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/mali-dp: Fix runtime PM leak in malidp_crtc_atomic_enable()
-Date: Wed, 16 Sep 2026 10:21:12 +0000
-Message-Id: <20260916102112.2018372-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	rafael@kernel.org,
+	syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] sysfs: prevent writing excessively large files
+Date: Wed, 16 Sep 2026 18:19:30 +0800
+Message-ID: <20260916101930.962961-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026091606-distant-paltry-a3f1@gregkh>
+References: <2026091606-distant-paltry-a3f1@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,54 +56,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABHUT+0bapqTQLhBw--.15107S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKFW8KF4Utw1DJw15Ar43ZFb_yoWktrc_Gw
-	1rZrsrZw4jyFyqg3W2yanxZr9a9ryv9FWkX3yIqw43trW09F4UXryIvr9Yyr9xXFW7Kr9F
-	ga1DCa45J3s3ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbaAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
-	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
-	JvcSsGvfC2KfnxnUUI43ZEXa7VU11rW7UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMMA2qqP7mz3AAAsp
 
-malidp_crtc_atomic_enable() resumes the device with
-pm_runtime_get_sync() and returns early when the resume fails.  The
-runtime PM usage count is incremented by pm_runtime_get_sync() even
-when the resume fails, so returning without dropping the reference
-leaks it and, once the error has been hit, prevents the device from
-ever suspending again.
+From: Edward Aadm Davis <eadavis@sina.com>
 
-Drop the runtime PM reference with pm_runtime_put_noidle() on the
-resume failure path before returning.
+On Wed, 16 Sep 2026 09:17:56 +0200, Greg KH wrote:
+> > Since atomic_write_len is not configured for sysfs_file_kfops_rw, a large
+> > file write via sysfs_kf_write() may result in an out-of-bounds read when
+> > checking for the null terminator of a string element in the kobject_actions
+> > array within kobject_action_type(), potentially hitting:
+> 
+> What sysfs file are you hitting this on?
+Regular sysfs files.
+> 
+> >
+> > BUG: KASAN: global-out-of-bounds in kobject_action_type lib/kobject_uevent.c:86 [inline]
+> > BUG: KASAN: global-out-of-bounds in kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
+> > Read of size 1 at addr ffffffff8d72559f by task syz.0.17/5917
+> > Call Trace:
+> >  kobject_action_type lib/kobject_uevent.c:86 [inline]
+> >  kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
+> >  bus_uevent_store+0x3d/0x90 drivers/base/bus.c:917
+> >  bus_attr_store+0x74/0xb0 drivers/base/bus.c:172
+> >  sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+> >  kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+> >  new_sync_write fs/read_write.c:595 [inline]
+> >  vfs_write+0x6af/0x1050 fs/read_write.c:687
+> >
+> > Add atomic_write_len for sysfs_file_kfops_rw and sysfs_file_kfops_wo
+> > properly.
+> >
+> > Fixes: f6acf8bb6a40 ("sysfs, kernfs: introduce kernfs_ops")
+> 
+> What changed to suddenly cause this to show up now if this has been
+> present for decades?
+This issue has always existed. It remained undetected simply because the
+buffer lengths typically passed when writing to `/sys/bus/acpi/uevent`
+happened to be reasonably appropriate.
 
-Fixes: 85f6421889ec ("drm: mali-dp: Enable power management for the device.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/arm/malidp_crtc.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/arm/malidp_crtc.c b/drivers/gpu/drm/arm/malidp_crtc.c
-index 18e6157b1047..a2c6e536c55d 100644
---- a/drivers/gpu/drm/arm/malidp_crtc.c
-+++ b/drivers/gpu/drm/arm/malidp_crtc.c
-@@ -56,6 +56,7 @@ static void malidp_crtc_atomic_enable(struct drm_crtc *crtc,
- 
- 	if (err < 0) {
- 		DRM_DEBUG_DRIVER("Failed to enable runtime power management: %d\n", err);
-+		pm_runtime_put_noidle(crtc->dev->dev);
- 		return;
- 	}
- 
--- 
-2.34.1
-
+cheers,
+Edward
