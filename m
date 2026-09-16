@@ -1,335 +1,182 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE664C33D6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:05:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134C04DD3CF
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578364; cv=none; b=X5yS057cepDsT4bybVZJ1CXl8EkUZ1hgFFGlFybdWMjnp1hDeznnrEmQ7CAkKTbe3k9tGWVqcH9dVF/2SvuW2f885ohjXvt7VTJ28ycvR20LhFrj1ZlqBgpm47zOBfaqnJLnA/gRMIUKQ7VwcqIGzmWacIVhVabX3NK7DvXvaUE=
+	t=1789578397; cv=none; b=NFUHB5hYYVZrCyW/qPnZmAcoPuqK8xo9KvRTTqWDGIXS+KMxhDf6Nv6vYCJqUxDzCmHPvAIKndL2mRt5dx8prTKc1CMaBPNFnNA62XGS/XOGcM5NOejY8/9RHwn295GR7gaphiWK55l+FJb5Qgz2XI0ZJcC7EdZLZEzyDQyxpMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578364; c=relaxed/simple;
-	bh=smJ+btUvyMLpW0nuhiUI/rkR6uCBK8iVhTfHqjujkSo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZIx+5h6rEFJo64I+S2ELrB994Ehp0pg+qvXB4TjPcE8alz77Hrydn7s+Wj+Ds9rYPRTjPBXojCD/KcO2M+YD4oxWe0ARfsWFx00LEs83zzM+OO1xzu9gjy4C1BMfROgeBcwB1ApBD/hXGkR6MmoIqFZeR8BczrAuenQmrt0G+LU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZrCFgB6K; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789578397; c=relaxed/simple;
+	bh=DvDRUmbdA1hNLtbXg8l29Y6o593XR55fqEPA4seYRpk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tSMTH1KqWBncehtdplgTEdxqPlX2w7bPdW6Mwe0YB14LYCWzNmfHyDI6y5viVPVQLNXcch1Qx8sm9uZWQV3P5Oo13CRnWeQ+dlQ6tUNNve0sJafKFTPJnpExcJUO60a+FZ2Fl/mDieQT1nKUP/rku1+QtHHGvxGEWZT+AVquIb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G6on4X0/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BwCBwhOL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZrCFgB6K"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469d20963so727533b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:05:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G6on4X0/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BwCBwhOL"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GGiLf3210470
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:06:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=R8MN1jUSDFS343/7fvvAHk
+	6j8IvEcZo9/KawqASQ3kY=; b=G6on4X0/Mla60a3HI91EnVnQVoH8GaUZ1gQN2M
+	vYHlwg0qvlPIxzsYyZKr+NJGyEpZcAxSPIlynJan9+qlQsIyXnLXXpEoDxAZQVXU
+	CfItnzMo+c3QbHc4HDE0NunTVzkR/TIlKZbzlI7RT4VKrjuK3K+Iw1VsUQba8k6s
+	9xGOggaDlMP2vGz2Azs6brFm2cOcbSuaOuMXNYqt8pJWmsHomFb18QiPdhr85tZh
+	XE0ITtFp9VQA20WqdIbd5+tXDeJNGV189eNBugECl6id0xFfmRmZo9xDZvAR/sRj
+	21/yzWrDofJcQnN3RIs7+8qBUpdf09EQNYQ6BKc4m4uhY8VA==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqxw8r3tn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:06:24 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c96449cc2aso2573472e0c.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:06:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789578346; x=1790183146; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ta4GSV/f1iLNEWqw1UGps6Q7e0Yo7MBD3Lwe9oPDxDU=;
-        b=ZrCFgB6KEmBBpSp9MsFkOlHWODtu47M9B3167cFSXhXdoB8fp2QoJaww1nTouIayPT
-         H3ePAACLnA0yBA1dQSEQdXjKBLLpIzeZYlJ7tet0bsf7AaO1/ezUVZ7UfrXhoqCMKQ/t
-         nBw+pzeCv6XD4lZhO15aB2uqO0wd6zr4Bhz9KcvEXOiOihzJZDOGW9CYzuOR+KowoRLk
-         IflIMJ6LGX8e8Kq+IrfcMjM8Gr/ifAgWMQVAog+JYytBC7O43hWdmesueZOoJBXoIupF
-         QxeEzNKTUyRykzzoChjPjVHM882V1jLtQz3wTmCwzIeoJffO5XlkYCYLqydilwl+f3PN
-         YWOA==
+        d=oss.qualcomm.com; s=google; t=1789578384; x=1790183184; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=R8MN1jUSDFS343/7fvvAHk6j8IvEcZo9/KawqASQ3kY=;
+        b=BwCBwhOL+RdQwzJ+q5O3iTRdVoM/iZtLPBibik11t7152G9AygVMw8fB4W/Fxq8YmE
+         Nh/3uFVr7ZkJ+XPoQbkrEgB24ECSrMvX5garJVZvAiSE7JwE7/2uqYB5qfjLNj+/rPGw
+         ugJQpLqHjx/Jdpq7dZ2qgwzNEmYOxKQkc5isicSBZzEHNk79TYWVYORNd1pblzQITnId
+         yumzt3j3mCIsy5lW6eU4XslwZJDxquWIIZB8lG51zqYVo38vXRoz3iDp7rqtjxdPjA6y
+         CBs4Pvtw8sHdNdbzHCA9iFjkc8fVXgDMxS1hKzmEERa8dsLETvKchQqwzIh3/mgNDNlL
+         rclA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789578346; x=1790183146;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ta4GSV/f1iLNEWqw1UGps6Q7e0Yo7MBD3Lwe9oPDxDU=;
-        b=HDf/CouVi4iWWPDKz5n/y9B3nBzs+nR9o5g1yJcGSDtip6K6caLfMbozurhsfGb8ZY
-         CD3wBaBJDDbi/oJy/1zAK4DCC3QRgdziz/gcauCX8qCAI1kroKBO+Z+iWH75y6LXUI0/
-         rks4TL3cl4myaY/q0m6/LCOFAVNDoL/CREPEJrOeBuhVMbQr5f6hDUpEXZr//0o77Zid
-         aFo/Oa9pWAju4egSSQj5LEvealj+oiIk1NEPnk53AjHfXSI2fh8z3yY9KW7UF84jCJbB
-         toAg5P1cwjAnaTU/5czgyaVIDFcHz5xSZri5v1SRB6cVgKHZxfbtNu2a0Pg9gNNR4mhl
-         ONkg==
-X-Forwarded-Encrypted: i=1; AKwUvBzrRt1yhEi1BvUNh4ZPkkDvBKFIdhHM5Rr51dksCFBBJkkDzTURbTzrU1QAGlZ5xjHXoMVEVI6prQir8Kw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOlOQGibkCu6y0h78zbMPwKoQ68gd1arWvBCa9K9NiGnf7r0KY
-	79mT5xMwby/80CTxVQjfN0LUfFyiDlKnOGcepq+BFk8N3INvuIS/ClJJ
-X-Gm-Gg: AYBFou3RHOeyAoK1ZJnnGfoJAOSWMf4SL/rlnpqXXbVpq73e6IKKeR4MuHAGjzWXlHu
-	DckpTNFDH4/t3BbhA8jg43vUMXQwrh0CNMmOdAHfDgRhwqzffRaWgnU85ehQtQTV58hIr5Qq0d4
-	HXmtcL1gTGueJmkB093Qpm8s80Mf0PLudt9aqpyjodbv5aGZvxq+Z0M/DhPFE9zfh3+2q/3MXdz
-	BAjsyzMV3Otmlf+PGVADyzu2+Np2BQVmC7eW/3rAN0y5H9EgYhvSnE+INI2TBLh7HK84HyEyIyj
-	dqPKQZvIpul8j7UxosklbuU6NyQ0X6Zept6DfJR6dMj4XPyn4z+0wqgzJa8lyf3GJZZ+JkvV8xG
-	3h4hrcXVUDwih9Wh1OG3zl77iAqNcpjcdITNKtyfsGulb6zhitGoEvtAKPluILP08w60ES6cZiI
-	bpQcZLMdpFPTmrgiXjtX0y9EGuRvBtDDx/9wf0B++4zgPWjFZ1cagSaFi1pbqRDoGZGkWpsJRtt
-	pgLiFufH091plR9LmYTmj01Xu97fchYD5seb9ST6gw=
-X-Received: by 2002:a05:6a00:ad84:b0:869:c368:3675 with SMTP id d2e1a72fcca58-87238f94fb7mr7145850b3a.17.1789578346003;
-        Wed, 16 Sep 2026 10:05:46 -0700 (PDT)
-Received: from 192.168.50.3 ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8720172b0d9sm1608450b3a.35.2026.09.16.10.05.32
+        d=1e100.net; s=20260707; t=1789578384; x=1790183184;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=R8MN1jUSDFS343/7fvvAHk6j8IvEcZo9/KawqASQ3kY=;
+        b=1IXErSi4/GUw6elRyhVi1ploK6X5bb4K0tMfEqS/n2jiSEV8Vu0T228AM69g4MO7E2
+         ODIeEaqp/wcOkMf6qKpT39l32/uUOPwkMZVxIRoz1OjbTxrhim60XfSmJpLXXqDgU4Ee
+         7mkUGK+NnHo01t6boDxjiVZT4i7orsdEnrd6L2rLdWVPgsb6f2llPNJRRM97pOOpyk9M
+         yBhZmHlC/L9cf+mo8aPvi7nNSjhv+joaZmo8irtIOP0nSDz8BrBc8yJBdr6/ybSVTKCH
+         bvqChm/HFMv1LGzzWz6k4DU8bohQ7PnTp1MPgu/EV+QbhDRKj0Rx0XKW+dNfXSqURfNv
+         4Qkg==
+X-Forwarded-Encrypted: i=1; AKwUvBxMnXtolegCqkcfhmwJ5YnVrbgAQCy1j7DlbULp12P9R0shMGwRkLN7gd9lyf0atCj+koG09860nu6IXls=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8+QnQ5RivKU+CAQDCn8y1iwbs12BZ3JcZ9deSEsxxavckFrXs
+	8Vg5j+IyM/AdRBVYlXHpcgMHitY8zABmhITAC7G6AZ7zNjTeKD+huSWlPMp6628HQNRN8/GQJnW
+	zY20oaghrz8HX6Nsv/ZXolapkz7N/+5Xx0ij6kMZVb51zUvV2bi2wFvFEGUOvU1f8pB8=
+X-Gm-Gg: AYBFou2wTbFlUidT6qzM+72UZhdD78kercH6RhIMyHE8TRjhZVeFMWYR5z0FXwYHLju
+	omdLl6Ha2XEjNsBNs0NM/MHU058bP17oiJPg2dV13rkgrH/ZQKtUTuz9K9N+VKc+gV3ndCCxLq1
+	wEvGsGCOJhUEh4Aiiwj0cGRQN1csJg/fHr8DKREI/I9ZUiwGf3Hkz2VojvRgrqaSPKa9Heb/0tZ
+	VSD3S3bqLAxa5Q5QsmC4xG/3X5asoaAEHDrwCZtMYXPMlABZh65kxl48Yd1FrcN3PEEemRZqq+I
+	N2RZ2Kj9FpMLp51uZNcnz8dOVUeqJUrvfVa7u37Y9G3h9WoFrsX58IS4w+Qs6RhIlwJtqK8Xtam
+	UIXkZP9GK6Xml1bcSqiVb1Vs=
+X-Received: by 2002:a05:6122:6314:b0:5c7:ea14:4fe7 with SMTP id 71dfb90a1353d-5c9a574a8acmr223980e0c.9.1789578383734;
+        Wed, 16 Sep 2026 10:06:23 -0700 (PDT)
+X-Received: by 2002:a05:6122:6314:b0:5c7:ea14:4fe7 with SMTP id 71dfb90a1353d-5c9a574a8acmr223943e0c.9.1789578383352;
+        Wed, 16 Sep 2026 10:06:23 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf344bfsm7951293f8f.27.2026.09.16.10.06.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 10:05:45 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Peter Oskolkov <posk@google.com>,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] bpf: clear stale IPv4 options after LWT encapsulation
-Date: Thu, 17 Sep 2026 01:04:07 +0800
-Message-ID: <20260916170406.1280954-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Wed, 16 Sep 2026 10:06:22 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] arm64: dts: exynos: Few strict dt-style-check
+ cleanups
+Date: Wed, 16 Sep 2026 19:06:16 +0200
+Message-Id: <20260916-b4-dts-samsung-cleanup-strict-continued-v2-0-8e9d534ba5b8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOTQ6CMBSEr2K69hFawYgr72FY9OcJNdBiX0s0h
+ Ltb8ARuJvmSyTezMMJgkdj1sLCAsyXrXQZxPDDdS9chWJOZiVKcy4ZzUBWYSEBypOQ60ANKlya
+ gGKyOoL2L1iU0gOYijVHayBNn2TYFfNj3vnRvf0xJPVHHTb81ekvRh89+ZeZb7//VmUMJjZR1X
+ dZcV0LdPFHxSnLQfhyLHKxd1/ULDkYRg/cAAAA=
+X-Change-ID: 20260911-b4-dts-samsung-cleanup-strict-continued-ed8addbcda31
+To: Jesper Nilsson <jesper.nilsson@axis.com>,
+        Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Peter Griffin <peter.griffin@linaro.org>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+        Tudor Ambarus <tudor.ambarus@linaro.org>,
+        Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+        linux-arm-kernel@axis.com, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1013;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=DvDRUmbdA1hNLtbXg8l29Y6o593XR55fqEPA4seYRpk=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqqsyK0nTkSriwe/0MMAuYN/f8r3VaRJQpQYSlC
+ XYDy3ELxdKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqrMigAKCRDBN2bmhouD
+ 1wmHEACWWgibWkjIlfqAt2MKy9hE2yYOPIVsZ8DGJ26S3kKVqOosYVDeaZk9FLCPPdT2B4RAbs2
+ j0FXA6Nw3bX6XsRI64oIWE5z004fs/SitB8i4DZgriK/+QWFuwtFuk7JAmdASf6mV6yaeMI4J2q
+ +s7TcTkQzqIMGYn2N3OyJNVT1H6axeXTi91VSZ8theoYSfKxwNE08lJoZEYZraNfOMg4fyKsRn1
+ K+Gg2mzWXzwHtvXdzAE7VS4QdgW4aIsPvEwI7nAXIFNo1/+Nohfp2qmV1z9W2CTcLXo6YLLLKPu
+ XzYvxdlSiFSfQ6xIbSGYyw5kIyRyAkp7Lpx565zautGlFaBhnZDP+ll4541fd1h+m48aW+N/xYq
+ uvGr6t35lybnW/541vys1fCdGLdkeJesQsgrPEG8bGvblCEC0uPgpsy0Tla3HAd7vFm4OlKIYQi
+ 6HxHqbLBZKeb/Fz+aq1aNsWeYiA2xWW7diaY6bpCDY2r56calFBTZDRZx4KMRY0ropOo6bFKJw1
+ DE8vozcjKQ/zDXCQ/FyAsR98/zTJBasPJGeurSyxSVOtuLLZvGI4vBbKqRoyaAI4XAnzqA1eDeg
+ NWanNJg0jxQ2eAyDMZve3tiBJrIciBJ2iCr3HIM3qhKK+XH9l6dTzoiFlSvqIr23srP6mYi41aS
+ Ge74esyIK+t8Hcg==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-GUID: 57d3O5xhY1tjEnWZh0XqWJkLyTkQGABv
+X-Authority-Analysis: v=2.4 cv=bY3+w+PB c=1 sm=1 tr=0 ts=6aaacc90 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=xKH-exNoj8ZXVN6IjzYA:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDIzNCBTYWx0ZWRfX00C+xhexUqSR
+ F0maadQ1REVdvvIknUmoOakhHEtthBuNmTQmmX+6F4zI3jykC55+6xPfJGVRpvDUU8wS/NxHe6R
+ aLxD77XNA0G0RilYn1sMKwD14/URgLU=
+X-Proofpoint-ORIG-GUID: 57d3O5xhY1tjEnWZh0XqWJkLyTkQGABv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIzNCBTYWx0ZWRfX6juVDb1qHppB
+ BCO/wOmTd1K3aLXza6zOTRE/nvvg2NqIqXLiWGURmjw2sRbpGIE5UCbnlqFI/7q6YJk8a3t/95h
+ /Dn2Nl0PVEVtxBMrHPzuhg8ZfbD2fkp9kMBky1Hr11GPnH331yLh/3kUrfu9lr2zYPrG+TtcOkK
+ qjBsQb7xDjZ12KYQSagdCIYkY4tppNjaRCWceflU5jMZ8rZzQo/PhxioZOa4FiLPQw4WbsH4RAg
+ bi8Kw+WXOImR2W4aWOZmHfapLZnEZDY4ntsW9V8KqL0yK+EjrW2DA2WCBjwWJ9p/zBq6xUN99zF
+ Iywujml/rtOIZ8hqO4Tm25P+aleNRGLEjdjykBRyfWNRwECcYh8jxezgzOf7AQvJK6/XnRjXO05
+ MAxQ6AyqNGAh7991s8yzWN+gBAgJaYhN4ViBnj+RERC4OW2YvEfNd2jO0w3mi+6+mFmfRCE4+k0
+ jGpSyMddeTrfaYIdkwA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160234
 
-bpf_lwt_push_ip_encap() rebases the network header after prepending an IP
-header, but leaves IPCB(skb)->opt describing the inner IPv4 header.  An
-ingress LWT route can consequently make an ICMP error interpret an
-inner-header byte as an option length and copy 255 bytes into 40 bytes of
-stack storage.  The trace decoded with scripts/decode_stacktrace.sh is:
+Changes in v2:
+- Do not reorder CPUs because cpu@4 must be the first one/boot.
+- Remove applied patches.
+- Link to v1: https://patch.msgid.link/20260911-b4-dts-samsung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com
 
-  BUG: KASAN: stack-out-of-bounds in __ip_options_echo
-  Write of size 255
-  Call Trace:
-   <IRQ>
-   __asan_memcpy (mm/kasan/shadow.c:106)
-   __ip_options_echo (net/ipv4/ip_options.c:96)
-   __icmp_send (net/ipv4/icmp.c:949)
-   ip_forward (net/ipv4/ip_forward.c:176)
-   lwtunnel_input (net/core/lwtunnel.c:465)
-   ip_rcv (net/ipv4/ip_input.c:612)
-   __netif_receive_skb_one_core (net/core/dev.c:6264)
-   process_backlog (net/core/dev.c:6728)
-   __napi_poll (net/core/dev.c:7787)
-   net_rx_action (net/core/dev.c:8007)
-   handle_softirqs (kernel/softirq.c:645)
-   do_softirq.part.0 (kernel/softirq.c:546)
-   </IRQ>
-   <TASK>
-   __local_bh_enable_ip (kernel/softirq.c:473)
-   __dev_queue_xmit (net/core/dev.c:4961)
-   packet_sendmsg (net/packet/af_packet.c:3143)
-   __sys_sendto (net/socket.c:2281)
-   __x64_sys_sendto (net/socket.c:2288)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:84)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-   </TASK>
+Not yet complete, more files will follow. I probably won't re-order all
+Exynos5433 soc nodes by unit address because it is way too disruptive.
 
-A helper-only reset can be restored by bpf_prog_run_save_cb(), while a
-program without ctx->cb[] access can clone-redirect the skb before a
-return-only reset.  Track active LWT runs and their control-block family
-in the BPF network context.  When the control block is not BPF scratch
-space, save its original contents and reset it immediately so clones see
-the new-family layout.  After the program returns, restore that snapshot
-when the verdict continues through the original protocol callback, then
-invalidate the stale header metadata.  Verdicts that reroute or redirect
-keep the new-family layout.
+Best regards,
+Krzysztof
 
-Preserve the state across nested runs and retain the ingress interface and
-L3-slave state when the protocol family changes.
-
-Cc: stable@vger.kernel.org
-Fixes: 52f278774e79 ("bpf: implement BPF_LWT_ENCAP_IP mode in bpf_lwt_push_encap")
-Reported-by: Xiang Mei <xmei5@asu.edu>
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
 ---
-v2:
-- Save the incoming protocol control block for programs without ctx->cb[]
-  access.
-- Restore that snapshot before a verdict continues through the original
-  protocol callback, then invalidate the rebased header metadata.
-- Keep the eager new-family reset for clones and final reroute/redirect
-  consumers.
-- Add Cc: stable@vger.kernel.org.
-- Correct the patch author and reporter attribution.
-v1:
-- https://lore.kernel.org/bpf/20260915170147.3943392-2-bestswngs@gmail.com/
+Krzysztof Kozlowski (2):
+      arm64: dts: exynos5433: Re-order nodes to match coding style
+      arm64: dts: exynos5433: Re-order properties to match coding style
 
- include/linux/filter.h | 10 +++++
- net/core/lwt_bpf.c     | 96 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 106 insertions(+)
+ .../boot/dts/exynos/exynos5433-tm2-common.dtsi     |  93 +++++++++---------
+ arch/arm64/boot/dts/exynos/exynos5433.dtsi         | 108 ++++++++++-----------
+ 2 files changed, 102 insertions(+), 99 deletions(-)
+---
+base-commit: 9e8494291f765bb1a8f43e36fb6b9146b20bc12e
+change-id: 20260911-b4-dts-samsung-cleanup-strict-continued-ed8addbcda31
 
-diff --git a/include/linux/filter.h b/include/linux/filter.h
-index 39decde7fc730..0edd3e6ce563f 100644
---- a/include/linux/filter.h
-+++ b/include/linux/filter.h
-@@ -848,6 +848,15 @@ struct bpf_nh_params {
- #define BPF_RI_F_CPU_MAP_INIT	BIT(2)
- #define BPF_RI_F_DEV_MAP_INIT	BIT(3)
- #define BPF_RI_F_XSK_MAP_INIT	BIT(4)
-+#define BPF_RI_F_LWT_IP_ENCAP	BIT(5)
-+#define BPF_RI_F_LWT_RUN	BIT(6)
-+
-+struct bpf_lwt_ip_encap_state {
-+	int iif;
-+	__be16 cb_proto;
-+	bool l3slave;
-+	bool cb_access;
-+};
- 
- struct bpf_redirect_info {
- 	u64 tgt_index;
-@@ -858,6 +867,7 @@ struct bpf_redirect_info {
- 	enum bpf_map_type map_type;
- 	struct bpf_nh_params nh;
- 	u32 kern_flags;
-+	struct bpf_lwt_ip_encap_state lwt_ip_encap;
- };
- 
- struct bpf_net_context {
-diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
-index da49364ec63de..4c0461b4dccf7 100644
---- a/net/core/lwt_bpf.c
-+++ b/net/core/lwt_bpf.c
-@@ -36,19 +36,103 @@ static inline struct bpf_lwt *bpf_lwt_lwtunnel(struct lwtunnel_state *lwt)
- #define NO_REDIRECT false
- #define CAN_REDIRECT true
- 
-+static void bpf_lwt_reset_ip_cb(struct sk_buff *skb, __be16 orig_proto,
-+				int iif, bool l3slave, bool use_new_proto)
-+{
-+	__be16 cb_proto = orig_proto;
-+
-+	if (use_new_proto)
-+		cb_proto = skb->protocol;
-+
-+	if (cb_proto == htons(ETH_P_IP)) {
-+		if (orig_proto == htons(ETH_P_IP)) {
-+			memset(&IPCB(skb)->opt, 0, sizeof(IPCB(skb)->opt));
-+		} else {
-+			memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
-+			IPCB(skb)->iif = iif;
-+			if (l3slave)
-+				IPCB(skb)->flags |= IPSKB_L3SLAVE;
-+		}
-+	} else if (cb_proto == htons(ETH_P_IPV6)) {
-+		memset(IP6CB(skb), 0, sizeof(*IP6CB(skb)));
-+		IP6CB(skb)->iif = iif;
-+		IP6CB(skb)->nhoff = offsetof(struct ipv6hdr, nexthdr);
-+		if (l3slave)
-+			IP6CB(skb)->flags |= IP6SKB_L3SLAVE;
-+	} else if (orig_proto == htons(ETH_P_IP)) {
-+		memset(&IPCB(skb)->opt, 0, sizeof(IPCB(skb)->opt));
-+	}
-+}
-+
- static int run_lwt_bpf(struct sk_buff *skb, struct bpf_lwt_prog *lwt,
- 		       struct dst_entry *dst, bool can_redirect)
- {
- 	struct bpf_net_context __bpf_net_ctx, *bpf_net_ctx;
-+	struct bpf_lwt_ip_encap_state nested_lwt_ip_encap_state;
-+	struct bpf_redirect_info *ri;
-+	union {
-+		struct inet_skb_parm ip4;
-+		struct inet6_skb_parm ip6;
-+	} saved_cb;
-+	bool lwt_ip_encap, nested_lwt_ip_encap, nested_lwt_run;
-+	__be16 orig_proto = skb->protocol;
-+	bool use_new_proto;
-+	bool l3slave = false;
-+	int iif = 0;
- 	int ret;
- 
-+	if (orig_proto == htons(ETH_P_IP)) {
-+		iif = IPCB(skb)->iif;
-+		l3slave = ipv4_l3mdev_skb(IPCB(skb)->flags);
-+	} else if (orig_proto == htons(ETH_P_IPV6)) {
-+		iif = IP6CB(skb)->iif;
-+		l3slave = ipv6_l3mdev_skb(IP6CB(skb)->flags);
-+	}
-+
- 	/* Disabling BH is needed to protect per-CPU bpf_redirect_info between
- 	 * BPF prog and skb_do_redirect().
- 	 */
- 	local_bh_disable();
- 	bpf_net_ctx = bpf_net_ctx_set(&__bpf_net_ctx);
-+	ri = bpf_net_ctx_get_ri();
-+	nested_lwt_run = ri->kern_flags & BPF_RI_F_LWT_RUN;
-+	nested_lwt_ip_encap = ri->kern_flags & BPF_RI_F_LWT_IP_ENCAP;
-+	if (nested_lwt_run)
-+		nested_lwt_ip_encap_state = ri->lwt_ip_encap;
-+	ri->kern_flags &= ~BPF_RI_F_LWT_IP_ENCAP;
-+	ri->kern_flags |= BPF_RI_F_LWT_RUN;
-+	ri->lwt_ip_encap.iif = iif;
-+	ri->lwt_ip_encap.cb_proto = orig_proto;
-+	ri->lwt_ip_encap.l3slave = l3slave;
-+	ri->lwt_ip_encap.cb_access = lwt->prog->cb_access;
-+	if (!ri->lwt_ip_encap.cb_access)
-+		memcpy(&saved_cb, skb->cb, sizeof(saved_cb));
- 	bpf_compute_data_pointers(skb);
- 	ret = bpf_prog_run_save_cb(lwt->prog, skb);
-+	lwt_ip_encap = ri->kern_flags & BPF_RI_F_LWT_IP_ENCAP;
-+	ri->kern_flags &= ~BPF_RI_F_LWT_IP_ENCAP;
-+
-+	use_new_proto = (ret == BPF_LWT_REROUTE &&
-+			 lwt->prog->type != BPF_PROG_TYPE_LWT_OUT) ||
-+			(ret == BPF_REDIRECT && can_redirect);
-+	if (lwt_ip_encap) {
-+		__be16 cb_proto = orig_proto;
-+
-+		if (!ri->lwt_ip_encap.cb_access) {
-+			if (use_new_proto)
-+				cb_proto = ri->lwt_ip_encap.cb_proto;
-+			else
-+				memcpy(skb->cb, &saved_cb, sizeof(saved_cb));
-+		}
-+		bpf_lwt_reset_ip_cb(skb, cb_proto, iif, l3slave,
-+				    use_new_proto);
-+	}
-+	if (nested_lwt_run)
-+		ri->lwt_ip_encap = nested_lwt_ip_encap_state;
-+	else
-+		ri->kern_flags &= ~BPF_RI_F_LWT_RUN;
-+	if (nested_lwt_ip_encap)
-+		ri->kern_flags |= BPF_RI_F_LWT_IP_ENCAP;
- 
- 	switch (ret) {
- 	case BPF_OK:
-@@ -604,6 +688,7 @@ static int handle_gso_encap(struct sk_buff *skb, bool ipv4, int encap_len)
- 
- int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
- {
-+	struct bpf_redirect_info *ri;
- 	bool is_udp_tunnel;
- 	struct iphdr *iph;
- 	bool ipv4;
-@@ -657,6 +742,7 @@ int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
- 	memcpy(skb_network_header(skb), hdr, len);
- 	bpf_compute_data_pointers(skb);
- 	skb_clear_hash(skb);
-+	ri = bpf_net_ctx_get_ri();
- 
- 	if (ipv4) {
- 		skb->protocol = htons(ETH_P_IP);
-@@ -669,6 +755,16 @@ int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
- 		skb->protocol = htons(ETH_P_IPV6);
- 	}
- 
-+	if (ri->kern_flags & BPF_RI_F_LWT_RUN) {
-+		ri->kern_flags |= BPF_RI_F_LWT_IP_ENCAP;
-+		if (!ri->lwt_ip_encap.cb_access) {
-+			bpf_lwt_reset_ip_cb(skb, ri->lwt_ip_encap.cb_proto,
-+					    ri->lwt_ip_encap.iif,
-+					    ri->lwt_ip_encap.l3slave, true);
-+			ri->lwt_ip_encap.cb_proto = skb->protocol;
-+		}
-+	}
-+
- 	if (skb_is_gso(skb))
- 		return handle_gso_encap(skb, ipv4, len);
- 
--- 
-2.55.0
+Best regards,
+--  
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
