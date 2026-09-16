@@ -1,95 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228E554CF6C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:56:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60BF4DAF96;
+	Wed, 16 Sep 2026 16:56:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577810; cv=none; b=NdBS0gy5Psosee11ZOQHDFlcxvUOfasqRkDH1jFlmBJIem2OBAAXmxzh6siLBfthQyZum8aji+H/0I8q84ZYYFx2GKFeuJ6dGeDOMjruf9Fc2oM2oz0mlK8Tu6/kuzGa/c6HFcePkY9Gj7ESVxxvORtc3jWuvrRcCgpw7BYgQXo=
+	t=1789577822; cv=none; b=XJ/IgPB+m8OMm64PiKPV/Z9lteo6F9Y1QvWSjGSSnSZAwK0otEoeDtCACCNFl6I4QFcXo9dHFWOWHHOo2cefuDLYTMMtXSbB2PWies5Re1o0ww1QKwAG3MoIXh5zJO7Ht+tcoieAsW56MTomjo2hBcxkp7AcLbEKJTygGvcR1S8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577810; c=relaxed/simple;
-	bh=fuqbMSXmKaVksZQ0mp9Ucbs7t4/StAc7bwI5H6qAaCU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Mr7DUTSDb+ZhfO6QrcfiXq28y5jFHIoO7wgmDwHcTcC4uNdBGOYeTuwwEDuu4OgIyNEHsGMDZdffojZK0dHEJ5EocOr+WGH1eCAs16p/TUH7RdjCuFGjnkiOIE9io0wjNqS3ITGONh6qj0ggFjhhgQeZtMYZzEjhBb5L/yCLNP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cg/A8+VC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789577822; c=relaxed/simple;
+	bh=YlqlMRGnzNGAZC4lPPA3j9bZiU9QS/U3iz/3ecJji9k=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=c0rKK13NQdpgmTEfko4tOCrRjdU4L7Ez5MdPLn4dWmKXCl5PN0/CS8ofmsKyP/nnma/D/8Dg0sToplZiB2MCi3oDjX9kA+jXTJygfXLX8rQx21zKUuExRKerfMfm4TjjbT4bpfnetS/wfNdQKYQkcZJyP4sMGH+OJgjH+X9trAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lnx239Or; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cg/A8+VC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6CFF1F00893
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:56:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lnx239Or"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC3A1F00899;
+	Wed, 16 Sep 2026 16:56:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789577791;
-	bh=fuqbMSXmKaVksZQ0mp9Ucbs7t4/StAc7bwI5H6qAaCU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Cg/A8+VC9E080TzyvTpxu0YnPUmsHYmEPc7xtw8lOlwVWQFVXT213KsByPqqSIU2I
-	 YKezTVvqkqyFj8RCV6X6z796z+cgGL3/V6KKfDg+c71b1lvwwgWiG1EI1uwu/m3Th0
-	 3PiWWmOGjEHneUgz6Si80Fbz7NLf7VJpVq/lxnf4hkRztmLGONXApvwq5Bj6ihxbnh
-	 2DEb0f9/ARGDI62c/9rCPp7kYe7gh6X3Np4O26+gdKgWFKq9/xbV2rRVt1oCMkC32O
-	 lt6rPATnGQ4rlLkFzK27Q7Nts5BzFzoK5WLviocUhwMjzceCEZEyQbrc9KdJxu4ARU
-	 QjSSuos16jzVg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15d00so1184155e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:56:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy2CyxCzpsYbacBtjNALDURITkypC26XsfwpCXFFDaIA2CbBZCCMLi9umJjPu4YsoTK7UGLX2iPEIULYfA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5qu9/4Q30Zf1zDJxgPnbpPnoxSjOqWv4ZI5EXlWoR2pwno49g
-	pKtZb+BcD3qhKAK5uKoM3vaaZC6g8yOheUeGWnBOeO1bQ0WlZL2PqTP7Vn5dQYIlR9oEeMblnkX
-	3AdH79cJ0mgSoXNXDMU2Nvo6HZD7nt5E=
-X-Received: by 2002:a05:6512:3a96:b0:5b6:1a7c:59dc with SMTP id
- 2adb3069b0e04-5b8b66504bdmr1056044e87.54.1789577790547; Wed, 16 Sep 2026
- 09:56:30 -0700 (PDT)
+	s=k20260515; t=1789577807;
+	bh=opghePY1FwxuGa4eTmW6PxG2+LzGY5JdFT48BB1gByg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=lnx239Or0VM2t/CQsULRftCM+5HryO5ORO3P5reJLRYCr6p+1izEpOlwsemLRXhfp
+	 yBxzWQYacMB6IqUJC+06IpfoqAtdYmNCVWTnLEgw3ciHKoF8TPjmmD8KTnm1P6SVwE
+	 fBw3LtMENdeQ20cnNYeeStYFc5bntuGKou7l7C87BBGb4PcYFrFL5Mjh4/ivpxP0sH
+	 sE/WjEsTcD16BF5cGndwuBS/jrO/g7tAD88LJUMYMeP9WLg20rGJcPIKO3V4E5I6IS
+	 7q5GkmoHLln7Ab1XNOwWIdEy6TbytbOukvHBc5pMHTURSGG0mgcJa7lTluRAngn4E6
+	 bxnFR+Ypwajcw==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jesper Nilsson <jesper.nilsson@axis.com>, 
+ Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-arm-kernel@axis.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260911-b4-dts-samsung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com>
+References: <20260911-b4-dts-samsung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH 00/10] arm64: dts: exynos: Few strict
+ dt-style-check cleanups
+Message-Id: <178957780169.215106.2751361288260052803.b4-ty@b4>
+Date: Wed, 16 Sep 2026 18:56:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909132153.1596191-1-arnd@kernel.org> <20260909132153.1596191-12-arnd@kernel.org>
-In-Reply-To: <20260909132153.1596191-12-arnd@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 18:56:17 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=LM2agPEcCxjtQuCNx4q7zqutFA6oDb61kKEDAADR4Vw@mail.gmail.com>
-X-Gm-Features: AcwNN1Uahpnh6JEjJOB4HtYt7IIRQWlpnYcwXmBiixUkMQ8clPYYJyQ4xy80br8
-Message-ID: <CAD++jL=LM2agPEcCxjtQuCNx4q7zqutFA6oDb61kKEDAADR4Vw@mail.gmail.com>
-Subject: Re: [PATCH 11/14] mfd: remove unused wm8350 driver
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Arnd Bergmann <arnd@arndb.de>, 
-	Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Pavel Machek <pavel@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
-	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, 
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, 
-	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-On Wed, Sep 9, 2026 at 3:23=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
-e:
 
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> This driver was used on the i.MX31 ADS reference board from Freescale
-> and the smdk6410 reference board from Samsung. Both used platform_data
-> based driver probing and are now gone from the kernel.
->
-> Since probing with devicetree has never been supported by wm8350,
-> it is clear that nothing can use the driver on an upstream kernel,
-> and it is unlikely that anyone is still interested in a devicetree
-> conversion, so remove it.
->
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+On Fri, 11 Sep 2026 12:19:08 +0200, Krzysztof Kozlowski wrote:
+> Not yet complete, more files will follow. I probably won't re-order all
+> Exynos5433 soc nodes by unit address because it is way too disruptive.
+> 
+> Best regards,
+> Krzysztof
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Applied, thanks!
 
-Yours,
-Linus Walleij
+[01/10] arm64: dts: exynos: axis: Re-order nodes to match coding style
+        https://git.kernel.org/krzk/linux/c/6c864d06e81e325dccbdb06960cc697f763400df
+[02/10] arm64: dts: exynos: axis: Re-order properties to match coding style
+        https://git.kernel.org/krzk/linux/c/f145a6ce3746694a58229e828e3186a89dc43eeb
+[03/10] arm64: dts: exynos: gs101: Re-order properties to match coding style
+        https://git.kernel.org/krzk/linux/c/ae54981c41677b5d3b0479d9d01a663dcb2b0cd2
+[04/10] arm64: dts: exynos: gs101: Re-order nodes to match coding style
+        https://git.kernel.org/krzk/linux/c/a4479cbc18bc61c6f49a4fd79ccf41ee2481b0e6
+[05/10] arm64: dts: exynos2200-g0s: Drop chosen address/size cells
+        https://git.kernel.org/krzk/linux/c/7d7b0a58aa23a90a71beba9841c8149456f28fd3
+[06/10] arm64: dts: exynos2200-g0s: Re-order properties to match coding style
+        https://git.kernel.org/krzk/linux/c/f19b5942fc98932f1016a7e8f0e7d87b83b81ebb
+[07/10] arm64: dts: exynos2200: Drop redundant blank lines
+        https://git.kernel.org/krzk/linux/c/835875acbfd58fe6330c4755f17f5c02d85c43c3
+[10/10] arm64: dts: exynos7870: Re-order properties to match coding style
+        https://git.kernel.org/krzk/linux/c/6b68ca6fe0c855971b6dfefcbb287cc530f4774d
+
+Best regards,
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
+
