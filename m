@@ -1,142 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776BA4D9548;
-	Wed, 16 Sep 2026 17:35:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D554DAF8D;
+	Wed, 16 Sep 2026 17:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580159; cv=none; b=crwllaZ6UJhTdJt7SayoUP/bqRf3nPHdxKLko4sN+RXxZOadp42vnMVdsAE/6AjJ2MLtB9hn5cFnv+uAh8JIrEDlV+EW9tHcD07vQonLEZJ+g0cTAkWdOaSZrDnFhmJ9gpAlh2dOS+kyrPSYusCFpJep7xUzJiDyfcWvtgzBftI=
+	t=1789580200; cv=none; b=iR9x8hmufBXbqnOhhyzevdDp0D9MxkHZYthQ79y6rzKXxQ79TXD+4FQd6NFZSG+8KEIqo0A3PZ1fHVMSYSYerf2PuULKtBRUKjAcZaYjMWpdZTqJvIN0EYJLbypBd/uFDsFB42TsfQ7FS72IM0nBz5h+3J9cFbFVGbYHaKSkrho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580159; c=relaxed/simple;
-	bh=UzgvU2D3N1Tr0bxLinAWdJFu7EBcDYSy2p6JXSjXsqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sFRJV3HOKHf/hvNeTCD87TsbfD0KClYM4l5c1PX01If5AhedNaQYaw025bbd4euGOFuovVW14ycjpR+Au5/e29RYvtJj3MU1HsLhs2S41h1CBMMbAews42OeLOLTrDlPODqx/+HpbUcV0PAnafhHh1tPF9krLWvxk5wECcrkdjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jldI7fg0; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jldI7fg0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3EBD1F000FF;
-	Wed, 16 Sep 2026 17:35:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789580150;
-	bh=lz/TQhxBzEP+HHtTRuAb4x/tXjOKPhiKUxO/kKdETtI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jldI7fg0Kx5LIGgnzSj+RmvhUaOG9wTr2+hHs9t4M+7lz6G6b5/xfQhFYdN8Nxv+w
-	 LOSaLjWq2tC4oSNQsaDaljrtbIQRaKxTZuYtXvWdhLwG+TLf90E3729/wGsHEYZa/X
-	 tXUTZ6a4rZ2IL9zAp7U5kOW9h2Vkojau7SJnkdFoKC2fHzwXssfgIRfyuFKYu35wyi
-	 CvXRVK5qlVb8ji2+oNaKub6lH3XykwA8yDacdHN1dU9ELS1ak79hQoOMtpE/gzie/J
-	 kkKeNHLwmNgo05L5zTFVCqTSZWpYnpFaz+uDjLGmnqZbqOE7WnA74/6tViQ8n1ks7u
-	 ET/b7tTREnMRg==
-Date: Wed, 16 Sep 2026 10:35:48 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Thomas Richter <tmricht@linux.ibm.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH 0/9] perf build: Fix builds with clang and BUILD_NONDISTRO
-Message-ID: <aqrTdAVfVkzltJct@google.com>
-References: <20260916061218.3061216-1-irogers@google.com>
+	s=arc-20240116; t=1789580200; c=relaxed/simple;
+	bh=NWJmNT1Fvyd7kqwcYs8QnnYpWQJJEBXHyPmEH70TqNQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Tf9AlgRiU/LUFh6/5vLnBVm3nt+6ANhf3NuD/e0L48vq+V+vRu5OBetD6OWcC78aEeMwXp8DZtQ8/+WQlK39d5kXG9LutFDRwgIe7vqr02VhnQMWPYUp3ZtTa2HBoXo2RV51wbxPhIiOft9hSjWAfjGttvkg3jq1wE4iGtrU36E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnUDud06pq_bluCA--.22964S2;
+	Thu, 17 Sep 2026 01:36:29 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: John.C.Harrison@Intel.com
+Cc: airlied@gmail.com,
+	daniele.ceraolospurio@intel.com,
+	dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	jani.nikula@linux.intel.com,
+	joonas.lahtinen@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	matthew.brost@intel.com,
+	rodrigo.vivi@intel.com,
+	simona@ffwll.ch,
+	tursulin@ursulin.net,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/i915/guc: Fix sched_engine reference leak in guc_create_virtual()
+Date: Wed, 16 Sep 2026 17:36:01 +0000
+Message-Id: <20260916173601.2088347-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260916061218.3061216-1-irogers@google.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnUDud06pq_bluCA--.22964S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKFyUtF1xJF48CryDAryfCrg_yoWkWFb_Ca
+	4Yvr93GFy7AFn3Cw12yrnxZrWvkFyUZr4Fyw18t3yrA3yjvr4UXwsI9F98Xr13KF4UJFWD
+	Aa18uF1fAFn3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb-8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
+	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr
+	1UYxBIdaVFxhVjvjDU0xZFpf9x0JUtgA7UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMMA2qqpO9oaQAAsK
 
-On Tue, Sep 15, 2026 at 11:12:09PM -0700, Ian Rogers wrote:
-> Several perf build configurations are broken, and stayed broken because
-> the build test suite doesn't cover them.
-> 
-> Three of them fail outright:
-> 
->   $ make CC=clang BUILD_NONDISTRO=1
->   util/libbfd.c:56:1: error: mutex 'bfd_mutex' is still held at the end
->   of function [-Werror,-Wthread-safety-analysis]
-> 
->   $ make BUILD_NONDISTRO=1 NO_DEMANGLE=1
->   util/symbol.c:2714: error: 'DMGL_PARAMS' undeclared
-> 
->   $ make CC=clang-19
->   *** Specify CROSS_COMPILE or add CLANG_TARGET_FLAGS for x86_64
-> 
-> A fourth is worse for being silent. "make CC=clang" appends clang's
-> --target= and -fintegrated-as to CXX, but CXX is only set to clang++ by
-> "make LLVM=1", so it is still g++ and rejects both. Feature tests are
-> allowed to fail, so nothing is reported: the build succeeds and just
-> quietly drops libllvm and C++ demangling support.
-> 
->   $ make CC=clang && grep LIBLLVM .config-detected
->   (nothing, whereas a gcc build reports CONFIG_LIBLLVM=y)
-> 
-> The patches are grouped as:
-> 
->   1-2  Fix the two build failures, in libbfd.c and symbol.c.
->   3-4  Include the headers that are used directly rather than relying
->        on other headers to drag them in. No functional change.
->   5-7  Fix the clang handling in Makefile.config: don't give clang's
->        flags to a non-clang CXX, and use the CC that was asked for
->        instead of hard coding "clang" when picking the target triple
->        and when testing the compiler version.
->   8    Remove three build test entries left behind by the removal of
->        the options they tested. None of them define what to build, so
->        each silently repeats "make_pure" and the suite spends six
->        builds appearing to cover options that no longer exist.
->   9    Add build tests for the configurations above, so they don't
->        break again. As a build that loses a feature still succeeds,
->        the clang tests also check that libLLVM is still built in.
-> 
-> Testing:
-> 
->  - 13 build configurations (gcc, clang, versioned clang, LLVM=1,
->    BUILD_NONDISTRO, NO_DEMANGLE, NO_LIBDW, NO_LIBELF, DEBUG, asan,
->    refcount checking) pass, where two failed before the series.
->  - Every patch builds on its own, so the series stays bisectable.
->  - Each fix was confirmed by reintroducing the bug and checking that
->    the test added in patch 9 fails:
-> 
->      CXX flags given to g++     make_clang             fails on libLLVM
->      libbfd thread safety       make_clang_nondistro   fails to compile
->      symbol.c demangling        make_nondistro_no_demangle  likewise
-> 
-> Ian Rogers (9):
->   perf libbfd: Fix the clang -Wthread-safety build failure
->   perf symbol: Fix the build when demangling with libbfd
->   perf libbfd: Include the headers that are used
->   perf pmu: Include the headers that are used
->   perf build: Only pass clang flags to CXX when CXX is clang
->   perf build: Use the given CC rather than clang in clang builds
->   perf build: Check the version of the compiler that is used
->   perf build: Remove leftovers of removed build options
->   perf test: Add build tests for clang and libbfd demangling
+guc_create_virtual() takes a reference on guc->sched_engine for the
+virtual engine, mirroring execlists, but the GuC destroy path never
+drops it; rcu_virtual_context_destroy() does. Release the reference in
+__guc_context_destroy() alongside the breadcrumbs reference.
 
-Acked-by: Namhyung Kim <namhyung@kernel.org>
+Fixes: 556120256ecd ("drm/i915/guc: GuC virtual engines")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks,
-Namhyung
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 788e59cdfac9..7b88e081c76d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -3487,6 +3487,8 @@ static void __guc_context_destroy(struct intel_context *ce)
+ 
+ 		if (ve->base.breadcrumbs)
+ 			intel_breadcrumbs_put(ve->base.breadcrumbs);
++		if (ve->base.sched_engine)
++			i915_sched_engine_put(ve->base.sched_engine);
+ 
+ 		kfree(ve);
+ 	} else {
+-- 
+2.34.1
 
-> 
->  tools/perf/Makefile.config | 13 +++++++---
->  tools/perf/Makefile.perf   |  3 ---
->  tools/perf/tests/make      | 50 ++++++++++++++++++++++++++++++++++----
->  tools/perf/util/Build      |  2 +-
->  tools/perf/util/libbfd.c   | 41 ++++++++++++++++++++++++++-----
->  tools/perf/util/libbfd.h   |  9 +++++++
->  tools/perf/util/pmu.c      |  5 +++-
->  tools/perf/util/symbol.c   | 18 +++++++++++---
->  8 files changed, 119 insertions(+), 22 deletions(-)
-> 
-> 
-> base-commit: 91b0782fc9e9d2f0a40b5256146e014802fdbb36
-> -- 
-> 2.55.0.1032.g73a4cd73de-goog
-> 
