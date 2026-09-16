@@ -1,96 +1,122 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739B94E50AA;
-	Wed, 16 Sep 2026 21:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E01481A8C;
+	Wed, 16 Sep 2026 21:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789594029; cv=none; b=CneatjcToZbNq2g5ypw1J//GB2R5TnGOllS5b8gq+km/TMQUEktb2Xl7nob6btFSgJjKHJQa73qNx01sBdPYU1DJwWtZrweWmKGBUde0ZAImUyF4XHBEKsnQ0DwfymJWmWJFkS9dm4YQnnyWKS4lMGue5eWsvdD5obR5I0umvi0=
+	t=1789594039; cv=none; b=s0RK/4+0+/F0n1plH9iAPvaYUH3z1LXfzrLg6sa8Dzb8fEx1mTE4GYCbaUZBtG2aaBh5W0CZSE9R7ITfrtXRFHXlxLAYr/PLXPPDc5uGo2r3AYWqGi6X0uSL7p99+Z2eeYG/XeUldV2l/E878o9iryo/kNuva+uxJRCLWRlw8Pk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789594029; c=relaxed/simple;
-	bh=AsQqS9710lfvxj0MAvI/7hzneJ7P3AiAYoBeWGfNftk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z5suS7NiCLRVS4J4bgZlu8fg/yOX43wwhPHRfHoKF9QY4Ik5dfaNI7MYjAStaf81bLiQJR6Dw9Q6ctJ9Omx4OBDXvAVvG9TKG2jtbfvyUWDWhvknSr5UvLouNPEtD4Xd2hkCbCkP1bpZ5YJzaMWsJ4mLiwKndAltuz6o7tyKouM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=im9OzdkX; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789594039; c=relaxed/simple;
+	bh=ewqPR1hSrBjCW69VvH7iCDZXX88dfiqXQ5s91UAO1KU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NDAbWSsBBNg3G8T+pCRF5X/cWLRrlLUIifgIfy/TP4X1CkA7FZ6ukJInWFK4qDVyibVkBu5Utm+9y81JwKxyWy41ZdLXpoX0x6rZRlIe0yvlewMmgDMTuyMi5vxj0yHSslnV2OysdyP62qmzZuAHZizhE6jHxVqrp5ILskiCzs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G7sRb6mt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="im9OzdkX"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hlX5R3dNfzKnS3;
-	Wed, 16 Sep 2026 23:26:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789594011;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Awx/qSMJsfDp5YFKo98US/4IxChQqsFBIzOvN17lZ2g=;
-	b=im9OzdkXDGajHZYTNlRcWyDBOZJholJgFLe9R9NjoSNZx9LsAyzSKTgO0N4qur+kW7FVMl
-	6uIO5coBY64vQfHI19PRRAz8r9Y61KHNE6QiQXBOcvFp54qBdKnAzCwsSvO8p55VtbradN
-	33PYThsRqzNNfr20VYG5IlfQc6JXCt7rlPbmPNm5xoXzqioeOqJL32KIFHVpUnS/0jiQSX
-	8xpJezTHawYbzcHWLtZRW+GFNgpbWQiqmU8++1MKJIlx9JIC/2D0g2/fomqOwWBXQ7Kslt
-	FsGHAhDPfX4KALihngTSnIZepHa4d+JYfNWSUo4Q47NSqAHusHdRhSPxJ6RU1g==
-Message-ID: <805629d1-ba2b-4e59-8d29-c374528367f9@mailbox.org>
-Date: Wed, 16 Sep 2026 23:26:47 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G7sRb6mt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7CE1F000FF;
+	Wed, 16 Sep 2026 21:27:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789594025;
+	bh=KsJK5CVKzAAfbDBiCC2MNN35JO+Fjsxxzz2W7zvL9xg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G7sRb6mtB7i0vkf3VtYCMsnWxcJ5PibIYuXz4zQbbFsARzEUXONgSmVKD4p9HBqT6
+	 ybufz/XjJxx559KmkHFPUhEm7m8DhXfeLx/igWhAtOOePc6ZQtn2whiRPTiv2ThUOl
+	 CS+O72gA1mcS9wWS1p94Nnm1lgYpI2p6NxAEL88lnPOKqgu605d1fZDPQvw7Bw5aqa
+	 YYwKxgobeUk2k5SYGwhvu4SE18hRVZucOC2WXlALWum4pTjyIxl6o63IJ0OS6NQrtN
+	 ABy7kn1Yuh6hvnzwjuCfci+Q+5tzs8c+O5paYjI3Lut3OE0sPXlf4D2Tsm2yDaG7wt
+	 jtu0utsw1cNKA==
+Date: Wed, 16 Sep 2026 18:27:02 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH 04/12] perf debuginfo: Let the user skip and disable
+ debuginfod fetches
+Message-ID: <aqsJpsJZcM7gzhLG@x2>
+References: <20260916114740.48230-1-acme@kernel.org>
+ <20260916114740.48230-5-acme@kernel.org>
+ <aqrlw1YzYHFBdvcz@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2] arm64: dts: renesas: sparrow-hawk: Add overlay for
- WaveShare 2CH CANFD HAT
-To: Rob Herring <robh@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm
- <magnus.damm@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20260909151423.28358-1-marek.vasut+renesas@mailbox.org>
- <CAMuHMdVVcbwz1OK9tL9zn5RR_4YyML6++OUVUgmswPpaxdmRSA@mail.gmail.com>
- <34f4c088-5268-4add-aef4-33b3d3623c12@mailbox.org>
- <CAL_JsqK8--7X5g4T05Y6bEGzsxrhTq2QyQRpE5E5uHBot3jLWA@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAL_JsqK8--7X5g4T05Y6bEGzsxrhTq2QyQRpE5E5uHBot3jLWA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: h3pk3hdfad8iwfsccm1r6mrg3escspem
-X-MBO-RS-ID: 442b280c29c53d01ed2
+In-Reply-To: <aqrlw1YzYHFBdvcz@google.com>
 
-On 9/16/26 10:49 PM, Rob Herring wrote:
-> On Wed, Sep 9, 2026 at 10:55 AM Marek Vasut <marek.vasut@mailbox.org> wrote:
->>
->> On 9/9/26 5:31 PM, Geert Uytterhoeven wrote:
->>
->> Hello Geert,
->>
->>>> +       /*
->>>> +        * SPI_1 is operated as GPIO SPI, because MSIOF5 can not be
->>>> +        * muxed on the pins allocated for SPI_1 on this CANFD HAT.
->>>> +        */
->>>> +       spi {   /* SPI_1 */
->>>
->>> As this lives at the root node, I'd rather change it back to
->>> spi-ws-2ch-canfd while applying, if you don't mind?
->> Please make sure the DT schema check does not complain about it,
->> otherwise it is fine, thank you.
-> 
-> It does complain:
-> 
->        1 spi-ws-2ch-canfd (spi-gpio): Unevaluated properties are not
-> allowed ('#address-cells', '#size-cells', 'can@0' were unexpected)
->        1 spi-ws-2ch-canfd (spi-gpio): $nodename:0: 'spi-ws-2ch-canfd'
-> does not match '^spi(@.*|-([0-9]|[1-9][0-9]+))?$'
-> 
-> The 1st warning is a side effect of the 2nd warning.
-> 
-> "spi-1" like the comment says if just "spi" does not work.
-Geert send this fix today:
+On Wed, Sep 16, 2026 at 11:53:55AM -0700, Namhyung Kim wrote:
+> On Wed, Sep 16, 2026 at 08:47:31AM -0300, Arnaldo Carvalho de Melo wrote:
+> > From: Arnaldo Carvalho de Melo <acme@redhat.com>
+> > 
+> > When a fetch is in progress, the way it prints progress is how one
+> > gets out of it: 's' aborts the current fetch via the debuginfod
+> > client's progress callback protocol and remembers the build ID, so
+> > that the rest of the session doesn't ask for it again, the user may
+> > have skipped it for being too big; 'd' additionally disables debuginfod
+> > for the rest of the session, clearing DEBUGINFOD_URLS so that libdwfl's
+> > own client, that reads it in every query, stops fetching too, and, using
+> > perf_config__set_variable(), moved to util/config.c in the previous
+> > patch, writes core.debuginfod=false to the configuration file directly,
+> > the user's ~/.perfconfig or the one named by PERF_CONFIG, the same
+> > rewrite 'perf config' does -- the comments are not preserved, as the
+> > config set carries just the key-value pairs -- and SIGINT, SIGQUIT and
+> > SIGTERM are intercepted while the terminal is in raw mode, so that it is
+> > restored and the signal is re-raised when the user interrupts a fetch.
+> > 
+> > In the TUI nothing is shown yet, printing to stderr would garble the
+> > browser display and draining stdin would eat the keys the browser
+> > wants, that comes in the next patch.
+> > 
+> > The interaction state -- the terminal settings, the signal dispositions
+> > and the progress and cancellation state -- is process global, so the
+> > fetches stay serialized: a second fetch resetting the cancellation
+> > state would drop the 's'/'d' keypress that was meant for the fetch
+> > already in progress, and the serialization the lookup state needs
+> > already provides the lock the interaction state uses.
+> > 
+> > Since the debuginfo fetching this builds on is opt-out, a fetch that
+> > the user asked to skip is not restarted by the next request for the
+> > same build ID in the same session, it is remembered as a cancellation
+> > on the misses list, where the debug message can tell it apart from a
+> > plain miss.
 
-[PATCH] spi: dt-bindings: Relax node name suffixes again
+> > Assisted-by: LLM
+> > Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+> > ---
+> [SNIP]
+> > +/*
+> > + * The stdio fetch UI: the terminal is in raw mode, see
+> > + * debuginfod__fetch(), so the keypresses are on stdin, drain them.
+> > + */
+> > +static void debuginfod__poll_cancel_keys(void)
+> > +{
+> > +	char ch;
+> > +
+> > +	while (read(STDIN_FILENO, &ch, 1) == 1)
+> > +		debuginfod__cancel_key(ch);
+ 
+> Isn't it block indefinitely when users don't press any key?  I'm curious
+> how it can escape from the loop when it finishes to fetch.
 
-Maybe that works too ?
+With the help of AI:
+
+it can't block — it's a drain, not a wait. set_term_quiet_input()
+(util/term.c) puts the terminal in raw mode with VMIN = 0; VTIME = 0, so
+read() returns 0 when there is nothing typed; the while (read(...) == 1)
+loop drains what was typed and returns to the progress callback, which
+returns to libdebuginfod, which carries on fetching and calls it again
+at the next update. When the fetch finishes there are no more callbacks.
+
+But then there are other issues in that series, from Ian, and from
+myself, locally, I'll submit a new version soon.
+
+- Arnaldo
