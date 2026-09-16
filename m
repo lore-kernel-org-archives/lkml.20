@@ -1,100 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0613803D0;
-	Wed, 16 Sep 2026 15:10:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33DC536A374;
+	Wed, 16 Sep 2026 15:10:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571415; cv=none; b=IB/3b30LC1m6CZoNYL61zGDxcG779kr/CvJev5OfmaYXg62UcM7Ew+vc9HWJnI1xy16Z6iDUyiNbEw36iJDna8GikktOkJyaS5IfU4ikDxCXBFD/af8bRlxN/3oEuoD0uTFxb3+5pX5rqrHajuqzgL5JUsbG81Qg6G2jmHph+fk=
+	t=1789571455; cv=none; b=kYYhkqZFZReM795NjEjHnhmtRCKCcfThI8HlaRgsLZuIHSFKWVNbMHd72PrtBUFqP2XQCGOZgbqIGG6RsQoux2xOJJi1k5A3h9rIkXxFeGlCPLWRMBJS6rGU8maEUqgtLztbcJgMfUf9989Op+KUhECuWZqr9Yw/k+oVdLcujNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571415; c=relaxed/simple;
-	bh=/rcMOwcawxMdtjAilt+TqjxShNkBrmtMVVIjZN5cdfU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rvd8Jereji5QtxwE/w7o0MI1e74fuclYsyJXvKTPRu4gAF2MLHCcmCIbWTmSIvsg9DRtOhZrlSpwo62yz0+AvCW6sqtrCAetX3MQKwySELvR9LJy/H9Qw7GW0ndSkI8d8vdejqXZ5zELfRR20Q7fdydLQ4D0OnmhD9LvONlUOcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L1XNtHB0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789571455; c=relaxed/simple;
+	bh=tiBtNi4UdtCY7BBoK8CcuFpjleEy3QUbwC6npWMDmqU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aL+OWaGKT3PfMzq37PusYu/Kn83oembGIwWoRgoPPqYwsQZENrTJM/uEVCV2zTvPcms/VsvN6jTX/UdVVepaQR63dUlGvaPnzPIyolKY7AzKK3X79e99tjLTeKYEwkyZyFTpV/T17n3GMJkXSAuUYjRcvrkDh7TAvk8BLupED0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zcw1ZVzv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L1XNtHB0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0318D1F000FF;
-	Wed, 16 Sep 2026 15:10:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789571414;
-	bh=i3mbAK07lJIQZ5e6ixX0pGgI16Y5e88sohe7LDJ4u4M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L1XNtHB07Dv8jIQG5E4phGag7m/ed9bAggWzED6nMWmXCUK6G2+Dv9yzABdv7w2Ut
-	 9jolVh8BsNV3iJ+BDEHufe8SkJRRg2a8ZWy70dF6OVkBm6DhAoQLmETadvmafNBWXw
-	 C2RbbfuosXjbqcGlVYgHMUB0Elz3HsEHlaa8URrVGzlP6CQrQqoaUoBgZVPz0cwgF2
-	 31DQrqqIpQIU/dsEkADkzgXvLxqRywEDSJIGieOAPS0HzOWKfcydpPAltgMbB034sD
-	 t5azNw/21/PsFB9QOrroEvhnFR3vV7/w9rEIvC1MPATaU4Y2RIQyoyAL7NgtlRyU7X
-	 ynsCsQErj0+eg==
-Date: Wed, 16 Sep 2026 16:10:08 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Shuming Fan <shumingf@realtek.com>, Arnd Bergmann <arnd@arndb.de>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	Niranjan H Y <niranjan.hy@ti.com>,
-	Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
-	Alexey Klimov <alexey.klimov@linaro.org>,
-	Julian Braha <julianbraha@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: rt766: fix HID dependency for SND_SOC_SDCA_HID
-Message-ID: <f9c9aef3-6e0b-4f7e-914e-35a82b5f962a@sirena.org.uk>
-References: <20260915211658.1671821-1-arnd@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zcw1ZVzv"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B512FC2BCB3;
+	Wed, 16 Sep 2026 15:10:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789571454;
+	bh=tiBtNi4UdtCY7BBoK8CcuFpjleEy3QUbwC6npWMDmqU=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Zcw1ZVzvAzHPOrxAo0xlgwRmSWfXR6gUwh4SUHYuEiiOnujuUxfvSNUNeff0rsIMw
+	 XgyeG4f2naTKadjATFQc45fQvpVH5aea2w4DaS7sKqBG+x8+R6TIDXde5b18nwArUy
+	 GthBJrnOAhAJ9jIxSda1B0G6DcPPKKq7h8mlXaw8uRsYxv+ZRtsbL0yTFyZRCido7o
+	 jzld+yh0gTEwhuX7ZbP4xx3R1+8MgeZxre6SbD5roLkfWe+e4YFhU7ha5keL5jjufG
+	 gQNLCfBUj/X4QFlU58KDE00WB7eaqkge4gVeh0QAfY1aKwHtaaZsKXNUu6G7iwylDI
+	 AyR34TXThvPrg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A075EC982CA;
+	Wed, 16 Sep 2026 15:10:54 +0000 (UTC)
+From: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>
+Date: Wed, 16 Sep 2026 17:10:38 +0200
+Subject: [PATCH v3] rust: num: document why Integer is sealed
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="R1yQ/9HMfkfcH3Na"
-Content-Disposition: inline
-In-Reply-To: <20260915211658.1671821-1-arnd@kernel.org>
-X-Cookie: Double!
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260916-docs-rust-num-integer-sealing-safety-v3-1-00f950426c85@younes.io>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOQW7CMBBFr4K87lDHhsRh1XtULBxnSKYqNvI4E
+ RHK3bHDhmW7fKM/7/+HYIyELE67h4g4E1PwGfTHTrjR+gGB+sxCSVXLVtbQB8cQJ07gpyuQTzh
+ gBEb7S34AthdMC2grUbV1Y9uDEVl1i3ih+1bzfX4xT90PulTcJdFZRuii9W4spxBpIP+59bw+c
+ 2YkTiEu29a5Kq5/zporqKAx8tjottJSua8lTB55T0GUWbN6l5o/SlWWonH1UelD3xn1Ll3X9Qn
+ nTQh2YwEAAA==
+X-Change-ID: 20260906-docs-rust-num-integer-sealing-safety-3a0e2967a948
+To: Alexandre Courbot <acourbot@nvidia.com>, 
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Younes Akhouayri <git@younes.io>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789571453; l=7870;
+ i=git@younes.io; s=20260712; h=from:subject:message-id;
+ bh=6EBGJ4a6/ShfQ/6ynR/rskrjn3ZQAYYZNFuSE3dWtm8=;
+ b=6TmRtiwtGmVkccHklAtYYJopUGxnctI2PmWwSUaGmimoD5HX1Ikr+iTGieknagyKCoG9/LlAA
+ KjGvj31yH77AFdLRUSbVVBZU/hKdmzILPOrn1aVcyxX2Ad22nFSNd2G
+X-Developer-Key: i=git@younes.io; a=ed25519;
+ pk=1DRfzPrQ04RQHHgGK28t+vjIAPv5oISPiAdLMU6J5dE=
+X-Endpoint-Received: by B4 Relay for git@younes.io/20260712 with
+ auth_id=866
+X-Original-From: Younes Akhouayri <git@younes.io>
+Reply-To: git@younes.io
+
+From: Younes Akhouayri <git@younes.io>
+
+Bounded relies on Integer implementations to provide primitive integer
+semantics when justifying unchecked operations.
+
+Explain why Integer is sealed next to its private supertrait. Document
+the dependency inside fits_within, so callers can rely on its result
+without repeating that explanation. Mention sealing in safety comments
+that directly rely on integer metadata, shifts or conversions.
+
+Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+Suggested-by: Gary Guo <gary@garyguo.net>
+Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+Link: https://lore.kernel.org/all/CANiq72m8kycbfQ1teyne-OtB5d5TsUcX_WW0FCkWB3Ayyg-qWw@mail.gmail.com/
+Link: https://lore.kernel.org/all/DL88SQWYU15W.2CVZB5NVSSJGK@garyguo.net/
+Link: https://lore.kernel.org/all/CANiq72kx-YPPEruOFdu-Dp7GX+8=Et6svG+sQtqEmmF7kpnVyQ@mail.gmail.com/
+Link: https://lore.kernel.org/all/DLDSZ09SM8HI.3PHPYGLV2YZBX@nvidia.com/
+Signed-off-by: Younes Akhouayri <git@younes.io>
+---
+Changes in v3:
+- Document the sealing dependency inside fits_within and restore its
+  callers' original safety comments, following Alexandre's feedback.
+- Restore extend's invariant-based comment and remove the repeated
+  sealing explanation from the second cast safety comment.
+- Link to v2: https://patch.msgid.link/20260908-docs-rust-num-integer-sealing-safety-v2-1-e8c65234db82@younes.io
+
+Changes in v2:
+- Shorten the comment explaining why `Integer` is sealed.
+- Mention the seal in the `SAFETY` comments that rely on it.
+- Link to v1: https://patch.msgid.link/20260906-docs-rust-num-integer-sealing-safety-v1-1-78057391302c@younes.io
+
+To: Alexandre Courbot <acourbot@nvidia.com>
+To: Yury Norov <yury.norov@gmail.com>
+To: Miguel Ojeda <ojeda@kernel.org>
+To: Boqun Feng <boqun@kernel.org>
+To: Gary Guo <gary@garyguo.net>
+To: Björn Roy Baron <bjorn3_gh@protonmail.com>
+To: Benno Lossin <lossin@kernel.org>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+To: Trevor Gross <tmgross@umich.edu>
+To: Danilo Krummrich <dakr@kernel.org>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+To: Tamir Duberstein <tamird@kernel.org>
+To: Onur Özkan <work@onurozkan.dev>
+Cc: rust-for-linux@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ rust/kernel/num.rs         |  1 +
+ rust/kernel/num/bounded.rs | 32 +++++++++++++++++++-------------
+ 2 files changed, 20 insertions(+), 13 deletions(-)
+
+diff --git a/rust/kernel/num.rs b/rust/kernel/num.rs
+index de589792a77a..0449e84a384a 100644
+--- a/rust/kernel/num.rs
++++ b/rust/kernel/num.rs
+@@ -21,6 +21,7 @@ pub trait Sealed {}
+ 
+ /// Describes core properties of integer types.
+ pub trait Integer:
++    // Sealed so that unsafe code can rely on the correctness of its implementations.
+     private::Sealed
+     + Sized
+     + Copy
+diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
+index 2a2b0a4bca5e..aff35e2eb616 100644
+--- a/rust/kernel/num/bounded.rs
++++ b/rust/kernel/num/bounded.rs
+@@ -40,6 +40,8 @@ macro_rules! fits_within {
+ /// Returns `true` if `value` can be represented with at most `N` bits in a `T`.
+ #[inline(always)]
+ fn fits_within<T: Integer>(value: T, num_bits: u32) -> bool {
++    // `Integer` is sealed, so the bit width, shifts and equality have primitive integer semantics.
++    // Unsafe code relies on this function correctly checking whether `value` fits.
+     fits_within!(value, T, num_bits)
+ }
+ 
+@@ -472,8 +474,9 @@ pub fn cast<U>(self) -> Bounded<U, N>
+         T: Integer,
+         U: Integer<Signedness = T::Signedness>,
+     {
+-        // SAFETY: The converted value is represented using `N` bits, `U` can contain `N` bits, and
+-        // `U` and `T` have the same sign, hence this conversion cannot fail.
++        // SAFETY: `Integer` is sealed, so the bit widths and signedness are correct. The converted
++        // value is represented using `N` bits, `U` can contain `N` bits, and `U` and `T` have the
++        // same sign, hence this conversion cannot fail.
+         let value = unsafe { U::try_from(self.get()).unwrap_unchecked() };
+ 
+         // SAFETY: Although the backing type has changed, the value is still represented within
+@@ -498,8 +501,9 @@ pub fn shr<const SHIFT: u32, const RES: u32>(self) -> Bounded<T, RES> {
+         const_assert!(SHIFT < T::BITS);
+         const_assert!(RES + SHIFT >= N);
+ 
+-        // SAFETY: We shift the value right by `SHIFT`, reducing the number of bits needed to
+-        // represent the shifted value by as much, and just asserted that `RES >= N - SHIFT`.
++        // SAFETY: `Integer` is sealed, so the shift has primitive integer semantics. We reduce the
++        // number of bits needed to represent the shifted value by `SHIFT`, and just asserted that
++        // `RES >= N - SHIFT`.
+         unsafe { Bounded::__new(self.0 >> SHIFT) }
+     }
+ 
+@@ -550,8 +554,9 @@ pub fn shr_exact<const SHIFT: u32, const RES: u32>(self) -> Option<Bounded<T, RE
+     pub fn shl<const SHIFT: u32, const RES: u32>(self) -> Bounded<T, RES> {
+         const_assert!(RES >= N + SHIFT);
+ 
+-        // SAFETY: We shift the value left by `SHIFT`, augmenting the number of bits needed to
+-        // represent the shifted value by as much, and just asserted that `RES >= N + SHIFT`.
++        // SAFETY: `Integer` is sealed, so the shift has primitive integer semantics. We augment
++        // the number of bits needed to represent the shifted value by `SHIFT`, and just asserted
++        // that `RES >= N + SHIFT`.
+         unsafe { Bounded::__new(self.0 << SHIFT) }
+     }
+ }
+@@ -1028,8 +1033,9 @@ impl<T, const N: u32> From<$type> for Bounded<T, N>
+             Self: AtLeastXBits<{ <$type as Integer>::BITS as usize }>,
+         {
+             fn from(value: $type) -> Self {
+-                // SAFETY: The trait bound on `Self` guarantees that `N` bits is
+-                // enough to hold any value of the source type.
++                // SAFETY: `Integer` is sealed, so the bit widths and signedness are correct. The
++                // trait bound on `Self` guarantees that `N` bits is enough to hold any value of
++                // the source type.
+                 unsafe { Self::__new(T::from(value)) }
+             }
+         }
+@@ -1104,9 +1110,9 @@ impl<T, const N: u32> From<Bounded<T, N>> for $type
+             Bounded<T, N>: FitsInXBits<{ <$type as Integer>::BITS as usize }>,
+         {
+             fn from(value: Bounded<T, N>) -> $type {
+-                // SAFETY: The trait bound on `Bounded` ensures that any value it holds (which
+-                // is constrained to `N` bits) can fit into the destination type, so this
+-                // conversion cannot fail.
++                // SAFETY: `Integer` is sealed, so the bit widths and signedness are correct. The
++                // trait bound on `Bounded` ensures that any value it holds (which is constrained
++                // to `N` bits) can fit into the destination type, so this conversion cannot fail.
+                 unsafe { <$type>::try_from(value.get()).unwrap_unchecked() }
+             }
+         }
+@@ -1137,8 +1143,8 @@ impl<T, const N: u32> From<bool> for Bounded<T, N>
+     T: Integer<Signedness = Unsigned> + From<bool>,
+ {
+     fn from(value: bool) -> Self {
+-        // SAFETY: A boolean is represented by `0` or `1`, so it fits within any valid unsigned
+-        // `Bounded` width.
++        // SAFETY: `Integer` is sealed, so `T` is a primitive unsigned integer. A boolean is
++        // represented by `0` or `1`, so it fits within any valid unsigned `Bounded` width.
+         unsafe { Self::__new(T::from(value)) }
+     }
+ }
+
+---
+base-commit: c6709d5e14072d0e3d02f291daee46a199e5dad3
+change-id: 20260906-docs-rust-num-integer-sealing-safety-3a0e2967a948
+
+Best regards,
+--  
+Younes Akhouayri <git@younes.io>
 
 
---R1yQ/9HMfkfcH3Na
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Tue, Sep 15, 2026 at 11:16:34PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-
-> Selecting SND_SOC_SDCA_HID only works if HID is enabled:
-
-> --- a/sound/soc/codecs/Kconfig
-> +++ b/sound/soc/codecs/Kconfig
-> @@ -1992,6 +1992,7 @@ config SND_SOC_RT766_SDCA_SDW
->  	tristate "Realtek RT766 SDCA Codec - SDW"
->  	depends on SOUNDWIRE
->  	depends on SND_SOC_SDCA
-> +	depends on HID
->  	select SND_SOC_SDCA_HID
->  	select SND_SOC_SDCA_IRQ
->  	select REGMAP_SOUNDWIRE
-
-Should that be HID=y || HID=SND_SOC_SDCA like for SND_SOC_SDCA_HID and
-SND_SOC_SDCA_CLASS?  The dependencies on _CLASS should stop the
-problematic cases from actually occurring but I'm not sure if it stops
-the warning.
-
---R1yQ/9HMfkfcH3Na
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqqsU8ACgkQJNaLcl1U
-h9ADhgf/dvvQMVvwjM+Ig75S0ELaFEz6K5oMglXaJ60ag8uRATcWY3454fGkQNVB
-j4KKiQTzluRVjsCJ1h8gkZFw2LHMmxHNFK/O29Qz2G14qT+yR0F8+8G59dVS/x5U
-EBFESKiK0VOKmLo1+Y7LN487esRbOsdZ4Q0BaemXQfMAud9rNoaLr8QPOQaZXfpY
-tmP58lv5tXsIy8cRRV8N/zZ8isArbwsbaDgbSkq5BcmcJnOcRFRaCvx67flOWilB
-zlEJmMbmMW2If8PiVAxhSfRZviGvdYF2AuVnYN6hDa5cElsHhC+KYXwgyzsUJamN
-vkZFlpP4x/59u2KKBo5RwvYge7q/9w==
-=sMZB
------END PGP SIGNATURE-----
-
---R1yQ/9HMfkfcH3Na--
