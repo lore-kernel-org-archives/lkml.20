@@ -1,146 +1,148 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012020.outbound.protection.outlook.com [40.107.200.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741C34BF930;
-	Wed, 16 Sep 2026 18:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584536; cv=fail; b=NeU+EFUpZFoG4RqAaKO2wiWN5zoKjnvPjSrBzNmRlP+nwRBL9OND58mrrLRfJf0vzSpfio1gC7jzyJ5BiV09TBJxo7/NhAgsSK/EjfBgwGpYGO0xobRSzWqYnG2w2wCZ2ZM1wb3DrpPcs265p7tycD6p6t5gN+ai2u1pTx1rt08=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584536; c=relaxed/simple;
-	bh=mjw8lwt8A9brlw65cBBlDUWhOTcLA8FsKt7qfQlePkU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=SA23Kjds6D7IFKoMG7SZUOrbiw6NZ+Es2mR7iclmw7ceSSb1VBFOhPeiZ3yFYyvp6HIfntMQ/BWhXqWADJHl2NlGmgfJWy5Rk9Ibiw8bEet5Tj/wvACy5OpM0S/tqVzkwZRg0lQJvXGTNjIaMjbefvn+gbGj5hWr+v1ljUgZkNU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Qu95vjzX; arc=fail smtp.client-ip=40.107.200.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DC04DA9D7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789584596; cv=none; b=F0AUVd32sSXbFV2mh2PFWOnfbgM/17Fb7Q2/60GJD4SmDq4YfeYe5obBUUqD62sZdv5tBXj4Wg44jyjXT6zN76oefZmNrWpoW1zVKuWoE8PLBwSB4eS1+Aos1y3h0NOIrdwSlSZgHRixvvYD5JqyJBaPNqfKpILsmJKiDAfvNFk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789584596; c=relaxed/simple;
+	bh=qjO05h8NCgW9DdH4l85dlmT24Ysl3YzDoaGNJA1xrmE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ITny39fDmGnTpo6uoD7SnMfIVt922NuZElBaJ6SLYEA7CRP2DJuma1vuFbFdaS9ttp1xu1v0EqzGriyV9kf+WMEpXNXlCVF2Ir0qdQJIriJnRbybAxfEllW4jTpq+zRk8/CCYQ8hN2C/ExRlqiHk/2rgCknNzTpFqd6m9BCliz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=ur49RFow; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Qu95vjzX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gmv3bMfilf+Ak71m3SWC5vF4CXkCwi/H/HrqWks5G+i8dEaXGwYHAzP+ZH67C+GwPNpmsPa9gjOtVeP5GR/0I3Ua2ZQcX21JjHCKCElEdrZFNngQj2DwS1qcDmrSResEnDw5uFy/tgRn8SBH/iFUKO0lhrqVY9k+StyiZ3yroK9Yalp5hLxbMmTxl6udUPQV8b8ELGkzxk4r0pBWemcXSJy6ZHDy6meJ9t5p9a9Ykxx6OLmLmCY3A1IyLkswMIb/Pm/+TsAgzAP5eUEJa8IcudnEKYQY+JPa+xc8KPZAMZV35SaXO2mEJNBctrHbwacYBDmT2/9KsX3g2XI7nBuI8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N7QvFUG/fS9CjWAD2Do+aZL5ccqwaMmT7jFBcP1Neks=;
- b=q/TZfDAgRDN6VSyIZeGww9KQss1OQahMC5mqQ++YGy2m45hlZ3ad0PKPZEP09EPy/y+IXpEUutfZwBZJcVhhgVpvBwL5PKQOamHdmG9aqbKBOxXcPGQmwroIscNsq9smLCgAZByakmOVOHOVSvxhIheu8sBspapd5R9Qb9kueIZk8qeRtmrwFj8yh3eStAt72vNQodAfOGWJA6ybhL0kJ7XO/hk5Zw2/kWNP2+XnriydOGqyTa7L1c7Axz6sJrLEirErH+M5951o1Vbg10lp8FSKPNZycLJNQdiYuxPIhT/iNJL1XgwXT23+ETA9qC47GfzEfYxRYYcpAnS5Z1DFQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N7QvFUG/fS9CjWAD2Do+aZL5ccqwaMmT7jFBcP1Neks=;
- b=Qu95vjzXl+eM32Jp05Ojily9TDEu1SHAUcOqrbCx72r9pc35Cb2spacR8u7oKFHJkUsDyymVy/LoUtu9AqEX5OkH4b3BMcZ8VbzhEIPwPIc4k6AAyYu61qAyBFzejP8s7nAGTcpdBJ5GOsYfvxNpDH1yyg58CZGhvppbQVbWT/M=
-Received: from BY3PR03CA0002.namprd03.prod.outlook.com (2603:10b6:a03:39a::7)
- by LV3PR12MB9093.namprd12.prod.outlook.com (2603:10b6:408:19d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 18:48:29 +0000
-Received: from SJ1PEPF000037B6.namprd05.prod.outlook.com
- (2603:10b6:a03:39a:cafe::1e) by BY3PR03CA0002.outlook.office365.com
- (2603:10b6:a03:39a::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
- 16 Sep 2026 18:48:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000037B6.mail.protection.outlook.com (10.167.244.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 18:48:29 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 13:48:28 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 13:48:28 -0500
-Received: from [192.168.0.226] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 16 Sep 2026 13:48:20 -0500
-Message-ID: <3c251348-b3cc-4ab1-bac1-5209ac4f52ce@amd.com>
-Date: Thu, 17 Sep 2026 00:18:19 +0530
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="ur49RFow"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109fafddso92404285a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:49:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1789584579; x=1790189379; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c0iIgJwWQvCfxDYTtHwJ9R8OwiKsFPaAaYmGvWCYHto=;
+        b=ur49RFowrugsitDaOgTStbQHm+W6D/02S+/MOvhvMB009kC6tZjAi82Ko/N58VLPxD
+         pyXFXamCYOw+3E+3qoL6beXSB2Y+gpDfO5z9awOvcWz7nw9t2V0Xr537zaWfHFk++/Rq
+         0GuINYEzdF0e+POW4Y/Do/mCRSlGCD3kXhWFx7qIwwwqIV7ufFvS0J+Er7wZz3IiM4tn
+         TJMnvlbZZ94JK4CDfNX+/YXNcrPPNLKYtV8st/9DMgMPbLzXWFPaxS5GLdZSU4TG1PXV
+         q8FDrb8A3DsRRBqB+9r2Z6tpBjpAyMpR/lJ3LDNi14KfyPnY2vUxIrxPEgEqezIy/u6a
+         SLvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789584579; x=1790189379;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c0iIgJwWQvCfxDYTtHwJ9R8OwiKsFPaAaYmGvWCYHto=;
+        b=pHIaEJR8xk06xiIHpkGKjnw/lhKylNxD5iGrx0X+bGL21O8Swp+fzidv2rxz55u51S
+         VJOqvcsIJJsGAFPFQNffBOzhKkzngZpWBHErcBX7zpUsmwE3N04XpxrceLE5Iu1FyisI
+         X5blYFL9IYyM9pfCG28/YrjVSFmQESEDR6H5on8x0A3lDEselmjiRmz9n1AkX6EFmOQl
+         dyrqbf2Qc4LgvCA7dntoixJuOvj2ojBsHuY72NYOQoRbahJZX6/Y4L286cQmBNxxUrGp
+         yHxwub7zi7Sqrhuv/Tsf2+A4J/acum9qV8lT81/XUUUAjHyZqb6y4NA/w0QKxlupe1b/
+         I8pA==
+X-Forwarded-Encrypted: i=1; AKwUvByNT+MGmEZMPVX/t3DphB59DUhR504fc1nMIgW2fOX6iJtWxcS4ecBo0fiN6fZELb1x7PwGifMyOLr2VT8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQLDxDR6sJRyvtOQ9pUW4VsPN/pnsGPV8hbq+PJSgg09cviSv1
+	gr8cDlzK0fIOTkiZ3GgDotkHTDpjhAPoxg4HDEJ4FcnZGxl5HVUti8EeqrLsDbbUthM=
+X-Gm-Gg: AYBFou0Oq2rwKfqmrYQ+LCwiW7cJPFEqnZfhSTdD25LzdUUMakN0iNRPYTHA/CxfSm9
+	X7vZsC5V4ZnX+UcMH5jauG7OT+gECfVPglJBdhhlSLbp94JCNDLzlJU52IMTfUcP9bC7z1O/a8R
+	J0Q8nGFFr5JGd9MwbZohYkYeuWEapB5rcLulRDZhCRs8Hy5X2R6eScYrDFBYDYqYaSDvbmdVb6r
+	7sFsx5kzF7Rxdx/NrBTQ09QhZcjvwBjh/3BYXcAx/FfKSiXSK1cSE6eHvhsvPXdz6DR72igaa30
+	zogD9tE0QmYrSg7DiXa9CmJ1GB+c24+uRHXe8/LAcI9Rw5gWl5gaxWe7qUV2350yc7MZtizVhtl
+	Cn+o/nKGFN0+KpFtB0IGLu4RpkxYd2s4L+gB8Xx+781jD7wWnSMV7nIEa8Pt45Mo8aDYW1Yw828
+	Z7miQk+fh5yh/+byZpi5wx9mrKqE4RVQsW4uUwMFQPvhGic6CEMQd7iK5bfRzm1U97ZXN0L1zmj
+	pj1ljJZlKY3v0rXcmUa2R2a5AHDmCtMQIFoV1Kf5bVMWl+DaEFi/l4=
+X-Received: by 2002:a05:620a:17a3:b0:939:8905:ce9b with SMTP id af79cd13be357-93bb77461a9mr631916885a.17.1789584579016;
+        Wed, 16 Sep 2026 11:49:39 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b81d147ffsm281088485a.43.2026.09.16.11.49.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 11:49:38 -0700 (PDT)
+Date: Wed, 16 Sep 2026 14:49:36 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: mhonap@nvidia.com, alex@shazbot.org, jgg@ziepe.ca, ankita@nvidia.com, 
+	dave.jiang@intel.com, alejandro.lucero-palau@amd.com, smadhavan@nvidia.com, 
+	corbet@lwn.net, skhan@linuxfoundation.org, dave@stgolabs.net, 
+	alison.schofield@intel.com, vishal.l.verma@intel.com, iweiny@kernel.org, 
+	ming.li@zohomail.com, yishaih@nvidia.com, skolothumtho@nvidia.com, 
+	kevin.tian@intel.com, bhelgaas@google.com, dmatlack@google.com, kees@kernel.org, 
+	gustavoars@kernel.org, cjia@nvidia.com, kjaju@nvidia.com, vsethi@nvidia.com, 
+	zhiw@nvidia.com, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kvm@vger.kernel.org, linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v4 07/27] vfio/pci: Detect CXL devices and load vfio-cxl
+ on demand
+Message-ID: <aqrg9AJBh0GUsP0l@gourry-fedora-PF4VCD3F>
+References: <20260813093631.2288172-1-mhonap@nvidia.com>
+ <20260813093631.2288172-8-mhonap@nvidia.com>
+ <20260916191659.1d3cb36b@jic23-hlaptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/4] ACPI: CPPC: Make autonomous selection helpers take
- a u64
-To: Sumit Gupta <sumitg@nvidia.com>, <rafael@kernel.org>,
-	<viresh.kumar@linaro.org>, <pierre.gondois@arm.com>,
-	<christian.loehle@arm.com>, <ionela.voinescu@arm.com>,
-	<zhenglifeng1@huawei.com>, <zhanjie9@hisilicon.com>, <lenb@kernel.org>,
-	<ray.huang@amd.com>, <mario.limonciello@amd.com>, <perry.yuan@amd.com>,
-	<linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
-	<linux-acpi@vger.kernel.org>, <acpica-devel@lists.linux.dev>,
-	<linux-tegra@vger.kernel.org>
-CC: <treding@nvidia.com>, <jonathanh@nvidia.com>, <vsethi@nvidia.com>,
-	<ksitaraman@nvidia.com>, <sanjayc@nvidia.com>, <mochs@nvidia.com>,
-	<bbasu@nvidia.com>
-References: <20260916103820.1760297-1-sumitg@nvidia.com>
- <20260916103820.1760297-3-sumitg@nvidia.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20260916103820.1760297-3-sumitg@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037B6:EE_|LV3PR12MB9093:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1add4ca2-fca1-402a-4690-08df14231964
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|7416014|1800799024|82310400026|23010399003|921020|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Aipp9tCZkMkYUcaMfmzoV974XS4NTTsvQfIGwiaAwzwU/F5VnYrcrgBKYzGSwMtQnjHTXTW1RlLfVlMHde2PDk4OQLlNtjlc8UGjBPWWtnyKF6pINUzoxaAZzljBU3hbXVC/2+N0EhaLThqIIjaUgdYZNUZyCcBVUpIZWg6xnGODjnTH4kWwG+Pcr5uWyZVAYNJevzWQidApKOvKg7jA53Hmwwcd1WllytK+RJ/GzB26NAq2kwww8uaquLDWODJQU2Ixpt8g4ynwpDBOUkMfihlCY6HHvbGJa6BLmvlsAn9Xt+V7H1PQurLkvj493wNxQd0PMUUspdPN/XTFojKjPpmT+M1YrixGc5nmM6SudJ8FaKW3BTA/cbfiudDghxrgTt04Iba9TME0gkKUcZzbnX8KHePKnTTtGalVSKatA9+IjQIiJ1PJTK//0hF1rDzNcOARUR7fuWXsczOa88luWPSVC1mtyBpGT7ng2BoPTOgh5YXUf9f4CmAAIXIrWInDk7TjVzwn8AvUAvZgLTAHdoc9OE1fwxCGFubWhrafpFpbygyfQ2k2/I6OGZK0Csgn8DpDwDSKvNiLJuMZ8tQCJiIBuGEjy9jSUbnjCxbJPZUciDzYxonrQO2hGI8hA9yH1gu/Jd4egr/W0hYbXage3ELNh8NZJA4x81MCMJ0TaIFAL6KKUWnVBuI5dPQK1iI7GmB+XO3xghs/iaNE8nMUwQ69c2loKvWih1LgdWEvUhnP6d3MUQ3quzt+bmWrMPMo
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(1800799024)(82310400026)(23010399003)(921020)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	RxTsTbG48pn5di4sO3grKUrOtII2QePaRwi9GLmidGJ7ZL/tL/yN+7wyMHEVtC5kmfYX9pm13Te2vzmBm/AVQXBKmEypCDtydw2r23k7IR+BaO/o9XKYllnBy8CByvq3n6j7vfAktoDwOIT0AwZM150000N7rloPvxc4bMbpV3ckhkG7REnvCdRVo40laeAD4vy8gqGAz1O2d/u/02xfXSC1/KGWZj25j5O7M3NpI5uijrNgo6mhbGr/hKDN6fMtzbbWtlkYj8lF1uKuD8ucdliY5VHp8GewHL++tQU0Aiho6kLDZaRkVhk52FBCk8Ye/4t5ll5oztdLAe9wSWnhOWpuch5Y2nghqGLfYkhXSvpcpszQCevfpOPNoz018sq72zGLBCLRv9eQm2swoFpuZyxRDUfmmLO0yKrr3jjQwlgbCb4d0kmXESs6lKGk0uZa
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 18:48:29.1028
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1add4ca2-fca1-402a-4690-08df14231964
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037B6.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9093
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916191659.1d3cb36b@jic23-hlaptop>
 
-Hello Sumit,
-
-On 9/16/2026 4:08 PM, Sumit Gupta wrote:
-> cppc_get_auto_sel()/cppc_set_auto_sel() use a bool, unlike the other
-> CPPC register get/set helpers which use a u64.
+On Wed, Sep 16, 2026 at 07:16:59PM +0100, Jonathan Cameron wrote:
+> > +/*
+> > + * A CXL Type-2 device advertises both CXL.cache and CXL.mem in its CXL DVSEC.
+> > + * pcie_is_cxl() is also true for Type-1 (cache only) and Type-3 (mem only)
+> > + * devices, which the vfio-cxl provider does not handle, so confirm the Type-2
+> > + * identity before engaging it.
 > 
-> The next patch in this series saves and restores the OSPM-set registers
-> across CPU hotplug and driver unload through a common table of register
-> get/set helpers that all take a u64. The bool autonomous selection
-> helpers cannot be added to that table.
+> We don't expect to handle type 3 class code compliant devices, but what about
+> the things referred to sometimes as CXL Type 3+?
+
+Dan has previously (and I think would continue) to just call that
+an accelerator - because it is.
+
+I think the Type 1/2/3 nomenclature is stale and needs to go away,
+it's outlived its usefulness.
+
+To your point below, a compressed ram device is really an accelerator
+with CXL.io and CXL.mem.  All the spec says (used to say?) about
+"Type 2" is that it *may* support CXL.cache - it doesn't require it.
+
+> It is also plausible we'd pass a full compressed RAM device through to the
+> guest without paravirtualizing like we currently plan to do for class
+> code Type 3 devices (for DCD, sharing etc). +CC Gregory to point out where
+> I am wrong on this ;)
 > 
-> Change cppc_get_auto_sel()/cppc_set_auto_sel() to take a u64 so the
-> autonomous selection register fits alongside the others, and update
-> their callers.
+
+Plausible, possible, feasible - yes.
+
+Sane?  More sane than using it as a normal memory device on the host
+assuming RAS signals from the device can't overwhelm the host (unknown).
+
+> More generally, why are we controlling usecases?  A class code compliant type 3
+> device 'could' be passed through I think if someone wanted to do that.
+> I'd not encourage it but why is it a linux policy to not support it?
 > 
-> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
 
-For amd-pstate bits, feel free to include:
+The only scenario I can think of that you'd want to pass a simple
+expander all the way through to the guest would be RAS signals - which
+I think still require host plumbing anyway to avoid passing said signals
+to the wrong guest depending on how you've chopped up the region.
 
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Basically if you need DPA/HPA data from the device to be interpreted by
+the kernel, the guest needs a translation mechanism.
 
--- 
-Thanks and Regards,
-Prateek
+In practice I can see passing a virtualized, locked auto-decoder through
+to the guest with the same HPA/DPA values as the real device so the
+signals can be delivered quickly with limited host interposition.
 
+You would probably need on-device vitualization support to do "proper"
+passthrough so the device can route signals to the guest directly.
+
+Anyway, you could pass it through, sure, why not.
+
+We shouldn't limit it, if only because we're not clairvoyant about
+what will be useful tomorrow.
+
+~Gregory
