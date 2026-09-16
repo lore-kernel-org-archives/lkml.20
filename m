@@ -1,86 +1,80 @@
-Received: from sender-op-o18.zoho.eu (sender-op-o18.zoho.eu [136.143.169.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDADB4B4057
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579959; cv=pass; b=amnwfPw7WFhJ9tT+5HReK48R+VT9lUGiT9tvUdNP1vYllPlkEwd/6GS7Lvdp8Hbajy4IEe4aMvkn1ll6J22uwc75EhxJ+RkMAaCQcjS0zX/vohiWoastdvDw1U3mPV5W3O+HoIhVEGdCRMXvR0f4B+wrG19BCOD9fEpfxQTSIwo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579959; c=relaxed/simple;
-	bh=oAa3SBrrTjLoox+i4iUmhXb/fwu1/bR1IUV7BRob+JU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nS7z1qg5HvV86JCo/FDSYkJ4JsrMKzKpbrVBWPSGjguO96xv2QLnXT0pq0OnAJ4Xv2hyPr/xFohAFBefmZE9+NcKLiMbEmW0G+XHcG2BsrWITPJvl4KtoBjG1tN853+8TuvSycEidatcauKzXW+TDQKvrKMmkw/ixYWVstSEm0U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redaril.me; spf=pass smtp.mailfrom=redaril.me; dkim=pass (1024-bit key) header.d=redaril.me header.i=development@redaril.me header.b=DDaxLZFU; arc=pass smtp.client-ip=136.143.169.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redaril.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redaril.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA09C4CEE43
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:33:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789580009; cv=none; b=H5OfV7WktUTu9Inn1eC5voRZJH9ZpodaLeoLxu6MErSZXF7KjRNre9wA2SbTrpQba4oJdu+PZI/rzpgPHCYsxHeo1snyeTHzNBbjG3lMij73pHcUthTELy5ucKj26YyOXguLF9UulKJIMd48CkIgqa15Cosr07Zz2uX2+UnAlv0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789580009; c=relaxed/simple;
+	bh=GcTh15PW//gSMU/YsgyhcYFq7hKCflEMZCNpoIZgTes=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nPnVkfVffX5lwJa3VuHDwZWT+Sg8glzIU0TVMIpNZu2lzjhXRyUm/EJ8BaisWW6F5BbqVn8pxtoAMdI5ii5ux/vp31I4fP0D6KXqcSnFCIui/z4PHPP4OnhNKpj1zQb3v6pzn1Uh4RdPxnR+MKq1KfkiBESB1XbEKlwp4CIHivI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nRd6SvrU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redaril.me header.i=development@redaril.me header.b="DDaxLZFU"
-ARC-Seal: i=1; a=rsa-sha256; t=1789579008; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=R9besDUi/p53nZ+fAI2coxLJETH96+HzEAj5ywrBEPoSVZHn/TYhBjtXuplhfZoh9igNaGEGiNba5c66wMPHFAdQBpALSAICRilzDwy1Mf/zMnCXWXgeG+FAB4wyb6Sq6HQx1iyqF5DH/NXbDwiBn/anwZkLkqXcs4Q/RCZ0uzI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1789579008; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Blv5jiN0BR3ipsn4O8tc3Bw4Ar3/gMwpFNNVRV9eNjk=; 
-	b=dlAmWZASbUMoHh7l73hLw2oJCfaQk9cgD+wyrqKqGfoO3YAgEWp5DNrhDb+ZDr2EpxgaPkLCaHObEV7SNzEcuae6NYOTiSZeGh9cexV5e5Q0XWobPlWfSVmnn595ZpAIgq+lWd3jiw423uMGfU6iatAAj4QDar2lROB6dD1TN50=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=redaril.me;
-	spf=pass  smtp.mailfrom=development@redaril.me;
-	dmarc=pass header.from=<development@redaril.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789579008;
-	s=zmail; d=redaril.me; i=development@redaril.me;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Blv5jiN0BR3ipsn4O8tc3Bw4Ar3/gMwpFNNVRV9eNjk=;
-	b=DDaxLZFUtBhNPsZI+/6rfUDwyKcTEyeqwuXhyXqn9uQRtQcPJ+XPQdSuq0mwYhoo
-	WiEC9QGUPrtMjuCBQd+RyALqqFTOPi4DrcvnI5EGJBwARzcmzWL78Uw/vmU/9gC+NgW
-	QwM8sOHBCiMd/JiOUGFNp1RYZXJGrDYpGLFHvAgk=
-Received: by mx.zoho.eu with SMTPS id 1789579007499959.3930304878398;
-	Wed, 16 Sep 2026 19:16:47 +0200 (CEST)
-Message-ID: <b4f7c0f4-199b-4ab2-81b3-277f08d41036@redaril.me>
-Date: Wed, 16 Sep 2026 19:16:46 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nRd6SvrU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CB621F0089E
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:33:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789580001;
+	bh=GcTh15PW//gSMU/YsgyhcYFq7hKCflEMZCNpoIZgTes=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nRd6SvrUJPixWqiNVNs04n6wzX7HOjvgYITHaZIWIovGp5ADJ8mm1hVK+CmitSCYf
+	 FoNS8APHaGCdQ3xmK5rM0AhPuBAHzw9+0UyYMNMTVmETontzaoUOWX4opZ/YG7nzY0
+	 kXUi4TzWrLGkVdkBhXDzmhbPWUA3MfATUluVcZ+lizltBjpvOXrRGpx2Q94v3X4HTq
+	 urNLtiydmj3DD28Qjw/PxHI7ZkSdP8iXW8MCSycUldY83SjERuVdT4pSgep9AxpohO
+	 yK7gm2+ivfU6jV/ICE0bHdCY/AUOR8+KX0BvybfCjOcjYYPWw24yXY/qUBd8D8JeiT
+	 9uj77DlPa9Weg==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b88dc3bc02so1294091e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:33:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwcAXrBZKQxdOGhedyOhSTSNUUOfwLpjcpJ1OUkEtaZT8+m1wlgIPcj0CuRjr8odd3xG0kRP/d4DX3urQQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXpEj2LysfAl3eQaIPHVm4RtAe6T/o8mx/iFpIy785MFCBWcLa
+	FOxfzUr4ilXVYkokrjbxNzgskvFYTVVweOwG7fdbwAb4tN4nj8nMy+pmwKi2SxL0NvDnQ2o4uYs
+	SOx0jG76+3hDuYbJd4HXf6VN64cTytC4=
+X-Received: by 2002:a05:6512:124f:b0:5b0:c96:cc8c with SMTP id
+ 2adb3069b0e04-5b8b660c549mr1087879e87.12.1789580000228; Wed, 16 Sep 2026
+ 10:33:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mux: convert to use fwnode interface
-To: =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>,
- development@redaril.me
-Cc: Peter Rosin <peda@lysator.liu.se>, Linus Walleij <linusw@kernel.org>,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, xu.yang_2@nxp.com
-References: <20260915-mux_fwnode-v1-1-ed5a6d8202d4@redaril.me>
- <aqngNh-V7z3L2lP6@analog.com>
-Content-Language: en-US
-From: Fabio Forni <development@redaril.me>
-In-Reply-To: <aqngNh-V7z3L2lP6@analog.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260916165055.2085246-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916165055.2085246-1-vulab@iscas.ac.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 19:33:07 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=oj_+WvvDqXK1GePJuBtQLOfU7vjf2HkYOTXgO4cFy-w@mail.gmail.com>
+X-Gm-Features: AcwNN1WOr3a54NiznxoZ846KCk_kzFxY07htViF09enn8AIUZHYMsfgpfYGFaUk
+Message-ID: <CAD++jL=oj_+WvvDqXK1GePJuBtQLOfU7vjf2HkYOTXgO4cFy-w@mail.gmail.com>
+Subject: Re: [PATCH] usb: musb: ux500: Fix transceiver leak in ux500_musb_init()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: b-liu@ti.com, balbi@ti.com, fabio.baltieri@linaro.org, 
+	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> On Tue, Sep 15, 2026 at 09:35:21PM +0200, Fabio Forni via B4 Relay wrote:
->> @@ -821,23 +825,23 @@ static struct mux_state *__devm_mux_state_get(struct device *dev, const char *mu
->>   }
->>   
->>   /**
->> - * devm_mux_state_get_from_np() - Get the mux-state for a device, with resource
->> + * devm_mux_state_get_from_swnode() - Get the mux-state for a device, with resource
->>    *				  management.
->>    * @dev: The device that needs a mux-control.
->>    * @mux_name: The name identifying the mux-control.
->> - * @np: the device nodes, use dev->of_node if it is NULL.
->> + * @node: the device nodes, use dev's fwnode if it is NULL.
->>    *
->>    * Return: Pointer to the mux-state, or an ERR_PTR with a negative errno.
->>    *
->>    * The mux-state will automatically be freed on release.
->>    */
->>   struct mux_state *
->> -devm_mux_state_get_from_np(struct device *dev, const char *mux_name,
->> -			   struct device_node *np)
->> +devm_mux_state_get_from_swnode(struct device *dev, const char *mux_name,
->> +			       struct fwnode_handle *node)
-> 
-> Shouldn't it be get_from_fwnode (not swnode)?
+On Wed, Sep 16, 2026 at 6:51=E2=80=AFPM Wentao Liang <vulab@iscas.ac.cn> wr=
+ote:
 
-Yes, it's definitely a lapsus, good catch. I'll fix it.
+> ux500_musb_init() takes a reference on the USB2 transceiver with
+> usb_get_phy() and stores it in musb->xceiv. If the subsequent
+> usb_register_notifier() call fails, the function returns without
+> releasing the reference, leaking the transceiver. The only place the
+> reference is put is ux500_musb_exit(), which is not run when the init
+> fails.
+>
+> Put the transceiver before returning on the notifier registration
+> failure path. The notifier itself does not need to be unregistered
+> since usb_register_notifier() failed.
+>
+> Fixes: 0135522c4898 ("usb: musb: ux500: add otg notifier support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
