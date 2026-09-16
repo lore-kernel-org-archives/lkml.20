@@ -1,122 +1,322 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029034D90BA;
-	Wed, 16 Sep 2026 10:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590AE4477F3
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789553899; cv=none; b=kdIHw2WbVW9Hpd9gbldTu/II8Oo1zHO40YkH4f7ECmVCNnkFlPwSPkW2gt+5W/PeM+7gzGmX9TbzpY8e3oNzj1jaNrZ5u1FkFyN25Dc32h+77Bceu5xKF6borYe94nszhOBaoFwPYnfrKqhSMQf7vsBXwejNRE1+0984FUY1eNU=
+	t=1789554004; cv=none; b=EEAdsnsUh8/Mp7LcFuJ5GWgG8aDWxqVMySd1I4CwMDM4V+CALBEVqrvi777Ju8Z4SKVfrfSoXwHnVcoXkgl1Au/XkXF2p69h/ugl1mnextjbvZQ+ZN3BUNXE4S0mEJMc/D/HHXlwv1B4oWGx4MwAjYE2bawVb+jd6le+T90U6PE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789553899; c=relaxed/simple;
-	bh=ax4uj8UOnsE1cPq9+/eLDV7vJJ43389NSS08E8JQBEU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FH8XCdgqNXBU0Mg4uQ947I3m6bItbPgxr9A/24+RZ32kFozu8aHHh6ZP0ob55tBYHkzN436y400h+6ZclE1GtPdjjEDmYP1+3Z8cW94kSDm3QcUvBdDhPhejLr+DO9gYt0oHAN2rCXimehRymSSNCJpkHhSBs3IDVwISULlxjIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cA5yYEp/; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cA5yYEp/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597701F000FF;
-	Wed, 16 Sep 2026 10:17:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789553871;
-	bh=5i5/WSGaiuKb/NU8/OeaPlDjyoesVU6VooXiy/WhqKQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cA5yYEp/M7JVrnTtNzahnacOweK/ETWPw8SkFokwivHOAKlisRce1Qqq1upr/YjMx
-	 51zyjk5+M8OPD7URLKaqQorvhkPKgPJIU5lJ0tUJLm5ZbnN01V+vkxXtp+oe5DVLOm
-	 AGdOzymgvmXG2+DSXpvbfVDdgv3d3G7i2sqPXrzxEXHNoT54A31BycYbCEffLGMhJ+
-	 H0uQAubu2LhQReXMBLAUxNZd0KVDYLrILBoCHzM4+SSpU+efof/eo9PxOKtHJp2Sio
-	 NB4W1Iov7OPBlylFAcgV6VQrPRF4Lb3ovB9DsAlRH5J1t2NRZ3QjvlyP8v2rpWxdkD
-	 AvAKu23ld8QXA==
-Message-ID: <78a7700d-32f7-4592-8a50-c90175338972@kernel.org>
-Date: Wed, 16 Sep 2026 12:17:42 +0200
+	s=arc-20240116; t=1789554004; c=relaxed/simple;
+	bh=SM/rJY+p/e29B7erCItr2K3njBzV1KwR0UQA7/H+EpA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-type; b=J7h74NLyKTWS0zu+apwEK9Zc3gx/gJpEukWlRs45/OW45hjIkElwC5io8UdSe+ZC10B2d/xiNyW4r73CzwDgkH1jktMGiOVaMbtrdIOmwGQJtRUKd4HjkkRCTTDVjBkZclPyDHuGcKbRV6ELqwjvYblT+FVjo20cQrf+82Sbc7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 8bd0561a397f3082;
+	Wed, 16 Sep 2026 10:19:38 +0000
+X-Mizu-Trace-ID: 8bd0561a397f3082
+X-Migadu-Flow: FLOW_OUT
+From: Baoquan He <hebaoquan@kylinos.cn>
+To: linux-mm@kvack.org
+Cc: akpm@linux-foundation.org,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	nphamcs@gmail.com,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	hannes@cmpxchg.org,
+	yosry@kernel.org,
+	shikemeng@huaweicloud.com,
+	chengming.zhou@linux.dev,
+	baoquan.he@linux.dev,
+	david@kernel.org,
+	linux-kernel@vger.kernel.org,
+	kunwu.chan@gmail.com,
+	Baoquan He <hebaoquan@kylinos.cn>
+Subject: [PATCH v3 00/14] mm, swap: extendable swap devices (xswap)
+Date: Wed, 16 Sep 2026 18:19:07 +0800
+Message-ID: <20260916101929.149106-1-hebaoquan@kylinos.cn>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 0/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org>
- <3a2f535c-7ccb-4b50-a6fc-f73ec02d4acf@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <3a2f535c-7ccb-4b50-a6fc-f73ec02d4acf@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On 06/09/2026 17:51, Nihal Kumar Gupta wrote:
-> 
-> 
-> On 04-09-2026 02:14, Bryan O'Donoghue wrote:
->> I've retained the callback indirections give us scope to add in another type of
->> future PHY including potentially adding in the 2PH later on.
->>
->> This driver is tested and working on x1e/Hamoa and has been tested as not
->> breaking sc8280xp/Makena and sm8250/Kona.
->>
->> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> 
-> For the series:
-> Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> # Glymur CRD
+xswap is a swap device with no backing storage. Swapped-out pages live                                
+in zswap. Its cluster_info[] array lives in a VM_SPARSE vmalloc area,                                 
+and the area is grown and shrunk on demand as swap usage changes.                                     
+                                                                                                      
+The problem being solved is the static size of compressed swap. Both   
+zram and zswap need the size fixed in advance, and neither gives memory 
+back when the workload shrinks. The solution should be a device whose
+size can scale up/down as per usage. xswap does that by mapping the
+metadata lazily instead of reserving it for the whole range.
 
-You cannot test a binding, so why replying to cover letter which will
-make this tag 50% applied wrong...
+Design   
+------                           
+- si->cluster_info[] stays a plain array. Access is still
+  &si->cluster_info[offset / SWAPFILE_CLUSTER]: no per-access branch, no 
+  RCU discipline, no tear-down state machine, no NULL return.              
+- Only an initial chunk is mapped at creation. The rest of the address     
+  space is reserved, not allocated, so an idle device costs nothing.
+- Growth is driven by allocation. When no free cluster is left and the       
+  address space has room, the next chunk is mapped and added to the free  
+  list. No userspace involvement.
+- Shrink is driven by frees. The free tail is scanned, and whole chunks
+  are unmapped once the mapped range is at most half in use and several
+  chunks can go. One chunk is left mapped as slack, so the next                                       
+  allocation does not map it straight back. A ceiling lowered below the                               
+  mapped range skips the half-in-use rule and is enforced at once.
 
-Best regards,
-Krzysztof
+Size
+----
+A device starts at 1xRAM, rounded down to the cluster. That costs
+nothing, because the mapping is lazy. The underlying address space is
+2xRAM. An optional per-device cap,
+/sys/kernel/mm/xswap/type<N>/limit, lets an admin lower the ceiling;
+the excess is unmapped right away. Grow and shrink both work without
+it. Creating a device requires zswap.
+
+Interface
+---------
+  /sys/kernel/mm/xswap/create           write an optional priority
+  /sys/kernel/mm/xswap/destroy          write a swap type
+  /sys/kernel/mm/xswap/type<N>/limit    read/write, in pages
+The device shows up in /proc/swaps as xswap<N>.
+
+Note
+----
+Writeback, rmap lookup, etc. are consumers of this base. I have a
+writeback prototype on top of this base and will post it as a reference.
+
+Testing
+-------
+qemu KVM guest, 8G RAM.
+
+Tested create/destroy, raising and lowering the limit (including clamping
+when it is written below the pages in use), shrink with live entries, and
+2000 create/destroy cycles for leaks; all passed.
+
+The workload is memhog: it faults in N GB of anonymous memory inside a
+cgroup with a much smaller memory.max, forcing the pages to swap.
+Set MEMHOG_FILL=pattern: the default fill is all-zero pages that zswap
+compresses to almost nothing, so the device never fills.
+
+  # echo 1 > /sys/module/zswap/parameters/enabled
+  # mkdir -p /sys/fs/cgroup/xswap_limit
+  # echo max > /sys/fs/cgroup/xswap_limit/memory.swap.max
+  # MEM="MEMHOG_FILL=pattern numactl --cpunodebind=0 --membind=0 ./memhog"
+
+1. Create and destroy
+
+   # echo > /sys/kernel/mm/xswap/create
+   # swapon
+   NAME    TYPE  SIZE USED PRIO
+   xswap0  xswap 7.8G   0B   -1
+   # cat /sys/kernel/mm/xswap/type0/limit
+   2035199
+   # echo 0 > /sys/kernel/mm/xswap/destroy
+   # swapon
+   (nothing)
+
+   limit is in 4 KiB pages; 2035199 is RAM (2034976 pages) rounded up to a
+   whole number of clusters. The device starts at RAM, not twice RAM.
+
+2. The cap holds
+
+   # echo 2147483648 > /sys/fs/cgroup/xswap_limit/memory.max
+   # ( echo $$ > /sys/fs/cgroup/xswap_limit/cgroup.procs; eval $MEM 11 300 ) &
+   # awk '/SwapTotal|SwapFree/' /proc/meminfo
+   SwapTotal:       8140796 kB
+   SwapFree:         354012 kB
+
+   The cgroup runs out of room before the device does and the OOM killer
+   takes the workload — that is the pass signal. SwapFree never exceeds
+   SwapTotal, so nr_swap_pages never goes negative.
+
+3. Raising the cap
+
+   # echo 3052543 > /sys/kernel/mm/xswap/type0/limit
+   # awk '/SwapTotal/' /proc/meminfo
+   SwapTotal:      12210172 kB
+   # ( echo $$ > /sys/fs/cgroup/xswap_limit/cgroup.procs; eval $MEM 11 300 ) &
+
+   No OOM this time: 2473705 pages in use against 2034976 pages of RAM, so
+   usage goes past RAM.
+
+4. Lowering the cap below the pages in use
+
+   # echo 1000000 > /sys/kernel/mm/xswap/type0/limit
+   # cat /sys/kernel/mm/xswap/type0/limit
+   2426879
+   # awk '/SwapTotal|SwapFree/' /proc/meminfo
+   SwapTotal:       9707516 kB
+   SwapFree:             860 kB
+
+   The write is clamped up to the clusters covering the pages in use, so
+   the free slots in the partially used top cluster stay accounted for.
+
+5. Shrink with live entries, then destroy
+
+   # echo 4069887 > /sys/kernel/mm/xswap/type0/limit
+   # sleep 60
+   # awk '/SwapFree/' /proc/meminfo
+   SwapFree:       16279548 kB
+
+   The shrink unmapped the tail — the state find_next_to_unuse() must
+   survive. Put live entries back and destroy:
+
+   # ( echo $$ > /sys/fs/cgroup/xswap_limit/cgroup.procs; eval $MEM 3 300 ) &
+   # echo max > /sys/fs/cgroup/xswap_limit/memory.max
+   # echo 0 > /sys/kernel/mm/xswap/destroy
+   # swapon
+   (nothing)
+
+   dmesg stays clean across create, shrink, swapoff and destroy.
+
+6. 2000 create/destroy cycles, diffing /proc/slabinfo before and after:
+   the largest growth is 142 objects. One object leaked per cycle would
+   be 2000.
+
+Performance
+-----------
+(qemu KVM guest, 8G RAM, zram as the swap device)                                                         
+This series should not slow down a kernel that never creates an xswap
+device. I measured that overhead by comparing the base tree with this
+series. Both were built with the same .config and CONFIG_XSWAP=y, and no
+xswap device was created. I ran three 3G MADV_PAGEOUT workloads, three
+rounds each, alternating between the two kernels across reboots. I
+counted retired instructions per page swapped out with perf stat:
+
+  workload                      base       series     delta
+  swapout                       50824.8    50866.2    +0.08%
+  swapout and swapin            63770.4    63796.8    +0.04%
+  swapout into a full device    67729.9    67707.8    -0.03%
+
+Two runs of the same kernel differ by less than 0.1%, so the differences
+above are real, not measurement noise. I cannot use wall clock time for
+this comparison, because two runs of the same kernel differ by more than
+the two kernels do.
+
+Changelog
+=========
+v2 -> v3:
+- Rebased onto the latest mm-new.
+
+- The grow path now honors the user-set ceiling (si->nr_clusters) instead
+  of growing up to nr_clusters_max, and a ceiling below the mapped range
+  is unmapped exactly instead of rounded to a chunk (patches 12 and 14).
+
+- The limit write clamps the ceiling up to the clusters covering the pages
+  in use, replacing the earlier WARN_ONCE; si->pages becomes mutable at
+  runtime (patch 13).
+
+- Minor comment and cleanup changes.
+
+v1->v2:
+- Patch 1 (mm: zswap: return -ENOENT when the swap device is gone) is not
+  part of this series; it was posted separately.
+
+- There is only one size knob now. The runtime ceiling and the debugfs
+  per-device limit are gone. All that is left is the optional per-device
+  cap, /sys/kernel/mm/xswap/type<N>/limit. Grow and shrink work without
+  it.
+
+- The shrink no longer keeps its own count of the free tail. It scans the
+  tail instead, and dropping the counter also removes a call from the
+  cluster allocation path.
+
+- The priority is no longer a patch of its own. The create attribute
+  takes it:
+    echo 100 > /sys/kernel/mm/xswap/create
+
+RFC v3 -> v1
+- Add patch 16 to support setting xswap device priority at creation.
+  The create sysfs interface (/sys/kernel/mm/xswap/create) previously
+  hardcoded every new device's priority to DEF_SWAP_PRIO, it now
+  accepts an optional priority:
+
+    echo "<percent> [<prio>]" > /sys/kernel/mm/xswap/create
+
+- Bug fix: xswap_lock init ordering. mutex_init(&si->xswap_lock) was called
+  after xswap_map_clusters() (which locks it), i.e. locking an uninitialized
+  mutex. Init now before the first xswap_map_clusters() call. Thanks to Klara.
+
+- Bug fix: Fixes a compile error in !CONFIG_XSWAP builds. xswap_debugfs_root
+  is declared inside CONFIG_XSWAP ifdeffery scope, so the ungarded use
+  caused error when CONFIG_XSWAP is off.
+
+RFC v2-> RFC v3:
+- Replace the "header-only swap file + swapon" creation hack with a
+  proper file-less device created and destroyed via sysfs
+  (/sys/kernel/mm/xswap/{create,destroy}).  This required the
+  __swapoff() refactor and the free_swap_cluster_info() signature
+  change (patches 4, 6, 14).
+
+- Require zswap: refuse to create an xswap device when zswap is
+  unavailable (patch 15).
+
+- Split the unrelated zswap -ENOENT fix out of the series into a
+  standalone patch (patch 1).
+
+- Fix nr_free_tail over-counting on concurrent grow, shrink leaking
+  detached clusters on early bail-out, a re-init race on cluster
+  spinlocks in xswap_map_clusters(), the nr_clusters_mapped update
+  ordering, and swapoff accessing the shrinker-unmapped cluster tail.
+
+- Minor cleanups (checkpatch, /proc/swaps alignment, commit messages).
+
+RFC v1-> RFC v2:
+- Added __GFP_HIGH | __GFP_NOMEMALLOC to alloc_page() and kmalloc_array()
+  in the grow path, plus memalloc_noreclaim_save/restore() wrapping,
+  to prevent the grow path from consuming emergency memory reserves
+  or recursing into swap under PF_MEMALLOC. This is folded into patch 3.
+  This was pointed out by Nhat.
+
+- Folded the mutex serialization fix into the cluster grow patch (patch
+  3). This is suggested by Nhat.
+
+- Fixed coding style issues: corrected indentation of declarations in
+  xswap_unmap_clusters(), removed unnecessary block scope around the
+  err variable in xswap_map_clusters().
+
+- Rebased onto mm-unstable
+
+Baoquan He (13):
+  mm, swap: add CONFIG_XSWAP and xswap fields to swap_info_struct
+  mm, swap: refactor free_swap_cluster_info to take swap_info_struct
+  mm, swap: add xswap cluster grow via VM_SPARSE vmalloc
+  mm, swap: add sysfs create interface for xswap
+  mm, swap: add xswap grow trigger on cluster allocation
+  mm, swap: add xswap_try_shrink and shrink trigger on cluster free
+  mm, swap: free backing pages in xswap_unmap_clusters
+  mm, swap: defer xswap shrink to workqueue to avoid lock recursion
+  mm, swap: refactor swapoff and add xswap_destroy
+  mm, swap: require zswap for xswap devices
+  mm, swap: cap xswap growth at nr_clusters
+  mm, swap: add sysfs per-device size limit for xswap
+  mm, swap: shrink xswap to the ceiling when it drops
+
+Chris Li (1):
+  mm: xswap support for zswap
+
+ include/linux/swap.h |   26 +-
+ mm/Kconfig           |    9 +
+ mm/page_io.c         |   19 +
+ mm/swap_state.c      |    4 +
+ mm/swapfile.c        | 1240 +++++++++++++++++++++++++++++++++++++-----
+ mm/zswap.c           |    7 +-
+ 6 files changed, 1174 insertions(+), 131 deletions(-)
+
+
+base-commit: baa8de2f3448d1466a888a805c18d01c998fe052
+-- 
+2.54.0
+
