@@ -1,226 +1,75 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EF652B1DE
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:25:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575909; cv=pass; b=HnjS8IpXnT3JckzeeJ4n9lysXxJqY8L8gbfQm0QLz5JnqVeLNbyHDrcRZB0HcYnAgV2gs35LcxJ/++mV906ZiMRLlmsXDEMfTOVk0s6HWd8j1NqGryYmiKTUW+YTl8RKeXimqH7GMVu9XajKBONszmnzWmTyQ2l0lRsEqV/gdbY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575909; c=relaxed/simple;
-	bh=Tfy5DSiHTM2ZgjvWMzhVCdG5j/zkio3GvqabXlNj/F8=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CDA3B3888
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:25:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789575943; cv=none; b=jPbpBiyNH+ExpLppJ4tmsqpk3+pVpdO/1CQFwWguIrNfAVJcRnUOjbiPinZZ55Iaiph0qTHUovXkgoCLcQjxYSmc84DBjnvmCjG87KY+xf7PXEQpvwoT8S7gpesdu3RVDofOeK3TCqZqkZ3DcDd1/Jwpfvqu9+WuBp6cP/DaQwY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789575943; c=relaxed/simple;
+	bh=fn0Gpjkf8crw2Bh7cFIXVZyGh0QHt2q0NzUxpkXMKFE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XrRXTuEZAGK+jr57GkakrzPnnXQM6UsxkdNX/k+Ixaki9lQP+e6RZMl9CCz/kkCPUOdU9dvmoR7QWd63CiZgKHeIHMOTo4DNFvE5XeIz3vWX3u/fJl+6qy7jFwSjuWEIU6cKQdElIpNEzM8th41eDK4E2tlxw6dPBMcxr3I+Z28=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bZekhNhp; arc=pass smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=uqNbm80mP31GcqCnYFpsOefgUofx4pUw/4JveF2sKamXtqBnrGVJeF9gAPkJ6r9uieus1svyTCnaVwgsJlKqSjXDTYyCZBql/kRiq8Tq7u7cUpp5dtUskfGAOTwG2xuO1Sj3keup6/eBPx5kjVOVwLPEmklpj/VzTwa3bRjonCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WVneGbr0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bZekhNhp"
-Received: by mail-pz2-f41.google.com with SMTP id 41be03b00d2f7-cc50b9e8a45so823845a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:25:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789575899; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TqFSLNBntVvK53UzhKfsnqvgIMcy03V/LLx1khyai9m5HgQIbcK9Bu+/cToDzlkARa
-         HgtqPCJoDWVYs2yTE+URnvRT4uoCnn8J2FCfc8CCWatr2ZeBVXfZPARFHVJyEiKwZ6dL
-         UurFQwxRLOSVhwhwOrNHv4wSvKVY0wpDQAjD0CLMyIyDFtATaeQ5/cPCtG7QAVCdrjVt
-         chegksr7inHCETlP9BsNR1S6+xa4BASWG357JPM2ONvPFquSmPMSquYbA8b7/u5uP0EV
-         9iemC2EXB3MChrrF0J7kXpOoZPclWx1Uxunw7WxZO5eazoHv3MkaUQpvEkRqAk7In/ZZ
-         ZuOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=T8vXUt64r835ESBTJB/dxhUkslLOOIq8gAbMXJNheR4=;
-        fh=zINeD0FsscetjzcicTwPaCqv4aN/+LemnCXytx9z3m8=;
-        b=SaDs8BjtLXTSA5OgphksX0trzAnyhE1Y5Qy37+fK+zipNFaG2odl4PCMTMRWxhCPc3
-         SDOyweePVjB/XwGSF3YlQVw6E0lNgQzod22icY7ZFZFIAkvgDz6vmWKqzMlhEgu032hn
-         3KJVkpRfNFkk2G12K+kSOSyVmV7gGdP2GY9DFuw/icZxB1SLyCKq2Od8rbTf7p4vfzqf
-         TIzLrXx2o0R7GcvIRzcrc40UqT/gCNw0/DC85hvz6pYnsyyzQUs36ruuE24/bjJ9RHgo
-         moueZBfrGSk4IqgapRwD1CaM5EPRIuA70L+pbWHYnCFCs37CqtXbLD8Ex3C0Ru0rJFxu
-         WT8g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789575899; x=1790180699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T8vXUt64r835ESBTJB/dxhUkslLOOIq8gAbMXJNheR4=;
-        b=bZekhNhpcg/1WhRHKG+Te+9vs6pKpnPaeYDWYjxmHME2wRqUKJwf+jbgpyIQk0f+6V
-         O13fJ64qVUx0EbIwbu58oC0t+S3pdV9MTIHi1uM7QDpLJvzHlet/u3tlnO9/FgAuHkFh
-         WQBPJoP8/NXvDcjpTh7jSeinHytvfkuVsSilIQSGdhzC2KUbYqJliGCs21YfYXqSqETO
-         rk4Z7qavbTXqB03s39SBI4JfjdMg19KoHEWsWzptpKFTAEnE0Gt5Uy1Na+pOvclqT9gz
-         q66MNxfH6dcaNjRIEoaniNrjEW7bksizf8f9c6V1JGBGPZLtsddsnaFpbNi/nmwiAOf1
-         wJFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789575899; x=1790180699;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T8vXUt64r835ESBTJB/dxhUkslLOOIq8gAbMXJNheR4=;
-        b=goUeQovm8uQSGVnRsKBnGou497RKGk5DFsnaX+kQxLBoSfs3g4/0cTOHsPAJ4dYiDw
-         bm3SER6OXpzESXnVi0pbU0NzQxRVHKLmhKbQNMeKythjzPamkipXiVz5efipzrWR5yXr
-         G2PfL0MK9ih4TmB4hOk+ZaVQern/4OdYw21jRNZQguNaPJFoZSnE90yY3VhhxqVovFgj
-         E+0gyZ6nyTeHdcSLY8YhtxXqMeRQa3LmsOK5feF/OXeVUr4JFsFtkNkCTAfHOKTo4gJR
-         AvEGetI+5hwqVaOrLTAH8EIkSIDcblwRYHPPIAJAShiSljhJRrp+j4PS6B0Hsi2r+r9g
-         E/NQ==
-X-Forwarded-Encrypted: i=1; AKwUvByEbnSTAV5VN3mGqa7lyKExEGbkoevxNRGeLDNg3buO2s8P30jGmU4K3FONkl16sbtVybBcdGZ88dz7sXI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMq0VeuYruid2gXJ4r4NJhyyMo/y9rP7KBqZiA0IQ5iiLVaWS4
-	oSa9k7EuHCdAGpD3+h7cXgdlK6b0x39Ks7xPxAh44yzhkjn3FDYJxylScKqMi86d3IDjBUTWMIq
-	zej4Vd/uREAd8btcxAh5IYAaq+K/k3pI=
-X-Gm-Gg: AYBFou3WGTGKjQpnBG0CpL0rQh9mBcTWXpuJigUXbLIniHU8fMHAO2W0x7qIXp0KXnl
-	vYvxxVqaZgaI5Zdm1mKViP4uHEJPofm0p0344z74XqWP40Sxn/Jb5k78yB1KgObHsNOxYS+hcTd
-	myXhNkUYl/gIJEffQQgWQwlmicouCO5QivRwoC3KkdTOK0VlRh5jtOWRkIC5veBBPq+sa+zKwg6
-	dn/8OZ6nwRBjOwil/ByYZ2G6uvck0crLT1hwm8uxRXx0whCtxBuguH9O5R/7wLoFh+n7DEoq0jC
-	ChfZQPgLzMQGbwlgfUPVuMOxRbygezMYSweH1OvFeHXEV9doDJpeC8c+J/FO4As5bj3+WeYbrC9
-	aINM/UrLt1mUaxQbc+qacpkfAVcRgURbd+iR38ie8LpUwRdYRRJ5bP5a74lkuqtPW1N39h1RBke
-	3ccghYXEoeHllC+hAqA3JXcSRlqRvwdpc=
-X-Received: by 2002:a05:6a20:9c9b:b0:3d3:adbf:7781 with SMTP id
- adf61e73a8af0-3dd5f73f2fdmr9852912637.22.1789575898997; Wed, 16 Sep 2026
- 09:24:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WVneGbr0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D777B1F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:25:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789575941;
+	bh=fn0Gpjkf8crw2Bh7cFIXVZyGh0QHt2q0NzUxpkXMKFE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WVneGbr0wtKe5kuzvnaAbtOGujlVUEQGd1te6qm7vZW3TYeHaQtVAm6uE59XgRrpR
+	 6BhLgl5C9LCqzTDZrKEdjZuZ20AjTpTdeTluK5JqmqDnBe5vwhUaDlsBQdjrpR62yO
+	 1ruR0PZhQXyWQrFMJSZXw7WbYJy70hpJYaR4a2u5r8unePKdZZwR8Z/07U63ZOVJv9
+	 ZpXXp/zv4pnUOvP6R8bV8XMOI117ltVRuDEWgmfbJ/1I810tZ4GgpA/r6+Y2I/8ipr
+	 HHu9Glr4P9aIB52H0+Ja2t//3M6Aa09ciXm1rijDWUzL7dSWxWZMzMW5PuaLtwY9Wm
+	 3T0RheWIvelwg==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b88dc3bc02so1222163e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:25:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzOe9nhVJtsc41OMbQUDcPPTgsTCc3oQJgI6qeXAqdWtz/V62Qb3i6CmbOAUvomA7pJuICn7pWTDKe15Ps=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6RLOYg+w7UbWKVulROO1ui5OJHuO5a05nl6axHXULTHXhcHiV
+	Ov3mV6v3J2o3i8atn9H6A5xBVHHj6tKoCtJBQvOsq+23oLOckcAWPA5kF0/kkXOtYi+UBC/0wPQ
+	Ta7lWI90Vr3lW4pXxq1uIVIo3kdVMAb4=
+X-Received: by 2002:a05:6512:3e1b:b0:5b6:1a7c:fd7f with SMTP id
+ 2adb3069b0e04-5b8b6652b42mr949614e87.37.1789575940579; Wed, 16 Sep 2026
+ 09:25:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916112554.413933-1-madhav.khoslaa@gmail.com> <fe92569462dc4decf36f4dcb3b45372fc0d42fb6842eda0d3396fa18ee32aa55@mail.kernel.org>
-In-Reply-To: <fe92569462dc4decf36f4dcb3b45372fc0d42fb6842eda0d3396fa18ee32aa55@mail.kernel.org>
-From: Madhav Khosla <madhav.khoslaa@gmail.com>
-Date: Wed, 16 Sep 2026 16:24:46 +0000
-X-Gm-Features: AcwNN1U8QHUiHDV5g4tLvSfFw01ei7S3h8NzFnBoBxITmcE6o6f_L5XxCkZd1mI
-Message-ID: <CAHFb0oABUaKNWVcNZwrxPv0MJU=3Jt1X+iv3fJX9RgO97uu4iQ@mail.gmail.com>
-Subject: Re: [PATCH v2 bpf] selftests/bpf: Fix csum_partial() dropping
- trailing byte on odd length
-To: bot+bpf-ci@kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	alexis.lothore@bootlin.com, eddyz87@gmail.com, ihor.solodrai@linux.dev, 
-	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
-	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
-	shuah@kernel.org, davem@davemloft.net, kuba@kernel.org, hawk@kernel.org, 
-	john.fastabend@gmail.com, sdf@fomichev.me, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, martin.lau@kernel.org, mason@kernel.org
+References: <20260907090956.2825703-1-arnd@kernel.org>
+In-Reply-To: <20260907090956.2825703-1-arnd@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 18:25:27 +0200
+X-Gmail-Original-Message-ID: <CAD++jLn_Dfzj9ME8Vc5fv8cwATENBRw=Dx9aSwt65JfqoeywKw@mail.gmail.com>
+X-Gm-Features: AcwNN1VuMUBHDE_HWXIYdZ8fFYEMsF2Ou_4jA1zeXX1dDAPFhRFN9qr5QZmK1N8
+Message-ID: <CAD++jLn_Dfzj9ME8Vc5fv8cwATENBRw=Dx9aSwt65JfqoeywKw@mail.gmail.com>
+Subject: Re: [PATCH 0/2 v7] gpiolib: finish the legacy cleanup
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Kent Gibson <warthog618@gmail.com>, 
+	Johannes Berg <johannes@sipsolutions.net>, linux-kernel@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-sh@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-wireless@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-> This isn't a bug, but would it be clearer to paste the full failure
-> output or mark the elision? The summary line says six subtests failed
-> (1/6 FAILED) while only the ipv6 one is shown, and test_progs.c runs
-> three ASSERT_EQ calls per subtest ('test first port', 'test second port',
-> 'test third port'), so 'test first port' would have failed too. And
-> '1/0 PASSED' reports one passing test, which cannot come from a run whose
-> only named test failed.
+On Mon, Sep 7, 2026 at 11:10=E2=80=AFAM Arnd Bergmann <arnd@kernel.org> wro=
+te:
 
-Not a bug. That log is the test failing on the TEST_PACKET_LEN=3D99 case
-against the old (pre-fix) csum_partial(), not my patch. My change is
-what makes the test catch it; it passes with the fix applied.
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> These two patches are left from my cleanup series, finishing off the
+> work to turn off CONFIG_GPIOLIB_LEGACY by default, and removing the
+> include/linux/gpio.h header.
 
-Madhav
+The series:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-On Wed, Sep 16, 2026 at 12:13=E2=80=AFPM <bot+bpf-ci@kernel.org> wrote:
->
-> > diff --git a/tools/testing/selftests/bpf/network_helpers.h b/tools/test=
-ing/selftests/bpf/network_helpers.h
-> > index 75133119c04a3..878c9fc5c37ca 100644
-> > --- a/tools/testing/selftests/bpf/network_helpers.h
-> > +++ b/tools/testing/selftests/bpf/network_helpers.h
-> > @@ -129,12 +129,23 @@ static __u16 csum_fold(__u32 csum)
-> >
-> >  static __wsum csum_partial(const void *buf, int len, __wsum sum)
-> >  {
-> > -     __u16 *p =3D (__u16 *)buf;
-> > +     const __u8 *p =3D buf;
-> >       int num_u16 =3D len >> 1;
-> >       int i;
-> >
-> >       for (i =3D 0; i < num_u16; i++)
-> > -             sum +=3D p[i];
-> > +             sum +=3D ((const __u16 *)p)[i];
-> > +
-> > +     /*
-> > +      * RFC 1071: an odd-length buffer's trailing byte is paired with
-> > +      * a zero pad byte to form the final 16-bit word.
-> > +      */
-> > +     if (len & 1) {
-> > +             __u16 tail =3D 0;
-> > +
-> > +             __builtin_memcpy(&tail, p + len - 1, 1);
-> > +             sum +=3D tail;
-> > +     }
-> >
-> >       return sum;
-> >  }
-> > diff --git a/tools/testing/selftests/bpf/prog_tests/flow_dissector_clas=
-sification.c b/tools/testing/selftests/bpf/prog_tests/flow_dissector_classi=
-fication.c
-> > index 80b153d3ddecf..421dfa6c4ea36 100644
-> > --- a/tools/testing/selftests/bpf/prog_tests/flow_dissector_classificat=
-ion.c
-> > +++ b/tools/testing/selftests/bpf/prog_tests/flow_dissector_classificat=
-ion.c
-> > @@ -27,7 +27,7 @@
-> >  #define TEST_NAME_MAX_LEN (32 + SUBTEST_NAME_MAX_LEN)
-> >  #define MAX_SOURCE_PORTS 3
-> >  #define TEST_PACKETS_COUNT 10
-> > -#define TEST_PACKET_LEN 100
-> > +#define TEST_PACKET_LEN 99
-> >  #define TEST_PACKET_PATTERN 'a'
-> >  #define TEST_IPV4 "192.168.0.1/32"
-> >  #define TEST_IPV6 "100::a/128"
->
-> The commit message body includes:
->
-> >     v1 -> v2:
-> >     - comment style: opening /* on its own line, per BPF selftests styl=
-e
-> >     - Retarget the Fixes tag to bcc00987bc56. commit f4504af68575
-> >       ("selftests/bpf: move ip checksum helper to network helpers") mov=
-ed
-> >       the helper, but sizeof(iphdr) is always a multiple of 32 bit word=
-s /
-> >       4 Bytes (iph->ihl counts in 4-byte words), so the odd-length path
-> >       was never reachable through build_ip_csum(). csum_partial() first
-> >       gets called with a length that isn't guaranteed even in
-> >       bcc00987bc56, via build_udp_v4_csum()/build_udp_v6_csum().
-> >     - TEST_PACKET_LEN 100 -> 99 so an existing test catches this instea=
-d
-> >       of the bug staying unexercised
->
-> This isn't a bug, but could the 'v1 -> v2:' block move below the '---'
-> line so it stays out of the committed changelog? Documentation/process/
-> submitting-patches.rst asks for inter-version changelogs to go below the
-> '---' separator so they are dropped when the patch is applied. The
-> content itself is useful review material, especially the reasoning for
-> retargeting the Fixes tag.
->
-> The commit message also includes this test failure excerpt:
->
-> >     Without the fix and with TEST_PACKET_LEN=3D99, flow_dissector_class=
-ification
-> >     fails under vmtest.sh:
-> >
-> >         test_flow_dissector_classification:FAIL:test third port unexpec=
-ted
-> >         test third port: actual 0 !=3D expected 10
-> >         #137/6   flow_dissector_classification/ipv6:FAIL
-> >         #137     flow_dissector_classification:FAIL
-> >         Summary: 1/0 PASSED, 0 SKIPPED, 1/6 FAILED
->
-> This isn't a bug, but would it be clearer to paste the full failure
-> output or mark the elision? The summary line says six subtests failed
-> (1/6 FAILED) while only the ipv6 one is shown, and test_progs.c runs
-> three ASSERT_EQ calls per subtest ('test first port', 'test second port',
-> 'test third port'), so 'test first port' would have failed too. And
-> '1/0 PASSED' reports one passing test, which cannot come from a run whose
-> only named test failed.
->
->
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a =
-bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/READM=
-E.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/350910=
-50280
+Yours,
+Linus Walleij
