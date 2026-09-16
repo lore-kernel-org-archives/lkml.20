@@ -1,151 +1,392 @@
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B32509EE1
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:54:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3005013B3
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566870; cv=none; b=UWIBhfYyYtK09gc9UIXtTAuRaHXUBk4nQMIKGYy5hRXyoFD/8zVP2Cxd6Vvy8lMGLmAF+8WgASaxk1ZMRS08C6bZmdU0AMNc38JCJFaf777BmyznL/2oWZYgRBg+AOpBkYickzql5g7jgGFTWcrDqWm2EpahJC2u6bl0r1xLukI=
+	t=1789566903; cv=none; b=FsnI1viNpJM4BawCzq2M4BE8CChXuhxaqYMz2vDKPTSpn8kyw51tW2cBLkar/WpAzORxxkubQMHXiDukjKRkJZlyqXba3n5F+68yg/pEf7v8y9jcFuxVctdZOtPU2MA7Ii6aNHWFwPuR+bwuzjk9otAWuTFdn/owM7QNTk8sGkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566870; c=relaxed/simple;
-	bh=jC/eT3Fgr/1jGBrC1VIZPt9+PlqYd+hn/B8/vrobjbo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JAvwLtRo1eEybWALfOUZEN92Brg5GJyZXlBBIhDMALEWlMyjxJwQz+hYZoFC3UV96XoCSQG7TbtRr2zyI6ZszhaWVH234XLJGEy3CYU9AXNT5A/pxA+XSlseCErWGtl4bh0Ha7og02nwNVA5ARwdXBglXaLO6pyCV6bDzmo96BE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0NCIdSm; arc=none smtp.client-ip=74.125.227.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789566903; c=relaxed/simple;
+	bh=X7H/+PCa7na8YAQKP6nTZfBLQN6WGcAiu+Y7lmqirPg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jw8PClEkKZR2vwiQC+rHsr4bukUjPq+B2byotqVrDTc/MUeAdRL5PEvwMHSjDe0o+xhv56OxEoyKVoOCX/XRXtln3ZsKF4wjZbvMhTdNZ5Da5eKD8/+H+Rc7aFZzAPaiL2+Mq/YPebJxx8A+GbDtzzA/SJSSsH5WdMin6mMgimw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=B4GvMxqJ; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0NCIdSm"
-Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2d6fff25530so21591635ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:54:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="B4GvMxqJ"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2939b2e4caso13263166b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:54:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789566862; x=1790171662; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ImWlbvVcHi4iWjIU7vTeQNiHcv8LdakD2zLIePBrQbQ=;
-        b=K0NCIdSmFO4cgBpDTzSLvdpksxO9lbypHHgNpfEEtLGCIbyWVlPq+3MvtBrkCQ4fLa
-         sUDwl3Kx/T4c7GYz2GsZcYmNLlDYkLhQmu5wKMwEIOdsIhjVFIrAuXJwKuUbaFYQtXKt
-         vKEOSD02ElnnziJWNJhvun9REhSS2wrAK/XyCnJ4z2fcXBuBB5ewiRyKGjroOmiBgjuO
-         3O1sc07O1IUWl6IPuMKSpPbyvs49EyzFg6qre1BlettVwmd4U7r/AxX06zZJ2av4lhGO
-         znQJ5RbgD3cUn4tLIHBCCCmylGEwGzUcsOEpNlHBikPpAMW6oW8h6W8O1Tx/aGqSwfLJ
-         n+mQ==
+        d=suse.com; s=google; t=1789566890; x=1790171690; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iDchB+ryUkdDdWE5U+mZxjTR/yYOQrNzWlaxP9QHW2Q=;
+        b=B4GvMxqJqHjg7jHODO1Wp6SRRU6KmYsBVRsuggi+0Z/6pBCqepcPgnsb+rdxo7Z0N2
+         zoqNQf8n1lmTyG4Lh1bov7LtHoCzKOzSXOJK4QPOftPwsu5qoKZFdsnXmR8IZrptoES0
+         GmR2z3h0mmYtV695/WoGE9aK/+FLRgLwXMY/4oxfTDMkgiQb+l2nwh5W2KhC8XzWsyCw
+         DRPvCZSiegJUqfLhOpZJApcmaYoT3/NSeCgvnNC2u5w4b5Gm4gc1xAWWqMV0dYKpkhkf
+         bHVfERWYX7e3H9H7FcuRq1YBMzIWkAKRFg5Ts1X46XFrMtsut6EyUarDk7eq1eFun1ll
+         7ZBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789566862; x=1790171662;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ImWlbvVcHi4iWjIU7vTeQNiHcv8LdakD2zLIePBrQbQ=;
-        b=PjKRZ19/BQ7tibPor3dCar3tAeRS99U72ixxvHp3CHs4ikG6n9Hd+r94A1KSQ3xM2e
-         PVTpnxgnwHEMbfbYRFQ1zsK0oDYoMdMd0562gRncwhc/uGQ/nMHq2NrAG2xsNWXZKKDJ
-         9jVCSRUWqD5y9TKBdtVPC/P3vnKcFODgT35XitGRfiu4P2Pz968kgCc8kjczUZPCSv5U
-         +esEjVLjX4fGt9Ou2G6RzNzDOeqRZOCOBKQJ2pUbZS7ziUVyQlx9DahrtG56z0JHDcT0
-         DphpAhf4tGXRgqkfIZVp94ByTc6uMgbPMvH+TEUeXNGrs0vDyt/cRYLypKjJlBQRnpGO
-         p/Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBzAoOpC4isEblBuy7NfsvbfayTrMgG1+fKnj5Tv855+8QejixIHMk5HJdH2uHC6xNBqANIFbDfVkC0GpJc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXzHOy2gHLNQZUOvYXUtiN4+7WKR/FcFtDG7+PQkt4HS0sqnFO
-	OyrTuqF565Y/rlsMifU2Xw5KBV9h9qkebw/+EFyM1cNKjwtiRePbajk5
-X-Gm-Gg: AYBFou3Mys6nR5eFh+7y0EDEnf8mkfmiZJ7/ehyYsAZOtJ+6xIq4yzPhL1RSs+lG3lh
-	l+fQqTB2uCxWyHdVQG/I7Q8VuooP32pjSwdzQM6LuaVHv0h4Uy+iKSjCwO4zB8PMRxagibCKuY2
-	pk1a6EEZl5d+A596fd5TV/aPN3PcZr2oFsXfQmbEuPwSDHuWhRcoRt0FNt/mjg56U2e4BIgDftc
-	uv2zfPtg4a5DjzaQpCv0ZtI+zF4j/XihyhwIET42mhMMW+5OL/KmNxFUoAF98fpS71L8iiXjvqS
-	EjnYdaxzLgqMYJH8bRnvN0Ig5aVXT4J7uVS4uka3Hpc8hJ2B81H7LY6+9GesKVCcHNEUUt2Glk7
-	ur5HfEtt/IC3B8W8uLorIkpZPJei6JTnGT6KX8CKs+t2fbsV5MXPFTCLDW4LX6UvjPCO4bJB30B
-	PnwdhGv1oOq1ONjxdTccMVhwhxtDY3kR6iGDJtkZ1vqA/GUIVv4Xu3JCT0p5oh/mfw18ceSyPLk
-	cidgJ4UNZo9qPhqfolY1FTOE+/9kLDZio8KAWSb0ov5oi8T
-X-Received: by 2002:a17:902:f64b:b0:2c8:f34c:82c0 with SMTP id d9443c01a7336-2dd8dd0b0b9mr58603325ad.2.1789566862228;
-        Wed, 16 Sep 2026 06:54:22 -0700 (PDT)
-Received: from localhost.localdomain ([38.60.126.44])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f0592asm12070425ad.62.2026.09.16.06.54.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 16 Sep 2026 06:54:21 -0700 (PDT)
-From: Haobin Wu <853555@gmail.com>
-To: ericvh@kernel.org,
-	lucho@ionkov.net,
-	asmadeus@codewreck.org,
-	v9fs@lists.linux.dev
-Cc: linux_oss@crudebyte.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	aneesh.kumar@linux.vnet.ibm.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	jack@suse.cz,
-	willy@infradead.org,
-	dhowells@redhat.com,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org
-Subject: [PATCH v2 2/2] 9p: skip directory entries with names longer than NAME_MAX
-Date: Wed, 16 Sep 2026 21:54:03 +0800
-Message-ID: <20260916135403.15789-3-853555@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260916135403.15789-1-853555@gmail.com>
-References: <20260916135403.15789-1-853555@gmail.com>
+        d=1e100.net; s=20260707; t=1789566891; x=1790171691;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iDchB+ryUkdDdWE5U+mZxjTR/yYOQrNzWlaxP9QHW2Q=;
+        b=lM6tpUpGr1/Uc9zpBY4HuBptKWukrkf3omRdb+x7PQ8QF97sg8qtW/KoqA93B91gfF
+         LX0KCHoxM+JyuEo76EcxlFyEHrce1hhIbdqEISgrtRhrCRTw9htGiM28xeb6LhhELz+a
+         22jKCFErDzCiUuZVatqr/qBr21ivvYVaYzVefe/CyhFcwuVCpY/dsXzcdQw06XtRYEbb
+         v5zHzTdY3J0KKDKHZNnv4rFfavf9fh3Lb0hkIbTLBJzitwbIyTvh4nrobfFlX8GUUwYB
+         qEyPQFX1Vgt061r34+yWl+y/PsP5QGBntTWao5U54tCXg/fALW3PQ4+/qhQdpdzZn10d
+         4xcw==
+X-Forwarded-Encrypted: i=1; AKwUvBwh1wvcTD1XzWDp+sV6QrgnRF2/6MKjJSLnkFkIgCz2AB5kN/OSOke8w5zh1tx4nvYQijrmSPDnSTY5FMs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lc8Rw+mR5dnbb7XeK2APjTmL6K5v93v6DDM37jlyDaRnyGxUIu
+	5wBTW3mSN4+FIshE1Waw6hGOpidB5+WBkMUdA4km6Eno6rBGijeBUnT7dEaYTKiShq8=
+X-Gm-Gg: AYBFou35JXBJ4fKBk7LeLHE1YUZIld4WDcI1Tz0uFSfemSTvtbdtvT1e9xLSpfsQiBn
+	6+ezhGFpwRemwLLzMGO0Rd5BlMkLfwHTsNw0zCyBs0AnGFzr3Lr2WSAsA/SuKbMPirgAFhciGL/
+	54A9BfCUe0PZSKxgKYGmrWPN9VvtHCGr15WI+bbRcxEHWGE5NUnsmgqu4McBrxhrH/NkH+adofJ
+	k8h1x4uxkCUSun/gMvB3ukh0FGZUSgYcblvnwNLr2vJi+fp894RD2VYDkBrSVWpV85WB5kJOlkt
+	TZ658MOionkn82QFE2xTbviuF6rDIUhhoBv8Qcn+wtieKuWJRL9o+bC2+Y8eqpVU5DxTePLPYUX
+	bXyCrWPojjcMGdmB3uUCzx2fBmqWOL1qTerlY7m4yOatnE3LRpcxX0+nFpS1cT+/bIKWW2WqZ2/
+	n1574hV/ZpiyujtW4dQF3QWo0MycSdVml9G4CqV5PDoeAAOWFrR8o+qWctzWOG99KiQlGHTbs=
+X-Received: by 2002:a17:906:f59d:b0:c25:2fb5:e57c with SMTP id a640c23a62f3a-c29e5302b7cmr203357166b.3.1789566890387;
+        Wed, 16 Sep 2026 06:54:50 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b7e29f3sm5106347a91.17.2026.09.16.06.54.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 06:54:49 -0700 (PDT)
+Date: Wed, 16 Sep 2026 21:54:46 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ocfs2: retain all security xattrs during inode creation
+Message-ID: <aqqe10w7OONy6pcI@p15>
+References: <20260916120258.3583355-1-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916120258.3583355-1-joseph.qi@linux.alibaba.com>
 
-The 9p wire format carries directory entry names of up to 65535 bytes
-and nothing on the client checks them against NAME_MAX. Since the
-previous patch, v9fs_dir_readdir_dotl() passes such names straight to
-dir_emit(), and the VFS only rejects names of PATH_MAX bytes or more in
-verify_dirent_name(), as -EIO, which again fails the whole getdents64()
-call.
+On Wed, Sep 16, 2026 at 08:02:58PM +0800, Joseph Qi wrote:
+> When creating a new inode, ocfs2_init_security_get() stores the
+> security xattr returned by the LSM framework in
+> ocfs2_security_xattr_info so that it can be written later within the
+> same transaction.  But ocfs2_initxattrs() only ever looks at the
+> first element of the xattr array, and it keeps the name as a bare
+> pointer into memory owned by the security layer instead of copying
+> it.  The value, by contrast, is already duplicated with kmemdup().
+> 
+> With stacked LSMs, security_inode_init_security() provides one xattr
+> per LSM, so all labels but the first are silently dropped and never
+> written to disk, leaving newly created files without the security
+> xattrs the other LSMs rely on.
+> 
+> The borrowed name is not an outright bug with the LSMs in tree
+> today: security_inode_init_security() frees only ->value once the
+> callback returns, and documents ->name as the attribute name
+> suffix, so the pointer stays valid for as long as ocfs2 uses it.
+> It is fragile though, as an LSM that allocates the name together
+> with the value would turn it into a use-after-free, so the rework
+> below copies the names as well.
+> 
+> Fix this by storing copies of all the security xattrs: allocate an
+> array in ocfs2_initxattrs(), copy the names and values, account for
+> all of them in the credit calculations, and write each one in
+> ocfs2_init_security_set().
+> 
+> While at it, switch the allocations from GFP_KERNEL to GFP_NOFS.
+> The callback runs in the inode creation path with the parent
+> directory locked, and the security layer allocates the very same
+> xattr array with GFP_NOFS, so direct reclaim must not be allowed to
+> recurse into the filesystem from here.
+> 
+> Fixes: de3004c874e7 ("ocfs2: Switch to security_inode_init_security()")
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-A name between NAME_MAX and PATH_MAX is therefore returned to userspace
-even though every later operation on it fails with -ENAMETOOLONG, and
-POSIX requires readdir() to only return components of at most NAME_MAX
-bytes. Nothing can use such an entry, so skip it instead of returning it
-or failing the listing, reusing the strlen() result that was already
-computed for dir_emit().
-
-Suggested-by: Dominique Martinet <asmadeus@codewreck.org>
-Link: https://lore.kernel.org/all/vz5bum547fqyxf5z4m3x7tuqkuq52jlopm65t7hvynqeulh7i3@2t4wnhfxs7qv/
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Haobin Wu <853555@gmail.com>
----
- fs/9p/vfs_dir.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/fs/9p/vfs_dir.c b/fs/9p/vfs_dir.c
-index af00b79d801e..ad6fdc99883d 100644
---- a/fs/9p/vfs_dir.c
-+++ b/fs/9p/vfs_dir.c
-@@ -173,6 +173,7 @@ static int v9fs_dir_readdir_dotl(struct file *file, struct dir_context *ctx)
- 		}
- 
- 		while (rdir->head < rdir->tail) {
-+			size_t namelen;
- 
- 			err = p9dirent_read(fid->clnt, rdir->buf + rdir->head,
- 					    rdir->tail - rdir->head,
-@@ -182,10 +183,14 @@ static int v9fs_dir_readdir_dotl(struct file *file, struct dir_context *ctx)
- 				return -EIO;
- 			}
- 
--			if (!dir_emit(ctx, curdirent.d_name,
--				      strlen(curdirent.d_name),
--				      QID2INO(&curdirent.qid),
--				      curdirent.d_type)) {
-+			namelen = strlen(curdirent.d_name);
-+			if (namelen > NAME_MAX) {
-+				p9_debug(P9_DEBUG_VFS,
-+					 "skipping entry with %zu byte name\n",
-+					 namelen);
-+			} else if (!dir_emit(ctx, curdirent.d_name, namelen,
-+					     QID2INO(&curdirent.qid),
-+					     curdirent.d_type)) {
- 				kfree(curdirent.d_name);
- 				return 0;
- 			}
--- 
-2.54.0 (Apple Git-157)
-
+The code looks good to me.
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+> ---
+>  fs/ocfs2/namei.c |   6 +--
+>  fs/ocfs2/xattr.c | 122 ++++++++++++++++++++++++++++++++++++-----------
+>  fs/ocfs2/xattr.h |  12 +++--
+>  3 files changed, 105 insertions(+), 35 deletions(-)
+> 
+> diff --git a/fs/ocfs2/namei.c b/fs/ocfs2/namei.c
+> index 58c6061ed983..ef03f90e7265 100644
+> --- a/fs/ocfs2/namei.c
+> +++ b/fs/ocfs2/namei.c
+> @@ -248,7 +248,6 @@ static int ocfs2_mknod(struct mnt_idmap *idmap,
+>  	int want_meta = 0;
+>  	int xattr_credits = 0;
+>  	struct ocfs2_security_xattr_info si = {
+> -		.name = NULL,
+>  		.enable = 1,
+>  	};
+>  	int did_quota_inode = 0;
+> @@ -475,7 +474,7 @@ static int ocfs2_mknod(struct mnt_idmap *idmap,
+>  
+>  	brelse(new_fe_bh);
+>  	brelse(parent_fe_bh);
+> -	kfree(si.value);
+> +	ocfs2_free_security_xattrs(&si);
+>  
+>  	ocfs2_acl_init_release(&acl_state);
+>  
+> @@ -1831,7 +1830,6 @@ static int ocfs2_symlink(struct mnt_idmap *idmap,
+>  	int want_clusters = 0;
+>  	int xattr_credits = 0;
+>  	struct ocfs2_security_xattr_info si = {
+> -		.name = NULL,
+>  		.enable = 1,
+>  	};
+>  	int did_quota = 0, did_quota_inode = 0;
+> @@ -2063,7 +2061,7 @@ static int ocfs2_symlink(struct mnt_idmap *idmap,
+>  
+>  	brelse(new_fe_bh);
+>  	brelse(parent_fe_bh);
+> -	kfree(si.value);
+> +	ocfs2_free_security_xattrs(&si);
+>  	ocfs2_free_dir_lookup_result(&lookup);
+>  	if (inode_ac)
+>  		ocfs2_free_alloc_context(inode_ac);
+> diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+> index a2d6c3d0f2e8..f2b7a53ed969 100644
+> --- a/fs/ocfs2/xattr.c
+> +++ b/fs/ocfs2/xattr.c
+> @@ -643,10 +643,15 @@ int ocfs2_calc_security_init(struct inode *dir,
+>  			     int *xattr_credits,
+>  			     struct ocfs2_alloc_context **xattr_ac)
+>  {
+> +	int i;
+>  	int ret = 0;
+>  	struct ocfs2_super *osb = OCFS2_SB(dir->i_sb);
+> -	int s_size = ocfs2_xattr_entry_real_size(strlen(si->name),
+> -						 si->value_len);
+> +	int s_size = 0;
+> +
+> +	for (i = 0; i < si->count; i++)
+> +		s_size += ocfs2_xattr_entry_real_size(
+> +				strlen(si->xattrs[i].name),
+> +				si->xattrs[i].value_len);
+>  
+>  	/*
+>  	 * The max space of security xattr taken inline is
+> @@ -664,13 +669,15 @@ int ocfs2_calc_security_init(struct inode *dir,
+>  	}
+>  
+>  	/* reserve clusters for xattr value which will be set in B tree*/
+> -	if (si->value_len > OCFS2_XATTR_INLINE_SIZE) {
+> -		int new_clusters = ocfs2_clusters_for_bytes(dir->i_sb,
+> -							    si->value_len);
+> -
+> -		*xattr_credits += ocfs2_clusters_to_blocks(dir->i_sb,
+> -							   new_clusters);
+> -		*want_clusters += new_clusters;
+> +	for (i = 0; i < si->count; i++) {
+> +		if (si->xattrs[i].value_len > OCFS2_XATTR_INLINE_SIZE) {
+> +			int new_clusters = ocfs2_clusters_for_bytes(dir->i_sb,
+> +						si->xattrs[i].value_len);
+> +
+> +			*xattr_credits += ocfs2_clusters_to_blocks(dir->i_sb,
+> +								   new_clusters);
+> +			*want_clusters += new_clusters;
+> +		}
+>  	}
+>  	return ret;
+>  }
+> @@ -680,12 +687,16 @@ void ocfs2_calc_xattr_init(struct inode *dir, umode_t mode,
+>  			   int *want_clusters, int *xattr_credits,
+>  			   int *want_meta, struct ocfs2_acl_state *acl_state)
+>  {
+> +	int i;
+>  	struct ocfs2_super *osb = OCFS2_SB(dir->i_sb);
+>  	int s_size = 0, a_size = 0, acl_len = 0, new_clusters;
+>  
+> -	if (si->enable)
+> -		s_size = ocfs2_xattr_entry_real_size(strlen(si->name),
+> -						     si->value_len);
+> +	if (si->enable) {
+> +		for (i = 0; i < si->count; i++)
+> +			s_size += ocfs2_xattr_entry_real_size(
+> +					strlen(si->xattrs[i].name),
+> +					si->xattrs[i].value_len);
+> +	}
+>  
+>  	if (osb->s_mount_opt & OCFS2_MOUNT_POSIX_ACL) {
+>  		if (acl_state->default_acl && S_ISDIR(mode)) {
+> @@ -732,12 +743,14 @@ void ocfs2_calc_xattr_init(struct inode *dir, umode_t mode,
+>  	 * reserve credits and clusters for xattrs which has large value
+>  	 * and have to be set outside
+>  	 */
+> -	if (si->enable && si->value_len > OCFS2_XATTR_INLINE_SIZE) {
+> -		new_clusters = ocfs2_clusters_for_bytes(dir->i_sb,
+> -							si->value_len);
+> -		*xattr_credits += ocfs2_clusters_to_blocks(dir->i_sb,
+> -							   new_clusters);
+> -		*want_clusters += new_clusters;
+> +	for (i = 0; si->enable && i < si->count; i++) {
+> +		if (si->xattrs[i].value_len > OCFS2_XATTR_INLINE_SIZE) {
+> +			new_clusters = ocfs2_clusters_for_bytes(dir->i_sb,
+> +						si->xattrs[i].value_len);
+> +			*xattr_credits += ocfs2_clusters_to_blocks(dir->i_sb,
+> +								   new_clusters);
+> +			*want_clusters += new_clusters;
+> +		}
+>  	}
+>  	if (osb->s_mount_opt & OCFS2_MOUNT_POSIX_ACL) {
+>  		if (acl_state->default_acl && S_ISDIR(mode)) {
+> @@ -7630,17 +7643,46 @@ static int ocfs2_initxattrs(struct inode *inode, const struct xattr *xattr_array
+>  {
+>  	struct ocfs2_security_xattr_info *si = fs_info;
+>  	const struct xattr *xattr;
+> +	struct ocfs2_security_xattr *xattrs;
+> +	int count = 0, i;
+>  	int err = 0;
+>  
+>  	if (si) {
+> -		si->value = kmemdup(xattr_array->value, xattr_array->value_len,
+> -				    GFP_KERNEL);
+> -		if (!si->value)
+> +		for (xattr = xattr_array; xattr->name != NULL; xattr++)
+> +			count++;
+> +
+> +		xattrs = kcalloc(count, sizeof(*xattrs), GFP_NOFS);
+> +		if (!xattrs)
+>  			return -ENOMEM;
+>  
+> -		si->name = xattr_array->name;
+> -		si->value_len = xattr_array->value_len;
+> +		for (i = 0; i < count; i++) {
+> +			xattrs[i].name = kstrdup(xattr_array[i].name, GFP_NOFS);
+> +			if (!xattrs[i].name) {
+> +				err = -ENOMEM;
+> +				goto out_err;
+> +			}
+> +
+> +			xattrs[i].value = kmemdup(xattr_array[i].value,
+> +						  xattr_array[i].value_len,
+> +						  GFP_NOFS);
+> +			if (!xattrs[i].value) {
+> +				err = -ENOMEM;
+> +				goto out_err;
+> +			}
+> +			xattrs[i].value_len = xattr_array[i].value_len;
+> +		}
+> +
+> +		si->xattrs = xattrs;
+> +		si->count = count;
+>  		return 0;
+> +
+> +out_err:
+> +		for (; i >= 0; i--) {
+> +			kfree(xattrs[i].name);
+> +			kfree(xattrs[i].value);
+> +		}
+> +		kfree(xattrs);
+> +		return err;
+>  	}
+>  
+>  	for (xattr = xattr_array; xattr->name != NULL; xattr++) {
+> @@ -7653,6 +7695,19 @@ static int ocfs2_initxattrs(struct inode *inode, const struct xattr *xattr_array
+>  	return err;
+>  }
+>  
+> +void ocfs2_free_security_xattrs(struct ocfs2_security_xattr_info *si)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < si->count; i++) {
+> +		kfree(si->xattrs[i].name);
+> +		kfree(si->xattrs[i].value);
+> +	}
+> +	kfree(si->xattrs);
+> +	si->xattrs = NULL;
+> +	si->count = 0;
+> +}
+> +
+>  int ocfs2_init_security_get(struct inode *inode,
+>  			    struct inode *dir,
+>  			    const struct qstr *qstr,
+> @@ -7670,7 +7725,7 @@ int ocfs2_init_security_get(struct inode *inode,
+>  		 * security_inode_init_security() does not return -EOPNOTSUPP,
+>  		 * we have to check the xattr ourselves.
+>  		 */
+> -		if (!ret && !si->name)
+> +		if (!ret && !si->count)
+>  			si->enable = 0;
+>  
+>  		return ret;
+> @@ -7687,10 +7742,21 @@ int ocfs2_init_security_set(handle_t *handle,
+>  			    struct ocfs2_alloc_context *xattr_ac,
+>  			    struct ocfs2_alloc_context *data_ac)
+>  {
+> -	return ocfs2_xattr_set_handle(handle, inode, di_bh,
+> -				     OCFS2_XATTR_INDEX_SECURITY,
+> -				     si->name, si->value, si->value_len, 0,
+> -				     xattr_ac, data_ac);
+> +	int i;
+> +	int ret = 0;
+> +
+> +	for (i = 0; i < si->count; i++) {
+> +		ret = ocfs2_xattr_set_handle(handle, inode, di_bh,
+> +					     OCFS2_XATTR_INDEX_SECURITY,
+> +					     si->xattrs[i].name,
+> +					     si->xattrs[i].value,
+> +					     si->xattrs[i].value_len, 0,
+> +					     xattr_ac, data_ac);
+> +		if (ret)
+> +			break;
+> +	}
+> +
+> +	return ret;
+>  }
+>  
+>  const struct xattr_handler ocfs2_xattr_security_handler = {
+> diff --git a/fs/ocfs2/xattr.h b/fs/ocfs2/xattr.h
+> index 887cc1a18b1a..1dd08f979e3c 100644
+> --- a/fs/ocfs2/xattr.h
+> +++ b/fs/ocfs2/xattr.h
+> @@ -20,13 +20,18 @@ enum ocfs2_xattr_type {
+>  	OCFS2_XATTR_MAX
+>  };
+>  
+> -struct ocfs2_security_xattr_info {
+> -	int enable;
+> -	const char *name;
+> +struct ocfs2_security_xattr {
+> +	char *name;
+>  	void *value;
+>  	size_t value_len;
+>  };
+>  
+> +struct ocfs2_security_xattr_info {
+> +	int enable;
+> +	struct ocfs2_security_xattr *xattrs;
+> +	int count;
+> +};
+> +
+>  extern const struct xattr_handler ocfs2_xattr_user_handler;
+>  extern const struct xattr_handler ocfs2_xattr_trusted_handler;
+>  extern const struct xattr_handler ocfs2_xattr_security_handler;
+> @@ -49,6 +54,7 @@ int ocfs2_xattr_remove(struct inode *, struct buffer_head *);
+>  int ocfs2_init_security_get(struct inode *, struct inode *,
+>  			    const struct qstr *,
+>  			    struct ocfs2_security_xattr_info *);
+> +void ocfs2_free_security_xattrs(struct ocfs2_security_xattr_info *);
+>  int ocfs2_init_security_set(handle_t *, struct inode *,
+>  			    struct buffer_head *,
+>  			    struct ocfs2_security_xattr_info *,
+> -- 
+> 2.39.3
+> 
