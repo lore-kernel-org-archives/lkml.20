@@ -1,154 +1,98 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B19F4D6C41
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:15:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9440E51122B;
+	Wed, 16 Sep 2026 16:15:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575317; cv=none; b=QJ+p2djaJmPJHaRup3BV8ubkMZc6B/yS83mATnW3gMBpQyfVytTyODCVXNEmhVrPGxA+EdqRBURxRqmaJ6QoPBsqSQ4Z2FFWWHNzhPwWxVTU09VB+96u99UZM9S9TLwfIjGyl+9MYoj7t6gZlSrN3Uo7QN7/u1WAaqXQ78rD4hI=
+	t=1789575330; cv=none; b=ajPVgmvqUPY9YMuYUsGHHZ/OTtgFxbcdKCxNPjuCsMAWNDucbHXJSf17RZ6UIgZDv/f5kqgc9lqEgt0swuKUb5zBYxZ2DD0OXxyZQoi2f9xRRqezuIwqSYFHdvfDlUEP2lHMPbu8d5zVYLTnBNh3OKGzYJfnE9tsuIpJWROV4/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575317; c=relaxed/simple;
-	bh=VSJMTDKe7CQqLu0Kfw5RN3XzESpeF60SOgxpBgUBlKw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TwDnYuJaIElcbkuIylYJJImQ4czLfGEggHUFQkd+44zAJTKU3FA/HAHNLBi85UBnX0kWQl//OE237FUq8fnYfQRGc+ZHNPLoN20xbxPhDi4jAJ+1+GQQz/a6Kh1RmxZlgh6xdQgcBMvDPBmBnzUMyrf3QCwwL+tXL8b3yzWjxNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V4/fT4sH; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V4/fT4sH"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fb334e72so11244395ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:15:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789575314; x=1790180114; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VSJMTDKe7CQqLu0Kfw5RN3XzESpeF60SOgxpBgUBlKw=;
-        b=V4/fT4sHj65TVRq1ODPlNc7kRBHm3EezpeE8GhM9Ru6IzO8qH65nO28s+gpo46K6+R
-         0vLFm3VrsIMyp6mVF8XRVRqGjkNshVAKOGgkFwCp62voLRjBpYEXcBxIs/VI8dLj4BG6
-         SdgYa3hlTuhOTYilztykgrjG6+K5OWnUl5OFYqKW0jDpfP7kNN5rqOHs2GNyvaxmufES
-         M2W1m3EEe/XgpBivfMDyCy3LUVy5w7KPIA0yoJEyW9SAXfBqIadUJx4TmSJKYM3sWfc0
-         Dlu7wV7PXCq461838YMx3ELKVDLFNgHQl+f049LUZzczqfkuWGCAIFg+K2TGnJExUux7
-         UYCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789575314; x=1790180114;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VSJMTDKe7CQqLu0Kfw5RN3XzESpeF60SOgxpBgUBlKw=;
-        b=U/+1obOrwbmQekSBXaAh8ncmV1HpCjWEsQqdeHwsMHxVKycuKTp0rdHV7PaiItNTPq
-         DFOTGBn1ssFtv8asNwuRLTrYe8p4CjGfUvNgJVW7K5KXQNLHrV+IIOe+E9FueRM7NDuT
-         54EyJ1+WDHbz/0rE0nJt3cvkKQcSqby0AdsBRhruko9u6A1zUOzKO3TVi/zeM87WSsBn
-         32Xq+3X7HSIeH4k6SfM9SlW/tXYB1wN+2Acy/CQ2VDV6pCwvJ0YSolxt8xR+y62dVbAP
-         pchp0pAsOVxSN0k+iN3mFVGciQY3jAfkBc2v/M2qtGc3k/6wYXFs9gJ7LTyY/Gu/TbL+
-         Mx9w==
-X-Forwarded-Encrypted: i=1; AKwUvByozDzGxldlXE6hRctLv3pyRVachOHqGxq02AbbkU6pYz9UWqmFYUOHnUQ/0MIUa8yiZOZcOYze5eUSdqk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0NoZ0e9eh/ORkWBe2bX6LjFcxccNLI+X3R3cFxhkQwM+Phi5j
-	LqtCPwopnlOUrL3+9WaGxrCdxOLWmrv5mo8TE2VxnwnUU21mYAot0ZH7
-X-Gm-Gg: AYBFou1VUxbHOA+Ft1oF+zAD4cDRrYUQ9M1s4nQIJGPFQg83NmhxuIrhyrQYbDwOxWe
-	4CUHAE5yFdcEKTdoHcX5lCkjgKhDiCtpJxE5R8L532rE5Ejyn5JNhoVWCER0R37C3KW1+cGTc+2
-	6sXV1LL2x9o9hsCxPCKlt5e+QAtPzucfdzjBANT1kTPDSNNjiA+ej+iLYhsjCNvoYBoyqKnx+CR
-	+e51KZOOa0tU9f4VsXnC4a/LzKo7uS8dbDUGp71VJ4NgW1mnkTIg9Q6pWfxW+c0mJtgMfj+wvan
-	VCo7MncF7tQ0npoEOc0rrAPByO+R9IEmRbIJdYye6EtYe6QQgueZm5UI/FKbKCQEPSQhhsF52OQ
-	JY2n3++lsoLb6K5eMxuGPggeA18TQaOZWRHErXRGE0P+aGZyGuIB432tP4XTXRHFK61RjFkoN+t
-	xHr2yZ0Iq325fGKXIcFCovSLBH1u8Krac8H2X6j9ae5k9LF/LeZYaw7tZvsA+qESklKw==
-X-Received: by 2002:a17:903:1a0b:b0:2d8:de9f:9a44 with SMTP id d9443c01a7336-2dd8e7a4eebmr77883505ad.19.1789575314262;
-        Wed, 16 Sep 2026 09:15:14 -0700 (PDT)
-Received: from jm-X870 ([2001:e60:20dd:7c28:de1c:fff7:d3a4:d8c7])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f06be6sm14690515ad.64.2026.09.16.09.15.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 09:15:13 -0700 (PDT)
-From: Jaemyung Lee <ldc.jml@gmail.com>
-X-Google-Original-From: Jaemyung Lee <jaemyung.lee@samsung.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Andreas Hindborg <a.hindborg@kernel.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	bjorn3_gh@protonmail.com,
-	Benno Lossin <lossin@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	work@onurozkan.dev,
+	s=arc-20240116; t=1789575330; c=relaxed/simple;
+	bh=ElMhvI81mHxcd0OH/PIRl5sxZRu/bgqaqH//V3yOZlE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XljZhNL5tj+R6PabW1BbS+6XiuemY1Zelq5WcP5sVEsV3+ruSDx8qd9gtt7i7nXDn+l0bL1nX82a+PPMOy3O+cP/D5DJ3R5Sq8FGXg/bygmrFPRuwA6DyR9Aq3xdog1y4XTvM65CuE6MQwgJxDQNmVWbDP04hFdmZldm0SyTyDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACH7zmawKpqmHptCA--.21809S2;
+	Thu, 17 Sep 2026 00:15:22 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Michael.Hennerich@analog.com
+Cc: andy@kernel.org,
+	dlechner@baylibre.com,
+	jic23@kernel.org,
+	lars@metafoo.de,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Bean Huo <beanhuo@iokpp.de>
-Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
-Date: Thu, 17 Sep 2026 01:15:00 +0900
-Message-ID: <20260916161500.2554458-1-jaemyung.lee@samsung.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <3c1c0025-2a88-463d-8aeb-6331dd09bad3@acm.org>
-References: <20260912-rufs-private-v1-1-716db733e655@samsung.com> <YKq4TcQM0v2dXF4wTHEvZKwASII6PDd_R7_UiHWe3NRnR4JsrC_ZS-x6jA_Kl7P6ONehU0REHYk7WaLz8Xv5gA==@protonmail.internalid> <2026091124-treason-trickily-bc52@gregkh> <87mrtmvioe.fsf@kernel.org> <6JMwZ4EuSfQ8V4TGaPwatQ31m30TceLJblORsuILQmy4VV8Fx2lHbihL8ARsRUuJmaSUqek8L54y4Nk6DuZMXQ==@protonmail.internalid> <bdcff6a168e6d4b8e9c9524bd598281817a7df2c.camel@HansenPartnership.com> <87eceyvdnv.fsf@kernel.org> <RJ3H-1s-vh5YR7DRuPZ6p050ld3umNGcKNeBigg7n3KUQt1WJ2C-sR9kEqrF6f4ubj5AHoHNvB0MRGJyw6tf_Q==@protonmail.internalid> <77e00073a9254d5ea1ade771590da81a859b75a6.camel@HansenPartnership.com> <87bja2v5g6.fsf@kernel.org> <ba386a0a-8022-4c3f-a1c1-bb22205b51d4@acm.org> <3c1c0025-2a88-463d-8aeb-6331dd09bad3@acm.org>
+	nuno.sa@analog.com,
+	stefan.popa@analog.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: adc: ad7606: Fix trigger reference leak in ad7606_probe()
+Date: Wed, 16 Sep 2026 16:14:54 +0000
+Message-Id: <20260916161454.2082753-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACH7zmawKpqmHptCA--.21809S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47ZFy7Xw1DGr1fKw1xKrg_yoW8Gr47pF
+	s29FWjkrWYyr18AF4DZ3WUCFyjyan3KrWxuayUZasa93y5Zr1Y9F1Yva4Sgr18ZFWUX398
+	XFZ3Jry8GFWUAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JV
+	W8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
+	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
+	sGvfC2KfnxnUUI43ZEXa7VUblAp5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgIMA2qqok9NWQAAsy
 
-> Since my question has not been answered, I assume that REQ_OP_DRV_IN and
-> REQ_OP_DRV_OUT are sufficient. If REQ_OP_DRV_IN and REQ_OP_DRV_OUT are
-> sufficient, there is no longer a reason to implement a new UFS driver
-> subsystem because the upstream UFS driver already supports these
-> operations, isn't it?
+The reference taken with iio_trigger_get() is only dropped by
+iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. If
+devm_request_threaded_irq() or triggered buffer setup fails, probe
+returns before the mode is set and the trigger reference leaks. Move
+the iio_trigger_get() after those setup steps succeed.
 
-For a private device command, I agree that `REQ_OP_DRV_IN` and
-`REQ_OP_DRV_OUT`, or an existing UFS management interface, may be
-sufficient. The purpose of this RFC is not to let vendors add commands
-without JEDEC, T10, block-layer, or filesystem review.
+Fixes: cc49bd1652a4 ("staging: iio: adc: ad7606: Add support for threaded irq")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/iio/adc/ad7606.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-The RFC statement that there are features which do not fit the SCSI
-mid-layer was too broad as written. It did not give a concrete example,
-and the RFC does not establish that a new subsystem is required.
+diff --git a/drivers/iio/adc/ad7606.c b/drivers/iio/adc/ad7606.c
+index d9271894f091..2deef474001b 100644
+--- a/drivers/iio/adc/ad7606.c
++++ b/drivers/iio/adc/ad7606.c
+@@ -1638,8 +1638,6 @@ int ad7606_probe(struct device *dev, int irq, void __iomem *base_address,
+ 		if (ret)
+ 			return ret;
+ 
+-		indio_dev->trig = iio_trigger_get(st->trig);
+-
+ 		ret = devm_request_threaded_irq(dev, irq, NULL, &ad7606_interrupt,
+ 						IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+ 						chip_info->name, indio_dev);
+@@ -1652,6 +1650,8 @@ int ad7606_probe(struct device *dev, int irq, void __iomem *base_address,
+ 						      &ad7606_buffer_ops);
+ 		if (ret)
+ 			return ret;
++
++		indio_dev->trig = iio_trigger_get(st->trig);
+ 	}
+ 
+ 	st->write_scale = ad7606_write_scale_hw;
+-- 
+2.34.1
 
-I reviewed the feature examples we had in mind. Some, such as WriteBooster
-partial flush, fit the existing UFS Query and sysfs paths. The public FBO
-review also does not show that SCSI blocked the feature; it raised code
-reuse, ABI, userspace design, and implementation issues.
-
-The clearest public integration issue I found is zoned UFS command
-selection. The earlier discussion about using READ(10) and WRITE(10) for
-zoned UFS exposed a conflict with the ZBC requirement to use the 16-byte
-commands for a `TYPE_ZBC` device. This is a real JEDEC/T10 integration
-question, but it can still have a focused solution in the existing stack.
-It does not by itself justify another UFS subsystem.
-
-One of my main motivations came from product work. Following one failure
-often required reconstructing UFS, SCSI, block, and device-PM state and
-callback ordering. RUFS tests whether a UFS-focused request, recovery, and
-PM model can reduce that coordination.
-
-The current RFC cannot demonstrate this because the complete EH, PM, and
-userspace compatibility paths are missing. I think the next evaluation
-must also compare against improving `ufshcd`, including focused UFS hooks,
-rather than assume that direct blk-mq integration is the answer.
-
-At this stage, I do not think the standalone architecture should be
-presented as an established requirement. The next step should be to
-document concrete cases and compare the responsibilities of both designs
-before investing in a complete second implementation. If the same problems
-can be solved cleanly in the existing driver, or if RUFS only duplicates
-the existing logic, then a new subsystem is not justified.
-
-Your comments on the benchmark are also valid. The test system was an
-Intel UFSHCI 2.1 controller with a Samsung UFS device, so it tested SDB
-only. The randread result had high variation and CPU/IRQ affinity was
-not controlled well enough for a strong comparison. The data should be
-treated only as an early real-device normal-I/O check.
-
-Regards,
-Jaemyung
