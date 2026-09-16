@@ -1,160 +1,128 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B790358368
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:10:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A6E3BB69A;
+	Wed, 16 Sep 2026 09:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549814; cv=none; b=m1lHQVKBI35RDSOnlSgyfUu/5sJZZE/MOfCK2zVwu6bRZpZnf/XyvtmVT1rok5bfZXsATST45Dk+tXiVOrgIexcW6W5CsZeas8MSydZy/AtJ0utLPAHAXXmMigsNjM5DKLVdz1jXuuPaxOnBnzMyUGQZZPjYOf4fim4hfsXUSgU=
+	t=1789549822; cv=none; b=CvSj85aRspnfzFQ6ub5RJ+cViJxRTAgODnYTyVPwYGPD4zJlRabGYSP0qQc0HYn2amxQNE06CARo9Nlaz7wQNUhMZQbjcKi+mK3v6hZnsTK+jF/IQMU+vKwcomvYkEBsDZQPl9g/joKvFezuHz1hwRnoTU+7BDnBeuWHBYL6/iY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549814; c=relaxed/simple;
-	bh=X5pF3A7h9wkn5uahSdbhngWdpSiTYJvZ0s+iTq5H2Lc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h3DBH60z7cfFL/+CtTDRuQJw6t5pyft8gN0BoD39cRTjBjEpB9ke1iLSQnEb0wYk/z+1TUznikdYzo3Xgin9H1IBVyH+Ti/UDfU5kW+RCjiq2NuTNk2zdA5b+OJIfDExbqH+qpYCYEPE0pWl7m2/xRPLMU4ogx7bAncTc82rfng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f10QwLbF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YD0GW8xT; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789549822; c=relaxed/simple;
+	bh=3l4L+12TqPxPoIbkfReRDGgXM9Hl0sPvjnQqrdSEvtU=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=JUPV00LEjLr8Fe5C/Dx58qVLQQsnQ7tXXJ/zidcIM2TPaIygc+sY+pZo/nZvassbUiFFcBdNwc6QoUkXKHjMqS8heLOfsVAauQ41C9RyhmoxrnzFO0aLS+yInHg70ZlkJylmL9HPblJB4A2JqxTqSt6+1JVaTlaHNND5sZ+VbHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=CwusOGzY; arc=none smtp.client-ip=162.62.58.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f10QwLbF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YD0GW8xT"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G92gmm2348128
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:10:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=1NmUklAtL1cxikroewbZT51l
-	w6No/wycIXEfydBGSgE=; b=f10QwLbF6UnpDxNXkivB2+dPWQB/yGSJ/BpBsQb2
-	hXEbWSuCbmn6g5x++ILtUj60VR/hPD9AaCTCgEnbTFuvNcfikaFCtTrhTOoAzTs2
-	FYoIyW/c8mb7l2P+PS8tJfu3vrHZcVe37p8m+6udDzPVpMcya8tnakA/i0msMUG+
-	lvmr3RCoP6cbl7Fc0kecAfnr6g1VWcJKSRr++OUi6E8pW4m4vX8oMSzKudX3Wu2S
-	f7R44FWlBGdlr//8kl7ZC3PbNjt42203ThqDvSFKXIBkO3qKxeZTMJYrOFVdM6Ci
-	hXFfRZkFo5P7ME6uebfnNZ43uRL8QKnVkwMjsRPU+P/4wg==
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqdywaebd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:10:05 +0000 (GMT)
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7e9fc6dc091so5600700a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:10:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789549804; x=1790154604; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1NmUklAtL1cxikroewbZT51lw6No/wycIXEfydBGSgE=;
-        b=YD0GW8xTvoJM1JE1q9FdfCX6XYsIy9ViBikQiAIm5LUHzgE12gvyEVmQTaK9BV00rK
-         wG0HZ+4dtqX7WRZnyL5xvf/kgEECQK3kEE7cKkCjCaNTX9rmIaHupYooQiIixOn3mW5N
-         WHROn0lFzY/DJOPr+cR1EVxJ6uwmoG9FfZfCPAVmz9nI0MXBS6fEnXlt+YsiCvRcdk6X
-         TYCikKPuopeaH4xoi3UwF6Tyv4MILRexXyupeM8lcoWvxUEzIOZ3Wqcb9+AfU6TUgTQH
-         X0z5qUmvyf5G/3YAxbhygUrVaG8nnEFRn58f0RcXa/fJ0W1XQZBRQ3ioThwPydtKx17J
-         U51Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789549804; x=1790154604;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1NmUklAtL1cxikroewbZT51lw6No/wycIXEfydBGSgE=;
-        b=h/QtxsgEZQ3RhusYMfAKb3cy7URPkjMNMEyPNf/+x3STuCV8ZZqNktYSFq12t0N1rT
-         aCDzdJjd+wDZ8CLkhMojLXLYdDwRo2JZklRjQqjauryyI5aFBdmeHKMv8m6CVcDas5Q9
-         mz+FapTnSWEVwpTYWCNIgCqjC0qSRXyCbjDa8Tr87UnY67BsaGxgv/Y4o3Hn/L1mJ8j0
-         vAA6beDq0F2MwjB5wiP03Hu3+3BZXJvZQO2rE5WiAyTgMGwyz7UpPh3ZMBjLGevtLxNR
-         WYbWayRWQvJ7Pgux5ccc1Drlw35I2JOwJdgtrNIynee5d8sG2OgwAZMRTF01AD59dw0e
-         QcVw==
-X-Forwarded-Encrypted: i=1; AKwUvByraQGz+mDHQ6zwLYSXNOHMH1QxxZAnhuxu66WAcrk9Dnw4bq6yfFKuH/WTpg+ryYgrlvsfwvFlKUeywdY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/hIiW5zGOZAYsq4OgFAOLR0DXABUtpj7/jUFm7bXRNP17YrjE
-	l5INa2XL/BsyA8Nb/OeqD1XB2rBSFiRpE2EpEkSGqk2GUdySoKiz0XMwpqrjQMUgf80PiQ4bHG6
-	VuP5Exo0JGloHS0ji+U2ScvxDh+mVTpSko6XEW+51cNsb8Z7hDxQGwhpNXzLElSrkI18=
-X-Gm-Gg: AYBFou2dICUYcE/9LmEjTId0jNUlneGvEPeRW93JxYLQCXgraSwkE734oEl84AVVs/2
-	dVacoZiyRpfMeEOZkHWvI7mmUDq/vj1aOLomVYOuLmLVfNNHj0gd8uDYD6+tAhOm5OlZCjcgdIw
-	1Q2hBx+desznjjAq+MjAE//vk6iWykm4n3xq0BCj81qAwCrq9nHJ5MPNbqFxxW7TZwjQoKv4PY9
-	ZfRCX834koycGhlvbE2DOAzdTvlkW+CR9AlzifuX6IpOwnp92s2osfvHFl4H5Bpqqb5MhUipAlD
-	pdKwswf4EUn0oKhd9NA8bIw2OwsXHm5Tc2fphnBMmd4YnKnU2mL9Gf3dOS+j5UkhczBXDO2OT8k
-	bM1KNeCRzEYNK7456apmQM93qAuz3HC0N7uIysFAOkvQ=
-X-Received: by 2002:a05:6820:180c:b0:6bd:e592:2c74 with SMTP id 006d021491bc7-6c7d45ed069mr1787686eaf.55.1789549804409;
-        Wed, 16 Sep 2026 02:10:04 -0700 (PDT)
-X-Received: by 2002:a05:6820:180c:b0:6bd:e592:2c74 with SMTP id 006d021491bc7-6c7d45ed069mr1787671eaf.55.1789549803916;
-        Wed, 16 Sep 2026 02:10:03 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5ad9ed5sm6791317eec.22.2026.09.16.02.10.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 02:10:03 -0700 (PDT)
-Date: Wed, 16 Sep 2026 17:09:57 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: nord-rrd: Add sound support
-Message-ID: <aqpc5XuF8U-m9zWm@QCOM-aGQu4IUr3Y>
-References: <20260914024003.120931-1-shengchao.guo@oss.qualcomm.com>
- <20260914024003.120931-3-shengchao.guo@oss.qualcomm.com>
- <d2d2feff-4823-43dc-9014-099e69195280@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="CwusOGzY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1789549799; bh=uexswBwLq71x1NaD3JnEGJZAfUbja5b9Uucd3D81usM=;
+	h=From:To:Cc:Subject:Date;
+	b=CwusOGzYZZtUjVWPzJHZvRpI2fOpxNTfChQ5hHhzZEniEab32TtHHJp5U02GV1SGY
+	 TEvsKbW1bo6LHmOJm++5lLv5XWyIBI6v3oFeqoUZ83s+ZOASx1MQupt21a6wTfvUHW
+	 NQlBtND6awuRHL39IbKHUkPpRC85ot92ZjkikjNc=
+Received: from WIN-U8J9BGQPJ22 ([61.136.26.125])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 277B8E5A; Wed, 16 Sep 2026 17:09:55 +0800
+X-QQ-mid: xmsmtpt1789549795tlfyoknkz
+Message-ID: <tencent_24D928451FEFA8A35482EFFA9132A7305307@qq.com>
+X-QQ-XMAILINFO: MqG4KXyEKpQymgVBiGLJdwL6G/klle7eS9J0OwljW0bjYLKOWnWf0aFNP+9weE
+	 V3O0Q8/a6Bp4QUTNwehf/0bdNXzsyuwFH8gFo4ZUgapNDNuctbcyeMpqPo302noVjzW55xTK/5KN
+	 NPPhVt6B+e0u8owURMVI7IkmuK0J8IZoEh/WfY2F19faaOFzlns3OhcK54+A9CM9VKUakYPRUHeg
+	 PpRcCCe9jEODtqSwsT69WhXMl4LJX4eOHFq61FQLnHhg2QspDPzpepV6jM7Xdzq1e4iDJv8wQOai
+	 RtmxsXYGKekV7YFL5529S+mSb+3ZlyFZuhDCgb7vwPu/T4TqRUmEIgFGM5csV6RTi6Wrstzqjac7
+	 ktVkNhEX9LAbbbyji18zk+XNTB73cyORuqXUm/zJpoRY2KNLco+bQ0bALVmAOQ2jUvbUyqCteD0Q
+	 0lrEstFq1xFhFOWbUBdDWpnkSDvH6nVR+TBrZ4NfPgF/M4l/sAdo17Us5pcHCO0pdqnF2W5OhcHE
+	 QvDCpo8552k7mQOifTuGs2YII9kfx5cMOZ/dYksX1rxZXW3UgYxCNy3Q+RzgvLJEeBF+aSrrzzjW
+	 K3Q/+xD98GD50LTTSJU1p+NPTDpLXeIqdMc2aVcGGItih+Ecoqv7pNSRIQ6s9xuh30ifdLBYfs+R
+	 2WFS36K9QVQjWPMXeWYl9Msv8uZ6gdCqBpt43HjZLRe/om7IpJ3VWn/Fam7FF2dvybJ4Cl46IFGL
+	 wEmx/7Ek9YCUExn33zhRo9KqKngiX4AmDjiO7jYOUpuyujzRaXRUQaywPJz0abCHnDFOxRj1Fhfh
+	 xSdvowzm8jEoG+jr2O6bVOI9Sj6eeZ5j0vK4TRFQD5PJPYTrQlqXPxE01rT+V8HJONO4DcC1oQX7
+	 /R5nb6SCWRlWOl8uYlzZLP+HfxUjTtgqEjlQECUWNhDP+ObsNwgHyEcgA2PjVoslC6p/4OVS7htf
+	 x60vkg0OGqg8Ze769SvBSBrPF0sXg2nwqcyHafC7exfg5waj9VKK3/91JHSOZlVE5AHoWMBuTnbn
+	 crpO9X/8tNLwKazggLjPQ7+1i4brpKH9hgrdR60+mgtZmmI93Ry1sAdSshv3d16v5DoMUxtQ==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: 1sh1ro <yangguikun19@qq.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Yangtao Li <frank.li@vivo.com>
+Cc: 1sh1ro <yangguikun19@qq.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	Christian Brauner <brauner@kernel.org>
+Subject: [BUG][PATCH 0/1] hfs: crafted image aliases typeless internal B-tree inode into VFS open path -> kernel BUG in may_open()
+Date: Wed, 16 Sep 2026 17:09:53 +0800
+X-OQ-MSGID: <20260916080000.0-hfs-fix@localhost>
+X-Mailer: git-send-email 2.53.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d2d2feff-4823-43dc-9014-099e69195280@oss.qualcomm.com>
-X-Proofpoint-GUID: 1MpkDyi6WN8bI0Av3X8LHN4mBC_Y9rJM
-X-Authority-Analysis: v=2.4 cv=aJ1lOr9m c=1 sm=1 tr=0 ts=6aaa5ced cx=c_pps
- a=z9lCQkyTxNhZyzAvolXo/A==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=K4Jvm2uu9IkAFHIyoRwA:9 a=CjuIK1q_8ugA:10
- a=EyFUmsFV_t8cxB2kMr4A:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDExOCBTYWx0ZWRfX/kcFR1xfaZLz
- FO7mecMQuwOJnlPyCKU/Wz5H/IEhl7eeDH440G7g6lHYGvdOs416ERHtaXfrUqstGgxNcTUZTPm
- hIt9HRnSBZLYVjhp+fZpcuKcZ4TiTt3MAaudlXxgBmN0SNIHZtY2kQzfwUevtuIWkA4JbilFlOf
- 7eR+/92fCoKbtKqpOuNcTsyFR91roAM8WPLn4UZdWzR6KnakADmKNwi4mkMknQaxJkhg52OiBJR
- fDOBiQlDdvWWcZsjdnyPXZIY//JLFjjNisOdFv0QLvBKTVdfEQisAHqhysVKFYghG0qUevStmT/
- BVRf3JAc15G2vxDq/SRN9JM18im9pX3chuafsthZkPAjKnXSYoIR6B5xtxTUVmd4GIi70UFKZhX
- mF9BlsmX44HH51rpfzSvx2hsL19ItXBUKmrTGHYrnbYnmYFmWloetyOJI/1gaGrbZX83XF2xlR7
- 7NAlySyaId4IyMMr+Gg==
-X-Proofpoint-ORIG-GUID: 1MpkDyi6WN8bI0Av3X8LHN4mBC_Y9rJM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDExOCBTYWx0ZWRfXxJNgJNlZvMsd
- MLmTy9NqyELjBKb6MX1Q8AmHeaqMcbJ88MNRYQFm0NinXnHL1BUzgNDIqSn56bYaA0Od2yb7iXA
- dcxu8gFnI3mdQFHdaXnfaQCk4wFbYSc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 suspectscore=0 bulkscore=0
- malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160118
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 11:01:36AM +0200, Konrad Dybcio wrote:
-> On 9/14/26 4:40 AM, Shawn Guo wrote:
-> > From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> > 
-> > Enable audio on the nord RRD board. Add a soundcard node using the
-> > qcom,nord-ride-sndcard compatible with two DAI links:
-> > 
-> >   - PCM1681 playback over Tertiary MI2S RX
-> >   - ADAU1979 capture over Tertiary MI2S TX
-> > 
-> > Add MI2S pin mux states (data, SCLK, WS on GPIO 73-76) and the MCLK0
-> > pin state (GPIO 99) to nord-embedded.dtsi so they can be shared with
-> > other nord board variants.
-> > 
-> > Add PCM1681/ADAU1979 codec nodes on I2C18, with the PCM1681 system
-> > clock supplied via MCLK0. The DAC control lines come off a TCA6408 I/O
-> > expander on the same bus, so add that too and hog its dac_enable and
-> > click-pop-mute-n outputs, both of which have to be asserted before the
-> > DAC produces sound.
-> 
-> Sounds like something a driver should ensure?
+Hi,
 
-You are absolutely right! We will try to control them from pcm1681 and
-simple-audio-amplifier driver.
+While fuzzing mainline v7.2-rc7 (KASAN + lockdep + CONFIG_DEBUG_VFS=y)
+we hit a deterministic panic-class kernel BUG in the generic VFS open
+path, reachable through the HFS filesystem with a single crafted image:
 
-Shawn
+  VFS_BUG_ON_INODE(!IS_ANON_FILE(inode)): inode:ffff8880206c5740
+    fs:hfs mode:0 opflags:0xc flags:0x0 state:0x0 count:2
+  ------------[ cut here ]------------
+  kernel BUG at fs/namei.c:4271!
+  RIP: 0010:may_open+0x2ba/0x480 fs/namei.c:4271
+  Call Trace:
+   do_open fs/namei.c:4698 [inline]
+   path_openat+0x1600/0x3de0 fs/namei.c:4863
+   do_file_open+0x216/0x470 fs/namei.c:4892
+   do_sys_openat2+0xe8/0x250 fs/open.c:1368
+   __x64_sys_openat+0x13f/0x1f0 fs/open.c:1385
+
+Root cause (verified against source):
+
+  1. hfs_btree_open() (fs/hfs/btree.c) creates the extents/catalog
+     B-tree inodes with iget_locked(sb, HFS_EXT_CNID / HFS_CAT_CNID)
+     and never assigns a file type; hfs_inode_read_fork() does not
+     touch i_mode either.  Both internal inodes therefore stay cached
+     with i_mode == 0 after every mount.
+
+  2. A crafted catalog record whose DirID/FlNum equals 3 or 4 makes
+     hfs_lookup() -> hfs_iget() -> iget5_locked() return that cached
+     inode (hfs_test_inode() only compares i_ino), bypassing
+     hfs_read_inode() entirely.
+
+  3. openat() on the resulting dentry reaches may_open() with no
+     S_IFMT bits set, hits the 'default:' case added by the
+     CONFIG_DEBUG_VFS series (1e7ab6f67824) and panics.
+
+Note on visibility: with !CONFIG_DEBUG_VFS the assertion compiles away,
+so the same image merely yields an openable typeless inode - which is
+presumably why this has never shown up on syzbot.  Current mainline
+(7.3-rc) still carries the unfixed hfs code; the issue is not
+regressed, it is simply old.
+
+Patch [1/1] fixes it in two steps:
+
+  - hfs_btree_open(): give the internal B-tree inodes an S_IFREG type,
+    restoring the VFS "valid inode type" invariant for every cached
+    inode no matter what the image contains;
+
+  - hfs_iget(): refuse catalog records addressing the reserved B-tree
+    CNIDs (NULL per the existing convention: mount failure / -EACCES).
+
+A self-contained syzkaller reproducer (embeds the crafted image,
+triggers in under a second) and the full C repro are available on
+request.
+
+Environment:
+
+  Kernel: 7.2.0-rc7-00232-gdcb68831eac7 (v7.2-rc7 based)
+  Config: KASAN (inline), KCOV, lockdep, CONFIG_DEBUG_VFS=y, SMP PREEMPT
+  QEMU (KVM), x86_64
+
+Best regards,
+1sh1ro
+
