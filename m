@@ -1,379 +1,156 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013034.outbound.protection.outlook.com [52.101.83.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2354F4AF148
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552214; cv=none; b=S7NGH0Xl537odlHVH0xQ2PJ9ZRLHur9g+mWeWn3SX5l+gCSvVLI7N0olUWoD+NPN8ZGMMXn/Pm+66+gYU+Y2fHTQw2/xtnk/slgzeXALbZk/jY/gR79TwzqhFViyH0Jw8eqD9vJ+uBuS/OOl3A6od/HFZQhCigVuc3U+WAyIA1w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552214; c=relaxed/simple;
-	bh=yb6+4huqL0zgwzOQmfLYH6xAcyTr8AdHsewuHImzmg4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gnf1dqT2uV33R4FlxAppm5VBtyaDXJvw72G282XNlFD4U8ulB+4mjkqOxqLQDhsznQhG1sfjM6LG6mUZuxQXcHfkLzd8oJ7+tBGO2/yQkUoj0r6T74UT7nbqWioOd30JQdbaVwzsUDZTZvpo082jGW/26ENmDTtqICzIOeefgYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P9Ra/MpD; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4424ACC9E;
+	Wed, 16 Sep 2026 09:50:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.34
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789552230; cv=fail; b=eEqMboR+LXYaq5Mi305GW0O3QT7Agm0ahfND1gV31O6FOW+6eDpmRNevNH/7fUGS68XnsI8I+mcrJGIUd5Au8Rb4Es6uIXMdcPe6YVD6kxJvwB2FB/tywy7Ym54vFu2oUisDB9a5Id30FLb0bk+QMxf4zzSoi6/AbesGKRs82Gk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789552230; c=relaxed/simple;
+	bh=jo5VWYWQfh9X1CmHTV2oq2dQXbnKQcpjWuKaHyZ2Ysc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=KS5jZVAAWh2TguagKH2x/DwLEoHCzIKUHyAgL6AgXJdZ3g5uVcAJiaRXMRRKLFGGmxBdUk8vtOe373XpgzwzqhM+iR+KhoWqcCYx12vjJdjNI7eDI98AV7b6u5rheW2ohaXSmE5mMfJb0JlndQcjlRmEO4hPZLznZQ4m4cvOQTE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=QhEwhFY2; arc=fail smtp.client-ip=52.101.83.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P9Ra/MpD"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso8336905e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:50:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789552205; x=1790157005; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7bkQ2UD6cgUEWaO8D2iJnysxMPIRCpoJcts2P9y/bjQ=;
-        b=P9Ra/MpDuRDIDXsO99qpXc/iafAI4ZnPrynpUCA48BkmZdE0A6vQRMYlyBESgrtu1f
-         c5sCi+Qwn4QIdPL3aG3U9NeJGcp6mq4o393bX2Oux8eZQk3PFyPipMNa7+AlAJLRgoCn
-         TcPfZkNZ9RcZJ6vPhZqjCGA0NgJgqzS3TxpZeGI/oPSFEwOy4IUt443Gz60zDFZybiBp
-         GH5TRhOPHEnqAOqXo4VPkI+KwBFylNLwTn7tTGPxw2rIeNMc9NXyii68iksQsnT4t1Yd
-         4IAZkEycsyjEP7kWZM17V1O0bpiJCmJIi/PVzlO1BBKo3dNWiB7l+NYRgSpuUIXPKICS
-         Y+Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789552205; x=1790157005;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7bkQ2UD6cgUEWaO8D2iJnysxMPIRCpoJcts2P9y/bjQ=;
-        b=lugm4UHWMwnVXH7aTZFYqz9xt24gqSa5mZvpQ+pF9A6+/SDtkeGu22T479L1frP669
-         SOGyNFWl/iKWOACu02gUOtdnWZg8qPysYjGmc71eddiVoU0FtVXtJnjR3tpR+1KBGoDO
-         ck2Z0nxO8LMyFws4sbl10cczC47yEijwwXNwz2lkW3wZvducW8nJ+arnTBdHxzfgFdO1
-         yQdKXkD5MG3pohy9QTXo/IhHzVkmh4/LiRqnT0R7lvK/tK/9AeTnfYImD+49y9Nlmyne
-         om8Mtbz9TiIu1Iq3j95dAzhOZXMVRD/22PqoTqyUZsnMhc7QlWyya5hrLkVipjveUY8N
-         QcJA==
-X-Forwarded-Encrypted: i=1; AKwUvBxgSJR7c7HLX64zAbi7NDkDFc10sx1sYbq0xXzpoc9w87iXAp2chgOYRX1m/3eQHUs8SCxEeXYTecbNJRA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOEqYlmIZvvvS1VdHb9ueZ/dyg/tx4N0kSBoM3RjsvcJCHTzNd
-	CJJcgxTbGU7UI+G8UXDmKzS0Pi6MsJSsYYtn267p5ty/aizerkY/diXg
-X-Gm-Gg: AYBFou0dZs1ryiYckHe/3UuUj9R9NSx/R7AlD6uiyATS9hf7Nkvk3uyPs5bN9jXCuuU
-	G6FT4RZoD3I+cmVhy9+erxD5iJadVoRgK+Lo0XPrYBR5/R4yHVireftekH3Otr0rcKNJf3Sn7ad
-	cbZYiMJZGWOKOwf8dr/XubLo7rgNgT+L41A+KwRxksfe8cylBUpJWhGNKQgZJteZGEUFDNQNsp2
-	62BYq/Zi8bIKXdl7sm09d+kWha/xzPbfyEOf+9KABsXNPSRBL89HJaHv3hqgPMsKKdbGhSuWkHr
-	7DJmMvZ2PPpw+h3tGuGlaKzF6GdIpRM4tZ2g5cOSp5NZeOEeKf/bE/loYMV/VhA2rD/cwh3k4Of
-	LVYpjlDmFLaB8Yv564vZXEVHMPX69N0o11lVydB8xJHprTjms9sp+4Zzz2mpDNXHhzofFC8BqGR
-	5AWkvONqbaLTTAIhI0Chpaj/nwrLle2en8B0NUOqlW9+PldIqsCfbR/BufCOEk/Xi0t/FZcG/EA
-	k5PvuXULmHzNuu4Yq2sckejdK6655rQKOFSEY5sNB4K14kOcWjvmzRJopfaMHuXs8Q=
-X-Received: by 2002:a05:600c:1551:b0:49c:f512:2361 with SMTP id 5b1f17b1804b1-49eb733721dmr36943495e9.14.1789552204263;
-        Wed, 16 Sep 2026 02:50:04 -0700 (PDT)
-Received: from moosama76.. ([156.193.15.50])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83d9057dsm73920415e9.3.2026.09.16.02.50.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 02:50:03 -0700 (PDT)
-From: Mohamed Osama <mohamed.osama189110@gmail.com>
-To: rust-for-linux@vger.kernel.org
-Cc: linux-block@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mohamed Osama <mohamed.osama189110@gmail.com>,
-	Gary Guo <gary@garyguo.net>
-Subject: [PATCH v2] rust: mem: add DropGuard
-Date: Wed, 16 Sep 2026 12:49:59 +0300
-Message-ID: <20260916094959.538394-1-mohamed.osama189110@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="QhEwhFY2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ln4IQU2If6MKG6Fyzhn3DHeYGVVzCQ99hZGJOxdGPaXLyXe4ujf0A612dKODvOu6UnMbA51uTxa4IyTQiWUzxRS3SocwlWWPWiXdOFqmQ8cL65BH6X02Ua449Em8eGMehVRXDKZZ2NfwkTvRTjwkt/TP9cHX7WN7w2nEb8VcVJy4Ai6Ijg6nC47+QNzy4r0BE9I0oim6IG4kXwWlLtaUY2T9VbA9T3aJR5F57ZYtTGdps9bWwbRZetIhHpyn5tNC93iPK6xC0Oyx9rlUWZ/kDzU4LBi0Q3MVaaLaCZ1KqNvlnDqdziAKHMqoVHKVe1qdfxPkyi02TjjfvraeNcuXTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2+ONQNIXnZqEFz0HGqTuJo8oKP1yaa6WikAVQrF15Rg=;
+ b=wRpomZqGUdgiec6q07YXt01HwFYm2FnevJ59qiGBE17Wys8DKYS/wjN2lg6qC9+/jQ06fKn8X4vGUj1CZfxnlnU0MvlIrp+DspBbdw972wInXMd+rFsCmXjZqJYn3VMWWR2BLEGuI46n1eEOud+FlzQlToe77V0vXCZJ1yqYcp/28g+WdOvsnjyhyQx6pPpAHEaWrABRHH7bXymGvGV5atUlth6OcZgSlUjkKWy3xoLYJpzu5RCzBTpmkSeOCcjoszVkwq2SEJudC1Rn8459RajKzSKIFF+n9mcXBv0qucjm4pi4sNbZ9vSMzio9ASvyjzrlEtkVBDbfsvy+bbMSyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2+ONQNIXnZqEFz0HGqTuJo8oKP1yaa6WikAVQrF15Rg=;
+ b=QhEwhFY2/VRHkUWWKLqyKB8JHRNlaDNkdqM9pfoO1kBKwDQIf4ZHjfTx2+0AaH6FH9/bxlM+jthrgTCKUhAhsxo0K0qZAQAgIDFPbWtfqI1V4k6iTglPrKyxvYgD6bXkzKvFArRsKZ9QHSAEgLU6yrflS8tO9Qu+9nFRdEa1QwSAWPSOv8bjq67PMXayfSuReGlDWPg5HeuZwal9FQ0yL/A4P7YHR3g+dbobQtKWveb2NElhtM51tMRS9aDUtjYgU99JbbHEmgamPdOSO/sHlipQlqIpycQyiWLHG2KXGYGon4j2ciFNXvQpDKhJ80fflLhOhwtV8BHFuwVWqz9CMA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by VI0PR04MB10140.eurprd04.prod.outlook.com (2603:10a6:800:246::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 09:50:10 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
+ 09:50:09 +0000
+Date: Wed, 16 Sep 2026 12:50:05 +0300
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: Wei Fang <wei.fang@nxp.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	Zefir Kurtisi <zefir.kurtisi@westermo.com>,
+	Claudiu Manoil <claudiu.manoil@nxp.com>,
+	Clark Wang <xiaoning.wang@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Simon Horman <horms@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	"Y.B. Lu" <yangbo.lu@nxp.com>,
+	Ioana Ciornei <ioana.ciornei@nxp.com>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"bpf@vger.kernel.org" <bpf@vger.kernel.org>
+Subject: Re: [PATCH v3 net 6/7] net: enetc: linearize PTP event packets with
+ one-step TX timestamping
+Message-ID: <20260916095005.qe7ka5asu3e526cf@skbuf>
+References: <20260915222735.1016937-1-vladimir.oltean@nxp.com>
+ <20260915222735.1016937-7-vladimir.oltean@nxp.com>
+ <GV2PR04MB1173959323D0661626527F64988B92@GV2PR04MB11739.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <GV2PR04MB1173959323D0661626527F64988B92@GV2PR04MB11739.eurprd04.prod.outlook.com>
+X-ClientProxiedBy: VI1P190CA0047.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:800:1bb::13) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|VI0PR04MB10140:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1719ceb3-d26c-4798-c746-08df13d7e561
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|10070799003|19092799006|366016|376014|7416014|10067099003|4143699003|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	HT0RJPpsYunO0uxoATCVXZ1wSiTCXsDULasDpj/TIWmNTeMMMvB+5XQ0KCk3YxqH6ddYeB4DaivDHIczbsLkA5QCvvf0ABwt2hJ2X2CpRCVzg2Lq5wm99rFOmGVdJWMPleOv2lf9E3Qj2/7Knl1KD4p4rm24xGVQd4dgpVyEo4rBa5QHixpJynWgr4pft2xcLBJRgbp8n2mPqQHxpwZlMmNNacBJYQxJl3zXq4eX/3TkF3EyXOBQAfK61C2VkjPyw/nSSicfO+EducLfwgPI0mhNmSxfX8wlaySx9ckbotOgwOhZU4yqTHetHWAO/E6YX1vHEis+KE5gIT2GPRWPFXh+m0OROrKLWN5IjeTM05E49P8QH3D+1VJ5xHVpeprJy0GKaIFGEa1f7nHuksnh9Azvm4JbUwvY01iqUaNy+s9jjrQ/Xu3mujdLsXMj/S1ZeLYjtGFlTEaSsyDK7qKnoYLZARlaQz5ITGK9ANITLwUQY2HYJVnFfAnZ+xMLxjmYBan6k2+0trrF1JO041DU5+fUBf2uJxdwlWcEuBhuN7+gd1Wre+PsTpsri4SAVHY7Ara0U2Jz6LYtpRHusdlm/ba6qZsP4HjX9BNBdtnoADAybQeYjXS1INrwoPqoW0Tn6YIE+QT7senZG/4QNTFB9mtVY5nlQNbaBJWBQ8klCDQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(10070799003)(19092799006)(366016)(376014)(7416014)(10067099003)(4143699003)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?JR5r3KUvQ7/r7mWSyuLjqDvNvmm5DHRFhO66KAZ0fJbMDm5V4Aazuvhj2eMv?=
+ =?us-ascii?Q?gDtnOueBqnx4Pn40PvhctOMuGlJsh85s7sPBN9BdEmGJNdoJOcs4sqyK8Fy6?=
+ =?us-ascii?Q?JPbsC8t45vg3GbQDx6SCkVyCzkKZPLezx+tAp2eAVM3tlqjNCnAG94ANMlEF?=
+ =?us-ascii?Q?GJ0vvhZAYEZRVtezo5mS3ZEps7aeRQMl1XiTNaSd60J8g97sYwItyvTb0K89?=
+ =?us-ascii?Q?36d/qH8thJfawMkLEco6C6g8cqKgwfdo4f4XNqRrToFWcqPAJDp5SLu2jq7L?=
+ =?us-ascii?Q?BV3C5l3r4yZlkLG474hvSELxPDNqrO+bVb/LMA0jEwo/MENf30sR78cyVp2H?=
+ =?us-ascii?Q?8oDbTpzfAWMHm/2XPfHWIOS4EuQyjmO1yIVLbr/uzeXNzngBzyeL5YcME7Ag?=
+ =?us-ascii?Q?8hqFwHAgi20ffxES5nDOVYlDarZ21De5hD3JfAEaSv1ZiVsU9JEVJJCKxhgP?=
+ =?us-ascii?Q?qrYdGGQN1D+ztrvymkHIqd59geow0V67Iwu23cArRjJH6LfWthgDftgU1BvV?=
+ =?us-ascii?Q?PJ+ZTMYC2sHLe3Gm5/qAnOwj9Ook34Hid1/Wl3tQAtN04DiH1afzNccv5tuy?=
+ =?us-ascii?Q?ABqW8S0hLckM7ANDde+NZU6EG6O3JaEkGAtH2yLcIhvyZaZLyiDnUfaVLmAo?=
+ =?us-ascii?Q?fr+yoiULTuHI6nEogKdKu2pwAPv8XW7WEDwU46oiK2BnS1ejPfEKvZ2jUF4f?=
+ =?us-ascii?Q?9lP95QkgHKnxoGL7vIiCheMb0TzSHkI5hH0uJVd9qwkWEG68ctpVNcMrHrLc?=
+ =?us-ascii?Q?NYqrwAZOMzX0/i7te9MTbj/s7t4a3XbjA8mjXDvRPVR743LuWlnu0aWFNEck?=
+ =?us-ascii?Q?WewJtmL5w9Pi032ZG/9b1kqnMxHeN9Fydozj9gnKhALULulMYH84CAIYsv8Y?=
+ =?us-ascii?Q?sSGkQG6lGICYBspxUOjRC1IuERXMNpcdDNApPP+Zxr/nA2VGpNqH2hmYqPiX?=
+ =?us-ascii?Q?64IzDOIGfzDpqN6+DmDfsTyPe+LBqtkvg8BpA07dDtPd04eUxHVwD4YeLwMl?=
+ =?us-ascii?Q?ubZWofs8Y8I2PXxc8yk8GqfSPk36FeDyB+PhU1co1bMJYxpkVSKz2d9VEF5H?=
+ =?us-ascii?Q?fsIxvKd9I4aUC6oenlI8rdqies2RD38uu+Oi8+47j32eMSkxxj9bQZRUqidW?=
+ =?us-ascii?Q?OSRXBiYlcmBE+3iE8T1wh++2lNrEgUqQPTNZIYoVqGWeEeyibe8XCdD9yWJP?=
+ =?us-ascii?Q?NA/lKXnt/XTH5nbe0MzY6CVzuU/9v5aUgXdJf6fXy/z9uNAbMrM3xQxPidH7?=
+ =?us-ascii?Q?W0ZVsUsO9UwjBfg9U2phmiR3hNDraTM3RX8QBROxMrw7VVpE5+bO6yMPnLhU?=
+ =?us-ascii?Q?ZSi1/JO4Vg46aMqIYiuEWjjm14B0+gHx74F4wWttz0+1sdDgHJfxGHjhfrwz?=
+ =?us-ascii?Q?sGyt3CTrgp0FWzpHvGdmyuqqhscUvJ8CxTL6KTr7JNMDKvMCvFmIwFJ1zWtF?=
+ =?us-ascii?Q?I+7wM/qBLhUyCXbrk/q5wuFPRb7XLU1iZl+hcyo02yEFXDKy7rrJxNa/QCQ4?=
+ =?us-ascii?Q?5B+uGLexhRjw2ZXV/paqA88EmoWBD680hrc5jlq1pKA1dyl6mxJpd+OdugYV?=
+ =?us-ascii?Q?Q1yf8h9oMbzG6QPFvMOjli6Ybiw4puMdyDgRixwQiQZcfSWBkbstKjO51Nav?=
+ =?us-ascii?Q?ZeloIjvSTl26dCcToUjaRPqaBhXjmFIm4fCCR6IrR2CFS4igPLpCg6o4fr5v?=
+ =?us-ascii?Q?ni/0qgYSlpmAmmC9eC4UpMCnfAn1AjKEfAMiMaYuq+SX4LAIDoLaoqWfhfe2?=
+ =?us-ascii?Q?qT6iO8yppV2Oi0rXRFdV/NHunSm+CRACheydAH+BFuXT2JP8Yk9jw5ha2Sjr?=
+X-MS-Exchange-AntiSpam-MessageData-1: 7PeFM6qBS3tFbmBYvsqkcIC2fIcFVSoq0F0=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1719ceb3-d26c-4798-c746-08df13d7e561
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 09:50:09.9121
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zZ7RziUxTZuJc4szpUcjbc5TFAhjuREplTxUzIKBEg5T4cWoV+r1caCprgmFmoAoTB5ZaflHcdS7zsvbQ6I+OQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10140
 
-Add a `DropGuard` type to the Rust kernel memory module for running
-cleanup code when a scope is left.
+On Wed, Sep 16, 2026 at 04:59:47AM +0300, Wei Fang wrote:
+> > ---
+> > v2->v3:
+> > - replace skb_linearize() with skb_linearize_cow(),
+> 
+> This is not true, this patch still use skb_linearize().
 
-`DropGuard` runs a `FnOnce` callback when dropped and provides
-`dismiss()` to take the wrapped value without running the callback.
+Yeah, sorry, I ran a bunch of tests in 'git rebase -i' to reproduce the
+issues with this patch unapplied (this is why it's reordered to 6/7 in
+this series while it was 2/6 in the previous one), and I then updated
+the commit message with the conclusions, but apparently forgot to fold
+the actual code change as well :-/
 
-Replace the current `ScopeGuard` users in `gen_disk`, `serdev`, and
-`sync::lock` with `DropGuard`. Keep `ScopeGuard` since it is still used
-elsewhere.
+I'll make this change together with other feedback for v4.
 
-Add KUnit tests for cleanup on drop and `dismiss()`.
-
-Tested with:
-- `make LLVM=1 -j$(nproc)`
-- KUnit: 8 tests passed
-- `make LLVM=1 rustfmtcheck`
-- `git diff --check`
-- `checkpatch.pl`
-- `make LLVM=1 rustdoc`
-
-Suggested-by: Gary Guo <gary@garyguo.net>
-Link: https://github.com/Rust-for-Linux/linux/issues/1255
-Signed-off-by: Mohamed Osama <mohamed.osama189110@gmail.com>
----
- rust/kernel/Kconfig.test         |  10 +++
- rust/kernel/block/mq/gen_disk.rs |  11 +--
- rust/kernel/mem.rs               | 120 +++++++++++++++++++++++++++++++
- rust/kernel/serdev.rs            |   8 +--
- rust/kernel/sync/lock.rs         |   5 +-
- 5 files changed, 142 insertions(+), 12 deletions(-)
-
-diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
-index e6a5c7a795f0..011c72f14e2c 100644
---- a/rust/kernel/Kconfig.test
-+++ b/rust/kernel/Kconfig.test
-@@ -33,6 +33,16 @@ config RUST_KVEC_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config RUST_DROP_GUARD_KUNIT_TEST
-+	bool "KUnit tests for Rust DropGuard API" if !KUNIT_ALL_TESTS
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This option enables KUnit tests for the Rust DropGuard API.
-+	  These are only for development and testing, not for regular
-+	  kernel use cases.
-+
-+	  If unsure, say N.
-+
- config RUST_BITMAP_KUNIT_TEST
- 	bool "KUnit tests for Rust bitmap API" if !KUNIT_ALL_TESTS
- 	default KUNIT_ALL_TESTS
-diff --git a/rust/kernel/block/mq/gen_disk.rs b/rust/kernel/block/mq/gen_disk.rs
-index fc97dd873974..d9019fbbb361 100644
---- a/rust/kernel/block/mq/gen_disk.rs
-+++ b/rust/kernel/block/mq/gen_disk.rs
-@@ -10,11 +10,12 @@
-     block::mq::{Operations, TagSet},
-     error::{self, from_err_ptr, Result},
-     fmt::{self, Write},
-+    mem::DropGuard,
-     prelude::*,
-     static_lock_class,
-     str::NullTerminatedFormatter,
-     sync::Arc,
--    types::{ForeignOwnable, ScopeGuard},
-+    types::ForeignOwnable,
- };
- 
- /// A builder for [`GenDisk`].
-@@ -102,7 +103,7 @@ pub fn build<T: Operations>(
-         queue_data: T::QueueData,
-     ) -> Result<GenDisk<T>> {
-         let data = queue_data.into_foreign();
--        let recover_data = ScopeGuard::new(|| {
-+        let recover_data = DropGuard::new((), |_| {
-             // SAFETY: T::QueueData was created by the call to `into_foreign()` above
-             drop(unsafe { T::QueueData::from_foreign(data) });
-         });
-@@ -150,7 +151,7 @@ pub fn build<T: Operations>(
-         // SAFETY: `gendisk` is a valid pointer as we initialized it above
-         unsafe { (*gendisk).fops = &TABLE };
- 
--        let cleanup_failure = ScopeGuard::new_with_data((gendisk, data), |(gendisk, data)| {
-+        let cleanup_failure = DropGuard::new((gendisk, data), |(gendisk, data)| {
-             // SAFETY: `gendisk` came from `__blk_mq_alloc_disk()` above and
-             // has not been added to the VFS on this cleanup path.
-             unsafe { bindings::put_disk(gendisk) };
-@@ -161,7 +162,7 @@ pub fn build<T: Operations>(
- 
-         // The failure guard now owns both pieces of cleanup; the early guard
-         // must not run on this path anymore.
--        recover_data.dismiss();
-+        DropGuard::dismiss(recover_data);
- 
-         let mut writer = NullTerminatedFormatter::new(
-             // SAFETY: `gendisk` points to a valid and initialized instance. We
-@@ -185,7 +186,7 @@ pub fn build<T: Operations>(
-             },
-         )?;
- 
--        cleanup_failure.dismiss();
-+        DropGuard::dismiss(cleanup_failure);
- 
-         // INVARIANT: `gendisk` was initialized above.
-         // INVARIANT: `gendisk` was added to the VFS via `device_add_disk` above.
-diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
-index f2d4cdf87d00..f2d1f9bc9337 100644
---- a/rust/kernel/mem.rs
-+++ b/rust/kernel/mem.rs
-@@ -4,6 +4,92 @@
- 
- use crate::prelude::*;
- 
-+use core::{
-+    mem::ManuallyDrop,
-+    ops::{Deref, DerefMut},
-+};
-+
-+/// Wraps a value and runs a closure when dropped.
-+///
-+/// This is useful for running cleanup code when leaving a scope.
-+///
-+/// The [`DropGuard::dismiss`] function can be used to take ownership of the wrapped
-+/// value without running the cleanup function.
-+#[doc(alias = "ScopeGuard")]
-+#[doc(alias = "defer")]
-+pub struct DropGuard<T, F>
-+where
-+    F: FnOnce(T),
-+{
-+    inner: ManuallyDrop<T>,
-+    f: ManuallyDrop<F>,
-+}
-+
-+impl<T, F> DropGuard<T, F>
-+where
-+    F: FnOnce(T),
-+{
-+    /// Creates a new `DropGuard`.
-+    #[inline]
-+    #[must_use]
-+    pub fn new(inner: T, f: F) -> Self {
-+        Self {
-+            inner: ManuallyDrop::new(inner),
-+            f: ManuallyDrop::new(f),
-+        }
-+    }
-+
-+    /// Consumes the `DropGuard`, returning the wrapped value without
-+    /// running the cleanup function.
-+    #[inline]
-+    pub fn dismiss(guard: Self) -> T {
-+        let mut guard = ManuallyDrop::new(guard);
-+
-+        // SAFETY: We have taken ownership of the guard and prevent its destructor from running.
-+        let value = unsafe { ManuallyDrop::take(&mut guard.inner) };
-+
-+        // SAFETY: We have taken ownership of the guard.
-+        unsafe { ManuallyDrop::drop(&mut guard.f) };
-+
-+        value
-+    }
-+}
-+
-+impl<T, F> Deref for DropGuard<T, F>
-+where
-+    F: FnOnce(T),
-+{
-+    type Target = T;
-+
-+    fn deref(&self) -> &T {
-+        &self.inner
-+    }
-+}
-+
-+impl<T, F> DerefMut for DropGuard<T, F>
-+where
-+    F: FnOnce(T),
-+{
-+    fn deref_mut(&mut self) -> &mut T {
-+        &mut self.inner
-+    }
-+}
-+
-+impl<T, F> Drop for DropGuard<T, F>
-+where
-+    F: FnOnce(T),
-+{
-+    fn drop(&mut self) {
-+        // SAFETY: `DropGuard` is in the process of being dropped.
-+        let inner = unsafe { ManuallyDrop::take(&mut self.inner) };
-+
-+        // SAFETY: `DropGuard` is in the process of being dropped.
-+        let f = unsafe { ManuallyDrop::take(&mut self.f) };
-+
-+        f(inner);
-+    }
-+}
-+
- /// Transmute between two types.
- ///
- /// Use this instead of [`core::mem::transmute`] when it is known that sizes are identical but this
-@@ -232,3 +318,37 @@ unsafe impl AsReprMut for $signed {}
-     // `usize` is not normalized to particular integer for portability.
-     usize isize,
- }
-+
-+#[cfg(CONFIG_RUST_DROP_GUARD_KUNIT_TEST)]
-+#[macros::kunit_tests(rust_drop_guard)]
-+mod tests {
-+    use super::*;
-+
-+    #[test]
-+    fn test_drop_runs_cleanup() {
-+        let mut cleaned = false;
-+
-+        {
-+            let _guard = DropGuard::new(42, |value| {
-+                assert_eq!(value, 42);
-+                cleaned = true;
-+            });
-+        }
-+
-+        assert!(cleaned);
-+    }
-+
-+    #[test]
-+    fn test_dismiss_returns_value_without_cleanup() {
-+        let mut cleaned = false;
-+
-+        let guard = DropGuard::new(42, |_| {
-+            cleaned = true;
-+        });
-+
-+        let value = DropGuard::dismiss(guard);
-+
-+        assert_eq!(value, 42);
-+        assert!(!cleaned);
-+    }
-+}
-diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-index 17ca504b7f8d..a400d241c2ad 100644
---- a/rust/kernel/serdev.rs
-+++ b/rust/kernel/serdev.rs
-@@ -13,6 +13,7 @@
-         to_result,
-         VTABLE_DEFAULT_ERROR, //
-     },
-+    mem::DropGuard,
-     new_mutex,
-     of,
-     prelude::*,
-@@ -21,10 +22,7 @@
-         Mutex, //
-     },
-     time::Jiffies,
--    types::{
--        Opaque,
--        ScopeGuard, //
--    }, //
-+    types::Opaque, //
- };
- 
- use core::{
-@@ -174,7 +172,7 @@ extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> kernel::ffi:
-             }))?;
-             // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
-             let private_data = unsafe { sdev.as_ref().drvdata_borrow::<PrivateData<'_, T>>() };
--            let private_data = ScopeGuard::new_with_data(private_data, |_| {
-+            let private_data = DropGuard::new(private_data, |_| {
-                 // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
-                 drop(unsafe { sdev.as_ref().drvdata_obtain::<PrivateData<'_, T>>() });
-             });
-diff --git a/rust/kernel/sync/lock.rs b/rust/kernel/sync/lock.rs
-index 10b6b5e9b024..15f9cbe76c8d 100644
---- a/rust/kernel/sync/lock.rs
-+++ b/rust/kernel/sync/lock.rs
-@@ -7,8 +7,9 @@
- 
- use super::LockClassKey;
- use crate::{
-+    mem::DropGuard,
-     str::{CStr, CStrExt as _},
--    types::{NotThreadSafe, Opaque, ScopeGuard},
-+    types::{NotThreadSafe, Opaque},
- };
- use core::{cell::UnsafeCell, marker::PhantomPinned, pin::Pin};
- use pin_init::{pin_data, pin_init, PinInit, Wrapper};
-@@ -242,7 +243,7 @@ pub(crate) fn do_unlocked<U>(&mut self, cb: impl FnOnce() -> U) -> U {
-         // SAFETY: The caller owns the lock, so it is safe to unlock it.
-         unsafe { B::unlock(self.lock.state.get(), &self.state) };
- 
--        let _relock = ScopeGuard::new(||
-+        let _relock = DropGuard::new((), |_|
-                 // SAFETY: The lock was just unlocked above and is being relocked now.
-                 unsafe { B::relock(self.lock.state.get(), &mut self.state) });
- 
--- 
-2.43.0
-
+Thanks for noticing.
