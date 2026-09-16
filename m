@@ -1,191 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C204F055A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:57:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5EF74AA1E6
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567069; cv=none; b=k8UIwoQX+vFyTGbklUlSXb9olrnr8Xfqxmp2UQe44nhFjgeRhB46rBbvg4v3hqKTJZraorp0rMSe0a0VDc7XbrvbqL/jE1VqaTWK92NItZNOW0Bj83ITwc9bY6uv6K+cwYPV2W6FId9Odknb4tznvr3RJ61Gfoyfki4QPw3HJMM=
+	t=1789567073; cv=none; b=ruXS2t1Z+HJNw8TqVNSH3WpH6RnJrqhnraTCiuEEazt2/uZQrURFU5UWAr+ggoCl5oOuCtlxWcJjidWrHLGsrkBDLIMduYVRuWWDZWsFAm0XCWEE2v5anWXDIRuxolaDGr0T9Xx7gCOiySA6zOS4uDtw88HERUqXhewTgTyScHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567069; c=relaxed/simple;
-	bh=hk4+HMQnsllYIyOf3j57LkJbNZU74QO2e4hXgGvM1F4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=i0AEtJHB1ym4AFaqJgEKKoY9SMhBRYSuU5GKLteTX9/x+0VmvJz5iY2Wp+mfp3tStWnTJ/COdCAMP7i1R3OUHTOQ3eyIIFHRd94yu8mUs4yFztKGd1BmaKO0UbWM0vtuK4h4oXLk2GyMel5/ylSnojd9mU8FMXrBS8VCyuB3BtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TqpSxXjU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789567073; c=relaxed/simple;
+	bh=k5W0zjS7CwXnvjPVXGCX/DoYC/ezZOX79HkT4Hgmv9o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aUSPnCL+II7XbAe2LR1/3/lBomZTsa8OvYde/i6kc69HRsKcnQY0Rda0/ZP51LgHMN+ZkVsLjA1yF7rbMh1NYDVkLYHbaBVb0z9/rn9UP8vTUGIG0dO8yzaeiHRAWss5C5YJdVOimxLc4MHhtpTI2fupKWzBgBkTNglarVcad7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=Mi55x4CB; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TqpSxXjU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E7F1F0089A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:57:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789567060;
-	bh=uKnJW8f/FSk1pppP1uAfhlE6zh8Ga0yCHU2CLx9f9Xw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TqpSxXjU8XlX0VMxfJb32ADGVHsrKy+hl9kM3ptEqaqiS5rndUE8bU2j5hm2Aag8q
-	 mlYtPYEvr+KAWkpQrZVCSANexOjGMG2fdHnGwe9U14Xk1v91rrkXygu529xXI3YQNt
-	 /9LBIsp4HXDpzbDxQIHI1ymQ+WlqUm+kkdiM+d6MsJuKS3Wl6V4BDEXLz9S+FII9/n
-	 kLChUFdSlSysYMrDgy9xoHMxMnYEh+IgqQwWTnJgmiFN7Ng0YhWuDAL4V207lK6pZs
-	 63RUYoIxj21ZSo6lxf2VurtMRjfjyeJA+9S+XoxHK4xSM8zcl7WMLH2IIky3xni6pB
-	 TE+J9SPC9WnsQ==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a306a4f797so7607101fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:57:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy9omwfznwAJhPTkjVm+yeFhw6dGKU6z3ez/Wbctara15epEilgRXJIR98CzKc9SPJYelf6a4xryChK7mM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nauZS8Z27mQKyJoC71e/M9RuWy9tOUhbn7oc9VOhCM4vt4geRL
-	OyRsQ458/prbL9S2wrYEv82tuNSid2DK/+EQsGNUZel81j854c/l7C1/RRKiK4c7jUy9u5Z4WSR
-	dK9xCQRsUPAm/nv7qBYVY0h1nhwEvANg=
-X-Received: by 2002:a2e:a596:0:b0:3a1:30c4:d95 with SMTP id
- 38308e7fff4ca-3a5dc9722b4mr5269891fa.5.1789567059264; Wed, 16 Sep 2026
- 06:57:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="Mi55x4CB"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc6db0aso9124286d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:57:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1789567067; x=1790171867; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NgUHPiwSi16km0SbObf2vOYCgqHRbxyVwtkEbeNTtkE=;
+        b=Mi55x4CBpoqhvTMyVVz5iCrVRj/v9TPyIIjcaIg//Oj9tJgfjrnl/LM1kKOMfYJOSb
+         Zoy6pY/D5XNuiJlatJxbEOLVKCP+r2rJeP/nEzI/UR76453FyqGBgejRADtvtRMMq/3I
+         hxAQDIKTy9wjI/O0aGYwg1aC1Gk1FesWgj/nGT+4Q+T90Klx6AkYsEI1eEs9rRIzM8dC
+         F2ilwcBDBwxxNoz7jwpWE+XCYRAE213GvrbNGPDHDFR6zcS1IgXhZBE3wUwhiQQt5naH
+         WJ7qJ9+qFBW2QcJg8QWAfAQJWSLPlxLXaUVepjU1qDEvnk995ZKy+FMwH57fYh2t+YAq
+         MYZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789567067; x=1790171867;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NgUHPiwSi16km0SbObf2vOYCgqHRbxyVwtkEbeNTtkE=;
+        b=d2SbnRX5iEhxtujpCCkY8HscrlRdKsufOBNfzR9pGGQJPZsc2w7fwxdIp2/0c7d+3k
+         mrgQG5R/+UAhou53R2CfuUUMqWY4XfDBZoO9DW5jsAvdimpJVtdAOSxJxxi9L7Uov/Sz
+         dVXG3hoR9uDxtCY3SHK2OwQ/JFni91CpmrqBQQQNFD59rO9XwFznY6XIPXXIjMa19zOd
+         kjgtvtkrcXE3xX+31U6Sg+yhuEzLXTlyTvhAkZbRuE5j8XUtGiGjwZzAfQ5g0p6Qf5M/
+         v15YadKxApzwihUj+S0tyyc7+XnviMHJE/26HPRSxOMyajrtjOqCGEdH7doQa3J1eJ2L
+         U2dQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzeJEN6Yy3azvP7FiYA09K9Mrk5cbxf2sEaYAAPsiTJM8wElPUOgEJQx6ZGPeGuANUADIlCRaxyvUeFg6U=@vger.kernel.org
+X-Gm-Message-State: AFuF++nexKUDwmLYU0CoX38TO1gYWNz6LH1x74xxFPanMijNNgFEOzf4
+	yt8VnWFDZgMR+S2iFZtfQKZL7t8ak2bmxnFicYxH7k26asknEs0ciFNWPCdU4hoTk/Y=
+X-Gm-Gg: AYBFou1SZbnBenRt/M4PLHZPCEGsWhxpiqJW9tG7hVqgPoiexvJi4PRUANIbS6rGVwE
+	eBg8zFUtgEh9wgVo12J4sf4gGVjqSjpll/aFKxevNW5opMS4uY8KoQ/R3eusGJk6ozerF4ugj9y
+	XeXn/IZHdLWg+ULgt/5b7TlUZZP9WJiB8l2b0yfYmGPWSGrvm+JaC8y7J22WabHjwaJNlFO/Pew
+	rjnQNNNA45FntRMDcdcNc7w82Ubzi2zXDSDfnJBg5Yy8/lTEDCIf2Ztq16yJhenzuYR+4Ctd2c/
+	YTrIfyRgEX2Yss4puNRHp6nv9xAsgzsaRtUDeYPxqlnmDSNyoQUlCFNaZRNUMOHlvYZgSmug8Pg
+	X8NUVORZkz16iG0pNHRxC17AZdLncv/bRRGVUr5+ilNLlpmQpN4RvvSlwhR/vSKPtim06h5Dk/V
+	Ma8Rrl5HBwMA9gt/2UodamCHt69wEAKbkDj7kRIQh/iJBZvMb+2FI0BL5+dmo2GqGX4Nd06TdO5
+	KpCQ1mTSwkklFvZ4qOkPC2oKFQ/ZMjrNPXlqMjhmTK+t9d7Ptpxzf8=
+X-Received: by 2002:a05:6214:5902:b0:910:3452:d57f with SMTP id 6a1803df08f44-9123d7b5209mr61354706d6.31.1789567067054;
+        Wed, 16 Sep 2026 06:57:47 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123beeec67sm26377736d6.48.2026.09.16.06.57.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 06:57:46 -0700 (PDT)
+Date: Wed, 16 Sep 2026 09:57:44 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, wangjiexun@tinylab.org, sashiko-bot <sashiko-bot@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+Message-ID: <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
+References: <20260912110832.3203902-1-gourry@gourry.net>
+ <aqloB0zm3RjJ47m1@gremlin>
+ <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
+ <aqqTbGMJL86TzDrf@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916051034.180226-1-mario.limonciello@amd.com> <20260916051034.180226-3-mario.limonciello@amd.com>
-In-Reply-To: <20260916051034.180226-3-mario.limonciello@amd.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 16 Sep 2026 15:56:18 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gZ11m=CYQXp6S_PL81JZCx4sQCgh-qa+_2sm7nSTe1SQ@mail.gmail.com>
-X-Gm-Features: AcwNN1U4NVC2eEoFtln5IEyBPEY_uTbbCovKTLH5yK8bF8iUAlcHlT1zrpYWbl0
-Message-ID: <CAJZ5v0gZ11m=CYQXp6S_PL81JZCx4sQCgh-qa+_2sm7nSTe1SQ@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] PCI: Put PCIe bridges with downstream devices into
- D3 at hibernate
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	"open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Lukas Wunner <lukas@wunner.de>, linux-pm@vger.kernel.org, 
-	"Mario Limonciello (AMD)" <superm1@kernel.org>, AceLan Kao <acelan.kao@canonical.com>, 
-	Kai-Heng Feng <kaihengf@nvidia.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
-	Denis Benato <benato.denis96@gmail.com>, =?UTF-8?Q?Merthan_Karaka=C5=9F?= <m3rthn.k@gmail.com>, 
-	Eric Naim <dnaim@cachyos.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqqTbGMJL86TzDrf@gremlin>
 
-On Wed, Sep 16, 2026 at 7:10=E2=80=AFAM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> From: "Mario Limonciello (AMD)" <superm1@kernel.org>
->
-> During S3 suspend, pci_pm_suspend_noirq() puts PCIe bridges with
-> downstream devices into a low-power state (D3hot or D3cold) when the
-> platform allows it.  The hibernate poweroff_noirq path never did this:
-> it only called pci_prepare_to_sleep() for devices with no subordinate,
-> so bridges with active children were left in D0.
->
-> The platform firmware leaves bridges alone when the system enters S4.
+On Wed, Sep 16, 2026 at 02:03:29PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Sep 15, 2026 at 01:12:03PM -0400, Gregory Price wrote:
+> > On Tue, Sep 15, 2026 at 04:55:47PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > On Sat, Sep 12, 2026 at 07:08:32AM -0400, Gregory Price wrote:
+> > > > MADV_PAGEOUT collects isolated folios on a local list before reclaiming
+> > > > them after the PTE walk.  The reschedule path drops the PTE lock and then
+> > > > restarts the mapping with pte_offset_map_lock().
+> > >
+> > > Is this reschedule path even necessary? It's pretty bloody sketchy.
+> > >
+> > > I thought the modern approach (TM) was to not do cond_resched() and friends so
+> > > can we actually look at removing this?
+> > >
+> >
+> > Sorry - meant to reply to this.
+> >
+> > Honestly there's so much jammed into this function i can't give you a
+> > straight answer. I can take a short detour to figure out if we can
+> > rework this as a whole.
+> 
+> s/short detour/long journey through hell/ perhaps? :P ;)
+> 
 
-Well, that depends.  IIRC there were platforms on which it actually
-removed power from them unless wakeup was enabled in the past.
+Not as much as you'd think.
 
-> This prevents being able to meet various energy certification criteria
-> for different parts of the world, particularly in designs with a dGPU.
+I did it yesterday and left an agent to validate it overnight with
+existing in-tree tests, LTP tests, and added some new tests.
 
-Fair enough.
+The naming could use some work (cold_or_pageout -> lru_op, bleh),
+but new call graph / pseudo-code:
 
-> Align the hibernate flow with suspend by making pci_pm_poweroff_noirq()
-> use pci_pm_suspend_noirq_common() instead of the open-coded
-> pci_prepare_to_sleep() call.  This reuses exactly the logic the S3
-> suspend path uses, including the skip_bus_pm handling that keeps a
-> bridge in D0 when a downstream device must stay in D0 (e.g. a
-> configured wakeup source) and the pm_suspend_no_platform() bus-PM skip.
+• walk_page_range_vma()
+  └── madvise_lru_op_pmd()              [PMD callback]
+      │
+      ├── PMD is a huge mapping
+      │   └── madvise_lru_op_huge_pmd()
+      │       ├── acquire PMD lock
+      │       ├── madvise_lru_op_huge_pmd_locked()
+      │       │   ├── process whole folio, or
+      │       │   └── return locked+referenced split candidate
+      │       ├── release PMD lock
+      │       └── split folio / reclaim isolated folios
+      │
+      └── PMD points to a PTE table
+          └── madvise_lru_op_ptes()
+              ├── map PTE table and acquire PTL
+              ├── madvise_lru_op_pte_range_locked()
+              │   └── madvise_lru_op_pte_batch_locked()
+              │       ├── process one folio/PTE batch, or
+              │       └── return locked+referenced split candidate
+              ├── leave lazy-MMU mode
+              ├── unmap PTE table and release PTL
+              ├── split candidate if necessary
+              ├── reclaim isolated folios
+              └── reschedule and restart from current address if necessary
 
-And that's key here, so the patch subject should be something like
-"PCI: Align hibernate poweroff flow with suspend flow for bridges".
+Looks like a normal table walk now.  Significantly easier to review and
+doesn't make my eyes vomit. (there's still an ifdef wart, but it's not
+mid-function anymore... so that's nice).
 
-> No restore-side change is needed: the hibernation image is snapshotted
-> during the freeze phase, before poweroff_noirq runs, so the powered-down
-> bridge state is never part of the image, and resuming from it goes
-> through a full boot that re-enumerates and retrains the PCIe links.
->
-> Because the poweroff_noirq path now mirrors the already-shipping
-> suspend_noirq path and is guarded identically, bridges that must remain
-> in D0 are unaffected; only bridges that S3 suspend would have powered
-> down are now also powered down at hibernate.
->
-> Cc: AceLan Kao <acelan.kao@canonical.com>
-> Cc: Kai-Heng Feng <kaihengf@nvidia.com>
-> Cc: Mark Pearson <mpearson-lenovo@squebb.ca>
-> Cc: Denis Benato <benato.denis96@gmail.com>
-> Cc: Merthan Karaka=C5=9F <m3rthn.k@gmail.com>
-> Tested-by: Eric Naim <dnaim@cachyos.org>
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Going to spend a little more time testing and tweaking before I post it.
 
-With the above addressed
+I've been working on a making more extensive unit tests for certain
+parts of mm/ and this might be a good time to look at whether I can
+introduce a piece of it.
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
-
-> ---
->  drivers/pci/pci-driver.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-> index 8334214f8c1ed..3f80c8e6e0e52 100644
-> --- a/drivers/pci/pci-driver.c
-> +++ b/drivers/pci/pci-driver.c
-> @@ -818,7 +818,7 @@ static void pci_pm_complete(struct device *dev)
->
->  #endif /* !CONFIG_PM_SLEEP */
->
-> -#if defined(CONFIG_SUSPEND)
-> +#if defined(CONFIG_SUSPEND) || defined(CONFIG_HIBERNATE_CALLBACKS)
->  /**
->   * pci_pm_suspend_noirq_common - prepare a device to enter a low-power s=
-tate
->   * @pci_dev: pci device
-> @@ -862,7 +862,7 @@ static bool pci_pm_suspend_noirq_common(struct pci_de=
-v *pci_dev)
->
->         return false;
->  }
-> -#endif /* CONFIG_SUSPEND */
-> +#endif /* CONFIG_SUSPEND || CONFIG_HIBERNATE_CALLBACKS */
->
->  #ifdef CONFIG_SUSPEND
->  static void pcie_pme_root_status_cleanup(struct pci_dev *pci_dev)
-> @@ -1217,6 +1217,8 @@ static int pci_pm_poweroff(struct device *dev)
->         struct pci_dev *pci_dev =3D to_pci_dev(dev);
->         const struct dev_pm_ops *pm =3D dev->driver ? dev->driver->pm : N=
-ULL;
->
-> +       pci_dev->skip_bus_pm =3D false;
-> +
->         if (pci_has_legacy_pm_support(pci_dev))
->                 return pci_legacy_suspend(dev, PMSG_HIBERNATE);
->
-> @@ -1259,6 +1261,7 @@ static int pci_pm_poweroff_noirq(struct device *dev=
-)
->  {
->         struct pci_dev *pci_dev =3D to_pci_dev(dev);
->         const struct dev_pm_ops *pm =3D dev->driver ? dev->driver->pm : N=
-ULL;
-> +       bool skip_bus_pm;
->
->         if (dev_pm_skip_suspend(dev))
->                 return 0;
-> @@ -1280,8 +1283,9 @@ static int pci_pm_poweroff_noirq(struct device *dev=
-)
->                         return error;
->         }
->
-> -       if (!pci_dev->state_saved && !pci_has_subordinate(pci_dev))
-> -               pci_prepare_to_sleep(pci_dev);
-> +       skip_bus_pm =3D pci_pm_suspend_noirq_common(pci_dev);
-> +       if (skip_bus_pm)
-> +               goto Fixup;
->
->         /*
->          * The reason for doing this here is the same as for the analogou=
-s code
-> @@ -1290,6 +1294,7 @@ static int pci_pm_poweroff_noirq(struct device *dev=
-)
->         if (pci_dev->class =3D=3D PCI_CLASS_SERIAL_USB_EHCI)
->                 pci_write_config_word(pci_dev, PCI_COMMAND, 0);
->
-> +Fixup:
->         pci_fixup_device(pci_fixup_suspend_late, pci_dev);
->
->         return 0;
-> --
-> 2.43.0
->
->
+~Gregory
