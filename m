@@ -1,48 +1,34 @@
-Received: from mail-m16.yeah.net (mail-m16.yeah.net [220.197.32.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2C43B71BD
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5304AAC71;
+	Wed, 16 Sep 2026 15:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574108; cv=none; b=qipmRH7kkuxiqaPXSQhXWNveNMnYDcInL4u4mQuOIp7nS19OSSXChrPapDHl+wNPb/+6ZGUUtT1ocP14CERJTagQFp3eymtFh7wlFkWRJb5HX13l21APwYMxIEBslbiom3Mr6AwASIrOcbWph7xYYhTavAoywU2X0ng7TyK91rM=
+	t=1789574143; cv=none; b=UhmdH5fWYwOdUHta1sgfdj3/+1gU7DcxT6119BxdXHAHjlhMJidtPlm+uWxGnouZIAiArE+1AXkvtbZ8ba+cHxBNsCUCH3gT+W4007Re04BPrpGOB/+kD83/Lo5aS+m2RLzarW4qLm0iu15Ni/D4YloTJJpdhthWflmS0sSyejU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574108; c=relaxed/simple;
-	bh=nXfwJbeIrC81Bycy+RIKQruC5DeNmTDnBtdHiBhbmFw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t4C4SubIokrM77XY1vmCF3bHzF4L/i/taQqT6zxTK4haL4w/XU2BR9+yO/KNyMautro2zSQxhLsMV6iPN3JQhwgIe9JHPuIt0U1Ey6Xd2fiv2XxFa4bH2OjN6eJtYJlfmiXFpQR/zv2MI3QkC7A5uEW/Mw/xPdw6bruaUa7PbQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yeah.net; spf=pass smtp.mailfrom=yeah.net; dkim=pass (1024-bit key) header.d=yeah.net header.i=@yeah.net header.b=HeQ/sXHw; arc=none smtp.client-ip=220.197.32.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yeah.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yeah.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yeah.net header.i=@yeah.net header.b="HeQ/sXHw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yeah.net;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cT
-	zr6LFeS+OFd7bDXS5RjM/Ui5LVd91xBChD6tsVkLY=; b=HeQ/sXHwpQ8GiLIfk5
-	9CXskLUHcHs5TZslUaEdincvFoggm5qOQT7fNIm05OTFfWc358jyzIwdnoXw1JWM
-	mQmbVGE0Qg4PXl3fyJrpz5GcVsP9PK4KTpkxZnAulJTcdKOSC9CGal0/rlt5iw8u
-	MAc9ZmjvzhOLcIjKjqJkzfkxA=
-Received: from deepin (unknown [])
-	by gzsmtp2 (Coremail) with UTF8SMTPA id Ms8vCgDnZ9Nzu6pqvrgKAA--.46070S2;
-	Wed, 16 Sep 2026 23:53:24 +0800 (CST)
-From: Ziran Zhang <zhangcoder@yeah.net>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>,
-	David Howells <dhowells@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Jordan R Abrahams-Whitehead <ajordanr@google.com>,
-	Marco Elver <elver@google.com>,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	Edward Cree <ecree@solarflare.com>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
+	s=arc-20240116; t=1789574143; c=relaxed/simple;
+	bh=pQRTzx+jBfPJuiYwdZpTMoYV8UxF+cbSSs/jRXo3jvI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ERZ9TL8N5huXUTvoc1AaGx+PrBQR7j1s+nY8FxMr1Z5U+6g4493m/ORjY2TTc3ItnjT0xs6iwoRrelMP04YKb9/XrLqtpR8ZdErofyW4meDsi6/P/7MMtjpUH4UUP1z9inTHjvk6B+A1PWgNROo54QJ20AZc2Jrr1/XorcYffts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABn0jz3u6pqiThtCA--.21964S2;
+	Wed, 16 Sep 2026 23:55:35 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andy.shevchenko@gmail.com
+Cc: linux-acpi@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ziran Zhang <zhangcoder@yeah.net>
-Subject: Re: [PATCH] list: add missing empty list check to list_cut_before()
-Date: Wed, 16 Sep 2026 23:52:06 +0800
-Message-ID: <20260916155206.6833-1-zhangcoder@yeah.net>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <aqq3un8aNsSNow-_@ashevche-desk.local>
-References: <aqq3un8aNsSNow-_@ashevche-desk.local>
+	westeri@kernel.org,
+	wsa+renesas@sang-engineering.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] i2c: acpi: Fix adapter reference leak in i2c_acpi_new_device_by_fwnode()
+Date: Wed, 16 Sep 2026 15:55:07 +0000
+Message-Id: <20260916155507.2074970-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,20 +36,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:Ms8vCgDnZ9Nzu6pqvrgKAA--.46070S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUUUUUUU
-X-CM-SenderInfo: x2kd0wpfrgv2o61htxgoqh3/1tbiIhRREmqqu3TPIQAA3U
+X-CM-TRANSID:zQCowABn0jz3u6pqiThtCA--.21964S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WF4kXFy8AF1kGw4UKF15urg_yoW8Wr15pF
+	WYyF98AryjgF12ga1jqFy5AF1agr10k393KayUJwnIgFZYgryrtFyayrW09FyfAFZxWwsr
+	Ar42ya48ArWqyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j
+	6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjfUOM
+	KuUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqpO86yQAAs6
 
-On Wed, 16 Sep 2026 18:37:30 +0300, Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
-> Any new code to lib must be accompanied with a test case(s) as documented [1].
-> Look at lib/tests/, there is already a set of them.
-> 
-> [1] 0a83293322fd ("doc: development-process: add notice on testing")
+i2c_acpi_find_adapter_by_handle() returns the adapter with a reference
+obtained via get_device() in bus_find_device(), which the caller is
+responsible for dropping. i2c_new_client_device() stores the adapter
+pointer without taking a reference and does not release the caller's
+reference on any path, so the reference is leaked.
 
-Thanks for the suggestion! I will add a KUnit test case and send the v2 patches
-in a few days.
+Drop the adapter device reference after creating the client, like
+i2c_acpi_notify() does.
 
-Thanks,
-Ziran Zhang
+Fixes: 53f8f7c5cf14 ("i2c: break out ACPI support into separate file")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/i2c/i2c-core-acpi.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
+index 28c0e4884a7f..5efd1c406bc2 100644
+--- a/drivers/i2c/i2c-core-acpi.c
++++ b/drivers/i2c/i2c-core-acpi.c
+@@ -544,6 +544,7 @@ struct i2c_client *i2c_acpi_new_device_by_fwnode(struct fwnode_handle *fwnode,
+ 						 struct i2c_board_info *info)
+ {
+ 	struct i2c_acpi_lookup lookup;
++	struct i2c_client *client;
+ 	struct i2c_adapter *adapter;
+ 	struct acpi_device *adev;
+ 	LIST_HEAD(resource_list);
+@@ -572,7 +573,10 @@ struct i2c_client *i2c_acpi_new_device_by_fwnode(struct fwnode_handle *fwnode,
+ 	if (!adapter)
+ 		return ERR_PTR(-EPROBE_DEFER);
+ 
+-	return i2c_new_client_device(adapter, info);
++	client = i2c_new_client_device(adapter, info);
++	put_device(&adapter->dev);
++
++	return client;
+ }
+ EXPORT_SYMBOL_GPL(i2c_acpi_new_device_by_fwnode);
+ 
+-- 
+2.34.1
 
