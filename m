@@ -1,204 +1,312 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f226.google.com (mail-vk1-f226.google.com [209.85.221.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA62C4AA416;
-	Wed, 16 Sep 2026 15:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5624CEE7B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:41:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573300; cv=none; b=Gg9RZuIxpVmmLQFXzrag9cU84PXlVGpChF9M8kJyH2LjfHU/Zedm79jsOyxoA3AScpGKPUEEIyIHaqzn3P8HVClbDndpAiEtmeGyXf4ey405SDqhELSzh6q+xnWrslid94oDeKXtTIG3GuMj3ghrzaiMWpskWtQFCuZzj6TfzQc=
+	t=1789573301; cv=none; b=ujanIVib6S8FnOOw6dAJ7uXsZCOyUM5UCCPx1j/rHEIHaIt+zdgewqJ2rHh5EDXqGyQL3By2lWUVY0lM8ciDYBelFhLrAAVfd2d6dF+qsq8GFV3KB2JoGICQa3fhLQ1wd65OYR86eVhkZqfYh4phTJCDj/uqqkrxagpVB1fK9Sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573300; c=relaxed/simple;
-	bh=7NuhN1DSnJRTJZR1jPt9ancCTD/l8ozcYRSje1UJYV0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B8mkJmCS/i1R7/5WmUx+dbf3Mw6tVHTPPEHvRuMfPt7LjQgWzenyja937vXqxAAyCkcsBSEWqULyx8LCoI0SN6aFTlrz6WfuI2D1P2HklGZ7Hkvtw9UEvPb+u1t8tr4OoxJ41jIyCdiDxCPbBZehg1G1ZmmeOGvLe3hVdoMdins=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KIYUEz2F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789573301; c=relaxed/simple;
+	bh=1+C6bbbDxrE+MB/0CtAi4dzMWe1IK6syAZO9PvmiP04=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RwOgyQeuB4lxBw0S78FCI3G8hQyZFH7tayZjcuFDtb7PkaO6TApQHvcNo1rZAxBprObhPElQWd0qTJXusPcyQf+ZnsN8M4ewBt2RZtMuA2+tRRk+7ooF01cYG+DQD7K8jFNgO6L8dj/XEBMRlNnMmHiRra25R3rXSbXhFT/MBwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=h71yr50q; arc=none smtp.client-ip=209.85.221.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KIYUEz2F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0560E1F00898;
-	Wed, 16 Sep 2026 15:41:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789573297;
-	bh=sGvzKbFPjf+oPN6Vq1aebGYY5v8J+QGBuqhmyn8aUVA=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=KIYUEz2FGcRHG+Ssklm2bHmtEXBGohs83s4Od39AMcZubOJsE9RcpEkF2MgFpaJyw
-	 cRxlDEaoPOVjTBiub0GC4lMMtcPW5Ai2f1xdjaWDEWMvi39Rl+gSqxtwEHJWheUE9m
-	 h8vHINDZAmYdg6E6FA6HEIujkaLUYdjPBXyiGd3emqo+GbGuJoiOmurbsPEcPhZ39A
-	 HzIPstpdtUBGHOY7LAsWpCzyaUAh+S2igBzAKhzvbQRIoKHL6/ON5LVD5FfW5y58Al
-	 UD8E7AGKumNniUj/FyucyAAXgQ+SyVefcwHGcFDMHxy4FOBWJ/JdVyW3WqSbC4G+Bq
-	 /anXSiz9gu+gQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 89BBFCE04DE; Wed, 16 Sep 2026 08:41:36 -0700 (PDT)
-Date: Wed, 16 Sep 2026 08:41:36 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
-	Xu Kuohai <xukuohai@huaweicloud.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation
- for reader-marked trampolines
-Message-ID: <8b73e1b3-0580-4ba9-b2e0-6363e429808d@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
- <20260915-b4-rcu-tasks-preempt-qs-v3-3-0ad30c4c5ee7@toxicpanda.com>
- <aqlgxKGk_AEKls_1@localhost.localdomain>
- <edc7cca2-a5c5-455c-8969-ea05dbdb08f7@paulmck-laptop>
- <aqqONH8flTIpOUqT@localhost.localdomain>
- <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
- <aqqpRoTfywUuTgoC@localhost.localdomain>
- <aqqsAUVV8a1yrQzX@localhost.localdomain>
- <6afb0afe-e7b8-46b4-9fea-2c7cf4791044@paulmck-laptop>
- <aqq0cwvRDsorGwgc@localhost.localdomain>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="h71yr50q"
+Received: by mail-vk1-f226.google.com with SMTP id 71dfb90a1353d-5c83364233eso3959128e0c.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:41:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789573297; x=1790178097;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1+C6bbbDxrE+MB/0CtAi4dzMWe1IK6syAZO9PvmiP04=;
+        b=OFCK6WKatGqUn+oPq87+WjEmMUYWdvEYpA7ZELZBAYOGXO1jihufn0nQTVveav0CmV
+         Ok3vhSfePF3m0brCyQaqF+dVArQjtK89P9WB/CrBw3959XGdR/jYCEdo4UYSjmbG3FTG
+         y9y3EELVoAQvkV1AnOIAAl98KdfUhhqzuaftuhAgLYCy4XsC7Jeabf3UsAYW5hoyOCiQ
+         uKz4eko9zywJqYPjCMYXjt66I8XAdrzjHtLhpIhYt3fxoRkQtbxFQZhRrIpY3Dyq7SE6
+         lybcz0aQ7v9gxbV9IKhW1thTVt9mdmsShBvZWL0V278gW0dN0AjHrMRWyKuAFYG6bLFP
+         hGxA==
+X-Forwarded-Encrypted: i=1; AKwUvBxjNBIydP4srInMZS9Z8geTfSA+WcnQwBXIsqqK6GOyKH2z4O8OctxYaky90EzXePbPt8BjQRC5ccROfk0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBUtVIqGNoRIiLyjOGvvtvCtfScN9mWHKuh1jMeTxcFqnF3/5X
+	7CsyVVw+7PDBxjDzuygOKqVlZcWQWTdoyzZ65tKKfsD2Z3xrE2ryoHZg7eJeQAlows2LQP/YwxU
+	mKYd7GEbwl/4twatV61u5FMVHl9LpH/Clv3o2wRQPKem7aTFBWnmDoqcsXX40XJbf9P8EQBJmFD
+	m15ZqM+iBtzzUwveNZLqYHDU9X3DbwHI4+mO3CtrD172XWweY+GJslmG15x1l53lfdy3b5BIeBR
+	t0IWlsKraJls+mg
+X-Gm-Gg: AYBFou3V7Dy6lzmhpYpCihvBPYIEfezert0Vs8msECTXPJ4hHlVlAtYzm+zbIHLSOI4
+	WexXztbRmf6kq8sxMB3F/N7yQNiuasRTfBxaLEnKK+umhEQ8Yd8pz9wkGKrSD3hC2GGCtxFZw9E
+	zttkHs8k6xIWduAw+fxSOnbqCdC2xOXs5upm8GlfJLHX1hmBZxdjfde83SymQJaGgBnYNVYOwNt
+	aakz3LSfBxglRsm5Me3JiMzR2TQgyEaGzV6zQkP68FDzQitLjnrCm3bfpvSQ8LxtePK5Cinv/r4
+	GU4RR0hEJc03Orl/ZPvtOzXyHsxR1kwyZiVtd5rFoi4y7LVUbAIAWmxgd2B+Z0H4HU+BGGBUnhX
+	VVTEAMI53XcTsE44Z/nxxaLkpSh4NMu5kvQalXc7l4Io/LRRrC104ayh1AdaSN+o5I/6r9ODtbZ
+	aXoJFkKn/Hcz5RIP6TUyeuvUlZDhywHSC9
+X-Received: by 2002:a05:6122:1d48:b0:5c7:a844:493 with SMTP id 71dfb90a1353d-5c99a9cf899mr4184945e0c.0.1789573296607;
+        Wed, 16 Sep 2026 08:41:36 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5c9a53021a9sm27812e0c.8.2026.09.16.08.41.36
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 16 Sep 2026 08:41:36 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-3a27d89a894so25676691fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:41:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1789573295; x=1790178095; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1+C6bbbDxrE+MB/0CtAi4dzMWe1IK6syAZO9PvmiP04=;
+        b=h71yr50qSPOfUc6oiQogqQJ6yAC5XRcAjNWtS6vz5qztbN13YPwZZCFFGRDF+JSJul
+         vsIV+7tApxRQdF4Mwjpjg4DZgck3XKNBTxrLamEXCR8EEjSFNxzfPPh5LpuJibXxKeDk
+         DAAezWs/70oFhZDnjqtgW/trK7sDQRnxcgp8o=
+X-Forwarded-Encrypted: i=1; AKwUvBzo2JkiXQEq4PeZY/SRM9ltjxdkA2RjT1Mt901CT1mHpxin7HIIEeF04vx/DUujXNw14MgscjEysz/GiOk=@vger.kernel.org
+X-Received: by 2002:a05:651c:222c:b0:3a3:42cf:c014 with SMTP id 38308e7fff4ca-3a5dc988ee4mr6734781fa.7.1789573294627;
+        Wed, 16 Sep 2026 08:41:34 -0700 (PDT)
+X-Received: by 2002:a05:651c:222c:b0:3a3:42cf:c014 with SMTP id
+ 38308e7fff4ca-3a5dc988ee4mr6734611fa.7.1789573294062; Wed, 16 Sep 2026
+ 08:41:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqq0cwvRDsorGwgc@localhost.localdomain>
+References: <cover.1789488039.git.zack.rusin@broadcom.com> <aqqGUAX65s4LdJkr@thinkstation>
+In-Reply-To: <aqqGUAX65s4LdJkr@thinkstation>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Wed, 16 Sep 2026 11:41:19 -0400
+X-Gm-Features: AcwNN1X8EphbssgNJGAU5J8Ew6yzojuFKn8poYC7Vw-gA-ySadQxgIJcWpvSrQw
+Message-ID: <CABQX2QMAfszf3z+Auo0AdwGsf94kTX0DrTrd8k6G1PTNMYsdXQ@mail.gmail.com>
+Subject: Re: [PATCH v1 0/2] x86/vmware: Share steal-time storage in encrypted guests
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Borislav Petkov <bp@alien8.de>, Ajay Kaher <ajay.kaher@broadcom.com>, 
+	Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org, 
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev, 
+	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org, 
+	Christoph Lameter <cl@gentwo.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Bo Gan <bo.gan@broadcom.com>, linux-mm@kvack.org, 
+	linux-arch@vger.kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="0000000000008cf493065b9b80c9"
 
-On Wed, Sep 16, 2026 at 05:23:31PM +0200, Frederic Weisbecker wrote:
-> Le Wed, Sep 16, 2026 at 07:55:02AM -0700, Paul E. McKenney a écrit :
-> > On Wed, Sep 16, 2026 at 04:47:29PM +0200, Frederic Weisbecker wrote:
-> > > Le Wed, Sep 16, 2026 at 04:35:50PM +0200, Frederic Weisbecker a écrit :
-> > > > Le Wed, Sep 16, 2026 at 07:26:35AM -0700, Paul E. McKenney a écrit :
-> > > > > On Wed, Sep 16, 2026 at 02:40:20PM +0200, Frederic Weisbecker wrote:
-> > > > > > Le Tue, Sep 15, 2026 at 04:56:41PM -0700, Paul E. McKenney a écrit :
-> > > > > > > > Alternatively the approach could be generalized to vanilla RCU, it could be
-> > > > > > > > possible to define a .text.rcu_no_qs section within which code running is
-> > > > > > > > considered as an RCU reader (with a pause while on the explicit RCU tasks
-> > > > > > > > section). It would be forbidden to voluntary sleep inside
-> > > > > > > > and to put explicit preemption points (CONFIG_PROVE_RCU could report misuses).
-> > > > > > > > 
-> > > > > > > > Based on IP, RCU could consider those interrupted section as readers. This would
-> > > > > > > > require PREEMPT_RCU though.
-> > > > > > > > 
-> > > > > > > > And then synchronize_rcu() would do the 1, 2, 4 jobs.
-> > > > > > > 
-> > > > > > > If I am following correctly (ha!), sleepable BPF programs rule out use
-> > > > > > > of RCU in this manner.
-> > > > > > > 
-> > > > > > > But your point is nevertheless valid, in that SRCU could be used.
-> > > > > > > And because rcu_read_lock_trace() is a thin wrapper around SRCU-fast, we
-> > > > > > > *might* be able to instead use rcu_read_lock_tasks_trace(), which would
-> > > > > > > skip the task-struct increment and decrement, saving a few instructions.
-> > > > > > > Then, instead of waiting for each task's counter to go to zero, instead
-> > > > > > > just invoke synchronize_rcu_tasks_trace().
-> > > > > > > 
-> > > > > > > Which is pretty close to what Josef is proposing, just with the new RCU
-> > > > > > > Tasks Trace read-side primitives.  I think.  ;-)
-> > > > > > > 
-> > > > > > > This assumes that we do not need to flatten partially overlapping RCU
-> > > > > > > Tasks Trace readers into one big reader.
-> > > > > > > 
-> > > > > > > Or am I missing something here?
-> > > > > > 
-> > > > > > Yes I think that's what Josef does in this patchset. The problem is about
-> > > > > > handling the few instructions:
-> > > > > > 
-> > > > > > 1) between the begining of the trampoline and the call to rcu_read_lock_trace()
-> > > > > > 
-> > > > > > 2) between the call to rcu_read_unlock_trace() and the end of the trampoline
-> > > > > > 
-> > > > > > So what I'm proposing is to make those two parts implicit RCU read lock sections.
-> > > > > > 
-> > > > > > So the whole trampoline would be .text.rcu_no_qs:
-> > > > > > 
-> > > > > > .text.rcu_no_qs trampoline:
-> > > > > >   __________________________________________________________________________________________
-> > > > > >  |Few instructions 1 | rcu_read_lock_trace() .... rcu_read_unlock_trace | Few instructions 2|
-> > > > > >  ___________________________________________________________________________________________
-> > > > > > 
-> > > > > > Then when a tick fires, rcu_flavor_sched_clock_irq() discards the interrupted
-> > > > > > code as QS if the IP was within .text.rcu_no_qs _unless_ it is in the
-> > > > > > rcu_read_lock_trace. Both are easy and quick to verify.
-> > > > > > 
-> > > > > > Also preempt_schedule_irq() would make sure to verify the same condition and
-> > > > > > enqueue the task as a GP blocker if preempting inside "Few instructions 1"
-> > > > > > or "Few instructions 2".
-> > > > > 
-> > > > > Ah, OK, I might be following now.  ;-)
-> > > > > 
-> > > > > We also need both versions of rcu_exp_handler() to check the IP as well,
-> > > > > given that sooner or later someone is going to want trampoline removal
-> > > > > to go faster.  Or am I still missing a turn in here somewhere?
-> > 
-> > I should add that the thing that I really like about Frederic's approach
-> > is that avoids the task-list scan.  Or at least has the potential to
-> > do so.  Such scans have proven problematic in the past.
-> > 
-> > > > Yes indeed, missed the exp part!
-> > > 
-> > > What remains to handle also is non-preemptible RCU because if the task is
-> > > preempted by an IRQ while in the .text.rcu_no_qs, we may still need to keep
-> > > track of that somewhere.
-> > 
-> > Perhaps in rcu_core() in kernels booted with use_softirq?  I am thinking
-> > specifically of the checks for deferred quiescent states.  I don't (yet)
-> > see a need to modify rcu_check_quiescent_state().
-> > 
-> > Maybe other places as well.  ;-)
-> 
-> Hmm this tracking would have to happen on preempt_schedule() just like we
-> do for PREEMPT_RCU. Or am I missing something? And then we would need a
-> list scan of those tasks.
+--0000000000008cf493065b9b80c9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I am thinking of the case where a trampoline is interrupted before entering
-(or after leaving) its RCU Tasks Trace read-side critical section.  Then
-there is a softirq handler on the back of that interrupt handler, and
-RCU_SOFTIRQ is invoked, calling rcu_core().  Specifically:
+On Wed, Sep 16, 2026 at 8:18=E2=80=AFAM Kiryl Shutsemau <kas@kernel.org> wr=
+ote:
+>
+> On Wed, Sep 16, 2026 at 01:05:38AM -0400, Zack Rusin wrote:
+> > VMware registers each per-CPU steal-time GPA with the host. An encrypte=
+d
+> > guest must first convert that storage to shared memory, but the existin=
+g
+> > setup publishes the address without conversion.
+> >
+> > Patch 1 makes the decrypted per-CPU section available with
+> > CONFIG_X86_MEM_ENCRYPT, including TDX-only configurations. Patch 2 defe=
+rs
+> > encrypted-guest setup until allocator-backed page-table splitting is
+> > available, converts every possible CPU's storage before publishing any
+> > GPA, and attempts to roll back all conversions on failure.
+>
+> I acked 1/2, but I don't like where 2/2 does the conversion.
 
-	/* Report any deferred quiescent states if preemption enabled. */
-	if (IS_ENABLED(CONFIG_PREEMPT_COUNT) && (!(preempt_count() & PREEMPT_MASK))) {
-		rcu_preempt_deferred_qs(current);
-	} else if (rcu_preempt_need_deferred_qs(current)) {
-		guard(irqsave)();
-		set_need_resched_current();
-	}
+I saw that, thank you. Since I'll be respinning v2 of this I can go
+ahead and drop the unused DECLARE_PER_CPU_DECRYPTED in that one if you
+want as well.
 
-Preemption is enabled, but we should not report a quiescent state because
-we have interrupted a trampoline.  Correct?
+> A variable declared with DEFINE_PER_CPU_DECRYPTED() ends up in a
+> dedicated, page-aligned linker section. The point of the section is that
+> one place converts it. Instead every user does it itself: KVM in
+> sev_map_percpu_data(), and now VMware in vmware_decrypt_steal_time(),
+> each with its own vendor checks and failure handling. The macro today
+> only buys page isolation, not the shared mapping its name promises.
+>
+> The underlying problem is that the whole "decrypted section"
+> infrastructure is built around SME/SEV and was never generalized.
+> __bss_decrypted, early_set_memory_decrypted() and
+> mem_encrypt_free_decrypted_mem() are all under CONFIG_AMD_MEM_ENCRYPT
+> and implemented in mem_encrypt_amd.c. sme_postprocess_startup() converts
+> .bss..decrypted only if sme_get_me_mask() is set, so a TDX guest never
+> shares it. 1/2 moves the per-CPU linker section to X86_MEM_ENCRYPT, but
+> nothing that would act on that section follows.
+>
+> Rather than have every TDX user reinvent the conversion, I would rather
+> see the infrastructure made vendor-neutral: boundary symbols for the
+> per-CPU decrypted section like the ones .bss..decrypted has, an early
+> conversion primitive that works on TDX as well as SEV, and a single
+> conversion of both sections at boot. Then sev_map_percpu_data() and
+> this driver's loop go away.
+>
+> > TDX's conversion callback uses __pa(), so patch 2 preflights every poss=
+ible
+> > CPU and leaves steal time disabled if a TDX guest uses vmalloc-backed
+> > per-CPU storage. This covers percpu_alloc=3Dpage and automatic allocato=
+r
+> > fallback. AMD encrypted guests support those mappings and are not rejec=
+ted.
+> > Supporting them in TDX would require a separate conversion-API change.
+>
+> Refusing vmalloc-backed storage on TDX is the right call, and not because
+> of the __pa() in the callback. Converting a vmalloc alias means either
+> fracturing the direct map or leaving a private direct-map alias to a
+> shared page, and the latter is a guest shutdown the moment
+> load_unaligned_zeropad() steps into it. See the comment in
+> tdx_early_init() and the earlier discussion of the same idea:
+>
+> https://lore.kernel.org/all/xqi2bkulnhen2vax5msbzczlaywx3dsc7ezpn7oo5qn7u=
+7xzap@xmaseinov7tf/
+>
+> But that decision belongs in the same central place as the conversion.
+> If the first per-CPU chunk is vmalloc-backed on TDX, the decrypted
+> section is simply not shared, and users see that, instead of every
+> driver re-deriving it.
 
-> Or we can build the blocked task list handling, that we already have for PREEMPT_RCU,
-> when CONFIG_RCU_TASKS && !CONFIG_PREEMPT_RCU. We would just only add tasks when
-> preempted in .text.rcu_no_qs since rcu_read_lock() would still disable
-> preemption on normal explicit readers. So I wouldn't expect more overhead due to
-> that blocked list tracking built since it would rarely track tasks.
+I went through the linked thread, including the dropped 2022
+Quote-buffer alias approach and the 2024 netvsc work's kexec
+regression, fix and re-review discussion. I will keep TDX vmalloc
+support out of this series and correct the explanation to cover alias
+consistency, direct-map splitting and load_unaligned_zeropad(),
+including removing the suggestion that per-page GPA lookup alone
+resolves it.
 
-Yes, we could avoid the list of tasks by treating the preemption within
-the trampoline the same as preemption within an RCU read-side critical
-section, but there might not be an rcu_read_unlock() to clean up.
-Which could be a problem.
+After tracing the boot paths, I think there are two distinct pieces
+here. The SEV boot GHCB needs .bss..decrypted before BSS is cleared,
+whereas the SMP per-CPU instances do not exist until
+setup_per_cpu_areas(). KVM then registers its boot-CPU per-CPU buffers
+in smp_prepare_boot_cpu(), so the common conversion needs the early
+primitive you proposed. A shared early_initcall would be too late for
+KVM. The UP registration path probably also needs handling separately
 
-Trampolines that transfer control to tracing code could supply the needed
-cleanup call.  But last I checked, there were trampolines that transferred
-directly back to the original code, with no opportunity for cleaning up.
+My suggestion would be to do one of two things (or at least I think
+those two options are realistic to me, given that I'm no expert here):
+- add the central per-CPU infrastructure and migrate KVM/VMware
+together, removing both loops and putting the TDX vmalloc rejection
+and readiness state in common code. Would you and the KVM maintainers
+be happy with that first, and generalizing .bss..decrypted separately
+while preserving its earliest SEV setup? afaict the latter also needs
+to broaden the annotation and linker guards, and changes kvmclock
+storage and sharing on TDX-only builds.
+- a smaller VMware fix using a separately allocated, direct-mapped
+page per CPU while the common infrastructure is developed. Using the
+normal allocator would also defer ordinary-guest registration, unless
+I kept their current static storage as a second path. This option
+would retain caller-managed sharing and buffer lifetime handling.
 
-Or am I still missing a trick here?
+The second option is, of course, easier for me, but I'm happy to do
+the first to get steal-time storage working for us. Do you have any
+thoughts on this?
 
-							Thanx, Paul
+z
+
+--0000000000008cf493065b9b80c9
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEING+
+tS9jluKZG2ayZ4pYr4+TXQr15tnm2U0384jZyaB7MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDkxNjE1NDEzNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAAiJiiMRjpbhErRjga91uv6fyg7gDKiW/hzIZv4u
+twci6FZEZWPYJYzwugbWz8tTef7pmY99e2ozuPN8cvLqjnDD9CdmDOA1oKFiKeuhTxMKrmsdFxUF
+A/zaoj8Hh15JhRNwQB/Hn6JooqcOmUZINDYEDse+KmMcxuCsMi2D7N2/2bOB9PHl/2uBiCZ9NiEZ
+8LmqSKB/hjxWSvkm/Mo6WmsPYtekjp5MRu5wYBMZQMyPCnQKGpZMzVOUOG+THnEj5pJvLhzj6pvT
+nOEp+MloSY9rk0lmdMFQxK3qy6ZXjKFT1dUSwPdfPpSmc6WHa5huCNvC0hBo8Pn3HvKrY0Xmtgc=
+--0000000000008cf493065b9b80c9--
