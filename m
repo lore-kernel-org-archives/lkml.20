@@ -1,145 +1,90 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BA54457DF
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:42:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AB04457DF;
+	Wed, 16 Sep 2026 07:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544540; cv=none; b=QB4gE7aWqtgERTX5+YSHw8GZuEWT0h8QeXC+kkNfjhd93gohLGZ4G2n+MwJhEfpeyZpqzOhP/4rV2QjOwjcmUMTUofooEdtjf8sLS4fU+H5FQvlBkDJ++dWFuB6Rfxo71/WtVniFtfsrgcello3r2gM94vWc1m6AOo7KOGt6iHU=
+	t=1789544586; cv=none; b=Wmd4o45jn+KASopYvXQOpETMRKde8I8xJcIgzsNiwBWmmHIo9M5zCqaX24gElgO/9JG68xQZEoAFYwB7GeM5XmTXJe2OCQgLQl+fH//F0Fis6is9Hl9Z5QaZq9ihH1ea+Jj70Y3QQIhbew3dy8FHY1VguiHcG/0rqWfF8z28/gY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544540; c=relaxed/simple;
-	bh=SDIDKPg/XJMTZDlOvDmfh7gZvs1x/8ehV8Jyie8JsEE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=oh2ia+9KdE/PeoPVgdTnD93oEqa1dZNKVJX2Z2ywaGAAf/llbKJ6NN99GOMI4k/Z59cvxO9ICsRTVSIIHZgngHGJ8kCPTRAx1futzORExdA1SSoBfsrnCA82ZE/qw/PwPRKu5lTESw5SxllMeHjfE5UjEiFOaKHUkSxw73tPfG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mlTJroID; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mlTJroID"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ddd5d0aso468515e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:42:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789544521; x=1790149321; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6GWQnH0rufvFzfswnGUXgjHTCIj9a7PTjKQcqx1m/30=;
-        b=mlTJroIDRJ2YBcJca0H2URZCjI8ADE6sKm6rQzXRd3cvq2+uw5qBXxjbKszgK0mpUk
-         zW9A1rbglJ7TmPsrOXdfrfBCDRC2gd70e43CI+a1eFBdcnra2l8HaQWe7VNIbxiE7fxj
-         LKtqhUEWjrXNHkRhGECcXyHWOZuesHZvhGZcuv5X83fgIFJGqDC7CKCAmRI1eCVGS7Wn
-         aiDnqkdNCthn5xY0lDchvrznBtlS5EQ4+H4MY4awxjPp8fsaXFhxGpvXx83FASJg0Xuu
-         4DgL2NXM6F+vonpUdsIAnTNScKGEvsLXsrgO+vIvqAjjVDwvyJ9OLa4zdEDfA8g1OlSs
-         /kFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789544521; x=1790149321;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6GWQnH0rufvFzfswnGUXgjHTCIj9a7PTjKQcqx1m/30=;
-        b=j2vWL19j+jFtIkBogmtYSloL/652Xrins2H4A91nSrYaY99WcgzFSKOzkjU6iILbao
-         T2GDL1OB2o1Bk4YytIWUh5Jexjys/OGDPfLUdkGLn3T9Y6sSqDq0lRhC1LZ0sN/v3gAR
-         V3vFSNfom4SytQsacFnJ+1KMl0buiz1Z6U/XNOXlHsMtJl9d7+xclGx1lelMimbl25X3
-         FwjMylBJWaccj75/PZbtrRydJ6Kg0d7DP4cgMd5OtIC2Z3rMsk1pKtKc8zYGBBI7Wm0N
-         u4ybmIShiD1gymgoLIOycXvM7HiFK6rNVS4jbwZUxVA4WzKWQF5gMzhGqi5v+SeDNJbp
-         VUAA==
-X-Forwarded-Encrypted: i=1; AKwUvByDx+lQzSkdYSoA4wHtRuaCJ3ON4rOFlGggy6mjHGjd3guD7yLRGqLeq56erONixhf4B5kdRHeCEUWf5z0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTMCXVohfJPOPGZl3GT2jjLzXA9JoDVphEs2xzOHFmV67SWnPN
-	ZiYTmndXdj/mAFLA8A1Ex2X8Vo2gWnop18zSvsPsINt5yqEKniNlx/+F
-X-Gm-Gg: AYBFou2PlyaHKGeym083m0hpzlrCNPqF9NUsY3hDjfplpEOKoe39Q9Eh2legYslaeGN
-	/7s2j5Hen3V+GH1QQzXSnpKnZAylePcJlwMZ1kpulnujFh3Sdj/M4Q5SMyp4fSaD4ZBMug7NrBY
-	SlHeKVLNAi1rInBHYYaGdDXHZlaLNCuhaZQNABDORYtWDUoUn57LWgQPoC5AEF43CL+9omrfqVt
-	Twpd8zeFaGIPj3U2YN66oDnsYCjlGpiDhL6HPXDfs2nJ14Ak3rJkFQxxx0X86O/zXnEwrBOg93w
-	rSvWKzntvw+ltY14DsZlLpAsVaK4NnAWsP7Ea9w/mDVu+wVLXzipwThuGbHfDZbjTQDNOgBIYS/
-	EgRZGQyXhAfWMCU0pUhAsV9q4GGfKBeCKqP3a86QHIYEfSjf591vcHPxMK9Ul/dWINf0yxyrz1a
-	9xiPtK2SJEbUDqePUUnvrtwJ/8j3uzakG8N1avYc5TDHzRyPzd0eg6NbOFpBzrbcT6j2NcfVztR
-	/rBJ09AD9THDhB/MYhVqXjaLRIFCCSsf4fqQSNAi1V8ipkk8mV5y5AYtP41ymq6YCIsQuxkogb/
-	mSki0DDfuzlQOVfy9aTouIS6
-X-Received: by 2002:a05:600c:4e48:b0:49e:7186:f36e with SMTP id 5b1f17b1804b1-49eb731c39emr16252885e9.1.1789544520893;
-        Wed, 16 Sep 2026 00:42:00 -0700 (PDT)
-Received: from pop-os.. (98.102.222.87.dynamic.jazztel.es. [87.222.102.98])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1f7cesm5023219f8f.10.2026.09.16.00.41.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 00:42:00 -0700 (PDT)
-From: =?UTF-8?q?Miguel=20Garc=C3=ADa=20Rom=C3=A1n?= <miguelgarciaroman8@gmail.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
+	s=arc-20240116; t=1789544586; c=relaxed/simple;
+	bh=q+eCkQXgLVxQ/U+wIVeeF1Wbo055P4AxAd9+1jYkPqc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Xef05K6npyRmNygb+jtFrehIkqcYKQh0NjITSqFAhNSo3VgqHt40XtFGlIJ3ovEhVlVjfm/7GTbrFOzLUsSO2nPYt1Sd2M/ClMs7ssEgRcCK4Kak1XDMPUPnLqtJlZB/Z1YPLqEa1LCyWYyIkzcjNbRBkMTnF3f1w622/BPgEXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACnqjh0SKpqqELfBw--.41180S2;
+	Wed, 16 Sep 2026 15:42:45 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Felix.Kuehling@amd.com
+Cc: airlied@gmail.com,
+	alexander.deucher@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	christian.koenig@amd.com,
+	david.yatsin@amd.com,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+44efda9647c52be29d9c@syzkaller.appspotmail.com,
-	=?UTF-8?q?Miguel=20Garc=C3=ADa=20Rom=C3=A1n?= <miguelgarciaroman8@gmail.com>
-Subject: [PATCH net] llc: stop connection timers before dropping sap ref on release
-Date: Wed, 16 Sep 2026 09:41:58 +0200
-Message-ID: <20260916074158.3375909-1-miguelgarciaroman8@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	rajneesh.bhardwaj@amd.com,
+	simona@ffwll.ch,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/amdkfd: Fix file reference leak in criu_restore_devices()
+Date: Wed, 16 Sep 2026 07:42:16 +0000
+Message-Id: <20260916074216.1973191-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACnqjh0SKpqqELfBw--.41180S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7XrW8tw1UAF4xZr45tryrJFb_yoWDJwb_G3
+	yUXr9xXry2kF4vqr1F9r4FvrWIyw4UurWkXw48ta1FyFyUZF9rW34Ygr95XF1UJanruFn8
+	X3s5ur1rAwnrCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbakFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJb
+	IYCTnIWIevJa73UjIFyTuYvjfUogAwDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqP4cnwQAAsK
 
-syzbot reported a KASAN slab-use-after-free in
-llc_conn_ac_send_sabme_cmd_p_set_x() when a connection timer fires
-after the associated llc_sap has already been freed via RCU.
+In criu_restore_devices(), drm_file is obtained using fget(drm_fd). If
+pdd->drm_file is already set, the function returns -EINVAL without
+releasing the acquired reference via fput(drm_file), leading to a file
+reference count leak.
 
-llc_ui_release() currently does:
+Fix this by adding fput(drm_file) before returning -EINVAL.
 
-  llc_sap_hold(sap);
-  llc_sap_remove_socket(...);   /* may drop last socket's sap ref */
-  release_sock(sk);
-  llc_sap_put(sap);             /* last ref -> llc_sap_close -> kfree_rcu */
-  ...
-  llc_sk_free(sk);              /* timer_delete_sync() only here */
-
-Connection timers (ack / P / REJ / busy) are embedded in llc_sock and
-their callbacks run llc_process_tmr_ev() -> state machine actions that
-dereference llc->sap (e.g. sap->laddr.lsap). Those timers are only
-synchronously cancelled in llc_sk_free(), which runs *after* the sap
-reference is dropped. If this was the last socket on the sap, the sap
-can be RCU-freed while a timer is still pending or running, and the
-softirq timer path UAFs the freed sap.
-
-llc_ui_release() already keeps an extra sap reference across
-release_sock() so backlog processing can still use the sap. Extend that
-window: after release_sock(), synchronously stop all connection timers
-while the sap is still held, then drop the sap reference.
-timer_delete_sync() must not run under lock_sock() (timer callbacks take
-bh_lock_sock()), so stopping after release_sock() is required.
-
-llc_sk_free() still stops timers again; a second sync delete is
-harmless.
-
-Fixes: f7e43672683b ("llc: hold llc_sap before release_sock()")
-Reported-by: syzbot+44efda9647c52be29d9c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=44efda9647c52be29d9c
-Signed-off-by: Miguel García Román <miguelgarciaroman8@gmail.com>
+Fixes: bef153b70c6e ("drm/amdkfd: CRIU implement gpu_id remapping")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- net/llc/af_llc.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/llc/af_llc.c b/net/llc/af_llc.c
-index b0447c33d..4fc397fad 100644
---- a/net/llc/af_llc.c
-+++ b/net/llc/af_llc.c
-@@ -215,6 +215,14 @@ static int llc_ui_release(struct socket *sock)
- 		llc_sap_hold(sap);
- 		llc_sap_remove_socket(llc->sap, sk);
- 		release_sock(sk);
-+		/*
-+		 * Timers dereference llc->sap.  Cancel them while the sap is
-+		 * still held; llc_sk_free() runs after the final sap put and
-+		 * would otherwise race with kfree_rcu(sap).  Must run after
-+		 * release_sock() to avoid deadlock with bh_lock_sock() in the
-+		 * timer callbacks.
-+		 */
-+		llc_sk_stop_all_timers(sk, true);
- 		llc_sap_put(sap);
- 	} else {
- 		release_sock(sk);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 03b266b26738..5453fa4ce4fd 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -2311,6 +2311,7 @@ static int criu_restore_devices(struct kfd_process *p,
+ 		}
+ 
+ 		if (pdd->drm_file) {
++			fput(drm_file);
+ 			ret = -EINVAL;
+ 			goto exit;
+ 		}
 -- 
-2.43.0
+2.34.1
 
