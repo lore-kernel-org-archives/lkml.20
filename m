@@ -1,84 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EBB4D09E0;
-	Wed, 16 Sep 2026 11:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBEB3C3F6B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789557777; cv=none; b=pGX3A/3LS/nih58p8Ew8APScs2Rqd+pZNU8HLI34nAlWCAdkDGMbT2E5eqfRGBws691ysnu44qpw1wuXXVu+o3H9i7ES/pvFwlUbvPGicAzhdtfj1Rc+KeD9fHm38dLEbvel5lAUXxZH9d/va6zBOFW69kl1xeBmDA7tQxQUXBY=
+	t=1789557832; cv=none; b=FBTvWfRCRkZzBfw5OVxOtIsD8AolFaQYQ2IvadWLeGibp6Hk6OJLcSfBf3S2YbmcfAr1AMYF2uCtqe8O0rwPO4mgGWD8u9asM7rdr8nrcJTyqnCNbDq5zgRPA/TfsQidIcBXE+Y0uMsA6wBm9NiLwN4a+PJG/5xRT5UrYJafepY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789557777; c=relaxed/simple;
-	bh=HaDup1zqLAuloj9vagheUeO2UyYUCSBAeeryA6ayQcQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kK32KSeJN/zqlBdAupI7bD1vpk21uHn/c6Kv2cJpxqdqNn0X4UqAQUGjDRXX35KxISSccE0UnQBi+gp2+d0lkAXrp1XjoJ0Ajw/E1fIUo7o3hoRzUFAFhPiqKoMoC8IeTXaVGcvR0ZlvjzgYfbko8+w7Ec2EhDShww91c32x9+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUguNGok; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789557832; c=relaxed/simple;
+	bh=9xfCnfWUft91FQ9MOOueIx15mDmNvVVdKkU3/hZKgHo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qvYxrbeQN16s1qz2g3pq/Gu/mUSh9dfM1hOeffNX7oU75Gv2omxfeC6QXHri0+FMP7+rckuakIXU7ZGdXRPuFIgcMQP6M4oO+HTzsbIvSUsVVyEMTVuu4Ij4j5kht1q1AvUS/bfiP0Cbk1cYsnSk7yuHt84piITyOGgtyD5lWc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KznDIepM; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUguNGok"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 599E41F00893;
-	Wed, 16 Sep 2026 11:22:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789557770;
-	bh=Bv9caHK0L3VnjzkDAa41MY/MJExPJkSpdY12LFmTBZg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JUguNGok/rnJzGOGXcCKwTaEO9+sBhgPfVld16HUMoI5e/yplK7z8WDRTuemXMzbU
-	 MpzTF4953JBUCMNYt87QkDPjzNC5Che539aqreL0nSm+JWMJZGrOvnH332cE7RrMYs
-	 UK2NH13HMXevazHmGMes3wU7iZuFGaRxkxmQ5C/HT+HKfO87JV/Rmz5liwR8rvHz10
-	 FjKW13iFqn6i3J3g9K5O5pEmnnvoPfJB1oHz8TajHPeukNF2PwQJzp4WScvYL1IYiN
-	 DeTrGHgxphyrG+7OEZbCif3iJCgNcAEhR9T06uMEE66ntSHeLIvIlHBiXghDBMvA46
-	 C4byX0bqGHN4Q==
-Date: Wed, 16 Sep 2026 12:22:45 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: krzk@kernel.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org, perex@perex.cz, s.nawrocki@samsung.com,
-	tiwai@suse.com, stable@vger.kernel.org
-Subject: Re: [PATCH 03/20] ASoC: samsung: snow: Fix clock leak in snow_probe()
-Message-ID: <1a22633e-6264-4ea4-a6be-28f87802000b@sirena.org.uk>
-References: <20260916070341.1965422-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KznDIepM"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso5925405e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:23:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789557808; x=1790162608; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9xfCnfWUft91FQ9MOOueIx15mDmNvVVdKkU3/hZKgHo=;
+        b=KznDIepMwI5gk4UeJdZCO8BouTShkrtZyFygLGKAug/vX9irn7LxY7Qu8fo7SCKdzz
+         ymP7kE1Gu8zfPTTanl7KcyUw8/RfsohNp1wGc5MoINZP9ccRvHiGNhDP63NjcKqD1ddi
+         RgLpR0dnz0UmM0fS5z0s1n5l87SMtaDBjGHCwzsvrw2S3LjAv0Pb9fq1FGd1n1yBEnO9
+         h/0vLsaL6MQNxST1EXz9bjK9T/43Ns3hD4yYDz2TSJKNMw4SGKw7Dyk7GgX9wVh2mu9g
+         540Jk/kRxT3RRfcQ7v0Ao6pNZbiawylp7bBh9uR74plkLyY5eSK57UVmoMMxE5W8qvlq
+         Y7Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789557808; x=1790162608;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9xfCnfWUft91FQ9MOOueIx15mDmNvVVdKkU3/hZKgHo=;
+        b=dKRxY8rgXnOEZW6e8y2IOvDmAoUAC91aIFkcXzxH8MEfi/ELnuTQzS5qAeEIh4NcwX
+         eZlswlz2dHjh5uunPX3xBDYl+o12uvSiHzUTebAh8TuuJO93RDWFtDx03F1wG6Jqzuuh
+         ZAKDOZPuXNqO5zKUidJK4ptz2wIGbfsp9Yllu9uYSZCqqZsLHMao2mxXppxv+XFzapnc
+         NmH4ZBqnHojI+NTOMIYyUDbX1oh1B4lPUFr8+RtP1g3P6naHoVD6QDp0IlALy/KBjCFG
+         lvuDnOEWoa4HwaNDqYYz9BY0g5hqQHt149bTEpMb28iRbjf+DkXvV06htsbgy78MSiMf
+         X2AQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwt8THnRbImivOQbgcQvmhJ9jLv8a6ltacd1lVTIaGOHt+MGg4Ae2txifL66I5/NWPDO4UvGhs/mWafAyQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4x3f5QrJIn3qEVWeZBaULdeKyTeeMoA0ojkxeEmadEBrgIVUv
+	Rsx7wNZNDh7qARO84PUcFxaJTXsqsYO+8FGGuWCW201PmrXW6obsmhCg
+X-Gm-Gg: AYBFou1Le3gxGtnNV7JBP/lT1hEQzQwzX7Goyo7KJlI8jtDEHnSfCM2EmyDbBjau6oE
+	2nQXERbxLd1g3aJ35SOFHvMz9WiJ14tfA5dz7955qENDcc7iMI0IS0gKN3Xx0aqvQgyzAYVk7/Z
+	20zK4WvuKC5dCDILAcuMYpuLm7+LfJA5lP+7v2AIspB6NUN/caRT4iqJ84h0nyCCSXosy1/JevJ
+	ojGTSVuImPBywjS72BOaxy1muWCuhN7psa0djn3i2aUI0gcXa9gfBu9p1yG8tc44//9fleLAf9+
+	La7cKVYUhd55WRS/NyIhj1ZzQaqTHf66Xrg8KYBZVt/fpXiETEfOUqtzKfpAZRJ57Zsh/ZlmCD8
+	sSPzCYKnYE7oVkxlowlgw3EBK8k+Pdui1VVbpTFh+68MOvz7AXyyVkBnwbAt2fLXTonMFpraq1K
+	OZgcxTgPZlujzJto1dNCyyeQkBXm9Tf/xAhR5T3Qz+52GQJ+YyRC+3TdotAi4VQtaaJ2M2cH0a/
+	AQ1Z7wB77M=
+X-Received: by 2002:a05:600c:6296:b0:49e:602a:b4ec with SMTP id 5b1f17b1804b1-49eb730e225mr53609375e9.8.1789557807754;
+        Wed, 16 Sep 2026 04:23:27 -0700 (PDT)
+Received: from localhost.localdomain ([194.154.195.114])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49e83d9057dsm80761805e9.3.2026.09.16.04.23.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 04:23:27 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Dietmar Eggemann <dietmar.eggemann@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+	Beata Michalska <beata.michalska@arm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] arm64: topology: fix arch_freq_get_on_cpu() overflow above 4.19 GHz
+Date: Wed, 16 Sep 2026 13:23:19 +0200
+Message-ID: <178955779940.30466.10860982419496123467@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <55538466-2203-42ec-a0bd-b743c04a3b38@arm.com>
+References: <55538466-2203-42ec-a0bd-b743c04a3b38@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZyB3ECWHltiMyhAD"
-Content-Disposition: inline
-In-Reply-To: <20260916070341.1965422-1-vulab@iscas.ac.cn>
-X-Cookie: Double!
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hi Dietmar,
 
---ZyB3ECWHltiMyhAD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Wed, Sep 16, 2026, Dietmar Eggemann wrote:
+> In task scheduler code we use cap_scale(v, s) for CPU capacity related
+> scaling.
+>
+> We could move its definition from private task scheduler include file
+> kernel/sched/sched.h to include/linux/topology.h to be able to use it
+> also outside the task scheduler?
 
-On Wed, Sep 16, 2026 at 07:03:41AM +0000, Wentao Liang wrote:
-> In snow_probe(), priv->clk_i2s_bus is acquired via of_clk_get_by_name().
-> If devm_snd_soc_register_card() subsequently fails, the acquired clock
-> is never released, leading to a reference count leak.
+Fine by me, that reads better than open-coding the shift. Your diff
+builds here on arm64 (topology.o and kernel/sched/), so I will fold it
+into v4 and add the scheduler maintainers to Cc for the header move.
 
-You've not copied me on the rest of the series so I don't know what's
-going on with dependencies.  When sending a patch series it is important
-to ensure that all the various maintainers understand what the
-relationship between the patches as the expecation is that there will be
-interdependencies.  Either copy everyone on the whole series or at least
-copy them on the cover letter and explain what's going on.  If there are
-no strong interdependencies then it's generally simplest to just send
-the patches separately to avoid any possible confusion.
+Since the diff is yours: is a Suggested-by enough, or would you rather
+have Co-developed-by and your Signed-off-by on the patch?
 
---ZyB3ECWHltiMyhAD
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqqfAQACgkQJNaLcl1U
-h9CZWAf/YsKKjzdxqiPRs2SAcU4OvqyZ+mVhxVFcrOXRsAlpjdRm9NV2h9OaB5Ko
-qGZZAKaOal6iYNpZH0ye4dCf/ncPDV5sKNz0HR4s1w9hzAAShknFPuausbtfmr6o
-XPTBS1LajEZwMxO0HSU2etNjO5xNCO70kJqP0yCpFmNcst/l1MI0XJMvjPC/Ro1W
-B83rnfFQV8FA0xTLZHpT47Vpa7x9IJlqyx8OeKNbNEMmBKaW2czxfsrkliD3HFCq
-QGH/OTqNeRLcS+qzC7ldzlOq+ch+a2kXr6gpXFeg1Ro73saQ+EwEHuw9LztU/HJC
-+WJdTu0JF9R3FFTwH/UO9YosSpoGkw==
-=jgHW
------END PGP SIGNATURE-----
-
---ZyB3ECWHltiMyhAD--
+Thanks,
+Oleg
