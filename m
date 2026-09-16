@@ -1,92 +1,119 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10863BE636;
-	Wed, 16 Sep 2026 07:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BDB13F075D;
+	Wed, 16 Sep 2026 07:04:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542260; cv=none; b=aUILrFmKwPslCWI4YITALcc+ohk0gjHChctRbIPggnRMEF5JTwwbj6sZw3F0X6zReLwv5SGY6i46k6CT9ePsu1dL4Zr3hrs+yA+8+Oa/wjYNAQ9LSb4fzqvCAjMVYVFtAHZw8g/TFYiG7qVhvdlZD+2fXX6uzIqnhym7ztdiZsw=
+	t=1789542297; cv=none; b=Mc2kIKKOyeQ55geoNLRSpbT2cqcnyn3Tv1ub8QVAVUr/ggACcs8IYaQIHKrF2X7P6Q3KoqLw9Tyj5tfyZfaQ4PBI/FUBgqtKdn8Tt9wr9vT9BeQ90uSpMhC5a9hOyzptuqnWie+akaQkc2bdd5XatAdLhhd5+9YY+QaLVMszG4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542260; c=relaxed/simple;
-	bh=tYP+ILLBw9ueJSyVg53mQrWsAzkBaWl+zWefcGU3EDE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ur0dtdL2e5n5GsnoQ20eM/ujl5v+ussBCT6yyB3mbkT8KTfl3M5J7bmXnKB1Ad2fqfGmfnt8bgWzjRf9lELgViFviRqM2QMrqPjKKTz6YWxs/Oz1EqdKPLHEzXFhj7NNcCc4PWThPM0NJdatEdBVvYr1kPx1Ih0nKgD29Lx8w54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACnrTtpP6pqFuXeBw--.40674S2;
-	Wed, 16 Sep 2026 15:04:09 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: krzk@kernel.org,
-	lgirdwood@gmail.com,
+	s=arc-20240116; t=1789542297; c=relaxed/simple;
+	bh=xMnq3uzVoAmaiIsnEU84IZTo1wWIyDH0jpogKeuTURg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pGNOu/pBklX5CSDkm0cP1rnP4+/A2J6oimq75uURZygg57uY4H8KRawZIX77pbUFAYN2NgccpsgpX+JtGqvdLSAgXe06b/1kYNiIvIbOEBskNedEkw7RFxZm4boKDec4jbcJwsyhK4ipf9L4jot6ZTVQQ8yMysBxUA+avaFxgnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q4NP19Sb; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q4NP19Sb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB9D31F000FF;
+	Wed, 16 Sep 2026 07:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789542296;
+	bh=ijfOOZd0pqERrTuVYZCNeIuM97HHT4M3Ng/p5mLJTb8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Q4NP19SbuFICPDiwdiSSqrh0hVqa8/rRI63q89d6415EmMuU0T0GJ1vJfy9CI/z6T
+	 qOIIQ7rRPKuzkY3GSQCPO4paBLZHMrCzdfsALXiwBe5QaPJwG8e5kjOmXtmYTI/MXC
+	 m2XuuBk2g7HibnfcxmZFhNdCu4K9VfGVA/PMueG3XGFJ0Sym6f5hgNcTD6Azx2RIGU
+	 Dt8imczitPjeUG2YbF9gxHLsnVoEa9jbKP2Owu/Z3d8xYkWNCiDkqIFEqPnyekbs+4
+	 AFq9akTLhAn9ID5JZkNEmajXvT4N2mmMbWoXoApIXWK61QJk9nwzNMa3cYvMA+PZNO
+	 2U0YG2kIfOZ9w==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x6jhN-00000009Tjo-2mC2;
+	Wed, 16 Sep 2026 07:04:53 +0000
+Date: Wed, 16 Sep 2026 08:04:53 +0100
+Message-ID: <86mrth65ii.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+Cc: Wei-Lin Chang <weilin.chang@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	s.nawrocki@samsung.com,
-	tiwai@suse.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 03/20] ASoC: samsung: snow: Fix clock leak in snow_probe()
-Date: Wed, 16 Sep 2026 07:03:41 +0000
-Message-Id: <20260916070341.1965422-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Wang Han <wanghan@linux.alibaba.com>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH v6 0/7] KVM: arm64: nv: Implement nested stage-2 reverse map
+In-Reply-To: <aqoh27cSs5gMHeAL@sm-arm-grace07>
+References: <20260915154305.3852871-1-weilin.chang@arm.com>
+	<aqoh27cSs5gMHeAL@sm-arm-grace07>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACnrTtpP6pqFuXeBw--.40674S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Gw4ftw18uFyxCrWxtw15XFb_yoWDCwc_K3
-	yrWa95Wr9xGrZIg348G3yfAFs2qFs3CFWrCr1FqF17Ary7Xas0v392gFn3u3Z8Zw4fK3s8
-	Xr1UZF4xCryakjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb3kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUKdgAUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggMA2qqPpQEjAAAsj
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: itaru.kitayama@fujitsu.com, weilin.chang@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, wanghan@linux.alibaba.com, xueshuai@linux.alibaba.com, ljs@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-In snow_probe(), priv->clk_i2s_bus is acquired via of_clk_get_by_name().
-If devm_snd_soc_register_card() subsequently fails, the acquired clock
-is never released, leading to a reference count leak.
+On Wed, 16 Sep 2026 05:58:03 +0100,
+Itaru Kitayama <itaru.kitayama@fujitsu.com> wrote:
+> 
+> Hi Wei-Lin,
+> 
+> On Tue, Sep 15, 2026 at 04:42:58PM +0100, Wei-Lin Chang wrote:
+> > Hi,
+> > 
+> > This is v6 of optimizing the shadow s2 mmu unmapping during MMU
+> > notifiers.
+> > 
+> > This version fixes a few issues, and adds Marc's space optimization
+> > for kvm_guest_s2_mapping [1]. Please see the changelog for the details.
+> > 
+> > Tested by booting L3, and running in-kernel targetted tests described
+> > in [2]. v5 got some tested-by's from Itaru and Wang (thanks), I didn't
+> > carry them over since some bugs fixed in v6 are non-obvious. Some
+> > retest would be much appreciated!
+> > 
+> > Series based on v7.3-rc3 + Marc's nested mmu lifecycle fixes [3].
+> 
+> Observed on QEMU (accel tcg) only, but I saw:
+> 
+> [ 1812.052752] BUG: sleeping function called from invalid context at kernel/locking/rwsem.c:1630
+> [ 1812.052896] in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 596, name: shadow_stage2
+> 
+> The kernel is built on top of Marc's fix and your version six series, but
+> the fix for debugfs will be posted later?
+> 
+> Your hello_nested and shadow_stage2 ran without an issue.
+> 
+> Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
 
-Add clk_put() on the error path to release the clock properly.
+So you have established that there is a critical locking bug, make
+sure you don't communicate any information to help narrow where that
+bug is, and yet give your Tested-by: tag?
 
-Fixes: aff8d2bed9e5 ("ASoC: samsung: Add HDMI audio support for Snow")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- sound/soc/samsung/snow.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+What is the point? I'm baffled.
 
-diff --git a/sound/soc/samsung/snow.c b/sound/soc/samsung/snow.c
-index 66ef49dff1ba..ad99c153e9f8 100644
---- a/sound/soc/samsung/snow.c
-+++ b/sound/soc/samsung/snow.c
-@@ -211,9 +211,11 @@ static int snow_probe(struct platform_device *pdev)
- 	snd_soc_card_set_drvdata(card, priv);
- 
- 	ret = devm_snd_soc_register_card(dev, card);
--	if (ret)
-+	if (ret) {
-+		clk_put(priv->clk_i2s_bus);
- 		return dev_err_probe(&pdev->dev, ret,
- 				     "snd_soc_register_card failed\n");
-+	}
- 
- 	return 0;
- }
+Can you at least provide an indication of what you did to get there as
+well as the full backtrace?
+
+	M.
+
 -- 
-2.34.1
-
+Without deviation from the norm, progress is not possible.
