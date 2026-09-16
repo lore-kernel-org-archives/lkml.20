@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BAD05437E7
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5820156260A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600435; cv=none; b=SRDPOKokbADLaRl8/gV9GVuGQZsVH63HRkOrgz2Hz7wAWcGczi0iTDcDAgK1Ka83qAze5M1HL64rkbmxd1hsESNuA27RmVEMuQbhAeewzjLn8/TEHgxezezYq2dooo0YFT1xYwhqaEK1bo1FtlWmoHdlMQVHVIpnBbsbann1zN0=
+	t=1789600437; cv=none; b=mBXOk1XNKIUdfjDvy/aRmx3pYPu4tJov54Zrka1y2oYrl8zjbRrzLpuUTzPBJr/2JTFvkhaeda1oDHG/9Hln4oufgZ86KfE6M6W7AcsTe4LXdMWJzAMjRjRqusLnBixrMG5kpg3axTKvtlliqm6lqUSf0OV25K/T21x/nvoAz30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600435; c=relaxed/simple;
-	bh=8+L2gR2Ss+gNnCnweaBzwESt6GJNv29K9n1V0EfSMa4=;
+	s=arc-20240116; t=1789600437; c=relaxed/simple;
+	bh=eVmXOFlkRN5iaG26DigKaIsj/0UtV30S+C6g+/Kkx1s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T9vVnthIUpHzvU1SkPNDhf9jUkH4AoS4VcIk2IHw9lFdlWiWTLTZDkE/650SCYbYX+Pa9zcJzEjOQTHNWzNi/fy/wPUdE4COFMBABJes0BgGgCZNE05ETRKuqQkZo+45xEJFheF7ImQaoYEhgECpq2LhVEZTO9DH6T0BMyqiLnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XZ66fDLn; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=clWxde0KsbTxg5vVxXSFdMSKV4gYGRGZqfXyLd/UQBV634+AlQH1vcGPCr/Ad7uazKbC7uw8S5MZmvs7umPHzluSzyOPD7l/J6lrgQYsouRi3DZcnZ3A1bxMUzF6ArWcfLKNuoLzcGYPrSppTemXASprLwPYoZL0lmiuG6wCB6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KBrkYoC4; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XZ66fDLn"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KBrkYoC4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789600432; x=1821136432;
+  t=1789600436; x=1821136436;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=8+L2gR2Ss+gNnCnweaBzwESt6GJNv29K9n1V0EfSMa4=;
-  b=XZ66fDLnszmk3eyNIcGbKRqNxkaDopEvwOEcrqq40S9K+E+PFC2fOWZ/
-   1IgA6ZFx3eyKqScSfF6JAPMgQk/9NaZHXyQ81ch0FViKHUnv/LyxxzbiL
-   vpZ25Af0taJgxqpZFIvmMH8C4mLUK476XyK1n+Lb43HT+6JNc/KbLV2+v
-   bycdQfCnz60eU2IPB/ivevw2XSdH3jrDVtMilBTcc0gaA3MdQ1MraPTBE
-   inG0AeMWCgHGjleNqSOPv3Eenn0s34cS8kHeCrlFun58j3YIaurgTtGWe
-   JkmFEvytdATzIhdBQht/CenglMRHQ02u36AE3nQhlAWj+tKQNvthk376M
-   A==;
-X-CSE-ConnectionGUID: GCScWmK/QTCdiNEuGrHYeQ==
-X-CSE-MsgGUID: gXCaIUa+QUuKRSKWdGdm8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861488"
+  bh=eVmXOFlkRN5iaG26DigKaIsj/0UtV30S+C6g+/Kkx1s=;
+  b=KBrkYoC4Dt934zedFe4gTfHJowTmc4aFlhDos/4yKp7rociQcoTs1RDd
+   1CHVXgJLvAytO0PQFclh1cIDxLWHS+SK/NQaTDyMueyPNA5t05ynm4LUm
+   avzWBGN53oVLmn8FkYXaZ6nm1NC9d8tG20olYUWP0oKjyoWcVbxC9A2jl
+   2otmqxTzMXCMIPFaM+RxCySm6uJqqgl+pqJI/d4idf2qEP2hU1riNpxJG
+   91rmtPqFh6jUhLM2TJQMMsWNlz/DrqIrsEWzk7SpV6o2NUhB+teuuiXox
+   ox4BCt6mCqgsgcE9inbg9alWcZ0nEjL6opDsht4x7YtCcvg2zhnufTYEP
+   g==;
+X-CSE-ConnectionGUID: tVb1qJUaRn25PqkJH0wdzw==
+X-CSE-MsgGUID: 1z8oxs8TR2qpqxxNmc0/nA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861518"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93861488"
+   d="scan'208";a="93861518"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:39 -0700
-X-CSE-ConnectionGUID: hVkVTmCsSy+s+luHCKEWoQ==
-X-CSE-MsgGUID: uqIdBX5pRpevzIXFaim2jQ==
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:40 -0700
+X-CSE-ConnectionGUID: gYXTOZHxTEm1wFn0kBsWQg==
+X-CSE-MsgGUID: YJz8K/Q5QYKeu1GlIvDOGQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="277231489"
+   d="scan'208";a="277231501"
 Received: from khuang2-desk.gar.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.223.219])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:39 -0700
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:40 -0700
 From: Tony Luck <tony.luck@intel.com>
 To: Fenghua Yu <fenghuay@nvidia.com>,
 	Reinette Chatre <reinette.chatre@intel.com>,
@@ -59,9 +59,9 @@ Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v12 19/25] arm,x86,fs/resctrl: Enumerate AET on every resctrl mount
-Date: Wed, 16 Sep 2026 16:13:14 -0700
-Message-ID: <20260916231320.14502-20-tony.luck@intel.com>
+Subject: [PATCH v12 22/25] platform/x86/intel/pmt: Inform resctrl when MMIO maps are being removed
+Date: Wed, 16 Sep 2026 16:13:17 -0700
+Message-ID: <20260916231320.14502-23-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916231320.14502-1-tony.luck@intel.com>
 References: <20260916231320.14502-1-tony.luck@intel.com>
@@ -73,299 +73,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Call resctrl_arch_pre_mount() for every mount protected by
-resctrl_mount_lock. Add matching resctrl_arch_unmount() path for
-architecture code to clean up on mount failure or unmount.
+Before destroying devices, tell resctrl that the virtual addresses
+supplied by an earlier call to intel_pmt_get_regions_by_feature()
+are about to be invalidated and should not be used again.
 
-Remove intel_aet_exit() after moving all the cleanup code into
-intel_aet_unmount().
+Avoid A-B deadlock between ep_lock and aet_register_lock.
 
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
 v12:
-	Rest of old patch 17 merged into patch 18 so the umount
-	code path is complete.
-	Fix rdt_get_tree() return value when kernfs_get_tree() fails.
-	Move resctrl_arch_unmount() after cpus_read_unlock() in out: error path
-	Update resctrl_arch_pre_mount() header comment to say it is now
-	called for each mount, not just the first.
-	Update comment for resctrl_mounted to say that both resctrl_mount_lock
-	and rdtgroup_mutex must be help to change state.
+	Ilpo: Downgrade "can't happen" dev_warn() to dev_debug()
+	Ilpo's suggestion to use guard(mutex) moot due to refactor.
+	Reinette: Refactor and eliminate "u32 ret" and s/packages/package/
+	Reinette: Explain ep_lock release/acquire.
 ---
- include/linux/resctrl.h                 | 10 ++++++--
- arch/x86/kernel/cpu/resctrl/internal.h  |  4 ++--
- arch/x86/kernel/cpu/resctrl/core.c      | 21 +++++++++++++++--
- arch/x86/kernel/cpu/resctrl/intel_aet.c | 29 +++++++++++++++++++----
- drivers/resctrl/mpam_resctrl.c          |  4 ++++
- fs/resctrl/rdtgroup.c                   | 31 ++++++++++++++++++++-----
- 6 files changed, 82 insertions(+), 17 deletions(-)
+ drivers/platform/x86/intel/pmt/telemetry.c | 31 ++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index 604ab7af7c2b..5a975856f670 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -590,11 +590,17 @@ void resctrl_online_cpu(unsigned int cpu);
- void resctrl_offline_cpu(unsigned int cpu);
- 
- /*
-- * Architecture hook called at beginning of first file system mount attempt.
-- * No locks are held.
-+ * Architecture hook called at beginning of each file system mount attempt.
-+ * Called while holding resctrl_mount_lock.
-  */
- void resctrl_arch_pre_mount(void);
- 
-+/*
-+ * Architecture hook called when mount fails, or on unmount.
-+ * Called while holding resctrl_mount_lock.
-+ */
-+void resctrl_arch_unmount(void);
-+
- /**
-  * resctrl_arch_rmid_read() - Read the eventid counter corresponding to rmid
-  *			      for this resource and domain.
-diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
-index fc60b0af250d..5e71dd758624 100644
---- a/arch/x86/kernel/cpu/resctrl/internal.h
-+++ b/arch/x86/kernel/cpu/resctrl/internal.h
-@@ -234,15 +234,15 @@ void rdt_domain_reconfigure_cdp(struct rdt_resource *r);
- void resctrl_arch_mbm_cntr_assign_set_one(struct rdt_resource *r);
- 
- #ifdef CONFIG_X86_CPU_RESCTRL_INTEL_AET
--void __exit intel_aet_exit(void);
- bool intel_aet_pre_mount(void);
-+void intel_aet_unmount(void);
- int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val);
- void intel_aet_mon_domain_setup(int cpu, int id, struct rdt_resource *r,
- 				struct list_head *add_pos);
- bool intel_handle_aet_option(bool force_off, char *tok);
- #else
--static inline void __exit intel_aet_exit(void) { }
- static inline bool intel_aet_pre_mount(void) { return false; }
-+static inline void intel_aet_unmount(void) { }
- static inline int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val)
- {
- 	return -EINVAL;
-diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index 2fa4ebf7159a..3bf4d1a07593 100644
---- a/arch/x86/kernel/cpu/resctrl/core.c
-+++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -811,6 +811,25 @@ void resctrl_arch_pre_mount(void)
- 	cpus_read_unlock();
+diff --git a/drivers/platform/x86/intel/pmt/telemetry.c b/drivers/platform/x86/intel/pmt/telemetry.c
+index bf0c9295feb3..527563043777 100644
+--- a/drivers/platform/x86/intel/pmt/telemetry.c
++++ b/drivers/platform/x86/intel/pmt/telemetry.c
+@@ -366,12 +366,43 @@ pmt_telem_find_and_register_endpoint(struct device *dev, u32 guid, u16 pos)
  }
+ EXPORT_SYMBOL_NS_GPL(pmt_telem_find_and_register_endpoint, "INTEL_PMT_TELEMETRY");
  
-+void resctrl_arch_unmount(void)
++static int pmt_telem_get_package_id(struct pmt_telem_priv *priv)
 +{
-+	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_PERF_PKG].r_resctrl;
-+	int cpu;
++	int i;
 +
-+	if (!r->mon_capable)
-+		return;
++	for (i = 0; i < priv->num_entries; i++) {
++		struct intel_pmt_entry *entry = &priv->entry[i];
++		struct pci_dev *pdev = to_pci_dev(entry->ep->dev);
++		struct oobmsm_plat_info *plat_info;
 +
-+	intel_aet_unmount();
++		plat_info = intel_vsec_get_mapping(pdev);
++		if (!IS_ERR(plat_info))
++			return plat_info->package_id;
++	}
 +
-+	cpus_read_lock();
-+	mutex_lock(&domain_list_lock);
-+	for_each_online_cpu(cpu)
-+		domain_remove_cpu_mon(cpu, r);
-+	r->mon_capable = false;
-+	mutex_unlock(&domain_list_lock);
-+	cpus_read_unlock();
++	return -ENODEV;
 +}
 +
- enum {
- 	RDT_FLAG_CMT,
- 	RDT_FLAG_MBM_TOTAL,
-@@ -1159,8 +1178,6 @@ late_initcall(resctrl_arch_late_init);
- 
- static void __exit resctrl_arch_exit(void)
+ static void pmt_telem_remove(struct auxiliary_device *auxdev)
  {
--	intel_aet_exit();
--
- 	cpuhp_remove_state(rdt_online);
+ 	struct pmt_telem_priv *priv = auxiliary_get_drvdata(auxdev);
++	int package_id;
+ 	int i;
  
- 	resctrl_exit();
-diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-index 32f3f30894a4..8aa2e18a6bbb 100644
---- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
-+++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-@@ -298,7 +298,7 @@ static enum pmt_feature_id lookup_pfid(const char *pfname)
- /*
-  * Protects pmt_module, get_feature, put_feature against races between module
-  * load/unload of the pmt_telemetry module and mount/unmount of the resctrl
-- * file system.
-+ * file system. Also protects pmt_in_use.
-  */
- static DEFINE_MUTEX(aet_register_lock);
- 
-@@ -306,6 +306,11 @@ static struct module *pmt_module;
- static struct pmt_feature_group *(*get_feature)(enum pmt_feature_id id);
- static void (*put_feature)(struct pmt_feature_group *p);
- 
-+/*
-+ * Track whether pmt_telemetry enumeration succeeded during mount for use during unmount.
-+ */
-+static bool pmt_in_use;
+ 	mutex_lock(&ep_lock);
++	package_id = pmt_telem_get_package_id(priv);
++	/*
++	 * Tell resctrl/AET that virtual mappings for MMIO space in a CPU
++	 * package are about to be torn down.
++	 */
++	if (package_id < 0) {
++		dev_dbg(&auxdev->dev, "Unable to determine package ID for removed device\n");
++	} else {
++		mutex_unlock(&ep_lock);
++		intel_aet_invalidate(package_id);
++		mutex_lock(&ep_lock);
++	}
 +
- /*
-  * Request a copy of struct pmt_feature_group for each event group. If there is
-  * one, the returned structure has an array of telemetry_region structures,
-@@ -375,19 +380,33 @@ bool intel_aet_pre_mount(void)
- 		return false;
- 	}
- 
-+	pmt_in_use = true;
-+
- 	return true;
- }
- 
--void __exit intel_aet_exit(void)
-+void intel_aet_unmount(void)
- {
-+	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_PERF_PKG].r_resctrl;
- 	struct event_group **peg;
- 
-+	guard(mutex)(&aet_register_lock);
-+	if (!pmt_in_use)
-+		return;
-+
- 	for_each_event_group(peg) {
--		if ((*peg)->pfg) {
--			intel_pmt_put_feature_group((*peg)->pfg);
--			(*peg)->pfg = NULL;
-+		struct event_group *e = *peg;
-+
-+		if (e->pfg) {
-+			for (int i = 0; i < e->num_events; i++)
-+				resctrl_disable_mon_event(e->evts[i].id);
-+			put_feature(e->pfg);
-+			e->pfg = NULL;
- 		}
- 	}
-+	module_put(pmt_module);
-+	pmt_in_use = false;
-+	r->mon.num_rmid = 0;
- }
- 
- #define DATA_VALID	BIT_ULL(63)
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 69c9e02d2f40..f42f98f89c38 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -121,6 +121,10 @@ void resctrl_arch_pre_mount(void)
- {
- }
- 
-+void resctrl_arch_unmount(void)
-+{
-+}
-+
- bool resctrl_arch_get_cdp_enabled(enum resctrl_res_level rid)
- {
- 	return mpam_resctrl_controls[rid].cdp_enabled;
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 2e9f71901f68..07fefa3c434e 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -30,6 +30,9 @@
- 
- #include "internal.h"
- 
-+/* Mutex protecting resctrl_mounted and mount/unmount operations */
-+static DEFINE_MUTEX(resctrl_mount_lock);
-+
- /* Mutex to protect rdtgroup access. */
- DEFINE_MUTEX(rdtgroup_mutex);
- 
-@@ -48,7 +51,10 @@ LIST_HEAD(resctrl_schema_all);
-  */
- static LIST_HEAD(mon_data_kn_priv_list);
- 
--/* The filesystem can only be mounted once. */
-+/*
-+ * The filesystem can only be mounted once. Can only be updated
-+ * while holding both resctrl_mount_lock and rdtgroup_mutex.
-+ */
- bool resctrl_mounted;
- 
- /* Kernel fs node for "info" directory under root */
-@@ -3149,6 +3155,7 @@ static void resctrl_unmount(void)
- {
- 	struct rdt_resource *r;
- 
-+	mutex_lock(&resctrl_mount_lock);
- 	cpus_read_lock();
- 	mutex_lock(&rdtgroup_mutex);
- 
-@@ -3166,6 +3173,8 @@ static void resctrl_unmount(void)
- 	resctrl_mounted = false;
- 	mutex_unlock(&rdtgroup_mutex);
- 	cpus_read_unlock();
-+	resctrl_arch_unmount();
-+	mutex_unlock(&resctrl_mount_lock);
- }
- 
- static int rdt_get_tree(struct fs_context *fc)
-@@ -3177,24 +3186,27 @@ static int rdt_get_tree(struct fs_context *fc)
- 	struct rdt_resource *r;
- 	int ret;
- 
--	DO_ONCE_SLEEPABLE(resctrl_arch_pre_mount);
-+	mutex_lock(&resctrl_mount_lock);
- 
--	cpus_read_lock();
--	mutex_lock(&rdtgroup_mutex);
- 	/*
- 	 * resctrl file system can only be mounted once.
- 	 */
- 	if (resctrl_mounted) {
- 		ret = -EBUSY;
--		goto out;
-+		goto out_mount_unlock;
- 	}
- 
- 	/* Avoid races from pending operations from a previous mount */
- 	if (atomic_read(&rdtgroup_default.waitcount) != 0) {
- 		ret = -EBUSY;
--		goto out;
-+		goto out_mount_unlock;
- 	}
- 
-+	resctrl_arch_pre_mount();
-+
-+	cpus_read_lock();
-+	mutex_lock(&rdtgroup_mutex);
-+
- 	if (!resctrl_alloc_capable() && !resctrl_mon_capable()) {
- 		ret = invalfc(fc, "No allocation or monitoring features are available or enabled");
- 		goto out;
-@@ -3289,6 +3301,8 @@ static int rdt_get_tree(struct fs_context *fc)
- 	mutex_unlock(&rdtgroup_mutex);
- 	cpus_read_unlock();
- 
-+	mutex_unlock(&resctrl_mount_lock);
-+
- 	ret = kernfs_get_tree(fc);
- 	/*
- 	 * resctrl can only be mounted once, new superblock only expected
-@@ -3297,6 +3311,7 @@ static int rdt_get_tree(struct fs_context *fc)
- 	if (!ctx->kfc.new_sb_created)
- 		resctrl_unmount();
- 	kernfs_put(rdt_root_kn);
-+
- 	return ret;
- 
- out_mondata:
-@@ -3320,6 +3335,10 @@ static int rdt_get_tree(struct fs_context *fc)
- out:
- 	mutex_unlock(&rdtgroup_mutex);
- 	cpus_read_unlock();
-+	resctrl_arch_unmount();
-+out_mount_unlock:
-+	mutex_unlock(&resctrl_mount_lock);
-+
- 	return ret;
- }
+ 	for (i = 0; i < priv->num_entries; i++) {
+ 		struct intel_pmt_entry *entry = &priv->entry[i];
  
 -- 
 2.55.0
