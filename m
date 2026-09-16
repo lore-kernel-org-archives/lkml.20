@@ -1,256 +1,134 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013021.outbound.protection.outlook.com [40.107.159.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06C34C900C;
-	Wed, 16 Sep 2026 10:03:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789553016; cv=fail; b=R9ZGmLSPIlGnLpPrAXOW2J/JrGFaX7vKvGPFzrV9gRqJTRG7a0FWFmLyq/HKp23Qqtc4574DDmUgmnvrie3G/lM2YvxtViENYxqOHBw5g6aqqbgpiCvnbNn3knplW8L0iZCuXmtq9VJVvrf/xZJhRVJ1XK0jx77urLfOTAjJquw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789553016; c=relaxed/simple;
-	bh=OfLRw9q2swAEAusGjoSngXPBBMxpXqs0nWL6IhBfShg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=IjNP3XsHPhdPJwBSmfK3JtW4N3gSbT2l/nb4lWqXLBjOKdbuRoHKCPDtzBcV6q0panRaisd8CScvCez18FsRRL0WdHEUjxJ7USFYo0MRhuSGcs+MrMV5AbD+9UDY4YbdxOvlkEYag3Zk+QQuEtgWiqrMcXRWRNhscIM0yRR8qtw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=L5/F30B/; arc=fail smtp.client-ip=40.107.159.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D7C4B4873
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789553079; cv=none; b=kk44Y964YjEaUpj8pPQyMdZ+qlUEfDBYd/7SKoiuaW0psGmyHGfYCOVWBA+7l/kneWAEKJClWd7brNu7cveNEjyfqp/kNCmgjYybZbUfdLZp3vA9w1xGqYNZiuM2qcqMFYPs7rpEG0saQ1a5et1E5Ubm0ggkcEsaZlhdrAwS9SM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789553079; c=relaxed/simple;
+	bh=0xWacLHVFg8yDFBVQgT0xxVbDKKkqpluoE/q6wHsbhg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=hNC61XBYaQhdabmOONjnDIccm3ouLLz9h7HL++Bh6hTJAlRtJUTNVTu0PqsX6XM8eMjEBaPfrIqV+hK97zvNpna7hXko1bpu0l26zClsd416scsDabk2sM/d9FR0LWksBgQHzuqQLD/XhUlYdl6VLkEzWPqXFVZACcsScgfO6pI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jXAzjpbn; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="L5/F30B/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dfyUAUg1IIQJuP20/VSdKtPTICGllYhDQB+DYpIlmesUDc5v7dsl9Rjl8a2f7uPYI2NmM4FM4ftTU19H31R5ml0LpcfqlDMZVLhNKC+BjRMwfFyR2c1e6qJYB7K/J6cLG3tk+goOAu1PFQYJI8K635fjj/Rq1X5A2O0zLtVigxlqp3DLoIgUyiVPJA2Qs9MeMN/C0X6oNePtcMlAu4m1t5Icrkze6iqPcQcaKXJtpCcjNIZ5GxLxmRPLn4BzyIwBkX0frVuOvr60TfQ2SUFGraioFki77ZbiOszEbTkz3MuUGre531GIWOlpkfN2tMCKxF7qH+NlWv+TpYiuB8hbeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KIcrIfWx+TSEvxGKy6/D5I9qUebgG2wvJxELHA4JgfM=;
- b=ySPWwFKyn2Cb/F4NFQg7MzDAR1lGfALdsspHmTXDrDRJM43JmjDjjOOb9cpDwZEwC+OuGHM8MnfqDyO8ONPhZttQL3EMu1Z2mD1wNTOBpITcnD/o2COhRkgnYGkol1o2M+IxvcG/VFPGse9+poTDqIg6uuULvaemV+wcj2D7NabNOaJbjsi7ftx1GV0pFMLueZ4ctAAyOVg8YpIy2qKaAZNchVOlI6W/xF9WygUnYYTE9x3VJfJi+FYo2aVqjpCQp4p1GGXNrDSr4CCM96MIn4QLGk6ZyC90Lzq/G7lXpkrXsicZiHOUfIGEq122djEh+ByoSDr9xsxhhu8XV93PZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=intel.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KIcrIfWx+TSEvxGKy6/D5I9qUebgG2wvJxELHA4JgfM=;
- b=L5/F30B/nt/mdMJ4VCyoFAv6tVlXI7KuvheFfkMCajP9xMCDc9HdwNBzYBo8YyKztQfK5nrkiC/81avcl9ZkLMu4GbAcQT95FbnRQB0VBpgtMJAfSx46OTDjaJdyuYxBqaHoy6Y5v+D1rDKsB5mCdtWXgZAtfP18+VTZqzbJ0vz8lTBYmL4PIsdX39h/Gu4Hdu6TVRHKYQY0bObx/mD5gEwzsX5zPQHRer09QBiAMLZscIwmXh1mQ8FYJgy1vn+9p634LYUMbGjHjVVEao5U46x7AwPQU+/W02B1r6FFNOAcHIqGznqu7k7dB3aXcIhCuGyzXgt+iWXX1oiTJhKzcA==
-Received: from DU2PR04CA0309.eurprd04.prod.outlook.com (2603:10a6:10:2b5::14)
- by WAWPR10MB601896.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:1d0:49::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 10:02:52 +0000
-Received: from DB1PEPF00050A01.eurprd03.prod.outlook.com
- (2603:10a6:10:2b5:cafe::47) by DU2PR04CA0309.outlook.office365.com
- (2603:10a6:10:2b5::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.13 via Frontend Transport; Wed,
- 16 Sep 2026 10:02:51 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF00050A01.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 10:02:51 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 16 Sep
- 2026 12:08:55 +0200
-Received: from [10.48.86.251] (10.48.86.251) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 16 Sep
- 2026 12:02:49 +0200
-Message-ID: <eb5dad33-9344-4b70-b7dd-a0e808f43ed8@foss.st.com>
-Date: Wed, 16 Sep 2026 12:02:48 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jXAzjpbn"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e620fa473so4491335e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:04:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789553058; x=1790157858; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1+LP4xptQa+2C+BD1oGDKA67ZCLFNM3ainCw+VzoD2s=;
+        b=jXAzjpbn2UlEDALJFMvz9mjxq561naPRSEqqCZISeov/EP/NcBrw0I4C/LA7c5PJ0Z
+         G/8Il8TPEqCAUnSIOfeW4HCVyRC03hnCxErbZDl/KxLmaaOdjJo0w2NfGCeWij3mAnt0
+         U66KXZq8NMJQ4wfo8XXvqzSfp1WlZ5gt6BLJN4pOTdi6meIj8AdVcF6F7GzRwDTlHGB2
+         Y7n6HhFgsDWpq+Z9bz+0Z4Jma5lf8DH47z7fQsQt98Oc08BEuw821WSgCiZ7+2K2ebqe
+         hIyc4kUR6qjTc3FqtQGuBdLE/gimDaKfTr4pH9XURpyUaRtRpsMV7OeVyIRBVTkL2UQ7
+         LOrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789553058; x=1790157858;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1+LP4xptQa+2C+BD1oGDKA67ZCLFNM3ainCw+VzoD2s=;
+        b=lzW7vBky8dscEmYITdHWht3M7Mb2TWiiz+lEJbv8ZD0Empd8AaE2n/8QmiA/2tJzq4
+         Giiq6SofYlu87ifGMOKoBE8Afo/0+pF0QW9j8Wj6eJCsLS89HztNYXjm0NmQ2S9HONHN
+         V6U4OIm7PS329vqA9xTbwIF4cS85OWLYR9gPWag9mV9fDsZVcHKC65+CP5lxdhdUyMoa
+         ngBOw7xbZj0i4baUsy8XrafxmDfEBH/orscCrO6CVNpnC9H5fEhsWNaNtOXa//bs8D18
+         jasbosMCKPVq8eGKVGClgyNxJFfCX17VBP2tBbGxXXeY2p09JnGGNonrlhtmaEyseWo4
+         X3JA==
+X-Forwarded-Encrypted: i=1; AKwUvBwLNwyKXYcL36vctVEq8G3NOXUHNIBsFcA9ei5mN9hI99Q9lBfAIQmfR5nbn9QZkCIhQ1EAWpmMyNjsSQ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQNYDmP4bArBTY/g8U2AHhtfpaRgyZqSrY8XZj6zFU1FreoSPI
+	sws3rBSED+lgh6cfIfruc9UbfR5l1nsFxVybm9iHYdwA8AqI2E+uYTDMY8i4zyEhBmA=
+X-Gm-Gg: AYBFou0wS6R2LcbuOXdeg+X9+EOHvHdfnxiAX3X6zDXTUkYYHgr8gGp8Igc+xPAULpp
+	HY2Tk2T4efhBtikXUzP879FgUxrc/NVdWlffQRLSQDRA0b0FJs7tnmxwltIiSmRMd+sxO1q6oKQ
+	pETXIvynZ1HMVpR2yZzM/mzmL1yMbcFFWrFykZKH8f4n/MMH9S5pqvwiRnRjfdf3v3YXKhVV5xs
+	ZTCHpzhOVVZb40hdvfdC1lDQBqGWPCCTcXS8pxo5fTIGMlkssSN+ZV8KcSjFFrbQ21P+rPPaLgf
+	5j0Pc4C5oKwhvwOSqduEMq1joWDwGcvzOHgjj3v+QKC1JPV50gc9uvElhZDSV5k//shdBUw8Q3S
+	Hl29xXkIVSur7/Vr5ChlmlBgx5f0tUKCOjP7EjrlPersc5WCTKbAvWuN3ZcJ8/h9KwrvCV2prhz
+	VsxlP6ffINRsmy7e4rOJ1HUGon8Thr5VIOAwepWzrsNkoUcv9UNruHC/nQmLmPcMnIsvPoxhqa7
+	cHWuM1840q+
+X-Received: by 2002:a05:600c:3584:b0:49c:ee36:10fc with SMTP id 5b1f17b1804b1-49eac4678b6mr26145655e9.8.1789553057754;
+        Wed, 16 Sep 2026 03:04:17 -0700 (PDT)
+Received: from arrakeen-2.home ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e84805db6sm35844635e9.3.2026.09.16.03.04.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 03:04:17 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Lucas Tanure <tanure@linux.com>
+Cc: Brian Masney <bmasney+clk@redhat.com>, 
+ Chuan Liu <chuan.liu@amlogic.com>, Jian Hu <jian.hu@amlogic.com>, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>, linux-mmc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260905153234.133217-1-tanure@linux.com>
+References: <20260905153234.133217-1-tanure@linux.com>
+Subject: Re: (subset) [PATCH v2 0/4] amlogic: t7: give the MMC bus pipeline
+ clock real consumers
+Message-Id: <178955305678.2918771.10810230842213506975.b4-ty@b4>
+Date: Wed, 16 Sep 2026 12:04:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iio: adc: stm32-adc: fix check on internal channel
- availability
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-CC: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Olivier Moysan
-	<olivier.moysan@foss.st.com>, <linux-iio@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>, <stable@vger.kernel.org>
-References: <20260915-adc-fix-intchan-v1-v1-1-761a1b35001b@foss.st.com>
- <aqpJCsBNKDSKlfFD@ashevche-desk.local>
-Content-Language: en-US
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <aqpJCsBNKDSKlfFD@ashevche-desk.local>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF00050A01:EE_|WAWPR10MB601896:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2aeac330-ee11-4904-a181-08df13d9ab5a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|7416014|1800799024|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	thci0OiEXEv8ELqyxe36IHjahLog4u6qfBz1mfNRigcZLGG1ABbsgqbkmpLB0mzB7XPADW8F6JgwO182dd1wjgMTooBFArIpmZ33yVRB5nx7fNrY0vC0PokE5EpyvVUDPqtUUP/uZ7qo8x4GB/Y6M7VCAMx+bvzZzWlAVff4iQn2724tOxy8vgFmHOClLp7UIxc2urop3+g8kjn08D9M8FYIndzupa+8bhbrlhJ0s07ODvlQ+EN7WCanapCPUfjSEYxoqLpTC2wDl8yk6oufcEYUAVhkDy7h33aVIrbVs0k8Z9aSNdwxEmL/tvpAe+PppRHxpvyDaE0Usvx+UEg/5A3AXRkJ9b2RdmvA64ywe2Mt3dRP+/Zh20Qv5agtzvmHspSWcVtrfBP/ABUzj2TjkbuLCh5+GZduhi/xCHZNiRftJklM6NKQjDUBN6kOU7tMmHf0mmfu/h+R2dNPwxxHCbiXvKGV7J9Hgc8NXGaGZM3jGhsFUVRlxABX9k/lVWNGh5FmRyqFgCD2sHYlbg0RnGjU1zXHPbfUZSm/yvGQEIcH+fxx1j8QFgy3C3Gzt08QRkppVDBEBVeFbzf5lD4iZ0sE4h8+EPNDrgjUh5dTVvSM6sLYkdL8kOCbfg3LEEKBWljG82aXJL/uPHZbkwLgBxCfnSQcY00igsB0RHMXr0etw5Phw+LjErRez/gobXQKjcD4jDCzvoV+ooI5IZQBMA==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(7416014)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	qkxoX1nMm2v/vHAaATEQyX6GyWuRy2xw3wDbXgRn4aVJYTcVlkj93gDfZnj/quvHnYyl0yoI9CQMCA4AQCy9RZvPui2ByY2Ls6WdObBRWHZ+1TwJS/PdboTtpAWvtO3uNeMFwAafdGbmZbHpwVp2ZJknsvDn8zioJaG6sUYNmmiHpvzKy//YnZemmy+oJbbCRK+jCofBT3XPL58P42HThgY9PPpjE6iG6odCS7A6L+klDxxYkZbyWAWON9tSR03CF9sh3Ek8wdCOHWnPc/0uaLSm6xmXQYIQbLNz13fscx6kJkLWOgL4KtLISPryxYlJnEjASGIp5DVNRqYEEwZGzuc5bragsLV0dAhePPpZK4vYZGtSaigPseEKt0UVnpy138oa8hhdK+9177a0sQEQBv/tmhrKPaf/Q5rkNZmnCH47l4WwWmiOTw5pmU3h7IEx
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 10:02:51.2392
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2aeac330-ee11-4904-a181-08df13d9ab5a
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF00050A01.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: WAWPR10MB601896
+X-Mailer: b4 0.15.1
 
-On 9/16/26 09:45, Andy Shevchenko wrote:
-> On Tue, Sep 15, 2026 at 06:15:49PM +0200, Fabrice Gasnier wrote:
->> If an unsupported internal channel like vddgpu is requested, the driver
->> prints a warning but falls through and assigns it a valid int_ch below.
->>
->> This causes a problem later during setup:
->> stm32_adc_int_ch_enable() {
->>     ...
->>     case STM32_ADC_INT_CH_VDDGPU:
->>         stm32_adc_set_bits(adc, adc->cfg->regs->or_vddgpu.reg,
->>                            adc->cfg->regs->or_vddgpu.mask);
->>     ...
->> }
->>
->> Because the register offset is uninitialized (0), this performs a
->> read-modify-write on offset 0, which corresponds to the ISR register.
->>
->> Fix this by returning before a valid int_ch is assigned.
->> Choice is made to just warn about the channel name as it could
->> be confusing, rather than making the probe fail.
-> 
-> Are this and the other patch made with AI assistance?
+Hi,
 
-Hi Andy,
+On Sat, 05 Sep 2026 16:32:30 +0100, Lucas Tanure wrote:
+> The previous series for the intermittent boot hangs on the VIM4
+> marked sys_ampipe_nand as critical. But as Chuan Liu from Amlogic
+> explained, sys_ampipe_nand clocks a pipeline stage that the
+> hardware design inserts in the bus path between the SD/eMMC
+> controllers and the NIC_MATRIX fabric to help timing closure.
+> 
+> So the clock has real consumers: reference it from the three MMC
+> controller nodes and drop CLK_IS_CRITICAL instead.
+> 
+> [...]
 
-Not the solution (patch content) to fix the issue.
+Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.4/arm64-dt)
 
-But most of the commit message is copied from Sashiko, as I find it
-clear, see:
-Link:
-https://lore.kernel.org/all/20260911162602.D323F1F000FF@smtp.kernel.org/
+[3/4] arm64: dts: amlogic: t7: add the pipeline clock to the MMC controllers
+      https://git.kernel.org/amlogic/c/065957517880dc7053e0723cc9532b6e78c8855c
 
-I've added Reported-by tag. Do you think I should add more tags ?
+These changes has been applied on the intermediate git tree [1].
 
-The code bellow isn't assisted-by anything.
+The v7.4/arm64-dt branch will then be sent via a formal Pull Request to the Linux SoC maintainers
+for inclusion in their intermediate git branches in order to be sent to Linus during
+the next merge window, or sooner if it's a set of fixes.
 
-> 
-> ...
-> 
->>  	struct stm32_adc *adc = iio_priv(indio_dev);
->>  	u16 vrefint;
->> -	int i, ret;
->> +	int i, ret = 0;
-> 
-> No, either assign closer to its first user, or do even better.
-> 
->>  	for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
->>  		if (!strncmp(stm32_adc_ic[i].name, ch_name, STM32_ADC_CH_SZ)) {
->> @@ -2267,31 +2267,36 @@ static int stm32_adc_populate_int_ch(struct iio_dev *indio_dev, const char *ch_n
->>  			switch (i) {
->>  			case STM32_ADC_INT_CH_VDDCORE:
->>  				if (!adc->cfg->regs->or_vddcore.reg)
->> -					dev_warn(&indio_dev->dev,
->> -						 "%s channel not available\n", ch_name);
->> +					ret = -ENOENT;
-> 
-> This is a repetition of the same value. Instead add a boolean flag and do here
-> 
-> 	bool na;
-> 	...
-> 			na = false; // or can be dropped with 'default' case
-> 			switch (i) {
-> 			case STM32_ADC_INT_CH_VDDCORE:
-> 				na = !adc->cfg->regs->or_vddcore.reg;
+In the cases of fixes, those will be merged in the current release candidate
+kernel and as soon they appear on the Linux master branch they will be
+backported to the previous Stable and Long-Stable kernels [2].
 
-Ack, thanks for suggesting! I will update in v2.
+The intermediate git branches are merged daily in the linux-next tree [3],
+people are encouraged testing these pre-release kernels and report issues on the
+relevant mailing-lists.
 
-> 
->>  				break;
->>  			case STM32_ADC_INT_CH_VDDCPU:
->>  				if (!adc->cfg->regs->or_vddcpu.reg)
->> -					dev_warn(&indio_dev->dev,
->> -						 "%s channel not available\n", ch_name);
->> +					ret = -ENOENT;
->>  				break;
->>  			case STM32_ADC_INT_CH_VDDQ_DDR:
->>  				if (!adc->cfg->regs->or_vddq_ddr.reg)
->> -					dev_warn(&indio_dev->dev,
->> -						 "%s channel not available\n", ch_name);
->> +					ret = -ENOENT;
->>  				break;
->>  			case STM32_ADC_INT_CH_VREFINT:
->>  				if (!adc->cfg->regs->ccr_vref.reg)
->> -					dev_warn(&indio_dev->dev,
->> -						 "%s channel not available\n", ch_name);
->> +					ret = -ENOENT;
->>  				break;
->>  			case STM32_ADC_INT_CH_VBAT:
->>  				if (!adc->cfg->regs->ccr_vbat.reg)
->> -					dev_warn(&indio_dev->dev,
->> -						 "%s channel not available\n", ch_name);
->> +					ret = -ENOENT;
->>  				break;
-> 
-> Don't you also need a default?
+If problems are discovered on those changes, please submit a signed-off-by revert
+patch followed by a corrective changeset.
 
-Ack, I was wondering too. I will add a default in v2.
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
 
-> 
-> 			default:
-> 				return -EINVAL; // for example...
-> 
->>  			}
-> 
-> 			if (na) {
-> 				...
-> 				return 0;
-> 			}
-> 
->>  
->> +			if (ret) {
->> +				/*
->> +				 * Confusing channel label matches an internal STM32 ADC channel.
->> +				 * Just warn about it, as there's normally no restriction on the
->> +				 * name but that's not among supported internal channels.
->> +				 */
->> +				dev_warn(&indio_dev->dev, "no %s internal channel\n", ch_name);
->> +				return 0;
-> 
-> My gosh, the ret value is even ignored!
-
-Yes, That's what I try to explain in the comment, e.g. Just warn (as it
-is doing currently).
-
-The purpose of the fix is not to change current driver behavior but to
-address the undesired subsequent int_ch assignment which ends-up in
-writing bits in stm32_adc_int_ch_enable() in an uncontrolled way.
-
-Semantically, this ret value introduced in v1, will be turned into a
-bool as you suggest. Hope you agree with this approach ?
-
-BR,
-Fabrice
-
-> 
->> +			}
-> 
+-- 
+Neil
 
