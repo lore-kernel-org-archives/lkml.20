@@ -1,108 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503AB4CE66E;
-	Wed, 16 Sep 2026 10:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943174AA566;
+	Wed, 16 Sep 2026 10:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789553179; cv=none; b=iYK6ArVmz+3qC1+T3WsP06P89d36kz0o3XEQqLU9MSSwYnl9i7J7Jbrav3BfxXQnzWrr/AqMcOPYJ8SOZBjs+xfmac8bLWPDjVAGrShW2PJJys8NoLoFwPAUUvQBGeHcFg7wxD/AasRvS3S+a1xpbTnPPTMNL9hudA5tOHZgPFs=
+	t=1789553212; cv=none; b=s2YMgxgCLMq21xUnMIOlH4jFkKY60RuOVV8nb++WUT5OWOqK6OrZYNsu8FKPmC2RtXWCkNaE33yu3rOBKR2auNBdDS8sFtpDa+1SghlkF3T6tuCgrf5x5zgobky5YzwlJGJhORoIi8dIe0FYg8hIxjDkFh1/ZMDHt72JIGbgqq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789553179; c=relaxed/simple;
-	bh=FPbKsdX0RVRX4rufPLjHADxV42ERWLpiP+8TFG6YC4o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s+gpRrbRYkhyP9QjV1llcdYG5GldEHBDSf/vZ8/fUXa4Y3dIgQUBtYD4iZdxa5CyR3PJVqQUkc44t2RuSybnStsO2LKQE+YRT2zdpAM6eew5GAdaV+L2ttBx23ii/KNZWrRh3DsF/ClnXk3bjwPGpIvT+YRkutuptG67HadgjBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=Po3LTUmU; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="Po3LTUmU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC481F00898;
-	Wed, 16 Sep 2026 10:06:12 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=Po3LTUmU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1789553171;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Go5E6lD1KeMfcE8aX4HmH/gHqP8C5vaRKCTOcDpjaFg=;
-	b=Po3LTUmUaFfLerU6FjjaUNjVt+OjpwrTdpMc0Ox9osT8JhSrCJ7phGr1vyfQ8ZqTwR9Yhq
-	G1veJbbdlFw3ryuNkpWiVG1Tef7wYxqAiJaGMm1bsbbakyVkGslTKVV3AEWVUpErhwacO6
-	8lxlclShXDXdHWmZ30iH5VcOkdBKtqs=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 035d4129 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Wed, 16 Sep 2026 10:06:10 +0000 (UTC)
-Date: Wed, 16 Sep 2026 12:06:08 +0200
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Chris J Arges <carges@cloudflare.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@cloudflare.com
-Subject: Re: [PATCH net v2] wireguard: wait for per-peer crypto during removal
-Message-ID: <aqpqEIy_h0DIywRy@zx2c4.com>
-References: <20260913-fix-wg-peer-removal-v2-1-0cade985245a@cloudflare.com>
+	s=arc-20240116; t=1789553212; c=relaxed/simple;
+	bh=zJKroqPTvLVNqI2xxs1prdoqc8+ydiB362iQcztdjMI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=URj4gtokL0oXkEm6pQJwLrZ9kOZvmjPrFzh1ncw4OlHMjQfFJnmlqEn3LfWy3FBsG5YMt8FLGpMJGvFnl7f9qvqecTLPjz3kIslKQvp7SdGgWKMlcwog/nB/Zi1POTn0f8HpiRoZfUGQiZzRoloVM/uKaPsXbpgw6ovZewn/9UI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABnbDoXaqpqntngBw--.42358S2;
+	Wed, 16 Sep 2026 18:06:15 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Laurent.pinchart@ideasonboard.com
+Cc: airlied@gmail.com,
+	andrzej.hajda@intel.com,
+	boris.brezillon@collabora.com,
+	dri-devel@lists.freedesktop.org,
+	jernej.skrabec@gmail.com,
+	jonas@kwiboo.se,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	sam@ravnborg.org,
+	simona@ffwll.ch,
+	tomi.valkeinen@ti.com,
+	tzimmermann@suse.de,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/bridge: display-connector: Fix DDC adapter leak in display_connector_probe()
+Date: Wed, 16 Sep 2026 10:05:47 +0000
+Message-Id: <20260916100547.2012828-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260913-fix-wg-peer-removal-v2-1-0cade985245a@cloudflare.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABnbDoXaqpqntngBw--.42358S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr1fWryrWFy7WFyrZr45GFg_yoW8AFy3pa
+	yDtFyftrWkZFnYk3yDAFn7ury5CrZ7JFyFkr4UWwn3u3Z5XFW7Za95Jr1YqF18CFykGa9Y
+	yw4DXFZ7JF1DCaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+	MI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
+	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
+	IYCTnIWIevJa73UjIFyTuYvjTRMPfQDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgkMA2qqPpSx0QABsL
 
-On Sun, Sep 13, 2026 at 07:19:08AM -0500, Chris J Arges wrote:
-> Calling peer_remove_after_dead() currently flushes device-wide packet
-> crypto and handshake workqueues while holding RTNL. This is problematic as
-> unrelated peers can continue adding work to those queues, blocking other
-> tasks that want to take the RTNL lock.
-> 
-> Instead, this patch tracks pending crypto handoffs for each peer using a
-> counter. After marking the peer dead, synchronize_net() prevents new
-> submissions. Next, wait for pending crypto workers to schedule TX work and
-> for RX NAPI to drain the peer's RX queue. Then flush only the peer's TX
-> packet and handshake work.
-> 
-> This scopes teardown synchronization to the removed peer and prevents
-> unrelated peers from extending the RTNL hold time.
->  struct wg_device;
-> @@ -161,6 +162,7 @@ static inline int wg_queue_enqueue_per_device_and_peer(
->  	 */
->  	if (unlikely(!wg_prev_queue_enqueue(peer_queue, skb)))
->  		return -ENOSPC;
-> +	atomic_inc(&PACKET_PEER(skb)->packet_crypt_pending);
->  
->  	/* Then we queue it up in the device queue, which consumes the
->  	 * packet as soon as it can.
-> @@ -182,6 +184,8 @@ static inline void wg_queue_enqueue_per_peer_tx(struct sk_buff *skb, enum packet
->  	atomic_set_release(&PACKET_CB(skb)->state, state);
->  	queue_work_on(wg_cpumask_choose_online(&peer->serial_work_cpu, peer->internal_id),
->  		      peer->device->packet_crypt_wq, &peer->transmit_packet_work);
-> +	if (atomic_dec_and_test(&peer->packet_crypt_pending))
-> +		wake_up_var(&peer->packet_crypt_pending);
->  	wg_peer_put(peer);
->  }
->  
-> diff --git a/drivers/net/wireguard/receive.c b/drivers/net/wireguard/receive.c
-> index 824bbefce61c..bb35e3205491 100644
-> --- a/drivers/net/wireguard/receive.c
-> +++ b/drivers/net/wireguard/receive.c
-> @@ -476,9 +476,11 @@ int wg_packet_rx_poll(struct napi_struct *napi, int budget)
->  
->  next:
->  		wg_noise_keypair_put(keypair, false);
-> -		wg_peer_put(peer);
->  		if (unlikely(free))
->  			dev_kfree_skb(skb);
-> +		if (atomic_dec_and_test(&peer->packet_crypt_pending))
-> +			wake_up_var(&peer->packet_crypt_pending);
-> +		wg_peer_put(peer);
+display_connector_probe() takes a reference to the DDC I2C adapter
+with of_get_i2c_adapter_by_node() and releases it only in
+display_connector_remove().  When the probe continues after obtaining
+the adapter and then fails, e.g. because the ddc-en GPIO or the HDMI
+power regulator cannot be obtained, or when the regulator cannot be
+enabled, the function returns without dropping the adapter reference,
+leaking it.
 
-This adds two atomic updates to a per-peer counter for every RX packet
-and TX batch. That could introduce contention across crypto workers. I
-suppose it'd be good to see some measurements in if this changes
-anything. Certainly it should change _something_. Question is by how
-much.
+Drop the DDC adapter reference with i2c_put_adapter() on those error
+paths before returning.
 
-Jason
+Fixes: 0c275c30176b ("drm/bridge: Add bridge driver for display connectors")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/bridge/display-connector.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+index 16c0631adeb1..926d7638c1a7 100644
+--- a/drivers/gpu/drm/bridge/display-connector.c
++++ b/drivers/gpu/drm/bridge/display-connector.c
+@@ -352,18 +352,22 @@ static int display_connector_probe(struct platform_device *pdev)
+ 
+ 		if (IS_ERR(conn->ddc_en)) {
+ 			dev_err(&pdev->dev, "Couldn't get ddc-en gpio\n");
++			i2c_put_adapter(conn->bridge.ddc);
+ 			return PTR_ERR(conn->ddc_en);
+ 		}
+ 
+ 		ret = display_connector_get_supply(pdev, conn, "hdmi-pwr");
+-		if (ret < 0)
++		if (ret < 0) {
++			i2c_put_adapter(conn->bridge.ddc);
+ 			return dev_err_probe(&pdev->dev, ret, "failed to get HDMI +5V Power regulator\n");
++		}
+ 	}
+ 
+ 	if (conn->supply) {
+ 		ret = regulator_enable(conn->supply);
+ 		if (ret) {
+ 			dev_err(&pdev->dev, "failed to enable PWR regulator: %d\n", ret);
++			i2c_put_adapter(conn->bridge.ddc);
+ 			return ret;
+ 		}
+ 	}
+-- 
+2.34.1
+
