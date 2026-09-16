@@ -1,344 +1,176 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F79348AE3D;
-	Wed, 16 Sep 2026 09:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 371CD47A88D
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:01:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549292; cv=none; b=kawf4TECvFePVIrJwM18/2OAwUQKK36M3RR02S10U5OnqOkfXVazyUT8I73eZePcXY55BRmfbO5TYrNnA2TO3kG4naY+Q3S3txBf7Km35/r18QFzwzKBeonrrUYXIrvfV77aSPosFlc8n+3BMaVa6NqBuek1MBtE6fBAty8JwqA=
+	t=1789549293; cv=none; b=pko68sf3dHeyunRXae3iEv6HISRj9dKkscTQ21nn4Ry4Xq5Cj8yfkV4Byk7veOwl92s6f8dkCyp2XYoL5n7eQV1r+1X9vaBBg/uj8u64P4EJ6OfDL2vKrLYfoPHwy+jj4RMRc8zYuuP+7uESs9mFt5ChxuFYg7EuMtlOuoq0QVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549292; c=relaxed/simple;
-	bh=DRAX781RyTKWlFTdM4voST0NRvZCZSHk5jRbzQn01sw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k/WhXNd456sWGcLYC/LSV/7Gnd+1L3GP3/CkUYTMgvVDP5/PTChq+8ZghP4UwPWl+zbl9OG2PSoVDZ0w+eRmq9gxXRSBLop9XdarA6wJX9RDcyLGd6rc+D81uuu0d1o6yDUWn60TqASOyQC1k4lOENLQD8J3TaimIPilDnylT/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: andrew@lunn.ch
-X-PTX-Original-Recipient: luizluca@gmail.com
-X-PTX-Original-Recipient: olteanv@gmail.com
-X-PTX-Original-Recipient: davem@davemloft.net
-X-PTX-Original-Recipient: edumazet@google.com
-X-PTX-Original-Recipient: linusw@kernel.org
-X-PTX-Original-Recipient: kuba@kernel.org
-X-PTX-Original-Recipient: pabeni@redhat.com
-X-PTX-Original-Recipient: o.rempel@pengutronix.de
-X-PTX-Original-Recipient: kernel@pengutronix.de
-X-PTX-Original-Recipient: a.fatoum@pengutronix.de
-X-PTX-Original-Recipient: alvin.sipraga@analog.com
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-X-PTX-Original-Recipient: netdev@vger.kernel.org
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A77FD201F42;
-	Wed, 16 Sep 2026 11:01:03 +0200 (CEST)
-Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac] helo=dude04)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1x6lVn-001Cpa-1p;
-	Wed, 16 Sep 2026 11:01:03 +0200
-Received: from ore by dude04 with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1x6lVn-00000001Sqq-1wp6;
-	Wed, 16 Sep 2026 11:01:03 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Linus Walleij <linusw@kernel.org>,
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
-	kernel@pengutronix.de,
-	linux-kernel@vger.kernel.org,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>,
-	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v3 3/3] net: dsa: realtek: rtl8365mb: add EEE support
-Date: Wed, 16 Sep 2026 11:01:02 +0200
-Message-ID: <20260916090102.349157-4-o.rempel@pengutronix.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260916090102.349157-1-o.rempel@pengutronix.de>
-References: <20260916090102.349157-1-o.rempel@pengutronix.de>
+	s=arc-20240116; t=1789549293; c=relaxed/simple;
+	bh=CWBDM2qqMRRPmKNdOVeDiRRqi7MZd4f2mtsjAI+eLnQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sonsfGvoef4xqSJoUG0/QFsjuP4959sm79NEf1NfuJk1yyLw4AcOia//drCP8xuG3fkXz+YwUTEKf/+Bw0S0SDFxx5SzUQ17riOqWpxOGI8J9hz1LL6bae9HxhyFyqXMKqhzjr6LoX4GuLrc8xoGEhuKXRmwTJSXSFdTVrrecDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T/6ad4lK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b9M6lubo; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T/6ad4lK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b9M6lubo"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G68mqn2986928
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:01:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BaNXMbsKLmmQU0DHI8wG9aQCGqFB8wg+jxU2xGsRTTM=; b=T/6ad4lKrbqbrVP1
+	asH/3zWYxxkg8tXDLfzaXeoEL8p3v9Pfs5TiH9SumOtfvm6Hhvr7bALP2iq+SzcT
+	db3iJAaGleup6zDeTy1SY0DhGSzLk/a2Qq/NOX2ZzdH/S7EYxZTk5WCxrODpot/A
+	uHLJROWE1gX9feN8b3C3W02Q780QV2o5MZfpkjsrs28GaxzJWXV3PdYlhoC3WKqN
+	qN57khrNllB9E8tby+WGa/b7nzHRNh+6aALMEepXljR/j8MMNWqE05J2bQtGLNu2
+	SEUiy9R+MUxFOgYzcX/QE3I2y61Uaauk6GIciACvkB8k655rwV8dG8dl2FP3Fo6L
+	lClZvg==
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqefpa99a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:01:08 +0000 (GMT)
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-45ecb9dd589so4450092fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:01:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789549268; x=1790154068; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BaNXMbsKLmmQU0DHI8wG9aQCGqFB8wg+jxU2xGsRTTM=;
+        b=b9M6lubo4tYmPie2xJDtyv4JSefI6Xo0VXVW34PgJtfi4J4JTMSV4rqWYM+di+v1aG
+         UOSY+6e2+9l+XkMMlTKCOwG2Nc8pnoeSpS+zwCjHqc3a9MwYjmZB19pT8kNjfok/9PG+
+         UB4Wo7H+AVYLyGoXlXQn1YlcHYvTNL6RNJjhQUBpM4dn4Fh3xda696QmUUhWM6/dK9kb
+         XdsVM1fsNq11QpaGUA9wS4wrnxhzdaMGutvJC+UZ9jymt4dsP/Ge1X9oZ07ALaylYDYg
+         zO79UuDYJVVwL1X050rKR3/wTaZ+wWrxj1tSgg4BJ5w2WBW5YT1yH11UURk0R7PkN0Js
+         w0Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789549268; x=1790154068;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BaNXMbsKLmmQU0DHI8wG9aQCGqFB8wg+jxU2xGsRTTM=;
+        b=Ktz5AUzGEURwgD/1uQaDRCEQPd10nOyud+4+qfdg8RebFmH/2DIRMWhxn0L4AkMkGS
+         UaVRF4WAIyj6Ys+4quEjcU4fVXG5Y9G2SX/l+gwV9FXqO/omDBbKsZ/Ed+tEeXb4gE/M
+         wL/PY/k2hQNM3rADh3f9K316KitstcmMbgozIxGZNkca3BZ7cZnqBqDfcJVraVsenue/
+         W/YXRk5FYPWzq9aw0d1e9p4AtppKa4eTVyzEohWi5ez8ujG0Eh9uw8DAoRyIqIdKfGDo
+         KhKnW0j11hEAeaRmZNtm6uQ2X6Ht7EY6piMn3EfFlyk62b+uZYOOIsc2zBUs72dGuvZi
+         0wjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxhmm8TLAZR+5+r/Yg5i1NEwenU3sIvvvHGjrnykWmNMr4mXajq73wSPeqqDMfjRrZs6BVITcDNIfzzogo=@vger.kernel.org
+X-Gm-Message-State: AFuF++liKo2STuLJ7dzPo2jHY04+NkOl1hmDwLyAXxeaPovt4ed0fo0U
+	bQyq7NVHTSydaWctOt3lRm26BWYvNVQ34Tk/ViTDLCRtKgN+89AU1ckhxUNKDUBN6Pz6u+nAwTb
+	Wk/9o3y23G+EjJVmAAu/bQp3sOMHiELHyRRRcmc/MMNvkmYoEXEEl3xXFKucewT8KTx0=
+X-Gm-Gg: AYBFou2a/eAe0h/d5AxT84FRnL0/fbCCVLN+OKVzMWiyVW3rI9hLqOAtRhUIWgn5jwu
+	GRr0NXLRQQdsAD1Rsy1VDnOVnza+aveKao3aYgq0EMzuoyRjCIkjcryTN3RqhoUMopaBmYcYYPJ
+	rc75gwpLv112pyJ4pgUFAnlNY1Ss3nCLnWQm9TdVU5EFibqOuPefUbIsprt5cuqeLyunNxq4ElX
+	tLFWA+Fo9beUrzIRFKhPR71Ogu4X5RVLq0W3tM5KfFbnx2Vbjc3dqP2CUDNuYW1Ljf0qNcvW1uV
+	oCAa0PAv0BYul+iFFSA2Lpe2cBeeG8ah8aVOXzxy2ipXR2RMSBRQ9ZEd8kclcx8zkTpgftPcnW6
+	PXHGuSWerxBQHVhwVGmihKkXRJX/znA==
+X-Received: by 2002:a4a:e913:0:b0:6c1:c628:b0eb with SMTP id 006d021491bc7-6c7d1cbf5aemr1689517eaf.25.1789549267940;
+        Wed, 16 Sep 2026 02:01:07 -0700 (PDT)
+X-Received: by 2002:a4a:e913:0:b0:6c1:c628:b0eb with SMTP id 006d021491bc7-6c7d1cbf5aemr1689419eaf.25.1789549266537;
+        Wed, 16 Sep 2026 02:01:06 -0700 (PDT)
+Received: from [10.217.219.145] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d4cbc9sm4617242c88.11.2026.09.16.02.01.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 02:01:05 -0700 (PDT)
+Message-ID: <75a26e11-8780-41de-aa69-d5cd34d68bb3@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 14:31:01 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: gadget: u_serial: fix NULL deref in gs_close() after
+ failed open
+To: brianellis@gotenna.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Kuen-Han Tsai <khtsai@google.com>, stable@vger.kernel.org
+References: <20260910-u_serial-gs-close-null-v1-1-9a5e848b1dfb@gotenna.com>
+Content-Language: en-US
+From: Prashanth K <prashanth.k@oss.qualcomm.com>
+In-Reply-To: <20260910-u_serial-gs-close-null-v1-1-9a5e848b1dfb@gotenna.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDExNiBTYWx0ZWRfXyaO7rlcYPBOT
+ 4e5JPsi4dY7IggyrtFqa5y4Y0idV6g0ZznlwK5tozwrLFQDWVkFQ4ytzf1Fr7qgpmcHyZcHfFUy
+ sGDP3nkKRqbrx7cl0L5OA0kFYk7z+HE=
+X-Authority-Analysis: v=2.4 cv=HrTjiETS c=1 sm=1 tr=0 ts=6aaa5ad4 cx=c_pps
+ a=Z3eh007fzM5o9awBa1HkYQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=fDP6uvXCAAAA:8 a=eruXzHqZ9En46dhP4nYA:9 a=QEXdDO2ut3YA:10
+ a=eBU8X_Hb5SQ8N-bgNfv4:22 a=wfRXX3dx_hO_3EqEzryc:22
+X-Proofpoint-ORIG-GUID: jfUCTHMkn5NLgI18s576omFAw6Xsbjpg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDExNiBTYWx0ZWRfX8LuJCn34SSC/
+ +RyJ4CrqxxDOu+mNCVgSdiphgtHTDRzaMecUjIApRk/wRwEd4jKsT07Y2jFnvDVMYS+THNLyLKK
+ IFEowFXBl+mZa/MhyxBR9H7FM4mcT0SCCAv3gnc6UOO4jQc3vOQQOtq5xowcqmiqC9D1BxiUjGm
+ z+jtsekoGpK8UEwX/u8mA1A2hLsvEo2+cH10dgIfm9O3vBySWbH2zZREGRJANiYka4T9snOHthq
+ B8irQqvnfMqrf5d03EOW1D3XMPytshZXFxBT1hx2/HXvdbyXtKfqPMzdNd82dHT66PvFQS7L+wJ
+ P3kJ2rhDtYUh4g1+ghIaug3etEtKGgY4XwFMj5zom/WA32AcJAXRkhFRMKJD/RMQPYjb1bI49Mu
+ sEhnRuSjLNqkxIf0J9NyCmShWkeTKvbWvAuYXvI3aT07lTtNdWizv05j69f1/6a4Xo5pnoxZWkN
+ 1EpPAZL/6Vv/M2FO+6A==
+X-Proofpoint-GUID: jfUCTHMkn5NLgI18s576omFAw6Xsbjpg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160116
 
-Add EEE support on the integrated-PHY ports, controllable per port via
-ethtool.
 
-The integrated PHYs have no MMD registers; their EEE registers live in the
-switch's OCP space. phylib accesses EEE as MMD registers, so add
-phy_{read,write}_c45 realtek_ops that map those MMD accesses onto their OCP
-addresses, wired as the user MII bus C45 handlers when the chip provides
-them (rtl8366rb etc. unaffected).
 
-The hardware manages LPI on its own, so advertise EEE to phylink with
-no-op mac_{en,dis}able_tx_lpi callbacks. The LPI timer is a single global
-per-speed register, so .set_mac_eee rejects the per-port TX LPI knobs
-rather than silently ignoring them.
+On 9/11/2026 1:23 AM, Brian Ellis via B4 Relay wrote:
+> From: Brian Ellis <brianellis@gotenna.com>
+> 
+> gs_close() dereferences tty->driver_data without checking it:
+> 
+> 	struct gs_port *port = tty->driver_data;
+> 	struct gserial	*gser;
+> 
+> 	spin_lock_irq(&port->port_lock);
+> 
 
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
----
-Changes since v2:
-- The clang FIELD_PREP build error reported on v2 (Jakub Kicinski) is now
-  fixed by the preceding patch ("net: dsa: realtek: rtl8365mb: extract PHY
-  OCP address halves with FIELD_GET"); this patch itself is unchanged.
+[...]
 
-Changes since v1:
-- .set_mac_eee: return -EOPNOTSUPP instead of -EINVAL for the rejected
-  TX LPI cases -- the hardware cannot support them, it is not an invalid
-  configuration (Andrew Lunn).
----
- drivers/net/dsa/realtek/realtek.h        |   4 +
- drivers/net/dsa/realtek/rtl8365mb_main.c | 123 +++++++++++++++++++++++
- drivers/net/dsa/realtek/rtl83xx.c        |  20 ++++
- 3 files changed, 147 insertions(+)
+> diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+> index cdd1dfc66..5bbb4d04b 100644
+> --- a/drivers/usb/gadget/function/u_serial.c
+> +++ b/drivers/usb/gadget/function/u_serial.c
+> @@ -695,6 +695,13 @@ static void gs_close(struct tty_struct *tty, struct file *file)
+>  	struct gs_port *port = tty->driver_data;
+>  	struct gserial	*gser;
+>  
+> +	/*
+> +	 * tty_open() calls tty_release(), and hence this, when ->open()
+> +	 * failed before gs_open() had set tty->driver_data.
+> +	 */
 
-diff --git a/drivers/net/dsa/realtek/realtek.h b/drivers/net/dsa/realtek/realtek.h
-index 75a127545e5d..1c0ca6daf545 100644
---- a/drivers/net/dsa/realtek/realtek.h
-+++ b/drivers/net/dsa/realtek/realtek.h
-@@ -156,6 +156,10 @@ struct realtek_ops {
- 	int	(*phy_read)(struct realtek_priv *priv, int phy, int regnum);
- 	int	(*phy_write)(struct realtek_priv *priv, int phy, int regnum,
- 			     u16 val);
-+	int	(*phy_read_c45)(struct realtek_priv *priv, int phy, int devad,
-+				int regnum);
-+	int	(*phy_write_c45)(struct realtek_priv *priv, int phy, int devad,
-+				 int regnum, u16 val);
- };
- 
- struct realtek_variant {
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index efde1f3b604e..87ec924a0611 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -101,6 +101,7 @@
- #include <linux/regmap.h>
- #include <linux/if_bridge.h>
- #include <linux/if_vlan.h>
-+#include <linux/mdio.h>
- #include <linux/phylink.h>
- 
- #include "realtek.h"
-@@ -210,6 +211,10 @@
- /* The PHY OCP addresses of PHY registers 0~31 start here */
- #define RTL8365MB_PHY_OCP_ADDR_PHYREG_BASE		0xA400
- 
-+#define RTL8365MB_PHY_OCP_ADDR_EEE_ABLE			0xA5C4
-+#define RTL8365MB_PHY_OCP_ADDR_EEE_ADV			0xA5D0
-+#define RTL8365MB_PHY_OCP_ADDR_EEE_LPABLE		0xA5D2
-+
- /* External interface port mode values - used in DIGITAL_INTERFACE_SELECT */
- #define RTL8365MB_EXT_PORT_MODE_DISABLE		0
- #define RTL8365MB_EXT_PORT_MODE_RGMII		1
-@@ -1050,6 +1055,66 @@ static int rtl8365mb_phy_write(struct realtek_priv *priv, int phy, int regnum,
- 	return 0;
- }
- 
-+static int rtl8365mb_phy_read_c45(struct realtek_priv *priv, int phy, int devad,
-+				  int regnum)
-+{
-+	u32 ocp_addr;
-+	u16 val;
-+	int ret;
-+
-+	if (phy > RTL8365MB_PHYADDRMAX)
-+		return -EINVAL;
-+
-+	if (devad == MDIO_MMD_PCS && regnum == MDIO_PCS_EEE_ABLE)
-+		ocp_addr = RTL8365MB_PHY_OCP_ADDR_EEE_ABLE;
-+	else if (devad == MDIO_MMD_AN && regnum == MDIO_AN_EEE_ADV)
-+		ocp_addr = RTL8365MB_PHY_OCP_ADDR_EEE_ADV;
-+	else if (devad == MDIO_MMD_AN && regnum == MDIO_AN_EEE_LPABLE)
-+		ocp_addr = RTL8365MB_PHY_OCP_ADDR_EEE_LPABLE;
-+	else
-+		/* Only the EEE registers are mapped; others read as 0, as the
-+		 * hardware does, so the generic MMD code is not tripped up by
-+		 * an error.
-+		 */
-+		return 0;
-+
-+	ret = rtl8365mb_phy_ocp_read(priv, phy, ocp_addr, &val);
-+	if (ret) {
-+		dev_err(priv->dev,
-+			"failed to read PHY%d OCP %04x, ret %d\n", phy, ocp_addr,
-+			ret);
-+		return ret;
-+	}
-+
-+	return val;
-+}
-+
-+static int rtl8365mb_phy_write_c45(struct realtek_priv *priv, int phy,
-+				   int devad, int regnum, u16 val)
-+{
-+	int ret;
-+
-+	if (phy > RTL8365MB_PHYADDRMAX)
-+		return -EINVAL;
-+
-+	/* Only the EEE advertisement register is writable; writes to other
-+	 * registers are ignored, as the hardware does.
-+	 */
-+	if (devad != MDIO_MMD_AN || regnum != MDIO_AN_EEE_ADV)
-+		return 0;
-+
-+	ret = rtl8365mb_phy_ocp_write(priv, phy, RTL8365MB_PHY_OCP_ADDR_EEE_ADV,
-+				      val);
-+	if (ret) {
-+		dev_err(priv->dev,
-+			"failed to write PHY%d OCP %04x, ret %d\n", phy,
-+			RTL8365MB_PHY_OCP_ADDR_EEE_ADV, ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct rtl8365mb_extint *
- rtl8365mb_get_port_extint(struct realtek_priv *priv, int port)
- {
-@@ -1649,6 +1714,14 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
- 		 */
- 		__set_bit(PHY_INTERFACE_MODE_GMII,
- 			  config->supported_interfaces);
-+
-+		/* Integrated PHYs support EEE at 100M/1G; the hardware manages
-+		 * LPI on its own, so just advertise LPI awareness to phylink.
-+		 */
-+		memcpy(config->lpi_interfaces, config->supported_interfaces,
-+		       sizeof(config->lpi_interfaces));
-+		config->lpi_capabilities = MAC_100FD | MAC_1000FD;
-+		config->eee_enabled_default = true;
- 		return;
- 	}
- 
-@@ -3285,18 +3358,66 @@ static int rtl8365mb_detect(struct realtek_priv *priv)
- 	return 0;
- }
- 
-+static int rtl8365mb_phylink_mac_enable_tx_lpi(struct phylink_config *config,
-+					       u32 timer, bool tx_clock_stop)
-+{
-+	/* The hardware manages LPI itself; there is no MAC-level LPI control.
-+	 * This callback only signals LPI awareness to phylink.
-+	 */
-+	return 0;
-+}
-+
-+static void rtl8365mb_phylink_mac_disable_tx_lpi(struct phylink_config *config)
-+{
-+}
-+
- static const struct phylink_mac_ops rtl8365mb_phylink_mac_ops = {
- 	.mac_select_pcs = rtl8365mb_phylink_mac_select_pcs,
- 	.mac_config = rtl8365mb_phylink_mac_config,
- 	.mac_link_down = rtl8365mb_phylink_mac_link_down,
- 	.mac_link_up = rtl8365mb_phylink_mac_link_up,
-+	.mac_enable_tx_lpi = rtl8365mb_phylink_mac_enable_tx_lpi,
-+	.mac_disable_tx_lpi = rtl8365mb_phylink_mac_disable_tx_lpi,
- };
- 
-+static bool rtl8365mb_support_eee(struct dsa_switch *ds, int port)
-+{
-+	/* Only integrated-PHY ports support EEE, not the external RGMII ports. */
-+	return !rtl8365mb_get_port_extint(ds->priv, port);
-+}
-+
-+static int rtl8365mb_set_mac_eee(struct dsa_switch *ds, int port,
-+				 struct ethtool_keee *e)
-+{
-+	struct realtek_priv *priv = ds->priv;
-+
-+	/* The only LPI timing control (tx_lpi_timer) is a single global
-+	 * per-speed register shared by all ports, so it cannot be set from this
-+	 * per-port callback; leave it at its reset default. Per-port EEE is
-+	 * driven through the PHY advertisement. Reject the per-port TX LPI knobs
-+	 * rather than silently ignoring them.
-+	 */
-+	if (!e->tx_lpi_enabled) {
-+		dev_err(priv->dev, "disabling EEE TX LPI is not supported\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (e->tx_lpi_timer) {
-+		dev_err(priv->dev,
-+			"setting the EEE TX LPI timer is not supported\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct dsa_switch_ops rtl8365mb_switch_ops = {
- 	.get_tag_protocol = rtl8365mb_get_tag_protocol,
- 	.change_tag_protocol = rtl8365mb_change_tag_protocol,
- 	.setup = rtl8365mb_setup,
- 	.teardown = rtl8365mb_teardown,
-+	.support_eee = rtl8365mb_support_eee,
-+	.set_mac_eee = rtl8365mb_set_mac_eee,
- 	.phylink_get_caps = rtl8365mb_phylink_get_caps,
- 	.port_bridge_join = rtl83xx_port_bridge_join,
- 	.port_bridge_leave = rtl83xx_port_bridge_leave,
-@@ -3342,6 +3463,8 @@ static const struct realtek_ops rtl8365mb_ops = {
- 	.l2_flush = rtl8365mb_l2_flush,
- 	.phy_read = rtl8365mb_phy_read,
- 	.phy_write = rtl8365mb_phy_write,
-+	.phy_read_c45 = rtl8365mb_phy_read_c45,
-+	.phy_write_c45 = rtl8365mb_phy_write_c45,
- };
- 
- static const char *const rtl8365mb_supplies[] = {
-diff --git a/drivers/net/dsa/realtek/rtl83xx.c b/drivers/net/dsa/realtek/rtl83xx.c
-index 8121ec12fd8b..ad42c05d0a88 100644
---- a/drivers/net/dsa/realtek/rtl83xx.c
-+++ b/drivers/net/dsa/realtek/rtl83xx.c
-@@ -62,6 +62,22 @@ static int rtl83xx_user_mdio_write(struct mii_bus *bus, int addr, int regnum,
- 	return priv->ops->phy_write(priv, addr, regnum, val);
- }
- 
-+static int rtl83xx_user_mdio_read_c45(struct mii_bus *bus, int addr, int devad,
-+				      int regnum)
-+{
-+	struct realtek_priv *priv = bus->priv;
-+
-+	return priv->ops->phy_read_c45(priv, addr, devad, regnum);
-+}
-+
-+static int rtl83xx_user_mdio_write_c45(struct mii_bus *bus, int addr, int devad,
-+				       int regnum, u16 val)
-+{
-+	struct realtek_priv *priv = bus->priv;
-+
-+	return priv->ops->phy_write_c45(priv, addr, devad, regnum, val);
-+}
-+
- /**
-  * rtl83xx_setup_user_mdio() - register the user mii bus driver
-  * @ds: DSA switch associated with this user_mii_bus
-@@ -95,6 +111,10 @@ int rtl83xx_setup_user_mdio(struct dsa_switch *ds)
- 	bus->name = "Realtek user MII";
- 	bus->read = rtl83xx_user_mdio_read;
- 	bus->write = rtl83xx_user_mdio_write;
-+	if (priv->ops->phy_read_c45)
-+		bus->read_c45 = rtl83xx_user_mdio_read_c45;
-+	if (priv->ops->phy_write_c45)
-+		bus->write_c45 = rtl83xx_user_mdio_write_c45;
- 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s:user_mii", dev_name(priv->dev));
- 	bus->parent = priv->dev;
- 
--- 
-2.47.3
+The patch looks good.
+Minor nitpick, can you rephrase this comment?
 
+> +	if (!port)
+> +		return;
+> +
+>  	spin_lock_irq(&port->port_lock);
+>  
+>  	if (port->port.count != 1) {
+> 
+> ---
+> base-commit: be4219dd98608736e13e0b790ef742b76a13254d
+> change-id: 20260910-u_serial-gs-close-null-a80a436666e8
+> 
+> Best regards,
+
+Regards,
+Prashanth K
