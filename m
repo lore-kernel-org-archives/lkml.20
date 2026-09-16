@@ -1,326 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21A23C98B5;
-	Wed, 16 Sep 2026 08:30:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1B046C4BE;
+	Wed, 16 Sep 2026 08:30:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547439; cv=none; b=Mx42RTk5lPsZaIeKxoJEx7eT1ejhl5gUsgqvDbZ0+FmNTkIVbYEDCyFFzG59hZsUDcVk2nOQMPXltLzLqilMXqP40ijI1cwNzvu3j30AkgyYM84TZ5XHYEoYV3+cUShzMMPtuIUP3j/tYfwRT8pCN2LxX83rvOR/b6jMpKz5abA=
+	t=1789547446; cv=none; b=CfrXzH6jEYodi/EfxAzYV2HMuEmf3i13KTwbj7Kb13ag3ri1AzgAwBYN1Xs9J9XLyILNn9GZjNzjy9T/wyzCDEFXsPJFcLLjNisCj910XaIvn9MS40oxaRSdvZ/tmV45hC0dBfwT1NPBzEZDfOF2YyseglBn2dRy/Z7yRlrAWsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547439; c=relaxed/simple;
-	bh=hFV9iLNHD/ACoFHYbtdG9POctTCG+xR14JbZgcyZR2g=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BgG7d1l/3W7vZbW1ipN9Q8/g3HgdLpJ+G0Nv8AMW0m+fmvLkEVYaAw4V1XLY+MR7lRbk6lbDXsw6fEpVipWFrjkPKHmhtYUjZj1lt7ybi77EaYzaByqfWQZoeq6rzBudvhq0AUy2fLGyDWRNfGLV1NybnBtkvA9CK2KSjjJwD8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X38g9nPm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789547446; c=relaxed/simple;
+	bh=0RASedDWwlI2SgHiB5qjGhFXOk3xb3b6bJovfCgQmPM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hadZFBJRXcyG4v6J2yaooFl7uakB8p7RZ4o+a/VCjy4Y4LFJNkj/s/IEKSoYH3/L33JhACY7GI2ytOWYODeKZoaJGq1yll/qtpj98hHqUzGyvnLx49pGURHfG2kvSwE+PBzmGWo2b+xwUVvckd3rImE4xYdSZ9rDcnN8GUq/l4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lIRRsRp2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X38g9nPm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC571F000FF;
-	Wed, 16 Sep 2026 08:30:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lIRRsRp2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30A61F00898;
+	Wed, 16 Sep 2026 08:30:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789547437;
-	bh=ShRlcFO9MVV/rRaefOKq8SWqhcS48xjLIPXGX1RVsoU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=X38g9nPmlELNMHu5H4FMqqXoDP4UaRpugEU0tyhTJuxBpdqZVPoWSv2puPT34J0ZM
-	 vuyAs+ip4VH1VmuiWcpEw4bpMsl0oW8wvF0H/L7hf4DFfiLY/YeUHcsfnf+Do5OPgd
-	 n9+aRYHfsO4v7p1j8cmxazpFijRXCrxryOtoWbdX+RuTxTNLSq5YJyfbLpXmrMJ5Dl
-	 vwuEA6O3EspuJ2qMLbqsBOdCONttlJG9zKlKyKT0Xv4JRhvkuENAruHYxla3TO13lH
-	 At/FKjpxpBiaY1e03sGgNO4A0Yx9KwnJbhikCLeT6pbNu39szGSw0FKNtFS5XeL/m2
-	 TOcCQRI+9Okag==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x6l2J-00000009Vll-2pA1;
-	Wed, 16 Sep 2026 08:30:35 +0000
-Date: Wed, 16 Sep 2026 09:30:35 +0100
-Message-ID: <86h5jp61jo.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Leonardo Bras <leo.bras@arm.com>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Tian Zheng <zhengtian10@huawei.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from S2AP_W to DBM
-In-Reply-To: <aql8jY4o8SzjJuFU@LeoBrasDK>
-References: <20260901171558.2674031-1-leo.bras@arm.com>
-	<20260901171558.2674031-2-leo.bras@arm.com>
-	<86bja17cg7.wl-maz@kernel.org>
-	<aql8jY4o8SzjJuFU@LeoBrasDK>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1789547445;
+	bh=wn03PZHuEHQX1wNu1gA3FGObpFQjvyAUzJkSV3Kpeng=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lIRRsRp2LqPQJQ3qbRudANGHGglAVjwHAS1JLrr8yUmz/UzCg+hQxqsBVogq6uOYq
+	 GIKgEj5QLGciMgNzlKu/vJGmu547TgPxskGWiwlf3FT1xyV7C74ZzogxrDcWWhlubA
+	 x9RNcrD25E9RzbbkS5zA8CrhTFO/TrJFlmGkegatird6noeNhJs/AnpaVHtv0Ef9bS
+	 qK7nMra6d1X0f7wNdrNACuXVmFyPIj41cLcFa7Ozk9eN926CWA1tsPNuPUk7gBNqDy
+	 aXBoaQhPluxJ2Az+MTYLwvnkgriHmT++dgfzFK1umyES1ditHTL59wM4St42WiTFz1
+	 gd7YdlHEt94xQ==
+Message-ID: <9610bd5c-077a-4fa9-a157-5539ce9d8a42@kernel.org>
+Date: Wed, 16 Sep 2026 10:30:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: leo.bras@arm.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, rananta@google.com, zhengtian10@huawei.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Richard Leitner <richard.leitner@linux.dev>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll> <aqpC8fxO4F3bFjF4@bombadil>
+ <20260916074553.GB3871857@killaraus.ideasonboard.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260916074553.GB3871857@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 15 Sep 2026 18:12:45 +0100,
-Leonardo Bras <leo.bras@arm.com> wrote:
+On 16/09/2026 09:45, Laurent Pinchart wrote:
+>>>> +
+>>>> +  reg:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  '#clock-cells':
+>>>> +    const: 0
+>>>> +
+>>>> +  clock-frequency:
+>>>> +    description: Frequency of the sensor clock provided by the module
+>>>
+>>> Drop, implied by the compatible
+>>
+>> Do you mean dropping the whole property, or just the "description"?
 > 
-> On Sun, Sep 13, 2026 at 10:00:40AM +0100, Marc Zyngier wrote:
-> > On Tue, 01 Sep 2026 18:15:52 +0100,
-> > Leonardo Bras <leo.bras@arm.com> wrote:
-> > > 
-> > > As a first step of changing the encoding for the Stage2 PTE descriptor,
-> > > introduce the DBM bit, and adapt every usage of writable to use the DBM bit
-> > > (51) instead of S2AP[1]/Dirty bit (7).
-> > > 
-> > > For this step, we convert usages of RW(Dirty) -> WD(DBM|Dirty).
-> > > 
-> > > Signed-off-by: Leonardo Bras <leo.bras@arm.com>
-> > > ---
-> > >  arch/arm64/include/asm/kvm_pgtable.h | 3 +++
-> > >  arch/arm64/kvm/hyp/pgtable.c         | 8 +++++---
-> > >  arch/arm64/kvm/nested.c              | 4 +++-
-> > >  arch/arm64/kvm/ptdump.c              | 4 ++--
-> > >  4 files changed, 13 insertions(+), 6 deletions(-)
-> > > 
-> > > diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
-> > > index 41a8687938eb..37baa86d6fd8 100644
-> > > --- a/arch/arm64/include/asm/kvm_pgtable.h
-> > > +++ b/arch/arm64/include/asm/kvm_pgtable.h
-> > > @@ -86,24 +86,27 @@ typedef u64 kvm_pte_t;
-> > >  #define KVM_PTE_LEAF_ATTR_HI		GENMASK(63, 50)
-> > >  
-> > >  #define KVM_PTE_LEAF_ATTR_HI_SW		GENMASK(58, 55)
-> > >  
-> > >  #define KVM_PTE_LEAF_ATTR_HI_S1_XN	BIT(54)
-> > >  #define KVM_PTE_LEAF_ATTR_HI_S1_UXN	BIT(54)
-> > >  #define KVM_PTE_LEAF_ATTR_HI_S1_PXN	BIT(53)
-> > >  
-> > >  #define KVM_PTE_LEAF_ATTR_HI_S2_XN	GENMASK(54, 53)
-> > >  
-> > > +#define KVM_PTE_LEAF_ATTR_HI_S2_DBM	BIT(51)
-> > > +
-> > >  #define KVM_PTE_LEAF_ATTR_HI_S1_GP	BIT(50)
-> > >  
-> > >  #define KVM_PTE_LEAF_ATTR_S2_PERMS	(KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R | \
-> > >  					 KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W | \
-> > > +					 KVM_PTE_LEAF_ATTR_HI_S2_DBM | \
-> > >  					 KVM_PTE_LEAF_ATTR_HI_S2_XN)
-> > >  
-> > >  /* pKVM invalid pte encodings */
-> > >  #define KVM_INVALID_PTE_TYPE_MASK	GENMASK(63, 60)
-> > >  #define KVM_INVALID_PTE_ANNOT_MASK	~(KVM_PTE_VALID | \
-> > >  					  KVM_INVALID_PTE_TYPE_MASK)
-> > >  
-> > >  enum kvm_invalid_pte_type {
-> > >  	/*
-> > >  	 * Used to indicate a pte for which a 'break-before-make'
-> > > diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-> > > index b74dd5ce1efd..ca49f1bd7c34 100644
-> > > --- a/arch/arm64/kvm/hyp/pgtable.c
-> > > +++ b/arch/arm64/kvm/hyp/pgtable.c
-> > > @@ -725,42 +725,43 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
-> > >  	}
-> > >  
-> > >  	r = stage2_set_xn_attr(prot, &attr);
-> > >  	if (r)
-> > >  		return r;
-> > >  
-> > >  	if (prot & KVM_PGTABLE_PROT_R)
-> > >  		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
-> > >  
-> > >  	if (prot & KVM_PGTABLE_PROT_W)
-> > > -		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-> > > +		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-> > 
-> > What makes it acceptable to always set DBM? This is an optional
-> > feature, and I'm not exactly comfortable setting bits that are
-> > supposed to be RES0. 
-> 
-> The alternative would be to introduce WC/WD as an alternative encoding
-> infrastructure, and keep making decisions based on having HAFDBS available 
-> or in the system. My intention was to adapt things in a way to avoid 
-> multiple behaviors if we could avoid.
-> 
-> My rationale is, based on our possibility of setting DBM=1:
-> If HAFDBS/HDBSS/HACDBS are not available, or available but disabled, 
-> then the DBM bit is just ignored:
-> RO -> RO
-> WC -> RO
-> WD -> RW
-> 
-> (for reference:
-> - Read-Only (RO):      DBM=0, S2AP[1]=0
-> - Writable-Clean (WC): DBM=1, S2AP[1]=0
-> - Writable-Dirty (WD): DBM=1, S2AP[1]=1
-> )
-> 
-> And the behavior should just the same as what we have today.
-> 
-> 
-> > Yes, the HW should ignore it. But we have also
-> > seen quite a few broken designs in this area...
-> > 
-> 
-> I lack experience on what bad thing could happen. So I will expand on what 
-> I belive to understand up to here:
-> 
-> - The PTE is in memory, so the DBM bit can be set regardless of being RES0
-> - For SW pagetable walking, I don't think 'bit 51 == 0' is checked
-> - For HW pagetable walking, maybe some faulty implementation may rely on 
->   bit51 being RES0, and fault otherwise.
-> 
-> If that's the case, then we would have to actually support both encodings, 
-> and only enable the new one if HAFDBS is available in the system. 
-> 
-> I just wonder how high are the chances to have such a broken design, 
-> or other broken designs did not come to my mind, and if we have to start 
-> with that multiple-encoding option.
-> 
-> > > +
-> > >
-> > 
-> > Spurious newline.
-> > 
-> 
-> Oh, ok, will get rid of it.
-> 
-> > >  	if (!kvm_lpa2_is_enabled())
-> > >  		attr |= FIELD_PREP(KVM_PTE_LEAF_ATTR_LO_S2_SH, sh);
-> > >  
-> > >  	attr |= KVM_PTE_LEAF_ATTR_LO_S2_AF;
-> > >  	attr |= prot & KVM_PTE_LEAF_ATTR_HI_SW;
-> > >  	*ptep = attr;
-> > >  
-> > >  	return 0;
-> > >  }
-> > 
-> > I don't know how you have configured git on your end, but there is *a
-> > lot* of context...
-> > 
-> 
-> diff.context=10, i.e. 10 lines before and after a change.
-> To me it looks helpful to get more context around the change. 
-> 
-> I can change it back to 5 if it bothers you.
-> 
-> > >  
-> > >  enum kvm_pgtable_prot kvm_pgtable_stage2_pte_prot(kvm_pte_t pte)
-> > >  {
-> > >  	enum kvm_pgtable_prot prot = pte & KVM_PTE_LEAF_ATTR_HI_SW;
-> > >  
-> > >  	if (!kvm_pte_valid(pte))
-> > >  		return prot;
-> > >  
-> > >  	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R)
-> > >  		prot |= KVM_PGTABLE_PROT_R;
-> > > -	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W)
-> > > +	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM)
-> > >  		prot |= KVM_PGTABLE_PROT_W;
-> > >  
-> > >  	switch (FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, pte)) {
-> > >  	case 0b00:
-> > >  		prot |= KVM_PGTABLE_PROT_PX | KVM_PGTABLE_PROT_UX;
-> > >  		break;
-> > >  	case 0b01:
-> > >  		prot |= KVM_PGTABLE_PROT_UX;
-> > >  		break;
-> > >  	case 0b11:
-> > > @@ -1281,20 +1282,21 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
-> > >  		*orig_pte = data.pte;
-> > >  
-> > >  	if (level)
-> > >  		*level = data.level;
-> > >  	return 0;
-> > >  }
-> > >  
-> > >  int kvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
-> > >  {
-> > >  	return stage2_update_leaf_attrs(pgt, addr, size, 0,
-> > > +					KVM_PTE_LEAF_ATTR_HI_S2_DBM |
-> > >  					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
-> > >  					NULL, NULL,
-> > >  					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
-> > >  }
-> > >  
-> > >  void kvm_pgtable_stage2_mkyoung(struct kvm_pgtable *pgt, u64 addr,
-> > >  				enum kvm_pgtable_walk_flags flags)
-> > >  {
-> > >  	int ret;
-> > >  
-> > > @@ -1361,21 +1363,21 @@ int kvm_pgtable_stage2_relax_perms(struct kvm_pgtable *pgt, u64 addr,
-> > >  	s8 level;
-> > >  	int ret;
-> > >  
-> > >  	if (prot & KVM_PTE_LEAF_ATTR_HI_SW)
-> > >  		return -EINVAL;
-> > >  
-> > >  	if (prot & KVM_PGTABLE_PROT_R)
-> > >  		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
-> > >  
-> > >  	if (prot & KVM_PGTABLE_PROT_W)
-> > > -		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-> > > +		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-> > >  
-> > >  	if (prot & KVM_PGTABLE_PROT_X) {
-> > >  		ret = stage2_set_xn_attr(prot, &xn);
-> > >  		if (ret)
-> > >  			return ret;
-> > >  
-> > >  		set |= xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
-> > >  		clr |= ~xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
-> > >  	}
-> > >  
-> > > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> > > index 17123f0b6dab..eb8dfffc32c7 100644
-> > > --- a/arch/arm64/kvm/nested.c
-> > > +++ b/arch/arm64/kvm/nested.c
-> > > @@ -379,21 +379,23 @@ static int walk_nested_s2_pgd(struct kvm_vcpu *vcpu, phys_addr_t ipa,
-> > >  	}
-> > >  
-> > >  	addr_bottom += contiguous_bit_shift(desc, wi, level);
-> > >  
-> > >  	/* Calculate and return the result */
-> > >  	paddr = (desc & GENMASK_ULL(47, addr_bottom)) |
-> > >  		(ipa & GENMASK_ULL(addr_bottom - 1, 0));
-> > >  	out->output = paddr;
-> > >  	out->block_size = 1UL << ((3 - level) * stride + wi->pgshift);
-> > >  	out->readable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
-> > > -	out->writable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-> > > +	/* Takes care of both RO/RW and RO/WC/WD encodings */
-> > > +	out->writable = desc & (KVM_PTE_LEAF_ATTR_HI_S2_DBM |
-> > > +				KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W);
-> > 
-> > Absolutely NOT. For a start, NV doesn't support FEAT_HAFDBS. But even
-> > if it did, you are now actively corrupting memory by turning a RO
-> > mapping with a spurious DBM bit set into a writable mapping.
-> > VTCR_EL2.HD exists for a reason.
-> > 
-> > Do you see why your blanket approach of equating DBM with writable is
-> > plain wrong?
-> 
-> Sorry, not really... please help me understand it.
-> 
-> When you say a spurious DBM bit, what does it mean?
-> 
-> All I can think is something like a buggy HW implementation setting DBM in 
-> a HAFDBS-disabled machine, which has been unnoticed up to now, and now 
-> could cause problems.
+> Different modules have different clock frequencies, don't they ? The
+> property seems needed.
 
-And pray tell, what is it to have HAFDBS being disabled at S2? Instead
-of throwing the book at me, you should probably read it, and specially
-the effects of VTCR_EL2.HD.
+Yes, that would be fine with assumption there is no actual sensor
+described. If there is a sensor in DT, that one will have a proper
+driver binding and asking for frequency?
 
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Best regards,
+Krzysztof
