@@ -1,59 +1,41 @@
-Received: from mta0.migadu.com (out-187.mta0.migadu.com [91.218.175.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82DA39FCC8
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:10:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8193D813C;
+	Wed, 16 Sep 2026 18:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789582246; cv=none; b=NDkhNkoCMFLVsy8Yivp53kezYlDt0WPm05TS7ATsSjgtDPUJd6mxdNV7WBfTmvaqghT2HzICvf+jKpZDySRary+3LYHhcoPxC8Fd4mNS0YXkj+GSky5QXP0x3gDeyVDt1/Na2KHUrKMpr/NBHW7ds1Q0SEg3aVguxwCJFuwSQSI=
+	t=1789582297; cv=none; b=CY7WkWzh9DWTFCYf9OVqooKsu7rOh5cBCwN9SZsUuGuCWMrvW/Cxe2JI4/oWjGZZ5Yh18fDEX9aDwQp1M6dYNpzMWQB5uaCsT7QBMktQ0Gn9gf0efvDrDCDAo66A62ZIxceKIQMSxfMoYty9UKLZrVHSJGn8ms0qYlSz/WabIQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789582246; c=relaxed/simple;
-	bh=zW2RwnLfumjVy/sP+HREg7Msc98rbIvzGm+54oemM6E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KwCHxyjwYPk5bR3+FUi501YqRvnYznGQZvpkpGVOYvc3g1u1oP+zPen6dgfzk6tkClzNkC2cm/q2h1ecr6Q+cpYP/Hx03/G4t9uJYfHku8dIKDVW39SrJ0+z3p+jfMRPxAjPQXqLzFszlVkrcw0X0CbqF+2b3+2DmImOOHtVO3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xqy1yknz; arc=none smtp.client-ip=91.218.175.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xqy1yknz"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zW2RwnLfumjVy/sP+HREg7Msc98rbIvzGm+54oemM6E=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789582232; v=1; x=1790187032;
- b=xqy1yknzJ+TAd0I0o+/1KBLFUdR4Xo3O70caWoDvJzoRiEEFkdare9Qv4M4fqRoUL1dK96SD
- +pQwWUkpa9U5Zfj2NS3jyX7i9obwF9wDWGe2EiXJGtuh5IE1Km5ufqTODHM+Y8vlqYRT7sSrZZS
- CJmWPQybLiD0v+gqGg+l8SuE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id c987281efb541743;
-	Wed, 16 Sep 2026 18:10:09 +0000
-X-Mizu-Trace-ID: c987281efb541743
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: ast@kernel.org,
-	andrii@kernel.org,
-	bpf@vger.kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	jolsa@kernel.org,
-	justinstitt@google.com,
+	s=arc-20240116; t=1789582297; c=relaxed/simple;
+	bh=aCn5FX863NOXRQyBaJN6Q73xp3cWUBN+H04UrFkEI1I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YaRRVTy/L5jNUwzkarlc3FmEbV6mUmnPyIMbWzTWCJLXJR0MuC15DkuZ9B6CmWWWuI+bZTiDzzBSQ5mT0L6sUaYsYHsKxfYV4TlikKBPV9/6ZoZlBQHYYOwWcoth/yhfEVytBa6ztfBM/6nGcQTgLmrMm/p9+8D9lHemjJ4SoDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACnFUC926pq_UBvCA--.24651S2;
+	Thu, 17 Sep 2026 02:11:10 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: andrzej.hajda@intel.com,
+	andy.yan@rock-chips.com,
+	dri-devel@lists.freedesktop.org,
+	heiko@sntech.de,
+	hjc@rock-chips.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	martin.lau@linux.dev,
-	memxor@gmail.com,
-	morbo@google.com,
-	nathan@kernel.org,
-	ndesaulniers@google.com,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	yatsenko@meta.com,
-	kernel-team@meta.com
-Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH] bpf: local_storage: avoid redundant IRQ save on bucket locks
-Date: Wed, 16 Sep 2026 11:10:01 -0700
-Message-ID: <20260916181001.201787-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	linux-rockchip@lists.infradead.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/rockchip: dsi: Fix second reference leak in dw_mipi_dsi_rockchip_bind()
+Date: Wed, 16 Sep 2026 18:10:42 +0000
+Message-Id: <20260916181042.2090801-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,99 +43,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACnFUC926pq_UBvCA--.24651S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFykXF1kXF1kuF48Xr1DKFg_yoW8XF4xpw
+	s8Ja4YgrW8uFnFqrnrArZ8GF4FywnIyay8GFs7J3s2kan5AF1Ut345Wa4kX347JFn7AF1x
+	Ar47Ga4rWF4xZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9v14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF
+	7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0
+	rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr
+	0_GcJvcSsGvfC2KfnxnUUI43ZEXa7VU1go2UUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAMA2qqpO93ZQAAsa
 
-bpf_local_storage_update() takes the map bucket lock while holding
-local_storage->lock. bpf_selem_unlink_map() does the same; its only
-caller holds local_storage->lock. The outer lock is acquired with
-raw_res_spin_lock_irqsave(), so interrupts are already disabled at both
-sites.
+dw_mipi_dsi_rockchip_find_second() hands back the dual-DSI partner
+device with a reference from of_find_device_by_node().  The bind path
+only drops it after a successful master setup; the four early returns
+(both/no clock-master, the slave shortcut and a missing slave drvdata)
+leave the reference behind.  Drop it on all of them.
 
-Using raw_res_spin_lock_irqsave() for the nested lock saves the already
-disabled IRQ state and issues another IRQ disable. The matching unlock
-tests that saved state before leaving interrupts disabled. On x86-64,
-this adds a pushfq/popq/cli sequence and a test/branch around an
-unreachable sti to each acquisition.
-
-Use raw_res_spin_lock() and raw_res_spin_unlock() instead. They retain
-preemption nesting, memory ordering and resilient-lock bookkeeping. The
-outer unlock remains responsible for restoring the caller's IRQ state.
-
-In the tested clang x86-64 build, this removes five executed instructions
-from each uncontended nested acquisition. It also shrinks
-bpf_local_storage_update() from 1732 to 1702 bytes and bpf_selem_unlink()
-from 1030 to 992 bytes. The affected paths are updates that add or replace
-an element in existing owner storage and successful unlinks.
-
-Document the owner-lock requirement of bpf_selem_unlink_map() and assert
-that interrupts are disabled.
-
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Fixes: cf6d100dd238 ("drm/rockchip: dsi: add dual mipi support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- kernel/bpf/bpf_local_storage.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/kernel/bpf/bpf_local_storage.c b/kernel/bpf/bpf_local_storage.c
-index 6fc6a4b672b55..4642da062f0f8 100644
---- a/kernel/bpf/bpf_local_storage.c
-+++ b/kernel/bpf/bpf_local_storage.c
-@@ -240,24 +240,26 @@ void bpf_selem_link_storage_nolock(struct bpf_local_storage *local_storage,
- 	hlist_add_head_rcu(&selem->snode, &local_storage->list);
- }
+diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+index 3547d91b25d3..4ab29410b2c0 100644
+--- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+@@ -933,23 +933,27 @@ static int dw_mipi_dsi_rockchip_bind(struct device *dev,
  
-+/* Must be called with the owning local_storage->lock held. */
- static int bpf_selem_unlink_map(struct bpf_local_storage_elem *selem)
- {
- 	struct bpf_local_storage *local_storage;
- 	struct bpf_local_storage_map *smap;
- 	struct bpf_local_storage_map_bucket *b;
--	unsigned long flags;
- 	int err;
+ 		if (master1 && master2) {
+ 			DRM_DEV_ERROR(dsi->dev, "only one clock-master allowed\n");
++			put_device(second);
+ 			return -EINVAL;
+ 		}
  
-+	lockdep_assert_irqs_disabled();
-+
- 	local_storage = rcu_dereference_check(selem->local_storage,
- 					      bpf_rcu_lock_held());
- 	smap = rcu_dereference_check(SDATA(selem)->smap, bpf_rcu_lock_held());
- 	b = select_bucket(smap, local_storage);
--	err = raw_res_spin_lock_irqsave(&b->lock, flags);
-+	err = raw_res_spin_lock(&b->lock);
- 	if (err)
- 		return err;
+ 		if (!master1 && !master2) {
+ 			DRM_DEV_ERROR(dsi->dev, "no clock-master defined\n");
++			put_device(second);
+ 			return -EINVAL;
+ 		}
  
- 	hlist_del_init_rcu(&selem->map_node);
--	raw_res_spin_unlock_irqrestore(&b->lock, flags);
-+	raw_res_spin_unlock(&b->lock);
+ 		/* we are the slave in dual-DSI */
+ 		if (!master1) {
+ 			dsi->is_slave = true;
++			put_device(second);
+ 			return 0;
+ 		}
  
- 	return 0;
- }
-@@ -552,7 +554,7 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
- 	struct bpf_local_storage *local_storage;
- 	struct bpf_local_storage_map_bucket *b;
- 	HLIST_HEAD(old_selem_free_list);
--	unsigned long flags, b_flags;
-+	unsigned long flags;
- 	int err;
+ 		dsi->slave = dev_get_drvdata(second);
+ 		if (!dsi->slave) {
+ 			DRM_DEV_ERROR(dev, "could not get slaves data\n");
++			put_device(second);
+ 			return -ENODEV;
+ 		}
  
- 	/* BPF_EXIST and BPF_NOEXIST cannot be both set */
-@@ -637,7 +639,8 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
- 
- 	b = select_bucket(smap, local_storage);
- 
--	err = raw_res_spin_lock_irqsave(&b->lock, b_flags);
-+	/* local_storage->lock is held, so IRQs are already disabled. */
-+	err = raw_res_spin_lock(&b->lock);
- 	if (err)
- 		goto unlock;
- 
-@@ -655,7 +658,7 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
- 						&old_selem_free_list);
- 	}
- 
--	raw_res_spin_unlock_irqrestore(&b->lock, b_flags);
-+	raw_res_spin_unlock(&b->lock);
- unlock:
- 	raw_res_spin_unlock_irqrestore(&local_storage->lock, flags);
- free_selem:
 -- 
-2.53.0-Meta
+2.34.1
 
