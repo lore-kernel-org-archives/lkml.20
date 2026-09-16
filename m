@@ -1,144 +1,543 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3854EC670
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:05:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BEB4F4728
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563908; cv=none; b=DQg9aMS/svcsh6DLDpYlLA0KKTnfrxbZsK7rZNjc+T55JHDLSENfkDqmJKmoGeDyVt8QuNMq6Pru3sc0zew/ye4TiXq9TbKWRBD/NnogMMxrxcEH/KXn4PIoD4M180VfGPUoA0XIDCLzgsHxMDdkFOj2jjDUaSFcLdGDfdB+oys=
+	t=1789563914; cv=none; b=ZGBas2GKZcAkAHs21Z41lj6XWD/5wJ0zriqVsKkt7JETgVQTL1KlYWtWm4o/05X6sTBmUrIoPmrR/kv7yWtKuuDYACmHCLc821CStYOhalGT+jOZKmnc57J5kcrUTosmqSQTwY/NMXHMe446tgtkc2Duv6MVWmI6jrgFate7Yio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563908; c=relaxed/simple;
-	bh=9NZXR7HhTGbr+mFdcM0XPcLA5Upvyt8WzL9X7DcFzCU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ctwUeZ6X8UZHHYcwJaENKxmv6I4QGSDBHLSK25nEqdULIymS+kKypmnR9CxyLGI0vSV4iv7rshJA3CXUiIVfG/gPdvjbBnteNCre2Rvwfw92SA/CxB1vJa0t8zid6Rmm1QmxPNd7FU+1StKrLK0YzKRjglgB/qiCxl6rdwCh+wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=seVU1oNG; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1789563914; c=relaxed/simple;
+	bh=UV+dzZblAGI0IWEvNI/T7hMMoewCPMrxANakXXtUh8s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uzMv6Z/mpej4D5PsKfc12++qSgbsYqk7LknH9Rrflw9k1GQr29hHpQ108aNvlsFDQhvdkvwSNk9V3cfS2NwNY/q5Jf+SSzICxFAPQIQkv4+a77kZbpDiuOZk9dQ+t76JLVyCL892HpM33Czm7YBmGTVEvVMl4j4W3x6nWvisGhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WxYDXrD5; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="seVU1oNG"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-5310b91044aso7691621cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:05:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WxYDXrD5"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so5028025e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:05:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789563905; x=1790168705; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZYdUhGpjeA7km3CAfItuHpRj6rsHx55A/+kIwM9brrI=;
-        b=seVU1oNGgv5W2fQrn9aGhIrSuoaSy4y3MHq390I0qAkT25tTb56zJw0ywmrFlK4QY4
-         HN/wyyvkoRnU9AEuFm+s5eDHjelzvKqvp+rPbKSlaP2Zy+IAovBdpREzLuwgOPsN9RPk
-         DV5RCcgRSPPUkXPN8x3lFe9S6ktY8epVIlgwyg9S9b/J5ihc0iKpqprHa7XputVy6Jq6
-         e/Y1zv/ipZDJJCXHhoft+7M8bJHnC7qalCq40VZWGRLjk78D7LsdLuB2zR2ihqRPwCcf
-         3wkvTw8FapAWc5U4eC10vPqaUusKR7ZJS0vwaomrrEixYgaxYO8+sUxquefLy4+fqAd6
-         /npw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789563905; x=1790168705;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789563910; x=1790168710; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZYdUhGpjeA7km3CAfItuHpRj6rsHx55A/+kIwM9brrI=;
-        b=IwhOqcRt6somzKm1U7p5baQYyLWqGpTdAp2R9F3tPqfnYLPqytU6foeprrGsAWnkQC
-         1fZ+yqjbvCC+ofgohSe51ZvfR0H8h7jwGZ7p+nIFNiXAC11lOAnx9UwPIyKSMjTHcXuu
-         QRqH0GRgvnj5P4/pr6g3jZqGYOT1g0mHMUdLTgo1O9OYX2OItnXZ2uCHgg78Pp4YR9Db
-         KQsDmQYDKu+8ndOj/wy5fXWd8HzP45t8Apm2EBfJNzUcAna+2BtvA/zUYKbO5VxZMEJn
-         vkHK/6qkRMLeMT3yUVpXV+a4lZGZGLQsbTZ9lkH6uw6lDoz//2VdktZPHFIpMAHo88od
-         +aCw==
-X-Forwarded-Encrypted: i=1; AKwUvBwM416HblvVtBsNeR+m1RnpSgYZtGP1HJqZ0NG4flenv32oT4Yr6Ymj3jmbRGjzYuhQxUubvGNG8Agjfso=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7BiOqJNvUBrye3R8nIYFZMFjAsQrXIn/Ll/syq0Yy+p09Zow/
-	oCI072lQ4DHz1lWOSwJTgfQRAv8R1zN774Eh4jpN6lz16mi/afUCvKZjpFnBYioPolruvQ+URZC
-	IlfaE
-X-Gm-Gg: AYBFou1szYbjcOABqA/WWNFnSduc4CG7nesaamKWC9SI28mbDCrmedl+Xw0wXIKt5o3
-	dBj1IO9iFT3gJn7pYerawkzUG3VGYydejN9632JJE8L/zHlP/lzywfHcolHomju/Z8BQXFdV7hu
-	VlwIJ3QRa7+t2ag9Ul2+obJfn1DdboCS2SCyFy2dmJl+sIsqyisaUxgF4C7Ecw6zYqixZ+cE+KR
-	waLtycu9Nk5+X5oDKwRqxe2ZrtDcjLGXpB4BqLR8O5PYih6Mk8K7x/ocjdZZ3RaLWOTRkHyGy2A
-	TqpzsMce5mey+Nqwgk7/onU9f1tsS8BgFOikffD7K+5teqcZ/4ZWj7Lo1azkt2hKlNg9OXfHIb8
-	tfG76t3raacH6J01089mlTRB9KtyvmVzBzipZlUNuL9zR60wr5EjkSAc5ZSSDU57mTFH3M55IoQ
-	Xy3bsBDy4EZBw9e0axxyT40v4Bo2PDdrDdczBoFKCqNpDR8v/oSjIglKcqk10/0fES2bBcY/8ty
-	HsyFP0kYZIgUGLjs86zCfRuo78e1ux5cdMs83IHwIEsyk0HECrzS+4=
-X-Received: by 2002:ac8:5742:0:b0:530:eb7e:79fb with SMTP id d75a77b69052e-5327f05f9e4mr43255651cf.45.1789563905323;
-        Wed, 16 Sep 2026 06:05:05 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53261fd7e5bsm21409661cf.7.2026.09.16.06.05.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:05:04 -0700 (PDT)
-Date: Wed, 16 Sep 2026 09:05:03 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, 
-	jannh@google.com, sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [RESEND PATCH] mm/madvise: use folio_trylock() in the
- cold/pageout PMD split
-Message-ID: <aqqTl7JwYzM7azlF@gourry-fedora-PF4VCD3F>
-References: <20260912110540.3203010-1-gourry@gourry.net>
- <2f63b25e-71ca-4af6-83d2-70be2388a55a@kernel.org>
+        bh=pl6cX3oWZ5CKzKUJrQmiD3xjrE1jR4zBD0ByuzONDHs=;
+        b=WxYDXrD56gqWp7QhjJ1rB6cfG5Uhl/cU7wVZVf4I9eUFlisqrKDzPDW8/jSymvV93y
+         I59UQJFFs5SXgk8hm7Uvbd9DWwJD/94urzUeBNbpuUSzpCkjF1Ma9tbJcvyFoX+f/NzW
+         gmOa3D/Fn2b27rUSuE9VNgfRLx+Ao2+b+4hFpzotF3zBLbp2qo5JkqI9Kblc8zR33Xnd
+         OcZbBa6ULKO2oniZV2pFQldoQBNMdOP//6DwLBNC6pI8gMfAl9Vi3obp6IPqeRBnzwzG
+         GpLRf/BnayKSXL9hNJ9mYSFHuqtffgZB6LnfKhkzbL1fBdaFWr/jdN67VXn+93NzFpj5
+         yAbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789563910; x=1790168710;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pl6cX3oWZ5CKzKUJrQmiD3xjrE1jR4zBD0ByuzONDHs=;
+        b=ulT5rfu6o30iHUxWCmMAlPY2BWal1RwrSeOivkLFpB/pUJnU+hmHDVBT/NBpQJuyVj
+         MBRWssK0PPfVlPPEXI2zQ9En9E25EUK6VCf/YDYExjevb5gt4T0Ln/DT4tiBFUE/M8Je
+         KdYzBMzfgKXLOMJzeHuXsmnt23bzPpTvILxR6ouZHdCCfEjSS16HT+7yLBcmlzFUmszB
+         PcxJX/JluzP4YBKB/h57UTLbMOGKhqTBtLxrn3Om2LmeKotAsjQEjx2M3ieWbbvmIEw1
+         ZUF2debTvEL7rR0V/U1Ly0db1An0RT3dzVONoyzxhvPoxxlg9XIUt1QmXV3k8+H+WSwD
+         RUMQ==
+X-Gm-Message-State: AFuF++nnMPW/ejSL4wVYT5B3gpbHYnnn9fgGzCUXKGb+LnoDDfsAznJT
+	cZXAtwacHR3scQSBFP/N16zYE8qsiotKgq/cudsP18m9sf9p+ZRWEJcsTOOslg==
+X-Gm-Gg: AYBFou0+Jl5+2b8QJuJ4GMiH5m5Xhyl95B5o8jcz3KAuWlcONaS5ihNVZkDvh41WsS2
+	0Dea95Rgq3Yfny5PPv2h8ori5vOsTtByVpDhiBl6Ar7m1fl+gjF/YtjZ7/otvdlpHzjrL+Jnjik
+	0y06cQhtYCE1GL6OXol19Ggbi5OlS7HbS/RT/oM76G4g9iv46pgCx6S1u9Xyu2X2oDEMyWMJgZL
+	QgoYeP8xKuoqnIktTJwKUXCx7T1mphxZjoRKFTBFklTl0gZ6B2DLvi60BBYLuY/a9VAAKxU0snR
+	laQMaEarv6GcUkfSE9VHot8NfB4FcnydA5pxkJi2Tfzm6ExVjHEX5NGOADDEdxzv0thBOT4wPcz
+	d31XimvoM5fm+LeYwNAuA7qtpDjkRJISpwgV5yo/eXQVhR+xr53zJolVGyuAeqcthnZ5xMkpSDE
+	qlpmXLCq384gMceouGd80iQ5qCwEnnDtFIStRnvBlgr0WZgCPaKNHjRjGHPmfAFR/+uFvaNfWV7
+	b4=
+X-Received: by 2002:a05:600c:1d0a:b0:49e:7d74:7b7a with SMTP id 5b1f17b1804b1-49eac45ba14mr26843095e9.6.1789563909172;
+        Wed, 16 Sep 2026 06:05:09 -0700 (PDT)
+Received: from [10.80.0.99] ([151.49.78.59])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83add98bsm90537545e9.4.2026.09.16.06.05.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 06:05:08 -0700 (PDT)
+Message-ID: <e351995f-eeb8-498e-870d-c5c2e543f541@gmail.com>
+Date: Wed, 16 Sep 2026 15:05:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2f63b25e-71ca-4af6-83d2-70be2388a55a@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] HID: asus: add support for xgm led
+To: Antheas Kapenekakis <lkml@antheas.dev>,
+ Denis Benato <denis.benato@linux.dev>
+Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+ Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+ "Luke D . Jones" <luke@ljones.dev>, Mateusz Schyboll <dragonn@op.pl>
+References: <20260915181200.18086-1-denis.benato@linux.dev>
+ <20260915181200.18086-4-denis.benato@linux.dev>
+ <CAGwozwHe7dnSi1=NuqeQuXD0FtdPKLJvwyC53ff6LUmRU9Z7SQ@mail.gmail.com>
+ <9fd173d2-08c2-4455-b251-27af53db2028@gmail.com>
+ <CAGwozwHTZVrrC7zB4oGc3safznXKH3zkHv5EDVSyOYdNGZCpXw@mail.gmail.com>
+ <39eaa5c2-c22e-4007-bfce-e31f6bfd6b17@linux.dev>
+ <CAGwozwGiUr-1hZsoUa2xWjrhi+ijM-ps4K5g07aFWaBi4dHhjw@mail.gmail.com>
+Content-Language: en-US
+From: Denis Benato <benato.denis96@gmail.com>
+In-Reply-To: <CAGwozwGiUr-1hZsoUa2xWjrhi+ijM-ps4K5g07aFWaBi4dHhjw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 08:25:01AM +0200, David Hildenbrand (Arm) wrote:
-> On 9/12/26 13:05, Gregory Price wrote:
-> > MADV_COLD or MADV_PAGEOUT over part of a PMD splits the THP in
-> > madvise_cold_or_pageout_pte_range().  Two threads doing that to
-> > the same THP create spurious failures.
-> > 
-> >   CPU0                          CPU1
-> >   ----                          ----
-> >   folio_get()
-> >   spin_unlock(ptl)
-> >   folio_lock()
-> >                                 folio_get()
-> >                                 spin_unlock(ptl)
-> >                                 folio_lock()  <- blocks, keeps its ref
-> >   split_folio()
-> >     folio_expected_ref_count(folio) != folio_ref_count(folio) - 1
-> >     -EAGAIN
-> > 
-> > CPU1 cannot drop its reference until it gets the lock CPU0 holds, so CPU0's
-> > split always fails.  folio_trylock() makes CPU1 leave without ever taking a
-> > reference.  The PTE branch of this same function already does this, as do
-> > madvise_free_pte_range() and madvise_free_huge_pmd().
-> > 
-> > Reproducer: 400 rounds of eight threads calling MADV_COLD on half of each
-> > of eight THPs, re-formed with MADV_COLLAPSE between rounds.  From
-> > /proc/vmstat:
-> > 
-> >                      thp_split_page   thp_split_page_failed
-> >     before                     3186                     860
-> >     after                      3200                       0
-> > 
-> > The short before count is rounds where every thread failed and the
-> > advice was dropped for that THP entirely.
 
-bleh i thought i rewrote this sentence.
+On 9/16/26 14:31, Antheas Kapenekakis wrote:
+> On Wed, 16 Sept 2026 at 14:18, Denis Benato <denis.benato@linux.dev> wrote:
+>>
+>> On 9/16/26 08:46, Antheas Kapenekakis wrote:
+>>> On Wed, 16 Sept 2026 at 02:54, Denis Benato <benato.denis96@gmail.com> wrote:
+>>>> On 9/15/26 23:52, Antheas Kapenekakis wrote:
+>>>>> On Tue, 15 Sept 2026 at 20:12, Denis Benato <denis.benato@linux.dev> wrote:
+>>>>>> XG mobile stations have very bright leds behind the fan that can be
+>>>>>> turned either ON or OFF: add a cled interface to allow controlling the
+>>>>>> brightness of those red leds.
+>>>>> Hi Denis,
+>>>>> as of last month, I am also the proud owner of a XG Mobile (2025 in my
+>>>>> case). Therefore, I can now comment on this series and give you
+>>>>> feedback.
+>>>> Perhaps. These two devices have nothing in common but the name.
+>>>>
+>>>>> First, I have some interim patches that are not ready yet to post. The
+>>>>> device still has some led behavior that I need to investigate, but I
+>>>>> attach them here for your reference. You may send them on my behalf if
+>>>>> you want to see them sooner though.
+>>>>>
+>>>>> https://github.com/anatase-org/patchwork/commit/af3e5e1755f720a2fffd1b67cb1253e11efbc5bb
+>>>>> https://github.com/anatase-org/patchwork/commit/7718c4b64b03ca9be043e8c56f1833e5c4880fff
+>>>>>
+>>>>> Note that these two patches are essentially a replacement for this
+>>>>> patch essentially, except for the binding, where your device is I2C
+>>>>> where mine is thunderbolt, so that still needs to be added. There are
+>>>>> still leftover issues with the LED I have to investigate before I
+>>>>> submit these patches.
+>>>>>
+>>>>> As you know, USB keyboards in Asus laptops are connected over WMI
+>>>>> through s2idle as well, which is what makes them turn off their
+>>>>> backlight during suspend. However, our devices are external and cannot
+>>>>> use the same path. I suspect that there is a different notifier for
+>>>>> these devices over armoury crate we need to investigate first.
+>>>> Your device is thunderbolt only, but 2022, 2023 and 2024
+>>>> xg mobiles that his patch targets are devices for which the
+>>>> ACPI of laptops supporting this weird connector is full of
+>>>> references to and handling and custom code all over the place.
+>>>>
+>>>> They are nothing alike. They share the name....
+>>>>
+>>>> If I connect mine to my rog ally armoury crate gains a
+>>>> slider that sends the exact same command my patch sends...
+>>>>
+>>>> I couldn't find anything else over USB with wireshark:
+>>>> everything else is ACPI-driven.
+>>>>
+>>>>>> Let the led core manage the power transitions: the classdev is flagged
+>>>>>> with LED_CORE_SUSPENDRESUME, so it is switched off at suspend and its
+>>>>>> last brightness is restored at resume. The EC drives its own blinking
+>>>>>> pattern during s2idle anyway, so the led state while the machine is
+>>>>>> asleep is not meaningful.
+>>>>>>
+>>>>>> Cc: Antheas Kapenekakis <lkml@antheas.dev>
+>>>>>> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+>>>>>> ---
+>>>>>>  drivers/hid/hid-asus.c | 84 ++++++++++++++++++++++++++++++++++++++++++
+>>>>>>  1 file changed, 84 insertions(+)
+>>>>>>
+>>>>>> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+>>>>>> index 03150d29eec5..a427e272563d 100644
+>>>>>> --- a/drivers/hid/hid-asus.c
+>>>>>> +++ b/drivers/hid/hid-asus.c
+>>>>>> @@ -51,6 +51,8 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+>>>>>>  #define FEATURE_KBD_LED_REPORT_ID1 0x5d
+>>>>>>  #define FEATURE_KBD_LED_REPORT_ID2 0x5e
+>>>>>>
+>>>>>> +#define ROG_XGM_REPORT_SIZE 300
+>>>>> Here, you define an additional report size var. This is not necessary,
+>>>>> as ROG_ALLY_REPORT_SIZE is only used for reads currently in the driver
+>>>>> and we defer to hid core to set the write length. Therefore, you might
+>>>>> increase ROG_ALLY_REPORT_SIZE to 300 universally instead, as a
+>>>>> correctness fix. This way, when Aura devices attempt to write 300
+>>>>> bytes, they still work regardless of the quirk. This is what
+>>>>> af3e5e1755f720a2fffd1b67cb1253e11efbc5bb.
+>>>> I answer to this below, but I want to point out something here:
+>>>> you are right in wanting to join these, but wrong on what to join:
+>>>> the right thing to do is not to join the ALLY_REPORT_SIZE and the
+>>>> XGM report size, but instead to join the  KBD report size and the
+>>>> ally one as one NKEY_REPORT_SIZE since this is exactly what they
+>>>> are: N-KEY devices.
+>>> You are right, NKEY_REPORT_SIZE. This is what my patch did. It was
+>>> late yesterday.
+>> Splendid, now it makes sense. Yeah I'll do it, don't worry about it:
+>> it's on my TODO list and has been for a few months.
+>>
+>>>>>> +
+>>>>>>  #define ROG_ALLY_REPORT_SIZE 64
+>>>>>>  #define ROG_ALLY_X_MIN_MCU 313
+>>>>>>  #define ROG_ALLY_MIN_MCU 319
+>>>>>> @@ -144,6 +146,11 @@ struct asus_worker {
+>>>>>>         bool removed;
+>>>>>>  };
+>>>>>>
+>>>>>> +struct asus_xgm_led {
+>>>>>> +       struct led_classdev cdev;
+>>>>>> +       struct hid_device *hdev;
+>>>>>> +};
+>>>>>> +
+>>>>>>  struct asus_touchpad_info {
+>>>>>>         int max_x;
+>>>>>>         int max_y;
+>>>>>> @@ -170,6 +177,7 @@ struct asus_drvdata {
+>>>>>>         unsigned long battery_next_query;
+>>>>>>         struct asus_hid_listener listener;
+>>>>>>         bool fn_lock;
+>>>>>> +       struct asus_xgm_led *xgm_led;
+>>>>>>  };
+>>>>>>
+>>>>>>  static int asus_report_battery(struct asus_drvdata *, u8 *, int);
+>>>>>> @@ -1161,6 +1169,26 @@ static int asus_battery_probe(struct hid_device *hdev)
+>>>>>>         return ret;
+>>>>>>  }
+>>>>>>
+>>>>>> +static int asus_xgm_led_set(struct led_classdev *led_cdev, enum led_brightness value)
+>>>>>> +{
+>>>>>> +       const u8 buf[ROG_XGM_REPORT_SIZE] = {
+>>>>>> +               FEATURE_KBD_LED_REPORT_ID2, 0xC5, (value) ? 0x50 : 0x00
+>>>>>> +       };
+>>>>>> +       struct asus_xgm_led *xgm = container_of(led_cdev, struct asus_xgm_led, cdev);
+>>>>>> +       int ret;
+>>>>>> +
+>>>>>> +       ret = asus_kbd_set_report(xgm->hdev, buf, ROG_XGM_REPORT_SIZE);
+>>>>>> +       if (ret < 0) {
+>>>>>> +               hid_err(xgm->hdev, "Unable to set XG mobile led state: %d\n", ret);
+>>>>>> +               return ret;
+>>>>>> +       } else if (ret != ROG_XGM_REPORT_SIZE) {
+>>>>>> +               hid_err(xgm->hdev, "Unexpected partial transfer to XG mobile: %d\n", ret);
+>>>>>> +               return -EIO;
+>>>>>> +       }
+>>>>>> +
+>>>>>> +       return 0;
+>>>>>> +}
+>>>>>> +
+>>>>> Moreover, as this is an Aura device, and by setting
+>>>>> ROG_XGM_REPORT_SIZE to 300, you can now reuse the initial inits and
+>>>>> brightness handler instead of adding new ones as you did here. This
+>>>>> way, for asus laptops with a wmi handler, the brightness keyboard
+>>>>> shortcut of the device will also control the eGPU, which is preferable
+>>>>> behavior. This is what 7718c4b64b03ca9be043e8c56f1833e5c4880fff does
+>>>>> in part.
+>>>> Absolutely bad idea, trust me: I have recently followed the fix
+>>>> of a regression I introduced sending a 64-bytes command to
+>>>> touchpads that accepts some other length as those stopped
+>>>> working. Doing that is asking for troubles. Listen to who
+>>>> caused the trouble already and make the most out of my
+>>>> mistakes.
+>>>>
+>>>> I also had to make asusctl send exactly 64-bytes commands
+>>>> because of random bugs to zephyrus and strix models.
+>>>> Sending 65 bytes to anime matrix is not a very good idea either.
+>>>>
+>>>> Also Armoury Crate never sends anything different to 64 bytes
+>>>> to N-key devices and I do not want to send anything different
+>>>> than windows does.
+>>>>
+>>>> Do you remember what happens to rainbow on ROG ally if you send
+>>>> commands the MCU doesn't like? I don't want having weird things
+>>>> difficult to debug and nearly impossible to recover from only because
+>>>> the code would look better/be shorter.
+>>>>
+>>>> These devices are fragile in handling, tied to the EC and low lever
+>>>> hardware and I absolutely don't want to diverge from what
+>>>> Armoury Crate does unless there is a very good reason to it.
+>>>>
+>>>> I agree that ASUS devices are somewhat forgiving in accepting
+>>>> different lengths, unlike MSI claws that will not answer to
+>>>> commands until you have sent a number of bytes multiple of
+>>>> the length they want, but this is no reason to toy around this.
+>>>>
+>>>>> I have not tested the common path yet. I have been travelling so I
+>>>>> have not flashed the new kernel on my z13. I have been using the eGPU
+>>>>> with a different device.
+>>>> If with "the new kernel" you mean 7.3 I can tell you it appears
+>>>> d3 is broken and some ASUS laptops stopped entering s2idle...
+>>>>
+>>>>> 7718c4b64b03ca9be043e8c56f1833e5c4880fff also fixes the "blinking
+>>>>> pattern" of the EC, as you note in your subject. With the init,
+>>>>> suspend and resume handlers sending the init of that patch, during
+>>>>> boot the light blinks, it becomes solid once hid-asus binds, then
+>>>>> during the transition to sleep, it starts to blink until it turns red,
+>>>>> and does the reverse during resume. It would be good for you to give
+>>>>> feedback for that. I have not verified the Windows behavior there, and
+>>>>> we should do that for correctness. The init is referenced from
+>>>>> g-helper in Windows, but maybe there is another command that signals
+>>>>> sleep better.
+>>>> 2022, 2023 and 2024 models don't blink outside of s2idle...
+>>>> Because ACPI is all over the place and the device gets informed
+>>>> constantly of what the host is doing.
+>>>>
+>>>> If 2025 models blink until you bind the driver it that means they
+>>>> rely on commands from the windows application... We will need
+>>>> to replicate those as closely as possible.
+>>>>
+>>>> I can ask ASUS if wireshark captures don't shed some lights to it.
+>>> If you can and forward me some info it should be great.
+>> I cannot because that would be covered by my NDA, and
+>> that would take quite a lot of time and depending on the
+>> questions surfacing here I might not even be allowed to
+>> answer so it's hugely better if wireshark is all that is needed.
+>>
+>>>>> I do not have an answer to the sleep leds unfortunately. My XG's RGB
+>>>>> stays on while there is a device plugged in, regardless of whether its
+>>>>> sleeping or shutdown. This makes me think that we are missing a
+>>>>> notifier command, and the brightness patch you propose here just
+>>>>> papers over the issue. So we should investigate that first.
+>>>> What I propose is correct for old models. Newer ones I know nothing
+>>>> about except that there is no custom ACPI handling them.
+>>>>
+>>>>
+>>>>> Let me know how you'd like to proceed.
+>>>> Honestly I think you should name those something like xgb_tb_.....
+>>>> and handle them separately since they have pretty much nothing
+>>>> in common... Except the price maybe. Lol.
+>>>>
+>>>> In general don't go crazy over refactors and trying to make the
+>>>> code looks better at the expense of proven things: the priority
+>>>> is for this driver to work reliably and to reuse as much things
+>>>> proven to work as possible.
+>>> Let me simplify. Please try to stay on topic.
+>>>
+>>> My XG Mobile is an Aura device using FEATURE_KBD_LED_REPORT_ID2 with a
+>>> feature report size of 300. Your XG Mobile is an Aura device that uses
+>>> the same. They both have the same sleep issue that you paper over by
+>>> setting the brightness to 0. The LED stays on during sleep. It also
+>>> stays on / off during boot and the power command works inconsistently
+>>> with it. Which points to the device not knowing boot state and missing
+>>> a command to inform it.
+>> I don't see any sleep issue: the resume sometime return to the
+>> old setting and sometimes it doesn't but it always blink s2idle.
+>>
+>> Setting the brightness to 0 is pretty much a no-op on these
+>> models and that's why I used the proper flag, but if new models
+>> requires something different you can restore the old code
+>> from me for those models.
+>>
+>> Resetting the setting by sending the command is exactly what
+>> Windows does so I'm okay with what I did here.
+>>
+>> Yours may very well need other things: just disable the device
+>> in windows driver manager, start wireshark, re-enable the
+>> device and the command will appear there.
+> It is a noop. But you are introducing a new ABI just for the XG
+> mobile. userspace does not know how to use it and we will need to
+> customize software around it. By keying it to the existing handler
+> userspace will work.
 
-reading madvise is driving me crazy.
+I am doing it on purpose and I explained the reasoning already.
 
-> 
-> While the split now succeeds, one of both calls will just effectively skip
-> processing the page table. SO while CPU0 will succeed with the split, CPU1 would
-> just skip the page table.
-> 
-> And what happened before?
-> 
-> Split on CPU0 failed and it would skip the page table. Split on CPU1, however,
-> would likely have succeeded?
-> 
+If userspace doesn't have yet the code to handle it it will
+(asusctl already can btw).
 
-Yes., all correct.
+> Moreover, we already have a suspend handler that restores brightness.
+> You are adding a separate led device and using its suspend handling
+> instead. Why not use the existing plumbing and potentially extend it
+> to set to 0 prior to suspend instead via an xdg quirk? As I told you
+> my device needs that as well, so this is not specific to older models.
+> I suspect there is a missing command though and I would prefer that
+> instead.
 
-> So this is all far from perfect.
-> 
-> ... but this matches what we do further down in the PTE scenario.
-> 
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+We have that for laptop keyboards. XGM is not a keyboard.
+
+It doesn't share a length with keyboard nor commands:
+totally different device gets totally different handling.
+
+If yours need the brightness setting to 0 upon
+sleep entering then the usage of the suspend flag on the
+cled device was the correct move because it's doing exactly
+what you are suggesting here.
+
+If an additional command is required then it's super easy
+since the cled brightness off runs before suspend and the
+on runst after resume any required command can be
+sent in those functions.
+
+But beware: setting the suspendresume flag on the
+kbd_backlight is not correct because the brightness
+needs to stay 1-3 for s2idle effects to play on many
+TUF laptops.
+
+The more I think about little differences that joining
+the path will make the more I am uncomfortable
+with doing so.
+
+>>> The asusctl driver handles aura devices. However, instead of using the
+>>> current aura cdev handler and init handling you introduce a SECOND ONE
+>>> THAT DOES THE SAME THING and is not connected to the central keyboard
+>>> brightness handler.
+>> The current one is rooted in asus-wmi, has 0-3 brightness and
+>> is for keyboards.
+>>
+>>> Why do you do that? Can you justify the new cdev? What's wrong with
+>>> the normal one? Why do we need a new ABI just for the 2022-2024 eGPU
+>>> models?
+>> Yes: new xgm only needs hid-asus, has 0-1 brightness and is for
+>> xg mobile. Code written for kbd_backlight that assumes 0-3
+>> won't work on it.
+>>
+>> Also users may very well to be able to control the light of
+>> the xgm separately from kbd_backlight because xgm led
+>> is very bright and it's uncomfortable to look at unlike the
+>> keyboard backlight.
+>>
+>> Another reason is that even in windows the lighting of
+>> xgm is a totally separated option with just ON/OFF and
+>> it's what users expect (this patch has been written on
+>> input and capture from a 2022 xgm user on Discord).
+>>
+>> As for 2022-2024 eGPU models I don't really mean "do
+>> things in a totally separated manner from 2025": code
+>> can be reused but the code that can be reused might
+>> be a small portion in comparison with what those
+>> may need so I am skeptical in attempting to merge
+>> the two paths entirely without knowing what
+>> new models actually want to receive.
+>>
+>> I was suggesting not to try too hard to share the same
+>> code path until you have figured out all required details.
+>>
+>> Beside these devices even have a different USB vid:pid
+>> so it's not like what this patch does affects them in any
+>> way unless we want to by using the same quirk.
+> I haven't checked armoury crate yet. But the 2025 model is indeed 0-3
+> so it can re-use the keyboard path with full compatibility, so for new
+> xdg mobile devices I will base on NKEY.
+
+Then I stand on the position of keeping these two separate.
+
+> If you are sure it is 0-1 only and 2-3 don't work correctly and
+> shouldn't be merged, I guess you can go ahead. I would still try to
+> avoid introducing a constant just for the XG mobile and instead
+> increase the existing packet value from 64 to 300 as it is only used
+> for reads.
+
+AC has a toggle button ON/OFF on these so yeah I am very sure
+it's not 0-3.
+
+> Only add a new constant if you are sure you need to have a 300 sized
+> buffer to do the brightness write, and that hid-core already does not
+> read the expected buffer size for that report and needs the actual
+> buffer to be 300, and that the device does not accept a smaller buffer
+> (since the driver does not do that already for all existing rog
+> devices, it is very unlikely).
 >
+> If you decide to instead change the existing packet size, I would
+> appreciate you re-use my first patch, put yourself as the primary
+> author, and add me as a co-by. You can keep the rest of this patch as
+> is and only change the referenced constant, and I will add my R-by on
+> the next revision.
 
-Thank you!
-~gregory
+As I said I don't want to do things to diverge from what windows
+does unless there is a good reason, so I will try not to do that
+unless it's strictly needed and cannot be solved with a nice
+drvdata->packet_length.
+
+> Best,
+> Antheas
+>
+>>> I am not arguing on which command is correct to send. Keep the flow
+>>> the same if you want
+>>>
+>>> Antheas
+>>>
+>>>>> Best,
+>>>>> Antheas
+>>>>>
+>>>>>
+>>>>>>  static int asus_input_configured(struct hid_device *hdev, struct hid_input *hi)
+>>>>>>  {
+>>>>>>         struct input_dev *input = hi->input;
+>>>>>> @@ -1406,6 +1434,49 @@ static void asus_initialize_reports(struct hid_device *hdev)
+>>>>>>         }
+>>>>>>  }
+>>>>>>
+>>>>>> +static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
+>>>>>> +{
+>>>>>> +       const char *name;
+>>>>>> +       int ret;
+>>>>>> +
+>>>>>> +       drvdata->xgm_led = devm_kzalloc(&hdev->dev, sizeof(*drvdata->xgm_led), GFP_KERNEL);
+>>>>>> +       if (drvdata->xgm_led == NULL)
+>>>>>> +               return -ENOMEM;
+>>>>>> +
+>>>>>> +       name = devm_kasprintf(&hdev->dev, GFP_KERNEL, "asus:xgm-%s:led",
+>>>>>> +                             strlen(hdev->uniq) ? hdev->uniq : dev_name(&hdev->dev));
+>>>>>> +
+>>>>>> +       if (name == NULL) {
+>>>>>> +               ret = -ENOMEM;
+>>>>>> +               goto asus_xgm_init_err;
+>>>>>> +       }
+>>>>>> +
+>>>>>> +       drvdata->xgm_led->hdev = hdev;
+>>>>>> +       drvdata->xgm_led->cdev.name = name;
+>>>>>> +       drvdata->xgm_led->cdev.brightness = 1;
+>>>>>> +       drvdata->xgm_led->cdev.max_brightness = 1;
+>>>>>> +       drvdata->xgm_led->cdev.brightness_set_blocking = asus_xgm_led_set;
+>>>>>> +       drvdata->xgm_led->cdev.flags = LED_CORE_SUSPENDRESUME;
+>>>>>> +
+>>>>>> +       /* LED state is arbitrary on boot, set a default */
+>>>>>> +       ret = asus_xgm_led_set(&drvdata->xgm_led->cdev, drvdata->xgm_led->cdev.brightness);
+>>>>>> +       if (ret) {
+>>>>>> +               hid_err(hdev, "Asus failed to set xgm led: %d\n", ret);
+>>>>>> +               goto asus_xgm_init_err;
+>>>>>> +       }
+>>>>>> +
+>>>>>> +       ret = devm_led_classdev_register(&hdev->dev, &drvdata->xgm_led->cdev);
+>>>>>> +       if (ret) {
+>>>>>> +               hid_err(hdev, "Asus failed to register xgm led: %d\n", ret);
+>>>>>> +               goto asus_xgm_init_err;
+>>>>>> +       }
+>>>>>> +
+>>>>>> +       return 0;
+>>>>>> +asus_xgm_init_err:
+>>>>>> +       drvdata->xgm_led = NULL;
+>>>>>> +       return ret;
+>>>>>> +}
+>>>>>> +
+>>>>>>  static int __maybe_unused asus_resume(struct hid_device *hdev)
+>>>>>>  {
+>>>>>>         struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+>>>>>> @@ -1545,6 +1616,16 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>>>>>>         if (!drvdata->tp)
+>>>>>>                 asus_initialize_reports(hdev);
+>>>>>>
+>>>>>> +       if (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID) &&
+>>>>>> +           ((hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2022) ||
+>>>>>> +            (hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2023))) {
+>>>>>> +               ret = asus_xgm_init(hdev, drvdata);
+>>>>>> +               if (ret) {
+>>>>>> +                       hid_err(hdev, "Failed to initialize xg mobile: %d\n", ret);
+>>>>>> +                       goto err_stop_hw;
+>>>>>> +               }
+>>>>>> +       }
+>>>>>> +
+>>>>>>         /* Laptops keyboard backlight is always at 0x5a */
+>>>>>>         if (is_vendor && (drvdata->quirks & QUIRK_USE_KBD_BACKLIGHT) &&
+>>>>>>             (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID)) &&
+>>>>>> @@ -1594,6 +1675,9 @@ static void asus_remove(struct hid_device *hdev)
+>>>>>>         if (drvdata->listener.brightness_set)
+>>>>>>                 asus_hid_unregister_listener(&drvdata->listener);
+>>>>>>
+>>>>>> +       if (drvdata->xgm_led)
+>>>>>> +               devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
+>>>>>> +
+>>>>>>         asus_worker_stop(drvdata->worker);
+>>>>>>         hid_hw_stop(hdev);
+>>>>>>  }
+>>>>>> --
+>>>>>> 2.47.3
+>>>>>>
+>>>>>>
