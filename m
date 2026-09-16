@@ -1,142 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9BED4E1C6E;
-	Wed, 16 Sep 2026 21:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0706B4A2A57
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:52:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789595445; cv=none; b=XyUvvDkSEMBHpPVySr2zM6EO51+QGId/3L/W3cWi6e71WxDRSs6FeG7Oagc4O9k5d2itbII/kYkSFwAA6xkCHxCigQyNgK9sw3ZCZV5bmIGDuZzJDSzAsdNL2Xd8YmQVX6wJNpVzJOY/ZL2FnhKLqhOjNfYrKfX5EkSCiQW5e7k=
+	t=1789595534; cv=none; b=kq1cuKb9WTNsOzcj07f9wzpkcQCE8tUGrALNprXforrkCd64Go2rg75lDvIUfFMEAdmyU4kQFOFF+hIljoLjvOccDt59JSeSpa/C9mIvSR3FXdufKs3HUIh/tEMNTLTlvlBxxVhqMiyTIB1dvLTAWjaWCtlcmwyzHLwWnTZW/1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789595445; c=relaxed/simple;
-	bh=abQippdCg51EPTGOaMBpu4rIEx5kWERpF412DcYUUHw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nvVsQpvMxbjdv6pRXhaZgywWy8WZgi+t0KZ6gbuxeg7WXt8rqCpsaULCJbiN2H1MbqC5j+YB222kIq75lBnNi1E/P4xbyMNKCloZOZR0tf02p11pdjAVvP+v22RRype97V11Nxu+aUSvtMlMAB28oxfuneGWP1UEOvg6JaZYN4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fzSyqKTS; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fzSyqKTS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1B561F000FF;
-	Wed, 16 Sep 2026 21:50:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789595434;
-	bh=E5bM/grQTeAiimVn59VYKO/69gbhLhhyXSv4xi05fbQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fzSyqKTS5j/hWKqFuRyuXfWPiQWT/IkAc0GJiZvPf1rtfJHnrSEJGA6zU6kftNZ7k
-	 jlcOgt37Pf4Tv917Qi6zBqkWvfGCwPs58KGsQR46BcKo+U1RoiUibKYq1XngO/kmv/
-	 4NGhre96vBSa69TOKE/bJ6DKRCMX/ogiufi1L3XHLn0/n2yXnhgwxXpSb5w8QQCvlq
-	 iscbUFJJZTTp1kxJM/hsdezfH5INTO+pnjKE293uPVOjv6mZCgZHG1SvxnQiVstd1T
-	 7NAYG158hASaTjMr4i10H0zvkhSsXHgQeWkucc7f4zngha6dELMXqhMlEUOx1dPM7J
-	 Mk+fcVE6KpJ1w==
-Date: Wed, 16 Sep 2026 14:50:32 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: Re: [PATCH 11/12] perf mem record: Request PERF_SAMPLE_CPU by default
-Message-ID: <aqsPKGVUkWk6wvYA@google.com>
-References: <20260916114740.48230-1-acme@kernel.org>
- <20260916114740.48230-12-acme@kernel.org>
+	s=arc-20240116; t=1789595534; c=relaxed/simple;
+	bh=ZMxQf8RZ+U7jVt0gI4uDmJSeU0wx5e3K+4UKflrYXNI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Pr6EHv5vSy/6uT5icHz5IlMP9sgKmrSQEjZD6V1Fpqs1nC0EBHz1z0wuSQ3sKKy5regfPyOftLmvK1p0l1CzS5wNZ9n3IHuT5SZHSm9vcmacyCNrhL13PyOzbI8A+OveBxmC2aClav0YIWS9E+/KkQVGfGvyrgqVNpS2kMlB6W8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b597558c4cso296824b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:52:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789595522; x=1790200322;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zFc4CLn8Ksn0EWC/9yT5PyB5de0IgZnza8mZSbtO8B8=;
+        b=zEx9t9Y+98ZgQvIXZV5uydlRqTBkO5UoTh0Bu9SrC6Enuj4xTnNiV4uUpnbwZUhAjq
+         o+wAbnWdGR4NbOQxkM6KquGYLvfb6Msv9nDCM+zsKS2fObrP3vdKDG537Qwet1ZisbUB
+         iNW4ponExgBhuJHdgxobT2aArPQqM57TcpE+W1pjMah7hye7AuAaUXKptE7I/nBiIYqw
+         5V2dNmXmbOdTixLiIn37+LgXQi2d2CAjTmZgN94OtURGZXqv/c209orkR1k9rhIde919
+         K2Fzuc8Bogxnsh4PshjsIIDDuE4Zx8GaEYtCvmfq3/sZxFG2CjNuugN6I4Yzjc6A5AwG
+         iuww==
+X-Forwarded-Encrypted: i=1; AKwUvByQ0x2dxqhNxZpHIqPy22INocX9FgL9MXfcMy8Nv0OX6xYVqtDfkdqehaNB4Af2Q0xl/SHSuKFmrHcRCQU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2r5crUDe8yb2eRVDhI7aH1Y5quUqmrF3fn2/K+3H15CtnHe4Q
+	9BxULJYnvRvlodugz9MAxZLdwj0tRJmyFtzEGRyGOVXv0izGxJ+devHCO/QvkWbekZorX8v1Fud
+	5UT4k+0iozo3nJpSCICYq7JZXEl9YdMoBKjhK7N9dv76xTkTapXJORVfM1ag=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260916114740.48230-12-acme@kernel.org>
+X-Received: by 2002:a05:6808:1795:b0:4c3:9892:96fe with SMTP id
+ 5614622812f47-4ca499ce7edmr6641854b6e.3.1789595522515; Wed, 16 Sep 2026
+ 14:52:02 -0700 (PDT)
+Date: Wed, 16 Sep 2026 14:52:02 -0700
+In-Reply-To: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aab0f82.e91c2013.3bdb06.0009.GAE@google.com>
+Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
+From: syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	iam@thechris.in, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	rafael@kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 16, 2026 at 08:47:38AM -0300, Arnaldo Carvalho de Melo wrote:
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
-> 
-> The data-type profiling per-sample stream keys cross-CPU contention on
-> sample->cpu: without PERF_SAMPLE_CPU the cpu field is the (u32)-1 "no
-> CPU info" sentinel, documented as such in perf_session__deliver_event(),
-> and same-instance reads and writes from different cores are
-> indistinguishable from same-CPU traffic, so pahole's false-sharing
-> detector cannot tell them apart.
-> 
-> builtin-record.c already defines --sample-cpu and 'perf mem record'
-> forwards unknown options to the record parser, so passing it explicitly
-> works today; make it the default, next to the -d (addr) and -W (weight)
-> the command already requests, documenting it in perf-mem(1).
-> 
-> The rec_argv array is sized as nine arguments per memory PMU plus the
-> user arguments, not counting the arguments __cmd_record() adds itself,
-> up to eight with all the optional flags.  On PMUs with separate load and
-> store events the four event arguments plus the fixed ones already filled
-> the array to its last slot, so this new argument would write past it;
-> reserve space for the fixed arguments explicitly.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-> ---
->  tools/perf/Documentation/perf-mem.txt |  4 ++++
->  tools/perf/builtin-mem.c              | 18 ++++++++++++++++--
->  2 files changed, 20 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/perf/Documentation/perf-mem.txt b/tools/perf/Documentation/perf-mem.txt
-> index 4d164836d0943119..fe51c5e3333dc4a0 100644
-> --- a/tools/perf/Documentation/perf-mem.txt
-> +++ b/tools/perf/Documentation/perf-mem.txt
-> @@ -14,6 +14,10 @@ DESCRIPTION
->  -----------
->  "perf mem record" runs a command and gathers memory operation data
->  from it, into perf.data. Perf record options are accepted and are passed through.
-> +It also requests the address (-d), the weight (-W, where supported) and the
-> +CPU id (--sample-cpu) of every sampled access by default; the CPU id is what
-> +lets per-sample analysis tell reads and writes to the same data from
-> +different cores apart from same-CPU traffic.
+Hello,
 
-I guess the data source of samples can tell that on supported platforms.
-Probably we can check TID for concurrent access, wdyt?
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+WARNING: ODEBUG bug in lookup_object_or_alloc
 
-Thanks,
-Namhyung
+ODEBUG: object ffffc90007cdf850 is on stack ffffc90007cd8000, but NOT annotated.
+------------[ cut here ]------------
+1
+WARNING: lib/debugobjects.c:672 at debug_object_is_on_stack lib/debugobjects.c:672 [inline], CPU#0: syz-executor162/6029
+WARNING: lib/debugobjects.c:672 at lookup_object_or_alloc.part.0.cold+0x19/0x40 lib/debugobjects.c:705, CPU#0: syz-executor162/6029
+Modules linked in:
+CPU: 0 UID: 0 PID: 6029 Comm: syz-executor162 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:debug_object_is_on_stack lib/debugobjects.c:672 [inline]
+RIP: 0010:lookup_object_or_alloc.part.0.cold+0x19/0x40 lib/debugobjects.c:705
+Code: c4 60 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 83 c5 01 89 2d a0 1f 7d 1a 4c 89 e6 48 c7 c7 c0 39 62 8c e8 21 ae eb ff 90 <0f> 0b 90 e9 82 31 fe 03 83 c5 01 89 2d 7f 1f 7d 1a 49 39 c4 73 da
+RSP: 0018:ffffc90007cdf6c0 EFLAGS: 00010082
+RAX: 0000000000000050 RBX: ffff88802cb1d738 RCX: 0000000000000000
+RDX: 0000000000000050 RSI: ffffffff81ea1339 RDI: fffff52000f9bec9
+RBP: 0000000000000001 R08: 0000000000000007 R09: 0000000000000000
+R10: 8000000000000001 R11: 0000000000000001 R12: ffffc90007cdf850
+R13: ffff888034204b00 R14: 0000000000000000 R15: 0000000000000000
+FS:  00005555811b5400(0000) GS:ffff8880d5b57000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00005555811b8778 CR3: 000000002bbd8000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ lookup_object_or_alloc lib/debugobjects.c:682 [inline]
+ __debug_object_init+0x2a9/0x3d0 lib/debugobjects.c:798
+ __init_work+0x51/0x60 kernel/workqueue.c:697
+ block2mtd_setup_defer+0xd7/0x1d0 drivers/mtd/devices/block2mtd.c:504
+ block2mtd_setup+0x9c/0x1e0 drivers/mtd/devices/block2mtd.c:529
+ param_attr_store+0x199/0x300 kernel/params.c:591
+ module_attr_store+0x58/0x80 kernel/params.c:906
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ iter_file_splice_write+0x830/0x10b0 fs/splice.c:736
+ do_splice_from fs/splice.c:936 [inline]
+ do_splice+0x109c/0x1fa0 fs/splice.c:1349
+ __do_splice+0x33b/0x370 fs/splice.c:1431
+ __do_sys_splice fs/splice.c:1634 [inline]
+ __se_sys_splice fs/splice.c:1616 [inline]
+ __x64_sys_splice+0x187/0x250 fs/splice.c:1616
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fa1c31b3437
+Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffce5a2ac20 EFLAGS: 00000202 ORIG_RAX: 0000000000000113
+RAX: ffffffffffffffda RBX: 00005555811b5400 RCX: 00007fa1c31b3437
+RDX: 0000000000000005 RSI: 0000000000000000 RDI: 0000000000000003
+RBP: 00007fa1c31ec0fe R08: 0000000000000026 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 00005555811b7770
+R13: 0000000000000026 R14: 00007ffce5a2aca0 R15: 0000000000000002
+ </TASK>
 
->  
->  "perf mem report" displays the result. It invokes perf report with the
->  right set of options to display a memory access profile. By default, loads
-> diff --git a/tools/perf/builtin-mem.c b/tools/perf/builtin-mem.c
-> index 6101a26b3a781e69..6f38cda1a45ada16 100644
-> --- a/tools/perf/builtin-mem.c
-> +++ b/tools/perf/builtin-mem.c
-> @@ -99,8 +99,13 @@ static int __cmd_record(int argc, const char **argv, struct perf_mem *mem,
->  	argc = parse_options(argc, argv, options, record_usage,
->  			     PARSE_OPT_KEEP_UNKNOWN);
->  
-> -	/* Max number of arguments multiplied by number of PMUs that can support them. */
-> -	rec_argc = argc + 9 * (perf_pmu__mem_events_num_mem_pmus(pmu) + 1);
-> +	/*
-> +	 * Max number of arguments multiplied by number of PMUs that can
-> +	 * support them, plus the arguments added directly below, at most:
-> +	 * "record", "-W", "-d", "--sample-cpu", "--phys-data",
-> +	 * "--data-page-size", "--all-user" and "--all-kernel".
-> +	 */
-> +	rec_argc = argc + 8 + 9 * (perf_pmu__mem_events_num_mem_pmus(pmu) + 1);
->  
->  	if (mem->cpu_list)
->  		rec_argc += 2;
-> @@ -135,6 +140,15 @@ static int __cmd_record(int argc, const char **argv, struct perf_mem *mem,
->  
->  	rec_argv[i++] = "-d";
->  
-> +	/*
-> +	 * The data-type profiling per-sample stream keys cross-CPU
-> +	 * contention on sample->cpu (PERF_SAMPLE_CPU); without it the cpu
-> +	 * field is the (u32)-1 'no CPU info' sentinel and same-instance
-> +	 * reads and writes from different cores are indistinguishable
-> +	 * from same-CPU traffic.
-> +	 */
-> +	rec_argv[i++] = "--sample-cpu";
-> +
->  	if (mem->phys_addr)
->  		rec_argv[i++] = "--phys-data";
->  
-> -- 
-> 2.55.0
-> 
+
+Tested on:
+
+commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=143de115580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=7cab6a19619f1b8efc00
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=17ade115580000
+
