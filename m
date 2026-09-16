@@ -1,144 +1,141 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BD6386571
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:45:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48DC31B130
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789530320; cv=none; b=opcA4VHKIXLgpd9OmCrbgFBEt+COiJPX4Jp2UlXZGaUQaNkkHR5YsDJegn8pl7/B3qbsdezSC92XpB0wqvX3wbSVnvwgfhEO+2u8aSHV2TU4t7o7biOp/6ndogVtLnpECkk49R7ZUgCs+ecexSBxY8pMWaQH1tc1NjWfbJcr420=
+	t=1789530339; cv=none; b=HRWMandwdMwdrAP4EOlt0SU8144u43NE693XOoHKgSC2E0Swmr5owGgg/c9jUEdx+zNSUKXkK6eHZd6NgKV2ntPuHbqN5VxjHmIzDOP+pBfedNpyVkBxhoCINQDWHXAfv0sHlebpn5WFjYw+aDutQBC9jQQcr0bJ37Gzx5zQbUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789530320; c=relaxed/simple;
-	bh=684D7Flb8NHS/K5FyLvOJG51In7MM0mpezyufLZNn90=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=mB+Iy2GZgrMhxK6FsOVIoBj0AErn2+YsqL/c20ibjCNnZU4v9n/wZl+TICQvg3nuNm/bygGQuQijDnc2wO3/4dPAF+9GueJ69V66NysjuviG0QBYQfSjZB4CkY5J34vVl79wKAuHSMIJF1pYcSINw0K6XFBkQMNURRmFZ55h8KI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ohEoxmT2; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789530339; c=relaxed/simple;
+	bh=kj+jwfz2ESgc5zFDsF3Qm12OZV92X1W7h3OVHgPgo7Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SD3Q33ZrkeXKJCy3ECUL4YU7MdZvYR8Atq/tjqShu4WMqfwcXDyCRpt/9o5qmDJmN9AeEK3ATG4JpokKgC+2+NhIjWL9jk4v26tPMtfoZWhXlCiAhC8FkcfXcgslf4gA7rZVXMXs+zc4Fc6hSqMqxHCpdXCPWywjb13Cx8DCtpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=rKlYr2eA; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ohEoxmT2"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398beb616f5so136438a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:45:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="rKlYr2eA"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39647184c73so1448474a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:45:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789530318; x=1790135118; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ukRQUFxBTM3YxkUDVCzWjtsHOmDoo6m23BhwxAxqqWs=;
-        b=ohEoxmT2BhacRcadblywH5fnmx0gUZr46YdwcXs7QRojAWyzDz3ux+HVGjzqyPTN4U
-         g6cgwvB06k6IowNoWHQpgZF3aktD1dwAa8oYyS5lNXp6jkvh+TKeVX2NkLROEv+j9tm6
-         aaHYJyKvD3i/jHj4M6M/28SXdzUceRNDYoMa/rBK+vWj9lWeqKCpWc2K5mHCxm64DA73
-         5XAKWCPKhzw20rdn7YYOcKw3D2WSBrgYheTktd2isJMymJ2tVG+LCDWrhj6NffHlnEtT
-         cOBGSfPBeboMfxhgVBuPY7qSJveTuCGtku584TEbCCkwEhL5/L2rhnM0LricbN2QooYN
-         FjSQ==
+        d=asu.edu; s=google; t=1789530337; x=1790135137; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G8OBnZpdkznSDHoOVDOJgOwhfNo4gWFfvtnI5e7GBu8=;
+        b=rKlYr2eAUhKC02NildikSqpZUTltbAtlFj8cRVwAWM/zt1x1Etb/5wA1cSKN0fbSWl
+         2XF0CRkek3auZZVQNszH/ceTS0wRxShcOseNnMIO3rLjEvSU7MgM6Aq3684/WoMtNwkC
+         3FcmKKAjTUbdwH1mz1pmmZM/CVGCDNtZO+QhY6Rvtl/aoxBZYjs2Rb754rfQdJhqWiR/
+         LffFB56cX2XirC2dU+3hX/3TKIbNHYAS6K9mFOc+SW1nQVafgSEzwxaQbuNyTytj+rcv
+         tuCU5iVSGo7hXAbE45W5q0QoYP72LctF7zdJSuBlD92+UNz/ckuzFzWSbL5csCjfv25f
+         jgNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789530318; x=1790135118;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ukRQUFxBTM3YxkUDVCzWjtsHOmDoo6m23BhwxAxqqWs=;
-        b=IGvGtfmLg8gRc46o5bP4wMBYtWGX94Infk6eGKNsiW3cFMAMXF6+g3X9vg9h8tVl1g
-         H94S9JlV2qF6H7IcxTjnddA0Y89wzonXyzaz5gPYGC8O27Q0gstVvH4oBt3O1g4hRt5J
-         If0blq1OI0OJ8+oG4Y9YY7ZRZz0H1EYjFTtZznbDJfiWaf20+Epml93sOMhmB/JFFbf1
-         1AmyDMNOmt8rpbzLV3rLYl59eZwYnTPE4Fy9QsJjxOE38UIIqSEkUFyCwvpiaH16Nisk
-         bVKVHgy945MFJQpGU02tXhsXtA25WDWGNf/B4G5E5bbDl6TZi82ph61PPirbyIKNwgpF
-         UGnw==
-X-Forwarded-Encrypted: i=1; AKwUvBwxV/6hgIxs+Y6bMdOL2j8q+xZMx3BRDTkjKFTfKiLgubTnexR9u+FmAO0bhLtPxHMTg0C3Iqkvd/dFNkY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqlBS1R6NUpAOoZ4w/HZw3SbS5l5XYociAr3YUufrMvxpW72Fv
-	vDrmNwbZQ2OpVa7bJ+4UgnhpZdRBXL4ojsiilIaNz4+5qV4USoRDtoGK
-X-Gm-Gg: AYBFou08KHzR5K17wb24ONBG8L1F4bKSk676+TAR3xk2bAassR/vhcvnTdft8VVdlb4
-	CcgTjUa/Z69sBhV8GdF3/bS70sEW4oLzGNB+1bjiLffBqCqVMBu3SMIi+TxKdr6l2K37smzHp8g
-	2/6OrlTyDO2WTGql451k749ZIbHfJsYD9Vg4Wayk6YlgLPGXqWdQSiizGAk/9NTAXMOhRF7kvbF
-	TowD6nhF/TRS5agJeNXH4qL9PZhjwSv3Z6KYRoMCn/gANKz038npzrFa6wqCpM+J2yZjUrgvjBq
-	g7EgtCAqWjou4IeGFkbtZzlY9blF5joOr1L1l0kmAMG9puyZWbN2Ve5ClXDp0ml6mWs9Wy4asAm
-	HBGqtoUQWGBAfZj8OMF/efrC0gc1lA/a3x/QaWP3B8/vJBIrwgGvKJMgZgsjwvoNVDJ081rF0NI
-	/2hEUuedOsRyXj4evP69IW9OMamPM5qcEHJ9lyDPt9k/hTpIDqZy9bA90sjjX1yyuQ01+UqAo8n
-	rr7tbiiJoDCXzQpOw755ITTwR37VVnEFaAx93mwANXIFKoEepc7boxZwHVY5j/rcYFQQzKYGXP6
-	m8/FOvdOyicBi2SVCANSoQ88gjttjIebmhe3qscLlXRUcVD3aZGe+tqapEagTRIlqO8=
-X-Received: by 2002:a17:90b:2f06:b0:39d:b57e:b47d with SMTP id 98e67ed59e1d1-39e1ff96302mr969180a91.8.1789530318064;
-        Tue, 15 Sep 2026 20:45:18 -0700 (PDT)
-Received: from localhost (ec2-35-83-186-167.us-west-2.compute.amazonaws.com. [35.83.186.167])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bba0696sm1902898a91.7.2026.09.15.20.45.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 20:45:17 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789530337; x=1790135137;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G8OBnZpdkznSDHoOVDOJgOwhfNo4gWFfvtnI5e7GBu8=;
+        b=FTXfQRNpvCs7yh+qb5K7eDekHBM4/DhYvGX95U5qnTBUP1o4sg709dY/3lKEO3hyEL
+         u9n+Qkh/Ab49bXSw3n8mYzKKbFPrTWVs7w9kDVuI+/MWAT7KnQSZgaO2LEAUo0Ejm929
+         nRM3ls+VUZeng89gcUc7tUOfG8aReg8zDW0KLHr9mRRcjfs77zTvG+jNfO7JCX9AGoNx
+         u+9Z72uDkx7HZq8dQzkixHLuinLLKljSfBVv8JH7iCdPPcsDyCn/ZI/hwWMOfoYbBk6e
+         c19BULlyhY4c7V6IgwvqWtSE/9lRKxJb5j3ojTEEigUGv375Qfq4wVWUaOuEcwPQl7YJ
+         OoWQ==
+X-Gm-Message-State: AFuF++mU2dgD1LAqlIw43k5//xetw3f6hIxeYpfwITIu1uuZL/f+dYbx
+	IkoKMwBckLmAt2+vb5hcOJEBHdL5qF7SWvOmnN9YAB2G0rvjzVXVQ8IXafZqd5at1Q==
+X-Gm-Gg: AYBFou23JFsYYRtTBwVg+V86n6mlYqC7Mv7DdEYGFKysK7kbx1FhlZoUm+rMwAkk+w+
+	2P9okykDskw76y++OZy4j9NSw4PdJEjOltVlW70g5dLp/+R7T4HiI1oS6ZdTmlVkR+itNrYA5AF
+	hHQcFaZkxWr8DDCQ/ndFiDcFg3MiTwbiQDYMVHV1wVRWdyaYpokC48SOdbk4OILn8G8XfkJLx2C
+	ifpDPnDeNkHtqFftc4Be5SF2ev82/5uN1AsKeeSmtwiCGsUE+pXxY71tiN+ufyNkazoznv53BT/
+	3r7Jnxr95+/LUDgTiUwL4gUI2UcV/d3o7+8vFriIFLbXtye6LVzUb/lcID32u/TkQMN5Z3gZ/ST
+	SKC2yYQ4Kgsg7LGnvkBbZ0qKpcC18Rfq2cDUEIAYRWu5ooTBKAyKst7TntTk5ttHO5BjIhJHJ/S
+	sY57oR8YGY1v7+z3OzlQbpSeWpqQm3rmZSgRpdz2WJZWDVj0wL1MOLuDK7Su+JEqQVMWYSxqeSP
+	I1hDlSO55OfEN4lbqFbCkMJUR0QULn/pOMz8rwY0B5bDuN4Pegipasz
+X-Received: by 2002:a17:90b:35cb:b0:39e:1e25:c6fd with SMTP id 98e67ed59e1d1-39e1e25f48cmr1670277a91.30.1789530336957;
+        Tue, 15 Sep 2026 20:45:36 -0700 (PDT)
+Received: from xps.tailc0aff1.ts.net (149-169-99-5.nat.asu.edu. [149.169.99.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5b2753csm6953812eec.31.2026.09.15.20.45.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 20:45:36 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	co+ac0ebfcd53bd2316@bugs.sh,
+	stable@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>
+Subject: [PATCH] media: go7007: only set audio_enabled if go7007_snd_init() succeeded
+Date: Tue, 15 Sep 2026 20:45:34 -0700
+Message-ID: <20260916034534.863732-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Sep 2026 03:45:16 +0000
-Message-Id: <DLGFJY2ZSY5M.11K7HK2CLM6I9@gmail.com>
-Cc: "Andy Lutomirski" <luto@kernel.org>, "Josh Triplett"
- <josh@joshtriplett.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Mathieu
- Desnoyers" <mathieu.desnoyers@efficios.com>, "Lai Jiangshan"
- <jiangshanlai@gmail.com>, "Zqiang" <qiang.zhang@linux.dev>, "Juergen Gross"
- <jgross@suse.com>, "Luis Chamberlain" <mcgrof@kernel.org>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, <linux-kernel@vger.kernel.org>,
- <rcu@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
- <bpf@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <xen-devel@lists.xenproject.org>, "Andy Lutomirski" <luto@kernel.org>,
- "Josh Triplett" <josh@joshtriplett.org>, "Uladzislau Rezki"
- <urezki@gmail.com>, "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>,
- "Lai Jiangshan" <jiangshanlai@gmail.com>, "Zqiang" <qiang.zhang@linux.dev>,
- "Juergen Gross" <jgross@suse.com>, "Luis Chamberlain" <mcgrof@kernel.org>,
- "Ihor Solodrai" <ihor.solodrai@linux.dev>, <linux-kernel@vger.kernel.org>,
- <rcu@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
- <bpf@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH RFC v3 06/13] bpf: Take a Tasks Trace reader in the
- trampoline glue
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Josef Bacik" <josef@toxicpanda.com>, "Paul E. McKenney"
- <paulmck@kernel.org>, "Frederic Weisbecker" <frederic@kernel.org>, "Neeraj
- Upadhyay" <neeraj.upadhyay@kernel.org>, "Joel Fernandes"
- <joelagnelf@nvidia.com>, "Boqun Feng" <boqun@kernel.org>, "Thomas Gleixner"
- <tglx@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Masami Hiramatsu" <mhiramat@kernel.org>,
- "Mark Rutland" <mark.rutland@arm.com>, "Jiri Olsa" <jolsa@kernel.org>,
- "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
- <x86@kernel.org>, "Catalin Marinas" <catalin.marinas@arm.com>, "Will
- Deacon" <will@kernel.org>, "Puranjay Mohan" <puranjay@kernel.org>, "Xu
- Kuohai" <xukuohai@huaweicloud.com>, "Paul E. McKenney"
- <paulmck@kernel.org>, "Frederic Weisbecker" <frederic@kernel.org>, "Neeraj
- Upadhyay" <neeraj.upadhyay@kernel.org>, "Joel Fernandes"
- <joelagnelf@nvidia.com>, "Boqun Feng" <boqun@kernel.org>, "Thomas Gleixner"
- <tglx@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Masami Hiramatsu" <mhiramat@kernel.org>,
- "Mark Rutland" <mark.rutland@arm.com>, "Jiri Olsa" <jolsa@kernel.org>,
- "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
- <x86@kernel.org>, "Catalin Marinas" <catalin.marinas@arm.com>, "Will
- Deacon" <will@kernel.org>, "Puranjay Mohan" <puranjay@kernel.org>, "Xu
- Kuohai" <xukuohai@huaweicloud.com>
-X-Mailer: aerc 0.17.0
-References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com> <20260915-b4-rcu-tasks-preempt-qs-v3-6-0ad30c4c5ee7@toxicpanda.com>
-In-Reply-To: <20260915-b4-rcu-tasks-preempt-qs-v3-6-0ad30c4c5ee7@toxicpanda.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Sep 15, 2026 at 1:17 PM UTC, Josef Bacik wrote:
-> +static __always_inline void bpf_tramp_read_lock_trace(void)
-> +{
-> +	if (IS_ENABLED(CONFIG_TASKS_RCU_TRAMPOLINE_READERS))
-> +		rcu_read_lock_trace();
-> +}
-> +
-> +static __always_inline void bpf_tramp_read_unlock_trace(void)
-> +{
-> +	if (IS_ENABLED(CONFIG_TASKS_RCU_TRAMPOLINE_READERS))
-> +		rcu_read_unlock_trace();
-> +}
-> +
-> +static u64 notrace __rcu_trampoline
-> +__bpf_prog_enter_recur(struct bpf_prog *prog, struct bpf_tramp_run_ctx *=
-run_ctx)
->  	__acquires(RCU)
->  {
-> +	bpf_tramp_read_lock_trace();
->  	rcu_read_lock_dont_migrate();
+go7007_register_encoder() sets go->audio_enabled before calling
+go7007_snd_init() and discards its return value.  go7007_snd_init()
+assigns go->snd_context only on success, so a failed ALSA setup leaves
+audio_enabled set with snd_context still NULL.  The disconnect path tests
+audio_enabled and calls go7007_snd_remove(), which dereferences
+snd_context unconditionally.
 
-This is double increment. rcu_read_lock_dont_migrate() includes
-rcu_read_lock_trace().
+go7007_snd_init() returns -ENODEV once its never-decremented static card
+counter reaches SNDRV_CARDS, so SNDRV_CARDS attach/detach cycles arm the
+next attach; no memory pressure is needed.
+
+Set go->audio_enabled only once go7007_snd_init() has succeeded.
+
+  Oops: general protection fault, probably for non-canonical address ...
+  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+  Workqueue: usb_hub_wq hub_event
+  RIP: 0010:go7007_snd_remove (drivers/media/usb/go7007/snd-go7007.c:273)
+  Call Trace:
+   go7007_usb_disconnect (drivers/media/usb/go7007/go7007-usb.c:1336)
+   usb_unbind_interface (drivers/usb/core/driver.c:461)
+   device_remove (drivers/base/dd.c:618)
+   device_release_driver_internal (drivers/base/dd.c:1349)
+   bus_remove_device (drivers/base/bus.c:664)
+   device_del (drivers/base/core.c:3965)
+   usb_disable_device (drivers/usb/core/message.c:1478)
+   usb_disconnect
+   hub_event (drivers/usb/core/hub.c:5966)
+   process_one_work (kernel/workqueue.c:3396)
+   worker_thread (kernel/workqueue.c:3560)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+  Kernel panic - not syncing: Fatal exception
+
+Cc: stable@vger.kernel.org
+Fixes: 866b8695d67e ("Staging: add the go7007 video driver")
+Reported-by: <co+ac0ebfcd53bd2316@bugs.sh>
+Assisted-by: LLM
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+---
+ drivers/media/usb/go7007/go7007-driver.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/usb/go7007/go7007-driver.c b/drivers/media/usb/go7007/go7007-driver.c
+index 453ab5c3aa03..7db2440886b0 100644
+--- a/drivers/media/usb/go7007/go7007-driver.c
++++ b/drivers/media/usb/go7007/go7007-driver.c
+@@ -306,10 +306,9 @@ int go7007_register_encoder(struct go7007 *go, unsigned num_i2c_devs)
+ 	if (ret < 0)
+ 		goto err_free_controls;
+ 
+-	if (go->board_info->flags & GO7007_BOARD_HAS_AUDIO) {
++	if ((go->board_info->flags & GO7007_BOARD_HAS_AUDIO) &&
++	    go7007_snd_init(go) == 0)
+ 		go->audio_enabled = 1;
+-		go7007_snd_init(go);
+-	}
+ 	return 0;
+ 
+ err_free_controls:
+-- 
+2.43.0
 
