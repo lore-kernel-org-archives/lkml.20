@@ -1,132 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0ECB4FB9C0;
-	Wed, 16 Sep 2026 11:10:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 450394A1E12;
+	Wed, 16 Sep 2026 11:10:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789557040; cv=none; b=BjtNqaPsLAyZztQFwy5EPLdOWonLqBTwDJHb1aO9y4wByzth6DABWxpr9RA/O9NmHM/hhlM19DMkGuvi2IoqShgVEyZMoG+MrIFCYVX9IDHSDcetKZ3d5/msBon/pGM3aEwNJpt/67Nm1yKAk1Tyt1RBPv8rriA8NeoTKwDhb8w=
+	t=1789557050; cv=none; b=awiD77BLDnvhi2vsEF1mx5aHkyQXAKiuRwyxwc6m9DsYMARx1yg9S/y4+GBDX/kfS9d1Qnnb5rTae2msrlIXdfKrMHoE8HzuxViwFC9mpjx6v0bHsoNh4wDpWtxlcHYNo/IBZwaOZNK/H0ZIraqa+HG9aWf+5UFzEeQgAAmFD84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789557040; c=relaxed/simple;
-	bh=wW3W6+hAl9GsjtNdNsfu918xffWkn3w6EXo/LVx7tvI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=amOh0fWudjdOHle9mPLR1r+kxvmatxOmoBrb0THm1yFb4/hbPXc3RL7c1wNZsJjRSciDYAk51+SEW86y8ZbIa48wJIbhKM9cg6Z4blRM+a4MbeOo8dP65X2rYdF5s8VkUbw/HrjNjfAX6GCDl/4SdCGZjfLmixX1HdEzwy+kUyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FO21eFqG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789557050; c=relaxed/simple;
+	bh=mathEgzzR7eRS3urb+X7mzdUfdtyv9AcODkNHtsKJc8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j1fOEDpeC5zjT0U817Nwm58PJJLbRMU9Gr/hwYMRRfR/rXhaY7PvHR1YPn6wRoyizmmMVp/tjpKmTvHxlxgBvAIy5fCzj0tbU9jJBILVp9r/4sunBIAhZZwP1rUptzFPBvvBnrCnqOjGTMMCQYtqyjZcaC6dG3n3yFfXVezTdV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sWBr/t7V; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FO21eFqG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78FA51F000FF;
-	Wed, 16 Sep 2026 11:10:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789557011;
-	bh=9ZvfdkSPoJ0l4uV8de9Ug+Y8janX4FhZcsX350fS7OM=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=FO21eFqGECoEb72/c8gpDPsVELRWV8gykNW0BaBQJMS/mUmKcy0xMgxyomceyUxC5
-	 9BOBmsi3harc/CBDyVparvUFIWwNKGxlKZ6H9E5Cc8uTzm+DGnTi0wHBz1ggqcGLZO
-	 km1RLtbxKKhhDnQ6Wnnr6NCSUgQ6zRakbP8MpRlx2ZUcvx2uUUTE8JPZssTTPFJG/4
-	 dbeR32xPj4onuSnYsXJ6OEU9MV2OKM7KNvcE7QP6wnZksjGR2M84B8O7hMgDRNn1Ub
-	 H1VV2dj3ysrex1LU5kHHBLZWk64M7AvZCkQ/Q9/1EjK8AR7f0HQhG27hQVBpyacggO
-	 dUdiN0tmU4CXg==
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sWBr/t7V"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 38D88152B;
+	Wed, 16 Sep 2026 04:10:28 -0700 (PDT)
+Received: from [10.0.129.72] (unknown [10.0.129.72])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 70EFE3F86F;
+	Wed, 16 Sep 2026 04:10:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789557031; bh=mathEgzzR7eRS3urb+X7mzdUfdtyv9AcODkNHtsKJc8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=sWBr/t7VKdjdq8qAIPLclh8TaoWmDEoLi3E9DDqVh9kl57R2IO3PedvWGLti7Tl9n
+	 mUP6orlwtNKgRaoIyOBuikBdOGNBqRma5JvImffHXqTdswPOM4UAwfaBN7AaPzxkIb
+	 OHoqX6H6bAoOKsmF5MOQaiy6OBkg5da7Hn2Q8h00=
+Message-ID: <0b986953-acaf-4204-814a-77116e0db6dc@arm.com>
+Date: Wed, 16 Sep 2026 12:10:26 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] sched/fair: Randomize equally shallow slow-path
+ candidates
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: beata.michalska@arm.com, cl@gentwo.org, daniel.lezcano@kernel.org,
+ dietmar.eggemann@arm.com, elif.topuz@arm.com, juri.lelli@redhat.com,
+ kprateek.nayak@amd.com, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, mingo@redhat.com, peterz@infradead.org,
+ rafael@kernel.org, rostedt@goodmis.org, sh@gentwo.org,
+ vincent.guittot@linaro.org, vschneid@redhat.com
+References: <20260916100116.701206-3-christian.loehle@arm.com>
+ <20260916110603.24230-1-kayracizmeci@gmail.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20260916110603.24230-1-kayracizmeci@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Sep 2026 13:10:03 +0200
-Message-Id: <DLGP0I9486HX.3TXIAX83G8TD5@kernel.org>
-Subject: Re: [PATCH 00/14] Add Rust PCI SR-IOV support
-Cc: <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
- <kevin.tian@intel.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <zhiwang@kernel.org>
-To: "Zhi Wang" <zhiw@nvidia.com>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <airlied@gmail.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260915205659.76841-1-zhiw@nvidia.com>
-In-Reply-To: <20260915205659.76841-1-zhiw@nvidia.com>
+Content-Transfer-Encoding: 7bit
 
-On Tue Sep 15, 2026 at 10:56 PM CEST, Zhi Wang wrote:
-> Rust PCI drivers need to enable and disable SR-IOV and share selected
-> PF-owned functionality with their VF drivers. The shared data must remain
-> valid while a VF driver is bound, including when the VF driver is in C.
->
-> This series builds on Peter Colberg's Rust PCI SR-IOV v3 series [1],
-> extending it with typed PF registration data and C FFI support. The
-> registration design follows Danilo Krummrich's Rust vGPU/VFIO PoC [2].
-> As the discussion on Rust/VFIO support is still ongoing [3], this series
-> supports both C and Rust sample VF drivers.
+On 9/16/26 12:06, Kayra Cizmeci wrote:
+> Hello Christian :>
+> 
+>> Picking the first eligible idle CPU leaves a scan-order bias. Concurrent
+>> slow-path selectors can choose the same CPU before either task is enqueued.
+> 
+>> Use reservoir sampling in the tie branch, resetting the candidate count
+>> when a lower advertised exit latency is found. Use the per-CPU scheduler
+>> PRNG and reciprocal_scale() to avoid variable division or a second scan.
+> 
+>> This reduces deterministic convergence without reserving the chosen CPU.
+> 
+> OK. 
+> 
+> But, your test platform was 160 Cores too. I don't think randomization has the same effect on lower
+> CPU systems.
+> 
+> Let's create a scenario:
+> 
+> On a 80 Core System, that %50 of it's CPU's are idle the randomization's chance of choosing the same CPU
+> is low. Since there are 40 CPU's to choose from.
+> 
+> But on a 8 Core System in the same idle conditions, randomization's chance of choosing the same CPU
+> is really higher. Since there are only 4 CPU's to choose from.
+> 
+> I think this solution works better on higher CPU counted systems. 
 
-[...]
+Yes, this mostly works for higher CPU count domains, but the
+issue I'm trying to fix basically doesn't exist in the 8 CPU domain
+in the first place (first of all fewer chances of having simultaneous
+slow paths running that can race and also the slow path is much faster,
+i.e. the race window much smaller).
 
-> [1] https://lore.kernel.org/rust-for-linux/20260303-rust-pci-sriov-v3-0-4=
-443c35f0c88@redhat.com/
-> [2] https://lore.kernel.org/nova-gpu/DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org=
-/
-> [3] https://lore.kernel.org/nova-gpu/20260914121217.70fa0d93@shazbot.org/
->
->  drivers/pci/iov.c                        | 103 ++++++-
->  drivers/pci/pci-driver.c                 |   3 +-
->  drivers/pci/pci.h                        |   2 +
->  include/linux/pci.h                      |  44 +++
->  include/linux/rust_ffi.h                 |  88 ++++++
->  rust/kernel/interop/ffi.rs               | 252 ++++++++++++++++
->  rust/kernel/pci.rs                       | 126 ++++++++
->  rust/kernel/pci/sriov.rs                 | 355 +++++++++++++++++++++++
->  rust/macros/ffi_vtable.rs                | 148 ++++++++++
->  rust/macros/lib.rs                       |  90 ++++++
+> 
+> And I don't think it fully removes the issue. Just better than the original tho.
+> Thinks can still go bad on this one too, just harder.
 
-Thanks for all the effort, Zhi! It is good to have a reference to see how t=
-his
-turns out.
+Fully removing the issue would require some synchronisation which the
+numbers (which admittedly are pretty modest already) just don't justify.
 
-Unfortunately, this raises the same concerns I already shared in the other
-thread in [2], plus additional ones:
+> 
+> Maybe we could add a fallback. Because the real concern is the selected CPU's state
+> changes when we come to enqueue. If possible tho, I did not really test anything.
 
-  (1) This FFI layer is already more code than would be needed to abstract =
-the
-      vfio-pci driver API surface in Rust. In addition, it is also much mor=
-e
-      complex and error prone.
-
-  (2) By creating a generic FFI layer to connect PF and VF drivers (which a=
-re
-      technically the same driver project), we incentivise writing cross
-      language drivers.
-
-      When the panthor DRM driver was considering to (re-)write parts in Ru=
-st I
-      very much objected to this, as it would have created an arbitrary FFI
-      boundary within DRM (which for obvious reasons would be a maintainanc=
-e
-      nightmare).
-
-      Now, this is not exactly the same, as it is not an arbitrary FFI boun=
-dary;
-      it is well defined. But, it is still a workaround for a single driver
-      project being split up in a Rust and in a C portion.
-
-      The FFI surface is best kept at the subsystem level abstracting the d=
-river
-      facing APIs, which provides a defined and comparatively stable API
-      surface.
-
-For those reasons I don't want to add this to the PCI (Rust and C) core cod=
-e,
-i.e. I don't want to support a generic FFI layer between PF and VF drivers.
-
-I really hope that we can find a way forward not having to end up doing thi=
-s;
-but if we really have to, we should stick to a nova project internal FFI la=
-yer
-for this.
-
-Thanks,
-Danilo
+And then do what? rescan?
+I don't think increasing the slow path is justified at all, when this relatively
+straightforward randomization already significantly reduces the chance
+for the 'pathological' test platform.
