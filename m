@@ -1,63 +1,84 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54216483BF8
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB5155C333
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:37:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573063; cv=none; b=gmUG+Pg/KHWC0Q6mWz3BWsxu4jk69hAk70nhWp0co/8/GEULrgRZYykBjPZ1jOQh00CbfSBzkTQ4Mj5LKMQa0//NTKJ+B4kjjl1Kzg+0u0QvRIXvgS78gmKErEz3mC6jEdUYcGWvSFcbpGUxJ/8lFroXoJUsxWHXhaJfxs4DP3c=
+	t=1789573078; cv=none; b=ZKsanrzdYejhEUMUybsXynFCPbepfTEWmaHH4vkH99VYdvBOxf9wYuDOC5Ktx+NNfXI8cTTmahDybgFgOUEDf+DM6dxlT9okGyEtIWND9y1bYLlRncMCVDrji7OLcLuI5BjqQ6EqqnSKomB8I0BnShJb37EgJsKzO5dytEWhwWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573063; c=relaxed/simple;
-	bh=90s6IWCIuEsaQl2g7YA/U6oQzClIiUwQ+qXs9lZRHmI=;
+	s=arc-20240116; t=1789573078; c=relaxed/simple;
+	bh=MSZm3L3WgvS/uJlzKYruSiBeiKAhMp7kcFZ+8BvZD9Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=imPzqUkeYdu+pmm62eFKJmHfPLu21N4rSMu/nX1ldpBGbtdP3MSChtJpCkUqrzggAotrSHJ2VsNtlbDCmgZsy0ILgvtprlgLEwwAqX0PU43tPfdw4G5KoPBkDLqtb7POvbfMstxbkLe2RhkkLcjbSzZ1GafpuDPUDhYfXgZG3GY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Z6YLngA/; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=tWRN4vFox4gygRZ+jmtCzMU4eZzzDoVIIvYE7OJvzFtcJsowPznHc7H+xo5P/rxCaftXOL18dKFWzYYEmDtF+Z980KcTZTapB1jkHpV+4Pyqg3U40Cyr5qY1KOlKahDV+gUAweq7JXy+4H0JcHE/xy96O4W1PeNyiwt65C1JtYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=lVH7kz77; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Z6YLngA/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789573061; x=1821109061;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=90s6IWCIuEsaQl2g7YA/U6oQzClIiUwQ+qXs9lZRHmI=;
-  b=Z6YLngA/oyBGCaUiAftj/8j1UDJM1Gp7to0dQBfoOvZUsVkPfGYV7ZXP
-   TbN9A15jfF1RXOZRjEfYYCn26obAUIABzwGRIiL6b6QfA0eJzXo+XXBND
-   mWMwlusZA8cX5CfPWrOzyPx+tRO++aUsffHBqdVVCyT8YAsI3cgxCASb7
-   HJ/875A6e3aZnpM05xMVoRXtpO+HwZpncn5F3F/wyWO41QFG0rVgTjXg9
-   yXXOtlqLD7+XQR+MQXFRNSv7biWxYMw1iKHgH9WLpj4Mj8SupildgpAe6
-   zfKP3ecKDDwnGMfOhKY+YAMHMbR+Hu0PZyfSMlUNfcjqJxGAzu9j7FonC
-   w==;
-X-CSE-ConnectionGUID: wdcq5t5JQNCwofzOxmQNfQ==
-X-CSE-MsgGUID: roOKkMYJRQCEag9oqPdo7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89996732"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89996732"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:37:36 -0700
-X-CSE-ConnectionGUID: 4F+3dotHSUmrBrd8/ObH2A==
-X-CSE-MsgGUID: 2CtdKzNZRXyfVgXD9J0nkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="277112952"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:37:32 -0700
-Date: Wed, 16 Sep 2026 18:37:30 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Ziran Zhang <zhangcoder@yeah.net>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>,
-	David Howells <dhowells@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Jordan R Abrahams-Whitehead <ajordanr@google.com>,
-	Marco Elver <elver@google.com>, Nilay Shroff <nilay@linux.ibm.com>,
-	Edward Cree <ecree@solarflare.com>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] list: add missing empty list check to list_cut_before()
-Message-ID: <aqq3un8aNsSNow-_@ashevche-desk.local>
-References: <aqp1RMcCSBftjsyn@ashevche-desk.local>
- <20260916111112.6894-1-zhangcoder@yeah.net>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="lVH7kz77"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-53122c5bbb4so11272701cf.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:37:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1789573071; x=1790177871; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yrYalls8fAkvyVlQP9FlmP4RxEorGFK72anR8WExHtQ=;
+        b=lVH7kz77hihe5ypICQsHpzMV0gmdhgnMWDxPSnat6p8LoLZoD0peFsMgsC7lrVs4Ik
+         WRGJt9zs7PWX/FzihOoaCp+CxDpROSMhHhfwlxOBLQPdgK/xlJE2Wul9UigMRQV53Rqs
+         nESg6VHg1fq90zHyqiVDsLEKGz6mbyiLJqxbEz4cPGDNP6SeDWjMxRMSmRLshEfuU+dx
+         CBH1LaPUTGjc5vXhlZHM6mP6IKOksDhLzZPg85D7k8JfWI+CHEuZTydHjLuR2hB+V44S
+         ov6llVPikUwNwOjVLHVbuLVcIJdmC2XHOPsIPt7DG/RWF9cQYj+X2Pb8O3x7RGrdvt+p
+         xyYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789573071; x=1790177871;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yrYalls8fAkvyVlQP9FlmP4RxEorGFK72anR8WExHtQ=;
+        b=E3PPDYlsoh4dsx9wThYcrJQTLeb4mWX9kyMootgYJeWk9ZdEU589Q5D3xn7ECsBtc9
+         zlrx9qGS6DH/0lmhnX2gTekUeLw1Fn+mOQVYpXwyNhr52nAJFfl4oYd3T7y8BrSII1b1
+         5fQDA2vA4fYFJMuAT0N1J/BT6oPM68bYk5A72h1mULrxMIQPAlxqhHyNBEsBknX7iIEc
+         H9GDOcjMjoq+eIUsEgpbx5fgi9EdamskfQDVQ0W3eSTmn4U07+jEaj1HnKeeef7PQKMx
+         8+xh2F3snYIDWUN0d0BLYqjwwt58Mu7/BIIgTwlQt3o6AZYzWF3xQHgicYaSgionms5o
+         TdUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwFJPQRQ1/lDSx4UbCi4qg2HjtOYprEfIYN0lUqVR8KeA9idU8WT+Jl4WpQqUxIpX4XYS88Q1U3xwEXUEw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXeiOmmMAN+zZE+5/YjeAmNEY14+7EcZKpPGiffVDv6EVM8Bon
+	8cNtJLR4gUcelGEcziYjE2zXoizFl5pXOWZqo3J3R29HRNe0wkilF6WwhkIhOYEYm/Y=
+X-Gm-Gg: AYBFou1EYWpYmJbzrTMzrtKCPwhEoQC5OIdXFSM07+fNZKpksn6A0jCffTtV6tWkrUK
+	3kFp6sIGergTWGmD50Rk3YeUe67M9Gh0spWgSR/lGy/+X4h85CWQ+8GNLnlF+BPeQ2ICdj14zm8
+	qKpitOoEnwfZdNhU8fDuWcuiS5bf5v/0n45nwif0SBG/8ns4JJvxkG6M8tMgkZ1z3YlMLym28LU
+	IE/P4XahJmYdgpyICPsfYy0cOAFbGOLi4230azymocGPJeqbchyHaxEXjVqrl7Dc0x2I+TMIrxD
+	BZJa738gGlg1Mt3kfqls0c5t0WmNgiErgG7Fb37Nb0ut1FA17RzPix+GrlWwQHbudLf5kWpZON9
+	vcMwQD5JSqsGy265yzIcWK8mYWUu0VlR/KcRamcPBvTRkjp0EMaP5MnbZDt828BKCchtZJX2nAT
+	qjhqg8nzXK6ntJy3voNmskwNGYjq8uw37TzeBWna8HDFqqjG2fiM+SxGNpZ0uSJ+JZoN8xJiNJu
+	U/fhhE1MQVhU5X+HiYda26QNVM6DPQLy3aEBOpPb67tOA9X0BUEu78=
+X-Received: by 2002:ac8:6f0d:0:b0:530:cbf7:6bb7 with SMTP id d75a77b69052e-5327f201bdemr54089991cf.49.1789573071567;
+        Wed, 16 Sep 2026 08:37:51 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53262024a94sm24407431cf.15.2026.09.16.08.37.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 08:37:49 -0700 (PDT)
+Date: Wed, 16 Sep 2026 11:37:46 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
+	liam@infradead.org, vbabka@kernel.org, jannh@google.com, wangjiexun@tinylab.org, 
+	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+Message-ID: <aqq23i9824-GWdhg@gourry-fedora-PF4VCD3F>
+References: <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
+ <aqqTbGMJL86TzDrf@gremlin>
+ <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
+ <aqqjW5dpyznijYLh@gremlin>
+ <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
+ <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
+ <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
+ <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
+ <aqqyhkZqcXDUrzeb@gourry-fedora-PF4VCD3F>
+ <4fadcda7-d96a-4cd9-9b0f-5d387b6f82af@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,32 +87,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916111112.6894-1-zhangcoder@yeah.net>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <4fadcda7-d96a-4cd9-9b0f-5d387b6f82af@kernel.org>
 
-On Wed, Sep 16, 2026 at 07:11:12PM +0800, Ziran Zhang wrote:
-> On Wed, 16 Sep 2026 13:53:56 +0300, Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
-> > Is it IRL case or the code analysis? If the former, add necessary information
-> > like hardware description (if applicable) and the important ~3-5 lines from
-> > traceback (I assume you rung with CONFIG_LIST_DEBUG=y).
+On Wed, Sep 16, 2026 at 05:24:43PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/16/26 17:19, Gregory Price wrote:
+> > On Wed, Sep 16, 2026 at 04:59:32PM +0200, David Hildenbrand (Arm) wrote:
+> >>>
+> >>> LLM go brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+> >>
+> >> No schlop like that please, I don't want to hate my life
+> >>
+> > 
+> > You missed this part:
+> > 
+> > "I'm trying to be careful about not causing a bigger maintenance burden"
+> > 
+> > I wouldn't do that to you :]
 > 
-> It is code analysis, not an IRL case.  The motivation is consistency
-> with list_cut_position(), which already has the same guard.
+> I just wanted to make it very clear that I don't need another schlopped gigantic
+> patch series in my inbox that I'll mostly have to ignore because it's
+> un-reviewable ;)
 > 
-> > Nice! Where is the test case?
-> 
-> There is no test case.  If a test is required for this change, I can
-> try to add one.  I wanted to first check whether the consistency
-> argument alone is acceptable.
 
-Any new code to lib must be accompanied with a test case(s) as documented [1].
-Look at lib/tests/, there is already a set of them.
+I would never :]
 
-[1] 0a83293322fd ("doc: development-process: add notice on testing")
+But *motions generally at madvise* if this isn't schlop i don't know
+what is lol.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+~Gregory
