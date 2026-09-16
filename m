@@ -1,357 +1,70 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD571F78E6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A1621A447;
+	Wed, 16 Sep 2026 00:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789518150; cv=none; b=I68IlEofs1cJDW427t1O9HVXm69rMSI0g0ic2WZPpp7UxldtCYoyWnI2CSbXGUU1pyQbr+j5tcPMur96TMnHTeViAku6ekmZsemRhX7RLJvW3XmSffr4CDZaFCc4CzTwx9bLmadAUM4a21iT/Ku+Mvo2mlttx0g16t3qUFby2Is=
+	t=1789518155; cv=none; b=MwXFqKxonJRpf4K74MMfbGCeBHLURGsBaLwm1qg5z79tdldqM9llsVvJQvTcs2dj94ofvR/KhTNsPSKosmGrQgVC3vQHe0g2ynA2xUP5oQy2/cbbENJQGDDthXOXqdcG0+6mICK/xGDi2sxUqkWbjfARCQw1wHvwHDA97N4tNzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789518150; c=relaxed/simple;
-	bh=v1qfgAOogk0C5RdpAniLfJN1pK1oh05pmYDBJLU0YZY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mDuc0kaF34tOPlbeJ8CF9UrY9X0fsDF6lQV7wdy83CgwcUyZg0VJ/AZvxOjC60bqfGekmk2AeGDTqz6CVbbc05uP0omOfIMjNxwsMSFn1tGNwJzz24+VEEQaiq8LcfAwk0SgqMgRF+91RXDpAe2RYwBqugPuPWHJmkYCEWhGo9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=isQx1qaJ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789518155; c=relaxed/simple;
+	bh=tfp/H+PVQL+YpSv9kw+OGp9L0SGjpXNu9tZynIhcIic=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iyOjMRSqCT1h3fxV/yKIOEYZpf5cQgR/wK6b4mm05yNgjtzvrBW4C2hr4LhemOUzsz8Zxn5hrLrAgEtc7exuPy86kBiMPksGz9dTCPHRDNbIZ60tWZNCukzjKktAqZEEDkwkJMhqlNvx2LqXpNfwtkSnXCBK5+A6HEOr0lRhipw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FemkOq0C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="isQx1qaJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789518147;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O8TLCNDcpOzZL9oZqO6JuLChee84UynQwHLk6zmnhaI=;
-	b=isQx1qaJq7Br2svE6u60E61MHft3k09HE7IfIwb8IN29EXLgjR1IW8VXOGvgWOk18i/qOT
-	7u0rdsMMWOKR8+T6Y8b/d2B4Eam9fuymHKCAa7zEpLpKvv9hDOXlvvfdv3uy0lcoDXOlu/
-	iyXOjRwqabT/gYCtVwbEAH0iDxk+oWY=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-230-iG9UQfvBPaaD0mdm0-COIQ-1; Tue,
- 15 Sep 2026 20:22:26 -0400
-X-MC-Unique: iG9UQfvBPaaD0mdm0-COIQ-1
-X-Mimecast-MFC-AGG-ID: iG9UQfvBPaaD0mdm0-COIQ_1789518144
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D08D51862D4E;
-	Wed, 16 Sep 2026 00:22:23 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.80.21])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 56B103003EFB;
-	Wed, 16 Sep 2026 00:22:21 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: "Timur Tabi" <ttabi@nvidia.com>,
-	"Dave Airlie" <airlied@redhat.com>,
-	"Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
-	"Kees Cook" <kees@kernel.org>,
-	"Simona Vetter" <simona@ffwll.ch>,
-	"David Airlie" <airlied@gmail.com>,
-	"Thomas Zimmermann" <tzimmermann@suse.de>,
-	"Maxime Ripard" <mripard@kernel.org>,
-	"Hongling Zeng" <zenghongling@kylinos.cn>,
-	"Mel Henning" <mhenning@darkrefraction.com>,
-	"Danilo Krummrich" <dakr@kernel.org>,
-	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v3 1/5] drm/nouveau/gsp/r535: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
-Date: Tue, 15 Sep 2026 20:09:51 -0400
-Message-ID: <20260916001603.22394-2-lyude@redhat.com>
-In-Reply-To: <20260916001603.22394-1-lyude@redhat.com>
-References: <20260916001603.22394-1-lyude@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FemkOq0C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CBD1F00893;
+	Wed, 16 Sep 2026 00:22:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789518154;
+	bh=H8DSLS94/4rn/IDEYTvnb/3NOSmuiboyBVGoAfDceNw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FemkOq0Cn++Rtx1GJ2eUSVXAfe6MyPicArFasJFuqHZgwSVWAp53cdkoCx5f/63cT
+	 shPokNu2TsUSWSNW/WCLm9QAB7Ov+0sCMaAtrLUeR2YKNwAlOwhRT2She0oZfQhiwG
+	 cGY8qvxYkpAApkOGVj4rUJrSIbghNY7endSgCyJmAbe9V4C9BjKXggM98XB5MWXUzZ
+	 GZpFF46WwlYgeqpJtqPhHYy28AXSPOcYQ/vuFGcoMHVqQMjFmGOKkRnWy1vA30KWZx
+	 l+ZACWWDaZ3ayDG6Gax8c0mXqPgaTBCkHxscSItqjDXeSvUwmx0qdtEhHtfQh/IcgX
+	 lNeeKGvr9Cc/Q==
+Date: Tue, 15 Sep 2026 17:22:32 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Srinivas Neeli <srinivas.neeli@amd.com>
+Cc: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
+ Michal Simek <michal.simek@amd.com>, "Sebastian Andrzej Siewior"
+ <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, Steven
+ Rostedt <rostedt@goodmis.org>, <netdev@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-rt-devel@lists.linux.dev>,
+ <neelisrinivas18@gmail.com>, <git@amd.com>
+Subject: Re: [PATCH net-next v2 0/8] Add Xilinx TSN Endpoint Ethernet MAC
+ driver
+Message-ID: <20260915172232.04df37b2@kernel.org>
+In-Reply-To: <20260909-patches_v2_external-v2-0-3a40babaff4c@amd.com>
+References: <20260909-patches_v2_external-v2-0-3a40babaff4c@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-OpenRM's runtime PM handling looks a bit different then nouveau's, one part
-in particular that differs from us: OpenRM actually consults GSP to ask
-whether the GPU should be allowed to enter Gc6 and/or GcOff before runtime
-suspending the GPU. In the event the card isn't ready, runtime suspend is
-simply delayed for a few seconds before retrying.
+On Wed, 9 Sep 2026 00:49:48 +0530 Srinivas Neeli wrote:
+> This series adds the wrapper and endpoint side of the IP. The switch-facing
+> part is exposed through the Distributed Switch Architecture (DSA) framework
+> in a follow-up series, so that MAC1 and MAC2 show up to Linux as switch
+> ports with the endpoint acting as the CPU/conduit port. The endpoint frames
+> are already classified by source-port id and tagged with DSA port metadata
+> here, so the switch series can consume them without further endpoint
+> change.
 
-Implement the command used for querying GSP about this,
-NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE, and check to ensure that
-the GPU is ready for runtime suspend in nouveau_pmops_runtime_suspend()
-using this query. If the GPU can't be runtime suspended, update the last
-busy counter of the device and then return -EBUSY from
-nouveau_pmops_runtime_suspend() - essentially delaying the runtime suspend
-process by whatever autosuspend_delay_ms is set to.
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-
----
-V2:
-* Remove accidental return of bitmask from nvkm_udevice_gcx_ready()
-* Use gsp variable in nvkm_udevice_gcx_ready() more.
-* Remove unused GSP_GCX_ENTRY defines
-V3:
-* Fix error checking
-
- drivers/gpu/drm/nouveau/include/nvif/cl0080.h | 10 +++++
- drivers/gpu/drm/nouveau/include/nvif/device.h |  1 +
- drivers/gpu/drm/nouveau/nouveau_drm.c         | 13 +++++++
- drivers/gpu/drm/nouveau/nvif/device.c         | 13 +++++++
- .../gpu/drm/nouveau/nvkm/engine/device/user.c | 39 +++++++++++++++++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/priv.h    |  1 +
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 26 +++++++++++++
- .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        |  7 ++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  1 +
- 9 files changed, 111 insertions(+)
-
-diff --git a/drivers/gpu/drm/nouveau/include/nvif/cl0080.h b/drivers/gpu/drm/nouveau/include/nvif/cl0080.h
-index ea8267e0d8da2..9e639df1da467 100644
---- a/drivers/gpu/drm/nouveau/include/nvif/cl0080.h
-+++ b/drivers/gpu/drm/nouveau/include/nvif/cl0080.h
-@@ -4,6 +4,7 @@
- 
- #define NV_DEVICE_V0_INFO                                                  0x00
- #define NV_DEVICE_V0_TIME                                                  0x01
-+#define NV_DEVICE_V0_GCX_READY						   0x02
- 
- struct nv_device_info_v0 {
- 	__u8  version;
-@@ -55,6 +56,15 @@ struct nv_device_time_v0 {
- 	__u64 time;
- };
- 
-+#define NV_DEVICE_GC6_READY	BIT(0)
-+#define NV_DEVICE_GCOFF_READY	BIT(1)
-+
-+struct nv_device_gcx_ready_v0 {
-+	__u8 version;
-+	__u8 pad01[6];
-+	__u8 ready;
-+};
-+
- #define NV_DEVICE_INFO_UNIT                               (0xffffffffULL << 32)
- #define NV_DEVICE_INFO(n)                          ((n) | (0x00000000ULL << 32))
- #define NV_DEVICE_HOST(n)                          ((n) | (0x00000001ULL << 32))
-diff --git a/drivers/gpu/drm/nouveau/include/nvif/device.h b/drivers/gpu/drm/nouveau/include/nvif/device.h
-index 7877a2a79da9b..ce2fadcb05d9e 100644
---- a/drivers/gpu/drm/nouveau/include/nvif/device.h
-+++ b/drivers/gpu/drm/nouveau/include/nvif/device.h
-@@ -22,4 +22,5 @@ int  nvif_device_ctor(struct nvif_client *, const char *name, struct nvif_device
- void nvif_device_dtor(struct nvif_device *);
- int  nvif_device_map(struct nvif_device *);
- u64  nvif_device_time(struct nvif_device *);
-+int  nvif_device_gcx_ready(struct nvif_device *);
- #endif
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index b0f9fb10a74dd..c2e2f430deded 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -1157,6 +1157,7 @@ nouveau_pmops_runtime_suspend(struct device *dev)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct nouveau_drm *drm = pci_get_drvdata(pdev);
-+	struct nvif_device *nvif = &drm->client.device;
- 	int ret;
- 
- 	if (!nouveau_pmops_runtime()) {
-@@ -1164,6 +1165,18 @@ nouveau_pmops_runtime_suspend(struct device *dev)
- 		return -EBUSY;
- 	}
- 
-+	// Check if the GPU itself is ready for runtime suspend, otherwise mark as busy and check
-+	// again in a bit.
-+	ret = nvif_device_gcx_ready(nvif);
-+	if (ret < 0) {
-+		NV_ERROR(drm, "Failed to query GCX readiness (returned %d)\n", ret);
-+		return -EBUSY;
-+	} else if (!(ret & NV_DEVICE_GCOFF_READY)) {
-+		NV_DEBUG(drm, "GPU isn't ready for suspend yet, delaying...\n");
-+		pm_runtime_mark_last_busy(dev);
-+		return -EBUSY;
-+	}
-+
- 	nouveau_switcheroo_optimus_dsm();
- 	ret = nouveau_do_suspend(drm, true);
- 	pci_save_state(pdev);
-diff --git a/drivers/gpu/drm/nouveau/nvif/device.c b/drivers/gpu/drm/nouveau/nvif/device.c
-index 24880931039f6..1be9fbe6cb703 100644
---- a/drivers/gpu/drm/nouveau/nvif/device.c
-+++ b/drivers/gpu/drm/nouveau/nvif/device.c
-@@ -38,6 +38,19 @@ nvif_device_time(struct nvif_device *device)
- 	return device->user.func->time(&device->user);
- }
- 
-+int
-+nvif_device_gcx_ready(struct nvif_device *device)
-+{
-+	struct nv_device_gcx_ready_v0 args = {};
-+	int ret;
-+
-+	ret = nvif_object_mthd(&device->object, NV_DEVICE_V0_GCX_READY, &args, sizeof(args));
-+	if (ret)
-+		return ret;
-+
-+	return args.ready;
-+}
-+
- int
- nvif_device_map(struct nvif_device *device)
- {
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-index 23d11d8221cb6..c47d6daa9e5aa 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-@@ -27,6 +27,8 @@
- 
- #include <core/client.h>
- #include <subdev/fb.h>
-+#include <subdev/gsp.h>
-+#include <subdev/gsp/priv.h>
- #include <subdev/instmem.h>
- #include <subdev/timer.h>
- 
-@@ -189,6 +191,41 @@ nvkm_udevice_time(struct nvkm_udevice *udev, void *data, u32 size)
- 	return ret;
- }
- 
-+static int
-+nvkm_udevice_gcx_ready(struct nvkm_udevice *udev, void *data, u32 size)
-+{
-+	struct nvkm_object *object = &udev->object;
-+	struct nvkm_device *device = udev->device;
-+	struct nvkm_gsp *gsp = device->gsp;
-+	union {
-+		struct nv_device_gcx_ready_v0 v0;
-+	} *args = data;
-+	int ret = -ENOSYS;
-+
-+	/* XXX: We don't know any way of performing this check outside of GSP, so just assume
-+	 * things are ready for non-GSP clients.
-+	 */
-+	if (!gsp) {
-+		args->v0.ready = NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
-+		return 0;
-+	}
-+
-+	nvif_ioctl(object, "device gcx ready size %d\n", size);
-+	ret = nvif_unpack(ret, &data, &size, args->v0, 0, 0, false);
-+	if (!ret) {
-+		nvif_ioctl(object, "device gcx ready vers %d\n", args->v0.version);
-+
-+		ret = r535_gsp_gcx_ready(gsp);
-+		if (ret < 0)
-+			return ret;
-+
-+		args->v0.ready = ret;
-+		ret = 0;
-+	}
-+
-+	return ret;
-+}
-+
- static int
- nvkm_udevice_mthd(struct nvkm_object *object, u32 mthd, void *data, u32 size)
- {
-@@ -199,6 +236,8 @@ nvkm_udevice_mthd(struct nvkm_object *object, u32 mthd, void *data, u32 size)
- 		return nvkm_udevice_info(udev, data, size);
- 	case NV_DEVICE_V0_TIME:
- 		return nvkm_udevice_time(udev, data, size);
-+	case NV_DEVICE_V0_GCX_READY:
-+		return nvkm_udevice_gcx_ready(udev, data, size);
- 	default:
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h
-index 71b7203bef507..b07797813b049 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h
-@@ -93,6 +93,7 @@ void r535_gsp_dtor(struct nvkm_gsp *);
- int r535_gsp_oneinit(struct nvkm_gsp *);
- int r535_gsp_init(struct nvkm_gsp *);
- int r535_gsp_fini(struct nvkm_gsp *, enum nvkm_suspend_state suspend);
-+int r535_gsp_gcx_ready(struct nvkm_gsp *gsp);
- 
- int nvkm_gsp_new_(const struct nvkm_gsp_fwif *, struct nvkm_device *, enum nvkm_subdev_type, int,
- 		  struct nvkm_gsp **);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-index 94925f1590ea4..09b17b85dc1ac 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-@@ -30,6 +30,7 @@
- #include <engine/fifo/chan.h>
- #include <engine/sec2.h>
- #include <nvif/log.h>
-+#include <nvif/cl0080.h>
- 
- #include <nvfw/fw.h>
- 
-@@ -1721,6 +1722,31 @@ r535_gsp_sr_data_size(struct nvkm_gsp *gsp)
- 	return meta->gspFwWprEnd - meta->gspFwWprStart;
- }
- 
-+int
-+r535_gsp_gcx_ready(struct nvkm_gsp *gsp)
-+{
-+	NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS *ctrl;
-+	int ret = 0;
-+
-+	ctrl = nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice,
-+				   NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE,
-+				   sizeof(*ctrl));
-+	if (IS_ERR(ctrl))
-+		return PTR_ERR(ctrl);
-+
-+	if (ctrl->bIsGC6Satisfied)
-+		ret |= NV_DEVICE_GC6_READY;
-+	if (ctrl->bIsGCOFFSatisfied)
-+		ret |= NV_DEVICE_GCOFF_READY;
-+
-+	nvkm_debug(&gsp->subdev,
-+		   "GCX ready status: GC6=%s GCOFF=%s\n",
-+		   str_yes_no(ctrl->bIsGC6Satisfied), str_yes_no(ctrl->bIsGCOFFSatisfied));
-+
-+	nvkm_gsp_rm_ctrl_done(&gsp->internal.client.object, ctrl);
-+	return ret;
-+}
-+
- int
- r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
- {
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-index b6683a5bf870c..fd1170037c030 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-@@ -782,6 +782,13 @@ typedef struct NV2080_CTRL_INTERNAL_INTR_GET_KERNEL_TABLE_PARAMS {
- 
- #define GSP_FW_HEAP_PARAM_CLIENT_ALLOC_SIZE      ((48 << 10) * 2048)   // Support 2048 channels
- 
-+#define NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE (0x2080a7d7)
-+
-+typedef struct NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS {
-+    NvBool bIsGC6Satisfied;
-+    NvBool bIsGCOFFSatisfied;
-+} NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS;
-+
- typedef union rpc_message_rpc_union_field_v03_00
- {
-     NvU32      spare;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-index e9ac47d86b69a..3de7871e22934 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-@@ -174,6 +174,7 @@ int r535_gr_chan_new(struct nvkm_gr *, struct nvkm_chan *, const struct nvkm_ocl
- int r535_gr_promote_ctx(struct r535_gr *, bool golden, struct nvkm_vmm *,
- 			struct nvkm_memory **pctxbuf_mem, struct nvkm_vma **pctxbuf_vma,
- 			struct nvkm_gsp_object *chan);
-+int r535_gsp_gcx_ready(struct nvkm_gsp *gsp);
- extern const struct nvkm_rm_api_engine r535_nvdec;
- extern const struct nvkm_rm_api_engine r535_nvenc;
- extern const struct nvkm_rm_api_engine r535_nvjpg;
--- 
-2.55.0
-
+I'm not sure why you're implementing this as DSA.
+This needs to be explained, if a single driver can bind and control 
+the whole thing, that's AFAIU preferable. You can keep the
+implementation details in the driver without exposing the conduit
+to user space
