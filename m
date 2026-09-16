@@ -1,93 +1,116 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F4549B46C;
-	Wed, 16 Sep 2026 15:49:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573752; cv=none; b=OVM7YJMCep9KVPa1ROtFae+2bob3E0lSyc/QOvvTs+tCBJ/G2bWJ9dbcox/SlrNF6KKewU8p6Kzc9ycvr4X4vT0wSc4RUYXK31WpBC2j9Z7mq4oAh/KHiysQYhlxa5i21wgkSuqqDQAZ9PJ0Im8Wc7KbbidSyiRy3GKYd/Kid98=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573752; c=relaxed/simple;
-	bh=W7g0ZQM7jaPULHJ0kK5uWm56KQSXFeFSX2OrJsmbf6k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jJrWFiht5tsA6U7CLWb7QJ6Rh9YJORnSdyAqqxFivqW1Ad1/pVeuHclkinorDpa7h0MpjrpA+D0mM0k9r2cvU0KjmJwg26f0qaXqC519rP3WV/Uwvm7J8we7IO35c+GyiZV44gTl0ukC6s5yDQVN+QhQbH6pJyyVJNK/LsBKMMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAHKkNruqpqZhxtCA--.21134S2;
-	Wed, 16 Sep 2026 23:49:00 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: bcm-kernel-feedback-list@broadcom.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	maaz.mombasawala@broadcom.com,
-	martin.krastev@broadcom.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	zack.rusin@broadcom.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/vmwgfx: Fix user surface reference leak in vmw_buffer_prime_to_surface_base()
-Date: Wed, 16 Sep 2026 15:48:32 +0000
-Message-Id: <20260916154832.2066415-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E424AAC4B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:49:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.97
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789573788; cv=pass; b=agHe8wDaqu/ycfJEdJo4Exzdss4NqlGNx6Tv8BiVLnvleTDxHCQYw10Gz2wtY0Y/eYEZrCfqiemG5hzyJUZ5tpQN9bFDtq/pRoiImTGudJZbpF6zWxrlC3ilxEmOr7MaPpWS3VrEmZQcE4q94MS1086icKKu1vTNm0lHvuJEqKY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789573788; c=relaxed/simple;
+	bh=fwqarN10NUClOZtA7yaqargVTx8zWL1mtttjSy8NhoI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eQQcVXxbpH6K3Nf69lhwY2KJyF/4UoI7BAc41asnWatNwXlVsFPT9EALhh178ULyBN8acMnToSu5eWGCykWk76U3h3jne32g6/1GXYzjEEdoxY9x8HL7HxOkwIoz56J+b72m8Ix1gbr1hHeq2P8qeY9p8E8DGHkseYejkYhCrR4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XmittU9B; arc=pass smtp.client-ip=74.125.225.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XmittU9B"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-482f6351831so566236f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:49:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789573784; cv=none;
+        d=google.com; s=arc-20260327;
+        b=A9RRcerQ/W6/pVRQStOntCWTV1QMBcpotSHWWgDRi++Oxz3+88RioTr2uqvc7Dr4zV
+         SZYcHkoQiCwWl6Hb9Zammi8xQo1aDB+6o7KvLoxQKy26T5pMe+rUYNix4/1pfKB4X0kH
+         qRBWZ+FsYTK1MwI9EzOkUBB9Eoy5gLi5FeNROV6xBUmEqwDzNaL1y4HLxhmgZ195ho+4
+         suPZ5g+7KD3RF2UyrQqDCNEvDrEPIdPdkhMD2Ez3T1aKVoio9JdIScVL03h61ojeLsk8
+         teDQxQ35X1mp7ugau2XEyl+yGEer6dk4H1sDl7I46CfdcghZpNzXjxEXhvvh8ZGZgS/Z
+         BoWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=fwqarN10NUClOZtA7yaqargVTx8zWL1mtttjSy8NhoI=;
+        fh=n0faOJMeBmvyMlbYcWwUT86Hz/88n5WOQVuyXU6YY5A=;
+        b=UYKkY3sADv41HWQNE5K3RRGNVS+F9fql2EYKsOWn+wjgYbWnZwNK/soHFqhxZFfF64
+         tyc5qHG9c4gQIItKSGD0Hfdp7gclzMGDya40rOSjsDTsdOUlLFN3xJ0iwOUuJam34bDy
+         TRbc0jtOMAz16ppRS+w9OKFl7iHwHlVdcfrepMZDGJOqJBi2Xa3rIAzttNM98fJatC/u
+         UHzWRcO4RKl0HJ0oJ/JtoYG/INdjsaUoU/ZlUSfU8nVDtdy1e7tbjE12uTUVtWdzsBu3
+         Or90jAyQrlkWxb7nnB92dYyLzR6rrdY2IiPeluoQaRlfj36I4+30Z+E6TRN73lKkzWgK
+         0Ivw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789573784; x=1790178584; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fwqarN10NUClOZtA7yaqargVTx8zWL1mtttjSy8NhoI=;
+        b=XmittU9BA6gPn54I8BeGRku+QMkRWRO35mHcQwvQHHMbAzXuWAzJS9AusPJOpy7+M8
+         ULEcOtxpwZBv2xeB/Ii8IJ1xX6939S4xM9R9aXCQZC+5bpjR7Gl5ZZw0skJvLNqtZpTj
+         T+P5HejGIuH89N5KIc2qyKy1DGge/h6RyjbpZua97KQpTlkhs9PRqP7In6qRdF/MSiFK
+         ZFVLICCDbLYfqcPeJoerrSUlcXEQ0YvXJb2hc0mej1mvnIWJceawO7/dQsLSrvaaoTeM
+         gvXFqAHkLlsToJZQNJZ4imPeoSS6/l73snygS4o9HZibBjrCy0gUU6h6KmICWcVFPQ92
+         q75Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789573784; x=1790178584;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fwqarN10NUClOZtA7yaqargVTx8zWL1mtttjSy8NhoI=;
+        b=0FzgdeOp/bY8honOhXnc0C3RezNd4dDHh4iidDJMFr3eIhH+Ebb/suVOB3Vy7gWwWt
+         5YJmoEDOz0nHKXKvE+xdM4KHbKNH4L02Yn+90ld5pIA2CVONKRBtxb9uTCUky+CM7ZeU
+         OZo50vYjPH+pqJdByqtrvbkwGjL3G0ZizJ/jRlMz+60OG/drApcokUsPRI6t+28059yZ
+         UOC8iGDf1UR07N/86bYmPatPwEv3sBrfFBeglY81jNSsiPKLI/IHY31u82VmP2ulBS9q
+         88XBO41g9xnCuIthFlE079Jzav4qSpgUo+V0oRRRYri66xbiiV5nAX56KfH7DvEcdNxF
+         /ZUg==
+X-Forwarded-Encrypted: i=1; AKwUvBwt5Ms0eOumwWzY37DEaSaqlqdcv/DClneWF2DTqWBNM4k9o8s0CMwS2EvmhPqkbYzsA7FaBfmzHMpZbbM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVmXgsaj/rUQxeDchXFO0rQYvsUGyM+NC8C05UfEa6u8yJ4Sxb
+	SRfWpwPu18EC3uPvWd3bXCQ/OpbUWAJc1YDA4xAUv42v/53RS7I05jgvtDRtk+M/HccW+55a+b7
+	7/HwTNO+SbCbzg8du/pQc3mDjpPFbpls=
+X-Gm-Gg: AYBFou1TcKEuJqhlnOWxDIVw94/o4C8WhrFnqosIluqpN2xzGWtQJpHLoff/DpUv9Bx
+	UNrlOIkrnF+hCvBdCpH42D8n22SZnNdS8ki8XVg52Yc/0567fCTXAb4TnHLXO5OiG+T6ZwEly8k
+	aQy2fqoeuef/lDXUVsHAnXejN2qa+uJW84Z45X5mNyX+dIlfpgKvFndIbGbVnHaBgPhaN+Q8lSZ
+	Q7ODLEJhi/XG4egqe9f136vmYtg+ejOK8SFy1jx6bxkUM00un/NDRLMurhw8jqkO79F/twGxyUY
+	x4I/288kJHI2rUZnfSTC/1WhUsFrvUiGDd8pySGWfHTm/DzeRjxrKqe62DYwCeSu38KEromQyMi
+	DwuKMd3QavzTrfW0s51Ggp1cJOxXAAnyXl6tiEtybS7FJEWG4UWJleCLDTaGWqYROR3M/cUN+mJ
+	Eaxh3qX0UM4XlLsionH+K8pbwI3z5q562xkHvioXg5TY4MMZBKDswx3Z3J4rl/c1VsSY+Ou8Cs8
+	BrXjl3DwQHzD1PzBoY7Qruu+Q==
+X-Received: by 2002:a05:6000:2506:b0:486:f18b:3cf8 with SMTP id
+ ffacd0b85a97d-4870cf1abd1mr4010532f8f.22.1789573784237; Wed, 16 Sep 2026
+ 08:49:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAHKkNruqpqZhxtCA--.21134S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7XrWrXFWUCr4kJr17Xw4rGrg_yoW8JF1rpw
-	43KFW3KryfJF4xtF9rAa95Xr909a1qgFyF9FyvkwnrZw17A3sxWa15A398KF42krs7Ar45
-	JrykAwsxuF1UCFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
-	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
-	IYCTnIWIevJa73UjIFyTuYvjfUrrWFUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcMA2qqok8+0QABsN
+References: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com> <20260916-mcp47feb02_refactor-v6-7-285464651f89@microchip.com>
+In-Reply-To: <20260916-mcp47feb02_refactor-v6-7-285464651f89@microchip.com>
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Date: Wed, 16 Sep 2026 17:49:33 +0200
+X-Gm-Features: AcwNN1X2bljHln1P6cvv3RlFUVReGuhE23EsCuuOlpyh9vJw40krWIbRB4NBzJE
+Message-ID: <CALoEA-wmUAtHjjWB4xOgZxPZyoHAhJ_nywoLjNTkkfCdkMrB7g@mail.gmail.com>
+Subject: Re: [PATCH v6 07/11] iio: dac: mcp47feb02: correct typo from a comment
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-vmw_lookup_user_surface_for_buffer() returns the surface base object
-with an extra reference that the caller must release. When
-ttm_ref_object_add() fails in vmw_buffer_prime_to_surface_base(), the
-function jumps to out without releasing it, and *base_p is never set,
-so the caller cannot clean it up either.
+On Wed, 16 Sept 2026 at 16:19, Ariana Lazar <ariana.lazar@microchip.com> wrote:
+>
+> Typo corrected to 'Register' in the comment regarding defined masks for the
+> gain register.
+>
+> Reported-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> Link: https://lore.kernel.org/all/20260723231859.03f92ce6@systembl0wer/
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
 
-Drop the reference with ttm_base_object_unref() when
-ttm_ref_object_add() fails.
+I agree with what Andy said on the cover letter, Suggested-by is better in these
+cases.
 
-Fixes: d6667f0ddf46 ("drm/vmwgfx: Fix handling of dumb buffers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-index b2d3927b5567..8d3bd34b00f3 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-@@ -965,6 +965,7 @@ static int vmw_buffer_prime_to_surface_base(struct vmw_private *dev_priv,
- 	base = &user_srf->prime.base;
- 	ret = ttm_ref_object_add(tfile, base, NULL, false);
- 	if (ret) {
-+		ttm_base_object_unref(&base);
- 		drm_warn(&dev_priv->drm,
- 			 "Couldn't add an object ref for the buffer (%d).\n", *handle);
- 		goto out;
--- 
-2.34.1
-
+--
+Kind regards,
+Joshua Crofts
