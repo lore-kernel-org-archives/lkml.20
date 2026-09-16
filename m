@@ -1,223 +1,265 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011044.outbound.protection.outlook.com [52.101.70.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEE74B4023;
-	Wed, 16 Sep 2026 16:43:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577029; cv=fail; b=F2I7gWD0VnpY8r4JcswtvFy6wVUK3NF+U93JdDx3D0DLK15fS8M2HYubmnx/gpCn1qLFqfD9/0sRGIFFiorXaeGj4UJy4LCr8kIuchFGWHkdPwoTXpiU4KnAMQwBUhkjuIWdQAwidiWeWo0mp156VoSmwSGF7KZyFruoDHHffFQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577029; c=relaxed/simple;
-	bh=lojdUx+oH6aBTmNQiitrAO4Lz1+ii2W2e8j0hZfzpT8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=PnfsZm9lZ7TF8yjIHCafpd4RBv0M3YADMAF+Moj4+VrD7e/uxXRSFfrD9U58IzuzxjcmUyHVIWyYKuyo4rWwp/Kk2v6j+amf9nA3rB0cgm9h2mXnVVQ9KIxZX5XeKGcrA5quGhgYj8uVDlH4+EsTjwW4EEIhLmxnDFqI96rjI8g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Dd1OoXxU; arc=fail smtp.client-ip=52.101.70.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15EE4B8263
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789577028; cv=none; b=kSrwaYiR8O8ItX7QGJFy2ByWOAnAq8L8H/npeJJN63T3BgHWEeQJoEiQb4LUBCpBQT9SSNSunU5+LAJO36kJoifk+mzn30c2ub9btTCdApBlHtevcqQIQPkSmM8aUh8s+LnFUUtwJZULYqDsgHlJzOzyNPq6LNcupFlVPtfI55Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789577028; c=relaxed/simple;
+	bh=MCurz1LhxhbfRsPZRv1fgE6bTlasRPCfgz3NdkDubv0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Z3T7akDa/qNS6ahgvyN9ey6P1IWhE6KRFsLBYyDaYiH+ElC4c3ssnzjkAqQAke2EY6lKGiPqKEDQYb5rrUPff5/eRGj9JK1qvSi+yCVwLZmLRT28NAVerRo5u+Ltawni//9xjx261l/b96borg9D70j+cm6r/gg6JgiKqNkpTIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/KD3Mf3; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Dd1OoXxU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qd2ggFblsu9A8inp5DV1r53HT/3s+uALPfVXknFHUcqCF4JGJvzuSzMM8lN+TqdaFIgx4J9SZA1uKOy6EBvC3EBsLKGz8NL90XUxdX9NtPIM6t495BKjZcWBbpPXRrHi0/tdbyOFNsAJOatjjqoeJj4ncDNoB4v0+xmdQOYxQYGaTCG+iTpTmfQWdxNNDUDgfy0t6Zdt2eBxuCmbC2/ZzwToqSTUmKLwbs+oKCG1+of+nXW1+hwvFw18mORTmSsVl2jCH4svLZSvHIA04eAXoBZYWijJnnUIZeYqEASswTmMSRRa+lkc6gwUUCc3BEq1a0heiglE5Y9434Krh2zuKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LNMO8XLh/P//rTxtlnaw2Rxq/9bsyltTfRpwCoSjgSY=;
- b=StFsXaEnOn7u1ewY7oMNtgm1ItRTfwxJLpZhDFFz9sWcxzRON9CspdG/kidTRy1yfqA0ANuuD1YeqEwPXUc+glU0cYOeQNSrI2KLj9svmLNmdYwWinT+sKQOEB9RVN3ZzqRlXis66+c+2Y2PI7JWsYLDJgwdlfrwyF9b1cKvoMHPbFux3kY7aS6f10GH2Ti8+z2mPQ/E7RMmw5R1UEqn9/F0dH093EgGlU/8LQrPbR+mS+3DQNRzU+u3izzHB6AGymtOukNMFsqtOdtkwA+JdbI9ORDk0CaZ4zjLIEzmv/iWRtl8YteuhOPGm72W85a0BfxAiqKMAFZrfKIqgVGbwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LNMO8XLh/P//rTxtlnaw2Rxq/9bsyltTfRpwCoSjgSY=;
- b=Dd1OoXxUrRyfwlmarXkuFnXxOTn67vwrQs3ImuVC7ZiYJiA4Tci9eGj9mwu6aLQVkBix0K0JAR3Vli72/01ecU2Vu0kBnQUiuhk67CXCiUn84pmC4WlykUdFcfXawD8zJ2ziSxnOhaMgYU/BK6TS7B5h6xVmqtV88yWjnzmXTwy429ZziMuraBuShe6Xm4uTwMQXqpCL76tcY77243hQswWmpMganehx6HQs7D8uBxd8pQaYK1IY8BdgwoBhtmAWN+e5Uzt0aj9PQZUpkLFRaSepRHA1esFcPaoDWzp6Q5jQN9B9YuyBRRLmcRJfTFuDX/BAELzSAygDagWWzTdPOQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA2PR04MB10446.eurprd04.prod.outlook.com (2603:10a6:102:415::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 16:43:28 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
- 16:43:28 +0000
-Date: Wed, 16 Sep 2026 11:43:18 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Andi Shyti <andi.shyti@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-i2c@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH] i2c: imx-lpi2c: use dmaengine_get_dma_device() for DMA
- mapping
-Message-ID: <aqrHJsO5xYBO4WvB@SMW015318>
-References: <20260916-i2c-dma-v1-1-6dd4f1916910@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-i2c-dma-v1-1-6dd4f1916910@nxp.com>
-X-ClientProxiedBy: PH7P220CA0019.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:326::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/KD3Mf3"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8674704dab1so1338060b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:43:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789577019; x=1790181819; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KtEJkdfTsz7PKT9363OYIZ/7x8QutK8/+4IHsILR5ac=;
+        b=E/KD3Mf32LHDJcoMGhwZkQGhph5D57ihZm0EJh95v3NE4kjIldSVqONVPS5wpoE4/S
+         1l+onsn7b7mjW+tWCiRj9zZLL+PSo4XxFUnAfyJCUsnn796h8rkZX6WGbEMppUH5H9En
+         kWrh36/LmMKs1nsFTQ5F2kq1qvxRABOj0jcVdpJCOR7tmTBzXTJijdPz8kB4XfL7fb4b
+         SUYLkYZ8GPPHtUWYCT3h0QgNObiSke+pJnKitlOcqHZJ520MpFQHMO+Yprhgs2WdRBMJ
+         GH1T4GrHfMkwKZoXyvjwLqU7TMmP0qUJhrDj4MwAtKtItu/h3ds3kEEBoPxitXThOyEx
+         O3Lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789577019; x=1790181819;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KtEJkdfTsz7PKT9363OYIZ/7x8QutK8/+4IHsILR5ac=;
+        b=hcaLsa4CJc4bBr8sF4xeeZMS7m87+t8NuzRN10XPeyIoCU0ylBIHV056Z577jTRTH3
+         uKt1pLFz/GfPkuFCAkHI8xPXONV7JyeZ0XuvgtPVm/r49hcYrKfMOOERbpW80yzzRe9/
+         Jdz1aVHsAo9xa3CLp7dfuxWhBz0r9SRwxy60fD+HVAYT6kZbUMKpkYFhS80UYE3xQtB/
+         2TG9kAb4GghEvFcECIjxTDmKDP526LHQ4B6Yxi6TFLhDMBmuQwYVaTCnGC+8CBOtrH+N
+         CbmFjO+jKAA56qy40qDNC8PQlVNIaNQbPllDCatQnEHEzLWPbVHZ1/H3MATJ0jTQx+DB
+         VQTw==
+X-Forwarded-Encrypted: i=1; AKwUvByOtO/y+jy2pV4RHPSHkX4Y2/nUk32ldelSaE0bsmNnLkShBAL0o19XBHJCkR0pCLp4bDuWrxXd7fMdCyA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBZoxOXAFBX44jJEuW+OpQfBPWi+Nwl+dQPOzfESGZ4pIC/xjE
+	zw1jYUaD6xnND/wS+RHJ1zKsmMxSK7X5d5RcB5oXbiZnmy2W5Gd12BPh
+X-Gm-Gg: AYBFou2hY5nvdIn+MezmVLLW5SpaEGhhlXzdN3Wu2sjAxIn2taAHbBM9q7EJfYMNTG0
+	zxkqpdaqBCx/SLVQgCDpK2flABQafpOZNCCXt/O/xujaSu03YoFogZCuh9xsdD0SatT48o79gQW
+	BjwU1zHLWfjSM11z5CAcMDG7d2yzo3W2ou2DuADQ4y/+8LwEfX3SqdEHe2eA5lfdU3DGWD6LhG6
+	8tIFZ5hkp34bR4oI4ch9A9MYZViv5ePFy4fTHShlcfO+xa5fH+eRKG1fDlI6JrBGtWvCDVsosqC
+	FbHE0U+Hj3861W9bLlSvdO8vNHhQtsI8C1FGiQtFp/ahL2F6vitCEzoQnJ/9qgJzHpg1BGh6Grg
+	CiEtOnk8hmxvlbm+/B+vExwn9qXWvHHnoNu/F8fv7bozq7LFvXu05xeGksKj4R7P+l9/Njc/qhp
+	Vn83j9OEQExLxlk8pVBEzYA9H2h8B9o3fLj9Vym8S2+EZMQzAwVj+ki9HxXXOf2xX6JT6yvsCgG
+	OPRXYPcabudhe075WHPkPm28w==
+X-Received: by 2002:a05:6a00:440a:b0:86b:922d:6aa with SMTP id d2e1a72fcca58-8723adb0210mr7433422b3a.1.1789577018741;
+        Wed, 16 Sep 2026 09:43:38 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:661a:1232::1d0:c5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50acc757csm1902278a12.32.2026.09.16.09.43.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 09:43:38 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 3/8] net: dsa: motorcomm: Check port type with runtime info
+Date: Thu, 17 Sep 2026 00:43:03 +0800
+Message-ID: <20260916164310.3168269-4-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260916164310.3168269-1-mmyangfl@gmail.com>
+References: <20260916164310.3168269-1-mmyangfl@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA2PR04MB10446:EE_
-X-MS-Office365-Filtering-Correlation-Id: b07a7abc-e6b5-451c-2003-08df1411a267
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|19092799006|376014|10067099003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	5Vkl830Y8AXCtdvhO9ehaL2/9bH7WteRrNWblPwcmCGX0cO2MG/bKDTzRhp0+BfoTm1Qjc+gUi+/40ecjuGmIVZI2gv9OSUT9UleD7Z2JdbdS5fQfbprbUFXyd9Fabpix5OjPEndLU5kOUg5UyeLYs7hUCb8zNFuhSwkspvxLhLsCBIZ+cuDpdn2nBXNnKWlqgTWWzDRScPAd0yxffB2vtpjsfDuBGi4VoybP0MUiN6N/kaMpaI6a+IjxGO1sFgVoB7o3msKoaqCGRQV8mjTZcij6JpII0qfbXfTohDBmg4aCzOT3oytmR7KC5t6GNpvverbAl7JWoFDwSvihxumyyJ012ADNjZiNaraL4XVjPhcjQKjy0oGXM+sIaKMguDw0240ILrWUFbVcFjNXR9HahBXCLkcTaoimROzLe6Ctuluh2dccUKmFWp07KNI80xxc6TS/2ccR5fmDcl3Qx0bhdKQ55JXIcIUktLBYxopUh2WC4Ye+2TJ+dqMKycNUkgijJx2WBhB9tS/g+UXLbz5pudnvrXM/e4HmzKOpxGbz9TWB2khORkCcCmIvaYQXFROmSCQiIy5H5PWaheU2Zpj9t9AnTcs7Y9mSJA1zPh2varT7HMnWwnoCKqGIWvnapzKIJDSUmK2ebzfEH8nOh6cwhgjnG98KAdzHSLF6UNTOrM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(19092799006)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?j1eJav19ht2sysMFHGvabuUc4NxmBsfpHGwczn4vyinhq4W/ipSHS+L3dwSD?=
- =?us-ascii?Q?CcgNlqWW7THabspVE07sp50QwXX4nSjuLxF7mrSRVfq9C6E7pbMEOyTwDPsK?=
- =?us-ascii?Q?xEftqDtuI8lPf3kuYKxGwUOEgHF9RUiYZwFLtXMjtcKmp0OJXpCsrgJZHK+E?=
- =?us-ascii?Q?aTTHCamZFPkDzcovhLC0lZiQzMfX2qQBQ8KCAsro9r4CJu039G+DL0gyRPOF?=
- =?us-ascii?Q?OITmNbahA4dyDJgGa5QF+Ma/ESlzRgXFtYjt/VXt1O5AuKpzJk6dgB/ImKWK?=
- =?us-ascii?Q?u3kaw0hwn+yhbg+ZsDPj42TLWpy+bZKg/DQxiOHyEtl9c9IQOGYY/0QQBkXd?=
- =?us-ascii?Q?fuG0FX1gZF8RKk4jvDejk1KB1rH9Z2n++Re18/oGon01mW1qTS9mwIZSRTln?=
- =?us-ascii?Q?26rdiluzP6SoUbyLG/JwqaRxwSz5z5aY6FGWfTPMCpgELqjllyhkeO7g6AIZ?=
- =?us-ascii?Q?emFngMc+nsOyC4igNYVWc6qDyVWwMC1mWxvsWT6SGfxaHit2qsOZJsdLkspl?=
- =?us-ascii?Q?X3jrgp/AxSehy8zEZ2xd3DsyZBUr4657EFQEFwb9eWgg126dwS7JtVUOxPNY?=
- =?us-ascii?Q?kQzwHODBPlGkLcX8NkzBpbigItwAv8iytkwzKDhAqK22phXfueRWl/8uQ9KK?=
- =?us-ascii?Q?t1NixECiZXhVbVE1+QdN+wTuwsQnTFEmPHllNnJOHnCBqKLDkj0fvq5g3vgM?=
- =?us-ascii?Q?QqYDt71bwwMh0xS8OKTDykA6V/DmWmNnEmcXZwEJ+hNzCSXohgnZ+mWCZbhj?=
- =?us-ascii?Q?C2V5thlWgxVH+VoHvp/ThwfTybRrVgarSQLjs9rIRN/f/ALur7zw42wqM1to?=
- =?us-ascii?Q?w/xDVZqU8Jl1vNIOVBs/Dnfv9SAKsWJGk2EKY1h73nhQSOmpbqYlkyevR+34?=
- =?us-ascii?Q?h9fyoYRJ0XpgZYmjkYUUldKHtQkBHGk/puXzLiXxbTx1o7yy93hqG1yBnXwR?=
- =?us-ascii?Q?mc7y+7hVxLU4d5PVvIiGG0wXWSSbY0YjqGjbe6ZDQOlcwmnIdnW0ap2u3QMM?=
- =?us-ascii?Q?ozd3MztvbBz+e6V0nhIIyRg1lZJF5qjK6gKw7jxKlsGh5u6mwjLi8uzm7Mo5?=
- =?us-ascii?Q?8uEHyAFhEh/CJ2aAGspj7ZCDzn4hWZWIp9Nbrx0IE+87U0yu3Jk4i7MBn8e4?=
- =?us-ascii?Q?9t9uhcwptxWUjopluSNL6DTMbmtYY4yUnOfLqQ2VG5G2c7fHttbPVjHcazs6?=
- =?us-ascii?Q?5Ej7/ENzTV+Jlv0w1kjTi5x9Zb4qzxGpoXTB0lQCJg6jLOguFVUS9axuqlaU?=
- =?us-ascii?Q?07Gmno8ADnv/YQfDQlC0PprTBqvUMwZORBVUcaDxpQM8R2hExDLPv92opokj?=
- =?us-ascii?Q?WZlLTrjU3sZg1pMRwU/DzouZd2rDa7ZyJVKkTIh+7ljLDDSiY6emkT2mA139?=
- =?us-ascii?Q?+wTOyaD74eEtGsFUA0ebIwPGlDWFL7h2t+3Q3V70aXUTgTjc8jg1TvkbyZqs?=
- =?us-ascii?Q?7L69ZEhLGIVFtnUOP9TGPIodOH3uSov4q6j1vcv7B/yQk4y4R/ninrNBWQ6V?=
- =?us-ascii?Q?+ryXy5k11/6lUupGQ/xY0i6vx/63okUYEPygeaP4XF7znFhX+/BGcQHJ3ewX?=
- =?us-ascii?Q?o1wr3TD8UVqEjBuKq3HG8ZZGQB26SaEZP8Sbcm8VzuOjvj+5jvEHL8MrZpiU?=
- =?us-ascii?Q?bQ4peVHn9VapW+s4GlUm+BFP7/gE05wyEle2Wfp+5dI4Ue9C99Wz3k5zliq4?=
- =?us-ascii?Q?wqP69Ksj7PEmc0VWX2iDzJm57jDioFl2c6r4KU+1bxLq6GPFnconFYBTgryT?=
- =?us-ascii?Q?l1fseC3G7y6/KlrF8itXBI6WvJ9m7lpvXXQJL3JPck0mFx5rL5zj?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b07a7abc-e6b5-451c-2003-08df1411a267
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 16:43:28.4628
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EkKp5NBu5ZrXXjaLRm+eT6ZsJ8wg7gikc01sjjjdk0PVNgdCNIikpEWDSEYEdjNAdSvmZEmEbuUclOqchbvqmBlx5YKpoPaC2wgwd1zY3gXGedX3cLjvHmQEkMlmYUMb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10446
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 11:25:26PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Replace all chan->device->dev references with
-> dmaengine_get_dma_device(chan) so that DMA mapping goes through the
-> correct device when the DMA controller has per-channel IOMMU domains
-> (chan_dma_dev=true). Without this, DMA map/unmap bypasses the IOMMU
-> context configured by the eDMA driver.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
+The yt921x_port_is_internal/external() macros hardcoded the port layout:
+they treat ports 8 and 9 as external on every chip and count the dummy
+ports as internal. Drop them and identify the port type using chip info
+and runtime configuration.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: David Yang <mmyangfl@gmail.com>
+---
+ drivers/net/dsa/motorcomm/chip.c | 61 +++++++++++++++-----------------
+ drivers/net/dsa/motorcomm/chip.h | 11 +++---
+ 2 files changed, 34 insertions(+), 38 deletions(-)
 
+diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+index b527a9cfd3e8..45c19d962458 100644
+--- a/drivers/net/dsa/motorcomm/chip.c
++++ b/drivers/net/dsa/motorcomm/chip.c
+@@ -3738,6 +3738,7 @@ yt921x_dsa_port_set_apptrust(struct dsa_switch *ds, int port, const u8 *sel,
+ 
+ static int yt921x_port_down(struct yt921x_priv *priv, int port)
+ {
++	const struct yt921x_info *info = priv->info;
+ 	u32 mask;
+ 	int res;
+ 
+@@ -3746,12 +3747,13 @@ static int yt921x_port_down(struct yt921x_priv *priv, int port)
+ 	if (res)
+ 		return res;
+ 
+-	if (yt921x_port_is_external(port)) {
++	if (BIT(port) & info->serdes_mask) {
+ 		mask = YT921X_SERDES_LINK;
+ 		res = yt921x_reg_clear_bits(priv, YT921X_SERDESn(port), mask);
+ 		if (res)
+ 			return res;
+-
++	}
++	if (BIT(port) & info->xmii_mask) {
+ 		mask = YT921X_XMII_LINK;
+ 		res = yt921x_reg_clear_bits(priv, YT921X_XMIIn(port), mask);
+ 		if (res)
+@@ -3766,6 +3768,8 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
+ 	       phy_interface_t interface, int speed, int duplex,
+ 	       bool tx_pause, bool rx_pause)
+ {
++	const struct yt921x_info *info = priv->info;
++	struct yt921x_port *pp = &priv->ports[port];
+ 	u32 mask;
+ 	u32 ctrl;
+ 	int res;
+@@ -3800,7 +3804,10 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
+ 	if (res)
+ 		return res;
+ 
+-	if (yt921x_port_is_external(port)) {
++	if (!(BIT(port) & (info->serdes_mask | info->xmii_mask)))
++		return 0;
++
++	if (pp->serdes) {
+ 		mask = YT921X_SERDES_SPEED_M;
+ 		switch (speed) {
+ 		case SPEED_10:
+@@ -3836,7 +3843,7 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
+ 					     mask, ctrl);
+ 		if (res)
+ 			return res;
+-
++	} else {
+ 		mask = YT921X_XMII_LINK;
+ 		res = yt921x_reg_set_bits(priv, YT921X_XMIIn(port), mask);
+ 		if (res)
+@@ -3876,17 +3883,16 @@ static int
+ yt921x_port_config(struct yt921x_priv *priv, int port, unsigned int mode,
+ 		   phy_interface_t interface)
+ {
++	const struct yt921x_info *info = priv->info;
++	struct yt921x_port *pp = &priv->ports[port];
+ 	struct device *dev = to_device(priv);
+ 	u32 mask;
+ 	u32 ctrl;
+ 	int res;
+ 
+-	if (!yt921x_port_is_external(port)) {
+-		if (interface != PHY_INTERFACE_MODE_INTERNAL) {
+-			dev_err(dev, "Wrong mode %d on port %d\n",
+-				interface, port);
+-			return -EINVAL;
+-		}
++	if (BIT(port) & info->internal_mask) {
++		if (interface != PHY_INTERFACE_MODE_INTERNAL)
++			goto err;
+ 		return 0;
+ 	}
+ 
+@@ -3896,6 +3902,9 @@ yt921x_port_config(struct yt921x_priv *priv, int port, unsigned int mode,
+ 	case PHY_INTERFACE_MODE_100BASEX:
+ 	case PHY_INTERFACE_MODE_1000BASEX:
+ 	case PHY_INTERFACE_MODE_2500BASEX:
++		if (!(BIT(port) & info->serdes_mask))
++			goto err;
++
+ 		mask = YT921X_SERDES_CTRL_PORTn(port);
+ 		res = yt921x_reg_set_bits(priv, YT921X_SERDES_CTRL, mask);
+ 		if (res)
+@@ -3906,35 +3915,21 @@ yt921x_port_config(struct yt921x_priv *priv, int port, unsigned int mode,
+ 		if (res)
+ 			return res;
+ 
+-		mask = YT921X_SERDES_MODE_M;
+-		switch (interface) {
+-		case PHY_INTERFACE_MODE_SGMII:
+-			ctrl = YT921X_SERDES_MODE_SGMII;
+-			break;
+-		case PHY_INTERFACE_MODE_100BASEX:
+-			ctrl = YT921X_SERDES_MODE_100BASEX;
+-			break;
+-		case PHY_INTERFACE_MODE_1000BASEX:
+-			ctrl = YT921X_SERDES_MODE_1000BASEX;
+-			break;
+-		case PHY_INTERFACE_MODE_2500BASEX:
+-			ctrl = YT921X_SERDES_MODE_2500BASEX;
+-			break;
+-		default:
+-			return -EINVAL;
+-		}
+-		res = yt921x_reg_update_bits(priv, YT921X_SERDESn(port),
+-					     mask, ctrl);
+-		if (res)
+-			return res;
+-
++		/* The order is quite arbitrary - we can't return to a safe
++		 * state on IO errors.
++		 */
++		pp->serdes = true;
+ 		break;
+ 	/* add XMII support here */
+ 	default:
+-		return -EINVAL;
++		goto err;
+ 	}
+ 
+ 	return 0;
++
++err:
++	dev_err(dev, "Wrong mode %d on port %d\n", interface, port);
++	return -EINVAL;
+ }
+ 
+ static void
+diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
+index 83e76cefbccd..fd552f7dced4 100644
+--- a/drivers/net/dsa/motorcomm/chip.h
++++ b/drivers/net/dsa/motorcomm/chip.h
+@@ -858,9 +858,6 @@ enum yt921x_fdb_entry_status {
+ 
+ #define YT921X_NAME	"yt921x"
+ 
+-#define yt921x_port_is_internal(port) ((port) < 8)
+-#define yt921x_port_is_external(port) ((port) == 8 || (port) == 9)
+-
+ struct yt921x_mib {
+ 	u64 rx_broadcast;
+ 	u64 rx_pause;
+@@ -936,8 +933,12 @@ struct yt921x_acl_blk {
+ struct yt921x_port {
+ 	unsigned char index;
+ 
+-	bool hairpin;
+-	bool isolated;
++	/* SerDes in use */
++	bool serdes:1;
++	/* BR_HAIRPIN_MODE */
++	bool hairpin:1;
++	/* BR_ISOLATED */
++	bool isolated:1;
+ 
+ 	struct delayed_work mib_read;
+ 	struct yt921x_mib mib;
+-- 
+2.53.0
 
->  drivers/i2c/busses/i2c-imx-lpi2c.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/i2c/busses/i2c-imx-lpi2c.c b/drivers/i2c/busses/i2c-imx-lpi2c.c
-> index 49aabef7f115c..60547006f8b44 100644
-> --- a/drivers/i2c/busses/i2c-imx-lpi2c.c
-> +++ b/drivers/i2c/busses/i2c-imx-lpi2c.c
-> @@ -780,7 +780,7 @@ static void lpi2c_dma_unmap(struct lpi2c_imx_dma *dma)
->  	struct dma_chan *chan = dma->dma_data_dir == DMA_FROM_DEVICE
->  				? dma->chan_rx : dma->chan_tx;
->
-> -	dma_unmap_single(chan->device->dev, dma->dma_addr,
-> +	dma_unmap_single(dmaengine_get_dma_device(chan), dma->dma_addr,
->  			 dma->dma_len, dma->dma_data_dir);
->
->  	dma->dma_data_dir = DMA_NONE;
-> @@ -789,7 +789,7 @@ static void lpi2c_dma_unmap(struct lpi2c_imx_dma *dma)
->  static void lpi2c_cleanup_rx_cmd_dma(struct lpi2c_imx_dma *dma)
->  {
->  	dmaengine_terminate_sync(dma->chan_tx);
-> -	dma_unmap_single(dma->chan_tx->device->dev, dma->dma_tx_addr,
-> +	dma_unmap_single(dmaengine_get_dma_device(dma->chan_tx), dma->dma_tx_addr,
->  			 dma->rx_cmd_buf_len, DMA_TO_DEVICE);
->  }
->
-> @@ -817,10 +817,10 @@ static int lpi2c_dma_rx_cmd_submit(struct lpi2c_imx_struct *lpi2c_imx)
->  	struct dma_chan *txchan = dma->chan_tx;
->  	dma_cookie_t cookie;
->
-> -	dma->dma_tx_addr = dma_map_single(txchan->device->dev,
-> +	dma->dma_tx_addr = dma_map_single(dmaengine_get_dma_device(txchan),
->  					  dma->rx_cmd_buf, dma->rx_cmd_buf_len,
->  					  DMA_TO_DEVICE);
-> -	if (dma_mapping_error(txchan->device->dev, dma->dma_tx_addr)) {
-> +	if (dma_mapping_error(dmaengine_get_dma_device(txchan), dma->dma_tx_addr)) {
->  		dev_err(&lpi2c_imx->adapter.dev, "DMA map failed, use pio\n");
->  		return -EINVAL;
->  	}
-> @@ -844,12 +844,12 @@ static int lpi2c_dma_rx_cmd_submit(struct lpi2c_imx_struct *lpi2c_imx)
->  	return 0;
->
->  desc_prepare_err_exit:
-> -	dma_unmap_single(txchan->device->dev, dma->dma_tx_addr,
-> +	dma_unmap_single(dmaengine_get_dma_device(txchan), dma->dma_tx_addr,
->  			 dma->rx_cmd_buf_len, DMA_TO_DEVICE);
->  	return -EINVAL;
->
->  submit_err_exit:
-> -	dma_unmap_single(txchan->device->dev, dma->dma_tx_addr,
-> +	dma_unmap_single(dmaengine_get_dma_device(txchan), dma->dma_tx_addr,
->  			 dma->rx_cmd_buf_len, DMA_TO_DEVICE);
->  	dmaengine_desc_free(rx_cmd_desc);
->  	return -EINVAL;
-> @@ -872,9 +872,9 @@ static int lpi2c_dma_submit(struct lpi2c_imx_struct *lpi2c_imx)
->  		dma->dma_transfer_dir = DMA_MEM_TO_DEV;
->  	}
->
-> -	dma->dma_addr = dma_map_single(chan->device->dev,
-> +	dma->dma_addr = dma_map_single(dmaengine_get_dma_device(chan),
->  				       dma->dma_buf, dma->dma_len, dma->dma_data_dir);
-> -	if (dma_mapping_error(chan->device->dev, dma->dma_addr)) {
-> +	if (dma_mapping_error(dmaengine_get_dma_device(chan), dma->dma_addr)) {
->  		dev_err(&lpi2c_imx->adapter.dev, "DMA map failed, use pio\n");
->  		return -EINVAL;
->  	}
-> @@ -1085,7 +1085,7 @@ static int lpi2c_imx_dma_xfer(struct lpi2c_imx_struct *lpi2c_imx,
->  	}
->
->  	if (dma->dma_msg_flag & I2C_M_RD)
-> -		dma_unmap_single(dma->chan_tx->device->dev, dma->dma_tx_addr,
-> +		dma_unmap_single(dmaengine_get_dma_device(dma->chan_tx), dma->dma_tx_addr,
->  				 dma->rx_cmd_buf_len, DMA_TO_DEVICE);
->  	lpi2c_dma_unmap(dma);
->
->
-> ---
-> base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-> change-id: 20260916-i2c-dma-e9cd42e4e7ff
->
-> Best regards,
-> --
-> Peng Fan <peng.fan@nxp.com>
->
->
