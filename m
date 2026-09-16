@@ -1,164 +1,150 @@
-Received: from smtp-bc0a.mail.infomaniak.ch (smtp-bc0a.mail.infomaniak.ch [45.157.188.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585364E1C9B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EEF24E1C7A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:05:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789592730; cv=none; b=rtkdHvHIW9uHfUFTjpDgQu4krDUdRwCeQ5qif3bQTu71R/SsRG0kXsQUfsCYl05SYXLhpN23Zg5HDU4UoL0wuHcg/KIgDZ4ndW5GdwARZM8n8nVunlY7ao3szBLgtc9DmuhkX41PmjOXiirp5tNqOb08Gv7tR/9zTqgTw9+ZlEs=
+	t=1789592764; cv=none; b=jpSwKfLAW9cYW/JAWMkoeCK1mNTi7koi6RMxh+YuPu32InMz33pmCneb6C/AQ3I8Wi3UGLkbVAgFxsedwjcjUtWs5F+JK1SI4RObI9WyRiql4G266DsKODF7Ysr39YDx4FeCYPa5rRSeEvcdsVhZZEXYkUU5dt06HWoM3Ue45eU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789592730; c=relaxed/simple;
-	bh=tpyrtVP1jfuQ8WMgb3T5IO33cz0Jvp88D3McFEAZlzk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pNi+g5quAtOguU9kmrMJBVwo3/BxDTjwmhv4RDvpr68l5w/4Al8NgfBb5z5Zflj4/Zjvx9zg25T6pRZIfTRZg8PLqff8XoJozMEVa/AKNOPh3FnZw9JslUXNwQOJ++AwXrIIYAmiu++JVTf/VCzjA4BS1x6BohOrJmf+xBfgHrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=DkqQcBAe; arc=none smtp.client-ip=45.157.188.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1789592764; c=relaxed/simple;
+	bh=IQNpo0voZl44flDTr/7bJrTih9RnNbJtVb25BrCwX4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dlrUn8LaD7xFjY2Bmg4ysDamJrUfRXYJ9NFCacG/TO/Dp7+PxdjJzyYtpZLkckTtmt2XfbaUpkU/Udeslu6eQVLG9cPT3T4KJghqGIu771bff+QuKb23nt741KnUt1amfjNd04gLepZKBXg8DqYc1AT1QCQAXfGZjklvUWJsdCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aHPK4bAu; arc=none smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="DkqQcBAe"
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hlWT43VkTzFpk;
-	Wed, 16 Sep 2026 22:58:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1789592328;
-	bh=eeNZDeKo3kAwa8gSqWkTV+x3phqJReGg6WugrdjFUoI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DkqQcBAeujRMB2NU6LazQ51sJi6DFw7ZlKHeEHY0w5ERT7lFThr5T1KD+widZy1UT
-	 21tOpzoGS7VprNtnV7VwBTDc8HJ9ehkMIjQEsWH7QMD27LWVdOeDSBQx1EWLP1nZu2
-	 MAATFllRY1pL9c+7WXJzJRRCzlrfjqA3WRYCxJIA=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hlWT23Fytznr;
-	Wed, 16 Sep 2026 22:58:46 +0200 (CEST)
-Date: Wed, 16 Sep 2026 22:58:40 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: "Dr. Greg" <greg@enjellic.com>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
-	Justin Suess <utilityemal77@gmail.com>, Paul Moore <paul@paul-moore.com>, ast@kernel.org, 
-	daniel@iogearbox.net, andrii@kernel.org, kpsingh@kernel.org, matt@bobrowski.net, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, kees@kernel.org, casey@schaufler-ca.com, 
-	gnoack@google.com, jack@suse.cz, song@kernel.org, yonghong.song@linux.dev, 
-	martin.lau@linux.dev, eddyz87@gmail.com, memxor@gmail.com, jolsa@kernel.org, 
-	m@maowtm.org, bpf@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
- kfunc and policy object destructor
-Message-ID: <20260916.aiPhaw6einoh@digikod.net>
-References: <20260909193719.518517-1-utilityemal77@gmail.com>
- <20260909193719.518517-5-utilityemal77@gmail.com>
- <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
- <aqHUw6k0Mf83CGFT@zenbox>
- <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
- <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com>
- <aqTZdCz6JaoK16Fp@zenbox>
- <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
- <20260915.ok8eig8Eishi@digikod.net>
- <aqrLsbnzbbX4HPr-@wind.enjellic.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aHPK4bAu"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4b37a3a9768so157374b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:05:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789592757; x=1790197557; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KzgD7tpJ/TV5FYPH6ulvzWsXqYOY3DYINqe8nFmUw9M=;
+        b=aHPK4bAurX8scni84dKccg0rLHmPsoLmjjaVuhlPtnrHrP1Rko8oJF3wSb15S0yMcW
+         AlAlcHXG3KoTvbmi78oLTlkFhwWeMdc0DxHLc56WPvrdRnb0LbjtAGtKauHFtgjx5zAG
+         W8FXOB3CttFaKBpaWmRw4n4gwDQR5Q3qnnzqjqvUZE97gs31dBjswkrvdEaLFmkvZz6m
+         LYzfqNui6IUWxlBJUZWPWf9mHTPHYy9Q5mRpdiaHClVSqEP7Go/6A8C2muguFQZbuod+
+         +TKahYvAsVSaaYqD+NZ1abceH4BWiMGAnWUSHz7VX0AUMPV8hv+t+CfWPeO7N2jAlF9f
+         +dvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789592757; x=1790197557;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KzgD7tpJ/TV5FYPH6ulvzWsXqYOY3DYINqe8nFmUw9M=;
+        b=QjU7t+74QRzjSxphE7nnbbE+sv4fKUg1DG/K7lctu0W27kJx2sjr6xKNL+So2nbaWU
+         0ofLD03zrwJ0UZ1FEXCbEfG7XD4xSvRFfPwl3cv1os2RCzyAOg7qaWOsqdediRB7Putx
+         D+cjssdxX3XBwkAGrhkWoEDW/43PvGqFADWdlyycvYfd7Ip+mRHuWaQSHXsQm6kuFFd3
+         AaD3TjkKfr0J8aYXquArqjGFeeDdeqxw8SBLEWFGYdOKb+fsUb67kZ6RxWKpovaQHkn+
+         UFwU3A+QAvM6PuZMnVMy3RHsL+nDn4UmmggBTp1Q7Q97FYm2ljxPlZpAqFsIv0IpZNKL
+         Nn7A==
+X-Forwarded-Encrypted: i=1; AKwUvBx/X5cvMm8ubuxvZkmcqcpv1ueKHAcQsYA2s6s7L1LvsgLtmFcS+2KeH5g5HBySu8KDHgqocxbLMHncyYk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZM6bv3TFb5Rd/K4q+BUBCcQwhoU7Yi+j9YqIyIluDi7aJR9lR
+	Tf1MkvPH+RbR3kDSeP6Iu4nsmEGGG06uR90DD83r2/FuRiQkSveEP4Um
+X-Gm-Gg: AYBFou2ObBIkOTrwqx7yJR/pZGKbPY5SZzGuqHt5z3V+yRYH93eShb+l25Odd6jycCs
+	FmQ9Dhikk++cG3j1ju7q0zld9vfNYV+/SQ3e3bhm5j5y41becic9ezDHdgdvQFGjW6fQUEOUCJG
+	SpjtgSyNNyt9AOHjNT/Uf/bBDZfFTkTxjzWJ94RYK2EqckJlkUQbaXgxvyUZ/qpRJTVobob++LS
+	y//rhQvG8SF2Rg3MgTlv1kUd5O0mnK2dziGTSZsPOMWTLX1eJA5zO9NhqUGmpMIGwqYRhOpS60L
+	61s1KSqDVZjOZSoXt4RPXm8Io9R9Y2uHtbbLowxiKqXZYJC4JWWrcXGpNL+HfpWUChtXFSPqrmw
+	dZOsQFNga73mRXEMY7+Nb5yRyL9y38r0Pj/3ADjirSNVKqomXBSP+sdJedC4wxh1pa0LuMKQGoB
+	cgssNQzbgk1y43NKxGrBAcTn05C5GhTiIAqcY2TtVDs3kv+hhxAljds4QHlvuQ30WQfd9UMZC1t
+	CIzn1rg9+Pr/HS4UVv/iCmX7OUs5Sfg394QimRf
+X-Received: by 2002:a05:6808:1a0e:b0:4c3:7695:1177 with SMTP id 5614622812f47-4ca497b2b58mr4346226b6e.6.1789592756726;
+        Wed, 16 Sep 2026 14:05:56 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:4c::])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4cb6d796b64sm891126b6e.15.2026.09.16.14.05.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 14:05:56 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Maarten Lankhorst <dev@lankhorst.se>,
+	Maxime Ripard <mripard@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>,
+	Tejun Heo <tj@kernel.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH v6 1/5] mm/memcontrol: flatten try_charge_memcg control flow
+Date: Wed, 16 Sep 2026 14:05:47 -0700
+Message-ID: <20260916210552.891730-2-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260916210552.891730-1-joshua.hahnjy@gmail.com>
+References: <20260916210552.891730-1-joshua.hahnjy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqrLsbnzbbX4HPr-@wind.enjellic.com>
-X-Infomaniak-Routing: alpha
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 12:02:41PM -0500, Dr. Greg wrote:
-> On Tue, Sep 15, 2026 at 11:25:13AM +0200, Micka??l Sala??n wrote:
-> 
-> > Hi,
-> 
-> Hezzie says hi too.
-> 
-> > On Sat, Sep 12, 2026 at 12:33:13PM -0700, Alexei Starovoitov wrote:
-> > > On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
-> > 
-> > [...]
-> > 
-> > > landlock was designed for unprivileged users. bpf needs CAP_BPF.
-> 
-> > Yep, and this series would kind of bridge these two worlds. ;)
-> 
-> See my comments to Justin about this 'Mixing of the Blood'... ;-)
+Refactor try_charge_memcg by flattening the nested memsw/memory
+page_counter operations to separate the logic between the two.
 
-I'm pragmatic and there are different use cases, different constraints,
-and different trust models...  Landlock has some good properties which
-makes it fit for being used by unprivileged/untrusted processes, and who
-can do more can do less.
+When page_counter_try_charge is made stock-aware, this flattening makes
+the control flow easier to follow since each page counter now has its
+own success/failure paths.
 
-> 
-> > > There is a fundamental disconnect. If you can tolerate CAP_BPF then
-> > > just use bpf-lsm and implement whatever policy you need there.
-> > > If bpf-lsm is missing a feature we can fix that.
-> 
+No functional changes intended.
 
-Please keep this in mind:
-> > The question is not if BPF LSM can or cannot do what Landlock does.
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+---
+ mm/memcontrol.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
-> > Landlock provides a way for userspace to sandbox processes, and that
-> > comes with a well-defined semantic, logs, and an user space ABI, which
-> > are specific and dedicated to Landlock.  Some user space depend on that.
-> > 
-> > The goal of this patch series is to improve BPF LSM to enable it to
-> > (also) enforce a Landlock security policy defined by user space thanks
-> > to the Landlock syscalls.  The security policy still has the properties
-> > that makes it possible to safely compose different ones (e.g.
-> > monotonicity/stacking enforcement, inheritance, separation of duty, no
-> > cover channel, safe privilege reduction without confused deputy issues).
-> > 
-> > A process can currently define such security policy, get a file
-> > descriptor referring to it, and pass this FD to another process that
-> > would enforce it.  This helps design secure architectures by splitting
-> > ownership, trust, and privileges (e.g. CAP_BPF).  Being able to use BPF
-> > programs instead of user space programs to enforce (e.g. an already
-> > defined) security policy would make this enforcement more powerful
-> > thanks to the context BPF have access to.  Of course, BPF LSM can (and
-> > should) also enforce other kind of complementary restrictions.
-> 
-> This may be the answer to the question that I was asking Justin, lets
-> see if we can unpack it a bit for those of us that are dense.
-> 
-> Big picture, as Justin so elegantly pointed out, there are a bunch of
-> things that eBPF cannot do now, and may never be able to do in the
-> future, particularily when it comes to 'raceless free' path based
-> security controls, ie. TOCTOU avoidance.
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 1460cba53588e..48c475909e6bb 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -2707,18 +2707,21 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 		batch = nr_pages;
+ 
+ 	reclaim_options = MEMCG_RECLAIM_MAY_SWAP;
+-	if (!do_memsw_account() ||
+-	    page_counter_try_charge(&memcg->memsw, batch, &counter)) {
+-		if (page_counter_try_charge(&memcg->memory, batch, &counter))
+-			goto done_restock;
+-		if (do_memsw_account())
+-			page_counter_uncharge(&memcg->memsw, batch);
+-		mem_over_limit = mem_cgroup_from_counter(counter, memory);
+-	} else {
++	if (do_memsw_account() &&
++	    !page_counter_try_charge(&memcg->memsw, batch, &counter)) {
+ 		mem_over_limit = mem_cgroup_from_counter(counter, memsw);
+ 		reclaim_options &= ~MEMCG_RECLAIM_MAY_SWAP;
++		goto reclaim;
+ 	}
+ 
++	if (page_counter_try_charge(&memcg->memory, batch, &counter))
++		goto done_restock;
++
++	if (do_memsw_account())
++		page_counter_uncharge(&memcg->memsw, batch);
++	mem_over_limit = mem_cgroup_from_counter(counter, memory);
++
++reclaim:
+ 	if (batch > nr_pages) {
+ 		batch = nr_pages;
+ 		goto retry;
+-- 
+2.53.0-Meta
 
-That's a different problem/challenge, but BPF is gradually being
-improved, and I'm sure your contributions would be welcome.
-
-> 
-> So, the objective is to have a program, systemd for example, compose a
-> set of different security policies, that it then hands out to various
-> process heirarchies, which then uses eBPF to call LandLock kernel
-> internals to do the heavy security lifting with kernel level
-> privileges and capabilities, particularily when it comes to path based
-> controls.
-> 
-> Is that close?
-
-That's kind of the opposite: systemd, as a privileged process, is in
-charge of loading BPF programs, but this is not a good example here.
-That would make more sense with e.g., a dedicated process that manages a
-set of security policies (which might be owned by different teams), pass
-these (Landlock) policies to the a privileged process that enrich them
-with context, and load the related BPF programs to the kernel.  That's
-only one simple example, but it should give a good idea of what is
-possible.
-
-> 
-> If so, the question remains, why take on this amount of drama?
-> 
-> Something like systemd does at least 10,000 other things, composing
-> and handing out multiple variants of file descriptor based process
-> hierarchy security policies would seem like chump change to it.
-> 
-> I'm assuming the answer is that the eBPF programs involved are going
-> to be implementing other, perhaps proprietary, security controls that
-> extend beyond the path based controls that eBPF can't do.
-
-Yes, that's a possibility, but a simpler approach would be to just map a
-runtime context to a set of security policies (e.g. sandbox all
-instances of /usr/bin/foo with a custom profile).
-
-> 
-> We will be interested in your reflections.
