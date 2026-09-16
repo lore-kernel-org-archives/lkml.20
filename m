@@ -1,166 +1,99 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7EF4A7C92;
-	Wed, 16 Sep 2026 17:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578696; cv=pass; b=FUnOE/C3hCm0wu09Rc4oqoLhzSmp/iTb1XofAd+Hx496u9aLf2zIXS8d/+UdVD+eef7hgJBzdaq/R6a0GO/A3tp4XEAme/5QW88fXHIwbyqxcJGM6GIZx74an9eo+0ZVsG92h4hEG575Dn818YT3jp3MvVq/WX63sb3/jsoVzVI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578696; c=relaxed/simple;
-	bh=GxZVsYyO+dGhZVkNFl2G7bu9vGg6fGca6a+LddvN29s=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kHFoeX9nJjDxLsUAEtCkrUux7TQHooDtASBTeQ+WwHvncvD+JnhSW+5Ex0ma7XQG0yL1GcNURIDZfKJZ+QDWxs48YZ17Bke5NLGFfR2Hv+hPHuSueYpVeC5y4K1wcWMtPVgDTPx2Xj/ST6TP0fYgGg93l87carRFKHZobn+9gFo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=ncBipncI; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="ncBipncI"
-Received: from [192.168.1.195] (unknown [IPv6:2a03:1b20:d:f011:3::d001])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pav@iki.fi)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hlQQV48rFz49QKP;
-	Wed, 16 Sep 2026 20:11:14 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1789578676;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ar4Xh04LVpsbbU5iorLfnkyCYqpy81z9xWfcNsmO9XI=;
-	b=ncBipncIjxOjuNySr7ee/BLe6QwEEIUOqwHK5kX4+7hZG7OpgecH5raGMVe12IkBqjZIk/
-	5ATVJg/MXMNLVAyEOWFEI9Necmp//xsarbo0PP2SJgUhQXGxBBM9bAh4LdUhClQ/zSjifa
-	vs2WGHnALVNVFX+aooYVxGphmlMTktthlcYPLdfPgw/xzwsWbKRjKzGfcIGbXscHHrsRTg
-	E4HHEehzeQtc7xQ7jM/n6Oe6AjKjZAL3lXjY6Pnje4oZiAk6bfCJOR9/I6FQ9HD9itXF47
-	MMkIisCCbaH0NErIguFBoQ4U0Cr7rpQ6Gw/jPHOvUiOSsry2oQ6l8lLcvyJEkg==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1789578676;
-	b=Lv7b3Z8PzWZdH5ghCl6V5/44sggZgV7p6bLpV5Dxo2BcBMKKYExrpLDBapTWd1zufcbosB
-	Xo3EjwGqxFJ5QO1hipEx6vhwYHAaUcuJzEvSGyjnf27puLFIbk83/LlIsiAMLOp5P6d+S0
-	MVu1YQQQ9AYxHXTZP6NFaslnDEltRBsUkZC/S8kPYcb46p4tdvGJVVDsKcrJ/txZbttIH1
-	ec4FOaelm8OpB/uFhWzUIub85OPEuvzJPXSozZrh0LvEAJzksombKuEJ+3QKzaKnY7rYtK
-	tRdgDUwDqgXGWhH4e0nd+cb7zN1FxPubBKFh03qld0me7vG5r3DABDTHSFGbTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1789578676;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ar4Xh04LVpsbbU5iorLfnkyCYqpy81z9xWfcNsmO9XI=;
-	b=diO2BS0ueli/KdnFA2fwvTCDyze49/k/9oniOO7g+A2XDSJvvLP6tp2eP/2nWab20ZSd7U
-	XBo1X3K1Nh/QOoYtGpr68RpxYkLyBklbnZqOwoXWPQw1mT8s9Ze4aIt+ZC6kkRROlOVrvQ
-	Kcs1WBeUkMIXX4RSJgjgkXgGUof1ITJSzNEIKwLZN01Im6nmGlj4Eq+3Us21t+G8q0pci6
-	ZP3J+6nl/gYMuSZRVXBpcPhVou8WZrTQDCBWFrwkodhDcMp25r+M1RupuqecxQqLUg1zH4
-	HxvVfzISdCIRRwceSAJPyF/9I0bGWVVBren/2N32TuTLxHPHU28c1AsDkgUqMA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pav@iki.fi smtp.mailfrom=pav@iki.fi
-Message-ID: <1baff112d1ebd255575c7e52936b13db10f218b7.camel@iki.fi>
-Subject: Re: [PATCH] Bluetooth: af_bluetooth: hold a reference on parent in
- accept_q
-From: Pauli Virtanen <pav@iki.fi>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, Marcel Holtmann
-	 <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-	linux-bluetooth@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, 
-	syzbot+534002670dd34a114fdc@syzkaller.appspotmail.com, 
-	syzkaller-bugs@googlegroups.com
-Date: Wed, 16 Sep 2026 20:11:13 +0300
-In-Reply-To: <20260916153818.24916-1-ngocthang2710.1999@gmail.com>
-References: <20260916153818.24916-1-ngocthang2710.1999@gmail.com>
-Autocrypt: addr=pav@iki.fi; prefer-encrypt=mutual;
- keydata=mQINBGX+qmEBEACt7O4iYRbX80B2OV+LbX06Mj1Wd67SVWwq2sAlI+6fK1YWbFu5jOWFy
- ShFCRGmwyzNvkVpK7cu/XOOhwt2URcy6DY3zhmd5gChz/t/NDHGBTezCh8rSO9DsIl1w9nNEbghUl
- cYmEvIhQjHH3vv2HCOKxSZES/6NXkskByXtkPVP8prHPNl1FHIO0JVVL7/psmWFP/eeB66eAcwIgd
- aUeWsA9+/AwcjqJV2pa1kblWjfZZw4TxrBgCB72dC7FAYs94ebUmNg3dyv8PQq63EnC8TAUTyph+M
- cnQiCPz6chp7XHVQdeaxSfcCEsOJaHlS+CtdUHiGYxN4mewPm5JwM1C7PW6QBPIpx6XFvtvMfG+Ny
- +AZ/jZtXxHmrGEJ5sz5YfqucDV8bMcNgnbFzFWxvVklafpP80O/4VkEZ8Og09kvDBdB6MAhr71b3O
- n+dE0S83rEiJs4v64/CG8FQ8B9K2p9HE55Iu3AyovR6jKajAi/iMKR/x4KoSq9Jgj9ZI3g86voWxM
- 4735WC8h7vnhFSA8qKRhsbvlNlMplPjq0f9kVLg9cyNzRQBVrNcH6zGMhkMqbSvCTR5I1kY4SfU4f
- QqRF1Ai5f9Q9D8ExKb6fy7ct8aDUZ69Ms9N+XmqEL8C3+AAYod1XaXk9/hdTQ1Dhb51VPXAMWTICB
- dXi5z7be6KALQARAQABtCZQYXVsaSBWaXJ0YW5lbiA8cGF1bGkudmlydGFuZW5AaWtpLmZpPokCWg
- QTAQgARAIbAwUJEswDAAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBGrOSfUCZNEJOswAnOS
- aCbhLOrBPBQJl/qsDAhkBAAoJEOSaCbhLOrBPB/oP/1j6A7hlzheRhqcj+6sk+OgZZ+5eX7mBomyr
- 76G+m/3RhPGlKbDxKTWtBZaIDKg2c0Q6yC1TegtxQ2EUD4kk7wKoHKj8dKbR29uS3OvURQR1guCo2
- /5kzQQVxQwhIoMdHJYF0aYNQgdA+ZJL09lDz+JC89xvup3spxbKYc9Iq6vxVLbVbjF9Uv/ncAC4Bs
- g1MQoMowhKsxwN5VlUdjqPZ6uGebZyC+gX6YWUHpPWcHQ1TxCD8TtqTbFU3Ltd3AYl7d8ygMNBEe3
- T7DV2GjBI06Xqdhydhz2G5bWPM0JSodNDE/m6MrmoKSEG0xTNkH2w3TWWD4o1snte9406az0YOwkk
- xDq9LxEVoeg6POceQG9UdcsKiiAJQXu/I0iUprkybRUkUj+3oTJQECcdfL1QtkuJBh+IParSF14/j
- Xojwnf7tE5rm7QvMWWSiSRewro1vaXjgGyhKNyJ+HCCgp5mw+ch7KaDHtg0fG48yJgKNpjkzGWfLQ
- BNXqtd8VYn1mCM3YM7qdtf9bsgjQqpvFiAh7jYGrhYr7geRjary1hTc8WwrxAxaxGvo4xZ1XYps3u
- ayy5dGHdiddk5KJ4iMTLSLH3Rucl19966COQeCwDvFMjkNZx5ExHshWCV5W7+xX/2nIkKUfwXRKfK
- dsVTL03FG0YvY/8A98EMbvlf4TnpyyaytBtQYXVsaSBWaXJ0YW5lbiA8cGF2QGlraS5maT6JAlcEE
- wEIAEEWIQRqzkn1AmTRCTrMAJzkmgm4SzqwTwUCZf6qYQIbAwUJEswDAAULCQgHAgIiAgYVCgkICw
- IEFgIDAQIeBwIXgAAKCRDkmgm4SzqwTxYZD/9hfC+CaihOESMcTKHoK9JLkO34YC0t8u3JAyetIz3
- Z9ek42FU8fpf58vbpKUIR6POdiANmKLjeBlT0D3mHW2ta90O1s711NlA1yaaoUw7s4RJb09W2Votb
- G02pDu2qhupD1GNpufArm3mOcYDJt0Rhh9DkTR2WQ9SzfnfzapjxmRQtMzkrH0GWX5OPv368IzfbJ
- S1fw79TXmRx/DqyHg+7/bvqeA3ZFCnuC/HQST72ncuQA9wFbrg3ZVOPAjqrjesEOFFL4RSaT0JasS
- XdcxCbAu9WNrHbtRZu2jo7n4UkQ7F133zKH4B0SD5IclLgK6Zc92gnHylGEPtOFpij/zCRdZw20VH
- xrPO4eI5Za4iRpnKhCbL85zHE0f8pDaBLD9L56UuTVdRvB6cKncL4T6JmTR6wbH+J+s4L3OLjsyx2
- LfEcVEh+xFsW87YQgVY7Mm1q+O94P2soUqjU3KslSxgbX5BghY2yDcDMNlfnZ3SdeRNbssgT28PAk
- 5q9AmX/5YyNbexOCyYKZ9TLcAJJ1QLrHGoZaAIaR72K/kmVxy0oqdtAkvCQw4j2DCQDR0lQXsH2bl
- WTSfNIdSZd4pMxXHFF5iQbh+uReDc8rISNOFMAZcIMd+9jRNCbyGcoFiLa52yNGOLo7Im+CIlmZEt
- bzyGkKh2h8XdrYhtDjw9LmrprPQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007C54BA1CB;
+	Wed, 16 Sep 2026 17:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789578747; cv=none; b=htSH381RjTT9oaRYNi5N0Rp6j6+H5+0PBFiK+vii09QC4NxbyTUdDI/uYZKvBFLnFmyypXikxGOqLCZKM1RBI7NHJlElESYgWh8d3bIWjg5zlHr54W7VpBQHxR5Sp67rNG8dAAO8RWVGrojk5JiqZ9IL3dyPVLC5d5QgKL0hUpk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789578747; c=relaxed/simple;
+	bh=GPfojv92vhGazvyjywr+nW1dfggvUCWkzV2zzDADthE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JeuIduU4mgbXpmH4UWsF9gvjqCmLKZsvZTuCMMv3kgMGVqieVgk95hUkYdIIcadxPBiV+ouyCKLYSGDF2UxLrREY3BvkY39mUtzzssLw2iBJje1IovP+lonk8rPQCc28jmexbNAqV5mVaArsZnVMCQC2X+C2IDVdl9VsIR5YNI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAA3oDrpzapqV1xuCA--.22441S2;
+	Thu, 17 Sep 2026 01:12:09 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Jiqian.Chen@amd.com
+Cc: jgross@suse.com,
+	linux-kernel@vger.kernel.org,
+	oleksandr_tyshchenko@epam.com,
+	ray.huang@amd.com,
+	sstabellini@kernel.org,
+	xen-devel@lists.xenproject.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] xen-pciback: Fix pcistub_device ref leak in pcistub_get_gsi_from_sbdf()
+Date: Wed, 16 Sep 2026 17:11:41 +0000
+Message-Id: <20260916171141.2086627-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAA3oDrpzapqV1xuCA--.22441S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKrW8WFWUuF17JF1xKrW7Jwb_yoWkKwcEgr
+	WIvr97urs8tFWxtrW7uwn0vrZav3Z0q395XF1xta4rGw4j9r4UXr1rXF98Wr4Igr45JF13
+	Xr1DCr93Kr4I9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
+	o5l5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgEMA2qqok9l6QAAsp
 
-Hi,
+pcistub_get_gsi_from_sbdf() obtains the stub device with
+pcistub_device_find(), which returns it with its kref incremented, and
+returns psdev->gsi without dropping that reference again.  The caller
+cannot release it either, so every lookup leaks one reference to the
+stub device.
 
-ke, 2026-09-16 kello 22:38 +0700, Nguyen Ngoc Thang kirjoitti:
-> bt_sk(sk)->parent is a raw pointer with no refcount backing it, so a
-> child sitting in the listening socket's accept_q can outlive it. When
-> the child's channel is torn down independently (e.g. hci_error_reset()
-> -> l2cap_conn_del() -> l2cap_sock_teardown_cb()), bt_accept_unlink()
-> dereferences the freed parent, corrupting its accept_q_lock and list.
->
-> Take a reference on parent in bt_accept_enqueue() and drop it in
-> bt_accept_unlink() to keep it alive for as long as a child points to
-> it.
+Release the reference after reading gsi.
 
-AFAIK the UAF described above cannot occur in current kernel:
+Fixes: 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/xen/xen-pciback/pci_stub.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-https://lore.kernel.org/linux-bluetooth/3674f5d34d731403bfa0e680c9e57182376=
-12315.camel@iki.fi/
+diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
+index 79a2b5dfd694..d1a335233aab 100644
+--- a/drivers/xen/xen-pciback/pci_stub.c
++++ b/drivers/xen/xen-pciback/pci_stub.c
+@@ -234,13 +234,16 @@ static int pcistub_get_gsi_from_sbdf(unsigned int sbdf)
+ 	int bus = PCI_BUS_NUM(sbdf);
+ 	int slot = PCI_SLOT(sbdf);
+ 	int func = PCI_FUNC(sbdf);
++	int gsi;
+ 
+ 	psdev = pcistub_device_find(domain, bus, slot, func);
+-
+ 	if (!psdev)
+ 		return -ENODEV;
+ 
+-	return psdev->gsi;
++	gsi = psdev->gsi;
++	pcistub_device_put(psdev);
++
++	return gsi;
+ }
+ #endif
+ 
+-- 
+2.34.1
 
-> Reported-by: syzbot+534002670dd34a114fdc@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D534002670dd34a114fdc
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
->  net/bluetooth/af_bluetooth.c | 5 +++++
->  1 file changed, 5 insertions(+)
->=20
-> diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.c
-> index 411d66f24393..f9aae18c6733 100644
-> --- a/net/bluetooth/af_bluetooth.c
-> +++ b/net/bluetooth/af_bluetooth.c
-> @@ -224,6 +224,10 @@ void bt_accept_enqueue(struct sock *parent, struct s=
-ock *sk, bool bh)
->  	else
->  		lock_sock_nested(sk, SINGLE_DEPTH_NESTING);
-> =20
-> +	/* Hold a reference on parent so it cannot be freed while sk keeps
-> +	 * a raw pointer to it via bt_sk(sk)->parent.
-> +	 */
-> +	sock_hold(parent);
->  	bt_sk(sk)->parent =3D parent;
-> =20
->  	spin_lock_bh(&par->accept_q_lock);
-> @@ -265,6 +269,7 @@ void bt_accept_unlink(struct sock *sk)
->  	sk_acceptq_removed(parent);
->  	spin_unlock_bh(&bt_sk(parent)->accept_q_lock);
->  	bt_sk(sk)->parent =3D NULL;
-> +	sock_put(parent);
->  	sock_put(sk);
->  }
->  EXPORT_SYMBOL(bt_accept_unlink);
-
---=20
-Pauli Virtanen
