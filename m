@@ -1,93 +1,95 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E997521203;
-	Wed, 16 Sep 2026 16:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F85A519900;
+	Wed, 16 Sep 2026 16:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577681; cv=none; b=fDuVPOdYjwNhf6QDV7bkkRwnxRCxMpVxe2aJ8OR+UPPdKMzGRWo3oPFVNDwhzcJwZO3qWO+bj3DMtIMy9WgjoM4E4xsB1zBtVlQNGmcwsFg52ZZm1E8LS91nngdS2pzRyQz8sugKY7B3/FwzksTf5nU0PdpaD1DqTZZTLRx9S7E=
+	t=1789577710; cv=none; b=tWOrMu/6/nn1fURsk2vYNkyf43SEjduwAUGcrw3kucpSab7bnkRbctpRFewna0W1fwr3BhoGZAgEtg4+1bHJqjlCUr39PTIOFyQb0SxtX44/mLPOEI/xaaerOHTicNRc+bu6+IHjvNuy6wqyi9MFpqF1DOYp62Ggo2+g7uDBUpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577681; c=relaxed/simple;
-	bh=6e23mqm25si6H1wh1ucL0DzKHh3dU3bcDqWPZtiZtbw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZYHv0+1Tt1fXjIKuASmuBr1C8naHlhcKjILtJE4UxjhDT86buB3XKfqFMaszBJAi+S05W8hh03aLvACW4Of3l+fFWD0rFJbC3LI+L7EJ1ZN6/fg067zcdIGv4xWiM0b2Xbi96sVAAk9KSibLOF/Rrt/wxM1SdbYOnEO0IkVb/oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAB3pkC7yapqoQhuCA--.22465S2;
-	Thu, 17 Sep 2026 00:54:19 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: johan@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	oliver@neukum.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] USB: sierra: Fix urb leak in sierra_submit_delayed_urbs()
-Date: Wed, 16 Sep 2026 16:53:52 +0000
-Message-Id: <20260916165352.2085480-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789577710; c=relaxed/simple;
+	bh=ilqcGlbdKBIHL/vrmkB1/CafWnbor2h6Ggk0Ys2ks2Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bZY9b+PtTVhU1jJb42WBe+OVXINd6AD8pTlFJqFqFORx3tAhk3hvFly0zhVK6hZbvok2uvAMk3ggW2XgT7mtivkN2ca8lI6+Zr0xAHkhG4SrNb2XTCh9YUL0fsvg88zH2feqHvHOcQU2HhnnjE1AFeaLTTyD1UUHdO00A1tt3LY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=NhoFKOkR; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="NhoFKOkR"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 1A3A7C5CD6B;
+	Wed, 16 Sep 2026 16:55:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0E32F60337;
+	Wed, 16 Sep 2026 16:54:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0397311C7B00D;
+	Wed, 16 Sep 2026 18:54:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789577693; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=2lcHsx/y5VbgHLRKTv0Ayc/1aoUYFwjE7vqzYZmM7YU=;
+	b=NhoFKOkRv6qX9CIZ3xSNEGB+N0r0sG1vZlTQVMowAdgjJYQE/QOYS0MuuPc/phRNcuutAY
+	7nQnLAatGxHb8ZOTOQrnIPcQl1TcXkVPH5aAHg6NA5EnKwQuhRtsTEbRqXfmO8uWshW99M
+	v3tVI/hHdsXOGkXh/Qx5+asfYNmWFzxgrm+yleTK4nYUCIpmXF3CAkdRqYYlL3GXSZdg2H
+	ymLxc6ADD3sPElUsD6xlx5P4VXLW438Bp8Fd+XyEUE1AstPcOBMWUSTww4ShzLTkIiP729
+	v8S9WxYlP4PSVMAQeer2DqUdUtY+zCDrhpbl2kEbn1fEJEzrZybPQvfqY0tcWg==
+Message-ID: <90a666a8-9f6a-4640-a219-731f3d551c66@bootlin.com>
+Date: Wed, 16 Sep 2026 18:54:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB3pkC7yapqoQhuCA--.22465S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kw45Cw4fWry5Zw13uFWruFg_yoW8GF13pr
-	WYgr4akr1DJF15Aw47Cw15uFyFvanFyr9Ik3y0vrW3ZF15Ja4SgFy8XwsIgr1UA397Ja4a
-	qw42grW5WryqkrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj
-	d-PUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwEMA2qqpVhUQgAAsi
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v1] net: stmmac: Default DWMAC_MOTORCOMM to m on
+ MACH_LOONGSON64
+To: Tiezhu Yang <yangtiezhu@loongson.cn>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Yao Zi <me@ziyao.cc>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260915073206.6665-1-yangtiezhu@loongson.cn>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260915073206.6665-1-yangtiezhu@loongson.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-sierra_submit_delayed_urbs() takes a reference to each delayed urb
-with usb_get_from_anchor() before submitting it. The submit failure
-path releases the reference with usb_free_urb(), but on the success
-path the reference is never dropped: the urb is only anchored in the
-active list and the USB core unanchors it on completion, leaving the
-reference returned by usb_get_from_anchor() dangling so the urb
-object is never freed.
+Hi
 
-Drop the reference with usb_put_urb() after a successful submission,
-matching the reference handling in sierra_write() and the sierra_close()
-drain loop. Skip the rest of the loop body with continue on the error
-path, which already frees the urb.
+On 9/15/26 09:32, Tiezhu Yang wrote:
+> Currently, there is no network connectivity when upgrading to the
+> latest upstream mainline kernel on certain Loongson machines such
+> as Loongson-3C6000 server, because the driver for the onboard NIC
+> is not enabled.
+> 
+> Enable the Motorcomm PCI DWMAC driver as a module by default when
+> building for the Loongson-64 platform.
+> 
+> This ensures out-of-the-box support for Motorcomm YT6801 Ethernet
+> controllers on Loongson machines, enabling demand-loading without
+> increasing the core kernel image size.
+> 
+> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> index ab3c4cf96423..c86d6c08977c 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> @@ -408,6 +408,7 @@ config DWMAC_LOONGSON
+>  
+>  config DWMAC_MOTORCOMM
+>  	tristate "Motorcomm PCI DWMAC support"
+> +	default m if MACH_LOONGSON64
+>  	depends on PCI
+>  	select MOTORCOMM_PHY
+>  	select STMMAC_LIBPCI
 
-Fixes: e6929a9020ac ("USB: support for autosuspend in sierra while online")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/usb/serial/sierra.c | 2 ++
- 1 file changed, 2 insertions(+)
+I agree with Yao Zi, this belongs in your .config, maybe your
+defconfig, but not in the stmmac Kconfig.
 
-diff --git a/drivers/usb/serial/sierra.c b/drivers/usb/serial/sierra.c
-index 6e443aacae07..c11259a8e66c 100644
---- a/drivers/usb/serial/sierra.c
-+++ b/drivers/usb/serial/sierra.c
-@@ -977,7 +977,9 @@ static int sierra_submit_delayed_urbs(struct usb_serial_port *port)
- 			spin_lock(&portdata->lock);
- 			portdata->outstanding_urbs--;
- 			spin_unlock(&portdata->lock);
-+			continue;
- 		}
-+		usb_put_urb(urb);
- 	}
- 
- 	if (ec)
--- 
-2.34.1
+Maxime
 
