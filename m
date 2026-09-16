@@ -1,109 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF5438E8B4;
-	Wed, 16 Sep 2026 01:46:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB4E3BE179;
+	Wed, 16 Sep 2026 01:52:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789523209; cv=none; b=tGX6KIpBO28eNwjB4o7MhD/aOEO+lE1pjV5u0is6+wwJlUqukI0raWUNwnQyfncq3CpelpGQNI7D/Km4g6gKLoxW5VSbhFtUs5MECeX12YdiMquxjiWASuqeiGqGWP8WwYXuUa07wtlt4JbTHW8NvFrpLs0tjl8tTmC7WppM4Ps=
+	t=1789523561; cv=none; b=Vq+qlO/vKaZfuaAQg+aC9AwnYWdRnU9MTrL0KR4JqmW/uefPBgY+9kigTMpo2BVkMA4xClrTPDS7xYXfH5XS96+LlfF9f/U5XpiuBd9CoiBLC7B5NHHa+eNQBKR/9hQfFTnrxW2MZToEIDGLU3BnlUTBAWnoj4VkHZoa8nNp+zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789523209; c=relaxed/simple;
-	bh=x9a30jip4yh7Vjrr6vGw0btm0TkV63ZMOQmsRTav8kA=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=nX7WBlBewxRfojk57+iqpp0s70LieY8yjbMb+hTbDcx5a+MT6Ftx6qPFQazUA1tFuaejuH8ayvI6DavE9+bW13D6bdTbsQYQftaWwaIUib2ROWaxvBuZp8tn+DBmzLhSEWKYoX3ejkFthxEQLApTSdTQY4du3Usnbq/hTgRzo60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xe4wnLPM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789523561; c=relaxed/simple;
+	bh=XdOkhGdmTQ3hbfWvoK+SdTb8SKyg4AkTQrjXOPNvuto=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Sc0Vd6RlkOEMxazuCLtkePOllN1ZF5+OeH83UsulfWmbtvDEvFDeNFynOLK8aV1qG2zFDFQQbcPO55jCdGMWhhvYfYUdv2f0B83ite7clKKLl9r1O8Pm/ElXI46lKrldY2wnc4xyUKWdEq5eKD+ivoyas5/9Z1NUuWt9R3qBfdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fm6bUsho; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xe4wnLPM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4978D1F000FF;
-	Wed, 16 Sep 2026 01:46:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789523194;
-	bh=yUYa/GvKq0t1HPLtH/seZWJgrC2GfmJGoFRdt2lTvSU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=xe4wnLPMzAF02PpoBtQdWpAESwFpnQgwqHUHHMwArKEQ3kVC7isdYXV2pWRF8ZeQW
-	 D8+bH/HFkmCtEHk2qeU9BcJuDhoUKKswmdshZhvxE/RT/Qinu2ONkvRa+8SO0iCfKZ
-	 LhOCPmhz4FG8PZFU9nRsJ6OBYvPcr+vFVAaHf4H4=
-Date: Tue, 15 Sep 2026 18:46:33 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- liam@infradead.org, ljs@kernel.org, david@kernel.org, vbabka@kernel.org,
- jannh@google.com, sashiko-bot <sashiko-bot@kernel.org>,
- stable@vger.kernel.org
-Subject: Re: [RESEND PATCH] mm/madvise: use folio_trylock() in the
- cold/pageout PMD split
-Message-Id: <20260915184633.e2d8cf719e5eed186d087a8a@linux-foundation.org>
-In-Reply-To: <20260912110540.3203010-1-gourry@gourry.net>
-References: <20260912110540.3203010-1-gourry@gourry.net>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fm6bUsho"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBC201F0089C;
+	Wed, 16 Sep 2026 01:52:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789523550;
+	bh=fdpxojSG9PXT5nNfmMBkzubbExYWeuFAuC4sHIuvP78=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Fm6bUsholE4nlWaaY8NN6XzXjlX7OkAxeYT7Rsx0s3nkdn6P+T/l6R8rZX5P7Ea2q
+	 uWmNTg5QfQkNxFoRs3NNyNAGkMwUMmSo9pW7nrkk843Y6kAw8itCJc4WuTu2b8g9DR
+	 uyrva6YKiTdXlilQEO1/OpnCCsgZHd/a/64PMz1HWOMxGm7tnOgpJd13CcF+s60ZCo
+	 jLmyfpkllgLblSVqR2nbqwNS7JXrhyCPF/3QT497FBg/QkACmIrw8k4j1fHwUSsjtN
+	 OVm9h1UfinzuO3KzxlT5pkUIfu5Nu16IxQ7isdAGhF4AmwFcvVYnV5izFX5xaJuEbq
+	 /yV0JhLBeTxpg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Patrick McHardy <kaber@trash.net>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Eric Dumazet <edumazet@google.com>,
+	Tangxin Xie <xietangxin@h-partners.com>,
+	Hangbin Liu <liuhangbin@kylinos.cn>,
+	Miguel Gazquez <miguel.gazquez@bootlin.com>
+Subject: Re: [PATCH 5.15.y] macvlan: inherit needed_headroom and needed_tailroom from lowerdev
+Date: Tue, 15 Sep 2026 21:52:11 -0400
+Message-ID: <daily-reply-20260915-0006-re-macvlan-needed-headroom@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260915-cve-2026-74743-5-15-v1-1-bacf32f2651c@bootlin.com>
+References: <20260915-cve-2026-74743-5-15-v1-1-bacf32f2651c@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 12 Sep 2026 07:05:40 -0400 Gregory Price <gourry@gourry.net> wrote:
+> [ Upstream commit cef51860becd9700217c81732ca1eb1ea6ed6fe1 ]
 
-> MADV_COLD or MADV_PAGEOUT over part of a PMD splits the THP in
-> madvise_cold_or_pageout_pte_range().  Two threads doing that to
-> the same THP create spurious failures.
-> 
->   CPU0                          CPU1
->   ----                          ----
->   folio_get()
->   spin_unlock(ptl)
->   folio_lock()
->                                 folio_get()
->                                 spin_unlock(ptl)
->                                 folio_lock()  <- blocks, keeps its ref
->   split_folio()
->     folio_expected_ref_count(folio) != folio_ref_count(folio) - 1
->     -EAGAIN
-> 
-> CPU1 cannot drop its reference until it gets the lock CPU0 holds, so CPU0's
-> split always fails.  folio_trylock() makes CPU1 leave without ever taking a
-> reference.  The PTE branch of this same function already does this, as do
-> madvise_free_pte_range() and madvise_free_huge_pmd().
-> 
-> Reproducer: 400 rounds of eight threads calling MADV_COLD on half of each
-> of eight THPs, re-formed with MADV_COLLAPSE between rounds.  From
-> /proc/vmstat:
-> 
->                      thp_split_page   thp_split_page_failed
->     before                     3186                     860
->     after                      3200                       0
-> 
-> The short before count is rounds where every thread failed and the
-> advice was dropped for that THP entirely.
-> 
-> On failure the walker returns 0 and nothing retries.  The PMD path becomes
-> best effort when the folio lock is held elsewhere - same as the PTE path.
+Queued for 5.15 and 5.10, thanks.
 
-Can this result in more EAGAINs being returned to userspace?
-
-> --- a/mm/madvise.c
-> +++ b/mm/madvise.c
-> @@ -419,9 +419,10 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
->  		if (next - addr != HPAGE_PMD_SIZE) {
->  			int err;
->  
-> +			if (!folio_trylock(folio))
-> +				goto huge_unlock;
->  			folio_get(folio);
->  			spin_unlock(ptl);
-> -			folio_lock(folio);
->  			err = split_folio(folio);
->  			folio_unlock(folio);
->  			folio_put(folio);
-
-Sashiko shares my reaction, "dear god, why does that function exist".
-
-	https://sashiko.dev/#/patchset/20260912110540.3203010-1-gourry@gourry.net
-
-Like the entire function, that random mix of "goto foo" with "return
-whatever" needs to die.
-
-Anyway, please check it out while you're on a roll.
+-- 
+Thanks,
+Sasha
