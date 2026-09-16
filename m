@@ -1,90 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8174C4FECDA;
-	Wed, 16 Sep 2026 15:21:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355674F4730;
+	Wed, 16 Sep 2026 15:22:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572120; cv=none; b=evYyjpfMdZFfdyAlcBtxUSrN6SaPKRgMd4VtTq4Zm0EzREAVwS9lmEpyiGZmYpeh9TlonlXlueJO+6dIj2FUc5Lf9BdTgPbX2f7il0moxniV0TQ57u4N85AUNmkWbzNNMwTkCdiu8iBatkcX9v72Wpydg4f1G3YT2qZAU5//oe8=
+	t=1789572133; cv=none; b=kQjJJTukFKQ7ABM++OU3DfSfU8PApeBBR1VyiwSefhXsVKqQcEP0Ph+lqdjduyClUrNSCXeIB1H1ffxyYPvopB0//Ie3V03ByMsDDJAlDBGVu0tchvLv5+gb40gZS5iXSNnXj9Su5vK+oxDW1PFFE8O1kZjVOZeaAPlYiaefqfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572120; c=relaxed/simple;
-	bh=jYSmK5y+SZIRTC3GyQbRTqJn7SlfXievVVdd5VGAyTI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZsYYW/HE0c9QKi0k+iewjJlMDgaEyDqrBlncPIu6AT+sQftEm33047fs6Yi2EAeHXmi7bmUKt0zn6rbSFLxNfoTMMoog3mwXfMypVv/vzLOpZ3+WAyVz0wH8fLACEc4oDQEFPywB8c5JDj50U5vRGoJfAfB2PKKp5q4bT37egPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YruKXo64; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789572133; c=relaxed/simple;
+	bh=AZSQtEBN7kQJsgzRDGgC/AX5q1GuadKhXLqhMjB5AHU=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=WEiVOBFrJBkDx9XDdmfpK35HKgbOQ7j7InUnsoy3GGTczf5NTgv5EwMSNQiiy/wh1aOOe0nnF6/NH8FqZFWLZdriOxGufqGC/plA9qfD1eonc/KSiNjY8f6QMZ1ZjCSOgN5Z/r2vQX9JovsIyUh7fqns+15HguNl3CYzg/zNML8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ghwDoUYQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YruKXo64"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905981F000FF;
-	Wed, 16 Sep 2026 15:21:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ghwDoUYQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3D191F00893;
+	Wed, 16 Sep 2026 15:22:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789572115;
-	bh=jYSmK5y+SZIRTC3GyQbRTqJn7SlfXievVVdd5VGAyTI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YruKXo64eKDZQFGDDd8CEzuHZHfosdcnkd/01HIK6gfZyUV3aIPITuaF3Bx5IQ1JW
-	 vdWSmFv0U0ltztQYw0xb5LedymRs9pTaXO/WBKCOFimTiwzisE4Cvqi2menFkbioZV
-	 Ghugtu5MJWJa3Iz0euWc0rEJtKXUpFdeVO46PBYUgLVA5tz2oA8xCZX+Ojj1si0l96
-	 xmoJEp/7DMlISrSJGF5+fMyGxd3FfWCSCzXFEI3zqAM8AbquN5MS5SRqXA6Jw9cxmB
-	 sulhd9yPZfubs9yJQ3LXvn8uo7eskwHnaRXptcxZ440t2mxx5GnramlMLhMoCJ0Gd4
-	 U45HzK/LmW+aQ==
-Date: Wed, 16 Sep 2026 16:21:49 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
-	liam@infradead.org, vbabka@kernel.org, jannh@google.com, wangjiexun@tinylab.org, 
-	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
-Message-ID: <aqqzpldNskE2RRo-@gremlin>
-References: <aqloB0zm3RjJ47m1@gremlin>
- <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
- <aqqTbGMJL86TzDrf@gremlin>
- <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
- <aqqjW5dpyznijYLh@gremlin>
- <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
- <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
- <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
- <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
- <aqqyhkZqcXDUrzeb@gourry-fedora-PF4VCD3F>
+	s=k20260515; t=1789572127;
+	bh=8tD6Xr9J2ucQ5/OOmstOBkaQazxoKsfY0YaWI5fIV5g=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=ghwDoUYQfT6LqJhAL5A6kG9TMoaCptirC39o32HGg7XG01YipLD+Lk2WqNjipGxu2
+	 UKAFVY7SM+TOQWwPrJgXEvQOvqs6JKOWjehSZwPJAzTDkMB++EOtdb0iGGllqiGulf
+	 gseRWbN+//EfJXylS6lTsAwveesUkZnK6LcsR4mwkQT8ASC5ZXJ3MXAdVLIHuQZWtg
+	 Qz4sxNxJT4QPrAq2dK6cFfeIalrHwUHttgOwxiVv0TAmiP7dafVn7XziOAezZ1mHAW
+	 Z2mvSIUHiLaR78mhPW2rym4XtHu+ntuK+mzekWfWRhwmLqgJT9Zg9ntdgDO5I5Zyez
+	 1V7i3im/MJ1Gw==
+Date: Wed, 16 Sep 2026 10:22:06 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqqyhkZqcXDUrzeb@gourry-fedora-PF4VCD3F>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Eric Dumazet <edumazet@google.com>, linux-kernel@vger.kernel.org, 
+ linux-sunxi@lists.linux.dev, Chen-Yu Tsai <wens@kernel.org>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Paolo Abeni <pabeni@redhat.com>, Samuel Holland <samuel@sholland.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ netdev@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ "David S . Miller" <davem@davemloft.net>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>
+To: Alastair D'Silva <alastair@d-silva.org>
+In-Reply-To: <20260916044119.475666-4-alastair@d-silva.org>
+References: <20260916044119.475666-1-alastair@d-silva.org>
+ <20260916044119.475666-4-alastair@d-silva.org>
+Message-Id: <178957206885.228671.2262343816324087676.robh@kernel.org>
+Subject: Re: [PATCH net-next 3/4] dt-bindings: net:
+ allwinner,sun8i-a83t-emac: Add Allwinner H616 EMAC1 and syscon index
 
-On Wed, Sep 16, 2026 at 11:19:35AM -0400, Gregory Price wrote:
-> On Wed, Sep 16, 2026 at 04:59:32PM +0200, David Hildenbrand (Arm) wrote:
-> > >>
-> > >> I told Brendan exactly that (try stubbing it) and he tried ... and had to give
-> > >> up at some point because it just wasn't feasible. ;)
-> > >>
-> > >
-> > > LLM go brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
-> >
-> > No schlop like that please, I don't want to hate my life
 
-Somebody doesn't realise it's all too late for that :P
+On Wed, 16 Sep 2026 14:41:18 +1000, Alastair D'Silva wrote:
+> Document the Allwinner H616 EMAC1 and internal EMAC compatible strings
+> ("allwinner,sun50i-h616-emac1" and "allwinner,sun50i-h616-internal-emac").
+> Update the syscon property schema to support an optional register index
+> offset argument, allowing boards to reference the secondary EMAC clock
+> register on H616/H618 SoCs.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+> ---
+> 
+> Notes:
+>     Tested against Allwinner H616/H618 device trees in Armbian, verifying
+>     schema validation with dt_binding_check.
+> 
+>  .../bindings/net/allwinner,sun8i-a83t-emac.yaml    | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
+> 
 
-Picture Pennywise the clown in a storm drain etc.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-> >
->
-> You missed this part:
->
-> "I'm trying to be careful about not causing a bigger maintenance burden"
+yamllint warnings/errors:
 
-Yeah that'll be the hard part :))
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml: properties:syscon:items:0: {'minItems': 1, 'maxItems': 2, 'items': [{'description': 'Phandle to the device containing the EMAC or GMAC clock register'}, {'description': 'Register index offset (0 for EMAC0, 1 for EMAC1)'}]} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml
 
->
-> I wouldn't do that to you :]
+doc reference errors (make refcheckdocs):
 
-Hmmm... wouldn't you? You want to don't you? ;)
+See https://patchwork.kernel.org/project/devicetree/patch/20260916044119.475666-4-alastair@d-silva.org
 
->
-> ~Gregory
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
---
-Cheers, Lorenzo
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
