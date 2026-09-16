@@ -1,96 +1,79 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FD13DCD86;
-	Wed, 16 Sep 2026 17:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718E53E0230;
+	Wed, 16 Sep 2026 17:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789581512; cv=none; b=BZQnxZ3WbtJ6JFT+gb22kQwzcWXpPSOXwLpozxgONgT6MFYqOhg1tuXI6Wl7kC9hgLoodpuhh2tdzQl/UKoRU0kkTCqHh4qR1dXDtlyc4nVzrQzIs4u5qt5PyiqPUY967Iv5Xtlxu2dR8d6hCfYnmzQRnQcFRLkhzdZzwSiQpPM=
+	t=1789581520; cv=none; b=GymrCQCT8dpRWHEzsCZeRBS2MzK2tFukKMHj6jGs6qHBT+u79aBIYxP0u2LCTEkK8syAWtmzIZ73xtoqQ8ik6fscoztoObDJC9XnLf6S3mMsasL8nLDKlLvRReKsl3WyMajt+1w7DA7C2dGH0fzJH/Fl3PmVO+tpONawLQ5HW54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789581512; c=relaxed/simple;
-	bh=TuVQ/Es5hLJUu2208ktlLHlo/7EaUpg4zBiZGim74Ek=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mSO5mgD1aTVJm/h4GxBdN2xKPFWwN1beczj4a9zGkLT6YGiToobu8joLAxQ0FUVnKCatxmEfrpPEuBcFOoUml48XdqtMbiCRNx6saxwuRwo3FGvobU5CCFDE1NKiCyr7NexPQGaRLqtbvqpYvDrw1eLNNHRCxp0koPKtjUn/6jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAHcz2u2KpqJwtvCA--.23607S2;
-	Thu, 17 Sep 2026 01:58:06 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: abhinav.kumar@linux.dev
-Cc: airlied@gmail.com,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	jesszhan0024@gmail.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lumag@kernel.org,
-	marijn.suijten@somainline.org,
-	robin.clark@oss.qualcomm.com,
-	sean@poorly.run,
-	simona@ffwll.ch,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/msm/dsi: Fix VM leak in dsi_tx_buf_alloc_6g()
-Date: Wed, 16 Sep 2026 17:57:38 +0000
-Message-Id: <20260916175738.2089950-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789581520; c=relaxed/simple;
+	bh=Ix5YQbxRiGApJbi55zHSXoDtwcQg5K41CTNAs1PkJAo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nHw2oPSa7I1Pm6SoBzdsAJ11TMFyZ2Ig3pP9yz371aH4A+F34XBcoooJufpKNAEw75ryRojBl1gr2UqqE9jwHi5IbxN4TdpyIF31Gw7gdriwMyju8fR1GfRGeDq+nMploB2Q9VAPqqcPh67Y3xFx5jRAfQnsSqSQTr8xN4Hd8+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DDNo5PZ7; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DDNo5PZ7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2799D1F000FF;
+	Wed, 16 Sep 2026 17:58:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789581512;
+	bh=xZFgqAZSadlN2hEBLqqOKQlqQ0FRm9esvChILrdV8vs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DDNo5PZ7usNlDlyfBFY4+MKtjCrbQA88DgN3varIN6t+Rl3d8DikVbmSMF7gMqJoY
+	 EnwYRc1dPX83+ljyoSpzv8YYj4SmeLdZV6i4EkOOn/hihmjQxTaE9ul0+1v34Yva59
+	 C2mnlUQExzn1/53Hju0hJ+O2+s36rVSebiPwwsWnaq8TYP34I8oqzEdnBlXJK6K6qp
+	 8Mj2NX8OYPfAvjSf5DPSSRwLfaEb9zMpjjeXljzPE9uawKiPil+MnUlQeiRGCEIl2i
+	 sI00YZfn9/ev0BJeF3WG5LiiV3I3RDKGWLTmwz4D3nTQhirKwg0b6erD6MNYVU3/pf
+	 GLxOMlFpNhqEA==
+From: William Breathitt Gray <wbg@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org
+Cc: William Breathitt Gray <wbg@kernel.org>
+Subject: Re: [PATCH 0/2] counter: Update MAINTAINERS for orphaned Counter drivers
+Date: Wed, 16 Sep 2026 13:58:20 -0400
+Message-ID: <20260916175821.1824084-1-wbg@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260830-orphan-counter-drivers-v1-0-3b10ab8b3876@kernel.org>
+References: <20260830-orphan-counter-drivers-v1-0-3b10ab8b3876@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1159; i=wbg@kernel.org; h=from:subject; bh=Ix5YQbxRiGApJbi55zHSXoDtwcQg5K41CTNAs1PkJAo=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFmrbmyUVd67OZVzZWHeYqWbqY4dV989fSlYKlSQln81t UNy46OajlIWBjEuBlkxRZZe87N3H1xS1fjxYv42mDmsTCBDGLg4BWAil1gZ/nCfvpvVM6Nn/uGZ 0zIkcxZ2b/W8nrL8g6DnBaVX5/Uul65n+CtYaL7kdsHPFfbuO9Tnt+lbd/QrcbNa7Qv703Jpgtp uXS4A
+X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAHcz2u2KpqJwtvCA--.23607S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZry7Wr4UuFyruFWDGFWrAFb_yoWkZFbEga
-	sYqwn7JF47KFnrKF1jyw12vrWqkFya9r40vr1rt3W3JFyqyr15W34SvFs5Z3ZF9r4rJF9F
-	yw17Xr1rXrsFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
-	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
-	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
-	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJV
-	W0obIYCTnIWIevJa73UjIFyTuYvjfUFhL0UUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcMA2qqpVhvogAAs-
 
-dsi_tx_buf_alloc_6g() takes a reference to the kms VM with
-drm_gpuvm_get() and stores it in msm_host->vm.  If
-msm_gem_kernel_new() fails, the function returns early without
-dropping that reference.  Since msm_host->tx_gem_obj is cleared on
-the error path, msm_dsi_tx_buf_free() will never see a non-NULL
-tx_gem_obj and thus never calls drm_gpuvm_put(), leaking the VM
-reference.
+On Sun, Aug 30, 2026 at 05:41:12PM -0400, William Breathitt Gray wrote:
+> The ftm-quaddec and microchip-tcb-capture drivers have been orphaned by
+> their maintainers. This patch series updates the MAINTAINERS entries for
+> these drivers to reflect their orphaned status.
+> 
+> Patrick Havelange, the listed maintainer of ftm-quaddec, has indicated a
+> desire to step down from the role of maintainer. Kamel Bouhara, the
+> listed maintainer of microchip-tcb-capture, has been unresponsive to
+> several pings for some time now, so I consider the driver's
+> maintainership currently abandoned.
+> 
+> Signed-off-by: William Breathitt Gray <wbg@kernel.org>
+> ---
+> William Breathitt Gray (2):
+>       MAINTAINERS: Mark microchip-tcb-capture driver as orphaned
+>       MAINTAINERS: Mark ftm-quaddec driver as orphaned
+> 
+>  MAINTAINERS | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> ---
+> base-commit: 353b2e09f44a91e64c6b8117df46b6999c52e465
+> change-id: 20260830-orphan-counter-drivers-81f28ceae1b5
+> 
+> Best regards,
+> --
+> William Breathitt Gray <wbg@kernel.org>
+> 
 
-Drop the VM reference and clear msm_host->vm on the error path.
+Merged to counter-next.
 
-Fixes: 5e05be782645 ("drm/msm/dsi: free TX buffer in unbind")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 982abaaac00d..29e0de0e0c22 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1250,6 +1250,8 @@ int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size)
- 
- 	if (IS_ERR(data)) {
- 		msm_host->tx_gem_obj = NULL;
-+		drm_gpuvm_put(msm_host->vm);
-+		msm_host->vm = NULL;
- 		return PTR_ERR(data);
- 	}
- 
--- 
-2.34.1
-
+William Breathitt Gray
