@@ -1,101 +1,146 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B151F3859DC;
-	Wed, 16 Sep 2026 16:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3AF6495AC9;
+	Wed, 16 Sep 2026 16:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576770; cv=none; b=MHzMlBVHZc5Z4pbUl6pdEmGp5+xPhLBQB63wrfX4/rVThCLtTalQ2s5uFvy2eHHz0aSSTODpXm9ndXKrTIDiFOZMVoVe3MWUrf8/lSp6OH26DzIs5cl96pU7fGqU67WmvI0X1upzh8Mck4PeiSxBbWGGlK3uxjU9gqsBofWsOtw=
+	t=1789576778; cv=none; b=EpAYe69udRDaQJsHZT3k8WbHRjDlKYP1gxbMomdy+gw7kn8TIfseU9YlXOUdXTwoDqEB7CWqAfSBpA4KxcgXxMpOp3xCc7iF8BBw7Nwji2hldmp/K+NG88G1FL/UTZXnrpSxwded7mHyv7RxGDO2VgT3pziwuHn23AarbubM78I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576770; c=relaxed/simple;
-	bh=B61Ra12zeoK9XG2kSJuOAnLgLOmAa0B5tmcXfFgbSko=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hMs7/7aDWq4+IgWZ3+wLVC1koSL43W8CSD2T8oSuLe9vqY89tDhpdHZ0oWg9c8/nSJPfFVVZe85XjWSGAjye+WwLZwlKT/BFjWjUY0uY2Nu8QEhG/n3+GMO8wpfcdDN17OTl+843bbbpUa+f/t4aLDVW9VBkSF+Du3YvEiColvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3pD44xqpq0M5tCA--.21474S2;
-	Thu, 17 Sep 2026 00:39:20 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andy@kernel.org
-Cc: dlechner@baylibre.com,
-	jic23@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com,
-	rajat.khandelwal@linux.intel.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: pressure: mpl115: Fix runtime PM leak in mpl115_read_raw()
-Date: Wed, 16 Sep 2026 16:38:52 +0000
-Message-Id: <20260916163852.2084375-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789576778; c=relaxed/simple;
+	bh=tpRIZijp9OVz8xJ1EeL+tPf3ChFeQoiLXmvmWlNF4Eg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MSPLCtSv8IKnyiEK0GAHstZHDoi+jxlTcdnA80lT6iKOuFkMBPA9YT0zbeTbe9JeHI0UOGk6XXl0sKYti1x19q4yqyydX0B7APonmUvCzXparrU9Ya8IJWUm61aJhR1y0Jw0RhhXAte98lhNbW7SsaHV+2vshLmzn6VQ1KSqFo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VTTpRpO/; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VTTpRpO/"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B9A41516;
+	Wed, 16 Sep 2026 09:39:26 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8E2973F7B4;
+	Wed, 16 Sep 2026 09:39:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789576770; bh=tpRIZijp9OVz8xJ1EeL+tPf3ChFeQoiLXmvmWlNF4Eg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VTTpRpO/bXvOGdJEE2whk8i4bgjlyM4Oe4CK8N8HAJRuPmsS+tN8MXN42RXbgm3Sc
+	 f6K3/OxKnrKjaSuMPpqKf/X+YxnbfWi+9aQ4r9mef1QEHKjGlliCtpz9+wMnNi2U8l
+	 fztfrqPEyKMI4cNjC0OP4zktopb5mSoOGIwd3hPw=
+Date: Wed, 16 Sep 2026 17:39:24 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+	will@kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
+Message-ID: <aqrGPK0lFBFXL2qY@arm.com>
+References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3pD44xqpq0M5tCA--.21474S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar43Wr43Ww4kGryUKF47twb_yoW8Xry7pr
-	W7ZFWYyry8Jr4xJw40yF1DuFy5WayfKrW7JrZ7Wa18Zw45Z3W5tFyUJr1rtF10kF95Zrs8
-	X34DtF45CF1SyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	o5l5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgMA2qqpVhOQQAAsy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913070459.2547407-1-suzuki.poulose@arm.com>
 
-pm_runtime_get_sync() increments the usage counter even on failure,
-so every successful call must be paired with a put. Both sensor read
-failures returned early and skipped the paired
-pm_runtime_put_autosuspend(), permanently preventing runtime suspend.
+On Sun, Sep 13, 2026 at 08:04:58AM +0100, Suzuki K Poulose wrote:
+> From: Steven Price <steven.price@arm.com>
+> 
+> If the host attempts to access granules that have been delegated for use
+> in a realm these accesses will be caught and will trigger a Granule
+> Protection Fault (GPF).
+> 
+> A fault during a page walk signals a bug in the kernel and is handled by
+> oopsing the kernel. A non-page walk fault could be caused by user space
+> having access to a page which has been delegated to the kernel and will
+> trigger a SIGBUS to allow debugging why user space is trying to access a
+> delegated page.
+> 
+> There is work in progress to unmap the guest_memfd backed private pages from the
+> linear map. Until we get that support, we could get spurious GPFs from within
+> the kernel, e.g., load_unaligned_zeropad(). So, try to fix them up for now.
+> 
+> Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> Reviewed-by: Gavin Shan <gshan@redhat.com>
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+> Changes since v17:
+>  * Pass untagged address to die_kernel_fault() - Sashiko
+>  * Explicitly check !user_mode() for fixups - Catalin
+>  * Switch to BUS_OBJERR for si_code from SI_KERNEL - Catalin
+>  * Clarify the commit description about the upcoming work on
+>    unmapping guest_memfd backed pages from linear map
+> Changes since v16:
+>  * Update the commit description to indicate why we try to fixup GPFs
+> Changes since v10:
+>  * Don't call arm64_notify_die() in do_gpf() but simply return 1.
+> Changes since v2:
+>  * Include missing "Granule Protection Fault at level -1"
+> ---
+>  arch/arm64/mm/fault.c | 30 ++++++++++++++++++++++++------
+>  1 file changed, 24 insertions(+), 6 deletions(-)
+> 
+> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+> index 75c3e463df2ef..dc3a87902a60c 100644
+> --- a/arch/arm64/mm/fault.c
+> +++ b/arch/arm64/mm/fault.c
+> @@ -914,6 +914,24 @@ static int do_tag_check_fault(unsigned long far, unsigned long esr,
+>  	return 0;
+>  }
+>  
+> +static int do_gpf_ptw(unsigned long far, unsigned long esr, struct pt_regs *regs)
+> +{
+> +	const struct fault_info *inf = esr_to_fault_info(esr);
+> +	unsigned long addr = untagged_addr(far);
+> +
+> +	die_kernel_fault(inf->name, addr, esr, regs);
+> +	return 0;
+> +}
+> +
+> +static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
+> +{
+> +	if (!user_mode(regs) && !is_el1_instruction_abort(esr) &&
+> +	    fixup_exception(regs, esr))
+> +		return 0;
+> +
+> +	return 1;
+> +}
 
-Fixes: 0c3a333524a3 ("iio: pressure: mpl115: Implementing low power mode by shutdown gpio")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/iio/pressure/mpl115.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+We discussed briefly offline. With the latest patches around, would we
+ever end up with private memory mapped in the VMM and hence the GPF? If
+not, I would still keep this handling but add a
+WARN_ON_ONCE(user_mode(regs)).
 
-diff --git a/drivers/iio/pressure/mpl115.c b/drivers/iio/pressure/mpl115.c
-index 830a5065c008..3266b79bdab8 100644
---- a/drivers/iio/pressure/mpl115.c
-+++ b/drivers/iio/pressure/mpl115.c
-@@ -106,8 +106,10 @@ static int mpl115_read_raw(struct iio_dev *indio_dev,
- 	case IIO_CHAN_INFO_PROCESSED:
- 		pm_runtime_get_sync(data->dev);
- 		ret = mpl115_comp_pressure(data, val, val2);
--		if (ret < 0)
-+		if (ret < 0) {
-+			pm_runtime_put_autosuspend(data->dev);
- 			return ret;
-+		}
- 		pm_runtime_put_autosuspend(data->dev);
- 
- 		return IIO_VAL_INT_PLUS_MICRO;
-@@ -115,8 +117,10 @@ static int mpl115_read_raw(struct iio_dev *indio_dev,
- 		pm_runtime_get_sync(data->dev);
- 		/* temperature -5.35 C / LSB, 472 LSB is 25 C */
- 		ret = mpl115_read_temp(data);
--		if (ret < 0)
-+		if (ret < 0) {
-+			pm_runtime_put_autosuspend(data->dev);
- 			return ret;
-+		}
- 		pm_runtime_put_autosuspend(data->dev);
- 		*val = ret >> 6;
- 
+However, can we end up delegating a non-guest_memfd memslot page as
+protected?
+
+I played a bit with codex and it reckons it's possible if a guest_memfd
+memslot is deleted after its IPA range has been initialised with
+RIPAS=RAM. Removing the memslot unmaps and undelegates any data pages
+but leaves the RMM state as RAM. The VMM can then install an ordinary
+memslot over the same GPA range.
+
+A subsequent private-IPA S2 fault sees the non-guest_memfd slot, takes
+user_mem_abort(), GUPs the user page and passes it to
+realm_map_protected(). The userspace mapping remains present, so a later
+EL0 access can generate a GPF.
+
+What's worse, I think it can even trick the kernel into doing a memcpy()
+access (via GUP). Hmm, does such ordinary slot page even remain pinned?
+There are other kernel parts that could access it.
+
+I don't think it changes this patch but if the above is possible, we
+should definitely get it tightened on the other series (and here we can
+add the warning).
+
 -- 
-2.34.1
-
+Catalin
