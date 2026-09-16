@@ -1,141 +1,81 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026BE4B66F1
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E117B45FFC7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:12:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789564206; cv=none; b=kmXF1x2WNwTHzteLo0IMo+BeV0aLlpHebs6kIWYw/cH5M8vo1ofCIM5zyOl9Ctay3t9T1Y8LTjaspBnVTpjDwskmv93OWUfM7UXt8RDZmrW9w6zZYD5PNtm9ALTk3Er5jMVMRq0ggw/odDPwNcV/sN0H1OxRZSOUtOhRsVqSmlc=
+	t=1789564323; cv=none; b=tUkjNC9IElG4EsU9v7y2iTY7tJ4m6Dvt5HHyUwwgYbqdES4BHIi2g0yO2TK/LWt527a792b+QsQiIAm8SToexV+xyIDLrd1NnkXGMJvtZAP8UsnXXq/hV7tU68F9bXb434EGvV4cWFJB6dVYGxJ0rqYBoCzfkRpvugU0nczNxlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789564206; c=relaxed/simple;
-	bh=15vrT0yjzU+bYft7+I8HpmMdcGQzELx67Cb5lafi5jE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=GPXr69TEzF5uYPeFOgjj78xhSNL1s1SPOK9fChC8C0JmqfSRFrAUTFIQjwANjdcIEmitcBboNsnwrFT7eSTC9aJ5zlwwvXPY12F8xW2aDQS78vrgJJ2fiPbzxxiOp+Lu1P0nRc1ZHq1ILC3S8MA5dSb+1KwDR44Tr8GeBHc6pZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lJGGB/4n; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789564323; c=relaxed/simple;
+	bh=Om485/uIroZxFOSvRDZQjmpHEDREHE9m1HOLoQvEoWc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ht+TphnaX6uBOUids0A2rcKk5NUcx4YqoZxMo0uyoH8L3MIXmuQmPD8ajYn3j21wA93qQbW0xWu151Tt2r/dBnpDV+B4Kw9WGyRB4xW98iXPZa7TWYMRTORsAZ35gukbZezthRwmuqadtl2brT1qUfdmIGppjBD+9NB4v5rj8/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LQ8iMu/R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lJGGB/4n"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc42c773d05so70267a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:10:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789564204; x=1790169004; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=C9r8dgLbj0GWUBjEyVgxWkn6zK87vuTMltoq6jGhYqA=;
-        b=lJGGB/4neg/fnWE/EFaXicMNrjhgwFeDXAW6QrlOEUWmVjHBV0cZ+3StJf04Rlxx/x
-         b+Ij+WDjI/rkhTLcUxQYLoKRJo3xRzUeUjOuX3FYM82incp8AsjncCMc1TAtODuZQmy2
-         MJJV/d6QKQlcWYk7lchRG1eE6sfvoMfBzkgDx9zoG9hTmBU2rYRfkSo7v6pL9c87fU6A
-         98hksHXjtqiHeR1hLPI2VFBXdHI/qTdqITNSftVLu5b3gwPTvyPQaqT6bvBQsE66yHaY
-         1IUKrcB9E2ffgwX72o0crnj2QdA0WAbwnysGfbg9Hm+6R71zRBFlT9n2TtQsrh9DyZ9E
-         qvIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789564204; x=1790169004;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=C9r8dgLbj0GWUBjEyVgxWkn6zK87vuTMltoq6jGhYqA=;
-        b=fKCtKS8dyNEUqr9/JCUza4W71jb+cOhIsc9kwZ7x8/bJsVNBSHeSdrkEVqeFAWV9gh
-         Pw6zmX1ZkmZ7mDF2WUHL4eXZOkHSs5wj/sz+ttHSY6jTgbmjnBpTiJU+oNUNzpHalW/S
-         deokWE+dUMfIfdel4RHNkXw8kK0ruyMvWTobs2nsQ3BT9LElAJ23mGge1FcCej9kXswt
-         XM4WXS3ESHlIa6+nJxuswzGRHOMbYiL37ydNEJgbUYTQuIyKGlJYmeafgxx1RUPbm1NU
-         ZFWPbSY1q8qDZMm2UDiK/yeVabIdA2SCvPxfScEMUiZRCwDmIOIbYQhmG1v4Q9lpa2yW
-         D9AQ==
-X-Gm-Message-State: AFuF++lx5CMJ0w/0M+sQMaBGPgHatAgXYhxTUXHutUOj20TBg+7qmzDW
-	H6KfMzsEgWkzMmnHM5hSdvVlZV34n/4IyOOIPJp92UVhI5BU4qCoPnuX
-X-Gm-Gg: AYBFou35JTGBp4zYs1W5foTzeE9PuOtzMRo9XCCnyLGl6OW7f6pp9XT8vOC8M7Jz7M7
-	+n+KwD3pj1N5RRMpO+yI1XzBQ9nxhFGvFs/AwrD1vd9B4PwU15WUy3sP34XH1XnL37K4E+Eoy6I
-	faXOkh7V+HpJA9heUxMcuJUuUB9tvyAVm8NanUB3hHdLCLU5WLLBMrB/2KhUWz56L/XBNtZKA5A
-	xxCQSpkH5vranf1HB52m0N/FDdimX1VJGwcB9drWDNi+xADmRCr1mKMASNEiZVH5YMvYAnxE1g6
-	ryTIQ4sZCAyUsNVtAp9JljDlXqmnXmrrp7/uZemkHrau07VBA2kMsk0peYhops9abPK++/Cr/LH
-	PHvw6nQUxJ98tCV4WHyYHxNDMYnvPVJsyYxVk8+VJu/PEnoFJ67uJ+oJrA9leHhlwwDFTl1BGJe
-	fgoe72GMuln2RskvLOyrulmPBWpWS130rN34HyWgiic1joHYKsGOPp2RWvulCOXmZKZFu/SC15d
-	FB5Vzg5BYA=
-X-Received: by 2002:a17:90b:2250:b0:39d:e1f2:3400 with SMTP id 98e67ed59e1d1-39e1e5285d8mr3893628a91.5.1789564204084;
-        Wed, 16 Sep 2026 06:10:04 -0700 (PDT)
-Received: from [10.107.92.252] ([2409:40c2:5413:87f7:9fa7:eb18:a8e7:30a7])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5ac47cfsm7186272eec.17.2026.09.16.06.09.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:10:03 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Subject: [PATCH v2 0/4] dt-bindings: regulator: Tegra coupling DT
- conversions and cleanup
-Date: Wed, 16 Sep 2026 18:39:30 +0530
-Message-Id: <20260916-ti-tps6586x-v2-0-31b98eeff7f9@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LQ8iMu/R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F6CC1F008A1
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:12:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789564321;
+	bh=Om485/uIroZxFOSvRDZQjmpHEDREHE9m1HOLoQvEoWc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LQ8iMu/RX0pyx7FgeW6At+ER0FSTEcr1DWL/ZeR2QtsdyOTVVJFstysbjki2HA0uK
+	 4QI7WjC7yCfB+7Mg4vMELQATUDvX+UbWM1yNOATCXHIuTDIyBr5qW4e2bdygaJRj/F
+	 3V/bJ+C8+5ttmbLeY3zZAPn8SgXUhyP8YFn94JBWqYU5eRYJ9En8mCf8ZdZQZPBVxp
+	 fPY+hD7aTwEeyK61WHi5j0tJVoJ8e4TlziCSMIAb2hti+6PuMBXCtZLsKtJqeXr7rP
+	 zZ8w9GYpARvTBwPNiTUr50rN/+oelsuXgjlV2qoxUa/AYmOPDkKpqB8hVb+Cv4fLCh
+	 6Ou4DDdvyuYSQ==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a47f740839so7531261fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:12:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzOVZTuWc8OXJyqQzd54lZhFNySH434OtIp/kzctsw2Cen13cH+lBG4nOGCUnf5TWM9BbhK4a4bOnwEcfo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwOBRZe6aa3NZVDqoHrd2E+5sj1iUsYZO0+p4SM7ImIqtt9O4L
+	gAZm79dp3bqJvTv3/+HxnV2RvcTbdhJrctMYTwq/Y1JZDWERvm8j8Q055UpJ/1cqaWh3kwY6MBV
+	qGnF7ooL0+l0zutbs+1JJtfWv0cZmdgo=
+X-Received: by 2002:a05:6512:3d0f:b0:5b8:112b:c4a2 with SMTP id
+ 2adb3069b0e04-5b8b66215d1mr875682e87.27.1789564320212; Wed, 16 Sep 2026
+ 06:12:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNQQ6CMBBFr0JmbQ0zQAFX3sOwoHWEMQqkrQRDu
- LuAceHyJe+/P4NnJ+zhFM3geBQvfbcCHSKwbd01rOS6MlBMOi4IVRAVBq+zQk/KZCnniFhibmF
- dDI5vMu21S/Vl/zJ3tmFLbEYrPvTuvd+NuHm/Mv2VR1SoysSaVJuEDOXn5lnL42j7J1TLsnwAk
- 5/tUrgAAAA=
-X-Change-ID: 20260821-ti-tps6586x-b54e7111917c
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@avionic-design.de>, 
- Lee Jones <lee@kernel.org>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com, mfd@lists.linux.dev, 
- Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789564183; l=1796;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=15vrT0yjzU+bYft7+I8HpmMdcGQzELx67Cb5lafi5jE=;
- b=h4Sn/Q8+2ydvx+1ai82bKpETRX2wqt/JMINlNqyzcv8hIJDj4s6LN8xR6iCcdiEifDU+WPAA8
- q+kQJQbpTG8A+Tl4xABPdsdK4NYgXn+qtCJTephF3KBFkOC8QMLm06Y
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+References: <20260830065118.51551-1-changhuang.liang@starfivetech.com>
+ <20260830065118.51551-3-changhuang.liang@starfivetech.com>
+ <417251d0-c2cc-4e10-940d-b75ab20acdec@kernel.org> <ZQ4PR01MB12022D97EFD74D5A80DBBE34F2A92@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <5f99fc90-02e0-40ab-8d1f-c2e7bcce7a5e@kernel.org> <ZQ4PR01MB1202FB18CF51DB252C393D0FF2A92@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260831-dramatic-phrasing-beb1b360cd58@spud> <ZQ4PR01MB12029CCB91CB5673761C6F95F2A82@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260903-precise-diamond-loris-ae2da7@quoll>
+In-Reply-To: <20260903-precise-diamond-loris-ae2da7@quoll>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 15:11:47 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=U6=YcS325TQEJCM6FJNaam=DQwXfv_TZcGusqBte_cg@mail.gmail.com>
+X-Gm-Features: AcwNN1X2sinbREAw1ZUZaH6Hmq-5_GA26kEHgweDZZwtWILrrpEVQXydseTiU3o
+Message-ID: <CAD++jL=U6=YcS325TQEJCM6FJNaam=DQwXfv_TZcGusqBte_cg@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] soc: starfive: Add JHB100 UART Routing driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>, Conor Dooley <conor@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This series adds a shared DT schema for Tegra regulator coupling, 
-updates relevant PMICs to use it, and converts the TI TPS6586x 
-bindings to DT schema.
+On Thu, Sep 3, 2026 at 11:32=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
 
-Summary:
-- Patch 1: Fixes existing TPS65910 validation warnings.
-- Patch 2: Converts Tegra regulator coupling to DT schema.
-- Patch 3: Updates Tegra-related PMICs to reference the new schema.
-- Patch 4: Converts TI TPS6586x to DT schema.
+> Anyway, as you pointed out there is already one code like this - Aspeed
+> - thus this is a second one and that makes it reasonable to make a
+> proper common user-space API.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v2:
-- Add patch 1 to resolve warnings from TPS65910.
-- Add patch 2 to convert nvidia,tegra-regulators-coupling to DT schema.
-- Add patch 3 to $ref to shared schema.
-- Patch 4: remove individual properties and add $ref to shared schema.
-- Link to v1: https://lore.kernel.org/r/20260822-ti-tps6586x-v1-1-93cb46b32b27@gmail.com
+Brrr my stance as pin control mainainer is that this was merged
+behind my back and shouldn't have been done like that, and two
+wrongs does not XOR and make one right.
 
----
-Bhargav Joshi (4):
-      dt-bindings: mfd: ti,tps65910: Add wakeup-source and GPIO hogs
-      regulator: dt-bindings: nvidia,tegra-regulators-coupling: Convert to DT schema
-      regulator: dt-bindings: Reference Tegra regulator coupling schema
-      regulator: dt-bindings: ti,tps6586x: Convert to DT schema
+I think what we want here is a way to flag some specific pinctrl
+states as userspace accessible and develop an ABI for that.
 
- .../devicetree/bindings/mfd/ti,tps65910.yaml       |  20 ++-
- .../regulator/maxim,max77620-regulator.yaml        |   5 +-
- .../regulator/nvidia,tegra-regulators-coupling.txt |  65 -------
- .../nvidia,tegra-regulators-coupling.yaml          |  76 ++++++++
- .../devicetree/bindings/regulator/ti,tps62360.yaml |   1 +
- .../devicetree/bindings/regulator/ti,tps6586x.yaml | 196 +++++++++++++++++++++
- .../devicetree/bindings/regulator/tps6586x.txt     | 135 --------------
- 7 files changed, 294 insertions(+), 204 deletions(-)
----
-base-commit: 9f0346dcbea363787186c94ef94dd01aaa215afa
-change-id: 20260821-ti-tps6586x-b54e7111917c
-
-Best regards,
--- 
-Bhargav
-
+Yours,
+Linus Walleij
