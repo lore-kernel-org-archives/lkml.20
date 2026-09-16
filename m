@@ -1,241 +1,244 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F45501F4C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2505E4FC8FA;
+	Wed, 16 Sep 2026 23:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789602638; cv=none; b=C3ddngn1GRVySX0TPxDCfb8Y58bMPNQS3lYWsero6Dp0AVZ4Tdd3Jimo6TFRD3sphb6WiHKOEbrORtB6hWkAT2UqgyxdTJlZay+GVNvYKKQBtnkddkBMgYLOVAKD0c0HWoJwPBsApSGLZ+o4UO7wanlavmeV7XUO+v3bzv7iRg8=
+	t=1789602646; cv=none; b=kAvflkKMgxx+1PL9sPlF2NqPbbChA/H3gYWt3BYggQIn+2LCTnFSV5DcSFV9KkWwe7R5kg96pfQ5PkPkT2pcjOWzcGz1PbArQC4AWe34wtnRftjdjMZL9Hg6yOESioIJ8FNiGiER5SLZ46RvEn8gF4U7P38twIbAft8H/0LlG3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789602638; c=relaxed/simple;
-	bh=VGpc1VGo/Rid6j2yd7798v5BZCQYyZlxZiprXTOuxOE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dRyEgae93k14ENBMEREVAvD9e2QLVSLTp9JhCQcqJlENEJ4cpJHBc3O0R5VjcC8HBDSFW89eKn9JQ/OBTSlt+iEEUIyPLVoTzEgoz5a7PmP0wNh1y4tMkDp7eOcBoGL83NebLzwYkSEPwH2NDJXlth0oDX7L23SlOopnNf5sMhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jODA/oi9; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789602646; c=relaxed/simple;
+	bh=u+p8FYdERtHvWVdvcSRK+cc0hWiqKjs0X/9In5eYdvI=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=Z+YItmOaAwMtOuPIPIww1TiuGZG5YZZ/3yidvoxHdesGu6xUrEoxIRBJ2zjNFkD5b54QyaOfA1j9jdhZ4E3XefYm1E5TXzXyvPZEY1VFiSbfrhOT5poY0oAZjdZVGkfZyklWgVklfWy0TpNxPpNXZv3a3PRLxK4x/Ug9P0RzKpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNDtz1Rd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jODA/oi9"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e4fffc0so90101e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:50:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789602635; x=1790207435; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8j5a7WFfG0NuSv/XKgDsxGhXHDIsTdHKd7Yxxjneaq0=;
-        b=jODA/oi9lzvmBRJjutgkgASJHmP2FMxGPbhQmA7aYeurqKVI6v8imThy/PDO98g+wW
-         I8/ChEhMjKjB4X1DyNSx6eO9lh6Gn2gRVowpxvPtchyGqvpaPhXPzCQc8asybXw0CWBa
-         uyyswcqO4YaTgkZZwfHieOlf2wvdgMMUHZUMBrKZ9BCQ5AU1ng6cRG9rmHX8isHRxtfi
-         ZhI+LKFbbPFzSjekxEjoNm2THwSvw02xsjIa6Dh/BiDhDxVusnIVgs3YPKzLOtb7zQPG
-         l0EVM2FJExgQq7TgL19k0JlIggdZcDydxmg4v9sCjWE7d9iw9ZRjhgtQg/qRF783+aZN
-         /YMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789602635; x=1790207435;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8j5a7WFfG0NuSv/XKgDsxGhXHDIsTdHKd7Yxxjneaq0=;
-        b=wn8eh5TIdYX5uLNs0Ytg+xQpTrff9DCeLV4HQ5DgPVSgCWlgFdHj+rHRmakfr1vsLt
-         u55C4lFpHT1nkjPPmuQX3XMjtkDbMoqEolZ3P2DvpJaaZAlxAhUetMU/ydMbXbVLQK6p
-         ZACIiVRWkw5MAn5Uo6f1lYWikKOZde5mzHO1Cyx43ov+lvEY1iA3VX7DrpXFxHtQMn1/
-         w48pfNdTD6hMPs0A5Vegk8HWryi3iRffpUDPC1Wr9N9ruFAI1TsX7raFD216XJv0/1OV
-         +JGIkIOJYnHi0aMIC8nL51AIy8yUZvaCkW6sLrXV4nOytqVCWYtlvDZ8f4/0WH3onopW
-         nhjw==
-X-Forwarded-Encrypted: i=1; AKwUvBzavIaNj6u+zK9TPMRtbvIUuXtUIQ5bvIDffoo0igf3VjHu7EW2GXa3pzNTJSFUtO68vKbcaUdgUSGE07k=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4i2YR1O9CIjm/ADyv+jgFNelZW/ieYw1wHmh8Si5NcXfxcLFL
-	7f6xPBqBU60WmOY63tMC6T+uz8MOA3xCne0jXgvGS6mvC2p6So9MuLMV
-X-Gm-Gg: AYBFou2wXnj1LqfO0geU8be1nq68JghZ4r9xbenizJk4A4aw/Z4UQ/DqeVjuMAlN/p7
-	3k8t0NVAJ2LKKq6ImDbbb7nCKejIyGR8GWOmxLXl2ULvhIDixV9Ugegg/DMQucgnJSO7prmH1m8
-	BVralDngR6he46DpdolcfTvxlrBj8O1nciyBXZ/5YK5N+xryIHIdXL3DFybWL0qN/hsAHu/elaU
-	065XYiMbFC4fjU6VxNrN/i7c7O1tj9OnX+Xhd4h1JINr/ksaR5YaS/2SRks3URCcKWNalKgbeyD
-	chOknfIY5GU2GA7DkALBRz6ZP68V734p5Pci3dji1FNqSWDajyftzt354GPUequBE1JM9nYQd6Y
-	Of4R45JAoRxEkfVKh5lHGMbARpNdc8R/0/erb9BFI0Rh4beZZMC+Idmwy9cr2xdlDTrLeZ8JX/R
-	DzhdseGRga1zlVRJTEN+3zLr4j3utqt5+cREuKG6fgl9PR5Fqb0weRZyKE9H50UB4q
-X-Received: by 2002:a05:6102:8511:20b0:7a1:43d2:bb72 with SMTP id ada2fe7eead31-7a143d2c168mr2974538137.13.1789602634592;
-        Wed, 16 Sep 2026 16:50:34 -0700 (PDT)
-Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a1e334979asm1533796137.10.2026.09.16.16.50.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 16:50:34 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Cc: Viacheslav Dubeyko <slava@dubeyko.com>,
-	linux-nilfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v3] nilfs2: fix checkpoint root lifetime on sysfs errors
-Date: Wed, 16 Sep 2026 20:50:25 -0300
-Message-ID: <20260916235025.379600-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915041206.2430937-1-qwe.aldo@gmail.com>
-References: <20260915041206.2430937-1-qwe.aldo@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNDtz1Rd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4F771F000FF;
+	Wed, 16 Sep 2026 23:50:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789602643;
+	bh=qPjQBnx2tCtJDcZHN3jf4v80iQiouYB15DSXdllYse8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=KNDtz1Rd8L8ybHdH2AUatFHyZFrKaabo/nWl7GwdrwsktV+0VCNdmH5sdmnQDqlCy
+	 PQk1Bo4tRWYYCVppruPNGHV8yXBfgLO/uU1AnCYBiHF+Nr9MMLQOPdzJwJO0pwosn1
+	 NfXI2B9gvaRRbQPiwJNLqS4uq/WlMStkiHT1Gz/IO7kl4jcmHQjWtuJy8SL5/Ud/hf
+	 xgduxSbvCIOZ+sOEpsevR2csnaXeu37YVe5e8IXBQMcaPd1d5QGpgQ4qW/vRVW5Vmh
+	 CyOFdO2lt4JxqcIikCTiKhi3yX9y0DMcdpVBcLb1M7okbv3H/hyr2yJJLovPWXg0Fo
+	 5WEtIl1deHiDA==
+Date: Wed, 16 Sep 2026 18:50:41 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-pci@vger.kernel.org,
+	Adithya Jayachandran <ajayachandra@nvidia.com>,
+	Alexander Graf <graf@amazon.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Josh Hilke <jrhilke@google.com>,
+	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
+	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
+	Yi Liu <yi.l.liu@intel.com>
+Subject: Re: [PATCH v8 01/12] PCI: liveupdate: Set up FLB handler for the PCI
+ core
+Message-ID: <20260916235041.GA989143@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqQv0jJdT4xq6VWu@google.com>
 
-nilfs_find_or_create_root() publishes a new root in the checkpoint
-tree before creating its sysfs object.  If sysfs registration fails,
-the root is freed while it is still reachable from the tree.  A
-concurrent nilfs_lookup_root() can then dereference freed memory.
+On Fri, Sep 11, 2026 at 04:44:02PM +0000, David Matlack wrote:
+> On 2026-09-10 06:48 PM, Bjorn Helgaas wrote:
+> > On Tue, Jul 28, 2026 at 10:09:55PM +0000, David Matlack wrote:
+> > > Set up a File-Lifecycle-Bound (FLB) handler for the PCI core to enable
+> > > it to participate in the preservation of PCI devices across Live Update.
+> > > Essentially, this commit enables the PCI core to allocate a struct
+> > > (struct pci_ser) and preserve it across a Live Update whenever at least
+> > > one device is preserved.
+> > 
+> > I assume pci_ser is the state the PCI core needs to preserve across
+> > kexec so the new kernel's enumeration doesn't interrupt the device
+> > operation.  And that whatever state the endpoint drivers need to
+> > adopt/inherit the device in the new kernel is managed without any help
+> > from the PCI core?
+> 
+> Yes.
+> 
+> > > Preserving PCI devices across Live Update is built on top of the Live
+> > > Update Orchestrator's (LUO) support for file preservation. Drivers are
+> > > expected to expose a file to userspace to represent a single PCI device
+> > > and support preservation of that file. This is intended primarily to
+> > > support preservation of PCI devices bound to VFIO drivers.
+> > 
+> > Where do drivers expose this file?  sysfs?  I guess it's a file per
+> > preserved device?  Thinking like a driver writer, I'm expecting a hint
+> > about how to expose this file (should also be in the file doc somehere
+> > if it's not already).
+> 
+> There is no requirement about how drivers do this from the PCI core
+> perspective. For all intents and purposes, the VFIO PCI variant drivers
+> are the only drivers that are going to be supported in the next 1-2
+> years. They expose a misc character device for each file.
 
-The fix needs the lock to be held across the sysfs call, but
-nilfs_sysfs_create_snapshot_group() can sleep, so the existing
-spinlock is not suitable.
+If this file isn't relevant to the PCI core, maybe we don't need to
+mention it here.  It doesn't seem like it motivates this patch.
 
-Convert ns_cptree_lock from a spinlock to a mutex.  All existing
-callers are in process context (mount, lookup, segctor, recovery),
-and nilfs_put_root() can use refcount_dec_and_mutex_lock() as the
-atomic decrement-and-acquire primitive.
+> > > This commit enables drivers to register their liveupdate_file_handler
+> > > with the PCI core so that the PCI core can do its own tracking and
+> > > enforcement of which devices are preserved.
+> > > 
+> > >   pci_liveupdate_register_flb(driver_file_handler);
+> > >   pci_liveupdate_unregister_flb(driver_file_handler);
+> > 
+> > So a driver calls pci_liveupdate_register_flb() once, then
+> > pci_liveupdate_preserve() once for each device it wants preserved?
+> 
+> Yes
+> 
+> > > When the first file (with a handler registered with the PCI core) is
+> > > preserved, the PCI core will be notified to allocate its tracking struct
+> > > (pci_ser).
+> > 
+> > The passive voice here makes the actors a bit obscure.  I guess a
+> > LIVEUPDATE_SESSION_PRESERVE_FD ioctl on some per-device file kicks
+> > this off?
+> 
+> Yes. (And I will reduce the passive voice in the next version.)
+> 
+> > I guess the pci_ser allocation is in
+> > pci_liveupdate_flb_ops.preserve(), i.e., pci_flb_preserve()?
+> 
+> Yes.
+> 
+> > So the PCI core tracker (pci_ser) isn't actually allocated at the time
+> > of pci_liveupdate_register_flb(); it's allocated on the first
+> > LIVEUPDATE_SESSION_PRESERVE_FD ioctl for a driver that has called
+> > pci_liveupdate_register_flb()?
+> 
+> Yes. The first device that gets preserved triggers the allocation of
+> struct pci_ser. And the last device that gets unpreserved (preservation
+> cancelled) triggers the freeing of struct pci_ser.
+> 
+> > IIUC the call tree for that ioctl looks something like this:
+> > 
+> >   <driver>
+> >     pci_liveupdate_register_flb
+> >       liveupdate_register_flb(fh, &pci_liveupdate_flb)
+> > 
+> >   luo_session_ioctl
+> >     op = &luo_session_ioctl_ops[...]
+> >     op->execute                               # eg luo_session_preserve_fd()
+> >       luo_session_preserve_fd
+> >         luo_preserve_file
+> >           luo_flb_file_preserve
+> >             luo_flb_file_preserve_one
+> >               if (outgoing_count == 0)        # only for first FLB device
+> >                 flb->ops->preserve            # eg pci_flb_preserve()
+> >                   pci_flb_preserve
+> >                     ser = kho_alloc_preserve  <-- alloc pci_ser
+> >                 outgoing.count = 1
+> >           fh->ops->preserve                   # something not included here
 
-With the mutex, nilfs_find_or_create_root() can hold it across the
-sysfs registration and only insert the root into the rbtree after
-sysfs succeeds.  On failure, the root was never visible and can be
-freed after waiting for the kobject release callback to complete.
+So IIUC this part of the path looks like this, which answers my
+question below about ordering of pci_ser and
+pci_liveupdate_preserve():
 
-Both the creation error path and the normal removal path must wait
-for the embedded kobject release via wait_for_completion() before
-freeing the container, because kobject_put() does not guarantee
-synchronous release (CONFIG_DEBUG_KOBJECT_RELEASE defers it).
+              fh->ops->preserve                   # eg vfio_pci_liveupdate_preserve()
+                vfio_pci_liveupdate_preserve
+                  pci_liveupdate_preserve
+                    pci_liveupdate_preserve_device
+                      dev_ser = pci_flb_alloc_dev_ser  <-- alloc per-dev PCI core serialized state
+                      dev_ser->bdf = pci_dev_id(dev)
 
-Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
+> > Seems like kind of an awkward way to allocate pci_ser.  Couldn't it be
+> > allocated on the first call to pci_liveupdate_register_flb()?  That
+> > would be a lot easier for driver writers to trace through.
+> 
+> I agree the LUO FLB API is a bit awkward, but this is how it works.
+> 
+> If we allocated it during pci_liveupdate_register_flb() we would then
+> need to stash it in a global variable to hand-off the LUO later. Despite
+> the awkwardness of FLBs, it is useful to avoid globals and have LUO
+> management the lifetime.
 
-Changes in v3:
-  - Move wait_for_completion() after mutex_unlock() in
-    nilfs_put_root() to avoid holding the lock during an
-    unbounded wait, as noted by Viacheslav Dubeyko.
-    After rb_erase() the root is no longer in the tree
-    and the refcount is zero, so no concurrent path can
-    reach it.
+It seems like pci_ser is a singleton by design, so a global variable
+doesn't sound like it would be terrible to me.
 
-Changes in v2:
-  - Convert ns_cptree_lock from spinlock to mutex instead of adding
-    a second lock, as suggested by Viacheslav Dubeyko.  Use
-    refcount_dec_and_mutex_lock() in nilfs_put_root().
+> > > When the last file is unpreserved (i.e. preservation
+> > > cancelled) the PCI core will be notified to free struct pci_ser.
+> > 
+> > There's a lot going on behind "PCI core will be notified".  I assume
+> > these refer to the first-time behavior of luo_flb_file_preserve_one()
+> > and last-time behavior of liveupdate_flb_put_outgoing(), which is
+> > honestly kind of hard to suss out.
 
- fs/nilfs2/the_nilfs.c | 37 ++++++++++++++++++++-----------------
- fs/nilfs2/the_nilfs.h |  2 +-
- 2 files changed, 21 insertions(+), 18 deletions(-)
+Could we say something specific and PCI-related here, to help connect
+the dots?  Most of these paths are outside the PCI core.
 
-diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
-index 7b23e373a1..XXXXXXX 100644
---- a/fs/nilfs2/the_nilfs.c
-+++ b/fs/nilfs2/the_nilfs.c
-@@ -70,7 +70,7 @@ struct the_nilfs *alloc_nilfs(struct super_block *sb)
- 	spin_lock_init(&nilfs->ns_inode_lock);
- 	spin_lock_init(&nilfs->ns_last_segment_lock);
- 	nilfs->ns_cptree = RB_ROOT;
--	spin_lock_init(&nilfs->ns_cptree_lock);
-+	mutex_init(&nilfs->ns_cptree_lock);
- 	init_rwsem(&nilfs->ns_segctor_sem);
- 	nilfs->ns_sb_update_freq = NILFS_SB_FREQ;
+IIUC luo_session essentially has a refcount (outgoing.count)
+incremented by each LIVEUPDATE_SESSION_PRESERVE_FD ioctl, and the 0->1
+transition in luo_flb_file_preserve_one() ends up calling
+pci_flb_preserve(), where pci_ser is allocated.
 
-@@ -846,7 +846,7 @@ struct nilfs_root *nilfs_lookup_root(struct the_nilfs *nilfs, __u64 cno)
- 	struct rb_node *n;
- 	struct nilfs_root *root;
+And the refcount is decremented by luo_flb_file_unpreserve() (in a
+luo_session .release() function), where the 1->0 transition in
+liveupdate_flb_put_outgoing() calls pci_flb_unpreserve() where pci_ser
+is deallocated.
 
--	spin_lock(&nilfs->ns_cptree_lock);
-+	mutex_lock(&nilfs->ns_cptree_lock);
- 	n = nilfs->ns_cptree.rb_node;
- 	while (n) {
- 		root = rb_entry(n, struct nilfs_root, rb_node);
-@@ -857,11 +857,11 @@ struct nilfs_root *nilfs_lookup_root(struct the_nilfs *nilfs, __u64 cno)
- 			n = n->rb_right;
- 		} else {
- 			refcount_inc(&root->count);
--			spin_unlock(&nilfs->ns_cptree_lock);
-+			mutex_unlock(&nilfs->ns_cptree_lock);
- 			return root;
- 		}
- 	}
--	spin_unlock(&nilfs->ns_cptree_lock);
-+	mutex_unlock(&nilfs->ns_cptree_lock);
+That gets into a lot of detail, probably too much for a commit log.
+Maybe mentioning the function names by which the PCI core is notified
+to alloc/free pci_ser would be enough of a bread crumb.
 
- 	return NULL;
- }
-@@ -881,7 +881,7 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
- 	if (!new)
- 		return NULL;
+> > This series doesn't include a caller of pci_liveupdate_preserve() (or
+> > pci_liveupdate_register_flb()), so I can't figure out the ordering.
+> > Obviously pci_liveupdate_register_flb() must be first.
+> 
+> In every version of this patch series I have sent I included a link to
+> the vfio-pci driver changes that build on top of this, rebased that
+> series on top of this one, uploaded it to my GitHub, and included a link
+> in the cover letter. Here is the relevant section from the v8 cover
+> letter:
+> 
+> . This series was tested in conjunction with v5 of the VFIO PCI driver
+> . series:
+> .
+> .   https://lore.kernel.org/kvm/20260714151505.3466855-1-vipinsh@google.com/
+> .
+> . The full set of patches used for testing can be found on GitHub.
+> .
+> .   https://github.com/dmatlack/linux/tree/liveupdate/pci/base/v8-with-vfio
+> 
+> 
+> > I first thought pci_liveupdate_preserve() would be called via the
+> > fh->ops->preserve() in the luo_session_preserve_fd() ioctl path, but
+> > it's not.  pci_liveupdate_preserve() is intended for the driver to
+> > call it directly.  But it looks like it has to be called *after* the
+> > ioctl?  Obviously I'm confused :)
+> 
+> It is called by the driver during it's fh->ops->preserve() callback. In
+> other words, it is called during the ioctl by the driver.
 
--	spin_lock(&nilfs->ns_cptree_lock);
-+	mutex_lock(&nilfs->ns_cptree_lock);
+I think the updated call tree above shows the connection?
 
- 	p = &nilfs->ns_cptree.rb_node;
- 	parent = NULL;
-@@ -896,7 +896,7 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
- 			p = &(*p)->rb_right;
- 		} else {
- 			refcount_inc(&root->count);
--			spin_unlock(&nilfs->ns_cptree_lock);
-+			mutex_unlock(&nilfs->ns_cptree_lock);
- 			kfree(new);
- 			return root;
- 		}
-@@ -909,17 +909,19 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
- 	atomic64_set(&new->inodes_count, 0);
- 	atomic64_set(&new->blocks_count, 0);
-
--	rb_link_node(&new->rb_node, parent, p);
--	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
--
--	spin_unlock(&nilfs->ns_cptree_lock);
--
- 	err = nilfs_sysfs_create_snapshot_group(new);
- 	if (err) {
-+		mutex_unlock(&nilfs->ns_cptree_lock);
-+		wait_for_completion(&new->snapshot_kobj_unregister);
- 		kfree(new);
--		new = NULL;
-+		return NULL;
- 	}
-
-+	rb_link_node(&new->rb_node, parent, p);
-+	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
-+
-+	mutex_unlock(&nilfs->ns_cptree_lock);
-+
- 	return new;
- }
-
-@@ -927,14 +929,15 @@ void nilfs_put_root(struct nilfs_root *root)
- {
- 	struct the_nilfs *nilfs = root->nilfs;
-
--	if (refcount_dec_and_lock(&root->count, &nilfs->ns_cptree_lock)) {
-+	if (refcount_dec_and_mutex_lock(&root->count,
-+					&nilfs->ns_cptree_lock)) {
- 		rb_erase(&root->rb_node, &nilfs->ns_cptree);
--		spin_unlock(&nilfs->ns_cptree_lock);
--
- 		nilfs_sysfs_delete_snapshot_group(root);
--		iput(root->ifile);
-+		mutex_unlock(&nilfs->ns_cptree_lock);
-
-+		wait_for_completion(&root->snapshot_kobj_unregister);
-+		iput(root->ifile);
- 		kfree(root);
- 	}
- }
-diff --git a/fs/nilfs2/the_nilfs.h b/fs/nilfs2/the_nilfs.h
-index 4776a70f01..074644c64a 100644
---- a/fs/nilfs2/the_nilfs.h
-+++ b/fs/nilfs2/the_nilfs.h
-@@ -150,7 +150,7 @@ struct the_nilfs {
-
- 	/* Checkpoint tree */
- 	struct rb_root		ns_cptree;
--	spinlock_t		ns_cptree_lock;
-+	struct mutex		ns_cptree_lock; /* Protects ns_cptree */
-
- 	/* Dirty inode list */
- 	struct list_head	ns_dirty_files;
---
-2.43.0
+> LUO just knows that a file has been preserved and what preserve()
+> callback it needs to run to preserve that file. It is has no idea which
+> files correspond to devices or which devices. The file could be a memfd
+> for all LUO knows. That's why the driver has to call into the PCI core
+> via pci_liveupdate_preserve() to let it know that a device is being
+> preserved, and which.
