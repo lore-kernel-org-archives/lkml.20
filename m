@@ -1,125 +1,136 @@
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40914F0542;
-	Wed, 16 Sep 2026 11:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8533DA5C7;
+	Wed, 16 Sep 2026 11:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789559048; cv=none; b=pa00CzegTOsgW3A9j2jfrrDVOvV+XpglL+IvKA+hWidSOUAw6m5QVDm/w0YxHerfl8one0NyRsGN+OtElFuOgS7rRGZJKwWkWPndGwsWTvdOhRMCYfyAnzGifFgfJdSvlO86hceZ7MvCpuR7riJA6KwWLUqxNxKMmT2JwYr74eU=
+	t=1789559046; cv=none; b=XL0vi3FIMPy4fUY+XOczBOTLHsgb24pl/3OEJJg0+wio+e/jCyM+4ZqwnWtNCywu3Ur7FB9bSQngtl2XqU1mQcSaJTywOBqzIvKkM8IPc8IEx1Nt9GxEZOfluRSujPlBh7mDGSTxOL3taaeha5ySvwmY6Qjky/VzOCk4fAw+bDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789559048; c=relaxed/simple;
-	bh=1qP4pmeZubOeoPvJBC9OO2x/NeRWI/yqNAT2NYBIljI=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=uOxO9WrzHAXq/BGdMTfhjHKMG6ekx+TrbT0XDH92vMF2/AVtedF8g9x+Qb/CN/0gcQeV7YfLT2/xJl8j7xb/M1/bSFjbZ/CnFF6eLiz+p4OFJGmDwiCbfBZkoMaKPpFgofHhopQ4wA0aAx8tNJyrsKN/9TxgHMQv3q7j02BbpRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=XDHNRboR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=b3gaU8MP; arc=none smtp.client-ip=103.168.172.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1789559046; c=relaxed/simple;
+	bh=6D2RhALlT55aAHSMPinPZ97+aBQfokN4Sc7vz60gKIc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eu75kDKhhvJdd6IxORzJGPFYSGx4IluoKTdOMOf+nTKm+NFc32u7byKifiMSre8VPE/s1+iPfyEUstVjUBGuwInHBeUJfEcaUNOy0/czoNi2MoljQftIQlXu07UtDvmrxYpYm9DUvZDIY3jEi+7QueOOEtPfV87EG2GLjNaHWXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=iGnsgwB1; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="XDHNRboR";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="b3gaU8MP"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id B8C6514001D5;
-	Wed, 16 Sep 2026 07:43:56 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 07:43:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789559036;
-	 x=1789645436; bh=AuK9Y+fDU2IDOZklY9+6SutmjPluEhmiIu2zW3AAOw4=; b=
-	XDHNRboRbtp0qDy4NXf6fjRAvA9hxcG8i3k2n3MoqiF+aVVcQcfX7NmJLRH6VbTA
-	kcEy+HTgd3M265uBX+qYktuF8v18zaBHNQdP5i15Rpt4DXIfR2rtc6pPYlL6g6AU
-	4uIkTjHCz2txSXs9EguPs/ihdE9YEUr91WjS6T8ozcGRvWdSBjOqIqeQpkjLkTls
-	Oigq2M3Uc2HhpkZ3zQwCor3rpJVbKrP0e7nVvW+dnm7vSgaTtxlUZOg3gpEAQWBy
-	Nidjl6ibsvF6acS9bwGM2elhC67KRhyvRBpOOqABlKZOOt4BqE2g3PXctYM91ZjD
-	dJrz86LDgLQU3MfwQE0hRQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789559036; x=
-	1789645436; bh=AuK9Y+fDU2IDOZklY9+6SutmjPluEhmiIu2zW3AAOw4=; b=b
-	3gaU8MPDLyKXlJUiEZwCCVILYz1o/h+93Dj3Y+xSEEFC+A71Zg7sDh2DMF3hZ5vI
-	Bsf7pdHeLSwMau2AMwYbv5z8KHUGqPFeI5/SHAxLDk/IKpUXeT4ljS3q36th4UXN
-	r1exq8skNSDCu/tT/oYFmqkZwfPEAwXqKrBAwf9ASR7RXAeDBmWQ7R3geOY4YxnZ
-	eu1xduk+g1cEASInOcXCOJ3kRBBHCGvbMprfouVzaB31JFU4sfaGX+rFtr2PejjG
-	D5kNJbIrg2QmX2P7v2Zh654PMe+BIWoqY6P2YE12ynCAnBfTVJ6RwLeuh08mbMHO
-	t85CgYJiX+2jo7i6bO7NA==
-X-ME-Sender: <xms:-ICqauoBKF9zn0Fz1cbEH2-5qDFWGXc0sfkfXhPslFfkFsOKyBLlgg>
-    <xme:-ICqanfgBwFq0sZf4joRWKvpFhjPcoCQiRgnNZJVyLovhcdqh2rWT9hEsARaWrAgE
-    xtjXwTK80JUL8QMVWatP4_wLav4CX1iOoaWu7x9-kNJF7ay_XGt0mo>
-X-ME-Proxy-Cause: dmFkZTEFgs3EvIoat5YbNa1kZa3NCit8Qxe+50zRjtg0FWUQ01Qwh8/ANAfCzJNWTKFNAy
-    rd2mk0b438uRLQNcqcXuPWN7xXzzA2AFl5wSOVo49ep4/zuVfJ+4U0FY6k09Age8dXJ+s+
-    NepBA3ixP1Bd3M5TIsIYdYLQ+J5GiEhkat/N4Khyg4k4KMnIt/yyfynNjtXHk80j8qMhh5
-    /Dt0YCY242Q1Q0lksCGRIJqlkQHY5SHs3uTOdElLDfD41Ql8e/2oAGcRlt0U+7xSpb3mEC
-    7xDqDcH4lMAhlM9K1ACTs1hHb3P3Azg1pkhd+U88v0LKQQeRqVo+0Lf5X5B/CWI6se8am6
-    3PeoUcPZY4oOrvz3G4xJY2pgSyG1cC4hx4pJ5R2TygKj1bEZ0H/Ad+4QWzRm2fDrhX6FVe
-    yQQN6UormkRCexmYx5TxzdYdgJGF/lO9TWlIEUa/0RtvWn3SU0s3ON+bmHxMy5WB5sZOxO
-    GebnzJ72hx/DnScxEi/ixIOWWuJN8VobGsIHJgdHbmSiZ1pb+g7o+30YnM2ri2kzupamD+
-    PEWDWC0PcMGc7zJvqBFOzBkYEhDOI4EhHjlugT7gGp/x1zSB5m/0z3FoWgWE/9FE6pW3Bd
-    lcdhiuGCMw/+zdhQbEUlHgpyxhH2bVYVQlbg7koh2uTudeKUjiAgsJ36ulDQ
-X-ME-Proxy: <xmx:-oCqalZp4112n6EKXVlqvK2rMByudP27I2BHW-NNZO4Ccj6lxSPnsA>
-    <xmx:-oCqau_9cizRzruDSLYvaX0ZyAeSAQ-djwZoxFdzbbX1s0Qpn54tmA>
-    <xmx:-oCqarmtjB41ETQRNFxgp5sRYIZKKGOKTYIxjDryY57zYr6r8KY9vQ>
-    <xmx:-oCqajzjEggKgVNKc_gC5Ly8WYNJBG2aZm7SlmOGqmvUqTfWj775qw>
-    <xmx:_ICqaiPVKU8AIaTw0GSf3rczbtbBpWztI1sdOlePtXn444BizA8pYaWU>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id C1E2032A0084; Wed, 16 Sep 2026 07:43:52 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="iGnsgwB1"
+Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 9B7621F822;
+	Wed, 16 Sep 2026 13:43:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789559032;
+	bh=cUpSAShM1iFVA9tQq7QEj0VN9vBy+vZF0uG3dEujTMA=; h=From:To:Subject;
+	b=iGnsgwB1t8BQiAyma9+PcqCCNUQ9kO/L0seDWZDZH+D/kRhX3fW9nyl42r81Xwv5S
+	 gN7DtrHKezx9zkqKAUoa5LZknZ/J+RlZNghUtueWC0RVf17cR7HlEsLg42SUaPmxTQ
+	 P5w+CKq/cAbAM1d80+SNuHyccsYQCHEYF9IYBlxkgyz/i76jI4qKH6tgNjbP2Yl25Q
+	 KfBTudr6/BAMpKGPLwip98RsojigAteaPIjhQoQ+w+Gl26cO1qOzTput1VECqE4Y0+
+	 8mUFyTlWf5lCARIja/AQi+Bts2B8zln5XJjQj8I+6/Xu1IsgXy63Xc5XWrCG73ggJe
+	 cGenXn2sstU3A==
+Date: Wed, 16 Sep 2026 13:43:50 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
+	Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Alexander Stein <alexander.stein@ew.tq-group.com>
+Subject: Re: [PATCH v4 2/4] drm: mxsfb: Add optional DPI output bus-width
+ configuration
+Message-ID: <20260916114350.GB284106@francesco-nb>
+References: <20260813092836.38367-1-francesco@dolcini.it>
+ <20260813092836.38367-3-francesco@dolcini.it>
+ <178954813309.214898.6895255097019153080.b4-review@b4>
+ <20260916091543.GA277833@francesco-nb>
+ <DLGP7GKZJBOP.350QK94UOGRYV@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AplTfTLsyLRV
-Date: Wed, 16 Sep 2026 13:43:22 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Linus Walleij" <linusw@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Kees Cook" <kees@kernel.org>, "Alan Stern" <stern@rowland.harvard.edu>,
- "Huacai Chen" <chenhuacai@kernel.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <75d05e40-789e-4cfe-a6f9-fc86af5864e0@app.fastmail.com>
-In-Reply-To: 
- <CAD++jLnsKoXxK5mdNUqWT+ggn+7k4D6H0HZuCcLu4_pv6QFS1w@mail.gmail.com>
-References: <20260916082623.3972767-1-arnd@kernel.org>
- <CAD++jLnsKoXxK5mdNUqWT+ggn+7k4D6H0HZuCcLu4_pv6QFS1w@mail.gmail.com>
-Subject: Re: [PATCH] usb: fotg210: fix link error for CONFIG_USB=n
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLGP7GKZJBOP.350QK94UOGRYV@bootlin.com>
 
-On Wed, Sep 16, 2026, at 11:45, Linus Walleij wrote:
-> On Wed, Sep 16, 2026 at 10:26=E2=80=AFAM Arnd Bergmann <arnd@kernel.or=
-g> wrote:
->
->> From: Arnd Bergmann <arnd@arndb.de>
->>
->> Calling usb_hcd_platform_shutdown() is not possible if CONFIG_USB
->> is disabled:
->>
->> arm-linux-gnueabi-ld: drivers/usb/fotg210/fotg210-core.o: in function=
- `fotg210_shutdown':
->> fotg210-core.c:(.text+0x40): undefined reference to `usb_hcd_platform=
-_shutdown'
->>
->> Move this call into the hcd file to ensure this is only used
->> when USB host mode is actually available.
->>
->> Fixes: 7dbc2e1ba8fd ("usb: fotg210: use the common EHCI core")
->> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
->
-> Good catch!
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
+On Wed, Sep 16, 2026 at 01:19:08PM +0200, Luca Ceresoli wrote:
+> On Wed Sep 16, 2026 at 11:15 AM CEST, Francesco Dolcini wrote:
+> > Hello Luca,
+> >
+> > On Wed, Sep 16, 2026 at 10:42:13AM +0200, Luca Ceresoli wrote:
+> >> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
+> >> > format reported by the downstream panel or bridge describes the display
+> >> > input, but it does not describe how the LCDIF data pins are physically
+> >> > wired on the board.
+> >> >
+> >> > These can differ. For example, a 16-bit LCDIF bus can be connected to a
+> >> > 24-bit display by wiring the available color bits to the corresponding
+> >> > display inputs. In that case, using the display's 24-bit format to
+> >> > configure LCDIF selects the wrong data-bus mode and changes the assignment
+> >> > of color bits on the LCD_DATA pins.
+> >> >
+> >> > Read the optional bus-width endpoint property from the LCDIF output port
+> >> > and use it to select the media bus format used to configure LCDIF. This
+> >> > allows the LCDIF bus mode to describe the physical interface
+> >> > independently of the downstream display format.
+> >> >
+> >> > When the optional property is absent, or it has an invalid value, continue
+> >> > using the format reported by the downstream display device, preserving
+> >> > the existing behavior. The code is not validating the DT for
+> >> > correctness and just fall back to the previous behavior in case of
+> >> > errors.
+> >>
+> >> Why? Generally speaking errors are better spotted immediately, not ignored
+> >> silently.
+> >
+> > My understanding is that the C driver code should not validate the DT
+> > and that this is the general recommendation when parsing properties from
+> > the DT.
+> >
+> > The DT checker is going to spot errors in the DT even earlier and in a
+> > static way.
+> 
+> Drivers typically check for invalid values.
+> 
+> And people writing their private dts can do mistakes and not run the static
+> checks. Bad on their side, sure, but having a runtime error would be useful
+> there.
 
-Apparently you you already fixed this yourself in commit 600334ef2f29
-("usb: fotg210: guard host shutdown in gadget-only builds") in today's
-linux-next, so this one is no longer needed, the two patches are
-equivalent.
+Understood. I would personally not do it. I can add the required error
+checking code. No other DRM maintainer/reviewer commented so far, so I
+am taking this as a request.
 
-I did run into an unrelated problem with fotg210 now, and I'll send a
-patch for that.
+What should I do in case there is an invalid value? Fail or have a
+warning message?
 
-    Arnd
+> Also consider potential regressions. Say someone has an invalid value in
+> their product, say bus-width = <15>, which works because the default 18
+> which gets used as a fallback happens to be the correct value for their
+> hardware. Some years later we implement the new bus-width = <15>, and then
+> that user upgrades to a newer kernel and their display won't work because
+> it will start using that incorrect bus-witch = <15>. Better stopping this
+> before it starts, IMO.
+
+I do not see this situation honestly, if you have a wrong value, e.g. 15
+bits, before this patch is ignored, and after this patch is also
+ignored ...
+
+The default in the code is equivalent to the bus-width property not
+present, and therefore we use whatever is coming from the panel aka the
+next bridge.
+
+Francesco
+
