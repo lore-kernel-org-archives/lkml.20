@@ -1,300 +1,287 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.12])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5680E4C6536;
-	Wed, 16 Sep 2026 21:16:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789593395; cv=pass; b=A8dPmYLBkn3ki6pxWryn7uOii2ho+qQa0Dopono5LHg+oUSIVz9VZdvjQRZyv3as7dXTUf8eIZ1Lsg5ZbwYkdT1hilTa68xI7ngDvqJtx+axZjvxnqLidh83BxJpYLMYIVHV6RudpcOp06tC2NwJhku7VjhNb6LK251g4d20Xdc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789593395; c=relaxed/simple;
-	bh=2LZ1fVhkv85MRMHADmROzKC+YrFJIScmDdtzlVxHDq4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=IN5/GMyVs0teIkq0MgbKiScZpsNQ0iCAisZT2ITIcPn8rzDrnAZaDqBqWdqYf+ie08oD0x4EnnWhST0AHrZuSr34PxPu0XO/uzuETKdT0m639WvdqAAXaPQVll8FGzfHgmc692YC1bFbK4BfeWkzjeYTDk0KVpLRTgQhJy52ytQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=tDq0nCpn; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=AFSi5nlo; arc=pass smtp.client-ip=185.56.87.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D92542E41D
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:16:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789593431; cv=none; b=TJgqlPzrdwPXR+kKb8oQWlZyqYzpGfGopJ+pEjJSnQPpATRraSIIRLtb2reM5f2BXDi3K+msa9q48jCDoIcCoakzDTwVGrUb9NTxWup4QVcpJ4qbsvWcevVpXcJm2wOlvdIrAwSLMpQr+uzhfpu06vkfQeI1uCDivwJoLyUL6lQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789593431; c=relaxed/simple;
+	bh=NXDeynE+4VTMCJQ1nw8qyw1rHsMURFTSCpVFmSmMAes=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lVlFo+bUcuSn9FiKJYIo4gfq1whvhEmSfYfMdDNkesJfmHL92ZOeVp/aBNXjWTwkNYLiV8K735EM32OsAgtI2oP1TJ3Vn/e63Qnn3Y2yq6+zXDdQpQsaVGoCwJQZ763KIVJ47phyIzdeg3PmpNcspYHUxFmHgQXLiabt0KLEFqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GGyK/0zH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=URrFwEsu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="tDq0nCpn";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="AFSi5nlo"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-f940.prod.antispam.mailspamprotection.com; s=arckey; t=1789593390;
-	 b=EtN9LdOoN1V6DepcKHSD9osFS87AFzaXB0gPbYUkR8wE//qprym+9J1JoM72FK1KpywNSMx0sT
-	  4ZnuHjeTsyzy4OsOhWLVpH83PKQNrj7Kiu271wB3n749pU7ouPCKaqr55Topk5zEMDq6PjMT0h
-	  G7jdxWqLBYYAuAyLZdxbYy8e4c+xxBLfMj8vQ9nUoR9NNIPrOOogn1a6dpSaFApE2OKWe3v78+
-	  y2BTDdzwli3I3RAKXTxGWh73RhjjynLbVJgrsU/Cz8UWCcMLv/PJYZ7dzdK+Vf/MLmB+LLWt9k
-	  alc5uuNKJIOgWtyrr71Rv/fWdH7lLEh61201WMr5gzcQ7g==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-f940.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-f940.prod.antispam.mailspamprotection.com; s=arckey; t=1789593390;
-	bh=2LZ1fVhkv85MRMHADmROzKC+YrFJIScmDdtzlVxHDq4=;
-	h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:
-	  Subject:From:DKIM-Signature:DKIM-Signature;
-	b=OebNqMnNaujD3qVB7168QR6eUF9i6vLDwV/v5E053PclaHcjhhP1LWV+CA3RTfPng6DeAZxKVi
-	  lDk8q3loQbGzovUAz/GIpVi89I8OsfPDLmYlDlqLwcCJ573VQNAojV4y9PtC5x/SdXUPbi2EZE
-	  d0Xbze4OPQ0FkUmBCHAhNk+kVwd7ejvuJliYIkOZxoL4AwLy5a+urly4h/TKpQxvdfBwxJ2JUZ
-	  +dZHASsTZqotN7Lu0K7PvCgbw7+kx+gzaSYQCurvqgbD7Gc+/O5lcySNWt1TTHcliNJ6WwW+Dq
-	  NwgAC60wvrUb5Y6hKlNOYMf3TTiQ9U1xO8eU5qbgaUA4+Q==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:Date:
-	Subject:From:Reply-To:List-Unsubscribe;
-	bh=Po+RokqT72xi6/swJRWA/WKK6DdGWwXE5nveqQhmzsc=; b=tDq0nCpnOdPs0OYd+0uWMz/848
-	Lw48SywgZRJmG9LtF30Uq4H3zpkSleso9TGFiBfFt+ZEuezG0kPSRaDM4W5PBlEeROpHNPtTWPMyF
-	aIIue4YHCeSlQRewCsIVePAgxPqZ2+CfF9AKz+GrxjiJtUkhhqAG/5s6rDobbEIPzj/A=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-f940.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x6wuI-00000002DKq-4AE8;
-	Wed, 16 Sep 2026 21:11:07 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Cc:To:Date:Subject:From:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=Po+RokqT72xi6/swJRWA/WKK6DdGWwXE5nveqQhmzsc=; b=AFSi5nlorg4P4NoThB2KNHBMzt
-	OuTdtUNPCXJ432GM3Mk36q/a9SaksyLoDIANMC277HJa1Hds6agkwg9UwGK3ZfpG4lovY0PEgqbe1
-	NBxkNiWSnZPd5RLH4IdYfjx99TnI7Zg9/UusqVZeQhPxuyD3YyjnQ1HFJE+mJsyPal80=;
-Received: from [95.233.221.121] (port=62880 helo=[192.168.178.175])
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x6wuD-0000000058P-2zEG;
-	Wed, 16 Sep 2026 21:11:01 +0000
-From: Francesco Valla <francesco@valla.it>
-Subject: [PATCH RFC 00/12] remoteproc: add support for any virtio device
-Date: Wed, 16 Sep 2026 23:10:45 +0200
-Message-Id: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GGyK/0zH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="URrFwEsu"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GH6YsI3559773
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:16:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bJ5ikrelPOxZxaf5C/PtGjFWO0wzJsRg+Use1Q/ipvM=; b=GGyK/0zHNxSER+y2
+	LaQiDgbRKmox1nWm6jaUokUYLQp7Wle7RA2P9+sEAt0iAnLMR/5HNtMUZVIXqAC9
+	gxpBU2pYo437aMdnbYROqvsqeFmXRBpcwYO9tKgCY4vwuYPDTEVLWvypG+CDihoz
+	OQnrWld7Q9ZTRb8uiXz5DsDm61iz+vtuoi6Hcu3KUTBCBkEp00qO90XSl4YnHIah
+	4cD0QOf86qmD3vibijpIY8nYM5wqP/9sEeCQ4UEtV+Ayqm7lvWv91/fCA9bSchKC
+	r5VSz8aurAUmSVofu7dpEpGm6C04jj6YrSJldOGTNpcdkU8Dwq26FGPJ4u42rzZU
+	zTd7tg==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqy7h8yw9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:16:37 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-396901263b6so218201a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:16:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789593396; x=1790198196; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bJ5ikrelPOxZxaf5C/PtGjFWO0wzJsRg+Use1Q/ipvM=;
+        b=URrFwEsulBdImvRI87pEAn3o8xUUZdidtIhIZ2nqph/IBEDXzjEqPZtYjwDJNjCcWh
+         PPiVnWluxyT9rHVIuC9sivFsHr7XXoM7NjJwA4ck0ccqPENzxWNzzXcXTachC6ih4ohW
+         IUazFpRktcxiMTInt2ktGH7UR7ngYgP8Ek7XMsm09y/MX5aZlNPGRILljjx5a/OSl53s
+         y/dn4q+nx4Zjuw8m6VYZPI/6bnbMDtLOcz95Sx/b8UCULXP6xtRRIaYIVhEJfHyhTLhH
+         umsqTyCf5f3/i14kViPVpwYt6D5wnTgVN4U09Lptk6LBqZA/A0ZQSaB+KSntAPxRmzfr
+         8QnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789593396; x=1790198196;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bJ5ikrelPOxZxaf5C/PtGjFWO0wzJsRg+Use1Q/ipvM=;
+        b=Y7ZsJFceS8fzTpj7fzxB1vEjXB5TgkDvF3tHopHwhtgPtuGFSnUFElo4lDey97KmMT
+         CyBwliCuGzahzMFmtx41SEQxDCUh5z2E6/rCBX6uAzehLBwrtNFvzO3Gre1e4ttRCAWY
+         qk3u0EgXKkkeOQpRfqn953Exa0bZlMooMao/btBwno1orAXDM9o/P51X8rilOzhDS1jB
+         6tno1R9Sj/nfDfyg52viyaR0CyqkaPvwI8b1SCSkl42PC3UlVjkW242B4pW3xUI6VzAK
+         lZX5RxkJ63kFkD6EF9Qnwr0hAwYEx7zvuVIqD1nUJXjO+RPfuoSewVCuROTKwjOA0+UX
+         yNsg==
+X-Forwarded-Encrypted: i=1; AKwUvBzeIlgqretJNx8zebBecbrhCG/HhtPmONliUFbDXtcsqmIDxdv5Q8FmQuRlwEqLoh0ZFudnlHujkQ0T9Vk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTy/vLE2xEUTWkYz+aVzlUQ0H+tSnKcN01VT1Vxa5xnZelmyPU
+	W8n0qIPXESWzarAZBOY5Ncg0bHtld1Saql3R4DexpNnJRJPxwCXxEJJ0uP1DcXjZ4p3NEO1eIkf
+	Lt4tNEpi5I24Otohn6Rm81IDjRCKT31R82EuImiomgqLCjlrGXs0jTF4dedgbAQYR6w==
+X-Gm-Gg: AYBFou3g0BG10a3l8v+sAxSiOgwRH3sYxmmPxC5gwWx+vWGkxS6mnnOsOJA+JhftH0s
+	CWTpsHaAMsg1k97u0pYgV8ESQ1R0T6l8hheElDSmgMeV2D7lf5DdvCkf/S7ZI8LqPy069N0tHE0
+	UHugd/x6YAkh3HoOgfeYdwHlz6k51WP9+v5R3FZm5gYzlfmV733cz6sPq5QhRNIF6+JnpQWSFdc
+	2IXczylMsh9MQvzCAuNghBk+UAb1nwxKEGZLqU50WHq2HNK6Qv8RHhczm0MdaEIZYfGEWFYxja2
+	i+bsjK1HAbkaXygCfY7yajQfbecboVEU/wlC/FXIViscQTC41t6/vGHgsYKvp7hcSli1ZxfCnnW
+	wM0eZtRsfoHv5uZf0Wmxtrfu6lZjGYGak
+X-Received: by 2002:a17:90b:1811:b0:39d:e54c:8658 with SMTP id 98e67ed59e1d1-39e1e250230mr11033535a91.5.1789593396056;
+        Wed, 16 Sep 2026 14:16:36 -0700 (PDT)
+X-Received: by 2002:a17:90b:1811:b0:39d:e54c:8658 with SMTP id 98e67ed59e1d1-39e1e250230mr11033403a91.5.1789593395476;
+        Wed, 16 Sep 2026 14:16:35 -0700 (PDT)
+Received: from [192.168.1.86] ([65.181.15.100])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35e532e4sm1147947a91.10.2026.09.16.14.16.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 14:16:34 -0700 (PDT)
+Message-ID: <d7ba3e45-84fa-409d-bd43-23caa05587de@oss.qualcomm.com>
+Date: Thu, 17 Sep 2026 07:16:27 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBQFr1Le2kAbjaBbwQN0K1KS+KNfaBN+Y
- hFK727U5QzMLMgkTBnHZoHQzJnjVKHbNPAPO91J8a0ydKv37aEzSmiMhZJEP8wsheMw2qScD1t
- tTbDO7FDbJBT4/fte0J9PuP5lfrkn+fI9Yl0/ay11Wn4AAAA=
-X-Change-ID: 20260915-remoteproc_virtio_map-bcf32a5fab54
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, virtualization@lists.linux.dev, 
- imx@lists.linux.dev, iommu@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, Francesco Valla <francesco@valla.it>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8074; i=francesco@valla.it;
- h=from:subject:message-id; bh=2LZ1fVhkv85MRMHADmROzKC+YrFJIScmDdtzlVxHDq4=;
- b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFmrWR/vXhFxs1O+ZeNzaR+WR9EbP8ttnyMXWhxp7Mv2L
- qdEO2RTRykLgxgXg6yYIkvIuhv39sw1/5a2gfERzBxWJpAhDFycAjCRpxcZ/plsdVz343C7wAax
- WPGU7orpm26Ui78507JUnPG39fbYnwmMDD+nfuphvLDs5hav9z6vt0trb5OcyLrrWbF8ADPb68r
- TT7gA
-X-Developer-Key: i=francesco@valla.it; a=openpgp;
- fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: fb9e7add86738f17b29d6f5395ffc7f2
-X-AntiAbuse: ID - fb9e7add86738f17b29d6f5395ffc7f2
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1x6wuI-00000002DKq-4AE8-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-f940.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 5/5] dt-bindings: tee: add RISC-V RPMI TEE transport
+To: Anup Patel <anup@brainfault.org>
+Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+        Rahul Pathak <rahul@summations.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+        linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+References: <20260912-rpmi-tee-service-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com>
+ <20260912-rpmi-tee-service-grp-dev-v1-5-1d1d35c2a859@oss.qualcomm.com>
+ <CAAhSdy3Or_uDWuQniUGguc9AwL8smF6XHhJ0kizFOJKJ0N+9OA@mail.gmail.com>
+Content-Language: en-US
+From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+In-Reply-To: <CAAhSdy3Or_uDWuQniUGguc9AwL8smF6XHhJ0kizFOJKJ0N+9OA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDI5NiBTYWx0ZWRfXwQ43XIZ9yf5s
+ OQZeynhuVm9uVUTlE3hJC+pyb6sDTZOfGo1xsCh0QN/P6OYwC2GLTS2JBG0CMt97pHKG88j6/7H
+ To9hHRdASu6H88fxOOELTIotd1KSka52uFNEBCdK2A60jCVY6A6qQMdUmGqRQff4IQzSXtzS0gK
+ 11QXGs4UJrQM9V5f0EKASr6TjrWWbrJl//49R+87xBMOpuSvFtejiaItXM7h7mMqbfzkLECEQEG
+ 3RuyRR65CVxxoe4u5KL/skUdnX1jX2D7eRqHSDtbSj2Ot+zEXyp1X4YMzPjZOH9Q7LYXyN7WJvQ
+ Emjfo9YwqinjlNzwE29gGX0xx0Rf6ZwevFdgxt/sbM53x4Fb8VYyL9rIEJIBXKnppmchU3Z7VpA
+ XT90ftooUk2h963WqLBmBWi98wCoXJRnDJOKGiruhMAwjHnb8G7yGb/sFJVS9jeXxJF84QgL8J5
+ nxEfjsJziHa5RE0NuuQ==
+X-Authority-Analysis: v=2.4 cv=L8aI0OT8 c=1 sm=1 tr=0 ts=6aab0735 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=RYJI0oIToGyOemi2SthaJQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=gEfo2CItAAAA:8 a=V1jnuoLLAAAA:20 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=b45o4kL6AAAA:8 a=oSFF6Vc5-LCmsOG0wpkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=sptkURWiP4Gy88Gu7hUp:22 a=dhdsR-PFWuPJUldTnwXm:22
+ a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-GUID: IeKolzUbe3MeKD8sQyqqNwy4DZEVEAWV
+X-Proofpoint-ORIG-GUID: IeKolzUbe3MeKD8sQyqqNwy4DZEVEAWV
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDI5NiBTYWx0ZWRfX7Iwe7ALLPgxP
+ lXc30LDx+b06Xo6+qVNW48dDcw7+hjxXIW5c3YGoH2Px/IJQAjJUnl13YvxV1MqxfUC28NcDhcw
+ KDyrRFZjwIKKTbGaU/+Pk0TKjnTZbOs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 spamscore=0 phishscore=0 bulkscore=0
+ clxscore=1015 suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160296
 
-Hello,
+Hi Anup,
 
-this patch series introduces the possibility to support generic virtio
-devices over the remotepoc transport, whereas today only rpmsg and
-virtio-console are supported.
+On 9/16/2026 8:12 PM, Anup Patel wrote:
+> On Sat, Sep 12, 2026 at 3:45 PM Amirreza Zarrabi
+> <amirreza.zarrabi@oss.qualcomm.com> wrote:
+>>
+>> Add a device-tree binding for the OP-TEE RISC-V transport using the RPMI
+>> TEE service group over SBI MPXY.
+>>
+>> Describe one mailbox channel per hart and an optional interrupt used as
+>> the availability doorbell for asynchronous notifications.
+>>
+>> Add the binding to the existing OP-TEE MAINTAINERS entry.
+>>
+>> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>> ---
+>>  .../bindings/tee/riscv,rpmi-mpxy-tee.yaml          | 65 ++++++++++++++++++++++
+>>  MAINTAINERS                                        |  1 +
+>>  2 files changed, 66 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml b/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
+>> new file mode 100644
+>> index 000000000000..8f6ff313fd42
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
+>> @@ -0,0 +1,65 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/tee/riscv,rpmi-mpxy-tee.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: RISC-V RPMI TEE service group based message proxy
+>> +
+>> +maintainers:
+>> +  - Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>> +
+>> +description: |
+>> +  The RISC-V Platform Management Interface (RPMI) [1] defines a messaging
+>> +  protocol which is modular and extensible. The supervisor software can
+>> +  send/receive RPMI messages via the SBI MPXY extension [2] or some dedicated
+>> +  supervisor-mode RPMI transport.
+>> +
+>> +  The RPMI specification [1] defines a TEE service group which is the RISC-V
+>> +  analog of Arm FF-A: OP-TEE and the rich execution environment (REE, i.e.
+>> +  Linux) are peer endpoints and the RPMI framework (machine mode firmware)
+>> +  mediates every message. Entering OP-TEE on a hart runs it on that hart until
+>> +  it responds, so the SBI implementation provides one SBI MPXY channel per
+>> +  hart; all of them are listed, in hart order, on a single node.
+>> +
+>> +  ===========================================
+>> +  References
+>> +  ===========================================
+>> +
+>> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
+>> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
+>> +
+>> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
+>> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: riscv,rpmi-mpxy-tee
+>> +
+>> +  mboxes:
+>> +    minItems: 1
+>> +    description:
+>> +      One SBI MPXY channel implementing the RPMI TEE service group per hart,
+>> +      listed in the same order as the CPU nodes.
+> 
+> I am not sure why you need separate MPXY channel per hart. The MPXY shared
+> memory is already per-hart whereas the MPXY channel will be doman specific
+> for TEE.
 
-== Introduction ==
+True. My reasoning was that TEE_CALL, as I understand it, is expected to execute on
+the same hart that issued it. Given that, the mailbox core holds the per-channel spinlock
+across the call to `send_data()`, while the underlying `sbi_ecall()` is synchronous
+and does not return until the TEE call completes.
 
-Support for devices other than rpmsg was originally planned [1] and is
-declared inside the documentation [2], but is in practice not there for
-the majority of (if not all) the platforms that provide remoteproc
-capabilities due to memory allocation.
+So, if two harts shared the same channel, a hart executing a long-running TEE operation
+would hold that channel's lock for the duration of the call, and another hart
+trying to enqueue on the same channel would spin waiting for it.
 
-While vrings are pre-allocated in an area that is reachable by both the
-local (i.e.; Linux) and remote processors, buffers produced by virtio
-drivers aren't, since they typically get allocated through kmalloc.
-The aforementioned rpmsg and virtio-console drivers instead use a trick
-to overcome this limitation and allocate these buffers directly from
-the remoteproc device's coherent memory area, somewhat breaking the
-separation between the driver and the underlying transport.
+Using per-hart channels avoids that cross-hart contention. I agree that this may
+not be the right layer in which to address the issue. I did not pull it to the discussion in to this RFC.
+I'm happy to use single channel for now and follow up on it separately if useful.
 
-== Well, nice, but why? ==
+> 
+> Also, for this binding refererring to only mailbox channel is
+> sufficient. The underlying
+> mechanism to send RPMI messages is abstracted away by the mailbox controller
+> driver.
 
-Main usecase is sharing/virtualization of devices in hypervisor-less
-mixed-criticality contexts, where a subset of peripherals are controlled
-by a "safety" real-time processor but still need to be used by the Linux
-world. Several solutions have been / are being proposed [3] [4], but
-none of them re-uses the existing, standardized virtio specifications. 
-
-== The proposal ==
-
-The proposed approach is to introduce a bounce buffering mechanism that
-is transparent to the drivers and can expose to remoteproc devices only
-memory areas they can access. This is obtained by defining the .map
-memeber of each registered vdev and use the map() and unmap() callback
-to bounce data to and from the remote processor, just like the swiotlb
-framework is doing in other contexts, using the device's coherent memory
-area and the associated functions to allocate the bounce buffers.
-
-During the map() callback the address of the incoming buffer is compared
-against the coherent memory address base and size, to pass through
-buffers already suitable for remoteproc usage (e.g.: the ones allocated
-by the rpmsg framework).
-
-== Status and open points ==
-
-The series was tested against a custom Zephyr application [5] running on
-the Cortex-M33 processor of an i.MX93 and exposing six different virtio
-devices:
-
-  - rpmsg
-  - entropy (rng)
-  - gpio
-  - i2c
-  - spi
-  - can
-
-On top of three of them (unsurprisingly: i2c, spi, and gpio) several
-devices where declared inside Linux devicetree and successfully used
-(well, technically I'm still experiencing difficulties with gpio
-interrupts not firing on the M33, but that's not really related to the
-series). 
-
-Several open points are still present, and needs to be either
-investigated or discussed:
-
-  - for each bounce buffer an entire page is allocated from the coherent
-    memory pool; this is a waste for most of the allocations, which take
-    on average 32 to 64 bytes. An option can be to initialize a DMA pool
-    on one page and allocate small buffers from it?
-
-  - the support in its current form allocates more memory than before
-    (for bounce buffer tracking) also for existing usecases (i.e.,
-    mainly rpmsg).
-
-  - an additional issue still exist - and is not solved by this series -
-    for a subset of virtio devices: communication through the device's
-    config space. The remoteproc transport expects this config space to
-    be somewhat constant, and there is no provision to sync changes made
-    by the driver with the remote device. This prevents e.g.
-    virtio-input to work.  
-
-  - device de-registration on remoteproc stop is causing oopses (under
-    investigation - might no be strictly tied to the series)
-
-== Patches breakdown ==
-
-Patches 1 and 2 are cleanups to the remoteproc-virtio driver and could
-be applied independently of this series.
-
-Patch 3 was submitted a couple of months ago [6] and paves the road for
-the actual support of generic virtio devices, removing the fixed number
-of 2 for the vrings associated to a vdev.
-
-Patch 4 introduces two new APIs for coherent memory areas associated to
-devices that are used later.
-
-Patch 5 might somewhat be controversial, as it unconditionally defines
-the VIRTIO_F_VERSION_1 feature for all vdevs. This is required to
-support some virtio device types, and there is no other mean of
-defining it, since the field reserved for features inside the resource
-table is limited to 32 bits. Given that the 1.x virtio specifications
-are ~10 years old this still seems reasonable.
-
-Patch 6 is were the bounce buffering mechanism is introduced; another
-feature (VIRTIO_F_ACCESS_PLATFORM) is there unconditionally defined to
-force the virtio framework to use the new map APIs.
-
-Patches 7 and 8 are new devicetree bindings, the first for spi-virtio
-(modelled against the existing ones for gpio-virtio and i2c-virtio) and
-the second for declaring virtio device inside a devicetree. This is not
-required for some devices (e.g.: can, net, gpu), but for others is
-necessary to declare child devices and link them.
-
-Patch 9 is used to convince the remoteproc-virtio transport to parse the
-bindings just defined; it is worth noting that the virtio framework
-already has the support for devicetree declarations and this adds only
-the glue between the existing support and remoteproc.
-
-Patches 10 and 11 are i.MX-specific and enable the usage of the newly
-introduced support on this family of platforms. The first one might
-probably be sumbitted as-is independently of the series, as it aligns
-the behavior of imx-rproc to the other platforms in relation to mailbox
-usage.
-
-Finally, patch 12 is the PoC that has been used to develop and test the
-series and shall not be merged.
-
-======
-
-Thank you in advance for any comment you may want to leave.
-
-Regards,
-Francesco
-
-[1] https://lore.kernel.org/all/1330589497-4139-1-git-send-email-ohad@wizery.com/
-[2] https://elixir.bootlin.com/linux/v7.2.5/source/Documentation/staging/remoteproc.rst#L26
-[3] https://lore.kernel.org/linux-remoteproc/20260721204704.400781-1-shenwei.wang@oss.nxp.com/
-[4] https://cfp.embedded-recipes.org/er2026/talk/PCYPJP/
-[5] https://github.com/WallaceIT/zephyr/tree/multi_vdev
-[6] https://lore.kernel.org/all/20260621-vring_flex-v1-1-c6c582fbe94b@valla.it/
-
-Signed-off-by: Francesco Valla <francesco@valla.it>
----
-Francesco Valla (12):
-      remoteproc: virtio: cleanup rproc_add_virtio_dev error path
-      remoteproc: virtio: replace commas with semicolons
-      remoteproc: virtio: support dynamic number of vrings
-      dma-coherent: add base and size APIs
-      remoteproc: always report VIRTIO_F_VERSION_1 feature
-      remoteproc: virtio: add bounce buffering for data buffers
-      dt-bindings: spi: add bindings for spi-virtio
-      dt-bindings: remoteproc: add remoteproc-virtio
-      remoteproc: search for a fwnode during vdev registration
-      remoteproc: imx_rproc: always use non-blocking mailboxes
-      dt-bindings: remoteproc: imx-rproc: support virtio
-      PoC: arm64: dts: imx93-11x11-frdm: add multiple vdevs
-
- .../bindings/remoteproc/fsl,imx-rproc.yaml         |   3 +-
- .../bindings/remoteproc/remoteproc-virtio.yaml     |  89 +++++++++
- .../devicetree/bindings/spi/spi-virtio.yaml        |  52 +++++
- arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++-
- drivers/remoteproc/imx_rproc.c                     |  49 +----
- drivers/remoteproc/imx_rproc.h                     |   1 -
- drivers/remoteproc/remoteproc_core.c               |  43 +++-
- drivers/remoteproc/remoteproc_virtio.c             | 222 ++++++++++++++++++---
- include/linux/dma-map-ops.h                        |  10 +
- include/linux/remoteproc.h                         |  24 ++-
- kernel/dma/coherent.c                              |  34 ++++
- 11 files changed, 562 insertions(+), 93 deletions(-)
----
-base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
-change-id: 20260915-remoteproc_virtio_map-bcf32a5fab54
+Ack.
 
 Best regards,
---  
-Francesco Valla <francesco@valla.it>
+Amir
+
+> 
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +    description:
+>> +      Availability doorbell raised by OP-TEE to signal asynchronous
+>> +      notifications over the RPMI TEE signal bus. Optional; when absent
+>> +      asynchronous notification is disabled.
+>> +
+>> +required:
+>> +  - compatible
+>> +  - mboxes
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    tee {
+>> +        compatible = "riscv,rpmi-mpxy-tee";
+> 
+> This must be "riscv,rpmi-tee" based on above comments.
+> 
+>> +        mboxes = <&mpxy_mbox 0x10 0x0>, <&mpxy_mbox 0x11 0x0>;
+> 
+> Like mentioned above, only one mailbox channel is sufficient.
+> 
+>> +    };
+>> +...
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index 207a6e2db70c..7d0e550085b2 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -20577,6 +20577,7 @@ M:      Jens Wiklander <jenswi@kernel.org>
+>>  L:     op-tee@lists.trustedfirmware.org (moderated for non-subscribers)
+>>  S:     Maintained
+>>  F:     Documentation/ABI/testing/sysfs-bus-optee-devices
+>> +F:     Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
+>>  F:     drivers/tee/optee/
+>>
+>>  OP-TEE RANDOM NUMBER GENERATOR (RNG) DRIVER
+>>
+>> --
+>> 2.34.1
+>>
+> 
+> Regards,
+> Anup
 
