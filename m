@@ -1,281 +1,177 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FA847208F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:22:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD4637FF67
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789564972; cv=none; b=B3KfaQOo/DXKvCGo6gY6OP+4MVeEbzeEzbgeEScO9z0Vji1OBAMjeR2SZbQRBBnm281dwOhScyRd+K/Rf40KUsPhNSrC7DwNdSTBpeBtUhz5LZYFHlx/ljUZeHtya1FuG98crWZYmd/QnYwHXxBF/O75nsyPnhLiUV3swMkpkrM=
+	t=1789565001; cv=none; b=LHFGIi6sDUfIcSzaUTnqDuG0G+ut9KDfHx4SGfz8eRZHImxk0qBi0zwQpRIEOMiyD5HjqX1j7bjYwtqNz8CuLtyZyJGwH2kP+5lCz7vq/rR7D8xrcpqKYO/eT9F1m6Molop2zdABF5d1Qn8+ng7fDtF78nlkjFyFf/76at9v5aI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789564972; c=relaxed/simple;
-	bh=5soaOGZObSNGOcK95ZhMd5l24sDwrTJqxb1rZikxyIE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nl0VTxpHkMEVKuMVgLoP3nTwesuJ0i/SzdZljFAhmRRMIjsyjuNvUxz3Jr2GAYrMG6Os+qgmFcPSPmRZvitefU6yLDm2f8dOlbMd4CtQq854KPLsjGU3kB9tY+ZFTHDSbQa4/DmKli8HdbOYdi8lOBAuhBN+IutZy7p2i2+EPm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mZPApaZ0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GUZfB6xt; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789565001; c=relaxed/simple;
+	bh=jsSn/dJ3du8mtrFnVq7nUxNuhYUF1hfGYrdD52t/hQA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vBM/gluW8LWs0sPfEDVBbpjqRo2tPoTAp4HDZ4CLnCPLmnGLro1ZOHWi++CrORHcutppYI0vKqlo4fWf7PcNqkCz2pQsUkMQeLOPwaj/q9LjEzey2q5ddNQpVF1l44og6wHPsjdVvfsOevmZrBaxJzRvnWYdQBiTW7GbxlZiecw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iyqfQ56R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mZPApaZ0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GUZfB6xt"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GCYUT82052857
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:22:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=68DVc1Rw7Ic9+mA58NCJ+S
-	OpY/N/DIaqlcODSFHBDqQ=; b=mZPApaZ0z4BcdwcaJcTb44icMDBjJOEfzL8rJx
-	dFqU30MCM0qFW4eCgiB7/eAz2g0192qJnpfb02SLJF2BbxVEdIVtaw9RYTLI1M1Y
-	SC7L+97UUtwITvk+Yx98INU0UDgRfaAiX9oU4sWFNtbTXCjFyuzl8QTG9/koU6Rz
-	D1BSbFCwuHrtCK4YKfAS9D25qxweiEp9XTH0dj/3BSbch2cFnpOrC9TC1dlAijGv
-	82rKZOs5ZA1A75JCuvM7udcWw5VI/83tqTwVrfxat99wV4cgoSTRvWWg+SMQ8Fkc
-	maoyBBVs/dqTIgso4JjUiPF23RG2uRM9L2USBTDNCPsOQVmQ==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqtn50aua-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:22:48 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5c8323b8464so6744579e0c.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:22:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789564967; x=1790169767; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=68DVc1Rw7Ic9+mA58NCJ+SOpY/N/DIaqlcODSFHBDqQ=;
-        b=GUZfB6xtS4ydS37uNCilKhv/v+dO8qda+qJNDQYriskw7SZ6TvtefW/hTrQl1p90qY
-         vl2/lE6Mn+68Xb4RwMzuKjPPPirk24xEPNrUZGBoJ9FAO1S0be2BWXvuYWUx7UtxZeNv
-         EbK23yOWoJNZq4g/CZ8L+7mPjp1KOjF8r73UYx8v5qJpelZHmsVBGuyVi5T/oC8Z5brS
-         GH7tU2YZhUj7uTYhEbKnBJ2WhTBuFhcZj2bSL55reWj+CTp5l/finqNRhy6945AZL19V
-         BZg/KFj972DIR8reCUrMZXc0RhiSkccaTaTxvPKYkw2MrI1Gcwn/lwv9uYFOejk/WPKr
-         Qrcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789564967; x=1790169767;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=68DVc1Rw7Ic9+mA58NCJ+SOpY/N/DIaqlcODSFHBDqQ=;
-        b=p0GV5hp2JQFLzmXa2mvKK8z41uh7VS3TkbUVdNMS2gsTC/uHIHOXW8nPAeJPGioaGM
-         jYLvO/uIm69Tzf8Iz1ihTxMw0B4lTp7tAQOBCejk4KoHCBnosZ0E+XiOmFb3H5Yrf7xD
-         pLN235Y98Kn1vE3Llq3z+a01q/EFR4d+C7PWC+rDLaXfXzMFj9u1N6Ty+F9jpMHgmNUD
-         n5JZ4YhdWiWInGn3u00852DyA8yfnUWvmr1Ywwokm7yssF1Eslf48ZiEU+3JgehCJwZD
-         10VgnvFb16Duz0L7GBcSOIDNODdiHSWugfbbUbVEhlRb/2rHBAVWRXWxILCS3mAE8FuP
-         sTsA==
-X-Forwarded-Encrypted: i=1; AKwUvBzoueoH/eWxBT3XMI/RD9FCusnqO8d81u8Jd/nth5fuDTImrz5tlKKtLjye7yjru1EOxRR021XTndwv+do=@vger.kernel.org
-X-Gm-Message-State: AFuF++noa2Sl3PCNGpGyfoysPZbiGqiLQWf9NApcq2B1aEXGZ99AJpy0
-	Vmadv6Cb+RQakLtJGaTTCEU4uSYDdnQ58vtz+NHGokhCm9/AeEibbR9vqbEPLWn7lQyKy1Ll+F4
-	RQ+8TbLi0N2fU3xy3nM/S/RsBf3rEydBWzGcjjpDwzrI+FZGgOw2rL1e2e0ctscPhBmU=
-X-Gm-Gg: AYBFou1hs34l36TFb++2SxDMrh/vmPGFoBN3PKxH2k1D+gAe6AyoaWqrTaqdQe6tUng
-	8brRGZdhQwUqrlv3KLz0W6R6nNSGNCi1x6O/Vv7nWbAP9b4wP7X6P4rfu9W2gCgXmOcHg+/29sT
-	H1qM3nwPB+67Xd1bsFVRpAcjOu9Sdg4qrvdYHsUhhDb/63nP3VoiW9f2b8Zy4Uyqv9bBLise0NV
-	WJZGfVOXqIqvsSXwbdSZRqnRcvcLzCDIfwfgU29acUGTMlpyhFFQqchzww0Q7PMZ/DA7troThRj
-	DM8zJVprgsbF86PhaMsi2mXM0O7i14ofsjY3wW3no2FJsq/6wQmezszvSOXE+NZczLg62pqIjtp
-	NBZzcTW6kf007XJAxzOWtcdF+5va1103Olj7ZUFs9rzSlHFUDH1+CRSGO9xn9nm/8nrbmvH0P3Z
-	C5+/rWu33TOo6B
-X-Received: by 2002:a05:6122:4d09:b0:5bf:9461:91d with SMTP id 71dfb90a1353d-5c99ae6afa6mr2586471e0c.5.1789564967340;
-        Wed, 16 Sep 2026 06:22:47 -0700 (PDT)
-X-Received: by 2002:a05:6122:4d09:b0:5bf:9461:91d with SMTP id 71dfb90a1353d-5c99ae6afa6mr2586380e0c.5.1789564966816;
-        Wed, 16 Sep 2026 06:22:46 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8b57e0bdcsm849631e87.58.2026.09.16.06.22.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:22:45 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 16:22:41 +0300
-Subject: [PATCH] drm/vblank: serialise drm_crtc_next_vblank_start() with
- vblank_off
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iyqfQ56R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2A01F000FF;
+	Wed, 16 Sep 2026 13:23:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789564998;
+	bh=t1n21esTWFIARb22DabL327mvFBcDYA8LulYh58X1JM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iyqfQ56RCSKneDh03pMqIw3w4xWZI6hlxEMUUXydQndV49m08vRmeRcTuK5Ef+WjO
+	 o9QTFocyfQEIerKgrSC3l9RQGmjvcP7quw6zXK6TDxv+tr+tGyrXLlnRm8CHnm3ts+
+	 tZvsitIFUR7yj7H2xjQR3atAhMD4MMwUeaYpSbFJr1tTo5hnQ/mJwAMDS0kIW9DA4Y
+	 smXDfOHMOFBUa+BqOm7WKQrGUCUIWZb4o1HXfMHnzR4W/Arupulis00Ym4dCVjWJOG
+	 sUb/pChJrOO216PGv0ZVv3oiEsr/qZPi8j5QkjKCq8XIJ2IYqoCb8aVDZiELS49uiE
+	 TLZchf3Rqv8Xw==
+Message-ID: <69a7987f-15fb-4793-81b6-cc436525224e@kernel.org>
+Date: Wed, 16 Sep 2026 15:23:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2 01/14] mm: Add read-write accessors for vm_page_prot
+To: Anshuman Khandual <anshuman.khandual@arm.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+References: <20260907035030.2839978-1-anshuman.khandual@arm.com>
+ <20260907035030.2839978-2-anshuman.khandual@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260907035030.2839978-2-anshuman.khandual@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-vblank-deadline-lock-v1-1-df377ba7f184@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIACCYqmoC/yXMSw6DIBRG4a2YO+5NgIGvrTQdIPzVqwQbsKaJc
- e+ldfgNzjkoIwky9dVBCbtkWWOBvlXkJhtHsPhiMsrUqtM170OwcWEP64NEcFjdwo1pvFPQrUF
- HJX0lPOXz394fl/N7mOG234vO8wt3eFXzeAAAAA==
-X-Change-ID: 20260916-vblank-deadline-lock-727dc0e182e9
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
-        linux-arm-msm@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5512;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=5soaOGZObSNGOcK95ZhMd5l24sDwrTJqxb1rZikxyIE=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqqpglQSjO+6xtzyVKICjcTKfd5SgJbHOoriZi3
- 25Jw2IDmQWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaqqYJQAKCRCLPIo+Aiko
- 1c/PCACWx3UFIaXNQ/810IYFWIDwqKiJ72t+9mR+3+0cWUNYptVdWWpCStHF01mZhGS7CnVrRkT
- 62oyotOiXYYAKTS0Wsi6ptI8mzwgU2PV8mjECFJ77ULc2xTu6znRlmhD4op9ZSWsaZFNKK9mBX8
- FgtPHA3qZA+t6QmgysZ770Fxz1v5omQQZVi91u8A75vFxtEeD1VAlHQvtUDXw9QcWStkt0fWz2t
- 7KdJLw8p2C8AgszW2dmahLVJU0xPpr1wSRopl9r4LHj8S+W2T0IeO+tP+BGqR0XWmzEbxmg39DO
- PgU3lVtTEe5sEdL3TWlOru2nGIbyczeG3TCcem+Ku4AtndLm
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE3OCBTYWx0ZWRfX0RE/9nme6TAS
- DPXhaI78jJ9J9Bm07Nmg+wIok6nvBUY2nunEoiCrUeIk1pOMft4rQf6dUU3jiRQ6Q2SaM26UoNN
- 4lk9hi32tD8vHKWQNu4xD76jndi6Zk4L4/5Dc6/XHKl6iGZIES/g6yT9zOAz+l9q4nNalbDrB/5
- UXYPkaFH69Xs9XALD1JXnd/Xj2ZEgc3JCG5wshA/bqKqV69drca/A8f1LzhnE9ak+QOyQVUDstO
- LmMwA6PkEFz7Jn7/hN9Rjf680B/pPZRo+XJlge2tYhOYd+Mt6sHlgrvSsL5he/5p/goxbBbr5WH
- fk9gOfgM3eu/kGlU2VqnKHOUuhYGLYDEFTvBBiSQHCjkgb5CF9kbAqBY5iPzXpirN0OL5raiY6w
- te4w4IUvDFXTJoXKuFbB68mlr7pZhk+ojL8h9Vr6M7dORjVhJtWUSZk7wI8XBQbz8teDKDIrnIO
- TM8jJRSIoLb75W5R57g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE3OCBTYWx0ZWRfX0wpDcBTA0Xb5
- bfrBU1dymiFfH8rrtbixr5MB4sVdPm/+EWaYpyj5MKlJo769sFoXNnF1DbILFMq0a+m6XM5rosb
- 5+2XJePtEqrhm2jn6LWO/9npMz6pHDE=
-X-Proofpoint-ORIG-GUID: PVtv1ZZ040acjYR93WZD_PClL_RUeYRQ
-X-Authority-Analysis: v=2.4 cv=K7O3jCWI c=1 sm=1 tr=0 ts=6aaa9828 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=e5mUnYsNAAAA:8
- a=EUspDBNiAAAA:8 a=ZQ5kVCjTFVWBDE528uIA:9 a=QEXdDO2ut3YA:10
- a=hhpmQAJR8DioWGSBphRh:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: PVtv1ZZ040acjYR93WZD_PClL_RUeYRQ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 spamscore=0 adultscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160178
 
-drm_crtc_vblank_off() zeroes vblank->hwmode.crtc_clock to arm the sanity
-check in drm_crtc_vblank_helper_get_vblank_timestamp_internal(), which
-asserts that an atomic driver never asks for a vblank timestamp while the
-mode timings are not set up.  The only caller that can ask for one outside
-the vblank machinery is the fence deadline code, and it decides from atomic
-state rather than from the vblank state:
+On 9/7/26 05:50, Anshuman Khandual wrote:
+> Currently vma->vm_page_prot is safely read from and written to, without any
+> locks with READ_ONCE() and WRITE_ONCE(). But with introduction of D128 page
+> tables on arm64 platform, vm_page_prot grows to 128 bits which can't safely
+> be handled with READ_ONCE() and WRITE_ONCE().
+> 
+> Add read and write accessors for vm_page_prot like pgprot_[read|write]()
+> which any platform can override when required, although still defaulting as
+> READ_ONCE() and WRITE_ONCE(), thus preserving the functionality for others.
+> 
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: linux-mm@kvack.org
+> Cc: linux-kernel@vger.kernel.org
+> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+> ---
+>  include/linux/pgtable.h | 14 ++++++++++++++
+>  mm/huge_memory.c        |  4 ++--
+>  mm/memory.c             |  2 +-
+>  mm/migrate.c            |  2 +-
+>  mm/mmap.c               |  2 +-
+>  5 files changed, 19 insertions(+), 5 deletions(-)
+> 
+> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+> index e3c8ab96941c..0df57a5c19ef 100644
+> --- a/include/linux/pgtable.h
+> +++ b/include/linux/pgtable.h
+> @@ -524,6 +524,20 @@ static inline pgd_t pgdp_get(pgd_t *pgdp)
+>  }
+>  #endif
+>  
+> +#ifndef pgprot_read
+> +static inline pgprot_t pgprot_read(pgprot_t *prot)
 
-  msm_dpu ae01000.display-controller: [drm] drm_WARN_ON_ONCE(drm_drv_uses_atomic_modeset(dev))
-  WARNING: drivers/gpu/drm/drm_vblank.c:756 at drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x310/0x380
-   drm_crtc_vblank_helper_get_vblank_timestamp
-   drm_crtc_get_last_vbltimestamp
-   drm_crtc_next_vblank_start
-   drm_atomic_helper_wait_for_fences
-   drm_atomic_helper_commit
-   drm_mode_cursor_universal
-   drm_mode_cursor_common
-   drm_mode_cursor_ioctl
+Try passing "const pgprot_t *prot" instead.
 
-set_fence_deadline() skips CRTCs that need a modeset or are not active, but
-both of those describe the commit it is called for.  A cursor update on a
-CRTC that a concurrent, already swapped in commit is taking through
-drm_crtc_vblank_off() has neither flag set, and that commit runs in parallel
-by design: drm_atomic_helper_wait_for_fences() is called before
-drm_atomic_helper_swap_state(), i.e. before commit_tail() waits for the
-previous commit.  kms_cursor_legacy@long-nonblocking-modeset-vs-cursor-atomic
-hits this window.
+[...]
 
-drm_crtc_next_vblank_start() cannot spot it either.  It guards on
-framedur_ns and linedur_ns, which drm_crtc_vblank_off() leaves at their old
-values, so it walks into the timestamp query anyway.  Nor would testing
-crtc_clock there be enough on its own: both it and the query read state the
-writer may be changing underneath.
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index 15b45832bcfa..579152cce502 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -387,7 +387,7 @@ static bool remove_migration_pte(struct folio *folio,
+>  
+>  		folio_get(folio);
+>  		new = folio_page(folio, idx);
+> -		pte = mk_pte(new, READ_ONCE(vma->vm_page_prot));
+> +		pte = mk_pte(new, pgprot_read(&vma->vm_page_prot));
+I do wonder whether a
 
-Take vblank_time_lock across the check and the query, and take it over the
-store in drm_crtc_vblank_off(), so the two cannot interleave, and reject the
-call when the mode timings are gone.  Every other reader of hwmode already
-holds this lock, drm_crtc_accurate_vblank_count() already calls into the
-same timestamp path under it from process context, and it is the innermost
-of the vblank locks, so nothing nests the wrong way round.
+ogprot_t vma_get_page_prot(const struct vm_area_struct *vma)
 
-This does put the driver's get_scanout_position() callback inside an
-interrupts-off section on the atomic commit path.  That is the same cost
-drm_crtc_accurate_vblank_count() already pays, and it is bounded by
-DRM_TIMESTAMP_MAXRETRIES.
+where we hide the pgprot access would be a good complement for vma_set_page_prot().
 
-Fixes: d39e48ca80c0 ("drm/atomic-helper: Set fence deadline for vblank")
-Reported-by: Rob Clark <robin.clark@oss.qualcomm.com>
-Closes: https://gitlab.freedesktop.org/drm/msm/-/merge_requests/243#note_3662857
-Assisted-by: LLM
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
-Rob spotted this splat in the drm/msm CI on a sc7180 trogdor board, in
-kms_cursor_legacy@long-nonblocking-modeset-vs-cursor-atomic.  It is not
-msm specific: the fence deadline code queries the vblank timestamp based
-on atomic state, which says nothing about whether a concurrent commit has
-already taken the CRTC's vblank down.
+Just a thought.
 
-f2c7ca890182 ("drm/atomic-helper: Don't set deadline for modesets") fixed
-the case where the commit doing the query is itself the modeset.  This is
-the other half of it.
 
-Reproduced and tested on an SM8350 HDK: the WARN fires on the first run of
-the subtest without the patch, and 20 consecutive runs are clean with it,
-with CONFIG_PROVE_LOCKING=y.
----
- drivers/gpu/drm/drm_vblank.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+> diff --git a/mm/mmap.c b/mm/mmap.c
+> index 4bf26b0f1e6e..729bc244b317 100644
+> --- a/mm/mmap.c
+> +++ b/mm/mmap.c
+> @@ -89,7 +89,7 @@ void vma_set_page_prot(struct vm_area_struct *vma)
+>  		vm_page_prot = vma_pgprot_modify(vm_page_prot, vma_flags);
+>  	}
+>  	/* remove_protection_ptes reads vma->vm_page_prot without mmap_lock */
+> -	WRITE_ONCE(vma->vm_page_prot, vm_page_prot);
+> +	pgprot_write(&vma->vm_page_prot, vm_page_prot);
+>  }
+>  
+>  /*
 
-diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index f90fb2d13e42..2984ce3b68ed 100644
---- a/drivers/gpu/drm/drm_vblank.c
-+++ b/drivers/gpu/drm/drm_vblank.c
-@@ -1020,28 +1020,36 @@ EXPORT_SYMBOL(drm_crtc_vblank_count_and_time);
-  */
- int drm_crtc_next_vblank_start(struct drm_crtc *crtc, ktime_t *vblanktime)
- {
-+	struct drm_device *dev = crtc->dev;
- 	struct drm_vblank_crtc *vblank;
- 	struct drm_display_mode *mode;
-+	unsigned long irqflags;
- 	u64 vblank_start;
-+	int ret = -EINVAL;
- 
--	if (!drm_dev_has_vblank(crtc->dev))
-+	if (!drm_dev_has_vblank(dev))
- 		return -EINVAL;
- 
- 	vblank = drm_crtc_vblank_crtc(crtc);
- 	mode = &vblank->hwmode;
- 
--	if (!vblank->framedur_ns || !vblank->linedur_ns)
--		return -EINVAL;
-+	spin_lock_irqsave(&dev->vblank_time_lock, irqflags);
-+
-+	if (!vblank->framedur_ns || !vblank->linedur_ns || !mode->crtc_clock)
-+		goto out;
- 
- 	if (!drm_crtc_get_last_vbltimestamp(crtc, vblanktime, false))
--		return -EINVAL;
-+		goto out;
- 
- 	vblank_start = DIV_ROUND_DOWN_ULL(
- 			(u64)vblank->framedur_ns * mode->crtc_vblank_start,
- 			mode->crtc_vtotal);
- 	*vblanktime  = ktime_add(*vblanktime, ns_to_ktime(vblank_start));
-+	ret = 0;
-+out:
-+	spin_unlock_irqrestore(&dev->vblank_time_lock, irqflags);
- 
--	return 0;
-+	return ret;
- }
- EXPORT_SYMBOL(drm_crtc_next_vblank_start);
- 
-@@ -1405,7 +1413,9 @@ void drm_crtc_vblank_off(struct drm_crtc *crtc)
- 
- 	/* Will be reset by the modeset helpers when re-enabling the crtc by
- 	 * calling drm_calc_timestamping_constants(). */
-+	spin_lock_irq(&dev->vblank_time_lock);
- 	vblank->hwmode.crtc_clock = 0;
-+	spin_unlock_irq(&dev->vblank_time_lock);
- 
- 	/* Wait for any vblank work that's still executing to finish */
- 	drm_vblank_flush_worker(vblank);
 
----
-base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-change-id: 20260916-vblank-deadline-lock-727dc0e182e9
+-- 
+Cheers,
 
-Best regards,
---  
-With best wishes
-Dmitry
-
+David
