@@ -1,56 +1,74 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F42E4BE442;
-	Wed, 16 Sep 2026 23:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976B1493642
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789599903; cv=none; b=WATsQo5KpTEpHkJEbage8norBWV6bVgceWip/lF5c6mcmQk4aw7uS9104aqvD1sodzbzU2Vcn2LCiBk7TwEunzCAzmlZ/Ii5mEhDEmvpyCrjBrf7CMIe4e393ART1KFXFXLD4Zf1+I28GoIbEgcXDEpG3dpml/guHh6FBQKa04E=
+	t=1789599930; cv=none; b=IpmGimwD0YmzCjccnVWCbUuaYfvqvK69BnBRzWNkabiqQWeSHOwN+MzXbIXwGOmz2cJDYar2oEapfBnCNE52JhWvPa6JabhDVabvDf6C6ksu1R/2fIKjhTtTnY9+iof2vNREFkJDKEj+sDbiLluecEjxLFMcI91ZykwBol3oPr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789599903; c=relaxed/simple;
-	bh=vi57qo/8SMKA7ce5milDFGhdsFoRJ0qsi5qR9nbde/c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IKoEzUNNrM5k94Dr8r0WXM37tIBXVOKxDt1zjnpPdiedqjqA4jMgJUIcbueNQLNJ8BM5Ukd/+Mb4OLZUW4OWNwjEi8H5PqU2vLXwPdBxyWWlBmfYgcFI81sWfUVJ2fqAxacmuG/VcoiEDmrrwX69akqbNt2cQOB2H0IWcNA7fI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pF7L6UA2; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789599930; c=relaxed/simple;
+	bh=Z6PcnsznE6aBA3m7fse5WL9XUU+DUmRIKh/4fcjvkIU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cFIA5t7MEHV4EZ/uXJNXAC8ARPlR7U2U5iJZm+7CvXbo7NXi+dVp7SieCde1zcqNl90RuEpHa8eRpPwschs7MifbnJfoGYnTGrr9a/6jyElgsdgV+qPpFapbBwZOX5S1rTMtBE2btBVmGtBcv15JSUwsvwflDQhTD9Aq/ITaA3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J33nf6yG; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pF7L6UA2"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 68C5A1516;
-	Wed, 16 Sep 2026 16:04:56 -0700 (PDT)
-Received: from workstation-e142269.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DE8323F7B4;
-	Wed, 16 Sep 2026 16:04:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789599900; bh=vi57qo/8SMKA7ce5milDFGhdsFoRJ0qsi5qR9nbde/c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=pF7L6UA2zHJqy59tQ07hSXxqT0O700GRTGRub53WtpRgDJZIe/eH6oq3DcCXPO+Au
-	 XxRkeTzfwxduIE5+qBdar4R3GY5mZFF8umnXJDTpnjqhS9rWSexjq6MQYN5p3bn+9h
-	 5S+cUqbue86mYNqrS/1zYANFhNVzrABbEhEWc7uI=
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Sebastian Ene <sebastianene@google.com>,
-	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] KVM: arm64: ptdump: Fix shadow ptdump sleep-in-atomic-context problem
-Date: Thu, 17 Sep 2026 00:03:37 +0100
-Message-ID: <20260916230337.4162485-3-weilin.chang@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260916230337.4162485-1-weilin.chang@arm.com>
-References: <20260916230337.4162485-1-weilin.chang@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J33nf6yG"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2dso111193a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:05:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789599929; x=1790204729; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QOMIwZQbx5+TuflTXtQ2GHARtOa9+XMsOBCfGbZ4teI=;
+        b=J33nf6yGvVZSLVfcdmVBXk74IoKYL/6HoUxOskj6TVeW74T477SBHo8WTb+YTIM+yt
+         1PgRrxC3mgqOy4WPZNcOpBdaU0AhehzouqIfuSQ5d7fsmElKJhgbCHAtBWzGK1syFrPX
+         yeayP1FZHwjTbF+LoBGtigGXbFkk0/DDGR0xmHH0pO4eYcZw1LRjUnBkoJgDvHVvlu/n
+         PJWXoEiijx/AKLtAR2iLcyHYU8ZsNvWMlfmRIuMKlAyNlVlCA4yY0vSp3EOiyA0PPIUF
+         plhRt3/L21aEsiojrD9xfBOnQT4VCF6+eBT6ddJZuWb9hIyLbMRbtEHQTzqm5BB01MRh
+         oKEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789599929; x=1790204729;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QOMIwZQbx5+TuflTXtQ2GHARtOa9+XMsOBCfGbZ4teI=;
+        b=MJCOQEccJ5LwFFdrWXPXHw7elbk/Lbap+o3ojcnzj1KX6pZaX1qfgNr4Xeqx+oCyDj
+         Z29F+sB3wKbQ9u4YdSm0fKYgxO0fLr8jWvMPbpZ/IB4SszY1znjcjRobMCLWQvabTId9
+         xsWegs54CDnATtouDBP2gRLlshCgA0uor6jIJPR6VaU5n4y3XSWzHFmW9UvP3kLEAIlD
+         VMOM1+cAfJuXira8qM9m5Pk0S//4x622e71vgAvJk3VJgBxGIfPJRZhkx4NbGlKEKkQL
+         kRVm+1Wq9+MMQULi6rHtxO5EQoVyYIkfpad0GuasD1MRY4zzILc0HKDnTCVTl+uCMYN5
+         9wMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzik2NkLZU9JsQ/XKyxbNXIXS5CHulSg6qvh+uGlXwAabZP711XqGZB4OmdZ12TjxKGrdSGd/iI9J6XK4A=@vger.kernel.org
+X-Gm-Message-State: AFuF++klQMDK2dE7dklGIc1Uf8FjPZxniv+ga/6walNoWfldL8Zv0XLW
+	SClK8ItubMtzVb1vamEAgzDiTJxCOyrzZGYENz3VXyrusvj4Tq+51m4K
+X-Gm-Gg: AYBFou3YF1YsqducFgGQwlpQTjKqUcAW1RKPyD54j1zWXP8tns2DEeWh8KZc1FZMo5L
+	CG3khtd1+98aPziuMC86sZokEDnGMFFGdoO99sVTAJgvPmRpu7WoGWlFLZUGZ2BBjuNvVjgZHdO
+	t5GLQPbZ8vDgs1MY2miybcvkR+rq3CQIMefhCpozM9e55sXEGKKxxMXvXj+ntBtDGmkWfAUR7I8
+	j0GKH6ApMduzzbLOt/Noz5FpvQXDWPB0FBSiXqWbgRfy48tjQrZ3KR4VfiYGeYPm6/ee05T2bk2
+	Y1tAMaAFlH6FC15813ctMGw2iYVHUfh8xbrG4XGjJTwhqUAuGAnpvwbYlbwPvNnHqp//QgBGVBh
+	UkqL1f9BjOTa9loMa68+FUKbtdNmVnN3iOeF+WiI+8tG9ls5M/Ct9KeoFeNZ3NL/pHmvFd/nV/B
+	c3uoOyiQFqhzyCYjR7IWZoAKiFhBtBwcTNvn2zma8pY9XmiZQhTjuKyaioztdQf3iq/TX/68SVi
+	WnVETDDuZ6tUuJtphx0Uq4FFEOAFGW8HpgHfiDKPPgeT+o+gZ5CXq//RE22Tjl/knl4DAFpDm42
+	qxJzMuIIp7n0CVc84VHQEol2iCmyvpnh0hnb7EFcXCTpZLLe
+X-Received: by 2002:a17:90b:5445:b0:39d:f4a8:75ef with SMTP id 98e67ed59e1d1-39e1e23d60dmr9633703a91.1.1789599928755;
+        Wed, 16 Sep 2026 16:05:28 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35daaa93sm1707990a91.2.2026.09.16.16.05.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 16:05:28 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-crypto@vger.kernel.org
+Cc: Srujana Challa <schalla@marvell.com>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] crypto: cesa: complete pending requests on device remove
+Date: Wed, 16 Sep 2026 16:05:26 -0700
+Message-ID: <20260916230526.284982-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,161 +77,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Previously we exposed shadow page tables by creating a debugfs ptdump
-file whenever a nested mmu instance gets bound to a new context, and
-deleting the debugfs file whose context was getting unbound.
+mv_cesa_remove() unregisters the algorithms and frees the IRQs but never
+drains the engine queues. Each engine can still hold outstanding requests
+in three places: engine->req (currently in flight), engine->queue (queued
+but not started), and engine->complete_queue (processed but not yet
+reported). The latter two are only completed from the IRQ handler, which
+is torn down before they are flushed.
 
-This turned out to be buggy, as the instance<->context binding process
-is done with the mmu_lock held, and debugfs creation/deletion can sleep.
+If the device is unbound via sysfs while requests are outstanding, those
+waiters never receive their completion callback and block indefinitely,
+leaking the request and its scatterlist buffers.
 
-Change the approach and create a shadow ptdump file for each nested mmu
-instead during kvm_vcpu_init_nested(), in a sleepable context. The files
-will be named nested_mmu<index>, and reading it will return the nested
-context's VTTBR, VTCR, and s2 enabled or not before dumping the shadow
-page tables, given the nested mmu is valid.
+Drain all three queues in mv_cesa_remove() and complete each remaining
+request with -ENOENT before freeing the IRQ, so bound tasks are released.
 
-Fixes: 19e15dc73f0f ("KVM: arm64: nv: Expose shadow page tables in debugfs")
-Reported-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-Closes: https://lore.kernel.org/kvmarm/aiuF0KSvvv-ZozI1@sm-arm-grace07/
-Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
-Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- arch/arm64/include/asm/kvm_host.h |  4 ----
- arch/arm64/include/asm/kvm_mmu.h  |  6 ++----
- arch/arm64/kvm/nested.c           |  9 ++++-----
- arch/arm64/kvm/ptdump.c           | 32 +++++++++++++++----------------
- 4 files changed, 21 insertions(+), 30 deletions(-)
+ drivers/crypto/marvell/cesa/cesa.c | 46 ++++++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index cd9b9d2462f9..db177af9149f 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -217,10 +217,6 @@ struct kvm_s2_mmu {
- 	 */
- 	bool	nested_stage2_enabled;
+diff --git a/drivers/crypto/marvell/cesa/cesa.c b/drivers/crypto/marvell/cesa/cesa.c
+index 564b09773507..25a30deca4c5 100644
+--- a/drivers/crypto/marvell/cesa/cesa.c
++++ b/drivers/crypto/marvell/cesa/cesa.c
+@@ -546,6 +546,52 @@ static void mv_cesa_remove(struct platform_device *pdev)
+ 	mv_cesa_remove_algs(cesa);
  
--#ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
--	struct dentry *shadow_pt_debugfs_dentry;
--#endif
--
- 	/*
- 	 * true when this MMU needs to be unmapped before being used for a new
- 	 * purpose.
-diff --git a/arch/arm64/include/asm/kvm_mmu.h b/arch/arm64/include/asm/kvm_mmu.h
-index 6eae7e7e2a68..ac2b0637692a 100644
---- a/arch/arm64/include/asm/kvm_mmu.h
-+++ b/arch/arm64/include/asm/kvm_mmu.h
-@@ -392,12 +392,10 @@ static inline bool kvm_supports_cacheable_pfnmap(void)
- 
- #ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
- void kvm_s2_ptdump_create_debugfs(struct kvm *kvm);
--void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu);
--void kvm_nested_s2_ptdump_remove_debugfs(struct kvm_s2_mmu *mmu);
-+void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu, int idx);
- #else
- static inline void kvm_s2_ptdump_create_debugfs(struct kvm *kvm) {}
--static inline void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu) {}
--static inline void kvm_nested_s2_ptdump_remove_debugfs(struct kvm_s2_mmu *mmu) {}
-+static inline void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu, int idx) {}
- #endif /* CONFIG_PTDUMP_STAGE2_DEBUGFS */
- 
- #endif /* __ASSEMBLER__ */
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index b191365d97cc..41253fe45941 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -124,6 +124,9 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- 			return ret;
- 		}
- 
-+		for (i = 0; i < S2_MMU_PER_VCPU; i++)
-+			kvm_nested_s2_ptdump_create_debugfs(&tmp[i], i + kvm->arch.nested_mmus_size);
+ 	cesa_dev = NULL;
 +
- 		guard(write_lock)(&kvm->mmu_lock);
- 
- 		for (i = 0; i < S2_MMU_PER_VCPU; i++)
-@@ -837,10 +840,8 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
- 	kvm->arch.nested_mmus_next = (i + 1) % kvm->arch.nested_mmus_size;
- 
- 	/* Make sure we don't forget to do the laundry */
--	if (kvm_s2_mmu_valid(s2_mmu)) {
--		kvm_nested_s2_ptdump_remove_debugfs(s2_mmu);
-+	if (kvm_s2_mmu_valid(s2_mmu))
- 		s2_mmu->pending_unmap = true;
--	}
- 
- 	/*
- 	 * The virtual VMID (modulo CnP) will be used as a key when matching
-@@ -854,8 +855,6 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
- 	s2_mmu->tlb_vtcr = vcpu_read_sys_reg(vcpu, VTCR_EL2);
- 	s2_mmu->nested_stage2_enabled = vcpu_read_sys_reg(vcpu, HCR_EL2) & HCR_VM;
- 
--	kvm_nested_s2_ptdump_create_debugfs(s2_mmu);
--
- out:
- 	atomic_inc(&s2_mmu->refcnt);
- 
-diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
-index 4ead856c181a..9411d6c2dafb 100644
---- a/arch/arm64/kvm/ptdump.c
-+++ b/arch/arm64/kvm/ptdump.c
-@@ -17,7 +17,7 @@
- 
- #define MARKERS_LEN		2
- #define KVM_PGTABLE_MAX_LEVELS	(KVM_PGTABLE_LAST_LEVEL + 1)
--#define S2FNAMESZ		sizeof("0x0123456789abcdef-0x0123456789abcdef-s2-disabled")
-+#define S2FNAMESZ		sizeof("nested_mmu0000")
- 
- struct kvm_ptdump_guest_state {
- 	struct kvm_s2_mmu	*mmu;
-@@ -173,6 +173,15 @@ static int kvm_ptdump_guest_show(struct seq_file *m, void *unused)
- 		.seq		= m,
- 	};
- 
-+	if (kvm_is_nested_s2_mmu(kvm, mmu)) {
-+		if (kvm_s2_mmu_valid(mmu))
-+			seq_printf(m, "VTCR: 0x%016llx VTTBR: 0x%016llx s2: %s\n",
-+				   mmu->tlb_vtcr, mmu->tlb_vttbr,
-+				   mmu->nested_stage2_enabled ? "enabled" : "disabled");
-+		else
-+			return 0;
++	for (int i = 0; i < cesa->caps->nengines; i++) {
++		struct mv_cesa_engine *engine = &cesa->engines[i];
++		struct crypto_async_request *req;
++
++		/*
++		 * Stop the engine before releasing resources so it no longer
++		 * issues DMA to the SRAM region or to request scatterlists
++		 * that are about to be unmapped.
++		 */
++		writel(0, engine->regs + CESA_SA_INT_MSK);
++		writel(0, engine->regs + CESA_SA_CMD);
++		writel(0, engine->regs + CESA_TDMA_CONTROL);
++
++		spin_lock_bh(&engine->lock);
++		/*
++		 * Complete the request currently in flight and drain the
++		 * pending and already-processed queues with an error so that
++		 * waiters do not block indefinitely when the device is unbound
++		 * while requests are still outstanding.
++		 */
++		if (engine->req) {
++			req = engine->req;
++			engine->req = NULL;
++			spin_unlock_bh(&engine->lock);
++			mv_cesa_complete_req(crypto_tfm_ctx(req->tfm), req,
++					     -ENOENT);
++			spin_lock_bh(&engine->lock);
++		}
++
++		while ((req = crypto_dequeue_request(&engine->queue)) != NULL) {
++			spin_unlock_bh(&engine->lock);
++			mv_cesa_complete_req(crypto_tfm_ctx(req->tfm), req,
++					     -ENOENT);
++			spin_lock_bh(&engine->lock);
++		}
++
++		while ((req = mv_cesa_engine_dequeue_complete_request(engine))
++		       != NULL) {
++			spin_unlock_bh(&engine->lock);
++			mv_cesa_complete_req(crypto_tfm_ctx(req->tfm), req,
++					     -ENOENT);
++			spin_lock_bh(&engine->lock);
++		}
++		spin_unlock_bh(&engine->lock);
 +	}
-+
- 	ret = kvm_pgtable_walk(mmu->pgt, 0, BIT(mmu->pgt->ia_bits), &walker);
- 	if (ret)
- 		return ret;
-@@ -299,26 +308,15 @@ static const struct file_operations kvm_pgtable_levels_fops = {
- 	.release	= kvm_pgtable_debugfs_close,
- };
- 
--void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu)
-+void kvm_nested_s2_ptdump_create_debugfs(struct kvm_s2_mmu *mmu, int idx)
- {
--	struct dentry *dent;
- 	char file_name[S2FNAMESZ];
- 
--	snprintf(file_name, sizeof(file_name), "0x%016llx-0x%016llx-s2-%sabled",
--		 mmu->tlb_vttbr,
--		 mmu->tlb_vtcr,
--		 mmu->nested_stage2_enabled ? "en" : "dis");
--
--	dent = debugfs_create_file(file_name, 0400,
--				   mmu->arch->debugfs_nv_dentry, mmu,
--				   &kvm_ptdump_guest_fops);
-+	snprintf(file_name, sizeof(file_name), "nested_mmu%d", idx);
- 
--	mmu->shadow_pt_debugfs_dentry = dent;
--}
--
--void kvm_nested_s2_ptdump_remove_debugfs(struct kvm_s2_mmu *mmu)
--{
--	debugfs_remove(mmu->shadow_pt_debugfs_dentry);
-+	debugfs_create_file(file_name, 0400,
-+			    mmu->arch->debugfs_nv_dentry, mmu,
-+			    &kvm_ptdump_guest_fops);
  }
  
- void kvm_s2_ptdump_create_debugfs(struct kvm *kvm)
+ static const struct platform_device_id mv_cesa_plat_id_table[] = {
 -- 
-2.43.0
+2.55.0
 
