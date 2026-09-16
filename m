@@ -1,93 +1,119 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CEA3D7D80;
-	Wed, 16 Sep 2026 09:43:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23133499F3B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551851; cv=none; b=UP1+bPCLs1ZKoMtqFL972Ez+zZVRGR9SWN7QcAL3eZVnJKrzwxJoZn84OVtG9I5wa2AXshJQgxUekFVmbJE00l08tMBAHxVlaasgj2Cf41gDkID6pQvLyyiKNpETbH/X1catng2qBT3F/TQXzksGIfXRj+Rz2Xu9RBAVNpMavmE=
+	t=1789551863; cv=none; b=i3c9oh8+sfR2GBuj2Trj9kMYs65vAwXZL0cPcH/WNeJX5JLITn3ib3lxoiEWOjOkNO8Xz4Eodr5HVqeIa2FFxzUmZDAmt+YVrFZq+7mGril4w5V00Xh2e+qdsqB0qKL7yxJ1arLfA7s8yhSRbb0EOAQe1i/NBu/pGKRGHwf4aJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551851; c=relaxed/simple;
-	bh=Z1I0b+XfzGAd6V3hB26/mUkiALEm5kNlbelYPOq7Nws=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=K+X3XVQxxiQs2w8nnz8+zGPaJFNhnjoGRnoJ2QqEeXx6JtVEp9ozytVVm2t/HWF4Ib/vjQT4kB+OwO2Z4b18zJZT2Nj+0B3AJxz0hVMfZvI6voR7h5GrLMwR9GjLz7T8BR01o8Y51R5u/7XH2YN56oY3KHk0tBS1/MhYQQBwHLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABnaTfWZKpqZJfgBw--.15904S2;
-	Wed, 16 Sep 2026 17:43:50 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: eajames@linux.ibm.com
-Cc: gregkh@linuxfoundation.org,
-	jk@ozlabs.org,
-	joel@jms.id.au,
-	linux-fsi@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	ninad@linux.ibm.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] fsi: master-hub: Fix of_node reference leak in hub_master_probe()
-Date: Wed, 16 Sep 2026 09:43:22 +0000
-Message-Id: <20260916094322.2006647-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789551863; c=relaxed/simple;
+	bh=JqTORXeSNrJrC5U7anYxzVHfkMstWz5PcasAb0t9hog=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=iDC/8nVsziu+wxvQUi+xrfijaWFpJyEq4Y0XTSxs5t2MHmjSIgLxspnJjgEBeZjFWZjEHB7Q6elAPrljKut+JbBaHqkOisT5Z52FUTyaviSGSqYuqsbA7o0R0tiFNUO7SWDXA0e4TLHkU143/KE7mAvIzQandVJfjv9ngGfsBBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dJXtds8H; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dJXtds8H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789551858; x=1821087858;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=JqTORXeSNrJrC5U7anYxzVHfkMstWz5PcasAb0t9hog=;
+  b=dJXtds8HAukJ2w2+2OiFbAV3AxCEGz4ZhQmoqTQHdfhrFTuWlqajkITi
+   f50WIWujGLRubAyuJgcEg/W0N/0I36ipOZP2jSbaCHdDDyBY/0RIGWrE5
+   9rhUI2+gaqPmyeuzRjqDxzEOyAkXPHBNK22PHBTU+SLs2ZQKqwcUYvyvD
+   9OAxH+ZPTNV5ysc9Fc9x6F4Oqz1BNfk4M5xqb8R/vR+0cY3tD7FaoFLx8
+   mvI8ZYaJzHR0ihuzQZaYOYhBSXscfDlXMR9M4gh6e89CTNhm92Q14IfyJ
+   HBpVDPEAb1REtTdgyXs1G4ajVUonjONbk3BdX/A1fGs/izg34BUywRd5r
+   A==;
+X-CSE-ConnectionGUID: aoJDtGGoRVyPhS1hVLy0HQ==
+X-CSE-MsgGUID: i/PfntEgTby2hHGfjC5jtg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89680305"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89680305"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 02:44:13 -0700
+X-CSE-ConnectionGUID: b6vXZgZNSn2g3CSM2QYyNg==
+X-CSE-MsgGUID: /Z8oqPpXRxK1A2FNvWE57w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="303169290"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.154]) ([10.245.244.154])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 02:44:10 -0700
+Message-ID: <a3c94fcf0029e7f257a0219532d906643846ffd1.camel@linux.intel.com>
+Subject: Re: [PATCH] MAINTAINERS: change TTM maintainers to Natalie and Arun
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+	christian.koenig@amd.com, ray.huang@amd.com, nat@pixelcluster.dev, 
+	arunpravin.paneerselvam@amd.com, matthew.auld@intel.com,
+ matthew.brost@intel.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Wed, 16 Sep 2026 11:44:07 +0200
+In-Reply-To: <20260915154804.605772-1-christian.koenig@amd.com>
+References: <20260915154804.605772-1-christian.koenig@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABnaTfWZKpqZJfgBw--.15904S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7GF15KF4xWF1fXr1DWw47XFb_yoW8JF48pa
-	n3GFW3Krn5Ar4Iqw4jv3W0v3WvyF4FyrWrCF40ywn7u395JFyaqry3Xry09rnrCrWrCFyF
-	yr1Yqw4rWr4rAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VU1
-	1rW7UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQMA2qqP4ebHgABsu
 
-In hub_master_probe(), a reference to the device tree node is taken
-with of_node_get() and stored in master.dev.of_node.  If
-fsi_master_register() fails, the error path releases the link range
-without putting that reference, leaking it.
+On Tue, 2026-09-15 at 17:48 +0200, Christian K=C3=B6nig wrote:
+> The blunt reality is that I don't have time to look into patches or
+> bugs
+> any more as it would be necessary. The same counts for Ray.
+>=20
+> Natalie has been working on the dmem cgroup patches for TTM and
+> agreed
+> to take over looking more into TTM.
+>=20
+> Arun is working in my team and already maintaining AMDs VRAM backend
+> for
+> TTM and the underlying buddy allocator.
+>=20
+> Add Thomas as reviewer as well, better to have more eyes on that
+> component.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+> =C2=A0MAINTAINERS | 5 +++--
+> =C2=A01 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 5b5a4e4b35cf..b6e58a138501 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -9140,10 +9140,11 @@ F:	drivers/gpu/drm/drm_privacy_screen*
+> =C2=A0F:	include/drm/drm_privacy_screen*
+> =C2=A0
+> =C2=A0DRM TTM SUBSYSTEM
+> -M:	Christian Koenig <christian.koenig@amd.com>
+> -M:	Huang Rui <ray.huang@amd.com>
+> +M:	Natalie Vock <nat@pixelcluster.dev>
+> +M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
+> =C2=A0R:	Matthew Auld <matthew.auld@intel.com>
+> =C2=A0R:	Matthew Brost <matthew.brost@intel.com>
+> +R:	Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> =C2=A0L:	dri-devel@lists.freedesktop.org
+> =C2=A0S:	Maintained
+> =C2=A0T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
 
-Put the device node reference before returning on the error path, so
-that the kzalloc() failure path, which runs before the node reference
-is taken, is unaffected.
+Acked-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-Fixes: f6a2f8eb73f0 ("fsi: Match fsi slaves and engines to available dt nodes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/fsi/fsi-master-hub.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+@Natalie, @Arun Do you have a presence on dri-devel IRC? If so, Nicks?
 
-diff --git a/drivers/fsi/fsi-master-hub.c b/drivers/fsi/fsi-master-hub.c
-index e5ac9025762e..9507caa78358 100644
---- a/drivers/fsi/fsi-master-hub.c
-+++ b/drivers/fsi/fsi-master-hub.c
-@@ -240,8 +240,10 @@ static int hub_master_probe(struct fsi_device *fsi_dev)
- 	hub_master_init(hub);
- 
- 	rc = fsi_master_register(&hub->master);
--	if (rc)
-+	if (rc) {
-+		of_node_put(hub->master.dev.of_node);
- 		goto err_release;
-+	}
- 
- 	/* At this point, fsi_master_register performs the device_initialize(),
- 	 * and holds the sole reference on master.dev. This means the device
--- 
-2.34.1
+Also what is your stance on merging pages to TTM?=20
+1) Requiring an explicit maintainer ack, or
+2) an R-B from one of the reviewers/maintainers and no concerns raised
+within reasonable time?
+3) drm-misc as default merge repo?
 
+Thanks,
+Thomas
