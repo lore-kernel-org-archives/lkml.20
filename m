@@ -1,125 +1,77 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CCB4D794D;
-	Wed, 16 Sep 2026 16:03:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A94D4AAC56
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574592; cv=none; b=YiVCc/rVPsXw2w+n2U3+T48LyDtOsuqgHFjq1lvE/wHsWf92FR474YBrJAdW63LwwR1bf6NCitQ00mG96juGtTF8XUXI95JjCELYSCue39oIHr/Zo7uAHyNIsy8Yu/Rkz9wYJtFwpUVG+FGZoJAqCAxWjy4mrv+MJouho8HvWMM=
+	t=1789574665; cv=none; b=qe/v5V2xLDEkxlbMQzHTtNrsypXVVxaxGO/DhWJqYJnAmt424PSfkS8pj5W1/pub4N4tEI4p/cVtLIIqiizkkgCgwZPGKj+aDPJ+KHHMiQw9q9JCTmibcDcgUCqWq5H54rLCN42/RBPRe/j9kf616Lo/3FO0BQQgHY0G+lyxhO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574592; c=relaxed/simple;
-	bh=dXpdXVW8Lki0hnapvMsd8gJZOmqQGC9rrJXCsoUKBJw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=U+QOjwLNyGR/ATzcy3ZskF+XChWhlPNKgd/ZGEUdPgb0MLfVlUwVPviH4Xey7cKJQ4x4OIFX+TGWpH37u7TE1Ld3gyg6gomBH/mtj0qZ/Mni36EWCp8cXyShaibUpeJPe3TPzhwz7z5CbF7iooNGsnxRhkC8nQxUS4nu+erbhPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXAz63vapqO1BtCA--.21364S2;
-	Thu, 17 Sep 2026 00:03:03 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andi.shyti@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	maxime.coquelin@st.com,
-	patrice.chotard@foss.st.com,
-	wsa@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] i2c: st: Fix clock reference leak in st_i2c_probe()
-Date: Wed, 16 Sep 2026 16:02:35 +0000
-Message-Id: <20260916160235.2080462-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789574665; c=relaxed/simple;
+	bh=92l4NDWgiz4obqz329dkg3ScCky7u3lxMDL7f4FNZOM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kUGK0xkyVy9cwHwSGc1ZFyvw9vVJluRjRe/5Ro5DYf5ByNkBEQUmL2+Fls1qPbUL9IKJ7ysdbOk5ZhrGhypDWHCn64Bx41NOBean3jBTVAzclQ93LIqQDnST56zLLMSDQ3Mv+giwn5sSnn9UkNRNM5JNnwZZ43m9uiiuz5Wfy3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I5I37ppq; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I5I37ppq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789574663; x=1821110663;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=92l4NDWgiz4obqz329dkg3ScCky7u3lxMDL7f4FNZOM=;
+  b=I5I37ppqGomZH5TvdSh9dLxx5qF4uGAMrqpNKjm9OSMKsRrqOUeXRiP0
+   6v5JEWR01ri0e2eswkZ3J82W7Kuk+I6hZNaTHMP2CdZTGNzeXOd+ajYwc
+   LoL4s2UppyQUkB8MbRmGVAIHcCCqgRiR4nJx7j0eOkMQlkWY0W3MpU9O4
+   iefvZGoM0ZBHdeZH5911l0GxOv2eD1K0TxpJMWAkjIUzmWgheHm9ELVw2
+   IhFDwgaMJUWKa8eRxxQ4LejjLnYQzIis3T8z6RyxmPa1TenMRWrdqtJrD
+   rpSncXl6kHhptiXpE8Ort7tp6NSscek6W68CCvfTaFFl16kBX4rdCMzWJ
+   w==;
+X-CSE-ConnectionGUID: FBLeWQNVRWCq2BXqZscFYg==
+X-CSE-MsgGUID: saiW6nhLQN2AySBggaRAzw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93828292"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93828292"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 09:04:23 -0700
+X-CSE-ConnectionGUID: L+BT3bNZR0yUTTjJTh89aA==
+X-CSE-MsgGUID: FBv0/dHjQUWocOyRL7/fgw==
+X-ExtLoop1: 1
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 09:04:21 -0700
+Date: Wed, 16 Sep 2026 19:04:19 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Maria Lisina <sekoohaka.sarisan@gmail.com>
+Cc: lee@kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v6 3/4] mfd: intel-lpss: Remove extra DebugFS dentry
+Message-ID: <aqq-AwWnyBeSeEbT@ashevche-desk.local>
+References: <aqq5d5ESVulYfOnK@ashevche-desk.local>
+ <20260916155407.47647-1-sekoohaka.sarisan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXAz63vapqO1BtCA--.21364S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7urWkJr43ZF4kAFWkKF48WFg_yoW8ZF4DpF
-	4UWa90kFWUKFs0gr47Jw4jva4Y9ayIg3y5KFWSkwn7uas8X34DXFyfJFya9FWrArWkGanr
-	Ja1DtayxAF18ZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JV
-	W8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbtxhJ
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgYMA2qqok9GyQAAst
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916155407.47647-1-sekoohaka.sarisan@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The clock obtained with of_clk_get_by_name() is never released: the
-probe error paths after it, irq request failure, deglitch setup
-failure and adapter registration failure, return without clk_put(),
-and st_i2c_remove() does not drop the reference either.
+On Wed, Sep 16, 2026 at 08:54:07PM +0500, Maria Lisina wrote:
+> > As Lee pointed out, we are fine with 100 limit, so one line here and below.
+> 
+> But doesn't the guideline strictly say no more than 80?
 
-Add a cleanup label that drops the clock reference on the probe error
-paths and release the reference in the remove path.
+Yes it says, some maintainers used relaxed version (which is default in
+checkpatch and now it's 100). Lee is the maintainer of the MFD subsystem
+and it's clear he leans towards using 100 limit.
 
-Fixes: 85b4fab26960 ("i2c: i2c-st: Add ST I2C controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/i2c/busses/i2c-st.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-st.c b/drivers/i2c/busses/i2c-st.c
-index 751ea421caaf..2049bbce3656 100644
---- a/drivers/i2c/busses/i2c-st.c
-+++ b/drivers/i2c/busses/i2c-st.c
-@@ -831,7 +831,7 @@ static int st_i2c_probe(struct platform_device *pdev)
- 			IRQF_ONESHOT, pdev->name, i2c_dev);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to request irq %i\n", i2c_dev->irq);
--		return ret;
-+		goto err_clk;
- 	}
- 
- 	pinctrl_pm_select_default_state(i2c_dev->dev);
-@@ -840,7 +840,7 @@ static int st_i2c_probe(struct platform_device *pdev)
- 
- 	ret = st_i2c_of_get_deglitch(np, i2c_dev);
- 	if (ret)
--		return ret;
-+		goto err_clk;
- 
- 	adap = &i2c_dev->adap;
- 	i2c_set_adapdata(adap, i2c_dev);
-@@ -857,13 +857,17 @@ static int st_i2c_probe(struct platform_device *pdev)
- 
- 	ret = i2c_add_adapter(adap);
- 	if (ret)
--		return ret;
-+		goto err_clk;
- 
- 	platform_set_drvdata(pdev, i2c_dev);
- 
- 	dev_info(i2c_dev->dev, "%s initialized\n", adap->name);
- 
- 	return 0;
-+
-+err_clk:
-+	clk_put(i2c_dev->clk);
-+	return ret;
- }
- 
- static void st_i2c_remove(struct platform_device *pdev)
-@@ -871,6 +875,7 @@ static void st_i2c_remove(struct platform_device *pdev)
- 	struct st_i2c_dev *i2c_dev = platform_get_drvdata(pdev);
- 
- 	i2c_del_adapter(&i2c_dev->adap);
-+	clk_put(i2c_dev->clk);
- }
- 
- static const struct of_device_id st_i2c_match[] = {
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
