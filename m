@@ -1,122 +1,159 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0706B4A2A57
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:52:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C39A4E4335;
+	Wed, 16 Sep 2026 21:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789595534; cv=none; b=kq1cuKb9WTNsOzcj07f9wzpkcQCE8tUGrALNprXforrkCd64Go2rg75lDvIUfFMEAdmyU4kQFOFF+hIljoLjvOccDt59JSeSpa/C9mIvSR3FXdufKs3HUIh/tEMNTLTlvlBxxVhqMiyTIB1dvLTAWjaWCtlcmwyzHLwWnTZW/1E=
+	t=1789595559; cv=none; b=dP0iCQkEeh/Rqtw3fWIu/JHuyqK1GAugri6KyBN5MbXwMXBYHOhw3tgYjXPH1L/zVUWuXc6tkQF+WgxmSnTky4Xo9/RzIQjPYMwk1H9PlADzNV+Mx1SPHN+lW8SJSaRQ577mxXANrQRXAWv/O5Buww95y9gUPnle2dWbTVe/7Ko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789595534; c=relaxed/simple;
-	bh=ZMxQf8RZ+U7jVt0gI4uDmJSeU0wx5e3K+4UKflrYXNI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Pr6EHv5vSy/6uT5icHz5IlMP9sgKmrSQEjZD6V1Fpqs1nC0EBHz1z0wuSQ3sKKy5regfPyOftLmvK1p0l1CzS5wNZ9n3IHuT5SZHSm9vcmacyCNrhL13PyOzbI8A+OveBxmC2aClav0YIWS9E+/KkQVGfGvyrgqVNpS2kMlB6W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b597558c4cso296824b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:52:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789595522; x=1790200322;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zFc4CLn8Ksn0EWC/9yT5PyB5de0IgZnza8mZSbtO8B8=;
-        b=zEx9t9Y+98ZgQvIXZV5uydlRqTBkO5UoTh0Bu9SrC6Enuj4xTnNiV4uUpnbwZUhAjq
-         o+wAbnWdGR4NbOQxkM6KquGYLvfb6Msv9nDCM+zsKS2fObrP3vdKDG537Qwet1ZisbUB
-         iNW4ponExgBhuJHdgxobT2aArPQqM57TcpE+W1pjMah7hye7AuAaUXKptE7I/nBiIYqw
-         5V2dNmXmbOdTixLiIn37+LgXQi2d2CAjTmZgN94OtURGZXqv/c209orkR1k9rhIde919
-         K2Fzuc8Bogxnsh4PshjsIIDDuE4Zx8GaEYtCvmfq3/sZxFG2CjNuugN6I4Yzjc6A5AwG
-         iuww==
-X-Forwarded-Encrypted: i=1; AKwUvByQ0x2dxqhNxZpHIqPy22INocX9FgL9MXfcMy8Nv0OX6xYVqtDfkdqehaNB4Af2Q0xl/SHSuKFmrHcRCQU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2r5crUDe8yb2eRVDhI7aH1Y5quUqmrF3fn2/K+3H15CtnHe4Q
-	9BxULJYnvRvlodugz9MAxZLdwj0tRJmyFtzEGRyGOVXv0izGxJ+devHCO/QvkWbekZorX8v1Fud
-	5UT4k+0iozo3nJpSCICYq7JZXEl9YdMoBKjhK7N9dv76xTkTapXJORVfM1ag=
+	s=arc-20240116; t=1789595559; c=relaxed/simple;
+	bh=jPKu2Fombip+Gx2QXmAiEbv1qfRPb7QMV4qF/9/nyrY=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T6+gfr/9Emib4zn7AG66k42q5bpkIDo9aWgwdIvSU2lFZd3DHwteAx6MUqJeKJ6II1VGBx78oKsMSbqolaNHSiGuchJagoLxdqBLIXbPQ9GMl5DIwH14NwlySwpRZN78EqAU1AGcgkkVBpUrIzmaPvHp1jzy+/QMymBRJdtnd4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRhbwbgF; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRhbwbgF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2516D1F000FF;
+	Wed, 16 Sep 2026 21:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789595545;
+	bh=vG+D5IFPEEJDm9UrHoc/18Q/AggbmyC0XiMDqFxfxco=;
+	h=Date:From:To:Subject:References:In-Reply-To;
+	b=bRhbwbgFMxGBxMuQimwCbEGXvAppYI73YLlTOaPWzroGT6J6wsSkvbvuuePs07vTw
+	 gteMlpMf6ht1als9uaI6HG+FRSfEiqw7+17mt2s9cACf5d8vnBeukIWcu6AWbFKhub
+	 1TyquISC/FkHkURA+Rm/4sqTVac61WcbQ83dKYlAFfXIlRcX17VlnmVNLCvhQt+NW8
+	 DlfVTG1ioh6YnR6ye6YlN9qvotqCtpxAM3+1JaUJfzfGFjxQ+lfUuHknbefY7NlTQi
+	 cDa9FAHZLjnQyCTgZNZoD7kgJOv5XZRrLV/+lBg3gcnJv9J3MI431M8HsEZM4OBE1S
+	 j1hP1RMu3JuIA==
+Date: Wed, 16 Sep 2026 21:52:23 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Jennifer Berringer <jberring@redhat.com>,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/3] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+Message-ID: <20260916215223-GKA297024@kernel.org>
+References: <20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org>
+ <20260916-08-k3-ufs-support-v5-2-1f5d71f1027d@kernel.org>
+ <aqrDMVMMtTfVVu8X@aurel32.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1795:b0:4c3:9892:96fe with SMTP id
- 5614622812f47-4ca499ce7edmr6641854b6e.3.1789595522515; Wed, 16 Sep 2026
- 14:52:02 -0700 (PDT)
-Date: Wed, 16 Sep 2026 14:52:02 -0700
-In-Reply-To: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab0f82.e91c2013.3bdb06.0009.GAE@google.com>
-Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
-From: syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>
-To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
-	iam@thechris.in, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	rafael@kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqrDMVMMtTfVVu8X@aurel32.net>
 
-Hello,
+Hi Aurelien, 
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING: ODEBUG bug in lookup_object_or_alloc
+On 18:26 Wed 16 Sep     , Aurelien Jarno wrote:
+> Hi Yixun,
+> 
+> On 2026-09-16 02:59, Yixun Lan wrote:
+> > SpacemiT K3 SoC consist of UFS (Universal Flash Storage) Host Controller
+> > which has features compatible with JEDEC UFS 2.2, MIPI UniPro v1.61 and
+> > M-PHY v3.0 standard.
+> > 
+> > Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+> > Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+> > Signed-off-by: Yixun Lan <dlan@kernel.org>
+> > ---
+> >  drivers/ufs/host/Kconfig        |  12 +
+> >  drivers/ufs/host/Makefile       |   1 +
+> >  drivers/ufs/host/ufs-spacemit.c | 688 ++++++++++++++++++++++++++++++++++++++++
+> >  drivers/ufs/host/ufs-spacemit.h |  79 +++++
+> >  4 files changed, 780 insertions(+)
+> > 
+> > diff --git a/drivers/ufs/host/Kconfig b/drivers/ufs/host/Kconfig
+> > index ff170c0b6da0..6146872fcecc 100644
+> > --- a/drivers/ufs/host/Kconfig
+> > +++ b/drivers/ufs/host/Kconfig
+> > @@ -132,6 +132,18 @@ config SCSI_UFS_VARIABLE_SG_ENTRY_SIZE
+> >  	bool
+> >  	default y if SCSI_UFS_EXYNOS && SCSI_UFS_CRYPTO
+> >  
+> > +config SCSI_UFS_SPACEMIT
+> > +	tristate "SpacemiT UFS controller driver"
+> > +	depends on SCSI_UFSHCD_PLATFORM && (ARCH_SPACEMIT || COMPILE_TEST)
+> > +	help
+> > +	  This selects the SpacemiT specific additions to UFSHCD platform driver.
+> > +	  UFS host on SpacemiT needs some vendor specific configuration before
+> > +	  accessing the hardware which includes PHY configuration and vendor
+> > +	  specific registers.
+> > +
+> > +	  Select this if you have UFS controller on SpacemiT chipset.
+> > +	  If unsure, say N.
+> > +
+> >  config SCSI_UFS_SPRD
+> >  	tristate "Unisoc specific hooks to UFS controller platform driver"
+> >  	depends on SCSI_UFSHCD_PLATFORM && (ARCH_SPRD || COMPILE_TEST)
+> > diff --git a/drivers/ufs/host/Makefile b/drivers/ufs/host/Makefile
+> > index 7d8db67eb23c..a3c447b8fc21 100644
+> > --- a/drivers/ufs/host/Makefile
+> > +++ b/drivers/ufs/host/Makefile
+> > @@ -13,6 +13,7 @@ obj-$(CONFIG_SCSI_UFS_HISI) += ufs-hisi.o
+> >  obj-$(CONFIG_SCSI_UFS_MEDIATEK) += ufs-mediatek.o
+> >  obj-$(CONFIG_SCSI_UFS_RENESAS) += ufs-renesas.o
+> >  obj-$(CONFIG_SCSI_UFS_ROCKCHIP) += ufs-rockchip.o
+> > +obj-$(CONFIG_SCSI_UFS_SPACEMIT) += ufs-spacemit.o
+> >  obj-$(CONFIG_SCSI_UFS_SPRD) += ufs-sprd.o
+> >  obj-$(CONFIG_SCSI_UFS_TI_J721E) += ti-j721e-ufs.o
+> >  obj-$(CONFIG_SCSI_UFS_AMD_VERSAL2) += ufs-amd-versal2.o ufshcd-dwc.o
+> > diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-spacemit.c
+> > new file mode 100644
+> > index 000000000000..179e6edb2ac2
+> > --- /dev/null
+> > +++ b/drivers/ufs/host/ufs-spacemit.c
+> > @@ -0,0 +1,688 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
+> > + */
+> > +
+> > +
+...
+> > +/*
+> > + * Keep UFS ACLK at a lower parent rate (409.6MHz) for stable init.
+> > + * This mirrors the "ufs-low-aclk-freq" change from the other environment.
+> > + */
+> > +#define UFS_ACLK_LOW_FREQ_HZ		409600000UL
+> 
+> You probably want to rename that to AXI, although here it's not that 
+> important.
+> 
+Ok, will do
 
-ODEBUG: object ffffc90007cdf850 is on stack ffffc90007cd8000, but NOT annotated.
-------------[ cut here ]------------
-1
-WARNING: lib/debugobjects.c:672 at debug_object_is_on_stack lib/debugobjects.c:672 [inline], CPU#0: syz-executor162/6029
-WARNING: lib/debugobjects.c:672 at lookup_object_or_alloc.part.0.cold+0x19/0x40 lib/debugobjects.c:705, CPU#0: syz-executor162/6029
-Modules linked in:
-CPU: 0 UID: 0 PID: 6029 Comm: syz-executor162 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:debug_object_is_on_stack lib/debugobjects.c:672 [inline]
-RIP: 0010:lookup_object_or_alloc.part.0.cold+0x19/0x40 lib/debugobjects.c:705
-Code: c4 60 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 83 c5 01 89 2d a0 1f 7d 1a 4c 89 e6 48 c7 c7 c0 39 62 8c e8 21 ae eb ff 90 <0f> 0b 90 e9 82 31 fe 03 83 c5 01 89 2d 7f 1f 7d 1a 49 39 c4 73 da
-RSP: 0018:ffffc90007cdf6c0 EFLAGS: 00010082
-RAX: 0000000000000050 RBX: ffff88802cb1d738 RCX: 0000000000000000
-RDX: 0000000000000050 RSI: ffffffff81ea1339 RDI: fffff52000f9bec9
-RBP: 0000000000000001 R08: 0000000000000007 R09: 0000000000000000
-R10: 8000000000000001 R11: 0000000000000001 R12: ffffc90007cdf850
-R13: ffff888034204b00 R14: 0000000000000000 R15: 0000000000000000
-FS:  00005555811b5400(0000) GS:ffff8880d5b57000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00005555811b8778 CR3: 000000002bbd8000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- lookup_object_or_alloc lib/debugobjects.c:682 [inline]
- __debug_object_init+0x2a9/0x3d0 lib/debugobjects.c:798
- __init_work+0x51/0x60 kernel/workqueue.c:697
- block2mtd_setup_defer+0xd7/0x1d0 drivers/mtd/devices/block2mtd.c:504
- block2mtd_setup+0x9c/0x1e0 drivers/mtd/devices/block2mtd.c:529
- param_attr_store+0x199/0x300 kernel/params.c:591
- module_attr_store+0x58/0x80 kernel/params.c:906
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- iter_file_splice_write+0x830/0x10b0 fs/splice.c:736
- do_splice_from fs/splice.c:936 [inline]
- do_splice+0x109c/0x1fa0 fs/splice.c:1349
- __do_splice+0x33b/0x370 fs/splice.c:1431
- __do_sys_splice fs/splice.c:1634 [inline]
- __se_sys_splice fs/splice.c:1616 [inline]
- __x64_sys_splice+0x187/0x250 fs/splice.c:1616
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fa1c31b3437
-Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007ffce5a2ac20 EFLAGS: 00000202 ORIG_RAX: 0000000000000113
-RAX: ffffffffffffffda RBX: 00005555811b5400 RCX: 00007fa1c31b3437
-RDX: 0000000000000005 RSI: 0000000000000000 RDI: 0000000000000003
-RBP: 00007fa1c31ec0fe R08: 0000000000000026 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00005555811b7770
-R13: 0000000000000026 R14: 00007ffce5a2aca0 R15: 0000000000000002
- </TASK>
+...
+> > +static u32 ufs_spacemit_get_sys1clk_1us(struct ufs_hba *hba)
+> > +{
+> > +	struct ufs_clk_info *clki, *ufs_aclk = NULL;
+> > +	struct list_head *head = &hba->clk_list_head;
+> > +	unsigned long rate_hz = 0;
+> > +
+> > +	if (!list_empty(head)) {
+> > +		list_for_each_entry(clki, head, list) {
+> > +			if (clki->name && !strcmp(clki->name, "aclk") && clki->clk) {
+> 
+> On the other hand, you definitely want to rename this one to "axi" to 
+> match the device tree change. Right now the whole patchset just doesn't 
+> work.
+> 
+Oops, you right, will fix it
 
-
-Tested on:
-
-commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=143de115580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=7cab6a19619f1b8efc00
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=17ade115580000
-
+-- 
+Yixun Lan (dlan)
