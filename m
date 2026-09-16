@@ -1,95 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73BBF4AA1C2
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CEA3D7D80;
+	Wed, 16 Sep 2026 09:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551802; cv=none; b=kE2Wfw8B3dk8+wca7jzhR+cmAIf34/nCKyLXdPWhDcQP6+pgxKpUrRtrTOIrouLRYcR+pmMDxjEK+/tAo3NVUEmI9Y0RDiwDZ9FVYIaPrRwDh6+JSDhNQMQ+kapNzBXzBjmin3qTh4LAysq3cFs1o8pOMgFKVaqNNyaZnUpOqVA=
+	t=1789551851; cv=none; b=UP1+bPCLs1ZKoMtqFL972Ez+zZVRGR9SWN7QcAL3eZVnJKrzwxJoZn84OVtG9I5wa2AXshJQgxUekFVmbJE00l08tMBAHxVlaasgj2Cf41gDkID6pQvLyyiKNpETbH/X1catng2qBT3F/TQXzksGIfXRj+Rz2Xu9RBAVNpMavmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551802; c=relaxed/simple;
-	bh=F3XAkt71bhIAWEC1ICnSKPfvdKIX/T9WRczYZnwW3iw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Gy3Rw2Uo8US5JBF6SlelQDweOhOQMWEVXUiutbYEA3TXbohLBrSEFauNYX50dqM2bv1nC8O8Pjup/Ay1TUQpkpJpWGyIxLsEnFRx2hOcXWhI37G+qjx8Vh1AnlpgAmdi4SubSoigoArGYgwCCqc5JWjcYufEaH3tTSklmW9FYE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IXl8q9ZC; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IXl8q9ZC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEBA81F00901
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:43:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789551790;
-	bh=F3XAkt71bhIAWEC1ICnSKPfvdKIX/T9WRczYZnwW3iw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IXl8q9ZCD1dvSn2KHw7LYsq5TamJfBC9svJngVUoPtAjGvN3AGOWjcegBVIRcvmFF
-	 XT6NrbG9olT/96quf46Aj1p5TW/bOlRJqGEpKc2DvnnTXZ7qmrFaUvn7S/QkLAj9xA
-	 VTA9+RM2dRfHk3re3CEfd0MoKCHcUNuhj2uVDlfmDu5vlNWPRtjDIjCN7m2aK4dKa+
-	 vri7E5HQr9oevAF/INz6el1lZ/EqryyIvvWL5AuaOv2lDJ9wQjNtc9HTuu5uI9yeIU
-	 jvNRYpp4RADOHSwGl1NXhGtH8HhW4PYN63KmDV1bs399TWMPA2ZvEm7XDa38cyNSOc
-	 fNkQ+oRZi1HCA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b89a0e69dfso654497e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:43:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByoBomiuB8wmtPvRvLoCxRGDYSBKzVQoTgjuzGafVT0lE2yB6mqQelidisJCI9Jn+2QyMZOpqQx+phVX/4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0TQ/+ZOEAJmdnN2jWJ03VwGG1OjrjleWXSxPcLWzXQ730/n9U
-	6H2pl98Gp8HrNi7c0pCqMmPye8lobzF0jzyVJLGbZA3wSapqEkg2Aib6Uy/z9mdmMEMX3kpwGBO
-	+BRgVKBGne3huEbbJS82/Eiw2/JyYkJE=
-X-Received: by 2002:a05:6512:318d:b0:5b4:b03e:b17 with SMTP id
- 2adb3069b0e04-5b8b6611fb9mr542523e87.4.1789551789409; Wed, 16 Sep 2026
- 02:43:09 -0700 (PDT)
+	s=arc-20240116; t=1789551851; c=relaxed/simple;
+	bh=Z1I0b+XfzGAd6V3hB26/mUkiALEm5kNlbelYPOq7Nws=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=K+X3XVQxxiQs2w8nnz8+zGPaJFNhnjoGRnoJ2QqEeXx6JtVEp9ozytVVm2t/HWF4Ib/vjQT4kB+OwO2Z4b18zJZT2Nj+0B3AJxz0hVMfZvI6voR7h5GrLMwR9GjLz7T8BR01o8Y51R5u/7XH2YN56oY3KHk0tBS1/MhYQQBwHLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABnaTfWZKpqZJfgBw--.15904S2;
+	Wed, 16 Sep 2026 17:43:50 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: eajames@linux.ibm.com
+Cc: gregkh@linuxfoundation.org,
+	jk@ozlabs.org,
+	joel@jms.id.au,
+	linux-fsi@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	ninad@linux.ibm.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] fsi: master-hub: Fix of_node reference leak in hub_master_probe()
+Date: Wed, 16 Sep 2026 09:43:22 +0000
+Message-Id: <20260916094322.2006647-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com> <CAMRc=McEOcWq8i3B01AR1PnfBzSQaLEaOzE6Qa+QdVXrvS_YrA@mail.gmail.com>
-In-Reply-To: <CAMRc=McEOcWq8i3B01AR1PnfBzSQaLEaOzE6Qa+QdVXrvS_YrA@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 11:42:56 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnRL_s9zPNkSj2UnHWPx+QHAXV19DA7dEmGZu0AkxxyaA@mail.gmail.com>
-X-Gm-Features: AcwNN1WkFxjMauP_yhzfkji573cflVZ6I3z5YLnNlcrQliI-kEo2Pckshh4B6Vw
-Message-ID: <CAD++jLnRL_s9zPNkSj2UnHWPx+QHAXV19DA7dEmGZu0AkxxyaA@mail.gmail.com>
-Subject: Re: [PATCH v7 00/15] Ambarella CV75 SoC minimal bring-up
-To: Bartosz Golaszewski <brgl@kernel.org>, soc@lists.linux.dev
-Cc: longzhao@ambarella.com, 
-	Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABnaTfWZKpqZJfgBw--.15904S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7GF15KF4xWF1fXr1DWw47XFb_yoW8JF48pa
+	n3GFW3Krn5Ar4Iqw4jv3W0v3WvyF4FyrWrCF40ywn7u395JFyaqry3Xry09rnrCrWrCFyF
+	yr1Yqw4rWr4rAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VU1
+	1rW7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQMA2qqP4ebHgABsu
 
-On Wed, Sep 16, 2026 at 11:14=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.o=
-rg> wrote:
-> On Tue, 15 Sep 2026 13:15:30 +0200, Long Zhao via B4 Relay
-> <devnull+longzhao.ambarella.com@kernel.org> said:
-> > This series adds minimal Ambarella CV75 support for early bring-up with
-> > a serial console: DT bindings, RCT clocks, pinctrl, PL061 GPIO via
-> > gpio-regmap, 8250_dw UART quirks, ARCH_AMBARELLA, CV75 EVK DT, and
-> > MAINTAINERS.
-> >
-> > This is a single unified series. Please apply via the SoC
-> > tree; subsystem maintainers are Cc'd for their pieces.
-> >
->
-> I would prefer to take the GPIO regmap bits through the GPIO tree and pro=
-vide
-> an immutable branch to the SoC tree as it has potential for conflicts tha=
-t
-> early into the cycle.
+In hub_master_probe(), a reference to the device tree node is taken
+with of_node_get() and stored in master.dev.of_node.  If
+fsi_master_register() fails, the error path releases the link range
+without putting that reference, leaking it.
 
-Queue them up and send us the IB if you think they are ready!
+Put the device node reference before returning on the error path, so
+that the kzalloc() failure path, which runs before the node reference
+is taken, is unaffected.
 
-Long can probably send a PR based on that IB for the rest to the
-SoC tree, a bit tricksy but it works.
+Fixes: f6a2f8eb73f0 ("fsi: Match fsi slaves and engines to available dt nodes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/fsi/fsi-master-hub.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Yours,
-Linus Walleij
+diff --git a/drivers/fsi/fsi-master-hub.c b/drivers/fsi/fsi-master-hub.c
+index e5ac9025762e..9507caa78358 100644
+--- a/drivers/fsi/fsi-master-hub.c
++++ b/drivers/fsi/fsi-master-hub.c
+@@ -240,8 +240,10 @@ static int hub_master_probe(struct fsi_device *fsi_dev)
+ 	hub_master_init(hub);
+ 
+ 	rc = fsi_master_register(&hub->master);
+-	if (rc)
++	if (rc) {
++		of_node_put(hub->master.dev.of_node);
+ 		goto err_release;
++	}
+ 
+ 	/* At this point, fsi_master_register performs the device_initialize(),
+ 	 * and holds the sole reference on master.dev. This means the device
+-- 
+2.34.1
+
