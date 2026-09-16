@@ -1,140 +1,173 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FAE12F0673
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:14:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75B8308F32;
+	Wed, 16 Sep 2026 15:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571661; cv=none; b=HqyO2n1r2z2USWIjasgSxL+KlRdGRFTxdsTDUld3EBUqrkBsiP8W6E6BQQSEUcWFTdTrv0Anm7xSAU1CoNnSEchhOuNkJh0eLNqbvKD/qYajoKR5lKukIQjmHS7va0huDzSuuDLjY9QCW4siebNtYqb6jurbYO2pGofF37CFviU=
+	t=1789571672; cv=none; b=TiIsnMINGe0ZFV4M7uwXtNSptbDhv3gGFVCg62DzhIUY4qooEJS1UKXH+6nFkbxMBvxt5UXT4KJDatzNjlipEAVCm1HhoApu02xLZDJx2O0Bqf9qv2F8HLSaCfWtACXAAWGIOUfKR7QqUndtbZD6jsfnjWezUHct7OZWt7AJO3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571661; c=relaxed/simple;
-	bh=I1mUBpETXIszOJUI+4PfxF9aL9vUcBmsZqAXr03BHWM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jMe73zJKeQQHyYTNqMEY/rtyBcAuTUX2kCyeRoWzm+jXNyOMZy10CIk4uMCK6oO97aIsxf8Tfd5hnYntE8Op23YoRHMQyMoWgCcAyG9MrQQO4z/+YxwTqBbPKXwtm1O3xztacfpioLTd+Cq0uxyJ+IJ7WHPjVhVxjyJJaQN5TJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xapfVJko; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789571672; c=relaxed/simple;
+	bh=1p1ezVUBsMBCHSYxKoKl6T7Osj7Yd1vgZzdUMde5lXo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Q14Of20GRergfmGcuS3V/XK4nSsQ0Blki7fRCFeT4EV3qExgx2TbE7F7M90r3BloMIAOPK9YOmKDq4mWfidX5dxJwZb0EXAIlEHA/65q1T/ApdXy5uUpFLaBKqQY0AaH960SVfuxkCN1jJGDZd4MDsXMED1Lu16tUTNxtI3uz2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=WcddZwEl; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xapfVJko"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9adea43b6so1592488a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:14:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789571655; x=1790176455; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EGiTz7ecYRQ3R9tZPodslfq/Xnj5pm8tXpwlFqHcud4=;
-        b=xapfVJkoYBobjp8XjptcdXGEtHvKOADHSRHD94vwtUKg/bWGND9iUlmGIz2ltM1WQL
-         l2Ck+yJIGOflplDkKbFoADzz4zBA5u36MaWxg4SczCUjMa+YoOv6ZXY5obQbDbqvyNxA
-         prRuMDlyzSk6G0wg7frPgzPd/7FBGet+sf1Hkt/KpqcifO2Snbl3Bls8k6K/wZz9vsmq
-         P7d7ZF5QnUdmo7UkuHQj+dVt+6l9oWqIUIYJUokGnYbKnubcpO/8AEnKu4bytYFvJqdz
-         22Gm+by7e0RP+ToXct3mX7gJHosrj1idA6K52xpsktToH4M36EwhReJt1EfjeA4XrjtU
-         sLvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789571655; x=1790176455;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EGiTz7ecYRQ3R9tZPodslfq/Xnj5pm8tXpwlFqHcud4=;
-        b=DbX4xcH1lxKNVehkH3k8qcpvKVnE+Xf9XSus1NF5S1m5MPj7idQ+NagnWy9EeRtL0Y
-         tsHe4Y0jrivueUG9Rg4Gjk9qa5g3DFBG0TuBVd3OQA09LRPwwGZrGLVetut27VAyN7uT
-         2o2v6P1vk8r+7PnMaFndtUxhuHQ2mEg04SfmsmJcPWGk0GtSr+N+2UDhIIOrzMKdLGtz
-         PFtoCkI+I0a6y0oRAM2UI1tmeeF3Bqo3lwCBXZ9G9PGGIZaXYjVls59LHGG5agvTFqhz
-         1Wxro4VAHfX8UmmBYMU6R1gUCB2B+7XpmsnMi3bt+kKpAf8cN304lFPqoqB2Bipw3+9j
-         yt3w==
-X-Forwarded-Encrypted: i=1; AKwUvBy8BM70Nrgo50R/ii4lTIceK1lhGanqpLT4FFQiI1/vUQQvpGxWiy6JY/r2H5QeLT1wz2Ws1xfTXYNhelA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1X7gZvObjuJGojFvaYaA6NqF+W+ywJJTv3wAuyE3OA4RPuiQE
-	k+kyZKHnMP9UqumvGPD1CuTdLfFvY9BG4hrKJf0JwdALqHXB9dX7YcmitvklRQGXnTU=
-X-Gm-Gg: AYBFou2HOILWrCPusINYk1cWu9cXy4Z/z+OreYHUsJMygCAIN+CpvAtLeCzBjdgwfUI
-	mxWAYxaM3ZnCGE1LD7KzB6vTvOQNPqt7GLQNfp2FsCRi3wUkDcFVMAL/v0AhT4cbNco3jVyfN54
-	8Q71fd6eoBsQcvFp/i5cYWVRzirjWhvrLlwJm/7fkhWNaRxcRfuqtycgcMzutcUkrW3rrndvvzu
-	5rL08wxC7NomSS1Or5QwM0n9jIJMn2wlJoEgGtUZ7ipyBnxIzaRldn0mIGfjZ5iGXT3qMMnH9+0
-	Igfz6uSA+duaGazl/cOQshnoVFLDVgqiNq8g+SRyciqhQK14mWNCNzm/itFrmOX7yratfv6LoHU
-	7sTfzh2/eGCmzz6M79pn2V4oznrYZ7+ozZHfd1lxjROzZvA/1z1Z0M9v7343AjXUphJuejkGnNQ
-	N/3mmM6AZb3PhR3o1w/upWnrG65zybWpeOS0B58pEdmTI4QSGHakWlMzX74I1k/miw/zf8b+ZNJ
-	BYIa4Iv+huD
-X-Received: by 2002:a05:6402:548d:b0:6a9:a33b:bb8f with SMTP id 4fb4d7f45d1cf-6aa2245f519mr2317168a12.41.1789571654700;
-        Wed, 16 Sep 2026 08:14:14 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.116.194])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d2ab4ebsm2002234a12.30.2026.09.16.08.14.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 08:14:13 -0700 (PDT)
-Message-ID: <6c084416-39bf-4715-908e-14cb7e89b7d9@linaro.org>
-Date: Wed, 16 Sep 2026 16:14:12 +0100
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="WcddZwEl"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GEVnoG4007111;
+	Wed, 16 Sep 2026 15:14:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=fX/zLYi/lOqeZC2K4PzIX8OfWiaM
+	5cfY5ikurnE0X1s=; b=WcddZwEl8X+QWO1XfW20S1pb9LbChv2AqBeAizOJqgrj
+	Aiul4Rc6jBxArn8kz6jQ/tqy63wK6RznFCV4BQmeZyX1WLk+54GjeHtoHmxoEGmQ
+	UuF5EoyYqrvOY35L7n7pfju5EGjPRLX0KQt62Lp4ZPjvwpQPom2uPbVmszxch1ta
+	g7cPxmaVjnTuqA5fnWb6Kh4zHA4FFtb59ns2T3EJafxnhSfgSYQqgftOUvaEGjKZ
+	OrPsMPNs5+8WhFvIHovgeko8n6whsPqey4fvuJ8Dc8M7iLbyrABeih5HkTIQbkdV
+	QUZnd9fe61AgmR+V4EA9TCv1usK5iB2029hlX3evJw==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmx83wavs-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 15:14:28 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GEaBUX1571757;
+	Wed, 16 Sep 2026 15:14:27 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gq03bxwqd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 15:14:27 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68GFEQo030540294
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 16 Sep 2026 15:14:26 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3713F58053;
+	Wed, 16 Sep 2026 15:14:26 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 099BD58043;
+	Wed, 16 Sep 2026 15:14:23 +0000 (GMT)
+Received: from [127.0.1.1] (unknown [9.87.85.9])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 16 Sep 2026 15:14:22 +0000 (GMT)
+From: Niklas Schnelle <schnelle@linux.ibm.com>
+Subject: [PATCH v3 0/4] s390/pci: Fix some zpci_report_status() issues
+Date: Wed, 16 Sep 2026 17:14:09 +0200
+Message-Id: <20260916-fix_zpci_report_status_pdev_leak-v3-0-61a2f980e71d@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 07/13] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB
- sensor on CSIPHY4
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
- <20260906-x1e-camss-csi2-phy-dtsi-v6-7-067f2ecc4630@linaro.org>
- <EcOn_d45L85SEZXEL9tJYp8j2B3-IIn5Ao1OiDaZsoJZOhfDjo04cEbn_YvY3I0eidZYm2PvZNw0K2e9D62CGQ==@protonmail.internalid>
- <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
- <8c82ffbe-748a-49f2-aa52-eb7a56165c03@kernel.org>
- <6dcb0b11-3490-4254-b86c-a1afbcd3b863@oss.qualcomm.com>
- <510e12e9-fa79-456b-8215-9f613d6d6e7b@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <510e12e9-fa79-456b-8215-9f613d6d6e7b@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XOQW7CMBAF0Ksgr2s044AdWPUeFbIce1JGhSSyg
+ xVAuTsO6qJiRZd/pHn/30WiyJTEfnUXkTIn7rsSqo+V8EfXfZPkULJQoDTUaGTLk70Nnm2koY+
+ jTaMbL8kOgbI9kfuR2CCgx5ZAoSjMEKn8PCu+DiUfOY19vD4bMy7Xf+AZJUrdNM5oo6qww88Td
+ 5dpzc157fvz0veL1W9iW6O3CtpNAF2/YMvarP4u3L2BKgkyOPAb54wH717ReZ4fNfj7vHYBAAA
+ =
+X-Change-ID: 20260817-fix_zpci_report_status_pdev_leak-1b101c1fe021
+To: Gerd Bayer <gbayer@linux.ibm.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
+        Farhan Ali <alifm@linux.ibm.com>,
+        Benjamin Block <bblock@linux.ibm.com>,
+        Julian Ruess <julianr@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ramesh Errabolu <ramesh@linux.ibm.com>,
+        Tobias Schumacher <ts@linux.ibm.com>,
+        Halil Pasic <pasic@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Niklas Schnelle <schnelle@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1792;
+ i=schnelle@linux.ibm.com; h=from:subject:message-id;
+ bh=1p1ezVUBsMBCHSYxKoKl6T7Osj7Yd1vgZzdUMde5lXo=;
+ b=owGbwMvMwCX2Wz534YHOJ2GMp9WSGLJWbfJuV7yQ+u7Dy0vOW3fbl977yHXJ/8FhjmRFm71Xy
+ rb2RpZf7ShlYRDjYpAVU2RZ1OXst65giumeoP4OmDmsTCBDGLg4BWAi53oZ/tkefWu0TmyeW/h9
+ IePvFfzFGZ7TUoy+rkm0OS5wwpHt1HKGP3xeDc2vb9x/k3mp/cwU/aKfdelNF/M4934J9I/2DdR
+ ewg0A
+X-Developer-Key: i=schnelle@linux.ibm.com; a=openpgp;
+ fpr=9DB000B2D2752030A5F72DDCAFE43F15E8C26090
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIwNCBTYWx0ZWRfX63Lfm374coQ8
+ LC5SB1lsJEEUADbNsAonKfyuWwL5/kuvmAz7OvoMif+DTBGhlgsTMOPrgGFzK8lKjPAXL8xkALO
+ OT9u7oXRDmDccdOacRz9Y7Athtd7XIREZ+lcIqH3aI9RrMkhPsMWccTRf8ayEDTqp1HTaqTiwn3
+ vMSLIAATv9KEddlOdYi7WTSoDESBXKyrbMYQo+TWl6UVnlaOcjnUQonZ9Z5RZ5/mTuvRhzmtFDV
+ 9GECNtTUUHfe/9iu6KNwdsZvKXLk0vRgSjEJZUBrQrqxwA8apx3Jwl7CAtpb6XFU3A4bHzhIijQ
+ MhCbllUOAa4bRw7TfzgwqphQKj3YgK4eKOG68UrJft4vffihSeFRHHw0ES1RYcaJYuQJL1Tancy
+ ZZ+Lgza+Dtt+SRRJmz/Sm3YBAgPP4d565lwUxyZJgiaSRrlubUazG5vjMLA9N8BqJqjV8RupHDt
+ zKjQqzIWai3otYYPxLg==
+X-Proofpoint-ORIG-GUID: 3y-K-BLgoi2br0XSDExaMMFGopur2XqR
+X-Proofpoint-GUID: 3y-K-BLgoi2br0XSDExaMMFGopur2XqR
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDIwNCBTYWx0ZWRfX7yAQ50wfUxK9
+ ONjvj+kMLiSp8uXNgbvbqb7Wh9EyVNReRUMkgUkAwm12yDDY/+0LmuCztxYNsLDnRB/RtviPgmv
+ jhpDJf8iWHIZenGDWLxAVTXlxNx0AVE=
+X-Authority-Analysis: v=2.4 cv=cY9HPXDM c=1 sm=1 tr=0 ts=6aaab254 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=OKVlucUIemUWJsn_snAA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_02,2026-09-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160204
 
-On 16/09/2026 16:06, Bryan O'Donoghue wrote:
-> On 16/09/2026 16:04, Konrad Dybcio wrote:
->> Perhaps moving the endpoint label and definition there too would
->> make sense, i.e.
->>
->> -- hamoa.dtsi
->> ports {
->>     #address-cells = <1>;
->>     #size-cells = <0>;
->>
->>     port@0 {
->>         reg = <0>;
->>
->>         camss_csiphy4_inep: endpoint {
->>         };
->>     };
->>
->>     ...
->> };
->>
->>
->> -- x1-crd.dtsi
->> &camss_csiphy4_inep {
->>     ...
->> };
-> 
-> I don't think I can add the endpoint, my memory is I tried that and the 
-> dtbs_checker spat it back out at me.
-> 
-> I'll retry though since I may be mis-remembering.
-> 
-> ---
-> bod
+Hi All,
 
-qcom,x1e80100-camss.yaml
+This series fixes four issues found in zpci_report_status().
 
-^port@[0-3]$ → endpoint
+* A missing pci_dev_put() (patch 1)
+* Dropping the device lock too early (patch 2)
+* Missing an error report when there is no associated pdev (patch 3)
+* An inconsistent error report when skipping recovery on permanent
+  failure (patch 4)
 
-required:
-   - data-lanes
+Thanks,
+Niklas
 
-So I'll have to leave endpoints out.
+Signed-off-by: Niklas Schnelle <schnelle@linux.ibm.com>
+---
+Changes in v3:
+- Change in approach, pass the pdev as a parameter
+- Add a device lock assertion and extract a helper function for pdev
+  specific status
+- Also report the status if no pdev is associated
+- Fix an inconsistent report when recovery is skipped due to permanent
+  failure
+- Link to v2: https://lore.kernel.org/r/20260819-fix_zpci_report_status_pdev_leak-v2-0-da0c4aa7c0ca@linux.ibm.com
+
+Changes in v2:
+- Added a second fix to address Sashiko's finding of having
+  to hold the device lock during the call to zpci_report_status()
+- Add R-bs from Matthew and Farhan
+- Link to v1: https://lore.kernel.org/r/20260818-fix_zpci_report_status_pdev_leak-v1-1-576520f4d068@linux.ibm.com
 
 ---
-bod
+Niklas Schnelle (4):
+      s390/pci: Fix leak of struct pci_dev reference in zpci_report_status()
+      s390/pci: Fix missing device lock in zpci_report_status()
+      s390/pci: Report SCLP status on error events when no pdev is associated
+      s390/pci: Don't report recovery success on skipped recovery
+
+ arch/s390/pci/pci_event.c  |  7 +++++--
+ arch/s390/pci/pci_report.c | 32 ++++++++++++++++++++------------
+ arch/s390/pci/pci_report.h |  4 +++-
+ 3 files changed, 28 insertions(+), 15 deletions(-)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260817-fix_zpci_report_status_pdev_leak-1b101c1fe021
+
+Best regards,
+-- 
+Niklas Schnelle
+
