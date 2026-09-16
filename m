@@ -1,85 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCC1369D6E
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51C448AE0F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:15:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578913; cv=none; b=Fuh5MCDQK7X5mtSSOX6L0kMof41mnP2WxgkgnpQx47NBX04yy8nd8d57mvt7R0/N3OGmt6n5XRc86COQqSWzWRze013W4qDJrekFxOOIR7EiBZgWDIevNeQitEXPaVK1V48nIbQ4oIOTBGNES25kJWMd4aSijYSYC+qx7O+3vMs=
+	t=1789578919; cv=none; b=XbXPMaS4t+xpkDEVeNwgUEsGQSjHg7LtTwH8HXb1v11cdJwu1BhnolQVJ1vNHo63zZ8szJqIHgqwqcHdRIwrICsvy9bJDy7u1sGNG7knw6O0nR/vqhI79aWCx/9rcaMHsN02re3kp7iqaYhVVEkq0hjBDU4YH5CdBl9a2boSvTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578913; c=relaxed/simple;
-	bh=x+RzZmHnqaIFv/afq4EE1msbYj1HqtHQnuxnErsonnM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JjKK4/HHprt90d2a43evROm37bXEZlk5dzuTqk30GE3U9ahRfy/7NWWozKYoZm8HH4HIDttcAioDRWYsFj9MrZg+niTfsuoiurIDZ+oFpCIMP/1CYEQOr3nch59USL83892jiwKw2SZt+e7Ds3JINfYa4/2hFo232nz6ukjCWyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJWKyUQG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789578919; c=relaxed/simple;
+	bh=A+U0jlBemz92XWR1C9KXngYLR2hMO+q63YxsFIbVEm8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oiwhFESQzzPHkx66Op5nLHAz4/Jum1sFknOeMBQDbjlPJWx9lq1BD6xkR+n61ku7G+jNW03UjcJk+Y3nCSokSS71D/Q3aNrBrx/QP1zh3K66frffOShhj+TbIb0x6G1UPZVVqP1kOoT4iwpKImcwXbJvYa1v/Wbvz6CpuH+kc+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=mquM40OU; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJWKyUQG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179551F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:15:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789578911;
-	bh=x+RzZmHnqaIFv/afq4EE1msbYj1HqtHQnuxnErsonnM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fJWKyUQGkPoGP6Y6CKkbMqnqk0M61nrKSbxnHjagrEGHJbkxh2gmxnq+2sBMXzN1Z
-	 Qz2mT0p9yrfu8kVSu40m5cIhXgOSeqCmYnNDCC+rciMkhrLs0p+dcBdoN1vVayVBVt
-	 N+d6tLIHjwuKx2KEFKfarXY6aKGGJQr9I6ZxAlXvUMMZLLUY5kv5hwPIysLW2BsVeg
-	 MGNEuRRKp8UVTSz51bvHgHX3WwwSqqMl3q7XHvNdY/hy9VyasfbQH6PYP0ppfJjeZb
-	 gqM4N2Sy8rxyPTLehUtbIuvkIJakxSI/S6RjBJZmFFESkhSMFGoXksEure1UOiIk8f
-	 Gq8jo4oKDZJDg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d76so1369569e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:15:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwuA4l+XNwRwBBmHsd+HpcPWBTsCXymOES0DHpVKZ5Q+M4fPR5ZaKUVE2wyXlboFN6nYup+sK9LFfajx+w=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4YC4esY9y/6cyYEX4ahYORrBQepnS9foMlbS+NEPHO4hZ5D/j
-	f0g2iuv5Rz6JWH50kHppNaPVaGTu9vcfO2qEkCHdvDsKZSp2WREXblKiJXcTifYQZR+SngLId9A
-	wcFvyhK+iV4KRtwCgKec7p+uXnpF7ktw=
-X-Received: by 2002:a05:6512:4023:b0:5b8:b419:c8ad with SMTP id
- 2adb3069b0e04-5b8b6617917mr991899e87.17.1789578909833; Wed, 16 Sep 2026
- 10:15:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="mquM40OU"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d4ddd17a0so10076467b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:15:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789578913; x=1790183713; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A+U0jlBemz92XWR1C9KXngYLR2hMO+q63YxsFIbVEm8=;
+        b=mquM40OU8vAERJTo6NESYSUZNFUreyJWW/Pxjin+NDC8g+UTeTgLTdgXqVeUEchKFr
+         2mYQT+dQNXgHWfdNglZIgJ4xcqbUGw8AV03WDgDqbDJ1UCedhJCnkFoEKJ1Z6wXVDsRm
+         239bx3uThskJlJ6Q2od2sNMsEUrTdp/BhYrTswfv3GFnCQiGVOhFon7HPneO1sQJlwOL
+         3Ag/dg8Q3DFkj1Sfgf6wgsy46pQWatsfym5HBEmMSoiT/r0RW01FG9YK8mxQ7PMct6wd
+         adZRvFTz/yuWSr0jd9sMQJ8h+aTgVpELrp4LLcACUuIDeFika1C9Jv3dpPk35QuZQ246
+         lFeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789578913; x=1790183713;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=A+U0jlBemz92XWR1C9KXngYLR2hMO+q63YxsFIbVEm8=;
+        b=yLkCobLhGiCVZeC+yx+d/D6cwUzEylzxOren+Q6lq3DnLoz4MBtKCiK+qWhgfHDRn3
+         mrap9OUUpwBQbb3JQZ92/O+6H+Vgd9Hzk8Ss+x9yLtV8B99y9pVdvlTpOd8Ne9tIcMSC
+         o9lrPL0BfAXMsbvFIsUPOyib36gLEpYXeVmcHbLvlG8Q8YTo63KaW+Ljm0kzumX9O4zQ
+         APr35GFzs6N/sKNl4TyLK/HPks9ahmpfeKyhNhE37mUTEtu5hrRGNAHHB7YLqshsSZ/P
+         5cL7k87lZdD8m5EjeF9LGU1Tgh5cxnetgpeRrtJs7U4MgP1AnvKGFB9qH4A8+/90nGOB
+         oDRw==
+X-Forwarded-Encrypted: i=1; AKwUvByCOCbn9vSmC1NkXOFb9EYbUM3N+frWfHlHWIZaUQpU16YkSggylDb+ooGocZERXUG1goXybY+Sm7/uss0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzL4dXjv4Dge/jc5yZl0RC6+HDONU3wd+O/UnXdfD7j/Hvl0Hx
+	Rewa0yDQSZBm5yMQZTo5JZEyfzCkHo7Tb7d0yQ6vnqE/CT/kjBuzdJFtgUfllRlo/sW11JCbsJO
+	UvZBW2J8O0g==
+X-Gm-Gg: AYBFou1EhgoA+ILwFvOiq48ushYKEXio98MD67igBsrO4MFSnV/NIc4/zDQ1s/UgSni
+	MHZZxqNvM+HHd5ozRVuT4+wHVCZFsjBNz4IwigWoWmbwWNH2f186qbMTKmCah5VLHdbaxzrKqak
+	+7giv/+9v/xVsqNUP6Sa1sadw/icJ/47/72zJ4x/cj6mbvFyj9o/7uSh3SCC2lt3qSZ7R/suG9E
+	6Zo5nNbo07NIT9v/u6VNHE7DrbKV5oIkmqzD5LgMtVhaZTeURKhfBxfvOzQHufA4JuvA8V3gOB7
+	9VXWE087TGTzTu4Nvhk8qanHT5mqHXRVakQR9SiyWjI6ZJSD7hZKltAyPhSW1nrK87dTXcTcTl7
+	16z7I8ssxjNzuhXACif4cPKea8y5yPqKL1NmLzYLqcVYuEDtsFAY0nm7RBQ6CvVYtxAu8sNq2e5
+	imdVV/RLUUZursEGglCAuxFegLlVRtBpJ0uD3cuNU6ccmCzebX5uVD9HGNSRiwizGf1cplFUMKr
+	hVYF20+Nddo2X9ki9gCIWyu0x0Mf7OvGCplDX+HaSwGRI8pRnDoIYMai5ct0IPRdIljruWc6+v1
+	BKy9V/hjuY9s7COdkyPUk6SEQd5DLOwtbqjOFz4OVZxvKCX4rSq6Ws4ihdoAlC7E
+X-Received: by 2002:a05:690c:84:b0:86c:c7a8:2ebd with SMTP id 00721157ae682-8922a9fba9bmr14494777b3.34.1789578913520;
+        Wed, 16 Sep 2026 10:15:13 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:f547:a2c0:72f7:6671? ([2600:1700:6476:1430:f547:a2c0:72f7:6671])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-891efc0dfcbsm10099737b3.26.2026.09.16.10.15.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 10:15:12 -0700 (PDT)
+Message-ID: <2f3de27f1a824fed104918fc2756c33663ae978c.camel@dubeyko.com>
+Subject: Re: [PATCH v4 2/2] hfsplus: validate b-tree fork extents at mount
+ time
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
+	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
+Date: Wed, 16 Sep 2026 10:15:11 -0700
+In-Reply-To: <7d1b09519cddf5124def5fdda42a5a3c8ba4ef11.camel@dubeyko.com>
+References: <cbc98010b9f6657e162cfcc6ac5ba6032e7b729d.camel@dubeyko.com>
+		 <20260915141543.24335-1-ngocthang2710.1999@gmail.com>
+	 <7d1b09519cddf5124def5fdda42a5a3c8ba4ef11.camel@dubeyko.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com> <20260910-fw-devlink-nexus-ready-v2-3-17ac82dbe226@toradex.com>
-In-Reply-To: <20260910-fw-devlink-nexus-ready-v2-3-17ac82dbe226@toradex.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 19:14:57 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=PV_BEw6pa=M7dDEMNMg2xfbBESGanXE2sajTav5hPBg@mail.gmail.com>
-X-Gm-Features: AcwNN1VY_W0_it0rWdRRWdWtRhIbKagoTA3QAM941QSR0htK7aD0JhAkkSfT2YY
-Message-ID: <CAD++jL=PV_BEw6pa=M7dDEMNMg2xfbBESGanXE2sajTav5hPBg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/7] of: unittest: Test fw_devlink with GPIO nexus maps
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 4:16=E2=80=AFPM Ernest Van Hoecke
-<ernestvanhoecke@gmail.com> wrote:
+On Tue, 2026-09-15 at 16:48 -0700, Viacheslav Dubeyko wrote:
+> Hi Nguyen Ngoc,
+>=20
+> Please, don't move your answers from the code where I left my
+> questions. I really cannot follow to your answers and the whole
+> discussion is broken. I cannot follow to your answers. I am simply
+> rejecting the whole email.
+>=20
 
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->
-> Add OF unit tests that call the fw_devlink add_links operation for GPIOs
-> routed through nexus maps. Verify that each mapped consumer has exactly
-> one link to the final GPIO provider rather than to the nexus.
->
-> Also cover direct references and all GPIO property spellings recognized
-> by fw_devlink, including the deprecated singular and unprefixed forms.
->
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Could you please send the formal patch v5 and we can re-start the
+discussion from this point? It's really hard to continue discussion if
+the questions and answers have been moved from the code context. And it
+really complicates the review if you mess the discussion and new code
+together. Please, send new state of the code as a formal patch but not
+the part of the discussion. This mixture blows my mind.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Yours,
-Linus Walleij
+Thanks,
+Slava.
