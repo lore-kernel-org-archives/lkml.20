@@ -1,234 +1,233 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8064A3ED3CC
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:57:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB0537C11C;
+	Wed, 16 Sep 2026 06:57:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541860; cv=none; b=M9uP1joWmxeb8AT1WTiOX7qP4K1GClsAqMYYeikg4+keivZpEMKGpytNMXpfZj+aQ1/46Oa+SsyFa9DQcHRKBAa98IwOxwlVKl+qdsdc0n1wL+xv22pF+4oN+LoH9QK46tfV7B6lu2QShS4bIejawARmPsxFJu7VDXmsVJ/dSwc=
+	t=1789541867; cv=none; b=DeSpukS5mf8zhORRrZTXXmkOMlIWcfop90i/dhEYCUcP9dkQzyCWeIaShv1GMjvU7BxWiOOMWdqYupZOrW0wweP3IdOORUjVwufo35lXHkr8HtdcomVB3SP86Vp/S7WKzyogvxHAJCkrCmPVv/DQqhCRgydxALtVA3wOBvcI5sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541860; c=relaxed/simple;
-	bh=9sBlD5izEEfo2pLgZKTdvRxdTeoNasGiiJQXKUcd5j4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Il6RHxnX+6YJNjw2NofIwIONB54FgL7fqi0jxAyKQJjOZQnRunIl2fiM/4inoJOX63f7gw//7kInhPG0ZbTgvSH58nBXhqWQV7OnA/SSwH4AGBwr4l3ndZ1tgdpotTU1SvPVgDL2X34DLzNGRfO5je+4eEohACssasE5iGiXQIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h85t53TX; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789541867; c=relaxed/simple;
+	bh=6I39GZGDcgx0Fu4ld873okS4rvWL1ptrWi8ryG4NrnE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PFwEA3T4nV5KGeMjfvd24K+8COqtpo/ZQ6W5UlYn4HxEBuDqpezMesIVZlKUNbnDUaDo0p+sX4r7GDIVQIb2E2CBNpr7elsHcH8r9khn3qLcppk+kKAORgU1o5IlCxcgnVLFY8UbxFuy1gY/9lMTRM4Iu7e3vNSOuBXI8BGxt/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=bkZmc5lj; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h85t53TX"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso556640a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:57:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789541859; x=1790146659; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NKzNesC0LhJFIDuZhUW/K+h4UvLvdFAJBHAUljGQgV0=;
-        b=h85t53TXJ27egsOFIwLHzlee2qOUF7B9vkogE4k3/7WXdZ81f8pF/i8xEv/o02Invf
-         mlgjoxX6gMjpQVNG1EeEhfm/787Oj1SkBnfLy05ZkVp88e+lZwuaap987bubaSh5Pi+G
-         fwHMa2LRZlOJRzH+7NUJZt85mjRGX0d8Uf/28z5VW4z4ainZ8kSWlOJTxxSdfdxOyYlK
-         aH4KJfng48/vbO6q+JU2VKQI9AvQVsC5l6J1VH6CQkUjKPNk0NDcOJH6H4PtC7Py5vR4
-         8IIV8ekNCEL7DKQ533czVGmC+rDieaAbYBsMqSsE3SiyqcHZM4y1x5CycFlfj5X3S+vQ
-         ZbCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789541859; x=1790146659;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NKzNesC0LhJFIDuZhUW/K+h4UvLvdFAJBHAUljGQgV0=;
-        b=mcnCtiT08VhUMJiMzpppsRzkY0XGJnxUPzEHpG2C4/oDJuqCnH8mGryyQxOWmI782h
-         GaOXPCfL2GCJXS0uHcbVU04lSuz86JXtd1BmaFHChXbHQTw09n8o3b0UffCJ84xy/VR3
-         diF4ij2KmRW2JSO6mhwbcuA5Y2ftBG2fmgadOiJTy/y3mWxn3V1ZuuSSOoQ4xjuUWzwm
-         LOjFH2KTOKKDBFay5tPJV+XS1FIK2TxFpij7aZPVhFQq2OGM0LXr1Xxeb12HLqOH59bo
-         ngq1mVFEl6Q1GL0uGOiIOEgDOXXw7NR9RSbUkLoKghI7BtIZ+u0658Iu45N1uE1X5N5R
-         C/gg==
-X-Forwarded-Encrypted: i=1; AKwUvBwiIDXXN5ud1gp8J/NQJRRhfvNtFpcngtcHIV7MQkHz3YI3Bz62UMzVBvMXitFj4BNyETNEDqh79Rn06tk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEYFRRQc1bYD1dOFe5zdRf1uTDNDLTxpc7bP5WaIjYRzhGRM0B
-	IRv9M/pDs/bsD4QYZsmS0WNgxPphXwXq2YejuVnERlgGbDvKup3KG6ZL
-X-Gm-Gg: AYBFou3scolOYit+Fqpk66QIlzpEV1h+A3VzTUiK529PmKR/iR4EFFYtbHLwhib1Jq2
-	IyqjrjkZ/8cqm6j3bGUruWED1ctg/6J+y5gKNYESTa3v718MiI3w0fx8eXlnHmvS+V2mw9aY047
-	lu9gIM1uOXQ2qQEEQODqlkh7RyjKIvDnmZjJIgy1BW+6yfU33SBtdosyXCUvwjBGOr0V9FMzSVz
-	j/CmdAJ9zNy68zWtgMGH1fSwCDlANAhPiR2CfayuGnf1HV9FNpf1XFYbfSxC27YpgOlabbv7nBD
-	4HJfY6hH44DSOHO5YC0YQx+ljKndY/yY5DM2dJPh8CeYp+QbCwpzyI9IMy70/PnSCF5Aq0Qwmyv
-	faaUbE3iDM0ryPqydwR39YnZOMMAsvyylGuosgZZeyi3ENoi/Ihay6tZGTI6K38af9849jev1Jm
-	q5AtStUyQxqIBijKqo881kbQogLYHQpBYXioBwc6t88oNphRh5faQkRjxheaSKs9O+KbotV9Ww0
-	yJWvV+hGbpeEM+F5gBDgbVzOzTNfa9r8EyC0THpkw1IzCB4OWPTwD/v
-X-Received: by 2002:a17:90a:d407:b0:39d:fcbe:fe00 with SMTP id 98e67ed59e1d1-39e1e52242amr4313163a91.22.1789541858729;
-        Tue, 15 Sep 2026 23:57:38 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d771e5sm4209554c88.15.2026.09.15.23.57.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 23:57:38 -0700 (PDT)
-Date: Wed, 16 Sep 2026 12:27:31 +0530
-From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: paulmck@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, 
-	josh@joshtriplett.org, boqun@kernel.org, urezki@gmail.com, rostedt@goodmis.org, 
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, qiang.zhang@linux.dev, 
-	rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rcu: Guard deferred QS on kernel exit behind
- need_deferred_qs() check
-Message-ID: <aqo9k7ajQr6LRZHl@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <20260915102241.1344738-1-mkchauras@gmail.com>
- <aqkzzeXsVd91X4mZ@localhost.localdomain>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="bkZmc5lj"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789541860; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=KJ+Y6/ucHVtqbF5lQL2ZJvH3+e5O6kETbmwmn1ewBBI=;
+	b=bkZmc5ljGo9A/ZBrQK6vP7dT87Vv28+spWdEuC/88SVMJKch4jVnMYDSM7qLLeqtInUoCxBaPSPwmjhN5lwsHP/vJ6HkNkEl1GkYqpG7vmHinqBNKkgMXat7PWnLKsKjZTZuv2PvqLJgX48Gm0EYaW3aAzJneyTVLeoww4e+JlA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=guanghuifeng@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XB49fzX_1789541843;
+Received: from VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com fp:SMTPD_---0XB49fzX_1789541843 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 16 Sep 2026 14:57:38 +0800
+From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	tglx@kernel.org,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	seanjc@google.com,
+	kai.huang@intel.com,
+	radu@rendec.net
+Cc: x86@kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] perf/x86/amd: Move NMI latency window to last-resort suppression
+Date: Wed, 16 Sep 2026 14:57:23 +0800
+Message-ID: <20260916065723.1976131-1-guanghuifeng@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqkzzeXsVd91X4mZ@localhost.localdomain>
 
-On Tue, Sep 15, 2026 at 02:02:21PM +0200, Frederic Weisbecker wrote:
-> Le Tue, Sep 15, 2026 at 03:52:41PM +0530, Mukesh Kumar Chaurasiya (IBM) a écrit :
-> > ct_kernel_exit() unconditionally calls rcu_preempt_deferred_qs(current)
-> > on every return to userspace.
-> 
-> When nohz_full is active, right?
-> 
-Yes, correct. I should have been more precise — this is only reached
-on nohz_full CPUs under CONFIG_CONTEXT_TRACKING_IDLE.
-> > On the common fast path nothing is
-> > actually deferred, so this is a needless write to
-> > current->rcu_read_unlock_special
-> 
-> When nothing is to be deferred, rcu_preempt_deferred_qs() does nothing, right?
-> 
-> And if some nohz_full workloads involve rare syscalls, they usually run a single
-> task, so no preemption that would trigger a deferred qs.
-> 
-> 
-You are right, I missed that. rcu_preempt_deferred_qs() already
-bails out at line 619 of tree_plugin.h via the same
-!rcu_preempt_need_deferred_qs() check, so the outer guard in
-rcu_ct_kernel_exit_qs() is entirely redundant.
+The upstream amd_pmu_adjust_nmi_window() mitigation claims every NMI
+that arrives within a 100ms window opened after a PMC overflow. When no
+counter overflowed, the handler still returns NMI_HANDLED, which makes
+the NMI dispatch path take its "handled" exit. Everything that comes
+after the perf handler is then skipped: the NMI reason port, which may
+hold a latched SERR#/IOCHK# error, and all NMI_UNKNOWN handlers, such
+as hpwdt. As a result unrelated NMIs are silently dropped for the whole
+duration of the window.
 
-The overhead I was seeing on ppc64le with SELinux-heavy workloads is
-real, but I clearly haven't identified the right call site yet. I'll
-drop this patch and profile more carefully before sending a v2.
+Stop claiming NMIs from within the perf handler. When no counter
+overflowed there is nothing to claim, so always report NMI_DONE and let
+the remaining NMI sources be probed first. Defer the window check to the
+very end of the dispatch path, where it is used only as a last resort.
 
-Thanks for catching this.
+Introduce perf_nmi_window_active(), which reports whether the latency
+window opened by the last PMC overflow on this CPU is still open. It is
+called from unknown_nmi_error() only after all NMI_LOCAL handlers, the
+reason port and all NMI_UNKNOWN handlers failed to identify the NMI.
+Only then is the bogus "unknown NMI" report suppressed. A __weak
+fallback in arch/x86/kernel/nmi.c always returns false, so non-AMD
+platforms are unaffected.
 
-Regards
-Mukesh
-> > -- a word that lives on the task_struct
-> > and is therefore subject to cross-CPU cache-line traffic.
-> > 
-> > On weakly-ordered architectures such as ppc64le, rcu_read_lock() and
-> > rcu_read_unlock() already issue lwsync/isync barriers and touch that
-> > same cache line in the syscall body.  Bouncing it again at syscall exit
-> > adds measurable overhead, particularly on workloads with a high syscall
-> > rate (e.g. SELinux-heavy workloads where every AVC check issues a
-> > system call).
-> > 
-> > Introduce rcu_ct_kernel_exit_qs() which wraps the deferred-QS call with
-> > a rcu_preempt_need_deferred_qs() guard, matching the pattern already
-> > used in rcu_flavor_sched_clock_irq():
-> > 
-> >   notrace void rcu_ct_kernel_exit_qs(void)
-> >   {
-> >           if (rcu_preempt_need_deferred_qs(current))
-> >                   rcu_preempt_deferred_qs(current);
-> >   }
-> > 
-> > The declaration is added to <linux/rcutree.h> and a stub no-op is added
-> > to <linux/rcutiny.h> so that TINY_RCU builds are unaffected.
-> > 
-> > ct_kernel_exit() is updated to call rcu_ct_kernel_exit_qs() in place of
-> > the direct rcu_preempt_deferred_qs() call.  Semantics are identical when
-> > a deferred QS is actually pending; only the unnecessary write on the
-> > fast path is eliminated.
-> > 
-> > Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> > ---
-> >  include/linux/rcutiny.h   |  1 +
-> >  include/linux/rcutree.h   |  1 +
-> >  kernel/context_tracking.c |  2 +-
-> >  kernel/rcu/tree.c         | 19 +++++++++++++++++++
-> >  4 files changed, 22 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/include/linux/rcutiny.h b/include/linux/rcutiny.h
-> > index e56ded733b1b..dcad641eb2c2 100644
-> > --- a/include/linux/rcutiny.h
-> > +++ b/include/linux/rcutiny.h
-> > @@ -120,6 +120,7 @@ static inline bool rcu_preempt_need_deferred_qs(struct task_struct *t)
-> >  	return false;
-> >  }
-> >  static inline void rcu_preempt_deferred_qs(struct task_struct *t) { }
-> > +static inline void rcu_ct_kernel_exit_qs(void) { }
-> >  void rcu_scheduler_starting(void);
-> >  static inline void rcu_end_inkernel_boot(void) { }
-> >  static inline bool rcu_inkernel_boot_has_ended(void) { return true; }
-> > diff --git a/include/linux/rcutree.h b/include/linux/rcutree.h
-> > index 16a04202888b..d623f2a7d3fc 100644
-> > --- a/include/linux/rcutree.h
-> > +++ b/include/linux/rcutree.h
-> > @@ -87,6 +87,7 @@ static inline void rcu_irq_exit_check_preempt(void) { }
-> >  
-> >  struct task_struct;
-> >  void rcu_preempt_deferred_qs(struct task_struct *t);
-> > +void rcu_ct_kernel_exit_qs(void);
-> >  
-> >  void exit_rcu(void);
-> >  
-> > diff --git a/kernel/context_tracking.c b/kernel/context_tracking.c
-> > index a743e7ffa6c0..011018214c6d 100644
-> > --- a/kernel/context_tracking.c
-> > +++ b/kernel/context_tracking.c
-> > @@ -118,7 +118,7 @@ static void noinstr ct_kernel_exit(bool user, int offset)
-> >  	lockdep_assert_irqs_disabled();
-> >  	trace_rcu_watching(TPS("End"), ct_nesting(), 0, ct_rcu_watching());
-> >  	WARN_ON_ONCE(IS_ENABLED(CONFIG_RCU_EQS_DEBUG) && !user && !is_idle_task(current));
-> > -	rcu_preempt_deferred_qs(current);
-> > +	rcu_ct_kernel_exit_qs();
-> >  
-> >  	// instrumentation for the noinstr ct_kernel_exit_state()
-> >  	instrument_atomic_write(&ct->state, sizeof(ct->state));
-> > diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
-> > index 96848fc1f02b..c23478f70c17 100644
-> > --- a/kernel/rcu/tree.c
-> > +++ b/kernel/rcu/tree.c
-> > @@ -368,6 +368,25 @@ notrace void rcu_momentary_eqs(void)
-> >  }
-> >  EXPORT_SYMBOL_GPL(rcu_momentary_eqs);
-> >  
-> > +/**
-> > + * rcu_ct_kernel_exit_qs - report deferred QS on syscall/exception exit if needed
-> > + *
-> > + * Called from ct_kernel_exit() on every return to userspace.  Guards the
-> > + * rcu_preempt_deferred_qs() call with rcu_preempt_need_deferred_qs() so that
-> > + * on the common fast path -- where nothing is deferred -- we avoid the
-> > + * cache-line traffic on current->rcu_read_unlock_special that the unconditional
-> > + * call causes.  This is particularly significant on weakly-ordered architectures
-> > + * (e.g. ppc64le) where rcu_read_lock/unlock issue lwsync/isync barriers and
-> > + * already touch that cache line in the syscall body.
-> > + *
-> > + * Follows the same pattern used by rcu_flavor_sched_clock_irq().
-> > + */
-> > +notrace void rcu_ct_kernel_exit_qs(void)
-> > +{
-> > +	if (rcu_preempt_need_deferred_qs(current))
-> > +		rcu_preempt_deferred_qs(current);
-> > +}
-> > +
-> 
-> rcu_preempt_deferred_qs() already has a rcu_preempt_need_deferred_qs() fast
-> path. Am I missing something?
-> 
-> Thanks.
-> 
-> 
-> >  /**
-> >   * rcu_is_cpu_rrupt_from_idle - see if 'interrupted' from idle
-> >   *
-> > -- 
-> > 2.55.0
-> > 
-> 
-> -- 
-> Frederic Weisbecker
-> SUSE Labs
+nmi_stats.unknown is still incremented before the suppression, so the
+dropped NMIs remain observable through debugfs.
+
+Fixes: df4d29732fda ("perf/x86/amd: Change/fix NMI latency mitigation to use a timestamp")
+Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+---
+ arch/x86/events/amd/core.c | 56 ++++++++++++++++++++++++++++++--------
+ arch/x86/include/asm/nmi.h |  8 ++++++
+ arch/x86/kernel/nmi.c      | 23 ++++++++++++++++
+ 3 files changed, 76 insertions(+), 11 deletions(-)
+
+diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
+index 49b6b8fce566..36721042c79c 100644
+--- a/arch/x86/events/amd/core.c
++++ b/arch/x86/events/amd/core.c
+@@ -868,18 +868,28 @@ static void amd_pmu_del_event(struct perf_event *event)
+  * handler when multiple PMCs are active or PMC overflow while handling some
+  * other source of an NMI.
+  *
+- * Attempt to mitigate this by creating an NMI window in which un-handled NMIs
+- * received during this window will be claimed. This prevents extending the
+- * window past when it is possible that latent NMIs should be received. The
+- * per-CPU perf_nmi_tstamp will be set to the window end time whenever perf has
+- * handled a counter. When an un-handled NMI is received, it will be claimed
+- * only if arriving within that window.
++ * Attempt to mitigate this by creating an NMI window in which a latent NMI
++ * generated by an already handled overflow may still show up. This prevents
++ * extending the window past when it is possible that latent NMIs should be
++ * received. The per-CPU perf_nmi_tstamp will be set to the window end time
++ * whenever perf has handled a counter.
++ *
++ * The window is deliberately *not* used to claim NMIs from within this
++ * handler. Claiming an NMI although no counter overflowed makes the NMI
++ * dispatch path take the "handled" exit and skip everything that comes after
++ * it: the NMI reason port, which may hold a latched SERR#/IOCHK# error, and
++ * all NMI_UNKNOWN handlers, such as hpwdt. Those unrelated NMIs would then be
++ * silently dropped for the whole duration of the window. Instead this handler
++ * reports NMI_DONE and the window is consulted by the dispatch path as the
++ * very last resort, once no handler was able to identify the NMI. See
++ * perf_nmi_window_active() below and unknown_nmi_error().
+  */
+ static inline int amd_pmu_adjust_nmi_window(int handled)
+ {
+ 	/*
+-	 * If a counter was handled, record a timestamp such that un-handled
+-	 * NMIs will be claimed if arriving within that window.
++	 * If a counter was handled, record a timestamp such that a latent NMI
++	 * generated by that overflow can still be recognized later on by the
++	 * NMI dispatch path.
+ 	 */
+ 	if (handled) {
+ 		this_cpu_write(perf_nmi_tstamp, jiffies + perf_nmi_window);
+@@ -887,11 +897,35 @@ static inline int amd_pmu_adjust_nmi_window(int handled)
+ 		return handled;
+ 	}
+ 
+-	if (time_after(jiffies, this_cpu_read(perf_nmi_tstamp)))
+-		return NMI_DONE;
++	/*
++	 * No counter overflowed here, so there is nothing to claim. Report
++	 * NMI_DONE even when the window is open and let the remaining NMI
++	 * sources be probed first.
++	 */
++	return NMI_DONE;
++}
+ 
+-	return NMI_HANDLED;
++/**
++ * perf_nmi_window_active - Check if the PMC NMI latency window is still open
++ *
++ * Returns true if the current time is within the NMI latency mitigation window
++ * that was opened by the last PMC counter overflow handled on this CPU. An
++ * open window means that a recently processed overflow may have generated an
++ * NMI which arrived too late to be paired with that overflow, and which
++ * therefore cannot be identified by any NMI handler.
++ *
++ * This is the last resort of the x86 NMI dispatch path: it is only called
++ * after all NMI_LOCAL handlers, the NMI reason port and all NMI_UNKNOWN
++ * handlers failed to claim the NMI. It must never be used to claim an NMI on
++ * behalf of perf, otherwise unrelated NMI sources would be dropped.
++ *
++ * Context: NMI context. Must not sleep and must not take locks.
++ */
++bool perf_nmi_window_active(void)
++{
++	return !time_after(jiffies, this_cpu_read(perf_nmi_tstamp));
+ }
++EXPORT_SYMBOL_GPL(perf_nmi_window_active);
+ 
+ static int amd_pmu_handle_irq(struct pt_regs *regs)
+ {
+diff --git a/arch/x86/include/asm/nmi.h b/arch/x86/include/asm/nmi.h
+index 79d88d12c8fb..703d717a21a3 100644
+--- a/arch/x86/include/asm/nmi.h
++++ b/arch/x86/include/asm/nmi.h
+@@ -105,4 +105,12 @@ void stop_nmi(void);
+ void restart_nmi(void);
+ void local_touch_nmi(void);
+ 
++/*
++ * Last resort check of the NMI dispatch path, used to suppress "unknown NMI"
++ * reports caused by PMC overflow NMI latency. The strong implementation lives
++ * in the AMD perf core, arch/x86/kernel/nmi.c provides a __weak fallback which
++ * always returns false.
++ */
++bool perf_nmi_window_active(void);
++
+ #endif /* _ASM_X86_NMI_H */
+diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
+index 3c9f60d6ca5a..1aa161b56be0 100644
+--- a/arch/x86/kernel/nmi.c
++++ b/arch/x86/kernel/nmi.c
+@@ -322,6 +322,16 @@ io_check_error(unsigned char reason, struct pt_regs *regs)
+ }
+ NOKPROBE_SYMBOL(io_check_error);
+ 
++/*
++ * Fallback used when the AMD perf core, which provides the strong
++ * implementation, is not built in. Without it no PMC overflow NMI latency
++ * window is tracked at all, so no "unknown NMI" report is ever suppressed.
++ */
++bool __weak perf_nmi_window_active(void)
++{
++	return false;
++}
++
+ static void
+ unknown_nmi_error(unsigned char reason, struct pt_regs *regs)
+ {
+@@ -340,6 +350,19 @@ unknown_nmi_error(unsigned char reason, struct pt_regs *regs)
+ 
+ 	__this_cpu_add(nmi_stats.unknown, 1);
+ 
++	/*
++	 * No handler was able to identify this NMI, so its source is unknown.
++	 * The one exception is a latent PMC overflow NMI: the overflow NMI can
++	 * arrive long after the counter was already processed by an earlier
++	 * NMI, which leaves nothing here that could identify it. If the perf
++	 * NMI latency window is still open, this NMI is very likely that late
++	 * arrival, so keep quiet about it instead of reporting a bogus unknown
++	 * NMI (and instead of panicking on unknown_nmi_panic). It is still
++	 * accounted in nmi_stats.unknown and thus stays visible in debugfs.
++	 */
++	if (perf_nmi_window_active())
++		return;
++
+ 	pr_emerg_ratelimited("Uhhuh. NMI received for unknown reason %02x on CPU %d.\n",
+ 			     reason, smp_processor_id());
+ 
+-- 
+2.43.7
+
