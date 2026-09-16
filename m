@@ -1,357 +1,292 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB463542D4;
-	Wed, 16 Sep 2026 08:24:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 340FE44839A;
+	Wed, 16 Sep 2026 08:25:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547077; cv=none; b=jSia418S5fA0j38V2ukYQKXvIMpS/OECb0uk+ikobCchLseDvnwBr72PDHXlQeUxZhHEvinCLUEWZcj00k25AupgoLl2hwr8UM5HWAoRQkbm6+UHMGXp0+9tKUHmunOv9RaM3E+e739zSBmeUEaGD6KiEevFsGDmKT41n0Zt6so=
+	t=1789547115; cv=none; b=Q8pHGWmrXBCimAj54KpHoZze8wyLhPbKUEnVed5Rq1adVP9XTQGqhm/J7fxV8M05DYqkDTjexB8KKA4ZgxwN+PBiCdP0JAAjyv2PFKj45I7sFScUFHCBkkpqjS585DGLV/fIuHp326dolOaHCqhTWfdNi3EGHxsd+UmekGf34jU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547077; c=relaxed/simple;
-	bh=r8pjr4CGhCXEFaDPE8kmo+sjCeuKrj4Celsk86UISx8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kqI8p+8CljILBjeGBv0OIUvgCKg5ICMpU5P0tkVYqZNH5b1AAUokvHQ0dO8ZbLd6LLwT7R1SEa5diEm9ibeoIR9/Em+GGSyWOmPNK8L0pB3zH2jDcXiCnA/+PBrPevfnojurlqqdSSohzVgvQiQ2W6OXk9nqGJD+w/A2q21wnhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QU97Qy7y; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789547115; c=relaxed/simple;
+	bh=/8itoCy2uuAdT2BRbZBqwKTAhTZbp5WyzRD+XEeprJk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PCUtneAQlrdRzkBbT7AWBrSbns1ZhndzrarZW96B/+CLuZpctFBcdgCaSUnIfqnscklbOpjJWhre7WHSvvrT4h6cHmmyq8NECKtcRZSxOLix41va4xMTOJ7O5ATSUcFu+XmrqH8aUHhHkNf1gURM7KvEdKs+VMO3ZamtFAjg+hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JybzSzpK; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QU97Qy7y"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id D7F884E40735;
-	Wed, 16 Sep 2026 08:24:24 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AD19760337;
-	Wed, 16 Sep 2026 08:24:24 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1FE5111C7B01A;
-	Wed, 16 Sep 2026 10:24:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789547063; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=08TYwRRid1OhLtFo7Q3n0XkxiiggXKt8PhmLqU0KeD0=;
-	b=QU97Qy7yUJg6wsjWBdy3fMHk1lHxxSmb1pGnEOyhg63omraJ9/oKg/0wCN0w1zkHyCtNlB
-	Pm+SAxtBvfpZ+yaD5OmANpo+hOJd0qHM0vSU08zPE1Eh0PcBg1wsTLLOnz72ik0AJo1JI+
-	q4BhBf7SbuniLwcSlrTOTgJj4kOfp4+BqUtd9YQpa8Q/3XDdpDp58DZfT5qvGOBgFzfwxy
-	qeoorSHeBpZde1QP2n6+XTO8gJb5grJMBjzgAqrIaGmdE4yuJtvrbyPujljQeWxvjwoP1h
-	vMFjWR5wQaVrPeQDS65Oz1M7uQNorFXIkqSMwZL1ScYF1xUu7CcHV97/wL6wIQ==
-From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-Date: Wed, 16 Sep 2026 10:24:12 +0200
-Subject: [PATCH v11 2/2] dmaengine: fsl-edma: Support dynamic
- scatter/gather chaining
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JybzSzpK"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E88D11E32;
+	Wed, 16 Sep 2026 01:25:02 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1CB9F3F882;
+	Wed, 16 Sep 2026 01:24:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789547106; bh=/8itoCy2uuAdT2BRbZBqwKTAhTZbp5WyzRD+XEeprJk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JybzSzpKsBXyl5ejDpbE5Lnvl5rgBgnIjwZqLVkpg80e2fZA0FHiqFmVFqCsHggez
+	 D/2HtVhTxYvpa7MlJ137x509omi1Bd/DX1rZ/NzmDZOfKOhGAxp3hQgdQFFWlUD47k
+	 F4i8xjR5OAGGBPPH7W2sg/6d2c3BHgDuGy75hXg4=
+Date: Wed, 16 Sep 2026 09:24:56 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	Tianrui Zhao <zhaotianrui@loongson.cn>,
+	Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jonas Bonn <jonas@southpole.se>,
+	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+	Stafford Horne <shorne@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+	linux-openrisc@vger.kernel.org,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: Re: [PATCH RFC v3 00/21] mm: change behavior of
+ pXdp_get()/pXd_page() in compile-time folded pgtable
+Message-ID: <aqpSWIp_YrLPKBBp@e129823.arm.com>
+References: <20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260916-fsl-edma-dyn-sg-v11-2-02792de71b92@bootlin.com>
-References: <20260916-fsl-edma-dyn-sg-v11-0-02792de71b92@bootlin.com>
-In-Reply-To: <20260916-fsl-edma-dyn-sg-v11-0-02792de71b92@bootlin.com>
-To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Frank Li <Frank.Li@kernel.org>, imx@lists.linux.dev, 
- dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com>
 
-Implement dynamic linking of scatter/gather transfers to enable
-chaining multiple DMA descriptors without stopping the channel.
-This avoids waiting for the channel to go idle if there is another
-transaction already issued.
+Hi all,
 
-Add fsl_edma_link_sg() to dynamically link the last TCD of a previously
-issued descriptor to the first TCD of a new descriptor by setting the
-scatter/gather address and the E_SG flag, and keeping the channel active
-by clearing the DREQ bit.
+Are there any further comments on this series?
+If not, I’ll post the series without the RFC tag sometime next week :)
 
-Also in fsl_edma_link_sg(), assign a non-zero identifier to the new
-descriptor that is stored in the EDMA_TCD_CSR_LINKCH field of the CSR
-of each TCD, after checking that the descriptors are not using channel
-linking. The use of this field (MAJORLINKCH in the datasheet) as an
-identifier for dynamic scatter/gather is suggested in the i.MX93 datasheet.
+Thanks!
 
-When the last issued descriptor is the one currently active on the
-channel and has a single TCD, the scatter/gather address and CSR are
-also written directly to the hardware registers to ensure the link
-takes effect immediately, unless the DMA controller requires the DONE
-bit to be cleared for the CSR change to take effect. Clearing the DONE
-bit would disrupt the interrupt handler.
-
-Linking is done in fsl_edma_issue_pending(), which iterates over the
-submitted descriptors, links each one to the previously issued
-descriptor via fsl_edma_link_sg(), and then moves it to the issued
-list. This ensures that transactions are linked in the order they were
-issued. Linking of a descriptor is limited to 31 outstanding descriptors
-on the issued list so the identifier fits in the LINKCH field of the CSR
-register. The value of zero is left to identify non-linked descriptors.
-
-Update fsl_edma_xfer_desc() to avoid re-initializing the hardware when a
-transfer is already in progress, allowing seamless chaining of descriptors.
-
-Modify the transfer completion handler to check the DONE flag in the
-channel CSR before marking the transfer complete. Since this flag is only
-available on SoC with the split registers layout, only link transactions
-for DMA controllers flagged with newly added FSL_EDMA_DRV_CSR_LINKCH. This
-flag is set for eDMA3 and EDMA4 controllers which are able to perform
-dynamic scatter/gather linking.
-
-The completion handler also reaps issued descriptors whose link channel ID
-(EDMA_TCD_CSR_LINKCH) has already been passed by the hardware, marking
-them as completed even if their corresponding interrupt has been missed.
-
-Add trace event for scatter/gather linking operations.
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
----
- drivers/dma/fsl-edma-common.c | 138 ++++++++++++++++++++++++++++++++++++++++--
- drivers/dma/fsl-edma-common.h |  11 +++-
- drivers/dma/fsl-edma-trace.h  |   5 ++
- 3 files changed, 146 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/dma/fsl-edma-common.c b/drivers/dma/fsl-edma-common.c
-index 8ba72b3d0e1a..513b0f4e5be2 100644
---- a/drivers/dma/fsl-edma-common.c
-+++ b/drivers/dma/fsl-edma-common.c
-@@ -56,10 +56,36 @@ void fsl_edma_tx_chan_handler(struct fsl_edma_chan *fsl_chan)
- 	}
- 
- 	if (!fsl_chan->edesc->iscyclic) {
--		list_del(&fsl_chan->edesc->vdesc.node);
--		vchan_cookie_complete(&fsl_chan->edesc->vdesc);
-+		u16 csr = edma_read_tcdreg(fsl_chan, csr);
-+		u8 link_sg_id = FIELD_GET(EDMA_TCD_CSR_LINKCH, csr);
-+		struct virt_dma_desc *vdesc, *tmp;
-+
-+		/* Channel is DONE when a TCD with D_REQ set completes */
-+		if (!(fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_SPLIT_REG) ||
-+		    (edma_readl_chreg(fsl_chan, ch_csr) & EDMA_V3_CH_CSR_DONE)) {
-+			fsl_chan->status = DMA_COMPLETE;
-+		}
-+
-+		list_for_each_entry_safe(vdesc, tmp, &fsl_chan->vchan.desc_issued, node) {
-+			struct fsl_edma_desc *fsl_desc = to_fsl_edma_desc(vdesc);
-+			bool id_match = (link_sg_id == fsl_desc->link_sg_id);
-+
-+			/*
-+			 * If the transfer is still running,
-+			 * don't mark as complete the current descriptor
-+			 */
-+			if (id_match && fsl_chan->status != DMA_COMPLETE)
-+				break;
-+
-+			list_del(&vdesc->node);
-+			vchan_cookie_complete(vdesc);
-+
-+			if (id_match)
-+				break;
-+		}
-+
- 		fsl_chan->edesc = NULL;
--		fsl_chan->status = DMA_COMPLETE;
-+
- 	} else {
- 		vchan_cyclic_callback(&fsl_chan->edesc->vdesc);
- 	}
-@@ -932,14 +958,99 @@ void fsl_edma_xfer_desc(struct fsl_edma_chan *fsl_chan)
- 	if (!vdesc)
- 		return;
- 	fsl_chan->edesc = to_fsl_edma_desc(vdesc);
--	fsl_edma_set_tcd_regs(fsl_chan, fsl_chan->edesc->tcd[0].vtcd);
--	fsl_edma_enable_request(fsl_chan);
--	fsl_chan->status = DMA_IN_PROGRESS;
-+
-+	if (fsl_chan->status != DMA_IN_PROGRESS) {
-+		fsl_edma_set_tcd_regs(fsl_chan, fsl_chan->edesc->tcd[0].vtcd);
-+		fsl_edma_enable_request(fsl_chan);
-+		fsl_chan->status = DMA_IN_PROGRESS;
-+	}
-+}
-+
-+static void fsl_edma_link_sg(struct fsl_edma_chan *fsl_chan, struct fsl_edma_desc *fsl_desc)
-+{
-+	u32 flags = fsl_edma_drvflags(fsl_chan);
-+	struct fsl_edma_hw_tcd *last_tcd;
-+	struct fsl_edma_desc *prev_desc;
-+	struct virt_dma_desc *vdesc;
-+	u16 last_csr;
-+
-+	lockdep_assert_held(&fsl_chan->vchan.lock);
-+
-+	if (!(flags & FSL_EDMA_DRV_CSR_LINKCH) || fsl_desc->iscyclic)
-+		return;
-+
-+	vdesc = list_last_entry_or_null(&fsl_chan->vchan.desc_issued,
-+					struct virt_dma_desc, node);
-+	if (!vdesc)
-+		return;
-+
-+	prev_desc = to_fsl_edma_desc(vdesc);
-+	if (prev_desc->iscyclic)
-+		return;
-+
-+	last_tcd = prev_desc->tcd[prev_desc->n_tcds - 1].vtcd;
-+	last_csr = fsl_edma_get_tcd_to_cpu(fsl_chan, last_tcd, csr);
-+
-+	for (unsigned int i = 0; i < fsl_desc->n_tcds; i++) {
-+		struct fsl_edma_hw_tcd *tcd = fsl_desc->tcd[i].vtcd;
-+
-+		if (fsl_edma_get_tcd_to_cpu(fsl_chan, tcd, csr) & EDMA_TCD_CSR_E_LINK)
-+			return;
-+	}
-+
-+	if (!(last_csr & EDMA_TCD_CSR_D_REQ) ||
-+	    last_csr & EDMA_TCD_CSR_E_LINK)
-+		return;
-+
-+	/* Set a non-zero linked SG identifier to all TCD of the new descriptor */
-+	fsl_chan->link_sg_id++;
-+	if (fsl_chan->link_sg_id > FIELD_MAX(EDMA_TCD_CSR_LINKCH))
-+		fsl_chan->link_sg_id = 1;
-+
-+	fsl_desc->link_sg_id = fsl_chan->link_sg_id;
-+
-+	for (unsigned int i = 0; i < fsl_desc->n_tcds; i++) {
-+		struct fsl_edma_hw_tcd *tcd = fsl_desc->tcd[i].vtcd;
-+		u16 csr = fsl_edma_get_tcd_to_cpu(fsl_chan, tcd, csr);
-+
-+		csr |= FIELD_PREP(EDMA_TCD_CSR_LINKCH, fsl_chan->link_sg_id);
-+		fsl_edma_set_tcd_to_le(fsl_chan, tcd, csr, csr);
-+	}
-+
-+	/*
-+	 * Set DLAST_SGA before enabling E_SG in CSR: if the DMA engine
-+	 * only picks up the former, it updates DADDR at end of transfer,
-+	 * which is not reused.
-+	 */
-+	fsl_edma_set_tcd_to_le(fsl_chan, last_tcd, fsl_desc->tcd[0].ptcd, dlast_sga);
-+
-+	dma_wmb();
-+
-+	last_csr &= ~EDMA_TCD_CSR_D_REQ;
-+	last_csr |= EDMA_TCD_CSR_E_SG;
-+	fsl_edma_set_tcd_to_le(fsl_chan, last_tcd, last_csr, csr);
-+
-+	/*
-+	 * Update the registers if the engine already loaded the TCD,
-+	 * unless doing so requires clearing the DONE bit, as that could
-+	 * lead to lost completion.
-+	 */
-+	if (prev_desc == fsl_chan->edesc &&
-+	    prev_desc->n_tcds == 1 &&
-+	    !(flags & FSL_EDMA_DRV_CLEAR_DONE_E_SG)) {
-+		edma_cp_tcd_to_reg(fsl_chan, last_tcd, dlast_sga);
-+		edma_cp_tcd_to_reg(fsl_chan, last_tcd, csr);
-+	}
-+
-+	trace_edma_link_sg(fsl_chan, last_tcd);
- }
- 
- void fsl_edma_issue_pending(struct dma_chan *chan)
- {
- 	struct fsl_edma_chan *fsl_chan = to_fsl_edma_chan(chan);
-+	struct virt_dma_desc *vdesc, *tmp;
-+	size_t issued_count = 0;
-+	struct list_head *pos;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&fsl_chan->vchan.lock, flags);
-@@ -950,6 +1061,21 @@ void fsl_edma_issue_pending(struct dma_chan *chan)
- 		return;
- 	}
- 
-+	/* Count the issued desc up to the maximum number of linked SG id */
-+	list_for_each(pos, &fsl_chan->vchan.desc_issued) {
-+		if (++issued_count > FIELD_MAX(EDMA_TCD_CSR_LINKCH))
-+			break;
-+	}
-+
-+	/* Link the SG descriptors with the available identifiers */
-+	list_for_each_entry_safe(vdesc, tmp, &fsl_chan->vchan.desc_submitted, node) {
-+		if (++issued_count > FIELD_MAX(EDMA_TCD_CSR_LINKCH))
-+			break;
-+		fsl_edma_link_sg(fsl_chan, to_fsl_edma_desc(vdesc));
-+		list_move_tail(&vdesc->node, &fsl_chan->vchan.desc_issued);
-+	}
-+
-+	/* Issue the rest of the descriptors unlinked */
- 	if (vchan_issue_pending(&fsl_chan->vchan) && !fsl_chan->edesc)
- 		fsl_edma_xfer_desc(fsl_chan);
- 
-diff --git a/drivers/dma/fsl-edma-common.h b/drivers/dma/fsl-edma-common.h
-index 0d028048701d..cbb077e98f55 100644
---- a/drivers/dma/fsl-edma-common.h
-+++ b/drivers/dma/fsl-edma-common.h
-@@ -42,6 +42,7 @@
- #define EDMA_TCD_CSR_E_LINK		BIT(5)
- #define EDMA_TCD_CSR_ACTIVE		BIT(6)
- #define EDMA_TCD_CSR_DONE		BIT(7)
-+#define EDMA_TCD_CSR_LINKCH		GENMASK(12, 8)
- 
- #define EDMA_V3_TCD_NBYTES_MLOFF_NBYTES(x) ((x) & GENMASK(9, 0))
- #define EDMA_V3_TCD_NBYTES_MLOFF(x)        (x << 10)
-@@ -169,6 +170,7 @@ struct fsl_edma_chan {
- 	struct dma_slave_config		cfg;
- 	u32				attr;
- 	bool                            is_sw;
-+	u8				link_sg_id;
- 	struct dma_pool			*tcd_pool;
- 	dma_addr_t			dma_dev_addr;
- 	u32				dma_dev_size;
-@@ -199,6 +201,7 @@ struct fsl_edma_desc {
- 	struct virt_dma_desc		vdesc;
- 	struct fsl_edma_chan		*echan;
- 	bool				iscyclic;
-+	u8				link_sg_id;
- 	enum dma_transfer_direction	dirn;
- 	unsigned int			n_tcds;
- 	struct fsl_edma_sw_tcd		tcd[];
-@@ -225,6 +228,8 @@ struct fsl_edma_desc {
- #define FSL_EDMA_DRV_TCD64		BIT(15)
- /* All channel ERR IRQ share one IRQ line */
- #define FSL_EDMA_DRV_ERRIRQ_SHARE       BIT(16)
-+/* Major link channel in CSR used for linking SG descriptors */
-+#define FSL_EDMA_DRV_CSR_LINKCH		BIT(17)
- 
- 
- #define FSL_EDMA_DRV_EDMA3	(FSL_EDMA_DRV_SPLIT_REG |	\
-@@ -232,13 +237,15 @@ struct fsl_edma_desc {
- 				 FSL_EDMA_DRV_DEV_TO_DEV |	\
- 				 FSL_EDMA_DRV_ALIGN_64BYTE |	\
- 				 FSL_EDMA_DRV_CLEAR_DONE_E_SG |	\
--				 FSL_EDMA_DRV_CLEAR_DONE_E_LINK)
-+				 FSL_EDMA_DRV_CLEAR_DONE_E_LINK |	\
-+				 FSL_EDMA_DRV_CSR_LINKCH)
- 
- #define FSL_EDMA_DRV_EDMA4	(FSL_EDMA_DRV_SPLIT_REG |	\
- 				 FSL_EDMA_DRV_BUS_8BYTE |	\
- 				 FSL_EDMA_DRV_DEV_TO_DEV |	\
- 				 FSL_EDMA_DRV_ALIGN_64BYTE |	\
--				 FSL_EDMA_DRV_CLEAR_DONE_E_LINK)
-+				 FSL_EDMA_DRV_CLEAR_DONE_E_LINK |	\
-+				 FSL_EDMA_DRV_CSR_LINKCH)
- 
- struct fsl_edma_drvdata {
- 	u32			dmamuxs; /* only used before v3 */
-diff --git a/drivers/dma/fsl-edma-trace.h b/drivers/dma/fsl-edma-trace.h
-index 45d964a3726d..f4b0021d2bd0 100644
---- a/drivers/dma/fsl-edma-trace.h
-+++ b/drivers/dma/fsl-edma-trace.h
-@@ -121,6 +121,11 @@ DEFINE_EVENT(edma_log_tcd, edma_fill_tcd,
- 	TP_ARGS(chan, tcd)
- );
- 
-+DEFINE_EVENT(edma_log_tcd, edma_link_sg,
-+	     TP_PROTO(struct fsl_edma_chan *chan, void *tcd),
-+	     TP_ARGS(chan, tcd)
-+);
-+
- #endif
- 
- /* this part must be outside header guard */
+> Using ptep_get() and its counterparts in common code is suboptimal on
+> kernel configurations with generic compile-time folded page tables.
+> By default, ptep_get() and its friends expands to READ_ONCE(),
+> forcing the compiler to emit a load even when the value is not used afterwards.
+> 
+> This issue was recently reported by Christophe Leroy [1] for ppc32
+> preventing futher code conversion to ptep_get()/pmdp_get()/... helper
+> and the same behavior can also be observed on arm64 when built with
+> 2- or 3-level page tables
+> 
+> e.g) perf_get_page_size() in arm64 with CONFIG_PGTABLE_LEVEL=3:
+> 
+> 00000000000052a0 <perf_get_page_size>:
+>     ...
+>     52dc: d53b4234     	mrs	x20, DAIF
+>     52e0: d50343df     	msr	DAIFSet, #0x3
+>     ...
+>     52fc: d35e9a69     	ubfx	x9, x19, #30, #9        /* pud_offset_lockless() */
+>     5300: f9403508     	ldr	x8, [x8, #0x68]
+>     5304: f869790a     	ldr	x10, [x8, x9, lsl #3]   /* pudp_get() */
+>     5308: f90007ea     	str	x10, [sp, #0x8]
+>     530c: f8697908     	ldr	x8, [x8, x9, lsl #3]    /* pudp_get() */
+>     ...
+>     5360: 90000009     	adrp	x9, 0x5000 <perf_prepare_sample+0x548>
+>     5364: 92746908     	and	x8, x8, #0x7ffffff000
+>     5368: d3557675     	ubfx	x21, x19, #21, #9       /* pmd_offset_lockless() */
+>     ...
+>     5394: f8757ac8     	ldr	x8, [x22, x21, lsl #3]  /* pmdp_get() */
+> 
+> Though PGTABLE_LEVEL=3, since the pudp_get() still remain with
+> READ_ONCE(), there's redundant load for the pud which is folded.
+> 
+> To prevent generating suboptimal code, make pXdp_get() return a dummy
+> entry for compile-time folded page tables, make the helpers such as
+> pXd_offset()/pXd_offset_lockless(), set_pXd() validate dummy entries
+> at compile time to catch the wrong usage and prohibit calls to
+> pXd_page() in pgtable-nopXd.h.
+> 
+> This series does not change the behaviour of existing code that directly
+> manipulates folded page-table levels using set_pgd(), pgd_page_vaddr(), and
+> related helpers. Those helpers continue to behave as before.
+> 
+> The new restrictions only apply to code that adopts the pXdp_get()-based
+> access model for compile-time folded page tables.
+> 
+> As the pXdp_get() can return *dummy* entry, some of code using
+> the stack value where saves the pXdp_get() could be a problematic:
+> 
+>   1. Passing address of stack value where saves the pXdp_get() result
+>      to pXd_offset() for example:
+> 
+>        pud_t *pudp, pud;
+>        pmd_t *pmdp;
+> 
+>        pud = pudp_get(pudp, address);
+>        pmdp = pmd_offset(&pud, pud, address);
+> 
+>      (e.g. host_pfn_mapping_level() in loongarch).
+> 
+>   2. Using the pXdp_get() result to use as argument of pXd_val() and
+>      to check prot without checking pgtable is folded.
+>      for example, x86's effective_prot().
+> 
+>   3. Using set_pXd() with pXdp_get() will set problematic dummy entry
+>      in folded page table like:
+> 
+>        set_pXd(pxdp, pXdp_get(pxdp_k));
+> 
+>   4. Using pgd_page_vaddr() to get the first-level pgtable.
+>      passing dummy pxdp_get() for pgd_page_vaddr() will return wrong
+>      address. Therefore, make pgd_page_vaddr() and pXd_pgtable() to
+>      trigger the error for improper usage with folded dummy entry in the
+>      generic compile-time folded pgtable.
+> 
+> Thanksfully, above cases are rare since (1) most of usage using
+> pXd_offset() with result of upper pXd_offset(), (2) it's extreamely
+> rare to use pXd_val() for non-leaf entry in the kernel,
+> (3) is to handle the vmalloc_fault or set the first level of page table
+> and (4) to setup early page table and etc.
+> 
+> Therefore, properly handle this uncommon and problematic pattern, and
+> document the current design of compile-time folded page tables.
+> 
+> This patch is based on mm-unstable.
+> 
+> Future work
+> ===========
+>  - print_bad_page_map() and show_pte() still prints dummy values
+>    instead of printing the same content for all generic compile-time
+>    folded page tables. We might want to skip printing dummy values later.
+> 
+>  - We currently catch abuse of dummy values on the stack at compile-time by
+>    relying on constant propagation by the compiler. Usama's work [3] on using
+>    distinct types for sw vs. hw PTEs could help here as well."
+> 
+>  - Clean up vmalloc fault handling by synchronizing the vmalloc entry on
+>    32-bit architectures. This code is almost identical across architectures.
+> 
+>  - Unfortunately, the current design of compile-time folded page tables appears
+>    to be internally consistent but confusing. For example,
+>    when CONFIG_PGTABLE_LEVELS is 2, p4d, pud, and pmd are expected to
+>    be folded into pgd. However, the architecture code uses set_pmd()
+>    to update the top-level page-table entry, even though it includes pgtable-nopmd.h.
+> 
+>    In the future, it would be good to eliminate this source of confusion,
+>    possibly by treating all folded upper levels consistently as dummy wrappers
+>    around the highest real page-table level:
+> 
+>          NOPGD
+>    --> +------+           P4D
+>        | ptr0 |-------> +------+           PUD
+>        +------+         | ptr0 |-------> +-----+
+>                         | ptr1 |-        | ptr | -------> ...
+>                         | ptr2 | \       | ptr |
+>                         | ptr3 |  \        ...
+>                           ...      \
+>                                     \        PUD
+>                                      +----> +-----+
+>                                             | ptr | -------> ...
+>                                             | ptr |
+>                                               ...
+> 
+> Patch History
+> =============
+> from v2 to v3:
+>   - repasre commit message
+>   - move ptdump_pgtable_first_level() into pgalloc.h
+>   - skip the huge pud operation when CONFIG_X86_DIRECT_GBPAGES is disabled
+>   - docuemtns compile-time folded page table
+>   - drop the applied patch.
+>   - https://lore.kernel.org/all/20260722-dummy_ptxp3-v2-0-d9e4bad31e0a@arm.com/
+> 
+> from v1 to v2:
+>   - Restore slient fallback to next pXd in set_pXd() and pXd_pgtable()
+>     and add check whether they're called with dummy entry.
+>   - Add some comment for returning first entry of pgd in arm with
+>     2 pgtable-level
+>   - https://lore.kernel.org/all/20260713135614.1618183-1-yeoreum.yun@arm.com/
+> 
+> Link: [1] https://lore.kernel.org/all/0019d675-ce3d-4a5c-89ed-f126c45145c9@kernel.org/
+> Link: [2] https://lore.kernel.org/all/20251113014656.2605447-1-samuel.holland@sifive.com/
+> Link: [3] https://lore.kernel.org/r/74182e50-b54f-4d2d-a27f-3a59a538d6bc@arm.com
+> ---
+> David Hildenbrand (Arm) (13):
+>       ARM: mm: make nommu pgd_t a scalar
+>       ARM: mm: make 2-level pgd_t a scalar
+>       ARM: mm: remove custom pgdp_get()
+>       LoongArch: mm: define pud_leaf() only when PUD exists
+>       MIPS: mm: define pud_leaf() only when PUD exists
+>       mm/pgtable: define (pgd|p4d|pud)_leaf() for folded page tables
+>       mm/pgtable: define (pgd|p4d|pud)_offset_lockless() for folded page tables
+>       openrisc/pgtable: drop __pmd_offset()
+>       mm/pgtable: optimize pmdp_get() and friends for folded pagetable levels
+>       mm/pgtable: catch abuse of folded dummy pgd_t/p4d_t/pud_t
+>       mm/pgtable: disallow calling (pgd|p4d|pud)_page, pgd_page_vaddr() and (p4d|pud)_pgtable with dummy
+>       mm/pgtable: disallow calling folded set_pgd/set_p4d/set_pud with dummy
+>       Documentation: mm: clarify behaviour of compile-time folded page tables
+> 
+> Yeoreum Yun (8):
+>       mm: vmscan: remove stack copy address of pud/pmd pass in walk_pud/pmd_range()
+>       loongarch: kvm: remove stack copy address of pXd in pXd_offset()
+>       riscv: kvm: remove stack copy address of pXd in pXd_offset()
+>       riscv: mm: use proper set_pXd() for generic compile-time folded patable in vmalloc_fault()
+>       mm/pgtable: redefine PGTABLE_LEVEL enum with ascend order from PGD
+>       x86: mm: use pgtable_level enum in effective_prot_pXd()
+>       x86: mm: carve out the generic compile-time folded pgtable case in effective_prot()
+>       x86: mm: skip collapse_pud_page() when CONFIG_X86_DIRECT_GBPAGES disabled
+> 
+>  Documentation/mm/page_tables.rst            | 84 +++++++++++++++++++++++++----
+>  arch/arm/include/asm/page-nommu.h           |  4 +-
+>  arch/arm/include/asm/pgtable-2level-types.h | 20 +++++--
+>  arch/arm/include/asm/pgtable.h              |  2 -
+>  arch/arm64/include/asm/pgtable.h            | 23 --------
+>  arch/loongarch/include/asm/pgtable.h        |  2 +
+>  arch/loongarch/kvm/mmu.c                    | 20 ++++---
+>  arch/mips/include/asm/pgtable.h             |  2 +
+>  arch/openrisc/include/asm/pgtable.h         |  3 --
+>  arch/riscv/kvm/mmu.c                        | 20 ++++---
+>  arch/riscv/mm/fault.c                       | 52 +++++++++++-------
+>  arch/x86/mm/dump_pagetables.c               | 18 ++++---
+>  arch/x86/mm/pat/set_memory.c                |  2 +-
+>  include/asm-generic/pgtable-nop4d.h         | 54 +++++++++++++++----
+>  include/asm-generic/pgtable-nopmd.h         | 54 +++++++++++++++----
+>  include/asm-generic/pgtable-nopud.h         | 56 +++++++++++++++----
+>  include/linux/pgtable.h                     | 69 +++++++++++++++++-------
+>  mm/vmscan.c                                 |  4 +-
+>  18 files changed, 352 insertions(+), 137 deletions(-)
+> ---
+> base-commit: e3b5239afe1b8f0194db7436b17c33e94c1988c4
+> change-id: 20260722-dummy_ptxp3-3741d78cc70f
+> 
+> Best regards,
+> -- 
+> Sincerely,
+> Yeoreum Yun
+> 
 
 -- 
-2.55.0
-
+Sincerely,
+Yeoreum Yun
