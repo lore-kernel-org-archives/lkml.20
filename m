@@ -1,65 +1,86 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013071.outbound.protection.outlook.com [40.93.201.71])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D62A3C1966
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789540185; cv=fail; b=Osvmu64+alq4/0hjtHYfikslLpnO2905fzYOhn2vVclraK7eqzKsWLzjW13d65oRBlbns0/xWkVCdwDxICr2/lAfGUeCj7b2LKDmxojvnn+w5Ce1kyDSYYI+DlAcgAbk7g9O8lpPvbt8JUPUV/yONUUhrHuOMYnkkw4waRjzyr0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789540185; c=relaxed/simple;
-	bh=56+r2OQRY2UWaxIjFQbXrwY3fQyiVCBoJbe+BVgOgmE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=m8zM/wk7Byw2vSHQsA5H9R1KOotP0+ZrEBaz+b/9LhDCq4T5SS7b+yEuBWC5KIECVtG1WBO9D1R9IwAWVeDTOf4cHR5hUrNjx+nBIF4PjpFKT4MsqISAMGff1tVYFj8wx7pIURfbV5kTQgSfAlpPC2ZSZHh9bhxGxc7uXL39k5o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=HHhEP7KG; arc=fail smtp.client-ip=40.93.201.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C88219BC8
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789540280; cv=none; b=tt2bS6syYAlvs5dQ/ATU4izaZRCm7x8V5TzGHo3zhiEFVhJ1UAYFfTKQ6RQo9jdw4hgZmwq4oYaRJHTfO/DRyfWulhhOIkUZbfS96oyQPI9uk9lb/v9JlIri8KyFQwPDP0ISfeaPJHc34l5yMB5ZRTnVJ2r98JnE0kqusqz1/Nk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789540280; c=relaxed/simple;
+	bh=ynW3OMuqFyhUg05yQbjn2RFM4f5Hh561rx1h+le1an0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CamdbhAzol5xcfxmBL5QWXhLkJz/wfEBoDi9S4roH7m6ZGmtkgNMM8tnkTBckZeplEF0Kzo/fmnwFAIXfEfur7Xe2eQkm9Bcmm3wMVw86fubR1yNh2ujTBS1HJ1S91CET6wV3R846AFJOHwMERvAzoZpK3LfkNrzI2Xbwe15LHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UM0xiyLw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YhpNSY5q; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="HHhEP7KG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tVLYR5dhDnauhILQHe3osn1SxKpNFQIUYrEWDJ2u3vpCINJJaRue3G1JiTekbiVC29mXYs7rpUugXE7lxvx/S72sZoG30C3Yv2hL8ynbOIREhm46ICoZlZEZ6wVlGJbkXygqjusTxkMbbJ0yZH/JthIveBp50W/90SW1ie7JaSM7lWaF8kTi9FczPHsnJt5Gk9vOWx2PPQ52J5enhwk6hhCJvxCeioDovLuMT6ZKvQz7QLPgNEoEC5KNfhJzk5xprvEERs7I8pqzkSsxSAvq9Lf674AM8ViAFnvehN1o9rhvmPoZpMZCq2rVvKAlSomLyUw7rNpHUCqOlr76lcCsig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Aq85Sv29ssqM1ddY0oX4LpfrD6VeLwZ/dtrCMo78rpk=;
- b=u77Vm0tC+PzFwK2msR8GxQOl7sx5scfE84ovJd1ZwYtLgpXvAkj+cPXOz5xDhVsTNx/CdCEaM/Y+ko8faMXMWZH1XBtRPWkdzd4URca/O0y6zw3BSQOh1DAXCwRUH7s0x/6ZcCbyFG8RPpqiM658jUsRIEZani3kAveePCIkWwTt35fVfEmkabXV+7iGF0wSW700Nx9y9gcsl7FWS0DcMmPLvqShLPqb0xUBLopd7kMQ9+QJLj6DrNOWUbCiGHsoSDGyQKKoRJ8LMO4HhCl5viJtClt947uZ0RtA1lUTM0O3ErFVTL+BFqsFSnK0oEXqQARe5yrtAPEwQliMEa8isA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Aq85Sv29ssqM1ddY0oX4LpfrD6VeLwZ/dtrCMo78rpk=;
- b=HHhEP7KGHbzrJ/UkFdBz16Xro+MJnptO4WhWkL0v0i8KP2JVzfh33XuHKvInw5X1lfLz8yN2cXp/xvGsCAhOEoQDnpR/3drK3Aund2D1TfOwNtjQjGnL+H3XMELprrpBfa+1KaoLSCJljfuXAifQQ09ztNswsUoOnAmOOWLYFyk=
-Received: from SJ0PR03CA0335.namprd03.prod.outlook.com (2603:10b6:a03:39c::10)
- by SJ0PR12MB6856.namprd12.prod.outlook.com (2603:10b6:a03:47f::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 06:29:41 +0000
-Received: from SJ1PEPF000026CA.namprd04.prod.outlook.com
- (2603:10b6:a03:39c:cafe::1d) by SJ0PR03CA0335.outlook.office365.com
- (2603:10b6:a03:39c::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Wed,
- 16 Sep 2026 06:29:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000026CA.mail.protection.outlook.com (10.167.244.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 06:29:40 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 01:29:39 -0500
-Received: from [10.136.41.131] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 16 Sep 2026 01:29:35 -0500
-Message-ID: <a43db121-1a12-49c5-8df1-574f57af6d01@amd.com>
-Date: Wed, 16 Sep 2026 11:59:29 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UM0xiyLw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YhpNSY5q"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G68mL62429356
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:31:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BvE+1ily9WRpLiX7ByZ1lmquA+GohcfFipKt4On2X/4=; b=UM0xiyLw91WqKKtf
+	mQqc3EchzzuobHRJCTNuRVTTmTMolyccj3DBoTRZNfmJ2SZ3YUzy7REBGEJtLHdP
+	/KhAKfZcUk79PZAxpEIcByZnqBItR0tWcJ3+PP2tY4cQyryaZjJ2nU4Q2xs2nyIl
+	r5PhKIdyP/Ia8JUboLTO3jyp10JIXhpRcS7NaDpWR13wcfBWMTTnYxu/2CWu0hJA
+	NrWxx5L+N0rJU2MdKkytGdwj89TwpPZ84zUhJ4NbeV02AZBfK+PuOyse8lekviWm
+	0ty35fG0pW3pwTLcuKIwsA6RP4qlLZVRcSXnvPtQumqT53scN3kjCfErSydkusrv
+	8IJQSw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqfvfhbps-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:31:17 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398dc3d8f0fso1908972a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:31:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789540277; x=1790145077; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BvE+1ily9WRpLiX7ByZ1lmquA+GohcfFipKt4On2X/4=;
+        b=YhpNSY5qfIS9FW3oom1ZauUU8yeBMdrABrVTYAtuhK2gQ2oVnPAngjDdHBQeqyaia3
+         gAnuNb889S+EwpnEKu/2ZXt314obsLgjP3WYQq5b8+Y/wLm8y8Bzs3cRedxfvkmEe5yl
+         B1UyXH9quUBEJiKsZvsAfNBFp/lK6F4sKuGxvjfK2l/554Uk65RzIdYl4hWz0OJkB72O
+         10m2OjhI8akKekoWQ6Mx6ZJhkEvTm3FHdquiJvFYgKfeSp2n9+Hkm6lfjMkcGq8kt3MU
+         miKzcBjGKl9TlIMY2QZ9iF7O56FMr/+L3VXXmX0DVLzdJurT71mEj1KJYSMSuhZvCIuZ
+         qUZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789540277; x=1790145077;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BvE+1ily9WRpLiX7ByZ1lmquA+GohcfFipKt4On2X/4=;
+        b=2CD/81v3qNuc4sY4hpztcI95beYSxDKOt/lPLoW+ux1ax2h9c4qp58JJMEm+QMBlL5
+         elcpewt7yZm7Qg2IP7aDAhCRTq/xOUpoBd8Ty5/t6FYnrfLUs9B6moD67lkU3kiwtTt8
+         lK5TT3tDv78nV6trfB3RXfIDF1zaUjUbxidb+eGfLxmXIZV3R/4bddkyY5y1r5MOuFSH
+         LLgac7nN5KqLqoDc1k6uoLv17rStOShn2Ma3uNN0gAMrUxRjW6mxSY/rdcm3+5U0FlqG
+         CwaLSOB2vdO3t4IIGjMPleh+oGQatuYyTYcUBjiJbC1Yd9BZUW5xvuCrR87GrkZQ/ByA
+         X+wg==
+X-Forwarded-Encrypted: i=1; AKwUvBx4Q7BIG8Dtzu46sAVznIfFavO8Mx0hF6cXKdtccJI6C+9O1brMFab/mhz9E5WhYyv5DykVCtoisluVKRk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nH1pdiLEsulx2quPFHulx+DFtkZ9DjtvoOqeS2FBYMEfCixC31
+	47Rq7dq+63zYQ8EDg+EWzItQxtDT6MyiFNt8gkiIhodH/BzNFsA344D9a1vkaqevRpGWjowV8e6
+	G16tJat/BZw4nrkEbyQB6Z45pX96rS1FrGVBD7HfHPIZpK26pVWdJnnh48xO4qNeXVho=
+X-Gm-Gg: AYBFou000hD82RexGqiAhXYj7SAe4ccl2NhYzPWPfj+vUhKarS5X07ktIE8A/UuvNOm
+	okjc7jcfLvq1/TCYUOE6ZtwjKcVkgKr2+9QhGVWgmx0aJtdjWBjHPlVLzdYTwnIHQY+EszxFQBX
+	UEyQxD1F5+dUxSTMyd3cnej9CK+XYYvlFxw6l50hZzqfdxr5IbEqlCBH6gGULTMtA3FwqoK3geC
+	CVZ3frnSyGj9n50qOR42DqgiGtfo+HtZ+F38OHcJBQ0udVlyPWOq1unYyvCdnHZl0gg8qwMSD7v
+	vpGFXCjDvsDTDDaASe2dPxKqMta+2HORcZLm35K5VGfJ+vBSlyTwtCg1iS4IYXnZjqoZn8Y9v7O
+	ZtmatjHlDku5HB+KVSUjM8v+T6gn5m66KfEWr4PXZYdrHjVeB6bCRAg710PI0EPh+7KqFOnDK
+X-Received: by 2002:a17:90b:4e88:b0:39d:fea0:33f3 with SMTP id 98e67ed59e1d1-39e1fecbd80mr1528504a91.2.1789540276724;
+        Tue, 15 Sep 2026 23:31:16 -0700 (PDT)
+X-Received: by 2002:a17:90b:4e88:b0:39d:fea0:33f3 with SMTP id 98e67ed59e1d1-39e1fecbd80mr1528481a91.2.1789540276174;
+        Tue, 15 Sep 2026 23:31:16 -0700 (PDT)
+Received: from [10.133.33.84] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bbdfd89sm2763789a91.9.2026.09.15.23.31.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 23:31:15 -0700 (PDT)
+Message-ID: <976d2e23-1ce9-4877-8241-bff04226554b@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 14:31:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,133 +88,240 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 09/16] sched/core: Track CPU where the task was
- blocked on
-To: John Stultz <jstultz@google.com>
-CC: Suleiman Souhlal <suleiman@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Andrea Righi <arighi@nvidia.com>,
-	<linux-kernel@vger.kernel.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel
- Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Waiman
- Long <longman@redhat.com>
-References: <20260826062901.2137-1-kprateek.nayak@amd.com>
- <20260826062901.2137-10-kprateek.nayak@amd.com>
- <CANDhNCrWKd_p5H2Cc0uEooD9-kU0a4e=GrFhpVA1cDyz9M2mOw@mail.gmail.com>
+Subject: Re: [PATCH ath-next v2] wifi: ath12k: provide MAC address list for
+ single-radio wiphys
+To: Vitor Soares <ivitro@gmail.com>, Jeff Johnson <jjohnson@kernel.org>
+Cc: Vitor Soares <vitor.soares@toradex.com>, linux-wireless@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
+        kang.yang@oss.qualcomm.com
+References: <20260915152815.254016-2-ivitro@gmail.com>
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
 Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <CANDhNCrWKd_p5H2Cc0uEooD9-kU0a4e=GrFhpVA1cDyz9M2mOw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026CA:EE_|SJ0PR12MB6856:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b8d7501-4fd3-4747-ab83-08df13bbe3b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|30052699003|7416014|376014|1800799024|22082099003|18002099003|10067099003|4143699003|3023799007|6133799003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	yKAIJx53FB7cOHSqJFXbdbU0KN/JWk+JRlYpO77Ojfv98E2DSUTa2VyFAqyIrBx0tW6DinasTU1+yyFbHKTgnkR86TOxAa79Exo8ILPsEG6qW31UuuqgiiHKWmLZhEeQSnLqcnZV4UDp0MiSaVOMQ6qsiELvceGPViN/Vs071TmYtMKp1P6nIN7p7Hzlh3J2Sib2z2W7k76+7XJ4OFWF5Y1E2WJvoAIDYTTT5I8iF8Kdfh8FM7hqse1gpAOpCgC99BV5q3tXJdaJZUkrnU1gTs+eVqbe9SUs5hxyeC+pVD0+JZQ4zIhqw+vQPyccRcU9awno+a6cdE9IjaGBdx3VP5xcCK/bMeCIudSOxw7lQlrPo70j06EH+njEb1tfi0I0JkpcAUEefek5fZUvWe1/KGItHLbSc9m8E+x8+rqGWp58eeATCCiy43o94icNT3qecotmrrYuKlpqgeLj+zNiK0gG9b+/RVksuRTCI634QSuPs8OeUdK397QGJ9zQ02of0NdYv7jCE6v7dyUItFWhnrZHD3UdCVWV8UVJdOEEBD5X4qKs378KW0k6NfCnQC1kdoMr0XCzvjttF1+4GgHaxeBrDLMt7ikJLxioHbPdx5mtrF82qfCTINmibta9Y+Z6F0Q0vDCPQucokAmBqBMZpvMRRKdkJWYs0zXMQ2AFhBGLBc7ILSailDhqGqNsf0b8Ol/SdqXebRiRHaZDVlqCmQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(30052699003)(7416014)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(4143699003)(3023799007)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ITTRgHFkyj5DeX+/+t7/+NRamOv5R7WXzXGid1MiqdrHK9O7AHTcuXLtzNFPyFEBM36eoQR30BXDbStomSQI9Q+ZUjye7Cz5KVYOI6acYyC6YjguGBq+4RQcRjR1OTb9Q2s21AXTris9DEQG18ISrief1DzMhIyaS3IQ4WenmBn0/XUfWsBjb2h/6yuokJO1cjaI1bQ9FmMKF1W0B8zeOFTWm2ytLqXPrhamZk2LbWeO4Y96HFVTzMI8UPt56NHGB/N7ZXvb6YlO36XOBHvHO45fYcWOFWp2k/zS424LoEgFGfd06fDrwVqmWKtpHJjpxjpbJkDyCt1QGb5IShyJUKdXPGr2xgYtLNxRbI67o0Zg5pKOOIA10fD65mxNq+LkgEDN/0vcw5gU9Tp2aFHIqh++B+ubZ0ov/R42IHotgP7jRC095ZR66dJ+n64V2n9A
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 06:29:40.8980
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b8d7501-4fd3-4747-ab83-08df13bbe3b8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026CA.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6856
+In-Reply-To: <20260915152815.254016-2-ivitro@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=JYkpPkKV c=1 sm=1 tr=0 ts=6aaa37b5 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=m8ToADvmAAAA:8 a=wblLnW-cDSaZONvgar0A:9
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=kCrBFHLFDAq2jDEeoMj9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDA4MiBTYWx0ZWRfX+2DZgc7R/mrB
+ HvdpUKKgi+6Gmx9QICCb+ygIPWt8ZNZYEwfSHE4urp1wzo70fB/Kjn1YAax47Vi+oSNpWsjD9im
+ +0DBa+kDm/y2b4duECCwWsUZvt++B8wCZ7rv4js9xJx1Vcb9/HOR3CoUvs5VrPnAOJuO2L3slhx
+ QKKNVXloWA9BvoIB9WTn0M9ZD1NdfQyYUU6TimLBGgULx8b/dECYBGytuDcXzLYj6HJIm6lgzOf
+ p6mFiA82uo6NQQsK973uBiSG6/UDVvjUlmwhdZctvg8gDQbjajfpB0YAoZ7mhqs1KrTaT+umNSK
+ Iih8waTv0+xazCLbGF0jAo7Qpn8sF7o2tKdb1bbT5neiBXXv6GqfoJMCJHfUs4UG1GPPI9PzxL4
+ KzxuxOVsodkc4N2VtOU5+QfwJj5P+9zgAfKXwrOwaFSPfHjPgLKg6oRcmCjKJPqqRjBJjYedDHQ
+ CZTzqms4nLHN833U71w==
+X-Proofpoint-GUID: YXlAfVbPb6fMio2G8v3MUdknmTHgx93j
+X-Proofpoint-ORIG-GUID: YXlAfVbPb6fMio2G8v3MUdknmTHgx93j
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDA4MiBTYWx0ZWRfX5ovryXWmNftX
+ fRX0KVXo2TkgNMP7tuwZMqmxJt+xLz/95NoDHZJXZ4mjaf/k/SpjFZtJ1k4B0LBLzGZuO6LPl//
+ +ubdnQeTPACXAzFxmNRFSv3ShZummlE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 priorityscore=1501
+ spamscore=0 malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609160082
 
-Hello John,
 
-On 9/16/2026 11:22 AM, John Stultz wrote:
-> On Tue, Aug 25, 2026 at 11:32 PM K Prateek Nayak <kprateek.nayak@amd.com> wrote:
->>
->> Track the CPU where task was blocked on when running with
->> sched_proxy_exec().
->>
->> This is used to re-direct the activation of blocked donors queued on the
->> blocked_head via the said CPU in the activation slowpath that will be
->> added in the subsequent patches.
+
+On 9/15/2026 11:28 PM, Vitor Soares wrote:
+> From: Vitor Soares <vitor.soares@toradex.com>
 > 
-> I'm a little confused on this, as the cpu the task was blocked on
-> doesn't intuitively have much bearing on where we'd want to activate
-> it, when a sleeping owner wakes up.
+> ath12k supports creating vdevs with addresses provided by mac80211.
+> Userspace can already make concurrent interfaces work by explicitly
+> assigning different locally administered addresses.
 > 
-> When a lock owner sleeps, all the chains of tasks waiting on that lock
-> (directly or not), will be enqueued on that sleeping owner.
+> However, ath12k does not advertise an address list, so when a second
+> interface is created without an explicit address, mac80211 has nothing
+> to pick from and falls back to the permanent address. If the first
+> interface is already running with that address, bringing up the second
+> one fails with -ENOTUNIQ.
 > 
-> In my patch, when the sleeping owner wakes up, it may or may not wake
-> up on the cpu it was dequeued from.  It seems we would want to enqueue
-> all of those blocked tasks onto the same runqueue where we activated
-> the owner, so they are all present on the same rq to be selected as a
-> donor to potentially run the owner and release the lock.
+> As in ath11k, provide a list of usable addresses so
+> ieee80211_assign_perm_addr() can hand each new interface an unused one.
+> Keep the first entry as the radio's own MAC address. Generate the
+> remaining entries as locally administered variants by changing only the
+> upper nibble of the first octet, which naturally limits the pool to 16
+> unique addresses.
 > 
-> Since its like there is a likely chance the sleeping owner will wake
-> elsewhere (It looks like proxy_activate_blocked_task() in the later
-> patch effectively overrides the activation on the given rq and instead
-> wakes the tasks on the blocked_cpu),  won't this end up activating the
-> chain of blocked waiters on the wrong cpu (forcing them all to be
-> immediately proxy migrated over)?
-
-The base concept is this: When the task is blocked and is queued on a
-sleeping owner (p->is_linked = 1), the whole chain is linked to one
-CPU (p->blocked_cpu).
-
-This is why, later, in Patch 13, we block with (SLEEP | MIGRATING),
-and do __set_task_cpu() to owner->blocked_cpu before we transition
-p->on_rq to 0.
-
-Entire chain is linked to the p->blocked_cpu of the top level sleeping
-owner.
-
-p->wake_cpu can change (more on that below) when task is fully blocked
-(p->on_rq = 0) but we *need* to have one unified CPU for the entire
-chain to resume wakeup from which is why we need a second variable.
-
-For ->is_linked tasks, any state transition (p->on_rq transitions) are
-guarded by p->blocked_cpu's rq_lock() and that *cannot* change until
-the owner's wakeup in proxy_activate_task() is finished.
-
-Any external wakeup in ttwu_runnable() for p->on_rq = 0 &&
-p->is_linked = 1 should go via "p->blocked_cpu". Same for all the
-guard(sched_change) stuff.
-
-Also since we do a:
-
-    set_task_cpu(owner, cpu);
-    ttwu_do_activate(rq, owner, flags);
-
-we cannot simply look at task_cpu(owner) in ttwu_do_activate() to
-know where the donor-chain resides. We need the p->blocked_cpu. 
->> p->wake_cpu or task_cpu() is not sufficient for this purpose since
->> p->wake_cpu is not stable when !task_on_rq_queued() and there is a
->> window between set_task_cpu() and activet_blocked_task() in the wakeup
->> path that needs to be plugged in.
+> The wiphy->addresses semantics are hardware-specific in ath12k: some
+> platforms use it as an interface MAC address pool, while others use it
+> for firmware-provided per-radio addresses. Gate host-generated addresses
+> behind host_alloc_iface_mac and enable it for WCN7850.
 > 
-> Sorry if I'm being dim here.
+> Handle only single-radio WCN7850 wiphys. Wiphys with more than one radio
+> and other hardware families behave exactly as before.
 > 
-> Do you have more details on this? Was my patch prone to the same issue
-> you're avoiding in the second item here?
-I think NUMA balancing and workqueue have cases where only p->wake_cpu
-can be manipulated to direct wakeup of a blocked task but it is only
-done when p->on_rq is  0 and p->wake_cpu is always changed to a CPU
-within the task's affinity boundary so your series does not have a
-problem.
+> Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+> 
+> Assisted-by: LLM
+> Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+> ---
+> v2:
+> - Gate generated interface MAC address list behind hw_params
+>   host_alloc_iface_mac, as suggested by Kang Yang.
+> - Enable it only for WCN7850, the only part available for testing here.
+> - Add Assisted-by: tag.
+> - Link for v1: https://lore.kernel.org/all/20260902082219.3010793-2-ivitro@gmail.com/
+> ---
+>  drivers/net/wireless/ath/ath12k/hw.h       |  1 +
+>  drivers/net/wireless/ath/ath12k/mac.c      | 52 ++++++++++++++++++++++
+>  drivers/net/wireless/ath/ath12k/wifi7/hw.c |  6 +++
+>  3 files changed, 59 insertions(+)
+> 
+> diff --git a/drivers/net/wireless/ath/ath12k/hw.h b/drivers/net/wireless/ath/ath12k/hw.h
+> index 011bb22e21c7..03cb35071e0b 100644
+> --- a/drivers/net/wireless/ath/ath12k/hw.h
+> +++ b/drivers/net/wireless/ath/ath12k/hw.h
+> @@ -238,6 +238,7 @@ struct ath12k_hw_params {
+>  	} client;
+>  
+>  	bool host_alloc_ml_id;
+> +	bool host_alloc_iface_mac;
+>  };
+>  
+>  struct ath12k_hw_ops {
+> diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
+> index d4116ba0da08..45be5b08aa40 100644
+> --- a/drivers/net/wireless/ath/ath12k/mac.c
+> +++ b/drivers/net/wireless/ath/ath12k/mac.c
+> @@ -14743,6 +14743,54 @@ static void ath12k_mac_cleanup_unregister(struct ath12k *ar)
+>  	kfree(ar->mac.sbands[NL80211_BAND_6GHZ].channels);
+>  }
+>  
+> +static void ath12k_mac_cleanup_mac_address_list(struct ath12k_hw *ah)
+> +{
+> +	kfree(ah->hw->wiphy->addresses);
+> +}
+> +
+> +static void ath12k_mac_setup_mac_address_list(struct ath12k_hw *ah,
+> +					      const u8 *mac_addr)
+> +{
+> +	struct mac_address *addresses;
+> +	struct ath12k *ar;
+> +	u16 n_addresses;
+> +	int i;
+> +
+> +	/* The pool is derived from one base address, so it can describe only a
 
-Only because this RFC's approach needs to track which CPU has the
-ownership of the entire chain, I need a second variable.
+networking code prefers that the first line of a comment contains only '/*':
 
--- 
-Thanks and Regards,
-Prateek
+	/*
+	 * comment starts from this line
+	 */
+> +	 * single-radio wiphy: with more radios each radio has its own base
+> +	 * address, possibly from a different ath12k_base.
+> +	 */
+> +	if (ah->num_radio != 1)
+> +		return;
+> +
+> +	ar = ath12k_ah_to_ar(ah, 0);
+> +	if (!ar->ab->hw_params->host_alloc_iface_mac)
+> +		return;
+> +
+> +	/* Only the upper nibble of the first octet is varied, so at most 16
+
+ditto
+
+> +	 * addresses can be derived from one base.
+> +	 */
+> +	n_addresses = min_t(u16, TARGET_NUM_VDEVS(ar->ab), 16);
+> +	if (n_addresses <= 1)
+> +		return;
+> +
+> +	addresses = kzalloc_objs(*addresses, n_addresses);
+> +	if (!addresses)
+> +		return;
+> +
+> +	ether_addr_copy(addresses[0].addr, mac_addr);
+> +	for (i = 1; i < n_addresses; i++) {
+> +		ether_addr_copy(addresses[i].addr, mac_addr);
+> +		/* set Local Administered Address bit */
+> +		addresses[i].addr[0] |= 0x2;
+> +
+> +		addresses[i].addr[0] += i << 4;
+> +	}
+> +
+> +	ah->hw->wiphy->addresses = addresses;
+> +	ah->hw->wiphy->n_addresses = n_addresses;
+> +}
+> +
+>  static void ath12k_mac_hw_unregister(struct ath12k_hw *ah)
+>  {
+>  	struct ieee80211_hw *hw = ah->hw;
+> @@ -14762,6 +14810,7 @@ static void ath12k_mac_hw_unregister(struct ath12k_hw *ah)
+>  		ath12k_mac_cleanup_unregister(ar);
+>  
+>  	ath12k_mac_cleanup_iface_combinations(ah);
+> +	ath12k_mac_cleanup_mac_address_list(ah);
+>  
+>  	SET_IEEE80211_DEV(hw, NULL);
+>  }
+> @@ -14878,6 +14927,7 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
+>  	wiphy->available_antennas_tx = antennas_tx;
+>  
+>  	SET_IEEE80211_PERM_ADDR(hw, mac_addr);
+> +	ath12k_mac_setup_mac_address_list(ah, mac_addr);
+>  	SET_IEEE80211_DEV(hw, ab->dev);
+>  
+>  	ret = ath12k_mac_setup_iface_combinations(ah);
+> @@ -15120,6 +15170,8 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
+>  		ath12k_mac_cleanup_unregister(ar);
+>  	}
+>  
+> +	ath12k_mac_cleanup_mac_address_list(ah);
+> +
+>  	SET_IEEE80211_DEV(hw, NULL);
+>  
+>  	return ret;
+> diff --git a/drivers/net/wireless/ath/ath12k/wifi7/hw.c b/drivers/net/wireless/ath/ath12k/wifi7/hw.c
+> index a20c21807344..8658828ea47d 100644
+> --- a/drivers/net/wireless/ath/ath12k/wifi7/hw.c
+> +++ b/drivers/net/wireless/ath/ath12k/wifi7/hw.c
+> @@ -445,6 +445,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
+>  		},
+>  
+>  		.host_alloc_ml_id = true,
+> +		.host_alloc_iface_mac = false,
+>  	},
+>  	{
+>  		.name = "wcn7850 hw2.0",
+> @@ -539,6 +540,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
+>  		},
+>  
+>  		.host_alloc_ml_id = false,
+> +		.host_alloc_iface_mac = true,
+>  	},
+>  	{
+>  		.name = "qcn9274 hw2.0",
+> @@ -629,6 +631,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
+>  		},
+>  
+>  		.host_alloc_ml_id = true,
+> +		.host_alloc_iface_mac = false,
+>  	},
+>  	{
+>  		.name = "ipq5332 hw1.0",
+> @@ -713,6 +716,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
+>  		},
+>  
+>  		.host_alloc_ml_id = true,
+> +		.host_alloc_iface_mac = false,
+>  	},
+>  	{
+>  		.name = "qcc2072 hw1.0",
+> @@ -808,6 +812,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
+>  		},
+>  
+>  		.host_alloc_ml_id = false,
+> +		.host_alloc_iface_mac = false,
+
+QCC2072 behaves like WCN7850, so we should enable it as well
 
