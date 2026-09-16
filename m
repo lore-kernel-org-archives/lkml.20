@@ -1,50 +1,42 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3057B4CCDD7
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E4D4D990A;
+	Wed, 16 Sep 2026 10:59:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556321; cv=none; b=JSGOeP0cltzPqyb+hi0cl1dVbqsbFI4Kiij95oJkwFHpkV5CAzeVtGFvKA3qQNU+mJBmqRUgx9DIWd7HsKeRWuU6I/RtHkT8g/W84N03e1v0ECEaxFcKA5HRUGFzu0mZbxn7HvpJAM8WiO1JU/p+4aNFiSw0KjvJIoN2ADoNod8=
+	t=1789556395; cv=none; b=SnCNF0W284oFci/NoYLtsBDeb4JITlrkEBtj59E1RpUII437Ib8sQPUFmEQQuQmvlAFYEmXG2afD+q2QXNxLubUzVVk2FhbGZl/yf8MCmn4v0HZg9bqyBIXAj0ZPrC1CQ7db0QV1dpz5iC0+leXKN4Gt9PXnXAXYsVeklI3Ox7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556321; c=relaxed/simple;
-	bh=rs65dkxVRVvkoJPhv7tZmzzSj/ofGnKQrGCYnHAnM9E=;
+	s=arc-20240116; t=1789556395; c=relaxed/simple;
+	bh=ObKnDO5ak6ielNK0q/7eij4BH1Dk4Yq0sraa2CEgg50=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r0MNG4Pjp/xdlaESGGS5TcJnRTrmRlE0rroQ035s+wTShiGg5bIKx7eKyFpbmuCvlNUoGvxv6RwC1X7dFTs25qgmWFpt1uwkJZi3X96tdeDXf0Jldx0/SOfZVPyiCrhlfn5EsetcxVjVMlrquVGOzFJ2l8p+MoGg4K/Saa3YjQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fis+1+JJ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=UmN68pNC4nwvSCEQEH8xofICIhe6NBij1FW9//r8ujpO1cns4Fwc4P/RQIfynEYb++AEkcLDWj2qnjbCtTA/UwG2iMFKmWHdY8yxjX1sdLJcXv/N97qyv/kwx6HxaDAPxiEitQqkD6fEqsBzcRKctOlhPR5C+kjcNVq8alti10g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LAql0rPt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fis+1+JJ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B3801152B;
-	Wed, 16 Sep 2026 03:58:24 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7D3B63F882;
-	Wed, 16 Sep 2026 03:58:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789556308; bh=rs65dkxVRVvkoJPhv7tZmzzSj/ofGnKQrGCYnHAnM9E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fis+1+JJyMW4AMTvO/ToOq+lYsaWLmQ6s07E78Lbew1eEs868a1RI0rp9PW45HSEj
-	 BnTHhgCmo4BVpRE/BENBQFB3beJfqPIXiY46jiETGH5+lG9k8jNp0wOH3NQg5elPBf
-	 esx1MgZ/2IntmRX9eJAMldpoCcTrL0+iWv7t8nyc=
-Date: Wed, 16 Sep 2026 11:58:23 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v11 3/7] firmware: arm_rmm: Move RSI support out of
- arch/arm64
-Message-ID: <aqp2TzS5FAE9ixc8@arm.com>
-References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
- <20260914060511.277948-4-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LAql0rPt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2864E1F00893;
+	Wed, 16 Sep 2026 10:59:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789556378;
+	bh=Tc4Aai0SNxDfo1WleUJPJGNkJ8xTAXJ3SVOUXDOmepE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LAql0rPtvN5VzBdHGrrh/28DRXddvV4XNsfz7emfkcWzFbpvCnlr1v9fPfik/3GNu
+	 oQIH4coNS8f4gXlb1t/PXKzMN2X/OLhhF/G22WPMrfA+fyx5lJVR7pR4VVbawRrM0c
+	 sfgZQFx1l/TtxwgjTfr2do/TkmhGicmOFC4UuhhCLqY6Mlwh7dFSop8+ryPaXsvLSc
+	 wr5lV1pv0O36ymg2AkdWG9hAGP2clOuagYzdggJs54UToGTpf3aDDXpTn5n4qyy/Oa
+	 F4lxmrwPTLEoVdkhKegoGRDADlwxt+Bp4eeV3NIf/KkBM0WJqnFKaiV35rTXZKj0aD
+	 3xyN7hV1fg6Ug==
+Date: Wed, 16 Sep 2026 11:59:32 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+Cc: akpm@linux-foundation.org, shuah@kernel.org, david@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Zi Yan <ziy@nvidia.com>
+Subject: Re: [PATCH v2] selftests/mm: skip khugepaged file tests if mkfs.xfs
+ is unavailable
+Message-ID: <aqp16Lp3mPwszQUc@gremlin>
+References: <20260912202903.16157-1-jaeyeon.lee.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,55 +45,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914060511.277948-4-aneesh.kumar@kernel.org>
+In-Reply-To: <20260912202903.16157-1-jaeyeon.lee.dev@gmail.com>
 
-On Mon, Sep 14, 2026 at 11:35:07AM +0530, Aneesh Kumar K.V (Arm) wrote:
-> The RSI SMCCC function IDs describe a firmware ABI and are not arm64
-> architecture specific definitions. Follow-up changes need to use them from
-> non-arch code, including drivers/firmware/smccc and the Arm CCA guest
-> driver.
-> 
-> Move the complete Realm Service Interface (RSI) implementation from
-> arch/arm64 to drivers/firmware/arm_rmm. The RSI SMCCC definitions and
-> command helpers are also moved to include/linux so they can be shared by
-> architecture code and firmware or driver code. This also keeps the
-> firmware interface outside architecture code, as requested [1].
-> 
-> [1] https://lore.kernel.org/all/agsNO9cc7H-b0H8L@willie-the-truck
-> 
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Acked-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+On Sat, Sep 12, 2026 at 10:29:03PM +0200, Jaeyeon Lee wrote:
+> The XFS setup for ./khugepaged all:file checks that the kernel supports
+> XFS but not that mkfs.xfs is installed. When CONFIG_XFS_FS=y and
+> xfsprogs is missing, mkfs.xfs and mount both fail, but
+> SPLIT_HUGE_PAGE_TEST_XFS_PATH is assigned from mktemp -d and stays set.
+> The test then runs against plain tmpfs and six subtests fail.
+>
+> The script already has a skip path for this test, but it never runs
+> because the path variable is always set. Assign
+> SPLIT_HUGE_PAGE_TEST_XFS_PATH only once mkfs.xfs and mount have both
+> succeeded, and remove the image and directory otherwise.
+>
+> Suggested-by: Zi Yan <ziy@nvidia.com>
+> Assisted-by: LLM
+> Signed-off-by: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+
+I guess you didn't propagate my tag as it changed a bit? Anyway LGTM so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
 > ---
->  arch/arm64/Kconfig                            |  1 +
->  arch/arm64/include/asm/io.h                   |  2 +-
->  arch/arm64/include/asm/mem_encrypt.h          |  2 +-
->  arch/arm64/include/asm/pgtable-prot.h         |  2 +-
->  arch/arm64/include/asm/rsi.h                  | 70 -----------------
->  arch/arm64/kernel/Makefile                    |  2 +-
->  arch/arm64/kernel/setup.c                     |  2 +-
->  arch/arm64/mm/init.c                          |  3 +-
->  drivers/firmware/Kconfig                      |  1 +
->  drivers/firmware/Makefile                     |  1 +
->  drivers/firmware/arm_rmm/Kconfig              | 17 ++++
->  drivers/firmware/arm_rmm/Makefile             |  2 +
->  .../kernel => drivers/firmware/arm_rmm}/rsi.c |  2 +-
->  drivers/virt/coco/arm-cca-guest/Kconfig       |  2 +-
->  .../virt/coco/arm-cca-guest/arm-cca-guest.c   |  5 +-
->  .../linux/arm-rsi-cmds.h                      | 77 +++++++++++++++++--
->  .../linux/arm-smccc-rsi.h                     |  6 +-
->  17 files changed, 108 insertions(+), 89 deletions(-)
->  delete mode 100644 arch/arm64/include/asm/rsi.h
->  create mode 100644 drivers/firmware/arm_rmm/Kconfig
->  create mode 100644 drivers/firmware/arm_rmm/Makefile
->  rename {arch/arm64/kernel => drivers/firmware/arm_rmm}/rsi.c (99%)
->  rename arch/arm64/include/asm/rsi_cmds.h => include/linux/arm-rsi-cmds.h (69%)
->  rename arch/arm64/include/asm/rsi_smc.h => include/linux/arm-smccc-rsi.h (98%)
+> Changes in v2:
+> - Attempt mkfs.xfs and mount and fall back if either fails, rather than
+>   only checking whether mkfs.xfs exists (Zi Yan)
+> - Fix Assisted-by tag format
+>
+> v1: https://lore.kernel.org/linux-mm/20260911124517.63714-1-jaeyeon.lee.dev@gmail.com/
+>
+>  tools/testing/selftests/mm/run_vmtests.sh | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+>
+> diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
+> index d09f9f6a384e..b870d21c055a 100755
+> --- a/tools/testing/selftests/mm/run_vmtests.sh
+> +++ b/tools/testing/selftests/mm/run_vmtests.sh
+> @@ -417,11 +417,15 @@ if [ -z "${SPLIT_HUGE_PAGE_TEST_XFS_PATH}" ]; then
+>      if test_selected "thp"; then
+>  	if grep xfs /proc/filesystems &>/dev/null; then
+>  	    XFS_IMG=$(mktemp /tmp/xfs_img_XXXXXX)
+> -	    SPLIT_HUGE_PAGE_TEST_XFS_PATH=$(mktemp -d /tmp/xfs_dir_XXXXXX)
+> +	    XFS_DIR=$(mktemp -d /tmp/xfs_dir_XXXXXX)
+>  	    truncate -s 314572800 ${XFS_IMG}
+> -	    mkfs.xfs -q ${XFS_IMG}
+> -	    mount -o loop ${XFS_IMG} ${SPLIT_HUGE_PAGE_TEST_XFS_PATH}
+> -	    MOUNTED_XFS=1
+> +	    if mkfs.xfs -q ${XFS_IMG} && mount -t xfs -o loop ${XFS_IMG} ${XFS_DIR}; then
+> +	        SPLIT_HUGE_PAGE_TEST_XFS_PATH=${XFS_DIR}
+> +	        MOUNTED_XFS=1
+> +	    else
+> +	        rmdir ${XFS_DIR}
+> +	        rm -f ${XFS_IMG}
+> +	    fi
+>  	fi
+>      fi
+>  fi
+> --
+> 2.43.0
+>
 
-BTW, can you also add the new files under the ARM64 PORT in MAINTAINERS,
-similar to arm-cca-guest?
-
-Thanks.
-
--- 
-Catalin
+--
+Cheers, Lorenzo
