@@ -1,105 +1,80 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CECF49E5E6;
-	Wed, 16 Sep 2026 10:23:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53B64BE449;
+	Wed, 16 Sep 2026 10:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554219; cv=none; b=H51GxYYmVmflQOzOhJ1ON4V87c0RKm2NnFKJhi5CzTtGbFdgr+7PPamW1jD01drDnZtQTN0gQ9s2FH57Yhh8owlvCFmN/lMa0CxeqLQzhgEKzAirUKwQWbBmCTFcQcOGS+15q6NvIiEhcOSfCdx08GgudGadZN2GSoh7ti5n4j0=
+	t=1789554231; cv=none; b=WTxNsFLQfLPySzhOaFyLL1wGbs4v/tcgucz/1Amb1lmX8M953nWkaifQOBz8f8KytMSeCq5C5BxUcfHP6Mor/AL4vfxNMtk8ss+KxEQGIJm518ZSykkC1/HMFcM6yJouuhqH2F5BBZy4EKLLMCrMJZ+QqcPm3qIVxtMzewqHP0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554219; c=relaxed/simple;
-	bh=uFQjaP6Ot+RC8020d5qhZIUj9k2STd3WAVm0TM1m108=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uNmc5FgsfNOFGitZ1cE7c5x35w7m7sbvbvIF03XzrRqIb6iZbrBo3Q/oRH61sLD3EQsehq9/r5MzpwMgJz59aXHTFyc9C+9VDYEVWz+Bz9GC/kpMCWvuS/Nj4HbAyn5Ipbx+LTuAObPaDNWTsSshe/SiryE0AOI4Z5Y8+tlYsLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACXmjgebqpqawfhBw--.61860S2;
-	Wed, 16 Sep 2026 18:23:26 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andriy.shevchenko@linux.intel.com
-Cc: brgl@kernel.org,
-	heiko@sntech.de,
-	linusw@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	sebastian.reichel@collabora.com,
-	ye.zhang@rock-chips.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] gpio: rockchip: Fix bank clock leak in rockchip_get_bank_data()
-Date: Wed, 16 Sep 2026 10:22:58 +0000
-Message-Id: <20260916102258.2018689-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789554231; c=relaxed/simple;
+	bh=zSLx5JJzmSNS5vkOxyZiXEJzS2L0xDH/nEnxei+zEEg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QxBb/KY0u80J9GK6vP7XzMqgcAaewMT83dfZd6NKqAF+MBHtwDO3jF2l0cRDkWZ13GQzzT/6SAf+i2fJkJzdlSGs3Ykfw+PrfKC61VYY91+/TYLlC73CrWQSAj8zMQdU+NykFIyXRGECNSshhkeb+AxEfls1vEmVmfYS3oRjQno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iu/2+DYz; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iu/2+DYz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D43D1F000FF;
+	Wed, 16 Sep 2026 10:23:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789554210;
+	bh=xLztN3PKEKqZc0fzcEuGAJpCX3EDSgFfQXKxXcN7Y+E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iu/2+DYzeYlpKqLCzxyVavNx1R/QW+QBBQWo8pZzIvyMGgoXK+D7j9MAyKwOUgQty
+	 X38d1Bu8FWFUgc8+xQldM5PVAZqazK9tmC6t0v9vhcwCX1VV0xoGlM4Xc3Lm2wnQ99
+	 NlbclkJLPajt55PXlAchwdyA/t1lszYRMXJEumBWXbjZfa9Vo51tjeXX8MkE8W3FgZ
+	 poWB5he0cPqPHUAwvk4Pcc5TQ+JgroS20H7qDI+eB8O9dOg9GcLFqiUyvxVjSaVlQ4
+	 c2BYcI/weoC+otqhw5SuWdDb5qtxxzhLIze1y7lsmHsmfk7tdvdRmEQJNNmiNXhRfu
+	 JdquqTt4RyB1A==
+Date: Wed, 16 Sep 2026 13:23:23 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Peter Oberparleiter <oberpar@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Vineeth Vijayan <vneethv@linux.ibm.com>,
+	Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 11/13] s390/qdio_setup: Use kzalloc() for the storage
+ list
+Message-ID: <aqpuG_QJdsMj6_so@kernel.org>
+References: <20260910-s390-cio-ready-v2-0-e931086fdde1@kernel.org>
+ <20260910-s390-cio-ready-v2-11-e931086fdde1@kernel.org>
+ <20260916092720.15587B52-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXmjgebqpqawfhBw--.61860S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrykZr47uw4UKrWrXr1kZrb_yoW8WFy7pF
-	s0kFyFkrsrJFnFgF1DAFZ3Ar4FyanrJFW3GFyxG3WxCw13tFyUtay5uayv9FWUArWIkw4a
-	9r1DJFy8WrW7Zr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9S14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
-	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6r
-	xdYxBIdaVFxhVjvjDU0xZFpf9x0JUJWrAUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUMA2qqP4e3zAAAsQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916092720.15587B52-hca@linux.ibm.com>
 
-rockchip_get_bank_data() obtains the bank clock with of_clk_get() and
-enables it before reading the GPIO version ID.  The reference returned
-by of_clk_get() is never dropped on the error paths that follow:
+On Wed, Sep 16, 2026 at 11:27:20AM +0200, Heiko Carstens wrote:
+> On Thu, Sep 10, 2026 at 02:00:13PM +0300, Mike Rapoport (Microsoft) wrote:
+> > __qdio_allocate_qs() allocates the storage list information block of a
+> > queue.
+> > 
+> > This memory can be allocated with kmalloc() as there's nothing special
+> > about it to go directly to the page allocator.
+> ...
+> > @@ -109,7 +109,7 @@ static int __qdio_allocate_qs(struct qdio_q **irq_ptr_qs, int nr_queues)
+> >  			return -ENOMEM;
+> >  		}
+> >  
+> > -		q->sl_page = (void *)__get_free_page(GFP_KERNEL);
+> > +		q->sl_page = kzalloc(PAGE_SIZE, GFP_KERNEL);
+> >  		if (!q->sl_page) {
+> 
+> Speaking about unnecessary changes: why is this a conversion to
+> kzalloc() instead of kmalloc()?
 
-When the debounce clock is missing, the bank clock is disabled with
-clk_disable_unprepare() but the reference is never released with
-clk_put().  When the version ID is unsupported, the function returns
--ENODEV leaving the bank clock prepared, enabled and referenced.
+An LLM went wild and I missed it in my review :)
+Same in another patch.
 
-Drop the reference with clk_put() on both error paths and disable and
-unprepare the bank clock on the unsupported version path so that probe
-failures no longer leak the clock.
-
-Fixes: 41209307cad7 ("gpio: rockchip: change the GPIO version judgment logic")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpio/gpio-rockchip.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
-index 44d7ebd12724..69a7cd8c9a1a 100644
---- a/drivers/gpio/gpio-rockchip.c
-+++ b/drivers/gpio/gpio-rockchip.c
-@@ -673,6 +673,7 @@ static int rockchip_get_bank_data(struct rockchip_pin_bank *bank)
- 		if (IS_ERR(bank->db_clk)) {
- 			dev_err(bank->dev, "cannot find debounce clk\n");
- 			clk_disable_unprepare(bank->clk);
-+			clk_put(bank->clk);
- 			return -EINVAL;
- 		}
- 		break;
-@@ -682,6 +683,8 @@ static int rockchip_get_bank_data(struct rockchip_pin_bank *bank)
- 		break;
- 	default:
- 		dev_err(bank->dev, "unsupported version ID: 0x%08x\n", id);
-+		clk_disable_unprepare(bank->clk);
-+		clk_put(bank->clk);
- 		return -ENODEV;
- 	}
- 
 -- 
-2.34.1
-
+Sincerely yours,
+Mike.
