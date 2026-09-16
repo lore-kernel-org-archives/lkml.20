@@ -1,40 +1,40 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726104E66DA
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCEE37EFF1;
+	Wed, 16 Sep 2026 13:02:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563756; cv=none; b=s7oVNWed+BrK9dpeXvCJcNeU75yutbefVm8scHJL4yPVAP9nDp1jzWb97aVZ1WY5RhOau8H2cMW+88ybNkSEd0owR14U58TnFB46sAuVCM6o8RL/17Kx67A0M0CyxvO1E5uFBAZIr/KF57KkuVQJAz0z3H1Y0HtSYtVMYk8OnhA=
+	t=1789563774; cv=none; b=YDDzfVDdgTH3/Vx/WISwjlzk+TlzWQWfiP659VPQlYLIgyooBX4BI5Tozea7uvvI1TwLJtni4F5bzeNpEsV+gC4jp+H1hlhfSSA6EApksAwMNPpUWFkZ2r4274voXbzqcseurd3J1Mlq/1vvoEj/Ubx4xFe+wiZInk/QyWkQA+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563756; c=relaxed/simple;
-	bh=/iA1i+fEz1OGwBmOfoih5OvcxjKj5L5pH1QANttn9/M=;
+	s=arc-20240116; t=1789563774; c=relaxed/simple;
+	bh=2kjukwKHhvxex4UWdS38ePUoswpvqsSXD+LWBFfMADE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Om1FLeamzPWdR1IgWrv1FhEIkmCSRTr1B3UWxzPRhtvYAAFOihxigJljwbl/wZYKCevc/4mAkirofsWWdnPDiMohrwQ80wvR4/NDievo1oSc2K+YUxTuo0Tan3jD8rk1WGGRCPIr3Alr2AWN6WtctAtvFRgkLNPy2MeFFX7bLAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LbQIxnE5; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=ZN9UVETmGfJwi0VzM2v5FJfjS9cj1VxV3NGaWpJlZZVIJ9e8ujcImt7Va8eSlB7D+6gvbMjvr/ynYOmJJzYKgOU/+zLYNpTCx45LhWnS2nW8PNbiDvPHS3ZCFdA4iGQiX988d1Ze/44PApqBKIWLzIGmRigxpR+daX+CguamdBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=iVO/NUWz; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LbQIxnE5"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B761E1A08D2;
-	Wed, 16 Sep 2026 13:02:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8268F60337;
-	Wed, 16 Sep 2026 13:02:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C54811C7B01E;
-	Wed, 16 Sep 2026 15:02:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789563746; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Ob+rWI8KnN+HI9KrEep3pQqea5Fog14Wdci4nh+7dCY=;
-	b=LbQIxnE5GkwaTQBhNYc0u473Lluj0FyRcGGYeSdTAiGzC1Ostl3ejYmmyZo2TMjEJiWZM4
-	Y9i00svqukaLhVdDZb77FcmuqJtyeJTdIQ5FLcvzMTTGMpR2izmF8hcr4ZvkJFAZzd1Qjf
-	F0g0biJrSj5vvG2gQvuOEbB7QqIQdiNGjgvftWWU1Hy9rHWhRg8G1nB2wjyE8wOXkALpZf
-	d2VkQM1uS2rvVwf4geHuIv5S/yw3OmlqL9OwncapVJAyWhKSifh4HZz2y9zbk9Rv2O3GyP
-	WDFEUpcwVJmYX7Jo3BD6x9+/o3CTloAgpTiPx4RzsNZzOx/Uv5pu9/fmIItXDQ==
-Message-ID: <2377467b-5379-4759-a6ce-1d129c2b41ff@bootlin.com>
-Date: Wed, 16 Sep 2026 15:02:15 +0200
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="iVO/NUWz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789563771;
+	bh=2kjukwKHhvxex4UWdS38ePUoswpvqsSXD+LWBFfMADE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iVO/NUWz7XlEkldHQ8fJFgw516V1fuZCTBhCW4JfIuOvywCJ0tRW1Nm0ssUrJhb/j
+	 c0yx5Tgb6JMAxWh+oxhKXzx8xCWmxKuV33u9LJEgd+Az/BDYjdPTZ4kCOe+UoszWLs
+	 5wOz8P6cd4/reWtT0xj2yidbGolDL7+yMCO0Ov+KkVMBymhxalcZnU8OJEBYq/xdC8
+	 PAR7rQUa5gfh8hVpmFzw5zYIjP5M/z+6aTwAYk3MAYOcZ1kFq8ICPFxtIhE8OQ7y+E
+	 MKTV1gOlQ41eRm0jDEViBii0lnuXRIt3F64Njhg6Kau4svjJ3Uyw9xuTKcTNfKvjZd
+	 iz5wqiM4mPUFg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DF03817E03B6;
+	Wed, 16 Sep 2026 15:02:50 +0200 (CEST)
+Message-ID: <bd18c1fc-6ff5-4724-8b20-dbbb716e299e@collabora.com>
+Date: Wed, 16 Sep 2026 15:02:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,48 +42,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 1/2] net: stmmac: propagate platform mac_finish errors
-To: Thomas Karpiniec <tom.karpiniec@outlook.com>, netdev@vger.kernel.org
-Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <CH3PR11MB8413FCBA598F7FABC04ADCFEE4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
- <CH3PR11MB8413069BD77B03793D1A9B42E4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
+Subject: Re: [PATCH] dt-bindings: input: mediatek,mt6779-keypad: add the
+ MT8173 keypad
+To: Ryan Brue <ryanbrue.dev@gmail.com>,
+ Mattijs Korpershoek <mkorpershoek@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20260915-rbrue-suez-upstreaming-mt8173-keypad-v1-1-96c325efacbe@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <CH3PR11MB8413069BD77B03793D1A9B42E4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20260915-rbrue-suez-upstreaming-mt8173-keypad-v1-1-96c325efacbe@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
-
-On 9/16/26 12:39, Thomas Karpiniec wrote:
-> From: Thomas Karpiniec <tom@wendy.sh>
+On 9/16/26 05:47, Ryan Brue wrote:
+> MT8173's keypad controller is the same block this driver already handles.
+> Its register map agrees offset for offset with the MT6779 one -- STA 0x00,
+> MEM1..MEM5 0x04..0x14, DEBOUNCE 0x18, SEL 0x20, EN 0x24 -- and
+> mt6779-keypad drives it with no code change, so the node only needs the
+> fallback compatible in second position. Add the mt8173 string to the
+> existing enum, which is what mt6873, mt8183, mt8365 and mt8516 already do.
 > 
-> stmmac_mac_finish() discards the platform callback's return value and
-> always reports success to phylink. For example, the Qualcomm ETHQOS
-> callback can return an error from phy_set_mode_ext() if SerDes
-> configuration fails. Phylink then treats the interface as successfully
-> configured and can report carrier even though the SerDes is not ready.
+> Verified on an MT8173 board (Amazon Fire HD 10 2017): the volume rocker
+> reports through mt6779-keypad with no driver modification.
 > 
-> Return the platform callback's result so that phylink can report the
-> failure and keep the link down until a subsequent configuration succeeds.
-> Keep returning zero when no platform callback is installed.
+> Assisted-by: LLM
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+> ---
+> This is the binding half only. The board device tree that uses it, an Amazon
+> Fire HD 10 (2017), is not upstream yet and comes with the rest of that
+> board's nodes later; adding the compatible first keeps that submission from
+> carrying a forward reference.
 > 
-> Fixes: e654cfc718d4 ("net: stmmac: configure SerDes on mac_finish")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM sparse
-> Signed-off-by: Thomas Karpiniec <tom@wendy.sh>
-
-Let's see if this uncovers other dirt under the stmmac phylink carpet :)
-
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Maxime
+> No driver change goes with it. mt6779-keypad matches on the fallback, which
+> is how mt8183, mt8365 and mt8516 bind today -- only mt6779 and mt6873 are in
+> the driver's own match table.
+> ---
+>   Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml b/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
+> index 914dd3283df3..b45dbf805ac8 100644
+> --- a/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
+> +++ b/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
+> @@ -27,6 +27,7 @@ properties:
+>         - items:
+>             - enum:
+>                 - mediatek,mt6873-keypad
+> +              - mediatek,mt8173-keypad
+>                 - mediatek,mt8183-keypad
+>                 - mediatek,mt8365-keypad
+>                 - mediatek,mt8516-keypad
+> 
+> ---
+> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+> change-id: 20260914-rbrue-suez-upstreaming-mt8173-keypad-fddc316ae098
+> 
+> Best regards,
+> --
+> Ryan Brue <ryanbrue.dev@gmail.com>
 
