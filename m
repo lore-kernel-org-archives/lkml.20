@@ -1,34 +1,32 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007C54BA1CB;
-	Wed, 16 Sep 2026 17:12:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF534DD3B2;
+	Wed, 16 Sep 2026 17:13:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578747; cv=none; b=htSH381RjTT9oaRYNi5N0Rp6j6+H5+0PBFiK+vii09QC4NxbyTUdDI/uYZKvBFLnFmyypXikxGOqLCZKM1RBI7NHJlElESYgWh8d3bIWjg5zlHr54W7VpBQHxR5Sp67rNG8dAAO8RWVGrojk5JiqZ9IL3dyPVLC5d5QgKL0hUpk=
+	t=1789578837; cv=none; b=aTyEbt4riIpPPddpXLEcwsd2yiR2y8fm7mWBYRSWuwjSZQz3FxNn81GRSmQn9+IkQsW8sbXB7Tgv+GTjdtvqQw1Xa4uNo03wjPlyyRwNMmjrX5jndGTk+GX/NmhAOYpsduA4oRj1QNa77F+cqjyQ6fJuEgsQpYThFkMvonPZ0xM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578747; c=relaxed/simple;
-	bh=GPfojv92vhGazvyjywr+nW1dfggvUCWkzV2zzDADthE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JeuIduU4mgbXpmH4UWsF9gvjqCmLKZsvZTuCMMv3kgMGVqieVgk95hUkYdIIcadxPBiV+ouyCKLYSGDF2UxLrREY3BvkY39mUtzzssLw2iBJje1IovP+lonk8rPQCc28jmexbNAqV5mVaArsZnVMCQC2X+C2IDVdl9VsIR5YNI0=
+	s=arc-20240116; t=1789578837; c=relaxed/simple;
+	bh=o+bs2Uka+leCxw+K/4mbYOPdHuXTq+5fJ940yyyKMNM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aHWv3BYzTXbljEqsHGywc0wmujdtSk8BY9MgyMKSyN5zPx16lTLfMMIKgCdveKME8PD5Z6HGH1mSvONm6MLTss2M0em/qeh2JGgwXcdJUHwsoBLnaqdaJjyeEmIHJnio304nhmJl5IFMKeDZkK6QdIndvV5lX5Z30W54gI/gZWA=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3oDrpzapqV1xuCA--.22441S2;
-	Thu, 17 Sep 2026 01:12:09 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowADnUDtLzqpqZWRuCA--.22559S2;
+	Thu, 17 Sep 2026 01:13:47 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Jiqian.Chen@amd.com
-Cc: jgross@suse.com,
+To: clm@fb.com
+Cc: dsterba@suse.com,
+	linux-btrfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	oleksandr_tyshchenko@epam.com,
-	ray.huang@amd.com,
-	sstabellini@kernel.org,
-	xen-devel@lists.xenproject.org,
+	wqu@suse.com,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] xen-pciback: Fix pcistub_device ref leak in pcistub_get_gsi_from_sbdf()
-Date: Wed, 16 Sep 2026 17:11:41 +0000
-Message-Id: <20260916171141.2086627-1-vulab@iscas.ac.cn>
+Subject: [PATCH] btrfs: Fix root reference leak in handle_indirect_tree_backref()
+Date: Wed, 16 Sep 2026 17:13:19 +0000
+Message-Id: <20260916171319.2086756-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,63 +35,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3oDrpzapqV1xuCA--.22441S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKrW8WFWUuF17JF1xKrW7Jwb_yoWkKwcEgr
-	WIvr97urs8tFWxtrW7uwn0vrZav3Z0q395XF1xta4rGw4j9r4UXr1rXF98Wr4Igr45JF13
-	Xr1DCr93Kr4I9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbxkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	o5l5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgEMA2qqok9l6QAAsp
+X-CM-TRANSID:zQCowADnUDtLzqpqZWRuCA--.22559S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Jr1DXFWDuw15Cr4kKFW7Arb_yoW8JF4rpr
+	W3CrZ8Gr4kCr1xtFWxWw4UtryS9rZ8G3y5Ca4kCayS9w4rJw1fZFy2kwn0gw43trZ5Gry5
+	WF4YqFyYyasFyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
+	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
+	USLvNUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgIMA2qqok9l6gABso
 
-pcistub_get_gsi_from_sbdf() obtains the stub device with
-pcistub_device_find(), which returns it with its kref incremented, and
-returns psdev->gsi without dropping that reference again.  The caller
-cannot release it either, so every lookup leaks one reference to the
-stub device.
+handle_indirect_tree_backref() walks up the tree from @cur, storing the
+reference returned by btrfs_get_fs_root() in lower->root when the top
+of the searched path is reached, and dropping it once a node already in
+the backref cache is found.  If the walk instead reaches
+BTRFS_MAX_LEVEL without hitting either of those two exits, the
+reference is neither stored nor dropped and is leaked on return.
 
-Release the reference after reading gsi.
+Drop the reference and return -EUCLEAN if the walk reaches
+BTRFS_MAX_LEVEL without finding the root of the tree.
 
-Fixes: 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
+Fixes: 1b60d2ec982a ("btrfs: backref: rename and move handle_one_tree_block()")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/xen/xen-pciback/pci_stub.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ fs/btrfs/backref.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
-index 79a2b5dfd694..d1a335233aab 100644
---- a/drivers/xen/xen-pciback/pci_stub.c
-+++ b/drivers/xen/xen-pciback/pci_stub.c
-@@ -234,13 +234,16 @@ static int pcistub_get_gsi_from_sbdf(unsigned int sbdf)
- 	int bus = PCI_BUS_NUM(sbdf);
- 	int slot = PCI_SLOT(sbdf);
- 	int func = PCI_FUNC(sbdf);
-+	int gsi;
- 
- 	psdev = pcistub_device_find(domain, bus, slot, func);
--
- 	if (!psdev)
- 		return -ENODEV;
- 
--	return psdev->gsi;
-+	gsi = psdev->gsi;
-+	pcistub_device_put(psdev);
-+
-+	return gsi;
- }
- #endif
- 
+diff --git a/fs/btrfs/backref.c b/fs/btrfs/backref.c
+index 273924ca912c..e889fbec4fe1 100644
+--- a/fs/btrfs/backref.c
++++ b/fs/btrfs/backref.c
+@@ -3426,6 +3426,12 @@ static int handle_indirect_tree_backref(struct btrfs_trans_handle *trans,
+ 		lower = upper;
+ 		upper = NULL;
+ 	}
++	/* We walked up to BTRFS_MAX_LEVEL without reaching the tree root. */
++	if (level == BTRFS_MAX_LEVEL) {
++		btrfs_put_root(root);
++		ret = -EUCLEAN;
++		goto out;
++	}
+ out:
+ 	btrfs_release_path(path);
+ 	return ret;
 -- 
 2.34.1
 
