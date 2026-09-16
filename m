@@ -1,509 +1,143 @@
 Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3590E4A4836
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:32:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C61948BD54;
+	Wed, 16 Sep 2026 09:32:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551152; cv=none; b=d1XcDJG3msRbQxEgQKxwWISz4jJxyokNznf0NuP8jW1GNbmkKsuNNiD9+jY/EllpDqvYwRG1W7roBIUMzrggmEN6CalCKKJ8D/h0Du/r6LGnvZJcksIA/+OOqhb/F1SQ2CU1dyssX+k3dspa+9tOXnDdB63UOgK89v6pB7AQqPM=
+	t=1789551155; cv=none; b=rNDv1jFgRvjrSIryjnCrKp3IV1I15SPiXxyYyGbIJqZxn3kUXj+Y1pRbLBPmXN4ZvkTlNgMVLRTNDxCzn5v+g+e0WKjRhLRypTCMMzu5cEfqqomczJN573IF5vr7vblPlvB0lZ6AI26DW9LD5NqJQEWZoZCMn0i06U9KNvniKwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551152; c=relaxed/simple;
-	bh=rfs9Lm0CLKJLZKJo7gTkVAb2o23ip3nRMfF8z1fBNDY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=es9979TbLZT7Jo8TSMAKdWNyQKsVIFavt4o1DQ1pOa8QyMvuTsi1bUzL9r3xCHJ5Lmoon0jNx1ipH9vTyyOkf61Hz0YTOV6uWqkBSmo0xqEAEsA0RMdQX+7E0Od9slk9HXpmRpa45YN/MjIXv2lbgyU+T0TSo679JxR72dUvojw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=FKpQmXZB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jhs+5HDI; arc=none smtp.client-ip=202.12.124.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1789551155; c=relaxed/simple;
+	bh=hu4BuH1cQdRVEJ1jJbRZ8GoJqJJvOJ4nSYQiQUsbp8U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CVDFJkRjdlIHMyfptd5sZXX4SbBX3ush5rj/JKcn9Zm4SSVYLsjtCaZj7aokDQOUGQqoEwsiIQlNGjJX5tcCJzraWgFPBBBNzLKp9sKzSqH2s81jguXYROE9dP6QYeBQHaDRBgpmaWGBv4pA3xtQH6YlQwcDpBiy5uT7gUBC26I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=mrAso95w; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=B5GpTbll; arc=none smtp.client-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="FKpQmXZB";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jhs+5HDI"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id EFF897A008A;
-	Wed, 16 Sep 2026 05:32:08 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Wed, 16 Sep 2026 05:32:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789551128; x=
-	1789637528; bh=Q3XbtEJmWsNT+g02Bw1UcrtZfkVHUUoW2q6DbPGG+78=; b=F
-	KpQmXZB184fo6UZ4QEOsFWMW47cqaVTzpJh6v4ISCKy4NRxLFRX9uv1s+Vy8ShRD
-	W+422RyRjLIiUol4usrTCx14rQ3hDMQy+8Nx1HlIXQvWL4dwhQRPLr2cOUrMpEpL
-	CBm04Jh6Vvgui4qLCv5R95bZLmBMcqTDRrZzBepeONIxO0U6Ja2KvUnG0LLAf9H1
-	0njnDuJfW+AEq5VGIdWmJWR8wmESiOW6ildk5hcnl+4n6anmDYrEPFuAOoQPnfTm
-	jC5RQzfgitDpQz1tTgU2RLLzAmcr9exMuNoRX6Cp7YkN1EsfjlM+qjNsD/1I0ab4
-	014sI2tbLtq6QjoYlD71A==
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="mrAso95w";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="B5GpTbll"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 7A0607A00A4;
+	Wed, 16 Sep 2026 05:32:26 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-08.internal (MEProxy); Wed, 16 Sep 2026 05:32:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1789551146; x=1789637546; bh=n+Nib39VXX
+	A5iK7EsTney4u0A/eOskGXnz+cLsmv+Zs=; b=mrAso95w6FNGmI3Y4jPMDHZlS0
+	vFHyybBRfDoqg4pDHo1PLBGAm62nfIJ3OBC7cTOObQA42AU2et6+K1rKtRu5MNZm
+	3HzBPrRPkmeC+D5YumwYaIowuULN9RWpwwEUytiQDqDAHZyClZOTBGsGjXsZQ5hr
+	JxvlkrEuu8uttAx42JmCGwZqpG5Xc72DJtzAY9cJ3/pnwOfhCVjbkmQ2WOtNXOPF
+	J3gWurLunN0TnEFFpAbhPHy0jvuzDqzQWCLzkH3QGVZsj5oGaqHgVYph3MK2AK4H
+	iwisVP6QnWu6Rk9ZGjsiLeCVnQ1y9diE3sAyyd7IUlM9vMl8zbVYnoUazkEA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1789551128; x=1789637528; bh=Q
-	3XbtEJmWsNT+g02Bw1UcrtZfkVHUUoW2q6DbPGG+78=; b=jhs+5HDIuFHICLQiN
-	ApAxXIoxBGHIQJV35Nc4lvTdPggixWJVh/vMxtHefvDmDgLv72iKzBj6Jm31F/bf
-	HhC17a6FPCpelOaWJWuom0ZJ+7WH9LHiY9yhXc2zAiO6g9k1MlC5vTQ7DEGny9Fi
-	5LDqGojttj4oCKQEGRIyo4GX8kKEUUao/GbaP91/aFw8rJ8lQYVB0358q2HLB3p+
-	xklnv5WOaNxLizxm3wK3qUZ09qPLyZe9iQPOCwRKaWe4Krt4O+OqezHxaDukasCI
-	im8GMftcyxahcAAE6q/2ty6DydSkEpPN/lKYcBOvmaTHMzQFgdVVJlWSPoytaba6
-	aTZ6Q==
-X-ME-Sender: <xms:GGKqalOi-DHOFYKPTiLyTmttEhDmWjQ7RnqBwED8jRMSOByqxj4c-Q>
-    <xme:GGKqaj5ufJBVqHRhubPt-EruhL_WZmrFVRESS2eBkEUHe3hWpycauh0aLKr9aPZMk
-    xqCm03_t_QQqwGUPygqNm8O1GSzfGAwQPjHB9HoG96clmu-gwNTDSZj>
-X-ME-Received: <xmr:GGKqaqZAEHhTln9eMdmj99euuFHunLnwHMdP_7WjsFix6Kyi30Moy1LuQm4>
-X-ME-Proxy-Cause: dmFkZTE31qL+uaIHQKQPvpaICSxxs7QGWvIquuW8cKaqYQWKvt9pKCqy5bgk//TApl3wTl
-    ad4FQSRAknjhMkzVuMAZNh0T12ywqROLvU4AnUXGVwd2kiN78Ar+1NR+fesCkATu1LALh1
-    4LvX/9qk4pAfO725ECjoAkI82P3z755hZxEkAV0An15e7Wr2vIbgLFM815SfkNmTU/eBmL
-    ORNXO2IPaHkpkCtL9iOfg4dR3lpAdl3Xvq/Y35opAbs/zzbuDBIkBs44NTO3w5x5Bedurt
-    thFl4kzzMjhv7UlAxOBz4vPRXQMYZm6skstaNA0N2ZkZEKrpjBUX5624wA8G4zEpHd89IN
-    i/KDmLvP9t2q/TyXL5za1fYFxo4c+gyrrE4t5l81/2lkILfQ54MPazgd5LGC9+oo2D32LK
-    ZgH4y7AHi4PJxaJtXgsxSllVA4w/pea91FWnyh2eMIshTViwU3sZ0fraEvUw60BjmdV3gd
-    kdNL+FW33NdX9EnfyRI3AAqhm8DOeYNARCQHEZUFjDtsr7O7w8NJFOC9JL+d4XUGLUww0w
-    Ve0jEfV8rN8L/lIHxDHnthdK7FmfioNKt0JMBsuYj8eurCU9RVN31ctkdMTQqGuvQr5bPq
-    MbLd0CkRtCceKCp+kWaCjTbp1V7ttFuhZqhkZBshAQgPahHgTccFTHawGdnA
-X-ME-Proxy: <xmx:GGKqaoGDrmi9MvoA57QLWBILGGkkzG2NK0BBxRihQKX3FLXCTKCzJg>
-    <xmx:GGKqarmWH4K-D9xpRiLBIqq2rkFTuPrsgPnMpaQJnS-vgWUsklgj-A>
-    <xmx:GGKqann-kcYLMXqtv_LmfjQP6k9DvuMs21ZDcmBsWP0d5HkJNykLRA>
-    <xmx:GGKqagUv9YbSAfUTr_5gMgWKzad-qu8ZFf0_eBeRRgaqpj4SVCFHdQ>
-    <xmx:GGKqaovYuakxmZ111QYtnRLQ0teKAu8fzFL2-mKeINcM6P83R84-fALP>
-Feedback-ID: ie3994620:Fastmail
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789551146; x=1789637546; bh=n+Nib39VXXA5iK7EsTney4u0A/eOskGXnz+
+	cLsmv+Zs=; b=B5GpTbllK9VizhmOXcK2Tb8GCYBjku66zMm5U4/xbxA62GfbVOu
+	4FT5KQ5qTrG4NaQ+kATSysAgRhz8wdw1uMje/sBuG74Ed6hAwC/cZb2//pDZG3GU
+	A6AJGVezzVa6WHRrl912ue1327UfoxTJP0C/Ca5bLm6CIwlb4xri36uPnejVh1ky
+	H+uR91Ykd7d8IHduxQpXgS4nvbNU0i28xe+viEirdvT+0/XSYpYzyBc9YmKk1uNa
+	G77rY4A34WmiQtt7MoI6GY7MjkI5hU34T2b36f+DCo1ZEwD+x1ya+ZGQ7WOjZ8Fv
+	vlYDLPBUOTnY1aI+bzIzKBNb/BhQPaTo0aw==
+X-ME-Sender: <xms:KmKqalykJKQ4P10d2gK0h8_SVSLU80h6UkFi0NwKaRQbeCxb5EHsUw>
+    <xme:KmKqarxCgoEwFHoKd9gL1sJKPsUSzUt7o21N1Iv9xOVCD9K2mUCUWt62F89vE9r7g
+    5FDNcsrvw9IXa1jMb7hDFeVHAc8OTOSCZguV6Hmt923Psz2EYvzzoU>
+X-ME-Received: <xmr:KmKqatVcpVKJVCR_i0rKuwJaqA-zGcylnCusgu3S28ht1Mok_NokciATDulT6ZTKgNxQdjWiBhBs6jmD8XqgP4LmGamAQPE7FCI>
+X-ME-Proxy-Cause: dmFkZTF+oMnapl6+ZEZ7rqXpvtPkdYXLNy3CQAjNF2hGqQGKxr1a2xOEDBhi5APyjFS9+E
+    DBoM79i1SO460kazsDa/ZJxITmQN4S4pqjHST2L0Gbcoa6t29c2xSnwKp0QLXWH9oVg5jl
+    1urCwduJSFnYdlHXgBphRvQmzkycwjuvX1cqYmC0hZEMcnOaF7Qbe7reQtXm4I+n6p24/R
+    Btp8ZiqoLIvarZ5Lmwmofqf3AJhDMaFkkhSaZrxN3KDeHki7HFuVHBKdJBWimJd1HK7dFo
+    XeAs4NC9/qVJU4KSufYms80WKbIqv9jKw+vSbifCF+Zq2MRUpH8CWFxIAsA8TQ5IhKmsGd
+    q4Y5gWlwD1feQC+MVakjnQgiyCN3ufIVJ656uRiB0x+Ut9zQ17rs/J9WtyZ2bo/Lv6kh1T
+    BbSfmcCrqD7rX2F6TqfZuAnWMAVcp+qJfqY7iCJpeclQXRxXEoEDFAYSKE6cYt3Kr1qC32
+    nxPR2USAwsDKbvRVTBY15TmkhK+ULSjFevy7o3P65bgJl9dU0yx9uaWHzdDZl9Br2fZveb
+    6OnknmqSzYKrX0EZgBuOO+zKtyN39OilK6mnh9HTIyNWV3xUlH68ViZppYgOCp3ZIl7SkF
+    lmZzf9pmhXQ2MkNERaxFx8CSp+ioDozgv70CQz+Xukk2v/WmVEQzjxzNZ4cQ
+X-ME-Proxy: <xmx:KmKqaqQw1hn-LW6lbFJTwAUbUlkQzOwC6fJcBF5JBUgwrCwdcqCCyg>
+    <xmx:KmKqatTwA_nb_6R2WdRniSPXWeyXHkIdxFSNYzG4lIBAfRju51nYSg>
+    <xmx:KmKqaqf1QQrOYcnIi1UFXObRmZ86ueXGnU806-VLMJ9JRhOs-stWlg>
+    <xmx:KmKqarfvNLBAVmVzLSyGbGfj8RpB8HGcUfduUFu0Z3fsRqdFgNekBg>
+    <xmx:KmKqamsqfu3-G20tay6k73ZNWwPY3TBd6meXYCyK4noTdG5AnYjOyZ5k>
+Feedback-ID: i47b949f6:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Sep 2026 05:32:08 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>
-Subject: [PATCH v3 08/12] mm/collapse: separate scanning a PTE table from collapsing it
-Date: Wed, 16 Sep 2026 10:31:35 +0100
-Message-ID: <20260916093145.4022188-9-kirill@shutemov.name>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916093145.4022188-1-kirill@shutemov.name>
-References: <20260916093145.4022188-1-kirill@shutemov.name>
+ 16 Sep 2026 05:32:25 -0400 (EDT)
+Date: Wed, 16 Sep 2026 11:32:23 +0200
+From: Janne Grunau <j@jannau.net>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Hante Meuleman <meuleman@broadcom.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Pieter-Paul Giesberts <pieterpg@broadcom.com>,
+	Jason Huang <jason.huang2@infineon.com>,
+	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com, asahi@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: brcmfmac: cfg80211: Report port_authorized for
+ 4-way HS offload
+Message-ID: <20260916093223.GB212312@robin.jannau.net>
+References: <20260912-brcmfmac-4way-handshake-offload-authenticated-event-v1-1-e41a6a8281a2@jannau.net>
+ <3422e0b3b7d4889d2a728c41b0b02f6c80fa71bf.camel@sipsolutions.net>
+ <20260915190527.GA212312@robin.jannau.net>
+ <b07d37cbb90b6132df0aebc1c603bad903d8d0cb.camel@sipsolutions.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b07d37cbb90b6132df0aebc1c603bad903d8d0cb.camel@sipsolutions.net>
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On Wed, Sep 16, 2026 at 10:32:38AM +0200, Johannes Berg wrote:
+> On Tue, 2026-09-15 at 21:05 +0200, Janne Grunau wrote:
+> > On Tue, Sep 15, 2026 at 03:22:50PM +0200, Johannes Berg wrote:
+> > > On Sat, 2026-09-12 at 11:40 +0200, Janne Grunau wrote:
+> > > > 
+> > > > This will conflict with the "brcmfmac: add FT/OKC roaming offload
+> > > > support" [3] series but is written in a way to easily resolve the
+> > > > conflicts.
+> > > 
+> > > I ... no, I'm not going to take that conflict, and I applied the FT/OKC
+> > > series to wireless-next. Please create this patch on top of wireless-
+> > > next, if needed at all, and then you can backport something later to
+> > > stable if needed.
+> > 
+> > That is very unfortunate. I hoped this change could merged as a fix for
+> > 7.3.
+> > 
+> > The change is required. wpa_supplicant 2.12 (and unpatched 2.11) will
+> > run into its authentication timeout and disconnect WPA2/3 PSK networks
+> > on brcmfmac devices with firmware offload support.
+> > 
+> > I'll rebase onto wireless-next and send a v2 but I think it's serious
+> > issue in the process that it will take until after v7.4-rc1 (7+ weeks
+> > from now) before this fix will land in stable kernel releases.
+> 
+> That process issue is yours - wpa_s 2.11 was released *well over two
+> years ago*, and nobody cared to fix the issue since. AFAICT this could
+> have been fixed in kernel 6.11 or so, but now it's suddenly urgent
+> enough to make life more complicated for everyone? ...
 
-A collapse is two jobs.  One reads a PTE table under mmap_lock and decides
-whether the range is worth collapsing.  The other allocates, isolates,
-copies and flushes, and wants the lock given up first.
+yes, the kernel change fell of the table 2 years ago. Nothing can be
+done about that anymore.
 
-collapse_single_pmd() did both, so the boundary between them was somewhere
-in the middle of a function.
+The issue became urgent due to the wpa_supplicant 2.12 release. That was
+more than one month ago but I became aware of it and the reintroduction
+of the authentication issue last week after Gentoo shipped
+wpa_supplicant 2.12.
 
-Give each half its own function:
+The patch to avoid this issue in wpa_supplicant 2.11 does not apply to
+wpa_supplicant 2.12. So distributions either drop the patch and are
+broken or adept it for 2.12. One distro maintainer was reluctant to
+carry a patch for a second release. Based on this I disagree that fixing
+the issue quickly in stable kernels makes life more complicated for
+everyone. It would make life easier for distro maintainers and users of
+distributions shipping unpatched wpa_supplicant 2.12.
 
-  - collapse_scan_pmd() scans one table and only reads.  The anonymous
-    scan that used to carry that name keeps its body as
-    collapse_scan_anon_pmd(), and collapse_scan_pmd() is now the entry
-    that picks the anonymous or the file side.
-
-  - collapse_run_pmd() does the collapse the scan asked for, and is
-    handed what the scan returned.  SCAN_SUCCEED means there is
-    something to collapse.  SCAN_PTE_MAPPED_HUGEPAGE means the page
-    cache already holds the PMD folio and only the PTE table is left to
-    retract.  Both are work for the run; anything else is why there is
-    nothing to do.
-
-collapse_single_pmd() is now the two of them with the mmap_lock drop in
-between, so its callers see what they saw before.
-
-What the scan found and the run needs travels in collapse_control.  For
-an anonymous table that is the orders and the referenced and swapped-out
-counts, which mthp_collapse() and collapse_huge_page() now read from
-there instead of taking as arguments.  For a file it is the file itself
-and the offset in it.
-
-The file side moves with the anonymous one.  collapse_scan_file() used to
-run with mmap_lock already given up, and called collapse_file() itself
-when the page cache looked worth it.  It now runs under the lock like the
-anonymous scan and only reads; the run does the collapse.  A file
-collapse works on the page cache and never sees a VMA, so the scan takes
-the file reference while it still has one and the run gives it back.
-
-That changes what a refused file table costs khugepaged.  Every file
-table it scanned used to end its pass over that mm, because the lock had
-been dropped to scan it; now only a table it goes on to collapse does.
-
-Two things on the file side stop being rescanned.  When the page cache
-already holds the PMD folio, the scan says so and the run goes straight
-to retracting the PTE table.  A run that refuses dirty pages and may
-write them back retries collapse_file() alone.  The checks the scan makes
-ahead of it are ones collapse_file() repeats under the page cache lock.
-
-Tracing changes with it.  mm_khugepaged_scan_pmd and
-mm_khugepaged_scan_file used to fire after the collapse, so for an
-accepted table their status field carried what the collapse made of it.
-They now fire before it and read SCAN_SUCCEED for an accepted table.  What
-the collapse then made of it is for mm_collapse_huge_page and
-mm_khugepaged_collapse_file to report.
-
-Assisted-by: LLM
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- mm/collapse.h   |  14 ++++
- mm/khugepaged.c | 166 +++++++++++++++++++++++++++++++++---------------
- 2 files changed, 130 insertions(+), 50 deletions(-)
-
-diff --git a/mm/collapse.h b/mm/collapse.h
-index 7044dc71c7c2..9764011bad86 100644
---- a/mm/collapse.h
-+++ b/mm/collapse.h
-@@ -88,6 +88,20 @@ struct collapse_control {
- 
- 	/* Each bit marks a PTE the scan accepted as a collapse source */
- 	DECLARE_BITMAP(eligible_ptes, MAX_PTRS_PER_PTE);
-+
-+	/*
-+	 * What a scan found and the run after it needs.  Live only between the
-+	 * two, and read by nobody else.
-+	 *
-+	 * The file side takes a reference while it still has the VMA, since a
-+	 * file collapse works on the page cache and never sees one; the run is
-+	 * what gives it back.
-+	 */
-+	unsigned long scan_orders;
-+	int scan_referenced;
-+	int scan_unmapped;
-+	struct file *scan_file;
-+	pgoff_t scan_pgoff;
- };
- 
- #endif	/* __MM_COLLAPSE_H */
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index ff1756c1255d..b6fc2c78e3e2 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1237,8 +1237,8 @@ static enum scan_result alloc_charge_folio(struct folio **foliop, struct mm_stru
-  * while allocating a THP, as that could trigger direct reclaim/compaction.
-  * Note that the VMA must be rechecked after grabbing the mmap_lock again.
-  */
--static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long start_addr,
--		int referenced, int unmapped, struct collapse_control *cc,
-+static enum scan_result collapse_huge_page(struct mm_struct *mm,
-+		unsigned long start_addr, struct collapse_control *cc,
- 		unsigned int order)
- {
- 	const unsigned long pmd_addr = start_addr & HPAGE_PMD_MASK;
-@@ -1277,14 +1277,14 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
- 		goto out_nolock;
- 	}
- 
--	if (unmapped) {
-+	if (cc->scan_unmapped) {
- 		/*
- 		 * __collapse_huge_page_swapin() will return with mmap_lock
- 		 * released when it fails. So we jump out_nolock directly in
- 		 * that case.  Continuing to collapse causes inconsistency.
- 		 */
- 		result = __collapse_huge_page_swapin(mm, vma, start_addr, pmd,
--						     referenced, order);
-+						     cc->scan_referenced, order);
- 		if (result != SCAN_SUCCEED)
- 			goto out_nolock;
- 	}
-@@ -1448,9 +1448,8 @@ static unsigned int max_order_from_offset(unsigned int offset)
-  * If a collapse is permitted, we attempt to collapse the PTE range into a
-  * mTHP.
-  */
--static enum scan_result mthp_collapse(struct mm_struct *mm,
--		unsigned long address, int referenced, int unmapped,
--		struct collapse_control *cc, unsigned long enabled_orders)
-+static enum scan_result mthp_collapse(struct mm_struct *mm, unsigned long address,
-+		struct collapse_control *cc)
- {
- 	unsigned int nr_eligible_ptes, nr_ptes, max_ptes_none;
- 	enum scan_result last_result = SCAN_FAIL;
-@@ -1463,7 +1462,7 @@ static enum scan_result mthp_collapse(struct mm_struct *mm,
- 	while (offset < HPAGE_PMD_NR) {
- 		nr_ptes = 1UL << order;
- 
--		if (!test_bit(order, &enabled_orders))
-+		if (!test_bit(order, &cc->scan_orders))
- 			goto next_order;
- 
- 		max_ptes_none = collapse_max_ptes_none(cc, NULL, order);
-@@ -1471,19 +1470,18 @@ static enum scan_result mthp_collapse(struct mm_struct *mm,
- 						      offset + nr_ptes);
- 
- 		/*
--		 * Swap PTEs accepted during the scan are counted in @unmapped,
--		 * not in cc->eligible_ptes. Account them for the PMD-order
--		 * candidate.
-+		 * Swap PTEs accepted during the scan are counted in
-+		 * cc->scan_unmapped, not in cc->eligible_ptes. Account them for
-+		 * the PMD-order candidate.
- 		 */
- 		if (is_pmd_order(order))
--			nr_eligible_ptes += unmapped;
-+			nr_eligible_ptes += cc->scan_unmapped;
- 
- 		if (nr_eligible_ptes >= nr_ptes - max_ptes_none) {
- 			enum scan_result ret;
- 
- 			collapse_address = address + offset * PAGE_SIZE;
--			ret = collapse_huge_page(mm, collapse_address, referenced,
--						 unmapped, cc, order);
-+			ret = collapse_huge_page(mm, collapse_address, cc, order);
- 
- 			switch (ret) {
- 			/* Cases where we continue to next collapse candidate */
-@@ -1525,7 +1523,7 @@ static enum scan_result mthp_collapse(struct mm_struct *mm,
- 		 * we must always move to the next offset.
- 		 */
- 		if (order > COLLAPSE_MIN_MTHP_ORDER &&
--		    (enabled_orders & GENMASK(order - 1, 0))) {
-+		    (cc->scan_orders & GENMASK(order - 1, 0))) {
- 			order--;
- 			continue;
- 		}
-@@ -1550,14 +1548,14 @@ static enum scan_result mthp_collapse(struct mm_struct *mm,
- 	return last_result;
- }
- 
--static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
--		struct vm_area_struct *vma, unsigned long start_addr,
--		bool *lock_dropped, struct collapse_control *cc)
-+static enum scan_result collapse_scan_anon_pmd(struct vm_area_struct *vma,
-+		unsigned long start_addr, struct collapse_control *cc)
- {
- 	const unsigned int max_ptes_shared = collapse_max_ptes_shared(cc, HPAGE_PMD_ORDER);
- 	const unsigned int max_ptes_swap = collapse_max_ptes_swap(cc, HPAGE_PMD_ORDER);
- 	unsigned int max_ptes_none = collapse_max_ptes_none(cc, vma, HPAGE_PMD_ORDER);
- 	enum tva_type tva_flags = cc->policy.tva_type;
-+	struct mm_struct *mm = vma->vm_mm;
- 	pmd_t *pmd;
- 	pte_t *pte, *_pte, pteval;
- 	int i;
-@@ -1737,12 +1735,9 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
- out_unmap:
- 	pte_unmap_unlock(pte, ptl);
- 	if (result == SCAN_SUCCEED) {
--		/* collapse_huge_page() expects the lock to be dropped before calling */
--		mmap_read_unlock(mm);
--		result = mthp_collapse(mm, start_addr, referenced,
--				       unmapped, cc, enabled_orders);
--		/* mmap_lock was released above, set lock_dropped */
--		*lock_dropped = true;
-+		cc->scan_orders = enabled_orders;
-+		cc->scan_referenced = referenced;
-+		cc->scan_unmapped = unmapped;
- 	}
- out:
- 	trace_mm_khugepaged_scan_pmd(mm, failed_pfn, referenced,
-@@ -2739,45 +2734,86 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
- 	else
- 		cc->progress += HPAGE_PMD_NR;
- 
--	if (result == SCAN_SUCCEED) {
--		if (present < HPAGE_PMD_NR - max_ptes_none) {
--			result = SCAN_EXCEED_NONE_PTE;
--			count_vm_event(THP_SCAN_EXCEED_NONE_PTE);
--		} else {
--			result = collapse_file(mm, addr, file, start, cc);
--		}
-+	if (result == SCAN_SUCCEED && present < HPAGE_PMD_NR - max_ptes_none) {
-+		result = SCAN_EXCEED_NONE_PTE;
-+		count_vm_event(THP_SCAN_EXCEED_NONE_PTE);
- 	}
- 
--	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present, swap, result);
-+	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present, swap,
-+				      result);
- 	return result;
- }
- 
--/*
-- * Try to collapse a single PMD starting at a PMD aligned addr, and return
-- * the results.
-- */
--static enum scan_result collapse_single_pmd(unsigned long addr,
--		struct vm_area_struct *vma, bool *lock_dropped,
--		struct collapse_control *cc)
-+static void collapse_control_init(struct collapse_control *cc)
-+{
-+	cc->progress = 0;
-+	cc->scan_file = NULL;
-+}
-+
-+/* A scan that took a file reference should have been run */
-+static void collapse_put_scan_file(struct collapse_control *cc)
-+{
-+	if (WARN_ON_ONCE(cc->scan_file)) {
-+		fput(cc->scan_file);
-+		cc->scan_file = NULL;
-+	}
-+}
-+
-+static void collapse_control_release(struct collapse_control *cc)
-+{
-+	collapse_put_scan_file(cc);
-+}
-+
-+static enum scan_result collapse_scan_pmd(struct vm_area_struct *vma,
-+		unsigned long addr, struct collapse_control *cc)
- {
--	struct mm_struct *mm = vma->vm_mm;
--	bool triggered_wb = false;
- 	enum scan_result result;
--	struct file *file;
- 	pgoff_t pgoff;
- 
--	mmap_assert_locked(mm);
-+	mmap_assert_locked(vma->vm_mm);
-+	/* Whatever the last scan found has to have been run by now */
-+	collapse_put_scan_file(cc);
- 
- 	if (vma_is_anonymous(vma))
--		return collapse_scan_pmd(mm, vma, addr, lock_dropped, cc);
-+		return collapse_scan_anon_pmd(vma, addr, cc);
- 
--	file = get_file(vma->vm_file);
- 	pgoff = linear_page_index(vma, addr);
-+	result = collapse_scan_file(vma->vm_mm, addr, vma->vm_file, pgoff, cc);
-+	/*
-+	 * SCAN_PTE_MAPPED_HUGEPAGE is work too: the page cache already holds
-+	 * the PMD folio, and retracting the PTE table is the run's job.
-+	 */
-+	if (result != SCAN_SUCCEED && result != SCAN_PTE_MAPPED_HUGEPAGE)
-+		return result;
- 
--	mmap_read_unlock(mm);
--	*lock_dropped = true;
-+	/*
-+	 * A file collapse works on the page cache and never sees a VMA, so take
-+	 * what it needs from this one while it is still here.
-+	 */
-+	cc->scan_file = get_file(vma->vm_file);
-+	cc->scan_pgoff = pgoff;
-+	return result;
-+}
-+
-+static enum scan_result collapse_run_pmd(struct mm_struct *mm,
-+		unsigned long addr, enum scan_result result,
-+		struct collapse_control *cc)
-+{
-+	struct file *file = cc->scan_file;
-+	bool triggered_wb = false;
-+	pgoff_t pgoff;
-+
-+	if (!file)
-+		return mthp_collapse(mm, addr, cc);
-+
-+	cc->scan_file = NULL;
-+	pgoff = cc->scan_pgoff;
-+
-+	/* The scan found the PMD folio in place: nothing to collapse */
-+	if (result == SCAN_PTE_MAPPED_HUGEPAGE)
-+		goto retract;
- retry:
--	result = collapse_scan_file(mm, addr, file, pgoff, cc);
-+	result = collapse_file(mm, addr, file, pgoff, cc);
- 
- 	/* Dirty pages are worth a writeback and one more try, if asked for */
- 	if (cc->policy.writeback_dirty && result == SCAN_PAGE_DIRTY_OR_WRITEBACK &&
-@@ -2789,8 +2825,13 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
- 		triggered_wb = true;
- 		goto retry;
- 	}
-+retract:
- 	fput(file);
- 
-+	/*
-+	 * A PMD folio is in the page cache, whether the collapse just put it
-+	 * there or found it: retract the PTE table, and map the PMD if asked.
-+	 */
- 	if (result == SCAN_PTE_MAPPED_HUGEPAGE) {
- 		mmap_read_lock(mm);
- 		if (collapse_test_exit_or_disable(mm))
-@@ -2805,6 +2846,28 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
- 	return result;
- }
- 
-+/*
-+ * Try to collapse a single PMD starting at a PMD aligned addr, and return
-+ * the results.
-+ */
-+static enum scan_result collapse_single_pmd(unsigned long addr,
-+		struct vm_area_struct *vma, bool *lock_dropped,
-+		struct collapse_control *cc)
-+{
-+	struct mm_struct *mm = vma->vm_mm;
-+	enum scan_result result;
-+
-+	result = collapse_scan_pmd(vma, addr, cc);
-+	if (result != SCAN_SUCCEED && result != SCAN_PTE_MAPPED_HUGEPAGE)
-+		return result;
-+
-+	/* The collapse takes its own locks, so give this up */
-+	mmap_read_unlock(mm);
-+	*lock_dropped = true;
-+
-+	return collapse_run_pmd(mm, addr, result, cc);
-+}
-+
- static void collapse_scan_mm_slot(unsigned int progress_max,
- 		enum scan_result *result, struct collapse_control *cc)
- 	__releases(&khugepaged_mm_lock)
-@@ -2947,10 +3010,10 @@ static void khugepaged_do_scan(struct collapse_control *cc)
- 
- 	lru_add_drain_all();
- 
-+	collapse_control_init(cc);
- 	/* One policy for the whole pass, so every table is treated the same */
- 	collapse_policy_khugepaged(&cc->policy);
- 
--	cc->progress = 0;
- 	while (true) {
- 		cond_resched();
- 
-@@ -2981,6 +3044,8 @@ static void khugepaged_do_scan(struct collapse_control *cc)
- 			khugepaged_alloc_sleep();
- 		}
- 	}
-+
-+	collapse_control_release(cc);
- }
- 
- static bool khugepaged_should_wakeup(void)
-@@ -3177,8 +3242,8 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
- 	cc = kmalloc_obj(*cc);
- 	if (!cc)
- 		return -ENOMEM;
-+	collapse_control_init(cc);
- 	collapse_policy_forced(&cc->policy);
--	cc->progress = 0;
- 
- 	lru_add_drain_all();
- 
-@@ -3235,6 +3300,7 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
- 	}
- out_nolock:
- 	mmap_assert_locked(mm);
-+	collapse_control_release(cc);
- 	kfree(cc);
- 
- 	return thps == ((hend - hstart) >> HPAGE_PMD_SHIFT) ? 0
--- 
-2.54.0
-
+Janne
