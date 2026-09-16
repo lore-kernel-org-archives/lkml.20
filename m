@@ -1,217 +1,111 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D237F3B71C1
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1DA251A729;
+	Wed, 16 Sep 2026 15:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573006; cv=none; b=X6/pS0G41WlJPUYLGhSxOeG8NxhcbQrk5GjlOXAXx7p8CmQnZTKMBKktweH5xnF+WH4RBzOwrZuOdldyrfG8+HzpC5YX8FvzcJZtp7hE5hrYCIA+/HpsaPNimjOIMx0tVUGHpHeUizrweCnbuSqRGjLB/komt9AB7WQ19Mnwi14=
+	t=1789573020; cv=none; b=iLUAYW/Ve6o/7Dc/cLakIH6pz6UobdltJoqZcMZfHQ8kKiGLJctR1cSpei5UWh+fMKCL3lOrof/0fBxLc0CxSucLodCPfBv7GaFmLM3A0xMF8zfuO8hHEzy0m/oMDGY//vF6gKMAVN+ATU3+px798iu3qyk10F9w4Y1Y7Cw5iTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573006; c=relaxed/simple;
-	bh=j9wPV+/EfbcGsOG8JnEPShKnQO6bUkC+qAb7x5D1t28=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=OX2gSfJC/1ZbFeQqQkbjoPx933pyRFOkg7oEQrGRJl9y4RfT4YkjEZLxiLex/fxpxmeG4Dj+IMG1VdIC2C0pWbI0h8q3VTh8DnXoD4iAPdG0oHrgvvSf/Qfr6SdGwhEEEKVKMhonB6nm++EExJvZLIEpZ7ts2elWDKdHL8H3wJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=cXHdKIqT; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="cXHdKIqT"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48586861639so922835f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:36:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789572996; x=1790177796; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=mqmfs62Il41JZdrK4MnJ9AwZ6UV73Ai2ymy+jYr0F+M=;
-        b=cXHdKIqTKKDEZPyrNZkyvgiKFAbeOrOwxQ1h9eGsmbtiIRAE5DWeCXlqwOEFyKMxSk
-         o/dam5XeR7aby5PHcg+dTTa8vn6Eqfwyt2RiszXBQKWvhcrusjzQWCPRPWLH9mwcTKzg
-         9r8EtLLJuRQl7c/wJIJu6On5nZJ9Bx49Bo6bpQtUlqw6LdlAz0KaZrjkPJs8dpP3u4q0
-         DauvJmQq8tCCBuOffVDHaHUQYj+nheYr902n89G7VshcaKSk6tmMY5aKITenUB4ONAaP
-         0A6w8hAXZeKzIE3DJ45UXQrKnzwPilClxbHUqgadrhF3Q31ParWGnaQffuadxWzQ6h4t
-         NDcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789572996; x=1790177796;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mqmfs62Il41JZdrK4MnJ9AwZ6UV73Ai2ymy+jYr0F+M=;
-        b=EWuWQHr/hp9xy1lARBaWekFNRCraGgwHe4xJsLQytSxFfWmr473gnLbKtwrHub+LUC
-         e/uN+xddzsnFl56M/fGjEv4Ux3RTyPp71mNw38zXIdu8vY/xXPSXSMjExmMvJhrBPNGD
-         6nLulTRv/++JKkXfTZieqYbJ+SHPbPEYVkWb1WTUvABYUQsiquFjWc6wSnC2Rg+Za9Rw
-         iO0v3NPNGNp9Y4d4CPcpBajtLbpw8L3c2z9e6Q6uPkCi+EnVPlMRYG7bBwv1JsfZYQOy
-         bM+9lp0YizThGgIDFla0HRsQL7wXl51igeP7MSDXs2sfMkrJK3vdorbE0B9pt/NSoQwK
-         Oe3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwc15ngPdczAm/RlEDyJcYJGbmzErk4c1Jp0HBfrY2edt0+d7EJSDfAhzPrf/sFnGk+Xw3mZdYEutl5wCA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbuBy26o7aEVnjEUFq4qv+a3Gh1LLHpM6YCtyDOl4ca4b1fHUB
-	9QoKTruT8By9DiVzG/sHGE468vlWXY7UkoyYKGUixVkUfRXCxGrA1oe6lT6K81xk8N8=
-X-Gm-Gg: AYBFou3FfaokRYxf0l2eDMLT7SbpNeej4kqZa0KqnmDtDWiySR0tCiA8eICaaDnIDhF
-	MjkHGBrzCH8S5M8B4bbQeOuTfnzqUPVBma8i1hxn9c3w/nap4cgaObNKLd2slp9RIm+FQT8vN5n
-	y58/nPq7eNWw3LPXLhrEiU1bAMZhR5i5Evo9wezEDIc56EEFyfiDB4k2UygVtiQejplqN4Yx0oB
-	f2IWK4p6bx4B0eibXqYBy0qUwLFZ2MRUQxudl10peDHhjAoTSkDHPwFwzE4tzuTgatPqIWLi2cA
-	421BMZTPxaVcu2mzoTjSNIcqDN51P5nxaYjHoa0wQleOpvIl30E9Ud3fRyYidnxEEIfJXT8TR36
-	7jimttxoAmh8G0NDLOMee5JPbhktsIiwUKSkzBwoe64sfo8KCHxi5hcSzdpS+d+b3mGXUdBSNPQ
-	cftZAnbu8x3z3jSpOmIlvtrwcpfq+zuhGb6tp9UCyp3cCxmnwZxFtoct62O/KnC8JaHg==
-X-Received: by 2002:a05:6000:643:b0:487:955:e6c3 with SMTP id ffacd0b85a97d-48713a887ccmr129202f8f.0.1789572995924;
-        Wed, 16 Sep 2026 08:36:35 -0700 (PDT)
-Received: from localhost ([2001:4091:a245:8029:665d:b7b:5fa4:7ad0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27c65sm7915045f8f.21.2026.09.16.08.36.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:36:34 -0700 (PDT)
+	s=arc-20240116; t=1789573020; c=relaxed/simple;
+	bh=Bbu0Yeog8iBpWauweQyv64p+GfTeIXBLJ/ewz1/Cg6Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rrkBl3LiwAIOmhfTA1wNgBvl3cPre9gOvxxOHGLHmqZcFNp9EYKzVgdcZ4AUWtnLFrAuYoigaSlK7Tq9tML6BogvNhjB2i8B+7UFNnp+hFaAl5UeRUDRWn4JN1Jsylzm8/KQZD8GZt2oGw2a3GKoPfWgpX4cZK9AX9Bro4Y5X7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACXATyDt6pq6e5sCA--.21128S2;
+	Wed, 16 Sep 2026 23:36:35 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org,
+	itoral@igalia.com,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mcanal@igalia.com,
+	mripard@kernel.org,
+	mwen@igalia.com,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/v3d: Fix indirect GEM object reference leak in v3d_get_cpu_indirect_csd_params()
+Date: Wed, 16 Sep 2026 15:36:07 +0000
+Message-Id: <20260916153607.2048140-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 16 Sep 2026 17:36:26 +0200
-Message-Id: <DLGUOGCLFAI9.2JSS4DCFRYTNI@baylibre.com>
-Subject: Re: [PATCH 1/2] dt-bindings: input: gpio-keys: add pinctrl states
-From: "Markus Schneider-Pargmann" <msp@baylibre.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Kendall Willis"
- <k-willis@ti.com>
-Cc: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, <msp@baylibre.com>, <s-kochidanadu@ti.com>,
- <a-kaur@ti.com>, <s-tripathi1@ti.com>, <vishalm@ti.com>,
- <linux-input@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>
-X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
-References: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
- <20260912-upstream-gpio-wakeup-v1-1-f0e12484b836@ti.com>
- <20260914-unbreakable-competent-beluga-efb5ad@quoll>
- <20260915164819.nlgpuvf37rhzgc66@uda0506412>
- <dec4f6e1-115e-46dd-8fb9-a3c67f1a8811@kernel.org>
- <da881fb0-93da-4d75-88da-8898b2c734eb@kernel.org>
- <20260915174103.ad6tjy6w6s24h2yc@uda0506412>
- <20260916-dancing-loud-guan-fbb1eb@quoll>
-In-Reply-To: <20260916-dancing-loud-guan-fbb1eb@quoll>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXATyDt6pq6e5sCA--.21128S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr47Ww4fJrW3Gw48Xr18Xwb_yoW8CrWDpF
+	sxW34akry3Ar4Ig39rAF4kAFyfG34avayrWFZ7C393Zr1FkF45Xry5KasrZr47AF1rGFy2
+	qr1DtayFgryjyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcS
+	sGvfC2KfnxnUUI43ZEXa7VUb_gA7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcMA2qqpVgwiQAAsL
 
---761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+If v3d_setup_csd_jobs_and_bos() fails, the reference taken by
+drm_gem_object_lookup() on info->indirect is never dropped: the caller
+only cleans up via v3d_job_cleanup(), but the CPU job refcount is not
+initialized until v3d_job_init() runs after the extensions succeed, so
+v3d_cpu_job_free() never fires.
 
-On Wed Sep 16, 2026 at 9:17 AM CEST, Krzysztof Kozlowski wrote:
-> On Tue, Sep 15, 2026 at 12:41:03PM -0500, Kendall Willis wrote:
->> On 19:07-20260915, Krzysztof Kozlowski wrote:
->> > On 15/09/2026 19:05, Krzysztof Kozlowski wrote:
->> > > On 15/09/2026 18:48, Kendall Willis wrote:
->> > >> On 12:13-20260914, Krzysztof Kozlowski wrote:
->> > >>> On Sat, Sep 12, 2026 at 04:33:53PM -0500, Kendall Willis wrote:
->> > >>>> Document pinctrl properties on the gpio-keys device node. By usin=
-g the
->> > >>>> wakeup pinctrl state, the pins are able to wakeup the system from=
- a
->> > >>>> low-power state. The default pinctrl state describes the default =
-pin
->> > >>>> configuration.
->> > >>>>
->> > >>>> Signed-off-by: Kendall Willis <k-willis@ti.com>
->> > >>>> ---
->> > >>>>  Documentation/devicetree/bindings/input/gpio-keys.yaml | 16 ++++=
-++++++++++++
->> > >>>>  1 file changed, 16 insertions(+)
->> > >>>>
->> > >>>> diff --git a/Documentation/devicetree/bindings/input/gpio-keys.ya=
-ml b/Documentation/devicetree/bindings/input/gpio-keys.yaml
->> > >>>> index cc78c2152921308fe0cad3e29ca78a5fad08f066..b554933e93412d8b6=
-c2ec401dc1e1eeff57d4190 100644
->> > >>>> --- a/Documentation/devicetree/bindings/input/gpio-keys.yaml
->> > >>>> +++ b/Documentation/devicetree/bindings/input/gpio-keys.yaml
->> > >>>> @@ -22,6 +22,22 @@ properties:
->> > >>>> =20
->> > >>>>    poll-interval: true
->> > >>>> =20
->> > >>>> +  pinctrl-0:
->> > >>>> +    description: Default pinctrl state
->> > >>>> +
->> > >>>> +  pinctrl-1:
->> > >>>> +    description: Wakeup pinctrl state
->> > >>>> +
->> > >>>> +  pinctrl-names:
->> > >>>> +    description:
->> > >>>> +      When present should contain at least "default" describing =
-the default pin
->> > >>>> +      states. The second state called "wakeup" describes the pin=
-s in their
->> > >>>> +      wakeup configuration required to exit sleep states.
->> > >>>> +    minItems: 1
->> > >>>> +    items:
->> > >>>> +      - const: default
->> > >>>> +      - const: wakeup
->> > >>>
->> > >>> This will introduce new warnings, which should be being fixed in t=
-his
->> > >>> patchset (e.g. at91-kizbox3-hs.dts).
->> > >>>
->> > >>
->> > >> Will fix the binding to work with current device trees.
->> > >>
->> > >>> But nevertheless, isn't second state the sleep state? How can you
->> > >>> configure pins for the wakeup state - like being in the wakeup? Yo=
-u
->> > >>> configure the pins for given state, which will be a system suspend=
-, so
->> > >>> sleep?
->> > >>>
->> > >>
->> > >> The sleep state usually refers to putting the pins in a state to sa=
-ve
->> > >> power. The wakeup pinctrl state is for putting the pins in a state =
-to
->> > >> allow wakeup from suspend for that device. Both 'sleep' and 'wakeup=
-'
->> > >> are for system suspend, but they fill different functions. The CAN
->> > >> subsystem also uses the 'wakeup' state in addition to the 'sleep' s=
-tate
->> > >> [1].
->> > >=20
->> > > So you mean sleep would be a separate state? But then aren't both
->> > > exactly the same states? IOW, if device is wakeup-source, it will ha=
-ve
->> > > for "sleep" state pin configuration allowing to wakeup.
->>=20
->> The 'sleep' and 'wakeup' pin states are both used for suspend. They
->> would just be used separately since only one could be used at a time.
->> The reason 'wakeup' is separated out is because it is more specific for
->> allowing wakeup from the device.
->
-> If they cannot be used together, then it is the same state.
+Release the GEM reference and clear the pointer when setting up the
+CSD jobs fails.
 
-If I understand this patch correctly, 'sleep' is not relevant here.
-But 'sleep' and 'wakeup' serve different purposes and can be
-used/defined together in a single device in the devicetree:
- - 'sleep' describes the pin state during suspend if wakeup is not
-   enabled by the user or there is no 'wakeup' pin state defined.
- - 'wakeup' describes the pin state during suspend if wakeup is enabled
-   by the user.
-If the user enables wakeup, 'wakeup' is the relevant state and otherwise
-'sleep'. Which one applieas is a runtime decision of the the user.
+Fixes: 18b8413b25b7 ("drm/v3d: Create a CPU job extension for a indirect CSD job")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/v3d/v3d_submit.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-I introduced these two states for m_can for that reason. This was
-discussed here:
-  https://lore.kernel.org/r/DCD1YPX4T779.ADK4JCGW1MU7@baylibre.com
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index 3ddd53b6f437..f021ab9a69b1 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -465,6 +465,7 @@ v3d_get_cpu_indirect_csd_params(struct drm_file *file_priv,
+ 	struct v3d_dev *v3d = v3d_priv->v3d;
+ 	struct drm_v3d_indirect_csd indirect_csd;
+ 	struct v3d_indirect_csd_info *info = &job->indirect_csd;
++	int ret;
+ 
+ 	if (!v3d_validate_cpu_job(file_priv, job))
+ 		return -EINVAL;
+@@ -485,9 +486,15 @@ v3d_get_cpu_indirect_csd_params(struct drm_file *file_priv,
+ 
+ 	info->indirect = drm_gem_object_lookup(file_priv, indirect_csd.indirect);
+ 
+-	return v3d_setup_csd_jobs_and_bos(file_priv, v3d, &indirect_csd.submit,
+-					  &info->job, &info->clean_job,
+-					  NULL, &info->acquire_ctx);
++	ret = v3d_setup_csd_jobs_and_bos(file_priv, v3d, &indirect_csd.submit,
++					 &info->job, &info->clean_job,
++					 NULL, &info->acquire_ctx);
++	if (ret) {
++		drm_gem_object_put(info->indirect);
++		info->indirect = NULL;
++	}
++
++	return ret;
+ }
+ 
+ /* Get data for the query timestamp job submission. */
+-- 
+2.34.1
 
-And then reviewed/applied in v10:
-  https://lore.kernel.org/r/175993598226.3512549.5295923279078928995.robh@k=
-ernel.org
-
-Best
-Markus
-
---761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCaqq3ehsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlM+
-ygD/VE+hJFS+CFW3o1xNzwibjxdZyInzKYw9u2YQjwROYfUA/3CUdbcqbBPrKnV4
-8hCIpecynxuiT0xYshtL2xPQjcQF
-=LpE8
------END PGP SIGNATURE-----
-
---761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d--
