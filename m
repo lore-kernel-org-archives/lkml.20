@@ -1,93 +1,81 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7506E4C9DF6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:00:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A7D4B8290;
+	Wed, 16 Sep 2026 17:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578032; cv=none; b=jHyoiRFsxOYmVZijz9oIbnjumcYqBZ2NSuOyVBLam7pFOg1tKf+epSrKe7MrxvrcfSJ47hGCNn+Qjn+ZoHgkW0x7blSe+lkO2uVo6PPTxIEHnY6NMDGqzwUKVPIkWM8dFer5/7F6E7IjqdNBSR/B4wYDBiJb3YhPBF/ckpY85xg=
+	t=1789578039; cv=none; b=JIA4zkSN3JvVgJ3jTlPT5shRN7CVG/ykDeLyX9ivN+6dDckbGJeXvCNoRK/fz1RE1G08PosQqv7PPmy+aqrJrg4xw4N68JruhKqkVc1DhAP3fH0BUw2HgEa4zvMLLWXxh/PMI7XpAQMwyyvT/WfAhDCj5mZgWrakir7EQrDoE6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578032; c=relaxed/simple;
-	bh=Ky6tqUlPctwf9kmSA68nL3wRxEYqHtONMZuz2rSl+Vg=;
+	s=arc-20240116; t=1789578039; c=relaxed/simple;
+	bh=xTR83EDr3GJ1gs6LtXBNUd0wwxqijXMTgP0OcHKvJSc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qkdon1V+mpwd3yPQmp+Fgq1gMQzgeNU3OXZiI7WsJ+6cH4XY1nixJHwFhG2VO2vqJj0wwN7Mw58u+5t2dIAJ0tGTBbGbw2ZfHWFWzC1vhzl2tJtRDXSXXxafXfqqRFUxp2MOM7WgnFnBYNchOBXxDD7iOev9PtjE8c/WBB/XpSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CwleqU+q; arc=none smtp.client-ip=74.125.231.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=RPFayXyJlIxEyePLjrvS4UqE9pYw6b7jYF1xLqMTb7BGvoPrHr0cTH7Tuv2RD23lIW3CbFTnIBFQ9fos3q7niWdvQR3pq0cCgamFtUjt6pMoOHQ+/2l+7v3puwZv5+UcP55Me45Ecu1THSHtYPcFOiO9Bg6GjpG1PxjmErCCmCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PmVw4wXS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CwleqU+q"
-Received: by mail-oo2-f39.google.com with SMTP id 46e09a7af769-804ef461aedso793527a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:00:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789578026; x=1790182826; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kV5xMCFq0mEVtZsKF5EmMvJNOJj0hLOiv+MHAekOLlU=;
-        b=CwleqU+qwDJqo0nfZyXSHaniEuvEjmfULs6m04T6ewFsw9SzfvGPJvlX9oI70uDtFn
-         iKChCRYV7Qdr0g5vnglAOA0bs8/kgb5MGs1MzJF/8vovGSYvEyoA5YF/AvlX/ETDbeZ6
-         R+Ua9WdMASXl1NPG3EGT5F8W6VSLE+hCNHSGsGxE1GDs+RIPYNOaRg/qYo1maPOqZkGO
-         S3jk9YUPE8eg2eGHwpOLLBt/hF6tveJZWcQ77RIkfmzqWpfHG3hFOTT30/czZqE1EkUC
-         LooNvuRExj1xly26BNGdCcM3Aoxlbunrlq8jhSaanWYR/HihhpypzvaAoooFm3L9STlw
-         RgRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789578026; x=1790182826;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kV5xMCFq0mEVtZsKF5EmMvJNOJj0hLOiv+MHAekOLlU=;
-        b=eh/yfMCr9TfrbREy0Lw3eVSMItT3KvnnyZFRGw5KhJc+rxS8kkfFlSmhAjSDKv0G2F
-         LoNai94IJB16iJr3nvFMcNUZrzTqpfVtXJG/WZxMDTa2jn7tP2EYbgwtJo9rd5imnrDZ
-         4/8cH9NmxEnZbvp9KILnyxCSY7CyCHX0xJc6WcoVTKXiETm7bhkPDaUfksUHRi8p5Xs/
-         +4DOCNm4BfKvQg7geGSniG6YmCANS/lXnrN617+rUYGhHFevkFAt9ZSzmwTP8hLGbZa/
-         zlRr7FLXPsLrm0WrwsBgaE2C5rhqgM4yUEHmTvWAMiMUGBm44882SXkYThM/nBmdcrhz
-         nAiA==
-X-Forwarded-Encrypted: i=1; AKwUvBz2yEEkpCECgu/7RyxRN5J7BGafTF3cvK32WpmdkdGsg4/lpVXowLXj5pQ2m7KYSePVWkp3JUlgWTpnqTw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfHGGiOmBqTx4VsLbkURELfN6Mafuvj2qEEE6O9fisHLNf2ZF4
-	VFMI8slmtKka1rJM8v+38nkaglOFah70IcxGO9e7PRWJrjvtvIr/iNGB
-X-Gm-Gg: AYBFou1QvG4l8WEOvEUWP9889qri+C1e1oKSGnrAmwEvMisC+iJRrdg9BSkuQwaSXiN
-	HrG4X1Gu9zVK2cVHkq4sliDBZZOX56MWPZDAsEkpQU/vbMR3aLmmPx9FIKP3oQScI7ekSfmSsqX
-	QkrxFbObrGZgY8jyLtUiow+tpTyTyYnog7k/Hm3uZ4M3aTVcFNApcyt4F+3i/XBhNEBrqAGd3HR
-	xFwy8Vpi4G/EIz4vKOR/e6kFJx+kEk9MfqCfRLEUAf7LFlOGacwl72ClFYYwPf4asFyJk9kqUVD
-	WSqJGH7dO4dX8Z+T26Pz1OqLz9QEZQ/JrHVQ7yB0lb7wwqlm4zEhFePg15rbI7m3rNWUfRKu/qz
-	kvljsOoDvEGbRXNgW2zGMV6VX/jVqWeU388ZRyOI8DtfZjQUIJZqLza2SYvvyu2X3AHnxwe0UFa
-	W83loDlqslNVfvwYh8/fNH56eSu2+iUAmIHz5QqWnVw6QO/AW+2879Ad7tngzNz0ZIlEWpDFcl1
-	Tpi+7AphdoQ3Ghe5vuv
-X-Received: by 2002:a05:6830:67d5:b0:7f6:96ad:36a8 with SMTP id 46e09a7af769-80b2d416a86mr4148110a34.8.1789578025959;
-        Wed, 16 Sep 2026 10:00:25 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:54::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80c4619a868sm391941a34.8.2026.09.16.10.00.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 10:00:24 -0700 (PDT)
-Date: Wed, 16 Sep 2026 10:00:21 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
-	virtualization@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	sargun@sargun.me, jlinbox@meta.com,
-	Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next 0/6] vsock: assign the guest vsock device to a
- network namespace
-Message-ID: <aqrLJWnHJ8DxK8cF@devvm29614.prn0.facebook.com>
-References: <20260902-vsock-guest-ns-v1-0-9995383e9a8b@meta.com>
- <apqGcFDFm9_Wtw4q@sgarzare-redhat>
- <apsANK7ySuRzzK0V@devvm29614.prn0.facebook.com>
- <aqkaTXHDf5nfPL9w@sgarzare-redhat>
- <aqmDuxMuEN5lS/0J@devvm29614.prn0.facebook.com>
- <aqqNEl6Hyk_h9C8r@sgarzare-redhat>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PmVw4wXS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4114D1F000FF;
+	Wed, 16 Sep 2026 16:59:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789578016;
+	bh=JNZtWdKCogaGrWtyvhM6z027Qg7RFwkG7Shw9zuVQhE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PmVw4wXS/r9CpHfAOn2amzHMwnGPXSnlrGas83Xpi7dsydIKsArkblukiVIHwBAY6
+	 ubpGfFGa7kqrykL1Pa6q3MkO4GKMCQQXpCmITVG/PeoahA3HJxtDyVnKBlsOT5y6Mm
+	 wozpolIxCIhxuWjx0aQRah90ZewUiZ9k5Elj1dLiF8CCivxp3p7w6OaDY/5H9Oq45S
+	 O6mv0zYlNEHZcdRLCgzvK/ZrOJVz1jz48dKYZvJ7Oi+o5KCdWId8DKOgPiN8pVOlBz
+	 jm/9rlekEwQE9XCQ+GkKAffM26w81NuZfKTTB+nUUF3sGMC9I2pcmKHTHWSj4DPFxw
+	 A9hfwpouwGpWQ==
+Date: Wed, 16 Sep 2026 17:59:52 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Brian Cain <bcain@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Dinh Nguyen <dinguyen@kernel.org>, Simon Schuster <schuster.simon@siemens-energy.com>, 
+	Jonas Bonn <jonas@southpole.se>, Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+	Stafford Horne <shorne@gmail.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
+	Rich Felker <dalias@libc.org>, John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+	Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+	linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+	linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>
+Subject: Re: [PATCH v3 01/12] mm/huge_memory: zap deposited page tables after
+ an RCU grace period
+Message-ID: <aqrAflIQbwcNKlQL@gremlin>
+References: <20260911-rcu-pagetable-freeing-v3-0-7b8c86103821@kernel.org>
+ <20260911-rcu-pagetable-freeing-v3-1-7b8c86103821@kernel.org>
+ <467b6599-b73a-4f58-a29a-b6c6d1ffc3a5@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -96,70 +84,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqqNEl6Hyk_h9C8r@sgarzare-redhat>
+In-Reply-To: <467b6599-b73a-4f58-a29a-b6c6d1ffc3a5@kernel.org>
 
-On Wed, Sep 16, 2026 at 02:36:07PM +0200, Stefano Garzarella wrote:
-> On Tue, Sep 15, 2026 at 10:43:23AM -0700, Bobby Eshleman wrote:
-> > On Tue, Sep 15, 2026 at 12:16:47PM +0200, Stefano Garzarella wrote:
-> > > On Fri, Sep 04, 2026 at 10:30:28AM -0700, Bobby Eshleman wrote:
-> > > > On Fri, Sep 04, 2026 at 10:55:17AM +0200, Stefano Garzarella wrote:
-> > > > > On Wed, Sep 02, 2026 at 04:00:46PM -0700, Bobby Eshleman wrote:
-> > > > > > vsock network namespaces let a host put each VM in a namespace of its
-> > > > > > own. A guest has no equivalent yet. It has a single G2H device that
-> > > > > > cannot be assigned to a network namespace.
-> > > > >
-> > > > > Thanks for this, I'll do a proper review next week, in the mean time some
-> > > > > comments below:
-> > > > >
-> > > > > >
-> > > > > > This series lets a guest move that device into a network namespace. A
-> > > > > > new ioctl on /dev/vsock, IOCTL_VM_SOCKETS_ASSIGN_G2H_NETNS, assigns the
-> > > > > > device to the namespace of the calling process. The namespace's existing
-> > > > >
-> > > > > Why an ioctl?
-> > > > >
-> > > > > I'm asking because I'd like to know if you've already considered any
-> > > > > alternatives (sysfs, netlink, etc.)
-> > > > >
-> > > > > How do you think the ioctl should be used? Should we provide an userspace
-> > > > > tool, or extending some existing tools?
-> > > > >
-> > > > > Thanks,
-> > > > > Stefano
-> > > >
-> > > > Really only because /dev/vsock exists and the prior series used it.
-> > > 
-> > > Yeah, I vaguely remember that we may have discussed switching to netlink in
-> > > that thread, but I can't find it.
-> > > 
-> > > >
-> > > > Considering netlink, it might be the better option because there is a
-> > > > lot of prior art solving problems we might have in the future. For
-> > > > example, I was thinking about when users suddenly lose access to vsock,
-> > > > with just the current assign ioctl there is no way for apps or users to
-> > > > figure out why this happened. We can have an ioctl() setter for user,
-> > > > but in netdev world users can actually get a notification via netlink as
-> > > > to which namespace the device went to and what its ifindex is there (see
-> > > > __dev_change_net_namespace() for the RTM_DELLINK and RTM_NEWLINK
-> > > > messages). There is probably more, but that's the case that comes to
-> > > > mind.
-> > > 
-> > > netlink seems like the right way to go, do you think it'll be a real pain to
-> > > implement?
-> > 
-> > It is really not bad... it'll include a yaml spec in
-> > Documentation/netlink/specs/ of call names and perms, a new target for
-> > generated code in the Makefile, a handler, and then
-> > tools/net/ynl/ynl-regen.sh generates the plumbing.
-> 
-> Ah, nice! So, do you want to try that direction?
-> 
-> Thanks,
-> Stefano
-> 
+On Wed, Sep 16, 2026 at 04:42:04PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/11/26 21:36, Lorenzo Stoakes (ARM) wrote:
+> > When an anonymous mapping is collapsed for THP, a PTE page table is
+> > 'deposited' with the installed PMD entry.
+>
+> Right. Or when we allocate an anon THP.
 
-Let's give it a go. I have a draft of it for v2 and looks reasonable to
-me.
+That case doesn't interact with page walking though, as they're
+just-allocated right?
 
-Best,
-Bobby
+Am focusing on collapse case for that reason rather than listing all
+possible places deposit can happen.
+
+>
+> >
+> > This is done in order that a split can be performed without needing to
+> > allocate additional memory.
+> >
+> > The freeing occurs in zap_deposited_table() and is done directly without
+> > any delay via pte_free().
+> >
+> > This is currently not a problem as existing page table walks are protected
+> > by the mmap or anon rmap lock.
+>
+> Or VMA lock?
+
+Yup indeed, can update on respin/ask Andrew to add VMA lock here.
+
+>
+> >
+> > However this becomes problematic in a future where RCU-only page table
+> > walkers exist, as there is nothing to prevent a page table walker that
+> > started the walk prior to collapse having its PTE table freed underneath
+> > it.
+>
+>
+> Wait, but wouldn't it be really problematic to punch a page table that is still
+
+Punch? You mean deposit?
+
+> being walked into the deposited list where it can just be allocated from another
+> PMD->PTE split?
+
+In general, RCU-only page table walkers are _only_ guaranteed that the page
+tables are not freed from underneath them, as per the cover letter:
+
+	"As a result, page table walks can now be performed safely under RCU without
+	 any risk of page tables being freed underneath a walker.
+
+	However, this is the only guarantee that this work provides - page table
+	walkers must still ensure that page table entries are as expected
+	throughout."
+
+So this series doesn't actually have to answer that :)
+
+But a PTE PTL -> pmd_same() check will flag anything like that,
+a.k.a. pte_offset_map_lock().
+
+The RCU lock replaces stablisation on stuff other than VMA/mmap or rmap
+lock.
+
+If the walker needs to be sure the PTE is actually valid and belongs to the
+expected walk then further is required.
+
+Alternatively (like GUP-fast) if you wanted to avoid locking at all, IRQs
+off would be required paired with the tlb_remove_table_sync_one() in
+collapse_huge_page().
+
+Another strategy could be used I guess with looped checks but it gets a bit
+sketchy with timing etc.
+
+But actually maybe we can avoid all that...
+
+>
+> Note that pgtable_trans_huge_withdraw() just dequeues *some* PTE page table in
+> the list attached to the PMD table.
+>
+> Something is odd here.
+
+...Since this code path already allocates (the huge folio), so allocation
+here isn't an issue (as long as done outside of lcosk), why not have it
+also allocate a new PTE to deposit and RCU-free the existing PTE instead?
+
+That eliminates the one place in the kernel (afaik) where a
+page-table-walker-visible table can just get yoinked over somewhere else.
+
+Then a lockless PMD check works.
+
+E.g. something like the below?
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index f49a6710933b..d9cb6b406ebb 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1293,7 +1293,7 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+ 	LIST_HEAD(compound_pagelist);
+ 	pmd_t *pmd, _pmd;
+ 	pte_t *pte = NULL;
+-	pgtable_t pgtable;
++	pgtable_t pgtable = NULL;
+ 	struct folio *folio;
+ 	spinlock_t *pmd_ptl, *pte_ptl;
+ 	enum scan_result result = SCAN_FAIL;
+@@ -1310,6 +1310,12 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+ 		goto out_nolock;
+ 	}
+
++	if (is_pmd_order(order)) {
++		pgtable = pte_alloc_one(mm);
++		if (!pgtable)
++			goto out_nolock;
++	}
++
+ 	mmap_read_lock(mm);
+ 	result = hugepage_vma_revalidate(mm, pmd_addr, /*expect_anon=*/ true,
+ 					 &vma, cc, order);
+@@ -1433,8 +1439,8 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+ 	spin_lock(pmd_ptl);
+ 	VM_WARN_ON_ONCE(!pmd_none(*pmd));
+ 	if (is_pmd_order(order)) {
+-		pgtable = pmd_pgtable(_pmd);
+ 		pgtable_trans_huge_deposit(mm, pmd, pgtable);
++		pgtable = NULL;
+ 		map_anon_folio_pmd_nopf(folio, pmd, vma, pmd_addr);
+ 	} else {
+ 		/*
+@@ -1453,6 +1459,9 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+ 	}
+ 	spin_unlock(pmd_ptl);
+
++	if (is_pmd_order(order))
++		pte_free_defer(mm, pmd_pgtable(_pmd));
++
+ 	folio = NULL;
+
+ 	result = SCAN_SUCCEED;
+@@ -1463,6 +1472,8 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+ 		anon_vma_unlock_write(vma->anon_vma);
+ 	mmap_write_unlock(mm);
+ out_nolock:
++	if (pgtable)
++		pte_free(mm, pgtable);
+ 	if (folio)
+ 		folio_put(folio);
+ 	trace_mm_collapse_huge_page(mm, result == SCAN_SUCCEED, result, order);
+
+
+>
+> --
+> Cheers,
+>
+> David
+
+--
+Cheers, Lorenzo
