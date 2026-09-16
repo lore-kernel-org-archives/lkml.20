@@ -1,636 +1,322 @@
-Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com [74.125.230.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D74821A42D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A85D41379A;
+	Wed, 16 Sep 2026 07:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543001; cv=none; b=S/WC078YqVGLOgUz0Lm4VEqbybNhP+wFABkegnlIPTVloP4wmwocmcfDqb/WjXSXVhpbc2eKrWABpXaMQWk/iEnhntGtNYFcmPB1PDOGR7rclNd89Nk2H4H2CiV6e8eO+Q1tHhY7kdNiL0Oh+/4CzBa6sT4gYN89D5QL+YEeV+E=
+	t=1789543019; cv=none; b=ZkAmILsWHMenwAZ9euKRYi8D7FAk97V8LfXAqvQUJNXof04CzJnl/9zIMl/i7TnKZQuB5uq4Eqb3ngagOEz49DTV9d+CuH3b3to3gxOo56IvP3TJIS9oxtypSpib/ppQcBwbkNRIQwj0zYXlk4nhA83gy5jkWJrt2YYlYtplNKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543001; c=relaxed/simple;
-	bh=AcX2unbYc6kbxDyYiKyDovsSoMq3KmfEvLdD8/tyzoM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gm6nOBd99mRDdlj8L/3Ynk5ua8kOMCHoOOXhDrsiHRZwL8QbVzVsmj8ed6eGvndc/JZ0yd59+MYTNcnzsVz9fAeJQrR7HlVGJj5UtpUh3kwQtuUCWY/13gjaiEDvhscwhn1+ub8RYtXlFaEosPTWuR9KM+n0MQ/9KMhF4ZBz8Qs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mswin.me; spf=none smtp.mailfrom=mswin.me; dkim=pass (2048-bit key) header.d=mswin-me.20251104.gappssmtp.com header.i=@mswin-me.20251104.gappssmtp.com header.b=WE0ZH/8/; arc=none smtp.client-ip=74.125.230.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mswin.me
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mswin.me
+	s=arc-20240116; t=1789543019; c=relaxed/simple;
+	bh=wYpErp51XFEOKNatJQQ1qpUFTA7CH+HP5CrI7Ptlie0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YryCuzup/X+fut539agnPcuZa8VNSxKX9r5kSfUp3i83iQ2Pfp9fQ2xD5DtzftJq5iEsB34nSeML6nHakab6l+HyQ3hO4Nvod5Zd+cTv79o4kqZgPny1SrQkgaXKSSMkgQVGzdVZn23sw+VlVWFyvnH5n8ZjGTHWXtd8N8UXiW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a9vCZns5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mswin-me.20251104.gappssmtp.com header.i=@mswin-me.20251104.gappssmtp.com header.b="WE0ZH/8/"
-Received: by mail-lr2-f10.google.com with SMTP id 38308e7fff4ca-3a34f24f409so8926861fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:16:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mswin-me.20251104.gappssmtp.com; s=20251104; t=1789542996; x=1790147796; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tLBRU0pIWM5Jci7fKn6jRMpE2Xm2kCD8LRfqh5i4zTE=;
-        b=WE0ZH/8/BrEXyd48yOPVyY6tFnGVid2zY3va4rayk03XYH67TbSsszWvoA96NKQ9v5
-         PFFejsAnym7w5iIfxEdrnAUmiO21Z+naFOTwcF1wx2ih3CFwoYJyUBMNjLoIqoh4/YbF
-         nYh+BdIJAtTqaBZ2o+lWUlY01+QfquIG1ulvxALezt5IEYgkZdKESt2uCrId6HBDY9Pz
-         TLgg51N4zOc67gA2qppUyIWZPRAtPJcUNGd7occj+WFrCcUWM66TCuSab9iHTsnQQ8N+
-         7lUe6ZlwOzOs8ftG8zVgugqHw4KpHXp/3tlZebvhEFTNfcd6fn+XaZa4tEnlyPkBh2c8
-         x78g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789542996; x=1790147796;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tLBRU0pIWM5Jci7fKn6jRMpE2Xm2kCD8LRfqh5i4zTE=;
-        b=SLES5xBb5IuNgb1qQ5FC8sA5TBWKz1cCnG8uu2uEGunvOlMkMaUe/0wgCQxR1XkGIe
-         b+QQ4rDEQQ/9CMBkWCigAHeFwDRTfBi9tihaQz6112ZIh09Tw67O7CDVIFwtgEVeiNaB
-         FMCIiUhTwMUKY4T0L1bVfa8pYhIAAdenTPL35/MdCsXbg1tf351NH1i0f0hSxBWRqxBs
-         F3k2KOXrUfrUGiYp1Wwu6li9nqbiseS5d91cy2htkdIZ3b7Srrmn97FtaQhmGk6lQ6l+
-         Xne1YwZvtMdh0QM/ys3+7CRy86NkzkYleXqQiotx0AzsiyaTXiCFXqz5VATEumFH2KvI
-         VH7w==
-X-Forwarded-Encrypted: i=1; AKwUvByOBKdVM6oOW4Pz/xGRFwywKX2Ge1RTBojxeNbzCy3+EOPsT/h7/6C/vJWR3qmaPt6dnZgZ73g80FwpuNc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjd9XJ9VpgHIb5XlVgS2SpBQxDnsN81K250l3miP+Xe80PfDCl
-	BdFtzOh1Kkm03rKvA67EbS3ka2F4svu0IwRa6GWyimm02wod/bwvWHqU05uDA7hLiEI=
-X-Gm-Gg: AYBFou2xns9Cv+97hN7DFhY/IGTzBIjPqZR+evvVAHh6gKegH0GOzZk//+/FH2en5ua
-	fkPtB26QQ9FjtHJoFU40sOJQTEAn/7Zv1N1J7QMuwl7dl5RfoFKs6CzfZYezU/eJjz3imh9TbaL
-	XxX+wLmy+BeLAHMvn9zjZKihyL9bzhjTzxCs7XaXNIjbP/Ai3UfoEoo8qKUmKuaXBLvK/TCYYIe
-	mOKi4rOfA5+l4reAnH3nPk9e7OdDGlfq4QlSEoMGRF27Sgbo/MTBb+7JdWSkZpjIFsDKj9e1Xx4
-	USGPMR3Z3Zjp9dOUFuRJCGTbokdfmKruw6+lXwYOWoizgCOon5AhZAvevSWnSNPUvz94lD1nI5W
-	q1fqiO95+HgKxV/uqHDKNIy2WigerBykI47+hTOrh1oumiexIJrthAVe5Nn41WGPP5dDTMpJIxA
-	MttYlem585/Wkflo9F6yKlCoKw8c2/SdkaZpdZDyHVuPMt0Lf6MGD/pj1te45cbD0lUekk1w==
-X-Received: by 2002:a2e:a807:0:b0:3a5:db7a:2395 with SMTP id 38308e7fff4ca-3a5dc9cdc4bmr5266171fa.8.1789542996130;
-        Wed, 16 Sep 2026 00:16:36 -0700 (PDT)
-Received: from [10.122.136.195] ([84.47.187.188])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5dafee2e9sm4462391fa.40.2026.09.16.00.16.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 00:16:35 -0700 (PDT)
-Message-ID: <a3f071d3-6082-47a1-bb00-9d8e72fa3cdd@mswin.me>
-Date: Wed, 16 Sep 2026 10:16:34 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a9vCZns5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19D0D1F000FF;
+	Wed, 16 Sep 2026 07:16:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789543017;
+	bh=wq6GtURhwb9MScdG8EkqvppgH8diWprnVq/FWu3TiDQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=a9vCZns5vIqi57Hd2MAe0qTFt3gxccKVQZJ/OGL8tuyq6BNO3fR8U9msFU+RwRu8Z
+	 kfqdkfu1I47DuigHrvL0jFRE4fRtJ0tokbKZSOC71/Ygo4qhEhfDEdt72Fx2eO5s95
+	 6yCe+6OQjnPchM4vw2Eg3GaksRs0q5h5g/kz4D6ieQj+WZIyEKnK0OW4SJhPx80ZTa
+	 XfIuulalD0LWTmXtTjtkceAqmAfqHnhMBPap2BQYJmCRJ7gt1f+A1DbSB3Az4jBkSN
+	 mnhm1YrW3xASSHAQVfgz4aJfYs2iEdylIEhJKC5aggW3WbvuLVheb1IwekX5YJMpoA
+	 LF9ic0Zp6sknQ==
+Subject: Re: [PATCH net-next v14 3/4] ptp: ocp: add TAP CPLD access for ADVA
+ TimeCard X1
+From: netdev-bot+sashiko@kernel.org
+To: maimon.sagi@gmail.com
+Cc: richardcochran@gmail.com, vadim.fedorenko@linux.dev, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ andrew+netdev@lunn.ch, horms@kernel.org, jiri@resnulli.us,
+ arkadiusz.kubalewski@intel.com, corbet@lwn.net, rdunlap@infradead.org,
+ skhan@linuxfoundation.org, netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 16 Sep 2026 07:16:55 +0000
+Message-ID: <178954301560.22033.8297653930280070647@kernel.org>
+In-Reply-To: <20260914071555.11684-4-maimon.sagi@gmail.com>
+References: <20260914071555.11684-4-maimon.sagi@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] arm64: dts: qcom: sm6125: add TSENS die temperature
- sensing
-To: Amit Kucheria <amitk@kernel.org>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260821030325.1823829-1-admin@mswin.me>
-Content-Language: en-US, ru-RU
-From: Roman Linev <admin@mswin.me>
-In-Reply-To: <20260821030325.1823829-1-admin@mswin.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Arm64 DT patches, against torvalds/master.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-Changes in v2:
- - wire CPU cooling: #cooling-cells on all eight CPUs and per-CPU
-   passive cooling maps for the cluster-1 CPUs, cpu4..cpu7 [Konrad]
- - make the TM/SROT register regions 0x1000 long and drop the inline
-   comments [Konrad]
- - drop the sensor-mapping comment from the DTS; the provenance now
-   lives in the commit message [Konrad]
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-Patch 1/2 is unchanged and carries Krzysztof's Acked-by. Abel's
-Reviewed-by was given on the v1 content of 2/2; it is not carried onto
-the reworked patch.
+- [Medium] adva_x1_mblaze_release() (drivers/ptp/ptp_ocp.c:4375-4393)
+  documents and the changelog promises that the hand-back "waits for the…
+- [Medium] The firmware hand-back failure is swallowed.
+- [Low] Forward-referencing leftovers in this intermediate patch:
+  #include <linux/iopoll.h> is added at drivers/ptp/ptp_ocp.c:23 with no…
 
-v1: https://lore.kernel.org/r/20260821030325.1823829-1-admin@mswin.me/
+--
 
-Patches inlined below (also against torvalds/master).
+ptp: ocp: add TAP CPLD access for ADVA TimeCard X1
 
+This adds a request/grant handshake that re-routes the registered i2c
+controller of the ADVA TimeCard X1 from the config EEPROMs onto the TMC
+bus, so the Lattice CPLD behind the PCA9548 can be reached.  On top of it
+the patch exposes a root-only cpld_status sysfs attribute and reports the
+cached Lattice device ID as the fixed devlink version cpld.id.
 
-[PATCH v2 1/2] dt-bindings: thermal: qcom-tsens: add qcom,sm6125-tsens
+> diff --git a/Documentation/ABI/testing/sysfs-timecard b/Documentation/ABI/testing/sysfs-timecard
+> index 3ae41b7634ac..c440d8930384 100644
+> --- a/Documentation/ABI/testing/sysfs-timecard
+> +++ b/Documentation/ABI/testing/sysfs-timecard
+> @@ -11,6 +11,30 @@ Contact:	Jonathan Lemon <jonathan.lemon@gmail.com>
+> +		==========  ================================================
+> +		done        the configuration flash was programmed
+> +			    successfully and is active
+> +		busy        an internal operation is in progress
+> +		failed      the last ISC operation failed
+> +		==========  ================================================
+> +
+> +		For example "busy" while programming, or "busy failed" if a
+> +		failure is latched while another operation runs.
 
-SM6125 has a TSENS v2 block with 16 sensors. Its register and interrupt
-layout is identical to SM6115's, and it needs no calibration cells
-because v2 self-calibrates, so it is generic apart from the SoC-specific
-compatible.
+[Severity: Low]
+This isn't a bug, but the flag descriptions here are phrased in terms of
+programming the part ("the configuration flash was programmed
+successfully", "busy while programming"), while this commit only defines
+CPLD_CMD_READ_ID and CPLD_CMD_READ_STATUS and cannot program anything.
 
-Document it in the v2 list, bound by the qcom,tsens-v2 fallback.
+The same forward reference shows up in the code, see the two comments
+below.  The follow-up patch in this series, "ptp: ocp: add TAP CPLD
+flashing via devlink", is what adds the page-programming commands, the
+read_poll_timeout() users and the fw.cpld component, so everything is
+live at the end of the series.  Would it read better to move the
+upload-referencing wording and the iopoll.h include into that patch?
 
-Signed-off-by: Roman Linev <admin@mswin.me>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 1 +
- 1 file changed, 1 insertion(+)
+[ ... ]
 
-diff --git a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-index 5a8f767..0ac3fdf 100644
---- a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-+++ b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-@@ -79,6 +79,7 @@ properties:
-               - qcom,sdm845-tsens
-               - qcom,shikra-tsens
-               - qcom,sm6115-tsens
-+              - qcom,sm6125-tsens
-               - qcom,sm6350-tsens
-               - qcom,sm6375-tsens
-               - qcom,sm8150-tsens
+> diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
+> index f4299878c27c..98cb26077181 100644
+> --- a/drivers/ptp/ptp_ocp.c
+> +++ b/drivers/ptp/ptp_ocp.c
+> @@ -20,10 +20,14 @@
+>  #include <linux/spi/altera.h>
+>  #include <net/devlink.h>
+>  #include <linux/i2c.h>
+> +#include <linux/iopoll.h>
+
+[Severity: Low]
+Is there a user for this include at this commit?  Grepping the file for
+poll_timeout matches only this line; the first *_poll_timeout() caller
+(adva_x1_cpld_wait_idle()) arrives with the flashing patch.
+
+>  #include <linux/mtd/mtd.h>
+>  #include <linux/nvmem-consumer.h>
+>  #include <linux/crc16.h>
+>  #include <linux/dpll.h>
+> +#include <linux/unaligned.h>
+> +#include <linux/delay.h>
+> +#include <linux/firmware.h>
+
+[ ... ]
+
+> @@ -4226,6 +4266,367 @@ static const struct ocp_attr_group art_timecard_groups[] = {
+>  	{ },
+>  };
+>
+> +#define ADVA_MUX_ADDR     0x74
+> +#define ADVA_CPLD_ADDR    0x40
+> +#define ADVA_MUX_CHANNEL  0
+> +
+> +/* Longest command or reply; bounds each half of the per-claim scratch. */
+> +#define ADVA_CPLD_XFER_MAX 32
+> +
+> +#define MBLAZE_REQUEST    0x0000aaaaU
+> +#define MBLAZE_GRANTED    0x5555aaaaU
+> +#define MBLAZE_RELEASE    0x55550000U
+> +#define MBLAZE_RETRIES    200
+> +#define MBLAZE_RETRY_US   10000
+
+[ ... ]
+
+> +/*
+> + * Issue one I2C transaction on the TMC bus: @cmd if not negative, then
+> + * @wlen bytes of @wdata (NULL sends zeros), then @rlen bytes read back.
+> + * The message is built in the scratch buffer from adva_x1_bus_claim(), so
+> + * an upload costs one allocation rather than one per page.  I2C_M_DMA_SAFE
+
+[Severity: Low]
+This isn't a bug, but the "upload costs one allocation rather than one
+per page" rationale refers to an image upload path that does not exist
+until the next patch.
+
+> + * is not set: the two halves are not separately aligned, so let the core
+> + * bounce.  Caller holds the claim, hence __i2c_transfer().
+> + */
+
+[ ... ]
+
+> +/* Hand the segment back, and wait for the firmware to drop the grant before
+> + * the caller unlocks the adapter: a transfer queued behind us would
+> + * otherwise be clocked out while the controller is still on the TMC bus,
+> + * which is what holding the adapter lock across the grant exists to stop.
+> + */
+> +static void adva_x1_mblaze_release(struct ptp_ocp *bp)
+> +{
+> +	int i;
+> +
+> +	if (!bp->pps_select)
+> +		return;
+> +
+> +	iowrite32(MBLAZE_RELEASE, &bp->pps_select->i2c_bus_ctrl);
+> +	/* Flush the posted write, as the acquire path does. */
+> +	ioread32(&bp->pps_select->i2c_bus_ctrl);
+> +
+> +	for (i = 0; i < MBLAZE_RETRIES; i++) {
+> +		if (ioread32(&bp->pps_select->i2c_bus_ctrl) != MBLAZE_GRANTED)
+> +			return;
+> +		usleep_range(MBLAZE_RETRY_US, MBLAZE_RETRY_US + 1000);
+> +	}
+
+[Severity: Medium]
+Can this loop ever iterate?
+
+The constants describe a register with a host-written half and a
+firmware-written half:
+
+	#define MBLAZE_REQUEST    0x0000aaaaU		/* host half */
+	#define MBLAZE_GRANTED    0x5555aaaaU		/* grant | request */
+	#define MBLAZE_RELEASE    0x55550000U		/* grant, request cleared */
+
+adva_x1_mblaze_release() writes MBLAZE_RELEASE first, which clears the
+host request half.  After that write the register can read back
+0x55550000 (grant still asserted) or 0x00000000, but not 0x5555aaaa, so
+the first ioread32() in the loop compares unequal to MBLAZE_GRANTED and
+returns.
+
+If that is right, then the usleep_range() body, the
+MBLAZE_RETRIES/MBLAZE_RETRY_US budget and the "TMC bus still granted
+after release" warning below are all unreachable, and the hand-back the
+changelog describes:
+
+    "The hand-back waits for the firmware to drop the grant before the
+    adapter lock is released, for the same reason."
+
+does not happen.  adva_x1_bus_release() then calls i2c_unlock_bus()
+immediately, so a transfer already queued behind the CPLD operation from
+ptp_ocp_read_eeprom(), the nvmem attributes or the at24 sysfs files can be
+clocked out while the host controller is still routed to the TMC bus.
+
+Should the wait test the firmware-owned grant field on its own, for
+instance polling for the register to read 0 or masking off the request
+half before the comparison?
+
+The same helper is the timeout cleanup in adva_x1_mblaze_acquire(), so a
+grant asserted just after the host gave up waiting is not observed
+either.
+
+Both paths are reachable without user action: adva_x1_cpld_read_id() runs
+from ptp_ocp_sync_work() after probe, and cpld_status_show() is a root
+read of /sys/class/timecard/ocpN/cpld_status.
+
+> +
+> +	dev_warn(&bp->pdev->dev, "TMC bus still granted after release\n");
+> +}
+
+[Severity: Medium]
+If the wait can expire (that is, if the equality test above does work on
+real hardware), is losing the failure here intentional?
+
+adva_x1_mblaze_release() returns void, so after the warning the caller
+cannot tell that the firmware never dropped the grant.  Nothing records
+the condition, so the next claim re-runs the handshake as if the
+controller were back on the EEPROMs.
+
+Note this and the question above are two sides of the same code: either
+the poll cannot iterate, or it can and its expiry is ignored.
+
+[ ... ]
+
+> +/* Route the host controller back to the EEPROMs and release the adapter.
+> + * Safe after a failed claim: it also clears a request that was never granted.
+> + */
+> +static void adva_x1_bus_release(struct ptp_ocp *bp)
+> +{
+> +	struct i2c_adapter *adap = bp->cpld_adap;
+> +
+> +	if (!adap)
+> +		return;
+> +
+> +	adva_x1_mblaze_release(bp);
+> +	bp->cpld_adap = NULL;
+> +	kfree(bp->cpld_buf);
+> +	bp->cpld_buf = NULL;
+> +	i2c_unlock_bus(adap, I2C_LOCK_ROOT_ADAPTER);
+> +	i2c_put_adapter(adap);
+> +}
+
+[Severity: Medium]
+Should i2c_unlock_bus()/i2c_put_adapter() run unconditionally when the
+hand-back may have failed?
+
+Once the adapter is unlocked, ptp_ocp_read_eeprom(), the nvmem attributes
+and the at24 sysfs files address 0x50/0x58 again.  With the controller
+still on the TMC segment those transfers either NAK, so has_eeprom_data
+stays false, or some TMC device answers and ptp_ocp_read_eeprom() latches
+a bogus serial/board_id; an at24 write would be clocked into an unrelated
+TMC device.
+
+cpld_status_show() also returns the status word it read as a success in
+that case, and adva_x1_cpld_read_id() still publishes bp->cpld_id, so
+nothing surfaces the mis-routing to userspace.
+
+[ ... ]
+
+> +/*
+> + * Claim the TMC bus.  The adapter lock is held across the handshake to keep
+> + * the EEPROM, nvmem and at24 paths off the controller while it is routed
+> + * away from the EEPROMs; an EEPROM read blocks until the claim is dropped.
+> + */
+> +static int adva_x1_bus_claim(struct ptp_ocp *bp)
+> +{
+
+[ ... ]
+
+> +	/* One scratch buffer per claim rather than per transfer: an upload
+> +	 * holds the claim for the whole image.
+> +	 */
+> +	bp->cpld_buf = kzalloc(2 * ADVA_CPLD_XFER_MAX, GFP_KERNEL);
+
+[Severity: Low]
+This isn't a bug, but same as above: the comment explains the allocation
+by an upload that holds the claim for a whole image, which only becomes
+true with the flashing patch.
+
+> +	if (!bp->cpld_buf) {
+> +		i2c_put_adapter(adap);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	i2c_lock_bus(adap, I2C_LOCK_ROOT_ADAPTER);
+> +	bp->cpld_adap = adap;
+> +
+> +	ret = adva_x1_mblaze_acquire(bp);
+> +	if (ret)
+> +		adva_x1_bus_release(bp);
+> +
+> +	return ret;
+> +}
+
+[ ... ]
+
+All three observations were checked against the last patch of the series
+(5c1c35566015); the release wait is unchanged there.
+
 -- 
-2.55.0
-
-
-
-[PATCH v2 2/2] arm64: dts: qcom: sm6125: add TSENS and thermal zones
-
-SM6125 has a TSENS v2 controller with 16 sensors, at 0x04411000 (TM) and
-0x04410000 (SROT), with SPI 275 as "uplow" and SPI 190 as "critical".
-The register and interrupt layout is identical to SM6115's, and being v2
-the block self-calibrates, so it needs no qfprom nvmem cells and no new
-driver code: it binds through the existing qcom,tsens-v2 fallback.
-
-Add the controller and thermal zones for the 15 sensors that are used.
-The sensor-to-zone mapping comes from the downstream device tree for
-Xiaomi Mi A3 (laurel_sprout); the binding documents sensor 5 as unused,
-and it is left out. cpu4..cpu7 are the downstream cpu-1-{0..3} cluster
-sensors: they get #cooling-cells and per-CPU passive cooling maps, which
-stay inert until a cpufreq driver registers cooling devices. The other
-zones report temperature and carry passive and critical trips; GPU
-cooling can be mapped alongside the GPU node when it lands.
-
-Tested on Xiaomi Mi A3 (sm6125): tsens0 binds at 4411000.thermal-sensor
-with no dmesg output, the thermal zone count goes from 5 to 20, and the
-15 new die zones read 37.7-39.6 degrees Celsius at idle. Under a 660 s
-glmark2-es2-drm soak the hottest zone reached 52.2 degrees Celsius, well
-below its 85 degrees Celsius passive trip.
-
-Both SM6125 boards still build with no new dtc warnings.
-
-Signed-off-by: Roman Linev <admin@mswin.me>
----
- arch/arm64/boot/dts/qcom/sm6125.dtsi | 336 +++++++++++++++++++++++++++
- 1 file changed, 336 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm6125.dtsi b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-index 86de156..4eda56c 100644
---- a/arch/arm64/boot/dts/qcom/sm6125.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-@@ -11,6 +11,7 @@
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/power/qcom-rpmpd.h>
-+#include <dt-bindings/thermal/thermal.h>
- 
- / {
- 	interrupt-parent = <&intc>;
-@@ -45,6 +46,7 @@
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
- 			l2_0: l2-cache {
- 				compatible = "cache";
- 				cache-level = <2>;
-@@ -59,6 +61,7 @@
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		cpu2: cpu@2 {
-@@ -68,6 +71,7 @@
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		cpu3: cpu@3 {
-@@ -77,6 +81,7 @@
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		cpu4: cpu@100 {
-@@ -86,6 +91,7 @@
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-+			#cooling-cells = <2>;
- 			l2_1: l2-cache {
- 				compatible = "cache";
- 				cache-level = <2>;
-@@ -100,6 +106,7 @@
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		cpu6: cpu@102 {
-@@ -109,6 +116,7 @@
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		cpu7: cpu@103 {
-@@ -118,6 +126,7 @@
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		cpu-map {
-@@ -719,6 +728,17 @@
- 			#interrupt-cells = <4>;
- 		};
- 
-+		tsens0: thermal-sensor@4411000 {
-+			compatible = "qcom,sm6125-tsens", "qcom,tsens-v2";
-+			reg = <0x0 0x04411000 0x0 0x1000>,
-+			      <0x0 0x04410000 0x0 0x1000>;
-+			#qcom,sensors = <16>;
-+			interrupts = <GIC_SPI 275 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "uplow", "critical";
-+			#thermal-sensor-cells = <1>;
-+		};
-+
- 		rpm_msg_ram: sram@45f0000 {
- 			compatible = "qcom,rpm-msg-ram";
- 			reg = <0x0 0x045f0000 0x0 0x7000>;
-@@ -1634,6 +1654,322 @@
- 		};
- 	};
- 
-+	thermal-zones {
-+		aoss0-thermal {
-+			thermal-sensors = <&tsens0 0>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cdsp-thermal {
-+			thermal-sensors = <&tsens0 1>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		wlan-thermal {
-+			thermal-sensors = <&tsens0 2>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		camera-thermal {
-+			thermal-sensors = <&tsens0 3>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		video-thermal {
-+			thermal-sensors = <&tsens0 4>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpuss0-thermal {
-+			thermal-sensors = <&tsens0 6>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpuss1-thermal {
-+			thermal-sensors = <&tsens0 7>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpuss2-thermal {
-+			thermal-sensors = <&tsens0 8>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu4-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens0 9>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&cpu4_alert0>;
-+					cooling-device = <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				cpu4_alert0: trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu5-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens0 10>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&cpu5_alert0>;
-+					cooling-device = <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				cpu5_alert0: trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu6-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens0 11>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&cpu6_alert0>;
-+					cooling-device = <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				cpu6_alert0: trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu7-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens0 12>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&cpu7_alert0>;
-+					cooling-device = <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				cpu7_alert0: trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		modem0-thermal {
-+			thermal-sensors = <&tsens0 13>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		display-thermal {
-+			thermal-sensors = <&tsens0 14>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		gpu-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens0 15>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <85000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <95000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				trip-point2 {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+	};
-+
- 	timer {
- 		compatible = "arm,armv8-timer";
- 		interrupts = <GIC_PPI 1 IRQ_TYPE_LEVEL_LOW>,
--- 
-2.55.0
-
-
-
-On 21.08.2026 06:03, Roman Linev wrote:
-> SM6125 has a TSENS v2 block that mainline does not describe, so the SoC
-> has no die temperature sensing: on a stock kernel the only thermal zones
-> on an SM6125 board are the handful backed by PMIC ADC channels.
-> 
-> The block needs no new driver code. Its register and interrupt layout is
-> identical to SM6115's and, being v2, it self-calibrates and needs no
-> qfprom nvmem cells, so it binds through the existing qcom,tsens-v2
-> fallback. Patch 1 documents the SoC-specific compatible; patch 2 adds the
-> controller and the thermal zones.
-> 
-> Sensor-to-zone mapping was taken from the downstream device tree for the
-> Xiaomi Mi A3 (laurel_sprout) and cross-checked against sm6115.dtsi, which
-> agrees on every sensor the two have in common (2, 3, 4, 13, 14 and 15).
-> Sensor 5 is not referenced downstream and is left out, so 15 of the 16
-> sensors get zones.
-> 
-> No cooling devices are referenced, since SM6125 has no GPU node upstream
-> yet. The zones report temperature and carry passive and critical trips;
-> a cooling map for gpu-thermal can follow alongside the GPU node.
-> 
-> Tested on a Xiaomi Mi A3: tsens0 binds at 4411000.thermal-sensor with no
-> dmesg output, the thermal zone count goes from 5 to 20, and the 15 new
-> die zones read 37.7-39.6 degrees Celsius at idle. Under a 660 s
-> glmark2-es2-drm soak the hottest zone reached 52.2 degrees Celsius
-> against its 85 degrees Celsius passive trip.
-> 
-> Both SM6125 boards (laurel-sprout and ginkgo) compile with no new dtc
-> warnings: pristine master emits 7 unique_unit_address warnings on the
-> geniqup nodes, and the series emits the same 7.
-> 
-> I have no other SM6125 board to test on, so the zone naming beyond the
-> sensors shared with SM6115 rests on the downstream device tree.
-> 
-> Roman Linev (2):
->   dt-bindings: thermal: qcom-tsens: add qcom,sm6125-tsens
->   arm64: dts: qcom: sm6125: add TSENS and thermal zones
-> 
->  .../bindings/thermal/qcom-tsens.yaml          |   1 +
->  arch/arm64/boot/dts/qcom/sm6125.dtsi          | 299 ++++++++++++++++++
->  2 files changed, 300 insertions(+)
-> 
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914071555.11684-1-maimon.sagi%40gmail.com
