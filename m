@@ -1,111 +1,109 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7427E3E16B9;
-	Wed, 16 Sep 2026 05:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE753DDAF7;
+	Wed, 16 Sep 2026 05:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789538238; cv=none; b=YQGHh5hs2/d89rgzag02CxaFwZlnVwSSG9iXrRRnV+1P6LGAZHgNwUuuW2rYb9u/x+LkFJlCoEDpgjaXIAqUn6AyTGKOD8VXIBwbZa3FHEQVWKv1/hRnr0i5WKdypN6YwRjXhhvszNuNP25Zjhb+VpDKkmfvtv5VcUjdOV+e8wE=
+	t=1789538240; cv=none; b=QemL1ICS0vHNURdo4WS7Y7yhDUwxip34H7VddezwkV/Y09z9GABahDgw+xCz6sAdP5VsP+U7xalCuv9cUCK74+o1sUZXW+pnEgpA/sxwtMlA5XQYK1c7O2mC2Hv2z29qd5+1U2FJwQL6ayzV9GpbgpTL2fXQlQDrLe13Em0BWR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789538238; c=relaxed/simple;
-	bh=NKEOLgYM1d/tM4cL9HDDE/AU3aDhCHRPLf/wza+LUkY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eV4qdYpMXwf2/idESy8wfUpyRqX3hr//OBLsy6IMV+WfFZQuaoerUc0B2d0TyhOBYRETsSoBSM7QP4P9kcZb+s7U//DY/t6ZIUq3BSDdJ3FSe8PabldObILP9HI/KW00VHCOMIJ4sCkYTo9/hJkTwy5+lspfde/rvFzoozjMTDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=fx9Qj3JZ; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1789538240; c=relaxed/simple;
+	bh=qR8fzXpgBz9DWPvv0UgtKTwPVJEESO+CHZAOb6aBuxs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XSpb4EWKEDw2htfpyhrqkjriibcXY6kn03xuUhcNKLpf2FGfI142mQHaRbkLc+tC7FCUPS2euspVEmSCeWHn4QIvb1Sm7ElqrSfB4Fq5CGmYS3TzAH21CMxebAZM+U+eq7kRPEEIFqZzvc43uBin8sskJnpoOloTyn3yp+MvCEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hfjbn/14; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="fx9Qj3JZ"
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 0ED471FC29;
-	Wed, 16 Sep 2026 07:57:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789538231;
-	bh=I+tkhFfWBsJlP15FZEQQsLoKTghh1QY7GM+Pdd6KOXw=; h=From:To:Subject;
-	b=fx9Qj3JZ2EMKzxNkjNReNY44VYRgPYzHAHBCHTH6s1fnwISrik4vk57VVsohipOia
-	 dpj8A7BVuE6jSnPeL50iZRrViP+bpLASPYVBs2dceMgORVJJerYBOpgY0J7BfaRCjv
-	 2CJqhgSgotHJmdUvRy4zKpWYUdwD51So/ALnBUNcwgZ+zSs4947ApkcuKjkmpk8qtL
-	 JJFicrOGLAd8pa0GK3uTfgFIvabqMkt4m6UESgc87jII3t9mEkCgZM/g/8menIiTO8
-	 b0hOKS2o4gNRlbTJQYYgUdrhtB+FOdTJ1NE4oXKcyMHbpCsutI07YePPnud51g7oZT
-	 6qfMbGg45nwSA==
-Date: Wed, 16 Sep 2026 07:57:06 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Franz Schnyder <franz.schnyder@toradex.com>
-Subject: Re: [PATCH v2 3/7] arm64: dts: freescale: Add Lino iMX93
-Message-ID: <20260916055706.GA20310@francesco-nb>
-References: <20260911091952.96233-1-francesco@dolcini.it>
- <20260911091952.96233-4-francesco@dolcini.it>
- <42ed88a6-d208-482b-94aa-2e45b69c173e@lunn.ch>
- <20260915132806.GA226756@francesco-nb>
- <100eef7b-e1d6-411b-bac5-98790e8f9ea7@lunn.ch>
- <aqmG91HwmKe-enfy@francesco-nb>
- <95dcbf3e-193d-460b-b6b9-cd412394e4c6@lunn.ch>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hfjbn/14"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30AAF1F00893;
+	Wed, 16 Sep 2026 05:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789538238;
+	bh=m6SKrH4CseAWkOxTNnD7adA5OG5gHGdFDKDZV8MwdQo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Hfjbn/14ap3NphlFUGF122siXy5FCwFpEPoVLD/bkd+cBzcIjiKB6/MC5XRcHHUDE
+	 BUE4Y8+QMyH1XCUvSJSf8eRGEfjMlCj9wnfBzVCwFXv3IwxFVMtGNTuAHgTBJe5pID
+	 OEQI12RtTWQ0jmOWZeDg5lNVuxrA9jf6Ykbl8Z5puaZI/XWFlizjnsciuMt2Zezswm
+	 EweQSqqGtp5HWk8w+BJ3a7A4GO0DotOvPw6wNEwfag0dnM/3DhqO5Dk/0n8lR3qJAi
+	 sG+5atyvp3JADGHGrMHBXPGJvYivWpXwzTF9csYn4q23Zn7dnYeNgsS0Z5qUcu+u50
+	 jXFEPammnloAg==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	damon@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 0/8] mm/damon: introduce hugepage_size probe filter
+Date: Tue, 15 Sep 2026 22:57:10 -0700
+Message-ID: <20260916055711.24926-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260915163928.9d6260f445d895429d115fd8@linux-foundation.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <95dcbf3e-193d-460b-b6b9-cd412394e4c6@lunn.ch>
+Content-Transfer-Encoding: 8bit
 
-Hello Andrew,
-thanks a lot for the detailed explanation.
+Hi Andrew,
 
-On Tue, Sep 15, 2026 at 09:57:56PM +0200, Andrew Lunn wrote:
-> > Would you mind to articulate in which situation such race condition can
-> > happen?
+On Tue, 15 Sep 2026 16:39:28 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+
+> On Tue, 15 Sep 2026 07:33:49 -0700 SJ Park <sj@kernel.org> wrote:
 > 
-> Most PHYs have a number of interrupt sources. Taking a random example:
+> > Knowing whether a given memory is backed by a hugepage of specific size
+> > is useful for efficient utilization of hugepages.  For easy monitoring
+> > of the information, introduce a new data attribute probe filter type,
+> > hugepage_size.  It works similar to the DAMOS filter of the same name.
+> > It works for memory that is backed by a hugepage of a given size range.
+> > 
+> > Patch 1 introduces the new probe filter type to DAMON API and extends
+> > related data structures.  Patch 2 updates probe filter commit logic to
+> > handle the size range.  Patch 3 Updates the filtering logic to support
+> > the new type.  Patch 4 adds new DAMON sysfs files for the size range.
+> > Patch 5 updates DAMON sysfs interface to fully support the new filter
+> > type.  Patches 6-8 updates design, usage and ABI documents for the new
+> > feature.
 > 
-> /* DM9161 Interrupt Register */
+> All queued up, thanks.  With a -fix for [7/8].
 
-...
+Thank you!  I found the -fix is in the mm.git as below:
 
-> The interrupt line is still low, indicating a link interrupt, but
-> without an edge, no interrupt handler is triggered. The interrupt has
-> been lost, and the link is reported down, despite being up.
-> 
-> If however you are using level interrupts, as soon as the interrupt
-> handler exits, and reenables the interrupt in the parent interrupt
-> controller, it fires again, and the link interrupt is handled.
-> 
-> If you have multiple interrupts indicated by a single line, you should
-> use level handling in the parent interrupt controller.
+'''
+$ git show 81c69fbb4128
+[...]
+--- a/Documentation/admin-guide/mm/damon/usage.rst
++++ b/Documentation/admin-guide/mm/damon/usage.rst
+@@ -309,7 +309,7 @@ named ``0`` to ``N-1``.  Each directory represents each filter and works in a
+ way similar to that for :ref:`DAMOS filter <sysfs_filters>`.  When the filter
+ ``type`` is ``memcg``, ``path`` file acts as ``memcg_path`` for :ref:`DAMOS
+ filter <sysfs_filters>`.  When the filter ``type`` is ``hugepage_size``,
+-``min`` and ``max`` files acts as files of the same names for :ref:`DAMOS
++``min`` and ``max`` file acts as files of the same names for :ref:`DAMOS
+ filter <sysfs_filters>`.
 
-I looked into the specific ethernet phy used here, TI DP83867, and
-I would say that the falling edge interrupt should be safe on this
-specific board/phy.
+ .. _sysfs_targets:
+'''
 
-There is a single ISR register, and it's a single read/clear atomic
-operation (MII_DP83867_ISR 0x13, dp83867_ack_interrupt).  This is done
-before doing any access to any other register, so the interrupt will
-just fires again if anything happen. I do not see the race condition window.
+But, I think it is slightly wrong.  The fix I requested is
+'s/files acts/files act/', but the committed fix is doing
+'s/files acts/file acts/'.  Could you please fix it when you get a chance?  Let
+me know if there is anything that I can help, too.
 
-I know it is not conclusive, but we have multiple boards with the
-same edge interrupt configuration and the same ethernet phy (the
-interrupt is wired directly to a TI SoC, that supports only edge
-interrupt, not to a gpio expander) and we never had any failure. Our
-test coverage is quite good IMO, commit 91a7cda1f4b8 ("net: phy: Fix
-race condition on link status change") is something I did because our
-testing had some sporadic failures for a different race condition.
 
-What do you think? *IF* my reasoning is correct I would suggest to keep
-the code as it is now.
+Thanks,
+SJ
 
-Francesco
-
+[...]
