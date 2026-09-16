@@ -1,88 +1,85 @@
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B984EE844;
-	Wed, 16 Sep 2026 18:35:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789583744; cv=pass; b=IL0VcoxM4DT9D3Drla4038xtqrFCJkf0AMC1ShL+3A03edkQDpR4j5kcH/pkntpajXfoHsXOz6AluM0RIzaFln4UiVPsGhtphftYhESwri5oR5ASFmfSWCQm48kCdJYQx+cKJXhdEA1A3atyOe7C9QSdOf+6blInoW7yBhtHrBk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789583744; c=relaxed/simple;
-	bh=Ec60ZOz9fzZSy+ZoxPFSAmSl79Nfm2yiHGyvhxmd1b8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nG7bL/W7PizNkW0tJXHjAlCzew4fKhPHcvdgxa/1q5dmxBswihOlzJ4RQhgZClDjI/rGsUB3Nc5USC3wRH989KetikhL1fJsp5tpcNFNkJS1ml+ezk0LPuqFoPK/ZzZQssm1wsebHQ+vnD68zqtMUdumwwNUzA75zW47V12Lo7E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=OtxJyOGt; arc=pass smtp.client-ip=165.173.180.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="OtxJyOGt"
-ARC-Seal: i=1; a=rsa-sha256; t=1789583695; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Uzf8xjv0RWXzfhEnadNb3hn/NSq84yfAXfHH78fkjMJCc4kc9ABh2u/Ostnoq8W8aaSFaL5ykc5YqIVoGjzCaIXdErTPVkNnVoqYka9yFv+MtMabBDprdR/ZQXeqh/I8FyPxRqqHpKj2MN90N71Uku9Ww2C8ymaniWr7cHxMBVY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789583695; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Ec60ZOz9fzZSy+ZoxPFSAmSl79Nfm2yiHGyvhxmd1b8=; 
-	b=EvN/9pb5+9V3vXFJAYy3/kCB/a/v2qC838EGcRILxLAWva7CJXUAFoqRSotl57C7PAMe6Yo2clG0yjmefwH72GvH8UUkD9pUESPtN4tVupvtQd5n0rPOc+qzD8Q/qQXngmWLDDOy5GvgmV2sf4/WOEF4zgXboiWQV+C7PkDt11U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789583695;
-	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=Ec60ZOz9fzZSy+ZoxPFSAmSl79Nfm2yiHGyvhxmd1b8=;
-	b=OtxJyOGtM5UR0k0B6USDpitLX47etcAr59f+1lQtwp9iRypJDJ+N7B0kQeSmzMZj
-	0yTF1zt02kKbigdKFwpy3LdLq0k2mMqpsCixK47wF3R2nexJqPObCEv+tFrqSQf31p8
-	+0m2x99dh759+LK9L9jxBcHohZkiXtRiagj21X68=
-Received: by mx.zohomail.com with SMTPS id 1789583693351451.04523271072355;
-	Wed, 16 Sep 2026 11:34:53 -0700 (PDT)
-Date: Wed, 16 Sep 2026 18:34:46 +0000
-From: Yao Zi <me@ziyao.cc>
-To: Andrei Lalaev <andrey.lalaev@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Chen Wang <chen.wang@linux.dev>,
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Yao Zi <me@ziyao.cc>
-Subject: Re: [PATCH] riscv: dts: sophgo: sg2000-milkv-duo-s: reserve memory
- for RTOS
-Message-ID: <aqrhRic7Ww6fPhxg@pie>
-References: <20260916-milkv-duo-s-rtos-memory-v1-1-6ca72d5a3924@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FE34EBAD4;
+	Wed, 16 Sep 2026 18:36:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789583802; cv=none; b=pOCE245olLVg1GLjkPxLwUsH3W3tMv0cqCkdnh73foWiojShLNh3lzy61UkxGYhemcyqxqVybZi4Xev4ODgHw5RlnLcS+h+hgw+b8NcO9ynI3MvXU81dad6lNRe5wILKKWYadn+WUnym3jPmXqcW78rHlQKwUGB1pICJsD8ZPPE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789583802; c=relaxed/simple;
+	bh=XPuTOMghW30lDvXu64EuUJRMaCy05g5c36w72VLxxbs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uMqKDuyRqAj+EM2WLYNddKOItyBeMwElMfLFFZaQjjMcpu9Z42QKxOefYIue8Zs4HaQ+XI6pwQFzkGb7/ERFzlF+yzWvAEWMGpmSmZIFPm4M1D3puiewKpHPSqWg5iOazYWKZZyTvcOQq+0t/szBLBX+Mnk7/tuPv26jV3Fv/Vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABXwz2O4apq+aZvCA--.24790S2;
+	Thu, 17 Sep 2026 02:35:58 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: bharat@chelsio.com
+Cc: jgg@ziepe.ca,
+	leon@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	n.zhandarovich@fintech.ru,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 3/5] RDMA/cxgb4: Fix neigh reference leak in rx_pkt()
+Date: Wed, 16 Sep 2026 18:35:30 +0000
+Message-Id: <20260916183530.2092534-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-milkv-duo-s-rtos-memory-v1-1-6ca72d5a3924@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.567.80
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABXwz2O4apq+aZvCA--.24790S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jw4UtF4DAr4xWrW3Gr45ZFb_yoWDWrg_CF
+	W8ZrZ3Xry5CFs0kF4qgFnxuryq9w1qq3yxXwn2qF15Ja4agFnFqa93ur98Ww4xXw45JFnx
+	Gr98Jr48Grn3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x0J
+	UJuc_UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqozWHTQAAsJ
 
-On Wed, Sep 16, 2026 at 06:06:30PM +0200, Andrei Lalaev wrote:
-> The FSBL loads the coprocessor firmware into the last 2 MB of RAM.
-> Reserve this region to prevent Linux from using it.
+If ip_dev_find() fails on the loopback path the code jumps to
+free_dst without releasing the neighbour reference taken by
+dst_neigh_lookup_skb(), leaking one neigh reference.
 
-What if the coprocessor changes the load address, e.g., in a new
-release, and how could we support other bootloader implementations
-with this modification? Wouldn't the part of memory be wasted if no
-coprocessor firmware is loaded at all?
+Release the neighbour before jumping to free_dst.
 
-It seems to me the best solution is to modify the FSBL to fix up the
-devicetree to reserve memory where the coprocessor firmware is loaded
-instead.
+Fixes: ef42520240aa ("RDMA/cxgb4: add null-ptr-check after ip_dev_find()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/infiniband/hw/cxgb4/cm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Anyway, this reserved region isn't defined by the hardware, thus we
-shouldn't include it in the upstream Linux devicetree, since it should
-describe the hardware.
+diff --git a/drivers/infiniband/hw/cxgb4/cm.c b/drivers/infiniband/hw/cxgb4/cm.c
+index b3b45c49077d..f57a31cf4fc7 100644
+--- a/drivers/infiniband/hw/cxgb4/cm.c
++++ b/drivers/infiniband/hw/cxgb4/cm.c
+@@ -4156,6 +4156,7 @@ static int rx_pkt(struct c4iw_dev *dev, struct sk_buff *skb)
+ 		pdev = ip_dev_find(&init_net, iph->daddr);
+ 		if (!pdev) {
+ 			pr_err("%s - failed to find device!\n", __func__);
++			neigh_release(neigh);
+ 			goto free_dst;
+ 		}
+ 		e = cxgb4_l2t_get(dev->rdev.lldi.l2t, neigh,
+-- 
+2.34.1
 
-> Signed-off-by: Andrei Lalaev <andrey.lalaev@gmail.com>
-
-Best regards.
-Yao Zi
