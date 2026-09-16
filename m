@@ -1,310 +1,143 @@
-Received: from mta0.migadu.com (out-67.mta0.migadu.com [91.218.175.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06BE4446BF6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC35544AB7C;
+	Wed, 16 Sep 2026 07:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543441; cv=none; b=S6VH96v8ulELuqrB8u0WbNTOVXRvzAaR/lNHQBZvnqvtkIzjDGJ1ZgQz31kqKKc0ivLK9HmN6H5+dXE1Hx5FcBTgHxUmD3LjAPkYLFA/SpdCZcC7N1XNNPXoNmRaw3+jp/Cn/nUegR4CQ5vLf/1U4aLIVLVJ2YAwESGBtyuKOtg=
+	t=1789543448; cv=none; b=CNe9dRiYWyiGWAvjWOGTziN3KnsRZuzWenGUDW46FF8adNQNVOoabOb7Pm6WVCB9g8JHcC+Q8AhPiZ+zD6JajWxPpzLnYRQXinsVmF8vinyPdTzl4fUk6gmdeMe0hDaYLxIf80qhrA4TPZKsoMXbMUnH6mtdNwnUw6JR13x4JPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543441; c=relaxed/simple;
-	bh=4OA2nej6IWtQ8Xx7g0EluNu1mPKmXu52f8UQGPQcLVY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uYt4Z3F3PjUUajZBAzZfj8qkuZoKdLoVGIVqRRitOAa2lzPVktBsBNccM10X2Yb4zOo49KM6nMdGAE3ZiblWRzTGhUyCcDC9CFvJ3TOamzYtSdCyuAx7sRtu0oWLHOjeJe1uuFqsMHq3L1od1dPEGlkK9bJTwymCWoqnsaGLtjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Pd8Yrkan; arc=none smtp.client-ip=91.218.175.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789543448; c=relaxed/simple;
+	bh=pv4YiSEYhniYeLjq5C6aGWtnsM7lriLkIlczhuma2jA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bzwNjNYDLh9d+bjPgEbQbZCphWOHeBXr4ICYMA19SWuJT8Kc6Np4fuYCSXiC/VaRnLqMiPmpYW7GHIgQEoUrvhBKs0cpairpuaQP2pVygpC4vXDvS3+EI4Mce4P9/bPUtb5Ac8w2pm2z8nzvM8Ow0QhuXbw5yBT9lmK/7qbkmy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ciyHJtRG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Pd8Yrkan"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4OA2nej6IWtQ8Xx7g0EluNu1mPKmXu52f8UQGPQcLVY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789543425; v=1; x=1790148225;
- b=Pd8Yrkan50I1iLvL/BTfjKmS8zqg92M8iK9xs0hKNhhsqjUja138bKEJbAZ+6W/vsQs7eZW5
- 3YTr9pi6U0HhHhbN2EjcYQHoyOa/3a6Kb8+dvfuVlbGkne/qAF6zPvKVWJPzVLaWEtTG7lMp5sU
- fr/pq0sRlx9Pc/e1YJnXR798=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0120a9c06dd3c4d7;
-	Wed, 16 Sep 2026 07:23:45 +0000
-X-Mizu-Trace-ID: 0120a9c06dd3c4d7
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org,
-	josef@toxicopanda.com,
-	axboe@kernel.dk,
-	ameryhung@gmail.com
-Cc: cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	andrii@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	linux-kselftest@vger.kernel.org,
-	cui.tao@linux.dev,
-	cuitao@kylinos.cn
-Subject: [RFC PATCH v4 4/5] selftests/bpf: add multi-stream sequentiality example model
-Date: Wed, 16 Sep 2026 15:23:01 +0800
-Message-ID: <20260916072302.1068871-5-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260916072302.1068871-1-cui.tao@linux.dev>
-References: <20260916072302.1068871-1-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ciyHJtRG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DBC51F000FF;
+	Wed, 16 Sep 2026 07:23:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789543411;
+	bh=JEEBo7DCo8qHlpa9rPEfL3KH46iSCK/Xfmzst8QTGW0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ciyHJtRGkfrkTrp3XYYpNPTa5GPqeJnxo6KUyPBNpeW7OuRDgjIxZzmgTJnm0upRJ
+	 DKe8tmiFC4xYKIimL/AP6jaWXqLSnj7J0fDHX9Dp+UuOIlH0OchdFkjz6PU7Jbw78V
+	 9y+3M5f3pY3vfPfOkmXXufu23mJN1D7p3r45V3QCLwslF2tIeYmqWVUSc0arGrmKtU
+	 oG1UUtMrT0CEWKKYo/fDSaEThT2VDl3f0Bf7j73E/thBoj+AqNipL2ylAuzD99CuQn
+	 um098l0CkeNWEBZr4Bm4SD7/+sVqlsiZP8smQ8WRXKtsG2odBCBcNPhOc9v1XU9MQe
+	 tkRnjW5Q30cqg==
+Subject:
+ Re: [PATCH net-next v2] ch9200: do return USB errors from control_write()
+From: netdev-bot+sashiko@kernel.org
+To: s.shtylyov@auroraos.dev
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 16 Sep 2026 07:23:30 +0000
+Message-ID: <178954341078.22033.8722936070498955076@kernel.org>
+In-Reply-To: <20260915185805.38712-1-s.shtylyov@auroraos.dev>
+References: <20260915185805.38712-1-s.shtylyov@auroraos.dev>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Tao Cui <cuitao@kylinos.cn>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Add a second example cost model which replaces the builtin
-single-cursor sequentiality heuristic with a per-cgroup table of
-stream slots: an IO is sequential iff its sector matches the expected
-next sector of any tracked stream.  Interleaved sequential readers in
-one cgroup keep their own slots instead of ping-ponging a single
-cursor, and random IO inside a hot window rarely matches a moving
-expectation.  Merged bios skip the base cost but still advance the
-matched stream position, so a merge at the expected sector does not
-make the following new IO look random.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Stream state lives in a CGRP_STORAGE map keyed by the cgroup of the
-blkcg argument, following the cgroup lifetime; there is no
-fixed-size registry to exhaust.
+- [High] Incomplete fix: after removing `return 0;` from control_write()
+  (drivers/net/usb/ch9200.c:137-171), the helper now returns the…
 
-Measured (QEMU, virtio-blk with the HDD profile, 4k IOs, w=1000):
-two sequential readers in one cgroup are priced 1961us/op by the
-builtin model (judged random) and 23us/op by this model (judged
-sequential), the completed IO count rises from 4495 to 207505;
-random IO inside an 8M window is priced 24us/op by builtin
-(undercharge) and 2607us/op by this model; single-stream sequential
-and whole-disk random pricing are unchanged.
+--
 
-Stream updates are lockless like the builtin cursor; a lost update
-misclassifies a single IO.  Slots are only advanced for bios the
-builtin prices.  The streams test lives here with the model it
-loads.  The page count truncates like the builtin.
+ch9200: do return USB errors from control_write()
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- .../selftests/bpf/prog_tests/iocost_model.c   |  34 ++++
- tools/testing/selftests/bpf/progs/iocost_ms.c | 156 ++++++++++++++++++
- 2 files changed, 190 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/progs/iocost_ms.c
+This removes the unconditional "return 0;" at the end of control_write()
+in drivers/net/usb/ch9200.c so that the function falls through to
+"return err;" instead. The stated intent is to propagate usb_control_msg()
+errors to the callers.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/iocost_model.c b/tools/testing/selftests/bpf/prog_tests/iocost_model.c
-index 94c633b975277..ba1de8b2309ab 100644
---- a/tools/testing/selftests/bpf/prog_tests/iocost_model.c
-+++ b/tools/testing/selftests/bpf/prog_tests/iocost_model.c
-@@ -4,6 +4,7 @@
- #include <fcntl.h>
- #include <unistd.h>
- #include "iocost_model.skel.h"
-+#include "iocost_ms.skel.h"
- 
- /*
-  * Write a line to io.cost.model with write(2) and return the errno of
-@@ -163,3 +164,36 @@ void serial_test_iocost_model(void)
- 
- 	iocost_model__destroy(skel);
- }
-+
-+/*
-+ * Same check for the multi-stream example model.  Only one model can
-+ * be bound to a device at a time; both tests bind and restore, so
-+ * they are serial and independent.
-+ */
-+void serial_test_iocost_model_streams(void)
-+{
-+	struct iocost_ms *skel;
-+	char *dev;
-+	int err;
-+
-+	dev = getenv("IOCOST_TEST_DEV");
-+	if (!dev || geteuid() != 0) {
-+		test__skip();
-+		return;
-+	}
-+	if (!dev_has_iocost(dev)) {
-+		printf("skip: %s has no iocost enabled\n", dev);
-+		test__skip();
-+		return;
-+	}
-+
-+	skel = iocost_ms__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "skel_open_load"))
-+		return;
-+
-+	err = iocost_ms__attach(skel);
-+	if (ASSERT_OK(err, "attach"))
-+		ASSERT_OK(bind_model(dev, "iocost_ms"), "bind_and_readback");
-+
-+	iocost_ms__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/iocost_ms.c b/tools/testing/selftests/bpf/progs/iocost_ms.c
-new file mode 100644
-index 0000000000000..70019db0fd790
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/iocost_ms.c
-@@ -0,0 +1,156 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Example multi-stream sequentiality detection cost model.
-+ *
-+ * The builtin model keeps a single cursor per cgroup, so two
-+ * interleaved sequential readers in one cgroup are all priced random
-+ * (measured 89x overcharge, 12.9x throughput collapse), while random
-+ * IO inside a hot window smaller than the 16MB seek threshold is
-+ * priced sequential (measured 107x undercharge).  This model replaces
-+ * the single cursor with a per-cgroup table of stream slots: an IO is
-+ * sequential iff its sector matches the expected next sector of any
-+ * tracked stream.  Interleaved streams keep their own slots, and
-+ * windowed random IO rarely matches a moving expectation.
-+ *
-+ * Stream state lives in a CGRP_STORAGE map, so it is created and
-+ * freed with the cgroup.  The model implements the full builtin
-+ * linear formula itself, including flush pricing.
-+ */
-+#include "vmlinux.h"
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+
-+/*
-+ * VTIME_PER_SEC, IOC_PAGE_SIZE/SHIFT, IOC_SECT_TO_PAGE_SHIFT and
-+ * IOCOST_COST_F_MERGE come from vmlinux.h (BTF enum constants)
-+ */
-+#define IOCOST_REQ_OP_MASK	0xff		/* REQ_OP_MASK, not in BTF */
-+
-+/*
-+ * DIV64_U64_ROUND_UP / DIV_ROUND_UP_ULL equivalents, folded at
-+ * compile time
-+ */
-+#define RU(x, y)		((x) / (y) + (((x) % (y)) ? 1 : 0))
-+
-+#define RBPS	174019176ULL
-+#define RSEQIOPS	41708ULL
-+#define RRANDIOPS	370ULL
-+#define WBPS	178075866ULL
-+#define WSEQIOPS	42705ULL
-+#define WRANDIOPS	378ULL
-+
-+#define RPAGE	(RU(VTIME_PER_SEC, RU(RBPS, IOC_PAGE_SIZE)))
-+#define RSEQIO	(RU(VTIME_PER_SEC, RSEQIOPS) - RPAGE)
-+#define RRANDIO	(RU(VTIME_PER_SEC, RRANDIOPS) - RPAGE)
-+#define WPAGE	(RU(VTIME_PER_SEC, RU(WBPS, IOC_PAGE_SIZE)))
-+#define WSEQIO	(RU(VTIME_PER_SEC, WSEQIOPS) - WPAGE)
-+#define WRANDIO	(RU(VTIME_PER_SEC, WRANDIOPS) - WPAGE)
-+
-+#define NSLOTS	4
-+
-+struct streams {
-+	__u64 expected[NSLOTS];	/* next expected sector, per stream */
-+	__u64 stamp[NSLOTS];	/* LRU stamp, 0 = empty */
-+};
-+
-+/*
-+ * per-cgroup stream table: keyed by the cgroup, freed with it
-+ */
-+struct {
-+	__uint(type, BPF_MAP_TYPE_CGRP_STORAGE);
-+	__uint(map_flags, BPF_F_NO_PREALLOC);
-+	__type(key, int);
-+	__type(value, struct streams);
-+} stream_tab SEC(".maps");
-+
-+SEC("struct_ops")
-+u64 BPF_PROG(iocost_ms_calc_cost, u64 opf, u64 nbytes, u64 sector,
-+	     struct blkcg *blkcg, u64 model_flags)
-+{
-+	struct streams *s;
-+	u64 pages, base, coef_page, randio, advance, now;
-+	u32 i, victim = 0, found = 0xFFFFFFFF;
-+
-+	if ((opf & IOCOST_REQ_OP_MASK) == REQ_OP_READ) {
-+		base = RSEQIO; coef_page = RPAGE; randio = RRANDIO;
-+	} else if ((opf & IOCOST_REQ_OP_MASK) == REQ_OP_WRITE) {
-+		base = WSEQIO; coef_page = WPAGE; randio = WRANDIO;
-+	} else {
-+		/*
-+		 * a fully owning model must price every op; unknown
-+		 * ops are priced as per-page writes
-+		 */
-+		base = 0; coef_page = WPAGE; randio = 0;
-+	}
-+	advance = RU(nbytes, 512);	/* sectors */
-+
-+	/* only bios the builtin prices participate in stream tracking */
-+	if (!(((opf & IOCOST_REQ_OP_MASK) == REQ_OP_READ ||
-+	       (opf & IOCOST_REQ_OP_MASK) == REQ_OP_WRITE) && nbytes)) {
-+		pages = nbytes >> IOC_PAGE_SHIFT;
-+		if (!pages)
-+			pages = 1;
-+		return base + pages * coef_page;
-+	}
-+
-+	s = bpf_cgrp_storage_get(&stream_tab, blkcg->css.cgroup, NULL,
-+				 BPF_LOCAL_STORAGE_GET_F_CREATE);
-+	if (!s) {
-+		/* no storage: price per page, truncating like the builtin */
-+		pages = nbytes >> IOC_PAGE_SHIFT;
-+		if (!pages)
-+			pages = 1;
-+		return base + pages * coef_page;
-+	}
-+
-+	/*
-+	 * Slot access is lockless, mirroring the builtin single-cursor
-+	 * update in ioc_rqos_throttle(): concurrent CPUs submitting for
-+	 * the same cgroup can race on slot updates; mispricing is
-+	 * bounded and acceptable for an example model.
-+	 */
-+	now = bpf_ktime_get_ns();
-+	for (i = 0; i < NSLOTS; i++) {
-+		if (s->expected[i] == sector && s->stamp[i]) {
-+			found = i;
-+			break;
-+		}
-+	}
-+	if (found != 0xFFFFFFFF) {
-+		/* sequential: keep the seq base from the op branch */
-+		s->expected[found] = sector + advance;
-+		s->stamp[found] = now;
-+	} else {
-+		base = randio;
-+		for (i = 1; i < NSLOTS; i++) {
-+			if (s->stamp[i] < s->stamp[victim])
-+				victim = i;
-+		}
-+		s->expected[victim] = sector + advance;
-+		s->stamp[victim] = now;
-+	}
-+
-+	/* builtin truncates: max(sectors >> IOC_SECT_TO_PAGE_SHIFT, 1) */
-+	pages = nbytes >> IOC_PAGE_SHIFT;
-+	if (!pages)
-+		pages = 1;
-+	if (model_flags & IOCOST_COST_F_MERGE) {
-+		/*
-+		 * merged bios skip the base cost but still advance
-+		 * the stream position above, so a merge at the
-+		 * expected sector does not make the following new IO
-+		 * look random
-+		 */
-+		base = 0;
-+	}
-+
-+	return base + pages * coef_page;
-+}
-+
-+SEC(".struct_ops")
-+struct iocost_model_ops iocost_ms = {
-+	.calc_cost = (void *)iocost_ms_calc_cost,
-+	.name = "iocost_ms",
-+};
-+
-+char LICENSE[] SEC("license") = "GPL";
+> diff --git a/drivers/net/usb/ch9200.c b/drivers/net/usb/ch9200.c
+> index a206ffa76f1b9..3a81e9e96fd33 100644
+> --- a/drivers/net/usb/ch9200.c
+> +++ b/drivers/net/usb/ch9200.c
+> @@ -168,8 +168,6 @@ static int control_write(struct usbnet *dev, unsigned char request,
+>  		err = -EINVAL;
+>  	kfree(buf);
+>  
+> -	return 0;
+> -
+>  err_out:
+>  	return err;
+>  }
+
+[Severity: High]
+The commit message says this will "propagate USB errors to the callers",
+but do any of the callers actually consume the value?
+
+There are two in-tree callers.  ch9200_mdio_write() is void and calls it
+as a bare statement:
+
+drivers/net/usb/ch9200.c:ch9200_mdio_write() {
+	...
+	control_write(dev, REQUEST_WRITE, 0, loc * 2, buff, 0x02,
+		      CONTROL_TIMEOUT_MS);
+}
+
+ch9200_bind() stores the result six times and overwrites it every time,
+with the last store clobbered by get_mac_address():
+
+drivers/net/usb/ch9200.c:ch9200_bind() {
+	...
+	retval = control_write(dev, REQUEST_WRITE, 0, MAC_REG_THRESHOLD, data,
+			       0x02, CONTROL_TIMEOUT_MS);
+	...
+	retval = control_write(dev, REQUEST_WRITE, 0, MAC_REG_CTRL, data, 0x02,
+			       CONTROL_TIMEOUT_MS);
+
+	retval = get_mac_address(dev, addr);
+	eth_hw_addr_set(dev->net, addr);
+
+	return retval;
+}
+
+Since usbnet_probe() only aborts on a negative bind() status:
+
+drivers/net/usb/usbnet.c:usbnet_probe() {
+	...
+		status = info->bind(dev, udev);
+		if (status < 0)
+			goto out1;
+}
+
+bind still reports success when every register write failed, for example
+when a failed MAC_REG_THRESHOLD/MAC_REG_FIFO_DEPTH write is followed by a
+successful MAC_REG_CTRL = 0x0D5F write that arms DMA/receiver/transmitter
+with unprogrammed FIFO and flow-control watermarks, or when the
+MAC_REG_CTRL write itself fails and the netdev is registered with the
+datapath never enabled.  Is the observable behaviour of the driver changed
+at all by this patch?
+
+There is a second point about the resulting contract.  On success
+usb_control_msg() returns the transferred length, so control_write() now
+returns a positive value (2 for these register writes) rather than 0:
+
+	err = usb_control_msg(dev->udev, ...);
+	if (err >= 0 && err < size)
+		err = -EINVAL;
+
+Would the obvious caller-side follow-up "if (retval) return retval;" then
+treat every successful 2-byte register write as a failure?  Would it be
+better to normalize success to 0 in control_write(), or to check
+"retval < 0" in each caller and update the callers in the same patch so
+the errors being returned are actually acted upon?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915185805.38712-1-s.shtylyov%40auroraos.dev
