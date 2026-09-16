@@ -1,163 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E542BE7BE;
-	Wed, 16 Sep 2026 14:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14D135675E
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:55:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570504; cv=none; b=dyPft6of9Z+MiVmXgYg/IoAQLLjm1svuBXV8oHMXWgiDX2ESL7tYJPq7UgLBDmvTsihj0hxK72RrISUgejWWRNx2E2Owjk8ipRA59lMja6MAKGFIZ4P9Zj0jaIA47G2kGDIP0ceg62+gpVIG2DxkWrkJ/t0VXrClpxRj0tK6Zgs=
+	t=1789570527; cv=none; b=I5KouQVUPbXiN02DkOjYgSxn1TXlmF5RmKYOI61uMw6DdVwoP9t0uPIH9QBa/nPHIbXhJOauS3Adxquo1V0GMJnHNBhOf+HD09/X/DaLDJQPJryN22aJR5mhB6ewmSVHE5/NleG0XuCPjHjsgT8yXydI656+kNNwCMtDXlKhEx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570504; c=relaxed/simple;
-	bh=ihqHVFSEjm19t2440vBRUzZZeIUTaR2mEXgfGeRLT8w=;
+	s=arc-20240116; t=1789570527; c=relaxed/simple;
+	bh=JpTFGpyHF/Ma4ZnJDkbrqA5WxX1p6md71/a7atwIJaE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N6nuG+BDl8eGdfIbjQe0s1Y9ZlZq0BSTfOd+y+2rYmRcDqcwe74imHoO6qcs6C1j7cbSAFNxgY/1uGdACu+nkED0eGDed4hr/Zzh6UyqROhJ5klQJZPeoFsVTGeAW34sbqVBt1PfUnIhqMpBCj7Gus+ZsTrtmRgEjhwn9uGCOqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WzoyCkX6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hxQblcgHleSfezDCzuu0AQ/PO+J4tO6A/SePS87Y9Psue5lyhe1o4tiQ3YuvYNaR+aFCY1PEorZoPmFd1rTmWe+eg7LCm7UFESq9ai0nC+vVIG84SKA5zvIkgO8XPsWLNq+onWcHS3PM8y1JWe3xIFhi0nQwWkA9Qwd363+JmVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VGph7ymm; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WzoyCkX6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D151F000FF;
-	Wed, 16 Sep 2026 14:55:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789570502;
-	bh=QV82UNlXLIGXwYDB+EGE0wWjQDs7Krio9WNaWSO5xfQ=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=WzoyCkX6qile7VqKWaszhfBXITo1Vva2+0mj6NaQsOyenrrABW3jFSk/WQfJacLrS
-	 swxPQeQStUtlNnTb+NFoYnsOzLHKbKCy1SDiJA95sbZqsJQVCBqHLPLNYZvvlIv8wQ
-	 erkCQQ0YASVigmBa6cSO5aiMovZ7W2Gekrh9Y1mcwIOBUe0eLhD7Fa4KhblMJQBRXy
-	 a7qqgENAA49mGyM3i2AajSuIwgC2KGSJh0IxZtlr6wQmpfStpfaz9d875V82OB/h92
-	 B0Oy45XssMrBhorahUjjMDJS+76TYEIiUGYH0KMWUCQWE0ASKp0vHT5E8Cr30QCw1+
-	 pTumMZ0fkABgw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 22DAECE04DE; Wed, 16 Sep 2026 07:55:02 -0700 (PDT)
-Date: Wed, 16 Sep 2026 07:55:02 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
-	Xu Kuohai <xukuohai@huaweicloud.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation
- for reader-marked trampolines
-Message-ID: <6afb0afe-e7b8-46b4-9fea-2c7cf4791044@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
- <20260915-b4-rcu-tasks-preempt-qs-v3-3-0ad30c4c5ee7@toxicpanda.com>
- <aqlgxKGk_AEKls_1@localhost.localdomain>
- <edc7cca2-a5c5-455c-8969-ea05dbdb08f7@paulmck-laptop>
- <aqqONH8flTIpOUqT@localhost.localdomain>
- <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
- <aqqpRoTfywUuTgoC@localhost.localdomain>
- <aqqsAUVV8a1yrQzX@localhost.localdomain>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VGph7ymm"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d747ed6d6eso8864035ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:55:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789570524; x=1790175324; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=I052qaxrSO7MreL+XHe4B4oMuzy+yJxrtuNLZAmykZ0=;
+        b=VGph7ymm+M4GpBldEmDKNqg7UiXASUxST6iv/RK3uW5Iml1I3DZODHyFZheEm80QEZ
+         DAkSBjmlflA1xqH3SsbG8W4X6hJNB4H7d6yWwhFa+QWQNR+Ppd9/5Z9pNqrglKQq7EQp
+         IiLhm/MyGoidToNDjK+qwb132FfKdIKa2s3rmfMxcHnolbTd9tjuceVx0GddFFGWPEgD
+         sPtWAdXtepby1vCSrowIY0SKKUr/Hgze9NrehIrqDhcvWed9/M9dVZCGQRgJSQbxQmbw
+         jqsH3JXtmBLsj/riPM2cXnb1NEVsRmzRpPUic0YhmMnWq9CV/uXKJ+73V79evzEfv48i
+         R7qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789570524; x=1790175324;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I052qaxrSO7MreL+XHe4B4oMuzy+yJxrtuNLZAmykZ0=;
+        b=tDDRuQHg5kxwE54Io540JPj7e0yfYr4nMaTyukYYSvomz1A2LNu/JfvckY7fzBPEpg
+         rpD6mE+Z+1oVKbWN6722lRzeuMUMgKsTt8MWsbcPHBpG7TTzaE8bnbwaQoB6ywNaHjfD
+         5B9MD8FxI6isvYWbPpDwaJRRP+XdQot2/sxU5kKhc4Q+kPGfUTpBUiapQE97CJv0CCdO
+         pMRLK69yXNF4W27UV2EHKU1o8S41gzhnLydHbNT1pTFdy1HjBVZB6VRHSw9e8fsJ/2kA
+         YWpspIMG0racWca/1b6SzSSMZLXeM4R5CG3rbCl7l4xnTzPYhZx0haGQ805+jQJbT0Kj
+         pkRw==
+X-Forwarded-Encrypted: i=1; AKwUvBy2TyDT8/WnrukO5RRPW4ClMexn5Ia3GoZYSMzu/vt/D47ZN8LpynNe+JupJzBF/QV7jk9lYHxvVKUdFiY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwFzU+i9TOVSemrQudNHgKFgsdeclPPzdQbmq472G2kxljM4X3
+	JzjhCH54QNoYHCqt5bDiaJAlV/t5IfyC8tepGHuMozrYsl+WMrLXHFDWf4Q/TIqO
+X-Gm-Gg: AYBFou0MPcYxV0NuJpqDqgDKJxAThVA7bkMyNGa/yH/W4Q3EZcNzQd51xg+0tf6tGJv
+	DTPuatJvLdnU/6pAVzTBUYYfYyDwggf43cG/LMO5kbu4no7NmpO8TskplBIKB0HMgdYgOXudJsC
+	4Uwxj5AiFYb+0clu9KCdF3w+KeGPhLaT6k1fYOnezWQwoeG0fDtAp9J/2+8MqvaWYmSFhNsLjwd
+	E+RHnW9PoniL5Q1G+GcZ882VCIU8nVzM/qT32EFS4a6IO7NpH851zD0VVxa4MttMgBjCH+to7uV
+	n15/nS0sChgMyu+KXvysZS6pT++g/g/cfvWJx8JgFGHmuZyPGY311dc6xchcuLYwCIJKDN37LOH
+	nARDL+Pve8alYn3Xxm6RgWNC+N0V3B0jiiYVIR29bmNeYB0RK6JcdVhtY891sLOKaY7Ey73/Rqg
+	ZI8riu1Cq4uWB8KdH1rBylVWKsGA9ljgv4lXAf88IC8sJ2dutncN7PQ4b8zFDX82obkUaphqLWN
+	EbsYQ/3eRyZS+jMNoYyVWA=
+X-Received: by 2002:a17:903:950:b0:2d9:438e:b70d with SMTP id d9443c01a7336-2dd8dc039edmr63405905ad.1.1789570524293;
+        Wed, 16 Sep 2026 07:55:24 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f06a30sm12944355ad.65.2026.09.16.07.55.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 07:55:23 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 16 Sep 2026 07:55:23 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Muhammad Bilal <meatuni001@gmail.com>
+Cc: James Seo <james@equiv.tech>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (hp-wmi-sensors) Fix use-after-free in
+ fungible_show()
+Message-ID: <d63a4830-c627-49b8-81c7-f28ca4a41306@roeck-us.net>
+References: <20260916002926.161595-1-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqqsAUVV8a1yrQzX@localhost.localdomain>
+In-Reply-To: <20260916002926.161595-1-meatuni001@gmail.com>
 
-On Wed, Sep 16, 2026 at 04:47:29PM +0200, Frederic Weisbecker wrote:
-> Le Wed, Sep 16, 2026 at 04:35:50PM +0200, Frederic Weisbecker a écrit :
-> > Le Wed, Sep 16, 2026 at 07:26:35AM -0700, Paul E. McKenney a écrit :
-> > > On Wed, Sep 16, 2026 at 02:40:20PM +0200, Frederic Weisbecker wrote:
-> > > > Le Tue, Sep 15, 2026 at 04:56:41PM -0700, Paul E. McKenney a écrit :
-> > > > > > Alternatively the approach could be generalized to vanilla RCU, it could be
-> > > > > > possible to define a .text.rcu_no_qs section within which code running is
-> > > > > > considered as an RCU reader (with a pause while on the explicit RCU tasks
-> > > > > > section). It would be forbidden to voluntary sleep inside
-> > > > > > and to put explicit preemption points (CONFIG_PROVE_RCU could report misuses).
-> > > > > > 
-> > > > > > Based on IP, RCU could consider those interrupted section as readers. This would
-> > > > > > require PREEMPT_RCU though.
-> > > > > > 
-> > > > > > And then synchronize_rcu() would do the 1, 2, 4 jobs.
-> > > > > 
-> > > > > If I am following correctly (ha!), sleepable BPF programs rule out use
-> > > > > of RCU in this manner.
-> > > > > 
-> > > > > But your point is nevertheless valid, in that SRCU could be used.
-> > > > > And because rcu_read_lock_trace() is a thin wrapper around SRCU-fast, we
-> > > > > *might* be able to instead use rcu_read_lock_tasks_trace(), which would
-> > > > > skip the task-struct increment and decrement, saving a few instructions.
-> > > > > Then, instead of waiting for each task's counter to go to zero, instead
-> > > > > just invoke synchronize_rcu_tasks_trace().
-> > > > > 
-> > > > > Which is pretty close to what Josef is proposing, just with the new RCU
-> > > > > Tasks Trace read-side primitives.  I think.  ;-)
-> > > > > 
-> > > > > This assumes that we do not need to flatten partially overlapping RCU
-> > > > > Tasks Trace readers into one big reader.
-> > > > > 
-> > > > > Or am I missing something here?
-> > > > 
-> > > > Yes I think that's what Josef does in this patchset. The problem is about
-> > > > handling the few instructions:
-> > > > 
-> > > > 1) between the begining of the trampoline and the call to rcu_read_lock_trace()
-> > > > 
-> > > > 2) between the call to rcu_read_unlock_trace() and the end of the trampoline
-> > > > 
-> > > > So what I'm proposing is to make those two parts implicit RCU read lock sections.
-> > > > 
-> > > > So the whole trampoline would be .text.rcu_no_qs:
-> > > > 
-> > > > .text.rcu_no_qs trampoline:
-> > > >   __________________________________________________________________________________________
-> > > >  |Few instructions 1 | rcu_read_lock_trace() .... rcu_read_unlock_trace | Few instructions 2|
-> > > >  ___________________________________________________________________________________________
-> > > > 
-> > > > Then when a tick fires, rcu_flavor_sched_clock_irq() discards the interrupted
-> > > > code as QS if the IP was within .text.rcu_no_qs _unless_ it is in the
-> > > > rcu_read_lock_trace. Both are easy and quick to verify.
-> > > > 
-> > > > Also preempt_schedule_irq() would make sure to verify the same condition and
-> > > > enqueue the task as a GP blocker if preempting inside "Few instructions 1"
-> > > > or "Few instructions 2".
-> > > 
-> > > Ah, OK, I might be following now.  ;-)
-> > > 
-> > > We also need both versions of rcu_exp_handler() to check the IP as well,
-> > > given that sooner or later someone is going to want trampoline removal
-> > > to go faster.  Or am I still missing a turn in here somewhere?
-
-I should add that the thing that I really like about Frederic's approach
-is that avoids the task-list scan.  Or at least has the potential to
-do so.  Such scans have proven problematic in the past.
-
-> > Yes indeed, missed the exp part!
+On Wed, Sep 16, 2026 at 05:29:26AM +0500, Muhammad Bilal wrote:
+> nsensor->current_state is dynamically replaced as the sensor's state
+> changes. update_numeric_sensor_from_wobj() does this by freeing the
+> old string and installing a new one:
 > 
-> What remains to handle also is non-preemptible RCU because if the task is
-> preempted by an IRQ while in the .text.rcu_no_qs, we may still need to keep
-> track of that somewhere.
+> 	if (strcmp(trimmed, nsensor->current_state)) {
+> 		new_string = hp_wmi_strdup(dev, trimmed);
+> 		if (new_string) {
+> 			devm_kfree(dev, nsensor->current_state);
+> 			nsensor->current_state = new_string;
+> 		}
+> 	}
+> 
+> This function is only ever called from hp_wmi_update_info() while
+> state->lock is held, so the free-and-replace itself is properly
+> serialized against concurrent updates.
+> 
+> fungible_show(), however, reads the same pointer after the lock has
+> already been dropped:
+> 
+> 	err = hp_wmi_update_info(state, info);
+> 	if (err)
+> 		return err;
+> 
+> 	switch (prop) {
+> 	...
+> 	case HP_WMI_PROPERTY_CURRENT_STATE:
+> 		seq_printf(seqf, "%s\n", nsensor->current_state);
+> 		break;
+> 
+> hp_wmi_update_info() takes state->lock internally and releases it
+> before returning, so by the time fungible_show() dereferences
+> nsensor->current_state in seq_printf(), no lock is held. Two
+> processes reading a sensor's current_state debugfs entry at
+> overlapping times (or one reading it while another read of the same
+> sensor triggers a refresh) can race: one thread's seq_printf() can
+> be part-way through printing the string at the moment another
+> thread's call into update_numeric_sensor_from_wobj() frees it with
+> devm_kfree() and installs a new pointer, causing a use-after-free
+> read.
+> 
+> Take state->lock around the read in fungible_show() as well, so it
+> can never run concurrently with the free-and-replace in
+> update_numeric_sensor_from_wobj().
+> 
+> Fixes: 23902f98f8d4 ("hwmon: add HP WMI Sensors driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> Acked-by: James Seo <james@equiv.tech>
 
-Perhaps in rcu_core() in kernels booted with use_softirq?  I am thinking
-specifically of the checks for deferred quiescent states.  I don't (yet)
-see a need to modify rcu_check_quiescent_state().
+Applied.
 
-Maybe other places as well.  ;-)
-
-							Thanx, Paul
+Thanks,
+Guenter
