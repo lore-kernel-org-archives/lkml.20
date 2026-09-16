@@ -1,153 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61BF84A7CA4;
-	Wed, 16 Sep 2026 23:13:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9F04CC261;
+	Wed, 16 Sep 2026 23:13:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600398; cv=none; b=C8BB1zmeci+Gwc1RL1sXLhlFERGcArkyplOldqBRpmhdmxusjeZt3Vu3PiJag7tivIg6/4oBGWLMC8HpcIsGAR5MjTPwjNpBukT6PNbYJ/j9q3WVz649FqswifwtlXI72CmRTG8bQG4QGvA+NDQ+JCcvsUACGlPtoCgFErnL8nE=
+	t=1789600405; cv=none; b=DeETtLNj/sL1QodoJE0PxqhBzg3t6VEOxGEn1U7C4Kuc6KpXdxH0rAVsvxxHQ6Selri5bzzncWywhSrOoDm462HqHgEOavCNwC22FDqB1kwnnJFGPDTviB7OylAFUj7o36GQGYK8iZeM2QQC3j9Fz06aRiT6mEXOc4S6BN/DPtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600398; c=relaxed/simple;
-	bh=lBTBQ+AeEAILr+eSl0d5P93ajBM4IBD+/ux9b0Eq4V8=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JwNZmtYuVIHdNROU7fKUA1S3PDLlyuBPI/e/SC0C6ClAjtZ3XIVWF6j0kd+BEezys1i3lKkr/MlZIBQdN81pTv8MxHkwXzIjmS2Ynloh1Nfrs2/qKtwbBjHHDBQPEN5/w1ydWLnP8ACItdOjG4uFPrZySZdhpsBzg6NcGa3yC84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrgbqbNe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789600405; c=relaxed/simple;
+	bh=B8+MBuH7hgnNHgjCFuUVsYMALksHXS1/a7kvWhXlbPU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Uaheq0Rgln0pg060nabwOSt58x84apvWWDmIi7zKneYhdW2fWBXrS2jfOjVu3fax0pRn245McXOYF78eDyhItqztMM7sVl0+lH1jro4EkvVLBs9YeuVz45dolsqNJmYpMbm2ZWhO6JZqqNzdKGXN7H5V88qKSoMgQTRrm6BxbI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VsiNUhRf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrgbqbNe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 666721F000FF;
-	Wed, 16 Sep 2026 23:13:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VsiNUhRf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0045C1F000FF;
+	Wed, 16 Sep 2026 23:13:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789600397;
-	bh=J/QEUcvSZ2w/o2gb77Pk/nyMb8ULXPLIpeXqeBAgaH8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YrgbqbNeqelT0NFpeYR+DPKhuRskSkRKO0WMoJNRmSrfurDIcPPeunV7c7Ujemcy7
-	 czk/G8+wfiqxq+LqiOY58recGq0R0Ri3+nKKjFwx+33ppw6asuFGwAVkZ6f4cFSSvb
-	 xibfgX9BBMf/sYjmWMmktfpcrAFjWriweyFb7vFNtBQx21aq6lML/v+ETi3Ki/jOHs
-	 VIbhpSdVbohheZSYI9FIffcYOhWrqICFr9nTqxI5TmDKHpZeH8wgwgCx4A0qolC17X
-	 g7hNF8vGkXIROvduTNSpiKMLJ/dnrrFPbsYE1buGafa8Ius00HVTZGOOytWWAxob38
-	 vVUkHy2v9TBOw==
-Subject: Re: [PATCH net v2 2/2] selftests: drv-net: psp: test PSP and TCP ULP
- mutual exclusion
-From: netdev-bot+sashiko@kernel.org
-To: daniel.zahka@gmail.com
-Cc: edumazet@google.com, ncardwell@google.com, kuniyu@google.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- willemdebruijn.kernel@gmail.com, andrew+netdev@lunn.ch, shuah@kernel.org,
- willemb@google.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-Date: Wed, 16 Sep 2026 23:13:16 +0000
-Message-ID: <178960039600.22033.386517201454373799@kernel.org>
-In-Reply-To: <20260915-psp-ktls-fix-v2-2-0eedc3b148ec@gmail.com>
-References: <20260915-psp-ktls-fix-v2-2-0eedc3b148ec@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789600403;
+	bh=fdXOxNr6y2HLZ6S5d10u4ts4qJamRC604LgDoa2f+Lc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VsiNUhRfFBcFmfiF1/uGCVgBqLk1nNS2vJPqozVzy2KOUinKDf9g9fhP1TVDawrT5
+	 r41WzXD+4Xb5V5ohJaK91qm3YV+hBodzD4+ntEXHWbAU0Cd93BzxYGc7LES0FwI0qp
+	 EzYEDMhzxZVx6+TzX9WTUpmWCp8/UqXcbMaloTCZnrnZmf9IK9VGwoKDjfQOG4Imdv
+	 EdHQLKaphasqYpF1vUle36Mg/xyOVvAOAopKV84Om5s2qmCdqpqKv6qE1JLsOfyJtz
+	 FRKjyA9MSPThdDnR1FBcaOL8sfFfAflfY05godRZN7kxxekwRkP2FtvRPMYweAXb6h
+	 AZSRaIIE18aiQ==
+Date: Wed, 16 Sep 2026 16:13:19 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: Jani Nikula <jani.nikula@intel.com>, linux-kernel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Nicolas Schier <nsc@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	linux-kbuild@vger.kernel.org
+Subject: Re: [PATCH] kbuild: add header check facility as a manually run
+ static analyzer
+Message-ID: <20260916231319.GA550816@ax162>
+References: <20260915104331.255636-1-jani.nikula@intel.com>
+ <211fcac1-d85d-4680-8e55-598b2064a002@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <211fcac1-d85d-4680-8e55-598b2064a002@infradead.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On Wed, Sep 16, 2026 at 03:24:09PM -0700, Randy Dunlap wrote:
+> On 9/15/26 3:43 AM, Jani Nikula wrote:
+> > There have been various attempts at adding a header test or check
+> > mechanism in the kernel build system. The header check primarily
+> > consists of ensuring headers are self-contained, have include guards,
+> > and, in some cases, pass kernel-doc.
+> > 
+> > The main problems have been:
+> > 
+> > - The dependency tracking creates undesirable artefacts (infamously also
+> >   known as disgusting turds) in the build directory.
+> > 
+> > - Gating the feature behind a kconfig option is complicated due to
+> >   allyesconfig builds. It's possible, but requires a verbose and
+> >   confusing negative proxy config option.
+> > 
+> > - Naming the dependency tracking files with a dot prefix or placing them
+> >   in a dot prefixed subdirectory in the build directory to hide them has
+> >   been exceedingly difficult to achieve. (In part due to some Makefiles
+> >   building files in subdirectory hierarchies.)
+> > 
+> > - The debate which headers, if any, should really be self-contained is
+> >   virtually open-ended.
+> 
+> I would expect that headers in include/uapi/*.h should be self-contained,
+> but apparently that's just a pipe dream on my part, or maybe it's just
+> a maintainer option.
+> 
+> With 'make HEADER_CHECK="include/uapi/" headercheck'
+> I see over 70 errors (mostly typedefs or defined constants, but not only
+> those), such as:
+> 
+> In file included from <command-line>:
+> ./../include/uapi/linux/hdlc/ioctl.h:74:21: error: ‘IFNAMSIZ’ undeclared here (not in a function)
+>    74 |         char master[IFNAMSIZ];  /* Name of master FRAD device */
+>       |                     ^~~~~~~~
+> In file included from <command-line>:
+> ./../include/uapi/linux/input.h:29:6: warning: ‘__BITS_PER_LONG’ is not defined, evaluates to ‘0’ [-Wundef]
+>    29 | #if (__BITS_PER_LONG != 32 || !defined(__USE_TIME_BITS64)) && !defined(__KERNEL__)
+>       |      ^~~~~~~~~~~~~~~
+> ./../include/uapi/linux/input.h:34:9: error: unknown type name ‘__kernel_ulong_t’
+>    34 |         __kernel_ulong_t __sec;
+>       |         ^~~~~~~~~~~~~~~~
+> In file included from ./../include/uapi/linux/papr_pdsm.h:14,
+>                  from <command-line>:
+> ../include/linux/ndctl.h:19:33: error: ‘PAGE_SIZE’ undeclared here (not in a function)
+>    19 |         ND_MIN_NAMESPACE_SIZE = PAGE_SIZE,
+>       |                                 ^~~~~~~~~
+> In file included from <command-line>:
+> ./../include/uapi/linux/patchkey.h:15:2: error: #error "patchkey.h included directly"
+>    15 | #error "patchkey.h included directly"
+>       |  ^~~~~
+> In file included from <command-line>:
+> include/uapi/xen/gntdev.h:159:25: error: unknown type name ‘grant_ref_t’
+>   159 |                         grant_ref_t ref;
+>       |                         ^~~~~~~~~~~
+> include/uapi/xen/gntdev.h:161:25: error: unknown type name ‘domid_t’
+>   161 |                         domid_t domid;
+>       |                         ^~~~~~~
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+include/uapi already has its own header checking infrastructure under
+CONFIG_UAPI_HEADER_TEST and usr/include/Makefile, which avoids this with
+a no-header-test list that includes many of the files listed in these
+messages. To be honest, we should probably forbid HEADER_CHECK from
+including 'include/uapi' and refer people to use CONFIG_UAPI_HEADER_TEST
+instead, as there are other differences like being built under a
+different C standard or C++ and such that the existing infrastructure
+handles.
 
-- [Medium] In tools/testing/selftests/drivers/net/psp.py, the new helper
-  `_require_tls_ulp()` (lines 338-344) wraps…
-
---
-
-selftests: drv-net: psp: test PSP and TCP ULP mutual exclusion
-
-This adds two psp.py cases that check PSP associations and TCP ULPs are
-mutually exclusive in both orders, plus a _require_tls_ulp() helper that
-skips when kTLS is unavailable, and enables CONFIG_TLS=y in the
-drivers/net selftest config.
-
-> diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/selftests/drivers/net/psp.py
-> index 315648a770d00..a5b1e14f120f0 100755
-> --- a/tools/testing/selftests/drivers/net/psp.py
-> +++ b/tools/testing/selftests/drivers/net/psp.py
-
-[ ... ]
-
-> @@ -333,6 +335,50 @@ def assoc_version_mismatch(cfg):
->              ksft_eq(the_exception.nl_msg.error, -errno.EINVAL)
->  
->  
-> +def _require_tls_ulp():
-> +    with socket.create_server(("localhost", 0)) as srv, \
-> +         socket.create_connection(srv.getsockname()) as s:
-> +        try:
-> +            s.setsockopt(socket.SOL_TCP, TCP_ULP, b"tls")
-> +        except OSError as exc:
-> +            raise KsftSkipEx("kTLS not available") from exc
-
-[Severity: Medium]
-
-Should this handler be narrowed to the errnos that actually mean "no
-kTLS"?  As written, every OSError from the TCP_ULP setsockopt turns into
-a skip, including -EINVAL, which is exactly the errno the kernel side of
-this series returns:
-
-net/ipv4/tcp_ulp.c:__tcp_set_ulp() {
-	...
-	err = -EINVAL;
-	if (sk_has_decrypt_user(sk))
-		goto out_err;
-	...
-}
-
-The probe socket here is a plain loopback TCP connection with no PSP
-association, so the only legitimate reasons to skip are the "ULP unknown
-/ TLS not built" errnos, ENOENT from __tcp_ulp_find_autoload() and
-EOPNOTSUPP.
-
-If sk_has_decrypt_user() ever returns true for an ordinary TCP socket -
-and the parent commit anticipates growth there ("As other users of
-skb->decrypted come along, they can be added to sk_has_decrypt_user()") -
-the probe fails with EINVAL and the helper reports a skip.
-
-Would restricting the skip to exc.errno in (errno.ENOENT,
-errno.EOPNOTSUPP) and letting other errnos propagate keep the assertions
-below load-bearing?
-
-> +
-> +
-> +def assoc_psp_ulp_exclusive(cfg):
-> +    """ Test that a TCP ULP cannot be attached to a PSP socket """
-> +    _init_psp_dev(cfg)
-> +    _require_tls_ulp()
-
-[Severity: Medium]
-
-Since _require_tls_ulp() is the first gate in both assoc_psp_ulp_exclusive()
-and assoc_ulp_psp_exclusive(), does an over-broad kernel-side
-sk_has_decrypt_user() end up disabling both directions of the
-mutual-exclusion check at once?  The result would be two skips in CI rather
-than a failure for the case these tests were added to catch.
-
-> +
-> +    with _make_clr_conn(cfg) as s:
-> +        try:
-> +            cfg.pspnl.rx_assoc({"version": 0,
-> +                                "dev-id": cfg.psp_dev_id,
-> +                                "sock-fd": s.fileno()})
-> +            with ksft_raises(OSError) as cm:
-> +                s.setsockopt(socket.SOL_TCP, TCP_ULP, b"tls")
-> +            ksft_eq(cm.exception.errno, errno.EINVAL)
-> +        finally:
-> +            _close_conn(cfg, s)
-> +
-> +
-> +def assoc_ulp_psp_exclusive(cfg):
-> +    """ Test that a PSP assoc cannot be added to a socket with a TCP ULP """
-> +    _init_psp_dev(cfg)
-> +    _require_tls_ulp()
-
-[ ... ]
+That said, I think the overall idea seems fine and relatively clean, at
+least from my Kbuild perspective, as it is completely opt in, so the
+previous objection to CONFIG_HEADER_CHECK_DISABLE and widely exposing
+this to builds is pretty much moot.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915-psp-ktls-fix-v2-0-0eedc3b148ec%40gmail.com
+Cheers,
+Nathan
