@@ -1,90 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F123952BE55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A78B4C33F3
 	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577752; cv=none; b=knxqQDayDuZ744pFCuXqOx2kzFOV0z4Up8+vGtYmMaPqvCh+BF3bL/2njALToxv9lBi8YKnngm4hs08PBKSH1vzt9mLO6ov0ekFITWp6jbydRbadUXoglfn4DVL/lIpOh8TQRKNFsDlNWcp+NSUoaE1sOzSTXYRfmUFDNKSh/xg=
+	t=1789577753; cv=none; b=Eu6IwrtDU5O2/SP/E1KABHvdw3RFek0GHRhZ5MsiDvX2bZHyF07/8MX9yfIMCRumtREr7mojUG2PuMsreedJZ+xstV3PHS9UTowlvfaBfzpOaN5R4MFsk6KsQRkbMUSvnxWlNBrhxoaRmrstm8cfAJb2HY6id6FR3fPBwdrpbBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577752; c=relaxed/simple;
-	bh=3Rl9kH69FoIDw7gGLNXjdv5fuBqhGXd9XmucXEFUoPA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sZU+ZsZl3aSSNsi297nW9kI91JfldoSiDwRmcj6UoBim0hr4guruV5N8YTMMRWrh/xvbpuAHGPoxeLNnecthFXQPCCE6rt4Lw3RH2zYLH/GRCLSu1CgikSzSOpSqtGw1UWSQXqJe6CYgsl2+00xmvys2b/mKEjKJcS8+A7uaYEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQNgOhDe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789577753; c=relaxed/simple;
+	bh=kcSN+BGt08y0TBQmKmzxsTvtl5zyqxhcMvNRCZk3Ips=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=QHyKQX+RK2EWpsqVot1hgNBu5fHyrHpqqzVtB8pGWkZpTOZtTdRCp6/+5w6sCz3OlbwaVY8aQSiL4NR2HPgXLcq8NSY9pZ2k5KSmhdQemG0lXoo8tAPTIPuKNhM5/4ae1bDRDN+r8u52TE9bSZAIyBTxSAeJANfx24P252Kaayg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=M2W0EImj; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQNgOhDe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE181F0089E
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789577737;
-	bh=3Rl9kH69FoIDw7gGLNXjdv5fuBqhGXd9XmucXEFUoPA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hQNgOhDeYs1NQ6GmUOz0PqknKmSSCRJExdQxK4eKhpTd9nP0IM2kBWXiZm9kvDRXb
-	 L/PYUsw6xxXwJ/qtkIykRBvErbfoAaTV1M/hxXLwv6rGmZM2GOuJg3nP60oKYk97+t
-	 nRxefwpX+SzqwBwPGwjyGeKqcS4GtwuPbWuZjOtSlJvkzqAHsLEWEY9jtXDMpeD5SN
-	 dZAoCXjRfbm48EIjLx9ETaeW5yuQu7biEtc5L+mJHKcsK2CF+Uupjw0ziAMCYqLqJT
-	 ao2FuIIsC5N9PHOj97lpgYY5jXsaur/bcHh6vrTMt6tqdA/rRkyYW2XSendQYz4o2j
-	 p22s8iOsMw+Ug==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d5bso11450471fa.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:55:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzOPeXVrtBvnT3e1MN75PJF8xzaeCKyX0/Ir1iXmqtl/i7h0RtD5MTDfvfraErhMSo+levc4V2ZAI7lVII=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRqBgqneckjOehyjtI6JNzePQwTjCIW7AvSP/RFgPrVGXbC4Vz
-	DpOItWL8R/YXUkZ+VZ+KNtanPMKMZ75HnezMfcOjpvarHEjn+DBClLJh8m8L04ltAScKeVna7yx
-	6WRcMJxnAG5HuL/OZnNg04BqzOk1yavM=
-X-Received: by 2002:a05:6512:2c97:b0:5b4:ac27:6bb0 with SMTP id
- 2adb3069b0e04-5b8b666abe2mr2187526e87.25.1789577736627; Wed, 16 Sep 2026
- 09:55:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="M2W0EImj"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39533bb224cso8037201a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:55:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789577738; x=1790182538; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T2X3zZpC9TvpFJ2Xn+2Y8rh+KR7KcuZlbQgdZqsIOD8=;
+        b=M2W0EImjSp8jQh8W7lm0/QFzaUt4paGIbHYFt+YHJbQ5jvu338t1fNw35RQTuiFWZ9
+         rCb4XgepYqgauJVSYPnrIXh8mhmvtnjfgm5GyZoDqCtDGyhiGQUU9f6m7ya/euGMfygp
+         63dJb3ORPd5OPwn2pCa052v/FnZ71HnQis6uDmuSezW48dw8/RoiAm55+1m5Qb/XCmYu
+         1YZCU8YOacwGGgXKvQteqXOXtOmNicIcoPeYKXMsSoP20KnFvqspCQRpdL+OfNsS8r6v
+         /KF74YXV+rnxNeJ7Xsjht5II90AR2/aBL3EzWa9j8EX5UaNaX3a18BLTVSLuM48Ocm/w
+         CGNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789577738; x=1790182538;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T2X3zZpC9TvpFJ2Xn+2Y8rh+KR7KcuZlbQgdZqsIOD8=;
+        b=sUrGH2xMKgo4vnRTheh21UbxLrSVc/DzgFNEO6laQud8hU9+uDcBK8IFfpKRbPNbxK
+         2C0MbyJnoBtayFVrzLDdBHV8cM5tvJh2g+X4yx1YYhG58NRl0B6NcVUjVucsKQc4vyOq
+         fiBksDaoidfVZHQ5KN6x+9pcRAkDkXbc2Muy6C37Zb32xQB0WBOVJ3FRK7YSJg7KEdtt
+         GvGusHjJpS85f6dOD6iYbpQNf8fjvw1krA9IqGjLScN3dyhkt4U/rNo5p4ZaGJkooq7F
+         jLWQ1Mkw+3d3+ugj73FzEdEb0nH9Fj4R/W4jYY0Z87PVBMbF8sZQyaXhnsuhjbsNgyOu
+         9yuw==
+X-Forwarded-Encrypted: i=1; AKwUvBx4gHHDVIs2lYxM2zZx/WqC63tFvGvGqGbLpLnVPl6iME1oL8lbhjcJwhH3mV5LRB5066g3QPP+p27zYd8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5M31w+Es+WZtofQrCfcKkKqVWAsTI6zOU3HEsugPVyft9Qo5n
+	Sx2Kinb4NjBJgn3bUavF0bikhSss2c9eMq/uTkvNExxsVM2pnXz4ynu8+NW0l+Tsk77CYaxgHy3
+	l6sT2Rlpklv54U8Zzm0iGixNYFw==
+X-Received: from pjqo5.prod.google.com ([2002:a17:90a:ac05:b0:39b:272c:665b])
+ (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4f4c:b0:39d:fcbe:c1ae with SMTP id 98e67ed59e1d1-39e1e521399mr7138447a91.23.1789577738194;
+ Wed, 16 Sep 2026 09:55:38 -0700 (PDT)
+Date: Wed, 16 Sep 2026 16:55:21 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260909132153.1596191-1-arnd@kernel.org> <20260909132153.1596191-7-arnd@kernel.org>
-In-Reply-To: <20260909132153.1596191-7-arnd@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 18:55:24 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=7tuZWkXqn0gj14JDbsxkT=cU_1aFOXMRc=PmE-3X-eg@mail.gmail.com>
-X-Gm-Features: AcwNN1XvcQ2YIjfo5CFBtXX11PIudi6lRGCv7LMnZ1tHaTMlEuKLFH_DVwfW2u8
-Message-ID: <CAD++jL=7tuZWkXqn0gj14JDbsxkT=cU_1aFOXMRc=PmE-3X-eg@mail.gmail.com>
-Subject: Re: [PATCH 06/14] mfd: remove unused da903x driver
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Arnd Bergmann <arnd@arndb.de>, 
-	Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Pavel Machek <pavel@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
-	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, 
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, 
-	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	llvm@lists.linux.dev
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260916165533.2187434-1-hramamurthy@google.com>
+Subject: [PATCH net-next v7 00/12] gve: AdminQ mode related refactors
+From: Harshitha Ramamurthy <hramamurthy@google.com>
+To: netdev@vger.kernel.org
+Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, 
+	john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com, 
+	willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com, 
+	jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	przemyslaw.kitszel@intel.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 9, 2026 at 3:23=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
-e:
+This series is preparing the driver for the addition of a new control
+plane mode(MailboxQ) by commonizing and reusing as much code as possible.
+MailboxQ is a new control plane infrastructure which uses mailbox queues.
+This is a new control plane to communicate with the device when the driver
+is running on bare-metal instances as well as newer versions of the device.
 
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> This driver was used on a handful of ARM/PXA boards until those
-> got removed a few years ago. Without devicetree support, there is
-> no way to use them upstream.
->
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+This series contains 2 main changes to the gve driver's existing control
+plane(AdminQ):
+1) refactor some initialization/teardown path methods to make it work for
+   both control planes.
+2) add gve_ctrl_ops structure to the driver for various control plane
+   operations
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+The refactors are mainly around the init, reset and recover paths so that
+functionalities could be moved into the control ops like 'set_num_queues',
+'set_num_ntfy_blks' etc.
 
-Yours,
-Linus Walleij
+This patch series only sets the control ops for AdminQ mode. This is
+intended as a preparation for adding MailboxQ mode in upcoming series
+which will add the new control plane infrastructure and then introduce
+the corresponding control ops for MailboxQ mode.
+
+The entire list of future patches can be found here for reference:
+https://github.com/hramamurthy12/linux/commits/gve-mailbox-queues/
+
+Changes in v7:
+- All changes are in patch 6(Sashiko):
+    - Return IRQ_HANDLED instead of IRQ_NONE in gve_mgmnt_intr()
+    - disable service task instead of stats report task for gve_probe() error
+    - cancel stats report in gve_free_stats_report()
+    - extract gve_teardown_control_plane_resouces() and gve_adminq_free() into
+      new gve_reset_device() to ensure the device reset is triggered before
+      stopping queues
+    - don't call gve_queues_stop() in the gve_close() error path since the
+      gve_reset() takes care of that.
+- v6: https://lore.kernel.org/netdev/20260909191136.3811892-1-hramamurthy@google.com/
+
+Changes in v6:
+- update commit message to be more consistent with code (patch 1,9 Sashiko)
+- call out MTU validation change (patch 1, Sashiko)
+- A few other Sashiko related fixes (error propagation in patch 2, drop double
+  logging in patch 5, drop unintentional type conversion in patch 11)
+- v5: https://lore.kernel.org/netdev/20260903215606.31633-1-hramamurthy@google.com/
+
+Changes in v5:
+- This series contains 12 patches since 3 patches from v4 were applied
+- Picked up Przemek Kitszel's Reviewed-by tag
+- Honor device provided default no. of Qs and max rx buffer size correctly (patch 1, Sashiko)
+- drop unnecessary header files and __maybe_unused tag (patch 4, Sashiko)
+- fix workqueue disable count, destroy rings before stopping Qs, stop queues in error path
+  in gve_close, preserve ordering of gve_turndown->gve_destroy_rings->gve_queues_stop
+  during close and reset (patch 6, Sashiko)
+- drop double logging in all paths for queue creation/destruction (patch 11, Sashiko)
+- v4: https://lore.kernel.org/netdev/20260814021406.3044324-1-hramamurthy@google.com/ 
+
+Changes in v4:
+- Reduce code churn by placing new functions directly in gve_adminq.c, introducing final tab spacing
+  and using local variable (Przemek Kitszel)
+- Fix kdoc formatting and drop spurious management interrupt(patch 9)
+- Propagate release_db_resources naming change (patch 12)
+- Remove double logging in destroy queues path (patch 14)
+- v3: https://lore.kernel.org/netdev/20260803184630.3813311-1-hramamurthy@google.com/
+
+Changes in v3:
+- Fix driver compatibility verification in the reset and recovery paths (patches 2, 8).
+- Mark gve_adminq_get_device_properties() with __maybe_unused ahead of its usage (patch 7).
+- Refine error handling and resource cleanup in reset, probe, and queue creation paths (patches 8, 9, 11, 14).
+- Keep IRQ doorbell allocation/release in control plane resource helpers (patch 12).
+- Minor fixes: fix TOCTOU issue for link speed, correct kdoc comments, and remove redundant teardown calls (patches 4, 11, 15). 
+- v2: https://lore.kernel.org/netdev/20260602235900.3050782-1-hramamurthy@google.com/
+
+Changes in v2:
+- Rebased against latest net-next to resolve apply failure for patch 5
+- Fixed a few typos in commit messages of patch 9 and 14
+- Fixed a kdoc warning in patch 9
+- v1: https://lore.kernel.org/netdev/20260601175437.3767283-1-hramamurthy@google.com/
+
+Harshitha Ramamurthy (6):
+  gve: add struct gve_device_info to hold device properties
+  gve: introduce control plane operations structure
+  gve: introduce ctrl ops to set vectors and Qs
+  gve: introduce gve_adminq_get_device_properties()
+  gve: refactor gve_init_priv for reset path
+  gve: add ctrl ops for queue operations
+
+Joshua Washington (6):
+  gve: simplify reset logic
+  gve: add gve_ctrl_ops for gve initialization/teardown sequences
+  gve: split up notify block allocation and setup paths
+  gve: introduce new methods to handle IRQ doorbells
+  gve: setup and teardown management interrupts
+  gve: add link status/speed ctrl ops
+
+ drivers/net/ethernet/google/gve/gve.h         |  87 +-
+ drivers/net/ethernet/google/gve/gve_adminq.c  | 380 ++++++--
+ drivers/net/ethernet/google/gve/gve_adminq.h  |  30 +-
+ drivers/net/ethernet/google/gve/gve_ethtool.c |   5 +-
+ .../net/ethernet/google/gve/gve_flow_rule.c   |  15 +-
+ drivers/net/ethernet/google/gve/gve_main.c    | 894 +++++++++---------
+ 6 files changed, 883 insertions(+), 528 deletions(-)
+
+-- 
+2.55.0.1032.g73a4cd73de-goog
+
