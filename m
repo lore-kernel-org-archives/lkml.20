@@ -1,61 +1,61 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBAD3ADBA4
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94E93B19B9
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789529635; cv=none; b=pb5LqsPla6fH4iWh+a+FaxhPZOJYoVIx2XP0Q7n154ydK5zYstHaG1vip6PW6NebTfD1f8x9xPs4Y5FJDDT7edFz9Ib8ts6ZXac0xHsJW+KIkzBeLlffhsJiuQOk5nt747bq6/GXB1lmpv2BKS5hnaNsD5PzA16Qkz5SFgwRgSY=
+	t=1789529639; cv=none; b=PVQhmJ6DcUxAv+aafvW83XbpEafxz7scITs2LJRMTuSOJN5DF1yeFB3/EDD1owHwKUFJZjh1DN+1s2oSSqmvJSPrqstAtQP+Ix06Ho4g602nVKWH/sT0nzHROAqr2K6CZ+ibNVDP7uggZYb2fpAesTW02BySKhow+vrn8Lqm8XY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789529635; c=relaxed/simple;
-	bh=qbPaYJBirbvT7ihHw211bCHk6KPsVXJrTqNHUfJUxcw=;
+	s=arc-20240116; t=1789529639; c=relaxed/simple;
+	bh=XSW9igf1s/bJdUF9oLEzsVWFCgbqu1FOjjmLMSk9d1c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UXXzzU4pXeJsmf4qWo5dLswq3InX9hQI1sevYPRg5wcXGs6vMEAM3mt2SJ1oSVaiylHhai67JI6mDifkffedPQu4uuQhSbrk4pkSi4BQLTbkFXyHy6yaXCshfBk8pk81m72Jk1uLtUzr1sljBdtYTTHlil0s0LXXbeOy5qOragA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=kvIesZli; arc=none smtp.client-ip=74.125.227.170
+	 MIME-Version; b=sdOy9AyLPEXqrgvdUr+94RAenZnI9UIRdBIKNwnCsbU0VcFhZ49oM3TjCm4NixkO3Zf7ny2yw9PtRJiIaF5yqIMrCOVVBzHrwi3henQwHTefYBkNOFG4ob0K9a+jod2TQhFqN3EPJ12Q2Fe60ebYfO+5rtI6e/0VwlYFFkByExY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ktpLK7lj; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="kvIesZli"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-398cb5615deso433749a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:33:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ktpLK7lj"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fbef5018so5082145ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:33:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789529633; x=1790134433; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1789529637; x=1790134437; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nb71HvzDE3B3FVkEVJ/TFE9xXljAPx+xdoqH1xLqTX8=;
-        b=kvIesZliLjWNXzHIbikndyYWX6AZIuvM9NpRYKinjzwsZC1mYu3mREPcgUBO/ObfAa
-         oQMpf0EvItVU3xxVhnwYmy+sJgq3lHONVft3CiuSptIMv8w/UeWjqxxqHY7EFNeN6q1b
-         evBmEbb2uHhMvpclthnhlIz8Zg9Ae2/B5l5Yc=
+        bh=kBFRPVKNIBD0KQtZ9pcxiREtmRb8PGXwbQL+UCfrWrI=;
+        b=ktpLK7lj8sPrUXdQkdDMXfqONRmX/I0dGvYQ0aovXakXJZEXWn59gJhDYuPtoQuPoE
+         /DSaZObWybgdZYgQVN2hyjc+4HHPNUPaxbkQkVZuLxB6IFjkgAvfKpS3jZgXCHLHU3kt
+         B/rR51I6jfmH40k1mLCo4hpYf2fbnwlcAdSOc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789529633; x=1790134433;
+        d=1e100.net; s=20260707; t=1789529637; x=1790134437;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nb71HvzDE3B3FVkEVJ/TFE9xXljAPx+xdoqH1xLqTX8=;
-        b=uqOPLP7K5ChE5U/RaH+nq1fs06fNis+zk+mTVo8dyVn6iSjtvayRnE4nDz8HgnTdvB
-         0dgKvWfXx9C8VupN3faHBwHoZRTYV3PDCjrWIO+AcysXxsBxT58eiuG50a+3jCHzdC3w
-         BLtJRTAGaeYDM+/MaNNvIikIqsY+v+58K/42KPJ0ckRDtyafXv4e9UbClufBOgvmjOWI
-         DE5Cc6rtQBZmivV0/QrsepuDmVgT8kLvNU62/cOXeqRtimLIuam/y6NHig+JesrqGvVD
-         awQsYNhN6O8uTh06k+c9iRUKneRnr2sKsBWaE9qNngNP1wy/eV/Cu6yDbqtC1Lt0GJNa
-         s2dA==
-X-Forwarded-Encrypted: i=1; AKwUvBx7o3U+m6n3dU9gCGdW+hKXjzTl7DbZc6Q++6Rl0x3CpfVJwJsIqMBYcU5zyAsggw3Gm+dMh9YJbnIGHu8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJTLVIsr1Ea7rUdQqwWQR5f8b+Goo9Me6qtjt9zxUPebppDrFX
-	sQOBYTVm+MKxOjdnBJGcLec1jzu6wSmxXpOeLyBYVhRUuXCWrKE+OfcZP9APFX7HvA==
-X-Gm-Gg: AYBFou3jgqq00FQglWjYQ5dWi9JeadLQb+Y7oHwQfphflJ1FUSoIPtqdvnvSO0Dd1o/
-	JJOAEzcI8+TdEmDy4gydrCkNDpibhJQc5xMOeFIVbC8DzftSx6WzrE5CNzzccJCX1nWp3HHPXzv
-	xcGlFKetCAVaB2JHDY80EpJeBbxEJpsn4hudi582okoQtwqGRs3C3floZFbW4kMN4nzsSO8MmIl
-	u5t3gbINRuCgz5eRNF2VSq1Bph2ZEakWFb+cxQpm9IidZIEoI7WFwySO3h2YviZWsPn8Dwf9wWK
-	F2if9Lh0XSZgFT3tlB9ek2zlIkyLP0wGPdXV1dxfLPfOWLw9+WYe3b7SFr9NJddUAhMVqNuZwzq
-	nXkNhQPKYAgDijxBt69xyoNm5jAX/Mbn3vS/c7vS2oIV259+Kpnga2x49FHeEK0TmxO8V6VIEzh
-	4WMwLCwt+uXbS8CFCvhQz/LdJvkm90ELl5zJYBE7f3nzfqYckOVMQnII8v9UQTCes1gVCTR/ume
-	kH+YFA3Gy5nmkxerIon2/NzAmbAEac9LKQNeCm1O5liKuOMxyjO6dNOqA==
-X-Received: by 2002:a17:90b:582b:b0:39e:f1:b2de with SMTP id 98e67ed59e1d1-39e1e4c54fcmr2477670a91.20.1789529633211;
-        Tue, 15 Sep 2026 20:33:53 -0700 (PDT)
+        bh=kBFRPVKNIBD0KQtZ9pcxiREtmRb8PGXwbQL+UCfrWrI=;
+        b=LRHNvKZzNhl9KvQE2IcXoW4w9w1/TAIrj0eZy3C0s+HLs+A+WO0ds5xABVHLju9OpH
+         OChRCSGuFEhDUySU5kk0pusJSxTGhTjlXHWd5h+v2mC47YpE0yCkbeAazRQseGn04UiI
+         lrv+mQYfvNMDN+R5VCJm+knk97eoNcLe86ptLalNJLIeHps9iwQl5Q5cbB/P/LJbp8nZ
+         AD/Lxa+wGAjKDVohH9Ccs8uH71TOLlcvxhWdvA4hJ2QdmKJw+/YPaFbeogxM4sOplBX8
+         FP3SABV1PLDV8LcKE8hMy9+Dv/bAaw9JKdk3Ssbx7U4ZIrgd/nqhfSUVW9XLdJB1v4Dj
+         M3VQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxIYRvWnc6iD0QN3SM4PuP/T8QNf9ER+E0sGTOGy23cD/M5+HSM3/GX1Z7fBX4EKKfWLqUCwy3AmeCtEwg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mL+4kw352GlHqgnj4BQHYt3GliBljwvoVahwpspZIOF4c9ApRB
+	5eGg/mHHFpk1JCNUOw9Q9TZUQIxc2Xn7/DIVG6LTfvIgR62578+vA26mJA6Kf9+wEw==
+X-Gm-Gg: AYBFou3X05mBRV9o7qneD14/qTT7OIDPWTZXCVk1zEQna36TPi9HIqKD6WMB7IVcMcB
+	R90QrpqQtJdJGHr7XtgbUttuqNoMWPhjmRoT52L45V1kVFnjGA5b4NYb7lhGiZB4Y35rAB05cxT
+	MtJY2ti3w/ZlcxrlL8TlBzZRkAUUzDm34snWKDJzK+xRqQgWCu5n5wP2M64dbGuw94ut+Tc+rSJ
+	fqP6IE0RGyh18/idE4v7Aj1xgqBQY9GvOJtyGKNkrdLdnwiMMSIcvVLZu+6h1tcL72ipmxG2OwG
+	Iet4V/ADfXxNaZZfURtWr8y/hwEydwrlRDyJR/ZmtDCw6PKowbl9IgqASbWw2dR6kuIJzCXmR1s
+	0AcEFvvj+m2bmnvRiQo1AY0X6pZ9euwqNYNbRJm7hdLJbyVHrVgg3vy9RwTgw4M5oTL5tw6pFfc
+	AAeKyrNyqqRrEcNAfcwXiSF1+q/XSOdewQAnl7x42IPc1K9hf5QOrYd0cJ5rttedj6C9Y73V2mv
+	d4DSUcaJn/O23Ed1qH1URJ+CU/E87BOl9HDiCpoJ/qlu6cFUZSWEXuErg==
+X-Received: by 2002:a17:90b:4c49:b0:39d:fd60:caba with SMTP id 98e67ed59e1d1-39e1e485dddmr2368694a91.14.1789529637188;
+        Tue, 15 Sep 2026 20:33:57 -0700 (PDT)
 Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:1f62:7622:5d61:2578])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bbe3e62sm1833477a91.10.2026.09.15.20.33.49
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bbe3e62sm1833477a91.10.2026.09.15.20.33.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 20:33:52 -0700 (PDT)
+        Tue, 15 Sep 2026 20:33:56 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Liu Ying <victor.liu@nxp.com>,
 	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
@@ -73,11 +73,10 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	imx@lists.linux.dev,
 	dri-devel@lists.freedesktop.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH RFT v2 4/5] drm/imx/dc: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
-Date: Wed, 16 Sep 2026 11:33:25 +0800
-Message-ID: <20260916033327.3054126-5-wenst@chromium.org>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RFT v2 5/5] drm/imx/dcss: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
+Date: Wed, 16 Sep 2026 11:33:26 +0800
+Message-ID: <20260916033327.3054126-6-wenst@chromium.org>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
 In-Reply-To: <20260916033327.3054126-1-wenst@chromium.org>
 References: <20260916033327.3054126-1-wenst@chromium.org>
@@ -89,43 +88,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The hardware is programmed with clipped source and destination dimensions,
-but the framebuffer address is calculated using drm_fb_dma_get_gem_addr(),
-which uses the full source dimensions. This will not match the source
-offset if the top and/or left sides are clipped.
+The i.MX DCSS driver is open coding drm_fb_dma_get_gem_clipped_addr(),
+with only a slight difference of rounding down the X offset for the
+first plane if the format is packed, sub-sampled YUV. This is likely
+to correct the buffer address to the first pixel of the 2-pixel group.
+Otherwise the hardware will start the scan-out from the second pixel,
+which leads to the U/V components getting swapped around, and the
+chroma component of the next pixel group being used.
 
-Switch to the new drm_fb_dma_get_gem_clipped_addr(), which provides the
-buffer address starting at the clipped boundary.
+Switch to drm_fb_dma_get_gem_clipped_addr(), and offset the address by
+a pixel if the X offset is odd.
 
-Fixes: 711a3b878366 ("drm/imx: Add i.MX8qxp Display Controller KMS")
-Cc: <stable@vger.kernel.org> # Needs drm_fb_dma_get_gem_clipped_addr()
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
- drivers/gpu/drm/imx/dc/dc-plane.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/imx/dcss/dcss-plane.c | 34 +++++++++++----------------
+ 1 file changed, 14 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/imx/dc/dc-plane.c b/drivers/gpu/drm/imx/dc/dc-plane.c
-index 62dd0576fadc..35eb5039f5ac 100644
---- a/drivers/gpu/drm/imx/dc/dc-plane.c
-+++ b/drivers/gpu/drm/imx/dc/dc-plane.c
-@@ -65,7 +65,7 @@ static int dc_plane_check_max_source_resolution(struct drm_plane_state *state)
- static int dc_plane_check_fb(struct drm_plane_state *state)
- {
+diff --git a/drivers/gpu/drm/imx/dcss/dcss-plane.c b/drivers/gpu/drm/imx/dcss/dcss-plane.c
+index 303e93fd036c..580d9cfb4053 100644
+--- a/drivers/gpu/drm/imx/dcss/dcss-plane.c
++++ b/drivers/gpu/drm/imx/dcss/dcss-plane.c
+@@ -219,28 +219,22 @@ static void dcss_plane_atomic_set_base(struct dcss_plane *dcss_plane)
+ 	struct dcss_dev *dcss = plane->dev->dev_private;
  	struct drm_framebuffer *fb = state->fb;
--	dma_addr_t baseaddr = drm_fb_dma_get_gem_addr(fb, state, 0);
-+	dma_addr_t baseaddr = drm_fb_dma_get_gem_clipped_addr(fb, state, 0);
+ 	const struct drm_format_info *format = fb->format;
+-	struct drm_gem_dma_object *dma_obj = drm_fb_dma_get_gem_obj(fb, 0);
+ 	unsigned long p1_ba = 0, p2_ba = 0;
  
- 	/* base address alignment */
- 	if (baseaddr & 0x3) {
-@@ -146,7 +146,7 @@ dc_plane_atomic_update(struct drm_plane *plane, struct drm_atomic_commit *state)
- 	src_w = drm_rect_width(&new_state->src) >> 16;
- 	src_h = drm_rect_height(&new_state->src) >> 16;
+-	if (!format->is_yuv ||
+-	    format->format == DRM_FORMAT_NV12 ||
+-	    format->format == DRM_FORMAT_NV21)
+-		p1_ba = dma_obj->dma_addr + fb->offsets[0] +
+-			fb->pitches[0] * (state->src.y1 >> 16) +
+-			format->char_per_block[0] * (state->src.x1 >> 16);
+-	else if (format->format == DRM_FORMAT_UYVY ||
+-		 format->format == DRM_FORMAT_VYUY ||
+-		 format->format == DRM_FORMAT_YUYV ||
+-		 format->format == DRM_FORMAT_YVYU)
+-		p1_ba = dma_obj->dma_addr + fb->offsets[0] +
+-			fb->pitches[0] * (state->src.y1 >> 16) +
+-			2 * format->char_per_block[0] * (state->src.x1 >> 17);
+-
+-	if (format->format == DRM_FORMAT_NV12 ||
+-	    format->format == DRM_FORMAT_NV21)
+-		p2_ba = dma_obj->dma_addr + fb->offsets[1] +
+-			(((fb->pitches[1] >> 1) * (state->src.y1 >> 17) +
+-			(state->src.x1 >> 17)) << 1);
++	p1_ba = drm_fb_dma_get_gem_clipped_addr(fb, state, 0);
++
++	/*
++	 * TODO fix address until helpers know packed, sub-sampled YUV format block size
++	 *
++	 * The buffer address for packed, sub-sampled YUV formats such as DRM_FORMAT_UYVY
++	 * need to be on the first pixel of each pixel group or block. Otherwise the first
++	 * pixel of the next pixel group is read and the U/V values get swapped around.
++	 */
++	if (drm_format_info_is_yuv_packed(format))
++		p1_ba -= ((state->src.x1 >> 16) & 1) * format->cpp[0];
++
++	if (format->num_planes > 1)
++		p2_ba = drm_fb_dma_get_gem_clipped_addr(fb, state, 1);
  
--	baseaddr = drm_fb_dma_get_gem_addr(fb, new_state, 0);
-+	baseaddr = drm_fb_dma_get_gem_clipped_addr(fb, new_state, 0);
- 
- 	fu_ops = dc_fu_get_ops(dplane->fu);
- 
+ 	dcss_dpr_addr_set(dcss->dpr, dcss_plane->ch_num, p1_ba, p2_ba,
+ 			  fb->pitches[0]);
 -- 
 2.55.0.1032.g73a4cd73de-goog
 
