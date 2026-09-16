@@ -1,131 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DC1493642;
-	Wed, 16 Sep 2026 23:49:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F45501F4C
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789602601; cv=none; b=g/8TU2Xza51Tabke8qaXP9M5CL/OA0kRwW+lnifePku6KQB8NmxICwVZyuo3zfwXiasDJKKAbGpDgYba/1hXv+5C/myGnbDO7Cj7teJbtJZipn4YlJ8yqA1futOWoVrQnkmgt7cZ+qYcQA9oI/q39qxcHMFJa6lKuoKVCBqXkVY=
+	t=1789602638; cv=none; b=C3ddngn1GRVySX0TPxDCfb8Y58bMPNQS3lYWsero6Dp0AVZ4Tdd3Jimo6TFRD3sphb6WiHKOEbrORtB6hWkAT2UqgyxdTJlZay+GVNvYKKQBtnkddkBMgYLOVAKD0c0HWoJwPBsApSGLZ+o4UO7wanlavmeV7XUO+v3bzv7iRg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789602601; c=relaxed/simple;
-	bh=NNjIbUaYaWZ4tT4FFUewExGL1NK6vz19O/F0GPpATf0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JDudL0wdDcvXCkx7GZs51l3wGlWBfYUPEin2kfyekBuQBuBL7mnA9bPk7PAOdxf751euXDKnFs0Eh6ZzinXmx9FoMs1bxzOA1YVfPYQ+CmWngXJl4Au46nAW1GW/h6rDiNYbfLeJuI6ToDWmCKtJxCTC1rdiqmOvYEcxj8QggPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mekx8IwD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789602638; c=relaxed/simple;
+	bh=VGpc1VGo/Rid6j2yd7798v5BZCQYyZlxZiprXTOuxOE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dRyEgae93k14ENBMEREVAvD9e2QLVSLTp9JhCQcqJlENEJ4cpJHBc3O0R5VjcC8HBDSFW89eKn9JQ/OBTSlt+iEEUIyPLVoTzEgoz5a7PmP0wNh1y4tMkDp7eOcBoGL83NebLzwYkSEPwH2NDJXlth0oDX7L23SlOopnNf5sMhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jODA/oi9; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mekx8IwD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C91AA1F000FF;
-	Wed, 16 Sep 2026 23:49:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789602599;
-	bh=VN6STUYeTPjIlv8wkaCwoduAtUJ1XttyOYdy6a//I+s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mekx8IwDPzqNLSJLOj7pxU2I8BU0fRvkjWobGU1f76TSrc8WwsLEVnqjcb+GKRiQd
-	 eSN7guqIcFOmyttCnprPB0Gp7MzxAzBxnKSsq/iHYnPjtN9Gr0qRpvk3P+apbiPDt6
-	 GBkax32iC54Wl/TzfqQfrKTHP7ewQeaLK/82xP6C2pA7HNpTxriNXWvqSwy+ZhZIvw
-	 D5ZwbdaymASnHIj4ASy29ffNS4thFdrRFUML6A4zGWtZZony3sS005yQJapAW9tsuU
-	 ujwvljWZdYzm8KvFqD/ojIwmBujPrYZUcyUn0hdeEfVLPCIdU6+JDwkH9nnwPw02PK
-	 7vslsUEuXOGog==
-Date: Wed, 16 Sep 2026 18:49:56 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: david@ixit.cz
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Petr Hodina <petr.hodina@protonmail.com>, 
-	Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v9 0/2] Add initial dual front camera and rear flash
- support for Pixel 3 / 3 XL
-Message-ID: <aqsrBhqnXLRO3Qzv@baldur>
-References: <20260907-pixel3-camera-v9-0-b1981f2d3291@ixit.cz>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jODA/oi9"
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e4fffc0so90101e0c.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:50:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789602635; x=1790207435; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8j5a7WFfG0NuSv/XKgDsxGhXHDIsTdHKd7Yxxjneaq0=;
+        b=jODA/oi9lzvmBRJjutgkgASJHmP2FMxGPbhQmA7aYeurqKVI6v8imThy/PDO98g+wW
+         I8/ChEhMjKjB4X1DyNSx6eO9lh6Gn2gRVowpxvPtchyGqvpaPhXPzCQc8asybXw0CWBa
+         uyyswcqO4YaTgkZZwfHieOlf2wvdgMMUHZUMBrKZ9BCQ5AU1ng6cRG9rmHX8isHRxtfi
+         ZhI+LKFbbPFzSjekxEjoNm2THwSvw02xsjIa6Dh/BiDhDxVusnIVgs3YPKzLOtb7zQPG
+         l0EVM2FJExgQq7TgL19k0JlIggdZcDydxmg4v9sCjWE7d9iw9ZRjhgtQg/qRF783+aZN
+         /YMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789602635; x=1790207435;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8j5a7WFfG0NuSv/XKgDsxGhXHDIsTdHKd7Yxxjneaq0=;
+        b=wn8eh5TIdYX5uLNs0Ytg+xQpTrff9DCeLV4HQ5DgPVSgCWlgFdHj+rHRmakfr1vsLt
+         u55C4lFpHT1nkjPPmuQX3XMjtkDbMoqEolZ3P2DvpJaaZAlxAhUetMU/ydMbXbVLQK6p
+         ZACIiVRWkw5MAn5Uo6f1lYWikKOZde5mzHO1Cyx43ov+lvEY1iA3VX7DrpXFxHtQMn1/
+         w48pfNdTD6hMPs0A5Vegk8HWryi3iRffpUDPC1Wr9N9ruFAI1TsX7raFD216XJv0/1OV
+         +JGIkIOJYnHi0aMIC8nL51AIy8yUZvaCkW6sLrXV4nOytqVCWYtlvDZ8f4/0WH3onopW
+         nhjw==
+X-Forwarded-Encrypted: i=1; AKwUvBzavIaNj6u+zK9TPMRtbvIUuXtUIQ5bvIDffoo0igf3VjHu7EW2GXa3pzNTJSFUtO68vKbcaUdgUSGE07k=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4i2YR1O9CIjm/ADyv+jgFNelZW/ieYw1wHmh8Si5NcXfxcLFL
+	7f6xPBqBU60WmOY63tMC6T+uz8MOA3xCne0jXgvGS6mvC2p6So9MuLMV
+X-Gm-Gg: AYBFou2wXnj1LqfO0geU8be1nq68JghZ4r9xbenizJk4A4aw/Z4UQ/DqeVjuMAlN/p7
+	3k8t0NVAJ2LKKq6ImDbbb7nCKejIyGR8GWOmxLXl2ULvhIDixV9Ugegg/DMQucgnJSO7prmH1m8
+	BVralDngR6he46DpdolcfTvxlrBj8O1nciyBXZ/5YK5N+xryIHIdXL3DFybWL0qN/hsAHu/elaU
+	065XYiMbFC4fjU6VxNrN/i7c7O1tj9OnX+Xhd4h1JINr/ksaR5YaS/2SRks3URCcKWNalKgbeyD
+	chOknfIY5GU2GA7DkALBRz6ZP68V734p5Pci3dji1FNqSWDajyftzt354GPUequBE1JM9nYQd6Y
+	Of4R45JAoRxEkfVKh5lHGMbARpNdc8R/0/erb9BFI0Rh4beZZMC+Idmwy9cr2xdlDTrLeZ8JX/R
+	DzhdseGRga1zlVRJTEN+3zLr4j3utqt5+cREuKG6fgl9PR5Fqb0weRZyKE9H50UB4q
+X-Received: by 2002:a05:6102:8511:20b0:7a1:43d2:bb72 with SMTP id ada2fe7eead31-7a143d2c168mr2974538137.13.1789602634592;
+        Wed, 16 Sep 2026 16:50:34 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a1e334979asm1533796137.10.2026.09.16.16.50.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 16:50:34 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: Viacheslav Dubeyko <slava@dubeyko.com>,
+	linux-nilfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v3] nilfs2: fix checkpoint root lifetime on sysfs errors
+Date: Wed, 16 Sep 2026 20:50:25 -0300
+Message-ID: <20260916235025.379600-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915041206.2430937-1-qwe.aldo@gmail.com>
+References: <20260915041206.2430937-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907-pixel3-camera-v9-0-b1981f2d3291@ixit.cz>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 05:58:08PM +0200, David Heidelberg via B4 Relay wrote:
-> Describe the dual front-facing IMX355 sensors (standard and wide)
-> and enable the PMI8998 flash LED with hardware-accurate limits.
-> 
-> This brings up the basic camera topology and flash support in DT.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
-> Changes in v9:
-> - Dependency merged, no longer depends on anything.
+nilfs_find_or_create_root() publishes a new root in the checkpoint
+tree before creating its sysfs object.  If sysfs registration fails,
+the root is freed while it is still reachable from the tree.  A
+concurrent nilfs_lookup_root() can then dereference freed memory.
 
-Do you know if there's a immutable branch containing
-dt-bindings/media/video-interface-devices.h somewhere, because this is
-still an unmet dependency in my tree.
+The fix needs the lock to be held across the sysfs call, but
+nilfs_sysfs_create_snapshot_group() can sleep, so the existing
+spinlock is not suitable.
 
-Regards,
-Bjorn
+Convert ns_cptree_lock from a spinlock to a mutex.  All existing
+callers are in process context (mount, lookup, segctor, recovery),
+and nilfs_put_root() can use refcount_dec_and_mutex_lock() as the
+atomic decrement-and-acquire primitive.
 
-> - Link to v8: https://patch.msgid.link/20260901-pixel3-camera-v8-0-99f159883348@ixit.cz
-> 
-> Changes in v8:
-> - Fix ordering of includes. (Konrad)
-> - Link to v7: https://lore.kernel.org/r/20260721-pixel3-camera-v7-0-82d323c6c5d2@ixit.cz
-> 
-> Changes in v7:
-> - Depend on the
->   https://lore.kernel.org/all/20260628-kbingham-orientation-v3-0-4ed92968aff8@ideasonboard.com/
->   (Konrad)
-> - Sort the renamed regulators. Why Mr. Anderson, why. (Konrad)
-> - Link to v6: https://lore.kernel.org/r/20260720-pixel3-camera-v6-0-afe419bef476@ixit.cz
-> 
-> Changes in v6:
-> - Remove forgotten bias-pull-down property from cci0_sleep node.
->   (dtbs_check)
-> - ..-regulator -> regulator-.. (Konrad)
-> - Rename camera -pin to -state and remove _pin from the labes. (Konrad,
->   dtbs_check)
-> - Link to v5: https://lore.kernel.org/r/20260719-pixel3-camera-v5-0-99593f1bd8ec@ixit.cz
-> 
-> Changes in v5:
-> - Added function-enumarator to flash LEDs. (Sashiko)
-> - Dropped l22a regulator needed only for NFOV actuator. (Sashiko)
-> - Dropped vdda-csi[0-2]-supply, as it was unused. (Sashiko).
-> - Added previously omited cam_mclk2_sleep sleep state.
-> - Link to v4: https://lore.kernel.org/r/20260719-pixel3-camera-v4-0-48cab1236852@ixit.cz
-> 
-> Changes in v4:
-> - Use 24 MHz ext clock for the cameras, as the downstream does, since
->   the upstream driver can now support it.
-> - Added additional LED, as the phone contains two separately controlled
->   white LEDs flash (upper and bottom, in one module).
-> - Increase flash-max-microamp, as I took wrong "flash" from the
->   downstream sources and dropped Dmitry R-b.
-> - Address formatting issues. (Konrad)
-> - Link to v3: https://lore.kernel.org/r/20260412-pixel3-camera-v3-0-e26b090a6110@ixit.cz
-> 
-> Changes in v3:
-> - Dropped cam_vio label. (Dmitry)
-> - Move the MCLK2 pinctrl from cameras to common camss. (Dmitry)
-> - Link to v2: https://lore.kernel.org/r/20260411-pixel3-camera-v2-0-41b889abb14c@ixit.cz
-> 
-> Changes in v2:
-> - leds.h include escaped the initial submission. Fixed.
-> - Link to v1: https://lore.kernel.org/r/20260411-pixel3-camera-v1-0-2757606515b6@ixit.cz
-> 
-> ---
-> David Heidelberg (2):
->       arm64: dts: qcom: sdm845-google: Add dual front IMX355 cameras
->       arm64: dts: qcom: sdm845-google: Enable PMI8998 camera flash LEDs
-> 
->  arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 199 ++++++++++++++++++++-
->  1 file changed, 198 insertions(+), 1 deletion(-)
-> ---
-> base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
-> change-id: 20260315-pixel3-camera-a9989bf589ee
-> 
-> Best regards,
-> --  
-> David Heidelberg <david@ixit.cz>
-> 
-> 
+With the mutex, nilfs_find_or_create_root() can hold it across the
+sysfs registration and only insert the root into the rbtree after
+sysfs succeeds.  On failure, the root was never visible and can be
+freed after waiting for the kobject release callback to complete.
+
+Both the creation error path and the normal removal path must wait
+for the embedded kobject release via wait_for_completion() before
+freeing the container, because kobject_put() does not guarantee
+synchronous release (CONFIG_DEBUG_KOBJECT_RELEASE defers it).
+
+Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+
+Changes in v3:
+  - Move wait_for_completion() after mutex_unlock() in
+    nilfs_put_root() to avoid holding the lock during an
+    unbounded wait, as noted by Viacheslav Dubeyko.
+    After rb_erase() the root is no longer in the tree
+    and the refcount is zero, so no concurrent path can
+    reach it.
+
+Changes in v2:
+  - Convert ns_cptree_lock from spinlock to mutex instead of adding
+    a second lock, as suggested by Viacheslav Dubeyko.  Use
+    refcount_dec_and_mutex_lock() in nilfs_put_root().
+
+ fs/nilfs2/the_nilfs.c | 37 ++++++++++++++++++++-----------------
+ fs/nilfs2/the_nilfs.h |  2 +-
+ 2 files changed, 21 insertions(+), 18 deletions(-)
+
+diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
+index 7b23e373a1..XXXXXXX 100644
+--- a/fs/nilfs2/the_nilfs.c
++++ b/fs/nilfs2/the_nilfs.c
+@@ -70,7 +70,7 @@ struct the_nilfs *alloc_nilfs(struct super_block *sb)
+ 	spin_lock_init(&nilfs->ns_inode_lock);
+ 	spin_lock_init(&nilfs->ns_last_segment_lock);
+ 	nilfs->ns_cptree = RB_ROOT;
+-	spin_lock_init(&nilfs->ns_cptree_lock);
++	mutex_init(&nilfs->ns_cptree_lock);
+ 	init_rwsem(&nilfs->ns_segctor_sem);
+ 	nilfs->ns_sb_update_freq = NILFS_SB_FREQ;
+
+@@ -846,7 +846,7 @@ struct nilfs_root *nilfs_lookup_root(struct the_nilfs *nilfs, __u64 cno)
+ 	struct rb_node *n;
+ 	struct nilfs_root *root;
+
+-	spin_lock(&nilfs->ns_cptree_lock);
++	mutex_lock(&nilfs->ns_cptree_lock);
+ 	n = nilfs->ns_cptree.rb_node;
+ 	while (n) {
+ 		root = rb_entry(n, struct nilfs_root, rb_node);
+@@ -857,11 +857,11 @@ struct nilfs_root *nilfs_lookup_root(struct the_nilfs *nilfs, __u64 cno)
+ 			n = n->rb_right;
+ 		} else {
+ 			refcount_inc(&root->count);
+-			spin_unlock(&nilfs->ns_cptree_lock);
++			mutex_unlock(&nilfs->ns_cptree_lock);
+ 			return root;
+ 		}
+ 	}
+-	spin_unlock(&nilfs->ns_cptree_lock);
++	mutex_unlock(&nilfs->ns_cptree_lock);
+
+ 	return NULL;
+ }
+@@ -881,7 +881,7 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
+ 	if (!new)
+ 		return NULL;
+
+-	spin_lock(&nilfs->ns_cptree_lock);
++	mutex_lock(&nilfs->ns_cptree_lock);
+
+ 	p = &nilfs->ns_cptree.rb_node;
+ 	parent = NULL;
+@@ -896,7 +896,7 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
+ 			p = &(*p)->rb_right;
+ 		} else {
+ 			refcount_inc(&root->count);
+-			spin_unlock(&nilfs->ns_cptree_lock);
++			mutex_unlock(&nilfs->ns_cptree_lock);
+ 			kfree(new);
+ 			return root;
+ 		}
+@@ -909,17 +909,19 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
+ 	atomic64_set(&new->inodes_count, 0);
+ 	atomic64_set(&new->blocks_count, 0);
+
+-	rb_link_node(&new->rb_node, parent, p);
+-	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
+-
+-	spin_unlock(&nilfs->ns_cptree_lock);
+-
+ 	err = nilfs_sysfs_create_snapshot_group(new);
+ 	if (err) {
++		mutex_unlock(&nilfs->ns_cptree_lock);
++		wait_for_completion(&new->snapshot_kobj_unregister);
+ 		kfree(new);
+-		new = NULL;
++		return NULL;
+ 	}
+
++	rb_link_node(&new->rb_node, parent, p);
++	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
++
++	mutex_unlock(&nilfs->ns_cptree_lock);
++
+ 	return new;
+ }
+
+@@ -927,14 +929,15 @@ void nilfs_put_root(struct nilfs_root *root)
+ {
+ 	struct the_nilfs *nilfs = root->nilfs;
+
+-	if (refcount_dec_and_lock(&root->count, &nilfs->ns_cptree_lock)) {
++	if (refcount_dec_and_mutex_lock(&root->count,
++					&nilfs->ns_cptree_lock)) {
+ 		rb_erase(&root->rb_node, &nilfs->ns_cptree);
+-		spin_unlock(&nilfs->ns_cptree_lock);
+-
+ 		nilfs_sysfs_delete_snapshot_group(root);
+-		iput(root->ifile);
++		mutex_unlock(&nilfs->ns_cptree_lock);
+
++		wait_for_completion(&root->snapshot_kobj_unregister);
++		iput(root->ifile);
+ 		kfree(root);
+ 	}
+ }
+diff --git a/fs/nilfs2/the_nilfs.h b/fs/nilfs2/the_nilfs.h
+index 4776a70f01..074644c64a 100644
+--- a/fs/nilfs2/the_nilfs.h
++++ b/fs/nilfs2/the_nilfs.h
+@@ -150,7 +150,7 @@ struct the_nilfs {
+
+ 	/* Checkpoint tree */
+ 	struct rb_root		ns_cptree;
+-	spinlock_t		ns_cptree_lock;
++	struct mutex		ns_cptree_lock; /* Protects ns_cptree */
+
+ 	/* Dirty inode list */
+ 	struct list_head	ns_dirty_files;
+--
+2.43.0
