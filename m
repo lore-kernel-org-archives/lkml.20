@@ -1,157 +1,186 @@
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49240.qiye.163.com (mail-m49240.qiye.163.com [45.254.49.240])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B933A7F68
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8153BA225
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:24:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789536253; cv=none; b=jK75kt2sWk7SiI1TJpIAZh1GJwkotatC58x0+QAnuFgb0zGdaSIBmTSO9zgEERozQPDECsLt/LVNbnZecWi0d7yJ0ca5//YqWJr00qsKhYhfdCspgkDEix7/qztqDxCmkgT9cKjpYatO8/FXI+nI86VfYRE5SCVSoBw/19l0z5c=
+	t=1789536283; cv=none; b=WBLQwytYuXARy7mZYIS3+wGYbw+J+8Vy6z4uFIE3CVq7h9ochp2ZTWGUj9MlS3n69vxQ/M1e7XaergPt3UCCv7ra/MQyWuUCouH5XyZrJCGiWuloFFwN86UNkNtEPvyLq+1izwzwel06NzBx4M6cjKkxLARvGN4tyajNlVB79aM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789536253; c=relaxed/simple;
-	bh=hpjXRGa4viZcbFnNO5KBT0ICAECMSKtgFaKjk3ZUers=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pq4M1EohYw70I1fYP06hmHb3wupJdfS3czsQXPmHd7EaMoU1LVKMJdx5ZAAW40OtQS6b+Ruue14GJHOG9PyEAZ2EICPDNd0l5ZQafccTLAqoDCF+s59YBRd7tgammK3k5yK+2+trkrH2A7r0c7xJjgLNDlPVEj0ZWaCKCe1Huxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aGwsDUWf; arc=none smtp.client-ip=74.125.231.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789536283; c=relaxed/simple;
+	bh=16jG3PGkk1argTc5w9allGszNojwXv1F5YFDaHYXxLU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=joMUm0ymAA0hcmnJBRp6lDDd2ccByxhCEdxQAeLnKzZZSOR3nFoHrT2RhnRO9CsAuz/+mAhvN3D3IKKwaAOzV5JlzISzjYCuWprMzBI2CLrdYR4yJjtbkwptOUYPT2hjzCTkpww9rjQSpEOGZF2yRSiL0a+m7XBy+25l3C0W4bQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=hrHjWyjO; arc=none smtp.client-ip=45.254.49.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aGwsDUWf"
-Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-7f4ddb9adf4so2127394a34.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:24:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789536250; x=1790141050; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zSwtxaUSQ7K0oB62qUITKeVKiPbi0vng9/BLzWTtzOE=;
-        b=aGwsDUWfMP/SZ4Xh3vDRKBWC2mBxUbNhBgZpQUe9J+2dBvkzstxVH4qlkTc32gD59V
-         cHxEAi+Kfe2dT9nppRWHNbzkdsZlMr8p2InxR6xDBCkoxtJ6FBP4UkvCfDN4Hpgr5hcf
-         7xKdWr6xZmaOWrRcKDU3aVfab6ltc7cvUVB9wecQmqPKkuID8lY7O1EiGswdWIyNZZ1y
-         NKCwHLVdj/6NilfNU07SGlk/J0SxGDryByKSNiGORKpKt1QTTrbbWSziGqq7B3zpVNSY
-         AToNRGaTjDuiCiRUduYkj/vtwc7JluC4X8bAJV546DfEEqrmHcp63FD1c62nhthtlpwt
-         /A1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789536250; x=1790141050;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=zSwtxaUSQ7K0oB62qUITKeVKiPbi0vng9/BLzWTtzOE=;
-        b=I8mu7NW+1cEkIvJQqz4P5TRfPIUTyRJ3IDB0tpTN5Bo3eOT7N0hqF88XoxEOUUJEiq
-         IQc5lzzIEXKYBCBNxFv77h2rkV0dm1oqVSx/BFbjFBI3ZHFkci6qPwpq4/t/h0mfCXkR
-         9YCPNEGGF1KhGKs7wRrt3DvWcZuawAm2GNTgDyaaWZfnxUlmt00HVZgxh0+Q5pmO0h5u
-         QrQKydZ4gAD7r3x8OnoI4BqNGrtXYtJsi4a2YPR0HSYVx1LqUWACG+Lr5sH0dXYkyYw1
-         nmF39p5hp67Gp7gPnd7RblU7l1+ysBqXJkqI0qYyhN+usUiLOWr1wmlVmXZMzrsqw6E8
-         1LiQ==
-X-Forwarded-Encrypted: i=1; AKwUvByS8Vfebs8OFzuV63wRaeayw5ndgrl++7xqwpwcBw2uSPsuIgeZll3+17Md0prQkhj2poymt3By73gN968=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkaypyOhSoZRz1sOuCiZKk6znzkXHFz3ys9OUYgMl5gn6DwS6j
-	RXA1SMGCrQT+cEW6zpKFBPSWetCiJ+5r0idRdwyCQsLLE/iYRsgyq9Gd
-X-Gm-Gg: AYBFou2UDZlyoRoAhgbxfnMjeEEtZZjfStjv+HZ5/b0xOiDB2+5GOwewCLHTUI4vpzM
-	vj+qL5HzdN7gtwTjn2rZUSCjdAd37Cknb7MDnyjU/IoBwqSRoKBykvbE7anf4iKZ6tpiGc9e6zQ
-	XiIprkaJ1EaLAA93fPyVAzQA58ZmAFIyCAhiLE0NDq4d4ebe0ZUN5DyClvcKpNpj6+RbFnl30Rs
-	+vn3NTAvmmo6ZarFhXy0iiAmYb1HxCT8X8t7Rvo0F+NLQsw3xRUvqYBTN/94INGFp6SMjBtsM2k
-	n239yABRShYKMG72ayUcsxxAdOeyQkWvVWSrHnGlBelJxdOAQ5JA1oubQicvf4imackZ4Wk/IeJ
-	+NKly5XjYk5zqnjJaR5sXymVRUSwAtda/3bAGOZ+lr+Gxnbno1+7TblHYvk3cM/Tjk2pxztQC2R
-	PE+1WafZKIy22bbf0Xz5j7ptbx32IDyBV95oI7sqR2GULvRLi0JrpZaRJodu3VljdTB8g=
-X-Received: by 2002:a05:6830:6d2e:b0:80a:45e1:7677 with SMTP id 46e09a7af769-80b2f3ac500mr1403318a34.23.1789536250381;
-        Tue, 15 Sep 2026 22:24:10 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80b07ad0294sm1562819a34.24.2026.09.15.22.24.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 22:24:09 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Wed, 16 Sep 2026 00:24:00 -0500
-Subject: [PATCH] drm/mediatek: dsi: force command mode in mtk_dsi_poweron()
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="hrHjWyjO"
+Received: from [127.0.0.1] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4deb4f28d;
+	Wed, 16 Sep 2026 09:55:12 +0800 (GMT+08:00)
+Message-ID: <37f6edb3-7e25-4bcc-9af0-f816bab011e0@rock-chips.com>
+Date: Wed, 16 Sep 2026 09:54:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-b37f167e25cb@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NwQqDMAyA4VeRnBeonYjuVcYO2kQXRqskdoyJ7
- 27x+F3+fwdjFTZ4VDsof8VkSQX1rYLwHtLMKFQM3vnW9XWLOmpmtMx/zKttykOUNGPcPkgmGCJ
- hXIiRunsTnO+nZuyg1FblSX7X6fk6jhM0/FZ9eQAAAA==
-X-Change-ID: 20260916-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-d834c029f4b8
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789536248; l=2721;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=hpjXRGa4viZcbFnNO5KBT0ICAECMSKtgFaKjk3ZUers=;
- b=YGYtnMBV27PnM1edrgMETUOi3yg7VZTGrzPFHJou4Uz1zxAGKN1TiUeZkDDsyt2+fjf5MWWPb
- W6IpgB8c/lLB0mGPpb7e2KK71MSkVE3pVyuDUNsENUDYOqVIuiy9cDh
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/3] DSI Controller improvements for Rockchip platforms
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chaoyi Chen <kernel@airkyi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Quentin Schulz <quentin.schulz@cherry.de>
+References: <20260914013331.108-1-kernel@airkyi.com>
+ <3800544.yaVYbkx8dN@diego>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <3800544.yaVYbkx8dN@diego>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0a7ecdabe03a7kunm8248de34c3a4d1
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGB1IVh8ZTxlNSBpNHxpOH1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=hrHjWyjOUkhry66qfs0cSuuOdicD2DmJlD9XhO3AJTaukjIoXOCohSzeMYjEyoAkpZCToUL3Z0FyV2W8VNTZSw8RUIOoivFWt7ldo/ecx6DQ98zsHN4y2NhY9Ap2WJIqGgJB9pktMJnPB4Vd6byovgMlKXPwcZqKA9ppaj40C5E=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=loqpFx2us6AzXdnwENCyISIbEFmke5V5K2ft3dn7wXk=;
+	h=date:mime-version:subject:message-id:from;
 
-mtk_dsi_reset_engine() does not touch DSI_MODE_CTRL, so whatever the
-bootloader left there survives power-on. On boards where the bootloader
-lights the panel for a boot logo and hands the DSI over still running, the
-leftover value is a video mode, and the first mtk_dsi_host_transfer() then
-takes the "already streaming" path: it stops the stream and waits for
-VM_DONE, which never arrives, because the engine reset has already stopped
-the stream. The panel's very first command fails and it is never
-initialised:
+Hello Heiko,
 
-  [drm] Wait DSI IRQ(0x00000008) Timeout
-  *ERROR* failed to switch cmd mode
-  sending dcs data 8f a5 failed: -62
+On 9/15/2026 9:36 PM, Heiko Stübner wrote:
+> Hi,
+> 
+> Am Montag, 14. September 2026, 03:33:28 Mitteleuropäische Sommerzeit schrieb Chaoyi Chen:
+>> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+>>
+>> This series is dedicated to enhancing the DSI controller and PHY timing
+>> interaction, refining the lane rate calculation, and addressing the
+>> associated hardware limitations.
+> 
+> 
+> Took me a bit to finally test all the different variants for a display
+> that shows strange behaviour. Sorry this gets a bit longer.
+> 
+> 
+> The display in question is the ltk050h3148w [0], display in portrait
+> orientation.
+> 
+> Ever since commit ac87d23694f4 ("drm/bridge: synopsys: dw-mipi-dsi: Use
+> pixel clock rate to calculate lbcc") [1] and the subsequent fix in commit
+> 93e82bb4de01 ("drm/bridge: synopsys: dw-mipi-dsi: Fix hcomponent lbcc for
+> burst mode") [2], that display has its output shifted about 20 pixels to
+> the right, with the line then continuing on the next display line.
+> 
+> We have this display running on all the Theobroma-System modules, so there
+> is a lot of variant data :-) .
+> 
+> Your series actually fixed the PX30 part of that shifted output, but for
+> the RK3399 the results are sort of mixed:
+> 
+> 
+> What was confusing me was that in the Rockchip vendor kernel, _all_ DSI
+> variants use the standard px30 phy settings? The whole original lookup
+> table seems to be gone? And that replicating that setting actually fixes
+> the shifted output on RK3399 too?
+> 
 
-Set command mode right after the engine reset, so DSI_MODE_CTRL describes
-the state the reset leaves the engine in. The video mode is programmed by
-mtk_dsi_set_mode() when the stream is actually started, exactly as today.
+Thanks a lot for the thorough testing!
 
-Seen on the Amazon Fire HD 10 (2017), whose LK bootloader draws its logo
-over DSI in video mode and never stops the stream before jumping to the
-kernel.
+The RK3399 results are surprising, as the Synopsys databook
+configuration actually performs worse than the PX30 PHY configuration.
+As for the vendor changes, unfortunately the specific reasons are lost
+to history. But what is certain is that the original intent was to
+resolve the interoperability issues with INNO PHY on PX30 and
+subsequent platforms. 
 
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
-The board this was found on, an Amazon Fire HD 10 (2017), is not upstream
-yet, so no in-tree board regresses without this. It is a state-consistency
-fix either way: mtk_dsi_reset_engine() stops the stream but leaves
-DSI_MODE_CTRL still describing the mode the bootloader was driving, and
-nothing writes that register again until mtk_dsi_set_mode() at stream start.
+So I've gone with a compromise in this series to distinguish INNO PHY
+and Synopsys PHY. I'm not sure if using the same configuration for both
+would work out completely, but so far no related issues have been
+reported in the vendor kernel.
 
-This touches the same lines as "drm/mediatek: mtk_dsi: Transfer register
-offsets to per-SoC const" from the MT8196 series; I will rebase on top of
-that if it lands first.
----
- drivers/gpu/drm/mediatek/mtk_dsi.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+I don't have a better idea for patch 3 right now, because different 
+platforms and panels may have different requirements for target_mbps. 
+In vendor kernel, we read the DTS to override target_mbps like this:
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 7961139333ad..4cb486f54653 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -737,6 +737,15 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
- 		       dsi->regs + dsi->driver_data->reg_shadow_dbg_off);
- 
- 	mtk_dsi_reset_engine(dsi);
-+
-+	/*
-+	 * mtk_dsi_reset_engine() leaves DSI_MODE_CTRL alone, so a video mode
-+	 * left there by a bootloader that handed the panel over still running
-+	 * would make the first command wait for a VM_DONE that never arrives.
-+	 * mtk_dsi_set_mode() programs the real mode when the stream starts.
-+	 */
-+	mtk_dsi_set_cmd_mode(dsi);
-+
- 	mtk_dsi_phy_timconfig(dsi);
- 
- 	mtk_dsi_ps_control(dsi, true);
+/* optional override of the desired bandwidth */
+if (!of_property_read_u32(dev->of_node, "rockchip,lane-rate", &value)) {
+	target_mbps = value;
+}
 
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260916-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-d834c029f4b8
+Would you consider this modification acceptable as an alternative to
+patch 3? Thank you.
 
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
+> 
+> RK3399:
+> 	original:
+> 		shifted
+> 		mode-clock 59400, target_mbps 450
+> 
+> 	patches 1+2:
+> 		shifted
+> 		mode-clock 59400, target_mbps 450
+> 
+> 	patch 3:
+> 		blank disiplay
+> 		mode-clock 59400, target_mbps 400
+> 
+> 	use static px30 phy with patch3:
+> 		image is compressed in height and displayed two times one below the other
+> 		image is _not_ shifted anymore (so left+right alignment are correct)
+> 		mode-clock 59400, target_mbps 400
+> 	
+> 	use static px30 phy without patch3:
+> 		image is _not_ shifted anymore
+> 		output is correct
+> 		mode-clock 59400, target_mbps 450
+> 
+> 
+> PX30:
+> 	original
+> 		shifted
+> 		mode-clock 59556, target_mbps 450
+> 
+> 	patches 1+2:
+> 		output is correct
+> 		image is _not_ shifted anymore (so left+right alignment are correct)
+> 		mode-clock 59556, target_mbps 450
+> 
+> 	patch 3:
+> 		output is still correct
+> 		mode-clock 59556, target_mbps 400
+> 
+> RK3588 (DSI2) for reference:
+> 	output is correct
+> 	mode-clock 59756, lane_mbps 398
+> 
+> 
+> Do you have any insight, what could go wrong here?
+> 
+> I'll apply patches 1+2 as they're correct, but will keep patch3 out
+> for now.
+> 
+> Also Sashiko seems to still be unhappy with patch3.
+> 
+> 
+> Thanks a lot
+> Heiko
+> 
+> 
+> [0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c#n299
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ac87d23694f44af44a98d21dd77016f2756b6b1b
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=93e82bb4de0196c4caeca1d8a6eef67863981d8f
 
+-- 
+Best, 
+Chaoyi
