@@ -1,110 +1,116 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6EB347BC4
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:04:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65EB4A9D7B;
+	Wed, 16 Sep 2026 22:06:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789596310; cv=none; b=Dvqc8nEZvz5lewq8m0EPAi6CKCmPtyF8OsaNaam5lkMpxUGClOns8iJdNKS0kevHEgcyv8LDA+jybp/++hUTyauO7l5PQDDkgigjg5hzuzNGkLD5Y8L5mkJqHZW5bPyxWTWuAzsyNjqWHWrabaynvGFEl7/PvueBFgw078ow1Zs=
+	t=1789596411; cv=none; b=mp03hq1wMc/riwFO6pODKRGTOlRM2EfgeilCvFjB9dnLzWp/q8DyDpbpnPHfcekOWw1VNB2Z6Ji9XBRatHyh6lKUcS+y1Mb/0ggWFMhAGixB/Bs/V1VVm3lmNDVLHLtbTtOA1dmqpjYzokQb1/kNkdOKi0hDWOYNee3pMV693UU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789596310; c=relaxed/simple;
-	bh=oWGJOZ2G4tADTboIasDpDVyxx8AGf0dDnPTDstePwmA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mHH6QcAicLgPzDahfynIiU5M164f0jo79/88R1WUFVCjSNIvWZTSC9Qg6/EV/XsutXSLNghv/0seyjn3Ez/Vw6gkjJwyHwjpF3JKH9uez058VgcHnyxGwWY6jtqnBQ6eoPAWuzA5YYg+xvrhV3qWu5hmyFRZbEleoL1QmOyftvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ovoI0s/r; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789596411; c=relaxed/simple;
+	bh=8jR3qXJDsRDhpRo2+hKqYNpQs7xwIeWBynYjDXLVyqA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nCRagBhmIuA+ZcaQLMSDFymeWIgcD/1PMv4LYtszgsl98nED0i5zttAHth/Oz3ebYreQUo5uOr8em/2+y2q6NY0Xd7mST9e47gruq65arMxNSR6wJ6kCIaslZhD9GFoNFPQAb/kx47ESLteHVu9DmZXooxoONKPqSMyQtuJ9uOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PaAS6O1s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ovoI0s/r"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso153894a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:04:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789596295; x=1790201095; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dHGYq0HcUs1U/I5vcPPQ+kFGt8+MwpGMEs9XhWd0UmE=;
-        b=ovoI0s/r94bNqxc3cU3VYWPUMVr2zOI5BjebUA6etiHsXg3y6uMDLpvGQXgmamsKxx
-         ZTKCFqzOcWn9fcPM9OaOyVVeELTa5WJeWcCJjhaFtoYTvuvRzQCTfsLj9p8LIDP/H5N4
-         5OvUmjjAlLsLsRY9RW7sCdmFTS8gKsma1ly7I7zMcovpxeC+la9OU4Qxq4xTNj8P3E/x
-         vqM5V+V3FSLZ9fncJPtPf7qyZSPA6xMNmNqkWf+mUSynuSP91I/a3U1vybdJ6ig1sDzz
-         tXyh6WeH+c9tbHSsiaK6sOFAMASQpBbS6nFYtzmyzVT+HvcOb9lJc55cSS0aKDd3UcP7
-         YScA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789596295; x=1790201095;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dHGYq0HcUs1U/I5vcPPQ+kFGt8+MwpGMEs9XhWd0UmE=;
-        b=pyJizAQscqasRb/SM1uDO0O7wsnTqca1vFWlVSRW3r5OXj4WsduWI8AS0jRGmzR7Yl
-         uGuAiTGOwhzkUlSlELtvDFFTrszMTm4ekyUQiuRFgMyiDiUMoRZxu0vvqhWO1yPnI7SY
-         1qJmlTZ7kN1sn+fI/NnfeJpak27AyuiKx50bxcybPgPsLhfU+58TBF9YF4awYiaPMdVC
-         z3Qwya5alTabHPuTqbDXlT5bFygueBVFAgw+6ZSZIbTdWTosWQutJicBYA45fC5pHoGI
-         aQ90SOL+QqEEhvXTOe+7IXbGB97J0rgajB9JyNI+zMUXvjmyQtaNjbU/5FHpS/8aAXWK
-         Pcjg==
-X-Forwarded-Encrypted: i=1; AKwUvBzFvES0QaDL0iXSydLlu7lZLvxcFUN9SHHbFFErUBT1o20VpZSwdfycUVO4THCya7af5qAjPMWrwcFiTWk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kF9cLIOpaqWvZGM8I/gFIqzIopTlXOwpK1VBhG+gh1qgSijiKB
-	UyFavfywnkxs3TwYLSjUhxld2iz65d1n7WT+qJYxfeI7Cut6AOyTi927PCp+bQ==
-X-Gm-Gg: AYBFou2G9mTH13/gziSCSqGEc7XACBcEA2Zt5TxsOzmBe/ZfubR6OZ7EBlGoppec71t
-	ULuqCjnfeiQ0nYR7VIpf/PgHlgsKmb5IAugUs3ph8Qi53RM7jjBxb+N/+5Xnk6Gvwe0Z5ONT3FJ
-	srWknkDf9NJ8kCe2vlJDAKwMyQU5ya+1q8sxv6GaLeo8TKZqKCcHnIsG7lB/IZjDnOwfh3+aVVR
-	+C2wv7DPcTUngESbI7x1onzWe7j7TsFwe0WxI8tXdYdqSyXpkuiD4fIUjOucj8LMTQgkhR6Ly4n
-	baN0Mo1dtzD4E91BCR5dtcO4FK0jDz/WSw0mtSnet3IDnmLXkKQ6l9vSKCGD9zlqk93865Q4pFl
-	voj3JQF/6iC03zsZPfj6xZQvtPbs+S5KXruHn5EdP/K+hvd1ZNfP2eL/TompN1mkqMnafaXRwgN
-	S5d0rk6PCE42GQLtMvXaUeUe36s+Xrco41JiXgvh1XujkK/Wd0mph7kjjcug+po+F3LOV1COIl8
-	vGjt7zV2nMNpFygCcAK1F8G4lhQwVgMSfz3Gziw5ohCMnkMsGCzDHUwS41MxTmJfIfjjIULhMnP
-	huaLjK0tJk01ktW8JmzdoVjh5/hrzMhmLn2XNPiaHwkF87AStPgrYMls5Eo=
-X-Received: by 2002:a17:90b:5386:b0:398:dcef:c040 with SMTP id 98e67ed59e1d1-39e1e4aa012mr10556740a91.19.1789596295444;
-        Wed, 16 Sep 2026 15:04:55 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5aa1194sm11704823eec.14.2026.09.16.15.04.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 15:04:54 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] ASoC: fsl: mpc5200: gate AC97 driver on PPC_MPC52xx
-Date: Wed, 16 Sep 2026 15:04:53 -0700
-Message-ID: <20260916220453.260472-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PaAS6O1s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 835381F000FF;
+	Wed, 16 Sep 2026 22:06:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789596402;
+	bh=ny09sGuz62R7zzgPJNiGubj3ISECT0ngvJE9U9Sh5CU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PaAS6O1seQoDoHbebs1MD+5RjJ0uBa37UI44pZikkQNKW/3s0B56qDJcTo0irzBgJ
+	 T3z7XzdxVRCjgB1gqKi0cWKv07EY5zpmF2+qTqpqLuVk6ojY9enq2EAkEYFZbUbjQ4
+	 RtYwE+WYP38tlPL5I39dT3ssTouyuomnaQT6VAoop9HkDtsKAfAouCOhzTAP/aicTS
+	 NT4VPfYfteyCD+NuRGWiH5QxsvVgbkJfDD8AGlhvTgD7IEV7T/6C2b/EypMhVbSCbz
+	 Xx94wjoqwii+v2vC/BK+humVsc9J+qZ3x/7pZ1EMsUK6Y/LXzUcXoWx0Dk2RqaRSyu
+	 3yNlIPh1zO5eQ==
+Date: Wed, 16 Sep 2026 17:06:38 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Taniya Das <taniya.das@oss.qualcomm.com>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
+	Imran Shaik <imran.shaik@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: qcom: Fix default entries for Glymur EVACC and GPUCC
+Message-ID: <aqsS3KIl59RdeEQb@baldur>
+References: <20260915-kconfig_updates-v1-1-b9bdf35db955@oss.qualcomm.com>
+ <0b371ca0-e91f-4ede-921f-9610961bbd6b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0b371ca0-e91f-4ede-921f-9610961bbd6b@oss.qualcomm.com>
 
-The MPC5200 PSC AC97 driver only applies to the MPC52xx family of
-SoCs, but only depended on PPC_BESTCOMM. Restrict the driver to
-MPC52xx platforms so it is not offered (and does not fail to build)
-on other bestcomm-based machines.
+On Wed, Sep 16, 2026 at 02:40:31PM +0530, Pankaj Patil wrote:
+> On 9/15/2026 12:28 PM, Taniya Das wrote:
+> > The EVA clock controller (CLK_GLYMUR_EVACC) config carried a duplicate
+> > 'default m if ARCH_QCOM' line, one of them misplaced before the 'select'
+> > statement, while the graphics clock controller (CLK_GLYMUR_GPUCC) config
+> > was missing the 'default m if ARCH_QCOM' line altogether.
+> > 
+> > Drop the duplicate on EVACC and add the missing default on GPUCC so both
+> > Qualcomm Glymur clock controllers follow the same
+> > depends on / select / default / help ordering used by the other entries.
+> > 
+> > Fixes: e291ec812dec ("clk: qcom: Add EVA clock controller driver for Glymur SoC")
+> > Fixes: 67e645285dd0 ("clk: qcom: Add support for GPUCC and GXCLK for Glymur")
+> > Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> > ---
+> > Fix Kconfig ordering/consistency issues for the Qualcomm Glymur clock
+> > controllers: the EVA clock controller (CLK_GLYMUR_EVACC) carried a
+> > duplicate 'default m if ARCH_QCOM' line, one of them misplaced before the
+> > 'select' statement, and the graphics clock controller (CLK_GLYMUR_GPUCC)
+> > was missing the 'default m if ARCH_QCOM' line altogether.
+> > 
+> > With this change both entries follow the same
+> > depends on / select / default / help ordering used by the other Glymur
+> > clock controller Kconfig entries.
+> 
+> Fix was posted by Sivansh and has been reviewed, should get picked up.
+> https://lore.kernel.org/all/20260821045214.2623299-2-sivansh.gupta@oss.qualcomm.com/
+> 
 
-Fixes the following linking error:
+Thanks for pointing that out, Pankaj.
 
-ERROR: modpost: sound/soc/fsl/mpc5200_psc_ac97.ko: symbol 'mpc5200_psc_ac97_gpio_reset' undefined!
+Regards,
+Bjorn
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- sound/soc/fsl/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/fsl/Kconfig b/sound/soc/fsl/Kconfig
-index 04940879dfd8..101bc952aa14 100644
---- a/sound/soc/fsl/Kconfig
-+++ b/sound/soc/fsl/Kconfig
-@@ -234,7 +234,7 @@ config SND_SOC_MPC5200_I2S
- 
- config SND_SOC_MPC5200_AC97
- 	tristate "Freescale MPC5200 PSC in AC97 mode driver"
--	depends on PPC_BESTCOMM
-+	depends on PPC_BESTCOMM && PPC_MPC52xx
- 	select SND_SOC_AC97_BUS
- 	select SND_MPC52xx_DMA
- 	select PPC_BESTCOMM_GEN_BD
--- 
-2.55.0
-
+> > ---
+> >  drivers/clk/qcom/Kconfig | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
+> > index 6ef083f5d9e251d2d2c5592a3f3dd51845dc743b..b3ffe1dced017e6f4bd3f0fa9c11bed5948391fc 100644
+> > --- a/drivers/clk/qcom/Kconfig
+> > +++ b/drivers/clk/qcom/Kconfig
+> > @@ -104,7 +104,6 @@ config CLK_GLYMUR_DISPCC
+> >  config CLK_GLYMUR_EVACC
+> >  	tristate "Glymur EVA Clock Controller"
+> >  	depends on ARM64 || COMPILE_TEST
+> > -	default m if ARCH_QCOM
+> >  	select CLK_GLYMUR_GCC
+> >  	default m if ARCH_QCOM
+> >  	help
+> > @@ -127,6 +126,7 @@ config CLK_GLYMUR_GPUCC
+> >  	tristate "Glymur Graphics Clock Controller"
+> >  	depends on ARM64 || COMPILE_TEST
+> >  	select CLK_GLYMUR_GCC
+> > +	default m if ARCH_QCOM
+> >  	help
+> >  	  Support for the graphics clock controller on Glymur devices.
+> >  	  Say Y if you want to support graphics controller devices and
+> > 
+> > ---
+> > base-commit: 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3
+> > change-id: 20260915-kconfig_updates-39a684a748d0
+> > 
+> > Best regards,
+> 
