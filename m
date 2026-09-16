@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DC42D8385
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:36:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604BF3B7B7B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:36:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565764; cv=none; b=hd7dkdIG6rWKXolaOw0sKjDqXEucLAVbBpcX9gL8EDwXnRd6XIC/f/sib8bN5b8/DYRgN67s3t4tAeZtZuaxvtjGrHzwQ8AD/2HuU4p/XoCYHhQR9iN8gZSZKe+WnnTGkoJa5+OQynYrRgKHbeY9GuBQ2Aeyf6IJKQMX6jPgwQc=
+	t=1789565812; cv=none; b=WII6mlN/4Dk7e9n4mMy0rHzEk0tZGNKIxwTEpdQFFqbFKdGGoh8lAaziP4kNkZfV4EXOrHb3gRM1Q4bKimS017tlFhbqiklnQ9IQ9HAL+5hrPwoBlcwtmd07KWoZ8fbzIYHSmMZW1kB1FnRHC98tj+iNeabSeASzwaOJQvAStSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565764; c=relaxed/simple;
-	bh=h3j02ULJJRUXdGgpq39NavbcTmpKsjv9A+0fNHjMtLE=;
+	s=arc-20240116; t=1789565812; c=relaxed/simple;
+	bh=tYDQK00GoupFYjRMZ8Y0p0mwbuw9Pujz/GVh25drHKs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L8J9gpB5geTjpvY5U/Vm4VZfuGSlJnNhw+VbAGZBNTLHFjLwpcWDdr1MSewmvE205kUwMl6omILNORTBB+bpWpmo4kNcLCCgwv+L9rtKKJON7Ev68Cn9ZfM2zWcynTetUarjSvAgDt7hVl2jIMihsguAOByUOxNEBJsnwywlMmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=it8+Cdwk; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=PqH6EtwXBDpCYSrXCzWR2hz7m91V5n5fOzOssQdVxSuJXtEOcqc3l+MYa2VA6Plqg5ij8pUCoXsyhQRw5v4fqg3ILnIBlwQaaIAM9COfbXjUeUszzgb2bOpdZT4nMy7bpPy3+WE2Idkv6rhGlC5+Qus4OJ+f55Cl3ErE1WgvcQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VMrwujIi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="it8+Cdwk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E7C1F000FF;
-	Wed, 16 Sep 2026 13:36:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VMrwujIi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C46AF1F000FF;
+	Wed, 16 Sep 2026 13:36:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789565762;
-	bh=bwyk+5gUmPQM5HlVeH3up+pJy3bi1L00FIGnnBnAiJY=;
+	s=k20260515; t=1789565810;
+	bh=aIOwNGA0MU/NVfhrdRk/6kNhj0M02kW7XmE+rQcbLdU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=it8+CdwkIuYEVwHgoARhILclAx9xQneyJikZNFw5FuiXfBQKZjuHAWEm1zRK0HBEZ
-	 MBu8dds16gBsPre5OB1tdPNsQ7AjwC6eW7VT293sDASWfg9+7a48j7tkMR5WSTWBrR
-	 MQ3ogNFN3BPDxIc2an8RVAS0fZ8ZLOBdLClqi18I0wbMhkJmcCXLWK111NF7U8OHz7
-	 Qo9Nlk4gyT0emWDUu+ufaY+JkFfXl/FeYDomMFI+af5BkmAhJVhVY2w5tdRVIuXMr2
-	 R4LMRQYCkHDCI7geEAOMv3M4ixqW1W/ccumk8vv55zTvPL9ytZ6NtixXG/NRqT+xD0
-	 triSr+ZAmcSaw==
-Message-ID: <1d2108bc-6b67-43ce-ab13-70ed241024e4@kernel.org>
-Date: Wed, 16 Sep 2026 15:35:58 +0200
+	b=VMrwujIiBik3+7HDLtAyBMSxqEQWSXE0OgnntRCHHaB5GYadUH37/KcxMw42L3T8L
+	 nJdH3tcLXAVs4Zikcm+jbbIYjZSLbXaHWS/xq8G4GZ5h2jvs15Ic9dCeORiZksuSSr
+	 hoOYQBXv/yIHBQClwmbsoOMdFkGzkb9askn2F3LTRlvt61DFyEAtnT9S2tGXL1rzjW
+	 GcjRh09Shyk8i6mjZ95MvwynQOq9UOtr7zTqtph2Vg45+QF/R5CEdI5vkX0THYygg+
+	 GokAyhksjgm6lKVLOXdfIevQ2BzHUnLqpFdYIcYQLFdU3NaoLkru65InaACrorxf0K
+	 vYtXjGRLlD7ZQ==
+Message-ID: <2cb3bb6b-df38-4568-987d-8e71b3244279@kernel.org>
+Date: Wed, 16 Sep 2026 15:36:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 02/14] arm64/mm: Route all pgtable reads via
- ptval_get()
+Subject: Re: [PATCH V2 03/14] arm64/mm: Route all pgtable writes via
+ ptval_set()
 To: Anshuman Khandual <anshuman.khandual@arm.com>,
  linux-arm-kernel@lists.infradead.org
 Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
@@ -45,7 +45,7 @@ Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
  Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>,
  linux-kernel@vger.kernel.org, linux-mm@kvack.org
 References: <20260907035030.2839978-1-anshuman.khandual@arm.com>
- <20260907035030.2839978-3-anshuman.khandual@arm.com>
+ <20260907035030.2839978-4-anshuman.khandual@arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -92,14 +92,14 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260907035030.2839978-3-anshuman.khandual@arm.com>
+In-Reply-To: <20260907035030.2839978-4-anshuman.khandual@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/7/26 05:50, Anshuman Khandual wrote:
-> Define arm64 platform specific implementations for new pxdp_get() helpers.
-> These resolve into READ_ONCE(), thus ensuring required single copy atomic
-> semantics for the page table entry reads.
+> Currently ptval_set() is defined as WRITE_ONCE() but this will change for
+> D128 pgtable builds, for which WRITE_ONCE() is not sufficient for single
+> copy atomicity.
 > 
 > In future this infrastructure can be used for D128 to maintain single copy
 > atomicity semantics with inline asm blocks.
