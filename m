@@ -1,150 +1,217 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B4051D50D;
-	Wed, 16 Sep 2026 15:36:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D237F3B71C1
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573006; cv=none; b=ZueifByjtTqxUaJMzl8EmaAWGlH1xsf4YDl/Kdl1DJee/9Rd1nAhHsmDcheXotAZ58f7qu5/JSCS6XR3Y7p1RorK9FPzfC8yO2OpjHn5b3vTs56Rh3YmJIZqtzS0j7zXAkiuduaDsLHi0dZqnOi1RFjoJVnaOhrycdQmSTT4TEY=
+	t=1789573006; cv=none; b=X6/pS0G41WlJPUYLGhSxOeG8NxhcbQrk5GjlOXAXx7p8CmQnZTKMBKktweH5xnF+WH4RBzOwrZuOdldyrfG8+HzpC5YX8FvzcJZtp7hE5hrYCIA+/HpsaPNimjOIMx0tVUGHpHeUizrweCnbuSqRGjLB/komt9AB7WQ19Mnwi14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789573006; c=relaxed/simple;
-	bh=C1t6262uNf6MGZJFxfdTvfR246yobc29sgevU4AlPzI=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=hwRJRS9P7TfPZKXB+J2Y8wvQMkeafDdrELnwXny0Oz820qToRgdlE6ob8oFcr5aBmgv7oF+whA1tQL60Fw/xQs5AYDl+kik0TMEBEChwmS93NhK83v8zb77GzYtXVzEup/wVHPG+7PVwbXkXfKKbwMa/KRXakKI49AypEsapICs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=UsBXWGtR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ph3hkj7D; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	bh=j9wPV+/EfbcGsOG8JnEPShKnQO6bUkC+qAb7x5D1t28=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=OX2gSfJC/1ZbFeQqQkbjoPx933pyRFOkg7oEQrGRJl9y4RfT4YkjEZLxiLex/fxpxmeG4Dj+IMG1VdIC2C0pWbI0h8q3VTh8DnXoD4iAPdG0oHrgvvSf/Qfr6SdGwhEEEKVKMhonB6nm++EExJvZLIEpZ7ts2elWDKdHL8H3wJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=cXHdKIqT; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="UsBXWGtR";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ph3hkj7D"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 225D41D0006C;
-	Wed, 16 Sep 2026 11:36:31 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 11:36:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789572990;
-	 x=1789659390; bh=L5DrRwjMGcZbnefFUaO+yUfJnxJIEZjt5fvM43LMLS8=; b=
-	UsBXWGtRC2WWQ+STXVlGtGuppEEdlNl5Cxw5ZIuadQfYwu6fWKnSG1Ka+MpY3GDj
-	qZt8YwXcAtHxCF5bp6HdfcXG7q/xkQWzWXqSfpSZDLjtuKi/u0J+yZlSXCikqMQn
-	xtROIzKLK2yD0S0zUygr9fKdZnDEUIfBmjcr90aYuTS9YAc2EskarjzOBzotsjhm
-	uymUqna0voKRLNBp+O1CptO397AtG5wXWCBmLjIL5uRvpt6ktw9Bp8lpb43obgN0
-	TomcFXRswfUb/LdzQih618IOldY/vjOwhnL2Al+G6Ahs6Bs1mYspJwIFAtq9bs1O
-	R+xbNAh06AgBsetu0lE6Vw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789572990; x=
-	1789659390; bh=L5DrRwjMGcZbnefFUaO+yUfJnxJIEZjt5fvM43LMLS8=; b=P
-	h3hkj7D6awaq4clhvRyc2pbEztJi2DhMKaTWn1Eir+/PkES5Hr7lKI4Gk3/OrIpo
-	P6GlxW0iB8wLpSztJrjLP4uIuN6OUgW0tmmJgWHVWBv9yCY++E5TMFf39lKrIN+X
-	fDLvO0FYv5nMSCKkFYA0faZ73RKjSlCgmIvLQC8MWpAXe0vodmFOiE/SJTnNgymV
-	mA5d3n2W7RfHu0RJLZHIw5DG6HhYEqwceZiCLeWWh05GXajn17f/L4G57oiQKZ9g
-	Sh4LnuLiGZo7JktzVkjYZNOmvYEc52LlNNuWG7B7i1hwTq06So7WD242XmF/p50z
-	W8l1QBv50Ro4dTHoxegHQ==
-X-ME-Sender: <xms:d7eqahRfP8bHPTLl80Bd_ksIxfYnCM3Td5koyyk5opQg5GXh4oqaNQ>
-    <xme:d7eqallHZjJwQ1k1XqT5rMruPZojIXgfeSsEYw7nvaFc6tyBhw62ZiVoBlhZ0SfT_
-    zMqodZS6YIIPLIcRrsCztLluvFPkdlk65b1HvISCE8ZKL8CRYbQuJbk>
-X-ME-Proxy-Cause: dmFkZTEmEahFO8kEoqhJy3UtM6+cwfx33ul+Qlv598pOAUnDDLePRTF6ys9/wc1u4lgGYd
-    KV06UTaoT4+0Yh05Ff0zgHgoM7EhG3SheAi9d/2jhc7WY1exSHV6KvJVHcUIRvc7vYDcz5
-    fOjxCEDdl6PEgRQHwST8uKYG14+OI5SkPKZhutjbeZiexiwUbFvG9AFZajlod0/LJ9MUAv
-    sqyxIeqA7wyFEAvEChGpuZvan7GuEHsn1rR7qBe54U8sdrxLOU7UaOrzUg4rHF96fDJtGl
-    tC8Qgy5FeIcHStRJU4U6bvmu0qq97EGQvIu6FLlOuDuaq8946ePz1BcvGBbfdXtw4bKre4
-    TgDaTf0uFrBktk+IlHAxKeVvVC5JpeKXxi7U7okIpXMovvx+IcXzMOKk0uOZfMqZeHc4C8
-    20dpGCz1+GDV7gYc8w6mLC74nXiSsaccO1FAB/ecTZ/AstwUt3Pc5f5F/7u0F1TQI24JSW
-    G/s3uT+thX7vjC96A4dSXh5XUsN/dosrMe6G1tNL/2Y5WvohYdTsTvyv1+jrIpdBWX6nVs
-    JGITYmBLqn6E5mLiVDLRSLdWJL8Blh705xciZfYrHcleNveOT4aL/IE1GYgiscDpyIMX5d
-    ZKFe3EukZ6zli+2HPF0P8SlyGQnQjuS0ZYhyusaYWNudDeNkiB/1CwblDaMA
-X-ME-Proxy: <xmx:ereqaum7mOIPX8OBZbMzvdPFeQQ3x7Y9rpajILs-az8DTtozW3jafw>
-    <xmx:ereqanPvwV6YILOJxCfDzjU4DT7SGe9T24QPDy5SmQNfV560Ob6VkA>
-    <xmx:ereqal4Fb6nsPeBeBynNCPxqWqM0uxU77KiY5zc5gTTaVYTbI7eo8w>
-    <xmx:ereqaq1ztl2zq6kBqfquYQj-re2HyoKWTWeEWAeSa-m9uK4DryLsrg>
-    <xmx:freqagotqjoLguZVh1LNjr0XxSRtaXwpkXl_qfJrx64RHgySLoh_BC-w>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 43C0432A0086; Wed, 16 Sep 2026 11:36:23 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="cXHdKIqT"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48586861639so922835f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:36:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789572996; x=1790177796; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mqmfs62Il41JZdrK4MnJ9AwZ6UV73Ai2ymy+jYr0F+M=;
+        b=cXHdKIqTKKDEZPyrNZkyvgiKFAbeOrOwxQ1h9eGsmbtiIRAE5DWeCXlqwOEFyKMxSk
+         o/dam5XeR7aby5PHcg+dTTa8vn6Eqfwyt2RiszXBQKWvhcrusjzQWCPRPWLH9mwcTKzg
+         9r8EtLLJuRQl7c/wJIJu6On5nZJ9Bx49Bo6bpQtUlqw6LdlAz0KaZrjkPJs8dpP3u4q0
+         DauvJmQq8tCCBuOffVDHaHUQYj+nheYr902n89G7VshcaKSk6tmMY5aKITenUB4ONAaP
+         0A6w8hAXZeKzIE3DJ45UXQrKnzwPilClxbHUqgadrhF3Q31ParWGnaQffuadxWzQ6h4t
+         NDcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789572996; x=1790177796;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mqmfs62Il41JZdrK4MnJ9AwZ6UV73Ai2ymy+jYr0F+M=;
+        b=EWuWQHr/hp9xy1lARBaWekFNRCraGgwHe4xJsLQytSxFfWmr473gnLbKtwrHub+LUC
+         e/uN+xddzsnFl56M/fGjEv4Ux3RTyPp71mNw38zXIdu8vY/xXPSXSMjExmMvJhrBPNGD
+         6nLulTRv/++JKkXfTZieqYbJ+SHPbPEYVkWb1WTUvABYUQsiquFjWc6wSnC2Rg+Za9Rw
+         iO0v3NPNGNp9Y4d4CPcpBajtLbpw8L3c2z9e6Q6uPkCi+EnVPlMRYG7bBwv1JsfZYQOy
+         bM+9lp0YizThGgIDFla0HRsQL7wXl51igeP7MSDXs2sfMkrJK3vdorbE0B9pt/NSoQwK
+         Oe3w==
+X-Forwarded-Encrypted: i=1; AKwUvBwc15ngPdczAm/RlEDyJcYJGbmzErk4c1Jp0HBfrY2edt0+d7EJSDfAhzPrf/sFnGk+Xw3mZdYEutl5wCA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbuBy26o7aEVnjEUFq4qv+a3Gh1LLHpM6YCtyDOl4ca4b1fHUB
+	9QoKTruT8By9DiVzG/sHGE468vlWXY7UkoyYKGUixVkUfRXCxGrA1oe6lT6K81xk8N8=
+X-Gm-Gg: AYBFou3FfaokRYxf0l2eDMLT7SbpNeej4kqZa0KqnmDtDWiySR0tCiA8eICaaDnIDhF
+	MjkHGBrzCH8S5M8B4bbQeOuTfnzqUPVBma8i1hxn9c3w/nap4cgaObNKLd2slp9RIm+FQT8vN5n
+	y58/nPq7eNWw3LPXLhrEiU1bAMZhR5i5Evo9wezEDIc56EEFyfiDB4k2UygVtiQejplqN4Yx0oB
+	f2IWK4p6bx4B0eibXqYBy0qUwLFZ2MRUQxudl10peDHhjAoTSkDHPwFwzE4tzuTgatPqIWLi2cA
+	421BMZTPxaVcu2mzoTjSNIcqDN51P5nxaYjHoa0wQleOpvIl30E9Ud3fRyYidnxEEIfJXT8TR36
+	7jimttxoAmh8G0NDLOMee5JPbhktsIiwUKSkzBwoe64sfo8KCHxi5hcSzdpS+d+b3mGXUdBSNPQ
+	cftZAnbu8x3z3jSpOmIlvtrwcpfq+zuhGb6tp9UCyp3cCxmnwZxFtoct62O/KnC8JaHg==
+X-Received: by 2002:a05:6000:643:b0:487:955:e6c3 with SMTP id ffacd0b85a97d-48713a887ccmr129202f8f.0.1789572995924;
+        Wed, 16 Sep 2026 08:36:35 -0700 (PDT)
+Received: from localhost ([2001:4091:a245:8029:665d:b7b:5fa4:7ad0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27c65sm7915045f8f.21.2026.09.16.08.36.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 08:36:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ThreadId: Agz7qtOQI7DB
-Date: Wed, 16 Sep 2026 17:36:02 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Mark Brown" <broonie@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Jaroslav Kysela" <perex@perex.cz>,
- "Takashi Iwai" <tiwai@suse.com>,
- "Charles Keepax" <ckeepax@opensource.cirrus.com>,
- "Shuming Fan" <shumingf@realtek.com>,
- "Richard Fitzgerald" <rf@opensource.cirrus.com>,
- "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>,
- "Niranjan H Y" <niranjan.hy@ti.com>,
- "Ajay Kumar Nandam" <ajay.nandam@oss.qualcomm.com>,
- "Alexey Klimov" <alexey.klimov@linaro.org>,
- "Julian Braha" <julianbraha@gmail.com>, "Peng Fan" <peng.fan@nxp.com>,
- "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <d09d7709-e537-472c-82d6-e532e955f137@app.fastmail.com>
-In-Reply-To: <f9c9aef3-6e0b-4f7e-914e-35a82b5f962a@sirena.org.uk>
-References: <20260915211658.1671821-1-arnd@kernel.org>
- <f9c9aef3-6e0b-4f7e-914e-35a82b5f962a@sirena.org.uk>
-Subject: Re: [PATCH] ASoC: rt766: fix HID dependency for SND_SOC_SDCA_HID
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Wed, 16 Sep 2026 17:36:26 +0200
+Message-Id: <DLGUOGCLFAI9.2JSS4DCFRYTNI@baylibre.com>
+Subject: Re: [PATCH 1/2] dt-bindings: input: gpio-keys: add pinctrl states
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Kendall Willis"
+ <k-willis@ti.com>
+Cc: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, <msp@baylibre.com>, <s-kochidanadu@ti.com>,
+ <a-kaur@ti.com>, <s-tripathi1@ti.com>, <vishalm@ti.com>,
+ <linux-input@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
+ <20260912-upstream-gpio-wakeup-v1-1-f0e12484b836@ti.com>
+ <20260914-unbreakable-competent-beluga-efb5ad@quoll>
+ <20260915164819.nlgpuvf37rhzgc66@uda0506412>
+ <dec4f6e1-115e-46dd-8fb9-a3c67f1a8811@kernel.org>
+ <da881fb0-93da-4d75-88da-8898b2c734eb@kernel.org>
+ <20260915174103.ad6tjy6w6s24h2yc@uda0506412>
+ <20260916-dancing-loud-guan-fbb1eb@quoll>
+In-Reply-To: <20260916-dancing-loud-guan-fbb1eb@quoll>
 
-On Wed, Sep 16, 2026, at 17:10, Mark Brown wrote:
-> On Tue, Sep 15, 2026 at 11:16:34PM +0200, Arnd Bergmann wrote:
->> From: Arnd Bergmann <arnd@arndb.de>
+--761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+
+On Wed Sep 16, 2026 at 9:17 AM CEST, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 12:41:03PM -0500, Kendall Willis wrote:
+>> On 19:07-20260915, Krzysztof Kozlowski wrote:
+>> > On 15/09/2026 19:05, Krzysztof Kozlowski wrote:
+>> > > On 15/09/2026 18:48, Kendall Willis wrote:
+>> > >> On 12:13-20260914, Krzysztof Kozlowski wrote:
+>> > >>> On Sat, Sep 12, 2026 at 04:33:53PM -0500, Kendall Willis wrote:
+>> > >>>> Document pinctrl properties on the gpio-keys device node. By usin=
+g the
+>> > >>>> wakeup pinctrl state, the pins are able to wakeup the system from=
+ a
+>> > >>>> low-power state. The default pinctrl state describes the default =
+pin
+>> > >>>> configuration.
+>> > >>>>
+>> > >>>> Signed-off-by: Kendall Willis <k-willis@ti.com>
+>> > >>>> ---
+>> > >>>>  Documentation/devicetree/bindings/input/gpio-keys.yaml | 16 ++++=
+++++++++++++
+>> > >>>>  1 file changed, 16 insertions(+)
+>> > >>>>
+>> > >>>> diff --git a/Documentation/devicetree/bindings/input/gpio-keys.ya=
+ml b/Documentation/devicetree/bindings/input/gpio-keys.yaml
+>> > >>>> index cc78c2152921308fe0cad3e29ca78a5fad08f066..b554933e93412d8b6=
+c2ec401dc1e1eeff57d4190 100644
+>> > >>>> --- a/Documentation/devicetree/bindings/input/gpio-keys.yaml
+>> > >>>> +++ b/Documentation/devicetree/bindings/input/gpio-keys.yaml
+>> > >>>> @@ -22,6 +22,22 @@ properties:
+>> > >>>> =20
+>> > >>>>    poll-interval: true
+>> > >>>> =20
+>> > >>>> +  pinctrl-0:
+>> > >>>> +    description: Default pinctrl state
+>> > >>>> +
+>> > >>>> +  pinctrl-1:
+>> > >>>> +    description: Wakeup pinctrl state
+>> > >>>> +
+>> > >>>> +  pinctrl-names:
+>> > >>>> +    description:
+>> > >>>> +      When present should contain at least "default" describing =
+the default pin
+>> > >>>> +      states. The second state called "wakeup" describes the pin=
+s in their
+>> > >>>> +      wakeup configuration required to exit sleep states.
+>> > >>>> +    minItems: 1
+>> > >>>> +    items:
+>> > >>>> +      - const: default
+>> > >>>> +      - const: wakeup
+>> > >>>
+>> > >>> This will introduce new warnings, which should be being fixed in t=
+his
+>> > >>> patchset (e.g. at91-kizbox3-hs.dts).
+>> > >>>
+>> > >>
+>> > >> Will fix the binding to work with current device trees.
+>> > >>
+>> > >>> But nevertheless, isn't second state the sleep state? How can you
+>> > >>> configure pins for the wakeup state - like being in the wakeup? Yo=
+u
+>> > >>> configure the pins for given state, which will be a system suspend=
+, so
+>> > >>> sleep?
+>> > >>>
+>> > >>
+>> > >> The sleep state usually refers to putting the pins in a state to sa=
+ve
+>> > >> power. The wakeup pinctrl state is for putting the pins in a state =
+to
+>> > >> allow wakeup from suspend for that device. Both 'sleep' and 'wakeup=
+'
+>> > >> are for system suspend, but they fill different functions. The CAN
+>> > >> subsystem also uses the 'wakeup' state in addition to the 'sleep' s=
+tate
+>> > >> [1].
+>> > >=20
+>> > > So you mean sleep would be a separate state? But then aren't both
+>> > > exactly the same states? IOW, if device is wakeup-source, it will ha=
+ve
+>> > > for "sleep" state pin configuration allowing to wakeup.
+>>=20
+>> The 'sleep' and 'wakeup' pin states are both used for suspend. They
+>> would just be used separately since only one could be used at a time.
+>> The reason 'wakeup' is separated out is because it is more specific for
+>> allowing wakeup from the device.
 >
->> Selecting SND_SOC_SDCA_HID only works if HID is enabled:
->
->> --- a/sound/soc/codecs/Kconfig
->> +++ b/sound/soc/codecs/Kconfig
->> @@ -1992,6 +1992,7 @@ config SND_SOC_RT766_SDCA_SDW
->>  	tristate "Realtek RT766 SDCA Codec - SDW"
->>  	depends on SOUNDWIRE
->>  	depends on SND_SOC_SDCA
->> +	depends on HID
->>  	select SND_SOC_SDCA_HID
->>  	select SND_SOC_SDCA_IRQ
->>  	select REGMAP_SOUNDWIRE
->
-> Should that be HID=y || HID=SND_SOC_SDCA like for SND_SOC_SDCA_HID and
-> SND_SOC_SDCA_CLASS?  The dependencies on _CLASS should stop the
-> problematic cases from actually occurring but I'm not sure if it stops
-> the warning.
+> If they cannot be used together, then it is the same state.
 
-Yes. Just as I was trying to write up my presentation slides for next
-week trying to explain how nobody ever gets this right, you have reminded
-me that I can't do it either ;-)
+If I understand this patch correctly, 'sleep' is not relevant here.
+But 'sleep' and 'wakeup' serve different purposes and can be
+used/defined together in a single device in the devicetree:
+ - 'sleep' describes the pin state during suspend if wakeup is not
+   enabled by the user or there is no 'wakeup' pin state defined.
+ - 'wakeup' describes the pin state during suspend if wakeup is enabled
+   by the user.
+If the user enables wakeup, 'wakeup' is the relevant state and otherwise
+'sleep'. Which one applieas is a runtime decision of the the user.
 
-How about this version?
+I introduced these two states for m_can for that reason. This was
+discussed here:
+  https://lore.kernel.org/r/DCD1YPX4T779.ADK4JCGW1MU7@baylibre.com
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 181ed1b8a6dc..f88381523ea3 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1991,10 +1991,7 @@ config SND_SOC_RT715_SDCA_SDW
- config SND_SOC_RT766_SDCA_SDW
- 	tristate "Realtek RT766 SDCA Codec - SDW"
- 	depends on SOUNDWIRE
--	depends on SND_SOC_SDCA
--	depends on HID
--	select SND_SOC_SDCA_HID
--	select SND_SOC_SDCA_IRQ
-+	depends on SND_SOC_SDCA_CLASS
- 	select REGMAP_SOUNDWIRE
- 	select REGMAP_SOUNDWIRE_MBQ
- 
-I think this is much clearer than the original version or my
-first patch, as it avoids the fragile 'select'. If you like this
-one, I'll send a v2 after this passes some more randconfig testing,
-or you can apply that directly.
+And then reviewed/applied in v10:
+  https://lore.kernel.org/r/175993598226.3512549.5295923279078928995.robh@k=
+ernel.org
 
-      Arnd
+Best
+Markus
+
+--761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCaqq3ehsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlM+
+ygD/VE+hJFS+CFW3o1xNzwibjxdZyInzKYw9u2YQjwROYfUA/3CUdbcqbBPrKnV4
+8hCIpecynxuiT0xYshtL2xPQjcQF
+=LpE8
+-----END PGP SIGNATURE-----
+
+--761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d--
