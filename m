@@ -1,74 +1,36 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CD94B0C88
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB034B5CC3;
+	Wed, 16 Sep 2026 09:53:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552335; cv=none; b=Jp+EV4wrEIvhZ0q7NtcKr8UtWXkTza7QcX0bUjNiQeaDgyxy0w8KHPc8R26X3wt5isUwRD+qwaF9vIPf7DDhciVnlkks5X8B2pn/8vgZZ0x7yLO25irgd5US5G+FOq/cRbQtvHw3kjpY/Io0BOSGIMjDqRRcc03YILMmyJsnVcA=
+	t=1789552407; cv=none; b=kCr1LqYClA27V1FncbMB4bpTDRBi7n9IhwQpSKYMzBK+GV+Yd8pPSpvfhqaKuMjQVF1hks6nRB5oG2VvjNkH1sY+K4fN6GNqSIEvft1C034Un/G5d7NT72/PDhljANhdLhBJQuabtxbzT8hbHvA3Vj6uFQS9ceqTPKNKw6ZT7DE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552335; c=relaxed/simple;
-	bh=YA+a6CCA1zWdQPcieNEuLQ0mIwRn0Ck7WsDOY4ql94Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G7fvr95fqlYDAXj11Tekt5CSpdjkXgJ6R5fKucBB8uFU2IENpe8tkFdEyRADHrcQeCcI2h74ObT/4uJDqwU2v7tyo714+OrFXJ3WvQ7lZt8U2JTrXORziua0bGkgLlq3lGzgA/A0ajhcSotISkQNiOhZ6dRuavhbxaqfBf5xumQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KA/2YiJf; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KA/2YiJf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789552280;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FeWcXK9/x+ZPPaC++IgCQ9jS/VWtgj79RgI0CVq94cU=;
-	b=KA/2YiJfDI5z5Tb0+9S9i5OwaAApl2+sF9ZZIO69akxlchzHBiRTMQonw3CaQ7+jG144Ic
-	OoLDgQZJgVl3BrRr3yjXAheQ0+sVYqSkh0v4wteOLWpok1loF5EfQAb+H6OWspdIfwgX7p
-	fY77YpO1yu6V24DHC548RLQjJYqu+h4=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-490-QFumBAnuPfmT3gOSUAZqmg-1; Wed,
- 16 Sep 2026 05:51:16 -0400
-X-MC-Unique: QFumBAnuPfmT3gOSUAZqmg-1
-X-Mimecast-MFC-AGG-ID: QFumBAnuPfmT3gOSUAZqmg_1789552274
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 79A9F18011DC;
-	Wed, 16 Sep 2026 09:51:13 +0000 (UTC)
-Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CD2991800446;
-	Wed, 16 Sep 2026 09:51:06 +0000 (UTC)
-From: Thomas Huth <thuth@redhat.com>
-To: Eric Biggers <ebiggers@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	David Howells <dhowells@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>
-Cc: linux-crypto@vger.kernel.org,
+	s=arc-20240116; t=1789552407; c=relaxed/simple;
+	bh=QMrT+8IKwmMOlrAGhe74MK5taGi6puci2h80Q5LU5C0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=vE19OwUpFSsDFSnlOf3mGCCjG4RWVqNXh6trYX0QCMbqyju9EFWUh44GxS4RPwjDS9GVBliymhAl30PyXvtTgWYjtCoKm8TJsOIUIq2XTPvLNwSHTIb0yKpKnXQiLjpuPrVsiz0sWlU/NzQaMUAL92IXCSUgdjz4OztS7qduPpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACXoT_9ZqpqEbPgBw--.16820S2;
+	Wed, 16 Sep 2026 17:53:01 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: David.Francis@amd.com
+Cc: airlied@gmail.com,
+	alexander.deucher@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	christian.koenig@amd.com,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-integrity@vger.kernel.org,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: [PATCH v4 09/13] security: keys: trusted: always clear the hmac_sha1_ctx before returning
-Date: Wed, 16 Sep 2026 11:50:11 +0200
-Message-ID: <20260916095022.604354-10-thuth@redhat.com>
-In-Reply-To: <20260916095022.604354-1-thuth@redhat.com>
-References: <20260916095022.604354-1-thuth@redhat.com>
+	simona@ffwll.ch,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix GEM object leak in amdgpu_gem_op_ioctl()
+Date: Wed, 16 Sep 2026 09:52:33 +0000
+Message-Id: <20260916095233.2009025-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,31 +38,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-CM-TRANSID:rQCowACXoT_9ZqpqEbPgBw--.16820S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AFWUWFWDZw48Jw4rArykuFg_yoW8Xr1DpF
+	s3Xr1jyrWUZF4Ut347Z3Wkuas0kw4IgFW8GF4293ya9w1rJF93XFy5CryjqF97ArZruF42
+	qryqyrWFgFnYvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
+	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
+	UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQMA2qqP7mgDwAAsu
 
-Clear the hmac_sha1_ctx structure via __cleanup(hmac_sha1_zeroize_ctx)
-to make sure that the function does not leak sensitive data on the stack
-when returning without calling hmac_sha1_final().
+In the AMDGPU_GEM_OP_GET_MAPPING_INFO case, amdgpu_gem_op_ioctl()
+takes a reference to the GEM object with drm_gem_object_lookup() and
+holds the buffer object locked through drm_exec.  When the allocation
+of the mapping array fails, the function returns -ENOMEM directly,
+leaving the exec locks held and leaking the GEM object reference
+returned by drm_gem_object_lookup().
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Signed-off-by: Thomas Huth <thuth@redhat.com>
+Jump to the out_exec label instead so that drm_exec_fini() and
+drm_gem_object_put() release the locks and the GEM object reference.
+
+Fixes: 4d82724f7f2b ("drm/amdgpu: Add mapping info option for GEM_OP ioctl")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- security/keys/trusted-keys/trusted_tpm1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
-index bf0bf7f369705..e5a904b5c1946 100644
---- a/security/keys/trusted-keys/trusted_tpm1.c
-+++ b/security/keys/trusted-keys/trusted_tpm1.c
-@@ -101,7 +101,7 @@ static inline void dump_tpm_buf(unsigned char *buf)
- static int TSS_rawhmac(unsigned char *digest, const unsigned char *key,
- 		       unsigned int keylen, ...)
- {
--	struct hmac_sha1_ctx hmac_ctx;
-+	struct hmac_sha1_ctx hmac_ctx __cleanup(hmac_sha1_zeroize_ctx);
- 	va_list argp;
- 	unsigned int dlen;
- 	unsigned char *data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 123d4a09114d..06dd2e8a5b47 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -1094,8 +1094,10 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+ 		 * be retried.
+ 		 */
+ 		vm_entries = kvcalloc(args->num_entries, sizeof(*vm_entries), GFP_KERNEL);
+-		if (!vm_entries)
+-			return -ENOMEM;
++		if (!vm_entries) {
++			r = -ENOMEM;
++			goto out_exec;
++		}
+ 
+ 		amdgpu_vm_bo_va_for_each_valid_mapping(bo_va, mapping) {
+ 			if (num_mappings < args->num_entries) {
 -- 
-2.55.0
+2.34.1
 
