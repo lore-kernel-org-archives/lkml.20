@@ -1,90 +1,103 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D30525A78;
-	Wed, 16 Sep 2026 15:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28FB13B83E0
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573433; cv=none; b=dN0p5xQUZoPjhqTBzU7oxhBhp9FT8q85u7Y1/PWDqOc4LdZPWCLLALIY3l6PjPK1a2JhNQ9PJVEvFJMDm7KdJgCMsttD9G4O4u0ODWywKVHtK7ffLJqnG82QZcPMP5iR60nRgqVIAdf+UoOlAeHTRCo+jcrV+4bR2N3GHySdXVA=
+	t=1789573511; cv=none; b=fW99+FqYYq19xKD6DXi1R2PDJDnMWqLKumLDFr58xfWsqJJk4I2bIh6NioxREaV/YUrwZKs6bJvvAP4d7TQBZtY6S5Rsi4z9BzCoqkhU6VtNkxh6HvD1JLe4oBei9xiEseOYCkBexZdITduiaqo5RYIaYC0cnWB+NMogDdPtHeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573433; c=relaxed/simple;
-	bh=x6J2ve3jsQpfxSG78Ce8o42jmMaY2ygDvCvO4uWc9E0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tRoqWTVVArgoTSND/8JhT/SCEdDVqItAbabl6t4vFhvEFb1swDMOkM6/YLNrw3kxs5Nf938PnSBVhmqjJhNeYOsjFpYyKflSQfwyMOLh8vBpBAnQzOjCQDKMtVg4U+sTzXJATiW98GQteso8IvaVJE0UVlGx5r3Ote8ZYb+hKSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACnFD8suapqIAdtCA--.21260S2;
-	Wed, 16 Sep 2026 23:43:40 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: bcm-kernel-feedback-list@broadcom.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	maaz.mombasawala@broadcom.com,
-	martin.krastev@broadcom.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	zack.rusin@broadcom.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/vmwgfx: Fix surface reference leak in crc_generate_worker()
-Date: Wed, 16 Sep 2026 15:43:12 +0000
-Message-Id: <20260916154312.2060360-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789573511; c=relaxed/simple;
+	bh=a68Tjcp6c4S+VS1zxe7C/2+j42yeWstBctWArNqFvQY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SGmRqTiRaBZdV72gBwLp8fogTephIEi06/KU18UvDPmAeifkMWQdueyp8yMsdVZj5mWUz8YPibRZYhaI1dFV+XDgpuoLkcD3EE7w6BVoIGTRX5bccPepb7sZCg+Li8pXncFUN71cBAu3A8KWK6Hw1yMROmCtjTcyeKv5s8zCpYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ea2pV3zQ; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ea2pV3zQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789573504; x=1821109504;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=a68Tjcp6c4S+VS1zxe7C/2+j42yeWstBctWArNqFvQY=;
+  b=Ea2pV3zQVAgWU78/IAnCCwILJXm4f37Zlx6uVltLw0U3A2FlOAyY3TMu
+   zqGl+mrMAZsrWG+bjGwVTPyFwD/y69r45TVIsG2qWftZrnrDgS0wFoNA0
+   htRcTGLESzH8GLzjhSHZ3gfMP+uOr8LbYcIAU4vPwUW2j1FzH4mOhbuWd
+   81m6xHS5UFOyDIM4/VLxQ4qIWYo5bAvCQFI802xgUkXl0zygItvEId35e
+   Tlnb6BEhWX/SbGIin880xtuPMgkuNXwPue2fAuoWMWi19GwLW2o60WkhU
+   GJTX0z0fHXftqdboydhMng3XvRSvW1QwMB5OfhegddAiG2U4J9/fSvs1i
+   w==;
+X-CSE-ConnectionGUID: yIMi+uQtRqKWrIj46/89Ng==
+X-CSE-MsgGUID: VBuGmzX1TCCbHG2x+9eJrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89975154"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89975154"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:44:59 -0700
+X-CSE-ConnectionGUID: LCjW/1nTRQ6pEhRezuXN+Q==
+X-CSE-MsgGUID: BR/Qql4DTqWIKXkkerDHzw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="275331322"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:44:58 -0700
+Date: Wed, 16 Sep 2026 18:44:55 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Maria Lisina <sekoohaka.sarisan@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 3/4] mfd: intel-lpss: Remove extra DebugFS dentry
+Message-ID: <aqq5d5ESVulYfOnK@ashevche-desk.local>
+References: <20260916-intel-lpss-debugfs-v6-0-5c118ac430ed@gmail.com>
+ <20260916-intel-lpss-debugfs-v6-3-5c118ac430ed@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACnFD8suapqIAdtCA--.21260S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKr1UXryUKFW7uw4xGFykXwb_yoWfZwb_C3
-	4DXrn7XrWUGF1ku3WIv3s8CF9ak3WkurZ7Za18tw13GasrXr1UKryY9F95J3s7Wa1UWryf
-	Cw4qg3WfAwnrCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUba8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
-	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
-	CwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcS
-	sGvfC2KfnxnUUI43ZEXa7VU1eWlPUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqpO80jwABsz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916-intel-lpss-debugfs-v6-3-5c118ac430ed@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-When vmw_surface_sync() fails, crc_generate_worker() returns without
-dropping the reference taken by vmw_surface_reference(), leaking the
-surface on every sync failure.
+On Wed, Sep 16, 2026 at 07:36:41PM +0500, Maria Lisina wrote:
+> There is no point to keep the variable dir just to assing
+> lpss->debugfs to it later, just use lpss->debugfs directly.
 
-Unreference the surface before returning.
+...
 
-Fixes: 09f34a00272d ("drm/vmwgfx: Make sure the screen surface is ref counted")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c | 1 +
- 1 file changed, 1 insertion(+)
+>  static void intel_lpss_debugfs_add(struct intel_lpss *lpss)
+>  {
+> -	struct dentry *dir;
+> -
+> -	dir = debugfs_create_dir(dev_name(lpss->dev), intel_lpss_debugfs);
+> +	lpss->debugfs = debugfs_create_dir(dev_name(lpss->dev),
+> +					   intel_lpss_debugfs);
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-index 5abd7f5ad2db..8c5fb552a40c 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-@@ -135,6 +135,7 @@ crc_generate_worker(struct work_struct *work)
- 			drm_warn(
- 				crtc->dev,
- 				"CRC worker wasn't able to sync the crc surface!\n");
-+			vmw_surface_unreference(&surf);
- 			return;
- 		}
- 
+As Lee pointed out, we are fine with 100 limit, so one line here and below.
+
+>  	/* Cache the values into lpss structure */
+>  	intel_lpss_cache_ltr(lpss);
+>  
+> -	debugfs_create_x32("capabilities", 0444, dir, &lpss->caps);
+> -	debugfs_create_x32("active_ltr", 0444, dir, &lpss->active_ltr);
+> -	debugfs_create_x32("idle_ltr", 0444, dir, &lpss->idle_ltr);
+> -
+> -	lpss->debugfs = dir;
+> +	debugfs_create_x32("capabilities", 0444,
+> +			   lpss->debugfs, &lpss->caps);
+> +	debugfs_create_x32("active_ltr", 0444,
+> +			   lpss->debugfs, &lpss->active_ltr);
+> +	debugfs_create_x32("idle_ltr", 0444,
+> +			   lpss->debugfs, &lpss->idle_ltr);
+>  }
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
