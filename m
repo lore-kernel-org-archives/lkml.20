@@ -1,72 +1,126 @@
-Received: from mta0.migadu.com (out-2.mta0.migadu.com [91.218.175.2])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4F93A5443
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:52:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09CA3ADBA4
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:52:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789527149; cv=none; b=u2QopyOu3CFE/n3WFEOIveZUZ4atSj5MwNQqjxgPEzV4qJ34rJoBEPZUB5eOzLlp5s5sQBHlLiLCYGTNHakcy+3ZowTzUK+K2VBydeVvpJea5JyO2xusEMuQGIryf5WLn/f0aAAJpRApKRFJ+/luH5T79pAvxUCXtKbNvUHPxaY=
+	t=1789527150; cv=none; b=RuABjS/MX6KdkWLDJrKUAzmEIOkGOIOSVpGTwnTolFjXrP3UD3zXgJ/5U1oU4+yLMiE3G1TLPQcZBSAb/8OqB9TE8KtNotFRNaJ3O4poV+VoWi7Nahno5AjPjbiDUJGtMKbVqmDegRyS+/cIfqwdLsuy2AAL9zjIIHUeZAZnEc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789527149; c=relaxed/simple;
-	bh=YGkbI/aBa2R7Sc4KMCjD1BQTq1E2F3Jsy4Klibs1hmI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gfQXOzF5mczSPpjv0tKzvgUsxK6N0+Qk6KyzFWRhh/nJ0fiOcdoLF9UGy0hYP8xh/lEk8TA6+hzaB4owZyW5dtsiG4lTnviQlFslHI59yuO6CQWUJjWQSfre9a8w7fM93rwOJCemSDtp4tFCP9AB8wSf7OmIxfqIALbwgu0Opfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kGKGQzfd; arc=none smtp.client-ip=91.218.175.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789527150; c=relaxed/simple;
+	bh=tX9M+W6f3YXesN8e9sqc2endp/ilgoluGKgnYvWZ2YA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C/j+CJYG+IAvJ+rDHlxiSyQCnl4+eiyP55yYPfEM7EJTz+/MkLAS7Wmv3x9ia8YeZCKptAaQ44zX4ln9PlZaw81B9NyjH9ddvNt1NzMQN7CnCFYPtog5uHC07q285mqpbsG67pwytNflaysStkwEXoTAEY2UH6u5AxmHtbrpSk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rUY8FHpt; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kGKGQzfd"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YGkbI/aBa2R7Sc4KMCjD1BQTq1E2F3Jsy4Klibs1hmI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789527144; v=1; x=1790131944;
- b=kGKGQzfdjxnWReDujphVixic95Cscec/qt4aAv0ge83Ycv6pSKHku0bpzM7w7IsiIzaT12b1
- gQ2GoXS+oVBp9KJ3KemfXoFgP/KBK43/ZIQEiL1QtO88C9oudr0ZmEQazxNPBEvlrCdIVQNCP08
- GmEILnsMtNIAnGpHX8FuwBKQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 0282261fe3cbfd76;
-	Wed, 16 Sep 2026 02:52:14 +0000
-X-Mizu-Trace-ID: 0282261fe3cbfd76
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 16 Sep 2026 10:52:07 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
-	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
-	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com,
-	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev, david@kernel.org,
-	linux-kernel@vger.kernel.org, Kunwu Chan <chentao@kylinos.cn>
-Subject: Re: [PATCH v2 01/12] mm: xswap support for zswap
-Message-ID: <aqoEVyxikqQ476IS@fedora>
-References: <20260913075014.1732524-2-hebaoquan@kylinos.cn>
- <20260915100308.1599989-1-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rUY8FHpt"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469a33c9cso464230b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:52:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789527147; x=1790131947; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4i5M/+Fcpjtf5aQ6npx1txWnbcVS6QYJviLzGTvfRwQ=;
+        b=rUY8FHptKrMiwUG9/g2dcbDsRs5GN1MoJKfwS+ruKhBxsaplrnQUPoCL1VtRxbNJrk
+         +axtsUUEMS+O01Oc3S1t5c2S4RoqEdV8QG++LdyCZUJtBBFUSCu1OK1TtTkvF7JxCRum
+         VvJB4EeHxd0eJDKwLCBVmAsQb/H7alYhXyr4gQHjETbGTt30CLe41E6c63VzpDfolKWS
+         3Eo4Oa6Uqc5tdR6uTpnImwCV5+9aVO+3ZzCIYHgNrTo4dUmgeuXKPM4hlUreThujHzhG
+         Bqae+uC+FhITtVyndrG+FcixTDTi/B4YkK+VvwhKBk9oIbfyvETlSJwKDVpQjSPKCdb6
+         CUiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789527147; x=1790131947;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4i5M/+Fcpjtf5aQ6npx1txWnbcVS6QYJviLzGTvfRwQ=;
+        b=oPQEbFN/c5uJXjGlfIbelyttYGjyqMAcZW3yxdCvobiddim84Q9ET9538ztwMzbOvo
+         SSsKMP3uQra457JzI67n2wD8wQKCH6wfu8ZBR6qkhRxrK7jpIdrDaTYOAdOA46u2vOlV
+         w8hyfKFHyI93A5N46RHNBqC/gIEY09Fy2Xln5z/swfcT+YHwcoNX0xjnlB0AKFpCDPG9
+         GnvGtxouPYecJkR++cVlfKa/atS1l7wG5ZKvumur755Dx7xEnzIZXNc8UzC32gqjhZvW
+         ChLc0gq9sGosjdVpMfZim+piSfH/DY2rjrnRiDwSgbtzlEEib7s2EWbXGzngUbVJbSCh
+         2T9A==
+X-Forwarded-Encrypted: i=1; AKwUvByRuJHV35tO/SqTW0Qjn5h7EY60xFGhfpXVhb90cmZFiyVRElyH5KkIJGZG5dok9P6C5SEoGC4yPXVfERU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwAZAQOY2tbzxuT9wsw+gdUY9KTkXrmCnWcY8fyn1+xr0qoWbC
+	2cnIZu9HcZH7fdrvksBJvdOSA4/Y2UQgfv+qr/i50iaIkt5mejO04/0S
+X-Gm-Gg: AYBFou0U7V84HFPwSWSpciqJroOXgE1eKdMKNFCQaeF0aD7To0l+JbldCGYL251byL7
+	AurSMPhWoV3cMfBn3wE3ntQyGj3+oF7HQI5w9DwDLnljmlAkkF+/tnbQ0ORpSuwA5YCOa9hXuAW
+	L/deCrt+44KoQaE047fBqkoaPJ+Pa5s8zIHdiyaS/WKiNXykWr2TmiW8xJEPZpZmeYhdChrNn7I
+	7BDzlGt61cq9pVpaSVWzGVP/MTnTq6KDl64o6lZTKaxplQQP70j+VKZtObvMmulQgoLgIWEEiUC
+	NTskr2/50sLDYzYe2GMKMrH/kvN+eBEpFCwrDGsJ9uhamS3IIJLvY91/xlhTOlXYRx7t28SNouT
+	/za4erf6SuYgfkw5N105FlxXmtEJgd3psA2vQMlMhXpd2YakYifNJiyraOSLhOjMJ+0kshMRbND
+	GIyePIAQQ57tLLCKusL1VZit3rr9ZT6wH4GVlW/5Mf80LeVoikcgId8w==
+X-Received: by 2002:a05:6a00:4613:b0:851:c2a6:172f with SMTP id d2e1a72fcca58-8723b87eadfmr1399876b3a.7.1789527146998;
+        Tue, 15 Sep 2026 19:52:26 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8720172b126sm414532b3a.38.2026.09.15.19.52.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 19:52:26 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Potnuri Bharat Teja <bharat@chelsio.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Ganesh Goudar <ganeshgr@chelsio.com>,
+	Arjun Vynipadath <arjun@chelsio.com>,
+	Casey Leedom <leedom@chelsio.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] cxgb4: fix FW SGE queue cleanup on remove
+Date: Wed, 16 Sep 2026 10:52:15 +0800
+Message-ID: <20260916025215.2780658-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915100308.1599989-1-kunwu.chan@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On 09/15/26 at 06:03pm, Kunwu Chan wrote:
-> On Sun, 13 Sep 2026 15:50:03 +0800 Baoquan He <hebaoquan@kylinos.cn> wrote:
-...snip... 
-> 
-> The SWP_XSWAP flag and nr_real_swapfiles accounting look correct. The writeback guard 
-> in page_io.c (both swap_writeout and swap_read_folio paths) properly short-circuits 
-> xswap devices, and the zswap writeback gating on nr_real_swapfiles ensures writeback 
-> only fires when a real swap device is active. 
-> 
-> No issues found.
-> 
-> Reviewed-by: Kunwu Chan <chentao@kylinos.cn>
+init_one() allocates the FW SGE queues with setup_fw_sge_queues()
+before registering the network devices.
 
-Thanks for careful reviewing. I will post v3 soon. I found this v2 is
-based on a older commit of mm-unstable, and I forgot adding base-id, so
-Sashiko reviewing is failed to launch. I have rebased this onto the
-latest mm-new, hope Sashiko can be satisfied.
+The probe failure path releases these queues with
+t4_free_sge_resources(). However, the normal removal path only calls
+t4_free_sge_resources() through cxgb_down() when
+CXGB4_FULL_INIT_DONE is set.
+
+If the device is successfully probed and removed before it is fully
+initialized, such as when none of its network interfaces has been
+opened, CXGB4_FULL_INIT_DONE remains clear and the FW SGE queues are
+left allocated.
+
+Release any remaining FW SGE queues when removing an adapter which has
+not completed full initialization.
+
+This issue was found by manual code inspection.
+
+Fixes: 843bd7db79c8 ("cxgb4: Setup FW queues before registering netdev")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
+index 1ced6df6eac8..146419c66348 100644
+--- a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
++++ b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
+@@ -7116,6 +7116,9 @@ static void remove_one(struct pci_dev *pdev)
+ 
+ 		if (adapter->flags & CXGB4_FULL_INIT_DONE)
+ 			cxgb_down(adapter);
++		else if (adapter->sge.fw_evtq.desc ||
++			 adapter->sge.intrq.desc)
++			t4_free_sge_resources(adapter);
+ 
+ 		if (adapter->flags & CXGB4_USING_MSIX)
+ 			free_msix_info(adapter);
+-- 
+2.43.0
 
