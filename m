@@ -1,228 +1,179 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355A64A7CA4
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:35:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E294CC61A;
+	Wed, 16 Sep 2026 22:35:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789598139; cv=none; b=e2u8rTeoD86l/A3+BOxkbyHIdTAhilCuXBk8b+WjGfjFK0MX/eFa1TDefL2DR+yU7hY3tMCES2iyRrXw6538I/r4pf9IAa3f2STFk6oEOVQiFNCUdh4gX9oXAIJp2WxjvD17hftDB7v5CxWzv1rvF0UGbp1YLAtviUh2LUFDkO8=
+	t=1789598157; cv=none; b=iUUtlV6GywnYW4Dd1X8dORG4QplZLShVEv8xb07vSza9rdw7oEpJ9Ck8uaDNE2JSTY9Bwgb8pUi+hoVZECmjZPL4mg1dAJwPT+4UZsyaMIo33tZCsyquOjONywZkDv4qjy34LrEZhTvofejk60LwexGuxQGxPV8jbgHzn4zFAck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789598139; c=relaxed/simple;
-	bh=WdISB74AqpSDN8zVVe9CqQzSOcKJJCEhR8D5YvQFkaQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K9PM9Y1CTitUJrqT29qkyxbce5KbFN5/+hVdiuXfnV5AvRw1adbyFNOV+uFLWZud9eWNc0yG8YECxu46YnmlC5XlACxdzxt3qUdK2tK/+Pky7X8jueBFC+1Rysu6ClzoejahXcD7c/5iFoGLlmeUK8fO82GGtY3IpeYaLzgauT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZkyZpXtg; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789598157; c=relaxed/simple;
+	bh=hTpQv1DiUrsiOgQA0Hk+QbE8a2iCKtBmD0nHiF9SP7Y=;
+	h=Date:From:To:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=W62VI/d0bf2isdlUEOhXNnC2U0eygsUkr9cRU0h8PMXPAojypDVq/KHDNCha7Ow9S2i9uQ5BLLRs7xlFePqjuow8ovr86og/5y9VXZv+sMYFChCBB2ROPJe41d7mh1PW3NC8lNnAMXNL2JkHD3MV8xa7BPWgqD/XSAgb+EkyrbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=S//aGnBP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZkyZpXtg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789598127;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0T27VJXBNT5i27bHtRIevAkS2qzTZDfP50zhtvs5qyw=;
-	b=ZkyZpXtgFfXpq39Vc6Eq41ebs76pPi7xksshBmyQI2cw3isteqJwHEC3DKN810Zy05zun+
-	fCPwj4itcyqNxDE9VOJ938anAWArN+VJ9U2Cosm8Wt6zkF+ullstVW0F9wa2BqjvnHE41L
-	o21B38r+sHy44OdQ+0uioYlNqq8g8ck=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-433-fe96gVYNMZy4aQ5PRckPrQ-1; Wed,
- 16 Sep 2026 18:35:22 -0400
-X-MC-Unique: fe96gVYNMZy4aQ5PRckPrQ-1
-X-Mimecast-MFC-AGG-ID: fe96gVYNMZy4aQ5PRckPrQ_1789598121
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A08C11855890;
-	Wed, 16 Sep 2026 22:35:20 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.64.52])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 33F31180036E;
-	Wed, 16 Sep 2026 22:35:18 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: "Dave Airlie" <airlied@redhat.com>,
-	"Timur Tabi" <ttabi@nvidia.com>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
-	"Kees Cook" <kees@kernel.org>,
-	"Simona Vetter" <simona@ffwll.ch>,
-	"David Airlie" <airlied@gmail.com>,
-	"Thomas Zimmermann" <tzimmermann@suse.de>,
-	"Maxime Ripard" <mripard@kernel.org>,
-	"Mel Henning" <mhenning@darkrefraction.com>,
-	"Hongling Zeng" <zenghongling@kylinos.cn>,
-	"Danilo Krummrich" <dakr@kernel.org>,
-	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v4 2/5] drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
-Date: Wed, 16 Sep 2026 18:25:06 -0400
-Message-ID: <20260916223358.507351-3-lyude@redhat.com>
-In-Reply-To: <20260916223358.507351-1-lyude@redhat.com>
-References: <20260916223358.507351-1-lyude@redhat.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="S//aGnBP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EBD51F000FF;
+	Wed, 16 Sep 2026 22:35:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789598141;
+	bh=HGLJYjgnhN5BomAgi3vT5WzHyjvAyhNIqlfJD73iIU0=;
+	h=Date:From:To:Subject:In-Reply-To:References;
+	b=S//aGnBPPGeBvhxSLtAXQy6/qOyf3BT9C340KFYopN6oDtBd14Tli6B4DgxKq7cBM
+	 YZV79cvnVzC0ZvMTpy+c2DlqK9OCO1pz/YigbZ7uSxpbddpyvIMMNlFv9rSuQYv+Py
+	 Q7DiEaE1wLjJ0f1IvOvNV7f0DFOEViM7CIQYiW74=
+Date: Wed, 16 Sep 2026 15:35:40 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Johannes Weiner <hannes@cmpxchg.org>, "Vlastimil Babka (SUSE)"
+ <vbabka@kernel.org>, Salvatore Dipietro <dipiets@amazon.it>,
+ abuehaze@amazon.com, alisaidi@amazon.com, blakgeof@amazon.com,
+ brauner@kernel.org, brendan.jackman@linux.dev, david@redhat.com,
+ dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
+ hch@infradead.org, hch@lst.de, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
+ rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
+ willy@infradead.org, ziy@nvidia.com
+Subject: Re: [PATCH v4] mm/page_alloc: avoid direct compaction for costly
+ __GFP_NORETRY allocations
+Message-Id: <20260916153540.9a3fb449f5b3fd481ca1b544@linux-foundation.org>
+In-Reply-To: <20260916153426.3265e2e152cebb6a8d66373d@linux-foundation.org>
+References: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
+	<20260910114602.926944-1-dipiets@amazon.it>
+	<aqQlUr-1h07G8JWM@cmpxchg.org>
+	<8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
+	<aqq8pWI0u1IZNWHT@cmpxchg.org>
+	<20260916153426.3265e2e152cebb6a8d66373d@linux-foundation.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-This is a GSP structure describing various characteristics of the memory
-management system that GSP provides. Start by fetching it during driver
-load, but don't do anything with the information we get from it just yet.
+On Wed, 16 Sep 2026 15:34:26 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
+> On Wed, 16 Sep 2026 11:58:29 -0400 Johannes Weiner <hannes@cmpxchg.org> wrote:
+> 
+> > > Unless I'm mistaken about that MIGRATE_HIGHATOMIC part, it seems all sashiko
+> > > concerns can be dismissed and then indeed v4 is the better version.
+> > 
+> > It looks like a real issue to me, but one that already exists
+> > independent of Salvatore's change.
+> 
+> So I'm hearing that I should drop v5 and revert to v4?
+> 
 
+v4:
+
+From: Salvatore Dipietro <dipiets@amazon.it>
+Subject: mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+Date: Fri, 4 Sep 2026 11:56:28 +0000
+
+Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+introduced high-order folio allocations in the iomap buffered write path. 
+When memory is fragmented, each failed costly-order allocation enters
+__alloc_pages_slowpath() which runs direct compaction and
+drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL pgbench
+(simple-update) with 1024 clients on a 96-vCPU arm64 system.
+
+The root issue is that direct compaction is too expensive for hot
+allocation paths that have fallbacks to smaller allocations. 
+__filemap_get_folio_mpol() already marks higher-order allocations with
+__GFP_NORETRY | __GFP_NOWARN, signalling that the caller can handle
+failure.  However, the page allocator still attempts full direct
+compaction for costly orders with __GFP_NORETRY, which is unnecessarily
+aggressive when the caller will simply retry at a lower order.
+
+For costly-order allocations with __GFP_NORETRY, clear
+__GFP_DIRECT_RECLAIM at the very start of the slowpath, before
+can_direct_reclaim, can_compact and the nofail checks are evaluated.  This
+makes the entire slowpath treat the request as non-blocking: no direct
+reclaim, no direct compaction and no drain_all_pages() IPI across every
+CPU.  kswapd (and in turn kcompactd) is still woken further down for
+background defragmentation, so compaction keeps working for long-term
+system health while being removed from the latency-critical direct
+allocation path.
+
+Allocations that also request __GFP_THISNODE are exempted.  That flag
+pairing identifies the local-node-first THP attempt issued by
+alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
+form transparent huge pages.
+
+Test environment:
+  Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
+             12x 1TB IO2 32000 IOPS RAID0 XFS
+  OS:        AL2023
+  Kernel:    v7.3-rc1
+  Database:  PostgreSQL 18.4
+  Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
+
+Results (average of 3 runs, TPS):
+
+  Config                   Avg TPS      % vs Baseline
+  baseline (no patch)       59,408       -
+  With this patch          155,409      +161.6%
+
+Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
+Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
+Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
+Link: https://lore.kernel.org/20260904115629.3993331-1-dipiets@amazon.it
+Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Dave Chinner <dgc@kernel.org>
+Cc: Ritesh Harjani <ritesh.list@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
-V3
-* s/nvkm_gsp_rm_ctrl_get()/nvkm_gsp_rm_ctrl_rd()/
-V4:
-* Remove mistakenly duplicated struct
 
- .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  4 ++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 17 +++++++
- .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 45 +++++++++++++++++++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |  8 ++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  1 +
- 5 files changed, 75 insertions(+)
+ mm/page_alloc.c |   18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-index cd10c37053695..ed5c6e0e68d3c 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-@@ -156,6 +156,10 @@ struct nvkm_gsp {
- 		struct sg_table fbsr;
- 	} sr;
- 
-+	struct {
-+		bool use_raw_mode_comptagline_alloc;
-+	} memsys;
-+
- 	struct {
- 		struct nvkm_gsp_mem mem;
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-index 94925f1590ea4..63aa30f947471 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-@@ -1782,6 +1782,23 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
- 	return 0;
- }
- 
-+int
-+r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp)
-+{
-+	NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS *ctrl;
-+
-+	ctrl = nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice,
-+				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG,
-+				    sizeof(*ctrl));
-+	if (IS_ERR(ctrl))
-+		return PTR_ERR(ctrl);
-+
-+	gsp->memsys.use_raw_mode_comptagline_alloc = ctrl->bUseRawModeComptaglineAllocation;
-+
-+	nvkm_gsp_rm_ctrl_done(&gsp->internal.device.subdevice, ctrl);
-+	return 0;
-+}
-+
- int
- r535_gsp_init(struct nvkm_gsp *gsp)
+--- a/mm/page_alloc.c~mm-page_alloc-avoid-direct-compaction-for-costly-__gfp_noretry-allocations
++++ a/mm/page_alloc.c
+@@ -4784,10 +4784,10 @@ static inline struct page *
+ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 						struct alloc_context *ac)
  {
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-index fd1170037c030..fee5418a72a68 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-@@ -789,6 +789,51 @@ typedef struct NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS {
-     NvBool bIsGCOFFSatisfied;
- } NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS;
+-	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
+-	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+-	bool nofail = gfp_mask & __GFP_NOFAIL;
+ 	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
++	bool can_direct_reclaim;
++	bool can_compact;
++	bool nofail;
+ 	struct page *page = NULL;
+ 	unsigned int alloc_flags;
+ 	unsigned long did_some_progress;
+@@ -4802,6 +4802,18 @@ __alloc_pages_slowpath(gfp_t gfp_mask, u
+ 	bool can_retry_reserves = true;
+ 	unsigned long alloc_start_time = jiffies;
  
-+typedef struct NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS {
-+    /*! Determines if RM should use 1 to 1 Comptagline allocation policy */
-+    NvBool bOneToOneComptagLineAllocation;
++	/*
++	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
++	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
++	 */
++	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
++	    !(gfp_mask & __GFP_THISNODE))
++		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
 +
-+    /*! Determines if RM should use 1 to 4 Comptagline allocation policy */
-+    NvBool bUseOneToFourComptagLineAllocation;
++	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
++	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
++	nofail = gfp_mask & __GFP_NOFAIL;
 +
-+    /*! Determines if RM should use raw Comptagline allocation policy */
-+    NvBool bUseRawModeComptaglineAllocation;
-+
-+    /*! Has COMPBIT_BACKING_SIZE been overridden to zero (i.e. disabled)? */
-+    NvBool bDisableCompbitBacking;
-+
-+    /*! Determine if we need to disable post L2 compression */
-+    NvBool bDisablePostL2Compression;
-+
-+    /*! Is ECC DRAM feature supported? */
-+    NvBool bEnabledEccFBPA;
-+
-+    NvBool bL2PreFill;
-+
-+    /*! L2 cache size */
-+    NV_DECLARE_ALIGNED(NvU64 l2CacheSize, 8);
-+
-+    /*! Indicate whether fpba is present or not */
-+    NvBool bFbpaPresent;
-+
-+    /*! Size covered by one comptag */
-+    NvU32  comprPageSize;
-+
-+    /*! log32(comprPageSize) */
-+    NvU32  comprPageShift;
-+
-+    /*! RAM type */
-+    NvU32  ramType;
-+
-+    /*! LTC count */
-+    NvU32  ltcCount;
-+
-+    /*! LTS per LTC count */
-+    NvU32  ltsPerLtcCount;
-+} NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS;
-+
-+#define NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG        (0x20800a1c) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID << 8) | NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID" */
-+
- typedef union rpc_message_rpc_union_field_v03_00
- {
-     NvU32      spare;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-index dfda6b0b910a2..dff2081ed764f 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-@@ -138,6 +138,14 @@ r570_gsp_get_static_info(struct nvkm_gsp *gsp)
- 		}
- 	}
- 
-+	ret = r535_gsp_get_static_memsys_info(gsp);
-+	if (ret) {
-+		nvkm_error(&gsp->subdev, "Retrieving static memsys info failed\n");
-+		return ret;
-+	}
-+	nvkm_debug(&gsp->subdev, "memsys: Use raw mode for comptag allocations? %s\n",
-+		   str_yes_no(gsp->memsys.use_raw_mode_comptagline_alloc));
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-index 86970129ad96a..17480d4e527ac 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-@@ -176,6 +176,7 @@ int r535_gr_promote_ctx(struct r535_gr *, bool golden, struct nvkm_vmm *,
- 			struct nvkm_memory **pctxbuf_mem, struct nvkm_vma **pctxbuf_vma,
- 			struct nvkm_gsp_object *chan);
- int r570_gsp_gcx_ready(struct nvkm_gsp *gsp);
-+int r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp);
- extern const struct nvkm_rm_api_engine r535_nvdec;
- extern const struct nvkm_rm_api_engine r535_nvenc;
- extern const struct nvkm_rm_api_engine r535_nvjpg;
--- 
-2.55.0
+ 	if (unlikely(nofail)) {
+ 		/*
+ 		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
+_
 
