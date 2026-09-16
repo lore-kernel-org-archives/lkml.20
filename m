@@ -1,151 +1,309 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-5.mta0.migadu.com [91.218.175.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA2C5452A8;
-	Wed, 16 Sep 2026 15:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E244B95D4
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573200; cv=none; b=B2A6/808cQeUTMKu4ry4xVAJagOXa6RDSRjlx8+nCkjwlD1oq1lNBble4d90p8bW9nF6OoK0ANulhE6z5zY072Xlmg++EYRJAKGd/WXETPGeVdn+6pzIYQzVNZx385UzD0JhhQZkgg96LlbTUxBOYy9zUIAEXCbM0p8022mPMN0=
+	t=1789573205; cv=none; b=DYlN3P6Tu6l1QqbxATk7bzoprwIkT8q9oBORNnlelMSTo1CpRZNpwTGhmz34NpZpq/RhtNNZ+sE4T8digiqmSsd05Ccz/cz4HS97B70lTNTWEegifa8ah7ow3A4f+tadYYALwmdB+NgLDf75naHcFTBcqK2BbHLCPmDDY6ZFHUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573200; c=relaxed/simple;
-	bh=do7fs/RqIazZyqQPcXOJDXYuoCBird5b0yM0GMe8rv8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UpwOpO4XPVETn3Jqd+6W5rekrrGZuKG0WZERHKwZ5Dq2h6HpBwOmX9hSLODigtqL8Mlztx8T7hsffnFJu+hGIsol/neaKXlXWxgMDSLkl/inEdOPZd8WHwrVEghcSQp2aZtLq4IH3d+ULbHmEB22e+Igyr8aLMR89WhU6zZdAac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K3IiCsvi; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789573205; c=relaxed/simple;
+	bh=7tSYx1YNaVm49StAg6iVU/9rtvR8g/9RYPq4x+SxYQs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mKwra+SCSO4byw0znAhya90a9YJUawv4UDmESnz3FW+GD+3fW58Ln2ubNz8Er07wBUZlgaGzhQaTfEs+tr5Qy9tsOUIvJTHNhCwCCbtV7JyPMVipl+j2YQhFtSajZ7O0BJ3DdOP1ykgYK5e7NfUEeSU5fZCpWYeoTxCk49BXvQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=S2GkJ7ud; arc=none smtp.client-ip=91.218.175.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K3IiCsvi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789573198; x=1821109198;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=do7fs/RqIazZyqQPcXOJDXYuoCBird5b0yM0GMe8rv8=;
-  b=K3IiCsviL9TPrGqOrMwG7H+VOH3g32ZNcPCrNt8CPyhHi11m6EjtjEeu
-   XXRfDswXa+OjO5cLSr5cp6rxtE2ydKGFj2JyPiQdT66u2xxYiDcU0YVBX
-   PQbV26Pq4izWhUZqeYFcC8oQ+gLL6pq3rDAb7yvbz202/8FTGGNN14ezZ
-   ldiTMnUmotE5P2c3l8tt2lw6ph/zV3rizZo3j9pFUuRVFYqQmLYLN6Rk4
-   amYohvHVf8BfaKZO0+HqCqVn5kphXGQogye0LhbRcqoVSCyP5Ou419rEj
-   Aqpvfd1vpiK/laLyqL48Mj8rAxwfJrSMqKRId/qIyd24kUE5IRDPNCSdh
-   A==;
-X-CSE-ConnectionGUID: CudlW9+xS6WQIl3ftGdkVQ==
-X-CSE-MsgGUID: YdWqhMKBQI6qpH+yz0aqng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93656710"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93656710"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:39:57 -0700
-X-CSE-ConnectionGUID: hKF6xc+KSeSiJwBW663bRQ==
-X-CSE-MsgGUID: 2yn5LcLKSd+cphrjWLOTJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="272903448"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:39:54 -0700
-Date: Wed, 16 Sep 2026 18:39:52 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: adc: stm32-adc: fix possible division by zero in
- processed channel
-Message-ID: <aqq4SD2eR9tDQ0aj@ashevche-desk.local>
-References: <20260916-adc-fix-div0-v2-1-f702d3ed782c@foss.st.com>
- <aqqqCf6mQPMoKZRj@ashevche-desk.local>
- <538c8203-3880-47aa-ba4e-014a345b3cb9@foss.st.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="S2GkJ7ud"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7tSYx1YNaVm49StAg6iVU/9rtvR8g/9RYPq4x+SxYQs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789573199; v=1; x=1790177999;
+ b=S2GkJ7udYAy1rj1ZYrcWezocAALqVdwo5zRefftGOE/6y8e9BIQ8quM0fEIK/i8Fhw67S0qx
+ DmkSoXzNoaR+J6Pdxt5NHzZO0Rqzt3f6ZHlrS6EXXu6qoQfEDG65gw5mWOEiYEBwCRW2qmGUbZk
+ HCslw6VmCq3AZASQkAAn4yfI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 55f1b8f3b5fd4211;
+	Wed, 16 Sep 2026 15:39:57 +0000
+X-Mizu-Trace-ID: 55f1b8f3b5fd4211
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Breno Leitao <leitao@debian.org>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	kas@kernel.org,
+	kexec@lists.infradead.org,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	hannes@cmpxchg.or,
+	shakeel.butt@linux.dev,
+	linux-efi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	rmikey@meta.com,
+	riel@surriel.com,
+	harry@kernel.org,
+	linux-cxl@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	kernel-team@meta.com
+Subject: Re: [PATCH v5 3/9] mm/memory-failure: libstub: install the poisoned-memory EFI table
+Date: Wed, 16 Sep 2026 08:39:53 -0700
+Message-ID: <20260916153954.1054456-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260915-hwpoison-kho-v5-3-3bc7a57bd503@debian.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <538c8203-3880-47aa-ba4e-014a345b3cb9@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 05:20:48PM +0200, Fabrice Gasnier wrote:
-> On 9/16/26 16:39, Andy Shevchenko wrote:
+On Tue, 15 Sep 2026 05:53:37 -0700 Breno Leitao <leitao@debian.org> wrote:
 
-[ snip ]
-
-> > Let's look at the current code in this switch-case
+> A EFI config table can only be installed while boot services are still
+> up, so the stub has to create it; the running kernel can only flip bits
+> in a table that already exists.
 > 
-> Thanks for you suggestions !
+> Size the bitmap from the span the UEFI memory map describes, which
+> efi_get_ram_range() walks since the stub has no max_pfn. Bit 0 covers
+> the bottom of that span, recorded in phys_base, so a machine whose RAM
+> starts high does not pay for the hole below it. Memory the firmware
+> hot-adds later sits outside the span and is not carried across a kexec.
 > 
-> Let's keep in the picture the 'normal' raw case:
-
-Ah, an important detail!
-
-> 	case IIO_CHAN_INFO_RAW:
-> > 	case IIO_CHAN_INFO_PROCESSED:
-> > 		if (!iio_device_claim_direct(indio_dev))
-> > 			return -EBUSY;
-> > 		if (chan->type == IIO_VOLTAGE)
-> > 			ret = stm32_adc_single_conv(indio_dev, chan, val);
-> > 		else
-> > 			ret = -EINVAL;
-> > 
-> > 		if (mask == IIO_CHAN_INFO_PROCESSED)
-> > 			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-> > 
-> > 		iio_device_release_direct(indio_dev);
-> > 		return ret;
-> > 
-> > In the previous version you were trying to keep goto-less approach.
-> > However in the current state of affairs I don't think the goto is
-> > too bad (after all we need to backport this to the kernels that may
-> > not have IIO_DEV_ACQUIRE_DIRECT_MODE() macro).
-> > 
-> > Also checking 'ret' under another condition seems unusual.
-> > 
-> > What about
-> > 
-> > 	case IIO_CHAN_INFO_PROCESSED:
-> > 		if (!iio_device_claim_direct(indio_dev))
-> > 			return -EBUSY;
-> > 		if (chan->type == IIO_VOLTAGE)
-> > 			ret = stm32_adc_single_conv(indio_dev, chan, val);
-> > 		else
-> > 			ret = -EINVAL;
-> > 		iio_device_release_direct(indio_dev);
-> > 		if (ret)
-> > 			return ret;
-> > 
-> > 		if (*val == 0)
-> > 			return -EINVAL;
+> One table has to serve every architecture, and what they agree on is the
+> attribute: setup_e820() takes a descriptor as RAM only if it is writeback
+> cacheable, and so does is_usable_memory() on arm64.
 > 
-> So *val == 0 is normally a valid value, for 'normal' raw channels.
+> The bitmap spans from the lowest to the highest descriptor that is
+> write-back cacheable or unaccepted memory, as discussed with Kiryl. That
+> leaves out the MMIO apertures, which sit high enough to stretch it far
+> past the RAM it needs to describe.
 > 
-> > 		if (mask == IIO_CHAN_INFO_PROCESSED)
-> > 			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
+> At one bit per 2M that is 64K per TiB, and 256M at the 4PB x86
+> architectural maximum. The 2M granule is called "unit" here, and the
+> table carries it so the granule can change later without breaking the
+> kernels already reading it.
 > 
-> With you suggestion, moving if (*val == 0) to here should be fine ?
-
-Yep.
-
-> 		if (mask == IIO_CHAN_INFO_PROCESSED) {
-> 			if (*val == 0)
-> 				return -EINVAL;
-> 			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-> 		}
+> Allocate it as EFI_ACPI_RECLAIM_MEMORY so the next kernel does not take
+> it for free RAM, and install it empty.
 > 
-> > 		return 0;
-> > 
-> > ? (Yes, we leave that line untouched, but we get the change cleaner.)
+> A table installed by an earlier boot rides the system table across kexec
+> and is reused as-is.
+> 
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+>  drivers/firmware/efi/libstub/efi-stub-helper.c | 103 +++++++++++++++++++++++++
+>  drivers/firmware/efi/libstub/efi-stub.c        |   1 +
+>  drivers/firmware/efi/libstub/efistub.h         |   6 ++
+>  drivers/firmware/efi/libstub/x86-stub.c        |   2 +
+>  4 files changed, 112 insertions(+)
+> 
+> diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c b/drivers/firmware/efi/libstub/efi-stub-helper.c
+> index 48f93f7758e9e9..9c66e06c972c5a 100644
+> --- a/drivers/firmware/efi/libstub/efi-stub-helper.c
+> +++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
+> @@ -774,3 +774,106 @@ void efi_remap_image(unsigned long image_base, unsigned alloc_size,
+>  			efi_warn("Failed to remap data region non-executable\n");
+>  	}
+>  }
+> +
+> +#ifdef CONFIG_EFI_POISONED_MEMORY
+> +/*
+> + * Find the base and top of the memory, so, we can create the bitmap for
+> + * the full range.
+> + */
+> +static efi_status_t efi_get_ram_range(u64 *base, u64 *top)
+> +{
+> +	struct efi_boot_memmap *map __free(efi_pool) = NULL;
+> +	u64 ram_base = ULLONG_MAX, ram_top = 0;
+> +	efi_status_t status;
+> +	int i, nr_desc;
+> +
+> +	status = efi_get_memory_map(&map, false);
+> +	if (status != EFI_SUCCESS)
+> +		return status;
+> +
+> +	nr_desc = map->map_size / map->desc_size;
+> +	for (i = 0; i < nr_desc; i++) {
+> +		efi_memory_desc_t *d;
+> +
+> +		d = efi_memdesc_ptr((unsigned long)map->map, map->desc_size, i);
+> +		if (!(d->attribute & EFI_MEMORY_WB) &&
+> +		    d->type != EFI_UNACCEPTED_MEMORY)
+> +			continue;
+> +		ram_base = min(ram_base, d->phys_addr);
 
--- 
-With Best Regards,
-Andy Shevchenko
+Can this use the architecture's full RAM predicate?  On x86,
+setup_e820() maps EFI_LOADER_CODE, EFI_LOADER_DATA, both boot-services
+types, and EFI_CONVENTIONAL_MEMORY as E820_TYPE_RAM without requiring
+EFI_MEMORY_WB.
+
+If a non-WB descriptor is at either end of RAM, this code omits it
+from the bitmap span.  efi_hwpoison_record_pfn() then rejects a
+poisoned PFN there, so the next kernel can allocate the bad frame.
+
+One possible way to preserve the x86 behavior before applying the WB rule is:
+
+    if (IS_ENABLED(CONFIG_X86) &&
+        (d->type == EFI_LOADER_CODE ||
+         d->type == EFI_LOADER_DATA ||
+         d->type == EFI_BOOT_SERVICES_CODE ||
+         d->type == EFI_BOOT_SERVICES_DATA ||
+         d->type == EFI_CONVENTIONAL_MEMORY))
+            goto include;
+    if (!(d->attribute & EFI_MEMORY_WB) &&
+        d->type != EFI_UNACCEPTED_MEMORY)
+            continue;
+include:
+    ram_base = min(ram_base, d->phys_addr);
 
 
+> +		ram_top = max(ram_top,
+> +			      d->phys_addr + d->num_pages * EFI_PAGE_SIZE);
+> +	}
+> +	if (!ram_top || ram_base == ULLONG_MAX)
+> +		return EFI_NOT_FOUND;
+> +
+> +	*base = round_down(ram_base, EFI_POISON_UNIT_SIZE);
+> +	*top = round_up(ram_top, EFI_POISON_UNIT_SIZE);
+> +
+> +	return EFI_SUCCESS;
+> +}
+> +
+> +/* The size of the bitmap */
+> +static u64 efi_poison_bitmap_size(u64 span)
+> +{
+> +	u64 bytes = DIV_ROUND_UP(DIV_ROUND_UP(span, EFI_POISON_UNIT_SIZE),
+> +				 BITS_PER_BYTE);
+> +
+> +	return round_up(bytes, sizeof(unsigned long));
+> +}
+> +
+> +static struct linux_efi_poisoned_memory *efi_poison_alloc(u64 phys_base,
+> +							  u64 bitmap_size)
+> +{
+> +	struct linux_efi_poisoned_memory *pm;
+> +	efi_status_t status;
+> +
+> +	status = efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
+> +			     sizeof(*pm) + bitmap_size, (void **)&pm);
+> +	if (status != EFI_SUCCESS)
+> +		return NULL;
+> +
+> +	pm->version = 1;
+> +	pm->unit_size = EFI_POISON_UNIT_SIZE;
+> +	pm->phys_base = phys_base;
+> +	pm->size = bitmap_size;
+> +	memset(pm->bitmap, 0, bitmap_size);
+> +
+> +	return pm;
+> +}
+> +
+> +/* This needs to be done while boot service is still active */
+> +void install_poisoned_memory_table(void)
+> +{
+> +	efi_guid_t poisoned_memory_table_guid = LINUX_EFI_POISONED_MEMORY_TABLE_GUID;
+> +	struct linux_efi_poisoned_memory *pm;
+> +	u64 ram_base, ram_top, bitmap_size;
+> +	efi_status_t status;
+> +
+> +	/* A table installed by an earlier boot rides the system table across kexec. */
+> +	pm = get_efi_config_table(poisoned_memory_table_guid);
+> +	if (pm) {
+> +		if (pm->version != 1)
+> +			efi_err("Unknown version of poisoned-memory table\n");
+> +		return;
+> +	}
+> +
+> +	if (efi_get_ram_range(&ram_base, &ram_top) != EFI_SUCCESS) {
+> +		efi_err("Failed to size the poisoned-memory table!\n");
+> +		return;
+> +	}
+> +
+> +	bitmap_size = efi_poison_bitmap_size(ram_top - ram_base);
+> +	pm = efi_poison_alloc(ram_base, bitmap_size);
+> +	if (!pm) {
+> +		efi_err("Failed to allocate poisoned-memory table!\n");
+> +		return;
+> +	}
+> +
+> +	status = efi_bs_call(install_configuration_table,
+> +			     &poisoned_memory_table_guid, pm);
+> +	if (status != EFI_SUCCESS) {
+> +		efi_bs_call(free_pool, pm);
+> +		efi_err("Failed to install poisoned-memory config table!\n");
+> +	}
+> +}
+> +#endif
+> diff --git a/drivers/firmware/efi/libstub/efi-stub.c b/drivers/firmware/efi/libstub/efi-stub.c
+> index 235c9738da2d63..22a315e2814a1a 100644
+> --- a/drivers/firmware/efi/libstub/efi-stub.c
+> +++ b/drivers/firmware/efi/libstub/efi-stub.c
+> @@ -179,6 +179,7 @@ efi_status_t efi_stub_common(efi_handle_t handle,
+>  			 EFI_RT_SUPPORTED_SET_VIRTUAL_ADDRESS_MAP);
+>  
+>  	install_memreserve_table();
+> +	install_poisoned_memory_table();
+>  
+>  	status = efi_boot_kernel(handle, image, image_addr, cmdline_ptr);
+>  
+> diff --git a/drivers/firmware/efi/libstub/efistub.h b/drivers/firmware/efi/libstub/efistub.h
+> index fd91fc15ec810b..44436869c4efe1 100644
+> --- a/drivers/firmware/efi/libstub/efistub.h
+> +++ b/drivers/firmware/efi/libstub/efistub.h
+> @@ -1169,6 +1169,12 @@ efi_enable_reset_attack_mitigation(void) { }
+>  
+>  void efi_retrieve_eventlog(void);
+>  
+> +#ifdef CONFIG_EFI_POISONED_MEMORY
+> +void install_poisoned_memory_table(void);
+> +#else
+> +static inline void install_poisoned_memory_table(void) { }
+> +#endif
+> +
+>  struct sysfb_display_info *alloc_primary_display(void);
+>  struct sysfb_display_info *__alloc_primary_display(void);
+>  void free_primary_display(struct sysfb_display_info *dpy);
+> diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/libstub/x86-stub.c
+> index 0bae0f06b6763a..3136132b9628ab 100644
+> --- a/drivers/firmware/efi/libstub/x86-stub.c
+> +++ b/drivers/firmware/efi/libstub/x86-stub.c
+> @@ -1024,6 +1024,8 @@ void __noreturn efi_stub_entry(efi_handle_t handle,
+>  
+>  	setup_unaccepted_memory();
+>  
+> +	install_poisoned_memory_table();
+> +
+>  	status = exit_boot(boot_params, handle);
+>  	if (status != EFI_SUCCESS) {
+>  		efi_err("exit_boot() failed!\n");
+> 
+> -- 
+> 2.53.0-Meta
+> 
+> 
