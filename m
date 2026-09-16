@@ -1,135 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22AE4C6517;
-	Wed, 16 Sep 2026 15:42:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5374AB3C2
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:43:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573372; cv=none; b=udAgkQjXNAcq+/XLwbA5cqFugbCLLDU2i9BOSjaVTbvHZSlmXNO6JgHmsy4aWxlSjsIQXTgQJxTDp4M2tS1ZBKh+LRWIqbPG1qsbSAAIa7NvNBXHm91pgJf5MpbKVlqe9zWd0CsHmxL1cJX34Zl3EhS3FRI/Y3oj4lcl2h5WGoY=
+	t=1789573384; cv=none; b=GqzVjnaEZgT6H1dDECnPswrlgp9/4CZbdLZ2zEWj91mjdcIvkLOEnC2UKXA2VIqf4DJdr9tw5rHduqcPxPs24YuVQ7Ao23XkLye2n2duw/Iaw3q+FHaI2Z8GJks6kaYz/seA4SRbjxxLOuQj1JrQ+GxoLyRaEijdRGVkOF5iJSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573372; c=relaxed/simple;
-	bh=qF5L05yPXHDBqk4mSsnQXTBaTOlznhVMwKRcZKr3/ZA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HNVgjOVslmqLyeqp1Bd3boXpupV18Zd5ZuqD75q92SsPf7nIPADbarpJUnsPMA2jMt9qECC5g/6PdaP+Mz/jZ2IHN0N2wTlW9lk2Bk45B7UwJPS3AbPUADqYGabJuuQwTT9T/jiiwU+/ahHtOsBf1EtvfpecN9ywjoUMSgzbFzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UY1KQYkD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789573384; c=relaxed/simple;
+	bh=xzkEs5LiSja3dbzzicR21Qn0XTrKAUdE1PB/NwOkDos=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tDsNPkzTRRqeFNNxCAJqtrYR8UVGPOWI2N3uNLLOnzhyafbi94UG2ZlDXISjrpm3VDng1o/xLWWSJzT23HGkowgwTJtLeOBGlJ0oaiPFHRylenAY7EHm7wUJoJpEqC9fPM6heBj0Z1dVbAO45Xk/YuApMMjZnsJJxARs36G4LQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Kod5TDBu; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UY1KQYkD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA8B1F00898;
-	Wed, 16 Sep 2026 15:42:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789573368;
-	bh=zO2Hg8vHtFBJHvzcTWcCu9FZEuUhDK1HNZHZQCLtALY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UY1KQYkDB/rUGHIqU2oWGPMJKQ9TXTiGD7Lx+Tq+LUJ4yhkWR3hYs4NL6SAfmFRGO
-	 ZvxiO+QKdWEBBSR4JdyyhdYF/hqXJrjGvFFyoe2HIK97shpK95vz7ai4tmmRcJS46K
-	 ZsdHSweMLOIAFgtUEsxlF+vhWxbGaaNTmmZ3gIxgyZ6dc9K+9l3dei5ak1mhIRFaKB
-	 vWV0IeCHmBx6MedCbXLFgLqSAhYQHs+fHE1EB9CpqRjcLUME6e21X3dCK7yq/KnC9w
-	 OZRflM3T3M3dMtpVa1cM5X/GKlXdjWdvpUnOVzVcKEHSeTdihmkTK4n6V9Ua17sD2n
-	 TfQSQ+X6mN68w==
-Message-ID: <9b50a047-b5e6-45c3-aee6-551896b52eaa@kernel.org>
-Date: Wed, 16 Sep 2026 17:42:43 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Kod5TDBu"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso12198735e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:43:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789573380; x=1790178180; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6Sim/Uq2bss990wMC5LOqQrIp+Z1Yp2vLh2aHVXHuME=;
+        b=Kod5TDBumB6ymIwo7H/RjtjtrnCuDomtfuR8A8HGXpN9zgO1n4IyBkl3igGXu+7HOs
+         zw27PQMKllXoPTSLu/HpagKlvd8CU2+NFGHJiZ2WyfdcqLz31yTLCw7AVgVcp/IYfVbS
+         I1Xlt7B7YltXwZ+O7fBbgLEprxlZ4BCPNCxrn3IRJudknDVfer8wPbaz5xom4wVVpNSL
+         LHRQSL7U4jIQQm+VrlVv4qjOU1i3lYzkhhb76vIkfawkePesgPYnJBAcsLVs2B0IHc7o
+         eavU318LnTyYFVlk/KW38KOB3d93So/91Lwn4vbIy35Ivb0es/onxLKICAcyvHkNdNk/
+         IIlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789573380; x=1790178180;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6Sim/Uq2bss990wMC5LOqQrIp+Z1Yp2vLh2aHVXHuME=;
+        b=lAfa2GKZ3KzvWmIt3k0EepaY0X33d5FmA0P7D3F0iw7VVcMysjcp2taOqCxTNqI1Er
+         0bjT3mSpv+WfLrvECehak1F9qPLlSCfDhIw/qor1KJKoDdd4zoRTM1v8nbfDvdwvUeyg
+         +W/jwfv+2mJ4ptG1HZO2Av8GPTpas41Pxp9qQ5eFQhGaucVOLRuwfL6QlSvEICvZqNih
+         YWxNTREGd3C3iEnwd+Wby95mY+kSQVb9ZxvUYebSuAlm3+oRZyJupexN2GsCe3K1QU/I
+         dB9b71lU4sfs6kZ01txLcLjaUXNz4lDKmqaN+Lcm3yUSknYtRDN9XalQdRO5T5GPdwmo
+         kSQg==
+X-Forwarded-Encrypted: i=1; AKwUvBxFIGoPI2ZsZ23lkwCXJoCSYqRa4IjBf+lN1HoWmOpFuanpP14HPpAoWBgpQ6OyT1b1GzwpQOGoZYk9n2k=@vger.kernel.org
+X-Gm-Message-State: AFuF++myZJmSDNI2TFfGda64tq83CyypEGFhJHkj07vg+2utLmzYPiik
+	uzy2une1UYh7VtpyjPUe2HNMaiq7//Ypn/WAsbW2B6XMoXFSKnw+862eltum5xVBMg==
+X-Gm-Gg: AYBFou1iBlSm5p1ZRRCB/5WvZFo4d81jCNFLsc2jyiE0j96RiieHF5B3g3fsNYs9Exe
+	k1sDMya2QXXaUkWtDtwW3RLasMMxt+02ulVcFQYsn+lqv3wyRPVIycYwDiJ/hjuxsCTe1oK16Hy
+	2oaPNWjcynRQCI+d3na1cIsAyUHRONQS1fg7FQU4WGhWMJymEhtnUrubFJvd5ZwDXHH1sfWqCyq
+	mHI0Ow7xB5xBAOGFMpuWzEApqfj5/fufk3IdWCwrirzUmsCh6k76DHVM2/jRK5d+zFevJ55+uvW
+	+wmXWhCWOqTCRmVdXZtvQ0JkYnt6SUyhupz0XEAux2lOf2Y9/wcnTgQHkqR7ljtHoamyVh0f4ar
+	f402wkIajOcX99vQEbE4tFysq93eM5KIQZjMJwYI9DQNFD8aHpHy6/Qzx5H5qtyh7pNWRV/DTw3
+	WKpv8685N8c0roItdB7IWhm73IQCrNqggJ2j8jE5EruaxWuAgbZD9AkOz8Ylunbe6A0Cq32urTl
+	avU4px8raOio9dYVownBz9T6sUGhMgcO2Nm8Vo=
+X-Received: by 2002:a05:600c:5489:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49eb7340a28mr62591055e9.16.1789573378755;
+        Wed, 16 Sep 2026 08:42:58 -0700 (PDT)
+Received: from google.com ([2a00:79e0:288a:8:a430:d4f:f001:4a5d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27198sm7580265f8f.15.2026.09.16.08.42.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 08:42:58 -0700 (PDT)
+Date: Wed, 16 Sep 2026 17:42:53 +0200
+From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+To: Christopher Lusk <clusk@northecho.dev>
+Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: landlock: clarify TTY signal scoping
+Message-ID: <aqq4_Xh_JJ6OHpST@google.com>
+References: <20260914.b8a029f9abb8@gnoack.org>
+ <20260914180946.1462099-1-clusk@northecho.dev>
+ <aqqJAZfG9FC7PgMW@google.com>
+ <20260916145255.1587381-1-clusk@northecho.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
-To: Gregory Price <gourry@gourry.net>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org,
- jannh@google.com, wangjiexun@tinylab.org,
- sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
- <aqqTbGMJL86TzDrf@gremlin> <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
- <aqqjW5dpyznijYLh@gremlin> <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
- <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
- <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
- <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
- <aqqyhkZqcXDUrzeb@gourry-fedora-PF4VCD3F>
- <4fadcda7-d96a-4cd9-9b0f-5d387b6f82af@kernel.org>
- <aqq23i9824-GWdhg@gourry-fedora-PF4VCD3F>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aqq23i9824-GWdhg@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260916145255.1587381-1-clusk@northecho.dev>
 
-On 9/16/26 17:37, Gregory Price wrote:
-> On Wed, Sep 16, 2026 at 05:24:43PM +0200, David Hildenbrand (Arm) wrote:
->> On 9/16/26 17:19, Gregory Price wrote:
->>>
->>> You missed this part:
->>>
->>> "I'm trying to be careful about not causing a bigger maintenance burden"
->>>
->>> I wouldn't do that to you :]
->>
->> I just wanted to make it very clear that I don't need another schlopped gigantic
->> patch series in my inbox that I'll mostly have to ignore because it's
->> un-reviewable ;)
->>
+On Wed, Sep 16, 2026 at 10:52:55AM -0400, Christopher Lusk wrote:
+> Hello Günther,
 > 
-> I would never :]
+> Thank you for the careful review.
 > 
-> But *motions generally at madvise* if this isn't schlop i don't know
-> what is lol.
+> The phrase "or otherwise driving a terminal" was LLM over-generalization,
+> not a separate mechanism.  I checked the paths I had in mind against the
+> source, and none justifies that broader wording.  I am dropping it.
 
-Just to be clear, I enjoy any cleanups in that area which are well written (and
-your track record shows that you do exceptional work ;) ).
+Thanks for double checking the wording, sounds good.
 
-I would also enjoy a properly stubbed page allocator as well as I envisioned ...
-as long as it's not something schlopped together and rushed out.
+        
+> You are also right about the verbosity.  The generated text expanded a
+> two-line distinction into 15 lines and obscured the main point.  I will use
+> your suggested sentence and remove the signal enumeration.  I do not have a
+> stable kernel documentation URL for that list, so I will not add a citation.
+> 
+> v2 will contain your sentence and a short LANDLOCK_SCOPE_SIGNAL remark in
+> landlock.h, matched to the recent MAKE_REG whiteout remark.  I will post it
+> as a new top-level patch with a Link back to this discussion.
+> 
+> I will keep the positive selftest you suggested as a separate follow-up so
+> the documentation clarification can be reviewed independently.
 
-... of course you would never work-slop me/us like that! :)
+Sounds good as well.
 
--- 
-Cheers,
-
-David
+—Günther
