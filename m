@@ -1,140 +1,134 @@
-Received: from mail-ed1-f98.google.com (mail-ed1-f98.google.com [209.85.208.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523A74C6EF7
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3B04BAA17
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789601382; cv=none; b=ezH7t0m751dP+XTiq6rvewvGg2hO6H1NU1S/Rw/TAyrXysP88R71Bg38P6aoBVqVgR9Ue+Cj5v8X19DOHwA45hDQHVWalZcgeLb+kwp9b9zcRz4se8g3YvWsb/MY3iMg3m5WiBO/XQ3mz0fzVBuGbWAL/52rXcC4vv8iYKetpC4=
+	t=1789601446; cv=none; b=uIKtT2Q8+PiiDJV+w/tWhunuIFOBSaGuq6rGV2qBL0pm6YOa2W5ggae4HSvp+iK8njGhvYeQkqvYgB09+QDiogoshc/7zz1k7FZQd5OpEn1SoJ3+WWPRfstj/1dZanDz23Ax6nHRsfhxBbnXh2lhnUeI60k5f/yM1S7TeVN18LI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789601382; c=relaxed/simple;
-	bh=M7/r9z11044BEXueI0sXKlvgGUnc/ShaXxu2aIwy058=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hF+ljcK05SKfpm+0783Jekf44fzhYDT35P8PrGdnJZOUaXsZUrZln7YjVnNHbnVaKPSN+1qxh8EDdo1ToSl9uLys20KyLWFvd2Q7bKCuMIrH8iDEIX5SyFERArAFw2SPDalN4GknVK9aTXA2WqehBOOKm44QFFDggxal8TPjhok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=NJCGka8t; arc=none smtp.client-ip=209.85.208.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
+	s=arc-20240116; t=1789601446; c=relaxed/simple;
+	bh=L8YfVm7+8kYIsaLQrJzsZ0NaFr2bFxb95G8YXTtiDVQ=;
+	h=Date:From:To:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=gAZxrmUdk1sNcLGw0f0UKOkHqp8JvygaU3proO0GnOhliAO+1tQVnl7kEtjOcx6wb7z033CBaARw0AZPxFLuWgI9H8bo+T3+/GVZnKfZ/gIoJJNbKutjZAqgBmerLR/pf5khVDXp6BM+kGLCWIzT8izO5rhp5+kp0XS0Oav67WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xQlhKezl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="NJCGka8t"
-Received: by mail-ed1-f98.google.com with SMTP id 4fb4d7f45d1cf-6a99776ff70so104030a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:29:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xQlhKezl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 981681F000FF;
+	Wed, 16 Sep 2026 23:30:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1789601378; x=1790206178; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u2Y1/E+KkWUlA4bQH0tTik8e0gsQX6ODEq/ubCUUF7Y=;
-        b=NJCGka8tqxMvZ98Y/+cA9PMV02z1Lnl7/aLM9VTpbvGj/nun+Ixtw/28Pa7pYyb5iZ
-         2Kkko5ohIqKHoFVMxiqnqLk4NQuXbiw6rbzeimtC3kVm+0a5mU/ok55To/qV36uM2/mH
-         cywYcNJjaPcAQivgohpl+wwH/cKnGzKqFMqrEe8C2wZlpmjNyexUOUC2wdkwA2+mszID
-         wnUYBXhJhNchlcwmhBBA3UNhQPE3JAaGaDAnN0oC74eJqIrPkIkwG9ABSNKg4D//lEkm
-         Zsc6L2ejy85DHeP+aYCDxiWhA6eu45kVEu3oGe4wU+Sp1r3tAGVb6FnT26HAsBXZpEaf
-         ZIbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789601378; x=1790206178;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u2Y1/E+KkWUlA4bQH0tTik8e0gsQX6ODEq/ubCUUF7Y=;
-        b=Y+t3MwZvRARFMy5/U4szROQ3G1hgRp5vxpd+KhHq+kIUVckQkpLddinVytErjAqqS9
-         AISlvG/j5Jtdvm3xkDmfTFBEI3EqKzDZip2gefEeLTPIm2WG66QlQkF0SCfGBm+iUYkc
-         PlxZnRUi2qnfXptFiAQzhVOoyVxdSWqZEBcFXUJAQzxlqbe5OZOx40PW9WhrrDjWpfef
-         VYT9jFjWlCK8l8tJbx5FnpdywPHs3TopOWdv38m8gZ41XQa8Wkj8FzpnE3ww1ikCIp4Q
-         XAHLBdLs6q4SFKsxHY3x4lokMbe86rT6zC+r3eW7ZNferGl9wslgt1OpvRTHa6V7f/l1
-         T/+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBypxaRQahEQ+p9LSz6iAo0sB3WkGciiFK37z7gT0LmOmnJbUMdj/SlDrmRImz3XI8cDJikCV4B4DYkateY=@vger.kernel.org
-X-Gm-Message-State: AFuF++leZAb/+JmC5ouaXzdXiBg890tR9nU//LwI1A7DFhzmhRKMMFzF
-	D4AJ/0wc3LAJJrEw+BU8nzg+IlvBI1jCNaHF2VlrKmUnVnia03uVRxuzGNGhHCyVRy+qa4IW4gb
-	OgpA1NXKnaiMi+Jz2+zdvRW9x6JxVNyhTjkxw
-X-Gm-Gg: AYBFou1lHov5YhQxhQcahCFq2jl6Ezh4IY6GUNegfJuIIOetiYhZHExK6L+KOtcOkwo
-	5jNc9MFbGlUVGbcwgQ3nBc4R/NSHw77ffjvIN7M0o95FZKVDh7wpm7lNHL+B3DvHTnzBLW4b2fj
-	ia4EeA01bST31gfOcIHwxDfCJx8dQ0hoQh64gvT9zatRqEh2QtgGDvepr9jC/VESXhnqWDbBZnr
-	TR5R3iZAbmewRb8hU0ZMgIYWEyw1lSDtePIEzVsE6aC1e54fSpVxVH3St75bRp20UVr7pz1WvO7
-	6u+sanUoKQfjDnl2+H/Svn2xRQUrKzqUbmyVwE0NfArxYmTRUYbGeAbOK8UFv1BHBhiig8HND2c
-	Xr/J5fS3bj+HXQakiMykRzitbbObbp4Y+8hpnLik=
-X-Received: by 2002:a05:6402:321b:b0:6a9:9ac6:c3dd with SMTP id 4fb4d7f45d1cf-6aa22369d7fmr3504276a12.14.1789601378380;
-        Wed, 16 Sep 2026 16:29:38 -0700 (PDT)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
-        by smtp-relay.gmail.com with ESMTPS id 4fb4d7f45d1cf-6aa1d2440cesm1487105a12.5.2026.09.16.16.29.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 16:29:38 -0700 (PDT)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id DB0333404F8;
-	Wed, 16 Sep 2026 16:29:06 -0700 (PDT)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jon Curley <jcurley@everpuredata.com>,
-	Eric Badger <ebadger@everpuredata.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] pNFS: avoid repeatedly cancelling I/O for the same lseg
-Date: Wed, 16 Sep 2026 23:29:06 +0000
-Message-Id: <20260916232906.4101987-1-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.34.1
+	d=linux-foundation.org; s=korg; t=1789601445;
+	bh=1hL/QslE9kXpw9D0DG8KnR2S2Wv56IDU1UfLhKDJBSo=;
+	h=Date:From:To:Subject:In-Reply-To:References;
+	b=xQlhKezlmUcqndEOYoCt0jz+DZelOEfUckPTIkvJoqSoDiwI/IqpwRQ8W3nUE0eW8
+	 0W82MpO7GA99H+VvobfbK3KYtK36x3SrmPu6hfG9OhUpoutjsq01rqiLQ3C+PTVkbj
+	 GXpglFoS2igpNM8j+TJl3m/Wn+5ny/ZpiQ4xQC/4=
+Date: Wed, 16 Sep 2026 16:30:44 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Arnd Bergmann <arnd@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Arnd Bergmann <arnd@arndb.de>, David Hildenbrand <david@kernel.org>, Michal
+ Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, Kairui Song
+ <kasong@tencent.com>, Barry Song <baohua@kernel.org>, Axel Rasmussen
+ <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu
+ <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Ridong Chen <chenridong@xiaomi.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/vmscan: avoid false-positive -Wuninitialized
+ warning, again
+Message-Id: <20260916163044.3daa3811d9b2bf7d958f1f27@linux-foundation.org>
+In-Reply-To: <20260916162816.39f0f33f6a48d30a71be3575@linux-foundation.org>
+References: <20260916083456.4136132-1-arnd@kernel.org>
+	<20260916162816.39f0f33f6a48d30a71be3575@linux-foundation.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Commit b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is
-recalled or revoked") added I/O cancellation when an lseg is
-invalidated but still has outstanding references.
+On Wed, 16 Sep 2026 16:28:16 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
 
-If references remain after mark_lseg_invalid() clears NFS_LSEG_VALID,
-the lseg stays on the layout's segment list until they drain. A later
-scan can therefore find the same invalid lseg and call
-pnfs_lseg_cancel_io() again, even though no new invalidation occurred.
+> >
+> > --- a/mm/vmscan.c
+> > +++ b/mm/vmscan.c
+> > @@ -3274,8 +3274,10 @@ struct ctrl_pos {
+> >  	int gain;
+> >  };
+> >  
+> > -static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
+> > -			  int tier_max, int gain, struct ctrl_pos *pos)
+> > +/* __noipa works around  gcc-16 warning for uninitizled use of pos->refaulted */
+> > +static __noipa void read_ctrl_pos(struct lruvec *lruvec, int type,
+> > +				  int tier_min, int tier_max, int gain,
+> > +				  struct ctrl_pos *pos)
+> >  {
+> >  	int i;
+> >  	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+> 
+> Current code has changed here somewhat, but I expect the error is still
+> there.  I fixed that "uninitizled" while in there.  Altered patch is
+> below.
 
-For flexfiles, cancel_io() cancels matching RPC tasks and disconnects
-the associated data server RPC clients. With RPC/RDMA, repeatedly
-cancelling an invalid lseg during data server recovery can drive the
-client into a reconnect loop that consumes effectively all CPU and
-prevents forward progress.
 
-Once an lseg is invalid it cannot be selected for new I/O, so the
-cancel_io() callback only needs to be invoked once for that lseg.
+Then the build blew up in unexpected ways.  gcc-15.2.0.
 
-Record whether cancellation has already been requested in the lseg
-flags, and suppress subsequent calls to the layout driver's cancel_io()
-callback.
+The failure looks like a legit min() signedness thing which has been
+there quite a while.  I'm thinking that __noipa surfaced this for some
+reason?
 
-This does not eliminate the RPC/RDMA reconnect activity during data
-server recovery, but prevents repeated cancellation from amplifying it
-into a client livelock.
+  CC      mm/vmscan.o
+In file included from <command-line>:
+mm/vmscan.c: In function 'read_ctrl_pos':
+././include/linux/compiler_types.h:702:45: error: call to '__compiletime_assert_798' declared with attribute error: min(tier, 4U - 1) signedness error
+  702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+      |                                             ^
 
-Fixes: b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is recalled or revoked")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
+I'll queue a fix to switch this to min_t (yuck) for now.  It would of
+course be better to use more appropriate types in this code.  Unless
+tiers can be negative!
+
+
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: mm/vmscan.c: fix min() signedness mismatch
+Date: Wed Sep 16 04:21:22 PM PDT 2026
+
+A __noipa conversion from Arnd [1] somehow revealed a longstanding min()
+error in read_ctrl_pos().  Plug it with min_t().
+
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- fs/nfs/pnfs.h | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfs/pnfs.h b/fs/nfs/pnfs.h
-index 70d20f779678..1266420bf491 100644
---- a/fs/nfs/pnfs.h
-+++ b/fs/nfs/pnfs.h
-@@ -44,6 +44,7 @@ enum {
- 	NFS_LSEG_LAYOUTCOMMIT,	/* layoutcommit bit set for layoutcommit */
- 	NFS_LSEG_LAYOUTRETURN,	/* layoutreturn bit set for layoutreturn */
- 	NFS_LSEG_UNAVAILABLE,	/* unavailable bit set for temporary problem */
-+	NFS_LSEG_IO_CANCELLED,	/* IO cancelled on behalf of this lseg */
- };
+ mm/vmscan.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/mm/vmscan.c~mm-vmscanc-fix-min-signedness-mismatch
++++ a/mm/vmscan.c
+@@ -3205,7 +3205,7 @@ static void read_ctrl_pos(struct lruvec
+ 	pos->gain = gain;
+ 	pos->refaulted = pos->total = 0;
  
- /* Individual ip address */
-@@ -692,7 +693,8 @@ pnfs_lseg_request_intersecting(struct pnfs_layout_segment *lseg, struct nfs_page
- static inline void pnfs_lseg_cancel_io(struct nfs_server *server,
- 				       struct pnfs_layout_segment *lseg)
- {
--	if (server->pnfs_curr_ld->cancel_io)
-+	if (server->pnfs_curr_ld->cancel_io &&
-+	    !test_and_set_bit(NFS_LSEG_IO_CANCELLED, &lseg->pls_flags))
- 		server->pnfs_curr_ld->cancel_io(lseg);
- }
- 
--- 
-2.34.1
+-	for (i = tier % MAX_NR_TIERS; i <= min(tier, MAX_NR_TIERS - 1); i++) {
++	for (i = tier % MAX_NR_TIERS; i <= min_t(unsigned int, tier, MAX_NR_TIERS - 1); i++) {
+ 		pos->refaulted += lrugen->avg_refaulted[type][i] +
+ 				  atomic_long_read(&lrugen->refaulted[hist][type][i]);
+ 		pos->total += lrugen->avg_total[type][i] +
+_
 
