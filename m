@@ -1,128 +1,138 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D55D3644DE
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0E5368D78;
+	Wed, 16 Sep 2026 14:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570778; cv=none; b=YFdfUWBFQwGixq2sA/MpS0tTduyCIqonPkS7HttNhS11RLZl+3eG/cXhGUjUI6KrNXuHEb7DbQ5kqWIADHl5xBU1IiXA772hpkdqGvrS/3a1tZ+powu55j/F9V3xba2Vgicux+sw6h8c8ad+9LRjM7CChuDybXqlDCQ47xiBDB8=
+	t=1789570780; cv=none; b=ry/8XUTgNQ+AfVxwnGM1D7cYaN0PUro5KDeTxz3fYKekXvdbehVwSao8E+c5z5tDPGr2jcd4bTrAqaU1xo9BIdZY22FiznxxiATR8LqGzryTh+t26oolA2AN2UD/5X0ZdF4utvy2wa17uo5b3DZvbZGRjEaogtTRRlTRztDxNmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570778; c=relaxed/simple;
-	bh=4Jl2TkRe7Npn73HaXfPcA4VVvCfEz91QC5XBElprxe4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lmnf/81gfuzRuOrZIAWnrKAMcQUq4iM/u9ROaGt2vmC4gs+Pht6enzaZNofHqHFO9FPknV80W2/5mwYGgwKNWGC2LtxC0hewO2KUUtZqaOK40P+BlcACZogVgPBcLzMBRh0vuuPi40mHsoX/PIhXasbmuqJDq4ZIcPb0vreMvrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mgTrxaY6; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789570780; c=relaxed/simple;
+	bh=XsPQWFa4XZnaWyzI3/okKRQA8Gvb58QMhxqZkDOPZR4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aJZeURhEzMCcKfepqsJ3ZZ50ZlqiKiGr59csex/AUWpVr7H4AY24XyXI11Nj+Y206lzwyRL49Rw50ll8EuRli63yCgk/QbWLEH1MVkaEtwvPLHklJ4h2teQLScUlOvFiEB/frRUiAt78kXXs0NAbX+vrziKJu+LA3gIzxLEdzLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dVqrKFhF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mgTrxaY6"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398a1676000so777373a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:59:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789570776; x=1790175576; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3xRnvj52pHagz8sqiex+4Km8FuQRJvZZV/xhDBA7TFQ=;
-        b=mgTrxaY6AZiWnAmxzZcwig+v8VuOj+GoOmPuCoYjuUhhq5IIL+2Z66c0z8BGUyNlpS
-         GC0E03q1m8DB/5qMetvoQ7lBrq82C9MkIPbwq6tLTioTeM0gs2wCRe8D1abga00n8eBQ
-         znI5azqw95s170A3Lu6JWplgLcGwNxrw7TYFGUhAyOPjUqAZyO78aFCeUuJAJOEv55Bt
-         K7daPg6vZj6QLju39pd63nVDsSdqvfvrfYnF7nleEQAjVGcebVQYb9YSfeBZ7k68hurj
-         /8rIDxaLgHq4o5iMCc9wq8Fs0If1RRvtUwp/ZViZYfo7zAcb7dRpvVjL+u6g5hZjqu78
-         RfcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570776; x=1790175576;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3xRnvj52pHagz8sqiex+4Km8FuQRJvZZV/xhDBA7TFQ=;
-        b=dzK/TgB82b7AWzIc4Ji7oiIeuFi11FRQay6ON0nHKUV9orSZ5I6jiVeehLZfUHDiBE
-         UEBR5n+1K3OYs2o0mlEyIUVwujemHa+DlMRIC2ebdM2Rm9J3NcU8QHF2qTkCODgy5jjQ
-         7ery6mF7yNQRTgqOopktOfRs1ENppXjzCX3bLaef5/HOFqB2bDL7iw2sNOFGFahFS3qE
-         4RRTy/C1AwW8U+7C7+8pG4w2a3KJz8bTrZxamx9ntmzXd7cLf446pm2g9RObmu0sBB1r
-         VQLMW4Q5HsqvSHwgECIKJ1pZpaWwkbpAxhxrJOCnGl6jx5EcUScLCPbv9nrdHG0VA/UI
-         Cv5w==
-X-Forwarded-Encrypted: i=1; AKwUvBxdu/nO9bskrvx85b/HPQZcCgg0bqgloRrT07ccsFq2HoBBersPiZ9kmPClBXlUMSGsIELmYGyDkdCU6gw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2dg7gnA3s+tMnl9ymjmimrhI3SFhlIwOVLE08fxzmJ5glmdti
-	T8hc4aWes3qroREo7O3A6ibr/QBeq+f/D8LWzJFuNxRN2XVLsf07TQwt
-X-Gm-Gg: AYBFou1aa0uWuXJLHZCqqdGgOPB7ikvAicgJab4KboKZy8xvEI9cIShy1lE27G6v/Qu
-	/FrsnFPDgrZhQOm6F1OVuaol2I8O+t+P694o4qIghPdCsBMN+ciOspIbLxiD+ssrOxk9csNImnK
-	9VbbOCebZdnN0bITLW2MjZPKXwgJWTykew7OKHxB1Hn6N4b7XAgIbeX77ryGF6LRBcfD3YivZhi
-	Nj5jGb8Skg5zWqKM7Wwx/iaXo2gobabZVXNQolm0liTI2MWUL4MeGDnB/c70E7lbegoRmdVv6Qz
-	so9tsYQqm4BT9qTSHBXp6wMZzjMOtoymvP8+na7g4qgcwcZlTlfE09uIVd+k6fmCad7/r4Ru6AK
-	tkGT0fjWujqOtiMRVSAsYaOkhhEO/0CD1YPD+2/eIOFIxYdgB729rXf2co6ZixJYPIHBkyK2Ega
-	DOcqjTxJzqSbSwh2DGQYHwg81gAuTMKGpxOsG5CCxf2lIs1xP8dVN/vizhmhigGWxctsbuSxsxe
-	cu9oYSvBfcz
-X-Received: by 2002:a17:90b:582b:b0:39d:c3bb:98e7 with SMTP id 98e67ed59e1d1-39e1e2eb37cmr7040268a91.6.1789570775729;
-        Wed, 16 Sep 2026 07:59:35 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bbdfd89sm5159630a91.9.2026.09.16.07.59.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:59:35 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 07:59:34 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Sanman Pradhan <psanman@juniper.net>,
-	Senthil Muniyappan <smuniyappan@juniper.net>,
-	Vaibhav Agarwal <avaibhav@juniper.net>
-Subject: Re: [PATCH v2 3/3] hwmon: (pmbus/tps53679) Add support for TPS536C7
-Message-ID: <7c73bd97-a3c5-4485-8f16-57b128aab7c2@roeck-us.net>
-References: <20260915164823.160977-1-sanman.pradhan@hpe.com>
- <20260915164823.160977-4-sanman.pradhan@hpe.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dVqrKFhF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DFBB1F000FF;
+	Wed, 16 Sep 2026 14:59:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789570776;
+	bh=pAxx3UUAqYirDlx4uXabcthtQZepM0tyOeBdgaNDzoc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dVqrKFhFhjCMQQBSq2OYDNAnp5WtJ49ttTsdcQUBwlAKmbRC/3H6GvpNkNo+X9m1m
+	 8so9CnkEY+fqXPUaWGlQds6e3w4SatqLY8qOTHlUBsV7rACaTTxur9h5AI/gDHHgEk
+	 2DkBQkKTnXNbumkKD8Oqp++kq/EHDkM0ODGQba3OggJp3Jfp99Ox9S7P1piCJ6mzlx
+	 0aPHWJQHx+ncbFwOZBfwxnw+OTa+N8YxZPC7cJXnE6GW4c1+ovtRvUvb3bMlIxG7Oi
+	 Vsxoe1fi4ZZkpOv0W9aK3i/OwMENspG8TWac4W+yxqURPbTCY++Us1uWrubO52qWOe
+	 Y1Dwfsg4/Ww7A==
+Message-ID: <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
+Date: Wed, 16 Sep 2026 16:59:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915164823.160977-4-sanman.pradhan@hpe.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+To: Gregory Price <gourry@gourry.net>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org,
+ jannh@google.com, wangjiexun@tinylab.org,
+ sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260912110832.3203902-1-gourry@gourry.net>
+ <aqloB0zm3RjJ47m1@gremlin> <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
+ <aqqTbGMJL86TzDrf@gremlin> <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
+ <aqqjW5dpyznijYLh@gremlin> <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
+ <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
+ <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 04:48:46PM +0000, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
+On 9/16/26 16:58, Gregory Price wrote:
+> On Wed, Sep 16, 2026 at 04:48:04PM +0200, David Hildenbrand (Arm) wrote:
+>> On 9/16/26 16:42, Gregory Price wrote:
+>>>
+>>> Yes, in fact I used that as a start for exploring how I might make other
+>>> components testable the same way.
+>>>
+>>> "Stubs... stubs everywhere"
+>>>
+>>> There's basically 4 testing mechanisms i explored:
+>>>
+>>> 1) selftest
+>>> 2) Usermode Linux (UML)
+>>> 3) Userland stuff like VMA
+>>> 4) Linux Test Project (for syscall and ABI testing)
+>>>
+>>> selftests are really limited and actually create a maintenance burden,
+>>> they're not real unit tests and are highly dependent on the actual
+>>> machine configuration which is super annoying.
+>>>
+>>> But, lets take the page allocator as an example.
+>>>
+>>> The only piece of the page allocator that "should" (cough, simplifying
+>>> here a bit) be machine specific is zone and node configurations... but
+>>> I'm not convinced that this should require a full VM to unit-test.
+>>
+>> I told Brendan exactly that (try stubbing it) and he tried ... and had to give
+>> up at some point because it just wasn't feasible. ;)
+>>
 > 
-> TPS536C7 is a dual-channel D-CAP+ step-down controller whose channels are
-> distributed across a configurable number of phases (N+M, up to 12 total).
-> Whether channel B (PMBus page 1) exists depends on the phase configuration
-> register, so the page count is derived at probe time.
-> 
-> Factor the TPS53676 phase-map parsing into a shared helper and reuse it
-> for TPS536C7. Only aggregate per-channel telemetry is exposed: leave
-> info->phases[] unset so the PMBus core never programs the PHASE selector
-> on every read (and because TPS536C7 can place up to 12 phases on channel
-> A, exceeding PMBUS_PHASES). Report VOUT in linear format like TPS53676.
-> 
-> Since the core never programs PHASE, set it to 0xff on each populated
-> page so READ_IOUT reports the aggregate channel current, and verify it
-> (PHASE can be write-protected). Fail identification if aggregate
-> selection cannot be established, since otherwise a single phase current
-> could be reported as the channel total.
-> 
-> A configuration with no channel-A phase is rejected with -EOPNOTSUPP:
-> the PMBus core models pages as the contiguous range 0..pages-1 and
-> cannot represent a channel-A-absent topology.
-> 
-> On the tested TPS536C7 (device ID 54 49 53 6c 70 00, CAPABILITY 0xd0),
-> block reads of IC_DEVICE_ID and USER_DATA_03 return -EBADMSG with PEC
-> enabled, while retrying those two reads without PEC returns the expected
-> 6- and 24-byte payloads. Standard byte/word telemetry keeps using PEC,
-> so only those two identification reads fall back to no-PEC.
-> 
-> Co-developed-by: Senthil Muniyappan <smuniyappan@juniper.net>
-> Co-developed-by: Vaibhav Agarwal <avaibhav@juniper.net>
-> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
+> LLM go brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
 
-Applied.
+No schlop like that please, I don't want to hate my life
 
-Thanks,
-Guenter
+-- 
+Cheers,
+
+David
