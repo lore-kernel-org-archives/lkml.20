@@ -1,91 +1,193 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 530CD4EBAC6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2A74E8E04;
+	Wed, 16 Sep 2026 10:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556251; cv=none; b=pxH6PRTQI+SCyj0yzfJkSHmhsFqW8ALN3FpYqjaKoYpWn44PJbP7frjZqPhVXP6g0luEtV6dwDfytRERGWa0RyOjJjZKs+64vHd9snjp1/TeZQ0wflPtt0TIA1Vzgm59BUTMsRbYahvRrC1OTsFcD9/xOinN1SAWYvFId4ubMBw=
+	t=1789556255; cv=none; b=AOPmOlAa9554hq0NKoHKewj2JXsRLK6K3Ee1QqbIZIGt8TkWk6exFTGYP5EZMSia7x7IEep+SfQCUh+vozG9UxAUM5T+b1D9+tYQO19StnNpAzsT1pAKxJWbuEQZCa7Sp5hplekRtJSlBEbeEgo3NDZqA3RPGKSH+Ybkvnw/wKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556251; c=relaxed/simple;
-	bh=5sS8Pv43xatXOJ2DntYftUU17HocoYWUvGVZRmaQXc8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ff2ySVAf2u+uZqENskaqdZTX20jJq6d70BGcisfFFMrdcR+2Wcd6TcJ7OXsEiMqbEOhyobzgT3/zZquGD80iEj6MWBmNcfxeanZneuDJxRlYOLAXNizhWx143HjonZ3b9ikDrs4+KgOuBw5P9YJYLgRuNwVs9e/+kG4f3Oy3DME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jl/i1j2p; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789556255; c=relaxed/simple;
+	bh=M3Q8PsaLkKHlvIUr5hlqxV84+L4Iq4K5flIJuMgtdOA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t0U1BhP9LeZ+3CE8ZjnYGc9R8nICGhggj2T1UT7ssbhSj18Igqch4THgHsIh1b+PjoX/B4ffJRahI41qoMLzyTxGN5cXv0ZMMyFJM5+Ct9Q4qnXKqj8RoTHxzWRZKWjKORriS/P6V88IxvaHBVkP84jTk6WJhoZT72LETeKr3YQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=PV/0fH3I; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jl/i1j2p"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 05199152B;
-	Wed, 16 Sep 2026 03:57:19 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6A8FF3F882;
-	Wed, 16 Sep 2026 03:57:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789556242; bh=5sS8Pv43xatXOJ2DntYftUU17HocoYWUvGVZRmaQXc8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jl/i1j2p1BX6BhBdjYRtagyYym1tFDsOw2ZvjpvW4sBBGK2hfgGcE5xfFemcxgGrZ
-	 tYLQoj0zI+daIGgWA8BUzAQe08huBUV6J1EQQL0HHMfhY/nOhYOE2c9GfcuPORFpgQ
-	 ab6D4JzJCZVKhcrhm9Zzeo1e1UuerEsN9kzJ07Ug=
-Date: Wed, 16 Sep 2026 11:57:17 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v11 7/7] coco: guest: arm64: Replace dummy CCA device
- with sysfs ABI
-Message-ID: <aqp2DRInEhzpEqAc@arm.com>
-References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
- <20260914060511.277948-8-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="PV/0fH3I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789556246;
+	bh=M3Q8PsaLkKHlvIUr5hlqxV84+L4Iq4K5flIJuMgtdOA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=PV/0fH3IdcGxbWl15FphMuau4ZVGT+IxC3hWi+8R0uiO9UpOOAf0ZLDvzZzWQSlvK
+	 i3gXWo0G/iipFPEelkQVrryw9kIlUyFTWMtRExKcrxVhwNUq4HCySvdnZtMu8ify0t
+	 M/VbhYT9Tjy7zaZ6dCj3XnnG1cjrcPO2Kn7D88RN1uS8UvFSkvi1U+fjlyclXR/TXl
+	 8Te76d9Rw8JwzYbsmeN3vV5qQalIygyz/ZXKwv50F58Agbwstzs8RulPlUzd7bN72v
+	 DBNSYhl6XU2IZ6+2T9htMgAqRErw8GGrFX1QSs9HSMGIGz7vRiZID5qtCfXXHk6iq8
+	 7J6evp+G2Uxfw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E035B17E0420;
+	Wed, 16 Sep 2026 12:57:25 +0200 (CEST)
+Message-ID: <1b7438ba-69c3-4c3d-b79b-2879b90fabc1@collabora.com>
+Date: Wed, 16 Sep 2026 12:57:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914060511.277948-8-aneesh.kumar@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 02/13] drm/mediatek: Implement Display Stream
+ Compression support
+To: Nikolai Burov <nikolai.burov@jolla.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+Cc: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
+ <simona@ffwll.ch>, "robh@kernel.org" <robh@kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "jitao.shi@mediatek.com" <jitao.shi@mediatek.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "kernel@collabora.com" <kernel@collabora.com>,
+ "justin.yeh@mediatek.com" <justin.yeh@mediatek.com>,
+ "jason-jh.lin@mediatek.com" <jason-jh.lin@mediatek.com>
+References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
+ <20260915084148.11385-3-angelogioacchino.delregno@collabora.com>
+ <GV1PR06MB8417DED4A9C82CE84248F5F5E4BA2@GV1PR06MB8417.eurprd06.prod.outlook.com>
+ <14b99e0a-e08a-42af-b982-471cae869149@collabora.com>
+ <GV1PR06MB841771AF67A658BF71D4F479E4BA2@GV1PR06MB8417.eurprd06.prod.outlook.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <GV1PR06MB841771AF67A658BF71D4F479E4BA2@GV1PR06MB8417.eurprd06.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 11:35:11AM +0530, Aneesh Kumar K.V (Arm) wrote:
-> diff --git a/Documentation/ABI/testing/sysfs-firmware-cca b/Documentation/ABI/testing/sysfs-firmware-cca
-> new file mode 100644
-> index 000000000000..bf177d636b92
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-firmware-cca
-> @@ -0,0 +1,10 @@
-> +What:		/sys/firmware/cca/realm_guest
-> +Date:		May 2026
-> +Contact:	Linux ARM Kernel Mailing list <linux-arm-kernel@lists.infradead.org>
-> +Description:	Read-only. Indicates whether the kernel is running as an
-> +		Arm Confidential Compute Architecture (CCA) Realm guest.
-> +
-> +		The value is one of:
-> +
-> +		0: the kernel is not running as a Realm guest
-> +		1: the kernel is running as a Realm guest
+On 9/15/26 20:51, Nikolai Burov wrote:
+> On 9/15/26 6:05 PM, AngeloGioacchino Del Regno wrote:
+> [...]
+>>>> +    ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
+>>>> +    if (ret) {
+>>>> +        dev_err(dev, "Cannot find DSC RC params\n");
+>>>> +        return ret;
+>>>> +    }
+>>>
+>>> The defaults in MediaTek's downstream driver match DRM_DSC_1_2_444, not
+>>> DRM_DSC_1_1_PRE_SCR, and the panel on my test device requires that even
+>>> though it uses DSC v1.1. This may be a panel-specific problem, but have
+>>> you tested this with any actual panels that need 1_1_PRE_SCR?
+>>>
+>>
+>> My downstream uses 1_1_PRE_SCR... that's why it is like this.
+>>
+>> I can resolve it like
+>>
+>>       if (dsc->dsc_version_major == 1 && dsc->dsc_version_minor == 1)
+>>           type = DRM_DSC_1_1_PRE_SCR;
+>>       else
+>>           type = DRM_DSC_1_2_444;
+>>
+>>       ret = drm_dsc_setup_rc_params(dsc, type);
+>>
+>> ...that will work, granted that the panel declares the correct DSC version.
+>>
+> 
+> Unfortunately not, because DRM_DSC_1_2_444 is also needed for some v1.1
+> panels. From drivers/gpu/drm/drm_dsc_helper.c:
+> 
+> /*
+>   * Selected Rate Control Related Parameter Recommended Values from DSC v1.2, v1.2a, v1.2b and
+>   * DSC_v1.1_E1 specs.
+>   *
+>   * Cross-checked against C Model releases: DSC_model_20161212 and 20210623
+>   */
+> static const struct rc_parameters_data rc_parameters_1_2_444[] = {
+> ...
+> 
+> I'm pretty sure that my device is not using DSC v1.2.
+> 
+> Since this is definitely panel-specific and there seems to be no good
+> way to detect the required parameters at the moment, this is probably
+> something to fix later.
+> 
 
-Does this file ever read as 0? It is created only if rsi_present and
-always reads as 1. That's fine by me but we shouldn't document 0 as a
-value. More like if present, it always reads 1 and RSI is present.
+Ok, let's just go with 1_2_444 then - makes sense... that's something
+that must be accounted at the API level, because I know of some panels
+that need the PRE_SCR set... and that's even if they're using v1.2, just
+because - for whatever reason - some of the DSC params are stored in and
+read from an OTP area of the DriverIC (and that would mismatch then with
+the other params that are runtime-programmable from the DrIC view, which
+results in pixel-garbage artifacts).
 
-> diff --git a/drivers/firmware/arm_rmm/rsi.c b/drivers/firmware/arm_rmm/rsi.c
-> index 2dd69febedbd..52f40256bd78 100644
-> --- a/drivers/firmware/arm_rmm/rsi.c
-> +++ b/drivers/firmware/arm_rmm/rsi.c
-> @@ -9,12 +9,15 @@
->  #include <linux/swiotlb.h>
->  #include <linux/platform_device.h>
+Not sure how many panels are doing that, but this is of course not a MTK
+specific thing... I looked around, and apparently there's a mention of
+that in the Intel driver as well - yay I'm not the only one who knows, lol.
 
-Nit: I think we can drop this include.
+(And I definitely didn't expect that to be the case anyway).
 
--- 
-Catalin
+> [...]
+>>> I don't quite understand what is going on here, even in the original
+>>> driver before this patch. What is the point of setting VACT_NL twice?
+>>> Does mtk_dsi_ps_control() really need to be called in mtk_dsi_poweron()
+>>> if mtk_dsi_config_vdo_timing() ends up calling it a second time?
+>>
+>> I didn't do much research, but MT8173 and 8192 if I remember correctly
+>> won't work
+>> without this sequence. I saw that 2 years ago or something, so I don't
+>> remember
+>> all that clearly.
+>>
+> 
+> Okay, it's fine to keep it as-is then to avoid breaking older SoCs. One
+> change I would definitely recommend though is to move
+> mtk_dsi_set_dsc_params() to the very beginning of the sequence, maybe
+> even into mtk_dsi_host_attach().
+> 
+> Otherwise some parts of the code might end up relying on unpopulated
+> parameters by accident, and it's harder to debug if they change in the
+> middle of the sequence.
+> 
+
+Honestly, since it works right now, I would be happier to push this upstream
+as-is, and then shuffle things around (for an optimization, or else) after
+the fact.
+
+The point is to have a working baseline upstream, then if needed improve it
+later when further testing can be done - point is that there's a huge set
+of patches that is restructuring everything, so I want to play safe as much
+as I can in this moment - I think (and hope) you understand my feeling here.
+
+> [...]
+>> We can always come back to this in the future with a separate patch, and
+>> we should
+>> do just that, otherwise series versions will never come to an end :-)
+>>
+> 
+> Agreed. My work is currently also based on the restructured mediatek-drm
+> driver, but I will try to send follow-up patches for MT6858 support once
+> some of this stuff lands upstream.
+> 
+
+That's... a w e s o m e !
+
+This is a practical test of the restructured code on yet another platform,
+and I'm happier now because it's a different type of device (as in, not a
+laptop and not an aiot board).
+
+Thanks for that, highly appreciated.
+
+Cheers,
+Angelo
