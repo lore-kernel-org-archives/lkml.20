@@ -1,130 +1,102 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from out-2uec-a106.jellyfish.systems (out-2uec-a106.jellyfish.systems [63.250.43.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527DA524AF6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38458368D65
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:23:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575851; cv=none; b=cNSmItOURjpKfuLC29k85iEZFzI/uuf80btqqJyX/+MPc0dxIAON4HgV/slOHrFBCBm/3p/ZyNfvCOw7vfePoF8FjrRn1e5fo6lzhsZkkbH+ntevbGR2U9xtMvtnBK6dUxcETbPMByiGIawV5Zea5G8ptHf59txkeBOWkfMI9wo=
+	t=1789575854; cv=none; b=FN1TKxng/Qmav1ybTE1w4B7R46kWesailBJhtc7ZwPcdENE4AF4S1yp+TrAHLcs14x1d6/D32C7ZefyErHWMPJFiqkKnRkaUODZCSUGwSwCVtOwZggXd0/bq0h4C+hM8DJ+RkGFjQ2cu02DwHistwK7+UTaVdqkUUzKhD19VJ+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575851; c=relaxed/simple;
-	bh=jzhzRVq7BASQjDartlB8xIX0fc5cN6M65blwwfuQnJM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GkTZXyjD/VYfMEdj09+uEPAScKVzMeAd0pFFH5Vtj5x9Q8ThsG8HkXsZC+pyaZJt8/exQBcnFFUXLhsAsPxaa9EDi2bkucJfnpS2if9xdBnkczcBKw4wixjimed/2FVP+2/RTI9I0ZFoYubwlcINOh5rhaM1mOYkLdANyRmTA2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=brZDQyVC; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789575854; c=relaxed/simple;
+	bh=84xYv0u/kz58jR6KVTozEeIz9GIED2HJv/7qq0V1YTo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OwnnIKSp9b0QGHRV1cSKcHzA6K/f0QaGimAarR+GUlxLWeZ9pbEHw64/Ie6rBg8x6GDBSK5fEoYC4iAtGwA9x3y/Oa6MDrOd0Vrt315Abv1iw9hS3lyiR9Tc4Y698AgBmSxxttYLN5tN+MyuuBAwyf7Q7e+WEPu3pa/CSW8n0rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=XgObANkY; arc=none smtp.client-ip=63.250.43.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="brZDQyVC"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f16f12so1192386e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:24:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789575840; x=1790180640; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6nrA08QHaqyBffA+mNJN9lkq4Lm82slDbnwzoPxRENI=;
-        b=brZDQyVCX9HT9BXl3Ey6lIj1blJbSue+wQbAO82Qk+v/lyqjzlnaSh4p/WzND5bZd/
-         1Ntu3IMzW7YYptPzYlQY7LMJ5SlH0bP4j1kebbLVRKam4ulBAEV6dhOfw8IT0Xy1hIHr
-         jMOTSTvZ02RbKToaSLwL8G4aZzRvVt55sVQA5N4dnLoPxTg7QpwHh4kEieiv6zk3ddod
-         kISyCYhRn3PjJ9nNvZrruxtMcDNrjYgma5WFEJbpA51ZcIzN68+0q6ainN9r1LizXppy
-         jIFcs1w0mE1PxPRnL8wIe8Lkc738Oq4qtchNhG74mkCYdNIVik6zTUqiHZZOnzkLeM+L
-         dGSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789575840; x=1790180640;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6nrA08QHaqyBffA+mNJN9lkq4Lm82slDbnwzoPxRENI=;
-        b=WNz7c2Sld+M6swWZFnBwB1YAOnaU6IbDcl20PpE7/r7F0EUmCsonozuzaHin50MjtM
-         KARBx46ZKez238Kg5namCfg3XdvI1PMlzE/tgbPC0UpDVGXmTp+Kp9VoriMrEpztMQW8
-         nWmFR0VDktJ4coIRlrYo0cy1lXvAPhfwqp1Hdji+wqsjYr5Iqrjizg22E5/QypT7AmPR
-         XMZi+XAdBG351bFwaJsdCVPStKVh76RUui5mabJk3TOfvH9Gj+ZjUNzrbZNbGNvsxvns
-         0yr5cytLKipY6uY4sOivP9pk6nFWqLPdqQ72WcMqxNrxK5lsa1YQTqIH7yfpjioz9dOy
-         32zg==
-X-Forwarded-Encrypted: i=1; AKwUvBycpI78/yu4Ukk3ExjQuRomk8vuLmFUX0Q/z6UX+pMSy45vbDda/SRn5EBqM1JenDCun4mwirNrifShGSA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDYASxd+PO00r8RotIQ/H/DqACIL/fjfnGBrbGWuMrPRT49xwO
-	J6ENG977JR1cisejfPVpQv38R08nN9cbLWnO1Wx3mmfH8hyrjbLzfzVuo34qBIMg2LEs
-X-Gm-Gg: AYBFou3/esPy280QP3Ew99XujJK+DiIB3RWiSkKwCukRYWbOYJmsrR7OKlme2eMG8vO
-	03JBv4fd9FIjpTf9lE8ZqOvwMcq6OM+q7uoVJY0WDzcluCmOfqSUp/z8RBJp7HMradezT+6Nvjq
-	nMPQN6JD4KNIazhhA8GTEVd8UxyM3MMw+awkLaGL03qwU5R9A8hnYEetxbv9UqaaWoA58/10kxc
-	9Hk++qYk6m3/nebHwoBk/U6ouHyZMtOugjlZHO99ecfGeWoZcs56i5UpNSCcQXGdUeoPWgmPYpW
-	qvP/L6c8UfZ1SslwsKlAylduRHihBcQ1QhqIlkQ0TW9EKaVQb3L7M2hEgxWTEM6ayhF8B74xO+t
-	p23QIND4wYaSePBzkrwOexfwqefQ+DUwdQFf+KoIjSLPKr0EUgjF6NfH/SJ6WJXJfNfBZx7F5EF
-	o9d9pRVbhBDGj8K+Yb4dskm+sSa9JZxnclSX6uNCaFcC0lxI5ZriQQWf0batDNOeHni5QL4+W6X
-	lSrLqx4UBuoHGUjrJVHH4FD
-X-Received: by 2002:a05:6512:3b0f:b0:5ad:55f6:1ec3 with SMTP id 2adb3069b0e04-5b8b661a3a5mr1984413e87.5.1789575840449;
-        Wed, 16 Sep 2026 09:24:00 -0700 (PDT)
-Received: from [127.0.0.1] (sekoohaka.ddns.net. [151.243.208.241])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8b57cc66fsm1036205e87.37.2026.09.16.09.23.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 09:24:00 -0700 (PDT)
-From: Maria Lisina <sekoohaka.sarisan@gmail.com>
-Date: Wed, 16 Sep 2026 21:23:48 +0500
-Subject: [PATCH v7 2/4] mfd: intel-lpss: Use plain octal values for file
- permissions
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="XgObANkY"
+Received: from fedora (unknown [117.147.120.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hlP5L51yBz8sXL;
+	Wed, 16 Sep 2026 16:11:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
+	s=spacemail; t=1789575081;
+	bh=LCqoXqzY/l2yf0K3cWyQLdt7Osw2JWTjs4N/s2OK0JQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=XgObANkYFXECzxCScFkjtwE5q4sLYByt+lsLlpzM+ipo2nW/ZBsmSYqyM/NISCXs8
+	 JgLExKMucXFgr1iJxJEWGEb2l1fEBJjbGaYGiValturszHmyJXTYVEQ3crt9QRV0Nx
+	 M9Kg/4I4K+nwoHAMJ2ePUKD4eIp0OiTkD5eIM+DpFp5kRWMq9p8+z5JlDWQfptMS8G
+	 wms3BflkQ5eR7Zx+KMdkgXBSJ8hMObMbhBclmPTISfq3VphaQVOhacesLqSi5pP3oX
+	 Z92xjmYTBcBLIUrzevMA1+0YYxcFvxMElx+Il563T1uigX3jKfaxZovpcxvAV1w1Oi
+	 BRdqgHibuxSLQ==
+From: Tianyi Chen <hi@tychen.cc>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] memblock tests: use physical free for the maximum-address check
+Date: Thu, 17 Sep 2026 00:11:04 +0800
+Message-ID: <20260916161105.2548281-2-hi@tychen.cc>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916161105.2548281-1-hi@tychen.cc>
+References: <20260916161105.2548281-1-hi@tychen.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-intel-lpss-debugfs-v7-2-eb51d41f55e0@gmail.com>
-References: <20260916-intel-lpss-debugfs-v7-0-eb51d41f55e0@gmail.com>
-In-Reply-To: <20260916-intel-lpss-debugfs-v7-0-eb51d41f55e0@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Maria Lisina <sekoohaka.sarisan@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1154;
- i=sekoohaka.sarisan@gmail.com; h=from:subject:message-id;
- bh=jzhzRVq7BASQjDartlB8xIX0fc5cN6M65blwwfuQnJM=;
- b=owEBbQKS/ZANAwAKARPrfuqZo5+iAcsmYgBqqsKYntMYpWKjAwufiOQpd0/qm3peZ7hV+MAQo
- EEvIft3A62JAjMEAAEKAB0WIQQ8HZKKOdqg5DRiM0sT637qmaOfogUCaqrCmAAKCRAT637qmaOf
- ojrqEACLCAsDQkObxcWyvAmnuMHXBmg+s01Me5+U4xeRh8mdKP7pocghJfxBxWSMUgBPm46ATYX
- k/B+P0bxicJFxL5uyxzyAU0o3CmpB8lovD02is2jHBlifXTKEW7qy9oP5nX2ZN/M4oINLHsuhCM
- W9DNJlWAsH6gAALEYilsmBUar5QvwFiE87aBv2UdgDhT1UtKKZ3TxBrKV3DfT3q4TXYOHxFjDmw
- xMUbF68qTzCC6A4XGGF23VzsUv/54HagN5HNcBBLQwf6F+aLKlOlkifcxOyhjY26Q202Wze6xoM
- kHLL/MrhF68MlymJQoA+7Y3hxn0eushaD883rlwSAccdqF2U0s3at0CX0GjGqNp4POWcz4cn8G5
- Dm2KfeElV6OsRT9TCCby0lne2TY4mgrzxFtUbPonxspwLp/cBApmVfkaET1FugUWHTS5FMTOn9h
- Y/0/M/31c3fcz1fLGMwKGpzyhOg9VqtFKAop2CcPfaBIOyZqq3jq8jQhmnUbIHs8SGJ08x4lNGt
- Bbz4IdVL98bxEh/avViaa2xwJhC27fXURmyAIrzZEnSyPPDjfTvF8NTM/hKCUZwMHgQTO7YMyUC
- TXqde8BUK5JUil5ffuPXKGhBZEbGqsA4GtKg7VAYNZkwEooeiPTYnXDdwrfC2q2o3ZLSvRbYIhV
- pqrdpOD28TM0BvA==
-X-Developer-Key: i=sekoohaka.sarisan@gmail.com; a=openpgp;
- fpr=3C1D928A39DAA0E43462334B13EB7EEA99A39FA2
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: hi@tychen.cc
 
-S_IRUGO macro is obsoleted and not recommended to use,
-therefore replace it with plain octal values.
+With BUILD=32, phys_addr_t remains 64-bit while pointers are 32-bit.
+Casting the address near PHYS_ADDR_MAX to void * truncates it before
+memblock_free() converts it back with __pa(). The reserved region is
+therefore left unchanged and memblock_free_near_max_check() fails.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Maria Lisina <sekoohaka.sarisan@gmail.com>
+Use memblock_phys_free() for this synthetic physical range and retain
+the checks that freeing past PHYS_ADDR_MAX clips the removed region.
+
+Fixes: 21a233f68afe ("memblock tests: add additional tests for basic api and memblock_alloc")
+Assisted-by: LLM
+Signed-off-by: Tianyi Chen <hi@tychen.cc>
 ---
- drivers/mfd/intel-lpss.c | 6 +++---
+ tools/testing/memblock/tests/basic_api.c | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
-index b6958e99cf54d3c8eeca1ba38055a9389678f6c3..190de88d146aae9418566adf36a47d11afa90b2a 100644
---- a/drivers/mfd/intel-lpss.c
-+++ b/drivers/mfd/intel-lpss.c
-@@ -151,9 +151,9 @@ static void intel_lpss_debugfs_add(struct intel_lpss *lpss)
- 	/* Cache the values into lpss structure */
- 	intel_lpss_cache_ltr(lpss);
+diff --git a/tools/testing/memblock/tests/basic_api.c b/tools/testing/memblock/tests/basic_api.c
+index 01e836fba488..dfca0153b6b1 100644
+--- a/tools/testing/memblock/tests/basic_api.c
++++ b/tools/testing/memblock/tests/basic_api.c
+@@ -2003,7 +2003,7 @@ static int memblock_free_only_region_check(void)
+  * Expect the total size of reserved memory to be updated and the counter to
+  * not be updated.
+  */
+-static int memblock_free_near_max_check(void)
++static int memblock_phys_free_near_max_check(void)
+ {
+ 	struct memblock_region *rgn;
+ 	phys_addr_t total_size;
+@@ -2026,7 +2026,7 @@ static int memblock_free_near_max_check(void)
  
--	debugfs_create_x32("capabilities", S_IRUGO, dir, &lpss->caps);
--	debugfs_create_x32("active_ltr", S_IRUGO, dir, &lpss->active_ltr);
--	debugfs_create_x32("idle_ltr", S_IRUGO, dir, &lpss->idle_ltr);
-+	debugfs_create_x32("capabilities", 0444, dir, &lpss->caps);
-+	debugfs_create_x32("active_ltr", 0444, dir, &lpss->active_ltr);
-+	debugfs_create_x32("idle_ltr", 0444, dir, &lpss->idle_ltr);
+ 	reset_memblock_regions();
+ 	memblock_reserve(r1.base, r1.size);
+-	memblock_free((void *)r2.base, r2.size);
++	memblock_phys_free(r2.base, r2.size);
  
- 	lpss->debugfs = dir;
- }
-
+ 	ASSERT_EQ(rgn->base, r1.base);
+ 	ASSERT_EQ(rgn->size, total_size);
+@@ -2114,7 +2114,7 @@ static int memblock_free_checks(void)
+ 	memblock_free_overlap_bottom_check();
+ 	memblock_free_within_check();
+ 	memblock_free_only_region_check();
+-	memblock_free_near_max_check();
++	memblock_phys_free_near_max_check();
+ 	memblock_free_overlap_two_check();
+ 
+ 	prefix_pop();
 -- 
-2.47.3
+2.55.0
 
