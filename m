@@ -1,257 +1,485 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011016.outbound.protection.outlook.com [52.101.70.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433594D7940;
-	Wed, 16 Sep 2026 15:51:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573880; cv=fail; b=jiDD+HxCUYBl5jz+wMJ5zNnnEZQrfMw1r1jOmQ1K7evIboXy7n+EtLI3QK28Os1zxyyRo7xLdHMmrYpwxkG4V4i9Go3Dk66ELSdn3ty/NDvOVvMeowRB4dBfALEXfGIMhLciNJlbQGb6myScVeXKPNTYvhLtI12KVHd4CLsUGlU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573880; c=relaxed/simple;
-	bh=IvFt3R1x0mmobz0tTguIXSuyHo1dKDWrpD1xu1G7b5s=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=Oa0qYKWscZvROBbSpJgAHkxsZnPQHiBTec19CWltDUDKcQg7DGHiAwMKLmfDElTzy92bo1NOsLswalLOIKS+nB5h1POBi9bErqizlJasd7abMI4+fnd4LKymaqppKXkXz/F3GFZSQplkoAYPdDTVwAy50cAE2FB6yk7OyFgmnkU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=c3O53bup; arc=fail smtp.client-ip=52.101.70.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342F5372662
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789573879; cv=none; b=ETB3Vpa4I1kDom0kDbFORi0j8wL1KaV4JcIQwvDfD8NCpkDZ/vK2+CasLAUHNYMHTGm/McOBFBiYnzazXFflIcWyw7uR+qIAjFAJHK9Qk6okZTDwcEG8zz4W83LcE0ODjjoFi1G7NT6HsN9GvAvSFU/Ca3/oJ1sk9cov5NfAAeo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789573879; c=relaxed/simple;
+	bh=kIEPH4TQ1uf6bM0vkJT/+4CtCb1ozFkQucsWzPBXJmc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ax0jyIs6+/cHsUSepXcOVolNF4fCL8eSNCO7GbMnDRokD2QTOPREGy59lM+xuzpw2z8H7/eqODMoa+tBd6QJtdtB971YwB6hDJ1DU4W4l6+36u2Tj0XBtsm/pTlOAsWSPRAYqYjtB/XEf/mb+MUJdTAJKVhgxuFkgcwLXl1sXj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FFA0WSHL; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="c3O53bup"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OVumq4XhIIM/+cGJ+14ZeIesplBI7sIQBQIx2nOUY//e7y9pyLRESeNTTYYEFQgo/tIz+4glzxC9QWTPPVa2s9FVW1XfI6G3YI18YG2MYbZq7nRCPNAKxme6AjtqLDbkeBrDEGI9Ifm2vvM+RXeCIoVAtfMUHb3nXcbYP6PJmqQFHCSaWzzxBOFnydD7Wpv0DBqbQZwhc2QlhCW8dEFqPx9U9uBqgP57xKjyC13BVaBna0BhGTozQm2dBDJXBtsyFZR1fS+3cHAX6q/ybFMAcvlRgdMM/XFCINYlFWkq8Uwfe0lOyHSd3bjvHEum+BH5XQLR+F7OTfBrgS/Ro7UXYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UMEGIseJO2H7S6pE8ijsEi8U+D8X6uUS1cHCt9HQKOY=;
- b=eZnnDpRjOdUWoN44uiYs2xjQjPwdMt+0vZj1btN8w9GKYOPrRJ/WtvroyZqhYcpMZGrmcgLFVhm0sMum5hLVpM+iL5RG3L9pLWbNkFjB3kg32QMBZyd2SGEH8yeWXHNxTL/vQSaNGudm6cQ3fqIne/xi9zdR796uqg663VNJ1aVtzCZ46pJdD+kC8KQq2Xbu3v4oLy/SOTSHfmnnmaCD6CmRnK4ljYuID5b6Hh6xdr6B75EZcOONE0pMKx7HOGdX6ou9bUPK8V1pB55ElcA7K/q2N2KXgLfi6TztZOGGHG0oa51Kem4ZoZXLWIhTKlWSReVh+pPawDPC8OlwQI5bwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UMEGIseJO2H7S6pE8ijsEi8U+D8X6uUS1cHCt9HQKOY=;
- b=c3O53bupyUPrfL65ESIQWyJdMvBi8avqg/Ke41tnMhXR3nMTtYOQwBEBVD4/thnhTATuMTvT8vrX/fLnDB8aUAWkwliXUhs/iEAAFYPJELIGBC+faB2MKWzcybjt48CvOTnMGle6tzELIxCHIrz/qLuuMNAlP+ympQMmsicSynFgLFSaat6dFnTp2xvQsZDn4XgoAEFMTBYRuOoE1fnemDw3w17SR9Uni1APOfQpgruP6WlJWcS1U+Z6umxDm3a3ZiPqd/BSq2ysaZer1P2VrQVLN4nmzhgmRmisa7cWNuqdOhWlarbXEJqlT8xC01Mo2NKix4FH0q2j2V14FqcBdg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AM8PR04MB8017.eurprd04.prod.outlook.com (2603:10a6:20b:249::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 15:51:15 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
- 15:51:14 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Wed, 16 Sep 2026 23:55:25 +0800
-Subject: [PATCH 1/2] dt-bindings: dma: fsl,edma: add iommu-map property
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-edma-iommu-v1-1-e1731968081e@nxp.com>
-References: <20260916-edma-iommu-v1-0-e1731968081e@nxp.com>
-In-Reply-To: <20260916-edma-iommu-v1-0-e1731968081e@nxp.com>
-To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>, imx@lists.linux.dev, 
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.16-dev-7bc12
-X-ClientProxiedBy: MA5PR01CA0073.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b7::12) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FFA0WSHL"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6188so8070595ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:51:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789573874; x=1790178674; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BcGmtXPoHCab0kNf32AsjMJOpOKyAdCYDuBBvlwj4Bs=;
+        b=FFA0WSHLoiCUET7l60mlaaGmKW1mEATz/ko5A5oZAH8Ja0ifKQArWKR504koFybZya
+         4zkkJj2C1N3vmUl2FFn6M+3n2c4FHn6V1KMdOUXg9KL6NU0z+n048mjf/jVfWbCjxEt6
+         cW07DkrHQwKP+kscunoceQwXPO04F4ZK/DnjOmgE2tSANIEbxGyo4o4H3i+q8xmCzn8k
+         DMQhPvLBen61vKJ7/raVxeM2qaPQoqp/EjLHGhM9qGYYwslGcKDjNjufy4+k1xCj1t24
+         ovMM8taU3aJje73eCvROO7WrGzvPbPVmZX0T5sCY3Nr3lFNVSyY/7TK+A4CI4eV//bsg
+         I5YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789573874; x=1790178674;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BcGmtXPoHCab0kNf32AsjMJOpOKyAdCYDuBBvlwj4Bs=;
+        b=mp2xvRap2v7Nh7C7PGIMy1Py65sBwkQNQeFvQRENp+vk/N19vjif0mmmyzBjTkC26n
+         X3pZZbX/2qeqge+X1zI5R+AHw5HjPOehbzbX6tGo3SJrjclkuvtLINN5b+JlXFzUWH43
+         F6xlj8ER8McuXe5zkJifv0VE5jsGuAQKCKoIsLmrEnJwnqrdguG95G8lGIdf2cF5eGY0
+         XNc6n0+p7eJU/Qh9DRv25zcyEA2gr3C9u4WIOesEKk8G1mjgEjYAa2amdKeEaH7ipy65
+         yBsbUuy5+qdlilbQx4VekP4CObUDgHSsulOpw51C6dsZ2H26R6MYGhgVa314WwPtlqGx
+         K+KQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxdyor3fv/lBrvegjMa8aiV+WdtQX7Y90GF49qJABdJ8QkBvyILDljpJftCo4j+NOJ7K7I3EeRnf/6ma20=@vger.kernel.org
+X-Gm-Message-State: AFuF++kD1ItHeuE4dPQfKPLItdYzgQ/JkAJ52h/m4e7f3gDK7D/g15vF
+	dmqmEn3dXnaMihyEKXuj2ALitE/vt7GXvIeQExEAerHwzBoj19aqvCDP3fWzdS/UOJ1QVRdP5AF
+	SdTEf
+X-Gm-Gg: AYBFou1cJ2i44tiyfDO7lTQyTLISqNC4izwq1um+1+tqQuEu03pmKatC06VHFQgw9Jv
+	HUkBvd1AoATX7uV0kY4+4QDjynu8YIovwbbbSrBP0JqAD61RMXWd7YwsGO3WVlLViwXojptoPSU
+	CFZ0DfTLH4ulLzJ6YUklLQigK1mifMJ+VmuWTw8y0fhvplhnGJagcDbjbEjB76QzXz4pPP+DcXo
+	iHzj/vgZGMMgw+IsQwJEYNCcEJ5Tmrm2csza25+f4Ego5V2kUJGCcxcR7DF7FroLvtNRx/BCjo8
+	KnrMem0j5+VhpKsm8FP2f0aDS0xCcHjpDVlgbDLgiKq+RZCsSqxJln+YU5R7JlEMLJHd3eb9cxB
+	KL9RyKHux88vi+DGxq3FSDvwbUVF+8d285DQb6VuDhqYBZj+L5gVmnw0jH2McfnS2iaBy87OKQh
+	qOg9YIpxQjeygGGu5Shi7/tguDtbVmspvo9aaQxjBqFqtRR/YPvXOope4uBiF/l/H9rryR0BpDu
+	HOvjXABYduHynU=
+X-Received: by 2002:a17:903:2a8f:b0:2dd:3ddf:b87a with SMTP id d9443c01a7336-2dd8cc98358mr66456705ad.0.1789573872072;
+        Wed, 16 Sep 2026 08:51:12 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:5703:e05c:9814:52a1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d8fd37sm14157475ad.3.2026.09.16.08.51.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 08:51:11 -0700 (PDT)
+Date: Wed, 16 Sep 2026 09:51:09 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: tanmay.shah@amd.com
+Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] remoteproc: remoteproc_virtio: add acknowledged vdev
+ reset
+Message-ID: <aqq67R111xy20JC-@p14s>
+References: <20260902214453.634339-2-tanmay.shah@amd.com>
+ <aqBNoaF7m_JEiVYY@p14s>
+ <281ad636-7963-43ad-b88a-8a196eab217b@amd.com>
+ <aqQW7eOsFE7jRTXT@p14s>
+ <935f29ea-adf0-45c2-84fc-0df40b6f591b@amd.com>
+ <CANLsYkzWXRbQiystuX101POObnkhSAyyP-6sOf9Fb+X5H_5y3A@mail.gmail.com>
+ <bb84213f-0168-425c-9803-24eb82415b52@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AM8PR04MB8017:EE_
-X-MS-Office365-Filtering-Correlation-Id: adb7d83e-8c6c-42a2-e9bf-08df140a56a6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|19092799006|1800799024|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ZC2bhzLrXcy8I7w7XJyj9WNdTXtXJy3cayNDZXJom4iCJ8Jkq9L1RoRxEMzUk6XWN85onSt9yix+sjw5Km/bqXfhHiCkHH3sM1sev2xDnkL/GiTH9u3Zm62rvP1vKFrXtzrhoV7PMepwJp2woDknpvEEBsdwDfcMJGvZTL9feomFVoNuIhDgDQFzS35FP0PDulEq2HFjojPMLfeRT33/wrnOt3c727Gadc1N1oDEiTnQqwPVGXLtFRaAArL5ubnUiRAXGLHWvBb9XbLKiy/xBNKcO/SVHDcFJMW2TVQrO44KAX4L3Wfwr+1V08806rzPpFf+ZwVIaYlh7qZUKk+25o09iiAo/GMy85v6xIXmzgkbccxKSIp1uOR1p1Gx2ISsFF6Tk+rXRfZZBzhyVOYSJpdaKC0TRyt4KuZicI05ri9ucPXW1GumEEQORtgqTjOllcmJQOlZ9uQkaychaayKI0a8lqo0IKaz33LRWIeQiv6amwrpJgRy66YHtYq2IHYFq9otUV5vQbE5wWG8JFgGD5CiOuHAsC8T/29KfrFwU3Oh65IJ4lF0w4vo8TUm/o9kEA9Ftn4OLaVIr8a7ZGrBwvnr+4SnKTO7haFF9eEvvMVAAHXkIwH5PL9LfWUlqiJMJgi0YvHeQpjvfTJ3EEEthPJKVHVqWpBbmBlZQXyBlNw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(19092799006)(1800799024)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N04vQ3NsOHlDWkc1T0hlM1pHZWhuVWpjbmQxZTZ4N2Z1cG1SRjJhZ3JvMnNS?=
- =?utf-8?B?RkhycjNVKzZjSzZCY1duS2xBNXRzaWRWL2RpM3BuWGRraGU5K2tVVVZSdCtT?=
- =?utf-8?B?bGtwcVByaDg1RzdWOVBkQmR5Mldjd2MrUkRoUXdmUEJHczJZRXdTMVdTckQ2?=
- =?utf-8?B?RzVQWCtUbFg1aTFQRk9DU2VyOE0vaXp1TWdTTEhIMHMyRllmRWhhcWVrNDN5?=
- =?utf-8?B?ZUIxMDh0d1EzWUVWL1JjVEtTOHZjM244TEFGMU1JY0FRcFZhWkJZdjI2Yjg0?=
- =?utf-8?B?MmxhUERyb1crR1lyOXZiYTdkV1dhYnJ2TnV5RGNGYkdUaGR5RU9ncHZvZjRO?=
- =?utf-8?B?TVpaSkt3MEZ0eHl6WTRuWlR4d3U4TE5La25uWGpySG1QeWQxS3hrWmVNSDNI?=
- =?utf-8?B?YUU5bStWWXlneG1pQmJUYnlvcHRUMytqdk1naU4xQzg4OUZhU09lOWlsTC9R?=
- =?utf-8?B?dVN4NEN3RUdZcGFVTzZkcHl6ZHZtd2tQUXhscnRKU2l3UDVkUzJGb3JRWkhC?=
- =?utf-8?B?ZGlUQSt4cVowV2s5ak5HNjI5Mmk0STRLNlBESThma0F5K1ZPR0dQTHlHcG43?=
- =?utf-8?B?MzBVcWI4Vkl5ejh1dytlRWQ4QysvR0JJdndpYWNMeXBCQkoxK2NHNDh1WjUw?=
- =?utf-8?B?R0xqaFk3OHl5U2xibkUvQVVlRGRWaGZmREJqUkttV0hGVlVGa0ZvOVhnbm4x?=
- =?utf-8?B?N05YQnJwdXRib1l0NWtoNnpRYWtGWHBhWlpIRFZ3Z0JNaWM2SUNBbXJWb05j?=
- =?utf-8?B?dmZySHVuSEZRTjFvMktJRUVXSnovTkJTdmRBUDV6cThoRm96WXI1SitySGVT?=
- =?utf-8?B?VmlCZ2NLVGl1a3JQc1RVejZ6eDQ3c2Y3clhlcjJkdHBZOURIWEYwYkxnQ3pO?=
- =?utf-8?B?VlhKbHBiT1ZObVA0ZjhLalJ2Z1gxcjNPUVUwOTRYK1djRlREVlhIVkRCRDBO?=
- =?utf-8?B?UWloQnRMblFjWDYwVFV3Q3ZOUUczOE53YjNIeUxKaHVSbzhvYVJ0eWpiTS82?=
- =?utf-8?B?SWFvMXNEOGNtdXd5YmtWbHBkekU2QWVoU3hoWE54RTRTY3psQzQrcjFnVXF5?=
- =?utf-8?B?U3VkMDhvTWV6eWVpK1E0NUZ0cUU1cktYaG5IQ21SQWE4SGFCVEMybHdqYllw?=
- =?utf-8?B?bGZOMGhJS2JhRldvUWViRytpemx6djI2TG1pV1M2NU9qNG5NS0lhMktUb0p3?=
- =?utf-8?B?Ykk0QVBjdGIxRk5OMzFBaUpuZTQ1RlJmWm1HZnRRNEo4R2VxWmVYazRmN2xj?=
- =?utf-8?B?Tk1NVXJZaGxvbDZ2V0t1S0JGb2lOSE51dmNGM2p1ZUlkaXVNUFBGeUR6Mm9F?=
- =?utf-8?B?R1lyRXZuSHk1VTEyZUllcm0reEFjRm53dVZYUWg2R3haQndsQmRDbUMxbXFD?=
- =?utf-8?B?bWc1eks5OUdjVWdrRUNSZk1yaW4wSlAzNi83Z1lyN1FFU2RlMkoyazBvZGo4?=
- =?utf-8?B?aHQyQXJYV1BVcFJqT0xGSDg1RHNYa0lQUmFyZkZxaHRxeHk5a2REVkZkRDhN?=
- =?utf-8?B?ekV3Z0d2UkgzYW5pR1RkTEppMUhZL1pxbE8zcW4zVWRrZDllajQrT0ZjV1dB?=
- =?utf-8?B?OE91V1R6azRPUXFrT1NxS3diOGZxWWpudTBrbTdEVXBYL3hKekY4MDg2bHFh?=
- =?utf-8?B?RTNBVDAvaW5LSEZFRUZGb1Q0OTkveURaRCtJQ0R1YVdlSUkxNnRJRXhtNzdO?=
- =?utf-8?B?S3dMWU5yRVZlWkFCYlMrZndMWjBRZXdZTHA2R0FtNjN0dXVNaXhaZHZ6QUhq?=
- =?utf-8?B?akRMZUI5ZFFTL283cTZQYWlybnBTQUYwc0Eva3dRUEdjZTRsVitMQzdxTUxk?=
- =?utf-8?B?NkoySnFIdm9hOE54N3l5RDZPbDdacHdrRXhzVytvQlRES3FTcWV0dk5ZMy9w?=
- =?utf-8?B?MDBLWmFqQ01IeFdFa21jNXAydVpxMVQwN2xnYldyMGc3WGZqUUJaYjk0c3VK?=
- =?utf-8?B?RFcxWUcxWVhQWDdDeGdZTXVwaG8zaTFsRXhGaHU3U24xdlJTd3JpaTBYWE1C?=
- =?utf-8?B?WldKYkNWb25UNWsreDVadmthSzJJZTVYeHlBb0VqUE42dFI2RDRMNm5uUVpT?=
- =?utf-8?B?U1hCM0U1M1lnZVZBekJvM29JQUtIM3hyaExORWtUM0NueXRQZWFIYmIzdmdx?=
- =?utf-8?B?MDRONTB2QkU0WTdGYUtGcTFCNTZYeGoxbjNENnFPbitqd1ErTDBnMmVxVjJP?=
- =?utf-8?B?bW0rUXlCOGQ5Z1dXK0wyQUp0MVVYUzNkZFlFeVlFdm5rcnVTUVBkUUhFbGNF?=
- =?utf-8?B?anBRNEN6eWtNZVpCNDY2a0VvWjJvWXNWWThWQkxTNFFDRlV6dVF5QWhNTk41?=
- =?utf-8?B?QlpsNmxwdVJLK1J2NjByWENJbERIT2pob3F5c09iQXVZK1h1N0s3MXZwOEc5?=
- =?utf-8?Q?regS6QvTqwzk3cV6DRrABMbWAePf405iMR353?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: adb7d83e-8c6c-42a2-e9bf-08df140a56a6
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 15:51:14.8746
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sVYgsLrh9O8kefsSj1NuiOPI06TkZpe2BK2f/BRvLS7rTGHKvI0dGXiwP4HifT6Rmf9jPz5EEKRU3JSKeRAY+ynxqjl2LdS2H/taQ0/68lrixZ/s7BYWkKyZE1nONs1S
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB8017
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bb84213f-0168-425c-9803-24eb82415b52@amd.com>
 
-From: Peng Fan <peng.fan@nxp.com>
+On Tue, Sep 15, 2026 at 12:20:34PM -0500, Shah, Tanmay wrote:
+> 
+> 
+> On 9/14/2026 11:47 AM, Mathieu Poirier wrote:
+> > On Fri, 11 Sept 2026 at 12:03, Shah, Tanmay <tanmays@amd.com> wrote:
+> >>
+> >>
+> >>
+> >> On 9/11/2026 9:57 AM, Mathieu Poirier wrote:
+> >>> On Tue, Sep 08, 2026 at 02:21:53PM -0500, Shah, Tanmay wrote:
+> >>>> Hello,
+> >>>>
+> >>>> Thank you for the reviews.
+> >>>>
+> >>>> On 9/8/2026 1:02 PM, Mathieu Poirier wrote:
+> >>>>> Good day,
+> >>>>>
+> >>>>> On Wed, Sep 02, 2026 at 02:44:54PM -0700, Tanmay Shah wrote:
+> >>>>>> The existing remoteproc virtio reset path clears the vdev status locally
+> >>>>>> without notifying the remote processor. As a result, the host cannot tell
+> >>>>>> whether the remote side has observed the reset request or completed its
+> >>>>>> cleanup.
+> >>>>>>
+> >>>>>> Add a new resource type, RSC_VDEV_V2, for virtio vdevs that support an
+> >>>>>> acknowledged reset protocol. For these resources, encode a reset request
+> >>>>>> in the virtio status byte, kick the remote processor using the vdev notify
+> >>>>>> ID, and wait for the remote side to clear the status back to 0.
+> >>>>>>
+> >>>>>> Keep the existing RSC_VDEV behavior for backwards compatibility by
+> >>>>>> clearing the status locally. Also reset remoteproc-created virtio
+> >>>>>> devices before unregistering them, and expose RSC_VDEV_V2 reset state
+> >>>>>> in debugfs.
+> >>>>>>
+> >>>>>> Assisted-by: Codex:GPT-5
+> >>>>>> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
+> >>>>>> ---
+> >>>>>>  drivers/remoteproc/remoteproc_core.c     |  3 +-
+> >>>>>>  drivers/remoteproc/remoteproc_debugfs.c  | 29 +++++++++++++++-
+> >>>>>>  drivers/remoteproc/remoteproc_internal.h | 21 +++++++++++
+> >>>>>>  drivers/remoteproc/remoteproc_virtio.c   | 44 ++++++++++++++++++++++--
+> >>>>>>  include/linux/rsc_table.h                |  5 ++-
+> >>>>>>  5 files changed, 97 insertions(+), 5 deletions(-)
+> >>>>>>
+> >>>>>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> >>>>>> index 1ed406714849..31d79684977c 100644
+> >>>>>> --- a/drivers/remoteproc/remoteproc_core.c
+> >>>>>> +++ b/drivers/remoteproc/remoteproc_core.c
+> >>>>>> @@ -471,6 +471,7 @@ void rproc_remove_rvdev(struct rproc_vdev *rvdev)
+> >>>>>>  static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+> >>>>>>                         int offset, int avail)
+> >>>>>>  {
+> >>>>>> +  struct fw_rsc_hdr *hdr = ptr - sizeof(*hdr);
+> >>>>>
+> >>>>> Spurious change.
+> >>>>>
+> >>>>
+> >>>> Ack will remove it.
+> >>>>
+> >>>>>>    struct fw_rsc_vdev *rsc = ptr;
+> >>>>>>    struct device *dev = &rproc->dev;
+> >>>>>>    struct rproc_vdev *rvdev;
+> >>>>>> @@ -485,7 +486,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+> >>>>>>            return -EINVAL;
+> >>>>>>    }
+> >>>>>>
+> >>>>>> -  /* make sure reserved bytes are zeroes */
+> >>>>>
+> >>>>> Same
+> >>>>
+> >>>> Ack, will be removed.
+> >>>>
+> >>>>>
+> >>>>>>    if (rsc->reserved[0] || rsc->reserved[1]) {
+> >>>>>>            dev_err(dev, "vdev rsc has non zero reserved bytes\n");
+> >>>>>>            return -EINVAL;
+> >>>>>> @@ -1009,6 +1009,7 @@ static rproc_handle_resource_t rproc_loading_handlers[RSC_LAST] = {
+> >>>>>>    [RSC_DEVMEM] = rproc_handle_devmem,
+> >>>>>>    [RSC_TRACE] = rproc_handle_trace,
+> >>>>>>    [RSC_VDEV] = rproc_handle_vdev,
+> >>>>>> +  [RSC_VDEV_V2] = rproc_handle_vdev,
+> >>>>>>  };
+> >>>>>>
+> >>>>>>  struct rproc_rsc_cb_data {
+> >>>>>> diff --git a/drivers/remoteproc/remoteproc_debugfs.c b/drivers/remoteproc/remoteproc_debugfs.c
+> >>>>>> index b86c1d09c70c..1fe99749f5b4 100644
+> >>>>>> --- a/drivers/remoteproc/remoteproc_debugfs.c
+> >>>>>> +++ b/drivers/remoteproc/remoteproc_debugfs.c
+> >>>>>> @@ -274,7 +274,7 @@ static const struct file_operations rproc_crash_ops = {
+> >>>>>>  /* Expose resource table content via debugfs */
+> >>>>>>  static int rproc_rsc_table_show(struct seq_file *seq, void *p)
+> >>>>>>  {
+> >>>>>> -  static const char * const types[] = {"carveout", "devmem", "trace", "vdev"};
+> >>>>>> +  static const char * const types[] = {"carveout", "devmem", "trace", "vdev", "vdev_v2"};
+> >>>>>>    struct rproc *rproc = seq->private;
+> >>>>>>    struct resource_table *table = rproc->table_ptr;
+> >>>>>>    struct fw_rsc_carveout *c;
+> >>>>>> @@ -336,6 +336,33 @@ static int rproc_rsc_table_show(struct seq_file *seq, void *p)
+> >>>>>>                    seq_printf(seq, "  Reserved (should be zero) [%d][%d]\n\n",
+> >>>>>>                               v->reserved[0], v->reserved[1]);
+> >>>>>>
+> >>>>>> +                  for (j = 0; j < v->num_of_vrings; j++) {
+> >>>>>> +                          seq_printf(seq, "  Vring %d\n", j);
+> >>>>>> +                          seq_printf(seq, "    Device Address 0x%x\n", v->vring[j].da);
+> >>>>>> +                          seq_printf(seq, "    Alignment %d\n", v->vring[j].align);
+> >>>>>> +                          seq_printf(seq, "    Number of buffers %d\n", v->vring[j].num);
+> >>>>>> +                          seq_printf(seq, "    Notify ID %d\n", v->vring[j].notifyid);
+> >>>>>> +                          seq_printf(seq, "    Physical Address 0x%x\n\n",
+> >>>>>> +                                     v->vring[j].pa);
+> >>>>>> +                  }
+> >>>>>> +                  break;
+> >>>>>> +          case RSC_VDEV_V2:
+> >>>>>> +                  v = rsc;
+> >>>>>> +                  seq_printf(seq, "Entry %d is of type %s\n", i, types[hdr->type]);
+> >>>>>> +
+> >>>>>> +                  seq_printf(seq, "  ID %d\n", v->id);
+> >>>>>> +                  seq_printf(seq, "  Notify ID %d\n", v->notifyid);
+> >>>>>> +                  seq_printf(seq, "  Device features 0x%x\n", v->dfeatures);
+> >>>>>> +                  seq_printf(seq, "  Guest features 0x%x\n", v->gfeatures);
+> >>>>>> +                  seq_printf(seq, "  Config length 0x%x\n", v->config_len);
+> >>>>>> +                  seq_printf(seq, "  Status 0x%x\n", v->status);
+> >>>>>> +                  seq_printf(seq, "  Number of vrings %d\n", v->num_of_vrings);
+> >>>>>> +                  seq_printf(seq, "  Reset request pending %s\n",
+> >>>>>> +                             rproc_rsc_vdev_reset_requested(v->status) ?
+> >>>>>> +                             "yes" : "no");
+> >>>>>> +                  seq_printf(seq, "  Reserved (should be zero) [%d][%d]\n\n",
+> >>>>>> +                             v->reserved[0], v->reserved[1]);
+> >>>>>> +
+> >>>>>>                    for (j = 0; j < v->num_of_vrings; j++) {
+> >>>>>>                            seq_printf(seq, "  Vring %d\n", j);
+> >>>>>>                            seq_printf(seq, "    Device Address 0x%x\n", v->vring[j].da);
+> >>>>>> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
+> >>>>>> index 3a742ef6ef60..f07a96ff82a4 100644
+> >>>>>> --- a/drivers/remoteproc/remoteproc_internal.h
+> >>>>>> +++ b/drivers/remoteproc/remoteproc_internal.h
+> >>>>>> @@ -14,6 +14,7 @@
+> >>>>>>
+> >>>>>>  #include <linux/irqreturn.h>
+> >>>>>>  #include <linux/firmware.h>
+> >>>>>> +#include <linux/virtio_config.h>
+> >>>>>>  #ifdef CONFIG_HAS_IOMEM
+> >>>>>>  #include <linux/io.h>
+> >>>>>>  #endif
+> >>>>>> @@ -42,6 +43,26 @@ struct rproc_vdev_data {
+> >>>>>>    struct fw_rsc_vdev *rsc;
+> >>>>>>  };
+> >>>>>>
+> >>>>>> +/*
+> >>>>>> + * RSC_VDEV_V2 requests an acknowledged reset by writing an otherwise
+> >>>>>> + * impossible virtio status pattern: DRIVER and FAILED set while
+> >>>>>> + * ACKNOWLEDGE is clear. Other status bits are left unchanged.
+> >>>>>> + */
+> >>>>>> +static inline u8 rproc_rsc_vdev_reset_status(u8 status)
+> >>>>>> +{
+> >>>>>> +  status |= VIRTIO_CONFIG_S_DRIVER | VIRTIO_CONFIG_S_FAILED;
+> >>>>>> +  status &= ~VIRTIO_CONFIG_S_ACKNOWLEDGE;
+> >>>>>> +
+> >>>>>> +  return status;
+> >>>>>> +}
+> >>>>>> +
+> >>>>>> +static inline bool rproc_rsc_vdev_reset_requested(u8 status)
+> >>>>>> +{
+> >>>>>> +  return !(status & VIRTIO_CONFIG_S_ACKNOWLEDGE) &&
+> >>>>>> +         (status & VIRTIO_CONFIG_S_DRIVER) &&
+> >>>>>> +         (status & VIRTIO_CONFIG_S_FAILED);
+> >>>>>> +}
+> >>>>>> +
+> >>>>>>  static inline bool rproc_has_feature(struct rproc *rproc, unsigned int feature)
+> >>>>>>  {
+> >>>>>>    return test_bit(feature, rproc->features);
+> >>>>>> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+> >>>>>> index d5e9ff045a28..e682caa546b2 100644
+> >>>>>> --- a/drivers/remoteproc/remoteproc_virtio.c
+> >>>>>> +++ b/drivers/remoteproc/remoteproc_virtio.c
+> >>>>>> @@ -13,6 +13,7 @@
+> >>>>>>  #include <linux/dma-map-ops.h>
+> >>>>>>  #include <linux/dma-mapping.h>
+> >>>>>>  #include <linux/export.h>
+> >>>>>> +#include <linux/iopoll.h>
+> >>>>>>  #include <linux/of_reserved_mem.h>
+> >>>>>>  #include <linux/platform_device.h>
+> >>>>>>  #include <linux/remoteproc.h>
+> >>>>>> @@ -234,12 +235,48 @@ static void rproc_virtio_set_status(struct virtio_device *vdev, u8 status)
+> >>>>>>  static void rproc_virtio_reset(struct virtio_device *vdev)
+> >>>>>>  {
+> >>>>>>    struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
+> >>>>>> +  struct rproc *rproc = rvdev->rproc;
+> >>>>>>    struct fw_rsc_vdev *rsc;
+> >>>>>> +  struct fw_rsc_hdr *hdr;
+> >>>>>> +  int ret;
+> >>>>>> +  u8 val;
+> >>>>>> +
+> >>>>>> +  /*
+> >>>>>> +   * During crash recovery, vdev can be stopped. But the driver can't reset
+> >>>>>> +   * the device, as device is already crashed. In this case, reset becomes
+> >>>>>> +   * no op.
+> >>>>>> +   */
+> >>>>>> +  if (rproc->state == RPROC_CRASHED)
+> >>>>>> +          return;
+> >>>>>>
+> >>>>>>    rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
+> >>>>>> +  hdr = (void *)rsc - sizeof(*hdr);
+> >>>>>> +
+> >>>>>> +  if (hdr->type == RSC_VDEV_V2) {
+> >>>>>> +          /*
+> >>>>>> +           * RSC_VDEV_V2 encodes an acknowledged reset request in the
+> >>>>>> +           * status byte. The remote is expected to complete the reset
+> >>>>>> +           * and then clear status back to 0.
+> >>>>>> +           */
+> >>>>>> +          rsc->status = rproc_rsc_vdev_reset_status(rsc->status);
+> >>>>>> +
+> >>>>>> +          /* after setting reset request, kick the device */
+> >>>>>> +          rproc->ops->kick(rproc, rsc->notifyid);
+> >>>>>>
+> >>>>>> -  rsc->status = 0;
+> >>>>>> -  dev_dbg(&vdev->dev, "reset !\n");
+> >>>>>> +          /*
+> >>>>>> +           * When device completes reset, it is expected to set status
+> >>>>>> +           * to 0.
+> >>>>>> +           */
+> >>>>>> +          ret = readb_poll_timeout(&rsc->status, val, val == 0,
+> >>>>>> +                                   1000,      /* 1ms between reads */
+> >>>>>> +                                   3000000);  /* 3s total timeout */
+> >>>>>> +          if (ret)
+> >>>>>> +                  dev_warn(&vdev->dev, "vdev reset timed out\n");
+> >>>>>
+> >>>>> The problem here is that we are introducing behavior that is not compliant with
+> >>>>> the virtio specifications.  One way to acheive the same behavior could be for
+> >>>>> the remote processor to check rsc->status before sending a interrupt of using
+> >>>>> the virtqueues.
+> >>>>>
+> >>>>
+> >>>> That is what remote is supposed to do. But what if remote do not
+> >>>> respond? If remote is deadlocked for some reason, then the Linux will
+> >>>> hang at this point too. That is why we need some kind of timeout.
+> >>>
+> >>> If the remote is dead then a watchdog timer should fire at some point.
+> >>> Moreover, that situation won't be different from other circumstances where a
+> >>> remote processor locks up.
+> >>>
+> >>
+> >> There are few concerns:
+> >>
+> >> 1) Heterogeneous system where Linux is handling many remotes, the
+> >> watchdog might not be available to all the remotes or watchdog mechanism
+> >> is not implemented at all on the remote side.
+> > 
+> > If a watchdog is not available adding a timeout upon resetting
+> > rsc-status won't help.
+> > 
+> >>
+> >> 2) Let's say watchdog is configured for 10s, or so then for that long
+> >> Linux will be stuck too. I am trying to avoid this case where Linux gets
+> >> stuck for long time.
+> > 
+> > Same resoning as above - if the remote processor dies and a watchdog
+> > timeout is set for 10 seconds, adding a shorter timeout when
+> > rsc->status is modified will do very little.
+> > 
+> >>> Looking at your patch, sending a kick() won't do anything for a dead remote
+> >>> processor.  If the remote processor is alive, it should monitor rsc->status and
+> >>> take action when it is set to '0' by the host.  If it is locked-up, the normal
+> >>> lockup procedure should apply.
+> >>>
+> >>
+> >> Notifying virtio device on the status change is standard virtio
+> >> mechanism. In the virtio statck it's done via virtqueue_notify so I am
+> >> trying to do the same. It also helps remote to avoid polling on status.
+> >>
+> > 
+> > Can you point me to that code?  Having the same mental picture will help.
+> > 
+> >>> I'm not sure what problem this patch is trying to address.
+> >>>
+> >>
+> >> Some platforms allow Linux and Remote boot independently.
+> >>
+> >> Let's say Linux reboots without reseting the remote then during next
+> >> boot Linux will find virtio status is not in the reset state.
+> >>
+> > 
+> > That should be handled via the attach()/detach() state machine.
+> > 
+> >> In such case, linux need to issue virtio device reset, and wait until
+> >> RPU completes the reset and start the device again. The virtio framework
+> >> already issues the reset during boot here:
+> >> https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git/tree/drivers/virtio/virtio.c?h=for-next#n570
+> >>
+> >> However, the virtio_reset implementation for remoteproc_virtio simply
+> >> set the status to 0, and doesn't wait for the remote to complete the
+> >> reset. Due to this, attach operation becomes successfull, but the rpmsg
+> >> channels are not created on the linux side.
+> >>
+> > 
+> > I think this situation should be handled in driver code rather than
+> > the remoteproc framework.  We can consider adding this to the
+> > remoteproc framework if/when several platforms implement the same
+> > logic.  Otherwise I fear we'll bloat the framework with something that
+> > isn't generic.
+> > 
+> 
+> Hi Mathieu,
+> 
+> The previous patch sent in this matter was doing the same:
+> https://lore.kernel.org/linux-remoteproc/20260317201251.3920841-1-tanmay.shah@amd.com/
+>
 
-Add the iommu-map property to the fsl,edma binding to allow per-channel
-IOMMU stream ID mapping. This enables IOMMU translation for individual
-eDMA channels, where paired channels can share the same stream ID and
-channels without an entry operate in bypass mode.
-
-Also add a new example using fsl,imx95-edma5 that demonstrates the
-iommu-map usage with per-channel mappings.
-
-Assisted-by: Claude:claude-opus-4-6
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- .../devicetree/bindings/dma/fsl,edma.yaml          | 89 ++++++++++++++++++++++
- 1 file changed, 89 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-index f609038e35ae1..cb8c650a5bb90 100644
---- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-+++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-@@ -104,6 +104,15 @@ properties:
-       Bit semantics: 0 means channel available, 1 means channel unavailable
-     default: 0
+I think this is a much better approach.  That said, I would really like to see
+something like wait_for_completion_timeout() being used rather than
+usleep_range(). 
  
-+  iommu-map:
-+    description:
-+      Maps DMA channel numbers to IOMMU stream IDs. Each entry maps one
-+      or more channels to a contiguous range of stream IDs. Paired channels
-+      may share the same stream ID. Channels without an entry operate in
-+      bypass mode.
-+    minItems: 1
-+    maxItems: 64
-+
- required:
-   - "#dma-cells"
-   - compatible
-@@ -351,3 +360,83 @@ examples:
-                       <&pd IMX_SC_R_DMA_3_CH6>,
-                       <&pd IMX_SC_R_DMA_3_CH7>;
-     };
-+
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    dma-controller@42000000 {
-+      compatible = "fsl,imx95-edma5";
-+      reg = <0x42000000 0x210000>;
-+      #dma-cells = <3>;
-+      dma-channels = <64>;
-+      interrupts = <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 156 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 156 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 157 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 157 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 158 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 158 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 159 IRQ_TYPE_LEVEL_HIGH>,
-+                   <GIC_SPI 159 IRQ_TYPE_LEVEL_HIGH>;
-+      clocks = <&clk 0>;
-+      clock-names = "dma";
-+      /*
-+       * Per-channel IOMMU mapping. Each channel
-+       * occupies one entry; paired channels share
-+       * the same SID. Channels without an entry
-+       * operate in bypass mode.
-+       */
-+      iommu-map = <2 &smmu 0x30 1>,
-+                  <3 &smmu 0x30 1>,
-+                  <4 &smmu 0x31 1>,
-+                  <5 &smmu 0x31 1>,
-+                  <6 &smmu 0x32 1>,
-+                  <7 &smmu 0x32 1>,
-+                  <8 &smmu 0x33 1>,
-+                  <9 &smmu 0x33 1>,
-+                  <10 &smmu 0x34 1>,
-+                  <11 &smmu 0x34 1>,
-+                  <12 &smmu 0x35 1>,
-+                  <13 &smmu 0x35 1>,
-+                  <14 &smmu 0x36 1>,
-+                  <15 &smmu 0x36 1>,
-+                  <16 &smmu 0x37 1>,
-+                  <17 &smmu 0x37 1>,
-+                  <18 &smmu 0x38 1>,
-+                  <19 &smmu 0x38 1>;
-+    };
-
--- 
-2.34.1
-
+> If you are okay, can I resend it ? I think if that is accepted then we
+> don't need this patch atleast for now.
+> 
+> Thank You,
+> Tanmay
+> 
+> >> This patch solves this issue. It changes the reset mechanism while
+> >> maintaining the backward compatibility for old way of reseting the device.
+> >>
+> >> I had sent a different patch regarding this before:
+> >> https://lore.kernel.org/linux-remoteproc/20260317201251.3920841-1-tanmay.shah@amd.com/
+> >>
+> >> Old patch was rejected because we decided to modify the reset mechanism
+> >> instead:
+> >> https://lists.openampproject.org/archives/list/openamp-rp@lists.openampproject.org/thread/DDIFUMGQQ2R7CQZJHK7EB6UDO3ISAAVU/
+> >>
+> >> Thank You,
+> >> Tanmay
+> >>
+> >>
+> >>>>
+> >>>> I think timeout mechanism is better for AMP systems over waiting forever
+> >>>> for remote to clear the status.
+> >>>>
+> >>>> Thanks,
+> >>>> Tanmay
+> >>>>
+> >>>>
+> >>>>>> +  } else {
+> >>>>>> +          /* back compatible for RSC_VDEV type of rsc vdev */
+> >>>>>> +          rsc->status = 0;
+> >>>>>> +  }
+> >>>>>> +  dev_info(&vdev->dev, "reset !\n");
+> >>>>>>  }
+> >>>>>>
+> >>>>>>  /* provide the vdev features as retrieved from the firmware */
+> >>>>>> @@ -469,6 +506,9 @@ static int rproc_remove_virtio_dev(struct device *dev, void *data)
+> >>>>>>  {
+> >>>>>>    struct virtio_device *vdev = dev_to_virtio(dev);
+> >>>>>>
+> >>>>>> +  /* reset virtio device before unregister */
+> >>>>>> +  virtio_reset_device(vdev);
+> >>>>>> +
+> >>>>>
+> >>>>> Regardless of this feature, I think it is wise to reset the device before
+> >>>>> unregistering with the virtio subsystem.
+> >>>>>
+> >>>>
+> >>>> Agreed. I intend to keep this.
+> >>>>
+> >>>>> Thanks,
+> >>>>> Mathieu
+> >>>>>
+> >>>>>>    unregister_virtio_device(vdev);
+> >>>>>>    return 0;
+> >>>>>>  }
+> >>>>>> diff --git a/include/linux/rsc_table.h b/include/linux/rsc_table.h
+> >>>>>> index 71b60125310e..2398a6d7033e 100644
+> >>>>>> --- a/include/linux/rsc_table.h
+> >>>>>> +++ b/include/linux/rsc_table.h
+> >>>>>> @@ -66,6 +66,8 @@ struct fw_rsc_hdr {
+> >>>>>>   *                    the remote processor will be writing logs.
+> >>>>>>   * @RSC_VDEV:       declare support for a virtio device, and serve as its
+> >>>>>>   *                    virtio header.
+> >>>>>> + * @RSC_VDEV_V2:    declare support for a virtio device whose reset request is
+> >>>>>> + *                    encoded in the virtio status byte.
+> >>>>>>   * @RSC_LAST:       just keep this one at the end of standard resources
+> >>>>>>   * @RSC_VENDOR_START:     start of the vendor specific resource types range
+> >>>>>>   * @RSC_VENDOR_END:       end of the vendor specific resource types range
+> >>>>>> @@ -83,7 +85,8 @@ enum fw_resource_type {
+> >>>>>>    RSC_DEVMEM              = 1,
+> >>>>>>    RSC_TRACE               = 2,
+> >>>>>>    RSC_VDEV                = 3,
+> >>>>>> -  RSC_LAST                = 4,
+> >>>>>> +  RSC_VDEV_V2             = 4,
+> >>>>>> +  RSC_LAST                = 5,
+> >>>>>>    RSC_VENDOR_START        = 128,
+> >>>>>>    RSC_VENDOR_END          = 512,
+> >>>>>>  };
+> >>>>>>
+> >>>>>> base-commit: d4d61a4b0a52e8f3cdb3e1578602850a3452ec3e
+> >>>>>> --
+> >>>>>> 2.43.0
+> >>>>>>
+> >>>>
+> >>
+> 
