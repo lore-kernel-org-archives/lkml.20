@@ -1,88 +1,102 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81984DD3C6;
-	Wed, 16 Sep 2026 16:56:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E7C4DD3CB;
+	Wed, 16 Sep 2026 16:58:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577834; cv=none; b=GJ+SdsNWB3+mmH6sFKQDwgSLYAbw7CIfGSH3IAOdW1LP4kB+9oUMCjgoymjiBwX8tEXiFL4Cm7PZWat2gOEMb1qvLvCOVWMijpzDfUACNFalix6Bibvq1iuwumb0BCxcMmVCxbKGnAElcJWO4wSb/GVxk2djwKgSg8ruo9xOJJg=
+	t=1789577925; cv=none; b=uaPa0pVoXZYIzA1V2j0odlyIYnVFSAwrcBkNPFxfd4wiBzJs6fCSoEltpKe9unCDeKnXYDX/1TiZcnKyUNAwI5cAkkFovZY8+PXBb0KqlQX+0W8tvNFxJEjEnsD/VgtE8y+oKz2gJDjtBEu2T8vH0JRK7jlSzuHQM5jxK9XrC04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577834; c=relaxed/simple;
-	bh=Q0vKnsBhU5N70+ASDlEYTgbNg+QlDDAhAMOMiJCKFR0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EesBS2mJMbxxylLjqTX7ac2vFrJivlqYUqm34xCDG44GspTHLuJVkBOYnn4N+sMYaZGsR8u5x0PH5+SiGrLrIxAmB8+jX5rc+0KrJyCz5NwQiQYgD9RLr3W4R/MR7TnRMgKUDqgrlQ1eWDg0prgDySNDprF7zDIs3zOVxe9LusQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABnmEJDyqpqpxFuCA--.22468S2;
-	Thu, 17 Sep 2026 00:56:35 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: johan@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] USB: usb_wwan: Fix urb leak in usb_wwan_close()
-Date: Wed, 16 Sep 2026 16:56:08 +0000
-Message-Id: <20260916165608.2085613-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789577925; c=relaxed/simple;
+	bh=eZkQ/VKSaiJJ88hn0sOhSTgFAOYEcdz42i9GK3CKgAw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GuvUdfRibrKzMmhqXEVXZWJAPnTCk3JJiGIMtB+BroaZDPZXnHoInpjVEU2DhCLhLC8NC7LlU89xUmjG1rMItKwzqpJAYIRHhfs7gnLmaL0+qMAMAynJxKDn4jf+U8ce9f9f41cq3NCM7T3XLjnMgCZSL8YgLeIIZ6eUuxqsHE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=WdiI59iD; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="WdiI59iD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=3n4TlQQrXwK7QKzZnUnV1l1DwLeMlfBFCLYLXcFf+xk=; b=WdiI59iDIV/r+qeNgZ6PLvUsO5
+	lViWM8C9HeREnH7uXbBmKbd2X3gHAgfIjEuemuPeoDiPajtpFl4/bF5mJt3WRvICUjWMtMI5XIEwU
+	Qq1Gx9MzBagb9PicRX4ZBGjgLZZPKv0sYMttoSGTKL0yNcV333d9CCq9x+9Jy4vysjT6ltP3vrq7V
+	53Hx36/ES8sVGuXLAE7sbyY/H7rmwkd5I0bjLgOS5+3s+N2rzUlPYoH+a6KZuWz1zY9qesBH7z1j4
+	GRgdVav6NanUbzP2uJuxZ3HmYCOd6N9DzuAPdtosrnIPmNc/lgi4OEoq1/uVkOiqMvUrSFJpZxTj9
+	Bo5mXRiQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x6sxt-00000009oqa-03Zy;
+	Wed, 16 Sep 2026 16:58:33 +0000
+Message-ID: <515eec25-9694-4dcc-aa31-55dbac368575@infradead.org>
+Date: Wed, 16 Sep 2026 09:58:32 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABnmEJDyqpqpxFuCA--.22468S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7JryDZFWkAry7ZryDXw4UCFg_yoWkKFb_Kr
-	n5WFnrXw4UCFs5KF13KFy3uFy3Ka1kXan7JFsagr43JFyjyFWqq3s3K393Gwnrt3yUWFn8
-	Jw1vk3yFvF1kGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbxkFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj
-	nmRUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqozVdRwAAsZ
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: docs: aic: Fix brackets
+To: Manuel Ebner <manuelebnerli@mailbox.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260916123458.314458-2-manuelebnerli@mailbox.org>
+ <20260916123458.314458-10-manuelebnerli@mailbox.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260916123458.314458-10-manuelebnerli@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-usb_wwan_close() drains the delayed write urbs with
-usb_get_from_anchor(), which returns the urb with a new reference
-taken. The loop only clears the busy flag of the urb and never drops
-that reference, so each drained urb keeps one reference forever and
-the urb object is not freed when usb_wwan_port_remove() later drops
-the port's own reference.
 
-Drop the reference with usb_put_urb() once the urb has been found in
-the out_urb array by unbusy_queued_urb(), leaving the reference held
-by the port's preallocated out_urbs array.
 
-Fixes: 79eed03e77d4 ("USB: usb_wwan: fix urb leak at shutdown")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/usb/serial/usb_wwan.c | 1 +
- 1 file changed, 1 insertion(+)
+On 9/16/26 5:35 AM, Manuel Ebner wrote:
+> Add missing '}' to lines of code.
+> 
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 
-diff --git a/drivers/usb/serial/usb_wwan.c b/drivers/usb/serial/usb_wwan.c
-index e752ffa4dc62..2c46330f10da 100644
---- a/drivers/usb/serial/usb_wwan.c
-+++ b/drivers/usb/serial/usb_wwan.c
-@@ -403,6 +403,7 @@ void usb_wwan_close(struct usb_serial_port *port)
- 		if (!urb)
- 			break;
- 		unbusy_queued_urb(urb, portdata);
-+		usb_put_urb(urb);
- 		usb_autopm_put_interface_async(serial->interface);
- 	}
- 
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+
+> ---
+> Would it be better to remove the '{' and replace '{{'/'}}' with '{'/'}'?
+
+Not IMO. Looks to me like the patch now matches the definition
+of tag_info.
+
+> ---
+>  Documentation/scsi/aic79xx.rst | 2 +-
+>  Documentation/scsi/aic7xxx.rst | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/scsi/aic79xx.rst b/Documentation/scsi/aic79xx.rst
+> index 071ff5111..ba5299cb9 100644
+> --- a/Documentation/scsi/aic79xx.rst
+> +++ b/Documentation/scsi/aic79xx.rst
+> @@ -292,7 +292,7 @@ tag_info:{{value[,value...]}[,{value[,value...]}...]}
+>  
+>  	::
+>  
+> -	    tag_info:{{16,32,32,64,8,8,,32,32,32,32,32,32,32,32,32}
+> +	    tag_info:{{16,32,32,64,8,8,,32,32,32,32,32,32,32,32,32}}
+>  
+>  	On Controller 0
+>  
+> diff --git a/Documentation/scsi/aic7xxx.rst b/Documentation/scsi/aic7xxx.rst
+> index bad0e5567..117cd55fd 100644
+> --- a/Documentation/scsi/aic7xxx.rst
+> +++ b/Documentation/scsi/aic7xxx.rst
+> @@ -308,7 +308,7 @@ tag_info:{{value[,value...]}[,{value[,value...]}...]}
+>  
+>  	    ::
+>  
+> -	        tag_info:{{16,32,32,64,8,8,,32,32,32,32,32,32,32,32,32}
+> +	        tag_info:{{16,32,32,64,8,8,,32,32,32,32,32,32,32,32,32}}
+>  
+>  	    On Controller 0:
+>  
+
 -- 
-2.34.1
-
+~Randy
