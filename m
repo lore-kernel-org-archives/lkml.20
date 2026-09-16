@@ -1,181 +1,126 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165DA4E50D4
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:06:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0470C3515C9
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585601; cv=none; b=pXjbhtmo8sngYKP9fmF0Q1BvntezSrHyTG/MbHSMdfs7smEeyj8NY1uFOb240v0f1Tnh5VMNA+bzqr2wmtIHHb+SI8X4s2HVdSjDKpXWiRjF8qtA3ADuEJhja2m61XkG0Hstt3jsgNWNtoy7whv51yAHuOzrGUxRUA21HFq3p7I=
+	t=1789585616; cv=none; b=Y+0BF3owRi96dmq8eM45V9H/buYlj8UcqfkYsMDcNtkL+yWmp2crcS/2Lsjh3Hu9RcwyHzurcCVzE2L17PTGxgcIuOifsch76ih5rupXz53STaCTvbye3OUeV9Hnip5TE1gVLWQ+lH+ggrAJkGxeZQ/RM0ydxUmD5sMeR7zKYqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585601; c=relaxed/simple;
-	bh=at37MEHK1PoDpKTrPGD29SbuwXSfyiMebXazPTAKj48=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jAnA2CIKEB7UQZPmIfTEoJ0nS/w2Ppd726Kria/JphdqzxYrDSq8PmmvIM8Sd/qQ9hboDbbQdNZ54sm010Z3pkDSclAnsPMfUVtwmyzwxg72/o1X/tqPZZI+dkL4/SsVaOxwvZfc8M0gNpSmQTA+GZb9RtTpU68QdiniKamqCCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=FMHFlIdV; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1789585616; c=relaxed/simple;
+	bh=clIAd+ElCPuqeSOiRCrGYr2080Rs0+u4Ja4zpAJS57o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fObeXiIuubwKs5ftwIwvlnkZP/WfIHWXgDKprE+2X+yRKkQb4k91ZfS9tlMtrOzZtX8AJcYXN40o6yN5FDu4owC7SjVOvRVzs0Uonak2L/KGS0y5O35LuquDuIZtLFtYRFPelQhcpP+fMGMe11QJ9Fq+at/JGJWYiLBZsG8ppwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QpnsfE7p; arc=none smtp.client-ip=91.218.175.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="FMHFlIdV"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab19125so24168d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:06:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789585580; x=1790190380; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ca4yrRqL6+DdXUu9p1R9aXY14Me7n+gPWyjhGW+2Sug=;
-        b=FMHFlIdVI8Es+9oD00reBuLNkm8HT9JaW/cOr8zKkzIpcj3Mzh/TTyrMxqtrv7aB+S
-         ueO2iHI6db2h5J5DNUsiq2OKGXTn5jEglCdTVqJ9MiOCDcCYeZndLnAQ1nMaR6iz0DBS
-         gMd+gMIl3+OeIdwNzwN0Oche5igdQIb2innc5aRHbp67giMPmPbkVnfn9FDuPVof4v0W
-         qlGdXv9XyLSJF8NQrVRm5qJ61Bd5Y9g2kibJevDhU87hWc0fAZMx5KpjyAEqtXMeO+tM
-         bPYLdZrmed52fowoKk5M8fkXVA0PbUDpwnZQjb6GTeakwHfZAwoFkHNYIBblQXz1PVac
-         gqHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789585580; x=1790190380;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ca4yrRqL6+DdXUu9p1R9aXY14Me7n+gPWyjhGW+2Sug=;
-        b=a82RaS57x4yidd7aEp2zhFJiHU/CxXCGMglT0dDkvdWPtmOmtPG3j6Ze8ydoYjdAk+
-         IszNB+6jW0B6kkpno9WKW8rFsjaau2uQMR2OaylBFLtrKslRngsvmdnratUVDrm3UFZS
-         GxnGA/Jj5ivRZU+QtxB//IGBIohcSzocKnDV9CxFV3PHcmM/WwqVkDBpvSedtDvQckbw
-         XJvzNLomiRN+MXEOLeUHddsMSIVe9wwvv/HkpYwzzqS5SIPI06vB9qfBAaGorrW0Wspv
-         35cTPWGQsYkR0o9iLHRBQJiMZGTj58BkB1cOxJRsn5Nbr2YJqo7sD5F8306LGhbMQ8lA
-         tpvg==
-X-Forwarded-Encrypted: i=1; AKwUvBwNasrgaUl8k6OJ6QNGEdmGmZMGH8GvCZJUesll8I+QC1CtIFM5fHRbFHY7QRohGerHAQBXb2ldeCxSwNc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOakosOPJlB+oXEua34TrfJw3+pwEbVv21cyVy5iAXyq7C58eP
-	ZP9Ih1NyodVPEjps73XwW34vlC6FUcX8ddVWZy6D2CkAZeV0inAhEFGhHVJ1+prj4hk=
-X-Gm-Gg: AYBFou0KbAAdmfl5LQR7/Uw5nggl+OSeott0eSvwuRL4h/jMHfHs1mGnATrTKmvvziC
-	Xv3n+gkpkf26T8mtnB0+hD+u1p7gPX7o6Owm0aTz2BFxU8yUPyQyTVAJDITFB8sW7Dz+1kLJvZc
-	7P77yx4lRq+SQmK5NDg8MCTAdylrpNL2txLhX5eHNiAnyG3kDUO8acLeA5CAZTVYTiKG76GY2MN
-	TCCGYWsorTe2ppJeqEEZCmrkS1b2BytQGmIOp6FdKJ7hLBxKyoqQJYFfCfpSW9VXRJ9vt1KZg7M
-	TyPyH0KEOrJqnJM7UweThM6oJBxRCXtNXDQTbeirIf2ab7MrgYAGYxbMfFkIFqxGRLQJCETpqFn
-	TMcS0bHrdBlRZ+jW8xNUpmVAmo8IRg5e1RS9qUXzZ5X52jXW4r9Q8ymvp9Tw3OOnWF9RZ8/uI6I
-	JgWPODsHhwxGo78zHApdxpffwgiwiUVCfg4D6y4o96sGBE1d8OrVFrn+xIEDgr9a8RPd2aWQFKr
-	c7Vx4ROc7Z80BcPn5U48YxVDqCCYQ6UroAoUCUmnXeQK6yccbNmAFqRIqdZ15tELPx5dh9Li/7l
-	19yDMICMjJUrQHtbIGGoeFwCZeyB37aaFanUWeh27jqxQOr3YoJnDJpmHhiKniPW
-X-Received: by 2002:a05:690e:4391:b0:671:70d2:5285 with SMTP id 956f58d0204a3-67170d2542fmr87564d50.72.1789585579861;
-        Wed, 16 Sep 2026 12:06:19 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:f547:a2c0:72f7:6671? ([2600:1700:6476:1430:f547:a2c0:72f7:6671])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6715f79ca1asm1651972d50.21.2026.09.16.12.06.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 12:06:18 -0700 (PDT)
-Message-ID: <8eef80c6c8d21e863c5a3721b1ae681fc4ccf54f.camel@dubeyko.com>
-Subject: Re: [PATCH v2] nilfs2: validate segment number in
- nilfs_sufile_get_suinfo()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
-	 <konishi.ryusuke@gmail.com>
-Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Wed, 16 Sep 2026 12:06:16 -0700
-In-Reply-To: <20260915195223.3331909-1-qwe.aldo@gmail.com>
-References: <MSG-ID-sufile-v1> <20260915195223.3331909-1-qwe.aldo@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QpnsfE7p"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=clIAd+ElCPuqeSOiRCrGYr2080Rs0+u4Ja4zpAJS57o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789585597; v=1; x=1790190397;
+ b=QpnsfE7pSDj5/ltQkQZLilNcXKGfBcl+0HXOj0ozbJQoSB4IK+tihs6gI4Oih68YveWxtmGm
+ 2WNRLkHJr8DUm6oVz2Sfp0f/BvP311qYJEnszbqfHqgVHnwCyhgL6UeoDLNnhdJvmyS20NvvGNh
+ +OaKvdN+PT+rZaVHoq2IBMp4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0cf1712068bef679;
+	Wed, 16 Sep 2026 19:06:37 +0000
+X-Mizu-Trace-ID: 0cf1712068bef679
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b78e073980so842e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:06:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByvL0umJuXtHOq+ltB2qRI04t7j6kiDbiloaflm7kWyR8UrVe9Z1Z0dEFeqHvM/I9n9VS/f+sdc+/qd/xE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nd/Oi/0M+IwrQ52zTLJ3cstU0Z5Tmk0uK9GI2zqrydkf7Qk3A9
+	xWUvPGIbT6NLsXTeYvOJRDjQbWTmVhi/UugdYZd2iyETzktCEAJyB8qtM2hGZaQpPdF9LG7Hrwv
+	Vzs8HSCY8Jt7YI3Tj01vqfAVQo9okoKGzzgixemVn
+X-Received: by 2002:a05:6512:3d10:b0:5b8:b380:3c89 with SMTP id
+ 2adb3069b0e04-5b8ba99b7ffmr23508e87.0.1789585593571; Wed, 16 Sep 2026
+ 12:06:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260914113338.159227-1-fuad.tabba@linux.dev> <20260914113338.159227-15-fuad.tabba@linux.dev>
+ <86bj9x5fhj.wl-maz@kernel.org>
+In-Reply-To: <86bj9x5fhj.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Wed, 16 Sep 2026 20:05:57 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTy8R3yxFHmTti9mBgjQGJKnH44v9WvDQ2k9cWFECaYoQg@mail.gmail.com>
+X-Gm-Features: AcwNN1X5PZX5WDCSedlv_R_n84PSTr-QRRvORTCqs34THsNi7n9PRABFR4_9-2c
+Message-ID: <CA+EHjTy8R3yxFHmTti9mBgjQGJKnH44v9WvDQ2k9cWFECaYoQg@mail.gmail.com>
+Subject: Re: [PATCH v3 14/18] KVM: arm64: Add per-EC entry/exit state
+ marshalling for protected guests
+To: Marc Zyngier <maz@kernel.org>
+Cc: oupton@kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, 
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
+	mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, 
+	qperret@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 2026-09-15 at 16:52 -0300, Aldo Ariel Panzardo wrote:
-> nilfs_sufile_get_suinfo() subtracts the caller-provided segment
-> number
-> from the total number of segments without first checking its range.
-> If
-> the requested number is greater than the total, the unsigned
-> subtraction
-> wraps and the function may process segment numbers outside the
-> filesystem.
->=20
-> Cache the total while holding the metadata semaphore and return no
-> entries
-> when the starting segment number is at or beyond the end.
->=20
-> Fixes: 6c98cd4ecb0a ("nilfs2: segment usage file")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
-> =C2=A0fs/nilfs2/sufile.c | 10 +++++++---
-> =C2=A01 file changed, 7 insertions(+), 3 deletions(-)
->=20
-> diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
-> index eceedca026..573646c5f7 100644
-> --- a/fs/nilfs2/sufile.c
-> +++ b/fs/nilfs2/sufile.c
-> @@ -870,10 +870,14 @@ ssize_t nilfs_sufile_get_suinfo(struct inode
-> *sufile, __u64 segnum, void *buf,
-> =C2=A0
-> =C2=A0	down_read(&NILFS_MDT(sufile)->mi_sem);
-> =C2=A0
-> +	nsegs =3D nilfs_sufile_get_nsegments(sufile);
-> +	if (segnum >=3D nsegs) {
-> +		ret =3D 0;
-> +		goto out;
-> +	}
-> +
-> =C2=A0	segusages_per_block =3D
-> nilfs_sufile_segment_usages_per_block(sufile);
-> -	nsegs =3D min_t(unsigned long,
-> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_sufile_get_nsegments(sufile) - se=
-gnum,
-> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nsi);
-> +	nsegs =3D min_t(unsigned long, nsegs - segnum, nsi);
-> =C2=A0	for (i =3D 0; i < nsegs; i +=3D n, segnum +=3D n) {
-> =C2=A0		n =3D min_t(unsigned long,
-> =C2=A0			=C2=A0 segusages_per_block -
+Hi Marc,
 
-Looks good to me.
+On Wed, 16 Sept 2026 at 17:27, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> > diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+[...]
+> > +static void handle_pvm_entry_sys64(struct pkvm_hyp_vcpu *hyp_vcpu)
+[...]
+> > +        /* If the host emulated a read access, update the register */
+> > +        if (pc_update &&
+> > +            !pvm_sys64_is_write(hyp_vcpu->vcpu.arch.fault.esr_el2)) {
+> > +                /* r0 as transfer register between the guest and the host. */
+> > +                u64 rt_val = READ_ONCE(host_vcpu->arch.ctxt.regs.regs[0]);
+>
+> Why isn't this
+>
+>                 rt_val = READ_ONCE(vcpu_gp_regs(host_vcpu)->regs[0]);
+>
+> and similarly everywhere else?
 
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Old code momentum. I'll use the accessors throughout in v4.
 
-Thanks,
-Slava.
+[...]
+> > +static void handle_pvm_exit_sys64(struct pkvm_hyp_vcpu *hyp_vcpu)
+> > +{
+> > +        struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
+> > +        u32 esr_el2 = hyp_vcpu->vcpu.arch.fault.esr_el2;
+> > +
+> > +        /* The mode is required for the host to emulate some sysregs */
+> > +        host_vcpu->arch.ctxt.regs.pstate =
+> > +                pvm_host_pstate(hyp_vcpu->vcpu.arch.ctxt.regs.pstate);
+> > +
+> > +        /* r0 as transfer register between the guest and the host. */
+> > +        if (pvm_sys64_is_write(esr_el2)) {
+> > +                int rt = kvm_vcpu_sys_get_rt(&hyp_vcpu->vcpu);
+> > +                u64 rt_val = vcpu_get_reg(&hyp_vcpu->vcpu, rt);
+> > +
+> > +                host_vcpu->arch.ctxt.regs.regs[0] = rt_val;
+>
+> and this should be
+>
+>                 vcpu_set_reg(host_vcpu, 0, rt_val);
+>
+> assuming you don't need a WRITE_ONCE() to match the READ_ONCE() in the
+> other direction.
+
+No WRITE_ONCE() needed, EL2 is the only writer on the way out. I'll
+switch to vcpu_set_reg().
+
+[...]
+> > +static void handle_pvm_exit_iabt(struct pkvm_hyp_vcpu *hyp_vcpu)
+> > +{
+> > +        hyp_vcpu->host_vcpu->arch.fault.hpfar_el2 =
+> > +                hyp_vcpu->vcpu.arch.fault.hpfar_el2;
+>
+> Please keep assignments on a single line (everywhere).
+
+Will do.
+
+Cheers,
+/fuad
