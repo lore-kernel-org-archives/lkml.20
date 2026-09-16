@@ -1,96 +1,110 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8663E4AEBEF;
-	Wed, 16 Sep 2026 09:48:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B9FCF4A5C34
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:49:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552149; cv=none; b=sdjGSxLfU6Unmzm5HFKeifs2+VyIsb1JsIEJ+XIiDj3SnPl1RF2XtBzJPajg0iP7CsmiaXqyREcemJoM0asTsYC6+y/7VoIYxr3yuwEEv66MmXTP/KubNz231mZxsbZFzodFqRoqjiEA6hANmCeq71ciSovAtalcIUDrg7v4iPk=
+	t=1789552175; cv=none; b=TI4NtQwbAl8aAidBC9lJsFQEsJxQ8oO/4dveLw5yJXCg8FTOEqQJ0+7Tptf43hr8QOJL2HokDfVww1yiUCKUiBFUn1q84X3mfQbZ2Ncbnj2HXhD6+xmFDTXaGKkD1NUNqrLSywmsRdKusIa6tN68ZTQu1BBn133675/0HgU63OU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552149; c=relaxed/simple;
-	bh=yNZKSeD9djGtz5o/sJAjhbLIc6ZrYenwtSjaIgHcp50=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=U8lWLRMx0SvOjKHiBsDpF0hkOjgXLN+i1N87cYQoXPMw1TV0H4sadLaLXxK4Xm+tAzQya/59S5oC/6pWV5b9bJL1KtBFFN9WBgv4X+da6Gyx0kFFSeXS19zPy93kZWbjkra/p84XsNq+coD6MDeIXUjyd/77nk/lH0NwB7ePG0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACXmjj9ZapqLKXgBw--.61487S2;
-	Wed, 16 Sep 2026 17:48:45 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: axboe@kernel.dk
-Cc: bvanassche@acm.org,
-	danil.kipnis@cloud.ionos.com,
-	haris.iqbal@ionos.com,
-	jgg@ziepe.ca,
-	jinpu.wang@ionos.com,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] rnbd-srv: Fix sess_dev use-after-free in process_msg_close()
-Date: Wed, 16 Sep 2026 09:48:17 +0000
-Message-Id: <20260916094817.2007756-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789552175; c=relaxed/simple;
+	bh=KuO14YuSIMliHThLNP9CFnL/2L6g8T7HPTMoBngDAQQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ORCaQPHPRMq52tjhFw4JiP0+HJfLDh5WHPaZCXa/ncTegmuA695MVRkxkGiL87C4ahHYs6sdnW+VTWaeoIAx0UNP4RYYa3tJ6KkBjLuyp+yNTXbq9G7mIbTWFeonmNYlVCy93AoQqv7hl/1uHw+RucGghQcFFL0xCDkgsA4GX/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ARyNLCNZ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ARyNLCNZ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EB8041516;
+	Wed, 16 Sep 2026 02:49:18 -0700 (PDT)
+Received: from [10.2.212.8] (unknown [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 445E73F86F;
+	Wed, 16 Sep 2026 02:49:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789552162; bh=KuO14YuSIMliHThLNP9CFnL/2L6g8T7HPTMoBngDAQQ=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=ARyNLCNZkGUYpKmy5uBK9NEea7T0DnlON4jVwojrWrqR+y2L8389NX9ZkBoDdHaH7
+	 SDH1ldmrUffCGGg/ci8ztuMCsrDMA+f1d32D5ipJKsuFnkU+sgU8NvKUyv7fpshSKm
+	 EKjwNkN9yrL/JG7dZahf5u/oa2a8XSSY8QGckcW4=
+Message-ID: <2c682691-3037-4d62-a941-bc41baca35aa@arm.com>
+Date: Wed, 16 Sep 2026 10:49:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXmjj9ZapqLKXgBw--.61487S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AF1fAFW8Kr47JFy3uF17Wrg_yoW8GFyxpa
-	y0y3Wj9ryFkF4UG3yDZw4xuFWYyan2y3y8Cr1xur1UZ345ZFy2vFn3X34xJF1qqry8Can0
-	qFn5JayrCw1Yya7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
-	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
-	UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqP4efBQAAs2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm_mpam: resctrl: Catch and propagate error from
+ get_cpu_cacheinfo_id()
+From: Ben Horgan <ben.horgan@arm.com>
+To: Andre Przywara <andre.przywara@arm.com>, James Morse <james.morse@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>,
+ Fenghua Yu <fenghuay@nvidia.com>, Tony Luck <tony.luck@intel.com>,
+ Dave Martin <Dave.Martin@arm.com>, Yin Li <yin.li@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260902143757.3469690-1-andre.przywara@arm.com>
+ <ea42f2a7-f4f7-46ab-a5e0-239c74174499@arm.com>
+Content-Language: en-US
+In-Reply-To: <ea42f2a7-f4f7-46ab-a5e0-239c74174499@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-process_msg_close() drops the device reference with rnbd_put_sess_dev()
-before using sess_dev again in rnbd_srv_destroy_dev_session_sysfs().
-If that put drops the last kref, e.g. when the device is concurrently
-being torn down through rnbd_srv_sess_dev_force_close(), the waiter in
-rnbd_destroy_sess_dev() is woken up and frees sess_dev, so the
-subsequent rnbd_srv_destroy_dev_session_sysfs() call operates on freed
-memory.
+Hi Andre,
 
-Move the rnbd_put_sess_dev() call after the sysfs teardown so it is the
-last access to sess_dev.
+On 07/09/2026 13:59, Ben Horgan wrote:
+> Hi Andre,
+> 
+> On 02/09/2026 15:37, Andre Przywara wrote:
+>> get_cpu_cacheinfo_id() can fail, in which case it returns a negative
+>> error value.
+>>
+>> Check the returned value for this error condition, before passing the
+>> value on to other code, which would hide the negative number in some high
+>> value in the unsigned type.
+>>
+>> Fixes: 36528c7681b8 ("arm_mpam: resctrl: Add support for 'MB' resource")
+>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> 
+> This looks good to me. Out of interest what led you to find this?
+> 
+> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
 
-Fixes: 2de6c8de192b ("block/rnbd: server: main functionality")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/block/rnbd/rnbd-srv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I seem to have been a bit hasty here.
 
-diff --git a/drivers/block/rnbd/rnbd-srv.c b/drivers/block/rnbd/rnbd-srv.c
-index 10e8c438bb43..2ebc2eac384f 100644
---- a/drivers/block/rnbd/rnbd-srv.c
-+++ b/drivers/block/rnbd/rnbd-srv.c
-@@ -361,10 +361,10 @@ static void process_msg_close(struct rnbd_srv_session *srv_sess,
- 	if (IS_ERR(sess_dev))
- 		return;
- 
--	rnbd_put_sess_dev(sess_dev);
- 	mutex_lock(&srv_sess->lock);
- 	rnbd_srv_destroy_dev_session_sysfs(sess_dev);
- 	mutex_unlock(&srv_sess->lock);
-+	rnbd_put_sess_dev(sess_dev);
- }
- 
- static int process_msg_open(struct rnbd_srv_session *srv_sess,
--- 
-2.34.1
+Sashiko points out at [1] that 0xFFFFFFFF is the only value we were previously considering invalid
+and that the value coming from dt or acpi can provid other valid values that would after this patch
+be considered invalid.
+
+[1] https://sashiko.dev/#/patchset/20260902143757.3469690-1-andre.przywara%40arm.com
+
+Thanks,
+
+Ben>
+> Thanks,
+> 
+> Ben
+> 
+>> ---
+>>  drivers/resctrl/mpam_resctrl.c | 5 ++++-
+>>  1 file changed, 4 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+>> index 9d223057953ab..a5e661eff86d7 100644
+>> --- a/drivers/resctrl/mpam_resctrl.c
+>> +++ b/drivers/resctrl/mpam_resctrl.c
+>> @@ -786,7 +786,10 @@ static u32 get_mba_min(struct mpam_props *cprops)
+>>  /* Find the L3 cache that has affinity with this CPU */
+>>  static int find_l3_equivalent_bitmask(int cpu, cpumask_var_t tmp_cpumask)
+>>  {
+>> -	u32 cache_id = get_cpu_cacheinfo_id(cpu, 3);
+>> +	int cache_id = get_cpu_cacheinfo_id(cpu, 3);
+>> +
+>> +	if (cache_id < 0)
+>> +		return -ENOENT;
+>>  
+>>  	lockdep_assert_cpus_held();
+>>  
+> 
+> 
 
