@@ -1,176 +1,166 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCF247DF98
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E894247D458;
+	Wed, 16 Sep 2026 08:52:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789548759; cv=none; b=akkOQABupWSsnWowVYdTLjKn+ZwX2vk+3V32w0qAKVaBEZqSm86tFdJ6rUNNFVHfMLEOPgCCoVpsBzFOvW34Bf0St0qHKVuTmGxOBs62TqjPc9N6qPB0wiURDTyPsPXUzZHf0PTb+E4toZlOG1FI2XgLhovNv1s+pa/PpLcg8Z4=
+	t=1789548776; cv=none; b=vCerRg53YMKDG225qwoLaYKcSA3HIpxkZbYm8q3JxyaPVOxLuvT2050VPpOP1mKQLVnM/OMAOMwhPxvnPDsaakhrRddrrO4v/3icNSvo7UaGBBj2x/L+FHdHIjO+RoBqg/4A2tliDlYMSKFqWyO3CjBcP6pyAlJ/DtO4Vzy0F0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789548759; c=relaxed/simple;
-	bh=jQe43yJCJSdBQPYhkUb4CHVlXYabrmzIiAW+OtPpy4c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XkurGn3xUEUFqm6vH2g4thLvP4Hp3+vAxIQ/+Plp+UL27qH+zBonHc3egA4fnwszGDzq6y7cjnCvVlqAWeyw5CgH5RzOpEaV5x/MgsD/60o2QYW/n3aItju9phAy+qHYv1HKguNBaSRetabQfDUn3hcy93RQnOyM5SrVhNqPzKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=fEqDAcyK; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789548776; c=relaxed/simple;
+	bh=JHIu/IIu019ufS1F2SrHv7YcbaMFSYGubiQvlHrYP7M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qu0JS51QCSq03LJjSrXWun0mF+gkHhQFLBWFxWssn21cNAKfuurKm7EkNfuppJQfiflleybpuAhfzBrB6nAfctAxWRUAZpQ5Dcr+XgRwO9ucc34ElbGePUS5YvllpqtaUMEIEFVYPPd/i1gKDvrsKVmZgws1O7QThi8ckwO3ASU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hrtDGEL6; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="fEqDAcyK"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso111838666b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:52:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789548742; x=1790153542; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2LBbelDPdAVQ0Ns+BBW49QmFOaM2BGUlkuMpM25cdq0=;
-        b=fEqDAcyKNp+DJ1SwWiq1SfYEyZRUgBbvXAUy6MDKVrcwjAIHREkhioM+ZQCirDQ4cc
-         EttlU3c2HkkbbYmFFp/uoqam1pLAKWbJhLDfnagViBSzT/WPOECIbhfWgmRgiXOQ94A5
-         NMJebi+kxBCWrfibB/+VSa0l+HkSpQ1m+HilG4QUz54rYaZ+XvY7Zni0Mcyv/Nr+gtXL
-         o7G1Esip5+5FD4/02R95+w/Rz3o0vlb3/5Gx8l6HWP4nOi4Wn4+zApWl1dUv8wuS4h6z
-         d22Cy6QopW/s7q6LcFpXqDqV0zfEHQLupfKVLuQ0IdwWWZ9r3g/4X0DtaadnCEPLmdAm
-         p1ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789548742; x=1790153542;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2LBbelDPdAVQ0Ns+BBW49QmFOaM2BGUlkuMpM25cdq0=;
-        b=CSKKRoYxI6fxNHx8JTEzw7yEvViMMymlrNfCF7NHdK0HwV1LVNiK/syrDrTESepiYV
-         iPZMpraxNaEFO2c2ccvnpD+aHLdMD8Qj45/gWZuVYurqYPrSEivfd3Vlx6rI+3rkmsS3
-         F0kUuYMaFyPoSBov7P0cjIN+/VxxoB7N4+U5pE+nI8QIeTu8yCosbaIDjRTE9dgdT3fP
-         XQi8e09xTkHpfffmuYXrLkeJv9ZA/59vmkK3pO+dBxvFilb/Yp/QIX+ImPe6Ix3kquqG
-         okjAJKxbu17SOMjU9K9P+16D0eOReZsHbChHGGh7aw+lyK40hS+lWFGOWgWY5Fvdn0Nz
-         kVtw==
-X-Forwarded-Encrypted: i=1; AKwUvBx6o8h6MrgvY1OSB+3g7UpO/CQ6clKRDaZpf2S4E8UtXTKGjWY/UZgFACmAWe79GI31BPltGNoULP3gbqo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7SJLzM2kPjNAen1zea3E0nCuomHMM+4HgSDxdQQOyWCdmKldK
-	bMB5BPi2fbF1Dp7Pf892CChCAKZrP+k45dPvIWhmDLX2wQzYUKlRguwRmeMpcU25FMw=
-X-Gm-Gg: AYBFou2N2I7yx1TmxrGrke9T61p4ENrF4DZWROvumJEDYuJO+ks40q4MD3fiBCHm26h
-	psAojkX6n5eOiIaoAilUoZdRY5OfgqixIpjdeU30ygSMi1HyY+Bzi8MBwu+uNONA9NShaHiA/K5
-	PsbjkIKHDZ07NknKbo1q+KPNY7jScK/HWTBiogoZKnKryG2uBW46zYa4UsKGk1DenOr2Gby1Iaj
-	HVn5kyvvcZg2FbrS7uOR+Cwfymzl5TLv240wlVFrYq9s31reLP0JrVEFo8CgxwjqthfLnE1SweA
-	b5Oat4AqMZBFkLb3i43sJUFm5SOO88uYB4xY9VMsQcSC/lfJCpLYrgIc05On1XKs5VAluMIbSd1
-	/HNF7piiH1tjC1i6Ni/1WV4OpJfmkOwMe1xct9mdV++QNVeIm5PbL9EWnGLqDeRH7jqzvSbA0vf
-	7ms4GDYb6szfNY04QBlCoid2mgS0vqRsD+cMFatSRYIil427SO+oRAdWFxjWMy
-X-Received: by 2002:a17:907:928a:b0:c29:4d81:c5f0 with SMTP id a640c23a62f3a-c29e51b1ad7mr218786066b.6.1789548741687;
-        Wed, 16 Sep 2026 01:52:21 -0700 (PDT)
-Received: from localhost ([2a02:aa7:4656:2314:c23c:9eda:81d:3])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de68fafdsm93069566b.63.2026.09.16.01.52.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 01:52:21 -0700 (PDT)
-Date: Wed, 16 Sep 2026 10:52:20 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Kyle Meyer <kyle.meyer@hpe.com>
-Cc: akpm@linux-foundation.org, corbet@lwn.net, david@redhat.com,
-	linmiaohe@huawei.com, shuah@kernel.org, tony.luck@intel.com,
-	jane.chu@oracle.com, jiaqiyan@google.com, Liam.Howlett@oracle.com,
-	bp@alien8.de, hannes@cmpxchg.org, jack@suse.cz,
-	joel.granados@kernel.org, laoar.shao@gmail.com,
-	lorenzo.stoakes@oracle.com, mclapinski@google.com,
-	nao.horiguchi@gmail.com, osalvador@suse.de,
-	rafael.j.wysocki@intel.com, rppt@kernel.org, russ.anderson@hpe.com,
-	shawn.fan@intel.com, surenb@google.com, vbabka@suse.cz,
-	linux-acpi@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v3] mm/memory-failure: Support disabling soft offline for
- HugeTLB pages
-Message-ID: <aqpYxAktjexhaMGc@tiehlicka>
-References: <aqiIEkrc6aDBOqRg@hpe.com>
- <aqkCbgHmMGxI_GLG@tiehlicka>
- <aqmGd0GGUCkbZpkZ@hpe.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hrtDGEL6"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLVecc1951631;
+	Wed, 16 Sep 2026 08:52:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=ccl6Ab
+	lDRT7F5uiHrNKEDS27CmbJ4zJOrBrcGlJisuA=; b=hrtDGEL6o+VR+XRfhhHqYX
+	gYVJTc3CqnwXqmh6NJ8+K3a4YBekGId0bEbW2N1FyP9e0yxFR7yzSHQPqxSHM0IR
+	mOdWcMsg9HlfWV+/nkVEcGn3fDMDK5vhdas294u2ufBdji4vcTx4Sb8EZzBDM3Xz
+	CAKgIqfgh9ttGrrtgP6AtDMsFxlZXLdpS75pp0Nmayz4TS9mXWEE03idzo6kb9WD
+	W/1AOZYXVwWYkpmFP+2eTHzlTq+XB4TJFPQYcQ2Cjbfylp3zej8lWUANV0JvU2CE
+	G7mpEh3ZsHXCFyeQCVP8Ruq3wV/5f8oxkGDFzUEvp5t8AFKxk8aFoNTi0x979Y7g
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmx83um9w-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 08:52:25 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68G7e46M389300;
+	Wed, 16 Sep 2026 08:52:24 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gpyxsdhbx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 08:52:23 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68G8qKS549742272
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 16 Sep 2026 08:52:20 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1503520043;
+	Wed, 16 Sep 2026 08:52:20 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E51512004F;
+	Wed, 16 Sep 2026 08:52:16 +0000 (GMT)
+Received: from [9.124.211.8] (unknown [9.124.211.8])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 16 Sep 2026 08:52:16 +0000 (GMT)
+Message-ID: <46508541-55ab-4340-8871-924514ee8d5b@linux.ibm.com>
+Date: Wed, 16 Sep 2026 14:22:15 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqmGd0GGUCkbZpkZ@hpe.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] powerpc/bpf: Kernel stack corruption in avc_has_perm()
+ during BPF kselftests (test_progs)
+To: Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+        Hari Bathini <hbathini@linux.ibm.com>,
+        Saket Kumar Bhaskar <skb99@linux.ibm.com>, bpf <bpf@vger.kernel.org>,
+        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+        Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Eduard Zingerman
+ <eddyz87@gmail.com>, yonghong.song@linux.dev,
+        Alexei Starovoitov <ast@kernel.org>, andrii@kernel.org,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Ritesh Harjani <riteshh@linux.ibm.com>
+Cc: LKML <linux-kernel@vger.kernel.org>
+References: <56d51dc6-f597-4cfa-b61c-b6b95d61ab86@linux.ibm.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <56d51dc6-f597-4cfa-b61c-b6b95d61ab86@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDExMCBTYWx0ZWRfX85SvrvPSfOMd
+ +01q75rsafsdLmXw9Cuv5vcS5oUeflNU37aA2PsJ6iKPDeuHyVWE2+W9aY8M2TUP1N16K/SM23F
+ hPi4xWMDaeYXbLgI58AFJoKFQGVUyc7kDKflTKcjZTGdXk1c+JcmeWWUuLMPTRhd499LdjOwMdg
+ m1zQwFrqE+c7OG/k/QlzdVSRcO5L15JTmoBr28RzfRZ1DKDxDGNd33Sk16nHB59qpMXPXD1l+hj
+ xdnM0tKxzynbU6pN5uZoX7pYLec62PoCbPVuvMPMRHGI47BnJns/fhVWaaEDTukzwA2JdP+aqqy
+ TputCIxDFXeswtnmQ5pAK+M1GyFu7VnQqZAeow3gc+DreQrcfXgMuQM3LoZChK2BnkF8A1AQf9O
+ XAtB0DZXXybV5pwVDUSlkzgbyz96gw0MuaeEFwR7jPUPolUP/bdzbARLdgCUXZAzyhEcii40yFs
+ CE36Z5E1WS6S/cdwQ5w==
+X-Proofpoint-ORIG-GUID: aHG0o8l-4_Y4D9r7LWH8I8O8n9cPJ_vt
+X-Proofpoint-GUID: fyzoQu-Kdur9Wn_W0C6nqJrwiazL0iUC
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDExMCBTYWx0ZWRfXwr8pipsY7Kvj
+ WN72Hr5zgO7JiFb1TvGJYSdG/MyIpDDtqeb37/KJsI2n6mQ7R2oXEVmfEfsz3Pr+LgPBPz90cBo
+ Me1rf6sdVYq+qA9mxlyoaIYx8URQ1Wg=
+X-Authority-Analysis: v=2.4 cv=cY9HPXDM c=1 sm=1 tr=0 ts=6aaa58c9 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=Oc1KoJq9fdCeQZ6uml4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1011 suspectscore=0
+ impostorscore=0 malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160110
 
-On Tue 15-09-26 12:55:03, Kyle Meyer wrote:
-> On Tue, Sep 15, 2026 at 10:31:42AM +0200, Michal Hocko wrote:
-> > On Mon 14-09-26 18:49:38, Kyle Meyer wrote:
-> > > Soft offlining a HugeTLB page dissolves it, permanently reducing the
-> > > HugeTLB page pool. This can be problematic for workloads that depend on
-> > > a fixed number of HugeTLB pages.
-> > > 
-> > > Currently, soft offline must be disabled to prevent HugeTLB pages from
-> > > being soft offlined.
-> > > 
-> > > This patch allows soft offline to be disabled for HugeTLB pages while
-> > > remaining enabled for non-HugeTLB pages.
-> > > 
-> > > Commit 56374430c5dfc ("mm/memory-failure: userspace controls
-> > > soft-offlining pages") introduced the following sysctl interface to
-> > > control soft offline:
-> > > 
-> > > /proc/sys/vm/enable_soft_offline
-> > > 
-> > > The interface does not distinguish between page types:
-> > > 
-> > >     0 - Soft offline is disabled
-> > >     1 - Soft offline is enabled
-> > > 
-> > > Convert enable_soft_offline to a bitmask and support disabling soft
-> > > offline for HugeTLB pages:
-> > > 
-> > > Bits:
-> > > 
-> > >     0 - Enable soft offline
-> > >     1 - Disable soft offline for HugeTLB pages
-> > > 
-> > > Supported values:
-> > > 
-> > >     0 - Soft offline is disabled
-> > >     1 - Soft offline is enabled
-> > >     3 - Soft offline is enabled (disabled for HugeTLB pages)
-> > > 
-> > > Existing behavior is preserved.
-> > > 
-> > > Update documentation and HugeTLB soft offline selftests.
-> > 
-> > This is adding a lot of user interfaces to control something you can
-> > disable by config option for an admin only functionality.
+Hi Venkat.
+
+Thanks for reporting.
+
+On 9/16/26 2:11 PM, Venkat Rao Bagalkote wrote:
+> Hello All!!!
 > 
-> I may be missing it, but I'm not aware of a config option that disables soft
-> offline specifically for HugeTLB pages.
-
-No, there is none. And IMHO there shouldn't be any. We do not want
-config nor runtime option for any random type of page to be soft
-offlined. You can disable the whole feature. If we need to enforce a
-boot time parameter then I can be convinced about usefulness because
-distro kernels need to enable config to be generally available but there
-are usecases where this might be better disabled during runtime.
-
-> > I fail to to see any actual justification for all of that. If an admin
-> > can disolve a hugetlb page it has power to allocate a new one as well.
 > 
-> Allocating HugeTLB pages after boot is not guaranteed.
+> IBM CI has reported a kernel panic on PowerPC (ppc64le, POWER9 pSeries guest) while running BPF kselftests (test_progs).
+>
 
-yes, and so what?
-
-> > Not to menation that the whole soft offlining is mostly a testing
-> > feature so adding a lot of fine grained configuration space seems
-> > excessive to me.
+What has changed in CI that it is hitting now?
+  
+> Environment:
 > 
-> Can you elaborate on "mostly a testing feature"? For example, how does that
-> apply to the BIOS/GHES path discussed here?
+
+It is very likely same as
+https://lore.kernel.org/all/ba9759d0-b1f2-4b33-aff5-769cf89bd584@linux.ibm.com/
+
 > 
-> https://lore.kernel.org/all/aMkOCmGBhZKhKPrI@hpe.com
+> Kernel version: 7.3.0-rc3-gf6e7b42bf05b (PREEMPT)
+> Architecture: ppc64le (POWER9 - IBM,8375-42A pSeries / phyp)
+> Test Suite: Avocado FVT / kselftests (tools/testing/selftests/bpf/test_progs)
+> 
+> 
+> Traces:
+> 
+> [ 1359.516833] Kernel panic - not syncing: stack-protector: Kernel stack is corrupted in: avc_has_perm+0x23c/0x240
+> [ 1359.516856] CPU: 0 UID: 0 PID: 49806 Comm: test_progs Tainted: G      OE K     7.3.0-rc3-gf6e7b42bf05b #1 PREEMPT
+> [ 1359.516866] Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE, [K]=LIVEPATCH
+> [ 1359.516870] Hardware name: IBM,8375-42A POWER9 (architected) 0x4e0202 0xf000005 of:IBM,FW950.80 (VL950_131) hv:phyp pSeries
+> [ 1359.516876] Call Trace:
+> [ 1359.516880] [c00000011bc67b10] [c0000000014627c0] dump_stack_lvl+0x84/0xc0 (unreliable)
+> [ 1359.516890] [c00000011bc67b40] [c000000000234840] vpanic+0x1b4/0x47c
+> [ 1359.516897] [c00000011bc67be0] [c000000000234b44] do_panic_on_target_cpu+0x0/0x2c
+> [ 1359.516906] [c00000011bc67c00] [c0000000014f8ce8] __stack_chk_fail+0x48/0x60
+> [ 1359.516913] [c00000011bc67c70] [c00000000092f0bc] avc_has_perm+0x23c/0x240
+> [ 1359.516920] [c00000011bc67d40] [c000000000936fc0] selinux_task_getpgid+0x80/0xa0
+> [ 1359.516927] [c00000011bc67d80] [c000000000920190] security_task_getpgid+0x70/0x1c0
+> [ 1359.516934] [c00000011bc67db0] [c000000000259488] do_getpgid+0xa8/0xf0
+> [ 1359.516941] [c00000011bc67de0] [c0000000002594f0] sys_getpgid+0x20/0x30
+> [ 1359.516948] [c00000011bc67e00] [c000000000034670] system_call_exception+0x160/0x480
+> [ 1359.516957] [c00000011bc67e50] [c00000000000d05c] system_call_vectored_common+0x15c/0x2ec
+> 
+> 
+> Please let us know if any further debugging or testing with specific BPF JIT options is needed.
+> 
+> 
+> Regards,
+> 
+> Venkat.
+> 
 
-OK, so apparently there are some BIOSes which abuse this feature to
-mimic a real HW poisoning. This doesn't change the overall picture
-though
-
-> If you think this should be handled differently, I'm open to suggestions.
-
-Yes, do not treat hugetlb pages any special. In case there is a HW
-related problem which decides to offline portion of the hugetlb page
-then bad for you. It wouldn't be too much different if this was handled
-through a real HW poisoning.
--- 
-Michal Hocko
-SUSE Labs
