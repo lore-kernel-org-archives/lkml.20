@@ -1,105 +1,125 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819B234F27F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7473793B0;
+	Wed, 16 Sep 2026 15:05:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571110; cv=none; b=on2ymlyARlGqPXDSZUB3Edh7RAXF2/ZnVO5AEYJ6cobvSGs46EwohpQ8zy/V2cxQ+u2au7a+DoQiVWTi6mR1kRZOmjadVngvmrRxIERu0j68vDMCH+9fA01BoIuGpQTQo0abpdeFtU7G8+1Yl7RKGLm2LBfTXkZbcxQdaP5XVjU=
+	t=1789571113; cv=none; b=u24LPnviynfgwEiFGwCdS1kT8dvEug0ey8d+253Pr/WvPbmAtKxn/x/2eYVaZVI9Zbcc+DatwERbiaIY3a4nviVHGd/GiBzibfoIL8S54g72shsCb4QQFY87U88hw1SpOpnrR4tUZdyH5d1R3dDU6iy691hZVmN0jTr2waTHMFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571110; c=relaxed/simple;
-	bh=UGH2BzlDTaQAN3ngnFgegpzeVSHQi2yZ8hlwGyKZ2nA=;
+	s=arc-20240116; t=1789571113; c=relaxed/simple;
+	bh=lecKlwiZpOx67XjPELGhrtr2sWO32diwhhQ25lBYHPo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dpacFATv6esXxPePU4nqq7b6auuhPQUI86ecrNpL6kStuvdfJUt9U9HvRG2ynLUZMzTFW1xm/hnRxf2GsnUtXrj6Gp9BIGkEklFclnW+kH8FIFH8We7jtbYz9GpGMCfLqTcaL41JrMn7WdDbRHEBoONivtoedN77qEt36kNcRSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gvnJhKQC; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=tyVO0zk5vAXNdp+qnNeTSual0ZRqWSHWlwHuDyp/kE/HEQVWk9HM7mPH2wps3UYqU7QAcXwxEL7sbJ1IkE3Gab3uo3xCSzZeimIYBSWz2P8diqwf/dZ5dl61LTZnePJhfUpYNAbAM+YP371JZ83Pp9LD5AndQm9p10r/SZCq1IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=AVJxnD7c; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gvnJhKQC"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39e03468a5fso791991a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:05:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789571109; x=1790175909; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DSGg7k4lXbnMmb+PSQkP+q66W4gnIscXzR3JqjEjm5M=;
-        b=gvnJhKQCi1EL9sFh4P9gym2zHyPis5esjYqD7qh0arnMbgGUyAJOX9LuuXZSw/K5dL
-         BO+qburCP4ZYAFa1DvbI9OZFmWApaA2w8oenGpkiwvRQ4b1ka1egAqVSukimP99uk1FH
-         RHBmez8qc1YbM3AJjP4zpM2RpSVnnUK+Yw5+nVWWmuF7uxi6els2EAcEOLaCb+i5e2ru
-         dqUd/XrfuMh6hKlZsiMDSDIUy7ihAjl2JlrkKD74cNggvjeYsrSwJhvfpat/mkd23AB8
-         wFlp+/rsTYEsSEnjNVGmpvd/Th4cwJgarj3b1G4Sk9WKD8GCUqS8lfepxTty6TtlXbK7
-         uxmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789571109; x=1790175909;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DSGg7k4lXbnMmb+PSQkP+q66W4gnIscXzR3JqjEjm5M=;
-        b=nDx2ksZYonbFTfcKf5mp59AqLEIgZRbL4XmerTcqCDVZIYRlMnVoowM4OBYoU96pBF
-         VAvMpaQln56CpTRP7uzk7FVRYk3lTfLlhhZANLpUzowupADckDULLEkcA+vIEvRZu5SA
-         nnwKJUjKJKstaa2DUiazx7yZb1sftsltLIos9FdD8waL7HTHC6PfWL6/HjrveYgx0ieO
-         sFC8euxFzObhKKX1fQGMeE0SOgSQzDQdc4AdYduD4wzTV6WK2okh5tLEBQ7zXbhmrnqj
-         T0B3zGzRIi1RXFwYa7EV1jIjIWBTmK789gTSOP6drqKVz889xyuHCEryW/y0KTNfSUO1
-         dE6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzwnpxuzrkrQ20N8BUMh/1A/iHCvXZV3IiRDgli8II8uVPnLPvia2FGBAXMmMkgS2TBvQVarBvglnN3gzE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kihuZKYkgPTWc6xQcdtNMgFJ2iOZRiVYNhfvIok/JEO+9xnbhu
-	/8HivYUC4qz6uU4IlULmPx6jlK8B1YDBvZrsNhHd+9sudNvSIWgGg06F
-X-Gm-Gg: AYBFou3wb1iRyLZWKhWBvQ6j/pKoQiN3/q7WuNx1tnwaPKUJL8L24AysVOx+k8RvsVq
-	yBLbrbJE26gh6joS1NNWhy2ZC362M3BgthaLbRjYgw9ZpsvYrQVfCvhWFYYthLG14iuOKHoCT9o
-	Cn7A7aCOCqjoNqOEEhirqDsW1tOo/FPRHl/nwGeqzs6QqNh8C8xneBhuDtlwNXBKjdMUUxz3LAg
-	g0enWmUbR10gOkczCallUBqvmwO31pvtuRC9yVeG0bFMvsNvh2toBFJsiknSpjdxEjIZkDTLJoS
-	7z1ROK86EXGsquWWZYRDVREl17YotZQBGfQm1C/HLGZwpYmcaPePoqPa66oJhz/Nj12tV1KRjJE
-	8KC8Qhx7IjwObEI3EEqdNeR1u7jD0iRg1fKsItIitjNlrF+BGVOIzuLfYZRb+5jhKpm5hDvMV9+
-	51rPiUpUywHhe/yRBOt0eqg6+fE+z9EPFSckaIJXy9x83yqhhRiZVIs0IpwhzWB8YAhUnizMuRx
-	wm2HEeXYjza
-X-Received: by 2002:a17:90b:4ad0:b0:39e:3559:12df with SMTP id 98e67ed59e1d1-39e35592079mr119891a91.1.1789571108738;
-        Wed, 16 Sep 2026 08:05:08 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bb9f395sm5935562a91.8.2026.09.16.08.05.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:05:08 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 08:05:07 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Cong Nguyen <congnt264@gmail.com>
-Cc: Simon Guinot <sguinot@lacie.com>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] hwmon: (gpio-fan) fix use-after-free of alarm_work on
- unbind
-Message-ID: <9ff67a19-204a-49f8-98ea-0ed839ff02a5@roeck-us.net>
-References: <20260915035409.4177780-1-congnt264@gmail.com>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="AVJxnD7c"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B14C540E01F9;
+	Wed, 16 Sep 2026 15:05:06 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 8aWCoS_NYVkT; Wed, 16 Sep 2026 15:04:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789571096; bh=OavHCWMHrrNZGtQQFEfuOdSXz4SUqFw84RfIgt32BKk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AVJxnD7chINUYXPPYH+EdWJImtVKM/uBwqDV3xpl5zS/oMqUAOxJyeY+CJxGH+k6w
+	 OLbMjMvMvC6X7jNBelPQQbyxQp0RKdipnK3MwJNupxQCtVKVXnJlNVUrnXotiaMqb4
+	 NkCtzIHawBNz3IYpMeGqk+ClEHzQ5GEPK5rmD5VewoxhI6EpLkcbZb7/5JwqiVpOcU
+	 9ppRoKSnsrzXZWKkbZ/7I7iLB15FjyPord+7ZEL2k8cXnL7pK0mMBWE9kQ3Z+SaGR1
+	 WCMUBZ6ri0Y9wgf2acLcNo8A61qdZ/yCdPvyOOYO4h0mDq5LwGJntzZ3xZUk/wKF1c
+	 NE4Z/v3QqbaP6GSLQjcuq/rAi+WbO4oMSV5ggBnDDGu8UoJG5oRLA0iD6FwI7E27U5
+	 0ZSLj5BcDOypfYw6z0+o/zFzyEB7mUlO4ts8KUHNVoQm8F1/hxYyJ5X6sWIZqRFylE
+	 XMUzNqGE3gnijP995wLg1l//5+O0JK7ELFl01EBmA4P2NOxD7Yb39LLTugKoVgNoRE
+	 l6wXziTY9mRN6nTp3VBRHhq2UP7c+ziRS1jvP8pDG2VjzgGGeno/yqu7/jb3wZKs3L
+	 XDNkz5lFINBnUVfDHcvSIvrEoPdiAbrJnCdDEPx0HRUlZNuMgCSdMYollCjN0LU6ni
+	 V0XxXhL4svuDld+AMHfZDjKs=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5B00240E00B9;
+	Wed, 16 Sep 2026 15:04:40 +0000 (UTC)
+Date: Wed, 16 Sep 2026 08:04:36 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Luka Absandze <absandze@amazon.de>, Sandipan Das <sandipan.das@amd.com>
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org,
+	namhyung@kernel.org, tglx@kernel.org, dave.hansen@linux.intel.com,
+	x86@kernel.org, yaoz@meta.com, dwmw2@infradead.org,
+	kim.phillips@amd.com, kvm@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf/x86/amd: Reject AMD Merge event as a countable event
+Message-ID: <20260916150436.GAaqqwBD8KvgTVrmc3@fat_crate.local>
+References: <20260916123315.89042-1-absandze@amazon.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260915035409.4177780-1-congnt264@gmail.com>
+In-Reply-To: <20260916123315.89042-1-absandze@amazon.de>
 
-On Tue, Sep 15, 2026 at 10:54:09AM +0700, Cong Nguyen wrote:
-> fan_alarm_irq_handler() schedules alarm_work, but nothing ever cancels
-> it. free_irq() (via devm) only waits for an in-progress IRQ handler,
-> not queued work -- a pending alarm_work can run after fan_data is
-> devm-freed, dereferencing it in fan_alarm_notify().
++ Sandipan
+
+On Wed, Sep 16, 2026 at 12:33:15PM +0000, Luka Absandze wrote:
+> AMD event select 0xFFF (Merge) is the hardware control encoding used by
+> Large Increment per Cycle (LIPC) pairs.  When written into an odd
+> counter's PerfCtl it turns that counter into the upper 16 bits of a
+> 64-bit merged accumulator; any subsequent arming write (-(2^47-1)) is
+> silently truncated to its low 16 bits, while hwc->prev_count retains the
+> full value.
 > 
-> Cancel it via a devm action registered before devm_request_irq(), so
-> teardown frees the IRQ first, then cancels whatever's already queued.
-> Guenter pointed out cancel_work_sync() still leaves a window if
-> something schedules the work again after it's canceled; use
-> disable_work_sync() instead, which permanently disables it too.
+> This is particularly problematic with a KVM guest, which will program
+> the Merge encoding into its own odd vPMC as a normal part of scheduling
+> a LIPC event.  KVM intercepts that write and faithfully forwards it to
+> the host as a raw event carrying the Merge encoding, where it is
+> accepted as an ordinary countable event. Once a counter's PerfCtl holds
+> the Merge encoding, every later user of that counter gets a first delta
+> inflated by 2^47
 > 
-> Fixes: d6fe1360f42e ("hwmon: add generic GPIO fan driver")
-> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/r/20260830152150.27F5F1F000E9@smtp.kernel.org
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4
-> Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+> Reject Merge (AMD_MERGE_EVENT) in amd_core_hw_config() so it cannot be
+> submitted as a user-visible event.  The pair mechanism programs it
+> itself via x86_pmu.perf_ctr_pair_en; nothing else should do so.
+> 
+> Fixes: 5738891229a2 ("perf/x86/amd: Add support for Large Increment per Cycle Events")
+> Reported-by: Yao Zhou <yaoz@meta.com>
+> Signed-off-by: Luka Absandze <absandze@amazon.de>
+> ---
+>  arch/x86/events/amd/core.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
+> index 49b6b8fce566..cb655c751e5b 100644
+> --- a/arch/x86/events/amd/core.c
+> +++ b/arch/x86/events/amd/core.c
+> @@ -380,8 +380,12 @@ static int amd_core_hw_config(struct perf_event *event)
+>  	else if (event->attr.exclude_guest)
+>  		event->hw.config |= AMD64_EVENTSEL_HOSTONLY;
+>  
+> -	if ((x86_pmu.flags & PMU_FL_PAIR) && amd_is_pair_event_code(&event->hw))
+> -		event->hw.flags |= PERF_X86_EVENT_PAIR;
+> +	if (x86_pmu.flags & PMU_FL_PAIR) {
+> +		if ((event->hw.config & AMD64_EVENTSEL_EVENT) == AMD_MERGE_EVENT)
+> +			return -EINVAL;
+> +		if (amd_is_pair_event_code(&event->hw))
+> +			event->hw.flags |= PERF_X86_EVENT_PAIR;
+> +	}
+>  
+>  	if (has_branch_stack(event))
+>  		return static_call(amd_pmu_branch_hw_config)(event);
+> -- 
+> 2.47.3
+> 
 
-Turns out this was already fixed with upstream commit a2471ed17b0e ("hwmon:
-(gpio-fan) Fix use-after-free in alarm work").
+-- 
+Regards/Gruss,
+    Boris.
 
-Guenter
+https://people.kernel.org/tglx/notes-about-netiquette
