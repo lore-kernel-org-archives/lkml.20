@@ -1,68 +1,69 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E91414CEE7E
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC1C52E045
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:24:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575842; cv=none; b=tYzE9FUfPdUVGTGNUOKjHpeOMPnC6hDnHpKLDUqPZV4xbjFHbHaQfLWaj2xeo89crn2R3OWXxOij57i3b8MkFJswIYyYgcaswUR4cwRYaxgt0WnGrSOygucnPRJVEC0kwdh/C2wJV8lFnBvtQMwQwkMYQN+P9Y5LY89Zjzc+Qwg=
+	t=1789575850; cv=none; b=Hpd2/LQGQy1wXdvpZ2z4XkN+EFBz6Rcb0qY6Hucn7ZfHrl6i430i6/krUJQCtEjzDRsrQg3ZO3GPKtTazhU0RvkRdNoESnwzfPlzV55ML5kldDP3We/LzitOgHySQW+Z2oBM7PHL4Dt5i2QVTlCaDmeeTNZOq3WGkEMvI9V071Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575842; c=relaxed/simple;
-	bh=5Ryp3d7aqLnvpRz5v4IsdKzMUbgNqjT3Ro3X7cbHVoQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=M20uZTUgKGt1I3BHrG8rRrTlijboIh0UIyUFH5wcFySiqx+mjiXeAODbiKaQq38ao8djWG71doAiseUTxMr7h1VrTAg+gk3W2C7B8AF2vQcijJKEpw2IlzDN0cUVib6R6cW5OaqMGH6Oq1TwvjSfkuEC1xbSLmOMO6hSJ/G5ngY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U1zoh6kn; arc=none smtp.client-ip=74.125.229.204
+	s=arc-20240116; t=1789575850; c=relaxed/simple;
+	bh=FGooVTE3n+m1r0RsIid6S680o4fwqpE02/2UW1WT6nk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=JtBIm4RSF1FmlDXvn5sMB0KAyME5NxDy61de64UvPl0F85+BZveX+3g5dDI21BOpb/zfQ6Q5FktXJK4L/9vWOWD33B/dhedEGssXI2xvdiJbzw8cG7CAt0xA7akIBNGWoU/c6AtuAgMOYq69fM+fNnotlRPAWZRI2wVcZ6IDF8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LbPlPlvm; arc=none smtp.client-ip=74.125.229.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U1zoh6kn"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b88dc3bc02so1220185e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:23:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LbPlPlvm"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1744fso1733334e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:24:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789575835; x=1790180635; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xB8EAnJUgMIUT/rcIvi4yd7X9aPkcPd8GSdLDXa2lks=;
-        b=U1zoh6knBZkGNSQwqOGZAqO1ZiatRNiRyingK2jEhjPe5TiUGxtUa6OZw1TeJjWiw+
-         LxXxQsxBnaZ5wQD4BLbbcp8ZFx4UUN2BbKSGYu2GNZBhIkDbPzTWZDo0id85NRLUjpk+
-         QH9wr8nuXl8E8yUsrjcelcFZm2it3OD4DVpdU1VBojM1Iej7iK5Ergvcb/Eelms/HJ3p
-         w6XqxRq+Ts7DJOp7hNPyM5f8zB7aZCD0hvCtbh0HLb0bW813bOV7pBk0AM3EC/Zl4ePH
-         onMiu1fL3bMrQhpBcOnNuGdTBSylMGdAYLStiU6fT/zlMdXx0rJubHzzziZ0Ycnv0Hvq
-         hNkg==
+        d=gmail.com; s=20251104; t=1789575839; x=1790180639; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wDvMkgbafi6lx7PZBb2hbKVmFp4OiPWqrc5pACb/aFw=;
+        b=LbPlPlvmAu7FQ3Fdcfqb0KnANT1UIpSNaFyAMN0bJPZD+dDXgAVZkTyVG4ZtZ5kIug
+         xncFDQYMAygunBEdRYsCnun3cmtTtJg4waJySLirpwQzLbh2s10o6oMJ/r/kouSRJjtQ
+         WrDnMQyT07Xavs1pjC7qKqqatxFfpH/KF/c0GHkYh7FvLMTFtMj/NGV5H4KEmdjN/J30
+         hHfzYsZAHh7geo+52infMMvMZHyQ1o6qtt8KB4V/ewyWrhEy/dZj5oPg+VhGCkCIM+GB
+         qpu4+N70MU3PrInZr1VZNSO15N40kaITFVgCaGMWP/3mrg9n3IyNdHrbA1LbFRUmW5fC
+         AjVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789575835; x=1790180635;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xB8EAnJUgMIUT/rcIvi4yd7X9aPkcPd8GSdLDXa2lks=;
-        b=OnxeqG9QfAIoNxwF3G/coIiCGBTTJC88j28fipeU4H83qUapVq1eyyg7WulLmqxdvH
-         MoIF6c5pwNX1T4XT1NeAjpj+CH/W1DXAm0lr+0Q1/HkQmtyPMo7d6jMjzAu/ha7aIgjb
-         dhveTctqW59TO2Pq+OosFdcUrjDl/BcOoQWI7xYL3Qfp01tM82CtwAi3Ty2OaQBZEFKS
-         FfQ8ppgXUCoxIfp/7vqoeCn0FG6uoFDFXQV1bXB5pgrYlKsxTu3M4EiPIM2lJKtDvdRN
-         HFDeF6bqq0VIkBLFKqgU6VSuAtmeTbjqtcDW1EMsBOtF9CwAzKaTLl0xaLGub10lvCYE
-         IG2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxF//UbKvuQBKxefjx9vN/1LP2YdkQEMsWifTLziU+WtcYavllF3XHBhoKjd3chfiJsz7BY4Xo6eNZUMi0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFH+ngthZSaLdgRSe7y4dmJR++u5SWp/M0XktfMAL1xRgauiUr
-	uMpf6dnMnrrKv3nDg72DpKaHZWuNyvnKFAO+Ox6FFaHRr6TNu1oFjMyu388QJB1natu3
-X-Gm-Gg: AYBFou10lPLL6QVsNJt/UOSm1GiNlzDy1WT73Ipz4mRjxaMt0aYiYMHp6IY7w+p7Pi0
-	Zb/QI/A3moUV0lPmf4FRjGJaLbVSoXdcu6qey9syaM77F0bTE4PLLV55EzBjKryYXlgGnrkUXSB
-	gMuYw2vUFTjUeGH1hq63PZ+HS85p4ZjiYv4zdHho2YA6zGcTNtpp1fHQCaUicdYIVR0HaH1p7+/
-	TpUWXMB07zmXf7cAXvsfmmSt3RppcQVa0+9hw5x1nOLro25p4S5uBQQHWq5mkiN6jM5QNLS05ux
-	FlDTVC7o0v4nKjBeKyYz6xas0wxnbIH3ZcFTnrSb9zbwu3eRNhbgPmxHjGRUvL9V/ErH2CSFuID
-	xj731jYOtUofFbOj9ppjSeh1MD1T3RR6ZnQISeiCjEkFTcnN9AKpX03N9OTxQ9SFJD4ZHf/4VeV
-	g2VD4btHLqcbfmsSbOR8hwwM6tIUn6VCwIAnz0vYE2Z9KcIiZt+Nn64r2w70XzBdTuj3VwNm+HB
-	6QdWp7jESChwrTBeCGkrWFd
-X-Received: by 2002:a05:6512:2347:b0:5b7:6393:ebf3 with SMTP id 2adb3069b0e04-5b8b6652835mr968622e87.33.1789575834744;
-        Wed, 16 Sep 2026 09:23:54 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789575839; x=1790180639;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wDvMkgbafi6lx7PZBb2hbKVmFp4OiPWqrc5pACb/aFw=;
+        b=scrHG2PQsO8hzZ34auCt6KnRnYRHFc8kjMlVXwNOe8JR6MhM9KRrNJS1ysujCoimqB
+         fArZs0UtMhiatDI8VkCD9frsQzK73WetF8nOURTCTyWixSlKENjlU3GGtupWF+EyI4Xd
+         Rdi7YuEwtvRQIMybhWE1N/U8Hm0JQif5EGL1LTCFKycRizxoOC0V3yOy4jl5Na+wZwY/
+         ChpTdb7YukB4NgsWg63E+hjznY1dxRWFcQYIsrOfJvWSaS4+aTh35Fm1Mp6TpX7WayEg
+         C9edD2djzxgiihT6Y7gf/LfHf5xAYrByToFN0fKS7LRa3jW5w70dvXlP31k7HagC+lYY
+         ti7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwjVIU04VLthqCwiJH1ojr423vWhdezcV/2kBr5mLYFTGudSq6x/NNmtpO9U6qeV/4YWPW9g84Q0wmfRGQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lW6JLYbRlHSCzQz7bNU74iiXJYmRzdJoTMKgzT+muVdGXQVVlH
+	iO5FIsG1ayRrLEM+EhsxiNUjeW5M40iTq856j0qwBPeFziDR1f68M3SBVHaWcz/BlldK
+X-Gm-Gg: AYBFou2jYq0AvAQAGNHHyccxpSMN8v9ZoPfBAOoYlSoLLMEh7FcLRlhE7YMOJNYiMM0
+	V4Dvk7EIPc+VgBQcmeSiA09/ZKWzG3P2IecWB0t/nZvjgh6F30oOChZ6qZKh2aX1N8S8HdjKKx+
+	eKL+sopFZZ+/hrLYngP2Bdhl0TdMMQ0Jn39zQi+ZJRaXzfSBRqtofeWB1oaOLHVhzZNuG9kpdbR
+	mFo/l+U3wAKizMOYgPqp2S3IWB+8f0npuWxlUa3P3GLr0ZLYdkf8ckUT8ASkb6A1iPozRkeBSJh
+	jYj418qhVBKbTuYxXgJKq6o36Wr/WyWr3ZfZQT1uDF/JBF3Ibc36D1Vz3t9JCJj6XBY5GCz5f4E
+	L+y2AfNJE47T0kxMrAjtiVXfnYfhwtywgyi3emrQ7r37cRlO+5JrNlZNkHDRXikhVB2ESF0j1gi
+	raVcoefMBK+9+rkLaseQoGMvadoY4mJh2Ya3Cx6MQLAQo2aA6cBm/RZP1Ng5wUa8OElPgaNWAjP
+	W21yQlHhSAPUOOwLyU/EhWg
+X-Received: by 2002:a05:6512:10d2:b0:5ae:bd4d:852 with SMTP id 2adb3069b0e04-5b8b660a965mr1005663e87.5.1789575838649;
+        Wed, 16 Sep 2026 09:23:58 -0700 (PDT)
 Received: from [127.0.0.1] (sekoohaka.ddns.net. [151.243.208.241])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8b57cc66fsm1036205e87.37.2026.09.16.09.23.52
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8b57cc66fsm1036205e87.37.2026.09.16.09.23.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 09:23:53 -0700 (PDT)
+        Wed, 16 Sep 2026 09:23:56 -0700 (PDT)
 From: Maria Lisina <sekoohaka.sarisan@gmail.com>
-Subject: [PATCH v7 0/4] mfd: intel-lpss: Clean up and modernize DebugFS
- usage
-Date: Wed, 16 Sep 2026 21:23:46 +0500
-Message-Id: <20260916-intel-lpss-debugfs-v7-0-eb51d41f55e0@gmail.com>
+Date: Wed, 16 Sep 2026 21:23:47 +0500
+Subject: [PATCH v7 1/4] mfd: intel-lpss: Remove redundant DebugFS error
+ check
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,81 +72,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJLCqmoC/4XOTWrDMBAF4KsEraui0Z+lrnqPkoUkzzgCxw5Wa
- lKC714lK+OGevkezPfmzgpOGQv7ONzZhHMueRxqaN4OLJ3C0CHPbc1MCmmFB8XzcMWe95dSeIv
- xu6PCkUgZJ1qQ3rB6eJmQ8u2Jfh1rPuVyHaef58YMj/ZfbgYO3CmVYrRElPxndw65f0/jmT24W
- e4TshIBgqZAJiWrtoTaJ1QlIDqUEUh4L7eEXhP6JaErITA6iaFJgH++MGvCviRMJeq4N2SUFrb
- ZEnafsFxwkwBcSFoJbNfEsiy/ejEm5gMCAAA=
-X-Change-ID: 20260913-intel-lpss-debugfs-eff3580d1295
+Message-Id: <20260916-intel-lpss-debugfs-v7-1-eb51d41f55e0@gmail.com>
+References: <20260916-intel-lpss-debugfs-v7-0-eb51d41f55e0@gmail.com>
+In-Reply-To: <20260916-intel-lpss-debugfs-v7-0-eb51d41f55e0@gmail.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
  Lee Jones <lee@kernel.org>
 Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Maria Lisina <sekoohaka.sarisan@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1870;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1838;
  i=sekoohaka.sarisan@gmail.com; h=from:subject:message-id;
- bh=5Ryp3d7aqLnvpRz5v4IsdKzMUbgNqjT3Ro3X7cbHVoQ=;
- b=owEBbQKS/ZANAwAKARPrfuqZo5+iAcsmYgBqqsKX/R8Gh8XJxvxzUHwXR6r0nrh1q5SwHBRp5
- LPJXhf8FWCJAjMEAAEKAB0WIQQ8HZKKOdqg5DRiM0sT637qmaOfogUCaqrClwAKCRAT637qmaOf
- okV7D/9Qb7/d0U6GpEkWR33Ti83noI/IPwqnhRMZ53A0PkIHbL6L9fT+oDq+CPH82/pfp/gUIe7
- ECGdjVxPv8DztPv6wxvUSunoucQUD4OtwuOm7OSiGvmPgEcfoxRIqMZS7tf2i+mLGhewXfsPpx2
- LACvjI0Oyhyn0UsLaTplRv8TngxTHizKGkXE+9QQuRALukrc6fMv1orq+Tp/3GK+Ibc5C6dG5K8
- ifaBtP7LLa82z5z6KglYXNYXyM/kBr+a4y/z3UkpTVmZgQevmjY74Xst2r7ZfscGLNtAQMxcpxp
- kMmov2gyZDGB4X72CjnukyUWOaoWClz/XfAOOMwlkyrs1YENtv7Q/1UD9PHtt9tfi9blZuHdUVt
- kNLfytCg9BOm42BZTwD0+jFSUO3VjN/yvbfj2cT1t2rNcQ0pkezFhQh1vDEpUNuSqBtIK+rhkRT
- fEdTUu0RU1IYUGoteqAME0wYv5Uye3DfON0LbjvLw6xPdiKicsmGVn1wgxNW38HU+E6Lgicb/6X
- EVUqO5E+luoD8ba4Dd1zAojjz4ZrQ/ewoKumVbSuaULTGW+9ukVGjO1t5ZLE+lpQ6wWcaWF0Svp
- VUaYwbBOijG5uxWQWch689BvFAi9wbYXk1RIk4Xqv/BsgnC4EM7yTU3bapSgpXpOiCSogEj7fc7
- iwad+MUUj1BRqqA==
+ bh=FGooVTE3n+m1r0RsIid6S680o4fwqpE02/2UW1WT6nk=;
+ b=owEBbQKS/ZANAwAKARPrfuqZo5+iAcsmYgBqqsKY0qqZ8z2V4Ludy7CoJ+HYXkat4uBUe2QnC
+ 648hIXfre+JAjMEAAEKAB0WIQQ8HZKKOdqg5DRiM0sT637qmaOfogUCaqrCmAAKCRAT637qmaOf
+ ouaTD/9oWWuM0CJSFi0FlCQ0UbyKB4L+1vobuJZ3WVXPN//hcQLxwrETBGcmuAriRJqcEk8Vn7y
+ otOPiKhzYQqbRWsYScAsw2XJlsPtFZZLXjhpYbIbOMMBxLnMQRgFQBYyJVnqhgIQrwQzXrtGCi8
+ tdjaqk4zfcK7zls9DHSf6y3bKwhd8f9TcfCjw1dh8TbA7HvQLMQW2AGnS1UQTW9ecNlADCAh9As
+ AOY3KKoMyw1ucrZRhBqLiwVoVX+jZRLPOpnV1ZzsZHNK24uZmUrDFpfjqd3mOa3/pL+1zl/bSh/
+ WchQ7k8mFgS92SOJPNfgH+k4dtPvm+5mRMlg0l8beTi3DK7IHYqguGL8Q+0da3kwh+NwVP8nw6/
+ vsYfBjeimAG+kBDBgXTi1iDprcxNikWyvvp3jwcTIJ2r2/4LTFJO620F/tu0U45Vu7wL2W/Xbi1
+ ww+gxozHKT1BgF+DWWIB5i2i222Qt55AoNdM8Zq5n7bXu98Iq7TgTY35qL/gKXxg84gkSEHEf16
+ yd6xn3nPCCGVTMPxOf1qZ6Szs2MX4lDP0uQwojMBid0HsmH2ctPkR/4s7vGhuyIF/NuOLD6HvqJ
+ zfpwUz5VWkZQ+nE/VWynSHLDH1yBggJMAmNPUekhL8Nb1VZ6stIRme0FN6CYwc57zx5pzTn61gL
+ A036FtYQ2p3owlQ==
 X-Developer-Key: i=sekoohaka.sarisan@gmail.com; a=openpgp;
  fpr=3C1D928A39DAA0E43462334B13EB7EEA99A39FA2
 
-This series cleans up DebugFS code, modernizes it by replacing
-obsoleted macros and removes redundant error checking.
+The DebugFS API is designed to handle errors gracefully.
+Any explicit checking on return values is considered an anti-pattern.
 
+This patch removes unnecessary error checking and converts
+intel_lpss_debugfs_add() into a void function.
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Maria Lisina <sekoohaka.sarisan@gmail.com>
 ---
-Changes in v7:
-- The final corrections after review.
-- Link to v6: https://lore.kernel.org/r/20260916-intel-lpss-debugfs-v6-0-5c118ac430ed@gmail.com
+ drivers/mfd/intel-lpss.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-Changes in v6:
-- Split each logical change into an individual patch.
-- Link to v5: https://lore.kernel.org/r/20260916-intel-lpss-debugfs-v5-1-99295f534067@gmail.com
+diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
+index 63d6694f71457b2e09d238af0a9bfb897a169a64..b6958e99cf54d3c8eeca1ba38055a9389678f6c3 100644
+--- a/drivers/mfd/intel-lpss.c
++++ b/drivers/mfd/intel-lpss.c
+@@ -142,13 +142,11 @@ static void intel_lpss_cache_ltr(struct intel_lpss *lpss)
+ 	lpss->idle_ltr = readl(lpss->priv + LPSS_PRIV_IDLELTR);
+ }
+ 
+-static int intel_lpss_debugfs_add(struct intel_lpss *lpss)
++static void intel_lpss_debugfs_add(struct intel_lpss *lpss)
+ {
+ 	struct dentry *dir;
+ 
+ 	dir = debugfs_create_dir(dev_name(lpss->dev), intel_lpss_debugfs);
+-	if (IS_ERR(dir))
+-		return PTR_ERR(dir);
+ 
+ 	/* Cache the values into lpss structure */
+ 	intel_lpss_cache_ltr(lpss);
+@@ -158,7 +156,6 @@ static int intel_lpss_debugfs_add(struct intel_lpss *lpss)
+ 	debugfs_create_x32("idle_ltr", S_IRUGO, dir, &lpss->idle_ltr);
+ 
+ 	lpss->debugfs = dir;
+-	return 0;
+ }
+ 
+ static void intel_lpss_debugfs_remove(struct intel_lpss *lpss)
+@@ -432,10 +429,7 @@ int intel_lpss_probe(struct device *dev,
+ 		goto err_clk_register;
+ 
+ 	intel_lpss_ltr_expose(lpss);
+-
+-	ret = intel_lpss_debugfs_add(lpss);
+-	if (ret)
+-		dev_warn(dev, "Failed to create debugfs entries\n");
++	intel_lpss_debugfs_add(lpss);
+ 
+ 	if (intel_lpss_has_idma(lpss)) {
+ 		ret = mfd_add_devices(dev, lpss->devid, &intel_lpss_idma64_cell,
 
-Changes in v5:
-- Changed the goal of the patch to DebugFS modernization.
-- Refactored intel_lpss_debugfs_add() into a void function.
-- Removed deprecated macros and functions.
-- Removed dmesg message completely.
-- Link to v4: https://lore.kernel.org/r/20260914-intel-lpss-debugfs-v4-1-0eb82ea7c1e3@gmail.com
-
-Changes in v4:
-- Keep the dmesg messages, instead check whether DebugFS is initialized
-- Link to v3: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com
-
-Changes in v3:
-- Fixed commit name and description.
-- Link to v2: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v2-1-a1a4faf5cc63@gmail.com
-
-Changes in v2:
-- Fixed function name in comment section.
-- Link to v1: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v1-1-833cbb6fffc9@gmail.com
-
----
-Maria Lisina (4):
-      mfd: intel-lpss: Remove redundant DebugFS error check
-      mfd: intel-lpss: Use plain octal values for file permissions
-      mfd: intel-lpss: Remove extra DebugFS dentry
-      mfd: intel-lpss: Switch to debugfs_remove()
-
- drivers/mfd/intel-lpss.c | 24 +++++++-----------------
- 1 file changed, 7 insertions(+), 17 deletions(-)
----
-base-commit: 2f0c1cf72f4682178506f513bbf015e591b1aa4a
-change-id: 20260913-intel-lpss-debugfs-eff3580d1295
-
-Best regards,
 -- 
-Maria Lisina <sekoohaka.sarisan@gmail.com>
+2.47.3
 
