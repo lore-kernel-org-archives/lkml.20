@@ -1,129 +1,95 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C78C2DA74C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0063C1D60
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:00:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549217; cv=none; b=FU17zph/DPsOJptIw+6vPyzkkHkTubMMmJs7wEBQ7RQ/GhhFi76Kkv64hPMRHl8SsJb5mt0WwCYnmDG2U+/we6n7cewOgDOhYRhPhpvI2QL19uznj2CioN3lVV7mbsHcw0wpOyqWEZSMzCskzwWpRbPrWO6RN7rkWJP+V8wk9WA=
+	t=1789549230; cv=none; b=jeq3f7i4F8hJTZ1aKpx9AYXAm3VyK5aIY9OAUxXx7Wrf/cPu+eV4BLfvIcDGTNqYcCNd4JEMVaIQJ1UcPIgCb3FXrk4fd3ATqxhkI05/NsjjDeNpidYx1osFXPUfBCRQdheZNyzaWX/0a3gjuMfcXCE1I72tuPym8WiG63MeODs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549217; c=relaxed/simple;
-	bh=X4BeImAQt6eN9tl48v+TVFR4KDVQ184LCIW9zdT04ks=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=QWICX3GAdsYhnaVRnJm3PhFhFXQ6jIKJBiBTR6b8ll6VITylrIrpak3HcGRfNGDZ9OjCr12jUSyWKsfDfxBCRAIZvYnUdB+Rk3V+f1f4GUD8I96BT66t5GhlfnhL6GfzLx4hEgnGKJ1bYPwABV8SWVmj0crbGDLu5lFFIwUan6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=EE0VL9ER; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789549230; c=relaxed/simple;
+	bh=FLL0WMGSrVyLr2+WkoJd+gM+88+U2G3SwHYDL1KLPJU=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BlCiRTYYP2hxI31AASTeCJGi04fSFJUGoTsB8TDr9uIk/rHlMh3UESLXG3VM2IFiTQizbNINWaHICykW5vInywDlHuMIpbYLTAoQIxUN8oIUfjJzqvsxQJOzEISw3AJ8moBqIj28xZ035aE9j9McbHroGw5OYuhlu5JJsUVQhc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzOmu1Gk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="EE0VL9ER"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so3144765e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:00:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789549203; x=1790154003; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=X4BeImAQt6eN9tl48v+TVFR4KDVQ184LCIW9zdT04ks=;
-        b=EE0VL9ER06xsgpoPGBoN1t7/lMpTdTsaQyIUthBhyuzf4tvd/x3YEFog7lHWlbcGfe
-         Z5gaJhjfhK3j8KVbqGmFvnKyaIGHFldvg3wY7dswVNPmqe2n7EBMxOykRHjN+PLg7VAr
-         KedmKxV8xxBUOffCjhPZnxZVbsikbWJaTwHpcW+JFEn+0SulGgTLNzgohf4Ofjo1rjS6
-         fAiTRyDg4zVrTxewO6hLmB15j7C6w8pnEw94UO5n3P3lUkGVJD3NbuYgeMkuomr4e6uq
-         sKz46WiepMTTg3Z2iZ3r8ulsrpBUGSVY2odHiArz8uL2+W46xhDVaoN/suVBviq3ajNt
-         sNiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789549203; x=1790154003;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=X4BeImAQt6eN9tl48v+TVFR4KDVQ184LCIW9zdT04ks=;
-        b=s702Mn+pHynn9H2lDR3xd2EvCClD6Ov8AQoyXW3a2xVG0lyMcQeWBacnWjUAokcW70
-         wgj1QrcolBbtrVJ3LSrHDogV5bWLDopgQGaFsLNtM2+uKP1C/NG7RYqE0WQrJawgTodF
-         sw4QIiuz10ATBHz5P3X8eVjCUxL76o8gUyxZfsEKWFLHAQg+H30qk5lrL+8hQmiCP8io
-         VS5WfhgTcpQZcRAN/HT1Ga5HHZb3/rqj3fL/8aklbxL7MmHfaFRE+npZ4E8xLKkCdfLS
-         yLe28GR0r6+AEvpUAlKMo5GAtc+VvMG0q5PbpD1iUuNxrr6gQ5uoYANJHLK+loRD8SwP
-         Tb8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxnqQsyz1E99PxLI6shiXZ3D2f8nrsKF1c1pZNEgwh0VAK9skRadtglZb5XqgAK6UZP/kY0ccRRdtYkhM0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kh5g3c6mHpfxxFfo1ZilWy+f1eMpmQytO7PmnmVClfYb8m1Nrt
-	jJ0MVYBoGDZ50+WZ26nXwDXJc1S5F1/XJ2QqjmbGSaoq/IrCL2yozmTwSpFQ3/vt5iw=
-X-Gm-Gg: AYBFou3p2Wj6FaHGdaJcoyMvIkFU9gq62y/OT0T13Va2nATq5RLDESxl20KtjhqpTfj
-	uZI/3aDj3oWh239pyQL2Fs8okwF3IdglmG4shGM0Jt3415wy4sofI3sDXntvyUhbOIYy87g3Gwr
-	54UDHQDm4OXFXhK3FxHk+h9+sY43jj3uWbppacSolTo+ZoESN8zR7E67IVeCsWqqR4+wUmX//re
-	QtHB0YzH3OHTcUIWGrzt5GGNaliyO65yX0PdBRVu/kd2S0xfPEt+vtIEJdqu44vOphv68cT6t/B
-	VCRlrVwvE/bcJ9r7KiQ7DKchZpicbO/gefIp2k9XsZrCSlzzDrFY7djJLXcj00chy90WJrnlrBE
-	Ie36h+JyezGy3FeTHaZpXGS220Or84ZpO5wZidiYW7RinCri0VMrcPRlFHZf05RE+3Dj5zr5imW
-	PrdqkvoyCYRWuVo76YEUC3yJcf8DcfkUyvZ6N1ldgMgcI7HK/zNeET3B410RcIUxrv4N+9afJaW
-	17jCw==
-X-Received: by 2002:a05:600d:4441:10b0:49f:bb8a:b4ce with SMTP id 5b1f17b1804b1-49fbb8ab4f2mr4857375e9.28.1789549202794;
-        Wed, 16 Sep 2026 02:00:02 -0700 (PDT)
-Received: from localhost ([2001:4091:a245:8029:665d:b7b:5fa4:7ad0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83addf36sm62963335e9.5.2026.09.16.02.00.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 02:00:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzOmu1Gk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3B6A1F0089A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:00:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789549210;
+	bh=cWZ0gnFqni2scjHvhffjqmPDdUD55J3yKzAKX2hiHEw=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=BzOmu1GkRVM3/ktE3WRiWfqYI3camyZcxRiRxjCXzKFOspQ/6Vs72t9DhJUQKXXi+
+	 Wvt7kcC4TYDbXzbVKC9hQdcvNyTqk6DF+wg9l/LMYxkUTXZM6g0RsiCmVcsGzcGZB4
+	 cQevQfWQxGF6bBQmInXq76J30ut4yzAAM1cGsKzjr70b1U2x0RttOYhHPAKjcLlHOL
+	 YE3lWkSSycy5Y9ZL2badIVwwuuNWlV/EXjAJSesVWvJXkr3TE8Stx0GQJZrpgchD7W
+	 ZmAn9tRHVusexM30KbmDZ/6MUBTbupseTKRYJg1WrNcD8SZH+ePqeN544cxsgEHGi7
+	 Cg32aNDiQhKCA==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b79so642240e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:00:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxPYvE9F5WrhgvQNodmodlNB+ncwsKDuh4BQFO8yhWWJ5JEh1GUMSYK584wkpafKFJhmPSqtupSWB3XEQ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgEfIwrkb5aQvWXJW+EotffGD60E0iwEAcV5KQ2z9uVDWZXkKb
+	jtRoUMwsDrnHnCCI7ZrxGyTg9QVi3XyqemxSPsKkPy/K9lCffGg6BN9oSFTn0FdD3lfEXQpZVqF
+	O5T9I+wYSNjC3WbyoJboEJvTPJjXVQGOkiRj0Hi0jEQ==
+X-Received: by 2002:a05:6512:3b1f:b0:5b1:5ab5:ea09 with SMTP id
+ 2adb3069b0e04-5b8b65a355amr780239e87.0.1789549203229; Wed, 16 Sep 2026
+ 02:00:03 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 16 Sep 2026 04:00:01 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 16 Sep 2026 04:00:01 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260915014447.282121-2-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=5f403bfe266842db9f121664ad883b790e1fcbb4c0a296a58194c880a16b;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 16 Sep 2026 10:59:53 +0200
-Message-Id: <DLGM8U9HBK19.16WN58TZY1HXE@baylibre.com>
-Cc: "H. Nikolaus Schaller" <hns@goldelico.com>, "Andreas Kemnade"
- <andreas@kemnade.info>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] clocksource/drivers/timer-ti-dm: Register
- clocksource/event only for am654
-From: "Markus Schneider-Pargmann" <msp@baylibre.com>
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>, "Daniel Lezcano"
- <daniel.lezcano@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>
-X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
-References: <20260828-v7-3-next-topic-ti-timer-dm-clocksource-omap-fix-v1-1-85f0e4dc6f9f@baylibre.com>
-In-Reply-To: <20260828-v7-3-next-topic-ti-timer-dm-clocksource-omap-fix-v1-1-85f0e4dc6f9f@baylibre.com>
+MIME-Version: 1.0
+References: <20260915014447.282121-1-shengchao.guo@oss.qualcomm.com> <20260915014447.282121-2-shengchao.guo@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 04:00:01 -0500
+X-Gmail-Original-Message-ID: <CAMRc=McgPQe0x3bWYArqoyprh1ZF9owf3Etop1hqMt67nBXgnA@mail.gmail.com>
+X-Gm-Features: AcwNN1Uy4fGyVWvXnyMoCspZKn3z-64iNuKozkP52HeKyvhTgvDXj0RcuM5fHwI
+Message-ID: <CAMRc=McgPQe0x3bWYArqoyprh1ZF9owf3Etop1hqMt67nBXgnA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] gpio: shared-proxy: track direction instead of
+ reading it back
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Yu Zhang <yu.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Linus Walleij <linusw@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
---5f403bfe266842db9f121664ad883b790e1fcbb4c0a296a58194c880a16b
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-
-Hi Daniel,
-
-On Fri Aug 28, 2026 at 8:47 PM CEST, Markus Schneider-Pargmann (TI) wrote:
-> Registering clocksource/clockevent for the older platforms breaks
-> booting them. The older platforms have their own implementation in early
-> boot that is used to register clocksource/clockevent in
-> timer-ti-dm-systimer.c.
+On Tue, 15 Sep 2026 03:44:46 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> On boards where more than one consumer shares a Qualcomm SPMI PMIC GPIO,
+> all but the first consumer fail to configure the line as output:
 >
-> With am654, the timer is much more complex with more dependencies so
-> doing this in early boot with the other driver is very difficult and
-> gets ugly. Instead it is implemented in the platform driver for am654.
-> However the old platforms may not register clocksource/clockevent in
-> this driver as that would break the boot.
+>   reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
+>   reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
 >
-> Add a system_timer_capable flag that is only set for am654-timer that
-> gates the clocksource/clockevent registration.
+> The first consumer takes the usecnt == 1 branch and really does set the
+> underlying line to output.  Later consumers instead read the direction
+> back with gpiod_get_direction() and refuse with -EPERM if it reports
+> input.  pmic_gpio_get_direction() derives the direction from the pad's
+> input buffer (pad->input_enabled), which pmic_gpio_direction_output()
+> never clears, so a pad whose input buffer is enabled at power-up reports
+> input forever and the proxy rejects every consumer after the first.
 >
-> Reported-by: H. Nikolaus Schaller <hns@goldelico.com>
-> Closes: https://lore.kernel.org/r/2013A99A-0502-4128-ACFA-B04886224393@go=
-ldelico.com
-> Fixes: b8eeeca55456 ("clocksource/drivers/timer-ti-dm: Add clocksource su=
-pport")
-> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+> The readback is not needed: the proxy is the only entity configuring the
+> line, so it already knows which direction it asked for.  Record that in
+> struct gpio_shared_desc and compare against the recorded value.  Keep a
+> readback in the get_direction() callback for the case where no proxy has
+> configured the line yet, and reset the recorded direction once the last
+> user goes away so that the next requester establishes it again.
+>
+> Assisted-by: LLM
+> Fixes: e992d54c6f97 ("gpio: shared-proxy: implement the shared GPIO proxy driver")
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
 
-Did you have time to take a look at this patch?
+I think sashiko is correct about the GPIOD_ASIS use-case. I think this is why
+I used an unconditional read-back in the first place actually.
 
-Thanks,
-Markus
-
---5f403bfe266842db9f121664ad883b790e1fcbb4c0a296a58194c880a16b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCaqpaihsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlNf
-9wEAzSGxiiJD7K5pMDPxka2vtj/zspBsngcNB7JR2NIWOLAA/0+Gdz+0zBzL/rFq
-orzdHSAmnQDs8GiNnP7Z8IzZ35cA
-=MsJn
------END PGP SIGNATURE-----
-
---5f403bfe266842db9f121664ad883b790e1fcbb4c0a296a58194c880a16b--
+Bart
