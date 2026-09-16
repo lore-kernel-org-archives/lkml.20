@@ -1,95 +1,94 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACBD33064D;
-	Wed, 16 Sep 2026 18:19:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE19B3CF96B;
+	Wed, 16 Sep 2026 18:20:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789582799; cv=none; b=lhiqReiWcDzX/CQ1l4SR3YWwG0ZRsvkgxza9HLPMtC0gtsPe2vganSugdDqLTudgmXoSJm3CL4e+mlF1JGJ1TbULEUJGwxWCQyXfviqRNcguW4rBFRIi6uJCyXVL2eoz2XXruLdhORH4WOPRyzv3Lq+9SY43n7UkcvykBFhuY6A=
+	t=1789582856; cv=none; b=Vh7DKdkXL7cSsYHJfMX3Mt3u3XCG6YcSVWkuRJJubZ0CA4arkMPHX27YvsRP7xhmH+5PO6porEpaPa222phbrfvkjkb1ceJdJzyO/RGUCdvpA98Xhysy3OTrvSFJK0LGuvuXOlKysRUTz1lAyYO3lUxyZXUxDWWfK/075sNM6gI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789582799; c=relaxed/simple;
-	bh=rxT8OqLJ31FEIFu+AVrtNB+EaZiDH17h68FhErDeN9o=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bMyuA57fMR6fGKrr2jN3l7EGyaHWEsXa1UiGaVV+d9Tb2p1M+G1RZyvKLClN71n6rvPnED6DAM1axtI7QGA1QVb3XPM5vnpHoB1chezb0OrSLG2m0zefpODNHLWg6IH7x7SDwQjzhDgri6hdKwOWc+LOpw8K0vXD074Rma8wGBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YYw0SmUq; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YYw0SmUq"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 4FAF5C5CD5B;
-	Wed, 16 Sep 2026 18:20:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E99460337;
-	Wed, 16 Sep 2026 18:19:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6853411C7B00D;
-	Wed, 16 Sep 2026 20:19:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789582787; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=U7J/mha/vyoFLlNNVH4h4FCmPvf41iQDGOaDHu79fqs=;
-	b=YYw0SmUqgK0SDDwSStx/seLZ1MC/bDXvVn5c1k7ZXfly8akIrh4xlRzjzhA/bQtYYLFnjC
-	2Ahd/xg1rWoaEn5dHg2AOiCXO2QwQT5Lqs1BrE0maT19M5ipwwr+AzF1T5esnhhXen00/l
-	MxTQhHbOoqrGrDzr9cahGFJ1ISRNbIu3OeHhF6A6vgzbNejanIn4H3dhNl9V/gE0MzZ1QO
-	/dJFoOVmDyeXP7QfAkQYdnl+/YTeEC/fpsufL5y9SJ0PqZ/aglzMb0DalOGa4r8x7oxSgv
-	JLnOtqlva1ms9MZBMtlY8JXqQi0U5hop5q+nsm9hnHrYbFkNDa6xdD04YnHx2w==
-Date: Wed, 16 Sep 2026 20:19:44 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li
- <Frank.li@oss.nxp.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Leonardo Costa <leonardo.costa@toradex.com>, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke
- <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH v2 7/7] of: unittest: Test fw_devlink with clock nexus
- maps
-Message-ID: <20260916201944.650c83be@bootlin.com>
-In-Reply-To: <20260910-fw-devlink-nexus-ready-v2-7-17ac82dbe226@toradex.com>
-References: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com>
-	<20260910-fw-devlink-nexus-ready-v2-7-17ac82dbe226@toradex.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=arc-20240116; t=1789582856; c=relaxed/simple;
+	bh=15zt54fKG+OAyTrpnKcFIDGMMsOxF2x8qHLvuPfaJZc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Qwo/2PGA9lafQs+uVIaa4ohuUV8EP9jJbVc/YgFAg0E8K+EBRC/un/HVVOUHjcjmEkgVJhBe+Qp7KGvrkz93gYFfyi+vSd9xY/3qTWR/JxTE1s5h1KcbFoje12LQExOx02tPLOPntb+4jgqIdWw/fexZEbHTCqg/3AtN68gzf7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABXh0Ho3apqBWVvCA--.24210S2;
+	Thu, 17 Sep 2026 02:20:24 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: alain.volmat@foss.st.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	rgallaispou@gmail.com,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	vincent.abriou@st.com,
+	vladimir_zapolskiy@mentor.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/sti: Fix ddc_adapt reference leak in sti_hdmi_probe()
+Date: Wed, 16 Sep 2026 18:19:56 +0000
+Message-Id: <20260916181956.2091393-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-CM-TRANSID:zQCowABXh0Ho3apqBWVvCA--.24210S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZF1xZF48XF1kWF47XrW5Wrg_yoWkArb_C3
+	40grn3WFsrCw4Dtr12yr4Yyas2kFW5uFWxuFs7tFy3JrW5Jry3X34qyFyDCr47Z3WUK3WD
+	tw4Igry5Zr13WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb-xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
+	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
+	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJV
+	W0obIYCTnIWIevJa73UjIFyTuYvjfUw5l8UUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqozWA8QAAsz
 
-Hi Ernest,
+When component_add() fails, sti_hdmi_probe() returns the error without
+going through the release_adapter label, leaking the reference to the
+DDC i2c adapter that only sti_hdmi_remove() would otherwise drop.
+Route the failure through the label instead.
 
-On Thu, 10 Sep 2026 16:16:48 +0200
-Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
+Fixes: 4d5821a71ce9 ("drm/sti: hdmi use of_get_i2c_adapter_by_node interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/sti/sti_hdmi.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-...
+diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
+index f8222e60b1e0..ed5646545f84 100644
+--- a/drivers/gpu/drm/sti/sti_hdmi.c
++++ b/drivers/gpu/drm/sti/sti_hdmi.c
+@@ -1460,7 +1460,11 @@ static int sti_hdmi_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, hdmi);
+ 
+ 	drm_bridge_add(&hdmi->bridge);
+-	return component_add(&pdev->dev, &sti_hdmi_ops);
++	ret = component_add(&pdev->dev, &sti_hdmi_ops);
++	if (ret)
++		goto release_adapter;
++
++	return 0;
+ 
+  release_adapter:
+ 	i2c_put_adapter(hdmi->ddc_adapt);
+-- 
+2.34.1
 
->  				fwdevlink_nexus: nexus {
-> +					#clock-cells = <1>;
->  					#gpio-cells = <2>;
->  					#pwm-cells = <2>;
-> +					clock-map = <0 &clock_provider 1>;
-
-No map-mask for clocks ?
-
-And also same comment as for GPIOs (i.e. multiple items in map)
-
->  					gpio-map = <0 0 &gpio_provider 1 0>;
->  					gpio-map-mask = <0xffffffff 0>;
->  					gpio-map-pass-thru = <0 0xffffffff>;
-> @@ -100,6 +106,14 @@ fwdevlink_nexus: nexus {
->  					pwm-map-pass-thru = <0 0xffffffff>;
->  				};
->  
-
-Best regards,
-Hervé
