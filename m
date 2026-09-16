@@ -1,217 +1,125 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D263D46D085
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547882; cv=pass; b=VNSHpgfqTeT3urebtyuPUZ2NQaaVEMOjbQb8gZ3rMxxShUmTKmYXDRYH+A+SNlFqS8O1z+VIWyGkLS5aahjoR4P7v4cTLiITHKKshWkhsNwwWe7A81Id2wylTYJBBcLLRfs/4nQJiBEspMOZWpQje9ylTAazH3Gi7z7JhuQN4dA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547882; c=relaxed/simple;
-	bh=S/X+RO3ysRo8lGeU1qxPd7IqMIXzvcrKZzhoZIr+kGM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TzEld5L3fP042iqWGkaCnp9qsBeR+nbCmwuGF73BQl37makjQAO8sdAOe7dluQoyoKB1QKpaO1BBfOOD04Fa5qkKVUBh4ZLVuTo3++7+GD+ksUbMdPRDbxfK2xc2THbvfb4hHgJPuAQ0ktIJ7i98mp6ah59+azMWnPrm195ua8E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aSolCz0o; arc=pass smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD0B476CD2;
+	Wed, 16 Sep 2026 08:38:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789547893; cv=none; b=qh51nH2LmXyEA7XUJFWJw7811Vm6P+UaMXdwG8yoybKGVrNRDL3DZ2R63/pcPNjwoAr5XYcnb36PAmsxll+CKxbDbV5mrjHC8bE7KVE6jR5p/N/AsU1mQ0xXmlrMsJyz/o+nUG0g5W7bZ3/UFP1KVLwDlay+0l9mxsLx0E7B2fU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789547893; c=relaxed/simple;
+	bh=1P6BcVTjsa9hD38aaby1HdGhOKx9VU6Mn+xrQ2vBZZU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gvaeijHx9H4bkH5PupPHlDrEfnbWHUiQC96jkWLfhH1dMJRfpOcKnmTbC54kTUlnDlkGV0vIfFllNGGBhwPSQOrVkugrFHicoXVM1VdMDXR/7FIhSmBuGW+5/Ao7WyAZ1wTwtDR9LvMmZkm4ywoeX+N5e1mjhGJsYQiejyR/pqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=m3W77v29; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aSolCz0o"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b79786cdafso95854e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:38:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789547879; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MjQtjBeJu9n+hCy7Fjw5CoBce3bH0b7AVn5ldOTtU+fIfjbve8WwxxtiFw6qC7Du72
-         ypSQENPzN/n0Ab5jvoi8kasPcF0iHJ9wRaaU/w8VU9f6Gwf5VdwYNAe9Cp0WdAChgQ0i
-         vJrirGgSFEkhngtVqrr3Sa9InJh9JYs4OwjFyMR8WAl3LSK5d7LQqKAm3adISGEmU5E0
-         JqVvsL6HR462uNxWe0qGsdESNCQretaN9D/ff0gyy+1LOb16GV0bLmNpJ0Ng3aQpktYW
-         +rG0JKpwsOvyUfQJVeHPGm+xc16MElXYQrVBOpYoCfi1tz8dpBwOJpCWLFDKJ/3u76+c
-         KRaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Lnh066cTCuiyfMtY1uf8/R+IhGvvfeHGl2UzvvrxbQ4=;
-        fh=pyw+IyV0TH+I+NUhSlTjM5YuKRjKrmOqUs7QX+jy3Rs=;
-        b=MRXBVCH3B3/W/six3GNMO6ER2BCex/70X1A9PJlieMlPTWmzuzvOUFAEbQaSpMDe+W
-         IIz4zEDePzfGswA8cgU1n3PatXnzvRYLfcJ7QvO0SMJmxOFkdFrT/ZraBQ2q0KV0+ssz
-         yMNXkBGAHpeHpdmVrtyEooasLH3Jwn6WbgCqWnKWkyPWYGyHqOVw58p8ibRMCK4cje+T
-         W6pgYrAl3EZkiEsajaJPpDMZlzxLTYsCK3ft71EwigS3DjYGu+xRW+ICZzAjLTvPpY/I
-         WiE+emH294iUKtkBCArm86jDF4OmsSbuBrMQWphBPO1l3T88huhhdJzwEtxT3gbfoAxg
-         SJIA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789547879; x=1790152679; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Lnh066cTCuiyfMtY1uf8/R+IhGvvfeHGl2UzvvrxbQ4=;
-        b=aSolCz0oKCB2ebZeJ46Ry45tiGUOIgcy4UeAPicee3c6FkczKTVcQsF05U72vlAEm6
-         8KmaB25oHx8qWJVCQI39DdsKMIWs8H8d0M3v7t6scm8VBwfO4NB7tHQB1xpBjBTw92L0
-         clzbovT7OQbinQWgeZNHvSba4w1MOviPfFxeb+Y4e/LTr+YPz3hW7XBrvY3nl9PZe0xz
-         lzMS4BAI2rcLHI6Zn33nlcMDRs+GzpUZLhgJFQi84kE02fuy9SKofPyjTSeslTJktj3C
-         dK7T1Dwto0zp0exlC65GcOVe4bfQ017+OvFP7Mb/jQg7p0ZEaXzg9ptJdDSDqiAJDO8S
-         Kgpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789547879; x=1790152679;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lnh066cTCuiyfMtY1uf8/R+IhGvvfeHGl2UzvvrxbQ4=;
-        b=uCARzAxWHFgygZOPBA1b6hp95LjvlYwUTFlsu5W4cZWyDCAuXDpK6FzM3UkwSzXhCG
-         twQYYatoXTsuRR0BH1mTNcSi46VwYrr1DnvjVDMxTA17oYCTzTuQ73pFHboaI5fd41Ec
-         ksA3bvVHSr5voeF4SdyZSsky5IruaFTC/pw+4I74wewvWQ4wpxIoZdmjVt1CFvyjs1M2
-         9tGszMUw+vI3/KR+gfZPJunB4qWA4tuGQ0B/yp/QZuL3/btp8kPM8QoS8ouLcejkp52H
-         Iu88+f7Q/I+D+wVdQBImJtPMcSs74tZzSDZzVozw69OZU5UWZrX0TvsZg2A/r8ht0Nba
-         59QA==
-X-Forwarded-Encrypted: i=1; AKwUvBwurAqTOqscxVg1N0uddWr0EBDIQq332f3R3St4p0eRVih9Diqx0B9sh8UO+TwtEvQPEFPZX56v38W2piU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mW884dEwqgerTuCob5GKf+hS1a5w9bN6HkUYWwSQ6xaHp/HrVF
-	40sdzn49cMSYvPCRXJek8fsYIwmkgiCdIU+WuPF9aeozw61IJqzHC0rx0Ar/PYZwkzYmGqBzL/o
-	/FHCfxSj4mdO7bHg9THFS5CT/wX3iF0L/2wV0
-X-Gm-Gg: AYBFou1SQsDoV5dC4F86Whp72IIIKC2w+9hldQpaGUvo6yVLwTkys0VORxFIYVWtKZ8
-	xDes92PEwvB0htSEmIEgB0quEvdKrZdfWKEyV9Dtqg/bddTrlAZB+6S/4B1Sa57uRQIr3zs5hvH
-	97cbQxsMaDLVHkv/NGHXd1r4j30uEzl8KnSKYUctdrJK2uEfgL0NnG35gkJltMpKHQEGibYT1jI
-	s3SGsknxUdVHtrGaUGZrOkNxSf8OmJiayucYUOUGXRVbTiDkbZNF+Xe09uiBhYksTUh5Mfb4cZl
-	W+BHqvsetnlwTfaiALPNEoiGEswNvcJejIGcRYzq68F3nsmwdSPt/qu2
-X-Received: by 2002:a05:6512:39c7:b0:5ae:b6cf:2864 with SMTP id
- 2adb3069b0e04-5b8b65b6cffmr482758e87.0.1789547878435; Wed, 16 Sep 2026
- 01:37:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="m3W77v29"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=ZxTEjD838HejWjewRG4roQBMhM3Naoy/Z6g4rRdYtfU=; b=m3W77v29NpPllDh+6IVF6VVMLr
+	x57nZfZGED76Ox6yKf9Hecpj8lSZa9x0HzjqZBVgdfMcSn3qZOXl/TKBg2w/5SfEhqQilDx10AKbU
+	B9tLTy250h6XTszGqKrQtViHBSjfp1S5CieMS1qmpO2r3TR7oNswbXb9IFrlcurdV+a8La9ee8164
+	iI7klTAg4xDF+ruzm//75TbU3SgGeQWKlPmtZmvB4PqwrTAU2/jdR5Zus514j4MxS49TAkUFwdVM6
+	9JLIK56HjEZq54s2DUhyYp1ObVma3dkjmIMCGSarGWuAqghkcWgayhrApKnQhNP6FnCnQ2cdcO/EG
+	R+K+ji8w==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x6l9P-0052jD-2g;
+	Wed, 16 Sep 2026 08:37:56 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Wed, 16 Sep 2026 01:37:44 -0700
+Subject: [PATCH] splice: pass a poll key when waking pipe readers and
+ writers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916015440.2232938-1-chao@kernel.org> <20260916015440.2232938-3-chao@kernel.org>
-In-Reply-To: <20260916015440.2232938-3-chao@kernel.org>
-From: Zhiguo Niu <niuzhiguo84@gmail.com>
-Date: Wed, 16 Sep 2026 16:37:21 +0800
-X-Gm-Features: AcwNN1U6Tc80FmVy85b5zrXcT4bV9m6x-OTxVM01uNOxzH9Wj1CoLqa7L-FkLXw
-Message-ID: <CAHJ8P3Jk-4ds5CcsBTtYJDv4wFQGr1JwneSOKroRANVe7BXYgw@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v8 02/12] f2fs: cache: initialize meta cache
-To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-b4-splice-poll-key-v1-1-438a19351efb@debian.org>
+X-B4-Tracking: v=1; b=H4sIAFdVqmoC/yXMTQqDMBBA4avIrDsQxb/2KsVFk4w6GjRkrLSId
+ zfq8lu8t4FQYBJ4JRsEWll4niLSRwKm/0wdIdtoyFRWqmdaoM5RvGND6GfncKQ/alPZwiqr2rK
+ GGPpALf+u6bu5LV89kFnOE+z7AWW1Kbd2AAAA
+X-Change-ID: 20260915-b4-splice-poll-key-bc7d5d0d0f68
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
+Cc: mjguzik@gmail.com, oleg@redhat.com, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1679; i=leitao@debian.org;
+ h=from:subject:message-id; bh=1P6BcVTjsa9hD38aaby1HdGhOKx9VU6Mn+xrQ2vBZZU=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqqlVgB9GJVLPI6NZC/aO3sdG4D12zaboZUk8XM
+ lxctJgJtlGJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqpVYAAKCRA1o5Of/Hh3
+ bQTjD/9Mt3Tp8PpQhJKSni28lLQgSBD8XyryXSN+9DR6/lB5Lz82OA+/k9Q6q8fVhrHmCvctOZi
+ JjsUnB3g95OOY326/MutIx/ZXMH9wjjrNbWsEKzyfO8wo725ide7vJA7nrFmL84YazyPqEJKVjx
+ brZjs2CADxKsryWNP3CN3FMgEdjX3pFux5T2FldDwMZtDFYD9+iRjHAAeObvG3XKQ6BsLumVsyC
+ uf6WJrwV/vZH91P6mcbmA65gPcoB0SjrOWDQpGr2ZSpwDuIPf0/39vUBR0tUv08im0lgRxuJrGz
+ C5fHNkaCXGwOz1bj/teDZgg86ZF0SMFG92PnRefC51zeXKVAFhI2Myh+zGtcR98Y16eQACdalhR
+ nj/apnkCCk4dLVWXTMz4To703Ywp8OCMZXfllj5LVxj9nUXw8IAUB7MffVZ54wPJTOgI7ZKvCD+
+ 0tD/03QwqVRsYFmf9McB2o/Z3sT+MXCTv1ycjqd9GCTxDTABR/CysKg1XhnPTrtKD+iIL4hz5VX
+ WV05Zx0c+zJxWb+cgX5Kja2pU6Axth3Fg4t+i7D5Cw4JqLolrdVY8B9F3lWyWc6Vwv4tksY2xof
+ A1cyuLstWn/nblJUdhjKAdcT11tbQ+sqiIYUcXeqsz4sVr2vfomXGNzvqokxLzJCM4CeIJxOZhT
+ xCkKbcIuFTtMn3A==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
-=E4=BA=8E2026=E5=B9=B49=E6=9C=8816=E6=97=A5=E5=91=A8=E4=B8=89 09:59=E5=86=
-=99=E9=81=93=EF=BC=9A
->
-> From: Chao Yu <chao@kernel.org>
->
-> This patch introduces meta_blocks in f2fs_sb_info structure, initializes
-> and destroys the meta cache during filesystem mount and unmount.
->
-> It also introduces helper wrappers for meta cache operation.
->
-> Signed-off-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-thanks!
-> ---
->  fs/f2fs/cache.h | 9 +++++++++
->  fs/f2fs/data.c  | 3 +++
->  fs/f2fs/f2fs.h  | 3 +++
->  fs/f2fs/super.c | 9 +++++++--
->  4 files changed, 22 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-> index 1fa279f9d69e..d8123a86cdf8 100644
-> --- a/fs/f2fs/cache.h
-> +++ b/fs/f2fs/cache.h
-> @@ -193,4 +193,13 @@ void f2fs_truncate_cache(struct f2fs_cached_block *e=
-ntry, bool drop_dirty);
->  void f2fs_drop_cache_range(struct f2fs_cached_block_list *cache,
->                 unsigned long start, unsigned long len, bool drop_dirty);
->
-> +#define META_CACHE(sbi)                (&(sbi)->meta_blocks)
-> +
-> +#define f2fs_find_meta_cache(sbi, blkaddr)             \
-> +       f2fs_find_cache(META_CACHE(sbi), blkaddr)
-> +#define f2fs_invalidate_meta_caches(sbi, start, len)   \
-> +       f2fs_drop_cache_range(META_CACHE(sbi), start, len, false)
-> +#define f2fs_truncate_meta_caches(sbi, start, len)     \
-> +       f2fs_drop_cache_range(META_CACHE(sbi), start, len, true)
-> +
->  #endif /* _LINUX_F2FS_CACHE_H */
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index d868b939caee..59fef2132177 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -670,6 +670,9 @@ static bool __has_merged_page(struct f2fs_sb_info *sb=
-i, struct bio *bio,
->         if (!inode && !folio && !ino)
->                 return true;
->
-> +       if (f2fs_is_cache_bio(bio))
-> +               return false;
-> +
->         bio_for_each_folio_all(fi, bio) {
->                 struct folio *target =3D fi.folio;
->
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index c0c7d51c830f..85c4bf40b4aa 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -2107,6 +2107,9 @@ struct f2fs_sb_info {
->  #ifdef CONFIG_DEBUG_LOCK_ALLOC
->         struct lock_class_key cp_global_sem_key;
->  #endif
-> +
-> +       /* f2fs internal cache */
-> +       struct f2fs_cached_block_list meta_blocks;
->  };
->
->  /* Definitions to access f2fs_sb_info */
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index 6a2f09c61dcd..bc3d378371e5 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -2094,6 +2094,8 @@ static void f2fs_put_super(struct super_block *sb)
->         iput(sbi->meta_inode);
->         sbi->meta_inode =3D NULL;
->
-> +       f2fs_destroy_cache(META_CACHE(sbi));
-> +
->         /* Should check the page counts after dropping all node/meta page=
-s */
->         for (i =3D 0; i < NR_COUNT_TYPE; i++) {
->                 if (!get_pages(sbi, i))
-> @@ -5263,12 +5265,14 @@ static int f2fs_fill_super(struct super_block *sb=
-, struct fs_context *fc)
->         if (err)
->                 goto free_percpu;
->
-> +       f2fs_init_cache(sbi, META_CACHE(sbi), F2FS_META_CACHE);
-> +
->         /* get an inode for meta space */
->         sbi->meta_inode =3D f2fs_iget(sb, F2FS_META_INO(sbi));
->         if (IS_ERR(sbi->meta_inode)) {
->                 f2fs_err(sbi, "Failed to read F2FS meta data inode");
->                 err =3D PTR_ERR(sbi->meta_inode);
-> -               goto free_page_array_cache;
-> +               goto free_meta_cache;
->         }
->
->         err =3D f2fs_get_valid_checkpoint(sbi);
-> @@ -5596,7 +5600,8 @@ static int f2fs_fill_super(struct super_block *sb, =
-struct fs_context *fc)
->         make_bad_inode(sbi->meta_inode);
->         iput(sbi->meta_inode);
->         sbi->meta_inode =3D NULL;
-> -free_page_array_cache:
-> +free_meta_cache:
-> +       f2fs_destroy_cache(META_CACHE(sbi));
->         f2fs_destroy_page_array_cache(sbi);
->  free_percpu:
->         destroy_percpu_info(sbi);
-> --
-> 2.49.0
->
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+wakeup_pipe_readers() and wakeup_pipe_writers() wake the pipe wait queues
+with a NULL key.  ep_poll_callback() and pollwake() only filter on the
+registered event mask when a key is supplied, so every epoll, poll() and
+select() waiter on the pipe is woken, whether or not it asked for the
+event that occurred.
+
+anon_pipe_read() and anon_pipe_write() already pass EPOLLIN | EPOLLRDNORM
+and EPOLLOUT | EPOLLWRNORM when waking the same wait queues.  Do the same
+here.
+
+This is not visible in common pipe use: ordinary pipelines move data with
+read()/write(), which already passes the key.
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ fs/splice.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/fs/splice.c b/fs/splice.c
+index 9d8f63e2fd1ab..c048183215343 100644
+--- a/fs/splice.c
++++ b/fs/splice.c
+@@ -179,7 +179,8 @@ static void wakeup_pipe_readers(struct pipe_inode_info *pipe)
+ {
+ 	smp_mb();
+ 	if (waitqueue_active(&pipe->rd_wait))
+-		wake_up_interruptible(&pipe->rd_wait);
++		wake_up_interruptible_poll(&pipe->rd_wait,
++					   EPOLLIN | EPOLLRDNORM);
+ 	kill_fasync(&pipe->fasync_readers, SIGIO, POLL_IN);
+ }
+ 
+@@ -415,7 +416,8 @@ static void wakeup_pipe_writers(struct pipe_inode_info *pipe)
+ {
+ 	smp_mb();
+ 	if (waitqueue_active(&pipe->wr_wait))
+-		wake_up_interruptible(&pipe->wr_wait);
++		wake_up_interruptible_poll(&pipe->wr_wait,
++					   EPOLLOUT | EPOLLWRNORM);
+ 	kill_fasync(&pipe->fasync_writers, SIGIO, POLL_OUT);
+ }
+ 
+
+---
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+change-id: 20260915-b4-splice-poll-key-bc7d5d0d0f68
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
+
