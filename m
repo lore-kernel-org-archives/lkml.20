@@ -1,83 +1,62 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1D84457AF
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6C2455185
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544856; cv=none; b=evXfVO2UGVZpZfbqGC4I5N8nsRli8HvlcCKG28D+BnphGusRCv96w/KEIeCaSSNGuEGXRN2dEm+GrK3+NvW6/MAAfCaiCdKyAFCc6eQIiiYmLxHHbVIth2GAGEW1/xnD5FQCVTs13prnS4Zhl1sgo1iHIP8p5jtS6dHP30dXIJQ=
+	t=1789544882; cv=none; b=egaCCxVV7j3vRwscLrUemZeh3Y+VLez0YrmvY3U5yD+mxJAvHPj2QJTsWIsEsZsvWHXdbRhCYn2nR1EEhvxjm/QiHtzgQi5zTG03/UulD5oGDeaQS2K7NT4d3SbmlYdwFXhPGW+E0iEPM79Eub3Vh5SKLMvM62B1bVmacNtvyIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544856; c=relaxed/simple;
-	bh=qgKS7dxZ54LH9TyyMA3DN7DTKS1t5qTApglr9V4IyGQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Erw2Li3NGgEnBI4vYnwnm6DNpseXbY3sox5qJ4MdfofO3mLvo9CwXr3dCSC7NA6hw/zwBW+4Ht8DFr0G6XWaN03r9WQhvAJKnW3RKuIyWXDD5EqviycQT2330e8RfZd1nU87Y97g3lRcgjFWwCWL10PWP6TenyqNcwHpsn4LtG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KkYSaVSk; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KkYSaVSk"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=hkwACd9EK0Y++fkR813YuVyjEpvlJRaFChoIQ/KealA=; b=KkYSaVSkHMPgqpuGxxzd0QAkQo
-	7MkKoACsU7bKi2ZTEAXxyNU1er0yvlWDMLjC7q2HqjMS20n4fNJPsn/SPTZ+7qol7ZQ+aP8H82v8P
-	UiCvkvui1pFj1udS8c/HK5zTYhxpPF8oBoFZ5jfl/OVE4KWLYS/go3Vinj47cFE3rp99T9s4elVid
-	cme3oa3my5R/puhVSy509FdopQr9/Bq3TD4jIMcUUHXM6VwB0004NUdRloEXOmhtJhYXDNhXJMSxX
-	DmQV2Lo9OJY8aetHsERPSyyAs+/lQIq4mxSWQ3rmh4P1q2T/xOiG9TREUwevRvvNGkCtx3BmaNpYZ
-	yin29csw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x6kM4-00000007azi-3w0v;
-	Wed, 16 Sep 2026 07:47:12 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 2BB2F3012C6; Wed, 16 Sep 2026 09:46:56 +0200 (CEST)
-Date: Wed, 16 Sep 2026 09:46:56 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Waiman Long <longman@redhat.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, linux-kernel@vger.kernel.org,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Haakon Bugge <haakon.bugge@oracle.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Yafang Shao <laoar.shao@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v3] locking/osq_lock: Ensure proper locking semantics for
- osq_lock/osq_unlock()
-Message-ID: <20260916074656.GL4120091@noisy.programming.kicks-ass.net>
-References: <20260914202102.551333-1-longman@redhat.com>
- <20260915082655.GX4121339@noisy.programming.kicks-ass.net>
- <89a400fa-f23d-41d4-9a82-df8697eed0b3@redhat.com>
+	s=arc-20240116; t=1789544882; c=relaxed/simple;
+	bh=6NcS2f2Xcf+ygR5FcTdcxtp4IC3vmcLOutpGDI0tgKA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=m9O+py2cCUN+TOg9LBpTFN+Dg8pkQ/wPPnZTwoiGfFxINI2V1rtvRJIir+ByOmRyqhhM4WrujRuUcHZ1z9nlwBeFnb67opGi6bmYleKrnEJ1OJdHdEgIGalIOnvPW6FRBEZ2FVupwBL9/QBdXuJX8fwY71co6JdPzBCSOju4xNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b28dafb8e1so8215206b6e.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:47:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789544869; x=1790149669;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6NcS2f2Xcf+ygR5FcTdcxtp4IC3vmcLOutpGDI0tgKA=;
+        b=mIQJIukdE0a6HCiLB7xVE1wsYs44oWxpxZVi5bWKJ6b5lsdtACmikjNZuXd/WPCUoa
+         IItZjvysbdE6MPh7ZlKSKbExodEjXRQPMrPOQPAHaCN4SdXNRkU8UOpPO9AHA7XMuFxj
+         BzFfQ9qpVr+p17OoaRiHO9OEm61To0iG2IHUApREqfKC00q/GDqvsrVFoaF+Qr+u9MCv
+         /ZsacGzkVRaCgfXIA6s3fXS0196PW6fSDvUBnxvl2q7H8v8lMDIFBdQdwMx8hxGzsC0l
+         jlNh4Fkl1/jyGI3DxXKl67d3MJcUQACU+XxRdzW8PWh2KESZ7pHGL68Y6zZnvgDHmZve
+         oJ5Q==
+X-Gm-Message-State: AFuF++ltZdW9HHXfjn/5EU9zJXpadE4EdHRaP8RlCs7qyNH3G6rXasAs
+	jOfbq/k8nKxeQ8gqfYlTg0T5/GOAjq1uMlwix0U6mIK47PxUbTswFe86ZJ2IvxVAbQ7AnTIi4/l
+	Iz/X49g+axXx2SryxRilMHRYCV0pAL/iubSx40ABK7wqfMLbtgFSZMjXpjvA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <89a400fa-f23d-41d4-9a82-df8697eed0b3@redhat.com>
+X-Received: by 2002:a05:6808:14d1:b0:4c0:9d00:b46d with SMTP id
+ 5614622812f47-4ca4a2e32cdmr2207837b6e.13.1789544869488; Wed, 16 Sep 2026
+ 00:47:49 -0700 (PDT)
+Date: Wed, 16 Sep 2026 00:47:49 -0700
+In-Reply-To: <6a8fd9c8.50659fcc.60cd.000e.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaa49a5.a211d2ce.1a5198.02b9.GAE@google.com>
+Subject: Forwarded: #syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+ 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
+From: syzbot <syzbot+d632e93ffcd1452bc61e@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 15, 2026 at 01:53:05PM -0400, Waiman Long wrote:
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-> In your comment to David's "locking/osq_lock: Set prev_cpu=0 instead of
-> locked=1" patch, you suggested adding smp_acquire__after_ctrl_dep() after
-> finding that the lock had been granted which is exactly what the change from
-> smp_cond_load_relaxed() to smp_cond_load_acquire() is doing. Right?
+***
 
-It is similar, yes.
+Subject: #syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
+Author: dmantipov@yandex.ru
 
-But all I did there was restore an ACQUIRE that David lost, silently.
-That loop exit condition was smp_load_acquire() and he made it go away.
-
-Now, you're right in that we can probably survive making it
-smp_cond_load_acquire(). However:
-
- - you get to re-run the numbers from 036cc30c6b6a to show it doesn't
-   regress
-
- - you don't put on Fixes, *unless* you put in a solid argument showing
-   what is broken how. And so far, nothing actually needs this ordering
-   because osq isn't actually a stand-alone lock -- it was never meant
-   to be.
+#syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
