@@ -1,142 +1,128 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A43F6347FCD
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D55D3644DE
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570776; cv=none; b=u736vkJyGgLaOB5qzgcPDvvuwOO01oyq3ntiEfuvl2MDQIOHKbOOASx4nGDj9/Rzcqpzrci92Wpi3xEg5TT9amP2GxPbZNX5hrirnZRxVIQ8VYwZxWCWzKuFQfW+xh9l50VjNF2orVBuUwYmbLlTA2/hsF7lNzlhN85spsxKzsw=
+	t=1789570778; cv=none; b=YFdfUWBFQwGixq2sA/MpS0tTduyCIqonPkS7HttNhS11RLZl+3eG/cXhGUjUI6KrNXuHEb7DbQ5kqWIADHl5xBU1IiXA772hpkdqGvrS/3a1tZ+powu55j/F9V3xba2Vgicux+sw6h8c8ad+9LRjM7CChuDybXqlDCQ47xiBDB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570776; c=relaxed/simple;
-	bh=gdiAq7W2RiooAAYYrX9jy5tLi+pRLzukmFQakocw9j4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uadRtGWRm3GtTwg0L+VAXVw4exWPGsJkjDb5TxejwZjEJu9JLIgAvW4Ty9oydu2mGG/YPXki47hu3hOi04slf4TyktMDJXN+8x291gHgE2cV7o5Q/R5MQxsxhfK9sqYyR4sr5EiAIJ8df+LmPlqXXwnh6Rvnuk1GRJ/g9t530yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tRV2QeLs; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789570778; c=relaxed/simple;
+	bh=4Jl2TkRe7Npn73HaXfPcA4VVvCfEz91QC5XBElprxe4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lmnf/81gfuzRuOrZIAWnrKAMcQUq4iM/u9ROaGt2vmC4gs+Pht6enzaZNofHqHFO9FPknV80W2/5mwYGgwKNWGC2LtxC0hewO2KUUtZqaOK40P+BlcACZogVgPBcLzMBRh0vuuPi40mHsoX/PIhXasbmuqJDq4ZIcPb0vreMvrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mgTrxaY6; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tRV2QeLs"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5FAC01516;
-	Wed, 16 Sep 2026 07:59:29 -0700 (PDT)
-Received: from [10.2.212.8] (unknown [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A69FE3F7B4;
-	Wed, 16 Sep 2026 07:59:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789570772; bh=gdiAq7W2RiooAAYYrX9jy5tLi+pRLzukmFQakocw9j4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=tRV2QeLsvP/HNcvwjbrB2SWTGZA/2PriicTdL/wlrw56ul7hEF+KtStM0SLTLYzzL
-	 9a8cAXByTJ6kzMbSTe/EOe8Jm4x+zhOv7N50abVLITn6RzId1bB5US3fE3AntzBZgI
-	 KSnm6IW2ift1VKmdYNE1VGr8BvnoYK6tUEqnOSU0=
-Message-ID: <1f0a6421-109b-4578-910a-584bd80387ad@arm.com>
-Date: Wed, 16 Sep 2026 15:59:30 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mgTrxaY6"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398a1676000so777373a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:59:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789570776; x=1790175576; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3xRnvj52pHagz8sqiex+4Km8FuQRJvZZV/xhDBA7TFQ=;
+        b=mgTrxaY6AZiWnAmxzZcwig+v8VuOj+GoOmPuCoYjuUhhq5IIL+2Z66c0z8BGUyNlpS
+         GC0E03q1m8DB/5qMetvoQ7lBrq82C9MkIPbwq6tLTioTeM0gs2wCRe8D1abga00n8eBQ
+         znI5azqw95s170A3Lu6JWplgLcGwNxrw7TYFGUhAyOPjUqAZyO78aFCeUuJAJOEv55Bt
+         K7daPg6vZj6QLju39pd63nVDsSdqvfvrfYnF7nleEQAjVGcebVQYb9YSfeBZ7k68hurj
+         /8rIDxaLgHq4o5iMCc9wq8Fs0If1RRvtUwp/ZViZYfo7zAcb7dRpvVjL+u6g5hZjqu78
+         RfcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789570776; x=1790175576;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3xRnvj52pHagz8sqiex+4Km8FuQRJvZZV/xhDBA7TFQ=;
+        b=dzK/TgB82b7AWzIc4Ji7oiIeuFi11FRQay6ON0nHKUV9orSZ5I6jiVeehLZfUHDiBE
+         UEBR5n+1K3OYs2o0mlEyIUVwujemHa+DlMRIC2ebdM2Rm9J3NcU8QHF2qTkCODgy5jjQ
+         7ery6mF7yNQRTgqOopktOfRs1ENppXjzCX3bLaef5/HOFqB2bDL7iw2sNOFGFahFS3qE
+         4RRTy/C1AwW8U+7C7+8pG4w2a3KJz8bTrZxamx9ntmzXd7cLf446pm2g9RObmu0sBB1r
+         VQLMW4Q5HsqvSHwgECIKJ1pZpaWwkbpAxhxrJOCnGl6jx5EcUScLCPbv9nrdHG0VA/UI
+         Cv5w==
+X-Forwarded-Encrypted: i=1; AKwUvBxdu/nO9bskrvx85b/HPQZcCgg0bqgloRrT07ccsFq2HoBBersPiZ9kmPClBXlUMSGsIELmYGyDkdCU6gw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2dg7gnA3s+tMnl9ymjmimrhI3SFhlIwOVLE08fxzmJ5glmdti
+	T8hc4aWes3qroREo7O3A6ibr/QBeq+f/D8LWzJFuNxRN2XVLsf07TQwt
+X-Gm-Gg: AYBFou1aa0uWuXJLHZCqqdGgOPB7ikvAicgJab4KboKZy8xvEI9cIShy1lE27G6v/Qu
+	/FrsnFPDgrZhQOm6F1OVuaol2I8O+t+P694o4qIghPdCsBMN+ciOspIbLxiD+ssrOxk9csNImnK
+	9VbbOCebZdnN0bITLW2MjZPKXwgJWTykew7OKHxB1Hn6N4b7XAgIbeX77ryGF6LRBcfD3YivZhi
+	Nj5jGb8Skg5zWqKM7Wwx/iaXo2gobabZVXNQolm0liTI2MWUL4MeGDnB/c70E7lbegoRmdVv6Qz
+	so9tsYQqm4BT9qTSHBXp6wMZzjMOtoymvP8+na7g4qgcwcZlTlfE09uIVd+k6fmCad7/r4Ru6AK
+	tkGT0fjWujqOtiMRVSAsYaOkhhEO/0CD1YPD+2/eIOFIxYdgB729rXf2co6ZixJYPIHBkyK2Ega
+	DOcqjTxJzqSbSwh2DGQYHwg81gAuTMKGpxOsG5CCxf2lIs1xP8dVN/vizhmhigGWxctsbuSxsxe
+	cu9oYSvBfcz
+X-Received: by 2002:a17:90b:582b:b0:39d:c3bb:98e7 with SMTP id 98e67ed59e1d1-39e1e2eb37cmr7040268a91.6.1789570775729;
+        Wed, 16 Sep 2026 07:59:35 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bbdfd89sm5159630a91.9.2026.09.16.07.59.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 07:59:35 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 16 Sep 2026 07:59:34 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Sanman Pradhan <psanman@juniper.net>,
+	Senthil Muniyappan <smuniyappan@juniper.net>,
+	Vaibhav Agarwal <avaibhav@juniper.net>
+Subject: Re: [PATCH v2 3/3] hwmon: (pmbus/tps53679) Add support for TPS536C7
+Message-ID: <7c73bd97-a3c5-4485-8f16-57b128aab7c2@roeck-us.net>
+References: <20260915164823.160977-1-sanman.pradhan@hpe.com>
+ <20260915164823.160977-4-sanman.pradhan@hpe.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: resctrl: Catch and propagate error from
- get_cpu_cacheinfo_id()
-To: Andre Przywara <andre.przywara@arm.com>, James Morse <james.morse@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>,
- Fenghua Yu <fenghuay@nvidia.com>, Tony Luck <tony.luck@intel.com>,
- Dave Martin <Dave.Martin@arm.com>, Yin Li <yin.li@oss.qualcomm.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260902143757.3469690-1-andre.przywara@arm.com>
- <ea42f2a7-f4f7-46ab-a5e0-239c74174499@arm.com>
- <2c682691-3037-4d62-a941-bc41baca35aa@arm.com>
- <4f35abf6-6dac-4c60-9ece-c1af02a98c9c@arm.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <4f35abf6-6dac-4c60-9ece-c1af02a98c9c@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915164823.160977-4-sanman.pradhan@hpe.com>
 
-Hi Andre,
-
-On 16/09/2026 14:34, Andre Przywara wrote:
-> Hi,
+On Tue, Sep 15, 2026 at 04:48:46PM +0000, Pradhan, Sanman wrote:
+> From: Sanman Pradhan <psanman@juniper.net>
 > 
-> On 9/16/26 11:49, Ben Horgan wrote:
->> Hi Andre,
->>
->> On 07/09/2026 13:59, Ben Horgan wrote:
->>> Hi Andre,
->>>
->>> On 02/09/2026 15:37, Andre Przywara wrote:
->>>> get_cpu_cacheinfo_id() can fail, in which case it returns a negative
->>>> error value.
->>>>
->>>> Check the returned value for this error condition, before passing the
->>>> value on to other code, which would hide the negative number in some high
->>>> value in the unsigned type.
->>>>
->>>> Fixes: 36528c7681b8 ("arm_mpam: resctrl: Add support for 'MB' resource")
->>>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
->>>
->>> This looks good to me. Out of interest what led you to find this?
->>>
->>> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
->>
->> I seem to have been a bit hasty here.
->>
->> Sashiko points out at [1] that 0xFFFFFFFF is the only value we were previously considering invalid
->> and that the value coming from dt or acpi can provid other valid values that would after this patch
->> be considered invalid.
+> TPS536C7 is a dual-channel D-CAP+ step-down controller whose channels are
+> distributed across a configurable number of phases (N+M, up to 12 total).
+> Whether channel B (PMBus page 1) exists depends on the phase configuration
+> register, so the page count is derived at probe time.
 > 
-> Fair, and I can easily change the check to only check explicitly for -1.
+> Factor the TPS53676 phase-map parsing into a shared helper and reuse it
+> for TPS536C7. Only aggregate per-channel telemetry is exposed: leave
+> info->phases[] unset so the PMBus core never programs the PHASE selector
+> on every read (and because TPS536C7 can place up to 12 phases on channel
+> A, exceeding PMBUS_PHASES). Report VOUT in linear format like TPS53676.
 > 
-> But this is somewhat broken already, right? I mean the return type for the existing
-> get_cpu_cacheinfo_id() has always been "int". It looks like this comes from the x86 world, where the
-> cache IDs never get that large? I can have a deeper look, but my gut feeling is that this is
+> Since the core never programs PHASE, set it to 0xff on each populated
+> page so READ_IOUT reports the aggregate channel current, and verify it
+> (PHASE can be write-protected). Fail identification if aggregate
+> selection cannot be established, since otherwise a single phase current
+> could be reported as the channel total.
+> 
+> A configuration with no channel-A phase is rejected with -EOPNOTSUPP:
+> the PMBus core models pages as the contiguous range 0..pages-1 and
+> cannot represent a channel-A-absent topology.
+> 
+> On the tested TPS536C7 (device ID 54 49 53 6c 70 00, CAPABILITY 0xd0),
+> block reads of IC_DEVICE_ID and USER_DATA_03 return -EBADMSG with PEC
+> enabled, while retrying those two reads without PEC returns the expected
+> 6- and 24-byte payloads. Standard byte/word telemetry keeps using PEC,
+> so only those two identification reads fall back to no-PEC.
+> 
+> Co-developed-by: Senthil Muniyappan <smuniyappan@juniper.net>
+> Co-developed-by: Vaibhav Agarwal <avaibhav@juniper.net>
+> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
 
-The cache_id being in the PPTT table is a fairly new addition introduced for PPTT table version 3
-and introduced to drivers/acpi/pptt.c as part of the preparations for the MPAM driver at the end of
-2025. At this point, it seems I neglected to consider any potential effect on
-get_cpu_cacheinfo_id(). The pptt cacheid takes any u32 value apart from 0. I haven't joined all the
-dots but I expect there might be some tidying up needed in this area.
-
-> practically irrelevant, since we barely see Aff3 at all, not to mention high values of it.
-
-Does Aff3 effect the cache id on acpi systems?
+Applied.
 
 Thanks,
-
-Ben>
-> Cheers,
-> Andre
-> 
->>
->> [1] https://sashiko.dev/#/patchset/20260902143757.3469690-1-andre.przywara%40arm.com
->>
->> Thanks,
->>
->> Ben>
->>> Thanks,
->>>
->>> Ben
->>>
->>>> ---
->>>>   drivers/resctrl/mpam_resctrl.c | 5 ++++-
->>>>   1 file changed, 4 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
->>>> index 9d223057953ab..a5e661eff86d7 100644
->>>> --- a/drivers/resctrl/mpam_resctrl.c
->>>> +++ b/drivers/resctrl/mpam_resctrl.c
->>>> @@ -786,7 +786,10 @@ static u32 get_mba_min(struct mpam_props *cprops)
->>>>   /* Find the L3 cache that has affinity with this CPU */
->>>>   static int find_l3_equivalent_bitmask(int cpu, cpumask_var_t tmp_cpumask)
->>>>   {
->>>> -    u32 cache_id = get_cpu_cacheinfo_id(cpu, 3);
->>>> +    int cache_id = get_cpu_cacheinfo_id(cpu, 3);
->>>> +
->>>> +    if (cache_id < 0)
->>>> +        return -ENOENT;
->>>>         lockdep_assert_cpus_held();
->>>>   
->>>
->>>
->>
-> 
-
+Guenter
