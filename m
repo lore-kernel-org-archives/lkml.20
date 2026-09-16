@@ -1,62 +1,64 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF554F6490
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:32:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3069B41C71
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565550; cv=none; b=QVhW1U1vf6RAvcabOKerREo1MtNqmscjmgjf1ucpSsT9cWXJUUcLGJmqCuFXTmrJe4sgqpfqVMYbkb24ASYd9hqRZm4WMOkKlLHR61U0ex3HrWsUlmRP6jU6gRXxgv6kRUCYU/Tf2HY8sZqDt+BjsZY+bAMoHNYffDOH/Nh8F+o=
+	t=1789565552; cv=none; b=ZsysQRUg6AC98IM8BE+Gor3XTjJCVKMvsuchpOxcGn1lHVuk2XfHaEDeF9dRRCKUvtQluNp0KoR42ByrHiVy/OZ63ixwlWlW2q4KzspSNFEyScjnkrvC6HaAVdw/faAXsY0Agl+ZRmAhGEK5RqI17Qw9jRBZU5frg0MNkuLubWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565550; c=relaxed/simple;
-	bh=VSE7ughsVCLfAxaSUazHFkNKgqHxJdQC6PgVN3x0ggA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=s8BeCqBswEPe06QBo+92Pc9FFmQ7AtAoqBvQJeashAGp2p2AC8ue1NpVfwcxFsOTm7DI3f68Vxl1B2yUQS8T467DyteP7rC7UZHa7IsqNtlNSVnaJR1QJRuoULYbIiSK9EnNWCFII9t9y3M3qMbEBharKDzjXzG3YavdF5WSl3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iRfnM7Yk; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789565552; c=relaxed/simple;
+	bh=KsuApQ6jGsBL9H1Lg6ZPp17XC38wi5V1uyun2b7groU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=FnAcR65m/yzLetHbAu6VDulPxSJma0FsYpFUZW0h6WycAt+JNMAV7J07siCYzdFoS1nI9m2l6mqSBDHvNYiSVeT/uISY4Ip2GsRiW+m5RL36KPgxHEU34VkUXQyDsnKmKZH7HK4kPFJWd41pkDbGTxW0JuEY+CqE3N1+SfCywHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HMT+C6Dt; arc=none smtp.client-ip=74.125.228.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iRfnM7Yk"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469f20513so753846b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:32:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HMT+C6Dt"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4cdc0d663so500532a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:32:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789565544; x=1790170344; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0ysi9KLY4VdiB72ZoOBv6+SkqYouNrH6Fs2Nh1fo2zo=;
-        b=iRfnM7Yk27AD1RUWSkcjUwmvGefcWKJQunqKh74vqAa4eG9AMNEuCyjsUVfHFZ6M6k
-         gMLVy6QNDyAk6dhxRpVxu9eqzJ/z3U4sDSsccDZ6H+JHVpYqJDidfGWjKtRxf13szzAu
-         D8UplxGrdgepPVRTixRiMoNVGLJfhW5F523hfUsN9yqXcb9+p7wlk7lh2wWLzjbd9QgZ
-         i4PGDOygpM22yVQ4e2Kfh5vWBJApHxq0FKo/FbXV33zBnoWY1kKe9dkAA9lmRrovGOvT
-         LXtLU+kCGs7tTq7jnTkaZFfGFSwR8iHJYnNugCcp6nFnBZ6zgb6IZ+3FHoF/KPN2U5jB
-         vshA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789565544; x=1790170344;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789565546; x=1790170346; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0ysi9KLY4VdiB72ZoOBv6+SkqYouNrH6Fs2Nh1fo2zo=;
-        b=AFBfVXakE9WY409p0QTi8BJvlhPNV7vNfUYc7npxYgmY4M5+ICOFWzaTqvPmMk6UZ6
-         llQJh7pIVbuy87zYGCd1VlEjnsdZcgQ1Us/DVZcPEX4jAB3rc2fi/G0KDzuRVmjDFzX+
-         ocMK+KFXGztKdob1MrHiYJT4GdtO9Gz13uXawxov/waizdqhe5yyDO7OVLm60a4SBdB2
-         FNSvf8tgud8uy3NeuNNea2vSd5xvu6V3UywCgJ2FCL8JnZL7/Bxd89s/7K9NyYNrH2x2
-         CvQD1PmGmfOiQMQ2J0Hx0kIbWzfl0CpaX8UDOq0SWMCFhKQHf8qIhhoBYOLbLHqtn6lM
-         yzDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzBOFNa/GOYoRv3b8X54VdGxm7KPf4c7cKy+u07zg8GhXVMuuGM18b0ANhPeVVvi0uNWZltUfD1bU2gNyA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGGtj7piEmaj1taHY9CU0YMwBu1hwcIwevXXefAJvlz7xcvqq+
-	VSFfLB0kqqpZJoVsDoN4GpJg2oSIdbt4NwPQR00iPUSghATjE9w/6wG2
-X-Gm-Gg: AYBFou1VaPLI/wRjmRW3KdYd7jG1kv0NuYazBUA5+J6+ez2IyjEGK4XzGVQwNjlcYVV
-	1GbMnuDs+0i87z4TGe7Ivbfw2gKSNULmJld1STZEaUIL7QgplzFa3u9VMqNxdNdMJs8NlohoGob
-	Pc5BAIdHflJt1ptc5lonvJVu3xMcwAHVo1FYTwmCALm+sUXuVrE1sv3EMxJj1vo/Li0fv+F1rYV
-	98L2qjUXyR2pKBFiemihPSA0hyT6L0mzFnCc+LuoDM5DyyutXwJBEAt10Ow/iBq9Bz/MMmiN0UT
-	ULtXbX2P0wC+RmOMfhOnwbXIQuls7CY3LyWki/vkMws55rYZPXx0m/mZ8EcYsJCUhKMuY/2BcYx
-	YjfTYtUZtqb+jjyYfcD8sIhzLHj/WWqxia9TIsgseg6hLPuc/RCKz8W+KIBeJN1vFxFLfvqSa+K
-	9PQzu80RngIw9cNw5+qDibbb60ysTkdzSw4FY/lK2VyZCZK+UuVrNO16Xe30HAxMYwsGTtkeZL3
-	dDYdjN9mNrGGGCNFnpzJaUv9w==
-X-Received: by 2002:a05:6a20:94ca:b0:3d3:b00b:26e8 with SMTP id adf61e73a8af0-3dd5f8123f7mr6558490637.28.1789565544152;
-        Wed, 16 Sep 2026 06:32:24 -0700 (PDT)
+        bh=iCcn2LkYFEOrgsqYd3Ql/075Xn3VWWErqZWMbblb648=;
+        b=HMT+C6DtikFWg1GGY1QsMdA+B10uV8lOn+gpsA6i8QT34RMF2oo7xu17OHGsLDk/tL
+         O2VltJQydWXfBf08nxVgPd8lo+0flMQkmcbxUl0GMXYlbC+3r+qwErQ5We5QRCOjRy2o
+         kp/qJej+WXTq8wLunaZjpGQfZqF237DSiFyZuuzEdo3JpjU3gAWfWC7P7hCuysFwXPQX
+         mbJLIhp3kEMh1BQhZIKn2UXt1kFfVw+dgK4Oggd3bk4JsakoahxC/JdmQgYayitQjEst
+         TnLYMITgUUfeM2gZ/gPn0oe2Umw8kQjCR9LCm51zXanhQTHh21hpPxq9uX9P7w9WwiuY
+         MpYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789565546; x=1790170346;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iCcn2LkYFEOrgsqYd3Ql/075Xn3VWWErqZWMbblb648=;
+        b=X32S3bhmTMk+vOv90Z2m1WbyrnlgB2BE/hG+g4g4iz35icZkeQVQC2/YGzf1PxJGGL
+         p4JEMesg61K87eb21bIWd9ibfbp1M48QJcFLvPY9G/JtLXPwb9P0WsYbN+nJkNotr4Pp
+         LouCUy+n6ZnvD1xt1HrMCmGN0fLDpDbwdK2TdAR1OPcpyW7c5heBNb809XSRFGTMGkw5
+         v8bfEHPOFfupnMsP85iDlj2u8khS4O6sA9dym3GUkRu8UQo3AswV+BKDoF0rGMZfWDXc
+         G4uerECM86YGSXG8hmg0/ZtqnR4uTs+1S33xl4OHOnfGiccarJFzksg3ZcCaAHQfD8y+
+         7I8A==
+X-Forwarded-Encrypted: i=1; AKwUvBx3MUNNq9yaHAIWu8nFWYYOg/pFkSsUlk09AIf2HJlz/rU+Rw9KMZdhycwtXspS7tA3o1nnzQdeiPYZytg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mw8G90NpwOdljDMiSa0WdSahM1k60ZRlj4lVxV8U5ChhTqlwTL
+	YGVHCN4wh+I1b712zyiizvlgHp5WV9GRe+ev0DgjhLyQQc5dQ6v7fEaH
+X-Gm-Gg: AYBFou3aEEdl57giLZrnIa2UJrqMgCcPiQiOPwohHOwoUq/MC/UN7IDz9H8mVc6UCxm
+	AsbEnvL+fkXnX17DjIm9M13CYWUq5kliWbXence7VNcfXJNmUho5FiKUiSID/D38qSWy65TerJx
+	+T6VgWzh3f7PHpE1Oj4cj/OG9A7rWC3lOPG4j5ORVJDz3/R3F58G+xYZr9P/mYHHk2yL478hWoX
+	I3jO/ZNHnRTQkToGp4yorzY9RklFVX3u2EwxRH/mDmKQ+dyEDH9D8jOMykY/zuRWdkTlflEv6By
+	7YGR91A2ktQyFu7QrdGcxvCwUAox4tBDd5QvgOigheDopClkrSeu0wUra1wDpzll5ueN0X5H9qd
+	m2wVUdpddT0QUezEoFi0eYoo0E7AqRh/odcBsl1rzhllAORuZ1OOeJdkrV5syPIEI/Kh6HW05Hh
+	GklqurFt3wpNkNcJPkL6LU+m0vP2HCTDtGhknOHEVJuQqtbeISKfO/dY9Dx7+D9t7xt7YR36igo
+	ua5gsDchrtYwVw=
+X-Received: by 2002:a05:6a20:430a:b0:3da:6bdd:2308 with SMTP id adf61e73a8af0-3dd5f5d673emr6093359637.18.1789565546497;
+        Wed, 16 Sep 2026 06:32:26 -0700 (PDT)
 Received: from pengdl-pc.mioffice.cn ([43.224.245.249])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50ab960edsm1651702a12.20.2026.09.16.06.32.21
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50ab960edsm1651702a12.20.2026.09.16.06.32.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:32:23 -0700 (PDT)
+        Wed, 16 Sep 2026 06:32:25 -0700 (PDT)
 From: Donglin Peng <dolinux.peng@gmail.com>
 To: rostedt@goodmis.org
 Cc: mhiramat@kernel.org,
@@ -64,10 +66,12 @@ Cc: mhiramat@kernel.org,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	pengdonglin <pengdonglin@xiaomi.com>
-Subject: [PATCH v6 0/4] Use BTF to trim return values
-Date: Wed, 16 Sep 2026 21:32:14 +0800
-Message-Id: <20260916133218.1282590-1-dolinux.peng@gmail.com>
+Subject: [PATCH v6 1/4] tracing: Avoid BTF lookup in atomic context
+Date: Wed, 16 Sep 2026 21:32:15 +0800
+Message-Id: <20260916133218.1282590-2-dolinux.peng@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260916133218.1282590-1-dolinux.peng@gmail.com>
+References: <20260916133218.1282590-1-dolinux.peng@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,103 +82,36 @@ Content-Transfer-Encoding: 8bit
 
 From: pengdonglin <pengdonglin@xiaomi.com>
 
-The funcgraph-retval option currently records one machine-word return
-value without considering the function's declared return type. As a
-result, void-returning functions can produce meaningless output, and
-return values narrower than a general-purpose register can include
-undefined high bits.
+The function graph trace formatter can be called from ftrace_dump_one()
+with interrupts disabled. When ftrace_dump_on_oops is enabled, the trace
+panic notifier can reach ftrace_dump() from the panic path, including the
+nmi_panic() path used by the hard lockup detector.
 
-This series uses kernel BTF to identify the return type of traced
-functions and to improve funcgraph-retval output:
+btf_find_func_proto() calls bpf_find_btf_id(), which may initialize vmlinux
+BTF under a mutex. Skip the BTF lookup when running in an atomic context
+or with interrupts disabled, and fall back to the existing return value
+formatting.
 
-  - Do not print a return value for functions with a void return type.
-  - Trim integer, enum, struct, and union values to the available return
-    value width when the BTF type provides suitable size information.
-  - Format integer, enum, and boolean values according to their BTF
-    encoding.
-  - Mark values as "(trunc)" when the return type is wider than the value
-    captured by the function graph tracer.
+Fixes: ebeed8d4a555 ("tracing/probes: Move finding func-proto API and getting func-param API to trace_btf")
+Signed-off-by: pengdonglin <pengdonglin@xiaomi.com>
+---
+ kernel/trace/trace_btf.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Here is an output comparison:
-
-Before:
- # perf ftrace -G vfs_read --graph-opts retval
- ...
- 1)               |   touch_atime() {
- 1)               |     atime_needs_update() {
- 1)   0.069 us    |       make_vfsuid(); /* ret=0x0 */
- 1)   0.067 us    |       make_vfsgid(); /* ret=0x0 */
- 1)               |       current_time() {
- 1)   0.197 us    |         ktime_get_coarse_real_ts64_mg(); /* ret=0x187f886aec3ed6f5 */
- 1)   0.352 us    |       } /* current_time ret=0x69380753 */
- 1)   0.792 us    |     } /* atime_needs_update ret=0x0 */
- 1)   0.937 us    |   } /* touch_atime ret=0x0 */
-
-After:
- # perf ftrace -G vfs_read --graph-opts retval
- ...
- 2)               |   touch_atime() {
- 2)               |     atime_needs_update() {
- 2)   0.070 us    |       make_vfsuid(); /* ret=0x0 */
- 2)   0.070 us    |       make_vfsgid(); /* ret=0x0 */
- 2)               |       current_time() {
- 2)   0.162 us    |         ktime_get_coarse_real_ts64_mg();
- 2)   0.312 us    |       } /* current_time ret=0x69380649 (trunc) */
- 2)   0.753 us    |     } /* atime_needs_update ret=false */
- 2)   0.899 us    |   } /* touch_atime */
-
-Note that funcgraph-retval still captures only the return value exposed
-by ftrace_regs_get_return_value(). Return values that require multiple
-registers are therefore still incomplete and are marked "(trunc)" when
-the BTF type indicates that the declared type is wider than one machine
-word.
-
-Changelog:
-
-v6:
-  - Avoid BTF lookup in atomic context or with interrupts disabled
-  - Add the atomic-context fix as a separate patch.
-
-v5:
-  - Link: https://lore.kernel.org/linux-trace-kernel/20260901134604.4052265-1-dolinux.peng@gmail.com/
-  - Add an inline fallback for btf_trim_retval() when
-    CONFIG_DEBUG_INFO_BTF is disabled.
-  - Release the BTF reference after return type lookup.
-
-v4:
-  - Link: https://lore.kernel.org/all/20251215034153.2367756-1-dolinux.peng@gmail.com/
-  - Build trace_btf.c when CONFIG_DEBUG_INFO_BTF is enabled.
-  - Remove the redundant BPF_SYSCALL dependency from
-    CONFIG_PROBE_EVENTS_BTF_ARGS.
-  - Update the funcgraph-retval documentation and cover letter.
-
-v3:
-  - Link: https://lore.kernel.org/all/20251209121349.525641-1-dolinux.peng@gmail.com/
-  - Print the return value based on its type for human readability,
-    thanks Masami.
-  - Update the documentation and cover letter.
-
-v2:
-  - Link: https://lore.kernel.org/all/20251208131917.2444620-1-dolinux.peng@gmail.com/
-  - Update the funcgraph-retval documentation.
-  - Revise the cover letter.
-
-v1:
-  - Link: https://lore.kernel.org/all/20251207142742.229924-1-dolinux.peng@gmail.com/
-
-pengdonglin (4):
-  tracing: Avoid BTF lookup in atomic context
-  ftrace: Build trace_btf.c when CONFIG_DEBUG_INFO_BTF is enabled
-  fgraph: Enhance funcgraph-retval with BTF-based type-aware output
-  tracing: Update funcgraph-retval documentation
-
- Documentation/trace/ftrace.rst       | 96 +++++++++++++++++-----------
- kernel/trace/Kconfig                 |  2 +-
- kernel/trace/Makefile                |  2 +-
- kernel/trace/trace_btf.c             | 86 +++++++++++++++++++++++++
- kernel/trace/trace_btf.h             | 18 ++++++
- kernel/trace/trace_functions_graph.c | 56 ++++++++++++----
- 6 files changed, 207 insertions(+), 53 deletions(-)
-
+diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
+index 00172f301f25..ae562192b619 100644
+--- a/kernel/trace/trace_btf.c
++++ b/kernel/trace/trace_btf.c
+@@ -15,6 +15,9 @@ const struct btf_type *btf_find_func_proto(const char *func_name, struct btf **b
+ 	const struct btf_type *t;
+ 	s32 id;
+ 
++	if (unlikely(in_atomic() || irqs_disabled()))
++		return NULL;
++
+ 	id = bpf_find_btf_id(func_name, BTF_KIND_FUNC, btf_p);
+ 	if (id < 0)
+ 		return NULL;
 -- 
 2.34.1
+
