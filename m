@@ -1,159 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8014E50D3;
-	Wed, 16 Sep 2026 18:54:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E17604E50DA;
+	Wed, 16 Sep 2026 18:54:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584855; cv=none; b=BhyY/Y4WCy39v4k+ajZaIw/KiMpefuDIm9PkSKxouq434YTdYM5azp9AY7RlJr12/URUVXmkMBNIbaaHgE8awo9KfZJ7TkzSXozvXImVbeAaFoDrLyvydd3HFHJhmuEVPHl8SB9ub23VhDPh4bwJ+xq9kfivvBEcjp27tETmwsw=
+	t=1789584880; cv=none; b=rJQNxRlP5Nol/dGGiWsu2ekPY1piHqm0BQR6awZhjz5EuMQ/NnpNsShXe87rtX3d5i0L6KAlBSLoGfGcyBDNPDU9jMg13R3+BTlqHsd/zHcCr7Y/6VTfFt/fU1vPKjLtbWkfhy3m1wE6NSe+HLFbV2misNkJWGkfX2fxrWYRpxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584855; c=relaxed/simple;
-	bh=nq4yxfPmxq8tg8A4+oWfRMiPvyMERaFSE2FqEAd1yc4=;
+	s=arc-20240116; t=1789584880; c=relaxed/simple;
+	bh=SMlESME6LzE8aWZ4w5NQ7hdeXoi4bkuAKaow3g5fvno=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lMlQM7dhWTwfLu75gKvXsFoMklL3QQE7BS2+oXbkX82VrRQ/iT2ZmiO+TEwpPZZ3DLh6xduB0ovUYCOCe5o2GqtE8rUOSCM7fSoel3fQUHjmNHmHQhvxuuhB95rlOtvQaz7pdwCXAKPF+X3D8ebbzfuADGHYOOvDfDAEBclX0Z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RId118fD; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hFgrpMinOcb1mUVl/+TIlNxRGhDQJkC5+KwNuPX5BYNbrGEYkUNC/pUXPQiadYy9hRSZ5AurSSoqD99+XYE045d+dcCzAKY6OCsvLaHuMLc7dp4y6NbYd/0/QDmyJuQ0rS27bC9ZpYVl6R+j/8diSMi+NOp+UYSYppP0SSKPMRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=cq9915zt; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RId118fD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C8651F000FF;
-	Wed, 16 Sep 2026 18:53:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789584837;
-	bh=EUc04wLsH81TP/wK2o6rPFRNswhGGYkw4lx3QOdluX0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RId118fDO8PGYTbyDNE+4TnhP3BO7oB+RCHtfcCb0EkM/a2A76vHKhPX9PzGsTAHe
-	 mbv1Kdjmf2ArrTxxMTvz+v859UPCYf4yEor7EVwBefVdRDAsDOCR+7qegUHuB5Ri2t
-	 Z5YyS8EEZOnWmCdb31WQVq+KOUCxqgwLz9rGBT7di38zEeKkSYr5nIeWtLv/TFnZvA
-	 v/HDlgurKMr6U3P/P3DwYamSOSj/37H/9i6bDhY2UsZDFF9eMjamqXudVFrZr3gSjB
-	 TIzYfuUXMhfnP4M6+ifaFGX/pJe3imJuVWK8IaHlP8fCpx4jtQo4pC0onWiZO+o4N4
-	 j7Jg4XtAm3Z/A==
-Date: Wed, 16 Sep 2026 11:53:55 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: Re: [PATCH 04/12] perf debuginfo: Let the user skip and disable
- debuginfod fetches
-Message-ID: <aqrlw1YzYHFBdvcz@google.com>
-References: <20260916114740.48230-1-acme@kernel.org>
- <20260916114740.48230-5-acme@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="cq9915zt"
+Received: by linux.microsoft.com (Postfix, from userid 1223)
+	id D023720B716B; Wed, 16 Sep 2026 11:53:46 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D023720B716B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1789584826;
+	bh=NfAoFtUCX6VZ/JKK2qenkRKz/IcHyzV5zXJg6s1JGF0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cq9915ztSf7QwAOkagUlWQTmJv8Fci/xE5Y0rpERB4Vwob7sbKz0LnsPTWFYPoNsM
+	 feK1RMsy4ZoYtTQN9dNQc4misdm98EBqKMzaEVNiUfkCr/bzuTQKxVobdna3Oqd9Ra
+	 l/NfoeHO7d0GK+/c+tielE7D5cggJezH6J8drc4c=
+Date: Wed, 16 Sep 2026 11:53:46 -0700
+From: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
+	linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
+	vitor.soares@toradex.com, samagazaryan@google.com,
+	gregkh@linuxfoundation.org, arnd@arndb.de,
+	boris.brezillon@collabora.com,
+	oleksandr.shulzhenko.viktorovych@intel.com,
+	tgopinath@linux.microsoft.com, corbet@lwn.net,
+	skhan@linuxfoundation.org, linux@roeck-us.net, Frank.Li@nxp.com,
+	jorge.marques@analog.com, pgaj@cadence.com,
+	wsa+renesas@sang-engineering.com, tommaso.merciai.xr@bp.renesas.com,
+	nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, lorenzo@kernel.org,
+	enelsonmoore@gmail.com, rppt@kernel.org, pratyush@kernel.org,
+	giovanni.cabiddu@intel.com, gabewhigham@gmail.com,
+	haren@linux.ibm.com, pasha.tatashin@soleen.com,
+	jirislaby@kernel.org, adrian.ho.yin.ng@altera.com,
+	ustc.gu@gmail.com, jszhang@kernel.org, adrian.hunter@intel.com,
+	akhilrajeev@nvidia.com, tze.yee.ng@altera.com,
+	manikanta.guntupalli@amd.com, shubhrajyoti.datta@amd.com,
+	jarkko.nikula@linux.intel.com, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux@analog.com, linux-iio@vger.kernel.org
+Subject: Re: [PATCH 1/3] i3c: master: enable driver_override for I3C
+Message-ID: <20260916-c8d89d21698f12bf50c8b656@linux.microsoft.com>
+References: <20260911210935.1353126-1-meaganlloyd@linux.microsoft.com>
+ <20260911210935.1353126-2-meaganlloyd@linux.microsoft.com>
+ <20260913012416.165c5886@jic23-hlaptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916114740.48230-5-acme@kernel.org>
+In-Reply-To: <20260913012416.165c5886@jic23-hlaptop>
 
-On Wed, Sep 16, 2026 at 08:47:31AM -0300, Arnaldo Carvalho de Melo wrote:
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
+> > Opt-in to driver_override sysfs functionality for I3C subsystem.
+> > 
+> > Update some I3C drivers that are assuming that if their .probe is
+> > invoked that the bus match function already checked the ID table. Go
+> > ahead and verify in .probe that i3c_device_match_id() returns a valid
+> > match before using the i3c_device_id pointer.
+> > 
+> > Signed-off-by: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
+> > Assisted-by: Claude:claude-opus-4.8 copilot
 > 
-> When a fetch is in progress, the way it prints progress is how one
-> gets out of it: 's' aborts the current fetch via the debuginfod
-> client's progress callback protocol and remembers the build ID, so
-> that the rest of the session doesn't ask for it again, the user may
-> have skipped it for being too big; 'd' additionally disables debuginfod
-> for the rest of the session, clearing DEBUGINFOD_URLS so that libdwfl's
-> own client, that reads it in every query, stops fetching too, and, using
-> perf_config__set_variable(), moved to util/config.c in the previous
-> patch, writes core.debuginfod=false to the configuration file directly,
-> the user's ~/.perfconfig or the one named by PERF_CONFIG, the same
-> rewrite 'perf config' does -- the comments are not preserved, as the
-> config set carries just the key-value pairs -- and SIGINT, SIGQUIT and
-> SIGTERM are intercepted while the terminal is in raw mode, so that it is
-> restored and the signal is re-raised when the user interrupts a fetch.
-> 
-> In the TUI nothing is shown yet, printing to stderr would garble the
-> browser display and draining stdin would eat the keys the browser
-> wants, that comes in the next patch.
-> 
-> The interaction state -- the terminal settings, the signal dispositions
-> and the progress and cancellation state -- is process global, so the
-> fetches stay serialized: a second fetch resetting the cancellation
-> state would drop the 's'/'d' keypress that was meant for the fetch
-> already in progress, and the serialization the lookup state needs
-> already provides the lock the interaction state uses.
-> 
-> Since the debuginfo fetching this builds on is opt-out, a fetch that
-> the user asked to skip is not restarted by the next request for the
-> same build ID in the same session, it is remembered as a cancellation
-> on the misses list, where the debug message can tell it apart from a
-> plain miss.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-> ---
-[SNIP]
-> +/*
-> + * The stdio fetch UI: the terminal is in raw mode, see
-> + * debuginfod__fetch(), so the keypresses are on stdin, drain them.
-> + */
-> +static void debuginfod__poll_cancel_keys(void)
-> +{
-> +	char ch;
-> +
-> +	while (read(STDIN_FILENO, &ch, 1) == 1)
-> +		debuginfod__cancel_key(ch);
+> Along with splitting these up as this is the sort of change that
+> will sometimes need backporting in individual drivers because we are
+> layering something on top, I'd look at adding some helpers to skip
+> the id as that isn't much used and get the specific fields people
+> want.
 
-Isn't it block indefinitely when users don't press any key?  I'm curious
-how it can escape from the loop when it finishes to fetch.
+Yeah, I'll split these up for each individual driver.
 
-Thanks,
-Namhyung
+i3c_device_match_data() is a good idea. It would reduce the likelihood
+that future drivers make the mistake of not checking the id before
+dereferencing it for data. I'll include it in the next revision.
 
-> +}
-> +
-> +/*
-> + * Print a warning and a progress indicator when the debuginfod client
-> + * ends up fetching a file, which can be big, such as the vmlinux for a
-> + * kernel profiled on another machine or before it got upgraded, so that
-> + * users know perf is not stuck, and let them bail out: 's' skips this
-> + * fetch and remembers the build ID, so that the rest of the session
-> + * doesn't ask for it again, 'd' also disables debuginfod for the rest
-> + * of the session.
-> + *
-> + * The client invokes this both while fetching, where 'a' is the number
-> + * of bytes transferred so far and 'b' the total size, zero when it
-> + * doesn't know it yet, and, before committing to a server, from the
-> + * cache cleanup, that scans the debuginfod client cache, with 'a' being
-> + * the number of cache files scanned so far and 'b' zero.
-> + *
-> + * In the stdio case the progress goes to stderr, a \r terminated line,
-> + * the keys are drained from stdin, that debuginfod__fetch() put in raw
-> + * mode.
-> + */
-> +static int debuginfod_progress_fn(debuginfod_client *c __maybe_unused,
-> +				  long a, long b)
-> +{
-> +	if (debuginfod_signal)
-> +		return 1;
-> +
-> +	if (!isatty(STDERR_FILENO) || use_browser)
-> +		return 0;
-> +
-> +	if (isatty(STDIN_FILENO)) {
-> +		debuginfod__poll_cancel_keys();
-> +		if (debuginfod_fetch_cancelled)
-> +			return 1;
-> +	}
-> +
-> +	if (!debuginfod_progress_started) {
-> +		fprintf(stderr, "Fetching debuginfo by build ID from the debuginfod servers, this may take a while for large files such as the vmlinux, press 's' to skip, 'd' to skip and disable\n");
-> +		debuginfod_progress_started = true;
-> +	}
-> +
-> +	if (a >= 0) {
-> +		if (b > 0)
-> +			fprintf(stderr, "  %ld/%ld MiB fetched\r", a >> 20, b >> 20);
-> +		else
-> +			fprintf(stderr, "  %ld MiB fetched\r", a >> 20);
-> +	}
-> +
-> +	return 0;
-> +}
+Best regards,
+Meagan
+> 
+> > diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
+> > index 1c4a58855e2d..98076ae8dce8 100644
+> > --- a/drivers/hwmon/tmp108.c
+> > +++ b/drivers/hwmon/tmp108.c
+> > @@ -581,6 +581,8 @@ static int p3t1085_i3c_probe(struct i3c_device *i3cdev)
+> >  				     "Failed to register i3c regmap\n");
+> >  
+> >  	id = i3c_device_match_id(i3cdev, p3t1085_i3c_ids);
+> > +	if (!id)
+> > +		return -ENODEV;
+> >  
+> >  	return tmp108_common_probe(dev, regmap, "p3t1085_i3c", id->data);
+> 
+> Similar to below, jumping directly to an i3c_device_match_data() helper
+> in this series would avoid getting and id that these drivers don't
+> need access to.
+> 
+
+I acknowledge and agree.
+
+> >  }
+> 
+> > diff --git a/drivers/iio/adc/ad4062.c b/drivers/iio/adc/ad4062.c
+> > index 8e5984055b15..f28b503d16eb 100644
+> > --- a/drivers/iio/adc/ad4062.c
+> > +++ b/drivers/iio/adc/ad4062.c
+> > @@ -1482,14 +1482,20 @@ MODULE_DEVICE_TABLE(i3c, ad4062_id_table);
+> >  
+> >  static int ad4062_probe(struct i3c_device *i3cdev)
+> >  {
+> > -	const struct i3c_device_id *id = i3c_device_match_id(i3cdev, ad4062_id_table);
+> > -	const struct ad4062_chip_info *chip = id->data;
+> > +	const struct i3c_device_id *id;
+> > +	const struct ad4062_chip_info *chip;
+> >  	struct device *dev = &i3cdev->dev;
+> >  	struct iio_dev *indio_dev;
+> >  	struct ad4062_state *st;
+> >  	bool ref_sel;
+> >  	int ret;
+> >  
+> > +	id = i3c_device_match_id(i3cdev, ad4062_id_table);
+> > +	if (!id)
+> > +		return -ENODEV;
+> > +
+> > +	chip = id->data;
+> 
+> This might be a good opportunity to introduce
+> 
+> i3c_device_match_data() as in many drivers we don't actually care about
+> access to the id itself.
+> 
+> > +
+> >  	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
+> >  	if (!indio_dev)
+> >  		return -ENOMEM;
+> > diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i3c.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i3c.c
+> > index cb5c5d7e1f3d..153a03e06801 100644
+> > --- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i3c.c
+> > +++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i3c.c
+> > @@ -32,6 +32,9 @@ static int st_lsm6dsx_i3c_probe(struct i3c_device *i3cdev)
+> >  	struct device *dev = i3cdev_to_dev(i3cdev);
+> >  	struct regmap *regmap;
+> >  
+> 
+> Please bring the assignment down to above the check so
+> 
+> 	id = i3c_device_match_id(i3cdev,st_lsm6dsx_i3c_ids);
+> 
+> Which is what you did in the previous driver...
+
+You're right. It is more readable that way. Thanks!
+
+> > +	if (!id)
+> > +		return -ENODEV;
+> > +
+> >  	regmap = devm_regmap_init_i3c(i3cdev, &st_lsm6dsx_i3c_regmap_config);
+> >  	if (IS_ERR(regmap)) {
+> >  		dev_err(dev, "Failed to register i3c regmap %ld\n", PTR_ERR(regmap));
+> 
+> 
