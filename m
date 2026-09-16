@@ -1,166 +1,144 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA5B2D0C94;
-	Wed, 16 Sep 2026 01:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6C519CC0F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:12:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789521112; cv=none; b=n395nxUQhl+cKHnAzwzJ+zxeDceT/Laq2EAKkXnk6nBd562rI43Rl9C1cpDITe6cZ8CBxwpGvrjDJUUk/14KFlr9jBcUxrBYofr5zZUFbPVO8rQkiT9bgt04dk1aWX0rKYy1YonREuWQsAnma+nsGcM56YRAv3MSG49bfP+KDEY=
+	t=1789521166; cv=none; b=PF9QDKPvaJ8d9mRD8lW+jgIWuJJ54bOIwFsiXkeF197y+1VhXPnWRb74wswylOiYnGzG1RSfn17zbdrNMT6mq/aulN4GncCGep8acqf3/k+90LWRey7R8kpyRn8MWyH3nHty+UvdzPutb9HSY8g8CYfSUjpuI0oiuDdFYwFxTWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789521112; c=relaxed/simple;
-	bh=qD7WMAo+dVVnjd0ZsNjjuy+BJVsiMK9NyvdybQvFWSI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hBNLhSDmJWHFqvv9TaILJxdr/iqCfUX6rsyqkjbLklSF+77Z0o+7YuXvnmxf2P3ZoIKWi13YtNcjzxCUgHvtNWMpfW0EPrwe/s43kyFOLqvFafK4bdjokXqdj6BhKI6fbjnYkVho/CBskAAs5kcchx5PDOdQSoievUGhm0Y4JUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hnodkwuX; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789521166; c=relaxed/simple;
+	bh=4r+MFZ7H3fCXiwAhRcXe2n+zUzMrkFYO3ju+GWtemOI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=n3/4tB7jr6AmLHGVzQE1evhSrResgLIgitydouxfM5q1kRXj66+fu76nUlf9ZAUubFi3FintQjfTfaCslMgsybqqhXOoAMrNXnODNYePBTU7nYPB2Inh3Rao2TkF9kO2KE0DeSxXS6waCE7jrnLirlF2rIC4WOiqEMmDCD7ZT/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=YZvHJBfU; arc=none smtp.client-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hnodkwuX"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E139440E01F9;
-	Wed, 16 Sep 2026 01:11:47 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id Via_o3Lf8krk; Wed, 16 Sep 2026 01:11:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789521101; bh=3ZSg2A9Jc3tPW66xvM7m3+dRrVCDgCi9cK4YxnfVb38=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hnodkwuXLSWfi6qopViNWmJ1DPlBw5Qh3eySg1tCSS2QD436Qt0nPX6UFExBzVDyC
-	 7SyGGcsWnxzv7hOn9TLSBnJ4ro6jptALPeAa4mABB02U8A8kyDVYgQcRGWluq/fx/T
-	 EMGtgYR0BJRN0noLxTL7Cqn0kUZN/e7hpblUXONwx5NZPJTHRigWmkF7fbX5MiTlCA
-	 Ug3X16M/GCzJ2EvHdJ5Au6IDIT+Teyvf2UrAOoXUtxWbGbeGeSpEE7gTOLS6aVWh3O
-	 QVHdu8R2pS0Kic8RVQoKePhKFLfyptiUBo3kdERUO2eAyR7oGf6dcBxiUoTp1pRM8k
-	 m/r9x41iu9V1E1kuNZgnm55bT9n6FqBusi5N/v4THEAMC+1O/CgmoqbgmjA7wOtzc6
-	 W7ZqppfDVVsuffyZT3M74O0p3N7ChLh7uahpi/aocg/EFvFx64JaafjbILfpcHrftc
-	 VeSWvKyuAw8fZobdLPp2FioEpzYkD4+kshFyvw+tvXaJdvVomypIlYIV9a17prjpSB
-	 JHHcRnkltsxttm2SQz3HffWQnaJXpVgSEO454rAL+eZ3iP64nohKluW8bKWtFst3Yl
-	 /vVNOphRdFEgFwxGUoFDnKGfTct3/OisLyDq0AYpAEsYHVrTzhg/UGC8HQSC4ByBBB
-	 u7UrMRdF4GDpZnl/0v0mduZE=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D932740E00B9;
-	Wed, 16 Sep 2026 01:09:49 +0000 (UTC)
-Date: Tue, 15 Sep 2026 18:09:45 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Kees Cook <kees@kernel.org>
-Cc: Bill Wendling <morbo@google.com>, linux-kernel@vger.kernel.org,
-	codemender-patching+linux@google.com,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Matthias Schwarzott <zzam@gentoo.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Mike Marshall <hubcap@omnibond.com>,
-	Martin Brandenburg <martin@omnibond.com>,
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
-	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Kanglong Wang <wangkanglong@loongson.cn>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Qiang Ma <maqianga@uniontech.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Thorsten Blum <blum@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Ashutosh Desai <ashutoshdesai993@gmail.com>,
-	Imre Deak <imre.deak@intel.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Johan Hovold <johan@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Cryolitia PukNgae <cryolitia@uniontech.com>,
-	Jiaming Zhang <r772577952@gmail.com>,
-	Will Porter <mrwillporter@gmail.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
-	=?utf-8?Q?C=C3=A1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
-	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
-	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
-	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 25/28] EDAC/thunderx: Replace strlcat() with seq_buf
-Message-ID: <20260916010945.GEaqnsWSZ-DTMyTO25@fat_crate.local>
-References: <20260915081910.4142719-1-morbo@google.com>
- <20260915081910.4142719-26-morbo@google.com>
- <202609151258.5FC01072@keescook>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="YZvHJBfU"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=gcINrIiKjfT87EVSmsf+LXjiB4qB+V1qRG5mJ9yWdIQ=;
+	b=YZvHJBfU1zhvPg6AJ6KTqvoCZ5aaz686uvtpBiON6Rj/D27fEu2DDGdV56gjK+BlxN3GutQVc
+	d2VePqmIjy24sf/kDvr3aPhZHCpLBF+sU6ppVTaC/tAWoogp0Yy3uXNfH+oVENCCd9sLwtL6zEU
+	y67fBEjSHIYfkoXBSt57dnA=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hl0vn104xz1cyPY;
+	Wed, 16 Sep 2026 09:01:41 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id E43C340572;
+	Wed, 16 Sep 2026 09:12:38 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 16 Sep 2026 09:12:38 +0800
+Message-ID: <5384bd16-f3da-4449-bbdb-6c73101e5103@huawei.com>
+Date: Wed, 16 Sep 2026 09:12:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <202609151258.5FC01072@keescook>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 12/19] arm64: cpu_ops: Make 'cpu_operations' pointer
+ global instead of per-cpu
+To: Will Deacon <will@kernel.org>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, David Woodhouse <dwmw@amazon.co.uk>,
+	Peter Zijlstra <peterz@infradead.org>, Marc Zyngier <maz@kernel.org>
+References: <20260907164024.17164-1-will@kernel.org>
+ <20260907164024.17164-13-will@kernel.org>
+ <ed47c328-6906-4bad-9a0e-a01f067dc812@huawei.com>
+ <aqP6XQbNBCzLrFnw@willie-the-truck>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <aqP6XQbNBCzLrFnw@willie-the-truck>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Tue, Sep 15, 2026 at 01:00:00PM -0700, Kees Cook wrote:
-> Seems like seq_buf would be better her? But yes, at the very least, this
-> needs to be scnprintf, not snprintf (or add the checks as you have
-> here).
+
+
+在 2026/9/11 20:55, Will Deacon 写道:
+> On Tue, Sep 08, 2026 at 07:32:06PM +0800, Jinjie Ruan wrote:
+>> 在 2026/9/8 0:40, Will Deacon 写道:
+>>> diff --git a/arch/arm64/kernel/cpu_ops.c b/arch/arm64/kernel/cpu_ops.c
+>>> index e133011f64b5..eacfb88a0c0c 100644
+>>> --- a/arch/arm64/kernel/cpu_ops.c
+>>> +++ b/arch/arm64/kernel/cpu_ops.c
+>>> @@ -20,7 +20,8 @@ extern const struct cpu_operations acpi_parking_protocol_ops;
+>>>  #endif
+>>>  extern const struct cpu_operations cpu_psci_ops;
+>>>  
+>>> -static const struct cpu_operations *cpu_ops[NR_CPUS] __ro_after_init;
+>>> +static const struct cpu_operations *cpu_ops __ro_after_init;
+>>> +static bool boot_cpu_has_enable_method __ro_after_init;
+>>>  
+>>>  static const struct cpu_operations *const dt_supported_cpu_ops[] __initconst = {
+>>>  	&smp_spin_table_ops,
+>>> @@ -40,6 +41,9 @@ static const struct cpu_operations * __init cpu_get_ops(const char *name)
+>>>  {
+>>>  	const struct cpu_operations *const *ops;
+>>>  
+>>> +	if (!name)
+>>> +		return NULL;
+>>> +
+>>>  	ops = acpi_disabled ? dt_supported_cpu_ops : acpi_supported_cpu_ops;
+>>>  
+>>>  	while (*ops) {
+>>> @@ -49,6 +53,7 @@ static const struct cpu_operations * __init cpu_get_ops(const char *name)
+>>>  		ops++;
+>>>  	}
+>>>  
+>>> +	pr_warn("Unsupported enable-method: %s\n", name);
+>>>  	return NULL;
+>>>  }
+>>>  
+>>> @@ -94,25 +99,31 @@ static const char *__init cpu_read_enable_method(int cpu)
+>>>  	return enable_method;
+>>>  }
+>>>  /*
+>>> - * Read a cpu's enable method and record it in cpu_ops.
+>>> + * Read a cpu's enable method and update/check cpu_ops.
+>>>   */
+>>>  int __init init_cpu_ops(int cpu)
+>>>  {
+>>>  	const char *enable_method = cpu_read_enable_method(cpu);
+>>> +	const struct cpu_operations *ops = cpu_get_ops(enable_method);
+>>>  
+>>> -	if (!enable_method)
+>>> +	if (!ops)
+>>>  		return -ENODEV;
+>>>  
+>>> -	cpu_ops[cpu] = cpu_get_ops(enable_method);
+>>> -	if (!cpu_ops[cpu]) {
+>>> -		pr_warn("Unsupported enable-method: %s\n", enable_method);
+>>> -		return -EOPNOTSUPP;
+>>> -	}
+>>> +	if (!cpu_ops)
+>>> +		cpu_ops = ops;
+>>> +	else if (cpu_ops != ops)
+>>> +		return -EBUSY;
+>>
+>> Should we return the original error code of init_cpu_ops() in
+>> smp_cpu_setup()?
 > 
-> The rest of the seq_buf conversions look right.
+> I don't think it matters (the only caller of smp_cpu_setup() just cares
+> about 0 vs !0) and I don't see a reason to change it as part of this
+> series.
 
-This driver has been an orphan for a while now (we just made it official) so
-I'd prefer it if we don't do anything here.
+That's indeed the case — currently there's only one caller, and it
+doesn't care what the return value is.
 
-And yes, that mega CC list is just gross.
+> 
+>> Otherwise LGTM
+>> Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> 
+> Thanks,
+> 
+> Will
 
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
