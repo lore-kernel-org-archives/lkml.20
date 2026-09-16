@@ -1,75 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFD84FB9C7
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1C34FB9D5;
+	Wed, 16 Sep 2026 13:30:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565462; cv=none; b=iOIVY6artr38FmtkSMU6vq0FZvjufyNXZAdJplplEOKzkeV9t5GX0eo3R+l6LYrgHgZj2nrRR9l7Oa6XFVScU2ywae2zI/MUPDy7K58z+t+LshBg07hK2pnaA6hPdiCBfToH4Gpb5LRZwzTsIse1Ij2IRXsPCVZzd0/pq6CN4gE=
+	t=1789565464; cv=none; b=oih3I5wsOmSVAoOnT5QNojs3vRiWdeeBPx29XL8ARjCqim8PmajDSL/JJUZdjzyIpeQVGgHbH4mcJXJyZ5segDikkUxwPTkQtxl08DBPBIawXGClDjV01CmyfoUeHaMOAwyTWHgP8n/guD6ZmkgQbQOLCWWpqHYwd7Ta3as8GTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565462; c=relaxed/simple;
-	bh=qlEK7tiP30h3OSCMI+KHE1Fw5+eoWN3Xk/2DByBV680=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ci6VMxW0pWATZXJaZQlPPfKfMDP4l1ZuNyxLo7hQKBNIZl5Qpg6usexONQ5EsXerbw2A9nKYK03hT9q5WULDr0kFlwjnbQsnaQJhtzyk+iiwJI7sGkbpNaFTkJP3t+aI9qxH/3Bd76JtjeMIQM7mqkBNI9g5TJQ7OWfMrTzYI0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dBQT7zJS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789565464; c=relaxed/simple;
+	bh=6UM4aQiJqDDqz5Gu89HtFV/WtcHwQElzcbryzcKjffs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=SxIZtAzQsW2q5sUs66ml2/AjCh4/MGpJhZJJ3YzjfMHLjmkkaPXBLYIcQmfQ8Cw7dvCVtOLn2yN5r9cNvx1taXqyg/ArNZ1iP6nncSOuQYCKS89L++pOmiqVoES/7jj/q1LdQvw6vwiCIaMSP5VAdsVrArIsHt2sI3IdU2zEyZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=WRHzbOPh; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dBQT7zJS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48371F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789565451;
-	bh=qlEK7tiP30h3OSCMI+KHE1Fw5+eoWN3Xk/2DByBV680=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dBQT7zJS3hTSuDBdIV+IzPcA9phr7xcZkCqt882z+rsGW15mmbdCsRGZLAdYJLL+f
-	 1ZxNq3wBwg8lsX/XaOBNGVRycVUS7d9e/+O09OV0J55I2c801OdvPperWzQsZ2fS0x
-	 ZSj6cDDwYC6Y82mbOWH6/nm7mh/CLfAoBC+n32DMIldg+IoTO4xZow5gnpURhTYzTL
-	 KkKNIIEE8DbwS/VzQDf2Qv4FWiHOwc7qcIMquyNbdsLMKm9pRD392TaS2Ki+a66V+H
-	 NcwFlR/fIApi9pgt89Joj4IiiJcVUTZFDGjLupPSd3tiIrbsh0rHlLFnqVq//EVDr3
-	 8/GoEvipoImLA==
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9ab2a135dso1516071a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:30:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxrE05FDQCJTqoaRvSFHE8HEtxsAkZQYS+lnEvIMTrjM8u4MNSOm5tPd0ueheE1tePR6BJJqA/ZjHo5sCQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqvtjoNr5ZwpmppQpYBJbs51MUY4WG86tHZHd/n5V1JWAGCh1V
-	8tZ+vNvOWxhn99E2FMP554cgOrsICNYaQmhDuv+UknUyu6ck92oDRGdoIY/vG6bI6xKZYfWo9CQ
-	8lluN9Nakal0xFpQJ5r2YrkJnb26kUbo=
-X-Received: by 2002:a17:907:948a:b0:c29:d3ad:4f72 with SMTP id
- a640c23a62f3a-c29e5207917mr230325266b.16.1789565450410; Wed, 16 Sep 2026
- 06:30:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="WRHzbOPh"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 4CFE5408DB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1789565447; bh=6UM4aQiJqDDqz5Gu89HtFV/WtcHwQElzcbryzcKjffs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=WRHzbOPhRgQyZ/XTVpuuHrHmPVJnMgYYMZuXsOLgShr6rQyjjQZE/ING/0qeoARmH
+	 sOqkS5BGtYy4+i/3XiA+J5Ggvvj01aSV1W65zdcx96tPuwFEpxRH3YOwExXyJV5do3
+	 5QXurQSLx3y1BckBM6PFf22BJA6pDiWqsVsF+3z3TI0wajHjlc47AM7ltmm9mLEJHC
+	 haMvhvkAJhLX8W91G7ANDirhK+tEX61KkeLvfs/vb5eR5IctHG+oHXWoTbNr5Fdl2H
+	 kqd0UFREGMpETBSPj13z153jTRTky9Bxwr0KPNr8h53VAZ2x+kCu/fgr4ChYtESswu
+	 Ck07IbFnkxK+A==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 4CFE5408DB;
+	Wed, 16 Sep 2026 13:30:47 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Daniel Pereira <danielmaraboo@gmail.com>, Lucas Adryell Ramalho
+ <lucasadramalho@gmail.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] docs: translations: pt_BR: translate
+ stable-api-nonsense.rst
+In-Reply-To: <CAMAsx6dyL3o6LsG_VAhKi6DKS5LTPXHMFnBaS6QhA_zYCOROJQ@mail.gmail.com>
+References: <20260831-ptbr-stable-api-nonsense-v4-1-0ef5e58504cc@gmail.com>
+ <CAMAsx6dyL3o6LsG_VAhKi6DKS5LTPXHMFnBaS6QhA_zYCOROJQ@mail.gmail.com>
+Date: Wed, 16 Sep 2026 07:30:46 -0600
+Message-ID: <8733v95nnd.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913010236.17541-1-liubaolin12138@163.com>
-In-Reply-To: <20260913010236.17541-1-liubaolin12138@163.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 16 Sep 2026 22:30:34 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8W8eTiBxdv8RE_2x2-BophuNvHZesDodbz-+35+svvtQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UxOGYq1cRI5Z2g4F4DlLRY76pTKIm_pBILamh95nsxwXEx13iwr8_6m2M
-Message-ID: <CAKYAXd8W8eTiBxdv8RE_2x2-BophuNvHZesDodbz-+35+svvtQ@mail.gmail.com>
-Subject: Re: [PATCH v1] ntfs: fix lookup of POSIX names with Windows-invalid characters
-To: Baolin Liu <liubaolin12138@163.com>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Baolin Liu <liubaolin@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 13, 2026 at 10:02=E2=80=AFAM Baolin Liu <liubaolin12138@163.com=
-> wrote:
+Daniel Pereira <danielmaraboo@gmail.com> writes:
+
+> Em seg., 31 de ago. de 2026 =C3=A0s 20:26, Lucas Adryell Ramalho
+> <lucasadramalho@gmail.com> escreveu:
+>>
+>> Translate Documentation/process/stable-api-nonsense.rst into Brazilian
+>> Portuguese.
+>>
+>> Assisted-by: ChatGPT:GPT-5.5
+>> Acked-by: Daniel Pereira <danielmaraboo@gmail.com>
+>> Signed-off-by: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
 >
-> From: Hyunchul Lee <hyc.lee@gmail.com>
->
-> POSIX FILE_NAME entries may contain characters such as '?' that are
-> invalid in the Windows namespace. Directory index lookup currently
-> passes an invalid-character error value to ntfs_collate_names(),
-> causing lookup and removal of such names to fail with -EINVAL.
->
-> Allow callers to disable invalid-character errors when collation is
-> used for index traversal, and suppress those errors when comparing
-> POSIX FILE_NAME attributes.
->
-> Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
-> Tested-by: Baolin Liu <liubaolin@kylinos.cn>
-Applied it to #ntfs-next.
-Thanks!
+> I'm fine with the change itself, but a note on the tag again:
+> coding-assistants.rst (line 48) asks for the literal word "LLM" rather
+> than the model name, so this would be just "Assisted-by: LLM".
+
+That can be fixed on the way in, no need to resend for this (but do note
+for future reference).
+
+Thanks,
+
+jon
