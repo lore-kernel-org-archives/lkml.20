@@ -1,1413 +1,169 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0903DD500
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:32:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB49D471422
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547575; cv=pass; b=b4Ai73OfYe6HPqRNoKuDt/Q/4Tr8jk72Au2Lh00j8kx0i1jbIgpVAjAgzW8W6w3rhhtOwhuWvTgkz+ZECBEUm5VxmSDFNdLOEuJUoFAVaTWzzFSaSaJWuCoNgJ7YEF8zOG9fsxaXpb7ZH74Yrca8JUt1gmicgIGFfabFg2im2lo=
+	t=1789547671; cv=pass; b=VqbKThoYF6jBALp0Rw5SoZUJjgRkY2UaA52o5EJv1ZwFca3KyOIt+9MlPma0yHDc3nyafV14fO4VBQUB/1uMDdUdqpA+SiYFGEPYEGipHrbfvr6X2HyvFITIJ4zpvrg4cuuNIrVNHIelI6v5M+948CHj5Be0AnNgy/2+uPAWfIc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547575; c=relaxed/simple;
-	bh=WDN9WxIhBjCWUCx5GmMQib5/hWe0XPTyfJ+hqB90T5Q=;
+	s=arc-20240116; t=1789547671; c=relaxed/simple;
+	bh=E0XqkUESiN1hlEBTC+r5MA1JM5vILVmKxSWQU9kfer0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=At0H0xVW4UTStvGNjIZwFMHxAuR6eje1kdaQmgi2gbJxJVK6DQb4OOaKrvXF6b628KUvBA7xT7x/VgcsO1eXxEwUpKuZ+kL8fulx487/QErjsn6UhzBvpJJIe8FJ+PNyV/eWBGTOuEyK4bQl9FsYVIckW4n7i6LO650ufDSGN4I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DK8Ddn9M; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Content-Type; b=PiIFRmjEoLkfRS3jPDytklvpCuKIxMUn5Fmkimj2yYQMfDC/48BeoPOFiJ4en20WxGJkZtJUq1+6l+Sy5iQNNokXSBftHzjQlYDBFJNi3GNflBQS2BjwCNlVepR68LiXHlc+gEUDKJTrEmT2fWhfLwlqFnfohg2ajr30MKiW5NY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CQ3FXUNS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JTao+uam; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DK8Ddn9M"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cfbdac7a1so540895e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:32:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789547570; cv=none;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CQ3FXUNS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JTao+uam"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G7XZSi2970497
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:34:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	E0XqkUESiN1hlEBTC+r5MA1JM5vILVmKxSWQU9kfer0=; b=CQ3FXUNStXk3tAGJ
+	IEmrCn0FNgUKMCV6fCW1I/mJcErQZOUiKeDOJjjjoV88mBUoS/zqj4zJ4mBrsUMh
+	k95/J4WdG+f8ISMCX1BDhlGmE00A9i2tqLPT9oLppgSzcZEDtAqSvOrWZylf+kGb
+	PCB4jaX8QY3hFOcKlKIoNSuTx/6Le65gkVcYmMYE9jV5fy2JRKqPXBUslKo2+RQG
+	ejmCqDqF9ssBz8UzRV7sIDUtsOyjnDUZpDOo24Lv3y7zDO7d9pNU7LVzn+uIZSBZ
+	Lw6cpY+COKzJnPr8Ye133XYzSXqW00S/d2Cqnng9vQEcSRgZy2SGRlrd9U4VHVk7
+	xhTwbQ==
+Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com [74.125.224.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqpu2r7jk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:34:29 +0000 (GMT)
+Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-6711c640f79so1727102d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:34:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789547664; cv=none;
         d=google.com; s=arc-20260327;
-        b=dkKkdsxdqtgmJjOcT+AsSv5ux9AwQQKfHKRI7amogk6Y1Z59TC9rp9sifi7vos1gEa
-         cNpJhTZq8bkNLqPeLMIuho9fYP50KtCNw1teWsE4s+DK4iLLqascCBDHxv14PlnZnf+6
-         G+MRfag9ynT3ty8xmic9HSnXMAUKHHdVCyKOFSw/U6fCFxOqPXXlz33JksJOjEYc1FPL
-         RJmHBiJJPKLfwsRaQcu2K5zxhkxoxXKHzvuqj252fxpDn3RrQOPM0LclKg5z0qqLebIR
-         pNVXfJ87HrJBai4m4S00CDRe7vKUOB0Vk69K09gBvjxn0XltBlv6tYvsheQlc+p/dA57
-         iD2g==
+        b=CTpPTSYKoUHr0elzEZOSWVxE8DZ6iSOvNOoWJvHAOyAcA7+Lk8vnhY96nr+WivArYz
+         pP5BM1TYMrJB7l7y1LxVwD+I1AHCIDZc/CoqrKRw1w7oew05qkiwP1JTYblB8yR+zNv1
+         Klss8Mx7VWigVRPX3ZG+urBqNNCVAsx/RLm1CRe/MJaDse9YPvqpJm2kXjMqpEmrwgXZ
+         7V65Y1lps7OFGrMkV4LVEogSThnNpEngBjVY2v6kvsufIURCqMb0jDZcDfhk5FR2xZk3
+         JxJU5Kr8cadnt9VNV4fwgkGrrfh8nxwcCiedQPQeyR4siRguMSQjw/0rdIQmBB34aF1J
+         BL8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+        h=content-transfer-encoding:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=sINTxFRpQfbdiMjM7/CiL7SPl7OLL3lnAqCemSvtU9Y=;
-        fh=9GgLp7P1VycLvRsv3zyDA5Lokl3pYScPxu8fOQqkCyw=;
-        b=As5cF3LNj+cdC13Eoc1RYy/YLab1StmGif53+rd4bKFwInSBSXMvVNwCwondJj4vNX
-         0bC+Lp1+VtO7+MyjzkRYobbx7SL3E7eIg+lZ7lnbYeC4TALRd87i2OvKB8NqLcvF42Lx
-         frzP2t58sUJb4f0nZCEF3PTPbdloVwvmbqAT9OFSLNkaGhUD2M4PiUbCjihb/riNGpT0
-         sXYG69dfkdZjeO2ZBS1+6n7AECofgokCtYteuJU922DUBdhFo4m1HZvKxXfd+wIgpBeA
-         rPa0R577K9laU/4PugnhjwC8QdGAC/HHPRx/RPDyJLfNiAGtA74UCVOHF3CzImUsymhi
-         kV9A==;
+        bh=E0XqkUESiN1hlEBTC+r5MA1JM5vILVmKxSWQU9kfer0=;
+        fh=EaH8kjrfmFsBuvW9J07p8Bo9JIUlA7r9IZ0kcDDeIkk=;
+        b=pWZdIxnNliYr44aPy/3mQN7cYWc151HCPQuU/l8oo+cZJbqV25jrKLLBbyEJgHkXKo
+         Lp8yPBENF8MAuROLirEOqDp0fRyvGZO2O3jiaL5bEQL1c6jrOIJNKJFyjdtoZlM/GZyf
+         SDDj8hV1Oal/vgi8my1YQ2XiLid2mDlA0qma4+jLO8XxjXjVLtz+b3tovWDc26YyumJi
+         CDagzb0/33S/ICP/2proLPEMuolyd99WLHRW3E3axdUAN6p3sL99BMz87HhQ9PSHnl+t
+         axCXmUhH8WdOsk2far/KQrSEWpmgsKhdneTXD7Z8GJItD0JM03fNgMrd+rXwAGl3sAHG
+         R6WA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789547570; x=1790152370; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sINTxFRpQfbdiMjM7/CiL7SPl7OLL3lnAqCemSvtU9Y=;
-        b=DK8Ddn9MM1RQfAY3VwXKaqecyTWJvKhC+VbNaBTYD49G02QykmsQjcCs25ochDCCQM
-         +bQDgNg/OBaYH6MnvVFB7lW39pnNA1K37InATC0hrTluCy4aqPj5x3txB6X+rrHUo0+v
-         bPpXdRlbZiRmGIi/zVJAjXUZQ3NSfXtkr5ZTU002trZ2NiXShQCbld9IJSnjT6D+x3Ip
-         X/jHv/Oco3Sz+Ir84HWCnm2jambr+SplREvldS2j//IooI4cyp/uXjxEnhZwZkI5rWB3
-         0t74cqg60EZ+ibpmtOuFFK4J0FgpU2CQRX+WxAKfaUTPlZ58n/9+cT/CwOc7OPzs8KrD
-         tpow==
+        d=oss.qualcomm.com; s=google; t=1789547664; x=1790152464; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E0XqkUESiN1hlEBTC+r5MA1JM5vILVmKxSWQU9kfer0=;
+        b=JTao+uamJ2HNiXaCj49vnNlrZoyO+BbipBuFYkZiV9j2j0lHeMCByC/n1C182Nmu1l
+         KyLQeMFxTuzENde/3YIM23t90MiIavfbnJbUool4ds0p7pj5c7My5bG92JbSE5g/HbQS
+         iMAd9vUl9qWQMhJSLU3roZCRpl32BG1i6uQB/VUfDNpO808qV3L2hLDfqlBE5pVoYDH0
+         dA+7j4V4wzhEkqPlrXGpp2b3evsY5IoRp2DrOziSiSVPGh84HVcAgr6Mpjas6m1JuOPk
+         3vSNigYTL49z6m6UE4ntIWG40yTCwtgfsvEFa2s/R/pQ6i280VZT7sspIoB1bdQo/Lok
+         1X4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789547570; x=1790152370;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sINTxFRpQfbdiMjM7/CiL7SPl7OLL3lnAqCemSvtU9Y=;
-        b=RmxBoqqpn4J6kj5xFSiKrQINbin4HEzMyna88AmEm0J2D0eR8vy8EwznpBmx7dD7Qi
-         T4Mz68VMPgrt4NYbiLMPCLZO3opv3MuMRY5fXok4IU2LUbKX7YDRWabcEEZ8HZGDD3fJ
-         lb8wyCR364O0NBOZZGjTAQqP3TzVlKtCGWYk0m/UIzpGWb/vcKak+sOtJ8/xu974qg7Y
-         zyVKZHmXweuk6N8ln4dHz5k3TI1+/Ms7mCaUPc9SA4HwQcOTamSHSgRfa5BIkBu+ILNt
-         kHkHbkc/DHtVQTivDivpIWfo73ql8lLb7NNhJH19Jbqp1PHvNdUAvhb1d3/nB3PKPUXe
-         yN3A==
-X-Forwarded-Encrypted: i=1; AKwUvByGEbFshcHOLQf793hkwyPBAa/d4mwuVkvRrkcSZ1opqqwviLbmxfa4s3saLXZvifL1FAEPwOaP7bTwEpo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIDeU9dA9+Q6r38gTdW6PAnBG7N/2JbeObN5mvgzkgr6E+zJUX
-	XKwPLmoVIwT4Aw0DI7yZqKBPRVPrrn7bjIXEoetMCj5RieUvmEed3nGhTCZckMuOwKlbszEu7/w
-	XJQ8lucbK5jrtVoSW5krBXkBQQrh05dU=
-X-Gm-Gg: AYBFou2kpWjwuC1tA+XXb4eepqdKkNqOM3UuAIaBcFIBTN/dRcoIKBBjLzjAQCwQyLk
-	T4eRilPiQaaku1CG1tR/9LlUyD2bPeZnuvzgoR4hpAv6emTsNrEp3Exq+OCR+edrGnjFSun+Rh0
-	4zBNcjoUa3MAA2mz2pYju7OYaJpUGcATyvQoRf2uMPHp8JcnozO9O+/vUQXS4LxQeoipIYw7x0/
-	xd67yaB6/RUN2Un8jmi1Eux3HCUAQR3SCgFYEN6O3+duHjYJRtsBPLnSTO0epbNsv8P58P5Ztmf
-	cBVaZ8APE2OyW5iukEMnflx/hUZFeKw6RveZ1zEZ1L8u5vlwnJXd/+geLvPTqnmDUgs=
-X-Received: by 2002:adf:e185:0:b0:487:403:84ee with SMTP id
- ffacd0b85a97d-4870cd90b4bmr1915500f8f.0.1789547570097; Wed, 16 Sep 2026
- 01:32:50 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789547664; x=1790152464;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E0XqkUESiN1hlEBTC+r5MA1JM5vILVmKxSWQU9kfer0=;
+        b=RBSXaUNOeT2fo+28TkvpwGumhhKDIeWmxJUNeD2FOO3waQDuFu3MahZq0q/0BxBSgR
+         +X6TwH0JB3bEDJ7bHXfSoGBt99sf5QQ3+HUAs6Zf8jvEWPU69H16mn/BckzbBdBsSUWq
+         XCNwObx3sDO36sKpKNz6N5sd/ptlrZ6ugXHDDusFU3drOGg9DIuvzCON5Pqh8O4RC6iC
+         6oCJ6Ljys4CJ5ivHrfuHVQyoTMT8Ev02C4xEqe7LK8HRgIWDp1GCKeH7FYBqHyuHE6bC
+         zRUTXnnRu5XKkBz4xGtQrNJoRMGD6T46TAIsIyIPnzL0GFC0nh0Xi8MK1kso+puHQS7T
+         4uXA==
+X-Forwarded-Encrypted: i=1; AKwUvBwgNgS4G9mr+cVkeLWp+McrICcYW2KrQoKBvJf2/pqLvL1jpt72wDqa4CA0Zzx+jpz6fky6SfLOO1rI4W4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcXrSpRiB70oWUh/lSc5DbBXX1xqWOFgaX/nVLD++HvMam5khh
+	qwP2fGbfopFznZH+u1HrBuPxHcTN2PPhSTQPIOATVYJcv46dOk0R8fnHBbm/CvMigl1d+TMDH0b
+	wKSeTNg/VLUFpUGNoccf129h51qKkcyzXXH9k5jk1df4CZYm0QKF5qP56ilgZsoNn2y1hW5J4wk
+	BF+xKqAbYd53t5Mi/a0I5I1F40g8YrTtBNyI/mrYk66w==
+X-Gm-Gg: AYBFou3JJlQy4jSu02hVJiGyTPSWmw5v6aQqzsNqVG9SLMzQrddKvfpxYWhU22PXLMI
+	TxsHQ/qO3yVzV3U/0fyI4C2eK9XBFmwiukLgy0+YwpIrnYHrw8RzMGZpxreUVOG4Fxej3Yj7O4E
+	YPxWuK2BcZqUrKW/4yFGITV7zAjjDkHCEXOxWK6LPB9XukRa0PgsZlyfw=
+X-Received: by 2002:a05:690e:d0b:b0:671:4b50:d72 with SMTP id 956f58d0204a3-67154f5116emr1586693d50.7.1789547663896;
+        Wed, 16 Sep 2026 01:34:23 -0700 (PDT)
+X-Received: by 2002:a05:690e:d0b:b0:671:4b50:d72 with SMTP id
+ 956f58d0204a3-67154f5116emr1586688d50.7.1789547663523; Wed, 16 Sep 2026
+ 01:34:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916015440.2232938-1-chao@kernel.org> <20260916015440.2232938-2-chao@kernel.org>
-In-Reply-To: <20260916015440.2232938-2-chao@kernel.org>
-From: Zhiguo Niu <niuzhiguo84@gmail.com>
-Date: Wed, 16 Sep 2026 16:32:12 +0800
-X-Gm-Features: AcwNN1Xh3xJVGXuMQvOI1KlwQU3gJZMKI-bLIxtauUo-XiRQJFtE0QzofCI7Qhc
-Message-ID: <CAHJ8P3KPk8J1tLVyLSx26VXtjCGeWr1J1OOK2+t6MpcE+qDAdQ@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v8 01/12] f2fs: cache: implement metadata cache
-To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net
+References: <20260903175730.1909952-1-afd@ti.com> <aqJ0yCHd03ZLsSMT@sumit-xelite>
+In-Reply-To: <aqJ0yCHd03ZLsSMT@sumit-xelite>
+From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 10:34:12 +0200
+X-Gm-Features: AcwNN1UYhdhLkRJRl0-6L6I-0s392VyUVtYk5_XpwRYYKG_lQZfM1sxUpE9LJ04
+Message-ID: <CAGgiveVZurBzh++FrDvoxe4Cq2OBZD=r7A3k_i7_atCyVjzsXQ@mail.gmail.com>
+Subject: Re: [PATCH] tee: move tee_ioctl_shm_register_data to above IOCTL definition
+To: Sumit Garg <sumit.garg@kernel.org>, Andrew Davis <afd@ti.com>,
+        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: ZI_hLIE99Rq7cCOzwYcdWfjwqNUgxHID
+X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aaa5495 cx=c_pps
+ a=ngMg22mHWrP7m7pwYf9JkA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=b45o4kL6AAAA:8 a=sozttTNsAAAA:8 a=EUspDBNiAAAA:8
+ a=pYuakFrei0FEQ6tmCC8A:9 a=QEXdDO2ut3YA:10 a=yHXA93iunegOHmWoMUFd:22
+ a=dhdsR-PFWuPJUldTnwXm:22
+X-Proofpoint-GUID: ZI_hLIE99Rq7cCOzwYcdWfjwqNUgxHID
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDExMSBTYWx0ZWRfXwtvTFzgUiFdl
+ 29Fl6LsIrvIjAUkBcffBzMx5pKodgAaLrxmFtjxcA0y0h6wYBd92feyJXxUfKigZXwro06TFPsc
+ BVAwwDWfnOaOSabyV9sN9Q3RAC6TIvjYxCytSz4RTydeqTZWfp3XcWQY11ZzvkHblcr4Vvsahxa
+ uDKSi+a6Ht/Wqn8nysXHVMJVvtFdxnBJFkbMQlJpCrf8kvYOdOoKoIElyDqJOvysJLJ3UH6pdEG
+ o97MKsJAzyPc75c0xqJdX8rqx7EEf4hJ1x5h5eF+RMVKAkc3tRvQJTdBZBuESaJC4hrcyUrHRPv
+ Zu5If2JasbsjPDbseo6wGyLdRec0KSJGf/wgGq0C6+Itz6Q28PI2ta301zvy5ayM5tjs6HjJG/c
+ lMB0Pv/9O79Mb8AmjPeq8QZd6+rfiGQjOTk1bOjMy9TbBgF3yvbzh/BpRMQOTLYyvCJVD0YsLJ2
+ PpBlQ2Dcv4edAU2SJLg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDExMSBTYWx0ZWRfXwn8G9mW0kJ5z
+ MGQXmAXd8eg5rQJO2E7glwE0fRqm8opmZyQ2bT3g3IsartQh1vJAt5O6GPRK9ZnJzTo2TCcgw/P
+ Akra40l/P//sY0Zqx+z2pHn1Z8EcWxQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 impostorscore=0 spamscore=0 clxscore=1015
+ bulkscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160111
 
-Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
-=E4=BA=8E2026=E5=B9=B49=E6=9C=8816=E6=97=A5=E5=91=A8=E4=B8=89 09:59=E5=86=
-=99=E9=81=93=EF=BC=9A
+On Fri, Sep 11, 2026 at 9:40=E2=80=AFAM Sumit Garg via OP-TEE
+<op-tee@lists.trustedfirmware.org> wrote:
 >
-> From: Chao Yu <chao@kernel.org>
+> On Thu, 03 Sep 2026 at 12:57:30 -0500, Andrew Davis via OP-TEE wrote:
+> >Most of the struct definitions for a given IOCTL definition immediately
+> >preceded that definition. The struct tee_ioctl_shm_register_data is an
+> >exception as it is placed above the TEE_IOC_SHM_REGISTER_FD definition,
+> >not the TEE_IOC_SHM_REGISTER one it is to be used with. Move it down
+> >to match the others.
+> >
+> >This is a non-functional change for consistency and to help prevent
+> >someone from accidentally using the wrong struct with the wrong IOCTL
+> >based on the struct's location.
+> >
+> >Fix a couple small spelling issues while here.
+> >
+> >Signed-off-by: Andrew Davis <afd@ti.com>
+> >---
+> > include/uapi/linux/tee.h | 40 ++++++++++++++++++++--------------------
+> > 1 file changed, 20 insertions(+), 20 deletions(-)
+> >
 >
-> This patch introduces the core metadata block caching infrastructure to
-> manage f2fs metadata independently of the page cache.
->
-> It implements:
-> - core cache APIs: get, create, put, drop, backed by a radix tree and
->   a single global LRU list.
-> - support multiple status of cached block: LOCKED, UPTODATE, DIRTY,
->   WRITEBACK, INLINE.
-> - internal bio based read/write helpers with adjacent block vector mergin=
-g.
->
-> Signed-off-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-thanks!
-> ---
->  fs/f2fs/Makefile |   2 +-
->  fs/f2fs/cache.c  | 539 +++++++++++++++++++++++++++++++++++++++++++++++
->  fs/f2fs/cache.h  | 196 +++++++++++++++++
->  fs/f2fs/data.c   | 281 +++++++++++++++++++++---
->  fs/f2fs/f2fs.h   |  24 +++
->  fs/f2fs/iostat.h |  11 +
->  6 files changed, 1026 insertions(+), 27 deletions(-)
->  create mode 100644 fs/f2fs/cache.c
->  create mode 100644 fs/f2fs/cache.h
->
-> diff --git a/fs/f2fs/Makefile b/fs/f2fs/Makefile
-> index 8a7322d229e4..fbf49c30b066 100644
-> --- a/fs/f2fs/Makefile
-> +++ b/fs/f2fs/Makefile
-> @@ -3,7 +3,7 @@ obj-$(CONFIG_F2FS_FS) +=3D f2fs.o
->
->  f2fs-y         :=3D dir.o file.o inode.o namei.o hash.o super.o inline.o
->  f2fs-y         +=3D checkpoint.o gc.o data.o node.o segment.o recovery.o
-> -f2fs-y         +=3D shrinker.o extent_cache.o sysfs.o
-> +f2fs-y         +=3D shrinker.o extent_cache.o sysfs.o cache.o
->  f2fs-$(CONFIG_F2FS_STAT_FS) +=3D debug.o
->  f2fs-$(CONFIG_F2FS_FS_XATTR) +=3D xattr.o
->  f2fs-$(CONFIG_F2FS_FS_POSIX_ACL) +=3D acl.o
-> diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-> new file mode 100644
-> index 000000000000..fb0ab77d3b49
-> --- /dev/null
-> +++ b/fs/f2fs/cache.c
-> @@ -0,0 +1,539 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2026 Google LLC
-> + * Author: Chao Yu <chaseyu@google.com>
-> + */
-> +#include <linux/fs.h>
-> +#include <linux/f2fs_fs.h>
-> +#include <linux/radix-tree.h>
-> +#include <linux/slab.h>
-> +#include <linux/list.h>
-> +#include <linux/pagemap.h>
-> +#include <linux/kthread.h>
-> +#include <linux/freezer.h>
-> +#include <linux/delay.h>
-> +#include "f2fs.h"
-> +#include "cache.h"
-> +#include "node.h"
-> +#include "segment.h"
-> +
-> +void f2fs_cache_wait_writeback_cond(struct f2fs_cached_block *entry,
-> +                                       enum page_type type)
-> +{
-> +       /* in case the entry was truncated or on-going shrink */
-> +       if (!entry->cache)
-> +               return;
-> +
-> +       if (!f2fs_cache_test_writeback(entry))
-> +               return;
-> +
-> +       /* submit cached bio */
-> +       f2fs_submit_merged_write_cache(entry, type);
-> +
-> +       wait_on_bit_io(&entry->state, F2FS_BLOCK_WRITEBACK,
-> +                                       TASK_UNINTERRUPTIBLE);
-> +}
-> +
-> +void f2fs_cache_wait_writeback(struct f2fs_cached_block *entry)
-> +{
-> +       /* in case the entry was truncated or on-going shrink */
-> +       if (!entry->cache)
-> +               return;
-> +
-> +       f2fs_cache_wait_writeback_cond(entry,
-> +                       IS_META_CACHE(entry->cache) ? META : NODE);
-> +}
-> +
-> +void f2fs_cache_update_tag(struct f2fs_cached_block *entry,
-> +               unsigned int clear_from, unsigned int set_to)
-> +{
-> +       struct f2fs_cached_block_list *cache =3D entry->cache;
-> +       unsigned long flags;
-> +
-> +       spin_lock_irqsave(&cache->tree_lock, flags);
-> +       if (clear_from !=3D F2FS_CACHE_TAG_NONE)
-> +               radix_tree_tag_clear(&cache->root, entry->index, clear_fr=
-om);
-> +       if (set_to !=3D F2FS_CACHE_TAG_NONE)
-> +               radix_tree_tag_set(&cache->root, entry->index, set_to);
-> +       spin_unlock_irqrestore(&cache->tree_lock, flags);
-> +}
-> +
-> +bool f2fs_mark_cache_dirty(struct f2fs_cached_block *entry)
-> +{
-> +       struct f2fs_cached_block_list *cache =3D entry->cache;
-> +
-> +       f2fs_cache_set_uptodate(entry);
-> +
-> +#ifdef CONFIG_F2FS_CHECK_FS
-> +       if (cache->type =3D=3D F2FS_NODE_CACHE && IS_INODE(cache->sbi, ca=
-che_folio(entry)))
-> +               f2fs_inode_chksum_set(cache->sbi, cache_folio(entry));
-> +#endif
-> +
-> +       if (!f2fs_cache_test_and_set_dirty(entry)) {
-> +               enum count_type type =3D IS_META_CACHE(cache) ?
-> +                               F2FS_DIRTY_META : F2FS_DIRTY_NODES;
-> +
-> +               f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_NONE,
-> +                                               F2FS_CACHE_TAG_DIRTY);
-> +               inc_page_count(cache->sbi, type);
-> +               return true;
-> +       }
-> +
-> +       return false;
-> +}
-> +
-> +void f2fs_drop_cache_dirty(struct f2fs_cached_block *entry)
-> +{
-> +
-> +       struct f2fs_cached_block_list *cache =3D entry->cache;
-> +       enum count_type type =3D IS_META_CACHE(cache) ?
-> +                               F2FS_DIRTY_META : F2FS_DIRTY_NODES;
-> +
-> +       f2fs_cache_clear_uptodate(entry);
-> +
-> +       if (!f2fs_cache_test_and_clear_dirty(entry))
-> +               return;
-> +
-> +       f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_DIRTY,
-> +                                       F2FS_CACHE_TAG_NONE);
-> +       dec_page_count(cache->sbi, type);
-> +}
-> +
-> +void f2fs_start_cache_writeback(struct f2fs_cached_block *entry)
-> +{
-> +       f2fs_cache_set_writeback(entry);
-> +       f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_DIRTY,
-> +                               F2FS_CACHE_TAG_WRITEBACK);
-> +}
-> +
-> +void f2fs_end_cache_writeback(struct f2fs_cached_block *entry)
-> +{
-> +       /*
-> +        * should call f2fs_cache_update_tag() before clearing writeback =
-bit,
-> +        * in case f2fs_truncate_cache() set entry->cache to NULL.
-> +        */
-> +       f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_WRITEBACK,
-> +                                               F2FS_CACHE_TAG_NONE);
-> +       clear_and_wake_up_bit(F2FS_BLOCK_WRITEBACK, &entry->state);
-> +}
-> +
-> +static int f2fs_cache_refcount(struct f2fs_cached_block *entry)
-> +{
-> +       return atomic_read(&entry->refcount);
-> +}
-> +
-> +static void f2fs_do_free_cache(struct f2fs_cached_block *entry)
-> +{
-> +       kfree(entry->data);
-> +       kfree(entry);
-> +}
-> +
-> +static void f2fs_free_cache(struct f2fs_cached_block *entry)
-> +{
-> +       WARN_ON_ONCE(!list_empty(&entry->list));
-> +       WARN_ON_ONCE(f2fs_cache_refcount(entry));
-> +       f2fs_do_free_cache(entry);
-> +}
-> +
-> +void f2fs_cache_get(struct f2fs_cached_block *entry)
-> +{
-> +       atomic_inc(&entry->refcount);
-> +}
-> +
-> +static bool f2fs_cache_put(struct f2fs_cached_block *entry)
-> +{
-> +       WARN_ON_ONCE(!f2fs_cache_refcount(entry));
-> +       if (atomic_dec_and_test(&entry->refcount)) {
-> +               f2fs_free_cache(entry);
-> +               return true;
-> +       }
-> +       return false;
-> +}
-> +
-> +static struct f2fs_cached_block *f2fs_create_cache(
-> +               struct f2fs_cached_block_list *cache,
-> +               unsigned long index, bool nofail)
-> +{
-> +       struct f2fs_cached_block *entry;
-> +       unsigned int flags =3D GFP_NOFS;
-> +
-> +       if (index =3D=3D ULONG_MAX)
-> +               return ERR_PTR(-ERANGE);
-> +
-> +       if (nofail)
-> +               flags |=3D __GFP_NOFAIL;
-> +
-> +       entry =3D kzalloc_obj(*entry, flags);
-> +       if (!entry)
-> +               return ERR_PTR(-ENOMEM);
-> +
-> +       entry->data =3D kmalloc(cache->sbi->blocksize, flags);
-> +       if (!entry->data) {
-> +               kfree(entry);
-> +               return ERR_PTR(-ENOMEM);
-> +       }
-> +
-> +       entry->index =3D index;
-> +
-> +       atomic_set(&entry->refcount, 0);
-> +       entry->next_entry =3D NULL;
-> +       INIT_LIST_HEAD(&entry->list);
-> +
-> +       entry->cache =3D cache;
-> +
-> +       return entry;
-> +}
-> +
-> +static struct f2fs_cached_block *f2fs_insert_cache(
-> +                       struct f2fs_cached_block_list *cache,
-> +                       unsigned long index,
-> +                       struct f2fs_cached_block *new)
-> +{
-> +       struct f2fs_cached_block *e;
-> +       int ret;
-> +       unsigned long flags;
-> +
-> +       ret =3D radix_tree_preload(GFP_NOFS | __GFP_NOFAIL);
-> +       f2fs_bug_on(cache->sbi, ret);
-> +
-> +       spin_lock(&cache->list_lock);
-> +       spin_lock_irqsave(&cache->tree_lock, flags);
-> +       e =3D radix_tree_lookup(&cache->root, index);
-> +       if (!e) {
-> +               e =3D new;
-> +               f2fs_bug_on(cache->sbi, f2fs_cache_refcount(e));
-> +
-> +               ret =3D radix_tree_insert(&cache->root, index, e);
-> +               f2fs_bug_on(cache->sbi, ret);
-> +
-> +               /* radix tree referenced cache entry */
-> +               f2fs_cache_get(e);
-> +               f2fs_bug_on(cache->sbi, !list_empty(&e->list));
-> +               list_add_tail(&e->list, &cache->lru_list);
-> +               cache->num_entries++;
-> +       }
-> +       f2fs_cache_get(e);
-> +       spin_unlock_irqrestore(&cache->tree_lock, flags);
-> +       spin_unlock(&cache->list_lock);
-> +       radix_tree_preload_end();
-> +
-> +       if (new !=3D e) {
-> +               f2fs_bug_on(cache->sbi, f2fs_cache_refcount(new));
-> +               f2fs_do_free_cache(new);
-> +       }
-> +
-> +       return e;
-> +}
-> +
-> +struct f2fs_cached_block *f2fs_find_cache(
-> +                       struct f2fs_cached_block_list *cache,
-> +                       unsigned long index,
-> +                       enum f2fs_cache_request_flag rflag)
-> +{
-> +       struct f2fs_cached_block *entry;
-> +       unsigned long flags;
-> +       bool access =3D rflag & F2FS_CACHE_ACCESS;
-> +
-> +       spin_lock_irqsave(&cache->tree_lock, flags);
-> +       entry =3D radix_tree_lookup(&cache->root, index);
-> +       if (entry) {
-> +               f2fs_bug_on(cache->sbi, !f2fs_cache_refcount(entry));
-> +               f2fs_cache_get(entry);
-> +               if (access && !f2fs_cache_test_referenced(entry))
-> +                       f2fs_cache_set_referenced(entry);
-> +       } else {
-> +               entry =3D ERR_PTR(-ENOENT);
-> +       }
-> +       spin_unlock_irqrestore(&cache->tree_lock, flags);
-> +
-> +       return entry;
-> +}
-> +
-> +struct f2fs_cached_block *f2fs_grab_cache(
-> +                       struct f2fs_cached_block_list *cache,
-> +                       unsigned long index, int flags)
-> +
-> +{
-> +       struct f2fs_cached_block *entry, *new;
-> +       bool create =3D flags & F2FS_CACHE_CREATE;
-> +       bool nofail =3D flags & F2FS_CACHE_NOFAIL;
-> +       bool lock =3D flags & F2FS_CACHE_LOCK;
-> +
-> +repeat:
-> +       entry =3D f2fs_find_cache(cache, index, F2FS_CACHE_ACCESS);
-> +       if (!IS_ERR(entry))
-> +               goto found;
-> +
-> +       if (!create)
-> +               return ERR_PTR(-ENOENT);
-> +
-> +       new =3D f2fs_create_cache(cache, index, nofail);
-> +       if (IS_ERR(new))
-> +               return new;
-> +
-> +       entry =3D f2fs_insert_cache(cache, index, new);
-> +found:
-> +       if (lock) {
-> +               f2fs_lock_cache(entry);
-> +               /* has been truncated */
-> +               if (entry->cache !=3D cache) {
-> +                       f2fs_put_cache(entry, true);
-> +                       goto repeat;
-> +               }
-> +       }
-> +       return entry;
-> +}
-> +
-> +bool f2fs_trylock_cache(struct f2fs_cached_block *entry)
-> +{
-> +       return !test_and_set_bit(F2FS_BLOCK_LOCKED, &entry->state);
-> +}
-> +
-> +void f2fs_lock_cache(struct f2fs_cached_block *entry)
-> +{
-> +       wait_on_bit_lock(&entry->state, F2FS_BLOCK_LOCKED,
-> +                                       TASK_UNINTERRUPTIBLE);
-> +}
-> +
-> +void f2fs_unlock_cache(struct f2fs_cached_block *entry)
-> +{
-> +       clear_and_wake_up_bit(F2FS_BLOCK_LOCKED, &entry->state);
-> +}
-> +
-> +bool f2fs_put_cache(struct f2fs_cached_block *entry, bool unlock)
-> +{
-> +       if (IS_ERR_OR_NULL(entry))
-> +               return false;
-> +       if (unlock)
-> +               f2fs_unlock_cache(entry);
-> +       return f2fs_cache_put(entry);
-> +}
-> +
-> +unsigned int f2fs_cache_gang_lookup(struct f2fs_cached_block_list *cache=
-,
-> +                               struct f2fs_cached_block **entries,
-> +                               pgoff_t *index, unsigned long end)
-> +{
-> +       unsigned long flags;
-> +       unsigned int max_nr =3D min((unsigned long)F2FS_ONSTACK_CACHES, e=
-nd - *index);
-> +       int nr, i;
-> +
-> +       if (*index >=3D end || *index =3D=3D ULONG_MAX)
-> +               return 0;
-> +
-> +       spin_lock_irqsave(&cache->tree_lock, flags);
-> +       nr =3D radix_tree_gang_lookup(&cache->root, (void **)entries,
-> +                               *index, max_nr);
-> +       if (!nr)
-> +               goto out_unlock;
-> +
-> +       for (i =3D 0; i < nr; i++) {
-> +               struct f2fs_cached_block *entry =3D entries[i];
-> +
-> +               if (entry->index >=3D end) {
-> +                       nr =3D i;
-> +                       break;
-> +               }
-> +               f2fs_cache_get(entry);
-> +       }
-> +       if (nr)
-> +               *index =3D entries[nr - 1]->index + 1;
-> +out_unlock:
-> +       spin_unlock_irqrestore(&cache->tree_lock, flags);
-> +       return nr;
-> +}
-> +
-> +unsigned int f2fs_cache_gang_lookup_tag(struct f2fs_cached_block_list *c=
-ache,
-> +                               struct f2fs_cached_block **entries,
-> +                               pgoff_t *index, unsigned int max_nr,
-> +                               int tag)
-> +{
-> +       unsigned long flags;
-> +       int nr, i;
-> +
-> +       if (*index =3D=3D ULONG_MAX)
-> +               return 0;
-> +
-> +       spin_lock_irqsave(&cache->tree_lock, flags);
-> +       nr =3D radix_tree_gang_lookup_tag(&cache->root, (void **)entries,
-> +                               *index, max_nr, tag);
-> +       if (!nr)
-> +               goto out;
-> +
-> +       for (i =3D 0; i < nr; i++)
-> +               f2fs_cache_get(entries[i]);
-> +       *index =3D entries[nr - 1]->index + 1;
-> +out:
-> +       spin_unlock_irqrestore(&cache->tree_lock, flags);
-> +       return nr;
-> +}
-> +
-> +void f2fs_cache_gang_release(struct f2fs_cached_block **entries,
-> +                               unsigned int nr_entries)
-> +{
-> +       int i;
-> +
-> +       for (i =3D 0; i < nr_entries; i++)
-> +               f2fs_put_cache(entries[i], false);
-> +}
-> +
-> +void f2fs_cache_wait_on_all_writeback(struct f2fs_cached_block_list *cac=
-he)
-> +{
-> +       unsigned long index =3D 0;
-> +       struct f2fs_cached_block *entries[F2FS_ONSTACK_CACHES];
-> +       int nr, i;
-> +
-> +next:
-> +       nr =3D f2fs_cache_gang_lookup_tag(cache, entries, &index,
-> +                       F2FS_ONSTACK_CACHES, F2FS_CACHE_TAG_WRITEBACK);
-> +       if (!nr)
-> +               return;
-> +
-> +       for (i =3D 0; i < nr; i++)
-> +               f2fs_cache_wait_writeback(entries[i]);
-> +       f2fs_cache_gang_release(entries, nr);
-> +
-> +       cond_resched();
-> +       goto next;
-> +}
-> +
-> +static void f2fs_do_truncate_cache(struct f2fs_cached_block *entry,
-> +                                               bool drop_dirty)
-> +{
-> +       struct f2fs_cached_block_list *cache =3D entry->cache;
-> +       unsigned long flags;
-> +
-> +       if (drop_dirty)
-> +               goto drop_it;
-> +
-> +       if (f2fs_cache_test_dirty(entry) ||
-> +           f2fs_cache_test_writeback(entry))
-> +               return;
-> +
-> +drop_it:
-> +       f2fs_cache_wait_writeback(entry);
-> +       f2fs_drop_cache_dirty(entry);
-> +
-> +       spin_lock(&cache->list_lock);
-> +       spin_lock_irqsave(&cache->tree_lock, flags);
-> +
-> +       f2fs_bug_on(cache->sbi, !entry->cache);
-> +       if (!radix_tree_delete(&cache->root, entry->index))
-> +               f2fs_bug_on(cache->sbi, !entry->cache);
-> +
-> +       entry->cache =3D NULL;
-> +       cache->num_entries--;
-> +
-> +       atomic_dec(&entry->refcount);
-> +       f2fs_bug_on(cache->sbi, !f2fs_cache_refcount(entry));
-> +
-> +       f2fs_bug_on(cache->sbi, list_empty(&entry->list));
-> +       list_del_init(&entry->list);
-> +
-> +       spin_unlock_irqrestore(&cache->tree_lock, flags);
-> +       spin_unlock(&cache->list_lock);
-> +}
-> +
-> +void f2fs_truncate_locked_cache(struct f2fs_cached_block *entry,
-> +                               bool drop_dirty)
-> +{
-> +       if (!entry->cache)
-> +               return;
-> +       f2fs_do_truncate_cache(entry, drop_dirty);
-> +}
-> +
-> +void f2fs_truncate_cache(struct f2fs_cached_block *entry, bool drop_dirt=
-y)
-> +{
-> +       f2fs_lock_cache(entry);
-> +       f2fs_truncate_locked_cache(entry, drop_dirty);
-> +       f2fs_unlock_cache(entry);
-> +}
-> +
-> +static void f2fs_drop_cache(struct f2fs_cached_block_list *cache,
-> +                       block_t blkaddr, bool drop_dirty)
-> +{
-> +       struct f2fs_cached_block *entry;
-> +
-> +       entry =3D f2fs_find_cache(cache, blkaddr, 0);
-> +       if (IS_ERR(entry))
-> +               return;
-> +
-> +       f2fs_truncate_cache(entry, drop_dirty);
-> +       f2fs_put_cache(entry, false);
-> +}
-> +
-> +void f2fs_drop_cache_range(struct f2fs_cached_block_list *cache,
-> +               unsigned long start, unsigned long len, bool drop_dirty)
-> +{
-> +       unsigned long index =3D start;
-> +       unsigned long end =3D (ULONG_MAX - start < len) ?
-> +                               ULONG_MAX : (start + len);
-> +       struct f2fs_cached_block *entries[F2FS_ONSTACK_CACHES];
-> +       int nr, i;
-> +
-> +       if (len =3D=3D 1)
-> +               return f2fs_drop_cache(cache, index, drop_dirty);
-> +
-> +next:
-> +       nr =3D f2fs_cache_gang_lookup(cache, entries, &index, end);
-> +       if (!nr)
-> +               return;
-> +
-> +       for (i =3D 0; i < nr; i++)
-> +               f2fs_truncate_cache(entries[i], drop_dirty);
-> +       f2fs_cache_gang_release(entries, nr);
-> +
-> +       if (index < end) {
-> +               cond_resched();
-> +               goto next;
-> +       }
-> +}
-> +
-> +int f2fs_init_cache(struct f2fs_sb_info *sbi,
-> +               struct f2fs_cached_block_list *cache,
-> +               enum f2fs_cache_type type)
-> +{
-> +       cache->sbi =3D sbi;
-> +       cache->type =3D type;
-> +       INIT_RADIX_TREE(&cache->root, GFP_ATOMIC);
-> +       spin_lock_init(&cache->tree_lock);
-> +       spin_lock_init(&cache->list_lock);
-> +       INIT_LIST_HEAD(&cache->lru_list);
-> +       cache->num_entries =3D 0;
-> +
-> +       return 0;
-> +}
-> +
-> +void f2fs_destroy_cache(struct f2fs_cached_block_list *cache)
-> +{
-> +       struct list_head *head =3D &cache->lru_list;
-> +       struct f2fs_cached_block *entry;
-> +       unsigned long flags;
-> +
-> +       f2fs_cache_wait_on_all_writeback(cache);
-> +next:
-> +       spin_lock(&cache->list_lock);
-> +       if (list_empty(head)) {
-> +               spin_unlock(&cache->list_lock);
-> +               return;
-> +       }
-> +       entry =3D list_first_entry(head, struct f2fs_cached_block, list);
-> +
-> +       spin_lock_irqsave(&cache->tree_lock, flags);
-> +       radix_tree_delete(&cache->root, entry->index);
-> +       cache->num_entries--;
-> +       list_del_init(&entry->list);
-> +       spin_unlock_irqrestore(&cache->tree_lock, flags);
-> +
-> +       spin_unlock(&cache->list_lock);
-> +
-> +       /* wait on read cache IO */
-> +       f2fs_lock_cache(entry);
-> +       /* wait on write cache IO */
-> +       f2fs_cache_wait_writeback(entry);
-> +       f2fs_bug_on(cache->sbi, f2fs_cache_test_dirty(entry));
-> +       f2fs_bug_on(cache->sbi, f2fs_cache_test_writeback(entry));
-> +       f2fs_bug_on(cache->sbi, !list_empty(&entry->list));
-> +       f2fs_bug_on(cache->sbi, f2fs_cache_refcount(entry) !=3D 1);
-> +       f2fs_put_cache(entry, true);
-> +       goto next;
-> +}
-> diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-> new file mode 100644
-> index 000000000000..1fa279f9d69e
-> --- /dev/null
-> +++ b/fs/f2fs/cache.h
-> @@ -0,0 +1,196 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (c) 2026 Google LLC
-> + * Author: Chao Yu <chaseyu@google.com>
-> + */
-> +#ifndef _LINUX_F2FS_CACHE_H
-> +#define _LINUX_F2FS_CACHE_H
-> +
-> +#include <linux/pagemap.h>
-> +#include <linux/mm.h>
-> +#include <linux/list.h>
-> +#include <linux/radix-tree.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/wait.h>
-> +#include <linux/types.h>
-> +
-> +struct f2fs_rwsem;
-> +struct f2fs_io_info;
-> +enum page_type;
-> +
-> +/* Represents a single cached block (meta, node) */
-> +struct f2fs_cached_block {
-> +       struct list_head list;          /* LRU list head */
-> +       struct f2fs_cached_block_list *cache;   /* parent cache list */
-> +       struct f2fs_cached_block *next_entry;   /* chain for merged BIO *=
-/
-> +       unsigned long index;            /* key in radix tree, (meta: pba,=
- node: nid) */
-> +       unsigned long state;            /* cache entry state (e.g., Dirty=
-, UpToDate) */
-> +       void *data;                     /* blocksize-aligned memory (4KB =
-or 16KB) */
-> +       atomic_t refcount;              /* reference count */
-> +};
-> +
-> +struct f2fs_sb_info;
-> +
-> +enum f2fs_cache_type {
-> +       F2FS_META_CACHE,
-> +       F2FS_NODE_CACHE,
-> +};
-> +
-> +/* Main cache control structure (per sb_info) */
-> +struct f2fs_cached_block_list {
-> +       struct f2fs_sb_info *sbi;       /* Pointer to f2fs_sb_info */
-> +       struct radix_tree_root root;    /* Radix tree for cache lookup */
-> +       spinlock_t tree_lock;           /* Lock for radix tree */
-> +       struct list_head lru_list;      /* Single global LRU list */
-> +       spinlock_t list_lock;           /* Lock for LRU list */
-> +       enum f2fs_cache_type type;      /* Cache type (Node or Meta) */
-> +       unsigned long num_entries;      /* Current number of entries */
-> +};
-> +
-> +#define IS_META_CACHE(cache) ((cache)->type =3D=3D F2FS_META_CACHE)
-> +
-> +/* Flags for f2fs_cached_block state */
-> +enum f2fs_cached_state {
-> +       F2FS_BLOCK_LOCKED,              /* cache entry is locked */
-> +       F2FS_BLOCK_UPTODATE,            /* cache data is valid */
-> +       F2FS_BLOCK_DIRTY,               /* cache data is dirty, need to w=
-riteback the data */
-> +       F2FS_BLOCK_WRITEBACK,           /* cache data is writeback state =
-*/
-> +       F2FS_BLOCK_REFERENCED,          /* cache was accessed recently, s=
-hrinker will skip it for once */
-> +       F2FS_BLOCK_INLINE_DATA,         /* indicate inline data */
-> +};
-> +
-> +enum {
-> +       __F2FS_CACHE_CREATE,            /* create the cache if there is n=
-o cache entry */
-> +       __F2FS_CACHE_LOCK,              /* get and lock the cache entry *=
-/
-> +       __F2FS_CACHE_NOFAIL,            /* do not allow failure */
-> +       __F2FS_CACHE_ACCESS,            /* give a chance to add reference=
-d tag */
-> +};
-> +
-> +enum f2fs_cache_request_flag {
-> +       F2FS_CACHE_CREATE       =3D 1 << __F2FS_CACHE_CREATE,
-> +       F2FS_CACHE_LOCK         =3D 1 << __F2FS_CACHE_LOCK,
-> +       F2FS_CACHE_NOFAIL       =3D 1 << __F2FS_CACHE_NOFAIL,
-> +       F2FS_CACHE_ACCESS       =3D 1 << __F2FS_CACHE_ACCESS,
-> +};
-> +
-> +#define F2FS_CACHE_LOCK_CREATE (F2FS_CACHE_LOCK | F2FS_CACHE_CREATE)
-> +
-> +#define F2FS_ONSTACK_CACHES            (32)
-> +
-> +#define F2FS_CACHE_FLAG_TEST_FUNC(name, flagname)                      \
-> +static inline bool f2fs_cache_test_##name(                             \
-> +                       const struct f2fs_cached_block *entry)          \
-> +{                                                                      \
-> +       return test_bit(F2FS_BLOCK_##flagname, &entry->state);          \
-> +}                                                                      \
-> +
-> +#define F2FS_CACHE_FLAG_SET_FUNC(name, flagname)                       \
-> +static inline void f2fs_cache_set_##name(                              \
-> +                       struct f2fs_cached_block *entry)                \
-> +{                                                                      \
-> +       set_bit(F2FS_BLOCK_##flagname, &entry->state);                  \
-> +}                                                                      \
-> +
-> +#define F2FS_CACHE_FLAG_CLEAR_FUNC(name, flagname)                     \
-> +static inline void f2fs_cache_clear_##name(                            \
-> +                       struct f2fs_cached_block *entry)                \
-> +{                                                                      \
-> +       clear_bit(F2FS_BLOCK_##flagname, &entry->state);                \
-> +}                                                                      \
-> +
-> +#define F2FS_CACHE_FLAG_TEST_AND_SET_FUNC(name, flagname)              \
-> +static inline bool f2fs_cache_test_and_set_##name(                     \
-> +                       struct f2fs_cached_block *entry)                \
-> +{                                                                      \
-> +       return test_and_set_bit(F2FS_BLOCK_##flagname, &entry->state);  \
-> +}                                                                      \
-> +
-> +#define F2FS_CACHE_FLAG_TEST_AND_CLEAR_FUNC(name, flagname)            \
-> +static inline bool f2fs_cache_test_and_clear_##name(                   \
-> +                       struct f2fs_cached_block *entry)                \
-> +{                                                                      \
-> +       return test_and_clear_bit(F2FS_BLOCK_##flagname, &entry->state);\
-> +}                                                                      \
-> +
-> +F2FS_CACHE_FLAG_TEST_FUNC(locked, LOCKED);
-> +F2FS_CACHE_FLAG_SET_FUNC(locked, LOCKED);
-> +F2FS_CACHE_FLAG_CLEAR_FUNC(locked, LOCKED);
-> +
-> +F2FS_CACHE_FLAG_TEST_FUNC(uptodate, UPTODATE);
-> +F2FS_CACHE_FLAG_SET_FUNC(uptodate, UPTODATE);
-> +F2FS_CACHE_FLAG_CLEAR_FUNC(uptodate, UPTODATE);
-> +
-> +F2FS_CACHE_FLAG_TEST_FUNC(dirty, DIRTY);
-> +F2FS_CACHE_FLAG_SET_FUNC(dirty, DIRTY);
-> +F2FS_CACHE_FLAG_CLEAR_FUNC(dirty, DIRTY);
-> +F2FS_CACHE_FLAG_TEST_AND_SET_FUNC(dirty, DIRTY);
-> +F2FS_CACHE_FLAG_TEST_AND_CLEAR_FUNC(dirty, DIRTY);
-> +
-> +F2FS_CACHE_FLAG_TEST_FUNC(writeback, WRITEBACK);
-> +F2FS_CACHE_FLAG_SET_FUNC(writeback, WRITEBACK);
-> +F2FS_CACHE_FLAG_CLEAR_FUNC(writeback, WRITEBACK);
-> +
-> +F2FS_CACHE_FLAG_TEST_FUNC(inline, INLINE_DATA);
-> +F2FS_CACHE_FLAG_SET_FUNC(inline, INLINE_DATA);
-> +F2FS_CACHE_FLAG_CLEAR_FUNC(inline, INLINE_DATA);
-> +
-> +F2FS_CACHE_FLAG_TEST_FUNC(referenced, REFERENCED);
-> +F2FS_CACHE_FLAG_SET_FUNC(referenced, REFERENCED);
-> +F2FS_CACHE_FLAG_TEST_AND_CLEAR_FUNC(referenced, REFERENCED);
-> +
-> +static inline void *cache_address(const struct f2fs_cached_block *entry)
-> +{
-> +       return entry->data;
-> +}
-> +
-> +#define CACHED_NODE(entry)     ((struct f2fs_node *)(cache_address(entry=
-)))
-> +
-> +static inline struct folio *cache_folio(const struct f2fs_cached_block *=
-entry)
-> +{
-> +       return virt_to_folio(entry->data);
-> +}
-> +
-> +int f2fs_init_cache(struct f2fs_sb_info *sbi,
-> +                               struct f2fs_cached_block_list *cache,
-> +                               enum f2fs_cache_type type);
-> +void f2fs_destroy_cache(struct f2fs_cached_block_list *cache);
-> +void f2fs_cache_get(struct f2fs_cached_block *entry);
-> +struct f2fs_cached_block *f2fs_find_cache(
-> +                       struct f2fs_cached_block_list *cache,
-> +                       unsigned long index,
-> +                       enum f2fs_cache_request_flag rflag);
-> +#define F2FS_CACHE_TAG_NONE            0
-> +#define F2FS_CACHE_TAG_DIRTY           1
-> +#define F2FS_CACHE_TAG_WRITEBACK       2
-> +
-> +bool f2fs_trylock_cache(struct f2fs_cached_block *entry);
-> +void f2fs_lock_cache(struct f2fs_cached_block *entry);
-> +void f2fs_unlock_cache(struct f2fs_cached_block *entry);
-> +bool f2fs_put_cache(struct f2fs_cached_block *entry, bool unlock);
-> +bool f2fs_mark_cache_dirty(struct f2fs_cached_block *entry);
-> +void f2fs_drop_cache_dirty(struct f2fs_cached_block *entry);
-> +void f2fs_start_cache_writeback(struct f2fs_cached_block *entry);
-> +void f2fs_end_cache_writeback(struct f2fs_cached_block *entry);
-> +unsigned int f2fs_cache_gang_lookup(struct f2fs_cached_block_list *cache=
-,
-> +                               struct f2fs_cached_block **entries,
-> +                               pgoff_t *index, unsigned long end);
-> +unsigned int f2fs_cache_gang_lookup_tag(struct f2fs_cached_block_list *c=
-ache,
-> +               struct f2fs_cached_block **results, pgoff_t *first_index,
-> +               unsigned int max_items, int tag);
-> +void f2fs_cache_gang_release(struct f2fs_cached_block **entries,
-> +                               unsigned int nr_entries);
-> +void f2fs_cache_wait_on_all_writeback(struct f2fs_cached_block_list *cac=
-he);
-> +void f2fs_cache_wait_writeback_cond(struct f2fs_cached_block *entry,
-> +                                       enum page_type type);
-> +void f2fs_cache_wait_writeback(struct f2fs_cached_block *entry);
-> +void f2fs_cache_update_tag(struct f2fs_cached_block *entry,
-> +               unsigned int clear_from, unsigned int set_to);
-> +struct f2fs_cached_block *f2fs_grab_cache(struct f2fs_cached_block_list =
-*cache,
-> +                               unsigned long index, int flags);
-> +void f2fs_truncate_locked_cache(struct f2fs_cached_block *entry,
-> +                               bool drop_dirty);
-> +void f2fs_truncate_cache(struct f2fs_cached_block *entry, bool drop_dirt=
-y);
-> +void f2fs_drop_cache_range(struct f2fs_cached_block_list *cache,
-> +               unsigned long start, unsigned long len, bool drop_dirty);
-> +
-> +#endif /* _LINUX_F2FS_CACHE_H */
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index a3b02c067e89..d868b939caee 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -41,11 +41,6 @@ struct f2fs_folio_state {
->         unsigned int            read_pages_pending;
->  };
->
-> -struct f2fs_bio {
-> -       struct work_struct work;
-> -       struct bio bio;
-> -};
-> -
->  #define        F2FS_BIO_POOL_SIZE      NR_CURSEG_TYPE
->
->  int __init f2fs_init_bioset(void)
-> @@ -411,6 +406,65 @@ static void f2fs_write_end_io(struct bio *bio)
->         }
->  }
->
-> +static void f2fs_cache_read_end_io(struct bio *bio)
-> +{
-> +       struct f2fs_cached_block *entry =3D F2FS_BIO(bio)->entry;
-> +       struct f2fs_sb_info *sbi =3D entry->cache->sbi;
-> +       enum count_type io_type =3D IS_META_CACHE(entry->cache) ?
-> +                                       F2FS_RD_META : F2FS_RD_NODE;
-> +       struct f2fs_cached_block *next;
-> +
-> +       iostat_update_and_unbind_ctx(bio);
-> +
-> +       if (time_to_inject(sbi, FAULT_READ_IO))
-> +               bio->bi_status =3D BLK_STS_IOERR;
-> +
-> +       while (entry) {
-> +               next =3D entry->next_entry;
-> +               entry->next_entry =3D NULL;
-> +
-> +               if (bio->bi_status =3D=3D BLK_STS_OK)
-> +                       f2fs_cache_set_uptodate(entry);
-> +
-> +               dec_page_count(sbi, io_type);
-> +
-> +               f2fs_unlock_cache(entry);
-> +               entry =3D next;
-> +       }
-> +       bio_put(bio);
-> +}
-> +
-> +static void f2fs_cache_write_end_io(struct bio *bio)
-> +{
-> +       struct f2fs_cached_block *entry =3D F2FS_BIO(bio)->entry;
-> +       struct f2fs_sb_info *sbi =3D entry->cache->sbi;
-> +       struct f2fs_cached_block *next;
-> +
-> +       iostat_update_and_unbind_ctx(bio);
-> +
-> +       if (time_to_inject(sbi, FAULT_WRITE_IO))
-> +               bio->bi_status =3D BLK_STS_IOERR;
-> +
-> +       if (bio->bi_status !=3D BLK_STS_OK)
-> +               f2fs_stop_checkpoint(sbi, true,
-> +                       STOP_CP_REASON_WRITE_FAIL);
-> +
-> +       while (entry) {
-> +               next =3D entry->next_entry;
-> +               entry->next_entry =3D NULL;
-> +
-> +               dec_page_count(sbi, F2FS_WB_CP_DATA);
-> +
-> +               if (!get_pages(sbi, F2FS_WB_CP_DATA) &&
-> +                               wq_has_sleeper(&sbi->cp_wait))
-> +                       wake_up(&sbi->cp_wait);
-> +
-> +               f2fs_end_cache_writeback(entry);
-> +               entry =3D next;
-> +       }
-> +       bio_put(bio);
-> +}
-> +
->  #ifdef CONFIG_BLK_DEV_ZONED
->  static void f2fs_zone_write_end_io(struct bio *bio)
->  {
-> @@ -418,7 +472,10 @@ static void f2fs_zone_write_end_io(struct bio *bio)
->
->         bio->bi_private =3D io->bi_private;
->         complete(&io->zone_wait);
-> -       f2fs_write_end_io(bio);
-> +       if (f2fs_is_cache_bio(bio))
-> +               f2fs_cache_write_end_io(bio);
-> +       else
-> +               f2fs_write_end_io(bio);
->  }
->  #endif
->
-> @@ -505,12 +562,21 @@ static struct bio *__bio_alloc(struct f2fs_io_info =
-*fio, int npages)
->                                 fio->op | fio->op_flags | f2fs_io_flags(f=
-io),
->                                 GFP_NOIO, &f2fs_bioset);
->         bio->bi_iter.bi_sector =3D sector;
-> +       F2FS_BIO(bio)->entry =3D NULL;
-> +       bio->bi_private =3D NULL;
->         if (is_read_io(fio->op)) {
-> -               bio->bi_end_io =3D f2fs_read_end_io;
-> -               bio->bi_private =3D NULL;
-> +               if (fio->is_cache)
-> +                       bio->bi_end_io =3D f2fs_cache_read_end_io;
-> +               else
-> +                       bio->bi_end_io =3D f2fs_read_end_io;
->         } else {
-> -               bio->bi_end_io =3D f2fs_write_end_io;
-> -               bio->bi_private =3D sbi;
-> +               if (fio->is_cache) {
-> +                       bio->bi_end_io =3D f2fs_cache_write_end_io;
-> +               } else {
-> +                       bio->bi_end_io =3D f2fs_write_end_io;
-> +                       bio->bi_private =3D sbi;
-> +               }
-> +
->                 bio->bi_write_hint =3D f2fs_io_type_to_rw_hint(sbi,
->                                                 fio->type, fio->temp);
->                 bio->bi_write_stream =3D f2fs_io_type_to_write_stream(bde=
-v, fio->type,
-> @@ -533,7 +599,7 @@ static void f2fs_set_bio_crypt_ctx(struct bio *bio, c=
-onst struct inode *inode,
->          * The f2fs garbage collector sets ->encrypted_page when it wants=
- to
->          * read/write raw data without encryption.
->          */
-> -       if (!fio || !fio->encrypted_page)
-> +       if (!fio || (!fio->encrypted_page && !fio->is_cache))
->                 fscrypt_set_bio_crypt_ctx(bio, inode,
->                                 (loff_t)first_idx << inode->i_blkbits,
->                                 gfp_mask);
-> @@ -738,6 +804,53 @@ void f2fs_submit_merged_write_folio(struct f2fs_sb_i=
-nfo *sbi,
->         __submit_merged_write_cond(sbi, NULL, folio, 0, type, true);
->  }
->
-> +static bool __has_merged_cache(struct bio *bio,
-> +               struct f2fs_cached_block *target)
-> +{
-> +       struct f2fs_cached_block *entry;
-> +
-> +       if (!bio)
-> +               return false;
-> +
-> +       entry =3D F2FS_BIO(bio)->entry;
-> +
-> +       while (entry) {
-> +               if (target && entry =3D=3D target)
-> +                       return true;
-> +               entry =3D entry->next_entry;
-> +       }
-> +       return false;
-> +}
-> +
-> +bool f2fs_submit_merged_write_cache(struct f2fs_cached_block *entry,
-> +                               enum page_type type)
-> +{
-> +       struct f2fs_sb_info *sbi =3D entry->cache->sbi;
-> +       enum temp_type temp;
-> +       bool ret =3D false;
-> +
-> +       for (temp =3D HOT; temp < NR_TEMP_TYPE; temp++) {
-> +               enum page_type btype =3D PAGE_TYPE_OF_BIO(type);
-> +               struct f2fs_bio_info *io =3D sbi->write_io[btype] + temp;
-> +               struct f2fs_lock_context lc;
-> +               bool merged;
-> +
-> +               f2fs_down_read_trace(&io->io_rwsem, &lc);
-> +               merged =3D __has_merged_cache(io->bio, entry);
-> +               f2fs_up_read_trace(&io->io_rwsem, &lc);
-> +
-> +               if (merged) {
-> +                       __f2fs_submit_merged_write(sbi, type, temp);
-> +                       ret =3D true;
-> +               }
-> +
-> +               /* TODO: use HOT temp only for meta pages now. */
-> +               if (type >=3D META)
-> +                       break;
-> +       }
-> +       return ret;
-> +}
-> +
->  void f2fs_flush_merged_writes(struct f2fs_sb_info *sbi)
->  {
->         f2fs_submit_merged_write(sbi, DATA);
-> @@ -801,6 +914,8 @@ static bool io_type_is_mergeable(struct f2fs_bio_info=
- *io,
->
->         if (io->fio.op !=3D fio->op)
->                 return false;
-> +       if (io->fio.is_cache !=3D fio->is_cache)
-> +               return false;
->         return (io->fio.op_flags & mask) =3D=3D (fio->op_flags & mask);
->  }
->
-> @@ -1032,6 +1147,33 @@ static bool is_end_zone_blkaddr(struct f2fs_sb_inf=
-o *sbi, block_t blkaddr)
->                 f2fs_blkz_is_seq(sbi, devi, blkaddr) &&
->                 (blkaddr % sbi->blocks_per_blkz =3D=3D sbi->blocks_per_bl=
-kz - 1);
->  }
-> +
-> +static void f2fs_wait_zone_io_completion(struct f2fs_sb_info *sbi,
-> +                       struct f2fs_bio_info *io, enum page_type btype)
-> +{
-> +       if (f2fs_sb_has_blkzoned(sbi) && btype < META && io->zone_pending=
-_bio) {
-> +               wait_for_completion_io(&io->zone_wait);
-> +               bio_put(io->zone_pending_bio);
-> +               io->zone_pending_bio =3D NULL;
-> +               io->bi_private =3D NULL;
-> +       }
-> +}
-> +
-> +static void f2fs_submit_zone_io(struct f2fs_sb_info *sbi,
-> +                       struct f2fs_io_info *fio, struct f2fs_bio_info *i=
-o,
-> +                       enum page_type btype)
-> +{
-> +       if (f2fs_sb_has_blkzoned(sbi) && btype < META &&
-> +                       is_end_zone_blkaddr(sbi, fio->new_blkaddr)) {
-> +               bio_get(io->bio);
-> +               reinit_completion(&io->zone_wait);
-> +               io->bi_private =3D io->bio->bi_private;
-> +               io->bio->bi_private =3D io;
-> +               io->bio->bi_end_io =3D f2fs_zone_write_end_io;
-> +               io->zone_pending_bio =3D io->bio;
-> +               __submit_merged_bio(io);
-> +       }
-> +}
->  #endif
->
->  void f2fs_submit_page_write(struct f2fs_io_info *fio)
-> @@ -1048,14 +1190,8 @@ void f2fs_submit_page_write(struct f2fs_io_info *f=
-io)
->         f2fs_down_write_trace(&io->io_rwsem, &lc);
->  next:
->  #ifdef CONFIG_BLK_DEV_ZONED
-> -       if (f2fs_sb_has_blkzoned(sbi) && btype < META && io->zone_pending=
-_bio) {
-> -               wait_for_completion_io(&io->zone_wait);
-> -               bio_put(io->zone_pending_bio);
-> -               io->zone_pending_bio =3D NULL;
-> -               io->bi_private =3D NULL;
-> -       }
-> +       f2fs_wait_zone_io_completion(sbi, io, btype);
->  #endif
-> -
->         if (fio->in_list) {
->                 spin_lock(&io->io_lock);
->                 if (list_empty(&io->io_list)) {
-> @@ -1110,16 +1246,109 @@ void f2fs_submit_page_write(struct f2fs_io_info =
-*fio)
->
->         trace_f2fs_submit_folio_write(fio->folio, fio);
->  #ifdef CONFIG_BLK_DEV_ZONED
-> -       if (f2fs_sb_has_blkzoned(sbi) && btype < META &&
-> -                       is_end_zone_blkaddr(sbi, fio->new_blkaddr)) {
-> -               bio_get(io->bio);
-> -               reinit_completion(&io->zone_wait);
-> -               io->bi_private =3D io->bio->bi_private;
-> -               io->bio->bi_private =3D io;
-> -               io->bio->bi_end_io =3D f2fs_zone_write_end_io;
-> -               io->zone_pending_bio =3D io->bio;
-> +       f2fs_submit_zone_io(sbi, fio, io, btype);
-> +#endif
-> +
-> +       if (fio->in_list)
-> +               goto next;
-> +out:
-> +       if (is_sbi_flag_set(sbi, SBI_IS_SHUTDOWN) ||
-> +                               !f2fs_is_checkpoint_ready(sbi))
->                 __submit_merged_bio(io);
-> +       f2fs_up_write_trace(&io->io_rwsem, &lc);
-> +}
-> +
-> +static void f2fs_bio_add_cache(struct f2fs_io_info *fio, struct bio *bio=
-)
-> +{
-> +       struct f2fs_bio *fbio =3D F2FS_BIO(bio);
-> +       struct f2fs_cached_block *head =3D fbio->entry;
-> +       struct f2fs_cached_block *new =3D fio->cache_entry;
-> +
-> +       new->next_entry =3D head;
-> +       fbio->entry =3D new;
-> +}
-> +
-> +int f2fs_submit_cache_read(struct f2fs_io_info *fio)
-> +{
-> +       struct f2fs_sb_info *sbi =3D fio->sbi;
-> +       struct f2fs_cached_block *entry =3D fio->cache_entry;
-> +       struct bio *bio;
-> +       enum count_type io_type =3D IS_META_CACHE(entry->cache) ?
-> +                               F2FS_RD_META : F2FS_RD_NODE;
-> +
-> +       if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
-> +                       fio->is_por ? META_POR : (__is_meta_io(fio) ?
-> +                       META_GENERIC : DATA_GENERIC_ENHANCE)))
-> +               return -EFSCORRUPTED;
-> +
-> +       bio =3D __bio_alloc(fio, 1);
-> +
-> +       bio_add_virt_nofail(bio, cache_address(entry), sbi->blocksize);
-> +       f2fs_bio_add_cache(fio, bio);
-> +       inc_page_count(sbi, io_type);
-> +
-> +       f2fs_submit_read_bio(sbi, bio, fio->type);
-> +       return 0;
-> +}
-> +
-> +void f2fs_submit_cache_write(struct f2fs_io_info *fio)
-> +{
-> +       struct f2fs_sb_info *sbi =3D fio->sbi;
-> +       enum page_type btype =3D PAGE_TYPE_OF_BIO(fio->type);
-> +       struct f2fs_bio_info *io =3D sbi->write_io[btype] + fio->temp;
-> +       struct f2fs_lock_context lc;
-> +       struct folio *folio;
-> +
-> +       f2fs_bug_on(sbi, is_read_io(fio->op));
-> +
-> +       f2fs_down_write_trace(&io->io_rwsem, &lc);
-> +next:
-> +#ifdef CONFIG_BLK_DEV_ZONED
-> +       f2fs_wait_zone_io_completion(sbi, io, btype);
-> +#endif
-> +       if (fio->in_list) {
-> +               spin_lock(&io->io_lock);
-> +               if (list_empty(&io->io_list)) {
-> +                       spin_unlock(&io->io_lock);
-> +                       goto out;
-> +               }
-> +               fio =3D list_first_entry(&io->io_list,
-> +                                               struct f2fs_io_info, list=
-);
-> +               list_del(&fio->list);
-> +               spin_unlock(&io->io_lock);
->         }
-> +
-> +       verify_fio_blkaddr(fio);
-> +
-> +       fio->submitted =3D 1;
-> +       inc_page_count(sbi, F2FS_WB_CP_DATA);
-> +
-> +       if (io->bio &&
-> +           (!io_is_mergeable(sbi, io->bio, io, fio, io->last_block_in_bi=
-o,
-> +                             fio->new_blkaddr)))
-> +               __submit_merged_bio(io);
-> +alloc_new:
-> +       if (io->bio =3D=3D NULL) {
-> +               io->bio =3D __bio_alloc(fio, BIO_MAX_VECS);
-> +               io->fio =3D *fio;
-> +       }
-> +
-> +       folio =3D cache_folio(fio->cache_entry);
-> +
-> +       if (!bio_add_folio(io->bio, folio, sbi->blocksize,
-> +                       offset_in_folio(folio, cache_address(fio->cache_e=
-ntry)))) {
-> +               f2fs_bug_on(sbi, !F2FS_BIO(io->bio)->entry);
-> +
-> +               __submit_merged_bio(io);
-> +               goto alloc_new;
-> +       }
-> +
-> +       f2fs_bio_add_cache(fio, io->bio);
-> +
-> +       io->last_block_in_bio =3D fio->new_blkaddr;
-> +
-> +#ifdef CONFIG_BLK_DEV_ZONED
-> +       f2fs_submit_zone_io(sbi, fio, io, btype);
->  #endif
->         if (fio->in_list)
->                 goto next;
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index ebc621f302e1..c0c7d51c830f 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -222,6 +222,8 @@ struct f2fs_rwsem {
->  #endif
->  };
->
-> +#include "cache.h"
-> +
->  struct f2fs_mount_info {
->         unsigned long long opt;
->         block_t root_reserved_blocks;   /* root reserved blocks */
-> @@ -1362,8 +1364,10 @@ struct f2fs_io_info {
->         unsigned int in_list:1;         /* indicate fio is in io_list */
->         unsigned int is_por:1;          /* indicate IO is from recovery o=
-r not */
->         unsigned int meta_gc:1;         /* require meta inode GC */
-> +       unsigned int is_cache:1;        /* indicate IO is from internal c=
-ache */
->         enum iostat_type io_type;       /* io type */
->         struct writeback_control *io_wbc; /* writeback control */
-> +       struct f2fs_cached_block *cache_entry;
->         struct bio **bio;               /* bio for ipu */
->         sector_t *last_block;           /* last block number in bio */
->  };
-> @@ -1773,6 +1777,12 @@ struct f2fs_gc_kthread {
->         unsigned int boost_gc_greedy;
->  };
->
-> +struct f2fs_bio {
-> +       struct work_struct work;
-> +       struct f2fs_cached_block *entry;
-> +       struct bio bio;
-> +};
-> +
->  struct f2fs_sb_info {
->         struct super_block *sb;                 /* pointer to VFS super b=
-lock */
->         struct proc_dir_entry *s_proc;          /* proc entry */
-> @@ -2381,6 +2391,16 @@ static inline bool is_node_folio(struct f2fs_sb_in=
-fo *sbi, struct folio *folio)
->         return folio->mapping =3D=3D NODE_MAPPING(sbi);
->  }
->
-> +static inline struct f2fs_bio *F2FS_BIO(struct bio *bio)
-> +{
-> +       return container_of(bio, struct f2fs_bio, bio);
-> +}
-> +
-> +static inline bool f2fs_is_cache_bio(struct bio *bio)
-> +{
-> +       return F2FS_BIO(bio)->entry !=3D NULL;
-> +}
-> +
->  static inline bool is_sbi_flag_set(struct f2fs_sb_info *sbi, unsigned in=
-t type)
->  {
->         return test_bit(type, &sbi->s_flag);
-> @@ -4312,6 +4332,8 @@ void f2fs_submit_merged_write_cond(struct f2fs_sb_i=
-nfo *sbi,
->                                 nid_t ino, enum page_type type);
->  void f2fs_submit_merged_write_folio(struct f2fs_sb_info *sbi,
->                                 struct folio *folio, enum page_type type)=
-;
-> +bool f2fs_submit_merged_write_cache(struct f2fs_cached_block *entry,
-> +                               enum page_type type);
->  void f2fs_submit_merged_ipu_write(struct f2fs_sb_info *sbi,
->                                         struct bio **bio, struct folio *f=
-olio);
->  void f2fs_submit_all_merged_ipu_writes(struct f2fs_sb_info *sbi);
-> @@ -4319,6 +4341,8 @@ void f2fs_flush_merged_writes(struct f2fs_sb_info *=
-sbi);
->  int f2fs_submit_page_bio(struct f2fs_io_info *fio);
->  int f2fs_merge_page_bio(struct f2fs_io_info *fio);
->  void f2fs_submit_page_write(struct f2fs_io_info *fio);
-> +int f2fs_submit_cache_read(struct f2fs_io_info *fio);
-> +void f2fs_submit_cache_write(struct f2fs_io_info *fio);
->  struct block_device *f2fs_target_device(struct f2fs_sb_info *sbi,
->                 block_t blk_addr, sector_t *sector);
->  int f2fs_target_device_index(struct f2fs_sb_info *sbi, block_t blkaddr);
-> diff --git a/fs/f2fs/iostat.h b/fs/f2fs/iostat.h
-> index 2025225b5bed..61c6bc8e3119 100644
-> --- a/fs/f2fs/iostat.h
-> +++ b/fs/f2fs/iostat.h
-> @@ -60,6 +60,13 @@ static inline struct bio_post_read_ctx *get_post_read_=
-ctx(struct bio *bio)
->         return iostat_ctx->post_read_ctx;
->  }
->
-> +static inline void iostat_set_post_read_ctx(struct bio *bio, void *ctx)
-> +{
-> +       struct bio_iostat_ctx *iostat_ctx =3D bio->bi_private;
-> +
-> +       iostat_ctx->post_read_ctx =3D ctx;
-> +}
-> +
->  extern void iostat_update_and_unbind_ctx(struct bio *bio);
->  extern void iostat_alloc_and_bind_ctx(struct f2fs_sb_info *sbi,
->                 struct bio *bio, struct bio_post_read_ctx *ctx);
-> @@ -81,6 +88,10 @@ static inline struct bio_post_read_ctx *get_post_read_=
-ctx(struct bio *bio)
->  {
->         return bio->bi_private;
->  }
-> +static inline void iostat_set_post_read_ctx(struct bio *bio, void *ctx)
-> +{
-> +       bio->bi_private =3D ctx;
-> +}
->  static inline int f2fs_init_iostat_processing(void) { return 0; }
->  static inline void f2fs_destroy_iostat_processing(void) {}
->  static inline int f2fs_init_iostat(struct f2fs_sb_info *sbi) { return 0;=
- }
-> --
-> 2.49.0
->
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+> Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+
+I'm picking this up.
+
+Thanks,
+Jens
