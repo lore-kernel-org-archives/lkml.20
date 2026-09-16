@@ -1,177 +1,148 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8745F3B47CA
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828E050C287;
+	Wed, 16 Sep 2026 15:21:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572103; cv=none; b=tDk6mJqO3UFLOoOc8KVOj7U7kyrUirSRUBucnpvZFO67OFQmwTOFLH4uwQ0UCZWPV4wGkZmbJLODwzPaMPLHdoQxKw8HiG05mWhJ4Lb5AnvaJoi848pgYgrpPkr5DX5nn+j3EUORd9BHC9QD1V7XkJoEumltswhncKFtEoDuEIY=
+	t=1789572120; cv=none; b=TZa96XtHkc37L/djQHG+V4M2851EsWMPNN+RZ4PRQSKrP9OQvWowDO6i9H61torWNteLAn6I69OOiW5k6qDcxiK6ViFjq6WwbLROWDod81LL19R8FfWG+IgUgvQgVnK75XEP2cJdmcs7UAU1Zpt3hk2Cc6pR/hJzLP8oasdK7BM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572103; c=relaxed/simple;
-	bh=eMnpXlTjIXA/5Bug3bPH7S+JX2UlrOarf98qCq5pmGU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=V/7ADQR4A7K/lXPxOm8Ajv1/5JBTRv9KJUu8Are7JZ94GIV8CEG6OSClqfP2ESrw0LCOG09z7sAxRPIxD0XyB8y5xL88X+TSLH8YCm8wSfXaVbPB11TYA3G42Mm1Sz86MSp87Zy4bAjYMyv+B2y84CjSq5+weQFQ95cM2W2QAPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MZvx2lMX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WUZjothi; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789572120; c=relaxed/simple;
+	bh=QIyy0N04LfkgJYMMXXUHPODj1i7q6YwpTVR/0YmYeu8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FTPGvavTwq47yThjQPPw5Y6Jyl2aB3nyxhL+FH3FdBgIuhIY9+nvoElVNIixOY4cSReWhWvbKWW519S7umMJWMLhBKqPxkQ6QyTF6szTs8oeT0SGE2wu85SnH9OD0FPiXOSKc+xGjfFR4FwkU/1T4/V4LGXjMduIA0GrPDw9FBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fQ/mnoAy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MZvx2lMX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WUZjothi"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GF9jnI3039851
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:21:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=X/iwvD5G17PVr+CbdCxOfq
-	vRNLDG+jj2+X9T/JU+scs=; b=MZvx2lMXQl4q4P9UsFKlEpIOR0pbOsZToEvO3J
-	uC/fP+LItF8vekJG5emINMRlrjigde8rhMJ5Bjh4fgv9og0qZkWKEhquYDFoo6LH
-	EKa7QSZ1ZQ9aqQFlQgfzbbvAP+i+gOMn2/NedghQ5eEWz22o/b0vwmYlUks4BjVK
-	mg+UbgHdJ3tKPYZ1l+1riKdN5Joo2IP6kPEy02sg9Luvh4ZvoBtn9Ep/NXB003iJ
-	0m66FeAD/iG/m15TS34Wk+2d/YDn18e8Hi8pYF4FI0D0Tc/IxAe1/7n3BqdwqCrk
-	C5Abk6KC3L+vkbWAkHm/69EvfLIHTrkyKJKHiZyllb59LjHA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gquw2rhgg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:21:37 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90e8472ee1eso124167306d6.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:21:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789572097; x=1790176897; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=X/iwvD5G17PVr+CbdCxOfqvRNLDG+jj2+X9T/JU+scs=;
-        b=WUZjothiTRsN6Bu6zx9AxIq1xYM57u8WI1qNJ3W9g6+Mrb6cYzA0Dtgwr6yH4zzJbu
-         fFsY+AQr2xHYI+qotmE0ZfQesWyMNKP1ffkjbzhyPlCyGgAl40vZ8XoOe5YvIJO4CN6n
-         DrRmeIEmh5drKdM5Lv/y72KatfzNH3qZOTf2Gf+kPvuQztkhnbK13gGDvO1v/TlfRBs0
-         kyoCa99qJ1Mt5m9h41u8YTkO0xXocP7JzPLpaovJ3l0lRE/5uqZZmhV5WipKUn2XoyQ7
-         KgSCSVEWcYrG5RRdqWTA98inyj1Kj9OHddoU7+kB1oc6+ZfKCPPf/JU2qrFA+WtPJY0E
-         rIsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789572097; x=1790176897;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=X/iwvD5G17PVr+CbdCxOfqvRNLDG+jj2+X9T/JU+scs=;
-        b=G1fUlDucRINWcUJympcjBKQHL/6yqrE9PXzuFD+cAso46+3zUaVo0Fj4ASBn+v4h+S
-         MMX3F5CeSQ8T0vq8Am2O3v1QKXl0w/YwpSappzOs/SiI04D+oHPBUTtd8C6afeBqhl7v
-         DPbYdgioap4zzDMnkMaPx8fVENbMLM2VnMRSsufLL106d1vECYdCBE1ugNhnulR7X+ZJ
-         5S+YsEP5Oi045bgyeWUCc0AVCjb9ul3Bl2U1O3S1CV4pQxV/Kmq8kxYrUJe+y1WjniaG
-         kcs+jtOfKLtCuk89nbScOPXY0fky/QDKB/+iqd5OPnOsgYKLGEEYBsaIvu9uqCESbnyF
-         omAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzWul446UydHPu5sw4dGHliU55xCstIEl7lIxO1kvkUrz39i/R/s9M29gq5XZkzBrTGWSVKjx+O5vD0Irk=@vger.kernel.org
-X-Gm-Message-State: AFuF++knTd32DNhTWPPSGLslEIsMK5eBI/9deuLs9OEnxhsSQA8VSAag
-	9an/nWXFKZEv2A7Kv0CFoptvqQUa+FI19gv2JDCZpn9MjUlSmO9R6kgDGmTeZ91VOwGlDIbrdEI
-	y5S+5dBLH7ZMkkC3mVoQf5C+QrAR8T0ReZM1CUQF8nw/ozr3bzmw9K1eYAdVI27etrxA=
-X-Gm-Gg: AYBFou2lS0OQWj4cGfv0wFSddNsdGubqjHrGVDsvWnH15R29rMNjPFV6uPsGn3OGiR4
-	y3FenwhoRo5c+mA4DXtkcrHpKzkp3LqeKATCGQ1yGxqj1gtAeJ9Pen3wQCooT+s0IyNwVeLlX2W
-	ZJyFSN8wYrd+It3o9cHLblPQevRpapy/kGB6NGYYQQY9PK4djzBocVDQdLRWFt3YxNYuNzCF2sE
-	+TPjJMtYpOEcOfWSDK531mBlZTUqX0oeZAP04Mh/jjPlKgT6GJB7VnGhRLbkkerWBy5q7Q46weL
-	DYmHV2dQfWfW0d5DUOokCRJVr/Jkn2/5+QoiFOUKBhVjFRniGJy8u3RPhDfQ7LYfeoJqPQKvHzU
-	iwj7//V3Pgoqml0wIdEG4JfO1XAA=
-X-Received: by 2002:a05:620a:4804:b0:939:57ca:7e06 with SMTP id af79cd13be357-93bb76bb33fmr394779685a.9.1789572097291;
-        Wed, 16 Sep 2026 08:21:37 -0700 (PDT)
-X-Received: by 2002:a05:620a:4804:b0:939:57ca:7e06 with SMTP id af79cd13be357-93bb76bb33fmr394772785a.9.1789572096782;
-        Wed, 16 Sep 2026 08:21:36 -0700 (PDT)
-Received: from brgl-qcom.local ([90.161.207.100])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83fca34asm75757245e9.1.2026.09.16.08.21.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:21:35 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 17:21:29 +0200
-Subject: [PATCH] dt-bindings: dma: qcom,gpi: Document the Nord GPI DMA
- engine
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fQ/mnoAy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C7101F00893;
+	Wed, 16 Sep 2026 15:21:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789572113;
+	bh=TlsZEJAiiH82j/Mx6kTCN96sqcmaljLGoEMImAFW9O8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fQ/mnoAyoegvsCX7j37IkLXN5iVwvdZmpbmbNJrj/n2UusJHKt+UBNdAoo2EIvRrC
+	 X63V26CHTn/jqU/9nngXJYpQyvPL87Km1zRSfxgiLw8XNY5O4khKbDWHIJapHhHQi0
+	 k1h5GDt+LUEHS/7kCgs+msRgSbVPmcMgBABUyVEORHX+tvRY3kCzOximZbYNzYrkOh
+	 ZKCA0GXMEJVpN35gTBPIK1GrMc4zdd0l3qtVqu0xtOSlpg6Iv99HEh6r33T8JamoVk
+	 SUbnwCX7p7vxdAAS7Mk5rKH4eApvTeYNGgqi8vUv4b3NG9N+sqF595j8vWKjc4MCm4
+	 PtoiYI26DtEYw==
+Date: Wed, 16 Sep 2026 16:21:48 +0100
+From: Lee Jones <lee@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
+	pierre-louis.bossart@linux.dev, linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] mfd: cs42l43: Move to core detach helper
+Message-ID: <20260916152148.GF1605367@google.com>
+References: <20260831140157.1736905-1-ckeepax@opensource.cirrus.com>
+ <20260831140157.1736905-3-ckeepax@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-nord-gpi-dt-bindings-v1-1-857bf9e84999@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAPizqmoC/x3MMQqAMAxA0atIZgNtEEGvIg7WpDVLlFZEEO9uc
- XzD/w8UySoFxuaBLJcW3a3Ctw2s22JJULkayFHvBt+j7ZkxHYp8YlBjtVQwdsE774iJAtT0yBL
- 1/rfT/L4f0nO2W2YAAAA=
-X-Change-ID: 20260916-nord-gpi-dt-bindings-f4b10102d22b
-To: Shawn Guo <shawnguo@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1094;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=eMnpXlTjIXA/5Bug3bPH7S+JX2UlrOarf98qCq5pmGU=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqqrP6+Ptmf6Et2sR3y0PlpIOKRf8fs4kjZ5cLX
- Xf2czGA/JyJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaqqz+gAKCRAFnS7L/zaE
- w+/EEACPJIIIzN/WJLGCaf7hl1peL/GNO1BAIBW17GL2UGBDrM6+o0/dov1L3U6ujqad00fd+ME
- 4GqjnG/gzGCyRv2rbwXMWX2YTFJeRYiyKhKWNnIicLmc3YeH/EEw31jl0Uho92x0IC5YxGTpELK
- FAVrk1z1mzvJlomFYt9JLumYft7P7fHJ0xvmICcVJpWP4kpafify5V4KjL0Tt3GRL1tfLCupM1Y
- GS5Ohx2EnqKldzQAQL1P1LfeEi9pCi6ugAemjsaQLI6HK/29GlYuo7JgSB2gSY/reZx/xAxe/DJ
- ciOnxFkusJBJMKxT9Bh4kKm7EIV3x14gKTUDMfbRd0Q4JXyTQcPoQwYzj3J3OxfcNTiO+N7n8Gh
- 7zvFVbH2GgV/u2a3DF1IdUApOu3WeQFdMwvSSJLc9Xi1Y1Fa/Uiv0M+Fgpxq2oaBOAsalEnxrIc
- plDiiDv/UGVNNyAWXue0hnVqCjHOkRfvqVviWKv+cTqcETPk+I5XWG0Msb9GC7MjCCsKl4wmyjW
- CifWRAFIUNT/BO5rASF/HzamgdQLEsGqntIwUDy9jC0cQmwOQ6QJ1n+LK3DAO61kFmozuZYVSHL
- Vi/viLOxmV72cKPMNxLFf3QbgCxpUjqB2GEobo6+PPS43oZVrv7fU/u9kdvIthE8K7A08KpDyGq
- +y5T9efv30j2tYA==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDIwOCBTYWx0ZWRfXzo+Q3XGJsHNl
- fEN97X6ega5sNNhFGKV+G7NhdTyBHhgzyWUU8J88ZVg1OrtjtT2Zo6T7n/EiN1vOU71wb0X4nUM
- jX4b4xK91a2nBsfP/dv1hF7xwWEDAyM=
-X-Proofpoint-GUID: TP3gCy1egUy9JeOmVOYKnN0N9CGfcEvZ
-X-Authority-Analysis: v=2.4 cv=N4m8hG9B c=1 sm=1 tr=0 ts=6aaab402 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=BQ2oiuy6hHN+kKmom1QVvA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=niPqjDDPxPU8gPvr_8UA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: TP3gCy1egUy9JeOmVOYKnN0N9CGfcEvZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIwOCBTYWx0ZWRfX6TbDJ1Ya/Sdk
- asjaQidYJZullfA7P/ENNa4/ZShjI24CwLIxFopBvcUfY44snlGs26bB/YThElyfLtumRpKCALQ
- B1u67GVTfkYlv70wXpQRkEXWQHVkXyCAtoewLEpeGyitg/YmaHqXJxqVRu6fHoj6pwaRVQpkKoV
- 7bRQRpezU7yNvroPotYgDsN6t3LBMx7v7lvQvBsrLqDEicnmpNAqifCc6URGqv7uuD1mPwDgQmQ
- y15BIuW94NRSxyinzPTLgp7Mza/kWm3J5B44F+/VdyP6TA7J7AXf1m9d9rYBQTrVlZIPxAVwCwV
- ad+xgeG3tx3DQ/fTMmTj0GB9MhWGcL9kjx25eZlzDoU4PJiZ5jXYJ13eSryT8/Ihq5VgQUDPauo
- cF83p44pQX9fHf+9Ck65hHXj+SH2R0odJXj6Y85GbAro/ZfxfTkf2NVkMTY/SAwi/wCrumCu4tZ
- XiLZ/KDl8mYyHlRk05g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
- lowpriorityscore=0 clxscore=1015 phishscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160208
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831140157.1736905-3-ckeepax@opensource.cirrus.com>
 
-Add the compatible string for the GPI DMA engine found on the Nord
-family of SoCs.
+On Mon, 31 Aug 2026, Charles Keepax wrote:
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 1 +
- 1 file changed, 1 insertion(+)
+> Now the core has a helper to signal a device will detach from
+> the SoundWire bus, there is no need for the cs42l43 driver code
+> to separately track that. Switch to using the new core helper.
+> 
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> ---
+> 
+> No changes since v1.
+> 
+>  drivers/mfd/cs42l43-sdw.c   |  2 --
+>  drivers/mfd/cs42l43.c       | 15 +--------------
+>  include/linux/mfd/cs42l43.h |  1 -
+>  3 files changed, 1 insertion(+), 17 deletions(-)
+> 
+> diff --git a/drivers/mfd/cs42l43-sdw.c b/drivers/mfd/cs42l43-sdw.c
+> index 0a6999453f325..f0825d6bf7b38 100644
+> --- a/drivers/mfd/cs42l43-sdw.c
+> +++ b/drivers/mfd/cs42l43-sdw.c
+> @@ -102,8 +102,6 @@ static int cs42l43_sdw_update_status(struct sdw_slave *sdw, enum sdw_slave_statu
+>  		break;
+>  	case SDW_SLAVE_UNATTACHED:
+>  		dev_dbg(cs42l43->dev, "Device detach\n");
 
-diff --git a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-index 54dca623223d51373a4d54591f3ebbf5e31fca17..ad70717b5b86e600e74d6cfe42015dc03db25ba9 100644
---- a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-+++ b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-@@ -29,6 +29,7 @@ properties:
-               - qcom,hawi-gpi-dma
-               - qcom,kaanapali-gpi-dma
-               - qcom,milos-gpi-dma
-+              - qcom,nord-gpi-dma
-               - qcom,qcm2290-gpi-dma
-               - qcom,qcs8300-gpi-dma
-               - qcom,qdu1000-gpi-dma
+Is this now superfluous?
 
----
-base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-change-id: 20260916-nord-gpi-dt-bindings-f4b10102d22b
+> -
+> -		complete(&cs42l43->device_detach);
+>  		break;
+>  	default:
+>  		break;
+> diff --git a/drivers/mfd/cs42l43.c b/drivers/mfd/cs42l43.c
+> index 4212ebcca60b5..f08ee598366d9 100644
+> --- a/drivers/mfd/cs42l43.c
+> +++ b/drivers/mfd/cs42l43.c
+> @@ -30,7 +30,6 @@
+>  #define CS42L43_RESET_DELAY_MS			20
+>  
+>  #define CS42L43_SDW_ATTACH_TIMEOUT_MS		5000
+> -#define CS42L43_SDW_DETACH_TIMEOUT_MS		100
+>  
+>  #define CS42L43_MCU_BOOT_STAGE1			1
+>  #define CS42L43_MCU_BOOT_STAGE2			2
+> @@ -555,7 +554,7 @@ static int cs42l43_soft_reset(struct cs42l43 *cs42l43)
+>  		{ CS42L43_SFT_RESET, CS42L43_SFT_RESET_VAL },
+>  	};
+>  
+> -	reinit_completion(&cs42l43->device_detach);
+> +	sdw_slave_signal_unattach(cs42l43->sdw);
 
-Best regards,
+If this call NULL safe?
+
+>  	/*
+>  	 * Apply cache only because the soft reset will cause the device to
+> @@ -566,17 +565,6 @@ static int cs42l43_soft_reset(struct cs42l43 *cs42l43)
+>  
+>  	msleep(CS42L43_RESET_DELAY_MS);
+>  
+> -	if (cs42l43->sdw) {
+> -		unsigned long timeout = msecs_to_jiffies(CS42L43_SDW_DETACH_TIMEOUT_MS);
+> -		unsigned long time;
+> -
+> -		time = wait_for_completion_timeout(&cs42l43->device_detach, timeout);
+> -		if (!time) {
+> -			dev_err(cs42l43->dev, "Timed out waiting for device detach\n");
+> -			return -ETIMEDOUT;
+> -		}
+> -	}
+> -
+>  	return -EAGAIN;
+>  }
+>  
+> @@ -1115,7 +1103,6 @@ int cs42l43_dev_probe(struct cs42l43 *cs42l43)
+>  	dev_set_drvdata(cs42l43->dev, cs42l43);
+>  
+>  	mutex_init(&cs42l43->pll_lock);
+> -	init_completion(&cs42l43->device_detach);
+>  	init_completion(&cs42l43->firmware_download);
+>  	INIT_WORK(&cs42l43->boot_work, cs42l43_boot_work);
+>  
+> diff --git a/include/linux/mfd/cs42l43.h b/include/linux/mfd/cs42l43.h
+> index 8e993fb535e68..798dc55149662 100644
+> --- a/include/linux/mfd/cs42l43.h
+> +++ b/include/linux/mfd/cs42l43.h
+> @@ -86,7 +86,6 @@ struct cs42l43 {
+>  	struct regmap_irq_chip_data *irq_data;
+>  
+>  	struct work_struct boot_work;
+> -	struct completion device_detach;
+>  	struct completion firmware_download;
+>  	int firmware_error;
+>  
+> -- 
+> 2.47.3
+> 
+
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-
+Lee Jones
