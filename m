@@ -1,98 +1,62 @@
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D594A92C8
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:32:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8B04AC14E;
+	Wed, 16 Sep 2026 09:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551162; cv=none; b=CjfTVxFrqW4N+H2BNBnsnXck4BF7jUGrlXK1dwHmjQQnzQwIIukfydQ19dMsWL8P06xB4U75v98mZcejku1NwiaecwdM5J/sTI4Wj2AzsDtdF7D2MhXzAdtwJ8YCrK0x614wqANJ+poIOq2vlTbFz6gLXr+5zWa1pvh9myX0odM=
+	t=1789551180; cv=none; b=l5gnX9GZUNaMJJJyY11xJSFo4D5fziY3PNfJOd/TXJRek0eQ53NK28nm12Qt3Vdsrz0QPp3aL5HjC6u7NQbuX85NaM371ZYrEoXrV8eWKwFPFXfbTRp3SqcVARe0zMrT/4jHcj27EruJ9ufF9zcg3J4hqHpf26FHA5y/ZpdvJpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551162; c=relaxed/simple;
-	bh=/WjhvGACiwNe9/LGX3y5/h7X87Y+zDJYwy+7DsnslnQ=;
+	s=arc-20240116; t=1789551180; c=relaxed/simple;
+	bh=NtPjiCyCqEW56gksSfAtrRaeqQJ7ypvr+plInLxt+3k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BJim/YYCTiqx4T89R6ZWjUwtFGBXcUC9FZfYw667y2GWOTjxIbLMSXMp9lqxPs8LJimEv5pEtzp+YuXqUy7QuyXhfDzQLpDDwAuceQ76/ftRAcN9BvFYJrf/SM3zvIEkd94Af6PJ6bphixb/Zyn0EiGsbaolq3Oylo/F/aWPy9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=h+nDuZ4L; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DamH363K; arc=none smtp.client-ip=202.12.124.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="h+nDuZ4L";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DamH363K"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id C033B7A007B;
-	Wed, 16 Sep 2026 05:32:13 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Wed, 16 Sep 2026 05:32:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789551133; x=
-	1789637533; bh=PRWFDwvM0fZr06tYfSZoOVoDNXjF/NbOi9PwgZXG13s=; b=h
-	+nDuZ4L3d7Exo1VnWVHkFTiWmBJ3LgIXQqeNIIwptbCr3rocTTogmeSBRfhparYF
-	8kgDFCvJL7mBpQZbetk0u9hmVR6g5yZn50P8MISvcSghAJqOQA0voEnJT4/QgyhA
-	GDj831STE2yzmfNUzOohrZzAZZyQzVOEwC7USAAY8Lr6KwgPrJ13zFKFFdQLm8p8
-	Yb259Q3GPN8AWvUYzvymY2q1ClRPBjA0sILyAiu0+O8zvqqbwC//b17J8h3m4kIC
-	Cr4wjVwJM2U8G//TZoNzgQkHENcWcrEUOxLwrC52SlRwgWsDXJAAn0g8zgyw+dVX
-	QMbQYjvg3wJAXw+3Q2M0Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1789551133; x=1789637533; bh=P
-	RWFDwvM0fZr06tYfSZoOVoDNXjF/NbOi9PwgZXG13s=; b=DamH363KmwhSZ5zJu
-	fhU6H/Ey+B7XjK9/lw6VNU7q7qLYVoT4I4fUzQBv/orFWgEdqDdXd+KZurLR/3JV
-	NxsGojIyz8eGDOxEtArmG85Ut+JFBZPugFv1xJSQGTZmWZVQMyhiUldxb+Hh22pt
-	IopaLgTUWX+llHnaqMo1+S7+DAo8YYDHltvyrUOpNQZdViGlTms4zQ5KhalJvaYm
-	YKUzYulz+bw+eZ/ovtFDvl5VjCg5/f2j7NM3Pm0eiJ0wwFgkjhCHKoFh1ml8qd5/
-	isye1zUR9hdNyHV6WLUSWj2EjEd508yrriVlWflkVEEc06+bZWEhCzx7LmZ43AyL
-	PmG7Q==
-X-ME-Sender: <xms:HWKqanoWMKRsG-2GyM5CckD_IHEJmoqSerfJDxuPgYz4mshhXxsIqA>
-    <xme:HWKqatnsZ-rPBsrT-L1buwH9k24IFDEW4-hf7NFhK8baywH9NZW6rEiOh28an79Mi
-    xwcqhpe2CDczFYLJU12bNCNQrckfyxR7xK1289X1HdQk4TCFvP4RCsVVg>
-X-ME-Received: <xmr:HWKqaqVq-HUH-bvu3I_w0Doryo9ijgUKbICqasGROK7vuP--C9AL2y3ObRs>
-X-ME-Proxy-Cause: dmFkZTEOpyDQEfQMjLyldXBPAs1OiAaYjuycA/zprc2XA0sZE/gLY53LzRl6wisjmJsNcj
-    shXh7L3amtO3W7Dj4gJ1brhV8efHSvbbvvisq8qNCVrU/hVVqWW2fJ8EDoeL9EfJt8J4fa
-    r63UA+S0A+UN3c16swmwWrTj5sK0gOy7RYH1CN+xe4D6TTQ1ncSXBFkweWqSBfk0S52Say
-    Dntsl8DI3TlZwS0igZd1iO+ltDo9n3qHIbwcYcvcbVUlu6Rxag/XK6s48+7ZTTYlI2aJe4
-    hkL/jN/KxntOAh39VLdXeraBW39brB+PkStvfnz0wMlwqVlAhF3nsCCzTv21LQWeSF/iHT
-    pyMAuIQkGFQ08rzLATOXG16m6WQQDf0qrhK3S8NG5J8zh2mNM5qcdfG+xe89hRG/m+7INR
-    ADrck8zKABvA0aAWvVdCuEeBi2oCpNFHiAk2Khx6KyEamwPIIWWx1aCyjtcXhsnR1VCXvK
-    jOfLqdyuZxn83ODbS+0qUPAqOyBYa449EcVKzMv4hGVxgKwrNVR4sBWB7R/NCH/wZHyXB7
-    AWwvIeSxHVuN/dy3GL/fBK1LiTnhq1VJmRsV1IMAH0TLses6J0QUD6xT6cFIZlQl8915KE
-    pMjHkmd7973FH6bjWFDUCbqDKgjeWhNiAp/maWL8JO1SbJWp0+skjlFQ/FUA
-X-ME-Proxy: <xmx:HWKqahR_V_Mr2pbv9rZuDrzdnixOWbbasAV3UcpgO_vJCSFqSbfIVA>
-    <xmx:HWKqalDGnMNNs0EZbSLFG6CnQxp3hCAW0GZxG5t4zPStDkxYWDu1gw>
-    <xmx:HWKqasTr1PK-WvoozSZb0m1hB3PaZZFpZ3lWAqHJipTbOF226dTtdQ>
-    <xmx:HWKqavSZyUtV_RdIyqvnHoFenMnY7NIV_elSC-vmexJc854ynNW_OQ>
-    <xmx:HWKqalrHFX8ywV1H3ozUBi9dSdk3VwmVu9Rjmo_mmjPIuVpqOgyQBYk8>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Sep 2026 05:32:12 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	linux-mm@kvack.org,
+	 MIME-Version; b=GUb3+FXXmdT2HCURINGEx8/K6IwwFUOxDPS2HTFkcr3pwrQPPj+HhxSOR5MbSTDrJ5Kr0fBda/TI5GbvLMSv6ryfNOrVValjS3SNuQOXSSPhap6Tdqv/QC/9UauxdnHUh+FcApytS6LctGhlxPtmY/ELKxVo/0LPkUE4b1+zeKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hlDFD58mlzKHMcf;
+	Wed, 16 Sep 2026 17:32:32 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id DEF8540570;
+	Wed, 16 Sep 2026 17:32:46 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.85.155])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgCHVikvYqpq8i0GAg--.65015S6;
+	Wed, 16 Sep 2026 17:32:46 +0800 (CST)
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+To: linux-mm@kvack.org
+Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>
-Subject: [PATCH v3 10/12] mm/collapse: work out the orders a VMA allows once per VMA
-Date: Wed, 16 Sep 2026 10:31:37 +0100
-Message-ID: <20260916093145.4022188-11-kirill@shutemov.name>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916093145.4022188-1-kirill@shutemov.name>
-References: <20260916093145.4022188-1-kirill@shutemov.name>
+	linux-ext4@vger.kernel.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	hughd@google.com,
+	baolin.wang@linux.alibaba.com,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	bfoster@redhat.com,
+	joannelkoong@gmail.com,
+	djwong@kernel.org,
+	yi.zhang@huawei.com,
+	yi.zhang@huaweicloud.com,
+	yizhang089@gmail.com,
+	yangerkun@huawei.com,
+	chengzhihao1@huawei.com,
+	wangkefeng.wang@huawei.com,
+	yukuai@fnnas.com
+Subject: [PATCH v3 2/3] mm/truncate: align truncation boundaries to mapping minimum folio order
+Date: Wed, 16 Sep 2026 17:24:49 +0800
+Message-ID: <20260916092450.654408-3-yi.zhang@huaweicloud.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260916092450.654408-1-yi.zhang@huaweicloud.com>
+References: <20260916092450.654408-1-yi.zhang@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,145 +64,115 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:gCh0CgCHVikvYqpq8i0GAg--.65015S6
+X-Coremail-Antispam: 1UD129KBjvJXoWxWr15ZFyfXryUWryUJFykGrg_yoWrXr45pF
+	W2g3ZxArWUXr12kr4Dua1DZr45X39xX3WUAFWxGF93C3Z0q3WqkFyjg3W8Zw48GryxAryr
+	ZF1jyasrWF1DAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmY14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
+	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
+	8EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
+	xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
+	kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
+	6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
+	IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIev
+	Ja73UjIFyTuYvjTRNiSHDUUUU
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+From: Zhang Yi <yi.zhang@huawei.com>
 
-The scan asked collapse_possible_orders() for every PTE table, for an
-answer that is a property of the VMA.  Both callers walk a VMA a table at
-a time, so let them work it out once and pass the mask in.  It is only
-good while the lock that produced it is held, so madvise_collapse() takes
-it again after every collapse.
+When the mapping has a non-zero minimum folio order (min_order),
+folio_split() stops at min_order instead of order 0, so the sub-folio
+containing a split point stays aligned to 1 << min_order rather than to
+a single page. The original boundaries were based on page granularity,
+so either boundary could land inside the min_order chunk at its edge,
+and the truncation loop would drop that whole chunk, valid out-of-range
+tail included.
 
-The mask is then sampled once per VMA rather than once per table.  A thp
-enabled knob written during a walk takes effect one VMA later, and cannot
-widen a collapse: hugepage_vma_revalidate() tests the order again under
-the lock the collapse retakes.
+For example, a 64K (order-4) folio with min_order = 2 (16K) punched from
+offset 0 to 36K:
 
-Assisted-by: LLM
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+  split @p0 -> [p0-p3, p4-p7, p8-p15]         # non-uniform, min_order
+  folio2 = p8-p15           # straddles: p8 in range, p9-p15 tail valid
+  2nd split of folio2 -> [p8-p11, p12-p15]    # success
+  end(old) = p9                               # BUG: p9 inside [p8-p11]
+  loop truncates ... p8-p11               # p9-p11's valid tail is lost
+
+It has gone unnoticed so far for two reasons. A non-zero min_order is
+only used by filesystems with a block or sector size larger than the
+page size, and those either always write back the affected range before
+punching a hole or truncating, or they carry filesystem private data on
+dirty folios (e.g. buffer_head), which makes filemap_release_folio()
+fail and folio_split() abort with -EBUSY, so the folio is never split
+and the old start/end boundaries remain valid. The bug only becomes
+reachable on paths that truncate dirty large folios without prior
+writeback and without filesystem private data, such as the upcoming ext4
+iomap buffered I/O path.
+
+Align both start (rounded up) and end (rounded down) to the mapping
+minimum folio order so they always fall on a folio boundary.
+
+Reported-by: Joanne Koong <joannelkoong@gmail.com>
+Link: https://lore.kernel.org/linux-mm/CAJnrk1bQYUe6+1ryyJur5EEnZYrC+_5AYsy=OWzVRgD4202y1g@mail.gmail.com/
+Fixes: e220917fa5077 ("mm: split a folio in minimum folio order chunks")
+Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 ---
- mm/khugepaged.c | 32 ++++++++++++++++++--------------
- 1 file changed, 18 insertions(+), 14 deletions(-)
+ mm/truncate.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 9e6b2af6519e..12cb67d8df32 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1549,12 +1549,12 @@ static enum scan_result mthp_collapse(struct mm_struct *mm, unsigned long addres
- }
+diff --git a/mm/truncate.c b/mm/truncate.c
+index bec6d881d022..5ab7a40b1e25 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -213,8 +213,8 @@ static int folio_split_or_unmap(struct folio *folio, struct page *split_at,
+  *
+  * When @pstart and/or @pend are non-NULL they receive the indexes of the
+  * page range fully covered by [lstart, lend] after any split (or none),
+- * i.e. the range of pages wholly within [lstart, lend] and so safe to
+- * discard.
++ * aligned inwards to min_order, i.e. the range of folios wholly within
++ * [lstart, lend] and so safe to discard.
+  *
+  * Returns false if splitting failed so the caller can avoid
+  * discarding the entire folio which is stubbornly unsplit.
+@@ -226,6 +226,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+ 	size_t size = folio_size(folio);
+ 	unsigned int offset, length;
+ 	struct page *split_at, *split_at2;
++	unsigned long min_nrbytes;
+ 	unsigned int min_order;
  
- static enum scan_result collapse_scan_anon_pmd(struct vm_area_struct *vma,
--		unsigned long start_addr, struct collapse_control *cc)
-+		unsigned long start_addr, struct collapse_control *cc,
-+		unsigned long enabled_orders)
- {
- 	const unsigned int max_ptes_shared = collapse_max_ptes_shared(cc, HPAGE_PMD_ORDER);
- 	const unsigned int max_ptes_swap = collapse_max_ptes_swap(cc, HPAGE_PMD_ORDER);
- 	unsigned int max_ptes_none = collapse_max_ptes_none(cc, vma, HPAGE_PMD_ORDER);
--	enum tva_type tva_flags = cc->policy.tva_type;
- 	struct mm_struct *mm = vma->vm_mm;
- 	pmd_t *pmd;
- 	pte_t *pte, *_pte, pteval;
-@@ -1565,7 +1565,6 @@ static enum scan_result collapse_scan_anon_pmd(struct vm_area_struct *vma,
- 	struct folio *folio = NULL;
- 	unsigned long failed_pfn = -1;
- 	unsigned long addr;
--	unsigned long enabled_orders;
- 	spinlock_t *ptl;
- 	int node = NUMA_NO_NODE, unmapped = 0;
+ 	if (pos < lstart)
+@@ -263,6 +264,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+ 		return true;
  
-@@ -1579,8 +1578,6 @@ static enum scan_result collapse_scan_anon_pmd(struct vm_area_struct *vma,
+ 	min_order = mapping_min_folio_order(folio->mapping);
++	min_nrbytes = mapping_min_folio_nrbytes(folio->mapping);
+ 	split_at = folio_page(folio, PAGE_ALIGN_DOWN(offset) / PAGE_SIZE);
+ 	if (!folio_split_or_unmap(folio, split_at, min_order)) {
+ 		/*
+@@ -271,12 +273,12 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+ 		 * for shmem truncate
+ 		 */
+ 		struct folio *folio2;
+-		pgoff_t end, aligned_end = (pos + offset + length) >>
+-					   PAGE_SHIFT;
++		pgoff_t end, aligned_end = round_down(pos + offset + length,
++						min_nrbytes) >> PAGE_SHIFT;
  
- 	collapse_scan_reset(cc);
+ 		if (pstart)
+-			*pstart = round_up(pos + offset, PAGE_SIZE) >>
+-				  PAGE_SHIFT;
++			*pstart = round_up(pos + offset,
++					   min_nrbytes) >> PAGE_SHIFT;
  
--	enabled_orders = collapse_possible_orders(vma, vma->vm_flags, tva_flags);
--
- 	/*
- 	 * If PMD is the only enabled order, enforce max_ptes_none, otherwise
- 	 * scan all pages to populate the bitmap for mTHP collapse. The bitmap
-@@ -2765,7 +2762,8 @@ static void collapse_control_release(struct collapse_control *cc)
- }
- 
- static enum scan_result collapse_scan_pmd(struct vm_area_struct *vma,
--		unsigned long addr, struct collapse_control *cc)
-+		unsigned long addr, struct collapse_control *cc,
-+		unsigned long orders)
- {
- 	enum scan_result result;
- 	pgoff_t pgoff;
-@@ -2775,7 +2773,7 @@ static enum scan_result collapse_scan_pmd(struct vm_area_struct *vma,
- 	collapse_put_scan_file(cc);
- 
- 	if (vma_is_anonymous(vma))
--		return collapse_scan_anon_pmd(vma, addr, cc);
-+		return collapse_scan_anon_pmd(vma, addr, cc, orders);
- 
- 	pgoff = linear_page_index(vma, addr);
- 	result = collapse_scan_file(vma->vm_mm, addr, vma->vm_file, pgoff, cc);
-@@ -2885,15 +2883,17 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 
- 	vma_iter_init(&vmi, mm, khugepaged_scan.address);
- 	for_each_vma(vmi, vma) {
--		unsigned long hstart, hend;
-+		unsigned long hstart, hend, orders;
- 
- 		cond_resched();
- 		if (unlikely(collapse_test_exit_or_disable(mm))) {
- 			cc->progress++;
- 			break;
- 		}
--		if (!collapse_possible_orders(vma, vma->vm_flags,
--					      TVA_KHUGEPAGED)) {
-+		/* One mask for the whole VMA */
-+		orders = collapse_possible_orders(vma, vma->vm_flags,
-+						  cc->policy.tva_type);
-+		if (!orders) {
- 			cc->progress++;
- 			continue;
- 		}
-@@ -2922,7 +2922,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 			/* move to next address */
- 			khugepaged_scan.address += HPAGE_PMD_SIZE;
- 
--			*result = collapse_scan_pmd(vma, addr, cc);
-+			*result = collapse_scan_pmd(vma, addr, cc, orders);
- 			/* Nothing to do here, and the lock is still ours */
- 			if (*result != SCAN_SUCCEED &&
- 			    *result != SCAN_PTE_MAPPED_HUGEPAGE) {
-@@ -3207,14 +3207,16 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
- {
- 	struct collapse_control *cc;
- 	struct mm_struct *mm = vma->vm_mm;
--	unsigned long hstart, hend, addr;
-+	unsigned long hstart, hend, addr, orders;
- 	enum scan_result last_fail = SCAN_FAIL;
- 	int thps = 0;
- 
- 	BUG_ON(vma->vm_start > start);
- 	BUG_ON(vma->vm_end < end);
- 
--	if (!collapse_possible_orders(vma, vma->vm_flags, TVA_FORCED_COLLAPSE))
-+	orders = collapse_possible_orders(vma, vma->vm_flags,
-+					  TVA_FORCED_COLLAPSE);
-+	if (!orders)
- 		return -EINVAL;
- 
- 	hstart = ALIGN(start, HPAGE_PMD_SIZE);
-@@ -3252,9 +3254,11 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
- 			}
- 			vma = found;
- 			hend = min(hend, vma->vm_end & HPAGE_PMD_MASK);
-+			orders = collapse_possible_orders(vma, vma->vm_flags,
-+							  cc->policy.tva_type);
- 		}
- 
--		result = collapse_scan_pmd(vma, addr, cc);
-+		result = collapse_scan_pmd(vma, addr, cc, orders);
- 		/* Nothing to do here, and the lock is still ours */
- 		if (result != SCAN_SUCCEED && result != SCAN_PTE_MAPPED_HUGEPAGE)
- 			goto tally;
+ 		if (offset + length == size) {
+ 			end = aligned_end;
 -- 
-2.54.0
+2.52.0
 
