@@ -1,125 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C1E495AD7;
-	Wed, 16 Sep 2026 16:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE4848FF79
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577020; cv=none; b=guEBjJPz4l1rt+c397W1l1B/LvW3YKZiWEswPBCZDroZI7xCxsclZ7FIwqGGrFj1C/M0t+bv9Kwv8kzvYJZlx5z4+55zjwz6kvsFxqIlsMuz+Qie5b6rua02PAlwsk1H1maVKq4WcIL/RPkacWtnxpT252922sFdGPIQ3C0wWbM=
+	t=1789577020; cv=none; b=c/OYPpWW0HVr7lAfOSsr08US89MwoWNXBIEkXLiacyug/T0h3wq8OFLJa1cc8lUkS7+fegIhuO6USr9QjLwX+exeujAeqjJTuXiWkN1OLwOW+kp4TaGm3WGZ23LOkLEVtbNr69sSJZwIwHK8Q8gSKa0uk8QcHsua3cw3ZWNo/Vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789577020; c=relaxed/simple;
-	bh=1gw/Wnw27B072D15xLwsTlTYudOjIfpJY0cqXLpIrdQ=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IBxLZDTq9YPhdS5zI3vvEc+PDgVjr4F2kSse5UL3li9rSMv0bWG/dZ0P7GSxXzbTrTRXyY66iRtBvxi8qD9oy3zoeBdY1LklRtM+cvHXeBH/3qnox34wnezHeg9TKtUxn+E8ShhcJQZJ2eyG07gKkUK+rYPxBrSWNeV0M8f3k/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=og3EaWrj; arc=none smtp.client-ip=100.103.45.18
+	bh=cRIImi/lPk53n1lWQ4BsxrEtpf2R34//cfhxTWVnMy4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M+DYu1/jn4I3MW17qZC5NnFwXucagSrhQG4vYs+OdEQNgrbpJCahiwVOyD+rIMYH2fBoyBqpwUAeMttOx7ostpGZzKvJPxEQquI6WHLx9aQE172kTLKvgRcDiHUwnYNfvOpXhRix8z2amIgtnslx/6Zkfo3MeX4pl6tgjSE6Dgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JRus32LU; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="og3EaWrj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F22271F0089F;
-	Wed, 16 Sep 2026 16:43:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789577003;
-	bh=G5fdoWcd4IbAkK7p7KKtFU9jGsN4lvSTG0kjXK87Z/s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=og3EaWrjP8c7fsXDATC1SKvtJnQZOm079+ugLkbY/nxtak8GydZhXjNiHQh4izk1S
-	 OEdZu0no6ojvJzKlYaCjTo+uODYvNXNicXce1FBem5USIcbi5UoL1Lq8q4BY26W4h+
-	 vi9S6qWyIuqYH5o/KOaL5pakpQ9iDn1kPgjdKZg1OYGweIae7DIX9QPAMwZ+BJ4X2y
-	 i7jkvUXB2IthoHvpvGPvYC/JAFEszLThLjj7PJaTksZF+vCSJjM18q0j3PQJR+u3fn
-	 kt6lOrDXIwHQW/AjDHFCGjA2907tj+tnP+PdCd8c6GDsRDnkBKHUqfouoKfjAmdLGO
-	 sv8qB16AoZFSw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x6sjA-00000009igi-3lRZ;
-	Wed, 16 Sep 2026 16:43:21 +0000
-Date: Wed, 16 Sep 2026 17:43:20 +0100
-Message-ID: <868q515eqf.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	steven.price@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com,
-	tabba@google.com
-Subject: Re: [PATCH v3 16/18] KVM: arm64: Reject host power-on of a vCPU that EL2 holds powered off
-In-Reply-To: <20260914113338.159227-17-fuad.tabba@linux.dev>
-References: <20260914113338.159227-1-fuad.tabba@linux.dev>
-	<20260914113338.159227-17-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JRus32LU"
+Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2dso701636a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:43:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789577009; x=1790181809; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0VTiuPg5ZB9LmT2MDT455GVREdoYqL1EhzCrifxbyUE=;
+        b=JRus32LU/EnkGj5DeuL5SLHyT1OD2lCGh1d+YHTlCbRk04adSiTFP3zQj1vSlsfgCY
+         57tNl7brpwFsYy4fTQQyAEcfXpJBIbgqcLv1Gfuy37h/HY7bL7TD038rNCgZAFTQTRLy
+         Jhg0voYfBrhywPUNd84UGM70kiD1Zfkrkomf/N9XhKp84dyXDmFg58/jXMsGzIsBtiUZ
+         2ZLo9T4FOvjVYCfOEeodedJymBRADJDb5b7tOV8WgU/ZIH1WxLON1EXduj7SlVaVdKrZ
+         jor8yuHKNtUgGFa1J5U7eDGFc4Zyr4NtKojZNsogHBgbWNtnjVlG9fSdJLs9KJXDrE82
+         QtOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789577009; x=1790181809;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0VTiuPg5ZB9LmT2MDT455GVREdoYqL1EhzCrifxbyUE=;
+        b=Y+uRnhRfH9kpijmugKvNmk3Wah4jzyy0MmoBqHXpViUi8i3Un6YUPLTK/1nektoQuR
+         U5qsjL6ePMPXXs83RNscJyXG7BZj7shcmBwUPXkglT5zOmY30/Q+Zlek2ePMIXsCyVpR
+         8fA+4VmLCGgoxmxmSgDJ21psmnsElr1eLeEl5NrJUcxEMseOEidXLMFbhcGbpltCx3/1
+         5Mhfc4OMi9Nf0qHAfTh7Iqz+rurd3x4TVHf3qQsmh9b9H/CTeOYE6qR6Mj0j2iS812vr
+         ZE2HKMjcw2apxisyjsAptkL5yw50YRoApPaPrx7rPsufaqC/ddKHWZqtYLJpYoINWDQ5
+         zzZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz+3wzWSUJ1Rr0pwPnWie89pnIHdbQgpCcEwWwh31Ioo1EG1viR8tNbMDXT62rY6CdAftRPtLmx+2fa77A=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlRSQAjmhJ5z+dW6iHhRv8jd5UgqZfz/qoLIqbdj1LDanteO8H
+	Ax4CNsn0TH6byhU1Ki2B5XIsjy0InJRAUHTZUVqSYCnZ45bgFwZSdcqRqlZqOZAS7Vg=
+X-Gm-Gg: AYBFou2Yf7vqnCDL8Hy/sUIQOXE35veiV41AS2sNiM/QivBgvmu++3L6cEBQ1mJX7OE
+	2ygRMRDYbh0kpxFBuR0MQgPtIn6I+zH00kAe/9er4KEK+7y55RMeTNzwNvTZIcq5Z+9BXWr0rdP
+	ewXekBxabd7df/h4pQmxoGj4WIXPZH2CU7XCqnvPSSbUQMubFVXOYDX3pcxrG09ZLFbnPYb9XOk
+	v0i9muO3X5XUGPbsthLDIt4Vr6CYjMnlYZkx/bDshEyMTIYl71LYnAvlWFHMwVAo9kTuoFbztOb
+	1SpSfXBJhms7DR9lnu0SrFvOg9BgrM/svjwy5Mtla0k9YhWfPd2p0XHZkTjqbtGkwectec1Ju1y
+	eiW1orWlcqE+8Z+cYnbYxde/4QoKLcAJ26WCHfJvwDnxhpbqksQ8EigUKiSxbbiwCWIur+7wZiO
+	vgy4dmKA14HJ6VB9DjsTVgyM8xLupoj8WWc1h4R7aSuDUdU3dVcrMUVXaaXPFfpHG29E0FK+rmm
+	DHy4nn8nEu9xAwDIUVYiwZvDMbhmmM9U7G/
+X-Received: by 2002:a05:6a21:e8a:b0:3d3:b00b:50fc with SMTP id adf61e73a8af0-3dd5f7b3ab7mr8788940637.28.1789577008744;
+        Wed, 16 Sep 2026 09:43:28 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:661a:1232::1d0:c5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50acc757csm1902278a12.32.2026.09.16.09.43.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 09:43:28 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 0/8] net: dsa: motorcomm: Add SerDes PCS
+Date: Thu, 17 Sep 2026 00:43:00 +0800
+Message-ID: <20260916164310.3168269-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, qperret@google.com, tabba@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 14 Sep 2026 12:33:36 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> A protected vCPU's power state belongs to EL2, which changes it only
-> on the guest's own PSCI calls. KVM_SET_MP_STATE(RUNNABLE) on a vCPU
-> EL2 holds powered off changes the host's copy alone, and the guest's
-> next CPU_ON of that vCPU then fails: mp_state is no longer STOPPED, so
-> the host returns ALREADY_ON, and the guest's retry fails the same way
-> until the VMM stops the vCPU again. SUSPENDED has the same effect.
-> 
-> Track at the host whether EL2 holds a protected vCPU powered off and
-> return -EPERM for both writes in that state. STOPPED stays permitted,
-> so a VMM can pause a vCPU, and RUNNABLE on a vCPU EL2 has powered on,
-> so it can resume one.
-> 
-> The guest's CPU_ON is gated on the same record rather than on STOPPED.
-> A VMM that sets STOPPED between the target's CPU_OFF exit and the
-> host's power-off of it would otherwise let the CPU_ON through, and the
-> power-off would then record the target powered off while EL2 holds it
-> ON_PENDING, with no way back before VM teardown. Gated on the record,
-> that CPU_ON returns ALREADY_ON and the retry succeeds once the
-> power-off has run.
-> 
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/include/asm/kvm_host.h |  2 ++
->  arch/arm64/kvm/arm.c              | 19 +++++++++++++++++++
->  arch/arm64/kvm/pkvm.c             | 21 +++++++++++++++++----
->  arch/arm64/kvm/psci.c             | 10 +++++++++-
->  4 files changed, 47 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index 37d0721d39a45..2e2c051dd8e62 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -922,6 +922,8 @@ struct kvm_vcpu_arch {
->  	/* vcpu power state */
->  	struct kvm_mp_state mp_state;
->  	spinlock_t mp_state_lock;
-> +	/* EL2 holds the protected vCPU powered off. Under mp_state_lock. */
-> +	bool pkvm_powered_off;
+Support in-band negotiation of the SerDes ports.
 
-I'm definitely not keen on yet another random boolean to describe some
-new state. We already have mp_state. Why can't we use one of the
-unused encodings and check that, since it very much looks like a case
-of "let userspace change the MP_STATE unless EL2 says otherwise".
+v2:
+  - Remove YT921X_PORT_MASK_* macros
+  - code style nits
+  - unconditionally write BMCR_ANRESTART
+v1: https://lore.kernel.org/r/20260909190541.466476-1-mmyangfl@gmail.com
 
-Can that be made to work?
+David Yang (8):
+  net: dsa: motorcomm: Remove YT921X_PORT_MASK_* macros
+  net: dsa: motorcomm: Split xMII and SERDES port masks
+  net: dsa: motorcomm: Check port type with runtime info
+  net: dsa: motorcomm: Fix register bit field names
+  net: dsa: motorcomm: Introduce yt921x_speed
+  net: dsa: motorcomm: Hoist port_to_priv helper into chip.h
+  net: dsa: motorcomm: Split MDIO bus module
+  net: dsa: motorcomm: Add SerDes PCS
 
-	M.
+ drivers/net/dsa/motorcomm/Makefile   |   2 +
+ drivers/net/dsa/motorcomm/chip.c     | 525 ++++++---------------------
+ drivers/net/dsa/motorcomm/chip.h     | 106 +++---
+ drivers/net/dsa/motorcomm/leds.c     |  14 +-
+ drivers/net/dsa/motorcomm/mdio_bus.c | 301 +++++++++++++++
+ drivers/net/dsa/motorcomm/mdio_bus.h |  54 +++
+ drivers/net/dsa/motorcomm/pcs-921x.c | 235 ++++++++++++
+ drivers/net/dsa/motorcomm/pcs.h      |  13 +
+ 8 files changed, 793 insertions(+), 457 deletions(-)
+ create mode 100644 drivers/net/dsa/motorcomm/mdio_bus.c
+ create mode 100644 drivers/net/dsa/motorcomm/mdio_bus.h
+ create mode 100644 drivers/net/dsa/motorcomm/pcs-921x.c
+ create mode 100644 drivers/net/dsa/motorcomm/pcs.h
 
 -- 
-Without deviation from the norm, progress is not possible.
+2.53.0
+
