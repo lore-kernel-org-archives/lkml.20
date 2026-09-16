@@ -1,135 +1,95 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064234B2CA0;
-	Wed, 16 Sep 2026 18:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789582761; cv=pass; b=pwCU/80q6nzAKuBEAb2brtTNAkr0M8OPn1bF/1hsTzpZ3mUz9+Z4I+BP+Q1Y1A2twEL8NF/j3qFDC3wnmK6c8/uWrtCRN6YTeVBD1lHvAtNJoL3vO/IVVIlsyd0fmk2ipr+v/Me1v/Q4H7tHRCOMg+WJ3qKXpVcnw/xMYbcMbw8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789582761; c=relaxed/simple;
-	bh=nWzo0HDo6N8NvfD7Eu6Y0tEufvFTL/scvLxOulxh/R0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F9zbgoXbsV6QMGHtUIwBsfzh2X6WgFcyE/Il/+FD5sSoJCtiP+OZPVl9ODpoVAqPn3XiSQkVQAsflTwyA+gO5trIOutc1dVMwi2RRqZzgf/KJa6B7emjaBCbNZNRnnglEavv8f4y3ZLMgBTqWDnndVOYawusC9C5vn6tn0q8k0U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ikuyo.dev; spf=pass smtp.mailfrom=ikuyo.dev; dkim=pass (1024-bit key) header.d=ikuyo.dev header.i=eritque-arcus@ikuyo.dev header.b=v+l7ySEq; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ikuyo.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ikuyo.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACBD33064D;
+	Wed, 16 Sep 2026 18:19:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789582799; cv=none; b=lhiqReiWcDzX/CQ1l4SR3YWwG0ZRsvkgxza9HLPMtC0gtsPe2vganSugdDqLTudgmXoSJm3CL4e+mlF1JGJ1TbULEUJGwxWCQyXfviqRNcguW4rBFRIi6uJCyXVL2eoz2XXruLdhORH4WOPRyzv3Lq+9SY43n7UkcvykBFhuY6A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789582799; c=relaxed/simple;
+	bh=rxT8OqLJ31FEIFu+AVrtNB+EaZiDH17h68FhErDeN9o=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bMyuA57fMR6fGKrr2jN3l7EGyaHWEsXa1UiGaVV+d9Tb2p1M+G1RZyvKLClN71n6rvPnED6DAM1axtI7QGA1QVb3XPM5vnpHoB1chezb0OrSLG2m0zefpODNHLWg6IH7x7SDwQjzhDgri6hdKwOWc+LOpw8K0vXD074Rma8wGBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YYw0SmUq; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ikuyo.dev header.i=eritque-arcus@ikuyo.dev header.b="v+l7ySEq"
-ARC-Seal: i=1; a=rsa-sha256; t=1789582727; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mwJGAepeUYis/lVmnwjq/9VkTbEnw43TaQHwkIT4W0/tMAz2N/oMCpdz2TFInlwbGwZmBz2WeCqkls9ISSh1btwOjidCvYulwjhlyXjN30VhDrVspF91U05p55cmMOS8jfg6niFR2hY52N62byNTB9MPMMbQqAeguvVk2aJ23hQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789582727; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=y+UfJbuF/uO6cDN3gMGHg0bTeAtYo5gesNGocK4DlJM=; 
-	b=ILfo7I/tbukok9OC49d/6Wn9lY3do1UmgrATzk0+edD9i873nrEKT+O3c4am/gyi8ZgtVRa/JdJVYGkHoLejnKecbpkhoA/8vTE1pLBpyHdBpeLkSCA8nigS/ghqLkOHXKO5WQFpPn/Gj4OjKVEfuWPH67WEVDISZZkZ1z8kTtw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ikuyo.dev;
-	spf=pass  smtp.mailfrom=eritque-arcus@ikuyo.dev;
-	dmarc=pass header.from=<eritque-arcus@ikuyo.dev>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789582727;
-	s=zmail; d=ikuyo.dev; i=eritque-arcus@ikuyo.dev;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=y+UfJbuF/uO6cDN3gMGHg0bTeAtYo5gesNGocK4DlJM=;
-	b=v+l7ySEqqJm7z8oINH3Vds6fgaEAyUD0NNeLu6ufvcTTcwhMYClSCrrgyHym2G0K
-	HscPeYMDq7ra0GG2rensYvZwEWxiB2VE+h2F0/d4EpBL7+xy5MwuGOLtb0ePpnPn4+o
-	4nPcQWOzjNLWji1JmCaqFe8I4KC7Edh0YuCuZ/VQ=
-Received: by mx.zohomail.com with SMTPS id 1789582726216729.0547607155628;
-	Wed, 16 Sep 2026 11:18:46 -0700 (PDT)
-Message-ID: <050b2eb3-3435-4180-935d-c03f3972e11c@ikuyo.dev>
-Date: Wed, 16 Sep 2026 14:18:44 -0400
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YYw0SmUq"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 4FAF5C5CD5B;
+	Wed, 16 Sep 2026 18:20:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E99460337;
+	Wed, 16 Sep 2026 18:19:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6853411C7B00D;
+	Wed, 16 Sep 2026 20:19:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789582787; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=U7J/mha/vyoFLlNNVH4h4FCmPvf41iQDGOaDHu79fqs=;
+	b=YYw0SmUqgK0SDDwSStx/seLZ1MC/bDXvVn5c1k7ZXfly8akIrh4xlRzjzhA/bQtYYLFnjC
+	2Ahd/xg1rWoaEn5dHg2AOiCXO2QwQT5Lqs1BrE0maT19M5ipwwr+AzF1T5esnhhXen00/l
+	MxTQhHbOoqrGrDzr9cahGFJ1ISRNbIu3OeHhF6A6vgzbNejanIn4H3dhNl9V/gE0MzZ1QO
+	/dJFoOVmDyeXP7QfAkQYdnl+/YTeEC/fpsufL5y9SJ0PqZ/aglzMb0DalOGa4r8x7oxSgv
+	JLnOtqlva1ms9MZBMtlY8JXqQi0U5hop5q+nsm9hnHrYbFkNDa6xdD04YnHx2w==
+Date: Wed, 16 Sep 2026 20:19:44 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li
+ <Frank.li@oss.nxp.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Leonardo Costa <leonardo.costa@toradex.com>, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke
+ <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH v2 7/7] of: unittest: Test fw_devlink with clock nexus
+ maps
+Message-ID: <20260916201944.650c83be@bootlin.com>
+In-Reply-To: <20260910-fw-devlink-nexus-ready-v2-7-17ac82dbe226@toradex.com>
+References: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com>
+	<20260910-fw-devlink-nexus-ready-v2-7-17ac82dbe226@toradex.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] can: kvaser_usb_hydra: reject too-short commands in
- the receive path
-To: Frank Jungclaus <frank.jungclaus@esd.eu>, socketcan@esd.eu,
- Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, blbllhy@gmail.com
-References: <20260815-can-esd-hydra-fixes-v1-0-de644cbeaec2@ikuyo.dev>
- <20260815-can-esd-hydra-fixes-v1-2-de644cbeaec2@ikuyo.dev>
-Content-Language: en-US
-From: "eritque-arcus@ikuyo.dev" <eritque-arcus@ikuyo.dev>
-In-Reply-To: <20260815-can-esd-hydra-fixes-v1-2-de644cbeaec2@ikuyo.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Marc, Vincent,
+Hi Ernest,
 
-Please drop patch 2/2 (kvaser_usb_hydra) from this series. Cen Zhang has 
-since posted a standalone fix for the same hydra receive path that is 
-more complete than mine.
+On Thu, 10 Sep 2026 16:16:48 +0200
+Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
 
-<https://lore.kernel.org/linux-can/20260819145658.29872-1-blbllhy@gmail.com/>
+...
 
-Patch 1/2 (esd_usb) is independent so please consider it on its own.
+>  				fwdevlink_nexus: nexus {
+> +					#clock-cells = <1>;
+>  					#gpio-cells = <2>;
+>  					#pwm-cells = <2>;
+> +					clock-map = <0 &clock_provider 1>;
 
+No map-mask for clocks ?
 
-One note on the automated review of patch 1/2: the issues it raised are 
-all in esd_usb's probe and tx-done paths. I've kept this fix narrow 
-rather than widen it into those, and will look at them separately.
+And also same comment as for GPIOs (i.e. multiple items in map)
 
+>  					gpio-map = <0 0 &gpio_provider 1 0>;
+>  					gpio-map-mask = <0xffffffff 0>;
+>  					gpio-map-pass-thru = <0 0xffffffff>;
+> @@ -100,6 +106,14 @@ fwdevlink_nexus: nexus {
+>  					pwm-map-pass-thru = <0 0xffffffff>;
+>  				};
+>  
 
-Thanks,
-Yiran
-
-On 8/14/26 2:05 PM, Yiran Qiu wrote:
-> kvaser_usb_hydra_read_bulk_callback() walks commands out of the RX URB
-> buffer, using kvaser_usb_hydra_cmd_size() to determine each command's
-> length. For an extended command (CMD_EXTENDED) that size is taken
-> directly from the device-supplied 16-bit length field with no lower
-> bound. A CMD_EXTENDED command whose length is zero makes cmd_size 0, so
-> "pos += cmd_len" never advances and this URB-completion softirq spins
-> forever.
->
-> Reject a command whose reported size is smaller than the command header
-> before it is dispatched, mirroring the minimum-length check added in
-> commit 0293dd153f9d ("can: kvaser_usb_leaf: kvaser_usb_leaf_wait_cmd():
-> validate received command extents"); that fix did not touch hydra's
-> asynchronous read_bulk_callback().
->
-> Reproduced with USB_RAW_GADGET + dummy_hcd on a KASAN build: after the
-> normal probe/START_CHIP handshake, a 6-byte CMD_EXTENDED frame with the
-> length field set to 0 makes the callback loop print
->
->    kvaser_usb 1-1:1.0: Unhandled extended command (255)
->
-> without bound (306000 times in ~75 s), until
->
->    rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
->
-> and the machine had to be killed externally.
->
-> Fixes: aec5fb2268b5 ("can: kvaser_usb: Add support for Kvaser USB hydra family")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yiran Qiu <eritque-arcus@ikuyo.dev>
-> ---
->   drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
->
-> diff --git a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
-> index efbb7bed34c9d..d44f9875fbe2f 100644
-> --- a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
-> +++ b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
-> @@ -2156,6 +2156,15 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
->   
->   		cmd_len = kvaser_usb_hydra_cmd_size(cmd);
->   
-> +		/* An extended command carries a device-supplied length; a
-> +		 * command shorter than the command header would never advance
-> +		 * @pos and would spin this URB-completion softirq forever.
-> +		 */
-> +		if (cmd_len < sizeof(struct kvaser_cmd_header)) {
-> +			dev_err(&dev->intf->dev, "Format error\n");
-> +			break;
-> +		}
-> +
->   		if (pos + cmd_len > len) {
->   			/* We got first part of a command */
->   			int leftover_bytes;
->
+Best regards,
+Hervé
