@@ -1,118 +1,99 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E09E43DA49;
-	Wed, 16 Sep 2026 07:27:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EE14457B6;
+	Wed, 16 Sep 2026 07:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543665; cv=none; b=hrNgIJAPAdASOBMWVjxAGuxDO/ceGw17JX6ZgHtVNSabhndwpHKalXmznp/JFiXcmZUyQy39fuArTmtDEZiAa4yVd7+V/Eht34iSncF4C+kC/sIH2UXYXZ3GFRjlmdgMR9utoXomWLSbWFLihsLmSHX0Aog5DivtoihHRPPRqZE=
+	t=1789543706; cv=none; b=VQs7bbZ4wyKSegb0EZKV6b8chmeOVG6sUFKIO+gQHlTd37kNWTpw3q/2HkZu54BprtgwbGYs9L3EKMygy6jeORVHvJ+cPrFLK6lArizabYHU0aQ+PLk62Z8I54beUEBNapw4F5nFttosCrEeKRlEgV3uruwmgoadE/AAKXFQHps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543665; c=relaxed/simple;
-	bh=NlHbsIISrVqqkiOZSbzxcM1TieM8nE/MqIpNBMGixMM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=NfQAOwsVBqNEUuO53fmiyYy3hDFg2Ci4psqBFX+k3i8sdgftynnJh1Wc5/jffduJjdt4KUaOoDYSbVFKpVRiWdTVx7aa8f2B/g1X5N5/Plxze/OtqGkGVN1V4bstEC7a8qpfCjlUeRG1Lve6cp47Hu7bH8tqC/GD+iVBtCdPjlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YH5/d1WH; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YH5/d1WH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789543653; x=1821079653;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding;
-  bh=NlHbsIISrVqqkiOZSbzxcM1TieM8nE/MqIpNBMGixMM=;
-  b=YH5/d1WHM4Vegsc5uZ1UGGpOxlSmpNI6FmqhFJBwpZhdPealvUiZa6MS
-   9dChZE0R9oXlIwCNCjQUbBvb0T5evV45X9S2rr/b0Gz/380CfswGUMhet
-   KNg6nfzlvT62d1oliql6b5UvVDym/WvaIbJAtTGQPDumB4ubWD6zaBhDn
-   o6O/gL++9CnbUv2WLfHmQ61aKEwjXbAZb5HON7x7ydQJSE4oqjkLk262r
-   Y0XMwaDMCAKJV21sIBYwGOYS0ZiqpEcx3B+Xs3BVZNbZN/YBEbHoJiWvY
-   X7Yg60aliNzpwXOmGXwpFaYpwX/WUOW5ZWsceqa+mUnWDeSrKQsu4dYAz
-   Q==;
-X-CSE-ConnectionGUID: Msmpl3M2SWOZ0vc1G6Fgxg==
-X-CSE-MsgGUID: wYo0OVRZS3ClLcPGg0M2FA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93786463"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93786463"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:27:28 -0700
-X-CSE-ConnectionGUID: 5OaAvg2DR9GkL2KbPhQr+g==
-X-CSE-MsgGUID: nWKT0oB5TWWLgr2HL4AUSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="303143619"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:27:26 -0700
-Date: Wed, 16 Sep 2026 15:27:22 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, Tejun Heo <tj@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	yi1.lai@intel.com
-Subject: [linux-next:master] [workqueue]  a4d1cdc435:
- stress-ng.stack.ops_per_sec 18.5% improvement
-Message-ID: <202609161514.be6a4fae-lkp@intel.com>
+	s=arc-20240116; t=1789543706; c=relaxed/simple;
+	bh=d4DQPthliOWxbh+4rDlS03mFq/hQT2ZPq3DEPffyIhs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oO/JUVKTcKIGhzP9IOU+DgRhyRLqo+7DhHgA+YwpUbEKnEQPzsqO8wK/L2Qad3/VTWJbBic1+NJ1vRYEThLUIVUFZ10utAoIlzq98oZmijfGsWzEbFjMeNVljzvI7dM4Qd6MAi1eaYegeDK2kMFhcmHlTEhPkcc0spW/xG9r4pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABnaTcFRapq9SDfBw--.14437S2;
+	Wed, 16 Sep 2026 15:28:05 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: broonie@kernel.org
+Cc: ckeepax@opensource.cirrus.com,
+	krzk@kernel.org,
+	lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	perex@perex.cz,
+	s.nawrocki@samsung.com,
+	tiwai@suse.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: wm8994: Fix runtime PM imbalance in wm8994_component_probe()
+Date: Wed, 16 Sep 2026 07:27:37 +0000
+Message-Id: <20260916072737.1970990-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABnaTcFRapq9SDfBw--.14437S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cw1DCrWxXw1DZryUJFWUArb_yoW8Xw4kpr
+	4vqFZ5KF95uF4avryjyw4kZFyIgFWUAan8G3y7Ka4Ivr1ayas2gryUArWFqFWUGrZ5WFnx
+	XFy2qay8AF1rGaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJb
+	IYCTnIWIevJa73UjIFyTuYvjfUFhL0UUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMMA2qqP7kWdQAAsl
 
+In wm8994_component_probe(), pm_runtime_get_sync() is invoked before
+reading the GPIO configuration registers. If either regmap_read() fails,
+the function jumps to err_irq without calling pm_runtime_put(), leaving
+the runtime PM usage count incremented and causing a leak.
 
+Add pm_runtime_put() on both GPIO read failure paths before jumping to
+err_irq.
 
-Hello,
+Fixes: f5a2cda4f1db ("ASoC: wm8994: Ensure the device is resumed in wm89xx_mic_detect functions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ sound/soc/codecs/wm8994.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-kernel test robot noticed a 18.5% improvement of stress-ng.stack.ops_per_sec on:
-
-commit: a4d1cdc4356de4325b0a9c6fb09afa6e121407b5 ("workqueue: Add workqueue_cpu_intensive tracepoint") https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git master
-
-testcase: stress-ng
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 256 threads 2 sockets Intel(R) Xeon(R) 6768P  CPU @ 2.4GHz (Granite Rapids) with 64G memory
-parameters:
-
-	nr_threads: 100%
-	testtime: 60s
-	test: stack
-	cpufreq_governor: performance
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20260916/202609161514.be6a4fae-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
-  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-gnr-2sp4/stack/stress-ng/60s
-
-commit: 
-  ab85b68e63 ("workqueue: rename the pwq slot helpers shared with percpu")
-  a4d1cdc435 ("workqueue: Add workqueue_cpu_intensive tracepoint")
-
-ab85b68e630e8a4d a4d1cdc4356de4325b0a9c6fb09
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-  2.09e+08 ±  2%     +18.4%  2.475e+08        stress-ng.stack.ops
-   3493402 ±  2%     +18.5%    4138262        stress-ng.stack.ops_per_sec
-     92.39 ±  3%     +17.4%     108.49        stress-ng.time.user_time
-
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
-
+diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
+index 1d64c7c42ed1..7a790f5e33f1 100644
+--- a/sound/soc/codecs/wm8994.c
++++ b/sound/soc/codecs/wm8994.c
+@@ -4354,6 +4354,7 @@ static int wm8994_component_probe(struct snd_soc_component *component)
+ 	ret = regmap_read(control->regmap, WM8994_GPIO_1, &reg);
+ 	if (ret < 0) {
+ 		dev_err(component->dev, "Failed to read GPIO1 state: %d\n", ret);
++		pm_runtime_put(component->dev);
+ 		goto err_irq;
+ 	}
+ 	if ((reg & WM8994_GPN_FN_MASK) != WM8994_GP_FN_PIN_SPECIFIC) {
+@@ -4366,6 +4367,7 @@ static int wm8994_component_probe(struct snd_soc_component *component)
+ 	ret = regmap_read(control->regmap, WM8994_GPIO_6, &reg);
+ 	if (ret < 0) {
+ 		dev_err(component->dev, "Failed to read GPIO6 state: %d\n", ret);
++		pm_runtime_put(component->dev);
+ 		goto err_irq;
+ 	}
+ 	if ((reg & WM8994_GPN_FN_MASK) != WM8994_GP_FN_PIN_SPECIFIC) {
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+2.34.1
 
