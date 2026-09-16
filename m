@@ -1,60 +1,32 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2E74D7D3A;
-	Wed, 16 Sep 2026 17:02:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3984D9543;
+	Wed, 16 Sep 2026 17:02:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578140; cv=none; b=IMo68+nAzpLWi7zxeIACq6wW5QfU36NyP5VEdbmAW6860GmUQaoUM8ysNOqS3eD4lChX36pT+UxwxLuaXT4RASg7gLo6aKAEeA9qatxZyX/QFRYWSC/DTC37Rkcp5ADeunLihn7lcQfWFZWxpbm8QuDK2aQ+MHRNKaYWNXekVAg=
+	t=1789578146; cv=none; b=u4mvmetRjTfXTsR9hs8EDchA3LdkXV6ALGDFG7oivKxt8gwh6FagefoRd9eQ7p58uvLceBEevUpywIpDwmPdmzRnRvSJ6E1gDh0I5Y+MqnyJ5t6BNLOTRqd7UQ3B7SCl/2B6Ym4UV6sV+7hdaYnVyJGh/Ii2Tx1mqrq1p5tdQrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578140; c=relaxed/simple;
-	bh=WMkx2ZgxLx8/KLkGlppHTXMaHci61Qz8TbZ3301O9ns=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=c9dKua9CDEbuQsh/S7Ve8fFmHp39AqxwealDO/a6sPPSAwP4JF3JxzsXSmUR/858YyglEKIt7m+1YtGISrurOwBHylAQONS2UOCjsb69ks4s0w2LvAjVA9sg4ngNOh2fQktMKtZfYjZVoUfPrPYefpqCiDJbRMlE+eut49bB6NE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=bVA6NWGu; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="bVA6NWGu"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GFfoiB3708920;
-	Wed, 16 Sep 2026 13:01:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=PbvHUZ2JnPOZj8DQTTNV1LsPz0X
-	DlUJQ9KrGo4lO9g8=; b=bVA6NWGuL+iiCPq3KBcsZAN1tUutHPAWu4BB8kcA2Kz
-	zMIQsbN891BT9Vc89ys4u9JxP/82ghLGJDFYiRBk3/GnyE1iAuzukit+vvVB79bR
-	YRrTAVHQpwUHy0htDhsTKuvoXZT2tuQXFaJLBE1+4b532KZSvxFYgMvtqIJBn1TX
-	1Sxg8A6lQcRk3WPQgJTmQ9kzMlPsEkPxgTanvBWI1PAF6Auaonn1xfHjOcrbOtBv
-	ih2BGv+wJzdL5fMv4b5TESQjr+6q342fR5+LDi2FXn4dG0VrIJ6cQBqulvp+bj8y
-	KYQnPlcY9Q2UyQ9PwVlGv/kMGDQDyFFN/KUR4bXbj5g==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gq98c5wh1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 13:01:52 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 68GH1ppU044973
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 16 Sep 2026 13:01:51 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Wed, 16 Sep
- 2026 13:01:50 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Wed, 16 Sep 2026 13:01:50 -0400
-Received: from work.maxim-ic.internal ([10.66.6.193])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68GH1ev3004347;
-	Wed, 16 Sep 2026 13:01:42 -0400
-From: Marcelo Schmitt <marcelo.schmitt@analog.com>
-To: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux@analog.com>
-CC: <jic23@kernel.org>, <michael.hennerich@analog.com>, <nuno.sa@analog.com>,
-        <dlechner@baylibre.com>, <andy@kernel.org>,
-        <marcelo.schmitt1@gmail.com>
-Subject: [PATCH v1 1/1] iio: adc: ad7173: Fix digital filter configuration
-Date: Wed, 16 Sep 2026 14:01:34 -0300
-Message-ID: <6de8050f5cc2b1632d7c72e4d290a484dbe53d31.1789577939.git.marcelo.schmitt@analog.com>
-X-Mailer: git-send-email 2.39.2
+	s=arc-20240116; t=1789578146; c=relaxed/simple;
+	bh=tVbmSbG2BpVyTa01308fCRWrpHLoeMs9KdUCGAYVxao=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tOw/oGsM79qyQ6lBJ/gqmOR6T1YSM77ePJiYV88uytnAjQc91Vu/Xx73gGA0kUO+HgYh7Gs/G+zib0vJnQz8LvJo6uLaQXUNNLVoU/9e6DlkQtyMeAtx2uLLa22irQW/kRWqdDojL3ewv/2KLTWZ/hNS/+TldW5+3TT2RISDQwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnUDuOy6pqzSluCA--.22313S2;
+	Thu, 17 Sep 2026 01:02:07 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: gregkh@linuxfoundation.org
+Cc: heikki.krogerus@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: typec: Fix PD object leak in select_usb_power_delivery_store()
+Date: Wed, 16 Sep 2026 17:01:39 +0000
+Message-Id: <20260916170139.2085947-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,62 +34,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDIzMiBTYWx0ZWRfX07albRHZ77A9
- HWsGN9kvRsT20lLHYONwXA9Eh/VHBLMYfC5cIvHUK9BAzFnmvE/AepYXgbdahRLA64GrxBuuESQ
- OA1zOEhVkZmyeAKmBuqJLpMFVoXmxCZLLOshVDJMvXPC4BsTivH8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIzMiBTYWx0ZWRfXx354D6BpE2s/
- kWhn+9HTRpIQGXeVhhPnXgWWy/NkcwvziOxVMlCnPAIONgCtNTbUa/Drl4QJnHqChzmZSLCBXfK
- O9AkQc6w79s1c8QV8iu9y9zMAOY3sKKDd1zA8y/0p9kfPAMGtnkmMvcX8+BOKFITu/AGbKrE8DO
- ulbipgBhGPgJ0FCjP5hxQ25F/Y7IBjxQr7EIKHJ15RbiroAx2mEJlYzK/nn8fVD7I1GEO62d/Sf
- 1NXPKlTud8gWhS74SNYNn63XXdd1lh8TIhHWhwQ1h6HDJleNuHh95o8+ZHhbjK8HYSulkWcaXIG
- hPLJgstsR77k5N34aJho0iYc+wccMTJJlNhbux04jZGjcDtEQJ45b2tXcVOUC11pKc5kvo+e6Iw
- 7jvfwuPajXxMjhSBHylFa8j6H38+qCpXtKDJftixulrEAeQCwR0/Uy82gGt0oHKnGrsGYvYXdOa
- ebiqGR5weSlB1jSz3CQ==
-X-Proofpoint-GUID: gmxgHepPpDu2KYGFloHLM3MIOSuhk2a6
-X-Proofpoint-ORIG-GUID: gmxgHepPpDu2KYGFloHLM3MIOSuhk2a6
-X-Authority-Analysis: v=2.4 cv=KKvPn1Fo c=1 sm=1 tr=0 ts=6aaacb80 cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8 a=p_faiGwhFiJgV_uZocsA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
- bulkscore=0 lowpriorityscore=0 adultscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160232
+X-CM-TRANSID:zQCowADnUDuOy6pqzSluCA--.22313S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZF4xXF1xGw48AFWxJrWrZrb_yoWkWrg_u3
+	W8W3Z7Xr4UCFW0kF1UJa9xAryxKanFvF40gFsFqws3GFWYv3WUXry293s8ZryUWF4xuFyD
+	GF1UJryrZr18ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxxFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU08
+	9NUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMMA2qqok9gFwABsR
 
-Filter enable and filter type selection masks were swapped on data
-preparation for filter configuration register write. Use the correct masks
-to set each property of post filter configuration.
+select_usb_power_delivery_store() looks up the requested USB Power
+Delivery object with usb_power_delivery_find(), which returns the
+object with a reference taken by class_find_device_by_name(). The
+reference is never dropped, neither when port->ops->pd_set() fails nor
+when it succeeds, leaking a reference to the USB PD object on every
+sysfs store.
 
-Fixes: bb688cd9f772 ("iio: adc: ad7173: support changing filter type")
-Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Drop the reference with put_device() once the pd_set() callback has
+returned and the object is no longer needed.
+
+Fixes: a7cff92f0635 ("usb: typec: USB Power Delivery helpers for ports and partners")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/iio/adc/ad7173.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/usb/typec/class.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/iio/adc/ad7173.c b/drivers/iio/adc/ad7173.c
-index eb47175a0528..faebb7b34a15 100644
---- a/drivers/iio/adc/ad7173.c
-+++ b/drivers/iio/adc/ad7173.c
-@@ -775,9 +775,9 @@ static int ad7173_load_config(struct ad7173_state *st,
+diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+index 0977581ad1b6..0595e8cb83aa 100644
+--- a/drivers/usb/typec/class.c
++++ b/drivers/usb/typec/class.c
+@@ -1619,6 +1619,7 @@ static ssize_t select_usb_power_delivery_store(struct device *dev,
+ 		return -EINVAL;
  
- 	return ad_sd_write_reg(&st->sd, AD7173_REG_FILTER(free_cfg_slot), 2,
- 			       FIELD_PREP(AD7173_FILTER_SINC3_MAP, 0) |
--			       FIELD_PREP(AD7173_FILTER_ENHFILT_MASK,
--					  post_filter_enable) |
- 			       FIELD_PREP(AD7173_FILTER_ENHFILTEN,
-+					  post_filter_enable) |
-+			       FIELD_PREP(AD7173_FILTER_ENHFILT_MASK,
- 					  post_filter_select) |
- 			       FIELD_PREP(AD7173_FILTER_ORDER, 0) |
- 			       FIELD_PREP(AD7173_FILTER_ODR_MASK,
-
-base-commit: 9c464e7473f762cee4c031a09da04f65a1c65d49
+ 	ret = port->ops->pd_set(port, pd);
++	put_device(&pd->dev);
+ 	if (ret)
+ 		return ret;
+ 
 -- 
-2.39.2
+2.34.1
 
