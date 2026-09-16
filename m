@@ -1,40 +1,69 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012026.outbound.protection.outlook.com [40.107.200.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B78A4FECD7
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:37:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789555078; cv=none; b=XmeKZIlTYDCg/tTJsO5d80XcGrLpJWGDLnPuRupfRSzfroy90o15y7t552upgYqm0hHtpmHm2bCzIZY/VA2M7o1z3onukQKjnb798Vb2tJU7/yfw50SpfDUbanFMvSdWqi2AEhfzviudjhURKItJUL7scVlNsUqj5HW7fI5vw8U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789555078; c=relaxed/simple;
-	bh=D9FLIJZO8QSfHmJQ7HJ1vUHDWHscdlD8COtFiTPpb5o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GmY4H3drpvrz1p2zg9ImDz7mVhsTA42fGDLFKgtk7/s+DrYZn5Sj5m2B74wx7z1M/6RoQuhp8bX0JmEXnjl/tUIlJ85gbf6UuogmUCq8k/QJtzRj47th+sal91avI2h5knfqYqVBMyDM4e3yMLoKf5+jgzcMDraVqYhxhEdZ0Mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=CKukPzsq; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456114A2E2D
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:39:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789555153; cv=fail; b=R+qZNrcLGup6lrWeqjIQ2jVQbdA7TsGzmAKzQWotatuX/9hsxThBO5KwcXhrfwhsrWYU/HKm+MwiKuNjfjnSXwhRRva90HlvsoCYDeCK747rSsa92vBeinLXpJTlCe8WKu8quDaRpKROKH0NJm6Pu+gQny559SdzTEX7VDB4HJ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789555153; c=relaxed/simple;
+	bh=1P4nMhMFvYuCEXkK5c8v0f4xLCFSLgbmWtm90KOnn3o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=TttNFl7Hiz9ALZlrruYlQLbZxYsXRDw/wnbrL/DkYWq5FioKtrvAfxY+4NFKFKLuh6o9o3x9IVlwDpyg3uukMK39rktZIOnmsBOYP7D0YjgDAZLxRG+BjBNF8a4E46Lm7jx9QKm4eNwf0vyIAW5Y5tiPV10YIzEPy6u4smZwgHo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JFIFNf2q; arc=fail smtp.client-ip=40.107.200.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="CKukPzsq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789555059;
-	bh=D9FLIJZO8QSfHmJQ7HJ1vUHDWHscdlD8COtFiTPpb5o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CKukPzsqZFLhoiLDPwPA9YYkGO1+KUamch3lJpo6XwsbdDjPNBdj5kzrkzxa4vlZa
-	 JbySdpvggr3o1DJLKa5wAcBZnDXAbWLhPYiEk9EsLQoZvJaXF6rA18VpXWn8+xWTKf
-	 s/dkw24GqK/8lTLscTVSVlvIuZMl0qzqBiiyWZKsAQ8FHuAYbF0VjATEJKkOO38WN2
-	 ETRK5CP1WFZ2RuGHVv4tEsiqzP42n32iIXfYeMJL7p4SvRPIytUR0Iy5ICgXPH2wMP
-	 YIuHjUuRSvJdqYWvx1y5REgIdDfb1eYFirByg67LR+mQZzwaNHCwQYPlmAHQjPaVeD
-	 VoDLj5YPWp0UA==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id EC3D317E0420;
-	Wed, 16 Sep 2026 12:37:38 +0200 (CEST)
-Message-ID: <e7d5b410-8a0c-4add-b4c5-9e9573fa9c68@collabora.com>
-Date: Wed, 16 Sep 2026 12:37:38 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JFIFNf2q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zTmK3BlwBB2GRlgr8x37x8dv4WgcRufA+HjwZC0oqVEgou3sU0d0eulqTfh8BrJHuLNLSbBwYpGqdmxRcbnwv8GUDS18qjbHwK+Yb6OyErIH8edHZeQzimjQ/rf6+spzNVOMBBAx8bDHMl0k1FERQ972axEWDeNn/i3eAlAj9LmCV1MENr4cFg5F8AftIGqXXCcs4xdZP+cEeErFgTN4F0Piz7s7DfItBfRahY0FDcQ7JJ/FNlR4QDQIEbC6KuAmcteiH9qITl5fnYsw1m+SDn4QRYlPiB7+iCNh7R6kRjqe6iyapC8txW86YyBRG0Ttvg6RSnKEslw6mBbHV6Zimw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J0xTXPMrTPRWC1SWbY9GqKYO9JjoYxj8qwJSbFKHke4=;
+ b=kQnviDlRqnWuW/A9XERS6PXf8PW5RBmJHMPENd6Ro+Vao2y07RCrhIoMfcYVUEEndpl/SmS9mWqygwOr4sXjXsoIN55tUEnKcsn6Megc2jqV51M7x0xrvb+q9rNmhBRcgvIJ/ki+jyrartms1+eIk7iFqIi6Qg2aiCzyAeTKay/Sq9AOHenELY9JydAJHc+gTDkezRkmnBLTjPu2YX6bb7TcMQCouXIGwnkSWiEGaN4Cc6b0n7ONkNnvXZOtJ5Wrg3RZIlb57/GWTzaN7KE9xEgMHgFqyWBg4YDPwFMeKfzHyHwiOA8H3W1mMdEpSN+U5Faa4UHzgc+6XoSkpl2yGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J0xTXPMrTPRWC1SWbY9GqKYO9JjoYxj8qwJSbFKHke4=;
+ b=JFIFNf2qv0tGAMV41Ca9oSEbduAGkMrqfm+5p3BdQD1KYjyWK1aQm7bcirXjdQ8rLXu6G5GhPVOKWv4HSGu+4PxqE548sGOtXwdW1M0icloGSpAyYSC2jIHry8g1sJJ2FUpJO1yT3GLn6UwQdahEFb/BkZ0bwb1okRyAnv5rcX8=
+Received: from SA9PR13CA0126.namprd13.prod.outlook.com (2603:10b6:806:27::11)
+ by PH7PR12MB6468.namprd12.prod.outlook.com (2603:10b6:510:1f4::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 10:38:56 +0000
+Received: from SA2PEPF00003F65.namprd04.prod.outlook.com
+ (2603:10b6:806:27:cafe::8f) by SA9PR13CA0126.outlook.office365.com
+ (2603:10b6:806:27::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 16
+ Sep 2026 10:38:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SA2PEPF00003F65.mail.protection.outlook.com (10.167.248.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 10:38:55 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
+ 2026 05:38:55 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
+ 2026 05:38:54 -0500
+Received: from [10.136.41.131] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 16 Sep 2026 05:38:49 -0500
+Message-ID: <62d8da7f-fd6f-4e65-8e6d-520d39d55570@amd.com>
+Date: Wed, 16 Sep 2026 16:08:48 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,126 +71,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] spmi: mtk-pmif: Add workaround for FSM lockup/error in
- read operation
-To: sboyd@kernel.org
-Cc: matthias.bgg@gmail.com, justin.yeh@mediatek.com,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- kernel@collabora.com
-References: <20260701121908.19327-1-angelogioacchino.delregno@collabora.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [PATCH 08/18] sched: Introduce WF_ON_RQ wake flag
+To: Peter Zijlstra <peterz@infradead.org>
+CC: John Stultz <jstultz@google.com>, Andrea Righi <arighi@nvidia.com>, "Tejun
+ Heo" <tj@kernel.org>, David Vernet <void@manifault.com>, Changwoo Min
+	<changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>, Juri Lelli
+	<juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Christian Loehle
+	<christian.loehle@arm.com>, David Dai <david.dai@linux.dev>, Emil Tsalapatis
+	<etsal@meta.com>, Lee Trager <ltrager@nvidia.com>, Richard Cheng
+	<icheng@nvidia.com>, Koba Ko <kobak@nvidia.com>, Aiqun Yu
+	<aiqun.yu@oss.qualcomm.com>, <sched-ext@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-9-arighi@nvidia.com>
+ <20260910104528.GI4120091@noisy.programming.kicks-ass.net>
+ <aqmw0OT5cCtge-QI@gpd4>
+ <CANDhNCqN+mJdrjgjRD_pMQYssHCrmrnE9CW8cMprPQm0dZPtWw@mail.gmail.com>
+ <20260916091908.GG4121339@noisy.programming.kicks-ass.net>
+ <40a61874-4841-4e38-b22b-6b8c30667340@amd.com>
+ <20260916103043.GC776954@noisy.programming.kicks-ass.net>
 Content-Language: en-US
-In-Reply-To: <20260701121908.19327-1-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20260916103043.GC776954@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F65:EE_|PH7PR12MB6468:EE_
+X-MS-Office365-Filtering-Correlation-Id: feb4ccac-1dda-4bd7-a2f8-08df13deb54a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|36860700016|376014|1800799024|23010399003|82310400026|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	LFv5hEJ7YWOukLiMkMcwBr1WUGCR/f4mqqPm4VlvjKoffEv+XVExokWblkCAAFoKdLTjgqCtvYKYRaTSkyNqtIgQhW2/WNm1k6ncZCjTxJZQMRbNE75+MWWfyJBy29gnGqB/QaTTm3gQoQIZ6gu9ODCfVQgYjbuTmgrXZPs74Ii3hKy3N/PBw4CMUnfLuTuur2IOw19/3QZ6jm/z7QWG7j4Edf5euYMG/7AP9D+Jpb37DLsV2LZkbznQTOC3IyehgzTKOY1uYgVb9sf2Xd2IZ0HCRWqCq4akZ1GUmOxxKhXzR11nJE/AU2OrfJPDGBK66xs7EOVKnVqvXTCVR7EZPR1LMubRFvYYrD6yN4oJ1nIwToquTae+Mq8Xd63b23CQl8vwtT9E9Q9dMpn4ifRH2ceyBsh8gwm3y96D80JuolLmiNJmIWqzFmNJw5mN99qRJj4fOkqiIpzOztWEJiC0qp27Nrw5Yxuz9xlnoGr2DGkXbDaf4vzsL00JAt0Ptcr5jVH2H4Iql2C7IIjER6+U38w20fo+Nk5mv6lwR0/18Zq68MaNp749drsLaF0XtbdLwCOytqWkwo+2j4gNzMKlWTDHRrNR9B24or8sy8C244MMe7MA+foh84nY119dUcB6wVa1V8OV2uIQd3spsmLNTnRzmsfZ8Nb8xH5WvsD6qf0xPR5CklBMW603IJt0XV17U2wr2oo0CmNCFXgO4naI8w==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	iGBHsQEB9t19O1zfhJOIkwCrdrylR1Kf3w+YRtSIP6/y3LXCyrj48qAFvvh09LeLkQKqjRZZXF4kXaIj2ESmWPhbilJbs30Om8PKsNfz+xEuePmw2s80NESFk4AiQvLq7o5vuhEWm3DRV2QYJEhazY0P6nclAHa1MuOgI7CWqU46WTk/CxXbbxob4wheuiuDqEx/qyd5PgA6ay1brYeMYCPB0PqdCyJR0dltXLBvYfdf8MWzFkihteiJV7pBC7shHVtYYm64m2nGgN9BlL3ND1j6BwUVIkel1AZGQkC/SLIFFYvNhCFgscRWw6JXlpaDdhy3d8guCW5cw63okbYh0xPAyJ8FamTZVJsamS04GAJUzSBI0hsfgFtJvBjkchUECBqlHFJGFRcWXphuYK+ir+aHjoT+ryT6P7VkL4Ks8sRAnYgWI/kHuqj7IRPjE0t8
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 10:38:55.4753
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: feb4ccac-1dda-4bd7-a2f8-08df13deb54a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003F65.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6468
 
-On 7/1/26 14:19, AngeloGioacchino Del Regno wrote:
-> The SPMI PMIF in some SoCs like MT8196 is affected by a hardware
-> issue that makes the first read operation on each SID to fail as
-> the FSM locks up after sending the read command, and this happens
-> at least in the following conditions:
->   - At boot, after bootloader handoff; and
->   - At every suspend->resume cycle.
-> 
-> This critical bug may produce unwanted issues in regulator drivers
-> which may fail to set voltages, making the platform to end up in a
-> undervoltage or, a bit more critically, an overvoltage condition,
-> producing instability or ... worse.
-> 
-> In order to work around this issue, add a retry mechanism into the
-> pmif_spmi_read_cmd() callback which will resend the read command
-> up to 3 times in the following conditions:
->   - Software Interface returns an error; or
->   - Software Interface never gets in WFVLDCLR state.
-> 
-> As to avoid uselessly blocking for too much time, only during the
-> read-retry loop, the maximum SWINF polling time for each trial is
-> reduced to PMIF_TIMEOUT_US / 2: this was tested on multiple SoCs
-> and seems to always be enough, as when any read succeeds it will
-> always take less than 40ms.
-> In any case, this is still allowing 1.5 times the previous maximum
-> polling time, reaching a total maximum (for 3 retries) of 150ms.
-> 
-> Worst case testing that I performed saw a third retry only 3 times
-> out of ~100 reboots.
-> 
-> Fixes: 1f5be2d7f743 ("spmi: mtk-pmif: Add support for MT8196 SPMI Controller")
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-This is a *fix*, and has been waiting for 2.5 months.
 
-Can anyone please apply it?
-
-Thanks,
-Angelo
-
-> ---
->   drivers/spmi/spmi-mtk-pmif.c | 38 +++++++++++++++++++++++++++---------
->   1 file changed, 29 insertions(+), 9 deletions(-)
+On 9/16/2026 4:00 PM, Peter Zijlstra wrote:
+> On Wed, Sep 16, 2026 at 03:57:54PM +0530, K Prateek Nayak wrote:
 > 
-> diff --git a/drivers/spmi/spmi-mtk-pmif.c b/drivers/spmi/spmi-mtk-pmif.c
-> index 1048420b5afb..61c916edaec4 100644
-> --- a/drivers/spmi/spmi-mtk-pmif.c
-> +++ b/drivers/spmi/spmi-mtk-pmif.c
-> @@ -21,6 +21,7 @@
->   #define SWINF_WFVLDCLR	0x06
->   
->   #define GET_SWINF(x)	(((x) >> 1) & 0x7)
-> +#define GET_SWINFERR(x) (((x) >> 18) & 0x1)
->   
->   #define PMIF_CMD_REG_0		0
->   #define PMIF_CMD_REG		1
-> @@ -349,6 +350,7 @@ static int pmif_spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->   	struct pmif *arb = to_mtk_pmif(ctrl);
->   	struct ch_reg *inf_reg;
->   	int ret;
-> +	u8 retry = 0;
->   	u32 data, cmd;
->   	unsigned long flags;
->   
-> @@ -385,17 +387,35 @@ static int pmif_spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->   		return ret;
->   	}
->   
-> -	/* Send the command. */
->   	cmd = (opc << 30) | (sid << 24) | ((len - 1) << 16) | addr;
-> -	pmif_writel(arb, pbus, cmd, inf_reg->ch_send);
-> +	do {
-> +		/* Send the command. */
-> +		pmif_writel(arb, pbus, cmd, inf_reg->ch_send);
-> +
-> +		/*
-> +		 * Wait for Software Interface FSM state to be WFVLDCLR or to
-> +		 * return an error.
-> +		 *
-> +		 * If this is WFVLDCLR, read the data and clear the valid flag;
-> +		 * If error or timeout, retry for a maximum of 3 times as a
-> +		 * workaround for an hardware issue.
-> +		 */
-> +		ret = readl_poll_timeout_atomic(pbus->base + arb->data->regs[inf_reg->ch_sta],
-> +						data,
-> +						GET_SWINF(data) == SWINF_WFVLDCLR ||
-> +						GET_SWINFERR(data),
-> +						PMIF_DELAY_US, PMIF_TIMEOUT_US / 2);
-> +		if (ret < 0)
-> +			continue;
-> +
-> +		if (GET_SWINFERR(data)) {
-> +			ret = -EIO;
-> +			continue;
-> +		}
-> +
-> +		break;
-> +	} while (++retry < 3);
->   
-> -	/*
-> -	 * Wait for Software Interface FSM state to be WFVLDCLR,
-> -	 * read the data and clear the valid flag.
-> -	 */
-> -	ret = readl_poll_timeout_atomic(pbus->base + arb->data->regs[inf_reg->ch_sta],
-> -					data, GET_SWINF(data) == SWINF_WFVLDCLR,
-> -					PMIF_DELAY_US, PMIF_TIMEOUT_US);
->   	if (ret < 0) {
->   		raw_spin_unlock_irqrestore(&pbus->lock, flags);
->   		dev_err(&ctrl->dev, "failed to wait for SWINF_WFVLDCLR\n");
+>>> @@ -2393,8 +2393,8 @@ unsigned long wait_task_inactive(struct task_struct *p, unsigned int match_state
+>>>  		 * If task is sched_delayed, force dequeue it, to avoid always
+>>>  		 * hitting the tick timeout in the queued case
+>>>  		 */
+>>> -		if (p->se.sched_delayed)
+>>> -			dequeue_task(rq, p, DEQUEUE_SLEEP | DEQUEUE_DELAYED);
+>>> +		if (p->is_blocked)
+>>> +			dequeue_task(rq, p, DEQUEUE_SLEEP | DEQUEUE_BLOCKED);
+>>
+>> For proxy donors, this will simply dequeue the task without
+>> transitioning p->on_rq to 0.
+>>
+>> If we want to break proxy at this point, maybe we want to bring
+>> that __block_task() into dequeue task and do it for
+>> DEQUEUE_BLOCKED?
+>>
+>>>  		trace_sched_wait_task(p);
+>>>  		running = task_on_cpu(rq, p);
+>>>  		queued = task_on_rq_queued(p);
+>>> @@ -3889,8 +3889,7 @@ static int ttwu_runnable(struct task_struct *p, int wake_flags)
+>>>  
+>>>  	update_rq_clock(rq);
+>>>  	if (p->is_blocked) {
+>>> -		if (p->se.sched_delayed)
+>>> -			enqueue_task(rq, p, ENQUEUE_NOCLOCK | ENQUEUE_DELAYED);
+>>> +		enqueue_task(rq, p, ENQUEUE_NOCLOCK | ENQUEUE_BLOCKED);
+>>
+>> For proxy donors on rq that don't belong to fair, this will enqueue
+>> an already enqueued task.
+> 
+> For both the idea would be that {EN,DE}QUEUE_BLOCKED would be ignored
+> when inappropriate.
+> 
+> Eg. fair will no-op when !sched_delayed.
+> 
+> I did mention none of the other classes behave properly in this regard,
+> although the note was perhaps a little cryptic.
+
+My bad! But what do you think about having a bitmap of allowed flags
+that lives in sched_class->flags and is checked at enqueue / dequeue?
+
+Only the lower nibble is set conditionally for matching flags and the
+upper ones are set unconditionally. Only user would be fair for
+DEQUEUE_BLOCKED / ENQUEUE_BLOCKED but is kinda extensible if more
+class specific flags emerge.
+
+-- 
+Thanks and Regards,
+Prateek
+
