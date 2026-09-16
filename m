@@ -1,59 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8994BD7B0
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:52:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CD94B0C88
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552330; cv=none; b=d3qJkalnsoIgwgD7uwirY4wW6U2vWsMNA3eRfG+Mofp4uSR8qMMA44JRNPkes7pLbHse6BMLvN1fyfyGiX7YTMJKCGJ2ASHrGmntN4BUNFxby2BpA0sognzZDcDXv9qjo3I/HAZd4GpUF3X+2gpkzYildgeZyfQH3IbgCnoTbtk=
+	t=1789552335; cv=none; b=Jp+EV4wrEIvhZ0q7NtcKr8UtWXkTza7QcX0bUjNiQeaDgyxy0w8KHPc8R26X3wt5isUwRD+qwaF9vIPf7DDhciVnlkks5X8B2pn/8vgZZ0x7yLO25irgd5US5G+FOq/cRbQtvHw3kjpY/Io0BOSGIMjDqRRcc03YILMmyJsnVcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552330; c=relaxed/simple;
-	bh=5N29l2OUuwfT0iURnbyVDL9u1oxxFmDwwTkKzbQA2yY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A2MWE84m9A2RE7EqFiUshcP8v4KOM6S2y8qz/207yCQ6IzzpZROdEdZOpdEk1tMm+KpmtCYfHATswmwAzhYfm0dtEoPUHZAAkhkmnnQFhg4/cbYUnqnKs2d1FxH7SqoWTeNC9Dh2D2pfLPSIF2kZCUGaV2pp7JCBOlQkDVQPwuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=OKppmqIC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789552335; c=relaxed/simple;
+	bh=YA+a6CCA1zWdQPcieNEuLQ0mIwRn0Ck7WsDOY4ql94Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G7fvr95fqlYDAXj11Tekt5CSpdjkXgJ6R5fKucBB8uFU2IENpe8tkFdEyRADHrcQeCcI2h74ObT/4uJDqwU2v7tyo714+OrFXJ3WvQ7lZt8U2JTrXORziua0bGkgLlq3lGzgA/A0ajhcSotISkQNiOhZ6dRuavhbxaqfBf5xumQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KA/2YiJf; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="OKppmqIC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48BB31F000FF;
-	Wed, 16 Sep 2026 09:52:05 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=OKppmqIC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1789552323;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KA/2YiJf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789552280;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zC/1CFdkrTMQQKEzcImWMaqbtqSZRSTRHyHMpOinqjw=;
-	b=OKppmqICf3NNVb6y8mkJDSTb5a4f34YC7umv6AzXGSKxecLMClO0IP8z81InY9cUBUKTvu
-	FVAWBJVb4Tncyr4qoUlPmNHHT/MbYpyks5GMzHJiZouoeT6vD/lpfD9Cpsi6dy5nwh6CyI
-	9VmNtoQr/hLYx0dy8BvuidoM13A7VWA=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 1f1c0a2e (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Wed, 16 Sep 2026 09:52:03 +0000 (UTC)
-Date: Wed, 16 Sep 2026 11:52:01 +0200
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Theodore Ts'o <tytso@mit.edu>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 12/14] vdso: fix repeated word 'to' in comment
-Message-ID: <aqpmwSS8pqMprKY1@zx2c4.com>
-References: <20260907065751.22783-1-hemanth.selam@gmail.com>
+	bh=FeWcXK9/x+ZPPaC++IgCQ9jS/VWtgj79RgI0CVq94cU=;
+	b=KA/2YiJfDI5z5Tb0+9S9i5OwaAApl2+sF9ZZIO69akxlchzHBiRTMQonw3CaQ7+jG144Ic
+	OoLDgQZJgVl3BrRr3yjXAheQ0+sVYqSkh0v4wteOLWpok1loF5EfQAb+H6OWspdIfwgX7p
+	fY77YpO1yu6V24DHC548RLQjJYqu+h4=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-490-QFumBAnuPfmT3gOSUAZqmg-1; Wed,
+ 16 Sep 2026 05:51:16 -0400
+X-MC-Unique: QFumBAnuPfmT3gOSUAZqmg-1
+X-Mimecast-MFC-AGG-ID: QFumBAnuPfmT3gOSUAZqmg_1789552274
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 79A9F18011DC;
+	Wed, 16 Sep 2026 09:51:13 +0000 (UTC)
+Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CD2991800446;
+	Wed, 16 Sep 2026 09:51:06 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Eric Biggers <ebiggers@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Borislav Petkov <bp@alien8.de>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org
+Subject: [PATCH v4 09/13] security: keys: trusted: always clear the hmac_sha1_ctx before returning
+Date: Wed, 16 Sep 2026 11:50:11 +0200
+Message-ID: <20260916095022.604354-10-thuth@redhat.com>
+In-Reply-To: <20260916095022.604354-1-thuth@redhat.com>
+References: <20260916095022.604354-1-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260907065751.22783-1-hemanth.selam@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Mon, Sep 07, 2026 at 12:27:51PM +0530, Hemanth Selam wrote:
-> Drop the second 'to', reported by checkpatch.pl as a possible repeated
-> word.  Only touches a comment, no code changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Clear the hmac_sha1_ctx structure via __cleanup(hmac_sha1_zeroize_ctx)
+to make sure that the function does not leak sensitive data on the stack
+when returning without calling hmac_sha1_final().
 
-Applied. Thank you.
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ security/keys/trusted-keys/trusted_tpm1.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+index bf0bf7f369705..e5a904b5c1946 100644
+--- a/security/keys/trusted-keys/trusted_tpm1.c
++++ b/security/keys/trusted-keys/trusted_tpm1.c
+@@ -101,7 +101,7 @@ static inline void dump_tpm_buf(unsigned char *buf)
+ static int TSS_rawhmac(unsigned char *digest, const unsigned char *key,
+ 		       unsigned int keylen, ...)
+ {
+-	struct hmac_sha1_ctx hmac_ctx;
++	struct hmac_sha1_ctx hmac_ctx __cleanup(hmac_sha1_zeroize_ctx);
+ 	va_list argp;
+ 	unsigned int dlen;
+ 	unsigned char *data;
+-- 
+2.55.0
+
