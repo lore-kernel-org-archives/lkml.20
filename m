@@ -1,104 +1,165 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8344B3365;
-	Wed, 16 Sep 2026 16:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+Received: from wind.enjellic.com (wind.enjellic.com [67.230.224.160])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA5B44AB3CE;
+	Wed, 16 Sep 2026 16:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.230.224.160
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574854; cv=none; b=uqL2XNMU797jfcwYSeKuIzSkbWuvytqyCNc9caTrzVBqiEKHvhVqX6GRJUNSlePrRHMD2DZlhNTDEGXq6OhYl0ctl8Ld7FFAhzERxU+yx7uxdXGeQoIWVbmmKwL7tjhoYmMMFII7yNqVoNCQ8s9gtlKYQJ3QsJar/xzXh4dGx5Y=
+	t=1789574918; cv=none; b=Dt7aTHz4D7b0iuRrGPOqR1E3lBso86tci2HkbUuYabiXoR5ZWy6hQWxFoYhjfWno33TeL/6Oe5vXJbNbsyY2Ynv0Twts55RbIFgXE7kMXDurVzyT+DtI771qUeFfOUBLLdYE7wY2QrRoy+Yhf74RGsfwDfr8UjRRFF0JQoqbrqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574854; c=relaxed/simple;
-	bh=vFvbZbBADLCF1DSrgvz4gS00RyQRX3hhAM9zpT1dRTY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YB5DTIZcQBOz8RCL2gtdC6VMeW6IRc8O0cfBlZvGT/ksa4oGOm2TXAz6FakPhT+K9ZYpLebRrW/reyeOYfJDqsW0Q+GeBAMTWpnv63ysai2Gj56CrsVvDoAS+If98b6dIi2sRiCpDI3i3EFeMB4g38JjtuBizRbdvatC2x04xkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACnETy6vqpqjV5tCA--.44393S2;
-	Thu, 17 Sep 2026 00:07:22 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Frank.Li@nxp.com
-Cc: alexandre.belloni@bootlin.com,
-	arnd@arndb.de,
-	bbrezillon@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] i3c: master: Fix of_node reference leak in of_i3c_master_add_i2c_boardinfo()
-Date: Wed, 16 Sep 2026 16:06:54 +0000
-Message-Id: <20260916160654.2081795-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789574918; c=relaxed/simple;
+	bh=J7nl98zB0XxMW58Fn6zBKKhP7hFNM1LF2VsRwJ8uRhQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QBrbY5mbYAReEdk5/O2aczspohd7cTgKDBWxlcDQ2jbqfLdafdKgA/7E5ZrNAojJpA4lHG2felFgWxTpYnj3rVG/JDfH5i/B4M+u8VQ7wIopP23NjFydBf5Df+Fx0Uwz9OMKlWxYKup0WBnE1nY/J6g8qpmLIQhWCpxq4HL4k8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enjellic.com; spf=pass smtp.mailfrom=wind.enjellic.com; arc=none smtp.client-ip=67.230.224.160
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enjellic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wind.enjellic.com
+Received: from wind.enjellic.com (localhost [127.0.0.1])
+	by wind.enjellic.com (8.15.2/8.15.2) with ESMTP id 68GG6fJX028338;
+	Wed, 16 Sep 2026 11:06:41 -0500
+Received: (from greg@localhost)
+	by wind.enjellic.com (8.15.2/8.15.2/Submit) id 68GG6diN028328;
+	Wed, 16 Sep 2026 11:06:39 -0500
+Date: Wed, 16 Sep 2026 11:06:39 -0500
+From: "Dr. Greg" <greg@enjellic.com>
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+        Paul Moore <paul@paul-moore.com>, ast@kernel.org, daniel@iogearbox.net,
+        andrii@kernel.org, kpsingh@kernel.org, matt@bobrowski.net,
+        mic@digikod.net, viro@zeniv.linux.org.uk, brauner@kernel.org,
+        kees@kernel.org, casey@schaufler-ca.com, gnoack@google.com,
+        jack@suse.cz, song@kernel.org, yonghong.song@linux.dev,
+        martin.lau@linux.dev, eddyz87@gmail.com, memxor@gmail.com,
+        jolsa@kernel.org, m@maowtm.org, bpf@vger.kernel.org,
+        linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
+ kfunc and policy object destructor
+Message-ID: <aqq-j-xv-P5Qa1Ut@wind.enjellic.com>
+Reply-To: "Dr. Greg" <greg@enjellic.com>
+References: <20260909193719.518517-1-utilityemal77@gmail.com>
+ <20260909193719.518517-5-utilityemal77@gmail.com>
+ <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
+ <aqHUw6k0Mf83CGFT@zenbox>
+ <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
+ <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com>
+ <aqTZdCz6JaoK16Fp@zenbox>
+ <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
+ <aqcb2eXw61LaFaqY@zenbox>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACnETy6vqpqjV5tCA--.44393S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uw1rAw4UJFyUWry8tw18Zrb_yoW8XF4rpw
-	48GFy5C348XF1xWF48XFyfuFZ0v3Z3trWUKw43Kw17urnxGw10qr1DJ3W0vr1fKryrAryj
-	yr45tw4UWa95ZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JV
-	W8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbtxhJ
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqpO9AQAABsI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqcb2eXw61LaFaqY@zenbox>
+X-Greylist: Sender passed SPF test, not delayed by milter-greylist-4.2.3 (wind.enjellic.com [127.0.0.1]); Wed, 16 Sep 2026 11:06:41 -0500 (CDT)
 
-of_i2c_get_board_info() stores the device node in the board info's fwnode
-without taking a reference, so the board info relies on the trailing
-of_node_get() to keep the node alive. Nothing ever drops that reference:
-the board info is devres-allocated and has no release callback.
+On Sun, Sep 13, 2026 at 08:20:41PM -0400, Justin Suess wrote:
 
-Register the reference as a device-managed action of the I3C master so it
-is released on registration failure and on controller teardown.
+> On Sat, Sep 12, 2026 at 12:33:13PM -0700, Alexei Starovoitov wrote:
+> > On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
+> > >
+> > > If fs/, mm/, drivers/, net/, are permitted to have kfuncs, then why not
+> > > security/? kfuncs.rst doesn't seem to forbid this.
+> > 
+> > because fs, mm, net see the value in bpf. bpf helps these subsytems
+> > to focus on their core technologies and moves policy decisions out of
+> > kernel and into bpf.
+> > while lsm people treat bpf as arch-enemy.
+> > kfuncs are not stable. we keep refactoring them.
+> > while lsm folks treat anything within *lsm* and *security* as stable apis.
+> > So any kfunc where they have a say, will become a huge burden for further
+> > bpf development.
 
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/i3c/master.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+> There are patches on the front page of 
+> lore.kernel.org/linux-security-module refactoring security
+> hooks and changing signatures. Security hooks and the LSM interface
+> is not stable, this is explicitly documented. 
+> I deliberately chose kfuncs over helpers to avoid having the interface
+> be ossified.
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 23f490a00591..30b3822c530c 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -2407,6 +2407,11 @@ EXPORT_SYMBOL_GPL(i3c_master_add_i3c_dev_locked);
- 
- #define OF_I3C_REG1_IS_I2C_DEV			BIT(31)
- 
-+static void of_i3c_master_put_node(void *data)
-+{
-+	of_node_put(data);
-+}
-+
- static int
- of_i3c_master_add_i2c_boardinfo(struct i3c_master_controller *master,
- 				struct device_node *node, u32 *reg)
-@@ -2437,9 +2442,9 @@ of_i3c_master_add_i2c_boardinfo(struct i3c_master_controller *master,
- 	boardinfo->lvr = reg[2];
- 
- 	list_add_tail(&boardinfo->node, &master->boardinfo.i2c);
--	of_node_get(node);
- 
--	return 0;
-+	return devm_add_action_or_reset(dev, of_i3c_master_put_node,
-+					of_node_get(node));
- }
- 
- static int
--- 
-2.34.1
+> > > Where would you point me to?
+> > 
+> > landlock was designed for unprivileged users. bpf needs CAP_BPF.
+> > There is a fundamental disconnect. If you can tolerate CAP_BPF then
 
+> Landlock is for privileged and unprivileged users alike.
+> This patchset is designed to compose with unprivileged use seamlessly,
+> which works because of Landlock's monotonicity.
+
+> > just use bpf-lsm and implement whatever policy you need there.
+> > If bpf-lsm is missing a feature we can fix that.
+
+> Sure, in some perfect world in the future where every verifier
+> challenge is solved and BPF has feature parity with in-tree c on
+> a 1:1 basis, you could implement something like SELinux, or Landlock
+> in pure eBPF. It would be about as easy and trivial as building a
+> skyscraper from lego bricks.
+> 
+> There is an entire in-tree ecosystem of LSMs that would provide
+> BPF users with well-maintained, versioned, and tested access
+> control. Why force every eBPF program that needs to make security
+> decisions to reeinvent the wheel? 
+> 
+> There are real eBPF users such as Tetragon, Falco, Tracee, that
+> could use an actively maintained implementation of security models that
+> exist in-tree in security/. This would make access control in eBPF much
+> less painful.
+> 
+> Instead of implementing every filesystem, network, and 
+> socket access control, they can use existing solutions, and with
+> the userspace tooling that already exists. And they can
+> mix-and-match, doing custom logic/policy in BPF, and use what
+> they need in LSM, with BPF making policy decisions.
+> 
+> It would fix a real challenge that users have with eBPF, and wouldn't
+> take away from BPF's ability to do what it already does.
+
+Justin, I find your thoughts and perspective on this interesting.
+
+First a general question:
+
+If we understand correctly, your work is to enhance the capabilities
+of LandLock.  You are fortunate to be in the kernel already and you
+have at least a system call interface as a control plane and of course
+the possibility of implementing a pseudo-filesystem interface if
+something beyond the system call interface was needed.
+
+Given that, what is the motivation for bringing eBPF and all the
+assorted drama related to that into the picture?
+
+In addition to all the political drama, eBPF signing is still a bit up
+in the air as is the ability to completely lock eBPF based policy into
+the kernel so an adversary cannot displace it.
+
+The other issue with this work, seems best described as a problem of
+'Mixing of the Blood', as it was once referred to in the Iron Triangle
+country of south central North Dakota.
+
+This effort seeks to merge two diametrically opposed viewpoints on how
+Linux security should be implemented.  The camp that believes that all
+security policy should only be implemented, and most importantly,
+controlled through requiring inclusion in the kernel and the camp
+seeking the ability to implement kernel based security policies
+without years of contentious political struggle.
+
+You raise the question above of as to why we should be forcing every
+eBPF program developer to dump out a pile of Lego's and start stacking
+them.  The reason is simple, it is the only way to move forward,
+particularily in a timely manner, given how fast the security
+landscape and challenges are advancing.
+
+While work like this could undoubtedly benefit the Tetragon, Falco,
+Tracee and others of this world it seems likely to run into issues
+over whether policy should be in the hands of what amounts to
+userspace.
+
+> Thanks,
+> Justin
+
+Thanks for any insight you may have, especially with respect to the
+advantages of endowing in tree LSM's with eBPF capabilities.
+
+Have a good remainder of the week.
+
+Greg
