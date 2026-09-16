@@ -1,375 +1,84 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F178277818
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:15:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B591B4223;
+	Wed, 16 Sep 2026 01:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789521316; cv=none; b=Hp61CnVLCRyvo4AVvIKt79914xIjc7LiOnZqr23kOViTvwnDph7IMmUD89sKgcT5yPJSWY7JS1jmkAOV2TA4P7tYxpX6ebZJ5znsz/vMbbwuT9h9mm4+Qwk+w4L7j4/nzxiTVDJ29ij2JOze/H+TN5HRFSv352UksATSf/2yX2Y=
+	t=1789521322; cv=none; b=rjCDIRwxQmc4NuvmmpeS8IRPK8IBRU10+u72M+ewVF3Qj2QvtTbLczqdqk0/D91MjuU6jfl/lBQFOgoa8hzDI/KjhOpX8mcJ1ZOx8o1EoDasvCcRmCvVNlzgqZVUseqf2MKcfJ8UPc0Q6MrgdCjoDCSIvkbz3JnWbS4vXbEH9Yo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789521316; c=relaxed/simple;
-	bh=1oHur9vEj+OaGrHshuKT+eDTAu8cXqL6ipLWH80GzPo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KxduVZsPPQBfZ28JEcIw2qEqejtm13I90+LD79IxHhb40jMJHqaAAsFd2PLLuAHyFUhmps5+dO038PwzQe5ppHN5ycejrHz4g0tjBUYsg8X7rtWRpgoNYESzay/7WVZvmSarMrhSWwiXf9O8g4Dff0JMNhmyHMe820+pMWqSc+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sAXcBLNF; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789521322; c=relaxed/simple;
+	bh=LjUwx0Nq5KTl0cndzlFsUqSwPnKaVWLCHqag2SYfJDQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=ZC0qN9OA7QCdurcb2qArtbBxpbZ8F/ZUTbm60F4ZjvSNhUWRBqqfsVEBn2HdqMBxDwGdlNpNVECV007fdVMi5IMm5mId9tkJooa4JRFOO05F11VAfECJhJQjp1UWQ+s6f2dt0B/UKVDmkaQ2xyIT1LQYr1ng54frksq5wjKKRhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=AUVm1lBJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sAXcBLNF"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so2060505e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:15:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="AUVm1lBJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58EE1F000FF;
+	Wed, 16 Sep 2026 01:15:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789521311; x=1790126111; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jnXDLK26KNZ+Nc8tc4KYaeGG7+wo+38IhWGefLy0ryc=;
-        b=sAXcBLNF8mJ9yDJtXRLX2zVPFKNgN5+KR3ZA0BGPvB9GuDwmPW0M/ZWXPLacdfSBoQ
-         soIGFj3p2SJpprt/WjtqqS9qg/BkbnoZS0NLIfUO+RCEEcal6KJ6ZW8SmOnmmSd9zNpF
-         Y5GvJKpsNDBIaJZrFElsORrIyfpM2tKBul9Px60i3b5O4aj+WTJf4oxnz1xQ4AdL8o5o
-         TuJp7vM64CRk8gg5KTD3E2DbWLohjzO023xdO/IcvLRChG9iHfG+cGHWdNIlzr9aMEB2
-         ggntOWtaUHx7n8blfT/nXMhbYNOeT/VWfUjxHm8qsLa0M68TEAQev71UG7O2eBE3Z+vh
-         mNFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789521311; x=1790126111;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jnXDLK26KNZ+Nc8tc4KYaeGG7+wo+38IhWGefLy0ryc=;
-        b=F3QgYnDVCzzoZCkoDEhNltuQXqRSWJFPFFHLHweluCm/xBUXR+m8khltiSspjNGfnG
-         vudEAn0cZOCjsAH1ob732fkcGSY4lQ0r8D+27NHZFI8e4op+KTHIoY0HhX1hae7vtMBY
-         9m+hOSgVyscWwN3Ywxa2vNFgI3YL9vWO1OsNNKbCF3wweSvNV0z8jx4o7DgWQ6fUl+jj
-         d7dspFMHhIihlxM2XzP5eWLMCd8PtQnE1yAtw3ovBjGypsw49Zxa8DjSQrjClBn2PwXv
-         vyr0lLRrLm3uWZwHhBHez4qFNwrgn60YqWna8XtyCMI1kNEDay7M086A5L8YYobZznH3
-         hFwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzATVw+YJaN5xo9HPA65bKYedY27jGuR4TajRgUX0CkwNoCX5GhYDCrQShrDKmmmMtyW33sSr4XWToD7dU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2IYrhzuiS4EVbJ4gxtsQJBpRqm4CR3Ww/VhxX29ocSN7ljir3
-	DhEyygUw/tdE03F2QeK25Lo9IgauWM+P35RHoHkn5qKPmnV8rP5FMeA2
-X-Gm-Gg: AYBFou2VPjRzuA/ILu0fGPbLixjztsxzAxbyE6UEAZeKUhM4TD5lVzdEB7+vVI7Pwb3
-	8cvUEyCpFpmNMvEJWzEWgX3XURr3pOwKqsSW5Km58EGavynO9qnliz2NGuVHUyxn5506Au3ALpQ
-	ixP9qxp37fZo8YPD0j57HoL/1qbrZpDgbwko1ZPu2fRMCfLFLv4ZU2IoROGPTzJjh/T96LHuJhA
-	FJL6jyWQY/OsVGuhpaHhs7sQVetSYstuoBCM5CNtHvVXf9UyQfI/EJbMTc0Ru/xanbgQtZmw+dX
-	Pr+1WAXtFnP8gdyJAPtSDp7G02b0bIRvUQ7fJBl2/LkBWn0yLxomLqGqkkMWg6OcoNLvDk+HDk2
-	BA+uoH9Kme95Gj7G4bmxHbu3DIAXnfaKKJqg4K1atrSkNQNm48X0V4VWDhoqpeCL6DxrGXJ/5Iy
-	KaiXIVBMwMnthMQ7TUDoCMiGsRd/nuD5XPom2BBo9lbIO4LoBnBJWv33V5KhRpEahZ0XsWzT1Rq
-	Eb0sZ+M4qRv/PDxj2f4fa0ujqboPNKHgM0G5LUW33T1iSL+swSPS5w1gMeX8FzJXA==
-X-Received: by 2002:a05:600c:3b97:b0:49e:6050:9fbe with SMTP id 5b1f17b1804b1-49ebcc010d5mr9739045e9.15.1789521311221;
-        Tue, 15 Sep 2026 18:15:11 -0700 (PDT)
-Received: from moosama76.. ([156.193.15.50])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83fca34asm26367435e9.1.2026.09.15.18.15.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 18:15:10 -0700 (PDT)
-From: Mohamed Osama <mohamed.osama189110@gmail.com>
-To: rust-for-linux@vger.kernel.org
-Cc: linux-block@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mohamed Osama <mohamed.osama189110@gmail.com>,
-	Gary Guo <gary@garyguo.net>
-Subject: [PATCH] rust: mem: add DropGuard
-Date: Wed, 16 Sep 2026 04:15:00 +0300
-Message-ID: <20260916011500.529743-1-mohamed.osama189110@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	d=linux-foundation.org; s=korg; t=1789521320;
+	bh=XuQDZikRv9jj7fQ5oAHaP13olV/99KYu+eiNYZt//68=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AUVm1lBJj70j8iqZrzQ1fp/ueoOLFAKmyvLXcuvW6liyZeYvuNXpyoTxXSd5DK5h+
+	 E708l/TD4IbwQwiwzx0h6LvU9909pVVWHhvzM5JTwL5IgghscAtdBgdFta5vpPGtYb
+	 Vc2vhtdaDEQUBe74tqvrodB/VxTHrrgzQwZ9f4ig=
+Date: Tue, 15 Sep 2026 18:15:19 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry
+ Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
+ <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Lorenzo Stoakes
+ <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+ <mhocko@suse.com>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>, Shuah
+ Khan <shuah@kernel.org>
+Subject: Re: [PATCH 0/2] kselftest: mm: fix intermittent failure khugepaged
+ test
+Message-Id: <20260915181519.648c2962143b761cf02efd17@linux-foundation.org>
+In-Reply-To: <20260915-fix_khugepagd_fail-v1-0-bb6f04c8759f@arm.com>
+References: <20260915-fix_khugepagd_fail-v1-0-bb6f04c8759f@arm.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Add a `DropGuard` type to the Rust kernel memory module for running
-cleanup code when a scope is left.
+On Tue, 15 Sep 2026 10:21:35 +0100 Yeoreum Yun <yeoreum.yun@arm.com> wrote:
 
-`DropGuard` runs a `FnOnce` callback when dropped and provides
-`dismiss()` to take the wrapped value without running the callback.
+> There are intermittent failures in collapse_max_ptes_swap() and
+> collapse_max_ptes_shared() when using the khugepaged_context:
+> 
+>   # Run test: collapse_max_ptes_shared (khugepaged:anon)
+>   # Allocate huge page... OK
+>   # Share huge page over fork()... OK
+>   # Trigger CoW on page 1023 of 2048... OK
+>   # Maybe collapse with max_ptes_shared exceeded.... OK
+>   # Trigger CoW on page 1024 of 2048... Fail
+>   Bail out! Unexpected huge page
+>   # Planned tests != run tests (26 != 23)
+>   # Totals: pass:23 fail:0 xfail:0 xpass:0 skip:0 error:0
+> 
+>   # Run test: collapse_max_ptes_swap (khugepaged:anon)
+>   # Swapout 257 of 2048 pages... OK
+>   # Maybe collapse with max_ptes_swap exceeded.... OK
+>   # Swapout 256 of 2048 pages... OK
+>   Bail out! Unexpected huge page
+>   # Planned tests != run tests (26 != 17)
+>   # Totals: pass:17 fail:0 xfail:0 xpass:0 skip:0 error:0
+> 
+> This happens because khugepaged may collapse the pages before wait_for_scan()
+> is called, causing a sanity check that expects uncollapsed pages to fail.
 
-Replace the current `ScopeGuard` users in `gen_disk`, `serdev`, and
-`sync::lock` with `DropGuard`. Keep `ScopeGuard` since it is still used
-elsewhere.
+Is this something we should be testing for?  If I'm understanding
+correctly, success/failure is dependent on timing vargaries inside the
+kernel and that isn't something we can reliably test for.
 
-Add KUnit tests for cleanup on drop and `dismiss()`.
-
-Tested with:
-- `make LLVM=1 -j$(nproc)`
-- KUnit: 8 tests passed
-- `make LLVM=1 rustfmtcheck`
-- `git diff --check`
-- `checkpatch.pl`
-- `make LLVM=1 rustdoc`
-
-Suggested-by: Gary Guo <gary@garyguo.net>
-Link: https://github.com/Rust-for-Linux/linux/issues/1255
-Signed-off-by: Mohamed Osama <mohamed.osama189110@gmail.com>
----
- rust/kernel/Kconfig.test         |  10 +++
- rust/kernel/block/mq/gen_disk.rs |  11 +--
- rust/kernel/mem.rs               | 116 +++++++++++++++++++++++++++++++
- rust/kernel/serdev.rs            |   8 +--
- rust/kernel/sync/lock.rs         |   5 +-
- 5 files changed, 138 insertions(+), 12 deletions(-)
-
-diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
-index e6a5c7a795f0..011c72f14e2c 100644
---- a/rust/kernel/Kconfig.test
-+++ b/rust/kernel/Kconfig.test
-@@ -33,6 +33,16 @@ config RUST_KVEC_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config RUST_DROP_GUARD_KUNIT_TEST
-+	bool "KUnit tests for Rust DropGuard API" if !KUNIT_ALL_TESTS
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This option enables KUnit tests for the Rust DropGuard API.
-+	  These are only for development and testing, not for regular
-+	  kernel use cases.
-+
-+	  If unsure, say N.
-+
- config RUST_BITMAP_KUNIT_TEST
- 	bool "KUnit tests for Rust bitmap API" if !KUNIT_ALL_TESTS
- 	default KUNIT_ALL_TESTS
-diff --git a/rust/kernel/block/mq/gen_disk.rs b/rust/kernel/block/mq/gen_disk.rs
-index fc97dd873974..d9019fbbb361 100644
---- a/rust/kernel/block/mq/gen_disk.rs
-+++ b/rust/kernel/block/mq/gen_disk.rs
-@@ -10,11 +10,12 @@
-     block::mq::{Operations, TagSet},
-     error::{self, from_err_ptr, Result},
-     fmt::{self, Write},
-+    mem::DropGuard,
-     prelude::*,
-     static_lock_class,
-     str::NullTerminatedFormatter,
-     sync::Arc,
--    types::{ForeignOwnable, ScopeGuard},
-+    types::ForeignOwnable,
- };
- 
- /// A builder for [`GenDisk`].
-@@ -102,7 +103,7 @@ pub fn build<T: Operations>(
-         queue_data: T::QueueData,
-     ) -> Result<GenDisk<T>> {
-         let data = queue_data.into_foreign();
--        let recover_data = ScopeGuard::new(|| {
-+        let recover_data = DropGuard::new((), |_| {
-             // SAFETY: T::QueueData was created by the call to `into_foreign()` above
-             drop(unsafe { T::QueueData::from_foreign(data) });
-         });
-@@ -150,7 +151,7 @@ pub fn build<T: Operations>(
-         // SAFETY: `gendisk` is a valid pointer as we initialized it above
-         unsafe { (*gendisk).fops = &TABLE };
- 
--        let cleanup_failure = ScopeGuard::new_with_data((gendisk, data), |(gendisk, data)| {
-+        let cleanup_failure = DropGuard::new((gendisk, data), |(gendisk, data)| {
-             // SAFETY: `gendisk` came from `__blk_mq_alloc_disk()` above and
-             // has not been added to the VFS on this cleanup path.
-             unsafe { bindings::put_disk(gendisk) };
-@@ -161,7 +162,7 @@ pub fn build<T: Operations>(
- 
-         // The failure guard now owns both pieces of cleanup; the early guard
-         // must not run on this path anymore.
--        recover_data.dismiss();
-+        DropGuard::dismiss(recover_data);
- 
-         let mut writer = NullTerminatedFormatter::new(
-             // SAFETY: `gendisk` points to a valid and initialized instance. We
-@@ -185,7 +186,7 @@ pub fn build<T: Operations>(
-             },
-         )?;
- 
--        cleanup_failure.dismiss();
-+        DropGuard::dismiss(cleanup_failure);
- 
-         // INVARIANT: `gendisk` was initialized above.
-         // INVARIANT: `gendisk` was added to the VFS via `device_add_disk` above.
-diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
-index f2d4cdf87d00..e098675ea195 100644
---- a/rust/kernel/mem.rs
-+++ b/rust/kernel/mem.rs
-@@ -4,6 +4,88 @@
- 
- use crate::prelude::*;
- 
-+use core::mem::ManuallyDrop;
-+use core::ops::{Deref, DerefMut};
-+
-+/// Wraps a value and runs a closure when dropped.
-+///
-+/// This is useful for running cleanup code when leaving a scope.
-+///
-+/// The [`DropGuard::dismiss`] function can be used to take ownership of the wrapped
-+/// value without running the cleanup function.
-+#[doc(alias = "ScopeGuard")]
-+#[doc(alias = "defer")]
-+pub struct DropGuard<T, F>
-+where
-+    F: FnOnce(T),
-+{
-+    inner: ManuallyDrop<T>,
-+    f: ManuallyDrop<F>,
-+}
-+
-+impl<T, F> DropGuard<T, F>
-+where
-+    F: FnOnce(T),
-+{
-+    /// Creates a new `DropGuard`.
-+    #[must_use]
-+    pub fn new(inner: T, f: F) -> Self {
-+        Self {
-+            inner: ManuallyDrop::new(inner),
-+            f: ManuallyDrop::new(f),
-+        }
-+    }
-+
-+    /// Consumes the `DropGuard`, returning the wrapped value without
-+    /// running the cleanup function.
-+    pub fn dismiss(guard: Self) -> T {
-+        let mut guard = ManuallyDrop::new(guard);
-+
-+        // SAFETY: We have taken ownership of the guard and prevent its destructor from running.
-+        let value = unsafe { ManuallyDrop::take(&mut guard.inner) };
-+
-+        // SAFETY: We have taken ownership of the guard.
-+        unsafe { ManuallyDrop::drop(&mut guard.f) };
-+
-+        value
-+    }
-+}
-+
-+impl<T, F> Deref for DropGuard<T, F>
-+where
-+    F: FnOnce(T),
-+{
-+    type Target = T;
-+
-+    fn deref(&self) -> &T {
-+        &self.inner
-+    }
-+}
-+
-+impl<T, F> DerefMut for DropGuard<T, F>
-+where
-+    F: FnOnce(T),
-+{
-+    fn deref_mut(&mut self) -> &mut T {
-+        &mut self.inner
-+    }
-+}
-+
-+impl<T, F> Drop for DropGuard<T, F>
-+where
-+    F: FnOnce(T),
-+{
-+    fn drop(&mut self) {
-+        // SAFETY: `DropGuard` is in the process of being dropped.
-+        let inner = unsafe { ManuallyDrop::take(&mut self.inner) };
-+
-+        // SAFETY: `DropGuard` is in the process of being dropped.
-+        let f = unsafe { ManuallyDrop::take(&mut self.f) };
-+
-+        f(inner);
-+    }
-+}
-+
- /// Transmute between two types.
- ///
- /// Use this instead of [`core::mem::transmute`] when it is known that sizes are identical but this
-@@ -232,3 +314,37 @@ unsafe impl AsReprMut for $signed {}
-     // `usize` is not normalized to particular integer for portability.
-     usize isize,
- }
-+
-+#[cfg(CONFIG_RUST_DROP_GUARD_KUNIT_TEST)]
-+#[macros::kunit_tests(rust_drop_guard)]
-+mod tests {
-+    use super::*;
-+
-+    #[test]
-+    fn test_drop_runs_cleanup() {
-+        let mut cleaned = false;
-+
-+        {
-+            let _guard = DropGuard::new(42, |value| {
-+                assert_eq!(value, 42);
-+                cleaned = true;
-+            });
-+        }
-+
-+        assert!(cleaned);
-+    }
-+
-+    #[test]
-+    fn test_dismiss_returns_value_without_cleanup() {
-+        let mut cleaned = false;
-+
-+        let guard = DropGuard::new(42, |_| {
-+            cleaned = true;
-+        });
-+
-+        let value = DropGuard::dismiss(guard);
-+
-+        assert_eq!(value, 42);
-+        assert!(!cleaned);
-+    }
-+}
-diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-index 17ca504b7f8d..a400d241c2ad 100644
---- a/rust/kernel/serdev.rs
-+++ b/rust/kernel/serdev.rs
-@@ -13,6 +13,7 @@
-         to_result,
-         VTABLE_DEFAULT_ERROR, //
-     },
-+    mem::DropGuard,
-     new_mutex,
-     of,
-     prelude::*,
-@@ -21,10 +22,7 @@
-         Mutex, //
-     },
-     time::Jiffies,
--    types::{
--        Opaque,
--        ScopeGuard, //
--    }, //
-+    types::Opaque, //
- };
- 
- use core::{
-@@ -174,7 +172,7 @@ extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> kernel::ffi:
-             }))?;
-             // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
-             let private_data = unsafe { sdev.as_ref().drvdata_borrow::<PrivateData<'_, T>>() };
--            let private_data = ScopeGuard::new_with_data(private_data, |_| {
-+            let private_data = DropGuard::new(private_data, |_| {
-                 // SAFETY: We just set drvdata to `PrivateData<'_, T>`.
-                 drop(unsafe { sdev.as_ref().drvdata_obtain::<PrivateData<'_, T>>() });
-             });
-diff --git a/rust/kernel/sync/lock.rs b/rust/kernel/sync/lock.rs
-index 10b6b5e9b024..15f9cbe76c8d 100644
---- a/rust/kernel/sync/lock.rs
-+++ b/rust/kernel/sync/lock.rs
-@@ -7,8 +7,9 @@
- 
- use super::LockClassKey;
- use crate::{
-+    mem::DropGuard,
-     str::{CStr, CStrExt as _},
--    types::{NotThreadSafe, Opaque, ScopeGuard},
-+    types::{NotThreadSafe, Opaque},
- };
- use core::{cell::UnsafeCell, marker::PhantomPinned, pin::Pin};
- use pin_init::{pin_data, pin_init, PinInit, Wrapper};
-@@ -242,7 +243,7 @@ pub(crate) fn do_unlocked<U>(&mut self, cb: impl FnOnce() -> U) -> U {
-         // SAFETY: The caller owns the lock, so it is safe to unlock it.
-         unsafe { B::unlock(self.lock.state.get(), &self.state) };
- 
--        let _relock = ScopeGuard::new(||
-+        let _relock = DropGuard::new((), |_|
-                 // SAFETY: The lock was just unlocked above and is being relocked now.
-                 unsafe { B::relock(self.lock.state.get(), &mut self.state) });
- 
--- 
-2.43.0
-
+IOW, should we say "bad idea" and just delete this test case?
