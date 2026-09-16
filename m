@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118AF4CE677
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B26A4DD3C9
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600424; cv=none; b=iakX6t6x/21QxhHf3djzAMJFd1yarrXSWkFgKkcT/HNqbepB073xThyFsMoAalINSXTF49JwhFZFhbFNq2dd2JZzWp2WF4GdJ/0pd93DNguKYVc/VOCYsZKRD5ZD+zdxgFMfWcc+uugsCGaLPXWSPzqaLujd7DTj1OhMmnPUi1Y=
+	t=1789600426; cv=none; b=mjw0vJSPI51Fgp+fDapQis7qWNN+PvWwGdriSH3VyKjDmNaadOJm8fwNwpqMpc7EiZ4VhWLJUYRQY5vqVepls8mJHCurUwY3ecmTooMR5lEuQFNodrUA6HTC3nKckg2uFXjtbH+WRuDY577bqu6j3LZObRQ434rWR2vZbGxG5t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600424; c=relaxed/simple;
-	bh=GcxFliNTIAtRq7uiuS+67NRJavF9d5TyAC+yRtsjs+4=;
+	s=arc-20240116; t=1789600426; c=relaxed/simple;
+	bh=tNMbExkvVFOJ1CKrMUqgJLqIQ8y5YPWxH/cuiLOMbVg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NG8oiqKZqcXlD6e4vFPr15n6yIKkVCbUf8FckhiOFgyMz21ejrGWcokdfqF3ZmpqKlxvw3Du9Yz0xir7NUnShpEcFlqW/jx4kyXMyz/LmXGgDo/CoxmAoTt8WdFpLDIU/FUJcD02n/3eG/MbZH3wKsTm9PkqX6sz3fEvV3prZkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZpUGohQY; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=TJAM9lKKLYXE9mDSBUvlDH8Cu3T6OMZVOtMwEpU7w6d1Xiu/EzcAAxJqNsJYDgf1ysuuAthjBX1KWz0IT0WGQYzPuDvKI3CBmjHkJSzehBjJBv54KzlkK17SWmUkq5145l1mqnqqPoTqye2b2G7O26z57tJ3tenj/Kqrxpxvtrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lYHg1JWy; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZpUGohQY"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lYHg1JWy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789600420; x=1821136420;
+  t=1789600424; x=1821136424;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=GcxFliNTIAtRq7uiuS+67NRJavF9d5TyAC+yRtsjs+4=;
-  b=ZpUGohQYBvZdvndZAqJb6tmrk6DsHsmxgiAjA9OWWu1NcYLa0v/TtIYu
-   nvW6uhk/IUs/LJnxXJS4Wr2kDPPTWynh1+9zqI7DIBYrekUWuJOwO/0IZ
-   emAxnkzLzkvfjuGF2O2MiOXFwe2mtogPtOK6qMIe8nDchjnwsrRMSrco6
-   hJe0L925xopyKXp9SrNABiRbmkb3WczJRB8C9czeGOimnZ9Z5q213V1Po
-   NDPw+UrmG4oSJ+tm82THsanv83SZqnsKXkch581TOTMxYsvqEU1057EX9
-   K9b3nY3C0+H3buOLiKqTafFi3Xue/8SPQ33lz8etRc9uyJ+0LcW00V8MR
-   Q==;
-X-CSE-ConnectionGUID: olmYedPxRsK2afTi7Fjslw==
-X-CSE-MsgGUID: RHOsxff7QgaqNuQVtmK2Mw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861404"
+  bh=tNMbExkvVFOJ1CKrMUqgJLqIQ8y5YPWxH/cuiLOMbVg=;
+  b=lYHg1JWy2c8uXmCYqVyz1vhj5ia4z0u0k6LMn5apsVR6/fImXn2ErZbz
+   5p0Umtvy0nTxYAST//Wsduxcf7R/Fe2Lai1kdLk3GotOdg8l4VNDrzdam
+   eLdbzYTY5lUyfFJmk30L65+U0g6+5DoJbvvbWJCLYBE6QIZOsz9YcRKXD
+   5LWKqepUzsGuC8qk3yNspx+9y/9HtupQHZpPlmU27lJ+BsL+cO9uZ/VPM
+   /YPSLM4fAaC0rnTJfPhVVkJoG7BCdUSN6qPPdJ69IdvRqI3o3GC5UVzBN
+   MmKPWaI7K/KeskMQ0bWHCIhYJMYO3rloIAyAo4ms7nyJUs0OeGDjhhQj7
+   w==;
+X-CSE-ConnectionGUID: bwK881J3TNOlLNtQ5+F6cw==
+X-CSE-MsgGUID: QnclBuTJRGe3chhzc4sY4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861423"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93861404"
+   d="scan'208";a="93861423"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:35 -0700
-X-CSE-ConnectionGUID: mXegwrkSScyepjynTHED1A==
-X-CSE-MsgGUID: kZgJRk6XQJ2jWjiMlOShMQ==
+X-CSE-ConnectionGUID: uI5VSaESQN+GAyHnb+X0UA==
+X-CSE-MsgGUID: RY3VMEigTPG9hx3XO5oqVQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="277231459"
+   d="scan'208";a="277231465"
 Received: from khuang2-desk.gar.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.223.219])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:34 -0700
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:35 -0700
 From: Tony Luck <tony.luck@intel.com>
 To: Fenghua Yu <fenghuay@nvidia.com>,
 	Reinette Chatre <reinette.chatre@intel.com>,
@@ -59,9 +59,9 @@ Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v12 10/25] x86/resctrl: Honor rdt=perf option to force enable AET perf events
-Date: Wed, 16 Sep 2026 16:13:05 -0700
-Message-ID: <20260916231320.14502-11-tony.luck@intel.com>
+Subject: [PATCH v12 12/25] arm,x86,fs/resctrl: Allocate maximum needed rmid_ptrs[]
+Date: Wed, 16 Sep 2026 16:13:07 -0700
+Message-ID: <20260916231320.14502-13-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916231320.14502-1-tony.luck@intel.com>
 References: <20260916231320.14502-1-tony.luck@intel.com>
@@ -73,49 +73,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-resctrl can disable ("force_off") a feature supported by the platform if,
-for example, there is an erratum related to the feature or, in the case of AET
-(Application Energy Telemetry), when the event group has insufficient RMIDs. The
-"rdt=" kernel command line option lets the user override ("force_on") when
-a feature is disabled in such case. Users may also disable ("force_off")
-individual supported resctrl features they do not need.
+File system code allocates the rmid_ptrs[] array once during
+initialization. The number of entries needed in this array is currently
+constant. When changes are made to allow Application Energy Telemetry
+(AET) to run with the pmt_telemetry driver as a module, then number of
+entries needed may change from one mount to the next.
 
-Linux enumerates AET once on first mount and skips this enumeration if
-the associated event group is supported but disabled. Since AET is only
-enumerated once, this check is guaranteed to only consider disabling via
-the rdt= kernel parameter.
+Allocate rmid_ptrs[] with enough entries for any future mount.
 
-However, when transitioning to enumerate AET on every mount, it is no longer
-correct to skip enumeration simply because an event group is marked as
-disabled. It is then possible for resctrl to have force-disabled the event
-group during an earlier enumeration due to insufficient RMIDs, which would
-improperly cause the kernel to ignore a user's explicit rdt= override on
-subsequent mounts.
-
-Ensure the user's command line choices take precedence over system-level limits.
-
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
 v12:
-	No change
+	New patch. Split out from old patch 12.
+	New global pqr_assoc_num_rmid to avoid repeat CPUID calls.
 ---
- arch/x86/kernel/cpu/resctrl/intel_aet.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/resctrl.h            |  1 +
+ arch/x86/kernel/cpu/resctrl/core.c | 27 +++++++++++++++++++++++++++
+ drivers/resctrl/mpam_resctrl.c     |  9 +++++++++
+ fs/resctrl/monitor.c               |  2 +-
+ 4 files changed, 38 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-index c22c3cf5167d..4ad6ad78e93e 100644
---- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
-+++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-@@ -228,7 +228,7 @@ static bool enable_events(struct event_group *e, struct pmt_feature_group *p)
- 	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_PERF_PKG].r_resctrl;
- 	int skipped_events = 0;
+diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+index fbf737e884db..5535bde7b925 100644
+--- a/include/linux/resctrl.h
++++ b/include/linux/resctrl.h
+@@ -447,6 +447,7 @@ static inline u32 resctrl_get_default_ctrl(struct rdt_resource *r)
+ /* The number of closid supported by this resource regardless of CDP */
+ u32 resctrl_arch_get_num_closid(struct rdt_resource *r);
+ u32 resctrl_arch_system_num_rmid_idx(void);
++u32 resctrl_arch_system_max_rmid_idx(void);
+ int resctrl_arch_update_domains(struct rdt_resource *r, u32 closid);
  
--	if (e->force_off)
-+	if (e->force_off && !e->force_on)
+ /**
+diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+index 2e3b9c16cbda..a9109f2bc43e 100644
+--- a/arch/x86/kernel/cpu/resctrl/core.c
++++ b/arch/x86/kernel/cpu/resctrl/core.c
+@@ -45,6 +45,9 @@ static DEFINE_MUTEX(domain_list_lock);
+  */
+ DEFINE_PER_CPU(struct resctrl_pqr_state, pqr_state);
+ 
++/* Number of RMIDS values that can be written to IA32_PQR_ASSOC.RMID */
++static u32 pqr_assoc_num_rmid;
++
+ static void mba_wrmsr_intel(struct msr_param *m);
+ static void cat_wrmsr(struct msr_param *m);
+ static void mba_wrmsr_amd(struct msr_param *m);
+@@ -124,6 +127,28 @@ u32 resctrl_arch_system_num_rmid_idx(void)
+ 	return num_rmids == U32_MAX ? 0 : num_rmids;
+ }
+ 
++/**
++ * resctrl_arch_system_max_rmid_idx - Largest possible number of RMIDs
++ *
++ * Return: Maximum possible number of RMIDs used for boot time allocations.
++ */
++u32 resctrl_arch_system_max_rmid_idx(void)
++{
++	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
++	u32 num_rmid = pqr_assoc_num_rmid;
++
++	/*
++	 * If the system is capable of L3 monitoring the maximum RMID value may
++	 * be lower than the system maximum. Either because the L3 monitoring
++	 * feature supports fewer RMIDs, or because SNC (Sub-NUMA Cluster)
++	 * is enabled and divides RMIDs per cluster.
++	 */
++	if (r->mon_capable)
++		num_rmid = r->mon.num_rmid;
++
++	return num_rmid;
++}
++
+ struct rdt_resource *resctrl_arch_get_resource(enum resctrl_res_level l)
+ {
+ 	if (l >= RDT_NUM_RESOURCES)
+@@ -967,6 +992,8 @@ static __init bool get_rdt_mon_resources(void)
+ 	if (!cpu_feature_enabled(X86_FEATURE_CQM))
  		return false;
  
- 	if (!group_has_usable_regions(e, p))
++	pqr_assoc_num_rmid = cpuid_ebx(0xf) + 1;
++
+ 	/* Any of the L3 monitoring features? */
+ 	if (!cpu_feature_enabled(X86_FEATURE_CQM_LLC))
+ 		return false;
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 0db62dd2a71c..0ffa25199f74 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -252,6 +252,15 @@ u32 resctrl_arch_system_num_rmid_idx(void)
+ 	return (mpam_pmg_max + 1) * (mpam_partid_max + 1);
+ }
+ 
++/*
++ * File system calls this for one-time allocation of structures
++ * during initialization. Return the largest possible value.
++ */
++u32 resctrl_arch_system_max_rmid_idx(void)
++{
++	return resctrl_arch_system_num_rmid_idx();
++}
++
+ u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid)
+ {
+ 	return closid * (mpam_pmg_max + 1) + rmid;
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index 2a28fe04284b..e8775e08aa18 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -978,7 +978,7 @@ int setup_rmid_lru_list(void)
+ 	if (rmid_ptrs)
+ 		return 0;
+ 
+-	idx_limit = resctrl_arch_system_num_rmid_idx();
++	idx_limit = resctrl_arch_system_max_rmid_idx();
+ 	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
+ 	if (!rmid_ptrs)
+ 		return -ENOMEM;
 -- 
 2.55.0
 
