@@ -1,92 +1,245 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA924A4996;
-	Wed, 16 Sep 2026 09:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551611; cv=none; b=WB+iPQySUoZlVkWK1doAgn6jCiT5Ii4F+3RF2l29YaxcIFv8TVxdi1SI7BJSQyoGsCRftw2QQO2chc1LrhWhW59+c9rrdw2xdcuSz6WQw+LmMH7hKYVFPBp2t1UIbZ0qQsOmjssChgubG5LEEjJN3uSQ6r8OMJ/ezKpUeSL0CAA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551611; c=relaxed/simple;
-	bh=hLbmi6WvFh3bqyxpo2IrHGcGtF3z9mONMEoVjFdFFx0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RnBzzWHZoJnuy2PIlWBWg6W0QUrGtPNH/C6NS/4WJnvJ5ArN9s3HIG9SRPw4+MIMhyFSp1dYzzdr/nMhJw/tErzc4MikY4oI6zA8FepMlkb7n4ShNVinI1vHlEmsG9MBNPZRt1idvKEDPNrmVUy2us6yj54FKLaRbgMwdA9WtvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3wkDeY6pqGorgBw--.1498S2;
-	Wed, 16 Sep 2026 17:39:42 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alistair@popple.id.au
-Cc: andrew@codeconstruct.com.au,
-	eajames@linux.ibm.com,
-	gregkh@linuxfoundation.org,
-	joel@jms.id.au,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-fsi@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	ninad@linux.ibm.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] fsi: master-aspeed: Fix of_node reference leak in fsi_master_aspeed_probe()
-Date: Wed, 16 Sep 2026 09:39:14 +0000
-Message-Id: <20260916093914.2005582-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5713B4A99B0
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:39:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789551605; cv=pass; b=gwvvjSQAjyryzvuqEHM3GcKJhXXVu02HX+ovSBETZglGTW8edl89SP+ibFJAAfQW+1Bseg7Kcm97i7lMXPZfftNbUSd2ul1M3CJmk73S5prOcqGP1FzqML+zeNbtDItXNivXEPxcQEJx/tgHJUuYtLCKmkJjIuz+sE/akDl44DA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789551605; c=relaxed/simple;
+	bh=OAc/hO8nkcFCNdskiQuZDde7+ByFdpMj4nnrjeABvqw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OJ08kxp8UQyPFhFz2r6k29cg2gj8Ngq9CH9oz6hKccM1K/D6v5H3mmmBFqPQ2M800dKH5Niu7lXRFLWECIanXk7FGdrlEHqhnYLN56Xx/HA0YAmJkOcp0/QDU8eXbzlUEEK1UUcCa1SUSEQLrN0KGdXE0GjCPFc0dfjXTKs8IBY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vc+5Vp7f; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vc+5Vp7f"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48435bcf9d9so13999f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:39:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789551590; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ECdErOjxWXEhrZtVFDOOkdtq1U07LRZel8l8m1vWdhwVHVrm1Xw0Gnkg8nbzHr64Lr
+         bY0p3WFG7rUYF9YrMbGnvbpEZIeVifpVqlzHjiWlB9n3t/g2el/CWojz1i8u4mu74q+a
+         QS6uIEEcusVg74nOs2IwQBYRns98tyElRAkTQ0EN8BGVmIp2N0LNUDIOIAg5Pm+/fEiG
+         s1tqXmHMa2yjTxaEIVimfW0aTgF0cIgR6H9vz5hmw74iSRohwSu7oukgOfMcVqaLNWyz
+         MrXOjA5UDs/gHikqqanELJjFsW3LRq58Zsx5VAiuAih3bwXkTSsC0LJHakBgef7pe8iO
+         7Nsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tiZr4mDIW2235eDwCZLZEM9gFMuzY/DQRHjvqEsJaL4=;
+        fh=xJqkqKkRIowWZtwW0jE4QQrF7TJLDR+yTAvbpAD1A24=;
+        b=IBO7nWZx2G+RvyqXiNzIfrUl7J7dLbfis/tTYCFSZY2UuSga1Gog7CjDi8SQjSN8ob
+         YDjZglo+i728LGplL+laHk0UlP7D0uIxvBy2vLVEgrCPaz6lw1e/NkiDp2cgvN2TvXOa
+         Md2rXPsZK5U+8uXI77v1xnD1KtFpYiyBMuXUajqSo5InfcO8RgJt+ZW64/CObhw/fHDh
+         F6Z4qX8csyKVz4XMTCDkBk8RpxS36iIv5JJOvbG3ii/o8TBdN5hbK6wdeEt6zaUh3jdl
+         uw2idZ66QNPWvSTwFDOXQUdAl+G+2WD+7hOyFRedI8yDXuHH/NeUtMxW5yktc2Jeeh3R
+         pzAA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789551590; x=1790156390; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tiZr4mDIW2235eDwCZLZEM9gFMuzY/DQRHjvqEsJaL4=;
+        b=Vc+5Vp7fHcjw3QmF7sWvIYGhx+WQanp/Vhh2FjVSXq1Cnl6AMi3IW7GoO0egrE5+bS
+         YGlQap6/ay9wMpozkaw5ATtRXzR5CvSSNQw9mevdthYEt6lzX+VC2bPa2PmKJCLHXT6r
+         X4XOYhWLN+dRyNEFXsDwKXfEniAX7BxlmMKacwWIC9M8qPO3ii8JIfVu+OBl/N013B+9
+         Pw9Yq00p3cD9CrTTbmtH/ImgvFcmfJJTiknL70h6uRRyqRoHxgbbANALT+BuWMGetBC5
+         xtJB+S9HKWxptKVMjcpO/Tm3HpOJtjKFjZO7vkWOuVuZmsgH/e5xjmr4oNRxhZIl2TLc
+         FemA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789551590; x=1790156390;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tiZr4mDIW2235eDwCZLZEM9gFMuzY/DQRHjvqEsJaL4=;
+        b=1DHwu0LIizK+OxCJxVqQEES6O67fMXrv764fHLMV6bS2P4GQGPg4DO5KyLQvwCufni
+         4UIhvZnFyHe++pJ9fcbKiFP7QSsh/pLkZ38xIuPt9zSgwZmZ2cL4mCzJTpvsexMYFbnk
+         qIB+fKYiiRblnHpHGMI5SwQVeOaN4p4+H6StWyu0PhK8XkeAoZ/XvrSeqqsQxSd6gI8d
+         RgZt67jAuoIFv+poAsC/xsT/QAFHRpAaRLyZ+hDFSIwb3JfNH4niIJoflv1YwxMEIjdg
+         ij9c/bOxs7mXJw9Rcpp0HMp6KDSRxXn54FybDHsMvm0+dk0DUIIE3Y2V0Fwg9dsSJvly
+         D8sA==
+X-Forwarded-Encrypted: i=1; AKwUvBwfOUm6z7kxctMvqOmevrAwz7K6PIki1xyVaHGjqtsOEkgGoRRDiQunq5lydZ5c0ZEuUuHHmR3pj9vbMf0=@vger.kernel.org
+X-Gm-Message-State: AFuF++meWBy8CAavSzUFuFhxF4JdpGVv0Yejc08+0E6xC50xR9CgNaG2
+	FX4tteUihUWAUVQBgFWtLGrokJRNAW0qoTeAFYDlQcA3Es+s4cn1T7MCgLWd401t0TCDbwAChcl
+	laMGdDSAo9QX0grUlF1tppbhVMluiZA43s5H/
+X-Gm-Gg: AYBFou38yhtSTFrJfjiSgt9G1tYUawUASPgqtFX5v3nTy1Sqn0vhpdHi7Ys/sFFs+wA
+	+BNR6LUAK13ZYod5WsKyoYvUfYEyKnC9Ib1O0PX/HPDIUydOQbmwom81NHb9LRNYq85bSGeDSzh
+	4zgV1Ep9xxCXWv3AOl5omPHPUTh/aefR4rtOrueoaq9tlbBt935hiu8aV0N/wZt//or53VIuTPj
+	Rwjy/zTNUoJxibZlCQHY7kchk6vpVltva4keQME7n8nDhfrn+7HjnbeSnm0X6U+aPiMXsVbyWfr
+	S3HtT9IlZIV/SXJqxRY8R64PU1hPfBPVxONlqJkwWXPt50CBi51U046h
+X-Received: by 2002:a5d:588b:0:b0:487:34c:273a with SMTP id
+ ffacd0b85a97d-4870d27d7edmr2151151f8f.4.1789551589672; Wed, 16 Sep 2026
+ 02:39:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3wkDeY6pqGorgBw--.1498S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZr4ruw15Ww4UKw45Xr1kKrg_yoWkGwcE93
-	W8uF93JFWUCFWkJws0yanIvw4qkF9rWFyxKrZ7ta1Sg34UZrZ8JFW5Xrs3Ca17WrWxJFWD
-	Ar1DKw4rGrW3GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbaxFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
-	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0JUJWrAUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMMA2qqPpSecAAAsO
+References: <20260916015440.2232938-1-chao@kernel.org> <20260916015440.2232938-13-chao@kernel.org>
+In-Reply-To: <20260916015440.2232938-13-chao@kernel.org>
+From: Zhiguo Niu <niuzhiguo84@gmail.com>
+Date: Wed, 16 Sep 2026 17:39:13 +0800
+X-Gm-Features: AcwNN1XjLomLNHi1sjdEgp7tzvLGK8vYWI82s1dbicRilUheZz_OIf6YGFRTljk
+Message-ID: <CAHJ8P3JVrAPRVeNRXgy0ecX_jKerWNtVUDEOfcyFR0H_HJjhHg@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH v8 12/12] f2fs: cache: show per-cache usage in debugfs
+To: Chao Yu <chao@kernel.org>
+Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In fsi_master_aspeed_probe(), a reference to the device tree node is
-taken with of_node_get() and stored in master.dev.of_node.  If
-fsi_master_register() fails, the error path frees the master without
-putting that reference, leaking it.
-
-Put the device node reference before returning on the error path.
-of_node_put() tolerates a NULL node, so the earlier err_release path
-via opb_readl() is unaffected.
-
-Fixes: 606397d67f41 ("fsi: Add ast2600 master driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/fsi/fsi-master-aspeed.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/fsi/fsi-master-aspeed.c b/drivers/fsi/fsi-master-aspeed.c
-index aa1380cdff33..7c7f30c2b8e6 100644
---- a/drivers/fsi/fsi-master-aspeed.c
-+++ b/drivers/fsi/fsi-master-aspeed.c
-@@ -640,6 +640,7 @@ static int fsi_master_aspeed_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_release:
-+	of_node_put(aspeed->master.dev.of_node);
- 	clk_disable_unprepare(aspeed->clk);
- err_free_aspeed:
- 	kfree(aspeed);
--- 
-2.34.1
-
+Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
+=E4=BA=8E2026=E5=B9=B49=E6=9C=8816=E6=97=A5=E5=91=A8=E4=B8=89 09:57=E5=86=
+=99=E9=81=93=EF=BC=9A
+>
+> From: Chao Yu <chao@kernel.org>
+>
+> This patch exposes per-cache memory usage (entry struct memory vs.
+> cached block buffer memory) for meta, node, and compress caches under
+> the memory section in debugfs:
+>   - meta entry: xxx KB, meta cache: xxx KB
+>   - node entry: xxx KB, node cache: xxx KB
+>   - compress entry: xxx KB, compress cache: xxx KB
+>
+> Signed-off-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+thanks!
+> ---
+>  fs/f2fs/cache.h |  1 +
+>  fs/f2fs/debug.c | 49 ++++++++++++++++++++++++++++++++++++++++---------
+>  fs/f2fs/f2fs.h  |  2 ++
+>  3 files changed, 43 insertions(+), 9 deletions(-)
+>
+> diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
+> index a8c24f5282fa..d7983ee70337 100644
+> --- a/fs/f2fs/cache.h
+> +++ b/fs/f2fs/cache.h
+> @@ -38,6 +38,7 @@ enum f2fs_cache_type {
+>         F2FS_META_CACHE,
+>         F2FS_NODE_CACHE,
+>         F2FS_COMPRESS_CACHE,
+> +       NR_CACHE_TYPES,
+>  };
+>
+>  /* Main cache control structure (per sb_info) */
+> diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
+> index 4ed5c271dba3..8c0cffde2457 100644
+> --- a/fs/f2fs/debug.c
+> +++ b/fs/f2fs/debug.c
+> @@ -380,17 +380,36 @@ static void update_mem_info(struct f2fs_sb_info *sb=
+i)
+>                 si->cache_mem +=3D si->ext_mem[i];
+>         }
+>
+> -       si->page_mem =3D 0;
+> -       si->page_mem +=3D (unsigned long long)META_CACHE(sbi)->num_entrie=
+s << PAGE_SHIFT;
+> -       si->cache_mem +=3D META_CACHE(sbi)->num_entries * sizeof(struct f=
+2fs_cached_block);
+> -       si->page_mem +=3D (unsigned long long)NODE_CACHE(sbi)->num_entrie=
+s << PAGE_SHIFT;
+> -       si->cache_mem +=3D NODE_CACHE(sbi)->num_entries * sizeof(struct f=
+2fs_cached_block);
+> +       si->cache_entry_mem[F2FS_META_CACHE] =3D
+> +               (unsigned long long)META_CACHE(sbi)->num_entries *
+> +               sizeof(struct f2fs_cached_block);
+> +       si->cache_data_mem[F2FS_META_CACHE] =3D
+> +               (unsigned long long)META_CACHE(sbi)->num_entries * sbi->b=
+locksize;
+> +
+> +       si->cache_entry_mem[F2FS_NODE_CACHE] =3D
+> +               (unsigned long long)NODE_CACHE(sbi)->num_entries *
+> +               sizeof(struct f2fs_cached_block);
+> +       si->cache_data_mem[F2FS_NODE_CACHE] =3D
+> +               (unsigned long long)NODE_CACHE(sbi)->num_entries * sbi->b=
+locksize;
+> +
+> +       si->cache_mem +=3D si->cache_entry_mem[F2FS_META_CACHE] +
+> +                        si->cache_entry_mem[F2FS_NODE_CACHE];
+> +       si->page_mem =3D si->cache_data_mem[F2FS_META_CACHE] +
+> +                       si->cache_data_mem[F2FS_NODE_CACHE];
+>  #ifdef CONFIG_F2FS_FS_COMPRESSION
+>         if (test_opt(sbi, COMPRESS_CACHE)) {
+> -               unsigned long npages =3D COMPRESS_CACHE(sbi)->num_entries=
+;
+> -
+> -               si->page_mem +=3D (unsigned long long)npages << PAGE_SHIF=
+T;
+> -               si->cache_mem +=3D npages * sizeof(struct f2fs_cached_blo=
+ck);
+> +               si->cache_entry_mem[F2FS_COMPRESS_CACHE] =3D
+> +                       (unsigned long long)COMPRESS_CACHE(sbi)->num_entr=
+ies *
+> +                       sizeof(struct f2fs_cached_block);
+> +               si->cache_data_mem[F2FS_COMPRESS_CACHE] =3D
+> +                       (unsigned long long)COMPRESS_CACHE(sbi)->num_entr=
+ies *
+> +                       sbi->blocksize;
+> +
+> +               si->cache_mem +=3D si->cache_entry_mem[F2FS_COMPRESS_CACH=
+E];
+> +               si->page_mem +=3D si->cache_data_mem[F2FS_COMPRESS_CACHE]=
+;
+> +       } else {
+> +               si->cache_entry_mem[F2FS_COMPRESS_CACHE] =3D 0;
+> +               si->cache_data_mem[F2FS_COMPRESS_CACHE] =3D 0;
+>         }
+>  #endif
+>  }
+> @@ -749,6 +768,18 @@ static int stat_show(struct seq_file *s, void *v)
+>                                 si->ext_mem[EX_READ] >> 10);
+>                 seq_printf(s, "  - block age extent cache: %llu KB\n",
+>                                 si->ext_mem[EX_BLOCK_AGE] >> 10);
+> +               seq_printf(s, "  - meta entry: %llu KB, meta cache: %llu =
+KB\n",
+> +                               si->cache_entry_mem[F2FS_META_CACHE] >> 1=
+0,
+> +                               si->cache_data_mem[F2FS_META_CACHE] >> 10=
+);
+> +               seq_printf(s, "  - node entry: %llu KB, node cache: %llu =
+KB\n",
+> +                               si->cache_entry_mem[F2FS_NODE_CACHE] >> 1=
+0,
+> +                               si->cache_data_mem[F2FS_NODE_CACHE] >> 10=
+);
+> +#ifdef CONFIG_F2FS_FS_COMPRESSION
+> +               if (test_opt(sbi, COMPRESS_CACHE))
+> +                       seq_printf(s, "  - compress entry: %llu KB, compr=
+ess cache: %llu KB\n",
+> +                                       si->cache_entry_mem[F2FS_COMPRESS=
+_CACHE] >> 10,
+> +                                       si->cache_data_mem[F2FS_COMPRESS_=
+CACHE] >> 10);
+> +#endif
+>                 seq_printf(s, "  - paged : %llu KB\n",
+>                                 si->page_mem >> 10);
+>         }
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 69690b061236..34878d99a2f0 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -4525,6 +4525,8 @@ struct f2fs_stat_info {
+>         unsigned int block_count[2];
+>         unsigned int inplace_count;
+>         unsigned long long base_mem, cache_mem, page_mem;
+> +       unsigned long long cache_entry_mem[NR_CACHE_TYPES];
+> +       unsigned long long cache_data_mem[NR_CACHE_TYPES];
+>         struct f2fs_dev_stats *dev_stats;
+>  };
+>
+> --
+> 2.49.0
+>
+>
+>
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
