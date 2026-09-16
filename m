@@ -1,290 +1,160 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90F648C8B9
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549788; cv=pass; b=LGzpYc/AgacEjF1oG73j+9pgqi4MC6FsPq2k2nqZnYCplxBpEH9+QZC7P9FWp58wMTuLEVWQs8HldPkLl4OLJwTkdRyqE46/dsSW3b0CfQfmVYjz2nS9P7qLSO3bPNF/Hn6VkYAIHUVmI81TBMwOxcr7btAC2F2jcRj1n0zoFVQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549788; c=relaxed/simple;
-	bh=wz/NdPjx3/zvPXdCcRofEV0Hxj1ce2E2m4ZMR1PDZ1o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XzQpZVAk04iv9eemRVM7lqvsbo5G0AepAN4DiwKRc7C5pvx5HwACO7JfEeqPmWRHTeBkv7g89rwIrcUEdMrd+tdt1uaRvJIzf/SghrkCiAGBM/Q2KdM4erl+jKxfDPMerBQWPzQnK5kOWUORpWEy9S+EA1EtlZSzHubaR20ZGvg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T7KWM3jy; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B790358368
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789549814; cv=none; b=m1lHQVKBI35RDSOnlSgyfUu/5sJZZE/MOfCK2zVwu6bRZpZnf/XyvtmVT1rok5bfZXsATST45Dk+tXiVOrgIexcW6W5CsZeas8MSydZy/AtJ0utLPAHAXXmMigsNjM5DKLVdz1jXuuPaxOnBnzMyUGQZZPjYOf4fim4hfsXUSgU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789549814; c=relaxed/simple;
+	bh=X5pF3A7h9wkn5uahSdbhngWdpSiTYJvZ0s+iTq5H2Lc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h3DBH60z7cfFL/+CtTDRuQJw6t5pyft8gN0BoD39cRTjBjEpB9ke1iLSQnEb0wYk/z+1TUznikdYzo3Xgin9H1IBVyH+Ti/UDfU5kW+RCjiq2NuTNk2zdA5b+OJIfDExbqH+qpYCYEPE0pWl7m2/xRPLMU4ogx7bAncTc82rfng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f10QwLbF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YD0GW8xT; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T7KWM3jy"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b93204449so479935e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:09:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789549772; cv=none;
-        d=google.com; s=arc-20260327;
-        b=U1BnVkZZItBR2cf1O+sfXl0Ah2gF2XBN7PoA1z/cnMINcEcNz/0Qsp5TadhBRlrwH0
-         q0bj4nb2IH6dW8XoGiKqU0S6zvLTeqdyUxBbYGKpQSDZQdktQgB2xgOGQ+/Lm3gEq6yk
-         O3ESxhtAokiGPMCpDI+fV7BAYU8MTZNyWva/RTT+JE4VAO/V5mwra653XTDAiHjD5PE3
-         eGa8ZT7+GU/eGbv+k4xlOMq7rojAErPwN4qE+ZYvXBPykcig0rbQLazUx8d+AHAEuMFm
-         tQkBxC0HGgcwYmcw7h1nX6gHstBkICL62MtrhNgw81uRQYi1G5ftv26QvjSNIRetypL+
-         o3Tg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=u6imgTxkZJIt7+wWF4Wa+/fisUFhVJ1qnyiTw4wrjD8=;
-        fh=u2myJIyDDw+U2CCcMwsTcc6/wIZor9bdiUAAPuJzOg4=;
-        b=klU9OSiBb7P3XH2M332iWuU/DtSYaMbznFOiFTzYoSMJBMinvjQmcgzijcf0B9/w2x
-         lzAm9hZOXNK8EMnLut0ySUjR+CqiumrzPKnYEmdfoqw/pqqtlPpXKAw3LeduPDMXv3sG
-         1o5e33zwoRp/JYU/cKQ3TqQ4B3WxebZhyCl5bfP9Xl+04ypSVvO+HyUdHmc8L49+/9gA
-         Fimp2r88JBqWlgV5yIrvKEQ/+OUXANxzGVMBYOfuTWkurVQeUrxNKRYA2pgBCa5DuNTV
-         L229A1yrTC91Tx77E96YjSY2wNTdB5cKNguSOT2VgyTsA3DnkxdSU04harTLlkvFDukF
-         y8mQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f10QwLbF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YD0GW8xT"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G92gmm2348128
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:10:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=1NmUklAtL1cxikroewbZT51l
+	w6No/wycIXEfydBGSgE=; b=f10QwLbF6UnpDxNXkivB2+dPWQB/yGSJ/BpBsQb2
+	hXEbWSuCbmn6g5x++ILtUj60VR/hPD9AaCTCgEnbTFuvNcfikaFCtTrhTOoAzTs2
+	FYoIyW/c8mb7l2P+PS8tJfu3vrHZcVe37p8m+6udDzPVpMcya8tnakA/i0msMUG+
+	lvmr3RCoP6cbl7Fc0kecAfnr6g1VWcJKSRr++OUi6E8pW4m4vX8oMSzKudX3Wu2S
+	f7R44FWlBGdlr//8kl7ZC3PbNjt42203ThqDvSFKXIBkO3qKxeZTMJYrOFVdM6Ci
+	hXFfRZkFo5P7ME6uebfnNZ43uRL8QKnVkwMjsRPU+P/4wg==
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqdywaebd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:10:05 +0000 (GMT)
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7e9fc6dc091so5600700a34.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:10:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789549772; x=1790154572; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1789549804; x=1790154604; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=u6imgTxkZJIt7+wWF4Wa+/fisUFhVJ1qnyiTw4wrjD8=;
-        b=T7KWM3jyiKtXzeKG0sww+S/+C1HYvzELky0m35vK29OgF4ajk81HijdQbu5SgdA2KG
-         MASBtUrBcBOXFuwjcetoqZl29riGrhWPA6WsnuHSkmpkwbEf+ttHn8MkyNTfBnVjOYJs
-         73k5Zvsm8V+DvKhpbmO/CDN/tyW2ZfNza9KcuBVzLDiN+BYrQ8ZS+7N3x2XTilTsYTnU
-         bbWwxCbcyzWXTcyYOQRDOEVUDSDaSehrEmnvPF7gwBxa7xIOXpao4o4NbMVl1qkmkaND
-         NBQazqKYoDguFki4M7upEqQ+hra3Vrhgcxk5SVOD+pRoGq+oL7howNgnevdTSn/jYnJU
-         VSaw==
+        bh=1NmUklAtL1cxikroewbZT51lw6No/wycIXEfydBGSgE=;
+        b=YD0GW8xTvoJM1JE1q9FdfCX6XYsIy9ViBikQiAIm5LUHzgE12gvyEVmQTaK9BV00rK
+         wG0HZ+4dtqX7WRZnyL5xvf/kgEECQK3kEE7cKkCjCaNTX9rmIaHupYooQiIixOn3mW5N
+         WHROn0lFzY/DJOPr+cR1EVxJ6uwmoG9FfZfCPAVmz9nI0MXBS6fEnXlt+YsiCvRcdk6X
+         TYCikKPuopeaH4xoi3UwF6Tyv4MILRexXyupeM8lcoWvxUEzIOZ3Wqcb9+AfU6TUgTQH
+         X0z5qUmvyf5G/3YAxbhygUrVaG8nnEFRn58f0RcXa/fJ0W1XQZBRQ3ioThwPydtKx17J
+         U51Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789549772; x=1790154572;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789549804; x=1790154604;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=u6imgTxkZJIt7+wWF4Wa+/fisUFhVJ1qnyiTw4wrjD8=;
-        b=fVqrDWDaBXAewZoMkrO+E1sAEz108n1b326avC1nD94FtUJUpw3U0e13ZXw5h9d+Vc
-         8hDV0v8clTxr2GYPy518EkDW0MHXAdYftrw6/TANkIRSC4HJ9qrbf8kVLU1bsIjjQe5R
-         dpFfpfxYpgq8PhRGjy/4gzDPJWppvAePwsxgkTCP6keMbz24rUsZtD9dmI+SRwVWiP0r
-         8k8SoXsMTfyutHW0P224TF+Tjjspa9VB765PH8QhPm+MPn5r7LGDkeRcMGPH3BBduH7r
-         IwSOvGXrbh4iZPpq/77ahLm1l6p1CCcRYEomC0iflTgjvkeoAsYPjs6keasJ8duUTfhV
-         b3RA==
-X-Forwarded-Encrypted: i=1; AKwUvBzqUG0po1wGSjK7v68qjo3qIPVgTR9hW+892ttBHKo23G4KdZlP8dau9hAAOFHLcP5ftz1SD7pWDzUkWwQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnm3grKismMllaiobgw+GR6BL+/dpVq6dwVSWc7rukdYwg74Et
-	jhp3GHPELqaW/oSdCTIVayY1Oguoo/PnDzTv78cVSaL8Vdr1YcA/pp7UXF49/PIHfKqo6mwUTy2
-	rg3q2zT+aY0AXvyom8IIzRjLLkBqFqgs=
-X-Gm-Gg: AYBFou2IDBseW4BM8TR9OOrMITkXLzatkXLwHYha3g6kVNZShEpCQBVxRwbZ9d7GcyI
-	xOOI3sVYiXx3cogXFBySIV3mTYb1vtJtrSgwTy6r4B/HfdHFCT4LrQsT+IaHZAHf83oXw8jqtTs
-	rKwyovJ07+E1hK+mvfw4R1ZgBVH3le5jGnexuEgxlG4MyvtSZGJmrtt3OAwcfATctSc6zYURBQb
-	POOaJB1Sc4dQJmkgHNom4HKLkJlLRQq5tABzi5QD+WyrN675Q6WO915ecjOEjCdJjICAMdIFTuP
-	78XoKtfbvoYgRANcyO3WIAOd/7SjbXxlZcn/OjeUNmYMEiLVKrTknapL
-X-Received: by 2002:a05:6000:208a:b0:486:fea4:f30d with SMTP id
- ffacd0b85a97d-4870d281932mr2196050f8f.5.1789549772156; Wed, 16 Sep 2026
- 02:09:32 -0700 (PDT)
+        bh=1NmUklAtL1cxikroewbZT51lw6No/wycIXEfydBGSgE=;
+        b=h/QtxsgEZQ3RhusYMfAKb3cy7URPkjMNMEyPNf/+x3STuCV8ZZqNktYSFq12t0N1rT
+         aCDzdJjd+wDZ8CLkhMojLXLYdDwRo2JZklRjQqjauryyI5aFBdmeHKMv8m6CVcDas5Q9
+         mz+FapTnSWEVwpTYWCNIgCqjC0qSRXyCbjDa8Tr87UnY67BsaGxgv/Y4o3Hn/L1mJ8j0
+         vAA6beDq0F2MwjB5wiP03Hu3+3BZXJvZQO2rE5WiAyTgMGwyz7UpPh3ZMBjLGevtLxNR
+         WYbWayRWQvJ7Pgux5ccc1Drlw35I2JOwJdgtrNIynee5d8sG2OgwAZMRTF01AD59dw0e
+         QcVw==
+X-Forwarded-Encrypted: i=1; AKwUvByraQGz+mDHQ6zwLYSXNOHMH1QxxZAnhuxu66WAcrk9Dnw4bq6yfFKuH/WTpg+ryYgrlvsfwvFlKUeywdY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/hIiW5zGOZAYsq4OgFAOLR0DXABUtpj7/jUFm7bXRNP17YrjE
+	l5INa2XL/BsyA8Nb/OeqD1XB2rBSFiRpE2EpEkSGqk2GUdySoKiz0XMwpqrjQMUgf80PiQ4bHG6
+	VuP5Exo0JGloHS0ji+U2ScvxDh+mVTpSko6XEW+51cNsb8Z7hDxQGwhpNXzLElSrkI18=
+X-Gm-Gg: AYBFou2dICUYcE/9LmEjTId0jNUlneGvEPeRW93JxYLQCXgraSwkE734oEl84AVVs/2
+	dVacoZiyRpfMeEOZkHWvI7mmUDq/vj1aOLomVYOuLmLVfNNHj0gd8uDYD6+tAhOm5OlZCjcgdIw
+	1Q2hBx+desznjjAq+MjAE//vk6iWykm4n3xq0BCj81qAwCrq9nHJ5MPNbqFxxW7TZwjQoKv4PY9
+	ZfRCX834koycGhlvbE2DOAzdTvlkW+CR9AlzifuX6IpOwnp92s2osfvHFl4H5Bpqqb5MhUipAlD
+	pdKwswf4EUn0oKhd9NA8bIw2OwsXHm5Tc2fphnBMmd4YnKnU2mL9Gf3dOS+j5UkhczBXDO2OT8k
+	bM1KNeCRzEYNK7456apmQM93qAuz3HC0N7uIysFAOkvQ=
+X-Received: by 2002:a05:6820:180c:b0:6bd:e592:2c74 with SMTP id 006d021491bc7-6c7d45ed069mr1787686eaf.55.1789549804409;
+        Wed, 16 Sep 2026 02:10:04 -0700 (PDT)
+X-Received: by 2002:a05:6820:180c:b0:6bd:e592:2c74 with SMTP id 006d021491bc7-6c7d45ed069mr1787671eaf.55.1789549803916;
+        Wed, 16 Sep 2026 02:10:03 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5ad9ed5sm6791317eec.22.2026.09.16.02.10.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 02:10:03 -0700 (PDT)
+Date: Wed, 16 Sep 2026 17:09:57 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: nord-rrd: Add sound support
+Message-ID: <aqpc5XuF8U-m9zWm@QCOM-aGQu4IUr3Y>
+References: <20260914024003.120931-1-shengchao.guo@oss.qualcomm.com>
+ <20260914024003.120931-3-shengchao.guo@oss.qualcomm.com>
+ <d2d2feff-4823-43dc-9014-099e69195280@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916015440.2232938-1-chao@kernel.org> <20260916015440.2232938-9-chao@kernel.org>
-In-Reply-To: <20260916015440.2232938-9-chao@kernel.org>
-From: Zhiguo Niu <niuzhiguo84@gmail.com>
-Date: Wed, 16 Sep 2026 17:08:55 +0800
-X-Gm-Features: AcwNN1Whb5ZmEjcuGOrTJYQyz0XzeeLWSh97zsT9m5G-tb5HO8qgNCO0eEy8avA
-Message-ID: <CAHJ8P3LFF=WtxrD5xRasBiWCr4t8Jnu+EJnmWrLa5WC0JYn1NA@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v8 08/12] f2fs: cache: initialize compress cache
-To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d2d2feff-4823-43dc-9014-099e69195280@oss.qualcomm.com>
+X-Proofpoint-GUID: 1MpkDyi6WN8bI0Av3X8LHN4mBC_Y9rJM
+X-Authority-Analysis: v=2.4 cv=aJ1lOr9m c=1 sm=1 tr=0 ts=6aaa5ced cx=c_pps
+ a=z9lCQkyTxNhZyzAvolXo/A==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=K4Jvm2uu9IkAFHIyoRwA:9 a=CjuIK1q_8ugA:10
+ a=EyFUmsFV_t8cxB2kMr4A:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDExOCBTYWx0ZWRfX/kcFR1xfaZLz
+ FO7mecMQuwOJnlPyCKU/Wz5H/IEhl7eeDH440G7g6lHYGvdOs416ERHtaXfrUqstGgxNcTUZTPm
+ hIt9HRnSBZLYVjhp+fZpcuKcZ4TiTt3MAaudlXxgBmN0SNIHZtY2kQzfwUevtuIWkA4JbilFlOf
+ 7eR+/92fCoKbtKqpOuNcTsyFR91roAM8WPLn4UZdWzR6KnakADmKNwi4mkMknQaxJkhg52OiBJR
+ fDOBiQlDdvWWcZsjdnyPXZIY//JLFjjNisOdFv0QLvBKTVdfEQisAHqhysVKFYghG0qUevStmT/
+ BVRf3JAc15G2vxDq/SRN9JM18im9pX3chuafsthZkPAjKnXSYoIR6B5xtxTUVmd4GIi70UFKZhX
+ mF9BlsmX44HH51rpfzSvx2hsL19ItXBUKmrTGHYrnbYnmYFmWloetyOJI/1gaGrbZX83XF2xlR7
+ 7NAlySyaId4IyMMr+Gg==
+X-Proofpoint-ORIG-GUID: 1MpkDyi6WN8bI0Av3X8LHN4mBC_Y9rJM
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDExOCBTYWx0ZWRfXxJNgJNlZvMsd
+ MLmTy9NqyELjBKb6MX1Q8AmHeaqMcbJ88MNRYQFm0NinXnHL1BUzgNDIqSn56bYaA0Od2yb7iXA
+ dcxu8gFnI3mdQFHdaXnfaQCk4wFbYSc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 phishscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609160118
 
-Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
-=E4=BA=8E2026=E5=B9=B49=E6=9C=8816=E6=97=A5=E5=91=A8=E4=B8=89 09:57=E5=86=
-=99=E9=81=93=EF=BC=9A
->
-> From: Chao Yu <chao@kernel.org>
->
-> This patch introduces compress_blocks in f2fs_sb_info structure, initiali=
-zes
-> and destroys the compress cache during filesystem mount and unmount.
->
-> It adds an ino union field in struct f2fs_cached_block (sharing space
-> with writeback linkage for zero memory overhead) to track per-inode
-> cached blocks, and registers compress cache into the memory shrinker.
->
-> Signed-off-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-thanks!
-> ---
->  fs/f2fs/cache.c |  9 ++++++++-
->  fs/f2fs/cache.h | 14 ++++++++++----
->  fs/f2fs/f2fs.h  |  6 ++++++
->  fs/f2fs/super.c |  7 +++++--
->  4 files changed, 29 insertions(+), 7 deletions(-)
->
-> diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-> index 3abd469dc011..3e6a198ef3b3 100644
-> --- a/fs/f2fs/cache.c
-> +++ b/fs/f2fs/cache.c
-> @@ -176,7 +176,10 @@ static struct f2fs_cached_block *f2fs_create_cache(
->         entry->index =3D index;
->
->         atomic_set(&entry->refcount, 0);
-> -       entry->next_entry =3D NULL;
-> +       if (!IS_COMPRESS_CACHE(cache))
-> +               entry->next_entry =3D NULL;
-> +       else
-> +               entry->ino =3D 0;
->         INIT_LIST_HEAD(&entry->list);
->
->         entry->cache =3D cache;
-> @@ -631,6 +634,10 @@ unsigned long f2fs_shrink_cache(struct f2fs_sb_info =
-*sbi,
->                 return freed;
->
->         freed +=3D f2fs_do_shrink_cache(NODE_CACHE(sbi), nr_to_scan - fre=
-ed);
-> +       if (freed >=3D nr_to_scan)
-> +               return freed;
-> +
-> +       freed +=3D f2fs_do_shrink_cache(COMPRESS_CACHE(sbi), nr_to_scan -=
- freed);
->         return freed;
->  }
->
-> diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-> index a36ee57adb1a..a8c24f5282fa 100644
-> --- a/fs/f2fs/cache.h
-> +++ b/fs/f2fs/cache.h
-> @@ -18,12 +18,15 @@ struct f2fs_rwsem;
->  struct f2fs_io_info;
->  enum page_type;
->
-> -/* Represents a single cached block (meta, node) */
-> +/* Represents a single cached block (meta, node or compress) */
->  struct f2fs_cached_block {
->         struct list_head list;          /* LRU list head */
->         struct f2fs_cached_block_list *cache;   /* parent cache list */
-> -       struct f2fs_cached_block *next_entry;   /* chain for merged BIO *=
-/
-> -       unsigned long index;            /* key in radix tree, (meta: pba,=
- node: nid) */
-> +       union {
-> +               struct f2fs_cached_block *next_entry;/* chain for merged =
-BIO */
-> +               nid_t ino;              /* inode number for compress cach=
-e */
-> +       };
-> +       unsigned long index;            /* key in radix tree, (meta/compr=
-ess: pba, node: nid) */
->         unsigned long state;            /* cache entry state (e.g., Dirty=
-, UpToDate) */
->         void *data;                     /* blocksize-aligned memory (4KB =
-or 16KB) */
->         atomic_t refcount;              /* reference count */
-> @@ -34,6 +37,7 @@ struct f2fs_sb_info;
->  enum f2fs_cache_type {
->         F2FS_META_CACHE,
->         F2FS_NODE_CACHE,
-> +       F2FS_COMPRESS_CACHE,
->  };
->
->  /* Main cache control structure (per sb_info) */
-> @@ -43,12 +47,13 @@ struct f2fs_cached_block_list {
->         spinlock_t tree_lock;           /* Lock for radix tree */
->         struct list_head lru_list;      /* Single global LRU list */
->         spinlock_t list_lock;           /* Lock for LRU list */
-> -       enum f2fs_cache_type type;      /* Cache type (Node or Meta) */
-> +       enum f2fs_cache_type type;      /* Cache type (Node, Meta, Compre=
-ss) */
->         unsigned long num_entries;      /* Current number of entries */
->  };
->
->  #define IS_META_CACHE(cache) ((cache)->type =3D=3D F2FS_META_CACHE)
->  #define IS_NODE_CACHE(cache) ((cache)->type =3D=3D F2FS_NODE_CACHE)
-> +#define IS_COMPRESS_CACHE(cache) ((cache)->type =3D=3D F2FS_COMPRESS_CAC=
-HE)
->
->  /* Flags for f2fs_cached_block state */
->  enum f2fs_cached_state {
-> @@ -196,6 +201,7 @@ void f2fs_drop_cache_range(struct f2fs_cached_block_l=
-ist *cache,
->
->  #define META_CACHE(sbi)                (&(sbi)->meta_blocks)
->  #define NODE_CACHE(sbi)                (&(sbi)->node_blocks)
-> +#define COMPRESS_CACHE(sbi)    (&(sbi)->compress_blocks)
->
->  #define f2fs_find_meta_cache(sbi, blkaddr)             \
->         f2fs_find_cache(META_CACHE(sbi), blkaddr, 0)
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index d6681276708e..1e23e02cac8b 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -2106,6 +2106,7 @@ struct f2fs_sb_info {
->         /* f2fs internal cache */
->         struct f2fs_cached_block_list meta_blocks;
->         struct f2fs_cached_block_list node_blocks;
-> +       struct f2fs_cached_block_list compress_blocks;
->
->         /* internal cache flush thread */
->         struct f2fs_cache_kthread cache_thread;
-> @@ -2384,6 +2385,11 @@ static inline bool f2fs_is_node_cache(struct f2fs_=
-cached_block *entry)
->         return entry->cache && entry->cache =3D=3D NODE_CACHE(entry->cach=
-e->sbi);
->  }
->
-> +static inline bool f2fs_is_compress_cache(struct f2fs_cached_block *entr=
-y)
-> +{
-> +       return entry->cache && entry->cache =3D=3D COMPRESS_CACHE(entry->=
-cache->sbi);
-> +}
-> +
->  static inline struct f2fs_bio *F2FS_BIO(struct bio *bio)
->  {
->         return container_of(bio, struct f2fs_bio, bio);
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index bf42fbffa348..47259e8172fc 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -2071,6 +2071,7 @@ static void f2fs_put_super(struct super_block *sb)
->
->         f2fs_destroy_compress_inode(sbi);
->
-> +       f2fs_destroy_cache(COMPRESS_CACHE(sbi));
->         f2fs_destroy_cache(NODE_CACHE(sbi));
->         f2fs_destroy_cache(META_CACHE(sbi));
->
-> @@ -5263,11 +5264,12 @@ static int f2fs_fill_super(struct super_block *sb=
-, struct fs_context *fc)
->
->         f2fs_init_cache(sbi, META_CACHE(sbi), F2FS_META_CACHE);
->         f2fs_init_cache(sbi, NODE_CACHE(sbi), F2FS_NODE_CACHE);
-> +       f2fs_init_cache(sbi, COMPRESS_CACHE(sbi), F2FS_COMPRESS_CACHE);
->
->         err =3D f2fs_get_valid_checkpoint(sbi);
->         if (err) {
->                 f2fs_err(sbi, "Failed to get valid F2FS checkpoint");
-> -               goto free_node_cache;
-> +               goto free_compress_cache;
->         }
->
->         if (__is_set_ckpt_flags(F2FS_CKPT(sbi), CP_QUOTA_NEED_FSCK_FLAG))
-> @@ -5582,7 +5584,8 @@ static int f2fs_fill_super(struct super_block *sb, =
-struct fs_context *fc)
->  free_devices:
->         destroy_device_list(sbi);
->         kvfree(sbi->ckpt);
-> -free_node_cache:
-> +free_compress_cache:
-> +       f2fs_destroy_cache(COMPRESS_CACHE(sbi));
->         f2fs_destroy_cache(NODE_CACHE(sbi));
->         f2fs_destroy_cache(META_CACHE(sbi));
->         f2fs_destroy_page_array_cache(sbi);
-> --
-> 2.49.0
->
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+On Mon, Sep 14, 2026 at 11:01:36AM +0200, Konrad Dybcio wrote:
+> On 9/14/26 4:40 AM, Shawn Guo wrote:
+> > From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> > 
+> > Enable audio on the nord RRD board. Add a soundcard node using the
+> > qcom,nord-ride-sndcard compatible with two DAI links:
+> > 
+> >   - PCM1681 playback over Tertiary MI2S RX
+> >   - ADAU1979 capture over Tertiary MI2S TX
+> > 
+> > Add MI2S pin mux states (data, SCLK, WS on GPIO 73-76) and the MCLK0
+> > pin state (GPIO 99) to nord-embedded.dtsi so they can be shared with
+> > other nord board variants.
+> > 
+> > Add PCM1681/ADAU1979 codec nodes on I2C18, with the PCM1681 system
+> > clock supplied via MCLK0. The DAC control lines come off a TCA6408 I/O
+> > expander on the same bus, so add that too and hog its dac_enable and
+> > click-pop-mute-n outputs, both of which have to be asserted before the
+> > DAC produces sound.
+> 
+> Sounds like something a driver should ensure?
+
+You are absolutely right! We will try to control them from pcm1681 and
+simple-audio-amplifier driver.
+
+Shawn
