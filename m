@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE2F4E4302
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334484E06FF
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600418; cv=none; b=IVyUBIHgEYFZaH0hgU7uMWu4c/a8OBhVRriwmzbxyas21n3VDfedS2Vdgad4k0rvpSlGIQwHDp2WERV1f8VFEgDBm0pecYUexaAL71AgL2ESLIZaUVsd9UAJiMNp3SFaU8qgiXdtS6loJdPZTrqAcdY6W3FTTuTNIYKfw+7Ha74=
+	t=1789600419; cv=none; b=KPkmUVxZ8rkUxOLDvLfCUF43kRbZ/gZwkD2/JLIF0WIg/WC/3qKRqMwtY2K9lpEDY9w4X9i3QNoEvQ+4XwUoNxsxvOoz3t8Pnbg8VbkPHhpZREtCV7LX/Ed/KJizTuh0aY5j/eUZCl4nfw0Rj1Uztv2f2VpmLLHMMGt2wjjpek8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600418; c=relaxed/simple;
-	bh=4B8Mhqv72RZOMhlRglNO3ieNTu5l4iDurKmAOs7y3bY=;
+	s=arc-20240116; t=1789600419; c=relaxed/simple;
+	bh=mQ1zUO7cuhKE1nxW6bs53CfGHgz37yQzw7l8uP4F3Q8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p8yfX1prYY+h2FDQHm4pJYXAxDO6CjXxGq1BE90HOw/1Pq7LTTo0rqjc9WWxuf7Z2x0Tk3V7yobiwSnyPpjUOT+MuRDyRzO8rWKGZKbXlSJ0p4zHtLoi84CaZO+zHUkbIBZVHyjJPZsMur5Qa2V/EB+7M2yABdRStZfbie71ND4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DPoLW5dc; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=equa2HC9w3TuUI2+dg5/TaUAy8OoBEAR39QrUkqMQDjIi69tFMyq3ZP0YcR3S2yKMxZrFwtcL9zQeLtDt6XK+9xd5YeYTxoqqbpIBh1AqwA8pvp0dXHIzlV87/Lq0d1IbTiladJVhFyTLfHGQfQV3zrM3sT2CP3ig6/PYPhJzSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CH+i4/DB; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DPoLW5dc"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CH+i4/DB"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789600415; x=1821136415;
+  t=1789600417; x=1821136417;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=4B8Mhqv72RZOMhlRglNO3ieNTu5l4iDurKmAOs7y3bY=;
-  b=DPoLW5dcop6XZApYMbzYoIOiqyi6UI3lOv2VsNpQxuGdwMm/YUzJpNZq
-   ZX9vR6LUnOl7SC+iZCxPII3HjdOO7ix2nDDF6jldohFt78tJ1b2mgCBZq
-   gpkvYiAzI9Y3ChpWVZaOouAceH8kcy9QLJX9id+HdrsQIYN0FMa6sMgHa
-   WeQ8N8L8xQXnUuByLj7HRtdXGqrn21uGjDoc67MLkpVFgKSi+ZHMpj8Vj
-   kRLogEkwuLibP1E3bTDYItqYg1rzDIU2igTd6OukbWY7cb148Fz1Na9W6
-   A7TCr/uRzX5FbVZjZVpobG82U0Z9Y85NNpA1Ro/OWeJAcrHJ/KbV6J7c7
-   Q==;
-X-CSE-ConnectionGUID: liQ3a1ykSJm3eVc0l66Zbw==
-X-CSE-MsgGUID: gSPj9u2uRC+fLkv0FNclWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861353"
+  bh=mQ1zUO7cuhKE1nxW6bs53CfGHgz37yQzw7l8uP4F3Q8=;
+  b=CH+i4/DBHYiYFyo99SCJ/jCoyrjNXjLHQSwEVJntR9kYoMjX16iVr+d5
+   0K5Knf5cBpiqD9yXB9ZRTjZPWE7X/gI114C0YCTVt5PoiaEVAX2FA21YH
+   q8airQ1vct4qAtAqspNljPM3zfRNulRZGuHumhDzOfn8ZcH4jSKj2znwV
+   lEdbD+lOoGrd1cygDpEUNp5rmfFrWkzWYBJ7yAUFuTGc3twSsVHAsrSw7
+   WabUUU1gsmfcaeigY+Ue90qHlW+xQsIF6FUsoae9UkhUDGEPhNQTHrytz
+   Xv8wqqUK8FsZ+IU8tpMaIoIkGjYG7GhCBMUJa025iHO3TIQ38Gg4Jk/pa
+   w==;
+X-CSE-ConnectionGUID: WjcCpxQqQquUszGOHiggvA==
+X-CSE-MsgGUID: E5o9Yaq+RPut2Qt95SiXQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861372"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93861353"
+   d="scan'208";a="93861372"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:32 -0700
-X-CSE-ConnectionGUID: CexuQpH5QwG+Cxsxmtjewg==
-X-CSE-MsgGUID: 5DCXY7VPQOy2hryg1id0vA==
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:33 -0700
+X-CSE-ConnectionGUID: HzjHhHkkQPifTRhKz9ZJkw==
+X-CSE-MsgGUID: 3u4kX2keR/6YkA0Q3mj+Qw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="277231440"
+   d="scan'208";a="277231446"
 Received: from khuang2-desk.gar.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.223.219])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:32 -0700
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:33 -0700
 From: Tony Luck <tony.luck@intel.com>
 To: Fenghua Yu <fenghuay@nvidia.com>,
 	Reinette Chatre <reinette.chatre@intel.com>,
@@ -58,11 +58,10 @@ To: Fenghua Yu <fenghuay@nvidia.com>,
 Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
-	Tony Luck <tony.luck@intel.com>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>
-Subject: [PATCH v12 05/25] x86/resctrl: Delete resctrl_cpu_detect()
-Date: Wed, 16 Sep 2026 16:13:00 -0700
-Message-ID: <20260916231320.14502-6-tony.luck@intel.com>
+	Tony Luck <tony.luck@intel.com>
+Subject: [PATCH v12 07/25] x86/resctrl: Update special case for Intel Haswell enumeration
+Date: Wed, 16 Sep 2026 16:13:02 -0700
+Message-ID: <20260916231320.14502-8-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916231320.14502-1-tony.luck@intel.com>
 References: <20260916231320.14502-1-tony.luck@intel.com>
@@ -74,184 +73,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cpuinfo_x86::x86_cache_{max_rmid,occ_scale,mbm_width_offset} are no
-longer used.
+Certain Intel Haswell CPUs have support for resctrl L3 cache allocation
+but do not enumerate the feature. There is a quirk to check for support
+and provide hard-coded parameters. This quirk sets rdt_alloc_capable
+to indicate to get_rdt_alloc_resources() that normal enumeration is
+not needed.
 
-Delete resctrl_cpu_detect() and the fields from struct cpuinfo_x86.
+Drop setting of rdt_alloc_capable in cache_alloc_hsw_probe() in
+preparation for removal of this global variable.
 
 Signed-off-by: Tony Luck <tony.luck@intel.com>
-Acked-by: Borislav Petkov (AMD) <bp@alien8.de>
 ---
 v12:
-	No change
+	Remove the new hsw_alloc_capable variable.
 ---
- arch/x86/include/asm/processor.h   |  4 ---
- arch/x86/include/asm/resctrl.h     |  3 ---
- arch/x86/kernel/cpu/amd.c          |  3 ---
- arch/x86/kernel/cpu/hygon.c        |  3 ---
- arch/x86/kernel/cpu/intel.c        |  7 -----
- arch/x86/kernel/cpu/resctrl/core.c | 42 ------------------------------
- 6 files changed, 62 deletions(-)
+ arch/x86/kernel/cpu/resctrl/core.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/include/asm/processor.h b/arch/x86/include/asm/processor.h
-index ec9db0dfa0df..4deb88c61c94 100644
---- a/arch/x86/include/asm/processor.h
-+++ b/arch/x86/include/asm/processor.h
-@@ -185,10 +185,6 @@ struct cpuinfo_x86 {
- 	/* in KB - valid for CPUS which support this call: */
- 	unsigned int		x86_cache_size;
- 	int			x86_cache_alignment;	/* In bytes */
--	/* Cache QoS architectural values, valid only on the BSP: */
--	int			x86_cache_max_rmid;	/* max index */
--	int			x86_cache_occ_scale;	/* scale to bytes */
--	int			x86_cache_mbm_width_offset;
- 	int			x86_power;
- 	unsigned long		loops_per_jiffy;
- 	/* protected processor identification number */
-diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
-index 9bfa9b14002b..ab7f6ccd149e 100644
---- a/arch/x86/include/asm/resctrl.h
-+++ b/arch/x86/include/asm/resctrl.h
-@@ -193,12 +193,9 @@ static inline void resctrl_arch_mon_ctx_free(struct rdt_resource *r,
- 					     enum resctrl_event_id evtid,
- 					     void *ctx) { }
- 
--void resctrl_cpu_detect(struct cpuinfo_x86 *c);
--
- #else
- 
- static inline void resctrl_arch_sched_in(struct task_struct *tsk) {}
--static inline void resctrl_cpu_detect(struct cpuinfo_x86 *c) {}
- 
- #endif /* CONFIG_X86_CPU_RESCTRL */
- 
-diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
-index 54e14ed276b5..dd82a11084f4 100644
---- a/arch/x86/kernel/cpu/amd.c
-+++ b/arch/x86/kernel/cpu/amd.c
-@@ -23,7 +23,6 @@
- #include <asm/pci-direct.h>
- #include <asm/delay.h>
- #include <asm/debugreg.h>
--#include <asm/resctrl.h>
- #include <asm/msr.h>
- #include <asm/sev.h>
- 
-@@ -475,8 +474,6 @@ static void bsp_init_amd(struct cpuinfo_x86 *c)
- 		}
- 	}
- 
--	resctrl_cpu_detect(c);
--
- 	/* Figure out Zen generations: */
- 	switch (c->x86) {
- 	case 0x17:
-diff --git a/arch/x86/kernel/cpu/hygon.c b/arch/x86/kernel/cpu/hygon.c
-index ec51c2b9a257..0f226335dd9a 100644
---- a/arch/x86/kernel/cpu/hygon.c
-+++ b/arch/x86/kernel/cpu/hygon.c
-@@ -17,7 +17,6 @@
- #include <asm/spec-ctrl.h>
- #include <asm/delay.h>
- #include <asm/msr.h>
--#include <asm/resctrl.h>
- 
- #include "cpu.h"
- 
-@@ -119,8 +118,6 @@ static void bsp_init_hygon(struct cpuinfo_x86 *c)
- 			x86_amd_ls_cfg_ssbd_mask = 1ULL << 10;
- 		}
- 	}
--
--	resctrl_cpu_detect(c);
- }
- 
- static void early_init_hygon(struct cpuinfo_x86 *c)
-diff --git a/arch/x86/kernel/cpu/intel.c b/arch/x86/kernel/cpu/intel.c
-index 4297ceb2cb24..2f09710e863c 100644
---- a/arch/x86/kernel/cpu/intel.c
-+++ b/arch/x86/kernel/cpu/intel.c
-@@ -22,7 +22,6 @@
- #include <asm/microcode.h>
- #include <asm/msr.h>
- #include <asm/numa.h>
--#include <asm/resctrl.h>
- #include <asm/thermal.h>
- #include <asm/uaccess.h>
- 
-@@ -371,11 +370,6 @@ static void early_init_intel(struct cpuinfo_x86 *c)
- 		detect_tme_early(c);
- }
- 
--static void bsp_init_intel(struct cpuinfo_x86 *c)
--{
--	resctrl_cpu_detect(c);
--}
--
- #ifdef CONFIG_X86_32
- /*
-  *	Early probe support logic for ppro memory erratum #50
-@@ -804,7 +798,6 @@ static const struct cpu_dev intel_cpu_dev = {
- #endif
- 	.c_detect_tlb	= intel_detect_tlb,
- 	.c_early_init   = early_init_intel,
--	.c_bsp_init	= bsp_init_intel,
- 	.c_init		= init_intel,
- 	.c_x86_vendor	= X86_VENDOR_INTEL,
- };
 diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index 82b27a0157ae..f0cfb37482d3 100644
+index f0cfb37482d3..f2bf160d01c1 100644
 --- a/arch/x86/kernel/cpu/resctrl/core.c
 +++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -1083,48 +1083,6 @@ static __init void rdt_init_res_defs(void)
+@@ -177,8 +177,6 @@ static inline void cache_alloc_hsw_probe(void)
+ 	r->cache.min_cbm_bits = 2;
+ 	r->cache.arch_has_sparse_bitmasks = false;
+ 	r->alloc_capable = true;
+-
+-	rdt_alloc_capable = true;
+ }
  
- static enum cpuhp_state rdt_online;
- 
--/* Runs once on the BSP during boot. */
--void resctrl_cpu_detect(struct cpuinfo_x86 *c)
--{
--	if (!cpu_has(c, X86_FEATURE_CQM_LLC) && !cpu_has(c, X86_FEATURE_ABMC)) {
--		c->x86_cache_max_rmid  = -1;
--		c->x86_cache_occ_scale = -1;
--		c->x86_cache_mbm_width_offset = -1;
--		return;
--	}
--
--	/* will be overridden if occupancy monitoring exists */
--	c->x86_cache_max_rmid = cpuid_ebx(0xf);
--
--	if (cpu_has(c, X86_FEATURE_CQM_OCCUP_LLC) ||
--	    cpu_has(c, X86_FEATURE_CQM_MBM_TOTAL) ||
--	    cpu_has(c, X86_FEATURE_CQM_MBM_LOCAL) ||
--	    cpu_has(c, X86_FEATURE_ABMC)) {
--		u32 eax, ebx, ecx, edx;
--
--		/* QoS sub-leaf, EAX=0Fh, ECX=1 */
--		cpuid_count(0xf, 1, &eax, &ebx, &ecx, &edx);
--
--		c->x86_cache_max_rmid  = ecx;
--		c->x86_cache_occ_scale = ebx;
--		c->x86_cache_mbm_width_offset = eax & 0xff;
--
--		if (!c->x86_cache_mbm_width_offset) {
--			switch (c->x86_vendor) {
--			case X86_VENDOR_AMD:
--				c->x86_cache_mbm_width_offset = MBM_CNTR_WIDTH_OFFSET_AMD;
--				break;
--			case X86_VENDOR_HYGON:
--				c->x86_cache_mbm_width_offset = MBM_CNTR_WIDTH_OFFSET_HYGON;
--				break;
--			default:
--				/* Leave c->x86_cache_mbm_width_offset as 0 */
--				break;
--			}
--		}
--	}
--}
--
- static int __init resctrl_arch_late_init(void)
- {
+ /*
+@@ -930,7 +928,11 @@ static __init bool get_rdt_alloc_resources(void)
  	struct rdt_resource *r;
+ 	bool ret = false;
+ 
+-	if (rdt_alloc_capable)
++	/*
++	 * On Haswell systems cache_alloc_hsw_probe() already marked
++	 * RDT_RESOURCE_L3 as alloc_capable. No further enumeration is needed.
++	 */
++	if (resctrl_alloc_capable())
+ 		return true;
+ 
+ 	if (!boot_cpu_has(X86_FEATURE_RDT_A))
 -- 
 2.55.0
 
