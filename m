@@ -1,94 +1,74 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D12A37AA9F;
-	Wed, 16 Sep 2026 12:50:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14E638911B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563039; cv=none; b=eZjrkeVdLH3WBcfSBsD6yjepfq6PNVDtW3IY7Dp0TkT0EYtcwLyOyXh2+hpAdxwMISvEViVHXLjqTQSCLzuUCAtof8mN6K3Xy5NV4rxPr98I3509cgwNNmY/bnlJVYZkE2vfcxCLlCYBFxS+MoSv6Okw/4JYRSF7YXpr0nLtY7I=
+	t=1789563051; cv=none; b=d08JkFGctN6jFNKhyD2RSrFq5M/g7Kf6Lo9rfX5HtOBx2eJgipjM552QjE5RE/r8I2a4Tr4uwh2w16MNXcbi27qGZVo+1rpVs3DDfmDwWxyOrlaWb8sIUex1lL4qt5yfvhWGj5pDEeEiEWhb9Q2yUi5aqKKjEOzwQ07SoE3QpmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563039; c=relaxed/simple;
-	bh=I+JhpuGGvMdmNOgYncDR/qRYD0Xl8TCeVVwQFy7834Y=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ftXns4D6oZbs/cXUXJub1fCYfoEhrayL9SnfwX877HzL/uHNq0JwDCe1ZtrgGYdV7nsnvAGhEFd66XV9VUf919CRLE1uZhQfr2M0Rii4KL7XhjZVS3jkzPSkP4NCZ5zkmgCxYqkSCUFqHgFhGw4ub3GDybtwBO0ZzfNiBOuDBgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=S5s282Ot; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iOsARUDc; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789563051; c=relaxed/simple;
+	bh=EKyfQQ2TaM1rIepk3Fag9XWc9XJqkiGHUrbfRXEtWk0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cNXV+9JdLNy1PyNI1fCD+6yurF+hauwrv4QPxSg8x1EWyZ0QFcQhPN8jmP0s1I1NOhTT++yzLNKckjMv6gw74w/gEcB0dTJ22xfEOstyY420OHfnYReCwLv1e2GscTBsOrl3R2BlwtRvtLSk85zy608Te9sxSTXZEoT/zFqauRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HkqQzKyV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="S5s282Ot";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iOsARUDc"
-From: Nam Cao <namcao@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789563030;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I+JhpuGGvMdmNOgYncDR/qRYD0Xl8TCeVVwQFy7834Y=;
-	b=S5s282Ot3+Cl4K2caSQMcqrsRWnyaAT9YU1HZYruN3O6mxOXJbiLHOSWUbFaKDJZBNV/tw
-	ZPXsJoAlGo5ZGh/PUVnyeGEYm0sKsyIUxoP6fgsPkNqOOj4Ds34ASF6Qoe4ldOlPoKJYJZ
-	g3fMuR0nhIDJ7rWED1/FDoy7Lo0hZZfWsXQFDWHYTmiw7JOTXenc2RYMO8jzjHAZ1JLA10
-	8nCukFec4G+b02IQBZ91jwwS507k7aCUeT/upK8e1NCSwhUv3zwaFCIPVkSmXGKMc+EB1l
-	DaHp1voyLv4jBGfdlz+BwS0fq2w1ofoVH+v+Fx7aBgdAnJZeHmkkcw0HHT7c9A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789563030;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I+JhpuGGvMdmNOgYncDR/qRYD0Xl8TCeVVwQFy7834Y=;
-	b=iOsARUDcZvCRmPDbIOTtLhyZEvx7CQh/F9y3JDHsLwRfedcDm4wRZVhEi+pYmIA6t52Zvx
-	gZL9AiRehpkmOVDQ==
-To: =?utf-8?Q?=C3=96mer?= PALA <palaomer100@gmail.com>, Andy Shevchenko
- <andriy.shevchenko@intel.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: fbtft: fb_upd161704: replace udelay with
- usleep_range
-In-Reply-To: <CAKhZXnr0GdUrEu9vyMAWRCWyQzPM7cWQ6LRDa8fX0hnMkTN0RQ@mail.gmail.com>
-References: <20260916093928.52057-1-palaomer100@gmail.com>
- <87ecet5xos.fsf@yellow.woof> <aqp4GA1q6cLKivZo@ashevche-desk.local>
- <CAKhZXnr0GdUrEu9vyMAWRCWyQzPM7cWQ6LRDa8fX0hnMkTN0RQ@mail.gmail.com>
-Date: Wed, 16 Sep 2026 14:50:29 +0200
-Message-ID: <87bj9x5pii.fsf@yellow.woof>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HkqQzKyV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB0C1F0089B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:50:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789563041;
+	bh=EKyfQQ2TaM1rIepk3Fag9XWc9XJqkiGHUrbfRXEtWk0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=HkqQzKyVyQCXKb7NxL/+wOQ34Pu2u3V8SKF/mOhcy2ONYdrGGiPUFPcKAg6qiiiyz
+	 brMXZiLekfrv95SdvmqcAs6VddMqClnx3Olx1YYRq7/VUzC2eKAxGhePFbM4mzOzFC
+	 M+a7m1EDEbZsGv6tCJEkykNxAeXrhHhjYj3FjRN776GsH+jBrjefpMN37nF/aL5KTj
+	 jPqNS7F8dpLn257yCEwxJXSGjk0ib+jwbNVuQ4YcPxMDkvn9o5eRPmpnTUnxV/EpIe
+	 JXPJMbJ9Gc9l4L+s0lKEI5Bdwv5dtadtNH8PkhUzJWKrRAANp/PHrP7Yo6M5t8nI1r
+	 lnZSiW1l20G6w==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b88dc3bc02so925740e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:50:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByGAvryveIlursAfCQgNxWpzPHBrWO3KsXjkZwp5FHB/2eywuV7lbahHPVXze3H1Ji1M+BvXKBKzzbvP2c=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBox7fZ5vzUqCTZykuml2M6+99zFe6mqhfoK3h6IepXmZsl1bT
+	HZ3gMDeANbsuffrKBpzFXpDMEJ/DxPDAqDJfZOCVIzABf0wEURk4ObvdNOXr4XQU+K9Imz1O1ef
+	ZWi1k7D/X+jE/J27obdh8srwnAtgHZr4=
+X-Received: by 2002:a05:6512:128f:b0:5b6:1a7c:fd80 with SMTP id
+ 2adb3069b0e04-5b8b6652879mr760635e87.38.1789563039703; Wed, 16 Sep 2026
+ 05:50:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260915202038.3534453-1-arnd@kernel.org> <9448f046-5756-4461-a932-652f9c72d65a@sirena.org.uk>
+In-Reply-To: <9448f046-5756-4461-a932-652f9c72d65a@sirena.org.uk>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 14:50:26 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnm6Dg-qU7erAUA82_BMjXGCu1LBaysCoRfTo1a2+eLmg@mail.gmail.com>
+X-Gm-Features: AcwNN1VMUOowBapkI7YjN1TCJUNEmiUXCJgAuAV47Oa4pgz5wVkDgNpTkzZ-ADY
+Message-ID: <CAD++jLnm6Dg-qU7erAUA82_BMjXGCu1LBaysCoRfTo1a2+eLmg@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: ux500: avoid -Wparentheses warning
+To: Mark Brown <broonie@kernel.org>
+Cc: Arnd Bergmann <arnd@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Arnd Bergmann <arnd@arndb.de>, 
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-=C3=96mer PALA <palaomer100@gmail.com> writes:
-> Thank you for the feedback and review. I note the line-length
-> formatting (~72 characters per line)
-> for my future commit messages.Second, do you understand the difference on=
- what
-> code is doing before and after your change?
-> I understand that udelay() provides deterministic, busy-wait timing requi=
-red for
-> hardware register initialization, whereas usleep_range() introduces sched=
-uler
-> overhead and non-deterministic delays.
-> Out of technical curiosity regarding the driver IC: theoretically, if we =
-knew
-> the exact window between the hardware lock/stabilization
-> time (min) and the internal state-machine timeout (max) from the datashee=
-t,
-> would a range like usleep_range(min, max) be acceptable,
-> or does scheduler wake-up latency make it too risky for
-> timing-critical init sequences without hardware validation?
-> I will drop this patch series.
+On Wed, Sep 16, 2026 at 2:36=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
+te:
+> On Tue, Sep 15, 2026 at 10:20:31PM +0200, Arnd Bergmann wrote:
 
-A crucial difference is that we can call udelay() in any context, but we
-cannot call usleep_range() in atomic context. Thus, a test run with
-CONFIG_DEBUG_ATOMIC_SLEEP enabled is recommended.
+> > From: Arnd Bergmann <arnd@arndb.de>
+> >
+> > gcc warns about a slightly confusing expression in two lines
+> > of this driver:
+>
+> Sasha already posted a fix for this which I'd been hoping Linus would
+> review.
 
-I don't know if non-deterministic delay is an issue, the datasheet would
-need to be checked. But udelay() is not deterministic either, for
-example the CPU may need to handle an external interrupt while the task
-is calling udelay().
+Hm I must have missed it, I'll go and dig it out.
 
-Nam
+Yours,
+Linus Walleij
