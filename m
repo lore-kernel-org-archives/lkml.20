@@ -1,79 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071E52D63E5;
-	Wed, 16 Sep 2026 00:51:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3022E03E4
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789519877; cv=none; b=HcWt1PGrEKGPUQ6aSXTRQnu0awgTgDuDMs9H0Y4xMHkA8KKZaE9Og46zrH/P7Pw1xJy59/7L1oDTe44pRQMZgnsSzv9NO2c+fYX9bFXir0g6nBG0+rAYQGuHdpfY4L2VPu8zYLKNj6OQ8PyAvbtX9YBA5As62y963U4kFPTpWh4=
+	t=1789519979; cv=none; b=GmS+QR9PrkxB5MwjzSvdQbLSSrcGEiihUxPzCZqEL+/YEnhYTrjccioqCh2ueQwHSbY8BlFUtGoXmnHVjbhMlxZDzutx+EQoGnri8n8KiDJ1gdcgaZTKISkrFKb9j0h/OL9vatpk720IdgT2Q1gkURs83sODSEBae45VB4+lUX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789519877; c=relaxed/simple;
-	bh=bfQzHVnvHjBqcPRiF7fNcJ7tust5Dk//ZKVemXZ6aYg=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=uOkp4hBDyITj6iFQPZdM3DBWitd0/sn0jJmeyONOrux57LY7o8ZepQSZJ595XKx7/q6cSzEnZZl33fU/M0tsqv8UxRv8l4ZHMIPUV9+ILGaTdmnO9tEDpAZqTzFBtHWw3SNCVCg2l1LbenvtvVLyixxTeMjriQlSET3omDNbN6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CjniXSyn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789519979; c=relaxed/simple;
+	bh=OPN4DXaBhftvnwg/eHVv/Jd750WtvEfmhpwNuUA73Ps=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=XPUwV0ofOPpI+bQ9w0rP2DOIufohbdq0b2MR7ZkneYHRjQ63uFEB68H1mnEjr80vUXG6cF9SOMNP46c0LGPevI4xbBfC3YYa8yVmSKYyCSgMBXJdTSjSqbX4XXNJPoMOD8+eaZAGuiQwm1xIH+qSvhvHmkeajmMh7um3weoOaTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=BbWB8poq; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CjniXSyn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26C61F00893;
-	Wed, 16 Sep 2026 00:51:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789519873;
-	bh=+rv/gSqVCAewuJ2dU/6tLYPKGMMcqsXnqxtbXdkyy9U=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=CjniXSynPkljYCdEG6CJ71cY/R+F8Uq2XzeNjqnjuK4VaqAQuoADWySnDCgmmEoKI
-	 /NIUcciNqyyfLgT+RfOs0tIeEPkl/L14ydzsTgvxXwZE8Q3eEH0+E2Pl75j8FQiR6h
-	 iWXBCxRAew7UU4QtBjTvjBBMzx4SR2UHzWq+CmJYRG65TQDQSQg7d+cof/uDPnLM8y
-	 W9F2NgF5RsgVsZELjzYlxKbtvG2LjL5hP9U4t2QVc+c0CcBAqfeFGRUKMiO2FAsWSh
-	 LYimXMdDAc98Va3csZnNcyMxiGhRoK4MJX0tVWCd6PN3Nw7lGM7QifQGu++Z/X1UQu
-	 QdSXQKokmhTmQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939C83927074;
-	Wed, 16 Sep 2026 00:50:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="BbWB8poq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:Subject:Cc:To
+	:From:Date:MIME-Version:From:Reply-To;
+	bh=71+5XpzCocajiTsiXQeY++69HYCLAtrxNkPLeB+bShA=; b=BbWB8poqLP8OS5CNwejIh0tZCt
+	WbwFW81FEfVr5PrfZvomEx1IQF9+zetaBpiX6cr02wx2nv93e5R73XLzotWF5VBcViKnSPQCsJK3s
+	I34X4jHK1Lh4JAT9tgjyz9z2qLExHSpfIImNjAmt4HnzFuRcDEVhrz4hCN4ZXO/kUaZrKSe2Dx/cv
+	f8F/eM6voT+vU9lSl6KR5fo7bLdFQFk0lra6qJVcyFIzPI26l7UJLOIZAgCGETREp533wvAGFUhVb
+	gflVwxkGWo/m8rlZDr+EvRPLMDcX9VOv9CeYVvsNI4dZ9CuKRn3Tg5rTff1FSm7KMD/Wl15OZHHra
+	bTD6PZ/g==;
+Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
+	by fanzine2.igalia.com with esmtps 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x6dt7-002hsb-93; Wed, 16 Sep 2026 02:52:37 +0200
+Received: from webmail.service.igalia.com ([192.168.21.45])
+	by mail.igalia.com with esmtp (Exim)
+	id 1x6dt6-0088ZL-81; Wed, 16 Sep 2026 02:52:36 +0200
+Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
+	by webmail.service.igalia.com with esmtp (Exim 4.98.2)
+	(envelope-from <mfo@igalia.com>)
+	id 1x6dt6-00000002AJn-1CbL;
+	Wed, 16 Sep 2026 02:52:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net/qla3xxx: disable the PCI device on remove
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178951980712.2341174.5297094058191389457.git-patchwork-notify@kernel.org>
-Date: Wed, 16 Sep 2026 00:50:07 +0000
-References: <20260913204534.53825-1-mhun512@gmail.com>
-In-Reply-To: <20260913204534.53825-1-mhun512@gmail.com>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: GR-Linux-NIC-Dev@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, ae878000@gmail.com,
- horms@kernel.org
+Date: Tue, 15 Sep 2026 21:52:35 -0300
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave
+ Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
+ <hpa@zytor.com>, Juergen Gross <jgross@suse.com>, Alexey Dobriyan
+ <adobriyan@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan
+ Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
+ kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v9 4/5] x86/cpuid: fix unbootable VMs by really inlining
+ memcmp() in hypervisor_cpuid_base()
+In-Reply-To: <20260916000432.GDaqndEGBGiL2IUPrG@fat_crate.local>
+References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
+ <20260822-pvh-kasan-inline-v9-4-e70ef3b75b6a@igalia.com>
+ <20260911043822.GHaqOFvnw5mQ0s89QQ@fat_crate.local>
+ <6113f06c790cfe1141d2dc09b68937b6@igalia.com>
+ <20260915051155.GGaqjTm7yIluwxZ80x@fat_crate.local>
+ <20260915154853.GAaqlo5YxQ9ALlhjbF@fat_crate.local>
+ <9086138f2dcaffe30622438b7e825ae7@igalia.com>
+ <20260916000432.GDaqndEGBGiL2IUPrG@fat_crate.local>
+Message-ID: <6092a255f6fd5ccbc7945b4df0ecc88f@igalia.com>
+X-Sender: mfo@igalia.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Spam-Report: NO, Score=-2.1, Tests=ALL_TRUSTED=-3,BAYES_50=0.8,KAM_DMARC_NONE=0.125,KAM_DMARC_STATUS=0.005
+X-Spam-Score: -20
+X-Spam-Bar: --
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Sun, 13 Sep 2026 16:45:34 -0400 you wrote:
-> ql3xxx_probe() enables the PCI device and balances that reference on
-> probe failure. However, ql3xxx_remove() releases the mappings and PCI
-> regions without disabling the device, leaving the enable reference
-> held after unbind.
+On 2026-09-15 21:04, Borislav Petkov wrote:
+> On Tue, Sep 15, 2026 at 08:49:27PM -0300, Mauricio Faria de Oliveira wrote:
+>> IMO a fix in the source file is clearer, less obfuscated than in a
+>> Makefile (and the source file has to be changed anyway).
 > 
-> Add pci_disable_device() at the end of ql3xxx_remove() to balance the
-> successful probe's pci_enable_device() call. Keep the existing manual
-> cleanup and probe error handling unchanged.
+> No, with the build option you only need to touch the Makefile which contains
+> the build directives for the objects which contain hypervisor_cpuid_base() and
+> xen_prepare_pvh().
+
+IIUIC, the source file would also be touched for changing
+__builtin_memcmp() into the open-coded comparison suggested earlier, no?
+(the 3x u32-based comparisons.) And that is the code which would require
+-fno-builtin-memcmp in a Makefile.
+
+>> It also has the potential advantage that, if the Makefile change slips in
+>> a future change/refactor, the issue shouldn't reappear.
 > 
-> [...]
+> Yes, that is possible.
+> 
+>> Either way, please let me know and I can certainly change the patch.
+> 
+> Ok, let's do the explicit thing - the difference between the solutions is not
+> that earth-shattering.
 
-Here is the summary with links:
-  - [net,v2] net/qla3xxx: disable the PCI device on remove
-    https://git.kernel.org/netdev/net-next/c/d328b5ad4a52
+Ok, I think this closes the feedback and discussion so far; I'll send
+v10.
 
-You are awesome, thank you!
+Thanks again,
+
+> 
+> Thx.
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Mauricio
