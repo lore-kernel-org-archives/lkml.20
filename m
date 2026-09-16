@@ -1,121 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3DE146A66;
-	Wed, 16 Sep 2026 04:14:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CF32BD00C
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789532059; cv=none; b=RY4VPAo0PJYNxU8no5u+JULNU300KNMgAYUAos1K/LD+SLx85DPYzVrtbQ94FrtaBY3BhUWRr7LlRqeMImG89xKB+sGU+SkEST91NtVeQdBGu7fUUcRGyqR3M3TTgOWRRo86b5JQwFmogt5nJVDL4HegcXOnsevRaU5ksKxe5kk=
+	t=1789532132; cv=none; b=Kfn1af0imTZZNucN3AyxhbJcBpRm0lGGIEYeE1oC1HES0138mhTuM1oVVpaO7MTr5+NG69en0oAKaQOx2ns8O11Z4ZI6ZqkYezlmL3edF7DTLYJk+OA32H4hf6cGfHrJPvNZPgbvunNZiOhvM+kY9IZptIyrILu2dHqwbmyvepA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789532059; c=relaxed/simple;
-	bh=zGV2EXg+EROKRXBQrTq2dzqutSCYjWE+kQU8bPekKec=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cMft+qWK60oVOXGUJ+FCEFOZII5TekZjzbjyvKShJdOaAei2MqRBR1gmXYvXHLr/MVElzVdVGM6dOuu32BXqYoFvPJAfvCAR/6LcDjuIhFOlTi8Zu4F6VcU815rzxRtmi59/cZG/KhjD9LjUkBg7w2Xq60iQBbb5UnlBc1TwvHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZJRom/D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789532132; c=relaxed/simple;
+	bh=1ZhvOrKcGislD+WC+8Q4vWu5z8pTpCo7Q/Gsjhr1d1M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nRBt2nldpDUX68f/WttPU6Z3WRU+LbMF/eD5p5HFqVlqwB9nx8bCxmvL8PWk+IdxVJfLumlLTQesk4N0hrnrWGB7aqvjNqJBYDXCoxfcLkGnEP3gQsa8DhTgo66nF91iD/qhaWo+ax0MJU2VJme0doaeKSk2aFndO8AmnJDpZCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NWkYaUE+; arc=none smtp.client-ip=74.125.231.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZJRom/D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AFC21F000FF;
-	Wed, 16 Sep 2026 04:14:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789532058;
-	bh=ngB0o9g4kbXSDf2BCTzrsj2PffWjgQlLeBpYdVht6aM=;
-	h=From:To:Cc:Subject:Date;
-	b=BZJRom/DI/Ux21V7gINb+PGv8pXlzoM2t/8vwmUySYk3k0Pun6FbVEkoOZ1vo/7YD
-	 0fT0RQu9+lG6ss92glHjyMRe1kTS6qGyssu8H3UArPTWLgL6jqC3KX6mgKckwmvKqD
-	 5xnhHRVAlFy36W0a1IE31g8DVwSuEl9pbnBuRx/gAaZ4GtSydqOKTglV7LhI/pQvij
-	 lxl89iGXEPbcmw7V5d2Tp18Zbe9tswws24i8UURFW+BPUy3/3qdHgZCKbIQR9MmRAw
-	 SaULT/+OeNAStLDv/W/EFKt4H7XPfHWjzEwgN8yP9M+wjMU2bl7ySj54xaR0FCnHji
-	 hDwW7v9YpWHaw==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v2] mm/damon/core: don't skip damos_adjust_quota() while esz is not zero
-Date: Tue, 15 Sep 2026 21:14:08 -0700
-Message-ID: <20260916041409.106926-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NWkYaUE+"
+Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-7f9cc0e524aso1743491a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:15:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789532129; x=1790136929; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=geQe/Nt94sgACddk5UkhJlOoq3dCQ3FTfciRXuFH+10=;
+        b=NWkYaUE+2OCiMVIeTvtNWB8v1/a0gGFdFcELxEbDWMEShVrQHwYgVw7ecixMB9ZyFn
+         +3jJ3zI3x+DNmHN6gVAI5i1/5ecMoaXtN7hzobrKZjBtkH52TzWTyri1Dg/dwOLP0c48
+         oIEm/b1DqB+xs7DbwTyqTCk4nKHFlelTuMUC+h+WcweSQ8rUsEp8NhVP9A0qAjNQ5OAM
+         dz/lUOfFPY7Aafdk54I0JqSdLfUi+LlEISEFZDXZB5o2gHEYuNARfNDHjiWGy/piFXl0
+         7EjdiULJQKEok9Ei4R1677UoXQGCmWxWXlEZovvc9iMjW44Z/icOaj/e6jd2oLtn/XkD
+         W92Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789532129; x=1790136929;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=geQe/Nt94sgACddk5UkhJlOoq3dCQ3FTfciRXuFH+10=;
+        b=1yP4lUbDsm26GUNir/YS24okMp/8mHDPbmn/gs6ABUbEORTuvYuW+6kIgZvNbLUrVm
+         S60RuELc0K23fuYUkSTZLlfPZovSEDMyAFxVIZXMmEjB8FDCPALvb9uw3ZneU8GmplLT
+         Lh+q2SKaVZQTuJMshzhFvXH3cTDAORIDMFzKL+LU8TCQMOG0zbzD8ifi/bhIJM2B0e9x
+         RsYp+JiKqBkVmDeZtZQKEZOB8pM6BNH3cGB9M3C1N0Rv8EOI3/A1GSeUApBqrG4eh/2t
+         pC5ZISY9Q/OChOW9R+RLlDErJKWEF4dtEsPRO/Qz6InEg6zKau0YGFUVUe8gw5CaHZj1
+         R2Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBwiLz5BbwAaLorXsBt9HS1Jfq7oqvFJNnJMkLUfsWlsFHaMqlWHeuk5B3UGrzEc2V+2bjuR1pUkEN+eykE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKloki6SGQwiXpcdy0W3yJdtBKg27BRY/8YbLku18azE9CixRN
+	OTqft2L2Y7+VFFsgoDoz12/IeAZmSVtcxO07bUNLhnfKm58llvyd0Pat
+X-Gm-Gg: AYBFou3Gx+xtB0Yv2w6yJc7xRVgOlV1YWWAOiDCSX/Qyn/hVEJ1mJNmGgdYa32NpH31
+	JYDjdTWA/rItRID43YgcFdFRmWCgRf1qaGul0LDz7kjb/Dry1Y54c14klDOdVwTNRS0iAwxoAQr
+	fXUct1gfzwn177pViydznFDOCVTCgbX3BMmjsxJRuMBXeiE1mrzd/eRtLxsyotT2wArKE6kn+Zv
+	I01Yrhw9zCfXCm2Z3AedMWZOthZBl6nbmjLpbdKuTBDUwZj4LfnjV8Kx9rYiTcDZT8CeJcfmsjQ
+	/HgvQti4KdEvusmWt/S9GLpbuSR43+Jdw5saWvy2sJzXw938hoQg3/2BJVZgUpMUv1u994ux8JG
+	bN02T+vlY56ec5SCCILQD/pDYsOXBvs4q++VM3f6I6c5/vaBTLp6VYz/beiTLduhx6AvvRb6s5R
+	bXi7bJcjQyEx4dMVGatlwCq4Bg6j/nG6mLKRYD2QeUhPDzHEea3pXktfQs1KlHxUpVKVaP7QoTt
+	g1L4Q==
+X-Received: by 2002:a05:6830:6af7:b0:7f4:eb7e:c8f7 with SMTP id 46e09a7af769-80b2c18158cmr1482766a34.5.1789532129476;
+        Tue, 15 Sep 2026 21:15:29 -0700 (PDT)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80b07ad0373sm1440484a34.26.2026.09.15.21.15.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 21:15:29 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: [PATCH 0/3] iio: adc: add mt6397 PMIC AUXADC support
+Date: Tue, 15 Sep 2026 23:15:25 -0500
+Message-Id: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NwQ6CMAyA4VchPdtkqw7FVzEe5ijYA5O0zBAJ7
+ +7C8bv8/wbGKmxwbzZQ/orJJ1f4UwPpHfPIKH01kKPWdf6C+tLCaIV/WGZblOMkecRpac/dFWN
+ ZY58wsCe6OQopOKipWXmQ9dg8nvv+B56DRSV2AAAA
+X-Change-ID: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, mfd@lists.linux.dev, 
+ Roman Vivchar <rva333@protonmail.com>, 
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789532127; l=3814;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=1ZhvOrKcGislD+WC+8Q4vWu5z8pTpCo7Q/Gsjhr1d1M=;
+ b=hy8S44J3Kt9/i++nBCcDmWUBualfD1ZRDUrk1YbiwxToPcudFRBPrKHFN4YfXcOFs/wkiAGTH
+ L6vgwManOMMAClIr8hluO7RIvzaIEMuHuNUzkqJgQwQVkFxih5p6Zjj
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-DAMOS could unexpectedly stop working when a user disables quota using
-the online parameters commit feature.  Fix it by correcting a wrong
-quota unset check in damos_adjust_quota().
+The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
+reach. On boards built around it that ADC is the only path to the battery:
+the SoC's AUXADC is wired to board thermistors, and the charger ICs these
+boards use have no ADC at all, so without it there is no pack voltage and
+no state of charge.
 
-DAMON users could disable all quotas by unsetting time and size quotas,
-and removing all quota goals.  The intention of disabling quotas would
-be making DAMOS run at full speed.  When such quota disabled setup is
-detected, damos_adjust_quota() skips all its work.  The skipped works
-include effective size quota (damos_quota->esz) updates and charged
-quota amount (damos_quota->charged_sz) resets.  The intention is to
-avoid doing unnecessary work when quotas are disabled.
+Patch 1 adds the compatible to the existing MediaTek PMIC AUXADC schema and
+the header naming the channels, patch 2 the driver, patch 3 the MFD cell
+that instantiates it. The cell comes last so that no commit in between
+registers a child no driver can claim.
 
-However, users could do the setup while effective size quota is
-non-zero, by doing the disabling with the online DAMON parameters commit
-feature.  In this case, because the effective size quota exists, DAMOS
-will keep working with the quota until it is fully charged.  After the
-effective quota is fully charged, the charged quota amount
-(damos_quota->charged_sz) cannot be reset because damos_adjust_quota()
-skips it.  Then, DAMOS stops working until the quota is newly set or
-DAMON is entirely restarted.
+The mt6397 is not given mediatek,mt6359-auxadc as a fallback because the
+two are not register compatible; patch 1 has the detail.
 
-The problem happens because damos_adjust_quota() assumes the user setup
-for disabling quota immediately disabled it.  In reality, the quota is
-still working until the effective size quota is also updated to zero.
-Other logic for catching that uses damos_quota_is_set(), which
-understands the fact and therefore checks the effective size quota in
-addition to the user setup.  Fix the issue by using damos_quota_is_set()
-in damos_adjust_quota() to determine if its works should be skipped.
+Only the two channels a board needs for its pack are described, so patch 1
+ships a header naming them: a channel ID is an index into the driver's array
+and not the PMIC's channel number, as in mt6323-auxadc. The register
+sequences are the ones the vendor kernel's pmic_auxadc.c programs.
 
-The user impact is a non-deterministic and unexpected DAMOS stop
-behavior.  That is, users would disable quotas using the online
-parameters commit feature, expecting DAMOS will run at full speed.
-However, depending on the timing, the setup can be updated while the
-effective size quota is non-zero.  Due to the above mentioned internal
-mechanism, DAMOS stops working instead of running at full speed.  It is
-unexpected behavior.  It is also non-deterministic because sometimes the
-setup is done when the effective size quota is zero, depending on the
-timing.  It doesn't cause critical issues like crashes or leaks.  Users
-can simply set a reasonable quota again, or restart DAMON.  But
-definitely it is an unexpected and non-deterministic behavior that makes
-it difficult to reliably use.  Also investigating the root cause of the
-behavior would be quite difficult.
+One note on patch 3: it adds a cell to mt6397_devs[], which Luca Leonardo
+Scorcia's MT6392 series converts to the MFD_CELL_* macros in its patch
+4/9 [1]. Whichever of the two lands second needs a respin. Mine would
+become a single MFD_CELL_OF(), and I can do a respin if that patch arrives
+first.
+Cc'd Luca.
 
-Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
-Cc: <stable@vger.kernel.org> # 5.19.x
-Cc: Kunwu Chan <kunwu.chan@gmail.com>
-Signed-off-by: SJ Park <sj@kernel.org>
+[1] https://lore.kernel.org/all/20260902193351.185771-5-l.scorcia@gmail.com/
+
+Tested on an Amazon Fire HD 10 (2017), an mt8173 with an mt6397. Both
+channels are exercised: the battery channel by a fuel gauge, which reads 817
+counts, 3830 mV with the pack at rest, and the thermistor channel by an
+ntc-thermistor consuming it.
+
+I have two things in the driver different from the vendor (Amazon
+Fire OS based on a 3.18 kernel). Verified with over 150 interleaved reads
+per setting:
+
+ - Leaving the ISENSE input enabled between reads, as the vendor does,
+   makes no difference to the value, so the driver switches it off again
+   and leaves both ADC input enables clear when idle.
+
+ - The chip's sample accumulator makes no difference at 4, 8, 16 or 31
+   samples and costs no measurable time, so it is left at one. Software
+   averaging helps, but only by about a quarter: 0.92 LSB standard
+   deviation for one conversion against 0.67 for sixteen, where independent
+   samples would have given 0.23. Conversions in a burst are correlated.
+
+The reading was checked against the charger, which regulates the pack to
+a programmed voltage in constant-voltage mode. Over twelve such voltages
+from 3904 to 4080 mV, and charge currents from 111 to 778 mA, the driver's
+reading is a mean of 0.9 mV from the regulated value, well inside
+the charger's regulation tolerance. That also settles reading the chip's
+trimmed result register rather than the raw one - the raw register is
+20.7 mV low at every one of the twelve points.
+
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
-Changes from RFC
-- RFC: https://lore.kernel.org/20260912200814.145612-5-sj@kernel.org
-- Split out from the cleanup series for taking hotfix path.
-- Describe the real issue.
+Ryan Brue (3):
+      dt-bindings: iio: adc: mediatek,mt6359-auxadc: add mt6397 PMIC AUXADC
+      iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC driver
+      mfd: mt6397-core: Add mt6397 AUXADC support
 
- mm/damon/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../bindings/iio/adc/mediatek,mt6359-auxadc.yaml   |   1 +
+ MAINTAINERS                                        |   7 +
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/mt6397-auxadc.c                    | 340 +++++++++++++++++++++
+ drivers/mfd/mt6397-core.c                          |   3 +
+ .../dt-bindings/iio/adc/mediatek,mt6397-auxadc.h   |   9 +
+ 7 files changed, 372 insertions(+)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index e0414d2adcb41..89390897a0d8e 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3330,7 +3330,7 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- 	unsigned long cumulated_sz, cached_esz;
- 	unsigned int score, max_score = 0;
- 
--	if (!quota->ms && !quota->sz && list_empty(&quota->goals))
-+	if (!damos_quota_is_set(quota))
- 		return;
- 
- 	/* First charge window */
+Best regards,
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
 
-base-commit: 191c4a84eef1db85cc7e1a853761e8ce8683afd4
--- 
-2.47.3
