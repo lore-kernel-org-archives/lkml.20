@@ -1,109 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0959C379C35
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:58:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570730; cv=none; b=aO/HcGvoyH1pLUG9efvXx5uB96UOnsHoqIh5mWhSLARzLV/EgyTrR1u8N92oVYA+pY9e5Wptx3ejffPqy3/Z1TEb5s223lV+pkrae5xp0tjcSd35SRqMt6iZ6UtuW6UW4RoyzrlwQqX8FkPwj0f1Tgy6A4CD8ZOt7+hpSiv81NM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570730; c=relaxed/simple;
-	bh=ziSYX+Tk5BasGCsqQfKWS1VS4Io1Aag8BlV1W3FQcoI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fUCFDy1x2CP5KUhrKbrwOtygWTrluVRzXqmq1rt1iDJ9GzbrCl1zAQM+6hNvAqqGAwlkSXdJ/bq012Cug6JN+IUHt3siPDHkV2dAbsQgzix6iXOP5VrQINdozbEiMS3nJXDjd9P+wCc7nGXiS2hxWuPej1mLpY7E9sIQkRacT5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f62Z177m; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76FA379C35
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789570735; cv=pass; b=j/D1WMpwNg9rmacyCfy/OETFz6dxyQkAZpdoP+Ft26R11HS9fGWG4pXd0NTftWOwE4HDr/HtW4W5O//KDvDzxu+pziV/4LVpAN1i5kaCCd5PxCcdDLKob6bHRQz+D+eD+3+nrL9ERBa9tfWz1/koTc572j3Ffjp82Hp0+di0pm4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789570735; c=relaxed/simple;
+	bh=AtQrPMl91+yYtI9BLCPBjsG0Yu7Rz7PLsn3mJ6H0/pA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fMVgxP02UqDx8gDoZB6QnWpbwPtrHRio75dSfSY5JnBts3Kju8aot9XqP6ik0QpP0TO9uImpMwsThHLQAgM2hjD3jJA3+koZKsWbGjo+dpWUKw18qYinwM5smzGWjCDbg3dvOmIDLtSvatA5J0TsXsR9CCYd9ubk36wUf8psS6c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tC9vtssF; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f62Z177m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D4EB1F00898;
-	Wed, 16 Sep 2026 14:58:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789570728;
-	bh=KxAsq6mlrlRgY8e/8njCByVAcxEtv6lXs6ng+qgkRns=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=f62Z177mbNaPvPScjrfQX0fc68CuY9vm59QUctkG5Gm2BCXa60ClJxz2jUUTQr2mK
-	 6wAmw/nfu067bSHUSuw3TJRMwZmRKgEtQ7579H8RjV+H0fLY7zWCcAhLhU/ujFtMvQ
-	 TERixAWjUXJ0l4d7777aJr0yvuHa16dy5sXeVYC0d0JB6WQRDg1BCXFhuuuisypFLn
-	 jFBwkiuGztiM9Syzd9KvNt2D/Ht4XO+FEa2WMiwhnSpqo6LPR+BcYS39jo7abLPcZ9
-	 OEtNOrli8/TSUHE8S+w+hnHaMKzfNFKH0IOAMzjpgol4FVmGmxWgqEcjOLO1cYU3YZ
-	 N8QQ/R6bjQ4jg==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 163591980047;
-	Wed, 16 Sep 2026 10:58:41 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Wed, 16 Sep 2026 10:58:45 -0400
-X-ME-Sender: <xms:oK6qamBZ5gTzffPWX-HGjDTTZoZEF0APcqLdlUXOhc05nocB0Q8gjw>
-    <xme:oK6qai3kQlu4jPL2Qvu0Kxz_s6Rrr56CBkLyU4V0Lp9D11hxc8oVCOHRtMhRmgCg_
-    oAHc-7sI2TBrvZ36eE3GEjTjzdYA-8NEcdsGO5Mfu3tXkqlDCLTimIJ>
-X-ME-Received: <xmr:oK6qaoW8ooCkOQQjBi-OjYcnpCAMQOLkps_EmJmWzbkY1V5GAJhKaF-YH4A>
-X-ME-Proxy-Cause: dmFkZTFnpmf2cGNwLkZB02TtYoQfXJ9CYV4Z6v6aWvRoWtlSDu/ryXy+f1A0x8yggrT6pc
-    74E1O46vF2Ghy3wWTQKsuryfYPAHQWdgKyHFYusv5Hp2PFKCX2b0YoW5TpB/FMOmgTRU3e
-    0rPdq8Nm4X3aaX52mXDmdfUjVnpqLxyZJtxgWB2J9Y7N+Ads7wL6SM8cD9T0bR/yRxkVbz
-    ul4lGtKVXF83IjqQm8oQwLPVRtgSwlpzF2Lgwx9bu1MIQiWR5J6oqV8z0Lss21/BiVArkl
-    ED0Xe7vVfYMHRQTNozB95yux7Vilk9hKmoonRC15QkVqCZD1prbWRZ9xp98mhGjkL0omSH
-    9zcAaLfvETIEYKPBR7mU6pFQRrH/oI1296OKFPe8lRZSWQeNYaYMzer3lX2CIIG4Uirr58
-    L94BB4SRia4Wgd/xgt+8eh9jrIZLVk44Vz4A0Ue2mQt45eOajNHF6gJWehH9Z8Unh5LhAq
-    bmCFWB/qawZyUpKHtb2COIYxDMHab0zRXYubycnp5rAJeSZZyVePCub848zUQwrsBOj5pJ
-    q6VF71UDjWEBW61gEqHQoJaIswvc9PmggCzLNwPfbSPanJmNkVcfb4aOA/lGxaiii+FkYk
-    6Cict8JHxm/PpzzSVgnAoliVBS9hCF2Ugk10XA2DBHDQc0sb5Z2Iix4xOj+Q
-X-ME-Proxy: <xmx:oK6qau8u1SRu7HNgsWn6eLaKFBBh11y_uWDR2g01gJGHPWkLtU16lw>
-    <xmx:oK6qat3wzoXuXuiyX23xlTOpwO06F1O2dgmCnSE0PTZ04l7qjuVHQw>
-    <xmx:oK6qapAuvZErVqBXnqXnPNZHFUjnf9oA5wxzvpamX6g8H-Hdyi_eYQ>
-    <xmx:oK6qamBGJmy0pkBE4mVZpoartKTlLYUNJHn8Vixhd8ImrMoAdiC3Vg>
-    <xmx:oK6qarSsv9kFkHQYS1fcmNx0s-vloq93B7HFvnC1nMSIKoMG5lKZ1PwS>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Sep 2026 10:58:39 -0400 (EDT)
-Date: Wed, 16 Sep 2026 15:58:22 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, david@kernel.org, 
-	chrisl@kernel.org, kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, 
-	linux-mm@kvack.org, ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>, 
-	willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org, riel@surriel.com, 
-	shakeel.butt@linux.dev, alex@ghiti.fr, baohua@kernel.org, dev.jain@arm.com, 
-	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, 
-	"Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>, 
-	lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com, 
-	shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev, luizcap@redhat.com, 
-	kernel-team@meta.com
-Subject: Re: [RESEND v7 10/29] mm: make PMD migration-entry splitting explicit
-Message-ID: <aqquaDH9gFrdCqHK@thinkstation>
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
- <20260914122950.3283997-11-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tC9vtssF"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2953a01240so205654766b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:58:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789570732; cv=none;
+        d=google.com; s=arc-20260327;
+        b=noMvyD3KZJ3i6hGwD5IhpolNJfMx9wchCrRBa0hxaeKTfK3DMR6TmEm/7dtq4/C12+
+         7b93LbfiNSab06HdWBWfTfc/pR18aGHVA516/NIOA2UMhO6HXX/diaZt9IeUxvhFVJa4
+         Jlh5aGCRe9mvA3YXQPgTLrinCE7ke51Nmfy6WoUPG+hvci1KlqAn5q1ws5LaVMRYLHn3
+         ehUYJVn0J5tVvZOKKYq6o6OQp+R6Qwdy20PtL8Y+o84moaLeAngCAWdoXuEEYtjO4MEy
+         FsxJ2HqpU/m2ZgAK/qEcK2QURQ4RChzQa/qXzX7jtpp+/+tDkO2nc3Oxw0IM0s7CZXGS
+         g50w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7B8AGM6usS6/DkOynGbVPS6pps2aTMeSLXoc/PLBLeU=;
+        fh=/e45o6hRo7ofKDVh4b9IVuzLmKnr+iGAernKxatW/SM=;
+        b=PhD9FpKLPgJs9atSLRYeaamSvYzEHsJAaKTCwiQp4kW1OPeciLLEsPJTOSBmLqoBNE
+         547IM8bH9p8JPgDpdyG9LS4/9qheHy8MW5nteWEPcAIuYPsnA9aEahcwspy0osFfTYJo
+         bbGPdKLUdYjrm59Y2MpSfW2pOepZ+fYIJldfj328Q9z7hEQRUhP2oaPOtTW7HsyfFnyv
+         7uRiwfCGBwf5cSIwgEroU7nBrNg0Q4Gcj2l2v6pDfkXPQxDij08GFQpm2dHoTRcteuhf
+         ZpRIjbY0UVPt+kAvzjc8sxLvlqciFlxPWPu6qsZLWMRqjTOYRgs+ZePHz0IxqcwgHM8t
+         T//w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789570732; x=1790175532; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7B8AGM6usS6/DkOynGbVPS6pps2aTMeSLXoc/PLBLeU=;
+        b=tC9vtssFRHP7YED+FiQg6pv4DT0aIDonO37ZnVDyqUCZ4dDzQxv+1bkP0tBwBwz9jQ
+         cxBqDzXFyUOHth5/D5GyZH2n4VowYr+UEMZAiQLADVITanuFCLAHypEsyNrmuCIW91Vp
+         eB4V6JFk06jQsBZRm6hKm53FuYMf8BuPCD/jSFAw489qhtRtDOVL8w4kRcWtVBAbZh92
+         UiZwp39dec7eDR/ccqOp4u6GWLVGou//a8negWu75Iy57yVz1WhRHakEqjnbw2R6DpPp
+         L/vgXxGtmn4DDPDiW2UUaCPaOrtIJYiuNM9l85x36q3GS4BTJXp6DfIDMxt4OVcbUFnG
+         2eFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789570732; x=1790175532;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7B8AGM6usS6/DkOynGbVPS6pps2aTMeSLXoc/PLBLeU=;
+        b=mkZoiugphRvqXgLfJikirRfeJlV93gPJsKtjfHiVMHkA6CxmhIojUc2Vf/1x9SnaSv
+         gr4PUuHDHaely/raouHwt3tyl+hNC4/yZBlQNApO/u4OG45sPKSxyUPVg4C/RtTn4MyG
+         5MSMEQRBZLTD1NdAYJbnL/LXsn5Q42WNlZJ9froohlCd/Npw1fkmQumvsyalr1GockYl
+         EtgyTtfniuVcZT/XaZZWEPqZSPNwUHTL9iQDGytJ/QkH5BeIbmSAgRtextyLakk3a58j
+         d/fMj55n9EyNB354UvWNFim5sJRsJJVMU45iROokacE1+tOJASrgJvusa6f6lFeZGt8W
+         mG+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzlwRFNMxAwWN1vAba47q5dS6K+xGmOCfpIneYOOG1exEdkmNLF+i263e/c8dW4wkxIsuzXkNPr+JuOIPs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mg6VKvfLG/+wEkIUq0fG8JppEc9vtzG9W8i5A6N6asKjsHqQqk
+	3whAcjZvyi2VhhkFzztV/JflynDDNv+aGs+ROYyU9WCDzV4fltjWEP6DhP5mdb5DDL/pdPNB/Jc
+	883FIUl53x81G3AUUZvmFqiWdpaGZJ4htaCeOqGzE
+X-Gm-Gg: AYBFou3fzzzHg1MDy/lDM39XtK/plSktBsYQ0zbK7vs7r0wzANaxaqWezR9X6Bt0eoG
+	vnooqiEdoUBl36yUzLVsOyeaKticHYQjCsKhJCtvIxUCIk7Y0ZYliSMFXRFPndmR/zDyhC0B0HL
+	Da6JIl+wQbFvlRORfl1J2qO2uSwTlQBx3PaZcs50tks2eOYQlkk2GxP0JY4H1At4/gut7pXmzvU
+	S61USd01TOcQ1gUr2Q7PlygYiHkZ+R0j7Lk2dyU133Q4Q0Rb4Yv8GOZutyhvQNHz0MKZ0NvGixa
+	2d0BKf55nf9aJoc45S7IiGk7Kd5nT8cjKGG1MuhCQR2QlGjdCnAA7mE=
+X-Received: by 2002:a17:907:c49a:b0:c28:fb3f:fe20 with SMTP id
+ a640c23a62f3a-c29e52c71e0mr199279166b.30.1789570731516; Wed, 16 Sep 2026
+ 07:58:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914122950.3283997-11-usama.arif@linux.dev>
+References: <20260728221007.2098560-1-dmatlack@google.com> <20260728221007.2098560-3-dmatlack@google.com>
+ <9211b2b6-9fca-4ef7-a141-84636d56e67e@linux.dev>
+In-Reply-To: <9211b2b6-9fca-4ef7-a141-84636d56e67e@linux.dev>
+From: David Matlack <dmatlack@google.com>
+Date: Wed, 16 Sep 2026 07:58:23 -0700
+X-Gm-Features: AcwNN1V694h9Klbei55CjXCXrLccfSPzJ9ZF9qWXraB-n35v9TC4KupB_2aeuGo
+Message-ID: <CALzav=dJUiZe+Hxck9X+kKVXoRn-Ks2WxV7B5i0RHRFGy7-Mpw@mail.gmail.com>
+Subject: Re: [PATCH v8 02/12] PCI: liveupdate: Track outgoing preserved PCI devices
+To: Zhu Yanjun <yanjun.zhu@linux.dev>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pci@vger.kernel.org, 
+	Adithya Jayachandran <ajayachandra@nvidia.com>, Alexander Graf <graf@amazon.com>, 
+	Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>, 
+	David Rientjes <rientjes@google.com>, Jacob Pan <jacob.pan@linux.microsoft.com>, 
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>, Josh Hilke <jrhilke@google.com>, 
+	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>, Mike Rapoport <rppt@kernel.org>, 
+	Parav Pandit <parav@nvidia.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pranjal Shrivastava <praan@google.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	Saeed Mahameed <saeedm@nvidia.com>, Samiullah Khawaja <skhawaja@google.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Vipin Sharma <vipinsh@google.com>, 
+	William Tu <witu@nvidia.com>, Yi Liu <yi.l.liu@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 05:28:00AM -0700, Usama Arif wrote:
-> __split_huge_pmd() and friends take a "freeze" boolean that every caller
-> has to pass and almost every caller passes as false. The name says nothing
-> about what it selects, and the one thing it does select - PTE migration
-> entries instead of PTE mappings - is only ever wanted by the rmap migration
-> path.
-> 
-> Rename it to use_migration_entries, keep it private to mm/huge_memory.c,
-> and add split_pmd_to_migration_entries() for try_to_migrate_one(), the only
-> caller that wants it.
-> 
-> migrate_vma_split_unmapped_folio() also passed freeze=true, but only ever
-> runs on a PMD that is already a migration entry, which the generic helper
-> expands into PTE migration entries either way. Its folio_get() only existed
-> to balance the put_page() that freeze=true performs, so both go.
-> 
-> No functional change intended.
-> 
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+On Tue, Sep 15, 2026 at 8:10=E2=80=AFPM Zhu Yanjun <yanjun.zhu@linux.dev> w=
+rote:
+>
+> =E5=9C=A8 2026/7/28 15:09, David Matlack =E5=86=99=E9=81=93:
+> > Add APIs to allow drivers to notify the PCI core of which devices are
+> > being preserved across a Live Update for the next kernel, i.e.
+> > "outgoing" devices.
+> >
+> > Drivers must notify the PCI core when devices are preserved so that the
+> > PCI core can update its FLB data (struct pci_ser) and track the list of
+> > outgoing devices. pci_liveupdate_preserve() notifies the PCI core that =
+a
+> > device must be preserved across Live Update. pci_liveupdate_unpreserve(=
+)
+> > reverses this (cancels the preservation of the device).
+>
+> Hi David,
+>
+> I have a question about the pci_liveupdate_preserve() and
+> pci_liveupdate_unpreserve() APIs.
+>
+> Is it supported to call these APIs multiple times for the same PCI
+> device? For example, a driver could do:
+>
+> pci_liveupdate_preserve(pdev) -- > pci_liveupdate_unpreserve(pdev) -- >
+> perform some operations -- > pci_liveupdate_preserve(pdev) again, before
+> the actual Live Update starts.
+>
+>  From the implementation, it looks like an unpreserved pci_dev_ser entry
+> can be reused, so I wanted to confirm whether this preserve -- >
+> unpreserve -- > preserve sequence is an intended and supported usage.
 
-Nice cleanup!
-
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Yes that is a completely supported use-case. A device can be preserved
+and unpreserved any number of times up until pci_device_shutdown(),
+where the preservation status of the device is frozen (see patch 10).
