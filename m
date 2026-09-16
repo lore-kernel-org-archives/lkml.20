@@ -1,204 +1,151 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010041.outbound.protection.outlook.com [52.101.61.41])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E686F52D2B1;
-	Wed, 16 Sep 2026 14:31:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569121; cv=fail; b=OaE6qBNADECa51LBOZ4EOmLH0D5pY/RWUsJJJ2byT6z1TvwQnJxUqIl1qUP7LCHLksEC3olRPil2BcttUgav4PPD7anE/lh3oJOKPyAbQ+vmrXdVnZEkxCt8HWivUPQ8ZXvXdGdpiDK3x644R2zMNJ5jJu66AvFYAVZ8b0VkoSQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569121; c=relaxed/simple;
-	bh=9s0NqCdo5oLi4AsnNdVPdxDLs5JyKBCAwQYJA67byys=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=POAeXiG4eiik6fWUKp5q3Jg2yfBvihAoTmSRH09Ib9rdys5s2CZJ12BQnW7NiqXM7g7qz+O0cB2+k7DXdoTpeH0xPRIPv41j2IG0I9uzMjjtr8PCTY/f8jwkWjtb62OuPfC+qw1ONhaXMbK/NtAs7Z/tGc9SFm4KAY0zCVlCNZA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=N82IRspb; arc=fail smtp.client-ip=52.101.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F2052D2B1
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:32:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789569128; cv=none; b=nw2Rgx2G84r914Xhi75oTXVVp+98QZz94mNQ1koNBMlnnTtjxhrzMC94XehsKZqcut8BpOUKKmT/VW5mUQud3ZFF/VUR4M4ZnrUQ3bPwy2pXA3jTCvyU1FRnQ0JfkcT+Z7T2H91BbE9ADSh28iXHpOyFDz6MGLdJauA5w2RgdoY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789569128; c=relaxed/simple;
+	bh=yrPiTNlJ7MPh2KBWSQnKxG0t2JqFACjFav/f7S7X44M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BD/bVi5xDWuQlyOBzOhjpHdwmXJOUkuec1R1q/B2iyqPCNCo+41QBmPoLyR+UXK276Ch3VTXsucH/g/yePKYBWriXhMT4blKVQm+N/awycavmz90ABT5aS5CEU8d1Z6VdWNv1fLY+LkyDUCii2nggs7PmmpG3KxgA9fEbNqCeyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LCPRMzWJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="N82IRspb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ymwmKrDpN2nKh5g83LCiTiCZ53o59aQxtxnwJrPUS5VgrG1gvJjjnDczhOBvTg570lme/tKTGc4lfH0p2HQsEXKUNGba4wMVU0WBMoWc6HyQ2GX95uPCaQwA+ndRPFrd+o5AkbzXL2twGdfxTD2AhjD0lFOF2H2VNoiGzdwoZa3Zb8hAPSpbzIMTEZ8Z8DFSRisEu153KW6t8v2PS9muyULBd8iQVUv2d/sG93yfrDSUucB4TEtkwUkZC2Sx+KSW85p0XM7VoJnfOePX2igEh61ZnDBoiC04JUo7glc0gQAJsqGdlQgK/b64xNdGwDUnIFyTDt7TEQL+vZ8XXtOk6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bxelOUoC46zFPtDKIdHkITI26kx4z4PpqeCjfdgiYIk=;
- b=EA8oAeze0m3cgBADtTo0iVoIEW6u1CttpWWad6ahbUuVTcuk0ljgs0tog91R7hehmtb9Uo6219EDOcNK3VbGJqpwnKjC8PrlWaZ698dv8tRL2yAInFjVnq0ELlMeatT1huTq16fPCDJJa3KBJ5GT4G759zDhiRvLGmf3yCLw3ptrtGkw03oAbZCcRmuQ4m9DknkGyb9g3s28/u5kXcjKueyBZLOH/C8/+L4s8w+irARp0rwvMyETjVzwvSTjK2DUPWzpH53nWcwpArMEqSG6nFgRfsE/15mOr/9iHV9YAJeFkSNaFoXliEfkiN6GLafLn/lJIwOyqk7HxqBVOWaqkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bxelOUoC46zFPtDKIdHkITI26kx4z4PpqeCjfdgiYIk=;
- b=N82IRspbvy8VqllXtIyZEFpDRmOKoHQ56nxPQpFasudi1rcnGOWKqUMrsFbSKlsOCWK/WuSutFJr32thw7xE9PFC9tXd0kpPJRgDYqYurOkgT4DTXtVQQ97Ore6a/pK/BwOJjn7qh0FOV7zVHxzhQmQXzqtAeG0wZmGLhSbZruQ=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by MN0PR12MB5739.namprd12.prod.outlook.com (2603:10b6:208:372::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 14:31:49 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23%3]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
- 14:31:49 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, "airlied@gmail.com" <airlied@gmail.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
-	"andrey.grodzovsky@amd.com" <andrey.grodzovsky@amd.com>, "Koenig, Christian"
-	<Christian.Koenig@amd.com>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "simona@ffwll.ch" <simona@ffwll.ch>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] drm/amdgpu: Fix vmid_wait fence leak in
- amdgpu_ring_init()
-Thread-Topic: [PATCH] drm/amdgpu: Fix vmid_wait fence leak in
- amdgpu_ring_init()
-Thread-Index: AQHdRcJ1L4hkNykmt0eBui5/npDryrbRRKgg
-Date: Wed, 16 Sep 2026 14:31:49 +0000
-Message-ID:
- <BN9PR12MB5146E89DBAC7095ED960BFA5F7B92@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20260916100139.2012124-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260916100139.2012124-1-vulab@iscas.ac.cn>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-16T14:31:41.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General
- v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|MN0PR12MB5739:EE_
-x-ms-office365-filtering-correlation-id: b6a90918-a0e2-4fb5-37c0-08df13ff3e9e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|38070700021|6133799003|10067099003|22082099003|18002099003|5023799004|11063799006|56012099006;
-x-microsoft-antispam-message-info:
- 6aAXy0VvbpkD8HSmy2cUr5/j480FZGq3YpAVuhHlVuryD6RQARzItP0l9KfolkFA69lL+ILeQPaI87AP0s/DzHXvH6z90PiNXJsyyaAdbJxMDMdsOGpzjqXcCbVOFSYdlRdbysOFxS1HdEtL2SOigKtJWHduiIVtwm1GXwnbR6EJeEDVshvSS6HC9pLvNNYpugpFaFfZambdoiykd7zMe3gj1gdqFToJ/ZZ7XiVuRVBbxwigLT9mgf2/OK83yyU1PJmZQ1Q1UcbviYUEGblLHoo/1p0ARv2i8Ommpd3+c1XRkqtM/o5G5Xkh7SN2N3JUJQNKe4RVfAEfgW7flsBUu6ILr6ZjePyQ9XHlf2PKpMVgfP9qsog2UxMxXgYJAyamCL17w+s9vqv2Azwoq6iOGzAEhSYav4xWxLK1iHsHPUn6m/si9l8giqAa+aKx15F2YzIKadQi0HXsQzVJzZEQeCsXfn93Vv0OzQxckklGK2ExgNzzCe/ES0CJ7Ah4BELobBsaacyf5RIx/pPrCqgSkQV8xDT9izsTkJBbPvenMRyjbwg+vlu42oL/8j0FANp0RKk+k0Zl7uFYiIsRKnZsNB8mqI5l7rN++QCbQy1qYg1RosqE6UEjbGiqmWo/Gw9IGEResVl4qaoTb3Cp6byicRVv9+Uvb95Cyb66aRXZr21c3PA/07eABiFXHTy8ThMY1lqWCWz8YsK71CbYKxB8vPDAagGxaeRRDmkPrf9cAzU=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5146.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(38070700021)(6133799003)(10067099003)(22082099003)(18002099003)(5023799004)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?op0HiNp3dWkPHhQMFEu4V9Ldv1b4PoqsxCYnl5CPzvtfNR4tjD70rKCv/XcG?=
- =?us-ascii?Q?KtQb4iwswSM9slSgB4bEgcISlCw7Qw9ONY3ayqmipuP/3WVz3+kcUMQmviLc?=
- =?us-ascii?Q?yim+FYPyjFDTte4jZFVEwmW+yS0mtItlgWBe2fjPsccZetJjuH+dRD99cL/i?=
- =?us-ascii?Q?PJtgIYCl6ywK57Xn13n71jsjPFnR4aRCRmBJNk/W0M029YKm5d4vqn11du8k?=
- =?us-ascii?Q?7hJwDuBOv+9GhDzr5Btfnt+474ggQhvgbAhG8FM8drNCQkCIoWvmf3ORPc6E?=
- =?us-ascii?Q?0FjkzSPX9gTRqpLExDLXdT9shd2ZLoJOURhM8foFtNmWm3wWd9yM8VY5kq4F?=
- =?us-ascii?Q?8nr/d+d0Hgnd8DMOc7ElzUHWcTD9cHdv03p6SofaOXxtr5Yx6W2QYXMLtLrr?=
- =?us-ascii?Q?hLx18wiTucvwJXYO/5WEk87TZmIjcblBPuXKhVOTFT1sk6olfB21gUpw/o7I?=
- =?us-ascii?Q?We5ArOVVYgva9usTY7DcIcvd7OFW1JbJoHfJ6A7OfQKpioKRCS5/JWCvKl+L?=
- =?us-ascii?Q?TLFni9atJs6GctuoVwX7/npjBwc3R4jvqhas+w3jCbTVwVIYKjvfAAr0ARuc?=
- =?us-ascii?Q?kzHEN2OGcTMZv2vvyqDEoAI/sWOnM1QmaaeDhyRnwItMTWBwzGEqYQ8POKEK?=
- =?us-ascii?Q?hG2eQRXR99/M5VcKZ7iuIR6Qn+8jzVn4NJQ9kCxy5CF8w4VrrQ65vWM+1mIv?=
- =?us-ascii?Q?b3kvVFvahkQnUUlMH8y37qkyh3E8uZ/Gs9T5XmbUHoEq5q69Vji++SEGwNXR?=
- =?us-ascii?Q?UGz65vyxbO0FbAY0Hzd528JqPpajEmQ5Dda7l6pRkmpGWduKARI1ylIKAiwH?=
- =?us-ascii?Q?KoKRIET/fm7yC6fzey3XiMVSpcVi2v0AYu5eIzN7REOF+DEBH8UNWqUeXRZz?=
- =?us-ascii?Q?1YTRFAkdgPL+jdPkg4cyAg3uZ9aR2NXfCLKXLa0pgwQ2PmWAOBfE7+v+jilW?=
- =?us-ascii?Q?pT5hHnt4hc+9AKkg3gOGlflpwAR3CZ4rHMc2KSfvrE5OtbNWlOkthR1ENw3I?=
- =?us-ascii?Q?iG4yHHqT+qRo4kS+2ItDvXF7x0Wb4jLb+lHdDrA++BBSbW+pcs/R4JhIJloW?=
- =?us-ascii?Q?M5xOHK5yPUQdrd+X8Q9Luh+Nw3BrfRRIyvn8F6d9HRTq5ktcf0+MHkmFes/I?=
- =?us-ascii?Q?Q+AX69Vung6PTDHov+Ys4kzpRuuMcU1JhTRaab5a/iAqA4TR9ke1EUCC/vED?=
- =?us-ascii?Q?pH0UwlpqpZzjbrIkpGjFOsYBeiD/yfiZ6vw7oj+z/psSKLoaOpPhq2eq6i93?=
- =?us-ascii?Q?SqELL+ZFsoIi8pvhUaAd+tiEJkDnmsoPx4ggyGIew+6qAfYbAoXMvna7kXIm?=
- =?us-ascii?Q?AUGHZsX78bFbUrz6pFcj6/EQqfNyvuB0m1KuoGOWK2sT3u7uX6fSTddGQ5To?=
- =?us-ascii?Q?A9foozqMVTgPHj1NqpAPwRLz/e+tleOLaRp86niVHa2Az+As/Dt07pPTP+Rn?=
- =?us-ascii?Q?cxauLi11m0ZnER0UKLRqm4YbVY52Q0ixI97o0kcopyoc6Zw3o8991H9tzZ4y?=
- =?us-ascii?Q?cvF3DXBf+Zvk+v9iOrhmuLU1eVUzLuAzSdW2R2w8MJZDwg8QrwRF/2zh+u0i?=
- =?us-ascii?Q?tkPOLoEEecTA7+bHcNbnKZo5A8hL414FKEyWeBSktZhrEBx0kjpDoOQ3PX4s?=
- =?us-ascii?Q?WbWHIxvHLDmiia6+ST4LkhZEnew2TexKHLGk/pyhEnaJSo8dy+jcYf0V7RDV?=
- =?us-ascii?Q?/8Pob2t5sCb3Sp1nAYr2ISUPjaKhhqALTu0rz1+JW8IVvlSk?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LCPRMzWJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DFB31F00899;
+	Wed, 16 Sep 2026 14:32:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789569127;
+	bh=toEfAtNTSCi6v7AFYUgan7Rp32DShnv+mc9L1+Ghc3c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LCPRMzWJ/NWuFCvlYbp9fu9dpZ+jzWk+lbBHyWTjg7AwYW+eWUaNBx+uZ+5iWQ+Xo
+	 COHF0vmw/YeKMh6uVtligUjKLdcKBHqZZU+ogyJcRW7rpmF30v1Qh4GHB5evBwPR0m
+	 ZTi4mgzPVfhZKzh5XNuA20tJoZr+LGpVW0Q71jT056T9RLBvSBptFuhiXy88MzLYc9
+	 U2cEFsZfRIRaK1LRJl9fJnwoiWwlqwrcPqYSYKjsJCrzu7iIgzUM661eDmoizBDxQ6
+	 tQ5cf8GiudQqY5KNNXXrxkbBoWyF1s4suBoj1tYoIlxFZRo3r2pQTbCsWxuoagv+jm
+	 WxJNxBTsPg+kA==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 4AD10198003A;
+	Wed, 16 Sep 2026 10:31:57 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Wed, 16 Sep 2026 10:32:02 -0400
+X-ME-Sender: <xms:XKiqatVrP5NjFLE14exw2HCKcd8ivy3OMn_LcvTJVw7I2trgbVhPTQ>
+    <xme:XKiqaptgrS5HOfGqXcR2Lxh8AqfLBdsTKOfIB4mDitWw4H-b8oRPKAmFkNmI6hJ1W
+    0vIGvq6PPRnw8mFJvoD8un8NalqZwDQ9oWiAe6K5oYqGvrqPjf8Qx-G>
+X-ME-Received: <xmr:XKiqau1Cle4WA5b9ilu5H73xkHcQg2hPa4AWn6UKWnTvODDI7CSHCOD047E>
+X-ME-Proxy-Cause: dmFkZTF99NFrR82aIECAW5OBHrGwVmZAMtD74VKURny8UJoYq8M0BJEjrBTqfFpNpD8/qE
+    uGGlqyyDID6yOaQeYYBEHofduBLpuKjMKK2D4TXCGz963FqqLaN+E4CuJOsElHOMBbdNZf
+    5cyIzOkgDGtYXoQUhN45GNwthNSqRw6Nk/w1120YFMZ7ggc0mb8ZrkjFIlCaYSvpKPqbfp
+    CZrscCpBFKSB8hTMD+8GjmWSxJ0Lvg6vzUOlHh0FcXkaRfY4ezOKWayLVQSZAuFDCPfcbw
+    uPHlCVexc95yimxNGMGlrOXRnyIZ/k1Cxi3XiI7yI3utJTQAfO8bYeYVZQeOcvj6x3PKIz
+    yT1L23tW1kNbpAyg5tjy1HdJ45rsCYurlWuSuMT2MeKejKsACSjUymm8LyyfkrjEiihm2c
+    L/yysWg+hL4coVRc2L5i/4DRwODPdgWGcM9eH2SFVWxT6FO41m3bb1QHdlD9+OV+4MzrmQ
+    1LBuysI/CFwkcSaUi68AvVkBDf9ZUGtbZUs2gixPiVG2NNISuhj1O8YPH59V+jdvbwruTt
+    IfV+Pc5SKiTiC/nxDNOYFEuAo7kkZtE3C3Q2aKc4jzfg6fj+kKQnWr+Kb2noErirPr+jNI
+    vHrdC5Q8SUOO5v3EpfjnGLg4ZfOiU6a/ogGsDpw2XEvmM4quFBQhWXWT7X8g
+X-ME-Proxy: <xmx:XKiqavlZFCj6RwKtTqUjT3CrLwAbMWazTUoq5f246--QEsK7o1kvlg>
+    <xmx:XKiqavT6AaJAk0QPXGNnAFKjR38ip3GWsE6RAI3MkZwNOpAMGPCvSw>
+    <xmx:XKiqahomghJ60egyyrRNevqmYG2zvPmuKydnURm33ziAkuQjbwHwUw>
+    <xmx:XKiqapBAJm4CV50HQgmd9O3mM1YY-33big0Eg8jN8OSsyfwQXNfgXg>
+    <xmx:XKiqah1YYCJuRJne2FPhCiHpitCkOkxsGX_VP-kvUC7V1Dx0G2jMqkIR>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 16 Sep 2026 10:31:55 -0400 (EDT)
+Date: Wed, 16 Sep 2026 15:31:54 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, david@kernel.org, 
+	chrisl@kernel.org, kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, 
+	linux-mm@kvack.org, ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>, 
+	willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org, riel@surriel.com, 
+	shakeel.butt@linux.dev, alex@ghiti.fr, baohua@kernel.org, dev.jain@arm.com, 
+	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, 
+	"Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>, 
+	lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com, 
+	shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev, luizcap@redhat.com, 
+	kernel-team@meta.com, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org
+Subject: Re: [RESEND v7 07/29] x86: mm: add PMD swap-exclusive helpers
+Message-ID: <aqqmClGl0lt5Qzee@thinkstation>
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-8-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6a90918-a0e2-4fb5-37c0-08df13ff3e9e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 14:31:49.7766
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HzxIme/bNdA1uHZSb0ItkMZRWXuYZ1N7rF/oVT/36IRMSL0ess6GvOr1GZ5AUUkkk1KWlYDHSMHulJVnEBYclw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5739
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914122950.3283997-8-usama.arif@linux.dev>
 
-AMD General
-
-Applied.  Thanks!
-
-> -----Original Message-----
-> From: Wentao Liang <vulab@iscas.ac.cn>
-> Sent: Wednesday, September 16, 2026 6:02 AM
-> To: airlied@gmail.com
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
-> gfx@lists.freedesktop.org; andrey.grodzovsky@amd.com; Koenig, Christian
-> <Christian.Koenig@amd.com>; dri-devel@lists.freedesktop.org; linux-
-> kernel@vger.kernel.org; simona@ffwll.ch; Wentao Liang <vulab@iscas.ac.cn>=
-;
-> stable@vger.kernel.org
-> Subject: [PATCH] drm/amdgpu: Fix vmid_wait fence leak in amdgpu_ring_init=
-()
->
-> amdgpu_ring_init() initializes ring->vmid_wait with a reference to the st=
-ub
-> fence taken via dma_fence_get_stub().  When a later step of the initializ=
-ation
-> fails, e.g. amdgpu_fence_driver_init_ring(), a writeback slot allocation =
-or the
-> ring buffer allocation, the function returns an error without releasing t=
-he stub
-> fence reference and the reference is leaked if the ring is torn down with=
-out
-> amdgpu_ring_fini().
->
-> Move the stub fence assignment to the end of the initialization, right be=
-fore
-> the ring is registered with the GPU scheduler, where no further failure i=
-s
-> possible.  The stub fence is only consumed by command submission handling
-> in amdgpu_ids.c once the ring is up and running, so nothing reads it duri=
-ng the
-> error-prone part of the initialization.
->
-> Fixes: 48e9fbd1a284 ("drm/amdgpu: initialize the vmid_wait with the stub
-> fence")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+On Mon, Sep 14, 2026 at 05:27:57AM -0700, Usama Arif wrote:
+> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
+> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
+> not just in a swap PTE.
+> 
+> x86-64 encodes a swap PMD exactly like a swap PTE, so the new helpers reuse
+> _PAGE_SWP_EXCLUSIVE, bit 3, which the swap-entry layout already reserves
+> for PG_anon_exclusive. 32-bit x86 aliases that bit to _PAGE_PSE and does
+> not select ARCH_HAS_PMD_SOFTLEAVES.
+> 
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: x86@kernel.org
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> index d6bee5c30073..8c12c373ab7b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -254,7 +254,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev,
-> struct amdgpu_ring *ring,
->               ring->adev =3D adev;
->               ring->num_hw_submission =3D sched_hw_submission;
->               ring->sched_score =3D sched_score;
-> -             ring->vmid_wait =3D dma_fence_get_stub();
->
->               ring->idx =3D adev->num_rings++;
->               adev->rings[ring->idx] =3D ring;
-> @@ -374,6 +373,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev,
-> struct amdgpu_ring *ring,
->
->       ring->max_dw =3D max_dw;
->       ring->hw_prio =3D hw_prio;
-> +     ring->vmid_wait =3D dma_fence_get_stub();
->
->       if (!ring->no_scheduler && ring->funcs->type <
-> AMDGPU_HW_IP_NUM) {
->               hw_ip =3D ring->funcs->type;
-> --
-> 2.34.1
+>  arch/x86/include/asm/pgtable.h | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
+> diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
+> index d551120a7c889..a2d1cd03cba23 100644
+> --- a/arch/x86/include/asm/pgtable.h
+> +++ b/arch/x86/include/asm/pgtable.h
+> @@ -1525,6 +1525,23 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+>  	return pte_clear_flags(pte, _PAGE_SWP_EXCLUSIVE);
+>  }
+>  
+> +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
+> +{
+> +	return pmd_set_flags(pmd, _PAGE_SWP_EXCLUSIVE);
+> +}
+> +
+> +static inline bool pmd_swp_exclusive(pmd_t pmd)
+> +{
+> +	return pmd_flags(pmd) & _PAGE_SWP_EXCLUSIVE;
+> +}
+> +
+> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
+> +{
+> +	return pmd_clear_flags(pmd, _PAGE_SWP_EXCLUSIVE);
+> +}
+> +#endif
+> +
 
+I was about to comment that it is broken on 32-bit as
+_PAGE_SWP_EXCLUSIVE there is _PAGE_PSE which would make exclusive swap
+entries pmd_present(). But CONFIG_ARCH_HAS_PMD_SOFTLEAVES is only
+selected for X86_64.
+
+Do we want some BUILD_BUG_ON() to catch if anyone would try to enable
+it for 32-bit machines?
+
+Otherwise:
+
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+
+>  #ifdef CONFIG_HAVE_ARCH_SOFT_DIRTY
+>  static inline pte_t pte_swp_mksoft_dirty(pte_t pte)
+>  {
+> -- 
+> 2.53.0-Meta
+> 
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
