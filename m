@@ -1,158 +1,143 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D5643BDB0;
-	Wed, 16 Sep 2026 07:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542986; cv=none; b=EKJ8thdvAg2e+1AACfSwqKK5NJOEzPJpXh7H5RYWx8+ecI13+tXuNE+/5RFTeBb4DpzPOoRovzrNHTv9YoaUKX+37baAku95vRUEyx2B4WQWkfxshVxBQnaJoIj1FCp19qIwodnIrLEjPvVuuk4L6PGA+ppiehitXuwyA8u/61w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542986; c=relaxed/simple;
-	bh=wJASVwD5FkjisPWHjqrTjFP3UNclm4eHqGrZ4f0/D5M=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Ek0G9XUgtUeheyKHxjJ7OrKLJauSkLrKP/zQxqX8xFzV7I3FoLxn5JLKKRSyQlodPOJPU6eM4VDP5sDnRrPXmDXQdtzJaWXWnN+L4EsjaNo4mBed3ZoLdvV6SgvlfopxYtoinnzK19CHy0qdgs540mvijTGMPkIvLVf5eOimWuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M/WhEMKb; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFD321A42D
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789542995; cv=pass; b=RTvgP/DyBzegiQo+wM5jzHPx1+X2KW+KcFwW12/+jkS5UtjiEWBmVdofnYyr9Yk14RHrEgxUR1wrWe5Q3zJBlXUg7LZwmW9KqV/ohKH/W5pSd7F18zp1GIhJvIcrKUvrp6orwf35WcHyOPc1wU7N10jfT2e1PxIHabh02WAPnh0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789542995; c=relaxed/simple;
+	bh=z5AkRAXM9LdDhqCS28O8reVfk0G0f4N1dCoZbIU3ejA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=imF/S96hPE7nDbvk3a2CbyfkzeRCE+cz4B984I0f2lkSoY4e6s4+kyv3TDdUPzbsmpg21/3IwyVD3ZI701Z/tqeZqmB41DvBPPd9V46urklne65cPX31CVYbcbykC/e8cxB/PKuj6dfi3fACsHJIcsuLibUfBDAhod2PFzAoDqE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sriRUURh; arc=pass smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M/WhEMKb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789542985; x=1821078985;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version:content-transfer-encoding;
-  bh=wJASVwD5FkjisPWHjqrTjFP3UNclm4eHqGrZ4f0/D5M=;
-  b=M/WhEMKbV2NhLvPVeSvRVk6O1WUM8aLAeKw3AikZLgUsX1ru6pfOez7F
-   g4TX7iUkH44I3lDJV1Avgz3iacJ2zu8oKZPd2fsvFrd6sGVowybJeEFcb
-   zdVuB15YIvFq3qWn5WYgSmLQEyoITZoYYRL4TP2mP+kI1LjGjX9lsDi6X
-   3tjqrmCsoSjG7b5f1BDjwS1LmZhXDd0UAfdvvhO+jibH1YCEcBXH8+a+I
-   Yny8TiKGRhE7YH4T5f8356wFDsheqMlf32myPJhNykpmtmaK0ESTyekw3
-   Pb3HTxYVi3lPdSWHineeRPpU07hs4OIJSZnAqNz2w7or6VdYY2L7wsqxe
-   Q==;
-X-CSE-ConnectionGUID: PUl+XswCQu6VpLfNSnazQA==
-X-CSE-MsgGUID: UffdZ8PhRpitqskr+28yyQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93785551"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93785551"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:16:24 -0700
-X-CSE-ConnectionGUID: lJQK1QvPQCyySz8RA97EBA==
-X-CSE-MsgGUID: TqnnTvGPT1OVP8fTWzuNdg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="276776558"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.147])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:16:16 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Armin Wolf <W_Armin@gmx.de>, Ilpo =?utf-8?Q?J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "hansg@kernel.org"
- <hansg@kernel.org>, "platform-driver-x86@vger.kernel.org"
- <platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux@weissschuh.net"
- <linux@weissschuh.net>, "rafael@kernel.org" <rafael@kernel.org>,
- "lenb@kernel.org" <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
- <linux-acpi@vger.kernel.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "patrik.r.jakobsson@gmail.com"
- <patrik.r.jakobsson@gmail.com>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "tursulin@ursulin.net"
- <tursulin@ursulin.net>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "matthew.brost@intel.com"
- <matthew.brost@intel.com>, "thomas.hellstrom@linux.intel.com"
- <thomas.hellstrom@linux.intel.com>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
- nvidia_wmi_ec_supported()
-In-Reply-To: <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260724025959.142826-1-W_Armin@gmx.de>
- <20260724025959.142826-3-W_Armin@gmx.de>
- <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
- <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
- <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
- <11976ed3784675ad241646287a909286a42675a8@intel.com>
- <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
-Date: Wed, 16 Sep 2026 10:16:13 +0300
-Message-ID: <62d7da838e7042df8456e76190db792093065b57@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sriRUURh"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8692a8568e9so472401b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:16:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789542993; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eN0L5UeSWc+hee0cRLovTYhwr5CFnzajhOr4WVq4o0uCXw4kbsBlHpICN1/B8ewBTf
+         9QVWTLuAclqeNaAlPq0/NBCYRgygO2/Tp9Kq5D2rMrA5122p/m3Eogz16rUuuqLFx8lT
+         wC3HpLMKU0hd0EyGQ+upcerU3Bq3gkIqSg4XHICK0LGMfoMA9hNI0W9JWwycDf+opvPo
+         1PulrRn3AzuLw5KACz7++vy9kIHlEePiT2hnEDTSZG1pgCFPMUhkxM8rq7wAkKEieh72
+         BUFsOTTFAaLecVKElSJMSwLoH0GSpaa9pkFElPvD0yntFWg6ii6qWtDYYsiO3V2dKefE
+         6bVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=y6wIAcEKWE9nqg7/k3qdRoBKRXzso0r5nn1/whrKqBA=;
+        fh=R9eQaR54zeXAnFJUe8WDxIG9zQqj/YqbAR/xbl7NNX4=;
+        b=qjDsxxQm11gJTEMO7OooWZHw62UZnzReU2kkeZKPO/h6dJTOOZGQd9/s6t3jZjNgyL
+         KXaYjW4Bp7aMY9GAx/mm1VmMBMpjfTx9pKRavhnR+IQb3jz6tqjnLtVOfCrtsuhUgkx3
+         HHxdyhORUbkAp6yzqjDKZym/6Ljq7w5nQ+bAm0yiv/tSFSuo2GizQsWjFGf1qrASLFyA
+         g7p1ksn6V5cfUIJ/4AdZwwBW+EvNua8a9uyl6d5gUY4l+Ssv9JFqrx4VGeET/rDQmvvl
+         ymXLlDnteEVNjWb2c22/4Tm02nAkI5XL5rXRvCw1EfJRFp4sbwTF4PtEyjRR0ZJFdW8F
+         /LpA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789542993; x=1790147793; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=y6wIAcEKWE9nqg7/k3qdRoBKRXzso0r5nn1/whrKqBA=;
+        b=sriRUURhbbXK8jGBCM4O4iPRnNOhoeXrJr6CgQMfVnpatyEh+OmFzlWmF14kYxtNL8
+         BAokMihJICnaOuJbFlW7aW1flZt9WitHPvMS6LajVEhEoTJwa3PDOMz2XvdWqRtfghQS
+         F9wLkcGaF1FnTQ2SixKfGysPOOsQFsiw7O/TLaTErNNt/qkttmznrRcX1Pl5cIaV8qzA
+         VYd8eOCyAOfZsvFPMkmp9i1hCvJBIxtrnufK988q0a81+CyE/It+BTz9MnbP0OcRkHpq
+         FuixZCwKRHaHYzgCOv5c9lLE88fq5rdWYuejOUbPQgKJefgyaJhCOpfsa3PCWbpUkPXG
+         ZxGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789542993; x=1790147793;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y6wIAcEKWE9nqg7/k3qdRoBKRXzso0r5nn1/whrKqBA=;
+        b=Ekrv5lJKPsjpn2aUJNp1jSvk/1HcjxDEsahwi2BNjb5Zu/ZmapgHYz3sYFSTfB8tdb
+         R7Z4xhNTFVs9HneCKJBuQcOefW+Hc7nri6x/1xs0se3WBF//stZk9oJDxJDCmnDMfqgi
+         bLZ+l1d8tugMm/FyFbVoyZKSgC2mWQ0myN1z0JhZA72oTYOvU+LHjw+IJiaqH0m5MxLI
+         GzmgwHnw0mO1AbUtNTwlYq89lJKS4v4d0LUSzjwIwut3zaDXnv/9EnLBcM7/FIq0eONr
+         58Ka48JoEzcKNWB6cQ3q68mHxamRtPOY7vSA99LUeC6NM1FKFcTytp+6jjn8xwR/rc1R
+         sSIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw0jeXCK2R0dkCrbhBY4qm0N8FcdK7OraG6pp5lYma8O3Xgvk+8QWy1kc6vnbcyBVJV0bWoh12Cfn1lKXI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBn6RQdl9wzGAwuxZQqmsPF5D7K7HNAIeuFwxpyQwmSGgDRGLr
+	kevuOMqZKh8Y9jGv//IkJnIg41fpLuDzrAGyfa2BwmnIxYF1PQ6Y9OBtelig16dBGNSb57681pp
+	+RozJ80OQUxQh5/bTzon/xatDhKNoLlQ=
+X-Gm-Gg: AYBFou39wJOhz/FsEB8KblacaN+V8ooHoR2WRjSNRTPTwfRzvS5XwN8zf7MFYWLPZvF
+	NKYjrG7TNw7VdIS+9kKHzdcYH4AF9QNbOJRnNbhWVP2cVJKHatbdIHcr/sb5y4XSG0pn5hXM8CC
+	8PdzCeQiSXWH/l1j9aPqKVfrrpdHEb/0OdC3e2JQ7UODXynH2KsUScBLXXZOZWoZZKZCMYz/uh8
+	NKHRk5SjB6pbcOKQMk65aUJF2Yq1XdQBLNTsjEWDhoo828JbsrUVuOQmirFFoY9buWtWfgXDy2o
+	silr9a5hp9ZqNMsjXI/BwLlUj4FfjBhyuEO5MXy2o5AaBrZ+iZkubf0cc9ADQ6dE1cQogQgczzL
+	mkG/O/9D9fUXUWU+wwbTcNQ8=
+X-Received: by 2002:a05:6a21:6b10:b0:3da:1e7b:ea27 with SMTP id
+ adf61e73a8af0-3dd5f6fcf23mr4128744637.21.1789542992705; Wed, 16 Sep 2026
+ 00:16:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
+ <20260915-drm-bridge-drm_panel-cleanup-v4-8-30401d9406f3@bootlin.com>
+In-Reply-To: <20260915-drm-bridge-drm_panel-cleanup-v4-8-30401d9406f3@bootlin.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 16 Sep 2026 10:16:21 +0300
+X-Gm-Features: AcwNN1Wu02WhbDbGzw2qQ55m0JlviTMXZEyfe2ujg7uZXtgVBYhdlrVFke0bQq4
+Message-ID: <CAPVz0n3kwZJTpanbCFzYKj=ysXQ_V=+uXjD5hY_n6OcDvnrx1A@mail.gmail.com>
+Subject: Re: [PATCH v4 8/9] drm/bridge: ssd2825: select DRM_PANEL_BRIDGE
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
-> Am 15.09.26 um 14:31 schrieb Jani Nikula:
+=D0=B2=D1=82, 15 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 19:47 Luca=
+ Ceresoli <luca.ceresoli@bootlin.com> =D0=BF=D0=B8=D1=88=D0=B5:
 >
->> On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> =
-wrote:
->>> GPU people heads up!!
->>>
->>> On Wed, 2 Sep 2026, Armin Wolf wrote:
->>>
->>>> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>> b/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>> index 12e4a41bf1f0..50305630f533 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>> @@ -30,9 +30,7 @@ config DRM_AMDGPU
->>>>>>         # ACPI_VIDEO's dependencies must also be selected.
->>>>>>         select INPUT if ACPI
->>>>>>         select ACPI_VIDEO if ACPI
->>>>>> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
->>>>>> -     select X86_PLATFORM_DEVICES if ACPI && X86
->>>>> The change below makes sense, but this one looks like it should remain
->>>>> unless X86_PLATFORM_DEVICES is handled some other way?
->>>>>
->>>>> Alex
->>>> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary because
->>>> ACPI-WMI depended on it in the past.
->>>> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 anymore.
->>> Hi all,
->>>
->>> Could more GPU people besides Alex take a look on this. I'd want to make
->>> progress with this series within this cycle but would prefer to have Ac=
-ks
->>> from GPU side.
->> I share the same concern with Alex. It seems to me we could now end up
->> with x86 configurations without X86_PLATFORM_DEVICES, which handle
->> e.g. backlight on a lot of platforms.
->>
->> I think the safer option might be to go for:
->>
->> 	depends on X86_PLATFORM_DEVICES || !X86
->>
->> in all of the cases that select/depend on X86_PLATFORM_DEVICES in drm.
->>
->> The alternative is to find out, and handle the fallout, if any.
->>
->>
->> BR,
->> Jani.
+> This driver uses drm_panel_bridge_add_typed() and
+> drm_panel_bridge_remove(), which are enabled by DRM_PANEL_BRIDGE.
 >
-> Alright, should i leave the original "select X86_PLATFORM_DEVICES if ..."=
- statements
-> as-is or should is change them to "depends on X86_PLATFORM_DEVICES || !X8=
-6" everywhere?
+> Leave the 'select DRM_PANEL' because it is needed for drm_panel_put() and
+> drm_panel_enable() which the driver uses.
+>
+> Cc: Svyatoslav Ryhel <clamor95@gmail.com>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
+>  drivers/gpu/drm/bridge/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
+fig
+> index 73e13ad59a93..92938df3b747 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -351,6 +351,7 @@ config DRM_SOLOMON_SSD2825
+>         select DRM_MIPI_DSI
+>         select DRM_KMS_HELPER
+>         select DRM_PANEL
+> +       select DRM_PANEL_BRIDGE
+>         help
+>           Say Y here if you want support for the Solomon SSD2825 RGB/DSI
+>           SPI bridge driver.
+>
+> --
+> 2.55.0
+>
 
-There are some places that depends on X86_PLATFORM_DEVICES. I think it's
-almost always a mistake to have some places select and some places
-depends on, and select should anyway be used with care. I'd go for
-depends on.
+LGTM
 
-BR,
-Jani.
-
-
---=20
-Jani Nikula, Intel
+Reviewed-by: Svyatoslav Ryhel <clamor95@gmail.com>
