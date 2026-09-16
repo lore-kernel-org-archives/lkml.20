@@ -1,203 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC36E1990A7
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:07:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879AF499F1F;
+	Wed, 16 Sep 2026 09:08:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549686; cv=none; b=gJaqcwZviAR9VOZU/H7TkIQ6AFa5pL3SCIoJxLYWXRD+66T2x0EU3muFQvKXv7VGjO4C/JFVuLeZZspZUnBsg1Y0/r8I63T5ho/+VKdQKOBXHk6ek+p0d5Z6G1NTV4e9a1TaPp/4gaRUd7to87cl6WrHG58pQl5t39Q2UX/ueQw=
+	t=1789549709; cv=none; b=ZeSwpMIE4s+MB/vQJVyLrlPWaJmQW0a87N0FX1Y24CkfrfM02CqgaaIEpmzhRm6mn06O4zngaSHA+XcT7TpNKKlKEKNCcGN3a6ElpP/bK6AEJ3qVq54ie7sCR4yi9ePpn5b3y+ata2AymCjfv5IzxjkZS35EmSr5y3M7RyHvTKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549686; c=relaxed/simple;
-	bh=JWlMOHTunQ5V7bTWQpjVh3kldHg6mb1ZUaGEGrKbMlc=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JXDcBJlsogHcLpnLhys2ot272+OWz5HTETq/KXEUsXTG8HjPM2ILeGBDRMIYX1fF/9t5fY48ewV1k53JPdARXbJWlVflvX+p8GlS60MSag/Yh+yAMHrciz/ckAvUb8d63e4XXIEmEWos257wRGDvhhZcPlJ2xjULkEPZOU2IJOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eapsWaNl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789549709; c=relaxed/simple;
+	bh=DaTkmw6+/4vAj+jTnbLXSyLldCRkaqvKEd2gil+mVLw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X2gHnQoAOuOg9F3QjIFSGdQeMDhBQWZHyqugHFRaVBPtnEYnsNJweGADxCZzGiohLmhac6sizChBxgfdPDE63NlBEv2IK99qGvreQ7cxpms3/6roGK8/tQWHTSMGfZqLDH0vf0Fz0pOhM8Ev4ZDc/+0LC3fGQ5phabFCQjFoNjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DbjJMDJo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eapsWaNl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91C921F0089F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:07:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789549664;
-	bh=zEHYdQEbvjbwD4/MRDHQx2QTQ32Iv10NiHvode72Po0=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=eapsWaNl9DJXIByfMpgQWwZ1+tIpOb5qOHp7zwaaNaLn6U2OGbtmz+4BCVzHRe65B
-	 /PG0p67M/P64WyXhQgLr8zicNznL6gS74Ef4+Yad4gdMcvf7vDX1ucaO4m/upZYEDo
-	 xRlFfekHuXRrQxuUOFMyhvCZyGu9453lXxt5zAXPFDRSk0YNWYzOQ2CrbVDeGWKBRZ
-	 Ly0p8Qqigw7dTyc6udtZq/wTkdbvQN/cojhJ+7R2jV8mGNrrcEe1LwHkPxSQP+Br3S
-	 qsnWIsFo01Br0ZnzzPLJdqjOqHJde4ZZw3dkeakRcD7zN6XDpi0enZOwJf40CGTW6q
-	 cwb7wTVin8BdA==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff163f65so5420621fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:07:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzfSbMDvn/7ZAbduK2IzMYfm898cOCYi2Pi5YLPnk4zSULdBdOmfVOOpiuQ5URx08rb83oIvpdEXYrqQeE=@vger.kernel.org
-X-Gm-Message-State: AFuF++moeMOBj/8CeCUFzurqkTStEEEGMqOLW3r4kFgQcSHAlzPadFEr
-	My/Y0TH8OnUwAqsSlLvE04PA4eLtCfRxIcAbNmUGyf/zhICab5SMWXDkEjISH6vYdfXxq+MGRez
-	IfC/SURSzqbxH6NCFMZEmaGiusJYnMYKz8PWthiZ7LA==
-X-Received: by 2002:a2e:a883:0:b0:3a3:749e:319c with SMTP id
- 38308e7fff4ca-3a5dca30f32mr3727391fa.16.1789549663093; Wed, 16 Sep 2026
- 02:07:43 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 05:07:41 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 05:07:41 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260915154802.675b2408@OMT-CWNXR4TFW5-LHT>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DbjJMDJo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C11701F000FF;
+	Wed, 16 Sep 2026 09:08:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789549693;
+	bh=1c5BkG1XwUGSYihHgqGld4BqIOfDyTeiCgVyGKTLkns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DbjJMDJogC8wmX9uIsrav3Iwtmpm7VdSW6iGJVYfuqGtqfOxKJyjAsJciaS7cCIJj
+	 5MBV82FutMYTWXCkoB4pdHCAGx+1QxfOEXi6lnAJXJD4VbqptsKZlj/Xsr0nhtlOXb
+	 +P586OykuvYqikYSGWTjMD332werjohzIpCI0jpI=
+Date: Wed, 16 Sep 2026 10:06:19 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: akpm@linux-foundation.org, dave.hansen@linux.intel.com,
+	Liam.Howlett@oracle.com, ljs@kernel.org, david@redhat.com,
+	willy@infradead.org, shakeel.butt@linux.dev, vbabka@kernel.org,
+	jannh@google.com, aliceryhl@google.com, arve@android.com,
+	cmllamas@google.com, christian@brauner.io, tkjos@android.com,
+	dsahern@kernel.org, davem@davemloft.net,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH v7 2/5] binder: Make shrinker rely solely on per-VMA lock
+Message-ID: <2026091635-steadfast-widely-7753@gregkh>
+References: <20260831203056.838265-1-surenb@google.com>
+ <20260831203056.838265-3-surenb@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915092046.931449-1-alban.bedel@lht.dlh.de>
- <20260915092046.931449-3-alban.bedel@lht.dlh.de> <CAMRc=MfARu1c4Coks-Bn8W4eRueh1oDU47691+NR_o2weKy0BQ@mail.gmail.com>
- <CAMRc=MeS9Afk+C249ZXKsjchbgMwt_nzvTyZgYDsZ9+R1hjsqQ@mail.gmail.com> <20260915154802.675b2408@OMT-CWNXR4TFW5-LHT>
-Date: Wed, 16 Sep 2026 05:07:41 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MeKs_fhpQB5dM4d-Tb-yinMyrSO0bSTHw1Pg-Whp5tyoQ@mail.gmail.com>
-X-Gm-Features: AcwNN1X8_ajP3vDzW2yqCD8SK5Gwwi_liAX17d5SyYU3QQd38moYMNfoo3HjC2A
-Message-ID: <CAMRc=MeKs_fhpQB5dM4d-Tb-yinMyrSO0bSTHw1Pg-Whp5tyoQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] gpio: Support ON Semi CAT9532
-To: Alban Bedel <alban.bedel@lht.dlh.de>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831203056.838265-3-surenb@google.com>
 
-On Tue, 15 Sep 2026 15:48:02 +0200, Alban Bedel <alban.bedel@lht.dlh.de> sa=
-id:
-> On Tue, 15 Sep 2026 11:57:51 +0200
-> Bartosz Golaszewski <brgl@kernel.org> wrote:
->
->> On Tue, Sep 15, 2026 at 11:51=E2=80=AFAM Bartosz Golaszewski <brgl@kerne=
-l.org> wrote:
->> >
->> > On Tue, 15 Sep 2026 11:20:46 +0200, Alban Bedel <alban.bedel@lht.dlh.d=
-e> said:
->> > > Add support for the CAT9532 LED dimmer from On Semiconductor. Altoug=
-ht
->> > > marketed as an LED dimmer it is a bit limited in this regard as it
->> > > only has 2 PWM for 16 pins. As explained in the datasheet it can als=
-o
->> > > be used as an open-drain GPIO controller, and that's how it is used =
-on
->> > > the hardware I have at hand. This chip doesn't really map to what th=
-e
->> > > gpio-regmap driver expect so it is implemented as it own driver. Thi=
-s
->> > > approch also allow to later add support for the LED dimmer if desire=
-d.
->> > >
->> > > Signed-off-by: Alban Bedel <alban.bedel@lht.dlh.de>
->> > > ---
->> > >  drivers/gpio/Kconfig        |  10 +++
->> > >  drivers/gpio/Makefile       |   1 +
->> > >  drivers/gpio/gpio-cat9532.c | 173 +++++++++++++++++++++++++++++++++=
-+++
->> > >  3 files changed, 184 insertions(+)
->> > >  create mode 100644 drivers/gpio/gpio-cat9532.c
->> > >
->> > > diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
->> > > index a48586bb8edba..05b7af675677b 100644
->> > > --- a/drivers/gpio/Kconfig
->> > > +++ b/drivers/gpio/Kconfig
->> > > @@ -1180,6 +1180,16 @@ config GPIO_ADNP
->> > >         enough to represent all pins, but the driver will assume a
->> > >         register layout for 64 pins (8 registers).
->> > >
->> > > +config GPIO_CAT9532
->> > > +     tristate "CAT9532 GPIO support"
->> > > +     select REGMAP_I2C
->> > > +     help
->> > > +       GPIO driver for ON Semiconductor CAT9532 LED dimmer.
->> > > +       Say yes here to enable the GPIO driver for the CAT9532 chip.
->> > > +
->> > > +       To compile this driver as a module, choose M here: the modul=
-e will
->> > > +       be called gpio-cat9532.
->> > > +
->> > >  config GPIO_FXL6408
->> > >       tristate "FXL6408 I2C GPIO expander"
->> > >       select GPIO_REGMAP
->> > > diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
->> > > index dc9e6d643b5bc..e94d2f57a1f93 100644
->> > > --- a/drivers/gpio/Makefile
->> > > +++ b/drivers/gpio/Makefile
->> > > @@ -51,6 +51,7 @@ obj-$(CONFIG_GPIO_BRCMSTB)          +=3D gpio-brcm=
-stb.o
->> > >  obj-$(CONFIG_GPIO_BT8XX)             +=3D gpio-bt8xx.o
->> > >  obj-$(CONFIG_GPIO_BY_PINCTRL)                +=3D gpio-by-pinctrl.o
->> > >  obj-$(CONFIG_GPIO_CADENCE)           +=3D gpio-cadence.o
->> > > +obj-$(CONFIG_GPIO_CAT9532)           +=3D gpio-cat9532.o
->> > >  obj-$(CONFIG_GPIO_CGBC)                      +=3D gpio-cgbc.o
->> > >  obj-$(CONFIG_GPIO_CLPS711X)          +=3D gpio-clps711x.o
->> > >  obj-$(CONFIG_GPIO_SNPS_CREG)         +=3D gpio-creg-snps.o
->> > > diff --git a/drivers/gpio/gpio-cat9532.c b/drivers/gpio/gpio-cat9532=
-.c
->> > > new file mode 100644
->> > > index 0000000000000..973ff74a15b89
->> > > --- /dev/null
->> > > +++ b/drivers/gpio/gpio-cat9532.c
->> > > @@ -0,0 +1,173 @@
->> > > +// SPDX-License-Identifier: GPL-2.0-or-later
->> > > +#include <linux/gpio/driver.h>
->> > > +#include <linux/i2c.h>
->> > > +#include <linux/module.h>
->> > > +#include <linux/regmap.h>
->> > > +#include <linux/spinlock.h>
->> > > +
->> > > +struct cat9532 {
->> > > +     struct regmap *regmap;
->> > > +     struct gpio_chip gpio;
->> > > +
->> > > +     spinlock_t lock;
->> > > +     unsigned int direction;
->> > > +};
->> > > +
->> > > +#define CAT9532_REG_INPUT0   0
->> > > +#define CAT9532_REG_LS0              6
->> > > +
->> > > +/* Set output to Hi-Z, LED is OFF */
->> > > +#define CAT9532_LED_OUT_HIZ  0
->> > > +/* Set output low  */
->> > > +#define CAT9532_LED_OUT_LOW  1
->> > > +#define CAT9532_LED_OUT_MASK 3
->> > > +
->> > > +static const struct regmap_config cat9532_regmap_cfg =3D {
->> > > +     .reg_bits =3D 8,
->> > > +     .val_bits =3D 8,
->> > > +     .max_register =3D 9,
->> > > +     /*
->> > > +      * Auto increment can be enabled by setting bit 4 in the
->> > > +      * register address, but we don't really need bulk access.
->> > > +      */
->> > > +     .use_single_read =3D true,
->> > > +     .use_single_write =3D true,
->> > > +     .can_sleep =3D true,
->> > > +};
->> >
->> > This looks like it would perfectly fit the gpio-regmap helper and allo=
-w for
->> > code reuse. Maybe except for the locally tracked direction. How reliab=
-le is it?
->> > What if the GPIOs were put into some specific state by the bootloader?
->> >
->> > Bart
->>
->> Ah, nevermind, you commented on not being able to use it. My question
->> still stands, how reliable is direction tracking here? Does reading
->> back the registers you write in direction setters not give you
->> anything?
->
-> This is an exclusively open-drain chip, you can either driver the line
-> low or leave it in hi-z mode to be driven by an external circuit. There
-> is no direction register, the input register just report the current
-> line state. As such the direction is only something that exists in the
-> driver.
->
+On Mon, Aug 31, 2026 at 01:30:53PM -0700, Suren Baghdasaryan wrote:
+> From: Dave Hansen <dave.hansen@linux.intel.com>
+> 
+> tl;dr: lock_vma_under_rcu() is already a trylock. No need to do both
+> it and mmap_read_trylock().
+> 
+> Long Version:
+> 
+> == Background ==
+> 
+> Historically, binder used an mmap_read_trylock() in its shrinker code.
+> This ensures that reclaim is not blocked on an mmap_lock. Commit
+> 95bc2d4a9020 ("binder: use per-vma lock in page reclaiming") added
+> support for the per-VMA lock, but left mmap_read_trylock() as a
+> fallback.
+> 
+> This was presumably because the per-VMA locking can fail for several
+> reasons and most (all?) lock_vma_under_rcu() callers have a fallback
+> to mmap_read_trylock().
+> 
+> == Problem ==
+> 
+> The fallback is not worth the complexity here. lock_vma_under_rcu() is
+> essentially already a non-blocking trylock. The main reason it fails
+> is also the reason mmap_read_trylock() fails: something is holding
+> mmap_write_lock().
+> 
+> The only remedy for a collision with mmap_write_lock() is to wait,
+> which this code can not do. So the "fallback" after
+> lock_vma_under_rcu() failure is not really a fallback: it is really
+> likely to just be retrying in vain. That retry in an of itself isn't
+> horrible. But it adds complexity.
+> 
+> == Solution ==
+> 
+> Now that per-VMA locks are universally available, lock_vma_under_rcu()
+> will not persistently fail. Rely on it alone and simplify the code.
+> The removal of the fallback does not affect NOMMU case because binder
+> driver depends on CONFIG_MMU.
+> 
+> While at it we also make the handling of the cases where the original
+> binder VMA is gone consistent. There are two cases to consider when
+> Binder VMA is gone:
+> 1. there is no VMA at that location anymore.
+> 2. there is now another unrelated VMA at that location.
+> 
+> Before this change we handle case 1 by having the shrinker proceed to
+> free the page, and just skip the zap_vma_range() call. And we handle
+> case 2 by having the shrinker return LRU_SKIP. While either behavior
+> is acceptable, we need to handle them in a consistent way. Handle both
+> cases by freeing the page without touching the VMA (skipping the
+> zap_vma_range()).
+> 
+> Full disclosure: I originally tried to do this with
+> lock_vma_under_rcu_wait(), but it did not fit well with the mmap_lock
+> trylock semantics. Claude caught this in a review and suggested the
+> approach in this path. It seemed sane to me. So, Suggesed-by: Claude,
+> I guess.
+> 
+> Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Liam R. Howlett <Liam.Howlett@oracle.com>
+> Cc: Vlastimil Babka <vbabka@kernel.org>
+> Cc: Shakeel Butt <shakeel.butt@linux.dev>
+> Cc: linux-mm@kvack.org
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Arve Hjønnevåg <arve@android.com>
+> Cc: Todd Kjos <tkjos@android.com>
+> Cc: Christian Brauner <christian@brauner.io>
+> Cc: Carlos Llamas <cmllamas@google.com>
+> Cc: Alice Ryhl <aliceryhl@google.com>
+> Cc: David S. Miller <davem@davemloft.net>
+> Cc: David Ahern <dsahern@kernel.org>
+> Cc: netdev@vger.kernel.org
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Acked-by: Carlos Llamas <cmllamas@google.com>
+> ---
+>  drivers/android/binder_alloc.c | 46 ++++++++++++++++------------------
 
-Yes, I skimmed over it quickly at the airport, should have paid more attent=
-ion
-to what I'm looking at.
+This file will be going away (along with the other binder .c files) for
+7.4-rc1, so I don't object to this getting into other trees now, just
+note that it will not be needed if you wait a release cycle :)
 
-Thanks,
-Bartosz
+thanks,
+
+greg k-h
