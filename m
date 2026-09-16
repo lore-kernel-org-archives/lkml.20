@@ -1,253 +1,100 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E08390CAA;
-	Wed, 16 Sep 2026 15:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0613803D0;
+	Wed, 16 Sep 2026 15:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571397; cv=none; b=rlQFZiYOUiTtL5XZRidlVAJ3pZuSjBuBCYeVZp8+HtD2NH0hZLqPDnxqCi7NNTCoDlNp41Fh5lTZqs5SpGYu4iLeiGus2RsRVAhRZCyu0DIsmRoXtFMY/ve0k5+lRZ84hMJpbzC25aTe2EoYZgOSTAwJNLEX7/ynsdxAQRZnfz4=
+	t=1789571415; cv=none; b=IB/3b30LC1m6CZoNYL61zGDxcG779kr/CvJev5OfmaYXg62UcM7Ew+vc9HWJnI1xy16Z6iDUyiNbEw36iJDna8GikktOkJyaS5IfU4ikDxCXBFD/af8bRlxN/3oEuoD0uTFxb3+5pX5rqrHajuqzgL5JUsbG81Qg6G2jmHph+fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571397; c=relaxed/simple;
-	bh=b8vYvIwZonhhpPmFyxHVDlkAmuTWWgbvt4JU+6Pdmqc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JWIyzoEWbEC88tg2ZFuXcD5kgbWogNeAF8ptPXMINtB1HGMKOTurNwUAQVDrBf7jihlItdEHicFpy6jtO+YmUmfS0QGaIV8JCpA40G7nnXOKzVljamTTyIunuBHT68LUV7Mq+eh602Sk3cAn4ARMHNEc6cj2SSDz6G9B650Yc2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: ezequiel@vanguardiasur.com.ar
-X-PTX-Original-Recipient: jacob-chen@iotwrt.com
-X-PTX-Original-Recipient: mchehab@kernel.org
-X-PTX-Original-Recipient: detlev.casanova@collabora.com
-X-PTX-Original-Recipient: heiko@sntech.de
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-X-PTX-Original-Recipient: linux-media@vger.kernel.org
-X-PTX-Original-Recipient: linux-arm-kernel@lists.infradead.org
-X-PTX-Original-Recipient: linux-rockchip@lists.infradead.org
-X-PTX-Original-Recipient: lgs201920130244@gmail.com
-X-PTX-Original-Recipient: p.zabel@pengutronix.de
-X-PTX-Original-Recipient: kernel@pengutronix.de
-X-PTX-Original-Recipient: s.pueschel@pengutronix.de
-X-PTX-Original-Recipient: m.tretter@pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 642872059F8;
-	Wed, 16 Sep 2026 17:09:51 +0200 (CEST)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1x6rGh-001Fsx-0u;
-	Wed, 16 Sep 2026 17:09:51 +0200
-From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 16 Sep 2026 17:09:48 +0200
-Subject: [PATCH v2 07/17] media: v4l2-mem2mem: support running multiple
- jobs in parallel
+	s=arc-20240116; t=1789571415; c=relaxed/simple;
+	bh=/rcMOwcawxMdtjAilt+TqjxShNkBrmtMVVIjZN5cdfU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rvd8Jereji5QtxwE/w7o0MI1e74fuclYsyJXvKTPRu4gAF2MLHCcmCIbWTmSIvsg9DRtOhZrlSpwo62yz0+AvCW6sqtrCAetX3MQKwySELvR9LJy/H9Qw7GW0ndSkI8d8vdejqXZ5zELfRR20Q7fdydLQ4D0OnmhD9LvONlUOcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L1XNtHB0; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L1XNtHB0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0318D1F000FF;
+	Wed, 16 Sep 2026 15:10:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789571414;
+	bh=i3mbAK07lJIQZ5e6ixX0pGgI16Y5e88sohe7LDJ4u4M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L1XNtHB07Dv8jIQG5E4phGag7m/ed9bAggWzED6nMWmXCUK6G2+Dv9yzABdv7w2Ut
+	 9jolVh8BsNV3iJ+BDEHufe8SkJRRg2a8ZWy70dF6OVkBm6DhAoQLmETadvmafNBWXw
+	 C2RbbfuosXjbqcGlVYgHMUB0Elz3HsEHlaa8URrVGzlP6CQrQqoaUoBgZVPz0cwgF2
+	 31DQrqqIpQIU/dsEkADkzgXvLxqRywEDSJIGieOAPS0HzOWKfcydpPAltgMbB034sD
+	 t5azNw/21/PsFB9QOrroEvhnFR3vV7/w9rEIvC1MPATaU4Y2RIQyoyAL7NgtlRyU7X
+	 ynsCsQErj0+eg==
+Date: Wed, 16 Sep 2026 16:10:08 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Shuming Fan <shumingf@realtek.com>, Arnd Bergmann <arnd@arndb.de>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Niranjan H Y <niranjan.hy@ti.com>,
+	Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
+	Alexey Klimov <alexey.klimov@linaro.org>,
+	Julian Braha <julianbraha@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: rt766: fix HID dependency for SND_SOC_SDCA_HID
+Message-ID: <f9c9aef3-6e0b-4f7e-914e-35a82b5f962a@sirena.org.uk>
+References: <20260915211658.1671821-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260916-spu-rga3multicore-v2-7-23aa2cb74e61@pengutronix.de>
-References: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
-In-Reply-To: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
-To: Jacob Chen <jacob-chen@iotwrt.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@pengutronix.de, Detlev Casanova <detlev.casanova@collabora.com>, 
- Michael Tretter <m.tretter@pengutronix.de>, 
- Guangshuo Li <lgs201920130244@gmail.com>, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="R1yQ/9HMfkfcH3Na"
+Content-Disposition: inline
+In-Reply-To: <20260915211658.1671821-1-arnd@kernel.org>
+X-Cookie: Double!
 
-Add support for running multiple jobs in parallel for SoCs containing
-multiple identical devices. An example is the Rockchip RK3588 SoC,
-which contains two identical RGA3 devices. Therefore it is desirable to
-have the kernel schedule the work across all available devices and only
-expose one video device to the userspace.
 
-To avoid queueing too many parallel jobs, the
-v4l2_m2m_set_max_parallel_jobs method is added. It allows a driver
-to set the number of parallel jobs and avoids calling device_run when
-the given number of jobs is already running. This is set to 1 by default
-to prevent parallel job runs. Drivers with the need and support for
-scheduling jobs can adjust this value accordingly.
+--R1yQ/9HMfkfcH3Na
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Note that this change doesn't allow a context to be used multiple times
-in parallel. So a single stream won't be able to utilize multiple devices
-at once, but N streams can utilize up to N devices. This is caused by the
-fact that a context is not added multiple times to the job_list and also
-holds the job_flags to distinguish if it's currently running.
+On Tue, Sep 15, 2026 at 11:16:34PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 
-Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+> Selecting SND_SOC_SDCA_HID only works if HID is enabled:
 
----
-v2
-- split out the removal of the curr_ctx member
-- add EXPORT_SYMBOL to v4l2_m2m_set_max_parallel_jobs
-  (indirectly pointed out by Detlev)
-- document v4l2_m2m_get_curr_priv being incompatible with parallel jobs
-- add documentation comment for the added function
-- rework v4l2_m2m_suspend to avoid potential errors due to looping
-  outside of a spinlock over the list
-  (https://sashiko.dev/#/patchset/20260606-spu-rga3multicore-v1-0-3ec2b15675f7%40pengutronix.de?part=5)
----
- drivers/media/v4l2-core/v4l2-mem2mem.c | 51 ++++++++++++++++++++++++++--------
- include/media/v4l2-mem2mem.h           | 18 ++++++++++++
- 2 files changed, 58 insertions(+), 11 deletions(-)
+> --- a/sound/soc/codecs/Kconfig
+> +++ b/sound/soc/codecs/Kconfig
+> @@ -1992,6 +1992,7 @@ config SND_SOC_RT766_SDCA_SDW
+>  	tristate "Realtek RT766 SDCA Codec - SDW"
+>  	depends on SOUNDWIRE
+>  	depends on SND_SOC_SDCA
+> +	depends on HID
+>  	select SND_SOC_SDCA_HID
+>  	select SND_SOC_SDCA_IRQ
+>  	select REGMAP_SOUNDWIRE
 
-diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-index 60cca94195166..f1b6255984087 100644
---- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-+++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-@@ -88,6 +88,7 @@ static const char * const m2m_entity_name[] = {
-  * @job_spinlock:	protects job_queue
-  * @job_work:		worker to run queued jobs.
-  * @job_queue_flags:	flags of the queue status, %QUEUE_PAUSED.
-+ * @max_parallel_jobs:	max job_queue instances number marked as running
-  * @m2m_ops:		driver callbacks
-  * @kref:		device reference count
-  */
-@@ -106,6 +107,7 @@ struct v4l2_m2m_dev {
- 	spinlock_t		job_spinlock;
- 	struct work_struct	job_work;
- 	unsigned long		job_queue_flags;
-+	u32			max_parallel_jobs;
- 
- 	const struct v4l2_m2m_ops *m2m_ops;
- 
-@@ -121,6 +123,13 @@ static struct v4l2_m2m_queue_ctx *get_queue_ctx(struct v4l2_m2m_ctx *m2m_ctx,
- 		return &m2m_ctx->cap_q_ctx;
- }
- 
-+void v4l2_m2m_set_max_parallel_jobs(struct v4l2_m2m_dev *m2m_dev,
-+				    u32 max_parallel_jobs)
-+{
-+	m2m_dev->max_parallel_jobs = max_parallel_jobs;
-+}
-+EXPORT_SYMBOL(v4l2_m2m_set_max_parallel_jobs);
-+
- struct vb2_queue *v4l2_m2m_get_vq(struct v4l2_m2m_ctx *m2m_ctx,
- 				       enum v4l2_buf_type type)
- {
-@@ -256,7 +265,9 @@ EXPORT_SYMBOL(v4l2_m2m_get_curr_priv);
- static void v4l2_m2m_try_run(struct v4l2_m2m_dev *m2m_dev)
- {
- 	unsigned long flags;
--	struct v4l2_m2m_ctx *chosen_ctx;
-+	struct v4l2_m2m_ctx *chosen_ctx = NULL;
-+	struct v4l2_m2m_ctx *ctx;
-+	u32 running_jobs = 0;
- 
- 	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
- 	if (list_empty(&m2m_dev->job_queue)) {
-@@ -271,10 +282,22 @@ static void v4l2_m2m_try_run(struct v4l2_m2m_dev *m2m_dev)
- 		return;
- 	}
- 
--	chosen_ctx = list_first_entry(&m2m_dev->job_queue, struct v4l2_m2m_ctx, queue);
--	if (chosen_ctx->job_flags & TRANS_RUNNING) {
-+	list_for_each_entry(ctx, &m2m_dev->job_queue, queue) {
-+		if (!(ctx->job_flags & TRANS_RUNNING)) {
-+			chosen_ctx = ctx;
-+			break;
-+		}
-+
-+		running_jobs++;
-+	}
-+	if (running_jobs >= m2m_dev->max_parallel_jobs) {
- 		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
--		dprintk("Another instance is running, won't run now\n");
-+		dprintk("Maximum number of parallel jobs reached\n");
-+		return;
-+	}
-+	if (!chosen_ctx) {
-+		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
-+		dprintk("All jobs already running\n");
- 		return;
- 	}
- 
-@@ -549,19 +572,24 @@ EXPORT_SYMBOL(v4l2_m2m_buf_done_and_job_finish);
- void v4l2_m2m_suspend(struct v4l2_m2m_dev *m2m_dev)
- {
- 	unsigned long flags;
--	struct v4l2_m2m_ctx *curr_ctx;
- 
- 	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
- 	m2m_dev->job_queue_flags |= QUEUE_PAUSED;
--	if (list_empty(&m2m_dev->job_queue)) {
-+
-+	while (!list_empty(&m2m_dev->job_queue)) {
-+		/* Running jobs are always at the start of the queue */
-+		struct v4l2_m2m_ctx *first_ctx =
-+			list_first_entry(&m2m_dev->job_queue,
-+					 struct v4l2_m2m_ctx, queue);
-+
-+		if (!(first_ctx->job_flags & TRANS_RUNNING))
-+			break;
-+
- 		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
--		return;
-+		wait_event(first_ctx->finished, !(first_ctx->job_flags & TRANS_RUNNING));
-+		spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
- 	}
--
--	curr_ctx = list_first_entry(&m2m_dev->job_queue, struct v4l2_m2m_ctx, queue);
- 	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
--
--	wait_event(curr_ctx->finished, !(curr_ctx->job_flags & TRANS_RUNNING));
- }
- EXPORT_SYMBOL(v4l2_m2m_suspend);
- 
-@@ -1205,6 +1233,7 @@ struct v4l2_m2m_dev *v4l2_m2m_init(const struct v4l2_m2m_ops *m2m_ops)
- 	spin_lock_init(&m2m_dev->job_spinlock);
- 	INIT_WORK(&m2m_dev->job_work, v4l2_m2m_device_run_work);
- 	kref_init(&m2m_dev->kref);
-+	m2m_dev->max_parallel_jobs = 1;
- 
- 	return m2m_dev;
- }
-diff --git a/include/media/v4l2-mem2mem.h b/include/media/v4l2-mem2mem.h
-index 31de25d792b98..37ffd33b653f2 100644
---- a/include/media/v4l2-mem2mem.h
-+++ b/include/media/v4l2-mem2mem.h
-@@ -144,6 +144,10 @@ struct v4l2_m2m_buffer {
-  * v4l2_m2m_get_curr_priv() - return driver private data for the currently
-  * running instance or NULL if no instance is running
-  *
-+ * It is incompatible with using parallel instances enabled by calling
-+ * v4l2_m2m_set_max_parallel_jobs(), as it is undefined which private data of
-+ * the parallel running instances is returned.
-+ *
-  * @m2m_dev: opaque pointer to the internal data to handle M2M context
-  */
- void *v4l2_m2m_get_curr_priv(struct v4l2_m2m_dev *m2m_dev);
-@@ -594,6 +598,20 @@ static inline void v4l2_m2m_set_dst_buffered(struct v4l2_m2m_ctx *m2m_ctx,
- 	m2m_ctx->cap_q_ctx.buffered = buffered;
- }
- 
-+/**
-+ * v4l2_m2m_set_max_parallel_jobs() - adjust the limit of the maximum number of
-+ * jobs being run in parallel.
-+ *
-+ * By default only one job is allowed to be run at any time. A driver with
-+ * multiple cores can call this function to (dynamically) adjust this limit
-+ * based on the underlying hardware capabilities.
-+ *
-+ * @m2m_dev: opaque pointer to the internal data to handle M2M context
-+ * @max_parallel_jobs: maximum number of jobs to queue in parallel
-+ */
-+void v4l2_m2m_set_max_parallel_jobs(struct v4l2_m2m_dev *m2m_dev,
-+				    u32 max_parallel_jobs);
-+
- /**
-  * v4l2_m2m_ctx_release() - release m2m context
-  *
+Should that be HID=y || HID=SND_SOC_SDCA like for SND_SOC_SDCA_HID and
+SND_SOC_SDCA_CLASS?  The dependencies on _CLASS should stop the
+problematic cases from actually occurring but I'm not sure if it stops
+the warning.
 
--- 
-2.55.0
+--R1yQ/9HMfkfcH3Na
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqqsU8ACgkQJNaLcl1U
+h9ADhgf/dvvQMVvwjM+Ig75S0ELaFEz6K5oMglXaJ60ag8uRATcWY3454fGkQNVB
+j4KKiQTzluRVjsCJ1h8gkZFw2LHMmxHNFK/O29Qz2G14qT+yR0F8+8G59dVS/x5U
+EBFESKiK0VOKmLo1+Y7LN487esRbOsdZ4Q0BaemXQfMAud9rNoaLr8QPOQaZXfpY
+tmP58lv5tXsIy8cRRV8N/zZ8isArbwsbaDgbSkq5BcmcJnOcRFRaCvx67flOWilB
+zlEJmMbmMW2If8PiVAxhSfRZviGvdYF2AuVnYN6hDa5cElsHhC+KYXwgyzsUJamN
+vkZFlpP4x/59u2KKBo5RwvYge7q/9w==
+=sMZB
+-----END PGP SIGNATURE-----
+
+--R1yQ/9HMfkfcH3Na--
