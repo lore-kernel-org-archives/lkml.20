@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C14C45FFC8;
-	Wed, 16 Sep 2026 08:26:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7518440A1D;
+	Wed, 16 Sep 2026 08:27:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547195; cv=none; b=Z44lmdWyapXmVbXgcvgQYlTk3CBvK2k3GZGLm8dGFNyaOoN4QXeZZJmv3W1VGVuyx+DNlHpOgwUSmaAMyhLisr8MziRjcMIpKZZ8eL/fZ6t8z6cAWKmAdh6Y82hbKVObOuUWllyCYiyQAmOLMydzCBC/UpzL5vUqVGHYh5/EwMI=
+	t=1789547234; cv=none; b=ApP98IJNekpmETsYCz9URos/SV4HicA5Er3FtlcQ3QAeskRxuA7YDefFJy2XkTV+Ufnd5CxXfi1HYGf52KRcL/b/qdkhRPrKQcexvuKApRV8m2RheiC5D3XPwEDgAwNq1HWynxOCh7xPmTsNusCda99cBHnt3V+uw/PPr2MY7ZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547195; c=relaxed/simple;
-	bh=m0d2WTIkjQxTbXdqiU508PHYyhCo5TmTFEYRErZEBj0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NuWgSushbKY28OdiBvKQMKv0EPrBD18f4vYjS+SUmwy15OUOrfz9c29pE1D8gL3dHX1eB1tGx9D65nXaWJyFTJn+R8LfYYbYqH7ojjl/PPBPa9tLeBWIwkq2ilghHJqRP9tGiTaGsWmSZAvyt9TSjNpF+9U4OL9fM6ABlDNgu74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kwf23AuL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789547234; c=relaxed/simple;
+	bh=ZS6PExN9zwWyudpayNewrSthXOr7kECZoA1nMBxnMzE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MdBZGbKYixKd6G8CsmIXPqH4Kp871Zpa179pV5jtagp+WHR/rzAeYwU0XZaAc85OebiFbDzx8cxlhjOay1Me54fIzmYPux40/g2aAQSQvn5ND1BVQNmHruqQVk65qCeUPTmzeFpAR2ndWHJnaLvghWMHwXGBZfEajm5HHikyVWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hq9CNX+H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kwf23AuL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B0E11F000FF;
-	Wed, 16 Sep 2026 08:26:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hq9CNX+H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B3F01F000FF;
+	Wed, 16 Sep 2026 08:27:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789547188;
-	bh=NuE4sMVYdM+eUx2iV5diW9Nt1p3GTQkPRMECpQTVcec=;
+	s=k20260515; t=1789547232;
+	bh=JPTY1U6jM33Xmvk3c2hEGE36ySFVJHNZhZh3aISIffg=;
 	h=From:To:Cc:Subject:Date;
-	b=kwf23AuLHh+xa+7XbgF+ka5tyTgfq6a+3y8Wk9Rs50lxbeki14BXDxgbD8n8SWQE2
-	 4VMEhKZTp+NuAaiAl5Q4wH6uxsXbDxWjWrV+L60Fr0FFwjS3gbIB21Pb28DHaVifSE
-	 HyG/96ME4F+l9WbFVjO6UGmaksuJj4/QkrA2SndqxEmR3Po8GQcmjV7ZlW3+BJL56M
-	 h0NfW/rejlzc5sm4UBjmKcZHB6KRZ83lURZDoeiz0JleaAa7r22BItc9dZySx3bLWX
-	 9swhYm618Ops4I0XvD0c91AtWefemfVzkoa02tkVfd3+gG7XHS7wZ1HMS909fNYHy0
-	 puybaQSCZ4FTA==
+	b=Hq9CNX+HcbxStVHHmSHjk7s4fzxzbKneov1LsEC0FCRMm6OodtAqLONt6DcbPiDxf
+	 Y6Ko/tILshClo73kXmJHQVw+SuoklomSlBaMMaVOKjrUdoxD2L9ze+PW7TqCyuWD/J
+	 m7Mz+p/FWn7BKf++FRUKPXdASQ9qrwTym+PIts/sInWK/QsgF/no5cmVVQyRIISRqY
+	 iI7rmGovzw1y0UWvsT6ASM9EekfzN0wz3zRA980rfQN3tsJq13bW7ffyVe9BA89Sf7
+	 hY0/whoe4dmP8xdMS7cuWMrXokZrahtpLNy2ABoCNjhjuYSoQMITpmOtbJ4EowjE4C
+	 D6wjvdYqWKw+w==
 From: Arnd Bergmann <arnd@kernel.org>
-To: Linus Walleij <linusw@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
 Cc: Arnd Bergmann <arnd@arndb.de>,
-	Kees Cook <kees@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: fotg210: fix link error for CONFIG_USB=n
-Date: Wed, 16 Sep 2026 10:26:05 +0200
-Message-ID: <20260916082623.3972767-1-arnd@kernel.org>
+Subject: [PATCH] net: dsa: motorcomm: fix unused-function warning
+Date: Wed, 16 Sep 2026 10:26:54 +0200
+Message-ID: <20260916082707.3973287-1-arnd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -48,75 +50,35 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-Calling usb_hcd_platform_shutdown() is not possible if CONFIG_USB
-is disabled:
+gcc warns about an unused function here because the __maybe_unused
+attribute is in the wrong part of the prototype:
 
-arm-linux-gnueabi-ld: drivers/usb/fotg210/fotg210-core.o: in function `fotg210_shutdown':
-fotg210-core.c:(.text+0x40): undefined reference to `usb_hcd_platform_shutdown'
+drivers/net/dsa/motorcomm/leds.c:352:1: error: 'yt921x_cled_hw_control_get_device' defined but not used [-Werror=unused-function]
+  352 | yt921x_cled_hw_control_get_device(struct led_classdev *led_cdev)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Move this call into the hcd file to ensure this is only used
-when USB host mode is actually available.
+Move the __maybe_unused attribute to refer to the function rather
+than the returned object.
 
-Fixes: 7dbc2e1ba8fd ("usb: fotg210: use the common EHCI core")
+Fixes: 9af9a8168213 ("net: dsa: motorcomm: Add LED support")
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/usb/fotg210/fotg210-core.c | 2 +-
- drivers/usb/fotg210/fotg210-hcd.c  | 5 +++++
- drivers/usb/fotg210/fotg210.h      | 5 +++++
- 3 files changed, 11 insertions(+), 1 deletion(-)
+ drivers/net/dsa/motorcomm/leds.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/fotg210/fotg210-core.c b/drivers/usb/fotg210/fotg210-core.c
-index 7976bdae5f07..86e9ecd2c8ed 100644
---- a/drivers/usb/fotg210/fotg210-core.c
-+++ b/drivers/usb/fotg210/fotg210-core.c
-@@ -259,7 +259,7 @@ static void fotg210_remove(struct platform_device *pdev)
- static void fotg210_shutdown(struct platform_device *pdev)
- {
- 	if (usb_get_dr_mode(&pdev->dev) != USB_DR_MODE_PERIPHERAL)
--		usb_hcd_platform_shutdown(pdev);
-+		fotg210_hcd_shutdown(pdev);
+diff --git a/drivers/net/dsa/motorcomm/leds.c b/drivers/net/dsa/motorcomm/leds.c
+index 87a6b9cf6068..0e8761f37995 100644
+--- a/drivers/net/dsa/motorcomm/leds.c
++++ b/drivers/net/dsa/motorcomm/leds.c
+@@ -348,7 +348,7 @@ yt921x_cled_blink_set(struct led_classdev *led_cdev, unsigned long *delay_on,
+ 	return res;
  }
  
- static int fotg210_suspend(struct device *dev)
-diff --git a/drivers/usb/fotg210/fotg210-hcd.c b/drivers/usb/fotg210/fotg210-hcd.c
-index 0a36820f189b..8e2346a3e23f 100644
---- a/drivers/usb/fotg210/fotg210-hcd.c
-+++ b/drivers/usb/fotg210/fotg210-hcd.c
-@@ -186,6 +186,11 @@ int fotg210_hcd_remove(struct platform_device *pdev)
- 	return 0;
- }
- 
-+void fotg210_hcd_shutdown(struct platform_device *pdev)
-+{
-+	usb_hcd_platform_shutdown(pdev);
-+}
-+
- int fotg210_hcd_suspend(struct device *dev)
+-static struct device * __maybe_unused
++static struct device __maybe_unused *
+ yt921x_cled_hw_control_get_device(struct led_classdev *led_cdev)
  {
- #ifdef CONFIG_PM
-diff --git a/drivers/usb/fotg210/fotg210.h b/drivers/usb/fotg210/fotg210.h
-index aab0f0300dc8..96a8cf76deeb 100644
---- a/drivers/usb/fotg210/fotg210.h
-+++ b/drivers/usb/fotg210/fotg210.h
-@@ -26,6 +26,7 @@ void fotg210_vbus(struct fotg210 *fotg, bool enable);
- #ifdef CONFIG_USB_FOTG210_HCD
- int fotg210_hcd_probe(struct platform_device *pdev, struct fotg210 *fotg);
- int fotg210_hcd_remove(struct platform_device *pdev);
-+void fotg210_hcd_shutdown(struct platform_device *pdev);
- int fotg210_hcd_suspend(struct device *dev);
- int fotg210_hcd_resume(struct device *dev);
- int fotg210_hcd_init(void);
-@@ -42,6 +43,10 @@ static inline int fotg210_hcd_remove(struct platform_device *pdev)
- 	return -ENODEV;
- }
- 
-+static inline void fotg210_hcd_shutdown(struct platform_device *pdev)
-+{
-+}
-+
- static inline int fotg210_hcd_suspend(struct device *dev)
- {
- 	return -ENODEV;
+ 	struct yt921x_led *led = to_yt921x_led(led_cdev);
 -- 
 2.53.0
 
