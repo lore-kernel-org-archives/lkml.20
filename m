@@ -1,126 +1,166 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122EC3E1CFB;
-	Wed, 16 Sep 2026 18:47:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0B749A3CA
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584442; cv=none; b=DzxkI1ds7NHX9ssD1TP23QabKxZ7+o6FpNzSBGg9bc5WzFQMGAw+1fs1mrLjgHKbTsvfpEZxGcJUo0yGBFYWJVDjass7lZirMbkDp47wRBMAAkx5xJI5sC92Be+PFZ6WcYV8AwjiNvugLilozA4LRaj3ucwRwooxt4hUxwKvVS0=
+	t=1789584450; cv=none; b=bfN6bbJ2dqKqBZyCpu8DmYj2oZe2e6d7JFQajtLPLcExZrYmFD/wtixtwJSCsTviLnIiLBe0JMpha/KRSal8QLOpLm3x4vj/FhdfEEsdTKNXhHwYt4exSFP8b828L5OcSao2hiBb3ReNB85q2rAqw2dtMLhbwbWXzWadw8Lf9b0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584442; c=relaxed/simple;
-	bh=5qMDvgqidgBXluYQY0L+xIczwEmBMESJQxkz6VoaILQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ROOd9FQRL3ruIs5dhqXoNM0/XXsj0rtjUD1E5fwimBgiww/j//DPgTr16K0kEfuUgL33cStsBHmT/HxDqywcDljBdxd6WQPh5A+sVBhARd9bQKFIC2VZauDEgDASzVZKr4nynHy8R5G+OipkdmyOHDfJfDZVfiDmTJVIEPtKso8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=esWDwsqs; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789584450; c=relaxed/simple;
+	bh=1jT0wxmlJgM7h/FwhWUm0yaXm9KSVxkqh7ltpP0Td0M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ogrSatW186NAG7v7EV6H4KN7irJ5ylTe3gchbG3Yxale6inynfYHPo9qNp8dsBrOKPutEbs8ysUwBmw4Kd5jlnlID3+2KnWpPeBPLCdobTjKWHi7/bpUxV6q8gVFm/Fp+wee4sQHPFMF3AyM2r+Tr5mQRZTe+ZDFd7xGd31GAtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X+y/9hXp; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="esWDwsqs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789584426; x=1821120426;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5qMDvgqidgBXluYQY0L+xIczwEmBMESJQxkz6VoaILQ=;
-  b=esWDwsqsEBFqtSsplqDAqVuKMVqw/9/Y80e9mDVu7DFh8gIrSRzaVehH
-   m9OtJjxx1qM5L33M/+vLXRhXp7qbSrVPZtFRtnUjju9pazOqwRiRr/Azf
-   xHBN960xiOplqfvrznuDh1eGw10/pen3SzFPt1PLhpn9fYAJ8no01CPls
-   LdWvQZS6722pqu2A7HjnZ6GOd8X+nSFrepfhUXHjGoYKT5U1opvftAa4I
-   pk+4UjVlYS+c8k6GKqiq3Yke2Uf77ANynhg4Tu52gQ8N1+X4zXaez2usX
-   RBc3y5Mf9//h0jdcEl9imk35lzTYdWCtEmjsbQcUjR/GRk3WIf09AamrM
-   g==;
-X-CSE-ConnectionGUID: sau2zAkTT0WXR+UoCWg9eg==
-X-CSE-MsgGUID: ow5xCBHqR/CPlZh6a7VToQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101122984"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="101122984"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 11:47:03 -0700
-X-CSE-ConnectionGUID: oa6fmMu+TK2Dhrs34r+etQ==
-X-CSE-MsgGUID: jiX81ywERWa811dnKHayBw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="272943685"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 16 Sep 2026 11:47:01 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x6ueo-000000006a9-1xux;
-	Wed, 16 Sep 2026 18:46:58 +0000
-Date: Thu, 17 Sep 2026 02:46:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Asai Neko <sugar@sne.moe>, Corentin Chary <corentin.chary@gmail.com>,
-	"Luke D. Jones" <luke@ljones.dev>,
-	Denis Benato <denis.benato@linux.dev>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Asai Neko <sugar@sne.moe>
-Subject: Re: [PATCH] platform/x86: asus-wmi: don't warn when LPS0 is
- unavailable
-Message-ID: <202609170232.23BqcT7n-lkp@intel.com>
-References: <20260916-asus-wmi-lps0-unavailable-warn-v1-1-9bd6fb4c10f9@sne.moe>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X+y/9hXp"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f05ffcso347015ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:47:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789584424; x=1790189224; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=id2J5iDXrFVnIxVAGr7DM5v73OGdSGZqAF4hKdj2nAA=;
+        b=X+y/9hXp5EiyecafDHX8xc2uRbn2IjfykvrnvDTFY01mh/bkMSrI4W8uQaqmV63dN/
+         b1+BNCOXCFq4W18k+ddawcSJ8RVwlvpuAiE6qKFRI92BYVf4fJ7FiVVJlgIDOnWisjIn
+         108IS4R+FFq2gY+75Tqi5PsHOXHcTa29anQdRp+7hmF+C197BMh7Y7GyVegvzATpEz9B
+         zFpv3AzruhYKDt4uwGaZU8liI0V4N+dR0vIeDml9W5pAu3FqH285ovG4fKYdD7DL1sRX
+         Fhyei9xWJbmIedyqcupn3KQ46aM9M5q/cOjhtuPv/ttF/9YcP5sUFfyCWy0x7JeKOUvV
+         Ob9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789584424; x=1790189224;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=id2J5iDXrFVnIxVAGr7DM5v73OGdSGZqAF4hKdj2nAA=;
+        b=f1alQF4sWqt+QiHk0C0JnJ6LB407cah5zpgkHyDdin/9b9fHqDe1KutyLQVcYbaiIK
+         8eIv1/2qyj8mXk55pNYF9ARmBtr3R4gW7x2nmKZt6bwWXeVmhZ0vdnHTaYQEjsco5hXP
+         vEAHWbYwcJzykU3Fdykfvw74DOR29kKO4pj61zfrzai4P/PUh/4biTgQTMNtmABivIkS
+         DFLktBfW/SgZUHYdw5/ByaylbW+7vbwmdYsdF+bKeWMVQ7FfuF2LTJOoET1Ubj6bSmon
+         1ZXQvvCn4I1HPPh1PeUZUy0Nxl20LKMkl0N3oHYe0SuA/h/gn1uwa4t9kPEFEhblucBQ
+         TtZA==
+X-Forwarded-Encrypted: i=1; AKwUvBwp/baX6LotqxcTsqqBRJZI9K9V3L5saK4yKGnxNO7Nj+WWT1qErmevkxog32C8jEeY3n4c6a99ndWsMjc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lq+l7sNVT2XgMjs2RxBIPC/+ZVg22uztZvM2ED90oeJwpVqaSU
+	i/zds+7uzmfK1DOv/BTM/xaxexHJgJ9hDLiVOSWeitw9KORJC7ss+W2n
+X-Gm-Gg: AYBFou3vELssKHwjff0LhmgjmQeR1ZVN4nw2Cnqd7U6bYmNXJFgy0vtoBch/1Zi4ptb
+	d0TTBzqaWUA962osLP18vxK6momRrZThJZ83Ktk/N2eXYzD2BgZ+WZMS5n7EZKDBH9NO5l9BErF
+	gl8Ihindf6mP1oC6dgK9eU49E8aUSygbO59t2DiDApOC0tomKlt+k8hyP2HeDxIC3i8m3XKXxU0
+	yS2EO2D8327xKXmF+VnrwjcD5rx7qZXF98Cf1axvUgT26waO3RUxY7qbqYacIsBEw2hIuFHQLWZ
+	nyTW7uAu94r7F5WQc3bhHEjDIq3xhhVDsPTjWNs6xLQvKDP65FsUdRa4WgnTgUVVLgFHzklh8PE
+	aY4mWkUXCsTvIdstDh8VntGRdVJixwEYoTlgXqeym7sOzDEjX1Tg7jARqEKeoOrUuSS9w/8qfJB
+	/KAOezDqu62qzQaMlaFAEJZtcE46jB8VTsKCdfgsarUKF2sCN6Rxq/l0ctvt6bgd7ctP+gAapXj
+	lL5J+OWSsjsxdhKDW6bM34y2RsOyN3jgl3+QHoIe0yE0KGwgRSml6DJdQ7gtVG6IMJAu4hnC+nv
+	1EBtUnGvH8M70S+AqELJ37LLTQ==
+X-Received: by 2002:a17:902:d4c2:b0:2d9:3be4:7e31 with SMTP id d9443c01a7336-2dd8dd0b188mr78874235ad.5.1789584423704;
+        Wed, 16 Sep 2026 11:47:03 -0700 (PDT)
+Received: from DESKTOP-TJS95SS.tail460ce2.ts.net (36-232-230-153.dynamic-ip.hinet.net. [36.232.230.153])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d9007csm16143405ad.5.2026.09.16.11.47.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 11:47:03 -0700 (PDT)
+From: Yuan-Hao Hsu <aa9736195201@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Matthew Wilcox <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Chao Yu <chao@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/readahead: use large folios in page_cache_ra_unbounded()
+Date: Thu, 17 Sep 2026 02:46:58 +0800
+Message-ID: <20260916184658.647-1-aa9736195201@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915172615.c183c61c774f529ca57f1fb5@linux-foundation.org>
+References: <20260915135909.1007-1-aa9736195201@gmail.com> <20260915172615.c183c61c774f529ca57f1fb5@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-asus-wmi-lps0-unavailable-warn-v1-1-9bd6fb4c10f9@sne.moe>
+Content-Transfer-Encoding: 8bit
 
-Hi Asai,
+On Tue, 15 Sep 2026 17:26:15 -0700, Andrew Morton wrote:
+> Thanks, and welcome to Linux (I think?).
 
-kernel test robot noticed the following build warnings:
+Thanks.  Yes, this is my first patch.
 
-[auto build test WARNING on 587858367581b9c55c3690f4e63382ad622719d4]
+> Are any other filesystems affected by this change?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Asai-Neko/platform-x86-asus-wmi-don-t-warn-when-LPS0-is-unavailable/20260916-003256
-base:   587858367581b9c55c3690f4e63382ad622719d4
-patch link:    https://lore.kernel.org/r/20260916-asus-wmi-lps0-unavailable-warn-v1-1-9bd6fb4c10f9%40sne.moe
-patch subject: [PATCH] platform/x86: asus-wmi: don't warn when LPS0 is unavailable
-config: x86_64-rhel-9.4-rust (https://download.01.org/0day-ci/archive/20260917/202609170232.23BqcT7n-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260917/202609170232.23BqcT7n-lkp@intel.com/reproduce)
+Every mapping with mapping_max_folio_order() above the minimum: ext4
+(except the encrypt feature and data=journal), xfs, btrfs (except
+HIGHMEM), erofs, nfs, afs, cifs, zonefs, f2fs immutable files, and the
+block device page cache.  overlayfs follows the filesystem below it.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609170232.23BqcT7n-lkp@intel.com/
+tmpfs sets the flag but cannot get here: force_page_cache_ra() returns
+without read_folio/readahead a_ops, generic_fadvise() ignores hints on
+a noop bdi, and madvise(MADV_WILLNEED) takes shmem_swapin_range().
+fuse, gfs2, ubifs, ntfs3, ceph and 9p do not enable large folios.
+Nothing changes with CONFIG_TRANSPARENT_HUGEPAGE=n.
 
-All warnings (new ones prefixed by >>):
+v2 is tested on ext4, f2fs, xfs, btrfs, erofs, a block device, NFS and
+cifs over loopback, and zonefs on a zoned null_blk; read() and mmap()
+match the O_DIRECT sha256 of the file on each.  I could not set up
+afs, but its ->readahead is netfs_readahead(), as used by cifs.
 
->> drivers/platform/x86/asus-wmi.c:5428:66: warning: data argument not used by format string [-Wformat-extra-args]
-    5428 |                 pr_warn("failed to register LPS0 sleep handler in asus-wmi\n", ret);
-         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~
-   include/linux/printk.h:564:37: note: expanded from macro 'pr_warn'
-     564 |         printk(KERN_WARNING pr_fmt(fmt), ##__VA_ARGS__)
-         |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
-   include/linux/printk.h:511:60: note: expanded from macro 'printk'
-     511 | #define printk(fmt, ...) printk_index_wrap(_printk, fmt, ##__VA_ARGS__)
-         |                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
-   include/linux/printk.h:483:19: note: expanded from macro 'printk_index_wrap'
-     483 |                 _p_func(_fmt, ##__VA_ARGS__);                           \
-         |                         ~~~~    ^
-   1 warning generated.
+> This all sounds great, but I worry that the resulting increased
+> consumption of larger-order pages will cause all sorts of unexpected
+> mayhem to all sorts of unexpected things.
 
+You are right, and v1 does exactly that.  __GFP_NORETRY on a costly
+order still means an async compaction, a round of direct reclaim, a
+second compaction and two kswapd wakeups before giving up, and v1
+could pay that up to nine times per read().
 
-vim +5428 drivers/platform/x86/asus-wmi.c
+Memory fragmented so that no block above order 3 remained, with the
+remaining pages pinned so compaction could not help, 1024 x 1 MiB
+pread() after POSIX_FADV_RANDOM from a RAM disk:
 
-  5421	
-  5422	static void asus_s2idle_check_register(void)
-  5423	{
-  5424		int ret;
-  5425	
-  5426		ret = acpi_register_lps0_dev(&asus_ally_s2idle_dev_ops);
-  5427		if (ret && ret != -ENODEV)
-> 5428			pr_warn("failed to register LPS0 sleep handler in asus-wmi\n", ret);
-  5429	}
-  5430	
+                              before       v1       v2
+  sys ms                         219    1,462      239
+  compact_stall                    0    2,437        0
+  pgsteal_kswapd (pages)           0  234,494        0
+  pswpout (pages)                  0   23,759        0
+  folios left in the cache   262,144   36,508  260,869
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+v1 also made a plain sequential read() 3.6x slower there, through the
+page_cache_ra_order() fallback into page_cache_ra_unbounded().
+
+v2 allocates above the minimum order without __GFP_RECLAIM: it takes
+a large folio when the free lists have one and never reclaims,
+compacts or wakes kswapd to make one.  On the first failure the rest
+of the request uses the minimum order, as page_cache_ra_order() does.
+Keeping the reclaim flags but limiting it to one attempt per request
+was not enough (543 ms, 67,183 pages reclaimed by kswapd): the gfp
+mask is what matters, not the number of attempts.
+
+> So for several reasons it's
+>
+> - allocate a large folio
+> - check it
+> - oops, can't use it, free it and retry with a smaller one
+
+v2 scans the xarray first and sizes the folio to the absent run, so
+filemap_add_folio() fails with -EEXIST only when another reader got
+in between, and then the loop rescans instead of trying smaller
+orders.  Four processes reading the same cold file after
+POSIX_FADV_RANDOM, 64 KiB at a time, counted with a kretprobe:
+
+  before  7,754 -EEXIST (one order-0 page each)
+  v1     59,783
+  v2     15,828
+
+What is left is the race itself; the unpatched kernel sees the same
+race at page granularity.  A memcg charge over the limit now fails
+without reclaim and the request continues at the minimum order, the
+path it takes today.
+
+The setup and the numbers are in the v2 changelog.
+
+Thanks,
+Yuan-Hao Hsu
