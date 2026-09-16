@@ -1,551 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5E9495AC6;
-	Wed, 16 Sep 2026 16:30:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E615C56260A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:30:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576223; cv=none; b=cgeKr4TsYTe1xW+lfOjeKcP5mjStB0VNKuOAvwS0vv9lrIq1bbS2SqjxyuyQE71Jv36x2P1irPBs/RXGJNtY+yWWC94YtXiKM0oJIcm10C/uZ69HBdP7CyszrMrDjccwmy6Ug7xVx5nCucq1pjbgZ21a7sHB8alncu3Vm2C6QFU=
+	t=1789576226; cv=none; b=KlqCikC3dJtyM/amxJqkEcvSJpzlWKCOJJ8L0ENERqLwBfCukGj6cDCWSPEOumkXJLOYB7vGWE1YJ/n4abIr2Y57XZNuXJ7P5DmNuaAq6lDanP/kbwRkIx7o1S2raohOHHESRuCXVAhzwxwei2ipce/0ZCeD8yviOoBADSmHQms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576223; c=relaxed/simple;
-	bh=o8VHx0YAqBN4jNc8JhfmyDexBT3x/xI02TkIqgIOij0=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=n9zm0cNKvjTHs76v2e4Ta471w3sSs9Vd0zsKzjhYDuFGTOjGMuOKkw+ta7hR5PoAnGhTIX5VZNTGxSYuTiDKXr0ML2dr/PTcyY+umEk2y0u6Cqh7KxKHiEDpIUuSKXLPIVTQPkV0GTDM0E/PdT493a2KncT2ZStWleBtSBzYLQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JLMcoOZr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789576226; c=relaxed/simple;
+	bh=+pr8JXwf3lEotRxrEPi58W6+E6MbOpFpvM9BWeVIpSw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aL3YVyNsfIF9SY3OGTXHOOQVN/OcAKbMOeEiR7H+pa3eUU6OkRwsdus5oixKV9oYibul91GaENlMSTGlquc709CB8caQ3VFMeocuiRdFzJWXiVPdFvMxSUJ6kJx134YKibTX2+KSbBoydPvdgM82hkT2FkRAdNDDN2ewetVpGR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XORSXwVQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GSmpgUhw; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JLMcoOZr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFDB21F000FF;
-	Wed, 16 Sep 2026 16:30:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789576217;
-	bh=kVGpQlOadGMfwK2nMDyDOYYUuFM1cvFEnDAAqEdcMR0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JLMcoOZraPtFSTMj6g2ss8lomfc0GWb3DpM6qcskVg/UmQ11r0YRP9U3PtXzO0YYf
-	 zHxi5v0pPyrwkO9wxT16i8XZn0lJ3TWocqEh4Y2RuZ18zybjsG8zxMu++hyvuW31NQ
-	 KmiQXz4P2HIwe/+JzAKctqDNq/8ciPTBUAqOjkjkyhG4Zzl8aSN3xQ7vBmyT29OCq1
-	 LRTA9DV0wmw85TLuCpNJ4hsgp/s1qIA2t5RMPGGEKR3mCjA94Gp94ZVLYH+0obvKTr
-	 DzOHTOvNDuRLpCuqMmY8hwQx8fnjaT/c3UObCLEoHO2qj0b11o5hgw8wxdtEr5ngMA
-	 11MUVOl+pjqbA==
-Subject: Re: [PATCH net-next v7 6/6] net: dsa: motorcomm: Add support for
- Motorcomm YT922x
-From: netdev-bot+sashiko@kernel.org
-To: kyle.switch@motor-comm.com
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
- horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
- xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com,
- sijia.huang@gl-inet.com
-Date: Wed, 16 Sep 2026 16:30:16 +0000
-Message-ID: <178957621656.22033.2764355653365288140@kernel.org>
-In-Reply-To: <20260914103009.3007019-7-kyle.switch@motor-comm.com>
-References: <20260914103009.3007019-7-kyle.switch@motor-comm.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XORSXwVQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GSmpgUhw"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GFeGr03001984
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:30:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8KIwxPL/45rQhr/QJUaYxW+ZzJC928+zNT9ZvAHA5jo=; b=XORSXwVQRu2XVaOH
+	jwDzmACkl1VXbgZX5jjrOfWd9Dl9OhDZjiuNcjdZd9YrOVXoauXDy7/0/n13ZAWT
+	cbWVYrHnUEL8s0WzS5+7eCwnsMK7MuQtgsxHhkl/nD89EfQnTIyQ/ZqZy0TC+ZeU
+	XoKkCBMKoIdD4AMcxWejVx/6YTqcJRi56/H/2SjB1czUoLuJbdXwQ3ggW+IEYdvK
+	YoQoSYMpN00vq3Q72+HuLgHSsQkS6nBf3bEAcZAhPscdT++iLOrnT419b58xd0X7
+	dqVYnNAgytMRFW8L7dFInG7M8ofHNK+oqCqGoVvutabF4l1CWxXk1oD0AN2WCZ3U
+	4ZHWtQ==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqkv7k2y1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:30:22 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-97e768af628so4703824241.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:30:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789576219; x=1790181019; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8KIwxPL/45rQhr/QJUaYxW+ZzJC928+zNT9ZvAHA5jo=;
+        b=GSmpgUhwK4eq3k48tTDwYQ1+iRHGheZzMz1pcsNVo2+dvChBMEKxSfTZfzC+PMSFbt
+         NLqeLuJ1WKfoJghAcV8Poja6Z0awJAuzTfhbjgFKn6+e3pfJ+YiCAmjGVdMVOBUT6z8T
+         0oymC0jj5xpTeRRo6qJVJ7WKvYjyfNbZbH3K7AzQ+ghbj5jm/DCiT20RVaN6H+dy3SU5
+         O3lU0CGPhQ974C9bfc3DiK6LSSlqtLnRcdhLXMZTC6njHBbgPBQR31uBwM/SuAt18ArZ
+         yboFriTMlrcAdX0rtXpf+kbp2ZKMiadrjkUM68xr6lzQjdtuDs3lRBq6qvwVuk6KgmGc
+         O5AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789576219; x=1790181019;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8KIwxPL/45rQhr/QJUaYxW+ZzJC928+zNT9ZvAHA5jo=;
+        b=lAbQ3UIH72NTXglObkvDD5oeuauzRs583RHtXLu2I1YQff/sHDAl8u/c3Xq/VHrSkW
+         mvryBy8wP4VecA+GaaX3OrRxXqqD6VEfS6bd+ftbojIg+IKG5H7vomTMAXZ3v1C36Gjz
+         ILpzKiJ2TfwauDWjA0mvV8yy5yiEqY6af0xH8weIBApojUbrWigRJi5E8z4w/yNReW1e
+         12K5fQ2wRUOQ/HL0MPmGvFK4DG8k0or3ZcfbFVyPqe+E96dMsH4HJKxWvhyvk6QcWd0+
+         CdNquAyxpRorQN1qIir1yvb0BJvtE+lPrIiIKg/r/EeU/GsYlfZFo6e7bxU0KgJSSiY6
+         enIA==
+X-Forwarded-Encrypted: i=1; AKwUvByVLHOws7Yi0bri/cgR+XKl55MiTM7U40Bu8gQHWrquMeg3XRrUGBliteyndfbMdYQZzqoAEdjy2djMIsQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFmUTpbyuaR0wqeB7mdsKgELiE6wtZFtI2YpWQldhP7wvg5vf/
+	+VZ3djD0Ig3ldDIal8+atse9KCSi94jTWogMu1KFCYoeuDCawoUDu0z77CWdIZlTH+goGFwGVAS
+	uMWOYV4MSdng1bDxpYpXiSSm1r6TyMZP8oIYBMNh3CVrQjhAY5ZdxAo2xqEpXfckU4Z4=
+X-Gm-Gg: AYBFou0XE6JJVqVJ+s7GxT0Jr4HqjapexL8/4+aQ7DpAZbeE1Xmk8xSFAQ5Ty2QyO9Q
+	Thh2J5vnnnqyKFkKCv5aLNNYNmPJ9j86xWUkSaF4KzDW+1+DaDeT1IKzC8kUjsNROTk/M3wzaO0
+	c/4Vq64bvUxf7GdVXR6UnPANRyLWNlsKIQs7G2BfRIpl1p1pLuLrCPM9Jnp144tbMyXdkmZtVkv
+	ujyxuICEpqrfSeQa5n9yQDvWaQ+3QZioYe8W2M0IBgowYhLQgfqGNbqG7U0CA3tCKHkdfSUws1f
+	j4uxf2HZzPb8yq1xoHY4gHc/+xG0CzIRy5mjQ5G7NLKtOvDCwdDAKWpbkIjK4l5rNRGB+ue1cGO
+	oM1hfpQtfwEesK9cI+PVXllDTmj4=
+X-Received: by 2002:a05:6102:5792:b0:7a1:83fe:45e7 with SMTP id ada2fe7eead31-7a183fe6278mr3279009137.8.1789576218554;
+        Wed, 16 Sep 2026 09:30:18 -0700 (PDT)
+X-Received: by 2002:a05:6102:5792:b0:7a1:83fe:45e7 with SMTP id ada2fe7eead31-7a183fe6278mr3278871137.8.1789576218006;
+        Wed, 16 Sep 2026 09:30:18 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fbd2356d1sm3008975e9.6.2026.09.16.09.30.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 09:30:17 -0700 (PDT)
+Message-ID: <cddd5bd4-df99-4332-9bbd-f9dc10874cdb@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 17:30:16 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/8] dt-bindings: sound: qcom: add Tambora WCD9378 SDCA
+ codec
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Charles Keepax <ckeepax@opensource.cirrus.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, patches@opensource.cirrus.com,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260915165652.914893-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260915165652.914893-8-srinivas.kandagatla@oss.qualcomm.com>
+ <20260916-imaginary-glossy-stallion-c769b5@quoll>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260916-imaginary-glossy-stallion-c769b5@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: n9gRecoEI43PPu56Mmsqmp4zvRvE0ID8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIyNSBTYWx0ZWRfX8FZDatp32ntb
+ YOT8JMm7EXNUOYX4i58VamJ1mXa8/JP+7+4jJ5ZY7NBBTjidObqnGX7j3D8Rg1ll0D7IrtuMFhM
+ OMPw/myINNctQFfemmL3sAovUSQJjgLczpSoMZK+g7V1S/MIhathdOmHWZEUVEZ4HA7ycuzRtsD
+ OogRb5BuG5hfx0KiyYeNy2W6S2WMXNAzSOeA0JMKyzLRh9u2iwx8nDx41ilC1Dkq/SsUT95RSYW
+ vGIDsquGjmwhCgaf20eumu8XO541S06HFKibK2P13gcwutHqX3eo5FnzdkjTyKNB0wOgIdoby+p
+ 95uh4+16aystahG8g5JutkFwCS9CynQcv6Fq0guqQyb6H7TsCXsn1XUuLU6+vBbExQIlNspBFq0
+ bzrOaLaQFOPbngtEXI3RSKXLlpdw93yGakFAvKs4aK9jmpfIAi+Wl9QQrZIPH3DyXUCkPfkohTs
+ sWQKU8gJVTQ5KgLvgDg==
+X-Authority-Analysis: v=2.4 cv=eKmGH3p1 c=1 sm=1 tr=0 ts=6aaac41e cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=HeNI3thZ33BDYE7jO_kA:9 a=QEXdDO2ut3YA:10
+ a=TOPH6uDL9cOC6tEoww4z:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDIyNSBTYWx0ZWRfX2/7TMYqWxzLv
+ 43oe/efIYkXjEeavq6j499WbdotKk7Nqo9TWb4drGSqiyIxHpaE02nmAKwhbGLETpDvOFg71GOP
+ NTQM16s31osIoNXnGyWD28DSaVSOhMc=
+X-Proofpoint-GUID: n9gRecoEI43PPu56Mmsqmp4zvRvE0ID8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ phishscore=0 spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160225
+
+Thanks for the review,
+On 9/16/26 7:53 AM, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 05:56:49PM +0100, Srinivas Kandagatla wrote:
+>> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+>> new file mode 100644
+>> index 000000000000..9a6c309018ed
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+>> @@ -0,0 +1,91 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-sdw.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm WCD9378 (Tambora) SoundWire codec
+>> +
+>> +maintainers:
+>> +  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>> +
+>> +description:
+>> +  Qualcomm WCD9378 (Tambora) SoundWire codec in SDCA compute mode.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: qcom,wcd9378c
+>> +      - const: sdw20217011000
+> 
+> As pointed by Rob's bot, this won't work with current soundwire bus
+> schema. If it is the same silicon, then usually it does not warrant a
+> different compatible, even front compatible. For example same chips are
+> used on I2C and SPI buses and the difference is coming from the bus.
+> 
+I can send update to the bindings but I would prefer the flag that you
+suggested.
+
+> Last time I doubted that "compute" and "mobile" modes are a real thing,
+> but if you say they are actually different fuse values, then they would
+> be real. That could warrant different property, e.g.
+> "qcom,sdca-compliant" or "qcom,separate-tx-rx-interfaces".
+
+qcom,sdca-compliant sounds much accurate for this.
+
+> 
+> However my points from Jorijn patchset remain - the top level wrapper
+> node is a fake construct to solve power sequencing issues and this
+> binding should allow fixing that one as well.
+
+There will be no top node at all.
+> 
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  qcom,port-mapping:
+>> +    description: |
+> 
+> You can drop |
+> 
+sure
+
+--srini
+>> +      Each entry maps a slave data port to a master data port.
+>> +      Entries are in order starting from slave port 1; slave port 0
+>> +      is reserved and not represented.  Compute mode uses 8 entries
+>> +      covering DP1..DP8.
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +    minItems: 8
+>> +    maxItems: 8
+> 
+> Best regards,
+> Krzysztof
+> 
 
-Thank you for your contribution! Sashiko AI review found 11 potential
-issue(s) to consider:
-
-Critical: 1 · High: 3 · Medium: 3 · Low: 4
-
-- [Critical] YT922x PCS callbacks recover their private structure from an
-  uninitialized `pp->index`.
-- [High] Four of the six YT922x serdes-mode constants are encoded into
-  the wrong register field.
-- [High] `yt922x_sds_phyaddr_get()` (chip.c:4901-4918) accepts an `enum
-  yt922x_phy_reg_space` argument and its own comment says "sds phyaddr…
-- [High] `yt922x_dsa_setup()` (chip.c:5507) takes `priv->reg_lock` at
-  chip.c:5530 and calls `yt922x_chip_setup()` (chip.c:5463) with the…
-- [Medium] The driver advertises `PHY_INTERFACE_MODE_100BASEX` for YT922x
-  external ports (in `yt922x_dsa_phylink_get_caps()` at chip.c:5317 and…
-- [Medium] `yt922x_pcs_config()` (chip.c:5217) ignores `neg_mode`,
-  `advertising` and `permit_pause_to_mac`.
-- [Medium] The driver adds the OF compatible "motorcomm,yt9224" to
-  `yt921x_of_match[]` (chip.c:5695) but no device-tree binding documents…
-- [Low] The commit message states the YT922X series "includes YT9224 and
-  YT9228", but only YT9224 is implemented: a single `yt921x_infos` entry…
-- [Low] `NET_DSA_YT921X` keeps the prompt "Motorcomm YT9215 ethernet
-  switch chip support" and YT9215-only help text while the same patch…
-- [Low] `yt922x_chip_setup_dsa()` writes a hardcoded `GENMASK(9, 0)` (10
-  port bits) to `YT922X_FILTER_UNK_UCAST` at chip.c:5440, while the two…
-- [Low] `yt922x_pcs_config()` commits the new serdes mode to
-  `YT922X_PORT_SDSn` (chip.c:~5262) and then runs the ~40-write…
-
---
-
-net: dsa: motorcomm: Add support for Motorcomm YT922x
-
-This adds a YT922x variant to the Motorcomm DSA driver: a new yt92xx_series
-entry with its own dsa_switch_ops and phylink_mac_ops, a YT9224 chip info
-entry, a large block of YT922x register definitions, and a per-port embedded
-phylink PCS for the serdes ports. It also registers the motorcomm,yt9224 OF
-compatible and selects the YT922x tagger.
-
-A few questions on the commit message and the new code below.
-
->     Add support for Motorcomm YT922X, which is series of
->     ethernet switches developed by Motorcomm Electronic
->     Technology, includes YT9224 and YT9228.
->     
->     This patch adds basic support for a working DSA switch.
-
-[Severity: Low]
-Is YT9228 actually supported here?  Only YT9224 appears in the code: one
-yt921x_infos entry for YT9224_MAJOR (0x9004), one motorcomm,yt9224
-compatible, and yt92xx_series_lookup() matching only YT9224_MAJOR.  A grep
-of the tree finds no YT9228 identifier, so a YT9228 would be rejected in
-yt921x_chip_detect() with "Unexpected chipid" or by
-yt92xx_series_lookup() returning NULL.
-
-Could the second sentence also state what "basic" covers?
-yt922x_dsa_switch_ops provides only get_tag_protocol, phylink_get_caps,
-port_setup and setup, and yt922x_port_setup() sets YT922X_PORT_LEARN_DIS on
-every port, so bridging, VLAN, FDB and statistics are not available.
-
-> diff --git a/drivers/net/dsa/motorcomm/Kconfig b/drivers/net/dsa/motorcomm/Kconfig
-> index 79cdd79a1fd25..f690de4c7a7c5 100644
-> --- a/drivers/net/dsa/motorcomm/Kconfig
-> +++ b/drivers/net/dsa/motorcomm/Kconfig
-> @@ -2,6 +2,7 @@
->  config NET_DSA_YT921X
->  	tristate "Motorcomm YT9215 ethernet switch chip support"
->  	select NET_DSA_TAG_YT921X
-> +	select NET_DSA_TAG_YT922X
->  	select NET_IEEE8021Q_HELPERS if DCB
->  	help
->  	  This enables support for the Motorcomm YT9215 ethernet switch
-
-[Severity: Low]
-Should the prompt and help text mention YT922x too?  The same patch makes
-this symbol bind motorcomm,yt9224, select NET_DSA_TAG_YT922X and set
-MODULE_DESCRIPTION("Driver for Motorcomm YT921x and YT922x Switch"), but
-the only user-visible description still says YT9215 only.
-
-> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index 3f56d60da8eab..d8218f9f93aa9 100644
-> --- a/drivers/net/dsa/motorcomm/chip.c
-> +++ b/drivers/net/dsa/motorcomm/chip.c
-
-[ ... ]
-
-> @@ -38,6 +38,9 @@ struct yt921x_mib_desc {
->  #define MIB_DESC(_size, _offset, _name) \
->  	{_size, _offset, _name}
->  
-> +#define pcs_to_yt921x_port(_pcs) container_of((_pcs), struct yt921x_port, pcs)
-> +#define yt921x_port_to_priv(pp) \
-> +	container_of_const((pp), struct yt921x_priv, ports[(pp)->index])
->  /* Must agree with yt921x_mib
-
-[Severity: Critical]
-yt921x_port_to_priv() recovers priv by subtracting
-offsetof(struct yt921x_priv, ports[pp->index]), so it is only correct when
-pp->index equals the slot the yt921x_port actually occupies.
-
-Where is pp->index assigned on the YT922x path?  The only assignment in the
-driver is in yt921x_dsa_setup():
-
-	pp->index = i;
-	INIT_DELAYED_WORK(&pp->mib_read, yt921x_poll_mib);
-
-yt922x_dsa_setup() has no equivalent loop, and priv is zero-allocated, so
-every priv->ports[i].index stays 0 on YT922x.
-
-yt922x_pcs_setup() then installs pp->pcs.ops for each bit of
-info->external_mask, which for YT9224 is BIT(0) | BIT(8), and
-yt922x_phylink_mac_select_pcs() returns &priv->ports[dp->index].pcs.  So
-phylink calls the PCS ops with pp == &priv->ports[8] while pp->index == 0,
-and yt921x_port_to_priv() yields (char *)priv + 8 * sizeof(struct
-yt921x_port) instead of priv.
-
-Does that mean yt922x_pcs_get_state() runs
-mutex_lock(&priv->reg_lock) on bytes that are really part of
-priv->ports[] (MIB counters and a delayed_work), and then calls
-priv->reg_ops->read() through a function pointer loaded from that same
-memory?
-
-A second effect of the uninitialised index: int port = pp->index is 0 for
-port 8 in all three PCS callbacks, so the
-
-	if (port != 0 && port != 8)
-		return -EINVAL;
-
-check in yt922x_pcs_config() passes with the wrong port and port 0's serdes
-registers are programmed.
-
-> @@ -112,6 +115,9 @@ struct yt921x_info {
->  #define YT921X_PORT_MASK_INT0_n(n)	GENMASK((n) - 1, 0)
->  #define YT921X_PORT_MASK_EXT0		BIT(8)
->  #define YT921X_PORT_MASK_EXT1		BIT(9)
-> +#define YT922X_PORT_MASK_INTm_n(m, n)	GENMASK((n), (m))
-> +#define YT922X_PORT_MASK_EXT0		BIT(0)
-> +#define YT922X_PORT_MASK_EXT1		BIT(8)
->  
->  static const struct yt921x_info yt921x_infos[] = {
->  	{
-> @@ -149,9 +155,17 @@ static const struct yt921x_info yt921x_infos[] = {
->  		YT921X_PORT_MASK_INT0_n(8),
->  		YT921X_PORT_MASK_EXT0 | YT921X_PORT_MASK_EXT1,
->  	},
-> +	{
-> +		"YT9224", YT9224_MAJOR, 0, 0,
-> +		YT922X_PORT_MASK_INTm_n(4, 7),
-> +		YT922X_PORT_MASK_EXT0 | YT922X_PORT_MASK_EXT1,
-> +	},
->  	{}
->  };
-
-[ ... ]
-
-> @@ -4694,18 +4731,847 @@ static const struct dsa_switch_ops yt921x_dsa_switch_ops = {
-
-[ ... ]
-
-> +static int yt922x_sds_phyaddr_get(int port,
-> +				  enum yt922x_phy_reg_type reg_type,
-> +				  enum yt922x_phy_reg_space reg_space)
-> +{
-> +	int res = port;
-> +
-> +	/*
-> +	 * sds phyaddr mapping depend on reg_type and reg_space
-> +	 */
-> +	if (!yt922x_port_is_internal_sds(port))
-> +		return -EOPNOTSUPP;
-> +	if (reg_type == YT922X_PHY_REG_TYPE_COMMON_EXT) {
-> +		res = YT922X_COMMON_EXT_PHYADDR;
-> +		return res;
-> +	}
-> +
-> +	return res;
-> +}
-
-[Severity: High]
-The comment says the mapping depends on reg_type and reg_space, but
-reg_space is never read: for every reg_type other than
-YT922X_PHY_REG_TYPE_COMMON_EXT the function returns port.  Do the SGMII and
-USXGMII register spaces then alias to the same internal MDIO address?
-
-The closing soft reset in yt922x_sds_init() looks like it becomes
-self-cancelling:
-
-	addr = yt922x_sds_phyaddr_get(port, YT922X_PHY_REG_TYPE_MII,
-				      YT922X_PHY_REG_SPACE_SGMII);
-	...
-	data &= ~(1 << 15);
-	res = yt921x_intif_write(priv, addr, 0x0, data);
-	...
-	addr = yt922x_sds_phyaddr_get(port, YT922X_PHY_REG_TYPE_MII,
-				      YT922X_PHY_REG_SPACE_USXGMII);
-	...
-	data |= 1 << 15;
-	res = yt921x_intif_write(priv, addr, 0x0, data);
-
-Both lookups return the same addr, so bit 15 is cleared and then set on one
-register and the USXGMII PCS is never touched.  The same aliasing makes
-yt922x_pcs_get_state() read YT922X_PCS_LINK_CTRL/MII_LPA from the SGMII
-address in the USXGMII case, and makes yt922x_pcs_an_restart() perform the
-identical BMCR read-modify-write twice.
-
-Two smaller points in the same area:
-
-	if (addr < 0)
-		return res;
-
-res is 0 at both of these sites in yt922x_sds_init(), so a failed address
-lookup reports success while silently skipping the soft reset.  Should
-these return addr?
-
-And yt922x_pcs_get_state() and yt922x_pcs_an_restart() pass addr straight
-to yt921x_intif_read() without checking for the -EOPNOTSUPP that
-yt922x_sds_phyaddr_get() returns for non-serdes ports.
-
-[ ... ]
-
-> +static void yt922x_pcs_get_state(struct phylink_pcs *pcs, unsigned int neg_mode,
-> +				 struct phylink_link_state *state)
-> +{
-> +	struct yt921x_port *pp = pcs_to_yt921x_port(pcs);
-> +	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
-> +	int port = pp->index;
-> +	int res = 0;
-> +	u16 data;
-> +	int addr;
-> +	u16 lp;
-> +
-> +	mutex_lock(&priv->reg_lock);
-> +	switch (state->interface) {
-> +	case PHY_INTERFACE_MODE_SGMII:
-> +	case PHY_INTERFACE_MODE_100BASEX:
-> +	case PHY_INTERFACE_MODE_1000BASEX:
-> +	case PHY_INTERFACE_MODE_2500BASEX:
-> +		addr = yt922x_sds_phyaddr_get
-> +			(port, YT922X_PHY_REG_TYPE_SDS_COMMON_EXT,
-> +			 YT922X_PHY_REG_SPACE_SGMII);
-> +		res = yt921x_intif_read(priv, addr, MII_BMSR, &data);
-> +		if (res)
-> +			goto err;
-> +		res = yt921x_intif_read(priv, addr, MII_LPA, &lp);
-> +		if (res)
-> +			goto err;
-> +		phylink_mii_c22_pcs_decode_state(state, neg_mode, data, lp);
-> +		break;
-
-[Severity: Medium]
-Can a 100BASE-X link ever be reported up through this path?
-phylink_mii_c22_pcs_decode_state() in drivers/net/phy/phylink.c has cases
-only for 1000BASE-X, 2500BASE-X, SGMII/PSGMII/QSGMII and QUSGMII:
-
-	default:
-		state->link = false;
-		break;
-
-100BASE-X is advertised as supported by yt922x_dsa_phylink_get_caps() and
-yt922x_pcs_setup(), and yt922x_phylink_mac_select_pcs() returns this PCS
-for it, so the mode looks reachable but always decodes as link down.
-
-[ ... ]
-
-> +static int yt922x_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
-> +			     phy_interface_t interface,
-> +			     const unsigned long *advertising,
-> +			     bool permit_pause_to_mac)
-> +{
-> +	struct yt921x_port *pp = pcs_to_yt921x_port(pcs);
-> +	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
-> +	int res, port;
-> +	u16 data;
-> +	u16 ctrl;
-> +	int addr;
-
-[Severity: Medium]
-neg_mode, advertising and permit_pause_to_mac appear only in the parameter
-list; the body only rewrites the serdes mode field and runs
-yt922x_sds_init().  Should this callback enable or disable in-band
-negotiation according to neg_mode and program the local advertisement for
-the Base-X modes?
-
-As written, yt922x_pcs_get_state() hands neg_mode to
-phylink_mii_c22_pcs_decode_state(), so the read path assumes a negotiation
-setup that the write path never applied.
-
-> +	port = pp->index;
-> +	if (port != 0 && port != 8)
-> +		return -EINVAL;
-> +
-> +	mutex_lock(&priv->reg_lock);
-> +	switch (interface) {
-> +	case PHY_INTERFACE_MODE_SGMII:
-> +		ctrl = YT92XX_SERDES_MODE_SGMII;
-> +		break;
-> +	case PHY_INTERFACE_MODE_100BASEX:
-> +		ctrl = YT92XX_SERDES_MODE_100BASEX;
-> +		break;
-> +	case PHY_INTERFACE_MODE_1000BASEX:
-> +		ctrl = YT92XX_SERDES_MODE_1000BASEX;
-> +		break;
-> +	case PHY_INTERFACE_MODE_2500BASEX:
-> +		ctrl = YT92XX_SERDES_MODE_2500BASEX;
-> +		break;
-> +	case PHY_INTERFACE_MODE_USXGMII:
-> +		ctrl = YT92XX_SERDES_MODE_USXGMII;
-> +		break;
-> +	default:
-> +		res = -EINVAL;
-> +		goto err;
-> +	}
-> +	addr = yt922x_sds_phyaddr_get
-> +		(port, YT922X_PHY_REG_TYPE_SDS_COMMON_EXT,
-> +		 YT922X_PHY_REG_SPACE_SGMII);
-> +	if (addr < 0) {
-> +		res = addr;
-> +		goto err;
-> +	}
-> +
-> +	res = yt921x_intif_ext_read(priv, addr, YT922X_PORT_SDSn, &data);
-> +	if (res)
-> +		goto err;
-> +	data &= ~YT922X_SERDES_MODE_M;
-> +	data |= ctrl;
-> +	res = yt921x_intif_ext_write(priv, addr, YT922X_PORT_SDSn, data);
-> +	if (res)
-> +		goto err;
-> +	/* SERDES init and interface configuration */
-> +	res = yt922x_sds_init(priv, port, interface);
-> +	if (res)
-> +		goto err;
-> +	mutex_unlock(&priv->reg_lock);
-
-[Severity: Low]
-The new mode is committed to YT922X_PORT_SDSn before the roughly forty
-writes of yt922x_sds_init() run.  If one of those indirect MDIO
-transactions fails, the error path only unlocks and returns, leaving the
-new mode selected with a mix of old and new CDR/PLL/VCO/eye/CTLE settings
-and no closing PCS reset.  Is a rollback wanted here, or is the intent to
-rely on the next successful pcs_config?  The YT921x paths such as
-yt921x_port_up() have the same shape today.
-
-[ ... ]
-
-> +static int yt922x_chip_setup_dsa(struct yt921x_priv *priv)
-> +{
-> +	unsigned long cpu_ports_mask;
-> +	u32 ctrl;
-> +	int port;
-> +	int res;
-> +
-> +	/* cpu port set */
-> +	mutex_lock(&priv->reg_lock);
-> +	res = yt922x_cpu_port_set(priv);
-> +	mutex_unlock(&priv->reg_lock);
-> +	if (res)
-> +		return res;
-
-[Severity: High]
-Can this deadlock the probing thread?  yt922x_dsa_setup() already holds
-priv->reg_lock across the call:
-
-	mutex_lock(&priv->reg_lock);
-	res = yt922x_chip_setup(priv);
-	mutex_unlock(&priv->reg_lock);
-
-and yt922x_chip_setup() calls yt922x_chip_setup_dsa() directly, so this
-mutex_lock() re-acquires a mutex the same task already owns.  struct mutex
-is not recursive, so this looks like it hangs on the first YT9224 probe
-inside dsa_register_switch(), with lockdep reporting possible recursive
-locking.
-
-The register accesses further down in this function need the outer lock
-anyway (yt921x_reg_read()/yt921x_reg_write() contain
-lockdep_assert_held_once(&priv->reg_lock)), so removing this inner
-lock/unlock pair rather than moving the outer one seems to be what is
-wanted.
-
-> +
-> +	ctrl = GENMASK(9, 0);
-> +	res = yt921x_reg_write(priv, YT922X_FILTER_UNK_UCAST, ctrl);
-> +	if (res)
-> +		return res;
-> +
-> +	ctrl = 0;
-> +	for (int i = 0; i < priv->series->max_ports; i++)
-> +		ctrl |= YT922X_ACT_UNK_ACTn_TRAP(i);
-
-[Severity: Low]
-The loops here size their masks with priv->series->max_ports, which is
-YT922X_PORT_NUM == 9, but GENMASK(9, 0) covers ten port bits.  The YT921x
-equivalent writes GENMASK(10, 0) with YT921X_PORT_NUM == 11, i.e. exactly
-max_ports bits.  Is bit 9 intentional here, or should this be derived from
-YT922X_PORT_NUM?
-
-[ ... ]
-
-> +static int yt922x_dsa_setup(struct dsa_switch *ds)
-> +{
-> +	struct yt921x_priv *priv = to_yt921x_priv(ds);
-> +	struct device *dev = to_device(priv);
-> +	struct device_node *np = dev->of_node;
-> +	struct device_node *child;
-> +	int res;
-> +
-> +	mutex_lock(&priv->reg_lock);
-> +	res = yt921x_chip_reset(priv);
-> +	mutex_unlock(&priv->reg_lock);
-> +	if (res)
-> +		return res;
-> +
-> +	/* Register the internal mdio bus. */
-> +	child = of_get_child_by_name(np, "mdio");
-> +	if (child) {
-> +		res = yt921x_mbus_int_init(priv, child);
-> +		of_node_put(child);
-> +		if (res)
-> +			return res;
-> +	}
-> +
-> +	mutex_lock(&priv->reg_lock);
-> +	res = yt922x_chip_setup(priv);
-> +	mutex_unlock(&priv->reg_lock);
-> +	if (res)
-> +		return res;
-> +
-> +	/* switch sds pcs setup */
-> +	yt922x_pcs_setup(ds);
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> @@ -4824,6 +5692,7 @@ static int yt921x_mdio_probe(struct mdio_device *mdiodev)
->  
->  static const struct of_device_id yt921x_of_match[] = {
->  	{ .compatible = "motorcomm,yt9215", },
-> +	{ .compatible = "motorcomm,yt9224", },
->  	{ /* sentinel */ }
->  };
->  MODULE_DEVICE_TABLE(of, yt921x_of_match);
-
-[Severity: Medium]
-Is a binding update missing for this compatible?
-Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml still has:
-
-  compatible:
-    const: motorcomm,yt9215
-
-so a DTS using motorcomm,yt9224 fails dtbs_check with "'motorcomm,yt9224'
-is not one of ['motorcomm,yt9215']".
-
-The same binding also describes the port map as internal GbE PHYs on Port
-0-7 with the GMACs on Port 8-9, which does not match the new YT9224 entry
-(internal_mask GENMASK(7, 4), external_mask BIT(0) | BIT(8),
-YT922X_PORT_NUM 9).  Should the mdio/port description be extended for
-YT922x as well?
-
-> diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
-> index c446aea449ed5..3a8ce801aabdc 100644
-> --- a/drivers/net/dsa/motorcomm/chip.h
-> +++ b/drivers/net/dsa/motorcomm/chip.h
-
-[ ... ]
-
-> @@ -861,6 +863,102 @@ enum yt921x_fdb_entry_status {
-
-[ ... ]
-
-> +#define YT922X_PORT_SDSn	0x400
-> +#define  YT922X_SERDES_MODE_M		GENMASK(6, 4)
-> +#define   YT922X_SERDES_MODE(x)			FIELD_PREP(YT922X_SERDES_MODE_M, (x))
-> +#define YT92XX_SERDES_MODE_SGMII	YT922X_SERDES_MODE(0)
-> +#define YT92XX_SERDES_MODE_REVSGMII	YT921X_SERDES_MODE(1)
-> +#define YT92XX_SERDES_MODE_1000BASEX	YT921X_SERDES_MODE(2)
-> +#define YT92XX_SERDES_MODE_100BASEX	YT921X_SERDES_MODE(3)
-> +#define YT92XX_SERDES_MODE_2500BASEX	YT921X_SERDES_MODE(4)
-> +#define YT92XX_SERDES_MODE_USXGMII	YT922X_SERDES_MODE(6)
-
-[Severity: High]
-Should the four middle constants use YT922X_SERDES_MODE() rather than
-YT921X_SERDES_MODE()?  YT921X_SERDES_MODE(x) is
-FIELD_PREP(GENMASK(9, 7), x), while the YT922x field is GENMASK(6, 4).
-
-yt922x_pcs_config() does:
-
-	data &= ~YT922X_SERDES_MODE_M;
-	data |= ctrl;
-
-so for 100BASE-X, 1000BASE-X and 2500BASE-X the mode field in bits 6:4 is
-cleared to 0, which is SGMII, and the value ends up in bits 9:7 of
-YT922X_PORT_SDSn instead.  Only SGMII (value 0) and USXGMII use the YT922x
-constructor.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914103009.3007019-1-kyle.switch%40motor-comm.com
