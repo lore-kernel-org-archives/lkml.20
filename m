@@ -1,84 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB2A4B048F;
-	Wed, 16 Sep 2026 23:19:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5C63C4572
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:23:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600782; cv=none; b=irRaoDloeHUeOFduNgHdrnwZUZziIg6UxssZPH5TLvODRcYclVXHv+9IZwZ+HXhanYjWE3sAQdoq5nyAq/fe4KUf24oQaJRxDxyc4UA8K+RoB3Q+a8oRZn2IE/fwm5ccLZKm9QB3/1M7J1q4tlsJo0vXW5Tx9JCWJ2MsG6xqZTk=
+	t=1789601003; cv=none; b=czCNwHSihriuDP2O+a0uGUQutFgqhLKtCU3k3rva51nEdwKa0nmBOmgPco4QlYK7cqTTQnhexXICR+CJdc2S1v37HkCFuxkKYiqpa/Gc8yl1y4HaHa2fFdPKwgw/CMIz33hDwBEQkOaAz8lXKwmxStImBdlWkm5JAG200JnWnCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600782; c=relaxed/simple;
-	bh=7HHMpzsFpMEJ8JTQtHgtQlHewJFS3wqe7kpsi7T9nKM=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=tiwiYQ3JhUmgW4jp6r4lMYy8mMIod91sgij6VLXnhf5+RMo1Z06HKMpOE7HC6JS984u732PZ6Dv4AONjO2IYDFro+4hQqO3+iuFAX49DROwQv4RffcoZf+Qi7SCe+3aaPsBLtXdn9vcaEYIOq539z0VixVCwSLkQgDKh+RrP1Tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VaUUfSP2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789601003; c=relaxed/simple;
+	bh=4UixqbcbSfOrTAup4aEOXt8/JXKgEGIcTBf3BEhG1p0=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Jf9be+rhaooO8EmF3ijVhtLiipxu64Tv5OImz241PltSQM59q7P9tB3nTc16AsHTlzGcjq8ipgT0LXm5JO0YEA+CovOyRKjkaWq37sIpf1E+lbHX9Xa2GDSTbRSKfff8J1hVlFEycR8GPLKOoxbHz9zfwMqCb9k14k5kwsquM4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T8uRmz6/; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VaUUfSP2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BDCC1F000FF;
-	Wed, 16 Sep 2026 23:19:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789600780;
-	bh=YXFygDh577wbxnlTwuGjiT8vlvDVLVhL7hPxlcWwhto=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=VaUUfSP2WDtkXF8gi1lcsqZeruGqVZLehYWuR6jrMs4k0zoSkkumEMHnwOvG/mCyV
-	 1SeQMu8xNE1r5urP5RTzNNV+Y7e6Kgmn8OPKovOlSI5p7oSNIwJWW7eaHL4Oxow6Qx
-	 6zmXwK5oYpjjLYdNHUMGSuPZgxESqe2DWlcs8jL0A1n298pV9fVi8EiSobzvEIgtUH
-	 3UyxGtSJHpfwo5Gd5rKhhiGhFXqjQ/r0dzc+GgqNolA05qVm+rGUcDWCp+HUcji+9p
-	 3wnvpNfq2RKmrrQtg0hIBwRgKrMrVwt/zAXYhGaLrCn1wKc9iBNnCeDqPULHj5WVU1
-	 fqI49/bljN2RQ==
-Date: Wed, 16 Sep 2026 18:19:38 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T8uRmz6/"
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4c7f887ac6bso423116b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:23:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789601000; x=1790205800; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SvbJdnrVvb+cd4Qa4kJl3M9EGMjCcAwlbnHa1T82/fI=;
+        b=T8uRmz6/LzJ7ntXC/0tvZ+dPBmXLNYi5eX+yryFKdq9JNYzBQPvK+EufbYB9gqYDLt
+         XzJkHYNTIi8UGFAKtrTut8tcb13PF4K1jkxEfyIZlO5lmgGGaFEMxk1/wNurd/CX1hYV
+         3/uX10k/YcAJzM3cp0ABZl9C8k6OMP3cZnGPvUR2FaAoLbJxy7imiCEwkHhgoyL0u1Lp
+         L01OIrGEkPo6RC69u60Dqky27iOnJ0GsYv0GzwBWqZ/f/7MMc5XvCmD10Q5f+2Y9uA5I
+         N3NqLwKRw5111j8OINku2gH4/xlgrLnG0mNv21JkVkPGRIC6XXglKJxErSrrjVQVRqxI
+         X8Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789601000; x=1790205800;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SvbJdnrVvb+cd4Qa4kJl3M9EGMjCcAwlbnHa1T82/fI=;
+        b=v3qOrs6iydRvhCy5H0kHZEKTrBXegJm6u0uTq1rE39dc6wPKG1g3wWrcrPw/9BWCok
+         AlHiDFYTX9Hd1T8DVrIKhhVLgjPtqMAjhCkVdj2J3KUin3HkQLk/vfcd/JzfFZUJhxld
+         zAqdManb5NUckwx4fivxKVzzli0ccGmZWC/OkzezV9n7X/qobFjl6icewgopmIVE13mr
+         KOHZwfizoni4asRgs2wQZ2P5zR7kRBGmpEVvo9ZMaV8q9B5A4YbbEXi47G0E4cuPigxj
+         6tDJx0vkogqVvJqb0nKeyviuzmUlqg7FHK0kvo5ZvtPMIjvyKc9TISgO+zGFL1Z9vGSQ
+         RtsA==
+X-Gm-Message-State: AFuF++mfSrxzNmDeSHpfdtC3QwRndJDQ5XPCc9E/UneCax2pzHTFY+E9
+	cV84VzizCGSfgyi4fUnT+ie2+rNrnPSqoYYSsARL6bs9jzws5DBHt0KTJNk3eqVwzh9GZKkGvu2
+	kN8E7/A==
+X-Received: from iovb21.prod.google.com ([2002:a05:6602:2495:b0:9ab:11c4:e042])
+ (user=avagin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:152a:b0:4b3:7a14:6b25
+ with SMTP id 5614622812f47-4ca4d20d961mr8897025b6e.14.1789601000269; Wed, 16
+ Sep 2026 16:23:20 -0700 (PDT)
+Date: Wed, 16 Sep 2026 23:23:03 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: conor+dt@kernel.org, gregkh@linuxfoundation.org, 
- linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, 
- devicetree@vger.kernel.org, krzk+dt@kernel.org
-To: Daniel Matyas <matyasdaniel005@gmail.com>
-In-Reply-To: <20260916201253.483877-1-matyasdaniel005@gmail.com>
-References: <20260916201253.483877-1-matyasdaniel005@gmail.com>
-Message-Id: <178959747036.2021291.11640248030618302686.robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: axis-fifo: Added missing binding
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260916232310.490786-1-avagin@google.com>
+Subject: [PATCH v6 0/7] x86/fpu: Restore and reinforce signal frame portability
+From: Andrei Vagin <avagin@google.com>
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	"Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: linux-kernel@vger.kernel.org, criu@lists.linux.dev, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	Andrei Vagin <avagin@google.com>, Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
+	"H. Peter Anvin" <hpa@zytor.com>
+Content-Type: text/plain; charset="UTF-8"
 
+The x86 signal frame is designed to be self-describing. The xstate_size
+field in the software-reserved bytes indicates the actual size of the
+xstate context and is used by the kernel to locate the FP_XSTATE_MAGIC2
+marker during signal return.
 
-On Wed, 16 Sep 2026 23:11:50 +0300, Daniel Matyas wrote:
-> drivers/staging/axis-fifo/axis-fifo.txt file described how the
-> devicetree of the driver should look like. Convert it to .yaml file.
-> Issue found by checkpatch.
-> 
-> Signed-off-by: Daniel Matyas <matyasdaniel005@gmail.com>
-> ---
->  .../axis-fifo/xlnx,axi-fifo-mm-s.yaml         | 257 ++++++++++++++++++
->  1 file changed, 257 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/axis-fifo/xlnx,axi-fifo-mm-s.yaml
-> 
+This design is required to provide portability of signal frames across
+different machines. For example, a process checkpointed on a system with
+fewer xstate features and restored on a system with more features will
+have a signal frame on its stack that is smaller than the destination
+host's default. By relying on the frame's internal xstate_size, the
+kernel can correctly validate and restore such frames.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+This series restores and improves signal frame portability. The goal is
+to allow process migration across CPUs with heterogeneous FPU
+capabilities, as long as the process only uses features supported by
+both systems. This version addresses the original issues by pre-faulting
+only the required size of the xstate buffer (rather than the default
+task size), and includes cleanups requested by Ingo Molnar.
 
-yamllint warnings/errors:
+v6:
+  - Clarify struct _fpstate_32 layout and reformat documentation per
+    Borislav comments.
+  - Add Reviewed-by tags from Chang S. Bae.
+v5: Address Chang's comments:
+  - Documentation:
+    - Expanded Documentation/arch/x86/xstate.rst with a dedicated
+      section describing struct _fpx_sw_bytes, 32-bit vs 64-bit frame
+      layout differences, and architectural portability constraints.
+    - Trimmed the comment in <uapi/asm/sigcontext.h> and added a
+      reference to xstate.rst.
+  - x86/fpu core:
+    - Renamed the 32-bit helper to restore_from_ia32_fxstate() and
+      inlined the remaining native path directly into
+      fpu__restore_sig().
+  - Selftests:
+    - Consolidated the shrunk-frame and insufficient-size test cases.
+v4:
+    - Update documentation to describe architectural XSAVE layout
+      constraints and feature repurposing (e.g. MPX vs APX).
+    - The patch "x86/fpu: Allow restoring signal frames with larger
+      xstate_size" will be sent in a separate series.
+    - Address sashiko comments.
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/axis-fifo/xlnx,axi-fifo-mm-s.example.dtb: /example-0/axi_fifo_mm_s@43c00000: failed to match any schema with compatible: ['xlnx,axi-fifo-mm-s-4.1']
+v3:
+    - Include cleanups and refactoring of signal frame handling code
+      as requested by Ingo Molnar.
+    - Fix potential underflow in xstate_calculate_size()
 
-doc reference errors (make refcheckdocs):
+v2:
+    - Address sashiko comments.
+    - 44eeff9bc467 ("Revert "x86/fpu: Refine and simplify the magic
+      number check during signal return"") has been merged.
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260916201253.483877-1-matyasdaniel005@gmail.com
+Cc: Alexander Mikhalitsyn <alexander@mihalicyn.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Thomas Gleixner <tglx@kernel.org>
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+Andrei Vagin (7):
+  x86/fpu: Document signal frame layout and portability
+  x86/fpu: Clean up and rename variables in signal frame handling
+  x86/fpu: Extract restore_from_ia32_fxstate() and clean up
+    fpu__restore_sig()
+  x86/fpu: Document reasoning of FX-only fallback
+  x86/fpu: Fix potential underflow in xstate_calculate_size()
+  x86/fpu: Pre-fault only required size of xstate buffer
+  selftests/x86: Add tests for signal frame FPU portability
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+ Documentation/arch/x86/xstate.rst                  |  57 +++++
+ arch/x86/include/uapi/asm/sigcontext.h             |  15 ++
+ arch/x86/kernel/fpu/signal.c                       | 134 +++++++----
+ arch/x86/kernel/fpu/xstate.c                       |   9 +-
+ arch/x86/kernel/fpu/xstate.h                       |   2 +
+ tools/testing/selftests/x86/Makefile               |   5 +-
+ .../selftests/x86/sigframe_fpu_portability.c       | 245 +++++++++++++++++++++
+ tools/testing/selftests/x86/xstate.c               |  12 -
+ tools/testing/selftests/x86/xstate.h               |  20 ++
+ 9 files changed, 437 insertions(+), 62 deletions(-)
+ create mode 100644 tools/testing/selftests/x86/sigframe_fpu_portability.c
 
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+-- 
+2.55.0.979.g7e5102b832-goog
 
