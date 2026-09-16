@@ -1,298 +1,184 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013055.outbound.protection.outlook.com [52.101.83.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9E725B08D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D238F2D1907;
+	Wed, 16 Sep 2026 04:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.55
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789533212; cv=pass; b=cnG1tebNCRG4jFw0+ZRmtFCsSJ2bltozce8VWqD144HVORQgfvpq1LqxvVRRLAIrnyB6ngg9L8LFT/xGZezC5j5dD48eSeM2e4wrYDARocO2qEE1KcEStvhbJrYixe4BN1geqCT7O0yfSipR3jgIPzuGbkpYmbK6qju+hvvodzo=
+	t=1789533359; cv=fail; b=p8eWj7vqZLyPCog/ZscslDhgRpaH+ZuCmPnXcbdJe3zNlv1+DkuWn4kYlHeRoO5sD9qkkRnutm6mEAMYTajmMr7vV4xOFgPgSy+v5jdJ5y5/rFPAQWBUwGJh0dzyvR7QHUjE64AK+qDMRqUISVs1ybBdKoHM3XEVxSTTw6zoo/s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789533212; c=relaxed/simple;
-	bh=tXR1RQ6+n7jhl84cnarNBYonFAXMG6urAEgGGbWvFio=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aTFADJaUS5riM4NmKrMv0v/ygQoUxe8AWBi56OcYBUThaTWlXzr6UoUq+mOVjpqvnA2wVwosEuLOLrdLErIRia6UxLnqeQJMxfPNfYZjxzXHveXINEnAZPuYoiQWmpX+tvTmWteWekrC7i5BzkinM4BsZMiNFFrrPNNKVmQQPrU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RwJK75SN; arc=pass smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789533359; c=relaxed/simple;
+	bh=JW0xeAhuFsdaTdsoN1X6yq/wLoj6fCWs0Xpp47BuAAg=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=cyL3o8oivoPnggZO9Dm90zlL4yQeolxOndjyqo8BwGvGZwtjGhMe+3L47Y32jrg9/bwDAZt2A2Gtke6ITm9r3dmayiKVOTLtHUwYlYZlJjSstJ3Dt/Kfea9damVnxUQxX5cDs8/WKNuxoBml++yhQ0Ztj3dgxJUQoqiN1hZTOCo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=B7H2pLME; arc=fail smtp.client-ip=52.101.83.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RwJK75SN"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff16febfso4464141fa.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:33:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789533208; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f9d0jHlyehLDjes4DtBAg1zLa7eIzImFj+aNE+7Geg865jY5GYP7uCqLxfdX+cONJo
-         czzx/xPp3op9zMgRca+Dl+OYr6MsiWwpnw/WvTY8BCzaij2QAyyDOTzD6yMvmsgnRFPr
-         jNyzaKBkEn7mHmFNR6eexgwGqFUz5Onm/g6H/Szs2EHOHXWXxIVLtvZKriEzdnmypsb9
-         GTeolqGRDGLTO7/YCm4r+gZMyYn+5YNBt73UM9Q/RZJWoNQDDRTdfBBAC+ABMMjJovyT
-         jSiw7te0pfoH5V4xGJ45SLHSdIxWGDDDz5MGERkD0GEbiAZJY+/f4mv30CeiIBSzzqwo
-         VrBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fAh0SWq3zZpX8kbTlLw3JQdAbZJ6R9FGqKgdEWqN7f4=;
-        fh=j5xfNI6Ms/u+sE70Hwhr5Vn2B6B7R7mbH/khYCsnUqs=;
-        b=SgkAaYr2+4HcxwYThx+15EuEWp7S5VBWrYbqgpa+ODv6VT8avIRcyJKh5uzsrlS1i1
-         iVoTZ1EeaMbNIUyhnXxkFCoBaVKv2XBIeaG3gbCRKzhNtpL7Hn1dT2N6gDST/XeZYmQi
-         JFR4u/gUJ5v8LXxKjSLG3fusfd2Kc4S6HEaB4jc7a6pfguRTOVgZtBuK+n7ZYeh3sLZm
-         lWyffcP9GG7AEpU0fcFyyp7mOypsx7S5ENMlRCrs6tCT+FH157AU36pz29nhh+lqvrm8
-         9wnG81ZbBLLgq/lzdeB6yaJV/JyrcDrlek8KHpTNCvM51p2WPZ1BIfYl1k4dq2+9ChZ6
-         W/dg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789533208; x=1790138008; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fAh0SWq3zZpX8kbTlLw3JQdAbZJ6R9FGqKgdEWqN7f4=;
-        b=RwJK75SNZW1253d4CgdQvKYhYYsCL3AlbQQinSMESK4ufWPiOUuCDo+TO4KB6KmB2x
-         s8qc1AHhLzorY4UGzQ5P9SnKzp1okTLw34bDGuk+X7fevIkyY2tnmAG8SZF3lo+ErU0F
-         b29j6hQ2ApTIFpZRFiz6VoJVzFeghY0on1b1p17jrsSLw/7KzDAkFg3JvVi9PFuTSiGT
-         5gnkbyb3JSdTdNhiAHIRy5P+ngZJBTmac/9E60KRT/ugVeoUMnpM/6uRY1auSuqkYhoL
-         LAc05kDX7YhvN8P0iovcpGhodl9+0m5LV0uvG7ooCh//z5Eyox8pMTAYBIBTmIXL7UC0
-         q6kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789533208; x=1790138008;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fAh0SWq3zZpX8kbTlLw3JQdAbZJ6R9FGqKgdEWqN7f4=;
-        b=p5xYau52qQmTgZR3+CS97B3qMZxifF19XmB7TUeXy55OW/BNxqTtLLERxszs0a9ZiR
-         LSm7vG73ZLFwX5jOyOeUkGw8auNdAP450ujLkaOlSbwIdSWgL0yDzWGJDhWexw5+Nsfb
-         x1vAfgdEehApRvk5gT76gJYdr+BmzO709yo9GH9Dma+zMgjKDVStp1VaE8HushBq6c2T
-         09QkpAXradvpQLKDItVwpMcOgVSWV/RC46tJ2ZasUra06kr5J8gTkpd3OVHNyqX5wyub
-         5fdT6yM0/uWBflD7L3CRmYLal7+lAeUOFtC6l04aW54eCSmYwzcGHyNigIN0+dECHpGj
-         gTXw==
-X-Forwarded-Encrypted: i=1; AKwUvBys8Ucoc/AjhusgXg268/FIyqrMclSBe/WceynGrSB6FJsjkrRKJeTtbLao/oxZwUhEdg8NsKgw3MYXKUo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRRCl6T7DXE36YWpJYqGQ1kLp68eXigm9jlvaJzS37qFqgv86G
-	T3x/KdCPrGRqqIgVFuTSJ+iolqE8rTQ+jCHFBq5phpKqRePCQA0jPHpoI0ieNjsJRFX5Qk2pDxE
-	8orVC1cuQ5uBCKU06F2N3JeXNPuPVS8s=
-X-Gm-Gg: AYBFou3nxT1hNzUI2azuXKlJNTJcGiFWG8jltfDumL99VKZVTzwTeiYUq6LMhv3nbVv
-	frOVZqAid/JSdzOO26mDhaKPradbMN/mNtHEVenudDmTEfrFirw0Zcwu4AW+iGrWRTVqCiK24Ts
-	+aCtx6Ojz/XjqrOCN8cVOw6Sg1fuD/5hsv+uFIlmr91lmldDQ2fuQlZC80xlsJJSrlC4PxmG2TF
-	kz2vWzDnTow4GXOEA3LIoAgKP/Jb36ZWQCmKBDiDlJThHLcs49kcfXfNeoKeNk9EOI+uR9ofkPM
-	yqwaxMDHE0dCkO4f0kNoopLMxvUgsc58FfXGPwEbO2V/waDVsU3DTb/TJKymMKijK2lrbvXaVYz
-	d1vU5y/dEXrGVdFhltV2RcmerCHdH+HI5dqO3J1grEe6AG1Z21NSRdKVb
-X-Received: by 2002:a05:6512:1384:b0:5b6:1a7c:59cc with SMTP id
- 2adb3069b0e04-5b8b6643d51mr229434e87.38.1789533207967; Tue, 15 Sep 2026
- 21:33:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="B7H2pLME"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FFBWXLxb+fc3kAxXFh+leWqvZ6KFeR47n6eno9Pxer9SfEcxaOL0Y1LjNpJ+kWOkXkFAxgtMyLSTvLIM7fQizgHlis+G1tY97DhRqSwa2zc+14+dHQP4aLZeFWCaArBUHhDVsYL2Dx/0rsmY1d8ScoshUT5Rntu7fEXAPEtnycPcxVNXq3dxqO45GbLRI09JnCG6e6PXfFA0QHhll8MKVi/+XIHexhBC59RupFmMkPmIWcNi5jilaRoDvyqphN7lBbkIR9t1OXXcAG2E0uanfJ88Z1CTTlGGQFBd+tav8J1YEZ8Ti2xYk8CbUT3PGPQXUj11/dr9lVlPMQnsXmmjfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5I1SMbQ75rz2/ByMonlZGKUBj31CjQfF2opikRjdENQ=;
+ b=joHxAE85t9GYQOudFooSXgH26oVAxKTZnFh+Z/nnMK7H5xOCNo9ZGSIVQsYV93iuE6uJAerP1Hvl3eHTPwm2Wdl2M0Khy128Cl4FIvS1gGdsEENhJIbIGvXOZK6KYFFKyzsz+HbuC+v3ZnGZlHdvRRL4rjkJZQc7MbXv5d/e02qrbmGzgNFqkIglvtmjEVNvVBxGsJyMVz5m98H1CCMtQtI/h/fxesFfmZsTC9FsNIcRjOGHHEXkAVVekChxk4SFaXleXXZWE4stIy6z0Djr62oiwEkqpGGK5VmWrfEls1HxH0JPp70IxJfL9edMuwAZ3sBFM1jsUixKNDLxAPxluA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5I1SMbQ75rz2/ByMonlZGKUBj31CjQfF2opikRjdENQ=;
+ b=B7H2pLMEtdnkTcriMPPYnck4NOLoI75pDnhEg6VHu/wmbOMFi0jjwplz/xB6IKNBAHWWDbgwyPoGuUCbfdM/IZtE8prU2HNy7OKip5A6nEhCZ2k2QtKb/AgOABKXW2uZnJyG9ESZo6nM6UV9XgLSJkG/crdqe6RjKvoTh57m/ph8X8KIVFkuiEAeAsZHkVBfg61QLGRev1y74gekh3Ccl/FtMqjF7diZ+k8Cyls01idmLPH7f8LY/cQIypvhll8WsnSUeBxGzYzMYD9cjWGY/wErICyw63ae2nO5JbWw9vSAuOP5bjZBB8dWuc/k7oU5jEQoggBknqVk1YsXheb2NQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
+ by DB9PR04MB9450.eurprd04.prod.outlook.com (2603:10a6:10:369::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 04:35:54 +0000
+Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
+ ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
+ ([fe80::54e:28bf:aa85:d25d%3]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
+ 04:35:53 +0000
+From: Xu Yang <xu.yang_2@oss.nxp.com>
+To: badhri@google.com,
+	heikki.krogerus@linux.intel.com,
+	gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	jun.li@nxp.com
+Subject: [PATCH v2] usb: typec: tcpm: advance vdm_discovery_state on Discover Identity Not_Supported
+Date: Wed, 16 Sep 2026 12:39:57 +0800
+Message-Id: <20260916043957.3362995-1-xu.yang_2@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SG2P153CA0038.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::7)
+ To PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com> <20260915041909.2903887-9-zhaonanzhe@xiaomi.com>
-In-Reply-To: <20260915041909.2903887-9-zhaonanzhe@xiaomi.com>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Tue, 15 Sep 2026 21:33:15 -0700
-X-Gm-Features: AcwNN1XO2sKHODH885V32TWeU6tHewsV7_TE97nL95m6HfirXlRi1o7PylMLO8A
-Message-ID: <CACOAw_z47SS7OKs_wU=-eiPLTMqF=7w6cekiLFK4ePVAhC8YNg@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v2 08/14] f2fs: optimize small block size large
- folio read
-To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-Cc: linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>, 
-	Chao Yu <chao@kernel.org>, Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>, 
-	Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org, 
-	David Hildenbrand <David.Hildenbrand@arm.com>, Bo Zhang <zhangbo56@xiaomi.com>, 
-	Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>, 
-	Pengfei Li <lipengfei28@xiaomi.com>, Ryan Roberts <Ryan.Roberts@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|DB9PR04MB9450:EE_
+X-MS-Office365-Filtering-Correlation-Id: 899f687c-7c99-4582-4a23-08df13abfe10
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|19092799006|18002099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	7clE5eH0eKVcrY49F+HRcrpKNDMBXoE0HHiqAsAmqyun6qm6puBYAQ918N5npwpEWLFmt5xTJNWl53ALqh2zpS1J1LgGMw1T0Vp5IzJilFKVsJthPTD7kS1CDcML9QUX82/etz6wLCK2zC1IJCGiL4Z0OKdj5SNWsBe+NR2fjDG/sFXiDqbw93qYqDqkY+UpKUdMZbMeTn1SMUY0aNID3r8Z0nQtoiRfqGayu4EWk017Ms7QnwJCbwb3xSqXjqB8Ki1LGRbhiit3q6b7OpzpCIE2bQf9uOe71C4j8wR5DmwCZnX5ze8gKACxX71Vd1elWXLCAYjFyGJ5bIIi4EOWNzTwO/YWzwHUlMewBO/5CYaMJ7R8gA46bhSn2BIQrj7KGy2JpitaNSp+Tqyx3H2YZH1qhhQzYoXxzuPQep5amQmZj16MsG1sNmZTUdB8iDt4y0CBCt+yEe7UEQuDEcNY5+QeoQF0nzFUgqS9S3pfBlt5XcZsnOIKFFD0p1LDPFpU1M/Pvmubd1pqr6ivdetD9JkRhHsaF7cCUVSz1kmsuqUO7AYkXUN4taJkHLCVR9IWF2dy6RcCYLzdefFsFtCvsCmDmsoIOO3dCpkXB1EGrkdt8fMWRWWYDJ942ByBW3VuH6LG2fV2+kNyhG1MeRTNzq/4Wxlxp36VXZlH6kac5iw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(19092799006)(18002099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?MuwaP1fDazieRCkrEJwr1oRppaqZbGcGR6H8E+uYFw02QAUTUkHPKbk2i67R?=
+ =?us-ascii?Q?qCtuDN0FrAsifC5iRmNhji9eCq3kDDfTYuZdXDyPnpjyMuGfFFSxvDFuhbWi?=
+ =?us-ascii?Q?0UITy26QSD8/DSgiuXOvxXdfr3sBsExsuPQhOYdR3Gdn5tAW3DkynXPRyHe1?=
+ =?us-ascii?Q?QvuEXeUcGQa0fBUHSCc5gpvyKuvQFcARQU7EAilN64WtP5jKPwb/IOQuvq9b?=
+ =?us-ascii?Q?HL1UZMBwZ0B+zCzMApTTRLGy+GER69cNd+LHYKHRfFcRpphp1hs46N+Guh/c?=
+ =?us-ascii?Q?pk5mhYNsVRDtYsKTYspSyZ4gZFpbNewAYm+vBoq4gcZaoagVROC7HyUcLIQI?=
+ =?us-ascii?Q?0IxDmRp85CHrXn8TxznCpf1kZA+dvlmuCIU0n328kxVG5hUhdqxjrW+9xUbq?=
+ =?us-ascii?Q?B9GNo5b0UIPmHou5h0t2O51/MFG0Rqdr9WGp3vTYzzDZvu2aISJyi2TYQy94?=
+ =?us-ascii?Q?IsJfRg86JXaChonQxfNfAgbIK43nlQyKfNerHZs45YWcapwSBqW3BmD++pLj?=
+ =?us-ascii?Q?liL8j/ECru8pfcE+vAtPXJuEomqTJ+87R3SQdermMUU8Cnx00JLq2tiwaCJE?=
+ =?us-ascii?Q?wCxgNth/zI+DIl/OYh9f+0i+wDWAaXZZKAK+5ukiZVqTxuFPQMg40E8dCKpJ?=
+ =?us-ascii?Q?a2IyP/QuUtYralgCbhdMx6CKJaXX7ID6dpdMOo2JphgxQ0KPedG9OQmbAYPJ?=
+ =?us-ascii?Q?PYAZ7h3iUz/075nAuaJTZ8LCRtjHNUmdMhTWnQM2APh9juS/wOGd3h9XeQWa?=
+ =?us-ascii?Q?HQaXUoT9GU5wNfw2tkC1WVM/Tq82dKcjzsVS/tZUr22ahctI3ykhLuXq8S1J?=
+ =?us-ascii?Q?hGI9+zfmImP1WymsnLzLtJUuGpm2y3z5K15ltH8FhX2VfUE2nn3HxTYJQFFT?=
+ =?us-ascii?Q?+MDkkjCmIDqA+vJRDUBMDDwqV6U7XiDR9Umo0G0KbhWmLyuM9ltalD5GWrMl?=
+ =?us-ascii?Q?AuvB/mAopDsB2kiixyee3SLlksbzE8OmlABiVBeNwJfpvDd0ppcKbNAbasOJ?=
+ =?us-ascii?Q?uwhkOdXG6Fsbwcjt1T9ZgK/I2/IZRn4Y8Y0ZkZN0Ye4nAP3FrbWKI5FG5LJ5?=
+ =?us-ascii?Q?08dewC+LXtvyAlNXZkc5abGvgGxJ2MOGRnaCbqDSFasEeqWy0P7WdQwpgzRE?=
+ =?us-ascii?Q?wyw6+HjxHqrXTzw2HBHVGlaaqysQ6cOckV8lOJsTJCf8LtArIrDnZnodwaBy?=
+ =?us-ascii?Q?CQ69ljUbYLwZ5krokS4AOg4deUG6EFjFORKoA996Lo7RwJbYdmg7XvD4HmW9?=
+ =?us-ascii?Q?VYQAS2zFcHQtdWlWvlwMMdyJuUKHJwny8m7laAd+mSAAXpcvG19EbfbvwZYf?=
+ =?us-ascii?Q?bt9VrSU1zcAVAp4/j+VzOlZQGEuNpC7fkMqdTUyjBg4UF1sohDzI+5vZsiOT?=
+ =?us-ascii?Q?Dr8W3cSnwsd2K0JZr50NuUHhPBr6kI5V5iyU44AbaDfn3FnFvwNJ21RqknRW?=
+ =?us-ascii?Q?hj6QK3CvDznZ9KnPgkjZFJEegLCLlhzCpu+kPq5Qd/xE7ruB42XpDQcyRPf6?=
+ =?us-ascii?Q?34WBqzf6FlkWcCBKMulsoyKIq2wfPpf9QJ3unrLdn5bJNuhVHx3ThPRC+dqC?=
+ =?us-ascii?Q?YC3WBx7FqujF7U7Y+vfYxzK0eXqM2zgTbGkw+8vmORI1q3H+ovfxq4jvSd0u?=
+ =?us-ascii?Q?R2vZgj7GE1UubVC9qD0kWgIfC/hy/l86FvloljOzJV+AT43H+LR8S35oYu7B?=
+ =?us-ascii?Q?tMwa0BM3CV0GLQ1hiaWJbxRbidAD4NoWAX8hKeBYqwYSsGU7ziBDRGzOUOCp?=
+ =?us-ascii?Q?75206zXlO8hX01drYSx2qtG3dC4l3QFoTscnHEXpL64NcnKqqT33?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 899f687c-7c99-4582-4a23-08df13abfe10
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 04:35:53.7686
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6AXRtt3Fv+Kt2kJ9zo5cR46dc0Sci6s+5UyF3gIO2udOojUYUiIOjbtsCygSPEl04E3ZPbBxK+AnddREGhRxuoa1bUTEtsYvEd99o2GIVXICBwSwr0fbsPtY+35AHGsn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9450
 
-On Mon, Sep 14, 2026 at 9:21=E2=80=AFPM Nanzhe Zhao via Linux-f2fs-devel
-<linux-f2fs-devel@lists.sourceforge.net> wrote:
->
-> The original f2fs_read_data_large_folio() implementation has limited
-> benefit with a 4KB block size, mainly because updating
-> read_pages_pending greatly increases the number of spinlock
-> operations.
->
-> Use len_blks to batch read_pages_pending and iostat updates for
-> contiguous mapped blocks. If the contiguous mapping covers the whole
-> folio, skip f2fs_folio_state allocation for that folio.
->
-> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-> ---
->  fs/f2fs/data.c | 65 ++++++++++++++++++++++++++++++++++----------------
->  1 file changed, 45 insertions(+), 20 deletions(-)
->
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index 287d83debf95..09ad5cf0d9aa 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -173,8 +173,9 @@ static void f2fs_finish_read_bio(struct bio *bio, boo=
-l in_task)
->                         continue;
->                 }
->
-> -               if (folio_test_large(folio)) {
-> -                       struct f2fs_folio_state *ffs =3D folio->private;
-> +               if (f2fs_folio_has_ffs(folio)) {
-> +                       struct f2fs_folio_state *ffs =3D
-> +                               (struct f2fs_folio_state *)folio->private=
-;
->
->                         spin_lock_irqsave(&ffs->state_lock, flags);
->                         ffs->read_pages_pending -=3D nr_pages;
-> @@ -2844,8 +2845,7 @@ static int f2fs_read_data_large_folio(struct inode =
-*inode,
->         pgoff_t index, offset, next_pgofs =3D 0;
->         unsigned max_nr_pages =3D rac ? readahead_count(rac) :
->                                 folio_nr_pages(folio);
-> -       unsigned int nrpages;
-> -       struct f2fs_folio_state *ffs;
-> +       unsigned int nrpages, len_blks;
->         int ret =3D 0;
->         bool folio_in_bio =3D false;
->
-> @@ -2868,11 +2868,17 @@ static int f2fs_read_data_large_folio(struct inod=
-e *inode,
->         folio_in_bio =3D false;
->         index =3D folio->index;
->         offset =3D 0;
-> -       ffs =3D NULL;
->         nrpages =3D folio_nr_pages(folio);
->
-> -       for (; nrpages; nrpages--, max_nr_pages--, index++, offset++) {
-> +       for (; nrpages;
-> +            nrpages -=3D len_blks, max_nr_pages -=3D len_blks,
-> +            index +=3D len_blks, offset +=3D len_blks) {
->                 sector_t block_nr;
-> +               bool whole_folio_in_bio;
-> +               unsigned int i;
-> +
-> +               len_blks =3D 1;
-> +
->                 /*
->                  * Map blocks using the previous result first.
->                  */
-> @@ -2901,13 +2907,31 @@ static int f2fs_read_data_large_folio(struct inod=
-e *inode,
->  got_it:
->                 if ((map.m_flags & F2FS_MAP_MAPPED)) {
->                         block_nr =3D map.m_pblk + index - map.m_lblk;
-> -                       if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), bloc=
-k_nr,
-> +
-> +                       len_blks =3D min_t(unsigned int, nrpages, max_nr_=
-pages);
-> +                       len_blks =3D min_t(unsigned int, len_blks,
-> +                                       (unsigned int)(map.m_lblk + map.m=
-_len - index));
-> +
-> +                       for (i =3D 0; i < len_blks; i++) {
-> +                               if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inod=
-e),
-> +                                               block_nr + i,
->                                                 DATA_GENERIC_ENHANCE_READ=
-)) {
-> -                               ret =3D -EFSCORRUPTED;
-> -                               goto err_out;
-> +                                       ret =3D -EFSCORRUPTED;
-> +                                       goto err_out;
-> +                               }
->                         }
-> +
-> +                       /*
-> +                        * If an entire folio is added to one bio,
-> +                        * folio_end_read() can complete the folio read s=
-tatus
-> +                        * without relying on f2fs_folio_state.
-> +                        */
-> +                       whole_folio_in_bio =3D offset =3D=3D 0 &&
-> +                                       len_blks =3D=3D folio_nr_pages(fo=
-lio);
-> +
->                 } else {
->                         size_t page_offset =3D offset << PAGE_SHIFT;
-> +
->                         folio_zero_range(folio, page_offset, PAGE_SIZE);
->                         if (vi && !fsverity_verify_blocks(vi, folio, PAGE=
-_SIZE, page_offset)) {
->                                 ret =3D -EIO;
-> @@ -2917,15 +2941,13 @@ static int f2fs_read_data_large_folio(struct inod=
-e *inode,
->                 }
->
->                 /* We must increment read_pages_pending before possible B=
-IOs submitting
-> -                * to prevent from premature folio_end_read() call on fol=
-io
-> +                * to prevent from premature folio_end_read() call on fol=
-io.
->                  */
-> -               if (folio_test_large(folio)) {
-> -                       ffs =3D f2fs_ffs_find_or_alloc(folio);
-> +               if (folio_test_large(folio) && !whole_folio_in_bio) {
+From: Xu Yang <xu.yang_2@nxp.com>
 
-Hi Nanzhe,
+Commit Fixes: 205dc9cb39f5 ("usb: typec: tcpm: implement retry mechanism
+for Discover Identity VDMs") advances vdm_discovery_state to
+VDM_DISCOVERY_COMPLETE when a CMDT_RSP_NAK is received, but it does not
+advance the state when a non-modal port returns PD_CTRL_NOT_SUPP.
 
-I found a hang issue caused by the whole_folio_in_bio optimization
-during my local 16KB page-4KB block testing:
+This can re-arm another vdm_discovery_work if the port is going to
+respond with PD_CTRL_NOT_SUPP to the partner.
 
-Plz, check the whole_folio_in_bio optimization is safe for the below condit=
-ions.
-1. read_blocks_pending underflow: If a folio already has ffs attached
-(from previous writes/holes/reads), whole_folio_in_bio skips
-incrementing read_blocks_pending.
-When the BIO completes, f2fs_finish_read_bio() still decrements it,
-underflowing the counter.
-2. BIO split risk: If a large folio BIO gets split by the block/crypto
-layer, f2fs_finish_read_bio() would call folio_end_read() prematurely
-on the first completing piece.
+  tcpm_pd_handle_msg(port, PD_MSG_CTRL_NOT_SUPP, NONE_AMS);
+    tcpm_queue_message();
+      mod_tcpm_delayed_work();
+        tcpm_state_machine_work()
+          tcpm_send_queued_message()  -> send PD_MSG_CTRL_NOT_SUPP
+          run_state_machine()
+            case SRC_READY:
+            case SNK_READY:
+              mod_vdm_discovery_delayed_work(port, 0);
 
-Thanks,
+If both the port and its partner do not support modal operation, they
+will send DISCOVER_IDENTITY to each other infinitely.
 
-> +                       f2fs_ffs_find_or_alloc(folio);
->
->                         /* set the bitmap to wait */
-> -                       spin_lock_irq(&ffs->state_lock);
-> -                       ffs->read_pages_pending++;
-> -                       spin_unlock_irq(&ffs->state_lock);
-> +                       f2fs_update_read_folio_pending(folio, len_blks);
->                 }
->
->                 /*
-> @@ -2949,17 +2971,20 @@ static int f2fs_read_data_large_folio(struct inod=
-e *inode,
->                  * If the page is under writeback, we need to wait for
->                  * its completion to see the correct decrypted data.
->                  */
-> -               f2fs_wait_on_block_writeback(inode, block_nr);
-> +               for (i =3D 0; i < len_blks; i++)
-> +                       f2fs_wait_on_block_writeback(inode, block_nr + i)=
-;
->
-> -               if (!bio_add_folio(bio, folio, F2FS_BLKSIZE(F2FS_I_SB(ino=
-de)),
-> +               if (!bio_add_folio(bio, folio,
-> +                               len_blks * F2FS_BLKSIZE(F2FS_I_SB(inode))=
-,
->                                 offset << PAGE_SHIFT))
->                         goto submit_and_realloc;
->
->                 folio_in_bio =3D true;
-> -               inc_page_count(F2FS_I_SB(inode), F2FS_RD_DATA);
-> +               for (i =3D 0; i < len_blks; i++)
-> +                       inc_page_count(F2FS_I_SB(inode), F2FS_RD_DATA);
->                 f2fs_update_iostat(F2FS_I_SB(inode), NULL, FS_DATA_READ_I=
-O,
-> -                               F2FS_BLKSIZE(F2FS_I_SB(inode)));
-> -               last_block_in_bio =3D block_nr;
-> +                               len_blks * F2FS_BLKSIZE(F2FS_I_SB(inode))=
-);
-> +               last_block_in_bio =3D block_nr + len_blks - 1;
->         }
->         trace_f2fs_read_folio(folio, DATA);
->  err_out:
-> --
-> 2.43.0
->
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+Advance vdm_discovery_state to VDM_DISCOVERY_COMPLETE in this path as
+well. In particular, update the state to VDM_DISCOVERY_COMPLETE if it comes
+from the port partner, and to VDM_DISCOVERY_CABLE_IDENT if it comes from a
+cable.
+
+Fixes: 205dc9cb39f5 ("usb: typec: tcpm: implement retry mechanism for Discover Identity VDMs")
+Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+
+---
+Changes in v2:
+ - cover a cable returns PD_CTRL_NOT_SUPP case reported by sashiko
+ - kick off vdm_discovery work to continue working
+ - correct previous wrong fix commit id
+---
+ drivers/usb/typec/tcpm/tcpm.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index 2d6b14aa2085..5cea820e00c4 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -3891,6 +3891,16 @@ static void tcpm_pd_ctrl_request(struct tcpm_port *port,
+ 		case SRC_READY:
+ 		case SNK_READY:
+ 			if (port->vdm_state > VDM_STATE_READY) {
++				if (port->ams == DISCOVER_IDENTITY) {
++					if (rx_sop_type == TCPC_TX_SOP) {
++						tcpm_update_vdm_discovery_state(port,
++								VDM_DISCOVERY_COMPLETE);
++					} else if (rx_sop_type == TCPC_TX_SOP_PRIME) {
++						tcpm_update_vdm_discovery_state(port,
++								VDM_DISCOVERY_CABLE_IDENT);
++						mod_vdm_discovery_delayed_work(port, 0);
++					}
++				}
+ 				port->vdm_state = VDM_STATE_DONE;
+ 				if (tcpm_vdm_ams(port))
+ 					tcpm_ams_finish(port);
+-- 
+2.34.1
+
