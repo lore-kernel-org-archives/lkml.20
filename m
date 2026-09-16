@@ -1,103 +1,89 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDDB495AC0;
-	Wed, 16 Sep 2026 16:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5C54C33DC
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576516; cv=none; b=ZsmzeAzEulH8WxaVublgINQHgE/mdMnrFlVepBPvvESJZVk9OudYa2ckESpbRrqTdP1fxFE8X3f0xzgMo6HfqSH6i5xveGjesigBuCsJjQqTjNS8FnMdZSyberWRjTpdOTNaegTtZU385nxtskthwcDxpkJGFCUNeGjmX3q8De8=
+	t=1789576540; cv=none; b=NsM/yrhwUKq4F8z5PctzYJ4qEOVwqyJ/HdUFbCmI9p4dAjmJgXX3JCeQe/atr8cc4x9IsyHPFm0FZaIkKA+zmOkVUeQarExSd9o/Ks6Oit4IZfwyhroecN25y+nQ61d/47iSNPTihDza3kX7hxW9HXOo25BLcW9y1PTkyehOjuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576516; c=relaxed/simple;
-	bh=h9aLVBIzXbDahAfOmn1/DsevrfT5vdFtQOrgqwz/PJw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Zx+leJHPg7S2OU+yydQbgR9yrvgbsDQ55sANzarOfLPOVDOxLKYtJpwPWBA2jg7aPwLTGX99F2olYmSiTLYUbUb4NH5c8Vk5Z8e2yF9riBxDTgkDT8cg49BYmu4OLPF7Dn9dPC5fbmrGyJFVYaaR/zA7mdNGokC/xIxzX25YOXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXAj07xapqpr9tCA--.21498S2;
-	Thu, 17 Sep 2026 00:35:08 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andy@kernel.org
-Cc: dlechner@baylibre.com,
-	gwendal@chromium.org,
-	jic23@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: light: acpi-als: Fix trigger reference leak in acpi_als_probe()
-Date: Wed, 16 Sep 2026 16:34:40 +0000
-Message-Id: <20260916163440.2084089-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789576540; c=relaxed/simple;
+	bh=044CrMqm1hX472GyboH+P8q+RWHr3VuP6wQdlD4joxs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XYGGlZ2GMGrNeq86Nm0vyostVSp+xHg4tWqbQR73P3suBxKDWaX/FRaRKPlnUI1aAx8nWpV3rnm9z1ErqsXP/PpSOjX4odzuDTdXCprBuZ3uAwJSGcJCCFt1NDm9SSqbBnvgKFB72/Flqu05/35ltm+c6ArdyqDdoHSKJ5psmUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ev8qH/Sx; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ev8qH/Sx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FD0A1F00893
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:35:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789576532;
+	bh=044CrMqm1hX472GyboH+P8q+RWHr3VuP6wQdlD4joxs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ev8qH/SxBCpyuGF3HU5REG17ahp3YJOMTf5VMWq89VmLTcd29cME/my0j+xE39SBh
+	 753CcdI1sS4+tA6b9wrI4PtI4S0Juz6E7sXIBeOvJQRwVcMP3knbNwUQOjO0aypvo8
+	 i2Ah48QVlUpeykjmGRWTci0GzvQU8w1ZY9GoZEaN4zUkY07aA3+VjZ7eJL/jH2yZ4f
+	 x/oA2Hr74NxP5/ed70hXaRmYNJhbqYxKPxjo2CWTAXqlUHBaJnUPY2Fu4Mq41e5p/0
+	 bMZ6JEMmisL3sPEO14aYX+EVc6AkO0TMRDh1/7HE/WPIAE5whK0oCWO/zbmOyOtxrV
+	 6VngY2T8yyjEA==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b5f21afe8cso2341840e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:35:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw1+SFfmbvgms/qYgmXZnvqn46YGpwygAP0/3NbfMxgtteNDNnh6DxlIPhnwuR3o7xW9T6R4F6mYqMd/NY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzTx37Lx2UvvGjLGjNp61fidA9+zbCB8s4it8LGm+iQcpe2WsN
+	ADd4TjDBgPirl8ijgUag+uR5ekoXbm6coGN/HII672mRWA2w5Z9Q0qP1UMy1hStrB4hCCr5xjs+
+	uMu1HPiC53FZUsUTEtax1mJexwxkGNes=
+X-Received: by 2002:a05:6512:63d7:20b0:5b8:9999:2f14 with SMTP id
+ 2adb3069b0e04-5b8ba5eba89mr50407e87.19.1789576530843; Wed, 16 Sep 2026
+ 09:35:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXAj07xapqpr9tCA--.21498S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47GryDAry3KF1rAw15twb_yoW8XF13pF
-	sakFWSyFyDXryxta1Du3WqkFy7ta9avay8WFW8Z3s3u3y5Jrn0gFy0qFyrX3W8AFyfWrWU
-	Xr1kJF18CFW2vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	o5l5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUMA2qqpVhMegAAsG
+References: <20260723035823.2041832-1-justin.yeh@mediatek.com> <20260723035823.2041832-2-justin.yeh@mediatek.com>
+In-Reply-To: <20260723035823.2041832-2-justin.yeh@mediatek.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 18:35:18 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=3YWAQsYZUTiRUpX_WOkeNYe5NdADwNeoFky+gY=OX5w@mail.gmail.com>
+X-Gm-Features: AcwNN1VvaG_CTHc5Gx7LSXS7f1odDC4A4LezNnphRUFVM6XIRyS7EcYx1dfz_o0
+Message-ID: <CAD++jL=3YWAQsYZUTiRUpX_WOkeNYe5NdADwNeoFky+gY=OX5w@mail.gmail.com>
+Subject: Re: [PATCH v7 1/5] pinctrl: mediatek: use devm_gpiochip_add_data()
+ for GPIO chip
+To: Justin Yeh <justin.yeh@mediatek.com>
+Cc: Sean Wang <sean.wang@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Project_Global_Chrome_Upstream_Group@mediatek.com, 
+	linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Chen-Yu Tsai <wenst@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The reference taken with iio_trigger_get() is only dropped by
-iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. If
-devm_iio_triggered_buffer_setup() fails before setting that mode, the
-reference acquired for indio_dev->trig leaks. Move the
-iio_trigger_get() after the buffer setup succeeds.
+On Thu, Jul 23, 2026 at 5:58=E2=80=AFAM Justin Yeh <justin.yeh@mediatek.com=
+> wrote:
 
-Fixes: 24b84444eb6f ("iio: acpi_als: Add trigger support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/iio/light/acpi-als.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+> The gpio_chip is allocated with device-managed memory but registered with
+> the non-managed gpiochip_add_data(). This was harmless while the drivers
+> were built-in, but once they can be built as modules and unbound/rmmod'd,
+> devm frees the gpio_chip's memory while it is still registered, causing a
+> use-after-free.
+>
+> Register it with devm_gpiochip_add_data() so it shares the same
+> device-managed lifecycle, which also lets the manual gpiochip_remove()
+> error paths go away.
+>
+> Fixes: a6df410d420a ("pinctrl: mediatek: Add Pinctrl/GPIO driver for mt81=
+35.")
+> Fixes: 805250982bb5 ("pinctrl: mediatek: add pinctrl-paris that implement=
+s the vendor dt-bindings")
+> Fixes: e78d57b2f87c ("pinctrl: mediatek: add pinctrl-moore that implement=
+s the generic pinctrl dt-bindings")
+> Signed-off-by: Justin Yeh <justin.yeh@mediatek.com>
+> Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
 
-diff --git a/drivers/iio/light/acpi-als.c b/drivers/iio/light/acpi-als.c
-index ab229318dce9..ad95057d99c2 100644
---- a/drivers/iio/light/acpi-als.c
-+++ b/drivers/iio/light/acpi-als.c
-@@ -206,11 +206,6 @@ static int acpi_als_probe(struct platform_device *pdev)
- 	ret = devm_iio_trigger_register(dev, als->trig);
- 	if (ret)
- 		return ret;
--	/*
--	 * Set hardware trigger by default to let events flow when
--	 * BIOS support notification.
--	 */
--	indio_dev->trig = iio_trigger_get(als->trig);
- 
- 	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
- 					      iio_pollfunc_store_time,
-@@ -219,6 +214,12 @@ static int acpi_als_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	/*
-+	 * Set hardware trigger by default to let events flow when
-+	 * BIOS support notification.
-+	 */
-+	indio_dev->trig = iio_trigger_get(als->trig);
-+
- 	ret = devm_iio_device_register(dev, indio_dev);
- 	if (ret)
- 		return ret;
--- 
-2.34.1
+This patch does not apply to current v7.3-rc1.
+Please rebase and resend!
 
+Yours,
+Linus Walleij
