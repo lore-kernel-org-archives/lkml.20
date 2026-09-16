@@ -1,194 +1,219 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8544DF4B4;
-	Wed, 16 Sep 2026 10:33:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554824; cv=none; b=GO+R5u6wNl6xoAOvlhQna6VTGXnguJ2zHoD3QIJDeUT+A7XLkkmgHKlDHdeLAxT2IlUOoG5+SGkq3+uUaUkkZAOynoHEaqCDXCEmNmIbWDG+zANFOoM9kSZ3q4IfggLoJthfk/BdHaylY0rm8ONEeEu8XMdRLjyJhyWFxvJpBhw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554824; c=relaxed/simple;
-	bh=d2geyMsNBTOOHKZfEQ320515mKz45HpvCBW07mHLmuQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SJheKLmWYR0qoKZQ0svZKmFjOvM/UsoGoH6pMCtz/M7RNLGI+/yJqYq2C4B9lEWLr6/S3CER0rOeUoauUgRJv5TpttK84+Rqpp+JScHMXi8e44hb8Hqo/Kon/kMGhL/H3BDhPabOdwqR0I0hs6k4wgUODXoqD+9UxTrXE4k29gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FV25dpsP; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34FF4E66A7;
+	Wed, 16 Sep 2026 10:33:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789554843; cv=fail; b=YImSh6i/sWptPK3qHoKBjC4IfVIE86cTOsKf1J2yXCPFV1rJqff2ztF2wDQMzb/qlSyCnTcIKOh9jOaqyjYrD1QjJ0eaFEdeu+hqtIYOeFNxpVpw8mAAF65abCrmLqo3NaJZRRVVSW5sohSiOy7C9ltdGYpy0fX/of8eahIzx80=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789554843; c=relaxed/simple;
+	bh=XGb9OccIOxQr8Z9kxRNI/bVNR4M6hE7Cdb1wVK3k6Sg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=lOTpY6QIWR5aapn2C8iv9YrIUbhLn93QMvwN/A50ZussJLbY1jr2J6J9kwNhji/TXv3IbXMU8WEd1eE4MZBzfc5H45D90kaGSIGi2ZsZ1VX3ZDZ/r3spuMjWlgD0kILJq10xUtIZuHTMaMwuKQaMH3uUVeMJmuAUhtajSj9sLyg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WipH0xKX; arc=fail smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FV25dpsP"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLVspj791787;
-	Wed, 16 Sep 2026 10:33:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=mTjoG3
-	WVrM/I9AJe8x8ELwtCSLklrMet0zke+dNepGc=; b=FV25dpsPqWsf6GDBfYiI19
-	3/mcmkETQHxXZ0IF0xVZY7W0CZXshCL84wvlaCD4OuDJUD05XNPG6wbwUYUsXz/g
-	j+yWm6uSj0TQOMZ2UD8pHEaYTa6e53S49QTdIyDGG7At/acgmWf9knaozKMY5OfQ
-	AOCS8tGpB+wNKc4o/sjuj63182UhcBKBnwLBwysqahrGTVKMBbISDTK6FQsJbCcm
-	awCB1NUA7ylnslZyJMrYRpTRMt2bOGEiFf2WJJ7SNo1n7VPbO/LEPFHD0LtEUJ/8
-	6fbS6kceRTLPjETS4TZuxNa9O2jPubg9jlYk5e4BVta9F2tu4Ya50U2j6hZ+XtOA
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmw5e3s80-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 10:33:12 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68G7ZGhT464083;
-	Wed, 16 Sep 2026 10:33:11 GMT
-Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gq03vdtnb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 10:33:11 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
-	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68GAXAqV33751758
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 16 Sep 2026 10:33:10 GMT
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4024D58055;
-	Wed, 16 Sep 2026 10:33:10 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BC8F158063;
-	Wed, 16 Sep 2026 10:33:05 +0000 (GMT)
-Received: from [9.61.253.212] (unknown [9.61.253.212])
-	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 16 Sep 2026 10:33:05 +0000 (GMT)
-Message-ID: <fac3bade-3152-490b-b557-22d6abe56b50@linux.ibm.com>
-Date: Wed, 16 Sep 2026 16:03:04 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WipH0xKX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789554830; x=1821090830;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=XGb9OccIOxQr8Z9kxRNI/bVNR4M6hE7Cdb1wVK3k6Sg=;
+  b=WipH0xKXynz/khs5iR4nGCJbSgxUOjz5yuhmVej+Hk9buiNLxphcRpdi
+   i/qlrTU2/zdekGRKGgSIo7a8SL/Y4xjk/J8hR1SM+vs6wwUHNnWAZ3coo
+   sW0FHivZuYs0QseQfizacuf5iJbs7eS9SDvX8i1xmzrXyYFJ9v1HXoqmk
+   jXP16DGHl08oot4QEorfMdThk6F1l6s10Io01ftNqJ8J0vByTJFiBcLav
+   B+urSwFt40XWgr8yoYYeQZGar5FoLwaI0SaMl4B8JnGOIRSG1NQT4mZ5O
+   NXmm5VuTlL5ja0El32rp8zl/ZGxFNTpsOHh34CDglyxW4ppd9+yjFJ9Iw
+   g==;
+X-CSE-ConnectionGUID: lWH6jx8gTLqN6CV88R+ZJQ==
+X-CSE-MsgGUID: Y/zEDOZYSLyG/HVbJQA/Xw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89972669"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89972669"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:33:46 -0700
+X-CSE-ConnectionGUID: EY2pzqCYShefgioaikF+RA==
+X-CSE-MsgGUID: WeGV7ymJQ9a25YBKHDVZPw==
+X-ExtLoop1: 1
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:33:46 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 16 Sep 2026 03:33:45 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 16 Sep 2026 03:33:45 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.12) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 16 Sep 2026 03:33:43 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=huXCPs6HoPkbdkW6Jo2dAqF9hmxz8oZLsWVHxAMIvolrC33/fo2fnrp4yv0aeGGQB11EF4RfJy00hpM19qd5TyFFKxo3RB8RjvAlqHdD3sc7sPbTs03ISLfKaSbl7wjOulrS/Xuc0xOnhep7B5oyWvX3025R5z1/MyTwRwGXuKTaVjJir9my+euTbOw7t87rc00XqhxQ+DJj6wAmxI/ggJG71GNm/c2J+GmTfG4tJy6dkfZSEKxDsPUnpAiWArkurrtzJvZKH5I+BXiLgxfnevYxadcxvelRRxr+/dw8qAkCXns1wC/skw6i+yvG+X9Or+sH9GSbZubfFnMuBttPvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kQ4qn0t7+V9jJKC+upXe/wp4L00QB9MWQFavaCiD1jo=;
+ b=tJkrEcT4KUZomeIG1m4FXlJS7n1R6akDmrznNkU2q8BrtXLQROnD9Bsu3/lolBeRZ57Tjg+AYnvwHpKOIz67q/cNgtnpI7JB8yVH7KoHj/Y0tIv71dqtTDRBSIG4hDJ0faMAKirTwQHazGZ3svB5fspF3PikieAZiNJA1cBw8ar761W99lzEtSREX36SupOjQEFqQIgIIVPtRc7Sm6LGcCtUzN7OTuBUUkAPB0FDYWf2O9qwe2LK2n1aZGO6KJ5Qv5+x4Ia4tJZc+0lMTB7JjC498dUE49CzlD+8ZWlqdI1ZK6z5A7Z7vZiXsvX3r/ufvMNOWUn9jnwmdi2XenWpxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
+ by IA3PR11MB9422.namprd11.prod.outlook.com (2603:10b6:208:57e::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 10:33:41 +0000
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
+ 10:33:41 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Petr Machata <petrm@nvidia.com>, "Keller, Jacob E"
+	<jacob.e.keller@intel.com>, Jijie Shao <shaojijie@huawei.com>,
+	=?iso-8859-1?Q?Uwe_Kleine-K=F6nig_=28The_Capable_Hub=29?=
+	<u.kleine-koenig@baylibre.com>, Ruoyu Wang <ruoyuw560@gmail.com>, "Jakub
+ Raczynski" <j.raczynski@samsung.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH] net: sungem: disable PCI device on remove
+Thread-Topic: [PATCH] net: sungem: disable PCI device on remove
+Thread-Index: AQHdRaOcMZDefrI7fkuZVXTpmUJ/l7bQ/Oug
+Date: Wed, 16 Sep 2026 10:33:40 +0000
+Message-ID: <IA3PR11MB8986AAE7C62816D4C14ABDC8E5B92@IA3PR11MB8986.namprd11.prod.outlook.com>
+References: <20260916055913.2910349-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260916055913.2910349-1-lgs201920130244@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|IA3PR11MB9422:EE_
+x-ms-office365-filtering-correlation-id: 8ccef5ff-4dc2-4895-78ed-08df13ddf9d7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|38070700021|921020|11063799006|56012099006|10067099003|5023799004|18002099003|22082099003;
+x-microsoft-antispam-message-info: qwTb3VObX5SP7vtpUF0SISpzM2Qw45to0YFfoBNLPa1UQBoSuQLd+OsTpW4k4FNRXXqxC6SZ5YcoFyg+Eblr1p9eojBXeCndCiJEwngJPCSTnBsGCMtWKb9Q9bc3IQzuTG8Ekxl5hjcvCprn+BGk5Yge+FEgLC316PvqtxPpSUgcsfA+HpGglXkG3aU5I2YMCenrDOAlCx5GSL4HipZg30RhWjYbs2pVncbFwx4lzVK7fqEqNY+k0I/xwieLm4aG14+Lt5z9t+0YcDC73fTnwK0nzQDQ1g4HqgAPGKwD5gJ2cWHHoNMW6dnHRnbwkJBzJdSMNfXh/NLcHc6/hXKYl4Gz8hO/IeDPmoUFXfoQnxodJteenWPCQbhTNWCNLleZEzcZCgwDvBOdMcY1tWL2zTboGsdhu87qkSYjPJhG8eOippSx09ef24e1i+zfA2fbLCzA/LHCeNEyXc6GVedQ2DD+4cXrSj0cxsO5l2XYrMoyPyPPBoD7o1/ny1UT6MvLGwvdKmMlGdGLXcMWrBNO40doMZ/DPMip/XNRmxYsnpVKOifiEoKXC6evm/DUaKSVWbLzuZUm8f3tSWRH10X5SuddGsBWt/kODT7PFSJSxP+JdtfX5F8Riv+QzxpppfnWTndK9dDqxIyXUpwkNSBZLpKsRM1ua4TyfeiS9iDQjJrgtCTj2tYsizPvizs7QS5COM97s/GlAPn7TCVWI23VlT2agD7M2jFEC1zPVOA+Ccq6DG3GXtNCJ1ayOLwiL7Ev
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(38070700021)(921020)(11063799006)(56012099006)(10067099003)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?LrH4HLPXDvW/a6b5nvufqliU1lvjEXNsX5hdn55nW4+HK+gm9Q7/4J16JN?=
+ =?iso-8859-1?Q?ItgfXhZOJhD7p8pOAjMpD/1+GMyF8yKIyCObNmLyM+IfdjDQjOqyxA+xSe?=
+ =?iso-8859-1?Q?3zMnv8/nIV36/gebPc+BvbFedyLGg8UhSKmDKjNppu6kBvTH13ljrUR+Wq?=
+ =?iso-8859-1?Q?9YkR2wKjBeHSIOdTG55QT1JBZMf5Ltb/WsHSoPEa+eVoCKVZH76CDPlDJ7?=
+ =?iso-8859-1?Q?BJC2YaZBXUw4jM+iYG/B9nJDS4lmcuACpo0t5PmHIjOd1JcqDPqDER0zqx?=
+ =?iso-8859-1?Q?CQJpdLj9OTdPkShEAQIJLYGUYhKKBMLxZQ+nLzt6A6p5LWflkP/KkYhSme?=
+ =?iso-8859-1?Q?ML2sL9kOYyfsnSOlXXAOh/c4m2Ky6JjlMJ5wN5pQvcFE8NCB1R+h1EVMrM?=
+ =?iso-8859-1?Q?iE0AnKQL3XwczXemwPauP96uz6bzSooCeRsKpdf76a9woesljnFxd4FVX3?=
+ =?iso-8859-1?Q?mHIZuYp+iixKlvvC69fRwsRJi9zZbiYgs2dcG68BIyIBTTySJ+fhulER+8?=
+ =?iso-8859-1?Q?bxka62DtJU9DjkLIII4SxQLcRr3gUfCKUIeCkBCxthkJ6a/sd8aM4jR9TY?=
+ =?iso-8859-1?Q?IdPr23EFEJ7qPxGl4SvsVZd7Djtur/xJ+p9yTgfR6Lz00EtpGsjysu0koZ?=
+ =?iso-8859-1?Q?uzEVytLpDiqf7wTLgmHSn1y0bmIO2qh0oWHsJ4VddD1/iDE601ttiedeaN?=
+ =?iso-8859-1?Q?DUwQNXdwJI9OwnCDDHxTn7FIIgNvZMgAZg97sor+SGJpYgfQJ8oAA0AAqO?=
+ =?iso-8859-1?Q?+/gy/Hb0xxqDCgGkv7eyEU4yYFSwptpF7coaiBcxRjT1szPo8MZNdU6Nef?=
+ =?iso-8859-1?Q?mSgOICUSl44UIVgdGc/53Yi1Qjx0ZzpOBcpjoqsxb222/+D8wJtd03Af3Y?=
+ =?iso-8859-1?Q?qReITuu2Iou5b242x/vgYGv8mY/P+2duCKZ8amN97MFqVGxdU3eUJqgt2Q?=
+ =?iso-8859-1?Q?5nKzQylvW/bkgI8jcqoAC70yaediQBxmURa1hka9cTB6VkiX+U8J3nf4k4?=
+ =?iso-8859-1?Q?F/ZVN1t42J43tmakfR3/IA9DBAmgBA/q3NLgwty0g4mygO4BgRztscpwEN?=
+ =?iso-8859-1?Q?Gsio5N91nSqfcANnH10ElkeC2XVjJXllG/JUg02z80kFzqsI0ZDB7jNSQD?=
+ =?iso-8859-1?Q?2Gj6i7I1QROBR/NQIv7NzlTq1Bxn4ao+Bq0/y/SfaazMaV2yd6tf0M0C6Y?=
+ =?iso-8859-1?Q?T7t/7q9D0edrkMLaEDhIeLrBzLmdekLBeRiwg3b8CuosRQ/PaJuqCq7OY0?=
+ =?iso-8859-1?Q?GI/q+s0HFloarXyPCKBv4E8NwYG0R+taJLPOHzU2yv+GVENK1lAb4u/A5q?=
+ =?iso-8859-1?Q?FdS86sbxAL0kWL+BW9BgEXSq7d0flIUA6xJmbXKTnhq2rfQ1DjAMzGzm+Q?=
+ =?iso-8859-1?Q?La0zi2Ezy44j9tVbc7HRd7a4N8+qjsybW46KUqTpHZLHp4IqOJHkrsdG5v?=
+ =?iso-8859-1?Q?ZXR1zLbKHefGcntryc4F8AAKk9jbRGbpeEJJZ6fvuwQN+2MC4YqZQb+q42?=
+ =?iso-8859-1?Q?Ud/Hw8qUEtXkEpzg5XJQ+uwTAJ+MdkFL2J8YiatsQHnSNXCIhElZCcSDz/?=
+ =?iso-8859-1?Q?65dCdcQj8U0Ex3r3jX0iEvmjH8phKOorbGN/SvtbR0R7KCpjiGFRlxW1eh?=
+ =?iso-8859-1?Q?jsjtTrtnvK5hB+v5J6oPdWX1ej7rxsPrM4vQm4YFBjEIFbbR1sJTWpsDIr?=
+ =?iso-8859-1?Q?m3BrnTXo7mxXjzJMAqFyfSmyNFq8kjqIJwiWXEQrwgQBYdZbT/loexphBe?=
+ =?iso-8859-1?Q?8sBqDkdn4j/p0tJJ5liTy6E3nUmn+Ji8TQB8Dpnfa0o9Y6LpmMg1bNxCTb?=
+ =?iso-8859-1?Q?49978Fum1rjZGEJKfkcN9BBGUGkJbig=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] powerpc/bpf: Kernel stack corruption in avc_has_perm()
- during BPF kselftests (test_progs)
-To: Shrikanth Hegde <sshegde@linux.ibm.com>,
-        Hari Bathini <hbathini@linux.ibm.com>,
-        Saket Kumar Bhaskar <skb99@linux.ibm.com>, bpf <bpf@vger.kernel.org>,
-        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Eduard Zingerman
- <eddyz87@gmail.com>, yonghong.song@linux.dev,
-        Alexei Starovoitov <ast@kernel.org>, andrii@kernel.org,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Ritesh Harjani <riteshh@linux.ibm.com>
-Cc: LKML <linux-kernel@vger.kernel.org>
-References: <56d51dc6-f597-4cfa-b61c-b6b95d61ab86@linux.ibm.com>
- <46508541-55ab-4340-8871-924514ee8d5b@linux.ibm.com>
-Content-Language: en-GB
-From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-In-Reply-To: <46508541-55ab-4340-8871-924514ee8d5b@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDEzOCBTYWx0ZWRfX/tfu/7f6+CUZ
- SqZ8XiLBqWI7Lus+jh8nmfUke0YdIFNRZIpUrGJXbgsR3/E+1PBjAWQrx05T+CuE6PwJan/E2V7
- KkRdIygF49aGHljqwttC4HpVcqHvit0Axmm70+aV8xUqmwlzEYSjDd+JCjKoVBJTo4r4Rv7x45t
- Pv95CikB2BmHL9ZieU3ehQu7g69Ros4FqIZCcOG5m3RY8jiiuUcMZJfa2ds/g27r0w2zfdUOsOP
- 899Q+oHtb8WW6rHujUYPmu0hyLXqh6rQXZbPDKdCO58LETbpG6Vk8nFcEiUSMg/+AurzqzuMRw+
- +mqrWUQoos3kA5Acqe/YvK/HslUg+EY9POMTZoX24fafk7hbf15T5eHyTOhzStpWyaknelEYK15
- ikULV0LV6vuS/JgVHJ6iStXt0NS0hVrx4jRxnuJLVr3+WMIzCxoJ+Xv3zO1uKbTlCnow2yq4mBa
- pUjh0gYT5P90ymtHN0A==
-X-Authority-Analysis: v=2.4 cv=E/NYNqdl c=1 sm=1 tr=0 ts=6aaa7068 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=6zCX1olo2Mcs3fojgbkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: GhwMK2bzqtSiB7ygT_iyaZZdvnTwOMjY
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDEzOCBTYWx0ZWRfX59mRAOtMlHEf
- pV7rl2RAyTf0M4JTV5wbRgJb/6Ti+vZLy91pioiBOCKHltPxO3H6sDDMFP8KStiQ3gS/pV++LLr
- V37VImKE00AQxC+JSsOb/4rNY9JEkNY=
-X-Proofpoint-GUID: Gkg2wqQ5PA4Wu5DZ_cJO1oyLFUWSd1H_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160138
+X-Exchange-RoutingPolicyChecked: SHRV7NDsZZzB1aGZ/Cacok4YHaVwfWI8Fn0L20WGhq5V6E9YD2/UtStw93Df3yxqHCMTvJqw+SNTU81hB8ZMKr6djkR7zZg6yilaW9lZFcyJ5ZIXmrlvVrIiymtZt3K/K/sJGi/JOggMGD1UBQM6Gi6Ajba8S25vl3SOVGKbX40pgPNidpyVMgiXlCC3yi2BlE510CdCjvpR/GDE/9jccOKxWl7R/fVDD1PZloFIBv9YqX+5WPe1dUuTvTLsNmXsrFwmVqYVF8a02ATzNrSZx/24CGbVDEV7n4Y8qAw1wXf9y3T3PyXrRGsDI5fIam30c0kqswoLg2X5+IiU6r+rfg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ccef5ff-4dc2-4895-78ed-08df13ddf9d7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 10:33:40.9618
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QKcqrJpYZVBZjklDRBQ6SpvlvXlE4JO214BGqplNyuXaBikqMccuXBLRCbbVKq7E/xU+njwIXFVO5pCLVAlvYZAsRG+1qb8JkfxbOR4VvMA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB9422
+X-OriginatorOrg: intel.com
 
 
-On 16/09/26 2:22 pm, Shrikanth Hegde wrote:
-> Hi Venkat.
->
-> Thanks for reporting.
->
-> On 9/16/26 2:11 PM, Venkat Rao Bagalkote wrote:
->> Hello All!!!
->>
->>
->> IBM CI has reported a kernel panic on PowerPC (ppc64le, POWER9 
->> pSeries guest) while running BPF kselftests (test_progs).
->>
->
-> What has changed in CI that it is hitting now?
 
+> -----Original Message-----
+> From: Guangshuo Li <lgs201920130244@gmail.com>
+> Sent: Wednesday, September 16, 2026 7:59 AM
+> To: Andrew Lunn <andrew+netdev@lunn.ch>; David S. Miller
+> <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub
+> Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; Petr
+> Machata <petrm@nvidia.com>; Loktionov, Aleksandr
+> <aleksandr.loktionov@intel.com>; Keller, Jacob E
+> <jacob.e.keller@intel.com>; Jijie Shao <shaojijie@huawei.com>; Uwe
+> Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@baylibre.com>; Ruoyu
+> Wang <ruoyuw560@gmail.com>; Guangshuo Li <lgs201920130244@gmail.com>;
+> Jakub Raczynski <j.raczynski@samsung.com>; netdev@vger.kernel.org;
+> linux-kernel@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> Subject: [PATCH] net: sungem: disable PCI device on remove
+>=20
+> gem_init_one() enables the PCI device with pci_enable_device().
+>=20
+> The probe failure path balances this operation with
+> pci_disable_device(). However, after a successful probe,
+> gem_remove_one() releases the PCI resources and netdev without
+> disabling the PCI device.
+>=20
+> Call pci_disable_device() during removal to balance the successful
+> pci_enable_device() call.
+>=20
+> This issue was found by manual code inspection.
+>=20
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/net/ethernet/sun/sungem.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/net/ethernet/sun/sungem.c
+> b/drivers/net/ethernet/sun/sungem.c
+> index dc5638d105db..6abf4d292802 100644
+> --- a/drivers/net/ethernet/sun/sungem.c
+> +++ b/drivers/net/ethernet/sun/sungem.c
+> @@ -2806,6 +2806,7 @@ static void gem_remove_one(struct pci_dev *pdev)
+>  		iounmap(gp->regs);
+>  		pci_release_regions(pdev);
+>  		free_netdev(dev);
+> +		pci_disable_device(pdev);
+>  	}
+>  }
+>=20
+> --
+> 2.43.0
 
-Nothings in specific. Its just that, some of the tests were not run for 
-some time, due to build and other issues.
+The fix is correct, but please resend targeting the net tree, and document =
+testing.
+Please also clarify the practical impact supporting the stable backport req=
+uest.
 
->
->> Environment:
->>
->
-> It is very likely same as
-> https://lore.kernel.org/all/ba9759d0-b1f2-4b33-aff5-769cf89bd584@linux.ibm.com/ 
->
->
->>
->> Kernel version: 7.3.0-rc3-gf6e7b42bf05b (PREEMPT)
->> Architecture: ppc64le (POWER9 - IBM,8375-42A pSeries / phyp)
->> Test Suite: Avocado FVT / kselftests 
->> (tools/testing/selftests/bpf/test_progs)
->>
->>
->> Traces:
->>
->> [ 1359.516833] Kernel panic - not syncing: stack-protector: Kernel 
->> stack is corrupted in: avc_has_perm+0x23c/0x240
->> [ 1359.516856] CPU: 0 UID: 0 PID: 49806 Comm: test_progs Tainted: G   
->>    OE K     7.3.0-rc3-gf6e7b42bf05b #1 PREEMPT
->> [ 1359.516866] Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE, 
->> [K]=LIVEPATCH
->> [ 1359.516870] Hardware name: IBM,8375-42A POWER9 (architected) 
->> 0x4e0202 0xf000005 of:IBM,FW950.80 (VL950_131) hv:phyp pSeries
->> [ 1359.516876] Call Trace:
->> [ 1359.516880] [c00000011bc67b10] [c0000000014627c0] 
->> dump_stack_lvl+0x84/0xc0 (unreliable)
->> [ 1359.516890] [c00000011bc67b40] [c000000000234840] vpanic+0x1b4/0x47c
->> [ 1359.516897] [c00000011bc67be0] [c000000000234b44] 
->> do_panic_on_target_cpu+0x0/0x2c
->> [ 1359.516906] [c00000011bc67c00] [c0000000014f8ce8] 
->> __stack_chk_fail+0x48/0x60
->> [ 1359.516913] [c00000011bc67c70] [c00000000092f0bc] 
->> avc_has_perm+0x23c/0x240
->> [ 1359.516920] [c00000011bc67d40] [c000000000936fc0] 
->> selinux_task_getpgid+0x80/0xa0
->> [ 1359.516927] [c00000011bc67d80] [c000000000920190] 
->> security_task_getpgid+0x70/0x1c0
->> [ 1359.516934] [c00000011bc67db0] [c000000000259488] 
->> do_getpgid+0xa8/0xf0
->> [ 1359.516941] [c00000011bc67de0] [c0000000002594f0] 
->> sys_getpgid+0x20/0x30
->> [ 1359.516948] [c00000011bc67e00] [c000000000034670] 
->> system_call_exception+0x160/0x480
->> [ 1359.516957] [c00000011bc67e50] [c00000000000d05c] 
->> system_call_vectored_common+0x15c/0x2ec
->>
->>
->> Please let us know if any further debugging or testing with specific 
->> BPF JIT options is needed.
->>
->>
->> Regards,
->>
->> Venkat.
->>
->
->
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
