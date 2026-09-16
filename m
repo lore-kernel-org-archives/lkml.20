@@ -1,164 +1,99 @@
-Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E324A3F0D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.212
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B384BB5C5;
+	Wed, 16 Sep 2026 10:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554020; cv=none; b=QHBeS7IzzOytk5lb5I2S73gl5MSqxNByOtisl4fjsJ8Zg/AZXE1vXglqyTNlMGYME+XFdkuMpvAItj48ClLD1KQr7e0KlUfAy6Qb9t5czIqQGVECmgEMohtAhlrXLCGYOrC1V1Ck2tRq1rpVOyIi1LsXEu7McT4+kRD3HjfDGOI=
+	t=1789554029; cv=none; b=Bya9j5E1RE3zTMSGa9RW0qKoNQJUC2ukE9m2qaYsbyG6j9a9dKPhlpEmogWoDPgDOReMtJ4RSuzKk1Lfb7EtKV7jwYQlSovwdADm8dtk7w/gBGKC+Igueq5wEGfhne0LkESt/5PuRO62W5blWKPjv89c6wWyOUcwEjUvS9sNAjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554020; c=relaxed/simple;
-	bh=P0zQpNS9VF3p0YtRHJ7+xNeb7G33aUTMkFOgmA4JJ2g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=jM9PsFujK7VtHgWVHcHYm41RciSBuxMgEx1fAQvODj8h90KFXSI+sztGBD6stM5d/N63McktjTTczwVve2SrxM+Jp3M9YNRkfz+N++C++muVHzxCWRcl9O30WvaOHpBJFlwC6pctSP70msahld79cO+heUSuhfQQLA1eggqZJLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.212
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 41ccb50d5361293b;
-	Wed, 16 Sep 2026 10:19:56 +0000
-X-Mizu-Trace-ID: 41ccb50d5361293b
-X-Migadu-Flow: FLOW_OUT
-From: Baoquan He <hebaoquan@kylinos.cn>
-To: linux-mm@kvack.org
-Cc: akpm@linux-foundation.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	nphamcs@gmail.com,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	yosry@kernel.org,
-	shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev,
-	baoquan.he@linux.dev,
-	david@kernel.org,
+	s=arc-20240116; t=1789554029; c=relaxed/simple;
+	bh=JnG1JuvwKW9oTgJMKov9H6l9zRvdE/vDrMtLBm/qcSs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JbeJGk50a8Yyc07lwBKRbjF8ReSucmnXNQopzXp0ol8y+aD7vOqzcQ9B3Em6OBvmq6oKrMKJu53Od+4LuP7Mpwrkl0b8vJxgSXob9FfsXYSkqwCGCgMCc50MAPsfTLCcP66UiRldDAqh2AogVDr+Wr77/kbKa09EPOqiH8SWG5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAC3wkBGbapqD_3gBw--.1931S2;
+	Wed, 16 Sep 2026 18:19:50 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Laurent.pinchart@ideasonboard.com
+Cc: airlied@gmail.com,
+	andrzej.hajda@intel.com,
+	dharma.b@microchip.com,
+	dri-devel@lists.freedesktop.org,
+	hari.prasathge@microchip.com,
+	jernej.skrabec@gmail.com,
+	jonas@kwiboo.se,
 	linux-kernel@vger.kernel.org,
-	kunwu.chan@gmail.com,
-	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v3 03/14] mm, swap: refactor free_swap_cluster_info to take swap_info_struct
-Date: Wed, 16 Sep 2026 18:19:10 +0800
-Message-ID: <20260916101929.149106-4-hebaoquan@kylinos.cn>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260916101929.149106-1-hebaoquan@kylinos.cn>
-References: <20260916101929.149106-1-hebaoquan@kylinos.cn>
+	lumag@kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	manikandan.m@microchip.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/bridge: microchip-lvds: Fix runtime PM leak in mchp_lvds_enable()
+Date: Wed, 16 Sep 2026 10:19:22 +0000
+Message-Id: <20260916101922.2018259-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-type: text/plain
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAC3wkBGbapqD_3gBw--.1931S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xr1UGry5try8WF1fWF1rWFg_yoWkKwb_Ca
+	s5Zrn7Xw4FkFWqkr47A3y3Z3saq3WDurW8Wa1rtan3trWUAF1DA347XrZ8ArnrXw4UtF9r
+	Kw4qkF18ArnrujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbaAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
+	JvcSsGvfC2KfnxnUUI43ZEXa7sRRznmtUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQMA2qqP4ezawABsz
 
-Change free_swap_cluster_info() to take struct swap_info_struct* instead
-of (cluster_info, maxpages). It now extracts the fields from si and
-clears si->cluster_info after freeing to avoid a double free on the
-swapon() error path.
+mchp_lvds_enable() resumes the device with pm_runtime_get_sync() and
+returns early when the resume fails.  pm_runtime_get_sync() increments
+the runtime PM usage count even when it fails, so returning without
+dropping the reference leaks it and prevents the device from ever
+suspending again once the error has been hit.
 
-The new parameter also lets the xswap path access si->flags in the
-function.
+Drop the runtime PM reference with pm_runtime_put_noidle() on the
+resume failure path before returning.
 
-Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
+Fixes: 179b0769fc5f ("drm/bridge: add lvds controller support for sam9x7")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- mm/swapfile.c | 26 ++++++++++++++------------
- 1 file changed, 14 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/bridge/microchip-lvds.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 13ae681acf07..4b260f9760ac 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -3142,14 +3142,17 @@ static void wait_for_allocation(struct swap_info_struct *si)
- 	}
- }
- 
--static void free_swap_cluster_info(struct swap_cluster_info *cluster_info,
--				   unsigned long maxpages)
-+static void free_swap_cluster_info(struct swap_info_struct *si)
- {
-+	struct swap_cluster_info *cluster_info = si->cluster_info;
-+	unsigned long maxpages = si->max;
- 	struct swap_cluster_info *ci;
--	int i, nr_clusters = DIV_ROUND_UP(maxpages, SWAPFILE_CLUSTER);
-+	int i, nr_clusters;
- 
- 	if (!cluster_info)
+diff --git a/drivers/gpu/drm/bridge/microchip-lvds.c b/drivers/gpu/drm/bridge/microchip-lvds.c
+index 9f4ff82bc6b4..b77ec6ae0a97 100644
+--- a/drivers/gpu/drm/bridge/microchip-lvds.c
++++ b/drivers/gpu/drm/bridge/microchip-lvds.c
+@@ -127,6 +127,7 @@ static void mchp_lvds_enable(struct drm_bridge *bridge)
+ 	ret = pm_runtime_get_sync(lvds->dev);
+ 	if (ret < 0) {
+ 		dev_err(lvds->dev, "failed to get pm runtime: %d\n", ret);
++		pm_runtime_put_noidle(lvds->dev);
  		return;
-+
-+	nr_clusters = DIV_ROUND_UP(maxpages, SWAPFILE_CLUSTER);
- 	for (i = 0; i < nr_clusters; i++) {
- 		ci = cluster_info + i;
- 		/* Cluster with bad marks count will have a remaining table */
-@@ -3161,6 +3164,7 @@ static void free_swap_cluster_info(struct swap_cluster_info *cluster_info,
- 		spin_unlock(&ci->lock);
  	}
- 	kvfree(cluster_info);
-+	si->cluster_info = NULL;
- }
  
- /*
-@@ -3188,11 +3192,9 @@ static void flush_percpu_swap_cluster(struct swap_info_struct *si)
- SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- {
- 	struct swap_info_struct *p = NULL;
--	struct swap_cluster_info *cluster_info;
- 	struct file *swap_file, *victim;
- 	struct address_space *mapping;
- 	struct inode *inode;
--	unsigned int maxpages;
- 	int err, found = 0;
- 
- 	if (!capable(CAP_SYS_ADMIN))
-@@ -3284,10 +3286,6 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- 
- 	swap_file = p->swap_file;
- 	p->swap_file = NULL;
--	maxpages = p->max;
--	cluster_info = p->cluster_info;
--	p->max = 0;
--	p->cluster_info = NULL;
- 	spin_unlock(&p->lock);
- 	spin_unlock(&swap_lock);
- 	arch_swap_invalidate_area(p->type);
-@@ -3295,7 +3293,9 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- 	mutex_unlock(&swapon_mutex);
- 	kfree(p->global_cluster);
- 	p->global_cluster = NULL;
--	free_swap_cluster_info(cluster_info, maxpages);
-+	free_swap_cluster_info(p);
-+	p->max = 0;
-+	p->cluster_info = NULL;
- 
- 	inode = mapping->host;
- 
-@@ -3662,6 +3662,8 @@ static int setup_swap_clusters_info(struct swap_info_struct *si,
- 	if (!cluster_info)
- 		goto err;
- 
-+	si->cluster_info = cluster_info;
-+
- 	for (i = 0; i < nr_clusters; i++)
- 		spin_lock_init(&cluster_info[i].lock);
- 
-@@ -3725,7 +3727,7 @@ static int setup_swap_clusters_info(struct swap_info_struct *si,
- 	si->cluster_info = cluster_info;
- 	return 0;
- err:
--	free_swap_cluster_info(cluster_info, maxpages);
-+	free_swap_cluster_info(si);
- 	return err;
- }
- 
-@@ -3947,7 +3949,7 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
- 	si->global_cluster = NULL;
- 	inode = NULL;
- 	destroy_swap_extents(si, swap_file);
--	free_swap_cluster_info(si->cluster_info, si->max);
-+	free_swap_cluster_info(si);
- 	si->cluster_info = NULL;
- 	/*
- 	 * Clear the SWP_USED flag after all resources are freed so
 -- 
-2.54.0
+2.34.1
 
