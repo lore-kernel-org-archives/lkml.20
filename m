@@ -1,26 +1,36 @@
-Received: from mail-m49240.qiye.163.com (mail-m49240.qiye.163.com [45.254.49.240])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8153BA225
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:24:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.240
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB6C73BBFCF
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:26:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789536283; cv=none; b=WBLQwytYuXARy7mZYIS3+wGYbw+J+8Vy6z4uFIE3CVq7h9ochp2ZTWGUj9MlS3n69vxQ/M1e7XaergPt3UCCv7ra/MQyWuUCouH5XyZrJCGiWuloFFwN86UNkNtEPvyLq+1izwzwel06NzBx4M6cjKkxLARvGN4tyajNlVB79aM=
+	t=1789536388; cv=none; b=IXn/mKw2BQd5/a/4oiwHhfYcjaqXB1Wtf9UoMte4OxXlRUwPP0HsMYuPrcqNYvnH4ygEpUHZI4c+MZ3fmnGc3cRKgqaTDWhzXQ3e+HfYDdROcstUoxFI3xbkZr2/QEOBPbVgs0F0/yWjIJJC/rYZiMCkIQ5oHM/wuDENASmgt+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789536283; c=relaxed/simple;
-	bh=16jG3PGkk1argTc5w9allGszNojwXv1F5YFDaHYXxLU=;
+	s=arc-20240116; t=1789536388; c=relaxed/simple;
+	bh=nX59McT1tSV4udr0cFvFpmaLCOFZkJiL5qt7ZC90zG4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=joMUm0ymAA0hcmnJBRp6lDDd2ccByxhCEdxQAeLnKzZZSOR3nFoHrT2RhnRO9CsAuz/+mAhvN3D3IKKwaAOzV5JlzISzjYCuWprMzBI2CLrdYR4yJjtbkwptOUYPT2hjzCTkpww9rjQSpEOGZF2yRSiL0a+m7XBy+25l3C0W4bQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=hrHjWyjO; arc=none smtp.client-ip=45.254.49.240
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	 In-Reply-To:Content-Type; b=gcMFRA1ih5zBYkQ9Cr29Sk1skX8CZZrmlGOPXh3Eug/w2H1T3G26fChgKw66bh9RecCUZRR6eeORcV7340lcryZN72d/0LXS6uNA8mqpxCv8J7JGL3k0RyvwUxuHbRBEMfTIYZGDFpU89LwuHLLIxmCHlu4d4Vrh/ebZiktH0jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jOVtXpGM; arc=none smtp.client-ip=91.218.175.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="hrHjWyjO"
-Received: from [127.0.0.1] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4deb4f28d;
-	Wed, 16 Sep 2026 09:55:12 +0800 (GMT+08:00)
-Message-ID: <37f6edb3-7e25-4bcc-9af0-f816bab011e0@rock-chips.com>
-Date: Wed, 16 Sep 2026 09:54:59 +0800
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jOVtXpGM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nX59McT1tSV4udr0cFvFpmaLCOFZkJiL5qt7ZC90zG4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789536384; v=1; x=1790141184;
+ b=jOVtXpGM9SOEhrY1n47AM+T/7DAWy8/TF2kYL/Y5BsyIh53QKgXNrQz5iHIAFDI57jvEqO9B
+ CNACyfYiafcDRvBaC9NVvjAY2HoumsX8TbU1Bg7kk5xrcMcJU+MpFeUW7Eb29V43+LDmYZISexz
+ QimUzi3Oj60z/qPfSdXxeGJA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e60f27ed6bc2f662;
+	Wed, 16 Sep 2026 05:26:23 +0000
+X-Mizu-Trace-ID: e60f27ed6bc2f662
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ed05f764-2be6-44a7-a13b-795954d8eb35@linux.dev>
+Date: Wed, 16 Sep 2026 08:26:21 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -28,159 +38,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/3] DSI Controller improvements for Rockchip platforms
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chaoyi Chen <kernel@airkyi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Quentin Schulz <quentin.schulz@cherry.de>
-References: <20260914013331.108-1-kernel@airkyi.com>
- <3800544.yaVYbkx8dN@diego>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <3800544.yaVYbkx8dN@diego>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0a7ecdabe03a7kunm8248de34c3a4d1
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGB1IVh8ZTxlNSBpNHxpOH1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=hrHjWyjOUkhry66qfs0cSuuOdicD2DmJlD9XhO3AJTaukjIoXOCohSzeMYjEyoAkpZCToUL3Z0FyV2W8VNTZSw8RUIOoivFWt7ldo/ecx6DQ98zsHN4y2NhY9Ap2WJIqGgJB9pktMJnPB4Vd6byovgMlKXPwcZqKA9ppaj40C5E=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=loqpFx2us6AzXdnwENCyISIbEFmke5V5K2ft3dn7wXk=;
-	h=date:mime-version:subject:message-id:from;
+Reply-To: mazziesaccount@gmail.com
+Subject: Re: [PATCH 07/12] iio: pressure: rohm-bm1390: Fix AVE_NUM
+ initialization
+To: Jonathan Cameron <jic23@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Matti Vaittinen <mazziesaccount@gmail.com>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+ Mehdi Djait <mehdi.djait.k@gmail.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Kalle Niemi <kaleposti@gmail.com>,
+ =?UTF-8?Q?Topi_Sonkaj=C3=A4rvi?= <sonkajarvi@hotmail.com>
+References: <cover.1786347811.git.mazziesaccount@gmail.com>
+ <7784e12793187a75dc10b0e84471f0cefe4d28b9.1786347811.git.mazziesaccount@gmail.com>
+ <anovRGxtsyJZ8cO9@ashevche-desk.local>
+ <247b0e35-f49e-4bec-abd4-4a2c3dd49a2d@gmail.com>
+ <anr0jtvYorFKaEXY@ashevche-desk.local> <20260817021549.29522111@jic23-huawei>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <matti.vaittinen@linux.dev>
+In-Reply-To: <20260817021549.29522111@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello Heiko,
-
-On 9/15/2026 9:36 PM, Heiko Stübner wrote:
-> Hi,
+On 17/08/2026 04:15, Jonathan Cameron wrote:
+> On Tue, 11 Aug 2026 13:08:14 +0300
+> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 > 
-> Am Montag, 14. September 2026, 03:33:28 Mitteleuropäische Sommerzeit schrieb Chaoyi Chen:
->> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+>> On Tue, Aug 11, 2026 at 12:05:47PM +0300, Matti Vaittinen wrote:
+>>> On 10/08/2026 23:06, Andy Shevchenko wrote:
+>>>> On Mon, Aug 10, 2026 at 10:53:07AM +0300, Matti Vaittinen wrote:
 >>
->> This series is dedicated to enhancing the DSI controller and PHY timing
->> interaction, refining the lane rate calculation, and addressing the
->> associated hardware limitations.
+>> ...
+>>
+>>>>> Use FIELD_PREP() to shift the intended AVE_NUM value to correct field.
+>>>>
+>>>> Can it be FIELD_PREP_CONST()?
+>>>
+>>> Can you please elaborate why it should in this case?
+>>
+>> I'm not sure why it's not obvious, but the parameters are constants, why would
+>> we need an additional check or even checks?
+>>
+> Hmm.  I went and had a look as this macro turns up a fair bit.
+> I'm fairly sure in the case of a pair of compile time constants
+> FIELD_PREP() both performs additional checks at compile time and
+> probably collapses to a constant.
+> The docs for FIELD_PREP_CONST() observe it is for when
+> you need it to be a constant rather than when it might be
+> (even if you know it is)
 > 
-> 
-> Took me a bit to finally test all the different variants for a display
-> that shows strange behaviour. Sorry this gets a bit longer.
-> 
-> 
-> The display in question is the ltk050h3148w [0], display in portrait
-> orientation.
-> 
-> Ever since commit ac87d23694f4 ("drm/bridge: synopsys: dw-mipi-dsi: Use
-> pixel clock rate to calculate lbcc") [1] and the subsequent fix in commit
-> 93e82bb4de01 ("drm/bridge: synopsys: dw-mipi-dsi: Fix hcomponent lbcc for
-> burst mode") [2], that display has its output shifted about 20 pixels to
-> the right, with the line then continuing on the next display line.
-> 
-> We have this display running on all the Theobroma-System modules, so there
-> is a lot of variant data :-) .
-> 
-> Your series actually fixed the PX30 part of that shifted output, but for
-> the RK3399 the results are sort of mixed:
-> 
-> 
-> What was confusing me was that in the Rockchip vendor kernel, _all_ DSI
-> variants use the standard px30 phy settings? The whole original lookup
-> table seems to be gone? And that replicating that setting actually fixes
-> the shifted output on RK3399 too?
-> 
+> So I think it's not necessarily appropriate here.
 
-Thanks a lot for the thorough testing!
+Thanks for digging deeper into this. :) Sounds like you confirm what I 
+understood from the docs.
 
-The RK3399 results are surprising, as the Synopsys databook
-configuration actually performs worse than the PX30 PHY configuration.
-As for the vendor changes, unfortunately the specific reasons are lost
-to history. But what is certain is that the original intent was to
-resolve the interoperability issues with INNO PHY on PX30 and
-subsequent platforms. 
-
-So I've gone with a compromise in this series to distinguish INNO PHY
-and Synopsys PHY. I'm not sure if using the same configuration for both
-would work out completely, but so far no related issues have been
-reported in the vendor kernel.
-
-I don't have a better idea for patch 3 right now, because different 
-platforms and panels may have different requirements for target_mbps. 
-In vendor kernel, we read the DTS to override target_mbps like this:
-
-/* optional override of the desired bandwidth */
-if (!of_property_read_u32(dev->of_node, "rockchip,lane-rate", &value)) {
-	target_mbps = value;
-}
-
-Would you consider this modification acceptable as an alternative to
-patch 3? Thank you.
-
-> 
-> RK3399:
-> 	original:
-> 		shifted
-> 		mode-clock 59400, target_mbps 450
-> 
-> 	patches 1+2:
-> 		shifted
-> 		mode-clock 59400, target_mbps 450
-> 
-> 	patch 3:
-> 		blank disiplay
-> 		mode-clock 59400, target_mbps 400
-> 
-> 	use static px30 phy with patch3:
-> 		image is compressed in height and displayed two times one below the other
-> 		image is _not_ shifted anymore (so left+right alignment are correct)
-> 		mode-clock 59400, target_mbps 400
-> 	
-> 	use static px30 phy without patch3:
-> 		image is _not_ shifted anymore
-> 		output is correct
-> 		mode-clock 59400, target_mbps 450
-> 
-> 
-> PX30:
-> 	original
-> 		shifted
-> 		mode-clock 59556, target_mbps 450
-> 
-> 	patches 1+2:
-> 		output is correct
-> 		image is _not_ shifted anymore (so left+right alignment are correct)
-> 		mode-clock 59556, target_mbps 450
-> 
-> 	patch 3:
-> 		output is still correct
-> 		mode-clock 59556, target_mbps 400
-> 
-> RK3588 (DSI2) for reference:
-> 	output is correct
-> 	mode-clock 59756, lane_mbps 398
-> 
-> 
-> Do you have any insight, what could go wrong here?
-> 
-> I'll apply patches 1+2 as they're correct, but will keep patch3 out
-> for now.
-> 
-> Also Sashiko seems to still be unhappy with patch3.
-> 
-> 
-> Thanks a lot
-> Heiko
-> 
-> 
-> [0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c#n299
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ac87d23694f44af44a98d21dd77016f2756b6b1b
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=93e82bb4de0196c4caeca1d8a6eef67863981d8f
+Yours,
+   -- Matti
 
 -- 
-Best, 
-Chaoyi
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
