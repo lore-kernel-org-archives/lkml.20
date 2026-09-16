@@ -1,203 +1,127 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mta0.migadu.com (out-226.mta0.migadu.com [91.218.175.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439E343F081
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:51:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6280343DEC9
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:52:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545098; cv=none; b=tPn5y/cLeDa1tKFC8WKewVMHA3HDJBFsxmmMGTun7FEqLodt+0gu1+WfUc8MotlmUxkuGuRExHghvRv/3EO/2R9C607cNWFuoL3hybptCj8LyoUnl3K1uferDGHOw4bFPutAHgD751u7spGPStEj5kE39SFM8tzrT0ENI9jf/8k=
+	t=1789545168; cv=none; b=Ixe26+wDFMOKrhgjHJl7Zsjdoue+bcmYK1p2GHtwoLj9k7pLgskuBFVo0UTmwW+uljag8+Md8ObObUa+xHJIsQW5KO4QACpjlPYDEWKXUywhOWwgnqM9EOD+c/4JXjuJQAzTcPNMxBHKPhQ49mu3RlMo8g0qT478VNt9/fcAASo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545098; c=relaxed/simple;
-	bh=J0XHcOIfS8qkr3ZC1/ioU3tYHHdXYlHpBj8AaleQe8A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NuHqt0nksvYmVq+0/mKeal+E6lY8dx/ao3HeCs2n6yEpoF+qGXFbvGHO7eY3O/GdXVcdnGVuXTizK98qCmFLXex6Y5XdF4e9WOZAj6Dda7Hv3RS8Te0F2QGJQjM0tbrGlIijbmSSKY+t9hGikIMa08c/h4cWohPPa37/+Etlch4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=BxQzUfzo; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=lCBuT9Ou; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=II3l/jzB; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ucPKXdWy; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789545168; c=relaxed/simple;
+	bh=AGXORyCsk913kO+VsFSEHaTAWEdeNo95eaqf+tbuC7g=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=pGQhsUpLrweyvyhG6+mkhjZTITDiZqeo6PehYTzhsuQPZTdGa3LDlJFPgIijF9OrKkOEXXoOLbevQdDlivci/ynnMDAlWyGUIZd8awP40WpBjy/ob/5LZIdHY0+icPVw1JyjvrLkvupxygiWRuqLEk0W3H0LXjM5rQk7jrNSxEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cWyFe70O; arc=none smtp.client-ip=91.218.175.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="BxQzUfzo";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lCBuT9Ou";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="II3l/jzB";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ucPKXdWy"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 404C41FD86;
-	Wed, 16 Sep 2026 07:51:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789545080; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XBhtVBTat+R1KWkqHRDVuXf9g4iyat+P91M6XkPAv2w=;
-	b=BxQzUfzoqAIHFY0Ykr5vgXzbVKLviRIY7hccIBoiF0VOwuulTxGuADWpvUhUQGE+dtvh6x
-	3vN3THPQlyMTgaSmtlFC8E/xSCtAvNR4pl0Y78zwc64vtFl+S/JL6W18IKobHCawM233/6
-	sqXYRyZdz9GCSXrRWvGRYHQ1PVG3uV8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789545080;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XBhtVBTat+R1KWkqHRDVuXf9g4iyat+P91M6XkPAv2w=;
-	b=lCBuT9OuoBHAwbbbQn7B51DQOeRuFn6J7gbvd5edmEp/evS0eeAuQT8S9jVqh8UkB94o8U
-	qjgOLhXNZcO2jyAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="II3l/jzB";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ucPKXdWy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789545076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XBhtVBTat+R1KWkqHRDVuXf9g4iyat+P91M6XkPAv2w=;
-	b=II3l/jzBRy236VBKXLz7gLYqUZsYcddfazBTpq8CVwqWHn3k4en4Tv5GHhIazbrHUJIGwK
-	vm8f28e1ZkgsVFsf4uANGqPfeKkzJpof49bKphUnOo3yLSjwWLCS30PmEyIeuJehsiTG8+
-	CnPVBO8r96Y8mAYMuU0iAqn7oPc5BaA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789545076;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XBhtVBTat+R1KWkqHRDVuXf9g4iyat+P91M6XkPAv2w=;
-	b=ucPKXdWyMHsByG8+jpc4ABTYOK6OpiDIOhFzz69x9AXbFTAGbG/3PxJQtkShM3fc5d7X5h
-	7Z4Ia2cIthQ1fwAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 51DDA136A5;
-	Wed, 16 Sep 2026 07:51:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Kr1lAXNKqmpDJwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 16 Sep 2026 07:51:15 +0000
-Message-ID: <9a248432-31df-484d-abc3-3fc73b42a43c@suse.de>
-Date: Wed, 16 Sep 2026 09:51:14 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cWyFe70O"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AGXORyCsk913kO+VsFSEHaTAWEdeNo95eaqf+tbuC7g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789545151; v=1; x=1790149951;
+ b=cWyFe70OeV2xQGvwFQjwL6/lsjhK3XyqtfJ8LfMHNln2rd+f6l5w4FHSIDbsmB5i2lngP09W
+ ALzjCoJo3EM51fC8+cFPdkmfmOhhMzXPDdbfViihDU0d8knX24RPjC8Ydsd8cE1XA98mhCa2dMg
+ w1dNFVdBOTErBCpvmfbOeAzs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4d980cb76d01b755;
+	Wed, 16 Sep 2026 07:52:31 +0000
+X-Mizu-Trace-ID: 4d980cb76d01b755
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/imx: replace struct drm_simple_display_pipe
- with regular atomic helpers
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Ze Huang <ze.huang@oss.qualcomm.com>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>,
- Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Marian Cichy <m.cichy@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- xen-devel@lists.xenproject.org
-References: <20260727-drm-simple-kms-removal-v3-0-de36e534f7a1@oss.qualcomm.com>
- <20260727-drm-simple-kms-removal-v3-2-de36e534f7a1@oss.qualcomm.com>
- <8e4c84be-5c89-4d84-adda-aad4c7de0c8a@suse.de> <aqpJKSSKunElnQ3o@houat>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <aqpJKSSKunElnQ3o@houat>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 404C41FD86
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[25];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,synopsys.com,linux.intel.com,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,kernel.org,epam.com,lists.freedesktop.org,vger.kernel.org,lists.ozlabs.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:dkim,suse.de:mid]
-X-Spam-Flag: NO
-X-Spam-Score: -3.01
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 16 Sep 2026 07:52:26 +0000
+Message-Id: <DLGKT6Z7ULBJ.3SKG7CYVTUAJF@linux.dev>
+From: "Florent Revest" <florent.revest@linux.dev>
+To: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+Cc: "bpf" <bpf@vger.kernel.org>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
+ <andrii@kernel.org>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "KP Singh"
+ <kpsingh@kernel.org>, "John Fastabend" <john.fastabend@gmail.com>, "Leon
+ Hwang" <leon.hwang@linux.dev>, "Junseo Lim" <zirajs7@gmail.com>, "Sechang
+ Lim" <rhkrqnwk98@gmail.com>, "Puranjay Mohan" <puranjay@kernel.org>, "Xu
+ Kuohai" <xukuohai@huaweicloud.com>, "Ilya Leoshkevich" <iii@linux.ibm.com>,
+ "Hari Bathini" <hbathini@linux.ibm.com>, "Christophe Leroy"
+ <chleroy@kernel.org>, "Naveen N Rao" <naveen@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, "Pu Lehui"
+ <pulehui@huawei.com>, "Tiezhu Yang" <yangtiezhu@loongson.cn>, "Hengqi Chen"
+ <hengqi.chen@gmail.com>, "LKML" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf v2 1/2] bpf: Skip detached progs in trampoline
+ images that are still in use
+X-Mailer: aerc 0.17.0
+References: <20260912095924.866254-1-florent.revest@linux.dev>
+ <20260912095924.866254-2-florent.revest@linux.dev>
+ <DLDHKKLCOAVR.3PHQ832S121Q2@gmail.com>
+ <DLG3Y32QQ9JU.3LNSYXLJIGH17@linux.dev>
+ <CAADnVQL=sW1-UOUbP_j98G2eY4MPzQd=HbP-7q5-sjqFQya=Rw@mail.gmail.com>
+In-Reply-To: <CAADnVQL=sW1-UOUbP_j98G2eY4MPzQd=HbP-7q5-sjqFQya=Rw@mail.gmail.com>
 
-Hi
-
-Am 16.09.26 um 09:46 schrieb Maxime Ripard:
-> On Wed, Sep 16, 2026 at 08:50:21AM +0200, Thomas Zimmermann wrote:
->>> +static const struct drm_plane_funcs imx_lcdc_plane_funcs = {
->>> +	.update_plane		= drm_atomic_helper_update_plane,
->>> +	.disable_plane		= drm_atomic_helper_disable_plane,
->>> +	.destroy		= drm_plane_cleanup,
->>> +	.reset			= drm_atomic_helper_plane_reset,
-> Also, this needs to be drm_atomic_helper_plane_create_state
+On Wed Sep 16, 2026 at 5:29 AM UTC, Alexei Starovoitov wrote:
+> On Tue, Sep 15, 2026 at 11:39=E2=80=AFAM Florent Revest
+> <florent.revest@linux.dev> wrote:
+> >
+> >
+> > Ah yeah, I tried to address that in the cover letter. Basically, if we =
+patch
+> > all the nops, tasks running in the old image could skip some progs that=
+ are
+> > still attached. For fexit, that's already what happens with ip_after_ca=
+ll but
+> > for fmod_ret it would be new and this would cause for example an LSM pr=
+og's
+> > verdict to get skipped when another prog gets attached to the same hook=
+. That's
+> > why I thought that patching only the detached prog's nop would be bette=
+r and
+> > needed these extra pointers. But it's a bit of an edge case and I don't=
+ have a
+> > strong opinion on it.
 >
->>> +static const struct drm_crtc_funcs imx_lcdc_crtc_funcs = {
->>> +	.reset			= drm_atomic_helper_crtc_reset,
->   and drm_atomic_helper_crtc_create_state
-
-Right. I forgot that create_state is available already.
-
-Best regards
-Thomas
-
+> Hmm. Not sure I agree with your reasoning.
+> fmod_ret progs are called _before_ orig_call.
+> So fentry+fmod_ret are in the same category.
+> Adding/removing a prog to the trampoline causes regeneration
+> of the trampoline.
+> So cpus may execute different numbers of progs already.
+> The race is inevitable.
+> With 'patch all nops in old tramp' approach the only
+> additional race is some of the fentry/fmod_ret progs
+> will get skipped in old tramp.
 >
-> Maxime
+> If the concern of a tiny window where old tramp is started
+> to be destroyed, then fentry prog is called and we patched
+> another fentry, but tramp will continue and execute orig_call,
+> then, yes, I see the issue, but it's a lot more subtle.
+> If I understood the concern correctly then let's add
+> another 'jump over the call' nop in addition to
+> 'patch nops in front of all progs' and
+> let's patch 'jump over the call' _first_.
+> This way fentry/fmod_ret progs can never miss
+> execution of orig_call. They can be invoked "unncessarily".
+> They may execute though orig_call will not fire.
+> but that's an acceptable race. Better than not executing
+> fmod_ret while letting orig_call to go through.
+>
+> This is still simpler implementation than link-list all all extra book ke=
+eping.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+My concern wasn't orig_call running but rather progs that are still attache=
+d
+getting skipped. Say, fentry progs A and B are attached to a function and a
+task is sleeping in A. Someone attaches C, the old image gets all its nops
+patched, the task wakes up and skips B even though B was never detached.
 
-
+But it's a narrow window and it needs an attach/detach on that function to =
+race
+with, so if you're OK with that behavior I'll respin v3 with your simpler
+version.
