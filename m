@@ -1,156 +1,165 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012068.outbound.protection.outlook.com [40.107.209.68])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A48E51E451;
-	Wed, 16 Sep 2026 14:25:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568755; cv=fail; b=SvrFrvKZ9QcmayGNJ/q+m2H2ukRyafmqJMz+TK/z7oO2crePvByT15c2M38lPSmiqeMeLAcHaPEDnyPEatNIEsUPBjjEZL6/azEhexnoriULwFAcRXE9TzA9FwYS8NWs6gyz18f19LRKOPzy+3YoHrSe2DX1DIewi7z5OCXcaJ8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568755; c=relaxed/simple;
-	bh=Q8NToYwaSk+CklKDBr2eeC7oOo63+CmG3/B0NuVaszs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=jl9bGoRK3TNlRBA6yFtGwgJ0txOJKKw68KL9e2qzHFgLPxqott3JWge3jxIs2yxMMiOONsjpIhqPEjL4UJPVU2vXcOStSXG3o+B7rGf6Gth7WH3y4fCYkDYQRDIEeqaBP/PhFRLFsUftuZCqMyXv0Dql5aGTB5wIlWXmFxRzoLs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KncWGc6Z; arc=fail smtp.client-ip=40.107.209.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760DA50C29E;
+	Wed, 16 Sep 2026 14:26:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789568782; cv=none; b=nz88Hh6raYTl6TFHWaiFB2rXbif4neaRhwmDjzy2jRr4XMzJYf7Qe+Vs76yt701CdxTwCL+Yvj28o4P0v/9ap1pXLxvILFlg7s+Ya7dxq2lNLZnDFLodLpBrS1NBIip53SxqUkzycOTyyNkvhSGui7QAOhhOP85r61sz4XNexbs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789568782; c=relaxed/simple;
+	bh=G+yzJzco+mwOK2jryzD4JbcBLAt5MOqr++tTqN0gd9I=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=n0ellZFc1Tq0h9swMTcTUZ1nOdZKw5B50X6ow18xDAulLkUWUF/HBmGWg4UhOkIQLnkyqK1RzZuPZyhjFSS91DCeIN51gMlSMYHTF4nFeQwgMJgck2O0kdBT3yqgBplsqrR+JMeRkhb+Cy5gZ/jcEjj0w0mI3nm0LncG1S7eEmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=r+4arxGz; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KncWGc6Z"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WLQbFtL/RHOCnd1NSjtHlyIhbWnyNaaUN3LilytVUDWormbnEJ84bHt5FecNolMpApFh9sGX7WgwBRA3vHQLuAqjGXsUVPcc2XtJJGE8ZgLS9L+MYzmiCuhV4ByZZwdj2vfkb9cl1NDtQGjUU9mByR/IAEpYXdAYlKUW4WdcWtUPQkJidLqBT7guTuI5tpUjQswlS7HQ8jq7blwvtinNU3CJc5c4+IpdBuhZUNNLtCVgnkWo60b8bZmse4Q+b9IMfIKG11rAJjq5wNErRQcUFORDb3FF1Ko5IfJuPonoQRxjEwKgwt5rgRQv9r0Stg7bhEG4l4hJdNt2v3RfGhpqhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BlP9gIWboaLYe9nUUvQt9lVbsGLvJhmaR05ebLfIMic=;
- b=QmZJ1tZKfQYLtbk5NqGOO5n8NVECtaLSnk1Cl99LD79Oo+3A5pgYTjU6/z/uUnWF4OlcihO0vUop+hgspNdbyWq9+Yh3BHKGhSrvBib1UOBjOS43VlOg8sOgJuTIIAx+iSi3h+SJjyBltuxM1Omxiu/j6yRNRwv4zzeltkGIpZAHwlYlBb+hBSLzdoe3LcUrJDO4+iaqfE1iWyMt8Hw6jJdoV3/SfVNIpt7tuUhRbdcg4GwwRukkpMWJFWEb1Aurg+zpbukSwrGi+e1Q1oRz2Bjsqug0hSw0asGPmo702bOPMNqZLF2RcQHQ0iUBccbaEL83l28qj/Yr/SrDiy3HLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BlP9gIWboaLYe9nUUvQt9lVbsGLvJhmaR05ebLfIMic=;
- b=KncWGc6Z29nowVJC7cAUTmQdZlJJwGRmmVFl7e9IinQjQjK+Q2gxB2sPIHbFdxKmV2KFfF9pcdsOVOyogSrz3gS6o9KQEzFdKD1e1YtFZy2d9RVOrfYhffDLwo8AjmKe3Y7XTscZngefOB31taRZvZGWvCjVepcMYIMXjNV92r8GNNk1N7O/id7iFOZblg9Y4s0taBsk4yvJ1RTUr1KM5szBrN+oQrlCMNN+TUiT6hZvCrzXxXXfQ/Gim28/xRNWNYPa8HH6zZ7zbkm46X0idpUxCmAJb0DtFUf0pcOrhaHah1DqRJHTswtMrsj57pa2bS1++2mAQz4FKC7pJDjd8w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by DS0PR12MB7925.namprd12.prod.outlook.com
- (2603:10b6:8:14b::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Wed, 16 Sep
- 2026 14:25:44 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 14:25:44 +0000
-Date: Wed, 16 Sep 2026 11:25:43 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Dave Airlie <airlied@gmail.com>
-Cc: Alex Williamson <alex@shazbot.org>, Danilo Krummrich <dakr@kernel.org>,
-	Zhi Wang <zhiw@nvidia.com>, acourbot@nvidia.com, yishaih@nvidia.com,
-	skolothumtho@nvidia.com, kevin.tian@intel.com, simona@ffwll.ch,
-	ojeda@kernel.org, alex.gaynor@gmail.com, boqun.feng@gmail.com,
-	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
-	a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
-	jhubbard@nvidia.com, ecourtney@nvidia.com, cjia@nvidia.com,
-	smitra@nvidia.com, kjaju@nvidia.com, alkumar@nvidia.com,
-	ankita@nvidia.com, aniketa@nvidia.com, kwankhede@nvidia.com,
-	targupta@nvidia.com, nova-gpu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, zhiwang@kernel.org,
-	kvm@vger.kernel.org
-Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO variant
- driver
-Message-ID: <20260916142543.GV3968357@nvidia.com>
-References: <20260905081116.106613-1-zhiw@nvidia.com>
- <20260905081116.106613-13-zhiw@nvidia.com>
- <DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
- <20260914121217.70fa0d93@shazbot.org>
- <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
- <20260915120148.7548a8ca@shazbot.org>
- <CAPM=9tzwkNniadSABL-EfLn1hKyw3Am=seX7vJjJbXci_5vSUA@mail.gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPM=9tzwkNniadSABL-EfLn1hKyw3Am=seX7vJjJbXci_5vSUA@mail.gmail.com>
-X-ClientProxiedBy: BN0PR04CA0121.namprd04.prod.outlook.com
- (2603:10b6:408:ed::6) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="r+4arxGz"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AE58B558;
+	Wed, 16 Sep 2026 16:24:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789568674;
+	bh=G+yzJzco+mwOK2jryzD4JbcBLAt5MOqr++tTqN0gd9I=;
+	h=From:Subject:Date:To:Cc:From;
+	b=r+4arxGzJb0u9PD7oDZRA+NtqlO5p17pnbnIIcRyHd9A3gXz2RCIoJaqBezf5XDXc
+	 V79c6gJiI/QV9t8v1w2N0ZYEzkhs9YukHrDCILRVGfbuOYNaLHAbr7Go5TxuCwndT9
+	 0v5SKv4/LOSn8AAkfEkaAvCRNYgD6cMVx9A2zvsw=
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: [PATCH v4 0/6] platform/raspberrypi: Add Broadcom Videocore shared
+ memory support
+Date: Wed, 16 Sep 2026 19:55:30 +0530
+Message-Id: <20260916-b4-vc-sm-cma-v4-0-476d1142b5df@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|DS0PR12MB7925:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0c5e1db-e4b6-4ef1-bae1-08df13fe649b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|11063799006|4143699003|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	0YRidlklJXNxGCjNMvblXbupJVNey8541I0IhyAgGzSeUPo7459kR0lDYmO8HjvWBaU11akKZZMTDWiLgNmLrNd66FKagCfqAgvzgd2sA82YetQF+lCNqdfanJBXaS6u9/v0pKm/nS1W3e8FvzdS3ZYJiBZtRkjzeB/u2khyTy/9W4v4Y14CLB0osZTP8Gd4z8I6qC2WUrbMvsEp3mjioAq0C9BDv9LfOl9wxKngUjT6RPeqoPcUqIlpoY1fW5srKppqVetvQN9MSVbw4E7IZY9biv79HRp3C9ZgCAaCRANP+k8/bs/zz9sv8h14bY74QMbYwzNv0AHiwoZ4189rYPXY1CUL+uu92Hv7bFe77cx1EcwvLJDPuedZCK7Q1qFKtp6MEPvZ6jjUSB38J/1+cgSzizF3VYlKcYaVISrUwCM2MbcKVmqYj3QhnLYsTiBes4rhJOjgxqUxV99cTsN8t3kw7WTXm6vEocHrF9Ok1WK0XQZP0Z8cC/jQrzB73lKrixGZ1Kj8lcem7bdrTsCmpJZHob5O7q5+XEK8EVw5R/G3xKbjQpGuLJU30DpaPvPWsnrXZUEs+E+2Dtq9X+V1+sGdYB55sXuuSlCZWQ6Gir0YpviydrzOy+dQesqloTfD7/h6bb26/1JRnOz19Welaa+fvlfLRDW383vZmS6ocPQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(11063799006)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?voNiX42zfM1jrImJQetxNQqPMWb5jgPFHzV6KiBs6bgMUQ7B/jYH8FCJjfP5?=
- =?us-ascii?Q?xFcwMH1nNYNz5f9mTQ01gONLdAFpKu9//d/ce3GG1Hg6t9GmP02qFuKKh8xv?=
- =?us-ascii?Q?XLN7y7EfQzFTgdL0dazAY7Ju0iHwSgLr3pbTiRGctx6UeYv8MuWtM1aXgJdY?=
- =?us-ascii?Q?Q9Fy+CSooaWV0fOsBJp2fp214KEpFb0fsAdvMUkZuCxrbLWQ7Dgfj6HAfsYP?=
- =?us-ascii?Q?MAvitEbgpFT07ERaekYKyrR16ydhy2M3em0k46Q/O3MUTqcwzvSJlW//L4mb?=
- =?us-ascii?Q?5H5mb2deDp8EI8SleCgxeAbhgzQ1MG5H1cV5rZyGN1qgxe+y9+g2iNFOJ3OE?=
- =?us-ascii?Q?docNLgbYok00Tgx2O+N96XVixvouEx5JeAKdWxHv2LpDNAoU8z7F53Q7R0BX?=
- =?us-ascii?Q?APXH0d2Jbi8HsbJcsm89hl7tR9hvxM+X4u0D8BXY5rZFSJNHmAXV3RIf1PdY?=
- =?us-ascii?Q?CzgU0KJFLNZAH54VFwJsIP8jJbqDv//QHh8FKPloJ/LX9qWp57jP+K30djrC?=
- =?us-ascii?Q?bCk5p3W8mkf+wBLqXVsj4sxABirUD0PYdQOOkW8FXCHLVN5eT8z54GXd5Ws2?=
- =?us-ascii?Q?sihQvsVhG58s0gX6Uz81NaWpSnw3cSF2m3UpGODQc/3CNul2eug3U09tzVo8?=
- =?us-ascii?Q?Ax3JMhmW2tiSNP4h7GJF4RmF20FTSTF5S79Uvs84kGKskvfEL9f6CeJTJc3v?=
- =?us-ascii?Q?oMvEDFFyWXF8mKI1Vgw02sS29DjinkA1XXL0PYuZJftlRXx3ufEra1cMbMNS?=
- =?us-ascii?Q?FUKR0yjROGYcPbiROVBnb10/0H/HUHElWaamivLenwFZJJrizoS8wOPXCWPQ?=
- =?us-ascii?Q?eepPdiahZexzckRFELnBGqgXdnfBNScW8wn2IXLqNcJNIb6P48+8SevH1To0?=
- =?us-ascii?Q?ddkmjaQ7L8bm+J5ri+4IoAfNPhCVmzvkbo/IanFigrb8MaYbwnX/W2WjJzOt?=
- =?us-ascii?Q?elae6CJDDdIFGS5we1a7hTlmNoeU2qTV2I7jd8qrCfM9RSkhhrWE3FTawdtg?=
- =?us-ascii?Q?OwejyLwPtLCQlnY3jwFbMQE/3VqmFyCEi2cdaD32sAjlz1oqghx8he4aq4Wc?=
- =?us-ascii?Q?I4SA0bDEnBwqMQB3+o0yy/asqDB/FzauX7QAEUo4AitHPWNb5kUf799ud5on?=
- =?us-ascii?Q?t1kmPfOE3xZoLwYXWAf7XJC/0/stGRiEPKt0WDHF1PWbPktvSRKEwiP6vqDt?=
- =?us-ascii?Q?EOnr6qeY2OCvwFDDhq0CoGxFOdPeRKE9SFJWC9NqmOqOmvWBAttnbfS5rqyN?=
- =?us-ascii?Q?hCQQIdEmweSn3VqM04w9YWN/jJ1XllvJyqrsF+mOTu3pA9mtaEYZo1c90xwI?=
- =?us-ascii?Q?V0dBrebyBoyNcVgAbnfscmu+sggqe1MOqnXA/RfaiOSl1/TdfahEK/b2BEY1?=
- =?us-ascii?Q?F2oLvuXEbt7cxo0ofw10d2D6P18AZbcHRXv0L9PlI0ZHF1/4NGAtKkJbq3r2?=
- =?us-ascii?Q?lZXiW6zDJkfnXkDh4D3xjeqIbljEk9BHH7QmACDIlI16mri0npsT2vPDfU96?=
- =?us-ascii?Q?gFiw4EkrCa3dqrpO4ddnJTEy9cVRuJzqgB1IoMlvPYTwocG6EgM9PU/injvo?=
- =?us-ascii?Q?6Lt9B1DmnJO3uMpRq/WNa/7/TCdqbMMyEyNRoWcCcc+NVKgFGlA2nFGFLJdh?=
- =?us-ascii?Q?xrdDvalzr8g+sVitDpJR5jO2NvqjQlR8a+mVWT4FbwtwrwTUYaAUbj6DV/he?=
- =?us-ascii?Q?cG6KM8K4wgW3JQEuIa/Dz0VGLvJdIvfjkejsXJ2E0VeapKdh?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0c5e1db-e4b6-4ef1-bae1-08df13fe649b
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 14:25:44.1344
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F4DpqfnsQoh4rfGLwZmoh5iFKiUJcIdIhFBtG+XJr5Rb2oqjgBykpIi50HMkU1ms
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7925
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOTU7EMAwF4KtUWeOR89fQWXEPxCJ1XCaLNkNSI
+ tCodyd0QIgRLJ/1/NkXUThHLuLYXUTmGktMSwvmrhN08sszQwwtC4XKStQIo4FKUGag2cPUO+V
+ IDxSUFW3lnHmKbzv3+HTNmV9em7peh2L0hYHSPMf12FV30JBJis/uKZY15ff9kyr38tdR+ftol
+ YCAIVhCJj1ZeoiBfUnLmHwOh4bvXlXfRo8S7Y2hmmGCZ+/MQByGfwz9YzjpbgzdjJ4MO3ePhm3
+ 4w9i27QO21izzYwEAAA==
+X-Change-ID: 20251030-b4-vc-sm-cma-f6727c39cd25
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ bcm-kernel-feedback-list@broadcom.com, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Phil Elwell <phil@raspberrypi.com>, Hans Verkuil <hverkuil@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Cc: Stefan Wahren <wahrenst@gmx.net>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, stable@vger.kernel.org, 
+ Dom Cobley <popcornmix@gmail.com>, 
+ Alexander Winkowski <dereference23@outlook.com>, 
+ Juerg Haefliger <juerg.haefliger@canonical.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3883;
+ i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
+ bh=G+yzJzco+mwOK2jryzD4JbcBLAt5MOqr++tTqN0gd9I=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqqqbzCfMwcMmrMP9AJKk6+nJ6lDlUj9Y3YjQep
+ zF2xcyLYTqJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaqqm8wAKCRBD3pH5JJpx
+ RWwID/49vDOKCPY8cTBjwXcURghuwFVhx9WDGhrIAAxZB3QcnNUziCNRN3WEqofBDxGeNxB8G/M
+ 29sxoUPZZhuey3h682AH9+5OKQZ2VDgyIs4dNEDoybbQ2juxoEoY4Y0O4dLhXrjbPfvF0SOYGyG
+ cFcQzTR4JVB/b954DH9G0FUTNAY8yhOmF58sL5LrbHVrq3TXVByuOfpjJgYrVCdQCbUVWuzdAe+
+ xE+Oppw1qDOY3IZsBS7Wqbq4uCybqHyvv0dMCS5F2V852rJuZvSWiv4UgIPTKiYaBEiLBHpRMhM
+ Dd1xi9wfnbQoLGBekig6MWWn1a7fKGe2+51WZecE193bd364A87rkLO7wsQhTOhcAxTaah7Eob3
+ jbFwjuyHwkJMXqqhieDQv14E+fIrRk+x7tROvc5LSC8DWTCLq/R+xEOgL0tJH5WtUwjL5El2t6y
+ ByZxk6rkPfu7HsiMkD43jky3VTXVQ0FD6M1gGKTG+TMTCClLU3T+rOGPioX6qlhzUneRyLU1oXZ
+ MdR+RLcuf8h5awQ4VBRYtdUS8xEdwHgav+SG/hS/0WUU726VH03VLhu5vMNvph/sKkpLOZNM4ZN
+ lAiEdrbIKTUcRTX6Us9Cc78bVPQ+Rc3VEeIFZg4Rdikc5ULy8Jy7e29uctFDCckrYndGTQGJR0A
+ wDomRtonXcIdI8w==
+X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
+ fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-On Wed, Sep 16, 2026 at 09:44:35AM +1000, Dave Airlie wrote:
-> As for the rust stuff, I think for vfio your drivers are just not that
-> much of a horror show or refactoring often enough that rust will be
-> anything but a blip on your radar, 
+Hi,
 
-Uh? I've been sending a couple whole subsystem refactorings touching
-every driver a couple times a year for what, 5 years now?
+The vc-sm-cma driver allows contiguous memory blocks to be imported into
+the VideoCore VPU memory map. This series adds support for this driver
+and changes to VCHIQ MMAL layer required to get it functional.
 
-There are still more that are needed, like trying to redo the drvdata
-apparently. As well as stuff on the ops side, and more and more.
+These changes have lived in the staging directory of the downstream
+Raspberry Pi tree since quite some time, but are necessary for getting
+the VCHIQ based peripherals like the ISP functional in mainline.
 
-Granted you are looking at it after all this work, but there are still
-problematic areas. drvdata, some of the ops, some of the locking, I
-think there will be alot of C work to fix things up enough rust
-bindings can happen sanely.
+Thanks,
+	Jai
 
-It is not so easy, your LLM looks like it put PM trampolines in every
-driver, which I would not like to see.. Not sure how it solved vga
-without touching drm..
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+---
+Changes in v4:
+- Rebase on v7.3-rc1
+- Use Dave's .com email in commits and comments
+- Cut out all userspace import and VPU alloc code (from Dave)
+- Link to v3: https://lore.kernel.org/r/20260717-b4-vc-sm-cma-v3-0-6c4e77804e5d@ideasonboard.com
 
-Jason
+Changes in v3:
+- Rebase on v7.2-rc1
+- Fix lkp bot errors with Kconfig dependencies
+- Switch from kzalloc with sizeof to kzalloc_obj
+- Link to v2: https://lore.kernel.org/r/20260105-b4-vc-sm-cma-v2-0-4daea749ced9@ideasonboard.com
+
+Changes in v2:
+- Drop patches that are not related to vc-sm-cma, or used for codec and
+  not ISP, so that is v1 PATCH 1, 2, 4, 5, 6, 7, 8, 12
+- Move v1 PATCH 11 to the top, adding a Fixes tag
+- Don't use global singletons for storing `struct vchiq_device` in
+  VCHIQ, instead converting the existing device drivers (audio) to be
+  stored inside `struct vchiq_drv_mgmt`
+- Update the vc-sm-cma driver to latest standards, like:
+    - Replace MODULE_ALIAS call with a proper device id_table
+    - Add kernel-doc comments for exported functions
+    - Move exported functions to a header under include/linux for use in
+      MMAL (and later V4L2 ISP and codec drivers)
+    - Use xarray instead of deprecated idr to map an integer ID to
+      imported/allocated buffer pointers
+    - Drop unnecessary pr_debug calls
+    - Replacing pr_xxx use with dev_xxx wherever possible
+    - Clean up stray comments
+- Link to v1: https://lore.kernel.org/r/20251031-b4-vc-sm-cma-v1-0-0dd5c0ec3f5c@ideasonboard.com
+
+---
+Dave Stevenson (5):
+      platform/raspberrypi: vchiq-mmal: Reset buffers_with_vpu on port_enable
+      platform/raspberrypi: Add VideoCore shared memory support
+      platform/raspberrypi: vchiq-mmal: Use vc-sm-cma to support zero copy
+      platform/raspberrypi: vchiq-mmal: Support sending data to MMAL ports
+      platform/raspberrypi: vchiq: Register vc-sm-cma as a platform driver
+
+Jai Luthra (1):
+      platform/raspberrypi: vchiq: Store audio device in driver management struct
+
+ MAINTAINERS                                        |   7 +
+ drivers/platform/raspberrypi/Kconfig               |   2 +
+ drivers/platform/raspberrypi/Makefile              |   1 +
+ drivers/platform/raspberrypi/vc-sm-cma/Kconfig     |   9 +
+ drivers/platform/raspberrypi/vc-sm-cma/Makefile    |   5 +
+ drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c     | 806 +++++++++++++++++++++
+ drivers/platform/raspberrypi/vc-sm-cma/vc_sm.h     |  64 ++
+ .../raspberrypi/vc-sm-cma/vc_sm_cma_vchi.c         | 510 +++++++++++++
+ .../raspberrypi/vc-sm-cma/vc_sm_cma_vchi.h         |  64 ++
+ .../platform/raspberrypi/vc-sm-cma/vc_sm_defs.h    | 298 ++++++++
+ .../raspberrypi/vchiq-interface/vchiq_arm.c        |  13 +-
+ drivers/platform/raspberrypi/vchiq-mmal/Kconfig    |   3 +-
+ .../platform/raspberrypi/vchiq-mmal/mmal-common.h  |   4 +
+ .../platform/raspberrypi/vchiq-mmal/mmal-vchiq.c   |  85 ++-
+ .../platform/raspberrypi/vchiq-mmal/mmal-vchiq.h   |   1 +
+ include/linux/raspberrypi/vc_sm_cma_ioctl.h        | 110 +++
+ include/linux/raspberrypi/vc_sm_knl.h              |  76 ++
+ include/linux/raspberrypi/vchiq_arm.h              |   9 +
+ 18 files changed, 2048 insertions(+), 19 deletions(-)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20251030-b4-vc-sm-cma-f6727c39cd25
+
+Best regards,
+-- 
+Jai Luthra <jai.luthra@ideasonboard.com>
+
