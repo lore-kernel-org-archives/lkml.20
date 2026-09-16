@@ -1,195 +1,246 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C144E46DFF1;
-	Wed, 16 Sep 2026 08:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769CF4483B3
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545759; cv=none; b=Rdtd3Ilw/zv4Bb/zxNqHv7EiO1UZPDg65Zv2l6iLJLwfbluSqJPzDonXKZjn//PGacsJUhCQavKmMbtO102JeScp1vuTuKpZbmRtD8RF5WLlJ1nu4gALbg8StEy1i2/y7ADjhNrtXZkVCtBW1wuHaagtT5bM6EOF9E4fMdXXxYE=
+	t=1789545791; cv=none; b=gmt4sUHJ085bFyuDtUS5kHlzX26lvbb1Oan1IsB5Hy+g16JuWrHFzpX8doBy5/NW2082m61CALtRaAznwVcnfucJXEqVBKnXQatRdKWufSktiaaQqDavYTrUWhTuF+jdiu9ov7kgJ8FWXb71+WzOatATsryd9rd3xuIxJoGFWjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545759; c=relaxed/simple;
-	bh=zPCY6/vUjWDI+sFBANAGcLfIUObtGn4bFnBc8Fjrn40=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GYoePU85fcVDZCN0m05cdbVe7iQ96bgU3J2DYAzeng9hUGi2VuD+7+MzPMFF69+H/lxParaLpuIRPhq3krsrLKV6NeyFZ7BuNuwJRn54TsSQ53ieuEYu0pkgHSA7xKdyS9vZKlRCOu+3sJpLRyWgyfDZCmg+Os2uHX/RiAAZtpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=1ti+bg6o; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1789545791; c=relaxed/simple;
+	bh=CcIl2qlidku1wORNmejVDd3cdHZwfoYAS+FezT93Vvw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=g16rSz5JJmp+ualqV+7/htfcMZ4bI2izd/xAXWQTC5Rmv1ckLMdTgeYXe5Oto4y9BV6LJ3YpmYwqFATpEepUC+YqyIQPVlMWy+SJfbaOdoKJptoJMJFQzHQIjUdmegXHbQwsuKyiQo7kgHEMdTYLRUh06pSgMcE774Q5TekBD3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P1xX/3QN; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="1ti+bg6o"
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id BD2FE424F0;
-	Wed, 16 Sep 2026 18:02:08 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1789545728;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=qySEvs8hSKqFW9xRbMnFJTfjwY1BWKalrlpW2SDfROM=;
-	b=1ti+bg6oQ0pvM5B9lpqBTOzlQQQRN2HUkiO1sKJvUdK+t8WqTnb3l3iXJfbLU31bcj2WU2
-	Q+vZ0sPRUkFymCQciORp9qEReBUuqz64To8pjdEfCMaG8dJHbMjFchecehW1e/ooZz7b8d
-	EhEWI9J7fRcZGo9Q0yEBIrXD+te4Mv4PSKqd+O6OMS0TDYzA7Cgq7gsO1pMsTJ6RAmMS7F
-	6Ogcgssfprnnfu02QKpZBzAaJvdApxWeoWyTF8DUcAQoTZFtXGXW8ZqVqVFnzj/P1mWnbS
-	uOZMKGoJCscQiyeL4ed7T0dEXkNyxbE9JtzuM6bowZicxJ8KgBkl/26c4kC3rw==
-X-GPT-Reason: legitimate; the email is a technical discussion regarding
-	Linux kernel patches (net-next) for Allwinner H616/H618 hardware,
-	which perfectly matches the technical nature of the "alastair@d-silva.org" mailbox;
-	 the sender domain "d-silva.org" aligns with the "From" header,
-	and the content is a detailed, multi-paragraph engineering analysis
-	with no signs of marketing, phishing, or urgency; there are no URLs
-	or suspicious requests for credentials, and the conversation thread
-	follows a standard developer mailing list format.
-Message-ID: <a5fed5614eb09f958772fae636e748069851e059.camel@d-silva.org>
-Subject: Re: [PATCH net-next 0/4] net: Add Allwinner H616/H618 EMAC1 and
- AC300 EPHY support
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, James Hilliard
-	 <james.hilliard1@gmail.com>, wens@kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Heiner Kallweit
- <hkallweit1@gmail.com>,  Russell King <linux@armlinux.org.uk>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>, "David S . Miller"	
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski	
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, 	netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>
-Date: Wed, 16 Sep 2026 18:02:08 +1000
-In-Reply-To: <3196ccec-7cf3-434b-b7bb-dec64fe29583@bootlin.com>
-References: <20260916044119.475666-1-alastair@d-silva.org>
-	 <CAGb2v64HZoqBscyKTkTin6DnMv5_kZpBxoS+cm7aYy09pRc7hA@mail.gmail.com>
-	 <CADvTj4qRMviM=KXinCKi657pVC_kj7Kt1yizW_EGDu4m7VKQFg@mail.gmail.com>
-	 <2ac659ffa08eeddc6654827f5a8fbd7fe374a128.camel@d-silva.org>
-	 <3196ccec-7cf3-434b-b7bb-dec64fe29583@bootlin.com>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P1xX/3QN"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b910bdf2eso405462a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:02:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789545774; x=1790150574; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FLey40lV3HWVD8nlftVsp59JqFraY1nxGF/bai+O4iw=;
+        b=P1xX/3QNrpXw82Z75VyPVHuzL+bWLE0KrQWVQTA1xpBOHU0gGe1VWwH3fLOSPovipT
+         mNFly43h6mrrokbuEX4JdPkHa6VUthNGN5cxwcvqGL1LnLb0uMUPbEScPgfNfaStFJit
+         ZTVm20KH6Ox/n5DKtdytLo8K8ctAuwcSWVYBvejq01o6ED/X70t9bE3JE0lhXNpcqZE8
+         GkVZo8mQb6ih7NKaxNseKcl9tXgY2TpHmJyFm3vnN9mg3hyyS8IskcYBF+sfyv71q/zX
+         stk9pIJ7iEtr4jWtWkiXZfKgNDISA6SyoOjtCHHCsmDFS6cuveTUVbQ/TjHWKzN/10tX
+         N+pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789545774; x=1790150574;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=FLey40lV3HWVD8nlftVsp59JqFraY1nxGF/bai+O4iw=;
+        b=PSawrooBo+QTXpZ/zsRSw3rUMXFXiVBhPUDSHamQJh2wRGuYit1tO0wrxurfwnFhXk
+         SswzF//Q0L6zLD4TmVePQKcvx3COzOAwcxh1YT3js4mBv8LREzXpaoJiy2zRST1KYokm
+         dtWyjE4kqRjKpz+ZPWyJs7JvdFAJvBU81E+uR/KxWZn0NxbvjwyTkLJ+E6ASMv+gFD58
+         /jYunauwkqpHhgSWVdNiYz04XD5lvde6iG82NuGL6c2gxMk0nFNih8Ip0v0psKbQtn6C
+         laDXZOjWTHV9zyCv8rzCIYzJJtTkuPKK6siJ7OjpBUU2KMslNjh4gUNdkzMbaEiALFn+
+         epjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxqxhbPHj9/qHbMxkL3g6XLnF9ukbkiWa/VJXm5NgyLq/gH4wdnvgHynVQ9lSfe2V+Pg2uL6Q7lVpLNlMU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzxL+zM0LpV96jn8GXaBlvkGlfuqCJFn0iFquOLyOnNEpQHLVw
+	1jCvbJziJPRrkEXroGF1UXQZLlXn2ve4j0t94Y559oDZmDBJdyPx/ohV
+X-Gm-Gg: AYBFou2K2oIi96Cjpg1exUu1MXYb+UwBQwdW6g5IVFAIDvVoTsOpZHJ+YKNWA7XCJh1
+	kuW2Su3ArQJyPAnRJZNGUhnfq/IqblvhXN4Ec+KVxKlLPrPaf6pAVVDQ4eU2hv28ncg7z4HEwEn
+	F31Pk2sq2Q43eDdE3mcl+z8SDBNseYaX0HGC6mFu1bDsyrv1fTUQNk3NhcnBihQVC1SPm0l8SYi
+	2Pe+D8fx6PxMwMQel2RlgZhl+GaVk1U9jBqFM+YunpsT/MllTuttaoa1ErrXIUDn/RgFWBxrG4v
+	sJCPPi1/hNJ72S0Lg0efoSmsJGYQJJP9Q3ZtiHixx6f/okHeriknKZ2Y11ALA2LhzVdCS7gGAm+
+	xzP6+mcLcewjnIcJK3dDxI3J4TQVABixGAJ9AmVlsx6bLBrb90QcaXhHgvI02LV+Gk/aUPef46n
+	yy0dqwifkdDO2ZlS7AZU+Xdv9QN+lrEOxh0Zj+ajRQ99HUvwcracy+2X+ptz345lbkutxhqZAYt
+	phQ7cUIcn+kjHQjDJxw/KtO
+X-Received: by 2002:a17:90b:2d4f:b0:39e:1b0c:4773 with SMTP id 98e67ed59e1d1-39e1df86c10mr4226243a91.0.1789545773829;
+        Wed, 16 Sep 2026 01:02:53 -0700 (PDT)
+Received: from [192.168.66.6] ([210.32.35.21])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b90a5a0sm3270498a91.2.2026.09.16.01.02.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 01:02:53 -0700 (PDT)
+From: Linfeng Sun <linfeng.sun.dev@gmail.com>
+Date: Wed, 16 Sep 2026 16:02:44 +0800
+Subject: [PATCH v2] vhost-scsi: initialize command pools for late I/O
+ virtqueues
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-fix-warning-in-sbitmap_get-v2-1-e61a09047089@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ7CIBAAv2I4uwb2QK0n/2EaA7ilayxtAKum6
+ d+l9QMeJ5nMzCJRZEritJtFpIkTD6EA7nfCdSZ4Ar4VFihRy1oeoeU3vEwMHDxwgGQ592a8esp
+ gNWJtqHVSS1ECY6Rib/FL8+P0tHdyeS2uRscpD/Gz3Se1en+NJgUKKl05dKiUQXv2veHHwQ29a
+ JZl+QLegUJ01gAAAA==
+X-Change-ID: 20260908-fix-warning-in-sbitmap_get-b6229aefc060
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ Mike Christie <michael.christie@oracle.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>
+Cc: virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Linfeng Sun <linfeng.sun.dev@gmail.com>
+X-Mailer: b4 0.16.0
 
+vhost_scsi_set_endpoint() allocates command pools only for I/O virtqueues
+that are already set up, but publishes the backend for every virtqueue. If
+userspace finishes configuring a skipped queue later, a kick reaches
+vhost_scsi_get_cmd() with scsi_tags uninitialized and triggers the
+!sb->alloc_hint warning in sbitmap_get().
 
-On Wed, 2026-09-16 at 09:06 +0200, Maxime Chevallier wrote:
-> Hi,
-> On 9/16/26 08:49, Alastair D'Silva wrote:
->=20
-> > There is one subtle timing issue worth highlighting from our
-> > Armbian
-> > testing on the Mellow Fly-C5 (H618):
-> >=20
-> > In James's dwmac patch, setting soc_has_internal_phy =3D false causes
-> > sun8i_dwmac_probe() to fall through to sun8i_dwmac_reset(priv). The
-> > Synopsys EMAC DMA soft reset (EMAC_BASIC_CTL1 bit 0) requires a
-> > running
-> > RMII clock from the PHY to clear.
-> >=20
-> > While this reset succeeds when the PHY driver is built-in and
-> > probes
-> > synchronously, if CONFIG_XPOWERS_ACX00_PHY is built as a module
-> > (=3Dm)
-> > or if the PHY probe defers (-EPROBE_DEFER on
-> > regulator/clock/nvmem),
-> > the PHY is unpowered and not clocking when sun8i_dwmac_probe()
-> > runs.
-> >=20
-> > This causes sun8i_dwmac_reset() to time out after 100ms ("EMAC
-> > reset
-> > timeout"), failing MAC driver probe. In our testing, deferring the
-> > MAC
-> > reset until sun8i_dwmac_init() (which runs upon ndo_open after
-> > phylink
-> > has attached and the PHY is active) avoided this probe failure.
->=20
-> I'm OK with going with James' version, however this seems like a
-> valid
-> point that needs to be figured out.
->=20
-> James, can you add Alastair in CC of your next iterations, and
-> Alastair
-> it would be great if you could give James's patches a test when he
-> submits them :)
->=20
-> There's more stuff in the dwmac part for Alastair's version, some
-> -EPROBEFER handling for clocks, the reset thing as well as the MUX
-> part, for which use-cases is all of that required ?
->=20
-> If that's something that needs to land with proper EMAC1 support,
-> maybe
-> this could be split out from Alastair's work (in individual patches
-> please), and integrated in James's series ?
->=20
-> Maxime
+Leave skipped I/O virtqueues inactive at SET_ENDPOINT. When SET_VRING_ADDR
+later completes their setup, allocate the command pools and activate only
+that queues. Roll back both if access initialization fails.
 
-Thanks Maxime. Here is the breakdown of why those pieces were in my
-earlier patch and how they relate to James's series:
+Fixes: 25b98b64e284 ("vhost scsi: alloc cmds per vq instead of session")
+Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
+---
+I checked QEMU and found no evidence it's affected. I haven't checked 
+VirtualBox because I am not familiar with it. However, the virtio spec 
+doesn't require a specific operation order, so a new VMM could still 
+trigger this issue. 
 
-1. MDIO MUX & H3_EPHY_SELECT:
-   These are NOT needed for James's series.
-   My initial test tree was using the legacy
-   "allwinner,sun8i-h3-mdio-mux" node inherited from older
-   vendor/Armbian DTs. That mux driver attempts to toggle
-   H3_EPHY_SELECT (bit 0 of SYSCON), which on H616 register 0x34 is
-   actually SYSCON_EPIT (interface type), so I had to mask it out.
-   With James's series, there is no fake mdio-mux node (direct MDIO bus
-   with the ethernet-phy-package), which is much cleaner and completely
-   bypasses all H3 mux code.
+Crash log:
+[   34.698961] ------------[ cut here ]------------
+[   34.699385] WARNING: lib/sbitmap.c:286 at sbitmap_get+0x227/0x270, CPU#0: vhost-82/88
+[   34.700542] Modules linked in:
+[   34.701309] CPU: 0 UID: 0 PID: 88 Comm: vhost-82 Not tainted 7.3.0-rc2+ #14 PREEMPT(full)
+[   34.701958] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   34.702717] RIP: 0010:sbitmap_get+0x227/0x270
+[   34.703247] Code: 41 8d 5d 01 89 df 44 89 fe e8 f5 3a 46 ff 31 c0 44 39 fb 0f 43 d8 e8 38 46 46 ff 65 41 89 1c 24 e9 25 ff ff ff e8 29 46 46 ff <0f> 0b eb ba e8 20 46 46 ff 44 89 fe 31 ff 45 31 e4 e8 c3 3b 46 ff
+[   34.704234] RSP: 0018:ffffc90000ec3bb0 EFLAGS: 00000246
+[   34.704677] RAX: 0000000000000000 RBX: ffff88800500dee8 RCX: 0000000000000000
+[   34.705166] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff88800500dee8
+[   34.705584] RBP: ffffc90000ec3be0 R08: 0000000000000000 R09: 0000000000000000
+[   34.705988] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000006
+[   34.706477] R13: 0000000000000000 R14: 0000000000000000 R15: ffff8880050094d0
+[   34.706955] FS:  0000000014d05380(0000) GS:ffff888099c36000(0000) knlGS:0000000000000000
+[   34.707463] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   34.707854] CR2: 00007c0c3c20e000 CR3: 0000000008e47000 CR4: 00000000000006f0
+[   34.708592] Call Trace:
+[   34.709259]  <TASK>
+[   34.709822]  vhost_scsi_handle_vq+0x4a9/0x1b20
+[   34.710437]  ? update_cfs_rq_load_avg+0x2e/0x230
+[   34.710874]  vhost_scsi_handle_kick+0x2c/0x40
+[   34.711292]  vhost_run_work_list+0xa6/0xf0
+[   34.711673]  vhost_task_fn+0x76/0x1b0
+[   34.712003]  ? __sanitizer_cov_trace_const_cmp1+0x1a/0x30
+[   34.712506]  ? recalc_sigpending+0xe1/0x130
+[   34.712890]  ? __pfx_vhost_task_fn+0x10/0x10
+[   34.713325]  ret_from_fork+0x37a/0x630
+[   34.713673]  ? __pfx_vhost_task_fn+0x10/0x10
+[   34.714031]  ret_from_fork_asm+0x1a/0x30
+[   34.714535] RIP: 0033:0x0
+[   34.715201] Code: Unable to access opcode bytes at 0xffffffffffffffd6.
+[   34.715587] RSP: 002b:0000000000000000 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+[   34.716158] RAX: 0000000000000000 RBX: 000000000048bb20 RCX: 000000000041ca3d
+[   34.716571] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
+[   34.716957] RBP: 00007ffcac47c4e0 R08: 00000000ffffffff R09: 0000000000000000
+[   34.717418] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000004
+[   34.717826] R13: 00007ffcac47c778 R14: 00000000004af868 R15: 0000000000000001
+[   34.718363]  </TASK>
+---
+Changes in v2:
+- Activate only the virtqueue specified by VHOST_SET_VRING_ADDR.
+- Mask the userspace provided index before accessing the virtqueue array.
+- Link to v1: https://patch.msgid.link/20260908-fix-warning-in-sbitmap_get-v1-1-767c2c211a2b@gmail.com
+---
+ drivers/vhost/scsi.c | 50 ++++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 48 insertions(+), 2 deletions(-)
 
-2. -EPROBE_DEFER handling in get_ephy_nodes():
-   Also NOT needed for H616 EMAC1.
-   get_ephy_nodes() is only called when soc_has_internal_phy =3D true.
-   In James's series, all PHY clocks, regulators, and NVMEM cells are
-   managed inside the PHY package driver
-   (drivers/net/phy/xpowers/ac300.c), where -EPROBE_DEFER is already
-   handled cleanly via dev_err_probe().
-   (The get_ephy_nodes() fix is only relevant as an independent=C2=A0
-   cleanup=C2=A0for legacy H3/V3s platforms).
+diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
+index 4f8c0260bc9e..efca34362666 100644
+--- a/drivers/vhost/scsi.c
++++ b/drivers/vhost/scsi.c
+@@ -2008,6 +2008,41 @@ static int vhost_scsi_setup_vq_cmds(struct vhost_virtqueue *vq, int max_cmds)
+ 	return -ENOMEM;
+ }
+ 
++/* Callers must hold dev mutex. */
++static int vhost_scsi_activate_vq(struct vhost_scsi *vs, unsigned int index)
++{
++	struct vhost_virtqueue *vq;
++	int ret = 0;
++
++	if (!vs->vs_tpg)
++		return 0;
++	if (index >= vs->dev.nvqs)
++		return -EINVAL;
++	index = array_index_nospec(index, vs->dev.nvqs);
++	if (index < VHOST_SCSI_VQ_IO)
++		return 0;
++
++	vq = &vs->vqs[index].vq;
++	mutex_lock(&vq->mutex);
++	if (vhost_vq_get_backend(vq) || !vhost_vq_is_setup(vq))
++		goto unlock;
++
++	ret = vhost_scsi_setup_vq_cmds(vq, vq->num);
++	if (ret)
++		goto unlock;
++
++	vhost_vq_set_backend(vq, vs->vs_tpg);
++	ret = vhost_vq_init_access(vq);
++	if (ret) {
++		vhost_vq_set_backend(vq, NULL);
++		vhost_scsi_destroy_vq_cmds(vq);
++	}
++unlock:
++	mutex_unlock(&vq->mutex);
++
++	return ret;
++}
++
+ /*
+  * Called from vhost_scsi_ioctl() context to walk the list of available
+  * vhost_scsi_tpg with an active struct vhost_scsi_nexus
+@@ -2105,6 +2140,9 @@ vhost_scsi_set_endpoint(struct vhost_scsi *vs,
+ 
+ 		for (i = 0; i < vs->dev.nvqs; i++) {
+ 			vq = &vs->vqs[i].vq;
++			if (i >= VHOST_SCSI_VQ_IO && !vs->vqs[i].scsi_cmds)
++				continue;
++
+ 			mutex_lock(&vq->mutex);
+ 			vhost_vq_set_backend(vq, vs_tpg);
+ 			vhost_vq_init_access(vq);
+@@ -2409,6 +2447,7 @@ vhost_scsi_ioctl(struct file *f,
+ 	u64 __user *featurep = argp;
+ 	u32 __user *eventsp = argp;
+ 	u32 events_missed;
++	u32 vq_index = 0;
+ 	u64 features;
+ 	int r, abi_version = VHOST_SCSI_ABI_VERSION;
+ 	struct vhost_virtqueue *vq = &vs->vqs[VHOST_SCSI_VQ_EVT].vq;
+@@ -2464,12 +2503,19 @@ vhost_scsi_ioctl(struct file *f,
+ 		mutex_unlock(&vs->dev.mutex);
+ 		return r;
+ 	default:
++		if (ioctl == VHOST_SET_VRING_ADDR &&
++		    get_user(vq_index, (u32 __user *)argp))
++			return -EFAULT;
++
+ 		mutex_lock(&vs->dev.mutex);
+ 		r = vhost_dev_ioctl(&vs->dev, ioctl, argp);
+-		if (r == -ENOIOCTLCMD)
++		if (r == -ENOIOCTLCMD) {
+ 			r = vhost_vring_ioctl(&vs->dev, ioctl, argp);
+-		else
++			if (!r && ioctl == VHOST_SET_VRING_ADDR)
++				r = vhost_scsi_activate_vq(vs, vq_index);
++		} else {
+ 			vhost_scsi_flush(vs);
++		}
+ 		mutex_unlock(&vs->dev.mutex);
+ 		return r;
+ 	}
 
-3. MAC Soft Reset timing (The one piece that IS needed):
-   This is the one issue that affects James's series.
-   Because emac_variant_h616_emac1 sets soc_has_internal_phy =3D false,
-   sun8i_dwmac_probe() falls through to line 1221:
-       ret =3D sun8i_dwmac_reset(priv);
+---
+base-commit: dd886653d2038a510a21bff476fa1be0422a4fb9
 
-   The Allwinner EMAC DMA soft reset (EMAC_BASIC_CTL1 bit 0) requires
-   the RMII clock from the PHY to toggle in order to complete.
-   If CONFIG_XPOWERS_ACX00_PHY is built as a module (=3Dm), or if any of
-   the AC300 package resources defer probe, the PHY is unpowered and
-   not clocking during sun8i_dwmac_probe(). sun8i_dwmac_reset() will
-   time out after 100ms ("EMAC reset timeout"), aborting the MAC probe
-   completely.
-   For EMAC1, skipping sun8i_dwmac_reset() during probe and letting it
-   run in sun8i_dwmac_init() (which runs upon ndo_open after phylink
-   has connected and the PHY is clocked) avoids this probe failure.
+Best regards,
+-- 
+Linfeng Sun <linfeng.sun.dev@gmail.com>
 
-James, I'm happy to test your next revision on physical Mellow Fly-C5
-(H618) hardware as both a builtin driver, and a module.
-
---=20
-Alastair D'Silva
-0493 18 5566
