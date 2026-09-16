@@ -1,132 +1,132 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC913B7759
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:39:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789522807; cv=pass; b=nTTTbJgjooiW4/bsiv4KqKBTKcnS+mLYfL0wZVoh0gRFWZ0sBWf6InDOm0++iA7ijviWZYeebDRP9MHxVA+yy8Dk5hZj6oJD1Ybn5LCfltG8uYxGg8fdvugYSM3iuJBMDVD7MAMRDpSiqbm2AKAhH7/0kzyfC48h/LDETCZGGyg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789522807; c=relaxed/simple;
-	bh=F7/Be39iQ67QXJSJm73iOaskwF1HV5SnLrr7SsaSjB4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ibh3qikZrmHl6mfIzDINT889uyKlRkvZkYJF0bp2VgaLxiGyZm01Q/FIu19xPUaDtef3uun0HYnTUI4wTNXXYhoYCrScy0vKDUsAbbLU8UDgueePdNwq6xM0fU6kd64q6A4cBcg3rZ1MzpyPYjMpRgYxbHaOPKIPEAvy+phW1bE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H50U/PcY; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DA23A9879;
+	Wed, 16 Sep 2026 01:40:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789522866; cv=none; b=FOo2NETPbUcj4u6nVbSKsoWiJY2Yj0/H/ZaeCtgNzU7G+y+v110eIzYvrEqxqIQ0VcvfPqXSY32lkmFeM1/kq92z1lWmi9ZnD6cMeJAtAwvyDfWCr6CYcMt5mXTJx0HUpVlgYjuHh+aE7S5thZQWyH8Wo5KXIhhggNf6YnDcS0c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789522866; c=relaxed/simple;
+	bh=agmYimEHpg/WywJkNR6ulrp9OjIO6GuziVUGHcxmAc4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S+FM7iXN101HAespMumGeFiDaSTsTIscK3G2nDFuPxkRJH/aoOY4EDXh3Ct9nQyvCG3v5mBWCJcE8GCzpYyN075imYbGMhL7pNquTAI8DX9S4M3j0iDyYSpPp8KmYPXOZ/KVmz5NDtWVwjWe2jEaIv7Ea9IQFRWNQn7YwKQDjOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UiTuvBVI; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H50U/PcY"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso4495835e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:39:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789522793; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k6ErkevT3GeV1CXe1fhU4rcLi9GFs8K6YeeHBSTbyWxzH+jswjsNm6Mu7342l0jVAq
-         nbsmGFKNoA5YUq5SPWGZgup4eBQs49VsWPCDOGNMmSh9YDyJp6JS9emBLtHgr4GeX/LD
-         P7LuipIYOVQyhjbOXkx4x2jAxOFahmznXH90oeyBjR62esnXeERZJC7pK4uHrOby5Ogk
-         0/5+8x+21pACPf6FaHqhBeBh/m+a9SASoynLVkYDu1rqqiskYRMdpejmdVv1DaGWSb36
-         jOWQ52qImBukLWi3SiYftsc1dZWJ4TgYXNWXad7cogEhwXbs06V9xX8MQxpfRun5DD1c
-         gb5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=F7/Be39iQ67QXJSJm73iOaskwF1HV5SnLrr7SsaSjB4=;
-        fh=sUioJ8qC79Zmv2cFNv7oHDYcnA4oZKkcUClxNgQTflY=;
-        b=Ok2kxroPfEHNVBIBiuXo9Baj76t4kgw/G6qot1mcnP4dlo6kk9s6hhKPJR59k2xlE3
-         eAwMtHxLujTOGfoQUhMUvNJXVmD9SiHb1pprdN/fmKzEufEt53X2UbM8RrS/iAWc7eM8
-         /IAzqHMkwkDASUo68uMAQFLG89oVnzZW3lsiqE87vTgpRjOG/mNZFQjesNr7/f0AOP0T
-         ZVBkhhGkJ9HkkTV/O4jbTREcUCKiFh+GbmlW1kZqmTBOuktPb2+3y+qyQ2KCxfhZtJna
-         +8CGHThQ50ggFMX1tOv4TA7hiTuSQ4qhMKUuX8FukGvrShdrczPb5ulaV8E5RF7c7lu3
-         yPig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789522793; x=1790127593; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F7/Be39iQ67QXJSJm73iOaskwF1HV5SnLrr7SsaSjB4=;
-        b=H50U/PcY54WwhSQCgwHxHzVdExyJHJl0DviJxtLkvGRfxemTxBuFOkfMAMqYdLqg1U
-         20fYUXZkJyK6Woq3Xhar5cl19Ejdh3HAr/O4N4U19XRE5H2rSgusSpdTS1Z2zIXJ4Ssl
-         dI/mb67wacad8XJr5D8RuWSN2neyvCYw7R4T9in5nBNRbfINifkKcD+vyrlHD7uVglbh
-         W6R53ReIZkpDHVhsoI6ZhjafJmGVU47bsSBy5okr10fGMBi49I878V/mkNcrVMBWUIbU
-         BDaGR1tjqTJL3qFwTN486/UhrwqbhQWI03/qq15HQIUN4ycCBOUII1R0zyeEsdP9sUSj
-         NWdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789522793; x=1790127593;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F7/Be39iQ67QXJSJm73iOaskwF1HV5SnLrr7SsaSjB4=;
-        b=Fsrq4LUgS049Fz3O7bRJH6PZQky5mP+AVmcQxqsRJJK2RIrtPB/9LVu4w17nhTp5CE
-         /idZ/ORBe5kc6oVfXO/VM3PFwkrrDtcJtmd1PUyAhgLhFDIdlBHrrl4sR9clPsO2zl03
-         YGlGutO1TXWn9vXioM8H+eoGdl8qGoPS9cmawd2szoB/jcC2pBKU0URb0dj1CDziF70K
-         ciFnAj7IiStsahjHl525Nf4BnNlL5D9vL9cJ+B6IS3Xf8Ga9tpy9CRopEwobpLKQVNA1
-         k1K+VwFKRtWIP+sccRCSDi742XVS30YGNXBPbhy1BrNgFeKpMW+NOtLaYrqvF8hnJ2lH
-         RXHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzBKNnViA1oVzV8xLSalS3KURnlUncrTstx9VZXSeExkgamR/FZQJpQ8ssJJOCEd4f/MUjINImvfP2N6RM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDpu6qt15W+4xosmDn5QFrg1cwzhB41YFs2fHtM91op6UBUGJc
-	434GzzT8rlb/7YJ5tEXo4+RYUuUZuc0LFjyhiltVratBIysYC8kCWxx6C3eGxQjTjqrypRj1fU9
-	xEr80ZQJWa8A+GjcnUXdmk7VgOTneDJw=
-X-Gm-Gg: AYBFou2mgzlYM6pIcyECT+ImfyVWwqZASYqfHjmhDDdLeGpVO2YoDRUnoOs+WzfQoon
-	GWt5bTZHW50r2PX5SE41K4qvHAMHGmsASNaFAen14uc/7AbfJyIIs2DGIPaVb0TW7Uiqs3iavTb
-	EOR2fhqQW7zf1bvsMIwSspTr5k6O7UfnrTsyKTfC2DEcALtdW6W7GXqcC6y1O9Q/GtPUvivxl61
-	FrFwkLxRnTfGEJ4uSOAJHDpywqDsnVOMBnnTZsZgezTpoVr0T6070nIiHxERgqnK6WCcmxIYrjs
-	zzB1NOu4Lut9yFQMVSBwNwC5CKmGmaNiesgHwWNpCEjNXT6iHteUQGwCbjdF6Wr0cgEO7ROWpH3
-	uXCHY1wd0UNje
-X-Received: by 2002:a05:600c:3487:b0:499:b65e:49c9 with SMTP id
- 5b1f17b1804b1-49eb7326671mr12886295e9.10.1789522792473; Tue, 15 Sep 2026
- 18:39:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UiTuvBVI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789522856; x=1821058856;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=agmYimEHpg/WywJkNR6ulrp9OjIO6GuziVUGHcxmAc4=;
+  b=UiTuvBVI1I3hhl/JoefdJpyNFscSVs/cfjVx7Nmeh9KCI+g5AK2Oka0a
+   u9T3TVKH23A3Zp2TZXyxZvAiRsWIzdS3Ls3THUqdganYAZYR/wgjUyi+i
+   CzVso/vGt6rG25KRBaCpy/nTZO9i29mZI+i1YvylC98E7BzmMquyHR6Ua
+   yPh0oRBQA1+wAJmUuPTJAKyemyvKM9Hrg3w5z5xC9K1smLGwUHUUD93rD
+   NFS5vMihP6ADboevSM0O806Vy7375qMgBtNrIRCNXmAH8uZCsj53NpZ9E
+   n5iugSmuVnbp3mLAKm0tfxX2gYRb50I5wVRnRrsDReSHJ294KK3CrWaO7
+   g==;
+X-CSE-ConnectionGUID: QhnfBEAgS1ecMqFCR5VYQQ==
+X-CSE-MsgGUID: wbCykvK0QL27e4xglDLdkw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="406603"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="406603"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 18:40:49 -0700
+X-CSE-ConnectionGUID: AdYR1bMOQmOHfV//gRoOHA==
+X-CSE-MsgGUID: zdvxLyJfQ2aYc2iZMQXVkw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="275142738"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 18:40:46 -0700
+Message-ID: <f2b62bcb-b5a1-48e9-93c8-644ab3ac4439@linux.intel.com>
+Date: Wed, 16 Sep 2026 09:40:43 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915033050.1579457-1-kunwu.chan@gmail.com> <20260915141428.90098-1-sj@kernel.org>
-In-Reply-To: <20260915141428.90098-1-sj@kernel.org>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Wed, 16 Sep 2026 09:39:41 +0800
-X-Gm-Features: AcwNN1WkItfrjGuvh4D30_0jXdjk_3N_mQEQU9h1o2CriinlbmIT02nd1bs-e_4
-Message-ID: <CAN_Opa8kqT3veKMw2Efir1p4mKH3oQuD5OqyBigjiBMvw7pjnQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 3/8] mm/damon/core: return an error from damos_commit_filter_arg()
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, lianux.mm@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] perf: Add checks to prevent null ptr access
+To: Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+References: <20260904181625.1394082-1-vinay.belgaumkar@intel.com>
+ <20260904181625.1394082-2-vinay.belgaumkar@intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260904181625.1394082-2-vinay.belgaumkar@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 10:14=E2=80=AFPM SJ Park <sj@kernel.org> wrote:
->
-> Hi Kunwu,
->
-> On Tue, 15 Sep 2026 11:30:49 +0800 Kunwu Chan <kunwu.chan@gmail.com> wrot=
-e:
->
-> > On Sun, 13 Sep 2026 10:17:00 -0700 SJ Park <sj@kernel.org> wrote:
-> [...]
-> > Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
->
-> Thank you!
->
-> >
-> > I'll take another look at the remaining patches.
->
-> A new version of this series is available at
-> https://lore.kernel.org/all/20260914142327.92510-1-sj@kernel.org/
->
-> It has no real difference to this version, but it would be better to revi=
-ew on
-> the latest version in my humble opinion.
 
-Thanks, SJ. I'll review the latest version.
+On 9/5/2026 2:16 AM, Vinay Belgaumkar wrote:
+> Sashiko recommended some additional checks to prevent null pointer
+> access. Check for revoked states inside perf_event_read_local(), as
+> the pmu event may have already been freed at this point. Add a null
 
-Thanks,
-Kunwu
+Could you please show where perf_event_read_local() could be called after
+the event is revoked?
 
+BTW, the prefix should be "perf/core:" instead of "perf:" by following
+current naming convention.
+
+Thanks.
+
+
+> check inside __perf_event_read_cpu() as well before accessing the pmu
+> ptr.
 >
+> Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+> ---
+>  kernel/events/core.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
 >
-> Thanks,
-> SJ
->
-> [...]
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index 7777e82aad5e..059f82f0cadd 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -4788,14 +4788,19 @@ static inline const struct cpumask *perf_scope_cpu_topology_cpumask(unsigned int
+>  
+>  static int __perf_event_read_cpu(struct perf_event *event, int event_cpu)
+>  {
+> +	struct pmu *pmu = READ_ONCE(event->pmu);
+>  	int local_cpu = smp_processor_id();
+>  	u16 local_pkg, event_pkg;
+>  
+>  	if ((unsigned)event_cpu >= nr_cpu_ids)
+>  		return event_cpu;
+>  
+> +	if (!pmu)
+> +		return -ENODEV;
+> +
+>  	if (event->group_caps & PERF_EV_CAP_READ_SCOPE) {
+> -		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(event->pmu->scope, event_cpu);
+> +		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(pmu->scope,
+> +										event_cpu);
+>  
+>  		if (cpumask && cpumask_test_cpu(local_cpu, cpumask))
+>  			return local_cpu;
+> @@ -4917,6 +4922,11 @@ int perf_event_read_local(struct perf_event *event, u64 *value,
+>  		goto out;
+>  	}
+>  
+> +	if (READ_ONCE(event->state) <= PERF_EVENT_STATE_REVOKED) {
+> +		ret = -ENODEV;
+> +		goto out;
+> +	}
+> +
+>  	/*
+>  	 * Get the event CPU numbers, and adjust them to local if the event is
+>  	 * a per-package event that can be read locally
