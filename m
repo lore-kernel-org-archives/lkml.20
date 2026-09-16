@@ -1,107 +1,216 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0044A206A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC554A498E
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789594845; cv=none; b=i2+Z6STqzy2PDnufvzfyG/xY9Au3t9M/pti6u0L/tKDjY/W/i8woLVgdHhe95d4B3V7NXmPs5IUvv6+f5rYCAfJCHp8PKtGrNzpAZVOoOaHBTxs4PMrLPWzIIXwk7FV1guVY6+0HimSxeUqK4RldL2F1uzEJFKZpWc1GHfcyHFE=
+	t=1789594904; cv=none; b=IXUWyQXAVoDO9Wjia6GVPoSkFYXSuiDXhl00qTdkC2JGf9SlqTx5MAmTrWSPKpkHdhu7WWD6ZYCDHO6QjO1ixKKxPFoS+tAKtc7e9KfyqothPmp9L8ZT+hUQsNQ5ZVDP0/MtBrfw2NGHg1BjPenvi67HxhboXz3QQ6caNs0sV7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789594845; c=relaxed/simple;
-	bh=ncOr7ug098p52KOY1+jbCW5KQwfv/KUCtYGB9tE1wCs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e1MfJjKsQIS7mO0OYK18wPRu1P5AAJzH6+WfJzXtbXiUAVJGx93r+qBkGSBGpfnVIz3herWd4K3ekY1eVIpiWmlIuBlhTWqPUMlcUvr5WhsSnPEilPIlaXdMHH67rF7rRRgmLQPPBDCiBJ/y+FzBhheUE8FrXhzFcxMLQUUagME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=bNe0k3wS; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1789594904; c=relaxed/simple;
+	bh=IAptJyT5xluEqEiFzVEi/p861VpjcmGoy/sQvXBJe6U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NQ41X2OR6KBYqYiyfwznGg14iTZyA+e8juFcoeHzdLGzEJBFrluW1GidgmXdAiFIivDQk7nwO+rMY1hi6Bl2YH2OdP3gK+YwNEn88mFNmnCxXNzpaAovS6PeX0+tpuyllLXAD14l1fpizA9oFCcWn201LXRF/Tk+I4pvE5y3Y/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JAnzMGfz; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="bNe0k3wS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=UWBu
-	4/9KThNGyufh5bed2wp8SVVGYiLD9tsi0Eb/JqQ=; b=bNe0k3wSUr5Ejp7s3dZj
-	bHMvoxlB569GlIDPjy3S76L64SkIydIT3pgHxSDiHZ7i6Wy/o6rEHDEoiKAFf/2X
-	wAAeCSTCQ4CdJrDvkSCjI6CKdEwBIRVD5ConroLD02WW9bSPLeJQyjHMiEq7eNDC
-	XEv6PzFgsqYb7GWVFh2wy3Vo6Zy9oW9h0U3x9eCqOqIovMR5K3IrDXN16jrz064j
-	RkoyH5VhX8qrIWwRtIWopfhNwxQfdSEi7p6STHfoUTtJGl5yUdFGj+WoX/psIazj
-	nk1afqiQPOU00eqhV9J5fOFFs4WtDpBScvAWam+gXOaCCCr57lGSUN8N3i4oHSCb
-	+g==
-Received: (qmail 1717677 invoked from network); 16 Sep 2026 23:40:30 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Sep 2026 23:40:30 +0200
-X-UD-Smtp-Session: l3s3148p1@Ya0jhKBbaKAujnt4
-Date: Wed, 16 Sep 2026 23:40:30 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v7 2/3] hwspinlock: add list of locks to debugfs
-Message-ID: <aqsMzXQ__BsWXUqH@shikoro>
-References: <20260912191442.99453-1-wsa+renesas@sang-engineering.com>
- <20260912191442.99453-3-wsa+renesas@sang-engineering.com>
- <CAMuHMdVbYaUXiW11j+LKSuSaLLF2PRR2kAFsaj-ZGsx7nNjK-w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JAnzMGfz"
+Received: by mail-pz2-f41.google.com with SMTP id 41be03b00d2f7-cc1cea4bfb6so66046a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:41:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789594897; x=1790199697; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V67/ygqzXBDTg6FpqYWmZblZ2cnQrCYnunNIZXB6fo0=;
+        b=JAnzMGfzr1pYJ8prgYf+WTUz3P97ReGXI+kkUr+abDB35a+oVXrEnS/EDQxJglSQUz
+         Udpq+qn9k2Z7oNXCC7xbYoIeY6HxH6mv0nqWS4j6up/TVfDM9ghv29WT+tcYuFpfcMqd
+         XCGcRHBdTe4QDm3R3nTtL3jllpNrIMWnoLYnNtd7CpVolxbC8401aWHo8p5oRPPPmHsa
+         L+uD4l/irpgw4sgAlE+cbaRj18MW2aud/HBktx4lNZ6QqjeFbDxVcDqe4hr7zjL3OhVd
+         QnQDbpfs6mjic3pb15mkG/NTN71P9fXWwaeqW2stxRuhk4m6ZF+t58u0yall8SGg4gsK
+         c6MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789594897; x=1790199697;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V67/ygqzXBDTg6FpqYWmZblZ2cnQrCYnunNIZXB6fo0=;
+        b=nv/iCZAGgLbS02Lu6Olgofp+7uBCN+CJW/pAMlfAW7DB/GG7isrB8hW55HuhLEgkjW
+         uik4ZtYPmCbwG6wpVJp+tqvE8ZqDM31j9k3ci5AormbQedVSwhEnHPVm7Xp2QO2Lq8TO
+         W4fyUe7IZbvz9DRE9jLTkFro/hl3M4AZ1mLUoAa2sSmQWBxUKWhYE1X7meXQ+nvaLhjz
+         XXYWqzQhdzYYaB9GjMKdup4orPRrHYxEi5PMsrGxoKaY6YYtmZutSxgbkCB7x1QAKslk
+         gms8IyPHExMgQ0EgFRhBfNBKzGA8DLmEK8vFbIAX9Ac+zyfUCkSDtVlWk3Ack+nkvzEa
+         ItMA==
+X-Forwarded-Encrypted: i=1; AKwUvBwmHSC82jyMvXr0WpGmyE/cbyMcZHniUOdHp+ZXFV4KpOLp9dsrMYYY/Snffv4AqcZnmc74qZpuDfIfePA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mT99w1gNyFKkack9Z6E8TwYErwnRVcT2xe+SlB3CgorcLcexs8
+	2/IoN2z9kyUc4MECFlLFRUE/WQbZ6XaiNyUO+vwIkZGNFAN6aX+HYC4a
+X-Gm-Gg: AYBFou0hlPa1Soh8msFIvonKFT9PIxx1Nf19rCARC0XJy9kBWqlCgI2g3Q+UKAldKsG
+	Z/LbmKHvqo/QqzIA99Geohp87x1T3ji267a8Oz3Gs1JnSuNpWlzMzqBhlb/y5CoxccULj4d940T
+	di935sKRop1mgdJ5I40jvpp4eMgB2AedoC8wbFhnwsTasvPJk5+hzRu5zB7TqFfdJBrp2xABveI
+	tGTgX949AvcMsr4SKWmW69OG+zoETDP00jDEl4kOcmin0QYtAGDN2UjVKfY9T6/BwZ2mTbtSwBP
+	GBkqKWNIGEtMeriTz7ET7c88wgHSHGGkrz1npl2kFMFo/vxkmdTJ9TuDx9mBzVhBdGd98Nh6zEZ
+	dIqEevc3Nxl8CgUFwLuifoQ3IEHr5mi70pm1/v+xxgxdLbxbwV2AXBJBWF8hqbYy2IA+Af09Ili
+	C/zymhxw/n02zNZzoHjA8Kqvt5rgyilJhBvUkCJcWNkcCgv3vRA+WlfVzO7XVbQclyRlsxYr5qP
+	cXODmNfwu1staluDfbLIDKS/H0MRhn8yKytf+uUqC47OQAK
+X-Received: by 2002:a17:90b:390d:b0:39d:f66e:1720 with SMTP id 98e67ed59e1d1-39e1e4907e8mr11608231a91.13.1789594897275;
+        Wed, 16 Sep 2026 14:41:37 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a1a5sm10854497eec.5.2026.09.16.14.41.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 14:41:36 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <b155cdd8-54d5-49d9-b276-c24dde766dbe@roeck-us.net>
+Date: Wed, 16 Sep 2026 14:41:35 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tsICgkmrqWNnRNzn"
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdVbYaUXiW11j+LKSuSaLLF2PRR2kAFsaj-ZGsx7nNjK-w@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] hwmon: (pmbus/tps53679) Select page 0 for single-page
+ TPS53676
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ Sanman Pradhan <psanman@juniper.net>
+References: <20260916200331.664795-1-sanman.pradhan@hpe.com>
+ <20260916200331.664795-2-sanman.pradhan@hpe.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260916200331.664795-2-sanman.pradhan@hpe.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---tsICgkmrqWNnRNzn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-> > +static void *hwspin_lock_seq_next(struct seq_file *s, void *v, loff_t =
-*ppos)
-> > +{
-> > +       /* Increase ppos here to avoid endless loops. Don't use xa_find=
-_after() */
->=20
-> Do you mean xa_find_after() may loop forever?
+On 9/16/26 13:04, Pradhan, Sanman wrote:
+> From: Sanman Pradhan <psanman@juniper.net>
+> 
+> tps53676_identify() derives the number of PMBus pages but does not
+> ensure that page 0 is selected for single-page configurations.
+> pmbus_set_page() does not update the PAGE register when info->pages is
+> 1, so if boot firmware leaves PAGE set to another value subsequent
+> register accesses may target the wrong page.
+> 
+> For single-page devices, select page 0 explicitly and verify that the
+> PAGE register was updated.
+> 
 
-Ehrm, it's been a while, I need to look this up. Which means the comment
-is not explanationary enough :/
+Why that complexity ? We don't read back other registers. Why would it be
+necessary or even make sense to do it here ? Following that logic one could
+argue that every single write has to be read back to verify it.
 
-> > +static int hwspin_lock_seq_show(struct seq_file *s, void *v)
-> > +{
-> > +       struct hwspinlock *hwlock =3D v;
-> > +       bool unused =3D xa_get_mark(&hwspinlocks, s->index, HWSPINLOCK_=
-UNUSED);
-> > +
-> > +       seq_printf(s, "%4llu:\t%s\t%s\n", s->index, unused ? "free" : "=
-in use",
->=20
-> For easier parsing the output, you may want to use a string without
-> spaces, e.g. "busy", "active", ...
+> Fixes: cb3d37b59012 ("hwmon: (pmbus/tps53679) Add support for TI TPS53676")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
+> ---
+>   drivers/hwmon/pmbus/tps53679.c | 24 ++++++++++++++++++++++++
+>   1 file changed, 24 insertions(+)
+> 
+> diff --git a/drivers/hwmon/pmbus/tps53679.c b/drivers/hwmon/pmbus/tps53679.c
+> index dcd4250b679d..f38c19b8cc43 100644
+> --- a/drivers/hwmon/pmbus/tps53679.c
+> +++ b/drivers/hwmon/pmbus/tps53679.c
+> @@ -248,6 +248,30 @@ static int tps53676_identify(struct i2c_client *client,
+>   		info->phases[1] = phases_b;
+>   	}
+>   
 
-I get the idea, but haven't found a nice word yet. "Busy" could be
-interpreted as "lock taken". I'll think some more about it.
+A much simpler
+	} else {
+		/*
+		 * pmbus_set_page() does not update the PAGE register on
+		 * single-page devices, so select page 0 explicitly in case
+		 * the boot firmware left the device on another page.
+		 */
+		ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, 0);
+		if (ret < 0)
+			return ret;
+	}
 
+should do the trick. Yes, the write may be unnecessary, but it
+is cheaper than a read followed by an optional write.
 
---tsICgkmrqWNnRNzn
-Content-Type: application/pgp-signature; name=signature.asc
+Thanks,
+Guenter
+> +	/*
+> +	 * pmbus_set_page() does not update the PAGE register on single-page
+> +	 * devices, so select page 0 explicitly and verify it in case the
+> +	 * boot firmware left the device on another page.
+> +	 */
+> +	if (info->pages == 1) {
+> +		ret = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
+> +		if (ret < 0)
+> +			return ret;
+> +		if (ret != 0) {
+> +			ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, 0);
+> +			if (ret < 0)
+> +				return ret;
+> +			ret = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
+> +			if (ret < 0)
+> +				return ret;
+> +			if (ret != 0) {
+> +				dev_err(&client->dev,
+> +					"failed to select page 0\n");
+> +				return -EIO;
+> +			}
+> +		}
+> +	}
+> +
+>   	return 0;
+>   }
+>   
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqrDM0ACgkQFA3kzBSg
-KbbmaQ//XjTxQtJfjofgp1n45lUmLCTUUddGesfc7UuwTg+43zdM3fDaB95bhbMF
-CQqAbw/9xmU2HX5Efr+Fw58wBqpMoieBt1eM1vakbwetuEdk0ln9P4f9/+VfMelh
-npRmNdeahzJrjjzwEKK7md87AYXFkGPdLUlqAM4+3smLVcwh1Hs9Efn98uQSzHBs
-LSatnUf2zMaKLzIl7wAjppIHKrj6pclVj2vMYiICLb9ojODHtyCCMxRWh55tKDst
-Z+65iY5Yzgg+Hlmjx6/HXdYhuV5PkDd55g/ZvG+B368eY0WO889qpG4yzAcANaCG
-8RBPYS1EXLT5UHJQXktX5V/HQKuOIyU1FWZnsLRkS+CwCj2v/Hi86/BM/0AqVT9Y
-KInropc0Vl5ABz3HFWZ0ppu3LY63OKUhQaPvkYSklPJN4CLC9opX6+NrySq+8kfr
-2hG26IvuVXMgmOO7Nz9N0k7MNREM1CMVS9FSAd06pEgaL65g5xjXUmkah64x05R7
-7zMZKc1Mp21rfrxXzjlhq90ltkfZAqyQGe6PZUdns7SIX+CMdoKnrJfzS2aqMHmg
-EijkCPeyT8v2/hyF8BAXzWLW7VcwxhG+Cv63OfGvp4rq6ubbLp4mI/Nv7Bqlsvvr
-NIj8hmH/6MlBkBuiDp7UsmPKNPtUCtc32JLQQkS6ANfdjabcPN4=
-=/0wZ
------END PGP SIGNATURE-----
-
---tsICgkmrqWNnRNzn--
