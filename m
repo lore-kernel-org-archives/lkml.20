@@ -1,60 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02BE931B130;
-	Wed, 16 Sep 2026 19:57:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30FF03C1D77
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:57:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789588638; cv=none; b=Is3TUhnC/VDpuj9fEUZpAL6jBt31YLMQMNLYY3fwZLXwvjgnb97Y6xIer0LGqJ4C/7lEaAyoa5AM8q/Hqg4ptZec2bjAbMGUDo8hRL7AK9un7A0oKhavky3wQM1wrZ96cvdOlf2YZVBeyjSNUU61y2MAmMo2cm0AAu2DTH+9R1g=
+	t=1789588669; cv=none; b=GSHAu1UmhIQYSBsY7yrHUvdI+ZAC1F/FjMkB2+dNw+iPObgkuhgwkS/PUojCzcFlT+ka0R/tTqt3F9BZohBZ29oTk3tc3dK96YedvI6Rm6xqSSub1nvlXeoas3uH+aPlaasxhCDJgqOad7a/5tsXELnWJlTqW/g/kqvKF9WlnfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789588638; c=relaxed/simple;
-	bh=mtuXYiEl7jQvFAplUH6eG/P7WXrWkrNgtwK6E2LZQa8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KkCmszPqwFf8ym0w98Z91DMUbq2GMUbLQkZh9nnGcd3ZiEim5UTkftLjPILEj/D3Wu86RY2J2huxdm67UVmW1oCDB8Z2YWuPhl2P2PmZ0ZWqy3Qj7/TrF0A6ndtV02Di2KPy4l9jHJT1Qrspfzihh3xOi+zH0nCa43VcxNQif4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fa61XX/f; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fa61XX/f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A31D1F000FF;
-	Wed, 16 Sep 2026 19:57:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789588624;
-	bh=y4NSJ3muM9pW+APDoR/7C/7ePJDKryD+BOMDYLBwb4g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fa61XX/f3c2DcH30+gynVEqUEVSnwf3P6jqIIoMSvx+Uy1h1IImPwq0sl/B6OLnZf
-	 evrY8T+lEwpPu75+9Ec4gTQNr2Jt3phEJ4MuEBO2qSUG/e3d9elcwmjNDu0A1ecrCh
-	 Eq+PSbS0NrCqmbzhsYQGtxblrksT+EAPuanDfgNl2G0/1rGxYcvmIv9Fnu6IhmrFTn
-	 dZI997GNCz0t3oJdP8CPTK5oClFYCBMWokw4PsiY16f6mhQMJvq2pURLZzA4DhNcGq
-	 79kgudedDVY5i6Ja2mc5XJZ/eX6kC3A1zQWgKzJbbbSiOtOVqazlNOEktKxcl03cgZ
-	 qeOvkV/9npfIw==
-Date: Wed, 16 Sep 2026 14:57:03 -0500
-From: Rob Herring <robh@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: arm: Fix CoreSight CTI Kconfig symbol
-Message-ID: <20260916195703.GA1353861-robh@kernel.org>
-References: <20260822081912.88774-1-kmehltretter@gmail.com>
+	s=arc-20240116; t=1789588669; c=relaxed/simple;
+	bh=xZ3Vbls//A7k7RJDSB1oF6fWHZyKY4ujvMyIIc6cXos=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Xb550winwmmMgzen1H+xnMDxAahZffbJOgR+5w+URAHLhaGN/9/Br3Hs7tcA+J47VIQdGdMLduB8Yn+bPzB1QIslzVV+N45lEeVFDvtNiK/mI5gFbQpBMUmWAuycuHYRnb8WVIy+mHKWjoBUHOCkOURDe8J0F4AupjWryw1idpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8050554892dso162704a34.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:57:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789588651; x=1790193451;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hYPOPxYlK48U9WI7hqJrmijIIBU5bdHO8sRKgSKnUo8=;
+        b=lIa58Ip8wu3R2qQIhW9gtTmahWHeo3cfaKzcVuT0pzTzgFC9zrjQais2mZhYznY0s1
+         eqG70YXPb9SVKSl7Bt/xf2OIbGcgMHn3qX32f0wMtm9G21xMncqqA1cT9Kj+z8cK/IQy
+         F4G/09NWFqGMmOVBUdfVeB9F4YolYtOZbetPb42g3T2z4HYzz3x+7rxTiawufryTx4Mm
+         7eoZk/zZ3ja7nCiaSkX1PYIiKBTyAeP1Cu04NeV6Lm4LSeks0W2mmExlzcU0E+E8iTwc
+         ZtaIZcT4HlxDKz48pxfGhMNzUVvGzNqgjg09rF9aq6b+7+hlQzUM6gd7YNYmdGAi2qcO
+         B4lg==
+X-Forwarded-Encrypted: i=1; AKwUvBwyGUbS0g7abVajw+hN7MXNtwalw2julJztB2lHIerinQL+pYt/XwT+fJ7uUF5NADqkk1FBum/7wiVwk9E=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4QlGQuCa7bqbV4MINZztPORF5yHokKjWXym+caDubA0eESe8j
+	zFWM7GxyKdEwPV1YZW0fVRqUaDhr20W/QE2B7WSfNOLTlLElbjDRZrzF+Y+bARtBrz6QMcPYfoN
+	VoLqF2uXh0qYQ66+aX+MbcvqgaQkgetxugVIzwBCxjeuWrwJZ6d3dqbWFTuU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260822081912.88774-1-kmehltretter@gmail.com>
+X-Received: by 2002:a05:6820:820:b0:6b7:46fa:16a7 with SMTP id
+ 006d021491bc7-6c7d4cf4cd5mr3756045eaf.60.1789588651454; Wed, 16 Sep 2026
+ 12:57:31 -0700 (PDT)
+Date: Wed, 16 Sep 2026 12:57:31 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaaf4ab.e91c2013.3bdb06.0003.GAE@google.com>
+Subject: [syzbot] bpf build error (6)
+From: syzbot <syzbot+7cf57e3153b0fdaf852a@syzkaller.appspotmail.com>
+To: ast@kernel.org, daniel@iogearbox.net, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Aug 22, 2026 at 10:19:12AM +0200, Karl Mehltretter wrote:
-> The option exposing CoreSight CTI integration registers is
-> CONFIG_CORESIGHT_CTI_INTEGRATION_REGS, not
-> CONFIG_CORESIGHT_CTI_INTEGRATION_TEST.
+Hello,
 
-DT bindings should not be referring to kernel kconfig symbols (or 
-anything else in the kernel) in the first place.
+syzbot found the following issue on:
 
-Rob
+HEAD commit:    85136bf22404 bpf: Avoid soft lockup in __htab_map_lookup_a..
+git tree:       bpf
+console output: https://syzkaller.appspot.com/x/log.txt?x=11f1b615580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=7cf57e3153b0fdaf852a
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+7cf57e3153b0fdaf852a@syzkaller.appspotmail.com
+
+mv: cannot stat 'arch/x86/include/generated/asm/.tmp_cpufeaturemasks.h': No such file or directory
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
