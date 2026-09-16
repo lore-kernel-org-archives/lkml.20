@@ -1,154 +1,302 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D3E377EC3;
-	Wed, 16 Sep 2026 15:00:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B5B37AA78
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570817; cv=none; b=lTRDoIFVSqxY1ZGYccr21DDXnN9ng2sdcOB59ksfb/KqHPFKFenmGzqppXcYK4NAIPJITpWqZIBWT51W3APGwtyDVSuT/RpqSJurZI+sMfLnq+imAPtBhGuogTzWmy57y/18Dm5khnL/TgRgY54q1DsezQ/ua6VcOWJgFf3BPmE=
+	t=1789570836; cv=none; b=VPolrI7E143+julu7j/5kwSm6r3G0vDc2H/RiiZsUea+eRS/H41NEryHS5DoHTqied3+YKVeLHZZRXv0U0EWee8/S5BuLMGU/q3HkRb6KSVE8xPBfna55IbPXZhLVZp9HXyLikvOcTYOVCJ6KwI6ulBzIK77cGFaqWR+2A2gbeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570817; c=relaxed/simple;
-	bh=ydKzWL69NnaN10RjhQvNW86S24n3mw1SNddwbUqlgzk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pGnoR1lkrrUxVmHmzsd1uqblo8Vpago0raA0mW3m9Hq2xU6zbUFB8D45dDolwbLEutephZf2YULS29ulZQCw/yb4a3nq8/axI1VABbCYT1gIIAsqOmXRgkcGWo+oz85KgjoVAmNuv502tmN0XKEpXp7/MzJ7RXpyRIibawfaibg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aV069TXV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789570836; c=relaxed/simple;
+	bh=9tI4U4sigauxv7+vSOHtv7WRiUpJF6qwzNnTtt4QssI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=trUOpHDk3iro6ZCcbkD5gwsY2mS+UdmuGIeKvU6FsjBcS0ykYT6EsWeZSdOxv7/hnwjogA9K05d6fzPv9h38pfaxC1XTDofVEwdb1H/UL77yPbqlwYfLIERaLWnY8vFe61G19XzQRG7maX+WLYDEyGtZnJ/YzI1TXAIndWBTQjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Wqu+5gFQ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QXxQs8FJ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aV069TXV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 487A81F000FF;
-	Wed, 16 Sep 2026 15:00:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789570816;
-	bh=HZm36PncUJM37p4r1C4HcVe3FcQx8pg5XwjZj1iY6hM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aV069TXVw0Nt8NR30JOGjKvgGWqEudCd7cTJgoJp8KByqz+EguRDFz3LoMD7cndqB
-	 y4CJbR+iEbDZgK7FdakiGnEzMwaqvffmm21EuIP+C/1UQMIGkDJijptOMFW1aECUqs
-	 STISdv4CCA0WRMALeBI2qf4Gr6UNC7HJaGBn68g9WoItV6I8r0L3QF62gQUYIMM6tW
-	 tOfpvWOlLKgfk9uO2jSEEBQWhx1hUHIHbqUY6mxtqAaUPPVwQUMa+fTKK1AGm4RpNo
-	 fsvX7ncTSeDtRMUMrE5mqx2ngIfjEtQCjxtqXp28bE/6TRLywBtLXqDvK/szr7zBH7
-	 4TN5/zoXPU3DA==
-Message-ID: <364fac74-f28f-4aed-8e83-1125a7bfb3ef@kernel.org>
-Date: Wed, 16 Sep 2026 17:00:09 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Wqu+5gFQ";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QXxQs8FJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789570832;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vErMH5Jpyy8oa53cLRlOD7zEIY+iQEIFyTm7guhxWj0=;
+	b=Wqu+5gFQi9zgCXhlgpnOVok3EhljVRDmaAck6I/Mu86Dq8F3v3HarT/CRxtCf+WS6F0/qo
+	Ym9M66QQnvgOHi0gbJiio0vag22QWmNfHmb09blHrOjrNd7q8QMnhXzPpNC/lgbfnLNyuk
+	RESSonSDvihEmvQd8v/Fr9o14HNTPjo=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-205-njeImwDvMkCg1wIGGF36iw-1; Wed, 16 Sep 2026 11:00:30 -0400
+X-MC-Unique: njeImwDvMkCg1wIGGF36iw-1
+X-Mimecast-MFC-AGG-ID: njeImwDvMkCg1wIGGF36iw_1789570829
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c2939e341f7so667912466b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:00:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789570829; x=1790175629; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vErMH5Jpyy8oa53cLRlOD7zEIY+iQEIFyTm7guhxWj0=;
+        b=QXxQs8FJqTyJvR5kv52QhSTaXZnBKG9DBQAuiQMfti8jJV5Z+Fgm5RAEJLFqtd2eZT
+         CksvnKr5W+wSuhMzsljmCbYLig2fwtH/S7cJ06ospmIirW4vpC5sLfPvHgIt86ICTPW2
+         4JfupdNoHynDFOHEoMjo/AtaVyobJycXeV8QCPfZMl/pRGOM1hkImai5Jgcspx/DPih6
+         ypbx4N3ylfp/z28IpBejNd0ZptvxGCByB1hXzYf/DUvGlXtYf6Bh9bHCt2HDX4ly6epR
+         IevFLejeBOF7wLxGBx4HkJqEfz/omMiprnG4Qp2KqaQEFCwTJSBjR/9Gk0MQzWT2LQCx
+         c8Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789570829; x=1790175629;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vErMH5Jpyy8oa53cLRlOD7zEIY+iQEIFyTm7guhxWj0=;
+        b=novsJvdPf47VxnzcG1Wdi38bgRDhCY2MB6vfN2gOHBIzd/am+9kwIJ/pfzghU+vCMo
+         MTqtc3XMHcfWnEfWMRCPJkha01cAjPwfn0Q6hku4TXZW7i0BETOVjmMmKfWUpcaL/XUX
+         Kv/C4G119ZKX1hS/0V0jZbhRFX+pZujFFWzbTcTp1y2q+7/LsmWEmppfKSQ2LZohVZrj
+         HGRWBbQsnbszU6tQMLFv4TkrIp4ivdrJdyyAoGz7+KOapxI/rM5O82YQULo3kQUQIlgU
+         dyHjcI36DAmCxm4nznFWTUI3Xn/20yElkNcyJmWeKBjCtKeVeIZqMjytn/xmEIjRszID
+         wtNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwUZ9w9AS29CrQCG+rKFQv4VLTHJnKszftY5/3YMRLsz6Sjvd+tT+sKy1FCGH/L3AXHSRLsFFLKyEZbalI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGcjiEi7eLOmQ2MOiCkQ5GGQfgN1KCYn6dlSlJV57buWDHT+Ik
+	WuEhg7few3MwL8LM+HoNBeRc/PpTD2ha4BhMAWUmomAYhP6O1hpOmOC9SCIiypnqO5ZeI3qa9q8
+	jpRSM/Trraf2ECPrcUr18ZHQxXcbFCc4iMOjyLTpvQsxe2E96nrpX3iUNyd1PuK1EiQ==
+X-Gm-Gg: AYBFou1ixuLd/kGKEk8mUXfhRdoHJvvpOg9DLDmeBLs6ecies6aXylv01T3z0naT2YU
+	InxdreohGpSAu5nXm+4SlPuwHkNZlIKEz6JQhLP+SQgLQpxxr3CmBi/ubGMc4pxnfonmNluancs
+	x0sldXB7nzANz4fWh5FhLRfQVzcNdhJsvU86jww6TJjEbXbjIevvncBup1yr43Lmb5g0LBu/qwN
+	vZFt5faD98omD8I1yW/8pXLxH3Vr3893gyc/QraDkgCiB3wV4IIyVyvxJb2s5iPIRUgGoH3pUFW
+	Jw8l2jI7NkSvl41AE1Kze5iw1Bd02tlRTSpqG2pJ0CG9vNpmHreQiQlz6qNiSpCS3gq5UO77hxu
+	55oekB8iVYhkl4WmFYCw5nYE=
+X-Received: by 2002:a17:907:7287:b0:c26:19de:912c with SMTP id a640c23a62f3a-c29e530a4c5mr215296866b.31.1789570829139;
+        Wed, 16 Sep 2026 08:00:29 -0700 (PDT)
+X-Received: by 2002:a17:907:7287:b0:c26:19de:912c with SMTP id a640c23a62f3a-c29e530a4c5mr215291666b.31.1789570828446;
+        Wed, 16 Sep 2026 08:00:28 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de4893aasm153542566b.30.2026.09.16.08.00.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 08:00:27 -0700 (PDT)
+Date: Wed, 16 Sep 2026 11:00:24 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Sergii Ushakov <sergiiushakov@google.com>
+Cc: virtualization@lists.linux.dev, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@infradead.org>,
+	Jason Wang <jasowangio@gmail.com>, Jens Axboe <axboe@kernel.dk>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>
+Subject: Re: [PATCH v2] virtio-blk: clamp max_segments when indirect
+ descriptors are disabled
+Message-ID: <20260916104218-mutt-send-email-mst@kernel.org>
+References: <20260814105954.4060627-1-sergiiushakov@google.com>
+ <20260817134202.160669-1-sergiiushakov@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: phy: airoha: Document support for
- AN7583 USB PHY
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260901123933.15388-1-ansuelsmth@gmail.com>
- <20260901123933.15388-2-ansuelsmth@gmail.com>
- <20260907-auspicious-liberal-raccoon-bd7a81@quoll>
- <6a9e7d3b.0f5dc47b.330412.df04@mx.google.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <6a9e7d3b.0f5dc47b.330412.df04@mx.google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817134202.160669-1-sergiiushakov@google.com>
 
-On 07/09/2026 11:00, Christian Marangi wrote:
-> On Mon, Sep 07, 2026 at 08:35:56AM +0200, Krzysztof Kozlowski wrote:
->>> +
->>> +    required:
->>> +      - phys
->>> +      - '#phy-cells'
->>> +
->>> +    additionalProperties: false
->>> +
->>> +patternProperties:
->>> +  '^usb2-phy@[0-9a-f]+$':
->>
->> You should not mix MMIO and non-MMIO children. Either children have
->> distinctive addressing, or not. Not both.
->>
->> The other problem is that your children have no resources, so are not
->> really distinctive children and should be folded in to the parent.
->>
->> I already asked that at v2, so let's finish with asking: drop the
->> children.
->>
+On Mon, Aug 17, 2026 at 03:42:02PM +0200, Sergii Ushakov wrote:
+> When VIRTIO_RING_F_INDIRECT_DESC is not negotiated by the host, every
+> scatter-gather segment in a request must consume a physical slot in
+> the virtqueue ring.
 > 
-> I misunderstood the request and tought it was only related to the PCIe
-> part.
+> If the host does not advertise VIRTIO_BLK_F_SEG_MAX and provides a small
+> virtqueue (e.g. 128 descriptors on QNX Hypervisor), the block layer
+> defaults max_segments to BLK_MAX_SEGMENTS (1024). When a multi-page
+> compound bio arrives from the page cache, virtqueue_add_split() rejects
+> the request with -ENOSPC and triggers:
 > 
-> I'm not really sure how to drop the child without complicating the node
-> structure a lot (also I feel dropping the child would make the description
-> of the HW less clear and I would like to prevent that)
+>   WARNING: at drivers/virtio/virtio_ring.c:1493 virtqueue_add+...
+>   WARN_ON_ONCE(total_sg > vq->split.vring.num && !vq->indirect);
 > 
-> The register for the usb2 node 0x0 and 0x1000 are offset of the register
-> declared in the parent node 0x1fac0000. For usb2 1 the phy registers are at 
-> 0x1fac0000 - 0x1fac0200, for usb2 2 the phy register are at
-> 0x1fac1000 - 0x1fac1200.
+> This permanently wedges the blk-mq queue and blocks all subsequent disk
+> I/O in uninterruptible sleep (D state).
+> 
+> Automatically clamp sg_elems to (ring_size - 2) when indirect
+> descriptors are disabled.
+> 
+> Signed-off-by: Sergii Ushakov <sergiiushakov@google.com>
+> ---
+> v1 -> v2:
+> - Drop max_segments module parameter and rely solely on automatic clamping
+>   when indirect descriptors are disabled (suggested by Christoph Hellwig).
+> - Guard (ring_size - 2) calculation with ring_size > 2 to prevent underflow.
+> - Update commit description accordingly.
+> 
+>  drivers/block/virtio_blk.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+> index 32bf3ba07a9d..8f5a2d5323a6 100644
+> --- a/drivers/block/virtio_blk.c
+> +++ b/drivers/block/virtio_blk.c
+> @@ -1267,6 +1267,13 @@ static int virtblk_read_limits(struct virtio_blk *vblk,
+>  	/* Prevent integer overflows and honor max vq size */
+>  	sg_elems = min_t(u32, sg_elems, VIRTIO_BLK_MAX_SG_ELEMS - 2);
+>  
+> +	if (!virtio_has_feature(vdev, VIRTIO_RING_F_INDIRECT_DESC)) {
+> +		u32 ring_size = virtqueue_get_vring_size(vblk->vqs[0].vq);
+> +
+> +		if (ring_size > 2)
+> +			sg_elems = min(sg_elems, ring_size - 2);
+> +	}
+> +
+>  	/* We can handle whatever the host told us to handle. */
+>  	lim->max_segments = sg_elems;
 
-0x1fac0000 - 0x1fac0200 and 0xx1fac1000 - 0x1fac1200 are both already
-within the parent (which is: 0x1fac0000 0x1200), so I do not understand
-your explanation how this would complicate anything.
+
+I do not get why it does not clamp with VIRTIO_RING_F_INDIRECT_DESC.
+Spec says:
+
+ A driver MUST NOT create a descriptor chain longer than the Queue Size of the device.
+
+Also, pls add a comment explaining where does this 2 come from.
+
+What about ring size 2? I guess
+
+
+
+> When VIRTIO_RING_F_INDIRECT_DESC is not negotiated by the host, every
+> scatter-gather segment in a request must consume a physical slot in
+> the virtqueue ring.
+> 
+> If the host does not advertise VIRTIO_BLK_F_SEG_MAX and provides a small
+> virtqueue (e.g. 128 descriptors on QNX Hypervisor), the block layer
+> defaults max_segments to BLK_MAX_SEGMENTS
+
+Does it?
+
+        err = virtio_cread_feature(vdev, VIRTIO_BLK_F_SEG_MAX,
+                                   struct virtio_blk_config, seg_max,
+                                   &sg_elems);
+                 
+        /* We need at least one SG element, whatever they say. */
+        if (err || !sg_elems)
+                sg_elems = 1;
+
+so set to 1 without VIRTIO_BLK_F_SEG_MAX
+
+
+        /* Prevent integer overflows and honor max vq size */
+        sg_elems = min_t(u32, sg_elems, VIRTIO_BLK_MAX_SG_ELEMS - 2);
+
+unchanged here
+
+        /* We can handle whatever the host told us to handle. */
+        lim->max_segments = sg_elems;
+
+assigned to max_segments here
+
+
+> BLK_MAX_SEGMENTS (1024).
+
+In which tree does BLK_MAX_SEGMENTS equal 1024?
+
+git show next-20260915:include/linux/blkdev.h | grep -n 'BLK_MAX_SEGMENTS'
+1234:      BLK_MAX_SEGMENTS        = 128,
+
+
+
+
+> When a multi-page
+> compound bio arrives from the page cache, virtqueue_add_split() rejects
+> the request with -ENOSPC and triggers:
+> 
+>   WARNING: at drivers/virtio/virtio_ring.c:1493 virtqueue_add+...
+>   WARN_ON_ONCE(total_sg > vq->split.vring.num && !vq->indirect);
+> 
+> This permanently wedges the blk-mq queue and blocks all subsequent disk
+> I/O in uninterruptible sleep (D state).
+
+Please clarify the reproducer, including the negotiated features,
+max_segments, actual ring sizes, and total_sg at the failure. As
+described, it should not trigger and I do not see how
+the patch is supposed to change the failing configuration.
 
 > 
-> The driver read this offset and apply it to every register access for the
-> related phy.
+> Automatically clamp sg_elems to (ring_size - 2) when indirect
+> descriptors are disabled.
 > 
-> The usb2 child are needed for the specific airoha,usb2-monitor-clk-sel
-> property since it's specific for the usb 2.0 phy.
+> Signed-off-by: Sergii Ushakov <sergiiushakov@google.com>
+> ---
+> v1 -> v2:
+> - Drop max_segments module parameter and rely solely on automatic clamping
+>   when indirect descriptors are disabled (suggested by Christoph Hellwig).
+> - Guard (ring_size - 2) calculation with ring_size > 2 to prevent underflow.
+> - Update commit description accordingly.
 > 
-> Also would like to stress that these PHY are all part of the same register
-> block.
+>  drivers/block/virtio_blk.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
-> One solution might be to just classify the usb2 node as 0x0 and 0x1 and
-> handle internally the register mapping with the driver. But again the
-> problematic thing is map the monitor-clk-sel with the relevant USB 2.0 phy.
-> 
-> Any hint on this? Is it ok to keep the child node and use 0x0 and 0x1?
+> diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+> index 32bf3ba07a9d..8f5a2d5323a6 100644
+> --- a/drivers/block/virtio_blk.c
+> +++ b/drivers/block/virtio_blk.c
+> @@ -1267,6 +1267,13 @@ static int virtblk_read_limits(struct virtio_blk *vblk,
 
-Best regards,
-Krzysztof
+Well we only set the limit at probe. virtblk_restore_priv() recreates
+the queues on resume and reset recovery, then resumes dispatch without
+checking their sizes against the existing limit. ring allocation
+can reduce the size under memory pressure, including during recovery.
+
+Since you are now (correctly) tying request size to vq size,
+this needs to be resolved.
+
+
+
+>  	/* Prevent integer overflows and honor max vq size */
+>  	sg_elems = min_t(u32, sg_elems, VIRTIO_BLK_MAX_SG_ELEMS - 2);
+>  
+> +	if (!virtio_has_feature(vdev, VIRTIO_RING_F_INDIRECT_DESC)) {
+
+Why exempt indirect descriptors? The virtio spec says:
+
+	A driver MUST NOT create a descriptor chain longer than the Queue Size
+	of the device.
+
+Even on devices ignoring that -
+there is a failure path even when indirect descriptors are
+negotiated: virtqueue_add_split() falls back to direct descriptors if
+the indirect-table allocation fails. So if the request exceeds the ring
+size, it returns -ENOSPC even on an empty ring. virtio_queue_rq() then
+stops the hardware queue, with no outstanding completion to restart it.
+
+
+> +		u32 ring_size = virtqueue_get_vring_size(vblk->vqs[0].vq);
+
+Why 0? VQ 0 is not necessarily the smallest queue. The transport specifies
+sizes per queue, and Linux can reduce individual split-ring sizes
+during allocation.
+
+> +
+> +		if (ring_size > 2)
+> +			sg_elems = min(sg_elems, ring_size - 2);
+
+The subtraction is correct: virtblk_add_req() uses separate outgoing
+and incoming header descriptors, including for zone append.
+However, we really should have a comment explaining that, here.
+
+And, ring_size <= 2 must be rejected rather than bypassing the clamp:
+A two-entry direct ring can pass probe, yet even one data segment
+needs three descriptors and hits the same permanent -ENOSPC condition.
+
+> +	}
+> +
+>  	/* We can handle whatever the host told us to handle. */
+>  	lim->max_segments = sg_elems;
+>  
+> -- 
+> 2.55.0.691.gc56d675ccc-goog
+> 
+
+>  
+> -- 
+> 2.55.0.691.gc56d675ccc-goog
+
