@@ -1,97 +1,165 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C8A4C33F3;
-	Wed, 16 Sep 2026 16:45:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462834B8294
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577167; cv=none; b=M77ytmhL9sIfU3iiXa45kn8BSaERkYKLxRIqC7KFjjV4oJrNzXzv/zFLasnOG9jAGRwFEmuJ9ylyoOCuO4r5SWS2VlT57FJEhLKIk8Y5wi6iZjc/SYtNHf4ctBboTU2qm+Qg5SZVCl4mU1w1Kus4NYZMmTu3yabFaBQGNpU1jB8=
+	t=1789577179; cv=none; b=jKSHRk8ubC8P/0keCOjHL64hkDIPBHkDP4NoDUqhhLYEhQBmTEj8hAcD4iVj3DDap1ul7wNQWX87BCOqHlPB9RBrmo4fxqLtNxHORbb7GnJ3DjD+ZevfP+w8Fr82xb4dgvfbwfSZRvVhox8n3FjD89PvHfavHiU37YV0EIsdDRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577167; c=relaxed/simple;
-	bh=rnbHyBuhnp7MEutDcD2qgrXwiTP6PhSbte/VmXfYH9Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T6Ofp10WCccVBMqc3uiiziFF0bmnw9JtpYRvzqaKFhkQfdObj+x5xcDvMWcFtaB1FBUSgfKzoyUOS2Ax75pL3AnkzuTeZ7zDNVdrEMnc+3XABp4G40F18m7VwvLBL+bgSGCSinMxtpq7RQuLcrlPMoIafAg3VhVrZi+EPKK3EEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnUDu5x6pqFOZtCA--.22059S2;
-	Thu, 17 Sep 2026 00:45:45 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andy@kernel.org
-Cc: apokusinski01@gmail.com,
-	dlechner@baylibre.com,
-	jic23@kernel.org,
-	linux-iio@vger.kernel.org,
+	s=arc-20240116; t=1789577179; c=relaxed/simple;
+	bh=1fs5/9PJdlbuBhTs0ZxkDNW+v2WItpOPk3QzGFWOdbk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bh9AlcQUXycwawDls4ya3aO7HiPWJBfo5lLxkoMiHmMsyGk6E85BYtxfuFlpBTimHZAUAcZ98ZDOFLyIb8CPzfdt6M+PHBB8Sk4rzvfEHgTJTc7RH031ybi1AjlrqPq63l0/bEgJAYW61AaooPCX/cWAwMhFcILkcmBrzQnE6ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QMSLSCTc; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QMSLSCTc"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-39d654f02baso949122a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:46:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789577171; x=1790181971; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1fs5/9PJdlbuBhTs0ZxkDNW+v2WItpOPk3QzGFWOdbk=;
+        b=QMSLSCTcLtJ+AiMJ6XECO+C16YHQOAZXJqddh+1hwfr5SVCU4HFWiTSJa1dhNOAfge
+         pfYOyTxgh+G7+nYzG29DcTK0mbanmL4Ki5CnnFA1nBDvUO6vmqKWePAB+FZ5FpUy7ybf
+         NvpmQd8hmW1D58fLfNxQ2IO4hTT5eo54DBnXZzh2iajCO69bt2cf5NtANoLSgFqyO5/A
+         9LEmXnDntVcj3+khqajRkChzL+EBb5PV7pHymXnMoVk6pz3eKRz4jysRegqRDLaw73Fi
+         qXC75IwpNB6FudUN9Cqwzv40xMcW2rJfnS4fRbIUZsdSRYywhbx5SH4WUeYfZTSmmPUN
+         0lKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789577171; x=1790181971;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1fs5/9PJdlbuBhTs0ZxkDNW+v2WItpOPk3QzGFWOdbk=;
+        b=yc3xyZ/9Fx0KQ1JmP5VvJExnKtMuRxC97glokDwUvPDdrdczijA97Irluc8s+FDlWl
+         VIx+ryVs0macPkaE+uaMX0TJ9JlUg88V+2FXddqRwJJCEC5psK8bgY8qwiVzXJm4naC9
+         Pz1BpzEUW4frEYoLlc7rZKTMWzRhH3FSH3BhYKodd5zP3sUB5vO/1u/fAALT8OXUY+Ad
+         L1UZX3XlgU24N4wG0JId3PkUQ891N0C4jYocJVvXXBnYlO3RfeWFChmujzSHsavU0pKl
+         OFx33leE8xn1mjKuxUtMp683pOMQYICNg9wgauGWzNrQVbevE+X/R2STBIFhA2rz5aD9
+         rlyw==
+X-Forwarded-Encrypted: i=1; AKwUvBw9vnY+S/w5TSQy8gLi0ep8cSMbb0i9WtM7vBkLARB09tDZxqDrcBZnF9nE3tbbuOiRDSwcu9CO6xWAHu8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYBCOvi9o4tXqstugmHHEsL4qO+/zJUkd3gB6rL7vvM6V2LPcj
+	jRVk9fX4h6LkYP2+jf7zopLYwFY+TrylqG8XTAAoDP+4DYAA/O42BR49
+X-Gm-Gg: AYBFou21GI0kLEZn6fHp7hPjUWQppo2xAh5mg4Pypg+jxD8xc8jAoyMBmm9I7MKoEgl
+	3c9lBgRPXMDlmWtS6mgdPTlIDuIwKie7YjWnFioGO2kSM11s9aJtYpxyHM5T+CLsq2H4h7JO8DX
+	NkPYg88qF/hlH6tfYiyvC18Mn5FjEJbH0/uFy3xCP09/NZ/yjofB3w1FU6MLLHRUfzFePyjbxbO
+	LexSoVUaye6sJMd19DakmTOZFVqxC1O2emStjQVGMhjOSILzAltWZmeJCLHqrWhBx0saytoBLXK
+	c/8ginX8C5Naoix5/OpfPqo/lrry4HwTJFUPpb4H95/QyZDNsvSj/3iVaYAQ0SbCgCYpYFnKVTn
+	O7Oge/H7K4t0ozNHsTYYObdxxHs36Pox7EWtLwMSszHzSQl68EA5gDLmHXo+7BGgpqpA0GSnQA/
+	TE4iMFLmhuFy7X2+khyMrGKYVRTKywFui1HARUDpsg3Zng0JBmmgGS1jIw0ur5Vs557w==
+X-Received: by 2002:a17:90b:560d:b0:39b:3109:10ce with SMTP id 98e67ed59e1d1-39e1e45cbaemr7258907a91.16.1789577170531;
+        Wed, 16 Sep 2026 09:46:10 -0700 (PDT)
+Received: from jm-X870 ([2001:e60:20dd:7c28:de1c:fff7:d3a4:d8c7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3617443asm292100a91.9.2026.09.16.09.46.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 09:46:09 -0700 (PDT)
+From: Jaemyung Lee <ldc.jml@gmail.com>
+X-Google-Original-From: Jaemyung Lee <jaemyung.lee@samsung.com>
+To: Bean Huo <beanhuo@iokpp.de>
+Cc: Jaemyung Lee <jaemyung.lee@samsung.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	bjorn3_gh@protonmail.com,
+	Benno Lossin <lossin@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	work@onurozkan.dev,
 	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: temperature: tmp006: Fix trigger reference leak in tmp006_probe()
-Date: Wed, 16 Sep 2026 16:45:17 +0000
-Message-Id: <20260916164517.2084799-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	rust-for-linux@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
+Date: Thu, 17 Sep 2026 01:46:01 +0900
+Message-ID: <20260916164601.2562349-1-jaemyung.lee@samsung.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <4c38f13af8f75020fefc35827463e9bc643b99f4.camel@iokpp.de>
+References: <20260912-rufs-private-v1-1-716db733e655@samsung.com> <4c38f13af8f75020fefc35827463e9bc643b99f4.camel@iokpp.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnUDu5x6pqFOZtCA--.22059S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47ZFW7tF43uF1rWF17ZFb_yoW8GF1fpF
-	sakayjyFW5trs7Ja1kZ3Z09a4avanxXrWUGr48A3s2va9xJa1YkFyYvFWFqF1IkrW8WrWj
-	gr1UtFWF9r4jvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	o5l5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAMA2qqpO9STQAAsX
 
-The reference taken with iio_trigger_get() is only dropped by
-iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. Failure of
-devm_request_irq() or of triggered buffer setup returns before that
-mode is set and leaks the reference acquired for indio_dev->trig.
-Take the reference only after the triggered buffer setup succeeds.
+On Fri, 2026-09-11 at 23:44 +0200, Bean Huo wrote:
+> You still use scsi everywhere in your implementation protocol/scsi.rs
+> builds READ_10/16, WRITE_10/16, SYNCHRONIZE_CACHE and UNMAP CDB, so
+> "decouple UFS from SCSI" really means "copy a small part of sd and the
+> SCSI error handling into a UFS driver." while JEDEC defines the UFS
+> application layer as SCSI, the SCSI work doesn't go away, you just move
+> somewhere else, and it has to be written again.
 
-Fixes: 91f75ccf9f03 ("iio: temperature: tmp006: add triggered buffer support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/iio/temperature/tmp006.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+I agree. By "decouple" I meant independence from the Linux SCSI mid-layer,
+not removal of the SCSI command set from UFS.
 
-diff --git a/drivers/iio/temperature/tmp006.c b/drivers/iio/temperature/tmp006.c
-index d8d8c8936d17..06303ce72bfb 100644
---- a/drivers/iio/temperature/tmp006.c
-+++ b/drivers/iio/temperature/tmp006.c
-@@ -354,8 +354,6 @@ static int tmp006_probe(struct i2c_client *client)
- 		if (ret)
- 			return ret;
- 
--		indio_dev->trig = iio_trigger_get(data->drdy_trig);
--
- 		ret = devm_request_irq(&client->dev, client->irq,
- 				       iio_trigger_generic_data_rdy_poll,
- 				       IRQF_NO_THREAD, "tmp006_irq",
-@@ -369,6 +367,9 @@ static int tmp006_probe(struct i2c_client *client)
- 	if (ret < 0)
- 		return ret;
- 
-+	if (data->drdy_trig)
-+		indio_dev->trig = iio_trigger_get(data->drdy_trig);
-+
- 	return devm_iio_device_register(&client->dev, indio_dev);
- }
- 
--- 
-2.34.1
+The current RFC has CDB construction and only a small part of completion
+disposition. It does not yet implement enough sense, retry, recovery, and
+disk behavior to show that the complete UFS-specific version is smaller or
+simpler. The cover letter stated that conclusion too early.
 
+> The "friction" claim is weak. SCSI has already been changed to fit UFS.
+> Two examples: UFS now uses SCSI simple copy, group number in scsi write
+> command.
+>
+> I doubt how far this can go. do we really need to pay effort for a new
+> RUST UFS driver, I am not very confident, unless SCSI is removed from the
+> UFS spec and JEDEC defines native UFS commands, or we talk to the device
+> directly with UPIU. please name the JEDEC feature that the SCSI midlayer
+> really blocked, or that was historial issue which has been fixed.
+
+Also fair. I cannot currently name a public JEDEC feature that was
+shown to be impossible to implement because of the SCSI mid-layer.
+
+One of my main motivations was the amount of cross-layer reasoning needed
+for product EH and PM problems. In product work, I often had to follow UFS
+state, generic SCSI recovery state, block queue state, and device-PM state
+together. That experience is a reason to investigate another design, but
+private product experience is not proof that the upstream architecture is
+wrong.
+
+> I would also like to see the heavy and hard parts, because they are the
+> parts that decide if this design worrks:
+>
+> 1, error handling: abort, LU reset, retries with limits, sense decoding,
+> this is the very hard part of UFS driver.
+>
+> 2, user-space tools interface: SG_IO and bsg (sg3_utils, ufs-utils, FFU
+> with WRITE BUFFER), and the UFS sysfs tree..
+
+I agree. These are architecture requirements, not small follow-up features.
+Before claiming that standalone is useful, the design needs to cover
+timeout, abort, LU and host recovery, bounded retries, sense and Unit
+Attention, late completion, DMA safety, PM-aware recovery, and request
+disposition.
+
+I think the next step should be to document these responsibilities and
+compare the standalone design with improving `ufshcd` before completing a
+second implementation. If RUFS only reproduces the same behavior and
+complexity, the standalone design would need to be reconsidered.
+
+> Did any AI tool help write this code? If so, please add the Assisted-by:
+> tag.
+
+Yes. An LLM helped during reviewing, testing and preparation of the
+submission. I will add the tag required by the current kernel documentation
+in the next revision:
+
+Assisted-by: LLM
+
+Regards,
+Jaemyung
