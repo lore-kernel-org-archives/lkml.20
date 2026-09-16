@@ -1,46 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEAEEEC3;
-	Wed, 16 Sep 2026 00:21:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE123C2C8
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789518106; cv=none; b=Lgtzkzunt5An/vLmjrUMHtB1k65EHA5OPF5+0tiy86Gbib5UoKzvm96O/wl1jTe8IEFvIULQzlqM3EUHAoq+zEzOUvfxrXewblAVfZhQnFZp2mg5al/Suf9UjDnIp1hUgYhISPjqJcWnt9ECDvFwJ6asyLPh1y6m4zmzwevP2wM=
+	t=1789518139; cv=none; b=VlrOGamzSamHChMQ0arFjHDt4270mr0lq2bG25r2rBI8tly5ffXI/tezbv+A7yhu9qAPyIhSzwE7jV7cukt4AzU5rfh50sO1F/hAT8534kKDXsvMOMZrEn1GvowcKFByX9hc+0T2KxGSAaei9b7UQ3Ki7xLII3ljme75TOL5pnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789518106; c=relaxed/simple;
-	bh=PNX3JszDIxlUZBDCC/I74/uD3IxHmY2sRGm87S7EsT8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Sj4pNOdqRmzlVNtTHwlscXKhfvSwgwqinzpt1+tByRjsqOI5epqNXuXIrXaqs8TKZv3PDbpVrecTBRUN8+Fa/9oZdv655heZZk/ki9ciKKCeW1i0h2X1qAXEaXHoRO+nq8OMngBQDlmmcfOi5/RBTFu3b5CVnhjM7ncq6pGkDXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8uyB34Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789518139; c=relaxed/simple;
+	bh=joLLY24yWt6k7f72yr0ZNHT1Gt/qyWm3t2hVmh6MfvE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EhBSjQXh1pEDwzDOm4Dy6nhFHif/k9XylKCzYq/0d3UKyP4S1/ld9H3N8jeJh3xnixL5EzcqTIfRq0rdD6rGfzfFmn7uxDEzT+rKN6q/FWvqfVaERNx4XsoEImrpVT1fzjjlXDWaK4p/uKO/z7FW23JYuxcy6lRT6tt9T1J7G90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EjJ5fjd3; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8uyB34Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4563C1F000FF;
-	Wed, 16 Sep 2026 00:21:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789518104;
-	bh=G4LowGoWNcdFj3OSfkotqiKzOTNUTztLfprpysOi+bA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I8uyB34Yay2zuDDBEnWmf6i9iYa0SBIDA+SwSJ8zI2PeKeWIewnl2eoVqeJgo6I6k
-	 X2WYvc+6po4JPforGzAWrO6IljvYaL6duWElvitQSNLuY9TOzKFvYa0Wk3kJ47Z+Fc
-	 kNlZNUYmma+CW3DQ2FRWTUd24BCMJDPn1LS9/aphG24Uew66N8dBiv9CJxw3nCwW/Y
-	 O3VKZT2glvNxOZS8WOpJGk/PcBuzn6hkR0qUKb7bNQFMnc8ledAwA5UVYzxAbm8Ivr
-	 +RtmiiW6mcSKrDEOGx7wx/fdhxhWts5OrUrEzbHWrRTskBtus+jJUKJnx9SfM49Yvl
-	 e5I7ljHeqATWg==
-From: SJ Park <sj@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lian Wang <lianux.mm@gmail.com>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EjJ5fjd3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789518136;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=xMZBU/NdVGpZ9v1/Gz3rmEtDNTcHrC67v7xThKqfkyw=;
+	b=EjJ5fjd3CBGoljwpeBjBToQ3RgSmIU29A4mGAEe9dgrIpzbeMXbh6ZSaBG55HL4eQ7DaVg
+	rumtJUYfovhD74sV08JA69XqMYMurM6N0mkc6Z+t8DXGLYE+l0JvbqaaMRE77yUPBH5+fa
+	DGGKi4OmEu7+9DonyVsx8QPMhX7J7Ok=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-166-lHcBCAzlOIiz7TUC7BUmeQ-1; Tue,
+ 15 Sep 2026 20:22:13 -0400
+X-MC-Unique: lHcBCAzlOIiz7TUC7BUmeQ-1
+X-Mimecast-MFC-AGG-ID: lHcBCAzlOIiz7TUC7BUmeQ_1789518131
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E51D6195421E;
+	Wed, 16 Sep 2026 00:22:09 +0000 (UTC)
+Received: from GoldenWind.lan (unknown [10.22.80.21])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8D7AA3003EFB;
+	Wed, 16 Sep 2026 00:22:06 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] mm/damon/tests/core-kunit: test PSI goal rounds under the temporal tuner
-Date: Tue, 15 Sep 2026 17:21:36 -0700
-Message-ID: <20260916002137.101195-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260915060937.3423-3-kmehltretter@gmail.com>
-References: 
+Cc: "Timur Tabi" <ttabi@nvidia.com>,
+	"Dave Airlie" <airlied@redhat.com>,
+	"Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+	"Kees Cook" <kees@kernel.org>,
+	"Simona Vetter" <simona@ffwll.ch>,
+	"David Airlie" <airlied@gmail.com>,
+	"Thomas Zimmermann" <tzimmermann@suse.de>,
+	"Maxime Ripard" <mripard@kernel.org>,
+	"Hongling Zeng" <zenghongling@kylinos.cn>,
+	"Mel Henning" <mhenning@darkrefraction.com>,
+	"Danilo Krummrich" <dakr@kernel.org>,
+	"Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH v3 0/5] drm/nouveau/gsp/r570: Follow OpenRM's runtime PM process more closely
+Date: Tue, 15 Sep 2026 20:09:50 -0400
+Message-ID: <20260916001603.22394-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,60 +68,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Tue, 15 Sep 2026 08:09:37 +0200 Karl Mehltretter <kmehltretter@gmail.com> wrote:
+While we have runtime PM working a lot more reliably then in the past
+with R570, we're still doing things a lot differently then OpenRM. For
+instance, we don't save/restore comptag backing stores, and we don't ask
+GSP whether it's OK to enter GcOff.
 
-> Exercise a PSI quota goal under the temporal tuner on its first
-> round, its next measured round, and after a goal commit. Use
-> ULONG_MAX as the target so the goal is not reached during the test.
-> Then check that a measured round which does reach the target sets
-> the quota to zero, and that the consist tuner keeps its quota over
-> an unmeasured round.
-> 
-> Without the previous patch, the first and the post-commit checks see
-> a zero quota.
+This series fixes this, and gets our runtime PM process to look a lot
+closer to OpenRM's by implementing some missing pieces and workarounds.
 
-Thank you for adding this test.
+Tested on my daily-driver desktop with an AD102, a ThinkPad P17 Gen1
+with a GA103GLM, a Dell Precision 7780 with an AD103, and my test
+machine with a GB206.
 
-> 
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  mm/damon/tests/core-kunit.h | 69 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 69 insertions(+)
-> 
-> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-> index c01e6a75cadc..2b9b24ce7dad 100644
-> --- a/mm/damon/tests/core-kunit.h
-> +++ b/mm/damon/tests/core-kunit.h
-> @@ -889,6 +889,74 @@ static void damos_test_commit_quota_goal(struct kunit *test)
->  			});
->  }
->  
-> +/*
-> + * Unmeasured PSI goals must not disable the temporal quota.
-> + * Keep sz * 10000 within a 32-bit unsigned long.
-> + */
-> +static void damos_test_set_effective_quota_temporal_psi(struct kunit *test)
-> +{
-	[...]
-> +	/* fresh goal, first tuning round */
-> +	damos_set_effective_quota(c, s);
-> +	KUNIT_EXPECT_EQ(test, s->quota.esz, (unsigned long)SZ_64K);
-> +
-> +	/* second round: last_psi_total is initialised now */
-> +	damos_set_effective_quota(c, s);
-> +	KUNIT_EXPECT_EQ(test, s->quota.esz, (unsigned long)SZ_64K);
+Patch series based on drm-misc/drm-misc-next. Branch with patches here:
 
-So, this test depends on the memory pressure level of the testing system?  I
-concern if that could make the test result not very reliable.  Maybe we could
-split out the corner case handling logic to explicitly receive the current
-memory PSI total time.  For example, like what I suggested in the reply to the
-first patch of this series.  With it, we could build a kunit test for only the
-target logic, without depending on the test system's status.
+	https://gitlab.freedesktop.org/lyudess/linux/-/commits/nouveau/rpm-openrm-sync
+
+Lyude Paul (5):
+  drm/nouveau/gsp/r535: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
+  drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
+  drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
+  drm/nouveau/gsp/r570: Start saving comptag backing stores
+  drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
+
+ drivers/gpu/drm/nouveau/include/nvif/cl0080.h | 10 +++
+ drivers/gpu/drm/nouveau/include/nvif/device.h |  1 +
+ .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  4 +
+ drivers/gpu/drm/nouveau/nouveau_drm.c         | 13 ++++
+ drivers/gpu/drm/nouveau/nvif/device.c         | 13 ++++
+ .../gpu/drm/nouveau/nvkm/engine/device/user.c | 39 ++++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/priv.h    |  1 +
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 43 +++++++++++
+ .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 52 +++++++++++++
+ .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 77 ++++++++++++++++++-
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |  8 ++
+ .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       | 29 +++++++
+ .../nvkm/subdev/gsp/rm/r570/nvrm/gsp.h        | 50 ++++++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  2 +
+ 14 files changed, 340 insertions(+), 2 deletions(-)
 
 
-Thanks,
-SJ
+base-commit: 5363e01e4ff03a204cab85292b89cf90c2d1b101
+-- 
+2.55.0
 
-[...]
