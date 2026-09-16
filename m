@@ -1,74 +1,118 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012011.outbound.protection.outlook.com [52.101.43.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C365F372EE2
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789560023; cv=none; b=Q6kRCRkQ3cfiRWN2vGLxeubIXUkvGP4Oyid4y3yaXGtVxRpIFHnznEPKZ2PDogJFt+OSXnxFX0zu7EXhlmxf5pc16aWNa3TBMMswHRdXCqPQUb7q53IGp8y50/KzeCivArnoHyTDSAxvpoO8vlXPy8SF6xf+bda/zmjdGqvR3j8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789560023; c=relaxed/simple;
-	bh=4ONM5VS6QPfAIKUgm6ed48PmyuZMxx+zucJ9QdHw0zs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nDNUsgojWjih5HuOPD91R0CJ9VeW8EiEr96mRzINaq7xuOoiTG3zM+OekqdFBO7Ko2Hf5sloTiEwNas5ep6vJgEI7BL0Ue/XtSgjG3dBB6LHXxU8oIR08cnWvbdcLp3mjEJoakQA90ksC7XyxL0F7u9a3hmVrObulo50bi2ZD/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eiem9CaU; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439A64EA397;
+	Wed, 16 Sep 2026 12:00:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789560026; cv=fail; b=jqBO8NtBFL4K/VLJubI0PBAui7FphPe8+u057Lokb/KMBmnsCyn6bcqFwllfsuLLqCx9phx/q05ti47yY33yBrFMdZViUqUB+rHUntsVGPYJ6tFL1Xw2dBihuFHScke1OYyCQ6ZiMvoEzxdQGf+BFjRovNRd1CMyv3FG3oHSTqY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789560026; c=relaxed/simple;
+	bh=sttoicWwFhSqRBO1Rked7Fn122Ur/QMolwOebCg8C3w=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AE+ZyHFuIA4eDXnTVTZHG6WoTVNEyeK/8Dr+bOG6wwejKce1Nov9CMEe8qNMXbT/oaN1BnQRrsA9MZh0E4gh/fFDQYqczu0eL8qP92PMWSIzC4ae22jIJ3hnRAUd0sC7ZjtyT8D2P+vbTDSCkOwMXMSinLuS7K+8r0VvMjDpd20=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=gl3xaf2Y; arc=fail smtp.client-ip=52.101.43.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eiem9CaU"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b965f447cso7472105e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:00:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789560014; x=1790164814; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m7cL2Gp18NYRYCb91RHJeYep+3bFOMgxuk/o+xCqY6c=;
-        b=eiem9CaUwLYrAGCfxf+an7Z7oG0ShpB6vxV4/O8FU3Vz5lbY0/aff3CClKXrGMtLVo
-         azrQ1450WCxjY132p91oWV3bXf4PwJDhv/KKPW812CtVQCEGlSCheo/xLGm/s49mgrOH
-         XIeT3hkQH4QPHKlkrpCy7w/Vu/H+SkdejBSj10oL6VDYg+7Qq9a4QOobkjBwdbMObsve
-         J3C1K+jiVFfKyB5IrIcZ6o65uQQMwpnNxLk71u539iwOy5yR1l211Ko7mckoPP5O/1rd
-         dP/Y2LFGg38TI6d7CxT6Kx+amx3/ABUb6sIGtk02zspEORqvp9qc3RLC7MVQarqitJcK
-         ryLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789560014; x=1790164814;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m7cL2Gp18NYRYCb91RHJeYep+3bFOMgxuk/o+xCqY6c=;
-        b=ywXPGgUCPJm5QwMfecBtb+AcBqYGQvlfDd80aerqA3z2rG9lNNlfatQ1rYZBvsNMqs
-         CFSIYrbetUgIaJI3BQp/JRjpc9aya0aB9N6CW8/lDBHECVpT0+kfZbX4vK3tPln5BDoX
-         DeEdWvLcU45pLQBarCVhdLArHzkWnn9IpaeCax55sSxM4sP0+QHQzb4sJsVfnCR6Girm
-         Y+Snnd9P2zCbUyAgal/Q3EIGxfLR8k+f8gJrkl3/CJaJt/HUs5cOHxrkwCxO6qSRR5eu
-         HYtSvuiXvHSp+0My8kILrxbOZdrnAHHAO6eOsv9F7IHpRX/4ZK7fe99UH9UMgDq2q0ie
-         m8Zg==
-X-Forwarded-Encrypted: i=1; AKwUvBx3OLuLIu6WxEt9RjnwzAw/3pZYhv+I10VEfFOM0jRrRYBucU/I7xJtIgee6PDDO3SLX+5XI2u0Mp5k8yM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPeyoErvwx06RqxvhDwyr4nrFZTElY239nH6ziaW6vQ9fl4zzu
-	nq8ZbBlaVadpEE6ArOX4t7fzrU5tJTEjpIrHl1oSf2ak9nfTk7wlbdp6
-X-Gm-Gg: AYBFou3CDd8hHyZfcDtDAY0fORuNHhzHHHU3myTKOREg8IWugjBIlpxUUr/RsoPhVKm
-	JmmOh5K/b83zae35oHFns9C1UoPEyRqoZdNCMCipFPb0pxwRsN7+N5dp2EUh7Ks7S9PLZPBeHkw
-	spTHifz3k931EYEmwY80G/WOyD0uWB03rrX+ghzdx0n+F/49kxSlYY+RjdK5jtwO7GiHId0oJV2
-	VMdd+P1wwZ/Q5vASms5ZaM5qCrP/fAVW/WCfqdCZf3in1odgNJcySd2OFBK4T/b3jur4Xnf58BU
-	v7RKEugWUJG1VTuXGjKmnaJWdIBY+MbMG0we2hltvnqGDHRrRVEHOwW6n0SBj6JSnb1Nj3cpT1Y
-	a45XmLUrDjGEiKD7wHIPKjj1ZdyPCF3nHMCnYd1zzm3gv8QMB0zrg4bQLudtCMdJHft6Gqbdo8p
-	KC2Igql4L2psMg3C6KtTsCD+JlhTNgAnpkCxUGp//xfJ8kDXJVc+PtMIO2IS/VpaByDPJV4O5eR
-	/e/LJ/YsERvQ1qmvCrTmk18H63DQhmaoUGu6SZWeGb4nDbVa3iVGINTML3rPJnvyeakvEDI6gi5
-	s7A5CL/NM2c8pjuZIpX12rEGOK7kI4Q=
-X-Received: by 2002:a05:600c:474c:b0:49b:d03:8d3a with SMTP id 5b1f17b1804b1-49eb72f40cdmr26055415e9.11.1789560014265;
-        Wed, 16 Sep 2026 05:00:14 -0700 (PDT)
-Received: from PC-Ubuntu.taile4b802.ts.net (2a01cb0082e4ed0062a44cfffeccdd1d.ipv6.abo.wanadoo.fr. [2a01:cb00:82e4:ed00:62a4:4cff:fecc:dd1d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83a89258sm77063705e9.2.2026.09.16.05.00.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 05:00:13 -0700 (PDT)
-From: Ilan Bonneau-Zamon <yolezz.secret@gmail.com>
-X-Google-Original-From: Ilan Bonneau-Zamon <ilan.bonneauzamon@gmail.com>
-To: yazen.ghannam@amd.com
-Cc: bp@alien8.0.org,
-	mario.limonciello@amd.com,
-	linux-kernel@vger.kernel.org,
-	Ilan Bonneau-Zamon <ilan.bonneauzamon@gmail.com>
-Subject: [PATCH v5] x86/amd_node: Fix resource leak in amd_smn_init() error path
-Date: Wed, 16 Sep 2026 13:59:54 +0200
-Message-ID: <20260916115955.15965-1-ilan.bonneauzamon@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="gl3xaf2Y"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QOT7sVRXy9De2202CBbsIjMNa3wpE64zrj65FxGGKS7PGb1MplltqpoLeCUpGx7ERZpY3Wx3NAV/QLDD5ajZ8TWBhHAmA7svGZ0jRP+vm0EfeMRqzOra+gqEXc3wU2EUl3w5PL74Psv9aAjdKrMNFUdLmRVJkQK2/JK/tDQMJIp5RWvNbrsOmDMxwqf1AYrbxWIFO9Q6nLPhIlAHBFeZiskQzoJuvogtBFK//uDXAZC/DiazhNPFh9XmflxC3nO/YGV/6XeV9IWs6D0zAN0r07oXvJZZwudZ9ulmklLYQEAsk+qdJ/Qo0ulexhdhaCd/lK0XwXDFaXjI9mK24RPtWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jaFnTLlUeuS15Vco6JUFNTtjEg2/GLK2yLIZqCLTaAk=;
+ b=Q5qrJsNAJXmzz0ze4iE6i1fEBUGJQFh0UxYftcksk8ufaz1yIDLcrj4GXAK8nACOLg6tFJdf36XWt0fiuVrvSDAcZVafTi+ehnmYjj/Bcc6GqwKJB0oncFHWsDbq+FKYYIVLek3mX2tJJhtqKAUChv3FCxISUBsAUFX4KWQw4+O+YaaDU2dxRiPqDCEHgUKL89cqNcuwbWD3oLQ5qPOjVAlgf7lgsqbw52wuZeaNyOWuVLUV5BeUYZvtR4ZH06sTqUsJchF4+DCIuIq/zDzCxVKC2Py6c7IvuS6xtZM5PncphGiKcCkKflcuw2KKxDCCQZ/KrxVKCadiD8iTS2wqng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jaFnTLlUeuS15Vco6JUFNTtjEg2/GLK2yLIZqCLTaAk=;
+ b=gl3xaf2YW+xaUIdq/Ze4Vsnj1kQ2CrbCHsosjClYBGfqZKutdv3pYi+i/jzEWmd68FNLaEXIyXR//z2vbzRuO6R+38BRzH0IfFjoSr/u2P6BUTDTi5bwX8GkZ01py42Csy+noYDtShAmBDoL57gbb5TnjyLoMF0lpOHKJkgiW4U=
+Received: from BY1P220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59d::11)
+ by MW6PR12MB8663.namprd12.prod.outlook.com (2603:10b6:303:240::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 12:00:06 +0000
+Received: from SJ5PEPF00000207.namprd05.prod.outlook.com
+ (2603:10b6:a03:59d:cafe::d) by BY1P220CA0011.outlook.office365.com
+ (2603:10b6:a03:59d::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
+ 16 Sep 2026 12:00:04 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF00000207.mail.protection.outlook.com (10.167.244.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 12:00:04 +0000
+Received: from aiemdee.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
+ 2026 06:59:40 -0500
+From: Alexey Kardashevskiy <aik@amd.com>
+To: <x86@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+	<linux-crypto@vger.kernel.org>, <linux-pci@vger.kernel.org>, Thomas Gleixner
+	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin"
+	<hpa@zytor.com>, Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+	<pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra
+	<peterz@infradead.org>, Ashish Kalra <ashish.kalra@amd.com>, Tom Lendacky
+	<thomas.lendacky@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>, "David
+ S. Miller" <davem@davemloft.net>, Bjorn Helgaas <bhelgaas@google.com>,
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Marek Szyprowski
+	<m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, "Andrew
+ Morton" <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, "Suren
+ Baghdasaryan" <surenb@google.com>, Michal Hocko <mhocko@suse.com>, "Catalin
+ Marinas" <catalin.marinas@arm.com>, Jini Susan George
+	<jinisusan.george@amd.com>, Kees Cook <kees@kernel.org>, Michael Ellerman
+	<mpe@ellerman.id.au>, Nikunj A Dadhania <nikunj@amd.com>, Ard Biesheuvel
+	<ardb@kernel.org>, Eric Biggers <ebiggers@kernel.org>, Kim Phillips
+	<kim.phillips@amd.com>, Joerg Roedel <jroedel@suse.de>, Ethan Nelson-Moore
+	<enelsonmoore@gmail.com>, "Tycho Andersen (AMD)" <tycho@kernel.org>, "Liam
+ Merwick" <liam.merwick@oracle.com>, Michael Kerrisk <mtk.manpages@gmail.com>,
+	Suresh Siddha <suresh.b.siddha@intel.com>, Xiaotian Feng <dfeng@redhat.com>,
+	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>, Andi Kleen
+	<ak@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>, Tony Luck
+	<tony.luck@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Lu Baolu
+	<baolu.lu@linux.intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>, Jonathan Cameron
+	<jic23@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>, Ian Campbell
+	<ian.campbell@citrix.com>, Jeremy Fitzhardinge
+	<jeremy.fitzhardinge@citrix.com>, Petr Tesarik <ptesarik@suse.com>, "David
+ Howells" <dhowells@redhat.com>, Haavard Skinnemoen <hskinnemoen@atmel.com>,
+	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, "Christian
+ Marangi" <ansuelsmth@gmail.com>, Dave Jiang <dave.jiang@intel.com>, "Michael
+ Kelley" <mhklinux@outlook.com>, Ilias Stamatis <ilstam@amazon.com>, "Sumanth
+ Korikkar" <sumanthk@linux.ibm.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+	Toshi Kani <toshi.kani@hp.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Vinod Koul <vkoul@kernel.org>, Jiang Liu
+	<jiang.liu@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>, Anshuman Khandual
+	<anshuman.khandual@arm.com>, Kefeng Wang <wangkefeng.wang@huawei.com>,
+	"Palmer Dabbelt" <palmerdabbelt@google.com>, <linux-coco@lists.linux.dev>,
+	<xen-devel@lists.xenproject.org>, <iommu@lists.linux.dev>,
+	<linux-mm@kvack.org>, Alexey Kardashevskiy <aik@amd.com>, <aik@ozlabs.ru>,
+	Santosh Shukla <santosh.shukla@amd.com>, "Pratik R . Sampat"
+	<prsampat@amd.com>, Scott Soule Cheloha <scott.cheloha@amd.com>, Ackerley Tng
+	<ackerleytng@google.com>, Fuad Tabba <tabba@google.com>
+Subject: [RFC PATCH kernel 12/17] coco/sev-guest: Allow multiple source files in the driver
+Date: Wed, 16 Sep 2026 21:51:52 +1000
+Message-ID: <20260916115159.1938195-13-aik@amd.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916115159.1938195-1-aik@amd.com>
+References: <20260916115159.1938195-1-aik@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,104 +120,108 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000207:EE_|MW6PR12MB8663:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b51706f-555c-417b-6072-08df13ea0b92
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|32650700020|82310400026|376014|1800799024|7416014|36860700016|23010399003|18002099003|22082099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	c1h/v5dfyxtiJ0WMVLNUDUgDxQatd0LMYdCKEY7e04HynA36o8DyKva5ruSvgqLaYCZoACqFUTHJK34ToQWM2MCCBg8Kk7vj/2plyvqelPReb5cAchDM+rTgWz3R7+Bnn8ph2gDyR2gM1wOZ3eh96GmQgRBj+zLT5cv5IdSYd3m2550ol3Ju1H9Km4MeCRVLxS3P5tQG7Q6T60yUsavCTOXu+/lSdcNSXfH4XlPCpgcpdFxRyqXRxBfbCDZiWLw0jYPQBg+gnHcm43Ypv3xHiGWQZTrQCmEP5i4jtweCR3YCmnazEVmPJCF5QstAYvxEeM743M1roHVrc9DqPuzMr8zHM0+lYfjxrS1wZoed/qJt1s5IE2AwGFgZuW7dDZtT6kWHu/51GndcomO9IWD/jwWkOFsL7bzdnTa7mI57odOgfeKiGNW5KML1b9MMJHQlon4dZskVmWAL8Sz4TeZsfI2snrZQqZHw1VeqP6cNOd1+SAikuN0yICPz2mmXFbsY9kDso0V8ykYrmJaFLk+T0sI6wo9CqW8wOzY2zQE86bI3j0nzMoUhX/M92d3xvTibl5Q8beTHkpAFkouRueVl86YNLgpODk3wkrrQXf65BdnneQuNWY7Gj2PWopz3bSypTYcLY/pRErszp3XubjRa2THlRPuWrl2ob/Hd5ZjCxnrdU7d5A7UKCUOQWy0Tr3m4DZo2fK5268pMv5G9i3j5zA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(32650700020)(82310400026)(376014)(1800799024)(7416014)(36860700016)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	mS/imRrmbpxps67qGJxsphoc6eABPi9uEQAis97tyVjMcE7n1lUTb6+nlr386lpHVT/77AfVBAUGjtAsAI5U9VXIwQoNQqyOCrtenVvuZ6eZw8IQ01EvVcJIJZKPAyUI4IO5d87YjfhcEbh3mwPSHX0ytq1np4FzH1zAlBJzgfTo8p0WT7ftEYpWH/8xtuWrky0lg7Vb96bVRK0Oeh6Z/Bqtz30YVY0Ax3IUkvh2HhjL40wS9DrhCJBLx7/jYYe/jKEXsV+a4EnUeg6An48phGGuN8HGBTtQ3lpe6CODT1Jd3R3JIsEO3VlQNWWwvtg/FD5FsLXAXzDKQGVzf+GeBuklrtxXE/UOq8e27ANdgmihgrEF0Zlccza6kUJgBTwzV1Cp83zG4TJU548hlWxppR2g/9S2jzp+mAiL2crSmfzp8SlYOzleDPsozfr+5czZ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 12:00:04.6040
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b51706f-555c-417b-6072-08df13ea0b92
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF00000207.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8663
 
-In amd_smn_init(), if an error occurs after reserving PCI config regions,
-the already reserved regions are left allocated.
+Prepare for SEV-TIO support as it is going to equal or bigger
+than the existing sev_guest.c which is already 700 lines and
+keeps growing.
 
-Unwind the setup properly in reverse order using traditional error labels
-and goto statements, ensuring proper cleanup on error exit paths.
+No behavioural change expected.
 
-Fixes: 83518453074d ("x86/amd_node: Add SMN offsets to exclusive region access")
-Signed-off-by: Ilan Bonneau-Zamon <ilan.bonneauzamon@gmail.com>
+Signed-off-by: Alexey Kardashevskiy <aik@amd.com>
 ---
-Changes in v5:
-- Drop __free() cleanup helpers and custom release logic, switching to
-  traditional goto cleanup pattern (as suggested by Borislav Petkov).
-- Fix changelog attribution regarding brace removal (noted by Mario Limonciello).
-- Update author sign-off to use legal name.
+ drivers/virt/coco/sev-guest/Makefile                |  2 +-
+ drivers/virt/coco/sev-guest/sev-guest.h             | 16 ++++++++++++++++
+ drivers/virt/coco/sev-guest/{sev-guest.c => core.c} | 10 ++--------
+ 3 files changed, 19 insertions(+), 9 deletions(-)
 
-Changes in v4:
-- Remove unnecessary braces around the kzalloc_objs() error check.
----
- arch/x86/kernel/amd_node.c | 28 ++++++++++++++++++++++------
- 1 file changed, 22 insertions(+), 6 deletions(-)
-
-diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-index b7926ba3610a..32038bd8e243 100644
---- a/arch/x86/kernel/amd_node.c
-+++ b/arch/x86/kernel/amd_node.c
-@@ -248,10 +248,19 @@ static int __init amd_smn_enable_dfs(char *str)
- }
- __setup("amd_smn_debugfs_enable", amd_smn_enable_dfs);
- 
-+static void amd_smn_release_config_regions(struct pci_dev *root, u16 num_roots)
-+{
-+	while (num_roots && (root = get_next_root(root))) {
-+		pci_release_config_region(root, 0, PCI_CFG_SPACE_SIZE);
-+		num_roots--;
-+	}
-+}
+diff --git a/drivers/virt/coco/sev-guest/Makefile b/drivers/virt/coco/sev-guest/Makefile
+index 63d67c27723a..a8eb28b6736e 100644
+--- a/drivers/virt/coco/sev-guest/Makefile
++++ b/drivers/virt/coco/sev-guest/Makefile
+@@ -1,2 +1,2 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-obj-$(CONFIG_SEV_GUEST) += sev-guest.o
++obj-$(CONFIG_SEV_GUEST) += core.o
+diff --git a/drivers/virt/coco/sev-guest/sev-guest.h b/drivers/virt/coco/sev-guest/sev-guest.h
+new file mode 100644
+index 000000000000..b2a97778e635
+--- /dev/null
++++ b/drivers/virt/coco/sev-guest/sev-guest.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +
- static int __init amd_smn_init(void)
- {
--	u16 count, num_roots, roots_per_node, node, num_nodes;
--	struct pci_dev *root __free(pci_dev_put) = NULL;
-+	u16 count, num_roots = 0, roots_per_node, node, num_nodes;
-+	struct pci_dev *root = NULL;
-+	int ret;
- 
- 	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
- 		return 0;
-@@ -261,7 +270,6 @@ static int __init amd_smn_init(void)
- 	if (amd_roots)
- 		return 0;
- 
--	num_roots = 0;
- 	while ((root = get_next_root(root))) {
- 		pci_dbg(root, "Reserving PCI config space\n");
- 
-@@ -273,7 +281,8 @@ static int __init amd_smn_init(void)
- 		 */
- 		if (!pci_request_config_region_exclusive(root, 0, PCI_CFG_SPACE_SIZE, NULL)) {
- 			pci_err(root, "Failed to reserve config space\n");
--			return -EEXIST;
-+			ret = -EEXIST;
-+			goto err_release_regions;
- 		}
- 
- 		num_roots++;
-@@ -286,8 +295,10 @@ static int __init amd_smn_init(void)
- 
- 	num_nodes = amd_num_nodes();
- 	amd_roots = kzalloc_objs(*amd_roots, num_nodes);
--	if (!amd_roots)
--		return -ENOMEM;
-+	if (!amd_roots) {
-+		ret = -ENOMEM;
-+		goto err_release_regions;
-+	}
- 
- 	roots_per_node = num_roots / num_nodes;
- 	if (!roots_per_node) {
-@@ -298,6 +309,7 @@ static int __init amd_smn_init(void)
- 
- 	count = 0;
- 	node = 0;
-+	root = NULL;
- 	while (node < num_nodes && (root = get_next_root(root))) {
- 		/* Use one root for each node and skip the rest. */
- 		if (count++ % roots_per_node)
-@@ -316,6 +328,10 @@ static int __init amd_smn_init(void)
- 	}
- 
- 	return 0;
++#ifndef __SEV_GUEST_H__
++#define __SEV_GUEST_H__
 +
-+err_release_regions:
-+	amd_smn_release_config_regions(NULL, num_roots);
-+	return ret;
- }
++#include <linux/miscdevice.h>
++#include <asm/sev.h>
++
++struct snp_guest_dev {
++	struct device *dev;
++	struct miscdevice misc;
++
++	struct snp_msg_desc *msg_desc;
++};
++
++#endif /* __SEV_GUEST_H__ */
+diff --git a/drivers/virt/coco/sev-guest/sev-guest.c b/drivers/virt/coco/sev-guest/core.c
+similarity index 99%
+rename from drivers/virt/coco/sev-guest/sev-guest.c
+rename to drivers/virt/coco/sev-guest/core.c
+index 935537a41469..98f698809720 100644
+--- a/drivers/virt/coco/sev-guest/sev-guest.c
++++ b/drivers/virt/coco/sev-guest/core.c
+@@ -27,19 +27,13 @@
+ #include <uapi/linux/psp-sev.h>
  
- fs_initcall(amd_smn_init);
+ #include <asm/svm.h>
+-#include <asm/sev.h>
++
++#include "sev-guest.h"
+ 
+ #define DEVICE_NAME	"sev-guest"
+ 
+ #define SVSM_MAX_RETRIES		3
+ 
+-struct snp_guest_dev {
+-	struct device *dev;
+-	struct miscdevice misc;
+-
+-	struct snp_msg_desc *msg_desc;
+-};
+-
+ /*
+  * The VMPCK ID represents the key used by the SNP guest to communicate with the
+  * SEV firmware in the AMD Secure Processor (ASP, aka PSP). By default, the key
 -- 
-2.53.0
+2.55.0
 
