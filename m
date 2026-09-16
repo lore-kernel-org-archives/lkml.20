@@ -1,104 +1,179 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2ABF371897
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:34:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569248; cv=pass; b=Q+bJaLxjh/gbqftgnF8kMyVjRQjR78mCDt94aVKjT423ZuY573prHsOn+VjHlCnisa53YOUfPDTDNzX5jwdDt162x0v/LBVtlIp5pA11aY8Bf2IdlaCm68X5htH2cp6wkACGIZQxwfmDEMOzlIbO2GFzMQnZxM8+Evd3Hq6fpng=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569248; c=relaxed/simple;
-	bh=OwB/d5OxQu18uidgzkX2hP3f7HqNP/l7GdXuCXOPh30=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W9ut8+3ziOpDyNhyU8Q0AX1ETLFDwnJWGYhnZC6Wmq5hvwYfMz5H9J2JAbxJI2mVO42tR5tPuSw0iLDkTecdIo9xlOzPSG5fykWAASIWf42jP3IHP8uM8tmDagin7TueghOKRBv66ssTIN8GzVVRAoPdjWNOZyg0CL+xnMugbho=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=Oll1lZy4; arc=pass smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C793AD531;
+	Wed, 16 Sep 2026 14:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789569261; cv=none; b=mmbH7UmbMm920KB09kENujL/ZaoXzvexKKwwUYBqktCyRIyBSbUPV6HaUqy7dOBrWDKIP7AvaI3crQ7cQUyU67JVOow99RoRQ88/N35dzkk+OuAIfMT5VxUm+HzDaabQ6rAWL2+aT1TkJX09hCrFvmYW7SWryZU4xA7i9hAQd4A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789569261; c=relaxed/simple;
+	bh=P/6JmgkC/eGjiXCFKS++iNZcRu2fzyewG1DpZXQZAKY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WzP+/LtA2YMgziJ/kZCETsnoPRXxMV8uUtRU40r3iRkdPY1fIolr8kgFJeG9faS2LFEpAhqJHanCmZn5M2ifkRKDZdHw1jV2S5gGUWKD9FABObodfTFSOO35iayhQYr4T0QzbICiFQJYPHhbhLWrALobwTMFZog0K67RnxgmUp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=t8ThbfRo; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=uEBtw5dY; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=i4QQb4lb; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EhzkEqkG; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="Oll1lZy4"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91071ba92a8so5538326d6.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:34:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789569245; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T7DXdfa9D02xGQmf09c0n7+J6GIpoubsLgRhTpHx2I1dV3uUoE3AFWPA7+oV04tnKF
-         vvuotlThmd2l/L93PujdD+QtMaBe6NiVbwQ7OcpsQYqzwBqVXUhj9YfNb9bhH3dAAqOE
-         acd97t27opf7LYzajMnoR+9EdZ/bokrZtqvXu/+Vl5XqRAO8x5fcZbW5i1Py0G0UfqpT
-         O8K639GlgLUaF/6keYGgCEuET82h0l2hiSMbqJ0pmy3lLX7dLTWoviJtIHBG5Qd9z4Hm
-         Tt+f4eaSUBlh3zGsasFBffFmNS3m5ESPUKund0GI53NzYx2qU/b1Ql8coQVPknPKcq+R
-         8BQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=OwB/d5OxQu18uidgzkX2hP3f7HqNP/l7GdXuCXOPh30=;
-        fh=4J7HItI9Tq5m4ZpibWElhpbZ83DIS9AJ2f5ScbhWMRg=;
-        b=q+QAHv+JvNOJ9sxJJmNFusqvfvpqOlhNOMG6qS7NYs8IW2ZjpObLSOkc4byDwl5//M
-         QLSS6fchcvC3CrdCysVtUw4yea4qekk4Wdg33DBwdJIF5lzz3/Fjzl4FQM9OogoiDbcm
-         XLB6c4imfirLeWF4jFlFSmdwUM+C3l6t+skFyfb9AqzUH3nYoy/tGWfSiO3yYNNAHOff
-         hEHdYq1K5fDqiGAWhfN9+Z0j3uw3KSfQ3fxa+I/U6DpM01s0YPMahE4jBF0N+rT45pp6
-         dRaYLqN2mLCgfNCA48iFeT9RRc3wkehQ/rXE+ln4346RRarXFMgWmiKw9SuBz4VGHjDc
-         cQTg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1789569245; x=1790174045; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OwB/d5OxQu18uidgzkX2hP3f7HqNP/l7GdXuCXOPh30=;
-        b=Oll1lZy4gw6gjhCnHbEPsz8oAxrITzPHBEO+pTrlwesZHv77BjN8RHNzXwB6febAod
-         0f/RTNZqryn5AhmR2Ea1DgkOit8YqEzJ1rT2gyYss708XuT6j33phXVMgXUKxMuXiqpl
-         1reUpKK/mzHXX7sGAi4Y7to89yQ/Dy72ig7k19sSWYSBv1mDh6MZInu6xVPCLUOn5On0
-         lrq2BwW2t2aLQJQEqPRNKUtn6r/8ostWb/EFTkXCBmvL0EA3+lRDIFnZ0fEtrSiV0Bjb
-         ujCpbkkdj8TX0Ip2qEjlUx8Syx2mVxVNH+2LuOaiCymCk0dIfprnVortIQGf0HiSQVLT
-         4kQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789569245; x=1790174045;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OwB/d5OxQu18uidgzkX2hP3f7HqNP/l7GdXuCXOPh30=;
-        b=roWOs8oTofWfrjg3LfQH43DNaZwomeNoD9S/9RTz0eh+hVWZIFcVv25X2lRTDZnzwe
-         h9weENH1HbWCr3+DzKmuPOy2hXHs5j0BR+qLCZKoG3ylhvZ42uhAsuCQNrjrz9fOcV2C
-         LjsjcWBBdDWq3BllrwX5xog0J3wGdnV4d/23qKucxvDJT7P+iLRw/6/luRfLaCOiX/6C
-         sV6YsTSNZmE6TxAB85Kd8nmSYXfpf4kZegg+2zELECZlitw68jFRgW/GicWBjFfhyj04
-         5JVxHc49GCu2dwH8UXsqwsVPXWX1p23b+lp2njqLftIakPrX2nneEDwZDUYmNvrftKwa
-         m3bQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzDf+tBAuAxJ62YPWDFXwShD28tgKhPjmVwWnbqtHDWNP77O2/lWT45wgNxf1QY/PqhlRS1UQPX9hpcawA=@vger.kernel.org
-X-Gm-Message-State: AFuF++khrcHQO8laIbY0xrgOv9MN3RdepSeproKKDIjnEI17MafHAxhj
-	ISil/RZ8l16WmM2Ggjy7v+vgRI8dDnCXI5XHwDKzO9ogYgiR4KMuBs2Bx+DQD8GKZjCmtayuExz
-	kv5u9vdXWWShUyWXcRW0HZlgaJ1cJGRWnjuyl5EWfGQ==
-X-Gm-Gg: AYBFou1i3nHdXgH/KWwC9dOthmjAauYC/6r9j4axFnJOHZ4Mquo0VjVgKySPg03vZxp
-	L/uqt6Z2oIrOMCtMcq3T5R3wVWsyGY/BHQVm3bW4aNGFoiSm/cFEWLdbopsrceK/taRx6wJ4UVd
-	rS2EYJeEuRP65pdtJqgBbVX9IV0bdAmVeGVBMNPar90NBF0j22ZR/MxQ+UxMUaFBYLJJLVDQ0Kg
-	eIGzR6c2RbroJDTycReOa8OdvPtux8tpGjlRiq506BVgw0RajbGc7QiCKGQRwaI9rCjrCn4F6lC
-	fqeFrco7IDXesQZ/t0zQ4oNyRuGdaRemlcDmN8NR2voo2clrSCrHj/5rVWFrXXgd+yOV3jL6+zn
-	DV8Eipvpg9zXf
-X-Received: by 2002:a05:6214:2307:b0:90e:9dea:82f0 with SMTP id
- 6a1803df08f44-9123d72e492mr50551696d6.15.1789569245319; Wed, 16 Sep 2026
- 07:34:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="t8ThbfRo";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uEBtw5dY";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="i4QQb4lb";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EhzkEqkG"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3EA211FE1D;
+	Wed, 16 Sep 2026 14:34:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789569248; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=l1KoFo1jZUuR5c3PI4zxC7N8dNS1kx3KhNK1KaEqmjc=;
+	b=t8ThbfRoKpWhYYJeLbXSvCIcMErlZd5iuxNNeU7btT2fyUNUazeu2tvPbpprlNcTqh/Jtf
+	JazNOQy+Sm1PViaXsy0X+agPcFxcmYFqVnGA/UJWrRmPFAmlFcMvGeZaa3LonWpqGZw9tz
+	5FeQz7Bvv60gm77s+6sX9oqOppmS7NY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789569248;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=l1KoFo1jZUuR5c3PI4zxC7N8dNS1kx3KhNK1KaEqmjc=;
+	b=uEBtw5dYpvlhtpp89hHaM2nrVkMg2b+TFeKgtJp8hHoSMBRpvqmgoNCDDBGEEKEUOp+3lQ
+	Em0KGH6LTI4e5EDw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789569244; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=l1KoFo1jZUuR5c3PI4zxC7N8dNS1kx3KhNK1KaEqmjc=;
+	b=i4QQb4lb3qhulcgrHdEOUxaWQj9j115MwwXmigmm6T3wTy1ueEgzwXcSxnPc1eMBtc2nOa
+	A7N6Nfuea4R+UIky3gVcnH6iTa7zn5kAESfipNI2zE/dXkDhNL3H2wzzlvkqU/7hsNPliY
+	YRkZKqmqmiNjfW9R7sw8tYH3L6hQNHs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789569244;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=l1KoFo1jZUuR5c3PI4zxC7N8dNS1kx3KhNK1KaEqmjc=;
+	b=EhzkEqkGfPqNYbsvqsJYYGBoStb3Fcm6tprlogAaydQYq4UMgA2MH/4eTrBX+0Fy6CeXoD
+	DUEEIlLsmHVcJnBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56D15136A5;
+	Wed, 16 Sep 2026 14:34:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id /VHeCduoqmrVZQAAD6G6ig
+	(envelope-from <clopez@suse.de>); Wed, 16 Sep 2026 14:34:03 +0000
+From: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>
+To: kvm@vger.kernel.org,
+	seanjc@google.com,
+	pbonzini@redhat.com
+Cc: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Vipin Sharma <vipinsh@google.com>,
+	James Houghton <jthoughton@google.com>,
+	linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT))
+Subject: [PATCH v3] KVM: x86/mmu: Fix NX page unaccounting for TDP MMU pages
+Date: Wed, 16 Sep 2026 16:33:11 +0200
+Message-ID: <20260916143310.1909993-2-clopez@suse.de>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915-acpi-hwmon-v2-1-39d17c748eb6@thegoodpenguin.co.uk> <70746c77-e113-4bc6-93b6-7ac6027c86a4@roeck-us.net>
-In-Reply-To: <70746c77-e113-4bc6-93b6-7ac6027c86a4@roeck-us.net>
-From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Wed, 16 Sep 2026 15:33:54 +0100
-X-Gm-Features: AcwNN1XL40ERZH8e0Yhs7auCFY005nLn5S0ImA1LSDoKwV3HLcPsYK0Xe6yniGo
-Message-ID: <CAA6zWZ+8KUSzah7y4TXrkvOnChDyEur=HCXgukcFke2dEjgQ2g@mail.gmail.com>
-Subject: Re: [PATCH v2] hwmon: use named initializers for acpi_device_id
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Luca Tettamanti <kronos.it@gmail.com>, Cosmo Chou <cosmo.chou@quantatw.com>, 
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spam-Score: -3.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.996];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid]
 
-> It also replaces pointers to empty strings with NULL pointers,
-> which is a functional change and still neither documented nor explained.
+unaccount_nx_huge_page() unconditionally passes KVM_SHADOW_MMU to
+untrack_possible_nx_huge_page(), which is incorrect, particularly on
+the path from kvm_recover_nx_huge_pages(), which handles pages from
+both MMUs.
 
-Please note that the 'id' here is an __u8[] array, not a const char *
-and that the generated .o objects are equal pre/post the patch as both
-methods just initialize the array to 0s. So I think the commit message
-explains what the patch is doing, perhaps it might be worth mentioning
-that the 'id' field is a byte array in the message.
+Fix this by passing down the MMU type from the callers. Note that
+__kvm_mmu_prepare_zap_page() is only used for shadow MMU pages.
+
+Fixes: 6777885605e1 ("KVM: x86/mmu: Track possible NX huge pages separately for TDP vs. Shadow MMU")
+Signed-off-by: Carlos López <clopez@suse.de>
+---
+v3:
+  * Pass down the MMU type down from callers (Sean).
+v2:
+  * Use a helper to retrieve the MMU type to avoid referencing KVM_TDP_MMU for
+    32 bit builds (Sashiko).
+ arch/x86/kvm/mmu/mmu.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 9788ff180374..f811b1ee0b2c 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -864,11 +864,12 @@ void untrack_possible_nx_huge_page(struct kvm *kvm, struct kvm_mmu_page *sp,
+ 	list_del_init(&sp->possible_nx_huge_page_link);
+ }
+ 
+-static void unaccount_nx_huge_page(struct kvm *kvm, struct kvm_mmu_page *sp)
++static void unaccount_nx_huge_page(struct kvm *kvm, struct kvm_mmu_page *sp,
++				    enum kvm_mmu_type mmu_type)
+ {
+ 	sp->nx_huge_page_disallowed = false;
+ 
+-	untrack_possible_nx_huge_page(kvm, sp, KVM_SHADOW_MMU);
++	untrack_possible_nx_huge_page(kvm, sp, mmu_type);
+ }
+ 
+ static struct kvm_memory_slot *gfn_to_memslot_dirty_bitmap(struct kvm_vcpu *vcpu,
+@@ -2829,7 +2830,7 @@ static bool __kvm_mmu_prepare_zap_page(struct kvm *kvm,
+ 	}
+ 
+ 	if (sp->nx_huge_page_disallowed)
+-		unaccount_nx_huge_page(kvm, sp);
++		unaccount_nx_huge_page(kvm, sp, KVM_SHADOW_MMU);
+ 
+ 	sp->role.invalid = 1;
+ 
+@@ -8055,7 +8056,7 @@ static void kvm_recover_nx_huge_pages(struct kvm *kvm,
+ 		WARN_ON_ONCE(!sp->nx_huge_page_disallowed);
+ 		WARN_ON_ONCE(!sp->role.direct);
+ 
+-		unaccount_nx_huge_page(kvm, sp);
++		unaccount_nx_huge_page(kvm, sp, mmu_type);
+ 
+ 		if (is_tdp_mmu)
+ 			spin_unlock(tdp_mmu_pages_lock);
+
+base-commit: 70c944caf570fda2d79baa71435589a8db39f048
+-- 
+2.51.0
+
