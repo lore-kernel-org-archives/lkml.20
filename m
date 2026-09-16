@@ -1,151 +1,145 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1D2499F3D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA9149AA55
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:02:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549331; cv=none; b=WvrahpvYaxeRySCf2V1LhsWg0DAiKiQ0s+jxm8F8TrVQwKmpKfNj+vnh6ffCjk7YSlKZntY3Xd2p3+hpUkYBs7521usFGFxFriy04TGRiRCHYp6qxZWMx+wDGEbQbR21kbBtpyKtzzyWDoP52HxiKkZGablUqovWKUOk68cDqjE=
+	t=1789549352; cv=none; b=KBaAqVWhvucIneRCplvVVJOzrycvMg1nN+HfjUs0/kqUHnp+/Tkz8R55PtB48VZVuSo7td7iVTc6IyewVZnuUOXws8su9ljoTOu3vDTA0JzhmDoLH0QUt0sWeNj6U4ihr8XuMixyBEumwfgDqQjCm5hXtLss5jshvlXKjhno2xA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549331; c=relaxed/simple;
-	bh=r9Q8CXvGxe0d1gFFAq8dmgIyqj34U9uBRqhGzo7Tk38=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kZNA6b+S2ztflDZgjw+QFev1xyoKl4KyoWIPl7w2UNeJRCL6EWJTtVYx9pC21163C++vzwBZoPKqyFuLRaAPwrgJpvMPX865JWwDD9wD4xHA/nsGyWZyLKpUSi5NiY7cANp7XdlhsYiNHktSFQc4rI2UFbS3AiAHvxg2PjgUc6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O2ezgGsW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DwAcTCbX; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789549352; c=relaxed/simple;
+	bh=u3prVhhjxauBWG8qfoe+eEDvbRKE6KXSyVNyWaZNvTE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=Fxu4coUdqwBQSJ/9fqlZKKo/WciRw/o0Ifs2Llcw1EAexAX3ps6NWfmxiD9se0GvaE8dS9U9wLyiR/pKanZNgfYoU2sqT2LCiSPbRExU91NSpF5dd+fXf4TiUQD/pRyiOdTQDqUynrcJJPs/RbEowmr0hIoFojTgZYFLpIJbX1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=aHkH1iZO; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O2ezgGsW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DwAcTCbX"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G68mqs2986928
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:01:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tzt0WFn+hreY1nek99/9HyLvSQmxWneI+I0Nq2EeaWg=; b=O2ezgGsWYxJS6Y+K
-	A+2pH5fxgPofFY70ilnqTCBYJrx/0TE3+ybKzgV85qRKN0ycYgCuM5GFCDcux82E
-	6ZJ6grPzj3iC4oqsBBg/AiE7QusQjb84yMZijpRuuS6D+oXMltMdx96JF1tu5Pdi
-	SxNyEWAwaqCvXDdZNiEcsd4qY/N+VgP52cCiAJ6OFXlwfBWqgNhwTsNOXHZEZ6Sp
-	KqNeTv45Pe1fI4drfUHsPv2HE6X5KtUOUQb5h9Izk64C0kJb4uPZJl8eP4VfJ+rg
-	1HVFbNnXrKOsd+1GQPittF+4euE7VPMTu5lC6gfqLe+/4o3iK7dDqrW47HF6ksAb
-	cEucRA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqefpa9cm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:01:46 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-936708f129aso825142485a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:01:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="aHkH1iZO"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so452778f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:02:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789549305; x=1790154105; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tzt0WFn+hreY1nek99/9HyLvSQmxWneI+I0Nq2EeaWg=;
-        b=DwAcTCbXk8hCf+uCc5iOeR4lXiJ1eD9xm3XWw2qEN4W/ksEi5P/Hze6ZIrGuti+Red
-         CgV74xxcdNBq797nrDfD5/arPQMd6KiwRoKNlLHqVO3bThp5epevfCQqIE/uD6ZH0cTO
-         JB5ktHZyTryLX+ZH8OmfOqYGJkHo6rNSyldzo0515g40PvHcQp5QNEkfN06lrXr6AKPO
-         +c33HJtgWhzDfqP7Ore/Yc4MduaxLSa3PT8J/YnngUrpd+56hPDfmUVRo97eQ8Lbik1I
-         QZbdwO3YntepWDZ2ewmr2Bvec2GXFrhzshyVNLF8EO+W5ixRVdC5CQpuQApvsPmQUQQh
-         GajA==
+        d=baylibre.com; s=google; t=1789549341; x=1790154141; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=u3prVhhjxauBWG8qfoe+eEDvbRKE6KXSyVNyWaZNvTE=;
+        b=aHkH1iZOGRzkkq0iecytn4Efv2nGG3tqbIf3paCTHb89k9+yfRp7Zqac0vPqgUuNr0
+         5PwjwSwbN+1t7eA/c7mZr7FKJjO+QkFM5+nKL8YTC5J0rSbLTFj0UlOFzCfkh/7eMgUl
+         jEfiSSf7SJtMT+ZN7OBwQksbHk5TzvUtMEAwn9sF6aQqAYIyB6jvq6WSrsb9tOY64NPy
+         /qxldqN6ryLilI4EZFE31XZf3qr2VQ++nlRvZHMz5ix5/BAboTjdLj3deyk6XhdQzT/K
+         zm1RZ1wAfQzyOVjb0PDkqk3ORcv8LLMhfIuj3RYeHArtmyLd+HfwfG0uFH9Yy4J5iP32
+         I0Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789549305; x=1790154105;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tzt0WFn+hreY1nek99/9HyLvSQmxWneI+I0Nq2EeaWg=;
-        b=drwbsHvGVsznUeSXhriadt1Af9t3ruewM5NGh4yOgyJQBoJqyBYcyrZm7UuS7MToPd
-         uXXKh+ch6eaTYKiJ8SKCseEeZkLDQamguDHXjCtls9DEshNkpJvkuDjSiD7qIquRQCFr
-         uQHNFc1VYbJUjPo5O7XbcdRSz93S7T2wSC1cmSJdJIEshgGBYR3Kvt916iYcXBXDX5Xx
-         QcRRIMGSUsp6z7K4+U7c7HybvldzGRB8JO5+ZSwe/y80ZSwZpoDrgK+ca8yzduz4Z9tN
-         S3s8aw6NvImdIN5b0yf7j1nDiWmaLhoYehhorPKRQ8GzDfxOSMgzWCfHRI6IBf4geRjT
-         0CAw==
-X-Forwarded-Encrypted: i=1; AKwUvBw5dGw2I3CaBEy5Fhy39tE/DrMe/vTwc2kJcmaJsEZPc0YGkpBocfhZVeeUll5OUs9/69oxRS4mZs7Ywu4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEinpVr4r8RSjMORNJrwJC0G+b1TIZM0pYXNOOGrk0oDRiJG51
-	LueoWbab06VUiYcMNTz5t2+oUTwaFUWNbSQu3uB5fMNS6XI9O4OsSd65+m/7AZsnz7DXs7242t4
-	atLSPAuM0NpLImTHkCUppajIDSU5oDDUG587ZCbkBUOSN6H7+T8oUiFPuY/2rd/mqhYE=
-X-Gm-Gg: AYBFou1dhTwZne/+bh31T27C7equijfFr6hEGWzGUKheHNAb/tvJFJveiaZS/yqxbRG
-	Cz3MqH8eIqWUUFIhFwEWe05mJubSg4EYCYIJfiwFRr8m8OvFh1pOTsNNsR4AZqxulqogRJF6pp7
-	et8QJYfgqumSHTisFQOsJhELjk9f29cQZzeIlWes1iGbQvyq9zxYf5oz6DUrc8/lSeVv3Ab0Upx
-	Go81mKAOGbXfW5AGcakVi8WCc5AbcrcbrAgLqa8guUb4EvcyQ2J1TUp7gkaAkQpRO+NOQsMMbS+
-	udMmB2bxibMktSpo3E/QYTzcZt8x3DICeDGXXfgBJRnamDpBsDXj0bIqi4t2lnMGMjfHP/98GBB
-	cl+gOwYGBa04JF9qR+Eg1ku+8bwo=
-X-Received: by 2002:a05:620a:288b:b0:939:6de6:5487 with SMTP id af79cd13be357-93bb794cca1mr249161885a.44.1789549305054;
-        Wed, 16 Sep 2026 02:01:45 -0700 (PDT)
-X-Received: by 2002:a05:620a:288b:b0:939:6de6:5487 with SMTP id af79cd13be357-93bb794cca1mr249153885a.44.1789549304517;
-        Wed, 16 Sep 2026 02:01:44 -0700 (PDT)
-Received: from brgl-qcom.local ([90.161.207.100])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bef7678sm6473464f8f.2.2026.09.16.02.01.42
+        d=1e100.net; s=20260707; t=1789549341; x=1790154141;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=u3prVhhjxauBWG8qfoe+eEDvbRKE6KXSyVNyWaZNvTE=;
+        b=b6IpHjeq4SY36xWlcgelHenKpfqoCaIauaVwWGFdI+mW7OcN1vl8HuoniCai34y9BO
+         ++Tfmq8Lxly4CoR9UkXeT3T+Nr+uxcQ/e58PlCLHLvB/d8lMZkAaltnH/fmOOT1jRBeb
+         jaAuDde9SFykg04HmCtCdzfXkMaXecEivdQ1vbMn/VPmE1i1KFtlPmJ9M1yfqR7OSydX
+         crjhkqSs7qqLGuIfEt1SnxOIG7Y//sFFrZPmNpBU83lqNMiEf3Ta7LaKmJyOu5AVwo38
+         ugPFQ8J+1VkCxBF2VZnHPuvqdhg9m8GDse+ozAtY9SR5FzDvG1nDtgm1cA7knBEj/VHv
+         9ecA==
+X-Forwarded-Encrypted: i=1; AKwUvByo/+eUiuVmVg4ukIvOsb9n+lR/dTD+yKUJbzQLi5Ddy1s84R2rd1hYPvLueyLuIPTI2No4AHRDi9CU96U=@vger.kernel.org
+X-Gm-Message-State: AFuF++kb5wOahhV+8A0oh6bs4olh+q+7l3ZI8JzIHIja+Zw4oigslgUZ
+	HK0IH7NDRC6i99yu7bVUs93VfmkgPDg5TCI0BBdXkw2utwUz2K5MP0kkKcR6MorjFs0=
+X-Gm-Gg: AYBFou34bpW+mbg9UBnpUUbq9sO8xqUwOOgcMeI9tMs9NzbJDFq0Gnuf7WabFBiCRIA
+	9MK7Mn+PaQ+4Vd04A2YatE+tw2rrCJ8gzzV+S61Sq8QU8dLIEfruXxzRsJHpQZTIU8RPpGixkR0
+	wrz/EheYVAQ/7XYe+tal5p6a0Mf6718jfdMU5X+58juOskQmGjqx97Ioj2jIdNVwaNWQ7cZamCd
+	qGHgMnU/TUPfCsfg90nkjv/4MXtaGb9g2A8T5keI179l7N9qVK9xeUEAfLyaMI0cJ+xUOgJ/zq+
+	Ure443Rv7uhr8uewoqYkK+Pj2qIZuIDo6qBor/MJby7SkRqK07WaLbpYyirRso0hvmn2osN20sj
+	DDB1qVVl3fnnIbhFyDOG9JOtddhYevorJUxT8KwYXsRhEspuGobNRG5UmNiH/7oEcYHc+oNKrXu
+	EWJFLx7V5OvJ4Fql2bTPp1v7C1uPTDNHXS2ENU6QfoINvMRmx1vtUWoLxE3wEa8VxyEw==
+X-Received: by 2002:a05:6000:40cc:b0:487:403:f2eb with SMTP id ffacd0b85a97d-4870d0452d3mr4199288f8f.17.1789549341185;
+        Wed, 16 Sep 2026 02:02:21 -0700 (PDT)
+Received: from localhost ([2001:4091:a245:8029:665d:b7b:5fa4:7ad0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf33e01sm6702324f8f.23.2026.09.16.02.02.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 02:01:43 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] pinctrl: qcom: lpass-lpi: Include value in debugfs output
-Date: Wed, 16 Sep 2026 11:01:40 +0200
-Message-ID: <178954925614.6008.15490710195931026839.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260915-pinctrl-lpass-debug-v1-1-bc49766c9f6f@oss.qualcomm.com>
-References: <20260915-pinctrl-lpass-debug-v1-1-bc49766c9f6f@oss.qualcomm.com>
+        Wed, 16 Sep 2026 02:02:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDExNiBTYWx0ZWRfX/wrZKGowaEUd
- wRwd9PA4v/ju8NogVmmwAHwpY6vEUDc72G0po5Y/BqvqKR7LyuxtHykjAHtwkW6OV64qy/dR103
- E7vTPQ8A9FNA+RtTc7QTjwDui2Fv+GE=
-X-Authority-Analysis: v=2.4 cv=HrTjiETS c=1 sm=1 tr=0 ts=6aaa5afa cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=BQ2oiuy6hHN+kKmom1QVvA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=xM0vMNglaa6g24SigUgA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: 2WpWEyok8B3p_ZuDaOZVyf6llfso_CgP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDExNiBTYWx0ZWRfX4Kuxwzp64uXC
- McVVG2Th8F6CnDPzstSB8L3Pv7JlvlFBKj9ZiWs3zwe9GjJgWm3kWVD5rMEbn016eKR7HdwFEBt
- B6Stw8nMKVwhmBjM1AUcKEowTzV3PVQv6/sd7kj3UTDhjUJ1Av60rcxDYpHFaQ2oXc2MmTRuMpU
- VqPf9jU++rQJakYaUaf/3+1rCan9515lMaAXh1N9+VH6FRLmDZT7KrcDcZG9K6pncVUEVeMrh09
- rzqVXCGavKkidgLShc/X+tgL6WCaOLZbFy10nC/L1DjPotaPv5YUBQPtCzNK8eVgZl+SL9kmXD/
- 6pjkgoCM4/Mk1B0dCaomGVefOoX+r+dfp29sNUuDJtze2hmZPN/yRhblXsbbdtywTlT+55r8Gi+
- 0PFv2O7CvzVv9UIDhT6F7imoyqXvkM10jzApusdm+uyfZbZEeJODxmgWW6/VYI3BN+GQA3qKcBp
- N9Px1/VGRA5sWegVXrQ==
-X-Proofpoint-GUID: 2WpWEyok8B3p_ZuDaOZVyf6llfso_CgP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0
- malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160116
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=0a03f14af8c74b8b8ae71ef6964c726a8430f5297d9c30f5afc655f5a6b4;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Wed, 16 Sep 2026 11:02:15 +0200
+Message-Id: <DLGMAND8UBI6.394OZTY3JSLDX@baylibre.com>
+Subject: Re: [PATCH] clocksource/drivers/timer-ti-dm: Register
+ clocksource/event only for am654
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>, "Markus Schneider-Pargmann
+ (TI)" <msp@baylibre.com>
+Cc: "Andreas Kemnade" <andreas@kemnade.info>, "Daniel Lezcano"
+ <daniel.lezcano@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-omap@vger.kernel.org>, <letux-kernel@openphoenux.org>
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20260828-v7-3-next-topic-ti-timer-dm-clocksource-omap-fix-v1-1-85f0e4dc6f9f@baylibre.com> <20260828230445.3c2510b9@kemnade.info> <E27F05E3-DE4F-4C77-95E3-1701B3410E93@goldelico.com>
+In-Reply-To: <E27F05E3-DE4F-4C77-95E3-1701B3410E93@goldelico.com>
 
+--0a03f14af8c74b8b8ae71ef6964c726a8430f5297d9c30f5afc655f5a6b4
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-On Tue, 15 Sep 2026 19:00:15 -0500, Bjorn Andersson wrote:
-> As with other pinctrl providers, it's useful to be able to inspect the
-> current GPIO state of the LPASS LPI pins during system integration and
-> debugging.
-> 
-> Extend the driver's debugfs logic to read the current value and include
-> this in the printout.
-> 
-> [...]
+On Sat Aug 29, 2026 at 9:23 AM CEST, H. Nikolaus Schaller wrote:
+>
+>> Am 28.08.2026 um 23:04 schrieb Andreas Kemnade <andreas@kemnade.info>:
+>>=20
+>> On Fri, 28 Aug 2026 20:47:45 +0200
+>> "Markus Schneider-Pargmann (TI)" <msp@baylibre.com> wrote:
+>>=20
+>>> Registering clocksource/clockevent for the older platforms breaks
+>>> booting them. The older platforms have their own implementation in earl=
+y
+>>> boot that is used to register clocksource/clockevent in
+>>> timer-ti-dm-systimer.c.
+>>>=20
+>>> With am654, the timer is much more complex with more dependencies so
+>>> doing this in early boot with the other driver is very difficult and
+>>> gets ugly. Instead it is implemented in the platform driver for am654.
+>>> However the old platforms may not register clocksource/clockevent in
+>>> this driver as that would break the boot.
+>>>=20
+>>> Add a system_timer_capable flag that is only set for am654-timer that
+>>> gates the clocksource/clockevent registration.
+>>>=20
+>>> Reported-by: H. Nikolaus Schaller <hns@goldelico.com>
+>>> Closes: https://lore.kernel.org/r/2013A99A-0502-4128-ACFA-B04886224393@=
+goldelico.com
+>>> Fixes: b8eeeca55456 ("clocksource/drivers/timer-ti-dm: Add clocksource =
+support")
+>>> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+>>=20
+>> Tested-by: Andreas Kemnade <andreas@kemnade.info> # OMAP3 GTA04
+>
+> Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # OMAP3 OpenPandora
+>
+> BR and thanks,
+> Nikolaus
+>
+> PS: I would suggest that patches for omap-dm-timer are also routed to lin=
+ux-omap@vger.kernel.org
 
-Sashiko's probably right about the return value check but it's debugfs so I
-won't worry too much.
+I agree, it should be added to the MAINTAINERS file.
 
-[1/1] pinctrl: qcom: lpass-lpi: Include value in debugfs output
-      https://git.kernel.org/brgl/c/d29bfb93a19771b822dab6d7adbbbaf188cb1db5
+Best
+Markus
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+--0a03f14af8c74b8b8ae71ef6964c726a8430f5297d9c30f5afc655f5a6b4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCaqpbFxsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlOC
+6AEAy1JS2SlpxrlOQuQLSOsZO+CBah23b1Dff4+ir0VdUhYBAOU9suaTsiifYV/k
+vBrj8QHXWS0SbgbXDKjzES1Abp0O
+=kqWV
+-----END PGP SIGNATURE-----
+
+--0a03f14af8c74b8b8ae71ef6964c726a8430f5297d9c30f5afc655f5a6b4--
