@@ -1,170 +1,163 @@
-Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com [209.85.208.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBF9348C6F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:54:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E542BE7BE;
+	Wed, 16 Sep 2026 14:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570490; cv=none; b=Utd1qeKk5CtVZob8iXrKFFpQ9difE5R6AdUG19HynPEm8lI+EY/DUeWL9f6l4nEnhZnPQiXgAQQslgKxnswsCOw45vEyNUSsyObXaE+XIJ8jTQQK9XPONH/mwr3iKP8DVfxz9HGqBYSSNQs4Pjgb2cpVIDXsd2EQ36EvCguxrb8=
+	t=1789570504; cv=none; b=dyPft6of9Z+MiVmXgYg/IoAQLLjm1svuBXV8oHMXWgiDX2ESL7tYJPq7UgLBDmvTsihj0hxK72RrISUgejWWRNx2E2Owjk8ipRA59lMja6MAKGFIZ4P9Zj0jaIA47G2kGDIP0ceg62+gpVIG2DxkWrkJ/t0VXrClpxRj0tK6Zgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570490; c=relaxed/simple;
-	bh=OuZ8FbKxnQyrbFX0fG6Hzht0V5w4fGRW+VAq0BseW9I=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=uWycWrkNUL+BDJIPfp9xkOBN8LxO4P/WiThzYPvXYtygic04U3b3Abtj1Pb0dCwazJM4GZekuS/oZXoczqeKr2v9QPPjKxkFO6fpH9i5Hv1QyQPh1BcCBfyOjNggnZa+kWXGys+fiuSY67DVmrto2rB2SAY61Skml8uV3z2w6pY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nsD2hd6T; arc=none smtp.client-ip=209.85.208.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
+	s=arc-20240116; t=1789570504; c=relaxed/simple;
+	bh=ihqHVFSEjm19t2440vBRUzZZeIUTaR2mEXgfGeRLT8w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N6nuG+BDl8eGdfIbjQe0s1Y9ZlZq0BSTfOd+y+2rYmRcDqcwe74imHoO6qcs6C1j7cbSAFNxgY/1uGdACu+nkED0eGDed4hr/Zzh6UyqROhJ5klQJZPeoFsVTGeAW34sbqVBt1PfUnIhqMpBCj7Gus+ZsTrtmRgEjhwn9uGCOqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WzoyCkX6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nsD2hd6T"
-Received: by mail-lj1-f197.google.com with SMTP id 38308e7fff4ca-3a5a3189b6fso30664981fa.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:54:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789570487; x=1790175287; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n7++c8G2n+1RKQWflt7ZuCXFqKBOkqbx84bi5KofggA=;
-        b=nsD2hd6T2A/qGWHiZHBWNnoPls5+4CWxrfIUT/7nvVw9sNjeR3bsJZB76a1tCRPrxS
-         Lq8tWf5ZxTQteH+QEmki8/p61uCp5FynOPBIlcJPcJFOJB0D6v7Cf0eRwFFMmqKwQ352
-         ZzvgK+dNcmVBBM7A/SJYMEGglG8gnwNx16wcGQbFTbYViQo4mComRVj1dQVZKH0jdRVe
-         n+yVrc7qxqE13tUU0k0QpvHOJ6WwGeWaV5CKFPrEv+m2OZnnVV+rSOSE0+AT4qOOMyPL
-         CpY8gWsBCTTLPzLyQfhelLKzTjvLpAFqDBr1M13X1Jred6JYnMnX0wiGKDNPpMoGImBm
-         iCpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570487; x=1790175287;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n7++c8G2n+1RKQWflt7ZuCXFqKBOkqbx84bi5KofggA=;
-        b=uKItonuLzOTR91z77LqFW02lvjoXzQWDo8kkqmys3qBs1JubkIsnj4yp+awg9Ye3Jq
-         l7z1HsfyY/HvNPMo5URmlRZmqJM+vRlRKQeYeZGGv7c7FFInR5qYq/fwucSF21bx0Gy3
-         YJR0Vkn7TThWuF06XPz2vGLnIptTLIgWEuajY6NHtiOBDH69BV24R7EPfi16r1O3E/VN
-         HdMv13pp0MWNrRjL5Yz/5LHDQxFgBJs5iqIIInE5rcsbN5m5/XW3CxwdOuT60LyUs13V
-         4mu8xjWE5WV96SDfMvv1WUFpE8S5o9UyXAMc82OHEtKF1HA0ei4LRL+gUlL/E8edniVX
-         63TA==
-X-Gm-Message-State: AFuF++kVfw0HuXYcRt0yt/TXPHmVIhk/NocZJ6reUwpQ56vx15o3oMIJ
-	ldR8Xxgt8FwZGn8b5rp2H+xZ3Ujm0chmDafUfw+ob8YiUCge9AQNkd5bDCHruImGoHc03XZhJQ=
-	=
-X-Received: from ejbmj23.prod.google.com ([2002:a17:906:af97:b0:c25:2b28:b647])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:6092:b0:c16:84dc:9607
- with SMTP id a640c23a62f3a-c29e5333df7mr354716466b.19.1789570054133; Wed, 16
- Sep 2026 07:47:34 -0700 (PDT)
-Date: Wed, 16 Sep 2026 16:46:55 +0200
-In-Reply-To: <20260916144647.2651379-11-ardb+git@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WzoyCkX6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D151F000FF;
+	Wed, 16 Sep 2026 14:55:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789570502;
+	bh=QV82UNlXLIGXwYDB+EGE0wWjQDs7Krio9WNaWSO5xfQ=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=WzoyCkX6qile7VqKWaszhfBXITo1Vva2+0mj6NaQsOyenrrABW3jFSk/WQfJacLrS
+	 swxPQeQStUtlNnTb+NFoYnsOzLHKbKCy1SDiJA95sbZqsJQVCBqHLPLNYZvvlIv8wQ
+	 erkCQQ0YASVigmBa6cSO5aiMovZ7W2Gekrh9Y1mcwIOBUe0eLhD7Fa4KhblMJQBRXy
+	 a7qqgENAA49mGyM3i2AajSuIwgC2KGSJh0IxZtlr6wQmpfStpfaz9d875V82OB/h92
+	 B0Oy45XssMrBhorahUjjMDJS+76TYEIiUGYH0KMWUCQWE0ASKp0vHT5E8Cr30QCw1+
+	 pTumMZ0fkABgw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 22DAECE04DE; Wed, 16 Sep 2026 07:55:02 -0700 (PDT)
+Date: Wed, 16 Sep 2026 07:55:02 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation
+ for reader-marked trampolines
+Message-ID: <6afb0afe-e7b8-46b4-9fea-2c7cf4791044@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
+ <20260915-b4-rcu-tasks-preempt-qs-v3-3-0ad30c4c5ee7@toxicpanda.com>
+ <aqlgxKGk_AEKls_1@localhost.localdomain>
+ <edc7cca2-a5c5-455c-8969-ea05dbdb08f7@paulmck-laptop>
+ <aqqONH8flTIpOUqT@localhost.localdomain>
+ <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
+ <aqqpRoTfywUuTgoC@localhost.localdomain>
+ <aqqsAUVV8a1yrQzX@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260916144647.2651379-11-ardb+git@google.com>
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2858; i=ardb@kernel.org;
- h=from:subject; bh=BHh6avMxu3GGP3VARPK44z1/lEJAob47wThf/IcE9TQ=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWvV6ocem/s3l94UfLzytF+Uy7KLBrWzpglLPaydfUHRx
- 33CpHuRHaUsDGJcDLJiiiwCs/++23l6olSt8yxZmDmsTCBDGLg4BWAiR7czMrw8weEyp7PdvC3d
- vf5vsODExa+1sso8RB4nq04Srk+6d4Dhr7ToUuHJp1tmt8YZreme7lyod3BWWZz7zG3s68yyd5w /xQ0A
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260916144647.2651379-18-ardb+git@google.com>
-Subject: [PATCH v3 7/9] efi/libstub: Add support for printing human readable GUIDs
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
-	Vincent Mailhol <mailhol@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqqsAUVV8a1yrQzX@localhost.localdomain>
 
-From: Ard Biesheuvel <ardb@kernel.org>
+On Wed, Sep 16, 2026 at 04:47:29PM +0200, Frederic Weisbecker wrote:
+> Le Wed, Sep 16, 2026 at 04:35:50PM +0200, Frederic Weisbecker a écrit :
+> > Le Wed, Sep 16, 2026 at 07:26:35AM -0700, Paul E. McKenney a écrit :
+> > > On Wed, Sep 16, 2026 at 02:40:20PM +0200, Frederic Weisbecker wrote:
+> > > > Le Tue, Sep 15, 2026 at 04:56:41PM -0700, Paul E. McKenney a écrit :
+> > > > > > Alternatively the approach could be generalized to vanilla RCU, it could be
+> > > > > > possible to define a .text.rcu_no_qs section within which code running is
+> > > > > > considered as an RCU reader (with a pause while on the explicit RCU tasks
+> > > > > > section). It would be forbidden to voluntary sleep inside
+> > > > > > and to put explicit preemption points (CONFIG_PROVE_RCU could report misuses).
+> > > > > > 
+> > > > > > Based on IP, RCU could consider those interrupted section as readers. This would
+> > > > > > require PREEMPT_RCU though.
+> > > > > > 
+> > > > > > And then synchronize_rcu() would do the 1, 2, 4 jobs.
+> > > > > 
+> > > > > If I am following correctly (ha!), sleepable BPF programs rule out use
+> > > > > of RCU in this manner.
+> > > > > 
+> > > > > But your point is nevertheless valid, in that SRCU could be used.
+> > > > > And because rcu_read_lock_trace() is a thin wrapper around SRCU-fast, we
+> > > > > *might* be able to instead use rcu_read_lock_tasks_trace(), which would
+> > > > > skip the task-struct increment and decrement, saving a few instructions.
+> > > > > Then, instead of waiting for each task's counter to go to zero, instead
+> > > > > just invoke synchronize_rcu_tasks_trace().
+> > > > > 
+> > > > > Which is pretty close to what Josef is proposing, just with the new RCU
+> > > > > Tasks Trace read-side primitives.  I think.  ;-)
+> > > > > 
+> > > > > This assumes that we do not need to flatten partially overlapping RCU
+> > > > > Tasks Trace readers into one big reader.
+> > > > > 
+> > > > > Or am I missing something here?
+> > > > 
+> > > > Yes I think that's what Josef does in this patchset. The problem is about
+> > > > handling the few instructions:
+> > > > 
+> > > > 1) between the begining of the trampoline and the call to rcu_read_lock_trace()
+> > > > 
+> > > > 2) between the call to rcu_read_unlock_trace() and the end of the trampoline
+> > > > 
+> > > > So what I'm proposing is to make those two parts implicit RCU read lock sections.
+> > > > 
+> > > > So the whole trampoline would be .text.rcu_no_qs:
+> > > > 
+> > > > .text.rcu_no_qs trampoline:
+> > > >   __________________________________________________________________________________________
+> > > >  |Few instructions 1 | rcu_read_lock_trace() .... rcu_read_unlock_trace | Few instructions 2|
+> > > >  ___________________________________________________________________________________________
+> > > > 
+> > > > Then when a tick fires, rcu_flavor_sched_clock_irq() discards the interrupted
+> > > > code as QS if the IP was within .text.rcu_no_qs _unless_ it is in the
+> > > > rcu_read_lock_trace. Both are easy and quick to verify.
+> > > > 
+> > > > Also preempt_schedule_irq() would make sure to verify the same condition and
+> > > > enqueue the task as a GP blocker if preempting inside "Few instructions 1"
+> > > > or "Few instructions 2".
+> > > 
+> > > Ah, OK, I might be following now.  ;-)
+> > > 
+> > > We also need both versions of rcu_exp_handler() to check the IP as well,
+> > > given that sooner or later someone is going to want trampoline removal
+> > > to go faster.  Or am I still missing a turn in here somewhere?
 
-Add support for the %pUl printk conversion specifier, which takes a
-pointer to a GUID and prints it in the usual format:
+I should add that the thing that I really like about Frederic's approach
+is that avoids the task-list scan.  Or at least has the potential to
+do so.  Such scans have proven problematic in the past.
 
-  aaaaaaaa-bbbb-cccc-dddd-dddddddddddd
+> > Yes indeed, missed the exp part!
+> 
+> What remains to handle also is non-preemptible RCU because if the task is
+> preempted by an IRQ while in the .text.rcu_no_qs, we may still need to keep
+> track of that somewhere.
 
-Co-developed-by: Vincent Mailhol <mailhol@kernel.org>
-Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
----
- drivers/firmware/efi/libstub/vsprintf.c | 39 +++++++++++++++++---
- 1 file changed, 34 insertions(+), 5 deletions(-)
+Perhaps in rcu_core() in kernels booted with use_softirq?  I am thinking
+specifically of the checks for deferred quiescent states.  I don't (yet)
+see a need to modify rcu_check_quiescent_state().
 
-diff --git a/drivers/firmware/efi/libstub/vsprintf.c b/drivers/firmware/efi/libstub/vsprintf.c
-index bd32af6b4f4d..54b82ba798a2 100644
---- a/drivers/firmware/efi/libstub/vsprintf.c
-+++ b/drivers/firmware/efi/libstub/vsprintf.c
-@@ -113,6 +113,8 @@ char *put_dec(char *end, unsigned long long n)
- 	return p;
- }
- 
-+static const char digits[16] = "0123456789ABCDEF";
-+
- static
- char *number(char *end, unsigned long long num, int base, char locase)
- {
-@@ -121,9 +123,6 @@ char *number(char *end, unsigned long long num, int base, char locase)
- 	 * produces same digits or (maybe lowercased) letters
- 	 */
- 
--	/* we are called with base 8, 10 or 16, only, thus don't need "G..."  */
--	static const char digits[16] = "0123456789ABCDEF"; /* "GHIJKLMNOPQRSTUVWXYZ"; */
--
- 	switch (base) {
- 	case 10:
- 		if (num != 0)
-@@ -144,6 +143,29 @@ char *number(char *end, unsigned long long num, int base, char locase)
- 	return end;
- }
- 
-+static char *guid_to_str(const efi_guid_t *guid, char *out, char locase)
-+{
-+	static const u8 guid_index[UUID_SIZE] = {
-+		3, 2, 1, 0, 5, 4, 7, 6, 8, 9, 10, 11, 12, 13, 14, 15,
-+	};
-+
-+	for (int i = 0, p = 0; i < ARRAY_SIZE(guid_index); i++) {
-+		u8 byte = guid->b[guid_index[i]];
-+
-+		out[p++] = locase | digits[byte >> 4];
-+		out[p++] = locase | digits[byte & 0xf];
-+
-+		switch (i) {
-+		case 3:
-+		case 5:
-+		case 7:
-+		case 9:
-+			out[p++] = '-';
-+		}
-+	}
-+	return out;
-+}
-+
- #define ZEROPAD	1		/* pad with zero */
- #define SIGN	2		/* unsigned/signed long */
- #define PLUS	4		/* show plus */
-@@ -253,8 +275,7 @@ do {				\
- int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
- 		  bool crlf)
- {
--	/* The maximum space required is to print a 64-bit number in octal */
--	char tmp[(sizeof(unsigned long long) * 8 + 2) / 3];
-+	char tmp[UUID_STRING_LEN];
- 	char *tmp_end = &tmp[ARRAY_SIZE(tmp)];
- 	long long num;
- 	int base;
-@@ -367,6 +388,14 @@ int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
- 			break;
- 
- 		case 'p':
-+			if (fmt[1] == 'U' && (fmt[2] | 0x20) == 'l') {
-+				flags &= LEFT;
-+				s = guid_to_str(va_arg(args, efi_guid_t *), tmp, fmt[2] & 0x20);
-+				precision = len = UUID_STRING_LEN;
-+				fmt += 2;
-+				goto output;
-+			}
-+
- 			if (precision < 0)
- 				precision = 2 * sizeof(void *);
- 			fallthrough;
--- 
-2.55.0.1032.g73a4cd73de-goog
+Maybe other places as well.  ;-)
 
+							Thanx, Paul
