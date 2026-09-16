@@ -1,90 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D804DE73A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A574E06E5;
+	Wed, 16 Sep 2026 20:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591784; cv=none; b=MXL8zs13DyBOVmQLJs1mYiKTXXRNcNewtSVnu/ErW36XMpBczS4/OJ6VOT8TZ7GsIgvE3G8jznjwuzlD5yjpcNO8xsaldvSBcN1Rqncw2YAIjk5fzDZVTTjD/0LaGCMwshuJiKkD0FrI2yQn3+BnaRQ1oYExCC542zjdlEkQhkk=
+	t=1789591832; cv=none; b=pEOBBhMlz1AFc7BeANKEAPux7b4rdGPTUxj3CaljQIjc04HqRya6pEyVLE/oCygKcu1WUFP2boJRAM965HJfoNhJgHL5y1YTQZqLb2Qc8MWdoIwnmgQKpSK+AeKKLxSexRGbPHHOuoaTOvicpsNOHmOcqM+ZJ7yb/2fgrcaQ5D0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789591784; c=relaxed/simple;
-	bh=twr8a59Fdfn0ePavAnjHYzK+0b6kl9ZrRxpm4L7/C0g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UzGMKqaxgjZNmfYS7bvE61p0b7Z05aI7UZi+Qplo+Vxt265b/UOYwYH0XbsMxrZxWpze0GV7AYqYFbBhny4lZPJh8Du64+qjP/w5huv23Y4ovf3wp/hjUfBNPGu9kC+FSb7QFVfw7807Bo70FSqXPLRiV3ryVjV1V2rtGK/StDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z/1GcvUL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789591832; c=relaxed/simple;
+	bh=hN39DPrceczeiOT9/MPgWeZTqKMJCZNfoFUibqz6o38=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BtbM5nyInIKzp7/5btus+PpqwDmhvmp7SzZZt9z79PrzA+ImxtDs0qdV9BwBQNSQF+b75v5O5GRcCjOr3Ord0HUUIwRBPWimKgT8X+Jq63Z9ZpDjT83Pp8QV12UeXrdkhuYUhANS3h0X5oRvhy9jVBkQEvGhghssIAGk21ZFvvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=AMAl9QJd; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z/1GcvUL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C34A41F0089B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:49:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789591770;
-	bh=wrOPqooVJKR65PqQc6a0txwADa8lEUlA4DFwnEFD/n4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Z/1GcvUL+QQ6ELhJi+Hgl5oJUICJOdCQTunyRu2QvSMMTOkNUSmnPRts9mT3vbzI4
-	 FVMyVt+0LxPxC20gFHrWFGm70H8BIzdp2J4CU+wmjtZniHACx/5yr/bBGlBsDu6YAW
-	 ZvKyZyNueSIJ2LORJQ9ip3MTbbWCH+YaVyVAnYVH4/zckuup1zKzFCxADXD+542Ulh
-	 6MQMmGuFbGQdBxSG59jeaJjYGAIHMFgszPM4lcDfE0g3dxfcLxkNR0HtoR6azgEvZi
-	 PGi7fBUWB5yuwX0RDh/69FLMGJ3iZu8lFCx3WF9ceWc6VhSWceZTgP1+qdyvMF7DBF
-	 IcnF/+Z/afJNQ==
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2946aa0d5aso10575766b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:49:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxoIaYviX8h+OxIQBkSCMFF2asGLO2gRtGeDqinakSC7irVdxbNJLkLyFKdp68HdY7XuL55ywHKsRYsnDU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdQqBSPUkKkrN2AMEWsovxD/TPwMtErphYtTaEVooCu58mLBRg
-	CExwbQkT4Ik0AaNgeQjQUgl2adrD6/wogplUuwguHNTPKHbedR/mR60InljFLnFdENGCJRUeZEJ
-	LIk4IhbM8ugLDtUE0IdjezsMakbduTg==
-X-Received: by 2002:a17:906:99c9:b0:c29:519b:3aee with SMTP id
- a640c23a62f3a-c29f54f0ed8mr67673266b.33.1789591769361; Wed, 16 Sep 2026
- 13:49:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="AMAl9QJd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=MIME-Version:Message-ID:Date:Subject:From:
+	Content-Type; bh=B/jUuH40yCXAgR383WQv9aqk10dUHBpNo4ONwhWZDC8=; b=AMAl9QJdwmxl
+	gs1NQ956C/U1qh1cKooBeal9yBA3MBZ0h4zmfidKMPMyG1rwrOZKfd0F5nmkHr7darUeXXiuW63Gw
+	fCG8lhYcEWJMdIpa4SfTepIcmTRRs+UPuclz0Dt18SbS6HgU/c6XvadnspSJgsCt5kmNa9BHo9QJZ
+	mg+W3Z7vGNHsMUr7ZEJotWY65FQwvYn8SKQ4gQVN9N3oZE8lEe50c8CRDv6D7BYW7AWoiOaw55LUJ
+	PioaN4IgYPXbJUSvujxqq7f6+r4TW1b1qGdmI+oJXei9rYwpfZCVIc2+mzmZz4hA+/OKQIXIPt/6p
+	knwJ/HrGZdju/N+h+u7Ccg==;
+Received: from ch-vpn.virtuozzo.com ([130.117.225.6] helo=LekKit-T14)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <eva.kurchatova@virtuozzo.com>)
+	id 1x6wXL-00Cmfg-2V;
+	Wed, 16 Sep 2026 22:50:13 +0200
+From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+To: Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH] selftests: prctl: skip anon VMA naming test when unsupported
+Date: Wed, 16 Sep 2026 23:50:07 +0300
+Message-ID: <20260916205008.822717-1-eva.kurchatova@virtuozzo.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909151423.28358-1-marek.vasut+renesas@mailbox.org>
- <CAMuHMdVVcbwz1OK9tL9zn5RR_4YyML6++OUVUgmswPpaxdmRSA@mail.gmail.com> <34f4c088-5268-4add-aef4-33b3d3623c12@mailbox.org>
-In-Reply-To: <34f4c088-5268-4add-aef4-33b3d3623c12@mailbox.org>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 16 Sep 2026 15:49:17 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqK8--7X5g4T05Y6bEGzsxrhTq2QyQRpE5E5uHBot3jLWA@mail.gmail.com>
-X-Gm-Features: AcwNN1X_UxnU6ZKwsSvWgTeaY6WNtC_ArZgdOyjZ98UNH3XGVrlhWCoa-QMjqBE
-Message-ID: <CAL_JsqK8--7X5g4T05Y6bEGzsxrhTq2QyQRpE5E5uHBot3jLWA@mail.gmail.com>
-Subject: Re: [PATCH v2] arm64: dts: renesas: sparrow-hawk: Add overlay for
- WaveShare 2CH CANFD HAT
-To: Marek Vasut <marek.vasut@mailbox.org>, Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 9, 2026 at 10:55=E2=80=AFAM Marek Vasut <marek.vasut@mailbox.or=
-g> wrote:
->
-> On 9/9/26 5:31 PM, Geert Uytterhoeven wrote:
->
-> Hello Geert,
->
-> >> +       /*
-> >> +        * SPI_1 is operated as GPIO SPI, because MSIOF5 can not be
-> >> +        * muxed on the pins allocated for SPI_1 on this CANFD HAT.
-> >> +        */
-> >> +       spi {   /* SPI_1 */
-> >
-> > As this lives at the root node, I'd rather change it back to
-> > spi-ws-2ch-canfd while applying, if you don't mind?
-> Please make sure the DT schema check does not complain about it,
-> otherwise it is fine, thank you.
+PR_SET_VMA_ANON_NAME returns EINVAL on a kernel built without
+CONFIG_ANON_VMA_NAME, and every case in the renaming test then fails on
+a feature that is not there.
 
-It does complain:
+Probe once in the fixture setup with a throwaway mapping and skip when
+the kernel answers EINVAL. Only that error means the feature is
+missing; the test still checks that an invalid name is refused with
+EINVAL later, on a kernel that has it.
 
-      1 spi-ws-2ch-canfd (spi-gpio): Unevaluated properties are not
-allowed ('#address-cells', '#size-cells', 'can@0' were unexpected)
-      1 spi-ws-2ch-canfd (spi-gpio): $nodename:0: 'spi-ws-2ch-canfd'
-does not match '^spi(@.*|-([0-9]|[1-9][0-9]+))?$'
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+---
+ .../testing/selftests/prctl/set-anon-vma-name-test.c  | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-The 1st warning is a side effect of the 2nd warning.
+diff --git a/tools/testing/selftests/prctl/set-anon-vma-name-test.c b/tools/testing/selftests/prctl/set-anon-vma-name-test.c
+index 5f9589534da8..2d49a5114497 100644
+--- a/tools/testing/selftests/prctl/set-anon-vma-name-test.c
++++ b/tools/testing/selftests/prctl/set-anon-vma-name-test.c
+@@ -80,6 +80,17 @@ FIXTURE(vma) {
+ 
+ FIXTURE_SETUP(vma) {
+ 	char template[] = "./set-anon-vma-test-XXXXXX";
++	void *probe;
++	int res;
++
++	/* Naming anonymous VMAs needs CONFIG_ANON_VMA_NAME. */
++	probe = mmap(NULL, AREA_SIZE, PROT_READ | PROT_WRITE,
++					MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	ASSERT_NE(probe, MAP_FAILED);
++	res = rename_vma((unsigned long)probe, AREA_SIZE, GOOD_NAME);
++	munmap(probe, AREA_SIZE);
++	if (res == -EINVAL)
++		SKIP(return, "CONFIG_ANON_VMA_NAME is not enabled");
+ 
+ 	self->ptr_anon = mmap(NULL, AREA_SIZE, PROT_READ | PROT_WRITE,
+ 					MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+-- 
+2.55.0
 
-"spi-1" like the comment says if just "spi" does not work.
-
-Rob
