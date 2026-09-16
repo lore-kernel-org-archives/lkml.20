@@ -1,155 +1,106 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7644BF92A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF5FC412C1A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789599763; cv=none; b=dynNWP9kv0wKjLJsuDQnU+EKI8S3e7Q37FAun3v54ztnupwagETu9V0Ae1yk61+KU4M5h0llHYVrZw4IR5+75xyPMXmfM0+8ejwCi6nRDLLaJSbV+Ev3klpJUoRXm2pw+J/wy5L497DybVxueZ/d6GnN71wOFKLFsfGo7gsnvKI=
+	t=1789599898; cv=none; b=bXBzybf61xrjaG8DrBUUw5cOBCYKqGqMGgCshUMgLR+UcxWxjq+Qjq/kk0L9pF5u6felCYxdRgHurmXS+6Rnj65I9XdF3oAS0uU3if5/Jd/fTcr3G3x3ZSUjCWCx/ysjlh3n4cv8LE+B64E2IjQcjmbgn6YYMv3yrAEZZ1kTgCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789599763; c=relaxed/simple;
-	bh=YCCfGwPfmCxWE+vcmUEZsFhPDZ76hppOIgoi+mVXp+Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cwdi9spm4R54k3pVUp6TF31jnOvZhq5O9PDxLtM9nsxJ4goYM6LwxO7vp/JpAuohhnL63VYic/w9Xoc52xI2D01XkWP6IMYMYxw4GBuKJZTlDkdVmTSyxn8zM0k7pL+xq2Ss7Q4JYXOggrfuGFGy8p0N7Y2xyqIPIgQkPFVGqbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KTMsdxpp; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789599898; c=relaxed/simple;
+	bh=wkNpSDNZfRTYlKzv+KDudj0npKw1I5FMQNwmEMqYQ0k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AByTXX/HDYBFl4oK9IXJGw4mR7ZPj+orA4YvJrsdhszQ8l7n0Ky+BlPsvYx5iADImR07UIc/+fi0/ZUPBHPM4ZkoeXeaxwp0e21Lk7TV4vu2xKvphuXv53MKEBaFlShE6I+OgmUdUEvhSQt2zHBBS8RerT5jkFzJweEblbLpgUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=OKTwVo/A; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KTMsdxpp"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2dd68a16955so1731555ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:02:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789599752; x=1790204552; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8fkxWCvKJczVMfesaEcNbK2P73mYdy8NStslyw9N+Ug=;
-        b=KTMsdxpp50i/NXGjHRw/TCQ6v1jomXJ3YGaADy32UR87FEq1cHOH/5EQx/BYwMkNZh
-         As7aaMZszqhw98IaddKtekTd9IseZH7PoOb9W3SC2O+UXQud9AgeGXnIDS+GU9dyDkcB
-         PFCJHQ77v0bIQ37yGbTxe/uE9Ve5CEGELfNFQN5EwbIt1QxoKoy49bKioSO8O2zZtQxI
-         90pR1Wa0/0FcixVMomGOIiKVY1xo6Z0jXrKSh3mycwSm3/oBigG/M+TAx2jGTSp0Eu3D
-         wLh70tPUfIMR+/MV03gWkgwz06XGXBj9z2SaUe6Wc5TOKXE4Kf+ZWwv/oCNKMUXurvic
-         zYCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789599752; x=1790204552;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8fkxWCvKJczVMfesaEcNbK2P73mYdy8NStslyw9N+Ug=;
-        b=L5CiuBXY6CJuTVdebcUfeDBoMat+wSseZjDoGeGOz+3hjEaZoAZJ8l2xG6ArpJO53z
-         q9P2+t+q7jL0Fg6hzaUBrgTW+s1AmgH58cJx04yMD4Qlfd3lOMa5wuCKWxQJQM6yW5N+
-         lhhZrjm+85JbdPvwPzZtfWpZTSKLUu6pm3iJZ03Fu81zRESd+1NeV6KBbHD3ywiESZ3F
-         gxnMLHMBg6nxEqdFrhXmEY2FHWe2OtDOCVcid1g4Yf4HneVZodXiNVbzMgMc43f0U6h/
-         nGwGkAxGXzEYqBVw/HBjENrjfe6aBFcVCpJScC4ib/r+oNlLGqoUZ7s36Aa9nCoKV7gE
-         WGzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz71mwkjDJNqhOzxgjhwHr7vUDAFDCC/ZFaaf9aIQajK3dMtnnk7vTPHd62dKgFjtmZnpp8gZZRLHOjL8I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kX4MHwJiglWGvpuplKvPc46dn56z1Sw1grNUytWTCf/jVrUsez
-	xGYpPsxZNjhFyEoqzpviWsufpaZcxaJko7E4epWKYDwExQBzzJJmHhAB
-X-Gm-Gg: AYBFou0hYOIBbctf/HnP58rwZmnEyOqKqFZJHzAoSpr8EkToBFd0EvirYF1cJ4XnP1/
-	bNDxZDWlbzxbXAu7/3+IEMDKZcM0p3OQ4R0U+LuV+lgQbUG9nzb/aH70PauAP3TgDruKWFjgiu+
-	CKbc/E/g3G20/u1QlE1fAuil2JnLwJWpZ5QifSw7DHT2F8lqCI21ZgvA34mOGPGMKqF7TzyIjbo
-	YcgESvFRD2BkvOdvtEpPi0wAjdp0XFv1pFZbgz+5xDVgsAxAuzeb1qKYCZh47CZM9eSbpLvTdtL
-	xcIlDAmmG90uRxGpqIcUmUCx+mr3kV0CosV/6cKIVbD3Tsh0fQ7dVoH0YFakaDp9hrRlcUCCu9T
-	BdGN3FxEF7W6A6hODGDA9Yll1l0+IhPyTsWtktYxUnx7rtpMGwORmuvJokUYCeK2IdWPMDzQ3fP
-	k9SEBh1JR11gwXeo/akZw9bcVlZ+Fs8RIokRy/1IlJZN4HPvl2oh/KZBmuAXlGJZqO2N6a/quzt
-	kA1W81OHOUqTBA5EVQwRpxSgxR5SFpkrkeJ+kHQslJPO6DD7h2zIfGgeJfhE8M1cI4xjhaDMKD9
-	23Jr3dXOUolhzqTzuU7uTvI6bmQLEIj6ggaSi+kgfCzQvgTk
-X-Received: by 2002:a17:903:b8f:b0:2d7:1f17:41f8 with SMTP id d9443c01a7336-2dd9ca0c91bmr19967065ad.15.1789599751704;
-        Wed, 16 Sep 2026 16:02:31 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89ee19b9sm17289305ad.51.2026.09.16.16.02.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 16:02:30 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Harninder Rai <harninder.rai@freescale.com>,
-	Xuelin Shi <xuelin.shi@freescale.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv6] dmaengine: fsl_raid: check fsl_re_chan_probe() return value
-Date: Wed, 16 Sep 2026 16:02:28 -0700
-Message-ID: <20260916230228.283615-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="OKTwVo/A"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 654061476;
+	Wed, 16 Sep 2026 16:04:51 -0700 (PDT)
+Received: from workstation-e142269.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 02F613F7B4;
+	Wed, 16 Sep 2026 16:04:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789599895; bh=wkNpSDNZfRTYlKzv+KDudj0npKw1I5FMQNwmEMqYQ0k=;
+	h=From:To:Cc:Subject:Date:From;
+	b=OKTwVo/AQtdupYUE7FDpC+F6hT5YJ8C57ltsT+Id1mdnhxzjsPryo26VDsUaJeZ/8
+	 tnZokvPCEo8M4rz3l1d0MnAe+p1lRLygmQvfQ1KNs6pWQdalxTzGGt18yIS/0UWIqU
+	 bhIEYllbYnrKDdwak8rnkifXwsENxkBdO6ElIi0g=
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Sebastian Ene <sebastianene@google.com>,
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>
+Subject: [PATCH v3 0/2] KVM: arm64: ptdump: Shadow ptdump fixes
+Date: Thu, 17 Sep 2026 00:03:35 +0100
+Message-ID: <20260916230337.4162485-1-weilin.chang@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-fsl_re_probe() ignores the return value of fsl_re_chan_probe() and
-unconditionally increments total_chans. When a channel fails to probe
-(for example, an IRQ mapping failure) its re_jrs[] slot is left NULL, yet
-total_chans still advances, so fsl_re_remove_chan() later dereferences the
-NULL pointer during device removal.
+Hi,
 
-Check return value and only count successfully probed channels, and guard
-fsl_re_remove() against NULL entries.
+This is v3 of fixing the sleep-in-atomic problem of the shadow ptdump.
+The approach taken this time is simply creating a file for each nested
+mmu.
 
-Fixes: ad80da658bbc ("dmaengine: Driver support for FSL RaidEngine device.")
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v6: increment ridx before continue;
- v5: put some stuff on one line for easier readability.
- v4: use break;
- v3: fix sashiko review
- v2: fix description
- drivers/dma/fsl_raid.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+The ptdump files are created alongside the nested mmus in
+kvm_vcpu_init_nested(), in a sleepable context, and removed when the VM
+is destroyed (kvm_destroy_vm_debugfs(), before the nested mmus are freed
+in kvm_destroy_nested()). This allows us to store the kvm_s2_mmu pointers
+in the ptdump code, after Marc's nested mmu lifecycle fixes [1].
 
-diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
-index 9cc289f7129e..f059ff2e37f8 100644
---- a/drivers/dma/fsl_raid.c
-+++ b/drivers/dma/fsl_raid.c
-@@ -836,18 +836,30 @@ static int fsl_re_probe(struct platform_device *ofdev)
- 		}
- 		/* Find out the Job Rings present under each JQ */
- 		for_each_child_of_node(np, child) {
--			rc = of_device_is_compatible(child,
--					     "fsl,raideng-v1.0-job-ring");
-+			if (ridx >= FSL_RE_MAX_CHANS) {
-+				dev_warn(dev, "too many job rings, max %d\n", FSL_RE_MAX_CHANS);
-+				of_node_put(child);
-+				break;
-+			}
-+
-+			rc = of_device_is_compatible(child, "fsl,raideng-v1.0-job-ring");
-+			if (!rc) {
-+				ridx++;
-+				continue;
-+			}
-+
-+			rc = fsl_re_chan_probe(ofdev, child, ridx, off);
- 			if (rc) {
--				fsl_re_chan_probe(ofdev, child, ridx++, off);
--				re_priv->total_chans++;
-+				dev_err(dev, "job ring %d probe failed: %d\n", ridx, rc);
-+				ridx++;
-+				continue;
- 			}
-+			ridx++;
-+			re_priv->total_chans++;
- 		}
- 	}
- 
--	dma_async_device_register(dma_dev);
--
--	return 0;
-+	return dma_async_device_register(dma_dev);
- }
- 
- static void fsl_re_remove_chan(struct fsl_re_chan *chan)
-@@ -872,7 +884,8 @@ static void fsl_re_remove(struct platform_device *ofdev)
- 
- 	/* Cleanup chan related memory areas */
- 	for (i = 0; i < re_priv->total_chans; i++)
--		fsl_re_remove_chan(re_priv->re_jrs[i]);
-+		if (re_priv->re_jrs[i])
-+			fsl_re_remove_chan(re_priv->re_jrs[i]);
- 
- 	/* Unregister the driver */
- 	dma_async_device_unregister(&re_priv->dma_dev);
+For the shadow ptdump, for valid nested mmus the first line will show
+the nested context's VTTBR and VTCR values, and whether s2 is enabled or
+not. The ptdump then follows.
+
+The first patch fixes mmu->pgt accesses after the VM MMU teardown in
+ptdump.c, the second patch switches from per nested context ptdumps to
+per nested mmu ptdumps.
+
+Tested with CONFIG_PROVE_LOCKING, CONFIG_DEBUG_ATOMIC_SLEEP, and
+CONFIG_KASAN.
+
+Series based on kvmarm/fixes.
+
+* Changes from v2 [2]:
+
+  - Changed from creating a file that contains all nested mmus to
+    creating one file for each nested mmu.
+
+Thanks!
+
+[1]: https://lore.kernel.org/kvmarm/20260911162203.1919330-1-maz@kernel.org/
+[2]: https://lore.kernel.org/kvmarm/20260630121005.1130996-1-weilin.chang@arm.com/
+
+Wei-Lin Chang (2):
+  KVM: arm64: ptdump: Check the page tables aren't freed when accessing
+  KVM: arm64: ptdump: Fix shadow ptdump sleep-in-atomic-context problem
+
+ arch/arm64/include/asm/kvm_host.h |  4 --
+ arch/arm64/include/asm/kvm_mmu.h  |  6 +--
+ arch/arm64/kvm/nested.c           |  9 ++--
+ arch/arm64/kvm/ptdump.c           | 75 ++++++++++++++++++++-----------
+ 4 files changed, 54 insertions(+), 40 deletions(-)
+
 -- 
-2.55.0
+2.43.0
 
