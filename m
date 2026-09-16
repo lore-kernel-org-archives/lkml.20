@@ -1,95 +1,99 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D9A35CB91;
-	Wed, 16 Sep 2026 17:10:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE4549B45A;
+	Wed, 16 Sep 2026 17:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578641; cv=none; b=usmetoarEFGlTUlTc6le3sqLKQJgPMWJ9FPCAPA3ardDlJVOfFgsuqvQ5Am5Vr+AIQLZva42NZx60wVihd0Ht5lAolzLFqiKraUqcBbz5guDsOKPAci85Q7aubBWCfGFhx7rXjVkYbo60USa3avav8IJyzAn2dsHgexV2PJAWsw=
+	t=1789578674; cv=none; b=A3zN7QT6/zNKljTd9iab0GR2yYXUMV3sbD9hPlnYlX01NNV4dImAp6ZhDHKhYMmEApKhYOumc0c7KaGxCSPnErUZs1iWga/eXjZNEQgjAaHTk5RZNegj+kKHXragYfwqZE1yx3h81aAF/qegAQ8lQCs0vFeHAJjPFAvRi0u33+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578641; c=relaxed/simple;
-	bh=8mDVMhyc9DSK3T89LmZQB+NqzZtAzQOxaffFxWzmYzs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eLnAC55Cohi3Owe0dqvE7PFFUpxF03b/hEbtSgbtTITxAWhAnOcoRuqUSIASInsH63zRLXq/w+nJ0J0kI6ebHYiEwrlyQdjq10xAU0P560+sVuE4MSciwMNsjZ+2IMbYjsfGIj3eSK/Td/qq3FVvw1T5985Xy/WEw47izxpA5f8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHsTuAzapqVVJuCA--.22263S2;
-	Thu, 17 Sep 2026 01:10:24 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: boris.ostrovsky@oracle.com
-Cc: jgross@suse.com,
-	linux-kernel@vger.kernel.org,
-	oleksandr_andrushchenko@epam.com,
-	oleksandr_tyshchenko@epam.com,
-	sstabellini@kernel.org,
-	xen-devel@lists.xenproject.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in dmabuf_exp_wait_released()
-Date: Wed, 16 Sep 2026 17:09:56 +0000
-Message-Id: <20260916170956.2086505-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789578674; c=relaxed/simple;
+	bh=FVl4jZRAq4po6F02Gpx2eYDptt54Fs0noMsH5nGZugY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EkyEWvvtkFZUD5MVijXYDdSkcIFTFow+xit/WacCabh7jwCCOYvHoVfGUOsH79UJFHqOsqK19grl70tqxPypwMgHwMuHMCdUvtGyHSzX/cPZ5ihwQg0QA/JW0xNKHiKhzfDFxEhidBABRInA38+HIbKrVpkvzXuLyEmdh1uuOKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=YlFwVP5P; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="YlFwVP5P"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=L6SwzphsrreNsIdosvNBrNqsY0SnqqVKbcSjY0NO71M=; t=1789578665;
+	x=1790183465; b=YlFwVP5PIwofdsIy+fpvkkfYdFxLuBo+IaZxvtVb/v93Ckt5mM6/kwYsV/BwS
+	ku/Wk+Rpe/ZGOIGLTk5touExuUpMRfw6s3lifmuHRmOrZfMqXZRH06dx8COZzDuPYZ6D9HH+wvi95
+	hDr+mE2O6+84aQ9tltxElSBUjsOl7K86TlX3hcnP1F8wShouajHI1hWDNPGZr4dLbqPibtoPIu9zL
+	42knxwM6MZrLgYCcX59Uyk+KkF0pINPnyO98jLpNhEdERolVawl3Sxcqo65fvKaqGNDzonehYb0je
+	TXf7iOeaxD1erqiNtckGRSc12/FNtd7QfbT9SaSwR+8q7B7Wwg==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.99)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1x6t9m-00000000eCO-0jIA; Wed, 16 Sep 2026 19:10:50 +0200
+Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.99)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1x6t9l-00000002liV-3w7V; Wed, 16 Sep 2026 19:10:50 +0200
+Message-ID: <76db667b04eefe1a4f3f3af4354f98f0858069eb.camel@physik.fu-berlin.de>
+Subject: Re: [RESEND PATCH] sh: ecovec24: use static device properties to
+ describe the touchscreen
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Linus Walleij <linusw@kernel.org>, Dmitry Torokhov
+	 <dmitry.torokhov@gmail.com>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker
+ <dalias@libc.org>,  Bartosz Golaszewski	 <brgl@kernel.org>, Kuninori
+ Morimoto <kuninori.morimoto.gx@renesas.com>,  Mark Brown
+ <broonie@kernel.org>, jacopo mondi <jacopo@jmondi.org>,
+ linux-sh@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+Date: Wed, 16 Sep 2026 19:10:49 +0200
+In-Reply-To: <CAD++jLnAF7c=bBh2ihXEiG55twpj6seEGU-2R2GhWsGfC7NCyw@mail.gmail.com>
+References: <alUyZ2zVWCPhyHHX@google.com>
+	 <CAD++jLnAF7c=bBh2ihXEiG55twpj6seEGU-2R2GhWsGfC7NCyw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHsTuAzapqVVJuCA--.22263S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tw4kAFyfCrWxJw4rtFW5ZFb_yoW8GF1xpr
-	sIqFy8AFZ3t347ta1DJ34Y9ryYyayDtrySkrW5Aws8Zry5Xw1xXF1fJr18XFyqkws3ua4f
-	Aa40yFy3Xr45AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
-	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
-	UgXocUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqozVjiwAAsq
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-dmabuf_exp_wait_released() takes a reference on the exported
-gntdev_dmabuf with dmabuf_exp_wait_obj_get_dmabuf() and passes it to
-dmabuf_exp_wait_obj_new(), which drops that reference after adding the
-wait object to the wait list.  When the wait object allocation fails,
-dmabuf_exp_wait_obj_new() returns ERR_PTR(-ENOMEM) early and the
-reference is never dropped, leaking a reference to the exported
-gntdev_dmabuf.
+Hi Linus and Dmitry,
 
-Drop the reference on the allocation failure path so the reference is
-consumed whether the wait object is created or not.
+On Wed, 2026-09-16 at 19:01 +0200, Linus Walleij wrote:
+> On Mon, Jul 13, 2026 at 11:41=E2=80=AFPM Dmitry Torokhov
+> <dmitry.torokhov@gmail.com> wrote:
+>=20
+> > Convert the board to use static device properties instead of platform
+> > data to describe the touchscreen, so that support for platform data can
+> > be removed from tsc2007 driver (ecovec24 is the last board using this
+> > mechanism of describing tsc2007).
+> >=20
+> > Device properties do not allow custom board methods, so the method for
+> > getting "pen down" state was removed (the driver is capable of working
+> > without it). If this functionality is needed proper pin control/gpio
+> > support needs to be implemented so that the same pin can serve as an
+> > input GPIO and an interrupt.
+> >=20
+> > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+>=20
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Fixes: 932d6562179e ("xen/gntdev: Add initial support for dma-buf UAPI")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/xen/gntdev-dmabuf.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Thanks a lot for the review! I'm working on them now.
 
-diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
-index 83b0df460894..df1883aca850 100644
---- a/drivers/xen/gntdev-dmabuf.c
-+++ b/drivers/xen/gntdev-dmabuf.c
-@@ -96,8 +96,10 @@ dmabuf_exp_wait_obj_new(struct gntdev_dmabuf_priv *priv,
- 	struct gntdev_dmabuf_wait_obj *obj;
- 
- 	obj = kzalloc_obj(*obj);
--	if (!obj)
-+	if (!obj) {
-+		kref_put(&gntdev_dmabuf->u.exp.refcount, dmabuf_exp_release);
- 		return ERR_PTR(-ENOMEM);
-+	}
- 
- 	init_completion(&obj->completion);
- 	obj->gntdev_dmabuf = gntdev_dmabuf;
--- 
-2.34.1
+Adrian
 
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
