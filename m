@@ -1,134 +1,186 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C393B4908DB;
-	Wed, 16 Sep 2026 22:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789596498; cv=none; b=UCFV103r/qaaAR72rK19cJuRzzYYxHd+IMkPcGa/s+2LQjpMrz0msFnbchqJ3eOJ1UERF4F6CKKN9bFwHi4yhj7FnIRo5w5lhLJrq2Ni9PcK7lrXcRvKD75Sspy/AW6zBcQtkJ3jN5zjxhX9iSBQLwXHGboKPJTPV+bynKcWVM0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789596498; c=relaxed/simple;
-	bh=nxkGyeHtsrQzaOcEkCVLY02vkgpdX290P3BFs1DueJc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Inl2uN0H4cMVJVRC4IRzPUYGPtxPAxPn2twsymCK8nQlQD/mK+reMw3rFtE9gNch3ve5y4mOU2JoD3bFSrjy4O8xJWXbJfmUC7k4fVmSyglV/jtih+Ja6zHkJO4ai6pmTwgkZSpKTc5cWr5i+ibnIQ+RuUfQZtzxBpccFe3q5iE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Tvn5BVv1; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=GTRVOv6c; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447F04ACC6C
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:08:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789596541; cv=pass; b=emmfTnYkJBFzVcAR7/VSVO2pcrxY7N2bJM8xrRYTYBrCUR4aSeWRrtfJy4L3fx+neAedCIHkxTfzaDvlRS4nuOOooZtKSxfrVvovFHJm9oIZgUKts1p85xXBHS/F6lADCZ2oqoX3JGpJaBZ2cCEl7vA6UOjvdzY0h3QVis8nkVA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789596541; c=relaxed/simple;
+	bh=/sL4aX/lvFF0OA1HG7h8In3Uw6TMinzp1Ww4YC3zU+w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ugExBvb8Ii8bi7jDrGFJwJchX6p9DQepjxjyyLgK3TlIGWQJyGfmQ1fNkvfNGwOIZ7tkKzitgWkRZg6wZQIe9Huao6BNEewBBLukcrqF34QOz34qkXNey2X4VsxQsjzu91REk6jjyzsLGIEvsmtoSRYiGLtG1dxkyKOS25LnSvs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ILeBu8Zw; arc=pass smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Tvn5BVv1";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="GTRVOv6c"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hlY1255bnzKnRx;
-	Thu, 17 Sep 2026 00:08:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789596486;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=fiPjcCfrZDpkJa9XggDDghz/xr0MLnU4sclLIpuyUTI=;
-	b=Tvn5BVv1h8c17a+fi2zeZYQeAMX8ihT4R2nuaWZKmho8kAuX9dHwvwQvYZeeSzFAH5baki
-	8eVfL5wBRlETcIqKXRQdxCH/vxrknU9MwDn42BKOMTQmNMgJE0oWOP+kxsH8e3hBKq/brf
-	ELGmNWSlqIV774Q6WzkVoeofRxPI73NMRJsqULVg7elw6ebNU0bd15ZCO+cP0fo8pdvH4y
-	E8NsFNkxqSD/oxMVMQvaNz17zCn3ImYtvps2GVfpkqtxyQnseOIZzotZYz8pI9e/L7clVK
-	ysT3+aptVMPH8u5zTFbrbgC2sw86zwNUillvp6klXMNjALeU8gEF3bnkfQqsDQ==
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789596485;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=fiPjcCfrZDpkJa9XggDDghz/xr0MLnU4sclLIpuyUTI=;
-	b=GTRVOv6cqtQ1UV+EdzjVKukp2M1CnIycMBElJ6FoxZgjnCA9DiZZetJHxkaLkXs1nn6XIB
-	eG8Ydm1GjP0CXXEE8px/tZIwLLMrQ8aPljMdTS0LO2TOTGr/Y0mOGp3nvsEgzZrEtQLDUc
-	6Bayr39kOIb4tfFT1MclCIivknVKKu5MoGgfYYKKaomyTMir2TGo+Hdb5n03n0ZqAgqa9v
-	tSle3+39nxSZQrUbt08Og16/lWP3Qo/xhVxE76B8QClgZ1pm/JcHU9I3g3dQiKirKpZAhx
-	HNZQ3upOR8bej2dAulFW9x+K+j5GV7UIyYamTa5Wmc9zlDcW5RVzVEj5bvGG6Q==
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH] arm64: dts: renesas: ironhide: Align inline ECC carveout sizes with bootloader settings
-Date: Thu, 17 Sep 2026 00:07:45 +0200
-Message-ID: <20260916220801.240796-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ILeBu8Zw"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48442ea8f59so57230f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:08:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789596531; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KRotTBhxk9kNA2KbOWDFwuGC20+nZgXZmqHZKMW/sprKZ4ZFunNGopPD5GR4HJYXCp
+         XsIIcYGH+d2GpTE2BQMSZI+nefs7CxawlsEahVmVOZTgM43teXljMbY7JkZz//63NIrR
+         vZN+s3zUxvie7DZ5ddUbWdrli1B1YkbSg5q71PhR411MDs2zwDxt/y5R5z//InH68Ooh
+         qXL9cB97HFPaUNQ/bthgAoY1bvUu7R7TnwMNY6z1xkgE+90NR8PvhGfxAflogBIFf51X
+         Erx97Vx7dLd6AaunOwFxSgT8pBuOxMY9Hkt2Noc5B4dP4wbro4AR/W26U5fkCDtvnGyG
+         AXog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Y8Yimwq73XmAEZlRQgIp6o8SBW0zq5wMQmBJMpzzOFQ=;
+        fh=+1EU6KAL4iDNpKgxZm1jcQdEnU2aNEfEhNFkJfMIiJ4=;
+        b=FCkHAR7B9gW9EcIPJvUGnmVCKglZt+8KorC/LjZvL7G9lSE6Ul0MzzvLIcQxqhTSFX
+         svQA5KGiVXpqHHkUd33ZKqqTQhcrwJACHb7MiSqZkw9uuYF4aXaeOnnVhBIIajGFlNRC
+         q8bj8TbuPh26iRwjQJUi8WE+VJhiJDaxEXmqh2fqeYQSnvmoboLJTfZlINupZqN0OWJr
+         rMLS/bDxsbEQcDUAZ5HWtQE+QK5EdQWWwMUBy827syu7mzpRKubJblje/EQwkgcpj38a
+         AzAPUndG0z/Z1N4katowHnRNE0DX1EiXSG/PGa5Es97a5xr2SEQLUjPAZlvW0w4q7r2l
+         xPdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789596531; x=1790201331; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Y8Yimwq73XmAEZlRQgIp6o8SBW0zq5wMQmBJMpzzOFQ=;
+        b=ILeBu8ZwxdHhFIsZIt5uezWvquR6FjpNARVHuEWaWgNyihstgYIEUmXwL8vNZ/5hR4
+         Dp0hFJpBHBpYYEizG3FttiN9e2XIU8CTh7jUNXnAchppqhnZaaEdLET90YTIYzUNtqvl
+         4DNs7soV0dNOrSc9lMqb8ATdY68dMSG9uiE44IctD6utoUCb6yIR8mCv2+BKPBXZFlne
+         qVXmk6SK+QTTn5Vpt3Jdu1yEU8SUq4bKYDDiO8sa+RFle9zCMgoNI0DseTe3IFFgx3kQ
+         0/Fw63d5craXvWDuX+5pJNBv1vbZzWqNnlIr0+OieKkGZcfcAx1+hQPjHcHUedlUFuQ6
+         DAPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789596531; x=1790201331;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y8Yimwq73XmAEZlRQgIp6o8SBW0zq5wMQmBJMpzzOFQ=;
+        b=lC3vzXq4yoiwunYKUnhwwMbstLEYveHps7CMF7yU4RgJchE3MqKh+lRDrGiVQt7APv
+         KGWN2ZVZqnYXBXjpR7/fyUIxBGwxc8AWpk+oGbDbpHKarkcyhR/ViPcrNNaDSA1B+0ih
+         gVf0joMjZ7yFRcgiPQqnOaY7UIUVezqHoYhSSuefSmInNS82t+METE7s7Qdx2Kt4xd0g
+         orzOI5z9HJPqLs3/0yf6hDHFzGyiNSuOh3Nnw1TyZZNgfa9rGzCiaWi/cweGKyOmzZQJ
+         AbAoitT5OJCGUhChtUGpzA6iu06ZgyYbbGi5YBTdVRfNdTcd7M2WwKbfRgwrmAFwQ02B
+         OSFA==
+X-Forwarded-Encrypted: i=1; AKwUvBwhju50aXoHLl5tpbo1VVSCWlHUwrM580Card0FibEEBHjwYAbhenvuWQJOK7ZYg3gqxaPSGlSUzRyKozI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGDnzK8YB/QqngJSUutPsfdl6jXcODCo50f65QQ6fux5wd2Gx/
+	i2IaBcQPHoCqyGAxpTfIy1WxreCfxGd8SDqhmGP4kdL/88ytp1zDz+NCUou732RuVHEqMqT9BXh
+	0BTB1FuiQ6Of4o6jeKSiiVtIfUvN2DFradlNukkiw
+X-Gm-Gg: AYBFou1Ebz397IvcgocengpTz/W/4cTDfyjwZ+cAMCk3VrV/9dxgO6TG6c3SWmCIWUq
+	vXMBHF9YIZzGcU+5uqzHGzLmTaqk4E+zM086Jb+dDhK4fSOQSvTyPaEjoSNtMkYIDo+d546IUcV
+	+IaAC7lM/KBDIWlOyZh4kGPGWVEaoSAWYY46uZjFfip4gHd9sfBER4/lbcUFRd6bVaMSHXbP2Nt
+	owXMhbwOw2S0FZb/SH+DiJsonIrjO50JhR4tcYgcIixFJmCbaoZ493l2W+MXBsiyBXEiFjWXgmJ
+	fPaP9gZWfZGcNZ7OQaFvKp3066pYAuoS8kk48pMdlbZbof9IuozqPMbYh80jYasWgE/olhUwZpM
+	R6Gmq28SagwlneKmtTpZ0NnQIyMJq+v1QO8aMMluOpg7fKTq+JvDipkFFY7Nt52QATP54
+X-Received: by 2002:a05:6000:2586:b0:486:fdd9:a0d9 with SMTP id
+ ffacd0b85a97d-48713c59d8cmr1446175f8f.20.1789596530608; Wed, 16 Sep 2026
+ 15:08:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: bd14e6954791015599b
-X-MBO-RS-META: dj669y3ffcji7xcyikz3xcy5jjri9fua
+References: <20260916-vdso-getrandom-avoid-memset-llvm-24-v1-1-80a92f2e225a@kernel.org>
+In-Reply-To: <20260916-vdso-getrandom-avoid-memset-llvm-24-v1-1-80a92f2e225a@kernel.org>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Wed, 16 Sep 2026 15:08:38 -0700
+X-Gm-Features: AcwNN1VRyt7hIoF182EzNYbfGSDx1mocH1ME-nj3k-qk8BkWMkfk9ELup6-RHnM
+Message-ID: <CAKwvOdmnfkra0N34v5w8qh+8bb4X5AxLTtOULu46S8q9KCvzMQ@mail.gmail.com>
+Subject: Re: [PATCH] random: vDSO: Avoid call to memset() when zeroing
+ reserved in __cvdso_getrandom_data()
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, "Theodore Ts'o" <tytso@mit.edu>, 
+	"Jason A. Donenfeld" <Jason@zx2c4.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The DBSC5 DRAM controller protects DRAM content using inline ECC. The
-current set of carveouts follows SoC documentation, which describes the
-three trailing carveouts as larger than the rest.
+On Wed, Sep 16, 2026 at 2:59=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
+g> wrote:
+>
+> After a recent change in LLVM [1], RISC-V builds fail when checking the
+> vDSO:
+>
+>   arch/riscv/kernel/vdso/vdso.so.dbg: dynamic relocations are not support=
+ed
+>   make[4]: *** [arch/riscv/kernel/vdso/Makefile:78: arch/riscv/kernel/vds=
+o/vdso.so.dbg] Error 1
+>
+> memset() is now generated when zeroing params->reserved because LLVM has
+> an optimization (now run in more instances) that can recognize at
+> compile time when it is assigning a static value to a contiguous area of
+> memory and turn that into a call to memset(). Both clang and GCC assume
+> memset() is always available [2].
+>
+> Hide the value of the iterator variable from the optimizer using
+> OPTIMIZER_HIDE_VAR to inhibit this optimization since it can no longer
+> assume that the zeroing is contiguous.
+>
+> Link: https://github.com/llvm/llvm-project/commit/90cebef1411617fc3eedd35=
+9bdf00cb44b1c2439 [1]
+> Link: https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/Standards.html#index-=
+ffreestanding [2]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-Both the downstream IPL and mainline U-Boot on RSIP configure the ECC
-carveouts to the same size for all eight carveouts. Align the carveout
-sizes with the controller configuration set by the bootloader.
+Link: https://github.com/ClangBuiltLinux/linux/issues/2183
 
-This makes 1638 MiB of DRAM available for each of the three carveouts,
-which adds up to a total of 4915 MiB of newly accessible DRAM on this
-platform with this fix.
+Do we need to tag stable (I imagine this might be visible for older
+kernels with newer llvm)?
 
-Making this memory available does not pose a danger, since the current
-set of carveouts were carefully set to a larger size to prevent any
-possible issues until a confirmation from the hardware team become
-available, that it is safe to apply these less restrictive settings.
+Any idea why we only see this for riscv?  Would think loop idiom
+recognition would make this transform for any target.
 
-Fixes: 6fa6ee724d8d ("arm64: dts: renesas: ironhide: Describe inline ECC carveouts")
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
- arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
 
-diff --git a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
-index 8e68266bb0ab0..239175c54b937 100644
---- a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
-+++ b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
-@@ -161,18 +161,18 @@ ecc@18cccc0000 {
- 			no-map;
- 		};
- 
--		ecc@1a66660000 {
--			reg = <0x1a 0x66660000 0x0 0x999a0000>;
-+		ecc@1acccc0000 {
-+			reg = <0x1a 0xcccc0000 0x0 0x33340000>;
- 			no-map;
- 		};
- 
--		ecc@1c66660000 {
--			reg = <0x1c 0x66660000 0x0 0x999a0000>;
-+		ecc@1ccccc0000 {
-+			reg = <0x1c 0xcccc0000 0x0 0x33340000>;
- 			no-map;
- 		};
- 
--		ecc@1e66660000 {
--			reg = <0x1e 0x66660000 0x0 0x999a0000>;
-+		ecc@1ecccc0000 {
-+			reg = <0x1e 0xcccc0000 0x0 0x33340000>;
- 			no-map;
- 		};
- 	};
--- 
-2.53.0
+> ---
+>  lib/vdso/getrandom.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/lib/vdso/getrandom.c b/lib/vdso/getrandom.c
+> index 2851afa9154f..d48d1fdb3351 100644
+> --- a/lib/vdso/getrandom.c
+> +++ b/lib/vdso/getrandom.c
+> @@ -4,6 +4,7 @@
+>   */
+>
+>  #include <linux/array_size.h>
+> +#include <linux/compiler.h>
+>  #include <linux/minmax.h>
+>  #include <vdso/datapage.h>
+>  #include <vdso/getrandom.h>
+> @@ -83,8 +84,11 @@ __cvdso_getrandom_data(const struct vdso_rng_data *rng=
+_info, void *buffer, size_
+>                 params->size_of_opaque_state =3D sizeof(*state);
+>                 params->mmap_prot =3D PROT_READ | PROT_WRITE;
+>                 params->mmap_flags =3D MAP_DROPPABLE | MAP_ANONYMOUS;
+> -               for (size_t i =3D 0; i < ARRAY_SIZE(params->reserved); ++=
+i)
+> +               for (size_t i =3D 0; i < ARRAY_SIZE(params->reserved); ++=
+i) {
+> +                       /* prevent compiler from turning loop into memset=
+() */
+> +                       OPTIMIZER_HIDE_VAR(i);
+>                         params->reserved[i] =3D 0;
+> +               }
+>                 return 0;
+>         }
+>
+>
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260916-vdso-getrandom-avoid-memset-llvm-24-74d45fa6031e
+>
+> Best regards,
+> --
+> Cheers,
+> Nathan
+>
 
+
+--=20
+Thanks,
+~Nick Desaulniers
