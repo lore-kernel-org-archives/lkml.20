@@ -1,166 +1,138 @@
-Received: from mail-pj2-f26.google.com (mail-pj2-f26.google.com [74.125.227.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472EC361965
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:56:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481FC361965
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789534564; cv=none; b=RzQhJyb/zMCQB9gHMARdEghRcvWI9jiRbB+o9F9lb/9MAe+NDbN2QmnpoizaEX9fvF8SM34NQ89fvaCJ0czyunuXH+iNuiaAQLwR3ha1L70u3pz03/LlA4jFjKsm2kGTG17pV7QVF6ehA1BHYcoFdtB5mPSmVGTOxWg4q+RqQkg=
+	t=1789534604; cv=none; b=IxLFuo1jfjl+NOxiaFfOItIizNU+47oprAap876ev+QlPYPJphQckZ2Ls3DQusbsXNA/9bXJbTZqaLAkgFDBpGom15fl7FJkH0bvFbk28oIaa5D7UrDv1I5TN0xNmxWOv9a5ViFEoFHqv1JI2h8Kxx/6ztf+17/ZJqyoMYdff9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789534564; c=relaxed/simple;
-	bh=/y3E593iRUA37jO7B38pBXA7r37+dX3kgWb6Dllnr30=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c1jlel8HWpEOMQqW8BXar/TLgO30zrIN9m3d5NIECExISluMaE3JnULTtuSOEdeghb70xwwnN6eYPzUpbp5bJy6ma8+iEBDp/gWUYG4L5yZlVrqm1nthSPVaIptuIPFxatUfG/qLGToZZxm7gcgYqkNbYqSuHm8bvN2DkxhkdXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dw7jm/qO; arc=none smtp.client-ip=74.125.227.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789534604; c=relaxed/simple;
+	bh=4K3h3Rw54RjSRFKh9ol4ea6kBKJbtFDgm5hxnraDt+I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JXuAJLI5qnWIZkukWu5czf+rpp/+8XabbJ0x/cRmkQYkPYocDHLpqwKHQxdJ+YxGccPTbEeX11mSe6kK7pit5Gb8jDh19SUq9ZmmPNjEYxigOu4/umok4aECqmUQd12oT8TUR4yqsEwKP1053rqyOxUwnV8R6/DBu+boyB1AKzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uropqguc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dw7jm/qO"
-Received: by mail-pj2-f26.google.com with SMTP id d9443c01a7336-2d8fb334e72so4668475ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:56:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789534562; x=1790139362; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NH5SR9jg7eNT12/RBDArov96uanRr4HR7KrIlDgUX+4=;
-        b=dw7jm/qOs+Zdasl6A5QzGg89Jluc1GsMiN3uCNh4DUsqJhagQh6gabpmqlyS4vTMyF
-         kXQXxPlM6IU66Pctwrxbwanvrv2pRXI4uSU/kINNH6zFKUGcQiAr+hfXojoif/xRTpZB
-         XwTHrG5+XbxSWmF4CkRZj2gKV/MD3tXHinD4lgLLjX2eujiLC+1CGFVXvq2JqN640M6H
-         0LAV4DJneQFVCJEuaCAk3UlF/WqA+zEpEBP9zQtoNZWRE0mFQTt9dMhwcxr4WuF+voKt
-         nGALsx8JvOl3cTmpBD0Jf3Zq2mLoHZSIOjnGKygG2ghcgYsS57mSiYQ0EhEwmSWp+46s
-         YhSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789534562; x=1790139362;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NH5SR9jg7eNT12/RBDArov96uanRr4HR7KrIlDgUX+4=;
-        b=UC61fueTYCbwELvuvqvBUOEAinZe9iGbkGzrV5W0st8qPHTFB0oG4WDHGMP+uKT1ox
-         wCHDsab4h6Eo7I1bHxJ8zEogM7Pths7Dt8m1MWMnddyhkur5ShHPh+nwWQIQYR9aZTHx
-         V0ud5KHEpOOHQTyLGlErBtG8m7vrr6xQ2D2WcqkjArej96To2AfNwoEw9J7ySPGcw0Wz
-         euEnYGMNJ4HPhxJZR/44z9DddqVxzq2VAcFI8Don12BgukohZC73pUkmyGbZUal44N8p
-         Wpa0jYlc8FuwzoRRtJNYDFPkPbv+Vh4KqwFG/LV8T6FL+SgVRWB34rraCzXTaXZk67Tg
-         1log==
-X-Forwarded-Encrypted: i=1; AKwUvBwduJD+ge7PqPQ3YpLSCKHBFOMRjzAGEWHNOGsTfWSn1qQH6Vvb0XuhHd3pxQ1S38f7mIxlLqBotlFADgk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvxGfWF48tmOf9EIMa3Sy025gtNp5awhjJPcuceIEL9EQVnQcW
-	vXLKg/BAQxM1rGLUa4GMTQLbo8SIC9wJyreufg1yHhy0hcYphEUdeLSn
-X-Gm-Gg: AYBFou2e6RMVWPxYXABYTI/tQJQOyZtH5b/ViZoYSd8Q7rc6jdlxW/eDIYeQh7z06SI
-	k5Pt3CaolHx9MiEo+JQseNcHDn0II6l1HkcHRa/7MFAqgB9btAhEJOcclOn1rQbJKjUfmbfWZfK
-	nMNwv/ECmmyfSVUIm2RpVrc3MhNahb9kvytmLJwVFM74weLu/S0fwgaiNwbzqx9FbL71GAzaYLL
-	w9liTTakZT3bhhMrVsrXAVA2UYqzab6kJweTZPIEplLVY2An+6Gs94BVecSDdHUi+N8WyoRNCG3
-	15WEznFdzo+YkC2erCrpilbsEyUVL4gcNyMwYYaGnkh9GhDqsOf4uLUDPgEt4cw/+oBQ7qZanEz
-	RccqxC/lAAPNwPAMCVHim8b6UfIl/uMVqtR4tmus+ftlS1VXb5gZEbR/lmynJkSngx9yomeSiRW
-	CvAi/npB46aAwzn/iZdOi1s5EG4auhy5SDxUN68KfL5Fg3CtEy0c8UB+15yufbGkHLLkAL0m5Bs
-	/r5ezfNFL3UrSDjjw==
-X-Received: by 2002:a17:903:2f91:b0:2dd:9112:c4c9 with SMTP id d9443c01a7336-2dd9112ca94mr10220955ad.7.1789534562517;
-        Tue, 15 Sep 2026 21:56:02 -0700 (PDT)
-Received: from kernel ([45.251.35.123])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5aee8b0sm9261930eec.23.2026.09.15.21.55.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 21:56:01 -0700 (PDT)
-Date: Wed, 16 Sep 2026 10:25:54 +0530
-From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-To: clabbe@baylibre.com, herbert@gondor.apana.org.au, davem@davemloft.net
-Cc: linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org, skhan@linuxfoundation.org,
-	jkoolstra@xs4all.nl, lkp@intel.com
-Subject: Re: [PATCH v2] crypto/amlogic: Use devm APIs for clock management
-Message-ID: <aqohWhV8HLW_J9AY@kernel>
-References: <20260901024302.5407-1-raizudeen.kerneldev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uropqguc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E911F0089F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:56:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789534602;
+	bh=C3tZpMYh27w/dm8oruC2ikSebTIKfee6UIDxXeFEmbY=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=UropqgucTk1RLrJBamQ3AklerGyhVADL72cabcJr+qZiALC9/pt00Six1PqD/aBWp
+	 IjQoI5eEEc9XLBgpC6ZuL9CIe1FxKMhm4kmmiDZ+t8ChixGlHWjVGbFcB5SKFcDO7y
+	 rfKDerJ430tO0RXwSgEXx7sykmqAQu32509yFRqrY47Js4c6V+os/iOcIvCozIlZqM
+	 Fyrw1stapVkSsw2zz3EzIz1adYgf3ei4Xyl+MiIA4wZ3V29U2Dub/L+QSZe5swtJ5e
+	 z7v6TW2YZ62M0k3suNhAi0GKNZHCObVneAyhnTkZ2WmQA8gATF/s1Foe7pHhrroFSx
+	 U8aGmSxEREqQg==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16c72so492413e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:56:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzThy+LCNzmBqoJGhlkCywkTUEZJtbtOmRdXl+g4N/i8ErgAZPsy0eZj5pZsVHVnFFG2VVojAm9SNW425s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kINMD1Uck6DQLw6f+rQnHC+QQ+cyAJ6Jt12wk/2HOi8wFlZUCq
+	4Kez6QP9LXUFiA5IiUkkDlNlBzn2zVr+t7MrAsiG+w1PlY8YbHJekzPalLEVTsJhHyKNCnt9y4X
+	RO3oxYJyvPwkdS/59dGA9zau8g5B9aGA=
+X-Received: by 2002:a05:6512:b87:b0:5b6:1a7c:fd86 with SMTP id
+ 2adb3069b0e04-5b8b6652ac6mr244953e87.44.1789534601132; Tue, 15 Sep 2026
+ 21:56:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901024302.5407-1-raizudeen.kerneldev@gmail.com>
+References: <20260916044119.475666-1-alastair@d-silva.org>
+In-Reply-To: <20260916044119.475666-1-alastair@d-silva.org>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Wed, 16 Sep 2026 12:56:28 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64HZoqBscyKTkTin6DnMv5_kZpBxoS+cm7aYy09pRc7hA@mail.gmail.com>
+X-Gm-Features: AcwNN1UfVwvH_TTNjxWxYFWqmDiwY6R0M22kYyQVnOwJYHGWocQFI_cDBu05Ups
+Message-ID: <CAGb2v64HZoqBscyKTkTin6DnMv5_kZpBxoS+cm7aYy09pRc7hA@mail.gmail.com>
+Subject: Re: [PATCH net-next 0/4] net: Add Allwinner H616/H618 EMAC1 and AC300
+ EPHY support
+To: "Alastair D'Silva" <alastair@d-silva.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	James Hilliard <james.hilliard1@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 01, 2026 at 08:12:52AM +0530, Mohamad Raizudeen wrote:
-> The driver currently gets the core clock and manually enables it using
-> clk_prepare_enable(). This requires matching calls to
-> clk_disable_unprepare() in the error paths and remove function.
-> 
-> Switch to devm_clk_get_enabled() instead. This lets the kernel handle
-> enabling and disabling the clock automatically, which allow us to drop
-> the manual cleanup code and keeps the probe function simple.
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202608310329.QgxCCMs1-lkp@intel.com/
-> Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> ---
-> Changes in v2:
-> - Dropped the devm_crypto_engine_alloc_init() change due to build
->   failure reported by the kernel test robot.
-> - Kept the devm_clk_get_enabled() clock cleanup as the sole focus of
->   this patch.
-> - Link to v1: https://lore.kernel.org/linux-crypto/20260821151303.8150-1-raizudeen.kerneldev@gmail.com/T/#u
-> 
->  drivers/crypto/amlogic/amlogic-gxl-core.c | 16 +++-------------
->  1 file changed, 3 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/amlogic/amlogic-gxl-core.c
-> index 169c6eeb51e5..6f4c62ddaf89 100644
-> --- a/drivers/crypto/amlogic/amlogic-gxl-core.c
-> +++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
-> @@ -243,10 +243,10 @@ static int meson_crypto_probe(struct platform_device *pdev)
->  	if (IS_ERR(mc->base))
->  		return PTR_ERR(mc->base);
->  
-> -	mc->busclk = devm_clk_get(&pdev->dev, "blkmv");
-> +	mc->busclk = devm_clk_get_enabled(&pdev->dev, "blkmv");
->  	if (IS_ERR(mc->busclk)) {
->  		err = PTR_ERR(mc->busclk);
-> -		dev_err(&pdev->dev, "Cannot get core clock err=%d\n", err);
-> +		dev_err(&pdev->dev, "Cannot get/enable core clock err=%d\n", err);
->  		return err;
->  	}
->  
-> @@ -261,15 +261,9 @@ static int meson_crypto_probe(struct platform_device *pdev)
->  			return err;
->  	}
->  
-> -	err = clk_prepare_enable(mc->busclk);
-> -	if (err != 0) {
-> -		dev_err(&pdev->dev, "Cannot prepare_enable busclk\n");
-> -		return err;
-> -	}
-> -
->  	err = meson_allocate_chanlist(mc);
->  	if (err)
-> -		goto error_flow;
-> +		return err;
->  
->  	err = meson_register_algs(mc);
->  	if (err)
-> @@ -290,8 +284,6 @@ static int meson_crypto_probe(struct platform_device *pdev)
->  error_alg:
->  	meson_unregister_algs(mc);
->  	meson_free_chanlist(mc, MAXFLOW - 1);
-> -error_flow:
-> -	clk_disable_unprepare(mc->busclk);
->  	return err;
->  }
->  
-> @@ -306,8 +298,6 @@ static void meson_crypto_remove(struct platform_device *pdev)
->  	meson_unregister_algs(mc);
->  
->  	meson_free_chanlist(mc, MAXFLOW - 1);
-> -
-> -	clk_disable_unprepare(mc->busclk);
->  }
->  
->  static const struct of_device_id meson_crypto_of_match_table[] = {
-> -- 
+On Wed, Sep 16, 2026 at 12:41=E2=80=AFPM Alastair D'Silva <alastair@d-silva=
+.org> wrote:
+>
+> This series adds support for the secondary Ethernet MAC controller (EMAC1=
+)
+> and the co-packaged AC300 Fast Ethernet Physical Layer (EPHY) found on
+> Allwinner H616 and H618 SoCs.
+>
+> The Allwinner H616/H618 SoCs feature two EMAC instances: EMAC0 (typically
+> used with an external RGMII Gigabit PHY) and EMAC1 (Fast Ethernet,
+> connected internally to the co-packaged AC300 EPHY). EMAC1 uses a
+> dedicated clock control register in the syscon register space, which is
+> accessed via an offset index in the DT syscon property.
+>
+> The AC300 is an integrated 10/100M (100BASE-TX / 10BASE-T) Fast Ethernet
+> PHY communicating over MDIO at address 16 + phy_addr. It requires
+> retrieving factory bandgap calibration data from the SID nvmem controller=
+,
+> managing internal power rails and clocks, and optimizing transceiver sign=
+al
+> parameters.
+
+There is already a series from James covering the same thing. Please check
+the mailing list and possibly our wiki (linux-sunxi.org) to avoid duplicate
+work and subjecting the maintainers to the same discussions again.
+
+
+ChenYu
+
+> To ensure reliable link establishment and MAC software reset with the
+> internal PHY, dwmac-sun8i is updated to defer MAC software reset until
+> sun8i_dwmac_init() after the internal PHY has powered on and begun
+> clock generation.
+>
+> The series is structured as follows:
+> - Patch 1: DT binding for Allwinner AC300 EPHY.
+> - Patch 2: PHY driver for Allwinner AC300 EPHY.
+> - Patch 3: DT binding update for Allwinner H616 EMAC1 and syscon index.
+> - Patch 4: dwmac-sun8i driver support for H616 EMAC1 clock index and
+>            internal PHY deferred reset.
+>
+> Testing:
+> - Tested on physical Mellow Fly-C5 hardware (Allwinner H618) running
+>   Armbian with sustained 100Mbps full-duplex network traffic (DHCP,
+>   iperf3, NFS rootfs).
+> - Device tree bindings validated with dt_binding_check.
+> - Separate SoC and board DTS additions will be submitted via the
+>   linux-sunxi tree.
+>
+> Alastair D'Silva (4):
+>   dt-bindings: net: phy: Add Allwinner AC300 EPHY binding
+>   net: phy: Add Allwinner AC300 EPHY driver
+>   dt-bindings: net: allwinner,sun8i-a83t-emac: Add Allwinner H616 EMAC1
+>     and syscon index
+>   net: stmmac: dwmac-sun8i: Add Allwinner H616 EMAC clock index and
+>     internal PHY support
+>
+>  .../net/allwinner,sun50i-h618-ac300-ephy.yaml |  79 +++++
+>  .../net/allwinner,sun8i-a83t-emac.yaml        |  14 +-
+>  .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  65 +++-
+>  drivers/net/phy/Kconfig                       |   9 +
+>  drivers/net/phy/Makefile                      |   1 +
+>  drivers/net/phy/ac300-phy.c                   | 331 ++++++++++++++++++
+>  6 files changed, 486 insertions(+), 13 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/allwinner,sun50=
+i-h618-ac300-ephy.yaml
+>  create mode 100644 drivers/net/phy/ac300-phy.c
+>
+> --
 > 2.53.0
 >
-Hi, 
-
-Just following up on this patch. Please let me know if you have any
-feedback or if further changes are needed.
-
-Thanks,
-Mohamad Raizudeen
