@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F89A525A78;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A182A5427F8;
 	Wed, 16 Sep 2026 15:33:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572785; cv=none; b=i7EcV/Nu+gVq4A+tUNBsqXmvxtNmHmZHr9cM9wddXxNx9Yq2nYJOEAJSTsi4gQbzAHsrLnCLElljBvYtXud/s3QhMsSdPRxvzjCVDXWEA4JMHaFjFKk/pW2ciiUiI7SHIkZlwGUMmASBccTErtfbFx3k5lSnf2PIrM40UGHabWE=
+	t=1789572785; cv=none; b=bLMxrIrjYklMOaeLXKD/JuTRDWm4sjGxtJns4tf7n+PWe4fA+uyGrnR+Im+Z1dEr3Q4aSx8Iqg43b9VbkTFBrsgLqo8BEGKEkAXRaYYcqWVPPYTlSZAuFcXp9mn0bgcSxBjVIEUDbsqI2I+nZ74Axw/isOc1Hv0migdj2crNhAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789572785; c=relaxed/simple;
-	bh=4tBoL20Lq4iw5ATrhUM/tahGCAQuI1T++gRkOEKTNiw=;
+	bh=qXTRbpJ7ReGwZJ5gYtv8LBnx55PmlIa0iKRgL5OtWxI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nztnU9qXfJXtcBKC2hMq/0e3owBAFLQVUrGdCH9yoF1pPdWlg+Sltecs2ekI3RZTgPy3h0vLtuR/6/3jf1HbdmE29Yo3TTggRcO5aFZqS4yj9J//ZxQWXhyBdzyG3pc/Wm6BK9iI7RSiaN67XkKOuvlFuWEPNWNtbFGj4gmY0Po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u3x5V4yv; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=pbrVTfxb7L3wjBxiSLUn/G+2IKCvQyNS4fkymqPjvzADE1YayMLqRrruAArDNTlHMtOOGtsilZWKds7eK2zSOmnlQEhgsOibF82dqMBf8s/FltgtQlr4R/EpmLWvBxusXOOlt3OKt9z8jcoX0pCUgDTlcMttvQ3ZfvBgOxej8Mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oq092fH/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u3x5V4yv"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D5896C2BCB3;
-	Wed, 16 Sep 2026 15:33:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oq092fH/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 638B6C4AF1A;
+	Wed, 16 Sep 2026 15:33:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789572782;
-	bh=4tBoL20Lq4iw5ATrhUM/tahGCAQuI1T++gRkOEKTNiw=;
+	s=k20201202; t=1789572783;
+	bh=qXTRbpJ7ReGwZJ5gYtv8LBnx55PmlIa0iKRgL5OtWxI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=u3x5V4yvXbRR0I395sTK/gZwbT6ujbPJbHQ1EXs4buecFimpKK4FExOXciIKVCxwa
-	 pCYA4c305rIwZDwb2vN1Ndn0vwFO3bonoBHRomzayuYHvg0vplIjdqgeTX9CmkQSQ7
-	 sUqHR5b8zSXv6+4NNC0+rrCQKpUMWkAFIdREDOSimJBPA6jkyvqoluYcjpTyxZg4vN
-	 ABYUTwdCFdagDexebpylR3Q+gW/tKOKJr/zzj944e0U89Afwfc/920fpTRurb4BNwt
-	 H+vuio/x63LdtEnU95UgQr9m9YsDQ1s+cwk65rWNKZRqM9Nu3jrQI1/J0r9Nu682uv
-	 SWfxgh445SAVA==
+	b=oq092fH/CK6MMaxjIjK+vQOodq3WiApLPtq2lDhU8j95i2VzXt3Aq0+PqB/xBwvNL
+	 vZ7mvA/CK8m62cavUZtjfZDfdEMYGFklQ+cvHwUr3GKFqfRUu69Ue8Zue92TeCS+bQ
+	 AIeIDg7r5eBxrJBPjF2EwepSkOU0DdkYm+D0p+n5WzuaJ+D36XB+EKHkzLIMcMfjhH
+	 RCLmUmcIpFA4K/fr2pjwz6R3QKsZFSXnIM/u1CzxdfCyzGD90AzesKk7sqUX9tyykk
+	 Emu+BrWAfZF42ERYPtlyka3UH4XLXsHOyN6cgjAcBsuwxoH5iy00Yy+VDKOrUHuahc
+	 4s+tc794VWwog==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF672C982CF;
-	Wed, 16 Sep 2026 15:33:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50509C982D0;
+	Wed, 16 Sep 2026 15:33:03 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Wed, 16 Sep 2026 09:33:22 -0600
-Subject: [PATCH v10 30/38] selftests: enable comma-terminator tests
+Date: Wed, 16 Sep 2026 09:33:28 -0600
+Subject: [PATCH v10 36/38] dyndbg: add epilogue to dynamic_debug/control
+ file
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-dd-cmap-part2-clean-v10-30-af4cf4767707@gmail.com>
+Message-Id: <20260916-dd-cmap-part2-clean-v10-36-af4cf4767707@gmail.com>
 References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
 In-Reply-To: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -64,11 +65,11 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=2396;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=2252;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=ZtnNYHB84SuIr5SgDiLk/1HZgha9qoZYGJ306frMt90=;
- b=Y+7qsD4xlGsL3watov/5txzm2zCl99Q0mJu8KCdFHuF2l+0Tgn8iYUF29ShrccOjq4Eu9dy+6
- ONI2Nzw7zn9CfAfDMLmuaDk/vDSAGZlzdZ9CCLDaqP4ZtX9M7qX6dRs
+ bh=t4exfKxrgybri5XrCovAfGOptL2KD/oh7WXXahxPsi4=;
+ b=TohONGMwqA/3OVpvRGOo+ardrof1fhxX4yK8PzFM00MjzZwVBwOX7TvDE9VhdXjc8JE8qGeND
+ ekqnZBFXLgFDwK6nIW3FL4norVhX/ECzjj383X44eJGNQdDSAgRZEMe
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -78,64 +79,80 @@ Reply-To: jim.cromie@gmail.com
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Enable the FT_comma_terminators test block in dyndbg_selftest.sh to
-verify control query parsing when queries are terminated by commas.
+Add an epilogue to the control-file, to allow display of statistics
+etc, without disturbing the header.
+
+NB: epilogue lines should start with "#: " to distinguish them from
+lines describing pr_debugs (and from the header line).  No new lines
+are added here, only the place to do so.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../selftests/dynamic_debug/dyndbg_selftest.sh     | 25 ++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+v9:
+. update ddebug_proc_start() to return EPILOGUE_TOKEN when seeking directly to epilogue.
+---
+ lib/dynamic_debug.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index d485b9245164..bd72a718406c 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -347,6 +347,25 @@ function FT_basic_queries {
-     ddcmd "file $f =_" "$f"
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index eb28831a6cb2..406b64d67440 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1183,6 +1183,9 @@ static struct _ddebug *ddebug_iter_next(struct ddebug_iter *iter)
+  * read() call from userspace.  Takes the ddebug_lock and
+  * seeks the seq_file's iterator to the given position.
+  */
++static char ddebug_epilogue_token;
++#define EPILOGUE_TOKEN (&ddebug_epilogue_token)
++
+ static void *ddebug_proc_start(struct seq_file *m, loff_t *pos)
+ {
+ 	struct ddebug_iter *iter = m->private;
+@@ -1198,7 +1201,9 @@ static void *ddebug_proc_start(struct seq_file *m, loff_t *pos)
+ 	dp = ddebug_iter_first(iter);
+ 	while (dp != NULL && --n > 0)
+ 		dp = ddebug_iter_next(iter);
+-	return dp;
++	if (dp)
++		return dp;
++	return n <= 1 ? EPILOGUE_TOKEN : NULL;
  }
  
-+# test parsing on spaces, commas. testing against builtin file kernel/params.c
-+function FT_comma_terminators {
-+    v_echo "${GREEN}# COMMA_TERMINATOR_TESTS ${NC}"
-+    if [ $LACK_DD_BUILTIN -eq 1 ]; then
-+	echo "SKIP - test requires dynamic_debug built into kernel"
-+	return
-+    fi
-+    local f='kernel/params.c'
-+    ddcmd =_
-+    ddcmd "file $f +p" "$f"
-+
-+    ddcmd "file,$f,=_" "$f"
-+    ddcmd "file,$f,+mf" "$f"
-+    # ignore empty tokens
-+    ddcmd ",file ,, ,  $f, -p" "$f"
-+    ddcmd " , file ,,, ,  $f, -m" "$f"
-+
-+    ddcmd =_
-+}
- # testing classmap-based query enablers and class configurations
- function FT_test_classes {
-     v_echo "${GREEN}# TEST_CLASSES - classmap-based query enablers and class configs ${NC}"
-@@ -454,6 +473,7 @@ builtin_tests=(
-     FT_grammar_ok
-     FT_grammar_errs
-     FT_basic_queries
-+    FT_comma_terminators
- )
+ /*
+@@ -1211,12 +1216,20 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+ 	struct ddebug_iter *iter = m->private;
+ 	struct _ddebug *dp;
  
- # Modular Feature Tests (Require CONFIG_MODULES=y and test_dynamic_debug*.ko available)
-@@ -544,6 +564,11 @@ function GOLDEN_RECORDS {
- #K= 02e4fd94602e108cb89bfc70d47a5dad FT_basic_queries.5
- #K= f03a7ca7316e8db4c0e16523dc41e75d FT_basic_queries.6
- #K= c518a50ba30ba8099d0dc874a27ecf16 FT_basic_queries.7
-+#K= c8bbbac639f244ed9088208ebb7d83a6 FT_comma_terminators.1
-+#K= bed6350f058f600910837dae83a12f56 FT_comma_terminators.2
-+#K= 6e8599556a312200fb6d484565b6c52f FT_comma_terminators.3
-+#K= 68b329da9893e34099c7d8ad5cb9c940 FT_comma_terminators.4
-+#K= adc1ef04304c861c87fe294a8ba4e402 FT_comma_terminators.5
- #K= 8f18ea82c09460434b6e9e4cd12543e8 FT_test_classes.1
- #K= a15ec4843acd721fbdfddc0b512c8032 FT_test_classes.2
- #K= 20d4545f9753e677e72e3adf52527fd3 FT_test_classes.3
++	(*pos)++;
++
++	if (p == EPILOGUE_TOKEN)
++		return NULL;
++
+ 	if (p == SEQ_START_TOKEN)
+ 		dp = ddebug_iter_first(iter);
+ 	else
+ 		dp = ddebug_iter_next(iter);
+-	++*pos;
+-	return dp;
++
++	if (dp)
++		return dp;
++
++	return EPILOGUE_TOKEN;
+ }
+ 
+ static bool ddebug_class_map_in_range(const int class_id, const struct ddebug_class_map *map)
+@@ -1268,6 +1281,10 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 			 "# filename:lineno [module]function flags format\n");
+ 		return 0;
+ 	}
++	if (p == EPILOGUE_TOKEN) {
++		/* use this soon */
++		return 0;
++	}
+ 
+ 	seq_printf(m, "%s:%u [%s]%s =%s \"",
+ 		   trim_prefix(dp->filename), dp->lineno,
 
 -- 
 2.55.0
