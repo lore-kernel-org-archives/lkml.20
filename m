@@ -1,131 +1,92 @@
-Received: from wind.enjellic.com (wind.enjellic.com [67.230.224.160])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 012364C9DEC;
-	Wed, 16 Sep 2026 17:04:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.230.224.160
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D17235F16C;
+	Wed, 16 Sep 2026 17:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578265; cv=none; b=oF9ac/dgYwvhx3YqQkLLHcUX62nA8KEznt8p8nZS3npniCmlQ1xP3QVKfdWyR/Wi/P37tndQ+pPms+PxXefF6MXA18E5AhcULXSoHEYDUIm7hQ7KeCJEnGVCTsHMI3WRBbp1YojwSTgRPP9TtVn1lFkQTBXZq2oI+IjRDiyLUWA=
+	t=1789578333; cv=none; b=Lg++VnSYMUZxJoJM1jQO2Gr+rQtQS9Vss+EU0OaVO9X+3W9WZYcmp9cY8rUafyhvKG7UIdYH99s4/J87nIijLWZoI3ebmnPUvytLeN3w/9Gau0O24ZQNB1KwkbceleoqtWAjGgVF0OYK3t1aUvFjBAm9u7kd9GAin3+HdN5T5y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578265; c=relaxed/simple;
-	bh=Lqx96ZCiyALkeCFGSyJXviXMdYefOb4bpTZRt+mnaKU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KqERKwkUxYaOFCWwCJSBT2UxQ47bbPPQ5gDH/lYmVnjQznNbG9fWFtt37NSJc1myKradu1alcTE//WHIve9uYuoPmrs6hhvtSBQj/PuGbOL+u6UjDG1ZYPg1sZWp8008QCWTgznVU0UZ6UjKuBFzdTpq+Y0ADrZ4Yzq13C4gCxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enjellic.com; spf=pass smtp.mailfrom=wind.enjellic.com; arc=none smtp.client-ip=67.230.224.160
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enjellic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wind.enjellic.com
-Received: from wind.enjellic.com (localhost [127.0.0.1])
-	by wind.enjellic.com (8.15.2/8.15.2) with ESMTP id 68GH2gE1029431;
-	Wed, 16 Sep 2026 12:02:42 -0500
-Received: (from greg@localhost)
-	by wind.enjellic.com (8.15.2/8.15.2/Submit) id 68GH2fW5029430;
-	Wed, 16 Sep 2026 12:02:41 -0500
-Date: Wed, 16 Sep 2026 12:02:41 -0500
-From: "Dr. Greg" <greg@enjellic.com>
-To: Micka??l Sala??n <mic@digikod.net>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-        Justin Suess <utilityemal77@gmail.com>,
-        Paul Moore <paul@paul-moore.com>, ast@kernel.org, daniel@iogearbox.net,
-        andrii@kernel.org, kpsingh@kernel.org, matt@bobrowski.net,
-        viro@zeniv.linux.org.uk, brauner@kernel.org, kees@kernel.org,
-        casey@schaufler-ca.com, gnoack@google.com, jack@suse.cz,
-        song@kernel.org, yonghong.song@linux.dev, martin.lau@linux.dev,
-        eddyz87@gmail.com, memxor@gmail.com, jolsa@kernel.org, m@maowtm.org,
-        bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
- kfunc and policy object destructor
-Message-ID: <aqrLsbnzbbX4HPr-@wind.enjellic.com>
-Reply-To: "Dr. Greg" <greg@enjellic.com>
-References: <20260909193719.518517-1-utilityemal77@gmail.com>
- <20260909193719.518517-5-utilityemal77@gmail.com>
- <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
- <aqHUw6k0Mf83CGFT@zenbox>
- <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
- <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com>
- <aqTZdCz6JaoK16Fp@zenbox>
- <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
- <20260915.ok8eig8Eishi@digikod.net>
+	s=arc-20240116; t=1789578333; c=relaxed/simple;
+	bh=IF1w4YkKYEOtHYQOlWDYuuhdT7uZw8MjALmnJ3vOXZY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ImfY2InZG4NL2nHniyCWgg0ODyxAoklH5MYR7doOqaRwQ3belpTw54LSOvLht8AkFSXvqyjDFtu8iFmsrYAIabOjDU0Z0jwBgmqdetRVXor9X660aRm6br5H21u+80YNaD7XgVySgY+/LOS5csubNF9YmXHcvdcotlJRFbkmZU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ky1Qnxpw; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ky1Qnxpw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A73D71F000FF;
+	Wed, 16 Sep 2026 17:05:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789578324;
+	bh=/4QzDOFGgzvxHnAPbU0sK5Shh1UZgj6em+khavRLcHw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ky1QnxpwAnL+lEqMTCWu5STCTlzVG9nX43OWhzzfsIHvAGKZz4BdAnNGH9sUNUQHl
+	 yu8Lt5tojF1+rBYqqIFxZukOkcIt/ce1D8hfdz9Aikv0mliFAsbMIhAdEe7Wu8RooT
+	 MtV0sg11BaN9XvpLzaDqjENOsp0OkJgYF7bCci9IXVFVDe5ngOORm9GwKYqtXR3hAL
+	 r29M4ltCuyJp5bTj48q+eew3A879MmKkcyyT+HoZ+BNqe0lq3/u34lCGpA4bqT7dVf
+	 GbJuvndtA/Z708wW5KGr2hL2PATotE1piDdu550hzGdATkcwQThXVVflUXBjuN2lfF
+	 pGLmw2Z1kOwGQ==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, linux-sound@vger.kernel.org, 
+ Neo Chang <YLCHANG2@nuvoton.com>
+Cc: error27@gmail.com, lkp@intel.com, perex@perex.cz, 
+ krzysztof.kozlowski@oss.qualcomm.com, linux-kernel@vger.kernel.org, 
+ alsa-devel@alsa-project.org, neo.chang70@gmail.com, kchsu0@nuvoton.com
+In-Reply-To: <20260915014940.317403-1-YLCHANG2@nuvoton.com>
+References: <20260915014940.317403-1-YLCHANG2@nuvoton.com>
+Subject: Re: [PATCH] ASoC: codecs: nau8360: Fix misleading return in
+ nau8360_message_to_dsp()
+Message-Id: <178957831392.100121.4806798682515883550.b4-ty@b4>
+Date: Wed, 16 Sep 2026 18:05:13 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915.ok8eig8Eishi@digikod.net>
-X-Greylist: Sender passed SPF test, not delayed by milter-greylist-4.2.3 (wind.enjellic.com [127.0.0.1]); Wed, 16 Sep 2026 12:02:42 -0500 (CDT)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1159; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=IF1w4YkKYEOtHYQOlWDYuuhdT7uZw8MjALmnJ3vOXZY=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqqsxPX/8pUU8pRAopq04NND4Xoi5S8qGjIbUaE
+ y0u4nSW+ZaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqrMTwAKCRAk1otyXVSH
+ 0DE6B/9Q0mJpzxHze1wTROtD045JZl/ETrv6qYbfZWRziexbWpWmNRIP+BCInCStrp7ndGQBbCG
+ ACvBWnRP0Gkm+pHnNEiCMtaXRKnug7oW0ccDQ68sAX/hWMHuWRRDnZuHKyk7izZNqR/ENBum1nk
+ +XgR8A70BZGKXdKRZsJhGvQMWvwvCSIHZS1AYhdCLL4wA3wuXfbIFcCdYtcqjm8QS4cxkHG7nCe
+ jHN5+O3mVXCZDRpLsXSmEnsoSBgz/pnUT3cQtcNUCFXKYOuEbOdpbW99yHsVCwaaVTvt1oWwmTP
+ c4Zysj4H7ngLPxJ8IsHtdwcsDZyRutYP/sQGj5+kV9XL951k
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Sep 15, 2026 at 11:25:13AM +0200, Micka??l Sala??n wrote:
+On Tue, 15 Sep 2026 09:49:40 +0800, Neo Chang wrote:
+> ASoC: codecs: nau8360: Fix misleading return in nau8360_message_to_dsp()
 
-> Hi,
+Applied to
 
-Hezzie says hi too.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-> On Sat, Sep 12, 2026 at 12:33:13PM -0700, Alexei Starovoitov wrote:
-> > On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
-> 
-> [...]
-> 
-> > landlock was designed for unprivileged users. bpf needs CAP_BPF.
+Thanks!
 
-> Yep, and this series would kind of bridge these two worlds. ;)
+[1/1] ASoC: codecs: nau8360: Fix misleading return in nau8360_message_to_dsp()
+      https://git.kernel.org/broonie/sound/c/40ebc8f73630
 
-See my comments to Justin about this 'Mixing of the Blood'... ;-)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> > There is a fundamental disconnect. If you can tolerate CAP_BPF then
-> > just use bpf-lsm and implement whatever policy you need there.
-> > If bpf-lsm is missing a feature we can fix that.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> The question is not if BPF LSM can or cannot do what Landlock does.
-> Landlock provides a way for userspace to sandbox processes, and that
-> comes with a well-defined semantic, logs, and an user space ABI, which
-> are specific and dedicated to Landlock.  Some user space depend on that.
-> 
-> The goal of this patch series is to improve BPF LSM to enable it to
-> (also) enforce a Landlock security policy defined by user space thanks
-> to the Landlock syscalls.  The security policy still has the properties
-> that makes it possible to safely compose different ones (e.g.
-> monotonicity/stacking enforcement, inheritance, separation of duty, no
-> cover channel, safe privilege reduction without confused deputy issues).
-> 
-> A process can currently define such security policy, get a file
-> descriptor referring to it, and pass this FD to another process that
-> would enforce it.  This helps design secure architectures by splitting
-> ownership, trust, and privileges (e.g. CAP_BPF).  Being able to use BPF
-> programs instead of user space programs to enforce (e.g. an already
-> defined) security policy would make this enforcement more powerful
-> thanks to the context BPF have access to.  Of course, BPF LSM can (and
-> should) also enforce other kind of complementary restrictions.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-This may be the answer to the question that I was asking Justin, lets
-see if we can unpack it a bit for those of us that are dense.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Big picture, as Justin so elegantly pointed out, there are a bunch of
-things that eBPF cannot do now, and may never be able to do in the
-future, particularily when it comes to 'raceless free' path based
-security controls, ie. TOCTOU avoidance.
+Thanks,
+Mark
 
-So, the objective is to have a program, systemd for example, compose a
-set of different security policies, that it then hands out to various
-process heirarchies, which then uses eBPF to call LandLock kernel
-internals to do the heavy security lifting with kernel level
-privileges and capabilities, particularily when it comes to path based
-controls.
-
-Is that close?
-
-If so, the question remains, why take on this amount of drama?
-
-Something like systemd does at least 10,000 other things, composing
-and handing out multiple variants of file descriptor based process
-hierarchy security policies would seem like chump change to it.
-
-I'm assuming the answer is that the eBPF programs involved are going
-to be implementing other, perhaps proprietary, security controls that
-extend beyond the path based controls that eBPF can't do.
-
-We will be interested in your reflections.
-
-Greg
-
-My opinions and those of my Golden Retriever Hezzie only.
