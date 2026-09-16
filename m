@@ -1,167 +1,177 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B928354AE3
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4978317557E
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:57:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563398; cv=none; b=DL1mLDDwd+YJwDAAf/cWaRTJIucDsjOLEKIZOuuM+kwJXBoY9UYC8RDGTD1501AEQ3oK/S0a3dUHSqltSc9QxQ4wkmIX2Px2W4dUqiVWheOpqIzBweWJY4i+QDhbPLyU1XyET9D9bg4VvwbtjZDPKg/gzZXRGZs7Z6+m+4GDaDg=
+	t=1789563465; cv=none; b=aTOGnOplxlWe+cZgIhDRf1QWEw2CaRK8xudh872nzTBCrwPtvNJXuBefAw02NGt7vs/Ek9AWlLlWSAUDwOr4QSRAWfTT+XMNIgagkJRFKCVw/eY8Vc3rHDEeFEpIdMB4lQci4Dao/i7M0vaUcAr/tI72RbHWCBj5XQehnkrR2YA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563398; c=relaxed/simple;
-	bh=97JmprBqbeoexeJnNQ50AWIZviL4S7SD0NO1tVXsgKc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bcn67HWU3+eShI1p5pHbP1Xz20/j1e+iHpBCHvWUht4UOiofoGpwY4wf/8gH3h64TAJkgKwEpc7MeBIK/nd/R4sFGwRxPjHKlWnxpnwkBS1naAkieA0xkSkIiC9cYTHEf0+Vzq2K45pxjMjODWeREkD4EdwFhC9IAMx2yVHlYqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BWpz5N1r; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BWpz5N1r"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so472233f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:56:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789563390; x=1790168190; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ka5zpxp/jCsYjEbSlG1itlHgACxSBnD5svSTVFgMxoQ=;
-        b=BWpz5N1rKqSglVhiC7uzoHIaVvtCEIFpJuQ9DShTdK5FnCq6mm/eIizPONhVnkrUjD
-         4/IZtlWE8D4yFu7/wcQoi/AAd/if/4CfdYAruU6xaRaKDOacQq0B/2a8YrvqjVud74h3
-         jDnSOZt3X4EP6YSezi18J2TuD8Z6MAdKRbRtFECiUWiLC6EyTBVop1x/VdsytiJFJbO0
-         Zf/4QVY/bXHJkJw/LdlStS9yzStkSbNaEuvlgaIQK9qr2rOpzIS0EMgXIXXASiB3KfuP
-         tiWuehPLTlSD19B3QNDt78A2yCV3KPr+lbsD3UEAve5SvrFda0KWAqSipZJXDtj3piuE
-         KhKg==
+	s=arc-20240116; t=1789563465; c=relaxed/simple;
+	bh=ALAoBp10WosS6M5BF145iCAdsHTQ4UWOwIDk/B+VOE4=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Kiy2pTn4KdDhfz07xRlYtSglaO8zixSCgSFk94NMQz8ofmq3JuiH7IvdgStWFam9+xKR83/wJ3gNaP1842Gdx76ncFXr7D6FGVYPapepZG5CsEOFmWF5HeWnACBdTjQ78hjZhJuKzBYPgXOjXT40kx6zIuOHmJJsXrVhZoU7+Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4c112aaaee4so1834519b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:57:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789563390; x=1790168190;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ka5zpxp/jCsYjEbSlG1itlHgACxSBnD5svSTVFgMxoQ=;
-        b=ZjKmr2Jiq9RkWk8TCANMSG3oGjQJ620+uV5qF1lx3veX8xBNQoxUgTTGis5RjJNGWL
-         VWHRJdTPSJBEvoMIyKb20rxrTvq+ejIGUpsSMYlwqXifW21tYGTSoQvg+DL736gfSdLp
-         i0du8FlopzTDGtDqsHYCQ29GxjBJUrZKcJuqe5VlDNvkt+MrunckHtGyaI6hHEMv8Q36
-         ur3dPeUtJKuCspHjvyFUve9tYgnt+923Hc4lmCp52mGy/OG1h5R1jwohPjFmgpAsKGXg
-         EQ/TMtCJPgDY2QVxqbgEd2Gf5NVUQnFN8sf+9YO5hdugfjeoHFjtCEHH+m/Gc1SUl9ff
-         xzXw==
-X-Forwarded-Encrypted: i=1; AKwUvBxkpvNzgnHTm0QwFtoV2TYOkZZSXJppF+dVPPA7aaW+sRpy+oUuk/Pqyw55wsvxXqf6okRkOGmaispKFBM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8y9gsHyiFdeUzaqLsP3cLXj6hgjQee6DAj+r5uBx/blXNBti6
-	oUoktg4pCvv4DTJXbI4DVXmjIOrpsKkIpR6fo+a4Tc2CHU+B3EiKyE/m
-X-Gm-Gg: AYBFou0kMjuOu9gjX87KX5E0Z5Jqog98NCFsuL8AzWRkRuKIqu8/nEfoPI4wX/r1gIz
-	FNmgl9hDIuFSmLMsZYO9CtCdxtb8/acKIhp2vhyfGLFV9PURSrhA9H+yDFacaAvjgU3wTRhN2jZ
-	+c44xHoREeAinMiVOu1pif7KjGrZ78mtP+Wv5HkfCUiOuaQCjTMwFYeaviu63eJF6kYVK83aM4P
-	KQI61XRrdJ2GlJTZv9TuAlaW5OpKUYAafl56vVknrRsvBJYnf5uL1XfDu30Yxag1W0t2er2SG5t
-	GDrNaENNEidZaxbP87c61aa/jqWnP5iAlt8yB+uoW00bqjao36RcfLePLoLbKYb2Vltuup+0j7y
-	OpN2NsAu9lpFj9SU7CiP0cYCQhZwVRhk3fOZoelmmMAtIvw7SkIyJXZQoWdy+U892+8lUMaGDBl
-	8ChygZe1yvRhsDEpvLZoHM8pOUtnLlSENIpRK7lzEJQXC3Kin11Al+43Kq3Ng+fpHZRhEzB0udK
-	Id4Vs38+fM=
-X-Received: by 2002:a05:6000:460c:b0:487:767:b301 with SMTP id ffacd0b85a97d-4870d2921d6mr2931012f8f.57.1789563390295;
-        Wed, 16 Sep 2026 05:56:30 -0700 (PDT)
-Received: from localhost.localdomain ([194.154.195.114])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4870bf342a0sm6750729f8f.24.2026.09.16.05.56.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 05:56:29 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Johan Hovold <johan+linaro@kernel.org>,
-	Bjorn Andersson <quic_bjorande@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v2 2/2] phy: qcom: qmp-combo: check qmp_combo_com_init() in the typec callbacks
-Date: Wed, 16 Sep 2026 14:56:19 +0200
-Message-ID: <20260916125619.4587-3-okerixx@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916125619.4587-1-okerixx@gmail.com>
-References: <20260916125619.4587-1-okerixx@gmail.com>
+        d=1e100.net; s=20260707; t=1789563460; x=1790168260;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qqOXltCLzmrKhZdKgvPqkXCy5qiS/WnyKMpTb+33Ndk=;
+        b=tQFba2TPxvcmjyRNGSxXblAY19Ulz718xWzlFBZLXxFmC5wliZkQFtJv1EV16t+xVq
+         QBn2MfEDin7hfiIgt0xLd46uP2G1PPwEhQN4NczhfBkfsAFLAoC6K270FaxI+AnaO3UI
+         Wy8Ilp/9skaMHnseguewEh3UJx2SXJ6WSkY6N8ahgWE7UI7YvI9Ut2IV5K6LdN6+gkkI
+         8/JYVlpJBpT6lYl4ehC0KRtN1EO4F3qOXv+QkhN6wHSj2oIKLUR0SOe5Xu5aiiMCUQFA
+         aWiJUJvVNFWd++Xid8djE+toMU4DGfE7/EwkVPtmmGDu9tptgnzfOb08KwIv8Q1XPHyx
+         FudQ==
+X-Gm-Message-State: AFuF++niCMlCJ035YAycNbATszZCaP1uqmycY5ul7OwE3EEzuTn3K802
+	9cTd3F6Kl/7z+s0k63VbMh8ZFSbkysgOFWFBsBfWMvmgad7iAjoNSdrOaNsOMZO9Q0jPL2G3cMn
+	lI5PRN01LQnebwKSdSVQ1HuC0YvLSFyidx2ez5NiqvpZwRvubdrfTjmnjmEb9Vg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1488:b0:4c4:3997:ef2f with SMTP id
+ 5614622812f47-4ca4a3fe0dbmr2789797b6e.17.1789563459887; Wed, 16 Sep 2026
+ 05:57:39 -0700 (PDT)
+Date: Wed, 16 Sep 2026 05:57:39 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaa9243.e91c2013.3bdb06.0000.GAE@google.com>
+Subject: [syzbot] [raid?] kernel BUG in find_zone
+From: syzbot <syzbot+50f9bc7ab8eb224b7629@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
+	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
+	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
+Content-Type: text/plain; charset="UTF-8"
 
-qmp_combo_typec_switch_set() and qmp_combo_reconfigure_phy(), which the
-typec mux callback and the USB4 init path use, tear the common block down
-and bring it straight back up on an orientation or altmode change, but
-they discard the result of the bringup:
+Hello,
 
-	qmp_combo_com_exit(qmp, true);
+syzbot found the following issue on:
 
-	qmp->qmpphy_mode = new_mode;
+HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=100769f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=50f9bc7ab8eb224b7629
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
 
-	/* Now everything's powered down, power up the right PHYs */
-	qmp_combo_com_init(qmp, true);
+Unfortunately, I don't have any reproducer for this issue yet.
 
-	if ((qmp->usb_init_count || qmp->usb4_init_count) &&
-	    new_mode != QMPPHY_MODE_DP_ONLY)
-		qmp_combo_usb_power_on(qmp->usb_phy);
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-50d05c7c.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/303a0ade8f9e/vmlinux-50d05c7c.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/70b8ca71442b/bzImage-50d05c7c.xz
 
-If qmp_combo_com_init() fails - a regulator, a reset or
-clk_bulk_prepare_enable() - it unwinds what it had brought up and returns
-an error, leaving the clocks disabled.  Both paths then carry on and
-qmp_combo_usb_power_on(), and dp_aux_init() after it, write PHY registers
-with no clock running.  qmp_combo_usb4_init() already checks the return
-value of qmp_combo_reconfigure_phy(), but never sees a failure from it.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+50f9bc7ab8eb224b7629@syzkaller.appspotmail.com
 
-Propagate the failure instead.  The PHY is then left logically
-initialised with its clocks off, which is the state any forced bringup
-failure already produces and which these callbacks have no way to report
-to the PHY consumers; what changes is that the register writes that
-would fault no longer happen.
+------------[ cut here ]------------
+kernel BUG at drivers/md/raid0.c:318!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+CPU: 1 UID: 0 PID: 8386 Comm: syz.2.584 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:find_zone drivers/md/raid0.c:318 [inline]
+RIP: 0010:find_zone.isra.0+0x129/0x150 drivers/md/raid0.c:305
+Code: f9 48 89 e8 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ef e8 a2 00 fe f9 e9 79 ff ff ff e8 c8 bf 8b f9 90 <0f> 0b 48 8b 3c 24 e8 8c 00 fe f9 e9 04 ff ff ff 48 89 df e8 7f 00
+RSP: 0018:ffffc9000557f090 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: 0000000000000001 RCX: 0000000000000000
+RDX: ffff888022b34b00 RSI: ffffffff887fa208 RDI: ffff888022b34b00
+RBP: ffff888042790b18 R08: 0000000000000004 R09: 0000000000000001
+R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000001
+R13: 0000000000000000 R14: dffffc0000000000 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888096a60000(0063) knlGS:00000000f53fdb40
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 0000000033863fff CR3: 0000000070ae4000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ raid0_map_submit_bio drivers/md/raid0.c:568 [inline]
+ raid0_make_request+0x299/0x1660 drivers/md/raid0.c:626
+ md_handle_request+0x824/0x1230 drivers/md/md.c:417
+ md_submit_bio+0x1e9/0x350 drivers/md/md.c:458
+ __submit_bio block/blk-core.c:681 [inline]
+ __submit_bio+0x20e/0x3d0 block/blk-core.c:670
+ __submit_bio_noacct block/blk-core.c:724 [inline]
+ submit_bio_noacct_nocheck+0x736/0xc00 block/blk-core.c:792
+ submit_bio_noacct+0xc93/0x2130 block/blk-core.c:925
+ blk_crypto_submit_bio include/linux/blk-crypto.h:212 [inline]
+ __bh_submit+0x7ce/0xaa0 fs/buffer.c:1132
+ bh_submit fs/buffer.c:1146 [inline]
+ block_read_full_folio+0x496/0x8c0 fs/buffer.c:2373
+ filemap_read_folio+0xfc/0x3b0 mm/filemap.c:2520
+ do_read_cache_folio+0x2d7/0x6b0 mm/filemap.c:4156
+ read_mapping_folio include/linux/pagemap.h:1015 [inline]
+ read_part_sector+0xd1/0x370 block/partitions/core.c:724
+ adfspart_check_ICS+0x91/0x7d0 block/partitions/acorn.c:357
+ check_partition block/partitions/core.c:143 [inline]
+ blk_add_partitions block/partitions/core.c:591 [inline]
+ bdev_disk_changed+0x7b1/0x1260 block/partitions/core.c:695
+ blkdev_get_whole+0x187/0x290 block/bdev.c:793
+ bdev_open+0x2c7/0xe40 block/bdev.c:1002
+ blkdev_open+0x34e/0x4f0 block/fops.c:674
+ do_dentry_open+0x6ab/0x14d0 fs/open.c:996
+ vfs_open+0x82/0x3f0 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x19fa/0x2440 fs/namei.c:5000
+ do_file_open+0x20e/0x430 fs/namei.c:5029
+ do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_compat_sys_openat fs/open.c:1485 [inline]
+ __se_compat_sys_openat fs/open.c:1483 [inline]
+ __ia32_compat_sys_openat+0x12d/0x210 fs/open.c:1483
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf700efec
+Code: Unable to access opcode bytes at 0xf700efc2.
+RSP: 002b:00000000f53fd50c EFLAGS: 00000292 ORIG_RAX: 0000000000000127
+RAX: ffffffffffffffda RBX: 00000000ffffff9c RCX: 0000000080000300
+RDX: 0000000000004002 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000292 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:find_zone drivers/md/raid0.c:318 [inline]
+RIP: 0010:find_zone.isra.0+0x129/0x150 drivers/md/raid0.c:305
+Code: f9 48 89 e8 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 48 89 ef e8 a2 00 fe f9 e9 79 ff ff ff e8 c8 bf 8b f9 90 <0f> 0b 48 8b 3c 24 e8 8c 00 fe f9 e9 04 ff ff ff 48 89 df e8 7f 00
+RSP: 0018:ffffc9000557f090 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: 0000000000000001 RCX: 0000000000000000
+RDX: ffff888022b34b00 RSI: ffffffff887fa208 RDI: ffff888022b34b00
+RBP: ffff888042790b18 R08: 0000000000000004 R09: 0000000000000001
+R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000001
+R13: 0000000000000000 R14: dffffc0000000000 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888096a60000(0063) knlGS:00000000f53fdb40
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f5315ff4 CR3: 0000000070ae4000 CR4: 0000000000352ef0
 
-Fixes: 2851117f8f42 ("phy: qcom-qmp-combo: Introduce orientation switching")
-Signed-off-by: Oleg Keri <okerixx@gmail.com>
+
 ---
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index f6d3320a59d9..ae70ebba36c4 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -4601,6 +4601,8 @@ static int qmp_combo_usb_set_mode(struct phy *phy, enum phy_mode mode, int submo
- 
- static int qmp_combo_reconfigure_phy(struct qmp_combo *qmp, enum qmpphy_mode new_mode)
- {
-+	int ret;
-+
- 	dev_dbg(qmp->dev, "qmp_combo_reconfigure_phy: switching from qmpphy mode %d to %d\n",
- 		qmp->qmpphy_mode, new_mode);
- 
-@@ -4615,7 +4617,9 @@ static int qmp_combo_reconfigure_phy(struct qmp_combo *qmp, enum qmpphy_mode new
- 	qmp->qmpphy_mode = new_mode;
- 
- 	/* Now everything's powered down, power up the right PHYs */
--	qmp_combo_com_init(qmp, true);
-+	ret = qmp_combo_com_init(qmp, true);
-+	if (ret)
-+		return ret;
- 
- 	if ((qmp->usb_init_count || qmp->usb4_init_count) &&
- 	    new_mode != QMPPHY_MODE_DP_ONLY)
-@@ -5166,6 +5170,7 @@ static int qmp_combo_typec_switch_set(struct typec_switch_dev *sw,
- {
- 	struct qmp_combo *qmp = typec_switch_get_drvdata(sw);
- 	const struct qmp_phy_cfg *cfg = qmp->cfg;
-+	int ret;
- 
- 	if (qmp->qmpphy_mode == QMPPHY_MODE_USB4) {
- 		/* QMPPHY has no orientation handling in USB4 mode, don't cache the setting */
-@@ -5186,7 +5191,10 @@ static int qmp_combo_typec_switch_set(struct typec_switch_dev *sw,
- 			qmp_combo_usb_power_off(qmp->usb_phy);
- 		qmp_combo_com_exit(qmp, true);
- 
--		qmp_combo_com_init(qmp, true);
-+		ret = qmp_combo_com_init(qmp, true);
-+		if (ret)
-+			return ret;
-+
- 		if (qmp->usb_init_count || qmp->usb4_init_count)
- 			qmp_combo_usb_power_on(qmp->usb_phy);
- 		if (qmp->dp_init_count)
--- 
-2.55.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
