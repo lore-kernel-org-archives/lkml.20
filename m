@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298174AF69F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:51:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D28F4B146F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:51:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552309; cv=none; b=U8k+sWlBiZOrrqghNGRkaNjq9MJvS1pEovvWqNSjsa7s3WXNamgKHcJp7iVICgOaIl1k5IEsvWPXZ7wt9/1pIY7Hr9NiB9etk0rjfs4CSAosG8zTwYGsT+nLt6d+mPmq+2JnfasuWqUYvIzm/Od1zAqRRwuUJLewv2ZJWmhbvoU=
+	t=1789552305; cv=none; b=aM+cOCniompcO08pMWv30v5lzpUCotUDIeB54T3uv/5BIOkmLfV/Aq7mi8mIqWeh0c+9OchfEJRsKXm4WrffW7/z2hycO79fyU534SqKsIX7eudb48FivuUEVxkSF0P9BPbbAM3gOHIZgfz8XSt8fabOD0aEF69YCk71YG07Dvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552309; c=relaxed/simple;
-	bh=Pznk8hfVuVukVfclBPzbhLEaJi6ZtK/4mQJu/n1NEDs=;
+	s=arc-20240116; t=1789552305; c=relaxed/simple;
+	bh=8Nhgl85UqN7JQx2CBcnw7jYv6wkT5XU8Jx+KGKUJbB0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PFuiPLjOWGy3hP5C3ElJb+QjY5JhBye/1moKurlKwftu/jjqjbFlCikPkv+IXGtQgEGlZnvIR0c9woZzABGXj2kEUYhtM9nJgPiDnSg+Ryn9rzdlNWjmAX/C5T00UR3WI/h/4KD9jhP2phqNK0m34Zd4SAPCmZ92qO/5l0dgFvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aKUC+0CK; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=Q+AtB3YpY19Jq7ytyHiAU0NW2+8FnU2jpBzpXwP7qz3v5sd3HjdZoK7GJiwFtqMQnzs5EC+x8aNF3LPXpMuJnIzd7dKJzg9hDJiVmnG9jNx1QgHUH7ZAY19AVLoFcWF+Gu65/46XXGJifMFNdjCCPM38xDer35+YDeBUwHDdYAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AeOKDAxE; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aKUC+0CK"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AeOKDAxE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789552287;
+	s=mimecast20190719; t=1789552272;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=dAu1bQF4/jUeSXArCSj5+nJuZ/vxHgx8HbK6kP4IS9s=;
-	b=aKUC+0CKe5jw+9GZTsuhjPG2G9KCWY2eb+hpoQxeCpbLDKj+/uNupXd5yRZS06o4xe2GiG
-	KhI3yRD7+pNSqwx9voJUuo2/Z4AcnlTVoWIgvMjnMO45sw2dkTJE6IKC4D9Mn28wXO/n2r
-	13u2a67R1I/IOrygQ0DzmvuUZpbv3nk=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+	bh=ouNZYOOt8CIaEFrfD0VxsHURoh7bbScAMyQARtiv7Dg=;
+	b=AeOKDAxEPBktEDIVE3Inbzm45My6borjMTrWx+AAfJ+GmsTunDS3/JDVWUkZS3mhzQ6Y9v
+	tEg/l5u8ML7ZORvL5cXVD96/ZjyIuj0muQcoPBSp20VYvldDnAG80ick116pY9UcvSPWfV
+	mmZw6KlJ4EoP09+SKtFfPG8nUnuVPc0=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-606-afO72ag2MPaTPknHrn1usQ-1; Wed,
- 16 Sep 2026 05:51:24 -0400
-X-MC-Unique: afO72ag2MPaTPknHrn1usQ-1
-X-Mimecast-MFC-AGG-ID: afO72ag2MPaTPknHrn1usQ_1789552282
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-502-Jt1XCjSpOPSY1HZei2dzpA-1; Wed,
+ 16 Sep 2026 05:51:06 -0400
+X-MC-Unique: Jt1XCjSpOPSY1HZei2dzpA-1
+X-Mimecast-MFC-AGG-ID: Jt1XCjSpOPSY1HZei2dzpA_1789552265
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7DE201954B27;
-	Wed, 16 Sep 2026 09:51:22 +0000 (UTC)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 73702196F75A;
+	Wed, 16 Sep 2026 09:51:01 +0000 (UTC)
 Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B41561800446;
-	Wed, 16 Sep 2026 09:51:18 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7B65B1800446;
+	Wed, 16 Sep 2026 09:50:57 +0000 (UTC)
 From: Thomas Huth <thuth@redhat.com>
 To: Eric Biggers <ebiggers@kernel.org>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
@@ -53,11 +53,10 @@ Cc: linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Subject: [PATCH v4 11/13] lib/crypto: sha2: Provide functions for zeroizing SHA2 hmac_sha* structures
-Date: Wed, 16 Sep 2026 11:50:13 +0200
-Message-ID: <20260916095022.604354-12-thuth@redhat.com>
+	Dave Hansen <dave.hansen@linux.intel.com>
+Subject: [PATCH v4 07/13] lib/crypto: blake2: Provide functions for zeroizing blake2*_ctx structures
+Date: Wed, 16 Sep 2026 11:50:09 +0200
+Message-ID: <20260916095022.604354-8-thuth@redhat.com>
 In-Reply-To: <20260916095022.604354-1-thuth@redhat.com>
 References: <20260916095022.604354-1-thuth@redhat.com>
 Precedence: bulk
@@ -69,159 +68,89 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-In certain cases crypto code functions need to zeroize their local SHA2
-hmac_sha*_key or hmac_sha*_ctx structures after use to avoid leaking
-sensitive material on the stack.
-Provide hmac_sha*_zeroize_key() and hmac_sha*_zeroize_ctx() helper
-functions that can be used with __cleanup() to automatically zeroize
-the structure when it goes out of scope.
+In certain cases crypto code needs to zeroize their local blake2b_ctx
+or blake2s_ctx structures after use to avoid leaking sensitive material.
+Provide blake2b_zeroize_ctx() and blake2s_zeroize_ctx() helper functions
+that e.g. can be used with __cleanup() to automatically zeroize the
+structures when they go out of scope.
 
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+While we're at it, replace the related memzero_explicit() calls in
+lib/crypto/blake2*.c with calls to the new helper functions.
+
 Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
- include/crypto/sha2.h | 73 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 73 insertions(+)
+ include/crypto/blake2b.h | 9 +++++++++
+ include/crypto/blake2s.h | 9 +++++++++
+ lib/crypto/blake2b.c     | 2 +-
+ lib/crypto/blake2s.c     | 2 +-
+ 4 files changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/include/crypto/sha2.h b/include/crypto/sha2.h
-index 7bb8fe169daf2..22fbc37ae8407 100644
---- a/include/crypto/sha2.h
-+++ b/include/crypto/sha2.h
-@@ -7,6 +7,7 @@
- #define _CRYPTO_SHA2_H
- 
- #include <linux/types.h>
-+#include <linux/string.h>
- 
- #define SHA224_DIGEST_SIZE	28
- #define SHA224_BLOCK_SIZE	64
-@@ -210,6 +211,15 @@ struct hmac_sha224_key {
- 	struct __hmac_sha256_key key;
+diff --git a/include/crypto/blake2b.h b/include/crypto/blake2b.h
+index 3bc37fd103a7a..eda1604bce780 100644
+--- a/include/crypto/blake2b.h
++++ b/include/crypto/blake2b.h
+@@ -37,6 +37,15 @@ struct blake2b_ctx {
+ 	unsigned int outlen;
  };
  
 +/**
-+ * hmac_sha224_zeroize_key() - Zeroize an hmac_sha224_key structure
-+ * @key: The hmac_sha224_key to zeroize
++ * blake2b_zeroize_ctx() - Zeroize a blake2b_ctx structure
++ * @ctx: The blake2b_ctx to zeroize
 + */
-+static inline void hmac_sha224_zeroize_key(struct hmac_sha224_key *key)
-+{
-+	memzero_explicit(key, sizeof(*key));
-+}
-+
- /**
-  * struct hmac_sha224_ctx - Context for computing HMAC-SHA224 of a message
-  * @ctx: private
-@@ -218,6 +228,15 @@ struct hmac_sha224_ctx {
- 	struct __hmac_sha256_ctx ctx;
- };
- 
-+/**
-+ * hmac_sha224_zeroize_ctx() - Zeroize an hmac_sha224_ctx structure
-+ * @ctx: The hmac_sha224_ctx context to zeroize
-+ */
-+static inline void hmac_sha224_zeroize_ctx(struct hmac_sha224_ctx *ctx)
++static inline void blake2b_zeroize_ctx(struct blake2b_ctx *ctx)
 +{
 +	memzero_explicit(ctx, sizeof(*ctx));
 +}
 +
- /**
-  * hmac_sha224_preparekey() - Prepare a key for HMAC-SHA224
-  * @key: (output) the key structure to initialize
-@@ -414,6 +433,15 @@ struct hmac_sha256_key {
- 	struct __hmac_sha256_key key;
+ enum blake2b_iv {
+ 	BLAKE2B_IV0 = 0x6A09E667F3BCC908ULL,
+ 	BLAKE2B_IV1 = 0xBB67AE8584CAA73BULL,
+diff --git a/include/crypto/blake2s.h b/include/crypto/blake2s.h
+index 648cb78243588..bb4e6870ed196 100644
+--- a/include/crypto/blake2s.h
++++ b/include/crypto/blake2s.h
+@@ -41,6 +41,15 @@ struct blake2s_ctx {
+ 	unsigned int outlen;
  };
  
 +/**
-+ * hmac_sha256_zeroize_key() - Zeroize an hmac_sha256_key structure
-+ * @key: The hmac_sha256_key to zeroize
++ * blake2s_zeroize_ctx() - Zeroize a blake2s_ctx structure
++ * @ctx: The blake2s_ctx to zeroize
 + */
-+static inline void hmac_sha256_zeroize_key(struct hmac_sha256_key *key)
-+{
-+	memzero_explicit(key, sizeof(*key));
-+}
-+
- /**
-  * struct hmac_sha256_ctx - Context for computing HMAC-SHA256 of a message
-  * @ctx: private
-@@ -422,6 +450,15 @@ struct hmac_sha256_ctx {
- 	struct __hmac_sha256_ctx ctx;
- };
- 
-+/**
-+ * hmac_sha256_zeroize_ctx() - Zeroize an hmac_sha256_ctx structure
-+ * @ctx: The hmac_sha256_ctx context to zeroize
-+ */
-+static inline void hmac_sha256_zeroize_ctx(struct hmac_sha256_ctx *ctx)
++static inline void blake2s_zeroize_ctx(struct blake2s_ctx *ctx)
 +{
 +	memzero_explicit(ctx, sizeof(*ctx));
 +}
 +
- /**
-  * hmac_sha256_preparekey() - Prepare a key for HMAC-SHA256
-  * @key: (output) the key structure to initialize
-@@ -623,6 +660,15 @@ struct hmac_sha384_key {
- 	struct __hmac_sha512_key key;
- };
+ enum blake2s_iv {
+ 	BLAKE2S_IV0 = 0x6A09E667UL,
+ 	BLAKE2S_IV1 = 0xBB67AE85UL,
+diff --git a/lib/crypto/blake2b.c b/lib/crypto/blake2b.c
+index 581b7f8486fae..55d6c437f311f 100644
+--- a/lib/crypto/blake2b.c
++++ b/lib/crypto/blake2b.c
+@@ -148,7 +148,7 @@ void blake2b_final(struct blake2b_ctx *ctx, u8 *out)
+ 	blake2b_compress(ctx, ctx->buf, 1, ctx->buflen);
+ 	cpu_to_le64_array(ctx->h, ARRAY_SIZE(ctx->h));
+ 	memcpy(out, ctx->h, ctx->outlen);
+-	memzero_explicit(ctx, sizeof(*ctx));
++	blake2b_zeroize_ctx(ctx);
+ }
+ EXPORT_SYMBOL(blake2b_final);
  
-+/**
-+ * hmac_sha384_zeroize_key() - Zeroize an hmac_sha384_key structure
-+ * @key: The hmac_sha384_key to zeroize
-+ */
-+static inline void hmac_sha384_zeroize_key(struct hmac_sha384_key *key)
-+{
-+	memzero_explicit(key, sizeof(*key));
-+}
-+
- /**
-  * struct hmac_sha384_ctx - Context for computing HMAC-SHA384 of a message
-  * @ctx: private
-@@ -631,6 +677,15 @@ struct hmac_sha384_ctx {
- 	struct __hmac_sha512_ctx ctx;
- };
+diff --git a/lib/crypto/blake2s.c b/lib/crypto/blake2s.c
+index 71578a0847423..24f7f34334b01 100644
+--- a/lib/crypto/blake2s.c
++++ b/lib/crypto/blake2s.c
+@@ -142,7 +142,7 @@ void blake2s_final(struct blake2s_ctx *ctx, u8 *out)
+ 	blake2s_compress(ctx, ctx->buf, 1, ctx->buflen);
+ 	cpu_to_le32_array(ctx->h, ARRAY_SIZE(ctx->h));
+ 	memcpy(out, ctx->h, ctx->outlen);
+-	memzero_explicit(ctx, sizeof(*ctx));
++	blake2s_zeroize_ctx(ctx);
+ }
+ EXPORT_SYMBOL(blake2s_final);
  
-+/**
-+ * hmac_sha384_zeroize_ctx() - Zeroize an hmac_sha384_ctx structure
-+ * @ctx: The hmac_sha384_ctx context to zeroize
-+ */
-+static inline void hmac_sha384_zeroize_ctx(struct hmac_sha384_ctx *ctx)
-+{
-+	memzero_explicit(ctx, sizeof(*ctx));
-+}
-+
- /**
-  * hmac_sha384_preparekey() - Prepare a key for HMAC-SHA384
-  * @key: (output) the key structure to initialize
-@@ -798,6 +853,15 @@ struct hmac_sha512_key {
- 	struct __hmac_sha512_key key;
- };
- 
-+/**
-+ * hmac_sha512_zeroize_key() - Zeroize an hmac_sha512_key structure
-+ * @key: The hmac_sha512_key to zeroize
-+ */
-+static inline void hmac_sha512_zeroize_key(struct hmac_sha512_key *key)
-+{
-+	memzero_explicit(key, sizeof(*key));
-+}
-+
- /**
-  * struct hmac_sha512_ctx - Context for computing HMAC-SHA512 of a message
-  * @ctx: private
-@@ -806,6 +870,15 @@ struct hmac_sha512_ctx {
- 	struct __hmac_sha512_ctx ctx;
- };
- 
-+/**
-+ * hmac_sha512_zeroize_ctx() - Zeroize an hmac_sha512_ctx structure
-+ * @ctx: The hmac_sha512_ctx context to zeroize
-+ */
-+static inline void hmac_sha512_zeroize_ctx(struct hmac_sha512_ctx *ctx)
-+{
-+	memzero_explicit(ctx, sizeof(*ctx));
-+}
-+
- /**
-  * hmac_sha512_preparekey() - Prepare a key for HMAC-SHA512
-  * @key: (output) the key structure to initialize
 -- 
 2.55.0
 
