@@ -1,161 +1,143 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205A7480320
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:44:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE734F7990;
+	Wed, 16 Sep 2026 13:45:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566284; cv=none; b=pxl55RLam1n/6JTjPQtIHZn9OwkwejcFvqXLAd54fDijTZpi9jXDLT+uC59m4Fv0s75G3BfHfdXrBngSm1cGyTyl4T0BsVP+8+Nvgn3phppoNHuI2zXtWTxqpLcvk3aO2mYRipBl3GDZ/NE402ItgFdsf+ZmsaTCKrO1azbwBYE=
+	t=1789566319; cv=none; b=PwNkz1Qxo4jXBRrb+XVDqivv/QYoJJR8BQ8jrdjEhUxB95NIuk+AAp52Ju2zPgiNTCT5O/nlG6U0+mFIT9Q7B+2jsOArdWF2OoEDXHVmslS5QAbQeErpT1cc6u0zlTJID9hk+63HQpqPKA9GmLFzFpfaRg1IRZrIag9SX6n0eWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566284; c=relaxed/simple;
-	bh=Xc9aQoXRYYIls2agLerlt82ylcfD6hojYRdrfNu2sLA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=i958oiIM9qzXk4zgOagCFcoybRrsQAoBbkd5U6IyBhPDsOfLA64zQQP/AEI3Q5VwAR/md9lVzhTcb+kaFTRW18eAMwlEWAoVLUOouBGTkG9u0B9YpyjOyOVqpAsHkJ5NC+UZDInsATWnAS31DOu2APdx7oUomfrduZFP7mKNb3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=u7aDMPU0; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789566319; c=relaxed/simple;
+	bh=aDL43qhYHXCklvE9pktkxbZ0PKQ6z0erH/TaeHTJJak=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=naURPU/aCHbpB0wJ7hmJxAgQAcsKeT3teiGUUmrI+AYIy6zxG6IaCQ7HIaeshy9JmMZx722uiVZro/Dx4QQiYWz0B4oOBP6YCnvt0PEHqpQQ8CyWP7y7psarJHA2/4q02d1IeORyS+92q7NR7Yxak+R1WNbOPGlBelE7ExTHHcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=BLQLurJY; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="u7aDMPU0"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39deda201bcso4941756a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:44:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789566271; x=1790171071; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bU1yWMfUZDKjZfhObCQxqtsz3o7IutVdnlaaxEO2y3k=;
-        b=u7aDMPU0Xns8FvSBXb51gMFMF2EJjSOdO7Jvub9cdM63TY8HOgEcWbrgI7R/HRdXOQ
-         HEa0pGjEM/VZruWUaqKxJ47EDDbjXoUuXkez/NkFXk4bHqRdYY4xwV8eP47qbfYC1l4d
-         600cT0ilXrjl7fQ4r9kp3jBrl1J68pMTRN0sLWmFp+74xn55Wynv9MxQp5zrVabc/fYb
-         /tvICxtoHTCFUPzbn/IDRWcIruc1Ofy77zjyv0KcmkbDp9S+jhFMbPpkQBAk6F9BxTlx
-         kR6W3Fr+eNpjwY75GTPBuy/I4UhHrV+VVMncctFe7ol2Shut398GyaczEYsXsslQcB2e
-         ar+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789566271; x=1790171071;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bU1yWMfUZDKjZfhObCQxqtsz3o7IutVdnlaaxEO2y3k=;
-        b=wkYb/wmMfHexZsDpnNuQRMTy1imrhufqTbmCUgIn2qm+BtJ39GEG4PCaLjiDaNwwgp
-         nSJEOpBs1R5LhfWZfE/PLOcHxi3QWue1l4peXKWaScVYK1S2s+46atp8GSgOnETzDzvm
-         cGv+OagKWzCZydGMwwXseXqWi/tR5KT7Zs+wnqfE/RX2A4eoKKyikzh1Kin1gpYSYreO
-         b678QeEHtuJmVu8NxBItG2yXuin8JNZhTBGU9sbWvJC1NOrMMDdIRf/6FLEuVrOL60ci
-         JelxPpo5zE8l+bTpSHUSlv86Qt7tWlF3tdOmjVcHQwppZ+03MVg8WQsbSFRR2BiRH5tI
-         7I9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwnAASpW6DiQdo5ci+FUMcAJ5XQg0B3tA/PgXN464YF6sPGMA0Lnz6MaChpKbYorBe9XYie0SjqW98BI9s=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8QpsWn3iFKjCkNLF+0kyu5GUNIC4reAZDqDJI8AE+ZOtRm5zH
-	oeEPg4RWLqESSdqaAx1TjIEzlnaug1ovmKOEXeFRzohQeCVjIGR5BGo3765nUfdf4AbWVmQ4F7R
-	UKSyEVQ==
-X-Received: from pjbmh3.prod.google.com ([2002:a17:90b:4ac3:b0:39d:f3a8:205b])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5445:b0:39d:f4a8:75ef
- with SMTP id 98e67ed59e1d1-39e1e23d60dmr5966121a91.1.1789566270790; Wed, 16
- Sep 2026 06:44:30 -0700 (PDT)
-Date: Wed, 16 Sep 2026 06:44:30 -0700
-In-Reply-To: <20260916100452.1837412-2-clopez@suse.de>
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="BLQLurJY"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id 6B1CCCCDB9;
+	Wed, 16 Sep 2026 16:45:03 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 6B1CCCCDB9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1789566305;
+	bh=Rz4lcGVbF1yUlfwUYSE8Dhf9yMKHKYOJ0oKPXz0YBxA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=BLQLurJYU6bQtoY9c8Hxq0VK8XTcKwNPQ9tskS7tPRl1NghzP/keeLoV5Uwyxl858
+	 33AJXv/Ocly7tN1PpVOMkRtOrHMCUvjjXo6UvjkHyr1RNo2pQ2b+xiI3fDCgrG8Ohm
+	 mcxDrKFuUvrkTKvL3UHaszy2sIdrk7sLHuQJK7k9YsHJ6xJRLq5RDfEaZzixRcfvUa
+	 dOk1jL584saJZk+5ajlwQwF2ddCBDIH/qucPWdOjLbqOakqDg9RvFXHyou6bOnLrsi
+	 lMOQ3gs/WaQUG7a7zM5nm4LTIDQrehzIdS6eFCqL25kyy7DC7vGeOLknKpPFlugRLh
+	 7S+UPUZnrdV6w==
+Message-ID: <73bdecf75ba186db00e559f5ff508790ca6e2362.camel@rendec.net>
+Subject: Re: [PATCH] irqchip/imx-intmux: fix runtime PM teardown on remove
+From: Radu Rendec <radu@rendec.net>
+To: Guangshuo Li <lgs201920130244@gmail.com>, Thomas Gleixner
+ <tglx@kernel.org>,  Frank Li <Frank.Li@nxp.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Pengutronix Kernel Team	 <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Joakim Zhang	
+ <qiangqing.zhang@nxp.com>, Marc Zyngier <maz@kernel.org>, Zhipeng Wang	
+ <zhipeng.wang_1@nxp.com>
+Cc: stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, 	linux-arm-kernel@lists.infradead.org
+Date: Wed, 16 Sep 2026 09:45:01 -0400
+In-Reply-To: <20260914134211.1734163-1-lgs201920130244@gmail.com>
+References: <20260914134211.1734163-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260916100452.1837412-2-clopez@suse.de>
-Message-ID: <aqqdPvUWUgocwsEj@google.com>
-Subject: Re: [PATCH v2] KVM: x86/mmu: Fix NX page unaccounting for TDP MMU pages
-From: Sean Christopherson <seanjc@google.com>
-To: "Carlos =?utf-8?B?TMOzcGV6?=" <clopez@suse.de>
-Cc: kvm@vger.kernel.org, pbonzini@redhat.com, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, 
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, Vipin Sharma <vipinsh@google.com>, 
-	James Houghton <jthoughton@google.com>, 
-	"open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 
-On Wed, Sep 16, 2026, Carlos L=C3=B3pez wrote:
-> unaccount_nx_huge_page() unconditionally passes KVM_SHADOW_MMU to
-> untrack_possible_nx_huge_page(), which is incorrect, particularly on
-> the path from kvm_recover_nx_huge_pages(), which handles pages from
-> both MMUs.
+On Mon, 2026-09-14 at 21:42 +0800, Guangshuo Li wrote:
+> imx_intmux_probe() enables the IPG clock and then drops its runtime PM
+> reference with pm_runtime_put(). With CONFIG_PM enabled, the runtime
+> suspend callback disables the IPG clock. With CONFIG_PM disabled, the
+> clock remains enabled after probe.
 >=20
-> Fix this by adding a helper to retrieve the MMU type of a page and use
-> it to pass the correct variant down.
+> imx_intmux_remove() accesses the CHANIER registers without first making
+> sure that the device is runtime active. The device may therefore be
+> runtime suspended with the IPG clock disabled when these registers are
+> accessed. In addition, the remove path only calls pm_runtime_disable()
+> and does not balance the clock enable when CONFIG_PM is disabled.
 >=20
-> Fixes: 6777885605e1 ("KVM: x86/mmu: Track possible NX huge pages separate=
-ly for TDP vs. Shadow MMU")
-> Signed-off-by: Carlos L=C3=B3pez <clopez@suse.de>
+> Resume the device and acquire a runtime PM reference before accessing
+> the registers. If resume fails, skip the register accesses but still
+> tear down the chained handlers and IRQ domains. Disable runtime PM
+> afterwards, drop the acquired reference without triggering another
+> runtime suspend, and explicitly disable the IPG clock.
+>=20
+> This keeps the clock enabled while the hardware registers are accessed
+> and balances the clk_prepare_enable() performed during probe for both
+> CONFIG_PM configurations.
+>=20
+> This issue was found by manual code inspection.
+>=20
+> Fixes: bb403111e017 ("irqchip/imx-intmux: Implement intmux runtime power =
+management")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
-> v2:
->   * Use a helper to retrieve the MMU type to avoid referencing KVM_TDP_MM=
-U for
->     32 bit builds (Sashiko).
->  arch/x86/kvm/mmu/mmu.c     |  2 +-
->  arch/x86/kvm/mmu/tdp_mmu.h | 11 +++++++++++
->  2 files changed, 12 insertions(+), 1 deletion(-)
+> =C2=A0drivers/irqchip/irq-imx-intmux.c | 15 ++++++++++++---
+> =C2=A01 file changed, 12 insertions(+), 3 deletions(-)
 >=20
-> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-> index 9788ff180374..fa3e9ff7bec1 100644
-> --- a/arch/x86/kvm/mmu/mmu.c
-> +++ b/arch/x86/kvm/mmu/mmu.c
-> @@ -868,7 +868,7 @@ static void unaccount_nx_huge_page(struct kvm *kvm, s=
-truct kvm_mmu_page *sp)
->  {
->  	sp->nx_huge_page_disallowed =3D false;
-> =20
-> -	untrack_possible_nx_huge_page(kvm, sp, KVM_SHADOW_MMU);
-> +	untrack_possible_nx_huge_page(kvm, sp, page_mmu_type(sp));
 
-I would rather pass in the MMU type.  That avoids page_mmu_type(), and also=
- makes
-it clear unaccount_nx_huge_page() is a common API, whereas account_nx_huge_=
-page()
-can only be used by the shadow MMU because setting nx_huge_page_disallowed =
-needs
-to be done before the page is linked in the TDP MMU, i.e. needs to be decou=
-pled
-from the tracking.
++ Zhipeng
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index c254d96bd332..482818947737 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -864,11 +864,12 @@ void untrack_possible_nx_huge_page(struct kvm *kvm, s=
-truct kvm_mmu_page *sp,
- 	list_del_init(&sp->possible_nx_huge_page_link);
- }
-=20
--static void unaccount_nx_huge_page(struct kvm *kvm, struct kvm_mmu_page *s=
-p)
-+static void unaccount_nx_huge_page(struct kvm *kvm, struct kvm_mmu_page *s=
-p,
-+				   enum kvm_mmu_type mmu_type)
- {
- 	sp->nx_huge_page_disallowed =3D false;
-=20
--	untrack_possible_nx_huge_page(kvm, sp, KVM_SHADOW_MMU);
-+	untrack_possible_nx_huge_page(kvm, sp, mmu_type);
- }
-=20
- static struct kvm_memory_slot *gfn_to_memslot_dirty_bitmap(struct kvm_vcpu=
- *vcpu,
-@@ -2835,7 +2836,7 @@ static bool __kvm_mmu_prepare_zap_page(struct kvm *kv=
-m,
- 	}
-=20
- 	if (sp->nx_huge_page_disallowed)
--		unaccount_nx_huge_page(kvm, sp);
-+		unaccount_nx_huge_page(kvm, sp, KVM_SHADOW_MMU);
-=20
- 	sp->role.invalid =3D 1;
-=20
-@@ -8061,7 +8062,7 @@ static void kvm_recover_nx_huge_pages(struct kvm *kvm=
-,
- 		WARN_ON_ONCE(!sp->nx_huge_page_disallowed);
- 		WARN_ON_ONCE(!sp->role.direct);
-=20
--		unaccount_nx_huge_page(kvm, sp);
-+		unaccount_nx_huge_page(kvm, sp, mmu_type);
-=20
- 		if (is_tdp_mmu)
- 			spin_unlock(tdp_mmu_pages_lock);
+The patch looks good to me but I'm wondering if it's not a better idea
+to fix it in a similar manner to the imx-irqsteer driver. Please see
+https://lore.kernel.org/all/20260821101039.4037925-7-Zhipeng.wang_1@oss.nxp=
+.com/
+
+The two drivers are already similar, so I think it makes sense to keep
+them aligned. It would also address some of the issues that sashiko
+flagged (probably, I haven't looked very closely).
+
+> diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-i=
+ntmux.c
+> index 47c2681d138a..de2a8f98f625 100644
+> --- a/drivers/irqchip/irq-imx-intmux.c
+> +++ b/drivers/irqchip/irq-imx-intmux.c
+> @@ -288,12 +288,16 @@ static int imx_intmux_probe(struct platform_device =
+*pdev)
+> =C2=A0static void imx_intmux_remove(struct platform_device *pdev)
+> =C2=A0{
+> =C2=A0	struct intmux_data *data =3D platform_get_drvdata(pdev);
+> -	int i;
+> +	int i, ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(&pdev->dev);
+> +	if (ret < 0)
+> +		dev_warn(&pdev->dev, "failed to resume device: %d\n", ret);
+> =C2=A0
+> =C2=A0	for (i =3D 0; i < data->channum; i++) {
+> =C2=A0		/* disable all interrupt sources of this channel */
+> -		writel_relaxed(0, data->regs + CHANIER(i));
+> -
+> +		if (ret >=3D 0)
+> +			writel_relaxed(0, data->regs + CHANIER(i));
+> =C2=A0		irq_set_chained_handler_and_data(data->irqchip_data[i].irq,
+> =C2=A0						 NULL, NULL);
+> =C2=A0
+> @@ -301,6 +305,11 @@ static void imx_intmux_remove(struct platform_device=
+ *pdev)
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	pm_runtime_disable(&pdev->dev);
+> +	if (ret >=3D 0) {
+> +		pm_runtime_put_noidle(&pdev->dev);
+> +		clk_disable_unprepare(data->ipg_clk);
+> +		pm_runtime_set_suspended(&pdev->dev);
+> +	}
+> =C2=A0}
+> =C2=A0
+> =C2=A0#ifdef CONFIG_PM
+
+--=20
+Regards,
+Radu
