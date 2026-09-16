@@ -1,214 +1,132 @@
-Received: from mail-ed2-f30.google.com (mail-ed2-f30.google.com [74.125.228.94])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.qs.icloud.com (qs-2004b-snip4-3.eps.apple.com [57.103.84.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAA751357C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:15:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E954AB3CB
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:16:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.84.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575359; cv=none; b=tVzO80ZLTScXsE9DzUDNVM9w95TcqNtOFOIswxhrhFbbbqv5YL3yfRluTRHE/yVaDr0EP9M/ucVHWKS0j6Zcva4XhNwFkc1jDfHD4q1GG0MVLdzNkaj2py15kc+eXUFg7q2ei/EX/wZrjBLYqrYr+FTPolpuTAaau6O4J6PvGwk=
+	t=1789575373; cv=none; b=vAyE6UQY2gAwj3iW5yg/J3agcoSvk1euDFOXgy9tTXAz8Oz8hJ1d9RJiYNlwhTOV/+7uFzBiGKEuTxTNTZ+6w+87Fuq/lLjkFn2JUkMLGoldNVlQHOXDkKeXkiyrkD3E2wzY2tpROdDDNcmqVM7V37ubEiNa7nFPSn92+SShUoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575359; c=relaxed/simple;
-	bh=2b2EqVDlW+oYzYz7c2LcuNFACAORO2g1/e2NLw79m7U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TaF+yQpBPT89tsKbD315dTYblDuEZJOl/AZuzmZeB/dnd19M7PvdM8FOcVw/TIoIiWAtoVw+lmSHWs+6IdaNSGSaqO7D35m7oHw82G+sR9tSSohA1XQ8ZmFwubSdWEINDlYCRa6/xu9Il8cugvUuuYIdu1LDJqv6lYh3BjgLXl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=f9F+irfT; arc=none smtp.client-ip=74.125.228.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789575373; c=relaxed/simple;
+	bh=MQb8tSbx0/HHOCcszCddBWvThTIgIDq5xTskbCmHgLk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YS33nhOe6DWjULB6K/Q6USpw25kQuKXvsuGDhiwlH/ylsQ69ErN9pggQQkvUzfeR8LQZSSEb0Ss1jzWVXrioT/qP8ti9KoN63lrTHebGwSKM2dbUXYa6N7TmJEC3decjes+Nt72Oe4WdG2awkrpxMXwzOajTV+dBQY4sCAuras4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=hPWcfcFA; arc=none smtp.client-ip=57.103.84.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="f9F+irfT"
-Received: by mail-ed2-f30.google.com with SMTP id 4fb4d7f45d1cf-6aa06e51bc3so1837903a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:15:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789575356; x=1790180156; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2vlAcSoWpickl85/r3RIRzpAoJvNR2Bq+srSMRA/Noo=;
-        b=f9F+irfTwOM3LGjTph0bb3liDPWjm3MOVXmlMHqpQ2UO37sm8cs8jGU7u37/BpZ8em
-         DyAUKhXOsjpY8rd5zcOetxh04nLAEZ9zvdD5YcEYi41IQM6U59wnj7TAWQaeFZ135AKj
-         kgXomEgndTf+K8PcnuHVBQeBVKjUSQsBYxxMM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789575356; x=1790180156;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2vlAcSoWpickl85/r3RIRzpAoJvNR2Bq+srSMRA/Noo=;
-        b=unAB3hKgZoN/KRkBOkuQCwB/zr1c7/vDMcxYtIfI4MbtRPZhaqvYfBDBiK+LcYOEKe
-         CgGf1q7Hy5hLe1h7flLJRj3uyqMVSe9e7g97lM4n2OOWRF15oJhLiN2KujefU0plcU0A
-         qBbLuCXtnZ76lHsR+h8pqy6Siem9RdMawEDV7nFVta5v1xrXYil6fdMNVVB3aH+8eZPu
-         NvOq47qTRtML26ogEyKZn3pbwy17cbfNYgN/ApDImdv/HxXg/nIl3s4lNu6DL/R28gE6
-         w4IwPQcK9ruXqp1N2sgwikXiytON9H3hlnefxXpHFixvOu76ZhlTSWag5QWDo7G5dH2M
-         jQPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw4YKfkbIsQlbCmpVakG59NhQfGtPTAL853aYw9sg60e/Mmg8b6apCrykaGHk4ZgbUkeurHv7b+s1VSy8U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmwoXBBQyrKBkSuHSG/7SC8sAOQ4XtSmip2sJ+Tml4Hl2P64sf
-	ccpBL/G2/AxbCo5yEBkXObx1nJ0t3msmx/UpJU3W95EqsfELOB/7s7IHManPYKKo9I0GbZg/RoL
-	rOnM=
-X-Gm-Gg: AYBFou1bQ8yOEUJHmNRJ8KsSK89s6ht2BMaistc8OLXpJ1jE7J2rdI31OzjMZb/8oeD
-	3bjuIQIZ7zehQqbxGHKIuc/0xBSezKNo04EkQdZSfvrROnyGh+sTC/qEj7jSIHSS1F4kSmf1eWQ
-	E9Ts2pImGkBqSrZ9dybGxeYTOypAyc5zPHh7+tZmjMaTlz3MHJknRSnc0mB9Zn5Ck9yepG85D0o
-	DMlzh/NIHd+Qh1uakgBVVGcBvTrHry8dkttoLruVgH/YQucmCHGhJSzK9i75RsPfG/opY8rHJm/
-	HigmMwyMqOVLLA7RCYRB5TWGk4nkrobviHgjxZRKumYmhMeh+DnvPNvtgr9BwtZ6omdk9eRXzIT
-	5dU+QduzrCBzeshPoNF68KyJeTWKcMmdEL7KSHJngo+mSP12ulpcXsFQFWAMsKNpROBtDfRG12h
-	Er0Sbsi/NxNWKlLvjCm8QF5v2ZJuERasYgkjcq5b5W2zAUZp0fhMqLuxVdgBiUm26zD1Eyw1RPE
-	uOYit6x68Zmkhf88EG40joAqTs470S3g3akYA==
-X-Received: by 2002:a05:6402:5d1:b0:6a6:5cc9:4063 with SMTP id 4fb4d7f45d1cf-6aa2224c348mr2450114a12.2.1789575355487;
-        Wed, 16 Sep 2026 09:15:55 -0700 (PDT)
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com. [74.125.225.76])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d228eeasm2105713a12.8.2026.09.16.09.15.52
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 09:15:54 -0700 (PDT)
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843172bff4so588341f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:15:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwLy33UljICfk1KfZ0fbzYalcHZcgxmC8OhuAi2TNeYHFiQw2vdW3HNhe1ogtLh88ZQvJJpmXV7kELdENA=@vger.kernel.org
-X-Received: by 2002:a05:6000:60e:b0:486:e901:e59 with SMTP id
- ffacd0b85a97d-4870d05a86emr4599800f8f.31.1789575351351; Wed, 16 Sep 2026
- 09:15:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="hPWcfcFA"
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-2d-20-percent-0 (Postfix) with ESMTPS id 0FD8B1800110;
+	Wed, 16 Sep 2026 16:16:10 +0000 (UTC)
+X-ICL-RepId: 01a0ab01-153a-7b59-a1d0-e9d6eaea5ef5
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQBOHVUZWQdDF0oDTVIPDxNUFVIXTQRyGVoUXBhTRVEfVFhVCQoCURxWDVdDVARfUEsbDlUXA1ccVkVcGEMJXQVXHB0cREVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BeCF4fTBwdDlgGEh1QHA5RBVsARglBAlsGXQNFDEkdXgFdC0UUSR4OWgZTCkMXcwRUB10FXVZQAlpVEgRACFZQXgheH0wc
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789575370; x=1792167370; bh=XfJd1U4QADoydamY5G5HVBx5mXqXQNhew3wDV+lTvWQ=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=hPWcfcFA5WMbtC3DBJzrSqv3ACF7kRzv0uOrnwLPVHsmb3dtp1xbG+XSRnpCGqtDozHviMq6a5d8EZ94qVad2TMZuLgO8NtjnNchP5rxUg46uWHq8JjMSZAOcC9QqzDcIW5ZtIksr57Z1Lz68NMwNzzLef0xKxZnhn1s+xI/nj09g0yM0CycRbw4kTrqLEZ+K6MTz2dQxAGKJgoeMCw9DgHWbvOQGDAdWtq0Jp+9/xjMzSQunomtyM+tYuPqj4QjgPTABoE7CjYALb+eckGS5sM/PCESEnh4EGRi7K1CA+YGsb0K2jUxwY8w0vHcEmF7cECztgVOEI6owhzygdNxkQ==
+Received: from komputa (unknown [17.57.155.37])
+	by p00-icloudmta-asmtp-us-east-2d-20-percent-0 (Postfix) with ESMTPSA id 4C10C18004F9;
+	Wed, 16 Sep 2026 16:16:09 +0000 (UTC)
+From: Cristian Mazzotta <cmmazzo@icloud.com>
+To: aer@tuxedocomputers.com
+Cc: W_Armin@gmx.de,
+	bentiss@kernel.org,
+	cmmazzo@icloud.com,
+	jikos@kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	wse@tuxedocomputers.com
+Subject: Re: [PATCH v6 0/3] HID: generic: add LampArray support via hid-lamparray helper
+Date: Wed, 16 Sep 2026 11:15:51 -0500
+Message-ID: <20260916161551.36695-1-cmmazzo@icloud.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916144838.456239-1-aer@tuxedocomputers.com>
+References: <20260916144838.456239-1-aer@tuxedocomputers.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916080306.13395-1-fangxy@xiaopeng.com>
-In-Reply-To: <20260916080306.13395-1-fangxy@xiaopeng.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 16 Sep 2026 09:15:39 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=X_iMwPjdFDrk46YAe7Jkhzkn41G8B2henZJLdHeM50Dw@mail.gmail.com>
-X-Gm-Features: AcwNN1U_1ru36V3m0TTMk5skmLw1I8ApJEI2Pm4DHsjAA2UfWKRe8K7kEc_F06A
-Message-ID: <CAD=FV=X_iMwPjdFDrk46YAe7Jkhzkn41G8B2henZJLdHeM50Dw@mail.gmail.com>
-Subject: Re: [PATCH] kgdb: Fix buffer overflow in the 'M' and 'X' packet handlers
-To: Fang Xieyan <fangxy@xiaopeng.com>
-Cc: jason.wessel@windriver.com, danielt@kernel.org, 
-	kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: Du4IQlhNk8aJfkPUjAyLSW9WijmCnGME
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIyMiBTYWx0ZWRfX6L5vboLaKiC5
+ WkDkCg5HEczz/PHO6bayRsiG5fuzEENuiJTVZhzi51GZger/35Iy3kn3fs+HDz/P3XMPVyruIsF
+ wEaHK6ixEb8hV5SeC8+7mJEdr4me2iJjD5+lW1eITYYi+x0NoT4qkmlWu/BYl5mlpcNgjr/zK6H
+ nubKQZgBcZW4lOAxetQ8vp3ZLE71yPcVrBlUfgxq9GHzxVEytGps18T2msS6oLQGFsFkWP0pHy0
+ dxcmtZylp9HyNczfmzZo9U5ipPPF7VD+OTYK77n/IQPfiOy5mgeqT0ZDViJO7Fmq9Egc/zDv+6U
+ gQ+raLWydlofme3wzuyFkHDW8hjc+u3qfvmD3ddSXCjrSjvURs0qZacjTagqRQ=
+X-Authority-Info-Out: v=2.4 cv=Zpvg6t7G c=1 sm=1 tr=0 ts=6aaac0ca
+ cx=c_apl:c_pps:t_out a=bsP7O+dXZ5uKcj+dsLqiMw==:117
+ a=bsP7O+dXZ5uKcj+dsLqiMw==:17 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10
+ a=zMoZyIPnO1cA:10 a=VkNPw1HP01LnGYTKEx00:22 a=YuKY67GBq93p-LlOLQUA:9
+ a=Uh4tPsEYL5Xn7yYgV4Nn:22 a=mGzgV76dRlD25_95D0kX:22
+X-Proofpoint-GUID: Du4IQlhNk8aJfkPUjAyLSW9WijmCnGME
+X-JNJ: AAAAAAABBC72ES1mF4ciLMmKVOPj0wOq0mq+55wR2xOOEIMfMF6xZQXXZGrJjYCSIl++uC/6mM7ZnGjdoO6MvvGukq35Ag/EN3Hgnn3pukgAgK6PHa5mrCRshwLoewhjD3WQMs/KZzI3/SBQX3tO9D15AzEkYsqXx6d6gG+4+4ZkNBAv+fQMHhCptnDq2G8gsJF6bipN7kFeUqezKnvWy06hXESdp+ZDCLBtr03hZ4szdrxWWeTHoABaGNCD9+C5n48BBzyzwZ83a2uMp+b1Vn9CeIrbduf1i1mL/BNoqOF4TKHPXpQetvEBHictcp7fU6z7xmgxagggNDm2SrBQJH0uyqC7fh0Pmh40v3CL1VfAIkWKUzN+PivTeh2eR2Fs7yjEgxubx0eYNzvESrgAe3j2eZb4xxwQfcTt3RoXWcjUBGcx8obzRZHCUI+hLNZ40CHai31WK+enQMzKhb0lGJz4kzLfyOkPw7nC0dtMC/wmpP6jlQfwtajPLaCSxykdzSIKXCbYLPK+Lb0tqylIn6KxJpYvo4Qc2iiCAdslQZaCS9VKUGF2Sw+4bQnuOb1DaTjurUs3b23UpUZ+9MD3tFCqdtW9s22yq56ARloi05flDOK0z0ujxsYws3OinZDQ68hkgYHymN3MixMNySNOv0br9T4Jt6Okd0Fu8Y5c4mN7Xx6UFifHvsTOTCjuevEbB4RiZQ1zN/w7wZLYMHNU8WZUHKpx9wWXNE7F5DY99pSvLWdYD4Ro1fAtvNqJSZC7WnnONsn4KI3T532L2hFDqiDM3o2UzhayiXzOsCdsmwVKJyg2xBBVd1W3UtvFM/Jy/o6g5b2BdfaCKPCfVv3lIeK3Hz9BMIr+bkyiY/ouNbvvWZojkQzYSX+UsPeDVobtfINR5KKXoD8TR3CXQ3o2T+0C6vADnbQ7K5C6TLQYZtKN5sdgIkFLVPRJ3KUhZ+z4XIk2LQeGeo/CRTVwOKP3PTmNbKyXT/J
+ gZnu96fVXyY42v7t0MdVWO3b9vehdIUq3qdJmQPHbVU8M0/sUBcKn1JlsZe1E46ONk8f/48mfsAZ7JgO3IfD5qNTr1gx6kmOBHMj30fQwnUmqQxULj7dBX1juRPCnUFQ2Uy5MJ5HsEYVBf4oOdT7q/T7pdbUO/YyoyqjfqCdyz4Rmm5u8RyujAaHEiPky1n9ZQ0FR1wysmcbd5mdF2lq4fZ8L6DICcCYMMtIq4dryc4jFqldlvhSiA6LZAW7s3CcDXgnRH66g6j9jzH0pxffuKA==
 
-Hi,
+On 16.09.26 16:48, Aaron Erhardt wrote:
+> Add a new hid-lamparray helper module and integrate it with the hid-generic
+> driver.
 
-On Wed, Sep 16, 2026 at 1:03=E2=80=AFAM Fang Xieyan <fangxy@xiaopeng.com> w=
-rote:
->
-> diff --git a/kernel/debug/gdbstub.c b/kernel/debug/gdbstub.c
-> index e271a43..a67ca1a 100644
-> --- a/kernel/debug/gdbstub.c
-> +++ b/kernel/debug/gdbstub.c
-> @@ -373,6 +373,12 @@ static int write_mem_msg(int binary)
->
->         if (kgdb_hex2long(&ptr, &addr) > 0 && *(ptr++) =3D=3D ',' &&
->             kgdb_hex2long(&ptr, &length) > 0 && *(ptr++) =3D=3D ':') {
-> +               /*
-> +                * The in-place decode touches 2 * length bytes at ptr,
-> +                * inside remcom_in_buffer[BUFMAX].
-> +                */
-> +               if (length > (BUFMAX - (ptr - remcom_in_buffer)) / 2)
-> +                       return -EINVAL;
+Thanks for picking these up!
 
-FWIW, my AI wasn't terribly happy with this patch. I've skimmed the AI
-response, and my AI sure looks right to me. Given that your patch was
-generated with AI assistance, I won't feel too bad pasting my AI's
-response here. :-P If you think my AI is wrong or you think I should
-look at all this more closely, let me know. Otherwise, I'll wait until
-my AI is happy (or looks like it's full of crap) before delving too
-deeply myself.
+I do have two corrections on patch 3 however, and both were mine
+originally, so my bad:
 
-AI response follows:
+ - The measurement in the commit message and in the comment above
+   lamparray_suspend() is wrong. It should be 12.35 W with lamps lit and
+   3.14 W blanked, which is 9.21 W or about 75% of s2idle draw, not
+   2.84 W / 77%. The 2.84 W was an earlier test on a local branch that
+   includes full multi-zone support. It's worth noting in the comment that
+   the 3.14 W still includes the lid zone, which single-zone control
+   cannot reach on this device.
 
-While this correctly identifies a real out-of-bounds access in
-write_mem_msg(), the fix conflates 'M' (hex memory write) with 'X'
-(binary memory write). As written, this patch introduces a regression
-for valid GDB binary writes, leaves kgdb_ebin2mem() vulnerable to
-out-of-bounds reads on escaped payloads, and does not check against the
-actual received packet length.
+ - The kerneldoc for lamparray_suspend() still says it "writes zeroes to
+   the rgb values only, keeping the brightness", but the call is now
+   lamparray_hw_set_state(ldev, 0, 0, 0, 0). The code is fine, but the doc
+   should follow it.
 
-1. Regression: Breaks valid GDB 'X' packets larger than ~BUFMAX / 2
+On your question about the default state: I think the lights "look like
+they don't work" can be a real conclusion, but the cause is the intensity
+default rather than the brightness default.
 
-The comment and commit message state that the in-place decode touches
-2 * length bytes at ptr and that a write over the limit never decoded
-valid data. That is only true for 'M' packets (kgdb_hex2mem):
+With led_init_state NULL, last_r/g/b stay zero, register_led copies
+them into subleds[].intensity, and brightness_set reads r/g/b back out
+of subled_info[].intensity. So every brightness write sends
+(0, 0, 0, brightness), which is black at any brightness. The
+zero-brightness quirk does not change this since it only forces RGB to
+zero when brightness is already zero.
 
-- In 'M' packets, each byte is encoded as 2 ASCII hex characters, and
-  kgdb_hex2mem() uses the upper half (ptr + length to
-  ptr + 2 * length - 1) as scratch space while decoding backwards. So
-  'M' genuinely requires 2 * length bytes in remcom_in_buffer[BUFMAX].
+The LED class device is therefore inert rather than just dark;
+systemd-backlight restoring a saved brightness, or a DE slider, or
+UPower, all write brightness and see nothing happen. This is because
+nothing in that stack writes multi_intensity first.
 
-- In 'X' packets (kgdb_ebin2mem), the payload is sent as raw binary (1
-  byte per byte), except for '$', '#', '}', and '*' which are escaped
-  with 0x7d ('}'). kgdb_ebin2mem() decodes forward in-place into
-  ptr[0 ... length - 1] and does not use ptr + length ... ptr + 2 *
-  length as scratch space.
+Defaulting to autonomous mode would not fix that. It would replace an
+inert knob with an ignored one: the cached RGB and brightness would
+describe nothing the hardware is doing, and a DE would have to
+discover and write use_leds_uapi to make the node real. That is
+driver-specific knowledge that desktop environments are unlikely to
+carry.
 
-GDB enables 'X' binary downloads by default ("set remote
-binary-download-packet on") specifically so it can pack nearly BUFMAX
-bytes per packet instead of BUFMAX / 2. When writing a large object or
-running "load", GDB routinely sends 'X' packets where length is between
-BUFMAX / 2 and BUFMAX - header_len (e.g., length =3D 900 when BUFMAX =3D
-1024).
+On a second look, I would suggest keeping brightness at LED_OFF, but
+defaulting the intensities to max_r/max_g/max_b. The device is still
+dark at probe, autonomous mode is still disabled so the cached state
+matches the hardware, and the first brightness write from existing
+userspace lights it up. Combined with the quirk you added for Armin's
+device, it stays dark even on firmware that ignores the intensity channel.
 
-With this patch, kgdb replies to those valid 'X' packets with $E22#...
-(-EINVAL). GDB only falls back from 'X' to 'M' when the target returns
-an empty packet (""), indicating 'X' is unsupported. An E22 reply
-causes GDB to abort the memory write entirely ("Cannot access memory at
-address ...").
+One hardware data point, since discoverability came up: on the Acer
+Predator PT14-52T the keyboard brightness keys are handled entirely in
+the EC and never reach the LED class device, so they cannot be relied
+on to show the user that anything is controllable.
 
-2. Bug: kgdb_ebin2mem() can still overflow on 0x7d escape sequences
+On multi-collection, I don't see myself getting to it soon. I might work
+on it during fall or winter break of my university, however I cannot
+guarantee it, so please do not consider it blocked on me. The ENE
+controller exposes two LampArrayAttributesReport collections and
+lamparray_parse_update_report() only keeps the last.
 
-In kgdb_ebin2mem():
-
-  while (count-- > 0) {
-    c[size] =3D *buf++;
-    if (c[size] =3D=3D 0x7d)
-      c[size] =3D *buf++ ^ 0x20;
-    size++;
-  }
-
-Here count (length) is the number of decoded output bytes, not the
-number of input bytes consumed from buf. Every 0x7d byte causes a
-second *buf++ read without decrementing count.
-
-If the check in write_mem_msg() is relaxed for 'X' to allow length up
-to the remaining space in remcom_in_buffer, a packet with length <=3D
-avail that contains K escape bytes (0x7d) will read length + K bytes
-from buf. If length + K > avail, buf runs past the end of
-remcom_in_buffer[BUFMAX], triggering the same KASAN global-out-of-bounds
-read in kgdb_ebin2mem().
-
-To fix this properly, kgdb_ebin2mem() needs an explicit end pointer
-(buf_end) and must check buf < buf_end before both *buf++ dereferences
-in the loop.
-
-3. Incomplete bounds check against actual received packet length
-
-As the commit message notes, a client can claim any length regardless
-of how much payload it actually sent. However, checking against BUFMAX
-only checks against the static buffer capacity, not the number of bytes
-actually received by get_packet().
-
-If a client sends a short packet (e.g., claiming length =3D 256 while
-only sending 4 hex chars), length <=3D (BUFMAX - header) / 2 passes.
-kgdb_hex2mem() then reads hundreds of bytes past the NUL terminator
-placed by get_packet() into stale data left in remcom_in_buffer from
-previous packets (where non-hex chars decode to -1 / 0xff via
-hex_to_bin()) and writes 256 bytes of garbage into kernel memory.
-
-Suggested approach:
-
-Record the received packet length in get_packet() (note that binary 'X'
-packets can contain raw 0x00 bytes, so strlen() cannot be used for 'X'
-packets) and pass the packet end pointer (or available received bytes)
-down:
-
-- For hex writes (!binary): check that 2 * length fits within both the
-  received payload length and remcom_in_buffer[BUFMAX].
-- For binary writes (binary): pass the packet end pointer into
-  kgdb_ebin2mem() and check buf < buf_end before each byte read in the
-  loop, returning -EINVAL if the input stream ends before count bytes
-  are decoded.
-
-(Side note: while looking at other callers of kgdb_hex2mem() in
-gdbstub.c, note that qRcmd handling in gdb_cmd_query() passes len (the
-hex char count from strlen()) instead of len / 2 as count to
-kgdb_hex2mem(), which causes kgdb_hex2mem() to touch 2 * len bytes and
-overflow remcom_in_buffer[BUFMAX] whenever len > (BUFMAX - 6) / 2.)
+I have a local branch which includes working multi-collection support.
+It's based off of Tim's v4, and it's what I referred to in the original
+v4 thread; I'd be happy to send over my branch as a reference, though
+porting it to v6 is not trivial.
