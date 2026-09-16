@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF8C4F7987
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:34:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DC42D8385
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:36:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565676; cv=none; b=f12XFGx0JiFtwcZEYKG9iJmp+laMVtx7t+UjJmsab/z9EDLKy1i0oG9ESiTZpNgPmUDwuMJUmb0xE0SKO4bx6dT7qW2v97Ru9L3RLC0k0RwZWpIdPbayASp+6kpGAKG8RZU9f14hCO5QhlgcJqNzcUz05hKZBMa8OtHjnC2OYvs=
+	t=1789565764; cv=none; b=hd7dkdIG6rWKXolaOw0sKjDqXEucLAVbBpcX9gL8EDwXnRd6XIC/f/sib8bN5b8/DYRgN67s3t4tAeZtZuaxvtjGrHzwQ8AD/2HuU4p/XoCYHhQR9iN8gZSZKe+WnnTGkoJa5+OQynYrRgKHbeY9GuBQ2Aeyf6IJKQMX6jPgwQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565676; c=relaxed/simple;
-	bh=h2KnRsHz/BEo6mfKFxnLFhsqS5/5bdvACMUo/WXOCFk=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=JXiHCHkfLeRfC5t9+Ic8bFs2aPGv+HNZoy9d2OCAC2dxx2bIviBPauUqyUx+tG6EOsAgbDQ266wFR6LHooG5xa5/LzLaWskyeice781VpdNPqwajRzsh1dKZQJ+cq2L8pukzaS15IqhrMhZjyoKu4Yk6FQc628McYiB/xEAZ5Ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AK/o8eNs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789565764; c=relaxed/simple;
+	bh=h3j02ULJJRUXdGgpq39NavbcTmpKsjv9A+0fNHjMtLE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L8J9gpB5geTjpvY5U/Vm4VZfuGSlJnNhw+VbAGZBNTLHFjLwpcWDdr1MSewmvE205kUwMl6omILNORTBB+bpWpmo4kNcLCCgwv+L9rtKKJON7Ev68Cn9ZfM2zWcynTetUarjSvAgDt7hVl2jIMihsguAOByUOxNEBJsnwywlMmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=it8+Cdwk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AK/o8eNs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0531F00899;
-	Wed, 16 Sep 2026 13:34:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="it8+Cdwk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E7C1F000FF;
+	Wed, 16 Sep 2026 13:36:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789565669;
-	bh=0pwhDPf1ZcMsFXr2wFtOfi9zYP8FgQyGaMxEJBJLxLs=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=AK/o8eNsta406tALZ4n9LY9LZcOKGvZzHbQFlv4LP5s4xN7btezfxtDaU9z81nya+
-	 l6U8c5hPVqwXmGK/Kl0DYNG4ENW9dbQNIkJwlLwoiRsvbF2S7+CCFUKopJXF78x2wp
-	 qtg8qNMIMIr8JhD+3m3EU4wdBXE1Vdh8nuk5QpIwFq+AJ/w0/372Fan5CtjG06xRDO
-	 cZFRNtt/b06Dt6qADOU/M9gHizfEDHokFdaBR03wKLBw/+ZcKTW/5ZG0aWDVpccajh
-	 NHNe4gIQm7cJHXhzEGDMJjNRiYJyXS/umqRLIBpjKwnB2O4sntJSe1exsXm+zqiRTL
-	 T9FweJd2d5C/w==
-Message-ID: <0deef591-d82a-4034-9514-abde0e73e5e5@kernel.org>
-Date: Wed, 16 Sep 2026 15:34:24 +0200
+	s=k20260515; t=1789565762;
+	bh=bwyk+5gUmPQM5HlVeH3up+pJy3bi1L00FIGnnBnAiJY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=it8+CdwkIuYEVwHgoARhILclAx9xQneyJikZNFw5FuiXfBQKZjuHAWEm1zRK0HBEZ
+	 MBu8dds16gBsPre5OB1tdPNsQ7AjwC6eW7VT293sDASWfg9+7a48j7tkMR5WSTWBrR
+	 MQ3ogNFN3BPDxIc2an8RVAS0fZ8ZLOBdLClqi18I0wbMhkJmcCXLWK111NF7U8OHz7
+	 Qo9Nlk4gyT0emWDUu+ufaY+JkFfXl/FeYDomMFI+af5BkmAhJVhVY2w5tdRVIuXMr2
+	 R4LMRQYCkHDCI7geEAOMv3M4ixqW1W/ccumk8vv55zTvPL9ytZ6NtixXG/NRqT+xD0
+	 triSr+ZAmcSaw==
+Message-ID: <1d2108bc-6b67-43ce-ab13-70ed241024e4@kernel.org>
+Date: Wed, 16 Sep 2026 15:35:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,21 +35,18 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/17] arm64/mm: Convert READ_ONCE() as pmdp_get() while
- accessing PMD
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: Anshuman Khandual <anshuman.khandual@arm.com>, linux-mm@kvack.org,
+Subject: Re: [PATCH V2 02/14] arm64/mm: Route all pgtable reads via
+ ptval_get()
+To: Anshuman Khandual <anshuman.khandual@arm.com>,
  linux-arm-kernel@lists.infradead.org
 Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
  Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>,
  Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
  Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>,
- linux-kernel@vger.kernel.org, Mark Rtland <mark.rtland@arm.com>,
- linx-arm-kernel@lists.infradead.org, linx-kernel@vger.kernel.org,
- kasan-dev@googlegrops.com
-References: <20260729122452.3797443-1-anshuman.khandual@arm.com>
- <20260729122452.3797443-3-anshuman.khandual@arm.com>
- <dc0e039e-49ef-4692-a07b-2e4e4a067b3a@kernel.org>
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260907035030.2839978-1-anshuman.khandual@arm.com>
+ <20260907035030.2839978-3-anshuman.khandual@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -95,41 +92,28 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <dc0e039e-49ef-4692-a07b-2e4e4a067b3a@kernel.org>
+In-Reply-To: <20260907035030.2839978-3-anshuman.khandual@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/16/26 15:32, David Hildenbrand (Arm) wrote:
-> On 7/29/26 14:24, Anshuman Khandual wrote:
->> Convert all READ_ONCE() based PMD accesses as pmdp_get() instead which will
->> support both D64 and D128 translation regime going forward. That is because
->> READ_ONCE() would need 128 bit single copy atomic guarantees, while reading
->> 128 bit page table entries which is currently not supported on arm64. Build
->> fails for READ_ONCE() while accessing beyond 64 bits.
->>
->> Load Pair/Store Pair (ldp/stp) are only single copy atomic if FEAT_LSE128
->> is supported (which is required when FEAT_D128 is supported). Currently 128
->> bit pgtables is a compile time decision - so we could have chosen to extend
->> READ_ONCE()/WRITE_ONCE() to allow 128 bit for this configuration. But then
->> it's a general purpose API and we were concerned that other users might
->> eventually creep in that expect 128 and then fail to compile in the other
->> configs.
->>
->> But worse, we are considering eventually making D128 a boot time option, at
->> which point we'd have to make READ_ONCE() always allow 128 bit at compile
->> time but then it might silently tear at runtime.
->>
->> So our preference is to standardize on these existing helpers, which we can
->> override in arm64 to give the 128 bit single copy guarantee when required.
->>
+On 9/7/26 05:50, Anshuman Khandual wrote:
+> Define arm64 platform specific implementations for new pxdp_get() helpers.
+> These resolve into READ_ONCE(), thus ensuring required single copy atomic
+> semantics for the page table entry reads.
 > 
-> Best to mention here that no functional change is expect because the common-cde
-> pmdp_get() etc helpers do exactly that.
+> In future this infrastructure can be used for D128 to maintain single copy
+> atomicity semantics with inline asm blocks.
 > 
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+> ---
 
-Whops, accidentally stumbled into v1 in my inbox after starting to look at v2 :D
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
