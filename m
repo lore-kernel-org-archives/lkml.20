@@ -1,134 +1,332 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9574E80B0
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:03:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 919BA4F053C
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:03:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563830; cv=none; b=VBtzAAkT9vM1kPYZPbcFDS+UURk+kDVG9FS5S+wH23DycvdHxStqNslkm0/HKRGaqqTBXDNBTd0D/OcyZ3djSK5nMOqzRVT/rL5PCmdVRh3slI6W7wnYuNgrED8ZAShljbRTS8rJ9HjUA/GthpoP5vLkfIAcVJUBUvqGMOlHTOk=
+	t=1789563836; cv=none; b=Svw/hlUiVJ+XVejxdDLvHf48Dq6X9koOyLe/T3smVyouSef/2tempS1jJ8reg6AWUHGPrFHnmou+pgVDIQYSux6ueAf0L32bIAc+bzi/zduLn73gHe2wSHi9sdO8Z/DGwSiqAd6P5BZe7FJoxEPVxQV2lRSzlF9XtVYA2pE2UkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563830; c=relaxed/simple;
-	bh=BZbIjq6ROZeCQvERX+hKLczZEFVF/IFyJaooMFQjbS4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R1AR2tJIoKhbaqzy+JK3qdpr9XYhm2q1jMszFRJ8GUCH9dv3my0LnZuXArpaj41pepC/Xw7l6rtVsRDxs3VS/zRQuayhwFf1N0qUR1uupaJuOgtmyOnVRX/+jsJ3IpTJWsZZEpP6wEpPju8vrId/hi++WD66EmbZiTysmiBPMUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gyyl+QN9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789563836; c=relaxed/simple;
+	bh=ybBOpgHUoAg23QCDB90NXKXwaf6KfWZrKX6JSKHFY2U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=JYnX+3dgDA+xuy045SMyj83Cu25jYz8My+g1bManBPT5mcrLFKTIsSDAsPCKXEFwHz/J9KqcCU/VTEHEcig7rm7fBIXrX5/3hxjYE0pqzzJVygJWaSKPaYyxLsw8JAphiD9MeOj/2UQXrAG4VxJXHV3y0msAgrKItRskH56MpxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=s7qg14sw; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gyyl+QN9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F4F1F008A0
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:03:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789563828;
-	bh=6Nc4BFEr66wGb844OtDVd4J6JLebUU3kF1noqOdkEW0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gyyl+QN9PzJF1my9LQVw8d2WfrvSWPXamHu+ZktlD+Y3R0cQaxwjZ/gXlKRvbXuF/
-	 6KVjhhTYSLRLqfiN/eEeTrcklJGel6/jGNcNxYVPmJnjTvd9eGyMxECylpb+FYkYGP
-	 HVcQH14+YAeItdWmnPQmVU56cq/M4BuA+UAvNa1roiiExFfImVtCdO5Ro2wSiZbGMR
-	 6eVJScIfuBVs6koiHPn+WkpNZXTbTltPaAKsyidg1JxtUcKWDjVLKmbrxdQFaNQ+wA
-	 CDj9k3eQgSgmzzmGqpg3YpQMPdJ6m9MAdT11mGACCDaYRmNUqVTTk3QA0fSYDa/zgT
-	 rSHtrH6qunAVA==
-Received: by mail-lr2-f30.google.com with SMTP id 38308e7fff4ca-3a318299b38so8295331fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:03:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy0tCPHyVAAGeNWHn3E3krjj+md+UhK66dd41TjAwlOmxBZ5YsSG4HWezqmn9rpFFGdmACycJkE12DoHgc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmIWNjOUn5uyzBySZURTXgYxcDzUTa9U3iLGcXWrnlgjoXTJGU
-	hgh5j0erjsPf6Y7Fv7qo101oaHFBtr6f7P38Kdj8aMC50LhDwOuZNOIRtxLtrLzgTG/0bqHUeJp
-	rHLEIHq3+B4LiZm+5WSPgd8eZjxpd9tE=
-X-Received: by 2002:a05:6512:3b9e:b0:5b6:4ae:d88 with SMTP id
- 2adb3069b0e04-5b8b66216e9mr779741e87.28.1789563827041; Wed, 16 Sep 2026
- 06:03:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="s7qg14sw"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 568B8176A;
+	Wed, 16 Sep 2026 06:03:48 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (unknown [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F40CD3F86F;
+	Wed, 16 Sep 2026 06:03:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789563831; bh=ybBOpgHUoAg23QCDB90NXKXwaf6KfWZrKX6JSKHFY2U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=s7qg14swUJqwHx4qs2CJRJcQNy3SpPMyRCPrj9MDw6COoF5iFUz3ZmH3rCe4B7ipH
+	 8ySUNAVrnJ6a15LsFhwaqLtP6xOJki+3hPTuhZh+aBiP8QlrldBSGh8BHzm2bzHRIU
+	 NHSc0HKHhHGgZMGL4hLIQLmeQJG5hEpDlPhfgPjk=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Tian Zheng <zhengtian10@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from S2AP_W to DBM
+Date: Wed, 16 Sep 2026 14:03:41 +0100
+Message-ID: <aqqTrWW-kUjb0pGJ@LeoBrasDK>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <86h5jp61jo.wl-maz@kernel.org>
+References: <20260901171558.2674031-1-leo.bras@arm.com> <20260901171558.2674031-2-leo.bras@arm.com> <86bja17cg7.wl-maz@kernel.org> <aql8jY4o8SzjJuFU@LeoBrasDK> <86h5jp61jo.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260812120114.32501-1-ilya.titov@wirenboard.com> <20260903091718.44042-1-ilya.titov@wirenboard.com>
-In-Reply-To: <20260903091718.44042-1-ilya.titov@wirenboard.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 15:03:34 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnvxYjRfdOrq4qmk1vX22csqMQ23R0_7VQYWZ2PBHx6_g@mail.gmail.com>
-X-Gm-Features: AcwNN1XR9Yw-9dJs1sd5aeqfLOxRm-MFuv6MWfY9YiXG6ju_z14jNe5YgEWO-8M
-Message-ID: <CAD++jLnvxYjRfdOrq4qmk1vX22csqMQ23R0_7VQYWZ2PBHx6_g@mail.gmail.com>
-Subject: Re: [PATCH v2] pinctrl: sunxi: keep a shadow copy of the data
- register output latches
-To: Ilya Titov <ilya.titov@wirenboard.com>
-Cc: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Maxime Ripard <mripard@kernel.org>, =?UTF-8?Q?Emilio_L=C3=B3pez?= <emilio@elopez.com.ar>, 
-	linux-gpio@vger.kernel.org, linux-sunxi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 3, 2026 at 11:17=E2=80=AFAM Ilya Titov <ilya.titov@wirenboard.c=
-om> wrote:
+On Wed, Sep 16, 2026 at 09:30:35AM +0100, Marc Zyngier wrote:
+> On Tue, 15 Sep 2026 18:12:45 +0100,
+> Leonardo Bras <leo.bras@arm.com> wrote:
+> > 
+> > On Sun, Sep 13, 2026 at 10:00:40AM +0100, Marc Zyngier wrote:
+> > > On Tue, 01 Sep 2026 18:15:52 +0100,
+> > > Leonardo Bras <leo.bras@arm.com> wrote:
+> > > > 
+> > > > As a first step of changing the encoding for the Stage2 PTE descriptor,
+> > > > introduce the DBM bit, and adapt every usage of writable to use the DBM bit
+> > > > (51) instead of S2AP[1]/Dirty bit (7).
+> > > > 
+> > > > For this step, we convert usages of RW(Dirty) -> WD(DBM|Dirty).
+> > > > 
+> > > > Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+> > > > ---
+> > > >  arch/arm64/include/asm/kvm_pgtable.h | 3 +++
+> > > >  arch/arm64/kvm/hyp/pgtable.c         | 8 +++++---
+> > > >  arch/arm64/kvm/nested.c              | 4 +++-
+> > > >  arch/arm64/kvm/ptdump.c              | 4 ++--
+> > > >  4 files changed, 13 insertions(+), 6 deletions(-)
+> > > > 
+> > > > diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+> > > > index 41a8687938eb..37baa86d6fd8 100644
+> > > > --- a/arch/arm64/include/asm/kvm_pgtable.h
+> > > > +++ b/arch/arm64/include/asm/kvm_pgtable.h
+> > > > @@ -86,24 +86,27 @@ typedef u64 kvm_pte_t;
+> > > >  #define KVM_PTE_LEAF_ATTR_HI		GENMASK(63, 50)
+> > > >  
+> > > >  #define KVM_PTE_LEAF_ATTR_HI_SW		GENMASK(58, 55)
+> > > >  
+> > > >  #define KVM_PTE_LEAF_ATTR_HI_S1_XN	BIT(54)
+> > > >  #define KVM_PTE_LEAF_ATTR_HI_S1_UXN	BIT(54)
+> > > >  #define KVM_PTE_LEAF_ATTR_HI_S1_PXN	BIT(53)
+> > > >  
+> > > >  #define KVM_PTE_LEAF_ATTR_HI_S2_XN	GENMASK(54, 53)
+> > > >  
+> > > > +#define KVM_PTE_LEAF_ATTR_HI_S2_DBM	BIT(51)
+> > > > +
+> > > >  #define KVM_PTE_LEAF_ATTR_HI_S1_GP	BIT(50)
+> > > >  
+> > > >  #define KVM_PTE_LEAF_ATTR_S2_PERMS	(KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R | \
+> > > >  					 KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W | \
+> > > > +					 KVM_PTE_LEAF_ATTR_HI_S2_DBM | \
+> > > >  					 KVM_PTE_LEAF_ATTR_HI_S2_XN)
+> > > >  
+> > > >  /* pKVM invalid pte encodings */
+> > > >  #define KVM_INVALID_PTE_TYPE_MASK	GENMASK(63, 60)
+> > > >  #define KVM_INVALID_PTE_ANNOT_MASK	~(KVM_PTE_VALID | \
+> > > >  					  KVM_INVALID_PTE_TYPE_MASK)
+> > > >  
+> > > >  enum kvm_invalid_pte_type {
+> > > >  	/*
+> > > >  	 * Used to indicate a pte for which a 'break-before-make'
+> > > > diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+> > > > index b74dd5ce1efd..ca49f1bd7c34 100644
+> > > > --- a/arch/arm64/kvm/hyp/pgtable.c
+> > > > +++ b/arch/arm64/kvm/hyp/pgtable.c
+> > > > @@ -725,42 +725,43 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
+> > > >  	}
+> > > >  
+> > > >  	r = stage2_set_xn_attr(prot, &attr);
+> > > >  	if (r)
+> > > >  		return r;
+> > > >  
+> > > >  	if (prot & KVM_PGTABLE_PROT_R)
+> > > >  		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> > > >  
+> > > >  	if (prot & KVM_PGTABLE_PROT_W)
+> > > > -		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > > > +		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > > 
+> > > What makes it acceptable to always set DBM? This is an optional
+> > > feature, and I'm not exactly comfortable setting bits that are
+> > > supposed to be RES0. 
+> > 
+> > The alternative would be to introduce WC/WD as an alternative encoding
+> > infrastructure, and keep making decisions based on having HAFDBS available 
+> > or in the system. My intention was to adapt things in a way to avoid 
+> > multiple behaviors if we could avoid.
+> > 
+> > My rationale is, based on our possibility of setting DBM=1:
+> > If HAFDBS/HDBSS/HACDBS are not available, or available but disabled, 
+> > then the DBM bit is just ignored:
+> > RO -> RO
+> > WC -> RO
+> > WD -> RW
+> > 
+> > (for reference:
+> > - Read-Only (RO):      DBM=0, S2AP[1]=0
+> > - Writable-Clean (WC): DBM=1, S2AP[1]=0
+> > - Writable-Dirty (WD): DBM=1, S2AP[1]=1
+> > )
+> > 
+> > And the behavior should just the same as what we have today.
+> > 
+> > 
+> > > Yes, the HW should ignore it. But we have also
+> > > seen quite a few broken designs in this area...
+> > > 
+> > 
+> > I lack experience on what bad thing could happen. So I will expand on what 
+> > I belive to understand up to here:
+> > 
+> > - The PTE is in memory, so the DBM bit can be set regardless of being RES0
+> > - For SW pagetable walking, I don't think 'bit 51 == 0' is checked
+> > - For HW pagetable walking, maybe some faulty implementation may rely on 
+> >   bit51 being RES0, and fault otherwise.
+> > 
+> > If that's the case, then we would have to actually support both encodings, 
+> > and only enable the new one if HAFDBS is available in the system. 
+> > 
+> > I just wonder how high are the chances to have such a broken design, 
+> > or other broken designs did not come to my mind, and if we have to start 
+> > with that multiple-encoding option.
+> > 
+> > > > +
+> > > >
+> > > 
+> > > Spurious newline.
+> > > 
+> > 
+> > Oh, ok, will get rid of it.
+> > 
+> > > >  	if (!kvm_lpa2_is_enabled())
+> > > >  		attr |= FIELD_PREP(KVM_PTE_LEAF_ATTR_LO_S2_SH, sh);
+> > > >  
+> > > >  	attr |= KVM_PTE_LEAF_ATTR_LO_S2_AF;
+> > > >  	attr |= prot & KVM_PTE_LEAF_ATTR_HI_SW;
+> > > >  	*ptep = attr;
+> > > >  
+> > > >  	return 0;
+> > > >  }
+> > > 
+> > > I don't know how you have configured git on your end, but there is *a
+> > > lot* of context...
+> > > 
+> > 
+> > diff.context=10, i.e. 10 lines before and after a change.
+> > To me it looks helpful to get more context around the change. 
+> > 
+> > I can change it back to 5 if it bothers you.
+> > 
+> > > >  
+> > > >  enum kvm_pgtable_prot kvm_pgtable_stage2_pte_prot(kvm_pte_t pte)
+> > > >  {
+> > > >  	enum kvm_pgtable_prot prot = pte & KVM_PTE_LEAF_ATTR_HI_SW;
+> > > >  
+> > > >  	if (!kvm_pte_valid(pte))
+> > > >  		return prot;
+> > > >  
+> > > >  	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R)
+> > > >  		prot |= KVM_PGTABLE_PROT_R;
+> > > > -	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W)
+> > > > +	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM)
+> > > >  		prot |= KVM_PGTABLE_PROT_W;
+> > > >  
+> > > >  	switch (FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, pte)) {
+> > > >  	case 0b00:
+> > > >  		prot |= KVM_PGTABLE_PROT_PX | KVM_PGTABLE_PROT_UX;
+> > > >  		break;
+> > > >  	case 0b01:
+> > > >  		prot |= KVM_PGTABLE_PROT_UX;
+> > > >  		break;
+> > > >  	case 0b11:
+> > > > @@ -1281,20 +1282,21 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
+> > > >  		*orig_pte = data.pte;
+> > > >  
+> > > >  	if (level)
+> > > >  		*level = data.level;
+> > > >  	return 0;
+> > > >  }
+> > > >  
+> > > >  int kvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
+> > > >  {
+> > > >  	return stage2_update_leaf_attrs(pgt, addr, size, 0,
+> > > > +					KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+> > > >  					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+> > > >  					NULL, NULL,
+> > > >  					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
+> > > >  }
+> > > >  
+> > > >  void kvm_pgtable_stage2_mkyoung(struct kvm_pgtable *pgt, u64 addr,
+> > > >  				enum kvm_pgtable_walk_flags flags)
+> > > >  {
+> > > >  	int ret;
+> > > >  
+> > > > @@ -1361,21 +1363,21 @@ int kvm_pgtable_stage2_relax_perms(struct kvm_pgtable *pgt, u64 addr,
+> > > >  	s8 level;
+> > > >  	int ret;
+> > > >  
+> > > >  	if (prot & KVM_PTE_LEAF_ATTR_HI_SW)
+> > > >  		return -EINVAL;
+> > > >  
+> > > >  	if (prot & KVM_PGTABLE_PROT_R)
+> > > >  		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> > > >  
+> > > >  	if (prot & KVM_PGTABLE_PROT_W)
+> > > > -		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > > > +		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > > >  
+> > > >  	if (prot & KVM_PGTABLE_PROT_X) {
+> > > >  		ret = stage2_set_xn_attr(prot, &xn);
+> > > >  		if (ret)
+> > > >  			return ret;
+> > > >  
+> > > >  		set |= xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
+> > > >  		clr |= ~xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
+> > > >  	}
+> > > >  
+> > > > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > > > index 17123f0b6dab..eb8dfffc32c7 100644
+> > > > --- a/arch/arm64/kvm/nested.c
+> > > > +++ b/arch/arm64/kvm/nested.c
+> > > > @@ -379,21 +379,23 @@ static int walk_nested_s2_pgd(struct kvm_vcpu *vcpu, phys_addr_t ipa,
+> > > >  	}
+> > > >  
+> > > >  	addr_bottom += contiguous_bit_shift(desc, wi, level);
+> > > >  
+> > > >  	/* Calculate and return the result */
+> > > >  	paddr = (desc & GENMASK_ULL(47, addr_bottom)) |
+> > > >  		(ipa & GENMASK_ULL(addr_bottom - 1, 0));
+> > > >  	out->output = paddr;
+> > > >  	out->block_size = 1UL << ((3 - level) * stride + wi->pgshift);
+> > > >  	out->readable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> > > > -	out->writable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > > > +	/* Takes care of both RO/RW and RO/WC/WD encodings */
+> > > > +	out->writable = desc & (KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+> > > > +				KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W);
+> > > 
+> > > Absolutely NOT. For a start, NV doesn't support FEAT_HAFDBS. But even
+> > > if it did, you are now actively corrupting memory by turning a RO
+> > > mapping with a spurious DBM bit set into a writable mapping.
+> > > VTCR_EL2.HD exists for a reason.
+> > > 
+> > > Do you see why your blanket approach of equating DBM with writable is
+> > > plain wrong?
+> > 
+> > Sorry, not really... please help me understand it.
+> > 
+> > When you say a spurious DBM bit, what does it mean?
+> > 
+> > All I can think is something like a buggy HW implementation setting DBM in 
+> > a HAFDBS-disabled machine, which has been unnoticed up to now, and now 
+> > could cause problems.
+> 
+> And pray tell, what is it to have HAFDBS being disabled at S2? Instead
+> of throwing the book at me, you should probably read it, and specially
+> the effects of VTCR_EL2.HD.
 
-> On Allwinner SoCs, reading a bank's data register returns the pin level,
-> not the output latch, for pins that are muxed as inputs.  Writing a GPIO
-> therefore corrupts the output latches of all input-muxed pins in the
-> same bank: the read-modify-write in sunxi_pinctrl_gpio_set() reads back
-> their pin levels and writes those into their latches.
->
-> This breaks emulated open-drain lines (e.g. a bit-banged I2C bus from
-> i2c-gpio).  Such a line is released high by muxing it as input and
-> letting the pull-up raise it, so any concurrent GPIO write in the same
-> bank stores 1 into its latch.  Driving the line low afterwards is a
-> non-atomic data-then-mux sequence in sunxi_pinctrl_gpio_direction_output(=
-);
-> if the poisoning write lands between the two steps, the pin actively
-> drives high (push-pull) instead of low.
->
-> Observed in practice as sporadic glitches on a T507 board bit-banging
-> I2C on port E while other PE GPIOs are toggled.  On a scope the failure
-> is unmistakable: on a clock pulse where SCL should fall to GND, the line
-> instead steps *above* its idle high level for the whole low phase =E2=80=
-=94 the
-> pad drives a strong push-pull 3.3 V high, higher than the level the
-> pull-up sustains on the loaded bus =E2=80=94 before the next transition r=
-ecovers
-> it.  The same can hit SDA, corrupting data instead of clocks.
->
-> Steps to reproduce on any sunxi board with a bit-banged (i2c-gpio) bus:
->
->   # background: toggle any other GPIO of the same bank, e.g. line 21
->   gpioset -c <chip> --toggle 100us 21=3D0 &
->
->   # foreground: keep the bit-banged bus busy
->   while :; do i2cdetect -y <bus> 0x50 0x57; done
->
->   # watch SCL/SDA with a scope or logic analyzer: sporadic clock-low
->   # phases driven high (above the pull-up level) instead of low
->
-> The bank spinlock cannot help: the racing write is a perfectly valid
-> whole-register RMW that faithfully writes back what the hardware
-> returned.  There are no set/clear registers on this IP to write a single
-> bit atomically.
->
-> Fix it the same way gpio-mmio handles hardware whose data register read
-> does not return the output latch: keep a shadow copy of each bank's
-> latches, base the read-modify-write on the shadow, and only write the
-> register.  The shadow is seeded from the hardware at probe time so pins
-> left in output mode by the bootloader keep their state.  Pins that reach
-> output mode through the gpiolib paths write their value (and thereby
-> their shadow bit) before the mux switch in
-> sunxi_pinctrl_gpio_direction_output(); pins muxed to gpio_out directly
-> through a pinmux node bypass that path, so sunxi_pmx_set() refreshes
-> their shadow bit from the latch (readable once the pin is in output
-> mode) to keep them driving their pre-existing level.
->
-> Seeding the shadow reads the PIO registers at probe time, which requires
-> the bus clock to be enabled.  The clock was only requested at the very
-> end of probe, after devm_pinctrl_register() had already claimed the pin
-> hogs described in the device tree - which mux pins, and thus access
-> registers, with the clock still gated.  Move the request ahead of both.
-> Boards whose bootloader leaves the PIO clock running are unaffected,
-> which is why the pre-existing hog problem has gone unnoticed since
-> commit 950707c0eb5c ("pinctrl: sunxi: add clock support").
->
-> Fixes: df7b34f4c3d2 ("pinctrl: sunxi: Fix gpio_set behaviour")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ilya Titov <ilya.titov@wirenboard.com>
+Sorry, I did not mean to "trow a book" at you here, I was just trying to 
+figure out what was wrong, and given I was not able to do it by myself I 
+thought it was a good idea to ask you.
 
-Patch applied for fixes.
+I just did not want to do that in an effortless way, so I gathered the 
+stuff that I previously thougt to understand, and brought them to the 
+discussion so it could be easier to point what I got wrong. 
 
-Yours,
-Linus Walleij
+As for your question, the effects of VTCR_EL2.HD is to actually mark the 
+page as dirty (S2AP=1) when an writable-clean page (DBM=1, S2AP=0) gets 
+writen to. DBM seems to act as permission to let the hardware change the 
+S2AP bit when HAFDBS available & enabled. 
+
+So if we want to use DBM as writable, we have to make sure we have 
+VTCR_EL2.HD=0, or we are indeed intending to use HAFDBS here.
+
+Not sure if I get your point here.
+
+Thanks!
+Leo
+
