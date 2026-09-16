@@ -1,102 +1,203 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED82350C282
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:23:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C76C519900;
+	Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568591; cv=none; b=UbL6qHS7cXBrOtUrYM8GZ4kf/Nabx+2GDM+q9UMxsgaR3WEXnMMimcQPvjy4hDzXldzTpMgFcBuG4gZaGbEWu0nzEZArYWGb8OGAbtFe+pdpKOVJQ/R8IPbDLZlbfRbulKJmLujS+ebBRgi++eEceUwe9B8cTWVl6jIdFO7q1U4=
+	t=1789568584; cv=none; b=Wu6ZubWoxBn5yQpGqAcyQ/OG+GlolcspSy0R6ap8r58zIgwOINOiKVK0kjn/Xc1/pTdd4YztHnw0gqKhovAlr+APu7EWtEdw0M8aQknnNuTTOVEIbFvOx2wSq/905vItdrDC6eadQ6EyFmEv/rcg0gHvc0sSsAzZBldW2s95MiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568591; c=relaxed/simple;
-	bh=EINPtHVOyicGbgZE3wPjEkEjWD0JYoqcp2SdCRHcjKc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=YNBg52nanAHhoyBZ1/lvO3NA4rAVAciq+8iMSRqi1id0/VdzWAd6hemWZnxWKL0YeQZVC6P17o9xKs3NX4p1EgfGXhzGIAmPWz3OADOnGNXjUo/gIxACJEHykjEM44cPTGUdh0QebkUwHlgpMld3V+WFPGULtZlt071PWN8an9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qj9pMIEL; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789568584; c=relaxed/simple;
+	bh=I7xZf7RThGShW/gK10TtDkvuAkU2B5u5rirvXlZxzSA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AroMatAGidgPSVs0szIYLME8vQyLqsjB4w5jFrwv2/GHkg9Yvtgs2gwWLvsEz9MlJ11IQCvuHfSb+eTh5EP+8MjNCAWTKHtDNfjCXEEWQhxxigH6YIoXBM2ZYZID08LtEXX2uIxfWL81GV7wyWIrodwVPODJXMheKZSdoP8yDy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=haf7g+DZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qj9pMIEL"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8633a38df87so599696b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:23:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789568589; x=1790173389; darn=vger.kernel.org;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=EINPtHVOyicGbgZE3wPjEkEjWD0JYoqcp2SdCRHcjKc=;
-        b=Qj9pMIELu9/Z7qdZgggoZb49QLwcDo6Mi/KtnwMKoJubDdtRfKr82a78NUEEidapOU
-         gRdoKNBFCBB5Rk3NKyy+PIDtZ6FQber7z2p7Kxl6TFSU5PwAX+6UsZuBWZVSRumVO0l/
-         0dUxkfDWa3LdJnGqRjpuhlXETL7WG766aRzpKFu5vybcBQNiJWso5MJQDa4/+3kPKI0A
-         kcAFVzIuJ7KSj2CNn1f2zRAU3Avyr4L7oenmLccvb+CLxuiKxRjnaQYN/mQIsypS6l8h
-         zcPgnM8Ibh0qOHiEc4z2sJUDzvJ6r1lmdxDBXMGU2X3s7zA0i4uHe/PQ15Otit+0PZcT
-         3/Iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789568589; x=1790173389;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EINPtHVOyicGbgZE3wPjEkEjWD0JYoqcp2SdCRHcjKc=;
-        b=O8trqqoS4wgYy9AITz5/znLY7T8RX2Hb4SiyMAoT5oP52U/uW8iQze32/flakK3p+i
-         i4ZI6NrPg8EiyI4yTT3sD81f1JRrCTgd1y/SoA8EKnizWB8Mu2Se6EIEW+r2JW7fXMKg
-         NERIy1g03ZQ/PG1PonEXqmNUQHMiCkYjMnXxoHCi3ZaiyYGz5QzVT/irb3TIAhzbHGfF
-         wJqStYLp/laV4dX+vabGTvDSWHBvMv9wagZXAUp3aPb0ybgjSF5/YwY4jY/qjlh4osrp
-         570qeVkFJnblHuNS8AexfZreL88eLxvRDu3/BKhQOp568GMFyCNTKZjUPZ0vhEhuRXfI
-         SIRA==
-X-Forwarded-Encrypted: i=1; AKwUvBw2Xrno9tITs9hebPMhlr+4I6pC+yOkZj5/v6wajiaLvqFVgwGYgC2G6YbPo2GMzhCRS8BKYmzm8bScYBI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBYOhWgeW9hLR7QKb5OLxityG5GpuFnlagHnui7N46m9L9hEUl
-	dW7cn25xVYIJic+4tLGXRxa80lBYpIGv4gOvB5kTX39FHVWyI8TW9QDD
-X-Gm-Gg: AYBFou0Sks5LW41MpqnyOvftthkxVD8iG7jcLrasVAL3TRQeHuInegLw1gavri41Sgg
-	j+X6oM0LLixItATxVAbVAPx6ET9+wqOimYtHy1ADoMwn9zMO+kes6F8adzuUqEbQJVZX490JUtl
-	TMa1/h2Ig4Wa+ABuZVIhOBJhCtwKgcUGRo9f15aazV+lPiTnGSNTIvPkHBxA8+dYRWpliMCALEe
-	Jn7dVGa712d0mMdQfSbC/HwYTrsmHXX7JsyYDr2gjQ0K2gAqUqAxXOK+L/FaPO0HAhHnA3/W2uG
-	lHqEBsX4hYtfzSK6UkGTCmWupePKRg7vpJqHd1eTmUB+KcdnJHZK9eqXod6tUtujERmRYQcqkAn
-	cB+T0mQD7ApQ5CcgsTrsi3sOGywPnUuCyIigr7+nJFs0pFuYn4t2G/zolpYwzlxI3g8HA/izvYg
-	fJyWwx4zY+LED7NRARdyws2mt9le790gBaP9/JKbN3QCeuuSEj+qMtBUSarnmGUMUqDG/OZYg=
-X-Received: by 2002:a05:6a00:4c81:b0:86b:b308:b926 with SMTP id d2e1a72fcca58-87238c81c3dmr5081392b3a.14.1789568588753;
-        Wed, 16 Sep 2026 07:23:08 -0700 (PDT)
-Received: from [127.0.1.1] ([240e:b8f:977f:f400:ec2a:b15e:fef8:70a])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d179aesm1390884b3a.50.2026.09.16.07.23.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:23:08 -0700 (PDT)
-From: Liang Haowen <nbg2974@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: linux-leds@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH RFC v5 1/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED
- driver for ROG NVMe enclosures
-Date: Wed, 16 Sep 2026 14:23:04 -0000
-Message-Id: <202609162200.ReplyLee0916b.lhw@gmail.com>
-In-Reply-To: <20260916130602.GS11487@google.com>
-References: <202609012200.RFC0.lhw@gmail.com>
- <202609012200.RFC1.lhw@gmail.com>
- <20260901145204.2BF551F000E9@smtp.kernel.org>
- <202609032000.RFCv2-0.lhw@gmail.com> <202609032000.RFCv2-1.lhw@gmail.com>
- <20260903122408.3CA6B1F00A3A@smtp.kernel.org>
- <20260903161357.GX2133376@google.com> <202609042000.RFCv3-0.lhw@gmail.com>
- <202609042030.RFCv3-1.lhw@gmail.com>
- <20260904131503.355C41F00A3E@smtp.kernel.org>
- <20260910093232.GO2133376@google.com> <202609152112.RFCv4-0.lhw@gmail.com>
- <202609152112.RFCv4-1.lhw@gmail.com>
- <20260915130050.E8CDB1F000FF@smtp.kernel.org>
- <20260916104305.GM11487@google.com> <202609162015.RFCv5-0.lhw@gmail.com>
- <202609162015.RFCv5-1.lhw@gmail.com>
- <20260916122740.921E51F000FF@smtp.kernel.org>
- <20260916130602.GS11487@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="haf7g+DZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EEA1AC2BCB9;
+	Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789568584;
+	bh=I7xZf7RThGShW/gK10TtDkvuAkU2B5u5rirvXlZxzSA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=haf7g+DZmVDp3JkQFugrn+t79OOZ/9WzEYCFBsmfP1yPM33v9OSh5SZom1gR73SPR
+	 96ytdbj+NdPROXD1jHQuwbcgVKcXbc9kv/AypWXAMfhPQDT58oeck6S0cCQU/bzxtn
+	 fwdgpK7dS3ODdrbyKtE+pd35jI8X7Mcl6MsbsztPia/tePtqoEGXHNdiFykcWH26zP
+	 F6u/IVftHtvz1xUXlhLZWasOo0boGMEzDaKNWXVeElnhYg5fZh6qbMlf+AFR+0Jjgf
+	 Esdcq4hccxdvyDft1PaTZPIAH9nZt6fWRlL3Ur2hNeUeQOETuZlt/b5Dr0u1WH5tcQ
+	 SVNO/oX8RXEQw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7240C982C3;
+	Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Wed, 16 Sep 2026 17:22:21 +0300
+Subject: [PATCH v2 16/19] thermal: qcom: tsens: Add support for MSM8952
+ tsens
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-msm8952-initial-support-v2-16-798c2602dde1@mainlining.org>
+References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+In-Reply-To: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>, 
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+ iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=3766;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=HXnQcRzeWr9Ic7RLpplNAWR0nI41uJw0z5lilPnVnvI=;
+ b=L9Jz1a+AuQn7qkVAN6sYXFM7TaHWHU6e5t4t9g/GEDHjHMBDYwhkmFqnsQ36gq9DrrQ8/nCzA
+ wWefVVtMmxkC5EggCES0vbQdGs2Lh4/yQUCELLd9Jmp5gqbsSDOUAxK
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 
-On the three sashiko items: the naming one I took as a fix. The doc
-says sections that don't apply are left blank and shows "phy3::wlan"
-for that, so v6 uses the empty color section explicitly,
-asus-arion-0-0-0-0::led-0, with the "-N" ordinal the naming section
-asks for when several LEDs share a function. v6 goes out as its own
-thread.
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-The other two are the same false positives as in every previous
-round: kzalloc_obj() has been in include/linux/slab.h since v7.0
-(this driver builds against 7.2), and blk_rq_map_kern() takes four
-arguments on current kernels, called exactly this way from
-scsi_execute_cmd() in drivers/scsi/scsi_lib.c. The bot's reference
-tree looks outdated; is there a way to retire these two from further
-rounds?
+Add MSM8952 support for tsens.
+
+Downstream does a lot of advanced things with calculations.
+But seems like using tsens-v1 directly works too.
+
+Downstream reference: [1]
+
+[1] https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1621
+
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+ drivers/thermal/qcom/tsens-v1.c | 44 +++++++++++++++++++++++++++++++++++++++++
+ drivers/thermal/qcom/tsens.c    |  3 +++
+ drivers/thermal/qcom/tsens.h    |  2 +-
+ 3 files changed, 48 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/thermal/qcom/tsens-v1.c b/drivers/thermal/qcom/tsens-v1.c
+index faa5d00788ca..f4201748ea29 100644
+--- a/drivers/thermal/qcom/tsens-v1.c
++++ b/drivers/thermal/qcom/tsens-v1.c
+@@ -145,6 +145,37 @@ static const struct reg_field tsens_v1_regfields[MAX_REGFIELDS] = {
+ 	[TRDY] = REG_FIELD(TM_TRDY_OFF, 0, 0),
+ };
+ 
++static int __init init_8952(struct tsens_priv *priv)
++{
++	for (int i = 0; i < priv->num_sensors; ++i)
++		priv->sensor[i].slope = 3200;
++
++	priv->sensor[0].p1_calib_offset = 2;
++	priv->sensor[0].p2_calib_offset = -1;
++	priv->sensor[1].p1_calib_offset = -4;
++	priv->sensor[1].p2_calib_offset = -4;
++	priv->sensor[2].p1_calib_offset = 4;
++	priv->sensor[2].p2_calib_offset = 5;
++	priv->sensor[3].p1_calib_offset = 1;
++	priv->sensor[3].p2_calib_offset = 1;
++	priv->sensor[4].p1_calib_offset = 2;
++	priv->sensor[4].p2_calib_offset = 3;
++	priv->sensor[5].p1_calib_offset = -1;
++	priv->sensor[5].p2_calib_offset = -1;
++	priv->sensor[6].p1_calib_offset = 0;
++	priv->sensor[6].p2_calib_offset = -1;
++	priv->sensor[7].p1_calib_offset = 3;
++	priv->sensor[7].p2_calib_offset = 4;
++	priv->sensor[8].p1_calib_offset = 2;
++	priv->sensor[8].p2_calib_offset = 4;
++	priv->sensor[9].p1_calib_offset = 0;
++	priv->sensor[9].p2_calib_offset = 0;
++	priv->sensor[10].p1_calib_offset = -3;
++	priv->sensor[10].p2_calib_offset = -2;
++
++	return init_common(priv);
++}
++
+ static int __init init_8956(struct tsens_priv *priv) {
+ 	priv->sensor[0].slope = 3313;
+ 	priv->sensor[1].slope = 3275;
+@@ -223,6 +254,19 @@ struct tsens_plat_data data_8937 = {
+ 	.fields		= tsens_v1_regfields,
+ };
+ 
++static const struct tsens_ops ops_8952 = {
++	.init		= init_8952,
++	.calibrate	= tsens_calibrate_common,
++	.get_temp	= get_temp_tsens_valid,
++};
++
++struct tsens_plat_data data_8952 = {
++	.num_sensors	= 11,
++	.ops		= &ops_8952,
++	.feat		= &tsens_v1_feat,
++	.fields		= tsens_v1_regfields,
++};
++
+ static const struct tsens_ops ops_8956 = {
+ 	.init		= init_8956,
+ 	.calibrate	= tsens_calibrate_common,
+diff --git a/drivers/thermal/qcom/tsens.c b/drivers/thermal/qcom/tsens.c
+index b5ec70201e2f..4d7013fc79d6 100644
+--- a/drivers/thermal/qcom/tsens.c
++++ b/drivers/thermal/qcom/tsens.c
+@@ -1191,6 +1191,9 @@ static const struct of_device_id tsens_table[] = {
+ 	}, {
+ 		.compatible = "qcom,msm8939-tsens",
+ 		.data = &data_8939,
++	}, {
++		.compatible = "qcom,msm8952-tsens",
++		.data = &data_8952,
+ 	}, {
+ 		.compatible = "qcom,msm8956-tsens",
+ 		.data = &data_8956,
+diff --git a/drivers/thermal/qcom/tsens.h b/drivers/thermal/qcom/tsens.h
+index e8376accdff3..a35b15312961 100644
+--- a/drivers/thermal/qcom/tsens.h
++++ b/drivers/thermal/qcom/tsens.h
+@@ -669,7 +669,7 @@ extern struct tsens_plat_data data_8960;
+ extern struct tsens_plat_data data_8226, data_8909, data_8916, data_8939, data_8974, data_9607;
+ 
+ /* TSENS v1 targets */
+-extern struct tsens_plat_data data_tsens_v1, data_8937, data_8976, data_8956;
++extern struct tsens_plat_data data_tsens_v1, data_8937, data_8952, data_8976, data_8956;
+ 
+ /* TSENS v1 with no RPM targets */
+ extern const struct tsens_plat_data data_ipq5018;
+
+-- 
+2.55.0
+
+
