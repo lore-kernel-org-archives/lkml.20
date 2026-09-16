@@ -1,49 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83115EEA8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EDC3C3F4E;
 	Wed, 16 Sep 2026 22:32:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789597934; cv=none; b=ayByBUxzjM5XwTJUJo+UgVPEg6Xpm3wlHAgYLKn3zOPvY/DojyboDEnQp18KERIP8QOhdmFYIvCsfF+vqnLZFwWxlpa+oOYz1K2sWyGRJwEQB59WEfBofrg93POAzWgr4aQgs98hupGcAIEQg7OovQoHiMtLp6qNDkK2nD9PVyw=
+	t=1789597934; cv=none; b=XFld8LUswPbw+02Tu685WKaj4efarlMxA1DKx3JjzRGQAHlusbNwDEYRmSjcLwQvjsgS89C6zoU6onNKSk8hVtuo849T+F6upil4UV+1+Zcd3Pc1bI6a0aduCtBwjzcP7FtDmIxJXpCXJ86aQ6w1+tFW+NzgO+jok2xxv0q69gg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789597934; c=relaxed/simple;
-	bh=bjJU9Z44PVUCvG8pMcP/6V4IFB0tGC6BdvqUumYtqw4=;
+	bh=A2rj1iUUhe0+aCpRC+4wABUqqChxpsKXoRWKvygqIUY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lXRIbAb0NCYzlJJ5U/UtdljZ5LaiPNYrQreMjlSqfC9S1FRqWWs1EWhf0/dzXfds6esGiEiC/Bkpo2IIvVh/ETR2fu5zgd6MKX8l7A142NlkI2Jo80CqCLu7zDSJY3pSvevB5UGBBoSk/dfYls1mg+DQa0qoWlkd8t44GzG2ujs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WovI67HE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=iA4hZw1fjkeB6HVgh4lDIuaBrElyLtWldLHL4sc+i+F09uUkxNuh2dAhTgCLap+OKnxYKpiaSFBRuxSZiSDS1GmFnfL6iKOTGucTWzyUNo4w4pYrBkjr7Ya6a+qCSDnsFB6UCGMl5eudaQewxp7goiXVs7Sls/RMwvYejDgJQhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZEW4bklb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WovI67HE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E28D1F00898;
-	Wed, 16 Sep 2026 22:32:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZEW4bklb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84C7F1F000FF;
+	Wed, 16 Sep 2026 22:32:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789597926;
-	bh=HNIzeR8GVk5pXPZw5/ct6bVdaLu6p1p4DPsLEAsyheU=;
+	s=k20260515; t=1789597925;
+	bh=7O3m89aBa8b30JsKemOhKBYOSlk1XKFI/jSTfvzarBc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WovI67HEHgRdOuHiDSrtjfnN51hG+7vdxYMhYqvup1FCDjCDmiJIPcMx9FXO5KIyr
-	 My8M6sGBpZvi5iXFa7SKB5v6G0pF4+S92fHBrLbwz8MsDeubCDZT/r4PEzDjkMYkeS
-	 z8d+9OrkZZzZ+Du6kCCh+uQhHCkIy0814zUfgxP8R7Ov4eHa2WCm/HQ//1vwu6MMv1
-	 UupHLt7GMBBs701ESbxJQxIFQlf79iwPjE9x0RXN1PPUwrxwj1fyQoVwxDamlWD8mM
-	 dP/nFucWgUKNNmP1kGsszAFFg1TKy8sP22vcqnxbeJHkzqmYw6n4qEQOITieZRfF0s
-	 5BnHu295UM9ew==
+	b=ZEW4bklbmV+I4gGU3lgQsQbUXvtfUiVeLu9PXYclIUQzbLaHoi3aCatXitaOt0xbV
+	 kuXyB0gdVAiXcs2xKxuYbtiN3us2L8Rc031JQ3DHQdc4K1GdT6a75I72GrblQJBs0m
+	 h+TucA8j6r8aUJVOIqgboq7vf4BvUZyQbg8lx6eM2lgM5KDUId9JSr5zgruYQSQI6B
+	 z1rCQa95Ju8VcLwFUzNm7sGqf/If7FLz0i2XmanRtQyOq7ROs5rm4x2ccCMrPAqyEN
+	 oI2SRrthidyLoRYNQodIhDrpPzL4KA4rfHXLZZIVsDrrfNenvd6HVPuXW9I10xt2Yy
+	 Bru7A0EfiubWg==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Qiang Yu <qiang.yu@oss.qualcomm.com>
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v10 0/5] Add QMP PCIe Multi-PHY support
-Date: Wed, 16 Sep 2026 17:31:54 -0500
-Message-ID: <178959783406.1336377.10908661913613570380.b4-ty@kernel.org>
+	Nicko van Someren <nicko@nicko.org>,
+	Chris Pouliot <chris@pouliot.me>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/3] arm64: dts: qcom: Introduce Asus Zenbook A14 (UX3407NA)
+Date: Wed, 16 Sep 2026 17:31:53 -0500
+Message-ID: <178959783410.1336377.853415939571836906.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260825-glymur_linkmode_0826-v10-0-56ab597d77e4@oss.qualcomm.com>
-References: <20260825-glymur_linkmode_0826-v10-0-56ab597d77e4@oss.qualcomm.com>
+In-Reply-To: <20260915-zenbook-dts-v2-0-41de8669a7a8@oss.qualcomm.com>
+References: <20260915-zenbook-dts-v2-0-41de8669a7a8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,23 +56,28 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 25 Aug 2026 19:59:19 -0700, Qiang Yu wrote:
-> Some QMP PCIe PHY hardware blocks can be configured through a link-mode
-> register into different link topologies, such as a single wide link, or
-> multiple independent narrower links (e.g. x8 or x4+x4 mode on the Glymur
-> PCIe3 PHY).
+On Tue, 15 Sep 2026 20:54:21 -0500, Bjorn Andersson wrote:
+> UX3407NA is a variant of the Asus Zenbook A14 built on the Qualcomm
+> Glymur platform.
 > 
-> Earlier revisions tried to extend the existing single-instance
-> phy-qcom-qmp-pcie.c driver to cover this hardware. That added a large
-> amount of conditional, multi-PHY logic to a driver whose data model
-> assumes one PHY per node.
+> This (v2) remains dependent on the eDP support here:
+> https://lore.kernel.org/linux-arm-msm/20260622-glymur-edp-phy-v1-0-814b45089ac9@oss.qualcomm.com/
+> 
+> As reported by both Chris and Nicko, the A14 only has 2 speakers so this
+> has now been resolved. But, on linux-next I need to introduce a
+> pm_runtime_forbid() in the soundwire controller (swr0) to avoid SWR bus
+> clashes when trying to play audio.
 > 
 > [...]
 
 Applied, thanks!
 
-[5/5] arm64: defconfig: Enable QMP PCIe Multi-PHY driver
-      commit: 6708289cc13812cebedcc396a42f62d3f92b2dbd
+[1/3] dt-bindings: arm: qcom: Add Asus Zenbook A14 (UX3407NA)
+      commit: 21c65236981f1e71d40afd3d05bddd0863af7177
+[2/3] arm64: dts: qcom: glymur: Add Asus Zenbook A14 (UX3407NA)
+      commit: 7e38885d78f7b008c085a0cde7173242d02d2b01
+[3/3] firmware: qcom: scm: Allow QSEECOM on Asus Zenbook A14 (UX3407NA)
+      commit: d3bacfccd82c974a541398a5ce310de7546b525f
 
 Best regards,
 -- 
