@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D249F5335B1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D4F5328DD;
 	Wed, 16 Sep 2026 15:33:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572783; cv=none; b=XH0xvcN347eq4lAgo0H8AtJNlapxJLPKdkV1O2AYN8DvaRvGOXetOp6+zd8Wg5U4P7P/OBbtLFY4hyQEdT+r/fVUspmlUND892lX+9ATE/CUdx/NdQuqHh2IlQtN09i4GEIr8smlBK5tVXvqPdD0giW6YKIbcgtgsTwz7RpFLYw=
+	t=1789572783; cv=none; b=LoIgIJJp/ZAXmAC8XOe7zn+h5jlpcdr+Gf+OF6BCkB7R42jhfV7sb5IWi/FK5S08Gc5gMrXAL8IfilopDr+rcrL401Oxu8R57Sk6PHoJzPcOfnQ3UgW0IS11RGhwfem+b5dlplwcmWBuTjKQ5pm8y001fZLl09YSruVpcR7LHyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789572783; c=relaxed/simple;
-	bh=oOYWMk2LVEaQRtvan2JCNsaxoT2Nouke3BGkUNIP4+8=;
+	bh=glf6GvR7NBPCbYbbUUvjVhae1qwaU/+22fD70PopBQA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=THo7UMbteoALLhNZUEiFQukGibMafHLcqBiDslqHdpt/5pbPST4SPg6MeVGdiEuZB2VNhOBUfeKA/Lw1p4oH/WMqejPedI4kieKnN8qc3OFXcwIzKVVFbNiqM3SeO3Df46L9peLYct+kqAk8SDI7If+EZnWOm/g3V/2nUMiWfi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VWNvqKkU; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=c8dn4J4TuxHocOd7hf6nZdYxEcu+PAERoXdOQhrNZwnbuawkjfiRpt7silzbRTm8Y4V41D43BGZvUu0nbA2NhXpFtJGMXmtdC6/BXa/V2B87mTnO+umMaLdQgiL7ETQGMWjgN+WJhZqBYLjk1criuChsiUF3vFY6VrNIvTEgMMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PEGFcVRC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VWNvqKkU"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 18E22C32782;
-	Wed, 16 Sep 2026 15:33:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PEGFcVRC"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AAD98C2BD01;
+	Wed, 16 Sep 2026 15:33:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789572781;
-	bh=oOYWMk2LVEaQRtvan2JCNsaxoT2Nouke3BGkUNIP4+8=;
+	s=k20201202; t=1789572780;
+	bh=glf6GvR7NBPCbYbbUUvjVhae1qwaU/+22fD70PopBQA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=VWNvqKkUSj2TPWtIQWHubh2d831P98yK/aoPD0IW1KJLc6dLCJjKr3Njmjxl37Rsg
-	 OtvlSgcrxcl0JoUVrMkhMr77ORbx9scXzGQScNN8PYrOxJD+tCIegmS3K8gQ9h9Rht
-	 XSp9V724qfOyyhOUxj2GM8PsjvLnSC0co9QuCVEx3Alp+17fkiZPAhHY6s/YcWFce4
-	 TSWBMtpwZ4pEXW+eoDR1LSUoYTtBeJT8V6L0JVILRRpB1xJPe4xAIVSMP2Kgmr75P8
-	 6iETRvT4f/b1OsixMOHlIC0YZ8eAjLSq+0Z/b+BeglXfjTnoc2rqLclMcwleENA3aP
-	 Bx8Gr6ZHe682Q==
+	b=PEGFcVRCM3+v1UNKHx+cnsharKXbNrIsiiO43uqcz1PpqZqU54+gCOXYUOq1h8g2O
+	 G0WBhoEzQpGCk5ua98zxxDVO/4bP8StoKemD0inuRbPJ2bda/+61S120aAw5k0yfwX
+	 FBIkNH5vI6/vlzVgaOFVbsmGnwgyY2OUV+bZSAGMOzUrus4Om8PKTnB6g7R8mTPzcV
+	 3ytPQZUDZ6H7zgAUfgC1alOgo90wTVlzNxzxKzVcLqNVieizYtbmS0Tb10i4g5amKm
+	 pVHxc8mYlBTGaYhNuo4KMc2s7HWESw8gzuUZXHCl+jN6Y7rFZOwaxGz9r7R6mLq7NJ
+	 i7dTKCmfcmuKw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0254FC982C4;
-	Wed, 16 Sep 2026 15:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 962F5C982C5;
+	Wed, 16 Sep 2026 15:33:00 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Wed, 16 Sep 2026 09:33:08 -0600
-Subject: [PATCH v10 16/38] dyndbg: tighten fn-sig of
- ddebug_apply_class_bitmap
+Date: Wed, 16 Sep 2026 09:33:04 -0600
+Subject: [PATCH v10 12/38] dyndbg: bump num-tokens in a query-cmd from 9 to
+ 15
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-dd-cmap-part2-clean-v10-16-af4cf4767707@gmail.com>
+Message-Id: <20260916-dd-cmap-part2-clean-v10-12-af4cf4767707@gmail.com>
 References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
 In-Reply-To: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -63,14 +63,13 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
+ Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=2921;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=3086;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=41pLOEJPgdOE2+A/PK3jUZtX6lSeZIg8aahqJw9n64I=;
- b=Jw+nePT5RjSUaMe74vByImx17OJdtKDtFVMlC9PV7h71yIBbxPKZniSzJyF7LV4ZIU2IgLBch
- wh+PMWgD+jbArWApRs+32jAxYL/Z4LN+muCPmh4HO8tF8iGd25JleXi
+ bh=ZGemRpU3viZV1yyWNrUvp83bn0nizPoTEiNG6+9byRk=;
+ b=U11SX80pKnjEiP9L+ni/xIVpnJ0qf6b63AUzYMQGC8xqR+eZWUXymkZ+KVoSZ7Fm7lGn3baEP
+ emhNvZv5MzFAtb/0qv/NrLW/ayPRmHZ303QZx0oHngbc9shpedhCENb
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -80,78 +79,67 @@ Reply-To: jim.cromie@gmail.com
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-old_bits arg is currently a pointer to the input bits, but this could
-allow inadvertent changes to the input by the fn.  Disallow this.
-And constify new_bits while here.
+Current MAXWORDS in ddebug_exec_query() is too small to accept a legal
+query-command using all 6 keywords.  We *need* 13, but this adds a few
+extra to allow certain errors to fail on subsequent, more meaningful
+grammar checks.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v2: move RvB after SoB
----
- lib/dynamic_debug.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ lib/dynamic_debug.c                                      |  2 +-
+ tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh | 12 ++++++------
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 2b755f18344b..9d3e3cad8056 100644
+index b4617c57dcec..83983b261bf8 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -620,7 +620,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 
- /* apply a new class-param setting */
- static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
--				     unsigned long *new_bits, unsigned long *old_bits,
-+				     const unsigned long *new_bits,
-+				     const unsigned long old_bits,
- 				     const char *query_modname)
+@@ -558,7 +558,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
  {
- #define QUERY_SIZE 128
-@@ -629,12 +630,12 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 	int matches = 0;
- 	int bi, ct;
+ 	struct flag_settings modifiers = {};
+ 	struct ddebug_query query = {};
+-#define MAXWORDS 9
++#define MAXWORDS 15
+ 	int nwords, nfound;
+ 	char *words[MAXWORDS];
  
--	if (*new_bits != *old_bits)
-+	if (*new_bits != old_bits)
- 		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
--			  *old_bits, query_modname ?: "'*'");
-+			  old_bits, query_modname ?: "'*'");
- 
- 	for (bi = 0; bi < map->length; bi++) {
--		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
-+		if (test_bit(bi, new_bits) == test_bit(bi, &old_bits))
- 			continue;
- 
- 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
-@@ -646,9 +647,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
- 			  ct, map->class_names[bi], *new_bits);
- 	}
--	if (*new_bits != *old_bits)
-+	if (*new_bits != old_bits)
- 		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
--			  *old_bits, query_modname ?: "'*'");
-+			  old_bits, query_modname ?: "'*'");
- 
- 	return matches;
- }
-@@ -690,7 +691,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
- 		}
- 		old_val = READ_ONCE(*dcp->bits);
- 		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &inrep, &old_val, mod_name);
-+		totct += ddebug_apply_class_bitmap(dcp, &inrep, old_val, mod_name);
- 		WRITE_ONCE(*dcp->bits, inrep);
- 		break;
- 	case DD_CLASS_TYPE_LEVEL_NUM:
-@@ -704,7 +705,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
- 		old_bits = CLASSMAP_BITMASK(old_val);
- 		new_bits = CLASSMAP_BITMASK(inrep);
- 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, mod_name);
-+		totct += ddebug_apply_class_bitmap(dcp, &new_bits, old_bits, mod_name);
- 		WRITE_ONCE(*dcp->lvl, inrep);
- 		break;
- 	default:
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 73c2a4b07bd3..04c1d9254ca9 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -326,8 +326,8 @@ function GOLDEN_RECORDS {
+ #K= b9a397e807148d13ba07da7db7e69817 FT_grammar_errs.2
+ #K= 5abefa504937a329f974504f1896e368 FT_grammar_errs.3
+ #K= 1d94d0f239bf40bf51280caeab499de0 FT_grammar_errs.4
+-#K= 135035c8a17ae100cc4ec954c4d75b2f FT_grammar_errs.5
+-#K= a9cc14244f91a12d3174ad1314144a8e FT_grammar_errs.6
++#K= 9a5e1c1856f1ebbe57a4afdfc4c9703a FT_grammar_errs.5
++#K= b3809a6f9f643f049f1ef30827d4b001 FT_grammar_errs.6
+ #K= 5d400aad1a7d71f548b6b81274d00a55 FT_grammar_errs.7
+ #K= 61cd359b10f9051862d3745eda07a295 FT_grammar_errs.8
+ #K= 567379f4f4d099f00f37d1469d9370bd FT_grammar_errs.9
+@@ -346,8 +346,8 @@ function GOLDEN_RECORDS {
+ #K= 1f6fedfe222af475211b3bfc6d08bc63 FT_grammar_errs.22
+ #K= c67dfeca97697b707acdd70672816dff FT_grammar_errs.23
+ #K= 9574dbfdac063409b41a44e6251fbcd9 FT_grammar_errs.24
+-#K= 644b81753949ac1285e38ac995eeba46 FT_grammar_errs.25
+-#K= 1bf2a93a39961f40e0c2dd4c5e2edc6d FT_grammar_errs.26
++#K= 3c694a0ee2cf3a1d39f2ca8a9f3b9094 FT_grammar_errs.25
++#K= c23be05426c8727be833ff055944aa96 FT_grammar_errs.26
+ #K= cdddf4ffd7fde3c12eb0c73770b872bf FT_grammar_errs.27
+ #K= cdf7a2e2740ec007efbd29feda478420 FT_grammar_errs.28
+ #K= f6650d69963cef433c50e1f2acb899fc FT_grammar_errs.29
+@@ -366,8 +366,8 @@ function GOLDEN_RECORDS {
+ #K= 1a402ada248d0d50cec13a1af150ea33 FT_grammar_errs.42
+ #K= 5b46a8eb0d74009462f74cf7553e3228 FT_grammar_errs.43
+ #K= 546e440044828d86135dd63f1eb9ed17 FT_grammar_errs.44
+-#K= 644b81753949ac1285e38ac995eeba46 FT_grammar_errs.45
+-#K= 1bf2a93a39961f40e0c2dd4c5e2edc6d FT_grammar_errs.46
++#K= 3c694a0ee2cf3a1d39f2ca8a9f3b9094 FT_grammar_errs.45
++#K= 37b7ab754e579683a28ce086c470cdc9 FT_grammar_errs.46
+ #K= 3e3acfb800cfb1bcb0cc07f33b75830a FT_grammar_errs.47
+ #K= 42dc6cb4fe938bb82b64c82924ef28d8 FT_grammar_errs.48
+ #K= cf9320d2188f5b48d508d610d95298b2 FT_grammar_errs.49
 
 -- 
 2.55.0
