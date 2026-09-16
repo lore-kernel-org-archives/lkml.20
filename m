@@ -1,233 +1,278 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020127.outbound.protection.outlook.com [52.101.84.127])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89B528B7D3;
-	Wed, 16 Sep 2026 04:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.127
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789533992; cv=fail; b=pWOQMzvDYFzn3EUw9jB+ldDIG8TH8PS5kGwpBdy2a2hFxk4YBygI7Ujq3ZWY87QZ75kP6ZYg9gnoy886lWM0ID98YYvQP/MA2tevUZog0PtxbKTeV4SH2Q/F/VCR0/zwqt/s7j5ZViLRcU64ZCvngbJ1aVQcPsE91vJeoxw742o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789533992; c=relaxed/simple;
-	bh=SG9Mn6QxFVSpBmGM0FcIjzPqdKwzCPmfsBng6XWx6qQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=C9ZtnSKlLCqvJfvx4Rr5dYE15I64mbUxSikGv8eSGpJhkVDmvt7sckuRwYAziQe26x0emDrzKj6kDgUF9Q41WJYF9Gg/XGRCM7fZV72twd4N+E65TTvAijBwo7QWxoPqib2iv7hIgBGkMYuJyis3Ul8oekNegcaEZV1cSxY2SgA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com; spf=pass smtp.mailfrom=vaisala.com; dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b=ZCeR80E6; arc=fail smtp.client-ip=52.101.84.127
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7853538CFF8
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:47:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789534082; cv=none; b=o62lY0mzLqZdjNah4h6AjyhkabjiAYJsqzL8XlyLsxVnbiuhWfy/NOuntWIA/bAPfSBBgYtuvrt2ajRJ5GR+iyGDL4j3EBieMICAElkpl1V/8DEaqkyLjBMMCL2spv6Uvi8Y7YulRismCUouufkTeQ09SeRqfZBzj93ueg3j5Qo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789534082; c=relaxed/simple;
+	bh=yzHgKJdCRSyY1U25rdYgozih5Sf7HLQ1uA6rNQnzFXk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EiyK1MULTwFdMqpVnTh5tBX5gb6Jv5qKuObHSRoL6vY9FvwpGOpig/xsJe+SR7LsdWb8dDDGESxtN7n7GKlGo8vUZuk4ak7gl2f/ffcnKIwVsXt/xBO9v2A7GMw1IOVmZwBlggsyNMvnlk1WQxQ2kKZzUjPi87bBWp9d5UF/So0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p9nco0Qh; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b="ZCeR80E6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CA9YkxtkWrrrB+6RSWzFtm1KmtrdMnf1UjgmBsKEqOTyhGHxH2XQjMpXa/fb9OG7xuYRDN7t5HaFVH8XVdIyCh7EF5g0t84sY8KYd+4KH0pzNjPx2YVbo8vwRa3gDRlFAUAlc48nQvFVugoo6Tjr/qoylDuUM58xfr37YEidXLNZS+MeqcRq1tp2bwlY8IlqYi+El+ggMapC5xcEv2UwtSh5E6nuoy+dKgMjnjpeItOS8XMGZBAsici29+UtUiPEdHbaIfJr6Tju8H6TLrZlMln+K9luFF2RSUumseY/6T1O/Gl2Lk/2fJBFP5SQwi6vDAvQiMzhg+1v4U2KXBb/rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zrw92iVffcEnjbByNUAtUvH6hoJSdLo2ls38oqgtNeg=;
- b=IGuGRB5MaBZa0rGmLNDLPI7vR9Lb7dc7X4P124z0WwT7oLsC3HEDeeSkdDzac1sOTx7EfYO1z6LcmJkBpmW1Y5gQjR+NW1kYnFDlcbPdu2ckwAPBQk5619D5P66TWx1EPhSLujQDKPLaXBv2o3uD8KQMf/L/MlXmnk42RX4TlCpck0ukkqK0eqFx+KcwelT/5U4oDZKhjykmZfXAKk9O1OOTG9QdHZwSW0QVY4g1BTxWFRItHQ7NZ9sHgt6UcLSfeyPz24AVML2UOp/HoTe1IC9o3holl7Mz+SWdSqxYSLmDVsPDAGE7nREpuC5eU9tm3jn1J+Ps2rw8ZP95Hk5NmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
- dkim=pass header.d=vaisala.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zrw92iVffcEnjbByNUAtUvH6hoJSdLo2ls38oqgtNeg=;
- b=ZCeR80E68On6Uin79frBypjwZzaSexyBcaR3meIgciUBRpcpVFFM+TfWyULpu+tnLzIeKUhrNLiA3p4+s88dm40diJtkj/4McA9aCf5Wx/mOXZk6FTEhTUwb7ShcBtSrciiTCDsCGGqsJXhK3sDFvoUSnTrAkxGgPhrpC9IhtFhf7sZylN3V/Yp9BbKlLN0xLdXFl9mW5I7x1t5p0oXZfaWP5RBIqUYOfuEjzw0BOUkmSvcUkXnTfE1P8lmYihy0wix0+4YwRf9HufUm+yTYsOW5aPVaeAFJaGQVCSBEKIdln6j3m4FVZleDQAV/Ugy6ZNCsBKGB+T/ZHwJF/vXHnw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vaisala.com;
-Received: from AM9PR06MB7907.eurprd06.prod.outlook.com (2603:10a6:20b:3a6::23)
- by GVXPR06MB10570.eurprd06.prod.outlook.com (2603:10a6:150:2bf::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 04:46:20 +0000
-Received: from AM9PR06MB7907.eurprd06.prod.outlook.com
- ([fe80::a597:33a7:d4e2:1b17]) by AM9PR06MB7907.eurprd06.prod.outlook.com
- ([fe80::a597:33a7:d4e2:1b17%3]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
- 04:46:20 +0000
-Message-ID: <c15330e4-25e0-4c50-9f48-dbb8d51f5823@vaisala.com>
-Date: Wed, 16 Sep 2026 07:46:18 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] serial: max310x: drive RTS in software when hardware
- delays are too short
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>
-References: <20260915-max310x-rs485-sw-delay-v3-1-7d20a4a4ab52@vaisala.com>
-Content-Language: en-US
-From: Tapio Reijonen <tapio.reijonen@vaisala.com>
-In-Reply-To: <20260915-max310x-rs485-sw-delay-v3-1-7d20a4a4ab52@vaisala.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: GV3PEPF0001DBFB.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:400::30d) To AM9PR06MB7907.eurprd06.prod.outlook.com
- (2603:10a6:20b:3a6::23)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p9nco0Qh"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso468335a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:47:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789534079; x=1790138879; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HbDQlN24R23DyDmW4DbzXR/gB6YrFxHcO7yoyli6aGg=;
+        b=p9nco0QhxN4b1wdKZ3BFfzNENw3OK9/yhu5rz2nvZM/VYrcKMk3zzc04QlaCjVhfkL
+         1p5okPk8L6cJPm0Wb3kZT39zMH1OLzgUVC5b+sYBwwgKJP+K12bf4BQERR8hTGL78T1L
+         0ORuPTM1vMwu4g4l1iRkNU7IOki8dnxG78DEIPw8wXYAJ7/b5dpcjlNhrxtt6a57h+p5
+         dAbrT3V7Q93BwaQ/tRsaL6+PJUqK09pq+iGowUabKcLnXg+DFjW/cOM8hdIgHsX3QDDX
+         6JRQBmvIRTtRavs7Jdg9Xcr8JSC+rkb/h/nZ5igQxWReFZOhbdwzX6qC0xnt+v/sXdP/
+         EVNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789534079; x=1790138879;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HbDQlN24R23DyDmW4DbzXR/gB6YrFxHcO7yoyli6aGg=;
+        b=Rw5Tx4qsdJ682R4J1FzG7AqRQzCKcvuaNInbtqKvDzzK58oy5Xk2vVvgHIV5OQ6TUI
+         HQUkB1p1EVm4yc8bn2e08pz629o+yh0EbgFxaZ9MPJXnqKwhpJfRzrhiz+J09RbGEDCm
+         7MLiDS2CFYjzm1gcxjBGqLA7/lHZTlcSDM4KZvvJrbBHAIH/tAOeU8uRJB7c3bWcJDN3
+         8nR0+wSITR9fA5A97OC1ShkCW4/+bSqljZZG8BFD+CDwlWb92i7mRZXNGWgRa4vmO4za
+         oPj395eTNpYVavokfA+ejLGK8twpcOwJMx/BT9OeKSS3qwnMhxuCYYrf97PQLt2eIpw6
+         RK+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzekKsgmFHuAYl0nZGsYzOhufcZAPQa1YCIoxbTMfYJt6RumtRErGUHegP33Cx1IM+EGimSYYT/xbxbFEc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYw4ITvhBpymyow5Ic86vr0E9oOH5Iff6Ujsf+7RmRBvcE0QUe
+	PuEAEqDEGdMgU6AgLfzoXzbnrDnI2J/DjVlf5m+jNKXLFiH9Pr5PzvwB
+X-Gm-Gg: AYBFou0H5a0dgmqUIVz7Q26rBbhXFpVS3RQsW9QxyPam5NYBg9+vkxLohBgHH5dGSvH
+	nYs/ChL/ilmTyjpwsMSQ3mGn8rgAGkh+MbBHhoZIlYnyS/HOne3Aa8ZQuQVwx+Q3pAzeOLjQnJp
+	gth5/PI50SdhD8ldOVwLkXaz9lKvMfRl01iWYMNJa/Ggo9jJPiHj3XI5S8qRC1xPKFARMiwILVt
+	zB1u+0OoTL7GPQDQTA1XPykr3j3C7isRVLXk8BeXR2sTG2YXCsYop/uFT6ukbK6tlv/mqgi0t5T
+	i+qpT132yB0cVgl4oD+KReR1E0NAFmmmQJ3KLARn77ohWyDVpHNKE8fhXupWLKclyUj64O9xYJp
+	yYXWXDX/JRXHFT0UK9LITXSjXykJniYEWq3NFSwxuvOvIoiYB3STrlYplSjFkKn01DJ6ByxVhD8
+	3i6YcPl1uNtmrf9aUQbmBAgy2lUWRn9Hw5hBqGR/qAp8X7JUH681Tqje0HKEda7Q67tIXs7eutH
+	86oiq9sO3x0oCvNm0fzUKyxUXtaQqifMA==
+X-Received: by 2002:a17:90b:3c41:b0:39d:fe64:5733 with SMTP id 98e67ed59e1d1-39e1e5612demr3407209a91.24.1789534078512;
+        Tue, 15 Sep 2026 21:47:58 -0700 (PDT)
+Received: from blinky ([67.174.242.98])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d13cb7sm3142992c88.7.2026.09.15.21.47.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 21:47:57 -0700 (PDT)
+Date: Tue, 15 Sep 2026 21:47:55 -0700
+From: Charlie Jenkins <thecharlesjenkins@gmail.com>
+To: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+Cc: Jesse Taube <jtaubepe@redhat.com>, linux-riscv@lists.infradead.org,
+	qingfang.deng@linux.dev, alex@ghiti.fr, aou@eecs.berkeley.edu,
+	palmer@dabbelt.com, pjw@kernel.org, shuah@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 0/5] riscv: Introduce support for hardware
+ break/watchpoints
+Message-ID: <aqofe_pdCdPhpRpD@blinky>
+References: <20260803134913.2013674-1-himanshu.chauhan@oss.qualcomm.com>
+ <CADRr4be9p14tQcx=v-jVwfXwka0eBV8MWPfj1G4qcqv=yfxjfg@mail.gmail.com>
+ <CA+Ht8=Y3CJA0jq3o0j--jA-avcBm576zm-54+BxoRfm6JB72Hw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR06MB7907:EE_|GVXPR06MB10570:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa5d8674-6899-47fb-6865-08df13ad7383
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	sElxh2QDe3/0kXOM2vk9QXh9fQ104natSPBJatlv+WNYxHnR3fKpTk3qQF0XGKNF4HRx4fwLuqyY1j1uj6FFv6y0ox44svm8g1LBUWL2nxrQ7IJHvLPiw0FA9bacIvmk1Wihj50WZsJ8X8r0ZPaNyS4nRUYSIHIGwZTgeUqemt28hhixY0azz4n0qhVgYzJU1QnBz2MKssnOUngKF2ktvCIR8QpniYc/Wiqdm5qGfsOQ0q74B02BTV5reCMEaY2hzTg2ndE9ic7Tb88ykbJOTBy70inuKPEF2gyzFOLgX7tROtTJRTMJBy8dqm7AZTcQh6ivIAkmf4ocrZ/bKEqC/UfagUhd7Kfxy98PSjh5/B1pOLAq2mBvJfgh5xD2FBTIZi3sS2Lcn8vDwsqijIilphVlLNMUISMC9H66HTwFHKKuvF6rryP8U53Brz2+5jKkS3kLa/fFeHkR7ImP+0fGaLpmWyn8a23jEYgbtCZSKAhwMgN99TbtbkI1e8T0MA6zNR7dGDFK+h7gkfhauYxrF3clFLJogBsZBMDX8Bxr8aGuaNXKsI7YzX9VlVs6kdLhT/aXSuIsPrE/la7k7+LPmPJsZnnSy9gNZLpPFEpkVjp39AdXxTCfKfoNEzU6TVbMv0mycjmXcE05V8/0Ux8cFdQujWiK3q9Og5nD0NCdEac=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR06MB7907.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Tml5RTh2LzljbTJ1ejhJT2FyTGVRRU1YV3RSM3dRUmtMZUFuR21lakNPb2hV?=
- =?utf-8?B?engxYmRMRzlZRmFSUmp0WkJCZlE5Zkc4dDB4NUFZZ2ZMSjlkTXBmZlVMdytq?=
- =?utf-8?B?NlRGRGo4WFNRU0lYU2VyN1Z3ZmI1ZlZXRXd3UVcwV0NQVnRJemxCakVlVTI0?=
- =?utf-8?B?a2dHd3BwVDI1Qm45NUJURUg1ai81RStBOFVwanVvQTYyVVIxUHlEYngrM0Jn?=
- =?utf-8?B?eTVpQkMwOXZnMkN0c0tnaVk3RnduMHllTzI5VHk2WnRSQlRHazlPQ2hzOVZi?=
- =?utf-8?B?WFBqT0JjQ3UvZk5wU3Z6WmpZeDBpUXZCOUpNRWthQjhKaXFFNGtmNWRaM2Ns?=
- =?utf-8?B?Y2EzSDlSNXZucUZtNmc3b2sraUh3RTQrQlU2ejhES1ozWXNqSThndi9xTk0r?=
- =?utf-8?B?TlMyUkg3a0VqMWlNbmROWm5VcTlaSUxvdjNMTnJLcE1RSWxjcWMvOStwM0ZH?=
- =?utf-8?B?cHJNV3N3WTFPK2RqQU0rMmhPcWNnZEhEeTdDZDN3UHlnTHRzMmxZd3BvWFJZ?=
- =?utf-8?B?dmtnZTVLM1lPM1pKZ1pUM2w5Rm9ubXpvUnVKYnYrbFkzT0gyaVdvNDg0SkVW?=
- =?utf-8?B?aWpvY1RXY045RmNZWFhSaW5JUDRaNWpxcXBNd3B0RDZGbGZxaERoRWszZjd5?=
- =?utf-8?B?c0JsR2NDRnZlMmRBNitHVUNCd3pCY2dzb25jU1c4ekdSTytmSWJQUTVMZ1Fy?=
- =?utf-8?B?Sm8zY1RhdkovdUpUVG91cCtuVVM3TDJteGhtMlk5akIrZ0Vnck9JcHZyWU9H?=
- =?utf-8?B?aldLUTI2V2dEeUhwQ0M3bWlRb0FUQmZ5WFQ3d2Z6NGpYRWVBVU9ZM0lyTDFq?=
- =?utf-8?B?Mlc4bXZob0lOWDhwT28rcDdLZW9yQVZHQzVIOFFvM0VQbUdySzg3alJKV0h6?=
- =?utf-8?B?ZVp2alVmdkJlaDJUZzFIcStzdk9EM3doNlpzR2JHdVhWd2h1TGpENml0bHR4?=
- =?utf-8?B?ZHpFY25FNW9oZ2MxVVVmbFZoazhjTVJMOG00ZmpSR0R2NDNvUG5kWUFrUnE5?=
- =?utf-8?B?S2hsZmE1bm41dlkySWdjcldnbGJLM01qcDB6TTZ3djBZREkwMVhOaHZjWmZT?=
- =?utf-8?B?K0VBTGVSYUhTMGlOY1lBNEJnR0RWeDJOSzJ4MzF2c0pSeG5yRU1LV09IL1h1?=
- =?utf-8?B?TkRBMngyU0toNEhXdlFGbnltMktSR3dlT3d2ME1kcVJFaTVWOEg0c0tUNXBF?=
- =?utf-8?B?Y0VQNDV3czRrVENFbC9lZm1YQVJKWlJrb3YxWkpOOEUyazZuK1RwSDBKL3dl?=
- =?utf-8?B?bnZPejRLQ2VrVGxoVnRtNkJqTlUyTnEvVlM4VmZpcWhTZTJ3QStKY1dBTHFa?=
- =?utf-8?B?MFlBTVRPb3hXKy8wVUVuTERJaU0wWDFlWkFkajJoL21TbHFTeGVReHZaZW9q?=
- =?utf-8?B?MkhuT0swNnNNb2JPWFEraFpIeFRmdVJtc09GaWFndlBoY05TT0dnblRSd3BN?=
- =?utf-8?B?aXFSTHhReDVzaGkvV3pVL1FLMGY1SEpNUnI2aUc5QkRkdUF6S3hJbjJnNmpK?=
- =?utf-8?B?TTJ1TXk2MjBSSkhzcnRnVzBUb1Q1NWpmS3lzbTE0cHFCSWxXQTZlb1ZCQ2Rv?=
- =?utf-8?B?d21wOFlCbHA0TXkvOE5mSEMzNENKUzd5NnJJMnVrUCt3Z0pMMWJjL21XUGls?=
- =?utf-8?B?dUIrM2ZuclMxZ04yMnpmR2tBcmNQRFZLM21nZVMwS0h4UjI4MHdYM3VzcWtX?=
- =?utf-8?B?RE9PdUtZYUJJeU9Kbk95NUE3ampsUkRscnY3S045WGo2bm9PWlhYc0FqcnVB?=
- =?utf-8?B?Rk1hT2NaNUdoSUV2R2pDbjN4S1E3aDNBSTRycjhuVy8vOWdqa09jeEllQlM4?=
- =?utf-8?B?TkhoTmlibTVncnB3Rjhwb3RJMzQyaUVCTnVLNUtFRjFoUWt3c2tQL01RWGNM?=
- =?utf-8?B?YVdNWFErbXhGM1dhekU3ejJmUlczVytyS2U2L0xrOE92bHVSaUVvOExZTXN0?=
- =?utf-8?B?QW9nVnQwcVMzUUVGVzI1Rm1ST1B4c2wrNXJEcEg2ckZMU1VmSmY3TThzSkt2?=
- =?utf-8?B?Q0MyWDBBaURSanltV240N0N6QzFjc0d6SlQydDZaSnJZSmIyNFhqTlQvVjVw?=
- =?utf-8?B?ekxMWVhCeGxIeDFFbXpRa0F3SHpYdU1PQ0hGdGVFVU1uT3VTQ1ZMZWFxRXR2?=
- =?utf-8?B?Q3V1b3JMYm91dEMxdWp2U0ZSTjFBS09HMGlBOEhGaCtJL3l3VXc3Z09iZ2pj?=
- =?utf-8?B?blVPSlpya2ZWNUZPUGpsTXJNaFl3UzBOSHVIRk1TTlBWWEVVZk05SXZpeUVZ?=
- =?utf-8?B?MDZGWCtLNENBS2dhTUs1SDhodjlZbFhuRW1XV0NONTlNK01iRkJtUWhDWEJu?=
- =?utf-8?B?WDdTUDdGSmw5b21wTDJaS1h3STNOU211TGllemNGWEpQc0IwT3UrSFNYN0Jz?=
- =?utf-8?Q?iI9wYVExdI3TB7zg=3D?=
-X-OriginatorOrg: vaisala.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa5d8674-6899-47fb-6865-08df13ad7383
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR06MB7907.eurprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 04:46:19.9523
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1K9gBnhea1fpvgUfIHRBEp6vbFLzvwp/LHE/u+0P8Qcp0L5UZWDKuK8xGdfKRKvEcXVbWMWiQJEb+crqZBFGSCI/VQsItcPecJUEcOcxW5E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR06MB10570
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+Ht8=Y3CJA0jq3o0j--jA-avcBm576zm-54+BxoRfm6JB72Hw@mail.gmail.com>
 
-> Sashiko AI review found 5 potential issue(s) to consider:
-> - [High] serial: max310x: port lock dropped in serial core callbacks
->   breaks atomicity
-> - [High] serial: max310x: lockless 64-bit ktime and state updates
->   cause torn reads
-> - [High] serial: max310x: TOCTOU race in delayed_stop_tx resurrects
->   cancelled timer
-> - [High] serial: max310x: race in rts_work_proc transmits data with
->   RTS disabled
-> - [High] serial: max310x: shutdown bypasses timer cancellation if
->   sw_rts toggles
+On Fri, Aug 07, 2026 at 01:30:09PM +0530, Himanshu Chauhan wrote:
+> On Tue, Aug 4, 2026 at 10:42 PM Jesse Taube <jtaubepe@redhat.com> wrote:
+> >
+> > On Mon, Aug 3, 2026 at 9:49 AM Himanshu Chauhan
+> > <himanshu.chauhan@oss.qualcomm.com> wrote:
+> > >
+> > > This patchset adds support for hardware breakpoints and watchpoints in the
+> > > RISC-V architecture. The framework is built on top of the perf subsystem and
+> > > the SBI debug trigger extension (Sdtrig).
+> > >
+> > > v6 extends v5 with two new patches:
+> > >
+> > >   - ptrace support: debuggers can now set and query hardware debug triggers
+> > >     through the standard PTRACE_GETREGSET/SETREGSET interface using new
+> > >     NT_RISCV_HW_BREAK/WATCH note types. A simpler PTRACE_GETHBPREGS/SETHBPREGS
+> > >     request pair is also provided for direct single-trigger access without going
+> > >     through the regset machinery. Thread flush/copy hooks are wired up so
+> > >     per-task breakpoints are cleaned up across fork/exec.
+> > >
+> > >   - Extended selftest: the existing perf_event-based selftest is extended to
+> > >     also exercise the new ptrace GETREGSET/SETREGSET regset path and the raw
+> > >     PTRACE_GETHBPREGS/SETHBPREGS interface.
+> >
+> > I would recoment addaping
+> > `tools/testing/selftests/breakpoints/breakpoint_test_arm64.c` as a
+> > test.
+> > I set up a test repository here
+> > https://github.com/Mr-Bossman/dbtr-buildroot for anyone else to test
+> > this set.
+> >
+> > Unfortunatly this set fails `perf test 15 16 17 18`. I would like
+> > those tests to pass
+> > before accepting this set. My set addresses the perf failures which is why it is
+> > more complicated.
+> >
+> > I would highly recommend basing your set off of it as it fixes many of
+> > the issues that
+> > I commented on in V5. The first two commits in my series are
+> > refactoring duplicate code,
+> > and can technically be dropped. Even if you don't go forward with using my set,
+> > I would at least recommend taking a look at it, especially
+> > `riscv: ptrace: Add hw breakpoint regset`
+> > and
+> > `riscv: ptrace: Add hw breakpoint support`
+> > as they are significantly simpler.
+> >
+> 
+> All that is taken care of. There is a problem with icount triggers in
+> Qemu. Once I fix that, I will send v7 and It will contain single
+> stepping.
+> 
+> Regards
+> Himanshu
 
-Three of these lead to changes in v4; two do not. Please do not apply
-this version.
+Why did you decide to renew this patch series without pulling in Jesse's
+patches?
 
-On "shutdown bypasses timer cancellation if sw_rts toggles":
+- Charlie
 
-Correct, and it is the one that does not even need a race. The hardware
-path is selected per port from the current baud and delays, so a
-TIOCSRS485 that moves a port from the software path to the hardware path
-sets sw_rts_during_tx to false for good. If a software timed envelope
-was in flight at that moment its timer stays armed, and
-max310x_shutdown() then takes the branch that never calls
-hrtimer_cancel() or cancel_work_sync(). The port is powered down with
-the timer still pending, and rts_work runs an SPI write against it
-afterwards. A write, a TIOCSRS485 and a close inside the before-send
-delay reach this with no unusual scheduling at all.
-
-v4 keeps the two drain loops in the conditional, since they legitimately
-differ, and moves the cancellation out of it so it runs unconditionally.
-On the hardware path that is a cancel of a timer that was never armed
-and of work that was never queued.
-
-On "TOCTOU race in delayed_stop_tx resurrects cancelled timer":
-
-Correct. max310x_delayed_stop_tx() reads tx_state, then does an SPI read
-of TXFIFOLVL, then takes the lock. Across that window
-max310x_shutdown() can cancel the timer, set tx_state to
-MAX310X_TX_OFF and power the port down. What resurrects the envelope is
-that the code then clears cancel_tx_delay_tmr unconditionally and arms
-on tx_state != MAX310X_TX_WAIT_BEFORE_SEND, which is also true for
-MAX310X_TX_OFF.
-
-v4 drops the clear, since that flag belongs to whoever set it and
-max310x_delayed_start_tx() already clears it at the one point where a
-new envelope legitimately begins, and re-checks under the lock with a
-positive test: arm only while tx_state is MAX310X_TX_SEND. That is the
-only state the after-send hold may be armed from, and it covers OFF,
-WAIT_BEFORE_SEND and WAIT_AFTER_SEND in one condition.
-
-On "lockless 64-bit ktime and state updates cause torn reads":
-
-Half of this is real. max310x_set_rts_ctl_params() assigns
-sw_rts_during_tx false and only then recomputes it, so every concurrent
-reader can observe a spurious false, and the permanent case above comes
-through the same field. v4 computes the decision into a local and
-publishes it once.
-
-The torn read of one_character_duration I do not think is reachable. It
-holds one frame at the current baud, and the lowest baud selectable here
-is uartclk / 16 / 0xffff, which is 42 on this part (uartclk 44.2 MHz).
-One 12-bit frame at 42 baud is 286 ms. The upper word only becomes
-non-zero past 4.3 s, which would need a baud below 3, so every value the
-driver can hold has a zero upper word and a tear cannot change it.
-
-On "port lock dropped in serial core callbacks breaks atomicity":
-
-This one is deliberate and I do not plan to change it.
-max310x_tmr_tx() takes port->lock, so calling hrtimer_cancel() while
-holding it would deadlock against a callback already running on another
-CPU. hrtimer_try_to_cancel() is tried first and the unlock only happens
-on -1, which is exactly the case where that callback is spinning on the
-lock being dropped; cancel_tx_delay_tmr is what makes the re-entry safe.
-Several other serial drivers drop and retake the lock the same way. The
-review's own dismissed-concerns section reaches the same conclusion,
-and separately notes that uart_rs485_config() wraps the rs485_config()
-call in scoped_guard(uart_port_lock_irqsave, port), so the lock state
-on entry is what the code assumes.
-
-On "race in rts_work_proc transmits data with RTS disabled":
-
-I could not construct a reachable ordering for this one. If the worker
-reads MAX310X_TX_OFF and max310x_start_tx() then sets
-MAX310X_TX_WAIT_BEFORE_SEND, start_tx also schedules rts_work again, and
-that run reads the new state and asserts RTS. The before-send delay the
-first run arms is longer than 15 bit-times by construction, since that
-is what selects the software path in the first place, so the second run
-lands well inside it. The timer only schedules tx_work, which queues
-behind the pending rts_work. If there is a concrete ordering where data
-is shifted with RTS deasserted, I would like to see it.
-
-On the three concerns in the web report that are not in the mail: I
-agree with all three and with the preexisting flag on each. The
-cancel-before-uart_remove_one_port() ordering in max310x_remove() and
-the out_uart path are both unchanged from the base commit, which already
-cancels the three original work items in that order, and the unlocked
-xmit_fifo and icount access from tx_work is how this driver has always
-transmitted. They are worth fixing; they are not this patch's to fix.
-
-Tapio
+> 
+> > https://github.com/Mr-Bossman/linux/commits/dev/jesse/sdtrig-rebase/
+> >
+> > Thanks,
+> > Jesse Taube
+> >
+> > > Single stepping is ready and test but to follow this patch set.
+> > > Virtualization of debug triggers are pending
+> > >
+> > > The SBI debug trigger extension is specified in Chapter 19 of the SBI
+> > > specification:
+> > >   https://github.com/riscv-non-isa/riscv-sbi-doc/releases/download/v3.0/riscv-sbi.pdf
+> > >
+> > > The Sdtrig ISA is part of the RISC-V debug specification:
+> > >   https://github.com/riscv/riscv-debug-spec
+> > >
+> > > Changes from v5:
+> > >   - Rebased to v7.2-rc6
+> > >   - Simplified Macros in hw_breakpoint.h
+> > >   - Took care of the review comments
+> > >   - Added ptrace support for hardware break/watchpoints (new patch)
+> > >     - PTRACE_GETREGSET/SETREGSET via NT_RISCV_HW_BREAK / NT_RISCV_HW_WATCH
+> > >     - PTRACE_GETHBPREGS / SETHBPREGS for direct single-trigger access
+> > >     - HAVE_MIXED_BREAKPOINTS_REGS selected (break/watch share trigger pool)
+> > >     - flush_ptrace_hw_breakpoint / ptrace_hw_copy_thread wired up
+> > >   - Extended selftest to cover ptrace-based hw break/watchpoint paths (new patch)
+> > >
+> > > Changes from v4:
+> > >   - Rebased to v7.2-rc4
+> > >   - Fixed rv32 build error
+> > >   - Added pr_fmt to print KBUILD_MODNAME
+> > >   - Changed type of shmem_pa to phys_addr_t
+> > >   - Use per_cpu_ptr_to_phys instead of __pa for per-cpu allocated memory
+> > >   - Print successful registration/unregistration message when no error
+> > >   - Added RISC-V DEBUGGING section in MAINTAINERS and added myself as maintainer
+> > >   - Fixed warnings from checkpatch.pl --strict run
+> > >
+> > > Changes from v3:
+> > >   - Rebased to v7.1-rc3
+> > >   - For watchpoints, check tdata1.hit via SBI_EXT_DBTR_TRIG_READ and keep
+> > >     STVAL-based matching as fallback
+> > >   - Improved watchpoint matching when STVAL reports the lowest accessed address
+> > >     for wider memory accesses
+> > >   - Program execute breakpoints with SIZE=0 (match any size) to avoid misses
+> > >     with 16-bit/compressed instruction addresses
+> > >   - Updated selftest to avoid deadlock by replacing unbounded sem_wait() with
+> > >     sem_timedwait() timeout handling
+> > >   - Updated selftest breakpoint function so it cannot be inlined or optimized away
+> > >
+> > > Changes from v2:
+> > >   - Rebased to v7.0-rc1
+> > >   - Fixed warnings from checkpatch.pl --strict run
+> > >
+> > > Changes from v1:
+> > >   - The patch adding the SBI extension and function IDs is already merged; this
+> > >     series builds on top of that
+> > >   - Added breakpoint selftest in tools/testing/selftests/breakpoints/
+> > >
+> > > How to use:
+> > > ~~~~~~~~~~~
+> > > OpenSBI:
+> > >   https://github.com/riscv-software-src/opensbi.git
+> > >
+> > > QEMU:
+> > >   https://github.com/qemu/qemu.git
+> > >
+> > > Linux Kernel:
+> > >   Apply these patches on top of v7.2-rc6.
+> > >
+> > > How to test:
+> > > ~~~~~~~~~~~
+> > > From the Linux kernel directory, first install the UAPI headers (required on a
+> > > fresh tree so the compiler can locate <asm/ptrace.h> and the new
+> > > NT_RISCV_HW_BREAK/WATCH definitions via KHDR_INCLUDES):
+> > >
+> > >   make headers
+> > >
+> > > Then build the selftest:
+> > >
+> > >   make -C tools/testing/selftests/breakpoints/
+> > >
+> > > This produces breakpoint_test_riscv under the same directory. Load it on the
+> > > target and run. Sample output:
+> > >
+> > >   # /apps/breakpoint_test_riscv
+> > >   # [perf_event]: Breakpoint test passed!
+> > >   # [perf_event]: Watchpoint test passed!
+> > >   # [ptrace]: Breakpoint test passed!
+> > >   # ptrace(PTRACE_GETREGSET): Number of watchpoints: 2
+> > >   # ptrace(PTRACE_GETREGSet): addr: 0x82888 control: 0x8080
+> > >   # [ptrace]: Watchpoint test passed!
+> > >   # [hbpregs] breakpoint readback: addr=0x10472 type=4 len=4 ctrl=0
+> > >   # [hbpregs]: Breakpoint test passed!
+> > >   # [hbpregs] watchpoint readback: addr=0x82888 type=2 len=8 ctrl=0
+> > >   # [hbpregs]: Watchpoint test passed!
+> > >
+> > > Himanshu Chauhan (5):
+> > >   riscv: Introduce support for hardware break/watchpoints
+> > >   riscv: Add breakpoint and watchpoint test for riscv
+> > >   riscv: ptrace support for hardware break/watchpoints
+> > >   selftests/breakpoints: extend riscv test for ptrace hw
+> > >     break/watchpoints
+> > >   MAINTAINERS: Add entry for RISC-V Debugging
+> > >
+> > >  MAINTAINERS                                   |   9 +
+> > >  arch/riscv/Kconfig                            |   2 +
+> > >  arch/riscv/include/asm/hw_breakpoint.h        | 299 +++++++
+> > >  arch/riscv/include/asm/kdebug.h               |   3 +-
+> > >  arch/riscv/include/asm/processor.h            |  18 +
+> > >  arch/riscv/include/uapi/asm/ptrace.h          |  53 ++
+> > >  arch/riscv/kernel/Makefile                    |   1 +
+> > >  arch/riscv/kernel/hw_breakpoint.c             | 677 ++++++++++++++++
+> > >  arch/riscv/kernel/process.c                   |   5 +
+> > >  arch/riscv/kernel/ptrace.c                    | 507 ++++++++++++
+> > >  arch/riscv/kernel/traps.c                     |   6 +
+> > >  include/uapi/linux/elf.h                      |   4 +
+> > >  tools/include/uapi/linux/elf.h                |   2 +
+> > >  tools/testing/selftests/breakpoints/Makefile  |   5 +
+> > >  .../breakpoints/breakpoint_test_riscv.c       | 765 ++++++++++++++++++
+> > >  15 files changed, 2355 insertions(+), 1 deletion(-)
+> > >  create mode 100644 arch/riscv/include/asm/hw_breakpoint.h
+> > >  create mode 100644 arch/riscv/kernel/hw_breakpoint.c
+> > >  create mode 100644 tools/testing/selftests/breakpoints/breakpoint_test_riscv.c
+> > >
+> > > --
+> > > 2.43.0
+> > >
+> >
+> >
+> > _______________________________________________
+> > linux-riscv mailing list
+> > linux-riscv@lists.infradead.org
+> > http://lists.infradead.org/mailman/listinfo/linux-riscv
