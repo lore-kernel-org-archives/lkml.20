@@ -1,201 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C2847F3DA
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:51:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED036501F5E;
+	Wed, 16 Sep 2026 13:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566675; cv=none; b=h371Z6ayNoJpZNYWpAqxpcp7e6ARXVeseezGhYbtizVcoGPuCA94Xq7RPbsYVHkgFporjVpaOhFyApTVBykXArBfCeqI4uhW2ll/UGMlprvy7DTso/wvUfdnZElrZXedr7N5B+9TxaBTG8cbkkF7CV5ejepf6FtKeE3bdxrjtIw=
+	t=1789566711; cv=none; b=Hm8rPpjyNTHLJf7V9M4el9SROCkWvY6r2+AOvL2FSXKBGuhyjymjhqbxaOcYhGVR0Y8fy7qgCrNhTqErsibsee9kR+s4os96xGjTz0AVIypqyM832CupydZ6ZjkQK1y+JGBz+xnV/Qw4PQYDJ2/OPVQLsZ8XfZnVNtxu0f2ljus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566675; c=relaxed/simple;
-	bh=d0fNw7I7yFDopuJWtzYWjixrWoj6HGW9S6RdWVGAagM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=j/4fcWJ4NMz3unXp+K5MOjegyHcVeUmmMLRXqD622B89xZY0quELxWnzUJ6Fp6Xftyair+tXj/lfBiwEKj2BKvOEtSYJdcOBaDuaPdBR0GJ57CQvn1ih0SmtCwtOpPE5Ir2xGE5aHPGUxxZzKR4ucrbbskisyppS1IVpzD8ur7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iGrFBkee; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789566711; c=relaxed/simple;
+	bh=CYCUaFKF30v608ok/oaJzEtMb0FXgUyqdiKoxQwP1Mg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LZ+51DeBLImjhIrnU2sFbiyqI+S4VNHIFaYqada6Gx+I9XaSCmY+Du/JO/+o9EnpQvjmVv19ow07sNPCUzjRNooHp6+ojhN+xqYQwhx6d6PUUarKOh3TEb0RoA1nzoVHOkKmq9bibfkV5anl7SzMv69HidalXe/dMhojhY2io7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=l1CY+DOM; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iGrFBkee"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CDBB1F00899
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:51:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789566669;
-	bh=EcwfPW4QP5Xml74DanZs2iwT1Yn8MF2fALNKcDOscV8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=iGrFBkeeNA4UPiv5QNna8P4/oEhNLw43BKpT+7hH+Nz3uL0K/tJ2kElyiz/dYRfte
-	 qaSHOLD2cSUQoh7SOxOlUMjQ8xhoSaqR0SqzPTwiW2T4FqrMXd1Rg47BQEMwGgepC+
-	 Po4cJ5lzyV/Y0JtUmYh/runOnv9koMKz7KqOVFJDQ/wofHZ+ows9O6u5Gw9uRzOJpv
-	 jo0bg3v73nwlk0t0l5P6fipJu/kaAVDd0eorUm8drgiCO6BGEW4PomXd37WUCHuaPy
-	 kIrBQlzZCdI5wmunsG8dApzXwgpRZqza2RLlQprL6yhVp8ONtN/55wlVX832ZYFHmc
-	 8xDpi5Im3A/5Q==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1e023so338223e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:51:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzrKQOzIUY3IdR2lQKQ1PqYrj7UjzFNEpPjDunE055XaWvnGGndCjKBkhfZyITLOJYpZKHJEnZ44UMMzDs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsIVnY/L3thUakERqmy5f1tcgahNVmL51Sni8ErB94/JF6//+u
-	lj7205KMBI/AXT/GQWqb2FASx9n+n4yhPy/TzIn+6v972WxyEt3q3RWEzsvsaa2kjERQYKA6yah
-	Au9SOizBZZVFgJjqSQgGnXwQMCtH2lP0=
-X-Received: by 2002:a05:6512:3da1:b0:5b4:ab3a:8305 with SMTP id
- 2adb3069b0e04-5b8b63de08cmr671011e87.11.1789566667769; Wed, 16 Sep 2026
- 06:51:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="l1CY+DOM"
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id F3BB780665;
+	Wed, 16 Sep 2026 13:51:30 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id F091320030;
+	Wed, 16 Sep 2026 13:51:24 +0000 (UTC)
+Date: Wed, 16 Sep 2026 09:51:22 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Ridong Chen <ridong.chen@linux.dev>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Johannes
+ Weiner <hannes@cmpxchg.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Kairui Song <kasong@tencent.com>, Qi
+ Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Barry
+ Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, "open
+ list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
+ Ridong Chen <chenridong@xiaomi.com>
+Subject: Re: [PATCH v2 2/3] mm/mglru: add tracepoint for scan_folios()
+Message-ID: <20260916095122.50cbb620@robin>
+In-Reply-To: <aqn7h3BVCCRFI2TI@fedora>
+References: <20260911102939.2485750-1-ridong.chen@linux.dev>
+	<20260911102939.2485750-3-ridong.chen@linux.dev>
+	<aqkoeJvFzqpoGeaP@fedora>
+	<e38f2b80-20f2-4787-9e07-fb601552f550@linux.dev>
+	<aqn7h3BVCCRFI2TI@fedora>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916051034.180226-1-mario.limonciello@amd.com> <20260916051034.180226-2-mario.limonciello@amd.com>
-In-Reply-To: <20260916051034.180226-2-mario.limonciello@amd.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 16 Sep 2026 15:49:46 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0g4sBVBOnJJV3tnq_z8P8QEzwTCL+3gmws2uoRhy_gFVg@mail.gmail.com>
-X-Gm-Features: AcwNN1UfjPKEn2vX1e_V6wm29RAqdEFLzqinUNOeIY2SM4G4LjkXRrSYKHB4KQI
-Message-ID: <CAJZ5v0g4sBVBOnJJV3tnq_z8P8QEzwTCL+3gmws2uoRhy_gFVg@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] PCI/PM: Split out code from pci_pm_suspend_noirq()
- into helper
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	"open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Lukas Wunner <lukas@wunner.de>, linux-pm@vger.kernel.org, 
-	"Mario Limonciello (AMD)" <superm1@kernel.org>, Eric Naim <dnaim@cachyos.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: irjbtkznaum8zrwiwcezfwryhub1158r
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: F091320030
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18SJirAJj0hlDFf3ly3wdOJRosyZeYeUmk=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=oeM1slf5/TlEIZ+/3YKGqvcyO+zDrbVBSRK8hiBB5ps=; b=l1CY+DOMbpJKcpjlzAM2diNrXL7nPJVM2lngLvaKciPGh0uXXpSo40knlfQCPckEtCEolPOGvHeP5c95/CMRQsiC46J0m3lV5/Htpsp3/1pRh2IbalqgqXpdXUYRPkkieTHv4N1wIfRnlJlXDCT5by5Yq/R2grAHT1Tu+uJsCgA=
+X-HE-Tag: 1789566684-7934
+X-HE-Meta: U2FsdGVkX19UJ8lW1xmB0R2mxjz89QBslEjhduHRiY4qlRY5yOWoeny9H58NMlqDwXlP3THcOruj6daUuuul4JVZpmpvlj7i1/ijpeYw2JzEPJJ6ajaF5NxTU1dBURGCnpoeeK//ECSEYTXBLRIu8L9ys9kJvdkaqqLOL8HszlCpbZV1xNu/QranXaw+sY24EEkgWw8svkcU2JbsoDoJ99xGu2T18mLIgRAtscOoamchnegPWe7H8yx4XnV83zhHlqsYu1lIoXYPPYZJJeDpqC7KUy8J/UsvlbLmbdvSQARgBjrtPhQhXPyBQMXtZoT9
 
-On Wed, Sep 16, 2026 at 7:10=E2=80=AFAM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> From: "Mario Limonciello (AMD)" <superm1@kernel.org>
->
-> In order to unify suspend and hibernate codepaths without code duplicatio=
-n
-> the common code should be in common helpers.  Move it from
-> pci_pm_suspend_noirq() into a helper.  No intended functional changes.
->
-> Tested-by: Eric Naim <dnaim@cachyos.org>
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+On Wed, 16 Sep 2026 10:14:31 +0800
+Baoquan He <baoquan.he@linux.dev> wrote:
 
-Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+> > However, 'sc' is an internal structure, so sc->order cannot be accessed in
+> > TP_fast_assign(), and I don't think it is worth making scan_control an
+> > external structure just for this.  
+> 
+> Agree.
 
-> ---
-> v4:
->  * Make pci_pm_suspend_noirq_common() bool instead (Rafael)
-> ---
->  drivers/pci/pci-driver.c | 77 +++++++++++++++++++++++++---------------
->  1 file changed, 49 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-> index e16aa59dd7ac8..8334214f8c1ed 100644
-> --- a/drivers/pci/pci-driver.c
-> +++ b/drivers/pci/pci-driver.c
-> @@ -818,6 +818,52 @@ static void pci_pm_complete(struct device *dev)
->
->  #endif /* !CONFIG_PM_SLEEP */
->
-> +#if defined(CONFIG_SUSPEND)
-> +/**
-> + * pci_pm_suspend_noirq_common - prepare a device to enter a low-power s=
-tate
-> + * @pci_dev: pci device
-> + *
-> + * Save the device state and decide whether bus-level power management s=
-hould
-> + * skipped. Returns true if bus-level power management should be skipped=
-,
-> + * false otherwise.
-> + */
-> +static bool pci_pm_suspend_noirq_common(struct pci_dev *pci_dev)
-> +{
-> +       if (!pci_dev->state_saved) {
-> +               pci_save_state(pci_dev);
-> +
-> +               /*
-> +                * If the device is a bridge with a child in D0 below it,
-> +                * it needs to stay in D0, so check skip_bus_pm to avoid
-> +                * putting it into a low-power state in that case.
-> +                */
-> +               if (!pci_dev->skip_bus_pm && pci_power_manageable(pci_dev=
-))
-> +                       pci_prepare_to_sleep(pci_dev);
-> +       }
-> +
-> +       pci_dbg(pci_dev, "PCI PM: Sleep power state: %s\n",
-> +               pci_power_name(pci_dev->current_state));
-> +
-> +       if (pci_dev->current_state =3D=3D PCI_D0) {
-> +               pci_dev->skip_bus_pm =3D true;
-> +               /*
-> +                * Per PCI PM r1.2, table 6-1, a bridge must be in D0 if =
-any
-> +                * downstream device is in D0, so avoid changing the powe=
-r state
-> +                * of the parent bridge by setting the skip_bus_pm flag f=
-or it.
-> +                */
-> +               if (pci_dev->bus->self)
-> +                       pci_dev->bus->self->skip_bus_pm =3D true;
-> +       }
-> +
-> +       if (pci_dev->skip_bus_pm && pm_suspend_no_platform()) {
-> +               pci_dbg(pci_dev, "PCI PM: Skipped\n");
-> +               return true;
-> +       }
-> +
-> +       return false;
-> +}
-> +#endif /* CONFIG_SUSPEND */
-> +
->  #ifdef CONFIG_SUSPEND
->  static void pcie_pme_root_status_cleanup(struct pci_dev *pci_dev)
->  {
-> @@ -907,6 +953,7 @@ static int pci_pm_suspend_noirq(struct device *dev)
->  {
->         struct pci_dev *pci_dev =3D to_pci_dev(dev);
->         const struct dev_pm_ops *pm =3D dev->driver ? dev->driver->pm : N=
-ULL;
-> +       bool skip_bus_pm;
->
->         if (dev_pm_skip_suspend(dev))
->                 return 0;
-> @@ -937,36 +984,10 @@ static int pci_pm_suspend_noirq(struct device *dev)
->                 }
->         }
->
-> -       if (!pci_dev->state_saved) {
-> -               pci_save_state(pci_dev);
-> -
-> -               /*
-> -                * If the device is a bridge with a child in D0 below it,
-> -                * it needs to stay in D0, so check skip_bus_pm to avoid
-> -                * putting it into a low-power state in that case.
-> -                */
-> -               if (!pci_dev->skip_bus_pm && pci_power_manageable(pci_dev=
-))
-> -                       pci_prepare_to_sleep(pci_dev);
-> -       }
-> +       skip_bus_pm =3D pci_pm_suspend_noirq_common(pci_dev);
->
-> -       pci_dbg(pci_dev, "PCI PM: Suspend power state: %s\n",
-> -               pci_power_name(pci_dev->current_state));
-> -
-> -       if (pci_dev->current_state =3D=3D PCI_D0) {
-> -               pci_dev->skip_bus_pm =3D true;
-> -               /*
-> -                * Per PCI PM r1.2, table 6-1, a bridge must be in D0 if =
-any
-> -                * downstream device is in D0, so avoid changing the powe=
-r state
-> -                * of the parent bridge by setting the skip_bus_pm flag f=
-or it.
-> -                */
-> -               if (pci_dev->bus->self)
-> -                       pci_dev->bus->self->skip_bus_pm =3D true;
-> -       }
-> -
-> -       if (pci_dev->skip_bus_pm && pm_suspend_no_platform()) {
-> -               pci_dbg(pci_dev, "PCI PM: Skipped\n");
-> +       if (skip_bus_pm)
->                 goto Fixup;
-> -       }
->
->  set_unknown:
->         pci_pm_set_unknown_state(pci_dev);
-> --
-> 2.43.0
->
+Or what you can do is to move include/trace/events/vmscan.h to
+mm/trace_mm.h (or whatever you want to call it) and struct scan_control
+into "vmscan.h" and then you can use internal structures within the
+trace event.
+
+Up to you, but this is what other subsystems have done.
+
+-- Steve
