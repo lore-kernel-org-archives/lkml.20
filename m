@@ -1,563 +1,541 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802F051C34F;
-	Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79B352121F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:23:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568584; cv=none; b=rakpssYKmpcn9JpNH5IqUxLaOOUvjVaLsXFz7pEoFQPZip8FDbL7NArx3WBIoVoEeJyfXrDl6URIHkliF8Qi3s0Pa1Hqcth0lb92+cEDm2R6+uzDiI4nj1NUwk3QOCyULpN5BGhfegrxJaYx9jg6QqcYwzi2WKO4NKu2VDYh2aw=
+	t=1789568590; cv=none; b=UtBDDIYlTtlo4f0asDdTp1kSZTX5k6lIfAKcI3zRVh0hMOWNdDaQJ8OVr8kOrM4ZH9NEg0pt0Gi7eckt8FT+JC982fiLoL8uqAGbpqq0DKJuiTpvCkdvQDXdJCGmAKPPfEr59q7PJ+f6Scu26frM5/mWOVKnJqpUrz6uubK3NsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568584; c=relaxed/simple;
-	bh=W5bxwKW7Qv7LDsd62O2zaLBXfqVwPhTC1S3iUkPX6gk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oqWZHsd1pd8s4nqUQXA+LeKO0vtvyFRhzIAWcxw0irXRcXPIMs+NqmDHjjeM3+iZ9LrrojFygGhg88zg3vxM17ExssDE/G316ITxSQr4GD4iDSKnXUn5P3X+BYqf9oJyewmO88n4+77poAKimUkr/0Qrj9tQ8iObowQg0aApE9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CCSa+cVK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789568590; c=relaxed/simple;
+	bh=MW52UasiMWetfxXU5G2f7/HFtC/7FInK6moJqDovXPQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=erCKK6NBJ3pwoT6Lscdo6yW9ZT1zJgCpb0zt6jCCx7sBRTn0CRTh0uhKOpAm4/DIdU5olYmLwqwKhWAHZ51LXEpsJvWHCCyuWnJbmZWO4VJn/nO7rTY3B9mwZgOSrQlED5DVO4z3AX5N4n0DjwNWBMbYazryiE9i4jStWsGVv0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZtSP4vOu; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CCSa+cVK"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 63CAFC2BCB9;
-	Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789568584;
-	bh=W5bxwKW7Qv7LDsd62O2zaLBXfqVwPhTC1S3iUkPX6gk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=CCSa+cVKIB/ZxGxQNaScqwBS2X/chkgymrN7PI9NK5QQHH7p5/GZr3hK1VClTcQu+
-	 eq/U9PImkmxMwJkXmiEPjGD21xQ1nDnuCkHNbFeB7F5TJ3ZY4QEK4iRsMDeBl5ESYD
-	 lAK8gmlGrBtzjJEPkgPLO5dsNzZkz5Csy/narFEDvNnAbU1Kq1xjq/K58j1qe9t2OD
-	 5K5eSwJyeximL1zlULwiGVEqat4jYmh+xxqbNc25vaIguJ7vcPP1UmXxrCogwCZxrB
-	 z3UQqLIVF/5PracdYjCugdYjx7b1dMPy/ZYTLQuvx4u6v7r5IHN8Sc1BiK5fZtP4Ja
-	 zA//jwzWxyd6g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B6DBC982C5;
-	Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
-From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Wed, 16 Sep 2026 17:22:24 +0300
-Subject: [PATCH v2 19/19] arm64: dts: qcom: generalmobile-shamrock: new
- device
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZtSP4vOu"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8631d0023daso654792b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:23:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789568585; x=1790173385; darn=vger.kernel.org;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=pI7LHNgMp5zv6+BEPg/KEWqDvcMOhauz5ccgbXeKff0=;
+        b=ZtSP4vOuYQDK0Bwa1odmNvPH/v9xIveT9oIIto3Tdpxl5t+O7KaULw27TiznCNFDcD
+         yP7rGDcdUKGAWLM1c+LNVXa2w5nvpGpV8uSSzBaoYVKSQra4lS0rxuELFbvcj2JTwwbo
+         pzT3pQWAcW4ZvuwVOsBywK4WomzSbOUn2dzaygguLta0znMYP3qa6IG+gYNPuta2q8vj
+         dpffFC35JLiVNvCKeY8eKehkfnvxLoUCR0+goqnbGsBkaJWr3Vo9xmIw1Pd0axg3W/83
+         YEF614RQd9gKyBR63d7afallGVxWOGVDIPhZ1qMekTWzIXfXAetPp39RWnmtFbZYw8Kl
+         JCsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789568585; x=1790173385;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pI7LHNgMp5zv6+BEPg/KEWqDvcMOhauz5ccgbXeKff0=;
+        b=mTHnvBYgErcpuWjTKpTR/3Th9iwyAb4s21wFn41gMVjPCH9qfPtlf/Du1sVdn9j3B7
+         4vVWnw5PxYBncUxt6f0z/L0sV1G4hgHZgWaa7GajdOOEaCu3AnglKZ1/emK6JIGhh9hF
+         ldio18T5G3tF00QkIZc9JM03f9l0vcpgML1u5GAlE8SNYnAfuRedInDdxk18aDvQS+TC
+         2yef2l1fhS1Y0BR8TEhyRyoUN4OgAO9HlcySwmhKsK8LcAso8lxs76Y+wJoA5Wl/imv/
+         C+bJos7nklsr2SXm/FWiGAaHV3UsDXMjkvme9FtfPVB2itLYPsT/DLQL6WcWf79YNwcZ
+         byMg==
+X-Forwarded-Encrypted: i=1; AKwUvBzcyw5vlwS8rNa6GYu1xprjX7JTD8YqJ37fxdJcLdbAMVpM+nSGxPT60cAYLFlvuvO+zn0vtskZ1H6uws8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWXW0yApDByrrUBDuqnPX4membYSKSZPX23JpSQoT0cBwWuPTM
+	pQEKMNEoUfddPYguk6ypoX2b6CjLPs9PsNW/JJnzpGGCJloE5Pdlz2kW
+X-Gm-Gg: AYBFou2exG9m9ubngr5D1zAXPWrcvWjqTWmpXJTPRl6fWXA19QMo589HZtX5k4XpEiG
+	8nlmrD2ne2Jj0HJm31DAH+Fs0YQUayxnVAkMPX7d5AI3khHI5uZsuiNwus1afO4arJtURabgey6
+	JWDqka1PPXDywVNjvcnMXq6cwU0CNG2ouYuvljrDOqBd/Dd5XZpVZT4U61RDG0mYga5RUgs5dsy
+	3MdfhmAaUkq9TqI6v2FBs2T97KYg/afjBmVnEC77H69kjcBIAbPSS6UQtJY7apHR4KKe/rd2FJK
+	N47HQfiPywaxa1reVVp5mk29J1cjCmk2ZCdifcmCiTlfbs/7FmoNTa61HwZoCT8+fD67fCLBSyR
+	512vpHhBnqiYBNAJyATi6vTYrchq/KwjhsjtYd7ghlPkaSbaEdOI0tfaR9GnLl8ziHdnNbSxTlq
+	luJcvqK4h91v2WtWHniX7TkvRNU9j25v44idQQA7RrHFVn474+ccjrvarz2V0pu8sek564foRhT
+	/TY1v6F
+X-Received: by 2002:a05:6a00:6caa:b0:856:30dd:91ba with SMTP id d2e1a72fcca58-87236ae8236mr5765302b3a.2.1789568584449;
+        Wed, 16 Sep 2026 07:23:04 -0700 (PDT)
+Received: from [127.0.1.1] ([240e:b8f:977f:f400:ec2a:b15e:fef8:70a])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d179aesm1390884b3a.50.2026.09.16.07.22.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 07:23:03 -0700 (PDT)
+From: Liang Haowen <nbg2974@gmail.com>
+To: linux-leds@vger.kernel.org
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Martin K. Petersen <mkp@kernel.org>, linux-scsi@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Denis Benato <denis.benato@linux.dev>, Armin Wolf <W_Armin@gmx.de>,
+ Hans de Goede <hansg@kernel.org>,
+ Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH RFC v6 1/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver
+ for ROG NVMe enclosures
+Date: Wed, 16 Sep 2026 14:22:58 -0000
+Message-Id: <202609162200.RFCv6-1.lhw@gmail.com>
+In-Reply-To: <202609162200.RFCv6-0.lhw@gmail.com>
+References: <202609162200.RFCv6-0.lhw@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-msm8952-initial-support-v2-19-798c2602dde1@mainlining.org>
-References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
-In-Reply-To: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>, 
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
- iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>, 
- linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=11308;
- i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=/IrfQac56QvvxYiADORju0/FWRcrPJaPis1VE0E9U5M=;
- b=6ZN09MjQ+trrem67KAH/ylyagf/vDayDtWtal8Pff15BEzniGYKdfzw/UvOVtNC393qb/jd6p
- IMUcP65wJpYBZmlnVd+VIccIBkOkWGYNz3QuQRQSiK4tSj12O4Wjuum
-X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
- pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
-X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
- with auth_id=954
-X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Reply-To: muzafferkadir@mainlining.org
 
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+From: Liang Haowen <nbg2974@gmail.com>
+Date: Wed, 16 Sep 2026 21:20:00 +0800
+Subject: [PATCH RFC v6] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver for
+ ROG NVMe enclosures
 
-Add General Mobile Shamrock (GM 5 Plus). Shamrock is designed
-similar to L9300. Downstream reference is [1].
+ASUS ROG external NVMe enclosures (ROG STRIX Arion, USB 0b05:1932) are
+plain USB mass-storage devices with no HID interface: the Aura LEDs
+hang off an ENE controller driven by vendor SCSI commands on the same
+LUN as the disk. The enclosure has 4 independently addressable LEDs,
+verified on hardware.
 
-[1] https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob/cm-14.1/arch/arm/boot/dts/qcom/msm8952-l9300.dtsi
+Register a scsi_device_handler matched by INQUIRY (vendor "ROG",
+model "ESD-S1C"); it does not claim the sdev (sd keeps owning the
+disk) and exposes each LED as a multicolor LED class device,
+/sys/class/leds/asus-arion-0-0-0-0::led-0 through led-3. The
+H:C:T:L part of the sdev name keeps the names unique when more than
+one enclosure is connected, with its colons flattened to dashes. The
+color section stays empty, since multicolor LEDs enumerate their
+palette via multi_intensity, and the four identical zones use the
+function name with a "-N" ordinal, as the naming section in
+Documentation/leds/leds-class.rst asks for.
 
-Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Protocol: a 16-byte vendor CDB (opcode 0xec, 'A' 'S' signature,
+register index, argument count in cdb[13]). MODE 0x8021 (Static) must
+be written first in every sequence or the device ignores it; colours
+go to 0x8160 + 3 * led and 0x8100 + 3 * led (3 bytes, order R, B, G;
+both tables are written because firmware revisions pull from one or
+the other); APPLY 0x80a0 takes 0x01 to apply and 0xaa to save.
+
+The CDB cannot go through scsi_execute_cmd(): it sizes the command
+via scsi_command_size(opcode), which maps vendor opcode 0xec to
+10 bytes, so cdb[13] is dropped and the device silently ignores the
+write (GOOD status, no error). The request is built with
+scsi_alloc_request() instead, which initializes the scsi_cmnd parts a
+passthrough needs (command buffer, lengths, rcu head), with cmd_len
+forced to 16, mirroring what SG_IO does from userspace.
+
+brightness_set only caches the colour and marks the LED in a per-zone
+dirty mask under a spinlock; led_mc_calc_color_components() runs under
+that lock too, because it writes the shared subled_info array and
+trigger events call led_set_brightness() without the led_access lock
+that serializes sysfs stores. A single work item per zone then
+snapshots the mask and colours and runs one ENE sequence for all
+pending LEDs (MODE, colour slots, APPLY, SAVE). Funneling every
+update through one work item keeps the sequences from interleaving
+between concurrent LED updates and batches multi-LED updates into a
+single APPLY/SAVE. A re-queued run with nothing pending returns
+before touching the device, so it cannot wear the flash with a
+pointless SAVE, and the lock keeps a colour write from being
+reordered after its dirty bit on weakly ordered architectures.
+
+This is the monolithic out-of-tree version as verified on hardware;
+the Kconfig/Makefile/MAINTAINERS wiring lands with the agreed split
+into a SCSI transport helper and a shared ASUS Aura LED interface.
+
+Signed-off-by: Liang Haowen <nbg2974@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../dts/qcom/msm8952-generalmobile-shamrock.dts    | 436 +++++++++++++++++++++
- 2 files changed, 437 insertions(+)
+ drivers/leds/leds-asus-aura-scsi.c | 392 +++++++++++++++++++++++++++++
+ 1 file changed, 392 insertions(+)
+ create mode 100644 drivers/leds/leds-asus-aura-scsi.c
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index d6547fb18edf..3cc2dfb09116 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -125,6 +125,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-samsung-a7.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-sony-xperia-kanuti-tulip.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-wingtech-wt82918.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= msm8939-wingtech-wt82918hd.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= msm8952-generalmobile-shamrock.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-flipkart-rimob.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-motorola-potter.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-daisy.dtb
-diff --git a/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
+diff --git a/drivers/leds/leds-asus-aura-scsi.c b/drivers/leds/leds-asus-aura-scsi.c
 new file mode 100644
-index 000000000000..e6c92ebcbf21
+index 0000000..4e039bd
 --- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
-@@ -0,0 +1,436 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++++ b/drivers/leds/leds-asus-aura-scsi.c
+@@ -0,0 +1,392 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * ASUS Aura RGB over SCSI for ROG external NVMe enclosures
++ * (e.g. ROG STRIX Arion, USB 0b05:1932).
++ *
++ * USB mass-storage device, no HID; the ENE LED controller is driven via
++ * vendor SCSI commands. Matched by INQUIRY (vendor "ROG", model "ESD-S1C"),
++ * does NOT claim the sdev (sd keeps owning the disk).
++ *
++ * The Arion exposes 4 independently addressable LEDs (verified on hardware):
++ * each is a multicolor LED class device (asus-arion-<H-C-T-L>::led-0..led-3,
++ * unique per enclosure). A colour change writes that LED's slot only:
++ * EFFECT 0x8160 + 3*led, DIRECT 0x8100 + 3*led (3 bytes, byte order R, B, G),
++ * then APPLY (0x01) and SAVE (0xaa). MODE (0x8021 = Static) is written first
++ * in every sequence; skipping it makes the device ignore the whole sequence.
++ *
++ * Scheduling: brightness_set (LED core fast path) caches the colour and
++ * marks the LED in a per-zone dirty mask under a spinlock; a single work
++ * item per zone snapshots the mask and colours, then runs one ENE
++ * sequence for all pending LEDs (MODE once, colour slots, APPLY, SAVE).
++ * Funneling every update through that one work item also serializes the
++ * sequences: the MODE/colour/APPLY/SAVE chain must never interleave
++ * between concurrent LED updates. The snapshot makes re-queued runs with
++ * nothing left to do return before touching the device, so a re-queue
++ * cannot wear the flash with a pointless SAVE, and the lock keeps a
++ * colour write from being reordered after its dirty bit on weakly
++ * ordered architectures.
++ *
++ * CDB length: scsi_execute_cmd() sizes the CDB via COMMAND_SIZE(opcode),
++ * which maps vendor opcode 0xec to 10 bytes. The ENE protocol uses a 16-byte
++ * CDB with the data length in cdb[13], so scsi_execute_cmd() drops cdb[13]
++ * and the device silently ignores the write. ene_write() therefore mirrors
++ * scsi_execute_cmd() on top of scsi_alloc_request() and forces cmd_len = 16
++ * (what SG_IO does from userspace).
++ *
++ * Attach manually until a notifier lands:
++ * echo asus_aura > /sys/block/sdX/device/dh_state
++ */
 +
-+/dts-v1/;
++#include <linux/module.h>
++#include <linux/bits.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++#include <linux/string.h>
++#include <linux/leds.h>
++#include <linux/led-class-multicolor.h>
++#include <linux/blk_types.h>
++#include <linux/blkdev.h>
++#include <linux/blk-mq.h>
++#include <linux/workqueue.h>
++#include <scsi/scsi.h>
++#include <scsi/scsi_cmnd.h>
++#include <scsi/scsi_device.h>
++#include <scsi/scsi_dh.h>
 +
-+#include "msm8952.dtsi"
-+#include "pm8950.dtsi"
-+#include "pmi8950.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/leds/common.h>
++#define ARION_INQ_VENDOR	"ROG"
++#define ARION_INQ_MODEL		"ESD-S1C"
 +
-+/ {
-+	model = "General Mobile GM 5 Plus";
-+	compatible = "generalmobile,shamrock", "qcom,msm8952";
-+	qcom,msm-id = <QCOM_ID_MSM8952 0x0>;
-+	qcom,board-id = <QCOM_BOARD_ID_QRD 1>;
-+	chassis-type = "handset";
++#define ENE_OPCODE		0xec
++#define ENE_REG_MODE		0x8021	/* AuraMode value: Static=1, Breathe=2, ... */
++#define ENE_REG_APPLY		0x80a0
++#define ENE_REG_COLORS		0x8160	/* + 3*led, 3 bytes per LED, order R,B,G */
++#define ENE_REG_COLORS_DIRECT	0x8100	/* + 3*led, same layout */
++#define ENE_APPLY		0x01
++#define ENE_SAVE		0xaa
++#define ENE_MODE_STATIC		1
++#define ENE_CDB_LEN		16
++#define ENE_RGB_LEN		3
++#define ENE_TIMEOUT		(10 * HZ)
 +
-+	aliases {
-+		mmc0 = &sdhc_1; /* SDC1 eMMC slot */
-+		mmc1 = &sdhc_2; /* SDC2 SD card slot */
-+		serial0 = &blsp1_uart2;
-+	};
++/*
++ * Verified on hardware: the enclosure has 4 independently settable LEDs.
++ * (The colour table reserves 16 slots; only the first 4 drive anything.)
++ */
++#define ARION_NUM_LEDS		4
 +
-+	battery: battery {
-+		compatible = "simple-battery";
-+
-+		charge-term-current-microamp = <100000>;
-+		charge-full-design-microamp-hours = <3100000>;
-+		constant-charge-current-max-microamp = <3000000>;
-+		constant-charge-voltage-max-microvolt = <4400000>;
-+		voltage-min-design-microvolt = <3400000>;
-+		voltage-max-design-microvolt = <4400000>;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+
-+		framebuffer {
-+			compatible = "simple-framebuffer";
-+			memory-region = <&cont_splash_mem>;
-+
-+			width = <1080>;
-+			height = <1920>;
-+			stride = <(1080 * 3)>;
-+			format = "r8g8b8";
-+
-+			power-domains = <&gcc MDSS_GDSC>;
-+
-+			clocks = <&gcc GCC_MDSS_AHB_CLK>,
-+				 <&gcc GCC_MDSS_AXI_CLK>,
-+				 <&gcc GCC_MDSS_VSYNC_CLK>,
-+				 <&gcc GCC_MDSS_MDP_CLK>,
-+				 <&gcc GCC_MDSS_BYTE0_CLK>,
-+				 <&gcc GCC_MDSS_PCLK0_CLK>,
-+				 <&gcc GCC_MDSS_ESC0_CLK>;
-+		};
-+	};
-+
-+	/* Front Flash */
-+	flash-led-controller {
-+		compatible = "sgmicro,sgm3140";
-+
-+		enable-gpios = <&tlmm 33 GPIO_ACTIVE_HIGH>;
-+		flash-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
-+
-+		pinctrl-0 = <&front_flash_default>;
-+		pinctrl-names = "default";
-+
-+		front_flash_led: led {
-+			function = LED_FUNCTION_FLASH;
-+			color = <LED_COLOR_ID_WHITE>;
-+			flash-max-microamp = <1000000>;
-+			led-max-microamp = <625000>;
-+			flash-max-timeout-us = <1280000>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		pinctrl-0 = <&gpio_hall_sensor_default>, <&gpio_keys_default>;
-+		pinctrl-names = "default";
-+
-+		event-hall-sensor {
-+			label = "Hall Effect Sensor";
-+			gpios = <&tlmm 46 GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_SW>;
-+			linux,code = <SW_LID>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+
-+		button-volume-up {
-+			label = "Volume Up";
-+			gpios = <&tlmm 85 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			debounce-interval = <15>;
-+			wakeup-source;
-+		};
-+	};
-+
-+	multi-led {
-+		compatible = "leds-group-multicolor";
-+		color = <LED_COLOR_ID_RGB>;
-+		function = LED_FUNCTION_INDICATOR;
-+		leds = <&red_status>, <&green_status>, <&blue_status>;
-+	};
-+
-+	reserved-memory {
-+		cont_splash_mem: cont-splash@83200000 {
-+			reg = <0x0 0x83200000 0x0 (1080 * 1920 * 3)>;
-+			no-map;
-+		};
-+	};
-+
-+	vph_pwr: regulator-vph-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vph-pwr";
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
++struct asus_aura_led {
++	struct asus_aura_zone	*zone;
++	int			index;
++	struct led_classdev_mc	mc_cdev;
++	struct mc_subled	subled[3];
++	u8			rgb[ENE_RGB_LEN];
 +};
 +
-+&adsp {
-+	status = "okay";
++struct asus_aura_zone {
++	struct scsi_device	*sdev;
++	struct asus_aura_led	leds[ARION_NUM_LEDS];
++	spinlock_t		lock;	/* protects dirty and cached colours */
++	u8			dirty;	/* bit i: led i needs a colour write */
++	struct work_struct	work;
 +};
 +
-+&blsp1_i2c2 {
-+	status = "okay";
-+	/* SMB1351 @1d charger */
-+	/* wsa881x-i2c @e @44 @f @45 audio amplifier */
++static void ene_build_cdb(u8 *cdb, u16 reg, u8 arg_count)
++{
++	memset(cdb, 0, ENE_CDB_LEN);
++	cdb[0] = ENE_OPCODE;
++	cdb[1] = 'A';
++	cdb[2] = 'S';
++	cdb[3] = (reg >> 8) & 0xff;
++	cdb[4] = reg & 0xff;
++	cdb[13] = arg_count;
++}
++
++/*
++ * scsi_execute_cmd() with cmd_len forced to 16. scsi_alloc_request()
++ * initializes the parts of the scsi_cmnd a passthrough needs (zeroed
++ * cmnd, cmd_len = MAX_COMMAND_SIZE, sense_len, rcu head, retries);
++ * a raw blk_mq_alloc_request() does none of that.
++ */
++static int ene_write(struct scsi_device *sdev, u16 reg,
++		     const void *data, u8 arg_count)
++{
++	struct request *rq;
++	struct scsi_cmnd *scmd;
++	u8 cdb[ENE_CDB_LEN];
++	int ret;
++
++	ene_build_cdb(cdb, reg, arg_count);
++
++	rq = scsi_alloc_request(sdev->request_queue, REQ_OP_DRV_OUT, 0);
++	if (IS_ERR(rq))
++		return PTR_ERR(rq);
++
++	if (arg_count) {
++		ret = blk_rq_map_kern(rq, (void *)data, arg_count, GFP_NOIO);
++		if (ret)
++			goto out;
++	}
++
++	scmd = blk_mq_rq_to_pdu(rq);
++	scmd->cmd_len = ENE_CDB_LEN;
++	memcpy(scmd->cmnd, cdb, ENE_CDB_LEN);
++	scmd->allowed = 1;
++	rq->timeout = ENE_TIMEOUT;
++	rq->rq_flags |= RQF_QUIET;
++
++	blk_execute_rq(rq, true);
++	ret = scmd->result;
++out:
++	blk_mq_free_request(rq);
++	return ret;
++}
++
++/*
++ * Sleepable: runs on the system workqueue. One ENE sequence for every LED
++ * marked in the dirty mask. The mask and colours are snapshotted under the
++ * zone lock: asus_aura_set() may run concurrently on another CPU, and the
++ * lock keeps a colour write from being reordered after its dirty bit on
++ * weakly ordered architectures. A colour cached while this runs requeues
++ * the work and is picked up by the next sequence.
++ */
++static void asus_aura_zone_work(struct work_struct *work)
++{
++	struct asus_aura_zone *zone =
++		container_of(work, struct asus_aura_zone, work);
++	struct scsi_device *sdev = zone->sdev;
++	u8 rgb[ARION_NUM_LEDS][ENE_RGB_LEN];
++	u8 apply = ENE_APPLY;
++	u8 save = ENE_SAVE;
++	u8 mode = ENE_MODE_STATIC;
++	unsigned long flags;
++	u8 pending;
++	int i, ret;
++
++	spin_lock_irqsave(&zone->lock, flags);
++	pending = zone->dirty;
++	zone->dirty = 0;
++	for (i = 0; i < ARION_NUM_LEDS; i++)
++		memcpy(rgb[i], zone->leds[i].rgb, ENE_RGB_LEN);
++	spin_unlock_irqrestore(&zone->lock, flags);
++
++	/*
++	 * schedule_work() while this function runs requeues it, and the
++	 * pending colour may already have been consumed above; the requeued
++	 * run then has nothing to do. Return before touching the device:
++	 * SAVE writes its flash.
++	 */
++	if (!pending)
++		return;
++
++	if (!scsi_device_online(sdev))
++		return;
++
++	/* Mode first: without it the device ignores the whole sequence. */
++	ret = ene_write(sdev, ENE_REG_MODE, &mode, 1);
++	if (ret)
++		goto err;
++
++	for (i = 0; i < ARION_NUM_LEDS; i++) {
++		if (!(pending & BIT(i)))
++			continue;
++
++		ret = ene_write(sdev, ENE_REG_COLORS + i * ENE_RGB_LEN,
++				rgb[i], ENE_RGB_LEN);
++		if (ret)
++			goto err;
++
++		/*
++		 * Cover the DIRECT colour set too; some firmware revisions
++		 * pull from 0x8100 instead of 0x8160.
++		 */
++		ret = ene_write(sdev, ENE_REG_COLORS_DIRECT + i * ENE_RGB_LEN,
++				rgb[i], ENE_RGB_LEN);
++		if (ret)
++			goto err;
++	}
++
++	ret = ene_write(sdev, ENE_REG_APPLY, &apply, 1);
++	if (ret)
++		goto err;
++
++	/*
++	 * The change only takes effect after SAVE (0xaa). NOTE: saving on
++	 * every brightness change writes flash each time; revisit for wear
++	 * once confirmed.
++	 */
++	ret = ene_write(sdev, ENE_REG_APPLY, &save, 1);
++	if (ret)
++		goto err;
++
++	return;
++err:
++	dev_err(&sdev->sdev_gendev,
++		"asus_aura: colour update failed: %d\n", ret);
++}
++
++/* Non-blocking LED callback (LED core fast path). Cache colour, defer SCSI. */
++static void asus_aura_set(struct led_classdev *cdev,
++			  enum led_brightness brightness)
++{
++	struct led_classdev_mc *mc = lcdev_to_mccdev(cdev);
++	struct asus_aura_led *led =
++		container_of(mc, struct asus_aura_led, mc_cdev);
++	struct asus_aura_zone *zone = led->zone;
++	unsigned long flags;
++
++	/*
++	 * led_mc_calc_color_components() writes the shared subled_info
++	 * array. The LED core serializes sysfs stores with led_access,
++	 * but trigger events call led_set_brightness() without it, so
++	 * computing and copying the components under the same lock keeps
++	 * a trigger-driven update and a sysfs store from reading a mix of
++	 * each other's colours.
++	 */
++	spin_lock_irqsave(&zone->lock, flags);
++	led_mc_calc_color_components(mc, brightness);
++	/* ENE colour register byte order is R, B, G. */
++	led->rgb[0] = led->subled[0].brightness;
++	led->rgb[1] = led->subled[2].brightness;
++	led->rgb[2] = led->subled[1].brightness;
++	zone->dirty |= BIT(led->index);
++	spin_unlock_irqrestore(&zone->lock, flags);
++
++	schedule_work(&zone->work);
++}
++
++static int asus_aura_register_led(struct asus_aura_zone *zone, int index)
++{
++	struct asus_aura_led *led = &zone->leds[index];
++	struct led_classdev *cdev = &led->mc_cdev.led_cdev;
++	char hctl[32];
++	int ret;
++
++	led->zone = zone;
++	led->index = index;
++
++	led->subled[0].color_index = LED_COLOR_ID_RED;
++	led->subled[1].color_index = LED_COLOR_ID_GREEN;
++	led->subled[2].color_index = LED_COLOR_ID_BLUE;
++	led->mc_cdev.num_colors = 3;
++	led->mc_cdev.subled_info = led->subled;
++
++	/*
++	 * Include the sdev's H:C:T:L: every enclosure gets its own SCSI
++	 * host, so the names stay unique when more than one is connected.
++	 * With a static name the LED core would register the second
++	 * enclosure's LEDs under renamed nodes (asus-arion::led-0_1),
++	 * which is the wrong device identity. The names are per-attachment,
++	 * like sd X letters, and userspace is expected to enumerate.
++	 *
++	 * dev_name() renders the sdev as H:C:T:L; the extra colons would
++	 * break the devicename:color:function scheme userspace parses LED
++	 * class names with, so they are flattened to dashes. The color
++	 * section stays empty (these are multicolor LEDs, the palette is
++	 * enumerated via multi_intensity), and the four identical zones
++	 * get the function name with a "-N" ordinal, like the
++	 * Documentation/leds/leds-class.rst naming section asks for.
++	 */
++	strscpy(hctl, dev_name(&zone->sdev->sdev_gendev), sizeof(hctl));
++	strreplace(hctl, ':', '-');
++	cdev->name = kasprintf(GFP_KERNEL, "asus-arion-%s::led-%d", hctl, index);
++	if (!cdev->name)
++		return -ENOMEM;
++	cdev->max_brightness = 255;
++	cdev->brightness_set = asus_aura_set;
++
++	led_mc_calc_color_components(&led->mc_cdev, cdev->brightness);
++
++	/*
++	 * Register with NULL parent: parenting the LED to the sdev takes a
++	 * device reference, which blocks the sdev's final release on unplug,
++	 * which is what calls scsi_dh_release_device() -> our .detach() that
++	 * unregisters the LEDs. That reference cycle leaked the LED nodes and
++	 * the module refcount on every hot-unplug.
++	 */
++	ret = led_classdev_multicolor_register(NULL, &led->mc_cdev);
++	if (ret)
++		kfree(cdev->name);
++	return ret;
++}
++
++/*
++ * Unregister the LED devices before cancelling the work: unregistering
++ * removes the sysfs attributes, so no new brightness_set can schedule the
++ * zone work afterwards, and it waits for in-flight sysfs callbacks.
++ * Cancelling first would leave a window where a brightness write requeues
++ * the work after cancel_work_sync() returned, and the work would then run
++ * on freed memory.
++ */
++static void asus_aura_release(struct asus_aura_zone *zone, int num_leds)
++{
++	int i;
++
++	for (i = 0; i < num_leds; i++)
++		led_classdev_multicolor_unregister(&zone->leds[i].mc_cdev);
++	cancel_work_sync(&zone->work);
++	for (i = 0; i < num_leds; i++)
++		kfree(zone->leds[i].mc_cdev.led_cdev.name);
++	kfree(zone);
++}
++
++static int asus_aura_attach(struct scsi_device *sdev)
++{
++	struct asus_aura_zone *zone;
++	int i, ret;
++
++	if (strncmp(sdev->vendor, ARION_INQ_VENDOR, strlen(ARION_INQ_VENDOR)) ||
++	    strncmp(sdev->model, ARION_INQ_MODEL, strlen(ARION_INQ_MODEL)))
++		return SCSI_DH_DEV_UNSUPP;
++
++	zone = kzalloc_obj(*zone, GFP_KERNEL);
++	if (!zone)
++		return SCSI_DH_NOMEM;
++	zone->sdev = sdev;
++	spin_lock_init(&zone->lock);
++	INIT_WORK(&zone->work, asus_aura_zone_work);
++
++	for (i = 0; i < ARION_NUM_LEDS; i++) {
++		ret = asus_aura_register_led(zone, i);
++		if (ret) {
++			asus_aura_release(zone, i);
++			return SCSI_DH_NOMEM;
++		}
++	}
++
++	sdev->handler_data = zone;
++	return SCSI_DH_OK;
++}
++
++static void asus_aura_detach(struct scsi_device *sdev)
++{
++	struct asus_aura_zone *zone = sdev->handler_data;
++
++	if (!zone)
++		return;
++	asus_aura_release(zone, ARION_NUM_LEDS);
++	sdev->handler_data = NULL;
++}
++
++static struct scsi_device_handler asus_aura_dh = {
++	.name	= "asus_aura",
++	.module	= THIS_MODULE,
++	.attach	= asus_aura_attach,
++	.detach	= asus_aura_detach,
 +};
 +
-+&blsp1_i2c3 {
-+	status = "okay";
++static int __init asus_aura_init(void)
++{
++	return scsi_register_device_handler(&asus_aura_dh);
++}
 +
-+	/* himax,852x@48 Touchscreen */
++static void __exit asus_aura_exit(void)
++{
++	scsi_unregister_device_handler(&asus_aura_dh);
++}
 +
-+	touchscreen@5d {
-+		compatible = "goodix,gt970", "goodix,gt911";
-+		reg = <0x5d>;
-+		interrupts-extended = <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
-+		irq-gpios = <&tlmm 65 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
-+		AVDD28-supply = <&pm8950_l10>;
-+		VDDIO-supply = <&pm8950_l6>;
++module_init(asus_aura_init);
++module_exit(asus_aura_exit);
 +
-+		pinctrl-0 = <&touchscreen_default>;
-+		pinctrl-names = "default";
-+
-+		touchscreen-size-x = <1080>;
-+		touchscreen-size-y = <1920>;
-+	};
-+};
-+
-+&blsp2_i2c1 {
-+	status = "okay";
-+
-+	/* FUSB301 @25 USB-C Controller */
-+
-+	tpa6130a2: tpa6130a2@60 {
-+		compatible = "ti,tpa6130a2";
-+		pinctrl-0 = <&tpa6130a2_default>;
-+		pinctrl-names = "default";
-+		reg = <0x60>;
-+		power-gpio = <&tlmm 61 GPIO_ACTIVE_HIGH>;
-+		Vdd-supply = <&pm8950_l22>;
-+	};
-+
-+	tusb320: tusb320@67 {
-+		compatible = "ti,tusb320";
-+		reg = <0x67>;
-+		interrupts-extended = <&tlmm 45 IRQ_TYPE_EDGE_RISING>;
-+	};
-+
-+	led-controller@68 {
-+		compatible = "si-en,sn3193";
-+		reg = <0x68>;
-+
-+		shutdown-gpios = <&tlmm 68 GPIO_ACTIVE_HIGH>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		red_status: led@1 {
-+			reg = <1>;
-+			label = "red:status";
-+			led-max-microamp = <17500>;
-+		};
-+
-+		green_status: led@2 {
-+			reg = <2>;
-+			label = "green:status";
-+			led-max-microamp = <17500>;
-+		};
-+
-+		blue_status: led@3 {
-+			reg = <3>;
-+			label = "blue:status";
-+			led-max-microamp = <17500>;
-+		};
-+	};
-+};
-+
-+&lpass_mem {
-+	status = "okay";
-+};
-+
-+&pm8950_spmi_regulators {
-+	/* PM8950 S5 + S6 = VDD_APC supply */
-+	pm8950_s5: s5 {
-+		regulator-min-microvolt = <1050000>;
-+		regulator-max-microvolt = <1350000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+};
-+
-+&pm8950_resin {
-+	linux,code = <KEY_VOLUMEDOWN>;
-+
-+	status = "okay";
-+};
-+
-+&pmi8950_wled {
-+	qcom,enabled-strings = <0 1>;
-+	qcom,current-limit-microamp = <30000>;
-+	qcom,ovp-millivolt = <29500>;
-+	qcom,external-pfet;
-+
-+	status = "okay";
-+};
-+
-+&ramoops_mem {
-+	status = "okay";
-+};
-+
-+&rpm_requests {
-+	pm8950_rpm_regulators: regulators {
-+		compatible = "qcom,rpm-pm8950-regulators";
-+		vdd_s1-supply = <&vph_pwr>;
-+		vdd_s2-supply = <&vph_pwr>;
-+		vdd_s3-supply = <&vph_pwr>;
-+		vdd_s4-supply = <&vph_pwr>;
-+		vdd_s6-supply = <&vph_pwr>;
-+		vdd_l1_l19-supply = <&pm8950_s3>;
-+		vdd_l2_l23-supply = <&pm8950_s3>;
-+		vdd_l3-supply = <&pm8950_s3>;
-+		vdd_l5_l6_l7_l16-supply = <&pm8950_s4>;
-+		vdd_l8_l11_l12_l17_l22-supply = <&vph_pwr>;
-+		vdd_l9_l10_l13_l14_l15_l18-supply = <&vph_pwr>;
-+
-+		pm8950_s1: s1 {
-+			regulator-min-microvolt = <1000000>;
-+			regulator-max-microvolt = <1225000>;
-+		};
-+
-+		pm8950_s3: s3 {
-+			regulator-min-microvolt = <1300000>;
-+			regulator-max-microvolt = <1300000>;
-+		};
-+		pm8950_s4: s4 {
-+			regulator-min-microvolt = <2050000>;
-+			regulator-max-microvolt = <2050000>;
-+		};
-+
-+		pm8950_l2: l2 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-always-on;
-+			regulator-boot-on;
-+		};
-+
-+		/* pm8950_l3 is managed by rpmpd (RPMPD_VDDMX) */
-+
-+		pm8950_l5: l5 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8950_l6: l6 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8950_l7: l7 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8950_l8: l8 {
-+			regulator-min-microvolt = <2850000>;
-+			regulator-max-microvolt = <2900000>;
-+		};
-+
-+		pm8950_l9: l9 {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3300000>;
-+		};
-+
-+		pm8950_l10: l10 {
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+		};
-+
-+		pm8950_l11: l11 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+			regulator-allow-set-load;
-+			regulator-system-load = <200000>;
-+		};
-+
-+		pm8950_l12: l12 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8950_l13: l13 {
-+			regulator-min-microvolt = <3075000>;
-+			regulator-max-microvolt = <3075000>;
-+		};
-+
-+		pm8950_l14: l14 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <3300000>;
-+		};
-+
-+		pm8950_l15: l15 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <3300000>;
-+		};
-+
-+		pm8950_l16: l16 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8950_l17: l17 {
-+			regulator-min-microvolt = <2850000>;
-+			regulator-max-microvolt = <2850000>;
-+		};
-+
-+		pm8950_l19: l19 {
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1350000>;
-+		};
-+
-+		pm8950_l22: l22 {
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+		};
-+
-+		pm8950_l23: l23 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+	};
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm8950_l8>;
-+	vqmmc-supply = <&pm8950_l5>;
-+
-+	status = "okay";
-+};
-+
-+&sdhc_2 {
-+	cd-gpios = <&tlmm 67 GPIO_ACTIVE_HIGH>;
-+	vmmc-supply = <&pm8950_l11>;
-+	vqmmc-supply = <&pm8950_l12>;
-+
-+	status = "okay";
-+};
-+
-+&sleep_clk {
-+	clock-frequency = <32768>;
-+};
-+
-+&tlmm {
-+	gpio-reserved-ranges = <20 4>; /* Unknown, TZ Protected */
-+
-+	gpio_hall_sensor_default: gpio-hall-sensor-default-state {
-+		pins = "gpio46";
-+		function = "gpio";
-+		drive-strength = <6>;
-+		bias-pull-up;
-+	};
-+
-+	tpa6130a2_default: tpa6130a2-default-state {
-+		pins = "gpio61";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-down;
-+	};
-+
-+	touchscreen_default: touchscreen-default-state {
-+		ts-reset-pins {
-+			pins = "gpio64";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+		ts-irq-pins {
-+			pins = "gpio65";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+
-+	gpio_keys_default: gpio-keys-default-state {
-+		pins = "gpio85";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	front_flash_default: front-flash-default-state {
-+		front-flash-enable-pins {
-+			pins = "gpio33";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-down;
-+		};
-+		front-flash-flash-pins {
-+			pins = "gpio128";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-down;
-+		};
-+	};
-+};
-+
-+&xo_board {
-+	clock-frequency = <19200000>;
-+};
-
++MODULE_DESCRIPTION("ASUS Aura RGB over SCSI for ROG NVMe enclosures (per-LED)");
++MODULE_AUTHOR("Liang Haowen");
++MODULE_LICENSE("GPL");
 -- 
 2.55.0
-
 
