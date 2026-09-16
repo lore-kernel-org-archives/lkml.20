@@ -1,540 +1,508 @@
-Received: from out-2uec-a113.jellyfish.systems (out-2uec-a113.jellyfish.systems [63.250.43.113])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD404B405A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:16:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.113
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575413; cv=none; b=WfbQ7l19jJGHmCcrDahJ7F05NSRTUhNbfSk07ktplLAo8nXC+ZVEcOIPN9e8dogm4pYDsDBybYMPfhR8rb+3yIX30rHWCIV2CxqpFRBlf+UmiyyQTIULNfpcvFvGi0RI0Z7sjV4P4S8EdMxYcHWZSZvGFatuvs62Hmaerl7MjuQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575413; c=relaxed/simple;
-	bh=m85Ei046pGaHQ1bb2sq9uqBWK3qTOxvlC9tEX2125B4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i8EmeFTg7vgQNxAxiFO5DEA+rl7rvAIV4VxswkT8s1nbeqrRE7d/cioH1SvKpf5VwGYWkkM51BPzpCM4m/KVEluTau1QxbDeF6oHJJDTxg9abxnb9NnDhAA6iultn9c05Yy4x1zLO7fAR6z1NpoJVUFOUaTXdlKiHXLLcLT3nH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=POi3uZcn; arc=none smtp.client-ip=63.250.43.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCCC4CEE4B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789575461; cv=pass; b=rsdWSRqg/SXTgrN3OYnTEOtaNa8bBRNKqXaKnpdumcWOQZPODxvdSrJKKKPESvoDtjnWuwdNRCr2pJ+d6oCl2b4rcgHI4UtPxy8LKuCZbCbHy46EJvTHfqkkbrnZvXiyc/peBAdcA8m4hoiFsgu0m9iZGfIw+YwRVSC3GQT/caM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789575461; c=relaxed/simple;
+	bh=P3FI2yhIbLhga0GBj/FeMmJG1Ss0EXeIvT5iRieNDS0=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AQ9ymZmG3fpPEQR6+Cu2rCjfvuneobJauYsJr2xmq5WWD8Soz91cBhZvZStJr9/Bzij5nB4iQtuPdNFQ75j4fbizrOPzHlB64YG58cSsc5CqOIueEDc3j8NAP2pJ8XQtcGBqgOFnwncXewzfnK1gHR99Whi1VMQs6XK0GgvA/I8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dp3ZaW/8; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="POi3uZcn"
-Received: from fedora (unknown [117.147.120.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hlP5g4RXYz8sWN;
-	Wed, 16 Sep 2026 16:11:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1789575098;
-	bh=wdv0Ct5RL7y/bWSPN0HuVAGS4/ZmWxUYIOG19TOM51o=;
-	h=From:To:Cc:Subject:Date:From;
-	b=POi3uZcnfcCafo/CX0jNjHwMbabcDk7bGh+wVVavY/47RpHGu9G14EZpsIgUfgJfl
-	 A95k3z1O9lYGzLHhNbx2C02LW+Cc2s0neFYBKF8kJSogvFErUPDw5mcAZAO2CGFlTI
-	 ivTc9Us7EgnyYUh1ZciTAs2f6kpQT2CX2jiY40YCs2OaW690a5Dx3iq37nQPYgNTbg
-	 1QIVrh+lcN4vzJvRdLKF4w55q8zGELXF1Xuo+6B5UNn/OugVoWPBk1dKbyWEPqnPsz
-	 qx0Jx6cO6YVnKiJw+S3qbDjXero8KyG9VrO/EdSqja1icT/dA6FUivWrWC/PGk5Jml
-	 l2q/btvVoR3dA==
-From: Tianyi Chen <hi@tychen.cc>
-To: Namhyung Kim <namhyung@kernel.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: irogers@google.com,
-	swapnil.sapkal@amd.com,
-	ravi.bangoria@amd.com,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] perf sched stats: Reject mismatched or incomplete snapshots
-Date: Thu, 17 Sep 2026 00:11:25 +0800
-Message-ID: <20260916161125.2548499-1-hi@tychen.cc>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dp3ZaW/8"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66d20bdfe60so197905d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:17:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789575457; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Sb5yGo7ey+ZpNsbXIpNI3d6VznvJ9H49sRH/y5idzvScP1l0T4iiM4jNOICuWH5gqS
+         /yv0IouQ3d8JHh92Z8Gtij4uh99RGnNEI3VOSvFonzXmFvw1dO8t14sc7m9iI+38+R6m
+         aPJlqnyUpaSA0rV4BMNSIo/kdO9FCQoN6sAfgAtMQkRukk7Th3LFAm3uuCRgpenydnpZ
+         xnWWIpgiIvD8dTqxew0lZSpadtPHCyasmNSNukiQ7KyzC6JseSbS9l0pi3r8j087TeVB
+         ZXsgpA3/12CF6014rbWBT4mxVDeuRFNj3cqBitr3ZMxvNYfoUAljEYEuawEIGoD43OEe
+         yYdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=6Zu+rp2wCwzsomTmeAznU3Xcy8b37OGWL83J8MuNrIk=;
+        fh=yjjS2uhK10vgOtu+ETWD4RWTbb32qGGP2RSv9C5gskU=;
+        b=kmQm1BWTfVyxyNqayG06Tw7bqMMOymYUmQ7/I5qD3oXsJgBqIdODUnYpGoYoJL/PR4
+         yUjrod3DAYCj/8pRi82wM1Wvyo1nVcygMbrlS8m/+wQ4bsZlK0hESxL+fxZxAnqmGgM7
+         Gv19J7BmAaoZRscFPo1UXoqAxfNICHgYw+YscZA7cCcmsqcJPTrXsIlrYC21DpNMaNXn
+         D4U5bvmyaQhYMIVkdz4eJ70l4FHOfdyiZ3CzgdFdqZYOJ3gnF2vJhdM6jhbjXxnfXFZM
+         zoKtQm3VhhZuxWJIac6yKhwSFK2wmQkVLbta+F5sw2R4sPAEGFxg9C8n8GAbhH7HvN5V
+         LBkA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789575457; x=1790180257; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6Zu+rp2wCwzsomTmeAznU3Xcy8b37OGWL83J8MuNrIk=;
+        b=Dp3ZaW/8QEad4OSbVdy2sChID5TaFM+je1iV6md+5x0cpdIlnzypeuZjIhhvjN38ZM
+         7RWZhgyFDojeiQgSorRlq8CbPuuecLP9x/rbAYtiFBYOeOzTz8TZT/6n42Tbve3/Pex9
+         JLSYMkXfGzoEldubpG2g15pIvfILJ8AJ7mTqP87PZAQ2R07vR5HtKR3IFR5nsAJMOw2n
+         tNQveYrn7pySdnEpxcTPz3FFHtKTN0z5qmcJmh15NpN38WMGKwNCJif5mWMdmGL7Dlbr
+         5kidsfirHxIDmhIZ7Oosjha82MLDWdAFhoQXpNCAKaziI5J0i19cTyHoO/dfk03GmzUk
+         rgtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789575457; x=1790180257;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6Zu+rp2wCwzsomTmeAznU3Xcy8b37OGWL83J8MuNrIk=;
+        b=OUNJjoqUtRCG3aQOBYGZvw5P/Nbhjk+w3ijSA0xorpFwKaMFb+xNKtAdVIN3IMdFIu
+         5lMmoVLbUWZDruEgzlB66NgZLJBATo6uIcsx85P5GySjHj37YgcgT77zZkZfkQnRvWwo
+         zogimm1Pnx5modVhsZ/CDxn3gyxBDih4g0Dg0YuPULLxVU2X4ktr8POM09dXx6zNlytK
+         tAsc1XBUvSW631XrjpsJhmlhz24aaAIc6tboRXVjXkYnPDgZceVC/2WJZDXF/oYyh2a4
+         mfKx8unxRNQ8OFAcVsN25gW1x86xCysjILz+XfWG4Z61z8ynDj6nhLQMkHojVTn7S4Pr
+         EiFA==
+X-Forwarded-Encrypted: i=1; AKwUvBz7/dAlD9VtnpUjxEwsCp+2Tcul6RuqWE/xwIvXJpnIfe4WYQC4ILqlar/gYQ7imurQoLq9hT5PJEPJ36E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVHEQDStx8ymwpOFirkhc6KXKAcTYiMVEBvb4xpNHfDTtq+Zks
+	RBTfaPyVTmu23syUnvDU+3gEBqKUnX0yZlqsEC8kOzdVS0ryd5GrKnz9/hIqej06r+Mhdh2V1dT
+	b0n3czbz1dvBqx4WwPeqQEUo1M1ICxe0=
+X-Gm-Gg: AYBFou2a5DSODCH+1EOpZOW7iix21lSMUQjz6oURVXWUkQrdCtEzk4o8KL3W4aJ64X4
+	tz/RplQc79WojcBo4kmUyh4/FFaW3v3Nisl7vP6iCyVc6D/yJ3Tfhi8uNHrfKd+JFuGCFJIbaUn
+	ZrGfOX5Z35NiLWb9IFnQHW9Z6aapl2gdGRoYQMyiQW5eGvJe3G11ySIJagO3t/nddHYSPlnJ/YP
+	c66mMCMbSAJzuBJoIZOTofrzlvc2I3zmhRHXSfN9oqY6YQNOK9dM7T1dI3GNoo5qLdzXSdhWjGp
+	4bcfusKQVLROVeK/QsAhsSqKBqFtqmEytbf5Di/oa7xVygjdRaHohRjb/vAK4062
+X-Received: by 2002:a05:690e:4248:b0:668:3d3e:17ce with SMTP id
+ 956f58d0204a3-6716330d09cmr1083975d50.4.1789575457085; Wed, 16 Sep 2026
+ 09:17:37 -0700 (PDT)
+Received: from 95991385052 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 16 Sep 2026 11:17:36 -0500
+Received: from 95991385052 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 16 Sep 2026 11:17:36 -0500
+From: Andrey Ryabinin <ryabinin.a.a@gmail.com>
+In-Reply-To: <20260915100938.1337401-1-mkchauras@gmail.com>
+References: <20260915100938.1337401-1-mkchauras@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: hi@tychen.cc
+Date: Wed, 16 Sep 2026 11:17:36 -0500
+X-Gm-Features: AcwNN1Vix9N3Wt5oSO53Rrr7xZRS3mS3LSXn__U97oCPVBZRtBhbEn6_Ltb1Tek
+Message-ID: <CAPAsAGwUnRncpGr47Pq2y7+7AOiGUu4d1FQNnXow4b78kYGMHg@mail.gmail.com>
+Subject: Re: [PATCH V3] powerpc/kasan: require memintrinsic prefix support for KASAN
+To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>, maddy@linux.ibm.com, mpe@ellerman.id.au, 
+	npiggin@gmail.com, chleroy@kernel.org, glider@google.com, 
+	andreyknvl@gmail.com, dvyukov@google.com, vincenzo.frascino@arm.com, 
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
+	kees@kernel.org, amachhiw@linux.ibm.com, ritesh.list@gmail.com, 
+	nikhilks@linux.ibm.com, mahesh@linux.ibm.com, robh@kernel.org, 
+	sayalip@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, 
+	linux-riscv@lists.infradead.org, linux-hardening@vger.kernel.org
+Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The before and after records are paired by list position. If a CPU or
-domain disappears, counters can be subtracted from a different record
-or left as absolute values. An extra record can also advance the cursor
-past the list.
+"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com> writes:
 
-Identify the second snapshot by its timestamp or CPU ordering, and
-require matching CPU/domain IDs and versions before subtracting. Check
-that every record has a counterpart before printing, and propagate
-errors from either input of diff.
+Hi,
+I fed this patch to an AI for review, and the review results are included below.
+Please take a look. From my side, I agree with all of the points
+raised by AI in the
+review, and I think they all need to be addressed. There is also a diff with
+the suggested changes at the very end of this mail.
 
-Add a shell test with synthetic snapshots, including equal timestamps,
-CPU filtering, and missing or reordered CPU/domain records.
 
-Fixes: 5a357ae6ad63 ("perf sched stats: Add support for report subcommand")
-Assisted-by: LLM
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
+> powerpc unconditionally selects GENERIC_ENTRY. The GENERIC_ENTRY
+> infrastructure relies on the compiler emitting __asan_mem*() calls at
+> instrumented mem*() sites rather than plain memset/memcpy/memmove, so
+> that entry/exit paths calling those functions are not instrumented.
+>
+> [ ... ]
+>
+> When GENERIC_ENTRY is set, both guards suppress the C wrappers for
+> memset/memcpy/memmove and the __underlying_mem*() redirections. This
+> is only safe when the compiler supports the prefixed __asan_mem*()
+> intrinsics. On older toolchains (e.g. GCC 9) that lack this support,
+> plain mem*() calls from instrumented code fall through to the raw
+> assembly implementations in mem_64.S / copy_32.S, completely bypassing
+> the KASAN shadow check.
+>
+> Other arches with GENERIC_ENTRY (x86, s390, loongarch, riscv) do not
+> hit this because their CI toolchains are always new enough to support
+> the prefix flag.
+>
+> [ ... ]
+>
+> Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+> Closes: https://lore.kernel.org/all/96dae110-f79b-4e54-8a9b-514369019b5d@linux.ibm.com
+> Tested-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+
+The thread in the Closes: link is about an early boot hang, but the
+commit message only describes mem*() calls bypassing the shadow check.
+Bypassed checks would lose coverage, not hang the machine.  Is the
+mechanism of the hang understood?
+
+Looking at the state before this commit, the !CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+macros that bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature") added to
+asm/kasan.h emit two ELFv2 global entry points back to back:
+
+  #define _GLOBAL_TOC_KASAN(fn)
+          _GLOBAL_TOC(fn);
+          _GLOBAL_TOC(__##fn)
+
+With the _GLOBAL_TOC() definition from asm/ppc_asm.h that expands, for
+memcpy_64.S, to:
+
+  memcpy:
+  0:      addis r2,r12,(.TOC.-0b)@ha
+          addi  r2,r2,(.TOC.-0b)@l
+          .localentry memcpy,.-memcpy       <- local entry is memcpy+8
+  __memcpy:
+  0:      addis r2,r12,(.TOC.-0b)@ha        <- this is memcpy+8
+          addi  r2,r2,(.TOC.-0b)@l
+          .localentry __memcpy,.-__memcpy
+
+Assembling exactly that for powerpc64le gives memcpy st_other 0x60
+(local entry offset 8), and memcpy+8 is the __memcpy TOC prologue.
+
+Every same-TOC caller of memcpy() or memmove() is resolved by the
+linker to the local entry, so it lands on that second prologue with r12
+holding whatever the caller left there, and returns with r2 pointing
+at garbage.  Same-TOC callers do not reload r2 after the call.  With
+GENERIC_ENTRY, mm/kasan/shadow.c no longer provides memcpy(), so on a
+toolchain without the prefix parameter every instrumented file calls
+the memcpy symbol directly and hits this.  That matches an early hang
+that only shows up with GCC 9.
+
+This commit makes the hang go away because the dual-entry macro is
+deleted, but the commit message attributes the fix to something else.
+Could the message describe the r2 corruption, and since this repairs a
+regression from the GENERIC_ENTRY conversion, should it carry:
+
+  Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+
+On the claim that other GENERIC_ENTRY architectures "do not hit this
+because their CI toolchains are always new enough": x86, s390, riscv
+and loongarch with GCC 8 to 12 build exactly the same configuration,
+CONFIG_KASAN=y without CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX, and
+run with mem*() unchecked.  scripts/Makefile.kasan documents that as
+the intended behaviour:
+
+  # Instrument memcpy/memset/memmove calls by using instrumented __asan_mem*()
+  # instead. With compilers that don't support this option, compiler-inserted
+  # memintrinsics won't be checked by KASAN on GENERIC_ENTRY architectures.
+
+and mm/kasan/kasan_test_c.c skips the affected tests with "Test
+requires checked mem*()".  So the situation the message describes is
+the accepted upstream state for old toolchains, not something specific
+to powerpc.
+
+> diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+> index 2580e27e4328..b27ed9739eea 100644
+> --- a/arch/powerpc/Kconfig
+> +++ b/arch/powerpc/Kconfig
+> @@ -7,6 +7,10 @@ config CC_HAS_ELFV2
+>  config CC_HAS_PREFIXED
+>  	def_bool PPC64 && $(cc-option, -mcpu=power10 -mprefixed)
+>
+> +config PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+> +	def_bool (CC_IS_CLANG && $(cc-option,-fsanitize=kernel-address -mllvm -asan-kernel-mem-intrinsic-prefix=1)) || \
+> +		 (CC_IS_GCC && $(cc-option,-fsanitize=kernel-address --param asan-kernel-mem-intrinsic-prefix=1))
+> +
+>  config CC_HAS_PCREL
+>  	# Clang has a bug (https://github.com/llvm/llvm-project/issues/62372)
+>  	# where pcrel code is not generated if -msoft-float, -mno-altivec, or
+
+[ ... ]
+
+> @@ -220,9 +224,9 @@ config PPC
+>  	select HAVE_ARCH_HUGE_VMAP		if PPC_RADIX_MMU || PPC_8xx
+>  	select HAVE_ARCH_JUMP_LABEL
+>  	select HAVE_ARCH_JUMP_LABEL_RELATIVE
+> -	select HAVE_ARCH_KASAN			if PPC32 && PAGE_SHIFT <= 14
+> -	select HAVE_ARCH_KASAN			if PPC_RADIX_MMU
+> -	select HAVE_ARCH_KASAN			if PPC_BOOK3E_64
+> +	select HAVE_ARCH_KASAN			if PPC32 && PAGE_SHIFT <= 14 && PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+> +	select HAVE_ARCH_KASAN			if PPC_RADIX_MMU && PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+> +	select HAVE_ARCH_KASAN			if PPC_BOOK3E_64 && PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+>  	select HAVE_ARCH_KASAN_VMALLOC		if HAVE_ARCH_KASAN
+>  	select HAVE_ARCH_KCSAN
+>  	select HAVE_ARCH_KFENCE			if ARCH_SUPPORTS_DEBUG_PAGEALLOC
+
+This drops KASAN from powerpc entirely for GCC 8 through 12, which are
+inside the supported range in Documentation/process/changes.rst (GNU C
+8.1 minimum).  An existing .config with CONFIG_KASAN=y silently loses
+it on olddefconfig once HAVE_ARCH_KASAN is no longer selected.
+
+Given that the actual breakage is the broken memcpy/memmove entry
+points, is it necessary to go this far?  Keeping one _GLOBAL_TOC()
+prologue for __memcpy and making memcpy a plain alias of it (a second
+label plus a matching .localentry, or a global entry that branches to
+__memcpy) would restore the pre-GENERIC_ENTRY behaviour, with mem*()
+unchecked on old compilers exactly like the other GENERIC_ENTRY
+architectures.  That also keeps a Fixes-tagged backport candidate from
+removing a feature on stable kernels.
+
+
+> diff --git a/arch/powerpc/include/asm/kasan.h b/arch/powerpc/include/asm/kasan.h
+> index a690e7da53c2..d62756b87ba4 100644
+> --- a/arch/powerpc/include/asm/kasan.h
+> +++ b/arch/powerpc/include/asm/kasan.h
+> @@ -2,20 +2,9 @@
+>  #ifndef __ASM_KASAN_H
+>  #define __ASM_KASAN_H
+>
+> -#if defined(CONFIG_KASAN) && !defined(CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX)
+> -#define _GLOBAL_KASAN(fn)			\
+> -	_GLOBAL(fn);				\
+> -	_GLOBAL(__##fn)
+> -#define _GLOBAL_TOC_KASAN(fn)			\
+> -	_GLOBAL_TOC(fn);			\
+> -	_GLOBAL_TOC(__##fn)
+> -#define EXPORT_SYMBOL_KASAN(fn)			\
+> -	EXPORT_SYMBOL(__##fn)
+> -#else /* CONFIG_KASAN && !CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX */
+>  #define _GLOBAL_KASAN(fn)	_GLOBAL(fn)
+>  #define _GLOBAL_TOC_KASAN(fn)	_GLOBAL_TOC(fn)
+>  #define EXPORT_SYMBOL_KASAN(fn)
+> -#endif /* CONFIG_KASAN && !CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX */
+>
+>  #ifndef __ASSEMBLER__
+>
+
+this isn't a bug, but after this change _GLOBAL_KASAN(), _GLOBAL_TOC_KASAN()
+and EXPORT_SYMBOL_KASAN() are unconditional identity macros with a single
+empty one.  Should the five users in mem_64.S, memcpy_64.S and copy_32.S
+switch to _GLOBAL()/_GLOBAL_TOC() and the macros go away?
+
+Related leftover: arch/powerpc/kernel/prom_init_check.sh still has
+
+  has_renamed_memintrinsics()
+  {
+          grep -q "^CONFIG_KASAN=y$" "${KCONFIG_CONFIG}" && \
+                  ! grep -q
+"^CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX=y" "${KCONFIG_CONFIG}"
+  }
+
+  if has_renamed_memintrinsics
+  then
+          MEM_FUNCS="__memcpy __memset"
+
+which can no longer be true on powerpc after this commit.  Should that
+branch be removed in the same cleanup?
+
+> diff --git a/arch/powerpc/include/asm/string.h b/arch/powerpc/include/asm/string.h
+> index 1981bd4036b5..72b5c93a2b84 100644
+> --- a/arch/powerpc/include/asm/string.h
+> +++ b/arch/powerpc/include/asm/string.h
+> @@ -29,29 +29,10 @@ extern void * memchr(const void *,int,__kernel_size_t);
+>  void memcpy_flushcache(void *dest, const void *src, size_t size);
+>
+>  #ifdef CONFIG_KASAN
+> -/* __mem variants are used by KASAN to implement instrumented meminstrinsics. */
+> -#ifdef CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+> +/* Used by mm/kasan/shadow.c as raw backends to bypass KASAN checking. */
+>  #define __memset memset
+
+this isn't a bug, but the new comment names only mm/kasan/shadow.c.
+The same __memset()/__memcpy() names are used by mm/kasan/generic.c as
+well (DEFINE_ASAN_SET_SHADOW() and release_alloc_meta()), so would
+"used by mm/kasan as raw backends" be more accurate?
+
+
 ---
-The new shell test passes with GCC and Clang ASan/UBSan and fails on
-unpatched perf. Live and record/report/diff checks with temporary
-/proc/schedstat fixtures also pass.
+diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+index b27ed9739eea..2580e27e4328 100644
+--- a/arch/powerpc/Kconfig
++++ b/arch/powerpc/Kconfig
+@@ -7,10 +7,6 @@ config CC_HAS_ELFV2
+ config CC_HAS_PREFIXED
+ 	def_bool PPC64 && $(cc-option, -mcpu=power10 -mprefixed)
 
- tools/perf/Documentation/perf-sched.txt       |   6 +-
- tools/perf/builtin-sched.c                    | 189 ++++++++++++------
- tools/perf/tests/shell/schedstat_snapshots.sh | 155 ++++++++++++++
- 3 files changed, 283 insertions(+), 67 deletions(-)
- create mode 100755 tools/perf/tests/shell/schedstat_snapshots.sh
+-config PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+-	def_bool (CC_IS_CLANG && $(cc-option,-fsanitize=kernel-address
+-mllvm -asan-kernel-mem-intrinsic-prefix=1)) || \
+-		 (CC_IS_GCC && $(cc-option,-fsanitize=kernel-address --param
+asan-kernel-mem-intrinsic-prefix=1))
+-
+ config CC_HAS_PCREL
+ 	# Clang has a bug (https://github.com/llvm/llvm-project/issues/62372)
+ 	# where pcrel code is not generated if -msoft-float, -mno-altivec, or
+@@ -224,9 +220,9 @@ config PPC
+ 	select HAVE_ARCH_HUGE_VMAP		if PPC_RADIX_MMU || PPC_8xx
+ 	select HAVE_ARCH_JUMP_LABEL
+ 	select HAVE_ARCH_JUMP_LABEL_RELATIVE
+-	select HAVE_ARCH_KASAN			if PPC32 && PAGE_SHIFT <= 14 &&
+PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+-	select HAVE_ARCH_KASAN			if PPC_RADIX_MMU &&
+PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+-	select HAVE_ARCH_KASAN			if PPC_BOOK3E_64 &&
+PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
++	select HAVE_ARCH_KASAN			if PPC32 && PAGE_SHIFT <= 14
++	select HAVE_ARCH_KASAN			if PPC_RADIX_MMU
++	select HAVE_ARCH_KASAN			if PPC_BOOK3E_64
+ 	select HAVE_ARCH_KASAN_VMALLOC		if HAVE_ARCH_KASAN
+ 	select HAVE_ARCH_KCSAN
+ 	select HAVE_ARCH_KFENCE			if ARCH_SUPPORTS_DEBUG_PAGEALLOC
+diff --git a/arch/powerpc/include/asm/kasan.h b/arch/powerpc/include/asm/kasan.h
+index d62756b87ba4..599a9e02af02 100644
+--- a/arch/powerpc/include/asm/kasan.h
++++ b/arch/powerpc/include/asm/kasan.h
+@@ -2,10 +2,6 @@
+ #ifndef __ASM_KASAN_H
+ #define __ASM_KASAN_H
 
-diff --git a/tools/perf/Documentation/perf-sched.txt b/tools/perf/Documentation/perf-sched.txt
-index 4da06215163a..fe0abef2bd13 100644
---- a/tools/perf/Documentation/perf-sched.txt
-+++ b/tools/perf/Documentation/perf-sched.txt
-@@ -95,8 +95,10 @@ There are several variants of 'perf sched':
-    events, ``try_to_wakeup()`` call among others. This is useful in understanding the
-    scheduler behavior for the workload.
- 
--   Note: The tool will not give correct results if there is topological reordering or
--         online/offline of cpus in between capturing snapshots of `/proc/schedstat`.
-+   Note: Reports reject incomplete snapshots and mismatched CPU or domain IDs.
-+         Topology changes that retain the same IDs, including CPUs going offline
-+         and returning online between snapshots, cannot be detected and may still
-+         produce incorrect results.
- 
-     Example usage:
-         perf sched stats record -- sleep 1
-diff --git a/tools/perf/builtin-sched.c b/tools/perf/builtin-sched.c
-index dd39a4fb6c7a..9e7d170b30ad 100644
---- a/tools/perf/builtin-sched.c
-+++ b/tools/perf/builtin-sched.c
-@@ -4281,18 +4281,18 @@ struct schedstat_cpu {
- };
- 
- static struct list_head cpu_head = LIST_HEAD_INIT(cpu_head);
--static struct schedstat_cpu *cpu_second_pass;
--static struct schedstat_domain *domain_second_pass;
-+static struct list_head *cpu_second_pass;
-+static struct list_head *domain_second_pass;
-+static u64 schedstat_timestamp;
- static bool after_workload_flag;
- static bool verbose_field;
- 
- static void free_schedstat(struct list_head *head);
- 
--static void store_schedstat_cpu_diff(struct schedstat_cpu *after_workload)
-+static void store_schedstat_cpu_diff(struct perf_record_schedstat_cpu *before,
-+				    struct perf_record_schedstat_cpu *after)
- {
--	struct perf_record_schedstat_cpu *before = cpu_second_pass->cpu_data;
--	struct perf_record_schedstat_cpu *after = after_workload->cpu_data;
--	__u16 version = after_workload->cpu_data->version;
-+	__u16 version = after->version;
- 
- #define CPU_FIELD(_type, _name, _desc, _format, _is_pct, _pct_of, _ver)	\
- 	(before->_ver._name = after->_ver._name - before->_ver._name)
-@@ -4308,11 +4308,10 @@ static void store_schedstat_cpu_diff(struct schedstat_cpu *after_workload)
- #undef CPU_FIELD
- }
- 
--static void store_schedstat_domain_diff(struct schedstat_domain *after_workload)
-+static void store_schedstat_domain_diff(struct perf_record_schedstat_domain *before,
-+				       struct perf_record_schedstat_domain *after)
- {
--	struct perf_record_schedstat_domain *before = domain_second_pass->domain_data;
--	struct perf_record_schedstat_domain *after = after_workload->domain_data;
--	__u16 version = after_workload->domain_data->version;
-+	__u16 version = after->version;
- 
- #define DOMAIN_FIELD(_type, _name, _desc, _format, _is_jiffies, _ver)	\
- 	(before->_ver._name = after->_ver._name - before->_ver._name)
-@@ -4814,12 +4813,35 @@ static int show_schedstat_data(struct list_head *head1, struct cpu_domain_map **
-  * other after completion of the workload. The above linked list stores the diff of the cpu and
-  * domain statistics.
+-#define _GLOBAL_KASAN(fn)	_GLOBAL(fn)
+-#define _GLOBAL_TOC_KASAN(fn)	_GLOBAL_TOC(fn)
+-#define EXPORT_SYMBOL_KASAN(fn)
+-
+ #ifndef __ASSEMBLER__
+
+ #include <asm/page.h>
+diff --git a/arch/powerpc/kernel/prom_init_check.sh
+b/arch/powerpc/kernel/prom_init_check.sh
+index 3090b97258ae..3155cc722e48 100644
+--- a/arch/powerpc/kernel/prom_init_check.sh
++++ b/arch/powerpc/kernel/prom_init_check.sh
+@@ -13,21 +13,8 @@
+ # If you really need to reference something from prom_init.o add
+ # it to the list below:
+
+-has_renamed_memintrinsics()
+-{
+-	grep -q "^CONFIG_KASAN=y$" "${KCONFIG_CONFIG}" && \
+-		! grep -q "^CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX=y" "${KCONFIG_CONFIG}"
+-}
+-
+-if has_renamed_memintrinsics
+-then
+-	MEM_FUNCS="__memcpy __memset"
+-else
+-	MEM_FUNCS="memcpy memset"
+-fi
+-
+ WHITELIST="add_reloc_offset __bss_start __bss_stop copy_and_flush
+-_end enter_prom $MEM_FUNCS reloc_offset __secondary_hold
++_end enter_prom memcpy memset reloc_offset __secondary_hold
+ __secondary_hold_acknowledge __secondary_hold_spinloop __start
+ logo_linux_clut224 btext_prepare_BAT
+ reloc_got2 kernstart_addr memstart_addr linux_banner _stext
+diff --git a/arch/powerpc/lib/copy_32.S b/arch/powerpc/lib/copy_32.S
+index 933b685e7ab6..97eb9ca0cc23 100644
+--- a/arch/powerpc/lib/copy_32.S
++++ b/arch/powerpc/lib/copy_32.S
+@@ -10,7 +10,6 @@
+ #include <asm/errno.h>
+ #include <asm/ppc_asm.h>
+ #include <asm/code-patching-asm.h>
+-#include <asm/kasan.h>
+
+ #define COPY_16_BYTES		\
+ 	lwz	r7,4(r4);	\
+@@ -87,7 +86,7 @@ EXPORT_SYMBOL(memset16)
+  * We therefore skip the optimised bloc that uses dcbz. This jump is
+  * replaced by a nop once cache is active. This is done in machine_init()
   */
-+static int schedstat_snapshot_error(void)
-+{
-+	pr_err("Incompatible or incomplete schedstat snapshots\n");
-+	return -EINVAL;
-+}
-+
-+static bool schedstat_domains_complete(void)
-+{
-+	struct schedstat_cpu *cpu;
-+
-+	if (!domain_second_pass)
-+		return true;
-+	cpu = list_entry(cpu_second_pass, struct schedstat_cpu, cpu_list);
-+	return domain_second_pass == &cpu->domain_head;
-+}
-+
-+static int schedstat_snapshots_complete(void)
-+{
-+	if (!after_workload_flag || !cpu_second_pass ||
-+	    cpu_second_pass->next != &cpu_head || !schedstat_domains_complete())
-+		return schedstat_snapshot_error();
-+	return 0;
-+}
-+
- static int perf_sched__process_schedstat(const struct perf_tool *tool __maybe_unused,
- 					 struct perf_session *session __maybe_unused,
- 					 union perf_event *event)
- {
- 	struct perf_cpu this_cpu;
--	static __u32 initial_cpu;
- 
- 	switch (event->header.type) {
- 	case PERF_RECORD_SCHEDSTAT_CPU:
-@@ -4836,63 +4858,91 @@ static int perf_sched__process_schedstat(const struct perf_tool *tool __maybe_un
- 		return 0;
- 
- 	if (event->header.type == PERF_RECORD_SCHEDSTAT_CPU) {
--		struct schedstat_cpu *temp = zalloc(sizeof(*temp));
--
--		if (!temp)
--			return -ENOMEM;
--
--		temp->cpu_data = zalloc(sizeof(*temp->cpu_data));
--		if (!temp->cpu_data)
--			return -ENOMEM;
-+		struct perf_record_schedstat_cpu *data = &event->schedstat_cpu;
-+		struct schedstat_cpu *cpu;
- 
--		memcpy(temp->cpu_data, &event->schedstat_cpu, sizeof(*temp->cpu_data));
--
--		if (!list_empty(&cpu_head) && temp->cpu_data->cpu == initial_cpu)
--			after_workload_flag = true;
--
--		if (!after_workload_flag) {
--			if (list_empty(&cpu_head))
--				initial_cpu = temp->cpu_data->cpu;
--
--			list_add_tail(&temp->cpu_list, &cpu_head);
--			INIT_LIST_HEAD(&temp->domain_head);
--		} else {
--			if (temp->cpu_data->cpu == initial_cpu) {
--				cpu_second_pass = list_first_entry(&cpu_head, struct schedstat_cpu,
--								   cpu_list);
--				cpu_second_pass->cpu_data->timestamp =
--					temp->cpu_data->timestamp - cpu_second_pass->cpu_data->timestamp;
--			} else {
--				cpu_second_pass = list_next_entry(cpu_second_pass, cpu_list);
-+		if (list_empty(&cpu_head)) {
-+			after_workload_flag = false;
-+			cpu_second_pass = &cpu_head;
-+			domain_second_pass = NULL;
-+			schedstat_timestamp = data->timestamp;
-+		} else if (!after_workload_flag) {
-+			cpu = list_last_entry(&cpu_head, struct schedstat_cpu, cpu_list);
-+			/* Snapshots share a timestamp and list CPUs in increasing order. */
-+			if (data->timestamp != schedstat_timestamp ||
-+			    data->cpu <= cpu->cpu_data->cpu) {
-+				after_workload_flag = true;
-+				schedstat_timestamp = data->timestamp;
- 			}
--			domain_second_pass = list_first_entry(&cpu_second_pass->domain_head,
--							      struct schedstat_domain, domain_list);
--			store_schedstat_cpu_diff(temp);
--			free(temp->cpu_data);
--			free(temp);
- 		}
--	} else if (event->header.type == PERF_RECORD_SCHEDSTAT_DOMAIN) {
--		struct schedstat_cpu *cpu_tail;
--		struct schedstat_domain *temp = zalloc(sizeof(*temp));
- 
--		if (!temp)
--			return -ENOMEM;
-+		if (after_workload_flag) {
-+			if (data->timestamp != schedstat_timestamp || !schedstat_domains_complete())
-+				return schedstat_snapshot_error();
-+			cpu_second_pass = cpu_second_pass->next;
-+			if (cpu_second_pass == &cpu_head)
-+				return schedstat_snapshot_error();
-+			cpu = list_entry(cpu_second_pass, struct schedstat_cpu, cpu_list);
-+			if (data->cpu != cpu->cpu_data->cpu ||
-+			    data->version != cpu->cpu_data->version ||
-+			    data->timestamp < cpu->cpu_data->timestamp)
-+				return schedstat_snapshot_error();
-+			cpu->cpu_data->timestamp = data->timestamp - cpu->cpu_data->timestamp;
-+			store_schedstat_cpu_diff(cpu->cpu_data, data);
-+			domain_second_pass = cpu->domain_head.next;
-+			return 0;
-+		}
- 
--		temp->domain_data = zalloc(sizeof(*temp->domain_data));
--		if (!temp->domain_data)
-+		cpu = zalloc(sizeof(*cpu));
-+		if (!cpu)
- 			return -ENOMEM;
-+		cpu->cpu_data = memdup(data, sizeof(*data));
-+		if (!cpu->cpu_data) {
-+			free(cpu);
-+			return -ENOMEM;
-+		}
-+		INIT_LIST_HEAD(&cpu->domain_head);
-+		list_add_tail(&cpu->cpu_list, &cpu_head);
-+	} else {
-+		struct perf_record_schedstat_domain *data = &event->schedstat_domain;
-+		struct schedstat_domain *domain;
-+		struct schedstat_cpu *cpu;
-+
-+		if (list_empty(&cpu_head) || data->timestamp != schedstat_timestamp)
-+			return schedstat_snapshot_error();
-+		if (after_workload_flag) {
-+			cpu = list_entry(cpu_second_pass, struct schedstat_cpu, cpu_list);
-+			if (domain_second_pass == &cpu->domain_head)
-+				return schedstat_snapshot_error();
-+			domain = list_entry(domain_second_pass, struct schedstat_domain,
-+					    domain_list);
-+			if (data->cpu != domain->domain_data->cpu ||
-+			    data->domain != domain->domain_data->domain ||
-+			    data->version != domain->domain_data->version)
-+				return schedstat_snapshot_error();
-+			store_schedstat_domain_diff(domain->domain_data, data);
-+			domain_second_pass = domain_second_pass->next;
-+			return 0;
-+		}
- 
--		memcpy(temp->domain_data, &event->schedstat_domain, sizeof(*temp->domain_data));
--
--		if (!after_workload_flag) {
--			cpu_tail = list_last_entry(&cpu_head, struct schedstat_cpu, cpu_list);
--			list_add_tail(&temp->domain_list, &cpu_tail->domain_head);
--		} else {
--			store_schedstat_domain_diff(temp);
--			domain_second_pass = list_next_entry(domain_second_pass, domain_list);
--			free(temp->domain_data);
--			free(temp);
-+		cpu = list_last_entry(&cpu_head, struct schedstat_cpu, cpu_list);
-+		if (data->cpu != cpu->cpu_data->cpu || data->version != cpu->cpu_data->version)
-+			return schedstat_snapshot_error();
-+		if (!list_empty(&cpu->domain_head)) {
-+			domain = list_last_entry(&cpu->domain_head, struct schedstat_domain,
-+						 domain_list);
-+			if (data->domain <= domain->domain_data->domain)
-+				return schedstat_snapshot_error();
- 		}
-+		domain = zalloc(sizeof(*domain));
-+		if (!domain)
-+			return -ENOMEM;
-+		domain->domain_data = memdup(data, sizeof(*data));
-+		if (!domain->domain_data) {
-+			free(domain);
-+			return -ENOMEM;
-+		}
-+		list_add_tail(&domain->domain_list, &cpu->domain_head);
- 	}
- 
- 	return 0;
-@@ -4947,6 +4997,8 @@ static int perf_sched__schedstat_report(struct perf_sched *sched)
- 	user_requested_cpus = evlist__core(session->evlist)->user_requested_cpus;
- 
- 	err = perf_session__process_events(session);
-+	if (!err)
-+		err = schedstat_snapshots_complete();
- 
- 	if (!err) {
- 		setup_pager();
-@@ -4976,7 +5028,7 @@ static int perf_sched__schedstat_diff(struct perf_sched *sched,
- 	struct list_head cpu_head_ses0, cpu_head_ses1;
- 	struct perf_session *session[2];
- 	struct perf_data data[2] = {0};
--	int ret = 0, err = 0;
-+	int ret = 0;
- 	static const char *defaults[] = {
- 		"perf.data.old",
- 		"perf.data",
-@@ -5009,8 +5061,10 @@ static int perf_sched__schedstat_diff(struct perf_sched *sched,
- 		goto out_delete_ses0;
- 	}
- 
--	err = perf_session__process_events(session[0]);
--	if (err) {
-+	ret = perf_session__process_events(session[0]);
-+	if (!ret)
-+		ret = schedstat_snapshots_complete();
-+	if (ret) {
- 		free_schedstat(&cpu_head);
- 		goto out_delete_ses0;
- 	}
-@@ -5028,8 +5082,10 @@ static int perf_sched__schedstat_diff(struct perf_sched *sched,
- 		goto out_delete_ses1;
- 	}
- 
--	err = perf_session__process_events(session[1]);
--	if (err) {
-+	ret = perf_session__process_events(session[1]);
-+	if (!ret)
-+		ret = schedstat_snapshots_complete();
-+	if (ret) {
- 		free_schedstat(&cpu_head);
- 		goto out_delete_ses1;
- 	}
-@@ -5152,6 +5208,9 @@ static int perf_sched__schedstat_live(struct perf_sched *sched,
- 					       user_requested_cpus);
- 	if (err)
- 		goto out;
-+	err = schedstat_snapshots_complete();
-+	if (err)
-+		goto out;
- 
- 	setup_pager();
- 
-diff --git a/tools/perf/tests/shell/schedstat_snapshots.sh b/tools/perf/tests/shell/schedstat_snapshots.sh
-new file mode 100755
-index 000000000000..a4bdf2673d43
---- /dev/null
-+++ b/tools/perf/tests/shell/schedstat_snapshots.sh
-@@ -0,0 +1,155 @@
-+#!/bin/sh
-+# Validate CPU and domain pairing in perf sched stats snapshots
-+# SPDX-License-Identifier: GPL-2.0
-+
-+set -e
-+
-+# shellcheck source=lib/setup_python.sh
-+. "$(dirname "$0")/lib/setup_python.sh"
-+
-+if ! perf version --build-options | grep -q 'libtraceevent:.*on'; then
-+	echo "[Skip] perf sched requires libtraceevent"
-+	exit 2
-+fi
-+
-+$PYTHON - <<'PY'
-+import os
-+import re
-+import struct
-+import subprocess
-+import sys
-+import tempfile
-+
-+# Native-endian perf.data with only NRCPUS and CPU_DOMAIN_INFO features.
-+endian = '<' if sys.byteorder == 'little' else '>'
-+
-+
-+def pack(fmt, *values):
-+    return struct.pack(endian + fmt, *values)
-+
-+
-+def string(value):
-+    data = value.encode() + b'\0'
-+    return pack('I', len(data)) + data
-+
-+
-+def cpu(cpu_id, timestamp, value, version):
-+    return pack('IHHQIHH6I3Q', 85, 0, 72, timestamp, cpu_id, version, 0,
-+                *([value] * 9))
-+
-+
-+def domain(cpu_id, domain_id, timestamp, value, version):
-+    # All supported versions use the largest union member's record size.
-+    return pack('IHHQIHH45I4x', 86, 0, 208, timestamp, cpu_id, version,
-+                domain_id, *([value] * 45))
-+
-+
-+def snapshot(timestamp, value, version=17, cpus=(0, 1, 2), domains=(0, 1)):
-+    records = []
-+    for cpu_id in cpus:
-+        records.append(cpu(cpu_id, timestamp, value + cpu_id * 100, version))
-+        for domain_id in domains:
-+            records.append(domain(cpu_id, domain_id, timestamp,
-+                                  value + cpu_id * 100, version))
-+    return records
-+
-+
-+def write_file(path, records, version=17):
-+    metadata = pack('II', version, 2)
-+    for cpu_id in range(3):
-+        metadata += pack('II', cpu_id, 2)
-+        for domain_id in range(2):
-+            metadata += pack('I', domain_id)
-+            if version >= 17:
-+                metadata += string('SMT' if domain_id == 0 else 'MC')
-+            metadata += string('7') + string('0-2')
-+    features = [pack('II', 3, 3), metadata]
-+    data = b''.join(records)
-+    offset = 104 + len(data) + 16 * len(features)
-+    sections = b''
-+    for feature in features:
-+        sections += pack('QQ', offset, len(feature))
-+        offset += len(feature)
-+    header = pack('13Q', 0x32454c4946524550, 104, 144, 104, 0,
-+                  104, len(data), 0, 0, (1 << 7) | (1 << 32), 0, 0, 0)
-+    with open(path, 'wb') as output:
-+        output.write(header + data + sections + b''.join(features))
-+
-+
-+def run(args, valid, domains=True):
-+    result = subprocess.run(['perf', 'sched', 'stats'] + args,
-+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-+                            text=True, timeout=10)
-+    if valid:
-+        assert result.returncode == 0, result.stderr
-+        assert re.search(r'^yld_count\s+:\s+10\b', result.stdout, re.M), result.stdout
-+        if domains:
-+            assert re.search(r'^busy_lb_count\s+:\s+10\b', result.stdout, re.M), result.stdout
-+        else:
-+            assert 'busy_lb_count' not in result.stdout, result.stdout
-+    else:
-+        assert result.returncode > 0, (args, result.returncode, result.stdout)
-+        assert 'Incompatible or incomplete schedstat snapshots' in result.stderr
-+        assert not result.stdout, result.stdout
-+    assert 'Sanitizer' not in result.stderr, result.stderr
-+
-+
-+with tempfile.TemporaryDirectory(prefix='perf-schedstat-') as directory:
-+    good = os.path.join(directory, 'good.data')
-+    test = os.path.join(directory, 'test.data')
-+    before = snapshot(100, 1000)
-+    after = snapshot(200, 1010)
-+    write_file(good, before + after)
-+
-+    for version in (15, 16, 17):
-+        for timestamp in (100, 200):
-+            write_file(test, snapshot(100, 1000, version) +
-+                       snapshot(timestamp, 1010, version), version)
-+            run(['report', '-C', '0,1,2', '-i', test], True)
-+            run(['diff', test, test], True)
-+    print('Matching snapshots, including equal timestamps: [Success]')
-+
-+    write_file(test, snapshot(100, 1000, domains=()) +
-+               snapshot(200, 1010, domains=()))
-+    run(['report', '-C', '0,1,2', '-i', test], True, domains=False)
-+    run(['diff', test, test], True, domains=False)
-+    print('CPUs without domains: [Success]')
-+
-+    write_file(test, before + snapshot(200, 1010, cpus=(0, 1)))
-+    run(['report', '-C', '0,1', '-i', test], True)
-+    run(['report', '-C', '1', '-i', good], True)
-+    write_file(test, snapshot(100, 1000, cpus=(0, 1)) +
-+               snapshot(200, 1010, cpus=(0, 1)))
-+    run(['diff', good, test], True)
-+    print('CPU filtering and different CPU sets across files: [Success]')
-+
-+    write_file(test, snapshot(100, 0xfffffffa, cpus=(0,)) +
-+               snapshot(200, 4, cpus=(0,)))
-+    run(['report', '-C', '0', '-i', test], True)
-+    print('Wrapping 32-bit counters: [Success]')
-+
-+    cases = {
-+        'missing first CPU': before + snapshot(200, 1010, cpus=(1, 2)),
-+        'missing middle CPU': before + snapshot(200, 1010, cpus=(0, 2)),
-+        'missing last CPU': before + snapshot(200, 1010, cpus=(0, 1)),
-+        'added CPU': snapshot(100, 1000, cpus=(0, 1)) + after,
-+        'reordered CPUs': before + snapshot(200, 1010, cpus=(0, 2, 1)),
-+        'equal timestamp, missing first CPU': before + snapshot(100, 1010, cpus=(1, 2)),
-+        'missing first domain': before + snapshot(200, 1010, domains=(1,)),
-+        'missing last domain': before + after[:-1],
-+        'added domain': snapshot(100, 1000, domains=(0,)) + after,
-+        'reordered domains': before + snapshot(200, 1010, domains=(1, 0)),
-+        'domain without CPU': before[1:] + after,
-+        'wrong domain CPU': before + [after[0], domain(1, 0, 200, 1010, 17)] + after[2:],
-+        'changed version': before + snapshot(200, 1010, version=16),
-+        'backwards timestamp': before + snapshot(50, 1010),
-+        'third snapshot': before + after + snapshot(300, 1020),
-+        'missing second snapshot': before,
-+    }
-+    for name, records in cases.items():
-+        write_file(test, records)
-+        run(['report', '-C', '0,1,2', '-i', test], False)
-+        run(['diff', test, good], False)
-+        run(['diff', good, test], False)
-+        print(name + ': [Success]')
-+PY
+-_GLOBAL_KASAN(memset)
++_GLOBAL(memset)
+ 	cmplwi	0,r5,4
+ 	blt	7f
 
-base-commit: 91b0782fc9e9d2f0a40b5256146e014802fdbb36
--- 
-2.55.0
+@@ -147,7 +146,6 @@ _GLOBAL_KASAN(memset)
+ 	bdnz	9b
+ 	blr
+ EXPORT_SYMBOL(memset)
+-EXPORT_SYMBOL_KASAN(memset)
 
+ /*
+  * This version uses dcbz on the complete cache lines in the
+@@ -160,12 +158,12 @@ EXPORT_SYMBOL_KASAN(memset)
+  * We therefore jump to generic_memcpy which doesn't use dcbz. This jump is
+  * replaced by a nop once cache is active. This is done in machine_init()
+  */
+-_GLOBAL_KASAN(memmove)
++_GLOBAL(memmove)
+ 	cmplw	0,r3,r4
+ 	bgt	backwards_memcpy
+ 	/* fall through */
+
+-_GLOBAL_KASAN(memcpy)
++_GLOBAL(memcpy)
+ 1:	b	generic_memcpy
+ 	patch_site	1b, patch__memcpy_nocache
+
+@@ -241,8 +239,6 @@ _GLOBAL_KASAN(memcpy)
+ 65:	blr
+ EXPORT_SYMBOL(memcpy)
+ EXPORT_SYMBOL(memmove)
+-EXPORT_SYMBOL_KASAN(memcpy)
+-EXPORT_SYMBOL_KASAN(memmove)
+
+ generic_memcpy:
+ 	srwi.	r7,r5,3
+diff --git a/arch/powerpc/lib/mem_64.S b/arch/powerpc/lib/mem_64.S
+index 6fd06cd20faa..40eaedd31486 100644
+--- a/arch/powerpc/lib/mem_64.S
++++ b/arch/powerpc/lib/mem_64.S
+@@ -8,7 +8,6 @@
+ #include <asm/processor.h>
+ #include <asm/errno.h>
+ #include <asm/ppc_asm.h>
+-#include <asm/kasan.h>
+
+ #ifndef CONFIG_KASAN
+ _GLOBAL(__memset16)
+@@ -29,7 +28,7 @@ EXPORT_SYMBOL(__memset32)
+ EXPORT_SYMBOL(__memset64)
+ #endif
+
+-_GLOBAL_KASAN(memset)
++_GLOBAL(memset)
+ 	neg	r0,r3
+ 	rlwimi	r4,r4,8,16,23
+ 	andi.	r0,r0,7			/* # bytes to be 8-byte aligned */
+@@ -95,9 +94,8 @@ _GLOBAL_KASAN(memset)
+ 	stb	r4,0(r6)
+ 	blr
+ EXPORT_SYMBOL(memset)
+-EXPORT_SYMBOL_KASAN(memset)
+
+-_GLOBAL_TOC_KASAN(memmove)
++_GLOBAL_TOC(memmove)
+ 	cmplw	0,r3,r4
+ 	bgt	backwards_memcpy
+ 	b	memcpy
+@@ -139,4 +137,3 @@ _GLOBAL(backwards_memcpy)
+ 	mtctr	r7
+ 	b	1b
+ EXPORT_SYMBOL(memmove)
+-EXPORT_SYMBOL_KASAN(memmove)
+diff --git a/arch/powerpc/lib/memcpy_64.S b/arch/powerpc/lib/memcpy_64.S
+index b5a67e20143f..0cedd455231a 100644
+--- a/arch/powerpc/lib/memcpy_64.S
++++ b/arch/powerpc/lib/memcpy_64.S
+@@ -7,7 +7,6 @@
+ #include <asm/ppc_asm.h>
+ #include <asm/asm-compat.h>
+ #include <asm/feature-fixups.h>
+-#include <asm/kasan.h>
+
+ #ifndef SELFTEST_CASE
+ /* For big-endian, 0 == most CPUs, 1 == POWER6, 2 == Cell */
+@@ -15,7 +14,7 @@
+ #endif
+
+ 	.align	7
+-_GLOBAL_TOC_KASAN(memcpy)
++_GLOBAL_TOC(memcpy)
+ BEGIN_FTR_SECTION
+ #ifdef __LITTLE_ENDIAN__
+ 	cmpdi	cr7,r5,0
+@@ -227,4 +226,3 @@ END_FTR_SECTION_IFCLR(CPU_FTR_UNALIGNED_LD_STD)
+ 	blr
+ #endif
+ EXPORT_SYMBOL(memcpy)
+-EXPORT_SYMBOL_KASAN(memcpy)
