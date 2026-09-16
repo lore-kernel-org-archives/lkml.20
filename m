@@ -1,240 +1,277 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011053.outbound.protection.outlook.com [52.101.65.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB290286D4D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789527868; cv=none; b=Yi5Z83G/0TKCMsWL+wkMne4F/ioYJWuM/SKJsmOUOLJIhJMgQnOzGT0cIo+DjWkLCk53BxMCHk92tbQTcE5hpvRQRXPegPm+n/TZkpJ4El7eLSwPeDC5JsDXR0uIczn3dpA2E4nDPeEicOSKWO+q5SZ3Hly6TQb+6VYILs600jw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789527868; c=relaxed/simple;
-	bh=MU9B/81WOtFQ+cdbcUsWBDcvGH45XkIkKO89K6pXFoU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gXnJmX+LaCpL0RrCj/R0MtfPHCKR8vaEOvkpcEZPB+531Nah/fnJFfbZvZyR+MeyKqVTIh7Kd45DY6gGfiOn+dJ2LWFB55HF9R6ez7h2VS8Urqhok+HzvQgwiVo8OaUsEpNLIlhcTu0N7IzR/BBvtva7PZGgeOlqXt8py+j7eCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V5E96PD8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h4vectyS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ACEA2EC090;
+	Wed, 16 Sep 2026 03:04:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789527889; cv=fail; b=bScItiEBijdRRAH0Yku+Y4bMLGl9I0WzN8lVxNYoPqLxKO2Jn7yvtOJoyyMtHxHHTHxuBDcJx/7czhdFhBrew8q5Z9h2dkkq8E4u+EBJW1arIltf6k9vtksT2ozJxz7P2F+rf5ws/sj3wFlwyUrXDqVLkwJajfZSyNbpiVVYulo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789527889; c=relaxed/simple;
+	bh=ufMXHPkQ6TCqyAak2tAiDidq81EJrALof/j2LxVPTNU=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=F8VZpTj/6K3yGdOAQ7HdUR5DgXgOMvcbEI/cq+iHJf3to0ebaD5pvWTcnXvip7oqKQm5jN+Z3Jfo37scZVSUewwC/beh7o4aGwYeoG+nhbVlOwJTZKu8G3mTNHL/Z5DCXSkp46auAAGMI1q9jysyGF5BfDBwuiP6jN4QmAIAdo8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=l/6BUcO/; arc=fail smtp.client-ip=52.101.65.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V5E96PD8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h4vectyS"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLYeBZ225019
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:04:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1Mt4vKOZALY1yI7qCOWowx88+jkqRlUaEI4ns7rSpbY=; b=V5E96PD8JDfAzOlY
-	rYURV+EVteT0BEUWkzaCgwi92Zoa9ICO/4OhQ4SX+Cp9yO4o5EvgQ+aW8T2qdGPW
-	qDAdw25yuFiJKDcuZSvmJmOfxfjZnVyK1bckD4oyBLrfp02+wKQomCogYy7zKkW0
-	W/ZR7pwgJABwUHJqHlfjE75CWtPPYaw5SCdwBv9jgPoeNTJDb8nGghXDZ4iFViOP
-	y9HBe2Uxjtveyhje0MC7w1CT+Y8hk2zY+5gzhSnGXMrmFD1U5dcaQdYoNQKZ4Oef
-	hja++lJNKhxjSzDdA0DivpOG9Z0m1YxJJ5cPA72PHC44Z+5z+FHZ8dnb3WTNx/hd
-	4eAnVQ==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqbmnhkx4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:04:25 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8679cfe5019so7984301b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:04:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789527865; x=1790132665; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1Mt4vKOZALY1yI7qCOWowx88+jkqRlUaEI4ns7rSpbY=;
-        b=h4vectySzAGaI74BYeo92AHJtLBs2SV0+eQyKWpegGwZaGYWYMSXV1q+3K5PPdECTE
-         f/izB8ug4wF59CCLTkW28ZaMv6W0IkEHHXn0+cS2iT1anxrts4oTREAHlyW6Sguug202
-         TWRmMSY6kLfzMuhvGZIZbR/xM/iMMPDlXGLvp3r+ZR/NwGd5q1+zNPIrnkwBIghy97K5
-         xAxvbpJSwlAabRY8tZzUuKV1ezlBpBMdWFEbiN5Y57RnKdJ0CMuUZPJeDV8tgQ49IBWP
-         HWogRf0zNCwuedYp30sorgoXFGCWeLr+9lYisteCBifkb1wezRkTOxMk+3/b8VZCQKHa
-         RL0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789527865; x=1790132665;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1Mt4vKOZALY1yI7qCOWowx88+jkqRlUaEI4ns7rSpbY=;
-        b=UicuJ4xMtH272TwwIErWEF+/clykkjYJdmPi18r/UEq9TsiUS482P+tiziHwzTy4GL
-         1OJSMOXJ/h7dPIT5SXZzVDUPEFOT919M4cTPTG3uYGTRB6fpSfjIAuxrdxazBHMMXAud
-         zvz5ySi4yIKaUP/ZMhOMdMSF/ekmr/2d8VovAN1+QIzNb8IuH1nihRpQGVrOH8iumXWa
-         /KWylflsO9iJHb1H6GWGGQXlGj8YTUP4QcvL+58WoRAlG5e4kkhFooN1bEoQiFa+ADLD
-         L9Cl3TISVvYJroHgth9/qVn9nyee+H6ld+288/8ZWULSv5DDVWDY0y7byPjAX8EOSjnt
-         xFmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzkuNbgYKwJNFWS8Jd6fAT04nUDArNEUsUgAjtN0tXaAmO1DTWW15XHIsfUr843vkRz38BlOWgpVZswUfI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSq1HfYv8HLYcivnSFP9MX3FuRRzdYh2wiZeF2gVBXdXYHNr4P
-	KRoxJYnGK7ta3uWNe13mTFqcw9XFRmzYys/svHO4sGsfOlr5hYJOI+PJDciKnDIGmcYXd2CZFHu
-	xVWkjZJGdI8uqByWXEkwRh72Ic19Blw/td0M+ZTOBC7CEzZe/4A2MlMQ1DoEyvoN1PUw=
-X-Gm-Gg: AYBFou1hGpqmki0RZ9ZaMo2qjxZ+s1Af7+xFloDnvZMFPF0DHRasjvk+hDgEUm578fh
-	OnTfsc9iKZQTRGpb0wYk0V9hfJWyyDrF6u+YPbNTYEvtEaUkVC54T9y6hmYKRoF1SinZV4TvcSU
-	A8L/0fsiRUbfJipx3j4Vqa+DQSuLjnv4Cf3Hv3QJINXL5NIqmX28KepS6WNdiIpxBsMFhQGwchI
-	dG8BKqWnN44yeXiIpWZjsFd6BPUsgaJ/1ubcNUb45ATJtqjHwWAKcTzujrwatNhXqXEcmuowjs9
-	urSs3FafVMnOlpQJCI0Kcb2YEPlP4kLTjJAad2SHAkwaSpF5k8ist1n1zolD/mXRIjtnpvece3x
-	ihdeqGHUP5mYKoCxsz598kRB914goFDDc6PjdARsZ/p6eOvvL1X9fTK/gxpmYUUysmQ==
-X-Received: by 2002:a05:6a00:17a6:b0:845:e9e8:645c with SMTP id d2e1a72fcca58-8723a7a4fa1mr1400449b3a.6.1789527865178;
-        Tue, 15 Sep 2026 20:04:25 -0700 (PDT)
-X-Received: by 2002:a05:6a00:17a6:b0:845:e9e8:645c with SMTP id d2e1a72fcca58-8723a7a4fa1mr1400412b3a.6.1789527864705;
-        Tue, 15 Sep 2026 20:04:24 -0700 (PDT)
-Received: from [10.133.33.124] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8720124322esm442266b3a.31.2026.09.15.20.04.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 20:04:24 -0700 (PDT)
-Message-ID: <b803b63c-8278-4159-9305-f71ed001bdc7@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 11:04:20 +0800
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="l/6BUcO/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EyJ7VTk8bUIyPu6tqKOnM7Oy1QkCRTXs8mviEfXwKu86GzcKvJ6V2I/imQK+lZdsCbyPopVa54Zov0r8qbFqTSTx+17j9nGPqAxgODmykAy+0MkpHj8AKg9lo6vT8YMrhHTkJLSaqJWvdaNDT5uxV1f6Y2gEFrf4FnxgaCUnr1DiDz+V29/t7INTeKoiz6AjIAQBp7aukw7MBua2g0GOPC/qrJW8taHTPhDL1/jlnWOmFAkwKsOl19f7PV65E4NhEfB42bIo+M/9DpycMYlHgf362qMptGixudcXw9cDyxEMN6cMLG/EcYtqwx+H4JAmrQL3huz5S1xdU9u/EQqcJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3kFfVzhj25cUW2SLQUJJrQSHa00LFhbn9ep+Be3UWS0=;
+ b=ttvz17eZUZ7n55KZYp/kjdWRwMfMaYDw6/adyYXB8a4968FJuDUcBGUkSQbVMjmq7XrAUYo+x6O5/n9VgDP0QbTuhdUOy5e2zJeLo/Wx4s9q/yrjHhvdZuRRJzP6DcwPOtry1kVykHM7mNOFgHTpTCRgFACbCmrM6Zw8+oE8zbXitB4SAfkl08lWEjs7tAI2x1Zk/demZ+VvBftHv0j+W5Njt9KTrpbo6A5AZfofBtqvqhLkyTsck6SWLFWfESRaQzJELDMh9E2i7aYpWUF0einWGnjqN3PDREd70w4j/kPkbgmLBDRggYv5elmGCgQ+cTv7KdkoATRqtaqJMqqdwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3kFfVzhj25cUW2SLQUJJrQSHa00LFhbn9ep+Be3UWS0=;
+ b=l/6BUcO/vEAKEv2Nvvi+UwRwpQKx9cnIb6tLjyfKCWOWumBDHqc58C1iJC8NTjBJTZSN9DoXMMQBCRbxzvYckKKtHU7TVtfRYAeqNJh79qlXxEUk1Dq2NMYnvtzk3RimCBKkXzinDRHHX3gs5F7jZR/56WxLeweHsFRMjmsYOx6RVgseVDOIWICxd7qLtI4GuWZJEf4fAoKO8Vjdm4nUMlhvonVH0l1MsKs7PBThKWdTSPqZgkYYBQVTqevj+Z6QDpPsP8f/VroloqWcIAovJ5j31RbrSmr7VOP2ZCgvhfZ2Vak+BwFZIqticIL2ZIq4/y/v/FxauFfs55AuhoIQ8g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20) by VI0PR04MB11937.eurprd04.prod.outlook.com
+ (2603:10a6:800:307::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 03:04:42 +0000
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
+ 03:04:42 +0000
+From: Chancel Liu <chancel.liu@oss.nxp.com>
+To: linusw@kernel.org,
+	Frank.Li@nxp.com
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] pinctrl: pinctrl-generic-mux: Fix provider resource leak on re-parse
+Date: Wed, 16 Sep 2026 12:04:35 +0900
+Message-ID: <20260916030435.4089460-1-chancel.liu@oss.nxp.com>
+X-Mailer: git-send-email 2.50.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SEWP216CA0012.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2b4::18) To GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] coresight: tmc-etr: Sync the trace buffer for the
- device
-To: NoNine <chenmin83@gmail.com>, suzuki.poulose@arm.com
-Cc: mike.leach@linaro.org, james.clark@linaro.org,
-        alexander.shishkin@linux.intel.com, coresight@lists.linaro.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Min Chen <min.chen@siengine.com>
-References: <20260915130503.645953-1-min.chen@siengine.com>
- <20260915130503.645953-2-min.chen@siengine.com>
-Content-Language: en-US
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <20260915130503.645953-2-min.chen@siengine.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=POyaavqC c=1 sm=1 tr=0 ts=6aaa0739 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=UdC6xETiAAAA:8 a=HTs3lNVCq07o06pvmvIA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22 a=ybX9D8xwk0CjW0O53t9p:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDAzOSBTYWx0ZWRfX0irGfARscgg1
- gx1LV+FxqI1hdVCBcw0rVn57hwswsOKu6Fq6Wohi4Wcr2D17MrdUop5b62CT/vOwuldJ9L7apUk
- 2vCcNK2QjFg5vNl5VA2/8BtcHj5dh3FHMZhFwiHG6Vm55QfOAYPaUW7Fm6YgH4IQ7yt6MfrTrDR
- 0I5ZJ8H9hqQPXAKx89UQv+mV+1oyNvNXVJkgiQ+hy3y8842CqL49/dFUniN68CK9VwR2EvwTGlj
- CdDIkX+EzphKu3+xiZfKhALqi7/IhtPEMXZlyZq0r7lHiBnhfZ2j3wH34A17G98KCMmp70x5X0U
- e3O4W2SGeoulL1TKvJTqRav9D4BpxfPgVW33Ga1wHhxYmfoXU1XMXxK5RmDl0xUuVQ8sHji12SQ
- UUvCcmbsBOSP1poG6gjSyFgk4nFZrBSptYACl0WZWptrFpb7B9gI1dADtsF4CCh7L56RVg85Q5i
- 4v6UeftvmxDFLwpeQMQ==
-X-Proofpoint-GUID: a8XB54NIDsvXSNrj6MHF9Ghu-u4V_qNG
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDAzOSBTYWx0ZWRfX5kECAUsoPPCI
- UXgC8QjVBrMsESMR5J4e7O4n9exxcUNHEQOeULXEfHKnG7K5dbIWBbz7sGZh0DnMMuS8Y6iikUd
- WYkTILYWzLFQ35v7zhK4r3JFyXIjkIk=
-X-Proofpoint-ORIG-GUID: a8XB54NIDsvXSNrj6MHF9Ghu-u4V_qNG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 phishscore=0
- suspectscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160039
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|VI0PR04MB11937:EE_
+X-MS-Office365-Filtering-Correlation-Id: a6fad772-b0f0-4a95-8fe5-08df139f40e6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|376014|1800799024|23010399003|10067099003|6133799003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	wlrVmmR4hW0mnDT6jbDbv87KJ+MbhVAmZI/g/4FMgY1Lm+FMVru//SEs6E3wudJ6us7uboSlK9XlU3FWyNG/8doKx28u87PfZB3WBban7l/tuGF5pjRUkFGZvQ/1QP69Xtc17u1GG9sl4PE4McZ79fe1jrykSgzzsZ5wXWnY5nSOk314cJ2K3JiylUF32VbnI+svbf5xon+ojxPdx9RGsSZKEuZDcmvqx3hgqhN4KV7YLD5kOLRit6mS4fVkPZrhzgxgYphTYpks5NKmqiqUy1fxSdopSLgLOEWILmfbvkhBpzWU1HA0jf+sq2GgfNvqBt9SU6FcsDEbaJYdgmIUlxItNBv1uOuZdLIC1ym9X2oHHVke27MPsOKDypTBpa9puh52CmdHdzi80P+lqLBBmlrUCefT9gMA6DDIbQPjfJhSf6ttg7iHW94ONoN03uFtsM/0/Sm4IlQBDPE25QNk2Up/NKdYH3TNYRD3jL0EIPEvfKLDfGchFOVflhXI27iC3kOYzeG3azivg2Qu4zZnu9O9l52se84up9V4bV2nQBqFtlc5B8+CskMJAt6ZFZMecp99xxi3Oo6lhBdcvN7NmvqTff2jLRQG0HaiqrgSGLo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(1800799024)(23010399003)(10067099003)(6133799003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?PfJH3M9S41DfuxG+3E2SiWyoz2wIZ6wPCXDaXoF1R79bjxd5dYzU4uBEyM4w?=
+ =?us-ascii?Q?tGXbsM6t9Du+TwJxNF3kADtB0CzvM3akRKcw6lZySDZiq+/G7gxQtqI9FbHx?=
+ =?us-ascii?Q?otQ3hHKUrlKnQHrW9x/lt6Kz6f2CEWR3YILktFzZ8TSSzIda7Gc8H7jB51hg?=
+ =?us-ascii?Q?j1HWzPHdN+l9JicPFUsq8VaOrDtyWfvOJOaOuzNJcJ3f44o7uWPo5vrZ58O1?=
+ =?us-ascii?Q?fCX3eLkV2tOL6UBpx1rx757vG18rhAKguuhGlqebDh2dUpzN4m5ZcKM/VV6T?=
+ =?us-ascii?Q?qggzcwuqH4q3zpru5FVG6OVDX6n6yAXKVwNvs4BJqKCoOCEeFy3OrGjhLy7Q?=
+ =?us-ascii?Q?6FM8EWlXQtZlcRS9Y64D6LWhLS8vhYcTbp59ZVvTfnF+ECH6tVPgc2IP4nu0?=
+ =?us-ascii?Q?qPz8T1ZmFVOJP/FMVMMCT2MU4S1EAOatxEkp5oCUMy8IV/RZ69oh6X6cFXXi?=
+ =?us-ascii?Q?EoFrTLaBszfkgVozPbxWBOxcMfSz1d6iTSMz4MS4Y8SOq9DgCcZBln/nxMvG?=
+ =?us-ascii?Q?LhV03o/O79hKFb/v3cmqXIkbY9U8cqQ3tZA9cqodSVAixbv/55e8vVHQqu28?=
+ =?us-ascii?Q?JbvGW4cA0o3y70+VDUW6Nl3Flncla5J6mrGfwoJ3gsSTg2wLNvtZXWnqbez5?=
+ =?us-ascii?Q?EgzuweiUtQGCJXYpYy03OGiBnqT9f11TvEtbZMSac9d084C08Z2dt2SKB0iP?=
+ =?us-ascii?Q?dd95rjXJ5MSdM2f5+YLGTehEAS5HxCBTEaqIVjFYLI7KBS+JeagkesMg7E9H?=
+ =?us-ascii?Q?bgeJlcO3TI0TBlrMHeRdrnoukXGfsPyP4C2XuLVl0x6dSsO5rdrTgnpPPXtM?=
+ =?us-ascii?Q?S7k68KkAivFsBKb3ZOLaA04lKGtQeMQyNsqQX7wlm2UO43cGU6vWxCOQ0LID?=
+ =?us-ascii?Q?ZwGTpwpsF59xjuyyXY5JXUrLXlfGv7N69Q0M3TMtbpUMqW/Lgog52y0oVrf2?=
+ =?us-ascii?Q?6GouXeeu84lCez2Lxn3DK6XGg+WG6Tekssud/2BETuX/YqQxffQmOQGldw5C?=
+ =?us-ascii?Q?8RWzfJxMo7/RjbL/TW12XyGNQ7iXyK6WrHMYbzIRp6m/4K3ae7CnU3eqdyEO?=
+ =?us-ascii?Q?ZtQg6eGdxyr8BlOCTad2uXAPyE7pmTyQDzqkF3ZXSaCjZNLC0s/dQzM6YmOp?=
+ =?us-ascii?Q?EQKTn+F3qLdfC7m6jrdsz8mm8caxhe8HIg2DOaq+3/re/GgXt13QZ7kAsUjs?=
+ =?us-ascii?Q?IRfdeCl6yNIbO4bFxC7X6plDHFUqA6PdL7tMvSWnuNFrap+9FubjhvzqYNLe?=
+ =?us-ascii?Q?zrkS2slzdrH9OoIQJHHz1vgwyazifoG3hvJVlVPVV1w29qL1gkfXR37wRh/a?=
+ =?us-ascii?Q?tC49B4fTGdLo2UbsBh0jWGCq08iEOcnGce4g+jFlXx5Q5iXxIG0JFuB5Zlig?=
+ =?us-ascii?Q?4nR1BoScrdN3jJLRSzpc3ktuNvQ+CUlzcVg/MB3jnP9OVFb00jcXt1pEoSq/?=
+ =?us-ascii?Q?QS7APg+aCagGTvlOZE6l9rva5feQGjztE5AfpyCv37IAqKoCTftp9O/AI/qW?=
+ =?us-ascii?Q?q3WTu6ky/ZEx+6oA3EMz1NDZniSht5j35rTinOEixylnSkGpNr+40rAnew8i?=
+ =?us-ascii?Q?0fAhxKB9qQCpFq6Upuo12lB5ndIVrLu+wGzcE99/pXKgv5uIhLRcY2PGBVUV?=
+ =?us-ascii?Q?P02yzZBgQpp3Q8B/eaaYa7d/CVe2ZP/21xwFSXenPgIwbJ+BDdQjDXe2ZRXw?=
+ =?us-ascii?Q?ACxWTXplSZF/8I2oH9u6zAzS3ywlmIZ1uTiPGgyhYxZLpFALY46XNVyZAr0o?=
+ =?us-ascii?Q?bXSGp50/o9Muk9TUm0LecijA24pb4epR2PtbPWPLuwel+C1HCTlA?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6fad772-b0f0-4a95-8fe5-08df139f40e6
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 03:04:42.5128
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0Omc7+GmjowRpqPOBW98H1M4WlGX7zwmOFuM6QMEhEgzCppE/98ywtHzgwcK7KbF+V59LtUBThwCE5Deqa6otPehzpHW1ivJ/eyKzJ5zWgNu5Cq2a0qqoGyUywG6yy/0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11937
 
-Hi,
+From: Chancel Liu <chancel.liu@nxp.com>
 
-On 9/15/2026 9:05 PM, NoNine wrote:
-> From: Min Chen <min.chen@siengine.com>
-> 
-> The flat ETR buffer comes from dma_alloc_noncoherent(), which zeroes it
-> with CPU stores.  The DMA API requires the caller to sync the buffer for
-> the device before the device writes into it, but the TMC driver only
-> ever syncs for the CPU afterwards.  On a non-coherent sink the zero fill
-> is therefore still dirty in cache when the ETR starts writing, and its
-> write-back lands on top of the trace data.
-> 
+The pinctrl core re-parses a consumer's pinctrl on every probe attempt
+(pinctrl_bind_pins() runs before the driver's probe(), and again on each
+deferred-probe retry or re-bind), so .dt_node_to_map() must be side-effect
+free and safe to call repeatedly.
 
-Agree, without the sync, the dirty data may overwrites the trace data.
+mux_pinmux_dt_node_to_map() instead allocated provider-side resources on
+every call - the mux_pin_function, the group name table and a mux_state
+reference, plus a group name and a pinctrl_generic_add_group()
+registration via pinctrl_generic_to_map(). All of these are allocated
+with devm_*() against the provider device, so they live for the provider's
+lifetime and are only released when the provider itself is unbound. The
+.dt_free_map() path never touches them; it frees the per-consumer
+pinctrl_map only. Every re-parse therefore adds another set of
+provider-side allocations that are never reclaimed, so a consumer that
+repeatedly defers probe or is re-bound leaks memory and mux_state
+references on the provider without bound.
 
-> Add a sync_for_device() buffer operation and call it from
-> __tmc_etr_enable_hw() just before the TMC is enabled.  Only the flat
-> buffer implements it.  The ETR_SG and CATU data pages are synced by
-> dma_map_page() when they are allocated; their remaining corner case, a
-> barrier packet followed by a live-drain re-arm, is left for a separate
-> change.
-> 
-> Tested on an AD1000 EVB: five first windows on freshly allocated
-> buffers, including the first capture of a boot, all without the
-> previous all-zero-formatter-frame runs.
-> 
-> Signed-off-by: Min Chen <min.chen@siengine.com>
-> ---
->   .../hwtracing/coresight/coresight-tmc-etr.c   | 29 +++++++++++++++++++
->   drivers/hwtracing/coresight/coresight-tmc.h   |  1 +
->   2 files changed, 30 insertions(+)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> index 76a8cb2..bf1d6c6 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> @@ -689,10 +689,29 @@ static ssize_t tmc_etr_get_data_flat_buf(struct etr_buf *etr_buf,
->   	return len;
->   }
->   
-> +/*
-> + * tmc_etr_sync_flat_buf_for_device: Drop any CPU cache lines over the trace
-> + * buffer before the ETR is allowed to write into it.  The buffer is allocated
-> + * with dma_alloc_noncoherent(), which zeroes it with CPU stores, and the DMA
-> + * API requires a sync for the device before the device writes into the
-> + * memory.  Without it a non-coherent sink writes into memory while the zero
-> + * fill is still dirty in cache, and the write-back lands on top of the trace
-> + * data.
-> + */
-> +static void tmc_etr_sync_flat_buf_for_device(struct etr_buf *etr_buf)
-> +{
-> +	struct etr_flat_buf *flat_buf = etr_buf->private;
-> +	struct device *real_dev = flat_buf->dev->parent;
-> +
-> +	dma_sync_single_for_device(real_dev, flat_buf->daddr, etr_buf->size,
-> +				   DMA_FROM_DEVICE);
-> +}
-> +
->   static const struct etr_buf_operations etr_flat_buf_ops = {
->   	.alloc = tmc_etr_alloc_flat_buf,
->   	.free = tmc_etr_free_flat_buf,
->   	.sync = tmc_etr_sync_flat_buf,
-> +	.sync_for_device = tmc_etr_sync_flat_buf_for_device,
->   	.get_data = tmc_etr_get_data_flat_buf,
->   };
->   
-> @@ -1113,6 +1132,16 @@ static int __tmc_etr_enable_hw(struct tmc_drvdata *drvdata)
->   	writel_relaxed(ffcr, drvdata->base + TMC_FFCR);
->   
->   	writel_relaxed(drvdata->trigger_cntr, drvdata->base + TMC_TRG);
-> +
-> +	/*
-> +	 * Hand the buffer over in a state the device can write into: drop
-> +	 * any dirty CPU cache lines first, or they get written back over
-> +	 * the trace data the ETR produces.  Only the flat buffer needs
-> +	 * this; the ETR_SG and CATU data pages are synced by
-> +	 * dma_map_page() when they are allocated.
-> +	 */
-> +	if (etr_buf->ops->sync_for_device)
-> +		etr_buf->ops->sync_for_device(etr_buf);
+The groups and functions of a board-level mux are static and fully
+described by the device tree, so build them once at probe time in the new
+mux_pinctrl_probe_dt(). mux_pinmux_dt_node_to_map() then only looks up the
+already registered group and builds the per-consumer mux map, which the
+core frees via .dt_free_map. As the mux has no pin electrical
+configuration, no config map is emitted.
 
-Can we add a condition to perform the synchronization only when flat_buf 
-mode is enabled, instead of introducing a new operation that is required 
-only for flat_buf mode?
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260824022020.2812810-1-chancel.liu%40oss.nxp.com
+Fixes: 34acc5a8adfb ("pinctrl: add generic board-level pinctrl driver using mux framework")
+Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+Assisted-by: VeroCoder:claude-opus-4-8
+---
+ drivers/pinctrl/pinctrl-generic-mux.c | 76 ++++++++++++++++++++-------
+ 1 file changed, 56 insertions(+), 20 deletions(-)
 
-if (etr_buf->mode == ETR_MODE_FLAT)
-	tmc_etr_sync_flat_buf_for_device(etr_buf);
-
-Thanks,
-Jie
-
->   	tmc_enable_hw(drvdata);
->   
->   	CS_LOCK(drvdata->base);
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc.h b/drivers/hwtracing/coresight/coresight-tmc.h
-> index 6541a27..3dd17da 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc.h
-> +++ b/drivers/hwtracing/coresight/coresight-tmc.h
-> @@ -277,6 +277,7 @@ struct etr_buf_operations {
->   	int (*alloc)(struct tmc_drvdata *drvdata, struct etr_buf *etr_buf,
->   		     int node, void **pages);
->   	void (*sync)(struct etr_buf *etr_buf, u64 rrp, u64 rwp);
-> +	void (*sync_for_device)(struct etr_buf *etr_buf);
->   	ssize_t (*get_data)(struct etr_buf *etr_buf, u64 offset, size_t len,
->   			    char **bufpp);
->   	void (*free)(struct etr_buf *etr_buf);
+diff --git a/drivers/pinctrl/pinctrl-generic-mux.c b/drivers/pinctrl/pinctrl-generic-mux.c
+index 202b72351efb..de85b4e75eb8 100644
+--- a/drivers/pinctrl/pinctrl-generic-mux.c
++++ b/drivers/pinctrl/pinctrl-generic-mux.c
+@@ -10,13 +10,11 @@
+ #include <linux/mutex.h>
+ #include <linux/mux/consumer.h>
+ #include <linux/platform_device.h>
+-#include <linux/pinctrl/pinconf-generic.h>
+ #include <linux/pinctrl/pinctrl.h>
+ #include <linux/pinctrl/pinmux.h>
+ #include <linux/slab.h>
+ 
+ #include "core.h"
+-#include "pinconf.h"
+ #include "pinmux.h"
+ #include "pinctrl-utils.h"
+ 
+@@ -38,39 +36,73 @@ mux_pinmux_dt_node_to_map(struct pinctrl_dev *pctldev,
+ 			  struct pinctrl_map **maps, unsigned int *num_maps)
+ {
+ 	unsigned int num_reserved_maps = 0;
+-	struct mux_pin_function *function;
+-	const char **group_names;
+ 	int ret;
+ 
+-	function = devm_kzalloc(pctldev->dev, sizeof(*function), GFP_KERNEL);
+-	if (!function)
+-		return -ENOMEM;
+-
+-	group_names = devm_kcalloc(pctldev->dev, 1, sizeof(*group_names), GFP_KERNEL);
+-	if (!group_names)
+-		return -ENOMEM;
+-
+-	function->mux_state = devm_mux_state_get_from_np(pctldev->dev, NULL, np_config);
+-	if (IS_ERR(function->mux_state))
+-		return PTR_ERR(function->mux_state);
++	*maps = NULL;
++	*num_maps = 0;
+ 
+-	ret = pinctrl_generic_to_map(pctldev, np_config, np_config, maps,
+-				     num_maps, &num_reserved_maps, group_names,
+-				     0, &np_config->name, NULL, 0);
++	if (pinctrl_get_group_selector(pctldev, np_config->name) < 0)
++		return -ENODEV;
+ 
++	ret = pinctrl_utils_reserve_map(pctldev, maps, &num_reserved_maps,
++					num_maps, 1);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = pinmux_generic_add_function(pctldev, np_config->name, group_names,
+-					  1, function);
++	ret = pinctrl_utils_add_map_mux(pctldev, maps, &num_reserved_maps,
++					num_maps, np_config->name,
++					np_config->name);
+ 	if (ret < 0) {
+ 		pinctrl_utils_free_map(pctldev, *maps, *num_maps);
++		*maps = NULL;
++		*num_maps = 0;
+ 		return ret;
+ 	}
+ 
+ 	return 0;
+ }
+ 
++static int mux_pinctrl_probe_dt(struct pinctrl_dev *pctldev,
++				struct device_node *np)
++{
++	struct device *dev = pctldev->dev;
++
++	for_each_available_child_of_node_scoped(np, grp) {
++		struct mux_pin_function *function;
++		const char **group_names;
++		int ret;
++
++		function = devm_kzalloc(dev, sizeof(*function), GFP_KERNEL);
++		if (!function)
++			return -ENOMEM;
++
++		group_names = devm_kcalloc(dev, 1, sizeof(*group_names), GFP_KERNEL);
++		if (!group_names)
++			return -ENOMEM;
++
++		group_names[0] = grp->name;
++
++		function->mux_state = devm_mux_state_get_from_np(dev, NULL, grp);
++		if (IS_ERR(function->mux_state))
++			return dev_err_probe(dev, PTR_ERR(function->mux_state),
++					     "failed to get mux-state for %pOFn\n",
++					     grp);
++
++		ret = pinctrl_generic_add_group(pctldev, grp->name, NULL, 0, NULL);
++		if (ret < 0)
++			return dev_err_probe(dev, ret,
++					     "failed to add group %pOFn\n", grp);
++
++		ret = pinmux_generic_add_function(pctldev, grp->name, group_names,
++						  1, function);
++		if (ret < 0)
++			return dev_err_probe(dev, ret,
++					     "failed to add function %pOFn\n", grp);
++	}
++
++	return 0;
++}
++
+ static const struct pinctrl_ops mux_pinctrl_ops = {
+ 	.get_groups_count = pinctrl_generic_get_group_count,
+ 	.get_group_name = pinctrl_generic_get_group_name,
+@@ -157,6 +189,10 @@ static int mux_pinctrl_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to register pinctrl.\n");
+ 
++	ret = mux_pinctrl_probe_dt(mpctl->pctl, dev->of_node);
++	if (ret)
++		return ret;
++
+ 	ret = pinctrl_enable(mpctl->pctl);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to enable pinctrl.\n");
+-- 
+2.50.1
 
