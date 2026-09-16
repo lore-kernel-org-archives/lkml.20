@@ -1,82 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4144FECE5
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:47:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168CE50AC25;
+	Wed, 16 Sep 2026 13:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566446; cv=none; b=qR0sBREr/q/NN0XjUX5j+6U/JWUYZdCXotAoorHcQPQRBq9E0Wg65z2MWaJdnqzpGcNCifo74mYYcaK0zWQrLIan1rCvHjjZvFiNvjNQI1Jgv8LHu0O0uvS1ihkJhQ8mtXMnUsXYgN9mUmy4zsOJc9g1RROMfl7gGsqvNgPzeAI=
+	t=1789566457; cv=none; b=GVEEnHFKcOWj+jIVY3wD3r38t7IeYP8DLVQM52w//OMPPMESZSpJpERzpw6T8AK6VWdaP06mOGdBJq002b37TZmhbP/bvJTxDoFTRBG9KqxrfsoT49hMXev0et8JgKYs5OEA5/ywp3nxxbGx9jA9/o4uhstH3QK/mTujo7nYH38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566446; c=relaxed/simple;
-	bh=tH2TyRyrHUfYivxY9vkK6rsqtkiNGwOuf34YFqaNWdo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pXPdwPwGfCHYc5+lhppmhFweIWReB8sPcUS+ivCnfnUp5hFW79YsGIeO8dMBhCQwJcPG7idhdZEUwzZvrtI4hKCUHLK+xC33g76jQUuchqm4OBTJ1pVy3RZIapuj2AI2S7vSbKcXVNCdlClIrpcsDZnw2ST0obEu2trh/UKlM+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bY+Ya2I2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789566457; c=relaxed/simple;
+	bh=eTpWazme9lelTHh/MSYxuXX4Q7bGyw/vNIL2dQsJsnk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SZIKx7j57uyLC98e50Oir2n6B7fU3UQLHzSND89qL2bfKCOjmkZclQ64e7xI0vJKkZ7sSuxhKWlM2R1sOqxRdYmDNlBTb2wE/XowHzsT/0iETXhJGKK5yyDhva9MgXDDYcpR/bu9pm0LwtJwPn6WSfgBDCQx2RMi5doPcF33MJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=stJ7pcSM; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bY+Ya2I2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD421F00898;
-	Wed, 16 Sep 2026 13:47:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789566442;
-	bh=q7xO4hFi2UtZfonLXP+mL7IxnXY+Fr9azw/0sP29fPQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bY+Ya2I2Hqz72MS3hfKFQW2c7SFMItvABWch7KKERuFr2NVo7N06tg7g5QKhbRkCC
-	 L1fmjBauqaCZsNk9tdJWiYyRtf9IbKhbVqAFwptGsxPOOg1tUpoJqHSa1UZY0Ai+sl
-	 /hCjgCMEeqIFjMUY6I4Lb+odENTb9dMnwiAWzo7wg3TYN6tPDxUpJP9Ww4qFmoPg1a
-	 cHG/xVPu8H3ZRiJDVcP1vp3WsSQjZMYNXlSCLqHzhBTOyeEX/1fC76gRB1v5l7dEOj
-	 Y0tMumskOFjm+bBN2rJhLcMCU+h1A5KwPDidHXXTyEYy4smume/x2Gy7C8g5ZGcvOw
-	 BNVfyLa2V6nlw==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1x6pyp-00000006DD0-3XB9;
-	Wed, 16 Sep 2026 15:47:19 +0200
-Date: Wed, 16 Sep 2026 15:47:19 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Farhad Alemi <farhad.alemi@berkeley.edu>
-Cc: linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [BUG] general protection fault in upd78f0730_tiocmset
-Message-ID: <aqqd55r5Nl00FBFt@hovoldconsulting.com>
-References: <CA+0ovChXjGWuRQuKHHWkSiLbdt-WEWv=M0mGOB2eKcJjFiEY=A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="stJ7pcSM"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 532664E40727;
+	Wed, 16 Sep 2026 13:47:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2580F60337;
+	Wed, 16 Sep 2026 13:47:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7739B11C7B03A;
+	Wed, 16 Sep 2026 15:47:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789566443; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=F5yJhJPNA3btj/uGTb70cyHyjYgUd7jvRnU4XSDRWHQ=;
+	b=stJ7pcSMxhptZLIqoyaWMV1hH4b9QQQk7L+xVlggg8oZ2HFD1RYTe1AO07Us9PNoiShZyW
+	7/pb0vWC3oB0rFJbdQuWiwcDzkGRZ1elh1YLtKxevTBxSlRDB4rUQ/kqyJE/KLobMHiaHI
+	5ZbcTbOrLHR4XIPQyToJru4eirdg+Rkr4R5mYnrS/AEgeXCnws0Z1lXECyj8JGmErM7Qdt
+	GrW7AC9t2kQc6cnPAtdPjazwEyHFTph8VS5P52CG30ZMHJg/z0t4HErFlbkIQxyRXdGGsj
+	MYs/A9Ml/n2T/xWLZseOhyHMlpo+twpUo9KC0Y8zVTj2pB8+GXh8PZYl2SMHng==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Wed, 16 Sep 2026 15:45:36 +0200
+Subject: [PATCH v3 12/19] drm/mcde: dsi: don't create a panel_bridge
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+0ovChXjGWuRQuKHHWkSiLbdt-WEWv=M0mGOB2eKcJjFiEY=A@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-drm-bridge-every-panel-v3-12-83afb4f1a707@bootlin.com>
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
+ Paul Kocialkowski <paulk@sys-base.io>, Linus Walleij <linusw@kernel.org>, 
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, Sean Paul <sean@poorly.run>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Albert Esteve <aesteve@redhat.com>, 
+ Anusha Srivatsa <asrivats@redhat.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Sep 11, 2026 at 01:16:11PM -0700, Farhad Alemi wrote:
+Now a panel_bridge is automatically created for every drm_panel and the
+panel-bridge API is just a deprecated wrapper to access it.
 
-> We are reporting the following crash (reproducer attached):
-> Linux version 7.3.0-rc2 50d05c7c76c96b90462f24debacca971d2e86713
-> Build Config: UpstreamAppArmorKASAN (KASAN + UBSAN, panic_on_warn=1)
-> 
-> [   44.256596][ T9490] Oops: general protection fault, probably for
-> non-canonical address 0xdffffc00000000ba: 0000 [#1] SMP KASAN NOPTI
-> [   44.258408][ T9490] KASAN: null-ptr-deref in range
-> [0x00000000000005d0-0x00000000000005d7]
-> [   44.259206][ T9490] CPU: 0 UID: 0 PID: 9490 Comm: repro Not tainted
-> 7.3.0-rc2-00099-g50d05c7c76c9 #1 PREEMPT(full)
-> [   44.260235][ T9490] Hardware name: QEMU Standard PC (Q35 + ICH9,
-> 2009), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
-> [   44.261396][ T9490] RIP: 0010:upd78f0730_tiocmset+0x86/0x4b0
+Update and simplify the code by just getting a reference to the
+already-existing bridge using of_drm_find_and_get_bridge().
 
-> [   44.270495][ T9490] Call Trace:
-> [   44.270882][ T9490]  <TASK>
-> [   44.271160][ T9490]  ? __pfx_upd78f0730_tiocmset+0x10/0x10
-> [   44.271694][ T9490]  ? __pfx_serial_port_dtr_rts+0x10/0x10
-> [   44.272208][ T9490]  tty_port_shutdown+0x165/0x220
-> [   44.272672][ T9490]  tty_port_hangup+0xee/0x170
-> [   44.273101][ T9490]  ? __pfx_serial_hangup+0x10/0x10
-> [   44.273600][ T9490]  __tty_hangup+0x5a7/0x650
-> [   44.274074][ T9490]  tty_ioctl+0x757/0xde0
+Also keep the "connected to non-panel bridge (unsupported)\n" error logic
+by using the drm_bridge_is_panel() function.
 
-Another symptom of this issue was reported by syzbot a couple of weeks
-ago and I posted a fix for the tty layer last week:
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+ drivers/gpu/drm/mcde/Kconfig    |  1 -
+ drivers/gpu/drm/mcde/mcde_dsi.c | 41 +++++++++--------------------------------
+ 2 files changed, 9 insertions(+), 33 deletions(-)
 
-	https://lore.kernel.org/lkml/20260910125114.640880-1-johan@kernel.org/
+diff --git a/drivers/gpu/drm/mcde/Kconfig b/drivers/gpu/drm/mcde/Kconfig
+index 6ebfb930cbfa..81e7d3796c06 100644
+--- a/drivers/gpu/drm/mcde/Kconfig
++++ b/drivers/gpu/drm/mcde/Kconfig
+@@ -10,7 +10,6 @@ config DRM_MCDE
+ 	select DRM_MIPI_DSI
+ 	select DRM_BRIDGE
+ 	select DRM_PANEL
+-	select DRM_PANEL_BRIDGE
+ 	select DRM_KMS_HELPER
+ 	select DRM_GEM_DMA_HELPER
+ 	help
+diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
+index 77cf253a2152..daac8d67913d 100644
+--- a/drivers/gpu/drm/mcde/mcde_dsi.c
++++ b/drivers/gpu/drm/mcde/mcde_dsi.c
+@@ -37,7 +37,6 @@ struct mcde_dsi {
+ 	struct device *dev;
+ 	struct mcde *mcde;
+ 	struct drm_bridge bridge;
+-	struct drm_panel *panel;
+ 	struct mipi_dsi_host dsi_host;
+ 	struct mipi_dsi_device *mdsi;
+ 	const struct drm_display_mode *mode;
+@@ -1074,7 +1073,6 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
+ 	struct drm_device *drm = data;
+ 	struct mcde *mcde = to_mcde(drm);
+ 	struct mcde_dsi *d = dev_get_drvdata(dev);
+-	struct drm_panel *panel = NULL;
+ 	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
+ 
+ 	if (!of_get_available_child_count(dev->of_node)) {
+@@ -1102,40 +1100,21 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
+ 
+ 	/* Look for a panel as a child to this node */
+ 	for_each_available_child_of_node_scoped(dev->of_node, child) {
+-		panel = of_drm_find_panel(child);
+-		if (IS_ERR(panel)) {
+-			dev_err(dev, "failed to find panel try bridge (%ld)\n",
+-				PTR_ERR(panel));
+-			panel = NULL;
+-
+-			bridge = of_drm_find_and_get_bridge(child);
+-			if (!bridge) {
+-				dev_err(dev, "failed to find bridge\n");
+-				return -EINVAL;
+-			}
++		bridge = of_drm_find_and_get_bridge(child);
++		if (!bridge) {
++			dev_err(dev, "failed to find bridge\n");
++			return -EINVAL;
+ 		}
+ 
+-		if (panel || bridge)
+-			break;
++		break;
+ 	}
+-	if (panel) {
+-		bridge = drm_panel_bridge_add_typed(panel,
+-						    DRM_MODE_CONNECTOR_DSI);
+-		drm_panel_put(panel);
+-		if (IS_ERR(bridge)) {
+-			dev_err(dev, "error adding panel bridge\n");
+-			return PTR_ERR(bridge);
+-		}
+-		drm_bridge_get(bridge);
+-		dev_info(dev, "connected to panel\n");
+-		d->panel = panel;
+-	} else if (bridge) {
++	if (!bridge) {
++		dev_err(dev, "no bridge\n");
++		return -ENODEV;
++	} else if (!drm_bridge_is_panel(bridge)) {
+ 		/* TODO: AV8100 HDMI encoder goes here for example */
+ 		dev_info(dev, "connected to non-panel bridge (unsupported)\n");
+ 		return -ENODEV;
+-	} else {
+-		dev_err(dev, "no panel or bridge\n");
+-		return -ENODEV;
+ 	}
+ 
+ 	d->bridge.next_bridge = drm_bridge_get(bridge);
+@@ -1157,8 +1136,6 @@ static void mcde_dsi_unbind(struct device *dev, struct device *master,
+ {
+ 	struct mcde_dsi *d = dev_get_drvdata(dev);
+ 
+-	if (d->panel)
+-		drm_panel_bridge_remove(d->bridge.next_bridge);
+ 	regmap_update_bits(d->prcmu, PRCM_DSI_SW_RESET,
+ 			   PRCM_DSI_SW_RESET_DSI0_SW_RESETN, 0);
+ }
 
-Johan
+-- 
+2.55.0
+
