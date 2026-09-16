@@ -1,126 +1,91 @@
-Received: from kylie.crudebyte.com (kylie.crudebyte.com [5.189.157.229])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A501A43F0A7;
-	Wed, 16 Sep 2026 20:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.189.157.229
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E099343E4A2;
+	Wed, 16 Sep 2026 20:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789588958; cv=none; b=LHJmeoOYJuUEJaMhGkejs8BSbRL2YOoEX1+xlRYn/Qtf14mNbdUUNpE4rTSGeXkvt+NcXH4iJjeoG/h0sWcSsNIzIak9Jb5P8rMESmTtjyIb08C7SJca05BUxiPg6EruTD3gcKsUui6OCXpJpkc0/E9k3AUnL91BiQuco4z8P7g=
+	t=1789588968; cv=none; b=lpac5oVIwpVM9k4KvsgxgpnFo0erk8PYRnGqZ/agJpb10lnRByL/UhwDuP+gby02pFdtAn/Lcv1qBKftawGN9bLqNRz7kHvLv/OaNpn1xFTdZQ0PaDSkOA2XsBaMcVdOKJ1KWv51P5hquu5PMMQx0VC6DtbaG8PHmmRgmf2Eh2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789588958; c=relaxed/simple;
-	bh=4VPXVRsL/JYVebZmiRbYJ9Zfe5tiRltX0zNY+++VXEs=;
+	s=arc-20240116; t=1789588968; c=relaxed/simple;
+	bh=CnPQk5xHz0wKRKYP2fkyD+/dsIdYEO5cOQ4XeQu+MWo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VZIlttQVM+adlVUkT/YmDgXBb+qzFSBQP70/dBs4B65oRtq6cKQwnzBjhRsB+15o2WrgIEVNdNISgfoiTGDb4kHQqx6wcUDZrtYseyK/oaONgOUoo2mK3uNJA3AB/DaRt1x/WvBrNavZU1T3CenCb6iUr9rmsxI+sM/ajzxBBH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com; spf=pass smtp.mailfrom=crudebyte.com; dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b=vgXzLwGO; arc=none smtp.client-ip=5.189.157.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crudebyte.com
+	 MIME-Version; b=id4VXdAilOya2FDt6r6cGb5b2clLoGKvL7nLItLgNWUEJbCrOxm4We0S1EBexIiVZnC1eYkdfnoVWREb5DBQQMvUW3tZJkMi1AXfLUUFe3FQR0HFvoUeUfUXQsDDq+N/RwaqT7JYUhlRGGhnign6dA2RHSerFDlcf70pEMnddv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=l73A9EjS; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=c/LfVz7t; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b="vgXzLwGO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=crudebyte.com; s=kylie; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Content-ID:Content-Description;
-	bh=GhMZiNqLd2dOE9/TX3oM+jpcEYp/1e6C8q1PDfzzjkQ=; b=vgXzLwGOpQOBXXPQN2pMb/CaIr
-	GlcDYeiAQJwPbmquxE+qM8BfOd5ks1JJgEos0S2/j2gDSkFaG6eXrAv8t33GrHlr8amtxGUk8BeJV
-	zhZr+sYDHAWrMZ3onDsnjJHJp+QVBpOYWiCZX8EPVKsyLem+KHPGZHxrKSZqpK7PNwlw2lMupINjV
-	O0KZhy8GHWsH5Mzxy/XtoHorUS21LmG0rdWuznFpxK3OfotX424G1biIidwij3jdCAKXQfBwOx04E
-	O1N0RgZ4z4QQOhRvQeWlqgPhQa+H95iLJGXDyts//d2OUXVhP49NhtJhgMg/0kVpkorHOBHGV5hSC
-	aUlammiDA3lczTsycz3rWx6+eyHok1DbDRxWVPEhJPB72tgyuo4CuigO579HedomojitE70NnNSsB
-	paJJ++nHZDbyVw0zln9E8t76skIOhvhMF5HrSL8lYKSRkrXNWDHeojOR/DzMCEXaATKsdh3i+j6WA
-	lk6IUT2voJdE/Ssaez3+FAtwF8B1bDA493pMmZ2CWRP/DpWGCVgzB3O7PEwt2YFGl4kSsq8/giV8Z
-	abrSWHu2uWSykGVzbDXylXTPmq4Lxj8x6ycJX2Iha/M6Ejp2Mf0vkhEWYdMyV08d2vXqlaDRfkHd8
-	oFwsiayx8QQIsrsEnpFt7u+DFKea++TobiTEh1MnU=;
-From: Christian Schoenebeck <linux_oss@crudebyte.com>
-To: ericvh@kernel.org, lucho@ionkov.net, asmadeus@codewreck.org,
- v9fs@lists.linux.dev, Haobin Wu <853555@gmail.com>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, aneesh.kumar@linux.vnet.ibm.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, jack@suse.cz, willy@infradead.org,
- dhowells@redhat.com, viro@zeniv.linux.org.uk, brauner@kernel.org
-Subject:
- Re: [PATCH v2 2/2] 9p: skip directory entries with names longer than NAME_MAX
-Date: Wed, 16 Sep 2026 22:02:08 +0200
-Message-ID: <3910569.MHq7AAxBmi@weasel>
-In-Reply-To: <20260916135403.15789-3-853555@gmail.com>
-References:
- <20260916135403.15789-1-853555@gmail.com>
- <20260916135403.15789-3-853555@gmail.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="l73A9EjS";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="c/LfVz7t"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1789588936; bh=RgSuWwdEtSR5tNlSbUFwtN1
+	6+B/ED9O57B5SFsv+Sao=; b=l73A9EjSO6yR6WdliduzVn1CIfORqheLdIQdtdeLPAZWyxa11E
+	0EpQWuNSbKcVrw6PeoDKKdoWN+1GVE9Y3rUy61FOsYrMa6HlNwD5eFBP/TP3STbRo5rOM15u0fY
+	eidU56394BfiA2yBlM5yUYZEVUwCri+GzP55lMhuMNqYZF23VD1XlvH+ZNUXSp/NAme1jN8dn/d
+	WQ2vxtBU2pLRQkqx12FsrNhBILKg59O6X61+8Xr1psbu/fpKurkzCb+rJn0m03Gkgwvq+cPHdpZ
+	sYpRIl7fzRzn6hw/P8r+DoiAg72kDqixBXDxYCFvYlf6IvbNFBDlunD7/F4ulbwfOWA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1789588936; bh=RgSuWwdEtSR5tNlSbUFwtN1
+	6+B/ED9O57B5SFsv+Sao=; b=c/LfVz7tNPTCmaPlbh3i+J7cFoigXYI7S5Rs8blqt5qqX61PKQ
+	yrpQBKSCbiZBXokixP1nlTHs/FbUvzFV2UDQ==;
+From: Bradley Morgan <brads@mainlining.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Vineet Gupta <vgupta@kernel.org>,
+	Guo Ren <guoren@kernel.org>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	Chris Zankel <chris@zankel.net>,
+	Max Filippov <jcmvbkbc@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	David Laight <david.laight.linux@gmail.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	linux-snps-arc@lists.infradead.org,
+	linux-csky@vger.kernel.org,
+	linux-sh@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bradley Morgan <brads@mainlining.org>
+Subject: [PATCH v2 4/5] sh: Emulate two-byte cmpxchg
+Date: Wed, 16 Sep 2026 20:02:14 +0000
+Message-ID: <20260916200215.21774-5-brads@mainlining.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260916200215.21774-1-brads@mainlining.org>
+References: <20260916200215.21774-1-brads@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Wednesday, 16 September 2026 15:54:03 CEST Haobin Wu wrote:
-> The 9p wire format carries directory entry names of up to 65535 bytes
-> and nothing on the client checks them against NAME_MAX. Since the
-> previous patch, v9fs_dir_readdir_dotl() passes such names straight to
-> dir_emit(), and the VFS only rejects names of PATH_MAX bytes or more in
-> verify_dirent_name(), as -EIO, which again fails the whole getdents64()
-> call.
-> 
-> A name between NAME_MAX and PATH_MAX is therefore returned to userspace
-> even though every later operation on it fails with -ENAMETOOLONG, and
-> POSIX requires readdir() to only return components of at most NAME_MAX
-> bytes. Nothing can use such an entry, so skip it instead of returning it
-> or failing the listing, reusing the strlen() result that was already
-> computed for dir_emit().
-> 
-> Suggested-by: Dominique Martinet <asmadeus@codewreck.org>
-> Link:
-> https://lore.kernel.org/all/vz5bum547fqyxf5z4m3x7tuqkuq52jlopm65t7hvynqeulh
-> 7i3@2t4wnhfxs7qv/ Assisted-by: Claude:claude-fable-5-1
-> Signed-off-by: Haobin Wu <853555@gmail.com>
-> ---
->  fs/9p/vfs_dir.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/9p/vfs_dir.c b/fs/9p/vfs_dir.c
-> index af00b79d801e..ad6fdc99883d 100644
-> --- a/fs/9p/vfs_dir.c
-> +++ b/fs/9p/vfs_dir.c
-> @@ -173,6 +173,7 @@ static int v9fs_dir_readdir_dotl(struct file *file,
-> struct dir_context *ctx) }
-> 
->  		while (rdir->head < rdir->tail) {
-> +			size_t namelen;
-> 
->  			err = p9dirent_read(fid->clnt, rdir->buf + rdir->head,
->  					    rdir->tail - rdir->head,
-> @@ -182,10 +183,14 @@ static int v9fs_dir_readdir_dotl(struct file *file,
-> struct dir_context *ctx) return -EIO;
->  			}
-> 
-> -			if (!dir_emit(ctx, curdirent.d_name,
-> -				      strlen(curdirent.d_name),
-> -				      QID2INO(&curdirent.qid),
-> -				      curdirent.d_type)) {
-> +			namelen = strlen(curdirent.d_name);
-> +			if (namelen > NAME_MAX) {
-> +				p9_debug(P9_DEBUG_VFS,
-> +					 "skipping entry with %zu byte name\n",
-> +					 namelen);
+SH has no byte or halfword atomic memory operations, so the __cmpxchg()
+switch routes case 1 through cmpxchg_emu_u8() and lets case 2 fall
+through to __cmpxchg_called_with_bad_pointer(), which is declared but
+never defined, so a two-byte cmpxchg() fails at link time. Route case
+2 through the new cmpxchg_emu_u16(), which takes natural u16
+arguments, so the unsigned long old and new narrow at the function
+boundary.
 
-Fair to say why:
+Acked-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+ arch/sh/include/asm/cmpxchg.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-  "skip dentry: name length %zu > NAME_MAX"
-
-This is only handled for 9p2000.L so far. For legacy 9p2000(.u) this should
-then also be limited in v9fs_dir_readdir() IMO.
-
-/Christian
-
-> +			} else if (!dir_emit(ctx, curdirent.d_name, namelen,
-> +					     QID2INO(&curdirent.qid),
-> +					     curdirent.d_type)) {
->  				kfree(curdirent.d_name);
->  				return 0;
->  			}
-
-
-
+diff --git a/arch/sh/include/asm/cmpxchg.h b/arch/sh/include/asm/cmpxchg.h
+index 1e5dc5ccf7bf..477d3025a441 100644
+--- a/arch/sh/include/asm/cmpxchg.h
++++ b/arch/sh/include/asm/cmpxchg.h
+@@ -59,6 +59,8 @@ static inline unsigned long __cmpxchg(volatile void * ptr, unsigned long old,
+ 	switch (size) {
+ 	case 1:
+ 		return cmpxchg_emu_u8(ptr, old, new);
++	case 2:
++		return cmpxchg_emu_u16(ptr, old, new);
+ 	case 4:
+ 		return __cmpxchg_u32(ptr, old, new);
+ 	}
+-- 
+2.47.3
 
