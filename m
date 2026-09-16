@@ -1,16 +1,16 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2867392823;
-	Wed, 16 Sep 2026 15:09:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0BE3955FB;
+	Wed, 16 Sep 2026 15:09:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571396; cv=none; b=KXvD/quUKTsmUrokPFKHW9qwxvoMjMacVd3dMo117EdXrRT4aedRMa0chHK7BcDQAdVmaSJ0iA2Rjb2N11liM1KwC1TxaLUw1TEm7s21YOH48BHIIRSGlbFGicklXCozga2/LmbtLmDQcgnsXuBWrF43ssc89sHoCi4pRDRSMiA=
+	t=1789571397; cv=none; b=Oa6cKzXCM8oNMBZTri+xyNYMlBQCmn/ikNh0ZsGPLZKoniwV+cTKNofgQbEQY4tnjFQmPoGHCpIRQFb1n31m2LuqlkhTDmkjYAQJVxLA5fSQiCFTv6DVswmvvdufQsC1H7DfcuI/muPl3ayYLXm+YLTlMJTBA5yItiM4RIQa9Nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571396; c=relaxed/simple;
-	bh=nokP+HkAeAsjfnIgakz0YeqhxsbLRHxZzyuuYyYFs6o=;
+	s=arc-20240116; t=1789571397; c=relaxed/simple;
+	bh=6lYoDfIk4NpAcOB/cW6IiEbe+rssQS994U/XwaDkBi8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jvxuf3VHYuelhMYQ3MkODqM5H7W0znvDCGMD87D02U+LhMnG69um2LdnhdXs/vZJP92eiROXzPW53c+yMVfhX9NppzjmCbW5rgzY9dpZNMnak8LqQxhdQVuFzE7PNHxGDxTHThO8krcaPPvJTGF/fgNsCu+q5m95WMLeFiw+53k=
+	 In-Reply-To:To:Cc; b=ePvdl9JqrPIL3goVaKnBRAf3FiiaLTtfomrSFMjPfqk9dQKWkzxby4G0pVUwc+DsJkRrrSjTo0POqCXziN4IjIOogOuHV+AYKAWVuqxdsyMsWj/UyE3SRICDvf6BUwjy41kREX91PamH+V0OKYjUmMEV5zRLfMFUSWo3LcDY0Ow=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
@@ -30,17 +30,17 @@ X-PTX-Original-Recipient: s.pueschel@pengutronix.de
 X-PTX-Original-Recipient: m.tretter@pengutronix.de
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A68D72059F6;
-	Wed, 16 Sep 2026 17:09:50 +0200 (CEST)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CF4A32059FC;
+	Wed, 16 Sep 2026 17:09:52 +0200 (CEST)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1x6rGg-001Fsx-1n;
-	Wed, 16 Sep 2026 17:09:50 +0200
+	id 1x6rGi-001Fsx-2K;
+	Wed, 16 Sep 2026 17:09:52 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 16 Sep 2026 17:09:47 +0200
-Subject: [PATCH v2 06/17] media: v4l2-mem2mem: drop curr_ctx member from
- v4l2_m2m_dev struct
+Date: Wed, 16 Sep 2026 17:09:50 +0200
+Subject: [PATCH v2 09/17] media: rockchip: rga: adjust get_version to
+ return the version
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,7 +49,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260916-spu-rga3multicore-v2-6-23aa2cb74e61@pengutronix.de>
+Message-Id: <20260916-spu-rga3multicore-v2-9-23aa2cb74e61@pengutronix.de>
 References: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
 In-Reply-To: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -64,172 +64,89 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
 X-Mailer: b4 0.15.2
 
-Drop the curr_ctx member from the v4l2_m2m_dev struct in preparation of
-adding support for running multiple jobs in parallel.
-
-The curr_ctx member of a v4l2_m2m_dev was used to track the
-currently running context. But the currently running context will always
-be at the top of the job_queue. As the TRANS_RUNNING flag can be used to
-check if the queue head is already running, the curr_ctx member can be
-completely dropped.
-
-By eliminating the struct member the code is mostly agnostic whenever
-only one job is running at a time or multiple run at the same time. The
-main exception is the v4l2_m2m_get_curr_priv function, which is by it's
-design incompatible with running multiple jobs in parallel.
+Adjust get_version to return the version instead of directly updating it
+in the rockchip_rga structure. This is done in preparation for a
+multi-core support to check that cores with the same compatible share the
+same version.
 
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
-
 ---
-v2:
-- split curr_ctx removal into a separate commit
-- add WARN_ON to _v4l2_m2m_job_finish to prevent mismatching context to
-  device (and an unused m2m_dev argument)
-- rewrite v4l2_m2m_get_curr_priv to get private data inside the spinlock
-  (https://sashiko.dev/#/patchset/20260606-spu-rga3multicore-v1-0-3ec2b15675f7%40pengutronix.de?part=5)
----
- drivers/media/v4l2-core/v4l2-mem2mem.c | 61 ++++++++++++++++++----------------
- 1 file changed, 33 insertions(+), 28 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c  | 10 +++++++---
+ drivers/media/platform/rockchip/rga/rga.c     |  2 +-
+ drivers/media/platform/rockchip/rga/rga.h     |  2 +-
+ drivers/media/platform/rockchip/rga/rga3-hw.c |  8 +++++---
+ 4 files changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-index a65cbb124cfe0..60cca94195166 100644
---- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-+++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-@@ -84,7 +84,6 @@ static const char * const m2m_entity_name[] = {
-  *			v4l2_m2m_unregister_media_controller().
-  * @intf_devnode:	&struct media_intf devnode pointer with the interface
-  *			with controls the M2M device.
-- * @curr_ctx:		currently running instance
-  * @job_queue:		instances queued to run
-  * @job_spinlock:	protects job_queue
-  * @job_work:		worker to run queued jobs.
-@@ -93,7 +92,6 @@ static const char * const m2m_entity_name[] = {
-  * @kref:		device reference count
-  */
- struct v4l2_m2m_dev {
--	struct v4l2_m2m_ctx	*curr_ctx;
- #ifdef CONFIG_MEDIA_CONTROLLER
- 	struct media_entity	*source;
- 	struct media_pad	source_pad;
-@@ -232,8 +230,14 @@ void *v4l2_m2m_get_curr_priv(struct v4l2_m2m_dev *m2m_dev)
- 	void *ret = NULL;
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index 4d7b0a03820a1..190104f3b2954 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -474,10 +474,14 @@ static bool rga_handle_irq(struct rockchip_rga *rga)
+ 	return intr & RGA_INT_COMMAND_FINISHED;
+ }
  
- 	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
--	if (m2m_dev->curr_ctx)
--		ret = m2m_dev->curr_ctx->priv;
-+	if (!list_empty(&m2m_dev->job_queue)) {
-+		struct v4l2_m2m_ctx *first_ctx =
-+			list_first_entry(&m2m_dev->job_queue,
-+					 struct v4l2_m2m_ctx, queue);
-+
-+		if (first_ctx->job_flags & TRANS_RUNNING)
-+			ret = first_ctx->priv;
-+	}
- 	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
- 
- 	return ret;
-@@ -252,14 +256,9 @@ EXPORT_SYMBOL(v4l2_m2m_get_curr_priv);
- static void v4l2_m2m_try_run(struct v4l2_m2m_dev *m2m_dev)
+-static void rga_get_version(struct rockchip_rga *rga)
++static struct rockchip_rga_version rga_get_version(struct rockchip_rga *rga)
  {
- 	unsigned long flags;
-+	struct v4l2_m2m_ctx *chosen_ctx;
- 
- 	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
--	if (NULL != m2m_dev->curr_ctx) {
--		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
--		dprintk("Another instance is running, won't run now\n");
--		return;
--	}
--
- 	if (list_empty(&m2m_dev->job_queue)) {
- 		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
- 		dprintk("No job pending\n");
-@@ -272,13 +271,18 @@ static void v4l2_m2m_try_run(struct v4l2_m2m_dev *m2m_dev)
- 		return;
- 	}
- 
--	m2m_dev->curr_ctx = list_first_entry(&m2m_dev->job_queue,
--				   struct v4l2_m2m_ctx, queue);
--	m2m_dev->curr_ctx->job_flags |= TRANS_RUNNING;
-+	chosen_ctx = list_first_entry(&m2m_dev->job_queue, struct v4l2_m2m_ctx, queue);
-+	if (chosen_ctx->job_flags & TRANS_RUNNING) {
-+		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
-+		dprintk("Another instance is running, won't run now\n");
-+		return;
-+	}
+-	rga->version.major = (rga_read(rga, RGA_VERSION_INFO) >> 24) & 0xFF;
+-	rga->version.minor = (rga_read(rga, RGA_VERSION_INFO) >> 20) & 0x0F;
++	u32 version = rga_read(rga, RGA_VERSION_INFO);
 +
-+	chosen_ctx->job_flags |= TRANS_RUNNING;
- 	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
- 
--	dprintk("Running job on m2m_ctx: %p\n", m2m_dev->curr_ctx);
--	m2m_dev->m2m_ops->device_run(m2m_dev->curr_ctx->priv);
-+	dprintk("Running job on m2m_ctx: %p\n", chosen_ctx);
-+	m2m_dev->m2m_ops->device_run(chosen_ctx->priv);
++	return (struct rockchip_rga_version) {
++		.major = (version >> 24) & 0xFF,
++		.minor = (version >> 20) & 0x0F,
++	};
  }
  
- /*
-@@ -469,15 +473,16 @@ static void v4l2_m2m_schedule_next_job(struct v4l2_m2m_dev *m2m_dev,
- static bool _v4l2_m2m_job_finish(struct v4l2_m2m_dev *m2m_dev,
- 				 struct v4l2_m2m_ctx *m2m_ctx)
+ static struct rga_fmt formats[] = {
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index c24bc8e26b91e..2107d0f4a1659 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -860,7 +860,7 @@ static int rga_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		goto rel_m2m;
+ 
+-	rga->hw->get_version(rga);
++	rga->version = rga->hw->get_version(rga);
+ 
+ 	v4l2_info(&rga->v4l2_dev, "HW Version: 0x%02x.%02x\n",
+ 		  rga->version.major, rga->version.minor);
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index 0e62337f8dd38..0e854cdf739f4 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -158,7 +158,7 @@ struct rga_hw {
+ 	void (*start)(struct rockchip_rga *rga,
+ 		      struct rga_vb_buffer *src, struct rga_vb_buffer *dst);
+ 	bool (*handle_irq)(struct rockchip_rga *rga);
+-	void (*get_version)(struct rockchip_rga *rga);
++	struct rockchip_rga_version (*get_version)(struct rockchip_rga *rga);
+ 	void *(*adjust_and_map_format)(struct rga_ctx *ctx,
+ 				       struct v4l2_pix_format_mplane *format,
+ 				       bool is_output);
+diff --git a/drivers/media/platform/rockchip/rga/rga3-hw.c b/drivers/media/platform/rockchip/rga/rga3-hw.c
+index 46ba6d270f232..a80dd7609ccfe 100644
+--- a/drivers/media/platform/rockchip/rga/rga3-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga3-hw.c
+@@ -299,12 +299,14 @@ static bool rga3_handle_irq(struct rockchip_rga *rga)
+ 	return FIELD_GET(RGA3_INT_FRM_DONE, intr);
+ }
+ 
+-static void rga3_get_version(struct rockchip_rga *rga)
++static struct rockchip_rga_version rga3_get_version(struct rockchip_rga *rga)
  {
--	if (!m2m_dev->curr_ctx || m2m_dev->curr_ctx != m2m_ctx) {
-+	if (!m2m_ctx || !(m2m_ctx->job_flags & TRANS_RUNNING)) {
- 		dprintk("Called by an instance not currently running\n");
- 		return false;
- 	}
+ 	u32 version = rga_read(rga, RGA3_VERSION_NUM);
  
--	list_del(&m2m_dev->curr_ctx->queue);
--	m2m_dev->curr_ctx->job_flags &= ~(TRANS_QUEUED | TRANS_RUNNING);
--	wake_up(&m2m_dev->curr_ctx->finished);
--	m2m_dev->curr_ctx = NULL;
-+	WARN_ON(m2m_dev != m2m_ctx->m2m_dev);
-+
-+	list_del(&m2m_ctx->queue);
-+	m2m_ctx->job_flags &= ~(TRANS_QUEUED | TRANS_RUNNING);
-+	wake_up(&m2m_ctx->finished);
- 	return true;
+-	rga->version.major = FIELD_GET(RGA3_VERSION_NUM_MAJOR, version);
+-	rga->version.minor = FIELD_GET(RGA3_VERSION_NUM_MINOR, version);
++	return (struct rockchip_rga_version) {
++		.major = FIELD_GET(RGA3_VERSION_NUM_MAJOR, version),
++		.minor = FIELD_GET(RGA3_VERSION_NUM_MINOR, version),
++	};
  }
  
-@@ -548,12 +553,15 @@ void v4l2_m2m_suspend(struct v4l2_m2m_dev *m2m_dev)
- 
- 	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
- 	m2m_dev->job_queue_flags |= QUEUE_PAUSED;
--	curr_ctx = m2m_dev->curr_ctx;
-+	if (list_empty(&m2m_dev->job_queue)) {
-+		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
-+		return;
-+	}
-+
-+	curr_ctx = list_first_entry(&m2m_dev->job_queue, struct v4l2_m2m_ctx, queue);
- 	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
- 
--	if (curr_ctx)
--		wait_event(curr_ctx->finished,
--			   !(curr_ctx->job_flags & TRANS_RUNNING));
-+	wait_event(curr_ctx->finished, !(curr_ctx->job_flags & TRANS_RUNNING));
- }
- EXPORT_SYMBOL(v4l2_m2m_suspend);
- 
-@@ -896,10 +904,8 @@ int v4l2_m2m_streamoff(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
- 	q_ctx->num_rdy = 0;
- 	spin_unlock_irqrestore(&q_ctx->rdy_spinlock, flags);
- 
--	if (m2m_dev->curr_ctx == m2m_ctx) {
--		m2m_dev->curr_ctx = NULL;
-+	if (m2m_ctx->job_flags & TRANS_RUNNING)
- 		wake_up(&m2m_ctx->finished);
--	}
- 	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags_job);
- 
- 	return 0;
-@@ -1194,7 +1200,6 @@ struct v4l2_m2m_dev *v4l2_m2m_init(const struct v4l2_m2m_ops *m2m_ops)
- 	if (!m2m_dev)
- 		return ERR_PTR(-ENOMEM);
- 
--	m2m_dev->curr_ctx = NULL;
- 	m2m_dev->m2m_ops = m2m_ops;
- 	INIT_LIST_HEAD(&m2m_dev->job_queue);
- 	spin_lock_init(&m2m_dev->job_spinlock);
+ static struct rga3_fmt rga3_formats[] = {
 
 -- 
 2.55.0
