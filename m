@@ -1,129 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522C936A02F;
-	Wed, 16 Sep 2026 12:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370393EFFC9;
+	Wed, 16 Sep 2026 12:18:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561129; cv=none; b=oa3ciDX/+a3//WuZR5ojWNPAVpvPdn2NJXupEJvzYsM0gB3adVQvOq2Vfsoa1ua4CdB2+3mzu2wHH7XmMSfMDXffI6BsnfH8Ca7X7jZ4ZQbQ4UyUVOcO57cuCrneMA2S9RMQPzTtKtodIeWoi0aB1NXd3vfTeKHkrF0AjIfB3QE=
+	t=1789561138; cv=none; b=kyMv/Jv8PXj+N4/L/Neof8HPNEEXAa460ZjChpv3e9fjD6qge2l4EJcIqhiqhrl5M9+6I7U3NjZIuNsvrg8+J0DoIGjZr802s4jh5OVUjSNOndWZ2LBLKzwpDBzRXDJFIdK2+RHRU3oVtO4WZGIqv6jkHtJb6sqc4mvx1nS2ImU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789561129; c=relaxed/simple;
-	bh=GVmLFp3Ttr2aE+td+7HkXye1bMoaXdrGS05HZLNidMg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aXWgByqRrxRvLr/uEgl/a2U6UqHXqe0u91+Vlbw0lBlMp+AcotkY5d5vtBYIDrZ0BeZdvrga6SQ09OV5mG+Eb07s6+hE2nIXxzR7kGCoxqsUOS6JHDeARf3hHjNFD1fhuUYerVyWjsO8ib7d+I/xUZCizkhiexVswMU4ZeJp0m8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UIJly/VP; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789561138; c=relaxed/simple;
+	bh=6WWXK1YEgeNBV054WxjBb7B9Vj75OABXRc5yXZlGHSU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u+QPIXwjJG/vGBvWvNs5Ft5VQqt/OJ6N350J86VymNqdqe8Q1XzzQHPaeSZvzVaH7LKNucDCr96RtsgzA0cUZXzcxuRHy6CKW1raAE9jsy3Kbn7KM602SoXFQaZy8+wC2gGg4P8MNPWDEEH02S6KY8VLT9OilSQZl+EzNZT+tv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D4f3aphR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UIJly/VP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789561127; x=1821097127;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=GVmLFp3Ttr2aE+td+7HkXye1bMoaXdrGS05HZLNidMg=;
-  b=UIJly/VPe1Tt980zKSdMagNKxv1TCBN3fuxOESRDTltY69hRwCPzJ1rD
-   DS94p76rUGv7tSfB4PXYMEYQH4LdPsyPj0nSTx+mKFOeRS/5WzFPSQG+J
-   PbRqnBDWzil77zRssjWPp3O9ZDBVA77t+evYEwktKAQEh1IIlKI5UsuDF
-   n58JuwQ9ruZ/sXejcHhiThxGzHLLtZfofkr6+q0TtKLbiDDrD2Ub3MbNX
-   CQFpSHbN/xlK8AP29NkD9C5zL/751uE9wMYBzrS4uQGOWlXL9N8c/18E1
-   ETDBE9LElU1BYgPjyMskFB2Ed6JTf2uzaTLO1SlfG7/BxzTBpQ3oBdalE
-   A==;
-X-CSE-ConnectionGUID: xqg5uFyFTnmY05Oe8t3upg==
-X-CSE-MsgGUID: XJLQpTbnSyuSEWL9GI80Fg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100601110"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100601110"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 05:18:46 -0700
-X-CSE-ConnectionGUID: C3ME8GskQJSKQCAIPw1Ggg==
-X-CSE-MsgGUID: r+YdQcQjQSiIiUWRY5t5Wg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="270041403"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO [10.245.244.188]) ([10.245.244.188])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 05:18:44 -0700
-Message-ID: <0e4c85e8-77e6-4eb9-aca1-048199f2f0e0@linux.intel.com>
-Date: Wed, 16 Sep 2026 15:18:42 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D4f3aphR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55A61F00893;
+	Wed, 16 Sep 2026 12:18:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789561136;
+	bh=g3nJkuOIIREUaA/BODadsUt0oMvW89mcTSVk+TBxQTM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D4f3aphRbKTCYsr2/YdXXnNmP/c0zn+7f5CJPLOJU5Ag2ihsF9YAuf/mxPe5qbWft
+	 RuJi+8IW2fqsg2OF0+gmzWHc2BZ4j4PTjyLzOz6AXC/PLF6S9HdJruYCs9q1aBBa08
+	 8ZHvdqKz4yosb2VOnkK+Ge5a3oc1M8xppXnjlaquXG9GOt81jNxcjCCBLr3Ao5sI/6
+	 BahavSPx3iHj0YFmmT9k2mAHR+8Qz/8CGxdMyrpN7ANNhao26Bl05UJf0Ue5Rfo74u
+	 /bJEB1hlV/SynllZ7gk30FFmaNk7xpCzcneGOvAY4XI56CwUaA/YCw+pHaapShTTsS
+	 Z2H/oC/TGFtGw==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 9C3EF1980047;
+	Wed, 16 Sep 2026 08:18:49 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Wed, 16 Sep 2026 08:18:53 -0400
+X-ME-Sender: <xms:KYmqalRLUKQ46xVHQNAqn_SpMCWEJPEnVGHPtE9pzFa946VuffulsQ>
+    <xme:KYmqasdqqQzLLGbURN2ksP1011QzixMMfmpF8lNUTzKITQDDUxPPxIKCHfuAtHzHK
+    HePpXZVWutif9vuPFKO5v9KU79xJFks9D-SgyH4nfh2k-fblP6MxBcb-Q>
+X-ME-Received: <xmr:KYmqai4oFAoRIup95gPn3oxV9GZR0bmPcVh4y3t-o5HV8Kj-6Zg9KNTuehc>
+X-ME-Proxy-Cause: dmFkZTF/htPXCt3Vp5AMDzX4aViluNR37AwoAasTR8iHLjBZ9vB+37s09E5FAj3fIBktXf
+    wD7jyU9p9m8acEr6Ra3scjJrTilVkEufiTVp8kg6W1u05cirw+hDmrgiY3yqIDsNCGGy4Z
+    NhlL2XmoVVdXSi7pWEyIFPv29lkrmEA3vKS966LaOo5Roq203cNGaURFEmJuo4rr3dx3pl
+    zRvPBAEFOPc4BaV8VgR4olkNsATDKNUJ2aL3kSE+ZeDgohHMV8NuWlBUr1Y7gSpUtMk43S
+    pHxrvHb6UYaqOu5IrjHeg8msBZNq9Ws0Y9sYF6moF2neMeMXhIcDUsNMr5TA/1SnWdrbnv
+    krg8yzA58Iyw1wZU0OAObVQ8m4UiYc1907t7mzYhwQjpudg0+8QPH1YgpeY0d8JMVdr0rE
+    I5cdBJmZizSGHOliBIKAT49rDuCWkjlzVhcGpA/FSylhtI2vOZ35amP2Bpu/ffULhom6KK
+    mAFZrnyuq/2DovcPoXQKkstvBgE4kd6res0YrZ3TPJzPbjo01wcRbJyjyMarV3bBWIRJ2U
+    /nfjKeUYZx8uSLHmxv0YkpN2OTgeBBvRg8w5ox13JY97RAKWHu1XAFS+AJFTFFrgA3BMc9
+    4qUEfpEZPGPotDW9vPvWAQY4X3sf4al6PYefswJLQwFlMv/gcWohOVdYNR3w
+X-ME-Proxy: <xmx:KYmqalZSh5ALRNUk-yGxJZtajzA-EP-yYLtuDHVayGKZTkMcKh7jSg>
+    <xmx:KYmqalt_kssyM3YMu8dwBID1pt4VvyP-Mkj4cux8cj19ZAJNXpj0Vg>
+    <xmx:KYmqamtGLQwsCpo5AynCQsRx8Mzfx9LtL8HamC26SVKkpQEEcWC-6A>
+    <xmx:KYmqauptDI-qdtg3rUZiebczKcGTquH5dulg1Jd6BPm1F5o5OVxSfQ>
+    <xmx:KYmqat4kHc5k7IM1jrC0PaSyoI4CLHsuMRGImK3xFqk2X2jADcQ2D4xX>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 16 Sep 2026 08:18:48 -0400 (EDT)
+Date: Wed, 16 Sep 2026 13:18:46 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Borislav Petkov <bp@alien8.de>, Ajay Kaher <ajay.kaher@broadcom.com>, 
+	Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org, Dennis Zhou <dennis@kernel.org>, 
+	Tejun Heo <tj@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev, 
+	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org, Christoph Lameter <cl@gentwo.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Bo Gan <bo.gan@broadcom.com>, linux-mm@kvack.org, linux-arch@vger.kernel.org, 
+	linux-coco@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v1 0/2] x86/vmware: Share steal-time storage in encrypted
+ guests
+Message-ID: <aqqGUAX65s4LdJkr@thinkstation>
+References: <cover.1789488039.git.zack.rusin@broadcom.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xhci: Fix HIK camera control timeout on Etron hosts
-To: Kuangyi Chiang <ki.chiang65@gmail.com>,
- Michal Pecio <michal.pecio@gmail.com>
-Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260914013033.3938-1-ki.chiang65@gmail.com>
- <20260914130907.749cd8e7.michal.pecio@gmail.com>
- <CAHN5xi0NSJO=V0=eVd4_MGp2Lg5NrwB3D+hsF87ehTSmaeeSbQ@mail.gmail.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <CAHN5xi0NSJO=V0=eVd4_MGp2Lg5NrwB3D+hsF87ehTSmaeeSbQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1789488039.git.zack.rusin@broadcom.com>
 
-On 9/16/26 04:33, Kuangyi Chiang wrote:
-> Hi,
+On Wed, Sep 16, 2026 at 01:05:38AM -0400, Zack Rusin wrote:
+> VMware registers each per-CPU steal-time GPA with the host. An encrypted
+> guest must first convert that storage to shared memory, but the existing
+> setup publishes the address without conversion.
 > 
-> Thanks for the review.
-> 
-> Michal Pecio <michal.pecio@gmail.com> 於 2026年9月14日週一 下午7:09寫道：
->>
->> On Mon, 14 Sep 2026 09:30:33 +0800, Kuangyi Chiang wrote:
->>> Control transfers to the HIK 1080P Camera (2bdf:0280) can time out when
->>> the device is connected through an Etron xHCI host:
->>>
->>> [   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2bdf:0280)
->>> [   53.465662] uvcvideo: Failed to set UVC probe control : -110 (exp. 26).
->>> [   58.585653] uvcvideo: Failed to query (129) UVC probe control : -110 (exp. 26).
->>> [   58.592967] uvcvideo: Failed to initialize the device (-5).
->>>
->>> Testing shows that at least 125 us between control transfers is required
->>> to avoid the timeout. Limit the workaround to the affected Etron host and
->>> USB device combination to avoid changing control-transfer timing for other
->>> devices.
->>
->> Any idea why it happens or why the delay helps?
-> 
-> We don't know the root cause yet, but we did some more testing.
-> 
-> We tested delays of 50us, 125us, and 200us. The issue was still
-> reproducible with 50us, while 125us and 200us passed our test.
-> 
-> Our pass criterion is 30 successful plug/unplug cycles on each port.
-> So 125us is the minimum delay we tested that consistently works.
-> 
+> Patch 1 makes the decrypted per-CPU section available with
+> CONFIG_X86_MEM_ENCRYPT, including TDX-only configurations. Patch 2 defers
+> encrypted-guest setup until allocator-backed page-table splitting is
+> available, converts every possible CPU's storage before publishing any
+> GPA, and attempts to roll back all conversions on failure.
 
-Are there issues with the control transfers already during enumeration
-of the device, when reading descriptors etc, or are these issues only
-visible after uvc driver is controlling the device?
+I acked 1/2, but I don't like where 2/2 does the conversion.
 
+A variable declared with DEFINE_PER_CPU_DECRYPTED() ends up in a
+dedicated, page-aligned linker section. The point of the section is that
+one place converts it. Instead every user does it itself: KVM in
+sev_map_percpu_data(), and now VMware in vmware_decrypt_steal_time(),
+each with its own vendor checks and failure handling. The macro today
+only buys page isolation, not the shared mapping its name promises.
 
-> We also tried USB_QUIRK_DELAY_CTRL_MSG, but its 200ms delay is too
-> long and causes UVC initialization to fail.
-> 
+The underlying problem is that the whole "decrypted section"
+infrastructure is built around SME/SEV and was never generalized.
+__bss_decrypted, early_set_memory_decrypted() and
+mem_encrypt_free_decrypted_mem() are all under CONFIG_AMD_MEM_ENCRYPT
+and implemented in mem_encrypt_amd.c. sme_postprocess_startup() converts
+.bss..decrypted only if sme_get_me_mask() is set, so a TDX guest never
+shares it. 1/2 moves the per-CPU linker section to X86_MEM_ENCRYPT, but
+nothing that would act on that section follows.
 
-Does it help if you as a hack set udev->quirks |= USB_QUIRK_DELAY_CTRL_MSG
-_after_ enumeration and uvc initialization?
+Rather than have every TDX user reinvent the conversion, I would rather
+see the infrastructure made vendor-neutral: boundary symbols for the
+per-CPU decrypted section like the ones .bss..decrypted has, an early
+conversion primitive that works on TDX as well as SEV, and a single
+conversion of both sections at boot. Then sev_map_percpu_data() and
+this driver's loop go away.
 
->> How many other HCs did you test this camera with?
-> 
-> The camera works with the EHCI host we tested without any delay.
-> We can also reproduce a similar issue with an ASMedia ASM1142 xHCI
-> host (1b21:1242). This patch, however, is limited to the Etron/HIK
-> combination.
+> TDX's conversion callback uses __pa(), so patch 2 preflights every possible
+> CPU and leaves steal time disabled if a TDX guest uses vmalloc-backed
+> per-CPU storage. This covers percpu_alloc=page and automatic allocator
+> fallback. AMD encrypted guests support those mappings and are not rejected.
+> Supporting them in TDX would require a separate conversion-API change.
 
-I think we should avoid usb device specific quirks in the xhci driver,
-especially now that we know it's not really tied to a specific xHC vendor.
+Refusing vmalloc-backed storage on TDX is the right call, and not because
+of the __pa() in the callback. Converting a vmalloc alias means either
+fracturing the direct map or leaving a private direct-map alias to a
+shared page, and the latter is a guest shutdown the moment
+load_unaligned_zeropad() steps into it. See the comment in
+tdx_early_init() and the earlier discussion of the same idea:
 
-If this is only an issue with the control transfers sent by uvc driver
-then I think this device specific quirk should be in there.
+https://lore.kernel.org/all/xqi2bkulnhen2vax5msbzczlaywx3dsc7ezpn7oo5qn7u7xzap@xmaseinov7tf/
 
-Thanks
-Mathias
+But that decision belongs in the same central place as the conversion.
+If the first per-CPU chunk is vmalloc-backed on TDX, the decrypted
+section is simply not shared, and users see that, instead of every
+driver re-deriving it.
 
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
