@@ -1,138 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5000435C687;
-	Wed, 16 Sep 2026 14:58:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0959C379C35
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:58:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570725; cv=none; b=s2JI2/3AWsfPOFlI8rP3ZPHpE2y7f4SiZPD7L0rFqqTs5UjXPhk67pFR6K+qWpiqoFfX6HiCT/m60tqs3e9O3kyV8G8smqvtLtDgd9bRQYpiYYt/qEQzuTpwmm6q6B2oPsuB+j5QnAkksZdiei6JvdIkbUwspSJEO4r9HNlYUmA=
+	t=1789570730; cv=none; b=aO/HcGvoyH1pLUG9efvXx5uB96UOnsHoqIh5mWhSLARzLV/EgyTrR1u8N92oVYA+pY9e5Wptx3ejffPqy3/Z1TEb5s223lV+pkrae5xp0tjcSd35SRqMt6iZ6UtuW6UW4RoyzrlwQqX8FkPwj0f1Tgy6A4CD8ZOt7+hpSiv81NM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570725; c=relaxed/simple;
-	bh=CymZA2LzTYgn3hWqYqfacJMpnM2h+UXGgQaDayK5mtM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cdy5jQdl3M1AxlLZbfdLn8W8nxlU1BT1yinyYyEEWVbtCL8suLLXQNSnPlo/jf42dt7VPieqMTjMkJ6H2l4wP6jfk5Ki57ZXlZPO7X8ScT3j8ZpB6+YR7H7EgZjeU15E3EU+j9VzW2vXZYwJ/xSVLJMeLS8j8wUMsJnbcci68wE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jue4zi+q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789570730; c=relaxed/simple;
+	bh=ziSYX+Tk5BasGCsqQfKWS1VS4Io1Aag8BlV1W3FQcoI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fUCFDy1x2CP5KUhrKbrwOtygWTrluVRzXqmq1rt1iDJ9GzbrCl1zAQM+6hNvAqqGAwlkSXdJ/bq012Cug6JN+IUHt3siPDHkV2dAbsQgzix6iXOP5VrQINdozbEiMS3nJXDjd9P+wCc7nGXiS2hxWuPej1mLpY7E9sIQkRacT5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f62Z177m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jue4zi+q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79DE41F000FF;
-	Wed, 16 Sep 2026 14:58:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f62Z177m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D4EB1F00898;
+	Wed, 16 Sep 2026 14:58:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789570723;
-	bh=DeQfwt4pOwat3bB9CM4yN4cHfAb5CviWq/UT6vnqWRs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jue4zi+qO6RguKO41+9iYoFYTDUeb2XXwG2pt8kO5b3kxQe1OM54VpJIhQEcBwtBm
-	 8Z1UFQ75auhKLFyNjA3ckceiznW3BBeX8UGH4YZ0xPFV7Ii8XVRvedYog5gNj2v4px
-	 R4pFKhg5jauwst06pszoGDFYStlrge7gMVtKu0XUlPwQBPyJ5UhZcagrO+suFlMJ86
-	 7xT8TFouWWfuoRQ3blZYF/omG7b7g+/tEwvCSl36cfQ+4ST8GgEYcgGMSTTORbvjBE
-	 xXlLZWlL2zC6JJ3twa+z8/0SNEjJTt6bBd5AxV3jrzWYHRmI2Wzw16ZdsX9QhkXfZu
-	 F+XP2Ol2E3dLw==
-Message-ID: <8c82ffbe-748a-49f2-aa52-eb7a56165c03@kernel.org>
-Date: Wed, 16 Sep 2026 15:58:36 +0100
+	s=k20260515; t=1789570728;
+	bh=KxAsq6mlrlRgY8e/8njCByVAcxEtv6lXs6ng+qgkRns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=f62Z177mbNaPvPScjrfQX0fc68CuY9vm59QUctkG5Gm2BCXa60ClJxz2jUUTQr2mK
+	 6wAmw/nfu067bSHUSuw3TJRMwZmRKgEtQ7579H8RjV+H0fLY7zWCcAhLhU/ujFtMvQ
+	 TERixAWjUXJ0l4d7777aJr0yvuHa16dy5sXeVYC0d0JB6WQRDg1BCXFhuuuisypFLn
+	 jFBwkiuGztiM9Syzd9KvNt2D/Ht4XO+FEa2WMiwhnSpqo6LPR+BcYS39jo7abLPcZ9
+	 OEtNOrli8/TSUHE8S+w+hnHaMKzfNFKH0IOAMzjpgol4FVmGmxWgqEcjOLO1cYU3YZ
+	 N8QQ/R6bjQ4jg==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 163591980047;
+	Wed, 16 Sep 2026 10:58:41 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Wed, 16 Sep 2026 10:58:45 -0400
+X-ME-Sender: <xms:oK6qamBZ5gTzffPWX-HGjDTTZoZEF0APcqLdlUXOhc05nocB0Q8gjw>
+    <xme:oK6qai3kQlu4jPL2Qvu0Kxz_s6Rrr56CBkLyU4V0Lp9D11hxc8oVCOHRtMhRmgCg_
+    oAHc-7sI2TBrvZ36eE3GEjTjzdYA-8NEcdsGO5Mfu3tXkqlDCLTimIJ>
+X-ME-Received: <xmr:oK6qaoW8ooCkOQQjBi-OjYcnpCAMQOLkps_EmJmWzbkY1V5GAJhKaF-YH4A>
+X-ME-Proxy-Cause: dmFkZTFnpmf2cGNwLkZB02TtYoQfXJ9CYV4Z6v6aWvRoWtlSDu/ryXy+f1A0x8yggrT6pc
+    74E1O46vF2Ghy3wWTQKsuryfYPAHQWdgKyHFYusv5Hp2PFKCX2b0YoW5TpB/FMOmgTRU3e
+    0rPdq8Nm4X3aaX52mXDmdfUjVnpqLxyZJtxgWB2J9Y7N+Ads7wL6SM8cD9T0bR/yRxkVbz
+    ul4lGtKVXF83IjqQm8oQwLPVRtgSwlpzF2Lgwx9bu1MIQiWR5J6oqV8z0Lss21/BiVArkl
+    ED0Xe7vVfYMHRQTNozB95yux7Vilk9hKmoonRC15QkVqCZD1prbWRZ9xp98mhGjkL0omSH
+    9zcAaLfvETIEYKPBR7mU6pFQRrH/oI1296OKFPe8lRZSWQeNYaYMzer3lX2CIIG4Uirr58
+    L94BB4SRia4Wgd/xgt+8eh9jrIZLVk44Vz4A0Ue2mQt45eOajNHF6gJWehH9Z8Unh5LhAq
+    bmCFWB/qawZyUpKHtb2COIYxDMHab0zRXYubycnp5rAJeSZZyVePCub848zUQwrsBOj5pJ
+    q6VF71UDjWEBW61gEqHQoJaIswvc9PmggCzLNwPfbSPanJmNkVcfb4aOA/lGxaiii+FkYk
+    6Cict8JHxm/PpzzSVgnAoliVBS9hCF2Ugk10XA2DBHDQc0sb5Z2Iix4xOj+Q
+X-ME-Proxy: <xmx:oK6qau8u1SRu7HNgsWn6eLaKFBBh11y_uWDR2g01gJGHPWkLtU16lw>
+    <xmx:oK6qat3wzoXuXuiyX23xlTOpwO06F1O2dgmCnSE0PTZ04l7qjuVHQw>
+    <xmx:oK6qapAuvZErVqBXnqXnPNZHFUjnf9oA5wxzvpamX6g8H-Hdyi_eYQ>
+    <xmx:oK6qamBGJmy0pkBE4mVZpoartKTlLYUNJHn8Vixhd8ImrMoAdiC3Vg>
+    <xmx:oK6qarSsv9kFkHQYS1fcmNx0s-vloq93B7HFvnC1nMSIKoMG5lKZ1PwS>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 16 Sep 2026 10:58:39 -0400 (EDT)
+Date: Wed, 16 Sep 2026 15:58:22 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, david@kernel.org, 
+	chrisl@kernel.org, kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, 
+	linux-mm@kvack.org, ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>, 
+	willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org, riel@surriel.com, 
+	shakeel.butt@linux.dev, alex@ghiti.fr, baohua@kernel.org, dev.jain@arm.com, 
+	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, 
+	"Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>, 
+	lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com, 
+	shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev, luizcap@redhat.com, 
+	kernel-team@meta.com
+Subject: Re: [RESEND v7 10/29] mm: make PMD migration-entry splitting explicit
+Message-ID: <aqquaDH9gFrdCqHK@thinkstation>
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-11-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 07/13] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB
- sensor on CSIPHY4
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
- <20260906-x1e-camss-csi2-phy-dtsi-v6-7-067f2ecc4630@linaro.org>
- <EcOn_d45L85SEZXEL9tJYp8j2B3-IIn5Ao1OiDaZsoJZOhfDjo04cEbn_YvY3I0eidZYm2PvZNw0K2e9D62CGQ==@protonmail.internalid>
- <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914122950.3283997-11-usama.arif@linux.dev>
 
-On 09/09/2026 13:43, Konrad Dybcio wrote:
->> +		port@3 {
->> +			camss_csiphy4_inep: endpoint {
->> +				data-lanes = <1 2 3 4>;
->> +				remote-endpoint = <&csiphy4_out_ep>;
->> +			};
->> +		};
-> This port should be defined in the SoC DTSI
+On Mon, Sep 14, 2026 at 05:28:00AM -0700, Usama Arif wrote:
+> __split_huge_pmd() and friends take a "freeze" boolean that every caller
+> has to pass and almost every caller passes as false. The name says nothing
+> about what it selects, and the one thing it does select - PTE migration
+> entries instead of PTE mappings - is only ever wanted by the rmap migration
+> path.
+> 
+> Rename it to use_migration_entries, keep it private to mm/huge_memory.c,
+> and add split_pmd_to_migration_entries() for try_to_migrate_one(), the only
+> caller that wants it.
+> 
+> migrate_vma_split_unmapped_folio() also passed freeze=true, but only ever
+> runs on a PMD that is already a migration entry, which the generic helper
+> expands into PTE migration entries either way. Its folio_get() only existed
+> to balance the put_page() that freeze=true performs, so both go.
+> 
+> No functional change intended.
+> 
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-20260906-x1e-camss-csi2-phy-dtsi-v6-5-067f2ecc4630@linaro.org
+Nice cleanup!
 
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+				};
-+			};
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-I don't understand your ask.
-
----
-bod
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
