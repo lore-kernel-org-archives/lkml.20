@@ -1,175 +1,287 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA10D456292
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:56:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545418; cv=none; b=PEqPxaDPBx4kI/4P9R3iTly+KuCSgJ+S3k3tkL4qr74tirmgMD+XHkQDw0MUAVVtIKMQ2bvt0Tzjz/+mocFwokKTywV7NP61gVRemZ5u7p3ALUw+dVrhVlpxD9llP12LNP2D4hTLar5xt8APkuaiNvUEMVDRkosMVbyu/AVUNcY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545418; c=relaxed/simple;
-	bh=HbIfItTOo8OE4am6c9ivPQcztfXU6kk/9gwLzj89GuA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=o8JsuIkd3FI/XG7PRLLnWttUcb6O7biUkfEmwBiKwWYk18ouVP80CbPnUghE9jogaElXQaoUmnmuTKexI7hNLGlXwyXBgypaSh8BU0eR8fO2KB9lOSiN/n+Zpc1l2xaRXOG5jx3FsWtn8xLEqsLF8ZZRaGEIXC9trUWgYL+YROQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k6FiNCSQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DvIl4Bl4; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4402A3E6DC3
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:58:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789545506; cv=pass; b=Cz2VAYdbH6eKRoFaWGiSaKBISbyoqR1hjLG8geBKwHdLhFBIgJypKKWy+xWPuZ3DSeipChddxaokkMKZ8pKaQ/97vvrqOW4uJ/r4IligztVXuRRAEtXUh7SxhRsIgfR+t7XInVOaPwlZlHNaGo0JZpKdoV+VOuEWuIlnlHwzi1o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789545506; c=relaxed/simple;
+	bh=svRabBI6UvEUHfQROC2aHOHZq1v1cZekXErBpB21yyI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oj2qxouR9PttO6+wU1Td75Vvyc01/eMFOaTA6Fqg6UNn4mpue6h02eTf8eLUlTNsO9RVnXVpV6nR3Fglg7kGlwi70IIBYSOjXUmIDB42YVjST+eTLFebAdqjzd214MiMBBt1Vq7bYm1YWQZ/Fj0vn3MOSGhF2WmxFF3J1/rKVAk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aNT4XKqZ; arc=pass smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k6FiNCSQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DvIl4Bl4"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G68mdV2429356
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:56:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=NsEV4uVA6aessXGwFZ9cUl
-	Nd6oEQR/Eydv18K2tX5rA=; b=k6FiNCSQo8PYZdB1mUws4tI/J6YsjAo8uHO8n5
-	yUITh8o7+zc3wdYyWRNoFno9wLja5Vp9DjLUglaKzw1utmXvLovJxTDXO+VW68P4
-	M+FktSOmsPMr+BCqDkXP4ztNt1D4rWW7Kio++8x/J9wksKkraoiz3e6IcpFn9/iO
-	vBI8JHu1wadL1zdJD8+5/fUxerifpEa/wokOUJx+c+zguxOBV/3OO8FfkVzja9mC
-	KoxIvagHRyFvnJjCUs3Nogf6t/gytNEdfbuM5r1XPlCm6LxDsBYlgmmau6gRswtR
-	pKlVA9QeIU+mKmk771bFhU8mvdndL1pTh6Azom1kjsWGVlEw==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqfvfhqnn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:56:45 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so6508743a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:56:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aNT4XKqZ"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9104649a5dcso6892836d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:58:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789545497; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TGQt//XQJKJhvK9HgRz5Svn3UiqqGWUGT9iqS1bFSsQNWneYaBv5NjZ2ABWBl9dkjt
+         QyTZ/QrSfeMhhop1IBjWHE4usLlFroQxAUpZcJQrX51RAwlP57zIdkXCi7PwyrobcmD8
+         +ymit9fGihRcddQ1wEiEHpDgfCPygxUKOOqIKoVuvjEpfur1eI7XXFNqruMrIGUzoWig
+         RaTbQCMM04KVv4AU/o459CkaSDCpznhAxbWxyQOYUm7L80jCPFX/uZ0sLXovHY08QJcO
+         WGGs2by1/wIzQXc2fRWOMxswc9UqUpLwwmPYujBZXrgrlKNuHgRYz156mhFf+GyJqWqY
+         PWBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uIu1t/2657EaB+VrCIFp6sfHSKgjEaSX/eWEjXMGplk=;
+        fh=WixzGIxQPu2cQBhjCW+UdRdDMmnzMLBPHrb41gXAdYs=;
+        b=nZUzL36/aRpG20bUfi1G4SE7W/sc86zOxuJQzm1gs2EbnOnWiwo3lVQPIHj5qQiWi1
+         nxf+EgOC1yoEwb/3/8pkGsogXfz41mUBXr0jzm19Pu8OFHRhCSyU2/1RtRWOa/hsuvko
+         S2Urg8RYELr2X8te0PlRZ9JWja2YSntOv68RFg/Ac5R6Tat0mHLujdp104vF9nYIHrMM
+         Jc36Fri1eVRUv38SiiCFcDuPnU3ZNmwPoL7X1J0JlPn2v0VvjRddWnO1rGEifOnhB83s
+         0JdLzFGnAKjr4oSiRMjHMhZY2NSEnO88Szb4hCpVamSmzCWgeJNpZ5pjG2lmlGNcFZdP
+         hx3Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789545404; x=1790150204; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NsEV4uVA6aessXGwFZ9cUlNd6oEQR/Eydv18K2tX5rA=;
-        b=DvIl4Bl4T2DWjFlJE6AVfE3N4cgLMVtePluJiWQy3HOlRP3dLR2pIpHTRaPXccytn8
-         DVuVPcYTHaABZuztfDnsRHecHioXdPZ7N0ajb6sX9vApRO6ywAg90IYc3ljG/YloKJwQ
-         V7lFAQFLJKloTXdo4Ulas1Ku3mq/B/51EYYLVmNrDG7K7oWkaR/7HkCH5GP5BxnDadRI
-         k15GQ2jNf7eNzFFWSsqFmtJWhI1ycV5v2qs6PW8/EXVAZ3ljUWTX8GRtsVAj/CK/QWZE
-         I0mdX4kyat2V7KZNSKIV/ONcVVLjgvXsiR02JNPig/LzFyqI9iRb8dFUXnyB+9rZ3vt1
-         pZ9Q==
+        d=gmail.com; s=20251104; t=1789545497; x=1790150297; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uIu1t/2657EaB+VrCIFp6sfHSKgjEaSX/eWEjXMGplk=;
+        b=aNT4XKqZB0K9qo2J3S3i27iKOsie7t3M3yXNoO0rVXkCChBtTPpOInN7KaEdRN+GS/
+         Kq7VpsfXGOfPEmJ67gO0EhnuLMv6LB4+CFebT6s7LdIO4CH7+zwbIMlMM9F4hi+jC1Sf
+         8Q5PHW6UYoSRiqTiP4FQ3u5x9jZfOd2KkJ8e6oXG4fAKs2FU3BU+ldQYNPXPx6D0gkiY
+         u6IqN8AJUNWVfC5peZHsl1VYE0cBcGCB7yyW/0Si5jl9LWvjz3LE7f9SFDXbkmQ3sNLm
+         jD/+lRVN+0AjPzzf8AcN8b2U8823en92uTZYoUe8IUXBZKonL5SYSuhGbcd3HTwIIICo
+         4Aqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789545404; x=1790150204;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=NsEV4uVA6aessXGwFZ9cUlNd6oEQR/Eydv18K2tX5rA=;
-        b=KU8B4tiZ/w+5Va/q7I177XdICwd66h7Ryrx6C2TEYZjXlj2tvq26Bzz8qJoiXomydY
-         hezmzMLRBvkbcGUrrjBotQ3g22a5G4oZhxpwT1FdGgxIA8iycsXe6akPeyT1Oo1hVJxn
-         VpapPlNAtBs1s8/KnczcDJUmcgI36KIzMaoqL16FeQ04Sg9bTk0eZl5gGEMxZzAyL4hD
-         1+xFkUdh4b84WCgbslufSeF7Uz2hHtpossXMPHIjC1jDk5lJBK9+7mVpk2aTO9M7Cxb4
-         JkonORZu4NnT9fCks0bv3eolLfpx60kaxHb1efTFD5gKx0kN3oysC4uSto43kyL1n1YU
-         YT7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy2RZO+Pdo8QR6dowCtCg0Zj0ylVcueWtF+jMs49HC5wwnTZlq7oeSVc4eOE9urBORkvlK/frDI8kytrm4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nC+DNivY19G58ReIIPS/dx/Lhw0yvdjG2/MeZ5cPEnOEgkzmVP
-	fx0W+CIddzZwjhqJNWDU7WhXGZT4uShrAOGrS5Phh6Wa2ntNjNQnD1+2ZWOg/tONB+p8lEFUuZN
-	J4TEefgTObm+Th3VAMGR1s+E9iPrvoM/p+lce4vw6pK1XyL844dVeLfdMdRpiNqmpa2c=
-X-Gm-Gg: AYBFou2RiNtawspmgcTZTYJuvLfFdmX6BsvA7PRB9cRVvT1gPkO71S95qjr6q8NLi5N
-	Xshjzs/MpetHoTBFtCDGk1Vj1orYPUOKh7L+8TBPUYJACxCkH1l1opjfUQGJC59VOPVkKO1m0LS
-	uCrkdaa60tA3TZmBqEqUVZw0ATVHtW8VLVu5/J9koTiPzqJyN59xYScL4HUcWsApQsVIi2Cqj73
-	dHZarDu/i6Su4pV/5rebtTzLrOiAmnaLyni7xc2yqM8w4IFGX87i8CYDfELytb1OrmaPde1Et6T
-	4d7AZXaxN7pT7bkatd/k6vpbmsbFx6jZIcWwy+41y6B+m8f16rNRmpOA3q9pZyIRyNlTToclBHi
-	IEy6AgdEap0pAfLYkIM62NJPcLUG0DZjFy1ydtA==
-X-Received: by 2002:a17:90b:2885:b0:39d:f130:8f13 with SMTP id 98e67ed59e1d1-39e1e4d3357mr4052783a91.21.1789545404279;
-        Wed, 16 Sep 2026 00:56:44 -0700 (PDT)
-X-Received: by 2002:a17:90b:2885:b0:39d:f130:8f13 with SMTP id 98e67ed59e1d1-39e1e4d3357mr4052719a91.21.1789545403713;
-        Wed, 16 Sep 2026 00:56:43 -0700 (PDT)
-Received: from hu-anupvish-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d13cb7sm4688714c88.7.2026.09.16.00.56.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 00:56:43 -0700 (PDT)
-From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 13:26:36 +0530
-Subject: [PATCH] remoteproc: qcom_q6v5_mss: Fix missing PDM subdev cleanup
- on probe failure
+        d=1e100.net; s=20260707; t=1789545497; x=1790150297;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uIu1t/2657EaB+VrCIFp6sfHSKgjEaSX/eWEjXMGplk=;
+        b=htfBBqiy4tNbm3t8PuWOyqcbxVdEiQxucMZk6iuMDxhHgsjUVUqo47D4vdMRjtyywS
+         M5qL+7qwgay7ckoQeq/dYsIfcl75rITveQG5V8wKJ5ILe/1NEuJxbpRiGrryuicAGrAk
+         pGzPp6HQLHrhNiqsTx4bXxqETd9rSgQ2kUfgkiyJArHmxgSUV8jOBYtOfEu4bGrygvDd
+         g6jCEMRr6zefMdh/P0rroyPQqBvRffd9tfIE+BZrtePQZKS90tjp8pmfSzzlAvkom/kA
+         qzD5OYxGyrbv130l8iNGGQs12LezeUj6c08x4OxmbynVmrLA7D8uDLif/sZveZRkpUWY
+         Nsbg==
+X-Forwarded-Encrypted: i=1; AKwUvByW7h4PY/7fOdpXvRuEMnIa+tKe19u3xyCDDqnrkjWkXcNfcIPL2ah2TTr+/ErkVk+ZHhlnddtzX844yxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3O6Y8MmMotZHbiWWQgd5pd/eVw1pObarmxuzgBSeVa4yXCtDt
+	nU41igi4Ihpl9SvkGHojW6Zx8g+/Suv3dmA1UBnxw2WJGme3Jyf0BXaiFsZWJzXOezdY/yAkD3a
+	/IzrAkFpN/eq74ilDJhcJ+cnfRAq0B4M=
+X-Gm-Gg: AYBFou1nnf6KRT/5KsMby7T4GAqob88ZILEr4T04sHLwms/ulQrN+CObTbUfy0ensIn
+	qpdlxhSA2HYqq+Rbiqfbajz9IrEv9sxC3+U5uuh0ScJvWAdC7Vnl3av50jbL+/uNZcD3l4bMgN4
+	XlfBnTwaiLuAxVy6gpdfu8/MW2TGK2qeqyppWYidC2hU25hzVYQP/ai90nPydLC7fZGZxzqm/it
+	ixVMYwlsm+RJ4AqgPz2k1de+wGzmEZHCJFWzbpuL5plc1TZIP+aluLnAGowYzt43O1vW9G1/sJw
+	7XgWZaWqiFcNELr+DC/C3fKdsSDsNExhTmemG1FWe282N7GNhZSnhpuRYZhUXE4NHg==
+X-Received: by 2002:a05:6214:5012:b0:910:39f5:3747 with SMTP id
+ 6a1803df08f44-9123d723fbfmr31420176d6.2.1789545497533; Wed, 16 Sep 2026
+ 00:58:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-b4-q6v5_mss_pdm_subdev_unwind_upstream-v1-1-ea6575aa42db@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIALNLqmoC/yXNyw7CIBCF4VdpZi0JNC1eXsUYAmXUMQGRKWjS9
- N2LuvwW5z8LMGZChlO3QMZKTM/YoHYdTHcbbyjIN0Mvey2PSgs3iJeuownMJvlguDiP1ZT4puh
- NSTxntEFIZQ9u0HtE5aHFUsYrfX5H58vfbfnAaf7WYV03ysbaT4oAAAA=
-X-Change-ID: 20260916-b4-q6v5_mss_pdm_subdev_unwind_upstream-01a8b467ee1d
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Chris Lew <quic_clew@quicinc.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789545400; l=1514;
- i=anup.vishwakarma@oss.qualcomm.com; s=20260805; h=from:subject:message-id;
- bh=HbIfItTOo8OE4am6c9ivPQcztfXU6kk/9gwLzj89GuA=;
- b=SBvixAsrejmThHZXVm27H8cvkn3KKWNuOT3UtPaGhGtqKB3jJbqpeAu9F0gkf/CTa4bZpNvnK
- oPIn0cNrh+8DhkUUFGzUZVplKa8ccpg9IvO7f4uk9k9MbxdijPmDymv
-X-Developer-Key: i=anup.vishwakarma@oss.qualcomm.com; a=ed25519;
- pk=Y9ilCu91UQrzHOM14SG2IjnmQ1QSroH5uVeBSWEmEDM=
-X-Authority-Analysis: v=2.4 cv=JYkpPkKV c=1 sm=1 tr=0 ts=6aaa4bbd cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=nKoQMm1Mf4hYkZarmuoA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDEwMSBTYWx0ZWRfX3Z79/luLU7EV
- WBGkmhqphhgyLamaaG/nxUTpguflFdSmC5k+cMkKsc4A+/fR9mD6KAdg090wztl3hgoyE7fypvv
- nTgV26pAqnZ5UA0WcwtOF61X5kr0f/vVZ0OzQiyqlWLiWt5FP1C/X7mlq9eksrM9HexmAa97cpH
- 0wai52nv/5+YSWz0zv3WUS9A5kEK9Qcc9By806A7r6Yncuq+8zjw4s0dFiAHiwmb75VR1JpCghg
- SY9ku+eEPG7PXBXRZOIep3X3qJ72xutt4LuCF6Or+n+CsFNHoKG6A5+P3puOqcCdhmsbIi0UZa4
- x/HB7g0xgQZxOeJlYYc0YSB8WnaKGYvoAnoVfprHUrJGsIZIOk+l+voI6LfXHzcgX9X0zCZgC/U
- 7ajd9eBvB+0QlmpibqbYucYQIYRs9GaNQVmwC6N4QXDhoeQj1GzTsNbhMYMKGUJ2lpMROTmjx50
- 8cHj0X4U17eYrN3zecQ==
-X-Proofpoint-GUID: pzW8e1X-H7QLDmMfTjvuGLRz33MyXRO3
-X-Proofpoint-ORIG-GUID: pzW8e1X-H7QLDmMfTjvuGLRz33MyXRO3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDEwMSBTYWx0ZWRfX5v7cyX7Hvdua
- payM0jMAIuWVzI4zbCRX1Mg0+QZn8YiNfd+T6PILFF3nln5vW8HLjDbyo5PdbWQrBvG4RfHtgfv
- zsf5O3Pv2eCFxLmvPR1Za4w+w5IhF1o=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 priorityscore=1501
- spamscore=0 malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160101
+References: <20260910081020.86227-2-zxyan0222@gmail.com> <20260915014931.873912-2-kuba@kernel.org>
+In-Reply-To: <20260915014931.873912-2-kuba@kernel.org>
+From: zhu xin <zxyan0222@gmail.com>
+Date: Wed, 16 Sep 2026 15:58:05 +0800
+X-Gm-Features: AcwNN1XVGxCGbHGoiSEmykI50OQOFMqMRNNP8SCOpWGmQIGcYGxB4Ix5qBxjtfk
+Message-ID: <CAP7veT+QX9ytS3umMg8HOafpoYYyQz43oBwOLZ5Xmorv+JuvpA@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 1/2] net: stmmac: dwmac-socfpga: complete
+ cross-timestamp on ATSNS
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
+	richardcochran@gmail.com, maxime.chevallier@bootlin.com, 
+	muhammad.nazim.amirul.nazle.asmade@altera.com, rohan.g.thomas@altera.com, 
+	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-q6v5_probe() calls qcom_add_pdm_subdev() but the remove_subdevs:
-error unwind never calls qcom_remove_pdm_subdev(). If
-qcom_add_sysmon_subdev() or rproc_add() subsequently fails, the PDM
-subdev remains registered in the rproc subdev list.
+On Tue, Sep 15, 2026 at 9:49=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> wr=
+ote:
+>
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: stmmac: dwmac-socfpga: complete cross-timestamp on ATSNS
+>
+> This changes the Agilex5 smtg_crosststamp() handler so that it waits for
+> the PTP_ACR_ATSFC FIFO clear to finish, then polls the ATSNS count in
+> XGMAC_TIMESTAMP_STATUS instead of the transient TSIS bit in
+> XGMAC_INT_STATUS.  The snapshot count used for the FIFO pop loop is now
+> taken from the value the poll read back rather than from a fresh register
+> read.
+>
+> A few questions below.
+>
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/driv=
+ers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> > index 1d7f0a57d2889..ee6f28637878a 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> > @@ -340,6 +340,18 @@ static int smtg_crosststamp(ktime_t *device, struc=
+t system_counterval_t *system,
+> >       /* Release the mutex */
+> >       mutex_unlock(&priv->aux_ts_lock);
+> >
+> > +     /* Wait for the FIFO clear to complete so a stale ATSNS count fro=
+m
+> > +      * a previous snapshot cannot satisfy the poll below before the n=
+ew
+> > +      * snapshot is latched.
+> > +      */
+> > +     ret =3D readl_poll_timeout(ptpaddr + PTP_ACR, acr_value,
+> > +                              !(acr_value & PTP_ACR_ATSFC), 10, 10000)=
+;
+> > +     if (ret) {
+> > +             netdev_err(priv->dev, "%s: Failed to clear snapshot FIFO\=
+n",
+> > +                        __func__);
+> > +             return ret;
+> > +     }
+> > +
+> >       /* Trigger Internal snapshot signal. Create a rising edge by just=
+ toggle
+> >        * the GPO0 to low and back to high.
+> >        */
+> > @@ -349,9 +361,17 @@ static int smtg_crosststamp(ktime_t *device, struc=
+t system_counterval_t *system,
+> >       gpio_value |=3D XGMAC_GPIO_GPO0;
+> >       writel(gpio_value, ioaddr + XGMAC_GPIO_STATUS);
+> >
+> > -     /* Poll for time sync operation done */
+> > -     ret =3D readl_poll_timeout(priv->ioaddr + XGMAC_INT_STATUS, v,
+> > -                              (v & XGMAC_INT_TSIS), 100, 10000);
+> > +     /* Wait for the auxiliary snapshot to be latched.  TSIS is a
+> > +      * transient status bit that is set by any MAC timestamp event an=
+d
+> > +      * cleared by reading XGMAC_TIMESTAMP_STATUS, so it is not a
+> > +      * reliable completion condition.  Poll the persistent ATSNS coun=
+t
+> > +      * instead: it is cleared only by setting PTP_ACR_ATSFC, so
+> > +      * nothing can clear it while we wait, and it reflects exactly th=
+e
+> > +      * snapshot latched by this trigger.
+> > +      */
+>
+> [Severity: Low]
+> Is the "cleared only by setting PTP_ACR_ATSFC" part of this comment (and
+> the matching "ATSNS is cleared only when the FIFO clear bit
+> (PTP_ACR_ATSFC) is set" in the commit message) accurate?
+>
+> ATSNS is the auxiliary snapshot FIFO fill level, and popping the FIFO
+> decrements it.  get_ptptime() in stmmac_hwtstamp.c does the pop:
+>
+>         ns =3D readl(ptpaddr + PTP_ATNR);
+>         ns +=3D (u64)readl(ptpaddr + PTP_ATSR) * NSEC_PER_SEC;
+>
+> That is also why both timestamp_interrupt() and the loop just below in
+> smtg_crosststamp() iterate exactly num_snapshot times:
+>
+>         /* Repeat until the timestamps are from the FIFO last segment */
+>         for (i =3D 0; i < num_snapshot; i++) {
+>                 read_lock_irqsave(&priv->ptp_lock, flags);
+>                 stmmac_get_ptptime(priv, ptpaddr, &ptp_time);
+>
+> Would it be more precise to say only that ATSNS is not cleared by reading
+> XGMAC_TIMESTAMP_STATUS, rather than that nothing can clear it while the
+> poll runs?
+>
+> > +     ret =3D readl_poll_timeout(ioaddr + XGMAC_TIMESTAMP_STATUS, v,
+> > +                              FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, v)=
+,
+> > +                              100, 10000);
+> >       if (ret) {
+> >               netdev_err(priv->dev, "%s: Wait for time sync operation t=
+imeout\n",
+> >                          __func__);
+> > @@ -364,8 +384,7 @@ static int smtg_crosststamp(ktime_t *device, struct=
+ system_counterval_t *system,
+> >               .use_nsecs =3D false,
+> >       };
+> >
+> > -     num_snapshot =3D FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK,
+> > -                              readl(ioaddr + XGMAC_TIMESTAMP_STATUS));
+> > +     num_snapshot =3D FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, v);
+> >
+> >       /* Repeat until the timestamps are from the FIFO last segment */
+> >       for (i =3D 0; i < num_snapshot; i++) {
+>
+Agreed, the wording was wrong: ATSNS is the aux snapshot FIFO level,
+so popping the FIFO via get_ptptime() decrements it as well.
+v6 rewords the comment and the commit message accordingly.
 
-The three sibling drivers (qcom_q6v5_adsp.c, qcom_q6v5_pas.c,
-qcom_q6v5_wcss.c) all correctly call qcom_remove_pdm_subdev() in
-their probe error unwind. Add the missing call after
-qcom_remove_ssr_subdev(), in reverse order of registration.
+> [Severity: Medium]
+> Can this reuse of the polled value hand a fabricated timestamp back to
+> userspace?
+>
+> Everything from the ATSFC-clear wait through the GPO0 trigger, the ATSNS
+> poll and this pop loop runs after aux_ts_lock has been dropped:
+>
+>         /* Release the mutex */
+>         mutex_unlock(&priv->aux_ts_lock);
+>
+> The STMMAC_FLAG_EXT_SNAPSHOT_EN test at the top of smtg_crosststamp():
+>
+>         if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
+>                 return -EBUSY;
+>
+> is done without that mutex, while stmmac_enable() in stmmac_ptp.c sets th=
+e
+> flag and writes PTP_ACR under it:
+>
+>         priv->plat->flags |=3D STMMAC_FLAG_EXT_SNAPSHOT_EN;
+>
+>         /* Enable External snapshot trigger */
+>         acr_value |=3D PTP_ACR_ATSEN(rq->extts.index);
+>         acr_value |=3D PTP_ACR_ATSFC;
+>
+> The PTP core does not serialize the callback either:
+>
+> drivers/ptp/ptp_chardev.c:ptp_ioctl() {
+>         ...
+>         case PTP_SYS_OFFSET_PRECISE:
+>         case PTP_SYS_OFFSET_PRECISE2:
+>                 return ptp_sys_offset_precise(ptp, argptr,
+>                                               ptp->info->getcrosststamp);
+>         ...
+> }
+>
+> So after the poll observes ATSNS =3D N, a PTP_CLK_REQ_EXTTS enable or a
+> second concurrent smtg_crosststamp() can set PTP_ACR_ATSFC and flush the
+> FIFO, or drain it itself.  The loop then still runs N iterations against =
+an
+> empty FIFO, sets *device from whatever those reads return, and returns 0.
+>
+> Note the read_lock_irqsave(&priv->ptp_lock, flags) inside the loop is a
+> reader lock, so two concurrent drains can interleave pops of the same
+> FIFO.
+>
+> Before this patch the count was re-read immediately before the loop, so t=
+he
+> same race produced num_snapshot =3D=3D 0 and a skipped loop, i.e. a detec=
+table
+> failure rather than a stale value.  Given that, does the commit message
+> claim hold?
+>
+>         "derive the count for the FIFO pop loop from the value the poll r=
+ead
+>         back so it is guaranteed non-zero on the success path"
+>
+> Would holding aux_ts_lock (or another writer-exclusive lock) across the
+> ATSFC wait, the trigger, the poll and the drain, and re-checking the coun=
+t
+> at drain time, be needed to make that guarantee real?
 
-Fixes: 5b9f51b200dc ("remoteproc: qcom: enable in-kernel PD mapper")
-Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
----
- drivers/remoteproc/qcom_q6v5_mss.c | 1 +
- 1 file changed, 1 insertion(+)
+Agreed.  v6 drops the "guaranteed non-zero" claim and instead holds
+aux_ts_lock across the whole sequence: the ATSFC clear wait, the GPO0
+trigger, the ATSNS poll and the drain loop all run under the mutex,
+and it is only released on the way out.
 
-diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-index 2f71ed2feff6..1574e26aeaab 100644
---- a/drivers/remoteproc/qcom_q6v5_mss.c
-+++ b/drivers/remoteproc/qcom_q6v5_mss.c
-@@ -2222,6 +2222,7 @@ static int q6v5_probe(struct platform_device *pdev)
- 	qcom_remove_sysmon_subdev(qproc->sysmon);
- remove_subdevs:
- 	qcom_remove_ssr_subdev(rproc, &qproc->ssr_subdev);
-+	qcom_remove_pdm_subdev(rproc, &qproc->pdm_subdev);
- 	qcom_remove_smd_subdev(rproc, &qproc->smd_subdev);
- 	qcom_remove_glink_subdev(rproc, &qproc->glink_subdev);
- detach_proxy_pds:
-
----
-base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-change-id: 20260916-b4-q6v5_mss_pdm_subdev_unwind_upstream-01a8b467ee1d
+v6 will be posted shortly.
 
 Best regards,
---  
-Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-
+Zxyan
