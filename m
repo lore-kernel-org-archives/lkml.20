@@ -1,108 +1,104 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5156A34BA50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06B934DB41
 	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:53:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570396; cv=none; b=QuEsd0CdNP/R4gWom72GicSL0HV+NTk0knxE0Dnnej3VJtPD7H/f1fheOYbhQ7F3frhygTcxFw6KC06Hx5W/avaxj/S3G1ZWtXGZ8PDQ7epJigS7YT41yUntl704lMDvixJ7BAhBK6bD4MZNrTIwGqxkprqlrCHYABomXvhDUfk=
+	t=1789570396; cv=none; b=sm8qzFDbUowTHYFG78qa2Dt3+JXg8UqVr7jBXdhk2uFQ0OCz+63kqavwv6klSyBih4Fo1Yq4gAcfLQp6UQAPlERySx9EI06A/YpjSOprlAf/3c8sIGGZfzTCTTp8YFoubpOj92ZDxC5/CaSM32EheQKfNjL2AGrZjOrAcLAOjh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789570396; c=relaxed/simple;
-	bh=OuC/W/DNESdwVjHCYITglUUqtb1LIzuHPvq0FWVR0VU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eU3uzKo2dkZ3QNlVYfPv7ymP//OJSmVJQtyo06ZLP+az79TDAXUSIhBzcm3/cUnK4dPOWPnJ9vghUA0UAj8umd513iw00qbXxvir2Q/utEvecRdGtLCZJs9GxHUfi22qk/Eu96ICHZFK3dV+YBw/2jwQpauIW0SATFWI1kpsbcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev; spf=none smtp.mailfrom=northecho.dev; dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b=XZmh/oNP; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=northecho.dev
+	bh=kz9c7562LzZnfgeH6LbintREMCJHlKCKlc4kEhyiQ58=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=omL9WkNBJ+D9Qnb/dtFF4gJxrPfw28f18TyGEzFfzDlrPIzHS4aoCwb9zjWPCGZ3fNtNBO4YTI0Ekt/7wpxcJ6/6jH2gdpJRpekCXotrH+SV9Cd0VUiGb/dAsFRxkPtaGJZlMmyfE4HRWmcdyR1oNB0xrpT/5Jg2rvwmJ97q5LM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lvtOl32w; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b="XZmh/oNP"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66fb7119b3eso174009d50.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lvtOl32w"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a98dso766296a91.0
         for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:53:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=northecho-dev.20251104.gappssmtp.com; s=20251104; t=1789570393; x=1790175193; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RW23e0CCUw23TNIxrY8dug480YZmKW8Fw0A6LLlcPJA=;
-        b=XZmh/oNP32aU78zXe69kHDDX9SVy4LiEvpPNDqLOmx6LS6a7Yck4tikMYUWR9sxUea
-         JA9AELJJVIldGwQDuKTD2SzXO428XaiiAckas9kVYi4+XCJbCL2N7iI5R6GuH45f2+p7
-         uLZrU4a4bYKtwP47sMacr7DGSTc9e9UV5hLJMSgAcDvP1ir8dMw1dy3bgWOmFLLO6s0r
-         7QTRV/cWymqw0Sg+SujDWvX+ZUotS599nnPMPXMPdKtQKULJOnrah3k92oT4b2LD9/36
-         OlL2DnI0TcBW+K5qKbc/wF+nCavAe5jBWcZ3jBLIHH827BFmw6Fo3b7lFnirSMXB0Q7D
-         8HyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570393; x=1790175193;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789570394; x=1790175194; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RW23e0CCUw23TNIxrY8dug480YZmKW8Fw0A6LLlcPJA=;
-        b=h4pLy9cGh8eHYLkQmx9wA3OJmtNVFHUGTcaDSy3iEnu1qnWw+bbhHXUljiX6OF2vuU
-         7WLc0Y931AQVg3LGPWaPA2MWWR5vmua4q0njn4dL3nnEDuFK0Qp7LJ7aU7FBravRgqwY
-         zKwt/NlSse+bNHnIREGzOWHVEPqBzgAfvqMwGSIiFuRMrKJrNb53yPCnP6+nbRTA72Sz
-         L7ivqWaF/EJU7E5MzvrJoMHgNoqkCv9qfvYJRlh2S36VwjREugTZ07oTTF+vTz+7ocD9
-         2rFv26lUjZuIzykYRjjuN15TRy6KHa5wjwmVBx/TwtHgFZcqMj0/f5t1+Ds6DcqwdzRM
-         /KjA==
-X-Forwarded-Encrypted: i=1; AKwUvBytw+okAeH8sEt1siCCfrBcknixtS9rvxW6p9vkeYhpY/VyC+5NyZEdkKSG3DQO8l4lriLgQGQKP4QKQMU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHNE02/QUFMt26W4wYXb72c/G9SXGvGBB7k4ONdX6NyF8Hb3b+
-	8rEFx/p9VL8g44OebLZj6WSayOUZ8uNjVgG3iSLHelMdDISrRj46QzRL47iBnLrC77e2XVj7A4h
-	mBtQvgPGeAdhNWQ==
-X-Gm-Gg: AYBFou3w5gHhqRRY397SP+xKOjtSkWbF8NYi0ks+3WIfhhQrRWUfciWm64uvPEVIkng
-	O7qvAIxkHMaBo+aAgkWokw/HOa8xUTHErzEi+KQ2ZMDpNa1rA71WrE9rNNn2ADB3/s3v5M6oIMC
-	zU2s0jn7eEz3tistm6hpE9gFG2FYGw0OoMIL3AygOBcv+8SCBu/mjfm6oORxgrBv27sV5hAfy/4
-	xHVgHWFB01JMx9K0M8ywkfnuoKoJMpVIUn8nmaMLeseXAlxbg4RzMEtw2LLnDr2QPORCUj5bYj3
-	0S+hN5rRwVVV+BxhKgLJkS9L2zoz0x99EDHn+gAadUKnQld0UbDGaTFE8zkIQb09vTJd9hh75DC
-	45/GwBou4IItkA60s7SJu8YWhEkcUFSfpMjuviG11/mDvGXzXHvogRydNP5CgxR79hfYph0yusW
-	pTyOD6yE1vWHwsxUrD5p4LPUWcRWvEmcKooZvpmMBxCSTtWmbbtxc9NknCtW6bRh8tcI1GlIE2k
-	Tl9SGqn+yoT+ArAys51qcrplnUZiXJ6VqRTEbM=
-X-Received: by 2002:a53:cd11:0:b0:66f:c852:209f with SMTP id 956f58d0204a3-671631f60fdmr1054076d50.2.1789570393120;
-        Wed, 16 Sep 2026 07:53:13 -0700 (PDT)
-Received: from kelso (99-10-92-174.lightspeed.rlghnc.sbcglobal.net. [99.10.92.174])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6715f787276sm1397653d50.19.2026.09.16.07.53.12
+        bh=fihMhWTIB+kY15B3X2oY9LnEH/m2Tdo1vVD8z5jRtG4=;
+        b=lvtOl32wdpUneEwagp+SRBQYZTa2C1EeYNxL1k2SjvgEpOL/MVrNbsUnM1MZS39Y1V
+         Brtx8TSCUKQ4HGgDag52TOYLWEMfKpFqUi7WKiQZXlN0NvkfVSRRgFse21lmIC6otrs9
+         w151xgu6gNFtaFPTXHfNDrW5TfCqbeATpONmOd2sdTxbYU13Z5GrUh+N3/MJ3FLrMvnU
+         hIPm15oO0ZHO2TBAR0hoC2a/BSw3bXchPHTQUHnixSrBqlf3zgwV6IMx5BIyIC/zPPZJ
+         esCzDKAfOuU3Gl9GUlaDqzDPKs60lkuhB6xy/4mdr2FrFpAFxEbPw6puuwtv6l4HgNE8
+         ULiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789570394; x=1790175194;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fihMhWTIB+kY15B3X2oY9LnEH/m2Tdo1vVD8z5jRtG4=;
+        b=Fi2ZyIgjRxblRIuR6xWVv4qjym7sBwZftzTEs6tQYU3lrI3WhNBUYlEyPPJNKBIl6i
+         EtjssNSTsZyVPUEZpe2XbYd90YzC7veq5OENn+dixIQlsmmsdAMIFhBBjXydhhVLYPjV
+         vqmUeWwIQ6f5kdfb20LvVX7ToKLCDQ/BxSBSWe66YcC/2v8DQlBBtTH/rhHx1jrmLX+t
+         dunVTqdezymyislx2k9/PNJ7qYRPM0nxJ5ikCjd49Nv2c6tmN4bi2a2C64XY/GeNpsjy
+         KXMkCdDEUrgrYfSGDTiAcrx+t2x52cyDNRd3icJO8J3jia2LmxPddKO/rV2rM+lrtzUm
+         prew==
+X-Forwarded-Encrypted: i=1; AKwUvBwzxvBH1L70qwsTJAwcj7gSXSnu63Rd1YdUs+/eWDguNhB7m8D92W1yXOmFkjiEVjqO8EJFTW/Bpd9nmGo=@vger.kernel.org
+X-Gm-Message-State: AFuF++krsyFUAeAJza4jbl4gp1wkfWwZE2NYhepEJMaRI2RtA93HAppN
+	h6msF565+invCMgjUZh0hiEYxDFjcpIAANBxKCu3yKX6K0Fg5BYY0mUs
+X-Gm-Gg: AYBFou2YQd2HFtMdYGiGLTwtMwSlud4t44LopXLCgc0VJ5eMc4JC9gJHGmmkY+VLTYK
+	XlgpzbSl/kJudTmvpsQjUmUU3tZjA1ozv/qdUD5JkpjYwNn3upvxXwJTYgX1Z6aPWJr20N6BqQ+
+	UorDduU8xMV878XQWknDhkOCXjjGi+jn1ihhL8XNPQhos9ZUFLCns/e+yERTlz8/955FyyfvS5w
+	qmVRdNGcZxAaIFzVUuGHi4GqZqtHNlEgwkuZA+gaqSTX361R5GpM82idHUyQI+tpkX5m7/EZdRY
+	ObZN4l4yu4oSoqsoZUUU7fX2nCarVLlZJ79jYqmdwJ51jmaydKu00zxeFqswXTXSHpAd//RYqsC
+	PsYbwMgXmCLbSaQSTzCveUqMTdZz+yraogxNMqaQspjdoxf3IvMvWYhOrUxFN6X0Y0WDHZjbU6/
+	BHaG/Hy/i0OVf0dJbcY7Wk4zpDVb3PAdVtOa8gtYKKWMnQJXuNNV3iJj6we6wOWBJF4UrGbLxNl
+	gvElgowaD1b
+X-Received: by 2002:a17:90b:548f:b0:398:9c00:29ec with SMTP id 98e67ed59e1d1-39e1e4c9d71mr6984128a91.20.1789570394061;
+        Wed, 16 Sep 2026 07:53:14 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1d0be48csm1586133a91.3.2026.09.16.07.53.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:53:12 -0700 (PDT)
-From: Christopher Lusk <clusk@northecho.dev>
-To: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-security-module@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+        Wed, 16 Sep 2026 07:53:13 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 16 Sep 2026 07:53:12 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Patrick Pepin <patpep@me.com>
+Cc: Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Armin Wolf <W_Armin@gmx.de>, linux-hwmon@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: landlock: clarify TTY signal scoping
-Date: Wed, 16 Sep 2026 10:52:55 -0400
-Message-ID: <20260916145255.1587381-1-clusk@northecho.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <aqqJAZfG9FC7PgMW@google.com>
-References: <20260914.b8a029f9abb8@gnoack.org> <20260914180946.1462099-1-clusk@northecho.dev> <aqqJAZfG9FC7PgMW@google.com>
+Subject: Re: [PATCH v2] hwmon: (dell-smm) Add Dell Precision 3650 Tower to
+ fan control whitelist
+Message-ID: <4e5f8714-4257-484f-8f8c-0fc8033ecab6@roeck-us.net>
+References: <20260913112925.11393-1-patpep@me.com>
+ <20260914080955.87925-1-patpep@me.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260914080955.87925-1-patpep@me.com>
 
-Hello GÃ¼nther,
+On Mon, Sep 14, 2026 at 08:09:55AM +0000, Patrick Pepin wrote:
+> On the Dell Precision 3650 Tower, the EC ignores fan speed writes unless
+> automatic BIOS fan control is disabled first. The I8K_FAN_30A3_31A3 SMM
+> code pair works on this machine through the WMI-SMM backend: after
+> writing 1 to pwm1_enable, all three fans (CPU, front, top) accept the
+> three fan states and report matching RPM, and writing 2 hands control
+> back to the BIOS. I8K_FAN_34A3_35A3 was tested as well and also works;
+> I8K_FAN_30A3_31A3 is used since it matches recent OEM software.
+> 
+> Tested on BIOS 1.48.0 with kernels 7.0.0-30 and 7.0.0-31 (Ubuntu 26.04).
+> 
+> Signed-off-by: Patrick Pepin <patpep@me.com>
+> Acked-by: Pali Rohár <pali@kernel.org>
 
-Thank you for the careful review.
+Applied.
 
-The phrase "or otherwise driving a terminal" was LLM over-generalization,
-not a separate mechanism.  I checked the paths I had in mind against the
-source, and none justifies that broader wording.  I am dropping it.
-
-You are also right about the verbosity.  The generated text expanded a
-two-line distinction into 15 lines and obscured the main point.  I will use
-your suggested sentence and remove the signal enumeration.  I do not have a
-stable kernel documentation URL for that list, so I will not add a citation.
-
-v2 will contain your sentence and a short LANDLOCK_SCOPE_SIGNAL remark in
-landlock.h, matched to the recent MAKE_REG whiteout remark.  I will post it
-as a new top-level patch with a Link back to this discussion.
-
-I will keep the positive selftest you suggested as a separate follow-up so
-the documentation clarification can be reviewed independently.
-
-Christopher
+Thanks,
+Guenter
