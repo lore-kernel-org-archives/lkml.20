@@ -1,89 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60BF4DAF96;
-	Wed, 16 Sep 2026 16:56:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81984DD3C6;
+	Wed, 16 Sep 2026 16:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577822; cv=none; b=XJ/IgPB+m8OMm64PiKPV/Z9lteo6F9Y1QvWSjGSSnSZAwK0otEoeDtCACCNFl6I4QFcXo9dHFWOWHHOo2cefuDLYTMMtXSbB2PWies5Re1o0ww1QKwAG3MoIXh5zJO7Ht+tcoieAsW56MTomjo2hBcxkp7AcLbEKJTygGvcR1S8=
+	t=1789577834; cv=none; b=GJ+SdsNWB3+mmH6sFKQDwgSLYAbw7CIfGSH3IAOdW1LP4kB+9oUMCjgoymjiBwX8tEXiFL4Cm7PZWat2gOEMb1qvLvCOVWMijpzDfUACNFalix6Bibvq1iuwumb0BCxcMmVCxbKGnAElcJWO4wSb/GVxk2djwKgSg8ruo9xOJJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577822; c=relaxed/simple;
-	bh=YlqlMRGnzNGAZC4lPPA3j9bZiU9QS/U3iz/3ecJji9k=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=c0rKK13NQdpgmTEfko4tOCrRjdU4L7Ez5MdPLn4dWmKXCl5PN0/CS8ofmsKyP/nnma/D/8Dg0sToplZiB2MCi3oDjX9kA+jXTJygfXLX8rQx21zKUuExRKerfMfm4TjjbT4bpfnetS/wfNdQKYQkcZJyP4sMGH+OJgjH+X9trAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lnx239Or; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lnx239Or"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC3A1F00899;
-	Wed, 16 Sep 2026 16:56:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789577807;
-	bh=opghePY1FwxuGa4eTmW6PxG2+LzGY5JdFT48BB1gByg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=lnx239Or0VM2t/CQsULRftCM+5HryO5ORO3P5reJLRYCr6p+1izEpOlwsemLRXhfp
-	 yBxzWQYacMB6IqUJC+06IpfoqAtdYmNCVWTnLEgw3ciHKoF8TPjmmD8KTnm1P6SVwE
-	 fBw3LtMENdeQ20cnNYeeStYFc5bntuGKou7l7C87BBGb4PcYFrFL5Mjh4/ivpxP0sH
-	 sE/WjEsTcD16BF5cGndwuBS/jrO/g7tAD88LJUMYMeP9WLg20rGJcPIKO3V4E5I6IS
-	 7q5GkmoHLln7Ab1XNOwWIdEy6TbytbOukvHBc5pMHTURSGG0mgcJa7lTluRAngn4E6
-	 bxnFR+Ypwajcw==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jesper Nilsson <jesper.nilsson@axis.com>, 
- Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-arm-kernel@axis.com, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260911-b4-dts-samsung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com>
-References: <20260911-b4-dts-samsung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH 00/10] arm64: dts: exynos: Few strict
- dt-style-check cleanups
-Message-Id: <178957780169.215106.2751361288260052803.b4-ty@b4>
-Date: Wed, 16 Sep 2026 18:56:41 +0200
+	s=arc-20240116; t=1789577834; c=relaxed/simple;
+	bh=Q0vKnsBhU5N70+ASDlEYTgbNg+QlDDAhAMOMiJCKFR0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EesBS2mJMbxxylLjqTX7ac2vFrJivlqYUqm34xCDG44GspTHLuJVkBOYnn4N+sMYaZGsR8u5x0PH5+SiGrLrIxAmB8+jX5rc+0KrJyCz5NwQiQYgD9RLr3W4R/MR7TnRMgKUDqgrlQ1eWDg0prgDySNDprF7zDIs3zOVxe9LusQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABnmEJDyqpqpxFuCA--.22468S2;
+	Thu, 17 Sep 2026 00:56:35 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: gregkh@linuxfoundation.org
+Cc: johan@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] USB: usb_wwan: Fix urb leak in usb_wwan_close()
+Date: Wed, 16 Sep 2026 16:56:08 +0000
+Message-Id: <20260916165608.2085613-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABnmEJDyqpqpxFuCA--.22468S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JryDZFWkAry7ZryDXw4UCFg_yoWkKFb_Kr
+	n5WFnrXw4UCFs5KF13KFy3uFy3Ka1kXan7JFsagr43JFyjyFWqq3s3K393Gwnrt3yUWFn8
+	Jw1vk3yFvF1kGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxkFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj
+	nmRUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqozVdRwAAsZ
 
+usb_wwan_close() drains the delayed write urbs with
+usb_get_from_anchor(), which returns the urb with a new reference
+taken. The loop only clears the busy flag of the urb and never drops
+that reference, so each drained urb keeps one reference forever and
+the urb object is not freed when usb_wwan_port_remove() later drops
+the port's own reference.
 
-On Fri, 11 Sep 2026 12:19:08 +0200, Krzysztof Kozlowski wrote:
-> Not yet complete, more files will follow. I probably won't re-order all
-> Exynos5433 soc nodes by unit address because it is way too disruptive.
-> 
-> Best regards,
-> Krzysztof
+Drop the reference with usb_put_urb() once the urb has been found in
+the out_urb array by unbusy_queued_urb(), leaving the reference held
+by the port's preallocated out_urbs array.
 
-Applied, thanks!
+Fixes: 79eed03e77d4 ("USB: usb_wwan: fix urb leak at shutdown")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/usb/serial/usb_wwan.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-[01/10] arm64: dts: exynos: axis: Re-order nodes to match coding style
-        https://git.kernel.org/krzk/linux/c/6c864d06e81e325dccbdb06960cc697f763400df
-[02/10] arm64: dts: exynos: axis: Re-order properties to match coding style
-        https://git.kernel.org/krzk/linux/c/f145a6ce3746694a58229e828e3186a89dc43eeb
-[03/10] arm64: dts: exynos: gs101: Re-order properties to match coding style
-        https://git.kernel.org/krzk/linux/c/ae54981c41677b5d3b0479d9d01a663dcb2b0cd2
-[04/10] arm64: dts: exynos: gs101: Re-order nodes to match coding style
-        https://git.kernel.org/krzk/linux/c/a4479cbc18bc61c6f49a4fd79ccf41ee2481b0e6
-[05/10] arm64: dts: exynos2200-g0s: Drop chosen address/size cells
-        https://git.kernel.org/krzk/linux/c/7d7b0a58aa23a90a71beba9841c8149456f28fd3
-[06/10] arm64: dts: exynos2200-g0s: Re-order properties to match coding style
-        https://git.kernel.org/krzk/linux/c/f19b5942fc98932f1016a7e8f0e7d87b83b81ebb
-[07/10] arm64: dts: exynos2200: Drop redundant blank lines
-        https://git.kernel.org/krzk/linux/c/835875acbfd58fe6330c4755f17f5c02d85c43c3
-[10/10] arm64: dts: exynos7870: Re-order properties to match coding style
-        https://git.kernel.org/krzk/linux/c/6b68ca6fe0c855971b6dfefcbb287cc530f4774d
-
-Best regards,
+diff --git a/drivers/usb/serial/usb_wwan.c b/drivers/usb/serial/usb_wwan.c
+index e752ffa4dc62..2c46330f10da 100644
+--- a/drivers/usb/serial/usb_wwan.c
++++ b/drivers/usb/serial/usb_wwan.c
+@@ -403,6 +403,7 @@ void usb_wwan_close(struct usb_serial_port *port)
+ 		if (!urb)
+ 			break;
+ 		unbusy_queued_urb(urb, portdata);
++		usb_put_urb(urb);
+ 		usb_autopm_put_interface_async(serial->interface);
+ 	}
+ 
 -- 
-Krzysztof Kozlowski <krzk@kernel.org>
+2.34.1
 
