@@ -1,63 +1,64 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942674B0E57;
-	Wed, 16 Sep 2026 16:48:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA634B0E27;
+	Wed, 16 Sep 2026 16:48:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577306; cv=none; b=FlJNq1o7HH2yOQsCNgIxs7/uGMxmJs5EUVKKaINElKqna6HW3SKckeNtWFEmzF2MizosO+lNRbNVQM7aOQY6rCIxasZQVjCx5dCXJH7E6rP+CNoW8+1sfkSGVOiun5l9H/3fwBKF+jYMITXcBY+tenTKArHU3fYUOxN3L4rvxjY=
+	t=1789577304; cv=none; b=EzMtYUA0WNO169qonpe2YU/Xa4ClP6d8yVpPwNVEU4pi7Lfufl+5UhwWPd4PRSW10lefwqr1CSDFJYqO5GhspkicEix6U8VKgnKgtvnRx+F+4zpjHb5M81KmMHV+NoogGeDlMWYJunnxngvFK41o+1Yga/BcqvK8YnSa3ADLmyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577306; c=relaxed/simple;
-	bh=3hGhHmtAqYUbuH/zVjBZaZNE3/mW1A1rrNOi4kW/N8o=;
+	s=arc-20240116; t=1789577304; c=relaxed/simple;
+	bh=PIIy47qrQZyTqT45J1I7cuvBm6ajTYhh+DbwFjVcyJU=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=QMWqa1qEliud2v83VuMayhocwvL+0rsSq/ilqUmitXE/5M/K2qarWXqjJ2jHkC9/bnqug9JrbbCNTYX9T6qN7x+o76fttzNK+k8UWnWPSedn7bcdrwt4egzS/n4I/nt3DCWt57PnAtRz5cHvcJpj8iAg9JEIVV/N+lnsMwT4ZsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=XHfl3vtU; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=JG4k9T94; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=CZuQe/RIEDtIY16R419CxZH+YYmrGu4xlNQ4nEey1eNJJ1aZbHhwKUzTzJS1jUb+SiYoNK6oLcADvKXEdMg+OE+aPACmKq6zCs5B7wX7/ziw5STpdfvAQEPlw3QYyS3rsml8HTAVjoZtss1GAG0yjBfSPdn4wgn+CMhtnvoF4JQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=14p37GNT; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=PNLJlgJ/; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XHfl3vtU";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JG4k9T94"
-Date: Wed, 16 Sep 2026 16:48:02 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="14p37GNT";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="PNLJlgJ/"
+Date: Wed, 16 Sep 2026 16:48:11 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789577284;
+	s=2020; t=1789577293;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=cJmrEo6QzxVrYpgSO3ZsSMWHxZEOyslKfadD+X8c+JE=;
-	b=XHfl3vtUNNimia1WTjqXXOqI6a7Hg1AugX+ir6Ob40sorhT5eQI9qdDiUdH3m276XG2rgt
-	YHDysNpd7XoVTt++N0x4feskX4Q3raMWJLj9e9//cxIm3fGzqpdbvgai6wn0ttREo4UUJZ
-	EhcMa5Vx228ls10gHlgUxfC4qhwImbiry5Q2zskgbPlFiP4Vyd8H3zLJaR4HC1NjQS73cZ
-	wbGmquaHB350b+9U76EckJnbe6krEcoFdL/Ex1avlkRXKvBZb1gIMNmfs5PX6BrCeP3Mw5
-	lwt94RKmRC0nvwTcZeMYgzfzlJQxZ7mc4fxGhoZ88kd2zDtIbd8kPCHEUpMmSA==
+	bh=RCP6Y2dz+gG6ZoYyYqBnbJ4jmInGhTfSXq1ocZ/vF2c=;
+	b=14p37GNTJX8Bof+b74ONxpykbhvlwvEz4pcTVpFRy4aWzzSwjED4wceJ+5sg0PkWMEYebP
+	+1UqCUsEpWBjgnm1ZhpFyydXFtHonIMuPCYcPGk/Twj/wLo858+LDvzVfdhiKzTmjTZa0w
+	jBPS4Vf9w8Gcj+tyI6Zdd0VpzsbBpubQhBZclpRO3dlkfFRulThIymjlHBmg3hOLH5S80O
+	CPl/xcEeU5YQyNNwp1Sw+Wl7Vr++kDz33PLY8gRuduqIBwyD/RLPl6bWFba8F1wMBlOD18
+	TfZeIqxVpxvwlnZXvCnvPG+twc8kPHy13+H0mtyzLZRFTFvJL5T14H3gOf6neg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789577284;
+	s=2020e; t=1789577293;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=cJmrEo6QzxVrYpgSO3ZsSMWHxZEOyslKfadD+X8c+JE=;
-	b=JG4k9T94dFOA/jPBJpSYQoTzzq9FaNkphB6QXH6Sg7AiYJ93BHGqI0YeEkZS1QLOBCP85d
-	g+rkRl9J9hYacjBg==
-From: "tip-bot2 for Thomas Gleixner" <tip-bot2@linutronix.de>
+	bh=RCP6Y2dz+gG6ZoYyYqBnbJ4jmInGhTfSXq1ocZ/vF2c=;
+	b=PNLJlgJ/7pxovp/Cun7sIr7KQY7qc7z9zNF/NezcLkfsnZTKwozsIiho/0hFkFJtqFzm9z
+	RtIRYSBi+EB7J5BA==
+From: "tip-bot2 for Hyunwoo Kim" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/core] posix-timers: Handle exit in do_exit() completely
-Cc: Thomas Gleixner <tglx@kernel.org>, Kijo Park <red993688@gmail.com>,
- Oleg Nesterov <oleg@redhat.com>, Frederic Weisbecker <frederic@kernel.org>,
+Subject: [tip: timers/core] exec: Cleanup POSIX timers right after de_thread()
+Cc: Hyunwoo Kim <imv4bel@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
+ Kijo Park <red993688@gmail.com>, Oleg Nesterov <oleg@redhat.com>,
+ Frederic Weisbecker <frederic@kernel.org>, stable@vger.kernel.org,
  x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260911090541.947206186@kernel.org>
-References: <20260911090541.947206186@kernel.org>
+In-Reply-To: <20260911090541.627712075@kernel.org>
+References: <20260911090541.627712075@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178957728271.1720534.17162278399020789474.tip-bot2@tip-bot2>
+Message-ID: <178957729153.1720534.6856624055677236156.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,219 +68,135 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the timers/core branch of tip:
 
-Commit-ID:     7b07d15ed1d78cb49309754a2d14dacdddb058c7
-Gitweb:        https://git.kernel.org/tip/7b07d15ed1d78cb49309754a2d14dacdddb=
-058c7
-Author:        Thomas Gleixner <tglx@kernel.org>
-AuthorDate:    Fri, 11 Sep 2026 11:09:44 +02:00
+Commit-ID:     acb03d3881818581052924a9bbbe92b8741ed448
+Gitweb:        https://git.kernel.org/tip/acb03d3881818581052924a9bbbe92b8741=
+ed448
+Author:        Hyunwoo Kim <imv4bel@gmail.com>
+AuthorDate:    Fri, 11 Sep 2026 11:09:17 +02:00
 Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Wed, 16 Sep 2026 18:44:04 +02:00
+CommitterDate: Wed, 16 Sep 2026 18:44:03 +02:00
 
-posix-timers: Handle exit in do_exit() completely
+exec: Cleanup POSIX timers right after de_thread()
 
-Now that POSIX CPU timers cannot be enqueued on a task after PF_EXITING is
-set and process wide timers cannot be enqueued when PF_EXITING is set and
-the last thread in the group is exiting, it is possible to mop up POSIX
-timers in do_exit() completely.
+A per-thread CPU timer holds a reference to the PID of the thread it is
+attached to and, while it is armed, its node is queued in that thread's
+posix_cputimers. The task is looked up by that PID.
 
-This requires to cancel an eventually pending POSIX CPU timer task work
-right there because do_exit() invokes exit_task_work() later, which would
-be acting on torn down data.
+When a non-leader thread exec()s, de_thread() changes which task owns
+that PID. pid_task(timer->it.cpu.pid, PIDTYPE_PID) then returns NULL,
+but the node is still queued on tsk, which is alive. timer_lock_sighand()
+takes a failed lookup to mean that the node is already dequeued, so it
+has nothing to undo.
 
+begin_new_exec() calls posix_cpu_timers_exit(me) right after
+exec_task_namespaces() and that removes the leftover node, so the state
+normally stays invisible. But bprm->point_of_no_return is set before
+de_thread(), so if unshare_files(), set_mm_exe_file(), exec_mmap() or
+exec_task_namespaces() fails, the task dies before it gets there.
+exit_itimers() then frees the k_itimer while its node is still queued,
+and reaping tsk later erases that freed node from the rbtree.
+
+In short:
+
+      the non-leader thread B           the parent
+
+  timer_create(CLOCK_THREAD_CPUTIME_ID)
+  timer_settime()
+    arm_timer()            // the node is queued on B
+  execve()
+    de_thread(B)
+      exchange_tids(B, leader)  // B's PID now belongs to the leader
+      release_task(leader)
+        __exit_signal(leader)
+          posix_cpu_timers_exit(leader)  // cleans leader's queue, not B's
+          __unhash_process(leader)  // that PID has no task anymore
+    exec_mmap()
+      mmap_read_lock_killable(old_mm)
+                                kill(B, SIGKILL)
+      // -EINTR
+  get_signal()
+    do_exit()
+      exit_itimers()
+        posix_timer_delete()
+          posix_cpu_timer_del()
+        posix_timer_unhash_and_free()  // freed while still queued
+                                wait4()
+                                  release_task(B)
+                                    posix_cpu_timers_exit(B)
+                                      cleanup_timerqueue()
+                                        timerqueue_del()  // use-after-free
+
+Move the POSIX timer cleanup right after de_thread() before any of the
+later failure conditions brings the task into do_exit().
+
+[ tglx: Move the cleanup right after de_thread() ]
+
+Fixes: 55e8c8eb2c7b ("posix-cpu-timers: Store a reference to a pid not a task=
+")
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Tested-by: Kijo Park <red993688@gmail.com>
 Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
-Link: https://patch.msgid.link/20260911090541.947206186@kernel.org
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/ao7Q8miiuLAPVnWv@v4bel
+Link: https://patch.msgid.link/20260911090541.627712075@kernel.org
 ---
- include/linux/posix-timers.h   |  6 +----
- kernel/exit.c                  | 10 +-------
- kernel/time/posix-cpu-timers.c | 41 +++++++++++++++++++++++++++------
- kernel/time/posix-timers.c     | 15 +++++++-----
- kernel/time/posix-timers.h     |  3 ++-
- 5 files changed, 50 insertions(+), 25 deletions(-)
+ fs/exec.c | 29 +++++++++++++++++++++--------
+ 1 file changed, 21 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/posix-timers.h b/include/linux/posix-timers.h
-index 0033a06..00767ac 100644
---- a/include/linux/posix-timers.h
-+++ b/include/linux/posix-timers.h
-@@ -192,8 +192,6 @@ struct k_itimer {
- } ____cacheline_aligned_in_smp;
-=20
- void run_posix_cpu_timers(void);
--void posix_cpu_timers_exit(struct task_struct *task);
--void posix_cpu_timers_exit_group(struct task_struct *task);
- void set_process_cpu_timer(struct task_struct *task, unsigned int clock_idx,
- 			   u64 *newval, u64 *oldval);
-=20
-@@ -201,7 +199,7 @@ int update_rlimit_cpu(struct task_struct *task, unsigned =
-long rlim_new);
-=20
- #ifdef CONFIG_POSIX_TIMERS
- void posixtimer_exec(void);
--void posixtimer_exit(void);
-+void posixtimer_exit(bool group_dead);
-=20
- static inline void posixtimer_putref(struct k_itimer *tmr)
- {
-@@ -231,7 +229,7 @@ static inline bool posixtimer_valid(const struct k_itimer=
- *timer)
- }
- #else  /* CONFIG_POSIX_TIMERS */
- static inline void posixtimer_exec(void) { }
--static inline void posixtimer_exit(void) { }
-+static inline void posixtimer_exit(bool group_dead) { }
- static inline void posixtimer_sigqueue_getref(struct sigqueue *q) { }
- static inline void posixtimer_sigqueue_putref(struct sigqueue *q) { }
- #endif /* !CONFIG_POSIX_TIMERS */
-diff --git a/kernel/exit.c b/kernel/exit.c
-index 4ca9759..06a1eb1 100644
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -167,12 +167,6 @@ static void __exit_signal(struct release_task_post *post=
-, struct task_struct *ts
- 					lockdep_tasklist_lock_is_held());
- 	spin_lock(&sighand->siglock);
-=20
--#ifdef CONFIG_POSIX_TIMERS
--	posix_cpu_timers_exit(tsk);
--	if (group_dead)
--		posix_cpu_timers_exit_group(tsk);
--#endif
--
- 	if (group_dead) {
- 		tty =3D sig->tty;
- 		sig->tty =3D NULL;
-@@ -966,12 +960,12 @@ void __noreturn do_exit(long code)
- 			panic("Attempted to kill init! exitcode=3D0x%08x\n",
- 				tsk->signal->group_exit_code ?: (int)code);
-=20
--		posixtimer_exit();
--
- 		if (tsk->mm)
- 			setmax_mm_hiwater_rss(&tsk->signal->maxrss, tsk->mm);
- 	}
-=20
-+	posixtimer_exit(group_dead);
-+
- 	acct_collect(code, group_dead);
- 	if (group_dead)
- 		tty_audit_exit();
-diff --git a/kernel/time/posix-cpu-timers.c b/kernel/time/posix-cpu-timers.c
-index ddaf81b..9f90500 100644
---- a/kernel/time/posix-cpu-timers.c
-+++ b/kernel/time/posix-cpu-timers.c
-@@ -661,18 +661,29 @@ static void cleanup_timers(struct posix_cputimers *pct)
- 	cleanup_timerqueue(&pct->bases[CPUCLOCK_SCHED].tqhead);
+diff --git a/fs/exec.c b/fs/exec.c
+index d3081c8..8196434 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -1115,6 +1115,17 @@ static struct file *bprm_identity_file(const struct li=
+nux_binprm *bprm)
+ 	return bprm->file;
  }
 =20
-+static inline void posix_cpu_timers_exit_work(void);
-+
- /*
-- * These are both called with the siglock held, when the current thread
-- * is being reaped.  When the final (leader) thread in the group is reaped,
-- * posix_cpu_timers_exit_group will be called after posix_cpu_timers_exit.
-+ * Invoked from posixtimer_exit_task() after PF_EXITING was set in tsk::flag=
-s or
-+ * from posixtimer_exec_cleanup().
-  */
--void posix_cpu_timers_exit(struct task_struct *tsk)
-+void posix_cpu_timers_exit_task(void)
- {
--	cleanup_timers(&tsk->posix_cputimers);
-+	posix_cpu_timers_exit_work();
-+
-+	guard(spinlock_irq)(&current->sighand->siglock);
-+	cleanup_timers(&current->posix_cputimers);
- }
--void posix_cpu_timers_exit_group(struct task_struct *tsk)
-+
-+/*
-+ * Invoked from posixtimer_exit_group() after PF_EXITING was set in tsk::fla=
-gs.
-+ */
-+void posix_cpu_timers_exit_group(void)
- {
--	cleanup_timers(&tsk->signal->posix_cputimers);
-+	posix_cpu_timers_exit_task();
-+
-+	guard(spinlock_irq)(&current->sighand->siglock);
-+	cleanup_timers(&current->signal->posix_cputimers);
- }
-=20
- /*
-@@ -1257,6 +1268,20 @@ static void posix_cpu_timers_work(struct callback_head=
- *work)
- 	mutex_unlock(&cw->mutex);
- }
-=20
-+static inline void posix_cpu_timers_exit_work(void)
++static void posixtimer_exec(struct task_struct *me)
 +{
-+	/* Canceling the work is only valid for exit() but not for exec() */
-+	if (!(current->flags & PF_EXITING))
-+		return;
-+	/*
-+	 * current->flags has PF_EXITING set so this can be done lockless and
-+	 * with interrupts enabled as PF_EXITING prevents the interrupt from
-+	 * scheduling the work.
-+	 */
-+	if (current->posix_cputimers_work.scheduled)
-+		task_work_cancel(current, &current->posix_cputimers_work.work);
++#ifdef CONFIG_POSIX_TIMERS
++	spin_lock_irq(&me->sighand->siglock);
++	posix_cpu_timers_exit(me);
++	spin_unlock_irq(&me->sighand->siglock);
++	exit_itimers(me);
++	flush_itimer_signals();
++#endif
 +}
 +
  /*
-  * Invoked from the posix-timer core when a cancel operation failed because
-  * the timer is marked firing. The caller holds rcu_read_lock(), which
-@@ -1387,6 +1412,8 @@ static inline void __run_posix_cpu_timers(struct task_s=
-truct *tsk)
- 	lockdep_posixtimer_exit();
- }
-=20
-+static inline void posix_cpu_timers_exit_work(void) { }
+  * Calling this is the point of no return. None of the failures will be
+  * seen by userspace since either the process is already taking a fatal
+@@ -1152,6 +1163,16 @@ int begin_new_exec(struct linux_binprm * bprm)
+ 	retval =3D de_thread(me);
+ 	if (retval)
+ 		goto out;
 +
- static void posix_cpu_timer_wait_running(struct k_itimer *timr)
- {
- 	cpu_relax();
-diff --git a/kernel/time/posix-timers.c b/kernel/time/posix-timers.c
-index 8fb040a..188dbed 100644
---- a/kernel/time/posix-timers.c
-+++ b/kernel/time/posix-timers.c
-@@ -1116,17 +1116,20 @@ static void posixtimer_delete_timers(void)
- 	}
- }
++	/*
++	 * This must be done here to ensure that POSIX CPU timers which were
++	 * armed on the current task are dequeued from me::posix_cputimers.
++	 * Otherwise in case of a TID switch the deletion of the related POSIX
++	 * timer would not remove an enqueued timer because the TID lookup
++	 * of the old TID fails.
++	 */
++	posixtimer_exec(me);
++
+ 	/* see the comment in check_unsafe_exec() */
+ 	current->fs->in_exec =3D 0;
+ 	/*
+@@ -1206,14 +1227,6 @@ int begin_new_exec(struct linux_binprm * bprm)
+ 	if (retval)
+ 		goto out_unlock;
 =20
--void posixtimer_exit(void)
-+void posixtimer_exit(bool group_dead)
- {
--	hrtimer_cancel(&current->signal->real_timer);
--	posixtimer_delete_timers();
-+	if (group_dead) {
-+		hrtimer_cancel(&current->signal->real_timer);
-+		posix_cpu_timers_exit_group();
-+		posixtimer_delete_timers();
-+	} else {
-+		posix_cpu_timers_exit_task();
-+	}
- }
-=20
- void posixtimer_exec(void)
- {
--	scoped_guard(spinlock_irq, &current->sighand->siglock)
--		posix_cpu_timers_exit(current);
+-#ifdef CONFIG_POSIX_TIMERS
+-	spin_lock_irq(&me->sighand->siglock);
+-	posix_cpu_timers_exit(me);
+-	spin_unlock_irq(&me->sighand->siglock);
+-	exit_itimers(me);
+-	flush_itimer_signals();
+-#endif
 -
-+	posix_cpu_timers_exit_task();
- 	posixtimer_delete_timers();
- 	flush_itimer_signals();
- }
-diff --git a/kernel/time/posix-timers.h b/kernel/time/posix-timers.h
-index 4ea9611..79fd7ea 100644
---- a/kernel/time/posix-timers.h
-+++ b/kernel/time/posix-timers.h
-@@ -51,3 +51,6 @@ int common_timer_set(struct k_itimer *timr, int flags,
- 		     struct itimerspec64 *old_setting);
- void posix_timer_set_common(struct k_itimer *timer, struct itimerspec64 *new=
-_setting);
- int common_timer_del(struct k_itimer *timer);
-+
-+void posix_cpu_timers_exit_task(void);
-+void posix_cpu_timers_exit_group(void);
+ 	/*
+ 	 * Make the signal table private.
+ 	 */
