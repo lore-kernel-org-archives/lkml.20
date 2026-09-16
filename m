@@ -1,334 +1,276 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFBC64F053C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6583E8660;
+	Wed, 16 Sep 2026 13:01:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563693; cv=none; b=iWZyGUIGN/ZSwISzUtNDSAZ4KyctuWoZq8z++G5xYzqbBDA0ZSqy6uQU9VgiOzG+RRrdElH/ZC9EhyjU5npsgOLPRXDni2ZOKezY8ydTM/Ue5emAZIY0upfzXjF+tRza6qpQrZRZ+qxry5CwcZHlBbWIUp4sOwQUDNiGtL/FKs8=
+	t=1789563717; cv=none; b=sPVQN5M3sTxFt1etFp/cajaf1FZ7v1pxkjtfTwLjpZ+PvtvP2GIrtp3rZriOxC57vd74EqnykyLLNwV8Wn+m3Cl9liQ7jMRRwTq7r4TXqkoCYSA1RXoecttt8i5qlL44IZhF7YJIb2D/DcLOiQG7n693aGjPNIxGlU2D2F5H9OI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563693; c=relaxed/simple;
-	bh=9Q9J73qi6nlaR+ALL3stMitLVEeYmfR69v79qdvQNVE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pWAkfaIEtiy6BmRLBqrS+saN3EQlBfCO7sSAEsgKTYsH7k6PzTidAzhFMSWiarP8iVHgKLNNZjQr0/3CW7xNQHU0TlK9AAOOLz3S2tyMH77se7t7YJz9mZC3UyY7APSaTpQy9kLCqouhLC0NKIzbdDxXHnDcCsIGPu3QgmZ2/iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lqOhPR23; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789563717; c=relaxed/simple;
+	bh=rrewkVtepVS6AYm0+2LOcrtcOwzSIbzO1eGTDAZuq8A=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=iFBoMo7NEOQMixZfm61zPedAw+otH2ueoz/+csflNGAr74lgcsyQuzVNY2Zp2+G0ABYuxNpIRlrQWzu8YHuc7zmF5m0T8I6CZGzvBQmXpT06hbf7irNK0QVLGqWDeLFnC+yljHHcQDqBmnY5fDzrWCJhd5ZTX7PPIiuOFtj01Z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=WoidFiOn; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lqOhPR23"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5906E1F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:01:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789563691;
-	bh=jj4FtNav4TXPQvbVBqNyUNxnC9aC+86pLnGTjTl9G+U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lqOhPR23imVGibuT+IQxwHW1NzR7E0mGwlDdW7PkPChAidRFDD/AK3aiww09+NiHW
-	 LxLSKFFBCfnv5e9PZJ52P+dQAu+Q2GUGetsPdcYFj8prRtvQdjnJ5+NwVKnC1kqJkn
-	 giTfzSjOgE3ygkeZ9XQz0sy8p9pffILoNoTpPSZEXubl80DuvEk3e3VWKQ0fmJeXfA
-	 uK6uHdgi30PQqRTj2GKl2apn2mMecyj5sg2QEVFknpnaXYQIml7qSMZMFbiLr+2uiK
-	 biSlzLZG5NRBBsaRrJI70XRoBGCxDNaNEJ1A/fh2ldfLNOpEDUbEFbuYhl5YKqmQJg
-	 2Zn4OAOQpSRdQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b79784a6edso1014606e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:01:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzeUAau0oq4zFhJwGWkMmpIpHMp+8U8hC99i9AlN1TCZ6xfbR3YMTeOIZQ7U9FJSbfg4Q+Lckzqb5LrzRE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kawilhPlODHey7N/RtSXlmM3mhGG85W3H/7wAgLNxI5/vaBOlQ
-	tW6toNMDagDIcAtxuIG9jhMxdVSauSZmETb39aUxr5Bj5XxnkeTMu51dbxm3fV40VsNLzHsHMwC
-	d8Ee6dNIKHkGJstLXc4c9lMjxYIm1k8I=
-X-Received: by 2002:a05:6512:2347:b0:5b6:184c:7da3 with SMTP id
- 2adb3069b0e04-5b8b664e970mr692970e87.44.1789563689604; Wed, 16 Sep 2026
- 06:01:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="WoidFiOn"
+Message-ID: <b391c2d1-4a76-4419-b76b-4246f1363bc7@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1789563712;
+	bh=rrewkVtepVS6AYm0+2LOcrtcOwzSIbzO1eGTDAZuq8A=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=WoidFiOnKLfiITb4eYcrjoEaeAziA7/vtvJDXzP3+ZiDXkdbBHeqRx2yfBRYtS43y
+	 J6PiUTC/baX6P9S9pyNcIKFLEIgD82S9StKPdifg1FSZ3WvIJtadT/xnEGYVvTY4n8
+	 bDAwA+56/f7JZgXmvr3AZ55QEMVv1XKudZQPEaD0=
+Date: Wed, 16 Sep 2026 15:01:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913231410.416922-1-jordan@brough.org> <20260913231410.416922-2-jordan@brough.org>
-In-Reply-To: <20260913231410.416922-2-jordan@brough.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 16 Sep 2026 15:00:07 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jajXFU8B-YLirtH3NTjM-+bXe2M2+xuJWJbwK4m9O=Zg@mail.gmail.com>
-X-Gm-Features: AcwNN1UU6k1jyFh_G-zYTLAqbYe_0fCs1p5wXgbrrbSo74l9sMUVYr1q5lznoS4
-Message-ID: <CAJZ5v0jajXFU8B-YLirtH3NTjM-+bXe2M2+xuJWJbwK4m9O=Zg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ACPI: sbs: add battery hook mechanism for
- SBS-registered batteries
-To: Jordan Brough <jordan@brough.org>
-Cc: rafael@kernel.org, rydberg@bitmath.org, linux@roeck-us.net, 
-	lenb@kernel.org, maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com, 
-	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird Beta
+From: linux-kernel-dev@aliel.fr
+Subject: Re: [PATCH v11 3/6] mfd: khadas-mcu: Add support for VIM4 MCU variant
+To: Lee Jones <lee@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Beniamino Galvani <b.galvani@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-pm@vger.kernel.org, mfd@lists.linux.dev
+References: <20260902-add-mcu-fan-khadas-vim4-v11-0-5f1610d83bf0@aliel.fr>
+ <20260902-add-mcu-fan-khadas-vim4-v11-3-5f1610d83bf0@aliel.fr>
+ <20260910142153.GF1051768@google.com>
+Content-Language: en-US
+In-Reply-To: <20260910142153.GF1051768@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 1:14=E2=80=AFAM Jordan Brough <jordan@brough.org> w=
-rote:
->
-> drivers/acpi/battery.c provides a battery_hook_register()/unregister()
-> mechanism that lets other drivers (e.g. hwmon drivers exposing vendor-
-> specific charge control) attach extra power_supply properties to an
-> ACPI Control Method Battery (HID PNP0C0A, "CmBatt").
->
-> Some machines instead expose their battery through the ACPI Smart
-> Battery System (HID ACPI0002, "SBS") driver in drivers/acpi/sbs.c,
-> which has no equivalent hook point. On these machines a hwmon driver
-> has no supported way to attach additional properties to the battery's
-> power_supply device.
->
-> Add a parallel sbs_battery_hook_register()/unregister() mechanism to
-> drivers/acpi/sbs.c, mirroring the existing CmBatt hook API in name and
-> behavior so that callers can support both battery registration paths
-> symmetrically. This is purely additive: no existing hook consumer or
-> code path in drivers/acpi/battery.c is touched, and sbs.c's own
-> behavior is unchanged for any driver that does not call the new API.
->
-> This is a prerequisite for hwmon/applesmc gaining
-> charge_control_end_threshold support, since the Intel MacBook hardware
-> being targeted registers its battery via SBS, not CmBatt.
->
-> Signed-off-by: Jordan Brough <jordan@brough.org>
+On 9/10/26 4:21 PM, Lee Jones wrote:
+> On Wed, 02 Sep 2026, Ronald Claveau via B4 Relay wrote:
+> 
+>> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>>
+>> Refactor probe() to use per-variant values
+>> instead of hardcoded globals.
+>>
+>> Add dedicated regmap configuration for the VIM4 MCU,
+>> with its own volatile/writeable registers.
+>>
+>> Introduce struct khadas_mcu_fan_pdata to pass the fan
+>> control register and duty-cycle levels per variant.
+>> VIM4 uses a different register and level set (0-100)
+>>  declared as a list (0, 30, 40, 55, 75, 100) compared
+>>  to previous boards (0-3).
+>>
+>> Add a new compatible string "khadas,vim4-mcu".
+>>
+>> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> Generally fine.
+> 
+>> ---
+>>  drivers/mfd/khadas-mcu.c | 120 +++++++++++++++++++++++++++++++++++++++++------
+>>  1 file changed, 106 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/mfd/khadas-mcu.c b/drivers/mfd/khadas-mcu.c
+>> index 0e74efe14f367..4cb305ac915e1 100644
+>> --- a/drivers/mfd/khadas-mcu.c
+>> +++ b/drivers/mfd/khadas-mcu.c
+>> @@ -75,47 +75,138 @@ static const struct regmap_config khadas_mcu_regmap_config = {
+>>  	.cache_type	= REGCACHE_MAPLE,
+>>  };
+>>  
+>> +static const unsigned int khadas_mcu_fan_levels[] = {
+>> +	0, 1, 2, 3,
+>> +};
+>> +
+>> +static const struct khadas_mcu_fan_pdata khadas_mcu_fan_pdata = {
+>> +	.fan_reg	= KHADAS_MCU_CMD_FAN_STATUS_CTRL_REG,
+>> +	.levels		= khadas_mcu_fan_levels,
+>> +	.nlevels	= ARRAY_SIZE(khadas_mcu_fan_levels),
+>> +};
+> 
+> I still don't think these belong in here.
+> 
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+I will move it to the fan driver.
 
-and feel free to route this patch along with the hwmon changes depending on=
- it.
+>>  static const struct mfd_cell khadas_mcu_fan_cells[] = {
+>>  	/* VIM1/2 Rev13+ and VIM3 only */
+>> -	MFD_CELL_NAME("khadas-mcu-fan-ctrl"),
+>> +	MFD_CELL_BASIC("khadas-mcu-fan-ctrl", NULL, &khadas_mcu_fan_pdata,
+>> +		       sizeof(khadas_mcu_fan_pdata), 0),
+>>  };
+>>  
+>>  static const struct mfd_cell khadas_mcu_cells[] = {
+>>  	MFD_CELL_NAME("khadas-mcu-user-mem"),
+>>  };
+>>  
+>> +static bool khadas_mcu_vim4_reg_volatile(struct device *dev, unsigned int reg)
+>> +{
+>> +	switch (reg) {
+>> +	case KHADAS_MCU_PWR_OFF_CMD_REG:
+>> +	case KHADAS_MCU_VIM4_REST_CONF_REG:
+>> +	case KHADAS_MCU_WOL_INIT_START_REG:
+>> +	case KHADAS_MCU_VIM4_LED_ON_RAM_REG:
+>> +	case KHADAS_MCU_VIM4_FAN_CTRL_REG:
+>> +	case KHADAS_MCU_VIM4_WDT_EN_REG:
+>> +	case KHADAS_MCU_VIM4_SYS_RST_REG:
+>> +		return true;
+>> +	default:
+>> +		return false;
+>> +	}
+>> +}
+>> +
+>> +static bool khadas_mcu_vim4_reg_writeable(struct device *dev, unsigned int reg)
+>> +{
+>> +	switch (reg) {
+>> +	case KHADAS_MCU_VERSION_0_REG:
+>> +	case KHADAS_MCU_VERSION_1_REG:
+>> +	case KHADAS_MCU_SHUTDOWN_NORMAL_STATUS_REG:
+>> +		return false;
+>> +	default:
+>> +		return true;
+>> +	}
+>> +}
+>> +
+>> +static const struct regmap_config khadas_mcu_vim4_regmap_config = {
+>> +	.reg_bits	= 8,
+>> +	.reg_stride	= 1,
+>> +	.val_bits	= 8,
+>> +	.max_register	= KHADAS_MCU_VIM4_SYS_RST_REG,
+>> +	.volatile_reg	= khadas_mcu_vim4_reg_volatile,
+>> +	.writeable_reg	= khadas_mcu_vim4_reg_writeable,
+>> +	.cache_type	= REGCACHE_MAPLE,
+>> +};
+>> +
+>> +static const unsigned int khadas_mcu_vim4_fan_levels[] = {
+>> +	0, 30, 40, 55, 75, 100,
+>> +};
+>> +
+>> +static const struct khadas_mcu_fan_pdata khadas_mcu_vim4_fan_pdata = {
+>> +	.fan_reg	= KHADAS_MCU_VIM4_FAN_CTRL_REG,
+>> +	.levels		= khadas_mcu_vim4_fan_levels,
+>> +	.nlevels	= ARRAY_SIZE(khadas_mcu_vim4_fan_levels),
+>> +};
+>> +
+>> +static const struct mfd_cell khadas_mcu_vim4_fan_cells[] = {
+>> +	MFD_CELL_BASIC("khadas-mcu-fan-ctrl", NULL, &khadas_mcu_vim4_fan_pdata,
+>> +		       sizeof(khadas_mcu_vim4_fan_pdata), 0),
+>> +};
+>> +
+>>  static int khadas_mcu_probe(struct i2c_client *client)
+>>  {
+>> +	const struct mfd_cell *cells, *fan_cells;
+>> +	const struct regmap_config *regmap_cfg;
+>>  	struct device *dev = &client->dev;
+>> +	int ncells, nfan_cells, ret;
+>>  	struct khadas_mcu *ddata;
+>> -	int ret;
+>> +	const void *match;
+>>  
+>>  	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
+>>  	if (!ddata)
+>>  		return -ENOMEM;
+>>  
+>> +	match = i2c_get_match_data(client);
+> 
+> The nomenclature can be improved here.
+> 
+> What are these?  Device ID?  Chip ID?  Revision?
+> 
 
-Thanks!
+I will change this to 'mcu_variant'
 
-> ---
->  drivers/acpi/sbs.c     | 147 ++++++++++++++++++++++++++++++++++++++++-
->  include/acpi/battery.h |  16 +++++
->  2 files changed, 162 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/acpi/sbs.c b/drivers/acpi/sbs.c
-> index 86b7c797585..305bf62eae3 100644
-> --- a/drivers/acpi/sbs.c
-> +++ b/drivers/acpi/sbs.c
-> @@ -10,6 +10,7 @@
->  #define pr_fmt(fmt) "ACPI: " fmt
->
->  #include <linux/init.h>
-> +#include <linux/list.h>
->  #include <linux/slab.h>
->  #include <linux/module.h>
->  #include <linux/moduleparam.h>
-> @@ -54,6 +55,7 @@ struct acpi_battery {
->         struct power_supply *bat;
->         struct power_supply_desc bat_desc;
->         struct acpi_sbs *sbs;
-> +       struct list_head list;          /* node in sbs_hook_battery_list =
-*/
->         unsigned long update_time;
->         char name[8];
->         char manufacturer_name[ACPI_SBS_BLOCK_MAX];
-> @@ -518,6 +520,145 @@ static int acpi_battery_read(struct acpi_battery *b=
-attery)
->         return result;
->  }
->
-> +/*
-> + * Battery hook support, mirroring the mechanism in drivers/acpi/battery=
-.c
-> + * for batteries registered there. That mechanism only sees batteries
-> + * added via drivers/acpi/battery.c, not the ones this driver registers,
-> + * so drivers wanting to attach optional functionality (e.g. an extra
-> + * power_supply_ext) to an SBS battery need this separate copy; see the
-> + * comment above the declarations in include/acpi/battery.h.
-> + */
-> +static LIST_HEAD(sbs_hook_list);
-> +static LIST_HEAD(sbs_hook_battery_list);
-> +static DEFINE_MUTEX(sbs_hook_mutex);
-> +
-> +static void sbs_battery_hook_unregister_unlocked(struct acpi_battery_hoo=
-k *hook)
-> +{
-> +       struct acpi_battery *battery;
-> +
-> +       /*
-> +        * In order to remove a hook, we first need to
-> +        * de-register all the batteries that are registered.
-> +        */
-> +       list_for_each_entry(battery, &sbs_hook_battery_list, list) {
-> +               if (!hook->remove_battery(battery->bat, hook))
-> +                       power_supply_changed(battery->bat);
-> +       }
-> +       list_del_init(&hook->list);
-> +}
-> +
-> +void sbs_battery_hook_unregister(struct acpi_battery_hook *hook)
-> +{
-> +       mutex_lock(&sbs_hook_mutex);
-> +       /*
-> +        * Ignore already unregistered battery hooks. This might happen
-> +        * if a battery hook was previously unloaded due to an error when
-> +        * adding a new battery.
-> +        */
-> +       if (!list_empty(&hook->list))
-> +               sbs_battery_hook_unregister_unlocked(hook);
-> +       mutex_unlock(&sbs_hook_mutex);
-> +}
-> +EXPORT_SYMBOL_GPL(sbs_battery_hook_unregister);
-> +
-> +void sbs_battery_hook_register(struct acpi_battery_hook *hook)
-> +{
-> +       struct acpi_battery *battery;
-> +
-> +       mutex_lock(&sbs_hook_mutex);
-> +       list_add(&hook->list, &sbs_hook_list);
-> +       /*
-> +        * Now that the driver is registered, we need
-> +        * to notify the hook that a battery is available
-> +        * for each battery, so that the driver may add
-> +        * its attributes.
-> +        */
-> +       list_for_each_entry(battery, &sbs_hook_battery_list, list) {
-> +               if (hook->add_battery(battery->bat, hook)) {
-> +                       /*
-> +                        * If a add-battery returns non-zero,
-> +                        * the registration of the hook has failed,
-> +                        * and we will not add it to the list of loaded
-> +                        * hooks.
-> +                        */
-> +                       pr_err("hook failed to load: %s", hook->name);
-> +                       sbs_battery_hook_unregister_unlocked(hook);
-> +                       goto end;
-> +               }
-> +
-> +               power_supply_changed(battery->bat);
-> +       }
-> +       pr_info("new hook: %s\n", hook->name);
-> +end:
-> +       mutex_unlock(&sbs_hook_mutex);
-> +}
-> +EXPORT_SYMBOL_GPL(sbs_battery_hook_register);
-> +
-> +static void devm_sbs_battery_hook_unregister(void *data)
-> +{
-> +       struct acpi_battery_hook *hook =3D data;
-> +
-> +       sbs_battery_hook_unregister(hook);
-> +}
-> +
-> +int devm_sbs_battery_hook_register(struct device *dev, struct acpi_batte=
-ry_hook *hook)
-> +{
-> +       sbs_battery_hook_register(hook);
-> +
-> +       return devm_add_action_or_reset(dev, devm_sbs_battery_hook_unregi=
-ster, hook);
-> +}
-> +EXPORT_SYMBOL_GPL(devm_sbs_battery_hook_register);
-> +
-> +/*
-> + * This function gets called right after the battery sysfs
-> + * attributes have been added, so that the drivers that
-> + * define custom sysfs attributes can add their own.
-> + */
-> +static void sbs_battery_hook_add_battery(struct acpi_battery *battery)
-> +{
-> +       struct acpi_battery_hook *hook_node, *tmp;
-> +
-> +       mutex_lock(&sbs_hook_mutex);
-> +       INIT_LIST_HEAD(&battery->list);
-> +       list_add(&battery->list, &sbs_hook_battery_list);
-> +       /*
-> +        * Since we added a new battery to the list, we need to
-> +        * iterate over the hooks and call add_battery for each
-> +        * hook that was registered. This usually happens
-> +        * when a battery gets hotplugged or initialized
-> +        * during the battery module initialization.
-> +        */
-> +       list_for_each_entry_safe(hook_node, tmp, &sbs_hook_list, list) {
-> +               if (hook_node->add_battery(battery->bat, hook_node)) {
-> +                       /*
-> +                        * The notification of the hook has failed, to
-> +                        * prevent further errors we will unload the hook=
-.
-> +                        */
-> +                       pr_err("error in hook, unloading: %s",
-> +                              hook_node->name);
-> +                       sbs_battery_hook_unregister_unlocked(hook_node);
-> +               }
-> +       }
-> +       mutex_unlock(&sbs_hook_mutex);
-> +}
-> +
-> +static void sbs_battery_hook_remove_battery(struct acpi_battery *battery=
-)
-> +{
-> +       struct acpi_battery_hook *hook;
-> +
-> +       mutex_lock(&sbs_hook_mutex);
-> +       /*
-> +        * Before removing the hook, we need to remove all
-> +        * custom attributes from the battery.
-> +        */
-> +       list_for_each_entry(hook, &sbs_hook_list, list) {
-> +               hook->remove_battery(battery->bat, hook);
-> +       }
-> +       /* Then, just remove the battery from the list */
-> +       list_del(&battery->list);
-> +       mutex_unlock(&sbs_hook_mutex);
-> +}
-> +
->  /* Smart Battery */
->  static int acpi_battery_add(struct acpi_sbs *sbs, int id)
->  {
-> @@ -555,6 +696,8 @@ static int acpi_battery_add(struct acpi_sbs *sbs, int=
- id)
->                 goto end;
->         }
->
-> +       sbs_battery_hook_add_battery(battery);
-> +
->        end:
->         pr_info("%s [%s]: Battery Slot [%s] (battery %s)\n",
->                ACPI_SBS_DEVICE_NAME, acpi_device_bid(sbs->device),
-> @@ -566,8 +709,10 @@ static void acpi_battery_remove(struct acpi_sbs *sbs=
-, int id)
->  {
->         struct acpi_battery *battery =3D &sbs->battery[id];
->
-> -       if (battery->bat)
-> +       if (battery->bat) {
-> +               sbs_battery_hook_remove_battery(battery);
->                 power_supply_unregister(battery->bat);
-> +       }
->  }
->
->  static int acpi_charger_add(struct acpi_sbs *sbs)
-> diff --git a/include/acpi/battery.h b/include/acpi/battery.h
-> index c93f16dfb94..ddbfa4ed135 100644
-> --- a/include/acpi/battery.h
-> +++ b/include/acpi/battery.h
-> @@ -18,8 +18,24 @@ struct acpi_battery_hook {
->         struct list_head list;
->  };
->
-> +/*
-> + * battery_hook_register() and friends only see batteries registered by
-> + * drivers/acpi/battery.c, the ACPI Control Method Battery driver (ACPI =
-HID
-> + * "PNP0C0A"). Batteries registered by drivers/acpi/sbs.c, the ACPI Smar=
-t
-> + * Battery System driver (ACPI HID "ACPI0002", common on hardware with
-> + * SMBus/SBS fuel-gauge chips such as many Intel MacBooks), are invisibl=
-e
-> + * to them; use the sbs_battery_hook_* equivalents below for those. A
-> + * caller wanting to support both kinds of hardware needs two separate
-> + * struct acpi_battery_hook instances, one per registration call, since =
-a
-> + * given instance's embedded list node can only belong to one list at a
-> + * time.
-> + */
->  void battery_hook_register(struct acpi_battery_hook *hook);
->  void battery_hook_unregister(struct acpi_battery_hook *hook);
->  int devm_battery_hook_register(struct device *dev, struct acpi_battery_h=
-ook *hook);
->
-> +void sbs_battery_hook_register(struct acpi_battery_hook *hook);
-> +void sbs_battery_hook_unregister(struct acpi_battery_hook *hook);
-> +int devm_sbs_battery_hook_register(struct device *dev, struct acpi_batte=
-ry_hook *hook);
-> +
->  #endif
-> --
-> 2.55.0
->
+>> +	if (!match)
+>> +		return -ENODEV;
+>> +
+>> +	switch ((uintptr_t)match) {
+>> +	case KHADAS_MCU_GENERIC:
+>> +		regmap_cfg	= &khadas_mcu_regmap_config;
+>> +		cells		= khadas_mcu_cells;
+>> +		ncells		= ARRAY_SIZE(khadas_mcu_cells);
+>> +		fan_cells	= khadas_mcu_fan_cells;
+>> +		nfan_cells	= ARRAY_SIZE(khadas_mcu_fan_cells);
+>> +		break;
+>> +	case KHADAS_MCU_VIM4:
+>> +		regmap_cfg	= &khadas_mcu_vim4_regmap_config;
+>> +		cells		= NULL;
+>> +		ncells		= 0;
+>> +		fan_cells	= khadas_mcu_vim4_fan_cells;
+>> +		nfan_cells	= ARRAY_SIZE(khadas_mcu_vim4_fan_cells);
+>> +		break;
+>> +	default:
+>> +		return -ENODEV;
+>> +	}
+>> +
+>>  	i2c_set_clientdata(client, ddata);
+>>  
+>>  	ddata->dev = dev;
+>>  
+>> -	ddata->regmap = devm_regmap_init_i2c(client, &khadas_mcu_regmap_config);
+>> +	ddata->regmap = devm_regmap_init_i2c(client, regmap_cfg);
+>>  	if (IS_ERR(ddata->regmap)) {
+>>  		ret = PTR_ERR(ddata->regmap);
+>> -		dev_err(dev, "Failed to allocate register map: %d\n", ret);
+>> -		return ret;
+>> +		return dev_err_probe(dev, ret, "Failed to allocate register map\n");
+>>  	}
+>>  
+>> -	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
+>> -				   khadas_mcu_cells,
+>> -				   ARRAY_SIZE(khadas_mcu_cells),
+>> -				   NULL, 0, NULL);
+>> -	if (ret)
+>> -		return ret;
+>> +	if (cells && ncells) {
+>> +		ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
+>> +					   cells,
+>> +					   ncells,
+>> +					   NULL, 0, NULL);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>>  
+>>  	if (of_property_present(dev->of_node, "#cooling-cells"))
+>>  		return devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
+>> -					    khadas_mcu_fan_cells,
+>> -					    ARRAY_SIZE(khadas_mcu_fan_cells),
+>> +					    fan_cells,
+>> +					    nfan_cells,
+>>  					    NULL, 0, NULL);
+>>  
+>>  	return 0;
+>> @@ -123,7 +214,8 @@ static int khadas_mcu_probe(struct i2c_client *client)
+>>  
+>>  #ifdef CONFIG_OF
+>>  static const struct of_device_id khadas_mcu_of_match[] = {
+>> -	{ .compatible = "khadas,mcu", },
+>> +	{ .compatible = "khadas,mcu", .data = (void *)KHADAS_MCU_GENERIC },
+>> +	{ .compatible = "khadas,vim4-mcu", .data = (void *)KHADAS_MCU_VIM4 },
+>>  	{},
+>>  };
+>>  MODULE_DEVICE_TABLE(of, khadas_mcu_of_match);
+>>
+>> -- 
+>> 2.49.0
+>>
+>>
+> 
+
+
+-- 
+Best regards,
+Ronald
