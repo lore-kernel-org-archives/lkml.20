@@ -1,92 +1,128 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63F94B4890;
-	Wed, 16 Sep 2026 09:51:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257EF4A843F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:51:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552291; cv=none; b=a30r20Stm2nMvFP1nT0/m2XjkqaO63ZaMM8mZMKz1Qj0UZnLA0A+WNrncc+4S4oa642D/f5s6IkmYSfUGbvb5T4vCpRsCpFBz9rXHkUWYtYW+VAaNdJlB3Xt41vAMcfZf84eUttAG4aNlv7PlP0C0LaOKDeEil5p9fnZfB+qZI4=
+	t=1789552292; cv=none; b=ANy2u02Fq1VvY9CpGmoaKTTCw70dML/CqvqRfFL1c7w99aaYAquAsDPOcrVanVHZqm/mfxMlanTEv08zDsbJF4ge5Wzujbj4FgbjPK6frR3susgTo12udDWAS5p1gdaLI1VoMOpJDnDQq263CEQaExWA0IpGBf8E4Y9G8xWh6ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552291; c=relaxed/simple;
-	bh=UIwWPNKRQ8FW7Bu3jbEPy9yWyv1Y+CRFZBuPobR95d0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y7LbdMbZXlW0Wy8eWDDfaXGDnJ/XJbvA38UP9S7MlfrYacrI6GLo8lrmGOG47YrfgsDgSQWykjzcWgteAqK7HBRRCwwoolxWi+BzMu1zQJrOdML2jc3sFpTzYQOX7JCfIY9/FYFPG1y92KJoUKgjqD1QlfXYTrBZpMXkymHqdFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jdk0yPsi; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789552292; c=relaxed/simple;
+	bh=jlhtz27GSry8dABqGr+SGBe1KYYN8UQBI18T52Q8X+E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P16zEO9GNho8hw9jBlLlJU1Rylaj2SZxF4WDJPgwIgBaeJ/9AIjE08ihlUlBCfBnCuLcA2fdePVPkxVWdVd48W8b2kxUZsyL0Mb/3lD7UG1yyYv6KAykH15hsudQ0Tj6AtanIJX/PBCkiNNCMaUo9zQcR74P3a0aRU3vCIb+OBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W8sl86PY; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jdk0yPsi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789552272; x=1821088272;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UIwWPNKRQ8FW7Bu3jbEPy9yWyv1Y+CRFZBuPobR95d0=;
-  b=jdk0yPsiUehhv06oNoymxFlAux/tGdJ3Ns1z4zbevzWt9o/aSJo/RcNb
-   N3POKAyuS8SxqIB2z2v61VDfuAHu3hXglq/gXnx/qRotIw+3iWMqfG5au
-   HmU580FOCNyV3DLyAUOkKuOohyh4UGN9DS3WRUL9+RKKjylILT7aBFCcB
-   A3pqz0RBp25np3UDOalyjJThqoP8jUwYHg3OVKGe7NMMKfQk/ALWtB/h1
-   ulosZyq3IUlVanQOnDlQAJZpUO9efkeKiSajQ3wEf92voBrl3Eg8WJj49
-   j5V3w1YfvwEoblx7LxAQBcPwb3ALBdfu0xS5lyQMq7v695BOg7Aw1ahxs
-   g==;
-X-CSE-ConnectionGUID: XC4inCXJTFevNHqHxERtYw==
-X-CSE-MsgGUID: GLWqJ4TvTkCRG5UaI6+6jQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101270147"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="101270147"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 02:51:06 -0700
-X-CSE-ConnectionGUID: KfvqFqviTauBpXirtJ5MXw==
-X-CSE-MsgGUID: RK56W2AkRI2hfojlaoS2QQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="267080866"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 02:51:01 -0700
-Date: Wed, 16 Sep 2026 12:50:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, mfd@lists.linux.dev,
-	Roman Vivchar <rva333@protonmail.com>,
-	Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Subject: Re: [PATCH 0/3] iio: adc: add mt6397 PMIC AUXADC support
-Message-ID: <aqpmgliQW7FW53o5@ashevche-desk.local>
-References: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W8sl86PY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789552267;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T46zRcaSlVLde9uhnONtqfo/sj56j7rPD8ZbLDPStgs=;
+	b=W8sl86PYzrr+IvZbCfJPNrZIfeY/0/2ohXAJ/H/lKHhRXlMXo5kc7WnTEzKuVCI3mTsfYT
+	GCXHzXW/UrzFRJeovVrMenLblrMsK7Ir5zAlRlHauQV9EFYmUEpo954EHsKPEyIvaU/cuM
+	91zQzItbWTZtTi641ZdSXTLtseLkTdg=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-271-pIgKSMrqMYiixOzPDfL5Rg-1; Wed,
+ 16 Sep 2026 05:51:00 -0400
+X-MC-Unique: pIgKSMrqMYiixOzPDfL5Rg-1
+X-Mimecast-MFC-AGG-ID: pIgKSMrqMYiixOzPDfL5Rg_1789552259
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 56E32191FE1D;
+	Wed, 16 Sep 2026 09:50:56 +0000 (UTC)
+Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E30DC1800345;
+	Wed, 16 Sep 2026 09:50:52 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Eric Biggers <ebiggers@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Borislav Petkov <bp@alien8.de>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Subject: [PATCH v4 06/13] lib/crypto: sm3: Provide a function for zeroizing the sm3_ctx structure
+Date: Wed, 16 Sep 2026 11:50:08 +0200
+Message-ID: <20260916095022.604354-7-thuth@redhat.com>
+In-Reply-To: <20260916095022.604354-1-thuth@redhat.com>
+References: <20260916095022.604354-1-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Tue, Sep 15, 2026 at 11:15:25PM -0500, Ryan Brue wrote:
-> The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
-> reach. On boards built around it that ADC is the only path to the battery:
-> the SoC's AUXADC is wired to board thermistors, and the charger ICs these
-> boards use have no ADC at all, so without it there is no pack voltage and
-> no state of charge.
+In certain cases crypto code functions need to zeroize their local
+sm3_ctx structure after use to avoid leaking sensitive material. Provide
+a sm3_zeroize_ctx() helper function that e.g. can be used with __cleanup()
+to automatically zeroize the structure when it goes out of scope.
 
-This doesn't explain why a brand new driver? Perhaps we have existing code that
-may be updated to support this device?
+While we're at it, replace the related memzero_explicit() call in
+lib/crypto/sm3.c with a call to the new helper function.
 
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ include/crypto/sm3.h | 10 ++++++++++
+ lib/crypto/sm3.c     |  2 +-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/include/crypto/sm3.h b/include/crypto/sm3.h
+index 371e8a6617054..d044ca80213ba 100644
+--- a/include/crypto/sm3.h
++++ b/include/crypto/sm3.h
+@@ -11,6 +11,7 @@
+ #define _CRYPTO_SM3_H
+ 
+ #include <linux/types.h>
++#include <linux/string.h>
+ 
+ #define SM3_DIGEST_SIZE	32
+ #define SM3_BLOCK_SIZE	64
+@@ -41,6 +42,15 @@ struct sm3_ctx {
+ 	u8 buf[SM3_BLOCK_SIZE] __aligned(__alignof__(__be64));
+ };
+ 
++/**
++ * sm3_zeroize_ctx() - Zeroize an sm3_ctx structure
++ * @ctx: The sm3_ctx to zeroize
++ */
++static inline void sm3_zeroize_ctx(struct sm3_ctx *ctx)
++{
++	memzero_explicit(ctx, sizeof(*ctx));
++}
++
+ /**
+  * sm3_init() - Initialize an SM3 context for a new message
+  * @ctx: the context to initialize
+diff --git a/lib/crypto/sm3.c b/lib/crypto/sm3.c
+index b02b8a247adf2..23059347b4493 100644
+--- a/lib/crypto/sm3.c
++++ b/lib/crypto/sm3.c
+@@ -258,7 +258,7 @@ static void __sm3_final(struct sm3_ctx *ctx, u8 out[SM3_DIGEST_SIZE])
+ void sm3_final(struct sm3_ctx *ctx, u8 out[SM3_DIGEST_SIZE])
+ {
+ 	__sm3_final(ctx, out);
+-	memzero_explicit(ctx, sizeof(*ctx));
++	sm3_zeroize_ctx(ctx);
+ }
+ EXPORT_SYMBOL_GPL(sm3_final);
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
