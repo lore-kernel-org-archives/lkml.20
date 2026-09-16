@@ -1,110 +1,189 @@
-Received: from mail-ej2-f26.google.com (mail-ej2-f26.google.com [74.125.228.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from de-smtp-delivery-113.mimecast.com (de-smtp-delivery-113.mimecast.com [194.104.111.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49CF7446067
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:42:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AE53B0598
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.104.111.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562569; cv=none; b=awnfmjVJjUNhCttxI5B3oXjkCwBnoA5lA2SCNeEmbqSz1G8GKrPUjOxbrt2w15bU4mNCs9DEbEkVpI/OcuQv1TbVzgiq+BxNY6dUk9QmTOy51hnDczToIZCk6E3wsw7HqZOCA/XtGbkoOyTN6pIMbP4bsRTJDaz6qU7VTE/nVnk=
+	t=1789562640; cv=none; b=n+GH98K+tFQvIKmFQlBw6Y5t1zUg9NMaovQkfASeyXYonIOlAYBDUeC5NPviXrhWdKjGj3PDXNuOctat2OhNxiEE11Q2fElAVGF4IvTWXvAAZ3iCp5OcFb5fHxHXo5LsMsxy0K3Yk9rGvwczxDW+JqmMk/LMNePdnt8NEh6zY7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789562569; c=relaxed/simple;
-	bh=O3kCx8wll8cftRShmLU6mCy2LT8u/tOsraI5NQjuTag=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dCo1Jt1uQcIO7dPuAKZ+0MxT5AWHANmVnK2a6Nym2+/oKW21lwf1jyw6CYR8tU5H9RM7HHViKZF8WIUI5G5pobPPdT+k93hdXlCVO4a1/Ccf6638dSt4a+uzdaXqHUTcYzACzg5w+38nYOb3oopI+6wcEJpYAvcwmUurCQZw2mU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LU9zegG/; arc=none smtp.client-ip=74.125.228.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789562640; c=relaxed/simple;
+	bh=RzkCwdyu85GmYOctTqLpCkb4kWBYIY/LCfinVvtH9JY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type:Content-Disposition; b=jFyEVSQzlTDezGsIpHgKt4V3bJ3wmZYqZOHNktpOLzdZL52Ct729/fhRY6uiNnt/Bq8IW/ZmjJHfcMoF1l3GpJrMLD03X7UhOrE2GBKfaxJ3X2Oi/jyxM1/ALm1rkCVMhxeiNQiD+ndDMOgQ8YPRnWULYtMbD7kkbp22YSntbtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com; spf=pass smtp.mailfrom=toradex.com; dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com header.b=iqIoly3o; arc=none smtp.client-ip=194.104.111.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toradex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LU9zegG/"
-Received: by mail-ej2-f26.google.com with SMTP id a640c23a62f3a-c2940ef15d3so126302766b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:42:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789562566; x=1790167366; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CSiRXz+rk1x+flrUjYGBzi7758ew3AZ+JbhIvlUn8pA=;
-        b=LU9zegG/RgLOwltPk1hhEmW1xq1jVj5bL8S3hbpUP6TuyE7XoRre3JcXeTU4ZAVQpv
-         RFYrllxITghVI/g16sOlp82o9yo1k4Te31ys62a90kOy8GLQ1a3lkfJaUSgTCdz3Sul0
-         39Z2XpHdtjDr34tNt1mxdUlc+hGOVu+xZfRQch7Kg6EBYwCEvS4357kZ1kDtRLsnBjiY
-         /DT/PH59/GM092u4TpL/V2PRp2KdHKO5nvIG3/MrBBhK2B7JUGz6ep71vgGdLJWLbPsY
-         GCr62WWoKRjOjTejp0HlhjTLgweGB792zGIYSak9ANclj8wtYM5aOhQZ4a5/zpqn8wLV
-         nwfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789562566; x=1790167366;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CSiRXz+rk1x+flrUjYGBzi7758ew3AZ+JbhIvlUn8pA=;
-        b=hqGjtEtaF94JbaXz2ughO7avm5NHA0ZX77qooJ55V7DZoi/tzZcNOImphf6KnsjFhB
-         Wnkp4fL4e0ZoJt4MW5ucKSXADbo1uRwugfR7oHUPd42wgxq6rbkmJ77lT1xm8cfTV3nl
-         j3GkkLpTInw+cN6vMKxS9XJ5T/sioWCyHzwCOhB3RnI+o6KMywBi2ekhMfSTSRfHpEJm
-         PNo/r+Fu1sIj8jtufxZ5TsiYEXGtB0nT2WAzi/PSjc77aXV85UEONk9qphta1vqleB12
-         xPe+67hacFd/G84OMN2M6CqVNFHw7JjSeTyw98jD22Rx3WNbF2U1jtJzjvATvEzs3dRJ
-         3EWQ==
-X-Forwarded-Encrypted: i=1; AKwUvByar+H9P4DK3mig5U1qDpjE+L4UTOPw2ArXtM+s+t7nUXP67dupi0UETgHACDRWOmEJZ2hrx3TW95xHJIw=@vger.kernel.org
-X-Gm-Message-State: AFuF++k98K47YPtl58IGscauv7RsW7agz7sc3OYh7pTqB56DU8S9giOS
-	TcSh2P8ac0Z50DdHqgTfLfFXCoYwbWeTzk4CotuwyO1tAsEfcwwVvB9UQ+N7AGmjEw8=
-X-Gm-Gg: AYBFou3lIWTH74I0EbVUdF9VTgJyS8mB9s7syHF9DJYg8NoDmzAxL2sOybBAshXVQ69
-	fulO07y1h4fJ4h43SD/xm3Z2+H81A9GECBJxZAzE4X2OPI3X9NMaoHhTbrYNjZJkCyGNVCHgiCc
-	R3wV16C1gnwRoxKXf7k5eW1PYYu9tbV7EFWJDbBzwmHBaUI+Vb3rhZIUXrllbmstBKqa2iV0gYD
-	pS+9HTiNVcneqTaJH9e4SOIV5Uau4Q0nhMTtphpHfse5otZOcxTlqfvbiQkgTjcbp1lHpBZjX2w
-	Qb1pwWzmDZrL3C+YWPyvxR79ifvuRrIhqb1XGybi8448Fm/j3/0lC6LHyIXfwtyxNZIoL8TPeRH
-	OUkJT2fVV3yISNSTecUmk8/9ujX071u1EGyjAtLNgTvXqptlE9alDqXFwySnv/dEdSYrgYj6hys
-	IAzf9BuNykavJS+MpBadv6bCibkS0zDGiv83ACVheLvgPdwtpAquJXOt5BFs0gYRtWjIYK2CgyN
-	MkU+5LFqZLSmhv0lJFL5BAjDxNa2a8tBrGz36+b3YHgGXXk3r/DyZj7MVtNz1Uj6jk1b/lnP487
-	rXJENacO54cnoIUdkM+C4uSCsXPhbCjsKZ1X6xYUt455GXR2GHQxENFSx6rX1YDuaRJCI65fL0L
-	Jitj71nkM26HIrWQ8ah1rV6qbtjg4/H8xVUq/O20Mz97v0ytRkpj7Lh6ztjxlwBhhAM5CU+CUIZ
-	oNZr5th1Ky+9hZqPceiQrfsZZ6p8jjpqG8ik2aHKjt1W7P9lcekYUB5SCCEkCWIjdi6MCgAVMkF
-	1XQuGjp5XA2dRnArUI=
-X-Received: by 2002:a17:907:c22:b0:c29:c531:7525 with SMTP id a640c23a62f3a-c29e523eff2mr323459366b.7.1789562565839;
-        Wed, 16 Sep 2026 05:42:45 -0700 (PDT)
-Received: from cs-280612103108-default.europe-west4-a.c.oa7bb030819b2a894-tp.internal (225.220.204.35.bc.googleusercontent.com. [35.204.220.225])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de5baa11sm132865466b.40.2026.09.16.05.42.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 05:42:44 -0700 (PDT)
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Markus Schneider-Pargmann <msp@baylibre.com>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] can: m_can: pci: add missing pm_runtime_dont_use_autosuspend() call
-Date: Wed, 16 Sep 2026 12:42:36 +0000
-Message-ID: <20260916124236.1389-1-joshua.crofts1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com header.b="iqIoly3o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com; s=toradex-com;
+	t=1789562636;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yxHysgDgMWNkQPfyKdrvJfcEbu8J5hVA05T4sPLwgGw=;
+	b=iqIoly3ouuV82kkMptO+VK085GGZFrAQwFJoBAMeH1XfkVPXjFc07b2Htw1fmzsXWHuR3D
+	gWBXBB0glVZwaaVkB952PmYHj2P5soSosEjGv3JbAgXXyBhc4L5xMpItsP0LHVhl77nmzY
+	JRKGd/lJDMhjCi7A7T3UBbesZkBfSUo=
+Received: from ZRAP278CU002.outbound.protection.outlook.com
+ (mail-switzerlandnorthazon11020112.outbound.protection.outlook.com
+ [52.101.186.112]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ de-mta-62-MVfI5sy8NsCg4vrNKy8Iqg-1; Wed, 16 Sep 2026 14:43:54 +0200
+X-MC-Unique: MVfI5sy8NsCg4vrNKy8Iqg-1
+X-Mimecast-MFC-AGG-ID: MVfI5sy8NsCg4vrNKy8Iqg_1789562633
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2e::8) by
+ GV0P278MB0035.CHEP278.PROD.OUTLOOK.COM (2603:10a6:710:1e::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.9; Wed, 16 Sep 2026 12:43:51 +0000
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::88:6821:13f5:a5b2]) by ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::88:6821:13f5:a5b2%6]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
+ 12:43:50 +0000
+Date: Wed, 16 Sep 2026 14:43:49 +0200
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Franz Schnyder <franz.schnyder@toradex.com>
+Subject: Re: [PATCH v2 3/7] arm64: dts: freescale: Add Lino iMX93
+Message-ID: <aqqPBffOWirFXJSw@francesco-nb>
+References: <20260911091952.96233-1-francesco@dolcini.it>
+ <20260911091952.96233-4-francesco@dolcini.it>
+ <42ed88a6-d208-482b-94aa-2e45b69c173e@lunn.ch>
+ <20260915132806.GA226756@francesco-nb>
+ <100eef7b-e1d6-411b-bac5-98790e8f9ea7@lunn.ch>
+ <aqmG91HwmKe-enfy@francesco-nb>
+ <95dcbf3e-193d-460b-b6b9-cd412394e4c6@lunn.ch>
+ <20260916055706.GA20310@francesco-nb>
+ <8bb9b763-4553-4263-b0ea-0129f5db0229@lunn.ch>
+In-Reply-To: <8bb9b763-4553-4263-b0ea-0129f5db0229@lunn.ch>
+X-ClientProxiedBy: ZR2P278CA0038.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:47::7) To ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:2e::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZRAP278MB0495:EE_|GV0P278MB0035:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5bf6300-56a1-43e4-df5f-08df13f028c4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|4143699003|56012099006|10067099003|22082099003|18002099003|3023799007
+X-Microsoft-Antispam-Message-Info: Itosf+dNNRTy1k7V+lR6lisg2mE2inK3KICylYRfp7dZNmlVe1NTIx88/hTq5BZM8LIWbmtMDCx/qr+PVDGOyJvfkuLY4+PN6Ip+oDPhqPetbRos4jfsKOtB9GLsCrRHAR3pfE+mhDYr1JJVHDw+YsZqCd+vd6NFyec23wKPDi220lscn/sm6ZrVM5SxUOHrFU+koKCXmfOvIilQt110TDNjtMTged3lOdsLF89ZvNuwYl0ae8QP/Zey7+KqAlkf/L4zdMnmS+qZva0f3rkS475O+t6NcaOndLQ64iTmxHblppdskLE3iORcM/3noFUA2ndJ6UySPuibj0TSGdlY5dtNipQcG09UEd27Z0Ecd8AUyYusdzbvNyeb/WxBLHWzAmUcNaeLDRwPnKKY7hez3mAMRMuegSzDVwOPFQvgph/G1p34SKHYkWxVUWV80CAcbD/CIE/7sbadxUneH1sLkDMHaSTBJtDOjmOMDqXtxgYtfiWjv+knXTu0nYcEhPjKRAIGnN8M1Mau7nvt8vMuySNTAV9+uEWheGplXMwAdntrUeUoZorfjSYUR4ySeY9KjbizWVKo6JRyj7gJiCrsLSy3TWp2CjnVuX7WtN4+zw6nRvBFhSNfQUvGzfMAo2a0
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Jy6J21KrLaMwYK8jcxNO2VKKAESzO0zQDGMm09ZjsyG4j3fh344DQUQ/ULHY?=
+ =?us-ascii?Q?3GPSkZ1+sSA3pVCLNF5pryG5aY/mr8U2bxusPB9G8yXXcNZkWA0+BbrWIXw7?=
+ =?us-ascii?Q?LoUrjSgYIYGSskIJsQrazR9F3/1PQrvy1Rp26aX1S35mDOl/vmjW9ap1oWpO?=
+ =?us-ascii?Q?/KeuJomY4r0p4Xf/FFYRrEqI0ftdawmuYMsUCum/OJH+Yztu7jKQ04yLKJA0?=
+ =?us-ascii?Q?lQ4SGyrA37Bio5usDcEf0PTn7SeYXMH9LhEdyqcRIgf5X5dXfbobIzDwdM2I?=
+ =?us-ascii?Q?x/ajfiMmi0exm6i0QYmxuHKVkj/sFBJ+GwUqi4CvwORWIADuEbtdHcqf9Jq4?=
+ =?us-ascii?Q?A6AXRkFktCJbPrhF8yY8TTcUBGSkIv5XRZdhCcVyKN9cFUHsrYTBX174H0sn?=
+ =?us-ascii?Q?PMn0uidlWw1TKyOnCJPXdsVouhssS3+h/Clf8sY2pd5q1TEgu5O01qeeRf5c?=
+ =?us-ascii?Q?WqB5nqTPTrw/7BrYMtDjKCxRNHc/CAkcXPcbd/wGgcB53gnhGwmhnJKBHF4n?=
+ =?us-ascii?Q?CGs4aBKoMS9NCaJuXx7gOnJqX2MbArVPzL4dBcnB5TYVxsRW9ZqhZM15/SV2?=
+ =?us-ascii?Q?mZnXgy71LP09Mvk+xS3G1EbV4LAF48TH5Jaw+6XjHYeQz9eEDY7KJvgaRimf?=
+ =?us-ascii?Q?FEfVh4zFZJs73Yq6ejw8IGBT0ZEt24ke+DVVcKHTK/GNqvyXte3rttkzsZ0M?=
+ =?us-ascii?Q?sXm4+x89hUOCyMwrkSXcscjvPwGsJp4i7QdUFUyJoP+rw48R2Hvh0ylTjZxd?=
+ =?us-ascii?Q?hYXhAAP5m36NjKAu/toEy6jFOuo5n/p4+hhoU00FXM+c0F6TFJvBWuPjctcU?=
+ =?us-ascii?Q?gdHkIui0wG61OajvK+7svpegpz0v0xKZaOZF0CtdzeWvK4f2ANnt6A1xLig2?=
+ =?us-ascii?Q?li4lxgjIvcyTaZiQ9KsPEVHTcgt1qtC8esvX1pAFK0EJ9vgJHo28VonqOL81?=
+ =?us-ascii?Q?Dp5YQvAC72DZFWMifNkbzJmSScD84EAWGYEdbn7i86M738nkT8XobC9PCOsv?=
+ =?us-ascii?Q?D1ql5oLlA9qbNLTuZ/3/lp+627pOXdh609572uMlXKPWmssY8Tjgoz9cShR+?=
+ =?us-ascii?Q?xYNdVrlGGPLFZ0H2xcTf0Zuuvn0wmEmtrX7sY3kG7KQihT4px+NkTgwau3Z6?=
+ =?us-ascii?Q?LuxIx+OX7PvLVQ7W2YokjojBrbSoCS2El9kG1RH5juCiOD061NkEBC5XpEsl?=
+ =?us-ascii?Q?jAHNencdQP76acvOe8a+bnBJ98V0ZfM/lznkknI1gBdyyYtbQaB/9UAkfG8e?=
+ =?us-ascii?Q?3sjbQthe1Y6u2e/pleOZJ2Ioivqe7MZkqbltsvKSBATCSEvB6SCw2C45PaoL?=
+ =?us-ascii?Q?sjblIUd8GvS/F84yZhf7AOqxP50hUr4L6GlRNOYTV8O4DN/TAowEtodn99Oq?=
+ =?us-ascii?Q?o8yo8ClqrOqL/Nt2V08BYoZ0Gl8GmJUp98IcTf6RpvBETXy0gFbspL/FtzzF?=
+ =?us-ascii?Q?Zs+mH/1Vzt9kI9Ze+pY2FRN773kJAgCSVWN89wXWfTixqTN/1tSVdKCkd5Nm?=
+ =?us-ascii?Q?yyIYjoHGCpVGLApAjlLQ/By4dXD8p1a0YDSdn13hT8wrxghesayb3YR7D9oB?=
+ =?us-ascii?Q?YaPeJpOhkFwRx2aGARdwAa8WXXEuKUEoRI5MJAkreDT1KVp7ez84XVXofz/c?=
+ =?us-ascii?Q?5cGa4kGNvrcKUYSKeEE+kV27zgvbmIURURn7N4mJ7MvXWalLWXkYK4Zurt87?=
+ =?us-ascii?Q?TboAE18peERrCBh/M50xbhFt017vPySznHh+y3CZ7rOzCqkbe1RRPHKnH019?=
+ =?us-ascii?Q?zmsrri7NaRuWPXHlEiziwIoWSazORM4=3D?=
+X-Exchange-RoutingPolicyChecked: zgDkfI0jg+O1ULrW/vb8V0yN+gOEZYvkF9rWRSuj4adtQ+8pzFW2GlxoMIrpW1ZdspZKn6y8MUyv+J0tTQW65GD9/y2GSNNizK56Q+qiRId1cV8VhcaKxQwXYaakIMRpbil3JxxXxJUdjwKEwb0cqvkxaUY0kfLX+yVkL2RFoA/ST6cLv9ApZ30qybetRxL0Ld/XfKO8Vm0rdjQLXbdoWSOZMNB2BZhr/Dngre3JABMezVWCo+nrRB4pOaywhs3ojazx/xAkXmyZ9BRg+/ywcbjiqhMghJ2z1AeWhZ6GlBr+lBfK58QTJ2g5B7zKvyfDbe44uajcuN6W9NorqPywmg==
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5bf6300-56a1-43e4-df5f-08df13f028c4
+X-MS-Exchange-CrossTenant-AuthSource: ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 12:43:50.8677
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YygNQm/mRds8M3bklneXbzPWIfp+vfTNTO+MSA5Pr+OC9ua8Gfk8iaPa5h7gLjlpkVKiYkUEmwlDXPWZBos41z2pj83vLVKi/A1zUlqNb54=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV0P278MB0035
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 6Au-r32dc6H3A3AaTqThPbuUDWzWDikx8hAuU2sf16w_1789562633
+X-Mimecast-Originator: toradex.com
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-m_can_pci_remove() forgets to call pm_runtime_dont_use_autosuspend() on
-teardown, even though autosuspend is enabled in m_can_pci_probe().
+Hello Andrew,
 
-Add the missing function call.
+On Wed, Sep 16, 2026 at 02:27:54PM +0200, Andrew Lunn wrote:
+> > I looked into the specific ethernet phy used here, TI DP83867, and
+> > I would say that the falling edge interrupt should be safe on this
+> > specific board/phy.
+>=20
+> https://www.ti.com/lit/ds/symlink/dp83867ir.pdf
+>=20
+> Page 7:
+>=20
+>   INTERRUPT: This pin can be programmed as an interrupt output instead
+>   of a Power down input. In this mode, Interrupts is asserted low
+>   using this pin.
+>=20
+> Also:
+>=20
+>   When operating this pin as an interrupt, the pin is an open-drain
+>   architecture.
+>=20
+> This allows you to connect multiple PHYs to one SoC interrupt, shared
+> interrupts, which again needs level interrupts.
+>=20
+> So the datasheet says it is active low.
 
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
----
-Found using a Coccinelle script I'm currently working on [1].
+Yes, indeed. I was aware of it, I was just assuming this as a shared
+understanding - sorry. My comment was supposed to be read as, "even if
+this is a level interrupt, using it as edge is safe because of this
+reasons, ...". In addition, in this specific board, the interrupt is not
+shared, otherwise it could not work at all.
 
-[1] https://lore.kernel.org/cocci/20260916095616.1394-1-joshua.crofts1@gmail.com
----
- drivers/net/can/m_can/m_can_pci.c | 1 +
- 1 file changed, 1 insertion(+)
+> > What do you think? *IF* my reasoning is correct I would suggest to keep
+> > the code as it is now.
+>=20
+> If you decide to stay with edge, i suggest you put a comment in DT,
+> something like:
+>=20
+> # The PHY data sheet says the interrupt is active low, but the
+> # interrupt controller does not support level interrupts. Use it as
+> # falling edge and hope for the best.
 
-diff --git a/drivers/net/can/m_can/m_can_pci.c b/drivers/net/can/m_can/m_can_pci.c
-index d11a7c88fc32..3c595749b5c7 100644
---- a/drivers/net/can/m_can/m_can_pci.c
-+++ b/drivers/net/can/m_can/m_can_pci.c
-@@ -159,6 +159,7 @@ static void m_can_pci_remove(struct pci_dev *pci)
- 	struct m_can_pci_priv *priv = cdev_to_priv(mcan_class);
- 
- 	pm_runtime_forbid(&pci->dev);
-+	pm_runtime_dont_use_autosuspend(&pci->dev);
- 	pm_runtime_get_noresume(&pci->dev);
- 
- 	/* Disable interrupt control at CAN wrapper IP */
--- 
-2.47.3
+"hope for the best" is not what I plan for. Given the specific of this
+ethernet phy I do not see any race condition, as I tried to describe in
+the previous email. If you believe that my explanation is flowed and
+there is a possible race condition please let me know and I would rather
+go for polling.
+
+And again, thanks for the review, I appreciate it. The goal is to have
+working ethernet with the interrupt, and, **IF** not possible, working
+ethernet is more important than the interrupt :-)
+
+Francesco
 
