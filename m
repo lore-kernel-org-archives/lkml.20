@@ -1,75 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC58446BF5;
-	Wed, 16 Sep 2026 07:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543305; cv=none; b=t8qjFyOA/cJO3wTWDOraGpiZx4kWt6FwN7qGTPDueNzKUcze62BEEb1KTZmVNoGPemFEb9TzM+YgBlsbB1cS5WGz7xERFzOEKaW/cPmUvcZ6m8XWTPnUL4JaJyLeBaqvxzU8P57Vy2k5i4VvODy7aZP58+JZN5kxmNjIndJr2nc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543305; c=relaxed/simple;
-	bh=GzZj/+oH8IHT90WvIfWvTaXqoPfeM4j7vmP6q2d6akA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F1yhqomoDcqn+OL9qNccODXr07EiStqirlmuXPttZEzhV3V51ZT/UydrcCZOq1Rp1BTgwoAzsIu3zqwEbi7wLCROV4eHHAkDfoEknDqlXMGqNh2JZH0ozaOx4/Z93CKGsX631ugOFugk7nxb/nkhzd38kM4pBFkWjZ2pn8UzlGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pUSTFgQW; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9E9440A09
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789543404; cv=pass; b=UzKL7K+r9lqfMZSAA26AujpcJM3f81k3R4NhkLC6/jJoCg1wTAl6TINrySaQZsa6yxOIv0YZZjSrAWBQfsA7jmSb5en8QzB3PJXgRpBdCf7XkHWL3rs+dMtot+sizWbrFKARNGV3D54aSwCXp6LFyW5huiaDGmk86MdLbKUSBOc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789543404; c=relaxed/simple;
+	bh=v/sp/qPGCVSsES825gOzfHx3X98A9RP4UPRlHDoZ+5k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MhsN33/uCInCbtB0Ew2cd4Eubp2mucyvccmu3FvmxI3Pp0LR8HblQ0+z8uD3abcq8DKRal1GrM9bZzOjZZrxr+jlEEuznMH/KtdoMl3050XToCJrcyPGCaFK1xj3NFXemrvdaaudaRAa76RTofxAsw819dgI/bFsam9CwcngByU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UNFiI/B8; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pUSTFgQW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BE8D1F000FF;
-	Wed, 16 Sep 2026 07:21:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789543277;
-	bh=dno5QmvU349FdSNFql+uLmXSa9x4YqTAeiIABciESCw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=pUSTFgQWAlbtm7ykxOsXvHEuQAUnMJ7ldxMZw67Ei/+FblaA+vz6Pfc9uLYy1a1Tv
-	 yTpateMUdsrnWo+dNOisiF9+LiLdXVtL0jvu5X6r8dGqSPjdoHJlFIPuwZaF1qlNN3
-	 qV5/YRaFLn7JiR8704wGJXBSM/rd42cyX7gpKpXQ=
-Date: Wed, 16 Sep 2026 09:19:23 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Martin Roukala =?iso-8859-1?Q?=28n=E9_Peres=29?= <martin.roukala@mupuf.org>,
-	Lukas Wunner <lukas@wunner.de>,
-	Magne Bruno <magne.bruno@addi-data.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH] serial: 8250_pci: Catch up on new pci_device_id entry
- without named initializer
-Message-ID: <2026091608-twistable-jaundice-6138@gregkh>
-References: <20260814095931.1871387-2-u.kleine-koenig@baylibre.com>
- <aqovRVuGLvfSLLPr@monoceros>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UNFiI/B8"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2dso379374a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:22:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789543366; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bJp5i+YPg1F5gtQhaZxx+Z3MA/Y0NlHd6fNdF/YHhkL28dQCtbH71yQEE1ty3IUpRe
+         6k5Q8C25LLeSjghPEntrEDH8HEBfb+gE5/zzyv8ySWSY3BxtjXi1COgF3MSq6ahqhyc2
+         O7sVIxEG1v6hugG18f86HqFl/WlJSframkQNjUv1TSAck9p6u8t4rXMapjYlGYHOGZ95
+         baviF+7ud5QRaB7EpSG5T+ziknsL4o02HQCswAG4IYkg9BeyUhCLkGkOviNGBaz6yzKE
+         jIR+QZhb+4i6eL2vQgm8tW/QFCg6n88pUkxyoskK2B7l1w3J5kC6ZrIaqdnz51gxjFmx
+         0vUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=s+Pnc7qVstxJgUb+1pauRHnxHo4hAE5BG/iGKWeGubc=;
+        fh=UzPr+iqnScDq8UoQCgmhWb3L6E2djjKynfTVAJnc8/I=;
+        b=VDLTv59SVPU6vWT9wuitC66BOl89+/ECXfk9LRb1GAvSwPTUpzpugSUaNwduuJ21fY
+         WC6XbxqmXVCRNBFD9z1Ogp9/oNsSwyHFbvYqgFS1yhoJSZizWXWjct/sdOxkYSPgHGpp
+         /PrEI41kXYimT94+OQ+t0ge4JWNqd3AOSOQ2eG5japJzzD99X5ZCOOSO1EcuMxCuK23m
+         ypKzintdO2TAxHzJfY4cykDfPZ8oaC6LKxq7HYMUeLyVolUPsjFOawlVfeBHXxLvQqUm
+         ZwCjBTw6Zg7Yr+tXaG6yQsKGprAZxjCCgo1oN5Gh611KjyWKVzMk/wEWRZfIpQ/Vt1JH
+         iiqg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789543366; x=1790148166; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=s+Pnc7qVstxJgUb+1pauRHnxHo4hAE5BG/iGKWeGubc=;
+        b=UNFiI/B8qoCU1DapmfT+sDlqPZ4m9sLOb89TFfWp8ZfOBL+7x+0gDKb+OTXHt7LpPx
+         31IvYfsJU2Pw8CaaQjqQPSOtbrBRdvBlZBKTe8U9RAHN9dqzXx1BI4SajYKJYP5plYOU
+         tHx4lv4p1Jf609EGuWhfb/PHQJeWsc3OHp84fDRKjkpFeRAXWfGv3tUFCcUpzHRJwMQ/
+         GamlEZ+//JbJNLwnIvrFoUYjt1InhzO8TuWli2KhGilPTRvpiLBxJk7i+0uthHhtieGa
+         2afWA54QhLFID/AFhK5/t2vQYj5yckHAFkQUuRupcgjqkQRydfTshDgsvBsRUbj/X8Sp
+         4IfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789543366; x=1790148166;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s+Pnc7qVstxJgUb+1pauRHnxHo4hAE5BG/iGKWeGubc=;
+        b=yksv7bqKa1Aywcwi6N2x/y+VByYzIXhtPAacey86vRhTx4ILVd9eU9WjFPzV/YXUVB
+         UcxoV7eINfckpZ8QLNVRXq6ioTdTNgmkzJ63tlWaDM+lgKygPG2WcEcE1ZruGBn4PFXR
+         aroiIGxvyfVengwTSd4jLNR9vkQI4LWfqWkcpCCGNLyr1/Et/+6MEE4PW652enD39G/E
+         7nsi5/ixQfqGygLFMg2ScrX5fFnc3IAniN087EIWfwfwQP6SZjQ8OZ2O/MVxFgIe5ixh
+         Qp5wv03gXnbDVgLZKJhJzaTQVaIF+l7Oczsrx50FCUqP4tVy1pA22IHqmCJoZ0WAwDNY
+         eRCA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4Y988Rq4TWaV1+FTh8FjCXK4I1K5NGj9xm2Jh2/QvxCtbyoO0+GNte/rkRAobO8etLEbO3Qd2btgw08c=@vger.kernel.org
+X-Gm-Message-State: AFuF++n14soZuFnb5tMndc7YIuplyV/ZuS3Dl2ncBROAL5RsI+zlQofI
+	oe4XTmTCKRjbWtI3+/+VRJ9D1EmNXrJSrYhtWyKIACctUr1QpcIa394a2+aMThnX0SI5Tkqco9b
+	NJYJGOeHDS+jTOJzNVDVjBKxUK7irLgU=
+X-Gm-Gg: AYBFou2VqBY+dZdykqS1I86CxAcKNlOKqWoh6NOd3R7I4ECYjiWR29d3dBAWc3Xg4O3
+	p04VEZkxrNJ5BAyh924wKyHjIjELUU5gz3j3MfwqzYVs0LXWyk3FAgF1FHaxGzfADNkkFPlz4rc
+	qOcO0stZZvrX00rH+68pT6uuxqHlL8PX6M+19OhYiepPlJ3fUpvQAyR3rHuAdLy590vqb26X1Bj
+	iR3RI7iG1woD+aK+a5pUF9ukZVx+dF4eVDtNe4jHYeaMlgwi/b5KooCleR/DcA6vS2PlZc4Uvub
+	4nLBIf2+c5/lcf9ViCjREdCPr/PKki8znot10uAk9e0FG0LrNF4P4nwDN4wb9w/lr6qLGHA+KyU
+	G8ZtECyZ6tdI/fDa6tCrxchBNmBnDpuZu3gyUVRD22iYolDOhTriTrDfIXA==
+X-Received: by 2002:a17:90b:39af:b0:39d:f247:bb3 with SMTP id
+ 98e67ed59e1d1-39e1e4b0168mr3646797a91.21.1789543365922; Wed, 16 Sep 2026
+ 00:22:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqovRVuGLvfSLLPr@monoceros>
+References: <20260915160207.2952-1-dmytrokoziuk68@gmail.com> <20260915153542.3b9afbd00f7e6cea87a3350b@linux-foundation.org>
+In-Reply-To: <20260915153542.3b9afbd00f7e6cea87a3350b@linux-foundation.org>
+From: Dmytro Koziuk <dmytrokoziuk68@gmail.com>
+Date: Wed, 16 Sep 2026 10:22:33 +0300
+X-Gm-Features: AcwNN1W1l09nB0LfeekZ-yb_tFsOsztqosXb-8SnA5PHNdJWCVOsJr_2fBYC5WE
+Message-ID: <CAO63FDVJaRzwE_z4-Yd6Z8fZNEGQyx=YbeFatBN30d9X8SYLtw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] mm: kmsan: fix iounmap metadata teardown
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, 
+	Dmitry Vyukov <dvyukov@google.com>, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 07:56:08AM +0200, Uwe Kleine-König (The Capable Hub) wrote:
-> Helo Greg,
-> 
-> On Fri, Aug 14, 2026 at 11:59:31AM +0200, Uwe Kleine-König (The Capable Hub) wrote:
-> > When the patch that became 0481a041e956 ("serial: 8250: split Moxa PCIe
-> > serial board support out of 8250_pci") was created, commit 44e55f1f3088
-> > ("serial: 8250_pci: Consistently define pci_device_ids using named
-> > initializers") wasn't applied yet and thus added an assignment to
-> > .driver_data without using a named initializer. Adapt the assignment to
-> > make the array consistent again and re-prepare the driver for the planned
-> > change to struct pci_device_id.
-> > 
-> > Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
-> > ---
-> > Hello,
-> > 
-> > if you prefer it, feel free to squash this change into 0481a041e956.
-> > Otherwise I don't think this change justifies a Fixes: trailer, but
-> > still it would be nice to get this in during the upcoming merge window.
-> 
-> Is this patch still on your radar?
+>  AI review might have a found a couple of issues - please check?
 
-Yes, along with a few thousand more, sorry, way behind in reviews...
+I don't think the patch needs to be changed for these issues. For
+normal iounmap(), the
+caller must ensure that the mapping is no longer in use. Also,
+the x86 implementation keeps the virtual range reserved until after
+kmsan_iounmap_page_range() returns and its TLB flush completes.
+
+For the kmsan_ioremap_page_range() error path, the mapping has not yet
+been returned to the caller. Cleanup and the TLB flush complete before
+the reserved virtual range is released.
+
+
+=D1=81=D1=80, 16 =D1=81=D0=B5=D0=BD=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 01:3=
+5, Andrew Morton <akpm@linux-foundation.org>:
+>
+> On Tue, 15 Sep 2026 19:02:06 +0300 Dima Koziuk <dmytrokoziuk68@gmail.com>=
+ wrote:
+>
+> > While studying the code, I noticed that kmsan_iounmap_page_range() call=
+s
+> > __vunmap_range_noflush(v_shadow, vmalloc_shadow(end)) inside its per-pa=
+ge
+> > loop, and does the same for origin. The first iteration therefore unmap=
+s
+> > the entire metadata range, removing the PTEs for later pages before the
+> > loop can recover their backing pages.
+>
+> Thanks.
+>
+> AI review might have a found a couple of issues - please check?
+>
+> https://sashiko.dev/#/patchset/20260915160207.2952-1-dmytrokoziuk68@gmail=
+.com
