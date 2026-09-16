@@ -1,84 +1,101 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB2C3B14BA
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:54:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5900D31E857;
+	Wed, 16 Sep 2026 15:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574058; cv=none; b=LfR7FJnjV3/ahaClwaQTOGL3vOdjSuAzi+D7TFnuev4tQLnC0/1zx4pvHzaZz11ZAcYTL0zBlgbrrwhBLUuWSydiuT8uG3yPO0wYLaYcreRxWGSKiZ6ouGKcVke3glGqN3HZJDPq+pMbD7bAChJYxC604Crh3OkO3dYn/iIV/qw=
+	t=1789574107; cv=none; b=k12GVLKfkn2zncZ2pllqAoJho5G3GS+p+GeFa/KgveENG1Boe71Bv0JBdPn1kScfVqAh2r5pMXuRLMIpffUgFY17aN0Ya9ZjjGiTW9/MezAE3DjGM9Y+G+0HvirCyBA4ZHIGoquB9zZUmITPPE7vTQycLR76gLaoXX3wCplIkbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574058; c=relaxed/simple;
-	bh=Un72WoZT8gYUqQrO9W8+rWOjRXJKWQuSMylkHXu37yI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kWUMYYE0BWzdlzOAifgPjtcQjUy0dyDpzBgi/kCVkHAtwDOnKAHhbX6AsjAzNMFsEPpIIGomuLl6E+TKUD5I9Z2mg5Ike/XKfdgzjy4uVUr+UDFr0iQqpRrO+jE+ptxtN+qsMAWPI+51PNrPrPVD/LcGdSCckjNPNsdN8OL6WJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a7NtDY5p; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789574107; c=relaxed/simple;
+	bh=hZKcwcHQRaMXNZrbmQImSW80gQNncSKO0SBUWbS0qsk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=HFcQlbnoPX5p5LgRmjRv90DPIw5m2UMEzktuNAjKTc9grgZAESMj8G05Z57E+yQTP/GxpGXsO/GRs1ruiniyPJoMOmroOav2TppJkcZctSUIq7FTKxL68OH6A50hdRJMDKYFMyOR0nPAU7KgRZ3gDsdIcogp3z5c/iqgFcMWyyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDPg6XGj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a7NtDY5p"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d7aso1535377e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:54:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789574053; x=1790178853; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Un72WoZT8gYUqQrO9W8+rWOjRXJKWQuSMylkHXu37yI=;
-        b=a7NtDY5pXCjNhD+3ZFjZBdjRpv6ALxIMicAMwsxTJg2CcY36VT1UZmLRjh1px4bbtm
-         +HIL3fGu/elB4z9dlpKTSptQRCiviFhnkMh0apXIqJDBClVS822/XfMrucRCNw3uxG64
-         fvQnui8JEcQ7Ilbj7mpMI7WVLyKBeD4gmWTz4PUudfn4engYBJMQLJNk3LfhNTLY7RYn
-         O3ykv/5DY/QEJCYqauHULdQcOUu7Yr+hNXPXSaCBt/GbmMhzdFuvcRvU6/nionbJHh+n
-         K2psQc/wDAbP442cc3zqXOgKTPAgDj4Yo/7JA6A5evwX8Kyx9uTs10TjR1xjvdBvMXzy
-         eQuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789574053; x=1790178853;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Un72WoZT8gYUqQrO9W8+rWOjRXJKWQuSMylkHXu37yI=;
-        b=Q0xL2+2Vq2DN99Q+CHsbY96flxIpGklh0SAVdU0kY7JVtHNmjdDnxlZ/ZkKLZ+ditH
-         SCETJAcNhbrzdskujYtuMoS8UzBB+eTEr4K/RJ/JWLSa8MyBVCiOgh/EHTLU4f14GP7E
-         MJpVGAGejb63ILV7iBHtHF1GKOzIGYwWkwDwpg/r7E4tKI2ekZ1hhopXJ73tS7nNW6jC
-         SmC20sw6I0ioB+w+NN13+gzZQ4Q70h8mF1FH72aiFv7b36oyN1NZqm09HqvbMd/AkLes
-         XVEhOo9DPwDrCY4hRZ536HMhfvzsNGOBHVqEDN8FYnRlhjOyMEbxMJBsWRjP5J/flATc
-         rFDw==
-X-Forwarded-Encrypted: i=1; AKwUvBxuohHKa5svD1qu+aIFGS/a06Nn1BD45dtiDktwDUkuU9XBziDpLfikGY3L28oSzxkE8Xvujt6nADExhkk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGidtZ6x1nRSR6yo6d8eUMCyEypwB6lwfnhSJOLS+fgz59ietx
-	gTKRHyoHUzwnA3+REvNgqmZqRGmvEep8MMyH9bawiXKxIFRgyCuX92U=
-X-Gm-Gg: AYBFou2pMulRRAdz3TIFq/OLHp+kTveulHNesUoIdQ/rksaSXW8fQcnlXoh/g8RoMxQ
-	61Nz83w46QLwNysRKTKk6sejZWU+9GN0+c8wcL/zpIEL47JBdAgkp5X8HMIImpsHBovBz8X0bvs
-	92+6mPH5CEFv7BHBNlSF619xoOY2BrIGgllaTSzNs/XYsw79K/TbmJ1Z+7QkCQLSRLHvv+nEIEp
-	kZCaFgrrDGIYoECSx8OWCQGvCr+pEiVGBlJDJHtaN2pWOqmN968EDj0by3oi1cKOrBsGxKovnn0
-	nRMpt8f/v+Xjlq6avUiDQUkxa8hA4mFQVYuYLv8LBXJAVoggOwMS9feVqNuD4GAwxslQdDtls0L
-	q1I75mweXS/aWqhES+uO/ymGBiDKEwv8kB6dr3tbk4yaGrr657K7YLoie3Crxy8cVFhBfMR54ue
-	vwidDB5T6MqtrbuYKpPesS1EbnAOfG4KlPHOWHE+2LU6+GVQWrRduhxFFSzp5Z+ThzyJcZFBpPL
-	vINJ/s9fb62hfGn3u+V/5cAEzAP/P+YiDgIcQ==
-X-Received: by 2002:a05:6512:3da8:b0:5b6:1a7c:3b with SMTP id 2adb3069b0e04-5b8b666e4a8mr947500e87.62.1789574052531;
-        Wed, 16 Sep 2026 08:54:12 -0700 (PDT)
-Received: from localhost.localdomain (sekoohaka.ddns.net. [151.243.208.241])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8b57cc55csm1017913e87.36.2026.09.16.08.54.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:54:11 -0700 (PDT)
-From: Maria Lisina <sekoohaka.sarisan@gmail.com>
-To: andriy.shevchenko@linux.intel.com
-Cc: lee@kernel.org,
-	linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev,
-	sekoohaka.sarisan@gmail.com
-Subject: Re: [PATCH v6 3/4] mfd: intel-lpss: Remove extra DebugFS dentry
-Date: Wed, 16 Sep 2026 20:54:07 +0500
-Message-ID: <20260916155407.47647-1-sekoohaka.sarisan@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <aqq5d5ESVulYfOnK@ashevche-desk.local>
-References: <aqq5d5ESVulYfOnK@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDPg6XGj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1AD11F000FF;
+	Wed, 16 Sep 2026 15:55:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789574106;
+	bh=XOZkV6IEsSIEMAuWCGLWEExcMJL19yV/VfUFygYmtfk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=BDPg6XGjK+eUiOyjuE6n13hfmldAuixZfcYAgCO14yFoqpU0ajI1sH8KOF/bT6/aw
+	 gP9HD+js1NZ962rSYp3/gFTA6jabIWDxCMJAJKL2+1RPdJUNdag/YiTvLqwh2Ibqvp
+	 zYX1gDq0IyF0GX36MTirWD7KmRwUlo4KAF9XDd6ZUs8pZB+m8Y9mxKZRtjF2UjWEKv
+	 +xv60V5vozNPin241bV0mplbr4VTgwmb0GivRcMAibe5nDPMI59NGuB3EHojcQ5t7O
+	 rvRtE1duuBf5Hkv5Eipg9XtZcT9qbSapDgt4X6hKAaD/2787lGUunN4Do38ZE4hsOl
+	 p5RAIbqNIH8Ag==
+Date: Wed, 16 Sep 2026 10:55:04 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH 0/4] PCI: qcom: Align PHY init sequence with HPG
+Message-ID: <20260916155504.GA926264@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915-align_pcie_init_sequence_0916-v1-0-0b2195836f30@oss.qualcomm.com>
 
-> As Lee pointed out, we are fine with 100 limit, so one line here and below.
+On Tue, Sep 15, 2026 at 11:04:20PM -0700, Qiang Yu wrote:
+> HPG requires the controller/PHY GDSCs to be powered up and all
+> clocks enabled, then the controller's reset and the PHY's reset
+> toggled together as one group, with PARF_DEVICE_TYPE set right
+> after. This series adds the callbacks needed on both sides to
+> realize that sequence: a phy_reset() call the controller makes as
+> part of its own reset, and matching phy_ops::init/phy_ops::reset on
+> the PHY side.
 
-But doesn't the guideline strictly say no more than 80?
+This observation is not related to this series; it's a question about
+PCI host controller initialization ordering in general because it
+seems like this is a perennial issue.  Is there anything we can do to
+converge on some sort of generic standard or typical ordering across
+drivers?
+
+For example, while looking at a patch that changed ordering in a
+different driver (not qcom), I asked Gemini for some guidance and it
+came up with the following ordering recommendations, which seem
+pretty generic:
+
+  - assert downstream PERST# so physical lanes remain quiet while
+    setting up the host
+
+  - assert local resets (core & PHY)
+
+  - enable and stabilize power (IP core, I/O rails, PHYs)
+
+  - enable and stabilize clocks, including refclk and T_PERST_CLK
+
+  - initialize PHYs
+
+    - deassert PHY reset or allow register access to PHY
+
+    - wait for PHY PLL lock to refclk
+
+    - program PHY parameters & calibration
+
+    - verify PHY ready
+
+  - deassert local core reset
+
+  - configure RC (device type, MPS, max link speed, width, etc)
+
+  - deassert downstream PERST#
+
+  - enable LTSSM
+
+If this could be made generic enough, maybe something like it could be
+included in Documentation/PCI/controller/pci-controller-drivers.rst?
