@@ -1,219 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011046.outbound.protection.outlook.com [52.101.62.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B4B3E8C46;
-	Wed, 16 Sep 2026 06:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789539572; cv=none; b=uHpNDMS6uGKUNFyCwvH2JIKpTIjzjjnNxL/8zLjckoqtHCF74DjgPBW8tV1INYqUDhr3flf/sKlHFC1cnnzVst+k8EAiu1o1UfjMkYfrF5v3dT1Gq+gLg3lzqoqej5a0HYZgjFEncHzgMaxxm7V2kB8hb+Cf5o1nNp3KGGH6ffc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789539572; c=relaxed/simple;
-	bh=jXC3n+iEzHQcWYd6uXZrNnYmtL5ZmmYgDfm4jV7hLMU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uIerIQ7oluc+rTeQ4p2mlOq1LK0qoRt7gU6WImrCC1LArRQ4gbh95vAMI5XfDTQ0WJb+E8rIu7KHwchfGvN7wWfcVhR1LlaysdosY0ZFpYA71Xz0Ta4bHxC1BY2onX6SSnLpD2yl9LwS0e3MEfsCesVBA7ZUZIuDBFbAuu8WTPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fD6lEAxa; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839913EA947;
+	Wed, 16 Sep 2026 06:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789539579; cv=fail; b=HAFCDK8Pdajb1h+nWr/moThl9ZaHSuLApfY4oUk9SpspwLdLXid0f8VF/2yXPa7U5dOYsTQfahzLSjgBIJdOcmexwWEiVR5M6q3QgNCImfTcbP3X6x53xgaS6cWenFYk18ZRtT7xU3AS5nfppXNj562OrrzpO4823+c4pMwo3Fs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789539579; c=relaxed/simple;
+	bh=8wXTW1yyq5+HtYuFZzNXZp8JK9ylrqOp538DZ2E9kIM=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Ycn4x0boZfD+UBmPang4JvEzsNacyngNfNUG/QDoL7qT9+rMpGkXFJcVluEMZGzdWP6a5ANgkPriV1S+NECnl7sOM74OG79vIjqPNYmXqdVNNHyj/U1F0rYZTzEJS2Vyqua/VMdwQ4IAw6RgkhKA/lNX9tEJfgVz/lT15FbJyLE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HwQqGVBg; arc=fail smtp.client-ip=52.101.62.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fD6lEAxa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F67D1F00899;
-	Wed, 16 Sep 2026 06:19:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789539570;
-	bh=R3YoEwxyzqsQ9OofOJ+4vhwOKv46eKYIDoSvwPNiBrA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fD6lEAxaQts6hKlolmhL4bCUsK9cSTtp2GGXsKRH1cSj0wd3GM3aBU4urWDhB7EVN
-	 p/w+KSlgs88Q+YE5q8ZkflbqQvK8Qmj9hPSfXpa8oIp8INfcP/1J7GWxZsVKSht3Dl
-	 WXdUOFy987J+z1rZ/6Lvhsxc4nH++h/R690BJXjrFAwEOSufDmwDxZQ/voik/8YC6i
-	 dtG9FTtzED5fa7DW5v5+To99IrhHoNFEL6F4GNK21L/Jk9ZGut/4UVbJ0GsPDQw7c9
-	 9gKN1Cx+xFA5cIX0YL1rSwMeW+YCHBBs88bdhawqdYp0h326mqyv3QZ/jG9g3rc4uO
-	 Jy1zllFjIyC9w==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	Zecheng Li <zli94@ncsu.edu>,
-	Yanbo Zhao <yzhao62@ncsu.edu>,
-	Tengda Wu <wutengda@huaweicloud.com>,
-	Shuai Xue <xueshuai@linux.alibaba.com>
-Subject: [PATCH v4 3/3] perf annotate-data: Adjust type offset for flex-array
-Date: Tue, 15 Sep 2026 23:19:26 -0700
-Message-ID: <20260916061926.2224222-4-namhyung@kernel.org>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-In-Reply-To: <20260916061926.2224222-1-namhyung@kernel.org>
-References: <20260916061926.2224222-1-namhyung@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HwQqGVBg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qrUanpiDssj5T4e7GSXTiaGOG7e5Gp+PeST7KbkqPtmNRqiCZnbHoO4JKd7hFWWg8cJo18aKKasARPhYD65Y4waQLc2wtF1MkL29hA48UyyH2bFWU4dQVM7USCPAjuKXYW7XNpckhKQPne1FLCN55eCCIKCPAsPjgtZrmfRFxG1XqsF5Kis9JxO8fn7yeJZvnLdCHjea5tEeC2X4VL9/aO7Dg6ZOMRHW0zO1ZPAF/xmLw/TjdG5tnJzCM8WbfzYKFxhPrMT9SsZr3lpFUWqp3pXusXjsBkNX2wPLt39jpBJmv4guMNK1ZOM7dtR+YgjCA1JeAW6gx4U2AonU3P/9Yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M0dbx7gtwFJQEItRfIgGeOtdzNXBuPR6pUDWioKJ5G4=;
+ b=lRXxioiRIqhjIttYtQWSTUqExADzRPTFoZ70WRx8HhCkcKiW8z2vXKigcMz/gnKKqeH1Vw4tLFQH9z6KI0sc6tDZIFHaGQKD72YrbPM3S2eKUDwb3y2k+zmvCe5CyuOIPi03hVn2q2lMGL3n0iuCaCVIYf1vkRPQjd7LYJoOtF6ed76tDwDna9KgIvGS5FanABJTbC8CjbwyhxELy8YCcS3kUntRvdb8a4haWgISE6YLCUzHY+KIqPbypXgGzCt7lnuOMLyYav3O9qbqFeh9omIVSpm17SkSPMNzJ3GEfQcRB2adJyKytAipIAUQ4iQR3Ub8eTgep1cgGwvLKuXL9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M0dbx7gtwFJQEItRfIgGeOtdzNXBuPR6pUDWioKJ5G4=;
+ b=HwQqGVBgwQ9wKJFKsls8E92VGg4GW9TQ5qwR49LSA0rl22eRpRLacuCC2r0NiJ/RYeUbMTnjT9JRnU4hwK0GLoPXWqB6CyIqu+x99RXosTj8xF3BhB5jHwbUZVu+GAgJbH4Zjjn82J/Fh6E2QH0+ORSRmxhmfq/egA1kTbYjPtJzfNxZ+fBkJvkiMMCgvJuk2X607UGnthkzCTK0yWNWf30eGXW7YOZPNBhBGHOdmbyMbH2zs4P5ATMTmu/tTB89fTbU+ysjb+Zc5g/z1ojznf+8o0vTUyySKAF3rkMyreJEOdGInu0IdIOMpfy3IgkMndXogB19Oi8Mf+xRxk++Qg==
+Received: from BN9PR03CA0511.namprd03.prod.outlook.com (2603:10b6:408:131::6)
+ by CH1PPFE5ACC0FD2.namprd12.prod.outlook.com (2603:10b6:61f:fc00::629) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 06:19:27 +0000
+Received: from BN3PEPF00022BC6.namprd05.prod.outlook.com
+ (2603:10b6:408:131:cafe::24) by BN9PR03CA0511.outlook.office365.com
+ (2603:10b6:408:131::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 16
+ Sep 2026 06:19:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN3PEPF00022BC6.mail.protection.outlook.com (10.167.248.219) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 06:19:24 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
+ 2026 23:19:02 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
+ 2026 23:19:02 -0700
+Received: from waynec-Precision-5760.nvidia.com (10.127.8.13) by
+ mail.nvidia.com (10.129.68.9) with Microsoft SMTP Server id 15.2.2562.49 via
+ Frontend Transport; Tue, 15 Sep 2026 23:19:00 -0700
+From: Wayne Chang <waynec@nvidia.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Jon Hunter <jonathanh@nvidia.com>, "Thierry
+ Reding" <thierry.reding@gmail.com>
+CC: <linux-usb@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Wayne Chang <waynec@nvidia.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH v2] usb: typec: ucsi_ccg: Add retry mechanism in ccg_read
+Date: Wed, 16 Sep 2026 14:18:58 +0800
+Message-ID: <20260916061858.1471606-1-waynec@nvidia.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC6:EE_|CH1PPFE5ACC0FD2:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5d6fbe48-c47c-4d24-b775-08df13ba7450
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	OhXZSQ562eMtNUz4GjLxdpkkYJ8kQh3Vijgg7UAhUyiqYYsjnP/fG5r93CCS/BpCpaxXIn0YefCSwlW7HTxE1/E4/yn/0L+iaUskFsrYtL8mTlbkZ9FnMOs9VCz94HEfH8FyYtk72G9CASiwXQwGC75tj/8+/TLmuolhBtjWe4sUHiEjR+8qe5YTcOQj1n7/HECkIYefYC1euYrYWh+McuBgLbaxjUTZ2I1lXDHsxwbU/SsQRo/pEMKtUxmlAw2GziW2RFGoHa2lEEkcypTHhVx0pLhSi2K67zagjdZ8/zJnwlEJOa8B1rvJj3+Wz3BOvPqPmfKNiIcCzVaZHmtkeeV8i6qNKAmlL2uumyZ8xo4D2AQQ7FYqLATFZ8tLluggzbmjL3QRuEjbTUS37F4xI8MDWUFAzf8Wa29DaA3N09U99Jqjq4l+m8VyUNpfAjmX+82c86TRvKHeRaR1447cewjezR5rbhOa6WVRyFf3XGAdNIsmk7s5UXjsqDK4z6OTnUK+buQonaDxsI7wZonOwsWRxUfBnTgMqQSNH5ZPzSEu483PYmvXcX2A8CilWH8Sh2D4PFe7tjCmjA70LLqb62lU7KcAajqArPBiX2vhA1NdtthSDoPlAgELjQ4KWrs3hPnKrNYXiv/7cd1O7och2JUfm9sbgjNpUbVPkNj5+c4cIG5aGJa9TzG0JnNjiH6MdhakDKnlpxvKwdK9e/vH1Q==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	IyPwY3z03j3Oibl7S1BQsQ6tRw2XPW8/JYbJ/+D3bvo2LA8qNw+9W0UvdXeMk5GnvPc0UExEIvH8O6QNt0tu83cDjx/UWvSWrcYgctQNa63O9t9MUL7GT0V41QrxduyidBm7f+difdF/o7Z4hOx4cee/L+uW62Q0tMLYTY+R+7Qrddy2zFJptRtcyQjOwmSYFp7cCEWJZ14LSxzfbHTd8MOXmKroDsw0Rz96OQklHPXAcpVbh9VFuOZSaOb2KvhUPu8tlSfwJbsStMiSU2fx0lxF4FWfwQZxoezlWRr7K6JYNQD+/Uk1NgfFWqNQ6EIUZsBmnNCwcE4VlDANTBMipYH4yI/A1QZCoW5DzU/YZI46St4qI9QUtanyF8qsRpeSRrCCLkvMfIBfqSkhKMKmTCwSoRmySgEwGP56bUFWlrDuDV6G07yBy4v9+CeYpHNp
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 06:19:24.4114
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d6fbe48-c47c-4d24-b775-08df13ba7450
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFE5ACC0FD2
 
-The flex array members are located beyond the original type size.  Also
-it needs to adjust the offset in an array to find a corresponding
-element using module operation.  Note that we focus on access to type and
-field, so array index is not important.
+CCG4 firmware occasionally fails to respond to I2C read requests,
+especially when reading cci and intr_reg from the ISR path. In these
+cases, i2c_transfer() returns -EREMOTEIO.
 
-Make sure to find a field name for flex arrays.
+The CCG4 is EOL, and Infineon no longer supports firmware updates, so
+a software workaround is necessary.
 
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+Attempt the read up to CCG_READ_MAX_RETRIES (4) times in total when
+-EREMOTEIO is returned, sleeping ~1 ms via fsleep() between attempts.
+This allows recovery from transient I2C failures without affecting
+other error paths.
+
+The sleep is safe because ccg_read() is called both from process
+context and from ccg_irq_handler(), which runs in threaded IRQ
+context (registered via request_threaded_irq() with a NULL hard-IRQ
+handler), so sleeping is allowed in both cases.
+
+Fixes: 247c554a14aa ("usb: typec: ucsi: add support for Cypress CCGx")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wayne Chang <waynec@nvidia.com>
 ---
- tools/perf/util/annotate-data.c | 85 +++++++++++++++++++++++++++++----
- 1 file changed, 76 insertions(+), 9 deletions(-)
+v1 -> v2: Per Heikki's review:
+- Fix off-by-one: CCG_READ_MAX_RETRIES was 3 but the loop ran 4 times
+  (retry_count <= CCG_READ_MAX_RETRIES). Changed the macro to 4 (the
+  actual total attempt count) and the loop condition to
+  retry_count < CCG_READ_MAX_RETRIES, so the name and the loop bound
+  now agree. Adjusted the "skip the sleep on the last attempt" check
+  to retry_count == CCG_READ_MAX_RETRIES - 1 to match.
+- Use fsleep(1000) instead of usleep_range(1000, 2000).
+- Reworded the commit message to say "up to CCG_READ_MAX_RETRIES (4)
+  times in total" instead of the ambiguous "up to three times (four
+  attempts total)" that prompted the off-by-one question.
 
-diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-index 1ee2b74f99205567..d4410d720e12635b 100644
---- a/tools/perf/util/annotate-data.c
-+++ b/tools/perf/util/annotate-data.c
-@@ -240,8 +240,13 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
- 	if (member == NULL)
- 		return DIE_FIND_CB_END;
+ drivers/usb/typec/ucsi/ucsi_ccg.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
+index 91c2958a708c..4b6c53d2a998 100644
+--- a/drivers/usb/typec/ucsi/ucsi_ccg.c
++++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
+@@ -135,6 +135,8 @@ struct version_format {
+ #define NVIDIA_FTB_DP_OFFSET	(2)
+ #define NVIDIA_FTB_DBG_OFFSET	(3)
  
--	strbuf_init(&sb, 32);
--	die_get_typename(die, &sb);
-+	if (strbuf_init(&sb, 32) < 0) {
-+		free(member);
-+		return DIE_FIND_CB_END;
-+	}
++#define CCG_READ_MAX_RETRIES	4
 +
-+	if (die_get_typename(die, &sb) < 0)
-+		strbuf_add(&sb, "(unknown type)", 14);
+ struct version_info {
+ 	struct version_format base;
+ 	struct version_format app;
+@@ -255,6 +257,7 @@ static int ccg_read(struct ucsi_ccg *uc, u16 rab, u8 *data, u32 len)
+ 	};
+ 	u32 rlen, rem_len = len, max_read_len = len;
+ 	int status;
++	int retry_count;
  
- 	__die_get_real_type(die, &member_type);
- 	if (dwarf_tag(&member_type) == DW_TAG_typedef)
-@@ -249,7 +254,7 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
- 	else
- 		die_mem = member_type;
- 
--	if (dwarf_aggregate_size(&die_mem, &size) < 0) {
-+	if (dwarf_aggregate_size(&die_mem, &size) < 0 || size == 0) {
- 		if (dwarf_tag(&die_mem) == DW_TAG_array_type) { /* flex-array? */
- 			die_get_real_type(&die_mem, &die_mem);
- 			if (dwarf_aggregate_size(&die_mem, &size) < 0)
-@@ -333,19 +338,40 @@ static void delete_members(struct annotated_member *member)
- }
- 
- static int fill_member_name(char *buf, size_t sz, struct annotated_member *m,
--			    int offset, bool first)
-+			    int offset, bool first, bool has_flex_array)
- {
- 	struct annotated_member *child;
-+	bool found = false;
-+	int len;
- 
- 	if (list_empty(&m->children))
- 		return 0;
- 
- 	list_for_each_entry(child, &m->children, node) {
--		int len;
--
- 		if (offset < child->offset || offset >= child->offset + child->size)
- 			continue;
- 
-+		found = true;
-+		break;
-+	}
+ 	/* check any max_read_len limitation on i2c adapter */
+ 	if (quirks && quirks->max_read_len)
+@@ -266,7 +269,17 @@ static int ccg_read(struct ucsi_ccg *uc, u16 rab, u8 *data, u32 len)
+ 		rlen = min_t(u16, rem_len, max_read_len);
+ 		msgs[1].len = rlen;
+ 		put_unaligned_le16(rab, buf);
+-		status = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
 +
-+	if (!found && has_flex_array) {
-+		/*
-+		 * It may have an intermediate struct that has another struct that
-+		 * contains a flex array.  In that case, the outer struct itself is
-+		 * has no array and the size is less than the offset so the above
-+		 * logic won't find the outer struct at the offset.  Let's use the
-+		 * last struct if it couldn't find a member for the flex array.
-+		 */
-+		child = list_last_entry(&m->children, struct annotated_member, node);
++		for (retry_count = 0; retry_count < CCG_READ_MAX_RETRIES; retry_count++) {
++			status = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
 +
-+		if (offset < child->offset)
-+			return 0;
++			/* Only retry on -EREMOTEIO, and not after the last attempt */
++			if (status != -EREMOTEIO || retry_count == CCG_READ_MAX_RETRIES - 1)
++				break;
 +
-+		found = true;
-+	}
-+
-+	if (found) {
- 		/* It can have anonymous struct/union members */
- 		if (child->var_name) {
- 			len = scnprintf(buf, sz, "%s%s",
-@@ -355,15 +381,37 @@ static int fill_member_name(char *buf, size_t sz, struct annotated_member *m,
- 			len = 0;
- 		}
- 
--		return fill_member_name(buf + len, sz - len, child, offset, first) + len;
-+		return fill_member_name(buf + len, sz - len, child, offset, first,
-+					has_flex_array) + len;
- 	}
-+
- 	return 0;
- }
- 
- int annotated_data_type__get_member_name(struct annotated_data_type *adt,
- 					 char *buf, size_t sz, int member_offset)
- {
--	return fill_member_name(buf, sz, &adt->self, member_offset, /*first=*/true);
-+	return fill_member_name(buf, sz, &adt->self, member_offset, /*first=*/true,
-+				adt->flex_array);
-+}
-+
-+static struct annotated_member *find_flex_array(struct annotated_member *m)
-+{
-+	struct annotated_member *child;
-+
-+	if (list_empty(&m->children))
-+		return NULL;
-+
-+	child = list_last_entry(&m->children, struct annotated_member, node);
-+	if (strstr(child->type_name, "[]"))
-+		return child;
-+
-+	return find_flex_array(child);
-+}
-+
-+static struct annotated_member *get_flex_array_member(struct annotated_data_type *adt)
-+{
-+	return find_flex_array(&adt->self);
- }
- 
- static struct annotated_data_type *dso__findnew_data_type(struct dso *dso,
-@@ -1740,6 +1788,7 @@ struct annotated_data_type *find_data_type(struct data_loc_info *dloc)
- {
- 	struct dso *dso = map__dso(dloc->ms->map);
- 	Dwarf_Die type_die;
-+	struct annotated_data_type *result;
- 
- 	/*
- 	 * The type offset is the same as instruction offset by default.
-@@ -1752,7 +1801,25 @@ struct annotated_data_type *find_data_type(struct data_loc_info *dloc)
- 	if (find_data_type_die(dloc, &type_die) < 0)
- 		return NULL;
- 
--	return dso__findnew_data_type(dso, &type_die);
-+	result = dso__findnew_data_type(dso, &type_die);
-+	if (result == NULL)
-+		return NULL;
-+
-+	if (result->flex_array && dloc->type_offset > result->self.size) {
-+		struct annotated_member *flex_array = get_flex_array_member(result);
-+
-+		if (flex_array && flex_array->size > 0) {
-+			int offset = dloc->type_offset;
-+
-+			/* adjust offset in the flex array */
-+			offset -= flex_array->offset;
-+			offset %= flex_array->size;
-+			offset += flex_array->offset;
-+
-+			dloc->type_offset = offset;
++			fsleep(1000);
 +		}
-+	}
-+	return result;
- }
- 
- static size_t data_type_hash(long key, void *ctx __maybe_unused)
++
+ 		if (status < 0) {
+ 			dev_err(uc->dev, "i2c_transfer failed %d\n", status);
+ 			pm_runtime_put_sync(uc->dev);
+
+base-commit: 940de590b839f71d6dc846160534bf202401b8b7
 -- 
-2.55.0.1032.g73a4cd73de-goog
+2.25.1
 
