@@ -1,132 +1,101 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13AD44E676;
-	Wed, 16 Sep 2026 20:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853D7456DEF;
+	Wed, 16 Sep 2026 20:03:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789588976; cv=none; b=LNvXGhbVDfGp/YfTWlOUqFqPATUB+FWXG4qMHK969jci1q6uJVu3FaWNwqNo10+8LrHXRwftq5WURrbhw8UAsNEciamwBI7asV/lMYF9BFq64WzFTg4IGmmspT9oE3JMZV/9b891c8pkFOyeD/FxOLsz40EaEdpiYWFEx8nJVR4=
+	t=1789589027; cv=none; b=AnhHsEQR1ZLfaZPRmEUQAC1J/H0d2G6mBs2ncx04p6nJkTQ4j9YDpFKxH9YcduC4WxG1Wiro+pGW28/YaK96uuSr+JfLOyr1lp8Y9BrsObeFlH/GfoZF1S+B1VXlCA9zW6EY04fDr6KXtuWQUHgai3wG3DhmY8SgFN9ROm8shHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789588976; c=relaxed/simple;
-	bh=QtQDFR8Z/m7pyHbAm56/oeaw6UvTCiKR8EswNkTs6AU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j+ehpABl2BlRihaY6uXqKwslNMOI18X50XkpWG9+ujVqwaDTQrKz3mc2gyrVdbH5iQEyb/ZwUvdTm3ebU1vPBgVI5wX7a4SVihP6rrVcByh0YgSSkeb24itHZJTa9IcUcbjBRBc0fzNFNU9Nq5nK9rso47F9aXJSx6kMGsVtL+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=UJOLaJ1e; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=RfW+hV8x; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789589027; c=relaxed/simple;
+	bh=tX/XxkdJiKGzp+iHYDN/OmiukWcwyM5FfI5SaF1oA8k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SJUAT2uI13m8aljo6e3VNK6SNQgnjfGxiBy35BWGKa1QmusNGpzenxD/fhlWc6Nx153lB4e/lKE3h+odmo9LJUJJk3hh373StZdBkNLaQBdWnpKpkBlElYFCeVrJQIhCDW96YPq1vJ+gHN7yGkeFSnaQcXnJ5oHUyFnvUEqAZ2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=blk2F85Q reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="UJOLaJ1e";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="RfW+hV8x"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1789588934; bh=R2ofPh15IK7hgrgGQONfmRW
-	iJZeWXsO+PWe6T21uQx0=; b=UJOLaJ1eyafCKV7a9AtG/fexlsbAVjlyPySLlnSeJySUvFOZaP
-	4ivAjaB+xDcuO0CdoybKoj+vJONuC3Tb+wIIawMuN2W4yTVV7XL/vQS+aGNg8qxBTvx9aQEB8RI
-	D88wovBOYCyHHqNMDoMZSoRzCubZKLXUbZFsCXFa7mnhJVr9I03m3tjBj7ra8QUv19EBSRf3YXx
-	8f22tl/BbOpqpsKu84+DEF8VuaNyoXthTbr0J72gnJGsPOOqDTkdZA8vrQMkx1nsV5oE9mKjtYf
-	FcXtpW0eu26p18O/zFsBnUSPRljeLLZR0HEVQksZHbCd3mhyvRxCPDT1idi8cwTXLzg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1789588934; bh=R2ofPh15IK7hgrgGQONfmRW
-	iJZeWXsO+PWe6T21uQx0=; b=RfW+hV8x62kBsD6o0b/ZReKRmxQZWh484SkNrMwIY/kuHPPt2G
-	urIZ9Plfi1IN8HPS2awi6YU6YCnDO+a5QZAA==;
-From: Bradley Morgan <brads@mainlining.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vineet Gupta <vgupta@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-snps-arc@lists.infradead.org,
-	linux-csky@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bradley Morgan <brads@mainlining.org>
-Subject: [PATCH v2 0/5] Add two-byte cmpxchg emulation and wire it into the architectures
-Date: Wed, 16 Sep 2026 20:02:10 +0000
-Message-ID: <20260916200215.21774-1-brads@mainlining.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="blk2F85Q"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9D9B340E022C;
+	Wed, 16 Sep 2026 20:03:09 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id RmiEDj15sgaS; Wed, 16 Sep 2026 20:03:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789588982; bh=tt4wGiGWSGVWCHbdak83aGerpHRJn8vrvoGhdde9P2s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=blk2F85QFszaob+Y1xO6ahKBOS2FgDvoEvkATB/sVUDpf1rkDZvEkxvnXIYfMx9DK
+	 rj092M8OcL76s0/QHurHv3WifWK7tiMADyWig8Kj1NUtCiIAlMRj1f6MGiTYP/QL8+
+	 s9iVQpUP4Xh+1n6J6fyqiK5jxNpPtU4tgeRjKVj5RVzkCREqlmgv3TQRa2BQbfSdB9
+	 XWBem+1JKnnNlDzKBNC26wfv9FtanTuqDcR/5kJPQXTnAzJHKD9C82mGx6l8WXrjMF
+	 nTUTaOfEgL+DhJn5Bar5CezMf4zzXUJ0yRKIVTm2CDsc4IdI2VQ/wPHAr3+kr+9B8u
+	 G0IVD6BIegxGt/gbLEifGe91mzFdC0nN0DAb/w3Zwlo24prvNav3a8dh+UzfQYZpWD
+	 Y84NxQfJ5K12Wx6uG1tAx7v55XnPyFw63HKRAScwteodUibkfDjTmukB9EDROcYIsr
+	 hO2W9VFW509dBSlfBL5mVyt/eBB6sH4S/diucCUK3sUbZ63cgDM1xu/LAmb4x6mLp8
+	 +TsVQO/hcF1HP0C69Jh1aykMcLWFqyLVoAuNNjaskXC9B2DPOKY/JsEAThY2Ap/8M9
+	 9ZmnGuO1Wv9KWdxZbpVkzHpPD2QGUEqkdkHhtCCF44+Q3PqVemUqWcQnbRjpYzkGYW
+	 i93Um7YzT0iEcrpcjnnY7ys8=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 23C6340E015B;
+	Wed, 16 Sep 2026 20:02:49 +0000 (UTC)
+Date: Wed, 16 Sep 2026 13:02:47 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
+Cc: Dave Hansen <dave.hansen@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mm: don't apply va_align to hugetlb mappings on AMD
+ F15h
+Message-ID: <20260916200247.GFaqr15333nu5IAfjU@fat_crate.local>
+References: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
+ <3faecf65-7edb-4cec-be7a-e5266dd3a649@intel.com>
+ <20260829174704.GAapMbGAZMwImcvIN7@fat_crate.local>
+ <0B48BE2C-2E72-4961-91D9-35E215F537A9@quelquesmots.fr>
+ <20260829185120.GBapMqKFM35KtL0Mod@fat_crate.local>
+ <78225f07785ed89e0c3e5def8a8bb1a48e444322.camel@quelquesmots.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <78225f07785ed89e0c3e5def8a8bb1a48e444322.camel@quelquesmots.fr>
+Content-Transfer-Encoding: quoted-printable
 
-This adds cmpxchg_emu_u16() next to cmpxchg_emu_u8() and wires it into
-the architectures that use the one byte emulation, arc, csky, sh and
-xtensa.
+On Tue, Sep 01, 2026 at 10:12:07AM +0200, Laurent Wandrebeck wrote:
+> Sorry about, replied from my phone without thinking about it.
 
-David Laight noted that uintptr_t was an odd choice for the API and
-suggested u16 as the natural type, so v2 takes u16 arguments and the
-cast work moves to the architectures. The arc and csky call sites
-cast to u16 instead of uintptr_t, and sh and xtensa pass the values
-through unchanged, letting the narrowing happen at the function
-boundary.
+No worries.
 
-The experiment answers David's question about what the 32 bit word
-compare does with an API typed u16. It compares only the 16 bits that
-make up the halfword being emulated, because the union splice packs
-the caller's old value into the selected halfword of the compare word
-before the word wide cmpxchg runs, and the union layout puts every
-h[i] at byte offset 2*i on both endian layouts. A value wider than 16
-bits can never reach the compare, so the return value is the old
-halfword contents, exactly what cmpxchg() returns on architectures
-with a native two byte variant.
+> FYI, patched kernel has run a couple more days without any problem, and
+> I=E2=80=99m now running 7.3-rc1 with the same patch flawlessly.
 
-The ARMv6 wiring is dropped. Arnd Bergmann's platform removal series
-makes the ARMv6 path unreachable once it lands, and he offered to take
-the INTEGRATOR_CM1136JFS cleanup as part of it, so the wiring here
-would be churn against his tree. I will forward port this part once
-the mach-versatile removal actually happens, if the path still exists
-then.
+...
+=20
+> Can I do anything else ?
 
-Patch 1 adds the function, the prototype, and renames the Kconfig
-symbol to ARCH_NEED_CMPXCHG_1_2_EMU since it now gates both
-emulations. Patches 2 through 5 add case 2 beside each existing case
-1, following each file's current style. The function body follows the
-two byte implementation in Paul's April 2024 RFC series, of which only
-the one byte part landed as commit a88d970c8bb5 ("lib: Add one-byte
-emulation function").
+Does Dave's suggestion work too?
 
-Verification. A host test ran 972 cases across both halfword offsets,
-matching and mismatching compares, against a byte level reference
-model, all passing. The remaining checkpatch warnings are the volatile
-and long line ones that the merged cmpxchg_emu_u8() lines already
-carry.
+https://lore.kernel.org/all/3faecf65-7edb-4cec-be7a-e5266dd3a649@intel.co=
+m/
 
-Changes since v1:
-- u16 arguments instead of uintptr_t, per David Laight
-- ARMv6 wiring dropped, per Arnd Bergmann's offer and the discussion
-  with Paul McKenney
-- copyright lines now carry both authors, Paul's 2024 line and mine
+Thx.
 
-Thank you, Paul McKenney, for suggesting this, and thank you David
-Laight and Arnd Bergmann for the review.
+--=20
+Regards/Gruss,
+    Boris.
 
-Bradley Morgan (5):
-  lib: Add two-byte cmpxchg emulation function
-  ARC: Emulate two-byte cmpxchg
-  csky: Emulate two-byte cmpxchg
-  sh: Emulate two-byte cmpxchg
-  xtensa: Emulate two-byte cmpxchg
-
- arch/Kconfig                      |  2 +-
- arch/arc/Kconfig                  |  2 +-
- arch/arc/include/asm/cmpxchg.h    |  3 +++
- arch/csky/Kconfig                 |  2 +-
- arch/csky/include/asm/cmpxchg.h   |  9 +++++++++
- arch/sh/Kconfig                   |  2 +-
- arch/sh/include/asm/cmpxchg.h     |  2 ++
- arch/xtensa/Kconfig               |  2 +-
- arch/xtensa/include/asm/cmpxchg.h |  1 +
- include/linux/cmpxchg-emu.h       |  4 +++-
- lib/Makefile                      |  2 +-
- lib/cmpxchg-emu.c                 | 38 ++++++++++++++++++++++------------
- 12 files changed, 58 insertions(+), 11 deletions(-)
--- 
-2.47.3
-
+https://people.kernel.org/tglx/notes-about-netiquette
