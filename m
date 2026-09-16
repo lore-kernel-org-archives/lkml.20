@@ -1,126 +1,151 @@
-Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0470C3515C9
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.23
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585616; cv=none; b=Y+0BF3owRi96dmq8eM45V9H/buYlj8UcqfkYsMDcNtkL+yWmp2crcS/2Lsjh3Hu9RcwyHzurcCVzE2L17PTGxgcIuOifsch76ih5rupXz53STaCTvbye3OUeV9Hnip5TE1gVLWQ+lH+ggrAJkGxeZQ/RM0ydxUmD5sMeR7zKYqA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585616; c=relaxed/simple;
-	bh=clIAd+ElCPuqeSOiRCrGYr2080Rs0+u4Ja4zpAJS57o=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD62377A87
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:06:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789585625; cv=pass; b=CLSSGlox/POQ0njf61Iiv9g6Duw6WdtIFAlUHezND9M+8Xsbs7YjJURPh+laSda3E7CKSPjKz/2cAW1FdcHjPXoqnkU/WCvjXHzC02TfByfWf3ESJJC+hjyzlVMbxc7sQm0FzXHRhlMAqeOt2ekW3rRAgTDqD0zNvJTtUeKA8mI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789585625; c=relaxed/simple;
+	bh=YFbcwtgNuX0U1EJKvV9Ul//2Ots1PofZrH0PIe/ShVY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fObeXiIuubwKs5ftwIwvlnkZP/WfIHWXgDKprE+2X+yRKkQb4k91ZfS9tlMtrOzZtX8AJcYXN40o6yN5FDu4owC7SjVOvRVzs0Uonak2L/KGS0y5O35LuquDuIZtLFtYRFPelQhcpP+fMGMe11QJ9Fq+at/JGJWYiLBZsG8ppwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QpnsfE7p; arc=none smtp.client-ip=91.218.175.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 To:Cc:Content-Type; b=gXUtFPKdQFxsLkrmURz6qTkNSPqjOoWBrd/Yd+5mAGqXKlkpXMY9u15hq3oboSMUabHj+PbNB3hgoh6JJQbbbqHRxD9nNZi/dkVyIrGU4+W3dVunrHuS5nFq3p842RUlJxWsquVCa+Xa6XKHQ2oHFrHfyeiCP2TA4/IEFBDscbg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UEwPAwcB; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QpnsfE7p"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=clIAd+ElCPuqeSOiRCrGYr2080Rs0+u4Ja4zpAJS57o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789585597; v=1; x=1790190397;
- b=QpnsfE7pSDj5/ltQkQZLilNcXKGfBcl+0HXOj0ozbJQoSB4IK+tihs6gI4Oih68YveWxtmGm
- 2WNRLkHJr8DUm6oVz2Sfp0f/BvP311qYJEnszbqfHqgVHnwCyhgL6UeoDLNnhdJvmyS20NvvGNh
- +OaKvdN+PT+rZaVHoq2IBMp4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0cf1712068bef679;
-	Wed, 16 Sep 2026 19:06:37 +0000
-X-Mizu-Trace-ID: 0cf1712068bef679
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b78e073980so842e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:06:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByvL0umJuXtHOq+ltB2qRI04t7j6kiDbiloaflm7kWyR8UrVe9Z1Z0dEFeqHvM/I9n9VS/f+sdc+/qd/xE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nd/Oi/0M+IwrQ52zTLJ3cstU0Z5Tmk0uK9GI2zqrydkf7Qk3A9
-	xWUvPGIbT6NLsXTeYvOJRDjQbWTmVhi/UugdYZd2iyETzktCEAJyB8qtM2hGZaQpPdF9LG7Hrwv
-	Vzs8HSCY8Jt7YI3Tj01vqfAVQo9okoKGzzgixemVn
-X-Received: by 2002:a05:6512:3d10:b0:5b8:b380:3c89 with SMTP id
- 2adb3069b0e04-5b8ba99b7ffmr23508e87.0.1789585593571; Wed, 16 Sep 2026
- 12:06:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UEwPAwcB"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6141a61c0so1589a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:06:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789585605; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QKIKoVv+LLRaYUIMCjfUHi1IUOlSbUQ4yEmf7oJcXHQkWDm4pf0fUZwUwFjI2HMJX4
+         sKg4KAhcaLjjSApuyERuU2yJc+0ZTzP1Xhg+niiO1IENiyEQvjLmjBp8B1V9Z5JV0fQv
+         wh5SDBwdqZLPPhEy3InvtEpHrYaS/cpkFq/onPDYzSGrX5VANBRI9/ucxe7NXuVByOAx
+         rUZzGZBRJNY15gv/WkU9BcOgTVf1l54gZxJsPUrZ8hLWZNI4ZlnUDxlN7J2qGv2exXqr
+         IYKPKvSpyYpjUd5K81GzZYaiOnZFkeSp9Qy2Csc9aK1Ppc6W//E9qVd0Q9yHhJrPnvWY
+         SaMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=i8q6HHOe1ZAhbklRTyDXKcKv9K3nDwMAOUFrm0T0XXw=;
+        fh=tCDeRjsRoWeS/tHytmQVK941Cw2OaPAFCKcIcbbabR0=;
+        b=smRBYlT2lDHbqdcwSqu9GyLGjAHmUVy5LINXDQUTxR+DSq8dLKFESaQDrd/Eu59yRg
+         YGORcdOguyfK2RpDM6AI5czyI8wpfoz3v2R1rL5xu4ZNvycx4qNVcr80Aa4JZ5gR2raN
+         kTjjof9M1+hWQXR6/zXxjWCkf9P+SMc2e/nMAln75gU91VS4ZbDFc15ODcd5lSjv2xOv
+         8rtNzfWA2Vt324rnLg7v0Of3MOF4EQoq+T1BR5DTsPNvy/KuPaoda0JtfVW2FJ9qImn7
+         d6B/seXFJF+WY9trPGWihOja+D69yo2znrW/L+SeADSn7hJIPA+6oSI3vjB0/ED8TKRo
+         73Ag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789585605; x=1790190405; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i8q6HHOe1ZAhbklRTyDXKcKv9K3nDwMAOUFrm0T0XXw=;
+        b=UEwPAwcBGKJp7rc++RIRYesLfdQ+S0085lWyBL4LDVLhOtVwvpIJeN+Wx9285wB3Eg
+         QXvzFPLMQPkUP7HFHWag25Xiy0mo01/6MHF66S9mjVK/w6FWsjMki9G6icmnv8HJKPSi
+         Ab9Kd9DkOJPjfdVWXg9xpvgUX6bLY1AOOY4vZOCFso+hX/285VODKZULbSOoRUSHtHez
+         5H9cTXObDWc7XVlq4KgzSTzjCEnUvHEcwZ9DUTRsigiPjkO0ViiK5MCvsKOXbO7Y/v0M
+         7KjjbxNRsFatmNhtrpYdkYmndMo7tNg8Rtbe+MYTOjTrNnHa1jkuU/qiqG3m+83aRVdR
+         MeGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789585605; x=1790190405;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i8q6HHOe1ZAhbklRTyDXKcKv9K3nDwMAOUFrm0T0XXw=;
+        b=ey1McM2VEtK41n92qkibd9nB3SpKPkC+uKBLbPYEG0gMeekNooNmfRzl9oE29p/bSl
+         tXssJawLe6WwElxKT3KOSMWuKhKHgpoiORPnlSiRRncUcgrRrlNgV5TeGqOii9kJSYD5
+         Dkbn8k8ne9pkkpBh4lYAPMG+gRaS3DJvTC34cchZhrJEfJhs+wtIp9baxxIYXw7L6jrT
+         hFZfPv3m8aqJS7rYUtHdntKcscmLrRRZaVT9JSY39wjoWWygtEIR0jUzc25uyCnZwJNb
+         aiQifuA231XfYX/+FZb77RD/F0ps2gb9GIEGE6Yf0vJRTXrhfoXDXNsF1xgtC2HTzi4Z
+         2L6g==
+X-Forwarded-Encrypted: i=1; AKwUvBwbp94GCFAPSngZTdRQJOSupKgjA11JNkdfDOd7V5g6CcApIz34tmvdPQLxm5FcdmLoGoUAGCh6Dcl94b4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntcFfiZfabDiWJLtIZ59wl4LszONBhn+RSHwQSn4yvETU4v/EX
+	o6GH459tcsy08RrPIIgM5WgJioIWIXjY4+gVRSA+0EVRyPWMk3AL7it99NdTFLa2m0Gwxz/i7M8
+	esg4grVoXtlUAMI8QYbiybLyUz8sPmpl8DouC/x9NYebwOBoBHeY4QjM7OT0=
+X-Gm-Gg: AYBFou1O08IPUxL/IlPybWQnb2AXvqZrFAmzkRhd4gX2av0WcnqMFJFfOCEHKKVpOLI
+	Ht5P9k6UGncnZIoiye0hd9K0hB4ldoaRhUSn72sgaPMcrb3l40eNPf8sJUInSNxkKiiducOJcZH
+	Qj+yiDPnGpgZmzsX20Dl4RDSPoooeuLX4Rb0Yn/qjyRUteznnJk2E+Sf9lclrSjQvizjzKQ9E3n
+	wcDmz7NZHRoM+zcXdDVO9FAwtOGq/zN+E/6FKQ85m6XhMg6zbnG2EaCu2a/TUWZNk8ewMAzipwg
+	S+zi1F12KEJaUHjJoCREm00eK4msuoPa+ytQyAcK0K1fondrrYW60ec=
+X-Received: by 2002:a05:6402:b2e:b0:6a7:453c:a166 with SMTP id
+ 4fb4d7f45d1cf-6aa37503e67mr7027a12.1.1789585604831; Wed, 16 Sep 2026 12:06:44
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914113338.159227-1-fuad.tabba@linux.dev> <20260914113338.159227-15-fuad.tabba@linux.dev>
- <86bj9x5fhj.wl-maz@kernel.org>
-In-Reply-To: <86bj9x5fhj.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Wed, 16 Sep 2026 20:05:57 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTy8R3yxFHmTti9mBgjQGJKnH44v9WvDQ2k9cWFECaYoQg@mail.gmail.com>
-X-Gm-Features: AcwNN1X5PZX5WDCSedlv_R_n84PSTr-QRRvORTCqs34THsNi7n9PRABFR4_9-2c
-Message-ID: <CA+EHjTy8R3yxFHmTti9mBgjQGJKnH44v9WvDQ2k9cWFECaYoQg@mail.gmail.com>
-Subject: Re: [PATCH v3 14/18] KVM: arm64: Add per-EC entry/exit state
- marshalling for protected guests
-To: Marc Zyngier <maz@kernel.org>
-Cc: oupton@kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, 
-	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
-	mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, 
-	qperret@google.com
+References: <cover.1789281096.git.zhang_wei@open-hieco.net>
+ <fc88f299f41c99ddb5851c24d97970dc29584876.1789281096.git.zhang_wei@open-hieco.net>
+ <CALMp9eSv77sBcfYpPJm4Uk+9CePV7YMdYXhvBHKHSvacnnRBUA@mail.gmail.com> <3451f275-d88d-4db9-acb9-ca80d717df7a@open-hieco.net>
+In-Reply-To: <3451f275-d88d-4db9-acb9-ca80d717df7a@open-hieco.net>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 16 Sep 2026 12:06:30 -0700
+X-Gm-Features: AcwNN1Vb7avB1LnW1gDR4-nqujxfy2WLNfEbAl-1PKaPYp4bwb_CEzgH4WJPJXA
+Message-ID: <CALMp9eS690dzVm+H55U23g8r3Qwbk4V-=vp-J4Ajvh-iC4J_4g@mail.gmail.com>
+Subject: Re: [PATCH v6 1/8] KVM: x86: Provide INVLPG linear address to
+ intercept handlers
+To: Tina Zhang <zhang_wei@open-hieco.net>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, zhouyanjing@hygon.cn, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Marc,
-
-On Wed, 16 Sept 2026 at 17:27, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> > diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-[...]
-> > +static void handle_pvm_entry_sys64(struct pkvm_hyp_vcpu *hyp_vcpu)
-[...]
-> > +        /* If the host emulated a read access, update the register */
-> > +        if (pc_update &&
-> > +            !pvm_sys64_is_write(hyp_vcpu->vcpu.arch.fault.esr_el2)) {
-> > +                /* r0 as transfer register between the guest and the host. */
-> > +                u64 rt_val = READ_ONCE(host_vcpu->arch.ctxt.regs.regs[0]);
+On Tue, Sep 15, 2026 at 5:26=E2=80=AFPM Tina Zhang <zhang_wei@open-hieco.ne=
+t> wrote:
 >
-> Why isn't this
 >
->                 rt_val = READ_ONCE(vcpu_gp_regs(host_vcpu)->regs[0]);
 >
-> and similarly everywhere else?
-
-Old code momentum. I'll use the accessors throughout in v4.
-
-[...]
-> > +static void handle_pvm_exit_sys64(struct pkvm_hyp_vcpu *hyp_vcpu)
-> > +{
-> > +        struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
-> > +        u32 esr_el2 = hyp_vcpu->vcpu.arch.fault.esr_el2;
-> > +
-> > +        /* The mode is required for the host to emulate some sysregs */
-> > +        host_vcpu->arch.ctxt.regs.pstate =
-> > +                pvm_host_pstate(hyp_vcpu->vcpu.arch.ctxt.regs.pstate);
-> > +
-> > +        /* r0 as transfer register between the guest and the host. */
-> > +        if (pvm_sys64_is_write(esr_el2)) {
-> > +                int rt = kvm_vcpu_sys_get_rt(&hyp_vcpu->vcpu);
-> > +                u64 rt_val = vcpu_get_reg(&hyp_vcpu->vcpu, rt);
-> > +
-> > +                host_vcpu->arch.ctxt.regs.regs[0] = rt_val;
+> On 9/15/2026 2:23 AM, Jim Mattson wrote:
+> > What if __linearize() fails?
 >
-> and this should be
+> This was also my concern with using __linearize() in v5, which is why I
+> initially calculated the address directly. I wasn't sure how to handle
+> its failures when we only need the address for EXITINFO1.
 >
->                 vcpu_set_reg(host_vcpu, 0, rt_val);
+> Simply propagating the error seems questionable, since em_invlpg()
+> itself skips the invalidation on failure and returns X86EMUL_CONTINUE.
 >
-> assuming you don't need a WRITE_ONCE() to match the READ_ONCE() in the
-> other direction.
-
-No WRITE_ONCE() needed, EL2 is the only writer on the way out. I'll
-switch to vcpu_set_reg().
-
-[...]
-> > +static void handle_pvm_exit_iabt(struct pkvm_hyp_vcpu *hyp_vcpu)
-> > +{
-> > +        hyp_vcpu->host_vcpu->arch.fault.hpfar_el2 =
-> > +                hyp_vcpu->vcpu.arch.fault.hpfar_el2;
+> Would either of these approaches make sense?
+> Option 1: Factor the address calculation out into a helper shared by
+> __linearize() and get_invlpg_linear_addr(), leaving the checks in
+> __linearize().
 >
-> Please keep assignments on a single line (everywhere).
+> Option 2: Extend the existing flags argument to __linearize() with an
+> option to calculate the address without performing access checks.
+>
+> Both would avoid duplicating the address calculation or modifying
+> ctxt->exception just to obtain the address for EXITINFO1.
+>
+> Do you have a preference, or another approach in mind?
 
-Will do.
+I think a comment should suffice.
 
-Cheers,
-/fuad
+EXITINFO1 should be the address that INVLPG would have used if it hadn't
+been intercepted, and the address that INVLPG would have used is exactly
+what __linearize() computes--even on the 'bad:' path.
+
+I know it looks like I asked the exception-return question as a "test," but
+I actually just realized the additional benefit of my suggestion to use
+__linearize() here rather than open-coding an alternative: em_invlpg()
+makes an identical call, so the two must agree.
+
+The APM, as usual, doesn't really cover the details of the corner cases,
+but on the Intel side, the SDM says this about the exit qualification field
+for INVLPG intercepts:
+
+  If the INVLPG source operand specifies an unusable segment, the linear
+  address specified in the exit qualification will match the linear address
+  that the INVLPG would have used if no VM exit occurred. This address is
+  not architecturally defined and may be implementation-specific.
+
+That's just one of the scenarios that leads to the __linearize() 'bad:'
+path, but I think the same logic must apply to the other cases.
