@@ -1,47 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22BFF409102;
-	Wed, 16 Sep 2026 19:28:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06DC42049A;
+	Wed, 16 Sep 2026 19:28:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586924; cv=none; b=KWj4GZqYgYnUkaMygrfC0BIoRzHPJ1t6Ln39FqipvQeSQ3Wur9Xf+piJo4V2OFWxnxmYxVYSydgPSmbiwEBKSCZxAL/xlrtxcBAUxtgbeNEIaJ1ERULw5YT1V3G9EprW8MoEAXHqpBIiCSDRwGZBJQL6JQXLnOuRQmvrn+/WQts=
+	t=1789586937; cv=none; b=Ve4GFydku9UQ3ukdiwWf54/3gAKErRi3f6A1RdtdL7OmitVDg4fwZwl1w6YGx1JdlFBKpl36xv9Jf7n6oQDIViIMeOATqc+iaRGg6qXln3IBmYQeMashVFwsn4YV/lHI5ITaHLkA0ZK1EvynyCpPOs1HBMMtRWsybdXypBKWBe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789586924; c=relaxed/simple;
-	bh=IOSgwF0OKRpi0SEUAc731s21o4gpcTXCt0Ra66P1EOo=;
+	s=arc-20240116; t=1789586937; c=relaxed/simple;
+	bh=44UBgES1IkJtvauTNaYHC0m0R8awETaFptuQlSOAcDk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UD9slpG/vCiK1VujDI8MtUCVsJP7jOaw0hOky1BgnXeQnx4a2YUoeaPm+f/l8qnTCDhBAFiOgDpps3JUSpKjrsuY/yrEZQIRuDQycGhcWRb/Nv3K6iE8gqjQwsx4vF1Es06LrPFG/tYnj+0hAvBrWCdKw/H1M4+2Z1jhZD8Cr/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gGe462Zp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=J9SnSBHzzPdTv05ZAYvYU19lMiNlbgMxr9QgvkczmvyvgHWZ6+6UH461kAfiPQftngVkmNqPFUr6t1voJOd5/sHtDqW1JAdRNdZC/dUKX7LO9Fd2K8SiHjbTxCxLqtTccIVTVsfkODqf8NzlbtzbZomtjFwZGore76JMIVtvInk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Te6RnPKe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gGe462Zp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E63A61F00899;
-	Wed, 16 Sep 2026 19:28:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Te6RnPKe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3291F0089C;
+	Wed, 16 Sep 2026 19:28:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789586906;
-	bh=/WKMCM0css3RV7MedAnec6PHvNtVaDiv/v5Vsmrb4jI=;
+	s=k20260515; t=1789586914;
+	bh=iZKIoHZ2yaBwojNtcPcwmQaPcDtxcHubfSKW9FzK/3g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gGe462ZpomYv+56SvNJpv/jPjcs9apgqJznmzsW75w2ukk44pSHGU9HeWmXQlad4l
-	 LoJfx8z5fMV7LiGI+9gSQkUKU5x8iVLSUBH1ZfiigO9GnZ2PjeAP4beksUEI53DUuG
-	 dIjpqU11RSsC7g2Mu1E621s6889FCPguMFX2TR0t3NShdbSoaeMv8sq30Apvfg7n7H
-	 GYpPd5ZUqdGxLFAM47V4boVQb8qzAzmBykZqLLjfk/rkKLuTxs3nJ7lR5Xg81QTx0R
-	 SYgb9AFjWC6KmWWWxqwcY2yeZWwEaam4xvdPSbwdU2Ir0BnFkZTuvYFJ2z9CCXtkfy
-	 HAeDYnOtXmTXg==
+	b=Te6RnPKee/lPBmv0d3R0sE+DVOk5v1yOX3/+V2z8/S9UYzSjW5YsCslAGIMz2FQYr
+	 7/Il53Lu4os64JnuiVrWMhSAcNuwhk/Y93V8AkLvyNrkdjyIC/udbTayHYTIk739c6
+	 aYTEdfDDGmTfctZDRhFdiHlN1QLOdAbhrz8TARp7geN+0vmtKnzeUal5/ky+bLGMGC
+	 hWId9AkNT/B5urJ4rCOKB/MtFFuQniAPiEwOh2s6CnEVRzgb4RLIXY+DIe4fnWMwW9
+	 f1ZNnlepGelmxZVyOfDuoi9N4hrrhYvxw+xQNnFanhIZD6xytV/XQAp2ZcC1tyM2kP
+	 AyzTZa6bOyO4g==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: gregkh@linuxfoundation.org,
+	linux@armlinux.org.uk,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	rostedt@goodmis.org,
+	rmk+kernel@armlinux.org.uk,
+	linusw@kernel.org,
+	kuninori.morimoto.gx@renesas.com,
+	arnd@arndb.de,
+	xiqi2@huawei.com,
+	ljs@kernel.org,
+	wozizhi@huaweicloud.com
 Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	chenyichong@uniontech.com,
-	andrii@kernel.org,
-	bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Suraj Jitindar Singh <surajjs@amazon.com>
-Subject: Re: [REGRESSION] 5.15.221 & 6.1.188: bpftool: redefinition of 'free_btf_vmlinux'
-Date: Wed, 16 Sep 2026 15:27:52 -0400
-Message-ID: <daily-reply-20260916-0002-re-bpftool-free-btf-vmlinux@kernel.org>
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	lisongze2@huawei.com,
+	wangbing6@huawei.com,
+	Xie Yuanbin <xieyuanbin1@huawei.com>
+Subject: Re: [PATCH 5.10.y/5.15.y 1/4] ARM: fix hash_name() fault
+Date: Wed, 16 Sep 2026 15:27:57 -0400
+Message-ID: <daily-reply-20260916-0007-re-arm-show-pte-series@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260915235834.20559-1-surajjs@amazon.com>
-References: <20260915235834.20559-1-surajjs@amazon.com>
+In-Reply-To: <20260916080011.170295-1-xieyuanbin1@huawei.com>
+References: <20260916080011.170295-1-xieyuanbin1@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,13 +62,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Building bpftool from the v6.1.188 and v5.15.221 stable tags fails with a
-> duplicate function definition:
->
->   tools/bpf/bpftool/map.c: error: redefinition of 'free_btf_vmlinux'
->   note: previous definition of 'free_btf_vmlinux' was here
+> [ Xie Yuanbin: At the upstream, the following patches are a patch set:
+>   1. commit dea20281ac8822661576 ("ARM: group is_permission_fault() with
+>      is_translation_fault()")
+[...]
+>   patch 1. and 2. is unneeded for 5.10.y and 5.15.y . This patch backports
+>   patch 3. and simply adapts to the context differences. ]
 
-Queued for 6.1 and 5.15, thanks.
+Patches 1/4 through 3/4 carry only Russell King's Signed-off-by. You adapted
+1/4 and 2/4 and transmitted all three, so each one needs your own
+Signed-off-by before I can take it. Could you resend with that added?
+
+Please also drop 4/4 from the resend. e79ca91165d4 ("ARM: 9484/1: enable
+interrupts when unhandled user faults are triggered") is already queued for
+both 5.15 and 5.10.
 
 -- 
 Thanks,
