@@ -1,70 +1,82 @@
-Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
+Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45838492502
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:24:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B164E50AA
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:24:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789593887; cv=none; b=kTzPvgrY6B5FIciDI/13so7f+KCwc/mv1s3U6VEC/o6zHva+6qWPCX2ElFqVZ908kNzZMFBqwK800bA72Q5ffpbWasGHeJuW58E1T/vw7PLVwjpo81hXlLB0BdKNZdSXLpsG5NWwgevMQl247WjlEP/xMbg6kUG5fV5u9WjWXBY=
+	t=1789593912; cv=none; b=AVg02iNBzX7QeDY7AlnDttMvvbpLdkS8QjB04f5N/FFP80k3MsEdeVT+0z0M/f1jmrreKmqWpbiBzP0xTXZOF1M/JJEMgwFy/s7pL5acu0+d9UWp1fRKXnA0Cr6dOPtlYK6O2bgk702fFrlFlJISRxMhW93saWDnaiZ/3ncpco4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789593887; c=relaxed/simple;
-	bh=Xs5HmIVrttwINsKb630tCSQ/nEHmOYxb9Ym6t3UCmkc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=acPqxwoOVxCxpohJQNCKgqzVkpRntSMeHzgoWARsrT0NlSMPwEBxtkfcOloyRFGmf1P2j0/fBNClVjEAvEvDNH9CFdd8VX0UqQwRl1wYoh4iejTPp/CRE4+DZjHQydQubo+uziKW89JJcUllkBqyFWItz9ylnwxDRRwM1X4aDWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jimenezcarrero.com; spf=pass smtp.mailfrom=jimenezcarrero.com; dkim=pass (2048-bit key) header.d=jimenezcarrero.com header.i=@jimenezcarrero.com header.b=bKErcRzf; arc=none smtp.client-ip=91.218.175.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jimenezcarrero.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jimenezcarrero.com
+	s=arc-20240116; t=1789593912; c=relaxed/simple;
+	bh=kEPDtvI9KB51gSQNB80wVjTqoX84Q7Z02NSxHCitI+w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NoqtxiXfaq5D44h+6Qp1BITa8fnDz44CVefNFyv5PuzeQQv2HOBRdPAevsXgO9/tAYcTHz0zquo7G4n8DlsrdogpNKnIzsFI2Cav5oEf7k63JzrxsqhAg+s/NRwrpZ0xFLVjEYF0WUJGIjcotI+hEYr9+vm1V3g4cSX1lLC88GI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vA9iaYSh; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jimenezcarrero.com header.i=@jimenezcarrero.com header.b="bKErcRzf"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vA9iaYSh"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Xs5HmIVrttwINsKb630tCSQ/nEHmOYxb9Ym6t3UCmkc=;
- c=simple/simple; d=jimenezcarrero.com;
+DKIM-Signature: a=rsa-sha256; bh=kEPDtvI9KB51gSQNB80wVjTqoX84Q7Z02NSxHCitI+w=;
+ c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789593868; v=1; x=1790198668;
- b=bKErcRzfYsVjuqPh+TtOxvSIylFyAjKfQNhw6UG/vZ2S0N+U50Pir5J6ecJiavuaWjiQhgL7
- gZ5CaBTzguUcsHDXs5O3clwBzjLlr5f/zuRhWvTwstn1s1qDc5pwBxxuHGMNyIgnsBPlKcjkbVh
- S49O6rCk6eBQSLIoQF7x/csp2VOcbKFwYmx6+iFpKscPUYSF+4j7KW2rpXqQCfmP98cQcwZanjH
- HYiHkUPwvqTjcTOF+577l6mUCImJEhLC0Hr+N48b6D70zZTx9rcg+E/8iG14RfFkmyE/1Jk+lpZ
- 2bDOic6rwTHt3Z20JyF3BLy4jj9/twB+XYn3wnKCERUjA==
+ t=1789593890; v=1; x=1790198690;
+ b=vA9iaYSh2erpQerQZUVLiyE/Ql4J3xa7BJ5259vis2ActsVMZx9KdfJXHtkQuMqpHStSZA4k
+ 2Vuo8S7PJjb9EZlrAsfaILamd8SsYy1xOkLBX0uzXTjjLo0p4Gk6bkLmnCKHPVJYlSku4llOZnp
+ BALZPrLMFwsSgVHWs00V9xlw=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bde3667cbddf0f0b;
-	Wed, 16 Sep 2026 21:24:27 +0000
-X-Mizu-Trace-ID: bde3667cbddf0f0b
+Received: by smtp.migadu.com with ESMTPS id 3f3f538203a15285;
+	Wed, 16 Sep 2026 21:24:50 +0000
+X-Mizu-Trace-ID: 3f3f538203a15285
 X-Migadu-Flow: FLOW_OUT
-From: Juan Jimenez Carrero <juan@jimenezcarrero.com>
-To: khalilst@gmail.com
-Cc: khalil@rentman.nl,
-	rf@opensource.cirrus.com,
-	broonie@kernel.org,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	patches@opensource.cirrus.com,
-	linux-spi@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	daniel@zonque.org,
-	haojian.zhuang@gmail.com,
-	robert.jarzmik@free.fr
-Subject: Re: [PATCH v3 2/3] platform/x86: serial-multi-instantiate: Fix SPI chip select on platforms with incomplete ACPI cs-gpios
-Date: Wed, 16 Sep 2026 23:24:09 +0200
-Message-ID: <20260916212409.7255-1-juan@jimenezcarrero.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260901192625.1497791-3-khalil@rentman.nl>
-References: <20260901192625.1497791-3-khalil@rentman.nl>
+Message-ID: <76ca0a2e-dd9a-41c9-90e4-5fd3c9171172@linux.dev>
+Date: Wed, 16 Sep 2026 14:24:45 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of
+ bpf_reg_state->id [NFC]
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, ast@kernel.org,
+ daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+ <20260910164635.459558-2-vineet.gupta@linux.dev>
+ <DLDKB6BTHVXE.PFK87O3QY1J5@gmail.com>
+ <f575fe19-a5a0-4f43-b1bd-cdec2c6e9830@linux.dev>
+ <DLH1MDZPU5G0.228555JR34D3N@gmail.com>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <DLH1MDZPU5G0.228555JR34D3N@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On Tue, 1 Sep 2026 21:26:24 +0200, Khalil wrote:
-> Some HP laptops with Intel Lunar Lake and dual Cirrus Logic CS35L56
+On 9/16/26 2:02 PM, Alexei Starovoitov wrote:
+> On Tue Sep 15, 2026 at 1:17 AM UTC, Vineet Gupta wrote:
+>> Back when I started, keeping it NFC made more sense. But with all the
+>> nuances discovered in the process, I'm inclined to drop the NFC stance
+> What is NFC ?
 
-Tested on an HP EliteBook 8 G1i 14 inch (DMI board 8D8A) with 2x
-CS35L54, together with 3/3 and without 1/3. Details in my reply to the
-cover letter.
+non functional change aka refactoring.
+Like I said when I started I wanted to keep the id / flag breakout 
+purely non functional. But given that splitting it does change one thing 
+(mentioned below) - I'm dropping NFC attribution.
 
-Tested-by: Juan Jimenez Carrero <juan@jimenezcarrero.com>
+>> and make functional changes - there's at least one which is the
+>> following accepted pre-series and now rejected.
+>>
+>>         old {r2.id=A+delta32}         vs cur {r2.id=B+delta64}
+> that's a red flag, no? The refactoring patch shouldn't have
+> any changes to selftest and veristat numbers?
+> Unless I'm missing it again.
+
+Yes understood except that it is no longer refactoring.
+
+Thx
+-Vineet
