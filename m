@@ -1,127 +1,120 @@
-Received: from mail-oi2-f6.google.com (mail-oi2-f6.google.com [74.125.231.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C204FB9CD
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:08:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52DB501F5C;
+	Wed, 16 Sep 2026 14:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567710; cv=none; b=H45tNfXas8NDALSFPerPx8rseU9RY5EMiu1GsPw0dEHRzGIYgJC14BuI7tvgql/V0Z4MYigFjTEYXf8g5WdNFFfTmYCGR2xfjZ2ekgB+zMrpVnbnBcQtyD4PhBgXZ2BTp8hBfz8o2iW7SDT19Wg6qCDt/BNMg7Y2FHbnFcrzgNI=
+	t=1789567746; cv=none; b=BOJQuypHACLw22zlsazK/BzptYn6AGGBTDjgCXzQJWrx8McrzKt4juGxdS0dqDpMeJ8FJvwteR91okMRHYDt5+/TWqefZ/MD1gWUDeccmWZDLxZFqX1rc7qh8t+ZRG53ImWKElYjkF6lm5Y/74nswzCOjXjlnOspX8DH1cRUWEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567710; c=relaxed/simple;
-	bh=qn7QE2Vhw0BaRhEZiS9hTTSjPpHUeCBsathFgkcuJMg=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=FNb0Lgj9/9gqZiNFVxIvzJp3mmJ1Xm1OtFikNnjxi/mjsoZEmt3T+gLVUyFIQI2lZOWSxDkHVff1+RZBYCUgC65fLJaJ2ucnMLpSdN1Z6Ze1wdVzV7YUIWzUYMUboulZjZlUsCBJocgmt/lu6AqDiZhetCYMKh2GkluDXOeFi6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f6.google.com with SMTP id 5614622812f47-4b374c2cf2cso1024134b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:08:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789567707; x=1790172507;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=htUCy0q7FG4YSd/XI01PpxHhl9O1HtPtmWa1pKHUGLE=;
-        b=PTowoDBZXG4hfak9+JnzlEtl0G6Cl9LUWKMeCSHwivBjRJLasT7cnLRnMAzvy17qRV
-         i0ZDUsMG+7XuXMTFHd0yltlTzngNCs1tWu5XjaVk5+PT0QqBY5t5TGI1pHjftGZNV0A+
-         KDxe7x7HnHY+hqoMHcsWljhna9CXXvRZNx+v9Jj/WjGl+YRVeHhieI0NbV7eMBLDwHYx
-         E9Ve06kcH+5wgzg4o6A5sh3J+YZKeEAJWu+2CUr/VzNbt7UQ8gdr8SeH97qZSaPkvl0I
-         rae+45HMY2ttBjxkYUQLQzSU0KOXAEwDqHRaod4sJUtjvHZmERcxJ4twcNHNoIy/mj/F
-         kplw==
-X-Forwarded-Encrypted: i=1; AKwUvBxncKacRQJxEaOIzzTgJhlyzIAmKGUgmSigXunw6oRT/0uASxS7JMkBBPsKsELgDWLf7jUFFs0t+KveF+w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmfknE/KmWdjOQDtuhnhgZoZcjxb0FdBE1ym3q1DxVAx7A+Yvv
-	rXMfH/t86Zu6Y42edFtPxgUJ+vl5Xe0KsFhMghuDQFizOfKK2j0mD5pmZ80j2Yj0tZ1ZNyk56yZ
-	cofbxRp1cFJ7vgTLAuVh0sA5ZYelS4r2oz72XOtPvXsBLEJgPWXRhjApsocc=
+	s=arc-20240116; t=1789567746; c=relaxed/simple;
+	bh=cMk/DPSonQx3LZYIuqxOrXxZJw5cg+Q7dRye5NtN0Cw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S8yIjF/CRs+LpDkPMjRjdrsg7VtJ6G1k3HfB3tBdWxcwEwi0fv/rSEjL74+LKvj8EHR+VwwOkjDILpjyZ98JtTp0brXXwFbZWc8reFv8jrOJtJurqxlRtQIbxnVw9JBHqPG0RpCgdElFq96eBiAwpidEYBeLyo7eDjNG6xxGezo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k3IOKsrV; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k3IOKsrV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FB6F1F000FF;
+	Wed, 16 Sep 2026 14:08:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789567741;
+	bh=P2FyxGgw1ikYY2FCX/RdMpWGC88woDzIrvMXKz3/vl8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k3IOKsrV9yyi/4efi5YTBfCdN6BT4WiFqtM9xMibfeZ8L1JLvwZnt6FH4xJ5EPlj7
+	 fbcF7iBBEBjlNYvZH0Zl1AevtDgRZ+t/3/Wo91VAtHPzDOSH6Wbo1AyjsPi8xrWtS6
+	 f+9fp1cRGGUS8dJV3qx2C2524oHeoyofz1cnix+QBGaaZyEXNVK1m5aY0eFnWS0HfT
+	 WG/4Lbir4gbnFT/FxZOTj8JXJEu1ogRq6aeB3Si12XyNlz3aybYnQiqy6A9LCcTkLF
+	 BLGY4dBxqbXGvK3jCfMxqNgl/TzycjY5J/AsYTyFaXLDTJ/L/r9ytSIv6NIFFLCx1L
+	 xJ3iqBqVDOtPg==
+Date: Wed, 16 Sep 2026 15:08:55 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, wangjiexun@tinylab.org, sashiko-bot <sashiko-bot@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+Message-ID: <aqqi1KWDD9KMa0FO@gremlin>
+References: <20260912110832.3203902-1-gourry@gourry.net>
+ <aqloB0zm3RjJ47m1@gremlin>
+ <aqlzzwLOVT79Ti_7@gourry-fedora-PF4VCD3F>
+ <aqqTtW3vjfzH8bcY@gremlin>
+ <aqqgeOtYBcRdVqmI@gourry-fedora-PF4VCD3F>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:81c9:b0:6be:4eb3:e1c0 with SMTP id
- 006d021491bc7-6c7d3fe744bmr2517440eaf.45.1789567706922; Wed, 16 Sep 2026
- 07:08:26 -0700 (PDT)
-Date: Wed, 16 Sep 2026 07:08:26 -0700
-In-Reply-To: <6936812a.a70a0220.38f243.0090.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aaaa2da.86093f18.33004f.0001.GAE@google.com>
-Subject: Re: [syzbot] [kvm?] BUG: sleeping function called from invalid
- context in kvm_mmu_notifier_invalidate_range_start
-From: syzbot <syzbot+c3178b6b512446632bac@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, bigeasy@linutronix.de, dwmw2@infradead.org, 
-	dwmw@amazon.co.uk, kvm@vger.kernel.org, liam.howlett@oracle.com, 
-	liam@infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-rt-devel@lists.linux.dev, ljs@kernel.org, lkp@intel.com, 
-	llvm@lists.linux.dev, lorenzo.stoakes@oracle.com, me@brighamcampbell.com, 
-	mhocko@suse.com, nogikh@google.com, oe-kbuild-all@lists.linux.dev, 
-	pbonzini@redhat.com, rientjes@google.com, rppt@kernel.org, seanjc@google.com, 
-	shaikhkamal2012@gmail.com, shakeel.butt@linux.dev, skhan@linuxfoundation.org, 
-	surenb@google.com, syzkaller-bugs@googlegroups.com, vbabka@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqqgeOtYBcRdVqmI@gourry-fedora-PF4VCD3F>
 
-syzbot has found a reproducer for the following issue on:
+On Wed, Sep 16, 2026 at 10:02:45AM -0400, Gregory Price wrote:
+> On Wed, Sep 16, 2026 at 02:18:36PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > >
+> > > relevant meme: https://i.imgur.com/W0N40BK.png
+> >
+> > Content not viewable in my region :'( seems I do not have a loicense for
+> > that!
+> >
+>
+> google "reading other people's code meme" and find the comic with
+>
+> // this is bridge
+>
+> :]
+>
+> > >
+> > > No argument here. This function in particular is really horrendous.
+> > >
+> > > I think i'm now 4 or 5 stacks deep on the "Thanks for fixing a bug, but
+> > > while reviewing your fix sashiko found yet another CVE-worthy bug".
+> >
+> > Yeah, I WISH it wouldn't do that.
+> >
+> > I mean it's helpful to some degree and it finds real stuff.
+> >
+> > But it's _where_ it does that and the workload++ aspect of it.
+> >
+>
+> In some senses - yes it's annoying.
+>
+> In other senses, it's saved me a lot of pain debugging my new work, and
+> I'm willing to do some cleanup on the way to new functionality.
+>
+> Someone's gotta be the janitor I guess.
+>
+> > > I suppose reasonable to say the goto is worse.
+> >
+> > Yeah I know it's all a bit much of a muchness, and obviously my suggestion
+> > _duplicates code_ which is also not wonderful.
+> >
+> > But the control flow in the function I think is a bigger issue.
+> >
+> ...
+> > > I'll spin a v2.
+> >
+> > Thanks!
+> >
+>
+> Given i already started rewriting and validating the entire garbage
+> pile (see other response), mind if i just leave this as-is?  This gets
+> completely replaced anyway and i'd rather not have to go backward at
+> this point.
 
-HEAD commit:    9b87fdc9af2f Merge tag 'sched_ext-for-7.3-rc3-fixes' of gi..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16f46bf9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
-dashboard link: https://syzkaller.appspot.com/bug?extid=c3178b6b512446632bac
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12f23925580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16f23925580000
+Sure
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/d9d20c79bd3c/disk-9b87fdc9.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/2a6a8f176798/vmlinux-9b87fdc9.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/db8864d1c812/bzImage-9b87fdc9.xz
+And feel free to add:
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+c3178b6b512446632bac@syzkaller.appspotmail.com
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-in_atomic(): 0, irqs_disabled(): 0, non_block: 1, pid: 38, name: oom_reaper
-preempt_count: 0, expected: 0
-RCU nest depth: 0, expected: 0
-locks held by oom_reaper/38: 4, last CPU#1:
- #0: ffff8880370147b0 (&mm->mmap_lock){++++}-{4:4}, at: mmap_read_trylock include/linux/mmap_lock.h:619 [inline]
- #0: ffff8880370147b0 (&mm->mmap_lock){++++}-{4:4}, at: oom_reap_task_mm mm/oom_kill.c:566 [inline]
- #0: ffff8880370147b0 (&mm->mmap_lock){++++}-{4:4}, at: oom_reap_task mm/oom_kill.c:609 [inline]
- #0: ffff8880370147b0 (&mm->mmap_lock){++++}-{4:4}, at: oom_reaper+0x2b4/0xc10 mm/oom_kill.c:650
- #1: ffffffff8e30af80 (mmu_notifier_invalidate_range_start){+.+.}-{0:0}, at: mmu_notifier_invalidate_range_start_nonblock include/linux/mmu_notifier.h:495 [inline]
- #1: ffffffff8e30af80 (mmu_notifier_invalidate_range_start){+.+.}-{0:0}, at: zap_vma_for_reaping+0x193/0x380 mm/memory.c:2266
- #2: ffffffff8e30afd8 (srcu){.+.+}-{0:0}, at: srcu_lock_acquire include/linux/srcu.h:198 [inline]
- #2: ffffffff8e30afd8 (srcu){.+.+}-{0:0}, at: srcu_read_lock include/linux/srcu.h:305 [inline]
- #2: ffffffff8e30afd8 (srcu){.+.+}-{0:0}, at: mn_hlist_invalidate_range_start mm/mmu_notifier.c:515 [inline]
- #2: ffffffff8e30afd8 (srcu){.+.+}-{0:0}, at: __mmu_notifier_invalidate_range_start+0x5c6/0xb80 mm/mmu_notifier.c:580
- #3: ffff8880465ad560 (&kvm->mn_invalidate_lock){+.+.}-{3:3}, at: spin_lock include/linux/spinlock_rt.h:45 [inline]
- #3: ffff8880465ad560 (&kvm->mn_invalidate_lock){+.+.}-{3:3}, at: kvm_mmu_notifier_invalidate_range_start+0x1b6/0xc10 virt/kvm/kvm_main.c:745
-CPU: 1 UID: 0 PID: 38 Comm: oom_reaper Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- __might_resched+0x31b/0x470 kernel/sched/core.c:9257
- __rt_spin_lock kernel/locking/spinlock_rt.c:48 [inline]
- rt_spin_lock+0xc2/0x400 kernel/locking/spinlock_rt.c:57
- spin_lock include/linux/spinlock_rt.h:45 [inline]
- kvm_mmu_notifier_invalidate_range_start+0x1b6/0xc10 virt/kvm/kvm_main.c:745
- mn_hlist_invalidate_range_start mm/mmu_notifier.c:525 [inline]
- __mmu_notifier_invalidate_range_start+0x709/0xb80 mm/mmu_notifier.c:580
- mmu_notifier_invalidate_range_start_nonblock include/linux/mmu_notifier.h:498 [inline]
- zap_vma_for_reaping+0x1f7/0x380 mm/memory.c:2266
- __oom_reap_task_mm mm/oom_kill.c:548 [inline]
- oom_reap_task_mm mm/oom_kill.c:585 [inline]
- oom_reap_task mm/oom_kill.c:609 [inline]
- oom_reaper+0x519/0xc10 mm/oom_kill.c:650
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-oom_reaper: reaped process 8617 (syz.2.1028), now anon-rss:0kB, file-rss:72kB, shmem-rss:0kB
+If I didn't say already
 
+Because the code is right (or so I convinced myself) :)
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+>
+> ~Gregory
+
+--
+Cheers, Lorenzo
