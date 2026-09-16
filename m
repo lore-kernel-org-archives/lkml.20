@@ -1,137 +1,166 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18EFB51FCBE
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:27:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332AE538D94
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568829; cv=none; b=UzRFzhaUIK6qC1ty6dgaVhZlaVIx5zhF3IMVn2c2l61NVACf11Pnj38pB4Om1Yb1aen1GyaM2Ke7q1LaPI7Db6z4aDk2nTSV+u6tc9l1tO87snrEtVG4ByKkapWCXrNYlCI3JeEGfiBqdHeAhk88oPifnuNvycWfIC1rSCw3tk4=
+	t=1789568841; cv=none; b=S0gTlpfQW/m3RYhj8+SPKSf2RbEOREqe/hwfeLNjCd9jCMIkhdqSg8sltHDv3MsLW8vEL9lR6HlNV2QsUUC6Td2PDyz4M6J+QlXPszpTrlAmgrAr6BfTDr1qmiRYdW4UBijTllIa+5Lxk2Ja5l3wMDCc8XMvYvr0JsD8HpI88Ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568829; c=relaxed/simple;
-	bh=5gx3hFy8w0hJVCf6w05eXatJkfbVEQiR6oApXJvvce8=;
-	h=Message-Id:Cc:Mime-Version:Content-Type:To:Date:References:
-	 In-Reply-To:From:Subject; b=bNArdxRzy8Lm83rELyYxhATa8/B0rA5TRUOjcCtgSMErdeLuYEliSBZyEBaS4NJbfmmefc2EVpzLFwoAYMvgVczP9yg1ufE2+2JXhCXgtrO4nVPOmOnjLlI29TviYPi1yMfTnMB6y6XYodGOoRa+DYFEUlpa3YWg5ewFYcwpy5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=QOo3YAg9; arc=none smtp.client-ip=209.127.230.112
+	s=arc-20240116; t=1789568841; c=relaxed/simple;
+	bh=GaTQ9iTfa2fiJ8vtF/8FEnHCAP5RxQ/mXmTN4K28/Ts=;
+	h=From:Date:Message-Id:To:References:In-Reply-To:Mime-Version:
+	 Content-Type:Cc:Subject; b=Qvj0K538zDfhmYMOJw53p59CfPzc8IrMxkfnuDJjIWPg/6rMmwPT6YIs+42MQYEs9K50ExMUSEo2zlQHpg8FIOFAFhD1SHDNp48HWU0bV5ZIIApyBcDUj8747/NNeIKQINR6Jp7Fu+Exx+cfXlO04qZyW6xFyZjyRvXRzn5gWkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=JAK5lPm2; arc=none smtp.client-ip=209.127.230.111
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="QOo3YAg9"
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="JAK5lPm2"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1789568816; h=from:subject:
+ s=2212171451; d=bytedance.com; t=1789568828; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=tudkbI/Wzi+fx+PxY1Tz+PO+3o83pqkwPsAyJdML/jU=;
- b=QOo3YAg9pd3gCVNj5U1y+HjZNJFRhlxdXMEcjD0QWbte5vqan78PgFrulZGAMZGuFsGJ5v
- K/xSo5T0EDyNnvXEaftM/j+hkwix6GrdPcuv97eGxLe/BQSJObbmYdRYM9khEHigY303ZV
- g6aP0zdZsCEJErBwLTw95r6onJCN5Y3AILcsZ4ARpEZB74la1hjNUUj+OjhanD9VmdSpk7
- jplN93hv9VqETTog3c0rDbFZ6bMEiXxN1R9Qrb2pB7Ft1nMAwdWXke5lVinBXBdEqpD1Be
- m3IvShozKl2y90VfQKV5ORnfi+h9aJnuReDjexC0zjrvfsBcdGDJsM04T6c/Fw==
-Message-Id: <20260916142623.359336-2-zhouchuyi@bytedance.com>
-X-Mailer: git-send-email 2.20.1
-Cc: <linux-kernel@vger.kernel.org>, "Chuyi Zhou" <zhouchuyi@bytedance.com>
+ bh=YarYGRxch6A9B+7ga7PZoJ3GuLBezPPbSeknKvqJqAo=;
+ b=JAK5lPm2qfyR26bEhkJuW/SrmCU0rj4ZHWeyBPrhxdolKXJ7nv0OfAW4HKQNDDQRJ6YNGx
+ XgGgDMciFFRsZ/Sgrq6LolJyGt5OiCDMz2J4JDQl7bhwtaoMPJHANGQ+yrOk1YJP6UDSEe
+ j7TM3WZDK6c4RLX6hyrEbnb7aMT6xjLAFrP2+AohNKQDy7SW8fHnm3UKTAPSLPioBFLtzI
+ WZOL3qyjQBd6bqzTWe2459TmppweSEnDG8wXiQDxXtbLSaZr8WmpNMDj7vepGXvU0lOUTF
+ +6NXDBgzqoz1SKu02aZqL9o2sce9yYZw79//T1bLOzrKJ448FITqi6wMBDIV+g==
+From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
+Date: Wed, 16 Sep 2026 22:26:22 +0800
+Message-Id: <20260916142623.359336-3-zhouchuyi@bytedance.com>
+Content-Transfer-Encoding: 7bit
+To: <rafael@kernel.org>, <viresh.kumar@linaro.org>, 
+	<catalin.marinas@arm.com>, <will@kernel.org>, <tglx@kernel.org>, 
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>, 
+	<beata.michalska@arm.com>
+References: <20260916142623.359336-1-zhouchuyi@bytedance.com>
+In-Reply-To: <20260916142623.359336-1-zhouchuyi@bytedance.com>
+X-Lms-Return-Path: <lba+26aaaa73a+3ec67b+vger.kernel.org+zhouchuyi@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26aaaa72e+279e9f+vger.kernel.org+zhouchuyi@bytedance.com>
+X-Mailer: git-send-email 2.20.1
 Content-Type: text/plain; charset=UTF-8
-To: <rafael@kernel.org>, <viresh.kumar@linaro.org>, 
-	<catalin.marinas@arm.com>, <will@kernel.org>, <tglx@kernel.org>, 
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>, 
-	<beata.michalska@arm.com>
-Date: Wed, 16 Sep 2026 22:26:21 +0800
-References: <20260916142623.359336-1-zhouchuyi@bytedance.com>
+Cc: <linux-kernel@vger.kernel.org>, "Chuyi Zhou" <zhouchuyi@bytedance.com>
+Subject: [PATCH 2/3] cpufreq: Use hardware feedback for cpuinfo_avg_freq
 X-Original-From: Chuyi Zhou <zhouchuyi@bytedance.com>
-In-Reply-To: <20260916142623.359336-1-zhouchuyi@bytedance.com>
-From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
-Subject: [PATCH 1/3] x86/aperfmperf: Separate hardware feedback from fallback reporting
-Content-Transfer-Encoding: 7bit
 
-arch_freq_get_on_cpu() reads cached APERF/MPERF samples and falls back to
-cpufreq_quick_get() or cpu_khz when no usable sample is available. Its
-callers cannot distinguish that fallback from a measured frequency.
-This prevents a hardware feedback consumer from reporting missing
-samples while preserving the fallback used by existing interfaces.
+cpuinfo_avg_freq is documented as a frequency derived from hardware
+feedback, but it uses arch_freq_get_on_cpu(), which supplies a fallback
+on x86 when the cached sample is unavailable. Userspace cannot distinguish
+that value from a measurement. With amd-pstate-epp, for example, the
+fallback is policy->min even under the performance policy. A fallback
+based on the requested frequency also does not establish the frequency
+at which the hardware actually ran.
 
-Extract the sample lookup and calculation into arch_freq_get_avg().
-Return -EOPNOTSUPP when APERF/MPERF is unavailable and -EAGAIN when the
-sample is too old or has a zero MPERF delta. Keep the existing seqcount
-read, age limit and frequency calculation.
+Use arch_freq_get_avg() for cpuinfo_avg_freq reads and support detection.
+On x86, unavailable samples then return -EAGAIN instead of a fallback
+frequency, and the attribute is omitted when APERF/MPERF is unsupported.
 
-No functional change intended. This prepares cpuinfo_avg_freq to use
-hardware feedback without fallback values.
+Provide a weak default returning -EOPNOTSUPP and reuse the existing ARM64
+AMU implementation. Preserve the behavior of ARM64, scaling_cur_freq
+and /proc/cpuinfo.
 
 Signed-off-by: Chuyi Zhou <zhouchuyi@bytedance.com>
 ---
- arch/x86/kernel/cpu/aperfmperf.c | 25 ++++++++++++++++++++-----
- include/linux/cpufreq.h          |  1 +
- 2 files changed, 21 insertions(+), 5 deletions(-)
+ Documentation/admin-guide/pm/cpufreq.rst | 11 +++++++++--
+ arch/arm64/kernel/topology.c             |  7 ++++++-
+ drivers/cpufreq/cpufreq.c                | 19 +++++++++++++++++--
+ 3 files changed, 32 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/aperfmperf.c b/arch/x86/kernel/cpu/aperfmperf.c
-index 7ffc78d5ebf2..de6297b1284b 100644
---- a/arch/x86/kernel/cpu/aperfmperf.c
-+++ b/arch/x86/kernel/cpu/aperfmperf.c
-@@ -503,15 +503,22 @@ void arch_scale_freq_tick(void)
-  */
- #define MAX_SAMPLE_AGE	((unsigned long)HZ / 50)
+diff --git a/Documentation/admin-guide/pm/cpufreq.rst b/Documentation/admin-guide/pm/cpufreq.rst
+index 34baf20cc202..3057829b01bd 100644
+--- a/Documentation/admin-guide/pm/cpufreq.rst
++++ b/Documentation/admin-guide/pm/cpufreq.rst
+@@ -255,12 +255,19 @@ are the following:
+ 
+         This is expected to be based on the frequency the hardware actually runs
+         at and, as such, might require specialised hardware support (such as AMU
+-        extension on ARM). If one cannot be determined, this attribute should
+-        not be present.
++        extension on ARM or APERF/MPERF on x86). This attribute is not present
++        when hardware feedback is unsupported.
+ 
+         Note that failed attempt to retrieve current frequency for a given
+         CPU(s) will result in an appropriate error, i.e.: EAGAIN for CPU that
+         remains idle (raised on ARM).
++        The attribute remains present during temporary sampling gaps.
++
++        On x86, reads use cached APERF/MPERF samples without waking the target
++        CPU to collect new samples. An expired sample or a zero MPERF delta
++        results in ``EAGAIN`` instead of a fallback to a policy or reference
++        frequency. A CPU that has just entered idle can still have a usable
++        sample, while a busy CPU excluded from periodic sampling can lack one.
+ 
+ ``cpuinfo_max_freq``
+ 	Maximum possible operating frequency the CPUs belonging to this policy
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index d28438f8b83f..939d3e4ce5d2 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -181,7 +181,7 @@ void arch_cpu_idle_enter(void)
+ 
+ #define AMU_SAMPLE_EXP_MS	20
  
 -int arch_freq_get_on_cpu(int cpu)
-+/**
-+ * arch_freq_get_avg() - Read cached APERF/MPERF frequency feedback
-+ * @cpu: CPU to read.
-+ *
-+ * Return: Frequency in kHz, -EAGAIN if no usable sample is available, or
-+ * -EOPNOTSUPP if APERF/MPERF is unsupported.
-+ */
 +int arch_freq_get_avg(int cpu)
  {
- 	struct aperfmperf *s = per_cpu_ptr(&cpu_samples, cpu);
--	unsigned int seq, freq;
- 	unsigned long last;
-+	unsigned int seq;
- 	u64 acnt, mcnt;
+ 	struct amu_cntr_sample *amu_sample;
+ 	unsigned int start_cpu = cpu;
+@@ -250,6 +250,11 @@ int arch_freq_get_on_cpu(int cpu)
+ 	return freq;
+ }
  
- 	if (!cpu_feature_enabled(X86_FEATURE_APERFMPERF))
--		goto fallback;
-+		return -EOPNOTSUPP;
- 
- 	do {
- 		seq = raw_read_seqcount_begin(&s->seq);
-@@ -525,11 +532,19 @@ int arch_freq_get_on_cpu(int cpu)
- 	 * which covers idle and NOHZ full CPUs.
- 	 */
- 	if (!mcnt || (jiffies - last) > MAX_SAMPLE_AGE)
--		goto fallback;
-+		return -EAGAIN;
- 
- 	return div64_u64((cpu_khz * acnt), mcnt);
-+}
-+
 +int arch_freq_get_on_cpu(int cpu)
 +{
-+	int freq = arch_freq_get_avg(cpu);
++	return arch_freq_get_avg(cpu);
++}
 +
-+	if (freq >= 0)
-+		return freq;
- 
--fallback:
-+	/* Preserve the fallback used by scaling_cur_freq and /proc/cpuinfo. */
- 	freq = cpufreq_quick_get(cpu);
- 	return freq ? freq : cpu_khz;
+ static void amu_fie_setup(const struct cpumask *cpus)
+ {
+ 	int cpu;
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index 0d0df986fa3d..21bec6b7f538 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -705,9 +705,24 @@ __weak int arch_freq_get_on_cpu(int cpu)
+ 	return -EOPNOTSUPP;
  }
-diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index 35ce665edfd8..dab1d921183d 100644
---- a/include/linux/cpufreq.h
-+++ b/include/linux/cpufreq.h
-@@ -1224,6 +1224,7 @@ static inline int of_perf_domain_get_sharing_cpumask(int pcpu, const char *list_
+ 
++/**
++ * arch_freq_get_avg() - Get an average frequency from hardware feedback
++ * @cpu: CPU to read.
++ *
++ * Provide cpuinfo_avg_freq with an average operating frequency derived
++ * from recent hardware feedback for @cpu or its frequency domain.
++ *
++ * Return: Frequency in kHz, -EOPNOTSUPP if feedback is unsupported for the
++ * CPU or policy under the current configuration.
++ */
++__weak int arch_freq_get_avg(int cpu)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline bool cpufreq_avg_freq_supported(struct cpufreq_policy *policy)
+ {
+-	return arch_freq_get_on_cpu(policy->cpu) != -EOPNOTSUPP;
++	return arch_freq_get_avg(policy->cpu) != -EOPNOTSUPP;
  }
- #endif
  
-+extern int arch_freq_get_avg(int cpu);
- extern int arch_freq_get_on_cpu(int cpu);
+ static ssize_t show_scaling_cur_freq(struct cpufreq_policy *policy, char *buf)
+@@ -769,7 +784,7 @@ static ssize_t show_cpuinfo_cur_freq(struct cpufreq_policy *policy,
+ static ssize_t show_cpuinfo_avg_freq(struct cpufreq_policy *policy,
+ 				     char *buf)
+ {
+-	int avg_freq = arch_freq_get_on_cpu(policy->cpu);
++	int avg_freq = arch_freq_get_avg(policy->cpu);
  
- #ifndef arch_set_freq_scale
+ 	if (avg_freq > 0)
+ 		return sysfs_emit(buf, "%u\n", avg_freq);
 -- 
 2.20.1
