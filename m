@@ -1,175 +1,186 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D36B84A8FE5
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565906; cv=none; b=khzF2igwtZzUI/zMJSo+bk0Us/9M6nphSGUhCXITNoFY2DjqLlPC8xaPhFcQaAxC2kkzsefNXsRUDG2fakOk2XvyrAFnT4HMCmYWya1ZYdsRYiZ7eZ/+wr5Gc3Uv3ivdz3pKdm2FSYmGk2GAqkrQkOEsEwWSNH7KsAhWVAdClAY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565906; c=relaxed/simple;
-	bh=gr8uD9XWy7EPGvPIwLrmL5ImB5sWtzac4sXA0IvvQd0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pGWeaJzeAmOZAxzhGBAZhZjyOSiq5QZ888AkIhmjH0oYYLzXDFSpK3v7s9SBJ8ZVQBH0P7crjQ65n0flHefgBkhrq2+XMY0cBebMVLJm1tpvNnFyvjMfFH8gYu2dPNsVxEwCOzdzs397dzkTLObkZNiy+f6wl/08ckoZMn28HFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F8kSfjgk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TY6GmmXl; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61E03FC5D3
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:38:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789565914; cv=pass; b=TPq/JoOuOmtDcyEjcBHWSSO0ZKjDfPl2VgdDLB8cCFRd/lTZVhwhiY87fTFQZhToNIg0CCv0jSUtR+DijxHprTGRvqe8djzWEH/xpc9SRNY39JDQ+Hod7UqsZ14qvVqlesLif/GMe1LSKC+uR4fCB+4szap2Fnhj/kWnComGqhs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789565914; c=relaxed/simple;
+	bh=VxVVFUrZNYmDxtHauKu16hNl8SquobegkBvEi2oGCpE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r2HWG3lhF7sNltIs6fSqYneBh1/fxio3qqPj3LeTMuh+74TGrJh5kz32jMqQL2fx+IqQUCe6X4XRxq4Y7/W0No1Af8d9MpApwRbz2Eu9by8IFl3ykecJ1bcHnfEg6T/8pAYryKl5PdS3BdG4qYF8x3k+SJdbqLh/QlMEXRXo7Gw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=goxpIBE3; arc=pass smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F8kSfjgk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TY6GmmXl"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GCYZRS3291278
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:38:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=LlhMlNHGEpK0T30X/QJXpo30
-	EE7ZsUpq2JBHpDtamuk=; b=F8kSfjgkXsDY12jEah2EiaQ98LB4kaRz6Sw5gUOD
-	dS3eDgCRFh2ZAlTRJWcgy48XpX9PzIAhjSO7vthSxzPJPWWNFJpzhJp8tEPrxA4h
-	u873Ci8ACv7nlOsU/Dxof+ezLjEs6cWrJdbScBHKoIJkOJCit5ih2E1IKCc9RsrW
-	8tqiyc37ynjhH2V2nkDN0x8QKoLp16aB5CpbzEz3vMKQcbtKTOSim68smku3mpnf
-	Jr2fiDpHVMAZpKyHzvxkPJJzWnXzIRWTLBjtOnE1HQSOL0ConSZU6fnNXNekqQie
-	DQXtDrzY/AfZkQ3j7P/oIsPs9mGOpByYOlSBYjOiyMn6sw==
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqfvfk2wb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:38:12 +0000 (GMT)
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8076c66efc6so5767640a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:38:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="goxpIBE3"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff163f65so7277351fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:38:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789565886; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RghepzOTYJOFuceT0CGZhBiOIm10GoOs7JQd2XmRkOkRuIF91f9fVKuf89jELABugq
+         r+EzNOrysi2mon0U+8h3M1bmUripyyP/E88HrXfOjewZUvgN61QgD+bHjt5uhPPl7V3j
+         1071H2rekLPFuNS1mCS/6NFDYsQ0hjWCfZ3MwJ3NlSoOK6CN2Kx5cNbDes87jsRZH+dn
+         qzTLTTQHV5aSoj4BMv6ZQzWHP1IeR0YU6eLdybgCXbZGS5dANCF5rGj3cdbxJy3YdGaN
+         R9uApvUUENcaxX46DphGrkWq7hAemGutDnlWvg0aYhvQo8iHK1CxMugNzhIP6/whjvxJ
+         Dorw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=j0teu7xp+BkcAacjp7xSCRSnLwGlM0PRADY07dogivo=;
+        fh=tQWU+7PNd5TxBRVmebQNZNGklfIVvAnXOtHelbfNj+A=;
+        b=A7Zrq0/wfyHF4AOpQmlJVwb9pMeoE266VqpVv2UTpWq5YdbNLv3mMhmbAfYpjBTMOi
+         qLa27rsHZSHDqT9dHL804ZFCkf6GI+YYuDkdZssl2qISL3OPLNS9PKfoZcLISDD7kSGe
+         WwUi1Ic9Ec9je9UReMQMtGqMi1UOY8xllb8fgYNYcBOZpTVMDuZKo4JzwZ+lU7z1gi7g
+         8A535MhZACj8iaUGkYUiRRKYEV6p3wQF1PUaaesAus3SEZJ7OtrnCl0C2LzWD5zlYTM7
+         RwvB8MzOHLSXobzR7a5GMo/zrtAVReYhBpBUCLaqgA/EFl07KwqvAZm7pAY9oeyCU3rX
+         x9jQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789565892; x=1790170692; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789565886; x=1790170686; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=LlhMlNHGEpK0T30X/QJXpo30EE7ZsUpq2JBHpDtamuk=;
-        b=TY6GmmXl6/ib8uv3Ot3V+A7hpe1nV7WaAjtJh2DTJgi+RvnaWH0WhXbxGQs2/W25tl
-         JzL5jE66B1YNrLST1a6g6M7+xRV/1yeZlrRAViRCGHhqlFNsvy7kqRvcPvBNkb6o+BWi
-         3HFnmhYSDZuHra6x94y3aeuI9B7Xwq6SSeOXIR7ijIfJ6yKSEKTcgGvyFUG+w3Yp+i0L
-         ymn3xLJ74biNk9FMxfqL3BchmeYt88DEEtNospknxEGb2o/3H80/5Nqyb8OlivHhGT6e
-         aMn7GmH71Lp04Ya8zDGlEipejxR453DfOAR2COsqbEbNI6r6Yd+87NUzBnlULQs/yRnV
-         UAOA==
+        bh=j0teu7xp+BkcAacjp7xSCRSnLwGlM0PRADY07dogivo=;
+        b=goxpIBE3+1Wl7dZugsuyulcfdqNX5EMpXYHKkEWt9MeUBHSgVmx8J8Gwhi9M4Nrurj
+         pYJ3GWfBLKeRAVTKNaibMrgyQbLcBIoiMMvNx9cZ1NtgXWPupXI7Xz7q4Fo9wvomgEk5
+         agakTinOSanKjRGFQs5e++o/8UCLmlFznB4xQ6dixJJiSu0k3RaYnG27iqGpqvFUZfOA
+         94+MVwhBxTCa5DLk/EOD/O9ygL/+Wm6smrKC8ydLkw8zbzVZNJgBe7fAfF+M4YCwyIdK
+         rk2G9tdCCX3u0h5JSFrfVzJ0P3AA96pINaSWDevEZo2k/iM1AJrfkOOjDjy2wWmqssTa
+         V4JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789565892; x=1790170692;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789565886; x=1790170686;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LlhMlNHGEpK0T30X/QJXpo30EE7ZsUpq2JBHpDtamuk=;
-        b=veKCQ/DvKGpmgne89hTTNZnKINhMwR9utJDgLe3btg1BEXsGmXccCoxguEJpM386EW
-         t3904oxQDdyMvgSOZAz36i2KJp73mwB9mtGjAvY6zM+HiufEie5Ag+NJlRC3kPl63EFR
-         rMvaw7xx3PXyN5mzcVpBXGieaz10m0DDRVYtkMxGMtazuG56iTynXtavOcc7vNpCGIw4
-         pk+qXtKBocZ0HenAoMhPoV7FlBErx7+HwO97amUYq4cEhahUiP4KUdevSh9bfmnczfo2
-         F18pwNVqSOCq3wZr6kdVOL3zgIqvinDBsDR5z6/6D3LmNhLmSJMCCRnW9tCc+A+sV8iZ
-         VvfA==
-X-Forwarded-Encrypted: i=1; AKwUvBydGABIEdyjLUF4fyMsIAsGyjblAeBjJ5fDkdg+ELFYsV7pbdX9nILG+/tKw/xW3jekf4QpBdJ/93a6hPY=@vger.kernel.org
-X-Gm-Message-State: AFuF++meTQV0XPgK35w3SAL/eHFV5lg05ShaPHFGF1E0yJ3yvsGYI8bh
-	exD6qVMdX6c7IlY1TIef5JT725Vs4s6E9oaV32kcBt082L9Ob14ei1gmvW5lq3kMZhVEvxSICeU
-	Oz5WpU6N6Ha+W+XAmKNHT/P0bkIQfz+nhZ9Z1+iKt0MwMMTg6wTHp3Fq6wusZ+IyHlwI=
-X-Gm-Gg: AYBFou16a26UuVwEN1+rQBqXQJoRkTHWSKIQKoJoNq8rczBeJ9BqhyiF+hEzEMj59gf
-	G/395HbJLufiqOg2rTAtGWhpjGkjm6NTeD4WzpsjiH8a2lr7BflKxcu9OLJbkR8Wz+BEs2okrqy
-	RwG8cdYZLcFn0WUZ5+IZCuxjIBNNBLuEm6b7LQnyBJJcHlLxM/y0A/+5QSehY0fZckhvzGt8Ncw
-	eEHVsD7wSuCvLbuLAVxlQWcPgHMU/hiQaLgUJXobgNclY026UBI4y4qhRd50wFFgKNkCpVlCfnn
-	CklSWMveqX8fVZCzsBuyQQn7iXA8IVGrLXwyQkNA7hyxauBVPc5ax57e3WKJnCDhQB7XsZ+LyC2
-	8J1DeSN9Q2Q6lmcz1j5lNF23EYIQj1EH/2Lz9guuZXqg=
-X-Received: by 2002:a05:6830:410c:b0:7f4:effa:a5ad with SMTP id 46e09a7af769-80b2ec5aac4mr4800099a34.10.1789565891855;
-        Wed, 16 Sep 2026 06:38:11 -0700 (PDT)
-X-Received: by 2002:a05:6830:410c:b0:7f4:effa:a5ad with SMTP id 46e09a7af769-80b2ec5aac4mr4800069a34.10.1789565891485;
-        Wed, 16 Sep 2026 06:38:11 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80b07ad0302sm2541841a34.25.2026.09.16.06.38.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:38:11 -0700 (PDT)
-Date: Wed, 16 Sep 2026 21:38:04 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-        linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 RESEND 2/2] usb: typec: Add onsemi FUSB15201 driver
-Message-ID: <aqqbvEH0U6LYR8UR@QCOM-aGQu4IUr3Y>
-References: <20260911073414.16711-1-shengchao.guo@oss.qualcomm.com>
- <20260911073414.16711-3-shengchao.guo@oss.qualcomm.com>
- <aqfyPQ8bxxvBEB_3@black.igk.intel.com>
+        bh=j0teu7xp+BkcAacjp7xSCRSnLwGlM0PRADY07dogivo=;
+        b=QIq0LkPafRKwgxZSvF/ckR7VBSQ+VEp3xqrSD/WVHK9RStz5MwBhg1GRWsP3AGGA1R
+         OpeSxw0SS2DLm2jslMeNT3vPVLoyJb5918RNgcO43JSVCuEG/xLQ8wHbF5DU/oKppv6+
+         EBBt39bOujzSn2wVsieSyKqZ53PA0FLlW1yRljt5eAqwjWIOR2M0x4cd2c39g7fnZdf1
+         aTTNypKQi9mJL8q/rX+Gpb8wkEDM9dkLFUbgm284eMd2pOu/el4fZQ97hIN00hyuxKZx
+         e64ghsHfZq8+S8Id6CZwI8hw/gKWMAS7on/AI4LXikeTVFSUcuNCDvVfT+SywZubL++7
+         aQfA==
+X-Forwarded-Encrypted: i=1; AKwUvBy2ZyHij7m4KkZX/ezd2KaAZzW8swKX0Ak9tOTk1Bc5G/uDIhcn2Zfi39VtOS8J1wBNO+LrtlruFRA3o5s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMdisIYOKhGNgZDew1NsiaJXj/zYGlwcTiaBUpv1TbxoN7Maci
+	zJBya/oR0AE89HnH7K9JCMoIoggs3PAMneVEu7lx/lpLQOUbNpdOp+VmiAfy9glCOhhKLL1yKY+
+	tpA3XOyhS3jXr/QejcEWArFKUrKUDbhI=
+X-Gm-Gg: AYBFou3A7++uRMEwJDOaB76Kz8erJf362msstV94cvzg3wNWq7HlFyVRrLG5gNlFysx
+	uw9IqGPZFZhi4KRZdIGcV/RipOE9sHulZlX3VDoosLzcfCcmdS7zaTInyWf2HYyD7Sh4jBe/dO5
+	JpIoQ21bXUG53BW/CNeaPbFeaKgZMLgdmoLN0p4h8rEw+WIA3Ake8zEDQApU5hxd+/QQFVt/qU0
+	WBfNwGFqdwo1MfrmYcg70UluWVlOWdY8raD+osfHXjUHwlU4tZWFxBMP4wpwt7KEtq4eGA3jJYW
+	d97eVHmCQ/db7zA8mpEZYWx3K6XeKyUHNy8nu/6f0Bmx9TNYH5B1c3g3
+X-Received: by 2002:a2e:a7ca:0:b0:3a3:2a41:c0c4 with SMTP id
+ 38308e7fff4ca-3a5dca30ebemr5052221fa.14.1789565885882; Wed, 16 Sep 2026
+ 06:38:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqfyPQ8bxxvBEB_3@black.igk.intel.com>
-X-Authority-Analysis: v=2.4 cv=JYkpPkKV c=1 sm=1 tr=0 ts=6aaa9bc4 cx=c_pps
- a=OI0sxtj7PyCX9F1bxD/puw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=8alAasM9Vt_m-_31djgA:9 a=CjuIK1q_8ugA:10
- a=Z1Yy7GAxqfX1iEi80vsk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE4MiBTYWx0ZWRfX8KbUVOVUOHDh
- 8qZ/IjN5kb+R6hMvOJj+hg4lU3GFx/dLf1/E4u+pnNUcx/iFKvNAtaoVDa6kYZgCjTBa6K0KiNF
- GBPdjwoecA6bzjCqUWQL8uljuiaiqYehfaeLxJ12T2kdrjd9Rdp27UK7plYBa3EKuTHS0HvxQV6
- VpgaVAtpAEh/ZIxrj6CQ/c1tJ4/rCyDWLSCCk4P/CyGQEbOIfErqahvpoJ7btJiUQbr1RoEjjAK
- 6ZJbMDHy+IvIcsSbwJ3OpMx5HnTM7Yo7nUba0ajZaVJsy4hkEF4U1riIXh6z9aOtYQo9nBxVA1x
- rSoGklSiT6giBTZIs9TivZWsoHK50OmaWsrWMx2RaM15yGCJqt+uXfqnJrTQ3ZC2bf2woqPkzKh
- YSNSz3dtfxC6bEmofqRI95T7qQ/d7qw/qHPUiMjrSojuUQoFrfvT36Iv1LzTTPILb+QDb43Qxe+
- wmBD1OxOD8mnxvofCjQ==
-X-Proofpoint-GUID: hI-E7us5cyfj9qI01oJdgeeuwIsYXlHu
-X-Proofpoint-ORIG-GUID: hI-E7us5cyfj9qI01oJdgeeuwIsYXlHu
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE4MiBTYWx0ZWRfX3tmpgESgR/7E
- YsKalbf2Mt+tQzqNay1p3KdtOb1nejubZGtOp0QK6pkpiMG3bauYK2RLgG0iii4ILZFsJY9cFL/
- /SmWsttUwazzf237duQSutWAi4XNeTE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 priorityscore=1501
- spamscore=0 malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160182
+References: <20260105032112.1156359-1-dolinux.peng@gmail.com>
+ <483ad434-4512-442e-ae6c-4108d5af5e49@gmail.com> <ea36a1e2-2940-4385-9b1d-fb197f1b562a@paulmck-laptop>
+In-Reply-To: <ea36a1e2-2940-4385-9b1d-fb197f1b562a@paulmck-laptop>
+From: Donglin Peng <dolinux.peng@gmail.com>
+Date: Wed, 16 Sep 2026 21:37:50 +0800
+X-Gm-Features: AcwNN1XGYkOqKrLXqV4AV69JFjHJ2lwKLnzFZ5CH-17qpLfCXzKgAHHJYjVSwSg
+Message-ID: <CAErzpms_CF5V+3T0i=iG9p7Q5uQS1287whvOe9iXhFkAGvE90w@mail.gmail.com>
+Subject: Re: [PATCH v2] rcu: Align stall warning 'idle=' output with documentation
+To: paulmck@kernel.org
+Cc: joelagnelf@nvidia.com, frederic@kernel.org, neeraj.upadhyay@kernel.org, 
+	qiang.zhang@linux.dev, rostedt@goodmis.org, rcu@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Donglin Peng <pengdonglin@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 03:10:21PM +0200, Heikki Krogerus wrote:
-> On Fri, Sep 11, 2026 at 03:34:14PM +0800, Shawn Guo wrote:
-> > The FUSB15201 is a dual-port USB Type-C and Power Delivery controller
-> > which runs the Type-C state machine and the PD policy engine on an
-> > integrated microcontroller. The host only observes the resulting state
-> > and may ask for role swaps, so this is a plain Type-C class driver
-> > rather than a TCPC driven by the Type-C Port Manager.
-> > 
-> > Register a Type-C port for each connector described in firmware, report
-> > attach and detach, orientation, power and data roles and the PD
-> > capability of the partner, and drive the USB role switch of the attached
-> > USB controller so that OTG role switching works. Data and power role
-> > swaps requested through sysfs are forwarded to the controller, which
-> > performs them asynchronously and reports the outcome as a port status
-> > interrupt.
-> > 
-> > The controller exposes a per-port VBUS ADC reading, but the Type-C class
-> > has no VBUS attribute and nothing needs the value, so it is not read.
-> > PD messages, PDOs and alternate modes are not exposed by the hardware at
-> > all. The chip-wide MASTER_RESET command would drop both ports at once
-> > and has no caller, so it is left alone as well.
-> > 
-> > Assisted-by: LLM
-> > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> 
-> You changed the commit message, and that counts too. This is v3.
+On Sat, Sep 12, 2026 at 12:06=E2=80=AFAM Paul E. McKenney <paulmck@kernel.o=
+rg> wrote:
+>
+> On Fri, Sep 04, 2026 at 08:24:05PM +0800, Peng Donglin wrote:
+> > On 1/5/26 11:21, Donglin Peng wrote:
+> > > From: Donglin Peng <pengdonglin@xiaomi.com>
+> > >
+> > > The RCU stall warning message includes an "idle=3D" field to indicate
+> > > the dyntick-idle state of a CPU. According to Documentation/RCU/stall=
+warn.rst,
+> > > the hexadecimal number before the first '/' represents the low-order =
+16
+> > > bits of the dynticks counter. An even value denotes that the CPU is i=
+n
+> > > dyntick-idle mode, while an odd value indicates otherwise.
+> > >
+> > > This was valid until commit 171476775d32 ("context_tracking: Convert =
+state to atomic_t"),
+> > > which merged the context-tracking state and dynticks counter into a
+> > > single atomic variable. In the new layout, the dynticks counter occup=
+ies
+> > > the higher bits starting from CT_RCU_WATCHING_START.
+> > >
+> > > However, the current stall warning code prints the value from
+> > > `ct_rcu_watching_cpu()`, which returns `atomic_read(&ct->state) &
+> > > CT_RCU_WATCHING_MASK`. This masks out (clears) the lower state bits,
+> > > resulting in a value that is always even. This obscures the CPU's tru=
+e
+> > > idle state and makes the output inconsistent with the documentation.
+> > >
+> > > To restore consistency between the code's output and the documentatio=
+n,
+> > > shift the atomic value right by CT_RCU_WATCHING_START bits before pri=
+nting.
+> > > This extracts and displays only the relevant dynticks counter portion=
+,
+> > > allowing the parity (even/odd) to correctly reflect the CPU's dyntick=
+-idle
+> > > state.
+> > >
+> > > Fixes: 171476775d32 ("context_tracking: Convert state to atomic_t")
+> > > Signed-off-by: Donglin Peng <pengdonglin@xiaomi.com>
+> > > Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
+> > > ---
+> > > v2:
+> > >   - Use CT_RCU_WATCHING_START to replace ilog2(CT_RCU_WATCHING) to cl=
+ean
+> > >     up the code, thanks to Zqiang.
+> > >   - Clarify the commit message.
+> > > ---
+> > >   kernel/rcu/tree_stall.h | 2 +-
+> > >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
+> > > index b67532cb8770..fd9d7fd6e17c 100644
+> > > --- a/kernel/rcu/tree_stall.h
+> > > +++ b/kernel/rcu/tree_stall.h
+> > > @@ -555,7 +555,7 @@ static void print_cpu_stall_info(int cpu)
+> > >                     rdp->rcu_iw_pending ? (int)min(delta, 9UL) + '0' =
+:
+> > >                             "!."[!delta],
+> > >            ticks_value, ticks_title,
+> > > -          ct_rcu_watching_cpu(cpu) & 0xffff,
+> > > +          (ct_rcu_watching_cpu(cpu) >> CT_RCU_WATCHING_START) & 0xff=
+ff,
+> > >            ct_nesting_cpu(cpu), ct_nmi_nesting_cpu(cpu),
+> > >            rdp->softirq_snap, kstat_softirqs_cpu(RCU_SOFTIRQ, cpu),
+> > >            data_race(rcu_state.n_force_qs) - rcu_state.n_force_qs_gps=
+tart,
+> >
+> > Gentle ping on this patch. Thanks!
+>
+> The advantage of the current code is that the CT_STATE_KERNEL,
+> CT_STATE_IDLE, CT_STATE_USER, and CT_STATE_GUEST information is visible
+> in the lower two bits of that hex number.
+>
+> Now, if you wanted to print that information symbolically and then
+> shift down the counter, that might well be a valuable improvement.
+> Given corresponding updates to stallwarn.rst, of course.
 
-The resend only removes a Link tag. I did not know that removal/addition
-of tags in commit log counts too.
+Thanks, that makes sense. I'll print the state symbolically, shift down
+the counter, update stallwarn.rst accordingly, and send a v3.
 
-> A
-> few nitpicks below.
-
-I will change those as suggested.
-
-Thanks for reviewing, Heikki!
-
-Shawn
+>
+> Or am I missing something subtle here?
+>
+>                                                         Thanx, Paul
