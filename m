@@ -1,139 +1,152 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F36B3AEF54
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576049; cv=none; b=Y7KVvbx7VrK3+knU75z9TfDMvuoqypCsWCDTGt6MCa8uhIFjIlBw3SwRcwtvj7rKDLYYtc1K1OSZj9Y/Yu9ABhDrwaIkqIqFWiqcM3+vVaXZPdhICaoOqvn79O0AlIOrz2lo5itM+gAE6o+n7/tTkBqhCPGFDsU4+znLUzoDU9o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576049; c=relaxed/simple;
-	bh=R7MRGcwi8KYo8oF2nSjBYVazbxxdpwpQQ5Jam6NUkS8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dBdBAB362PSViNS0yIFjCGm4cM/4JBtSJc8CTbaFP7nPN/yxrK0f7hKo4BXjSqSWDtypW2SO5m4XHKK3d3GFz45GtyuEaqJ2mV/AEYPRbmRcgNkipgPzwo2TODySw1c9nl1OpW5Np6ioGRnvqzg1RdDhxKzU/WQpFD/j0VP4uqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=qr2KQ6vq; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FED4E3EF7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:27:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789576051; cv=pass; b=f94U0cZfefbd4ap6xBJqVZ3VJ+vMgLWDnsU0L3lUEKQf6x4BN0X1EKM5EkL5nT8XMEcBr9EgY6rrrDmgfjW1VN/JI7huoXYX5pgjh6kHdoMjVzIU7bkxQ9ay+81u4/r4PgjG4yOzp4UA8T9WdY0C1uicaOnaftqR9Bo9z7Ld0sM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789576051; c=relaxed/simple;
+	bh=CZKsV8TBc/UU4QSemteZYCRFcL7JXkwYzG8Pz6oZRZk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KQHevYMEv9lSIRtsB/eWQfRJiZJH5vQaqQK4I4hAdsTXAqJRTcV4nkAyX1T7ys+7RzeJA21kqF8XAuGticdLPjszOYotbEJvi0hnav+slF3IvffpqkK6G7sCfNkRObO0zUDt19A3OXhW1QMAXKaYWdh1zcNm95yjxXGrOmmtmZQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=B5GHAVG4; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="qr2KQ6vq"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb767cc97so10195471cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:27:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="B5GHAVG4"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76bcb1fso10370631cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:27:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789576040; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FzVKqrk3ZurNwmjcAhwEnfr2Fxongh26FVYT/StpG0oY7w/02dwuGyPlMUB09t7L0A
+         h1i1pvDSwoSnIuQZ0jcpDJFb+4ZCfmjL2xCgDX/UCinP7nzfKv1AD6J5/jI36P5s/jVz
+         L5bPDR8KGZTfwBZFhFpWe0OTLBQ1HCx9QQQz7kpkasHpFrQIxSWmZU+Cv5SEyqpo82J6
+         7558TGCkluJcMqUYEucePAuCi3fc7qCBdgxxrc+GaA60kgAq9KstJMTrbRI2gFTj9BYu
+         cbvyn6mj99Dgq0fRAnSgKt+7OgzSjcHSReMuWLX5SNRD+s5tJPpa9I8GnRQ6sIJOJe8L
+         FmSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5wvcHHBL+iTEv0FJTwpkXt7VkvfWjy+zaGtBY5bI0rs=;
+        fh=DoWagbVxndzlbFJKbVyA813xf9D7MwfB86qRepJ2c+o=;
+        b=CjKSAg1H3licky6JGcuEdkfm2fE9QjtTrKkPU/tsmDUWiaMudbfIrIDOAs1cMIkJGR
+         AXRW1SqwlUqE/KMe8qxrKkJxro3UiabvuCgkWH3vXWhjpCW8KflSsmvylxeHzuh82Oyz
+         T5E8Z45FcJ3ZH49hmJ9FVsshyGajFnU5twuJK58RgbdyWazp7okL+QNgdwQrjj5mVEwN
+         Fsm7HDm80+liMx5s/0VSKHxaEdfSUDNZNZnesnPftxJ2jCoWvcDGCcQKalz6UUhOdquy
+         JrRMA/Mrei+tUImg54L4Hhjq5+m1HbkSFllzBEUrYR62VuKc7j4iVtN409lnmG9nTmWl
+         tKPg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789576036; x=1790180836; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1789576040; x=1790180840; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=iod3dGEx4O5QNllF/Jv59fKBS+1dGXD0we4CmqbHy1M=;
-        b=qr2KQ6vqzKeQB+qU6s4xjAHelY3Y/I8Hi5/Y1EVVdUw/1+w4lKXVWOh2ont6KacyOg
-         gsZV+DV72bjRDSo4RkzeZb4Z0RLF+rfVzAv490q7uzB7szla3GzA9Bhq7xolIdEQatGe
-         Dtie31bpQyxxzwOLu3o27plPmBuSIQGKQ73JTHjBaUeDr3ZzOPyrLal625axW7A1vtLP
-         DXGp0iFcODVw+OcgikMrIaJGYgkd0B1fjK22W14F71rxzZGYKRMYtf/2mkCLxZ801sZK
-         ryrv5ELAQprTGhxUotJKabatoX8FLC6ErEkHS1rSFdtg1PPx/TtOUPCtel4ui/l19VUt
-         0ZYg==
+        bh=5wvcHHBL+iTEv0FJTwpkXt7VkvfWjy+zaGtBY5bI0rs=;
+        b=B5GHAVG4O5d4fEVbNzONKezi5D3pH/WzCdTpSIJH/VJmLAYY5eFMDiblK1/3bqJc4e
+         p0bZ+ufhdqQ6DmfdKsx75eZBuk8vut++1kl27EZ2yntVulMmKhj/ZFC24mr3FQ8M0Uri
+         YTtkXPdrXtpk0g6/TSbxo1232AGnAhTH4NtEPYqijtWVU3fNbU+4ltH5BLUbiRUG+1yn
+         LLh6eyO0l859zxhMPmUHMHyK3zzNpJE+Kmkef095rZHeUAm9wNLrX3r/9PB1USdiiTuK
+         GOtn8NGpTW1VTIfG0yWz9JMtcBC9zLBhI8fP9RThrWajX3hVGbxaRWe/W6OPZu05aBHs
+         6i0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789576036; x=1790180836;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789576040; x=1790180840;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iod3dGEx4O5QNllF/Jv59fKBS+1dGXD0we4CmqbHy1M=;
-        b=Isou7S+g/HrCsjwzHy3R0xMpRUu3H1cQYMGhWnWOGbpHu20S82ul7okj+BTVFpHVar
-         yUz79LzxDkvIA4UQXOpzyyFk4ASghqd5yY3/IbN9W8yEhqMt7p47+mAhmBABO2u9pldh
-         ftRZv/67pqqLCHp0vru8ruodN2/eQ0w2lL/oAh+1iF7LoI4fF2alb9ckkf3mrtG9fz+B
-         BbMS2e5Sf27m5440nGveTHYxTNdhH6zGKhqB6E7eInWwzonzjdnyDjOppfdF5QiaU1Xu
-         TFaglF830X0lLhCXbXqYNIcLC7kAnAXyeG7+BwucJ635D/68KgHUMJA1+lsRq0px2Z1n
-         5G4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxKL46HiVqj9VN9couGSSfMILQliaoBEM6XsP+galxmGIzbw3OKWqvSsnIpD/Sb8LVl51I5/Mx72BvgHTg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcNbFdxMVN5jbdQvHr7eQYldLA6UvFkF/i5vo3vwxsEwAHrxGB
-	rCfnSK6diFj/w99cdmF9nHCSur29Swjp0IEXb8SHhWgsq5vhLuEd/XuUkMbBQ80dDCE=
-X-Gm-Gg: AYBFou3JL0+eSTrZXIphxDfF2H+UbiF3F4XEnxy7P1SSN4BPwrW5WorMNd2/l9vDBQ0
-	1X+OH875Jq+p0vw9TrJk6GHdvr34MkYaq/+jbAorg95tpP8RHAnOE1IBJBhOgQmeeBxRV2YgCHQ
-	4n3TU+OLWyyqi/iYJRNKrF+okDwvNk05e0FXv3GQijIE0sI6guI/nfVsaIrfLpDxG+aqcGzjjz1
-	LmzQo6200XUMfNZGFRK1OJmoS3jabYlAG++zlJqicXL9YJSEhgTMjlR9A22WmbzcOVyA9q/kW9c
-	X7Pt5dIVcclevxG389SKRPPOUH31UGdyP18XR/IfwiW9ethgQAI9bSAIpHjJ5110DUKJLU4uxGj
-	lBV9V8bC8ZAPI9xRvb0Jbg+NXjv7aqwnJ1BORL8wqIo/0tCD+oSvPdbSpqSpDVQwLJF/Uxt8TRS
-	+DfLUS8Q7/AanyRQkCdFhIcsyp7dvpjhB/XWNXJGY1mJiDBu7QbGYriJeeAxF5EZPu0rEtqVMdq
-	Buovqx7sMYNJcQBJ5cFUh4TR0PN4Npim4c/NK+Hb+Aql3UQZmBBA8COnNjdGp9hFw==
-X-Received: by 2002:a05:622a:1e19:b0:530:b2e4:91c3 with SMTP id d75a77b69052e-5327ef19588mr56557701cf.60.1789576036216;
-        Wed, 16 Sep 2026 09:27:16 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53262091423sm25381111cf.23.2026.09.16.09.27.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 09:27:15 -0700 (PDT)
-Date: Wed, 16 Sep 2026 12:27:13 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
-	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
-	apopple@nvidia.com, urezki@gmail.com, chenwandun@huawei.com
-Subject: Re: [PATCH 2/2] mm/mempolicy: stop copying the nodemask in the
- interleave paths
-Message-ID: <aqq_yv-cQvzuxr5D@gourry-fedora-PF4VCD3F>
-References: <20260829015943.1258774-1-gourry@gourry.net>
- <20260829015943.1258774-3-gourry@gourry.net>
- <d7f162eb-4214-456c-9d1b-a8623da61b45@kernel.org>
+        bh=5wvcHHBL+iTEv0FJTwpkXt7VkvfWjy+zaGtBY5bI0rs=;
+        b=iPMsT/zz2N4c+FLUTYcrrTrRLZaXqLO4WK2WaYBoiycyhcV0enbQqOWqzTif2NnG/m
+         OHRqK5xBtI4c3oSfTntFQCnBkSogntsFtuAgt7rU/rrPGex6m7uOcdlqZyGrsFHG53SV
+         fx7C0YZU7LCzgSdwn9QJthfU9lGyWghgVudI+x+a+xs6g0H0JIuYFUv7ikeYs6ntgmGO
+         de8ZDvxo3dTGX/kJw5HEW/6jaQZwms+uk5GWDkVFhiG0004rC+kolVHdFn530reLfW3b
+         PTwx4BNGEirAhtBZEAUuUcJM45lF1u+1YFyMfKSJ4/Ox/dJBdi8KOQVZP+ZfA55ffcwS
+         8Ezg==
+X-Forwarded-Encrypted: i=1; AKwUvBzI0CDPlC97Oa00scI8YF9iefFtVUJUuWdV1SbYuuoWGIllnSiXs54kr3FGcX3T13vv0yYC+BADvj4O0t4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJCR4R9rN1/m8d3mAiwHiWjKEBtbiafVvv0B5m3LKkd1y/q4Ve
+	wpE0cMs6SFOqxiDp6kJ1IQYcLR51BKPhvQvT3A3+nDlE4Er3kGEc5h67Gzp3YJWZrd0unaNSkuD
+	/2OuorB6BGp+5WxetTTIoGGjU66dmNxDd6K6QVI9w
+X-Gm-Gg: AYBFou36kDGY1L7sz7xmpGHrHLbL82xp4EDm7fyba+MMoqajZrd0DLrQuaYqbGbzEwP
+	+9OIkqaJaZ+BrCeFyRynkkzFYKSy+X11m+2YQ1KGGA63/y1qM9roh+GsQPOikgQoQkKtgO5iGB/
+	rN2Pk21b4ZRyuf48GxQZjOwq4ZvcpESv6TnloQb1Sszz8KoqqVUU0OLWZ2F7huVW2jt08BP6T28
+	ODQeFZ5jfHBJUj8NUAVp8E3anJ/dQJRmuBTZfbv6s8u/ugxFCjdNc4U0zRis37aecn1054qKMDZ
+	K5OTVQX3GlCGrZMTFp8TwLQqsY6uUOmu2dOm+hdsYJPXx62Hrx5VZUGFX6ryLWLRfSe5qM/N4F7
+	J0p9awSEIdNsquZzX45PtWn04kuHL9/LJnvlI+GhDeC2sS18m/3hCtHvxe6Sr2r3Akzt4zSgAPP
+	7tc861bJimAM3Ro1KE12wXVD3gjqEG8G8wGw==
+X-Received: by 2002:a05:622a:110f:b0:531:cf:b9dc with SMTP id
+ d75a77b69052e-5327ee5e315mr57726971cf.11.1789576039235; Wed, 16 Sep 2026
+ 09:27:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d7f162eb-4214-456c-9d1b-a8623da61b45@kernel.org>
+References: <20260916143717.1875082-1-littlesmilingcloud@gmail.com>
+In-Reply-To: <20260916143717.1875082-1-littlesmilingcloud@gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Wed, 16 Sep 2026 09:27:08 -0700
+X-Gm-Features: AcwNN1VQ6CTcVmS3X_ezXS1lS3jOoR8VrCY1MCKo-lPJza77JSmcjB68i55jAx0
+Message-ID: <CANn89iL5XujaOU9TjhOufAR092PXDBumMPiJy6GFXdzjujH1kg@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 0/9] tunnels: add core and gre drop reasons
+To: Anton Danilov <littlesmilingcloud@gmail.com>
+Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, David Ahern <dsahern@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Ido Schimmel <idosch@nvidia.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 05:57:22PM +0200, David Hildenbrand (Arm) wrote:
-> On 8/29/26 03:59, Gregory Price wrote:
-> > The interleave node selectors copy pol->nodes onto the stack so the mask
-> > cannot change while they walk it.  nodemask_t is 128 bytes at
-> > MAX_NUMNODES=1024, and two of the three run per folio fault.
-> > 
-> > The copy only buys consistency between the node count and the walk.
-> > Drop the consistency and just bounds check the walk instead.
-> 
-> I think you should document here that accessing the node bitnmap is safe (is RCU
-> responsible for that? I think yes), but it can get updated concurrently.
-> 
-
-Actually, not quite.
-
-RCU stabilizes the weights and makes accessing them safe. RCU doesn't
-help us with the node bitmasks themselves (we were using a cpuset cookie
-to stabilize them to take a copy - but we're killin that here).
-
-What makes it safe is that we detect the torn read condition (check for
-an empty nodemask) and otherwise don't care about weight skews in the
-weighted variant.
-
-I think it's reasonable to add a couple comments to spell out.
-
-Are you ok if I just spin an additional commit to tack on rather than
-spin a new version just for comments?
-
-> > +	 * The target was calculated in a separate loop, and a concurrent
-> > +	 * rebind can change the total number of nodes.  Clamp this loop to
-> > +	 * a single pass (nnodes) to keep the walk bounded by node count.
-> 
-> Might want to explicitly comment here that we are looking at a moving target and
-> might race with node bitmap modifications.
-> 
-
-ack.
-
-> > -	nnodes = read_once_policy_nodemask(pol, &nodemask);
-> > +	nnodes = nodes_weight(pol->nodes);
-> >  	if (!nnodes)
-> >  		return numa_node_id();
-> >  	target = ilx % nnodes;
-> > -	nid = first_node(nodemask);
-> > -	for (i = 0; i < target; i++)
-> > -		nid = next_node(nid, nodemask);
-> > +	nid = first_node(pol->nodes);
-> 
-> Similarly, I wonder whether we should spell out the raciness.
+On Wed, Sep 16, 2026 at 7:37=E2=80=AFAM Anton Danilov
+<littlesmilingcloud@gmail.com> wrote:
 >
+> Only vxlan reports drop reasons among the tunnel drivers today.
+> Everything else, on both the receive and the transmit side, ends in a
+> plain kfree_skb(), so a packet that a tunnel throws away is invisible
+> to dropwatch, drop_monitor and perf trace -e skb:kfree_skb.
 
-ack.
+This is not correct, and it is the justification the whole series rests on.
+kfree_skb() is a one line wrapper, from include/linux/skbuff.h:
+static inline void kfree_skb(struct sk_buff *skb)
+{
+        kfree_skb_reason(skb, SKB_DROP_REASON_NOT_SPECIFIED);
+}
 
-~Gregory
+Both spellings hit the same trace_kfree_skb tracepoint. These packets are
+already visible to perf trace -e skb:kfree_skb and are already reported by
+drop_monitor today. They just carry reason=3DNOT_SPECIFIED.
+It goes further than that. The tracepoint also carries the call site:
+TRACE_EVENT(kfree_skb,
+        TP_PROTO(struct sk_buff *skb, void *location,
+                 enum skb_drop_reason reason, const struct sock *rx_sk),
+drop_monitor's summary mode aggregates on exactly that (trace_drop_common()
+keys on point->pc), and packet mode exports it as NET_DM_ATTR_PC plus an
+in-kernel resolved NET_DM_ATTR_SYMBOL. So userspace gets
+"ip_tunnel_rcv+0x1a4" for each of these drops without any of your patches.
+That is how tunnel drops have been triaged since well before drop reasons
+existed.
+
+A consequence worth noticing: several of the kfree_skb() ->
+kfree_skb_reason(skb, SKB_DROP_REASON_NOT_SPECIFIED) conversions in patch 3
+are no-ops.
+
+Now, I am not objecting to the series. I am objecting to the argument,
+because the real one is better and you are not making it:
+
+Every failure in these functions funnels into a single drop: / tx_error: /
+err_free_skb: label. So "location" is one program counter for all of them.
+
+Four distinct failures in ip_tunnel_rcv(), around twenty in ip_gre's
+transmit path, eighty across the series, all collapsing into one bucket.
+
+Call site attribution, which is the pre-drop-reason fallback, tells you
+nothing here. On top of that the pc is not a stable interface: it moves wit=
+h
+compiler version, inlining and config, so it cannot be used for filtering o=
+r
+for comparing across kernels, while NET_DM_ATTR_REASON and BPF filtering on
+the reason field can.
+
+Please rewrite the cover letter and the individual changelogs along those
+lines. Several of them repeat the "invisible" wording.
