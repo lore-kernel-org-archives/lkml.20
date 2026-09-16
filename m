@@ -1,107 +1,104 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCB4455610
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7895A479897
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789548151; cv=none; b=prJdzxzRdZSZFZ0Geoh5rsOYd6N4YVvIYT3LkCilrbhaY+cLYUMOvG1llCXPpEpbe3oseFxeze3zSeYy7FsdMKyFHRwlWIEmjCOy5NJ25vmjupWgWTWRuUj8lgQJDG1UVxpf3g6tlD6Vu1JiSMAWNvlGucTs9rt8XhCNt2iSlE8=
+	t=1789548152; cv=none; b=iWxBTztstYuEwQQ0zj6M/5EBwVNgNd8Z2QsHvECQfKd7bt1MiLmjW/2dbYCESsVwd9+DbUJAUDdAJj/aE9BUcEKHHKqKjqBLo3TaXMq3PEt0iTuHMFv6E4AiC+SVkqv8s3PNZgCyQkCmlskvZ8AyDDGcH3ZjtdUn8Srm50GanGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789548151; c=relaxed/simple;
-	bh=D6NZHYq4FbQZ9toG/LH0NehHHejqSF3BJaL30p4ZjmQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eC5xmMzr8mDTZVfx00Mcp+8IfkhIZlxa7zX53cK8BLXlmhLkJ1td102aJ6zk/aEwlMtrqZaBI5ioMyXqAvuOulJIIUZe0oHQpBKXBQgepOVfVT59jNMatZtEjVISOOuDw+g/5vPP/yT27chla0VV50ttmMB9uTpU2fFbUFeS8YQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=esIkqIBf; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1789548152; c=relaxed/simple;
+	bh=1tqdQQ/v7gDOFj91ORdBN+Bzs5PrNZvdwFQjj2olYNI=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=X0ZEFfdi9FBr8e6yF4j8NJrBnJvkw9ArHl/FVlm5lfJuZwX9Jd7vS2HNT+hynzWULCnSb9FeJDOmRiqTSTg7aXvxhghoJQw0FXpkF80scdx+NnvJnLpwPAepa8mHG2K1Dv71gXHNr+dL0jVZUrZAjcS/9DNGUhexV8TJEDMqiPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=0gRJMAIf; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="esIkqIBf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=bMpk
-	iLXAs1S7uCwR3mWvfCw/KkzIFDc5McFUB0GAy3s=; b=esIkqIBflSdVTbrwHuFe
-	SAfngbpBJDlVecILk1Z4TRTXfLC6B9zwqxs/p26k+JwAwmOf5afLIlmeaWxVMwaD
-	EpT67oJ5yayn/ZGmsEy4MorM6rkRunefFFyx3qPE4dGTJOjX88+6kKwNzUvt8f8b
-	LYt6G4Wq+IWbtf7Cu8qvubxy6ooit78vArnIaeU3vy97kAf/Wu/jg7ZIwUWOXI8e
-	YsbXHlfHcEu/UqAUw2K22hUIEw2xS8eXs0yM4jm100e+3dEoD8rqzjrpiWKA+WCQ
-	5PAvmFqo7tpQLdujhFJNn+xZV51hkF6xcgxl9Eg9G8o/wpiP5/uGqPFfutChDs/W
-	Hg==
-Received: (qmail 1468569 invoked from network); 16 Sep 2026 10:42:24 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Sep 2026 10:42:24 +0200
-X-UD-Smtp-Session: l3s3148p1@KCttpZVbrqQujnt4
-Date: Wed, 16 Sep 2026 10:42:23 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Frank.Li@kernel.org, dmaengine@vger.kernel.org, geert+renesas@glider.be,
-	laurent.pinchart+renesas@ideasonboard.com,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	magnus.damm@gmail.com, vkoul@kernel.org, lkml@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 4/4] dmaengine: rcar-dmac: Fix runtime PM leak in error
- path of channel alloc
-Message-ID: <aqpWa3mwvuPAMhC8@ninjato>
-References: <20260915035602.1724403-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="0gRJMAIf"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 019C94E40744;
+	Wed, 16 Sep 2026 08:42:29 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C39AF60337;
+	Wed, 16 Sep 2026 08:42:28 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C28611C7B017;
+	Wed, 16 Sep 2026 10:42:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789548147; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=uCt+S52i9jhWLqP9Ai43Jys+VpUMZGBQ6OzhaRvb6Io=;
+	b=0gRJMAIfWz6BUbxtkOAo8e6cSqhth/n/K1YBrrTpLgEVFbS2QnVoq/U8AKVLciIeHSaxT5
+	FzWDbx7Thb7Ers94EYnPTVOk41nLLyZIIooATPJQuNfsDyra7GKkz8wxo3JgN5FCsD0kF7
+	S1dF6e3LTlw1mgMup3nDG3hdrFxqcFIEZGEaXZbkQEjsdqC3X0/ErSZllYp7+mfCRlbvd/
+	hLXc8nXyRnrocos4BsnqafeBfYMlTdhskVIsFNmi/lyneHeKuwkI/bdRwSt5Gy9yN/I3OX
+	r/RRLkuIedIxrpCuuy7e6mdn170mFrR6KuAW2m4yzaFB3x3R1MvN+wv1s6wx7g==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dqWapBZZZ9FvyIiZ"
-Content-Disposition: inline
-In-Reply-To: <20260915035602.1724403-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 3/4] ARM: dts: imx6ull-colibri: Set LCDIF bus-width
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260813092836.38367-4-francesco@dolcini.it>
+References: <20260813092836.38367-1-francesco@dolcini.it>
+ <20260813092836.38367-4-francesco@dolcini.it>
+Date: Wed, 16 Sep 2026 10:42:13 +0200
+Message-Id: <178954813309.214898.9623998050171113140.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
---dqWapBZZZ9FvyIiZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Francesco,
 
-On Tue, Sep 15, 2026 at 03:56:02AM +0000, Wentao Liang wrote:
-> rcar_dmac_alloc_chan_resources() ends with
-> "return pm_runtime_get_sync(chan->device->dev);".  Even when
-> pm_runtime_get_sync() fails, it leaves the device's runtime PM
-> usage count incremented, and the negative return value propagates
-> straight to the dmaengine core, which aborts the channel
-> allocation without ever calling device_free_chan_resources().  The
-> balanced pm_runtime_put() only happens later in
-> rcar_dmac_free_chan_resources(), so the reference is leaked
-> whenever resuming the device fails.
->=20
-> Use pm_runtime_resume_and_get() instead, which drops the reference
-> again on failure and returns 0 on success.
->=20
-> Fixes: 87244fe5abdf ("dmaengine: rcar-dmac: Add Renesas R-Car Gen2 DMA Co=
-ntroller (DMAC) driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> The lcd DPI interface on colibri imx6ull uses a 18-bit width bus, set
+> the bus-width property accordingly.
+>
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+>
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+> index ec3c1e7301f4..1eb1cf2d7395 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+> @@ -229,6 +229,7 @@ &lcdif {
+>
+>  	port {
+>  		lcdif_out: endpoint {
+> +			bus-width = <18>;
 
-Thanks for this patch. This is a duplicate of a previously sent patch
-which seem to have fallen through the cracks[1]. I will resend the old
-patch, but thank you for pointing out the issue again.
+I don't know the hardware in detail, but the datasheet [0] mentions 16, 18
+and 24 bits, and says "Up to 24-bit color (18-bit recommended)". More
+details in ection 5.6.1.
 
-[1] https://lore.kernel.org/all/tencent_71CC9630D88A8792C2396A8844DCCD5C6D0=
-6@qq.com/
+This patch would force 18 bits, but "recommended" suggests 24 bits makes
+sense in some cases, no?
 
+Can you elaborate on this?
 
---dqWapBZZZ9FvyIiZ
-Content-Type: application/pgp-signature; name=signature.asc
+Same for patch 4.
 
------BEGIN PGP SIGNATURE-----
+[0] https://docs.toradex.com/104446-colibri-arm-som-imx6ull-datasheet.pdf
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqqVmsACgkQFA3kzBSg
-KbaZEw/9HqVbLojdTQX+ciNNVmWuuU0dhqJuyJ+e2BTdmz1wdjK7TijWvFTZsTTo
-o62gk2M2CJ1tvVakc4fioorLPOrhS3A/fDUztr5dDfd3/zJucTuiwDzDrLiBJlzQ
-uGCZXIeD0csYqe4g+rVcSPRE8AVuhaKgnZZnUa8ZmVyBYx3AcPHj6J3j1JjnuzC0
-8qgup3sy+LXOHM3QDNUrFJeU+Zbq8Vg8Ou/Jkf1PnuCY9mAx8yQDJrYLygmO3lnz
-ORHH7WZ2uYkNLZCrUppiGUFrLqZAgHODpFQw/VRMldtV1skB4CDWRiMPLnJAvWay
-Z6xP8YZi/6RhLUePubrPXLSDMMlriKLPDeLHZwlRZwRrXXOvwhYUUhXfCvjDLA7v
-Acd6NX10xxSUWt+MGk6je54DXVCIt2VMojvcSxzbkBmwFpk5ho2cuC+vvM84eDJ2
-kJNaZ/07Z8pXekW/FH2qJ2ISg7EOGgSyDqAQufTBP4AYe/4xf/EJBUJ8UWZecsGV
-3Jwpp+4KJGJuQAfvwaAIIC74iREF6c0oZve8VSFqnzznr20cO7z/a7KZAo6fiY3d
-HkF3x3Gcsp4CNZkGsWeWWMlt9y8pXO0p01h8nCQI/AuICHF4peTSn5e1ePGyGQHU
-E61nJD/4feZWwwLnk/i7C1Y+qaqfquFnywJPoJz2VU/aMhSrxdU=
-=ucFd
------END PGP SIGNATURE-----
+Luca
 
---dqWapBZZZ9FvyIiZ--
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
