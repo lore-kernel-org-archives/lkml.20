@@ -1,116 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f14.google.com (mail-ej2-f14.google.com [74.125.228.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65EB4A9D7B;
-	Wed, 16 Sep 2026 22:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D894A9D43
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789596411; cv=none; b=mp03hq1wMc/riwFO6pODKRGTOlRM2EfgeilCvFjB9dnLzWp/q8DyDpbpnPHfcekOWw1VNB2Z6Ji9XBRatHyh6lKUcS+y1Mb/0ggWFMhAGixB/Bs/V1VVm3lmNDVLHLtbTtOA1dmqpjYzokQb1/kNkdOKi0hDWOYNee3pMV693UU=
+	t=1789596445; cv=none; b=qWM52hnv6ys/IAWNOzcvpfQXxFN8ldrRBHhfObY9DGj7aK1KlKZK3d7hs56hdeXJRKaWurH4+I36A25PQmb7KL6E8m9U5QpnM/MOcNvDD1yRPMkCi+guJ47aHMOTFyB7HEwtHjXIyh6dcCyKHlSA8iyivWiQqjZynOci2dIA1CA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789596411; c=relaxed/simple;
-	bh=8jR3qXJDsRDhpRo2+hKqYNpQs7xwIeWBynYjDXLVyqA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nCRagBhmIuA+ZcaQLMSDFymeWIgcD/1PMv4LYtszgsl98nED0i5zttAHth/Oz3ebYreQUo5uOr8em/2+y2q6NY0Xd7mST9e47gruq65arMxNSR6wJ6kCIaslZhD9GFoNFPQAb/kx47ESLteHVu9DmZXooxoONKPqSMyQtuJ9uOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PaAS6O1s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789596445; c=relaxed/simple;
+	bh=lt3BikJB93Zkg8UHHA0fVUsHS8vy+oVkjtAS1xezz34=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PJ4HvWh9zYWjS8MJoVsfD4M7eT2DetFK3uPYamgORip1GYspwS/qG0Qb22fE+j5zNy572sBG7l2VwDfcIzQ9BJfLcKNazTI/o0h5IdZUlLZMn2qIhIrykxsbK1v8vLZ0P4Xr+ZgEtH1xThGnzDO9K4HZ0jK71d7YxQKDTLG5MaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=U8ihtO+e; arc=none smtp.client-ip=74.125.228.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PaAS6O1s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 835381F000FF;
-	Wed, 16 Sep 2026 22:06:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789596402;
-	bh=ny09sGuz62R7zzgPJNiGubj3ISECT0ngvJE9U9Sh5CU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PaAS6O1seQoDoHbebs1MD+5RjJ0uBa37UI44pZikkQNKW/3s0B56qDJcTo0irzBgJ
-	 T3z7XzdxVRCjgB1gqKi0cWKv07EY5zpmF2+qTqpqLuVk6ojY9enq2EAkEYFZbUbjQ4
-	 RtYwE+WYP38tlPL5I39dT3ssTouyuomnaQT6VAoop9HkDtsKAfAouCOhzTAP/aicTS
-	 NT4VPfYfteyCD+NuRGWiH5QxsvVgbkJfDD8AGlhvTgD7IEV7T/6C2b/EypMhVbSCbz
-	 Xx94wjoqwii+v2vC/BK+humVsc9J+qZ3x/7pZ1EMsUK6Y/LXzUcXoWx0Dk2RqaRSyu
-	 3yNlIPh1zO5eQ==
-Date: Wed, 16 Sep 2026 17:06:38 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Cc: Taniya Das <taniya.das@oss.qualcomm.com>, 
-	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
-	Imran Shaik <imran.shaik@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: Fix default entries for Glymur EVACC and GPUCC
-Message-ID: <aqsS3KIl59RdeEQb@baldur>
-References: <20260915-kconfig_updates-v1-1-b9bdf35db955@oss.qualcomm.com>
- <0b371ca0-e91f-4ede-921f-9610961bbd6b@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="U8ihtO+e"
+Received: by mail-ej2-f14.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso41325466b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:07:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789596431; x=1790201231; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bRx2j1EfmgsLJaRhKgwq7WbmeY6pd50RmhdABMQZV3M=;
+        b=U8ihtO+eg1Efs6ifxvQM2f0DjdsanfbByuwIjC7BKvTD/PizZY9HPgu1uOskg/eN+G
+         8xm1MPkDLtYs4C4F/gsDX/KBwxsMosB3sPU0ry6DHZ5Uh+tOHbj66BPjTTR8Kp3Rizp8
+         WSEnFVuiSldakwBRtI3YXeYtjXHwzCJ04XPU8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789596431; x=1790201231;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bRx2j1EfmgsLJaRhKgwq7WbmeY6pd50RmhdABMQZV3M=;
+        b=rjx6wwy2NGsKnthk6R3jH/bAux2BVdMIDd3xBdE0DA00d9fPTN0UZBzXaZeDdF+Bsl
+         hRhXrEKCdQlXKSphJEFw+4DCHuIvo+kOxPAIyCvK+oNz2Iym9WnzdcRIXLPi10T9Jtjm
+         fts0D8j3/e1VjiqXv85Lb8t2QPlTfwgmjik1hzZhSrTeKkdia/VtAe9NihEl/+U5ZEq5
+         Dc1mpvZl/3RkkFCP0mpcHwmVJXIcTaDFKxeJSVuEADe8Ar8M95NgNK5b1OtXAnU6URLZ
+         mY/Uj3k+XEZhb3dUDMEouJ3Qw/6Yr/NTJMgNPi06WO6p+EmCF4BIHFQMLE5wrSvr84Vv
+         B4xg==
+X-Forwarded-Encrypted: i=1; AKwUvBxV07ayTazM2K/ulbIRmxY7h7ZT2v0r2OSM1hj6Pf+AoD9lYmDvasilLgk9Hhq9zfnb5gn7tg/LCeYkV6s=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltm8ETITFS9VgwdWpxqWEPpjTCOVDxmAvfLygocmEGmr3MfFHa
+	5NIa49bUby1GELZbY+ofTqPMd7/1jGK5peWSySuJ+w8DgVQlaJnXa5eZQ4pCbor4nBJgytnOWlO
+	IIEY=
+X-Gm-Gg: AYBFou1Yna/gPIgxK0BGXVAZ4YZXaVZ2erc/7o1PaYtzLFnVZyNnZVnXyIVHL29UhaP
+	GFGBV09tsxDF3c177rrwHnd6BBS225+3mgzebEcCWB3wk3W2uG6qhS5mtBR8ng1mjsJy1bfiq+y
+	b1LPjCpz8dseNDkCvryL6mN8O+UwKjPz9sRa7ZdCLey9ujYmVdpz8lGvZNGpsxqp/ghPN1aVyJq
+	lERCiNa3IFZ7WmitIOrZTtMppILkXHSiK2gqjt8srf4CMO2ztFRQRBfyS9ZEmpnzN0DrSBlNWKA
+	sP5QsSUj+XBnAvI/vPmSz3xkSMhTPit4IOHDFe8y6N6lfXyuiSRk/Wxnb2iSbf0rfo7Qkk3eDvJ
+	5fCr8iCbKGnSxct3L/+QeaTt6yP7WiZqYlUP1nHn4WY5EBhqvMdHU0pH8cN7aFLJVebLxWwNELo
+	d1YGBRohmF+FnLy0kCH3/2NTMrk0wLL7ZCOMpaLKJtxxWDKU5fBt5EBtdcR/25zhPo9xBfawVRG
+	XYCE05HOHdrxd8zSj5Ip3yPPojdvB9YSlOqdto=
+X-Received: by 2002:a17:907:f509:b0:c29:f5d8:9c6d with SMTP id a640c23a62f3a-c29f5d89d0bmr65739166b.28.1789596431151;
+        Wed, 16 Sep 2026 15:07:11 -0700 (PDT)
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com. [74.125.225.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de5baa11sm205323866b.40.2026.09.16.15.07.10
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 15:07:10 -0700 (PDT)
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so1221465e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:07:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw5wGwYpXUhSrc5VUir1l2OZIWGVswP8uWMxaljxH5S9qq042ClA3xMycukDFbneBEev8HJpQNNOjcjOsg=@vger.kernel.org
+X-Received: by 2002:a05:600c:3b0c:b0:49f:bc28:e8b1 with SMTP id
+ 5b1f17b1804b1-49fbc28e978mr56379705e9.14.1789596429113; Wed, 16 Sep 2026
+ 15:07:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0b371ca0-e91f-4ede-921f-9610961bbd6b@oss.qualcomm.com>
+References: <20260916155730.2077434-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916155730.2077434-1-vulab@iscas.ac.cn>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 16 Sep 2026 15:06:57 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WU7yOQWBW4SEMcHTwXxvNTMqO4P0DABaeQ6mBw7h=+Bw@mail.gmail.com>
+X-Gm-Features: AcwNN1W4bKNukAgg1BwCpMhcUy96SsDz__HwTsvy2JJtukIrTrTDwRV8nOIqNGU
+Message-ID: <CAD=FV=WU7yOQWBW4SEMcHTwXxvNTMqO4P0DABaeQ6mBw7h=+Bw@mail.gmail.com>
+Subject: Re: [PATCH] i2c: of-prober: Fix device node reference leak in i2c_of_probe_simple_enable()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andriy.shevchenko@linux.intel.com, angelogioacchino.delregno@collabora.com, 
+	devicetree@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, wenst@chromium.org, 
+	wsa+renesas@sang-engineering.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 02:40:31PM +0530, Pankaj Patil wrote:
-> On 9/15/2026 12:28 PM, Taniya Das wrote:
-> > The EVA clock controller (CLK_GLYMUR_EVACC) config carried a duplicate
-> > 'default m if ARCH_QCOM' line, one of them misplaced before the 'select'
-> > statement, while the graphics clock controller (CLK_GLYMUR_GPUCC) config
-> > was missing the 'default m if ARCH_QCOM' line altogether.
-> > 
-> > Drop the duplicate on EVACC and add the missing default on GPUCC so both
-> > Qualcomm Glymur clock controllers follow the same
-> > depends on / select / default / help ordering used by the other entries.
-> > 
-> > Fixes: e291ec812dec ("clk: qcom: Add EVA clock controller driver for Glymur SoC")
-> > Fixes: 67e645285dd0 ("clk: qcom: Add support for GPUCC and GXCLK for Glymur")
-> > Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> > ---
-> > Fix Kconfig ordering/consistency issues for the Qualcomm Glymur clock
-> > controllers: the EVA clock controller (CLK_GLYMUR_EVACC) carried a
-> > duplicate 'default m if ARCH_QCOM' line, one of them misplaced before the
-> > 'select' statement, and the graphics clock controller (CLK_GLYMUR_GPUCC)
-> > was missing the 'default m if ARCH_QCOM' line altogether.
-> > 
-> > With this change both entries follow the same
-> > depends on / select / default / help ordering used by the other Glymur
-> > clock controller Kconfig entries.
-> 
-> Fix was posted by Sivansh and has been reviewed, should get picked up.
-> https://lore.kernel.org/all/20260821045214.2623299-2-sivansh.gupta@oss.qualcomm.com/
-> 
+Hi,
 
-Thanks for pointing that out, Pankaj.
+On Wed, Sep 16, 2026 at 8:58=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
+ote:
+>
+> of_get_compatible_child() returns the child node with an incremented
+> reference which the caller must drop with of_node_put(). The error
+> paths release it via the out_put_node label, but the success path
+> returns without doing so, leaking the node reference.
+>
+> Release the node before returning success.
+>
+> Fixes: 897261149d25 ("i2c: of-prober: Add simple helpers for regulator su=
+pport")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/i2c/i2c-core-of-prober.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/i2c/i2c-core-of-prober.c b/drivers/i2c/i2c-core-of-p=
+rober.c
+> index 6a82b03809d4..603de487ee2d 100644
+> --- a/drivers/i2c/i2c-core-of-prober.c
+> +++ b/drivers/i2c/i2c-core-of-prober.c
+> @@ -354,6 +354,7 @@ int i2c_of_probe_simple_enable(struct device *dev, st=
+ruct device_node *bus_node,
+>         if (ret)
+>                 goto out_disable_regulator;
+>
+> +       of_node_put(node);
+>         return 0;
 
-Regards,
-Bjorn
+Sure, looks fine. I guess alternatively we could use
+'__free(device_node)' for cleanup, but it doesn't seem critical to me.
 
-> > ---
-> >  drivers/clk/qcom/Kconfig | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
-> > index 6ef083f5d9e251d2d2c5592a3f3dd51845dc743b..b3ffe1dced017e6f4bd3f0fa9c11bed5948391fc 100644
-> > --- a/drivers/clk/qcom/Kconfig
-> > +++ b/drivers/clk/qcom/Kconfig
-> > @@ -104,7 +104,6 @@ config CLK_GLYMUR_DISPCC
-> >  config CLK_GLYMUR_EVACC
-> >  	tristate "Glymur EVA Clock Controller"
-> >  	depends on ARM64 || COMPILE_TEST
-> > -	default m if ARCH_QCOM
-> >  	select CLK_GLYMUR_GCC
-> >  	default m if ARCH_QCOM
-> >  	help
-> > @@ -127,6 +126,7 @@ config CLK_GLYMUR_GPUCC
-> >  	tristate "Glymur Graphics Clock Controller"
-> >  	depends on ARM64 || COMPILE_TEST
-> >  	select CLK_GLYMUR_GCC
-> > +	default m if ARCH_QCOM
-> >  	help
-> >  	  Support for the graphics clock controller on Glymur devices.
-> >  	  Say Y if you want to support graphics controller devices and
-> > 
-> > ---
-> > base-commit: 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3
-> > change-id: 20260915-kconfig_updates-39a684a748d0
-> > 
-> > Best regards,
-> 
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
