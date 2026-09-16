@@ -1,180 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB014BD108;
-	Wed, 16 Sep 2026 11:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40914F0542;
+	Wed, 16 Sep 2026 11:44:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789559012; cv=none; b=BAqLmInZiuvf6rY1FACXS74/5+9AuPXcPvxotQtEpGHxqJntgk1c76Olm1pR37b2XwLCH0TP8NGQwpACh5ic3sOzX8f7YxZljx/SY3AZ3lh7q4jCnKTu4G4pKPpnGukXE9udVhKNZRmMMySLy+/hAGINipxnrV9AFPD1GmWFcrQ=
+	t=1789559048; cv=none; b=pa00CzegTOsgW3A9j2jfrrDVOvV+XpglL+IvKA+hWidSOUAw6m5QVDm/w0YxHerfl8one0NyRsGN+OtElFuOgS7rRGZJKwWkWPndGwsWTvdOhRMCYfyAnzGifFgfJdSvlO86hceZ7MvCpuR7riJA6KwWLUqxNxKMmT2JwYr74eU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789559012; c=relaxed/simple;
-	bh=goppTDHzWaqosN/1Y+/NEdVF1fbVuJ4qxiiCvPvpA5Q=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iN44HysxQQWfA/ejXATp/epjpKpTH0MWwfV95d4yEvzHZt0+3J/mMG+Sg9QrclGXlcR7J+zA2tTPtAOkyW3vYearjI3VARjj1R3ZAdiWAJV4xvKAFoePZ96AGkBduhAlY04ZQZ/W/iKBMK35n3rmBN23hTgBbsJ6ia1nxxRRubM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXtGdBVY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789559048; c=relaxed/simple;
+	bh=1qP4pmeZubOeoPvJBC9OO2x/NeRWI/yqNAT2NYBIljI=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=uOxO9WrzHAXq/BGdMTfhjHKMG6ekx+TrbT0XDH92vMF2/AVtedF8g9x+Qb/CN/0gcQeV7YfLT2/xJl8j7xb/M1/bSFjbZ/CnFF6eLiz+p4OFJGmDwiCbfBZkoMaKPpFgofHhopQ4wA0aAx8tNJyrsKN/9TxgHMQv3q7j02BbpRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=XDHNRboR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=b3gaU8MP; arc=none smtp.client-ip=103.168.172.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXtGdBVY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6C741F000FF;
-	Wed, 16 Sep 2026 11:43:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789558994;
-	bh=cpTUrOF05Dcy1Bk2KAYOIW3v5WZK34oP8mQ9ZpYwf3Y=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jXtGdBVYViMXZx0efLs39QetMVB182/hwnwQoOEpr/FmlYyMa9eEjJkqeG1CHn0/W
-	 EBPeKSVsA26oHySGGsVqPfM7yce2TokzlWOWaYC6xe5WVYWiNSEA2rlgOwFSUAWtp+
-	 PZjbjCG1gg70mJgZhju5RkL8wbzFvj96vsAh8YosIv4uCAEjo4sQbfryJksJGMqx7/
-	 cc5MUe/E1jfbzTtp890pdLGNb06yzp+UAxfvDEtfcEb9NW/PUxd366RlPy7xgFY1Ry
-	 0nJwlai3ya16/Onz2HC+Vt1bSkl1F5vIcp2kZYCtqk+osLXAOCtLIQRbnaXnXDnwXE
-	 KewRDn8pgj74Q==
-Subject:
- Re: [PATCH v4 1/2] net: pcs: rzn1-miic: Fix config array initialization
-From: netdev-bot+sashiko@kernel.org
-To: khendry@reliablecontrols.com
-Cc: clement.leger@bootlin.com, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 16 Sep 2026 11:43:13 +0000
-Message-ID: <178955899323.22033.2372714834297554596@kernel.org>
-In-Reply-To:
- <20260914-rzn1-miic-fix-array-v4-1-069112feec86@reliablecontrols.com>
-References:
- <20260914-rzn1-miic-fix-array-v4-1-069112feec86@reliablecontrols.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="XDHNRboR";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="b3gaU8MP"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id B8C6514001D5;
+	Wed, 16 Sep 2026 07:43:56 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 07:43:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789559036;
+	 x=1789645436; bh=AuK9Y+fDU2IDOZklY9+6SutmjPluEhmiIu2zW3AAOw4=; b=
+	XDHNRboRbtp0qDy4NXf6fjRAvA9hxcG8i3k2n3MoqiF+aVVcQcfX7NmJLRH6VbTA
+	kcEy+HTgd3M265uBX+qYktuF8v18zaBHNQdP5i15Rpt4DXIfR2rtc6pPYlL6g6AU
+	4uIkTjHCz2txSXs9EguPs/ihdE9YEUr91WjS6T8ozcGRvWdSBjOqIqeQpkjLkTls
+	Oigq2M3Uc2HhpkZ3zQwCor3rpJVbKrP0e7nVvW+dnm7vSgaTtxlUZOg3gpEAQWBy
+	Nidjl6ibsvF6acS9bwGM2elhC67KRhyvRBpOOqABlKZOOt4BqE2g3PXctYM91ZjD
+	dJrz86LDgLQU3MfwQE0hRQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789559036; x=
+	1789645436; bh=AuK9Y+fDU2IDOZklY9+6SutmjPluEhmiIu2zW3AAOw4=; b=b
+	3gaU8MPDLyKXlJUiEZwCCVILYz1o/h+93Dj3Y+xSEEFC+A71Zg7sDh2DMF3hZ5vI
+	Bsf7pdHeLSwMau2AMwYbv5z8KHUGqPFeI5/SHAxLDk/IKpUXeT4ljS3q36th4UXN
+	r1exq8skNSDCu/tT/oYFmqkZwfPEAwXqKrBAwf9ASR7RXAeDBmWQ7R3geOY4YxnZ
+	eu1xduk+g1cEASInOcXCOJ3kRBBHCGvbMprfouVzaB31JFU4sfaGX+rFtr2PejjG
+	D5kNJbIrg2QmX2P7v2Zh654PMe+BIWoqY6P2YE12ynCAnBfTVJ6RwLeuh08mbMHO
+	t85CgYJiX+2jo7i6bO7NA==
+X-ME-Sender: <xms:-ICqauoBKF9zn0Fz1cbEH2-5qDFWGXc0sfkfXhPslFfkFsOKyBLlgg>
+    <xme:-ICqanfgBwFq0sZf4joRWKvpFhjPcoCQiRgnNZJVyLovhcdqh2rWT9hEsARaWrAgE
+    xtjXwTK80JUL8QMVWatP4_wLav4CX1iOoaWu7x9-kNJF7ay_XGt0mo>
+X-ME-Proxy-Cause: dmFkZTEFgs3EvIoat5YbNa1kZa3NCit8Qxe+50zRjtg0FWUQ01Qwh8/ANAfCzJNWTKFNAy
+    rd2mk0b438uRLQNcqcXuPWN7xXzzA2AFl5wSOVo49ep4/zuVfJ+4U0FY6k09Age8dXJ+s+
+    NepBA3ixP1Bd3M5TIsIYdYLQ+J5GiEhkat/N4Khyg4k4KMnIt/yyfynNjtXHk80j8qMhh5
+    /Dt0YCY242Q1Q0lksCGRIJqlkQHY5SHs3uTOdElLDfD41Ql8e/2oAGcRlt0U+7xSpb3mEC
+    7xDqDcH4lMAhlM9K1ACTs1hHb3P3Azg1pkhd+U88v0LKQQeRqVo+0Lf5X5B/CWI6se8am6
+    3PeoUcPZY4oOrvz3G4xJY2pgSyG1cC4hx4pJ5R2TygKj1bEZ0H/Ad+4QWzRm2fDrhX6FVe
+    yQQN6UormkRCexmYx5TxzdYdgJGF/lO9TWlIEUa/0RtvWn3SU0s3ON+bmHxMy5WB5sZOxO
+    GebnzJ72hx/DnScxEi/ixIOWWuJN8VobGsIHJgdHbmSiZ1pb+g7o+30YnM2ri2kzupamD+
+    PEWDWC0PcMGc7zJvqBFOzBkYEhDOI4EhHjlugT7gGp/x1zSB5m/0z3FoWgWE/9FE6pW3Bd
+    lcdhiuGCMw/+zdhQbEUlHgpyxhH2bVYVQlbg7koh2uTudeKUjiAgsJ36ulDQ
+X-ME-Proxy: <xmx:-oCqalZp4112n6EKXVlqvK2rMByudP27I2BHW-NNZO4Ccj6lxSPnsA>
+    <xmx:-oCqau_9cizRzruDSLYvaX0ZyAeSAQ-djwZoxFdzbbX1s0Qpn54tmA>
+    <xmx:-oCqarmtjB41ETQRNFxgp5sRYIZKKGOKTYIxjDryY57zYr6r8KY9vQ>
+    <xmx:-oCqajzjEggKgVNKc_gC5Ly8WYNJBG2aZm7SlmOGqmvUqTfWj775qw>
+    <xmx:_ICqaiPVKU8AIaTw0GSf3rczbtbBpWztI1sdOlePtXn444BizA8pYaWU>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id C1E2032A0084; Wed, 16 Sep 2026 07:43:52 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-ThreadId: AplTfTLsyLRV
+Date: Wed, 16 Sep 2026 13:43:22 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Linus Walleij" <linusw@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>
+Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Kees Cook" <kees@kernel.org>, "Alan Stern" <stern@rowland.harvard.edu>,
+ "Huacai Chen" <chenhuacai@kernel.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <75d05e40-789e-4cfe-a6f9-fc86af5864e0@app.fastmail.com>
+In-Reply-To: 
+ <CAD++jLnsKoXxK5mdNUqWT+ggn+7k4D6H0HZuCcLu4_pv6QFS1w@mail.gmail.com>
+References: <20260916082623.3972767-1-arnd@kernel.org>
+ <CAD++jLnsKoXxK5mdNUqWT+ggn+7k4D6H0HZuCcLu4_pv6QFS1w@mail.gmail.com>
+Subject: Re: [PATCH] usb: fotg210: fix link error for CONFIG_USB=n
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On Wed, Sep 16, 2026, at 11:45, Linus Walleij wrote:
+> On Wed, Sep 16, 2026 at 10:26=E2=80=AFAM Arnd Bergmann <arnd@kernel.or=
+g> wrote:
+>
+>> From: Arnd Bergmann <arnd@arndb.de>
+>>
+>> Calling usb_hcd_platform_shutdown() is not possible if CONFIG_USB
+>> is disabled:
+>>
+>> arm-linux-gnueabi-ld: drivers/usb/fotg210/fotg210-core.o: in function=
+ `fotg210_shutdown':
+>> fotg210-core.c:(.text+0x40): undefined reference to `usb_hcd_platform=
+_shutdown'
+>>
+>> Move this call into the hcd file to ensure this is only used
+>> when USB host mode is actually available.
+>>
+>> Fixes: 7dbc2e1ba8fd ("usb: fotg210: use the common EHCI core")
+>> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>
+> Good catch!
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
+Apparently you you already fixed this yourself in commit 600334ef2f29
+("usb: fotg210: guard host shutdown in gadget-only builds") in today's
+linux-next, so this one is no longer needed, the two patches are
+equivalent.
 
-- [High] One-byte heap out-of-bounds write in miic_parse_dt() on the
-  RZ/T2H (renesas,r9a09g077-miic) variant, which the series' own port-…
+I did run into an unrelated problem with fotg210 now, and I'll send a
+patch for that.
 
-Pre-existing issues:
-- [High] Unbounded array index / wild pointer dereference in
-  miic_dump_conf() (drivers/net/pcs/pcs-rzn1-miic.c:566-580).
-
---
-
-net: pcs: rzn1-miic: Fix config array initialization
-
-This corrects the memset() in miic_parse_dt() so that the whole
-kmalloc_objs() allocated dt_val array is initialized to
-MIIC_MODCTRL_CONF_NONE, instead of just the first byte. While looking at
-the surrounding code a couple of questions came up about how dt_val is
-indexed and later printed.
-
-> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-miic.c
-> index 2b72fa98ddf13..cb74861e823c8 100644
-> --- a/drivers/net/pcs/pcs-rzn1-miic.c
-> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
-> @@ -683,7 +683,8 @@ static int miic_parse_dt(struct miic *miic, u32 *mode_cfg)
->  	if (!dt_val)
->  		return -ENOMEM;
->  
-> -	memset(dt_val, MIIC_MODCTRL_CONF_NONE, sizeof(*dt_val));
-> +	memset(dt_val, MIIC_MODCTRL_CONF_NONE,
-> +	       sizeof(*dt_val) * miic->of_data->conf_conv_count);
->  
->  	if (of_property_read_u32(np, "renesas,miic-switch-portin", &conf) == 0)
->  		dt_val[0] = conf;
-
-[Severity: High]
-Now that the size of this buffer is spelled out as conf_conv_count bytes,
-can the index used a few lines further down in miic_parse_dt() run one
-past the end on the RZ/T2H variant?
-
-	for_each_available_child_of_node(np, conv) {
-		if (of_property_read_u32(conv, "reg", &port))
-			continue;
-		...
-		/* Adjust for 0 based index */
-		dt_val[port + !miic->of_data->miic_port_start] = conf;
-
-For rzt2h_miic_of_data the relevant fields are:
-
-	.conf_conv_count = 5,
-	.miic_port_start = 0,
-	.miic_port_max = 4,
-
-With miic_port_start == 0 the index is port + 1, so a child node with
-reg = <4> and a renesas,miic-input property writes dt_val[5] in a 5 byte
-allocation. The companion patch "net: pcs: rzn1-miic: Verify port number
-from dtb" bounds port by miic_port_max, but since miic_port_max is 4 for
-RZ/T2H the reg = <4> case still passes the check and still writes one byte
-past the allocation.
-
-Is miic_port_max = 4 intended here? The hardware description elsewhere in
-the driver only covers four converters:
-
-	static const char * const rzt2h_index_to_string[] = {
-		"SWITCH_PORTIN",
-		"CONV0",
-		"CONV1",
-		"CONV2",
-		"CONV3",
-	};
-
-and the binding restricts reg to enum: [0, 1, 2, 3] for the r9a09g077
-compatibles. Would bounding the computed index by conf_conv_count (or
-setting miic_port_max = 3 for RZ/T2H) be more appropriate?
-
-On RZ/N1 the same expression stays in range because miic_port_start == 1
-makes the index equal to port, with a maximum of 5 in a 6 entry array.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since the same dt_val array
-is involved: the values stored here are used directly as a string table
-index in miic_dump_conf(), without any range check.
-
-miic_parse_dt() stores the raw u32 DT properties into the s8 array:
-
-	if (of_property_read_u32(np, "renesas,miic-switch-portin", &conf) == 0)
-		dt_val[0] = conf;
-	...
-		dt_val[port + !miic->of_data->miic_port_start] = conf;
-
-and when no MODCTRL entry matches, miic_match_dt_conf() unconditionally
-dumps them:
-
-	dev_err(miic->dev, "Failed to apply requested configuration\n");
-	miic_dump_conf(miic, dt_val);
-
-miic_dump_conf() then does:
-
-	for (i = 0; i < of_data->conf_conv_count; i++) {
-		if (conf[i] != MIIC_MODCTRL_CONF_NONE)
-			conf_name = of_data->conf_to_string[conf[i]];
-		...
-		dev_err(miic->dev, "%s: %s\n",
-			of_data->index_to_string[i], conf_name);
-
-conf_to_string has 14 valid indices (0..MIIC_HSR_PORTB) and
-rzt2h_conf_to_string has 9 (0..ETHSS_ETHSW_PORT2). A DT value outside
-those ranges never matches a table row, so it always reaches this path,
-and a value above 127 is truncated to a negative s8. Can this read a
-pointer sized word from outside the string table and then dereference it
-in the %s conversion?
-
-struct miic_of_data already carries the bound, but it does not appear to be
-read anywhere:
-
-	u8 conf_to_string_count;
-	...
-	u8 index_to_string_count;
-
-Would it make sense to validate conf[i] against conf_to_string_count
-before the lookup, or to reject out of range renesas,miic-input and
-renesas,miic-switch-portin values in miic_parse_dt()?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914-rzn1-miic-fix-array-v4-0-069112feec86%40reliablecontrols.com
+    Arnd
