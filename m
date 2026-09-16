@@ -1,158 +1,150 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA20521209;
-	Wed, 16 Sep 2026 14:26:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9565221EF;
+	Wed, 16 Sep 2026 14:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568791; cv=none; b=uFcrF0u+tanbDkL5CILA15KFQud+EDVgaAhFZHMC/immpR1XrQf49yG75HPE7mV+24iINLSPM42whYKW8omAuSewl/j4h+yCCW5uChtm2bWXeQw6lJmf1EJCEvZyJLAmspV5uzTqRdTZvpPytgFr/U2mcRfC1LG9NM86tXRTLVA=
+	t=1789568797; cv=none; b=DGPe2yJd2/+GZ5EfkRn1NvJZYc3tn5evCJKxf9OkI/qIwZUdvP9eDfi+yCA76dQV77Yh/ZNrmeLdFrSUO9bv2XJrJYtDfJuo8GWSJ6Nu37+qlmEBudcsvHYELbuldWq03REJWlxxVZbU9PtcJwEkTxvkkUNV9bNBC//4yo6af84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568791; c=relaxed/simple;
-	bh=GRo5Rpd7fq4Kf9n2BeLURQagh4yqnYCAIchRa+iiDVo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Yi35SuvIJ1xbLEf1lrnDJAOZOVNDe21WIcbza9pbJmqqdyC+mSqOY7Mm5MpOdjt2dka0YEc/qreKavIk+HxmY2h9MJ4p0tiv1G6yvOJFM+yB/0bgsDw1tUGBv4StKQItotNHyJmJ7u50c/y4CxTfW/iLV0XLl4ZjCBbHmzhlR/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=NcW/LVk+; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789568797; c=relaxed/simple;
+	bh=5FAMRqjp4KOqSJIjiuk2XIQlxb2HmynTSae9DHgZsQs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MXWyDA2sk1y60V9uu6V3kbcu3Of0KHv9spBp72/Jq7pndR/NXnIYyV9B4AKivpmHAkWE1uOy8E7CoQrOnyIAXtVFp9zJbesxhejKtVUoNiCMLiMjFu4KyOZQU0Q2gx7rSUFYpVTaG+vAUinxUaejpQSl5+gaGokpW6EHgz12S/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bNFUoDHP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="NcW/LVk+"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C09AB558;
-	Wed, 16 Sep 2026 16:24:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789568685;
-	bh=GRo5Rpd7fq4Kf9n2BeLURQagh4yqnYCAIchRa+iiDVo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=NcW/LVk+IkOH8U3LzFD+7oVPSJpjmxQlOrFWcNMoLDKRuuvCT9so2+67J2wufRgX0
-	 5M0PkxtpIhZQi+17n+yXawd8VpkpYjESfaLzobqgvfKLiMVwUQDSGc74whrA7OxMEO
-	 +Uk+oWdO0XyXmorhznI+qGLzKagyNkBvi4zFeePU=
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Wed, 16 Sep 2026 19:55:32 +0530
-Subject: [PATCH v4 2/6] platform/raspberrypi: vchiq: Store audio device in
- driver management struct
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bNFUoDHP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721FD1F00898;
+	Wed, 16 Sep 2026 14:26:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789568795;
+	bh=YQpLtInKnNU1c3G2VdhDCkw1r2wibZuZTlQmjanXtRs=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=bNFUoDHPGDIHKeQpseuwGqWMM1DE5j1Rk5TojUwfAftuYfcdlx87V1FeTMnCjtl2N
+	 AzZz2tcm6JX+Y1OQc6CtoOxaw5D3FfiXa2dnSchn35L6zymzQspNu5cth2kF7lsF5q
+	 jpNwWJ3uu8kdD0rYYiWAJjzbNTYo7CXS4+AgNb1RdbrKjGhDjwDBgmcBv56HpihnJf
+	 5lAGbidbtuSopBfptp1v/0NgSaHPYv5eiVpr4cDUdhOG39Il9EFme26lRJQ6V++7Fx
+	 IZEnAV/A5Yb1YwrjoCJL+B+GlgcJlLS1josFK4IKPCjqSH/X4mmuQciMXq9yC8zj9q
+	 8uuQhtPvBPadQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 5AEB5CE04DE; Wed, 16 Sep 2026 07:26:35 -0700 (PDT)
+Date: Wed, 16 Sep 2026 07:26:35 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation
+ for reader-marked trampolines
+Message-ID: <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
+ <20260915-b4-rcu-tasks-preempt-qs-v3-3-0ad30c4c5ee7@toxicpanda.com>
+ <aqlgxKGk_AEKls_1@localhost.localdomain>
+ <edc7cca2-a5c5-455c-8969-ea05dbdb08f7@paulmck-laptop>
+ <aqqONH8flTIpOUqT@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-b4-vc-sm-cma-v4-2-476d1142b5df@ideasonboard.com>
-References: <20260916-b4-vc-sm-cma-v4-0-476d1142b5df@ideasonboard.com>
-In-Reply-To: <20260916-b4-vc-sm-cma-v4-0-476d1142b5df@ideasonboard.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- bcm-kernel-feedback-list@broadcom.com, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Phil Elwell <phil@raspberrypi.com>, Hans Verkuil <hverkuil@kernel.org>, 
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-Cc: Stefan Wahren <wahrenst@gmx.net>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
- Jai Luthra <jai.luthra@ideasonboard.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2827;
- i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=GRo5Rpd7fq4Kf9n2BeLURQagh4yqnYCAIchRa+iiDVo=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqqqb9VTmiOj9+jvb7zupDS6s7vFSA6hV3rnGJr
- CAFUuC9NpeJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaqqm/QAKCRBD3pH5JJpx
- RUKuEACSesiJDODv/1eqiZ8PRp9YjGNnK8mqJpQYK44TkJURz9snMH52plxW5g0pDrgrtBTwVEi
- A7q9CP+gVb+kmhBSwPEVfPk+xflPsh8WBMUILXRKpGnTKS5OmdXSFfpKautHH0KTf7N+Q+h3C4V
- CgvNoqP1HxUr0RVFpD2o4s5LMMIzgGZNzuDvPOqqmDdsSzl6+aSTFwhpoXwev/UtrgTzixcl3gJ
- k+DQV804SCKenokmmgr7NKDT9NKa+QitxZhwpu7+qT4807FjXSJUwdBxpZ5HpJwTdaEdMMO/6Pb
- kEMw353FCtmWO87nGwpw8Oa7YwthoK3rXewi8TmbDFKk1FnMFwfB24O82MFWiLmfNBnK7zFMYKH
- HXzxxB900wfhsxrgYWo2TA+z342QVI19le5/7v4pBWhyZ0bqjMwK4YmNd40sIa368ULZ2rMaPql
- rsl/KNNHCwrEDU0YfyG87Hxr8qyYCvoghJmihjTc+EKxb+T65kQiPriFS15ZWcgh1erhLqA1q4C
- P20wlv4/lJjdP5an+2Di12ckUQzy1hZMo82pMRd/Ba7txXTB4j2OSUukNv4Y0NcnI5HDRrlJhOj
- BaWTKIAQZHz/ZrX07WN6R1RRD9U6mf8wV4Szu2my8vJTHdvmV4VvWfsBPxJ6tybx2eTFLDWxb1D
- hihzHaBXC8vJiDw==
-X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
- fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqqONH8flTIpOUqT@localhost.localdomain>
 
-The VCHIQ firmware devices are not discoverable, so they must be tracked
-manually by the driver. Previously, the bcm2835 audio device was stored
-in a static global pointer.
+On Wed, Sep 16, 2026 at 02:40:20PM +0200, Frederic Weisbecker wrote:
+> Le Tue, Sep 15, 2026 at 04:56:41PM -0700, Paul E. McKenney a écrit :
+> > > Alternatively the approach could be generalized to vanilla RCU, it could be
+> > > possible to define a .text.rcu_no_qs section within which code running is
+> > > considered as an RCU reader (with a pause while on the explicit RCU tasks
+> > > section). It would be forbidden to voluntary sleep inside
+> > > and to put explicit preemption points (CONFIG_PROVE_RCU could report misuses).
+> > > 
+> > > Based on IP, RCU could consider those interrupted section as readers. This would
+> > > require PREEMPT_RCU though.
+> > > 
+> > > And then synchronize_rcu() would do the 1, 2, 4 jobs.
+> > 
+> > If I am following correctly (ha!), sleepable BPF programs rule out use
+> > of RCU in this manner.
+> > 
+> > But your point is nevertheless valid, in that SRCU could be used.
+> > And because rcu_read_lock_trace() is a thin wrapper around SRCU-fast, we
+> > *might* be able to instead use rcu_read_lock_tasks_trace(), which would
+> > skip the task-struct increment and decrement, saving a few instructions.
+> > Then, instead of waiting for each task's counter to go to zero, instead
+> > just invoke synchronize_rcu_tasks_trace().
+> > 
+> > Which is pretty close to what Josef is proposing, just with the new RCU
+> > Tasks Trace read-side primitives.  I think.  ;-)
+> > 
+> > This assumes that we do not need to flatten partially overlapping RCU
+> > Tasks Trace readers into one big reader.
+> > 
+> > Or am I missing something here?
+> 
+> Yes I think that's what Josef does in this patchset. The problem is about
+> handling the few instructions:
+> 
+> 1) between the begining of the trampoline and the call to rcu_read_lock_trace()
+> 
+> 2) between the call to rcu_read_unlock_trace() and the end of the trampoline
+> 
+> So what I'm proposing is to make those two parts implicit RCU read lock sections.
+> 
+> So the whole trampoline would be .text.rcu_no_qs:
+> 
+> .text.rcu_no_qs trampoline:
+>   __________________________________________________________________________________________
+>  |Few instructions 1 | rcu_read_lock_trace() .... rcu_read_unlock_trace | Few instructions 2|
+>  ___________________________________________________________________________________________
+> 
+> Then when a tick fires, rcu_flavor_sched_clock_irq() discards the interrupted
+> code as QS if the IP was within .text.rcu_no_qs _unless_ it is in the
+> rcu_read_lock_trace. Both are easy and quick to verify.
+> 
+> Also preempt_schedule_irq() would make sure to verify the same condition and
+> enqueue the task as a GP blocker if preempting inside "Few instructions 1"
+> or "Few instructions 2".
 
-Move the audio device pointer into struct vchiq_drv_mgmt instead, so it
-is properly associated with the driver instance and lifecycle. This
-avoids global state and makes device registration and removal follow the
-platform device more cleanly.
+Ah, OK, I might be following now.  ;-)
 
-No functional change intended.
+We also need both versions of rcu_exp_handler() to check the IP as well,
+given that sooner or later someone is going to want trampoline removal
+to go faster.  Or am I still missing a turn in here somewhere?
 
-Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
----
- drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c | 11 ++---------
- include/linux/raspberrypi/vchiq_arm.h                    |  8 ++++++++
- 2 files changed, 10 insertions(+), 9 deletions(-)
+> And since RCU tasks already does a synchronize RCU before and after the scan,
+> that's all we would have to do.
 
-diff --git a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-index e78641703252..d5a25033a261 100644
---- a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-+++ b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-@@ -57,13 +57,6 @@
- #define KEEPALIVE_VER 1
- #define KEEPALIVE_VER_MIN KEEPALIVE_VER
- 
--/*
-- * The devices implemented in the VCHIQ firmware are not discoverable,
-- * so we need to maintain a list of them in order to register them with
-- * the interface.
-- */
--static struct vchiq_device *bcm2835_audio;
--
- static const struct vchiq_platform_info bcm2835_info = {
- 	.cache_line_size = 32,
- };
-@@ -1420,7 +1413,7 @@ static int vchiq_probe(struct platform_device *pdev)
- 
- 	vchiq_debugfs_init(&mgmt->state);
- 
--	bcm2835_audio = vchiq_device_register(&pdev->dev, "bcm2835-audio");
-+	mgmt->audio_dev = vchiq_device_register(&pdev->dev, "bcm2835-audio");
- 
- 	return 0;
- }
-@@ -1429,7 +1422,7 @@ static void vchiq_remove(struct platform_device *pdev)
- {
- 	struct vchiq_drv_mgmt *mgmt = dev_get_drvdata(&pdev->dev);
- 
--	vchiq_device_unregister(bcm2835_audio);
-+	vchiq_device_unregister(mgmt->audio_dev);
- 	vchiq_debugfs_deinit();
- 	vchiq_deregister_chrdev();
- 	vchiq_platform_uninit(mgmt);
-diff --git a/include/linux/raspberrypi/vchiq_arm.h b/include/linux/raspberrypi/vchiq_arm.h
-index e32b02f99024..541b4efd64d9 100644
---- a/include/linux/raspberrypi/vchiq_arm.h
-+++ b/include/linux/raspberrypi/vchiq_arm.h
-@@ -11,6 +11,7 @@
- #include <linux/platform_device.h>
- #include <linux/semaphore.h>
- #include <linux/atomic.h>
-+#include "vchiq_bus.h"
- #include "vchiq_core.h"
- #include "vchiq_debugfs.h"
- 
-@@ -54,6 +55,13 @@ struct vchiq_drv_mgmt {
- 	void __iomem *regs;
- 
- 	struct vchiq_state state;
-+
-+	/*
-+	 * The devices implemented in the VCHIQ firmware are not discoverable,
-+	 * so we need to maintain a list of them in order to register them with
-+	 * the interface.
-+	 */
-+	struct vchiq_device *audio_dev;
- };
- 
- struct user_service {
+This is going to need some *serious* documentation.
 
--- 
-2.55.0
+Also, what would be a good way to add tests for this to rcutorture?
+Designate some new rcutorture function as being in .text.rcu_no_qs and
+add this as another type of rcutorture reader?  Or is there a better way?
 
+							Thanx, Paul
