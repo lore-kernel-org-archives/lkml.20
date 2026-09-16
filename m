@@ -1,100 +1,114 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4625D4C4F69;
-	Wed, 16 Sep 2026 10:07:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FA494BC00B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:08:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789553269; cv=none; b=Ylj+3eJzBLapiJgRp06HeKWIIKHRO8rAP7KjQ27qbIoD4PAKPjMB9pUZg8bMEumETAETf+bE9hdObiH+u3JZ5CAf/IwgBWgyvV4yfCZ72/kTIk9BpKdzJQMwQTxl3BVFPAWXr7s6R/r4yjZFxOS+UpdVRgHJFPkDDg4XdrKCSlk=
+	t=1789553337; cv=none; b=LeGzw2pRMYsdCYhzmHC1PcOXN7NFWXXCG5n1kaymCaA3JiodaU+6t/saTvieHbn8l8sMA8jxHl9IfpsjXQrCLQV6vB9G06yyYQvzX26ReQidgrNhNPFeB8rr4DKXvlQLI2ZQI0EQWc1u5JpUYfOv8uGsE6Lv1cwEf8atztGchTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789553269; c=relaxed/simple;
-	bh=bP4qvlLX8TzoI+hY/MiOjw8LoIFxJdNiut9Kmvnz7+Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VXyQRfLc1LshMHlGgrZUkbPeL9z2oGrAreNLOOpdQoB7wYNTiIbHuQfR4ecyw6J9HSKWN/LaYVSxp0VrB+CccjCx8a3BTdRt7M2E4kmC5x9S+6Tqv5AkZMg8L9ngozxLY3pAqFri23pDRNN05lCGaNu43K24r3Zl6+rA5DyBSTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACnrjxiaqpq9NzgBw--.30652S2;
-	Wed, 16 Sep 2026 18:07:30 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Jose.Abreu@synopsys.com
-Cc: Laurent.pinchart@ideasonboard.com,
-	airlied@gmail.com,
-	andrzej.hajda@intel.com,
-	architt@codeaurora.org,
-	dri-devel@lists.freedesktop.org,
-	jernej.skrabec@gmail.com,
-	jonas@kwiboo.se,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/bridge: dw-hdmi: Fix DDC adapter leak in dw_hdmi_probe()
-Date: Wed, 16 Sep 2026 10:07:02 +0000
-Message-Id: <20260916100702.2012915-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789553337; c=relaxed/simple;
+	bh=rPfrOTQ5oZS8SrKWqKFay5mhp8ATUr37rXa+UxcnFjs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P9NpLrtMWFuNUncMiDthcie17y9MZH576k/DhroNogtaxQ3yIhkNcosRdS6Ts5eRaYic/+ToN6GIRfq0nlF/tZWAWWRT1O1gGM839AfVjEOfhbYGpPdrCROgY1IrQrjJRY78yRevOCPpTHJ9atlzE8y9e8yjT6m1MvDw87xXUUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=D7hym+Dt; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="D7hym+Dt"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 55C3E152B;
+	Wed, 16 Sep 2026 03:08:35 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8CB703F882;
+	Wed, 16 Sep 2026 03:08:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789553318; bh=rPfrOTQ5oZS8SrKWqKFay5mhp8ATUr37rXa+UxcnFjs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=D7hym+DtzqOo1Lr7h7LCEXYfKJE1jeuk5emATCzKr2bqhDmADUufXJ+d6DdYLD6ZX
+	 kP7jHOHxQ8ipABjdpHZ93BmcpJwE/+ampQmPsJu8PSzl8XA8IaA6PZA2he2ngzb25A
+	 e7yzrgQfJO8DmzYwcaWMcV0nLb+BL+bfIv4eHDeA=
+Date: Wed, 16 Sep 2026 11:08:28 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Marc Zyngier <maz@kernel.org>, 
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Wang Han <wanghan@linux.alibaba.com>, Shuai Xue <xueshuai@linux.alibaba.com>, 
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH v6 0/7] KVM: arm64: nv: Implement nested stage-2 reverse
+ map
+Message-ID: <pstlgffmaummwvxp6ldpel2y7ozubq77eqgrr7px2czc3f4qzn@nvmeyljx2anj>
+References: <20260915154305.3852871-1-weilin.chang@arm.com>
+ <aqoh27cSs5gMHeAL@sm-arm-grace07>
+ <86mrth65ii.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACnrjxiaqpq9NzgBw--.30652S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zw4DAFWUGw1rCr13Ww4rZrb_yoW8Gr45pF
-	ZrJa47Kr1FvF4xtayxA3W8ZasIka97JFWF9rWUAwnxZrn3XFyUZrZ8JF1aqr1UAasrWw43
-	trnYqFZ7Za4qvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9S14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
-	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6r
-	xdYxBIdaVFxhVjvjDU0xZFpf9x0pRLqXQUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUMA2qqP4etCQAAsP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86mrth65ii.wl-maz@kernel.org>
 
-dw_hdmi_probe() takes a reference to the DDC I2C adapter specified
-through the ddc-i2c-bus property with of_get_i2c_adapter_by_node().
-All the subsequent error paths unwind through the err_res label, which
-releases the adapter with i2c_put_adapter(), except the invalid
-reg-io-width path which returns ERR_PTR(-EINVAL) directly, leaking the
-DDC adapter reference.
+On Wed, Sep 16, 2026 at 08:04:53AM +0100, Marc Zyngier wrote:
+> On Wed, 16 Sep 2026 05:58:03 +0100,
+> Itaru Kitayama <itaru.kitayama@fujitsu.com> wrote:
+> > 
+> > Hi Wei-Lin,
+> > 
+> > On Tue, Sep 15, 2026 at 04:42:58PM +0100, Wei-Lin Chang wrote:
+> > > Hi,
+> > > 
+> > > This is v6 of optimizing the shadow s2 mmu unmapping during MMU
+> > > notifiers.
+> > > 
+> > > This version fixes a few issues, and adds Marc's space optimization
+> > > for kvm_guest_s2_mapping [1]. Please see the changelog for the details.
+> > > 
+> > > Tested by booting L3, and running in-kernel targetted tests described
+> > > in [2]. v5 got some tested-by's from Itaru and Wang (thanks), I didn't
+> > > carry them over since some bugs fixed in v6 are non-obvious. Some
+> > > retest would be much appreciated!
+> > > 
+> > > Series based on v7.3-rc3 + Marc's nested mmu lifecycle fixes [3].
+> > 
+> > Observed on QEMU (accel tcg) only, but I saw:
+> > 
+> > [ 1812.052752] BUG: sleeping function called from invalid context at kernel/locking/rwsem.c:1630
+> > [ 1812.052896] in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 596, name: shadow_stage2
+> > 
+> > The kernel is built on top of Marc's fix and your version six series, but
+> > the fix for debugfs will be posted later?
+> > 
+> > Your hello_nested and shadow_stage2 ran without an issue.
+> > 
+> > Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+> 
+> So you have established that there is a critical locking bug, make
+> sure you don't communicate any information to help narrow where that
+> bug is, and yet give your Tested-by: tag?
+> 
+> What is the point? I'm baffled.
+> 
+> Can you at least provide an indication of what you did to get there as
+> well as the full backtrace?
 
-Jump to the err_res label instead of returning directly so that the
-DDC adapter reference is dropped on that error path too.
+It is certainly the known shadow ptdump sleeping-in-atomic problem [1]
+reported by Itaru, and not a problem of the reverse map series.
 
-Fixes: 80e2f97968b5 ("drm: bridge: dw-hdmi: Switch to regmap for register access")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I have the fix for that, will send it shortly.
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 0296e110ce65..1da12e4616fe 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -3400,7 +3400,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
- 			break;
- 		default:
- 			dev_err(dev, "reg-io-width must be 1 or 4\n");
--			return ERR_PTR(-EINVAL);
-+			ret = -EINVAL;
-+			goto err_res;
- 		}
- 
- 		iores = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--- 
-2.34.1
+Thanks,
+Wei-Lin Chang
 
+[1]: https://lore.kernel.org/kvmarm/aiuF0KSvvv-ZozI1@sm-arm-grace07/
+
+> 
+> 	M.
+> 
+> -- 
+> Without deviation from the norm, progress is not possible.
