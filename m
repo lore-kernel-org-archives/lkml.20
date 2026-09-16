@@ -1,35 +1,47 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from out-2z4y-a133.jellyfish.systems (out-2z4y-a133.jellyfish.systems [198.54.127.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5B54A64FD;
-	Wed, 16 Sep 2026 16:11:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 641F64D6C3F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:11:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575090; cv=none; b=u/QK/cCOGLwPLqMr1ak4F7GLrKOyeR8n620B/hBT+M/0E2BhBPrYXntvupptzTA67J3m7RsMOD8Xvnaxha1ny6PijUFAVSXuPdk9tdbFaEJad7xqkpaVwByAP6AlHKR0Jj8qER+LLlpyHql9i9Z1hrBDk+0Mb/oniQ8S6Hf6cuk=
+	t=1789575110; cv=none; b=sFcP5nBjPZFKRzMbodPClkKv1mB94qh0dIPA9MuBkwBrhhmW39rMtCriknRE7ykhZHIQ7dxSIyc2NmtOK5v0ecz/36VhwwnPzPvexmcbEiLmlI45B8elJZDU795Ho0pC89vXFbn+mPqI5FK6yZoDubKGAd1kRxxQ9BFGU14dkOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575090; c=relaxed/simple;
-	bh=DakHawUkpRYbkkPUyivANrdDdVOy47ZYjthhRbVCbSc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HftLimywQxCfQAG5gYJC/H1CoFsqit2O8tPEjzKjSRgQjUsAx75xZfp4EO4I+gMXJUNbe2V9YF4Hgqhkzsh2qb3yXfn3P3WqGYr5Qp52o7zwpikTOOxCGGAw/CMh9kA2SU/NvmNNQKzkcEaBSEV+2DQF73JKtHvTgTruFckJbu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXAj2pv6pqMG1tCA--.21106S2;
-	Thu, 17 Sep 2026 00:11:22 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andy@kernel.org
-Cc: dlechner@baylibre.com,
-	jic23@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com,
-	srinivas.pandruvada@linux.intel.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: accel: kxcjk-1013: Fix trigger reference leak in kxcjk1013_probe()
-Date: Wed, 16 Sep 2026 16:10:54 +0000
-Message-Id: <20260916161054.2082486-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789575110; c=relaxed/simple;
+	bh=+zpy3l3uQZbtn3EA5tBa12RRyLBX5X8jEzCv9ArKHCo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HqAYEcnZz6DWPmUtDBeWUjziFnYmP1LB7fbzwRZ+9ZniHCXsIsPkAUbNT1gsY+gZ2wOq/7A5YerCbx2UILwZwNqxkH/QfiJpNWoxwVqQdpIJprcNcibALJOm4FFkEJtq0sjy90hPnewjH3NjkyMIuwquDWwsazx1dHq9H+0tmC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=WPwqNqrk; arc=none smtp.client-ip=198.54.127.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="WPwqNqrk"
+Received: from fedora (unknown [117.147.120.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hlP5P70Fcz8sWt;
+	Wed, 16 Sep 2026 16:11:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
+	s=spacemail; t=1789575084;
+	bh=yOXnInNUODU5Lzwbj44QgpGQDJ5UdG0pb1N+gcZ3ygM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=WPwqNqrk70w9Mi1PTiVb6REraDWc5644Q4DVFs1kz+uY3u6Fcrf++JlERFNRShvl8
+	 p94/jBTEY1XFb/FCt5frxY04pDZM56TdIcGoI+/+xTPsJ+RO5ZJEoxZIYg38Qr21zD
+	 6PPKoactrpEXzt1jPgi1SNYr1/W9lJ4nxoiPG4YpE3AUQL+FNTF+FifTenzEdLpVi1
+	 2PwHMujfmISna+i6IL23zs82FG/Hxqe76iLEQpE9T9oA3q5gRJI8vQl1x+jT0rGmjl
+	 IKlBgrMX/y0hzV8987QPdQoUepqTOb+1Qd0GluEWkfjzd8kzPuv2CEtYEPMP3Z5LCU
+	 q2keh9ePG9kYQ==
+From: Tianyi Chen <hi@tychen.cc>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] memblock tests: zero-extend simulated memory addresses
+Date: Thu, 17 Sep 2026 00:11:05 +0800
+Message-ID: <20260916161105.2548281-3-hi@tychen.cc>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916161105.2548281-1-hi@tychen.cc>
+References: <20260916161105.2548281-1-hi@tychen.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,63 +49,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXAj2pv6pqMG1tCA--.21106S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AF4rJr4kWr17ur1fGF48WFg_yoW8XFy7pF
-	s2kFy5tFW7XrsrJF4kZF4v9Fy3tF43KrWUurW8C3W7Z3yYqrnYgw1Y9w4Sq348JrW8ur4U
-	XFyftF95urW7ZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JV
-	W8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUblAp5
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcMA2qqok9KdgACsd
+X-Envelope-From: hi@tychen.cc
 
-The reference acquired for indio_dev->trig is only dropped by
-iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. Move the
-iio_trigger_get() after iio_triggered_buffer_setup() succeeds so that
-failure of motion trigger registration or buffer setup, which return
-before the mode is set, no longer leak the trigger reference.
+Converting a 32-bit pointer directly to the 64-bit phys_addr_t can
+sign-extend it when BUILD=32 is used. A dummy allocation above 2 GiB
+then gets registered at an address different from its unsigned pointer
+value. The low-address tests compare that value against the registered
+range and fail once the earlier maximum-address free test is fixed.
 
-Fixes: c1288b833881 ("iio: accel: kxcjk-1013: Increment ref counter for indio_dev->trig")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Convert through uintptr_t when registering and reporting dummy memory.
+This preserves the pointer bits and agrees with the simulator __pa()
+conversion and the allocation tests.
+
+Fixes: 284d950dd6b0 ("memblock tests: Add simulation of physical memory")
+Assisted-by: LLM
+Signed-off-by: Tianyi Chen <hi@tychen.cc>
 ---
- drivers/iio/accel/kxcjk-1013.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ tools/testing/memblock/tests/common.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/iio/accel/kxcjk-1013.c b/drivers/iio/accel/kxcjk-1013.c
-index 2823ddde4bf2..dbaa829a98c2 100644
---- a/drivers/iio/accel/kxcjk-1013.c
-+++ b/drivers/iio/accel/kxcjk-1013.c
-@@ -1488,10 +1488,6 @@ static int kxcjk1013_probe(struct i2c_client *client)
- 		if (ret)
- 			goto err_poweroff;
+diff --git a/tools/testing/memblock/tests/common.c b/tools/testing/memblock/tests/common.c
+index ac032610a56e..2a248973eb4c 100644
+--- a/tools/testing/memblock/tests/common.c
++++ b/tools/testing/memblock/tests/common.c
+@@ -67,7 +67,7 @@ static inline void fill_memblock(void)
+ void setup_memblock(void)
+ {
+ 	reset_memblock_regions();
+-	memblock_add((phys_addr_t)memory_block.base, MEM_SIZE);
++	memblock_add((phys_addr_t)(uintptr_t)memory_block.base, MEM_SIZE);
+ 	fill_memblock();
+ }
  
--		indio_dev->trig = iio_trigger_get(data->dready_trig);
--
--		data->motion_trig->ops = &kxcjk1013_trigger_ops;
--		iio_trigger_set_drvdata(data->motion_trig, indio_dev);
- 		ret = iio_trigger_register(data->motion_trig);
- 		if (ret) {
- 			data->motion_trig = NULL;
-@@ -1508,6 +1504,9 @@ static int kxcjk1013_probe(struct i2c_client *client)
- 		goto err_trigger_unregister;
- 	}
+@@ -88,7 +88,7 @@ void setup_numa_memblock(const unsigned int node_fracs[])
+ 	int flags;
  
-+	if (data->dready_trig)
-+		indio_dev->trig = iio_trigger_get(data->dready_trig);
-+
- 	ret = pm_runtime_set_active(&client->dev);
- 	if (ret)
- 		goto err_buffer_cleanup;
+ 	reset_memblock_regions();
+-	base = (phys_addr_t)memory_block.base;
++	base = (phys_addr_t)(uintptr_t)memory_block.base;
+ 	flags = (movable_node_is_enabled()) ? MEMBLOCK_NONE : MEMBLOCK_HOTPLUG;
+ 
+ 	for (int i = 0; i < NUMA_NODES; i++) {
+@@ -115,7 +115,7 @@ void dummy_physical_memory_cleanup(void)
+ 
+ phys_addr_t dummy_physical_memory_base(void)
+ {
+-	return (phys_addr_t)memory_block.base;
++	return (phys_addr_t)(uintptr_t)memory_block.base;
+ }
+ 
+ phys_addr_t dummy_physical_memory_low_limit(void)
 -- 
-2.34.1
+2.55.0
 
