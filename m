@@ -1,93 +1,125 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7487B4AB3A0
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:43:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C1E495AD7;
+	Wed, 16 Sep 2026 16:43:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577007; cv=none; b=IOMA5lUJVDOqj13AzEPpfxZqFUzBxcJg3j1PiI53lm1dLyV2r5ml+8mS7Dz80wlzNHsoG8CToGbGbLMpaZpF3QaszBuTUe3OD8HVCm8WL68rtc/CQ8V+cf1refLoCBZ+blyJsWh6kKVBJXbTZauJlu9yY25perL79ePVhQ/qPzI=
+	t=1789577020; cv=none; b=guEBjJPz4l1rt+c397W1l1B/LvW3YKZiWEswPBCZDroZI7xCxsclZ7FIwqGGrFj1C/M0t+bv9Kwv8kzvYJZlx5z4+55zjwz6kvsFxqIlsMuz+Qie5b6rua02PAlwsk1H1maVKq4WcIL/RPkacWtnxpT252922sFdGPIQ3C0wWbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577007; c=relaxed/simple;
-	bh=pZwRxtFeJmUddv1EbjhyalYwEd/mc+BqblQkRD3Rn4s=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=J1Md6S+xHl/Mp86x2j1DJZct7TEAHBO0NyfEvtyahjMiZkdYgtcOFpJcKPKCarKH+Vef+mPUVvNQwICsXbvVV2LAQ5p4t+FVzcXgM43XLHiFZQ/ESp7/rLm5xTPWI97VD5JK3Whw4igu8Bm04rWetKyZPTfZWhskF0z670xNkUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fXa4O917; arc=none smtp.client-ip=209.85.210.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789577020; c=relaxed/simple;
+	bh=1gw/Wnw27B072D15xLwsTlTYudOjIfpJY0cqXLpIrdQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IBxLZDTq9YPhdS5zI3vvEc+PDgVjr4F2kSse5UL3li9rSMv0bWG/dZ0P7GSxXzbTrTRXyY66iRtBvxi8qD9oy3zoeBdY1LklRtM+cvHXeBH/3qnox34wnezHeg9TKtUxn+E8ShhcJQZJ2eyG07gKkUK+rYPxBrSWNeV0M8f3k/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=og3EaWrj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fXa4O917"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-86b3c58d686so11548510b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:43:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789576996; x=1790181796; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M+S7jpRpnAdrhynDw1U8pmp0kn3XALCUGhwkyOzMF50=;
-        b=fXa4O917tTcTmGlAmhkynTtG6PSWL/x0GxAd7K+ql83iU6ILvQLzW8b4KhKsmD2dE9
-         5z4KgTi1O9COIczAtJBd6I6Zx2YVnY3W5EkAN+qjL2DQ/0K9wkhjlmYk5oVhimAY0vOr
-         uqKjVaL50nMGt6Y0C+f1LScyLVwQb24Gyg2WyTEdOxxVwfn4HDEb9m7y0tmFsmNMLvSK
-         zELnaVwraRJNmTrs0ZRUpya0UANVJm3khioukXk4Fim8sOTCpzHSRtR4olDlcAXnnN2p
-         +6bMTGX2lb5wFpJDHKfEMJJrJWh0yyCyPQoaZo2EE3g7YLhIYRs+dJHNLkzPbAPElCW/
-         mNdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789576996; x=1790181796;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M+S7jpRpnAdrhynDw1U8pmp0kn3XALCUGhwkyOzMF50=;
-        b=NYEj8tkGrm4/wKTWm3h7g6xkl9LACAD2kfYS17beN2vSpUHtguA/RNBRICJ3UYYETT
-         3GllK0eNeRaGGX9SipkwZmM2wyJYX3rUoAxfxfrHqfnkVUJmei1x21Z42H55DArbtErq
-         OR5a+Fy8LCoFRAGQr63ZjQ2JdC9ttuPe+gsytjO2yPBT7DlgOysUOFgR1J6ZFSxm4oN+
-         nOjgO8KP+iUjneCWl1QtwG8TuU3pWHGnPqWdIOltfaOdeVatisiLiEuFNx/f/TcbQppn
-         fq++lQ9o4zVMM8sWEHhlBIlb3nG7LMOM9VyrN3pwj7m8Mh30FfAdzD/PRK6cSusBcYOg
-         E1GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxgoYoAYGQaqI8DsZ15GSKqXyCvtyjYsGcbk7kkXN3qvPyGwmzrh7xDoJorH+ji3l7OsI2L7OYfvyp5lhw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kpECzyMjCHx34rfmDTmMjaPsPGGoE2IkWDqARhxFTHsoaOHp0B
-	o5FVV0i/CM7oNGDInzkU3XfmXkqOvNA/0jC0tw41CZSoelTtjAwEr5chQGzR3PljXZKc9+10/Ew
-	04m5pDw==
-X-Received: from pfbna22.prod.google.com ([2002:a05:6a00:3e16:b0:872:e7f8:45d6])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:88e:b0:857:726d:270e
- with SMTP id d2e1a72fcca58-8723e714a0fmr6172938b3a.26.1789576995322; Wed, 16
- Sep 2026 09:43:15 -0700 (PDT)
-Date: Wed, 16 Sep 2026 09:43:14 -0700
-In-Reply-To: <aqrFjUIubjzjXYV0@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="og3EaWrj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F22271F0089F;
+	Wed, 16 Sep 2026 16:43:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789577003;
+	bh=G5fdoWcd4IbAkK7p7KKtFU9jGsN4lvSTG0kjXK87Z/s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=og3EaWrjP8c7fsXDATC1SKvtJnQZOm079+ugLkbY/nxtak8GydZhXjNiHQh4izk1S
+	 OEdZu0no6ojvJzKlYaCjTo+uODYvNXNicXce1FBem5USIcbi5UoL1Lq8q4BY26W4h+
+	 vi9S6qWyIuqYH5o/KOaL5pakpQ9iDn1kPgjdKZg1OYGweIae7DIX9QPAMwZ+BJ4X2y
+	 i7jkvUXB2IthoHvpvGPvYC/JAFEszLThLjj7PJaTksZF+vCSJjM18q0j3PQJR+u3fn
+	 kt6lOrDXIwHQW/AjDHFCGjA2907tj+tnP+PdCd8c6GDsRDnkBKHUqfouoKfjAmdLGO
+	 sv8qB16AoZFSw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x6sjA-00000009igi-3lRZ;
+	Wed, 16 Sep 2026 16:43:21 +0000
+Date: Wed, 16 Sep 2026 17:43:20 +0100
+Message-ID: <868q515eqf.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: oupton@kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	mark.rutland@arm.com,
+	steven.price@arm.com,
+	vdonnefort@google.com,
+	qperret@google.com,
+	tabba@google.com
+Subject: Re: [PATCH v3 16/18] KVM: arm64: Reject host power-on of a vCPU that EL2 holds powered off
+In-Reply-To: <20260914113338.159227-17-fuad.tabba@linux.dev>
+References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+	<20260914113338.159227-17-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <aqqap3DngKznNrSA@sirena.org.uk> <aqqiAbgDmfQBLPTA@google.com> <aqrFjUIubjzjXYV0@kernel.org>
-Message-ID: <aqrHIlx2F9__sLef@google.com>
-Subject: Re: linux-next: build failure after merge of the kvm-x86 tree
-From: Sean Christopherson <seanjc@google.com>
-To: Oliver Upton <oupton@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Marc Zyngier <maz@kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, qperret@google.com, tabba@google.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Wed, Sep 16, 2026, Oliver Upton wrote:
-> > In case anyone cares, I'm woefully behind on sending "thanks".  These came from
-> > the prep series for enabling PPC selftests.
-> > 
-> > https://lore.kernel.org/all/20260826230511.972824-1-seanjc@google.com
-> > 
-> > > interacting with commit
-> > > 
-> > >   6f182db39fb00 (KVM: arm64: selftests: Add ITS table save tests)
-> > > 
-> > > from the kvm-arm tree.  I have applied the fixup below and can carry as
-> > > needed:
-> > 
-> > Given that this is in "fixes", I assume the new test will land in 7.3?  If so,
-> > this is mostly my problem to deal with when sending Paolo the selftests pull
-> > (which, FWIW, I'm hoping to do this week so that it can be used as the base for
-> > PPC selftests support). 
+On Mon, 14 Sep 2026 12:33:36 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
 > 
-> Yeah, aim here is to have the selftest go with the fix which I'll send to
-> Paolo this week. Sorry for the churn.
+> A protected vCPU's power state belongs to EL2, which changes it only
+> on the guest's own PSCI calls. KVM_SET_MP_STATE(RUNNABLE) on a vCPU
+> EL2 holds powered off changes the host's copy alone, and the guest's
+> next CPU_ON of that vCPU then fails: mp_state is no longer STOPPED, so
+> the host returns ALREADY_ON, and the guest's retry fails the same way
+> until the VMM stops the vCPU again. SUSPENDED has the same effect.
+> 
+> Track at the host whether EL2 holds a protected vCPU powered off and
+> return -EPERM for both writes in that state. STOPPED stays permitted,
+> so a VMM can pause a vCPU, and RUNNABLE on a vCPU EL2 has powered on,
+> so it can resume one.
+> 
+> The guest's CPU_ON is gated on the same record rather than on STOPPED.
+> A VMM that sets STOPPED between the target's CPU_OFF exit and the
+> host's power-off of it would otherwise let the CPU_ON through, and the
+> power-off would then record the target powered off while EL2 holds it
+> ON_PENDING, with no way back before VM teardown. Gated on the record,
+> that CPU_ON returns ALREADY_ON and the retry succeeds once the
+> power-off has run.
+> 
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/include/asm/kvm_host.h |  2 ++
+>  arch/arm64/kvm/arm.c              | 19 +++++++++++++++++++
+>  arch/arm64/kvm/pkvm.c             | 21 +++++++++++++++++----
+>  arch/arm64/kvm/psci.c             | 10 +++++++++-
+>  4 files changed, 47 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index 37d0721d39a45..2e2c051dd8e62 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -922,6 +922,8 @@ struct kvm_vcpu_arch {
+>  	/* vcpu power state */
+>  	struct kvm_mp_state mp_state;
+>  	spinlock_t mp_state_lock;
+> +	/* EL2 holds the protected vCPU powered off. Under mp_state_lock. */
+> +	bool pkvm_powered_off;
 
-LOL, why are you apoligizing?  You added one test, I reworked all of the core
-allocator APIs.  :-D
+I'm definitely not keen on yet another random boolean to describe some
+new state. We already have mp_state. Why can't we use one of the
+unused encodings and check that, since it very much looks like a case
+of "let userspace change the MP_STATE unless EL2 says otherwise".
+
+Can that be made to work?
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
