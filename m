@@ -1,157 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9DD3DC4C8;
-	Wed, 16 Sep 2026 07:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981CB3C09EE
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:06:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542341; cv=none; b=O647cbbIodEe0VNAOyBU3o8mSGrYYYbPYew5wAjF8B4nIzAW5xmq+QK//OzvEHJwGcJp8RArFgF6OsDyOGhlGDHcx/UNV3+bIbGpAZJX0keblfG1V1EQ64ueZeUJofSVdZT+XsTKPpgMrjGgSaid1v9zumg9Pv1Q7Vo28HP4YeI=
+	t=1789542392; cv=none; b=MNlcFplKQ2ZTF9UxXNEdGG660XckQhPX7QEB6X1GOkt2HzNEGOl+jGYO1uP/MGVpgpC7dpzgI5sAXsm5tfnfylFEyOi9yqSk0AEokd5U/cVnL2nGDZbZchHMC1yvC+pIE8vdhsfFZkHl5hfuuTQg+09sE1zEYYQR5cBNkfLXA14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542341; c=relaxed/simple;
-	bh=ykposK3Qn+iumoox2DDdhIadVTJ/tw9QAuhjyULIZhE=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=ErWzqOv+DSdrKGVONnw6IlNaQrP940Z0rAdlhXwzIdlnqoOi394PiCbmGvP2taSpFrbGVWW3me3oGkgiHcZQmqq+OFUIww6BgITVC3UFJ54iNwlehiwORuIj76/+IX9hOUu0vPKnHLRDBQBTbbDeoSIJapA8FpPm2w5WAlwRNAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dWNNIAl8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789542392; c=relaxed/simple;
+	bh=Qbtw9PWfVvC+tzChB1PE4hvPTcc5dPxUI77Ko0N8zRw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PCeP7X//WMYXXzQKvocSRN44l3VVZVSBfnFxPubEYdwoolmMuJGOVBbno1rg+v7FLPthFrFF7gu4XyRoO0by2Wtw9S8s2Bw+6Yfs8AtloCBjz9x7Tjohza8h2j/w6O9XYiWTdMVxGlMRMSohEAtnca19/5gPx7ULaaTcXb/s/6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=k7z+XNlI; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dWNNIAl8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F001F000FF;
-	Wed, 16 Sep 2026 07:05:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789542340;
-	bh=mR2HTq9K6bZI0xIfLcfWG5JclWyg1NjLC1Lkph4mdDY=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=dWNNIAl82Ut6PMz2iJ4RSxpi9hwFQFWUsWDJzJgvuu9pk8K5rivQN2NsEIdCoa4u0
-	 oIlFHEogXYGwDdgWiGvxY1cMLtSGn+2AvWB86CJVQhqbwM7uO01ZQfd7HYY9BDVkyY
-	 eKy6gzo4hqtHO2x3AXyLhfcVV9TnXbbWyljS43d6fOESl7kixAK4ZuDF8P66NDcSo1
-	 PloltBvR3FN2JDTesDLddLNhslcCbVUSdZM80+gViOOf7jt6hxYxStCHMrVbpvAe7a
-	 Qzf9L367Kd1nfjNGB1LBCaFRBkDI9ACouDnuYeW9ET6tc21NNfbqOQpH2zH4HUonYR
-	 slL08sQdyPmJA==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 890881980064;
-	Wed, 16 Sep 2026 03:05:37 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 03:05:37 -0400
-X-ME-Sender: <xms:wD-qaq1XuQKkGITtLWW0T3M9OmbDPvRQJ3S-iw0UdHlba27wWmmC1g>
-    <xme:wD-qan6WumJoigQkmgp8aLiyowDnIj1PINzag7qdv9-Z3kFYwly0ipXwMixlOmXCi
-    eGUS04FysFjY15BItkX2zEoDMbHfbtty2IGPKzNS9dWwFJ52k8z9ck>
-X-ME-Proxy-Cause: dmFkZTEWNGtfQ4VQt6526Uhxk3LCoz00Mp7pOyFlEjzTe/dFHV8VJUzVsuKoq5tMBrAW9k
-    dP4DCmQzU7vkTjMvlOz5ctfST4I2RV9b3IwhXzV0yh8kEKLdB5wmyxWKPxn2R+JEwuW5pd
-    RpIrRc2I5XJijYBRvg8D6Ejeze/d1XTiUzYEGVCKx2mBOV7wKAzlLVWwpaqnMvJ3Tv7Uz6
-    nb3gubW+zxN5iNz6bYdc8yxTwpRa3ZVMlcTgli3wdXuO3iAlWUcd0orBzt/xKWCOgoUzeA
-    AdPUdlFhQzWM1eXdl9Yui7bud+AgMI1cUEM7SCSZINw2Zp4O4A8F1S/1kJ8lJvvAH0hLG1
-    y++n853hnRB9DPs3uNgf05942CsZzIMweB/QXJ62GcCilWmgeOLMIeHKb9U2A9tVu75bhu
-    1IS9Zs+j531zwRANfyrpXXMG1QfNZ0xY8Rz5gOlIMbCiUQ8KRBulYrfhNDwlL55CGpp9lw
-    iWKmx/WXnx7KEF4jdtvVqm5sgIRT/EdS90fWtYRc4cr9gSR0Ab2HHVsa1SDKFMj4Mb+IqV
-    RShU7gyM/KXKWEM/jJmmX4FA/St9vDwx0e5/tFkl0ibW1EInclxk/VoQZlh43yOlQDOOwt
-    YQn+HMEtvZd3zgshdEX1Ncd7sPivcSrc2dCnDsewVMHiyRE1lQIow66zU0eQ
-X-ME-Proxy: <xmx:wT-qamde649gBFfGqDXh57XYZoDLOSA-puKY4vqQ0bO--m8iSVfmZA>
-    <xmx:wT-qauIDNW1m63dJxEXvf2H3edPgNJx3Q-DpqvmOUpAbmwfd0PAdog>
-    <xmx:wT-qap302Ki5D7Gj_kxk40k0EuNxvIaC7irAXqvQkA5FHJ_f9JkJmA>
-    <xmx:wT-qaoiPpL_GzaxBsub4BG2LqpSTsc3fj6VSormkeUvolP8YX52_hw>
-    <xmx:wT-qaqW8Upfc8cuC5TuP4XsRXH820kxK-tE1FpOaYEbsTVbKVlVb6W44>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 0335FF80080; Wed, 16 Sep 2026 03:05:36 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="k7z+XNlI"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 76512C5CD56;
+	Wed, 16 Sep 2026 07:07:11 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 914D060337;
+	Wed, 16 Sep 2026 07:06:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8AF7411C7AFE7;
+	Wed, 16 Sep 2026 09:06:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789542386; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=Xdh/rXV7bbuANGaKBhva3Gg+xdIjMLL6po8X8eKgzG4=;
+	b=k7z+XNlIuaYHraCbogiD+ix+6XoA3JKCCceTzetFGhcpZfV/VIiWvuejEU62SuE7Wrv0cP
+	UZGcyF59FZIYc02pcJZQMoZ6F2Av8EmAChXoRRKMaZJ//bWRezhYBo+YCxVE1Yqch14Xb9
+	+u7xTZsw0KpWTjqjQHCCPM7dg7KPkWNGUUkrAxbUic6ax9LDsKn3S6F1NIfwE+p7CjkdlT
+	rBoNwsgzXLaHL5Zq4l9XxFLHLXjXt93Gc8PpjS0OsvIK58iQyMQBIj7ONyLh8vXSpRLKs9
+	n2/DJxHgqmAYFyp9a7YhuUz67YdCTM6YR3qMxuLUwQ4BK+peYnLUlIUFZRk1RA==
+Message-ID: <3196ccec-7cf3-434b-b7bb-dec64fe29583@bootlin.com>
+Date: Wed, 16 Sep 2026 09:06:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 16 Sep 2026 09:05:14 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Borislav Petkov" <bp@alien8.de>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, x86@kernel.org,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Message-Id: <3abaa241-289c-4b60-a048-3f0bc90d3142@app.fastmail.com>
-In-Reply-To: <20260915031141.GEaqi3bW7TGjblHLg1@fat_crate.local>
-References: <20260914183745.37538-5-ardb@kernel.org>
- <20260914183745.37538-6-ardb@kernel.org>
- <20260915031141.GEaqi3bW7TGjblHLg1@fat_crate.local>
-Subject: Re: [PATCH 1/3] x86/tdx: Share tdx_panic() with the EFI stub
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 0/4] net: Add Allwinner H616/H618 EMAC1 and AC300
+ EPHY support
+To: Alastair D'Silva <alastair@d-silva.org>,
+ James Hilliard <james.hilliard1@gmail.com>, wens@kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+References: <20260916044119.475666-1-alastair@d-silva.org>
+ <CAGb2v64HZoqBscyKTkTin6DnMv5_kZpBxoS+cm7aYy09pRc7hA@mail.gmail.com>
+ <CADvTj4qRMviM=KXinCKi657pVC_kj7Kt1yizW_EGDu4m7VKQFg@mail.gmail.com>
+ <2ac659ffa08eeddc6654827f5a8fbd7fe374a128.camel@d-silva.org>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <2ac659ffa08eeddc6654827f5a8fbd7fe374a128.camel@d-silva.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi,
+On 9/16/26 08:49, Alastair D'Silva wrote:
 
+> There is one subtle timing issue worth highlighting from our Armbian
+> testing on the Mellow Fly-C5 (H618):
+> 
+> In James's dwmac patch, setting soc_has_internal_phy = false causes
+> sun8i_dwmac_probe() to fall through to sun8i_dwmac_reset(priv). The
+> Synopsys EMAC DMA soft reset (EMAC_BASIC_CTL1 bit 0) requires a running
+> RMII clock from the PHY to clear.
+> 
+> While this reset succeeds when the PHY driver is built-in and probes
+> synchronously, if CONFIG_XPOWERS_ACX00_PHY is built as a module (=m)
+> or if the PHY probe defers (-EPROBE_DEFER on regulator/clock/nvmem),
+> the PHY is unpowered and not clocking when sun8i_dwmac_probe() runs.
+> 
+> This causes sun8i_dwmac_reset() to time out after 100ms ("EMAC reset
+> timeout"), failing MAC driver probe. In our testing, deferring the MAC
+> reset until sun8i_dwmac_init() (which runs upon ndo_open after phylink
+> has attached and the PHY is active) avoided this probe failure.
 
-On Tue, 15 Sep 2026, at 05:11, Borislav Petkov wrote:
-> On Mon, Sep 14, 2026 at 08:37:47PM +0200, Ard Biesheuvel wrote:
->> Move the implementation of tdx_panic() into the source file that is
->> shared with the decompressor and the EFI stub.
->> 
->> Use memcpy() and strnlen() instead of strtomem_pad(), as the latter does
->> not exist in the early boot code.
->> 
->> Note that __tdx_hypercall() may call __tdx_hypercall_failed() if the
->> hypercall returns with an error (while it should never return to begin
->> with). __tdx_hypercall_failed() calls the decompressor's error()
->> routine, which prints a message and then loops forever.
->> 
->> When called from the EFI stub, this error() call may attempt to use port
->> I/O to the default serial port rather than the TDX hypercalls which the
->> decompressor uses normally to print diagnostics to the console, but this
->> is fine: given that this situation only occurs after a catastrophic
->> error, and a subsequent spurious return from tdx_panic(), whether
->> error() uses port I/O or not is rather moot at that point, as long as it
->> never returns.
->> 
->> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
->> ---
->>  arch/x86/coco/tdx/tdx-shared.c    | 35 ++++++++++++++++++++
->>  arch/x86/coco/tdx/tdx.c           | 35 --------------------
->>  arch/x86/include/asm/shared/tdx.h |  1 +
->>  3 files changed, 36 insertions(+), 35 deletions(-)
->
-> Nah, that doesn't work:
->
-> ld: arch/x86/boot/compressed/tdx-shared.o: in function `tdx_panic':
-> tdx-shared.c:(.text+0x2a3): undefined reference to `__fortify_panic'
-> ld: tdx-shared.c:(.text+0x2b2): undefined reference to `__fortify_panic'
-> ld: arch/x86/boot/compressed/vmlinux: hidden symbol `__SCK__WARN_trap' 
-> isn't defined
-> ld: final link failed: bad value
-> make[3]: *** [arch/x86/boot/compressed/Makefile:117: 
-> arch/x86/boot/compressed/vmlinux] Error 1
-> make[2]: *** [arch/x86/boot/Makefile:96: 
-> arch/x86/boot/compressed/vmlinux] Error 2
-> make[1]: *** [arch/x86/Makefile:304: bzImage] Error 2
-> make: *** [Makefile:248: __sub-make] Error 2
->
+I'm OK with going with James' version, however this seems like a valid
+point that needs to be figured out.
 
-The bot hit this error too, but without your change so it is something
-I will need to address anyway, e.g., by doing
+James, can you add Alastair in CC of your next iterations, and Alastair
+it would be great if you could give James's patches a test when he
+submits them :)
 
---- a/arch/x86/boot/compressed/tdx-shared.c
-+++ b/arch/x86/boot/compressed/tdx-shared.c
-@@ -1,2 +1,3 @@
-+#define __NO_FORTIFY
- #include "error.h"
- #include "../../coco/tdx/tdx-shared.c"
+There's more stuff in the dwmac part for Alastair's version, some
+-EPROBEFER handling for clocks, the reset thing as well as the MUX
+part, for which use-cases is all of that required ?
 
-But I realized the whole union thing is redundant in the first place. We
-might just do
+If that's something that needs to land with proper EMAC1 support, maybe
+this could be split out from Alastair's work (in individual patches
+please), and integrated in James's series ?
 
---- a/arch/x86/coco/tdx/tdx-shared.c
-+++ b/arch/x86/coco/tdx/tdx-shared.c
-@@ -97,15 +97,13 @@ void __noreturn tdx_panic(const char *msg)
-                .r11 = TDVMCALL_REPORT_FATAL_ERROR,
-                .r12 = 0, /* Error code: 0 is Panic */
-        };
--       union {
--               /* Define register order according to the GHCI */
--               struct { u64 r14, r15, rbx, rdi, rsi, r8, r9, rdx; };
--
--               char bytes[64] __nonstring;
-+       /* Define register order according to the GHCI */
-+       struct {
-+               u64 r14, r15, rbx, rdi, rsi, r8, r9, rdx;
-        } message = {};
- 
-        /* VMM assumes '\0' in byte 65, if the message took all 64 bytes */
--       memcpy(message.bytes, msg, strnlen(msg, sizeof(message)));
-+       memcpy(&message, msg, strnlen(msg, sizeof(message)));
- 
-        args.r8  = message.r8;
-        args.r9  = message.r9;
+Maxime
 
