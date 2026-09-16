@@ -1,106 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D90477E53
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C046C386C0D;
+	Wed, 16 Sep 2026 08:49:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789548590; cv=none; b=Pnotp398t93z5ggsYzhzi/FQzHAYxk54dKh4vPrB8pWnaLdrJKdTACCcJQyspnWqIY4E7QbflL9bx+yPd681c7oEDeBi4+YBp9Z7+pEy+jY1wGi4z0MDD0ErUdINQfOHGBTG8y1Sy9LWWCAR4KoYyshHMygzUgcGd0CSq4qEcNE=
+	t=1789548592; cv=none; b=evIrk2OW+1sexvgfe5399gtBvEPGj9xsVrx108BHHKtIYYUW+vDCCryFwa2IgBpU+E+nMZbQotM3WMgVuCp8VLRUAq3i7ery2N3trs8SunVscbMbGQAGMuh5LADjLfDeBXlBLEMo85X280zaNVQnU3d29UBRQ/FjLBqHs6a3/M0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789548590; c=relaxed/simple;
-	bh=czz0IwIOVpzhTrWGhbbRXjGCqr+0eQQqu+6ERxijrVo=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Yvw2oK5WPY2tJLd+6OX3giv8+ish37yfxTp8WYj/fBOPI4gRFq2uz0x9/TTl0mWgz07EeHxKvKN6C/2DLsRp4QR/qFSBvIQVRD9+Kzwuz9qMg1LiJig716VnOVvB9UYKg5fKW4W4LFBMFMBMbbRQZwoUJad4Kjgi3IsfqwP1DPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n5kCQuPf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789548592; c=relaxed/simple;
+	bh=ihmXYVeMmg2Jerw/GEnfftPEHTm2oEQbk9qxIjSjbkE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NreOWzwC9q6ox2+JWmP1nIF8U0eBxaCLwb7YrPZzlkFhAtfJqbhNhmRC3MyK1nrc2EDorkfWvAEsvEvBVG1qF4hH/EOH+nce/XpOO9Azd8k0R9aZNsG0BAGQ3Kt8Wjk/iXxdlWNqsUv8rY3VTzeAXP9GZvwqcy7YS9UOKtRKPGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MZeYyIHC; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=whngwqGp; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n5kCQuPf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BECDF1F0089A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:49:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789548588;
-	bh=XZufHBxWjYLc5kcpKxhUOODtlXpCA55rAwXnXUObZ/A=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=n5kCQuPfECtjhVx+Ju9vZ48VmOdR62mUikjiHskPstgyStn0Ds4NaUTwprz5uFLwX
-	 WubDgdl1aN59nxjxlhzlZF6SbgXxh30qA7HsTyTCHgJQhKkTtLPScUNReUGIUR2jXk
-	 qBAXm9UM5IyFk9ypeVWMV6T1WFuOvSEjDKxgLllyIybfm3816FJJrZON529SJDEqQ9
-	 X7OUceiQy/pv7OEuFVnFqVxVtuESZXxf/eOswdVa9XUXaEVUe0q7Q2RvmJaLeFNzaQ
-	 /c8DAeF98LjvzKaU6YqAwyCYgrHGFm0H/FgqxFRaIYxJQ4rY9t+8lZ1O/xdLs3T24F
-	 TJ5v3/7avr5Jg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b74d0133e0so631249e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:49:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw/4QfLsMcienMa4beRSYrXfXtV/kT41NK3h1rp5I2hrUxiIlWLxAnsgOibEAzBNCrwRwAxX+g4x4lQbCY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkW93+oeIx0VtO1ZREA/F94K5jFnIfOdHpZX8R/RTiuY/CJnVD
-	W8Of2vXEC7eouN4mPI5CSBBMjiNJ5+qIYSqQYViO7N8IN0i8hu7aK3OCw3GixcasaJCtZ6wL9P1
-	Lq9Jqf/JFxlkM4ktF9fcd1+JINyjEF9z83av6JxBxlg==
-X-Received: by 2002:a05:6512:238a:b0:5b6:1a7c:aa14 with SMTP id
- 2adb3069b0e04-5b8b6643b61mr425058e87.44.1789548587447; Wed, 16 Sep 2026
- 01:49:47 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 03:49:44 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 03:49:44 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260915014447.282121-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MZeYyIHC";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="whngwqGp"
+Date: Wed, 16 Sep 2026 10:49:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789548588;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zibvGOtXD/dN1/gknHfMQUENOl4oEIycRhECJ1GE8rU=;
+	b=MZeYyIHCflNxaXsYfcB/H1Td2iAaWolcrYOkwS3cnByW71B8LarBibC18XAJ//wqrm6MyI
+	FlDgMk+fysdEMGjCn+vK9YVS3WaxhAXnDx6du6UebpYGPKqdeOtKzXvyhV1/mFDx2LAuwx
+	SI7ebK0Aq/NR7DwB5RGLSmiJ8ytMbCfsUfEr37WSJWMf03ZNGaGLw4xmvIlYBfuhQGOu84
+	tJijEO2W8ZyhQtvZrWI/uTRyPt7oQxgA7jjr0my/ntiWN/21kgWs//4pjFiKAAt2q2Mju3
+	3+j4Fchv0AIJ/NZwHSlRYk/FEFx7WqHnJlKp7Bk8dyi4EqdHxpB7hBdp8YgrEw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789548588;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zibvGOtXD/dN1/gknHfMQUENOl4oEIycRhECJ1GE8rU=;
+	b=whngwqGpe5G1qvHE0bFeAAFlToc+413f38OQwOeyNQw7J5E/vglnonP2MAf7Di7I54Bhaa
+	Eabw71pw4yfxbaDQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, Tingmao Wang <m@maowtm.org>,
+	Justin Suess <utilityemal77@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] [v2] landlock: work around gcc-16 -Wuninitialized warning
+Message-ID: <20260916084947.6QDy8KZQ@linutronix.de>
+References: <20260915201036.3527935-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915014447.282121-1-shengchao.guo@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 03:49:44 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MdO+6xKy_=uLnw26bJV=9yhiakpzh0E6nt5jchVYHSk0g@mail.gmail.com>
-X-Gm-Features: AcwNN1VamhLvznLMmE2uvYmINQFIFBQa5sGbvxcCFdh2dKkSiAOnLUPmIyJHqfs
-Message-ID: <CAMRc=MdO+6xKy_=uLnw26bJV=9yhiakpzh0E6nt5jchVYHSk0g@mail.gmail.com>
-Subject: Re: [PATCH 0/2] Fix sharing a PMIC GPIO between multiple consumers
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Yu Zhang <yu.zhang@oss.qualcomm.com>, 
-	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915201036.3527935-1-arnd@kernel.org>
 
-On Tue, 15 Sep 2026 03:44:45 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> On the Qualcomm Nord boards, three discrete regulators feeding a WCN7850
-> module are gated by a single PMIC GPIO (pmau0102_e GPIO6), so the board DT
-> describes three regulator-fixed nodes pointing at the same GPIO.  Only the
-> first of them probes:
->
->   reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
->   reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
->   platform wcn7850-pmu: deferred probe pending: supplier regulator-wcn-core-vh-1p95 not ready
->
-> ARCH_QCOM selects HAVE_SHARED_GPIOS, so gpiolib creates shared GPIO proxies
-> for the line rather than taking the legacy nonexclusive path.  The failure
-> turns out to have two independent causes, one on each side of that
-> interface.
->
-> On the provider side, neither of spmi-gpio's direction callbacks clears the
-> opposite buffer: .direction_output() only sets output_enabled and
-> .direction_input() only sets input_enabled.  A pad left in DIGITAL_INPUT
-> mode by the bootloader therefore ends up in DIGITAL_INPUT_OUTPUT mode on
-> the first direction change, after which .get_direction() reports
-> GPIO_LINE_DIRECTION_IN even though the driver is driving the line.  The
-> same asymmetry means gpiod_direction_input() never stops driving a pad that
-> was previously an output, which is a bug in its own right.
->
-> On the consumer side, gpio_shared_proxy_direction_output() reads the
-> direction back for every requester after the first and refuses with -EPERM
-> if it sees an input.  The readback is not needed, since the proxy is the
-> only entity configuring the line and already knows which direction it
-> asked for.  It is also not robust: a provider without .get_direction() at
-> all makes gpiochip_get_direction() return -EOPNOTSUPP under a WARN_ON,
-> which the proxy propagates just the same.
->
-> Either patch on its own is enough to make the board work; both are sent
-> because both describe real bugs.  Patch 1 is what makes shared GPIOs work
-> irrespective of the provider, so I would consider it the more important of
-> the two.  There is no build or apply dependency between them and they
-> touch different subsystems, so they can go through separate trees.
->
+On 2026-09-15 22:10:30 [+0200], Arnd Bergmann wrote:
+> Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=110743
+> Link: https://lore.kernel.org/all/20260619082133.3504146-1-arnd@kernel.org/
+> Fixes: a260c0055665 ("landlock: Add a place for flags to layer rules")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+> v2: rebased to linux-next-20260914
+> 
+> I originally sent this in June, but got no reply and this still
+> happens with gcc-16.2, which is the latest stable release.
+> 
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-I responded to patch 1/2 before reading this bit. Ok, I'm not against 1/2,
-I'll queue it for fixes.
+This looks reasonable. I don't see this with gcc-16.2 and the referenced
+gcc bug has it as fixed.
 
-Bart
+Sebastian
