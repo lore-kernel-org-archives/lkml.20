@@ -1,132 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8A04908A3
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165DA4E50D4
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:06:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585570; cv=none; b=sKpDU7pRw5sJ2p8oYTrh7v4KqRMBZlwMBy6au7A+yPPSVNuX142e2O3uGYYrgLVpbgb9uY3Khnhmy4amt/h2/I7IxXJnQ134taZPkR8oq1XfF4dH65wKYEUSv5sYllMSScPZ1AFdmkLrV9pPNsEEuAhzM1xsABQq4SsC6xGldd8=
+	t=1789585601; cv=none; b=pXjbhtmo8sngYKP9fmF0Q1BvntezSrHyTG/MbHSMdfs7smEeyj8NY1uFOb240v0f1Tnh5VMNA+bzqr2wmtIHHb+SI8X4s2HVdSjDKpXWiRjF8qtA3ADuEJhja2m61XkG0Hstt3jsgNWNtoy7whv51yAHuOzrGUxRUA21HFq3p7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585570; c=relaxed/simple;
-	bh=u/zd0myX8mv+Y8U0lDQDsMe7IrP62u/XbVzvWt8G+2s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IUWv4KNkfgh48MDdDyNS46TKd9brKrYA9afeRcsl75WMh7C0qRquPshGWv1Qk+6s69gvtOE6yp1SmTbqkci0WbMG7+1X5cZAjnNuRrdMboP9JjZ9BXiRrIeyael71U0GeGAMAvwAwtqOBPx2+eHQuEl2J7r1axvBAenNv5PCkkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JuLjzPnt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789585601; c=relaxed/simple;
+	bh=at37MEHK1PoDpKTrPGD29SbuwXSfyiMebXazPTAKj48=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jAnA2CIKEB7UQZPmIfTEoJ0nS/w2Ppd726Kria/JphdqzxYrDSq8PmmvIM8Sd/qQ9hboDbbQdNZ54sm010Z3pkDSclAnsPMfUVtwmyzwxg72/o1X/tqPZZI+dkL4/SsVaOxwvZfc8M0gNpSmQTA+GZb9RtTpU68QdiniKamqCCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=FMHFlIdV; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JuLjzPnt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B40A1F000FF;
-	Wed, 16 Sep 2026 19:05:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789585554;
-	bh=51DEZFNlawbVB9QJebnyg9pSEJ/EBgReKvMbeWbIlf0=;
-	h=From:To:Cc:Subject:Date;
-	b=JuLjzPnt0BEfLoBe5x9uV2Hq81pIQ5F+0XFwYd3qccTo8IOvlUzHVevKv3jOXxPMl
-	 +lUSCkLOLyV3Ioj9rKPG/FbF4fTtNm9vgznCffHgYtxTRswEbt5CqgztxUYHorWTWu
-	 VvyQB7de+UBBE+4dVXX+/rwlXT5CVeaYFrYrhjfA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: cmllamas@google.com
-Cc: tkjos@android.com,
-	aliceryhl@google.com,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH] binder: Fix up Kconfig dependancy due to removal of .c code
-Date: Wed, 16 Sep 2026 20:03:54 +0100
-Message-ID: <2026091653-dividend-outing-857d@gregkh>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="FMHFlIdV"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab19125so24168d50.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:06:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789585580; x=1790190380; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ca4yrRqL6+DdXUu9p1R9aXY14Me7n+gPWyjhGW+2Sug=;
+        b=FMHFlIdVI8Es+9oD00reBuLNkm8HT9JaW/cOr8zKkzIpcj3Mzh/TTyrMxqtrv7aB+S
+         ueO2iHI6db2h5J5DNUsiq2OKGXTn5jEglCdTVqJ9MiOCDcCYeZndLnAQ1nMaR6iz0DBS
+         gMd+gMIl3+OeIdwNzwN0Oche5igdQIb2innc5aRHbp67giMPmPbkVnfn9FDuPVof4v0W
+         qlGdXv9XyLSJF8NQrVRm5qJ61Bd5Y9g2kibJevDhU87hWc0fAZMx5KpjyAEqtXMeO+tM
+         bPYLdZrmed52fowoKk5M8fkXVA0PbUDpwnZQjb6GTeakwHfZAwoFkHNYIBblQXz1PVac
+         gqHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789585580; x=1790190380;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ca4yrRqL6+DdXUu9p1R9aXY14Me7n+gPWyjhGW+2Sug=;
+        b=a82RaS57x4yidd7aEp2zhFJiHU/CxXCGMglT0dDkvdWPtmOmtPG3j6Ze8ydoYjdAk+
+         IszNB+6jW0B6kkpno9WKW8rFsjaau2uQMR2OaylBFLtrKslRngsvmdnratUVDrm3UFZS
+         GxnGA/Jj5ivRZU+QtxB//IGBIohcSzocKnDV9CxFV3PHcmM/WwqVkDBpvSedtDvQckbw
+         XJvzNLomiRN+MXEOLeUHddsMSIVe9wwvv/HkpYwzzqS5SIPI06vB9qfBAaGorrW0Wspv
+         35cTPWGQsYkR0o9iLHRBQJiMZGTj58BkB1cOxJRsn5Nbr2YJqo7sD5F8306LGhbMQ8lA
+         tpvg==
+X-Forwarded-Encrypted: i=1; AKwUvBwNasrgaUl8k6OJ6QNGEdmGmZMGH8GvCZJUesll8I+QC1CtIFM5fHRbFHY7QRohGerHAQBXb2ldeCxSwNc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOakosOPJlB+oXEua34TrfJw3+pwEbVv21cyVy5iAXyq7C58eP
+	ZP9Ih1NyodVPEjps73XwW34vlC6FUcX8ddVWZy6D2CkAZeV0inAhEFGhHVJ1+prj4hk=
+X-Gm-Gg: AYBFou0KbAAdmfl5LQR7/Uw5nggl+OSeott0eSvwuRL4h/jMHfHs1mGnATrTKmvvziC
+	Xv3n+gkpkf26T8mtnB0+hD+u1p7gPX7o6Owm0aTz2BFxU8yUPyQyTVAJDITFB8sW7Dz+1kLJvZc
+	7P77yx4lRq+SQmK5NDg8MCTAdylrpNL2txLhX5eHNiAnyG3kDUO8acLeA5CAZTVYTiKG76GY2MN
+	TCCGYWsorTe2ppJeqEEZCmrkS1b2BytQGmIOp6FdKJ7hLBxKyoqQJYFfCfpSW9VXRJ9vt1KZg7M
+	TyPyH0KEOrJqnJM7UweThM6oJBxRCXtNXDQTbeirIf2ab7MrgYAGYxbMfFkIFqxGRLQJCETpqFn
+	TMcS0bHrdBlRZ+jW8xNUpmVAmo8IRg5e1RS9qUXzZ5X52jXW4r9Q8ymvp9Tw3OOnWF9RZ8/uI6I
+	JgWPODsHhwxGo78zHApdxpffwgiwiUVCfg4D6y4o96sGBE1d8OrVFrn+xIEDgr9a8RPd2aWQFKr
+	c7Vx4ROc7Z80BcPn5U48YxVDqCCYQ6UroAoUCUmnXeQK6yccbNmAFqRIqdZ15tELPx5dh9Li/7l
+	19yDMICMjJUrQHtbIGGoeFwCZeyB37aaFanUWeh27jqxQOr3YoJnDJpmHhiKniPW
+X-Received: by 2002:a05:690e:4391:b0:671:70d2:5285 with SMTP id 956f58d0204a3-67170d2542fmr87564d50.72.1789585579861;
+        Wed, 16 Sep 2026 12:06:19 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:f547:a2c0:72f7:6671? ([2600:1700:6476:1430:f547:a2c0:72f7:6671])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6715f79ca1asm1651972d50.21.2026.09.16.12.06.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 12:06:18 -0700 (PDT)
+Message-ID: <8eef80c6c8d21e863c5a3721b1ae681fc4ccf54f.camel@dubeyko.com>
+Subject: Re: [PATCH v2] nilfs2: validate segment number in
+ nilfs_sufile_get_suinfo()
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
+	 <konishi.ryusuke@gmail.com>
+Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Wed, 16 Sep 2026 12:06:16 -0700
+In-Reply-To: <20260915195223.3331909-1-qwe.aldo@gmail.com>
+References: <MSG-ID-sufile-v1> <20260915195223.3331909-1-qwe.aldo@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3568; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=u/zd0myX8mv+Y8U0lDQDsMe7IrP62u/XbVzvWt8G+2s=; b=owGbwMvMwCRo6H6F97bub03G02pJDFmrXkh+Vzju78Jw5NOvjtNFC/iVDQ5NePfVK7nKZUvoI dX8LcVnOmJZGASZGGTFFFm+bOM5ur/ikKKXoe1pmDmsTCBDGLg4BWAil9IZFvS/Wsu2M+HCmkOK xUu2h07cfLXWQI9hwZ6oM1uniT3ob+Jjn/S9c6lp8x6X/QA=
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
-Content-Transfer-Encoding: 8bit
 
-When the .c binder code was removed, building the kernel if the rust
-binder code was enabled, will cause the binder to not be built at all as
-the option changed from .c to .rs which is probably not what the
-original build wanted.
+On Tue, 2026-09-15 at 16:52 -0300, Aldo Ariel Panzardo wrote:
+> nilfs_sufile_get_suinfo() subtracts the caller-provided segment
+> number
+> from the total number of segments without first checking its range.
+> If
+> the requested number is greater than the total, the unsigned
+> subtraction
+> wraps and the function may process segment numbers outside the
+> filesystem.
+>=20
+> Cache the total while holding the metadata semaphore and return no
+> entries
+> when the starting segment number is at or beyond the end.
+>=20
+> Fixes: 6c98cd4ecb0a ("nilfs2: segment usage file")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+> =C2=A0fs/nilfs2/sufile.c | 10 +++++++---
+> =C2=A01 file changed, 7 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
+> index eceedca026..573646c5f7 100644
+> --- a/fs/nilfs2/sufile.c
+> +++ b/fs/nilfs2/sufile.c
+> @@ -870,10 +870,14 @@ ssize_t nilfs_sufile_get_suinfo(struct inode
+> *sufile, __u64 segnum, void *buf,
+> =C2=A0
+> =C2=A0	down_read(&NILFS_MDT(sufile)->mi_sem);
+> =C2=A0
+> +	nsegs =3D nilfs_sufile_get_nsegments(sufile);
+> +	if (segnum >=3D nsegs) {
+> +		ret =3D 0;
+> +		goto out;
+> +	}
+> +
+> =C2=A0	segusages_per_block =3D
+> nilfs_sufile_segment_usages_per_block(sufile);
+> -	nsegs =3D min_t(unsigned long,
+> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_sufile_get_nsegments(sufile) - se=
+gnum,
+> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nsi);
+> +	nsegs =3D min_t(unsigned long, nsegs - segnum, nsi);
+> =C2=A0	for (i =3D 0; i < nsegs; i +=3D n, segnum +=3D n) {
+> =C2=A0		n =3D min_t(unsigned long,
+> =C2=A0			=C2=A0 segusages_per_block -
 
-Fix this up by renaming the option back to the _RUST version.  If in the
-future, that suffix wants to be dropped, we can do so and then it will
-be prompted for a choice again, but for this release cycle, it should
-stay as-is.
+Looks good to me.
 
-Fixes: binder: rm -f binder.c
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/android/Kconfig                                      | 4 ++--
- drivers/android/Makefile                                     | 2 +-
- drivers/android/binder/Makefile                              | 2 +-
- tools/testing/selftests/filesystems/binderfs/binderfs_test.c | 2 +-
- tools/testing/selftests/filesystems/binderfs/config          | 2 +-
- 5 files changed, 6 insertions(+), 6 deletions(-)
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
 
-diff --git a/drivers/android/Kconfig b/drivers/android/Kconfig
-index 403e5f3eab5a..c920d52c0221 100644
---- a/drivers/android/Kconfig
-+++ b/drivers/android/Kconfig
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- menu "Android"
- 
--config ANDROID_BINDER_IPC
-+config ANDROID_BINDER_IPC_RUST
- 	bool "Android Binder IPC Driver"
- 	depends on MMU
- 	depends on NET
-@@ -17,7 +17,7 @@ config ANDROID_BINDER_IPC
- 
- config ANDROID_BINDER_DEVICES
- 	string "Android Binder devices"
--	depends on ANDROID_BINDER_IPC
-+	depends on ANDROID_BINDER_IPC_RUST
- 	default "binder,hwbinder,vndbinder"
- 	help
- 	  Default value for the binder.devices parameter.
-diff --git a/drivers/android/Makefile b/drivers/android/Makefile
-index dc19d21037af..5bc644cf5e0c 100644
---- a/drivers/android/Makefile
-+++ b/drivers/android/Makefile
-@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0-only
- ccflags-y += -I$(src)			# needed for trace events
- 
--obj-$(CONFIG_ANDROID_BINDER_IPC)	+= binder/
-+obj-$(CONFIG_ANDROID_BINDER_IPC_RUST_RUST)	+= binder/
-diff --git a/drivers/android/binder/Makefile b/drivers/android/binder/Makefile
-index 661f5cca8918..fe474628a94e 100644
---- a/drivers/android/binder/Makefile
-+++ b/drivers/android/binder/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- ccflags-y += -I$(src)	# needed for trace events
- 
--obj-$(CONFIG_ANDROID_BINDER_IPC) += binder.o
-+obj-$(CONFIG_ANDROID_BINDER_IPC_RUST) += binder.o
- binder-y := \
- 	rust_binder_main.o	\
- 	rust_binderfs.o		\
-diff --git a/tools/testing/selftests/filesystems/binderfs/binderfs_test.c b/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
-index 7310622098ff..cd82c89f558f 100644
---- a/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
-+++ b/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
-@@ -414,7 +414,7 @@ TEST(binderfs_stress)
- 
- 		ret = mount(NULL, binderfs_mntpt, "binder", 0, 0);
- 		ASSERT_EQ(ret, 0) {
--			TH_LOG("%s - Failed to mount binderfs, check if CONFIG_ANDROID_BINDER_IPC is enabled in the running kernel",
-+			TH_LOG("%s - Failed to mount binderfs, check if CONFIG_ANDROID_BINDER_IPC_RUST is enabled in the running kernel",
- 				strerror(errno));
- 		}
- 
-diff --git a/tools/testing/selftests/filesystems/binderfs/config b/tools/testing/selftests/filesystems/binderfs/config
-index e0c1958a3675..80e4221c2d82 100644
---- a/tools/testing/selftests/filesystems/binderfs/config
-+++ b/tools/testing/selftests/filesystems/binderfs/config
-@@ -1 +1 @@
--CONFIG_ANDROID_BINDER_IPC=y
-+CONFIG_ANDROID_BINDER_IPC_RUST=y
--- 
-2.55.0
-
+Thanks,
+Slava.
