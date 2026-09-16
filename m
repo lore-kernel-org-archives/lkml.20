@@ -1,148 +1,223 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011057.outbound.protection.outlook.com [52.101.65.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B587B4BA1CB;
-	Wed, 16 Sep 2026 17:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579100; cv=none; b=rTA5nm6q4hqiU7SkCKZ0YwCbZD7VMZsIp9aCil/whjshb4mccVgU40QBxslcFXSWAniW+cFdy9wiMOkycV6o1sPP+HJbJEhP7sNXzzj72hiK0zzj51nbUZiCcNgqt7QJ49y5CxX6XXq4FAbkm3IKn84aJfC/Xoabs4kQS5lTrKE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579100; c=relaxed/simple;
-	bh=DaBVA3N71vqKpGjHJAcjR2l/h6S2sDfGJ/Uj6I9QoeM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZKYNcNlfwCeYpdmwLYVZPGg1LNrHCR3tr+UuGWZInLZS4ardQllmgllndw0M3N3kQCW7zUHOLp+hQWdULeA4X3G9UnwTKLR3WymuzenOjBv0/3W8oK0uspAR1UVxUaJVDbNlb0DxFPQcClbQyoCkJnW3+LOjmbbvZ2UlADp25Q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TImKmxgx; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1085E3AE6FD;
+	Wed, 16 Sep 2026 17:18:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789579133; cv=fail; b=Enyh8OUkkMt5UdzNH9dxs/eL731gM9Y17Rzl07g1876QvIvKndkkFQUGJ/bqXDGAVZFzuW/nsNt4pu1rLRA2fHUit7tR0yXbQrMeAox93Q4zIDb7bTgIO71TPtWPKehhWMXf92alFeLjQXpurAzdg9fpNm0j5lPjk/9r8LMI6RY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789579133; c=relaxed/simple;
+	bh=XkGWxNpc1KR7hfMOJgCafYsGMJlhuBTMGVLGbTyQmNk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=N1Vg+0AhnimfmgwD+k8IFa0Vkw+aSa4HIHvBglwxZtQFCE/HlVyVzgUX9pz37zVxT2Z51wXw+wFGHkyp/NtTxvS8AQxQ7g8JB6GLEQgHXhhljM57ip2R2+StzD/2I7ZyMV/hhOFPowriWHXlG8XekkHkAqfs6t6SwrjKQ/X5pIA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=T88UEuiM; arc=fail smtp.client-ip=52.101.65.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TImKmxgx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59C701F000FF;
-	Wed, 16 Sep 2026 17:18:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789579099;
-	bh=rrxZXW0JV2dcAfSA/va77c8vfQZoNVpDQV381429spE=;
-	h=From:To:Cc:Subject:Date;
-	b=TImKmxgxeqTplqpkackbdVNFITpWZKLKh/DNeGShhOy6QYYe7Zy9eUFcKXcSCQqs4
-	 mxgwxItHRnlXDjnASa31x/X28o+arPDfl2I59etmVicFnylFpYvghavr1ug53WaQY6
-	 NVjV/BwaBCWajQ8rVHPFnIogpD/Mds6pq1B1MvTK/qWAUSnuXauo3bDi2eETcBVVKH
-	 t+1cBNYP+cfvpMuEMilM9rpicCByvQv+ZDTiRf+u9tRcOIgspxcQ0I28AM3nFSTHAe
-	 ibZo1urlOz55O6RkYPXkA8Y+Rm+hG5fBSfB7lO7/0BRiFtxcqBiXvfY7OYsaBN7NLV
-	 Pg0LgAq9AMopw==
-From: Thorsten Blum <blum@kernel.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-crypto@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] crypto: atmel-tdes - consolidate transfer setup
-Date: Wed, 16 Sep 2026 19:17:01 +0200
-Message-ID: <20260916171659.129009-3-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="T88UEuiM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ldDF6thAICo5/1Xu7YOt3VkEUSiZ+sIKRHLBZjAk4EZ662DmxexMvkFLrciWt7EYkMZjexoa805iXIEUeAriDrEHih5rk5WdY/njTJzI3twXG8neOikBfqHqtYA2YMyR4D6vKGzXnKRJ+G7e9DrySncq5ua3MoTyXW1cLclyfCmZTnVDkopMnJgbHDHlt9o0sSGd7e9I0qyJpW6Np3klhpEugWhl4hh/S4FaZkBJljrIw32nHjM62rzhHhy2oa5rpl2+ONlCplKoeSVXvXJCBDHLayTXCK9NtTNlShpe4EGYopldLus0o+kioRSji4fOkLUnkb+ATsvfMtGN8fLAQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gYPgihDng5OCKuceMHWgLUI8Nqzp5cD+eH/JcUxG6I4=;
+ b=BvZn9lnBYtHQ0DYpiCUZ3I1JgDrNx3FnlPVFaG0Hp/Q+hN3GWcISFv59mXTiaXc9xvm/XIaiv++OXgYfJz92lu2kKFFvVnWaja0NrvgR/VtieQxElrSDgMSRTi7uWW3xwJkObHz3k83+B8pJWxlwEUUo38BOALFXdTGfzXYU4YH+8+XnS0W2/zEBJwj2aVcehZjfmXMPPSP8Ho2WA4naW+Ys2ZjEWgP1eQFbuSVyniQIGtu6DjsxD8BkkO4Ow9vVUiMS3FpTSZmZTcJc6e6R+1nuWHt2OXIIP/SVjyIbGQqIzNbWvp05AthXBGLJOmBwY8+XGhKRpVmi+sj0SCnitg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gYPgihDng5OCKuceMHWgLUI8Nqzp5cD+eH/JcUxG6I4=;
+ b=T88UEuiMR6dVYPbMauQrN600WarCc8DgLeYsA0zrhBEntuGbK/3BkuRt9Ad3wrGlL7lgQLyHoR9jSI19Qa3djYtgOY1Hd3lqimsYPHVTVVSN+RcQ2qLeuKmN72RUHC3N3SO58onAkNP24408CQWIlkOCqr2O3mpFxuFp7tSBQ7y7UQbVHmXpVshPsPAdAAQQ0w1kl04y4+S5IV83u1tXQYDCRNEFJ5O6hXEPAsP1n+t7XK35FEerjmrBkPmWFWLptz3lKDKZVvmSPuIm9kcMX8Tw2nj3WdyiI+AemQC/+gf+JfNiJ96CrV+o/qGlKKFNWA2kuv+17zksRJ2bQLubfA==
+Received: from AS4P189CA0064.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:659::24)
+ by PA4PR10MB5682.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:264::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
+ 2026 17:18:46 +0000
+Received: from DB1PEPF000509F4.eurprd02.prod.outlook.com
+ (2603:10a6:20b:659:cafe::9e) by AS4P189CA0064.outlook.office365.com
+ (2603:10a6:20b:659::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
+ 16 Sep 2026 17:18:46 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB1PEPF000509F4.mail.protection.outlook.com (10.167.242.150) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:18:45 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 16 Sep
+ 2026 19:24:49 +0200
+Received: from localhost (10.48.86.251) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 16 Sep
+ 2026 19:18:44 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Date: Wed, 16 Sep 2026 19:18:38 +0200
+Subject: [PATCH v3] iio: adc: stm32-adc: fix check on internal channel
+ availability
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3344; i=blum@kernel.org; h=from:subject; bh=DaBVA3N71vqKpGjHJAcjR2l/h6S2sDfGJ/Uj6I9QoeM=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmrznM/ldI4OuXMCrX0taa7eRLy4/PKppovveNWtuTWh IXFVafzO0pZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAi9yMY/nD8uf37150LrwLV zv/9uyFWKzSQtXLL2dMrXDVFGEqu3elmZHjnqy2doXtCOPd1w3PeapV2Fs3SVxWMD/cVdUc+OPW jlB0A
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260916-adc-fix-intchan-v1-v3-1-b5f05b86bc60@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAG3PqmoC/32NywrCMBBFf0WyNmWS0oeu/A9xkcfURrCRTAxK6
+ b+b1I2CCLM5cObcmREGh8T2m5kFTI6cnzLU2w0zo5rOyJ3NzCTIFnai4coaPrgHd1MsAk+C1xa
+ t6g0a3QDLj7eA2Vijx9Ob6a4vaGIpFWN0FH14rqtJFO/vQD7Bu1YooesGQOjD4IkqipXxV1Ymk
+ vyMtD8jMkdw6EArNBZ6+R1ZluUFYL8+nw0BAAA=
+X-Change-ID: 20260915-adc-fix-intchan-v1-3deda8cecb50
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Olivier Moysan
+	<olivier.moysan@foss.st.com>
+CC: <linux-iio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>, Sashiko <sashiko-bot@kernel.org>,
+	<stable@vger.kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509F4:EE_|PA4PR10MB5682:EE_
+X-MS-Office365-Filtering-Correlation-Id: c148b88f-3d21-48a8-f927-08df141690b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|82310400026|1800799024|36860700016|13003099007|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	XckR9unBDH9NUMWPKHoJWJv9bE0/0/6zNTgoEpHPAA7Mw2iGFPUwCsfD/r/SGSEUhWUi/5TCtDuBX6a6Ly3ptXxTfEoWCrNRhZT26UrsuH5dLb2LP+pq2z651v2i9VhMm4psSPQgGzrzJPWSQnsZom4gsZ8VI3wPm+54Rb9vacc0gFYOgXxBTGH6XPaUujDXfnu+K5x5ecz9LQn5KJjh5vabTCzFoNMfu2nQdpbQL9yYXRX7D2IUAclCKGc/eEeY1IrNWFGNOkY+QLUHkzussSqkmZCAh/LXwdpYrvV2mtNtMCPP6HMLnz9547FOMx9I1aUpjHWs5LL37JcxUVyO2p/Z2txm0aSz9fvV/RSRXIWkHlEeGS4p/AsTMz2JRXtVnepvrwGQcP89of4ZqlJcg6iSjrmDM8TCoKNqoH3no5lclDS0rrLhpuiFFMP9doyjhaPpAa4kO9YHlomomaMHM1rdORG4MomtDPSqTXZLe++3dyWu3f5VAWq/8+i61jC4QVHsUSlznL70xW+jkiIxelmjWI7q8MpRAvlVYpBgaDF1qniJRmZz7cRGIlAsT0Gt0F2bTYaBUSrLgPsyG2qgHSXwZsPnlp/5SNazA99i7f5GYjlhlSxBOwKMxN/lny9Tt1C2qBMfisc5cb9aLfeVctqT75bWYemQqXB6bP+Fc3k=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(82310400026)(1800799024)(36860700016)(13003099007)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	RbpFfhxsrbkDW6r9LeT1XWR2lXMLHMoHApptmsFP3LNH7UIspgQw2S2BSmHaQRuv6bDPQFOKmh7d6xXFO+BjucT2ux6bBwjqBsrfBdgAdB3EARuxT7uRMlLVC3FGgApnHrU74U5nJamD+MFDwFYifAxrCn5kwGHPjlHFbIIGBxK2SToazdoVCXB8nViIcoSetZWiVS7ZrQjrZdAUUV8BOpOXdgJQ06oyyiZBykQgMK+Fnv7/RitZujOJQMqRePAFexBQF26AQCAOpMvY86p6nfX429UATRM4KbULNPv0Z53Jo1tA9ABUhr/DMoHwWY+bXlqxy6SkDvUYIROWG3WJ5ZeGg2ob3d+/75YAyo9JQSIn/VlF9WiwQ+2s03J9czDjN9X1avoNVWazTHrfxafcYfVBJwATJKoOi21DcdOEWshESedJWMSJiaXgNB9aWEkO
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:18:45.8182
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c148b88f-3d21-48a8-f927-08df141690b2
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509F4.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR10MB5682
 
-atmel_tdes_crypt_pdc() and atmel_tdes_crypt_dma() store the transfer
-length in dd->dma_size and synchronize the bounce buffers before a slow
-transfer.
+If an unsupported internal channel like vddgpu is requested, the driver
+prints a warning but falls through and assigns it a valid int_ch below.
 
-Move the shared code to atmel_tdes_crypt_start() and use dd->dma_size in
-atmel_tdes_crypt_pdc() and atmel_tdes_crypt_dma() instead of passing the
-length separately.
+This causes a problem later during setup:
+stm32_adc_int_ch_enable() {
+    ...
+    case STM32_ADC_INT_CH_VDDGPU:
+        stm32_adc_set_bits(adc, adc->cfg->regs->or_vddgpu.reg,
+                           adc->cfg->regs->or_vddgpu.mask);
+    ...
+}
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
+Because the register offset is uninitialized (0), this performs a
+read-modify-write on offset 0, which corresponds to the ISR register.
+
+Fix this by returning before a valid int_ch is assigned. Choice is
+made to keep current driver behavior to warn about the channel name.
+
+Fixes: cf0fb80ae167 ("iio: adc: stm32-adc: add stm32mp13 support")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260911162602.D323F1F000FF@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
- drivers/crypto/atmel-tdes.c | 40 ++++++++++++-------------------------
- 1 file changed, 13 insertions(+), 27 deletions(-)
+Changes in v3:
+- Comment from Andy: use Closes instead of Link in the commit message
+- Add collected Andy's Reviewed-by
+- Link to v2: https://patch.msgid.link/20260916-adc-fix-intchan-v1-v2-1-ef70baecd082@foss.st.com
 
-diff --git a/drivers/crypto/atmel-tdes.c b/drivers/crypto/atmel-tdes.c
-index 53150f9b169b..f084fda42423 100644
---- a/drivers/crypto/atmel-tdes.c
-+++ b/drivers/crypto/atmel-tdes.c
-@@ -349,20 +349,9 @@ static void atmel_tdes_buff_cleanup(struct atmel_tdes_dev *dd)
+Changes in v2:
+- Review comments from Andy: use bool flag closer to the channel
+  availabilty checks. Add a default case.
+- Link to v1: https://patch.msgid.link/20260915-adc-fix-intchan-v1-v1-1-761a1b35001b@foss.st.com
+---
+ drivers/iio/adc/stm32-adc.c | 34 +++++++++++++++++++---------------
+ 1 file changed, 19 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 5c6c06b269be..b77f39f305d8 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -2263,33 +2263,37 @@ static int stm32_adc_populate_int_ch(struct iio_dev *indio_dev, const char *ch_n
  
- static int atmel_tdes_crypt_pdc(struct atmel_tdes_dev *dd,
- 				dma_addr_t dma_addr_in,
--				dma_addr_t dma_addr_out, int length)
-+				dma_addr_t dma_addr_out)
- {
--	int len32;
--
--	dd->dma_size = length;
--
--	if (!(dd->flags & TDES_FLAGS_FAST)) {
--		dma_sync_single_for_device(dd->dev, dma_addr_in, length,
--					   DMA_TO_DEVICE);
--		dma_sync_single_for_device(dd->dev, dma_addr_out, length,
--					   DMA_FROM_DEVICE);
--	}
--
--	len32 = DIV_ROUND_UP(length, sizeof(u32));
-+	u32 len32 = DIV_ROUND_UP(dd->dma_size, sizeof(u32));
- 
- 	atmel_tdes_write(dd, TDES_PTCR, TDES_PTCR_TXTDIS|TDES_PTCR_RXTDIS);
- 	atmel_tdes_write(dd, TDES_TPR, dma_addr_in);
-@@ -381,21 +370,12 @@ static int atmel_tdes_crypt_pdc(struct atmel_tdes_dev *dd,
- 
- static int atmel_tdes_crypt_dma(struct atmel_tdes_dev *dd,
- 				dma_addr_t dma_addr_in,
--				dma_addr_t dma_addr_out, int length)
-+				dma_addr_t dma_addr_out)
- {
- 	struct scatterlist sg[2];
- 	struct dma_async_tx_descriptor	*in_desc, *out_desc;
- 	enum dma_slave_buswidth addr_width;
- 
--	dd->dma_size = length;
--
--	if (!(dd->flags & TDES_FLAGS_FAST)) {
--		dma_sync_single_for_device(dd->dev, dma_addr_in, length,
--					   DMA_TO_DEVICE);
--		dma_sync_single_for_device(dd->dev, dma_addr_out, length,
--					   DMA_FROM_DEVICE);
--	}
--
- 	addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
- 
- 	dd->dma_lch_in.dma_conf.dst_addr_width = addr_width;
-@@ -408,11 +388,11 @@ static int atmel_tdes_crypt_dma(struct atmel_tdes_dev *dd,
- 
- 	sg_init_table(&sg[0], 1);
- 	sg_dma_address(&sg[0]) = dma_addr_in;
--	sg_dma_len(&sg[0]) = length;
-+	sg_dma_len(&sg[0]) = dd->dma_size;
- 
- 	sg_init_table(&sg[1], 1);
- 	sg_dma_address(&sg[1]) = dma_addr_out;
--	sg_dma_len(&sg[1]) = length;
-+	sg_dma_len(&sg[1]) = dd->dma_size;
- 
- 	in_desc = dmaengine_prep_slave_sg(dd->dma_lch_in.chan, &sg[0],
- 				1, DMA_MEM_TO_DEV,
-@@ -486,11 +466,17 @@ static int atmel_tdes_crypt_start(struct atmel_tdes_dev *dd)
- 	}
- 
- 	dd->total -= count;
-+	dd->dma_size = count;
+ 	for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
+ 		if (!strncmp(stm32_adc_ic[i].name, ch_name, STM32_ADC_CH_SZ)) {
++			bool na;
 +
-+	if (!fast) {
-+		dma_sync_single_for_device(dd->dev, addr_in, dd->dma_size, DMA_TO_DEVICE);
-+		dma_sync_single_for_device(dd->dev, addr_out, dd->dma_size, DMA_FROM_DEVICE);
-+	}
+ 			/* Check internal channel availability */
+ 			switch (i) {
+ 			case STM32_ADC_INT_CH_VDDCORE:
+-				if (!adc->cfg->regs->or_vddcore.reg)
+-					dev_warn(&indio_dev->dev,
+-						 "%s channel not available\n", ch_name);
++				na = !adc->cfg->regs->or_vddcore.reg;
+ 				break;
+ 			case STM32_ADC_INT_CH_VDDCPU:
+-				if (!adc->cfg->regs->or_vddcpu.reg)
+-					dev_warn(&indio_dev->dev,
+-						 "%s channel not available\n", ch_name);
++				na = !adc->cfg->regs->or_vddcpu.reg;
+ 				break;
+ 			case STM32_ADC_INT_CH_VDDQ_DDR:
+-				if (!adc->cfg->regs->or_vddq_ddr.reg)
+-					dev_warn(&indio_dev->dev,
+-						 "%s channel not available\n", ch_name);
++				na = !adc->cfg->regs->or_vddq_ddr.reg;
+ 				break;
+ 			case STM32_ADC_INT_CH_VREFINT:
+-				if (!adc->cfg->regs->ccr_vref.reg)
+-					dev_warn(&indio_dev->dev,
+-						 "%s channel not available\n", ch_name);
++				na = !adc->cfg->regs->ccr_vref.reg;
+ 				break;
+ 			case STM32_ADC_INT_CH_VBAT:
+-				if (!adc->cfg->regs->ccr_vbat.reg)
+-					dev_warn(&indio_dev->dev,
+-						 "%s channel not available\n", ch_name);
++				na = !adc->cfg->regs->ccr_vbat.reg;
+ 				break;
++			default:
++				return -EINVAL;
++			}
++
++			if (na) {
++				/*
++				 * Channel label matches an internal STM32 ADC channel.
++				 * Warn about it, as there's normally no restriction on the
++				 * name but that's not among available internal channels.
++				 */
++				dev_warn(&indio_dev->dev, "no %s internal channel\n", ch_name);
++				return 0;
+ 			}
  
- 	if (dd->caps.has_dma)
--		err = atmel_tdes_crypt_dma(dd, addr_in, addr_out, count);
-+		err = atmel_tdes_crypt_dma(dd, addr_in, addr_out);
- 	else
--		err = atmel_tdes_crypt_pdc(dd, addr_in, addr_out, count);
-+		err = atmel_tdes_crypt_pdc(dd, addr_in, addr_out);
- 
- 	if (err && (dd->flags & TDES_FLAGS_FAST)) {
- 		dma_unmap_sg(dd->dev, dd->in_sg, 1, DMA_TO_DEVICE);
+ 			if (stm32_adc_ic[i].idx != STM32_ADC_INT_CH_VREFINT) {
+
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20260915-adc-fix-intchan-v1-3deda8cecb50
+
+Best regards,
+--  
+Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+
