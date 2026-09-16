@@ -1,132 +1,128 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA0424EC663;
-	Wed, 16 Sep 2026 11:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDC944A401
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:12:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789557174; cv=none; b=A+HvlugEfBmNxHJC9iUyBrzLmFMtIS89lQJIz33JNZmrSiWKZlffh3pAdeFzWm5Iqx6HtvE7TyUmoVDR1IpzfZ5Ta0b4CqpnE4H0+VnHc05QhKXd2TprNjs5vKjH3Oo8AGbbPqI5Dv8h9E8VOLpL/dn4rRyN+L1xezUngIU5XXk=
+	t=1789557192; cv=none; b=FYsjdZ9qT5euE+2T18CLa0cayVN69YVsj0Igm2jyWhdGnJ7A3dYnQGA4F0NO/vdBebyEIGd5RnTGMiW1QT1T3f3rStJ5tyQzHDzSfMKYNpK7//qY3ehCHZoZq3tT0o3rE5QBXlJ9Qv4pfzKbfXij3mbcA/dpqsxlDLfMucbH6nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789557174; c=relaxed/simple;
-	bh=1q9E++OoHeScrVvGyvWBXSXKeDF+J5fHPuPcW2aD7z4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JywpIWO24EBEWiJRQN7g5UpSSLCB2ebLTovCGPBpSp80Yb2bV49kzVJWBGw8RYRRuKIX5JPQgc0Impk7f1P/jnBrhLbN/2KIRUmCqQBhnEz0ZWY/konaD73newvVwGBFtA4h3s8hf/AstO0GSzn9W6w1cA61g0PMsyvXMpOzqoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sGBeAie5; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789557192; c=relaxed/simple;
+	bh=3gfjDo2RQVYjWnMig6ae1M6BKkxcfRDRtilKyoXENjw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=KZBdDVjc1ZBhONIqgdkNe/jQ1xQcFVjqi8fVtH42FKjEJChK9yutg7THtOo+XLkFEmWVzHjXSTHVL5zb5tylmP9bEIozryz/gNArXmSUCLPOtjkOtPzulxSfH+NWXaB5qsBePLGqaGXVOEowsiWfspiQ0Xcp4XrybxasIdT28Ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QSKFtyds; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sGBeAie5"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CB547152B;
-	Wed, 16 Sep 2026 04:12:31 -0700 (PDT)
-Received: from [10.0.129.72] (unknown [10.0.129.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E9E463F86F;
-	Wed, 16 Sep 2026 04:12:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789557155; bh=1q9E++OoHeScrVvGyvWBXSXKeDF+J5fHPuPcW2aD7z4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=sGBeAie5sU6JFx++lyn4pjUV7iZ4IQwzvBZDIejbwq4+0Owvmh7MxZxizdtgNHsOv
-	 OeA5cglS8X9OqvutD9Hv/MbEKGfWOa+2hSeZhvn7pK9e0iExMusLrn0d7JZNUrfnTV
-	 VYi69x/OCpBmhu8xSOJamu6HijvVJ78mHWT1QTgE=
-Message-ID: <ea2c4680-ccee-4ad5-978c-95dade454091@arm.com>
-Date: Wed, 16 Sep 2026 12:12:29 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QSKFtyds"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id D57E0C5CD57;
+	Wed, 16 Sep 2026 11:13:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E53FF60337;
+	Wed, 16 Sep 2026 11:12:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 265ED11C7AFE8;
+	Wed, 16 Sep 2026 13:12:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789557158; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=u02QRcLt049ZAT6aaaZxvp9GLfHLpQsKy5lJH5r5naM=;
+	b=QSKFtydsijs/fSver9QSpsKcj+EVggX6o7OLuUT/sZ+HCtCtYOnV96tLPkTKOlOio9bt/a
+	nCdzJ8o1x+njqGiZ+98ZrOlpHGlGd4ah/cSkldvIee+ChcYUXs4u0K3ECyFeM+HMxOKD4U
+	kNDC/+2WExsg9VwFJTlaM5uXjCZB6/WzitNoDe6n/yj8nEvMC/3NEsAtR8LEejtnmrSCy0
+	nwaIHrc7Yu2fCIPrIlWWit/1kR7PhISe2+ViYCPIYWeYm0wwCpL/Htik2t4PT9vdBZKopV
+	IHOH4HBywuyEOyad0QtjCFk4/Y2uwg098nN+Veq6bBGlqXBtBizUmVJm7gUsfQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] sched/fair: Randomize equally shallow slow-path
- candidates
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Beata Michalska <beata.michalska@arm.com>, Elif Topuz <elif.topuz@arm.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Shubhang Kaushik
- <sh@gentwo.org>, Christoph Lameter <cl@gentwo.org>,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-References: <20260916100116.701206-1-christian.loehle@arm.com>
- <20260916100116.701206-3-christian.loehle@arm.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20260916100116.701206-3-christian.loehle@arm.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Wed, 16 Sep 2026 13:12:30 +0200
+Message-Id: <DLGP2DKCP2T1.1HOJ6X8CS2GET@bootlin.com>
+To: "Francesco Dolcini" <francesco@dolcini.it>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v4 3/4] ARM: dts: imx6ull-colibri: Set LCDIF bus-width
+Cc: "Marek Vasut" <marex@denx.de>, "Stefan Agner" <stefan@agner.ch>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Frank Li" <Frank.Li@nxp.com>,
+ "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Francesco
+ Dolcini" <francesco.dolcini@toradex.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>
+X-Mailer: aerc 0.22.0
+References: <20260813092836.38367-1-francesco@dolcini.it>
+ <20260813092836.38367-4-francesco@dolcini.it>
+ <178954813309.214898.9623998050171113140.b4-review@b4>
+ <20260916092242.GB277833@francesco-nb>
+In-Reply-To: <20260916092242.GB277833@francesco-nb>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/16/26 11:01, Christian Loehle wrote:
-> Picking the first eligible idle CPU leaves a scan-order bias. Concurrent
-> slow-path selectors can choose the same CPU before either task is enqueued.
-> 
-> Use reservoir sampling in the tie branch, resetting the candidate count
-> when a lower advertised exit latency is found. Use the per-CPU scheduler
-> PRNG and reciprocal_scale() to avoid variable division or a second scan.
-> 
-> This reduces deterministic convergence without reserving the chosen CPU.
-> 
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> ---
->  kernel/sched/fair.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index ff5793bddc35..6836a8364440 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -24,6 +24,7 @@
->  #include <linux/mmap_lock.h>
->  #include <linux/hugetlb_inline.h>
->  #include <linux/jiffies.h>
-> +#include <linux/math.h>
->  #include <linux/mm_api.h>
->  #include <linux/highmem.h>
->  #include <linux/hrtimer.h>
-> @@ -8459,6 +8460,7 @@ sched_balance_find_dst_group_cpu(struct sched_group *group, struct task_struct *
->  {
->  	unsigned long load, min_load = ULONG_MAX;
->  	unsigned int min_exit_latency = UINT_MAX;
-> +	unsigned int nr_candidates = 0;
->  	int least_loaded_cpu = this_cpu;
->  	int shallowest_idle_cpu = -1;
->  	int i;
-> @@ -8482,9 +8484,12 @@ sched_balance_find_dst_group_cpu(struct sched_group *group, struct task_struct *
->  			if (idle && idle->exit_latency < min_exit_latency) {
->  				min_exit_latency = idle->exit_latency;
->  				shallowest_idle_cpu = i;
-> +				nr_candidates = 1;
-> -			} else if ((!idle || idle->exit_latency == min_exit_latency) &&
-> -				   shallowest_idle_cpu == -1) {
-> -				shallowest_idle_cpu = i;
-> +			} else if (!idle || idle->exit_latency == min_exit_latency) {
+Hi Francesco,
 
+On Wed Sep 16, 2026 at 11:22 AM CEST, Francesco Dolcini wrote:
+> Hi Luca,
+> thanks for the review.
+>
+> On Wed, Sep 16, 2026 at 10:42:13AM +0200, Luca Ceresoli wrote:
+>> > The lcd DPI interface on colibri imx6ull uses a 18-bit width bus, set
+>> > the bus-width property accordingly.
+>> >
+>> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+>> >
+>> > diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi b/arch/arm=
+/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+>> > index ec3c1e7301f4..1eb1cf2d7395 100644
+>> > --- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+>> > +++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+>> > @@ -229,6 +229,7 @@ &lcdif {
+>> >
+>> >  	port {
+>> >  		lcdif_out: endpoint {
+>> > +			bus-width =3D <18>;
+>>
+>> I don't know the hardware in detail, but the datasheet [0] mentions 16, =
+18
+>> and 24 bits, and says "Up to 24-bit color (18-bit recommended)". More
+>> details in ection 5.6.1.
+>>
+>> This patch would force 18 bits, but "recommended" suggests 24 bits makes
+>> sense in some cases, no?
+>>
+>> Can you elaborate on this?
+>
+> The colibri family standard defines only 18-bit for the parallel RGB
+> interface on the edge connector, the additional 6-bit are mapped on
+> different pins that are not on fixed position, depend on the actual SoM
+> and can also be not present at all. The standard/generic colibri family
+> carrier boards can only rely on the 18-bits being available therefore.
+>
+> 24-bit is possible and makes sense only on a specific combo
+> carrier+module, and not as a generic SoM feature. Assuming you would
+> have such combo you should just override the property on the carrier
+> board dts file deviating from the standard colibri family.
 
-Sashiko:
-"Can this branch cause the CPU picker to replace an optimal idle CPU with
-a non-idle CPU?
-In sched_balance_find_dst_group_cpu(), if a !idle CPU is scanned after an
-idle CPU has already been found, min_exit_latency will be < UINT_MAX.
-However, the condition !idle || idle->exit_latency == min_exit_latency
-unconditionally evaluates to true for !idle CPUs.
-This allows the !idle CPU to increment nr_candidates and enter the
-reservoir, treating its unknown latency as a tie with the optimal known
-latency. It then has a 1/nr_candidates chance to overwrite the optimal
-shallowest_idle_cpu choice.
-Doesn't this reintroduce a scan-order bias during normal load balancing where
-non-idle CPUs can replace optimal idle CPUs just because they appear later
-in the scan?"
+Ah, that's clear now, thanks!
 
-Disagree, this is in the if block of if (available_idle_cpu(i)), so except for
-the obvious race which is deliberately taken in the original code too, this
-can't be right?
+> let me know if you want such detailed explanation in the commit message
 
-> +				nr_candidates++;
-> +				if (nr_candidates == 1 ||
-> +				    !reciprocal_scale(sched_rng(), nr_candidates))
-> +					shallowest_idle_cpu = i;
->  			}
->  		} else if (shallowest_idle_cpu == -1) {
->  			load = cpu_load(cpu_rq(i));
+Yes please. With that added you can add:
++Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
+Same for patch 4.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
