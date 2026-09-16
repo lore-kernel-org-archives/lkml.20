@@ -1,111 +1,44 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CDF35C190
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:58:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC444230264;
+	Wed, 16 Sep 2026 01:00:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789520327; cv=none; b=Z8rOFYTAwdjn4y19kabJDFvmiCwbUsly37VPnsx7LbuZYkW1Sti/7Ky/JGcs76cmEgkq34kp5pt2l0gCW7s9T2bKeMzzguaSembO/S/++sQWGBzRjtCZFuR70m/tPUKmtbTWqHF6s7ehRPaZzvQIiUvYA5gLyBs8Y/rz1tRzH/w=
+	t=1789520428; cv=none; b=phns2rXU0yXYOwOJZCfxCDMCcCaamLDiHSjqUKdvoW2yrwK87t8OFykrdJQw3rZmnJ8bjhN0v7xkTu+3ctd5dtMQJSMsfraNWawebsyuYd40d4DI+54lm4JAxOdyeaFyWuvw1YUZmi7V9xGPuyzd5EU2zrQYMDCR4Ki9isMOq1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789520327; c=relaxed/simple;
-	bh=nBW4bqcmn+v9zVwrmsWHsyT2rrpkZlP9IgDlt/1GBLE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=I9q+8/rKmJQCqcsgJsxaNh7Fs3FSoH/IfJHoANwbP3An+36s8rHJbnzFo8hDFSaVHl+ZWXVQa3/Aa2BVljUw54HmIYPJqJ+4fJ3rQ2XkT5IDYrc9MUQ1pjAHwI14x9l5T6KPJEkH/cA4eh0pNEM/GltCB+hxBS0AOGniJ+JQ7f4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=at6MwSFe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TCX7U+P0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789520428; c=relaxed/simple;
+	bh=k/7puuUru16qVhSGVDLooY+p6f1D1Heqog80nM6aDg4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JjEGdZEIrzDad4iAAenm/UR2guhTSmsBMetq4jehg43HBdiKi9xzIMDv9iB1zv1zsEo8gPSBehwUsYd86uGXz+5sJYDp8KeYpHmlDloKDDtu4Lrow2Dppgx+5SvqoOIl0LKvRDmshKr7RKA9VP0bpC3Z8yx6nq0FZWChuy7PfgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VfoVmfjg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="at6MwSFe";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TCX7U+P0"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLYnSj619820
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:58:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LQ3DI7FftBvPAGhc+A7UsjCVB7Utq8qEnzmdR09+mfY=; b=at6MwSFeH2UU+Qbt
-	avXfJKaWEz3MTEGbhMin+yr+fjN7xJ7PuyP3Hb3VydpnW0zAtbF7e6YevQsqEw1P
-	NAj65PoZyRzBDx/sYHq9Os7fA04cm4KSnBfgztumBdzKcKxRbsyeNg7aIX9Waeu2
-	it4O/bXcLjNh37LnuIr05HJpwH/+nxPQ3hnoJqyA1hcZv2XBV79iIVqo0Nu1jZqF
-	4zFnk6hcdEycTb9RV9PYdXmgG+Nyij7pf7DA/mzWPFyJdePzVG5csnttftzPQQzg
-	HSyKR37Ta9zSwAUyxZE01GRJqsFmqGyQkCjevT9g/FuZ5cvpXl5PqNhIVGUieWZO
-	WF8BtQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq2y2m0y8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:58:38 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39d8646b10eso5239300a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:58:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789520317; x=1790125117; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LQ3DI7FftBvPAGhc+A7UsjCVB7Utq8qEnzmdR09+mfY=;
-        b=TCX7U+P04HTh3ufZigbbxzEbvqLHgxaMEIDOC0GJxscx867D2u7QIFZaKnuUf7BUe/
-         xi7geAD2dpAaqL4Uu2GpDmh0gFD9LJgA6JWRZzqMa5tS9hL1csBhk9yyHfKaDO0ABM9E
-         PdpqsKZWB4yWCDaGBrOa7DV6hQWfN6gwnG4AW6Zco6t40UqvBQbZWnZOirsMPIIhq/Me
-         t5oGgCeDmf3+86ONiLV+/f19y8UAy7J4R9snEg9V2eQ7YIBHdovE1gcTzfMDgCarbYXk
-         K4EsSDManwBd8iv0jtkTCuJIiWYAnlftK6cEfvTVk9C0A+DqGJJff5JAM50otOG0/l/N
-         uETg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789520317; x=1790125117;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LQ3DI7FftBvPAGhc+A7UsjCVB7Utq8qEnzmdR09+mfY=;
-        b=cRqlRptp1PvTJ+gV1/2Ld1SIFRCS3aXnOZ7vTVGbY0XJRi0hHE9B0c4OFuGMhQ9Wpo
-         vCICDAvSFiHJw8kpeN2oef80Btw9ZGQK9A2x+QX0lnmtTfI4zTY9Htzd6XmUw7u7+NHF
-         Ky01reFO8sfCdW0t6wdr5/n7+hIj6tfFEgcTg/6HBNY5yz/fvZSTfmGDlVb7UMCoBgyS
-         xKqsaiizBpXArN22Q8e6sAC4tk23rmIA92hzEUGslHH0oKzHonLhcENovF9wJw8a9tpK
-         n+bNmUf8y7uTrZL465OFUnk/rWN1+sh6c4lC91bB8w/F4vdDiclvHR8tReaxHtQ5Z6c9
-         tsBA==
-X-Forwarded-Encrypted: i=1; AKwUvBzX1crBz1jYC/kMvOiYmf5/jwTwsIp0TdpPSVkkFJASf1nqt8OgwZZeSOwgdoHIwNRnfJ2ZtCXCDYM0FKQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMbMLIAXmw6Q1iJO2A7eWkaD+iAZ+ZCQqasiOTQXDmkH5SCj7u
-	D13YvjxiDMPWiuE7RhMZ56K0iP403Z7sEvHo3DBvPYyjSDpZIB1JrvYJKNiXCH6w7gRH2/W7OvT
-	HxjqxEVkCftNPrrHgQIZaaQp3n4UPwlVHWnnvCycqa4s4LQFKf81ZpBImOxdc7OB4WME=
-X-Gm-Gg: AYBFou27yy7aIy0+W9Pf7CIOs45q3eZJtjyK5i2z2tEC5+yaiRiTxJCDn5O/h6eVMXr
-	2ir1gZu+cuO1QnVebDsZBLmc973Bc1x71dacUOS1NacT17P9/kc6M1MVsGJK/6aGjC+u1rfUQhE
-	WDQs9MNN1i28KZIPlqCVxE57vo86MbYVMg7kvP8OnArvC2L2x9+w6rCSP1yUahnC+iujhahvDoN
-	UNIIE34hYwfqeaESiSxnu68pH0mw5FDq3+TA20nU/lCh5znnlpmzeJCKm7ROZ8hSfADummy9BY3
-	n/CjD0CV7eJ9Fb+8jJr0Ld5s7QlGZhSk2Lo9gdELg6gcRJVZ7wT0bSNGwA==
-X-Received: by 2002:a17:90b:2803:b0:39d:ef3e:9035 with SMTP id 98e67ed59e1d1-39e1e324463mr1568479a91.10.1789520317177;
-        Tue, 15 Sep 2026 17:58:37 -0700 (PDT)
-X-Received: by 2002:a17:90b:2803:b0:39d:ef3e:9035 with SMTP id 98e67ed59e1d1-39e1e324463mr1568416a91.10.1789520316669;
-        Tue, 15 Sep 2026 17:58:36 -0700 (PDT)
-Received: from localhost ([2a12:a305:4::30fb])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bbe3e62sm1231229a91.10.2026.09.15.17.58.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 17:58:36 -0700 (PDT)
-Date: Tue, 15 Sep 2026 20:58:33 -0400
-Message-ID: <b677f038a23d6cd0572b12053acaf3ab.guodong.xu@oss.qualcomm.com>
-From: Guodong Xu <guodong.xu@oss.qualcomm.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-        Chen Wang <chen.wang@linux.dev>, Inochi Amaoto <inochiama@gmail.com>,
-        Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
-        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Paul Walmsley <paul.walmsley@sifive.com>, devicetree@vger.kernel.org,
-        spacemit@lists.linux.dev, sophgo@lists.linux.dev,
-        linux-kselftest@vger.kernel.org, Palmer Dabbelt <palmer@sifive.com>,
-        Andy Chiu <tchiu@tenstorrent.com>, Florian Weimer <fweimer@redhat.com>,
-        Peter Bergner <bergner@oss.tenstorrent.com>,
-        Zihong Yao <zihong.plct@isrc.iscas.ac.cn>,
-        Mark Harris <mark.hsj@gmail.com>,
-        Aurelien Jarno <aurelien@aurel32.net>,
-        Andrew Jones <andrew.jones@oss.qualcomm.com>
-Subject: Re: [PATCH v7 09/11] riscv: cpufeature: Introduce ISA bases bitmap
- and rva23u64 detection
-In-Reply-To: <20260915-widget-defiling-e22497c228cc@spud>
-References: <20260915-rva23u64-hwprobe-v2-v7-0-aa35ebd9ae96@oss.qualcomm.com>
- <20260915-rva23u64-hwprobe-v2-v7-9-aa35ebd9ae96@oss.qualcomm.com>
- <20260915-widget-defiling-e22497c228cc@spud>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VfoVmfjg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32D791F000FF;
+	Wed, 16 Sep 2026 01:00:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789520426;
+	bh=Dl6Ge9u0ZGmbWXWUnq2+azgJvFm1GB4DXmzKWhSXkn8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=VfoVmfjgL0amKdAmou6qwXpzwz5uXCLD6oZ7t0V3Ws57jkzqEWJFixEyyafTix99U
+	 ByJzg+Zng6ZY221YBQ0m7OP5IjKmXVU6Lnmy+0sAWNbmEXia/nukC6FYDcaUyyWVQz
+	 RghSEVzNXecXAAvpS90rIdH1Pv8Cyy3i6RSCpq5Q0hzpmE5Frwhw8sTDXI6+iQaxI6
+	 LsoRZqaGqNgCfHBWkLV3a40vzKOup/MkF9Gu1obeT/aVM2vnloPUBIMNbD90M3NX+m
+	 rHQXOnZRzNFuxmiK3tQQgDzVW1hhB3ziCSz7hrjTLDHscKJ2/B31AsHYKxXq+dR3S0
+	 H6yua2dEdceTA==
+Subject:
+ Re: [PATCH net] nfc: hci: add bounds checking in nfc_hci_create_pipe()
+From: netdev-bot+sashiko@kernel.org
+To: liuc63@xiaopeng.com
+Cc: david@ixit.cz, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, dan.carpenter@linaro.org,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 16 Sep 2026 01:00:25 +0000
+Message-ID: <178952042575.22033.9676833200303972344@kernel.org>
+In-Reply-To: <20260912115720.530715-1-liuc63@xiaopeng.com>
+References: <20260912115720.530715-1-liuc63@xiaopeng.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -114,76 +47,206 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Proofpoint-ORIG-GUID: 47cgUMeB86zjeeOr9_8XyyQVctZl4Oyy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDAxMCBTYWx0ZWRfX3/40KTPHDrYD
- 1TlEDoKPA81OFCLq9e0u8sMenfwIqRpuWuQEt4fjEGVRRQpBYZSwSn/UdERlcr2xiBhDPlocGHU
- bfA8vWVT0nKQ8GPcpr9irIs1tCfMH2OkcaFPggxNlxCM2uJLuPGPxav2od0Y+xOBIBJ68O0Pw+i
- bA9lpJ0GADBHvvv6iW0pXBYag8WXgjNfy1EVAS00CNkbvC48jWTkNFUIfrwMCRM3E42UsYQmh9R
- ils3LY+QhsdK2e8VOqiEsTV6t4DQnfkG7YvMEQU0VmXS6XYUfLxoQaJ4+o7QEmZjfFTqRQCCKgP
- 04ot/1DZvCWGMy22BzUTItY9l8Fg0HMP6Zvxl8AljXVDVv/PEJFDsrkexZtoNwgAoQ2JlCtqd/s
- p6jnE5cTmQqa4ZqcPXdMSJ8m0egtBpimL81mr33HQCsDAMvoW6QUpGLJmGgHv4iSjnFrKoKdq2A
- aX487QF9hNdPqiqqWdw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDAxMCBTYWx0ZWRfX0RpmJXFg6Sp3
- w059r2Fy0s5Qjvn0aQUFGKNRCG2kU1o3QZ9HX1dpqwkVP/nGN7+1+ShyLjgBBfQ3VjJ7yMghaVr
- 1yYQtlMxp66GGZ3J42tner/1h2xqcJo=
-X-Proofpoint-GUID: 47cgUMeB86zjeeOr9_8XyyQVctZl4Oyy
-X-Authority-Analysis: v=2.4 cv=IcISymqa c=1 sm=1 tr=0 ts=6aa9e9be cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=0WmU45QFm0n7b77IdSEA:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160010
 
-Hi Conor,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-On Tue, 15 Sep 2026 17:52:23 +0100, Conor Dooley wrote:
-> On Tue, Sep 15, 2026 at 03:15:35AM -0400, Guodong Xu wrote:
->> Introduce a per-hart and host-wide bitmap of conformant ISA "bases"
->> (named profile-class sets such as IMA and RVA23U64), computed at init
->> time by riscv_init_isa_bases().
->>
->> Register riscv_init_isa_bases() as an arch_initcall. That is late
->> enough that core_initcall(tagged_addr_init) has probed senvcfg.PMM and
->> populated have_user_pmlen_*; without that ordering,
->> riscv_have_user_pmlen(7) would still return its default false and the
->> RVA23U64 detection path would always bail. It is also early enough that
->> arch_initcall_sync(init_hwprobe_vdso_data) finds the bases populated
->> when it snapshots the hwprobe values into the vDSO data page.
->>
->> Consider this as the cache that subsequent consumers (hwprobe's
->> RVA23U64 base behavior bit, /proc/cpuinfo's "isa bases" lines, etc.)
->> can read without recomputing, which keeps them consistent with
->> each other.
->>
->> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
->> Signed-off-by: Guodong Xu <guodong.xu@oss.qualcomm.com>
->
-> Something is wrong here with the signoffs here, Drew's probably missing
-> either authorship or a Co-developed-by tag?
+Critical: 0 · High: 1 (1) · Medium: 0 (1) · Low: 0
 
-Thanks for the review. Yes, will fix in v8.
+- [High] The patch validates the pipe id inside nfc_hci_create_pipe()
+  only, but the out-of-bounds store the commit message names as the…
 
-I didn't look closely enough at authorship (which I should) when I
-reworked Drew's RFC into v2. His Signed-off-by was carried over, but
-clearly it needed more careful handling than that.
+Pre-existing issues:
+- [High] Incomplete fix for the same bug class: the ST NFC drivers still
+  index hdev->pipes[NFC_HCI_MAX_PIPES] (128 entries) with a raw…
+- [Medium] hdev->pipes[] and hdev->gate2pipe[] are mutated from two
+  contexts with no lock in common.
 
-Rechecking these three patches that came over from the RFC (09, 10, 11),
-here is what I plan to do:
+--
 
-- Patch 10/11 (cpuinfo) is still mostly Drew's patch; I only switched it
-  to the cached bitmap. v8 makes him the author.
-- Patch 09/11 and 11/11 were rewritten in v2 (the detection moved out of
-  hwprobe into cpufeature), but part of Drew's implementation stayed.
-  I'll adds his Co-developed-by in v8.
+nfc: hci: add bounds checking in nfc_hci_create_pipe()
 
-Drew, please shout if you would like this split differently.
+This adds a length check on the ADM_CREATE_PIPE response before casting it
+to struct hci_create_pipe_resp, and rejects pipe ids at or above
+NFC_HCI_MAX_PIPES in nfc_hci_create_pipe().  The result code is set so the
+caller does not treat a rejected pipe as success.
 
-Guodong
+> diff --git a/net/nfc/hci/command.c b/net/nfc/hci/command.c
+> index af6bacb3ba986..9c8bcb98b9677 100644
+> --- a/net/nfc/hci/command.c
+> +++ b/net/nfc/hci/command.c
+> @@ -225,10 +225,19 @@ static u8 nfc_hci_create_pipe(struct nfc_hci_dev *hdev, u8 dest_host,
+>  	if (*result < 0)
+>  		return NFC_HCI_INVALID_PIPE;
+>  
+> +	if (skb->len < sizeof(*resp)) {
+> +		kfree_skb(skb);
+> +		*result = -EPROTO;
+> +		return NFC_HCI_INVALID_PIPE;
+> +	}
+>  	resp = (struct hci_create_pipe_resp *)skb->data;
+>  	pipe = resp->pipe;
+>  	kfree_skb(skb);
+>  
+> +	if (pipe >= NFC_HCI_MAX_PIPES) {
+> +		*result = -EINVAL;
+> +		return NFC_HCI_INVALID_PIPE;
+> +	}
+
+[Severity: High]
+
+Does this placement actually cover the store named in the commit message?
+The changelog says:
+
+  "A response carrying a pipe id above 127 makes the caller,
+   nfc_hci_connect_gate(), write past the end of hdev->pipes[]."
+
+But nfc_hci_connect_gate() also receives a pipe id directly as an argument,
+and in that case nfc_hci_create_pipe() is never called:
+
+net/nfc/hci/command.c:nfc_hci_connect_gate() {
+	if (pipe == NFC_HCI_DO_NOT_CREATE_PIPE)
+		return 0;
+	...
+	if (pipe != NFC_HCI_INVALID_PIPE)
+		goto open_pipe;
+	...
+open_pipe:
+	r = nfc_hci_open_pipe(hdev, pipe);
+	...
+	hdev->pipes[pipe].gate = dest_gate;
+	hdev->pipes[pipe].dest_host = dest_host;
+	hdev->gate2pipe[dest_gate] = pipe;
+}
+
+Only 0x81 (NFC_HCI_DO_NOT_CREATE_PIPE) returns early and 0x80
+(NFC_HCI_INVALID_PIPE) falls into the create path, so any value in
+0x82..0xff takes the goto open_pipe branch and, once the controller ACKs
+ANY_OPEN_PIPE, writes two bytes at offset 2 * pipe in the 256-byte
+hdev->pipes[] array.
+
+Can that argument hold an out-of-range value?  The ST driver stores the raw
+controller byte into init_data:
+
+drivers/nfc/st21nfca/core.c:st21nfca_hci_load_session() {
+	...
+	hdev->init_data.gates[j].pipe = pipe_info[2];
+	...
+}
+
+hdev->init_data is assigned once in nfc_hci_allocate_device() and is never
+re-initialized, and the session-id-mismatch branch of
+hci_dev_session_init() calls nfc_hci_disconnect_all_gates() (which resets
+gate2pipe[], removing the -EADDRINUSE early return) before replaying those
+ids:
+
+net/nfc/hci/core.c:hci_dev_session_init() {
+	...
+	r = nfc_hci_disconnect_all_gates(hdev);
+	if (r < 0)
+		goto exit;
+
+	r = hci_dev_connect_gates(hdev, hdev->init_data.gate_count,
+				  hdev->init_data.gates);
+	...
+}
+
+net/nfc/hci/core.c:hci_dev_connect_gates() {
+	...
+	r = nfc_hci_connect_gate(hdev, NFC_HCI_HOST_CONTROLLER_ID,
+				 gates->gate, gates->pipe);
+	...
+}
+
+Would it be better to validate at the write site in nfc_hci_connect_gate(),
+or in a single helper used by both paths, so the out-of-bounds store the
+changelog describes is actually closed?
+
+[Severity: High]
+
+This isn't a bug introduced by this patch, but the same two defect classes
+still exist in the ST NFC drivers, which index the same 128-entry
+hdev->pipes[] array with a raw controller byte.
+
+In st21nfca_hci_load_session(), the index comes straight from the
+ST21NFCA_DM_GETINFO pipe list:
+
+drivers/nfc/st21nfca/core.c:st21nfca_hci_load_session() {
+	...
+		pipe_info[2] = skb_pipe_list->data[i];
+	...
+		hdev->pipes[pipe_info[2]].gate = st21nfca_gates[j].gate;
+		hdev->pipes[pipe_info[2]].dest_host = info->src_host_id;
+	...
+}
+
+struct nfc_hci_pipe is two bytes, so an index of 128..255 stores at byte
+offset 256..510 in a 256-byte array, first overwriting the sw_/hw_ version
+fields and the async_cb / async_cb_context function pointers of the
+kzalloc()'d struct nfc_hci_dev and then running past the allocation.
+st_nci_hci_load_session() has the identical pattern writing
+ndev->hci_dev->pipes[pipe_info[2]].
+
+The missing length check is there too.  Both drivers cast the DM_GETINFO
+response to a five-byte struct and read all five fields without requiring
+skb_pipe_info->len >= sizeof(*info):
+
+drivers/nfc/st21nfca/core.c:st21nfca_hci_load_session() {
+	...
+	info = (struct st21nfca_pipe_info *) skb_pipe_info->data;
+	...
+}
+
+drivers/nfc/st-nci/se.c:st_nci_hci_load_session() {
+	...
+	dm_pipe_info = (struct st_nci_pipe_info *) skb_pipe_info->data;
+	...
+}
+
+Since this series is fixing exactly these two problems for the
+ADM_CREATE_PIPE response, would it make sense to cover the load_session
+paths as well?
+
+[Severity: Medium]
+
+This is a pre-existing issue and not something this patch changes, but
+hdev->pipes[] and hdev->gate2pipe[] are updated from two contexts with no
+lock in common, which is worth noting since the newly validated pipe id
+feeds one of them.
+
+The command path writes them from process context after
+nfc_hci_execute_cmd() has already dropped msg_tx_mutex:
+
+net/nfc/hci/command.c:nfc_hci_connect_gate() {
+	...
+	hdev->pipes[pipe].gate = dest_gate;
+	hdev->pipes[pipe].dest_host = dest_host;
+	hdev->gate2pipe[dest_gate] = pipe;
+	...
+}
+
+The notification path writes and clears the same entries from the
+nfc_hci_msg_rx_work work item without taking any lock:
+
+net/nfc/hci/core.c:nfc_hci_cmd_received() {
+	...
+		hdev->gate2pipe[create_info->dest_gate] = create_info->pipe;
+		hdev->pipes[create_info->pipe].gate = create_info->dest_gate;
+		hdev->pipes[create_info->pipe].dest_host = create_info->src_host;
+	...
+}
+
+With an empty lockset intersection, can a controller-driven
+ADM_NOTIFY_PIPE_DELETED or ADM_NOTIFY_ALL_PIPE_CLEARED interleave with the
+three-field update above and leave gate2pipe[] pointing at an entry marked
+NFC_HCI_INVALID_GATE, or a live pipes[] entry with no gate mapping?  Later
+dispatch reads gate = hdev->pipes[pipe].gate in nfc_hci_event_received(),
+so the effect would be mis-routed or dropped events and leaked pipe state
+rather than memory corruption, since both writers do bound their indices.
+
+>  	pr_debug("pipe created=%d\n", pipe);
+>  
+>  	return pipe;
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260912115720.530715-1-liuc63%40xiaopeng.com
