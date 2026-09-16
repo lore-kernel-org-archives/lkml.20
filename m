@@ -1,115 +1,228 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8134EBAC4
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:51:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789559502; cv=pass; b=HUdBn5LcxZ9GEODguA2mxkQhvxZ8HiMq/E1IC+kGezUGM0BxCv1G7BIUX2v35sYnG8Q/MC0k4Sju11vR4QBDo0Eb2JFi7MsXyxpS5CYm8OPGDQsENe94Gp2Y+1Fl4G8oCNAPWW0DuOWhahXY7vh0vOJGNKLXGwtab3DWKbTH0BY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789559502; c=relaxed/simple;
-	bh=YOmEF3RdtEQd27A+HJI/2dxHOZ82HAMaz39HcSlJm1U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gtpZd1/4kG/3nMAiHxIOeSdO4Dz4lFOsjzufF1V+nS15glD0l2LBU6F+kDtfiaHnDhIqTFrqsOfmuQs1/kYFwcZ2pfXXijq4Kd5ER1FX8tJ4gC1/yPHJo4hgPE43Mo1XJNOjIv8yuSDpiwsk8skpsH+qOCQWCc9FvBXe9QD0ZXI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FxOXBXXx; arc=pass smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E6A4D09E0;
+	Wed, 16 Sep 2026 11:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789559564; cv=none; b=IfdD5+bYuj8Gu+/hsjzKOrUPxC5cKF4f2SvPRndFPX7XihknOZpLUVySAiZR/LHOSfafmkdbS6c3j7xpRxwfoWMnre9UlgltRRi7IElr6D9vDD4YJehLOK8LSjdR6cEazWSqbeMSmRvbeJCLInlUClXql82Km2YPa5pKHZeLC4k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789559564; c=relaxed/simple;
+	bh=xAwNp8PjbXoLFaCa2Mn2IYQOxtVDUm0M9shdOQ6Hn9w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YZEy4i05Fh+2j1wQNn5foFXUrvrNx3ljrSj31l8FwGdQ5Owp1o8tbN0CjnBcSj4nAoFV/AdeNnupkgLEshRr6cxQOK8NSahW/dkGkP6EONV83jI9Vkqf+jA2yw/G4MAt0Us7t3cmvQtnNqo9fkeVypAxIGrwIlOyChwCZt8LoAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtV4UnVa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FxOXBXXx"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9104e54b1abso8349096d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:51:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789559492; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aqOR1ciE9ihf4YQv6M6SmOcYwTypzdlELRH04FqAwLxmNK1+1Q7kzyxpEHUR3Awh9x
-         Cnop6gnEL0PwXd+RqXJWf/WXRqlNEKaX8PoAnDchAhQNf4RcmnWwE+OVdBVCMSytT61L
-         K0Z6TYEceZNHGJkCX91J4aJ7mIQpVLc14hce/gvg/C8UQ3d3YHE2PK3rZvHzVwR7U33g
-         br/Lcw8Bejl4Y2gi6itTQSW0hm0EZ5TxFjvmqho4O5UZ3fliHfxOHh4ZYW14DNT4lBgG
-         wFXnuSgZLUgwru+sfnP2yHc4xyhhmM5w30CzKw8DhzTTXMDrjtS9wVF00tOGVHYKRC+k
-         Vi1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YOmEF3RdtEQd27A+HJI/2dxHOZ82HAMaz39HcSlJm1U=;
-        fh=rd0Q25NuoMrbRFR/B/u9kDjOuxfMW3eJ6FqVbRGtXt0=;
-        b=DUTBsIntk1P6jKTAdj4gT4EqcRFNS8AVW0BK/SdXRJBPYKkGXyYeRNQ4c5q7Q9ZEtH
-         8Xbl7enxeMSsjSmauPLhkG0Da/RumCefI14bS6Fjz/m2i2Ch9EVIK8nlS1Ck90p6pVMC
-         XIyhaY5z0SieVwkJohWSrUmZ7a/Sg2lzjIBo6EolM9dLYiMsxyR1Y6kCPW3BDw+rFnnq
-         oBIc2kILVIC6mZHHxnWvij+rn3DqXvjBIWvHzxrOg4OLYzFVAGQy7q9q3ltB4XBpYwkM
-         c6YnVnPANkWGuKPOEg8v+Typ26MXMA9dQOzZaXp82g8n9TFdxuvhdyDGj7uBZrpSHJvv
-         VADw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789559492; x=1790164292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YOmEF3RdtEQd27A+HJI/2dxHOZ82HAMaz39HcSlJm1U=;
-        b=FxOXBXXxN7hILk7vGeVOV8qNLJlRE7ZZnosVXdd+JHKUpSf2FMZYQmiD+MGrtL0pjn
-         vZm666Gi4gw7S6wkeklut08njum/REyCqicGHKCYaBlPkQ4yL308n4BgJEcq/CEPGgXb
-         2CwwV8KFUBh5STeE+c2L1f/jctQplthEO3HciUSBoF2askOGkL/M3HDUqgoeJcmJbj8q
-         IwS4v6oyVErBHTkkmySZhFy9krF7TW74ohavWCBRnGwGBQdXqaKbySOP/66kViziLT96
-         YhvEagKeVuYOrtqJZpObE4dvvQNhQ4ese+PzNWLdNa0RP5ogfNYMwPP++pIJ+DtviXFn
-         Fi1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789559492; x=1790164292;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YOmEF3RdtEQd27A+HJI/2dxHOZ82HAMaz39HcSlJm1U=;
-        b=h3ar+8GNH+5GjOP/gycOuJJaM7VliKaGtwuuFgMJuDhd7zdvpn7ZC0NcyKVmNwFdAw
-         akAFO5ZOhmL7CoIdpsmRUSZ27Nu0v+h1emTy1wf5GxOe6rqudhTsTHY368H3rDp5ePje
-         gX5nbMTZQ4WK+1A5rGX8uMta0p0Cv9VvsVfoFDHy1cjmtEKNEEmn9ZUOAVUB3gsFbyF0
-         b7fAj4DrOcWo7P2nZANdaCKSJZQPIflCcXopk+GPaHwwSBk0WcBg0a35JJnUfPSafiBX
-         nCvZx8Q8WLfAu4DDFbPO1Zpbh/GAAAFWKCoz636xpKQfJwDnUNPiKIs4CswI/0dQr7Tm
-         7pHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz4T/A6uhMWVl3dvjCVedhlXmFyLdr8tDw4vcGmUQyAmJiynN8nepK+uaZMKuObKncaKqvCpiMLUROnWVY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnUkVIZmA23Q1mNwvkxxiQ/aGlqPcU/L5/pfOvSZrwRuOeWCMm
-	6d8AZf6xGI00YqTZPZAAdVCD/GrM4qJJUSrALY+P8hcEX3Q7YtXtMJKj+s5DQaZFUWeJMo5pJus
-	/pVW0VucS6Ol7LnfmhwFbZP+jLW1ibk8=
-X-Gm-Gg: AYBFou3kQLG9evc0zKTpt3F0Q0HIEiA0OCvlyo7HPgsC8ahyNJpoyp7iNoww+t4B+e4
-	dpcEKROTh3FXr2K3Dx4DAy5ywoRjDoYWidO1moGegDwGemmDH3oEieJ6beM2pysoymmXTrb72Sx
-	jqQfHd85Bclt3zoFTVFj6mEOlsirl8YZOXFBXLt+wT9hPUGpghbrpjSXcxF5g7wb8GYczMuAUdh
-	IsrNxWIFiP57Z96zR86mrUqk4WVHP4cbvnGx0tne4Yr8v9Kz0lfogkq6xbp6QzK5950nU6UzXAp
-	EP3HctzDfocbV63nkWB2uq/uEwKhTs4RgOqyVFtM1w6/w14qOTimRGJpQAAN0Wza7ybWtkZAgOk
-	H+rVQOpmwtVLpDZwAENWv50CmzWR/VX7bPGU5ctWaKHJjyuofJrbYhUU2oIU94r977YNV5MtZU0
-	ISyIo=
-X-Received: by 2002:a05:6214:4412:b0:910:4861:43ac with SMTP id
- 6a1803df08f44-9123d714b57mr44221246d6.5.1789559491823; Wed, 16 Sep 2026
- 04:51:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtV4UnVa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955911F000FF;
+	Wed, 16 Sep 2026 11:52:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789559550;
+	bh=Vzrt3qIu8htngP8L6pa7ISBaAmwNdL2PIvmwNtw4WRI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gtV4UnVaObhYP1DzPxoQ41GvxTAdyYfj108NOlJ/uVsrOH42758RCke3VRxaTgIA/
+	 tTCRCKy4tnMhnhVJj1RaR9MMqhRzVCjEZge1YuxB3Swe4VAkbOXlkxmy5UAqcelPg5
+	 QIRzrJUwpXtn3Kp0u21UTCfNOhed/aZH0zXx5bhDMfBVEcI6z7CjlLb4KjBrE51Rr0
+	 Xitt15hlNP5QP4GSFvIF2AkRCsirqD0QtNLT2rBZ7xHtGpVQDshzfJElkckjrF1akv
+	 4nl8ZYSVyx+iYP5SeRCdah38HYSjhLhj9Ty8/N++kdYQmFN6+AlFoI7GIlDuWYXSib
+	 RMAbusE2lTsNg==
+Date: Wed, 16 Sep 2026 13:52:25 +0200
+From: Joel Granados <joel.granados@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Bradley Morgan <include@grrlz.net>, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] sysctl: Use replace **void with **char in proc_put_*
+Message-ID: <fxrwmefwe6fciz5szyn5hr2ucxq2vspahrgcdzuv3nt6v4ifxz@pmqrjxnvagow>
+References: <20260916-lklm-sysctl-void-vs-char-v1-1-c3f8b2eb8b1e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916020335.17034-1-ygorotavio.sjc@gmail.com>
-In-Reply-To: <20260916020335.17034-1-ygorotavio.sjc@gmail.com>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Wed, 16 Sep 2026 08:51:20 -0300
-X-Gm-Features: AcwNN1ULJzkm21Hp7DKN8NoIMr4R2FtApuYbsaPt-WrNqV1bNMsk3Fm1LeLx77k
-Message-ID: <CAMAsx6cZ+w9CN44+NMAeSUewfUsAtj39u2ct2mxVzExCvcU_qw@mail.gmail.com>
-Subject: Re: [PATCH] docs: translations: pt_BR: translate generated-content.rst
-To: Ygor Otavio <ygorotavio.sjc@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="psh5yc6hlbgix2jo"
+Content-Disposition: inline
+In-Reply-To: <20260916-lklm-sysctl-void-vs-char-v1-1-c3f8b2eb8b1e@kernel.org>
+
+
+--psh5yc6hlbgix2jo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Em ter., 15 de set. de 2026 =C3=A0s 23:04, Ygor Otavio
-<ygorotavio.sjc@gmail.com> escreveu:
->
->Translate genetated-content.rst into Brazilian Portuguese,
+On Wed, Sep 16, 2026 at 01:44:28PM +0200, Joel Granados wrote:
+> Replace **void argument with **char in the proc_put_* functions. These
+> are leftovers from before commit 32927393dc1c ("sysctl: pass kernel
+> pointers to ->proc_handler") where a cast to char __user** from void
+> _user** was needed before the put_user call.
+>=20
+> Suggested-by: Bradley Morgan <include@grrlz.net>
+> Signed-off-by: Joel Granados <joel.granados@kernel.org>
+> ---
+>  kernel/sysctl.c | 34 +++++++++++++++-------------------
+>  1 file changed, 15 insertions(+), 19 deletions(-)
+>=20
+> diff --git a/kernel/sysctl.c b/kernel/sysctl.c
+> index 25577ffc2801267cc69df60a1064ada9efd4b97d..1fefe18bf84e790433a1abf71=
+a4b158f3c1f729f 100644
+> --- a/kernel/sysctl.c
+> +++ b/kernel/sysctl.c
+> @@ -332,7 +332,7 @@ static int proc_get_long(char **buf, size_t *size,
+>   * In case of success @buf and @size are updated with the amount of bytes
+>   * written.
+>   */
+> -static void proc_put_long(void **buf, size_t *size, unsigned long val, b=
+ool neg)
+> +static void proc_put_long(char **buf, size_t *size, unsigned long val, b=
+ool neg)
+>  {
+>  	int len;
+>  	char tmp[TMPBUFLEN], *p =3D tmp;
+> @@ -347,15 +347,12 @@ static void proc_put_long(void **buf, size_t *size,=
+ unsigned long val, bool neg)
+>  }
+>  #undef TMPBUFLEN
+> =20
+> -static void proc_put_char(void **buf, size_t *size, char c)
+> +static void proc_put_char(char **buf, size_t *size, char c)
+>  {
+>  	if (*size) {
+> -		char **buffer =3D (char **)buf;
+> -		**buffer =3D c;
+> -
+> +		**buf =3D c;
+>  		(*size)--;
+> -		(*buffer)++;
+> -		*buf =3D *buffer;
+> +		(*buf)++;
+>  	}
+>  }
+> =20
+> @@ -680,12 +677,12 @@ static int apply_conv_on_vec(const union proc_vec_c=
+onv conv,
+>  			     const struct ctl_table *table,
+>  			     const enum proc_vec_type data_type,
+>  			     const size_t data_size, const int conv_dir,
+> -			     const size_t buf_nbyte, void *buf,
+> +			     const size_t buf_nbyte, char *buf,
+>  			     size_t *buf_left_final)
+>  {
+>  	int vec_left, err =3D 0;
+>  	size_t buf_left, nr_conv =3D 0;
+> -	char *data, *data_stage =3D NULL, *p;
+> +	char *data, *data_stage =3D NULL;
+>  	bool is_unsigned =3D data_type =3D=3D PROC_VEC_UINT || data_type =3D=3D=
+ PROC_VEC_ULONG;
+> =20
+>  	buf_left =3D buf_nbyte;
+> @@ -694,7 +691,6 @@ static int apply_conv_on_vec(const union proc_vec_con=
+v conv,
+>  	if (SYSCTL_USER_TO_KERN(conv_dir)) {
+>  		if (buf_left > PAGE_SIZE - 1)
+>  			buf_left =3D PAGE_SIZE - 1;
+> -		p =3D buf;
+> =20
+>  		if (table->maxlen > data_size) {
+>  			data_stage =3D kmemdup(table->data, table->maxlen, GFP_KERNEL);
+> @@ -712,11 +708,11 @@ static int apply_conv_on_vec(const union proc_vec_c=
+onv conv,
+>  		bool neg =3D false;
+> =20
+>  		if (SYSCTL_USER_TO_KERN(conv_dir)) {
+> -			proc_skip_spaces(&p, &buf_left);
+> +			proc_skip_spaces(&buf, &buf_left);
+> =20
+>  			if (!buf_left)
+>  				break;
+> -			err =3D proc_get_long(&p, &buf_left, &lval, &neg,
+> +			err =3D proc_get_long(&buf, &buf_left, &lval, &neg,
+>  					    proc_wspace_sep,
+>  					    sizeof(proc_wspace_sep), NULL);
+>  			if (!err && neg && is_unsigned)
+> @@ -740,7 +736,7 @@ static int apply_conv_on_vec(const union proc_vec_con=
+v conv,
+> =20
+>  	if (SYSCTL_USER_TO_KERN(conv_dir)) {
+>  		if (!err && buf_left)
+> -			proc_skip_spaces(&p, &buf_left);
+> +			proc_skip_spaces(&buf, &buf_left);
+>  		if (!nr_conv) {
+>  			err =3D err ? : -EINVAL;
+>  			goto out;
+> @@ -1221,6 +1217,7 @@ int proc_do_large_bitmap(const struct ctl_table *ta=
+ble, int dir,
+>  	unsigned long *bitmap =3D *(unsigned long **) table->data;
+>  	unsigned long *tmp_bitmap =3D NULL;
+>  	char tr_a[] =3D { '-', ',', '\n' }, tr_b[] =3D { ',', '\n', 0 }, c =3D =
+0;
+> +	char *p =3D buffer;
+> =20
+>  	if (!bitmap || !bitmap_len || !left || (*ppos && SYSCTL_KERN_TO_USER(di=
+r))) {
+>  		*lenp =3D 0;
+> @@ -1228,7 +1225,6 @@ int proc_do_large_bitmap(const struct ctl_table *ta=
+ble, int dir,
+>  	}
+> =20
+>  	if (SYSCTL_USER_TO_KERN(dir)) {
+> -		char *p =3D buffer;
+>  		size_t skipped =3D 0;
+> =20
+>  		if (left > PAGE_SIZE - 1) {
+> @@ -1315,16 +1311,16 @@ int proc_do_large_bitmap(const struct ctl_table *=
+table, int dir,
+>  						   bit_a + 1) - 1;
+> =20
+>  			if (!first)
+> -				proc_put_char(&buffer, &left, ',');
+> -			proc_put_long(&buffer, &left, bit_a, false);
+> +				proc_put_char(&p, &left, ',');
+> +			proc_put_long(&p, &left, bit_a, false);
+>  			if (bit_a !=3D bit_b) {
+> -				proc_put_char(&buffer, &left, '-');
+> -				proc_put_long(&buffer, &left, bit_b, false);
+> +				proc_put_char(&p, &left, '-');
+> +				proc_put_long(&p, &left, bit_b, false);
+>  			}
+> =20
+>  			first =3D 0; bit_b++;
+>  		}
+> -		proc_put_char(&buffer, &left, '\n');
+> +		proc_put_char(&p, &left, '\n');
+>  	}
+> =20
+>  	if (!err) {
+>=20
+> ---
+> base-commit: 99156fbf3562bed74aa57d93b0b3eeec7c7f1ca6
+Forgot to mention that this sits on top of the partial_ctlvec changes
+which are included in next-20260915.
 
-Small typo in the commit message: "genetated-content.rst" should be
-"generated-content.rst". Worth fixing when you resend.
+> change-id: 20260916-lklm-sysctl-void-vs-char-40a0aab31c3e
+>=20
+> Best regards,
+> --=20
+> Joel Granados <joel.granados@kernel.org>
+>=20
+>=20
 
-> Assisted-by: Claude:Sonnet-5
+--psh5yc6hlbgix2jo
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Documentation/process/coding-assistants.rst (line 48) asks for the
-literal word "LLM" here rather than the model name, in the form
-"Assisted-by: LLM [TOOL1] [TOOL2]", where the optional fields are
-analysis tools like coccinelle or sparse, so in your case it would
-simply be "Assisted-by: LLM".
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmqqgvAACgkQupfNUreW
+QU+mVgv/T/ABIDC/HvfIYc1feG/R1nrevUewjIUzy58CcXK8vczJYx+5+H0Bv4Q1
+F1mEq69x2IWLYt7gbB1fn+lyY2LMtAVcExlmK/W1JoFkWsfgKZJxDQci+Kt9ffv6
+XyM+tQvu65fqQi0qLvhCvZsomGsXLILLHu9y2TD3gPgpFjeBfkfKqXhEoZU4I2pH
+zgFlEF3S4f33ObAtitfizYN5aIx3Rmfxwi4uOyZiRw86m6ho07N0QfecFm/yTVMc
+gFr8gHrDA1oH775iT4pJajmjZ8kMZivMFz4Vk0gGoab+3gl9KL3N0sHu6c3OGjNx
+Iw8wSFZjbuJFk5cSRulwWKcKPIN8WqMK8RARl+TiD6SksZ25JlNpnPR2n3gSeYLj
+xQaLFO5JZr+g6sw3xyOjmCfdJKtX06EkUDqtVAsm8nLzkmBJ/jrqb5wFal729zkq
+zytAQrGOP6PGWGuKOiki/i45BbroatOxaDIYPkfHW92hm/FRa34Cf2pZE/3lNyRD
+5HlTdLwX
+=Ay2R
+-----END PGP SIGNATURE-----
+
+--psh5yc6hlbgix2jo--
