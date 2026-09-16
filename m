@@ -1,85 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF1347A0DD;
-	Wed, 16 Sep 2026 08:16:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA8F477E3B;
+	Wed, 16 Sep 2026 08:16:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546591; cv=none; b=Vx79sdPaznvnvEhsTtz3E7h/uQL/waSd8dkfEx/vEC9uF9CEBWRP4CYE1sqKHCi9olKyvYRzMTRzuUKLIT2xpni0wXZqqPkSOs0Tdj1TX5rTM0E7oMoJ98OSCzf9XsvFMZb9aqSj63RS+J+n3vxNNegJJ9L8zu+IzNfGETFLsB8=
+	t=1789546622; cv=none; b=ndgcP6w9dFjg/0ZjUwRi49p1xDiFck7NxYQpnBo7/qiYeKF3haibbdZY6CceYgX11zYOLfHqg6dntTYnRzqDKdg1OhyeAvJ8owEVllkhclFGThrm3lQz0Zdp9RrJM7uf7bSXB2E96c08ZRsAUEzeUs3goRUw1MUaHXl639dgPC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546591; c=relaxed/simple;
-	bh=a0Lpz0KWiW0t6SX8Sm0pRTi6OEXCaet1sxsTa2bUJGQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W2g31YpuNaUf3k0czKsNZsYpjdJaDtWEwFEtOEGJW68KaxxZGSN9K7WXqEi6axGBXF8VRjCzJBROEtztUWTn9Oo7TqtP7piT4llaFlkA6w+9cCA9+tYaQ0GPN4F2/amdLOBdSmT9XKsq4UVwUErBbmzzzaVbi3Oko1AG5hvSwN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXwBUxpp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789546622; c=relaxed/simple;
+	bh=dtktspgZqgkVbLoipRf+Ced0AALPpZJn+tJTsPPQQgA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BUbEEnHcz9fJPhVisUy26zSMJIca+Jnf59qDcWfHSwxwyTLRK1xLg4KAyT/ZPi4J1iVNeosH9JkCgij5qzm0IzYKASg+M6F1vsCAF0mIHqmpJbDqRjrvwtVNZ31wMrndRay6dzJq0VkRtb+KZYJozV8gZuDOKuGd+aqvcb82zPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJSzhIY+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXwBUxpp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8951F00893;
-	Wed, 16 Sep 2026 08:16:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJSzhIY+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77E9A1F000FF;
+	Wed, 16 Sep 2026 08:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789546579;
-	bh=SjWIP8bNgzdC4buQnhVS9zvJ7ieVsM0oE8uqr/MRoYM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JXwBUxpp6BrunGC9Exr6GM/vSGpDSwW0e19VQG/HebrdWDreqD+TRflwbah2sHQOp
-	 FpxMLshY1UEor/GvOfupqRFWD/7O/D2IT53Ts1TI0qFtHguYs/mwcF9Zi3Q3eq5daW
-	 zDrOlbTsyURpbnesjY/9q7QnelxvpU617ZiErDVoEip8cXsy+kXVqb4NL0quiCe+fz
-	 VUWYamsRGz77Z/6BQ1e99VwL01uV5WAnNUvkI2cMNjx/mSZFEeZRdfrPgO6QyFkNxL
-	 4wb3ea39LRymM0UgOJlA2TIVhPRqcPmZq2u67H7j2RDNLc9dbn0+llVJHeqS7b4Itb
-	 l8KwbL9+yj3oA==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1x6koS-00000005wGU-1cEn;
-	Wed, 16 Sep 2026 10:16:16 +0200
-Date: Wed, 16 Sep 2026 10:16:16 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mathias Nyman <mathias.nyman@intel.com>,
-	Chunfeng Yun <chunfeng.yun@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	s=k20260515; t=1789546604;
+	bh=ZJiy+EQgetwOr93GvKDb0H7whWYuf28kIErFLyYFFc8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OJSzhIY+9YFR7vTobkyFlM67gI7Nd8rxuhwx+l8fI9Od3FMyji5O5PMePTRto08TJ
+	 BtdgC7Tocn2rZFyGXEB2C0jVq8PpAzOvTjAPV4ZlV6I/EBH/FE6e4uXL6LfnJTLtAP
+	 B12okfMVFwD3XoS+mmCoVp0GI5Ijuvp38O1rExuR4zma5UxX2jzB1W3NBQXgENhs6z
+	 0XCVmmrKrV8/dNzqhBJjcDZiP0Aq6NYJnnPJMQOOpizHVeocE3X5lepWNkDg+/+YfR
+	 RN7wEWSfYCk1vXy+f2+9h7+r4baEIYhn/3OZGpTlLb3Lrbk+zg24GOAHfGAiCJbPzz
+	 lvnuUoetnMh1Q==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x6kos-00000009VTD-0vIh;
+	Wed, 16 Sep 2026 08:16:42 +0000
+Date: Wed, 16 Sep 2026 09:16:41 +0100
+Message-ID: <86ik45626u.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/6] usb: xhci-mtk: add missing
- pm_runtime_dont_use_autosuspend() call
-Message-ID: <aqpQULC3P0wspKwL@hovoldconsulting.com>
-References: <20260915090223.1346-1-joshua.crofts1@gmail.com>
- <20260915090223.1346-3-joshua.crofts1@gmail.com>
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	Marc Zyngier <maz@krenel.org>
+Subject: Re: [PATCH v18 01/23] KVM: arm64: protected VM: Handle set_one_reg CNTVCT_EL0/CNTPCT_EL0
+In-Reply-To: <a4e7e6c3-d325-4f35-a17c-e02791cca326@arm.com>
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
+	<20260915160141.3543048-2-suzuki.poulose@arm.com>
+	<86o6dy5uob.wl-maz@kernel.org>
+	<7c26c860-0543-459e-974b-72c59af261f9@arm.com>
+	<a4e7e6c3-d325-4f35-a17c-e02791cca326@arm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915090223.1346-3-joshua.crofts1@gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: suzuki.poulose@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, maz@krenel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, Sep 15, 2026 at 09:02:19AM +0000, Joshua Crofts wrote:
-> The disable_pm label in xhci_mtk_probe() and xhci_mtk_remove() both call
-> pm_runtime_disable() on error or device teardown, but don't call
-> pm_runtime_dont_use_autosuspend(), causing resource leaks.
-
-No, there is no resource leak here either and this does not need to be
-backported.
-
-The autosuspend setting is not restored, but that would only possibly
-have an impact in the theoretical corner case that someone forcibly
-rebinds a different driver that does not enable it.
- 
-> Add the missing pm_runtime_dont_use_autosuspend().
+On Tue, 15 Sep 2026 22:20:36 +0100,
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
 > 
-> Found using Coccinelle.
+> This is how it looks like now, reworked.
 > 
-> Fixes: 0cbd4b34cda9 ("xhci: mediatek: support MTK xHCI host controller")
-> Fixes: 04284eb74e0c ("usb: xhci-mtk: add support runtime PM")
-> Cc: <stable@vger.kernel.org>
+> 
+> diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
+> index 6ac3321f4c575..1c8fac222a643 100644
+> --- a/arch/arm64/kvm/arch_timer.c
+> +++ b/arch/arm64/kvm/arch_timer.c
+> @@ -1110,8 +1110,7 @@ void kvm_timer_vcpu_init(struct kvm_vcpu *vcpu)
+>                 timer_context_init(vcpu, i);
+> 
+>         /* Synchronize offsets across timers of a VM if not already
+> provided */
+> -       if (!vcpu_is_protected(vcpu) &&
+> -           !test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET,
+> &vcpu->kvm->arch.flags)) {
+> +       if (!test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET,
+> &vcpu->kvm->arch.flags)) {
+>                 timer_set_offset(vcpu_vtimer(vcpu), kvm_phys_timer_read());
+>                 timer_set_offset(vcpu_ptimer(vcpu), 0);
+>         }
+> @@ -1133,6 +1132,15 @@ void kvm_timer_init_vm(struct kvm *kvm)
+>          */
+>         for (int i = 0; i < NR_KVM_TIMERS; i++)
+>                 kvm->arch.timer_data.ppi[i] = get_vgic_ppi(kvm,
+> default_ppi[i]);
+> +
+> +       /*
+> +        * For the protected VMs, fix the counter offset to 0 by marking the
+> +        * KVM_ARCH_FLAG_VM_COUNTER_OFFSET. This would also prevent
+> userspace
+> +        * writes to CNTVCT_ELO & CNTPCT_EL0.
+> +        * The user can't set the offset via vm ioctl
+> KVM_ARM_SET_COUNTER_OFFSET.
+> +        */
 
-So, without having looked at the rest: none of these should be
-backported.
+This is a bit wordy. Something like:
 
-Johan
+	Protected VMs don't allow any offset being set from userspace,
+	either set via writes to the counters or using the dedicated
+	ioctl. Pretend the offset has already been set and rely on the
+	default offset being 0.
+
+> +       if (kvm_vm_is_protected(kvm))
+> +               set_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &kvm->arch.flags);
+>  }
+> 
+>  void kvm_timer_cpu_up(void)
+
+Otherwise LGTM.
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
