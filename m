@@ -1,61 +1,131 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA8B252B1DE;
-	Wed, 16 Sep 2026 16:31:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576288; cv=none; b=R/s/AzqHSQu+KvT6e2EjfxmaIQ5WfQm/S3wtnWGiZR6VnmGvglcC0PN6fpbjV6Cf3QeO3Z5q4Q2kGUKUhMzKJbzluodxfaW9A1NLA9aDT3J0Gq34EPBbSRK1c/O7MpxB08yTZEilRmVkKXj6XlPnobNY1aoa/3vbJz9aXbut8k8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576288; c=relaxed/simple;
-	bh=E0sO8C0FnPRMoOQt5I4SYevkaxSUZHFuyAxd43gzVBU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lw7bci/sfY83UNdISluTtgAXR+4/XHZP+DRZJHug1wuJuuWyEQkwz6N3LTpSoMnvt8NZHF27BwgE3Qln0T0XBoB5nTg2m+q7WS0TN4ER03+PLrrE/rTS55aUzFQCT87D7ua/6uYETkjg8yer82sJW+mfQJ0H3vyZsPJ2aalHjcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af404a0026c58e89ee133047.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:26c5:8e89:ee13:3047])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id E5BAF1C1958;
-	Wed, 16 Sep 2026 18:31:05 +0200 (CEST)
-Date: Wed, 16 Sep 2026 18:31:04 +0200
-From: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
-To: Tony Lindgren <tony.lindgren@linux.intel.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, 
-	Sean Christopherson <seanjc@google.com>, Michael Roth <michael.roth@amd.com>, 
-	Liam Merwick <liam.merwick@oracle.com>, Vishal Annapurve <vannapurve@google.com>, 
-	Ninad Naik <ninadnaik07@gmail.com>, Joerg Roedel <joerg.roedel@amd.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, coconut-svsm@lists.linux.dev
-Subject: Re: [PATCH v2 6/8] KVM: SEV: Add SNP vCPU state get and set commands
-Message-ID: <aqrDUgB7nfdgzXpQ@8bytes.org>
-References: <20260908103338.427254-1-joro@8bytes.org>
- <20260908103338.427254-7-joro@8bytes.org>
- <aqksXLLcmFDkM9Xj@tlindgre-MOBL1>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E054B0E5C;
+	Wed, 16 Sep 2026 16:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789576308; cv=none; b=FxpQskEFBgZ2qB4JjIC1bG8jeZQjzySkKvbBpUA/mey7nRibeq3LudyDHrKYT3N/p8vRZah7xCaUCczjeFxQk9WfOavF6eh1Hjy/gapE/4fUH4ljVC+/jt1awfH1hFBaMXmHOZ9jmLjSUxchuxahEfCUQq+gU4oTBMGdqijOKcg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789576308; c=relaxed/simple;
+	bh=CTbEL7ibtIjohujGx4TcudNt1JPX5O+OKTGx5KXh9Hs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZXCfGWlN3C2o7WU4LTd3iZwbTsxoUPgDt5TzWoJwcJJH0jC4+BbJxb6H7fRV5/eRiTFKFGmQFC9Z5BezLVrF99zjc9Rbh9Qecj8JdEL8kolKqa0IUJH+6kdw9rDifcwYmU1ci0TEA3ECK3qDwcR28DjDS6hyFS8YHs54gQBTrMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Ps9FzI1r; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=g11KRm2F; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Ps9FzI1r";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="g11KRm2F"
+Message-ID: <ffec9201db3d12944dbd350010560f6234262bbe.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789576292;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hPa06aPl29CoMqM4aUjsPzJu/eemi4sk0IvMnx3stDg=;
+	b=Ps9FzI1rPqjIhTYi7YqBdiN2/XBqSM3AkgV2cKvMidd60hyp+kulkB+GMfOLLwzp0QcBmg
+	QIxyhNbY7TK0m8T0JLHRmFmP9s3o5G5lOTJdpoIkA6O5tDCTQYj+EJG2k4KyrewZQC8qMK
+	nITpaWQ5TDN/xBXWnoxIWMcWxGAMocL8StJoj+JgRejI5+HzEpBzuc5yRovoBRFW3PdSue
+	5It3tKJF/pWs8o/YgEhmrICFfMw6kHPdGRuVyO6KQwEMJOtSxk0IDPMo2+/YofdVx1VPZZ
+	BqwV3MlXRekdj6eY/dWvCH3KtElhSJA3zlKQl/iPL5OCNyt95vUQS36t/VvzbA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789576292;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hPa06aPl29CoMqM4aUjsPzJu/eemi4sk0IvMnx3stDg=;
+	b=g11KRm2FnNNF9CtE1gnHOxYt0Jlk0DHY97Ufon9OLzU7hzT6+bkO3CoGuvn775rFf/hK+j
+	WRCasrTd+88aGwAQ==
+Subject: Re: [PATCH net-next v2 4/4] net: dsa: soce: Add basic support for
+ SoC-e switch IP cores
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Wed, 16 Sep 2026 18:31:31 +0200
+In-Reply-To: <2346e6ee-4075-4d64-8e3e-8fbd1ce81cd6@lunn.ch>
+References: 
+	<20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
+	 <20260903-devel-vstrassheim-soce-dsa-ml-v2-4-fb0587cb466b@linutronix.de>
+	 <3c2c5b39-6a7d-4cb2-af1c-b5015b6bf1e8@lunn.ch>
+	 <db26d5c9262069a11e5cbe00e176b81e40baebeb.camel@linutronix.de>
+	 <5c955c96-7883-4e59-97ef-9fc3b63abf58@lunn.ch>
+	 <ab7e4eeed1b8296188355413cce1aa2b2aa5c670.camel@linutronix.de>
+	 <b7fdbd43-d069-40e1-aff4-30197371739d@lunn.ch>
+	 <3007fddf91fb4260538073482f5148ce8ac6a6ba.camel@linutronix.de>
+	 <2346e6ee-4075-4d64-8e3e-8fbd1ce81cd6@lunn.ch>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqksXLLcmFDkM9Xj@tlindgre-MOBL1>
 
-Hi Tony,
+On Tue, 2026-09-15 at 14:52 +0200, Andrew Lunn wrote:
+> > Although mdio-mux-mmioreg might work, I have realized that it is not
+> > suitable here.
+> >=20
+> > According to the switch documentation, the bus selector occupies bits
+> > 26:16 of the MDIO control register, while bit 0 is the transaction
+> > start/busy bit. A partial write might trigger an operation before the
+> > other fields have been updated.
+>=20
+> Maybe. I can see at minimum it is a bit messy.  The mux would need to
+> write the upper bits, but set the lower start/busy to 0. The MDIO
+> driver would then need to read back the register, OR in the bits it
+> wants to set, and set the start bit.
+>=20
+> This start bit is pretty common, and generally, writes without it set
+> are safe. But you need to test it on this particular hardware.
+>=20
 
-On Tue, Sep 15, 2026 at 02:30:36PM +0300, Tony Lindgren wrote:
-> Nice, looks like snp_get/set_vcpu_state() could quite easily make use
-> of KVM_EXPORT/IMPORT_VCPU?
+Yes, it works.
 
-That depends on whether KVM_EXPORT/IMPORT_VCPU will migrate the confidential
-VCPU state (registers) only or hypervisor state as well. The get/set_state
-helpers here only export/import the hypervisor tracking state for the guest
-VCPUs.
+> > Also accessing this register without checking the controller state
+> > could interfere with an active or failed transaction and introduce
+> > races (as noted by Netdev-Sashiko).
+>=20
+> The mdio mux framework should take care of all the locking for you.
+> Take a look a mdio_mux_read(). It takes the lock of the real MDIO bus
+> controller, sets the mux, performs the read, and then releases the
+> lock.
+>=20
+> The only thing you need to be careful of is write must wait around for
+> the write to complete before returning. Some MDIO bus implementations
+> don't wait, they leave it running, and do a check the bus is idle
+> before doing the next operation.
+>=20
 
-On AMD the confidential VCPU state is migrated as part of the memory image when
-guest execution has stopped on the source side.
+I would like to do both. Check at the beginning and wait for the
+operation to complete. However, this final wait should not last forever.
+If a timeout occurs, something is completely broken and an error is
+reported accordingly.
 
--Joerg
+I still had concerns about the following call to set the mux with
+mdio_mux_mmioreg_switch_fn() if the previous operation ended in such an
+error and released the lock. However, in that case, we are already in a
+faulty state and it can not get any worse. The following operation
+checks the state and aborts anyway. An alternative switch_fn() with the
+overhead of an extra driver is not worth it just to preserve a bitfield
+in undefined error state.
+
+So I will implement this as suggested at the beginning using
+mdio-mux-mmioreg.
+
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Andrew
+
+Thanks,
+Vasilij
 
