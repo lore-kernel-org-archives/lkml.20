@@ -1,37 +1,37 @@
 Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3866449B3D;
-	Wed, 16 Sep 2026 08:09:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4FA45FFA5;
+	Wed, 16 Sep 2026 08:09:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546189; cv=none; b=hZNREk019Lc7YRoToMWacYeZNzOaCxSm76kkJGXKP7LT2WX/6zP5IW/cw1HGZQ4MV0xVFPbJLU4pyx6aED35IjJDi+SMwZVHFqjaEEAXtlS1rqyu58Au7gFGAOpUTqY7F0gy6KZdNttqg34wsqFQ3oVouHkSHOW7RtQax16kQok=
+	t=1789546200; cv=none; b=I2+0Tu3ight/rIYdim2PpE3X5GgmjIJ+Tp4PR0906nNEPUcH8M4BGGXNIdZg59pVZHBalYWygoq611L9Hl3O7clGh6zkof0XsFu4ZtuB/2Ggg8UJufmUF4VMRH+b66yFPgPSOHosSc11e6bw0eZS5Aar1k8TraJGe9AoXZGQ+M8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546189; c=relaxed/simple;
-	bh=K1jPbnIpn2vPrtvqzcNi7Vjb6hG0x04g8LVYMsnM6gY=;
+	s=arc-20240116; t=1789546200; c=relaxed/simple;
+	bh=UUIyipSh2UKdcm74j22sAz/1TGUuH6UZ/bs/me2KcbE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cqBhN2zuKX4yky3r9T9djVR0ZMZNU1R/qVZOuAzjIqY6Jbqs0Qff+d+82Ik7FKyf8RKTpYDdCcoBypXU7YkJw86fpFJx2HJ5eECKk/8Mu/t3ypbkJlVnlUcNkbPMfGhOssH6zJK9DheDHkeZpXH1Q7smZghwKVDRu8aNiTunQEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=ZZQ53PU3; arc=none smtp.client-ip=185.70.43.172
+	 In-Reply-To:To:Cc; b=qW6/7w650zQKM0+SDuzQqrEuOfFQeq8q5lf4E04e8N9uXrY3kMgzStOYmAC2asN+x7HdAszoahckgEBccXlIJz/S7lo50x8SqQoLlIDlt7L/j4+nMhECwP+2biTgBIbsSkAPndGUoRzNeYSc7Zsh6zYQw86olxrqueVL5hnaOTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=nxC6Kxvm; arc=none smtp.client-ip=185.70.43.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="ZZQ53PU3"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="nxC6Kxvm"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789546172; x=1789805372;
-	bh=QCIfMsx6KjKXpnoxBI1XGkxGk4Y7Sik+nYV7bSHmLbY=;
+	s=protonmail; t=1789546178; x=1789805378;
+	bh=tkWYX2wJYQV4g1jzkw2V1G4h4mO9GWQu8Y9s7bT56KY=;
 	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=ZZQ53PU3kiySaayOLmyA8tfwYe5hQjIggQD1A8wYKzkd3PpD6YrA1kBaLeVRvFbui
-	 lgaAXTC3LhAC+OYuRumC1xUjArgOSAhOL3UYR9d7DRCfSv2o+SAHpfl8tRsWf5TbZl
-	 kRP0mvdT2pca1dl3YQcNVFCs3qRJa4FBsKwtEO2qFaDxkQkzDQljrD/6vD1yMh/zM/
-	 3Av3gBQDFFIzYDxa9c+2SCk5z7zn9mt+khKRG5S3yBIhzuMgLMQ58zoK43VkOMcXsa
-	 TGctV/6x0K2Mb+HXPc9yvqKUN60lz+pm0yfOpwkwrMQMsM369w1HCYCojRPeT/iSGK
-	 Fnnb3DBAObH2w==
-X-Pm-Submission-Id: 4hlBPQ5mGsz2ScPS
+	b=nxC6Kxvm42CxwP/zKDWIc1zWA0YrKJ5yalTXVCYigOq9GsblHGWC7mVi1HtFEFKcn
+	 gsRXPVc02UmVAzGLczSWsuSsS/c6rsdoAf4iPp1aM6BVykEng9gj4AwlFNqS4eTVgS
+	 dB8CKKZMWALAS7JIPTfxh8XHeZQ6CWlUgoodPG36dAD1rhMXWU63BTRIdeZZFOwk4Y
+	 ccDP+ohMnGFyTfs/zSxX8l/i4Br3Im0MVD01dXejXOWJFiUA0fWYIF0mEaS2tnLFj2
+	 7ZQnGFqORD16k5pusAZdp0zZh2+hKwGG/I9rf7wg0u76J0SREvLHgaY7wjsrcVyDN3
+	 U1mZY3P0sZNDg==
+X-Pm-Submission-Id: 4hlBPY2DSRz1DDXQ
 From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 16 Sep 2026 10:08:02 +0200
-Subject: [PATCH v9 06/10] iio: accel: mma8452: Fix unintended comment
- indent
+Date: Wed, 16 Sep 2026 10:08:05 +0200
+Subject: [PATCH v9 09/10] iio: accel: mma8452: Use proper error code when
+ missing device model
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-mma8452-open-drain-v9-6-0dd24fa2f3d7@geanix.com>
+Message-Id: <20260916-mma8452-open-drain-v9-9-0dd24fa2f3d7@geanix.com>
 References: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
 In-Reply-To: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -54,66 +54,40 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Christoph Muellner <christoph.muellner@theobroma-systems.com>
 Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joshua Crofts <joshua.crofts1@gmail.com>
+ Joshua Crofts <joshua.crofts1@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789546157; l=2166;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789546157; l=915;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=K1jPbnIpn2vPrtvqzcNi7Vjb6hG0x04g8LVYMsnM6gY=;
- b=bmWELgMFJN5IP12tltf9Vblc4o5YDdxcqFoCmHGAV2ms0pCK9zHvrcW+vQOqLv5FmhWxhc0IY
- ZT92Utb2lw1AAa8uJ2TEWrelv8+p9UvxZuEgWYT+gEQ3u8tWoeHC0p7
+ bh=UUIyipSh2UKdcm74j22sAz/1TGUuH6UZ/bs/me2KcbE=;
+ b=9Riz1gDWwFndqbCpuFtrXtnfxYq7x/6bSbwOenD1GUcecvMMnYfPuCSyLEyB8swogmi2eBbIF
+ TbRro8cySjNDwMQdjIN87OrHEbkl8r6qjuUEIpHUZ8Uth7wHKC3t4KR
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-The extra space this block was indented with looks quite untraditional, and
-does not align with the common style used in the kernel.
+Switch -ENODEV error on i2c_get_match_data() failure to -ENODATA to
+satisfy the IIO coding style.
 
 Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/iio/accel/mma8452.c | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+ drivers/iio/accel/mma8452.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index 72b4ab32775a..b70bc8638128 100644
+index 5d44f0066b1e..5aea6bf3312a 100644
 --- a/drivers/iio/accel/mma8452.c
 +++ b/drivers/iio/accel/mma8452.c
-@@ -122,21 +122,21 @@ struct mma8452_data {
- 	u8 data_cfg;
- };
+@@ -1594,7 +1594,7 @@ static int mma8452_probe(struct i2c_client *client)
  
-- /**
--  * struct mma8452_event_regs - chip specific data related to events
--  * @ev_cfg:			event config register address
--  * @ev_cfg_ele:			latch bit in event config register
--  * @ev_cfg_chan_shift:		number of the bit to enable events in X
--  *				direction; in event config register
--  * @ev_src:			event source register address
--  * @ev_ths:			event threshold register address
--  * @ev_ths_mask:		mask for the threshold value
--  * @ev_count:			event count (period) register address
--  *
--  * Since not all chips supported by the driver support comparing high pass
--  * filtered data for events (interrupts), different interrupt sources are
--  * used for different chips and the relevant registers are included here.
--  */
-+/**
-+ * struct mma8452_event_regs - chip specific data related to events
-+ * @ev_cfg:			event config register address
-+ * @ev_cfg_ele:			latch bit in event config register
-+ * @ev_cfg_chan_shift:		number of the bit to enable events in X
-+ *				direction; in event config register
-+ * @ev_src:			event source register address
-+ * @ev_ths:			event threshold register address
-+ * @ev_ths_mask:		mask for the threshold value
-+ * @ev_count:			event count (period) register address
-+ *
-+ * Since not all chips supported by the driver support comparing high pass
-+ * filtered data for events (interrupts), different interrupt sources are
-+ * used for different chips and the relevant registers are included here.
-+ */
- struct mma8452_event_regs {
- 	u8 ev_cfg;
- 	u8 ev_cfg_ele;
+ 	data->chip_info = i2c_get_match_data(client);
+ 	if (!data->chip_info)
+-		return dev_err_probe(dev, -ENODEV, "unknown device model\n");
++		return dev_err_probe(dev, -ENODATA, "unknown device model\n");
+ 
+ 	ret = iio_read_mount_matrix(dev, &data->orientation);
+ 	if (ret)
 
 -- 
 2.55.0
