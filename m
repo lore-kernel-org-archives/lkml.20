@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879AB41834B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D6B439350;
 	Wed, 16 Sep 2026 19:36:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789587414; cv=none; b=Y/PKooFjOYB5Qp4cLeyrYpH9flNrExwd8JMcdoPDcRXKPLciHsBRDUxAy/GOcaf/EJkvW6W63VSO3rbCjKsZJ3M1CY643hdR03R5fLjN80S4aUI/0a5aWlSEEpQHy2t/y90Np7IZ5JzbtC3fce3c8nvI9zmrCu23Gcym8bw/x4c=
+	t=1789587414; cv=none; b=YMTW6oVq8Ta69UcMngUwvXn+F6SD+qeOPGmuv5sc5anFVwBwgFwFgsG8WipERc6bipidfNH997nHoN2xXhUif5ITIlExCkwlFNy45c95g9doO5t7xR5JzV1RSEj20JAw9xRbwbVCuR5n7UeT89Ytf/3kgaYSiAJKtopWc2o3Mpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789587414; c=relaxed/simple;
-	bh=2qxTVfGn6dl1TaHgUSX2Fgd6ae+3OG/BYVvwDXz02rk=;
+	bh=4O8ZQghr/b2vo2kcWDO8kn89KdXTM4f5o7tWhR1fOhs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dJ7pM6yFgdJhgPf2EdGHRigmX8spKx2maOI1yjTtbKiV85gpEHJvqF3OJeZABH6F1Ovs/oEcCH1STUsfsSXk8QM4GRrc5FYbalSXDlwGzpgFqcBG4Sg6YIb1+wkTonq6dAWl2Z2JnPtVy2shEVc6ro3dn4kJAMRfiEtNrrOL3r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=acNvwRyy; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=IgA4C4twtyCIRnuAO7Isl0QBEPc3Ha4SrONepaftPeCgGWxZIRVfpfkmR43Q3zGcbyMp/cfo/L12wgDKZyAERiwiKEiM9Js94BQpx+S9kX4PiohiORm2UEDdaZ6YDgectETTbR2ibLpJpx/RqR+nYZmWdqIh/2GYqTVeN5wVhbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q02awxWm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="acNvwRyy"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 02015C4AF0B;
-	Wed, 16 Sep 2026 19:36:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q02awxWm"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D7198C2BCB3;
+	Wed, 16 Sep 2026 19:36:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789587413;
-	bh=2qxTVfGn6dl1TaHgUSX2Fgd6ae+3OG/BYVvwDXz02rk=;
+	s=k20201202; t=1789587412;
+	bh=4O8ZQghr/b2vo2kcWDO8kn89KdXTM4f5o7tWhR1fOhs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=acNvwRyy1RCCyRme3LqnSW1PXvLbVQ8yMoGjbuoE64MkeHILauo6Z4zu2hqPhMYUE
-	 55dwW//5rmiPX4tyET5D8kG8QU+MHYlQ9t+hLvaEiFOKuagpk5PEFVnQgNhtu+sSZg
-	 ScMMr8Q4Q+bvCKN55VXkrnvHQxlLoJj/SBPE2d+VxOGZTwF2uZToMlVNK4wFsr88H/
-	 wzzvKUpnRafdS/6rUrHGTQndtbS8O36MdOJy7xMRvLE1hTpt0a1DQZ/np4/1Po+Hhk
-	 3trQ+nTVXsFFZQghDQIXTEwyPW/09alTARpt1ECXyNQHW0rdwK+DnYK9EA/Qxhipe/
-	 jTLYGLgMumRCA==
+	b=Q02awxWmAFFVGsHVK6U71zK73Tm2UaLh2VJ6qoB2XSwZJ97HPwwJHH5FqAG09dHhl
+	 g0GVKiG2RcGjLXvWxlVmgx995t8Xdoh6lT2xLNP/dZjhOYgLaqq3QTSIWm5+BO1qx4
+	 9uYfJcSvjhOFbxDrcRw3ugI4T8xjMxV3va0VZ/tjaQNCqs2xW3tC681GRmWpmtSllh
+	 XLjE9QG1mZ8Ve1JLbzZ1+HKYE7i9UOSnI792c8FxdATJUutQU03R1xIKQFDv9P8Hil
+	 0Zb4JteWnlWy8W8soV4QZSQwGnBOgGbqk1RCbU24DdqjZtkmSWs5INBxtIxLpkJ1pC
+	 zy1ROsZ7iA7Ow==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D841FC982D1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ABA45C982C9;
 	Wed, 16 Sep 2026 19:36:52 +0000 (UTC)
 From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Wed, 16 Sep 2026 21:36:34 +0200
-Subject: [PATCH v3 3/3] usb: typec: mux: ps883x: disable USB4 on incomplete
- USB4 platforms
+Date: Wed, 16 Sep 2026 21:36:32 +0200
+Subject: [PATCH v3 1/3] usb: typec: mux: ps883x: support TYPEC_DP_STATE_F
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-ps883x-disable-usb4-v3-3-8f19386456d0@oldschoolsolutions.biz>
+Message-Id: <20260916-ps883x-disable-usb4-v3-1-8f19386456d0@oldschoolsolutions.biz>
 References: <20260916-ps883x-disable-usb4-v3-0-8f19386456d0@oldschoolsolutions.biz>
 In-Reply-To: <20260916-ps883x-disable-usb4-v3-0-8f19386456d0@oldschoolsolutions.biz>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -54,12 +53,12 @@ Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
  Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789587411; l=3563;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789587411; l=875;
  i=jens.glathe@oldschoolsolutions.biz; s=20240919;
  h=from:subject:message-id;
- bh=LWQBlYVaxNpRJx4oDZ05Vzvdm0+zYNn5AZkQ3g0e6Rk=;
- b=uyr1eY8Z9C/Flb6+h8Zmsm4E8bK5Ifflx2QqC/p8x+7c/i6YeF3zverIVSnZGzKKExZVNZ0sf
- ykyGcn57XHLB0wGoN9qUmSHk/JDeUNtyLcbU3PjX1d0krp9sla30JUn
+ bh=bPpIDIw9LIDQr0mVlf5HDy4Ak7MRxbqehghQmc4sQjc=;
+ b=LHj2y6UFpyTA572+L/o2uijs3EUo/ziZR1xwCz0JVVwZk/Oij1hJUry+VHgMYX1ot941lpRCl
+ UTNuQqXro43DJeq3Vt98QbQUQ3Ik58/R/whW4InCspZ5g5knYC598B9
 X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
  pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
 X-Endpoint-Received: by B4 Relay for
@@ -69,109 +68,30 @@ Reply-To: jens.glathe@oldschoolsolutions.biz
 
 From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-On Qualcomm X1E80100 / X1P42100 platforms using the Parade PS883x
-retimer, hotplugging USB4-capable docks such as the Lenovo 40B0 can
-result in working USB but no DisplayPort output.
+Several docks, including the Lenovo 40B0 and SSK SC220, still send the
+legacy TYPEC_DP_STATE_F mode request (deprecated since DisplayPort Alt
+Mode spec version 1.0b).
 
-When the dock negotiates USB4, the retimer receives TYPEC_MODE_USB4
-and forwards it via typec_mux_set(). The qmp-combo PHY then selects
-USB3-only because no classic DP altmode SVID is present in the state,
-leaving the DP transmitter and AUX channel disabled.
+Group it with TYPEC_DP_STATE_D.
 
-Reject USB4 with -EOPNOTSUPP on platforms whose USB4 / DP-tunneling
-stack is not ready yet. The Type-C stack then falls back to USB3 + DP
-Alt Mode. DP altmode configuration continues to use the existing
-ps883x_set() path.
-
-Use a machine-compatible table rather than a DT property so the quirk
-stays inside the kernel and can be removed later without creating ABI.
-
-Link: https://patch.msgid.link/20260312101431.2375709-1-krishna.kurapati@oss.qualcomm.com
 Assisted-by: Grok(xAI):4.6
-Tested-by: Dr. David Alan Gilbert <dave@treblig.org>
 Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 ---
- drivers/usb/typec/mux/ps883x.c | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ drivers/usb/typec/mux/ps883x.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
-index 15aee1d613b1a..2ec57cfe748a9 100644
+index 64e0a61b776a1..a5696aef054ee 100644
 --- a/drivers/usb/typec/mux/ps883x.c
 +++ b/drivers/usb/typec/mux/ps883x.c
-@@ -13,6 +13,7 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/usb/pd.h>
-@@ -42,6 +43,22 @@
- #define CONN_STATUS_2_TBT_UNIDIR_LSRX_ACT_LT	BIT(4)
- #define CONN_STATUS_2_USB4_CONNECTED		BIT(7)
+@@ -207,6 +207,7 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
  
-+/*
-+ * Platforms where the USB4 / DP-tunneling stack is not ready yet. Rejecting
-+ * USB4 here lets the Type-C stack fall back to USB3 + DP Alt Mode instead of
-+ * negotiating USB4 and then failing to drive DisplayPort.
-+ *
-+ * This is a temporary, kernel-contained quirk (not DT ABI). Drop the entries
-+ * once the corresponding USB4 support is complete.
-+ */
-+static const char * const ps883x_disable_usb4_compats[] = {
-+	"qcom,x1e80100",
-+	"qcom,x1p42100",
-+	"qcom,hamoa",
-+	"qcom,purwa",
-+	NULL,
-+};
-+
- struct ps883x_retimer {
- 	struct i2c_client *client;
- 	struct gpio_desc *reset_gpio;
-@@ -63,8 +80,21 @@ struct ps883x_retimer {
- 
- 	enum typec_orientation orientation;
- 	bool in_reset;
-+	bool disable_usb4;
- };
- 
-+static bool ps883x_should_disable_usb4(void)
-+{
-+	const char * const *compat;
-+
-+	for (compat = ps883x_disable_usb4_compats; *compat; compat++) {
-+		if (of_machine_is_compatible(*compat))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- static int ps883x_enable_vregs(struct ps883x_retimer *retimer)
- {
- 	struct device *dev = &retimer->client->dev;
-@@ -260,6 +290,9 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
- 			cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
- 			break;
- 		case TYPEC_MODE_USB4:
-+			if (retimer->disable_usb4)
-+				return -EOPNOTSUPP;
-+
- 			eudo_data = state->data;
- 
- 			cfg2 |= CONN_STATUS_2_USB4_CONNECTED;
-@@ -389,6 +422,10 @@ static int ps883x_retimer_probe(struct i2c_client *client)
- 
- 	retimer->client = client;
- 
-+	retimer->disable_usb4 = ps883x_should_disable_usb4();
-+	if (retimer->disable_usb4)
-+		dev_info(dev, "USB4 disabled until platform USB4 support is complete\n");
-+
- 	mutex_init(&retimer->lock);
- 
- 	retimer->regmap = devm_regmap_init_i2c(client, &ps883x_retimer_regmap);
+ 			switch (state->mode)  {
+ 			case TYPEC_DP_STATE_D:
++			case TYPEC_DP_STATE_F:
+ 				cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
+ 				fallthrough;
+ 			case TYPEC_DP_STATE_C:
 
 -- 
 2.53.0
