@@ -1,285 +1,275 @@
-Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com [209.85.214.227])
+Received: from mta0.migadu.com (out-205.mta0.migadu.com [91.218.175.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CF93BB661
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:06:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E44D370D7B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:07:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789535163; cv=none; b=Xjbr1oJQSC5dOfaC74SqC8gQZ/G1HeR/ajMH0pJXFnExao8gVZInxSEDbNgowxF5A+Gor6vNu1q52Vyc/fhWb3EXSqEsCsFqua3M3x3LroH3lHLgcd5qBFqytDQWS0UhGyNPBCeGCmxFSN6l/Mx/sleiLy0lFIrsRw34KhX6J20=
+	t=1789535264; cv=none; b=Fr0HdtWm709IWHD2zFtvwfEN96pRGGfkRXXWMis1xM1mmy4YlWdSOeH1t3KdYOLku8oEb1zZVlacEdsa/AaHsDSZzbrUzsQRae5ePLs7mus6y5DRrL3NJ8v21YYqcAjwl+KpLl26pix+p2+aH+9QWvq9VQDlnt/UaoVluISZeiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789535163; c=relaxed/simple;
-	bh=ZCYsk3b8be7YzwPtZc9AlEHE3JpuvSauytIqzViEWP8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lNJUIMEkc6AhhuG+eUdQA0vUdKgRpjyKLLfil+g0GYePl8k/nY9qNzrwAh8sg5lrw5V3jGk4z6J6607ADWwz4EGxFgOoO/ye3z9wusY4cPubioc0/F1yQrGsVveGu/3BQ1F5ysmnFYkOGb+vhcm3RlMmMJMLnEyT3/a2i8andc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=YW777VKk; arc=none smtp.client-ip=209.85.214.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1789535264; c=relaxed/simple;
+	bh=poXf8b/EZKEJ+wam5kWmYqcw7E5qpknfD3ZooWuAUBk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FIq62G/YCXhgwxXOFDWNU4JaRN4nFI1yBLPmTrXjMCJ3DAf5szWf+YU+5wA5fQ9eagKJh6iqzZWmqxN7RXMIKna/ueZSqSQTWS4HTwHAbpvHuRGKdwKd87R7cCjCxwf/Un62mjI8idQm1hmIqDGShVi0tnAEYrgm+twQ+IfqoR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=B/5qpQ1r; arc=none smtp.client-ip=91.218.175.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="YW777VKk"
-Received: by mail-pl1-f227.google.com with SMTP id d9443c01a7336-2d6d28aa26cso34054605ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:06:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789535161; x=1790139961;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qEqGUwhuGtd/IQ00br0ru4/E+DR8RR02AnrUv6Zwxpk=;
-        b=q2CZ0jCABdyd+63njMzNbMsgtWcKuWTF0iw4gFn5NjqoDLrRsrdHkemJRjMV99zipe
-         mSOmkj6kpZUYcT5QvsuldwAOSnG5Am+Na96SbDEEemFvBKU7yRKROyjr5k2S507CTzNr
-         02Jh9mH4n96PSXHI/SBxNSFUL6q5yu/XVZXQeygrfrQ/+xgxrRgu0u3t3dhsmwlFgbGv
-         AuRZelzmgDTI+gHNyN/jsnPFTrfC2BsFDRvky6xdtDWGVgGIEXCYzWuk04wpaKAgO0k7
-         Unh9JgQpPZIEZPOhkRM6W6JGoWvS/R99Qu798mCFpX3SXyPR5uZLFbEAvZtBNxvGpCvp
-         A8TA==
-X-Forwarded-Encrypted: i=1; AKwUvByiDucF00RuCSssQ5mnR+esfuZhK+nH6FwHDKkCVeW90BDmKOYFmUMNbkOrjVApPB9dSmBHRyUHfTqU5V8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+kMNx2ByjLDvwGebPmjZR7B7iRPj/C29Cu1g0w8fltiHMPrKZ
-	c7AQPm1ORQEyfFzDv9SzE7I+O1wQUimS6LBl0lWKQe6E1It1F0Pf7T1nOEd+2ptnhjvUM0NNi0v
-	e0U22LTQ4DEA+T6frXnrgJ1czKMib/QkVmFo9i7OvhD/IxAM1Q+RiGeHlZfKl+hwXSGDw+G8Daf
-	7kXp7OHZ2iL4LWOHMOpJ+FAbinzeXJmgfpjggAREOCT5ACdOXTf62EwxJTnAOl+wAnY+zgNFWWK
-	zXzdcKBplqpGGsl
-X-Gm-Gg: AYBFou0m7C3eDekjCBQx4hGmY8OPm/Zs4h6fN9hmkArUU076BWjNHC8IRjiT+XLe/yB
-	FtFjKIk0j8tHzqVjHkumT0JUUFC0dycC7UMVDpmd+kLkPcNrvE8a/bJKlROMiDncTmgTby+H4jc
-	IsRTfUYMRQkGXH3tCBAVUBa2iX4VEU7JykfXmAI29Iw/GLWqTMHtHdAyssFKLonmxG3lOdIQcHa
-	v9I+hbPsJxkMvPi5T6j/U1gHsYBtwEI7e2uimPWG9nDESgqOACPWsPCpUeB3q6098s7tMMLVw/v
-	HpI0loeIvLyfXko4vqs05RPn0ddHOTsZzJcxb/gQv5+jujrYZ612NYKtkIPh0lm7QgUPhG8u0jd
-	yhY5YodOucjPb4mpkfiE2VKvBPu0u7lV2PbQUR57hGy5qTSQ46L85lrXR/Lu0Hq3X/TZqlf9Wrh
-	gRZX4DgeCyvArBnzeE0JwBiwawcaEmfCG7
-X-Received: by 2002:a17:902:e74b:b0:2dd:3ddf:b895 with SMTP id d9443c01a7336-2dd8dd0b2fcmr22960145ad.3.1789535160712;
-        Tue, 15 Sep 2026 22:06:00 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-29.dlp.protect.broadcom.com. [144.49.247.29])
-        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2dd89e94c81sm749675ad.12.2026.09.15.22.05.59
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 15 Sep 2026 22:06:00 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1a439db36so4351578a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:05:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789535158; x=1790139958; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qEqGUwhuGtd/IQ00br0ru4/E+DR8RR02AnrUv6Zwxpk=;
-        b=YW777VKkuthOhJll13Vfzz2TFuo7Dg4wmScpv2bjhDyzJ/f/p/MOQx8huOil4+PGWN
-         WtMxrZuFv75DzHRdMmW8yrE7IHNh9G3HDENQQC02VhyktO6g++ZPQ8J/0inkvJ4CgURj
-         R07zG3rTlx/SnJGV0+elbsCoqb3Xe0YjId85M=
-X-Forwarded-Encrypted: i=1; AKwUvBzquDHwQGCDhqsysPQ6fbpAyoPYtweQyjkTHZtvtN7Rj62ne7HPio4taAwQUc0gdCo4y1DjD7IeK65pnNk=@vger.kernel.org
-X-Received: by 2002:a05:6a21:1343:b0:3da:80a1:f2f with SMTP id adf61e73a8af0-3dd5f5dfd69mr2927550637.14.1789535158380;
-        Tue, 15 Sep 2026 22:05:58 -0700 (PDT)
-X-Received: by 2002:a05:6a21:1343:b0:3da:80a1:f2f with SMTP id adf61e73a8af0-3dd5f5dfd69mr2927490637.14.1789535157892;
-        Tue, 15 Sep 2026 22:05:57 -0700 (PDT)
-Received: from vertex.localdomain ([192.19.144.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5e40494sm3951386eec.15.2026.09.15.22.05.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 22:05:56 -0700 (PDT)
-From: Zack Rusin <zack.rusin@broadcom.com>
-To: Borislav Petkov <bp@alien8.de>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	x86@kernel.org,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	virtualization@lists.linux.dev,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Christoph Lameter <cl@gentwo.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Bo Gan <bo.gan@broadcom.com>,
-	linux-mm@kvack.org,
-	linux-arch@vger.kernel.org,
-	linux-coco@lists.linux.dev,
-	kvm@vger.kernel.org,
-	Zack Rusin <zack.rusin@broadcom.com>
-Subject: [PATCH v1 2/2] x86/vmware: Decrypt steal-time storage before sharing it
-Date: Wed, 16 Sep 2026 01:05:40 -0400
-Message-ID: <bbdb89067cd07d07fe4963ad229932faf87b0ef9.1789488039.git.zack.rusin@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1789488039.git.zack.rusin@broadcom.com>
-References: <cover.1789488039.git.zack.rusin@broadcom.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="B/5qpQ1r"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=poXf8b/EZKEJ+wam5kWmYqcw7E5qpknfD3ZooWuAUBk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789535260; v=1; x=1790140060;
+ b=B/5qpQ1rxngliTZEAcjaLdBU8sYJmZhnWS7J8r+aAuvSki+oSktUnReazhNKFyRcVrLFKoDz
+ yJwYvJ5Tcn67gxhbRqevPE3cgwiUPTmUCHDWPC7FUoRY8uAK0RS7tr1lJ9Pz3qPUixWHRVnLtHg
+ dpqAl9vfeY52mqGG9/4tZzUk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id be70240e79be7685;
+	Wed, 16 Sep 2026 05:07:40 +0000
+X-Mizu-Trace-ID: be70240e79be7685
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 16 Sep 2026 13:07:27 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Jakub Kicinski <kuba@kernel.org>, jv@jvosburgh.net, razor@blackwall.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	pabeni@redhat.com, daniel@iogearbox.net, joamaki@gmail.com,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	liuhangbin@kylinos.cn
+Subject: Re: [PATCH net v4] bonding: fix slave_cnt leak on XDP error paths
+Message-ID: <aqokD2avF7B7Towi@fedora>
+References: <20260914-bond_slave_cnt-v4-1-d14864a39e60@kylinos.cn>
+ <20260916012721.1653880-2-kuba@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916012721.1653880-2-kuba@kernel.org>
 
-VMware's steal-time counter must be in shared memory so the host can
-update it. Encrypted guests currently register its address without
-decrypting the storage. Move their setup to an early initcall, when the
-memory allocator is available for page-table splitting, but before
-secondary CPUs start. Leave ordinary guests' setup unchanged.
+Hi Jakub, 
 
-Convert every possible CPU's storage before registering any address.
-Zero each object after conversion, since its contents may not survive
-conversion and the host initializes only the counter. Register the boot
-CPU with preemption disabled; the existing hotplug callbacks handle the
-others. If conversion or boot-CPU registration fails, attempt to re-encrypt
-all affected ranges, including a partially converted failing range, and
-disable steal time.
+Thanks for the notify.
 
-TDX's conversion path requires directly mapped memory. Check all per-CPU
-objects before converting anything, and disable steal time if a TDX guest
-uses the page per-CPU allocator, which supplies vmalloc mappings. This
-also covers automatic fallback from the embedded allocator. AMD guests
-are unaffected by this restriction because their conversion path supports
-those mappings.
+Jay, Nikolay, please correct me if you disagree with my comments.
 
-Link: https://lore.kernel.org/r/20260309235250.2611115-5-alexey.makhalov@broadcom.com
-Co-developed-by: Bo Gan <bo.gan@broadcom.com>
-Signed-off-by: Bo Gan <bo.gan@broadcom.com>
-Co-developed-by: Alexey Makhalov <alexey.makhalov@broadcom.com>
-Signed-off-by: Alexey Makhalov <alexey.makhalov@broadcom.com>
-Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
----
- arch/x86/kernel/cpu/vmware.c | 96 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 95 insertions(+), 1 deletion(-)
+On Tue, Sep 15, 2026 at 06:27:22PM -0700, Jakub Kicinski wrote:
+> Clashiko classified the broader issues as independent but I'm not sure.
+> If there are more problems with pre-publishing the count we need
+> a different fix? Or am I not reading closely enough?
+> 
+> AI review:
+> ---
+> bonding: fix slave_cnt leak on XDP error paths
+> 
+> The three XDP failure exits in bond_enslave() used to jump straight to
+> err_sysfs_del, which skipped the slave_cnt decrement and let the counter
+> drift upward on every failed enslave. A new err_slave_cnt label is added
+> ahead of err_sysfs_del to undo the increment.
+> 
+> > diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+> > index a9bff7663eeca..577d85c838040 100644
+> > --- a/drivers/net/bonding/bond_main.c
+> > +++ b/drivers/net/bonding/bond_main.c
+> > @@ -2305,7 +2305,7 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+> >  			SLAVE_NL_ERR(bond_dev, slave_dev, extack,
+> >  				     "Slave does not support XDP");
+> >  			res = -EOPNOTSUPP;
+> > -			goto err_sysfs_del;
+> > +			goto err_slave_cnt;
+> >  		}
+> >  	} else if (bond->xdp_prog) {
+> >  		struct netdev_bpf xdp = {
+> 
+> [Severity: High]
+> 
+> This is a pre-existing ordering issue that dates back to 9e2ee5c7e7c3 and
+> is not introduced by this patch, but since the new err_slave_cnt stage sits
+> right here it seems worth asking about.
+> 
+> By the time bond_enslave() reaches this ndo_bpf / ndo_xdp_xmit test, the
+> slave has already been published to the lockless transmit path:
+> 
+> 	res = bond_master_upper_dev_link(bond, new_slave, extack);
+> 	...
+> 	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
+> 	...
+> 	if (bond_uses_primary(bond)) {
+> 		block_netpoll_tx();
+> 		bond_select_active_slave(bond);
+> 		unblock_netpoll_tx();
+> 	}
+> 
+> 	if (!slave_dev->netdev_ops->ndo_bpf ||
+> 	    !slave_dev->netdev_ops->ndo_xdp_xmit) {
+> 
+> For the trunk modes the switch default arm already ran
+> bond_set_active_slave(new_slave) with new_slave->link == BOND_LINK_UP, so
+> bond_slave_can_tx() is true for it.
 
-diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
-index 34b73573b108..f49898275d87 100644
---- a/arch/x86/kernel/cpu/vmware.c
-+++ b/arch/x86/kernel/cpu/vmware.c
-@@ -25,14 +25,19 @@
- #include <linux/init.h>
- #include <linux/export.h>
- #include <linux/clocksource.h>
-+#include <linux/cc_platform.h>
- #include <linux/cpu.h>
- #include <linux/efi.h>
-+#include <linux/mm.h>
-+#include <linux/preempt.h>
- #include <linux/reboot.h>
-+#include <linux/set_memory.h>
- #include <linux/static_call.h>
- #include <linux/sched/cputime.h>
- #include <asm/div64.h>
- #include <asm/x86_init.h>
- #include <asm/hypervisor.h>
-+#include <asm/cpufeature.h>
- #include <asm/cpuid/api.h>
- #include <asm/timer.h>
- #include <asm/apic.h>
-@@ -147,6 +152,7 @@ static struct cyc2ns_data vmware_cyc2ns __ro_after_init;
- static bool vmw_sched_clock __initdata = true;
- static DEFINE_PER_CPU_DECRYPTED(struct vmware_steal_time, vmw_steal_time) __aligned(64);
- static bool has_steal_clock;
-+static bool vmw_steal_time_ready;
- static bool steal_acc __initdata = true; /* steal time accounting */
- 
- static __init int setup_vmw_sched_clock(char *s)
-@@ -280,7 +286,9 @@ static void vmware_disable_steal_time(void)
- 
- static void vmware_guest_cpu_init(void)
- {
--	if (has_steal_clock)
-+	if (has_steal_clock &&
-+	    (!cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) ||
-+	     vmw_steal_time_ready))
- 		vmware_register_steal_time();
- }
- 
-@@ -325,6 +333,92 @@ static int vmware_cpu_down_prepare(unsigned int cpu)
- }
- #endif
- 
-+static void __init vmware_steal_time_range(int cpu, unsigned long *start,
-+					   int *numpages)
-+{
-+	unsigned long addr = (unsigned long)per_cpu_ptr(&vmw_steal_time, cpu);
-+
-+	*start = addr & PAGE_MASK;
-+	*numpages = DIV_ROUND_UP(offset_in_page(addr) +
-+				 sizeof(struct vmware_steal_time), PAGE_SIZE);
-+}
-+
-+static int __init vmware_decrypt_steal_time(void)
-+{
-+	int cpu, failed_cpu, numpages, ret;
-+	unsigned long start;
-+
-+	if (!has_steal_clock ||
-+	    !cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
-+		return 0;
-+
-+	/*
-+	 * TDX's conversion callback derives the physical range with __pa(),
-+	 * so the storage must live in the direct map. The page per-CPU
-+	 * allocator, which is also the automatic fallback when the embedding
-+	 * allocator fails, hands out vmalloc addresses instead. Reject those
-+	 * before converting anything, so no page is left converted.
-+	 */
-+	if (cpu_feature_enabled(X86_FEATURE_TDX_GUEST)) {
-+		for_each_possible_cpu(cpu) {
-+			if (!is_vmalloc_addr(per_cpu_ptr(&vmw_steal_time, cpu)))
-+				continue;
-+
-+			pr_warn("steal time disabled: TDX requires a direct mapping\n");
-+			has_steal_clock = false;
-+			return 0;
-+		}
-+	}
-+
-+	for_each_possible_cpu(cpu) {
-+		vmware_steal_time_range(cpu, &start, &numpages);
-+		ret = set_memory_decrypted(start, numpages);
-+		if (ret) {
-+			failed_cpu = cpu;
-+			goto rollback;
-+		}
-+
-+		/*
-+		 * Conversion need not preserve the zeroes. The host
-+		 * initializes only the counter on enable, so the guest
-+		 * must initialize the reserved words itself.
-+		 */
-+		memset(per_cpu_ptr(&vmw_steal_time, cpu), 0,
-+		       sizeof(struct vmware_steal_time));
-+	}
-+
-+	vmw_steal_time_ready = true;
-+	preempt_disable();
-+	vmware_guest_cpu_init();
-+	preempt_enable();
-+	if (!has_steal_clock) {
-+		pr_warn("failed to register boot CPU steal-time memory\n");
-+		failed_cpu = nr_cpu_ids;
-+		goto rollback_pages;
-+	}
-+	return 0;
-+
-+rollback:
-+	pr_warn("failed to decrypt steal-time memory for CPU %d: %d\n",
-+		failed_cpu, ret);
-+
-+rollback_pages:
-+	for_each_possible_cpu(cpu) {
-+		vmware_steal_time_range(cpu, &start, &numpages);
-+		ret = set_memory_encrypted(start, numpages);
-+		if (ret)
-+			pr_warn("failed to re-encrypt steal-time memory for CPU %d: %d\n",
-+				cpu, ret);
-+		if (cpu == failed_cpu)
-+			break;
-+	}
-+
-+	vmw_steal_time_ready = false;
-+	has_steal_clock = false;
-+	return 0;
-+}
-+early_initcall(vmware_decrypt_steal_time);
-+
- static __init int activate_jump_labels(void)
- {
- 	if (has_steal_clock) {
--- 
-2.53.0
+Not since the bond_uses_primary() if checking, the new_slave could be set to
+active even more early during enslave. e.g. in bond_main.c:2174
+
+  switch (BOND_MODE(bond)) {
+  ...
+  case BOND_MODE_TLB:
+  case BOND_MODE_ALB:
+      bond_set_active_slave(new_slave);
+  default:
+      bond_set_active_slave(new_slave);
+
+I think the bond assume the new slave is in trunk modes in this situation,
+which could pass any traffic.
+
+> 
+> Can a concurrent bond_xdp_xmit(), which only takes rcu_read_lock() and does
+> not hold RTNL, pick that not-yet-validated slave in this window?
+> 
+> bond_xdp_xmit()
+>   bond_xdp_xmit_roundrobin_slave_get()
+>     slave_cnt = READ_ONCE(bond->slave_cnt);
+>     if (likely(slave_cnt)) {
+>         slave_id = bond_rr_gen_slave_id(bond) % slave_cnt;
+>         return bond_get_slave_by_id(bond, slave_id);
+
+bond_get_slave_by_id() loop each slaves, even the slave_cnt not updated, the
+new slave still could be chosen.
+
+> 
+> bond_get_slave_by_id() only checks bond_slave_can_tx(), never XDP
+> capability, and bond_xdp_xmit() then does:
+> 
+> 	err = slave_dev->netdev_ops->ndo_xdp_xmit(slave_dev, 1, frames1, flags);
+> 
+> with no NULL test, so would this be an indirect call through a NULL
+> ndo_xdp_xmit for a slave that lacks it?
+> 
+> The devmap gate does not appear to help here either: __xdp_enqueue() and
+> is_valid_dst() only look at the bond device's xdp_features, which still
+> advertise NETDEV_XDP_ACT_NDO_XMIT during this window because
+> bond_xdp_set_features() only runs after the XDP block. The same exposure
+> looks reachable through bond_xmit_activebackup_slave_get() for
+> bond_uses_primary() modes, where bond_select_active_slave() may publish the
+> new slave as curr_active_slave before the capability check.
+> 
+> Would it make sense to move the ndo_bpf / ndo_xdp_xmit validation earlier,
+> before the slave is linked and counted?
+
+I saw Nikolay has done a similar fix e9acda52fd2e ("bonding: fix use-after-free
+due to enslave fail after slave array update"). But the risk is till there.
+So how up we should move the xdp ops?
+
+Maybe add a checking as a workaround before we do a safe re-order for
+bond_enslave?
+
+  if (likely(slave_dev->netdev_ops->ndo_xdp_xmit))
+      err = slave_dev->netdev_ops->ndo_xdp_xmit(slave_dev, 1, frames1, flags);
+
+Nikolay, what do you think?
+
+> 
+> [ ... ]
+> 
+> > @@ -2348,6 +2348,9 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+> >  	return 0;
+> >  
+> >  /* Undo stages on error */
+> > +err_slave_cnt:
+> > +	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt - 1);
+> > +
+> >  err_sysfs_del:
+> >  	bond_sysfs_slave_del(new_slave);
+> >  
+> 
+> [Severity: Medium]
+> 
+> These leaks are pre-existing, the three XDP exits already fell into this
+> same unwind chain before this patch, so they are not introduced here. Since
+> this patch adds the stage where the symmetric undo would belong, is it worth
+> handling the rest of the state applied just above the XDP block?
+> 
+> Reaching the XDP checks means this group has already run, with no
+> intervening label:
+> 
+> 	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
+> 	netdev_compute_master_upper_features(bond->dev, true);
+> 	bond_set_carrier(bond);
+> 
+> 	bond_slave_ns_maddrs_add(bond, new_slave);
+> 
+> err_slave_cnt reverses only the counter and falls through to err_sysfs_del,
+> so does the bond keep a feature mask recomputed from a device that never
+> became a slave, and for a first slave with an up link keep reporting
+> LOWER_UP with zero slaves, since nothing on the unwind path re-runs
+> netdev_compute_master_upper_features() or bond_set_carrier()?
+
+Yes, I think we could do it, in a separate patch.
+
+> 
+> Does bond_slave_ns_maddrs_add() also leak solicited-node multicast
+> addresses on the rejected netdev? bond_options.c takes real references:
+> 
+> 	void bond_slave_ns_maddrs_add(struct bonding *bond, struct slave *slave)
+> 	{
+> 		if (!bond->params.arp_validate)
+> 			return;
+> 		slave_set_ns_maddrs(bond, slave, true);
+> 	}
+> 
+> and no label between err_slave_cnt and err_undo_flags calls
+> bond_slave_ns_maddrs_del(). err_detach only re-runs
+> bond_change_active_slave() / bond_select_active_slave() when the new slave
+> had become curr_active_slave, so with mode=active-backup plus arp_validate
+> plus ns_ip6_target and the new slave staying backup, would these accumulate
+> on each retried enslave?
+
+Yes, we could.
+
+> 
+> For round-robin and 802.3ad, which are both XDP-capable and not
+> bond_uses_primary(), the block above also ran:
+> 
+> 	if (bond_dev->flags & IFF_PROMISC) {
+> 		res = dev_set_promiscuity(slave_dev, 1);
+> 	...
+> 	if (bond_dev->flags & IFF_ALLMULTI) {
+> 		res = dev_set_allmulti(slave_dev, 1);
+> 	...
+> 		dev_mc_sync_multiple(slave_dev, bond_dev);
+> 		dev_uc_sync_multiple(slave_dev, bond_dev);
+> 		if (BOND_MODE(bond) == BOND_MODE_8023AD)
+> 			dev_mc_add(slave_dev, lacpdu_mcast_addr);
+> 
+> Does the released device stay in promiscuous and allmulti mode with the
+> multicast and unicast sync entries still programmed after the XDP failure?
+
+Yes
+
+> 
+> __bond_release_one() performs exactly the mirror operations, which suggests
+> these are the required undo steps:
+> 
+> 	bond_slave_ns_maddrs_del(bond, slave);
+> 	...
+> 	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt - 1);
+> 	...
+> 	netdev_compute_master_upper_features(bond->dev, true);
+> 	...
+> 		if (old_flags & IFF_PROMISC)
+> 			dev_set_promiscuity(slave_dev, -1);
+> 	...
+> 		if (old_flags & IFF_ALLMULTI)
+> 			dev_set_allmulti(slave_dev, -1);
+> 	...
+> 		if (old_flags & IFF_UP)
+> 			bond_hw_addr_flush(bond_dev, slave_dev);
+> 
+> and that path is not reachable here because the enslave failed.
+
+Yes, I think we can do it in another patch.
+
+Thanks
+Hangbin
