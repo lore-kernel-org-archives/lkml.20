@@ -1,196 +1,179 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441C442125F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D5F4137AD;
+	Wed, 16 Sep 2026 20:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591948; cv=none; b=WRVYKEF6jx4AkqqZ9G+HYxK3OKzRKzI40WxTg9ljFNniF0Rm54uwMMtLg5L2vc/ZP8BLW9PuAZPIFe1Zla1l8vR1VMAeKKvhLPSC5j5RKl7Ltcey7KiKJEItoXuCxMy8zDoscXHUWuK9jouXnuPuoJdKsL5OIMgGc7POehfzZv4=
+	t=1789591979; cv=none; b=EB+db5su6yoJOQUiUwbW8PFjmA8w6uJ+Pvty7LeWSTpbFqJG8kog5W1+OYDqTdGbv6Q9SHK2Cd8x2kKcCn50V/AsahB0f0M48hkAM4XhEihdqKU8EeS3ZJYEOxblTJ0xFkM3QbgldX7NwDw3oH7Ie0RvgBlhnVFWQHbTlZB2VXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789591948; c=relaxed/simple;
-	bh=DIZYAHm521GzghFLBIBNK3JZKSLQj+G6WL0Ti9pGAyI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ofXRMoKWXQ5SlFLPGQFrKMi+E6GiXPJDa4R+w8Ia3eNyqzYkRse0fdSWvmr7qx/zyhMqa8Jwq3X+bIUErO32fZcgImV9862qE71X7WxsE9voKk3Uswfr0Q41Z33mpPnrXBTsp8zO3Z9iftvs64Wdb01w0+RDs/WHUuejoI6+rDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cLwoh2Xc; arc=none smtp.client-ip=74.125.231.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789591979; c=relaxed/simple;
+	bh=GDTfEHCEYdoIiSxSM0zHJqljeJs2e/1qoXwchI9YfPw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PQ9V6NMFXfEO/evrYwJLSxb3Jwky3phE26AWOGO4Xhwb2ymrbbYtHHN/pzmlCIIBi8FU5+oV9F9RwxKTflNWw1natwPlzOP8WrWFOKsLx6STIOPySBQVtmQCI9gY3G3CumDAE0SsEsfsPxKG5MOjG3KV27+oqLbLDAosltAaZHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ouMR13hu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cLwoh2Xc"
-Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6c24d19ebcfso39309eaf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:52:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789591934; x=1790196734; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KFxqhaToXcLhZx57rZOKyfb/5RQhEkCVEVgt0s8vR2I=;
-        b=cLwoh2XckOCTPG0nsuqd+Ct0L2EaQhDlUar6doyOnhprb5z9Byt+k2f34jofpDgQIl
-         oiuJdZvYi2KvNPxaLjQ2iqBhnjhMdaqhDqHhow9MRH/u3V/Wfyz7SvlFbQSFvRtmhZQd
-         TBWdb/CT2DzRUOlqrZ9Fau5yz70+v2b0XFWFSZBDPVHoDDj7HhLIy8Wl7vAdScmXHnjj
-         jrYsf7YXHamBfzIWK6MzVtiSNteskb8m44mde9xNwAVnT28zkLLD+/NXRWv78ap19dSa
-         rMrqZ9hfuozX34aJlv5TX6XwGSLiZNMxh2Ig7bUMtMcBTw8T4kMsitc6wDuYqSQUN/O/
-         8LSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789591934; x=1790196734;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KFxqhaToXcLhZx57rZOKyfb/5RQhEkCVEVgt0s8vR2I=;
-        b=UopHZx1Et9rWL+q3X4Pxr6OwNWbXaK4foPmWgbTjr+y5euSJUv75QgLWa9R60B4lYr
-         wzoKbRBMyD8BW6nHxCt2TQzcl29YDwJe00UNzz5VwbWubyIZqWrNJ8ab4786zEWYRFtO
-         IxTmm11ex/hQqaHywSg6F2ghu/f+U3ayyEy2P12RWdFr14JPUZYfdZqTo4H0bbQZEqex
-         NyzbXCJIHTPzi70janqtrN+/pFTFHN0Nzuzr5eGOAzdvhCadVq5EFNq7uxAWeTZzZyhp
-         k3ggNTEX1LTflicjaYqElR8YQ8pcLUY8yRORvPhVePg4PFsV2lY713K+UgyPrl994BEs
-         EcIA==
-X-Gm-Message-State: AFuF++nbD4I9ndiqGfHCYDtPFrvqMk02I4d1tV3wTjNMUbkh5x9LNurp
-	6djnWME3EvU+VdL7li11PeB/gT1AG4yRi60cwCU7KDv8qY8Zo05TbdZS
-X-Gm-Gg: AYBFou1uTqs3ldHGyHUQpdMSpMD2bAmruZhCRcuUpHfJyQZ8QPuo9Kwuju2bQND94aQ
-	gzE5szwf4Crooq+4jxgsp8KPcpwzRLrihOLeKggiYWpTZztGKLitpX038c1Q2cuvoE+aIh8VuPA
-	i76jeGbuP/aglZ+t2isxLEDqJ9qTE6ANB+cfEJZNOyv82bvZpMwVpG7UqbB2SmdOoOjT6j6Hyzb
-	WqbMK8CgV7q9FO+wco0a20W9XH4NXjNVkjey10URgLQ4NdHyL3EYukwvhvq8LtA9a/R3yjj5NWQ
-	+zECr5Lg8dQZB2X3SNobSijkXRcd+cj0upyB6I3khJrKzNb9tO9Oy3L2SGEi7K66peHM+4ER4GN
-	drO4MUz/2hrnfOH6UyCs00LU72mDNRSeCoAnWTm4d1gv6ehPtetZQ1A2ssd22FdPxrvx5xHD0NN
-	h0tG97OR47n6iDljoxRQqxPi+jWBEZ6+2GrkrgerdP+5j54bQGycpeGdAS3YuQQku1UXiaSFQiE
-	Q8SC0npNZ85qMxRou2mZRZDmFFy0w==
-X-Received: by 2002:a05:6820:2226:b0:6c2:1018:3f7 with SMTP id 006d021491bc7-6c7d41e1e4emr7017724eaf.23.1789591933607;
-        Wed, 16 Sep 2026 13:52:13 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:40::])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4842a23e310sm3312526fac.12.2026.09.16.13.52.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 13:52:12 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Bharata B Rao <bharata@amd.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Jonathan.Cameron@huawei.com,
-	dave.hansen@intel.com,
-	gourry@gourry.net,
-	mgorman@techsingularity.net,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	raghavendra.kt@amd.com,
-	riel@surriel.com,
-	rientjes@google.com,
-	sj@kernel.org,
-	weixugc@google.com,
-	willy@infradead.org,
-	ying.huang@linux.alibaba.com,
-	ziy@nvidia.com,
-	dave@stgolabs.net,
-	nifan.cxl@gmail.com,
-	xuezhengchu@huawei.com,
-	yiannis@zptcorp.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	byungchul@sk.com,
-	kinseyho@google.com,
-	yuanchu@google.com,
-	balbirs@nvidia.com,
-	alok.rathore@samsung.com,
-	shivankg@amd.com,
-	donettom@linux.ibm.com
-Subject: Re: [PATCH v8 0/8] mm: Hot page tracking and promotion infrastructure
-Date: Wed, 16 Sep 2026 13:52:10 -0700
-Message-ID: <20260916205211.267720-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <f871efd2-06b4-493f-87cc-919b6e0945c0@amd.com>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ouMR13hu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43EE21F000FF;
+	Wed, 16 Sep 2026 20:52:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789591962;
+	bh=Ey3W3pKciCj569G+4LgYiLWMcVQFEIDuHCi49VskP+U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ouMR13huu5OQMXLIi9ax5ZG63fAyvLf1MQXdqu3/bBaQNT1VysEngDLv5oAqXB6At
+	 T0kSNphFFGskAnHPTw50obhHLKuke4PAPLgm6neF2yLepzVEALpHq4Bzu07SPBVuGj
+	 Jb++QA0MpeievYbtMMlx4PDRXX1S/Z6PB0ZIbDLRrw9ZNX+kDgxy9K/ZM0BdMUvJvV
+	 oFqJ45zrHoCXOq5UD7ZL8m7BN5HcnGA4TnmrOP4WypR/zXSmen8okZCGYGo5runEix
+	 oo29j2+Iey/ty97LpRVPy3td13KxN6bXktmKFme/NhcLceD44vWRfUXvDnwsvGFPn2
+	 Nxm3He0YcAfNg==
+Message-ID: <c2dca0c1-6dd3-4601-be2f-e5409518bedd@kernel.org>
+Date: Wed, 16 Sep 2026 22:52:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: Suppress a few intentional
+ redundant whitespaces
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ cros-qcom-dts-watchers@chromium.org, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org
+References: <20260916-b4-dts-style-checker-suppress-v1-0-81b86685d068@oss.qualcomm.com>
+ <20260916-b4-dts-style-checker-suppress-v1-2-81b86685d068@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260916-b4-dts-style-checker-suppress-v1-2-81b86685d068@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 16 Sep 2026 08:38:17 +0530 Bharata B Rao <bharata@amd.com> wrote:
-
-> On 12-Sep-26 2:38 AM, Joshua Hahn wrote:
-> > Hi Bharata,
-> > 
-> > We've been testing pghot in a Meta kernel with worklaods to try and see
-> > what the performance characteristics look like. I wanted to report
-> > some of the findings that we've found in our testing. Note that these
-> > results are from a modified kernel that has my tiered memcg series [1]
-> > backported, as well as Gregory's numa balancing scanning fixes [2]
-> > as well. 
+On 16/09/2026 22:46, Krzysztof Kozlowski wrote:
+> Ignore redundant whitespaces in a few places to suppress warnings from
+> `dt-check-style --mode relaxed` like:
 > 
-> Hi Joshua,
+>   sc7280-herobrine.dtsi:357: [redundant-whitespace] extra whitespace after :
 > 
-> Thanks for testing pghot with your workload!
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi | 6 ++++++
+>  arch/arm64/boot/dts/qcom/sm8750.dtsi           | 4 ++++
+>  2 files changed, 10 insertions(+)
 > 
-> > 
-> > - Without tuning and using the default tunables that pghot comes with,
-> >   we've found around a slight performance regression against raw NUMAB2.
-> >   This was being run on a host with 750G DRAM and 250G CXL.
-> 
-> pghot promotes on 2nd access by default since pghot_freq_threshold is 2
-> by default. This will result in slower promotions compared to NUMAB2
-> which promotes on 1st access. Could you please try with setting
-> pghot_freq_threshold to 1? I think I should make the default as 1 going
-> forward.
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
+> index 58ea0532c0fb..21179ca1219b 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
+> @@ -354,11 +354,13 @@ keyboard_backlight: led-0 {
+>  pp1256_s8b: &vreg_s8b_1p256 {};
+>  
+>  pp1800_l18b_s0: &vreg_l18b_1p8 {};
+> +/* dt-check-style disable=redundant-whitespace */
+>  pp1800_l18b:    &vreg_l18b_1p8 {};
+>  
+>  vreg_l19b_s0: &vreg_l19b_1p8 {};
+>  
+>  pp1800_alc5682: &vreg_l2c_1p8 {};
+> +/* dt-check-style disable=redundant-whitespace */
+>  pp1800_l2c:     &vreg_l2c_1p8 {};
+>  
+>  vreg_l4c: &vreg_l4c_1p8_3p0 {};
+> @@ -368,14 +370,17 @@ keyboard_backlight: led-0 {
+>  pp3000_l7c: &vreg_l7c_3p0 {};
+>  
+>  pp1800_prox: &vreg_l8c_1p8 {};
+> +/* dt-check-style disable=redundant-whitespace */
+>  pp1800_l8c:  &vreg_l8c_1p8 {};
+>  
+>  pp2950_l9c: &vreg_l9c_2p96 {};
+>  
+> +/* dt-check-style disable=redundant-whitespace */
+>  pp1800_lcm:  &vreg_l12c_1p8 {};
+>  pp1800_mipi: &vreg_l12c_1p8 {};
+>  pp1800_l12c: &vreg_l12c_1p8 {};
+>  
+> +/* dt-check-style disable=redundant-whitespace */
+>  pp3300_lcm:  &vreg_l13c_3p0 {};
+>  pp3300_mipi: &vreg_l13c_3p0 {};
+>  pp3300_l13c: &vreg_l13c_3p0 {};
+> @@ -384,6 +389,7 @@ keyboard_backlight: led-0 {
+>  
+>  vreg_edp_bl: &ppvar_sys {};
+>  
+> +/* dt-check-style disable=redundant-whitespace */
+>  ts_avdd:      &pp3300_left_in_mlb {};
+>  vreg_edp_3p3: &pp3300_left_in_mlb {};
+>  
+> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> index ed3d29e13021..afeb6e57e0aa 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> @@ -2480,6 +2480,7 @@ swr3: soundwire@6ab0000 {
+>  			qcom,din-ports = <4>;
+>  			qcom,dout-ports = <9>;
+>  
+> +			/* dt-check-style disable=redundant-whitespace-strict */
+>  			qcom,ports-sinterval =		/bits/ 16 <0x07 0x1f 0x3f 0x07 0x1f 0x3f 0x18f 0x18f 0x18f 0x0f 0x0f 0xff 0x31f>;
 
-Gotcha. Out of curiosity, I'm wondering why you decided to make this a
-tunable. Specifically, I'm wondering if there are any workloads that
-benefit from making it require a second access. To me keeping it at
-first access makes a lot of sense. Obviously you could say that
-scanning workloads would want to use 2 accesses, but there should be
-other ways to prevent that from happening rather than counting the
-number of accesses before promotion. Just my 2c.
+The comment should be placed before node and is not really important
+here, because it is from 'strict' ruleset, unlike the herobrine ones.
 
-> In any case, will it be possible to provide more information on what your
-> workloads are, and the exact performance metrics? Any representative workload
-> that can be substituted to reproduce this behaviour can also help.
-> 
-> And when you say slight perf regression, how much is it exactly?
+I should have called this RFC to show intentions and whether this is the
+code we would like to maintain.
 
-I'm seeing that average latency is about 20% higher and p99 latency
-is about 5% higher.
+>  			qcom,ports-offset1 =		/bits/ 8 <0x01 0x03 0x05 0x02 0x04 0x15 0x00 0x00 0x00 0x06 0x0d 0xff 0x00>;
+>  			qcom,ports-offset2 =		/bits/ 8 <0xff 0x07 0x1f 0xff 0x07 0x1f 0xff 0xff 0xff 0xff 0xff 0xff 0xff>;
 
-> > - However, we've found lower pgscan_direct, pgpromote, and pgdemote
-> >   rates as well.
-> > - We've seen PSI dramatically drop on the host as well as the promotion
-> >   happens asynchronously. 
-> 
-> That's good to see.
-> 
-> > - I also found a bug where the kmigrated thread isn't created for nodes
-> >   that are onlined later after boot, like CXL nodes that get onlined
-> >   with memory later on. I've been using a small hack commit in
-> >   pghot_memhp_callback that just checks for the MEM_ONLINE case and
-> >   spawns a kmigrated thread.
-> 
-> I will take care of this scenario (CXL node online after boot) in my next posting.
 
-Thanks, it will make it easier for us to use on our end as well.
-
-> > Finally, we've seen some issues with pghot causing userspace crashes,
-> > which leads us to believe that there might be some bugs that manifest
-> > in userspace as well (we have not been able to find out where in pghot
-> > these bugs are introduced).
-> 
-> That's something I have never seen till now with any of the benchmarks that I
-> have run. Any kernel messages attributing the failure to pghot? Anything
-> attributable to access reporting or  kmigrated threads?
-
-We're doing A/B testing with NUMAB2 only and pghot, and we are seeing
-the userspace crashes in the pghot host only. It seems like there
-are some segfaults trying to reference ip 000... and a warning that
-references "Too many tries to read user space".
-
-I don't have anything in particular that would direct us right to pghot,
-but this crash has repeatedly come up, only on pghot (across reboots)
-and not on our NUMAB2 worklods. 
-
-> Any clues from coredump or gdb debug of userspace crash?
-> 
-> Were you running your workloads as part of a non-root memcg?
-
-They were part of a non-root memcg.
-
-> Do you see these failures without [1] and/or [2] ?
-
-Yup, I think these are unrelated to those changes.
-
-Thanks again Bharata!
-Joshua
+Best regards,
+Krzysztof
