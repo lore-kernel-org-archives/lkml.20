@@ -1,81 +1,93 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED036501F5E;
-	Wed, 16 Sep 2026 13:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F114EE86F;
+	Wed, 16 Sep 2026 13:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566711; cv=none; b=Hm8rPpjyNTHLJf7V9M4el9SROCkWvY6r2+AOvL2FSXKBGuhyjymjhqbxaOcYhGVR0Y8fy7qgCrNhTqErsibsee9kR+s4os96xGjTz0AVIypqyM832CupydZ6ZjkQK1y+JGBz+xnV/Qw4PQYDJ2/OPVQLsZ8XfZnVNtxu0f2ljus=
+	t=1789566736; cv=none; b=HKaKzmp9d3Hc9keXqLVKRFpbExPxD4pvyq/agSYEBO/U5FROTEV23IhZo3ic4ZoPlxwGEwgfXuknqYwD9dKd0fWffJhJYUeMUbMAQediHduX2fuAzofQjYKCnp848SuH8O+KPOxANpAmCDqpvVfKn9Fjk6abCQLc6XLj579CetE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566711; c=relaxed/simple;
-	bh=CYCUaFKF30v608ok/oaJzEtMb0FXgUyqdiKoxQwP1Mg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LZ+51DeBLImjhIrnU2sFbiyqI+S4VNHIFaYqada6Gx+I9XaSCmY+Du/JO/+o9EnpQvjmVv19ow07sNPCUzjRNooHp6+ojhN+xqYQwhx6d6PUUarKOh3TEb0RoA1nzoVHOkKmq9bibfkV5anl7SzMv69HidalXe/dMhojhY2io7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=l1CY+DOM; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1789566736; c=relaxed/simple;
+	bh=bWKDHx4eLulGdzB3vFpKi79QtEbcNGdDFgNF3jdXlpM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IGab9m5tr5f4c7YUDx9vKmp2uz48N28WV3pJ7TJFzFqlPJoIWOiBqWJdpxtBMsyNP73uvfxiHAO/fBc/vlrvRbqytFKOUF4R30cNYqMkRescu7JCzjWZRnNzpILpcoES3hV8NI7y7P9BDmykKfSQImUVlWpCp+AfMNSDpk/Fu/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=T3eFheFT; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ddl/Uv06; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="l1CY+DOM"
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id F3BB780665;
-	Wed, 16 Sep 2026 13:51:30 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id F091320030;
-	Wed, 16 Sep 2026 13:51:24 +0000 (UTC)
-Date: Wed, 16 Sep 2026 09:51:22 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Ridong Chen <ridong.chen@linux.dev>, Masami Hiramatsu
- <mhiramat@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Johannes
- Weiner <hannes@cmpxchg.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Kairui Song <kasong@tencent.com>, Qi
- Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Barry
- Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, "open
- list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
- Ridong Chen <chenridong@xiaomi.com>
-Subject: Re: [PATCH v2 2/3] mm/mglru: add tracepoint for scan_folios()
-Message-ID: <20260916095122.50cbb620@robin>
-In-Reply-To: <aqn7h3BVCCRFI2TI@fedora>
-References: <20260911102939.2485750-1-ridong.chen@linux.dev>
-	<20260911102939.2485750-3-ridong.chen@linux.dev>
-	<aqkoeJvFzqpoGeaP@fedora>
-	<e38f2b80-20f2-4787-9e07-fb601552f550@linux.dev>
-	<aqn7h3BVCCRFI2TI@fedora>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="T3eFheFT";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ddl/Uv06"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hlL0h3PW2z8v1q;
+	Wed, 16 Sep 2026 15:52:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789566724;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=6rZuNWOQKjvKm876svAZOYAdqYAPisi7LSqyh2XlJMU=;
+	b=T3eFheFTDl4A/ecsbz8rMGkKkqCmvcNzocad0ADwLm4Zw1kVV3Oq1SjJh04227kxNO40zG
+	ZjlpyNdh82EPEwLpJzQlxdLUV7zoRRgxSLpjH2rVKiqm1zWEIs1CVDxfZENoWKlrKh/L7M
+	OWGcgaZeB10ypwG+nY+sr81G4amYfH5YcJF6h09/TuBDmvFXu6P7ZSfLNo4c1pnupmqRb0
+	Yx9fcEKNR2HTf36Ge5j5WpF6kF7kPdtGbRia+Azz4fnhCd1rEBMpyBVvq+94Sy78Wy2KQo
+	r9hmSkbk8Z4AfpYt61pkbC76t5L4OBRNRVkodftC4kIUUzT9MwHq/OL9cH3NOQ==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789566722;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=6rZuNWOQKjvKm876svAZOYAdqYAPisi7LSqyh2XlJMU=;
+	b=ddl/Uv06dAnAStwIym6iQafCOcHnOR0mL9PnCPUlce406+XUvPquCJYHnXoMIXqq7Zpbjs
+	MfbhFVIH7RyU8Gg8kcopOiQH4Er42huuTnw+COa80Q6LYYiixJCQXNW2BC4Nmi5BL/0bL+
+	hO+nPuzGtJmnWmmQxW3aHQYV2MpOsBFTllN8hpqQ2Ai6OvVU+5MoIXjW/oW3h/tiosu8nE
+	87yhfPMzOUUIMKlrMWkOzZ4FdsYIGhGVzyOf75uDY7eBZ3q52pU1gOuH0+sFEQ1jMmHKXo
+	00wGuAbjgx8qq2Lzx6l6y4rBCUuBh3P+pvW9LA7/dBfN+nRF+vyJc5vsdjZnpw==
+To: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND] mm: doc: add bracket
+Date: Wed, 16 Sep 2026 15:49:34 +0200
+Message-ID: <20260916134934.323858-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: irjbtkznaum8zrwiwcezfwryhub1158r
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: F091320030
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18SJirAJj0hlDFf3ly3wdOJRosyZeYeUmk=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=oeM1slf5/TlEIZ+/3YKGqvcyO+zDrbVBSRK8hiBB5ps=; b=l1CY+DOMbpJKcpjlzAM2diNrXL7nPJVM2lngLvaKciPGh0uXXpSo40knlfQCPckEtCEolPOGvHeP5c95/CMRQsiC46J0m3lV5/Htpsp3/1pRh2IbalqgqXpdXUYRPkkieTHv4N1wIfRnlJlXDCT5by5Yq/R2grAHT1Tu+uJsCgA=
-X-HE-Tag: 1789566684-7934
-X-HE-Meta: U2FsdGVkX19UJ8lW1xmB0R2mxjz89QBslEjhduHRiY4qlRY5yOWoeny9H58NMlqDwXlP3THcOruj6daUuuul4JVZpmpvlj7i1/ijpeYw2JzEPJJ6ajaF5NxTU1dBURGCnpoeeK//ECSEYTXBLRIu8L9ys9kJvdkaqqLOL8HszlCpbZV1xNu/QranXaw+sY24EEkgWw8svkcU2JbsoDoJ99xGu2T18mLIgRAtscOoamchnegPWe7H8yx4XnV83zhHlqsYu1lIoXYPPYZJJeDpqC7KUy8J/UsvlbLmbdvSQARgBjrtPhQhXPyBQMXtZoT9
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: i3qg7pa45tz638jwyynw6iuq9t9pt115
+X-MBO-RS-ID: de183b856e7fb99e0bf
 
-On Wed, 16 Sep 2026 10:14:31 +0800
-Baoquan He <baoquan.he@linux.dev> wrote:
+Add missing ')' to sentence.
 
-> > However, 'sc' is an internal structure, so sc->order cannot be accessed in
-> > TP_fast_assign(), and I don't think it is worth making scan_control an
-> > external structure just for this.  
-> 
-> Agree.
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+---
+[first send]
+ https://lore.kernel.org/all/20260902144210.703915-2-manuelebnerli@mailbox.org/
+---
+ Documentation/filesystems/mmap_prepare.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Or what you can do is to move include/trace/events/vmscan.h to
-mm/trace_mm.h (or whatever you want to call it) and struct scan_control
-into "vmscan.h" and then you can use internal structures within the
-trace event.
+diff --git a/Documentation/filesystems/mmap_prepare.rst b/Documentation/filesystems/mmap_prepare.rst
+index 82c99c95a..0482c21b4 100644
+--- a/Documentation/filesystems/mmap_prepare.rst
++++ b/Documentation/filesystems/mmap_prepare.rst
+@@ -114,7 +114,7 @@ VMA Flags
+ Along with ``mmap_prepare``, VMA flags have undergone an overhaul. Where before
+ you would invoke one of vm_flags_init(), vm_flags_reset(), vm_flags_set(),
+ vm_flags_clear(), and vm_flags_mod() to modify flags (and to have the
+-locking done correctly for you, this is no longer necessary.
++locking done correctly for you), this is no longer necessary.
+ 
+ Also, the legacy approach of specifying VMA flags via ``VM_READ``, ``VM_WRITE``,
+ etc. - i.e. using a ``-VM_xxx``- macro has changed too.
+-- 
+2.54.0
 
-Up to you, but this is what other subsystems have done.
-
--- Steve
