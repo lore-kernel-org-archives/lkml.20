@@ -1,343 +1,155 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BED332B135
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:45:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789519511; cv=pass; b=sAy0XzE9JoccgaSq+F+OTfUFk6PKrB3kV5InWip7XvbLPqbbLcFqv8TEv8LmpJIj3NAA4hLQFTfADQYaqzfD8Kr9u/jbzaCW3B5iMCWjLlDimU9cERCNfgFCuNKUEwJexgwjCDkP84ffjUqyXaL3e6HDZ0C4Utaj13qT1ojIgIE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789519511; c=relaxed/simple;
-	bh=i1tUyEeA6p82DByo+ukwOxFAJE10BxMR3eO3sNdDtBM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SLYemF7FruBH8LrgXY71EdWWzHlHObEBxXJ5WYXx95O8cHPGVq7Kfnk69vQvLBp00de1hY0tOkR5xnxwFyID2VvslGW3w/rikCy5aY//PpDpGJXHtaMUmm7Vgo1OICbDdRAv5X0Z2Q4w+Tp1Fw8Ay4sIA87Ypa/lcPImxiNIA5U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aMll39V1; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fX26sRmO; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1F0380FC1
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:45:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789519521; cv=none; b=RTZyMwzjle0GgWz6vP+Xx1spmpFQVKGMhMCNxqKj+1RYlrj1PQyPWUjOJdF9YYVhVLDPK47QxEkNaBiv8nowHM5GQr4WIeJDQCqlVmQJfLTUodnCHXoLWSrsCLxoY46/JLvrAyosLR1odVnTvJAbVvXovg4Bb4tjUrVkxychKwU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789519521; c=relaxed/simple;
+	bh=lMY++SgK+PAJrmE/LiZDbpmw7ME2tzesFgDyA4gd00A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r7ekJGLU0CB9KNfvrghydJVLySIiIDLTqoM7j7sESmDIfoSSwWQsnNkHnyPuiwNOihlIO2HunQpavWxIRrksEtOeY7V17jPahwmR8l5UOD/dOJkhAd9jUKnmtwBP4/UlS2HD8glPwuUy9n9L1DYzAoeh9dTXPLs3udrIpqultig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m1OMzJRg; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aMll39V1";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fX26sRmO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789519508;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HfPUYzlcgmsFLjqRxvjtuvi+F6kyqT67ipaEXy3hQRw=;
-	b=aMll39V17B/cXZAaa+OXB+lOBy7aBLqhzfS6zToqXyb6jgKRCkJJvWUzs0BnotbLjQGHAX
-	QLVrGcdi8wJbY29lhtiq8XeIyBOWMgvdrnDfQquU/z50E0IiBfpYkRcvlY2iDBM9h1TmCp
-	4zuKUQJ4kMlChrfQ8x1hTrT0YtAOTck=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-351-A5MT5zY2PiGWpmHFd-wKOw-1; Tue, 15 Sep 2026 20:45:04 -0400
-X-MC-Unique: A5MT5zY2PiGWpmHFd-wKOw-1
-X-Mimecast-MFC-AGG-ID: A5MT5zY2PiGWpmHFd-wKOw_1789519503
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so8670329a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:45:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789519503; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TRcIELeVXm+UnX3Lww/GdC/dL5mH6B7F1xa8MZ37ADsSM86HTnrTXD5DwSX97j6uNc
-         rHfvXDRzm3yjQJYG5BF7A3Hpmkt84c1PQh9cS2ggfGwJWr4Rj2Igyyca3I+nZhShmtEV
-         cYtx+VolGUkNoLP3ta+5eBDQnmiQDfYsGyk2dWt1xmiEAMgS2+A3ZtKqz2SSgrwUqvjL
-         7fKQ9+7HQ3KnX6pqh+ndnmbUzdE5QyvBlXE/YSEgBBJE1splCz+7qgl+6pyA1I6P3yIV
-         VcyGv2373DQtlH8iQMinQDflrrfEgnMvBbP6vowjLqf5V9z1+xo5/WH2/3hP/e9bD7t9
-         vG5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HfPUYzlcgmsFLjqRxvjtuvi+F6kyqT67ipaEXy3hQRw=;
-        fh=np/hnEOvj7KEvdF8gyIv3Vj6kl8pxlDIZNn6adcKhQo=;
-        b=h5vFSLVhXx4MXUhKxQ19f0qXlwD3n3hj8AiqGC/llXSfUvqxqpPp4xGVGqAzRLAlPL
-         XM2IguC2e1U9W0s/ChOVCGfFg+BnMS1unewCW14wRirSaOChStbZM7XhPv+nnj9bBdeE
-         R4Q6AAc3Xhtw5Q8pF9s+fNKZWa7aVU/EHq1Y/XR6pn4NO0wwxtX8QNxciLJ3XAwysjKb
-         sxLGEg36gVlajYR14lcS4wfNKfP4E3mMCjEcelVqx0g9Axc9kthNkMDKotFkMj0vUNWm
-         6RQl5Dr0NAPAy/JY63IGKrxsTRpwajo1uxwPuXCy225npbrFfwYC43OXqDFLtVZXjwhI
-         AOnw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m1OMzJRg"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so284675a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:45:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789519503; x=1790124303; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HfPUYzlcgmsFLjqRxvjtuvi+F6kyqT67ipaEXy3hQRw=;
-        b=fX26sRmO6PqrwCskNNd4OYfvINfezooI7xpp5Fcuy5LfIZGm3ixE9MSbe4s+JRl/aN
-         vL8aCT7FEB+ldX3RNLoauk4Khpb7llNF2s7lyDTlWRoIYQBD57DFLcJI2/SzJInj/Vdm
-         vpwORl7/DVfLntbwfd6xQzFcXFugZtGO1fkBKSYZZ4M0ky9R0lMme7lU7Rm7Dgve+riA
-         ns+pEbZTT3e5IR3UJ7sl+0CLsm0p/LPtTldgg2tsGx4+CwUrms3fpiAr4KYr0EeysJu6
-         3MdZ4ftd5xOT0SZF8LH3J+3q/bsoHRemTIxBwbIcZpBHEZuoNnLRyRfvtx+ZK9bETjZv
-         qJkg==
+        d=gmail.com; s=20251104; t=1789519519; x=1790124319; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=98CqDsG0IhFZSuG3hDPLFa5iEsa8i7vnG+8QJYAe98A=;
+        b=m1OMzJRgiWqnjAI62+B4NQB7kHw2ZJeDMvpZ0zgbaOw2Y5/aUSWvhkftuOBCXwXTZx
+         8WGjh1IKbU6dBRL63pHuH9hdT9RImVN8EulvlzU0BY/caMikCIsyT/s7ZqYflFBEesGQ
+         SCPfYPtl1j5naP7J32vdrdIWTor6iCg9tPkCWL8Wf2LyJ+2p6sQygD+Q6FwAFaWlPsZ4
+         62qp+WDL7Lqf0gvTQmME23Nwr7s887H3WbjD12bvyid/GkzGXxN6Vvo3K9yOyf4yftYY
+         v9YtlLsafgdZlRe9GXWt8oX7uuigy7XPfQihypazD6O1uhI+cRQAMzT2UJcGCIvx7V+K
+         PYdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789519503; x=1790124303;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HfPUYzlcgmsFLjqRxvjtuvi+F6kyqT67ipaEXy3hQRw=;
-        b=Iz9by9sAVf0o0Gp3hs6+kHqrLWZG8wygKOvccudw1JESOTaug9jLCmezW5G2Eb+Mpb
-         bcsHPyfhGLMWgNaFUpjpr/3xFqKoOqwxNVM3j4I8pBHYlGrfp3O6eKt+TVTlSEF1yoIW
-         zavjHIbg0CIxJG4bsOR3p0AD8hvK+kdoErsaydrHxDfMFuFHKSk50QDz6SE2Qd7tzsOf
-         Q1Y68SnQYqg7hW/E8CPwvlhqL8dMTpciNt+Oznls9JxkHTVKeis7pabJXyawljqjQswR
-         FmX3HhPJE6LDaP+w3rpbdM65bMb7salgXW/Nf5eshwq0VIVzXOgYYFV/MVcXGFXIZITX
-         vixQ==
-X-Forwarded-Encrypted: i=1; AKwUvByZXwA2H6gp1Jf9fRX90SdIBPVNLRs4pJl5h4sEmLNbR01gJrigzehW7ok/ULTyssp89iK9bK1F3CJtv/g=@vger.kernel.org
-X-Gm-Message-State: AFuF++numAZrq/qorAosPuz0T/DzHUj72bpynl9utHHPf3paAmN3wp/X
-	dUe+JG/BNvK67PnkYSbMiIQprvbHDjLVhv410ROw7Ps8F794jIkKS42gWG0zo5C3TNZAK3bcKWa
-	/NdpG7eqH4nF0czRNfOpqjvypg2dQ2X155qFlASEPOujsLEEB27V4nvr5vNiubh1uP+PtrSN7yg
-	DvGcOaom72klOGoKDh4pqP1bMwZ7X9kok1ZIPJOUND
-X-Gm-Gg: AYBFou3D0rS9WdEymjpby2tLE/tml3ViJamco5AUV24Dz7m8VuZ13d0ZLMwFeeNiAPx
-	5sNvWMWs87ZpBN42cb4YwjhcgWhS8X7VGkVr0KcqqMSsHsdHwqLLRtx9RqhnG3gk/8LTRejVf7+
-	k9C+zJRR3cshIpXISa1GZHLeJdJoKgTpE8LV3G/Fp0IAWGkfs7KMWwhGeXudi7iOjPs9GPWzD9c
-	Cq0ar+W0d1tSyr9
-X-Received: by 2002:a17:90b:5386:b0:398:dcef:c040 with SMTP id 98e67ed59e1d1-39e1e4aa012mr1554327a91.19.1789519503242;
-        Tue, 15 Sep 2026 17:45:03 -0700 (PDT)
-X-Received: by 2002:a17:90b:5386:b0:398:dcef:c040 with SMTP id
- 98e67ed59e1d1-39e1e4aa012mr1554271a91.19.1789519502710; Tue, 15 Sep 2026
- 17:45:02 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789519519; x=1790124319;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=98CqDsG0IhFZSuG3hDPLFa5iEsa8i7vnG+8QJYAe98A=;
+        b=PCkOkuWYmUxAr1LJdaPujZGRaf9SlHRwak8BIyASTUqiSrISczIY1z03024IrOAhMZ
+         xN0abFNq1LPyK82HkcGrzMY2tMudfaaI81oc0up7mHubpEy7iRsimXRyJudtACOVLLhX
+         S3cnyqOhZ1/hOjxQFmqUPsJGrmgnb/AjvnFcj/LSTOD4BHpeNlU0HDViFHMPAVi6j5C0
+         Fteoyj7i7X++4Bjymtq34wKfU+BCsnKErso5Bgavcte413IHRMTIfMgQjjDzbG8Qc4Qo
+         V9SxDYsBbxEbXKbqDFbgviW3UQ/P0JivmPz4R+dMZ8mdOZLYDxviVOLXCnUqsPwVjWkK
+         hP7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwhuHFsIBZyXDj14Jym+CQOkgsbGbXJxRzFp6QL1KNSRVAr6qIP9aG/cGM5etWLYJsToJtWVY3y4G6J7I0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMx2lXXsOcYDRerxIVRXuC6H8JSY9yIVtSXPT1MHcDCoSvkgU5
+	0CBeVXIAy0fGGmJaKcEe13mu1ykuF80v1mTW4q90XgRxQm0t2OJDBd13
+X-Gm-Gg: AYBFou2WXPna1JgC1yidVOgivN9zzNXzGMIlAuZ2+67gFdACrEgAaJ2eQRlLQjw0Avm
+	LjBUF8u5o2zlZAqCdkYx22Yk8q3EgwNOEJnfwQmvUPJ+HeW6MXEIbzg0pxapmvJtROTMJFsLntD
+	+Y9mtzCsUoV3+xGmFk/L/2O3fR+gbY3iwu+V8NGtmDceI+FuGkLXz0nmlAivQdkJf7Uv/M/G2PV
+	GJl98q1k+sZO4DN+qKniWihjb7F/Ddg8E5m6UWzEBVyiBeG2BWp/sGcaIcogRkQ/XQ8fn+7NASE
+	BATRN+uxI49x5R5i1xHmuKaijTq4b451Rg1mfjQLzW/DrJJvg5mhkJLvoFN3dQVDI51enZX88vS
+	Gd19yMU4WCKt5Q2ajdKqmD8EZS4KooIrh/VxixnlcZCNwIVWlColf857fymag81SXtkXoQmLZt0
+	vxE/ZUoEhLiCWyVyNcEd0m58UcNrW8h3DeAEw2aoztQ89iavudZHKi+JS2ekhoSnk4Ed8GpVfBJ
+	VOxSWuD6OPpt1nmM+r2KsTIoWr7vr5xEVuZMFAR+boJQAI/RHL90B3t1nEluMwAfFaeuziiD8hT
+	k+4QFTcsGiMiY5PHC4OdripqJl1OmQSILj0IrlhbUzL+44PoD+StTubLFy0=
+X-Received: by 2002:a17:90b:4a51:b0:39d:ee20:1e28 with SMTP id 98e67ed59e1d1-39e1e510f73mr1234289a91.21.1789519519305;
+        Tue, 15 Sep 2026 17:45:19 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bc46529sm1207069a91.16.2026.09.15.17.45.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 17:45:18 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-perf-users@vger.kernel.org
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-kernel@vger.kernel.org (open list:PERFORMANCE EVENTS SUBSYSTEM)
+Subject: [PATCH RESEND] perf/x86/amd/uncore: turn amd_uncore_ctx events into a flexible array
+Date: Tue, 15 Sep 2026 17:45:16 -0700
+Message-ID: <20260916004516.268192-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916001603.22394-1-lyude@redhat.com> <20260916001603.22394-3-lyude@redhat.com>
-In-Reply-To: <20260916001603.22394-3-lyude@redhat.com>
-From: David Airlie <airlied@redhat.com>
-Date: Wed, 16 Sep 2026 10:44:50 +1000
-X-Gm-Features: AcwNN1U2rMYqd8tDZTEqUV094CLCyp-28AzSPzCe3dT76HzOjLGKJxyGK8p2h-Q
-Message-ID: <CAMwc25pBOU62TV77ZSSyH6DP=K4FMCpd9i98L4H+QWQ0=--FOg@mail.gmail.com>
-Subject: Re: [PATCH v3 2/5] drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Timur Tabi <ttabi@nvidia.com>, 
-	Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Kees Cook <kees@kernel.org>, 
-	Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>, 
-	Hongling Zeng <zenghongling@kylinos.cn>, Mel Henning <mhenning@darkrefraction.com>, 
-	Danilo Krummrich <dakr@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 10:22=E2=80=AFAM Lyude Paul <lyude@redhat.com> wrot=
-e:
->
-> This is a GSP structure describing various characteristics of the memory
-> management system that GSP provides. Start by fetching it during driver
-> load, but don't do anything with the information we get from it just yet.
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
->
-> ---
-> V3
-> * s/nvkm_gsp_rm_ctrl_get()/nvkm_gsp_rm_ctrl_rd()/
->
->  .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  4 ++
->  .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 17 +++++++
->  .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 45 +++++++++++++++++
->  .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |  8 +++
->  .../nvkm/subdev/gsp/rm/r570/nvrm/gsp.h        | 50 +++++++++++++++++++
->  .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  1 +
->  6 files changed, 125 insertions(+)
->
-> diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/=
-gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-> index 64fed208e4cf8..0e193baaf9bbb 100644
-> --- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-> +++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-> @@ -156,6 +156,10 @@ struct nvkm_gsp {
->                 struct sg_table fbsr;
->         } sr;
->
-> +       struct {
-> +               bool use_raw_mode_comptagline_alloc;
-> +       } memsys;
-> +
->         struct {
->                 struct nvkm_gsp_mem mem;
->
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/driv=
-ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-> index 09b17b85dc1ac..5df5365e744f5 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-> @@ -1808,6 +1808,23 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_susp=
-end_state suspend)
->         return 0;
->  }
->
-> +int
-> +r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp)
-> +{
-> +       NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS *ctrl;
-> +
-> +       ctrl =3D nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice,
-> +                                   NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_S=
-TATIC_CONFIG,
-> +                                   sizeof(*ctrl));
-> +       if (IS_ERR(ctrl))
-> +               return PTR_ERR(ctrl);
-> +
-> +       gsp->memsys.use_raw_mode_comptagline_alloc =3D ctrl->bUseRawModeC=
-omptaglineAllocation;
-> +
-> +       nvkm_gsp_rm_ctrl_done(&gsp->internal.device.subdevice, ctrl);
-> +       return 0;
-> +}
-> +
->  int
->  r535_gsp_init(struct nvkm_gsp *gsp)
->  {
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h b=
-/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-> index fd1170037c030..fee5418a72a68 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-> @@ -789,6 +789,51 @@ typedef struct NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQ=
-UISITE_PARAMS {
->      NvBool bIsGCOFFSatisfied;
->  } NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS;
->
-> +typedef struct NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS {
-> +    /*! Determines if RM should use 1 to 1 Comptagline allocation policy=
- */
-> +    NvBool bOneToOneComptagLineAllocation;
-> +
-> +    /*! Determines if RM should use 1 to 4 Comptagline allocation policy=
- */
-> +    NvBool bUseOneToFourComptagLineAllocation;
-> +
-> +    /*! Determines if RM should use raw Comptagline allocation policy */
-> +    NvBool bUseRawModeComptaglineAllocation;
-> +
-> +    /*! Has COMPBIT_BACKING_SIZE been overridden to zero (i.e. disabled)=
-? */
-> +    NvBool bDisableCompbitBacking;
-> +
-> +    /*! Determine if we need to disable post L2 compression */
-> +    NvBool bDisablePostL2Compression;
-> +
-> +    /*! Is ECC DRAM feature supported? */
-> +    NvBool bEnabledEccFBPA;
-> +
-> +    NvBool bL2PreFill;
-> +
-> +    /*! L2 cache size */
-> +    NV_DECLARE_ALIGNED(NvU64 l2CacheSize, 8);
-> +
-> +    /*! Indicate whether fpba is present or not */
-> +    NvBool bFbpaPresent;
-> +
-> +    /*! Size covered by one comptag */
-> +    NvU32  comprPageSize;
-> +
-> +    /*! log32(comprPageSize) */
-> +    NvU32  comprPageShift;
-> +
-> +    /*! RAM type */
-> +    NvU32  ramType;
-> +
-> +    /*! LTC count */
-> +    NvU32  ltcCount;
-> +
-> +    /*! LTS per LTC count */
-> +    NvU32  ltsPerLtcCount;
-> +} NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS;
-> +
-> +#define NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG        (0x2080=
-0a1c) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID=
- << 8) | NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID" *=
-/
-> +
->  typedef union rpc_message_rpc_union_field_v03_00
->  {
->      NvU32      spare;
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/driv=
-ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-> index b45781cd0dfdc..5a51fe7e5ab98 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-> @@ -137,6 +137,14 @@ r570_gsp_get_static_info(struct nvkm_gsp *gsp)
->                 }
->         }
->
-> +       ret =3D r535_gsp_get_static_memsys_info(gsp);
-> +       if (ret) {
-> +               nvkm_error(&gsp->subdev, "Retrieving static memsys info f=
-ailed\n");
-> +               return ret;
-> +       }
-> +       nvkm_debug(&gsp->subdev, "memsys: Use raw mode for comptag alloca=
-tions? %s\n",
-> +                  str_yes_no(gsp->memsys.use_raw_mode_comptagline_alloc)=
-);
-> +
->         return 0;
->  }
->
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h b=
-/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-> index c458569af9d72..e2d9d1949e4e1 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-> @@ -494,6 +494,56 @@ typedef struct
->
->  #define GSP_FW_WPR_META_REVISION  1
->
-> +#define NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID =
-(0x1CU)
-> +
-> +typedef struct NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS {
-> +    /*! Determines if RM should use 1 to 1 Comptagline allocation policy=
- */
-> +    NvBool bOneToOneComptagLineAllocation;
-> +
-> +    /*! Determines if RM should use 1 to 4 Comptagline allocation policy=
- */
-> +    NvBool bUseOneToFourComptagLineAllocation;
-> +
-> +    /*! Determines if RM should use raw Comptagline allocation policy */
-> +    NvBool bUseRawModeComptaglineAllocation;
-> +
-> +    /*! Has COMPBIT_BACKING_SIZE been overridden to zero (i.e. disabled)=
-? */
-> +    NvBool bDisableCompbitBacking;
-> +
-> +    /*! Determine if we need to disable post L2 compression */
-> +    NvBool bDisablePostL2Compression;
-> +
-> +    /*! Is ECC DRAM feature supported? */
-> +    NvBool bEnabledEccFBPA;
-> +
-> +    NvBool bL2PreFill;
-> +
-> +    /*! L2 cache size */
-> +    NV_DECLARE_ALIGNED(NvU64 l2CacheSize, 8);
-> +
-> +    /*! Indicate whether fpba is present or not */
-> +    NvBool bFbpaPresent;
-> +
-> +    /*! Size covered by one comptag */
-> +    NvU32  comprPageSize;
-> +
-> +    /*! log32(comprPageSize) */
-> +    NvU32  comprPageShift;
-> +
-> +    /*! RAM type */
-> +    NvU32  ramType;
-> +
-> +    /*! LTC count */
-> +    NvU32  ltcCount;
-> +
-> +    /*! LTS per LTC count */
-> +    NvU32  ltsPerLtcCount;
-> +} NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS;
-> +
+The events pointer was kzalloc_node()'d immediately after the parent
+struct allocation, with the count (pmu->num_counters) trivially
+available beforehand.  Move events to the struct tail as a flexible
+array member and fold the two allocations into a single kzalloc_node()
+with struct_size(), dropping the separate kfree(ctx->events) in the
+free path.
 
-Is this used anywhere? if the 535 and 570 structs match then don't include =
-it.
+Assisted-by: Claude:Opus-4.7
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/x86/events/amd/uncore.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
-Dave.
+diff --git a/arch/x86/events/amd/uncore.c b/arch/x86/events/amd/uncore.c
+index 7181973b5b12..74b9c92d517a 100644
+--- a/arch/x86/events/amd/uncore.c
++++ b/arch/x86/events/amd/uncore.c
+@@ -39,11 +39,11 @@ static int pmu_version;
+ struct amd_uncore_ctx {
+ 	int refcnt;
+ 	int cpu;
+-	struct perf_event **events;
+ 	unsigned long active_mask[BITS_TO_LONGS(NUM_COUNTERS_MAX)];
+ 	int nr_active;
+ 	struct hrtimer hrtimer;
+ 	u64 hrtimer_duration;
++	struct perf_event *events[];
+ };
+ 
+ struct amd_uncore_pmu {
+@@ -519,10 +519,8 @@ static void amd_uncore_ctx_free(struct amd_uncore *uncore, unsigned int cpu)
+ 		if (cpu == ctx->cpu)
+ 			cpumask_clear_cpu(cpu, &pmu->active_mask);
+ 
+-		if (!--ctx->refcnt) {
+-			kfree(ctx->events);
++		if (!--ctx->refcnt)
+ 			kfree(ctx);
+-		}
+ 
+ 		*per_cpu_ptr(pmu->ctx, cpu) = NULL;
+ 	}
+@@ -567,18 +565,11 @@ static int amd_uncore_ctx_init(struct amd_uncore *uncore, unsigned int cpu)
+ 		/* Allocate context if sibling does not exist */
+ 		if (!curr) {
+ 			node = cpu_to_node(cpu);
+-			curr = kzalloc_node(sizeof(*curr), GFP_KERNEL, node);
++			curr = kzalloc_node(struct_size(curr, events, pmu->num_counters), GFP_KERNEL, node);
+ 			if (!curr)
+ 				goto fail;
+ 
+ 			curr->cpu = cpu;
+-			curr->events = kzalloc_node(sizeof(*curr->events) *
+-						    pmu->num_counters,
+-						    GFP_KERNEL, node);
+-			if (!curr->events) {
+-				kfree(curr);
+-				goto fail;
+-			}
+ 
+ 			amd_uncore_init_hrtimer(curr);
+ 			curr->hrtimer_duration = (u64)update_interval * NSEC_PER_MSEC;
+-- 
+2.55.0
 
