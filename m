@@ -1,280 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1784B1D1D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:47:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE004DAF91
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:47:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584449; cv=none; b=PDXtrW1VdebgupAPP+ytNxRBSD4NBv6yoLTt8OBu9gq9Hzks90r4AHaBqcTMLUySV83cjDNlUescE/C8EcfwUSMn8RixVlSMFZxIsBCTxE4zBcbpVTO2E3H/jYLza7ipcBBSQa3zhMGbg/dqLDua7t3RrE7RJUhbCqDLUG/RsDU=
+	t=1789584458; cv=none; b=A/xk2+gk//2oDIofQpa+RDmd1X3Iokf8TowIj+od9lJkXYqwxZ9pYoXE0k1uEgW/szlyYGLjTlYVmem4dammbrNgDWWg6tSlBXy0Ml+hnghszYRajT7De1s2rtn0lQlEyLnZTUGbTuwOk0P2gteneCzixrz99umv34tcbVtqBhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584449; c=relaxed/simple;
-	bh=yvv8LMKz9LtYI3xqHkjIYrRGDkfHlFNSP9M3SO9epto=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NYkKuMjvnqmZeQtUOKV+dsiG5WOkRKnT4lXAE82JmboZXZzz5/Mmhvjv1e69pwbZ6STLMqgNBUzY1/iqSAA28uU31YDbU1LCol396awMrQxiDzkC4fJVkCpUaXRRXRoG5Chd+5YiEX88WaLeYyJx31e3rhxusaclcYnEkQBWQmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fjeVOhBk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789584458; c=relaxed/simple;
+	bh=Dl2mOkWxuEJmH6efH0xuQ0K5VoLefb/xYo6CedeIICc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Qwo/dJOwOQRQk5Ea4JF6FSg5n+Oo7vuDRGwDk1Pqy3/0jsC+gUo5pn52hEXg4VPbOUJglvknEkmKUMbzmo4csmaLyHJHuSegKp9KXpyQieebMuQWN49DfnzueIfqi2RcQ8H+FAZyJFKQis+Bhi2/fDx8p2TQOyn4HuJtadgyqMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E3Onb8w/; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fjeVOhBk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AADD21F0089E
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:47:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789584433;
-	bh=4jiUvRz2xzBBtQ7C75rWeguyMQEVO7haRwsq2vm6ttw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fjeVOhBkKUlyJn93hirV7NsniN5d1kvwdxfMqOP5gu06LRod7olhmAvZchKuklb6g
-	 HPQzfH+8YAEBc084Qv4bqiB2vQzrkWhqWHx2Xn9IQGh0eakyRpUG3Bn9Y4o4lxsTgU
-	 rbQs/hZS/BHsYYE53u6vnUqocsYyNH9zboOLFixZteI8uA0vExXVILeL+W+K2m8wR2
-	 vzuXl0OCdGQanClQjuyfx3OgCfVig7hQFWrC82OUMnHuvkEM5BWqV2XSutPrGygT42
-	 EbwSCTeKLxAOZ8SJI7zbd74wvaLIcD7SJPAxumSHokRsGYKGaZCiYvAnuF1avD+gQs
-	 N3aDBXTAoSIQg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15d00so1292410e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:47:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwfSAGDnz/d+0ceDgbXAQoA6qXiLs8pxSMmYO+/3hvV5NZq5ac58cyXWNhaBQdvGaOchPrboDC/DS/w7eQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJnIBpA3mjOrjmniuR2QrBp4YC0ML/QWBfjvOXPyNHW2mdiYHC
-	ABZRcgA4AJA8NoelCLqNSIlBKuHzMgEv4BQ40rqGjm8Bc3nKGspzH3QSI9J+jHrv7L7JHAYH/OS
-	AyyrM2b+/3bIpdJ/M9sDGn/JUJLnQhBQ=
-X-Received: by 2002:a05:6512:3c8a:b0:5b1:5a2d:55f9 with SMTP id
- 2adb3069b0e04-5b8b66135bamr1068200e87.21.1789584432009; Wed, 16 Sep 2026
- 11:47:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E3Onb8w/"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so367545e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:47:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789584437; x=1790189237; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kIpgcpjulhrzjmnC5wF0dcase85PBIaYQH7p3PkSuY4=;
+        b=E3Onb8w/Nm72mNKr5Cvk0URbzhfIWgJCzBuhgrTz3b40gWj6O3ejHpK5fX2P8Q6Q4J
+         hsinOPf6uvyd64HCN+Qfjg1hffKvG6MjkhWt7jkMDZzlKCSQKeFiY9VW39soLCvhNXVT
+         rj/lbWvhgzQ1/maDsSPoX16EzQuZlqM2AC86BMQ3/qabSJ7LW29zQ2aKmQ3i4cMFmgpF
+         GeMyyxtlsOhUjZXQVxBnTaK4iJSS7P21pXHKSbXR0rpriLu5OUmZBYEffAsdlMt6YRQ+
+         Zz5Rtr9xbFFbK5l/fAhN6QHLoN0bgkl4gf22JEg1WYzj3qIhBF/fbbSa+BcBFDUK6P/e
+         12sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789584437; x=1790189237;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kIpgcpjulhrzjmnC5wF0dcase85PBIaYQH7p3PkSuY4=;
+        b=Gtg//IZVjCOCjJllx2IAGPgI+SwoZC4RpWd7wXxawIDuis2OdpZMuEKnLzVfHTm2d6
+         yZkBVVZ6Jnl2WEc5a0CcHWxU/OqiOWE5vjQ4RmX7UmqMkuaoky5yW0aoPcK3dfasbnfk
+         VDWi87lc+TKOIDTABcWveSUcbiT/7lHf73zfDGQMsgrCJYK1efgqNjzOZ4IU1jSKq85/
+         kgxZ4gavcXrLEk+GSbEKUnGzIWbEvMVMNYjzTinbGRO3KMMKqqxQetMsB1YT0p0uQjB6
+         OQuoBhulqCdm78F/m2nfuXwWXwFM/jcZssLuJiodzCd0sb3AzOHtZO0veGAGF4Kj18Sr
+         tflA==
+X-Forwarded-Encrypted: i=1; AKwUvByaPiBtW5FLa46xr6K5ZLKNzA7JYdZvAzD6AHfTOYFH7jfXHUSPNTeb6O/DMrRcR0Fgq4Q0pwZXlb+F4Ew=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqrQPBY8GEOVMaBGm8fiX3IZkpgvqxbd0gQ3WjpFWqU11supH0
+	a0TaYnZHk4J2sN2B31mnYRUq01fbGKyYHRxj8KtaBEvdnwoV5RbMcbi8
+X-Gm-Gg: AYBFou0PdQ19UH1Zl9UCH9D2d+jePeA47p28QSI3L9QEW7/Nbiay3kyHmJfczKNcM+q
+	EObZ+faiOBlLIltW9GfNEbPWd3XaTA3RyyaYHEzNZdv0hKi4eVU+WXK9ceLzuyL9io1FQesBWrb
+	JfVJ0pKBsIvmI7aLggOdCX3Q72MrP4lb/QnyGHQdVlZHTgM9XmWG7pAowD4VJ34+tGctvjjspx9
+	2deu/9FBHNu8jgGIqk1x5s8V8q+/rf3EQE5JA42bdh6f+ESGt/WJLaZPZeoeogBbEqRAbzH5bUj
+	NJR3TKPl4VBFyoHD1aiVNhxfEtuXVm9fSMgcJpTQ5tVWpr0jONRmmfYb0HrrMw6klgh0suKzW28
+	jP/xE3LY0So/FIV9bEv5f3apN9/EE1rnaMGI5fQrZa8nF9gNMbvjPBuatrVkamU0brCHh+plOVj
+	pAqrkRxb6QiEbigue6P9SF0i/KHk5RcPRPoBfEsrmo2yCGgYnjVj+LegdWJD850hIKktimiH4Hc
+	Cnr2WyjDcWXVKjrRYU78Q==
+X-Received: by 2002:a05:600c:350d:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-49eb73253ebmr43138425e9.20.1789584437531;
+        Wed, 16 Sep 2026 11:47:17 -0700 (PDT)
+Received: from foxbook (bfh234.neoplus.adsl.tpnet.pl. [83.28.45.234])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbda77d6fsm316845e9.0.2026.09.16.11.47.16
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Wed, 16 Sep 2026 11:47:17 -0700 (PDT)
+Date: Wed, 16 Sep 2026 20:47:13 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: djraszit <djraszit@gmail.com>
+Cc: Oliver Neukum <oliver@neukum.org>, Alan Stern
+ <stern@rowland.harvard.edu>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] uas: JMS578 returns reproducibly incorrect data after
+ host reboot
+Message-ID: <20260916204713.22c4f575.michal.pecio@gmail.com>
+In-Reply-To: <CAFKhL9fL++S1xh+aUCuYbk6EkLQnfUn95y7TBoWaGnPAVP1gYA@mail.gmail.com>
+References: <CAFKhL9eUM91rtywaz_7Mz+4mJH2b2csmOmc3+86ii3a0Ka3Q6g@mail.gmail.com>
+	<c335085d-a824-4632-ad3a-c06715258c81@suse.com>
+	<CAFKhL9f6aLZgerw_7bohbQWvzMxSfd-m-LFcuNP1_p1vWkN4=Q@mail.gmail.com>
+	<1320caa3-85b5-47dc-aa2d-56d3b003c6ef@neukum.org>
+	<CAFKhL9eTD7DxtxMSMuUVP9cDG7Nq4jvrkTCjYfwr9puZfuC4Gg@mail.gmail.com>
+	<20260915233818.5881ad97.michal.pecio@gmail.com>
+	<CAFKhL9fL++S1xh+aUCuYbk6EkLQnfUn95y7TBoWaGnPAVP1gYA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6329043.lOV4Wx5bFT@rafael.j.wysocki>
-In-Reply-To: <6329043.lOV4Wx5bFT@rafael.j.wysocki>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 16 Sep 2026 20:45:50 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0geju99B56CqAQjKwZcwg7mqXPUxx_a=kQ1KpaKpQztuw@mail.gmail.com>
-X-Gm-Features: AcwNN1VWW1dM32A_yMxCWEo-nNNXbKEFGtckxg39KzA9hSlPJShbVmUIbKQ1JF4
-Message-ID: <CAJZ5v0geju99B56CqAQjKwZcwg7mqXPUxx_a=kQ1KpaKpQztuw@mail.gmail.com>
-Subject: Re: [PATCH v2] driver core/ACPI: Introduce companion_bus_register()
-To: Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
-	Linux Driver Core Development <driver-core@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 9, 2026 at 6:41=E2=80=AFPM Rafael J. Wysocki <rafael@kernel.org=
-> wrote:
->
-> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
->
-> The ACPI bus type does not allow drivers to be registered, so the sysfs
-> attributes related to drivers created for it and its devices are
-> useless, and its drivers/ directory is always empty.  All of that is
-> confusing and wasteful.
->
-> To allow skipping the creation of those sysfs attributes, introduce a
-> "companion" bus type concept and add a special registration function for
-> registering "companion" bus types, companion_bus_register().
->
-> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+On Wed, 16 Sep 2026 19:56:25 +0200, djraszit wrote:
+> First, I tested the original enclosure (0080:a001, apparently JMS578)
+> connected to a USB 2.0 port of the Raspberry Pi 4.
+> 
+> Interestingly, it still uses UAS
 
-It's been a while since this was posted, so any feedback would be appreciat=
-ed.
+Yes, UAS can run on USB 2.0. It uses a custom protocol to multiplex
+requests over ordinary bulk pipes, without USB 3.0 "streams".
 
-In the absence thereof, I'll trust Sashiko that there are no issues
-with it and pick it up.
+So it's yet another different protocol and a different speed.
 
-Thanks!
+> RPi4 + USB3/SuperSpeed + UAS  -> BAD after reboot
+> RPi4 + USB3/SuperSpeed + BOT  -> GOOD
+> RPi4 + USB2/480M       + UAS  -> GOOD
 
-> ---
->
-> v1 -> v2:
->    * Address Sashiko feedback regarding possible leaks of references in t=
-wo
->      places:
->
->      https://sashiko.dev/#/patchset/8753121.T7Z3S40VBb%40rafael.j.wysocki
->
-> ---
->  drivers/acpi/bus.c         |    8 -----
->  drivers/base/bus.c         |   72 ++++++++++++++++++++++++++++++++++----=
--------
->  include/linux/device/bus.h |    1
->  3 files changed, 57 insertions(+), 24 deletions(-)
->
-> --- a/drivers/acpi/bus.c
-> +++ b/drivers/acpi/bus.c
-> @@ -1120,11 +1120,6 @@ EXPORT_SYMBOL_GPL(acpi_driver_match_devi
->                                ACPI Bus operations
->     ---------------------------------------------------------------------=
------ */
->
-> -static int acpi_bus_match(struct device *dev, const struct device_driver=
- *drv)
-> -{
-> -       return 0;
-> -}
-> -
->  static int acpi_device_uevent(const struct device *dev, struct kobj_ueve=
-nt_env *env)
->  {
->         return __acpi_device_uevent_modalias(to_acpi_device(dev), env);
-> @@ -1132,7 +1127,6 @@ static int acpi_device_uevent(const stru
->
->  const struct bus_type acpi_bus_type =3D {
->         .name           =3D "acpi",
-> -       .match          =3D acpi_bus_match,
->         .uevent         =3D acpi_device_uevent,
->  };
->
-> @@ -1451,7 +1445,7 @@ static int __init acpi_bus_init(void)
->          */
->         acpi_root_dir =3D proc_mkdir(ACPI_BUS_FILE_ROOT, NULL);
->
-> -       result =3D bus_register(&acpi_bus_type);
-> +       result =3D companion_bus_register(&acpi_bus_type);
->         if (!result)
->                 return 0;
->
-> --- a/drivers/base/bus.c
-> +++ b/drivers/base/bus.c
-> @@ -738,6 +738,11 @@ int bus_add_driver(struct device_driver
->         if (!sp)
->                 return -EINVAL;
->
-> +       if (!sp->drivers_kset) {
-> +               error =3D -ENXIO;
-> +               goto out_put_bus;
-> +       }
-> +
->         /*
->          * Reference in sp is now incremented and will be dropped when
->          * the driver is removed from the bus
-> @@ -930,15 +935,7 @@ static ssize_t bus_uevent_store(const st
->  static struct bus_attribute bus_attr_uevent =3D __ATTR(uevent, 0200, NUL=
-L,
->                                                      bus_uevent_store);
->
-> -/**
-> - * bus_register - register a driver-core subsystem
-> - * @bus: bus to register
-> - *
-> - * Once we have that, we register the bus with the kobject
-> - * infrastructure, then register the children subsystems it has:
-> - * the devices and drivers that belong to the subsystem.
-> - */
-> -int bus_register(const struct bus_type *bus)
-> +static int bus_register_internal(const struct bus_type *bus, bool use_dr=
-ivers)
->  {
->         int retval;
->         struct subsys_private *priv;
-> @@ -960,7 +957,7 @@ int bus_register(const struct bus_type *
->
->         bus_kobj->kset =3D bus_kset;
->         bus_kobj->ktype =3D &bus_ktype;
-> -       priv->drivers_autoprobe =3D 1;
-> +       priv->drivers_autoprobe =3D use_drivers;
->
->         retval =3D kset_register(&priv->subsys);
->         if (retval)
-> @@ -976,10 +973,12 @@ int bus_register(const struct bus_type *
->                 goto bus_devices_fail;
->         }
->
-> -       priv->drivers_kset =3D kset_create_and_add("drivers", NULL, bus_k=
-obj);
-> -       if (!priv->drivers_kset) {
-> -               retval =3D -ENOMEM;
-> -               goto bus_drivers_fail;
-> +       if (use_drivers) {
-> +               priv->drivers_kset =3D kset_create_and_add("drivers", NUL=
-L, bus_kobj);
-> +               if (!priv->drivers_kset) {
-> +                       retval =3D -ENOMEM;
-> +                       goto bus_drivers_fail;
-> +               }
->         }
->
->         INIT_LIST_HEAD(&priv->interfaces);
-> @@ -989,9 +988,11 @@ int bus_register(const struct bus_type *
->         klist_init(&priv->klist_devices, klist_devices_get, klist_devices=
-_put);
->         klist_init(&priv->klist_drivers, NULL, NULL);
->
-> -       retval =3D add_probe_files(bus);
-> -       if (retval)
-> -               goto bus_probe_files_fail;
-> +       if (use_drivers) {
-> +               retval =3D add_probe_files(bus);
-> +               if (retval)
-> +                       goto bus_probe_files_fail;
-> +       }
->
->         retval =3D sysfs_create_groups(bus_kobj, bus->bus_groups);
->         if (retval)
-> @@ -1016,9 +1017,41 @@ out:
->         kfree(priv);
->         return retval;
->  }
-> +
-> +/**
-> + * bus_register - register a driver-core subsystem
-> + * @bus: bus to register
-> + *
-> + * Once we have that, we register the bus with the kobject
-> + * infrastructure, then register the children subsystems it has:
-> + * the devices and drivers that belong to the subsystem.
-> + */
-> +int bus_register(const struct bus_type *bus)
-> +{
-> +       return bus_register_internal(bus, true);
-> +}
->  EXPORT_SYMBOL_GPL(bus_register);
->
->  /**
-> + * companion_bus_register - register a companion bus type
-> + * @bus: companion bus to register
-> + *
-> + * A companion bus is a bus without drivers.  Devices that belong to it =
-can be
-> + * bound to other devices as their "companions" and represent interfaces=
- that
-> + * can be used by the drivers of those other devices.  They may also be =
-used for
-> + * the enumeration of those other devices.
-> + *
-> + * The ACPI bus is a specific example of a companion bus.
-> + *
-> + * Registering a companion bus is like registering a regular bus except =
-that it
-> + * skips the creation of sysfs interfaces related to drivers for @bus.
-> + */
-> +int companion_bus_register(const struct bus_type *bus)
-> +{
-> +       return bus_register_internal(bus, false);
-> +}
-> +
-> +/**
->   * bus_unregister - remove a bus from the system
->   * @bus: bus.
->   *
-> @@ -1415,6 +1448,11 @@ struct device_driver *driver_find(const
->         if (!sp)
->                 return NULL;
->
-> +       if (!sp->drivers_kset) {
-> +               subsys_put(sp);
-> +               return NULL;
-> +       }
-> +
->         k =3D kset_find_obj(sp->drivers_kset, name);
->         subsys_put(sp);
->         if (!k)
-> --- a/include/linux/device/bus.h
-> +++ b/include/linux/device/bus.h
-> @@ -113,6 +113,7 @@ struct bus_type {
->         bool need_parent_lock;
->  };
->
-> +int __must_check companion_bus_register(const struct bus_type *bus);
->  int __must_check bus_register(const struct bus_type *bus);
->
->  void bus_unregister(const struct bus_type *bus);
->
->
->
->
+> As a control test, while the original enclosure was in a known-good
+> state I manually disconnected its USB cable for approximately three
+> seconds and reconnected it. This did NOT trigger the bad state.
+
+> enclosure in GOOD state
+> -> shutdown Raspberry Pi 4
+> -> remove Raspberry Pi power completely
+> -> wait several seconds
+> -> apply Raspberry Pi power
+> -> wait for complete boot
+> -> test data  
+> 
+> The enclosure remained powered and physically connected to the
+> Raspberry Pi during this test.
+> 
+> The result was BAD.
+
+> enclosure in GOOD state
+> -> disconnect USB
+> -> reboot Raspberry Pi 4
+> -> wait until the Pi has completely booted
+> -> reconnect USB  
+> 
+> The result was GOOD.
+
+Looks like JMS578 doesn't like being connected to a booting Pi 4.
+
+Or maybe it's shutdown? What happens if you:
+
+- disconnect, shutdown, connect, boot
+- shutdown, disconnect, boot, connect
+
+If the problem is boot (second case works, first case fails), then
+I wonder if it's the firmware or the kernel. Maybe you could plug
+the disk after the kernel beigns booting, but before xhci_hcd loads?
+You could blacklist it if it's a module, or bind pci-stub to VL805
+to prevent automatic xhci_hcd activation and widen the time window.
+
+> With the original enclosure, after the bad state had been triggered by
+> a Raspberry Pi 4 reboot, I disconnected its USB cable and connected it
+> to another Linux computer without power-cycling the enclosure. The
+> device could still be accessed there, but it returned the same
+> incorrect data.
+> 
+> For both JMicron devices there is also an interesting recovery behaviour.
+> 
+> Simply disconnecting and reconnecting USB does not recover them.
+> 
+> Switching the enclosure/dock off and on while the USB cable remains
+> connected does not recover them either.
+> 
+> Recovery requires both
+
+Clearly the persistent breakage occurs inside JMS578. Looks like
+either external PSU or VBUS suffices to maintain this state.
+
+So the chip is somewhat dodgy and the only hope is that maybe we
+could avoid triggering this failure.
+
+And it seems to be the chip, not the disk, because only USB 3.0
+UAS is broken. Though no harm in trying other HDD to be sure.
+
+> Finally, I also tested the original enclosure on a Raspberry Pi 5. I
+> performed several reboots with it connected and could not reproduce
+> the corruption.
+
+That was USB 3.0? What's the USB controller on this board?
+
+Regards,
+Michal
