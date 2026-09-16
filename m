@@ -1,84 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B591B4223;
-	Wed, 16 Sep 2026 01:15:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D97638DC54
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:16:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789521322; cv=none; b=rjCDIRwxQmc4NuvmmpeS8IRPK8IBRU10+u72M+ewVF3Qj2QvtTbLczqdqk0/D91MjuU6jfl/lBQFOgoa8hzDI/KjhOpX8mcJ1ZOx8o1EoDasvCcRmCvVNlzgqZVUseqf2MKcfJ8UPc0Q6MrgdCjoDCSIvkbz3JnWbS4vXbEH9Yo=
+	t=1789521372; cv=none; b=W7QTitgfgVpSToBj/QpwUqB2ri+5nfXAOpknuSwkc48xg7Z0gEK+cf2ZCbg973Z3M121wepKuO4NzHBsF9E2iEOZGTT8w6FBbNPJK/JbOs5sJ4MgCb5838BzhhdGvqBlDx6WRyuTHh5/Y0MFfY/lHHsJt1aK6HZAg6c36UsdY3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789521322; c=relaxed/simple;
-	bh=LjUwx0Nq5KTl0cndzlFsUqSwPnKaVWLCHqag2SYfJDQ=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=ZC0qN9OA7QCdurcb2qArtbBxpbZ8F/ZUTbm60F4ZjvSNhUWRBqqfsVEBn2HdqMBxDwGdlNpNVECV007fdVMi5IMm5mId9tkJooa4JRFOO05F11VAfECJhJQjp1UWQ+s6f2dt0B/UKVDmkaQ2xyIT1LQYr1ng54frksq5wjKKRhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=AUVm1lBJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789521372; c=relaxed/simple;
+	bh=C2qDzL2be/fqtgkivnf7rNpx66Jv++v4p7NtqXWSyFQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=V68Z2wls41tyjVVLKuwbFY74SePekGO7AdSQC3pHCxPrrP/0kWFpU/lakjK5dW27Jk4PFfdcrZ0yYtqldjgPYA+PO00T0PnmuzR5iJI9KA9zrUIJqfm3M4J5zlink8J5PLeDmi+zR4A0IhSYTwUWAwIS4vPi9I2kfVaijNhhc6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=6UUP6TpG; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="AUVm1lBJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58EE1F000FF;
-	Wed, 16 Sep 2026 01:15:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789521320;
-	bh=XuQDZikRv9jj7fQ5oAHaP13olV/99KYu+eiNYZt//68=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AUVm1lBJj70j8iqZrzQ1fp/ueoOLFAKmyvLXcuvW6liyZeYvuNXpyoTxXSd5DK5h+
-	 E708l/TD4IbwQwiwzx0h6LvU9909pVVWHhvzM5JTwL5IgghscAtdBgdFta5vpPGtYb
-	 Vc2vhtdaDEQUBe74tqvrodB/VxTHrrgzQwZ9f4ig=
-Date: Tue, 15 Sep 2026 18:15:19 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry
- Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
- <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Lorenzo Stoakes
- <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
- <mhocko@suse.com>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>, Shuah
- Khan <shuah@kernel.org>
-Subject: Re: [PATCH 0/2] kselftest: mm: fix intermittent failure khugepaged
- test
-Message-Id: <20260915181519.648c2962143b761cf02efd17@linux-foundation.org>
-In-Reply-To: <20260915-fix_khugepagd_fail-v1-0-bb6f04c8759f@arm.com>
-References: <20260915-fix_khugepagd_fail-v1-0-bb6f04c8759f@arm.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="6UUP6TpG"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Wj5xqr16b+MiF4gXbOwrdteITzUjU5K79Zm5S/GYYos=;
+	b=6UUP6TpG0J+fyZ3faJJH2xKA7tmsEgCYAzlBcLo25E83gIbC0jyMxX8/rysB+6+2zm6RY9vuP
+	I83KyOVhB+bjkh3+me+WYUltdWmprtK8nGUWVZNGU/Um6XJfOAVpIFEtkn1tvH3Psjx3mzOWlc5
+	qlNaZjrzTFVw4F+aN2vZZZ8=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hl0zf2CKvz1K9B2;
+	Wed, 16 Sep 2026 09:05:02 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id E326F4057A;
+	Wed, 16 Sep 2026 09:16:00 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 16 Sep 2026 09:16:00 +0800
+Message-ID: <eaf9019f-ae88-4ede-9bcf-36e0b6e88155@huawei.com>
+Date: Wed, 16 Sep 2026 09:15:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/19] cpu/hotplug: Avoid busy-polling on archs where
+ cpu_relax() is a no-op
+To: Will Deacon <will@kernel.org>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, David Woodhouse <dwmw@amazon.co.uk>,
+	Peter Zijlstra <peterz@infradead.org>, Marc Zyngier <maz@kernel.org>
+References: <20260907164024.17164-1-will@kernel.org>
+ <20260907164024.17164-4-will@kernel.org>
+ <0fa7d64c-9ccb-4a25-b40a-6ffbf5e33406@huawei.com>
+ <aqP6wy6BBZXI80vq@willie-the-truck>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <aqP6wy6BBZXI80vq@willie-the-truck>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Tue, 15 Sep 2026 10:21:35 +0100 Yeoreum Yun <yeoreum.yun@arm.com> wrote:
 
-> There are intermittent failures in collapse_max_ptes_swap() and
-> collapse_max_ptes_shared() when using the khugepaged_context:
+
+在 2026/9/11 20:57, Will Deacon 写道:
+> On Fri, Sep 11, 2026 at 03:16:23PM +0800, Jinjie Ruan wrote:
+>> 在 2026/9/8 0:40, Will Deacon 写道:
+>>> diff --git a/kernel/cpu.c b/kernel/cpu.c
+>>> index 97a9bfe4edad..d9fe204f02cb 100644
+>>> --- a/kernel/cpu.c
+>>> +++ b/kernel/cpu.c
+>>> @@ -303,7 +303,13 @@ static inline void cpuhp_ap_update_sync_state(enum cpuhp_sync_state state)
+>>>  	(void)atomic_xchg(st, state);
+>>>  }
+>>>  
+>>> -void __weak arch_cpuhp_sync_state_poll(void) { cpu_relax(); }
+>>> +void __weak arch_cpuhp_sync_state_poll(atomic_t *st, int old)
+>>> +{
+>>> +	if (old < SYNC_STATE_ALIVE)
+>>> +		cpu_relax();
+>>> +	else
+>>> +		atomic_cond_read_relaxed(st, VAL != old);
+>>> +}
+>>
+>> As sashiko pointed out, it seems that the else branch unreachable for
+>> the call of cpuhp_wait_for_sync_state(cpu, SYNC_STATE_ALIVE,
+>> SYNC_STATE_SHOULD_ONLINE), the old state can only be "SYNC_STATE_KICKED"
+>> or "SYNC_STATE_SHOULD_DIE", which go the if branch.
 > 
->   # Run test: collapse_max_ptes_shared (khugepaged:anon)
->   # Allocate huge page... OK
->   # Share huge page over fork()... OK
->   # Trigger CoW on page 1023 of 2048... OK
->   # Maybe collapse with max_ptes_shared exceeded.... OK
->   # Trigger CoW on page 1024 of 2048... Fail
->   Bail out! Unexpected huge page
->   # Planned tests != run tests (26 != 23)
->   # Totals: pass:23 fail:0 xfail:0 xpass:0 skip:0 error:0
-> 
->   # Run test: collapse_max_ptes_swap (khugepaged:anon)
->   # Swapout 257 of 2048 pages... OK
->   # Maybe collapse with max_ptes_swap exceeded.... OK
->   # Swapout 256 of 2048 pages... OK
->   Bail out! Unexpected huge page
->   # Planned tests != run tests (26 != 17)
->   # Totals: pass:17 fail:0 xfail:0 xpass:0 skip:0 error:0
-> 
-> This happens because khugepaged may collapse the pages before wait_for_scan()
-> is called, causing a sanity check that expects uncollapsed pages to fail.
+> Ah yes, it's a harmless leftover from my initial (failed) attempt to use
+> cpuhp_wait_for_sync_state() in cpuhp_ap_sync_alive(). I can drop this
+> part and reword the commit message.
 
-Is this something we should be testing for?  If I'm understanding
-correctly, success/failure is dependent on timing vargaries inside the
-kernel and that isn't something we can reliably test for.
+Thanks, looking forward to your update — that will be nice.
 
-IOW, should we say "bad idea" and just delete this test case?
+> 
+> Will
+
