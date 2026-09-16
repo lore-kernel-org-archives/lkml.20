@@ -1,96 +1,81 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07724AF17D;
-	Wed, 16 Sep 2026 09:58:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95014B1B38;
+	Wed, 16 Sep 2026 09:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552738; cv=none; b=tRqPXQgVX7lMNanS6NmKzDO4FFvR5FZ2vHAKdFuQFPapP03foszRvTbqNFZuOkF9rmPEq1BcvG3o/65woHJhttA16Spzs0TaGqgfUQXU7cfeAiIxXg1CTsD5z4lSLJ1e2ze/lRsvrBczlLVLnhVTHlaAxcQjgyG0be14CGWdMV8=
+	t=1789552739; cv=none; b=ihoTSu76gXsSU7vw920B9WUu60c1KLvOZhFPrDFoR9tztUd9TpZjnqItMgvd82ZdCgh3fEkg5baUZpzu3doU3xbdNPgmY7dW+gKJUYnZbluLcmYEADD44RgoovpO6/wLgiyG7sQGQxZEFZQqHvsgroi42aq2kf9DV4rLLUbJoNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552738; c=relaxed/simple;
-	bh=q1Ggv5xO6t3FDyZggZHheXutMsgqWu8zdxmPa0BfnhY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q0I7jxFQgfhj2h443LwXJmynmtRQs2koYBSRt5Ztucrfs4vZs9IAWccARfo2zd0mcMZubeJuaWMJ44FFP+34td8m/ER+59J3zE7UiJGkE7/QmbdpzBfLKOu3BG4YO5sZQv4+Pi2nDkZ4BtSpa+uG+bfwZjNP9aIzhD198d7V74o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABXXDpJaKpqJMXgBw--.37267S2;
-	Wed, 16 Sep 2026 17:58:33 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Dennis.Li@amd.com
-Cc: airlied@gmail.com,
-	alexander.deucher@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	christian.koenig@amd.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	monk.liu@amd.com,
-	simona@ffwll.ch,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Fix runtime PM leak in amdgpu_debugfs_test_ib_show()
-Date: Wed, 16 Sep 2026 09:58:05 +0000
-Message-Id: <20260916095805.2011304-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789552739; c=relaxed/simple;
+	bh=BaDvoADEk7NhvncuNIzYQnDIx5WcKPfabx66vRA+ryg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W6CZPp473Ke+dg6IOsyZSp4cmT5BOqDvabdZa35J55MSAtOJ4JGvsCLOgu6RQ1OXsWYSaKlTFPULDwRGdIreTmTZ9q3wpNomdH+8gCWJJlHvIOZoxk/EauMJjoyJPultoEltplewbAzs5gH74X/dpAZ5jbX6uPfQ6g2jdE9UZYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=Zmti8x/f; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="Zmti8x/f"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=t5cztt9MKZtPqdYlO4baTEO5Vle2tuGE6mKsXLkovOw=; 
+	b=Zmti8x/f2YPXRY6k+t57/GEttI0I/6nuqJAo6/ZT9VXm8qbgNhmo1HsqrakIWi8UR4jTRnDDU64
+	5EcQ9aaOyQrhz7wu8l4dKs+H/ScCEs2XosydmBhELkn4fmU8aqYonYPbx38V+tUCPHla+S/3Oz29c
+	nPm35IgLKFZY7ObkM2zASsPSotJdqHb6Tc0SNSimOyS8ToqsFGH5ITy22pRMuGhNbX3phEz0xoyDb
+	tJB7Yx/hJs15P+geDmgbV+D1bPlnuPbgvjeWOKa+QIzj7juafVEy/lddAG7ChYdOZBPshFKca+eU3
+	dbDgyGuKPKt836HZpSqo6lin4+W8+DDaRbgQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x6mPd-0000000EZCZ-0sil;
+	Wed, 16 Sep 2026 17:58:46 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 16 Sep 2026 19:58:45 +1000
+Date: Wed, 16 Sep 2026 19:58:45 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-crypto@vger.kernel.org,
+	Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
+	Pankaj Gupta <pankaj.gupta@nxp.com>,
+	Gaurav Jain <gaurav.jain@nxp.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] crypto: caam: map job ring registers without claiming
+ region
+Message-ID: <aqpoVeecg-ObBUzQ@gondor.apana.org.au>
+References: <20260901203736.13248-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABXXDpJaKpqJMXgBw--.37267S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFW5JFWDtFW5uFW5Gry8Zrb_yoW8GFy7p3
-	9Yg3WYvr1DZF17t34DAa18XFyru3yaqryxGrykuw1Uu3Z8JF1rJF15JrWjgry8GrZ7CwsI
-	vrZ7KrW3ZF1qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
-	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
-	UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggMA2qqPpSseAAAs-
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901203736.13248-1-rosenp@gmail.com>
 
-amdgpu_debugfs_test_ib_show() resumes the device with
-pm_runtime_get_sync() before taking the reset domain semaphore with
-down_write_killable().  If the write lock acquisition is interrupted,
-the function returns without calling pm_runtime_put_autosuspend(),
-leaking the runtime PM reference acquired for the device and keeping
-the GPU awake.
+On Tue, Sep 01, 2026 at 01:37:36PM -0700, Rosen Penev wrote:
+> devm_platform_ioremap_resource() ends up calling request_mem_region(),
+> which fails with -EBUSY on i.MX SoCs:
+> 
+> There the job rings are modelled as sub-regions of their parent
+> fsl,sec-v4.0 register window, and caam_probe() already reserves the
+> whole window exclusively via devm_of_iomap() before the children are
+> populated.  Every job ring therefore collides with its own parent and
+> fails to probe, taking the hardware RNG offline (seen on i.MX6, i.MX7
+> and i.MX8 boards such as colibri-imx7 and verdin-imx8mp).
+> 
+> Map the job ring registers with devm_ioremap() instead, which does not
+> claim the (already owned) region.
+> 
+> Fixes: 9a955c0a7d11 ("crypto: caam - simplify probe resource and IRQ handling")
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/crypto/caam/jr.c | 23 ++++++++++++++++++++---
+>  1 file changed, 20 insertions(+), 3 deletions(-)
 
-Drop the runtime PM reference on the interrupted down_write_killable()
-error path before returning.
-
-Fixes: 6049db43d6dd ("drm/amdgpu: change reset lock from mutex to rw_semaphore")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 092fd3309099..adc0252f6400 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1764,8 +1764,10 @@ static int amdgpu_debugfs_test_ib_show(struct seq_file *m, void *unused)
- 
- 	/* Avoid accidently unparking the sched thread during GPU reset */
- 	r = down_write_killable(&adev->reset_domain->sem);
--	if (r)
-+	if (r) {
-+		pm_runtime_put_autosuspend(dev->dev);
- 		return r;
-+	}
- 
- 	/* hold on the scheduler */
- 	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
+Patch applied.  Thanks.
 -- 
-2.34.1
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
