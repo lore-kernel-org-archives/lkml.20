@@ -1,181 +1,220 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12AC44CF25;
-	Wed, 16 Sep 2026 07:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64041368D5A;
+	Wed, 16 Sep 2026 07:45:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544736; cv=none; b=JbokZlszTq/2GKiLVKgCqdo/siwU+N7F4D0pnEt6gBe1nW6H1j6y9s3672Axsr2CPC4rsqwQadb7ftPTw04x3CbSmJl9nGlAVAG1itavVZ9Mhs8HIy2SvTDvtrhDyh20rcHsXHeTlHnolw6mEF2KUdJ8KhSl+uWQoIvj3MbXIc8=
+	t=1789544769; cv=none; b=X7hH2NSSORuD280xZFqKauX7S/Udvc3vYoJlX9NDIEWYLbCXr9piZRa5DupzudMt242g4MgT46d6qrOY8neMc2fLhWyHbapvK6p4eUBoL2e6KFB/U7QRCADfXM5hON4ekKtG9XrDbxpMzydpllmSjgdiN4KPJkN8Eyof0uyz4WE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544736; c=relaxed/simple;
-	bh=2oleBu2ZyXTqH7IkiY2FnDAfDfVgurItEBflxV+93NA=;
+	s=arc-20240116; t=1789544769; c=relaxed/simple;
+	bh=Nno3OlO3iewCiHcvZdyzepOILM5zdk/EDcFwj2tLg+o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DIgXfKDuAHyGiZ1cVzKxTwqekexgZG9dGsV8sKI2PXiLajxGZOMlSMyB6+pU3+MmC2E2mznC3h8x6GiLvEM9Pbz848w2vhEAsBDbZxmzU3OziFIWAorlvRykBiVHviwS6g3zA9BLfNZzLf4jjqTi519C0SXIxHvwnkZ4ak8LlJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=neiHH7CZ; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=g3mPd8s8Hq92iuTi3vMSRa/jDdG0OJPHNDOFBsWbTdGXJduYZ7sRxwEhPzj4aP+G4NhSVG0NNe2RUsJb7D5C63EMSVikn9oU1Ydte+Jqduu0Lxc1cPQkevXJpiYtd9JuxteUAmMoMGKj6eQw+GRsuELzI8ATDLUMpK75ScSN+3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=T+JTGWyk; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="neiHH7CZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789544726; x=1821080726;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2oleBu2ZyXTqH7IkiY2FnDAfDfVgurItEBflxV+93NA=;
-  b=neiHH7CZ2f2V6X6V3WQnZWUl9zDDtJqEs8Aznk+6VZXQ1AKcaz8XCB3A
-   7zESbcLYSeKcT1CFx2eE6bOr4ln61Aq3HWCKKwYU6/y7nJG87v5/aDGu3
-   zlisxm/tu8KOWKj1PMmqUYDaxFg+KBv3eKssNqMiTWFJ3pWIJuS7BCnr8
-   ZhQbT7I4lbc+h+N4ylG14P9qmZNZZ6NFm6NgO7m0LFJkD893j/+P0HJmg
-   72vTWSXlDfTrJ4ykJYzQdUg1WWTTH/roCb+PEr32kzUIP9MU8UykkaQUS
-   gCJpw6puwXwx5/Chst4udGlmsO/5RPTJwPxbDw+GofCwBlckn2U1gqLFG
-   g==;
-X-CSE-ConnectionGUID: f495BNdiSIi1gypaAS8fgg==
-X-CSE-MsgGUID: LJI3tdTHQFOhfynah/WMyA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100579786"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100579786"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:45:20 -0700
-X-CSE-ConnectionGUID: BQV/x/2rRbWb7yalBTZ5Qw==
-X-CSE-MsgGUID: QduNPbCCTtG8DYwiVMlcrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="272788606"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:45:16 -0700
-Date: Wed, 16 Sep 2026 10:45:14 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: stm32-adc: fix check on internal channel
- availability
-Message-ID: <aqpJCsBNKDSKlfFD@ashevche-desk.local>
-References: <20260915-adc-fix-intchan-v1-v1-1-761a1b35001b@foss.st.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="T+JTGWyk"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5F8122EC;
+	Wed, 16 Sep 2026 09:44:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789544653;
+	bh=Nno3OlO3iewCiHcvZdyzepOILM5zdk/EDcFwj2tLg+o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=T+JTGWykehchs3y3+yhf1UlxD+oxOt8ImsO89QYli5iW7KiUOvyMKsdfStJ7oikBh
+	 OVSEfb/luQSOJG5Zg66itdJZEi2uD6eu0Odod/CDkOSDC4xlucYdx+SU5vEDQLq740
+	 pXlYMHA5vJFroMT7vohxnZwnOaCWnVTxvzwbBJYw=
+Date: Wed, 16 Sep 2026 10:45:53 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+Message-ID: <20260916074553.GB3871857@killaraus.ideasonboard.com>
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+ <aqpC8fxO4F3bFjF4@bombadil>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260915-adc-fix-intchan-v1-v1-1-761a1b35001b@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <aqpC8fxO4F3bFjF4@bombadil>
 
-On Tue, Sep 15, 2026 at 06:15:49PM +0200, Fabrice Gasnier wrote:
-> If an unsupported internal channel like vddgpu is requested, the driver
-> prints a warning but falls through and assigns it a valid int_ch below.
+On Wed, Sep 16, 2026 at 09:33:36AM +0200, Richard Leitner wrote:
+> On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
+> > On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
+> > > Add bindings for the Vision Components MIPI Camera Module Controller.
+> > > 
+> > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > > ---
+> > >  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
+> > >  MAINTAINERS                                        |  7 ++
+> > >  2 files changed, 99 insertions(+)
+> > 
+> > This fails tests, so a very brief review / a few comments:
 > 
-> This causes a problem later during setup:
-> stm32_adc_int_ch_enable() {
->     ...
->     case STM32_ADC_INT_CH_VDDGPU:
->         stm32_adc_set_bits(adc, adc->cfg->regs->or_vddgpu.reg,
->                            adc->cfg->regs->or_vddgpu.mask);
->     ...
-> }
+> Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
+> Will not happen again.
 > 
-> Because the register offset is uninitialized (0), this performs a
-> read-modify-write on offset 0, which corresponds to the ISR register.
+> > > diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> > > new file mode 100644
+> > > index 0000000000000..2a031aea68457
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> > > @@ -0,0 +1,92 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Vision Components MIPI Camera Module Controller
+> > > +
+> > > +maintainers:
+> > > +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > +  - Richard Leitner <richard.leitner@linux.dev>
+> > > +
+> > > +description: |-
+> > > +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
+> > > +  controller found on MIPI camera modules from Vision Components. It abstracts
+> > > +  the camera sensor behind a unified register interface, and controls and
+> > > +  sequences the on-board power supplies and clocks.
+> > > +
+> > > +  The camera sensor abstraction is optional. The controller exposes a tunneled
+> > > +  downstream I2C bus used by the attached image sensor. The controller node
+> > > +  acts as the upstream device on the host bus, while child node below the
+> > > +  controller represent the sensor device reachable through the tunnel.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: vision-components,mipi-module-controller
+> > 
+> > There is no model name, no version, nothing identifying it better?
+> > Compatible must be specific to the device (see also writing bindings).
 > 
-> Fix this by returning before a valid int_ch is assigned.
-> Choice is made to just warn about the channel name as it could
-> be confusing, rather than making the probe fail.
+> There is one FPGA implemenation for all Vision Components MIPI camera
+> modules AFAICT. So I have no idea how it could be more specific, TBH...
+> 
+> Adding the FPGA hardware model/type is wrong IMHO as it depends on its
+> configuration/firmware, not the hw.
+> 
+> There are different versions of the configuration/firmware. But I think
+> this is also not the correct way to distinguish those, or is it?
+> 
+> According to their homepage the vendor calls those modules simply
+> "VC MIPI" modules, which implies this FPGA controller is available on it.
+> So maybe "vision-components,vc-mipi-controller" would be a better fit?
+> 
+> Do you have any ideas/feedback on how improve this name?
+> 
+> > > +
+> > > +  reg:
+> > > +    maxItems: 1
+> > > +
+> > > +  '#clock-cells':
+> > > +    const: 0
+> > > +
+> > > +  clock-frequency:
+> > > +    description: Frequency of the sensor clock provided by the module
+> > 
+> > Drop, implied by the compatible
+> 
+> Do you mean dropping the whole property, or just the "description"?
 
-Are this and the other patch made with AI assistance?
+Different modules have different clock frequencies, don't they ? The
+property seems needed.
 
-...
-
->  	struct stm32_adc *adc = iio_priv(indio_dev);
->  	u16 vrefint;
-> -	int i, ret;
-> +	int i, ret = 0;
-
-No, either assign closer to its first user, or do even better.
-
->  	for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
->  		if (!strncmp(stm32_adc_ic[i].name, ch_name, STM32_ADC_CH_SZ)) {
-> @@ -2267,31 +2267,36 @@ static int stm32_adc_populate_int_ch(struct iio_dev *indio_dev, const char *ch_n
->  			switch (i) {
->  			case STM32_ADC_INT_CH_VDDCORE:
->  				if (!adc->cfg->regs->or_vddcore.reg)
-> -					dev_warn(&indio_dev->dev,
-> -						 "%s channel not available\n", ch_name);
-> +					ret = -ENOENT;
-
-This is a repetition of the same value. Instead add a boolean flag and do here
-
-	bool na;
-	...
-			na = false; // or can be dropped with 'default' case
-			switch (i) {
-			case STM32_ADC_INT_CH_VDDCORE:
-				na = !adc->cfg->regs->or_vddcore.reg;
-
->  				break;
->  			case STM32_ADC_INT_CH_VDDCPU:
->  				if (!adc->cfg->regs->or_vddcpu.reg)
-> -					dev_warn(&indio_dev->dev,
-> -						 "%s channel not available\n", ch_name);
-> +					ret = -ENOENT;
->  				break;
->  			case STM32_ADC_INT_CH_VDDQ_DDR:
->  				if (!adc->cfg->regs->or_vddq_ddr.reg)
-> -					dev_warn(&indio_dev->dev,
-> -						 "%s channel not available\n", ch_name);
-> +					ret = -ENOENT;
->  				break;
->  			case STM32_ADC_INT_CH_VREFINT:
->  				if (!adc->cfg->regs->ccr_vref.reg)
-> -					dev_warn(&indio_dev->dev,
-> -						 "%s channel not available\n", ch_name);
-> +					ret = -ENOENT;
->  				break;
->  			case STM32_ADC_INT_CH_VBAT:
->  				if (!adc->cfg->regs->ccr_vbat.reg)
-> -					dev_warn(&indio_dev->dev,
-> -						 "%s channel not available\n", ch_name);
-> +					ret = -ENOENT;
->  				break;
-
-Don't you also need a default?
-
-			default:
-				return -EINVAL; // for example...
-
->  			}
-
-			if (na) {
-				...
-				return 0;
-			}
-
->  
-> +			if (ret) {
-> +				/*
-> +				 * Confusing channel label matches an internal STM32 ADC channel.
-> +				 * Just warn about it, as there's normally no restriction on the
-> +				 * name but that's not among supported internal channels.
-> +				 */
-> +				dev_warn(&indio_dev->dev, "no %s internal channel\n", ch_name);
-> +				return 0;
-
-My gosh, the ret value is even ignored!
-
-> +			}
+> > > +
+> > > +  vcc-supply:
+> > > +    description: Power supply of the module (3.3V)
+> > > +
+> > > +  '#address-cells':
+> > > +    const: 1
+> > > +
+> > > +  '#size-cells':
+> > > +    const: 0
+> > 
+> > No children allowed, so why these two?
+> 
+> Based on your and the bot feedback I would suggest for v2 to change this
+> "generic i2c bus" to a simple "i2c-tunnel" property which has
+> "$ref: /schemas/i2c/i2c-controller.yaml".
+> 
+> This would better reflect the actual hardware, as there is only this one,
+> in firmware hard-coded I2C downstream bus.
+> 
+> Would this be a sane approach?
+> 
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - '#clock-cells'
+> > > +  - clock-frequency
+> > > +  - vcc-supply
+> > > +  - '#address-cells'
+> > > +  - '#size-cells'
+> > > +
+> > > +unevaluatedProperties: false
+> > 
+> > additionalProperties instead, see writing bindings or writing schema.
+> > Unless you miss here some other schema $ref.
+> > 
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    i2c {
+> > > +        #address-cells = <1>;
+> > > +        #size-cells = <0>;
+> > > +
+> > > +        vc_mipi_ctrl: controller@10 {
+> > > +            compatible = "vision-components,mipi-module-controller";
+> > > +            reg = <0x10>;
+> > > +            #clock-cells = <0>;
+> > > +            clock-frequency = <37125000>;
+> > > +            vcc-supply = <&cam_3v3>;
+> > > +
+> > > +            #address-cells = <1>;
+> > > +            #size-cells = <0>;
+> > > +
+> > > +            i2c@0 {
+> > > +                #address-cells = <1>;
+> > > +                #size-cells = <0>;
+> > > +
+> > > +                vc_mipi_sensor: camera@60 {
+> > > +                    compatible = "ovti,ov9281";
+> > > +                    reg = <0x60>;
+> > 
+> > Why having the child abstraction if it is completely abstracted? I don't
+> > fully get the explanation from description. Completely optional means no
+> > benefits, no point in it, no?
+> 
+> I will try to improve the description. The idea behind this device
+> driver/devicetree node is to not rely on the sensor abstraction from
+> vision components, but to use the upstream sensor specific driver.
+> 
+> As the tunneled downstream i2c bus needs quirks applied this is modeled
+> as a separate bus.
+> 
+> Previous discussions on this approach are available at:
+> 	https://lore.kernel.org/lkml/20260728092856.GB1494774@killaraus.ideasonboard.com/
+> 
+> Thanks again for your review Krzysztof!
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Regards,
 
-
+Laurent Pinchart
