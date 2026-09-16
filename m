@@ -1,149 +1,130 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A10C4A64FD
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:10:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1884D6C38
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575046; cv=none; b=hbZCrJj1N90g2D6gYbjch44+OkKF3Tq83EAYBf8rIMR0VQEtj8xjBL7SfATUOnpKObbNydXl0pD2dNHdvgBpoGv8SUZoGoKgGBA+FUrBfmENhMDbvtY5jtskhJMjerx8o6rqz59CKQxxLXhkORKX030q7nUgtRdjwiJjnNCb1iU=
+	t=1789575054; cv=none; b=ciJrnxgQVpX9ANGTiyQnuWzMMPe/fbW4khkQfhGYvZoTtQEN00ZYLjF663TxM+ftCkCBatxp4xV3nfrTkaVsk8aHcYOu83X8HoRK67PzzcE9IAjLrKaAdgsykFAwgb33e+f+jCPBeVWqikTfOxwEd39n67lRir0u8vC/fPAt2t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575046; c=relaxed/simple;
-	bh=jRGuyNoeAYzVvO6Ipu5riZv9jM8Q8fQw/YB1R2vQM+w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hQAn9ny1jCpFTOtEsFs3D9xSC35ItBL0eLVoMr6F1fnBme01ShFBlLfOE5kT/xRSAs3Hhnt2WjJF1Yi8s8UZKUUuV+yvGWNrUvA8MgK/126DjxZrCB8L3Ok84KgH+H9u4sUtdgdT9LxIX8LYtYpONI2N7oh+aropGrgj+0/OYdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ruhZYiyO; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789575054; c=relaxed/simple;
+	bh=rxwh6HRPyMOg2IENeHM2VavTtsrGnyH3kk4Zp4dIvF4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mQyoj7tzZEw7Djv2D2yU5nyOUBw790WEePQwPXSeOoZnKj8RKUb5eFqXwIcHqDRA03ooQbX8J/jYBUSCvDu2oEu/74AsC0sk1VZTZK+RLwl/OLD/cuaOGmByLw71KuuE52rFwWOyVV6MtvUMB9lPKOOvaRcWY5BGW6vqSRq/faU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=TrFSMl5E; arc=none smtp.client-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ruhZYiyO"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48704fc0141so96312f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:10:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="TrFSMl5E"
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93a40a9a01aso115913285a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:10:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789575042; x=1790179842; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jRGuyNoeAYzVvO6Ipu5riZv9jM8Q8fQw/YB1R2vQM+w=;
-        b=ruhZYiyOUIS27Sf9uIAVIUidzqLOoPHOJzGgH8bPUpet9DJhKwToErisqzMDuLm3Bh
-         SjoZTMQqmlxiUjzElcTTroc8ommXWYglCt/LYt97JSXsqHH58yCUkBfAYyRqlJkGCBus
-         1NKTpixb9xf3xNG0CBsHNiVs/umDqsyiROXQjFD1xGPdzAjWeyeboRc4aNlC2coBWPhG
-         CUVd8rwBphUJ3IgfzQSCJQ0XpvRU8Z8p6dYze3MwFdikKb60yWzowBBHPgF3vIgvXQmL
-         UU6uZNodwKOUZi8O7/W94RECVVeWyxcLSF+gCZWf5jzIQYQ+lC+w2jA5CNDtxRF06c36
-         8sAw==
+        d=gourry.net; s=google; t=1789575050; x=1790179850; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EzULl2Rsxwfe7EFb6MSMik7LenJTHelPDSDR0csqtEA=;
+        b=TrFSMl5ESedbuJFx8Vm7RCbWOcge2/6wmdlIFn4lA6izxn4lVCOW9Elc0WcHDMCpzo
+         E2bc4nOXlEqQKb0lzZy+KEWaEV+U1BsWeLHuCIVwON3nRFzEHfTJ9vKOgh1aE7in/0+8
+         L2WEb1QNeqUWlZOTgjVx1zRzdHTC/IffAqWbWNvOnzZGko5+jUn8EGirVaaA5fRvh2yH
+         LUkVXEr6DCAHaAsgh0X656f6s/3H17hcGmS3eJvn8mMlXrb71yUKjsn8hrsdMqYEbPEk
+         8/gASMW7mfvwnTerlXElrUQrQlDV4D5hwwAKuJVSetp58kgXlClFZnR1X37yRQpb9Xz2
+         0VmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789575042; x=1790179842;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jRGuyNoeAYzVvO6Ipu5riZv9jM8Q8fQw/YB1R2vQM+w=;
-        b=q9XR7clwr8DBBXPezU9XXqjriOdUv49667bUOmL66zWCdjp7BIHPYGSsKgeIiszKNJ
-         fqPT+eLsgqkmsGgkCG7Xz1AK36HOvwKk42jDrAXXDL97IYvCcnJA43c5Js+NUo+6aGJC
-         /BI7MaOkVY819iaXymg4bBBG6/uIcHwKmAx07rkNi01WkFZvNCmFitpgXmBdQy7d1vhA
-         FGzdI8e77NPRE8+vlvr0nex5ogtnc2w9i/Ye0P+pIwDH96wfP7nxgpxMjo2lhIZkKEkt
-         QH0lIaYQqspDZWyJXoI+2k7WY/Vb9aTAZc010EqE0MlAVSUxmfD6a8DcK4MC3axR4dHs
-         VeUg==
-X-Forwarded-Encrypted: i=1; AKwUvByuh/1CSwLOqSHvXv8v26dqvNALSKW9YIKkNIISZ2TG3/e76D8Psv8aCm47MLPx4pfZw9SaIzSaBI4vEvA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kX3EmcLJ8sb1fNljF7dc55fhH/xDMOYLKt40Phts6xd/bKoXfQ
-	/3eoEdYTy3OJl6QL5dbjbAMs/drYqDFxdrXECHdwV4IrywdOJOwcbjSC
-X-Gm-Gg: AYBFou0xCUYgs5lQtD8gqzU/K+8LBIhhnOyjIN11MdJjMqv9rtAjKROq/zN22HSdPPA
-	qv4858HPZu3gxjSncP+8j5CCi3UrzBkGrXxMOco1ZhCySeW+3/zxlYMXLzy2/kiq/Jj6IQcpfdb
-	SSVESS8sMnM1PuxX/Q08tOyTb3KZ7tJBR2QdDsFfrr+02q/UmnBD4zji0/TxKpaCZvQzxiIF56s
-	DQsGFlyqsLOGfV0gjJ2ddsqLpzzno2dbORXIcQpVtaK1FbzTR/4pvIYzuzmWbq2FUglBYC4w2n5
-	Y00zvS/x4iXZsIk+vLF3X+2heB/yeyNvbKYqC1KEyNL0RLNo873ZWeZDjStQgNW2VO6c2P9a+lZ
-	85Nsb1s3rgAqFocrqRwZV9m9btZxd36SMSpsY6MX1bJzqpx5IAt4JeL4+nnzzzAuPMoj93ncc1j
-	9wpKGxMjQIe2xuMMsIF3wxRzd3ARIxy8bqOGeyaonB0v0jjZXHAeO1oIydYKJwWmFLz1hD7LpzP
-	sIyqr6R/72WLKaYJCCki449KZ0IxiEyCSS6S6uAw9NJl3X1GnLYLqmwBcZGSN88E5NAoIRtrjBT
-	2Q==
-X-Received: by 2002:a05:6000:4a04:b0:487:10cb:ac16 with SMTP id ffacd0b85a97d-48710cbad2dmr2186039f8f.4.1789575042076;
-        Wed, 16 Sep 2026 09:10:42 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8E02002D5AB124699B1F76.dsl.pool.telekom.hu. [2001:4c4e:1b8e:200:2d5a:b124:699b:1f76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf43511sm7720177f8f.33.2026.09.16.09.10.40
+        d=1e100.net; s=20260707; t=1789575050; x=1790179850;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EzULl2Rsxwfe7EFb6MSMik7LenJTHelPDSDR0csqtEA=;
+        b=eJ0cL3N/HrJ8WBk0QLMO9so+ezJ96Z/xZ8/CqC+qNwxMXJa0Oil2XI57ymifHnjUro
+         n+xwEWWxsI7LjiTD0KMkjLMIH/QJp9B6JmKUq+CyRbmvE0T9wKF303FQPbHewFomvbLb
+         yuxO03GzpdReNcLAHxDj1rq8GpF/1ztL44bONXUiL6FzETgOFN6utz4RqWqpp1pKYcHk
+         qGAVDoA2LYtcWTa4MGT6fl17W8D4a/E0XJfZLTRQmAf/M+SWmRlvN62Zhzzs5f1MF2jr
+         Ls71tO7aanYC68xt8bMKLGXMIVaLgveDKDqFctAcvRQDgkHD9sV77fayacGPcKhf4Yxf
+         0xzg==
+X-Forwarded-Encrypted: i=1; AKwUvBzxrtuF162jcd8EyRebcycRtPr/2aAm7NwuAAAUTRIjA/nxY5VxpwecYV2s7wEpiv9+HU85GEDgQdfHLFA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3A/2w4GFV9tZPb53oaVQDyJPWTBL0TiU2B3vvjXgvQftYdniY
+	xORuYZYpkqoJsvucNm7xW4sUz1H8geV5olPSGiI58rHBWC/pS//cRXgc/iEvgR2Jds8=
+X-Gm-Gg: AYBFou145xdNERMojR9DvMYD7vlsoR7K/R1h+AR4LXvj1tmL72SrNHCmC0RPbr3CijX
+	wwknDByt7vGdgc5nzSvzqzaL4tsxYQSwxdV6JBfIWEFr5HH8U9EFed9gy8wvb6GyD2b8kfRbuiL
+	jM27qdWgh/uND2yVGEN/+UrKa/xmWEt0ESIkA92Vg6N24x/aIjsFLVhFVmMAWD1Gg1A6mEvdF+j
+	+kevwi909rIodYOCcfM+OL7rPk8apb9MZdA2HSYeGTMMV9xVyD+0cMP2Yw/kTdQ7nFVlsY+Puaq
+	u37zgZnbLBbdCKOdDi81iow5ypbOxOw+UyAHPltMe9SQH2IQgR8CF8lmR0yAjj8B6vwGYArzuRM
+	C8N+zluPHLJeFXdLqDz06TAoTBEK78NDimZqLivO3y4kfz92SpVCot6GuWwbb+Y078VBB1AnO7t
+	EtuR2EpTdomFZtPwACUK1lT3Y2+li4bqLlrR/kjZK7aXYvoyPFQyzzj8OgJUPnfV+R5LrGkF+xA
+	L0UomgZY4d55TNVk5qELSSL8crddCCFKzd/d+bjwBeQoiJCAmHl9vs=
+X-Received: by 2002:a05:620a:1b83:b0:93a:1196:ce5 with SMTP id af79cd13be357-93bc63ec899mr23113285a.33.1789575049934;
+        Wed, 16 Sep 2026 09:10:49 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b782562c0sm248094585a.32.2026.09.16.09.10.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 09:10:41 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Frank Zhang <rmxpzlb@gmail.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Detlev Casanova <detlev.casanova@collabora.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Laurent.pinchart@ideasonboard.com,
-	airlied@gmail.com,
-	andrzej.hajda@intel.com,
-	luca.ceresoli@bootlin.com,
-	daniels@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	heiko@sntech.de,
-	jernej.skrabec@gmail.com,
-	jonas@kwiboo.se,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	macromorgan@hotmail.com,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6] drm/bridge: dw-hdmi-qp: serialize HDMI audio callbacks with PHY enable/disable
-Date: Wed, 16 Sep 2026 18:09:59 +0200
-Message-ID: <20260916161000.11756-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260915103433.13163-1-rmxpzlb@gmail.com>
-References: <20260915103433.13163-1-rmxpzlb@gmail.com>
+        Wed, 16 Sep 2026 09:10:49 -0700 (PDT)
+Date: Wed, 16 Sep 2026 12:10:47 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
+	liam@infradead.org, vbabka@kernel.org, jannh@google.com, wangjiexun@tinylab.org, 
+	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+Message-ID: <aqq6ey3DG9h5NIDZ@gourry-fedora-PF4VCD3F>
+References: <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
+ <aqqjW5dpyznijYLh@gremlin>
+ <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
+ <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
+ <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
+ <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
+ <aqqyhkZqcXDUrzeb@gourry-fedora-PF4VCD3F>
+ <4fadcda7-d96a-4cd9-9b0f-5d387b6f82af@kernel.org>
+ <aqq23i9824-GWdhg@gourry-fedora-PF4VCD3F>
+ <9b50a047-b5e6-45c3-aee6-551896b52eaa@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9b50a047-b5e6-45c3-aee6-551896b52eaa@kernel.org>
 
-Hi Frank,
+On Wed, Sep 16, 2026 at 05:42:43PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/16/26 17:37, Gregory Price wrote:
+> > On Wed, Sep 16, 2026 at 05:24:43PM +0200, David Hildenbrand (Arm) wrote:
+> >> On 9/16/26 17:19, Gregory Price wrote:
+> >>>
+> >>> You missed this part:
+> >>>
+> >>> "I'm trying to be careful about not causing a bigger maintenance burden"
+> >>>
+> >>> I wouldn't do that to you :]
+> >>
+> >> I just wanted to make it very clear that I don't need another schlopped gigantic
+> >> patch series in my inbox that I'll mostly have to ignore because it's
+> >> un-reviewable ;)
+> >>
+> > 
+> > I would never :]
+> > 
+> > But *motions generally at madvise* if this isn't schlop i don't know
+> > what is lol.
+> 
+> Just to be clear, I enjoy any cleanups in that area which are well written (and
+> your track record shows that you do exceptional work ;) ).
+> 
+> I would also enjoy a properly stubbed page allocator as well as I envisioned ...
+> as long as it's not something schlopped together and rushed out.
+> 
+> ... of course you would never work-slop me/us like that! :)
+> 
 
-I tested v6 on an Orange Pi 5 Plus (RK3588): git am onto a
-drm-misc-next based 7.3.0-rc2 tree with PROVE_LOCKING and
-DEBUG_ATOMIC_SLEEP, HDMI output to a TV.
+It's fundamentally a bootstrapping problem.
 
-The reproducer I used on v5 (output off, then open and close the PCM)
-now stops at the open: dw_hdmi_qp_audio_enable() returned -EOPNOTSUPP
-three times out of three, nothing from ASoC or the bridge was logged,
-and since the startup failed, the shutdown path never reached
-clear_audio_infoframe().
+Regardless of whether an LLM wrote the tests for page_alloc in its
+current form - it's going to be schloppy, because the code itself was
+never written to be testable in the first place.
 
-So I also ran the sequence from your commit message: PCM opened with
-the output on, output turned off by the compositor while the stream
-runs, PCM closed after that. With function_graph on
-dw_hdmi_qp_bridge_clear_audio_infoframe() and
-dw_hdmi_qp_audio_enable(), the clear call after the disable takes and
-drops phy.lock and returns 0 with no regmap access inside it; with the
-output on, as a control, one regmap_update_bits_base() call shows up
-inside it, under the lock.
+That's the actual problem we're all dancing around.
 
-There was no external abort, SError, lockdep report or might_sleep
-splat in the whole run, including two output off/on cycles, and once
-the output was back on a new stream played on the TV.
-
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus (RK3588)
-
-Not covered: I did not try to hit the window the lock is meant to
-close (an atomic disable landing between the state check and a
-register write), so that part rests on the code; and I did not check
-Dmitry's condition from v2 [1] that a PHY off/on cycle clears the
-audio registers.
-
-v6 overlaps with Detlev's patch [2] (both return -EOPNOTSUPP from the
-audio callbacks while the output is off), and [2] no longer applies on
-top of v6. For the crash, v6 alone now covers both sequences from my
-v5 note (open with the output already off, and the output going away
-under an open PCM), so my remark there that both patches are needed
-does not apply to v6.
-
-An LLM assistant applied and built the patch, wrote the test scripts,
-counted the traces and helped draft this mail; I ran the tests on the
-board and did the listening myself.
-
-[1] https://lore.kernel.org/all/urguajogb4zsz4jg3ef32hpyf2awxkywdtlk5ackdi2gjai4l7@vpjaf3sznkto/
-[2] https://lore.kernel.org/all/20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com/
-
-Igor
+~Gregory
