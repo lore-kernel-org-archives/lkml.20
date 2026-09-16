@@ -1,119 +1,261 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 214CA4A4F1F;
-	Wed, 16 Sep 2026 21:59:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A464E06D7;
+	Wed, 16 Sep 2026 21:59:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789595965; cv=none; b=c719RGrC79vP2jxMyfFQeMfetxqQIPglCw8RIJUnibFPl0RM3kqplQIOY/uXAdvH1dFnVSKQWiuceTDcDxlrQDg6FozZTJcj6eMLA+k7vD7D1fj6LN4MNy98dh/dFR2FBWW/cKI8TP+LaHPmge/G+LkxbRPjER82x7JXcc0YkS4=
+	t=1789596002; cv=none; b=Ap3h8/Xs31OHytQxi0Yn64HUJlP4YMxQhGomciXpFGrIneB0KXAOSOxnyPZlTITOTyCfANFDsu1pLAoIOZ57YJILtVTygWdXEtsL/s4yzpKK40aTEykZ/xTzxVyLNNph8oq2jhLtVVpMKHz3dxavroEDfvN9MgIRjzH2CvNhIzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789595965; c=relaxed/simple;
-	bh=BNcSQgSTj6WR5Bdg6c6KiBf2o/yyKbQ+vLuJugYOCOo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=n0FIjBLdDZbBbgX1szkMF8quIeJi/7GbHNxC7bKSjsDzVDWNo0vIY1knIy5S3L0HWeH0cyARnhYtCFk6ZylcmAKlEjeEFDruNzOHQ3AKpRPpawnIFo44Ax53LnbCRHg2+rRdKC9VNhHtObiqPU419p8GlISK1Wey2WOSUMI1ETU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nzYQdAGo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789596002; c=relaxed/simple;
+	bh=zjfRctTxqWQn4sGdPmT9Jruych5YBqsaxciFRZNh3e0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hbItxL6mwcNPebXsOeXVS4WmyXaAXLXVr4e72FA08sAXjpXIvzpElQ3232GVDlNVeERrSlycr7ea0J4vFYeICs7PJUPfAW5QLhVQgfvaxvzgbgNbFYzJeyIwRcxDYZb/al1Hk+FIyDe1qsc6kUsckpgF5rKbdwIfTYqQRFvpEP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=llfniK9l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nzYQdAGo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68D281F000FF;
-	Wed, 16 Sep 2026 21:59:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="llfniK9l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1672A1F000FF;
+	Wed, 16 Sep 2026 21:59:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789595955;
-	bh=9mh+hNdVNou1TdLhd+FHhgaVzkAqNi5KZWIhNibhJsg=;
-	h=From:Date:Subject:To:Cc;
-	b=nzYQdAGommf7xzQqKPbpIbTmS0HgLYWKAFQR1APmzGA8A5sW/2CLh5EANRBN+lMAP
-	 wReJR2joTAbmvBX7u6kmf/5q325sAlXdtCgdN2Il0wNnB1zSjtstDGknWZifPtKgf4
-	 ODeI2GGAF4bjTxhfaDW+RpXnX8A+PXIxJHwkRa946WOrGTcCTT6mh5CdFf4XPnwU7w
-	 uvAwgXAc36G1c6dNRnVyBAG+E+DZI1vJNNdCxvwxOHOcsBSf6QfJpJp7ASSY+qaf5Q
-	 ScfkbXEHGgviNBHvAjbsws9DUkM2zOXrydzU2XYUfO/0mqPjvUNCLe3pn/cwLFSOxD
-	 CSXeX9l3eRz3w==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Wed, 16 Sep 2026 14:58:44 -0700
-Subject: [PATCH] random: vDSO: Avoid call to memset() when zeroing reserved
- in __cvdso_getrandom_data()
+	s=k20260515; t=1789595990;
+	bh=/ynceSiX5BzkPRAt5uKfwzx0DmIeK81qsr9eJqIxNtE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=llfniK9lvqSn97K3MnCasOMpGYk0mvhjIlCJgGOV9gwSvNb8Oe83NY8pDYk2wGeYQ
+	 X895EGTFDcigJDyES7WcWvunMYHNslTRX3SdB/CejdYSt5tTkttFfYmgOBKrF7eNRE
+	 V0mhM7bDJHykrtgz4fM8QBoDstMYKmq10CBExVOyDAQR6jphaHArgxsdBvdLc83aU/
+	 bCMaSG869ZepSOHkPXUU6YuNfEwVIHVOgUQT9lCXK/iyIg+SWm/Q5SCm7Ir6Sql/Ur
+	 cArpEOZeTAiWduwvj1rCxbOQNcdb/Y66P24oRumsvRBADnvrlPwM9jcFNLIV+phr8f
+	 etX4Gr7pDquPA==
+Date: Wed, 16 Sep 2026 14:59:48 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Ravi Bangoria <ravi.bangoria@amd.com>
+Subject: Re: [PATCH 12/12] perf mem record: Use the IBS swfilt filter when
+ available
+Message-ID: <aqsRVABj23jaaiSq@google.com>
+References: <20260916114740.48230-1-acme@kernel.org>
+ <20260916114740.48230-13-acme@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-vdso-getrandom-avoid-memset-llvm-24-v1-1-80a92f2e225a@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ7CIBBA0as0s3YSQMToVYwLLNM6poBhkJg0v
- buoy7f5fwWhwiRwHlYo1Fg4pw69G2C8+zQTcugGo4xTJ+2wBck4Uy0+hRzRt8wBI0WhisvSIhq
- LRxvsYfJO7TVBLz0LTfz+XS7Xv+V1e9BYv2nYtg9pTCXjhwAAAA==
-X-Change-ID: 20260916-vdso-getrandom-avoid-memset-llvm-24-74d45fa6031e
-To: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Theodore Ts'o <tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2125; i=nathan@kernel.org;
- h=from:subject:message-id; bh=BNcSQgSTj6WR5Bdg6c6KiBf2o/yyKbQ+vLuJugYOCOo=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFmrBbU/x4c7qb4veSIQGn4q93rzx+QvW5q1lcNsag+sq
- Pbn/7ywo5SFQYyLQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAEwkuZ2R4YDWHW1vBsNnlz7k
- /NX39iw9/fanwcLwCL1ffk+nODpMsGFkeFVx8P7uF1y1DBMXzlq1YWp64UrBi1yrP62I9/hvta6
- sjxMA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260916114740.48230-13-acme@kernel.org>
 
-After a recent change in LLVM [1], RISC-V builds fail when checking the
-vDSO:
++Ravi
 
-  arch/riscv/kernel/vdso/vdso.so.dbg: dynamic relocations are not supported
-  make[4]: *** [arch/riscv/kernel/vdso/Makefile:78: arch/riscv/kernel/vdso/vdso.so.dbg] Error 1
+On Wed, Sep 16, 2026 at 08:47:39AM -0300, Arnaldo Carvalho de Melo wrote:
+> From: Arnaldo Carvalho de Melo <acme@redhat.com>
+> 
+> IBS events with exclude_{user,kernel} bits, as used in per-thread mode
+> when kernel samples are not allowed, are rejected by the kernel on
+> hardware without the privilege filter, so a per-thread 'perf mem
+> record' fails:
+> 
+>   $ perf mem record -o /dev/null -- true
+>   Error:
+>   Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
+>   Invalid event (ibs_op/ldlat=0/u) in per-thread mode, enable system wide with '-a'.
+> 
+> Kernel v6.14 added swfilt, a software privilege filter that makes those
+> events usable per-thread, exposed as the 'swfilt' format term
+> (d29e744c71673a71 "perf/x86: Relax privilege filter restriction on AMD
+> IBS"):
+> 
+>   $ perf record -e ibs_op/ldlat=0,swfilt=1/ -- true
+> 
+> Give the ibs_op memory events a name variant with the swfilt term, used
+> when the PMU exposes it as a format term, keeping the names that need
+> system wide mode otherwise.
+> 
+> The variant is used even for records that end up without exclude bits,
+> e.g. a plain system wide one: perf record adds those bits itself when
+> the first open fails with EACCES on an unprivileged setup, after the
+> event name has been built, so the term has to be in it for that retry:
+> 
+>   $ perf record -v -e ibs_op/ldlat=0/ -- true
+>   kernel.perf_event_paranoid=2, trying to fall back to excluding kernel and hypervisor  samples
+>   Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
+>   Invalid event (ibs_op/ldlat=0/u) in per-thread mode, enable system wide with '-a'.
+> 
+> With no exclude bits the kernel discards nothing.
+> 
+> This makes the per-thread 'perf mem record' that the data type profiling
+> shell test does work: the skip added by patch 1 is driven by that record
+> failing, so it now runs on AMD kernels with swfilt, and keeps skipping on
+> kernels without it.  The 'Test data symbol' shell test matches the exact
+> ibs_op event string, so its regex now accepts terms added after
+> ldlat=150, and it only checks ldlat when the captured term has it: on
+> uarch without ldlat the swfilt variant makes the capture non-empty
+> ("swfilt=1"), that the old 'ldlat=0' check would reject.
+> 
+> Suggested-by: Namhyung Kim <namhyung@kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+> ---
+>  tools/perf/arch/x86/util/mem-events.c      | 17 ++++++++++++++---
+>  tools/perf/tests/shell/test_data_symbol.sh |  6 ++++--
+>  tools/perf/util/mem-events.c               | 21 +++++++++++++++++----
+>  tools/perf/util/mem-events.h               |  2 ++
+>  4 files changed, 37 insertions(+), 9 deletions(-)
+> 
+> diff --git a/tools/perf/arch/x86/util/mem-events.c b/tools/perf/arch/x86/util/mem-events.c
+> index b38f519020ff8c6f..034053dc762101dc 100644
+> --- a/tools/perf/arch/x86/util/mem-events.c
+> +++ b/tools/perf/arch/x86/util/mem-events.c
+> @@ -7,7 +7,10 @@
+>  
+>  #define MEM_LOADS_AUX		0x8203
+>  
+> -#define E(t, n, s, l, a) { .tag = t, .name = n, .event_name = s, .ldlat = l, .aux_event = a }
+> +#define E_INIT(t, n, s, l, a, sf) {					\
+> +	.tag = t, .name = n, .event_name = s, .swfilt_name = sf,	\
+> +	.ldlat = l, .aux_event = a }
+> +#define E(t, n, s, l, a) E_INIT(t, n, s, l, a, NULL)
+>  
+>  struct perf_mem_event perf_mem_events_intel[PERF_MEM_EVENTS__MAX] = {
+>  	E("ldlat-loads",	"%s/mem-loads,ldlat=%u/P",	"mem-loads",	true,	0),
+> @@ -21,14 +24,22 @@ struct perf_mem_event perf_mem_events_intel_aux[PERF_MEM_EVENTS__MAX] = {
+>  	E(NULL,			NULL,				NULL,		false,	0),
+>  };
+>  
+> +/*
+> + * IBS events with exclude_{user,kernel} bits set, as used by perf to
+> + * record per-thread when kernel samples are not allowed, are rejected
+> + * by the kernel on hardware without the privilege filter unless the
+> + * swfilt software filter is used, so these events carry a variant of
+> + * their names with the swfilt term, used by perf_pmu__mem_events_name()
+> + * when the kernel exposes the term.
+> + */
+>  struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX] = {
+>  	E(NULL,		NULL,		NULL,	false,	0),
+>  	E(NULL,		NULL,		NULL,	false,	0),
+> -	E("mem-ldst",	"%s//",		NULL,	false,	0),
+> +	E_INIT("mem-ldst",	"%s//",		NULL,	false,	0, "%s/swfilt=1/"),
+>  };
+>  
+>  struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX] = {
+>  	E(NULL,		NULL,		NULL,	false,	0),
+>  	E(NULL,		NULL,		NULL,	false,	0),
+> -	E("mem-ldst",	"%s/ldlat=%u/",	NULL,	true,	0),
+> +	E_INIT("mem-ldst",	"%s/ldlat=%u/",	NULL,	true,	0, "%s/ldlat=%u,swfilt=1/"),
+>  };
+> diff --git a/tools/perf/tests/shell/test_data_symbol.sh b/tools/perf/tests/shell/test_data_symbol.sh
+> index d61b5659a46d9a77..52c837fddb639595 100755
+> --- a/tools/perf/tests/shell/test_data_symbol.sh
+> +++ b/tools/perf/tests/shell/test_data_symbol.sh
+> @@ -65,15 +65,17 @@ if (($is_amd >= 1)); then
+>  	# --ldlat on AMD:
+>  	# o Zen4 and earlier uarch does not support ldlat
+>  	# o Even on supported platforms, it's disabled (--ldlat=0) by default.
+> +	# o Kernels with the swfilt term add it even when ldlat is not
+> +	#   supported, so only check ldlat when the term is present.
+>  	ldlat=${BASH_REMATCH[1]}
+> -	if [[ -n $ldlat ]]; then
+> +	if [[ $ldlat == *ldlat=* ]]; then
+>  		if ! [[ "$ldlat" =~ ldlat=0 ]]; then
+>  			echo "ERROR: ldlat not initialized to 0?"
+>  			exit 1
+>  		fi
+>  
+>  		mem_events="$(perf mem record -v --ldlat=150 -e list 2>&1)"
+> -		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150/.*available ]]; then
+> +		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150[,/].*available ]]; then
+>  			echo "ERROR: --ldlat not honored?"
+>  			exit 1
+>  		fi
+> diff --git a/tools/perf/util/mem-events.c b/tools/perf/util/mem-events.c
+> index 0b49fce251fcc184..8f74cd085e500231 100644
+> --- a/tools/perf/util/mem-events.c
+> +++ b/tools/perf/util/mem-events.c
+> @@ -82,6 +82,7 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
+>  					     char *buf, size_t buf_size)
+>  {
+>  	struct perf_mem_event *e;
+> +	const char *name;
+>  
+>  	if (i >= PERF_MEM_EVENTS__MAX || !pmu)
+>  		return NULL;
+> @@ -90,24 +91,36 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
+>  	if (!e || !e->name)
+>  		return NULL;
+>  
+> +	/*
+> +	 * Use the swfilt variant of the name when the PMU exposes the term.
+> +	 * It is not conditional on the event already having exclude bits:
+> +	 * perf record adds those bits itself when the first open fails with
+> +	 * EACCES on an unprivileged setup, after this name has been built,
+> +	 * and that retry only succeeds with the term in the name.  With no
+> +	 * exclude bits the kernel doesn't discard anything.
+> +	 */
+> +	name = e->name;
+> +	if (e->swfilt_name && perf_pmu__has_format(pmu, "swfilt"))
+> +		name = e->swfilt_name;
 
-memset() is now generated when zeroing params->reserved because LLVM has
-an optimization (now run in more instances) that can recognize at
-compile time when it is assigning a static value to a contiguous area of
-memory and turn that into a call to memset(). Both clang and GCC assume
-memset() is always available [2].
+It's a bit unfortunate we hardcode "swfilt" here.  Probably better to
+have it in the mem-events array and add it to the name format
+dynamically.  But as it's only needed for IBS, I think it's ok for now.
 
-Hide the value of the iterator variable from the optimizer using
-OPTIMIZER_HIDE_VAR to inhibit this optimization since it can no longer
-assume that the zeroing is contiguous.
+Thanks,
+Namhyung
 
-Link: https://github.com/llvm/llvm-project/commit/90cebef1411617fc3eedd359bdf00cb44b1c2439 [1]
-Link: https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/Standards.html#index-ffreestanding [2]
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
- lib/vdso/getrandom.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/lib/vdso/getrandom.c b/lib/vdso/getrandom.c
-index 2851afa9154f..d48d1fdb3351 100644
---- a/lib/vdso/getrandom.c
-+++ b/lib/vdso/getrandom.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <linux/array_size.h>
-+#include <linux/compiler.h>
- #include <linux/minmax.h>
- #include <vdso/datapage.h>
- #include <vdso/getrandom.h>
-@@ -83,8 +84,11 @@ __cvdso_getrandom_data(const struct vdso_rng_data *rng_info, void *buffer, size_
- 		params->size_of_opaque_state = sizeof(*state);
- 		params->mmap_prot = PROT_READ | PROT_WRITE;
- 		params->mmap_flags = MAP_DROPPABLE | MAP_ANONYMOUS;
--		for (size_t i = 0; i < ARRAY_SIZE(params->reserved); ++i)
-+		for (size_t i = 0; i < ARRAY_SIZE(params->reserved); ++i) {
-+			/* prevent compiler from turning loop into memset() */
-+			OPTIMIZER_HIDE_VAR(i);
- 			params->reserved[i] = 0;
-+		}
- 		return 0;
- 	}
- 
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260916-vdso-getrandom-avoid-memset-llvm-24-74d45fa6031e
-
-Best regards,
---  
-Cheers,
-Nathan
-
+> +
+>  	if (i == PERF_MEM_EVENTS__LOAD || i == PERF_MEM_EVENTS__LOAD_STORE) {
+>  		if (e->ldlat) {
+>  			if (!e->aux_event) {
+>  				/* ARM and Most of Intel */
+>  				scnprintf(buf, buf_size,
+> -					  e->name, pmu->name,
+> +					  name, pmu->name,
+>  					  perf_mem_events__loads_ldlat);
+>  			} else {
+>  				/* Intel with mem-loads-aux event */
+>  				scnprintf(buf, buf_size,
+> -					  e->name, pmu->name, pmu->name,
+> +					  name, pmu->name, pmu->name,
+>  					  perf_mem_events__loads_ldlat);
+>  			}
+>  		} else {
+>  			if (!e->aux_event) {
+>  				/* AMD and POWER */
+>  				scnprintf(buf, buf_size,
+> -					  e->name, pmu->name);
+> +					  name, pmu->name);
+>  			} else {
+>  				return NULL;
+>  			}
+> @@ -117,7 +130,7 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
+>  
+>  	if (i == PERF_MEM_EVENTS__STORE) {
+>  		scnprintf(buf, buf_size,
+> -			  e->name, pmu->name);
+> +			  name, pmu->name);
+>  		return buf;
+>  	}
+>  
+> diff --git a/tools/perf/util/mem-events.h b/tools/perf/util/mem-events.h
+> index 5b98076904b0b689..41f628fad10709b9 100644
+> --- a/tools/perf/util/mem-events.h
+> +++ b/tools/perf/util/mem-events.h
+> @@ -11,6 +11,8 @@ struct perf_mem_event {
+>  	u32		aux_event;
+>  	const char	*tag;
+>  	const char	*name;
+> +	/* Name with the swfilt software privilege filter, when supported. */
+> +	const char	*swfilt_name;
+>  	const char	*event_name;
+>  };
+>  
+> -- 
+> 2.55.0
+> 
