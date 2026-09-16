@@ -1,47 +1,73 @@
-Received: from out198-10.us.a.mail.aliyun.com (out198-10.us.a.mail.aliyun.com [47.90.198.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f24.google.com (mail-pj2-f24.google.com [74.125.227.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6BF389E1A;
-	Wed, 16 Sep 2026 17:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC3F3D0C07
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:48:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580934; cv=none; b=SAI7JrVOwF0TuGJ/nC6VIBQf5Z7qHPQ0X7BuBnH9hcOFiFJxTeGfEuekqiCzM2fciXwLiBTRI7ETI1cKXTl4Ke1kCu/TlNbW+/fhn1vogFwKVHDVCgDaHgV++LQ7BrSUJAH4ObDuC03f7lCAZQuo8tpPQqjkml+UPswPy0jyx+0=
+	t=1789580946; cv=none; b=ClKEsEITedVZ8HHzxYrZZ8rFAECWF0JxV/yXBMMTmoDvDLmsV2qwEIylEy8tm6s7Jy+PJA+qzuH7/zp/a9HpH7cnMKQ7/R4Bj0gcf9XlJbohMWUhk4el3VvNSNzUo37S1zfZX5td9i6633XfTzB1gPxvhDVDSWgJGKqskEqvv6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580934; c=relaxed/simple;
-	bh=k33fXF4XusNxY5ulRNWOjlV64rtCPhIW66nonQLKaoY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uvynvH3ZK0A0GIcC4UXObm2Loae7LU8kI7qLPHuhtdpfhq3c4/imc66ZekrAt7jn9j9ugUJ6/evmvDq/V5r9Oc0cxlgLbjTdSyf48CBM1a64jjZ9RyQimDZZWKtCuGxwMFyi6Gffll9+PHGc3eI/pwk6KKWOYKnKq56ELuMTMwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=NaFB7E9g; arc=none smtp.client-ip=47.90.198.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789580946; c=relaxed/simple;
+	bh=yFEBDTHLm27tGKV5vt9Tu/3K8m3JL0Xv1esWzL+iZlo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mspTbOOfTY44OKwVUHPTom3V7DPl1CWdE5etJyHiI/di9n36rFhwq8dWlQ6fzegLVMgO3isFbx+F02hbd6rd9Ibg1fbofr0HWK9jxlQ7E/B1BCEDO8Mjh1Z0IRNFCRRG/WSjvlh7a/IC/YxsWJS/KHSTmPUtdvJC35WZ4V51qaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QEWvwuDD; arc=none smtp.client-ip=74.125.227.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="NaFB7E9g"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789580876; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Zx1QEPZrMvacbciA8Pq0PrXq/rwJg/pG0xocikRHfbE=;
-	b=NaFB7E9g7Cz1b98erf7uf1QlfHCBMmiJzN6Pz3F6IByvXrQYoC/U4kGGJzWzF0MBlic/umkMXKD3QQCJzVbhRh/4RelEfKMMxdx6Y0suZpNZJ/n4sJB7bxRFYCRKG6BM+qQrOdX0QFtRjDiVBXudyz2He0v2NIpH7/e9pp2kRvc=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436481|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00685537-0.000624417-0.99252;FP=3450452327357023579|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jFIg.Ue_1789580875;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jFIg.Ue_1789580875 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 17 Sep 2026 01:47:56 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: mcgrof@kernel.org,
-	petr.pavlu@suse.com,
-	da.gomez@kernel.org,
-	samitolvanen@google.com,
-	atomlin@atomlin.com
-Cc: mmaurer@google.com,
-	masahiroy@kernel.org,
-	linux-modules@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QEWvwuDD"
+Received: by mail-pj2-f24.google.com with SMTP id d9443c01a7336-2dd77300816so3487185ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:48:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789580931; x=1790185731; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tX/P6iDiknOSkE6HIRfZmXdsK+EZB3PqI+j0tRbaNG0=;
+        b=QEWvwuDDWBUjSl9ErHnpI1YiB9iPXM/4zs2QdbNmyxR5VQnfkuZlqoIJ6SBOYjL0BZ
+         O5xLIy89CDA178TUyz4xrdm7s3Iqbv7VvIavfMMehIse1nsrjVDqSvEpK0X9fCWOy99U
+         X5WZgH33QQx0liqpkMkJL7OZeNB3wWVYinsX3R8e64yoSG9+k4mau/4x0mNvuga5frck
+         6gEzAgjdYBligc+xhy7UJ9JA2VwTkL6UL6OkEQfYSvlrA3tk8eY7lWjypKIWdUrSLXht
+         jYWIJ2QPQC+HWp2bHb8NYsCXePFr5WTBMucD2jMo5dlADCcft8nKlrI1zg7dRHpChFIs
+         mlTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789580931; x=1790185731;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tX/P6iDiknOSkE6HIRfZmXdsK+EZB3PqI+j0tRbaNG0=;
+        b=uyrzdFzK1942sKD6DM9RTpQWXJS55qDmKPiAZKTuVCF//HGWdpgMnYec00MuSyDpdY
+         TSlA8DQXB5oqe7f5Q47iKJZFZZWiqR6dGdAq+9foSfzxO2D23OXJrR6fFjj4g0FsHMqi
+         zjPlrjY2aKTxXWIh9bi3MLhCbRA6fxoCGltxk7Wv+9ufJVFSua7aBS5WjpbY33j2tQOA
+         XzcUjMthzbjmMCwDv5T0K2XKIxgSQCy6wIfJy2jwFZAs5SMW7A2XSqaXbTc0AfM5JfG6
+         4BOsW+sMt3JTE1oUn8i+V4no9Lq6U1Kh8j1L+QfkVAezrSPcKWgqX0SYgkEGUQf6zG2D
+         ykDg==
+X-Forwarded-Encrypted: i=1; AKwUvBxTOm8zbmfXLv6bSe640b89jYhXrdHd736ZPjb0D8kJUhNAzxWW43A0Y9mtlaEJMWJFYKU41ziQ/p8m1GA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWEaxtC7+B6E4Dh30wAGRR6yiuY5XBG1CVEz641y5+haUStNK5
+	eLzbkc/5g1daKJPwFDoYT86edS5PsWncaWY3dyLiekYDiHIoMRmx+fjF
+X-Gm-Gg: AYBFou1gaCLKHmgIXFrhA+NZlyzEXb7ksmmttslBeCqv69Uvh4eYC6CnUFAIfTNNNM4
+	JQIxKvTiG4jvkBagXxEHj1g+7n+ed1WRUjfie1vt9FgBssOJVnsI/WOTjs6QOADKQrkKhDrtf/B
+	I4GDdlBdbdunygUQogWdS1UDEGjk3h8YCrbd6/vXWOh8LYCSgSRXxDthxtXRnzo8ovqIblMiGV1
+	i46f2LNJiLBqGAeV33H4A6YCyAa00gWb0Rq1QwZubeOVarwZNliGu4sUqW/RhWS1I8ae1R7Z2I3
+	qvyN+3HoSmZFHAD+fcWXP8m+F6cOyJrFvajrGJz8DM/zHK0/dT9RBut4VvLqcH3mLun5xDL/AvC
+	gXOBSqNlH2xMhI6kH5zj4uPfaDuqOzHfQT3/SaAjU6Cwh74n5vMuYUfPdw4kQxOeHiWFqDtw7gO
+	N+lDm99KTlEu3NksI1CEgUmAY6L2Yhy7o4iZM7AQG+wdbORl3CbDviB9LcWkaTTWE9IiJUenWZH
+	IkD
+X-Received: by 2002:a17:903:b90:b0:2da:fa62:4aee with SMTP id d9443c01a7336-2dd9c7b71ffmr7717775ad.1.1789580930906;
+        Wed, 16 Sep 2026 10:48:50 -0700 (PDT)
+Received: from arch ([2401:4900:ccd2:8875:9d19:1309:9e6d:8926])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89edef89sm15919995ad.49.2026.09.16.10.48.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 10:48:50 -0700 (PDT)
+From: Daasaradhi Mannava <daasaradhimannava@gmail.com>
+To: Nikita Kravets <teackot@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] module: Sanitize the undefined sh_name of SHT_NULL sections
-Date: Thu, 17 Sep 2026 01:47:52 +0800
-Message-ID: <20260916174753.14870-2-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260916174753.14870-1-fangxy@xiaopeng.com>
-References: <20260916174753.14870-1-fangxy@xiaopeng.com>
+	Daasaradhi Mannava <daasaradhimannava@gmail.com>
+Subject: [PATCH] platform/x86: msi-ec: Add MSI GL65 Leopard 9SCXK EC firmware
+Date: Wed, 16 Sep 2026 17:48:30 +0000
+Message-ID: <20260916174830.11620-1-daasaradhimannava@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,99 +76,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-elf_validity_cache_secstrings() skips the sh_name bounds check for a
-SHT_NULL section:
+Add the firmware string '16U8EMS2.100' to the ALLOWED_FW_1 array.
+This enables Embedded Controller support, including battery charge
+thresholds, for the MSI GL65 Leopard 9SCXK (MS-16U8) laptop.
 
-	for (i = 0; i < info->hdr->e_shnum; i++) {
-		shdr = &info->sechdrs[i];
-		/* SHT_NULL means sh_name has an undefined value */
-		if (shdr->sh_type == SHT_NULL)
-			continue;
-		if (shdr->sh_name >= strhdr->sh_size) {
+The EC memory layout of this firmware matches the existing config:
+the CPU and GPU temperatures at 0x68 and 0x80 agree with coretemp and
+the NVIDIA driver, the fan mode at 0xf4 reads 0x0d (auto), and the
+charge control register is at 0xef.
 
-A SHT_NULL section may then carry an sh_name past the end of
-.shstrtab. The name lookups that run afterwards do not skip SHT_NULL.
-This is find_any_unique_sec(), which load_module() uses to locate
-".modinfo":
+Tested on MSI GL65 Leopard 9SCXK with EC firmware 16U8EMS2.100 and
+BIOS E16U8IMS.504: with AC connected and the battery at 18%, writing 10
+to charge_control_end_threshold stops charging ("Not charging", 0 A),
+and writing 100 resumes it.
 
-	for (i = 1; i < info->hdr->e_shnum; i++) {
-		if (strcmp(info->secstrings + info->sechdrs[i].sh_name,
-			   name) == 0) {
-
-so the out-of-bounds sh_name is read as a string. A module carrying a
-crafted SHT_NULL section reads past its in-memory copy:
-
-  BUG: KASAN: vmalloc-out-of-bounds in strcmp+0xb0/0xc0
-  Read of size 1 at addr ffa00000005436e0 by task insmod/81
-  ...
-   strcmp+0xb0/0xc0
-   find_any_unique_sec+0x103/0x190
-   load_module+0x5c4/0x8600
-
-sh_name has no defined value for SHT_NULL, so give it one that is in
-bounds: the empty string at index 0. The walkers then compare against
-"" and, as before, ignore the section, so no valid module is affected.
-
-Fixes: 3c5700aeabd8 ("module: Factor out elf_validity_cache_secstrings")
-Cc: stable@vger.kernel.org
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+Assisted-by: LLM
+Signed-off-by: Daasaradhi Mannava <daasaradhimannava@gmail.com>
 ---
+ drivers/platform/x86/msi-ec.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Found by reading the section-name walkers in kernel/module/main.c after
-9a5ff4568932 tightened the string-table types. elf_validity_cache_secstrings()
-skips the sh_name bounds check for a SHT_NULL section, but find_any_unique_sec()
-still resolves every section's name as secstrings + sh_name, so the skip leaves
-one path where an unchecked sh_name is read as a string. Patch 2/2 fixes the
-matching SHT_NOBITS gap on __version_ext_names; the two are independent.
-
-Reproducer: build an otherwise valid .ko and add a SHT_NULL section whose
-sh_name is past the end of .shstrtab (0x2000 in the run below, aimed at the
-redzone after the in-memory module copy). insmod it. Before the change the name
-lookup reads out of bounds; after it the SHT_NULL section resolves to "" and, as
-before, is ignored, so the module loads with rc=0.
-
-Both cases ran on 704340f1cd0d (v7.3-rc4): x86_64 defconfig plus
-CONFIG_KASAN_GENERIC and CONFIG_KASAN_VMALLOC, gcc 13.2.0, QEMU under TCG. The
-unpatched and patched kernels are built from byte-identical .config files and
-differ only by this patch. The tree already contains 9a5ff4568932, so this is
-the gap that commit left, not a re-report of it.
-
-One setup detail is not obvious. The payload has to match the kernel's
-vermagic to reach load_module()'s name walkers, so the patched kernel is built
-with LOCALVERSION pinned to keep the release string byte-identical to the
-unpatched one; otherwise insmod fails on the version magic before the buggy
-lookup ever runs and the run proves nothing.
-
- kernel/module/main.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index d0e1e0b..e36bfe4 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -2060,9 +2060,18 @@ static int elf_validity_cache_secstrings(struct load_info *info)
+diff --git a/drivers/platform/x86/msi-ec.c b/drivers/platform/x86/msi-ec.c
+index 566dfc73c..7c84ddd7e 100644
+--- a/drivers/platform/x86/msi-ec.c
++++ b/drivers/platform/x86/msi-ec.c
+@@ -122,6 +122,7 @@ static const char * const ALLOWED_FW_1[] __initconst = {
+ 	"17F2EMS1.104",
+ 	"17F2EMS1.106",
+ 	"17F2EMS1.107",
++	"16U8EMS2.100", // MSI GL65 Leopard 9SCXK
+ 	NULL
+ };
  
- 	for (i = 0; i < info->hdr->e_shnum; i++) {
- 		shdr = &info->sechdrs[i];
--		/* SHT_NULL means sh_name has an undefined value */
--		if (shdr->sh_type == SHT_NULL)
-+		/*
-+		 * SHT_NULL means sh_name has an undefined value. The section
-+		 * name walkers that follow (find_any_unique_sec(),
-+		 * module_mark_ro_after_init(), ...) look the name up as
-+		 * secstrings + sh_name for every section, so give the undefined
-+		 * value a safe in-bounds meaning instead of skipping the check:
-+		 * the empty string at index 0.
-+		 */
-+		if (shdr->sh_type == SHT_NULL) {
-+			shdr->sh_name = 0;
- 			continue;
-+		}
- 		if (shdr->sh_name >= strhdr->sh_size) {
- 			pr_err("Invalid ELF section name in module (section %u type %u)\n",
- 			       i, shdr->sh_type);
 -- 
-2.50.1 (Apple Git-155)
+2.55.0
 
