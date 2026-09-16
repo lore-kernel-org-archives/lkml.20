@@ -1,203 +1,157 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013042.outbound.protection.outlook.com [40.93.201.42])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295B04EE844
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789558143; cv=fail; b=cfIxcb3hX+OVVPEAEUCkT3i/ABouQzgQJy8gUaatIIrAUZzSWbJqTt5v1U6Q3npLqAlm50VY45iapUaBXwF/ZZ+AMMPEO1HSIcIIAep5kTRo+rzpOE/6IaI7NP63jhQCNmx3zXtSCJqsR+xwSUaJ+0eKe6W/xIyp0sJ6OS7hysE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789558143; c=relaxed/simple;
-	bh=5IYVn7S029K3Hv08Ui/Wu+nhxnLR5Rcn8VfozHpl6/U=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=FKzyELrUS7XNdp8aMuEPB2pEQHSz2lt2jRPCl5XeJoqPoI0H/5R4DTYwQE/gl1bzWn9Dim1oX9RyEFaPacGnYTonqde2s2rqlWxdiAVqKvz5EN9ljAWHy8QC4TbtPEqUIgtPnub8vC9LUtjiPiIEc9A+JhT+hsrFccSRhxjcXVU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=pN76R6yX; arc=fail smtp.client-ip=40.93.201.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25344E66A1
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:29:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789558172; cv=none; b=mzkNN9qlrmz2NN9WSCOFT0sbzgRG5wjGUP/72mfLop+4Y2sCDemtMwC0xWhDX6WG7mt4upeUuIzQji5+CdHTTtYZBu4ebt+VRaWDKj5Nb4YJS7mB2MWSBQC25KaJ+d2aapJuOPVQXWdGFHDzDpwkONmNUqr/mhmHmpJYvdnrZxQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789558172; c=relaxed/simple;
+	bh=DOrL3sm+i1neD6iGy2zkTnSLDE6KJfju951dBmahAos=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qevwPFXlL9jMGmQ8sNHOLPGymRN8e6uJwBp0IwLVIDz05epPBIJ0mauLqvAlvdS3z6Qmuf8TDUCbOlGuALfxwomBUkRh8JtN4v/JdNlirvRLaE5IBGbKmMeKTqhPz2qWZVRpCxgZ//fkrRmW6mTpNUj2AQPFOXbMCmzvafD4QNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RpaVmxwm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KRqbQr9g; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="pN76R6yX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BUz4GBaBiX8RVHJsUw0NqTrQQlF2ywKgwyGBJXOMtmhweMV5s0hVPOdNhXMyVnPgXdDGixntGM8bX8+xQZAWF/lsmCQ1RllfhwLuSxxZL7V8feJH6yiMCT1fTua6bkj8d7t+g3yOhYv/k+0Y2Zp/JBuHXMoe5frv2Ieg/pFHorMqzXoYIhgJKtbxxZZ5PgEiP7ssHqT3OEi3yTdatD7SnliILIZySmqpOIIRaYisGjTGVv6K2RSuqc1ZqQWjvMMq1by/wpZnGMQcWopo+T6EtGHkmkEmKgWnhrZsS0/PkiH1G4ibT+mFbxQgbQ0wiN115xqyRdsWkvQ7Rj5SAvXFOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qSc8TncsUUqKeAk1qtN39PwX/k1zTCmgwTdBLab+PYs=;
- b=o6pLVkDJJ3ZO1Nn+Ewm0e6T40vFPQaj4ccqhamidecTPXGQA+W8OoyNNrIedmoalDPj/3R0BDunFYredUGdC3AKFLcLx/oj01n4vZkmL+FhXBVgmlG/WCA0Yhb6ns176a8cICaUzi4sis/PKToZRsz4wzoxsNwiCJKLooV0VTZlUMuvzS5EJGEUO9Ign0c9Z0F9eIZhLbScLyVRmR+vDsUIt4VNP110MhTj3mQCvZg88QQE206cJptgjSQZiMHtys0fLbp4x4uYGvbDiYxKb6t7pTxVTMB1X0wh1KpSIKvHpWGoh8q8k1vYWEcD31lN/OivYYQ6FNHO/Xpr2IWJwQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qSc8TncsUUqKeAk1qtN39PwX/k1zTCmgwTdBLab+PYs=;
- b=pN76R6yXnq0LGoabZ0g+lFNJP2erQp5iFlKUgozXefWKa1lkDpFXBpj0L8L0rLkBeojvL5kfdf7bOCQdtuf+CzMZwV0FpdSvi4u+tLKi3a9uPe+UhwgnkUR253NkjEVOjvCIlxZMro5ut8Vb9l9AgdCnjO6xZSPnwGvUPw4w72g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
- by CH3PR12MB8754.namprd12.prod.outlook.com (2603:10b6:610:170::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Wed, 16 Sep
- 2026 11:28:49 +0000
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 11:28:49 +0000
-Message-ID: <d55151eb-4b81-41c7-927e-96635c1f6b7f@amd.com>
-Date: Wed, 16 Sep 2026 16:58:42 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: change TTM maintainers to Natalie and Arun
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- christian.koenig@amd.com, ray.huang@amd.com, nat@pixelcluster.dev,
- matthew.auld@intel.com, matthew.brost@intel.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260915154804.605772-1-christian.koenig@amd.com>
- <a3c94fcf0029e7f257a0219532d906643846ffd1.camel@linux.intel.com>
-Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <a3c94fcf0029e7f257a0219532d906643846ffd1.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0117.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:27::32) To DM4PR12MB5039.namprd12.prod.outlook.com
- (2603:10b6:5:38a::18)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RpaVmxwm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KRqbQr9g"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G92sfn1552927
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:29:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DOrL3sm+i1neD6iGy2zkTnSLDE6KJfju951dBmahAos=; b=RpaVmxwmyMOzIZR2
+	kDtAUBfg0AgHqU/RCVmEPDCrMJeJojOW1JMJj6bcu2EMqnq7WBC0udXk2Z9Nn4UW
+	8Cmq/9vRW1eYdIGR9/CTrlJrXIyOwHBVv8Ie7Y9cZZ1yfX9zfvLzAJ3tO7xo12FL
+	GZwZDFYhxuXGaNmO1TZccEbIjv1vnzM2V+Fv0R3hv9JdvaBWxstghFMkByY4RQIX
+	aCjUOWdgbJZO6o5qi+0odHi9CirbRcF4CZXtPkOrJ9NRQMy5OhfXGqXcXLyL5kiA
+	IizjnMqkj76flYJdyB17ezA5H5HjLXjY1IOMCJhErwSiIQH/uRF2PwOdxt9xuXdH
+	+KsAdg==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq9n64bx5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:29:23 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e7ff7b375so6725863a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:29:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789558163; x=1790162963; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DOrL3sm+i1neD6iGy2zkTnSLDE6KJfju951dBmahAos=;
+        b=KRqbQr9g6uozhpNPNonaC8YUaeV1WNp+16x1ZV6eD8EwRz8ugkqLCMqKWsmofP+Owp
+         4h8fJqssxjMtnWK2Eo+D9/OHvZTseb4sIPx1NFr64R1k3YjKHhiwDQIHROeNaMXbeeNu
+         ZW2JC0h36WR2QKB1OysxPMBMzCeDcOyWKE6b6ysWzMybPXt7iQX/xQM20vMvAIMOncBz
+         RRUORFIOr1ca9TQVZyCscNuaWtiWuBCcRKz2Sjwie/tJaJZdG88G8IhLv5AtdtCPsObj
+         vxhKfrY6b005/mrFRa7S+26YEtb4henfQgHh5j4RQ/ymjDwxvxZ6LEVT2XzsRiT/LGT7
+         VmLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789558163; x=1790162963;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DOrL3sm+i1neD6iGy2zkTnSLDE6KJfju951dBmahAos=;
+        b=TfAWeSFGU2xCrndOENcUfXmx7C10zDPbMWrEZhZ7mD/au0LCOlZzKTsqM/tmPuaaYs
+         CpWp9QCgCUVMPhXsBk5rrN888UrRr+2TYSKixOg2BXdWV9wP5tF/yUdyGBGmENyGmkRJ
+         dqOjVBAGPtGneJNcA+ESZevfxke0rXS3eWTcTpKl145W6wlBF7EXTzZA+yEyxhGuG0qW
+         1lOeEuwYl1lsuRNtY0IkPiUeIU1cMtp2/Mfqug965FZ65YNAxQWhalyIB+tmQ/FTV8gj
+         cxk4Qqjl8q69DeybD6b7ZvGYh7GydnzEBNarlBwwh3qa/pAz5a9s1iQRUeBDnANzMfgB
+         MyLg==
+X-Forwarded-Encrypted: i=1; AKwUvBxd49I7GkMRDbGeOCxhkS6laaPJ3y+sEi7hFqEJ9CSY/36/04GhyWw6eCms6b0J6XJcACRyTsG4+f5w5VI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mg9hEV+N1BYeDndw5HSP7Yw584Dhp1ymnDqmpfEGGp5FRLdtbp
+	nchHUM93C905U0nFttSUe5R4wZmnfsGkacXtj7farsSUBI24frobhkKJtdNT/aJb9RYDp0P982M
+	DpTqqeUEWc4+z6AnOJCWu/O+/SdJ+eeDdWnXueJCnXyOietrdDRIcMHEp5QcHNo6GkVU=
+X-Gm-Gg: AYBFou0xcbstSvpwApQ/aMLtJdqmwzH7PWH51LTfjYyWSshm4uuJb/AG3zxfBCaQWze
+	/6w0L/MlLDzn8SqLxQ0xydcHib9oVjfyYo2j/FMdjhdHqDqzNsjZD+2uTFPzBakKf51xdf4g7Ca
+	yJpGGOFb1jevwI2o+K08bsYRE2aZ5XIPOiuEl8m8zdu+tViEWQFgUQF/2jT9cFjkVUwz5FPt4sc
+	0TQFxcc5kizNNCmq5XZspg4VNBBXcLdHeYDe35d3GPgXO3LFVIr3AhK4pbMrLMHL9Z5tkKddekk
+	oaKdZskt/o8bhyE/9020OeNDjJQw/PD06YvzWghGOm872Vbk15EewcC0SvMjRvmIJgs9mnh3qqY
+	z0/R2H5SOMW9BJBYB4etFmC3k1GOw
+X-Received: by 2002:a17:90a:d444:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39e1e314c60mr5919080a91.9.1789558162626;
+        Wed, 16 Sep 2026 04:29:22 -0700 (PDT)
+X-Received: by 2002:a17:90a:d444:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39e1e314c60mr5919013a91.9.1789558162159;
+        Wed, 16 Sep 2026 04:29:22 -0700 (PDT)
+Received: from [10.206.111.19] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b71428dsm4356441a91.10.2026.09.16.04.29.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 04:29:21 -0700 (PDT)
+Message-ID: <5dcdf9e4-6be6-4481-b5a5-0d3a7784de9a@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 16:59:14 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|CH3PR12MB8754:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76d43ef8-2a84-4c5d-7b7c-08df13e5ad9f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	7WYUFk7p+1JXf1XwWlahsr/Cywh9CRk7ztxvx6Ga0/rvumoct+aAgrQ8Fe+OFoIFJ6xcDhTr7HePEjLShOt71ggsuR10V3nhw3JQrbgLnnlQJG4quaFOa9UCsowdMSKZDx3sLBJnsgiKy2KdkIpJjuGFjoC6QxEPvTlIS7k/0YmKCL9lVnoIMvdqb86eYjC4zTp8GJa5m8XG4Q9n68W9/skdVo3IY0OOfx/3AmoLUybNQwpY1PIoHdg6Dv804EDU+7tXSs9VxZDkkXJIlVBMB45Py6TxZSlnG89C6nvE2Hkis8OGh3O2fDUe9k62jO43RiRRxiKKiXSaErP9aSo0z091oCMGNb00IDRgXUfREklH+Su1cujeYsv75yMySZVMj0ZMpbh0g+HS4JYZYAHj8thWM/iyBJbsgoU4jTvHLsoY67gUMALMTU49kgybpZRb78T3iln4nQvv4nCJbyabKy2lV0wi+zFZeop2r0QD8WLcafIHNL1Wxbfl7M0UN9JZNunxghHHT+kZUStZOoBKbnwiVKXC0A8gSQHiNbUok1zR56zSe06BPKj4aDtzaE6Kd64vcyDQhmbyaSnyWjdzCVA6k46Cph6j3p1eb2asRBJmA31sF0Yvah1vkDuy2rko
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5039.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UElyVzdmdVpGLzE0NHNVMWpMQjRyT3ZiYXZqdVI2SjFvR2RiYTlva08wcUtI?=
- =?utf-8?B?Y014Sm4vTFNSN3hmelRjZkNZQkpmTGFTMVV5WkF1OHArZTdIRlVpVnI3UGx0?=
- =?utf-8?B?ZFFTY2sxT2ducEhOQXlPK3VobDk5cjNiTUhYNERuVklRQnpnNzNlUzRwR2I5?=
- =?utf-8?B?WU5pdmZHK2dscE5YeVpXVFFoNEs3d0J1TDhaUUZXSC9Id2tpUUhTdTA1a2pt?=
- =?utf-8?B?bWRjOHFPWDl6NzNhMkxrLzNSNU9XVER0ZVlOSWdqYURnUnMvSjRPaG0vV01H?=
- =?utf-8?B?b1J5VjI5Yi9nK1VnVHlPTzIxRlNhZDAxVWdqV2kxanE1WWNXelBZWUNrcEpz?=
- =?utf-8?B?d1l2TmNlU2NaT2NPRTlmRElGM2VWQkZwUW9WTDM5WTFMNWcvR2VQdE5UYnFu?=
- =?utf-8?B?TUF0RHdkWmFXV3kzVy9ndGlnd2hBWnBMclc2UnJabWJpcURiUDhtMUErZC9x?=
- =?utf-8?B?RGczeDBPZGFhNzdtS3JyeHZDT3ljVlg2YXpWNGh4Wmx1eWhhR3poenVOYVli?=
- =?utf-8?B?MHFsZEZ6aDdkRUlLNERHYjUrVVJRQVh4V3ptMGIyMnF3MXJadkJVdU14aGk3?=
- =?utf-8?B?bkxQZE5ZbmZ5NitrLzhhdm1NeTRBS1B1bDYwaUk2TUQzV0ZLMnRXMjg2eFVI?=
- =?utf-8?B?eGNqYnhWTzFZTFNqbTRWcEtwWFJYYnVmSmV1b0FlRmc4clk0NW5uVmdLdFZD?=
- =?utf-8?B?bko0K2Rla0J3L3VTZ0pEbVV6b3JlYVhtQ0ZYeXI2TzdaTkVVRDdlVWpyRFR5?=
- =?utf-8?B?WGZ0TUNtallVUGh0ak1XdEVKbHdudk83aWxIdW1zMDgycU1SVVJSVHRLaXlR?=
- =?utf-8?B?R2lDbmtCaDF5ZGJsSk1DRDdxdVBxM0FHYkMwZFdjMThUd0czTHBaL2RYVnlN?=
- =?utf-8?B?dzljWm4rOFRjVGdUYlN6VTd0UmF4QmxIdC9ncjlXd29IV2k5VzRnbVFqUy9J?=
- =?utf-8?B?UFJ6eGk3QzQxbmZrTjV1MEF3OFoxKzhQbElmVmdGTmNwdEY5STRqdlg5ekt0?=
- =?utf-8?B?VnJibHNqVjRocW5qM0p1bTg5YWg5Uml2eVZybklFQmtLc2s0V2lUUXlUckNs?=
- =?utf-8?B?RjZad0tpSDAzSVdBb0JPTDAydjA3dC9hWmxsdmZBVjhQN1NjeWVzWExSUDFi?=
- =?utf-8?B?ajlOV1RDbHVsWGNHd0Z5K1h0YmZsSDRrQ3RlVUVaMXZTTWpWZ2ZDZTVuQTls?=
- =?utf-8?B?SzU0T0J2a2djOFphYUZQM2trWjNjbTRxUHBOVnZpVEFQVm1Eai9FRHZLYnBx?=
- =?utf-8?B?VnVqV0lqK0ZheFo2TXl6Y3Z0Rk9wQnBPclYzVEZCRUpNbWtOaisxb1U1NmRI?=
- =?utf-8?B?SG1UTGhOcWEvM1k4TmxBejdQejgwbGVrWTE2ZFJDUUMxSTkwbUZzRmZBWWNz?=
- =?utf-8?B?ZVN2Vzc4YXc1c3NxRjMrL3NMNVdZcW4yR0VBcEw0MU5TV2E5dmpLaEkwYitC?=
- =?utf-8?B?dkR0TldDbDBLSzZPL3hCWHFWcGdHN3ZOM3RvcXd3d0dXbGpTMnlwajAxZmRl?=
- =?utf-8?B?Mm4vM0VnK08xdGpYLzJDUzE4ZHVoQWdJR1JjVTNFT0JMMVFDL2hrME9DSjNB?=
- =?utf-8?B?MjBySjFlNi9tcFJOdWdkZE9SaTFIVWtUSCtBM211Mk1xdWlSU0pVdzNrYkV6?=
- =?utf-8?B?V3lNVEtpVlZFbmcyZTNkYkxNTE5RN2tCZ1NudjAwQlNPNUtGa2ROY1hESDd5?=
- =?utf-8?B?eHplSVdpd1p0R0lvY0tqNXlTNTcvYnpYeXdVTFY2YkJMVm45Y0dqS2htQm1k?=
- =?utf-8?B?emtYTnphSDgyUE1rMHRyVGlscFhad1hyayt3cTZneUlqbEZ6T3cwTDduU1ps?=
- =?utf-8?B?c2I2UnFSVlRuQjlFRzVaMlBJYldSMStHcXNsbWo2UDhkZzkrVEx0dVNJYysr?=
- =?utf-8?B?NjJ5eHdqTlY3U0JsSUNISTBhYzcwZlROWnVKV2YvZkZKSUZ1NDFEN1Yrd1B4?=
- =?utf-8?B?ZmpEMkUrWURnN3pjcGx3WXVnTzEzVEhoOVpkS2pENm54ZHdwWEsvVVo0TW10?=
- =?utf-8?B?dkhUMjhXcSs3RDI0SzNpb3haaFJmMkpBd3EzUjl2V2F5WnloZHIvaTZTcXJW?=
- =?utf-8?B?ZkRvV1ZqWE1IUFFSRFZFc05saUZjZjdTSDFIbUZVaHAyaGg3cEdnTDJUdWR0?=
- =?utf-8?B?TTM2clo3TjdUa0NITzNYM0J5R2Q1MTgwdVRvZXNNbGVGa3VCVWM0dWU4UUJz?=
- =?utf-8?B?dDhLNXl6OWpYWk1BR1lqQTgrdTdTbHlJdXZOdzE4OENtSkNLb053U0VydGJu?=
- =?utf-8?B?dFd4dmpxOWIvY2QwVkNMVjVMQ3V0cUZCQjJnanZlbm16UHJaT0JPbjJQTC9L?=
- =?utf-8?B?cW1FTGlBZFJFMFp3SjM4ekxFdjJaOFo3QXljTUQ2NXNRVVJSL0ZOQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76d43ef8-2a84-4c5d-7b7c-08df13e5ad9f
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 11:28:49.4648
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RBFRGMWtP5PN/KPx1VGzy4vqZPmXdw3ZZH1fRJmFWvN5I5YY5w9ksdFXAoA/edZq+GhuEW8MGp9nemb9KE6vnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8754
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 0/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vinod Koul
+ <vkoul@kernel.org>,
+        Kishon Vijay Abraham I <kishon@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org>
+ <3a2f535c-7ccb-4b50-a6fc-f73ec02d4acf@oss.qualcomm.com>
+ <78a7700d-32f7-4592-8a50-c90175338972@kernel.org>
+Content-Language: en-US
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <78a7700d-32f7-4592-8a50-c90175338972@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=BdVNQbt2 c=1 sm=1 tr=0 ts=6aaa7d93 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=yuRkgBCuwwUBbEn3D1QA:9 a=QEXdDO2ut3YA:10 a=Qzt0FRFQUfIA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE1MiBTYWx0ZWRfX1eM4TuBhNseT
+ pjT/Vvpkm8aYabfMipF2mc2P9a/np6z6P9dCL+Q2/D6eITlQz4hoB0WgTsw0prfkxyWaZgoAPjb
+ rbPCeFJjS22paZshbAuEbgTJnBAWadTmIztNw5AxhOzWjBT1gOggqyu71Sh+CXFcXo0jNRbpxJ7
+ M84YdCX6zhvDqgDijkvCc3rF6j79eaJd+pfV5yQjJB+qoGIQWnl2yOeUGrbCRsZ/7NOoDIsWoiu
+ yY9AiA//Y4P8uZ69AVBIfbmADjx4B+Qy0QvC9+kJZ+V7mm66y0pplDtoukXgJKZ53CIQ6d/r+j9
+ smXi38/KwHVbXrWvzyirqJuMMO2t/fUa04/IJ9Hvd7BQdlgAeXBBHRgo+roHMaXgR/ud2tbm2gd
+ dVKdXNyFePwo1Hb3Z0UMnbG8h3LbCjb45371qBevy4mkn7VltvoXIKSa7fLosZRkF6S3V1lf4Me
+ oMYKUUg4RyD3W5mQaDA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE1MiBTYWx0ZWRfXy0N5y1z8DAdS
+ Ovc4629pDwQbPQwuclKIddvF3qTFYGxotMhtHI6o0gDTE+KOXWRh4uzpmV1Gtnz7AvIciKflArr
+ z123fc+AqEzdhYfeBJr0xGGhNlDRVZM=
+X-Proofpoint-GUID: YPAUOptFjmGe28rPZkjYP5qqw3Ut84-u
+X-Proofpoint-ORIG-GUID: YPAUOptFjmGe28rPZkjYP5qqw3Ut84-u
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 adultscore=0 spamscore=0 clxscore=1015
+ impostorscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160152
 
 
 
-On 9/16/2026 3:14 PM, Thomas Hellström wrote:
-> On Tue, 2026-09-15 at 17:48 +0200, Christian König wrote:
->> The blunt reality is that I don't have time to look into patches or
->> bugs
->> any more as it would be necessary. The same counts for Ray.
->>
->> Natalie has been working on the dmem cgroup patches for TTM and
->> agreed
->> to take over looking more into TTM.
->>
->> Arun is working in my team and already maintaining AMDs VRAM backend
->> for
->> TTM and the underlying buddy allocator.
->>
->> Add Thomas as reviewer as well, better to have more eyes on that
->> component.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   MAINTAINERS | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 5b5a4e4b35cf..b6e58a138501 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -9140,10 +9140,11 @@ F:	drivers/gpu/drm/drm_privacy_screen*
->>   F:	include/drm/drm_privacy_screen*
->>   
->>   DRM TTM SUBSYSTEM
->> -M:	Christian Koenig <christian.koenig@amd.com>
->> -M:	Huang Rui <ray.huang@amd.com>
->> +M:	Natalie Vock <nat@pixelcluster.dev>
->> +M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
->>   R:	Matthew Auld <matthew.auld@intel.com>
->>   R:	Matthew Brost <matthew.brost@intel.com>
->> +R:	Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>   L:	dri-devel@lists.freedesktop.org
->>   S:	Maintained
->>   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> Acked-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->
-> @Natalie, @Arun Do you have a presence on dri-devel IRC? If so, Nicks?
->
-> Also what is your stance on merging pages to TTM?
-> 1) Requiring an explicit maintainer ack, or
-> 2) an R-B from one of the reviewers/maintainers and no concerns raised
-> within reasonable time?
-> 3) drm-misc as default merge repo?
-Hi Thomas,
+On 16-09-2026 15:47, Krzysztof Kozlowski wrote:
+>> For the series:
+>> Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> # Glymur CRD
+> You cannot test a binding, so why replying to cover letter which will
+> make this tag 50% applied wrong...
 
-I am not currently on dri-devel IRC, but I will set up an OFTC account 
-and follow up with my nick shortly.
-
-Regarding the merge process, my preference would also be option 2, i.e. 
-a Reviewed-by from one of the reviewers/maintainers with no concerns 
-raised within a reasonable timeframe.
-For larger or more significant changes, I think a closer maintainer 
-review before merging would be good.
-I will also try my best to review patches on time so this rarely happens.
-
-Using drm-misc as the default merge repository sounds good to me as well.
-
-Thanks,
-Arun.
->
-> Thanks,
-> Thomas
-
+You are right, apologies for the noise.
+Bryan, please drop Tested-by from the dt-bindings patch.
+---
+Regards,
+Nihal Kumar Gupta
