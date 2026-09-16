@@ -1,123 +1,96 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64133448B8A;
-	Wed, 16 Sep 2026 07:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5989409623;
+	Wed, 16 Sep 2026 07:20:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543273; cv=none; b=UagSCX1nJTYNQIspuswudP4bcbJ+iaLGqqTzSd6OJL4oWrsGRjUoef+L81OdiOV9PB2RTLytdCo1ZY6Eze7EsFk3lB8tG/95WCVRM2rA5GEsMNlKch5+fpjInQh7lzne8jil8NeSkvV/DQpoeZbWR+FIlcVVetDReNE6sUGHAGQ=
+	t=1789543279; cv=none; b=bpJMiVx4Cyg7+JGz7WOm9lYP6xvC/B+QzWnKiwY/B/GcwmZeIFXq+FHRKGGFd7Z1BInRud0mt7cjElafsfExV2CrGwgyRxAiN32B6FPOkcc7eC5bCJc4QwCsIPOKV2Yyr8BCxIUBnPFnxvWhKSDKtngNgo3Z5MyxI+SjyJ13bI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543273; c=relaxed/simple;
-	bh=5315Qxyq0JSBtaykg+mkjDBCGmxc9qkZXgeHBlB2cDo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AkBQIlxb4NjI8OnXzRbKxR9UXqCsm7w+EH8mRw4wt+EEjK0Idgko3VpjbDFd3FIXTrxx426sCRtFeD88d5SOJnJDZL6WxfZdSApMtn1VzT4oc48FWU3RGWcDWY/TwSBLBA5Pt/TaDzrE15QcD07BMJ47sbs4xjef8ehHIPAJ0hE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=u+4jAHBz; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dh4Al5Yd; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="u+4jAHBz";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dh4Al5Yd"
-Date: Wed, 16 Sep 2026 09:20:57 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789543258;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yN5GnEzqr4pxp32nRIlflPr/wwu80hDMDshxyC9+c8k=;
-	b=u+4jAHBzlElxL52YTj10a8qVGG1nF2AeLvbpoyqOc83AeI3rK8Ia6+438zfh0VqurZ3fWF
-	4LMHxVi0KePnWRU9hCZ1RMK/HLsdgPjc+a0xRzdjZz8XYV9DSV9CTD3GZkiFHlFuDYgVT3
-	It75w+qGNLp55OZyJshAlySI1ltpyr/VJy6qRB4lIg5YMIerTsEEDkQf0uoK3OB2UWqVnw
-	m+RdTI/e1Jj+pwJ8u/6pxksSZ17p8wW35Zx+6V2TuF+kw1ZhmQMJGNY7yk4WpdlRsqbRHK
-	jjbLYyNJFWgOVwR73zlAnt0QvVecPU78ttzzRQJXS+4petsIBTh6uHZGfI7iFA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789543258;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yN5GnEzqr4pxp32nRIlflPr/wwu80hDMDshxyC9+c8k=;
-	b=dh4Al5YdyJgoTe2/lLtkUC9aOxQnmtKfPiVXm5ougI5bK4Rx7uujpHS48bZ8SwLjnQo6EH
-	lfi0wcYJxHeeBlBQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:Real-time Linux (PREEMPT_RT):Keyword:PREEMPT_RT" <linux-rt-devel@lists.linux.dev>
-Subject: Re: [PATCH] gpio: mvebu: use raw spinlock for MMIO regmaps
-Message-ID: <20260916072057.HeaSg_Ya@linutronix.de>
-References: <20260915222609.194216-1-rosenp@gmail.com>
+	s=arc-20240116; t=1789543279; c=relaxed/simple;
+	bh=gurnQ7mS9wql9AVhvGW4GnYPC4RJBT6T11So43XKU1k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bzmKnof1+zY1JbGbBDdwYdWxsU3NmTIdDqoGneD+yp0JsbUhRdEnV/5FqXihna8C+zn2OUpnD4LXhBqbQfHJBp9RmTP5Q5rBA/ZneIriQmqLmpudoCQVqsGWGAYMR96UwupeOEU3X3P7MBPZIhwkAaeKcKnIfWG2/Pi7gAzqYoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAC3wkBIQ6pq3w3fBw--.65491S2;
+	Wed, 16 Sep 2026 15:20:41 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: alim.akhtar@samsung.com,
+	dri-devel@lists.freedesktop.org,
+	inki.dae@samsung.com,
+	krzk@kernel.org,
+	kyungmin.park@samsung.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	seanpaul@chromium.org,
+	simona@ffwll.ch,
+	sw0312.kim@samsung.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 10/20] drm/exynos: dpi: Fix OF node leak in exynos_dpi_parse_dt()
+Date: Wed, 16 Sep 2026 07:20:12 +0000
+Message-Id: <20260916072012.1967169-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260915222609.194216-1-rosenp@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAC3wkBIQ6pq3w3fBw--.65491S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtF4xZw4DCrWUCrW3Wr17ZFb_yoWkZrg_CF
+	1xZFyxXr15uryvvrsrAF1fZr929Fn7uan3CayIvFWayw15Ar4YyFW3ur18ZrW7uFW7W3sr
+	G3Wjv3W7tr1xKjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbaxFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
+	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JUCNtxUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqP7kPgAAAsL
 
-On 2026-09-15 15:26:09 [-0700], Rosen Penev wrote:
-> The mask/unmask handlers run with the generic irqchip's raw spinlock
-> held and call regmap_read()/regmap_write() on the GPIO regmaps. By
-> default regmap protects itself with a plain spinlock, which becomes a
-> sleeping rt_mutex on CONFIG_PREEMPT_RT; taking it while holding the raw
-  sleeping lock
+In exynos_dpi_parse_dt(), ctx->panel_node is obtained using
+of_graph_get_remote_node(). However, when "display-timings" child node
+is present, the driver uses display timings directly and ignores the
+panel node without releasing the acquired reference count.
 
-> irqchip lock trips might_sleep(), and PROVE_RAW_LOCK_NESTING flags the
-> same nesting on non-RT builds.
-> 
-> Configure both GPIO regmaps with .use_raw_spinlock = true so the MMIO
-> accesses stay atomic in hardirq and raw-locked context.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
+Call of_node_put() on ctx->panel_node and set it to NULL when
+"display-timings" is present to prevent reference leaks.
 
-other than the comments,
+Fixes: 86418f90a4c1 ("drm: convert drivers to use of_graph_get_remote_node")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/exynos/exynos_drm_dpi.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_dpi.c b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
+index 0dc36df6ada3..0b64d1031951 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_dpi.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
+@@ -168,6 +168,8 @@ static int exynos_dpi_parse_dt(struct exynos_dpi *ctx)
+ 		int ret;
+ 
+ 		of_node_put(np);
++		of_node_put(ctx->panel_node);
++		ctx->panel_node = NULL;
+ 
+ 		vm = devm_kzalloc(dev, sizeof(*ctx->vm), GFP_KERNEL);
+ 		if (!vm)
+-- 
+2.34.1
 
->  drivers/gpio/gpio-mvebu.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
-> index 03e977c2a629..674feeb31774 100644
-> --- a/drivers/gpio/gpio-mvebu.c
-> +++ b/drivers/gpio/gpio-mvebu.c
-> @@ -598,11 +598,18 @@ static void mvebu_gpio_irq_handler(struct irq_desc *desc)
->  	chained_irq_exit(chip, desc);
->  }
->  
-> +/*
-> + * These regmaps are accessed from the mask/unmask handlers while the
-> + * irqchip's raw spinlock is held, so they must use a raw spinlock
-> + * internally. A plain spinlock becomes a sleeping rt_mutex on
-> + * CONFIG_PREEMPT_RT and would trip might_sleep() from that context.
-> + */
-
-IRQ delivery path must hold raw_spinlock_t. This is not special to this
-driver but must be done in every gpio chip. I wouldn't add this comment.
-
->  static const struct regmap_config mvebu_gpio_regmap_config = {
->  	.name = "gpio",
->  	.reg_bits = 32,
->  	.reg_stride = 4,
->  	.val_bits = 32,
-> +	.use_raw_spinlock = true,
->  };
->  
->  static const struct regmap_config mvebu_gpio_percpu_regmap_config = {
-> @@ -610,6 +617,7 @@ static const struct regmap_config mvebu_gpio_percpu_regmap_config = {
->  	.reg_bits = 32,
->  	.reg_stride = 4,
->  	.val_bits = 32,
-> +	.use_raw_spinlock = true,
->  };
->  
->  static const struct regmap_config mvebu_pwm_regmap_config = {
-> -- 
-> 2.55.0
-
-Sebastian
