@@ -1,40 +1,32 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9BAA3A875A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:40:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61E43546DE
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:41:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789526458; cv=none; b=a1hp18uifDTwbTaREjZmnjZSGopW7m1oFQs0JsxSLtXe/4lyzRmmMkDC4eqBxnUdQtkc5R9ftvXVa0QPUBREsR5cMK6UWF9gdEbDl/WpJb9vw6WAqvOwstoS3iNiTqkoGd+NJJRhAj4HLh+JYAHnuUssGlnvmwCCgRQ5CGZlf44=
+	t=1789526470; cv=none; b=SZGbn6LdtNZpVQ1T1bnyRsAfJLWFcAU7skiTs+UbOiLQXNbsU1CILjK5rkRRqjGWEfJXZ2A0GQmix4xG9KRREaJKUWWqmnVFTrzXtAJ9TEEDIutbe34pTbcPG0XRaxHFvCKZ33fMqq38WoRlzDVV2L7MOHvzpAMugPT6RaWKPZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789526458; c=relaxed/simple;
-	bh=lR8+LHQ9mxcV1HVWv86R39nXKUiGS53kBau0NLUlA4U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=VgZtWyJXE2JIRnwDJ5tlZH1GfV6WW61bcnkrEClFDUNEwsAbh5bJWzJEySOeLaGdU79twvWZUIOWeB28w+r3v1YI9gvhOujU5z2OCRBcgRweQQCOK3RmqnuwiUwSzbIgM22lenElF0mtgGvshrshLr2OSvdSwp3uMx73uiuy5gA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=YzkwZQpG; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789526470; c=relaxed/simple;
+	bh=r1K3qA+7Rtrk9ghTGzqfQFIldO5MkrvMPOQG02U67bQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=YYCGNyjBPDvfE0TxuRZDA4xquEG9X+4aFHCkQfDbq8JXNTruX7ZbEEChEQ4rX6czYy792V/LC+wn2GKAxKHzgQ4aMM/W5bS7kFidKrqKzXdViv6R2OayhkutZq83a9E/YgQJeElyw/qIPj0Y9vPSqMVyyBAbDd2VLDRr0Wv/Ei0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SaN3FB7g; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="YzkwZQpG"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=c+G1FOCWXLkN8j6Q3OlM8pkV0Orx9iwVxUAFrdbXSd0=;
-	b=YzkwZQpG+WmuZg4XY5M+XCWgYMeFChbTmiZMkMJLHm7vRW4PV8dFYquLglRjfYk0I3YF0KOgB
-	D/acBo32iRNFdQwtJNckBgXn8PeHbMXwdb8tJ0WvZd4Zdbgbe5NnlbjWKJDOFqYkjaHlzCOZGFt
-	EcMsFjFb/e+lZy/hS9ENAa4=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hl2rf6BrNz1T4LX;
-	Wed, 16 Sep 2026 10:29:06 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id E4DE440537;
-	Wed, 16 Sep 2026 10:40:47 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 16 Sep 2026 10:40:47 +0800
-Message-ID: <8fffefd6-c109-49ad-8265-e3bd63b629ea@huawei.com>
-Date: Wed, 16 Sep 2026 10:40:46 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SaN3FB7g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:From:To:
+	Content-Type; bh=M4bTji29G+jookEIhIvNuytfYXCohWT5fsNukdnScYA=;
+	b=SaN3FB7gPzM9jgjus5pV9y3yUOGKvLQFT9tTNb5cIB5Ql9lIl1jA17n3NUY18L
+	erJSYJSF8ohuhViHmQW+9QnGyrBgYjxsLe5ln5P6ToWU+Ckje7+SFAY4B/pyOLMX
+	RDzS4sNcSpkXQOSANKlQyLnn/ZurRqu0iPkzZj/H5Trj4=
+Received: from [IPV6:2409:8900:21a7:a33a:bd6a:dd8e:75d1:52ed] (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDHYwOkAapq3evASw--.1800S2;
+	Wed, 16 Sep 2026 10:40:38 +0800 (CST)
+Message-ID: <e98a2a00-2e37-4c40-a534-81061c0520ef@163.com>
+Date: Wed, 16 Sep 2026 10:40:36 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,90 +34,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/19] arm64: smp: Defer RCU registration during secondary
- CPU bringup
-To: Will Deacon <will@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, David Woodhouse <dwmw@amazon.co.uk>,
-	Peter Zijlstra <peterz@infradead.org>, Marc Zyngier <maz@kernel.org>
-References: <20260907164024.17164-1-will@kernel.org>
- <20260907164024.17164-10-will@kernel.org>
- <45c37592-f05d-4b1c-812b-0cb38d1c3e24@huawei.com>
- <ap_hR1mntzm-TZOP@willie-the-truck>
- <f01fc59e-5254-484d-adf9-8dd1c2e58d91@huawei.com>
- <aqFS58mJ4GJNrbZ2@willie-the-truck>
- <19ba4bb9-e2c4-4956-bd8d-b8f50259a422@huawei.com>
- <aqP5ofIC8rkmtBtK@willie-the-truck>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <aqP5ofIC8rkmtBtK@willie-the-truck>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH v2 0/5] ntfs: report filesystem errors through fsnotify
+From: liubaolin <liubaolin12138@163.com>
+To: linkinjeon@kernel.org, hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Baolin Liu <liubaolin@kylinos.cn>
+References: <20260916022345.1151836-1-liubaolin12138@163.com>
+Content-Language: en-US
+In-Reply-To: <20260916022345.1151836-1-liubaolin12138@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-CM-TRANSID:PigvCgDHYwOkAapq3evASw--.1800S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWryfAr4DWFyxuw15JF1kXwb_yoW5GFWxpF
+	93JwsxGw1kKry2qr9a93yjq3WF9a95G3yjgrnIq3yxCr1UCF17tF4rt3W09FyrurySg34U
+	Xw1UWrnxCryYyrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U45lnUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gaueWqqAaaBswAA3u
 
 
 
-在 2026/9/11 20:52, Will Deacon 写道:
-> On Thu, Sep 10, 2026 at 10:47:58AM +0800, Jinjie Ruan wrote:
->> 在 2026/9/9 20:36, Will Deacon 写道:
->>> I was about to say "don't do this" but then I realised two things:
->>>
->>> 1. update_siblings_masks() can trigger lockdep splats outside of
->>>    pr_debug() if RCU isn't up and running, e.g.:
->>>
->>>     [    0.524042]  show_stack+0x18/0x24 (C)
->>>     [    0.524519]  __dump_stack+0x28/0x38
->>>     [    0.524546]  dump_stack_lvl+0x64/0x84
->>>     [    0.524562]  dump_stack+0x18/0x24
->>>     [    0.524576]  lockdep_rcu_suspicious+0x134/0x1cc
->>>     [    0.524591]  __lock_acquire+0xee8/0x2cb0
->>>     [    0.524606]  lock_acquire+0x11c/0x2fc
->>>     [    0.524621]  _raw_spin_lock_irqsave+0x64/0x84
->>>     [    0.524641]  of_find_property+0x2c/0x8c
->>>     [    0.524659]  detect_cache_attributes+0x1c0/0x6d0
->>>     [    0.524676]  update_siblings_masks+0x38/0x288
->>>     [    0.524692]  store_cpu_topology+0x4c/0x58
->>>     [    0.524706]  secondary_start_kernel+0xdc/0x1c8
->>>     [    0.524722]  __secondary_switched+0x120/0x124
->>>
->>> 2. This code is running _after_ cpuhp_ap_sync_alive().
->>>
->>> So for the next version, I'll reintroduce the call to
->>> rcutree_report_cpu_starting(), but move it immediately after the call to
->>> cpuhp_ap_sync_alive(). I think that will solve these issues, without
->>
->> pr_crit() and pr_warn() (such as vec_verify_vq_map()) in
->> check_local_cpu_capabilities() can also trigger lockdep splats as below.
->>
->> But I think this is not common on the failure path, so it seems to have
->> little impact..
+在 2026/9/16 10:23, Baolin Liu 写道:
+> From: Baolin Liu <liubaolin@kylinos.cn>
 > 
-> I agree that we shouldn't bend the code out-of-shape to squash a debug
-> warning on an error path (ideally, printk would handle this internally),
-> especially as the original message does seem to get printed in the end.
+> Report NTFS metadata and shutdown errors through the generic filesystem
+> error notification infrastructure. Use volume-level events when no
+> affected file is available and file-level events when an inode identifies
+> the failure.
 > 
->> [    0.158619] smp: Bringing up secondary CPUs ...
->> [    0.173958] CPU1: missing HWCAP.
->> [    0.174071]
->> [    0.174088] =============================
->> [    0.174099] WARNING: suspicious RCU usage
->> [    0.174197] 7.3.0-rc2-00020-gef0bd63bdd97-dirty #504 Tainted: G        W
->> [    0.174217] -----------------------------
->> [    0.174226] kernel/locking/lockdep.c:3845 RCU-list traversed in
->> non-reader section!!
+> Split the reporting by allocation, attribute, inode, MFT, and shutdown
+> domains. Propagate reporting state through attribute searches,
+> mapping-pairs updates, and MFT mappings so callers do not emit duplicate
+> events.
 > 
-> However, if this is caused by vec_verify_vq_map(), then how are you getting
-> that to run on the early boot path? check_local_cpu_capabilities() only
+> Changes since v1:
+> - Restrict patch 1 to the volume helper and non-file allocation rollbacks.
+> - Introduce the file helper with attribute reporting in patch 2.
+> - Separate inode and MFT reporting into patches 3 and 4.
+> - Adapt MFT writeback reporting to the current asynchronous I/O path.
+> - Keep shutdown reporting independent in patch 5.
+> 
+> Testing:
+> - Built fs/ntfs with W=1 after each patch.
+> - Booted the patched kernel in QEMU and monitored FAN_FS_ERROR events on
+>    an NTFS volume with fanotify. Verified that volume metadata errors report
+>    EIO without a valid file handle, file metadata errors report EIO with a
+>    valid FID, and shutdown errors report ESHUTDOWN.
+> 
+> Baolin Liu (5):
+>    ntfs: report allocation metadata errors to fsnotify
+>    ntfs: report attribute errors to fsnotify
+>    ntfs: report inode metadata errors to fsnotify
+>    ntfs: report MFT errors to fsnotify
+>    ntfs: report shutdown errors to fsnotify
+> 
+>   fs/ntfs/attrib.c   |  88 +++++++++++-----
+>   fs/ntfs/attrib.h   |   6 ++
+>   fs/ntfs/attrlist.c |  16 +--
+>   fs/ntfs/bitmap.c   |   2 +-
+>   fs/ntfs/inode.c    |  62 +++++++----
+>   fs/ntfs/lcnalloc.c |   4 +-
+>   fs/ntfs/logfile.c  |   2 +-
+>   fs/ntfs/mft.c      | 252 ++++++++++++++++++++++++++++++---------------
+>   fs/ntfs/mft.h      |   6 ++
+>   fs/ntfs/super.c    |  27 ++++-
+>   fs/ntfs/volume.h   |   4 +
+>   11 files changed, 329 insertions(+), 140 deletions(-)
+> 
 
-Sorry, based on the fact that pr_crit() or pr_warn() is printed before
-rcutree_report_cpu_starting() is called, I modified the code to add
-print tests to simulate this situation.
+Hi Namjae and Hyunchul,
 
-> calls verify_local_cpu_capabilities() if system_capabilities_finalized().
-> 
-> Or is the backtrace for something else?
-> 
-> Will
+   Thank you, Hyunchul, for reviewing the v1 patch series and providing 
+helpful feedback.
+
+   Based on your comments, I reorganized the series for v2. Patch 1 now 
+contains only the volume-level helper and non-file allocation metadata 
+errors. The file-level helper is introduced in patch 2, and file-related 
+error reporting is split among the attribute, inode, and MFT patches. 
+Shutdown reporting remains separate in patch 5. I also expanded the 
+commit messages and tested the notifications with fanotify in QEMU.
+
+   I have now submitted the v2 patch series. Your review and any further 
+discussion would be very welcome. I look forward to hearing your 
+comments and suggestions.
+
+Thanks,
+Baolin.
 
