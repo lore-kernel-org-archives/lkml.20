@@ -1,126 +1,166 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED0151FCC1
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C574E4EBAD9
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:28:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572490; cv=none; b=rXCoinTJWlUmyd88hAIRHI25WlUhw1cMSjlguhUjba3cpD497ORqy3nOPd3WP1WgDLsI8+6rEXNeqgamSCgN7zKg7IhhXolv5kxtwyZXUacNmcXKBk6lzXHHHf3eZm87+Oapkjbcw2tP0faaY8/LZVIHgHlIEs0bu0EfPu2CeKw=
+	t=1789572514; cv=none; b=FMVDJmxbXYxHs6J+SRSCQriNmtpgIdahrC8ZXLzN4n3ICYCZCDa1Szb2cfgmjGygNXLOGspJqMssDP+1TXPsvvj6OwgVH5R3QNzdV4jPnJidS9EoZUMBSShoUYsWPfOyqh/42LJxKWoHj2MKbboED91LvS3wrzWyNIMopJf8IAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572490; c=relaxed/simple;
-	bh=BNXdpYcV6rP8Kzo2tOByWtdS1/BlwS7HT763SKS2iMA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=u8XQtc+0E5caFEdhzPEMYZfrBFkl9IB29mxh9BensUDcuAx3enj6kQKDy1L1ZQ2WTUu1P6ycw/mzt8JU4IHIXd+QkefQ/T1QPJS/SqNzWTzndyHEyT86BcbKaZ773cEcf1TaaXM9Qv8WoUcXmQpuDmZdn9Si4da8RlEjeyUGVp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=W9gjuXhB; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
+	s=arc-20240116; t=1789572514; c=relaxed/simple;
+	bh=EmbfM+kvV/7PmqLs9xGO/Q7rJwIrk1dABTJaHRwKnZ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o2ATGQu9afPHQfUlYf8vyDaqbNls9S9aFUf9K/172dor8ae+glzOJYC9llZK/rIz79df+5tNCw7t37VQPimT/EjNcb7++WNsbC010jlZfbhkua2pfYGaiy4J9eyPvaDyFwhbNm/B1gjBZAuXnkwRNKYRILhNIoJRHkIGAa8xugU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=R2lFQhhr; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="W9gjuXhB"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874aso791971f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:28:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="R2lFQhhr"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b965f447cso9920875e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:28:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1789572484; x=1790177284; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VkAqAr7Z12LCHxwZegG/ZILA0Oydr34Y894kuKUR6C0=;
-        b=W9gjuXhB/nuDHOWVpMdIBp4J6v9pOMGvpTv6C+68C3+LguBZOL96AWTXGOBxvTCFpH
-         eY0PL2n6ovqLP+InAFXz3cgB5LDwBhSpj/PTUEK/dk9MW6nQwz5UaA4rHqEPVifxqPfj
-         vgzc/Cv2kP6LdGoWmizj0e7CwGewfzr4BwojDKWxTRBoEpc1PBMGPzTVJbG9mjRGQZ9F
-         yj1wYf5hkPWLKjMzd6hoc/UVwFJhhJixuOzvSjIirxenT5k13hnFxbrfSF6PSk88fQ8v
-         py8JTF7shY8gliRRzghYQLqOrymlVuvHIxJi94wh2YVsHjzxGPr5pnM5TmCHK9fqyESr
-         Y/fQ==
+        d=suse.com; s=google; t=1789572507; x=1790177307; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vldMBpyM+Nor6vxeiM5TtHG4tjvbrFlRKYSg3EnLeAs=;
+        b=R2lFQhhrDFIl7+SKWMVUI9V9RzouuSuUfhM+9vlLHDnIK2MOKokyBRtQfcpb5iIfTL
+         SG0iY/6460tWWbuWYlH1ctxcoZauU3K4dCmWnU9rMNRyaytb/oN8hckdWhRbKO7SZtyA
+         eoDnDtu969O19XSshF7K3V2DsCtnUoilKoUjIBfpikOjV9+7mfoq5pYiGJR4GjAWHeQp
+         xgh65iZC30FyUUziSkzo/MPDQ8hhGlPUt1RQLbxDDCtj6sbtM4z0CAdik4gsSF3+2gTo
+         vEyQ9jlZVAdlEI3YJQyOyQpvWtZjWdu34UCuyeK8hSq3kN+MsqvDiAGrwI55JKzZaR+5
+         8x/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789572484; x=1790177284;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1789572507; x=1790177307;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VkAqAr7Z12LCHxwZegG/ZILA0Oydr34Y894kuKUR6C0=;
-        b=JUKpe4+VpKxGm+VIJihVjJ/59BxrqmQkc8gkTQbGNudJjg6z4R50zGB9rjqJe/hQmt
-         qX7xeu8xM1wIhSc0SBUgMUDaeBrYttum1AKRtRrhuUugToHJFop+C9bFpWqRtr1OPkLO
-         HjrxDBiPKJh0stOV8F5peC1kxYIEX5RM/9wcNFAgYUWB6H5TRpilV/WQlTtaAWVWvsjP
-         N0ao0u0jB8KlG+oleDhy7G83Yy9dYjFtMVZdC1oDB5q037iOBvx9cZzJpW3Kc629HUcO
-         XIug4f6Hnye7g3kb2GKMiAsDD6yf+VjSszRoHur983pVPteoAw5oF1IAH6OS+m2O5ud8
-         poyA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKt/Hd9LEJ8OuVScr1Bi78EwIgrhoA7Zby8PF8UOKkMEYBpu0EoxTHAXHn7Bo95cz2UjO27OykRpyXWqk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmeRV2pR+mSFsC8bYJb8w8OnZ5U3ZQq8TFI6lq+hTqULQRVvB+
-	qeq6yQB4AL/fjSDfGsZIrePiZTp6EKxPhSChGZ57fE4FCnO6lMECujuInsiSU7DeeEI=
-X-Gm-Gg: AYBFou2TgyFSi3Zp66DeXxE+06Ivd2bSBvdhujd1h0u4nOvKiHnKC/Ey2rNwuaeUltH
-	mvu8BaRKiMWWDEg5M7i5QFgN0Qv5S0UOTM7l3n+XpOEg8gkQqIWYuWdIOJgiAOF2VMLut0Gwpv6
-	WBow3p3T6meW4gOOOA+B3WHKWbQTLR7X/L0VjRuJdYmjC/hnsJ41AesdlkATD30Zsqn+Z+6zI+C
-	l2gXiPFWryu/8Fr4ZDnvAdX/6MDh1P21tXGY6vKRT5soYLW4EVsfMtTAv2SbbfOdfjT2prpLz/j
-	CYCNN64Ryt+57KScQHnvqHkH6xQO83pqMonEMN3neP3JHMChlQvRkV9vj/EC5fNCvoViYSpK/OK
-	lPcrzHJrDAnipYPztgaojSBGPJzZLdRtttK8U7Y3Tcpn3IkKEAl6b6qKYNljKWxocfjtnEN24OS
-	at+7POKeTnHMnjv+DHO5Gvml4cHhU3GJCcH1cbGiRF3K4050b6akJYhNpHoi7qmU0hyjFkiqmX7
-	Ld7hAXbKh4jOElG9ovuGMdpuQ==
-X-Received: by 2002:a05:6000:4543:b0:487:62d:37d6 with SMTP id ffacd0b85a97d-4870d062278mr6043828f8f.23.1789572484275;
-        Wed, 16 Sep 2026 08:28:04 -0700 (PDT)
-Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:f89:61fa:af44:9a4f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf37e69sm7886646f8f.29.2026.09.16.08.28.03
+        bh=vldMBpyM+Nor6vxeiM5TtHG4tjvbrFlRKYSg3EnLeAs=;
+        b=q82EYrS5DQW6eqRMuDjzGaH++ZcSa+cXOQCTySe638idix3CT/ZYRzjArN5/tlmdNP
+         B+PJuVoBxmHO/5mDFLTfbEK6wkt3Z5lGi3G3AFhqcrGiH1Y5c/D83nfwY/dN2tPKBkk2
+         rIeMYo9TpEE65DulPSeGgJzQoOalhcF2K+ov5+S6fzA/7wSNdcmOka4mWJwxOQ/a+8cn
+         PtF0Eo391C4JaNFYaRME+gkNdolHHzNLqAiNxc+H6kKWc6pRj0kccYVChoXGzW19Dk1r
+         sUpSl7YfrYR27WLvtp70bkFkwyAWVj5kTfc1maW3jXSZsgXilV/vFB8mdCZvg+Q1ySyg
+         xUJw==
+X-Forwarded-Encrypted: i=1; AKwUvBzVSXWQUl5+gMllTQNmVVPWCYVVWbe48ydkE2pgFi5yaZavyq5TllWefqx4/CDpcChUcV2DeQb4tWAKM8M=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1oUEakXXMJ2Hz2XWSpIf1+Vsn5mlIYiRjsbgVy2g8mIXTn+7O
+	iYXwiV7Fm2LRRMbKdOJJvapERmaBA2F89NIbbVMtIJmY4W+0nJza4kIWS+zsmyZ0VDI=
+X-Gm-Gg: AYBFou1VodGbcE/S+EG1dKTT0poFz1Rjta+giv9hmZTxZNQVuEfLpHN6OZfQZHqufqD
+	Ze/kDkqDzDT54YF4Y18AuFo/Gk3RJabCLhykYPdhIwwG63g+Ful4MtYeST7V6gyGXRvWkK8GNLo
+	L6Qve0MONVXyPcZyop+EiHH9MWj1wqE5pSdKHeRKYYI/rMNR9AEy8V3GaxHbapDEbZbBd2wAcTz
+	oo5KLONkA1x7KTpcrkrD7bqD6cKQsafOJc43XAf9RpG0VpKXg82axhIQXgIv6wBe1jp7vZtBxJ7
+	UbxoYNQ9JvQ/bYIKoDf1Pft/Q6SgSDHGatCD1fbA7vOcg9kZoR5wDRIaHEzR+9vZJqFI9+xWLTo
+	K3L5vW4voIGFmrIIUmRryAiQ+CNpaXW1plTqUgfEh2sOLYPEtVnegQG9BBn5nKUio6jd2FMiQCm
+	eiaNTvesMvJQvbREnbo9YTF5qssz5+Gz/mFy5x7u+4JQg/n7FcrZtZbn4TogGd4klOKwjM2vDWF
+	ktBvTFsWIqt+MM=
+X-Received: by 2002:a05:600c:1909:b0:49e:6249:268b with SMTP id 5b1f17b1804b1-49eb733983bmr32836735e9.32.1789572507021;
+        Wed, 16 Sep 2026 08:28:27 -0700 (PDT)
+Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd197879sm214065e9.3.2026.09.16.08.28.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:28:03 -0700 (PDT)
-From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Wed, 16 Sep 2026 16:27:57 +0100
-Subject: [PATCH v3 4/4] dmaengine: xgene-dma: use named initializers for
- acpi_device_id
+        Wed, 16 Sep 2026 08:28:26 -0700 (PDT)
+Date: Wed, 16 Sep 2026 17:28:24 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Aditya Chillara <aditya.chillara@oss.qualcomm.com>
+Cc: Bradley Morgan <brads@mainlining.org>, john.ogness@linutronix.de,
+	linux-kernel@vger.kernel.org, rostedt@goodmis.org,
+	senozhatsky@chromium.org
+Subject: Re: [PATCH v2] stop_machine: Defer legacy console flushes while a
+ CPU runs a stopper callback
+Message-ID: <aqq1mAAgJxXAiyc4@pathway.suse.cz>
+References: <87984398-AD80-4AC8-B5FD-21219BA85FD5@mainlining.org>
+ <bbbbd180-5ee5-4e85-b333-dd5d0a89478b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-acpi-dma-v3-4-0dac05654967@thegoodpenguin.co.uk>
-References: <20260916-acpi-dma-v3-0-0dac05654967@thegoodpenguin.co.uk>
-In-Reply-To: <20260916-acpi-dma-v3-0-0dac05654967@thegoodpenguin.co.uk>
-To: Viresh Kumar <vireshk@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, Sinan Kaya <okaya@kernel.org>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
- Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572477; l=1050;
- i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
- bh=BNXdpYcV6rP8Kzo2tOByWtdS1/BlwS7HT763SKS2iMA=;
- b=AClNkxjacCjqu2lCKsZx+DsWrRbiQu6gec5tz+hmBFOqGuNzaQ14tthza4xwpktAZM7gOUuZa
- Yhu36sTa6osA945ATkMT1gSapeUJJUG5HK9qcNADI/uNELqdvAyplxP
-X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
- pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bbbbd180-5ee5-4e85-b333-dd5d0a89478b@oss.qualcomm.com>
 
-Use a designated initializer for the acpi_device_id fields which makes the
-code more readable and consistent with how lists are initialized in the
-rest of the kernel code base. Also drop explicitly setting fields to 0
-where it is redundant.
+On Fri 2026-09-11 16:32:40, Aditya Chillara wrote:
+> On 9/10/2026 9:46 PM, Bradley Morgan wrote:
+> > On 10 September 2026 04:53:55 BST, Aditya Chillara
+> > <aditya.chillara@oss.qualcomm.com> wrote:
+> >> The cpu stopper thread runs above every other scheduling class, so while a
+> >> stopper callback executes, nothing else on that CPU is scheduled. If such
+> >> a
+> >> callback emits a normal-priority printk(), the legacy console path can
+> >> synchronously flush the pending console backlog. On systems with a slow
+> >> UART and a large backlog, this holds the CPU long enough to starve RT
+> >> kthreads such as the watchdog pet, and for multi_cpu_stop() prevents the
 
-Unify the list terminator to have a single space between the brackets and
-no trailing comma.
+Which watchdog, please?
+Please, include the entire watchdog report into the commit message.
 
-Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/dma/xgene-dma.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Also please mention the real life scenario (with SELinux logging)
+in the commit message if there is a real life scenario, see below.
 
-diff --git a/drivers/dma/xgene-dma.c b/drivers/dma/xgene-dma.c
-index fa1173e49900..8d1c58ca0d48 100644
---- a/drivers/dma/xgene-dma.c
-+++ b/drivers/dma/xgene-dma.c
-@@ -1800,8 +1800,8 @@ static void xgene_dma_remove(struct platform_device *pdev)
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id xgene_dma_acpi_match_ptr[] = {
--	{"APMC0D43", 0},
--	{},
-+	{ .id = "APMC0D43" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, xgene_dma_acpi_match_ptr);
- #endif
+> >> CPU from advancing the state machine while the other CPUs wait.
 
--- 
-2.43.0
+[...]
 
+> >> stop_machine() (used here for kprobe text patching) stops every CPU by
+> >> running multi_cpu_stop() on each of them, through the per-CPU
+> >> "migration/%u" threads. These threads run at a higher priority than the
+> >> msm_watchdog thread. At bite time, all eight CPUs were still spinning in
+> >> multi_cpu_stop()'s MULTI_STOP_PREPARE state, where interrupts are left
+> >> enabled.
+> >>
+> >> Heavy SELinux denial logging had built up a large backlog on the
+> >> console.
+
+Did this happen in production, please?
+
+> >> Reproduced and verified with an out-of-tree test module that triggers
+> >> stop_machine() with a queued console backlog and a printk() inside the
+> >> rendezvous, paired with a kprobe-based script that flags any console
+> >> flush happening while a CPU is inside a stopper callback.
+
+I ask because the reproducer is artificial and the solution is just
+a band aid. printk_deferred_enter() and printk_deferred() is
+a whack-a-mole solution.
+
+They were created to avoid deadlocks on the run queue lock. It might
+happen when printk() is called in the scheduler code and the legacy
+console_unlock() tries to wakeup a waiting process.
+
+In addition, printk_deferred_enter() is used on few locations when
+many debug messages are printed in an interrupt context.
+
+AFAIK, this would be the first case when printk() deferred is used
+to avoid softlockup in a code when the many messages are printed
+from another context. And I am not sure if we want to go this way.
+
+The legacy consoles might trigger a softlockup when printk() is called
+with IRQs disabled and it has to flush many pending messages.
+
+I do not see anything special about multi_cpu_stop() except that
+all CPUs are bloked in this case. OK, blocking all CPUs is
+much worse than blocking one CPU. And it might be reason
+to accept this patch.
+
+But you might be able to create an artificial reproducer which might
+trigger softlockup by any printk() called with IRQs disabled. And
+we do not want to convert all printk() calls to printk_deferred(),
+definitely. We need to define a boundary.
+
+Note that the preferred solution is to:
+
+1. Convert console drivers to NBCON API which would defer most
+   printk() calls out of box. There are only few selected
+   emergency situations when printk() tries to flush even
+   nbcon consoles immediately. But even the emergency flush
+   is bound against parallel writers.
+
+2. Reduce loglevel so that only the most critical messages
+   are flushed when slow consoles are used.
+
+Note that there is pending also a patchset which would allow to
+set per-console loglevel.
+
+Best Regards,
+Petr
