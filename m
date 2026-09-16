@@ -1,141 +1,214 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735ED513574
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:17:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B8AB4D6C33
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:17:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575467; cv=none; b=BxWKZO+wlbN1o2t4B7N1JUNJOFhMtjPYlI4RSLMuZaQ5P7RjQP1eKoktH9u+4g10DbVHA1ztwhhqaGUshPoegKvw50DwhQSXxGdJ2PNxIgiatr0wXjdQDaDXLNmhG36YT6zrTPzbegaaKKxphVX+Yq4Z83UufK3DSne0Un/iYkA=
+	t=1789575477; cv=none; b=OGuu8DRN4OD5SwFQB7KaOaKptyEMD7kz/5EpSAYjthKh1qGiiqMpazoM0/gF2r3wn8C7lOeTKpU8IRyvAfTBAMGd2E3/G8NNtDuq8NUmplP1vedknYGtTM9BcYdok/LDHW94LiMG8UjmiSIND7AT0Tqxmvp4F7TAgHUrRHX1dMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575467; c=relaxed/simple;
-	bh=dNHP1gTsQIZoj7AUrk+3cvNZFuIo9EZylbWDUYMpxEk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qxWX3WjhtyhSHgyCgpJQxCpioCAdADDvHLQbTlXPEcDUF5q9JqtsmKeMnCZrgNxbxUVfdz+nEjFDdjW3X7C/ULRLrV3qm/eYSBs0Mq263/KmTcuyrn6G3pJquz3buakE2fLENhNFaAiphEk+//uWm3535LnzKr1pY8O15Jjr3F0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oPLwmdiR; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789575477; c=relaxed/simple;
+	bh=p3tHar0dLjbf4nNwS6ekOIUqzn63ULh+WZ3W0oLTGoo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MT9l/of1awwNF9s7XbHr/fUVnB03zU8AmlYuQMBBDPfGyoDIxyYyXb3Vu3VYnJx7iosv2oEjwVSCmg6fK+QTDH/bjCcIO9hp0FMbZfpyDKQyjz916JLzhSlrCuSigTLHHzV9ZAQ5O1X7xIdvBbVej00jm7fdz2gRNwwWhtPirts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cn6Vo8NC; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oPLwmdiR"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398a147688bso953744a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:17:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789575464; x=1790180264; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fHyHl8JYGeK0KYa1UKcPeUzjQ3WV6y/WuzNvw68/Tik=;
-        b=oPLwmdiRoFINGnyPsdhOTtRjjGUgIlLZfCjuBZfIUKM8b5RtoRteggfcrSyhGE3OrA
-         +moWQ4m/jAIn+poelfpLshgvDl3qQ4v3J1ZRMMp86DfS//sguxfT9twfioNW+u7rDiOk
-         OGcc22X5TxIkLT8FjQDD79hu7TCQb8WAKoVG549CZICNoTcp2lqrzqa6zHvsXhnMfaWc
-         XZyYcSa9QH5y/99rNMM/q4ouYtEP+gXsOZi/2uOV4cqYBnDPGPoR1vsAmuYGn2yWiaTF
-         qtH0WGz48LD/Ikzm+LFE8pQA0Y7FjJZxfRX6gPNCiIFpfI08hL4d/Z2OnXNqqHCDMVLG
-         MBFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789575464; x=1790180264;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fHyHl8JYGeK0KYa1UKcPeUzjQ3WV6y/WuzNvw68/Tik=;
-        b=shJ2eIy6FCjeqiqs1CkCs+Xusj+3BhZqAzkKucPk/8oBCVYwvSjfEyRXwUnQsIVce/
-         Y3ZrA9AReXr+MzO+107JOtdmvaTvorn716O7PG+RikPPQTs5WhgPSwfj5pkz1bT6PdAi
-         ps6tyHnfMzCmXGzZQ3JGF2tG1TElxafBf3PWj/nD1VMCZ6fyvDO7CB0xbeLiNeMirYXa
-         n43y+Pj07KfE+AHUqjWe9PfW6LKD9wHaZzC1SSiV2minG8c5VahxO2DlHYh1fR3ytxHZ
-         FBC3hSPUzctt6k2KI8opRrnd2HN+6l/DM98+3QA4Ep6HpDYN3JMNN15nQ16s0gs4VPWX
-         NIsg==
-X-Forwarded-Encrypted: i=1; AKwUvBywK2CFHaPKiZh3sgEFjjOeSLqFCRmevP8swsAVshYR02c1isyZXtFv19IB5w6e9niylpbdJ9qTOSPHGeU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntw/R3IGSZGTn7PSr0JyMZ/bnai4ScFsPNmPS9mogIc6v5g2zu
-	0Hb5gaUMa4ZGIkvf/Oct5gLrzbpw2Dka5gck6ecLxfcQ3PGcIie6j8xc
-X-Gm-Gg: AYBFou2a5KFWUEf2HJbTjnQM831QmRMaFt1xs/AzNyN3M97nZVuGm7gupPbJBGsM1mE
-	wQVKofam2xLll0D5LyygV7LYcFmzbMix9wsdlT24ed7MD0t7TWk2oBr4Eycju8qhiSOP44YG9bk
-	gj4Kebeb67quYGF+f9Xbjb5qMh1BNFjrxoFQuo51HdVh8QreYAQ1W3FEQBjlLfNtP0TbPgYFGLs
-	nDUo5yweYaUFyx5RwlDUP/G6ApWVn9CM37B+4S8Mlo3TebUuy05+evVZN1nSxEvLLRfd3vJsRkr
-	jbCqmrjn99vJMYMNbb3RyYGlSlf1P2Xsccd+T1rSchxUG0G1wCxAwIr7P198Xez+68ldE6r8ud8
-	sGCSfGx9IVwUXRFFDSvMBY7181c9HrNUKFGbqQHb2OUkEDelQEXH1GJtdRcP3RmY7iiGjr0834f
-	kg6h2EgFyG1id8l7BembuJxC6Nsyzhhj+O87e5hX/9ReyfNt0XnwVzHsVPbWGNJWo6NHuia2MkO
-	AgCkzrmVG6rVL+p9BB2qr1kcsn0PTcpdVtcq4Mr94ilJZn0
-X-Received: by 2002:a17:90b:1a88:b0:396:6344:3b63 with SMTP id 98e67ed59e1d1-39e1e27dfe7mr7308938a91.2.1789575464203;
-        Wed, 16 Sep 2026 09:17:44 -0700 (PDT)
-Received: from eggarch ([2409:40c4:18:7581:88e6:16cb:6cd3:1ba1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35d9b298sm251787a91.2.2026.09.16.09.17.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 09:17:43 -0700 (PDT)
-Date: Wed, 16 Sep 2026 21:47:37 +0530
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: Pujito Adnyana <zhee.tou@gmail.com>
-Cc: linux-input@vger.kernel.org, 
-	"dmitry.torokhov@gmail.com" <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: Internal keyboard dead on ADVAN 1405 (APN21S-140P3-CS): i8042
- controller OK, keyboard device never ACKs
-Message-ID: <aqrA0eEt89mr_ijV@eggarch>
-References: <CAEkMyrhPTh1Ws0Co6zHBq1aMhrhgam4yPBgbXAMPrffyAKpT4Q@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cn6Vo8NC"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BCF451516;
+	Wed, 16 Sep 2026 09:17:51 -0700 (PDT)
+Received: from [10.57.8.14] (unknown [10.57.8.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 76BF43F7B4;
+	Wed, 16 Sep 2026 09:17:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789575475; bh=p3tHar0dLjbf4nNwS6ekOIUqzn63ULh+WZ3W0oLTGoo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=cn6Vo8NCPcegLEUNK1RPA8H5PEILXVRQTJQ0cZ22KykkzbVPmh3J4vOId9XA0Z+Rc
+	 kQVHuuBeJR4G+Z4A3QZ5PHT0nng89xsb+GtY1WCGoGnODFg4yXAbRUtfTx4ZRskudM
+	 CY59agMktmzbpubX7yNFseXn1IiE4HaasgegGCpc=
+Message-ID: <05239c7a-bdee-4d24-9375-c5b3497a4f78@arm.com>
+Date: Wed, 16 Sep 2026 17:17:51 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEkMyrhPTh1Ws0Co6zHBq1aMhrhgam4yPBgbXAMPrffyAKpT4Q@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 9/9] arm64: realm: Expose the CCA shared granule size
+ through mem_encrypt ops
+Content-Language: en-GB
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Jason Gunthorpe
+ <jgg@ziepe.ca>, Marc Zyngier <maz@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>
+References: <20260904103452.1197239-1-aneesh.kumar@kernel.org>
+ <20260904103452.1197239-10-aneesh.kumar@kernel.org>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20260904103452.1197239-10-aneesh.kumar@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi thanks for the report,
-
-On Mon, Sep 14, 2026 at 08:14:24AM +0800, Pujito Adnyana wrote:
-> i8042: [943273] f6 -> i8042 (kbd-data)
-> i8042: [943474] fa <- i8042 (flush, kbd)
-> i8042: [943474] Interrupt 1, without any data
+On 04/09/2026 11:34, Aneesh Kumar K.V (Arm) wrote:
+> CCA guests must align shared/private memory transitions to the size
+> reported by the host for IPA state changes. This size can be larger than
+> PAGE_SIZE, so allowing a guest to convert only a PAGE_SIZE-sized subrange
+> can leave the remaining part of that host-sized range in the wrong state.
 > 
-> The fa arrived roughly 200 ms after the command was sent — just past
-> the timeout, so the driver had already given up and the byte was
-> discarded during the flush. The accompanying "Interrupt 1, without any
-Yeah that seems like the cause.
+> Cache the RHI-reported IPA sate change alignment during Realm
+> initialization and expose it through a new arm64 mem_encrypt callback. Use
+> PAGE_SIZE as the default shared granule size when no backend callback is
+> registered.
+> 
+> Validate both the address and byte size passed to set_memory_encrypted()
+> and set_memory_decrypted() against mem_cc_shared_granule_size() before
+> calling into the backend. This prevents callers from converting only part
+> of a host-managed page.
+> 
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 
-> Is there a way to make atkbd tolerate an acknowledgement that arrives
-> just past the command timeout, or to retry enabling scanning after the
-> initial probe? If a DMI quirk is the right mechanism here, I am happy
-> to test patches and provide any further data needed.
-We could keep the current 200 ms attempt and if it fails retry a few times.
+Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-Could you apply the patch below against a mainline tree and test it?
 
-Thanks,
-Lovekesh
+> ---
+>   arch/arm64/include/asm/mem_encrypt.h |  4 ++++
+>   arch/arm64/mm/mem_encrypt.c          | 32 ++++++++++++++++++++++++----
+>   drivers/firmware/arm_rmm/rsi.c       | 13 ++++++++++-
+>   3 files changed, 44 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/mem_encrypt.h b/arch/arm64/include/asm/mem_encrypt.h
+> index ef8b8463e52b..890faeed0eb3 100644
+> --- a/arch/arm64/include/asm/mem_encrypt.h
+> +++ b/arch/arm64/include/asm/mem_encrypt.h
+> @@ -10,6 +10,7 @@ struct device;
+>   struct arm64_mem_crypt_ops {
+>   	int (*encrypt)(unsigned long addr, int numpages);
+>   	int (*decrypt)(unsigned long addr, int numpages);
+> +	size_t (*cc_shared_granule_size)(void);
+>   };
+>   
+>   int arm64_mem_crypt_ops_register(const struct arm64_mem_crypt_ops *ops);
+> @@ -18,6 +19,9 @@ int set_memory_encrypted(unsigned long addr, int numpages);
+>   int set_memory_decrypted(unsigned long addr, int numpages);
+>   int __set_memory_enc_dec(unsigned long addr, int numpages, bool encrypt);
+>   
+> +#define mem_cc_shared_granule_size mem_cc_shared_granule_size
+> +size_t mem_cc_shared_granule_size(void);
+> +
+>   static inline bool force_dma_unencrypted(struct device *dev)
+>   {
+>   	return is_realm_world() || is_protected_kvm_guest();
+> diff --git a/arch/arm64/mm/mem_encrypt.c b/arch/arm64/mm/mem_encrypt.c
+> index ee3c0ab04384..69783c6a3c08 100644
+> --- a/arch/arm64/mm/mem_encrypt.c
+> +++ b/arch/arm64/mm/mem_encrypt.c
+> @@ -17,8 +17,7 @@
+>   #include <linux/compiler.h>
+>   #include <linux/err.h>
+>   #include <linux/mm.h>
+> -
+> -#include <asm/mem_encrypt.h>
+> +#include <linux/mem_encrypt.h>
+>   
+>   static const struct arm64_mem_crypt_ops *crypt_ops;
+>   
+> @@ -33,18 +32,43 @@ int arm64_mem_crypt_ops_register(const struct arm64_mem_crypt_ops *ops)
+>   
+>   int set_memory_encrypted(unsigned long addr, int numpages)
+>   {
+> -	if (likely(!crypt_ops) || WARN_ON(!PAGE_ALIGNED(addr)))
+> +	unsigned long size = (unsigned long)numpages << PAGE_SHIFT;
+> +
+> +	if (likely(!crypt_ops))
+>   		return 0;
+>   
+> +	if (WARN_ON(!IS_ALIGNED(addr, mem_cc_shared_granule_size())))
+> +		return -EINVAL;
+> +
+> +	if (WARN_ON(!IS_ALIGNED(size, mem_cc_shared_granule_size())))
+> +		return -EINVAL;
+> +
+>   	return crypt_ops->encrypt(addr, numpages);
+>   }
+>   EXPORT_SYMBOL_GPL(set_memory_encrypted);
+>   
+>   int set_memory_decrypted(unsigned long addr, int numpages)
+>   {
+> -	if (likely(!crypt_ops) || WARN_ON(!PAGE_ALIGNED(addr)))
+> +	unsigned long size = (unsigned long)numpages << PAGE_SHIFT;
+> +
+> +	if (likely(!crypt_ops))
+>   		return 0;
+>   
+> +	if (WARN_ON(!IS_ALIGNED(addr, mem_cc_shared_granule_size())))
+> +		return -EINVAL;
+> +
+> +	if (WARN_ON(!IS_ALIGNED(size, mem_cc_shared_granule_size())))
+> +		return -EINVAL;
+> +
+>   	return crypt_ops->decrypt(addr, numpages);
+>   }
+>   EXPORT_SYMBOL_GPL(set_memory_decrypted);
+> +
+> +size_t mem_cc_shared_granule_size(void)
+> +{
+> +	if (likely(!crypt_ops) || !crypt_ops->cc_shared_granule_size)
+> +		return PAGE_SIZE;
+> +
+> +	return crypt_ops->cc_shared_granule_size();
+> +}
+> +EXPORT_SYMBOL_GPL(mem_cc_shared_granule_size);
+> diff --git a/drivers/firmware/arm_rmm/rsi.c b/drivers/firmware/arm_rmm/rsi.c
+> index 2cd53f82432f..eeb797c6c2c7 100644
+> --- a/drivers/firmware/arm_rmm/rsi.c
+> +++ b/drivers/firmware/arm_rmm/rsi.c
+> @@ -19,6 +19,7 @@
+>   
+>   static struct realm_config config;
+>   static struct kobject *cca_kobj;
+> +static unsigned long ipa_state_change_granule_size;
+>   
+>   unsigned long prot_ns_shared;
+>   EXPORT_SYMBOL(prot_ns_shared);
+> @@ -155,9 +156,17 @@ static int realm_set_memory_decrypted(unsigned long addr, int numpages)
+>   	return ret;
+>   }
+>   
+> +static size_t realm_cc_shared_granule_size(void)
+> +{
+> +	if (is_realm_world())
+> +		return ipa_state_change_granule_size;
+> +	return PAGE_SIZE;
+> +}
+> +
+>   static const struct arm64_mem_crypt_ops realm_crypt_ops = {
+>   	.encrypt = realm_set_memory_encrypted,
+>   	.decrypt = realm_set_memory_decrypted,
+> +	.cc_shared_granule_size = realm_cc_shared_granule_size,
+>   };
+>   
+>   static int realm_register_memory_enc_ops(void)
+> @@ -167,7 +176,7 @@ static int realm_register_memory_enc_ops(void)
+>   
+>   /* we need an aligned struct for rsi_host_call. slab is not yet ready */
+>   static struct rsi_host_call hostconf_call __initdata;
+> -static unsigned long __maybe_unused __init get_ipa_state_change_alignment(void)
+> +static unsigned long __init get_ipa_state_change_alignment(void)
+>   {
+>   	long ret;
+>   	unsigned long shared_granule_size;
+> @@ -218,6 +227,8 @@ void __init arm64_rsi_init(void)
+>   		return;
+>   	if (WARN_ON(rsi_get_realm_config(lm_alias(&config))))
+>   		return;
+> +
+> +	ipa_state_change_granule_size = get_ipa_state_change_alignment();
+>   	prot_ns_shared = __phys_to_pte_val(BIT(config.ipa_bits - 1));
+>   
+>   	if (arm64_ioremap_prot_hook_register(realm_ioremap_hook))
 
-diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
-index b9ad2381f885..81df4b7a5685 100644
---- a/drivers/input/keyboard/atkbd.c
-+++ b/drivers/input/keyboard/atkbd.c
-@@ -714,12 +714,28 @@ static inline void atkbd_disable(struct atkbd *atkbd)
- static int atkbd_activate(struct atkbd *atkbd)
- {
- 	struct ps2dev *ps2dev = &atkbd->ps2dev;
-+	int error;
- 
- /*
-  * Enable the keyboard to receive keystrokes.
-  */
-+
-+	error = ps2_command(ps2dev, NULL, ATKBD_CMD_ENABLE);
-+	if (!error)
-+		return 0;
-+
-+	ps2_begin_command(ps2dev);
-+
-+	for(int i = 0; i < 3; i++) {
-+		error = ps2_sendbyte(ps2dev, ATKBD_CMD_ENABLE & 0xff, 1000);
-+		if (!error) {
-+			break;
-+		}
-+	}
-+	ps2_end_command(ps2dev);
-+
- 
--	if (ps2_command(ps2dev, NULL, ATKBD_CMD_ENABLE)) {
-+	if (error) {
- 		dev_err(&ps2dev->serio->dev,
- 			"Failed to enable keyboard on %s\n",
- 			ps2dev->serio->phys);
--- 
-2.55.0
