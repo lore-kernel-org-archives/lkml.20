@@ -1,81 +1,33 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C88F3DD847
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F3B0399011;
+	Wed, 16 Sep 2026 06:25:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789539859; cv=none; b=kZJcRcx+Jx1scVb1VGIw6AZjhsyRyzQliukaFjnSvechSMMGLiCZABzbzcLW2zEYrMwF6BwMFdRL1sd6xl+IjwNuiJsxlRbKwXhHQPx5oTiiFIwP4zP83ofvCGV2UYBMgV9jSA24h7Bmh+d76xlaFWqZwMfLAyBjtWWpiM11KSc=
+	t=1789539907; cv=none; b=manxoMo5SvlEshQTfq2JiiEeiwIx9A2AWfCncQFmqciVmuqoSuyKXxco3BsUJjrDHr7SQERBoEHSaDIE3iiZ+jBlcv1LsQtFX15MeQLeDnh4SYge35jK7TsmN0R2L9xEdSFZJgj6r8bdV1PxvDo2iy/F9shw5ed+wVGZBZ5Do/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789539859; c=relaxed/simple;
-	bh=ssfCFsWm4R4zLnvtS9z2RFVPjbllu3VMKDKrNnNaGQE=;
+	s=arc-20240116; t=1789539907; c=relaxed/simple;
+	bh=6e0c/U8DotYKPyZ1BxuhomQMELSOBuXE4EzfatbRGHE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IJpSED2sruy01630RDHSCtlfpC1okRwHWzTbsB1uLg3pNRBflTRV3No3trMsWVhEL4TAvjZNyVMMrOpM7TtnT8caNy2W907Uxrv7oF2Qu5UiUEXO3isCwUw17lnoqMXxSpgloKp9YGtfW0cRQBOuu7h5xX4mZeoMDR4Jt5yeYJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FIez1ear; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RjL6l8c7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HV1v3uyF; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7fiYrcF9; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 In-Reply-To:Content-Type; b=H9GhJxKdc8Se8c/0dzZ3Vd2VjjbcKpVgmeuNqxvqQV6N2/mCR2I1Il3KMSokdZ/3e+zCtCXKZC86xxCZkiP1K8L3gigp5UJc4kyYzxg98sAQC8lD/9qcu+fSpaAcekWRJm1Yb7ttHXAyzxEVmNclIFJWRD0NNmS11D+taLE0QLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PWlWiHbo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FIez1ear";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RjL6l8c7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HV1v3uyF";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7fiYrcF9"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9A7501FE21;
-	Wed, 16 Sep 2026 06:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789539850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+wG3urIqyzvutvhz3o+cV/d3V7dF1C3I+4csedxlzqA=;
-	b=FIez1earGLDGi7AqR01AuARvOdlajBp+fRMJJGGeMnoTq9dvnv8hE+2+gQMjWWcpKgyOLE
-	Rku1ObTlPRpO9d3QhfYq3w5xFrQ9UJdihQAgaVmQguhkUR0wsXjPhFE/I81McJ8toPFvxd
-	LloqQsKoLaB0OKmvT0WyzdFoTqBbWds=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789539850;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+wG3urIqyzvutvhz3o+cV/d3V7dF1C3I+4csedxlzqA=;
-	b=RjL6l8c7EsdgERq9co40eQ+Wc02hB5lJOzclY2Lh8ZiNcUBip/Y5z1vXt3Nx/OeT79fF/y
-	O2vIt8n7NWHc+ZDQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HV1v3uyF;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=7fiYrcF9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789539846; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+wG3urIqyzvutvhz3o+cV/d3V7dF1C3I+4csedxlzqA=;
-	b=HV1v3uyFjN5zL4NWzhwKMUjp7TwlFd4m1QaG4vFm2grNfzrds33nWaEFJlTtQTTAl4D4GA
-	+/JjHPWs1MSVm5S4zSpKQSInBbt/Urj+jlb/fyMVXUDCkKku6Eqp/5k7pUSYXFx+YtZ/Yv
-	rpL8xVbpMnduyVg/dTUJUMNUFECyXN8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789539846;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+wG3urIqyzvutvhz3o+cV/d3V7dF1C3I+4csedxlzqA=;
-	b=7fiYrcF9r6CsxpTC7KA1gcliQjuqfJKzfk9I74tLP5t4YESS86eerA8R6qzTH0zULKC6v3
-	HchgkWW6EGZZFyBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CC8D9136D1;
-	Wed, 16 Sep 2026 06:24:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id nLZ5HgU2qmrNRQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 16 Sep 2026 06:24:05 +0000
-Message-ID: <bbf8fd0e-8e1c-4899-98f4-b8231800de8c@suse.de>
-Date: Wed, 16 Sep 2026 08:24:05 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PWlWiHbo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1279B1F000FF;
+	Wed, 16 Sep 2026 06:25:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789539906;
+	bh=WSAK4OewrbYk1s8dXTIrNF8g5vHL0nZd3Hyf6R+tOGI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PWlWiHbozNTNPVYdWeMwfblXPsRUHvZ2LxCu4OsQAnqDtZHViQh9tAFFL5FLlmvFd
+	 A65abK9Fy838XvqboO6LTsjyNPDDws1PJJtUQkHbvhFxwi/oaEqBBz+0TMc5mPGQyi
+	 jlTCNEhOtIZJAyU25bUL0ceA9oQCZFT7aS0PHJj+txmfMM2IOChCjT8Qx9GFnjR+FF
+	 fuuyznnPmKDNkXP0SxhiwW39J7+FtF2xD3g/x9SH57za1goAA0kR9kQJ/CAIS/Mgt0
+	 iDoMcXS33MJIclWt1XP6vWMN/GEF9wtzTeEgsmGOK4JIYT5y2PRxAJ6eO+22Xaof72
+	 j7CHcFhNy6w+Q==
+Message-ID: <2f63b25e-71ca-4af6-83d2-70be2388a55a@kernel.org>
+Date: Wed, 16 Sep 2026 08:25:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,142 +35,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm/imx/lcdc: avoid duplicate clk_per enable
-To: Ze Huang <ze.huang@oss.qualcomm.com>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>,
- Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Marian Cichy <m.cichy@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- imx@lists.linux.dev, xen-devel@lists.xenproject.org
-References: <20260727-drm-simple-kms-removal-v3-0-de36e534f7a1@oss.qualcomm.com>
- <20260727-drm-simple-kms-removal-v3-1-de36e534f7a1@oss.qualcomm.com>
+Subject: Re: [RESEND PATCH] mm/madvise: use folio_trylock() in the
+ cold/pageout PMD split
+To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org,
+ vbabka@kernel.org, jannh@google.com, sashiko-bot <sashiko-bot@kernel.org>,
+ stable@vger.kernel.org
+References: <20260912110540.3203010-1-gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260727-drm-simple-kms-removal-v3-1-de36e534f7a1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 9A7501FE21
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[oss.qualcomm.com,synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[25];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,qualcomm.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -3.01
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260912110540.3203010-1-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi
+On 9/12/26 13:05, Gregory Price wrote:
+> MADV_COLD or MADV_PAGEOUT over part of a PMD splits the THP in
+> madvise_cold_or_pageout_pte_range().  Two threads doing that to
+> the same THP create spurious failures.
+> 
+>   CPU0                          CPU1
+>   ----                          ----
+>   folio_get()
+>   spin_unlock(ptl)
+>   folio_lock()
+>                                 folio_get()
+>                                 spin_unlock(ptl)
+>                                 folio_lock()  <- blocks, keeps its ref
+>   split_folio()
+>     folio_expected_ref_count(folio) != folio_ref_count(folio) - 1
+>     -EAGAIN
+> 
+> CPU1 cannot drop its reference until it gets the lock CPU0 holds, so CPU0's
+> split always fails.  folio_trylock() makes CPU1 leave without ever taking a
+> reference.  The PTE branch of this same function already does this, as do
+> madvise_free_pte_range() and madvise_free_huge_pmd().
+> 
+> Reproducer: 400 rounds of eight threads calling MADV_COLD on half of each
+> of eight THPs, re-formed with MADV_COLLAPSE between rounds.  From
+> /proc/vmstat:
+> 
+>                      thp_split_page   thp_split_page_failed
+>     before                     3186                     860
+>     after                      3200                       0
+> 
+> The short before count is rounds where every thread failed and the
+> advice was dropped for that THP entirely.
 
-Am 26.07.26 um 21:42 schrieb Ze Huang:
-> The simple-KMS helper calls the pipe update after enabling the CRTC.
-> On an enable commit, imx_lcdc_pipe_enable() already programs the
-> mode and enables clk_per. The following pipe update sees the plane move
-> from no CRTC to the active CRTC, treats it as a mode update, and calls
-> imx_lcdc_update_hw_registers() again.
->
-> That second call has no old CRTC state to disable clk_per first, but it
-> enables clk_per again at the end. The disable path only drops one
-> reference, leaving clk_per enabled after each on/off cycle.
->
-> Skip the register update from the pipe update path when the CRTC already
-> needs a modeset. The enable path has already programmed the hardware for
-> that commit; keep the event handling in pipe update unchanged.
+While the split now succeeds, one of both calls will just effectively skip
+processing the page table. SO while CPU0 will succeed with the split, CPU1 would
+just skip the page table.
 
-That seems reasonable. Once the driver uses regular DRM helpers instead 
-of simple_kms, it can all be untangled and this test won't be necessary 
-any longer.
+And what happened before?
 
->
-> Fixes: c87e859cdeb5 ("drm/imx/lcdc: Implement DRM driver for imx25")
-> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
+Split on CPU0 failed and it would skip the page table. Split on CPU1, however,
+would likely have succeeded?
 
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+So this is all far from perfect.
 
-> ---
->   drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-> index f52832b43aca..81024f7d9e96 100644
-> --- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-> +++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-> @@ -311,7 +311,8 @@ static void imx_lcdc_pipe_update(struct drm_simple_display_pipe *pipe,
->   	else if (old_crtc != crtc)
->   		mode_changed = true;
->   
-> -	imx_lcdc_update_hw_registers(pipe, old_state, mode_changed);
-> +	if (!drm_atomic_crtc_needs_modeset(crtc->state))
-> +		imx_lcdc_update_hw_registers(pipe, old_state, mode_changed);
->   
->   	if (event) {
->   		crtc->state->event = NULL;
->
+... but this matches what we do further down in the PTE scenario.
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+Cheers,
 
-
+David
