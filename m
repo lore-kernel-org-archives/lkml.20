@@ -1,133 +1,184 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54B548A8C8
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563512; cv=pass; b=AFeUbJ2vo5UQXnC38cr5+eQeQUK3cJNtDkp57U4MtBQnZCFKN3GEoXb2MG003GjJgFuccy6exBZOVhtLENxEu5zggJzdJef/K0kY5rHft8jjeujFFVfRHriRT258kNht9J9yOOz9qjAW3G4gWJo7nwmp0zteNlXbDq+UxGNVc4k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563512; c=relaxed/simple;
-	bh=/mjyagqjzBIPiNIfNt8gfb1IfwsXLdjJl7Bs3jmevAk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YdOWykPnBlLRXPtzJNlrT47whSi3WyNVWfHwn6SW4sv6T4XCWpZywAFj1iBscQ/v/DaJeRl3GPRWnwvNYC9Pf4PjIKjZg+wf4PTS19Wpm2SLRfU2RUTdKRjqQlYzd3xze0WBs21iuB6m2gulCDarPnhz0ai5p7n8ElODyNYl4dE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y/3a6WyF; arc=pass smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AAC837DEBC
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789563522; cv=none; b=kovmIMTJZQoO8rap9qnsmsLFm3jYV4Ky6mcSeTkHPacKyxmn1TIe48CnYS1YZrWRZG5RZQIvGU3R78FKPazlMts1vaOH9IGzn2Nti+iqIGUOpCwfJlkiOe7ieIiVTRw4RKvDGMoRzagQiRbBqJbWpQVfpO6ADk9CpIWBPHeYRQ4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789563522; c=relaxed/simple;
+	bh=MVDwrdRoGs7U1+TI5rmeNPhvfPkVPX1VtkpZjTciIV8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HXf6yQXptBMXLKfjUUgwXeXgt2w2MeFvr+SjtUMxmIy3pS0WxxCzTymBNuZyZwAai0NEkU2BPFCeuklAezrY4GOZ2Q9XTHeLxsYSfFwp7pj5OfkUR14l2mjyLGfZomQsnwW46FDLj5FLJ30T9EcDuklL4qjcRz0df2BKN7xf1I4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mg0pcc7B; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y/3a6WyF"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4e4979c47so73135a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:58:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789563507; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OC/AydVYRzGoUOcWH96rcP2MMZLFvBv2f7pYhJtT2U6Wi16Aad6M4tmZJO6wokyyTy
-         IaE/DEqzrpaKdKZMmb/icWVdHXP6ie7QQMBjiiu00otZfY4sauogI3ts+ADHBaXE195u
-         l7K4pLHNHSvDKLGVILGU4n+LTh8MNVZSBhtbxaIaF90fgYOoxojIQXK3nxZSn/VYEAOn
-         dsvEk7sQkexT2S/yPcAxR29XcLK3JjiIXSjPexcGMR1Bga0VgyGxhKrlwtTdrBEyo2cz
-         sxziBulupinBpI6Pr/8b/nQACtswyZ864xiNDsrRhWLYNtX2GD/UkG7g5wxB3gzoSzEB
-         x+rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=taboNxxDOZthWI5pM3+xrSxYkOe+RftDmUoRh815eTU=;
-        fh=SQ5dGqnArNXqtWqw4t9N27F8qNzIvhBojATZBOQ10d8=;
-        b=VqoNk6itfS2WGj4eFaxzgYsAF5WeIzcgCqmqSdnrepuq4VaWRrVxSduLO+fsDkPtN9
-         DdXUCHm0sd4PZL2sAyoirp8Dcmner2K46Gr6SZQkZvDqi+HT1Z3lez0lQ4IAUQ68RZam
-         VUNlUjIT5flB4oxq5hBWCDCGzk6s6nf3TiapasjcXhq0p0rVV2fQztTh/5NHSewuamaS
-         3bdixaRwdJ4amDE1QM/SbA2tjzz74Nf6x6blBWqTTly0uOiqLTGBJwtlCl5ZoKWlTWHZ
-         J2FGHgLtSnJpJ38hEvz9k/k6ICvcvoNKgrjUZA7XF6hB/9JmTOIu3j7XTUfUpSN1uKVD
-         27JQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789563507; x=1790168307; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=taboNxxDOZthWI5pM3+xrSxYkOe+RftDmUoRh815eTU=;
-        b=Y/3a6WyFkr/CktKRpp3YwLjfjjp+AsE5TS3CrbWGpda7hhO+xfE88uVrw7cDqzt+gb
-         aGUcIHRzULpsYMSUkwTpeTGWTI/kfiztzzfULmdASOxbcz9axuyCZB9+/pNyb5zVYqZG
-         r/89qMiRIbrXBbBwfuLeJ67EEPitrcYo00MsvAS57W28qSGX9/+J8ndZoka4LQJeZVp4
-         7Z7uRzAXLqPj4TNpEv2n9an4R3sO3G1TyfeZpKW0vyUiWvlKv7Nx+cG99ugonZX8YdH3
-         ghN07AoyPcuFYDR9+6MOt1mWtNy3AI/VV+YzSro/CR6LGI5Il1zXn/1A06DlVAvdFTI0
-         i7hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789563507; x=1790168307;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=taboNxxDOZthWI5pM3+xrSxYkOe+RftDmUoRh815eTU=;
-        b=v3Cbq9DhsfvgLK8Ja4OfRDanGVfD3asnlgA1gMM7IkB46QaygAgrzLHlOU24YStuhf
-         pOX6A1vF9KmAQZzG4yubgm0gbYBHB2BJk7rRG+4cXZnTRFQ0gx4MAUkyz0MLoGNZ5051
-         ZAQpMEVTq8YtcZB7jPuNNoWZKlMut9rbXy8oY6PPF6PgpLXmM5PZ7PrBKcJDzE20ipBD
-         /Y+IY4dfwBvUvYjzAGRQ+tlOcF7MLihWiIjnLx5vbLkdNBxCSVL1BJpfdL6tbBIOkRSK
-         14XGQexn9PofTB0Rw+Eex/pmTTDHeWPw9wkh9as1xX+JmhMqSBIweWs1ayfk18gih8eY
-         DIzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxT89HPdbDVxjXDTeVWJq2+1XtKqsKD/rew6zWtxOOzBSU25HQ3RbiQ7O6bjb27YKtAJfWRSfh4iFhlPZs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9OthQFpXaPz+7gnt8Ou6h/CeVg8/6DSTB9LmF3W3v/+EPrmyJ
-	iUeOKLOM+TQqSt1JSgDVx3k4VVskLff0DSbVtBfpPRtWlAmU774I2ULiy8jylmTgPgjpMErVNN7
-	dLt0Snt16NdmAe/qs5EWpeJxNXbfsnD8=
-X-Gm-Gg: AYBFou293V3F3k8ioXRKmBusA6W+vLNP8mh9jvcCpBEbjk2oce6WSNU905bfnilCYjb
-	2Stddaooy+Ym5k7H5yKiczzf0hKjtgg6mBw6rOgVOctRKLHZbJV8CY+MA3QXcGOgbrw5Xch7yqD
-	K+5RNo1fjs9mIvKPtRvXuzRSO4MpVAbn4zAHoVlfK986b1fw4JxH8LfLWpc3E44DHN3f6BkXnkv
-	JzHNAT1TRJjZOXiD7OsJ97iP5u0h1KeackAKMvFfk8wnM5VPwEq069hKC2GTeNeme7jbbOYRCyM
-	r0mGJ/CmJqmTMUWOdIMPEPttd8cDAAbvGHLghVJGLgk2fdTFUNG72uh46lRg0w9axsAdm+d2V3c
-	4Fncemv/4UqCLmU3jyjU6cmgWetQ4f3+L/ugUf4Pb2Q==
-X-Received: by 2002:a17:90b:4a44:b0:398:bada:832b with SMTP id
- 98e67ed59e1d1-39e1e5ddce1mr3962699a91.6.1789563507423; Wed, 16 Sep 2026
- 05:58:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mg0pcc7B"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 2FEEEC5CD58;
+	Wed, 16 Sep 2026 12:59:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2BA9160337;
+	Wed, 16 Sep 2026 12:58:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AA4C311C7B026;
+	Wed, 16 Sep 2026 14:58:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789563512; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=ACT1BcK2mKgNZY0JsO79zzKWzTVjsJHY3lvjP8nZdTE=;
+	b=mg0pcc7ByLpO4n0yIIzGsYslxzp3CzZxijRHgtRU9iQ/zr675u+8g2DIyGBO1DZDKpmYmO
+	OEcGjZUEK3dhD2llZZhjh6/DLQaOiNdKNJLYzNXe+Ts7tdeXVjD7LfeBhHPDozqn42Dvbq
+	VPFeAbR1qDmPfU1Gzgc/UQGD5MWIq/ixcH2yA9Edz4CHxb3hDqHRcTAqmNcm2eYCkye4if
+	2bRCtUZ1An7Vk3LlsaxmQXk9PSXYoAnTNwBw49urNnpdyL57ySVOhjYpzU5ghm/MP+PrJk
+	74kxz5tUxeQXBNE3U9+RJeBOBhxSd5Gik5LYItYRujgnbbL9c9INU7TpQpWURg==
+Message-ID: <97924d2f-45f9-44d5-b482-97fcbb70abdc@bootlin.com>
+Date: Wed, 16 Sep 2026 14:58:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CADnq5_NyBdPbavmiPVdsHkP_Oi1w7ngX0kPSNce+BWN-YkuAFQ@mail.gmail.com>
- <20260915232043.1222-1-atharvatiwarilinuxdev@gmail.com>
-In-Reply-To: <20260915232043.1222-1-atharvatiwarilinuxdev@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Sep 2026 08:58:14 -0400
-X-Gm-Features: AcwNN1V-eNmnsnA6Vp7fEkglgpoEParustJjkGuxPErPwN3z_wLoywr9u_8NQ0M
-Message-ID: <CADnq5_O5QHaUjy+ppibtLjmn-=exK1pptjjnbO9qrn16O1oxBg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
-To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: 062bel313@gmail.com, Alexander.Deucher@amd.com, Christian.Koenig@amd.com, 
-	Kenneth.Feng@amd.com, airlied@gmail.com, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, ed@aicharmers.com, 
-	linux-kernel@vger.kernel.org, simona@ffwll.ch
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 2/2] net: stmmac: qcom-ethqos: advertise supported
+ SerDes interfaces
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Thomas Karpiniec <tom.karpiniec@outlook.com>
+Cc: netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Russell King <rmk+kernel@armlinux.org.uk>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <CH3PR11MB8413FCBA598F7FABC04ADCFEE4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
+ <CH3PR11MB841353E5708DDD7C5E2EA1D5E4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
+ <aqqI9wOnradk9d7K@oss.qualcomm.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <aqqI9wOnradk9d7K@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Sep 15, 2026 at 7:20=E2=80=AFPM Atharva Tiwari
-<atharvatiwarilinuxdev@gmail.com> wrote:
->
-> > I can drop the patch if you feel strongly, although it is pretty
-> > similar your original patch, it just keeps all of the logic within
-> > navi10_ppt.c which is cleaner in my opinion rather than pulling navi1x
-> > specific logic into the core pm code.
-> >
-> > Alex
->
-> I dont have problem with the code, the problem is that, this is not the
-> solution to this problem, as i said in the previous, the solution lies
-> in the DC not the SMU (i tested by removing dce_v10_0_early_init and addi=
-ng
-> that function to dce_v10_sw_init), it is also confirmed via the testing u=
-sing
-> Opencore Lecacy patcher, which makes the display 5K, and make the display=
- not
-> use compatibility mode (4K), and it also fixes the SMU problem.
->
-> (https://gitlab.freedesktop.org/drm/amd/-/work_items/4455)
->
-> You can choose to upstream this, i dont necessarily have a problem with t=
-his
-> patch as long as i am the patch author (eg using From: )
+Hi,
 
-I'll drop the patch for now.  Once it gets sorted out, we can help
-review the new one.
+On 9/16/26 14:17, Mohd Ayaan Anwar wrote:
+> On Wed, Sep 16, 2026 at 08:39:50PM +1000, Thomas Karpiniec wrote:
+>> From: Thomas Karpiniec <tom@wendy.sh>
+>>
+>> With a QCA8081 PHY and phy-mode = "2500base-x", stmmac reports only
+>> 2500BASE-X in phylink's supported_interfaces. Phylink consequently removes
+>> 10/100/1000BASE-T modes from the PHY's advertisement, preventing a link
+>> with a gigabit switch.
+>>
+>> The QCA8081 uses SGMII for lower copper speeds and 2500BASE-X for 2.5Gbps.
+>> ETHQOS already reconfigures the SerDes in ethqos_mac_finish_serdes() when
+>> the PHY changes interface, but does not advertise this capability.
+>>
+>> Provide a get_interfaces() callback for serial interfaces. Add SGMII and
+>> 2500BASE-X when the SerDes validates them, allowing phylink to retain the
+>> corresponding copper link modes. Leave the existing stmmac fallback to
+>> the firmware interface in place when no interfaces are reported. RGMII
+>> configurations are unchanged.
+>>
+>> Fixes: 61e9be0efbe8 ("net: stmmac: qcom-ethqos: add support for 2.5G BASEX mode")
+>> Cc: stable@vger.kernel.org # 7.1+
+>> Assisted-by: LLM sparse
+>> Signed-off-by: Thomas Karpiniec <tom@wendy.sh>
+>> ---
+>>  .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 22 +++++++++++++++++++
+>>  1 file changed, 22 insertions(+)
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>> index ac7d6d3e205a..3493e090f1a8 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>> @@ -1,6 +1,7 @@
+>>  // SPDX-License-Identifier: GPL-2.0
+>>  // Copyright (c) 2018-19, Linaro Limited
+>>  
+>> +#include <linux/bitops.h>
+>>  #include <linux/module.h>
+>>  #include <linux/of.h>
+>>  #include <linux/of_net.h>
+>> @@ -564,6 +565,26 @@ static void ethqos_pcs_set_inband(struct qcom_ethqos *ethqos, bool enable)
+>>  	stmmac_pcs_ctrl_ane(priv, enable, 0);
+>>  }
+>>  
+>> +static void ethqos_get_interfaces_serdes(struct stmmac_priv *priv, void *bsp_priv,
+>> +					 unsigned long *interfaces)
+>> +{
+>> +	struct qcom_ethqos *ethqos = bsp_priv;
+>> +
+>> +	if (!ethqos->serdes_phy)
+>> +		return;
+>> +
+>> +	/* PHYs such as QCA8081 switch between SGMII and 2500BASE-X with
+>> +	 * the negotiated copper speed. mac_finish reconfigures the SerDes
+>> +	 * accordingly; let phylink validate all modes that path supports.
+>> +	 */
+>> +	if (!phy_validate(ethqos->serdes_phy, PHY_MODE_ETHERNET,
+>> +			  PHY_INTERFACE_MODE_SGMII, NULL))
+>> +		__set_bit(PHY_INTERFACE_MODE_SGMII, interfaces);
+>> +	if (!phy_validate(ethqos->serdes_phy, PHY_MODE_ETHERNET,
+>> +			  PHY_INTERFACE_MODE_2500BASEX, NULL))
+>> +		__set_bit(PHY_INTERFACE_MODE_2500BASEX, interfaces);
+>> +}
+>> +
+> 
+> So, I had proposed this exact change a while back:
+> https://lore.kernel.org/netdev/aMgootkPQ%2FGcdiXX@oss.qualcomm.com/
+> 
+> As Russell noted, this behaviour is due to the messed-up integrated
+> PCS support in STMMAC/QCOM-ETHQOS.
+> 
+> I would defer to him for this if he's around.
 
-Thanks,
+Indeed, but we haven't heard from him in a while, let's see if we can
+figure this out. 
 
-Alex
+Does this IP have an integrated PCS ? (i.e. dma_cap.pcs is set)
+you can check that in debugfs :
+
+mount -t debugfs none /sys/kernel/debug
+cat /sys/kernel/debug/stmmaceth/eth0/dma_cap | grep PCS
+
+if it's Y, then you have the integrated one.
+
+Russell worked hard on that, it looks like a lot of the plumbing went
+through.
+
+I think the right approach here is to have the PCS itself report the
+list of supported interfaces, instead of relying on the glue. looking
+at stmmac_pcs.c :
+
+220 int stmmac_integrated_pcs_init(struct stmmac_priv *priv,                                
+221                                const struct stmmac_pcs_info *pcs_info)                  
+222 {                                                                                       
+223         struct stmmac_pcs *spcs;                                                        
+224                                                                                         
+225         spcs = devm_kzalloc(priv->device, sizeof(*spcs), GFP_KERNEL);                   
+226         if (!spcs)                                                                      
+227                 return -ENOMEM;                                                         
+
+[...]
+                                                             
+246         /* Only allow 2500BASE-X if the SerDes has support. */                          
+247         if (priv->plat->flags & STMMAC_FLAG_SERDES_SUPPORTS_2500M)                      
+248                 __set_bit(PHY_INTERFACE_MODE_2500BASEX,                                 
+249                           spcs->pcs.supported_interfaces);                              
+250                                                                                         
+251         priv->integrated_pcs = spcs;                                                    
+252                                                                                         
+253         return 0;                                                                       
+254 }        
+
+Can you test settung the STMMAC_FLAG_SERDES_SUPPORTS_2500M flag in
+dwmac-qcom-ethqos ?
+
+Maxime
+
