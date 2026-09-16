@@ -1,66 +1,66 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B1E4D9572
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:34:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D1A4D7D2A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:34:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580093; cv=none; b=JQ/U0gGuYd/7nhmX46l8WJJ2BHiH3o9kzowPE/jQ3D9t7bhda4AdCMMObQk19nriAjWfyfC2kwhM1+CJj4XeQwD2OdjdnU/7IOsaDGwgx2TnCzoJ2iDb/OcKWIBjhUFMxu/fkxxDa6CoY7XasOMuGuEbgXF2GBiJtne45cqLjAM=
+	t=1789580089; cv=none; b=huEJrHKyhZe3aNEPR4CsH2F/aTnMnhJxbU2GoIOVTHIldnhlSG/WhUyZou1uV4srvOY4yz0iBuAD651cP0lMlzjl1rq++O575LideNzazqqjnNxAUoCU76PxJ+0pyH/RtySarPEns9UHD/QkUMJImGMj9r6Q/eoIDnuVS07oAeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580093; c=relaxed/simple;
-	bh=vfPgszcrKMkOdEiihjECb4jnRWMn9BoIETfDExylycs=;
+	s=arc-20240116; t=1789580089; c=relaxed/simple;
+	bh=iwDKG6ahLu03ZTpVgkhI8rsprMAFlZ0EjKbSWmFEPGk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hfw6Jqpcq1JPdJRkSLOpN+hHVpEQ2XQJgnljViWAgCAMZ7Mt2sDTqGQ/cx/puS/JQCdeThet8BgePag7kYn71j7/cg+fUWAup76f2NSGBQP9A7xX7DnLFgCtYWmQUODCYiqlqr3X9RcO0E7ij1qEOhH5ejc4qz2j8ZyWmsh7DWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FNAu4/xG; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version:Content-Type; b=eoRBBuX6+5JJertYjNZN08RpnbMThRWmeQzxFZAHWXSGcitSoNoqg9kr692cc12PDzdCJCXdAwa6j8fvlY0iKeaAu7174GHmBnOiG16a37ThQLGi48Ig5/wKmPPHmWmfHJtVE84Xhc7D62Idu1fCI4+E9rX7AQ4Qjy9Ot6GrSNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dkFhepWE; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FNAu4/xG"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so46365e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:34:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dkFhepWE"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48431648f33so999693f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:34:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789580082; x=1790184882; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789580075; x=1790184875; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=EXWmb7VjjlkNtn1q70BvaaY3UDnd0CfPKSfQaqn3n2k=;
-        b=FNAu4/xGxulIBRs/0kFJf7a2BYLWyLH8Ui09Gy6NQYKQX/14DScyW77uLKWAVQoFIV
-         AWwSBIlVmQvk0ac+q2HW4Ps98Wgk9thQXe64WXzkVTkRLhX/yFLx/C948BM/A7B7XZNE
-         aTIxua+aHaERYrjHyereN+fnSN9VSSRwLrtc5Ml7NcCHBvOEmAb6AONolgw7fbBcDgAR
-         aQB7O3kYFvZUTACTVeM7Um5OljEKpDLK2XAfPtOp394skWEN0femRjwxUx1XHGz5iZHc
-         6zU6I3HVVuglk3AGlcofyYtUEi3Ow5au+M3tt6GurXBLCnaTgLYA1wxyWCqmx/S4jF5h
-         b9lQ==
+        bh=1iqGmORGiRLjddmmjFvHkR4msXAhMvLmPlXq2zOjXno=;
+        b=dkFhepWEgwyU53DSz/jd8q7yWvo+jGTk37Cs9oDj3SUC+TLQ+UZ81z288AQoKpptqq
+         0k+2YfDA3wWmHVjwHo6vxI9tNqqIncWybVnNXveZYfZ/rERI0Zcl6dfJ0HszQGuzZ0Os
+         xxu0UpC9zDZvovwLZfYLGdZjDciPDD5M0nSTyPdd1VfWpRQOcTOSzxzFrAHiV7ov6vPB
+         gFFMCtQuNqHfUU0zQN+rV0+4klqrM65BalHxdD/iSTUZk0p2TrYWFRfgWh5Hv0+0pC84
+         ihr2AWq22EsK3mqvwD72vId9LDWsUhKn+hLsbhDDWpIaUTGZxeniZHTUA6ZKnprtckZK
+         REfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789580082; x=1790184882;
+        d=1e100.net; s=20260707; t=1789580075; x=1790184875;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EXWmb7VjjlkNtn1q70BvaaY3UDnd0CfPKSfQaqn3n2k=;
-        b=lNmUAbfvrcvlZimIhzKGi9MEONUyEKOIpn9EsxbzwV0b2XHxjb/c4dCDKJae+HBm+V
-         fUuVvXo9aKUFwcb9ExOcEFR++NhThPIHZ+Nfn9/krpuI/trPbAzNErCodPnxKRoHzb1T
-         8LofltbuSu2ES8O9/yOMsYOzXHEJZ8AYntL2WXXr16uEOjXytk8YwRFYSIWY6q+BIYdb
-         3ZtoR76GbK2LlGfF2GYg2AtE2moLdYoFpug3y6MSoIChKy+BiLvmPqYrKOGpfhrJfOWC
-         7GjZKHLnpl1hXWLQkeJ+2tsupPEET/eXTPYHzhUNrtrKNT0mVvaFRd44+wwbYuaubL/t
-         ZU+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw77c1wwMZkJjMvPgQVmbrZGpdvp+NfuU+lM77RziiB57zsoGa/tOn6f3DeeJPrakzkpy+Zw8K5vHIYX94=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwtW29NAKeVN9haUi3sbx1TYLjzNLQF5m1Vy72zZacr+n2dhWh
-	+bQ28NhxKZtusFKgo3gC6WVZtT462MCJ9rV38JVSo6dQ4wtjnoLq/yQNrPTj
-X-Gm-Gg: AYBFou1MA4Pz/73hs5IKGwux2hmo2H04o8v5SKNXhChC2pAjBxEPwg2vd3y/CaXZVD4
-	eu8v4E2V5NWQUvBr0zXl61uy1rB6AmZM7HX48XWeaMcDwcIcMtWpH41i3enhtfb22NsaoAxNqGA
-	gakIS564FJbQAErH+BX2fRSOfvsLqEt9rkQ/PuwaKtUU42QSbxzktM0VZQEk8oOZTA+tn0fj6/5
-	A4Ge1t0e6tiDZc9Xd5LZTxzOdhNqsD47UcKU3aGrBHtfxjgDtcnu4irrK6Qcwx+eC/Eb8gIBq6B
-	3Ovwz4E8NV9KD1fhk+uysqaZ1U8N/nrDJj8c1qVtziSHyv45eAaObgGjGQCMSbswOlKZw8D/ocP
-	C6x6QZ+9m4N4fHYWKk6191TYKt8CnRUh6QJeHFzpGhPW7HncWnb7HNRdtYqn1M/icxnJ7dXcAEW
-	dIxQ9KhgAdRtfqAW6ZbEQsPL6u/i7aCa8BYyU/5t1cm9aR6tblQuvug3ZGsuEbeL63lU7laZic5
-	+4PIPOObrGYBbEfuA7j99QsmONFVKqzRGctb4DskoQ1rgvbuf2b3pTxfD3l2/R3/2ZXI8e/CPic
-	8DL3bqQVGMXDuPA=
-X-Received: by 2002:a05:600c:c8f:b0:49c:fc6c:be15 with SMTP id 5b1f17b1804b1-49eb733c62dmr44718705e9.27.1789580081884;
-        Wed, 16 Sep 2026 10:34:41 -0700 (PDT)
+        bh=1iqGmORGiRLjddmmjFvHkR4msXAhMvLmPlXq2zOjXno=;
+        b=qamxTftakEiYS2CktFsKG/fAIH2RdWm2oRA7Sa+h4iuvudzzA916AzdKGRD0MFf2VF
+         f6MttJSnEDwSO1VMF2FwSIQWdkHEn24lUDUzmkIZDCdUheMhm0/fW/SZsai/g5Ctb2lc
+         Afu7IMAHsBMQLm9DFiCrTLEgSWVs7HC8m/l2tSEO5ISumJvvPr3Pa4wv0NTnILCbyJfH
+         +iOji9yNzQ2aNQO4iDUvYb0pDmmH7LynR6AO+DN1SCGuxsgqD0Exh/Y1LaAUMANSkujT
+         TmwbxHA5Eh79Qe6IqSUXJlN82HGAi1V+aRKdObZObOvlRW22OJrZNqeqNP7X6x4xOimF
+         QKWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw1/K/B7mGxxeFUbpUVmiNC6G87PB5vEhL2xztLP1zFijoDs8vbPminPLFKxuymsca9+1wle8oLLNk/I7E=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9D2HF5UU/9L8NTVcJiK4wq19nNbpxHEZgQ0IUXFT6+qNj2pxP
+	YSpK+p/Th7HV20f8HJYVymYl9Iusm7n8tzRRBhcE5ckeK03O2Zl/R00=
+X-Gm-Gg: AYBFou0xFYQhwJvObEaO+dlNmGGcPiYkmK6JunvH813TK/Jeiq0wa9yNNDs+buOhQMB
+	31p/j/xsTQl/pgJRY45sPyH6kUv44GUKuuJOYByA89OqHMI12ci3BQEBQq+Dva03xuJFGkJE5Rq
+	uj3EIJqv0JI5PcHDXXCGT+o13AC0O3qs7FDM4zoy1HJArUBvfvjvf0/eaAkqYtUN8iZOMZwUWb1
+	jqUbSjN5YNF0/5UVRB6UWR4FC78MJef6BTeL2XHGP9CC3cNTk5nWQsYXf6mx4nCHAJlfvkbkirj
+	227NfOqQmxaYFGy31gcJWQCJrO6b9oYMlvgs98F3ji3mBMHJuS9cfw3kLXoN/qiZQP29P3PVqgJ
+	bPcAwXDMQMezt2DgxnzEP2J6Yih092ZBtNjQQadSoHNpNmZzvt2Hz3o/sD3BmYnqeLNrQTkxB9S
+	gEqOezhxjggih++oqwlAmiQIbwVGWK0NN/5F2MRHAFaE0FGtKfLtf+bAkJznKjRvvaDkHr2gmG+
+	2Pz0RhgQ6k4+AD9MYnPdfFQE22iDu2Es05lhRiwP17HoTq/tIe5HipL1VrVMThyYiSxAqsMsXnO
+	6X2pLAmRVrmfX6o=
+X-Received: by 2002:a05:600c:81c5:b0:49d:28fc:d6a0 with SMTP id 5b1f17b1804b1-49fbd200256mr6225295e9.18.1789580075031;
+        Wed, 16 Sep 2026 10:34:35 -0700 (PDT)
 Received: from nn ([2001:1ab8:1003:0:f23c:f0c3:c09d:d6d6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27ce2sm8987544f8f.20.2026.09.16.10.34.40
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27ce2sm8987544f8f.20.2026.09.16.10.34.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 10:34:41 -0700 (PDT)
+        Wed, 16 Sep 2026 10:34:34 -0700 (PDT)
 Sender: N B <gen.benner@gmail.com>
 From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
 To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
@@ -72,9 +72,9 @@ Cc: linux-wireless@vger.kernel.org,
 	Kalle Valo <kvalo@kernel.org>,
 	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
 	stable@vger.kernel.org
-Subject: [PATCH ath-next v4 7/8] wifi: ath9k_htc: pass CRC-tagged spectral samples to the FFT parser
-Date: Wed, 16 Sep 2026 20:34:28 +0300
-Message-ID: <20260916173429.403889-8-nerijus.bendziunas@gmail.com>
+Subject: [PATCH ath-next v4 1/8] wifi: ath9k: return an error from a failed multi-register read
+Date: Wed, 16 Sep 2026 20:34:22 +0300
+Message-ID: <20260916173429.403889-2-nerijus.bendziunas@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916173429.403889-1-nerijus.bendziunas@gmail.com>
 References: <20260916173429.403889-1-nerijus.bendziunas@gmail.com>
@@ -87,72 +87,214 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The AR9271 firmware reports a frame that failed its CRC as a CRC error
-even when the PHY error bit is set too, so spectral samples received
-under interference reach the host as CRC errors, and the host passes
-only PHY errors to the FFT parser. ath9k reordered the same check in
-commit 3a325565c7fa ("ath9k: reorder error codes for spectral"); the
-firmware never followed.
+ath9k_multi_regread() logs a failed or timed-out WMI read and still
+copies its result buffer to the caller, so the caller gets
+uninitialised stack data for every register it asked for. The MIB
+counters in ath9k_hw_update_mibstats() then take arbitrary jumps, and
+an EEPROM read at probe fails on the checksum rather than on the read.
 
-While a scan is active, also pass a CRC error frame of FFT report size
-to the parser, with the PHY error code it expects. The parser rejects a
-frame without the spectral bit in its trailer. A monitor interface with
-FIF_FCSFAIL no longer sees those frames.
+Give the multi_read op a return value, return the WMI error from
+ath9k_multi_regread(), and check it: skip the counter update and fail
+the EEPROM fill when the read did not happen.
 
-Fixes: 83fb287ecd8a ("ath9k_htc: process rx spectral packets")
+Fixes: 09a525d33870 ("ath9k_htc: Add multiple register read API")
 Assisted-by: LLM
 Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
 ---
- drivers/net/wireless/ath/ath9k/htc_drv_txrx.c | 29 +++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ drivers/net/wireless/ath/ath.h                |  2 +-
+ drivers/net/wireless/ath/ath9k/ani.c          |  4 +++-
+ drivers/net/wireless/ath/ath9k/eeprom.c       | 10 +++++++---
+ drivers/net/wireless/ath/ath9k/eeprom.h       |  2 +-
+ drivers/net/wireless/ath/ath9k/eeprom_4k.c    |  4 +---
+ drivers/net/wireless/ath/ath9k/eeprom_9287.c  |  7 +++----
+ drivers/net/wireless/ath/ath9k/eeprom_def.c   |  5 ++---
+ drivers/net/wireless/ath/ath9k/htc_drv_init.c |  7 +++++--
+ drivers/net/wireless/ath/ath9k/init.c         |  6 ++++--
+ 9 files changed, 27 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c b/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
-index bed7ea2425a0..23d1ef2407a4 100644
---- a/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
-+++ b/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
-@@ -969,6 +969,25 @@ static void rx_status_htc_to_ath(struct ath_rx_status *rx_stats,
- 	convert_htc_flag(rx_stats, rxstatus);
+diff --git a/drivers/net/wireless/ath/ath.h b/drivers/net/wireless/ath/ath.h
+index 34654f710d8a..d1af0b81768a 100644
+--- a/drivers/net/wireless/ath/ath.h
++++ b/drivers/net/wireless/ath/ath.h
+@@ -126,7 +126,7 @@ enum ath_cipher {
+  */
+ struct ath_ops {
+ 	unsigned int (*read)(void *, u32 reg_offset);
+-	void (*multi_read)(void *, u32 *addr, u32 *val, u16 count);
++	int (*multi_read)(void *hw_priv, u32 *addr, u32 *val, u16 count);
+ 	void (*write)(void *, u32 val, u32 reg_offset);
+ 	void (*enable_write_buffer)(void *);
+ 	void (*write_flush) (void *);
+diff --git a/drivers/net/wireless/ath/ath9k/ani.c b/drivers/net/wireless/ath/ath9k/ani.c
+index 41d192709e8e..6d9f0ee26237 100644
+--- a/drivers/net/wireless/ath/ath9k/ani.c
++++ b/drivers/net/wireless/ath/ath9k/ani.c
+@@ -111,7 +111,9 @@ static void ath9k_hw_update_mibstats(struct ath_hw *ah,
+ 		       AR_FCS_FAIL, AR_BEACON_CNT};
+ 	u32 data[5];
+ 
+-	REG_READ_MULTI(ah, &addr[0], &data[0], 5);
++	if (REG_READ_MULTI(ah, &addr[0], &data[0], 5))
++		return;
++
+ 	/* AR_RTS_OK */
+ 	stats->rts_good += data[0];
+ 	/* AR_RTS_FAIL */
+diff --git a/drivers/net/wireless/ath/ath9k/eeprom.c b/drivers/net/wireless/ath/ath9k/eeprom.c
+index df58dc02e104..6bf86d017c13 100644
+--- a/drivers/net/wireless/ath/ath9k/eeprom.c
++++ b/drivers/net/wireless/ath/ath9k/eeprom.c
+@@ -76,7 +76,7 @@ bool ath9k_hw_get_lower_upper_index(u8 target, u8 *pList, u16 listSize,
+ 	return false;
  }
  
-+static bool ath9k_htc_is_spectral_sample_len(struct ath9k_htc_priv *priv,
-+					     u16 len)
-+{
-+	enum nl80211_channel_type chan_type;
-+	u16 fft_len;
-+
-+	if (priv->spec_priv.spectral_mode == SPECTRAL_DISABLED)
-+		return false;
-+
-+	chan_type = cfg80211_get_chandef_type(&priv->hw->conf.chandef);
-+	if (chan_type == NL80211_CHAN_HT40MINUS ||
-+	    chan_type == NL80211_CHAN_HT40PLUS)
-+		fft_len = SPECTRAL_HT20_40_TOTAL_DATA_LEN;
-+	else
-+		fft_len = SPECTRAL_HT20_TOTAL_DATA_LEN;
-+
-+	return len >= fft_len - 1 && len <= fft_len + 2;
-+}
-+
- static bool ath9k_rx_prepare(struct ath9k_htc_priv *priv,
- 			     struct ath9k_htc_rxbuf *rxbuf,
- 			     struct ieee80211_rx_status *rx_status)
-@@ -1052,6 +1071,16 @@ static bool ath9k_rx_prepare(struct ath9k_htc_priv *priv,
- 		goto rx_next;
+-void ath9k_hw_usb_gen_fill_eeprom(struct ath_hw *ah, u16 *eep_data,
++bool ath9k_hw_usb_gen_fill_eeprom(struct ath_hw *ah, u16 *eep_data,
+ 				  int eep_start_loc, int size)
+ {
+ 	int i = 0, j, addr;
+@@ -88,7 +88,8 @@ void ath9k_hw_usb_gen_fill_eeprom(struct ath_hw *ah, u16 *eep_data,
+ 			((addr + eep_start_loc) << AR5416_EEPROM_S);
+ 		i++;
+ 		if (i == 8) {
+-			REG_READ_MULTI(ah, addrdata, data, i);
++			if (REG_READ_MULTI(ah, addrdata, data, i))
++				return false;
+ 
+ 			for (j = 0; j < i; j++) {
+ 				*eep_data = data[j];
+@@ -99,13 +100,16 @@ void ath9k_hw_usb_gen_fill_eeprom(struct ath_hw *ah, u16 *eep_data,
  	}
  
-+	if (unlikely(rx_stats.rs_status & ATH9K_RXERR_CRC) &&
-+	    ath9k_htc_is_spectral_sample_len(priv, rs_datalen)) {
-+		struct ath_rx_status sample_rs = rx_stats;
+ 	if (i != 0) {
+-		REG_READ_MULTI(ah, addrdata, data, i);
++		if (REG_READ_MULTI(ah, addrdata, data, i))
++			return false;
+ 
+ 		for (j = 0; j < i; j++) {
+ 			*eep_data = data[j];
+ 			eep_data++;
+ 		}
+ 	}
 +
-+		sample_rs.rs_phyerr = ATH9K_PHYERR_RADAR;
-+		if (ath_cmn_process_fft(&priv->spec_priv, hdr, &sample_rs,
-+					rx_status->mactime))
-+			goto rx_next;
-+	}
++	return true;
+ }
+ 
+ static bool ath9k_hw_nvram_read_array(u16 *blob, size_t blob_size,
+diff --git a/drivers/net/wireless/ath/ath9k/eeprom.h b/drivers/net/wireless/ath/ath9k/eeprom.h
+index f1cde43fcb55..dc5ad4a3e752 100644
+--- a/drivers/net/wireless/ath/ath9k/eeprom.h
++++ b/drivers/net/wireless/ath/ath9k/eeprom.h
+@@ -680,7 +680,7 @@ bool ath9k_hw_nvram_read(struct ath_hw *ah, u32 off, u16 *data);
+ int ath9k_hw_nvram_swap_data(struct ath_hw *ah, bool *swap_needed, int size);
+ bool ath9k_hw_nvram_validate_checksum(struct ath_hw *ah, int size);
+ bool ath9k_hw_nvram_check_version(struct ath_hw *ah, int version, int minrev);
+-void ath9k_hw_usb_gen_fill_eeprom(struct ath_hw *ah, u16 *eep_data,
++bool ath9k_hw_usb_gen_fill_eeprom(struct ath_hw *ah, u16 *eep_data,
+ 				  int eep_start_loc, int size);
+ void ath9k_hw_fill_vpd_table(u8 pwrMin, u8 pwrMax, u8 *pPwrList,
+ 			     u8 *pVpdList, u16 numIntercepts,
+diff --git a/drivers/net/wireless/ath/ath9k/eeprom_4k.c b/drivers/net/wireless/ath/ath9k/eeprom_4k.c
+index 3e16cfe059f3..d5a8275ceb03 100644
+--- a/drivers/net/wireless/ath/ath9k/eeprom_4k.c
++++ b/drivers/net/wireless/ath/ath9k/eeprom_4k.c
+@@ -53,9 +53,7 @@ static bool __ath9k_hw_usb_4k_fill_eeprom(struct ath_hw *ah)
+ {
+ 	u16 *eep_data = (u16 *)&ah->eeprom.map4k;
+ 
+-	ath9k_hw_usb_gen_fill_eeprom(ah, eep_data, 64, SIZE_EEPROM_4K);
+-
+-	return true;
++	return ath9k_hw_usb_gen_fill_eeprom(ah, eep_data, 64, SIZE_EEPROM_4K);
+ }
+ 
+ static bool ath9k_hw_4k_fill_eeprom(struct ath_hw *ah)
+diff --git a/drivers/net/wireless/ath/ath9k/eeprom_9287.c b/drivers/net/wireless/ath/ath9k/eeprom_9287.c
+index c139ac49ccf6..73213416fc8c 100644
+--- a/drivers/net/wireless/ath/ath9k/eeprom_9287.c
++++ b/drivers/net/wireless/ath/ath9k/eeprom_9287.c
+@@ -55,10 +55,9 @@ static bool __ath9k_hw_usb_ar9287_fill_eeprom(struct ath_hw *ah)
+ {
+ 	u16 *eep_data = (u16 *)&ah->eeprom.map9287;
+ 
+-	ath9k_hw_usb_gen_fill_eeprom(ah, eep_data,
+-				     AR9287_HTC_EEP_START_LOC,
+-				     SIZE_EEPROM_AR9287);
+-	return true;
++	return ath9k_hw_usb_gen_fill_eeprom(ah, eep_data,
++					    AR9287_HTC_EEP_START_LOC,
++					    SIZE_EEPROM_AR9287);
+ }
+ 
+ static bool ath9k_hw_ar9287_fill_eeprom(struct ath_hw *ah)
+diff --git a/drivers/net/wireless/ath/ath9k/eeprom_def.c b/drivers/net/wireless/ath/ath9k/eeprom_def.c
+index 5ba467cb7425..085e544f7c4b 100644
+--- a/drivers/net/wireless/ath/ath9k/eeprom_def.c
++++ b/drivers/net/wireless/ath/ath9k/eeprom_def.c
+@@ -112,9 +112,8 @@ static bool __ath9k_hw_usb_def_fill_eeprom(struct ath_hw *ah)
+ {
+ 	u16 *eep_data = (u16 *)&ah->eeprom.def;
+ 
+-	ath9k_hw_usb_gen_fill_eeprom(ah, eep_data,
+-				     0x100, SIZE_EEPROM_DEF);
+-	return true;
++	return ath9k_hw_usb_gen_fill_eeprom(ah, eep_data,
++					    0x100, SIZE_EEPROM_DEF);
+ }
+ 
+ static bool ath9k_hw_def_fill_eeprom(struct ath_hw *ah)
+diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_init.c b/drivers/net/wireless/ath/ath9k/htc_drv_init.c
+index 6de78ae85726..3798d3375158 100644
+--- a/drivers/net/wireless/ath/ath9k/htc_drv_init.c
++++ b/drivers/net/wireless/ath/ath9k/htc_drv_init.c
+@@ -252,8 +252,8 @@ static unsigned int ath9k_regread(void *hw_priv, u32 reg_offset)
+ 	return be32_to_cpu(val);
+ }
+ 
+-static void ath9k_multi_regread(void *hw_priv, u32 *addr,
+-				u32 *val, u16 count)
++static int ath9k_multi_regread(void *hw_priv, u32 *addr,
++			       u32 *val, u16 count)
+ {
+ 	struct ath_hw *ah = hw_priv;
+ 	struct ath_common *common = ath9k_hw_common(ah);
+@@ -273,11 +273,14 @@ static void ath9k_multi_regread(void *hw_priv, u32 *addr,
+ 	if (unlikely(ret)) {
+ 		ath_dbg(common, WMI,
+ 			"Multiple REGISTER READ FAILED (count: %d)\n", count);
++		return ret;
+ 	}
+ 
+ 	for (i = 0; i < count; i++) {
+ 		val[i] = be32_to_cpu(tmpval[i]);
+ 	}
 +
- 	if (!ath9k_cmn_rx_accept(common, hdr, rx_status, &rx_stats,
- 			&decrypt_error, priv->rxfilter))
- 		goto rx_next;
++	return 0;
+ }
+ 
+ static void ath9k_regwrite_multi(struct ath_common *common)
+diff --git a/drivers/net/wireless/ath/ath9k/init.c b/drivers/net/wireless/ath/ath9k/init.c
+index 2f0c4ef86b7e..e425d355bf94 100644
+--- a/drivers/net/wireless/ath/ath9k/init.c
++++ b/drivers/net/wireless/ath/ath9k/init.c
+@@ -201,13 +201,15 @@ static unsigned int ath9k_ioread32(void *hw_priv, u32 reg_offset)
+ 	return val;
+ }
+ 
+-static void ath9k_multi_ioread32(void *hw_priv, u32 *addr,
+-                                u32 *val, u16 count)
++static int ath9k_multi_ioread32(void *hw_priv, u32 *addr,
++				u32 *val, u16 count)
+ {
+ 	int i;
+ 
+ 	for (i = 0; i < count; i++)
+ 		val[i] = ath9k_ioread32(hw_priv, addr[i]);
++
++	return 0;
+ }
+ 
+ 
 -- 
 2.55.0
 
