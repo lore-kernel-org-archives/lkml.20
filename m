@@ -1,384 +1,220 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013054.outbound.protection.outlook.com [52.101.83.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F3444239F;
-	Wed, 16 Sep 2026 20:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789590270; cv=none; b=bpNF3nFV2BqtzojmulyZPBM6s6MaoesXgu2L+lQWi0L9updgvfkyw/1QJVFNWNhBTcb15eU9vZTd42OtWIcELmba45iwvYarU3T4W5KyhE+g2v0ZlmFirCB9nWq2RkrIKfTNlKsd7WCfrfPL4c+XiGjjGeBG+0FpgNceTIQ15F4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789590270; c=relaxed/simple;
-	bh=LIYuYlRJUHfyS/7bp4agpleX+ltS3xBvozzMpivLpBw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mJ+jjW+7b5+GbhzyooZW7X9ijJHrECKf1lQFoXwz8kDZrwH/Jvri2liZLsvJUZeXC73Xn2neJUVKo/PpuNj+MobWGpw4nObXfhB/qhiahEkJYTnVMpjnQ0GuFQSyvUU+18qpHkGjC/S+KorgMeisjZtG06qkuzbUO/6e9yuI5DI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CUT8tvzX; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6B545D5E7;
+	Wed, 16 Sep 2026 20:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789590356; cv=fail; b=gjVY8cmrSFB7tLYBlQpzpBJJ0uoTGhy7JgDiYz8FxPZ0zHapDyB02Q205fhl7HVmONHaLT+dr/C2Itx36hy8yh7cb5M0htgRHYVK2hD/VCsS/sEJ/I2INyJzJ1luCwGuxS4TAxG+aXOEo+Sj0JoMSiT+a7cfCl1xb09PhHQ8AJY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789590356; c=relaxed/simple;
+	bh=p843uKKxJwH19ejcnydUSVVv9Radw9u974pRf3N0Pgs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=G9rgsho2lBIsjEq2Mn5pdqyH9eMbo7vkCl151tmSbmj66TB6UDqqUHnCzzfrn8gB1npJA9Zp2N23l8h/TckY/dh3lQUcSH9H5XgYaa0Y/jJ6ve3LtiWscirXKf0JCx1/LV5UdjiO5DI3eLdxic3A3pPzKSyNawtKbnN2nvWrXxs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ElqfABCb; arc=fail smtp.client-ip=52.101.83.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CUT8tvzX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=ARxm15Vru9E1za5UHMjNu7zK7PopmWvyLf8LUZ0uPY8=;
-	b=CUT8tvzXQJbzudOudeeYtTabL06OV/aqU66VjcVjYjBlEBLGX2ggzcRtgmzo/h
-	2g/e1lXAB5ii551Sh7jlr4Ng27W23kAnlW+AICAv7+uE9Zz+vmsDIiFo+FMEcwlC
-	BHuqv8o5R6T2UGGDYtZxUx2Dy4z4jeHDOxmvnhHPaoPYU=
-Received: from [IPV6:2409:8900:21a7:a33a:b45d:31d1:c098:7d46] (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wAHj93Y+qpq2WThAw--.3622S2;
-	Thu, 17 Sep 2026 04:23:53 +0800 (CST)
-Message-ID: <3880e9ed-53d3-4b3d-89af-e72e78abfc64@163.com>
-Date: Thu, 17 Sep 2026 04:23:52 +0800
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ElqfABCb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=poZ+3fEwtQi6DkAKatQKUNkQAVsqkZTvT6fzdmok7jS6m5dgPw428iFJg2eXF7QTgAUlucxSGfjOvZuJDJLQz4Djx+zPOFPAXubESvz0p/3rWRK6hVTH2OKojhGVvxsTBeUNsTw5mN6WeiAyGrSRnu6YK23fziYU1TIEbMR1qlQcjXthbdFNdBFvt1IDvUJx1JA3RjOgl5HA64ZGqH9MqNQAvs0UO5Xb6McJi8wJOQLhC9xJ0ajGbJ2udgMrWQZ8ehdtOcIqOecyVf6C6E5r17PHYLV2bp+DdwVi1Sff5fW+RHkeK5nNmQKhp7s6r1T5fhytJ9brJ7vlqDajSprrzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xbpj4bz6AyXGWnxm7HeyTmgav9RAh5QqptIjZOiBJQQ=;
+ b=ICHgCcgr4oqXAWpzWNcDDTrGpYUF8NiBqT68pxBqNFtC2mwLP2TDYxnhQHmYmfh4yPhzs6Wr0kKRm8qc4jaWUEkOpDHFdB5XNxBT788ZjpM5RAeCd/FLJmCeapmDzmj+8NmL1EzlYsKhVKy7kv4MLtplImL3ydqr358GYfqp398PwwDaHIwdkQjPEwuH7RshUs57dNYQ5hyvreGXb01nVcJ+e0gvMby5J80gKBrYxyMN6qJJFei7NaeOCUQC7ZSorIKTDhfpLN4rqmeIHVtIG+BJapKLCzdHOXg9khaHsdZF2OMPKuDil1U8ZmrWrrXcdUXleRjeuhdijx1kn6RaQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xbpj4bz6AyXGWnxm7HeyTmgav9RAh5QqptIjZOiBJQQ=;
+ b=ElqfABCbrTqGgtBgjI7GeHqhnmV49EKFQeqrNCa/OsYeYtoAnI5eTNDoRF1T2/OnqwNV5roSyyK//cfN43EXMjuc781MqVP+fH3C6B7sEtRUvJMX+Kh0SCqcRmI0x03U5b8Y+9GN5zFP3xuMdYBf940hkiQQj3meuduwkcwaaBI8qmo/EBBeSgCud+cqBZjOxu2X7SARiJ58xRYxNWsm0upIkLyjSBsvRgx15LFtAHHJfGZe9DRA4Tpw2kZV7RNDbVRjzAm7H4SuyY73vFIygW4oZaSJPX/Lfjv13j3qXBmQgQhcI0+RFc9S5MRkbndoyzr4CJvdYVz3fjbrKnelRQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA4PR04MB7630.eurprd04.prod.outlook.com (2603:10a6:102:ec::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 20:25:30 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
+ 20:25:30 +0000
+Date: Wed, 16 Sep 2026 15:25:17 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
+	"open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>
+Subject: Re: [PATCH] dmaengine: bestcomm: Enable compile testing
+Message-ID: <aqr7Lfji97j_0nVd@SMW015318>
+References: <20260915181709.11323-1-rosenp@gmail.com>
+ <aqrxFTWEsJmFIrel@SMW015318>
+ <CAKxU2N_zEA1NxAp6H6J6COjTwUv8NK909m3OZ2kcyVCpCby18A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKxU2N_zEA1NxAp6H6J6COjTwUv8NK909m3OZ2kcyVCpCby18A@mail.gmail.com>
+X-ClientProxiedBy: PH8PR02CA0019.namprd02.prod.outlook.com
+ (2603:10b6:510:2d0::27) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 3/7] ntfs: sync the volume dirty bit with the recorded
- error state
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org
-References: <20260915083252.812126-1-zenghongling@kylinos.cn>
- <20260915083252.812126-4-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260915083252.812126-4-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAHj93Y+qpq2WThAw--.3622S2
-X-Coremail-Antispam: 1Uf129KBjvAXoW3Kw4ktFyrCryxXFWrJw1xAFb_yoW8XryfKo
-	W0kFyqvw4xtwnrAayvyws3Cw4xua90kF4fJF45Gr1DZ34qgw4UC347Wws8Wa9rGa15Kr1U
-	CryxJanYqFWktFy8n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU5sjbUUUUU
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Rk6BWqq+tlbjQAA36
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA4PR04MB7630:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2fca85d2-5e04-4213-5027-08df1430a6c4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|1800799024|376014|19092799006|23010399003|6133799003|18002099003|22082099003|10067099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	k5cQ2QXkwy6yNen7fCh0vDjsOq01fiM8uIePy4TPesz9naaBRzVlrmZzvbfs4XuelOJQOy26VzXCniMnvzeoZAbXy/SMzNMmfbcUQkzxVmz/PTCu0Fad61DHmBgZYyC5Y0Atu1R3ulYZy6aR8/eRBpe6zV6VvrNfP8uvBUOqTBA4suXXJs9EAyVgToIFyopVy7i6qrhAx/UiBIIPimvMtDCTH0H27K6hExu5KcyqNGbOGXvrlAi56OoVuVaIdDlxENWinuzB2WJi/niGR55fRVRIoONx9MtdsN/wmAFCFtp2KBk0J79aqESMsyUP6XmgMQZqaP18LUJ9Y5XYTDknuiwTKb5hBbRcIj/L14SCPdY3l2gAQvY/xO4jS+bbqx7pcrr9wp/Ve9n6rNCV7/LfSm5vF70pe2nzfs0M+3hbS03s1HzPzM3axuwunxdWLnv7Yf92t1IP1yj/ck7lnw4/twGI98Yidu82m9w5dIepx76agUaGhB3eZEN4dUa/WyVwKGnHKoAWb+GsjQip5APX0U/dUn27nldqd9V0DNgHonoGartoBGPY6jS3pYtVCn17t4zvvED8lyPyD8wyRlkdQUYVhsLfkrTz2tG3kpyuAJ/WqC8SKPH7XArw5FN8Dws+6pXvqqSlAgyFR66jD4LKuK3mrwrFgISXu+ClpYQ/Pgs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(19092799006)(23010399003)(6133799003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dksxZFhZQkQ2Kyt4bjNzc09DRmQ2NVhEeXRxU1htNjhhVCtySWIxbGh0SVF5?=
+ =?utf-8?B?OGVkVUp0OU9uRElqbVVWSENxY2I0WlBUKzNYQnplRCtxQjNRVGFvUjdMbVF4?=
+ =?utf-8?B?NTh3WFRoS2RyYzU0anloc1NsOGZwUmZyb3RQSzVHQTB1STg2d09zbVhtS1du?=
+ =?utf-8?B?Y2tQUUtSUmRnYjRJVmJLQTF1dnhpQjRjcXdZUnZGMVI1NHVUTHRxaWg5RVRI?=
+ =?utf-8?B?ZEN3eHFqaWFYeWFRN0F4TlU1TWFZTjJ1ejd0ak1paFpwcWFGSmllblFrbzAv?=
+ =?utf-8?B?Ynk4bk5KaEMxZ29xd000WG9WMnoxdXNJdmJkTjh3VVBsejVZVGRuN09rcmpo?=
+ =?utf-8?B?MDdRbVk3SGgrLy9BT0JvODFBYStiQmYzVmNsaFVjK3NZazMyTk9GWDdvdEFF?=
+ =?utf-8?B?eDBXUTd1OG96c09lZkdiYzhoRWlKbGpKTUxXb2hXV29TeC9oUGh1ZUEvbzRT?=
+ =?utf-8?B?V29rNnNzdW5zc00yWmhGby9pZnhrNWl4MkpUR2JlQkp4NXozSlFOZ1hkRUV3?=
+ =?utf-8?B?aVhSNFEwR3JGdU14Z1cramcrRXBjVjhzOWlzbC96SVFWeFM5UGRKSHB0VzFq?=
+ =?utf-8?B?Nm5qT0ZBTE9HTGoxUHpjZ2VFTUl4Y3FPeFVSRHBKbW9YNDh1dXEzQXM4NnE2?=
+ =?utf-8?B?a1lHVjd3VDNkeUdKZ0R0QUpGUTl6djduL055YkFiKzNkVk91NGZDbVM1MXRx?=
+ =?utf-8?B?YUhpbXJSNXVsVFpFLzlUMXNxaFdTTUtRd05aY3BvNm1jUzlsaURZRm1aMmY2?=
+ =?utf-8?B?ajk2dTR5M0xyOEVObVZyRUp3KzVEdUsrc0hCSTVuTkRqRjh2RkZ6THF0NDk0?=
+ =?utf-8?B?VXI3YVZtR05lYnlUbFhRRUlCZS85RlUxcTByRUhacVBJTkpwNWQ2UHgzVjUw?=
+ =?utf-8?B?THN0S2x3RDRNMFUvcEMrVVBQc1d2ZStLeGM0S21Xa25YYUhNTWtVTUhtTW1L?=
+ =?utf-8?B?RVhEZklQRkgzYSsvTGlIdWZ4aXNqS25UTFlDTjY1TEoyMVRxVHZER1NZdUR3?=
+ =?utf-8?B?em9wdzBJL0JhMENpczRBTXlMOW95cEpjZTVYRUpiNVh2UnVLeFREamRTeWdx?=
+ =?utf-8?B?ZTdkZVFWaEpLT2NsYTZRT1B3eXorWDFzYmVqVCsxUERTUXh6OHRHUnFFSXc4?=
+ =?utf-8?B?aUkwdzNxSmpBTm5tc2pKaDI5SkpZN0FZVFZGYXNieDV6MWp3N0t5eEo5V1lW?=
+ =?utf-8?B?M2g4YVJTRFlzNllEekpUcDB1b2Zzbm1GRlJ2aEV0dzZHYWZwaXlud2pLbVd1?=
+ =?utf-8?B?WXJiNkp4TXdQTkZ2UHc3L2trWnB6bk1lOUFLVjZ0bTdXdWVUYWw1ZkJ2VmZn?=
+ =?utf-8?B?eHdzcnJzR2s2Z0JrOE5ka25vb1pmUjdTSHhzbHd6KzNYdGFKczVTaUJDSTBv?=
+ =?utf-8?B?dDdhcGFRUGpoMVFNeUFtTG53VDhhdDlnOWg4SVlxcm85WVZ5YkZLTVVZK2hV?=
+ =?utf-8?B?Yk1WV2pzSk5mRDZGTW1nWWlPRzE4NGoxV1ZGL2p4S0R2cjNsRTUwSDFSbmIv?=
+ =?utf-8?B?eXZmam1IL0twY1dTYzloRHVvanNKRGlpdVQvTGJpQWZZeEJmNmozbFdiaDBj?=
+ =?utf-8?B?dTE2elAxa3N1b3ZHODB0bzBVK1YrQ3ZEMkZEdkMyOUdPZEMrV3RjWldNTkpU?=
+ =?utf-8?B?RHBvZXJkbW8yalpoZFFGQ2wxVnJMY3Q4Mmw1bjNYdlhIOVd6NE44d1NrRnNm?=
+ =?utf-8?B?cm9GZEI4TzEzQitoNndxYW9pdFhBcmxONmJYMUtqWVkrUllNdHozRkhwbnJT?=
+ =?utf-8?B?U0ZVYnZubG1hZDJBTUltZ2VvNjJiN0ZwdEozd0NRY2s0R2NWSDVPTElySDIx?=
+ =?utf-8?B?TElvL21GS3B5Z0x5QzI5T3piNTRrWkZaM2JnaS8wK0pQWlR2K0RQZnh6dm9J?=
+ =?utf-8?B?SlJWL252U1R0czJPZFFxdEI2NzVHZm1Ockd5UTlpcHU4N0UwOURtcFRYRTNO?=
+ =?utf-8?B?TEJ1ZGtORHJiK3kwcUxvaExpVE8zZlZ3ZG1LWXNHRm5VZnpFNTF4Z085cy9n?=
+ =?utf-8?B?MEJKSGlwNGJKc1dLaUdqdjNoc3FORDhSM1BxQXdtZXpTM0x2cFYvcmRSMmxH?=
+ =?utf-8?B?RTJ0RzhCbk1CR24va2x0UDhEeUtWV0ZtNncycGIxc0NPd0NIVEVFa2ZDTHM2?=
+ =?utf-8?B?dzhlK2RiblZoNDlLQ0Y1QWtQdnJvUmRqYms1RkNHbVc2eEhCOUFYNEVDVVJX?=
+ =?utf-8?B?MnpIRlFMUFZvb1VXdkN3R0lMdFVxZzFtT3V6bkdiNU5MV3M5bDJCd3dPWjQz?=
+ =?utf-8?B?MGFkeitoZTFYYUwyd1pMVjBOWmxJc21IMWkxWXYzUXdRTWY0RVQ2QjBScEx1?=
+ =?utf-8?B?YWh6bHdPZUJhUUJCR0QrVWJrQmgvTkdORE01bjVPUE5sNlIvUm56d3h2Zith?=
+ =?utf-8?Q?Jsf6dgd4Gn4SXfu3LPMiudwZvBT5bjux9gm6y?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2fca85d2-5e04-4213-5027-08df1430a6c4
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 20:25:30.1559
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lbKGxkjj3PNPxXEd+UMepW5IUcgux+5jbYxPYvvYQw0wQLfvxt9ZAMYwqyTtSkskFXKltv17vFH0ymOtX4J0QxxcdZ+VrTO21BzMDfSoL6TXOg1tcTtFGKA+bCYEyma3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7630
 
+On Wed, Sep 16, 2026 at 12:47:52PM -0700, Rosen Penev wrote:
+> On Wed, Sep 16, 2026 at 12:42 PM Frank Li <Frank.li@oss.nxp.com> wrote:
+> >
+> > On Tue, Sep 15, 2026 at 11:17:09AM -0700, Rosen Penev wrote:
+> > > Allow the BestComm DMA engine to be selected for PowerPC
+> > > compile-test builds.
+> > >
+> > > The freescale ethernet and sound drivers now need a dependency on
+> > > PPC_MPC52xx as they use headers/functions from that platform.
+> > >
+> > > Assisted-by: LLM
+> > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > ---
+> > >  drivers/dma/bestcomm/Kconfig           | 3 +--
+> > >  drivers/net/ethernet/freescale/Kconfig | 2 +-
+> > >  sound/soc/fsl/Kconfig                  | 2 +-
+> > >  3 files changed, 3 insertions(+), 4 deletions(-)
+> > >
+> > > diff --git a/drivers/dma/bestcomm/Kconfig b/drivers/dma/bestcomm/Kconfig
+> > > index 5dd437295964..153b5492c93c 100644
+> > > --- a/drivers/dma/bestcomm/Kconfig
+> > > +++ b/drivers/dma/bestcomm/Kconfig
+> > > @@ -5,7 +5,7 @@
+> > >
+> > >  config PPC_BESTCOMM
+> > >       tristate "Bestcomm DMA engine support"
+> > > -     depends on PPC_MPC52xx
+> > > +     depends on PPC_MPC52xx || (PPC && COMPILE_TEST)
+> > >       default n
+> > >       select PPC_LIB_RHEAP
+> > >       help
+> > > @@ -34,4 +34,3 @@ config PPC_BESTCOMM_GEN_BD
+> > >       depends on PPC_BESTCOMM
+> > >       help
+> > >         This option enables the support for the GenBD tasks.
+> > > -
+> > > diff --git a/drivers/net/ethernet/freescale/Kconfig b/drivers/net/ethernet/freescale/Kconfig
+> > > index b34c0fcfddea..d81984fcec64 100644
+> > > --- a/drivers/net/ethernet/freescale/Kconfig
+> > > +++ b/drivers/net/ethernet/freescale/Kconfig
+> > > @@ -38,7 +38,7 @@ config FEC
+> > >
+> > >  config FEC_MPC52xx
+> > >       tristate "FEC MPC52xx driver"
+> > > -     depends on PPC_BESTCOMM
+> > > +     depends on PPC_BESTCOMM && PPC_MPC52xx
+> >
+> > use seperate patch for difference subsystem.
+> The issue is this patch exposes the issue. It's also extremely
+> difficult to get anything into net without the maintainers claiming
+> this is pointless churn.
 
+Maybe you try enable COMPILE_TEST for FEC_MPC52xx also
 
-在 2026/9/15 16:32, Hongling Zeng 写道:
-> The runtime metadata-corruption paths in fs/ntfs only record the
-> in-memory NVolErrors() flag; whether VOLUME_IS_DIRTY ever reaches disk
-> depends on ntfs_set_volume_flags() being called by some other path,
-> which for most error sites never happens.  A volume can therefore
-> unmount with a clean on-disk flag despite recorded corruption, and
-> chkdsk will not run on the next mount.
-> 
-> Persisting the dirty bit from the error paths themselves does not work:
-> they run under a wide variety of ntfs locks, and the dirty-bit write
-> takes the $Volume mrec_lock and maps the $Volume mft record, which on
-> an $MFT page-cache miss takes the $MFT runlist lock for writing.  That
-> is enough to self-deadlock or form ABBA cycles from several of them:
-> the $MFT extend undo paths hold the $MFT runlist lock and then take
-> vol->lcnbmp_lock inside ntfs_cluster_free(); the cluster allocation and
-> free rollback paths hold vol->lcnbmp_lock; and the whole mft record
-> allocation tree is reachable from ntfs_write_volume_label()'s
-> attribute-list maintenance while it holds the $Volume mrec_lock itself.
-> 
-> Instead, make the persistence a property of the sync paths, which run
-> without ntfs locks held.  The new ntfs_sync_volume_dirty_state() sets
-> VOLUME_IS_DIRTY when NVolErrors() is recorded and clears it otherwise,
-> evaluating the error flag under the $Volume mrec_lock.  It is called
-> from ntfs_sync_fs(), from the remount-to-read-only path of
-> ntfs_reconfigure(), and from ntfs_put_super(), which previously
-> evaluated NVolErrors() outside the lock before clearing the dirty bit
-> unconditionally, and which now also persists the dirty bit for volumes
-> with recorded errors so they unmount with chkdsk scheduled.  The
-> ntfs_clear_volume_flags() wrapper, whose last callers this patch
-> replaces, has no users left and is removed.
-> 
-> The guarantee this provides is eventual, not instantaneous: the error
-> paths record NVolErrors() with a lock-free set_bit(), so a persistence
-> point that evaluates the flag just before an error is recorded can
-> still leave the on-disk bit clean until the next one.  This is sound
-> because NVolErrors() is sticky for the lifetime of the mount and every
-> persistence point re-derives the on-disk bit from it; the last one,
-> ntfs_put_super(), runs after evict_inodes() on a quiesced filesystem,
-> so a volume that is read-write at unmount time cannot unmount clean.
-> A volume that is already read-only when the error is recorded
-> (errors=remount-ro flips the superblock on the first error, as does an
-> earlier remount-ro) has no persistence point left and keeps whatever
-> on-disk bit it had; that behaviour is unchanged.  The residual window
-> is a crash between the error and the next persistence point.
-> 
-> The persistence paths never write a hibernated volume: resuming Windows
-> from a modified image corrupts it.  Record the mount-time hibernation
-> verdict in the new NV_Hibernated volume flag and make
-> ntfs_sync_volume_dirty_state() a no-op while it is set, so the dirty
-> bit is left exactly as it is on disk and only the in-memory error
-> state is kept.  Without this, an rw mount of a hibernated volume with
-> the default errors=continue would gain a filesystem-internal write on
-> the first sync, remount or unmount.  Other writes to such a mount,
-> like the mount-time logfile emptying, are pre-existing and unchanged.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->   fs/ntfs/ntfs.h   |   1 -
->   fs/ntfs/super.c  | 129 ++++++++++++++++++++++++++++++++---------------
->   fs/ntfs/volume.h |   4 ++
->   3 files changed, 93 insertions(+), 41 deletions(-)
-> 
-> diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
-> index 45f77848a9cf..a5cd5493c501 100644
-> --- a/fs/ntfs/ntfs.h
-> +++ b/fs/ntfs/ntfs.h
-> @@ -219,7 +219,6 @@ struct option_t {
->   };
->   extern const struct option_t on_errors_arr[];
->   int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags);
-> -int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags);
->   int ntfs_write_volume_label(struct ntfs_volume *vol, char *label);
->   
->   /* From fs/ntfs/mst.c */
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index 6ba19986a598..733565953302 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -262,6 +262,8 @@ static int ntfs_parse_param(struct fs_context *fc, struct fs_parameter *param)
->   	return 0;
->   }
->   
-> +static int ntfs_sync_volume_dirty_state(struct ntfs_volume *vol);
-> +
->   static int ntfs_reconfigure(struct fs_context *fc)
->   {
->   	struct super_block *sb = fc->root->d_sb;
-> @@ -312,10 +314,24 @@ static int ntfs_reconfigure(struct fs_context *fc)
->   		}
->   	} else if (!sb_rdonly(sb) && (fc->sb_flags & SB_RDONLY)) {
->   		/* Remounting read-only. */
-> -		if (!NVolErrors(vol)) {
-> -			if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))
-> -				ntfs_warning(sb,
-> -					"Failed to clear dirty bit in volume information flags.  Run chkdsk.");
-> +		/*
-> +		 * With errors recorded the dirty bit is set rather than
-> +		 * cleared, and it is committed right away: the VFS does
-> +		 * not sync the filesystem during a remount, and once the
-> +		 * remount succeeds no further persistence point exists -
-> +		 * ntfs_sync_fs() is only ever invoked for read-write
-> +		 * superblocks (all its VFS callers skip read-only ones)
-> +		 * and ntfs_put_super() skips them, so the only remaining
-> +		 * write would be the evict-time commit at unmount, which
-> +		 * a crash never reaches.  An error recorded only after
-> +		 * the remount is still never persisted.
-> +		 */
-> +		if (ntfs_sync_volume_dirty_state(vol)) {
-> +			ntfs_warning(sb,
-> +				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
-> +		} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
-> +			ntfs_commit_inode(vol->vol_ino);
-> +			blkdev_issue_flush(sb->s_bdev);
->   		}
->   	}
->   
-> @@ -357,9 +373,10 @@ void ntfs_handle_error(struct super_block *sb)
->    * @vol:	ntfs volume on which to modify the flags
->    * @set_bits:	bits to set in the volume information flags
->    * @clear_bits:	bits to clear in the volume information flags
-> + * @dirty_if_errors:	force VOLUME_IS_DIRTY on when NVolErrors() is set
->    *
->    * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
-> - * instead (see below).
-> + * or ntfs_sync_volume_dirty_state() instead (see below).
->    *
->    * Combine @set_bits and @clear_bits with the current in-memory flag state and
->    * write the result back.  The set/clear helpers pass only the bits to modify,
-> @@ -368,11 +385,18 @@ void ntfs_handle_error(struct super_block *sb)
->    * All bit manipulation is done on CPU-endian values, and the result is
->    * converted back to little-endian before storing it.
->    *
-> + * When @dirty_if_errors is true and errors have been recorded on @vol,
-> + * VOLUME_IS_DIRTY is forced on after the requested changes.  NVolErrors() is
-> + * evaluated under the same mrec_lock, which orders this against other
-> + * locked flag updates; the runtime error paths themselves record the flag
-> + * lock-free, so see ntfs_sync_volume_dirty_state() for the guarantee this
-> + * provides against them.
-> + *
->    * Return 0 on success and -errno on error.
->    */
->   static int ntfs_write_volume_flags(struct ntfs_volume *vol,
->   		const __le16 set_bits, const __le16 clear_bits,
-> -		const bool skip_if_errors)
-> +		const bool dirty_if_errors)
->   {
->   	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
->   	struct volume_information *vi;
-> @@ -382,12 +406,11 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
->   
->   	mutex_lock(&ni->mrec_lock);
->   
-> -	if (skip_if_errors && NVolErrors(vol))
-> -		goto done;
-> -
->   	flags = le16_to_cpu(vol->vol_flags);
->   	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
->   	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
-> +	if (dirty_if_errors && NVolErrors(vol))
-> +		flags |= le16_to_cpu(VOLUME_IS_DIRTY);
->   	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
->   			le16_to_cpu(vol->vol_flags), flags);
->   
-> @@ -439,31 +462,43 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
->   }
->   
->   /*
-> - * ntfs_clear_volume_flags - clear bits in the volume information flags
-> - * @vol:	ntfs volume on which to modify the flags
-> - * @flags:	flags to clear on the volume
-> + * ntfs_sync_volume_dirty_state - persist the dirty bit per the error state
-> + * @vol:	ntfs volume whose dirty bit to persist
->    *
-> - * Clear the bits in @flags in the volume information flags on the volume @vol.
-> - * The bits are combined with the current flag state under the lock in
-> - * ntfs_write_volume_flags(), so concurrent updates are not lost.
-> + * Set VOLUME_IS_DIRTY if errors have been recorded on @vol and clear it
-> + * otherwise, under the $Volume mrec_lock.
->    *
-> - * Return 0 on success and -errno on error.
-> - */
-> -int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
-> -{
-> -	return ntfs_write_volume_flags(vol, 0, flags, false);
-> -}
-> -
-> -/*
-> - * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
-> - * @vol:	ntfs volume whose dirty bit should be cleared
-> + * The guarantee this provides is eventual, not instantaneous: the runtime
-> + * error paths record NVolErrors() with a lock-free set_bit(), so a
-> + * persistence point that evaluates the flag just before an error is
-> + * recorded can still leave the on-disk bit clean.  This is sound because
-> + * NVolErrors() is sticky (nothing clears it for the lifetime of the mount)
-> + * and every persistence point re-derives the on-disk bit from it; the
-> + * last one, ntfs_put_super(), runs after evict_inodes() on a quiesced
-> + * filesystem, so a volume that is read-write at unmount time cannot
-> + * unmount clean.  A volume that is already read-only when the error is
-> + * recorded (errors=remount-ro flips the superblock on the first error,
-> + * as does an earlier remount-ro) has no persistence point left and
-> + * keeps whatever on-disk bit it had; that behaviour is unchanged.  The
-> + * residual window is a crash between the error and the next
-> + * persistence point.
-> + *
-> + * This is the single point that persists the in-memory error state to disk.
-> + * The runtime error paths only record NVolErrors() because they run under a
-> + * variety of ntfs locks the dirty-bit write cannot be taken under (runlist
-> + * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); the first
-> + * ntfs_sync_fs(), a remount, or the unmount then persists the flag here.
-> + *
-> + * A hibernated volume is not written from these persistence paths:
-> + * resuming Windows from a modified image corrupts it, so the dirty bit
-> + * is left as it is on disk and only the in-memory error state is kept.
->    *
-> - * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
-> - * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
-> - * recorded.
-> + * Return 0 on success and -errno on error.
->    */
-> -static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
-> +static int ntfs_sync_volume_dirty_state(struct ntfs_volume *vol)
->   {
-> +	if (NVolHibernated(vol))
-> +		return 0;
->   	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
->   }
->   
-> @@ -1615,6 +1650,11 @@ static bool load_system_files(struct ntfs_volume *vol)
->   			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
->   		}
->   		NVolSetErrors(vol);
-> +		/*
-> +		 * Remember it for the lifetime of the mount: see
-> +		 * ntfs_sync_volume_dirty_state().
-> +		 */
-> +		NVolSetHibernated(vol);
->   	}
->   
->   	/* If (still) a read-write mount, empty the logfile. */
-> @@ -1772,22 +1812,31 @@ static void ntfs_put_super(struct super_block *sb)
->   	ntfs_commit_inode(vol->mft_ino);
->   
->   	/*
-> -	 * If a read-write mount and no volume errors have occurred, mark the
-> -	 * volume clean.  Also, re-commit all affected inodes.
-> +	 * If a read-write mount, persist the error state in the volume flags:
-> +	 * mark the volume clean if no volume errors have occurred, and make
-> +	 * sure VOLUME_IS_DIRTY is on disk if any have, so chkdsk runs on the
-> +	 * next mount.  Also, re-commit all affected inodes.
->   	 */
->   	if (!sb_rdonly(sb)) {
-> +		if (ntfs_sync_volume_dirty_state(vol)) {
-> +			ntfs_warning(sb,
-> +				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
-> +		} else if (NVolErrors(vol)) {
-> +			/*
-> +			 * The dirty bit is on disk now; only warn when the
-> +			 * sync actually succeeded, or this message would
-> +			 * contradict the one above.
-> +			 */
-> +			ntfs_warning(sb,
-> +				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-> +		}
-> +		/* Commits the updated volume flags if they were written. */
-> +		ntfs_commit_inode(vol->vol_ino);
->   		if (!NVolErrors(vol)) {
-> -			if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))
-> -				ntfs_warning(sb,
-> -					"Failed to clear dirty bit in volume information flags.  Run chkdsk.");
-> -			ntfs_commit_inode(vol->vol_ino);
->   			ntfs_commit_inode(vol->root_ino);
->   			if (vol->mftmirr_ino)
->   				ntfs_commit_inode(vol->mftmirr_ino);
->   			ntfs_commit_inode(vol->mft_ino);
-> -		} else {
-> -			ntfs_warning(sb,
-> -				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
->   		}
->   	}
->   
-> @@ -1886,8 +1935,8 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
->   		return 0;
->   
->   	/* If there are some dirty buffers in the bdev inode */
-> -	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
-> -		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
-> +	if (ntfs_sync_volume_dirty_state(vol)) {
-> +		ntfs_warning(sb, "Failed to sync dirty bit in volume information flags.  Run chkdsk.");
->   		err = -EIO;
->   	}
->   	sync_inodes_sb(sb);
-> diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
-> index bc85a9592245..c7cd27b6dc1a 100644
-> --- a/fs/ntfs/volume.h
-> +++ b/fs/ntfs/volume.h
-> @@ -181,6 +181,8 @@ struct ntfs_volume {
->    *				Windows-reserved names (CON, AUX, NUL, COM1,
->    *				LPT1, etc.) or invalid characters.
->    *
-> + * NV_Hibernated		Windows is hibernated on the volume; the sync
-> + *				paths must not write the volume flags.
->    * NV_Discard			Issue discard/TRIM commands for freed clusters.
->    * NV_DisableSparse		Disable creation of sparse regions.
->    * NV_NativeSymlinkRel		Translate absolute Windows reparse targets (native_symlink=rel).
-> @@ -199,6 +201,7 @@ enum {
->   	NV_ShowHiddenFiles,
->   	NV_HideDotFiles,
->   	NV_CheckWindowsNames,
-> +	NV_Hibernated,
->   	NV_Discard,
->   	NV_DisableSparse,
->   	NV_NativeSymlinkRel,
-> @@ -237,6 +240,7 @@ DEFINE_NVOL_BIT_OPS(SysImmutable)
->   DEFINE_NVOL_BIT_OPS(ShowHiddenFiles)
->   DEFINE_NVOL_BIT_OPS(HideDotFiles)
->   DEFINE_NVOL_BIT_OPS(CheckWindowsNames)
-> +DEFINE_NVOL_BIT_OPS(Hibernated)
->   DEFINE_NVOL_BIT_OPS(Discard)
->   DEFINE_NVOL_BIT_OPS(DisableSparse)
->   DEFINE_NVOL_BIT_OPS(NativeSymlinkRel)
+Frank
 
-Looks good to me.
-
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-
+>
+> >
+> > Frank
+> >
+> > >       select CRC32
+> > >       select PHYLIB
+> > >       select PPC_BESTCOMM_FEC
+> > > diff --git a/sound/soc/fsl/Kconfig b/sound/soc/fsl/Kconfig
+> > > index 04940879dfd8..101bc952aa14 100644
+> > > --- a/sound/soc/fsl/Kconfig
+> > > +++ b/sound/soc/fsl/Kconfig
+> > > @@ -234,7 +234,7 @@ config SND_SOC_MPC5200_I2S
+> > >
+> > >  config SND_SOC_MPC5200_AC97
+> > >       tristate "Freescale MPC5200 PSC in AC97 mode driver"
+> > > -     depends on PPC_BESTCOMM
+> > > +     depends on PPC_BESTCOMM && PPC_MPC52xx
+> > >       select SND_SOC_AC97_BUS
+> > >       select SND_MPC52xx_DMA
+> > >       select PPC_BESTCOMM_GEN_BD
+> > > --
+> > > 2.55.0
+> > >
