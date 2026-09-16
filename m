@@ -1,311 +1,322 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520294CDA27;
-	Wed, 16 Sep 2026 13:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3754501F49;
+	Wed, 16 Sep 2026 13:49:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566522; cv=none; b=OCJHPgKaw5BVBLu+sbH858bbEAkr8XJYADMKakhW+j73fjYg923nSWON209ZQOW5H9ul1DnFjUuLKFYfEbsJzO8LmG+86LrY2NGsANsjJmOJT8Jp5LmIOECt0yVR89vwsn8d6BN5hpDj1iW/SQrXaSURYr84rgVpje6mlDNGcIs=
+	t=1789566573; cv=none; b=uutPaTebLrVmP+XoamkagK/xmvnwRaKj/dutDCszj3lwEpM5QquF+ZP0+OU1QgseFyTQt0YyT5X9/iPtBjEqtu/N39XNVYfqT3s/Q+HiA56H71uRKtD/bQ1nB0oTMobTcc+ePByLJsLhwIUROQpM2Fru3YcQQCLjW881c50R/dU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566522; c=relaxed/simple;
-	bh=5zCJ/EGPFGROemHcudBi6o6pDtxWs0QMeETsL/EZic8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aYZbPmzGau8CuzGuUPMLjkkliZjPbG6PGK/Aez8wUANbS+wJfZvGoODHhs5ZFWSjwNi9tcvs4OcZ9xr4UThyfDWCHh8BgcfhN9c8+a09YvKVzeVYAdo+toGGEL2rc/vPcH2J9krR1pz+fnqYOooArxoiOMf5hVVROBoYwxEfi9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lqMs18pt; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789566573; c=relaxed/simple;
+	bh=jVFQhip/vlw8TJw/t9/1X4W3NVCUqLzpQWcjRqP1jqs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oy8+20IhRlbGU1ffOVynETvZBdZepsNjnhbFFs4aUwlKqeTQ6WMvYQmVYliu2d0hLh9Q352y6u3F1zlZ3J7TxxhwNmwaG4gILTnH0OC74L9508lpuBwTdu2PLXcpMc8N+C1bHsXUDZM3VnXWAY+7y0PvY/6j2jRWhrkdgB54x9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=oYHtTd4e; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lqMs18pt"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 23C4E1A08D9;
-	Wed, 16 Sep 2026 13:48:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E9E0B60337;
-	Wed, 16 Sep 2026 13:48:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4B60B11C7B031;
-	Wed, 16 Sep 2026 15:48:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789566501; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=MD4jPpx6j1WYD4nbW7d8UqWXM8K9b2WkM/tu92eB2HU=;
-	b=lqMs18ptXF8NUeKU+aI21TpbFbBcw1SoqWE6OMCl3CiiAOPaZ2r2AkiTc2GN1UMh6yMoMd
-	nHpD4gqZRQF51T9INEtHYF9r5v8vzyhTqH/xqmOYLb7fETXdA5YkCrkhB4qiBZQTWPJkmp
-	l1epuxUJcnn5aNIYwdG9nC6z25Ty4A9I3yCUvD81EDNhoZc+bqI9TPyoT5ormKNMLFTSww
-	H9zwhIf8a62TuSAbuEYuN5gbZcwErbWDIQzjy2RUzybhp0HDVBHRJGYSrfUxwPMZyc0QTz
-	CA6oWZsWkVSOEzQmAPDLNiWz1vhVCLauw7lDX8anlUJiulXnMLM4imFm64hYgA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 16 Sep 2026 15:45:43 +0200
-Subject: [PATCH v3 19/19] drm/bridge: analogix_dp: don't create a
- panel_bridge
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="oYHtTd4e"
+Received: by linux.microsoft.com (Postfix, from userid 1186)
+	id C9AAF20B716B; Wed, 16 Sep 2026 06:48:35 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C9AAF20B716B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1789566515;
+	bh=pRq1CODKPIP7+gzmFoT9WbJ4eZOBgp1PAQeF0Ypg6qc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=oYHtTd4eS5KZkn/xZHZNJZMBfU4wGfLFyHJW5Nc+k9BJFgj3uf9RVOkU7AeOUcNsw
+	 /i8ImdZzSS2zZIbS9TLls/inmgZB5vIfGZQS0VekXnb9ZbXEc+vvdpOwzeJwD3F7Qc
+	 BJiALXtZCDJHmcCkWhLTE9ye84UBl3cEALXZ2T1Q=
+From: Konstantin Taranov <kotaranov@linux.microsoft.com>
+To: kotaranov@microsoft.com,
+	snsanghvi@microsoft.com,
+	longli@microsoft.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rdma-next 1/5] RDMA/mana_ib: Optimize shadow queue bookkeeping
+Date: Wed, 16 Sep 2026 06:48:31 -0700
+Message-ID: <20260916134835.2380971-2-kotaranov@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260916134835.2380971-1-kotaranov@linux.microsoft.com>
+References: <20260916134835.2380971-1-kotaranov@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-drm-bridge-every-panel-v3-19-83afb4f1a707@bootlin.com>
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
- Paul Kocialkowski <paulk@sys-base.io>, Linus Walleij <linusw@kernel.org>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Sean Paul <sean@poorly.run>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Albert Esteve <aesteve@redhat.com>, 
- Anusha Srivatsa <asrivats@redhat.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Now a panel_bridge is automatically created for every drm_panel and the
-panel-bridge API is just a deprecated wrapper to access it.
+From: Konstantin Taranov <kotaranov@microsoft.com>
 
-Update and simplify the code by just getting a reference to the
-already-existing bridge using of_drm_get_bridge_by_endpoint().
+Use compact bitfields for the posted WQE size and send opcode. Flatten
+the UD receive shadow entry into the common shadow_wqe_header, retaining
+byte_len, src_qpn and the cached status until direct-CQE polling replaces
+their readers. Use this common entry for both send and receive queues,
+including allocation, posting, CQE handling and WC generation. Derive
+the receive WC opcode from the queue rather than storing it per WQE.
 
-As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take care
-of putting the bridge reference. This is not easily done in the remove path
-due to the different probe paths of the user drivers, so add a devm action
-to ensure the reference is put only when it was taken.
+Publish initialized entries and release consumed entries with matching
+release/acquire operations so posting and polling can run on different
+CPUs. Retain the legacy completion cursor until direct-CQE polling and
+software flush lists replace it.
 
-Assisted-by: opencode:deepseek-v4-flash-0731
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
 ---
- drivers/gpu/drm/bridge/analogix/Kconfig            |  1 -
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 40 +++++++++++++---------
- drivers/gpu/drm/exynos/exynos_dp.c                 | 36 ++-----------------
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |  9 -----
- include/drm/bridge/analogix_dp.h                   |  1 -
- 5 files changed, 25 insertions(+), 62 deletions(-)
+ drivers/infiniband/hw/mana/cq.c           | 35 ++++++++++++-----------
+ drivers/infiniband/hw/mana/qp.c           |  4 +--
+ drivers/infiniband/hw/mana/shadow_queue.h | 29 +++++++++----------
+ drivers/infiniband/hw/mana/wr.c           | 15 +++++-----
+ 4 files changed, 40 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/analogix/Kconfig b/drivers/gpu/drm/bridge/analogix/Kconfig
-index da156fd15764..5672d83cb4a1 100644
---- a/drivers/gpu/drm/bridge/analogix/Kconfig
-+++ b/drivers/gpu/drm/bridge/analogix/Kconfig
-@@ -33,7 +33,6 @@ config DRM_ANALOGIX_DP
- 	depends on DRM
- 	depends on OF
- 	select DRM_DISPLAY_DP_AUX_BUS
--	select DRM_PANEL
- 
- config DRM_ANALOGIX_ANX7625
- 	tristate "Analogix Anx7625 MIPI to DP interface support"
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 18e76d1e78e1..6df6963740d2 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -29,7 +29,6 @@
- #include <drm/drm_device.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_of.h>
--#include <drm/drm_panel.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- 
-@@ -1567,15 +1566,6 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
- 	if (ret)
- 		goto err_unregister_aux;
- 
--	if (dp->plat_data->panel) {
--		dp->plat_data->next_bridge = devm_drm_panel_bridge_add(dp->dev,
--								       dp->plat_data->panel);
--		if (IS_ERR(dp->plat_data->next_bridge)) {
--			ret = PTR_ERR(dp->plat_data->next_bridge);
--			goto err_unregister_aux;
--		}
--	}
--
- 	ret = drm_bridge_attach(dp->encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 	if (ret) {
- 		DRM_ERROR("failed to create bridge (%d)\n", ret);
-@@ -1647,6 +1637,11 @@ struct drm_dp_aux *analogix_dp_get_aux(struct analogix_dp_device *dp)
- }
- EXPORT_SYMBOL_GPL(analogix_dp_get_aux);
- 
-+static void analogix_dp_put_bridge(void *data)
-+{
-+	drm_bridge_put(data);
-+}
-+
- static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
+diff --git a/drivers/infiniband/hw/mana/cq.c b/drivers/infiniband/hw/mana/cq.c
+index 6f9ac8b4a..14a48409e 100644
+--- a/drivers/infiniband/hw/mana/cq.c
++++ b/drivers/infiniband/hw/mana/cq.c
+@@ -190,15 +190,15 @@ static inline void handle_ud_sq_cqe(struct mana_ib_qp *qp, struct gdma_comp *cqe
  {
- 	struct analogix_dp_device *dp = to_dp(aux);
-@@ -1655,14 +1650,25 @@ static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
- 	int ret;
+ 	struct mana_rdma_cqe *rdma_cqe = (struct mana_rdma_cqe *)cqe->cqe_data;
+ 	struct gdma_queue *wq = qp->ud_qp.queues[MANA_UD_SEND_QUEUE].kmem;
+-	struct ud_sq_shadow_wqe *shadow_wqe;
++	struct shadow_wqe_header *shadow_wqe;
  
- 	/*
--	 * If drm_of_find_panel_or_bridge() returns -ENODEV, there may be no valid panel
--	 * or bridge nodes. The driver should go on for the driver-free bridge or the DP
--	 * mode applications.
-+	 * If of_drm_get_bridge_by_endpoint() returns -ENODEV, there may be no
-+	 * valid panel or bridge nodes. The driver should go on for the
-+	 * driver-free bridge or the DP mode applications.
- 	 */
--	ret = drm_of_find_panel_or_bridge(dp->dev->of_node, port, 0,
--					  &plat_data->panel, &plat_data->next_bridge);
--	if (ret && ret != -ENODEV)
--		return ret;
-+	plat_data->next_bridge = of_drm_get_bridge_by_endpoint(dp->dev->of_node,
-+							       port, 0);
-+	if (IS_ERR(plat_data->next_bridge)) {
-+		if (PTR_ERR(plat_data->next_bridge) == -ENODEV)
-+			plat_data->next_bridge = NULL;
-+		else
-+			return PTR_ERR(plat_data->next_bridge);
-+	}
-+
-+	if (plat_data->next_bridge) {
-+		ret = devm_add_action_or_reset(dp->dev, analogix_dp_put_bridge,
-+					       plat_data->next_bridge);
-+		if (ret)
-+			return ret;
-+	}
+ 	shadow_wqe = shadow_queue_get_next_to_complete(&qp->shadow_sq);
+ 	if (!shadow_wqe)
+ 		return;
  
- 	return component_add(dp->dev, plat_data->ops);
- }
-diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/exynos_dp.c
-index e1c9e2946b8a..82c238829921 100644
---- a/drivers/gpu/drm/exynos/exynos_dp.c
-+++ b/drivers/gpu/drm/exynos/exynos_dp.c
-@@ -26,7 +26,6 @@
- #include <drm/drm_crtc.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_of.h>
--#include <drm/drm_panel.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/exynos_drm.h>
-@@ -147,7 +146,6 @@ static const struct component_ops exynos_dp_ops = {
- static int exynos_dp_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
--	struct device_node *np;
- 	struct exynos_dp_device *dp;
+-	shadow_wqe->header.error_code = rdma_cqe->ud_send.vendor_error;
++	shadow_wqe->error_code = rdma_cqe->ud_send.vendor_error;
  
- 	dp = devm_kzalloc(&pdev->dev, sizeof(struct exynos_dp_device),
-@@ -163,18 +161,6 @@ static int exynos_dp_probe(struct platform_device *pdev)
- 	 */
- 	platform_set_drvdata(pdev, dp);
- 
--	/* This is for the backward compatibility. */
--	np = of_parse_phandle(dev->of_node, "panel", 0);
--	if (np) {
--		dp->plat_data.panel = of_drm_find_panel(np);
--
--		of_node_put(np);
--		if (IS_ERR(dp->plat_data.panel))
--			return PTR_ERR(dp->plat_data.panel);
--
--		goto out;
--	}
--
- 	if (of_get_display_timings(dev->of_node)) {
- 		dp->plat_data.next_bridge = devm_drm_of_display_mode_bridge(dp->dev,
- 									dp->dev->of_node,
-@@ -189,19 +175,11 @@ static int exynos_dp_probe(struct platform_device *pdev)
- 	dp->plat_data.power_off = exynos_dp_poweroff;
- 	dp->plat_data.ops = &exynos_dp_ops;
- 
--out:
- 	dp->adp = analogix_dp_probe(dev, &dp->plat_data);
--	if (IS_ERR(dp->adp)) {
--		/*
--		 * The driver core does not invoke remove() for failed probes,
--		 * so release the probe-time panel reference here.
--		 */
--		if (dp->plat_data.panel)
--			drm_panel_put(dp->plat_data.panel);
-+	if (IS_ERR(dp->adp))
- 		return PTR_ERR(dp->adp);
--	}
- 
--	if (dp->plat_data.panel || dp->plat_data.next_bridge)
-+	if (dp->plat_data.next_bridge)
- 		return component_add(&pdev->dev, &exynos_dp_ops);
- 	else
- 		return analogix_dp_finish_probe(dp->adp);
-@@ -209,16 +187,6 @@ static int exynos_dp_probe(struct platform_device *pdev)
- 
- static void exynos_dp_remove(struct platform_device *pdev)
- {
--	struct exynos_dp_device *dp = platform_get_drvdata(pdev);
--
--	/*
--	 * Release the probe-time reference from of_drm_find_panel(). If bind
--	 * ran, the panel_bridge holds a second reference that devm cleanup
--	 * will release when the bridge is destroyed after remove() returns.
--	 */
--	if (dp->plat_data.panel)
--		drm_panel_put(dp->plat_data.panel);
--
- 	component_del(&pdev->dev, &exynos_dp_ops);
+-	wq->tail += shadow_wqe->header.posted_wqe_size;
++	wq->tail += shadow_wqe->wqe_size_in_bu;
+ 	shadow_queue_advance_next_to_complete(&qp->shadow_sq);
  }
  
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index 587e60232ec7..071d31aa5288 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -28,7 +28,6 @@
- #include <drm/drm_bridge_connector.h>
- #include <drm/bridge/analogix_dp.h>
- #include <drm/drm_of.h>
--#include <drm/drm_panel.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- 
-@@ -488,14 +487,6 @@ static void rockchip_dp_remove(struct platform_device *pdev)
+@@ -206,7 +206,7 @@ static inline void handle_ud_rq_cqe(struct mana_ib_qp *qp, struct gdma_comp *cqe
  {
- 	struct rockchip_dp_device *dp = platform_get_drvdata(pdev);
+ 	struct mana_rdma_cqe *rdma_cqe = (struct mana_rdma_cqe *)cqe->cqe_data;
+ 	struct gdma_queue *wq = qp->ud_qp.queues[MANA_UD_RECV_QUEUE].kmem;
+-	struct ud_rq_shadow_wqe *shadow_wqe;
++	struct shadow_wqe_header *shadow_wqe;
  
--	/*
--	 * Release the probe-time reference from of_drm_find_panel(). If bind
--	 * ran, the panel_bridge holds a second reference that devm cleanup
--	 * will release when the bridge is destroyed after remove() returns.
--	 */
--	if (dp->plat_data.panel)
--		drm_panel_put(dp->plat_data.panel);
--
- 	component_del(&pdev->dev, &rockchip_dp_component_ops);
+ 	shadow_wqe = shadow_queue_get_next_to_complete(&qp->shadow_rq);
+ 	if (!shadow_wqe)
+@@ -214,9 +214,9 @@ static inline void handle_ud_rq_cqe(struct mana_ib_qp *qp, struct gdma_comp *cqe
+ 
+ 	shadow_wqe->byte_len = rdma_cqe->ud_recv.msg_len;
+ 	shadow_wqe->src_qpn = rdma_cqe->ud_recv.src_qpn;
+-	shadow_wqe->header.error_code = IB_WC_SUCCESS;
++	shadow_wqe->error_code = IB_WC_SUCCESS;
+ 
+-	wq->tail += shadow_wqe->header.posted_wqe_size;
++	wq->tail += shadow_wqe->wqe_size_in_bu;
+ 	shadow_queue_advance_next_to_complete(&qp->shadow_rq);
  }
  
-diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
-index 0e0b87abee59..6033137b651e 100644
---- a/include/drm/bridge/analogix_dp.h
-+++ b/include/drm/bridge/analogix_dp.h
-@@ -35,7 +35,6 @@ static inline bool analogix_dp_is_rockchip(enum analogix_dp_devtype type)
+@@ -238,21 +238,20 @@ static void mana_handle_cqe(struct mana_ib_dev *mdev, struct gdma_comp *cqe)
+ }
  
- struct analogix_dp_plat_data {
- 	enum analogix_dp_devtype dev_type;
--	struct drm_panel *panel;
- 	struct drm_bridge *next_bridge;
- 	struct drm_encoder *encoder;
- 	struct drm_connector *connector;
-
+ static void fill_verbs_from_shadow_wqe(struct mana_ib_qp *qp, struct ib_wc *wc,
+-				       const struct shadow_wqe_header *shadow_wqe)
++				       const struct shadow_wqe_header *shadow_wqe,
++				       enum ib_wc_opcode opcode)
+ {
+-	const struct ud_rq_shadow_wqe *ud_wqe = (const struct ud_rq_shadow_wqe *)shadow_wqe;
+-
+ 	wc->wr_id = shadow_wqe->wr_id;
+ 	wc->status = shadow_wqe->error_code;
+-	wc->opcode = shadow_wqe->opcode;
++	wc->opcode = opcode;
+ 	wc->vendor_err = shadow_wqe->error_code;
+ 	wc->wc_flags = 0;
+ 	wc->qp = &qp->ibqp;
+ 	wc->pkey_index = 0;
+ 
+-	if (shadow_wqe->opcode == IB_WC_RECV) {
+-		wc->byte_len = ud_wqe->byte_len;
+-		wc->src_qp = ud_wqe->src_qpn;
++	if (opcode == IB_WC_RECV) {
++		wc->byte_len = shadow_wqe->byte_len;
++		wc->src_qp = shadow_wqe->src_qpn;
+ 		wc->wc_flags |= IB_WC_GRH;
+ 	}
+ }
+@@ -270,7 +269,8 @@ static int mana_process_completions(struct mana_ib_cq *cq, int nwc, struct ib_wc
+ 			if (wc_index >= nwc)
+ 				goto out;
+ 
+-			fill_verbs_from_shadow_wqe(qp, &wc[wc_index], shadow_wqe);
++			fill_verbs_from_shadow_wqe(qp, &wc[wc_index], shadow_wqe,
++						   shadow_wqe->send_opcode);
+ 			shadow_queue_advance_consumer(&qp->shadow_sq);
+ 			wc_index++;
+ 		}
+@@ -283,7 +283,8 @@ static int mana_process_completions(struct mana_ib_cq *cq, int nwc, struct ib_wc
+ 			if (wc_index >= nwc)
+ 				goto out;
+ 
+-			fill_verbs_from_shadow_wqe(qp, &wc[wc_index], shadow_wqe);
++			fill_verbs_from_shadow_wqe(qp, &wc[wc_index], shadow_wqe,
++						   IB_WC_RECV);
+ 			shadow_queue_advance_consumer(&qp->shadow_rq);
+ 			wc_index++;
+ 		}
+@@ -296,13 +297,13 @@ static int mana_process_completions(struct mana_ib_cq *cq, int nwc, struct ib_wc
+ static void mana_drain_gsi_sq(struct mana_ib_qp *qp)
+ {
+ 	struct mana_ib_cq *cq = container_of(qp->ibqp.send_cq, struct mana_ib_cq, ibcq);
+-	struct ud_sq_shadow_wqe *shadow_wqe;
++	struct shadow_wqe_header *shadow_wqe;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&cq->cq_lock, flags);
+ 	while ((shadow_wqe = shadow_queue_get_next_to_complete(&qp->shadow_sq))
+ 			!= NULL) {
+-		shadow_wqe->header.error_code = IB_WC_GENERAL_ERR;
++		shadow_wqe->error_code = IB_WC_GENERAL_ERR;
+ 		shadow_queue_advance_next_to_complete(&qp->shadow_sq);
+ 	}
+ 	spin_unlock_irqrestore(&cq->cq_lock, flags);
+diff --git a/drivers/infiniband/hw/mana/qp.c b/drivers/infiniband/hw/mana/qp.c
+index fac43b3a5..79c9cc944 100644
+--- a/drivers/infiniband/hw/mana/qp.c
++++ b/drivers/infiniband/hw/mana/qp.c
+@@ -748,13 +748,13 @@ static int mana_ib_create_ud_qp(struct ib_qp *ibqp, struct ib_pd *ibpd,
+ 	doorbell = mdev->gdma_dev->doorbell;
+ 
+ 	err = create_shadow_queue(&qp->shadow_rq, attr->cap.max_recv_wr,
+-				  sizeof(struct ud_rq_shadow_wqe));
++				  sizeof(struct shadow_wqe_header));
+ 	if (err) {
+ 		ibdev_err(&mdev->ib_dev, "Failed to create shadow rq err %d\n", err);
+ 		goto destroy_queues;
+ 	}
+ 	err = create_shadow_queue(&qp->shadow_sq, attr->cap.max_send_wr,
+-				  sizeof(struct ud_sq_shadow_wqe));
++				  sizeof(struct shadow_wqe_header));
+ 	if (err) {
+ 		ibdev_err(&mdev->ib_dev, "Failed to create shadow sq err %d\n", err);
+ 		goto destroy_shadow_queues;
+diff --git a/drivers/infiniband/hw/mana/shadow_queue.h b/drivers/infiniband/hw/mana/shadow_queue.h
+index a4b3818f9..a127edf7a 100644
+--- a/drivers/infiniband/hw/mana/shadow_queue.h
++++ b/drivers/infiniband/hw/mana/shadow_queue.h
+@@ -7,22 +7,14 @@
+ #define _MANA_SHADOW_QUEUE_H_
+ 
+ struct shadow_wqe_header {
+-	u16 opcode;
+-	u16 error_code;
+-	u32 posted_wqe_size;
+ 	u64 wr_id;
+-};
+-
+-struct ud_rq_shadow_wqe {
+-	struct shadow_wqe_header header;
++	u64 wqe_size_in_bu : 8;
++	u64 send_opcode : 4;
++	u64 error_code : 16;
+ 	u32 byte_len;
+ 	u32 src_qpn;
+ };
+ 
+-struct ud_sq_shadow_wqe {
+-	struct shadow_wqe_header header;
+-};
+-
+ struct shadow_queue {
+ 	/* Unmasked producer index, Incremented on wqe posting */
+ 	u64 prod_idx;
+@@ -57,12 +49,14 @@ static inline void destroy_shadow_queue(struct shadow_queue *queue)
+ 
+ static inline bool shadow_queue_full(struct shadow_queue *queue)
+ {
+-	return (queue->prod_idx - queue->cons_idx) >= queue->length;
++	/* Do not reuse an entry until the poller has finished reading it. */
++	return (queue->prod_idx - smp_load_acquire(&queue->cons_idx)) >= queue->length;
+ }
+ 
+ static inline bool shadow_queue_empty(struct shadow_queue *queue)
+ {
+-	return queue->prod_idx == queue->cons_idx;
++	/* Pair with posting's release of the initialized shadow WQE. */
++	return smp_load_acquire(&queue->prod_idx) == queue->cons_idx;
+ }
+ 
+ static inline void *
+@@ -91,7 +85,8 @@ shadow_queue_get_next_to_consume(const struct shadow_queue *queue)
+ static inline void *
+ shadow_queue_get_next_to_complete(struct shadow_queue *queue)
+ {
+-	if (queue->next_to_complete_idx == queue->prod_idx)
++	/* Observe initialized WQE fields published by the posting CPU. */
++	if (queue->next_to_complete_idx == smp_load_acquire(&queue->prod_idx))
+ 		return NULL;
+ 
+ 	return shadow_queue_get_element(queue, queue->next_to_complete_idx);
+@@ -99,12 +94,14 @@ shadow_queue_get_next_to_complete(struct shadow_queue *queue)
+ 
+ static inline void shadow_queue_advance_producer(struct shadow_queue *queue)
+ {
+-	queue->prod_idx++;
++	/* Publish all WQE fields to CQ polling on another CPU. */
++	smp_store_release(&queue->prod_idx, queue->prod_idx + 1);
+ }
+ 
+ static inline void shadow_queue_advance_consumer(struct shadow_queue *queue)
+ {
+-	queue->cons_idx++;
++	/* Finish WC generation and queue-tail updates before allowing reuse. */
++	smp_store_release(&queue->cons_idx, queue->cons_idx + 1);
+ }
+ 
+ static inline void shadow_queue_advance_next_to_complete(struct shadow_queue *queue)
+diff --git a/drivers/infiniband/hw/mana/wr.c b/drivers/infiniband/hw/mana/wr.c
+index 36a1d506f..8cd2980d4 100644
+--- a/drivers/infiniband/hw/mana/wr.c
++++ b/drivers/infiniband/hw/mana/wr.c
+@@ -14,7 +14,7 @@ static int mana_ib_post_recv_ud(struct mana_ib_qp *qp, const struct ib_recv_wr *
+ 	struct gdma_posted_wqe_info wqe_info = {0};
+ 	struct gdma_sge gdma_sgl[MAX_WR_SGL_NUM];
+ 	struct gdma_wqe_request wqe_req = {0};
+-	struct ud_rq_shadow_wqe *shadow_wqe;
++	struct shadow_wqe_header *shadow_wqe;
+ 	int err, i;
+ 
+ 	if (shadow_queue_full(&qp->shadow_rq))
+@@ -37,9 +37,8 @@ static int mana_ib_post_recv_ud(struct mana_ib_qp *qp, const struct ib_recv_wr *
+ 
+ 	shadow_wqe = shadow_queue_producer_entry(&qp->shadow_rq);
+ 	memset(shadow_wqe, 0, sizeof(*shadow_wqe));
+-	shadow_wqe->header.opcode = IB_WC_RECV;
+-	shadow_wqe->header.wr_id = wr->wr_id;
+-	shadow_wqe->header.posted_wqe_size = wqe_info.wqe_size_in_bu;
++	shadow_wqe->wr_id = wr->wr_id;
++	shadow_wqe->wqe_size_in_bu = wqe_info.wqe_size_in_bu;
+ 	shadow_queue_advance_producer(&qp->shadow_rq);
+ 
+ 	mana_gd_wq_ring_doorbell(mdev_to_gc(mdev), queue);
+@@ -82,7 +81,7 @@ static int mana_ib_post_send_ud(struct mana_ib_qp *qp, const struct ib_ud_wr *wr
+ 	struct gdma_posted_wqe_info wqe_info = {0};
+ 	struct gdma_wqe_request wqe_req = {0};
+ 	struct rdma_send_oob send_oob = {0};
+-	struct ud_sq_shadow_wqe *shadow_wqe;
++	struct shadow_wqe_header *shadow_wqe;
+ 	int err, i;
+ 
+ 	if (!ndev) {
+@@ -132,9 +131,9 @@ static int mana_ib_post_send_ud(struct mana_ib_qp *qp, const struct ib_ud_wr *wr
+ 	qp->ud_qp.sq_psn++;
+ 	shadow_wqe = shadow_queue_producer_entry(&qp->shadow_sq);
+ 	memset(shadow_wqe, 0, sizeof(*shadow_wqe));
+-	shadow_wqe->header.opcode = IB_WC_SEND;
+-	shadow_wqe->header.wr_id = wr->wr.wr_id;
+-	shadow_wqe->header.posted_wqe_size = wqe_info.wqe_size_in_bu;
++	shadow_wqe->send_opcode = IB_WC_SEND;
++	shadow_wqe->wr_id = wr->wr.wr_id;
++	shadow_wqe->wqe_size_in_bu = wqe_info.wqe_size_in_bu;
+ 	shadow_queue_advance_producer(&qp->shadow_sq);
+ 
+ 	mana_gd_wq_ring_doorbell(mdev_to_gc(mdev), queue);
 -- 
-2.55.0
+2.43.0
 
