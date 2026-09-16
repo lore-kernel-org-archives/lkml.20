@@ -1,104 +1,97 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4123D9DBA;
-	Wed, 16 Sep 2026 17:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E6A390CAA;
+	Wed, 16 Sep 2026 17:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789581178; cv=none; b=cMr+GgU6EXNGQvGa2PTQYsmMf9YkGwvUZ5q5hM0gnRYZJCLLPgQTT4fHISoudyvkZzRALVkoEaa+XG5VkT+mTqOhtFXQ42bEOWXKIYb2pIpelLH3Vx2YhEClNkiIp4NDc70Lc0rXlNTIwcmuwfm0hXpB7YikdWO1iqKDm511xdo=
+	t=1789581231; cv=none; b=UZQCVVEFMpRhwovfsJW+tUjZmWosf/il4jn5JpbDQf4cUFdvK1aJsD9oomSGAI4W9aGx8nh5ReYRx5ei7iX22j0n6NLVbSPNri4xjO/8C9jLsp65tLxAOI/96mcmlc8XcZ1pkL6oQfC8kdAbcV5hjsY0FIZQm4RvbYZr7oKREpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789581178; c=relaxed/simple;
-	bh=6zeoML6bAETakMCWlyOIj5/pOqwuK+LF7dIdA+EmfGU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FDLh/xUTNycr/4CjdyjXMg/ylkk7sl2//n9FpQ/1GV5R7/sFtbPgVyB8UhsdvZy9owYQ8QS9L6LjM5Iz0vEoTl20VrN0tLigANcM6Iw1siypwQRYT2DyCTaOfAezxC926siOqw/6dqDfkk+FHl275hC/nHAtH5DnK/dqqBmqvfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pfZrC1S2; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pfZrC1S2"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id ABEDAC5CD6C;
-	Wed, 16 Sep 2026 17:53:24 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A075F60337;
-	Wed, 16 Sep 2026 17:52:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 42A9511C7B00D;
-	Wed, 16 Sep 2026 19:52:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789581159; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=I6pfsw/MvwDowDozZ8Afzk9PULdspfiFODztGSFhnlk=;
-	b=pfZrC1S2Pz+nDCHC0MRQePHXLvvEygZMbLDEhsqYWTcLLVYc605J1I+X5K3Mw+eMROwfOy
-	K9bEroV7LZFKYK00ArVEmP7P+Q0frdLORsmHCfI57V/3yDITi/hqgs+t/JpduFOM6h4VWJ
-	Yu3rIhL2CpXHamoJJY8iEIFdWuTGgwNG6Zt487kg8Yfsye3B5GnXEr+0WAbrnV/9IX/pUN
-	+5FgZmSGwAZ4k2hakefDU5N/fTW/8BWW+4BCZqy9UhhVLev181H5sGDMJk8Nbw1+0njVlG
-	D0mHasiNu6vigN/QOs3N/JE2uPA5UVO9e87uh3B7TdMAJVoMbL22SqhzMFSV+A==
-Date: Wed, 16 Sep 2026 19:52:33 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li
- <Frank.li@oss.nxp.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Leonardo Costa <leonardo.costa@toradex.com>, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke
- <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/7] of: property: fw_devlink: Follow PWM nexus maps
-Message-ID: <20260916195233.6812ef66@bootlin.com>
-In-Reply-To: <20260910-fw-devlink-nexus-ready-v2-4-17ac82dbe226@toradex.com>
-References: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com>
-	<20260910-fw-devlink-nexus-ready-v2-4-17ac82dbe226@toradex.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=arc-20240116; t=1789581231; c=relaxed/simple;
+	bh=lBlT1hhWlz0cF/tzcEKSsy4AktxWdt6gaymJ3x85Nfc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=b/dZvXBDPYQW3+AbugNd/sEBF5gWia5N4oQkw02dPKztl/KDv39XdTb6ZsIoqxKvGmeh9AhyDhVxLC9cmAmp2l2X7+n8UBcMFPsQ+mslIzu73DqgsTVRLgPVMwgLTLxEK+fLrJ8fc8setl3GylPoeX3TqI64k8s5YmnNvhyleew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAHcz2b16pq6vhuCA--.23507S2;
+	Thu, 17 Sep 2026 01:53:31 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: abhinav.kumar@linux.dev
+Cc: airlied@gmail.com,
+	akhilpo@oss.qualcomm.com,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	jesszhan0024@gmail.com,
+	konradybcio@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lumag@kernel.org,
+	marijn.suijten@somainline.org,
+	mcanal@igalia.com,
+	robin.clark@oss.qualcomm.com,
+	sean@poorly.run,
+	simona@ffwll.ch,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/msm: Fix task struct leak in recover_worker()
+Date: Wed, 16 Sep 2026 17:53:04 +0000
+Message-Id: <20260916175304.2089651-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-CM-TRANSID:zQCowAAHcz2b16pq6vhuCA--.23507S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruryrWFW5AFWxCry5Ww1Utrb_yoWDKFb_ua
+	4Yy3s7Way2yFnakF1jyw1fZrn2y3ZF9FW0gws0gr95CrZxtr1avry5Kr98Zr1UuFZxAF1D
+	Aa1kXr1rZwsrKjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb-xFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
+	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
+	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJV
+	W0obIYCTnIWIevJa73UjIFyTuYvjTRRD7VDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgMA2qqpVht5AAAs0
 
-Hi Ernest,
+recover_worker() grabs a reference to the offending task with
+get_pid_task() to bump the per-VM fault counters, but never drops
+the reference again, leaking a task struct every time a hang is
+recovered for a task that is still alive.
 
-On Thu, 10 Sep 2026 16:16:45 +0200
-Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
+Drop the reference with put_task_struct() once the fault counters
+have been updated, mirroring what get_comm_cmdline() already does.
 
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> 
-> PWM consumers use of_parse_phandle_with_args_map() to resolve specifiers
-> through pwm-map properties. fw_devlink instead parses the pwms property
-> as a direct phandle reference, so it records the nexus node as the
-> supplier rather than the mapped PWM provider.
-> 
-> A nexus is a translation node, not the PWM provider, and need not be
-> populated as a device. The resulting fwnode link can therefore remain
-> unresolved and indefinitely defer the consumer while
-> device_links_check_suppliers() waits for the nexus.
-> 
-> Use the map-aware parser for pwms so fw_devlink resolves the same
-> provider as the PWM consumer API. Direct PWM references continue to work
-> because the map-aware parser returns the original provider when no
-> pwm-map property is present.
-> 
-> Fixes: e71e46a6f19c ("pwm: Add support for pwm nexus dt bindings")
-> Reported-by: Leonardo Costa <leonardo.costa@toradex.com>
-> Link: https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
-> Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> ---
->  drivers/of/property.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
-> 
+Fixes: 25654a1756a4 ("drm/msm: Update global fault counter when faulty process has already ended")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/msm/msm_gpu.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 3f3925b11eea..9a4ebf47b8b8 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -505,6 +505,8 @@ static void recover_worker(struct kthread_work *work)
+ 		 */
+ 		if (!vm->managed)
+ 			msm_gem_vm_unusable(submit->vm);
++
++		put_task_struct(task);
+ 	}
+ 
+ 	noreclaim_flag = memalloc_noreclaim_save();
+-- 
+2.34.1
 
-Best regards,
-Hervé
