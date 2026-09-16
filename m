@@ -1,90 +1,121 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004DD4C9DE5;
-	Wed, 16 Sep 2026 18:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1714139CCEF;
+	Wed, 16 Sep 2026 18:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789583101; cv=none; b=H11o13ymPDhOOiJ8i3+0XyCrLRnTxhgzs0d+wLprrUgCo3PD57N6X/xlh9+85NjOz0eaOARm30XOAwifNmcN2zwX4AeQUTvd35qHLYNb3yU/+S85ouXd3ufO/8culIQ4wq61nuzTZbwkFIzB/FON7NC+hfTZcUWKgFZTJr69G+w=
+	t=1789583144; cv=none; b=AsxkWTBeVUCzxTvA7GKH1LmDXwW9amuNUu0sLIdiEcSiLgkFvZrKiE0dZfSkH61ou+/4pHiGNWHBP/LDvKixFqig5kxtgDbebT/0E1YG5r/AUp0fYPpAb5f+scyPXGb+9ICLn2uq7WBqKCoYStZKso4zmL0H1enXQzXJln0Tdhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789583101; c=relaxed/simple;
-	bh=plb//BthYcXLQATz/pBSy5f+m6949UjkGPuUQG86j1s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Mccj9AB6a4zaOLysRXF4apR+wroS94p/BiqAD5GpkzkcCBWiDhtRQCBZebNYgr59IQjHl2O5KR1R3iPcZkgAhB3PKqLQlx2PbPJwmPPTAD6imKCTCcdx+lXBlb36EsUL3EtmIHSjYVfc8hJieZ7l4vMuMtu0Z85a0rbghROZmCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABn0Tvo3qpqV3ZvCA--.24596S2;
-	Thu, 17 Sep 2026 02:24:40 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org,
-	jernej.skrabec@gmail.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	samuel@sholland.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	wens@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/sun4i: Fix pdev reference leak in sun8i_r40_tcon_tv_set_mux()
-Date: Wed, 16 Sep 2026 18:24:12 +0000
-Message-Id: <20260916182412.2091681-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789583144; c=relaxed/simple;
+	bh=WUnsJ15a2vdfFZJ3QbecQA7JQTVQ1yWYiCwe5jCkPXw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=TrkPC7bzPjSeEQacKyL6M8sOr6JunSITN2fEu3W/j0T5U1yAsmmjBKbdTTSO4tJ060phRvuONIrJBn36N1vYIRQjti/2f8+odgM/7b5lKFhegVj5HEREoTDqg8sE4/kSdTYCsgg4z5KPe1UOtSHKovxCa8f9ArxNT6pJiwMXwBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2xA7D7z; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2xA7D7z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE651F000FF;
+	Wed, 16 Sep 2026 18:25:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789583119;
+	bh=Va42xDUxw3Ha13QgHOlSJnNxTf47U1kOlLIt+P89At4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=P2xA7D7zGPKwhboQgFoFmwpysEtGxI+V2h2GSj6IA/YgBa85bMaQLxzaFxULINGed
+	 AEtc+voU6gqXMDlIskNI09FqisQhKRMmOWkHdE/pPbS4SJuP5YF0zkGANb07pGkKVP
+	 qqfO/yR7DeItPjTJiYP+hYLH9jbp4YLqDtxavkvkfhVzgCWjsJYlV5//6kBpAC+Imm
+	 BzUA36PrUrZwSPeHUiUOhw4Tvq9qAJ+G0AstgyZKggDzIiowzZ/GoYjNGP6iEhFzM4
+	 4g4Q2Mc5YTibk/b+yFZDTdx+Uz5RgNDkfi244moTiPV8DsAQ1jLin/jFLYmuX5gUz8
+	 OQPGZJUyOVkPg==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: Zhu Yanjun <yanjun.zhu@linux.dev>,  kexec@lists.infradead.org,
+  linux-doc@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-mm@kvack.org,  linux-pci@vger.kernel.org,  Adithya Jayachandran
+ <ajayachandra@nvidia.com>,  Alexander Graf <graf@amazon.com>,  Alex
+ Williamson <alex@shazbot.org>,  Bjorn Helgaas <bhelgaas@google.com>,
+  Chris Li <chrisl@kernel.org>,  David Rientjes <rientjes@google.com>,
+  Jacob Pan <jacob.pan@linux.microsoft.com>,  Jason Gunthorpe
+ <jgg@nvidia.com>,  Jonathan Corbet <corbet@lwn.net>,  Josh Hilke
+ <jrhilke@google.com>,  Leon Romanovsky <leonro@nvidia.com>,  Lukas Wunner
+ <lukas@wunner.de>,  Mike Rapoport <rppt@kernel.org>,  Parav Pandit
+ <parav@nvidia.com>,  Pasha Tatashin <pasha.tatashin@soleen.com>,  Pranjal
+ Shrivastava <praan@google.com>,  Pratyush Yadav <pratyush@kernel.org>,
+  Saeed Mahameed <saeedm@nvidia.com>,  Samiullah Khawaja
+ <skhawaja@google.com>,  Shuah Khan <skhan@linuxfoundation.org>,  Vipin
+ Sharma <vipinsh@google.com>,  William Tu <witu@nvidia.com>,  Yi Liu
+ <yi.l.liu@intel.com>
+Subject: Re: [PATCH v8 03/12] PCI: liveupdate: Track incoming preserved PCI
+ devices
+In-Reply-To: <CALzav=eX0gVrbWCnYGwfqPHUkoVxqdr2nw3Tx6Aqze0XOcuwzA@mail.gmail.com>
+	(David Matlack's message of "Wed, 16 Sep 2026 10:28:52 -0700")
+References: <20260728221007.2098560-1-dmatlack@google.com>
+	<20260728221007.2098560-4-dmatlack@google.com>
+	<e099cbaf-3185-4c39-ae36-7f0e074ebff7@linux.dev>
+	<CALzav=eX0gVrbWCnYGwfqPHUkoVxqdr2nw3Tx6Aqze0XOcuwzA@mail.gmail.com>
+Date: Wed, 16 Sep 2026 20:25:12 +0200
+Message-ID: <2vxzcxud6ol3.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABn0Tvo3qpqV3ZvCA--.24596S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7XF4rWr1UKF18ZrWxur1kAFb_yoW3urb_W3
-	95urnxZr1kGr98AFy2vr1YvFyS9FnxWFW8Xw17tayrJ345ZrWIqr95twn5Xw4jqFyxWFn8
-	twnrWa1qyw12gjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
-	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
-	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
-	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJV
-	W0obIYCTnIWIevJa73UjIFyTuYvjfUw5l8UUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqozWCnQAAsc
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-of_find_device_by_node() takes a reference to the TCON TOP device
-which the error paths release, but the success path returns without
-doing so.  Drop the reference before returning success.
+On Wed, Sep 16 2026, David Matlack wrote:
 
-Fixes: 0305189afb32 ("drm/sun4i: tcon: Add support for R40 TCON")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/sun4i/sun4i_tcon.c | 2 ++
- 1 file changed, 2 insertions(+)
+> On Tue, Sep 15, 2026 at 8:31=E2=80=AFPM Zhu Yanjun <yanjun.zhu@linux.dev>=
+ wrote:
+>> =E5=9C=A8 2026/7/28 15:09, David Matlack =E5=86=99=E9=81=93:
+>
+>> > CONFIG_64BIT is now required to enable CONFIG_PCI_LIVEUPDATE so that t=
+he
+>> > domain and bdf can be guaranteed to fit in an unsigned long and be used
+>> > as the xarray key.
+>
+>> > diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+>> > index 3781e2b5f095..8af20f558086 100644
+>> > --- a/drivers/pci/Kconfig
+>> > +++ b/drivers/pci/Kconfig
+>> > @@ -273,7 +273,7 @@ config VGA_ARB_MAX_GPUS
+>> >
+>> >   config PCI_LIVEUPDATE
+>> >       bool "PCI Live Update Support"
+>> > -     depends on PCI && LIVEUPDATE
+>> > +     depends on PCI && LIVEUPDATE && 64BIT
+>>
+>> One question about adding 64BIT to the dependency:
+>>
+>> As I understand it, enabling CONFIG_64BIT essentially means that we are
+>> building a 64-bit kernel, and a 32-bit architecture cannot normally
+>> enable CONFIG_64BIT.
+>>
+>> If that is the case, would depends on 64BIT be necessary here? Or is PCI
+>> Live Update already inherently restricted to 64-bit architectures by the
+>> existing LIVEUPDATE/architecture configuration, so that this dependency
+>> would be redundant?
+>>
+>> If this problem has already discussed, I am very sorry about this.
+>
+> The necessity is that the PCI core needs to store more than 32-bits in
+> the unsigned long xarray key (see the snippet above). The dependency
+> on CONFIG_64BIT ensures that unsigned long is big enough. We could
+> probably remove the dependency but I would rather wait until someone
+> with a 32-bit build has a real use-case for using PCI_LIVEUPDATE
+> before putting any effort into it.
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-index 960e83c8291d..07350361fc4b 100644
---- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-@@ -1444,6 +1444,8 @@ static int sun8i_r40_tcon_tv_set_mux(struct sun4i_tcon *tcon,
- 		}
- 	}
- 
-+	put_device(&pdev->dev);
-+
- 	return 0;
- }
- 
--- 
-2.34.1
+KHO or live update themselves don't support 32-bit platforms and there
+are no plans to do so either. So I don't think you even need to have a
+dependency on 64BIT in PCI_LIVEUPDATE. Only 64 bit architectures define
+ARCH_SUPPORTS_KEXEC_HANDOVER, so PCI_LIVEUPDATE and others indirectly
+inherit the dependency.
 
+If you'd like to be extra safe, then probably you should add a
+dependency to 64BIT in KEXEC_HANDOVER directly. Though I think that can
+be a separate patch independent from this series.
+
+--=20
+Regards,
+Pratyush Yadav
