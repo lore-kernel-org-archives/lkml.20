@@ -1,78 +1,103 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94503438A8;
-	Wed, 16 Sep 2026 14:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55AE314A65
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570692; cv=none; b=bMz+Pc04aF4nNmDt4aAtDUH2uuS+ZENIsB7nELQZlIRmZnRosPMYuWrYupWnuBwSF2kTALq48N8KOj+g6ZHGC6nZA3h+qx5WIqT10PZIBSVuUNuwVtEDAJLtxF1st1x7tXLhfUrvXA9TVP780O34mdoo1oEyJVp2kEriQcM9w9Y=
+	t=1789570706; cv=none; b=qHIiPwNuzFENXmkxRaX/eAZieMCw3UjlMfRltSevOsZXatcZ4dpZ24MSxLCfnDHcJdAKngkp3Z8si8VaRoGpbyH3OPqQZM/kz20oT/tWN+OEOThvGGyAC8bYtkHoqYGgl/IKVbkJOiXYkD9VuLDVKMTZAAAhpmzm1dreWtSGOAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570692; c=relaxed/simple;
-	bh=kBbz/1QiuJGNcnEAr/B924HNmHCIr8y68uIu/h47y3I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pF5TgbgkujyPPv8BzXnuO1UqK7ClrRKCEi4/+5fy5P4IRMSgoA4fHNuLUUz9Yro/1aTx771ja7k7wR95Ih9lTKh/dTCezGa8ykD4G3e1Br0puXUHnuLvneY4Xqueru2409vAQ8QFa5AJTLzBUT+P8y2XGBWqq2B5HuZTDAJY+xY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=jkUM4wwF; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1789570706; c=relaxed/simple;
+	bh=/Ya02WcdVAnEGUNx8y76On/WwKPPIS0RGTH5KrLQCfQ=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=fIZ7lHRtF1Qd4axlTXoBo94hsmhWbpNVSNo/cRQEucYssm924dk4SL543jx/eybGiXR1+o2r/oGYs/fAONVOcW+cPTG5ywhI1U8apu2Xi8vgwMJKR8zMXdM3CBFwY3OOxDLiro8l0GKkUQHyUmabdvHyf7tG8g17lO0Eq0su28w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=XKX0uBVs; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=xJ0yD2H7; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="jkUM4wwF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Reply-To:Content-ID:Content-Description;
-	bh=COLNcUPhaHuPoajOa2w4xGx9z5aHzLkyXlfhaui+CKs=; b=jkUM4wwF4qX9VYbmbmn9giecw6
-	zdWLghQUxeH9Qvy4NpoMdKWVeMNd51R6TH4iqTPESpQy//eqxP9r5jWLO4ZEpmMLX7PJlzAR93hcd
-	3vprsdzTd/QkBycGhsxSi8V9j/4nH3OfiXtxVPEmvTR6Aq1aZL8cqC950fJXDh2TNvVt8ZrmevHZH
-	arqQHmhkNvrNmnW7CKE8NZmGOoDh0SzJ2eMoo5qx6EfpdqbVIkS9x/hJy+jZ74nZO0KX50kind+Hw
-	T7/1TwoCgQTLcDz9IPmfUBvv8gqHsoNOiJ6U0UvGisNBn69VEJMmhmua6zs3dANQaDwI3Tn7AuVGY
-	qFPeetmQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x6r59-005FPv-1N;
-	Wed, 16 Sep 2026 14:57:55 +0000
-Date: Wed, 16 Sep 2026 07:57:49 -0700
-From: Breno Leitao <leitao@debian.org>
-To: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-Cc: Alexander Duyck <alexanderduyck@fb.com>, 
-	Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Daniel Borkmann <daniel@iogearbox.net>, "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, 
-	Mohsin Bashir <mohsin.bashr@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, Dimitri Daskalakis <daskald@meta.com>, 
-	Weiming Shi <bestswngs@gmail.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Jacob Keller <jacob.e.keller@intel.com>, Tao Cui <cuitao@kylinos.cn>, 
-	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>
-Subject: Re: [PATCH net-next v3 2/5] fbnic: Track BDQ device-page geometry
- per ring
-Message-ID: <aqqr78J1hvl39stV@gmail.com>
-References: <20260915182105.4162425-1-bjorn@kernel.org>
- <20260915182105.4162425-3-bjorn@kernel.org>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="XKX0uBVs";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="xJ0yD2H7"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1789570702; bh=7JWwuLoT5a5YaRPK6sQw3hf
+	YwhASbMZ5oADDyS5OCcs=; b=XKX0uBVs7N9cCq47pMpkGs83zS/Wu5iM6PclNlJ9AJ9v/P7Bwq
+	i1UvCJfHq0XsKzJ01z8wXNf7NWWTWcXNQFp9TdDYk2uRr4AN2tP7agHTjFz32eNS6Id/mQuSenz
+	brUIy0s1XXITIbihlp3wFWle4sA+QOoa93rolZyl4abWeaeYWADNVsPLmBXj1GBEI1gxLqYw5Cu
+	YysQ30e8rnvxlZrLxQfqSwq/+iKpD1sDabAiSkaMUqhHtJxniwD5BQShRGgtQGw/z28T/x5+081
+	FPMAPus7YEBQwAe34kvKf2KvfYV7EGWdSVr/eIG0KNmIZv1QyhbFmwhogrcPy6CEN1g==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1789570702; bh=7JWwuLoT5a5YaRPK6sQw3hf
+	YwhASbMZ5oADDyS5OCcs=; b=xJ0yD2H7yD3T5EVCa8LWDLIUM3RYx9NDHog9/Utopju2/klblU
+	49J7V+F2QgiX/jSrs573Mv9Yo0aPa3F1w8Dw==;
+Date: Wed, 16 Sep 2026 15:58:23 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Ryan Roberts <ryan.roberts@arm.com>
+CC: akpm@linux-foundation.org, john.ogness@linutronix.de,
+ linux-kernel@vger.kernel.org, pmladek@suse.com, rioo.tsukatsukii@gmail.com,
+ rostedt@goodmis.org, senozhatsky@chromium.org
+Subject: Re: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
+In-Reply-To: <4814f484-4daa-407a-be60-748c392f9578@arm.com>
+References: <490C65F0-0ABA-4139-A1C4-086BD2CD1D8A@mainlining.org> <4814f484-4daa-407a-be60-748c392f9578@arm.com>
+Message-ID: <31B53D14-29FD-498C-B1A2-E4F085A4B873@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915182105.4162425-3-bjorn@kernel.org>
-X-Debian-User: leitao
 
-On Tue, Sep 15, 2026 at 08:21:00PM +0200, Björn Töpel wrote:
-> fbnic derives the BDQ buffer layout from PAGE_SIZE. That decides at
-> build time how a posted page is split into 4 KiB device pages, and
-> uses the same completion decoding for HPQ and PPQ. That is wrong once
-> the queues use different posted-page sizes; completions must be
-> decoded with the geometry of the queue that produced them.
-> 
-> Keep PAGE_SIZE as the posted-page size for both queues in this change,
-> so the descriptor format and runtime behavior stay unchanged.
-> 
-> Signed-off-by: Björn Töpel <bjorn@kernel.org>
+On 16 September 2026 08:44:53 BST, Ryan Roberts <ryan.roberts@arm.com>
+wrote:
+>On 15/09/2026 19:49, Bradley Morgan wrote:
+>> Hey, I think thisll conflict with the arch_do_panic() patch
+>(b45d6e4b3580)
+>
+>Ahh I see it here:
+>https://lore.kernel.org/all/20260831-arch_do_panic-v6-0-a1e170a9e7fd@linux.ibm.com/
+>
+>And looks like it's in Andrew's mm-nonmm-unstable branch. I guess I should
+>repost based on that branch?
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+Yes.
+
+(That branch also goes to linux-next)
+
+>
+>> 
+>> Once you rebase. I'd reckon the
+>> change shrinks to just moving the panic_timeout != 0 block below
+>> nbcon_atomic_flush_unsafe().
+>
+>I think I'll also want to make the call to arch_do_panic() conditional on
+>(panic_timeout == 0) so it's equivalent to the patch I sent?
+>
+>> 
+>> On your RFC question, whether the current behavior is deliberate: I
+>> don't think it is. nbcon_atomic_flush_unsafe() was placed at the end of
+>> vpanic() by 5dde3b735413 as a final attempt to flush pending messages,
+>and
+>> at
+>> that point no console was actually CON_NBCON_ATOMIC_UNSAFE, netconsole
+>> was still legacy. There was nothing to lose by putting it last. The
+>> ordering only became a bug once the first unsafe console showed up.
+>> John and Petr can confirm, but I found no sign anyone chose this.
+>
+>OK great; I'll wait a few days for others to chime in, otherwise I'll plan
+>to
+>repost based on mm-nonmm-unstable, dropping the RFC tag.
+>
+>Thanks,
+>Ryan
+>
+>
+>> 
+>>  
+>> --- Thanks!
+>>
+>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+>
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
