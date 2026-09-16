@@ -1,92 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D6C3E0C57
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14CC4252B7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550181; cv=none; b=aeKfBFL8IWd4JQLRuJlyYlitybdwnoRBZwtBNfUy0c3f7MOQKnKF1sbwGPPUh04h3mwcdgWHJTu9GVtK2XyCB1GcWOV1tlFchsjAMEzt7CfsrQYZezbbE1SvGbjpPS3MwWZbEssXxnxMa/NVWChwtprrV3a+aXIiS+i6AnowEIs=
+	t=1789550204; cv=none; b=gZUhGp149E2LyIy5rn+7avaRhuOMRevilXJYprdZFIQRegS+MvWS+Oy5DQVMLXIe0tYDHAi2MqsyLqKZKTvqVWw0YYsbhS4h+H7FJlIOOmcjjNu1CXWJLlxHG1o5UWqO8kk8lgc/7fJWWuU9WB/WCDK50Lj0NZXiVpIvqLS1nG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550181; c=relaxed/simple;
-	bh=LGxMjzOtgDYJApSNFqhud5Zm1u9dxY/XIqI1bfCqgCI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cSZ71nxOGiCajYLRQzhIzG38eDWojmq3wsZs0qTPsH/cAv8uqNTJpn72c4ayGDE00LuB11fBlDnzNZRAzT+Zc8tmEt4egJ6/cLMwzF0/QVAWGLvXxEpUIMyybge6aEVAgctgS9i5LJK+kZ8PMpxBtp7EIk9p2xBjYeGcrpUtFJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ghbYUzNj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789550204; c=relaxed/simple;
+	bh=Cv3GiW+cUXijnfwKcWCdwib/ps1bMkQSsnmAAjeLFWU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kdgecsYV7WkBaG7VR3/+aVvGvCyokRxj39+8q1aKAKXuyf7aJk0aOD3BpJ6OBlaR4Vk27nl7sGuYQa7hgUeGjtzioxjKKFyBHWFLIsanrqOLC8Hur0hyhqRTPhZbDUf3zyHnIAwdChCIktxLe1ramAFhhGjZ4sVZl3yAWWr72hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EiUnKXYo; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ghbYUzNj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BD611F0089C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:16:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789550163;
-	bh=G485UZORqYgG1BoyHfA+nhJ8NEYBx0Tkd0W2K9zwpWo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ghbYUzNjqB8oLkt9SHrlQCW0q/RkMFJLbEf1vTpcjgSnS0ndMdcGV9X9cgrfe4989
-	 N3Xn93l4XPQOajq0P7A/5M6HPn3yTHjWR8EvrAwA4OwkWY5xTXWm9mOBnDLihaOwjK
-	 wd5TOr7siG2LX9wPxGlx5avaj8nXLAaXY5IRwdSzAazrm9pDV8M0lRXUyE3UHzE16/
-	 FXm3CqEbbpuR2LBWqpXXKbJ56ao6QGEqci1e6xtJVvvKFXqfjcPqr3CUnba3RrYhsE
-	 o1HemSuCUevVSkF1lsIDDHpRQjihat5hdwbo8YlheOtB9ZQoTRUA+P7biM39MVxsZI
-	 /WB/6Bg0pUwnA==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b78so704348e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:16:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxmJsFJvWXOh0fd7THDtbLU0Z9MqTZL9L60CkHjnE6rHsYk2d6Uti0KWBdveFqMDdSwmmX2OA5xbQAHp4c=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3mIpeMoWe012MdIPRLHKwS3aUtkR1jEsnv9YoWoZQdwtXeUi6
-	QLrxeZQizM2LEFTmhoYFc1nBbh9591zQgaEnLFT27m8YF9X3hJ9alOtDTubXlazCuM/374V3qbi
-	p5fKTZriGILW9s855iZ0zm5TqRmz5/hM=
-X-Received: by 2002:a05:6512:3986:b0:5ae:b7ce:9ca5 with SMTP id
- 2adb3069b0e04-5b8b6645f8emr979198e87.18.1789550162175; Wed, 16 Sep 2026
- 02:16:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EiUnKXYo"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccb65437so484804a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:16:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789550187; x=1790154987; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VzRkWt2VZCbdlSo+rjm4taEDOl7SYR+tdxu2b2xJF3M=;
+        b=EiUnKXYo0rdaIa80f2HpK6o0H48HCzzvBQ1eIZACtQybu9ybiEj6WQRgv3ncJnT3SR
+         ppUXRtCCZYoVVhVXWZd1efkoin/yMZuMG9lsShc/Pz2JVkFIoFsL85nS/+1VnJZAwvGd
+         xd19boCLPxKrZrjJzvPsgS5Jw6+JzH89IvCX12n6qD5Vlkke0qapkNca/H8Lt6gvUh7B
+         1panIRkCnlybLoe716JegaFEgWERu79g0mxu9qrQLKUO234/9L+av+dsy1hmSAfYGaAQ
+         FxOEgxvoasqCIIMi9psSusaLn5iQTOFQ7J7ScznSymV+yxD+t9ZgCjwOqaAjCPy/PvnU
+         M1OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789550187; x=1790154987;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VzRkWt2VZCbdlSo+rjm4taEDOl7SYR+tdxu2b2xJF3M=;
+        b=xy6UrhmNHbGDcQZKkrmwyKkRJoqp6A0Zkjv//PMQd2iU2Q08QyIgWP6TMDQKsA+d5l
+         8YeYpi9yAeCQnooXRvCM8iA91PUpHa70h2R6uVEKm5lxdndSRL8Zs5rmKtnvsilRt+ei
+         W17smi9WIz1LqbTH60t+W23mx1D0v7XmY8/5Jz9Ce9pYG0okfyz+DrZ2LkxcNtMMTufR
+         6kqGeM9SU7URdlg6M08SbBpbvZ24WP637zBgvTz7+0ZNK97CnT9hQNgVPE34HGtRL02y
+         qe24S0KU/qAPFgQklz/TbxO1w4HiZaVxwy/z0/LYDCxOlSZxBFcnKMn99Yqe7tzpooCM
+         vZLg==
+X-Forwarded-Encrypted: i=1; AKwUvBwgUCkj6ZuO9H9MYQ8LgT6rt2H1CA0tcuE8s0mqxFHRzhdN+zoOQOlOQIE/sCSEP4mhVsTvvQOKiCKGMFQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nG7iEoAVgo4VEeuhDoia35Zv2SzvkOvGRYyQwGHmpU/djveEj8
+	BM92cyvqEY7z5CaXheYAVWyTsGizmlr1aOP58l68rDSajfmh9MvS8Hlb
+X-Gm-Gg: AYBFou3kahq98889CkID6qsCaPJ8YlxKGybfilX7Y2mBUFWY7K8IzSRqe6Ox0AFwaYw
+	d4m8j1pP2UiInCikK3J+ITIFZeMoyd/EzTZ9/6FBnpymi45Xw3W/BUsNmoevjtLogQTwndOApv8
+	n9ga0et35f+uud3G2mXT659Gn0KKz9pz6LrlYT17GpTp8+XqoWus5ru/qwUSy+OMJt3r0mbI5VM
+	E6apO188/QFqg8490Cg4uA47XAcRvuI/GuSNU/EizWKAmLKkjLH4Ox4/yckQrjKU/pG9SK2xfQE
+	tRBiEcRrHoimdVYgKvRY3yP34qPVaSIt0zeOvL3DeNyrRzbLWmevvBLRxArqc2Gq4GhKG2G/Rus
+	BBmFIE8vAir4KUx6rF0bNeTJlhYuT4LgA2Hw4A9B4C5osTPkVdHoMVsmtZQgtrr8sKZw1D9TGb/
+	vQgjTxVkX33W7cyj59YmCtCfESUpzyoPNGrEpNbduFfLB+LZAfp9NjUKJWvwKLV26fmFXHiCGoU
+	WNDjeY0tSATM6/taw==
+X-Received: by 2002:a17:90b:4ecf:b0:398:e96a:8999 with SMTP id 98e67ed59e1d1-39e1e49a802mr4752714a91.16.1789550186814;
+        Wed, 16 Sep 2026 02:16:26 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e19a2c2dcsm1414916a91.0.2026.09.16.02.16.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 02:16:26 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	corbet@lwn.net,
+	akiyks@gmail.com,
+	luc.maranget@inria.fr,
+	j.alglave@ucl.ac.uk,
+	dhowells@redhat.com,
+	npiggin@gmail.com,
+	boqun@kernel.org,
+	peterz@infradead.org,
+	will@kernel.org,
+	parri.andrea@gmail.com,
+	stern@rowland.harvard.edu
+Cc: linux-doc@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-arch@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rdunlap@infradead.org,
+	skhan@linuxfoundation.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH v4 0/2] Documentation/litmus-tests: Add SRCU fastpath litmus tests
+Date: Wed, 16 Sep 2026 17:16:11 +0800
+Message-ID: <20260916091613.78352-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915202038.3534453-1-arnd@kernel.org>
-In-Reply-To: <20260915202038.3534453-1-arnd@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 11:15:49 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkJzbJUeZrmHLp-+f__J3qnwho7nO03ARb98Div0UkeEg@mail.gmail.com>
-X-Gm-Features: AcwNN1VfYqEivMN3NvN5Jm4WsMhdLGlhk-Vr3rdcaGUNmmI3wae5tXLztVkRGSw
-Message-ID: <CAD++jLkJzbJUeZrmHLp-+f__J3qnwho7nO03ARb98Div0UkeEg@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: ux500: avoid -Wparentheses warning
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Arnd Bergmann <arnd@arndb.de>, 
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 10:20=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wr=
-ote:
+This series moves the SRCU fastpath litmus tests from
+tools/memory-model/litmus-tests/ to Documentation/litmus-tests/srcu/,
+as suggested by Paul McKenney.
 
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> gcc warns about a slightly confusing expression in two lines
-> of this driver:
->
-> In file included from sound/soc/ux500/ux500_msp_i2s.c:20:
-> sound/soc/ux500/ux500_msp_i2s.c: In function 'configure_protocol':
-> sound/soc/ux500/ux500_msp_i2s.h:151:38: error: suggest parentheses around=
- arithmetic in operand of '^' [-Werror=3Dparentheses]
->   151 | #define MSP_TX_CLKPOL_BIT(n)     ((n & TCKPOL_MASK) << TCKPOL_SHI=
-FT)
-> sound/soc/ux500/ux500_msp_i2s.c:204:21: note: in expansion of macro 'MSP_=
-TX_CLKPOL_BIT'
->   204 |         temp_reg |=3D MSP_TX_CLKPOL_BIT(!protdesc->tx_clk_pol ^
->       |                     ^~~~~~~~~~~~~~~~~
->
-> config->bclk_inverted is a boolean variable, while protdesc->tx_clk_pol
-> is a 32-bit unsigned integer that can only be zero or one in order to
-> be passed into MSP_RX_CLKPOL_BIT().
->
-> Move the negation out of the inner expression to make this easier
-> to understand by the compiler.
->
-> Fixes: 9ccbacf5a012 ("ASoC: ux500: Validate MSP DAI configuration")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+This series splits the two litmus-test patches from the earlier
+[PATCH 00/13] srcu: Round out atomic SRCU support series:
+https://lore.kernel.org/rcu/20260907075829.2073224-1-kunwu.chan@linux.dev/
 
-OK fair eniugh,
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+The two tests verify the memory ordering required by the reader-free
+synchronize_srcu_atomic() fastpath: the grace-period anchor must be
+ordered before the per-CPU lock-counter scan.
 
-Yours,
-Linus Walleij
+Patch 1 verifies that the anchor-before-scan ordering forbids a reader
+from being missed by the scan, while patch 2 shows that reversing the
+ordering permits the problematic outcome.
+
+Changes in v4:
+- Remove the smp_mb() and critical-section write from P1, 
+  keep litmus tests minimal, as pointed out by Akira Yokosawa.
+- v3: https://lore.kernel.org/all/20260912024225.2872265-1-kunwu.chan@gmail.com/
+
+Changes in v3:
+- Add a critical-section write after the smp_mb() in P1 of both
+  litmus tests, so the barrier properly models the lock-increment
+  to critical-section ordering in __srcu_read_lock().  The smp_mb()
+  was previously vacuous because P1 had no subsequent memory access.
+  Suggested by Akira Yokosawa.
+- Adjust indentation of the SRCU entries in litmus-tests/README.
+-v2: https://lore.kernel.org/all/20260912024225.2872265-1-kunwu.chan@gmail.com/
+
+Changes in v2:
+- Use a filter for the P0 scan result, as suggested by Paul McKenney.
+
+Tested with herd7 7.58 using linux-kernel.cfg.
+
+Kunwu Chan (2):
+  Documentation/litmus-tests: Add SRCU fastpath anchor-before-scan test
+  Documentation/litmus-tests: Add SRCU fastpath scan-before-anchor test
+
+ Documentation/litmus-tests/README             | 19 +++++++
+ .../SRCU-fastpath-anchor-before-scan.litmus   | 55 +++++++++++++++++++
+ .../SRCU-fastpath-scan-before-anchor.litmus   | 52 ++++++++++++++++++
+ 3 files changed, 126 insertions(+)
+ create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus
+ create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
+
+-- 
+2.43.0
+
