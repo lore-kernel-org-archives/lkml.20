@@ -1,122 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012054.outbound.protection.outlook.com [40.107.200.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E32495AD9;
-	Wed, 16 Sep 2026 16:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576595; cv=none; b=m3iJ2hDYGMOSf1Utidmuv4IP1v54LbAAYh4iCne85+OgHQfiDCAXvnCEDKRTrVIO0DdIPolx7hdZKuMbcoDf8mOw3G2i6E/ZXDTMfX+yGQ19OCnXjMg+LCMfyJzV5G6NCwcxk8/LRLtkyXk774crMW0X+Gg+goCU/AyXmfSYz0w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576595; c=relaxed/simple;
-	bh=oYWjuGfmsScBuyuYge615HZTDVtVowFTSdVdgEhSuco=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NNQJDzfxrnIGVTN3pB76fM7+1E/iY4vl7plcFl+JboTxBkEQ1dBWZtlUgBVjMXsDBONkbixbEBcZiXwPBxhemrJJbveVVY+8qoBvXkg3yxsl53pcfI7axSFfdW5CuDiuYtGRcKKuKgkJjiP+/6HGr/THPPUtuujtUqyvZEDsATU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ju+gWbwX; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618964BA1CB
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789576597; cv=fail; b=KCgVFyynJ0D4AXe6aWyHwuDf1JE28u85bh1YncQ8V8jBP7Nop/z3gQsjc4FQfmjf6T61GVz4LqSGeWauG5yDxNHZcEjaV1RB6F6Imt64bD3rGgcE9bf2b3WTvQ/rjbKRSRxCOq3aVRoayjUgYxhqQLttoaHCi0y4XacOrJQq7us=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789576597; c=relaxed/simple;
+	bh=gVXWUiSJ1HF2rxjC45WkjrMTgvNruk9UVa77xCeeubY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=TfE7q7uhOXLb9BjNMbfm5lNJg/dkzNNPCGRkw/MOwoVLnIQRyS49EqOsNTRZFQMLJjufM2NmEjax203kHk8XBv+zz2cwK5TTnIMv+6UZe85OoirheeaczyLcB5NYPWygq4EA43P1UBxieByuR4nJSzzFYs/Sz5ZmZ9VIc5bdh9U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QHlmlspY; arc=fail smtp.client-ip=40.107.200.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ju+gWbwX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23FA31F000FF;
-	Wed, 16 Sep 2026 16:36:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789576591;
-	bh=8GlyS0oZ1bCDvCIMTDc0ytG9aomVaQDco52XarL/Zl0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ju+gWbwXS7tKkHfOpLEK8Zgy2UBYvkqedpZlvxTaHSf1ylxOa/pZt/rrON4PKDWzG
-	 rgCrGYX/B6Kfxqi6E37zvL04Db0Yej11CQhCgYF4V6xWsMgRZjC9Qd1G0rRTk36SQ5
-	 SqlDkekOdDbuddJyB9QiMflQdMVGBdQGuYnVQ3h6VmU/Afr3sOoJiH05aAG/6/f95G
-	 SPD7Wxt9RLAE1aolrLi2VLS8ooFA6OwGxtV6WtONh/iuQJc9GtBhAHshCJvJwp6Jgm
-	 iz8z2dl5NBPSDCwZ71Ss1U7CNZg0g8/NJi/HwpG6dp5GazG9+/5dqcrD5kNipdjJ1s
-	 VBt/yRpooxyIA==
-Date: Wed, 16 Sep 2026 09:36:29 -0700
-From: Oliver Upton <oupton@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Mark Brown <broonie@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Marc Zyngier <maz@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the kvm-x86 tree
-Message-ID: <aqrFjUIubjzjXYV0@kernel.org>
-References: <aqqap3DngKznNrSA@sirena.org.uk>
- <aqqiAbgDmfQBLPTA@google.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QHlmlspY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yWi+PFj4Sk4OH03HwXC+JquEW/ZLN6QE5PJ7KQ5TrkOhWrckHBEAgsMf1NJDLpld8KBdCQFqdtYcLSeKiXl4ptwzUrUe7nNKSf0fvii0DOWLAnX7bx7l2bvhH5YbxWRzoZLmg4QE20noZgz4NLY8q00dRhRQcllcOQ6usoXvucur6zei7RTz/dcCrbejs/rWupcYNbGDsVjK8+uQP8946cwMdQBV2e6F1W/5E+AE23o2l8GXXD368cxK3DPpVldTkeT7FU2Kx4xvF5bOrRpn1Hn5ZyUome6rGrpMgsKeh66JzJwD8EAOvX2snNRUowT6wCKibh2pPndU6Z9diHbTGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5JRKtm//xQbtNB7+AdqF5pDsx5KWg8KzaPgkZtf9apc=;
+ b=TvSR5y/pngriKFa0vUaEvd2yx1w1s66n8c5q7LapOb5h5TY2I3FNTdtqAvftObRaKzJq19+SLsXYpaQAD9o5+kD9ZUH+3M6Bca1q8qta3V5YG2wYBHN2A8ekBl3AUVQILGYc7bUIGZGOcnfE8q6W+HwXnmBRB7KcE+/dXBdRerqTnMB4+a7N+ez9LcbXiYIXZ48EFtbXPv2ELs6bFZTTomkEuhTseyid6dNdAnsysIf//20T0yaXm1EhPJvFXc7etj+dyyq+NUZ6Mk2dWBU//mVnloBHshKRUlhvbHmZHiVULVylduXcDMfMFeTS22Z3vNSoeKCDYLxLV54u6t2bgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5JRKtm//xQbtNB7+AdqF5pDsx5KWg8KzaPgkZtf9apc=;
+ b=QHlmlspYnhTTjCH2FCvGZFy2swI/QcCEX4l8joqsoD8+e7Mh1vKrVNVT3vRKitcqKlijNah4eoInS7ANrWURYaPDLS4IWRKjhoCH4zNmih8WRZhAhaj4uBHRSfkunVfP8MxiPB4e/c9Ugtt59qrJzBLwYkH7R8dOLH3cs0bwWNc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ SA1PR12MB8744.namprd12.prod.outlook.com (2603:10b6:806:38c::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
+ 2026 16:36:28 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
+ 16:36:28 +0000
+Date: Wed, 16 Sep 2026 12:36:18 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Ilan Bonneau-Zamon <yolezz.secret@gmail.com>
+Cc: bp@alien8.0.org, mario.limonciello@amd.com,
+	linux-kernel@vger.kernel.org,
+	Ilan Bonneau-Zamon <ilan.bonneauzamon@gmail.com>
+Subject: Re: [PATCH v5] x86/amd_node: Fix resource leak in amd_smn_init()
+ error path
+Message-ID: <20260916163618.GA1395@yaz-khff2.amd.com>
+References: <20260916115955.15965-1-ilan.bonneauzamon@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916115955.15965-1-ilan.bonneauzamon@gmail.com>
+X-ClientProxiedBy: BN9PR03CA0045.namprd03.prod.outlook.com
+ (2603:10b6:408:fb::20) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqqiAbgDmfQBLPTA@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|SA1PR12MB8744:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76b8e606-c049-454e-8785-08df1410a81d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	/vDSyiibcylzyPkA3RxaU62DUf9I1oyUKU0rfYLEuhZls74UwgaQuJQclqReJOdLk/m9zjKF8k+BBdZ84nhuX8pzvjHtxM5+tBhbDfcH1rSXY6FRLssrdw5o/K7wRj/HOP3GNeUX1VLYPybIOBnUcL4BdoQE0qFbvhvWBpUpKS7IgDczHOYPKX6NaQCPPNI4CUqRN47E0Xjja2Q8AGRaDuV5hXPWtjYfnl8LskUzSHx2Bax0cRz+xsXOCdZ5l9TenSpLc8FHRqfkJBabhxDk6B4K6jg5mt0HTNU/IyEYEtfKRtd871aIqwrcJPRB6xFSdtjbfcEXkKG408RhdmI49RcmoZZ7bcpyP9ybC47ZkCtIwtOfR3RSTeYHVWZk+pfMP4AGHml9mGDN1sKkUL3i6hCzzEEF72USbV5iu08mSLNc4ZVI4QM1g+xUrSZ7bnjEhP3eYE3qUakJZhIsAMwx8MoRLvBvuu92q7mChCcHJb7bhPbuY2ruNYQJKOj1tHqhnBBg2ukGDo8gIMpDUnZW3HEYEtuL4gKxEyBqB2Py5mSbk2Ig4UTwGmQLQX1BDOwZllKUISCDL0Jyk6WM3Gf2n3OEC6ztpgBtg3VtgqYYOE+fRLhp/FDzHYmBbQwCuK+UT+Q+8yyeD6g4sSn4Zp84tW/WnoawANTVgdRaMxKeMAs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XJu7CL/Ab3Nhocxt1iAxz+WXFhZ9LisWibhNDJ/NkUHCi6buT0gtH6tSUsn1?=
+ =?us-ascii?Q?IjueuAnmvG4M5hyYI7x/M5SIXC9L3H2Ks+7dqM9Mycgcw13WvggsrWA/tJoy?=
+ =?us-ascii?Q?R+c6+lrUcsEYiA6jd/MaSIood+FXTU0N7OFXTuTHIUg8VolGRwX2cIvAvfO8?=
+ =?us-ascii?Q?xBZcIo2iZVBkuApZz5742uL3VkqXI3hrNxZn7asb8aWeBR+eG4tGrPKL3oR1?=
+ =?us-ascii?Q?VmkGUcBpM56dxzPVTVDIYBHY4aR2iLFmYubl7hBZnlpB6/UmtktkrXkDD7E6?=
+ =?us-ascii?Q?Rr4EqSqZp/4CPvNo34gI1ab1wOeNse0tvdiPsMGiVEiALd9DnzyRbm3w3bpN?=
+ =?us-ascii?Q?84xBinHolAzIx5Rg8rbXPsdwE2d+wATdN7SJ8cQ02+WRBZL0Jpe+hGOplIx4?=
+ =?us-ascii?Q?gEovmIsxApnQEw8RHJdIkHs091860oorCElo+/DGSy2koPbbcdTjCzsIiMgL?=
+ =?us-ascii?Q?Sh+BOlN76ALr5Te25S62qaofKa2AIZkT2W6aYDlUwRlW2yqLRiPmlNvaofOe?=
+ =?us-ascii?Q?fJFGWvAJwVnbMUM34pC3ojqw3WVDNRie/I8HEKCKvl8bplLdiE5gSlUsDRjx?=
+ =?us-ascii?Q?eDLdTndpThMoLbrokfyHgjxxNG8xSNbTkOCQa+wI0FpLrnX38vhWjA0yDfBf?=
+ =?us-ascii?Q?L5yYnnOwkyxdLUIgGOgcfjjF5PW/nk7RN6kR/exVGzgYYDXHT6OTVcY+p+vP?=
+ =?us-ascii?Q?T6fh4tflxgiyEXRO0j6eveWmW+yqTqy3TuLHRhscOi+YbMiLQ6fvz/DYeLxe?=
+ =?us-ascii?Q?/PK7ZbBuB9PxZdm6DX4tVhcrjfF1Y4L9wa4YjfxovliRWNDkqqGXKgljBe2z?=
+ =?us-ascii?Q?q8mN5dB4kZhq7kIi0KaVwylVoq8liwHawhLfATqooxLnBuBeU9CxInrFnV9P?=
+ =?us-ascii?Q?oRTp/Q3Jq+mDCTMuwdPQQO6amtefkiO/JnxLng63yQhcNNbSbsraj/zwY4//?=
+ =?us-ascii?Q?UYuEVRNIfm96Cxe/rsMMmgKP2uxN75UbSBOoYruaHYQqb2m+XBR2Oql5fTx5?=
+ =?us-ascii?Q?MGE7b9PZcgyrNm4Fxby4nRKMKdvQzhYSXbGqEzDqdJuX9HvbF89r8nKXoaSt?=
+ =?us-ascii?Q?HGSQG0aD4qyfRXfIlN0TaYciiYUP/t7RwRp1vnfOwExW7XyvN3dwDYMXK/tK?=
+ =?us-ascii?Q?kAsUG9mvu3n6hL6qTP3ci9888jYbPgdeBP+BHldjaHkiTyoJ28h7nYmq0kz4?=
+ =?us-ascii?Q?zPVbz0zO/ofThRBgBo9GO4NiKaQe3FEfsVC6/mI+MfymhIV5tkBWwuGs6nK7?=
+ =?us-ascii?Q?+IBj/KiR2nYPejQhE0N0oN3PKQdpFYx6IbcSmF6SrFdfEuNgCwuQlrdtHmks?=
+ =?us-ascii?Q?FrBosoEjkBRL6FGRnw65XdHiTvt96dpq/ajWgaQsXRtsO90IPZ3Zvf1+yaxY?=
+ =?us-ascii?Q?1jmKBe9yrQOYcllVfPmgssMed+6jbYUo/yQW5PwNrHsux4ut1HP+62X+8xGO?=
+ =?us-ascii?Q?ZFrx/EHeJjiVDtnPn0g3p+5El7wvkbOBym9R6fg58tRq6yghvzK74JdKOzsQ?=
+ =?us-ascii?Q?gvqGEnUyg5MF7A0j/wBF5/JmMBDw0BI9ey1lchB3ms73FqRaoWiiHgVnSG9y?=
+ =?us-ascii?Q?R7D46lzXVfVg7OPmNu+0v8EAwUPnv+lRCyjGGRl3Tybc5Peu4ttSN511w/pQ?=
+ =?us-ascii?Q?LbnCFlwv2mZvtnMEyhLX0aCS0FiPcP0/JR0ZSvLYG8FwLso9hKLrqwSqFeIN?=
+ =?us-ascii?Q?hZ4txtXg5Q8hobO2LIvEOtOZRHeP/k/5YHYiTASLIL5qCYX7?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76b8e606-c049-454e-8785-08df1410a81d
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 16:36:28.4199
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MTo8znZTrAsyPkGYIIbtMwD/NRqnpXsyzi/4T7NdEsKRkPGVAJpaucp4aH2/v5ABtJPdMzzFOxPQf8KPc1yicA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8744
 
-Hey,
-
-On Wed, Sep 16, 2026 at 07:04:49AM -0700, Sean Christopherson wrote:
-> On Wed, Sep 16, 2026, Mark Brown wrote:
-> > Hi all,
-> > 
-> > After merging the kvm-x86 tree, today's linux-next build
-> > (arm64 kselftest) failed like this:
-> > 
-> > arm64/vgic_its_save.c: In function 'alloc_64k':
-> > arm64/vgic_its_save.c:289:21: error: too many arguments to function
-> > 'vm_phy_pages_alloc'
-> >   289 |         gpa_t gpa = vm_phy_pages_alloc(vm, nr * pages_per_64k, gpa_base,
-> >       |                     ^~~~~~~~~~~~~~~~~~
-> > In file included from arm64/vgic_its_save.c:24:
-> > include/kvm_util.h:1062:21: note: declared here
-> >  1062 | static inline gpa_t vm_phy_pages_alloc(struct kvm_vm *vm, size_t nr_pages,
-> >       |                     ^~~~~~~~~~~~~~~~~~
-> > 
-> > Caused by commits
-> > 
-> >   36a062568ea80 (KVM: selftests: Take the memory region type, not memslot, in page allocators)
-> >   6c28a0d7cf125 (KVM: selftests: Automatically pick min_gpa for allocations based on region type)
+On Wed, Sep 16, 2026 at 01:59:54PM +0200, Ilan Bonneau-Zamon wrote:
+> In amd_smn_init(), if an error occurs after reserving PCI config regions,
+> the already reserved regions are left allocated.
 > 
-> In case anyone cares, I'm woefully behind on sending "thanks".  These came from
-> the prep series for enabling PPC selftests.
+> Unwind the setup properly in reverse order using traditional error labels
+> and goto statements, ensuring proper cleanup on error exit paths.
 > 
-> https://lore.kernel.org/all/20260826230511.972824-1-seanjc@google.com
-> 
-> > interacting with commit
-> > 
-> >   6f182db39fb00 (KVM: arm64: selftests: Add ITS table save tests)
-> > 
-> > from the kvm-arm tree.  I have applied the fixup below and can carry as
-> > needed:
-> 
-> Given that this is in "fixes", I assume the new test will land in 7.3?  If so,
-> this is mostly my problem to deal with when sending Paolo the selftests pull
-> (which, FWIW, I'm hoping to do this week so that it can be used as the base for
-> PPC selftests support). 
 
-Yeah, aim here is to have the selftest go with the fix which I'll send to
-Paolo this week. Sorry for the churn.
+What is wrong with keeping these regions reserved?
 
-> diff --git a/tools/testing/selftests/kvm/arm64/vgic_its_save.c b/tools/testing/selftests/kvm/arm64/vgic_its_save.c
-> index 864da01539f3..fae8a6c45f88 100644
-> --- a/tools/testing/selftests/kvm/arm64/vgic_its_save.c
-> +++ b/tools/testing/selftests/kvm/arm64/vgic_its_save.c
-> @@ -279,15 +279,15 @@ static void setup_memslot(size_t sz)
->  	size_t pages = sz / vm->page_size;
->  
->  	gpa_base = ((vm_compute_max_gfn(vm) + 1) * vm->page_size) - sz;
-> -	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, gpa_base,
-> -				    TEST_MEMSLOT_INDEX, pages, 0);
-> +	vm_override_mem_region(vm, MEM_REGION_TEST_EXTRA, VM_MEM_SRC_ANONYMOUS,
-> +			       gpa_base, TEST_MEMSLOT_INDEX, pages);
->  }
->  
->  static gpa_t alloc_64k(size_t nr)
->  {
->  	size_t pages_per_64k = vm_calc_num_guest_pages(vm->mode, SZ_64K);
-> -	gpa_t gpa = vm_phy_pages_alloc(vm, nr * pages_per_64k, gpa_base,
-> -				       TEST_MEMSLOT_INDEX);
-> +	gpa_t gpa = vm_phy_pages_alloc(vm, nr * pages_per_64k,
-> +				       MEM_REGION_TEST_EXTRA);
->  
->  	TEST_ASSERT(IS_ALIGNED(gpa, SZ_64K),
->  		    "Allocation at 0x%lx is not 64K aligned, GITS_BASER cannot address it",
+The goal of reserving the regions is to prevent user space from using
+them. Why should this be backed out?
 
-LGTM
+Maybe we should *not* exit if a reservation fails? Rather, we should
+unconditionally attempt to reserve all of them, and warn if reservation
+fails on a particular device (but continue iterating).
 
 Thanks,
-Oliver
+Yazen
