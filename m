@@ -1,162 +1,136 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022119.outbound.protection.outlook.com [52.101.96.119])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7244E433B;
-	Wed, 16 Sep 2026 18:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.119
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584129; cv=fail; b=HlLV6Md30nzPZeGXc7UZHVlbTxF0ogQarQkwOynGW+xWXKdJ2Q3/VSNGltth8XecpGKC2RWsV19gN61TTX2uq4Q0NVTlCv4c1T+lVKSRebGcAFKRXPS9kpKq2n0P9M1ftyngyZpRX3eQ3LOd2vl5LLpc/jAwidbDQY20EKziTDQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584129; c=relaxed/simple;
-	bh=k43PUx0891FzbbrRtcwcXA6ZtBr64ZGfSVdei4SgYsQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cUUSrh+8SgBlWmogaZLemWngzIdsIMEoleiD9sbtZtBsEl9FbehJVPHLqIe6dqB14G1o9HKsUTqAu8FnjOwOAFvc+1EK2wTYo7aClz9iCUKxa07yLl7WDxUHgO1EDhzHUo0B7DxoZQxbvKgfZTWAPmn6Wq3a7f2U8TJLSAhu4Qg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=XNv9aMsJ; arc=fail smtp.client-ip=52.101.96.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9A54A7CB9;
+	Wed, 16 Sep 2026 18:42:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789584154; cv=none; b=pkIjSbsVwIciTnJzUyMzJDpXPudfVOcQ2QzIz+Wq1u72sS1J/zqHtY2/4P+ZBGLr3EWMhBCtc6xHMoMbJB3qJ7edIpU9m2EQKa3pvWo2Bd933TofeflrNe8Pn9yPbKiBIB21G74Aj4M2e8EaIKPHM11d5EVLL/APmwZWaWPN/bo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789584154; c=relaxed/simple;
+	bh=7bh3nNgJbQQeHRZorZspKjhN8bcaKUUlFaPNrGyjImQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aCt3YPAOlfEaaEPSCL3MOo4LXL4qDcWISATiV37fEc7EJhZpAsd0S9uRVqpop3Jd6n7qqvecC1GcwIjgu7eQU/b0yyK+3ElwCuwivgcFI5Ux6z3r3o2CMuZFNjg/ThkLUFLVI2YxI7c+uk49h5SpsacifwM2MtocjkTnJZ+1Zhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BXbnfihY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="XNv9aMsJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xcRmr7TtLohXE8Z8RWQ0dOGVuhNEpGedfoNWWhfpW3Qej4UTu9L4hehqkls9rsOCQQ4/We0zKprwY9zGA3ZsDI4pM9nkXZrqzcUNrF3Wn2+yCNaewOc3ml8XuFwSLoDnPBql9gDD66vY2hNI+oTrMX5dzRtMYRaWpL3PxPW+WaySMus9TAjHIJw/L4ahfHN2IBtoUAsabH+7iDXl/dhH4lX98GDSmSn4YmQFqJV3jeKOJdkmpZ37noLXclUnCDhE1j2OJArn1dKge1SytvsSKtW287cU5U4UaagSrND1uoVMKPMcEPbXtOv9LQMJwJ6YK88/2gz04qAHMWSV4YTEsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C4obBBvvOgM7dEw0jkj6E5t/dzu2jk7RWFjFZdCHTpo=;
- b=gVGP8/DawZq1MDJFUSNhVJGxdM5JhgW/o2LUI9VbZJsWwucxVAPNs19SJ2fmBbe4XfCKO2CbyB85asXZHy2D5zKZx3hj1MJ0EJ1a0fcalsOjTb/LaUvTA24UnBxSoJZKz87oeKblaTqZht8JbkgXUgZJAV8bB39bO5Tnq89FHchJLB9gDMw+wzFYn/C0cRskZ3tL8zlA1hPEdapqgvRi3jucI+HAAKzfZUIL9tDyhnrNUY3waZk0HZwrQCRCtnl0QPWkJaDk8mmtTAbfrjN74kOxBSZDHDQJFfv+cbr9mBPTtictSAeTCgZJsIu3obKPcnmNNGHklLfmTaKjH0jMtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C4obBBvvOgM7dEw0jkj6E5t/dzu2jk7RWFjFZdCHTpo=;
- b=XNv9aMsJU2vQPvk/wKcj2gS38ilQKpb6wNIaH4deQT6X7/l7VsJH3m/T+JVRXyORGZasOqLaoR/JkO5tfyGjWQTZU6GYFCAEGJ4BTLjtKNrmMkYIpvDTAbto9oum6arB3jeBRPfs01FgmQb2OVDTDcVrqLf6gcmBAcMZy4XM25s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB5236.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1c4::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Wed, 16 Sep
- 2026 18:41:53 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
- 18:41:53 +0000
-From: Gary Guo <gary@garyguo.net>
-To: Benno Lossin <lossin@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Cc: rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/3] rust: pin-init: util: use span of `Index` for generated identifiers
-Date: Wed, 16 Sep 2026 19:41:30 +0100
-Message-ID: <20260916184131.435059-1-gary@garyguo.net>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260916-dev-hygiene-v1-0-dfb6ae2588ba@garyguo.net>
-References: <20260916-dev-hygiene-v1-0-dfb6ae2588ba@garyguo.net>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA4P292CA0007.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2d::12) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BXbnfihY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84DBA1F000FF;
+	Wed, 16 Sep 2026 18:42:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789584132;
+	bh=YdmLW1HBPDmt3hkp/ixZNU+VKWfUfzbUM/zWZxSsHbY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BXbnfihYXJAIhQFCqmZ85umYmPinwmzwzLfa9k6sNfC+e535CAbuL+9NZc5mE/zMV
+	 tt8Vf2dqBxQfJtZpW95mTWqZDNa6TS/grVGyzt0n0af/k60akKJ9dkgTS7qbdmftAJ
+	 YZ2XRrB4joUfjX87drTFzzjp3nr6y9ydEqIkiKaXY7XJT1trORw48Gxw3UJFFmkx70
+	 uDAkEe/3q4Dmb4c7iyZ3nY5pJM47ZRikanNK1H2DmTYb241JylfqaI7SJ5H1fmttQa
+	 mXJ95cZJsgakwdTU7jntVPkgHdvRyK4LKP8/0qQbjqg8ZR10CbsjZk+jyvrexLM0+m
+	 BzlGDolbFo4MQ==
+Date: Wed, 16 Sep 2026 11:42:11 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH 02/12] perf debuginfo: Fetch debuginfo keyed by build ID
+ using debuginfod
+Message-ID: <aqrjA6UCNId2Vebq@google.com>
+References: <20260916114740.48230-1-acme@kernel.org>
+ <20260916114740.48230-3-acme@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB5236:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97502729-63bd-4f39-a7e8-08df14222d49
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|23010399003|1800799024|376014|18002099003|22082099003|921020|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	0Cv1JAH0wgh1G8P1sMBMoq4VDtNwuBInglpIa7w74I+F/z/3BGprBxhilAHtfi95Bb7d/9ohAsBznxWEox7NvmrEeWiAsUQ3X3AHcZVHTNOWRGSAJsj4JmnW0DSe6/YqPjxUD1Z5STbnWFGfllBiazwo+6u0fAVW3LcQuEe9Avr+ceL4dAV/OAUzNCdpb8dUD3i41RI90pdSlGQRyJk2tqziVxo5LkqDxosTK6FMH/VM/34cIA5MA7vUu3v1/Kja7RBOhkgk8zjWdNnRqwHFrK1L4yxiV+kjohNc4CcO2Bm5DM7r4rFuuQQXpl15lZo3hvXJxQZWUI1clYVP0XFRO8vd4NaclOGNpdTFVPEPx9YVY1s4bxECqTrDm7kxvo8JH1fCsOvEs079lA7x1EeQn51AS0qrUBHtyhJRYnAp6vkBvY/dYfAxKiw+Ast8xgaAVDkerHm6Y/4oHQWhXA3lJsrxLHrlOOy5e57LfYN1CQAX6zCsh+btWlWWVwfMlZkOpHoIAQnWCfFzq8jRuemLmGRfR3GsJ2xVSE8xJ7fPwb18EiYRstqN6OrenZPDAQzc7IapwLr8rbQoGe9AjvIhwsF84sgV3dl7ZWtt1A8UPtQDgQ3rfqKjQdAEtHwq6BgI4yopMW1dyZBiWjjdlOkEb0AKd5TyjVid7QwAWY5iHXuEL2eB6/u0kuiRhIPOTAp7BCa4l7tn+3rKtD8i+LU35Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(1800799024)(376014)(18002099003)(22082099003)(921020)(10067099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Rv1KZFc0SpsCE3qiPXLvocfT/2s8Qf5s1R0aQU7V1w2a4YmWeJB8VjPH2JAv?=
- =?us-ascii?Q?adtJ3lIUW3pmRFnxlcSH2vFC6jIP7nWMQe0ChnBnCYWZeMIhAdSdO0rF8kPj?=
- =?us-ascii?Q?Cgru42zxo8FfgKPOxdIg5d9WiV7kqCH8zT2+7RypT74GKWF1naWRT0AswTcj?=
- =?us-ascii?Q?90ELE77ApFtLjHdTNttqWwTxPZFFOsKUm3unRgCOtBPRqT6MGehurdKpA0Se?=
- =?us-ascii?Q?5rqyLayPbeRp2L2Yvvn2zf5m2F45MNdr2+zNQ05M8Mg/3dA46ZaXuw4caeLp?=
- =?us-ascii?Q?JGUGahz/fRW1kefl1kDluvutcQ6S4sgRIcpIIdZt1XxWPSFO4AVk0iAjprmH?=
- =?us-ascii?Q?IGTuhUNYIdqg77H1I3DC4ZL/RO/Qz9aG7CgW8n2deIUjmQXXgk0epU34xZnF?=
- =?us-ascii?Q?ljiuHfnC1ky8DZWXP/y7C7kQpA7qTHY7TYStQxIbLmglLB+k98w7BBNsjpP3?=
- =?us-ascii?Q?zjmzR3bI0fV4RiBZV7rTalsZClclhEmBreAIeXCHAw+j2ECF790w8jNlgJc6?=
- =?us-ascii?Q?kPJ9C+y52QKfv+YgKPkCFhHWT9NUL6e5GziH11NOK67KzU7GirYMwsSH128g?=
- =?us-ascii?Q?F+kyJ1MS9itOZ6I6Ze5xhkOS9WNYs2Abf7hDmZs+NgjjjP73f8ubeZRHzGo4?=
- =?us-ascii?Q?v9psvLUCtYISeApnJ9TNj8VZuCYA5UiP6Q0d2y3IIBUyFub8jcfr/6LShxxs?=
- =?us-ascii?Q?DW5/X6tYh4wcgba9Duh5WuiMjS/fmaQ9xxCrIxYq1da4M5ulIW2c5rowmdxs?=
- =?us-ascii?Q?V02RgcPVQ8ID06hKjddR1RqtlGL7SsdqGcJG3A7idcfaXT0YjgSY9gqAXymU?=
- =?us-ascii?Q?ankLLrgoDrkzWyYxoO+KQcRLMFccFyUE3qKfZMTCxPP2T67/CIZrnYR7EWEj?=
- =?us-ascii?Q?SI3VoYwg5XBNxZ2FiasGs64UVxdhcVKlC4aFrYgpP+fP+d09CeV2e3iEGDMT?=
- =?us-ascii?Q?/O9ytSGrvvYEE9mnuhvKsQxxlYmKQKUt8r4y+R2vKoawwuINZ0BJ19VuY8DH?=
- =?us-ascii?Q?lWo8Tfa4jwOU7PhNHrVFDz1IX2iuHxEFaAkZeRBX9gbOzUmjHHDlEXjIRv1P?=
- =?us-ascii?Q?Zemj+9vAokEVVXCix01egDorh9Rd2e0aj4LUVQZENAVcJtS3m1Ds8QeGRlMU?=
- =?us-ascii?Q?2RWUBBaxAZIQ5689AxVpTtNGPGAwafl5+GOAt3p1wijZ3bpTAnZljNOQo1Ni?=
- =?us-ascii?Q?V1zPuqWhBivtFJ7fq0RUQiFm+uA5N5/d7xEeHuASc6IADAmIQcw1DViMG5KR?=
- =?us-ascii?Q?sBcMnnPZvWLUzutfOic6b0pSC7aNfBvdxbqEfGgRIvmAebPYWmp87AWtASSW?=
- =?us-ascii?Q?ZKC/wGTdH5vwQp7G/RxuobmI2VpWG5zdeWXujnQfFiH0aOLzGHNdIFf7rpjh?=
- =?us-ascii?Q?I/VBdMKnbcRhvfSy/igR2RqZj2u8LGxy32JSJ++CZpn6HQL+pYCWPtcr+W1L?=
- =?us-ascii?Q?q4ox715bWDMv3qNkAF6kamJNwrHluFxOWXNJTpeVaUpv6JM6Q4HFfHeSQoKC?=
- =?us-ascii?Q?ArsOqps8bQgTW6Ep8TAVZl140IdX3gINfDGRX3sMA8q0YZhT7lx3laBsMQfn?=
- =?us-ascii?Q?bj8P6LUbl5vBcbSpW6CL83mmhOn5uNRwT5MMVsMYxfZoBZk+35bv1YSUpgdZ?=
- =?us-ascii?Q?5n5VECA8MRS30oSddf42H6kZOoTdTtfj3Ick18sQpODIVXNvutwxpo+u0s5l?=
- =?us-ascii?Q?R32sWOdxP9UH0xhshqHTSZeshGqjAO0dlPahkU66/OejaVKV?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97502729-63bd-4f39-a7e8-08df14222d49
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 18:41:53.2998
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uGJ31hsuJBR06MA37bHvt4qbdgdrsCxi6PbEKo1ZgZaycVZj9xSGkvC/wfhkP/8V9khVPoY86Tr9F6U8N7Itcw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB5236
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260916114740.48230-3-acme@kernel.org>
 
-Use the span of `Index` for generated identifiers, so diagnostics can point
-to the span of the index.
+On Wed, Sep 16, 2026 at 08:47:29AM -0300, Arnaldo Carvalho de Melo wrote:
+> From: Arnaldo Carvalho de Melo <acme@redhat.com>
+> 
+> perf already uses debuginfod to fetch source files when annotating
+> (via probe-finder.c) and 'perf probe' has open_from_debuginfod(),
+> which queries debuginfo keyed by build ID when a module's debuginfo
+> isn't found locally, largely the same thing this adds; eventually
+> that one could be moved over to the new helper.  For the analysis
+> tools there was no way to obtain the debuginfo for a DSO in a
+> profile when it isn't available locally under the name the DSO was
+> opened with, for instance the vmlinux for the kernel a profile was
+> recorded on when processing it on another machine, or after the
+> kernel and its debuginfo package got upgraded in between.
+> 
+> Add debuginfo__find_build_id(), that uses the debuginfod client to
+> locate a debuginfo file keyed by the build ID, checking its local
+> cache first and then querying the servers in DEBUGINFOD_URLS, and
+> debuginfo__new_build_id(), that opens the DWARF in the file it finds.
+> 
+> The debuginfod client fails when DEBUGINFOD_URLS isn't set even when
+> what it wants is in its local cache, and the distro setup scripts that
+> populate it from /etc/debuginfod don't reach cron jobs, systemd services
+> and other environments that don't source the profile scripts, so also
+> set it from the .urls files in /etc/debuginfod when not set.  That has
+> to happen before any thread that can call getenv() is started, as
+> setenv() is not thread safe, and there are getenv()s outside the fetch
+> lock: libdebuginfod reads DEBUGINFOD_URLS in every debuginfod_begin(),
+> which perf also does in build-id.c, probe-event.c and probe-finder.c,
+> so do it from symbol__init(), on the single-threaded setup, and not
+> lazily from the fetch path.
 
-Signed-off-by: Gary Guo <gary@garyguo.net>
----
-Follow up to also improve the diagnostics for tuple structs.
----
- rust/pin-init/internal/src/util.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I think it's better to split the URL handling into a separate patch.
+Also it seems we have "buildid-cache.debuginfod" config option.
 
-diff --git a/rust/pin-init/internal/src/util.rs b/rust/pin-init/internal/src/util.rs
-index ed2c78f0658f..0b5c28b21091 100644
---- a/rust/pin-init/internal/src/util.rs
-+++ b/rust/pin-init/internal/src/util.rs
-@@ -41,7 +41,7 @@ impl MemberExt for Member {
-     fn as_ident(&self) -> Ident {
-         match self {
-             Member::Named(ident) => ident.clone(),
--            Member::Unnamed(Index { index, .. }) => format_ident!("_{index}"),
-+            Member::Unnamed(Index { index, span }) => format_ident!("_{index}", span = *span),
-         }
-     }
- 
+Thanks,
+Namhyung
 
-base-commit: 3b3ff9034a497fb3b8429f6fe8ba5697bc7dcebd
-prerequisite-patch-id: 84717125cba2ef134e74459d283b3206649b3b03
-prerequisite-patch-id: 9f34c2d1fc9699479209cd0c98ec43a70dca8747
-prerequisite-patch-id: 830ff446f1ac103336c3b30c9914e9a22c70e577
--- 
-2.54.0
-
+> 
+> Querying servers, possibly third party ones, sends off-box the build
+> IDs of the binaries being analysed and a fetch can take a while, so
+> this is opt-out: on by default, off with --no-debuginfod, with
+> core.debuginfod=false, per tool with report.debuginfod and
+> top.debuginfod, and, since users that set buildid.dir to /dev/null
+> (e.g. Linus) or otherwise turn the local build-id cache off clearly
+> don't want fetched files stored on the box, off too in that case.
+> 
+> The opt-outs also cover libdwfl's own debuginfod client, that reads
+> DEBUGINFOD_URLS in every query: when debuginfod is off, be it with
+> --no-debuginfod, core.debuginfod=false or by disabling the build-id
+> cache, the variable is set to the empty string, that the client treats
+> as an opt-out and fails the query without even looking at its cache,
+> instead of being exported from /etc/debuginfod.  Tools that manage
+> DEBUGINFOD_URLS themselves, such as 'perf record --debuginfod', keep
+> doing so.
+> 
+> The fetches are serialized, as the lookup state they use is process
+> global, so two concurrent fetches would race for it, and serializing
+> also means that a request for a build ID that is being fetched doesn't
+> start a second download of the same file: it waits for the fetch to
+> finish and is answered from the entry the fetch published, keyed by the
+> build ID, with the path of the file that came back, checked before
+> being handed out in case the debuginfod client cache is cleaned from
+> under us.
+> 
+> Make dso__debuginfo() use debuginfo__new_build_id() as a fallback,
+> keyed by the build ID recorded in the perf.data file, so that
+> consumers such as the data type profiler can resolve the types of
+> DSOs whose debuginfo can be fetched this way.  Do the fetch outside
+> dso__lock, a fetch from a remote debuginfod server can take a while
+> and would otherwise block anything else using this dso, and remember
+> the build IDs that were a miss, so that consumers revisiting a set of
+> DSOs repeatedly, such as the data type profiler on every hist entry
+> DSO switch, don't pay server round trips per attempt.
+> 
+> debuginfo__new_build_id() needs libdw to open the DWARF, so it lives
+> in debuginfo.o, built only with CONFIG_LIBDW, while the libdebuginfod
+> feature check is independent of NO_LIBDW; keep the new build ID
+> prototypes under HAVE_LIBDW_SUPPORT too, with stubs otherwise, so
+> that make NO_LIBDW=1 on a system that has the debuginfod client
+> keeps linking.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
