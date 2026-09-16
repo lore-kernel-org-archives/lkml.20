@@ -1,71 +1,114 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1765912D1F1
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:22:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583213DA5C7;
+	Wed, 16 Sep 2026 12:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561363; cv=none; b=GZQ5+ynQ7nPFsCKrK6RgG9zR92DGV4gwjoFvKYHnjfmwfIFsFxfnetZ4t2LCCq2et+O3orfXLBYIXb9SXnvEDZ2YSUgqWpZxsE/CKfT3wn89Lh/GY3aTx1vcVmh5EqznbR3kLWjsJNWeabvtq18O+qruMMmJt9cydMSEFrGnFkM=
+	t=1789561395; cv=none; b=AtMjrkLIuGaJUm97bpfvlnAsdwdBdpK243lEONqgmefkFBFTYjsG6IGGonSwdhTi/zmMOm25sV1ye+ir1CEI17uXK9xoEad8rCEzhFp6WIZrIbrOOCe3MvPbtehxy8cnzXK/NP1yYPFQ+Ov6AXHp9wFchGYMNcjjD7yt7UfnT3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789561363; c=relaxed/simple;
-	bh=EVdB+l3be6WahWsNVgejHIAOXNOl+97d/b2kOxsguvA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jSn2azErRQgjFKBNyAqKq1AHSGTcJDMB9lAwkUIlLd9DzlOWhkw7Y3pFiRs/vM2k0T2sgyN9J6N+xzs4a3ig0meV5SePvusEjD1ocB6FclvcM7p/2QS+TnaF+6Ty2WFyDXSvYgwTHbtWb7sAnt+hthhKmfn7VIEXcOsjL73K0hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=KyukPwmJ; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1789561395; c=relaxed/simple;
+	bh=tQ7qakFhmDN+Te/s3eHm+6z3MwJIFjawd2iFkM2A+kg=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=BGhqbG5e2hVeTX85kj9P0AFKYKIPtIUGv91T9MLyy0XhNRcEB3wX9CdleJYhpFACPIbJeerv4XnhoUyutJZ5U9cTTt5duinufR0m5gDXJJcBBLeqmKHlNNLeXkWJBOG/19rydplyBwTLA8pyryCwsLOez07wt1nj5s8Yc62OEHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yxrAc9kd; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=/2ONVFON; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="KyukPwmJ"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 3FF83CCFC6;
-	Wed, 16 Sep 2026 15:22:39 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 3FF83CCFC6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1789561359;
-	bh=EVdB+l3be6WahWsNVgejHIAOXNOl+97d/b2kOxsguvA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=KyukPwmJ0E9wNpcGGAbHVp01rhvpwHebMrteMjAdOxx0yV17vLIexgJAhLLwSwTxq
-	 Aav0IY42XZJr4OZLBaRBHfYiOophdhCgJ9iKSsTNdezKNgDBCUKFZawmAodthZymsx
-	 bCutJJ5E9obEcZx7pJ5yJQ/c8XlTw+QlDp8LA7XZdx4rGG5p5aCay3NOOTDDY3uv0Z
-	 hBLJlDCsX1tPCBPfXqQxr9u/PFwN947AzFdw6B6UHkYo9H2jAOhlSyKKJj8ob5SeSn
-	 DzMOZvAZcZ/AWTQ5e7u+7gJ748odXOB9W4gofH32fQeFzP8v2/78QziE0adWm37Iy1
-	 XvoNDiH+UlIiA==
-Message-ID: <d40ab90590f63fc70784c510c0eb430223d73765.camel@rendec.net>
-Subject: Re: [PATCH] irqchip: st: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
-From: Radu Rendec <radu@rendec.net>
-To: Triet Hoang <triet.hoang.dev@gmail.com>
-Cc: linux-kernel@vger.kernel.org, tglx@kernel.org
-Date: Wed, 16 Sep 2026 08:22:37 -0400
-In-Reply-To: <20260914090850.897017-1-triet.hoang.dev@gmail.com>
-References: <f2acee4027dfc48515091bc75422d52494ec7547.camel@rendec.net>
-	 <20260914090850.897017-1-triet.hoang.dev@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yxrAc9kd";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="/2ONVFON"
+Date: Wed, 16 Sep 2026 12:23:09 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789561391;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gzx+IO2Tqw1NPu5gTKE2UsvPdEUFres1x8tk/CLdpjQ=;
+	b=yxrAc9kdiCxAy+t090+0mLPpUH7KhJUg+3HgJa+1VCMRvm8TgV6zvn5iezp+PWMdnI2gRy
+	PfeMirEug3CQ3hVs0uiWPjV53cylenwwo0auXKMps4dGUV3WF8j2wzuL91tyQ+6ZVOw2ln
+	jjl7YuH3Ci7JdSBRomQMbPUcAwnmgJRqcZqJ+feDMhX+WouFubY3rvaN78WEguTRr2bHKi
+	T9EQvYOAWtbKdp4HZdVUR6tttaHLdZdboX62jzF2olw9HDPoWBxN8yUyX26/2lTD734UhZ
+	ekUJNCb4Afu62M+fcB8NFC1cfsbWfatt8B5B/w356vLZsAFLUqR4Y8J/V61P4w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789561391;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gzx+IO2Tqw1NPu5gTKE2UsvPdEUFres1x8tk/CLdpjQ=;
+	b=/2ONVFONCQbLMYbNNnLYHJWKy9NJjrLeoBWk1PEolaLsliyEstI95Who3ebUBPX+6JGnPN
+	CqRJBmKnQlixv/AQ==
+From: "tip-bot2 for Peter Zijlstra" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: locking/urgent] futex: Also allocate private hash on vfork()
+Cc: Jann Horn <jannh@google.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260911090447.GT788244@noisy.programming.kicks-ass.net>
+References: <20260911090447.GT788244@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Message-ID: <178956138932.1720534.15117386989280713537.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2026-09-14 at 16:08 +0700, Triet Hoang wrote:
-> On Sat, 29 Aug 2026 15:40:50 -0400 Radu Rendec wrote:
->=20
-> > Thanks for the patch! The patch itself (the code change part) looks
-> > good to me. You can improve a little bit on the commit message format:
-> > =C2=A0* Please realign the text to a 72 characters line width.
-> > =C2=A0* Please avoid using the first person in the second paragraph. Fo=
-r
-> > =C2=A0=C2=A0 example, something like "This allows dropping the..." is b=
-etter.
->=20
-> Thanks for your review! Should I send the v2 to improve this?
+The following commit has been merged into the locking/urgent branch of tip:
 
-You're welcome. Yes, please send v2. That will bump the patch to the
-top of Thomas's inbox and also I'll be able to provide a r-b tag.
-Thanks.
+Commit-ID:     b61b6f95d6722ddbbbd09e689fa41b55fd36f9a5
+Gitweb:        https://git.kernel.org/tip/b61b6f95d6722ddbbbd09e689fa41b55fd3=
+6f9a5
+Author:        Peter Zijlstra <peterz@infradead.org>
+AuthorDate:    Fri, 11 Sep 2026 11:04:47 +02:00
+Committer:     Peter Zijlstra <peterz@infradead.org>
+CommitterDate: Wed, 16 Sep 2026 14:20:41 +02:00
 
---=20
-Regards,
-Radu
+futex: Also allocate private hash on vfork()
+
+As Jann demonstrated, it is entirely feasible to access the mm through vfork(=
+).
+Therefore we need to allocate a private hash on vfork() as well as any other
+CLONE_VM user.
+
+Specifically, it must be avoided to have (private) futex waiters before
+allocating the private hash.
+
+Fixes: ee9dce44362b ("futex: Drop CLONE_THREAD requirement for private defaul=
+t hash alloc")
+Reported-by: Jann Horn <jannh@google.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260911090447.GT788244@noisy.programming.kick=
+s-ass.net
+---
+ kernel/fork.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/fork.c b/kernel/fork.c
+index a5934a3..5ef4133 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1996,9 +1996,9 @@ static bool need_futex_hash_allocate_default(u64 clone_=
+flags)
+ {
+ 	/*
+ 	 * Allocate a default futex hash for any sibling that will
+-	 * share the parent's mm, except vfork.
++	 * share the parent's mm.
+ 	 */
+-	return (clone_flags & (CLONE_VM | CLONE_VFORK)) =3D=3D CLONE_VM;
++	return clone_flags & CLONE_VM;
+ }
+=20
+ /*
