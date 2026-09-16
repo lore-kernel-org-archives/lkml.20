@@ -1,104 +1,95 @@
-Received: from mta0.migadu.com (out-58.mta0.migadu.com [91.218.175.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3CF39E6EB
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:58:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F3533D7D6C
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563524; cv=none; b=KD77vq4TUtESF+7GjQUjaR6vke4S9hJtaTKwWm/xymM8kjWQaT3XlHjfQy9ZzhiUGznR7oyntzaYVjFNZVMlGhbXFwrSgqWtBcesxLNBwGuYihRou71rsJgyuN1kSbU1IiIUUQOzMas16Y5OHV/BvsFzBpvtK2n9YtKTQHggdKE=
+	t=1789563543; cv=none; b=k8WToE39RyMAxEvBfQ8GTiZyeNSqSH5emAiEUZIAKxkFKiRjxDdMCu5sISvOG6Aj7/DFBpR4S7Ic68wssDjn44ox3/d3B6xSH8YdvrPmwp/5W6dJU8bcjCGlPHWnESTVqX2E7wzwmPG6Q856NnCAQj50gslBkLvNsAxPteWNxIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563524; c=relaxed/simple;
-	bh=NqgpLka1U0uH8PVx/qAWnt0LZxjjNxyG5vubBu2izC8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UAQvt+Cp0YK03hwd4m4iAHJktWDblE3o9PRXkjhwQ/FksLfau+TgKpifjmCXKHXcpji04LY+UqGUE6esry1q3CayKIj2HY877ULcfTT6a235yojbwSZpbmYjvj1OvsJ2KfRumdfQwlpNbdKUCrz2z/4nfQiD55iE5ceipUa2O0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iYnhF8Km; arc=none smtp.client-ip=91.218.175.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789563543; c=relaxed/simple;
+	bh=Wym/t1G2LmbgCSs1bBeauEFr7SmUi6NjqWinScJBU64=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Z5u/0wv8qDbDL3alod1ALXjus9ZdbyxGJzFKY99BCdzfm0bcxO9Wcj+pjnI16Gndo/PUdAr1Zer5hTkv4D97SO8/MKMUYISeHga7s6jmPm85mr2z9UyevVYrm6UGFAIIW/lxBn8tuc0HeMOfvVxnRwxZVoHi/a+tOUeKpxo+4fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pK3r9GXh; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iYnhF8Km"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NqgpLka1U0uH8PVx/qAWnt0LZxjjNxyG5vubBu2izC8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789563521; v=1; x=1790168321;
- b=iYnhF8KmvZRguvgPZf84ZU8GxsIikoL3a9j1/Ou5Ps0gdAck+GnYitPMQMHdJHdHQIpYwLEO
- SxzI+CwHzNMQGQUxk8Kt2m9AxjlpGT4Zul9XFS5mdDPlY80xaOiPyaWOuOExCvQdPxflYy+plVX
- M+JrttAJcDXMheBVWPTjdkg8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b341f15ade355bd8;
-	Wed, 16 Sep 2026 12:58:40 +0000
-X-Mizu-Trace-ID: b341f15ade355bd8
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 16 Sep 2026 20:58:32 +0800
-From: Hao Li <hao.li@linux.dev>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: harry@kernel.org, akpm@linux-foundation.org, cl@gentwo.org, 
-	rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Pedro Falcato <pfalcato@suse.de>
-Subject: Re: [RFC PATCH 0/2] mm/slub: reduce list_lock contention with slab
- parking
-Message-ID: <aqqOk9ULIuV-5mQg@fedora>
-References: <20260824122004.3652-1-hao.li@linux.dev>
- <a3e5581a-e039-45bb-b570-a01158b154bb@kernel.org>
- <aqPg5YRKdaZiBj9b@fedora>
- <4d9ebf64-e3b4-4b6c-9576-e8be59193f80@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pK3r9GXh"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 3C114C5CD58;
+	Wed, 16 Sep 2026 12:59:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3E34960337;
+	Wed, 16 Sep 2026 12:58:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AF91A11C7B026;
+	Wed, 16 Sep 2026 14:58:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789563534; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=lAtwGYoWQXq96+JGmh19RpCOxihvyL82+P6fbhIjFa0=;
+	b=pK3r9GXhKxqvNBh+uXILARiAUr9bhSEdv0vJJifmx/ebx+SuLs+bXIXjJy67VEPVdgnY1Q
+	7AkcL2rt0Y/jStyrLfNUVtlBPHpGJgYBVSICCCf+NjobsPdCflSSuWXP3urs6IPIkzxjH0
+	DQUtAWbfaBGfTCMmqH3LqypBrXnm+oWtWU13ywX7j4qapnCiJVfeYWsqy8QZnLeW/GiTJn
+	9f89qVNrRoVk+uyxjhV8MC1TbpoE6KwvTXhPaLyOVVGyXZGmC7Wvo2c6e6HGScC4G2xxzU
+	LDD91wzOvieAN+EQVb76w9XKzpZjBKCJLgg9KKhq3BeVvFbIBwcrc+xb3UdmOA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Albert Esteve <aesteve@redhat.com>, 
+ Anusha Srivatsa <asrivats@redhat.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+Subject: Re: (subset) [PATCH RFC v2 00/19] drm/panel: embed a drm_bridge
+ into every drm_panel
+Message-Id: <178956352643.382952.1141486827113876827.b4-ty@b4>
+Date: Wed, 16 Sep 2026 14:58:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4d9ebf64-e3b4-4b6c-9576-e8be59193f80@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Sep 15, 2026 at 09:10:22AM +0200, Vlastimil Babka (SUSE) wrote:
-> On 9/11/26 13:24, Hao Li wrote:
-> > On Mon, Sep 07, 2026 at 03:44:08PM +0200, Vlastimil Babka (SUSE) wrote:
-> >> On 8/24/26 14:19, Hao Li wrote:
-> >> > 
-> >> > Detailed data
-> >> > -------------
-> >> > 
-> >> > metric                              before             after             delta      change
-> >> > ==========================================================================================
-> >> > alloc_fastpath                     155,417           168,534            13,117      +8.44%
-> >> > alloc_slab                      55,679,646        26,702,510       -28,977,136     -52.04%
-> >> 
-> >> It's interesting that this is reduced so much. Is it because parked slabs
-> >> cause more slabs to stay around for reuse, despite they are unparked
-> >> immediately when trying to allocate/refill? That seems odd?
-> > 
-> > Yeah, it does look counter-intuitive at first glance. My understanding is that
-> > the parking mechanism helps by bypassing the partial list spinlock, allowing
-> > partial slabs to be parked onto the llist locklessly at any point. Because of
-> > this, the refill path gets to see and reuse more partial slabs instead of
-> > having to allocate fresh ones so frequently.
+
+On Thu, 03 Sep 2026 10:11:03 +0200, Luca Ceresoli wrote:
+> This series embeds a drm_bridge into every drm_panel, as previously
+> discussed [1][2] and in v1.
 > 
-> Hmm that's an interesting effect, surprisingly large if true. Because the
-> slabs we'd be parking are transitioning from full, there would be most often
-> just a single free object to reuse?
+> This will allow bridges and encoders to interact with the next pipeline
+> component always with the bridge API, not caring whether it is a panel or
+> another device (e.g. a bridge from a bus to another bus).
+> 
+> [...]
 
-That makes sense. That said, it might be more than a single object, since
-build_detached_freelist() tries to free objects from the same slab together.
+Applied, thanks!
 
-Even though we "park" the parking series for now, I was still curious to
-understand the underlying behavior. So I add a counter in
-get_partial_node_bulk() to see how many partial slabs it can see.
-(counting freed objects directly is tough, so the partial slab count gives us a
-rough picture)
+[15/19] drm/omap: dsi: remove unused includes
+        commit: dd8950786bd24315d1a650b1b3c6ebe7ff026e76
+[17/19] drm/tve200: remove unused includes
+        commit: acb05c825e393b0584adb5472bfbb17c8033a99f
 
-Interestingly, each get_partial_node_bulk() on the patched kernel saw about
-3-4x more partial slabs on average compared to baseline. This suggest that the
-parking mechanism can supply more allocatable objects even under lock
-contention, since it can avoid waiting for list lock.
-
-For example, in the baseline kernel, if the lock is held by an allocator, a
-freer has to wait on it. Once it's released, the lock might just get grabbed by
-yet another allocator, leaving the freer stuck waiting. As a result, the
-partial list ends up starved of free objects.
-
-
+Best regards,
 -- 
-Thanks,
-Hao
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
