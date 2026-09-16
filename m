@@ -1,113 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail3-167.sinamail.sina.com.cn (mail3-167.sinamail.sina.com.cn [202.108.3.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1751C01;
-	Wed, 16 Sep 2026 00:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985B44A23
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789517570; cv=none; b=heBK9qqioiNTXekOnPwGPccryDjKy1aOqwuwPz3O9vUCnrNcGEKPW6b1ilQ1TSLM7f9T/4F40wmCnlZMc0Iy1DrLaJ+L3WGRrtfABMfyXY7mOK3oo15AqdrHjTVhyfw3EKpjyaHwCV8qMPsq5AWtbj3wj+8A6S+gLcHnid3Bs48=
+	t=1789517571; cv=none; b=cesZoFWiG+R8delhEWmqrdz5EIRjYZuqQy4Ax2cUdVcKffOyM/61qqr2fuwHovCyNwE/SjV+fx6dhMJfpRFF9TDCNH9XNZpMGcSN8Ch/PTtLr/PN+C4n//fol6CmkVC/X23ooNhdCT8NaJC66dXhpMn980Cdmw6xg+loZEz0S6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789517570; c=relaxed/simple;
-	bh=7PwFjTGGND1ePQAK8SZBqsnF0MrkIJIDgE4awiIrsWA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SkbI1FUR5Mh5w7RnMsKimcQo179em3pqtV/76SBJEZ93yY1CCvI5GmxMJ4sTTIemQsI3rSaoq7Iu2TVGEWzqeER67QMAthxcenW/sKmnqAeSLycGqhSBPtBULJUZSpr3ZWlZ0jT+Uamz99kt2dob7+0nF1FVDtPWdhaDyAXM7Zw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3Uw8QJS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789517571; c=relaxed/simple;
+	bh=+zezOdaVQZDUSDeTIXDTyQ5Babri8VTyESjstzjGPok=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qVA8Zv9YdwpDVgAuo1NMIQxRwlYDP7OMp26btjk2XA5qQWEzYQvJUHcPsbVjDEwjVWTqcU62Oz/BraHBMlf4sq5MQf4s+RvjWeuxplk3jUCEVvLKb+ljHF8aQEpb5EL4/8lhfXDrqiKsVUpeEZzsY5qXQFNRyJ6tMUlM5RfdhuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=RpsowUqJ; arc=none smtp.client-ip=202.108.3.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3Uw8QJS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3481C1F000FF;
-	Wed, 16 Sep 2026 00:12:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789517569;
-	bh=tZdii42B9G3uXfODq26MzP1EJMnbFchcxUaVAb/qszU=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=W3Uw8QJSscTeeBGes9J/kqtVF0rysQQsQJSRzhQ88uW3sOYZFIrRc+CCd8s7nuTDS
-	 ZcHvhIPoIhYcsfEhhe83Gz+p4d9UAV9xMxf/izwVM5BHIKar7PA4KuXQmBBOP3c+5Y
-	 1oI9iZcDeXjGtN0jqzqUWKqveZV2qMcXUBIzUC8YlQuFKW++55n97gOtYssiuy27j8
-	 ECki/65H2E58ki2ukNHO/bej1/hlU6LqgiODdf8Y/CQg5D4+N09gKyMgN4tJI2FwYM
-	 ae2O3YI5G6P9L0sBIa1sUttX02d1FGvrLBqxm+uQbojgOgWVObJ7tUa9r9cafkvLER
-	 46Gts94lKVHsw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id AECAFCE0996; Tue, 15 Sep 2026 17:12:48 -0700 (PDT)
-Date: Tue, 15 Sep 2026 17:12:48 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Zhouyi Zhou <zhouzhouyi@gmail.com>
-Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, lance@osuosl.org
-Subject: Re: [PATCH v2] rcutorture: kvm-again.sh: Fix re-run failure on ppc64
-Message-ID: <e2f5f0c1-526f-4410-a085-f030208d1731@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260915085949.3708122-1-zhouzhouyi@gmail.com>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="RpsowUqJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789517567;
+	bh=GY582zb6QHNiPHqk891VTICodNqo3q7sniFUVog2xDc=;
+	h=From:Subject:Date:Message-ID;
+	b=RpsowUqJdADB3w/vIoWD4juCJIhyzympusWO0umL2+0tjbxSd71HsVw1r+vg4zJUn
+	 Inil9sAJNDxjAZB8QLE15+Q9XaVTpETworqUNekLn/VA08ux55SEb7F9U7DnP+VUIk
+	 mVjETozo8RwNHy3HcDbuL7ccrqOSXUQ+r9MHhCck=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
+	by sina.com (10.54.253.33) with ESMTP
+	id 6AA9DEF600002A55; Wed, 16 Sep 2026 08:12:42 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 2824336685594
+X-SMAIL-UIID: D3AD1081AC674FDBBE6D223CF7F2172A-20260916-081242-1
+From: Hillf Danton <hdanton@sina.com>
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: linux-mm@kvack.org,
+	Baoquan He <bhe@redhat.com>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	lirongqing <lirongqing@baidu.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH RESEND] mm/vmalloc: Use dedicated unbound workqueues for vmap drain
+Date: Wed, 16 Sep 2026 08:12:27 +0800
+Message-ID: <20260916001228.644-1-hdanton@sina.com>
+In-Reply-To: <aqgnOoOjWxRtaqxZ@milan>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915085949.3708122-1-zhouzhouyi@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 08:59:49AM +0000, Zhouyi Zhou wrote:
-> Discovered in the Open Source Lab of Oregon State University when running
-> torture.sh on a ppc64le VM.  Two bugs were exposed:
+On Mon, 14 Sep 2026 18:56:26 +0200 "Uladzislau Rezki (Sony)" wrote:
+> This patch does not use queue_work_on() semantic thus i do not want to
+> queue all helpers on current CPU. Instead scheduler does balancing and
+> that is it.
 > 
-> 1. The kvm-transform.sh call hard-coded "bzImage" as the kernel image
->    name.  On ppc64, the boot image is vmlinux, not bzImage, so the
->    re-run failed to find the image.  Fix this by extracting the QEMU
->    binary from the qemu-cmd file and passing it to identify_boot_image()
->    to obtain the correct architecture-specific image name, the same way
->    kvm.sh already does.
-> 
-> 2. The rm -f invocation on re-run listed vmlinux among the files to
->    delete.  On ppc64 vmlinux is the boot image, so deleting it broke
->    the re-run on that architecture.  Drop vmlinux from the list.
-> 
-> Tested on a local x86_64 machine and on a PPC VM of the Open Source Lab
-> of Oregon State University.
-> 
-> Signed-off-by: Zhouyi Zhou <zhouzhouyi@gmail.com>
+[Fair queue in the Eric Dumazet accent]
 
-Good catch!!!
++static bool
++schedule_drain_vmap_work(struct workqueue_struct *wq,
++		struct work_struct *work)
++{
++	if (wq)
++		return queue_work(wq, work);
++
++	return false;
++}
++
 
-One additional request below.
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/workqueue.h#n697
 
-> ---
-> Changes in v2:
->  - Remove blank line between qemu_binary and boot_image assignments
->    for cleaner style.
-> 
->  tools/testing/selftests/rcutorture/bin/kvm-again.sh | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/rcutorture/bin/kvm-again.sh b/tools/testing/selftests/rcutorture/bin/kvm-again.sh
-> index b5239b52cb5d..cacc9f2b230d 100755
-> --- a/tools/testing/selftests/rcutorture/bin/kvm-again.sh
-> +++ b/tools/testing/selftests/rcutorture/bin/kvm-again.sh
-> @@ -189,7 +189,7 @@ then
->  		echo "Cannot copy from $oldrun to $rundir."
->  		usage
->  	fi
-> -	rm -f "$rundir"/*/{console.log,console.log.diags,qemu_pid,qemu-pid,qemu-retval,Warnings,kvm-test-1-run.sh.out,kvm-test-1-run-qemu.sh.out,vmlinux} "$rundir"/log
-> +	rm -f "$rundir"/*/{console.log,console.log.diags,qemu_pid,qemu-pid,qemu-retval,Warnings,kvm-test-1-run.sh.out,kvm-test-1-run-qemu.sh.out} "$rundir"/log
->  	touch "$rundir/log"
->  	echo $scriptname $args | tee -a "$rundir/log"
->  	echo $oldrun > "$rundir/re-run"
-> @@ -217,7 +217,10 @@ do
->  	qemu_cmd_dir="`dirname "$i"`"
->  	kernel_dir="`echo $qemu_cmd_dir | sed -e 's/\.[0-9]\+$//'`"
->  	jitter_dir="`dirname "$kernel_dir"`"
-> -	kvm-transform.sh "$kernel_dir/bzImage" "$qemu_cmd_dir/console.log" "$jitter_dir" "$dur" "$bootargs" < $T/qemu-cmd > $i
-> +	qemu_binary="`grep -v '^#' $T/qemu-cmd | awk 'NF { print $1; exit }'`"
+static inline bool queue_work(struct workqueue_struct *wq,
+			      struct work_struct *work)
+{
+	return queue_work_on(WORK_CPU_UNBOUND, wq, work);
+}
 
-Would it be possible to identify qemu_binary earlier so that if the
-binary is not vmlinux, vmlinux can be removed?  This saves quite a bit
-of storage for non-PowerPC systems.
+queue_work_on
+  __queue_work
+	if (req_cpu == WORK_CPU_UNBOUND) {
+		if (wq->flags & WQ_UNBOUND)
+			cpu = wq_select_unbound_cpu(raw_smp_processor_id());
+		else
+			cpu = raw_smp_processor_id();
+	}
+/*
+ * When queueing an unbound work item to a wq, prefer local CPU if allowed
+ * by wq_unbound_cpumask.  Otherwise, round robin among the allowed ones to
+ * avoid perturbing sensitive tasks.
+ */
+static int wq_select_unbound_cpu(int cpu)
+{
+ 	pr_warn_once("workqueue: round-robin CPU selection forced, expect performance impact\n");
+}
 
-							Thanx, Paul
+> Or you prefer to tight all helpers on local CPUs? What is you concern?
 
-> +	boot_image="`identify_boot_image "$qemu_binary"`"
-> +	kvm-transform.sh "$kernel_dir/`basename $boot_image`" "$qemu_cmd_dir/console.log" "$jitter_dir" "$dur" "$bootargs" < $T/qemu-cmd > $i
->  	if test -n "$arg_remote"
->  	then
->  		echo "# TORTURE_KCONFIG_GDB_ARG=''" >> $i
-> --
-> 2.43.0
+Who blamed kswapd when it became a cpu hog, given it behaves the same way as
+a UNBOUND workqueue worker, regarding cpu affinity? Given kswapd is acceptable,
+why is vmap work blamed? Unfair.
