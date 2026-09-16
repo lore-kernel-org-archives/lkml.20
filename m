@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-138.mta0.migadu.com [91.218.175.138])
+Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF966448393
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7FB443A84
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.160
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789588363; cv=none; b=Ccoc9qL2VY8MSy/XwadM/ZUcz5f0NvUysPUtdeVuX6Hu12k6RZ4BqI9/DiZvadC5mSvndmInLOLALA99mnbuc9JVaFFqD4c4ayIx9o+Mc5a+9G7FK8cgRKmE1DTjFIoxfNEQ9fQ/kNWp0xyA1PzocTPILJAYh1Mu1fqo2DcIYHs=
+	t=1789588375; cv=none; b=apNnMBKf+4hHwE7NJB85EHZCqu0YMpg0MpQQW+QEBR/mY6AkhoYPayfF7rBZWJwKdU4IQCMV6kIBVcqpuscGKrqvCdHf2idqlLQn7vXjGmF8L2R1ZIkam6JxmeMfa6Iz78rr2n2emtSukEtQ62LbXgkEdha6xMnvuGB12srBHZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789588363; c=relaxed/simple;
-	bh=O01c+GQ4RowTdd0nGzCiaa7gltnKZNWMU/WFRv+w2yg=;
+	s=arc-20240116; t=1789588375; c=relaxed/simple;
+	bh=c2qPDFF4kfts5j40iNg40AreFJxVYAetkHMQoD+HVsY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PuXzYXll3cqYIQUQjzT851661aJGJQgzCtumvPczZs4rPx4INJJHFSLIC06EbMfdtm6cgya4OqChzy8YV0IF+o3u3fFqx1IMG2lgGT6lKnhvRpRR2tFCeorokc7JRLWlN2p9ahV8XcMVIGpb3tIxdY4cihwzD5INtZfwkhDy/5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iuRJwyTY; arc=none smtp.client-ip=91.218.175.138
+	 MIME-Version; b=cZhJAZjqWZlQSZCxo70Z+iuFnpBdVHMpob4ws0OgvE5UmEP9r2IQim1rAiQqrqYBnUYAV/QsZUh/Ik43BG5btnIHaF6RxycoLZW0mv+TmTXOI5b2oa/p4nosCWqMoyw9ReqIiwqBP9BBBZSZLeWG4FJ9/QunJeUfDotxKLVyazY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dzLH3eKI; arc=none smtp.client-ip=91.218.175.160
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iuRJwyTY"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dzLH3eKI"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=O01c+GQ4RowTdd0nGzCiaa7gltnKZNWMU/WFRv+w2yg=;
+DKIM-Signature: a=rsa-sha256; bh=c2qPDFF4kfts5j40iNg40AreFJxVYAetkHMQoD+HVsY=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789588346; v=1; x=1790193146;
- b=iuRJwyTYbJqmYg0/m6AZzgvyFil+xK8e1wek8Squ8C2AWubFaZzFwP3jpe9tfSm5q5dC9jAs
- gYptK7WWDcicTGL+1ZQAAe7tjwwvYoCaERgyaKIIkXieXI+InLFM7ALDE/Ol/BawQDGAzcSNR7s
- Huuk0cljP4fas3y7JJ4Yc0D4=
+ t=1789588358; v=1; x=1790193158;
+ b=dzLH3eKI4Uh6rkWoSJD6vGu6fvM27SKbLD8oX6TFYEH/KRHltqKwWGTtWMJ2kafwc0o57w5j
+ /I2cHbqtygzKk4P7nnAQFcPcW7hNpRe7I+HroH/VUEMhYQU8h/K5U+ytf5SOWJ2sFQ+FDtdP0iZ
+ 0TurEznQTi2yM8/TgfoZeEn0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id b5c48faab47fc563;
-	Wed, 16 Sep 2026 19:52:26 +0000
-X-Mizu-Trace-ID: b5c48faab47fc563
+Received: by mta11.migadu.com with ESMTPS id c4c15b9716180eaa;
+	Wed, 16 Sep 2026 19:52:38 +0000
+X-Mizu-Trace-ID: c4c15b9716180eaa
 X-Migadu-Flow: FLOW_OUT
 From: Ihor Solodrai <ihor.solodrai@linux.dev>
 To: Borislav Petkov <bp@alien8.de>,
@@ -46,9 +46,9 @@ Cc: Alexei Starovoitov <ast@kernel.org>,
 	kasan-dev@googlegroups.com,
 	linux-mm@kvack.org,
 	kernel-team@meta.com
-Subject: [PATCH v3 1/5] x86/cpu: Factor init_cpu_info() out of identify_cpu()
-Date: Wed, 16 Sep 2026 12:51:59 -0700
-Message-ID: <20260916195203.1099646-2-ihor.solodrai@linux.dev>
+Subject: [PATCH v3 3/5] x86/cpu: Inline generic_identify() into identify_cpu()
+Date: Wed, 16 Sep 2026 12:52:01 -0700
+Message-ID: <20260916195203.1099646-4-ihor.solodrai@linux.dev>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916195203.1099646-1-ihor.solodrai@linux.dev>
 References: <20260916195203.1099646-1-ihor.solodrai@linux.dev>
@@ -60,99 +60,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-identify_cpu() unconditionally resets the struct cpuinfo_x86 fields to
-their default values and clears the capability arrays with memset()
-before rescanning the CPU to fill it in again.
+generic_identify() has exactly one call site: at the top of
+identify_cpu(). Fold it into identify_cpu() so that a single function
+does the job for both the boot CPU and the secondary CPUs.
 
-However the boot CPU capabilities have already been scanned by
-early_identify_cpu(), with interrupts disabled.
-
-Introduce init_cpu_info() helper in preparation for letting the
-callers decide whether the reset is needed.
+While at it, fix up both copies of the Cyrix comment.
 
 No functional changes.
 
 Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
 ---
- arch/x86/kernel/cpu/common.c | 51 ++++++++++++++++++++----------------
- 1 file changed, 28 insertions(+), 23 deletions(-)
+ arch/x86/kernel/cpu/common.c | 32 ++++++++++++++------------------
+ 1 file changed, 14 insertions(+), 18 deletions(-)
 
 diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-index c7352827f491..c3dce89ba590 100644
+index 66695addbdf3..2b2a4c40ef76 100644
 --- a/arch/x86/kernel/cpu/common.c
 +++ b/arch/x86/kernel/cpu/common.c
-@@ -1782,6 +1782,32 @@ static void __init cpu_parse_early_param(void)
- 	}
- }
- 
-+static void init_cpu_info(struct cpuinfo_x86 *c)
-+{
-+	c->x86_cache_size = 0;
-+	c->x86_vendor = X86_VENDOR_UNKNOWN;
-+	c->x86_model = c->x86_stepping = 0;	/* So far unknown... */
-+	c->x86_vendor_id[0] = '\0'; /* Unset */
-+	c->x86_model_id[0] = '\0';  /* Unset */
-+#ifdef CONFIG_X86_64
-+	c->x86_clflush_size = 64;
-+	c->x86_phys_bits = 36;
-+	c->x86_virt_bits = 48;
-+#else
-+	c->cpuid_level = -1;	/* CPUID not detected */
-+	c->x86_clflush_size = 32;
-+	c->x86_phys_bits = 32;
-+	c->x86_virt_bits = 32;
-+#endif
-+	c->x86_cache_alignment = c->x86_clflush_size;
-+	memset(&c->x86_capability, 0, sizeof(c->x86_capability));
-+	memset(&c->cpuid, 0, sizeof(c->cpuid));
-+#ifdef CONFIG_X86_VMX_FEATURE_NAMES
-+	memset(&c->vmx_capability, 0, sizeof(c->vmx_capability));
-+#endif
-+	c->extended_cpuid_level = 0;
-+}
-+
- /*
-  * Do minimum CPU detection early.
-  * Fields really needed: vendor, cpuid_level, family, model, mask,
-@@ -1966,8 +1992,6 @@ void check_null_seg_clears_base(struct cpuinfo_x86 *c)
- 
- static void generic_identify(struct cpuinfo_x86 *c)
- {
--	c->extended_cpuid_level = 0;
--
+@@ -1825,7 +1825,7 @@ static void __init early_identify_cpu(struct cpuinfo_x86 *c)
  	if (!cpuid_feature())
  		identify_cpu_without_cpuid(c);
  
-@@ -2011,27 +2035,8 @@ static void identify_cpu(struct cpuinfo_x86 *c)
- 	int i;
+-	/* cyrix could have cpuid enabled via c_identify()*/
++	/* Cyrix could have CPUID enabled via c_identify(). */
+ 	if (cpuid_feature()) {
+ 		cpuid_scan_cpu(c);
+ 		cpu_detect(c);
+@@ -1989,14 +1989,23 @@ void check_null_seg_clears_base(struct cpuinfo_x86 *c)
+ 	set_cpu_bug(c, X86_BUG_NULL_SEG);
+ }
  
- 	c->loops_per_jiffy = loops_per_jiffy;
--	c->x86_cache_size = 0;
--	c->x86_vendor = X86_VENDOR_UNKNOWN;
--	c->x86_model = c->x86_stepping = 0;	/* So far unknown... */
--	c->x86_vendor_id[0] = '\0'; /* Unset */
--	c->x86_model_id[0] = '\0';  /* Unset */
--#ifdef CONFIG_X86_64
--	c->x86_clflush_size = 64;
--	c->x86_phys_bits = 36;
--	c->x86_virt_bits = 48;
--#else
--	c->cpuid_level = -1;	/* CPUID not detected */
--	c->x86_clflush_size = 32;
--	c->x86_phys_bits = 32;
--	c->x86_virt_bits = 32;
--#endif
--	c->x86_cache_alignment = c->x86_clflush_size;
--	memset(&c->x86_capability, 0, sizeof(c->x86_capability));
--	memset(&c->cpuid, 0, sizeof(c->cpuid));
--#ifdef CONFIG_X86_VMX_FEATURE_NAMES
--	memset(&c->vmx_capability, 0, sizeof(c->vmx_capability));
--#endif
+-static void generic_identify(struct cpuinfo_x86 *c)
++/*
++ * This does the hard work of actually picking apart the CPU stuff...
++ */
++static void identify_cpu(struct cpuinfo_x86 *c)
+ {
++	int i;
++
++	c->loops_per_jiffy = loops_per_jiffy;
 +
 +	init_cpu_info(c);
++
+ 	if (!cpuid_feature())
+ 		identify_cpu_without_cpuid(c);
  
- 	generic_identify(c);
+-	/* cyrix could have cpuid enabled via c_identify()*/
++	/* Cyrix could have CPUID enabled via c_identify(). */
+ 	if (!cpuid_feature())
+-		return;
++		goto no_cpuid;
  
+ 	cpuid_scan_cpu(c);
+ 	cpu_detect(c);
+@@ -2024,21 +2033,8 @@ static void generic_identify(struct cpuinfo_x86 *c)
+ #ifdef CONFIG_X86_32
+ 	set_cpu_bug(c, X86_BUG_ESPFIX);
+ #endif
+-}
+-
+-/*
+- * This does the hard work of actually picking apart the CPU stuff...
+- */
+-static void identify_cpu(struct cpuinfo_x86 *c)
+-{
+-	int i;
+-
+-	c->loops_per_jiffy = loops_per_jiffy;
+-
+-	init_cpu_info(c);
+-
+-	generic_identify(c);
+ 
++no_cpuid:
+ 	cpu_parse_topology(c);
+ 
+ 	if (this_cpu->c_identify)
 -- 
 2.55.0
 
