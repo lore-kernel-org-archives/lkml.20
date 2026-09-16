@@ -1,55 +1,56 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F09736E473
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:47:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473F537A857
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:47:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570057; cv=none; b=Yu138rwXUn+LxT4Kku4SxthK26EL5vdHYAAOnUcK54lDfUyeTZv1TMeo1/J0SHoVQZV9MT5ySOmHclgPc8VsfIXsBmm0r2239sIOpH6vtV2GDiILaKiHEATUhHZEj5h4JHQR70alktk4kb/a3BnnHHBhCf7mQn4cZ/VPArlVKt8=
+	t=1789570060; cv=none; b=BLQJI3DDyO0UYreFN9cjdmmTUlJS8HEd9DShU/AlP6x8hMcqaOJHXVRmzrKAyt6pJ0tyzjmkEqbs9k2Bp9fXwogltLsQfpD3yLYEZBmY3Ab4V8ymQKoAIZykKLCgXPR8+Byxh+8BJGvKuSDalCAu7eQjOFJFz1MKF+7w8zWKeNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570057; c=relaxed/simple;
-	bh=RC7T2Rmxs3lTW7BX95UVBrLsNYd7YzAOK15o4EuF3gk=;
+	s=arc-20240116; t=1789570060; c=relaxed/simple;
+	bh=Z/PHy8SqOY039ZfzHL4rdkKTKv2Tm1OexHtDCOj+1Zo=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=dTd56gZfPSXLrfrRS1tmi6yUomGDCssWgCr6/IDTBUB79DSlBoiWXUBH5fbelsm26sJ6CZrL5X5f5M3pZ1VCPOh7CLGtY2vXiC14/2O2vcq9oiuqVVKb0C+Q4IlozJ3PbJItx2vh8aGLGCEIBrmKyK41rNyMfNjMXBBzslg2puo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=V6GbdHiW; arc=none smtp.client-ip=209.85.221.71
+	 To:Cc:Content-Type; b=Rk3EZVg81DJ/M0a69vWlmHTnGmx/dUQ7StpILuAHM5cJKyEMAAaLRZYR1vVZjmo/fHqmR9QNJfB4SSARqiKDYTD/FckuqDRfdMtp2FPlpyCicVbxM6p90+9IYOpu60cZA/sYY3noOhfxk97dy9cxg+l4FfXWihdox9fzaK+nTHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cF5Erw+u; arc=none smtp.client-ip=209.85.128.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="V6GbdHiW"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-486f768517dso3102136f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cF5Erw+u"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49b0e6638e3so51384655e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789570053; x=1790174853; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xYoVbSFON1AAEit9fkW19VQs/jjZSOyS/18YO9M94EE=;
-        b=V6GbdHiWA3roOvYYGqTxfGcLgHsSX8dyDgc6kv1Z/yM2+6QDYUBYH7YybJ509aXdTA
-         LvpauNX6qcdfaRPMemtrY9QPQVZuGLZlFWjrmBcfBOMgCMjH4+s/C1xECyN3AUpS04as
-         qlRRmYo35sEnZUgcgKNRYQkq/Wl3tFWSMfKRBA1G/n9AWYWzp8fqQowl61WZd1izU4DN
-         GHmd7/sFDQQEzW6oKDgk24aZ9CEUpP87p9/OgfYWs3HsvAoFRv8RK/mMNkPAg9kHpr0I
-         n7bB58PVfGEE75R0sEsvu1za9HUpOd14BPqkzaQ4vO7Ycvqs11fw0fE+5VJH5cohv5XG
-         RxlA==
+        d=google.com; s=20251104; t=1789570056; x=1790174856; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZM3fU71DKklu1u+zDqECfkv49Iwpg2mCdspvEHepLy4=;
+        b=cF5Erw+umUYbkRqqX+ckgZPQExZ5ps3OIaRic/OBIDjNarU9ARTl1huomfuarlKq7v
+         M6l8BLG4EybH1lnR60fYfg8xRbs6jR5f6bRVwD88MXNn7LegqYodWClTWyulS9gwgmae
+         XCYndJHVMDhA4pDEjNscx99H+5coI92kYOnTdiPNJt7MGTLEp2LKNM2+G0Nu+zGf6fwu
+         YU35UWQMrunMBPMcp8dsfOsY6QYrM/WZwoelTFO7Rjl/ubyhIp5wRrD+Sv7o1jQe1oGr
+         UqgQxX8gmN0RI+Qfk+dIgS9kbGqIbpwFhep5ZveR3KgkkA15rTlTxPSB3yPQ2nfq/6n9
+         9jDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570053; x=1790174853;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xYoVbSFON1AAEit9fkW19VQs/jjZSOyS/18YO9M94EE=;
-        b=APcKETVeEGh13t2sTH6E+LMFT4CKdloTsWk3AtAKgkfSJMCy89yBljS5Bb8hBuBptV
-         30r67+bOoEnj6ipH3UL12lGGi9hhyygIkTeWR5MlY5ShoUfguKBJr2Whuqwx2DWQ8bOW
-         VfdQnp5cT/9it/KbmzfiYlaFDe4n3NMJfXsv1XekTA+vttPJFpnHkMnef8dqIsHiVzMe
-         Bp29D5Bea0fH0feJeaUGTusBNBcH26FUETdE0khl2sEx/Jw/Jrx2L1hMyyhe482t/Gxu
-         qVJkJC5TgjR3u4DA7lP56iQ3lls7GtY9NSet9o1WdOzIV/u8uDHZEyWOI4WjIstO2kuw
-         MggQ==
-X-Gm-Message-State: AFuF++m7xNjXCIlkcL/3+Comsuff9KPaXA/MNjBMv5iAQ9HSwtXkGFIY
-	BPBfD9FPB6ZQT0mcUxzu0zP+X9WUfxSk8IZAdOv8Q0FKNN4Z84N4GudD1YEe1Rig3VqzUbz9BQ=
+        d=1e100.net; s=20260707; t=1789570056; x=1790174856;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZM3fU71DKklu1u+zDqECfkv49Iwpg2mCdspvEHepLy4=;
+        b=CVCoFZ+1eKbwuX1AiH+9LutzqiW6KR08mhHzINH221mBnQzz0rcfbPdc10NUdknTWW
+         qDKZ/Zg6LmtNI1AZc5pcCbM8ZRQGDtaSFMfWsyPQ5xTNunaCDfAGe4cSHz6ZHc+8/NYZ
+         tYxoHhwxYPXZGSHJwTozdP6xAtMX/6CmEIzONecFo9zfybI3Jyc6t5ZEPm7blWX9uB0V
+         yxc1UlSjqhhhLj4a0rV+beSgQ1q+AG8wfHd3CkZg/UnItoag3ZGC6s/C21CtuPvPMV5J
+         KfOQGfkxJ8ij5JQhPI7VRh31HLxZzcbC5ntUTAmoDbFVp9Z1cf85RBg0/+ls///Xj1YW
+         nWMA==
+X-Gm-Message-State: AFuF++kBF80rSZN5wIUAPGnovZUed0Zcz5A1RME9fbHiMruZE8tfxN6c
+	JTbL7XrgtLxQcMzY3WWtbuxQWkl/nxbXPCNZH5uuJ8vGVLRb+RRGFRaapeZhKABFOIXC4EzvXA=
 	=
-X-Received: from wrwk16.prod.google.com ([2002:a5d:66d0:0:b0:483:3694:8d57])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:adf:e00a:0:20b0:487:bef:31cb
- with SMTP id ffacd0b85a97d-4870d05afb7mr6086738f8f.22.1789570053201; Wed, 16
- Sep 2026 07:47:33 -0700 (PDT)
-Date: Wed, 16 Sep 2026 16:46:54 +0200
+X-Received: from wmbf2.prod.google.com ([2002:a05:600c:5942:b0:499:4c8d:551f])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:8b58:b0:49c:fa21:e749
+ with SMTP id 5b1f17b1804b1-49eb733e3b5mr35778325e9.31.1789570056169; Wed, 16
+ Sep 2026 07:47:36 -0700 (PDT)
+Date: Wed, 16 Sep 2026 16:46:57 +0200
 In-Reply-To: <20260916144647.2651379-11-ardb+git@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,339 +60,273 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260916144647.2651379-11-ardb+git@google.com>
 X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9530; i=ardb@kernel.org;
- h=from:subject; bh=njHq+zVwhE6fZuDTSWDdHK03zgqP3QQxK8MBgkBFM+g=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWvV6gc18htdHb4v4en22mD+su/O7g7OSq3znYorJt+Zz
- P/TYN7JjlIWBjEuBlkxRRaB2X/f7Tw9UarWeZYszBxWJpAhDFycAjAR5psM//0LdhXkBf6ef4jN
- aepEs4QVv62VHASTNCc+lVL3yt1/y4Lhf8Fj6YqtSRE8234xSv6uelnWdvKvwMmwmqBts4t17Uq O8QAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8323; i=ardb@kernel.org;
+ h=from:subject; bh=NfkFq12GKt3yz40ChbwrvQeuiqCTEPkRCNxLFhlu1HY=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWvV6idLbji1b+ZnEToufergu00R0bPa5zzS2pO1/n8xX
+ 9FEr+0GHaUsDGJcDLJiiiwCs/++23l6olSt8yxZmDmsTCBDGLg4BWAip+4y/NOvPpu746Dd90vf
+ zpRv25uprXNpqbxQaPXk6+/untJf1DGb4Q+nT5l98nT5yYH3S5kvLjPfZ5S04Eb429OFoo5bP7x yd2YCAA==
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260916144647.2651379-17-ardb+git@google.com>
-Subject: [PATCH v3 6/9] efi/libstub: Output UTF-16 directly from vsnprintf()
+Message-ID: <20260916144647.2651379-20-ardb+git@google.com>
+Subject: [PATCH v3 9/9] efi/libstub: add initial Boot Loader Interface support
 From: Ard Biesheuvel <ardb+git@google.com>
 To: linux-efi@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
 	Vincent Mailhol <mailhol@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ard Biesheuvel <ardb@kernel.org>
+From: Vincent Mailhol <mailhol@kernel.org>
 
-The only remaining users of vsnprintf() in the EFI stub are the
-diagnostic printk()'s, which are emitted to the console and not recorded
-for posterity.
+The Boot Loader Interface (BLI) [1] defines EFI variables that expose
+boot loader state to the running OS. LoaderInfo identifies the boot
+loader, while LoaderDevicePartUUID records the GPT partition UUID of
+the partition containing it.
 
-The EFI console uses UTF-16 (or actually, UCS-2) natively, and so all
-non-UTF16 strings that are emitted need to be converted. Given the
-stub's vsnprintf() support for wide strings (using the %ls conversion
-modifier), which uses UTF-16 to UTF-8 conversion internally, the final
-conversion to UTF-16 needs to support not just plain ASCII but UTF-8 as
-well.
+LoaderDevicePartUUID is used, for example, by systemd-gpt-auto-generator
+[2] to identify the disk the boot loader was launched from and
+automatically detect and mount partitions on it.
 
-This is all pointless, of course, and it makes more sense to use UTF-16
-internally. This removes the need for UTF-16 to UTF-8 conversion in
-vsnprintf(), and given that all non-wide string inputs to vsnprintf()
-that exist in the stub today are compile time constant ASCII strings,
-the need to convert UTF-8 to UTF-16 disappears as well.
+GRUB [3] and systemd-boot [4] populate these variables, but when the
+kernel is started directly by EFI firmware, there is no conventional
+external boot loader to provide them. In that case, because the EFI stub
+performs the boot loader role, it should provide the variables itself.
 
-So implement efi_vsnprintf() taking a const char *fmt as before, but
-outputting a efi_char16_t[] that can be passed to the EFI console
-directly, rather than via efi_puts(), leaving the latter unused and
-therefore removed.
+Use LoaderInfo as a sentinel: if it is already set by an earlier boot
+stage or cannot be set, bail out. Otherwise, populate the other BLI
+variables.
 
-Note that efi_puts() performs LF to CR-LF conversion internally, so add
-this capability to efi_vsnprintf() as well.
+Parse the loaded image device path, extract the GUID signature from its
+GPT HD() node and publish it under the Linux loader entry vendor GUID as
+the volatile LoaderDevicePartUUID EFI variable.
 
+Install the efi_bli_set_variables() hook in both the generic efi-stub.c
+path and the x86-specific x86-stub.c path.
+
+[1] The Boot Loader Interface
+Link: https://systemd.io/BOOT_LOADER_INTERFACE/
+
+[2] systemd-gpt-auto-generator
+Link: https://www.freedesktop.org/software/systemd/man/latest/systemd-gpt-a=
+uto-generator.html
+
+[3] GRUB -- =C2=A716.2 bli
+Link: https://www.gnu.org/software/grub/manual/grub/html_node/bli_005fmodul=
+e.html
+
+[4] systemd -- systemd-boot UEFI Boot Manager
+Link: https://github.com/systemd/systemd/blob/main/docs/BOOT.md?plain=3D1#L=
+102
+
+Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
+[ardb: - constify 'image' pointer parameter
+       - pass efi_guid_t* to efi_snprintf()]
 Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- drivers/firmware/efi/libstub/efistub.h  |  5 +-
- drivers/firmware/efi/libstub/printk.c   | 91 ++-----------------
- drivers/firmware/efi/libstub/vsprintf.c | 96 +++-----------------
- 3 files changed, 22 insertions(+), 170 deletions(-)
+ drivers/firmware/efi/libstub/Makefile   |  2 +-
+ drivers/firmware/efi/libstub/bli.c      | 87 ++++++++++++++++++++
+ drivers/firmware/efi/libstub/efi-stub.c |  1 +
+ drivers/firmware/efi/libstub/efistub.h  |  2 +
+ drivers/firmware/efi/libstub/x86-stub.c |  1 +
+ include/linux/efi.h                     | 22 +++++
+ 6 files changed, 114 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/firmware/efi/libstub/efistub.h b/drivers/firmware/efi/libstub/efistub.h
-index fd91fc15ec81..36056c624782 100644
---- a/drivers/firmware/efi/libstub/efistub.h
-+++ b/drivers/firmware/efi/libstub/efistub.h
-@@ -1078,9 +1078,10 @@ efi_status_t check_platform_features(void);
- 
- void *get_efi_config_table(efi_guid_t guid);
- 
--/* NOTE: These functions do not print a trailing newline after the string */
- void efi_char16_puts(efi_char16_t *);
--void efi_puts(const char *str);
+diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/l=
+ibstub/Makefile
+index 12c0c7deb5cb..564773c89d14 100644
+--- a/drivers/firmware/efi/libstub/Makefile
++++ b/drivers/firmware/efi/libstub/Makefile
+@@ -66,7 +66,7 @@ KBUILD_AFLAGS			:=3D $(KBUILD_CFLAGS) -D__ASSEMBLY__
+ lib-y				:=3D efi-stub-helper.o gop.o secureboot.o tpm.o \
+ 				   file.o mem.o random.o randomalloc.o pci.o \
+ 				   skip_spaces.o lib-cmdline.o lib-ctype.o \
+-				   alignedmem.o printk.o vsprintf.o \
++				   alignedmem.o printk.o vsprintf.o bli.o \
+ 				   lib-ucs2_string.o
+=20
+ # include the stub's libfdt dependencies from lib/ when needed
+diff --git a/drivers/firmware/efi/libstub/bli.c b/drivers/firmware/efi/libs=
+tub/bli.c
+new file mode 100644
+index 000000000000..b2407f63b743
+--- /dev/null
++++ b/drivers/firmware/efi/libstub/bli.c
+@@ -0,0 +1,87 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
-+		  bool crlf);
- 
- __printf(1, 2) int efi_printk(char const *fmt, ...);
- 
-diff --git a/drivers/firmware/efi/libstub/printk.c b/drivers/firmware/efi/libstub/printk.c
-index f36639886d00..0a18cfe32528 100644
---- a/drivers/firmware/efi/libstub/printk.c
-+++ b/drivers/firmware/efi/libstub/printk.c
-@@ -23,98 +23,20 @@ void efi_char16_puts(efi_char16_t *str)
- 		       output_string, str);
- }
- 
--static
--u32 utf8_to_utf32(const u8 **s8)
--{
--	u32 c32;
--	u8 c0, cx;
--	size_t clen, i;
--
--	c0 = cx = *(*s8)++;
--	/*
--	 * The position of the most-significant 0 bit gives us the length of
--	 * a multi-octet encoding.
--	 */
--	for (clen = 0; cx & 0x80; ++clen)
--		cx <<= 1;
--	/*
--	 * If the 0 bit is in position 8, this is a valid single-octet
--	 * encoding. If the 0 bit is in position 7 or positions 1-3, the
--	 * encoding is invalid.
--	 * In either case, we just return the first octet.
--	 */
--	if (clen < 2 || clen > 4)
--		return c0;
--	/* Get the bits from the first octet. */
--	c32 = cx >> clen--;
--	for (i = 0; i < clen; ++i) {
--		/* Trailing octets must have 10 in most significant bits. */
--		cx = (*s8)[i] ^ 0x80;
--		if (cx & 0xc0)
--			return c0;
--		c32 = (c32 << 6) | cx;
--	}
--	/*
--	 * Check for validity:
--	 * - The character must be in the Unicode range.
--	 * - It must not be a surrogate.
--	 * - It must be encoded using the correct number of octets.
--	 */
--	if (c32 > 0x10ffff ||
--	    (c32 & 0xf800) == 0xd800 ||
--	    clen != (c32 >= 0x80) + (c32 >= 0x800) + (c32 >= 0x10000))
--		return c0;
--	*s8 += clen;
--	return c32;
--}
--
--/**
-- * efi_puts() - Write a UTF-8 encoded string to the console
-- * @str:	UTF-8 encoded string
-- */
--void efi_puts(const char *str)
--{
--	efi_char16_t buf[128];
--	size_t pos = 0, lim = ARRAY_SIZE(buf);
--	const u8 *s8 = (const u8 *)str;
--	u32 c32;
--
--	while (*s8) {
--		if (*s8 == '\n')
--			buf[pos++] = L'\r';
--		c32 = utf8_to_utf32(&s8);
--		if (c32 < 0x10000) {
--			/* Characters in plane 0 use a single word. */
--			buf[pos++] = c32;
--		} else {
--			/*
--			 * Characters in other planes encode into a surrogate
--			 * pair.
--			 */
--			buf[pos++] = (0xd800 - (0x10000 >> 10)) + (c32 >> 10);
--			buf[pos++] = 0xdc00 + (c32 & 0x3ff);
--		}
--		if (*s8 == '\0' || pos >= lim - 2) {
--			buf[pos] = L'\0';
--			efi_char16_puts(buf);
--			pos = 0;
--		}
--	}
--}
--
- /**
-  * efi_printk() - Print a kernel message
-  * @fmt:	format string
-  *
-  * The first letter of the format string is used to determine the logging level
-  * of the message. If the level is less then the current EFI logging level, the
-- * message is suppressed. The message will be truncated to 255 bytes.
-+ * message is suppressed. The message will be truncated to 255 characters
-+ * (ignoring surrogates).
-  *
-  * Return:	number of printed characters
-  */
- int efi_printk(const char *fmt, ...)
- {
--	char printf_buf[256];
-+	efi_char16_t printf_buf[256];
- 	va_list args;
- 	int printed;
- 	int loglevel = printk_get_level(fmt);
-@@ -141,11 +63,12 @@ int efi_printk(const char *fmt, ...)
- 	fmt = printk_skip_level(fmt);
- 
- 	va_start(args, fmt);
--	printed = vsnprintf(printf_buf, sizeof(printf_buf), fmt, args);
-+	printed = efi_vsnprintf(printf_buf, ARRAY_SIZE(printf_buf), fmt, args,
-+				true);
- 	va_end(args);
- 
--	efi_puts(printf_buf);
--	if (printed >= sizeof(printf_buf)) {
-+	efi_char16_puts(printf_buf);
-+	if (printed >= ARRAY_SIZE(printf_buf)) {
- 		efi_char16_puts(L"[Message truncated]\r\n");
- 		return -1;
- 	}
-diff --git a/drivers/firmware/efi/libstub/vsprintf.c b/drivers/firmware/efi/libstub/vsprintf.c
-index dba136679172..bd32af6b4f4d 100644
---- a/drivers/firmware/efi/libstub/vsprintf.c
-+++ b/drivers/firmware/efi/libstub/vsprintf.c
-@@ -14,10 +14,14 @@
- 
- #include <linux/compiler.h>
- #include <linux/ctype.h>
++#include <generated/utsrelease.h>
++
 +#include <linux/efi.h>
- #include <linux/kernel.h>
- #include <linux/limits.h>
- #include <linux/string.h>
- #include <linux/types.h>
-+#include <linux/ucs2_string.h>
++#include <linux/errno.h>
++#include <linux/unaligned.h>
 +
 +#include "efistub.h"
- 
- static
- int skip_atoi(const char **s)
-@@ -239,58 +243,6 @@ char get_sign(long long *num, int flags)
- 	return 0;
- }
- 
--static
--size_t utf16s_utf8nlen(const u16 *s16, size_t maxlen)
--{
--	size_t len, clen;
--
--	for (len = 0; len < maxlen && *s16; len += clen) {
--		u16 c0 = *s16++;
--
--		/* First, get the length for a BMP character */
--		clen = 1 + (c0 >= 0x80) + (c0 >= 0x800);
--		if (len + clen > maxlen)
--			break;
--		/*
--		 * If this is a high surrogate, and we're already at maxlen, we
--		 * can't include the character if it's a valid surrogate pair.
--		 * Avoid accessing one extra word just to check if it's valid
--		 * or not.
--		 */
--		if ((c0 & 0xfc00) == 0xd800) {
--			if (len + clen == maxlen)
--				break;
--			if ((*s16 & 0xfc00) == 0xdc00) {
--				++s16;
--				++clen;
--			}
--		}
--	}
--
--	return len;
--}
--
--static
--u32 utf16_to_utf32(const u16 **s16)
--{
--	u16 c0, c1;
--
--	c0 = *(*s16)++;
--	/* not a surrogate */
--	if ((c0 & 0xf800) != 0xd800)
--		return c0;
--	/* invalid: low surrogate instead of high */
--	if (c0 & 0x0400)
--		return 0xfffd;
--	c1 = **s16;
--	/* invalid: missing low surrogate */
--	if ((c1 & 0xfc00) != 0xdc00)
--		return 0xfffd;
--	/* valid surrogate pair */
--	++(*s16);
--	return (0x10000 - (0xd800 << 10) - 0xdc00) + (c0 << 10) + c1;
--}
--
- #define PUTC(c) \
- do {				\
- 	if (pos < size)		\
-@@ -298,7 +250,8 @@ do {				\
- 	++pos;			\
- } while (0);
- 
--int vsnprintf(char *buf, size_t size, const char *fmt, va_list ap)
-+int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
-+		  bool crlf)
- {
- 	/* The maximum space required is to print a 64-bit number in octal */
- 	char tmp[(sizeof(unsigned long long) * 8 + 2) / 3];
-@@ -336,6 +289,8 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list ap)
- 
- 	for (pos = 0; *fmt; ++fmt) {
- 		if (*fmt != '%' || *++fmt == '%') {
-+			if (crlf && *fmt == '\n')
-+				PUTC('\r');
- 			PUTC(*fmt);
- 			continue;
- 		}
-@@ -400,7 +355,7 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list ap)
- 			else if (qualifier == 'l') {
- 		wstring:
- 				flags |= WIDE;
--				precision = len = utf16s_utf8nlen((const u16 *)s, precision);
-+				precision = len = ucs2_strnlen((const u16 *)s, precision);
- 				goto output;
- 			}
- 			precision = len = strnlen(s, precision);
-@@ -505,36 +460,9 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list ap)
- 		if (flags & WIDE) {
- 			const u16 *ws = (const u16 *)s;
- 
--			while (len-- > 0) {
--				u32 c32 = utf16_to_utf32(&ws);
--				u8 *s8;
--				size_t clen;
--
--				if (c32 < 0x80) {
--					PUTC(c32);
--					continue;
--				}
--
--				/* Number of trailing octets */
--				clen = 1 + (c32 >= 0x800) + (c32 >= 0x10000);
--
--				len -= clen;
--				s8 = (u8 *)&buf[pos];
--
--				/* Avoid writing partial character */
--				PUTC('\0');
--				pos += clen;
--				if (pos >= size)
--					continue;
--
--				/* Set high bits of leading octet */
--				*s8 = (0xf00 >> 1) >> clen;
--				/* Write trailing octets in reverse order */
--				for (s8 += clen; clen; --clen, c32 >>= 6)
--					*s8-- = 0x80 | (c32 & 0x3f);
--				/* Set low bits of leading octet */
--				*s8 |= c32;
--			}
-+			if (pos < size)
-+				memcpy(&buf[pos], ws, min(len, size - pos) * sizeof(*ws));
-+			pos += len;
- 		} else {
- 			while (len-- > 0)
- 				PUTC(*s++);
--- 
++
++static efi_guid_t loader_entry_guid =3D LINUX_EFI_LOADER_ENTRY_GUID;
++
++static const struct efi_hd_dev_path *
++efi_bli_find_hd_node(const struct efi_dev_path *path)
++{
++	const struct efi_dev_path *node;
++	u16 node_len;
++
++	for (node =3D path;
++	     node->header.type !=3D EFI_DEV_END_PATH &&
++	     node->header.type !=3D EFI_DEV_END_PATH2;
++	     node =3D (const void *)node + node_len) {
++		node_len =3D get_unaligned_le16(&node->header.length);
++
++		if (node_len < sizeof(node->header))
++			return NULL;
++
++		if (node->header.type !=3D EFI_DEV_MEDIA ||
++		    node->header.sub_type !=3D EFI_DEV_MEDIA_HARD_DRIVE)
++			continue;
++
++		if (node_len < sizeof(node->hd))
++			return NULL;
++
++		if (node->hd.partition_format !=3D EFI_HD_PARTITION_FORMAT_GPT ||
++		    node->hd.signature_type !=3D EFI_HD_SIGNATURE_TYPE_GUID)
++			continue;
++
++		return &node->hd;
++	}
++
++	return NULL;
++}
++
++static void efi_bli_populate_loader_part_uuid(const efi_loaded_image_t *im=
+age)
++{
++	static efi_guid_t device_path_guid =3D EFI_DEVICE_PATH_PROTOCOL_GUID;
++	efi_char16_t partuuid[UUID_STRING_LEN + 1];
++	const struct efi_hd_dev_path *hd_node;
++	const struct efi_dev_path *path;
++
++	if (efi_bs_call(handle_protocol, efi_table_attr(image, device_handle),
++			&device_path_guid, (void **)&path) !=3D EFI_SUCCESS)
++		return;
++
++	hd_node =3D efi_bli_find_hd_node(path);
++	if (!hd_node)
++		return;
++
++	if (efi_snprintf(partuuid, ARRAY_SIZE(partuuid), "%pUl",
++			 &hd_node->signature) !=3D UUID_STRING_LEN)
++		return;
++
++	set_efi_var(L"LoaderDevicePartUUID", &loader_entry_guid,
++		    EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS,
++		    sizeof(partuuid), partuuid);
++}
++
++void efi_bli_set_variables(const efi_loaded_image_t *image)
++{
++	static efi_char16_t loader_info[] =3D L"Linux EFI stub " UTS_RELEASE;
++	unsigned long size =3D 0;
++
++	if (!image)
++		return;
++
++	if (get_efi_var(L"LoaderInfo", &loader_entry_guid,
++			NULL, &size, NULL) !=3D EFI_NOT_FOUND)
++		return;
++
++	if (set_efi_var(L"LoaderInfo", &loader_entry_guid,
++			EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS,
++			sizeof(loader_info), loader_info) !=3D EFI_SUCCESS)
++		return;
++
++	efi_bli_populate_loader_part_uuid(image);
++}
+diff --git a/drivers/firmware/efi/libstub/efi-stub.c b/drivers/firmware/efi=
+/libstub/efi-stub.c
+index 42d6073bcd06..2a95f4ea104a 100644
+--- a/drivers/firmware/efi/libstub/efi-stub.c
++++ b/drivers/firmware/efi/libstub/efi-stub.c
+@@ -165,6 +165,7 @@ efi_status_t efi_stub_common(efi_handle_t handle,
+ 	dpy =3D setup_primary_display();
+=20
+ 	efi_retrieve_eventlog();
++	efi_bli_set_variables(image);
+=20
+ 	/* Ask the firmware to clear memory on unclean shutdown */
+ 	efi_enable_reset_attack_mitigation();
+diff --git a/drivers/firmware/efi/libstub/efistub.h b/drivers/firmware/efi/=
+libstub/efistub.h
+index 880c1d0c464b..4f9e7ae28b6c 100644
+--- a/drivers/firmware/efi/libstub/efistub.h
++++ b/drivers/firmware/efi/libstub/efistub.h
+@@ -1072,6 +1072,8 @@ efi_status_t efi_random_alloc(unsigned long size, uns=
+igned long align,
+ 			      int memory_type, unsigned long alloc_min,
+ 			      unsigned long alloc_max);
+=20
++void efi_bli_set_variables(const efi_loaded_image_t *image);
++
+ efi_status_t efi_random_get_seed(void);
+=20
+ efi_status_t check_platform_features(void);
+diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi=
+/libstub/x86-stub.c
+index cef32e2c82d8..b762f7f37f28 100644
+--- a/drivers/firmware/efi/libstub/x86-stub.c
++++ b/drivers/firmware/efi/libstub/x86-stub.c
+@@ -1014,6 +1014,7 @@ void __noreturn efi_stub_entry(efi_handle_t handle,
+ 	efi_random_get_seed();
+=20
+ 	efi_retrieve_eventlog();
++	efi_bli_set_variables(image);
+=20
+ 	setup_graphics(boot_params);
+=20
+diff --git a/include/linux/efi.h b/include/linux/efi.h
+index c35446a0b66f..ecb34be37a87 100644
+--- a/include/linux/efi.h
++++ b/include/linux/efi.h
+@@ -957,6 +957,17 @@ extern int efi_status_to_err(efi_status_t status);
+ #define   EFI_DEV_END_INSTANCE			0x01
+ #define   EFI_DEV_END_ENTIRE			0xFF
+=20
++enum efi_hd_partition_format {
++	EFI_HD_PARTITION_FORMAT_MBR =3D 1,
++	EFI_HD_PARTITION_FORMAT_GPT,
++};
++
++enum efi_hd_signature_type {
++	EFI_HD_SIGNATURE_TYPE_NONE,
++	EFI_HD_SIGNATURE_TYPE_MBR,
++	EFI_HD_SIGNATURE_TYPE_GUID,
++};
++
+ struct efi_generic_dev_path {
+ 	u8				type;
+ 	u8				sub_type;
+@@ -988,6 +999,16 @@ struct efi_rel_offset_dev_path {
+ 	u64				ending_offset;
+ } __packed;
+=20
++struct efi_hd_dev_path {
++	struct efi_generic_dev_path	header;
++	u32				partition_number;
++	u64				partition_start;
++	u64				partition_size;
++	efi_guid_t			signature;
++	u8				partition_format;
++	u8				signature_type;
++} __packed;
++
+ struct efi_mem_mapped_dev_path {
+ 	struct efi_generic_dev_path	header;
+ 	u32				memory_type;
+@@ -1007,6 +1028,7 @@ struct efi_dev_path {
+ 		struct efi_pci_dev_path		pci;
+ 		struct efi_vendor_dev_path	vendor;
+ 		struct efi_rel_offset_dev_path	rel_offset;
++		struct efi_hd_dev_path		hd;
+ 	};
+ } __packed;
+=20
+--=20
 2.55.0.1032.g73a4cd73de-goog
 
