@@ -1,77 +1,58 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08874377A97
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:11:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EC92F3622;
+	Wed, 16 Sep 2026 04:11:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789531867; cv=none; b=ZhYGkmADAFPrep31mv7VumuLazTsezYInyulzy/vIzuQpaC6kE3Jb6oPRgG4RmwwdzYwlc2fbE9P/+vwQols1WHRLKSX2AhW1vy3rJ+D6Pj42WIuF6wIqkMsgoNjQQ9ciJdK24pvisdjVoBW3TQfA2Zoge5mb7YpiHuKj6BxDbU=
+	t=1789531877; cv=none; b=q78RRSGZaNFdiF22ezYtBtPMxAq7UdzL0SwKCaPFb56N+wRccOI92iRzIlArzyRX60XRnBJn9f9dCfXdocQEMgpe31rfiD+cKy/x/8NeDrbFxhikdaEBxa/6qcCgv7afdH8JRfvTyQ3PuNobgwv8PmZVgYfGe75RAum15RJ5g1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789531867; c=relaxed/simple;
-	bh=BG9eS0VX6qiKVgiD2TzOx/munym2UoldfB5y0hqmq+A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VnKhdiW/vB2uzOExNSFF+IqpgBqfcHQM7kfsij/J0XPb4Z5USkNqvrFNuKFDD6nkYhZlB9RdDEc9Y1tm2W6vWNUa+7hGV4tXnZKkG0lR4XxkalucRrB3VDY8eN127esUud2cKb5zvsWkH9w62OFxlszgZWTa3wO8jtt3QQ1VCXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=MFhDn59u; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789531877; c=relaxed/simple;
+	bh=oMxDrZS0Qkg8qZQlfeEmbLducVkPJVC6TpmFK4w7nKQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jWOhsPfFTwdZQV16KpkXSt29Dh1A/zoaytIcdY8Zudbr8sgzdxysPEcjdc5p9JUJpLEvSV+5DJxoPY3SS6GBTEmtppqN/TCxI3UqPvTQk35OE3I9ZAO7SXDVSZ7g8FHzJvCi8j/Y6l9Bf6ijZw+QdklgZt0j+2loQyQrtzQJuQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=EqCa6fzR; arc=none smtp.client-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="MFhDn59u"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2caced6038eso18098855ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:11:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789531864; x=1790136664; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nFZ79naFkHGO8T/sa7Ej6UkWwoja78MVIsc91vCgw9k=;
-        b=MFhDn59uJJ3GWyBrovaJkAD7odCGpM8WUhl7YXjWeK4geIA0i6YYp/SSDfVPAdDXMC
-         07EbKtQzhZlTkzs40a5aiuqCG3qC6wx5K8A51EkYepsMPJillE4ytwWNlXbXO2LtiK/D
-         snlAtiEuyeF7+V94FFJ8ks3tYb6J7DeeVzkA737buGZy2TZuCQd8hrMYxXnQR05xzD+K
-         vQlWV613mm+XqeRXqlMcIkpOjywNUioI3wNpYgnPejjFvsQYpqnDPKkF1sVA/SeAHzBR
-         ZUcm8ynbT0eyIeHUdLFtn63D1as4nVkktdVyRKf17Ym6oFJuuQI3L0AM7Bt1Z4DLQ3HE
-         plsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789531864; x=1790136664;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nFZ79naFkHGO8T/sa7Ej6UkWwoja78MVIsc91vCgw9k=;
-        b=o/juRMIJyu917L+7cI57o9bDBzw4V/ODkRCouojcg+IZsvWGxVqNWRtmCNCalUOEDr
-         l0jjkb6R4HtMFipDFeH+xEDD7daKHtfOu9Rb6MzlldE9za+JpsyNAWggh7UxY8Pn6Y4j
-         F8Ftw0BXpwpYnYR1875jxhosc60EqrVOJ8M8sm0+xTyIk+vmLzIFYyWdlDFeds1eAEIS
-         I5V8fhEZD1pAlZwyJGZf6cswapByncazKyohR4ssSbBTBXOctRfGkjaM26rGTk9poxsv
-         7bi/jgT9RSctTOAiqKaD9mbQS2rCwNLBpxLMw5l1roFnr3BSZeX5ffhwQRawMMKepFJM
-         6eQA==
-X-Gm-Message-State: AFuF++k1MSNxzK/WGyXYpgB/FcSv/jg1rj921TkNZkHdSzJTg52GHlC7
-	KnnmXc2bGKpHv6mLcixCQuy8sEkC1IhQqzEnVWN4ebRb+ZZsOrf1IGijdKlo2IC2pg==
-X-Gm-Gg: AYBFou2h33I/IHGX1Iwpc0Jw9pnZqnAgZNTUrjVcPnatT97mxHvoGUiZL23M0cRMvSL
-	cA5uSv7UQXAU8Qm5ei26jCXPrZnotNVHsHOv1qa7Let9nILCpWCmOOCgr7n7g8qhhfDUAfXg0gi
-	nQmn/pPGz18YNYmLkqXhoJ/Lb2lYCJVr8HFmj1iK7cFbXsmi0NXUHmRD7L30kLSW+gTQ/GxB9jL
-	IrMpZNWzfoL1Zx20DVVOjiARmOFbM+5v/YsIq9nKIDOeyUelWTrWyAFZ1YnfqKcDs02C8H0pSfY
-	OznO4P+4ykDvY0l55n/XKO9EklzhEaDQaqvYnRCkSOLtdxyPZ7DkkFDIbcpm3OSCbN+bhDJr56x
-	fpqXdL2udJwxk+NEklSYVYCrOOcU1QxEHSo/JFFszMV96Vy9dQGpcQu8FThC2m6LkFsR7pYtBqs
-	XzMg2xlfkFP9lDrhmlddBXYSIy6++Rwhy5sRKD7oWpYmoOlVP6O/VHNSQj3/4TsfQTVtd4kBHJx
-	ergfBdAfL8C16/7YoyY12TrvlOEYrW6qdHOvJetQ/x7A9j3
-X-Received: by 2002:a17:902:e74f:b0:2d7:1858:1d96 with SMTP id d9443c01a7336-2dd764c14dfmr75730075ad.7.1789531864357;
-        Tue, 15 Sep 2026 21:11:04 -0700 (PDT)
-Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5af4f0bsm4138749eec.24.2026.09.15.21.11.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 21:11:03 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	bpf@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	co+ff13a35f73bb7891@bugs.sh,
-	stable@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH net] bpf: lwt: clear stale IP control block after pushing an encap header
-Date: Tue, 15 Sep 2026 21:11:02 -0700
-Message-ID: <20260916041102.1914333-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="EqCa6fzR"
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 0666440B5A;
+	Wed, 16 Sep 2026 14:11:05 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1789531865;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=q2FVziLi99mj2DM6fRhVdm0hGSzlFmznN0LCu/Ng4sM=;
+	b=EqCa6fzR/Io1SUSDQ/ZMiY8mmWM2ii6JKsM1YymRaueqOqqIfzzS/Qf/WjPuNe5YQOzPAO
+	p+oV7khZqQeB0xh7MqJecOUKEdJT8x0bVW19uDeKeoiYzQY3WMhSWy5856lyzV603ANlz9
+	C7XooV4ufKhBiRkhFamTF4/LkIfdKCkIrvyCX0acg1qDelFhKiZo+sxac/ZiGb+0KdtWnS
+	Mv3qPsGrdwV8/td+2jc52rnHJWy78tN9PzTHVaO3grQfcyc6q+EaolLa2RtwBKoMne7P93
+	CeVf6IGDLAskMq4zKF8r/AtQAkzGpTC/0/54eHfA9jsEDw/9h4NpV+QWQdu3GQ==
+X-GPT-Reason: This is a legitimate technical communication. The
+	content is a Linux kernel patch (indicated by the [PATCH] prefix
+	and "git" diff format) regarding a driver fix for Allwinner hardware,
+	which aligns with the professional/technical nature of the personal
+	mailbox "alastair@d-silva.org". The From domain (d-silva.org)
+	matches the sender's identity, there are no phishing red flags
+	(no URLs, no urgency, no requests for credentials), and the message
+	content is highly specific to systems programming.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: linux-clk@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: [PATCH] clk: sunxi-ng: ccu_common: Replace ktime-dependent lock wait loop with udelay
+Date: Wed, 16 Sep 2026 14:11:04 +1000
+Message-ID: <20260916041104.239999-1-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,81 +61,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bpf_lwt_push_ip_encap() prepends an encapsulation header and calls
-skb_reset_network_header(), but leaves the IP control block describing the
-inner header. Its offsets are relative to the network header, so they now
-point into the encapsulated packet.
+The Allwinner sunxi-ng CCU driver uses readl_relaxed_poll_timeout() in
+ccu_helper_wait_for_lock() to wait for PLLs to lock.
 
-On an ingress lwt-bpf encap route a forwarded packet carrying a Record
-Route option then reaches __ip_options_echo() with a stale opt->rr. It
-takes the option length from the packet and copies up to 255 bytes into the
-fixed-size option storage on the __icmp_send() stack. ip_forward_options()
-writes at a packet-controlled offset for the same reason.
+This poll macro relies on ktime_get() and the kernel timekeeping
+infrastructure. During early boot or sensitive clock transitions
+(such as CPUfreq DVFS scaling) where timer interrupts or timekeeping may
+be suspended or unstable, ktime_get() fails to increment. This turns the
+timeout calculation into an infinite busy-wait loop, causing RCU stalls
+and system freezes if the PLL lock bit does not assert immediately.
 
-Clear the stale state once the outer header is in place, as the tunnel
-encapsulators do and as seg6_local.c was taught to do in commit
-f967455fb2a5 ("seg6: reset IP6CB after IPv6 decapsulation") and commit
-44930446dde4 ("ipv6: seg6: clear IPv4 control block on IPIP
-decapsulation").
+Decouple the PLL lock wait loop from the timekeeping framework by replacing
+readl_relaxed_poll_timeout() with an iteration loop using udelay(1) up to
+100ms.
 
-  BUG: KASAN: stack-out-of-bounds in __ip_options_echo (net/ipv4/ip_options.c:96)
-  Write of size 255 at addr ffff8880bee08930 by task exploit/150
-
-  Call Trace:
-   <IRQ>
-   __asan_memcpy (mm/kasan/shadow.c:106)
-   __ip_options_echo (net/ipv4/ip_options.c:96)
-   __icmp_send (net/ipv4/icmp.c:949)
-   ip_forward (./include/net/icmp.h:43 net/ipv4/ip_forward.c:176)
-   lwtunnel_input (net/core/lwtunnel.c:465)
-   ip_rcv (net/ipv4/ip_input.c:612)
-   __netif_receive_skb_one_core (net/core/dev.c:6264)
-   process_backlog (net/core/dev.c:6728)
-   __napi_poll (net/core/dev.c:7787)
-   net_rx_action (net/core/dev.c:8007)
-   handle_softirqs (kernel/softirq.c:645)
-   do_softirq.part.0 (kernel/softirq.c:546)
-   </IRQ>
-   __local_bh_enable_ip (kernel/softirq.c:473)
-   __dev_queue_xmit (net/core/dev.c:4961)
-   packet_sendmsg (net/packet/af_packet.c:3143)
-   __sys_sendto (net/socket.c:2281)
-   __x64_sys_sendto (net/socket.c:2288)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:84)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-
-Cc: stable@vger.kernel.org
-Fixes: 52f278774e79 ("bpf: implement BPF_LWT_ENCAP_IP mode in bpf_lwt_push_encap")
-Reported-by: <co+ff13a35f73bb7891@bugs.sh>
 Assisted-by: LLM
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
 ---
- net/core/lwt_bpf.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
 
-diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
-index da49364ec63d..17be476b5717 100644
---- a/net/core/lwt_bpf.c
-+++ b/net/core/lwt_bpf.c
-@@ -649,6 +649,18 @@ int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
- 	if (ingress)
- 		skb_postpush_rcsum(skb, iph, len);
- 	skb_reset_network_header(skb);
-+	if (ipv4) {
-+		memset(&(IPCB(skb)->opt), 0, sizeof(IPCB(skb)->opt));
-+	} else {
-+		bool l3slave = ipv6_l3mdev_skb(IP6CB(skb)->flags);
-+		int iif = IP6CB(skb)->iif;
-+
-+		memset(IP6CB(skb), 0, sizeof(*IP6CB(skb)));
-+		IP6CB(skb)->iif = iif;
-+		IP6CB(skb)->nhoff = offsetof(struct ipv6hdr, nexthdr);
-+		if (l3slave)
-+			IP6CB(skb)->flags |= IP6SKB_L3SLAVE;
+Notes:
+    Tested on Allwinner H618 (Mellow Fly-C5) and H616 boards in Armbian, resolving intermittent boot freezes and CPUfreq DVFS scaling lockups when timekeeping interrupts were suspended.
+
+ drivers/clk/sunxi-ng/ccu_common.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/clk/sunxi-ng/ccu_common.c b/drivers/clk/sunxi-ng/ccu_common.c
+index 43d8eca6abee..00daedadb5c8 100644
+--- a/drivers/clk/sunxi-ng/ccu_common.c
++++ b/drivers/clk/sunxi-ng/ccu_common.c
+@@ -7,6 +7,7 @@
+ 
+ #include <linux/clk.h>
+ #include <linux/clk-provider.h>
++#include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/iopoll.h>
+ #include <linux/module.h>
+@@ -25,7 +26,7 @@ struct sunxi_ccu {
+ void ccu_helper_wait_for_lock(struct ccu_common *common, u32 lock)
+ {
+ 	void __iomem *addr;
+-	u32 reg;
++	int i;
+ 
+ 	if (!lock)
+ 		return;
+@@ -35,7 +36,14 @@ void ccu_helper_wait_for_lock(struct ccu_common *common, u32 lock)
+ 	else
+ 		addr = common->base + common->reg;
+ 
+-	WARN_ON(readl_relaxed_poll_timeout(addr, reg, reg & lock, 100, 70000));
++	for (i = 0; i < 100000; i++) {
++		if (readl_relaxed(addr) & lock)
++			return;
++		udelay(1);
 +	}
- 	if (is_udp_tunnel) {
- 		size_t iph_sz = ipv4 ? iph->ihl * 4 : sizeof(struct ipv6hdr);
++
++	if (!(readl_relaxed(addr) & lock))
++		pr_warn("%s: clock lock timeout\n", clk_hw_get_name(&common->hw));
+ }
+ EXPORT_SYMBOL_NS_GPL(ccu_helper_wait_for_lock, "SUNXI_CCU");
  
 -- 
-2.43.0
+2.53.0
 
