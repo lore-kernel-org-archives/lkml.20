@@ -1,165 +1,170 @@
-Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com [209.85.215.225])
+Received: from mail-vs1-f97.google.com (mail-vs1-f97.google.com [209.85.217.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A5649D59F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:32:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD017397928
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789673559; cv=none; b=WWRjk1FooW+mxm0aGTg+NKSzNr706G7sniSWeVXHEa4WdqaoKlbkfYCltO5QC8npZ75LWrybR+rV9CIoXq9vrQ8TsSQRL2QKq2KJdIfkJYJ7PwAwQF1UnyyYRrQYQRjH4D+SU7k1cUWCqlI6g4s63D4r8JTUO6j3k9A3Mmrh7qo=
+	t=1789673643; cv=none; b=qi1v8wDlI94waVEY9I8yj+D6Sc3lKbf/KvtuXWuxhRmemahJotlPIPkaSvoQT0pmkl3RNhD0kqcIPGO24KVbiBT98Wet3RXSxDIqlH3FZ2Jf5VHewyf/RJbFCQfXRBmySorIuzLP85tRTC59pmqjPcb9+ZW6EmpwIefLDeRZpc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789673559; c=relaxed/simple;
-	bh=dxz7X2YslyPVLFGx1Z9BqzaXyVo5elNRV+qSk35CBXw=;
+	s=arc-20240116; t=1789673643; c=relaxed/simple;
+	bh=zTW7bUPY0/pKgAp+wJD73vRh29mJVAOADFY1njZxRu8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rJuPN9sejVjFNcCqeRxtvidw7eYVUxbvDyxRe8bwbpIYjq2oyfu/FUZhXX33DyaxZq/LObT0r0lBswD2rHg/7L8jLdmvBtzuiaEtXsngDpowxGSrQFP8cvk4PYh2BUU5dboLeu8GkDFA2ra4s5NIekDpoaDRFF35YqIr199eIYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ZajC4C1q; arc=none smtp.client-ip=209.85.215.225
+	 To:Cc:Content-Type; b=ZD04IsPRNFE+nAasn3agf5+gJZFuya0Sg46gRBOBMK7oTZgyy9zCs350KgdhIbgrtn6RmsoiD5YXZ2o4rz4lHeCq+v6BugtEg/TQTF75KbI2CV3QEZWRNr4X27m77SWMykZLYMgpG3/uMa8tADLiMrLN48I6o5MZbdBradECkXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ftlipYnd; arc=none smtp.client-ip=209.85.217.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ZajC4C1q"
-Received: by mail-pg1-f225.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so93632a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:32:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ftlipYnd"
+Received: by mail-vs1-f97.google.com with SMTP id ada2fe7eead31-7777fa8f1ccso648137.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:34:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789673557; x=1790278357;
+        d=1e100.net; s=20260707; t=1789673640; x=1790278440;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ScFcpKYtQSXOpIIRkHNS0z5iw2ymv3c03v3s6eduxno=;
-        b=Di/wwWDeEk5A7Q1SpLLYl8HUYBnucraXyBhly+YJS3cUwV/mFEk6QdCMJuNxY9OvOd
-         IuP6KbcFG8OoGC9Tj6zFco79E5CuVKBzQErQDcftErrIpZUg/kblXwRlICOD75jYJ3v/
-         fqgiqa2r9QQXZSPmAKdUMBobdBVa1uQvL4MmXffSaSWbCyeVAGcR9Z33cGuA/CIsW7kT
-         3nuETToWPsbRj681EOVjFaWie+oiJ/tGiRj39XVXvexauLBZmGH0y9ZyRMZAgxMPBCpF
-         1fV6PdS63i9AQwBoffCEMbNhgNjKb+G1um88C6bJTKRaWtqibDaT/3MYTFRjxgnU5vqL
-         mvRw==
-X-Forwarded-Encrypted: i=1; AKwUvBygpKbzD8ipeW42Q8ia/DKmQA70gHDVJgE1qly/wrKEBG8vB3eGtjN8qmRI7q93T8Kwz7lSwn5DeUyAvG4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mssjgRdFbxQXZxZbcSGA6qAsWJnKytgSYPoetIqQCRBfJlJgim
-	OrBNLy4LcDDVLowWcrEpGdGaVZXV+69aAeMfXX1AEGbZM7sCDbx43gExWA5m6wGbPtiNhKSkkEl
-	fngqKhKJKl3HBsWSERN239cBeywx+9+QcP7Kio4btETJ8WF7nTY2V8ql4+k9zWkizNp+PR0ZtsG
-	gYrX6LWSH3ORxRJvgmoUSIR/KYH1d9b+c4kJAFu7jTiuTR8/m88nHyp224DADIYyjWTF+9XzFDK
-	wVPb1zoHEOmig==
-X-Gm-Gg: AYBFou3efd2/2Xtqyly7v/3WTDOJR+aZAfcjOkJoHkzuEdSyK/IIqqm2cnwbQdcedE5
-	csmEnpcSNku/qozC6KhZ7d0u2DwJB1wRXukJc/dF8uY9/xsn6o5ha32evX5h/HjLuL65iy2WE01
-	FJnXuIGsCXbBSNb2PlY7JHUdledEXa++FIJKy+5Y/3ZS4Q/0YPm4UWhEO73PjKbC4a3UsMtYbl3
-	pu2IEBY+MdBgvRvtKt+NCPNxR4gXiQlhxXafNnvmUGQ9hQybJODVryp6vWfm/vVd6SSx/b5rtg8
-	/bg0ezaf9OQ0Pb8/oQ6FRgRpwneDP0Hy73ctwJUC/dDIjDYnVr2xBpk2ze7ewzQwdTDPOPARKdy
-	qvb256IxEVT9cpjmUSllj9CzDo/cj4QCp7XDqfQULhJ1d8rgclPXe4NC/ncGCEC0A+7g3TQE2BV
-	e+XAXeIS9LnlvhOA4BRLckI5aP1I8xpz/V
-X-Received: by 2002:a05:6a20:1609:b0:3bf:7bf7:7913 with SMTP id adf61e73a8af0-3dd8c399f37mr72459637.14.1789673556797;
-        Thu, 17 Sep 2026 12:32:36 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc50ad211b1sm3003616a12.9.2026.09.17.12.32.36
+        bh=BXFwFJ9yNMSBeykDL/7TToiC7jM6jF8NcE/w6dqlw9w=;
+        b=iMbxmYwhqgpsADt9hq7dx7DcK0lj348twxj3zQ5vONhRAfP7lCkLZ4MqBItQwfwvh4
+         MhX6HXFF6IKElRq8VGXcpV+32dD5hQmXY+gjBFJ00AefhQ+kwvHxdcuWjbWdZUnnoihX
+         0eNH7rZ2bRpZY12TfaMNj9Bod3VR5Hq/HAmsCbH8x9l6EpmZZxOjxrOUXY6WM6IcMtvn
+         wC/V6JMriz1a9g74Cj4hZHsEX1kZsai/YHk7j8u5dDIp3z/cD+8EodALP+50upzAUCIa
+         Uwt7LeAa/O+ueNbJvS3IzVPiNB1VyMWb+LqGCh+zBdcKVyPrwpVSMh5nOcseglIVV1Qi
+         U9ow==
+X-Forwarded-Encrypted: i=1; AKwUvBwdlK/hHmyl0Filzk2+zgIjHfMSoWvXhoPa3BamX7XJcIBdUj6qF8W1eu46QU9qG5sgieNVLC0XGrBTMd0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mF1hKl1DI32Z2wikX1BUzdJHiMk662hI7+iGxiCq9aEoJMA8ZE
+	78w+4kWE5HNE88hFI3C3kKneIMnwqm7o+YnbEFI3hN034OZpZk2cQfM1aQwvJolwzXk926rGKED
+	7xC089TKrFT48Quq8sQRdei1LNZMVCLAX1BaemyU2SUrblQG/lxla62NHKUcW1QQQm3bebXRVaV
+	IM+rvn568J8o06H0UUqd7mRC5iU7A5W3iYXE3bKtHoVuIHN3rA1lzQaqGLnadkdK9ELghJvMvmG
+	v5XAUamA4IaBA==
+X-Gm-Gg: AYBFou34JVDzC4/vTpivLJYJh/H1cf1zHpsGb+GCbrbFAObkDuuSAK3rYoEBxxRig/I
+	14n46UvtVlpy3CQ6stbKXMDwa/6pvDSUwwLgiTR63H6NzGEIdGV6vSYZwcywXZBNStMnGNIJWh9
+	BPwMgXS8zqdxvMFBEyIy6FOa0qxM0NuBOG05ALNh4YFR2dpyVH29M4C8ExjYU6AfVdnQZwCMC2K
+	NXrAqJ2Ti1/ESCXobRtSzE1ic4AyZZR9dnZNu6kQTAEhtcKhGXPTMrxtXRzCGkGLdiMcaT7+4Zk
+	01q1662Jt9ti5q18FTmJhQLEUVmYF49rrvDwzAIckI/4h7lqIAnYjWNSujJTnzNmHgD957yy9XF
+	926pdC8NLzn+SIRNzr1DXO1xhTNwbjG7TiVLaKfS7iIm8Kp1gB+9iBlp82K7IL5k5bE9o67vhXC
+	UXltAFaVK1ck82itvaSRfNrrgPTaRPmA==
+X-Received: by 2002:a05:6102:4b07:b0:79d:5bad:4c7a with SMTP id ada2fe7eead31-7a55b94d3f2mr67345137.9.1789673640394;
+        Thu, 17 Sep 2026 12:34:00 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-9832326cf49sm1211760241.0.2026.09.17.12.34.00
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 17 Sep 2026 12:32:36 -0700 (PDT)
+        Thu, 17 Sep 2026 12:34:00 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66f78d2f2a0so48642d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:32:35 -0700 (PDT)
+Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-6714b504d08so52342d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:34:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789673555; x=1790278355; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1789673639; x=1790278439; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ScFcpKYtQSXOpIIRkHNS0z5iw2ymv3c03v3s6eduxno=;
-        b=ZajC4C1quHV51oUpfBK5Zo3J2BeuB6JT247Ly4ibjLDg55lGZ5MlXAEzpix17VBgyp
-         stCXnD/C08GqRA67MMFNyeY7Yt6tEir7TQfOJA0EHUQLE3POJ3CIasBpJoaHqjFE9cd9
-         M8BBnRjbVDO24tQ79F25/bmoxHarF5ril7hyo=
-X-Forwarded-Encrypted: i=1; AKwUvBwimQfkPIiB6tcjqYFtEDSd9SvRGLvENOgSwaXv8FBpSp7E89FVUfd7uAhkIe1mH1pXByHQcdT7UyJSQDQ=@vger.kernel.org
-X-Received: by 2002:a05:690e:d47:b0:66e:7afd:dfda with SMTP id 956f58d0204a3-6717fcb92c7mr47625d50.26.1789673555307;
-        Thu, 17 Sep 2026 12:32:35 -0700 (PDT)
-X-Received: by 2002:a05:690e:d47:b0:66e:7afd:dfda with SMTP id
- 956f58d0204a3-6717fcb92c7mr47617d50.26.1789673554937; Thu, 17 Sep 2026
- 12:32:34 -0700 (PDT)
+        bh=BXFwFJ9yNMSBeykDL/7TToiC7jM6jF8NcE/w6dqlw9w=;
+        b=ftlipYnd5bX8Ucu8pXHVk9FXJx3Q2+rsvau5A47x8aUTZseEX4seKXrZOe11sTJRbJ
+         iJkSrWA/ev1bfLrvSChpwFgIFyF4dTz5YgAOhuboiV4dzwfcHvLOvy4IZTt0BCfk4v/a
+         6h3kKNmFIHF9i5Ym/AGR2Lf0rzYP5/SbCAk6U=
+X-Forwarded-Encrypted: i=1; AKwUvBzAo1YpcH/AF7Uwv59u2WeyiaHhpXW8DSyAagDBX50DpLT86HkVVoaMJwLauZ73JHYxl3rJ6uN84o25db4=@vger.kernel.org
+X-Received: by 2002:a05:690e:1248:b0:66f:c1bc:8800 with SMTP id 956f58d0204a3-6717fe2682bmr48215d50.89.1789673639654;
+        Thu, 17 Sep 2026 12:33:59 -0700 (PDT)
+X-Received: by 2002:a05:690e:1248:b0:66f:c1bc:8800 with SMTP id
+ 956f58d0204a3-6717fe2682bmr48208d50.89.1789673639203; Thu, 17 Sep 2026
+ 12:33:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917144330.2157527-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260917144330.2157527-1-vulab@iscas.ac.cn>
+References: <20260917144330.2157527-1-vulab@iscas.ac.cn> <CAEQnVQ=4BOue0djLgtBG6fukuqjvcBknL9EXnSs6R0eYd4jybw@mail.gmail.com>
+In-Reply-To: <CAEQnVQ=4BOue0djLgtBG6fukuqjvcBknL9EXnSs6R0eYd4jybw@mail.gmail.com>
 From: Paul Ely <paul.ely@broadcom.com>
-Date: Thu, 17 Sep 2026 15:32:21 -0400
-X-Gm-Features: AcwNN1XgKY-hAK2Dfd1I0vZMP_8Kc1TPJhC3Z6Mh8I-pqeatS3vk40rdoktMsvs
-Message-ID: <CAEQnVQ=4BOue0djLgtBG6fukuqjvcBknL9EXnSs6R0eYd4jybw@mail.gmail.com>
+Date: Thu, 17 Sep 2026 15:33:47 -0400
+X-Gm-Features: AcwNN1WrUxjfknpHF_DNHu4FD_QQwisWhKImRf7bB1Eed0nUVQ02cogBTvU8xSw
+Message-ID: <CAEQnVQkcDdS=hZ66TBETxs=FguYe8EU8kyu2mCup_M4AnUKSGw@mail.gmail.com>
 Subject: Re: [PATCH] scsi: lpfc: Fix use-after-free in lpfc_els_rsp_rls_acc()
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: James.Bottomley@hansenpartnership.com, James.Bottomley@suse.de, 
-	alex.iannicelli@emulex.com, james.smart@emulex.com, justin.tee@broadcom.com, 
+Cc: James.Bottomley@hansenpartnership.com, james.smart@emulex.com, 
 	linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, 
 	martin.petersen@oracle.com, stable@vger.kernel.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000008ca2b5065bb2d843"
+	boundary="0000000000009230e7065bb2dd12"
 
---0000000000008ca2b5065bb2d843
+--0000000000009230e7065bb2dd12
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The ndlp has an initial reference when first allocated and the
-lpfc_nlp_put moved is for the outstanding LNK mailbox.  Unless there
-is a driver bug with premature puts on the ndlp, this bug can't really
-happen.
-I would like to test this change before Acking it.
+Fixing bad email address list.
 
-Thanks.
+On Thu, Sep 17, 2026 at 3:32=E2=80=AFPM Paul Ely <paul.ely@broadcom.com> wr=
+ote:
+>
+> The ndlp has an initial reference when first allocated and the
+> lpfc_nlp_put moved is for the outstanding LNK mailbox.  Unless there
+> is a driver bug with premature puts on the ndlp, this bug can't really
+> happen.
+> I would like to test this change before Acking it.
+>
+> Thanks.
+>
+>
+> On Thu, Sep 17, 2026 at 10:44=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn>=
+ wrote:
+> >
+> > lpfc_els_rsp_rls_acc() drops the ndlp reference held for the
+> > MBX_READ_LNK_STAT mailbox command before it logs the ACC response and
+> > before it takes the reference that keeps the node alive while the
+> > response is being sent.  If that was the last reference, ndlp is freed
+> > and the log message and lpfc_nlp_get() below touch released memory.
+> >
+> > Take the reference for the ACC iocb before dropping the mailbox one.
+> >
+> > Fixes: 12265f68ae92 ("[SCSI] lpfc 8.3.18: Add support of received ELS c=
+ommands")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> > ---
+> >  drivers/scsi/lpfc/lpfc_els.c | 8 +++++---
+> >  1 file changed, 5 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/scsi/lpfc/lpfc_els.c b/drivers/scsi/lpfc/lpfc_els.=
+c
+> > index 4e3fe89283e4..bdf8fe3e77a5 100644
+> > --- a/drivers/scsi/lpfc/lpfc_els.c
+> > +++ b/drivers/scsi/lpfc/lpfc_els.c
+> > @@ -8782,11 +8782,9 @@ lpfc_els_rsp_rls_acc(struct lpfc_hba *phba, LPFC=
+_MBOXQ_t *pmb)
+> >                                      lpfc_max_els_tries, ndlp,
+> >                                      ndlp->nlp_DID, ELS_CMD_ACC);
+> >
+> > -       /* Decrement the ndlp reference count from previous mbox comman=
+d */
+> > -       lpfc_nlp_put(ndlp);
+> > -
+> >         if (!elsiocb) {
+> >                 mempool_free(pmb, phba->mbox_mem_pool);
+> > +               lpfc_nlp_put(ndlp);
+> >                 return;
+> >         }
+> >
+> > @@ -8824,6 +8822,10 @@ lpfc_els_rsp_rls_acc(struct lpfc_hba *phba, LPFC=
+_MBOXQ_t *pmb)
+> >         elsiocb->cmd_cmpl =3D lpfc_cmpl_els_rsp;
+> >         phba->fc_stat.elsXmitACC++;
+> >         elsiocb->ndlp =3D lpfc_nlp_get(ndlp);
+> > +
+> > +       /* Decrement the ndlp reference count from previous mbox comman=
+d */
+> > +       lpfc_nlp_put(ndlp);
+> > +
+> >         if (!elsiocb->ndlp) {
+> >                 lpfc_els_free_iocb(phba, elsiocb);
+> >                 return;
+> > --
+> > 2.34.1
+> >
 
-
-On Thu, Sep 17, 2026 at 10:44=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> w=
-rote:
->
-> lpfc_els_rsp_rls_acc() drops the ndlp reference held for the
-> MBX_READ_LNK_STAT mailbox command before it logs the ACC response and
-> before it takes the reference that keeps the node alive while the
-> response is being sent.  If that was the last reference, ndlp is freed
-> and the log message and lpfc_nlp_get() below touch released memory.
->
-> Take the reference for the ACC iocb before dropping the mailbox one.
->
-> Fixes: 12265f68ae92 ("[SCSI] lpfc 8.3.18: Add support of received ELS com=
-mands")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/scsi/lpfc/lpfc_els.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/scsi/lpfc/lpfc_els.c b/drivers/scsi/lpfc/lpfc_els.c
-> index 4e3fe89283e4..bdf8fe3e77a5 100644
-> --- a/drivers/scsi/lpfc/lpfc_els.c
-> +++ b/drivers/scsi/lpfc/lpfc_els.c
-> @@ -8782,11 +8782,9 @@ lpfc_els_rsp_rls_acc(struct lpfc_hba *phba, LPFC_M=
-BOXQ_t *pmb)
->                                      lpfc_max_els_tries, ndlp,
->                                      ndlp->nlp_DID, ELS_CMD_ACC);
->
-> -       /* Decrement the ndlp reference count from previous mbox command =
-*/
-> -       lpfc_nlp_put(ndlp);
-> -
->         if (!elsiocb) {
->                 mempool_free(pmb, phba->mbox_mem_pool);
-> +               lpfc_nlp_put(ndlp);
->                 return;
->         }
->
-> @@ -8824,6 +8822,10 @@ lpfc_els_rsp_rls_acc(struct lpfc_hba *phba, LPFC_M=
-BOXQ_t *pmb)
->         elsiocb->cmd_cmpl =3D lpfc_cmpl_els_rsp;
->         phba->fc_stat.elsXmitACC++;
->         elsiocb->ndlp =3D lpfc_nlp_get(ndlp);
-> +
-> +       /* Decrement the ndlp reference count from previous mbox command =
-*/
-> +       lpfc_nlp_put(ndlp);
-> +
->         if (!elsiocb->ndlp) {
->                 lpfc_els_free_iocb(phba, elsiocb);
->                 return;
-> --
-> 2.34.1
->
-
---0000000000008ca2b5065bb2d843
+--0000000000009230e7065bb2dd12
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -252,13 +257,13 @@ jAMkNKrfvV7NxS9AfcFu4fvxuBJc+t2FN1zBc8VyVyn9ZBeJ2DYS9uQ2x00QPXMHqVlAT5fBanmS
 n1fgcSTdHEy1fzVZIAtM1XMIWy03bJKNBwUebgxHKHSUCZ7VSMHE4jyERMCqkvTxU6h4JJ7YzRrU
 jhXYo8oxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52
 LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgx9OiWw8dVRSIkn
-L+YwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIGqY2y0BQPfxjFelQTfTTs0jgW/0
-MpPdwGmhyn9qFhCzMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2
-MDkxNzE5MzIzNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsG
+L+YwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIPNIcm8D/CSfwkQtqgK7NeT6Q1Qb
+nOW5NExJdfvU2ua4MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2
+MDkxNzE5MzM1OVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsG
 CWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3
-DQEBAQUABIIBAL5bCyW8EYY+cDAzLA9bi/UE8wI5t6pp2oNhJ30zCr6lMPJAlKV4H0tDTt0HS3I/
-KLB62rWRxl++KuT0HoqH4rEje7kMkp1oOSltywtUnWCXjENVzt3MrU8qrkqbdhzD0gWNEpgl4npe
-hN8cMO+mYrCd1JWLAmPX9RnucqkYq7Rjy4Sxucg3M8oFSyt22Hi6UwBVFvjZGwtoc4zvmQFzvw2e
-wX6Acn+0qgaP9YF/F9Rqf9zADUaKZWrg1o2WXjEEIlPVL8INDYqwtOWmLGJaGObopEGdbyduwx32
-3YeAeaLWUg7xkfV3Fz4sFZ1CFY+s7/0pGUJvzmRkDWz8qqw4LP8=
---0000000000008ca2b5065bb2d843--
+DQEBAQUABIIBABVy6CJofERxShyMSwXkumOAvzIPyFAxlhwYwwKXg5AEUcirsWbDwN/8lUwx3eMQ
+87uBeDqZ3UdIuxuDXJkTmJ8aH9je4VXDRow/TtdzR76ejJ4S6/Z6fw7A1lw4eN1BvBbnlFESG/h/
+mf9prVOrm48yOrqFfIAlDAdaiDdi6oZsMmDSl2OzBnlPXJ20cJ4BAkYTMo/srjmy3YbHh83ojJF8
+p962zaAXDqucs8qJBTt6QPiVPd+vRXOfkIbexRspwbq/8ZXOF7Fq1OFOVexUp2FLLazm8PgSm9qS
+AYZO2uIKpZ72upX8N1YlAmKipwNNX1/KdrCZevHkmu5d2r0MF7Q=
+--0000000000009230e7065bb2dd12--
