@@ -1,83 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C03347BDC;
-	Thu, 17 Sep 2026 00:41:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7C02D2495;
+	Thu, 17 Sep 2026 00:44:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789605687; cv=none; b=qDDjPk3Yyi1hDJyunPvvpcNldFKSM12w+5unNnr4+8TkFUfCKQCTIoonBilAcSOHKrqVZBf6vy3zpqaaK2Egts/UkRFMtY+ryQ4UsrbZHNfgyCauqc3BD+duRWarFVzGvUa6qzUwu4JdY98CwzzqMj/mSNoMQeYIZ4FnEV84gQE=
+	t=1789605860; cv=none; b=dqRXE8XYtaWUlzXav0ilyoYL/DdijmE1xwFvdOF3AJhCsPvw51OpnXcrY3UuGl4mIeyimaKPJoZcqbVXG5iGbTTea5DX9zKpSy0XImkk+irfXkCcwoP17X6oAChvNH8i3uhjHyy8yN6/iVSgRj9oH5z/qUNw+OEmnFoJ1GE11wI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789605687; c=relaxed/simple;
-	bh=LdzIGKc2H010OK/e0Y9DWBLJAyxaLT8kFyPE6OnmPDM=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=giyno8iMwrdDAy64YhO4Z2LK1djFWAhi9xSuhTk27wbs+HB6G+uwNKATQ4P6nse9PSmCkNbGCLsP/6iWBhQxz5XS+g75I/yTXBAqtlbo8zoXI+JpoC5rKJefz0JzJqspRE4+WCB7km7U8ssno3ZivcZDTCvLqXv2/896LCnHNVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M0DcBM+1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789605860; c=relaxed/simple;
+	bh=LWdJ5sLJYH8ufeHZm+Aq/WwvaCL27Ftwr+bvAkao5ts=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AYt8mX0UgKol6b2m4+xV9aWgAf8ktMlqb5adKk+AANAR0Vf1CBqOBiLW8L9PaSgYzk1dTNDMbb5IeLH8YMeRwMuYFT5vdxoCYRvaSH7cYuLjX3VhOZ+Z+7LT+7yzRUwc8Kv5h/C1n0salOox8P3sadGbAArKNWlGKhV2VowXN8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OXWigmc4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M0DcBM+1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CD381F00893;
-	Thu, 17 Sep 2026 00:41:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OXWigmc4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1AB21F000FF;
+	Thu, 17 Sep 2026 00:44:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789605684;
-	bh=QFbuXufqOQ4nMKTmIHry8sVooUvZ+CoVf4SjyIcYCf8=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=M0DcBM+1n1DABf3OzYZVWK1d5njqdtGWzqFJFuddU/Nszl5ZlOuAPPST36ixyjDnG
-	 A8F6/GE73UeVzVo9iGlygvJOIbL6k7u9Heoyd/cI9Yjzz/yQXHi1TK0X6K/tBybcMF
-	 5ant1Y6Z9djnRfDjUWEw8xTw0NiPCUsp9KTcv+gmVk2z7Q1d/tiLF/X0O3miSSrjOf
-	 wdu77CJOZodFSSIqowflt6trMxtFaZi6B8yj4gu1dhHzJhDwfLYVegutHdhWQZv/z8
-	 YDfY1MDT5gbbIM9YkTaIgyurhvyvES7dpuuLVWlcf/sKLjyt024V7hs/r01HXrEAuK
-	 lMxodmkTH2qow==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93C4939E9601;
-	Thu, 17 Sep 2026 00:40:19 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1789605858;
+	bh=JrmqII1Cn0Cov0+KMRVkBMAR7oZfytZ8PiuaPFmq54w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OXWigmc4sGaFWsZa9UqPg6j48N8d2xrFucTenxmN0kvwbLmtYJwzBj1qz78t/kO8e
+	 jYnASkLRgcGiwt2ut/KKsRNFLq8w3f1D5lEfvkgPcM6PRliiMCaqRz21MJsrgfA+iz
+	 f4aOgr52j/PSJ8lCdyTihMRmn1CBTg38nI49PZMSdQrPnBiNxQVM+9hpsnfgPeE9PD
+	 lRrk4GlGzXuuxDfMkakQTsXW73TaSB4znzoCaggpwKHJ7zRp/o3ipvYgVHxdnBMqZm
+	 XQZR+04+ZxQT6KNStqUG6Zqz4Z0hgCgy3jHucLEzAf2YmYHl7Vwoih97c393BUBBU6
+	 KTxwlFpn5DhFA==
+Date: Thu, 17 Sep 2026 01:44:13 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: david@lechnology.com, jm@ti.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, wbg@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] counter: ti-eqep: Fix runtime PM imbalance in
+ ti_eqep_probe()
+Message-ID: <20260917014413.2f9ee87c@jic23-hlaptop>
+In-Reply-To: <20260916072247.1967830-1-vulab@iscas.ac.cn>
+References: <20260916072247.1967830-1-vulab@iscas.ac.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] net: phy: broadcom: enable jumbo frames on
- BCM54xx
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178960561813.3354472.15061538839508121530.git-patchwork-notify@kernel.org>
-Date: Thu, 17 Sep 2026 00:40:18 +0000
-References: <20260914094703.1093504-1-nb@tipi-net.de>
-In-Reply-To: <20260914094703.1093504-1-nb@tipi-net.de>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: florian.fainelli@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
- andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- justin.chen@broadcom.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On Wed, 16 Sep 2026 07:22:47 +0000
+Wentao Liang <vulab@iscas.ac.cn> wrote:
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Mon, 14 Sep 2026 11:47:02 +0200 you wrote:
-> Jumbo packets need two bits that default to off, extended packet length in
-> the auxiliary control register and PCS transmit FIFO elasticity in the
-> extended control register. The latter raises the transmit limit from 4.5
-> KB to 9 KB at the cost of 16 ns of 1000BASE-T transmit latency, and the
-> two together take copper mode to 10 KB.
+> In ti_eqep_probe(), runtime PM is enabled and acquired via
+> pm_runtime_get_sync(dev). However, if devm_clk_get_enabled() fails,
+> the function returns directly without calling pm_runtime_put_sync()
+> and pm_runtime_disable(), leaving the runtime PM usage count and
+> enable state unbalanced.
 > 
-> Without them such frames are lost on a 100M link while the same frames
-> pass at 1G. On a Raspberry Pi CM5, which uses a BCM54210PE, 9142 byte
-> frames at 100M are lost 20 out of 20 with the MAC counting every one
-> as transmitted. The same frames over the same path at 1G arrive intact.
+> Add the missing pm_runtime_put_sync() and pm_runtime_disable() calls
+> on the clock error path.
 > 
-> [...]
+> Fixes: 0cf81c73e4c6 ("counter: ti-eqep: enable clock at probe")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/counter/ti-eqep.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
+> index d21c157e531a..84fbf500b0f8 100644
+> --- a/drivers/counter/ti-eqep.c
+> +++ b/drivers/counter/ti-eqep.c
+> @@ -548,8 +548,11 @@ static int ti_eqep_probe(struct platform_device *pdev)
+>  	pm_runtime_get_sync(dev);
+>  
+>  	clk = devm_clk_get_enabled(dev, NULL);
+> -	if (IS_ERR(clk))
+> +	if (IS_ERR(clk)) {
+> +		pm_runtime_put_sync(dev);
+> +		pm_runtime_disable(dev);
 
-Here is the summary with links:
-  - [net-next] net: phy: broadcom: enable jumbo frames on BCM54xx
-    https://git.kernel.org/netdev/net-next/c/3c8abdbe345b
+Having manual cleanup immediately after a devm call is not a good sign as
+it will be out of order.  Use devm_pm_runtime_enable() and consider if the
+pm_runtime_get_sync() that the put is reversing is actually needed.
+I suspect not.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+>  		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable clock\n");
+> +	}
+>  
+>  	err = counter_add(counter);
+>  	if (err < 0) {
 
