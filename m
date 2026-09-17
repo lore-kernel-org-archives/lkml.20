@@ -1,96 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB335478D;
-	Thu, 17 Sep 2026 00:04:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C31419D065
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:05:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789603490; cv=none; b=mwb3C0xCjRYJvZWLuqE6cmfDH7RUfznkrOQJl8wPHL0LdVM+tceA8RUpChDEnTPsmmqXo62TBo3m/0Mx/B+ySWOP9w7i9VDwWuQx8It6rD0+dnfCMWpGbkZyYaSZ873SFs3f35d3BE6AJ2KwyEgp+EIcuC4Z1gGshZmGEXuEDII=
+	t=1789603552; cv=none; b=s29ACk5KSoQMJrzfiXWaDmNeGuy447Z0wQRCtxOUFwaGl9J5/HKRQ6KlHQ/PaqJNsKqXbhUpK+gJ/NonEY6x5bqhEt1XuiQFvBAXWz0C3O7V0GiNChJR1k4sNc8Y8BPmfDDyXYXRvShaHiC3n4HGhpF+2jKu+uOpf0UKQcyqI0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789603490; c=relaxed/simple;
-	bh=0fYYtWZhEQ4A9EAW1416gUkQQFlbp4qX5PFsgcCK6PI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=QOASGPvajuv702eDn95ZEFBOYozSQqT9MfGVU51VfRQI97AObYpaOMJ+2xvPZm/tLplKHudMrg9ggZuXVsfSZ43XzolDn44Fz0CBBULrXqqT7hUz/EfkLt5yVx7hLHSOCalpChHJvKYJcYn11vM6+LYZQwXhgrjj/VGfZyPs5DY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=IUid807a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789603552; c=relaxed/simple;
+	bh=YfBWQIfeWmSq4z4LF/oUiBx8g/eXxpGJ0xbwZkgPHfU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bQsfnOtmko272cxJ5bMW8ojdVfKbpAwkj+PbJcGByQwiQr7B+yXc0o+cKN5oF3x4STBI0DALLRnOklvhI/LzTuxNoF4WMKCeXlQqIeDs+FWKTggYrn8sJyzas2Dszx2681h0PhXPumUnxFgeHHubHpfqiCQ595GJul7oezkIkug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LDvGRhQn; arc=none smtp.client-ip=74.125.231.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="IUid807a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6660E1F000FF;
-	Thu, 17 Sep 2026 00:04:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LDvGRhQn"
+Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6c72bd8a017so140898eaf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:05:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789603488;
-	bh=uCIjUjRLaVGP2XDD0J/r9CF8gUlKb8vWept+gWkz/3c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IUid807akAMj9giYI1VNN3jUlf90o8rH/bxv72li0B7+YudMoo6G/gPacmoAWLIqU
-	 sSsTFnpN/9cVgBHeLuZnWzSaVHTq4Qc8LvJNXeWHBnYgMbAqKySSgafoNhU1T6j+IM
-	 E7PCtQ7cEL7KOHvqCJ/dFib9AwAj/LlMNs/LEALc=
-Date: Wed, 16 Sep 2026 17:04:47 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Jonas Rebmann <jre@pengutronix.de>, Kees Cook <kees@kernel.org>, Andy
- Shevchenko <andy@kernel.org>, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de, Brendan Higgins
- <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, Rae Moar
- <raemoar63@gmail.com>
-Subject: Re: [PATCH 0/5] lib/string_helpers: fixes and test cases for
- string_unescape()
-Message-Id: <20260916170447.f8b7df928c7f8b6841adec0f@linux-foundation.org>
-In-Reply-To: <20260916231336.GA2777429@google.com>
-References: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
-	<20260916143623.3d144941ec17515f40c3561a@linux-foundation.org>
-	<20260916231336.GA2777429@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1789603549; x=1790208349; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kBJXze/m9QmJZA93LQC5bmBZ9qB9hQQMsHhryNrPRAM=;
+        b=LDvGRhQn3VgrlTn/7I9Mp8PPtXW3tyO2yjU+zXNyOqfvmFjOsYcLsQaA71QBCORvlr
+         OYALoQiL2dYZBd1FoZb75vl3IfSH6vZ11q4k5NPKgbsI+JcsaAVeb1uetQDhIB65mHHl
+         zUlnNDW//JAxh0xacaCDz0rTFbYS6MH59qvacfr+72k5/rFR7r0HQHfF78oxMp6CNylN
+         9ZjDUWpFj1YBw8JfqnTELXUZQ9sZFCMfJLJ7kgJjy/Wd4OjsCx4Os+FeM4Nfw/fzY042
+         5ANZ/W6sxwywd2E1l7KGuX/Uyp6M+l4UlkgCjWECbyKfpBxtvDyDzCQ2xTH5c9j66TvR
+         sfHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789603549; x=1790208349;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kBJXze/m9QmJZA93LQC5bmBZ9qB9hQQMsHhryNrPRAM=;
+        b=YOahQLVAvLA/G5mK+793sRMWKEiM5NSouLsmuMltTPB/giqlqq6pKt9cszTN2n6GSk
+         74OL4pyaJvl32E/ubjfjZKIhk0kQEw53NTTZcalRPdE/Pki0yOnWSOobJhUR33lOehnC
+         6ikfnrc2//VswasMeslukLJ9noSZWrPQ0V6DFHy90cIRu9BWHGuI/rV/NpsQ7YmEvNCK
+         DOb8a3+Q7AwqYwhgTUzp51pmjQOngb5XoXcL1ezfi6FYs14kcniCMM4hlk/srzLIJrDR
+         Vfh/NG9ZAagoKVtniH9TZdStfay+PmSNwHrcvYzTz6Q2VCk+YGo/U1b5Bk+07P7DQX9i
+         PNbw==
+X-Forwarded-Encrypted: i=1; AKwUvBzt/NWvzZEx5yjO/7M7U2YjaSgle30N1cMYb1uRUAk7s98HVgT7FEgSoSduZxC12r9O0u9V8OMPeEGklNc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kC5VHurP9JdwoWAReLTkKIs4Hpsh4UOwYIgWhc/Y4wblVyhvfm
+	ChxNEu22UMWYpvDlju/NjCvN3zpoyn3pMD71hU4mGxEEjaYuZ3reyCdq
+X-Gm-Gg: AYBFou2whVECpLM2+z9cqH+u8HUipLs2IGzIi83gn3KIONW6ZhBVd2ZVN8mcoYlR/gs
+	aIU+t60rviUHgwH8R0fVZTSmLutqMhe49up38VHjXChATf0N8tYsPf/sUAOzzVQZaUyqfs5uTAU
+	S/a55LOUclolYOfEcbn6V3AQ+8C+Sbh8Z18pWrwaeFzhx7hb/7J0mbYchNaX/5Q7Uffq1+aYWHI
+	F1WCpalLbwNU6G7nkatoDYLEoR2B1zw2wf5dT9G1kr8QOuwZAYKmk/KnfAkKxlbAIA4lftz68pJ
+	Jv133m/MvRJfflyTmFFn+6PfGy8pwrFyDPEjSTAJgAshBViB1uHFdvSN6urUKZ/ExzvLyElyowz
+	Mgisp4Vm0ZrEwgLiVH/5KMpjKkj1KBgX/KprjtsAzkoBt0WmbImpz6jTKkuv6by/3XqVI7qvwoL
+	W1r7Y+OP6r+8rNfezh5NqMMeEtuZpIS8tYSNCTF5f5gjonQTiiiYJZ5m3C858gXgQgeYfJR4Sad
+	An0NNnfIvBH
+X-Received: by 2002:a05:6820:3098:b0:6ba:3635:7ffd with SMTP id 006d021491bc7-6c7d46e698fmr4348329eaf.64.1789603549061;
+        Wed, 16 Sep 2026 17:05:49 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d771e5sm9349126c88.15.2026.09.16.17.05.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 17:05:48 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 16 Sep 2026 17:05:47 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	Sanman Pradhan <psanman@juniper.net>
+Subject: Re: [PATCH v2 1/2] hwmon: (pmbus/tps53679) Select page 0 for
+ single-page TPS53676
+Message-ID: <54991706-16c7-4033-ab8f-6ee1149d1702@roeck-us.net>
+References: <20260916235406.681131-1-sanman.pradhan@hpe.com>
+ <20260916235406.681131-2-sanman.pradhan@hpe.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916235406.681131-2-sanman.pradhan@hpe.com>
 
-On Wed, 16 Sep 2026 23:13:36 +0000 Eric Biggers <ebiggers@kernel.org> wrote:
-
-> On Wed, Sep 16, 2026 at 02:36:23PM -0700, Andrew Morton wrote:
-> > On Wed, 16 Sep 2026 19:38:05 +0200 Jonas Rebmann <jre@pengutronix.de> wrote:
-> > 
-> > > This series fixes two bugs in string_unescape() regarding the
-> > > destination buffer length. Both fixes are accompanied with kunit tests
-> > > which would fail without the fixes.
-> > > 
-> > > To make this possible, preparatory patches 1 and 2 improve and clean up
-> > > testing helpers and 3 introduces test_unescape_one() which allows for
-> > > targeted testing of the string_unescape() function.
-> > 
-> > Sashiko complains about uncheched kunit_kzalloc() return val.
-> > 
-> > 	https://sashiko.dev/#/patchset/20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de
-> > 
-> > I wonder whether we really need the usual allocation-failure semantics
-> > in kunit.  Can we just make the kunit memory allocation functions abort
-> > on error?
+On Wed, Sep 16, 2026 at 11:54:17PM +0000, Pradhan, Sanman wrote:
+> From: Sanman Pradhan <psanman@juniper.net>
 > 
-> FWIW, having KUNIT_ASSERT_NOT_NULL built-in to kunit_kmalloc() et al
-> sounds good to me.  It's not clear to me why it wasn't done that way.
-> Maybe so that assertion failures show the correct file and line number?
-> But that can be solved by making them macros.
+> tps53676_identify() derives the number of PMBus pages but does not
+> ensure that page 0 is selected for single-page configurations.
+> pmbus_set_page() does not update the PAGE register when info->pages is
+> 1, so if boot firmware leaves PAGE set to another value subsequent
+> register accesses may target the wrong page.
 > 
-> As-is, every test has to check for NULL, which is unnecessary
-> boilerplate.  It's also resulted in test-specific wrapper functions that
-> work around this, like alloc_buf() in lib/crypto/tests/test-utils.h.
+> For single-page devices, select page 0 explicitly.
 > 
-> If a fallible version is needed in rare cases, it could be underscored:
-> __kunit_kmalloc().  But I'm not sure any test needs that.
+> Fixes: cb3d37b59012 ("hwmon: (pmbus/tps53679) Add support for TI TPS53676")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
 
-Sure.  
+Applied.
 
-Simply doing kthread_exit() when we're in the middle of something is
-rather rude - it'll leak things.  I doubt if anyone cares about that much
-if they're engaged in poking around with kunit tests.  otoh, small GFP_KERNEL
-allocation failures are close to can't-happen.
-
-One thought is to create a fake struct device in kunit, use
-devm_kzalloc everywhere then get kunit_try_catch_throw() to release the
-device.  Reuse the devm_ code's tracking and garbage-collecting
-infrastructure.  But it just isn't worthwhile.  Make the kunit layer
-say "ha ha, you lost some memory" and leave it at that...
-
+Thanks,
+Guenter
