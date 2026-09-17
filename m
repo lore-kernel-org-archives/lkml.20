@@ -1,211 +1,136 @@
-Received: from mail-oi2-f6.google.com (mail-oi2-f6.google.com [74.125.231.198])
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194422D0620
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:18:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4789E13C908
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789607914; cv=none; b=esXR6D0dhi0LLTYrtrd7y5jMSpaMqDmPvc8HMFQp2CGfIghf0IY/JjzBtCFn/4cfP4acbaDVAsJbIA70QTr5nl/Spf2umMk0u04kVehKI0ZeAR9fsLSUeMRHlHDfSg8VVZqGNSUmUyvDojguYsLa9jlF5ZTQi+GCiLJOIYWNfVI=
+	t=1789607953; cv=none; b=YH/drP5F/9DpWliQR6rygVO/CTfh+pLY1SyuvsFXv4JOq7dSL+ik4BEnmhvjAnVT0jEY4ajyRBuefBjfBbC03P6hnVuRDjs4mD0qa1R34AG8uGAgetsPH1wEIRJ49AoYM2YhXCJ4ZlYxjR/cAPpzbEr0gaGVPrF1oCIDLuAEeUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789607914; c=relaxed/simple;
-	bh=pf14TofstAXLbTuVvmcKUFxji4E7btSHimL4GRxJUD8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=IaLvEp5WXpvmpYOF9uznvKRJoD9SjLIhWXpBvjOJvjCHp4w59kthj+xtNR0Ow1AAeBLo3dwtS5f9hUt2vZGWtQ79m3TrtYrCoxAkK5wZBeiKoy7dBWQZyhlolIGLb4Wbp0kzg6EaKfQ//FjVCeF9RYTVDbG/lyXxSLyJhb9LEOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f6.google.com with SMTP id 46e09a7af769-8069d92e182so116570a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:18:32 -0700 (PDT)
+	s=arc-20240116; t=1789607953; c=relaxed/simple;
+	bh=VanYmENmUmXTEk4Wxt1G2ttVVCoj5RiHb6I3O3KIXTk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GK60vmyl5uRWL+iromZEf2NzQbd6s25R/q/fWMQNGbSDFN8sd79VV2KcGiAXe3vLvDBeDXQbwOSMkzXz/BxTQNa9wqLcSm8+gbBlGYpYqBraGjjWEcUmGEHC+zhyJY280JdhkxLDPi34+/m4DH3cHts0rTQKLTZ8/FSaRLcaqws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XShqMlhX; arc=none smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XShqMlhX"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c537df4daaso128954b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:19:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789607951; x=1790212751; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dL4BHtyrx9dumsdtOgu4KHiMjJj0IqF1DGbVo0Gj8OU=;
+        b=XShqMlhXz+P6DaJoXtl5zqjgu+9mmdwTgogjuaWiLSZFCMhSdvGvAdpVSbSbJBSKnM
+         1zgtCd9arGzmeTxHay8g5Tumn5YWQTg6xwEHVLbVTBeNS/X1qoGWR7jAWhB5eHwNFts+
+         M6Pr0T4VbPvbhJAQIc9E6MGxnvCCoijwKWCo/D8qdckjfyqUnclhzFin5yy2OoU02d1J
+         hqEgYTbu7sw7f/jIHQWX1ALZLAZAGX0o8X8Xa149HEkDzAUSYVc7JhQBS8ng9EeM3MV4
+         BRURBau+6y3Tk9U3y346nwNlNMX/N87S+FivZk6V8EvxD4JwStc6HQ1I8d5Ic5lgEobv
+         DDTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789607912; x=1790212712;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:in-reply-to:date:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=LtOlAYWsyy7u4ditOZknWwKzPI078uu3FpDpGPC7wwo=;
-        b=B/xuOdvQh7DHEOETATQmypAfH7Cc4lEv6jsy8KXKMa7/ChV8m2GWFUJpVGFkyKTzeS
-         DG2TQQrT/JaULKpVINjKTRtYrI28k+KgC12WDZ3ltSkcBCihWHEyMASFrwNRH0rM8TbP
-         Tuj4bkW6sJDwY4XZa8KcCZ5E0AjytEzaqb2eaXLQeoT3lcHtvnq+B7EF5NnHtAbK2/aR
-         NanVVL7d0fvsLSG5no+annZ0vZD0ucUW4VTNxBZFvvgPdno8/Gt9fDK6LJI17kH6WExK
-         sGCJ1X67W86KsB321+egIH+9HJMvL4ye5gsu3mIOxzyUpcbmz0Ca1VPEqf+g9tac7IOy
-         yjbA==
-X-Gm-Message-State: AFuF++l2IWO/F4bhuH2SFL28qj6Sw3weFMTnFFwywuF8YuXSFVvnVr10
-	+YDevWdU8h1wAtTJ0wRm6feaiEBgeTE0mdsGwae+qTofVzObk1+R4eczEJZXRnC6Va5FQgM/Gyj
-	ACuE3RtTqfORne5vDYUmNPVXFvwnbXmYjZzpCOWfx3zOoQhL1Hvmy/HjDVq8=
+        d=1e100.net; s=20260707; t=1789607951; x=1790212751;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dL4BHtyrx9dumsdtOgu4KHiMjJj0IqF1DGbVo0Gj8OU=;
+        b=kx/uFOWkWEBEBfw1sKxjyvHl4E3uOhttixk/CaXBLNYF/1wWyzAFy4WQb9PyfIw/4W
+         haNZBXgY2GIUrtyRblZHZADo6s0qAfKhKJMzbt67t70V2An4npXEwip/aCdTzYpX5UW0
+         /Iugc10UXiePYAvERr/gU+GprJ2E8NRLrF2IHSLHtUu6UiBjjMA9BnwIllNkblRYbSMu
+         OmFbrmnAqJ50E9buu5wOCnM061f/iksBPd/7ydGR3lho9vNeMGvttz77ZCaDLcm50dDE
+         fcdZBQMcOi2UhMkojNkJwOS87TOG8ps7vCGpKewr67IKDaJ8cO3BPhoDAoYey7/vd3Pt
+         kFIA==
+X-Forwarded-Encrypted: i=1; AKwUvBxg1dLb+9jck2gi0Z7o86ZRdIb6X1WCoLVGVHDWgbVp5X8VIBwhWgY5kynkeGzNVZSPeJ0vgyShJ78MP+c=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2DGn8fOr/fsqXNpnWBfCPGJnJyqLcCSYlHyHa5/QbMxXNKeZ+
+	CWlPv0rFkrWLCcZTeh8PNuDtFOwO2QAGFB1iLkGmoZVs9W2vSE4E+Jng
+X-Gm-Gg: AYBFou1xfo+cNFm6z3kZh+Ch4T8AQfEjT8S7kaovcBZBChBUIGqCrsQIvfZ8I7dyPM6
+	kHrSlLu7NwOCHkjV9nag9V5O0lUudMblGWy5rcU4QBi2kypvGIU9+z0ykHFOLSskwL7gbhReV71
+	G0ShnSKZTNhOXzwkM4A37AQ44Mn+J/fcGNvOSOmstp0MUC/79maoK5JAUVqTEVBkJY7F12S/Q1t
+	s9AEKVYEDczWJRcWpMq2hq053pVLaXoOc5UB4CS1DzsTBuBj2MV3waY2ryd9jF5W0x6SSBJvkL0
+	lQliBktvPJ814LQJ1mi/e1k1IRfO7UX+/3+hoD00ZCvYFr5odkTCNKHUyl6H9g5Tag1TCtCz9SS
+	hhaH5Umgtpd7YYFHiHRy0+Wy9CQLAYkPtZphI8eJMDQrRKZCzLEK65DUsNEnE+kqA7AusF9119s
+	I9a3/sSpldVdFYQ6bzlsbg4gqo299lkfedP10/3iSj5ewfLxIVWN6N6GMczWnw+7dpMwtt55V6r
+	7FOdSjO57VZ6D1t
+X-Received: by 2002:a05:6808:10c9:b0:4b1:bc2e:3f60 with SMTP id 5614622812f47-4ca4a0e12a8mr5132686b6e.16.1789607950999;
+        Wed, 16 Sep 2026 18:19:10 -0700 (PDT)
+Received: from localhost ([35.11.35.209])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4cb6cd417bfsm1479286b6e.9.2026.09.16.18.19.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 18:19:10 -0700 (PDT)
+From: sjunhyuk1@gmail.com
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	BurningHoryd <sjunhyuk1@gmail.com>
+Subject: [PATCH] platform/x86: hp-wmi: Add board 8E41 (OMEN Transcend 14) to feature board list
+Date: Wed, 16 Sep 2026 21:19:09 -0400
+Message-ID: <20260917011909.75399-1-sjunhyuk1@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:81c5:b0:6b3:506e:b484 with SMTP id
- 006d021491bc7-6c7d1bc844dmr4478041eaf.16.1789607911986; Wed, 16 Sep 2026
- 18:18:31 -0700 (PDT)
-Date: Wed, 16 Sep 2026 18:18:31 -0700
-In-Reply-To: <fd79a199-9af9-42b1-af08-1e7df169c681@huaweicloud.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab3fe7.71f81b7d.278072.0004.GAE@google.com>
-Subject: Re: [syzbot] [raid?] kernel BUG in find_zone
-From: syzbot <syzbot+50f9bc7ab8eb224b7629@syzkaller.appspotmail.com>
-To: wozizhi@huaweicloud.com
-Cc: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
-	wozizhi@huaweicloud.com, xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-> #syz test:=20
+From: BurningHoryd <sjunhyuk1@gmail.com>
 
-This crash does not have a reproducer. I cannot test it.
+The HP OMEN Transcend 14-fb1xxx (DMI board name "8E41") is recognized
+as an Omen board by omen_thermal_profile_boards[] (so platform_profile
+switching works via the generic path), but it has no entry in
+hp_wmi_feature_boards[]. As a result active_board_params stays NULL
+for this board, is_victus_s_board is never set, and none of the
+board-specific paths that depend on a real ModelCapabilities entry
+(EC thermal-profile readback, the Victus-S GPU CTGP/PPAB WMI calls,
+the AC/battery power-source re-apply handler) ever run for it.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
->
-> Please test the attached patch.
->
-> Thanks,
-> Zizhi Wo
->
-> =E5=9C=A8 2026/9/16 20:57, syzbot =E5=86=99=E9=81=93:
->> Hello,
->>=20
->> syzbot found the following issue on:
->>=20
->> HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.k=
-er..
->> git tree:       upstream
->> console output: https://syzkaller.appspot.com/x/log.txt?x=3D100769f95800=
-00
->> kernel config:  https://syzkaller.appspot.com/x/.config?x=3D85bc5cc2fc73=
-94d9
->> dashboard link: https://syzkaller.appspot.com/bug?extid=3D50f9bc7ab8eb22=
-4b7629
->> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for =
-Debian) 2.44
->> userspace arch: i386
->>=20
->> Unfortunately, I don't have any reproducer for this issue yet.
->>=20
->> Downloadable assets:
->> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/=
-d900f083ada3/non_bootable_disk-50d05c7c.raw.xz
->> vmlinux: https://storage.googleapis.com/syzbot-assets/303a0ade8f9e/vmlin=
-ux-50d05c7c.xz
->> kernel image: https://storage.googleapis.com/syzbot-assets/70b8ca71442b/=
-bzImage-50d05c7c.xz
->>=20
->> IMPORTANT: if you fix the issue, please add the following tag to the com=
-mit:
->> Reported-by: syzbot+50f9bc7ab8eb224b7629@syzkaller.appspotmail.com
->>=20
->> ------------[ cut here ]------------
->> kernel BUG at drivers/md/raid0.c:318!
->> Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->> CPU: 1 UID: 0 PID: 8386 Comm: syz.2.584 Tainted: G             L      sy=
-zkaller #0 PREEMPT(full)
->> Tainted: [L]=3DSOFTLOCKUP
->> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1=
-.16.3-2 04/01/2014
->> RIP: 0010:find_zone drivers/md/raid0.c:318 [inline]
->> RIP: 0010:find_zone.isra.0+0x129/0x150 drivers/md/raid0.c:305
->> Code: f9 48 89 e8 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc =
-cc 48 89 ef e8 a2 00 fe f9 e9 79 ff ff ff e8 c8 bf 8b f9 90 <0f> 0b 48 8b 3=
-c 24 e8 8c 00 fe f9 e9 04 ff ff ff 48 89 df e8 7f 00
->> RSP: 0018:ffffc9000557f090 EFLAGS: 00010293
->> RAX: 0000000000000000 RBX: 0000000000000001 RCX: 0000000000000000
->> RDX: ffff888022b34b00 RSI: ffffffff887fa208 RDI: ffff888022b34b00
->> RBP: ffff888042790b18 R08: 0000000000000004 R09: 0000000000000001
->> R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000001
->> R13: 0000000000000000 R14: dffffc0000000000 R15: 0000000000000000
->> FS:  0000000000000000(0000) GS:ffff888096a60000(0063) knlGS:00000000f53f=
-db40
->> CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
->> CR2: 0000000033863fff CR3: 0000000070ae4000 CR4: 0000000000352ef0
->> Call Trace:
->>   <TASK>
->>   raid0_map_submit_bio drivers/md/raid0.c:568 [inline]
->>   raid0_make_request+0x299/0x1660 drivers/md/raid0.c:626
->>   md_handle_request+0x824/0x1230 drivers/md/md.c:417
->>   md_submit_bio+0x1e9/0x350 drivers/md/md.c:458
->>   __submit_bio block/blk-core.c:681 [inline]
->>   __submit_bio+0x20e/0x3d0 block/blk-core.c:670
->>   __submit_bio_noacct block/blk-core.c:724 [inline]
->>   submit_bio_noacct_nocheck+0x736/0xc00 block/blk-core.c:792
->>   submit_bio_noacct+0xc93/0x2130 block/blk-core.c:925
->>   blk_crypto_submit_bio include/linux/blk-crypto.h:212 [inline]
->>   __bh_submit+0x7ce/0xaa0 fs/buffer.c:1132
->>   bh_submit fs/buffer.c:1146 [inline]
->>   block_read_full_folio+0x496/0x8c0 fs/buffer.c:2373
->>   filemap_read_folio+0xfc/0x3b0 mm/filemap.c:2520
->>   do_read_cache_folio+0x2d7/0x6b0 mm/filemap.c:4156
->>   read_mapping_folio include/linux/pagemap.h:1015 [inline]
->>   read_part_sector+0xd1/0x370 block/partitions/core.c:724
->>   adfspart_check_ICS+0x91/0x7d0 block/partitions/acorn.c:357
->>   check_partition block/partitions/core.c:143 [inline]
->>   blk_add_partitions block/partitions/core.c:591 [inline]
->>   bdev_disk_changed+0x7b1/0x1260 block/partitions/core.c:695
->>   blkdev_get_whole+0x187/0x290 block/bdev.c:793
->>   bdev_open+0x2c7/0xe40 block/bdev.c:1002
->>   blkdev_open+0x34e/0x4f0 block/fops.c:674
->>   do_dentry_open+0x6ab/0x14d0 fs/open.c:996
->>   vfs_open+0x82/0x3f0 fs/open.c:1101
->>   do_open fs/namei.c:4837 [inline]
->>   path_openat+0x19fa/0x2440 fs/namei.c:5000
->>   do_file_open+0x20e/0x430 fs/namei.c:5029
->>   do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
->>   do_sys_open fs/open.c:1423 [inline]
->>   __do_compat_sys_openat fs/open.c:1485 [inline]
->>   __se_compat_sys_openat fs/open.c:1483 [inline]
->>   __ia32_compat_sys_openat+0x12d/0x210 fs/open.c:1483
->>   do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
->>   __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
->>   do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
->>   entry_SYSENTER_compat_after_hwframe+0x84/0x8e
->> RIP: 0023:0xf700efec
->> Code: Unable to access opcode bytes at 0xf700efc2.
->> RSP: 002b:00000000f53fd50c EFLAGS: 00000292 ORIG_RAX: 0000000000000127
->> RAX: ffffffffffffffda RBX: 00000000ffffff9c RCX: 0000000080000300
->> RDX: 0000000000004002 RSI: 0000000000000000 RDI: 0000000000000000
->> RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
->> R10: 0000000000000000 R11: 0000000000000292 R12: 0000000000000000
->> R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
->>   </TASK>
->> Modules linked in:
->> ---[ end trace 0000000000000000 ]---
->> RIP: 0010:find_zone drivers/md/raid0.c:318 [inline]
->> RIP: 0010:find_zone.isra.0+0x129/0x150 drivers/md/raid0.c:305
->> Code: f9 48 89 e8 48 83 c4 10 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc =
-cc 48 89 ef e8 a2 00 fe f9 e9 79 ff ff ff e8 c8 bf 8b f9 90 <0f> 0b 48 8b 3=
-c 24 e8 8c 00 fe f9 e9 04 ff ff ff 48 89 df e8 7f 00
->> RSP: 0018:ffffc9000557f090 EFLAGS: 00010293
->> RAX: 0000000000000000 RBX: 0000000000000001 RCX: 0000000000000000
->> RDX: ffff888022b34b00 RSI: ffffffff887fa208 RDI: ffff888022b34b00
->> RBP: ffff888042790b18 R08: 0000000000000004 R09: 0000000000000001
->> R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000001
->> R13: 0000000000000000 R14: dffffc0000000000 R15: 0000000000000000
->> FS:  0000000000000000(0000) GS:ffff888096a60000(0063) knlGS:00000000f53f=
-db40
->> CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
->> CR2: 00000000f5315ff4 CR3: 0000000070ae4000 CR4: 0000000000352ef0
->>=20
->>=20
->> ---
->> This report is generated by a bot. It may contain errors.
->> See https://goo.gl/tpsmEJ for more information about syzbot.
->> syzbot engineers can be reached at syzkaller@googlegroups.com.
->>=20
->> syzbot will keep track of this issue. See:
->> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
->>=20
->> If the report is already addressed, let syzbot know by replying with:
->> #syz fix: exact-commit-title
->>=20
->> If you want to overwrite report's subsystems, reply with:
->> #syz set subsystems: new-subsystem
->> (See the list of subsystem names on the web dashboard)
->>=20
->> If the report is a duplicate of another one, reply with:
->> #syz dup: exact-subject-of-another-report
->>=20
->> If you want to undo deduplication, reply with:
->> #syz undup
->>=20
+Confirmed by direct EC readback (CONFIG_ACPI_EC_DEBUGFS, reading
+/sys/kernel/debug/ec/ec0/io) while cycling /sys/firmware/acpi/
+platform_profile through performance/balanced/cool:
+
+    profile         offset 0x95
+    performance     0x31
+    balanced        0x30
+    cool            0x50
+
+These values are an exact match for hp_thermal_profile_omen_v1's
+HP_OMEN_V1_THERMAL_PROFILE_PERFORMANCE (0x31), _DEFAULT (0x30) and
+_COOL (0x50), read back at exactly HP_OMEN_EC_THERMAL_PROFILE_OFFSET
+(0x95) -- the ec_tp_offset already used by omen_v1_legacy_board_params,
+and identical to sibling boards already in the table (8902, 8A44,
+8A4D, 8D26, 8E35). Two other candidate offsets from the same struct
+(0x59, 0x62) were also probed and did not change with the profile;
+0x63 changed by +/-1 opportunistically across reads and looks like
+the unrelated timer byte, not a profile encoding.
+
+System tested on:
+  DMI board_name:   8E41
+  DMI product_name: OMEN Transcend Gaming Laptop 14-fb1xxx
+  BIOS version:     F.05
+  Kernel:           7.1.9-arch1-2
+
+Signed-off-by: BurningHoryd <sjunhyuk1@gmail.com>
+---
+ drivers/platform/x86/hp/hp-wmi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 615b4cf..f71cc62 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -343,6 +343,10 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8E35") },
+ 		.driver_data = (void *)&omen_v1_legacy_board_params,
+ 	},
++	{
++		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8E41") },
++		.driver_data = (void *)&omen_v1_legacy_board_params,
++	},
+ 	{},
+ };
+ 
+-- 
+2.55.0
+
