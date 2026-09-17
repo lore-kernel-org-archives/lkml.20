@@ -1,127 +1,96 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF5D58B6B3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA05354B1A0;
 	Thu, 17 Sep 2026 14:17:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654631; cv=none; b=DpcNXu+FbJT++B8bIuNULnLHLGbWtAg3xsx5MuB4XgblW4Qr41MpbvR8FJ6Uwve+W5ZsEF3AHvF61Ow99gOSymIvgY0K+CY1rvFUu2JxgMA5HO+vos9CSJJK6cFOJoDddit2bDN8DMi9Bj1+PJ88ApHVPulMjgageHaAUWkGlNQ=
+	t=1789654633; cv=none; b=owX/tQ3dYKrasOraARZoi0wPcvCzDF0vZd3SQYReITfe5sJsWTMh1qqW7bkNqQpv3OVW4/I+Liw1GWmEN/7oPREFCKUIzDE1+cIAu6hjtqZ/Q25+PH2iZVU5jALtN+funYYQJSQyl1MKR0s41H43V6FwadrbZNjGKuMuwQJB9KI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654631; c=relaxed/simple;
-	bh=MDZHHIBC+OMEMEsQQONixUk9LTcLJLWtKNH7Kg/sPTo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oGzWQAVtE4aHgcND8YNfOMQmnG/4aP9MIUtIH14HwpkfAg5rTcXwtWonEe3VhHGmNzpqa3tUkGbajB8vagBRbEigbKrOJNAFaR5AcE5YihzMDJTrtwq2KUqGLd+41nQcfdlCCw7DDXo+GivNEFBoG7qptSeRdgcsypSZre6lmbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WvqxSK3z; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WvqxSK3z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789654630; x=1821190630;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=MDZHHIBC+OMEMEsQQONixUk9LTcLJLWtKNH7Kg/sPTo=;
-  b=WvqxSK3zeePCZ/d3vhx7ZZ6cr5ZOCM2tnkd6UX7MJLXyzpZ9D+jwi4wA
-   fOpf0f2Hi6wyOHkcDdWKdqtfVFoVGbWL0YVsEyaT2tQTaB4EKbWlcJCji
-   fel7paBGVNJkPxivJmQynCbSytE0FaVv3d2xcdduHpn4U6t3OuQdewflK
-   OmXe4xPxmuTA986dx5JOeHroxCf+mu7/BDK8xHPwHwOCCZGGvUVdr7unX
-   fN+yDpfdWyGrzqMdNCZVaZShiYKMvm8yRrpa8tcaPMSidSF1/UQMepm8V
-   AgP0pgW/ujHQhiP84/+69BN3kKL8qV19ppXPjO/o9EV8NqFV8ljBkBYxE
-   w==;
-X-CSE-ConnectionGUID: XQ2Id/IlTISLArK6DH5z+Q==
-X-CSE-MsgGUID: 404NmL/mQuK3SrsaqNhmNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89214233"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89214233"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 07:17:04 -0700
-X-CSE-ConnectionGUID: /Qnwxs0ASJKRCbdsv2wkEA==
-X-CSE-MsgGUID: kKQtuzvqRtudznznbRbuAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="279045906"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.245.63]) ([10.245.245.63])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 07:16:59 -0700
-Message-ID: <7d8118ee06f29b73988108c0892022b3a2626f1d.camel@linux.intel.com>
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Logan Gunthorpe <logang@deltatee.com>, Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman	 <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson	 <alex@shazbot.org>, Ankit Agrawal
- <ankita@nvidia.com>, Jonathan Corbet	 <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, "Joerg Roedel (AMD)"	 <joro@8bytes.org>, Will
- Deacon <will@kernel.org>, Robin Murphy	 <robin.murphy@arm.com>, Randy
- Dunlap <rdunlap@infradead.org>, Sumit Semwal	 <sumit.semwal@linaro.org>,
- Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>,
- linux-pci@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,  Tushar Dave
- <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Date: Thu, 17 Sep 2026 16:16:57 +0200
-In-Reply-To: <20260917140253.GG3196566@ziepe.ca>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
-	 <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
-	 <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
-	 <20260917140253.GG3196566@ziepe.ca>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	s=arc-20240116; t=1789654633; c=relaxed/simple;
+	bh=2WnnEmewoLe5dI3cEg6bhhhxIK6FnYemkKTPRE0ZUOo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MD22imN7xXDxyonIq+mzD/o1mrZzJ/uRo+M1Gh2N0EGt8QAeOI0aGS4/C3c5uu14Klw3LL95BCgGVweMgN13PDof/iAmr+MweZCQcSErMIEveP815/yyQ56yspaBEvZCn2viO5aiVaZbuMMl8H3Jnsrz9YoViFy/AccqPpUSbXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC3Hzpj9qtqyj+CCA--.4599S2;
+	Thu, 17 Sep 2026 22:17:07 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: hansg@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	marex@denx.de,
+	sre@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] power: supply: bq25890: Fix secondary_chrg leak in bq25890_fw_probe()
+Date: Thu, 17 Sep 2026 14:17:06 +0000
+Message-Id: <20260917141706.2156408-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC3Hzpj9qtqyj+CCA--.4599S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw18Aryxuw45ArW5Cr47CFg_yoW8XF43pF
+	ZYkF9Ikr48XFWUA3WDtr1vgry3Ca4UCry3Ar1xG3s7Xw13J3WDXFyrJrWfXry8Cr9aka10
+	qa9Iyrn7ArnxGaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUB0b7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4j6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
+	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
+	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k2
+	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aVCY1x
+	0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxUwwIDUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMNA2qrrRneCgAAsr
 
-On Thu, 2026-09-17 at 11:02 -0300, Jason Gunthorpe wrote:
-> On Thu, Sep 17, 2026 at 03:56:12PM +0200, Thomas Hellstr=C3=B6m wrote:
->=20
-> > That is, a flag to tell the topology check that some transactions
-> > *will* take the host-bridge path due to IOVA being used, and that
-> > the
-> > computations including pci_p2pdma_distance() need to check whether
-> > that
-> > is possible (checking whitelist etc.) and return the corresponding
-> > THRU_HOST_BRIDGE mapping type. Translated transactions taking a
-> > short-
-> > cut using the bus-address would then be hidden from the driver.
->=20
-> I imagined it would work by the driver passing in what modes it
-> supports and Intel GPU would simply pass in ATS only.
->=20
-> Even something like mlx has variation, only some operations can opt
-> into ATS, many others are never-ATS.
->=20
-> Driver should not make statements like " *will* take the host-bridge
-> path" since it has no idea.
+bq25890_fw_probe() takes a reference on the secondary charger power
+supply with power_supply_get_by_name(), but returns without releasing
+it when linux,iinlim-percentage is out of range or when
+bq25890_fw_read_u32_props() fails. Drop the reference on both error
+paths to avoid leaking it.
 
-Yes, agreed, but anyway DMA-BUF would then, as part of the
-dynamic_attach negotiation have an interface that takes an ATS only
-flag and use it to determine whether P2P is possible at all, and use
-them at mapping time to set up the correct SG list (IOVA or BUS
-address).
+Fixes: d54bf877fd87 ("power: supply: bq25890: Add support for having a secondary charger IC")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/power/supply/bq25890_charger.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Similarly the dma_map_page() needs to know these flags for p2pdma pages
-so that it never sets up a BUS_ADDRESS to an ATS-enabled device that
-didn't explicitly ask for it?
+diff --git a/drivers/power/supply/bq25890_charger.c b/drivers/power/supply/bq25890_charger.c
+index 868e86e1749b..0e8ebab1723e 100644
+--- a/drivers/power/supply/bq25890_charger.c
++++ b/drivers/power/supply/bq25890_charger.c
+@@ -1411,6 +1411,7 @@ static int bq25890_fw_probe(struct bq25890_device *bq)
+ 	if (ret == 0) {
+ 		if (val > 100) {
+ 			dev_err(bq->dev, "Error linux,iinlim-percentage %u > 100\n", val);
++			power_supply_put(bq->secondary_chrg);
+ 			return -EINVAL;
+ 		}
+ 		bq->iinlim_percentage = val;
+@@ -1425,8 +1426,10 @@ static int bq25890_fw_probe(struct bq25890_device *bq)
+ 		return 0;
+ 
+ 	ret = bq25890_fw_read_u32_props(bq);
+-	if (ret < 0)
++	if (ret < 0) {
++		power_supply_put(bq->secondary_chrg);
+ 		return ret;
++	}
+ 
+ 	init->ilim_en = device_property_read_bool(bq->dev, "ti,use-ilim-pin");
+ 	init->boostf = device_property_read_bool(bq->dev, "ti,boost-low-freq");
+-- 
+2.34.1
 
-And this all (and in addition the previous discussion around pcie
-subsystems calls from within dma-buf, and data-types for mapping
-information) makes me think that abstracting fast dma-buf interconnects
-along with our previous discussions is a good thing. Then interconnect
-details and cross-subsystem dependencies can be hidden in the
-interconnect implementations, suitably placed in the tree.
-
-
-Thanks,
-Thomas
-
-
->=20
-> Jason
