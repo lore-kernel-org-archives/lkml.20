@@ -1,149 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507103AEF55
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:48:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80F7448CEC;
+	Thu, 17 Sep 2026 08:51:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634933; cv=none; b=Qqw5U2kjQ2dJRbBUHwt+HWXnoIpk5ir/KLLdcMrH9jRF3QMQgEGtttwjIhrfjMFec6BcqZmnBRSBFfg0cTUqjeiY4CpiR3cNf7Q6XZJkMY/fj1GAp6mZuoGgZSfELk6HHOuMR4CkmoTfsKE6442UEy9b8GvUN5Z04gnzyU0B9eA=
+	t=1789635071; cv=none; b=fFxOpE7kylSH3P/GFXLFq0sMDyq8VXeYf3pDQ4sEYnNCLrEKgBAHorhBhBA8s7uUoD5SqsOTgZIvzCXlOGuQdW73RdMrWjc0Zw2HQTBKItEGhmwp/Tygc6K0hB3v61nRrJTtiQqTlKM2KIBhOhNz2aAszGYp5zWEFxQWBMAZlV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634933; c=relaxed/simple;
-	bh=HWBIF8EBTztB0WI2iZd922EeeUszHsPcYz+vLTpOJEI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D0TrdVf38cm84ApqR3I5TsuXzto3Yn0zbwE14DYzh67xziYAesD8rRtFFpAkiZM+2prXMEfguTSmUif+fJVhASQR6qR5O060JGQAy2s0HEYOfzTkdeg1mYJMv8L1ia7L5Jg1vwig2EmfQOLMeqa+LVxxibYQp0MNZXlFNrELBwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OZrBzSla; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789635071; c=relaxed/simple;
+	bh=ZhuQHomawxLk9rQqvM39AmBak2r/Ub1GZwtl/wLVXyk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=Frf1Mb5EatlwYzWiU63COAeXEGOiZHkmFbypvVvOoZQWM8hclsGIM5LVTCFUjhUZ1fvIIe3wfFAmY0GLn1oJvAlnB+Fbai+VW0rVJb55MvOltNrbUEzqwMaXRu+DhtOC2fGP3qjjyOlVe5Jd0SeZlTSHdjicMQBIeTyN8VDEJfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K16aZhmh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OZrBzSla"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932B11F00898;
-	Thu, 17 Sep 2026 08:48:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789634924;
-	bh=hVSwcKr8vGVgWVYtTyvsw0cJtRhNQQoxnAZNz9+yMvM=;
-	h=From:To:Cc:Subject:Date;
-	b=OZrBzSla7Mv2hDOxqNKXC7p31zoyk2Zp5gH6+PrmBvMOcg+NPEYMXKwlbT2xU+9Lj
-	 7u2MezdJqIvzrCsA+LUyd6Z2wmYzYVH+otTHiU+2Z62xplX9Lnuoc+QtM1cPXZNuas
-	 S88OY1Q5nsyCY84wsgVxi+YYPSNUr4fY/KsWva/k=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: cmllamas@google.com
-Cc: tkjos@android.com,
-	aliceryhl@google.com,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v3] binder: Fix up Kconfig dependancy due to removal of .c code
-Date: Thu, 17 Sep 2026 09:46:44 +0100
-Message-ID: <2026091743-pony-prewar-735b@gregkh>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K16aZhmh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4585C1F000FF;
+	Thu, 17 Sep 2026 08:51:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789635064;
+	bh=ZhuQHomawxLk9rQqvM39AmBak2r/Ub1GZwtl/wLVXyk=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=K16aZhmhKthNV915bJgiNIphPE26uyCyZSe3Qniutu0IGBLXxBYinl9yY8x/sFM0l
+	 sbu7oVMWCQFB41/9l9uhSh3vrkWYMRpZBzvVDdhOUrnA27NAyleyMFrFRTUoVgU60X
+	 KZ0AKyxDko99+ePCJy1tHIAhAyEzouaAKJ5TMXxBTQXzDodnoZMTvFCAjCw9qHIMeT
+	 QWPPNV4KLsY0+193h9mmXAEUxHbPDYqR8BlxoIPqFwiCENDmNnbtQiD28Saexi9X+A
+	 w3rK2aVyegcU6pbnUPv+IExie1oO9qBLzuKtCmMMkq3ssYqnuvxZXC79QaWPbZhca3
+	 yf1qIN0nnc84g==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4346; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=HWBIF8EBTztB0WI2iZd922EeeUszHsPcYz+vLTpOJEI=; b=owGbwMvMwCRo6H6F97bub03G02pJDFmrV3y2ifc+t5fFsWGN09qOKa6Gas0nJn+cf3KKzud5/ 0/ULgzy7ohlYRBkYpAVU2T5so3n6P6KQ4pehranYeawMoEMYeDiFICJ7AlmmF84pSdl29L9p9bc XKT04NDdhF7uDTsZFqz8m2T2de33EzcCJI3c+CP33+N5IAMA
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 10:50:58 +0200
+Message-Id: <DLHGOK4T4SCX.37QOVMLFTYFFQ@kernel.org>
+Subject: Re: [PATCH v4 1/2] rust: num: add cv! macro to create values from
+ constant expressions
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260917-cv-v4-0-547ef5727451@nvidia.com>
+ <20260917-cv-v4-1-547ef5727451@nvidia.com>
+In-Reply-To: <20260917-cv-v4-1-547ef5727451@nvidia.com>
 
-When the .c binder code was removed, building the kernel if the rust
-binder code was enabled, will cause the binder to not be built at all as
-the option changed from .c to .rs which is probably not what the
-original build wanted.
+On Thu Sep 17, 2026 at 10:34 AM CEST, Eliot Courtney wrote:
+> Currently, using NonZero/Bounded constants is quite verbose. It's
+> unfortunate because it disincentivizes using it in interface boundaries.
+> Introduce a macro to make it nicer to use. The macro `cv!` (for constant
+> value) takes a const integer expression and widens it to i128 (at build
+> time only) before passing it as a const generic value to a new trait
+> `FromConst`. The value is then converted and appears in the
+> associated constant `FromConst::VALUE`. The trait is implemented by
+> NonZero, Bounded, and Alignment and lets values of each be constructed
+> from constants without a verbose turbofish syntax.
+> For example, `const { NonZero::new(1).unwrap() }` can be written as
+> `cv!(1)`.
+>
+> Add the `cv!` macro to the prelude so it doesn't need to be imported
+> explicitly to use it.
+>
+> Suggested-by: Gary Guo <gary@garyguo.net>
+> Reviewed-by: Gary Guo <gary@garyguo.net>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-Fix this up by renaming the option back to the _RUST version.  If in the
-future, that suffix wants to be dropped, we can do so and then it will
-be prompted for a choice again, but for this release cycle, it should
-stay as-is.
+Acked-by: Danilo Krummrich <dakr@kernel.org>
 
-Fixes: binder: rm -f binder.c
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
-v3: fix up tracepoint build failure
-v2: v2: Fix up "_RUST_RUST" problem in Kconfig option
+> +/// use core::num::NonZero;
+> +/// use kernel::num::Bounded;
+> +/// use kernel::ptr::Alignment;
 
- drivers/android/Kconfig                                      | 4 ++--
- drivers/android/Makefile                                     | 2 +-
- drivers/android/binder/Makefile                              | 2 +-
- rust/bindings/bindings_helper.h                              | 2 +-
- tools/testing/selftests/filesystems/binderfs/binderfs_test.c | 2 +-
- tools/testing/selftests/filesystems/binderfs/config          | 2 +-
- 6 files changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/android/Kconfig b/drivers/android/Kconfig
-index 403e5f3eab5a..c920d52c0221 100644
---- a/drivers/android/Kconfig
-+++ b/drivers/android/Kconfig
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- menu "Android"
- 
--config ANDROID_BINDER_IPC
-+config ANDROID_BINDER_IPC_RUST
- 	bool "Android Binder IPC Driver"
- 	depends on MMU
- 	depends on NET
-@@ -17,7 +17,7 @@ config ANDROID_BINDER_IPC
- 
- config ANDROID_BINDER_DEVICES
- 	string "Android Binder devices"
--	depends on ANDROID_BINDER_IPC
-+	depends on ANDROID_BINDER_IPC_RUST
- 	default "binder,hwbinder,vndbinder"
- 	help
- 	  Default value for the binder.devices parameter.
-diff --git a/drivers/android/Makefile b/drivers/android/Makefile
-index dc19d21037af..f83d39d16f6e 100644
---- a/drivers/android/Makefile
-+++ b/drivers/android/Makefile
-@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0-only
- ccflags-y += -I$(src)			# needed for trace events
- 
--obj-$(CONFIG_ANDROID_BINDER_IPC)	+= binder/
-+obj-$(CONFIG_ANDROID_BINDER_IPC_RUST)	+= binder/
-diff --git a/drivers/android/binder/Makefile b/drivers/android/binder/Makefile
-index 661f5cca8918..fe474628a94e 100644
---- a/drivers/android/binder/Makefile
-+++ b/drivers/android/binder/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- ccflags-y += -I$(src)	# needed for trace events
- 
--obj-$(CONFIG_ANDROID_BINDER_IPC) += binder.o
-+obj-$(CONFIG_ANDROID_BINDER_IPC_RUST) += binder.o
- binder-y := \
- 	rust_binder_main.o	\
- 	rust_binderfs.o		\
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 4485a55cb010..4b31aa7f432f 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -166,7 +166,7 @@ const unsigned long RUST_CONST_HELPER_GPU_BUDDY_CLEARED = GPU_BUDDY_CLEARED;
- const unsigned long RUST_CONST_HELPER_GPU_BUDDY_TRIM_DISABLE = GPU_BUDDY_TRIM_DISABLE;
- #endif
- 
--#if IS_ENABLED(CONFIG_ANDROID_BINDER_IPC)
-+#if IS_ENABLED(CONFIG_ANDROID_BINDER_IPC_RUST)
- #include "../../drivers/android/binder/rust_binder.h"
- #include "../../drivers/android/binder/rust_binder_events.h"
- #endif
-diff --git a/tools/testing/selftests/filesystems/binderfs/binderfs_test.c b/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
-index 7310622098ff..cd82c89f558f 100644
---- a/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
-+++ b/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
-@@ -414,7 +414,7 @@ TEST(binderfs_stress)
- 
- 		ret = mount(NULL, binderfs_mntpt, "binder", 0, 0);
- 		ASSERT_EQ(ret, 0) {
--			TH_LOG("%s - Failed to mount binderfs, check if CONFIG_ANDROID_BINDER_IPC is enabled in the running kernel",
-+			TH_LOG("%s - Failed to mount binderfs, check if CONFIG_ANDROID_BINDER_IPC_RUST is enabled in the running kernel",
- 				strerror(errno));
- 		}
- 
-diff --git a/tools/testing/selftests/filesystems/binderfs/config b/tools/testing/selftests/filesystems/binderfs/config
-index e0c1958a3675..80e4221c2d82 100644
---- a/tools/testing/selftests/filesystems/binderfs/config
-+++ b/tools/testing/selftests/filesystems/binderfs/config
-@@ -1 +1 @@
--CONFIG_ANDROID_BINDER_IPC=y
-+CONFIG_ANDROID_BINDER_IPC_RUST=y
--- 
-2.55.0
-
+NIT: Let's use the kernel's import style.
