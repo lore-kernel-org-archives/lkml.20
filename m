@@ -1,125 +1,191 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC552364934;
-	Thu, 17 Sep 2026 08:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F5942E400;
+	Thu, 17 Sep 2026 08:26:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633585; cv=none; b=NhxPNhO6QECTWsXxbSQmVewlPwiRCWhWaF2DsPTQ2fFPkbP2LEgf91pHeRwGaQKDGbJGLdbjhGodBftL8if1Q/VIcKKh3STH/LHm9QTrHjopTHEyRItVQOLaiNblOLfnAs4fvpSEL21NMo4wuoxhVEqlDXRZWWCur8N2TdhYZEk=
+	t=1789633597; cv=none; b=FWbSkgkLU4anS91CYQdXHYOxboG9DbRtHA3Nqh2dsktJpDz1ATTz9CRY1D6xmbhke9T+5+ZrwNg8Pnli38AXDXZxt99jE8x3RlFKYSJkT+GKmPIejfpwmKUen4d2RWIBXTacoA+mTzK4IypH7D/Szed32dmM2JCOqsFJnRJvmWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633585; c=relaxed/simple;
-	bh=PPC4bFAI4BCch7EgHF5j0r9yHziks1G9isXPyZTKCjA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=itiTt38UfbmAHNAcyeYtETSXqXd2vtChz005vUCBREpzMly5dx6eV4QXNdBbe06TCgjkTMXW2YdCn9MyYygn9A/HFQXPxoa/2R+Lw5m+wVOdCFg9KssShrInLENgqMl/zN2U0GJCw3fgbeYPMWnTXNa0SnHeGGyZx+gASZPz+Kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=hM64mcPi; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1789633597; c=relaxed/simple;
+	bh=Xphohe89z0TLV/9BLB5FyAHdcroVAJrXQ51HiX2RHDU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=JokvfV6hT5TOdG4TzIUN3HIbfLPS6cLvAnyyTW1kxiyJjSSh2SVMLP7Oay5F38flKE/5pM8LDgJM/XLXoG9s5l8Mp1oL5TES40LlPoXeivzwaJY3EFC6v2m8kPj2eRBGG8+6iac0Anl5h2mfWrKlGDv/U711x5+v7B4RDyLHyLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=rSOg4Bro; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="hM64mcPi"
-From: Stian Halseth <stian@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1789633569;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=0HzMtWcDZuesNbX3zCWxprttqIym47DPTaea82q/YVs=;
-	b=hM64mcPirrKo2T30ca05kQWS5uqKRHMs1NjybewPEgMHBi10DHYBXBc4cakOhxUjVVEHQh
-	Qyd89acYlxk9+boHA+/uBNgSkuHStMm7SWQeidIPhJYs1s+1cOR+wp3xUL30LiNplU++Z6
-	JE4B4/5xQBVNbPW+Vy1h85p41E4xGCM=
-To: davem@davemloft.net,
-	Andreas Larsson <andreas@gaisler.com>
-Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stian Halseth <stian@itx.no>
-Subject: [PATCH] sparc64: vdso: Flush the D-cache after updating the time data
-Date: Thu, 17 Sep 2026 10:25:47 +0200
-Message-ID: <20260917082547.223729-1-stian@itx.no>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rSOg4Bro"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id F2E0C1283;
+	Thu, 17 Sep 2026 10:24:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789633443;
+	bh=Xphohe89z0TLV/9BLB5FyAHdcroVAJrXQ51HiX2RHDU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=rSOg4BroygBgxAl7P2vTrqSr98Tr/7TmE+6wcWMIZEhbEcmQxYQJJogNt2sZHJixd
+	 CKPz2ZkKMSuHlaPO22PKZ275GfP7Sr+SJ/LjYTW6oyhBli5bwcrwf4G3HIJNsoK+gg
+	 2wiZFPg8LWpAAZSWw0QaPuKJXQfC/lgPx+1xRXv4=
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Date: Thu, 17 Sep 2026 13:53:14 +0530
+Subject: [PATCH v5 08/10] media: platform: broadcom: Move unicam driver to
+ subdir
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-vchiq-isp-v5-8-2d8870add2c0@ideasonboard.com>
+References: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
+In-Reply-To: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Tomasz Figa <tfiga@chromium.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, 
+ Paul Elder <paul.elder@ideasonboard.com>, Hans Verkuil <hans@jjverkuil.nl>, 
+ Tomasz Figa <tfiga@chromium.org>, linux-media@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Jai Luthra <jai.luthra@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5004;
+ i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
+ bh=Xphohe89z0TLV/9BLB5FyAHdcroVAJrXQ51HiX2RHDU=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqq6PV1HtzBG0ew43VacKWIghz06ZOi+Cb0b3KZ
+ IS1eIyYaHOJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaquj1QAKCRBD3pH5JJpx
+ RbYNEACMnYMhBNiJ4TM3z11jCqTbzEgwYDKftx6F/fZqIgMSC/L2yyTIrBSbZoF6uQIn1iwF4e4
+ 8gFUbwY7yP/gLAYY3U5WMm+GxIn5LPbNOvKTTngyCNelTq6X58iwk+aCchnqB2FpSvCLBjjVL1Q
+ cRqoIVoUI5SgpoibRbZxaMU6i3GBHOzejJxm0JkQxVkpJmnDfa8aJTkS6Wm8A9KeUZ/ngQlCG4R
+ xV1Brs+KYnXy8mxfuMbaXgpCjO1TQCEQh9EzFq46ebDlb+D8UWy480ANRrtTSF327pUBgHwpXT4
+ wVnBUeLG3XLsjxbpidYXaGFEj4lxySQP8Xq130tA0i5cp4Aby4pxZQ3GLEuv4J3PS4iAeyIkYSV
+ wSl17UKChn4MPneH4hiKaFXxRPhQlkZmEWxaeNAeYlX4Wcx2UBrieLtXZ9bAAYeTZCNROxFJf78
+ gOpbJxv/8G6U3/IqHgGUbFxXoyI2UbaAagWYzH5Fjdf0DTaycMjNn/sAU90XsjUoUeQhYsf3f4A
+ 9osU74OW6owwJH2bi1e3Rc6GvNPbNX13Ip4LNiBNV1gzrHy8AG9PROqYn0zy2jI4XpI6M6xociB
+ z9PywuJKWgNSRJoJWTZkd9vREp5O8etRVtVL/6pLq5ZgJYOe7F2s1/0ATw+4J/j10nFtVMrzGFg
+ 82G82iLvAfltRrg==
+X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
+ fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-The vDSO time data page is written through the kernel linear mapping
-and read through a user mapping placed without colour alignment.  On
-sun4u the L1 D-cache is virtually indexed, so when the two differ in
-colour the timekeeping CPU's stores leave stale lines behind the user
-alias in its own D-cache.  The seqcount does not catch this: the line
-holding seq and the lines holding the clock data are refreshed
-independently, so a reader sees an even, unchanged seq together with a
-mix of old and new fields.
+The BCM283x/BCM2711x SoCs capture camera frames using CSI-2, and
+optionally process the raw frames using a VC4 firmware-based ISP block.
 
-On a Sun Fire V240 (UltraSPARC IIIi, clocksource stick) this makes
-clock_gettime(CLOCK_MONOTONIC) via the vDSO wrong for most calls on
-the tick CPU, by multiples of the 10 ms tick and up to a second, in
-about half of all processes: those that drew the other colour at exec.
-The syscall is correct, so a deadline derived from the vDSO can already
-be in the past when handed to the kernel; MySQL's InnoDB
-log_files_governor thread spun at ~24000 futex calls/s on ETIMEDOUT
-this way.
+As the ISP driver will be added subsequently, move the files related to
+the unicam driver to a separate subdirectory to ease distinction between
+the two drivers' files.
 
-Flush the page after every update, as arm does.  The helper lives in
-vma.c because asm/vdso/vsyscall.h is also compiled into the vDSO, where
-asm/cacheflush.h is unavailable.  On sun4v flush_dcache_folio() is a
-no-op, the caches there being physically indexed.
-
-The sparc-specific vDSO that v7.1-rc1 replaced had the same defect
-(reproduced on 6.18), so the bug is as old as the sparc vDSO, but this
-fix relies on __arch_sync_vdso_time_data() and applies from v7.1-rc1.
-
-Verified on 7.2.6: 32 probe runs across mapping colours show no vDSO
-deviation, and MySQL's governor idles at 0.2% CPU across five restarts
-of an unpatched build.
-
-Fixes: 9a08862a5d2e ("vDSO for sparc")
-Closes: https://github.com/sparclinux/issues/issues/94
-Signed-off-by: Stian Halseth <stian@itx.no>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
+Tested-by: Paul Elder <paul.elder@ideasonboard.com>
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- arch/sparc/include/asm/vdso/vsyscall.h | 10 ++++++++++
- arch/sparc/vdso/vma.c                  |  6 ++++++
- 2 files changed, 16 insertions(+)
+Changes in v4:
+- Drop old paragraph in Kconfig that got copied from previous revision
+---
+ MAINTAINERS                                            |  2 +-
+ drivers/media/platform/broadcom/Kconfig                | 17 ++---------------
+ drivers/media/platform/broadcom/Makefile               |  2 +-
+ drivers/media/platform/broadcom/bcm2835-unicam/Kconfig | 18 ++++++++++++++++++
+ .../media/platform/broadcom/bcm2835-unicam/Makefile    |  3 +++
+ .../{ => bcm2835-unicam}/bcm2835-unicam-regs.h         |  0
+ .../broadcom/{ => bcm2835-unicam}/bcm2835-unicam.c     |  0
+ 7 files changed, 25 insertions(+), 17 deletions(-)
 
-diff --git a/arch/sparc/include/asm/vdso/vsyscall.h b/arch/sparc/include/asm/vdso/vsyscall.h
-index 8bfe703fedc5..4852f122ce47 100644
---- a/arch/sparc/include/asm/vdso/vsyscall.h
-+++ b/arch/sparc/include/asm/vdso/vsyscall.h
-@@ -5,6 +5,16 @@
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0ac9a9d7b215..68ef4b2f9db6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5185,7 +5185,7 @@ M:	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/media/brcm,bcm2835-unicam.yaml
+-F:	drivers/media/platform/broadcom/bcm2835-unicam*
++F:	drivers/media/platform/broadcom/bcm2835-unicam/*
  
- #define __VDSO_PAGES 4
+ BROADCOM BCM47XX MIPS ARCHITECTURE
+ M:	Hauke Mehrtens <hauke@hauke-m.de>
+diff --git a/drivers/media/platform/broadcom/Kconfig b/drivers/media/platform/broadcom/Kconfig
+index 93ba565d9a02..cab44885182c 100644
+--- a/drivers/media/platform/broadcom/Kconfig
++++ b/drivers/media/platform/broadcom/Kconfig
+@@ -1,18 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
  
-+#ifndef __ASSEMBLER__
+-config VIDEO_BCM2835_UNICAM
+-	tristate "Broadcom BCM283x/BCM271x Unicam video capture driver"
+-	depends on ARCH_BCM2835 || COMPILE_TEST
+-	depends on COMMON_CLK && PM
+-	depends on VIDEO_DEV
+-	select MEDIA_CONTROLLER
+-	select V4L2_FWNODE
+-	select VIDEO_V4L2_SUBDEV_API
+-	select VIDEOBUF2_DMA_CONTIG
+-	help
+-	  Say Y here to enable support for the BCM283x/BCM271x CSI-2 receiver.
+-	  This is a V4L2 driver that controls the CSI-2 receiver directly,
+-	  independently from the VC4 firmware.
++comment "Broadcom BCM283x/BCM271x media platform drivers"
+ 
+-	  To compile this driver as a module, choose M here. The module will be
+-	  called bcm2835-unicam.
++source "drivers/media/platform/broadcom/bcm2835-unicam/Kconfig"
+diff --git a/drivers/media/platform/broadcom/Makefile b/drivers/media/platform/broadcom/Makefile
+index 03d2045aba2e..33a89bdb0029 100644
+--- a/drivers/media/platform/broadcom/Makefile
++++ b/drivers/media/platform/broadcom/Makefile
+@@ -1,3 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
+-obj-$(CONFIG_VIDEO_BCM2835_UNICAM) += bcm2835-unicam.o
++obj-y += bcm2835-unicam/
+diff --git a/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig b/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig
+new file mode 100644
+index 000000000000..93ba565d9a02
+--- /dev/null
++++ b/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig
+@@ -0,0 +1,18 @@
++# SPDX-License-Identifier: GPL-2.0
 +
-+/* The user mapping may alias the kernel one in the VIPT D-cache. */
-+struct vdso_time_data;
-+void __arch_sync_vdso_time_data(struct vdso_time_data *vdata);
-+#define __arch_sync_vdso_time_data __arch_sync_vdso_time_data
++config VIDEO_BCM2835_UNICAM
++	tristate "Broadcom BCM283x/BCM271x Unicam video capture driver"
++	depends on ARCH_BCM2835 || COMPILE_TEST
++	depends on COMMON_CLK && PM
++	depends on VIDEO_DEV
++	select MEDIA_CONTROLLER
++	select V4L2_FWNODE
++	select VIDEO_V4L2_SUBDEV_API
++	select VIDEOBUF2_DMA_CONTIG
++	help
++	  Say Y here to enable support for the BCM283x/BCM271x CSI-2 receiver.
++	  This is a V4L2 driver that controls the CSI-2 receiver directly,
++	  independently from the VC4 firmware.
 +
-+#endif /* !__ASSEMBLER__ */
++	  To compile this driver as a module, choose M here. The module will be
++	  called bcm2835-unicam.
+diff --git a/drivers/media/platform/broadcom/bcm2835-unicam/Makefile b/drivers/media/platform/broadcom/bcm2835-unicam/Makefile
+new file mode 100644
+index 000000000000..03d2045aba2e
+--- /dev/null
++++ b/drivers/media/platform/broadcom/bcm2835-unicam/Makefile
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0
 +
-+/* The asm-generic header needs to be included after the definitions above */
- #include <asm-generic/vdso/vsyscall.h>
- 
- #endif /* _ASM_SPARC_VDSO_VSYSCALL_H */
-diff --git a/arch/sparc/vdso/vma.c b/arch/sparc/vdso/vma.c
-index 60029d60f4d3..fe6a47af6b05 100644
---- a/arch/sparc/vdso/vma.c
-+++ b/arch/sparc/vdso/vma.c
-@@ -27,6 +27,12 @@
- 
- unsigned int __read_mostly vdso_enabled = 1;
- 
-+/* Called by the timekeeping code after every update of the vDSO data. */
-+void __arch_sync_vdso_time_data(struct vdso_time_data *vdata)
-+{
-+	flush_dcache_page(virt_to_page(vdata));
-+}
-+
- #ifdef	CONFIG_SPARC64
- static struct vm_special_mapping vdso_mapping64 = {
- 	.name = "[vdso]"
++obj-$(CONFIG_VIDEO_BCM2835_UNICAM) += bcm2835-unicam.o
+diff --git a/drivers/media/platform/broadcom/bcm2835-unicam-regs.h b/drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam-regs.h
+similarity index 100%
+rename from drivers/media/platform/broadcom/bcm2835-unicam-regs.h
+rename to drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam-regs.h
+diff --git a/drivers/media/platform/broadcom/bcm2835-unicam.c b/drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam.c
+similarity index 100%
+rename from drivers/media/platform/broadcom/bcm2835-unicam.c
+rename to drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam.c
+
 -- 
-2.43.0
+2.55.0
 
