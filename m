@@ -1,39 +1,32 @@
-Received: from out28-149.mail.aliyun.com (out28-149.mail.aliyun.com [115.124.28.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8D94FECE8;
-	Thu, 17 Sep 2026 12:33:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5054F0526;
+	Thu, 17 Sep 2026 12:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648391; cv=none; b=SgVwThHFsxCjKaepSzeIj/mOMqKUTh1QvBDA2rPjw6Aaeh0FgfandIsrc58UtREUQrSa855pSSWUD6mG1nXeBK78ktnAaz772de14tXEVduxIQV3/Bu2LltVxw3Tly89aGwan379fBqhZEkDI5Gw3pArCdvg1GKbsPnht24JVv4=
+	t=1789648443; cv=none; b=j72l2GK42h8VQBgfta9/P9Tz5WjJUDZNtAe6V3njVAQ9CldAynR+qJ1vV/gj0XPDrFIgOgrEbwlJ6P6523LY4Q/nE54o3lBAxXnXsPbpBxDJfzrGicJ5RaQzrwWCJavyG14dUwbUYRecq84MWgU6PzijgDMb7Meh5GIXoy1NenU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648391; c=relaxed/simple;
-	bh=jdm86M64n1ZcxblVYRzW/NuH7DbePW1tXe1IB/t+k4s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VxC23zwfAu+QCwSJaCl0psTQZbeywlsgJhkfuX8ghVlxC7MGIUYNKruqub4ldcHV+JXWE7EU6g7PZQPSDlbB/XAMxykZdSc9ikIkAJqDyHXGSjbjPwy/SHA4lHAd12AV6pM0+4sE3jeSZwvyxTn3xi0CziSg61aD0g6OForuB20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=iDPO0nke; arc=none smtp.client-ip=115.124.28.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="iDPO0nke"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789648370; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Q82OYollObWm67IPSAanYVmrohcoRcM5/CpBwrSvvBg=;
-	b=iDPO0nkeCqgnkDRPCq+BIK4GKKPuEepYfco+0SxV5OGZwXzXpV7qAk5/PHajdwoKRlOGaIbFRpU/rtnJLs/hsfQaxZYXF/SvWeE+IGL0AiPFijSGji/vCVC1npgok3rXSGN2l76pX3FfRwrm/oxpEd4wA2q3QxP11HnL5idgmig=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2457708|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.181083-0.00379412-0.815123;FP=563135344168207796|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jFtbbkP_1789648368;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jFtbbkP_1789648368 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 17 Sep 2026 20:32:49 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] media: tda10086: avoid division by zero in set_symbol_rate()
-Date: Thu, 17 Sep 2026 20:32:48 +0800
-Message-ID: <20260917123248.3769340-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1789648443; c=relaxed/simple;
+	bh=A34bFxgBnWeF4VHl7PGrj4teQuNWgfYQUvkh55i8cJw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ER6zeMJx/pmq8vRg7jwoxm1/3qwKQFooLbcGngMVvVQ6Rea5R5wjtkYGuK43fi8PSRPmEXKbjwgyTTcunb7FRcUJzY41NumTACIi3IUZLbL+1GwLcTw72kE045AN4XczlCyA+xZWurd1YSLX2wUMg6xBhuHdOMSaVftZytb5S3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACH7zko3qtqiJeACA--.2774S2;
+	Thu, 17 Sep 2026 20:33:44 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	miquel.raynal@bootlin.com,
+	srini@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvmem: core: Fix nvmem use-after-free in nvmem_cell_put()
+Date: Thu, 17 Sep 2026 12:33:44 +0000
+Message-Id: <20260917123344.2151268-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,61 +34,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACH7zko3qtqiJeACA--.2774S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZr1DKF18Xr1DZF1rur13twb_yoWDZFb_uw
+	1j9FsrXF1fJrnrKr1fCF1fZ348tr4SgrZYyF1vqFs5JFWjvr9ru3sY9398Ary3Xr4SvrZr
+	XryDJr4FgrW7CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07jngAwUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgYNA2qrq3ag0gAAsg
 
-tda10086_set_symbol_rate() derives the decimation factor, the
-anti-aliasing filter setting and the BDRI register value from the symbol
-rate that userspace supplies through the DTV_SYMBOL_RATE property. That
-value is never validated, and the BDRI calculation divides by it:
+__nvmem_device_put() drops the last reference to the nvmem device, which
+runs nvmem_device_release() and unregisters and frees the device, but
+nvmem_layout_module_put() then dereferences nvmem->layout on that freed
+device.
 
-	tmp = (1<<dfn)*(symbol_rate/1000);
-	bdri = ((32 * (SACLK/1000)) + (tmp-1)) / tmp;
+Call nvmem_layout_module_put() before __nvmem_device_put() so the layout
+is still accessed while the device is alive.
 
-SACLK is 96000000, so any symbol rate below 1000 makes symbol_rate/1000
-evaluate to zero. tmp then becomes zero as well and the division traps
-in the kernel.
-
-Reject symbol rates below 1000 with -EINVAL before the divisions. That
-matches the precedent in stv0367cab_set_frontend(), which carries the
-comment "protect against division error oopses" and rejects a symbol
-rate of zero for the same reason.
-
-No Fixes tag. The calculation and its missing validation both date back
-to the original driver import (9a0bf528b4d6, 2012), so there is no
-single commit that introduced the problem.
-
-Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+Fixes: fc29fd821d9ac ("nvmem: core: Rework layouts to become regular devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-The divide is reachable from any DVB-S userspace that issues
-FE_SET_FRONTEND with a small symbol rate via DTV_SYMBOL_RATE; no
-hardware-specific condition is involved. Verified by code inspection
-only - reaching set_frontend at runtime needs a tda10086 based tuner,
-which I do not have.
+ drivers/nvmem/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-While preparing this I checked how the other dvb-frontends drivers
-handle symbol_rate. mt312 and stv0299 only compare the value and never
-divide by it, stv0910 checks the range and returns -EINVAL, and stv0367
-rejects zero explicitly, so tda10086 is the outlier here.
-
- drivers/media/dvb-frontends/tda10086.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/media/dvb-frontends/tda10086.c b/drivers/media/dvb-frontends/tda10086.c
-index d43d0eb73..c76d5fc25 100644
---- a/drivers/media/dvb-frontends/tda10086.c
-+++ b/drivers/media/dvb-frontends/tda10086.c
-@@ -296,6 +296,11 @@ static int tda10086_set_symbol_rate(struct tda10086_state *state,
+diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
+index 311cb2e5a5c0..4df7efde2cd2 100644
+--- a/drivers/nvmem/core.c
++++ b/drivers/nvmem/core.c
+@@ -1593,8 +1593,8 @@ void nvmem_cell_put(struct nvmem_cell *cell)
+ 		kfree_const(cell->id);
  
- 	dprintk ("%s %i\n", __func__, symbol_rate);
+ 	kfree(cell);
+-	__nvmem_device_put(nvmem);
+ 	nvmem_layout_module_put(nvmem);
++	__nvmem_device_put(nvmem);
+ }
+ EXPORT_SYMBOL_GPL(nvmem_cell_put);
  
-+	if (symbol_rate < 1000) {
-+		dprintk("%s: symbol rate %u too small\n", __func__, symbol_rate);
-+		return -EINVAL;
-+	}
-+
- 	/* setup the decimation and anti-aliasing filters.. */
- 	if (symbol_rate < SACLK / 10000 * 137) {
- 		dfn=4;
 -- 
-2.50.1
+2.34.1
 
