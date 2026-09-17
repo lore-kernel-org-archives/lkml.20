@@ -1,159 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C000F4B4053;
-	Thu, 17 Sep 2026 09:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C8249F11A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789638385; cv=none; b=Pg6Y9XFfj1lRX6bNUxVVlEdK81nZvslyv8jetvVZ0W7An/doCQc0h4gY4UBXa05c0IM7viLvE6pN0YWwpCi38Ub/ktYGWFmcqhI2uUoAMqJdlHv3hpWLo7cq/nCdyYS+8ZErhUC8sAVpE0S9dXoqzHREOj2FHmL+Aqc2H8f2sBg=
+	t=1789638527; cv=none; b=L9IB10mtHcupv3TF8j17rNeqigNvEehGgCFN4U0Kcm3Nlr1FlD9P56iCmCM/8FMuUJHgnjlqiifkwCDNoUpYonWfUhnk/9Fr+MVkqH8oCGBAK59spT7VfpjJq4Qc47Gt3ptGcj+8TrUPui7Bog/DHMAGAfPfEu3nF1zuunfwcX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789638385; c=relaxed/simple;
-	bh=Uvv+fZqSIFf6jNidbTCuLHrACtAw3kFSjvIsUFMpzQk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=seDVTYU3IYWkPU3MN6d/gculf9zETLxRCeMvkt0+xepbH3roazoJOTzzCTo3Xeed6Is2n0CSXcx/nJakrK1IPNTY9VwLI21z1TwIpVH2iGSuG3tLVSpn/eWt9FfhP9CvdkZyGA0qHFUILiYYZ1+HBA4IAZey8LTBRnhoapExQJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p22KaAc4; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789638527; c=relaxed/simple;
+	bh=cvbrrCjlcJUDVupgfBYiXkVaVkcnO7ArmWsB4gBXvVQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DQxMp42tbPsld4sqVd6+Szuzwu88WmNwKPpUe1NdnR6H2nSBI62rjgxgFlH4YEcpPdIfVBh702LfWnoUbzxjK7rOARBoPSNvBcppkKgVgUrbtHJYlC+1LlQBwcGcolpU9xE4o86WAf3p9GMrNHa8FOggzCJ6hhgudr5WKIl9uM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RXQbRdQb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p22KaAc4"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 218B1C2BCB9;
-	Thu, 17 Sep 2026 09:46:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789638383;
-	bh=Uvv+fZqSIFf6jNidbTCuLHrACtAw3kFSjvIsUFMpzQk=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=p22KaAc4UVD+Z8t/aCF4IttqcM1vUkFifDQTKsAYEa0SLPr3UHzvQWKMDGoLSpiPm
-	 HbhMcl4VYiMsGufW5LkisgKk/ZWQKWFv8lwtd577LyziI9IIER0DxCPPZ8Kkozo66S
-	 AKWGpQd5AKWj5RXWBNwlwYRhWrt99wWoVQlV3c9BmaQlBYXjNp6yjApIsflq+0CMHo
-	 0rt5RJ7mWEJpmnDEErE7gaP5hWnQkwUHzDZIyWw7T5WKEy3eIgmrsLfrb/8XGss+K1
-	 B3LLb9RSz0ZfIIwXmkxfJ3qH8qe00SIzU43yr+p8ROx7texcRy80Q1n4FTXbRegQY1
-	 QLKYoDwaaFnIQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC3F7C982C1;
-	Thu, 17 Sep 2026 09:46:22 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v10 0/2] Add initial dual front camera and rear flash
- support for Pixel 3 / 3 XL
-Date: Thu, 17 Sep 2026 11:46:19 +0200
-Message-Id: <20260917-pixel3-camera-v10-0-df631279b39d@ixit.cz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RXQbRdQb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A58101F000FF;
+	Thu, 17 Sep 2026 09:48:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789638509;
+	bh=SSQlyaKBFOXmjTXXwb4CnAc04mzkW2ufkK1lWWnGyPE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RXQbRdQbaMBgU589o6W6PG3uphqN8mz/5BLM7kb4FOOK2HUFAR93FxbAoJTEAO8Bu
+	 eBoMaio317U16mMAW0vaD84KGV27INu10hhQohZWaKuKgfSOO3qZzptjmllqY/CUt/
+	 IuuDdJMQ0mKaF3URDpMUpD2v9wmA5TOXdERqKfg6G4aBNbU+E4K218mD0RumAFV1Mt
+	 COnZBQ1CMqCB/u9P+dkXryFycmkanLLTAJtGqNyQEtHTufZKXMU081Bw99vgtS9b0W
+	 qM4li9bj33ALeGiPbwdYhg9T2fzZ9DGvn14y4LfOgNz2xVrwZu3cOup4lJ6KfrLH9o
+	 JwkgKTsO8Aq7Q==
+Date: Thu, 17 Sep 2026 10:48:17 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Suren Baghdasaryan <surenb@google.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+Subject: Re: [PATCH v2] mm: implement and use vma_anon_tracked(), silence
+ KCSAN
+Message-ID: <aqu3VY-PgJQYJVHz@gremlin>
+References: <20260910-vma-is-faulted-v2-1-e81ebc7d146b@kernel.org>
+ <aqKzUTPbh1qcKs4a@thinkstation>
+ <aqgQw6moAuJYCVw8@gremlin>
+ <4b2c99f6-d7c0-42a2-bf9a-e85061d53c93@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33SzW7CMAwH8FdBOa9TnE+b095j2iFpnRFpA9ayi
- g3x7kthEm2QOMbK72/L8kkM3GcexHp1Ej2Peci7bXmAfFqJdhO279zkrhSEkspJDbbZ5yN/6KY
- Nn9yHJhAhxWSRmEUx+55T+TAFvr6V9yYPh13/c8kfYapekwxAlTRCIxvlrXfSWbDRveRjPjy3v
- 2LKGdVDq4o1EBEpxAimXVo9t6q2ulhWLkqSwQHIpTU364Fqa6a+2IYISju0amntQ2uLJbKkE8Q
- OuZrZzayStXXFhsQGKHIyvtqVn9u7XfliUXVa6da1tqtmxpsleWfxMnMCS4haG1xamltfWyo2A
- iGkqTnBzZ6vh9Pz13c5wMP/9ZzPf3zGyoKeAgAA
-X-Change-ID: 20260315-pixel3-camera-a9989bf589ee
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Petr Hodina <petr.hodina@protonmail.com>, 
- Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3146; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=Uvv+fZqSIFf6jNidbTCuLHrACtAw3kFSjvIsUFMpzQk=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqq7btYerePyrnfPlipZdUJA2HzV9ha6vsm5Z3K
- yRGMN38OHWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqu27QAKCRBgAj/E00kg
- cmeYD/9puE3BY45GbBvNGPFlyAGfcA9XXS6a0HAAqPBHJa39ZVui1HEEC+mRYlIpifKyUBjH2zN
- 85gNLCDOMC++eP91RyAoxylicRkpnz1swq78q2J52pqdogCE2rkcVvi9uiyhOF8LqA8hHRdvay4
- tUCzI8xNTGgrrabbR2T+WBT2bbXkNa1Qr4o/1iOSAlMs8DrMrjLODmLBufXZWKof2vDcX2cKunG
- TT23t7Gbw4ZaDTgU9rz+E00A/wqXa+H9x53SLI97CqqSWNxdDbA5VYM0mT/dkr9DUMYZmY2vdq9
- C0HMIV8ZkjGyRc3EC0ub4j/c6mXCrZ9SntE1PCV2bjLxU1inQT+bBr/Pl4nsrwS9xR4MX4TkNY1
- wrTKp7epKJYsVqh1kWwO3xOfjdE7ex3Tp+SAvGjKxbviU9hW7yID1tyS9gYQertrJPx4gKwh5O1
- OuiWt0VlWYaHbzdrhMSw6mlnCCAMIwynJnHvERDglUbn5AL44J5rPMsptbqGCoLjY9H7Cs0tXus
- FnB/Q+NotyUYvKT1OgmSpI0a8pT+QuIuo3HBen7IuVUw81AIw2Qw5fvybRXfSzHLejHxz7+3Zsh
- 6zbjgj3UezkRkIDHhGCBP2x+5qgTpfrGsWuFzj2JbOdD1ZzifNQd1siIoWdZBr8jVHm8Jr3P3Pw
- dE27f+yVnSi5ugg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4b2c99f6-d7c0-42a2-bf9a-e85061d53c93@kernel.org>
 
-Describe the dual front-facing IMX355 sensors (standard and wide)
-and enable the PMI8998 flash LED with hardware-accurate limits.
+On Thu, Sep 17, 2026 at 11:45:12AM +0200, David Hildenbrand (Arm) wrote:
+> On 9/14/26 17:21, Lorenzo Stoakes (ARM) wrote:
+> > On Thu, Sep 10, 2026 at 02:50:25PM +0100, Kiryl Shutsemau wrote:
+> >> On Thu, Sep 10, 2026 at 02:18:35PM +0100, Lorenzo Stoakes (ARM) wrote:
+> >>> Provide a function to abstract the common task of checking whether
+> >>> a VMA is faulted in or not.
+> >>>
+> >>> A VMA or mmap lock must be held when calling this function. For an attached
+> >>> VMA the transitions between unfaulted/faulted state are:
+> >>>
+> >>>        Transition        |              VMA/mmap Lock state
+> >>>  ------------------------|-----------------------------------------------
+> >>>    unfaulted to faulted  | write lock OR read lock + mm->page_table_lock
+> >>>    faulted to unfaulted  | write lock
+> >>>
+> >>> So vma_anon_tracked() never provides a false positive (the lock precludes
+> >>> it), but if only a read lock is held, a negative result must be re-checked
+> >>> with mm->page_table_lock held.
+> >>>
+> >>> Detached VMAs cannot be concurrently manipulated as they are removed from
+> >>> the maple tree so require no guarantees.
+> >>>
+> >>> Use data_race() to silence KCSAN about non-existent data races between
+> >>> concurrent vma->anon_vma read/write on optimistic fault tests.
+> >>>
+> >>> Also while here, const-ify vma_is_attached(), vma_assert_stabilised() and
+> >>> dependants.
+> >>
+> >> If you end up respinning anyway, this would be a natural separate
+> >> prep patch.
+> >
+> > Yup will do, Pedro also asked for this!
+> >
+> >>
+> >>> Finally, update the core VMA merge/split, rmap, mremap, KSM and fault
+> >>> preparation callers which test vma->anon_vma directly to use
+> >>> vma_anon_tracked() instead.
+> >>>
+> >>> Note that the lockless read in reusable_anon_vma() is doing more than
+> >>> checking whether the VMA is faulted - it is returning the anon_vma to be
+> >>> used on fault, so this check is not altered.
+> >>>
+> >>> There is one odd one out - file_backed_vma_is_retractable() - which holds
+> >>> neither a VMA nor mmap lock and is stabilised by the file rmap lock only.
+> >>>
+> >>> Therefore just add a comment to explain why the direct vma->anon_vma check
+> >>> is required.
+> >>>
+> >>> Reported-by: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+> >>> Closes: https://lore.kernel.org/all/20260829100034.423064-1-trintaeoitogc@gmail.com/
+> >>> Closes: https://lore.kernel.org/all/20260909115723.528501-1-trintaeoitogc@gmail.com/
+> >>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >>> ---
+> >>> v2:
+> >>> - Renamed vma_is_faulted() to vma_anon_tracked() as per David.
+> >>
+> >> I don't particularly like vma_anon_tracked(), but naming is hard...
+> >
+> > Yeah it was a compromise because David and I disagreed on naming (again ;)
+> >
+> > I think vma_has_anon_rmap() is a better compromise?
+>
+> Yeah let's go for that.
 
-This brings up the basic camera topology and flash support in DT.
+Ack will do thanks!
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Changes in v10:
-- Removed the (not yet met) dependency. I'll apply fix after it gets
-  merged. Feel free to pick between v10 and v9 for merging as what you
-  think is the best way.
-- Link to v9: https://patch.msgid.link/20260907-pixel3-camera-v9-0-b1981f2d3291@ixit.cz
+>
+> --
+> Cheers,
+>
+> David
 
-Changes in v9:
-- Dependency merged, no longer depends on anything.
-- Link to v8: https://patch.msgid.link/20260901-pixel3-camera-v8-0-99f159883348@ixit.cz
-
-Changes in v8:
-- Fix ordering of includes. (Konrad)
-- Link to v7: https://lore.kernel.org/r/20260721-pixel3-camera-v7-0-82d323c6c5d2@ixit.cz
-
-Changes in v7:
-- Depend on the
-  https://lore.kernel.org/all/20260628-kbingham-orientation-v3-0-4ed92968aff8@ideasonboard.com/
-  (Konrad)
-- Sort the renamed regulators. Why Mr. Anderson, why. (Konrad)
-- Link to v6: https://lore.kernel.org/r/20260720-pixel3-camera-v6-0-afe419bef476@ixit.cz
-
-Changes in v6:
-- Remove forgotten bias-pull-down property from cci0_sleep node.
-  (dtbs_check)
-- ..-regulator -> regulator-.. (Konrad)
-- Rename camera -pin to -state and remove _pin from the labes. (Konrad,
-  dtbs_check)
-- Link to v5: https://lore.kernel.org/r/20260719-pixel3-camera-v5-0-99593f1bd8ec@ixit.cz
-
-Changes in v5:
-- Added function-enumarator to flash LEDs. (Sashiko)
-- Dropped l22a regulator needed only for NFOV actuator. (Sashiko)
-- Dropped vdda-csi[0-2]-supply, as it was unused. (Sashiko).
-- Added previously omited cam_mclk2_sleep sleep state.
-- Link to v4: https://lore.kernel.org/r/20260719-pixel3-camera-v4-0-48cab1236852@ixit.cz
-
-Changes in v4:
-- Use 24 MHz ext clock for the cameras, as the downstream does, since
-  the upstream driver can now support it.
-- Added additional LED, as the phone contains two separately controlled
-  white LEDs flash (upper and bottom, in one module).
-- Increase flash-max-microamp, as I took wrong "flash" from the
-  downstream sources and dropped Dmitry R-b.
-- Address formatting issues. (Konrad)
-- Link to v3: https://lore.kernel.org/r/20260412-pixel3-camera-v3-0-e26b090a6110@ixit.cz
-
-Changes in v3:
-- Dropped cam_vio label. (Dmitry)
-- Move the MCLK2 pinctrl from cameras to common camss. (Dmitry)
-- Link to v2: https://lore.kernel.org/r/20260411-pixel3-camera-v2-0-41b889abb14c@ixit.cz
-
-Changes in v2:
-- leds.h include escaped the initial submission. Fixed.
-- Link to v1: https://lore.kernel.org/r/20260411-pixel3-camera-v1-0-2757606515b6@ixit.cz
-
----
-David Heidelberg (2):
-      arm64: dts: qcom: sdm845-google: Add dual front IMX355 cameras
-      arm64: dts: qcom: sdm845-google: Enable PMI8998 camera flash LEDs
-
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 198 ++++++++++++++++++++-
- 1 file changed, 197 insertions(+), 1 deletion(-)
----
-base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
-change-id: 20260315-pixel3-camera-a9989bf589ee
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
-
+--
+Cheers, Lorenzo
