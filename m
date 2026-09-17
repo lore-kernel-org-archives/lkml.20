@@ -1,131 +1,148 @@
-Received: from mail-lr2-f21.google.com (mail-lr2-f21.google.com [74.125.230.85])
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8AE4F7CD4
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940D350B410
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:53:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664011; cv=none; b=pp1KVwNNqZ3QbIrGxLVtAihwGBKjFJgpkwNfpqY1HsNYXcWdIpXOXCJgL/SFUK6234zD37nTHlusAfwjeAf3vKguC/IEEzeex3vTS/D2O3o9QcCwPpcKo8gpSM+mUafuthtD5zwx9/BtJalhPpeKXen+xolbiL4HqDkzBk1RvmA=
+	t=1789664016; cv=none; b=IFGyZUhmAw60AGqk5ufWgjKxpkddTCBLXVdfN+O8O2mSzgrCOB773mHDVs3zoL7J/qSvk7ypLUzY8uwQ8Dze4yOE/ggNKoFdkoemQco1i/p+fhj/Dq+1n76IkFo31S13BgMsUQFAkATpLeY58S5nOh44wkRAxdgTxeufndPjMmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664011; c=relaxed/simple;
-	bh=55CtH0fbZAzikPsEz6XWao1uKzcG+VvgI4ZlHllnCxc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kKAqSvYyzCsgHbJHOC8/zwKqs2WAhSndnFhslWeacNJFN+x8qV51wc3fl42caWA/0UhHMvvQjzzfH35+XMZ9GT/3tikcLcMsLt0YEFYDal99MGeprriDF/bnypyKgPS6c99x2TqlT9eHG3GJmDRDO3yxUBKkmRPYuAUATiRydX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MPDnFmR1; arc=none smtp.client-ip=74.125.230.85
+	s=arc-20240116; t=1789664016; c=relaxed/simple;
+	bh=QheSNJSTqInka+GwTg4+RnAArfueDQBZHVtlcFVNBTU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WuPs09hru/k/LGpkY+lv1glp2pa9m+kFg5X6NcAadQJMY/zAzAUdnSPbzIa5zAHKVny7trwKpRcWGvX7sz/wqzpDFs+7c1Cpkv7UPyMzENmFKer+fV18ncwzfoTcMATsYKd59tuQtCJJ8rhVJp9wmGOmO7GBbV4KqEy8sEJiIlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p/Qa17U6; arc=none smtp.client-ip=74.125.231.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MPDnFmR1"
-Received: by mail-lr2-f21.google.com with SMTP id 38308e7fff4ca-3a2ff148dfdso7946141fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:53:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p/Qa17U6"
+Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4b37a2c0356so705071b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:53:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789664008; x=1790268808; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SvabIRYgCeoTg/LgMnCJum3NjuE2OsiV7HRI/rmr7nA=;
-        b=MPDnFmR1loiBBxsx3ToDTIQYFErXZDhsM+jPBeEEgWjD8Ei7XxhkrYTUM3cLnMk5W6
-         6CKhrejyFn4bwzw4D94N8iM2O8wqVDE45HyFZDRmEIBHMlzP6ezqfE5n+rn1fwjYPOzk
-         vlaZOihyLGzarq89009I19lp2KJ9iz7FET9vCquPXMErO7YW0kvv9aV3qherRj6dNQkQ
-         70pGVsh0BdkRcTuoz+JK2e+QdOQj+bYFq/rjDlp+a5fTlGPobDQFK+NVvSDfO/pijwUT
-         P4PeqEegQ0yDDnMcvhNfa9DHiyBei8u0XJ5eAtpGVEGUIsYnRrDWmUw3Li5z2WSOb6Fy
-         qt/Q==
+        d=gmail.com; s=20251104; t=1789664013; x=1790268813; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UR1otYHn7U3vnSL+rKz8JyoKuPNFmoYWrExJngJ/RnU=;
+        b=p/Qa17U6sxIGxWx6lHJTqBylof+SBmUmFm2WbYsi5iGEX0FGO7RALnVcCiRkqvFQFT
+         bcL0q4OO57SfL1hXg4C0gG5+iLnLxZKbZcFR2SdijdMPmGqU4d4UyhZHgtEKC8Zw1N9Z
+         Siw+F6jX0RyxT2fNKDw1lZIqhPCALap4uGGCYU9ikQyU3hCylnCtXbZT0697ntYoapqC
+         Tn7c+XMG04hjUZxrGNiZtzBOON6d2YSCJihak4R22v8COp2A0gAVGGExCtUUzj9hFSBM
+         yjQB46wQqMWRDjWjxv5FZHZ8I+5CARG85YghrrzOEMcgSvMgd0jUtEH1UFjnuKbkTz1x
+         RVzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789664008; x=1790268808;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SvabIRYgCeoTg/LgMnCJum3NjuE2OsiV7HRI/rmr7nA=;
-        b=H9NuNmhPTmGUOJ230uUMg5ylEbhHpY4jLX+4kOVtTzZ5epRUnASSlwBy+iOg4XMGna
-         ZhgMrXKRWmip6seGFPLZQADBEpY8TVBsnhglHspU89C0tPUXGL0+hWRWDkRRUKQSDenW
-         YyUuaV5P/NQc5bIT1j6sfLmab+YHxjtSiro8ZTf9SN86y2B/an62XAfRrJ+ic87yka0Y
-         PYzBwJqjdzz5Iis2aGnmheiIffljaS1oP9xcfxbCtsrI1q/84qu6sVFEyqSUc0e+f6kG
-         PTNzW/Kc3khjRMd0tgFlQRV8Cwr8SKUkZwJfmGTn/Z1+l+njE8Rt9er4dKuUWaX+nK1E
-         UU9A==
-X-Forwarded-Encrypted: i=1; AKwUvBz2KcvGiUZPS98RcUI5vMK1/dNs/+Lsuufjpxg2uT4V4dGWBy8HPpbHll4tnyDHC+KE2N5ugqfLM129pqk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOV4xl0oIEys03F7XmMpMVZ8RbAUlma3Z6QVWYg2ws4CR4RJFS
-	PJncDH65rwYnzkOiSWQx17axV6yXAKwL1M2h/fUydkuHe7FwliLO6a77KtQCKNQc
-X-Gm-Gg: AYBFou1Wdn8q4m8VtZiLsTmD6Vh7oOV5ez29kUDr8eP5YCeXynSdMmDGu/blzsrtdb1
-	IkcrSkYBzAvtIg70NaXqX2akDAennIIKus4IXdChe2WErnbz7bK60IxOhc0PblIWQDhlT7diXRt
-	Eo5nOG9Tpr6xXc5De13me3DsrWGV1gQZ0R4xrVHYdi3hIDDJ2iT5CF3hub56wQfvxucVLGJy07b
-	HECK/l5lkaTsP3AiGopPaYh2eZAgYdbpd7dLvsw4xvJpI2io/W48dtsYc0GJy1zYc+q2kC7moU+
-	H+nHAGClFYc2Zh6hNvWVbWHyROfsSgJtcKny++KOt2ink5HbxxglaC8+22uDgibgfDQtU9N1NDd
-	JNTFQUG/aRznUjQmk3aowIpU5b6VKskssrfj3b2Z+VXnmx4PgL9I9XtVM0KYK37KuxxF76GQGee
-	WZy1PvXGBj4Dvc6PVulbwohL43bcPlF47+CjAouaiJe+YQ3GhI3WEDqEdgXDxs4VRl4/IGr6wu2
-	WuWQQ==
-X-Received: by 2002:a05:600c:4e46:b0:49b:8f18:714a with SMTP id 5b1f17b1804b1-49eac467939mr79863725e9.12.1789657786255;
-        Thu, 17 Sep 2026 08:09:46 -0700 (PDT)
-Received: from chicken.. ([2a02:2f02:5101:7300:44c:8311:3d26:e514])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbbcf5277sm96906755e9.3.2026.09.17.08.09.44
+        d=1e100.net; s=20260707; t=1789664013; x=1790268813;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UR1otYHn7U3vnSL+rKz8JyoKuPNFmoYWrExJngJ/RnU=;
+        b=TRWy/zKXWKdOrni4IqpQl+0qGivGuruo61hT/oCk0RxSnjVJuVTbcdIxAK6X2r4gV2
+         XqzxMNd9PDNkc4v5Y1usjAw6q9sMJN4amd1IldxOK+2u2nZ++xKRjhnR0fhh7ZCWOaz2
+         UTvD/p5mFlbjPWZ5hrDNf/mrOB+byabiOEK8zXDOEAsCzMsIWLQWliGFAPDd6+8UOoTC
+         c1KwwvfW/+i189ZPyO4ilQGCepX75dnLt7001AOiZ7PIU59FlLcxyV7ndwPCs4WsUFpE
+         B6l7TOjG2l7pnn/occwZ3lt0atkI+HgolgVJMMfO4tr+DOl1Ti7MLZzJuHhVUnDJeM2w
+         IMiw==
+X-Forwarded-Encrypted: i=1; AKwUvBxNkK4sIAJk2/RqINB7gMAJsxl/Zd1J4GRfQSaS2gf6P/QEWXq6l1UcvZwqLzu/iNWV6PDMrLoaZLrJaYw=@vger.kernel.org
+X-Gm-Message-State: AFuF++koK28Zd2OBCjx/uwkRfrdrlxZS7tYB3Gvd5tQi2vVqAIvOeLGF
+	SKN+WDMLa4rINmzppzP/xP1QDs6jwMvo7qNSoGFQtCUavnoOzqgn9rjw
+X-Gm-Gg: AYBFou0S//u5MJvx1SVFi5ZrwOOo2OEZjOw8yr6zc00UFNFmzEDZjSj8XfVx2iNlbk5
+	Gi+VIIG5wzd86oUZkR2e7CK9FNmHdVBFnzspsC3FllmJT3xTCxV3XtxhxgrXmKZsFNEgCZOZjJZ
+	2Z3ub7O+qm1eh8/fhfriS7zpfXKPwmJniFof4xBGzFlGVjcU1K/Iw0vJS22R+mFPl+p1Hxqd4qk
+	ofkV1KGR1LzxGiR4iITq3kkJGx2oOscw4BY4XczO8VKzecOWzxV42jEgESXgeWBGpvtLyCaloPH
+	skzwMDSDIwwg+d2PC9lo8JHYdGO5/ujUIH+sOv/uGRKjsXQcgKWQjdUYrJan8FPxE6IV79nNz7B
+	yCZvon+h0xTg1+GCCftMdK2qeNkXI2sckU+Ie6X2tGR9PEQSKs5wNh6b25V40znEepeTjdyOK1m
+	jrJGIERW/1AYsiEaCoOBTkFRljhLqcppYxgp9wcKJYXJp7N8gkrk+CWhvrHHVG0AzMMBDOpK5IJ
+	d94Inc74rs9H/c=
+X-Received: by 2002:a05:6808:4f11:b0:4b2:8ee8:8a38 with SMTP id 5614622812f47-4ca46878257mr9034077b6e.0.1789664013292;
+        Thu, 17 Sep 2026 09:53:33 -0700 (PDT)
+Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4cb6c80c75bsm3137159b6e.6.2026.09.17.09.53.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:09:45 -0700 (PDT)
-From: Daniel Matyas <matyasdaniel006@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Daniel Matyas <matyasdaniel006@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Matyas <matyasdaniel005@gmail.com>,
-	linux-staging@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: axis-fifo: Added missing binding
-Date: Thu, 17 Sep 2026 18:09:37 +0300
-Message-ID: <20260917150939.477489-1-matyasdaniel006@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026091743-sanding-shallow-2472@gregkh>
-References: 
+        Thu, 17 Sep 2026 09:53:30 -0700 (PDT)
+Date: Thu, 17 Sep 2026 13:54:33 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, nuno.sa@analog.com,
+	dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
+Subject: Re: [PATCH v2 09/15] dt-bindings: iio: adc: adi,ad4134: Document SPI
+ connection mode
+Message-ID: <aqwbSb2eeFaDyjLV@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1789494473.git.marcelo.schmitt@analog.com>
+ <304d10f12a3418fbd5598160609a6eda09ed4100.1789494473.git.marcelo.schmitt@analog.com>
+ <20260916160025.GA382310-robh@kernel.org>
+ <20260917043039.6b9fc505@jic23-hlaptop>
+ <20260917160709.GA2294753-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917160709.GA2294753-robh@kernel.org>
 
-On Thu, 17 Sep 2026 12:58:14 +0100 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-
-> On Thu, Sep 17, 2026 at 02:48:48PM +0300, Daniel Matyas wrote:
-> > From: Daniel Matyas <matyasdaniel005@gmail.com>
+On 09/17, Rob Herring wrote:
+> On Thu, Sep 17, 2026 at 04:30:39AM +0100, Jonathan Cameron wrote:
+> > On Wed, 16 Sep 2026 11:00:25 -0500
+> > Rob Herring <robh@kernel.org> wrote:
 > > 
-> > drivers/staging/axis-fifo/axis-fifo.txt file described how the
-> > devicetree of the driver should look like. Convert it to .yaml file.
-> > Issue found by checkpatch.
+> > > On Tue, Sep 15, 2026 at 04:14:44PM -0300, Marcelo Schmitt wrote:
+> > > > Document how AD4134 chips are connected to the host SPI controller
+> > > > according to different wiring configurations.
+> > > > 
+> > > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > > > ---
+> > > > Change log v1 -> v2:
+> > > > - Set default for adi,spi-mode property.
+> > > > - Added '#daisy-chained-devices' property.
+> > > > - Documented constraints for adi,spi-mode + #daisy-chained-devices combinations.
+> > > > 
+> > > >  .../bindings/iio/adc/adi,ad4134.yaml          | 51 ++++++++++++++++---
+> > > >  1 file changed, 44 insertions(+), 7 deletions(-)
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > index ea6d7e026419..012e09decf7a 100644
+> > > > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > @@ -131,6 +131,26 @@ properties:
+> > > >      enum: [ free-running, gated ]
+> > > >      default: gated
+> > > >  
+> > > > +  adi,spi-mode:
+> > > > +    $ref: /schemas/types.yaml#/definitions/string
+> > > > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
+> > > > +    default: no-cs
+> > > > +    description: |
+> > > > +      This property indicates the SPI wiring configuration.
+> > > > +      * no-cs: The datasheet calls this "minimum I/O mode". In this mode, the CS
+> > > > +        line is not used (tied to GND).
+> > > > +      * 4-wire: Specifies a conventional SPI wiring configuration.  
+> > > 
+> > > Absence of this property should be conventional mode.
+> > Hi Rob,
 > > 
-> > Signed-off-by: Daniel Matyas <matyasdaniel005@gmail.com>
-> > Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
-> 
-> Why twice?
-> 
-
-Lost access to the first email temporarily. Should I just remove the original email?
-
-> > ---
+> > Unfortunately we missed this in the binding originally so we are left with the default
+> > of what the driver did at the time.
 > > 
-> > Sorry for adding another email. I got locked out of the first one for 30
-> > days...
-> > 
-> > v2: Corrected syntax errors in compatible:
-> > 	xlnx,axis-fifo-mm-s-4.1 -> xlnx,axi-fifo-mm-s-4.1
-> > 	xlnx,axis-fifo-mm-s-4.2 -> xlnx,axi-fifo-mm-s-4.2
-> > 	xlnx,axis-fifo-mm-s-4.3 -> xlnx,axi-fifo-mm-s-4.3
-> > 
-> >  .../axis-fifo/xlnx,axi-fifo-mm-s.yaml         | 257 ++++++++++++++++++
-> >  1 file changed, 257 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/axis-fifo/xlnx,axi-fifo-mm-s.yaml
+> > I wouldn't be against merging a change in that default as a fix though if we
+> > don't think this is yet in heavy use (merged in 7.0, but given not a complete
+> > feature set yet, maybe?)
 > 
-> staging drivers need to be stand-alone, in the drivers/staging/
-> directory, please keep these files there.
-> 
-> thanks,
-> 
-> greg k-h
+I don't believe this part is being extensively used. Going with the conventional
+4-wire default is the more natural choice so I'm growing my TODO list with a
+note for a follow up patch to update this default.
 
-Does this mean that the staging drivers do not need a devicetree? Should I just
-drop this patch entirely?
+> Ok, it's fine then. Just make sure the commit msg has this detail.
 
-Thank you,
+Ok, will add.
 
-Daniel M
 
-Sent using hkml (https://github.com/sjp38/hackermail)
+Thanks,
+Marcelo
