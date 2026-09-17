@@ -1,752 +1,293 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145264E36E5;
-	Thu, 17 Sep 2026 19:39:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61ECF4DEC2E
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789673953; cv=none; b=qZRYJR6HnNpbYJNz8fGsqoi7N5Y8SyjnCadIk1rDiqgil3fn0RcCv151elVsnmryqMs56DnzOaqg3saC0TCDzeFlr1/evVdX3hJHDpiFFIorFNZwZ4fOLS6dCyF6Zm6feGkbvK/zp1qS6/Ey8E4vTjS7B2mDlQaoO8NO5RQ6VY8=
+	t=1789674120; cv=none; b=KeyUBwv78xJHniSQX/CsB0//mVT7yiFgbdKW5wzZjAwluX+tCbzy9t7J7R+z7g4bz2lJQp0O21EKQ0s9sHNKPLb6FV+yi5zeq8nPjwv8nVG1QpMn3WHRQ+my6W9Sno1v/XqKyaaySqetFkG4UNrOdy2Yt8WYWkyxjNGyp4sipuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789673953; c=relaxed/simple;
-	bh=WQkgcfgPhULioLNdb9cXK7AgH3vSB1+uDnrO3G2DeLw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=qpHp7dLToC3PeD2gg/VJijWGTXbNH2z8qnWmFpUISha/4HCkJY10DTrKK0z94lPSnZ/ZDMfRYFNTYW6TKWc+jDURTnOpS/lxkdYZPzhC0CPFHWWMQVfwz6MEP3DXdKkqdjHqsKpFBseD4buy/Bav1F9pDVNLxBMV7Bt2zGgGIsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X1G6azor; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789674120; c=relaxed/simple;
+	bh=1Hld9TTJWtGYH7lz5zyhGISa5kNpgl8anUJ7rsyBj7Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WVwbM4B7G5O6Us4A7rJQgiJku00+6XLtmH0oNrwg2esTZhycG+lsxj2ykdbCDKPqZ5Se5p114rU+vPHhNpJDTsr0RzmoZzkjfhE/vJ8gnTjwkJTA2eaVRl5ZfkHpYQ3Hp60pQ0F31h8mvDoPPRmMTvIoC0gB9F6LjkpKB0N43dE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=J12JDEDt; arc=none smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X1G6azor"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0E51F00893;
-	Thu, 17 Sep 2026 19:39:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789673950;
-	bh=2XW0QcR+ioF48olBJxEyzELktnXDfY028oV1liIhZ5A=;
-	h=Date:From:To:Cc:Subject;
-	b=X1G6azorTcQbnfVikt4BXEcXfPNGufKTG52asFRjcngakwGtvWRaDmKN3ctSimnQK
-	 Q8iwiQ1z6o+BOggO5CetLpxRV3JZODDvnxZrZnw2YM4acNIeA630HvLQ9sCr1vtPcw
-	 XZr4/Kiy+jJUg4fS5wd0yWyv4dtpfvCsTsJA/NrYZ6plt16q5LMe5Cqkg6pVvw1A77
-	 yrRaeVutpWDdbQnh8fGbqu1LDeoDshto7KR3GfmLIB0e/tPeb7Cba79EpOPbg/SOvu
-	 rR91D7XhaWck2vICOK2uLCsRBpr1/PpigG0npHMwMZApAMZFbIlLHmT5Tl7hXo+fHS
-	 EM1mLHvS3SrIw==
-Date: Thu, 17 Sep 2026 20:39:06 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: Damien Le Moal <dlemoal@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>
-Subject: linux-next: manual merge of the scsi-mkp tree with the origin tree
-Message-ID: <aqxB2gIACLhW5I0-@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="J12JDEDt"
+Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f0d298caso552507a34.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:41:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google09082023; t=1789674117; x=1790278917; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ba0alAdQ5OcFzYxRU0k2u0VIIUxrq/p04mYsfJo2yyk=;
+        b=J12JDEDtajYVcOGLiHdrJi9ZVTza7E2ZTtXZ/f5B6tqpGsm/uxSFwkDVFMYCF+mzEN
+         T8ORxoj3f3DLanB1L/KNDYSV9a0PbC3z0g4TgrCbm3HxRDZz4gdyFSon4bZ4zgB+ff+F
+         4RXMEc3lJbm52U5HbxyVF2lp9wPnDo4GUxCUGTeHCXdV+7wskzx4MxD12QulQ/1SQrNV
+         tQ7hK1nSU3bsB8QGQLDI7j0xaj7t5SdNMWdWN6iqMT72L7+owM/lsXcWUWzTHylb1WQR
+         ka065q8ZDTTwp/UaqfMBnNZGVtxieGaUOD9KKRaumSL9nHXJb+O9zQo6M18oDoCRBWh5
+         J4lQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789674117; x=1790278917;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ba0alAdQ5OcFzYxRU0k2u0VIIUxrq/p04mYsfJo2yyk=;
+        b=OsOVbQjdLc0LanCJX6or26HLdXNas57gYpvCuw0EafXWdzlcfk0bfBYodF7e3q5Cr8
+         t3PVv7QUVByBVw9EJSftGXI7DzA0lRXT8+yG/jpyfc0GD37suERxEnl4uh6JB7BMi3SM
+         1Ud/VatI0LbPh575Ughc5VDcWrfU+Uuef3ac7PyJMkFV7xC5E4CQcNzgn3j/8/lxozuz
+         b9uh7hNJDF8EwpOZhE690Udv8jhAc5OsEDJJb+y379qLTIilba947yfL5YZv8RuaZYQy
+         zZrzwsWVpzriYXCQ+7m5Kc6PXqmDu8tPFuPv+/eSbMTIEXrZsFXTRzeAxc39PLaREiFS
+         3Zrg==
+X-Forwarded-Encrypted: i=1; AKwUvBykiqfxOp3+Cv7ZyFCt1sXNuT3HPq9feR9doyrOFmLrAs+Mwr+/M8SBXFjBm39UKGptibQPlg1rKa5GHZk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+kRkrT2TfXxmWUim2SE5PAD/4uxPHe89tSCy2lmzDzr4uG5DV
+	u99+h2Nm6WyBcplrJ4RGomj+Ui/I/07hCuhLeEeU96MjehCmJXhRKlIg566iTdc7F78=
+X-Gm-Gg: AYBFou1vpopto3V+iyoxSb8GokeJa7m8yxD8LrXjlMVqcRNbwOziEHd1z9U0dFXnwUV
+	1MNtA2MwXAZX278ljVNf0PFY0R6nOZy/kO94gyL69rEWnaXK7kmTUu5/MuETbMch4ahTgdfMR2A
+	O7Q4qLr0Uu688O9lq4ZZY+XuPmRcaWnruvXPmktJkXfA/JGKtNDjjEtGG3bLjP6z10lmyqqOMUC
+	Qz6qZavGiPyy+uZuEcfhYOC6PliCq6RHrCcopzH0ol8sa8aSQNMrXeDyg1VKBvEmDipLKiwaWWR
+	vcEMNuqeTfi6a3GVngNxED3IlRRX70+tVWyBFCu8sihrRE7rKaV9TtN8lilqJwxoKpCwM20YYRT
+	jCc3XFNyyUDauR3dm+xK7aH/oFAOPjgfthLwHatXidjVhSY3Z/wvIofcQu8dzvcssLVWPStOU4R
+	3kiUluWc4qUvKC33OvnKyfAle8OTd0enb2G28I1OJVTaz7fPAUX4JKAQ==
+X-Received: by 2002:a05:6830:2992:b0:7d7:ea9f:c0f9 with SMTP id 46e09a7af769-80ddcbb6051mr246243a34.0.1789674117330;
+        Thu, 17 Sep 2026 12:41:57 -0700 (PDT)
+Received: from 20HS2G4 ([2a09:bac6:bf21:2632::3ce:23])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80c472b4907sm3876403a34.22.2026.09.17.12.41.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 12:41:56 -0700 (PDT)
+Date: Thu, 17 Sep 2026 14:41:54 -0500
+From: Chris Arges <carges@cloudflare.com>
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, kernel-team@cloudflare.com
+Subject: Re: [PATCH net-next v2 2/3] ipv6: hash uncached routes by device
+Message-ID: <aqxCgm7lV4FruQho@20HS2G4>
+References: <20260914-hash-bucket-route-lists-v2-0-29f6297d8a5a@cloudflare.com>
+ <20260914-hash-bucket-route-lists-v2-2-29f6297d8a5a@cloudflare.com>
+ <20260917101405.GA1202580@shredder>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="w3AvGd+Y//DkYUt8"
-Content-Disposition: inline
-
-
---w3AvGd+Y//DkYUt8
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260917101405.GA1202580@shredder>
 
-Hi all,
+On 2026-09-17 13:14:05, Ido Schimmel wrote:
+> On Mon, Sep 14, 2026 at 09:03:36PM -0500, Chris J Arges wrote:
+> > rt6_uncached_list_flush_dev() currently walks every per-CPU uncached route
+> > list for each device being removed. Hash uncached routes by their inet6
+> > device so ordinary device teardown only visits the matching bucket on each
+> > CPU.
+> 
+> The code is doing something else and hashing using dst_dev():
+> 
+> 	struct net_device *rt_dev = dst_dev(&rt->dst);
+> [...]
+> 		ul = &table->buckets[hash_ptr(rt_dev,
+> 					      CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)];
+> 
+> > 
+> > ip6_rt_get_dev_rcu() can return loopback or an L3 master while rt6i_idev
+> > still refers to the original interface, so such a route must be reachable
+> > from either device. Place those routes on a separate per-CPU list that is
+> > always visited in addition to the keyed bucket.
+> > 
+> > This avoids growing struct rt6_info while filtering most unrelated routes
+> > from ordinary device teardown.
+> > 
+> > The table has 2^CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS buckets and defaults
+> > to 64. Larger values shorten each bucket, but every additional bit doubles
+> > the per-CPU memory used by the table. The default costs approximately
+> > 1.5 KiB per possible CPU on x86-64.
+> > 
+> > Signed-off-by: Chris J Arges <carges@cloudflare.com>
+> > ---
+> >  net/ipv6/Kconfig |  13 +++++++
+> 
+> Same comment as in patch 1 about the Kconfig.
+> 
+> >  net/ipv6/route.c | 102 +++++++++++++++++++++++++++++++++++++------------------
+> >  2 files changed, 82 insertions(+), 33 deletions(-)
+> > 
+> > diff --git a/net/ipv6/Kconfig b/net/ipv6/Kconfig
+> > index c3806c6ac96f..0253178668bd 100644
+> > --- a/net/ipv6/Kconfig
+> > +++ b/net/ipv6/Kconfig
+> > @@ -18,6 +18,19 @@ menuconfig IPV6
+> >  
+> >  if IPV6
+> >  
+> > +config IPV6_UNCACHED_ROUTE_HASH_BITS
+> > +	int "IPv6 uncached route hash bits"
+> > +	range 1 10
+> > +	default 6
+> > +	help
+> > +	  This option sets the number of buckets used in the IPv6 uncached
+> > +	  route hash table to 2^IPV6_UNCACHED_ROUTE_HASH_BITS buckets. The
+> > +	  allowed values select between 2 and 1024 buckets. Larger values
+> > +	  reduce collisions, but each additional bit doubles the per-CPU
+> > +	  memory used by the table.
+> > +
+> > +	  If unsure, use the default of 6 bits (64 buckets).
+> > +
+> >  config IPV6_ROUTER_PREF
+> >  	bool "IPv6: Router Preference (RFC 4191) support"
+> >  	help
+> > diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+> > index 7535b09068a0..080dce329168 100644
+> > --- a/net/ipv6/route.c
+> > +++ b/net/ipv6/route.c
+> > @@ -40,6 +40,7 @@
+> >  #include <linux/seq_file.h>
+> >  #include <linux/nsproxy.h>
+> >  #include <linux/slab.h>
+> > +#include <linux/hash.h>
+> >  #include <linux/jhash.h>
+> >  #include <linux/siphash.h>
+> >  #include <net/net_namespace.h>
+> > @@ -133,11 +134,27 @@ struct uncached_list {
+> >  	struct list_head	head;
+> >  };
+> >  
+> > -static DEFINE_PER_CPU_ALIGNED(struct uncached_list, rt6_uncached_list);
+> > +#define RT6_UNCACHED_HASH_SIZE	BIT(CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)
+> > +
+> > +struct rt6_uncached_table {
+> > +	struct uncached_list buckets[RT6_UNCACHED_HASH_SIZE];
+> > +	/* Routes that must be discoverable through two different devices. */
+> > +	struct uncached_list mismatch;
+> > +};
+> > +
+> > +static DEFINE_PER_CPU_ALIGNED(struct rt6_uncached_table, rt6_uncached_table);
+> >  
+> >  void rt6_uncached_list_add(struct rt6_info *rt)
+> >  {
+> > -	struct uncached_list *ul = raw_cpu_ptr(&rt6_uncached_list);
+> > +	struct rt6_uncached_table *table = raw_cpu_ptr(&rt6_uncached_table);
+> > +	struct net_device *rt_dev = dst_dev(&rt->dst);
+> > +	struct uncached_list *ul;
+> > +
+> > +	if (rt->rt6i_idev && rt->rt6i_idev->dev != rt_dev)
+> > +		ul = &table->mismatch;
+> > +	else
+> > +		ul = &table->buckets[hash_ptr(rt_dev,
+> > +					      CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)];
+> >  
+> >  	rt->dst.rt_uncached_list = ul;
+> >  
+> > @@ -157,40 +174,51 @@ void rt6_uncached_list_del(struct rt6_info *rt)
+> >  	}
+> >  }
+> >  
+> > +static void rt6_uncached_list_flush(struct uncached_list *ul,
+> > +				    struct net_device *dev)
+> > +{
+> > +	struct rt6_info *rt, *safe;
+> > +
+> > +	if (list_empty(&ul->head))
+> > +		return;
+> > +
+> > +	spin_lock_bh(&ul->lock);
+> > +	list_for_each_entry_safe(rt, safe, &ul->head, dst.rt_uncached) {
+> > +		struct inet6_dev *rt_idev = rt->rt6i_idev;
+> > +		struct net_device *rt_dev = dst_dev(&rt->dst);
+> > +		bool handled = false;
+> 
+> https://docs.kernel.org/next/process/maintainer-netdev.html#local-variable-ordering-reverse-xmas-tree-rcs
+> 
+> > +
+> > +		if (rt_idev && rt_idev->dev == dev) {
+> > +			rt->rt6i_idev = in6_dev_get(blackhole_netdev);
+> > +			in6_dev_put(rt_idev);
+> > +			handled = true;
+> > +		}
+> > +
+> > +		if (rt_dev == dev) {
+> > +			rt->dst.dev = blackhole_netdev;
+> 
+> Please use:
+> 
+> rcu_assign_pointer(rt->dst.dev_rcu, blackhole_netdev);
+> 
+> See commit 1469773b246a ("ipv4: use rcu_assign_pointer() in
+> rt_flush_dev()")
+> 
+> > +			netdev_ref_replace(rt_dev, blackhole_netdev,
+> > +					   &rt->dst.dev_tracker, GFP_ATOMIC);
+> > +			handled = true;
+> > +		}
+> > +		if (handled)
+> > +			list_del_init(&rt->dst.rt_uncached);
+> > +	}
+> > +	spin_unlock_bh(&ul->lock);
+> > +}
+> > +
+> >  static void rt6_uncached_list_flush_dev(struct net_device *dev)
+> >  {
+> >  	int cpu;
+> >  
+> >  	for_each_possible_cpu(cpu) {
+> > -		struct uncached_list *ul = per_cpu_ptr(&rt6_uncached_list, cpu);
+> > -		struct rt6_info *rt, *safe;
+> > +		struct rt6_uncached_table *table;
+> > +		struct uncached_list *ul;
+> >  
+> > -		if (list_empty(&ul->head))
+> > -			continue;
+> > -
+> > -		spin_lock_bh(&ul->lock);
+> > -		list_for_each_entry_safe(rt, safe, &ul->head, dst.rt_uncached) {
+> > -			struct inet6_dev *rt_idev = rt->rt6i_idev;
+> > -			struct net_device *rt_dev = rt->dst.dev;
+> > -			bool handled = false;
+> > -
+> > -			if (rt_idev && rt_idev->dev == dev) {
+> > -				rt->rt6i_idev = in6_dev_get(blackhole_netdev);
+> > -				in6_dev_put(rt_idev);
+> > -				handled = true;
+> > -			}
+> > -
+> > -			if (rt_dev == dev) {
+> > -				rt->dst.dev = blackhole_netdev;
+> > -				netdev_ref_replace(rt_dev, blackhole_netdev,
+> > -						   &rt->dst.dev_tracker,
+> > -						   GFP_ATOMIC);
+> > -				handled = true;
+> > -			}
+> > -			if (handled)
+> > -				list_del_init(&rt->dst.rt_uncached);
+> > -		}
+> > -		spin_unlock_bh(&ul->lock);
+> > +		table = per_cpu_ptr(&rt6_uncached_table, cpu);
+> > +		ul = &table->buckets[hash_ptr(dev,
+> > +					      CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)];
+> > +		rt6_uncached_list_flush(ul, dev);
+> > +		rt6_uncached_list_flush(&table->mismatch, dev);
+> 
+> The mismatch list can be quite long depending on the workload and every
+> device needs to walk it for every CPU.
+> 
+> AFAICT, when there is a mismatch, dst_dev() is either loopback or a VRF
+> device. Can you instead hash based on rt6i_idev->dev (fallback to
+> dst_dev() when not available) and only iterate over all the buckets when
+> the device that is going away is loopback / VRF?
+> 
+> That way, in the common case, you only need to walk one list per-CPU.
 
-Today's linux-next merge of the scsi-mkp tree got a conflict in:
-
-  drivers/ata/libata-scsi.c
-
-between commit:
-
-  6d81700ad7c48 ("ata: libata-scsi: do not raise UA for storage element dep=
-opulation and restoration")
-
-=66rom the origin tree and commit:
-
-  c44f095a9d176 ("scsi: ata: libata: Use combined sense codes")
-
-=66rom the scsi-mkp tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/ata/libata-scsi.c
-index db43fd7b64182,66fef7ffbf1b1..0000000000000
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@@ -190,28 -190,25 +190,25 @@@ DEVICE_ATTR(unload_heads, S_IRUGO | S_I
-  	    ata_scsi_park_show, ata_scsi_park_store);
-  EXPORT_SYMBOL_GPL(dev_attr_unload_heads);
- =20
-- bool ata_scsi_sense_is_valid(u8 sk, u8 asc, u8 ascq)
-+ bool ata_scsi_sense_is_valid(u8 sense_key, u16 sense_code)
-  {
-- 	/*
-- 	 * If sk =3D=3D NO_SENSE, and asc + ascq =3D=3D NO ADDITIONAL SENSE INFO=
-RMATION,
-- 	 * then there is no sense data to add.
-- 	 */
-- 	if (sk =3D=3D 0 && asc =3D=3D 0 && ascq =3D=3D 0)
-+ 	if (sense_key =3D=3D NO_SENSE &&
-+ 	    sense_code =3D=3D NO_ADDITIONAL_SENSE_INFORMATION)
-  		return false;
- =20
-  	/* If sk > COMPLETED, sense data is bogus. */
-- 	if (sk > COMPLETED)
-+ 	if (sense_key > COMPLETED)
-  		return false;
- =20
-  	return true;
-  }
- =20
-  void ata_scsi_set_sense(struct ata_device *dev, struct scsi_cmnd *cmd,
-- 			u8 sk, u8 asc, u8 ascq)
-+ 			u8 sk, u16 code)
-  {
-  	bool d_sense =3D (dev->flags & ATA_DFLAG_D_SENSE);
- =20
-- 	scsi_build_sense(cmd, d_sense, sk, asc, ascq);
-+ 	scsi_set_sense(cmd, d_sense, sk, code);
-  }
- =20
-  static void ata_scsi_set_sense_information(struct ata_queued_cmd *qc)
-@@@ -316,8 -313,7 +313,7 @@@ static void ata_scsi_set_passthru_sense
-  static void ata_scsi_set_invalid_field(struct ata_device *dev,
-  				       struct scsi_cmnd *cmd, u16 field, u8 bit)
-  {
-- 	ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST, 0x24, 0x0);
-- 	/* "Invalid field in CDB" */
-+ 	ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST, INVALID_FIELD_IN_CDB);
-  	scsi_set_sense_field_pointer(cmd->sense_buffer, SCSI_SENSE_BUFFERSIZE,
-  				     field, bit, 1);
-  }
-@@@ -325,8 -321,8 +321,8 @@@
-  static void ata_scsi_set_invalid_parameter(struct ata_device *dev,
-  					   struct scsi_cmnd *cmd, u16 field)
-  {
-- 	/* "Invalid field in parameter list" */
-- 	ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST, 0x26, 0x0);
-+ 	ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST,
-+ 			   INVALID_FIELD_IN_PARAMETER_LIST);
-  	scsi_set_sense_field_pointer(cmd->sense_buffer, SCSI_SENSE_BUFFERSIZE,
-  				     field, 0xff, 0);
-  }
-@@@ -525,7 -521,8 +521,8 @@@ int ata_cmd_ioctl(struct scsi_device *s
-  		 * check condition even if no error. Filter that. */
-  		if (scsi_status_is_check_condition(cmd_result)) {
-  			if (sshdr.sense_key =3D=3D RECOVERED_ERROR &&
-- 			    sshdr.asc =3D=3D 0 && sshdr.ascq =3D=3D 0x1d)
-+ 			    sshdr.sense_code =3D=3D
-+ 			    ATA_PASS_THROUGH_INFORMATION_AVAILABLE)
-  				cmd_result &=3D ~SAM_STAT_CHECK_CONDITION;
-  		}
- =20
-@@@ -613,7 -610,8 +610,8 @@@ int ata_task_ioctl(struct scsi_device *
-  		 * check condition even if no error. Filter that. */
-  		if (cmd_result & SAM_STAT_CHECK_CONDITION) {
-  			if (sshdr.sense_key =3D=3D RECOVERED_ERROR &&
-- 			    sshdr.asc =3D=3D 0 && sshdr.ascq =3D=3D 0x1d)
-+ 			    sshdr.sense_code =3D=3D
-+ 			    ATA_PASS_THROUGH_INFORMATION_AVAILABLE)
-  				cmd_result &=3D ~SAM_STAT_CHECK_CONDITION;
-  		}
- =20
-@@@ -792,79 -790,143 +790,143 @@@ static void ata_qc_set_pc_nbytes(struc
-  	qc->nbytes =3D scsi_bufflen(scmd) + qc->extrabytes;
-  }
- =20
-+ struct ata_err_sense {
-+ 	u8	err_mask;
-+ 	u8	sense_key;
-+ 	u16	sense_code;
-+ };
-+=20
-  /**
-   *	ata_to_sense_error - convert ATA error to SCSI error
-   *	@drv_stat: value contained in ATA status register
-   *	@drv_err: value contained in ATA error register
-   *	@sk: the sense key we'll fill out
--  *	@asc: the additional sense code we'll fill out
--  *	@ascq: the additional sense code qualifier we'll fill out
-+  *	@scode: the additional sense code and its qualifier we'll fill out
-   *
-   *	Converts an ATA error into a SCSI error.  Fill out pointers to
--  *	SK, ASC, and ASCQ bytes for later use in fixed or descriptor
-+  *	the sense key and sense code for later use in fixed or descriptor
-   *	format sense blocks.
-   *
-   *	LOCKING:
-   *	spin_lock_irqsave(host lock)
-   */
-- static void ata_to_sense_error(u8 drv_stat, u8 drv_err, u8 *sk, u8 *asc,
-- 			       u8 *ascq)
-+ static void ata_to_sense_error(u8 drv_stat, u8 drv_err, u8 *sk, u16 *scod=
-e)
-  {
-  	int i;
- =20
-  	/* Based on the 3ware driver translation table */
-- 	static const unsigned char sense_table[][4] =3D {
-- 		/* BBD|ECC|ID|MAR */
-- 		{0xd1,		ABORTED_COMMAND, 0x00, 0x00},
-- 			// Device busy                  Aborted command
-- 		/* BBD|ECC|ID */
-- 		{0xd0,		ABORTED_COMMAND, 0x00, 0x00},
-- 			// Device busy                  Aborted command
-- 		/* ECC|MC|MARK */
-- 		{0x61,		HARDWARE_ERROR, 0x00, 0x00},
-- 			// Device fault                 Hardware error
-- 		/* ICRC|ABRT */		/* NB: ICRC & !ABRT is BBD */
-- 		{0x84,		ABORTED_COMMAND, 0x47, 0x00},
-- 			// Data CRC error               SCSI parity error
-- 		/* MC|ID|ABRT|TRK0|MARK */
-- 		{0x37,		NOT_READY, 0x04, 0x00},
-- 			// Unit offline                 Not ready
-- 		/* MCR|MARK */
-- 		{0x09,		NOT_READY, 0x04, 0x00},
-- 			// Unrecovered disk error       Not ready
-- 		/*  Bad address mark */
-- 		{0x01,		MEDIUM_ERROR, 0x13, 0x00},
-- 			// Address mark not found for data field
-- 		/* TRK0 - Track 0 not found */
-- 		{0x02,		HARDWARE_ERROR, 0x00, 0x00},
-- 			// Hardware error
-- 		/* Abort: 0x04 is not translated here, see below */
-- 		/* Media change request */
-- 		{0x08,		NOT_READY, 0x04, 0x00},
-- 			// FIXME: faking offline
-- 		/* SRV/IDNF - ID not found */
-- 		{0x10,		ILLEGAL_REQUEST, 0x21, 0x00},
-- 			// Logical address out of range
-- 		/* MC - Media Changed */
-- 		{0x20,		UNIT_ATTENTION, 0x28, 0x00},
-- 			// Not ready to ready change, medium may have changed
-- 		/* ECC - Uncorrectable ECC error */
-- 		{0x40,		MEDIUM_ERROR, 0x11, 0x04},
-- 			// Unrecovered read error
-- 		/* BBD - block marked bad */
-- 		{0x80,		MEDIUM_ERROR, 0x11, 0x04},
-- 			// Block marked bad	Medium error, unrecovered read error
-- 		{0xFF, 0xFF, 0xFF, 0xFF}, // END mark
-+ 	static const struct ata_err_sense sense_table[] =3D {
-+ 		{
-+ 			/* BBD|ECC|ID|MAR - Device busy */
-+ 			0xd1,
-+ 			ABORTED_COMMAND,
-+ 			NO_ADDITIONAL_SENSE_INFORMATION
-+ 		},
-+ 		{
-+ 			/* BBD|ECC|ID - Device busy */
-+ 			0xd0,
-+ 			ABORTED_COMMAND,
-+ 			NO_ADDITIONAL_SENSE_INFORMATION
-+ 		},
-+ 		{
-+ 			/* ECC|MC|MARK - Device fault */
-+ 			0x61,
-+ 			HARDWARE_ERROR,
-+ 			NO_ADDITIONAL_SENSE_INFORMATION
-+ 		},
-+ 		{
-+ 			/* ICRC|ABRT - Data CRC error */
-+ 			/* NB: ICRC & !ABRT is BBD */
-+ 			0x84,
-+ 			ABORTED_COMMAND,
-+ 			SCSI_PARITY_ERROR
-+ 		},
-+ 		{
-+ 			/* MC|ID|ABRT|TRK0|MARK - Unit offline */
-+ 			0x37,
-+ 			NOT_READY,
-+ 			LU_NOT_READY
-+ 		},
-+ 		{
-+ 			/* MCR|MARK - Unrecovered disk error */
-+ 			0x09,
-+ 			NOT_READY,
-+ 			LU_NOT_READY
-+ 		},
-+ 		{
-+ 			/* Bad address mark */
-+ 			0x01,
-+ 			MEDIUM_ERROR,
-+ 			ADDRESS_MARK_NOT_FOUND_FOR_DATA_FIELD
-+ 		},
-+ 		{
-+ 			/* TRK0 - Track 0 not found */
-+ 			0x02,
-+ 			HARDWARE_ERROR,
-+ 			NO_ADDITIONAL_SENSE_INFORMATION
-+ 		},
-+ 		{
-+ 			/* Abort: 0x04 is not translated here, see below */
-+ 			/* Media change request */
-+ 			0x08,
-+ 			NOT_READY,
-+ 			LU_NOT_READY
-+ 		},
-+ 		{
-+ 			/* SRV/IDNF - ID not found */
-+ 			0x10,
-+ 			ILLEGAL_REQUEST,
-+ 			LOGICAL_BLOCK_ADDRESS_OUT_OF_RANGE
-+ 		},
-+ 		{
-+ 			/* MC - Media Changed */
-+ 			0x20,
-+ 			UNIT_ATTENTION,
-+ 			NOT_READY_TO_READY_CHANGE_MEDIUM_MAY_HAVE_CHANGED
-+ 		},
-+ 		{
-+ 			/* ECC - Uncorrectable ECC error */
-+ 			0x40,
-+ 			MEDIUM_ERROR,
-+ 			UNRECOVERED_READ_ERROR_AUTO_REALLOCATE_FAILED
-+ 		},
-+ 		{
-+ 			/* BBD - block marked bad */
-+ 			0x80,
-+ 			MEDIUM_ERROR,
-+ 			UNRECOVERED_READ_ERROR_AUTO_REALLOCATE_FAILED
-+ 		},
-+ 		{
-+ 			/* END mark */
-+ 			0xFF, 0xFF, 0xFFFF
-+ 		},
-  	};
-- 	static const unsigned char stat_table[][4] =3D {
-- 		/* Busy: must be first because BUSY means no other bits valid */
-- 		{ ATA_BUSY,	ABORTED_COMMAND, 0x00, 0x00 },
-- 		/* Device fault: INTERNAL TARGET FAILURE */
-- 		{ ATA_DF,	HARDWARE_ERROR,  0x44, 0x00 },
-- 		/* Corrected data error */
-- 		{ ATA_CORR,	RECOVERED_ERROR, 0x00, 0x00 },
--=20
-- 		{ 0xFF, 0xFF, 0xFF, 0xFF }, /* END mark */
-+ 	static const struct ata_err_sense stat_table[] =3D {
-+ 		{
-+ 			/*
-+ 			 * Busy: must be first because BUSY means no other bits
-+ 			 * valid.
-+ 			 */
-+ 			ATA_BUSY,
-+ 			ABORTED_COMMAND,
-+ 			NO_ADDITIONAL_SENSE_INFORMATION
-+ 		},
-+ 		{
-+ 			/* Device fault */
-+ 			ATA_DF,
-+ 			HARDWARE_ERROR,
-+ 			INTERNAL_TARGET_FAILURE
-+ 		},
-+ 		{
-+ 			/* Corrected data error */
-+ 			ATA_CORR,
-+ 			RECOVERED_ERROR,
-+ 			NO_ADDITIONAL_SENSE_INFORMATION
-+ 		},
-+ 		{
-+ 			/* END mark */
-+ 			0xFF, 0xFF, 0xFFFF
-+ 		},
-  	};
- =20
-  	/*
-@@@ -876,13 -938,12 +938,12 @@@
- =20
-  	if (drv_err) {
-  		/* Look for drv_err */
-- 		for (i =3D 0; sense_table[i][0] !=3D 0xFF; i++) {
-+ 		for (i =3D 0; sense_table[i].err_mask !=3D 0xFF; i++) {
-  			/* Look for best matches first */
-- 			if ((sense_table[i][0] & drv_err) =3D=3D
-- 			    sense_table[i][0]) {
-- 				*sk =3D sense_table[i][1];
-- 				*asc =3D sense_table[i][2];
-- 				*ascq =3D sense_table[i][3];
-+ 			if ((sense_table[i].err_mask & drv_err) =3D=3D
-+ 			    sense_table[i].err_mask) {
-+ 				*sk =3D sense_table[i].sense_key;
-+ 				*scode =3D sense_table[i].sense_code;
-  				return;
-  			}
-  		}
-@@@ -893,11 -954,10 +954,10 @@@
-  	 * has only the ABRT bit set, we decode drv_stat.  ABRT by itself
-  	 * is not descriptive enough.
-  	 */
-- 	for (i =3D 0; stat_table[i][0] !=3D 0xFF; i++) {
-- 		if (stat_table[i][0] & drv_stat) {
-- 			*sk =3D stat_table[i][1];
-- 			*asc =3D stat_table[i][2];
-- 			*ascq =3D stat_table[i][3];
-+ 	for (i =3D 0; stat_table[i].err_mask !=3D 0xFF; i++) {
-+ 		if (stat_table[i].err_mask & drv_stat) {
-+ 			*sk =3D stat_table[i].sense_key;
-+ 			*scode =3D stat_table[i].sense_code;
-  			return;
-  		}
-  	}
-@@@ -907,8 -967,7 +967,7 @@@
-  	 * that won't cause people to do things like return a disk wrongly.
-  	 */
-  	*sk =3D ABORTED_COMMAND;
-- 	*asc =3D 0x00;
-- 	*ascq =3D 0x00;
-+ 	*scode =3D NO_ADDITIONAL_SENSE_INFORMATION;
-  }
- =20
-  /*
-@@@ -931,40 -990,41 +990,41 @@@ static void ata_gen_passthru_sense(stru
-  	struct ata_device *dev =3D qc->dev;
-  	struct scsi_cmnd *cmd =3D qc->scsicmd;
-  	struct ata_taskfile *tf =3D &qc->result_tf;
-- 	u8 sense_key, asc, ascq;
-+ 	u16 sense_code;
-+ 	u8 sense_key;
- =20
-  	if (!(qc->flags & ATA_QCFLAG_RTF_FILLED)) {
-  		ata_dev_dbg(dev,
-  			    "missing result TF: can't generate ATA PT sense data\n");
-  		if (qc->err_mask)
-- 			ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND, 0, 0);
-+ 			ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
-+ 					   NO_ADDITIONAL_SENSE_INFORMATION);
-  		return;
-  	}
- =20
-  	/*
-- 	 * Use ata_to_sense_error() to map status register bits
-- 	 * onto sense key, asc & ascq.
-+ 	 * Use ata_to_sense_error() to map status register bits onto sense key
-+ 	 * and sense code.
-  	 */
-  	if (qc->err_mask ||
-  	    tf->status & (ATA_BUSY | ATA_DF | ATA_ERR | ATA_DRQ)) {
-  		ata_to_sense_error(tf->status, tf->error,
-- 				   &sense_key, &asc, &ascq);
-- 		ata_scsi_set_sense(qc->dev, cmd, sense_key, asc, ascq);
-- 	} else {
-- 		/*
-- 		 * ATA PASS-THROUGH INFORMATION AVAILABLE
-- 		 *
-- 		 * Note: we are supposed to call ata_scsi_set_sense(), which
-- 		 * respects the D_SENSE bit, instead of unconditionally
-- 		 * generating the sense data in descriptor format. However,
-- 		 * because hdparm, hddtemp, and udisks incorrectly assume sense
-- 		 * data in descriptor format, without even looking at the
-- 		 * RESPONSE CODE field in the returned sense data (to see which
-- 		 * format the returned sense data is in), we are stuck with
-- 		 * being bug compatible with older kernels.
-- 		 */
-- 		scsi_build_sense(cmd, 1, RECOVERED_ERROR, 0, 0x1D);
-+ 				   &sense_key, &sense_code);
-+ 		ata_scsi_set_sense(qc->dev, cmd, sense_key, sense_code);
-+ 		return;
-  	}
-+=20
-+ 	/*
-+ 	 * Note: we are supposed to call ata_scsi_set_sense(), which respects
-+ 	 * the D_SENSE bit, instead of unconditionally generating the sense data
-+ 	 * in descriptor format. However, because hdparm, hddtemp, and udisks
-+ 	 * incorrectly assume sense data in descriptor format, without even
-+ 	 * looking at the RESPONSE CODE field in the returned sense data (to see
-+ 	 * which format the returned sense data is in), we are stuck with being
-+ 	 * bug compatible with older kernels.
-+ 	 */
-+ 	scsi_set_sense(cmd, 1, RECOVERED_ERROR,
-+ 		       ATA_PASS_THROUGH_INFORMATION_AVAILABLE);
-  }
- =20
-  /**
-@@@ -981,19 -1041,18 +1041,18 @@@ static void ata_gen_ata_sense(struct at
-  	struct ata_device *dev =3D qc->dev;
-  	struct scsi_cmnd *cmd =3D qc->scsicmd;
-  	struct ata_taskfile *tf =3D &qc->result_tf;
-- 	u8 sense_key, asc, ascq;
- =20
-  	if (ata_dev_disabled(dev)) {
-  		/* Device disabled after error recovery */
-- 		/* LOGICAL UNIT NOT READY, HARD RESET REQUIRED */
-- 		ata_scsi_set_sense(dev, cmd, NOT_READY, 0x04, 0x21);
-+ 		ata_scsi_set_sense(dev, cmd, NOT_READY,
-+ 				   LU_NOT_READY_HARD_RESET_REQUIRED);
-  		return;
-  	}
- =20
-  	if (ata_id_is_locked(dev->id)) {
-  		/* Security locked */
-- 		/* LOGICAL UNIT ACCESS NOT AUTHORIZED */
-- 		ata_scsi_set_sense(dev, cmd, DATA_PROTECT, 0x74, 0x71);
-+ 		ata_scsi_set_sense(dev, cmd, DATA_PROTECT,
-+ 				   LU_ACCESS_NOT_AUTHORIZED);
-  		return;
-  	}
- =20
-@@@ -1008,9 -1067,12 +1067,12 @@@
-  	 */
-  	if (qc->err_mask ||
-  	    tf->status & (ATA_BUSY | ATA_DF | ATA_ERR | ATA_DRQ)) {
-+ 		u16 sense_code;
-+ 		u8 sense_key;
-+=20
-  		ata_to_sense_error(tf->status, tf->error,
-- 				   &sense_key, &asc, &ascq);
-- 		ata_scsi_set_sense(dev, cmd, sense_key, asc, ascq);
-+ 				   &sense_key, &sense_code);
-+ 		ata_scsi_set_sense(dev, cmd, sense_key, sense_code);
-  		return;
-  	}
- =20
-@@@ -1019,7 -1081,8 +1081,8 @@@
-  		"Could not decode error 0x%x, status 0x%x (err_mask=3D0x%x)\n",
-  		tf->error, tf->status, qc->err_mask);
-  aborted:
-- 	ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND, 0, 0);
-+ 	ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
-+ 			   NO_ADDITIONAL_SENSE_INFORMATION);
-  }
- =20
-  void ata_scsi_sdev_config(struct scsi_device *sdev)
-@@@ -1273,7 -1336,8 +1336,8 @@@ static unsigned int ata_scsi_start_stop
- =20
-  	/* Ignore IMMED bit (cdb[1] & 0x1), violates sat-r05 */
-  	if (!ata_dev_power_init_tf(qc->dev, &qc->tf, cdb[4] & 0x1)) {
-- 		ata_scsi_set_sense(qc->dev, scmd, ABORTED_COMMAND, 0, 0);
-+ 		ata_scsi_set_sense(qc->dev, scmd, ABORTED_COMMAND,
-+ 				   NO_ADDITIONAL_SENSE_INFORMATION);
-  		return 1;
-  	}
- =20
-@@@ -1501,8 -1565,8 +1565,8 @@@ invalid_fld
-  	return 1;
- =20
-  out_of_range:
-- 	ata_scsi_set_sense(qc->dev, scmd, ILLEGAL_REQUEST, 0x21, 0x0);
-- 	/* "Logical Block Address out of range" */
-+ 	ata_scsi_set_sense(qc->dev, scmd, ILLEGAL_REQUEST,
-+ 			   LOGICAL_BLOCK_ADDRESS_OUT_OF_RANGE);
-  	return 1;
- =20
-  nothing_to_do:
-@@@ -1638,8 -1702,8 +1702,8 @@@ invalid_fld
-  	return 1;
- =20
-  out_of_range:
-- 	ata_scsi_set_sense(qc->dev, scmd, ILLEGAL_REQUEST, 0x21, 0x0);
-- 	/* "Logical Block Address out of range" */
-+ 	ata_scsi_set_sense(qc->dev, scmd, ILLEGAL_REQUEST,
-+ 			   LOGICAL_BLOCK_ADDRESS_OUT_OF_RANGE);
-  	return 1;
- =20
-  nothing_to_do:
-@@@ -2015,7 -2079,8 +2079,8 @@@ static void ata_scsi_rbuf_fill(struct a
-  	len =3D actor(dev, cmd, ata_scsi_rbuf);
-  	if (len) {
-  		if (WARN_ON(len > ATA_SCSI_RBUF_SIZE)) {
-- 			ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND, 0, 0);
-+ 			ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
-+ 					   NO_ADDITIONAL_SENSE_INFORMATION);
-  			spin_unlock_irqrestore(&ata_scsi_rbuf_lock, flags);
-  			return;
-  		}
-@@@ -2894,8 -2959,8 +2959,8 @@@ invalid_fld
-  	return 0;
- =20
-  saving_not_supp:
-- 	ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST, 0x39, 0x0);
-- 	 /* "Saving parameters not supported" */
-+ 	ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST,
-+ 			   SAVING_PARAMETERS_NOT_SUPPORTED);
-  	return 0;
-  }
- =20
-@@@ -3732,12 -3797,12 +3797,12 @@@ invalid_fld
-  	ata_scsi_set_invalid_field(dev, scmd, fp, bp);
-  	return 1;
-  invalid_param_len:
-- 	/* "Parameter list length error" */
-- 	ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST, 0x1a, 0x0);
-+ 	ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST,
-+ 			   PARAMETER_LIST_LENGTH_ERROR);
-  	return 1;
-  invalid_opcode:
-- 	/* "Invalid command operation code" */
-- 	ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST, 0x20, 0x0);
-+ 	ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST,
-+ 			   INVALID_COMMAND_OP_CODE);
-  	return 1;
-  }
- =20
-@@@ -4199,8 -4264,8 +4264,8 @@@ invalid_fld
-  	return 1;
- =20
-  invalid_param_len:
-- 	/* "Parameter list length error" */
-- 	ata_scsi_set_sense(qc->dev, scmd, ILLEGAL_REQUEST, 0x1a, 0x0);
-+ 	ata_scsi_set_sense(qc->dev, scmd, ILLEGAL_REQUEST,
-+ 			   PARAMETER_LIST_LENGTH_ERROR);
-  	return 1;
-  }
- =20
-@@@ -4277,8 -4342,8 +4342,8 @@@ static unsigned int ata_scsi_zbc_out_xl
-  	ata_scsi_set_invalid_field(qc->dev, scmd, fp, 0xff);
-  	return 1;
-  invalid_param_len:
-- 	/* "Parameter list length error" */
-- 	ata_scsi_set_sense(qc->dev, scmd, ILLEGAL_REQUEST, 0x1a, 0x0);
-+ 	ata_scsi_set_sense(qc->dev, scmd, ILLEGAL_REQUEST,
-+ 			   PARAMETER_LIST_LENGTH_ERROR);
-  	return 1;
-  }
- =20
-@@@ -4629,8 -4694,8 +4694,8 @@@ static unsigned int ata_scsi_mode_selec
-  	return 1;
- =20
-   invalid_param_len:
-- 	/* "Parameter list length error" */
-- 	ata_scsi_set_sense(qc->dev, scmd, ILLEGAL_REQUEST, 0x1a, 0x0);
-+ 	ata_scsi_set_sense(qc->dev, scmd, ILLEGAL_REQUEST,
-+ 			   PARAMETER_LIST_LENGTH_ERROR);
-  	return 1;
- =20
-   skip:
-@@@ -4789,7 -4854,8 +4854,8 @@@ ata_scsi_get_phys_element_status_xlat(s
- =20
-  	/* ATA_CMD_GET_PHYS_ELEMENT_STATUS is a DMA command. */
-  	if (!(dev->flags & ATA_DFLAG_DEPOP) || !ata_dma_enabled(dev)) {
-- 		ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST, 0x20, 0x0);
-+ 		ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST,
-+ 				   INVALID_COMMAND_OP_CODE);
-  		return 1;
-  	}
- =20
-@@@ -4823,6 -4889,28 +4889,6 @@@
-  	return 0;
-  }
- =20
- -static void ata_scsi_depop_ua_cap_changed_complete(struct ata_queued_cmd =
-*qc)
- -{
- -	struct scsi_cmnd *scmd =3D qc->scsicmd;
- -	u8 *cdb =3D scmd->cmnd;
- -	bool is_ata_passthru =3D cdb[0] =3D=3D ATA_16 || cdb[0] =3D=3D ATA_12;
- -	bool is_success =3D qc->err_mask =3D=3D 0;
- -
- -	/*
- -	 * For successful non-passthrough commands, raise a UNIT ATTENTION with
- -	 * the additional sense code set to CAPACITY DATA HAS CHANGED to be
- -	 * raised. Note that this should be done only if the capacity has
- -	 * actually changed, which may not be the case if the element that was
- -	 * specified for depopulation was already depopulated, or we did not
- -	 * restore any removed element. But a capacity change unit attention is
- -	 * harmless, so always raise the unit attention.
- -	 */
- -	if (is_success && !is_ata_passthru)
- -		ata_scsi_set_sense(qc->dev, scmd, UNIT_ATTENTION,
- -				   CAPACITY_DATA_HAS_CHANGED);
- -	ata_scsi_qc_complete(qc);
- -}
- -
-  static unsigned int
-  ata_scsi_remove_element_and_truncate_xlat(struct ata_queued_cmd *qc)
-  {
-@@@ -4834,7 -4922,8 +4900,8 @@@
-  	u32 id;
- =20
-  	if (!(dev->flags & ATA_DFLAG_DEPOP)) {
-- 		ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST, 0x20, 0x0);
-+ 		ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST,
-+ 				   INVALID_COMMAND_OP_CODE);
-  		return 1;
-  	}
- =20
-@@@ -4862,6 -4951,7 +4929,6 @@@
-  	tf->flags |=3D ATA_TFLAG_ISADDR | ATA_TFLAG_DEVICE | ATA_TFLAG_LBA48;
- =20
-  	qc->flags |=3D ATA_QCFLAG_RESULT_TF;
- -	qc->complete_fn =3D ata_scsi_depop_ua_cap_changed_complete;
- =20
-  	return 0;
-  }
-@@@ -4876,7 -4966,8 +4943,8 @@@ ata_scsi_remove_element_and_modify_zone
-  	u32 id;
- =20
-  	if (!(dev->flags & ATA_DFLAG_DEPOP_MODIFY)) {
-- 		ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST, 0x20, 0x0);
-+ 		ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST,
-+ 				   INVALID_COMMAND_OP_CODE);
-  		return 1;
-  	}
- =20
-@@@ -4904,7 -4995,8 +4972,8 @@@ ata_scsi_restore_elements_and_rebuild_x
-  	struct ata_taskfile *tf =3D &qc->tf;
- =20
-  	if (!(dev->flags & ATA_DFLAG_DEPOP_RESTORE)) {
-- 		ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST, 0x20, 0x0);
-+ 		ata_scsi_set_sense(dev, scmd, ILLEGAL_REQUEST,
-+ 				   INVALID_COMMAND_OP_CODE);
-  		return 1;
-  	}
- =20
-@@@ -4914,6 -5006,7 +4983,6 @@@
-  	tf->flags |=3D ATA_TFLAG_ISADDR | ATA_TFLAG_DEVICE | ATA_TFLAG_LBA48;
- =20
-  	qc->flags |=3D ATA_QCFLAG_RESULT_TF;
- -	qc->complete_fn =3D ata_scsi_depop_ua_cap_changed_complete;
- =20
-  	return 0;
-  }
-@@@ -5064,7 -5157,8 +5133,8 @@@ static void ata_scsi_simulate(struct at
-  		break;
- =20
-  	case REQUEST_SENSE:
-- 		ata_scsi_set_sense(dev, cmd, 0, 0, 0);
-+ 		ata_scsi_set_sense(dev, cmd, NO_SENSE,
-+ 				   NO_ADDITIONAL_SENSE_INFORMATION);
-  		break;
- =20
-  	/* if we reach this, then writeback caching is disabled,
-@@@ -5093,8 -5187,8 +5163,8 @@@
- =20
-  	/* all other commands */
-  	default:
-- 		ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST, 0x20, 0x0);
-- 		/* "Invalid command operation code" */
-+ 		ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST,
-+ 				   INVALID_COMMAND_OP_CODE);
-  		break;
-  	}
- =20
-@@@ -5382,7 -5476,7 +5452,7 @@@ bool ata_scsi_offline_dev(struct ata_de
-   *	ata_scsi_remove_dev - remove attached SCSI device
-   *	@dev: ATA device to remove attached SCSI device for
-   *
- - *	This function is called from ata_eh_scsi_hotplug() and
- + *	This function is called from ata_scsi_hotplug() and
-   *	responsible for removing the SCSI device attached to @dev.
-   *
-   *	LOCKING:
-
---w3AvGd+Y//DkYUt8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsQdkACgkQJNaLcl1U
-h9C1mAf+NpRQtIC3+T7H7EHIiEx4KGwFpZJYgSM5Z+zmRluO39tMRGr7KiIDelaA
-JCfTQQxVIKjn2gSRjd76aihctrhZMOKpug6EhHXLkFfNtVFjNfjWsOvQi3sYzQHT
-gDvDVWLiqUx9ajEDNGdNqPFY3+dAYDkH0l4+nF5XNOiQoRwGAtB/l8stcVGM3a0D
-NV3h3tXwxli2B9G4uMKqSxG8wz1QcWgGjp8q/aUEUBzbfehd4GAJF2BFOg1ejXjr
-Z9rCpIPksw5opQ2PNwahU+OXgXeBoaD5kNNcxFn4laHAEya9deGrF67bAcdLKhqn
-5smaizqSG9tPG9KWO6NQyfxj0pULaQ==
-=KBZI
------END PGP SIGNATURE-----
-
---w3AvGd+Y//DkYUt8--
+Ido,
+Yea I like this approach much better. Thank you for the reviews.
+I've re-tested and implemented your feedback into v3:
+https://lore.kernel.org/all/20260917-hash-bucket-route-lists-v3-0-30493a37b6eb@cloudflare.com/
+--chris
