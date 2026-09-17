@@ -1,282 +1,379 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gentwo.org (gentwo.org [62.72.0.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDC848C3E3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCF6372662
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:16:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789687016; cv=none; b=lgyjcgXD8S3p1+KB24dQK8HSIzse0uh0TThpK/glLQ3DD/wUAznpSYg26h9pfByRoq45PJQ3Dspo/B0BCoqK593aG+biuJnsbc0fGYCUZR1fUf/Ewa6CxZx6prtcjqDMhl6tooCjdsfK7ThMAdLWQHKgO0HX4klHz7nywTjRqMI=
+	t=1789687022; cv=none; b=sohoMcIU4/+lm907WIiFczaSbULBsYD59bkBS+DZEC1Umprt91ay1+76ZLKiOLEMZWSYkpv/F0oX7M5puo3KYoBKjHG/z4e9WcbPvlpdvvPOBqu4+nvPb4s+gSjnWVKDWT04NejynKoKzKEenusP5UI6wKl1v+K6QdEy8mWqmSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789687016; c=relaxed/simple;
-	bh=zMuzWcCeTgLed65SEK164iUl0lJnsZco6+lgu9cY1JE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=utCDxWH8zb+CFtR2kz4kbfX2moVja0phm+/4eff17uExfoBOyzzCqQkU/ECqx7bTSG7YwG3oGSc0Eo/tm9oD9OwRXC6JR00qOgJE7H9kbRzSWIDPEn9uSITlDrd4SaHHgYE827E5EPVh/CkjLpqBssWOPrfs0jYN3TidgSsm0MQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=O9dDXhkg; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	s=arc-20240116; t=1789687022; c=relaxed/simple;
+	bh=ghz8/Rw9QNYJf1qQYDhCazT1pB3J1010HxmP/p/ZygU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ULAaINEVJi9tZl0LbpOpaDSJVSEJ9WRJzkQkCpm1PLXg2wNoj0DCWC91Dgpp33iXeJstXncRyJN6L4jMMcm1qYHdJTK20rFbE4jEq8cNwhldeHLRx//XCmSeswFr8+576vmeSA2JEjuJmPaEcpojRwIXh56x3pIqiDh+BcZNP2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=hyNxg5e+; arc=none smtp.client-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="O9dDXhkg"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398b3b189e0so139343a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:16:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1789687010; x=1790291810; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U54GrV6tfeeuoW58jIS1gKLXAmziisaAbUtJKoV5Tmg=;
-        b=O9dDXhkgCOove+AIe1G3ccYCTmm5tKgQOnxw0cUmV2+Vl6VxDPywCgPM2nu4xdPi8N
-         X21qMwlu0zqp2JOz5tpqU0hYFddyQNFW7gTMYBkXWMIqNN820Gwmk1yLMCOmFTkRkDE+
-         STBcOYaajl7WGgQwo0ACFNlCBPTHTbTwRs8lbjDwSzGhEdFhDvkOOgfXCT08EZVS+IyB
-         FEGEOc1PjvNPe54SjExMekDctGXwU1ztf0GjLcv53LFbjnoWq7oM5ztgGeAtDjYweAH3
-         JUeiaoEQUSixrqAE+V4SJS3wwZqjWmJ92w7hyAqXUaLuC1QNH2z+SCdsNdRSusem3et/
-         5Vvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789687010; x=1790291810;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U54GrV6tfeeuoW58jIS1gKLXAmziisaAbUtJKoV5Tmg=;
-        b=Tn/8bZavUv7+XVEUoJNh/I3Dj4upon4n/PJCcQAGmoWXa1/g2KKky+hYnY81RTBY/l
-         fwSBEKGwMyzj/VXj9p5nb3xV/G1uuElidvyV4ivhUMmvRBtWCMJmKb4J66Ob04AInypt
-         dmHy+rlKjwbgCjNFcC/3lX52o/BK8n73c4PwXFn4iPs5eSBA7zPhLnX845uVCRDJPxHg
-         kI8yEOqtVqo6FTZUYGPeXXYQCMULL5/iRjJNVRwGdi4n1FGAdW6bu+qDUyTnpqW3Jf1d
-         6htFrbA9jXqtYjSVsE+Gh3ZDJ0quefvKMa99RU/tLxm0HiV9V4uUPAZU+vF9zTDafqOU
-         ZbVA==
-X-Forwarded-Encrypted: i=1; AKwUvBwgxgvmeLm42u7sxWZly+j6s7MqKXS7K2LTrnZMUCvDl3bLuo4DKQ/oLVMG0kXzXbizNywX8g05APxWNNI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfUW8S9+IQMFiRQIA35CzSqNNzncqbUSIBiydlA9I92fjsTT7J
-	0mFj3kI50J5UxwwSa4YF/nBYqntKJVTZLhyimnM2DiPLY2pZ6VELAllDcdxh6ZiR1oGLAMiCqFz
-	3Guy9VZhPcQ==
-X-Gm-Gg: AYBFou3/yr1A3rqnIfcSQsaRUAUYn3e1CK4YwCQ20UYMkQ7G0v/49SfRE1LwRk7AKX6
-	E55s33Q0SsUH0Vb6J/dZy0uxbZTPbEQUfaiqBnqrFSrZvpzML90FbTr3DjmtUNnFss2jjn8SpGy
-	/U7HnSdDmJ+5+XngIQpFWC1G4GtWAeIqNuAnzaoS+V2s+pPI7asbCMYEXc4/l+fMiqYEo3SE8ho
-	xNojZi53Q8JSqVqthaZgFUexcRHa3NaPymD5KeVZlu7sP2C94C7BXradvzfLCbVMo9FJ/jO6pCd
-	yor25129ur6H78/Og2EnDaPEXlnI6DD1p1ZFvz8ID4ls8IN3sP60/6xRBQq+qqWjr/ZDgQE1VCW
-	50aC9RA6kKo3DzQVHywyrhdgYNu5Lv3V2C0ZwSzBldmyZUi5k+RwcCK+RcX+dQZh4Byjl0okxhw
-	I+bt1+6XHuZlBwqLSgMbMUqOddbLqIaEiB9PauGxPgED5sIGp0GOhONd/fXBJcQNcW2IRalOlyo
-	lT1VRYCHQ+bQlS2e5IBbqd4BCgo4/rOYw==
-X-Received: by 2002:a17:90b:5281:b0:39e:4c7f:8b17 with SMTP id 98e67ed59e1d1-39e54cf8bc1mr1423054a91.28.1789687010086;
-        Thu, 17 Sep 2026 16:16:50 -0700 (PDT)
-Received: from MBP-Krishna-Iyer.civet-hops.ts.net ([4.7.95.218])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c13f09408sm7146854eec.7.2026.09.17.16.16.48
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 16:16:49 -0700 (PDT)
-From: Krishna Iyer <kiyer@crusoe.ai>
-To: linux-nvme@lists.infradead.org,
-	Keith Busch <kbusch@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: Nilay Shroff <nilay@linux.ibm.com>,
-	SeongJae Park <sj@kernel.org>,
-	Saravanan D <saravanand@crusoe.ai>,
-	linux-kernel@vger.kernel.org,
-	Krishna Iyer <kiyer@crusoe.ai>
-Subject: [PATCH v2] nvme-multipath: add fail_if_no_path sysfs attribute
-Date: Thu, 17 Sep 2026 16:16:47 -0700
-Message-ID: <20260917231647.79956-1-kiyer@crusoe.ai>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="hyNxg5e+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1789686427;
+	bh=ghz8/Rw9QNYJf1qQYDhCazT1pB3J1010HxmP/p/ZygU=;
+	h=From:Date:Subject:To:Cc:From;
+	b=hyNxg5e+F6s+NFz4FJfXFfK2jFI4rda8Xo1v/LokUlB9d0yk1x+Nbx+oxtJ6W8z7N
+	 4c0N1BxW6i4aOseEI76kMig3KZiA9xI6Vluy+n1lG+wVyL1HXw9LcfDRFL18CV7ZZb
+	 lIFVCqVnA67/tlcCcooPzN2jyWrWMm5D27EPX8Sk=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 5468040836;
+	Thu, 17 Sep 2026 16:07:07 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Thu, 17 Sep 2026 16:06:59 -0700
+Subject: [PATCH v4] sched: Restart fair hrtick after same-task repicks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-sched-fair-hrtick-restart-v4-1-4dd1414da81a@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIAJNyrGoC/43NTQrCMBCG4atI1kYySX9SV95DXLTJpA1CK5NQl
+ dK7m3ajIhSX7wfzzMQCksfAjruJEY4++KFPke13zHR13yL3NjWTQhZCg+LBdGi5qz3xjqI3V04
+ YYk2R101llc1KdKVm6f5G6Pxjtc+X1J0PcaDn+mqEZf1HHYEDz6QSFhC0a5pTi328D4eBWrawo
+ 3xTFcAWJRMlrMpsIws0Fn4o9UnlW5RKVJlD6ZTWThj9Rc3z/AJVJMAVWQEAAA==
+X-Change-ID: 20260813-sched-fair-hrtick-restart-ab9d3d47ef78
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ Christoph Lameter <cl@gentwo.org>, Zhan Xusheng <zhanxusheng@xiaomi.com>, 
+ Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, 
+ Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>
+Cc: linux-kernel@vger.kernel.org, sched-ext@lists.linux.dev, 
+ "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789686427; l=11342;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=ghz8/Rw9QNYJf1qQYDhCazT1pB3J1010HxmP/p/ZygU=;
+ b=JRhYZVRguBNJauAscWk2XeLIrOlB921hKlHHApT96WGyKSyPV0n6UUHs65dOPhS30Z9C21ewi
+ Bsl6pyGGz6PBYKa8bHDz8EmY/K8YNlk6hCJKoe0NyzyvHNLZpBKo7+3
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-When no usable path exists, I/O on a multipath namespace is queued
-until a path returns. With ctrl_loss_tmo=-1 that can be forever:
-during a long fabric outage any process waiting on the I/O is stuck in
-D state. We hit this on virtualization hosts, where a SIGKILLed VM
-process cannot exit while draining I/O to an unreachable NVMe/TCP
-target.
+Fair hrticks are one-shot timers. A same-task repick after hrtick expiry
+skips set_next_task_fair() and leaves no hrtick armed for the next fair
+preemption point:
 
-Nothing can fail this I/O without tearing something down: controller
-deletion takes every namespace on the controller with it.
+    hrtick()
+      -> task_tick_fair(..., queued=1)
+         -> entity_tick()
+            -> resched_curr()
+      -> schedule()
+         -> pick_task_fair() selects current
+         -> put_prev_set_next_task(rq, prev, next)
+            -> next == prev
+            -> return
 
-Add a fail_if_no_path attribute on the ns-head disk: a persistent
-per-namespace policy to fail parked and newly arriving I/O instead of
-queueing it when no usable path exists. It is enforced where a path is
-known to be unusable: CONNECTING controllers and LIVE controllers with
-the path ANA inaccessible or persistent-loss stop counting as
-available, RESETTING and ANA change keep queueing, and with no
-controllers left the policy overrides the delayed_removal_secs
-queueing window. Controller state is untouched and reconnects
-continue. Like dm's fail_if_no_path, the policy is transport agnostic.
+Introduce SNT_REPICK for the next == prev path:
 
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
+    put_prev_set_next_task(rq, prev, next)
+      -> next == prev
+      -> next->sched_class->set_next_task(rq, next, SNT_REPICK)
+         -> set_next_task_fair()
+            -> hrtick_start_fair()
+
+set_next_task_fair() skips task-transition work for SNT_REPICK and
+restarts the fair hrtick. hrtick_start() records the delay during
+schedule(), and hrtick_schedule_exit() rearms the timer.
+
+Do not restart the SCHED_DEADLINE hrtick for SNT_REPICK. Same-task
+repicks skip put_prev_task() for both fair and SCHED_DEADLINE, but
+pick_task_fair() refreshes the selected fair entity before selecting it
+again. hrtick_start_fair() reads that refreshed entity, including with
+group scheduling.
+
+The SCHED_DEADLINE picker has no corresponding current-runtime update.
+Restarting its hrtick on SNT_REPICK could therefore use stale
+dl_se->runtime and delay the next runtime enforcement point.
+
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+Reviewed-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
-Changes since v1 [1]:
-- rename fail_io_now -> fail_if_no_path; persistent policy, no
-  self-clear when a path returns (Nilay)
-- enforce inside the nvme_available_path() loop: only CONNECTING and
-  ANA-unusable LIVE paths stop counting; resets and ANA transitions
-  queue as before (Nilay)
-- override delayed_removal_secs when no controllers remain
-- keep visibility transport-agnostic (Nilay)
-- rebase onto nvme-7.3 (Nilay)
-- add Documentation/ABI entry
+Testing:
+    - HRTICK and DELAY_DEQUEUE enabled, base_slice_ns=3000000:
+        p90:  3.998ms baseline -> 3.053ms v3
+        p99:  5.144ms baseline -> 4.533ms v3
+        >4ms: 7.89% baseline -> 2.26% v3
+        >6ms: 0.309% baseline -> 0.013% v3
+    - HRTICK_DL stress-ng smoke test: baseline and v3 completed 2691
+      bogo ops with no new dmesg warnings.
+    - Also built with CONFIG_HIGH_RES_TIMERS=n, which disables
+      CONFIG_SCHED_HRTICK and CONFIG_HRTIMER_REARM_DEFERRED. The kernel
+      booted successfully; a 30-second stress-ng --cpu 2 run completed
+      without new dmesg warnings.
+---
+Changes in v4:
+  - Clarify why fair can rearm an hrtick on SNT_REPICK while DL cannot.
+  - Document the SNT_NORMAL, SNT_PICK, and SNT_REPICK call site meanings.
+  - Build tested CONFIG_SCHED_CLASS_EXT=y.
 
-[1] https://lore.kernel.org/linux-nvme/20260904032605.65758-1-kiyer@crusoe.ai/
- Documentation/ABI/stable/sysfs-nvme | 13 +++++++
- drivers/nvme/host/multipath.c       | 57 ++++++++++++++++++++++++++++-
- drivers/nvme/host/nvme.h            |  2 +
- drivers/nvme/host/sysfs.c           |  4 +-
- 4 files changed, 74 insertions(+), 2 deletions(-)
+Link to v3: https://lore.kernel.org/r/20260915-sched-fair-hrtick-restart-v3-1-7517f388f0c8@gentwo.org
 
-diff --git a/Documentation/ABI/stable/sysfs-nvme b/Documentation/ABI/stable/sysfs-nvme
-index a2f5d0710db4..57a827235995 100644
---- a/Documentation/ABI/stable/sysfs-nvme
-+++ b/Documentation/ABI/stable/sysfs-nvme
-@@ -337,6 +337,19 @@ Description:
- 		is deferred. Only visible on multipath head devices.
- 		Requires CONFIG_NVME_MULTIPATH.
- 
-+What:		/sys/block/nvmeXnY/fail_if_no_path
-+Date:		September 2026
-+KernelVersion:	7.3
-+Contact:	Krishna Iyer <kiyer@crusoe.ai>
-+Description:
-+		Shows or sets the fail-if-no-path policy of the multipath
-+		head device ("on" or "off", default "off"). When on, I/O
-+		queued or arriving while no usable path exists is failed
-+		immediately instead of being queued, including during the
-+		delayed_removal_secs window. Reconnect attempts are not
-+		affected. Only visible on multipath head devices.
-+		Requires CONFIG_NVME_MULTIPATH.
-+
- What:		/sys/block/nvmeXnY/csi
- What:		/sys/block/nvmeXnY/metadata_bytes
- What:		/sys/block/nvmeXnY/nuse
-diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-index 3d46c4f28a47..23aeb1737ab5 100644
---- a/drivers/nvme/host/multipath.c
-+++ b/drivers/nvme/host/multipath.c
-@@ -499,6 +499,8 @@ inline struct nvme_ns *nvme_find_path(struct nvme_ns_head *head)
- static bool nvme_available_path(struct nvme_ns_head *head)
- 	__must_hold_shared(&head->srcu)
- {
-+	bool fail_if_no_path = test_bit(NVME_NSHEAD_FAIL_IF_NO_PATH,
-+					&head->flags);
- 	struct nvme_ns *ns;
- 
- 	if (!test_bit(NVME_NSHEAD_DISK_LIVE, &head->flags))
-@@ -510,14 +512,25 @@ static bool nvme_available_path(struct nvme_ns_head *head)
- 			continue;
- 		switch (nvme_ctrl_state(ns->ctrl)) {
- 		case NVME_CTRL_LIVE:
-+			if (fail_if_no_path &&
-+			    (ns->ana_state == NVME_ANA_INACCESSIBLE ||
-+			     ns->ana_state == NVME_ANA_PERSISTENT_LOSS))
-+				continue;
-+			return true;
- 		case NVME_CTRL_RESETTING:
--		case NVME_CTRL_CONNECTING:
- 			return true;
-+		case NVME_CTRL_CONNECTING:
-+			if (!fail_if_no_path)
-+				return true;
-+			continue;
- 		default:
- 			break;
+Changes in v3:
+  - Drop the SCHED_DEADLINE SNT_REPICK hrtick rearm from v2.
+
+Link to v2: https://lore.kernel.org/r/20260911-sched-fair-hrtick-restart-v2-1-0d34db26ecd1@gentwo.org
+
+Changes in v2:
+
+ - Replace the fair-specific hrtick rearm state with SNT_REPICK.
+ - Restart hrticks for both fair and SCHED_DEADLINE same-task repicks.
+ - Remove the delayed-dequeue runnable-count condition.
+
+Link to v1: https://lore.kernel.org/r/20260813-sched-fair-hrtick-restart-v1-1-4230d1e18fbb@gentwo.org
+---
+ kernel/sched/core.c      |  2 +-
+ kernel/sched/deadline.c  |  7 +++++--
+ kernel/sched/ext/ext.c   |  5 ++++-
+ kernel/sched/fair.c      | 21 ++++++++++++++++-----
+ kernel/sched/idle.c      |  5 ++++-
+ kernel/sched/rt.c        |  7 +++++--
+ kernel/sched/sched.h     | 16 ++++++++++++----
+ kernel/sched/stop_task.c |  5 ++++-
+ 8 files changed, 51 insertions(+), 17 deletions(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 7885ff76e69f28e1c81d72d87e5ceef0562ccea9..4f7d2139f29d5e6a9241e0bb87369bc20359955c 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -7222,7 +7222,7 @@ static void __sched notrace __schedule(int sched_mode)
+ 			 * on_cpu.
+ 			 */
+ 			donor->sched_class->put_prev_task(rq, donor, donor);
+-			donor->sched_class->set_next_task(rq, donor, true);
++			donor->sched_class->set_next_task(rq, donor, SNT_PICK);
  		}
- 	}
- 
-+	if (fail_if_no_path)
-+		return false;
-+
- 	/*
- 	 * If "head->delayed_removal_secs" is configured (i.e., non-zero), do
- 	 * not immediately fail I/O. Instead, requeue the I/O for the configured
-@@ -1181,6 +1194,48 @@ static ssize_t delayed_removal_secs_store(struct device *dev,
- 
- DEVICE_ATTR_RW(delayed_removal_secs);
- 
-+static ssize_t fail_if_no_path_show(struct device *dev,
-+		struct device_attribute *attr, char *buf)
-+{
-+	struct gendisk *disk = dev_to_disk(dev);
-+	struct nvme_ns_head *head = disk->private_data;
-+
-+	return sysfs_emit(buf, test_bit(NVME_NSHEAD_FAIL_IF_NO_PATH,
-+			&head->flags) ? "on\n" : "off\n");
-+}
-+
-+static ssize_t fail_if_no_path_store(struct device *dev,
-+		struct device_attribute *attr, const char *buf, size_t count)
-+{
-+	struct gendisk *disk = dev_to_disk(dev);
-+	struct nvme_ns_head *head = disk->private_data;
-+	bool enable;
-+	int ret;
-+
-+	ret = kstrtobool(buf, &enable);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (enable)
-+		set_bit(NVME_NSHEAD_FAIL_IF_NO_PATH, &head->flags);
-+	else
-+		clear_bit(NVME_NSHEAD_FAIL_IF_NO_PATH, &head->flags);
-+
-+	/*
-+	 * Ensure that update to NVME_NSHEAD_FAIL_IF_NO_PATH is seen
-+	 * by its reader.
-+	 */
-+	synchronize_srcu(&head->srcu);
-+
-+	/* Make already-queued I/O re-evaluate path availability. */
-+	if (enable)
-+		kblockd_schedule_work(&head->requeue_work);
-+
-+	return count;
-+}
-+
-+DEVICE_ATTR_RW(fail_if_no_path);
-+
- static ssize_t multipath_failover_count_show(struct device *dev,
- 		struct device_attribute *attr, char *buf)
+ 	} else {
+ 		rq_set_donor(rq, next);
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 0663c00c41c04213fda2ebaf16a0bdf34e0849a8..1502a45d76aaf44079d618d8ae193c9b213fc401 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -2773,11 +2773,14 @@ static void start_hrtick_dl(struct rq *rq, struct sched_dl_entity *dl_se)
+  * DL keeps current in tree, because ->deadline is not typically changed while
+  * a task is runnable.
+  */
+-static void set_next_task_dl(struct rq *rq, struct task_struct *p, bool first)
++static void set_next_task_dl(struct rq *rq, struct task_struct *p, enum snt_e type)
  {
-diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-index e0260f4d24fd..ff886673d7ca 100644
---- a/drivers/nvme/host/nvme.h
-+++ b/drivers/nvme/host/nvme.h
-@@ -589,6 +589,7 @@ struct nvme_ns_head {
- #define NVME_NSHEAD_DISK_LIVE		0
- #define NVME_NSHEAD_QUEUE_IF_NO_PATH	1
- #define NVME_NSHEAD_CDEV_LIVE		2
-+#define NVME_NSHEAD_FAIL_IF_NO_PATH	3
- 	struct nvme_ns __rcu_guarded	*current_path[];
- #endif
- };
-@@ -1096,6 +1097,7 @@ extern struct device_attribute dev_attr_ana_state;
- extern struct device_attribute dev_attr_queue_depth;
- extern struct device_attribute dev_attr_numa_nodes;
- extern struct device_attribute dev_attr_delayed_removal_secs;
-+extern struct device_attribute dev_attr_fail_if_no_path;
- extern struct device_attribute dev_attr_multipath_failover_count;
- extern struct device_attribute dev_attr_io_requeue_no_usable_path_count;
- extern struct device_attribute dev_attr_io_fail_no_available_path_count;
-diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
-index e1e3dcfd084b..56e0ce1c9d8a 100644
---- a/drivers/nvme/host/sysfs.c
-+++ b/drivers/nvme/host/sysfs.c
-@@ -264,6 +264,7 @@ static struct attribute *nvme_ns_attrs[] = {
- 	&dev_attr_queue_depth.attr,
- 	&dev_attr_numa_nodes.attr,
- 	&dev_attr_delayed_removal_secs.attr,
-+	&dev_attr_fail_if_no_path.attr,
- #endif
- 	&dev_attr_io_passthru_err_log_enabled.attr,
- 	NULL,
-@@ -300,7 +301,8 @@ static umode_t nvme_ns_attrs_are_visible(struct kobject *kobj,
- 		if (nvme_disk_is_ns_head(dev_to_disk(dev)))
- 			return 0;
- 	}
--	if (a == &dev_attr_delayed_removal_secs.attr) {
-+	if (a == &dev_attr_delayed_removal_secs.attr ||
-+	    a == &dev_attr_fail_if_no_path.attr) {
- 		struct gendisk *disk = dev_to_disk(dev);
+ 	struct sched_dl_entity *dl_se = &p->dl;
+ 	struct dl_rq *dl_rq = &rq->dl;
  
- 		if (!nvme_disk_is_ns_head(disk))
++	if (type == SNT_REPICK)
++		return;
++
+ 	p->se.exec_start = rq_clock_task(rq);
+ 	if (on_dl_rq(&p->dl))
+ 		update_stats_wait_end_dl(dl_rq, dl_se);
+@@ -2788,7 +2791,7 @@ static void set_next_task_dl(struct rq *rq, struct task_struct *p, bool first)
+ 	WARN_ON_ONCE(dl_rq->curr);
+ 	dl_rq->curr = dl_se;
+ 
+-	if (!first)
++	if (type != SNT_PICK)
+ 		return;
+ 
+ 	if (rq->donor->sched_class != &dl_sched_class)
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 3219f0da0fe4e756132d9418874e6d93be501a4e..dd81c73b30ae0adb4083b14187dbc5b6de651a0f 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -3008,10 +3008,13 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
+ 	return verdict;
+ }
+ 
+-static void set_next_task_scx(struct rq *rq, struct task_struct *p, bool first)
++static void set_next_task_scx(struct rq *rq, struct task_struct *p, enum snt_e type)
+ {
+ 	struct scx_sched *sch = scx_task_sched(p);
+ 
++	if (type == SNT_REPICK)
++		return;
++
+ 	if (p->scx.flags & SCX_TASK_QUEUED) {
+ 		/*
+ 		 * Core-sched might decide to execute @p before it is
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 7455a83a6a9907b4fd18c3a99df707438818709b..9f2542d8fc6ea5ada813480c9e2ca329262f0ba3 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -15253,14 +15253,18 @@ static void switched_to_fair(struct rq *rq, struct task_struct *p)
+ 	}
+ }
+ 
+-static void set_next_task_fair(struct rq *rq, struct task_struct *p, bool first)
++static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e type)
+ {
+ 	struct sched_entity *se = &p->se;
+-	bool throttled = false;
+ 	struct cfs_rq *cfs_rq = &rq->cfs;
+ 	unsigned long weight = NICE_0_LOAD;
++	bool first = type == SNT_PICK;
++	bool throttled = false;
+ 	bool on_rq = se->on_rq;
+ 
++	if (type == SNT_REPICK)
++		goto repick;
++
+ 	clear_buddies(cfs_rq, se);
+ 
+ 	if (on_rq)
+@@ -15304,11 +15308,18 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, bool first)
+ 
+ 	WARN_ON_ONCE(se->sched_delayed);
+ 
+-	if (hrtick_enabled_fair(rq))
+-		hrtick_start_fair(rq, p);
+-
+ 	update_misfit_status(p, rq);
+ 	sched_fair_update_stop_tick(rq, p);
++
++repick:
++	/*
++	 * A same-task repick skips put_prev_task_fair(), but
++	 * pick_task_fair() refreshed the entity hrtick_start_fair() reads
++	 * before selecting it again. rq->cfs.curr identifies that entity,
++	 * including with group scheduling.
++	 */
++	if (hrtick_enabled_fair(rq))
++		hrtick_start_fair(rq, p);
+ }
+ 
+ void init_cfs_rq(struct cfs_rq *cfs_rq)
+diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+index eb73b65ce6c4714db1e07066c86a8cf39adbc328..76f3c84ca6846afc30609fdc512553c6797e9557 100644
+--- a/kernel/sched/idle.c
++++ b/kernel/sched/idle.c
+@@ -487,8 +487,11 @@ static void put_prev_task_idle(struct rq *rq, struct task_struct *prev, struct t
+ 	update_rq_avg_idle(rq);
+ }
+ 
+-static void set_next_task_idle(struct rq *rq, struct task_struct *next, bool first)
++static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt_e type)
+ {
++	if (type == SNT_REPICK)
++		return;
++
+ 	update_idle_core(rq);
+ 	scx_update_idle(rq, true, true);
+ 	schedstat_inc(rq->sched_goidle);
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 85303add726df4c2da846c427aab2d627fca9589..1535046a23ffa0705d90dce301fa4c5b015703a1 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -1654,11 +1654,14 @@ static void wakeup_preempt_rt(struct rq *rq, struct task_struct *p, int flags)
+ 		check_preempt_equal_prio(rq, p);
+ }
+ 
+-static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, bool first)
++static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, enum snt_e type)
+ {
+ 	struct sched_rt_entity *rt_se = &p->rt;
+ 	struct rt_rq *rt_rq = &rq->rt;
+ 
++	if (type == SNT_REPICK)
++		return;
++
+ 	p->se.exec_start = rq_clock_task(rq);
+ 	if (on_rt_rq(&p->rt))
+ 		update_stats_wait_end_rt(rt_rq, rt_se);
+@@ -1666,7 +1669,7 @@ static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, bool f
+ 	/* The running task is never eligible for pushing */
+ 	dequeue_pushable_task(rq, p);
+ 
+-	if (!first)
++	if (type != SNT_PICK)
+ 		return;
+ 
+ 	/*
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index e656c7059bf864d1ed91d4ec3d4624850aded7e0..6c08d5345b0abbd6e407ceb720ceeaab3ddcdcb2 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2621,6 +2621,12 @@ struct affinity_context {
+ 
+ extern s64 update_curr_common(struct rq *rq);
+ 
++enum snt_e {
++	SNT_NORMAL,	/* set_next_task() */
++	SNT_PICK,	/* put_prev_set_next_task(): prev != next */
++	SNT_REPICK,	/* put_prev_set_next_task(): prev == next */
++};
++
+ struct sched_class {
+ 
+ #ifdef CONFIG_UCLAMP_TASK
+@@ -2678,7 +2684,7 @@ struct sched_class {
+ 	 * __schedule: rq->lock
+ 	 */
+ 	void (*put_prev_task)(struct rq *rq, struct task_struct *p, struct task_struct *next);
+-	void (*set_next_task)(struct rq *rq, struct task_struct *p, bool first);
++	void (*set_next_task)(struct rq *rq, struct task_struct *p, enum snt_e type);
+ 
+ 	/*
+ 	 * select_task_rq: p->pi_lock
+@@ -2781,7 +2787,7 @@ static inline void put_prev_task(struct rq *rq, struct task_struct *prev)
+ 
+ static inline void set_next_task(struct rq *rq, struct task_struct *next)
+ {
+-	next->sched_class->set_next_task(rq, next, false);
++	next->sched_class->set_next_task(rq, next, SNT_NORMAL);
+ }
+ 
+ static inline void
+@@ -2802,11 +2808,13 @@ static inline void put_prev_set_next_task(struct rq *rq,
+ 
+ 	__put_prev_set_next_dl_server(rq, prev, next);
+ 
+-	if (next == prev)
++	if (next == prev) {
++		next->sched_class->set_next_task(rq, next, SNT_REPICK);
+ 		return;
++	}
+ 
+ 	prev->sched_class->put_prev_task(rq, prev, next);
+-	next->sched_class->set_next_task(rq, next, true);
++	next->sched_class->set_next_task(rq, next, SNT_PICK);
+ }
+ 
+ /*
+diff --git a/kernel/sched/stop_task.c b/kernel/sched/stop_task.c
+index c909ca0d8c87c1055ad5ffe58ae9f044194ee358..1e0109ec36b3f9b84f6f7290e584e38257db701c 100644
+--- a/kernel/sched/stop_task.c
++++ b/kernel/sched/stop_task.c
+@@ -27,8 +27,11 @@ wakeup_preempt_stop(struct rq *rq, struct task_struct *p, int flags)
+ 	/* we're never preempted */
+ }
+ 
+-static void set_next_task_stop(struct rq *rq, struct task_struct *stop, bool first)
++static void set_next_task_stop(struct rq *rq, struct task_struct *stop, enum snt_e type)
+ {
++	if (type == SNT_REPICK)
++		return;
++
+ 	stop->se.exec_start = rq_clock_task(rq);
+ }
+ 
+
+---
+base-commit: b5a051f6b840d48f159166ef073d3021989bfb50
+change-id: 20260813-sched-fair-hrtick-restart-ab9d3d47ef78
+
+Best regards,
 -- 
-2.54.0
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
 
