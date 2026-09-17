@@ -1,70 +1,73 @@
-Received: from k29.k3ae2098.use4.send.mailgun.net (k29.k3ae2098.use4.send.mailgun.net [204.220.183.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039464A49A5
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.220.183.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8F34A4857
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:37:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789681019; cv=none; b=mb2gm4E7GrhVXY5qp2tbHY/WO2+Txk0vS19DoaV32l/SGPkaaP0KJCIltFvqwgPtI45fXXWbFkHyWJPQ0rer4Xc6ttCf74Tha6q+buZcnev64iWLerC3gEWmJ6Kedz7SkwFdam5jQfnvjfRaHkQQOT6Egyjz/jo4L78616tfNR0=
+	t=1789681063; cv=none; b=Sxq2HCCQnx5V3MnZM4Vk3l5Mdm4raeuIS041WtsyLXWPwPWHpWvMhg41VDdelZsR9FolLT55HU+PzswRUMjeqiFgGuz0hC4vY3qJzgTWophrrL4DIHKOhFrXP1JKKi/+Y0ZMnLRA9zuvD8hcCRTCS6xmC24r/AGjUQ58s3mi1z0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789681019; c=relaxed/simple;
-	bh=t3N3cMXiQFEq4nhxvATM3kN0reVjqgVeSWrzjIzkV+c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tmWBK4L2vy7EhSaz0iYOE8FD3tnJUWCMuPxUY+HVlsZRVta+kUK2/WCUAAO3ZMDq9LpOALKBC5LQ7XuxsonfTGH3EjUy7V0skf2W8eXgUfPv2H40dO71YHd0u6+mdza3umAeXDggOuCRl+OOajEQdWCjl0/aLyIZjEV1ToHEyRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=equiv.tech; spf=pass smtp.mailfrom=equiv.tech; dkim=pass (2048-bit key) header.d=equiv.tech header.i=@equiv.tech header.b=mQyz4vp8; arc=none smtp.client-ip=204.220.183.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=equiv.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=equiv.tech
+	s=arc-20240116; t=1789681063; c=relaxed/simple;
+	bh=sH4Q7Iw5YnveDNiquvLz1EhMbIA/QOJ0HDEq62MmxxY=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=Ohuv7cbwkcmWp01i57z95IGsH1CAiioUFbkkBp3fKVHJGUx2r4+Jrs/bHohxKBiQNLvmoMgkgR1lqJcYvv3ybRhGsNRz8nFs+5odB0HXfDNujKikHmFOgRKpFl0nxkzn9AaIAQQH1HckLYBz54JIRww1bbCREF8QWhhf+gYWQ4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=nPZQh5CN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=equiv.tech header.i=@equiv.tech header.b="mQyz4vp8"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=equiv.tech; q=dns/txt; s=pdk1; t=1789681015; x=1789688215;
- h=In-Reply-To: Content-Type: MIME-Version: References: Message-ID: Subject: Subject: Cc: To: To: From: From: Date: Sender: Sender;
- bh=tmCjTtf74fJzZCxzPTtdpsX+Bj9MyF0VdQaJp6zwaZM=;
- b=mQyz4vp81lPA9eTLGl57xhZdJQyClHEu949fRLdpmzB/VPCZqvYdMlmCpvplLCq3/IzzwEEITSI5Rb8YYU7QFr4rx5vOzAMVodw6An459Wq8ilBR7S7ZXV5qnBgzJpLbYCYRC1JJ2OCC2Y3+vNaa6AujYFbiPzXzOHW4fzo6yKWnyiezplDYf5OvApOYWBgonZ7w4seHJEwHFNBORIiKTKDu25DMbpSdwV1oW8LNUobyp44C3OzXG3wcL9m9YyS90pRW+ZMoaNsXk7kH1nt79Ozie+1nfY9bLCJ9tkHM3jWhS6ejt6uNrxlzv5QOsXoY0b8kuXVJAPayo4w5KxHCog==
-X-Mailgun-Sid: WyI4ZWI3MiIsImxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmciLCI5M2Q1YWIiXQ==
-Received: from mail.equiv.tech (equiv.tech [142.93.28.83]) by
- 1d83990cfc41646456b83b879f462e6ff8167ee03124f26cddc22a86bca75460 with SMTP id
- 6aac5d772dfa5e6eb605cebc (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 17 Sep 2026 21:36:55 GMT
-X-Mailgun-Sending-Ip: 204.220.183.29
-Sender: james@equiv.tech
-Date: Thu, 17 Sep 2026 14:36:54 -0700
-From: James Seo <james@equiv.tech>
-To: Kees Cook <kees@kernel.org>
-Cc: Kees Cook <kees+treewide@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] hwmon: hp-wmi-sensors: Fix info_map[] allocation type
-Message-ID: <aqxddgcDH1khPlwq@equiv.tech>
-References: <20260917211338.i.682-kees@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="nPZQh5CN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5851F000FF;
+	Thu, 17 Sep 2026 21:37:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789681062;
+	bh=9od6YZgHE1EFRuh97Ngl/oK4VeeKcRGLduLjaJ5FsL8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nPZQh5CNy3BhIzqYDyFVJ4z+kxA1DnJoPD+paFsiHwVU3i2F/gFrI/sO1cT1R3NLN
+	 EoJzEX0zdpCr7YZ6yVVnkwWxQpjXfe7nzvN3JXqSaUh0JqE3a1PawT/ytytKz3648x
+	 dSmnsjLmrXoM3Ou8kRHxF1mbGUTq4May8upgtvaE=
+Date: Thu, 17 Sep 2026 14:37:41 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Alexey Dobriyan <adobriyan@gmail.com>
+Cc: Dmitry Antipov <dmantipov@yandex.ru>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kstrtox: delete saturation in case of overflow
+Message-Id: <20260917143741.7aca97b2029c23d4124f5ea2@linux-foundation.org>
+In-Reply-To: <a396f2ea-8de8-4eca-a216-ff69bc40fe85@p183>
+References: <a396f2ea-8de8-4eca-a216-ff69bc40fe85@p183>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917211338.i.682-kees@kernel.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 02:13:39PM -0700, Kees Cook wrote:
->  drivers/hwmon/hp-wmi-sensors.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+On Thu, 17 Sep 2026 19:17:07 +0300 Alexey Dobriyan <adobriyan@gmail.com> wrote:
+
+> >From 161367fd1e8b41e938274923bbb3d26de69f7a7e Mon Sep 17 00:00:00 2001
+> From: Alexey Dobriyan <adobriyan@gmail.com>
+> Date: Thu, 17 Sep 2026 18:49:18 +0300
+> Subject: [PATCH 1/1] kstrtox: delete saturation in case of overflow
 > 
-> diff --git a/drivers/hwmon/hp-wmi-sensors.c b/drivers/hwmon/hp-wmi-sensors.c
-> index 03c684ba83bd..cc193a8890f2 100644
-> --- a/drivers/hwmon/hp-wmi-sensors.c
-> +++ b/drivers/hwmon/hp-wmi-sensors.c
-> @@ -1788,7 +1788,7 @@ static int init_numeric_sensors(struct hp_wmi_sensors *state,
->  
->  		if (!info_map[type]) {
->  			info_map[type] = devm_kcalloc(dev, channel_count[type],
-> -						      sizeof(*info_map),
-> +						      sizeof(*info_map[type]),
->  						      GFP_KERNEL);
->  			if (!info_map[type])
->  				return -ENOMEM;
-> -- 
-> 2.34.1
->
-Acked-by: James Seo <james@equiv.tech>
+> Partially revert
+> 
+> 	commit 6e30111dbb4075e3c26c230417b32bc4a1c66831
+> 	lib: fix _parse_integer_limit() to handle overflow
+> 
+> Originally, kstrto* was written in a way to keep simple_strto*()
+> functions as is, so that they continue to return incorrect result
+> if integer overflow occurs.
+> 
+> Saturation doesn't do anything useful, it just creates second incorrect
+> value and potentially breaks simple_strto*() users.
+> 
+> Caller can decide to saturate itself anyway.
+> 
+> Move saturation to memparse() from where the idea came from.
+
+I don't know what this patch does :(
+
+Can we define/explain "saturation"?
+
+Should we be updating lib/tests/cmdline_kunit.c when altering memparse?
 
