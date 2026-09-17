@@ -1,140 +1,101 @@
-Received: from mta0.migadu.com (out-79.mta0.migadu.com [91.218.175.79])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB26837EFFC
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.79
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789610260; cv=none; b=uv35j+/efQJAKAehE0RYERtjYDOf/E8uriy5RAkJJMW5s7ZAO1zMj/AqXEonFRDcnm/LSHEVKOkf4MbnL3ELvWsPq2k6/DN1YPeyZINIykv57uDpSwrSrAUBkZLHU99rQpPFS2ub6+HLeVH+65hovIfzxfUjIIepGxsBNNxF5k0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789610260; c=relaxed/simple;
-	bh=VrWoURvvl56BkD3Ktx89+dTULUYId6JOYbgJrG5Pidg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LZdKx1PpHXsZlJ5iWAwEquR4RwfEMsrqZ2u9V+cLE7eWKS7iSfgf4g083y2MH9xc89rf58b0h4/BK9cc6g8pHi7uBS+aCjNI2KKjISCeGQjWOSSsrOuUk8Zswq2ZmHCWeoUfo+mznQRLN8bUpEav35FpDA7gTh9Kx7OR5PVNkmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IvVmFpi5; arc=none smtp.client-ip=91.218.175.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498D6344031
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:57:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789610265; cv=pass; b=Q0ao0VHJQhNP2iwhOtPxW6lMzpFDo3IvBT+prFGkbJTd2l0lpEu36p9QZDZSphZHy3N9xJiS2i/c0ohT1OemsRHrViZcHHzOMRuVdwrwzAHPJF/kYqAFxYQWAQkkzLntKqUucW/gYlykB7LuuXiQADvYUUdPBzlp80TXjgtf9Z8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789610265; c=relaxed/simple;
+	bh=OVuo97XMUoIoea64ilbyzme2krrsLcku+PGv1YrKHIw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EHJjVOefe4hDkHIdb8DvpjZnRxlamfRilG7oe9kS3FlN1Mfsbur1o2tVkSMPbsRlJnqvrHc7nWb/hR3ZOpYDUsll/LCFte96GcqvqoZ8TrQj8ZHBAtAnpxsm6jDTQuSP96RSko1dBI/xBAofKdfH8zciA6lSHU1y9FngFjPyiyg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=IvwhEMby; arc=pass smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IvVmFpi5"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VrWoURvvl56BkD3Ktx89+dTULUYId6JOYbgJrG5Pidg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789610256; v=1; x=1790215056;
- b=IvVmFpi5gm6zjVYLtbbr9lg0BJqZFmiYGE6R9u96uiv+zZgBX9rRI2PTwzDQ99TGPC2Gr8k0
- h0GwIYOYqq71tvwuyaAZ5BOSdJSRRzwSZbQa4b/ISXpcbp0YMXk4UTfvKfPZF7ipC/9ZoD+jmYk
- VKuQLEJzilnABROh4Jpg0KP4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1e691b0d3b488a22;
-	Thu, 17 Sep 2026 01:57:25 +0000
-X-Mizu-Trace-ID: 1e691b0d3b488a22
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next v7 0/4] bpf: arena: handle memory.max on fault-in with reclaim/OOM
-Date: Thu, 17 Sep 2026 09:55:05 +0800
-Message-ID: <20260917015618.7488-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="IvwhEMby"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b76462aae9so172349e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:57:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789610258; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kaKwqz/doujHq4BvQ5N+MG43nzeK5tUZkCBJjs/3j64cVd3Qs424RJX6e8iFnN421V
+         /GvwrUZ/oR6zOwuhQOWlDS6Qsg2s3k8Wg5MR5wi2iIwCbdNjf+yAgAz48r4e4lvVsvfQ
+         MKh8CNbdg0QDcdqiv41a0tZcRjKcIflfX0MSMcv1mNmwNjv3CSm77vbGeRJW+EYAKZ4b
+         KQzppHSv5cX/v9HzHh/S0ZDTewcYK1x+MQ6BHqw3hzvFFjFADbBT6HC7e/GTSQh/kfU9
+         Z8qdxdWCu/xR99YbiHB54PTMGh7IVG0tibR9xFPfBMsPOpqoDGNi0eKUXvPCsQ4sMiqg
+         aWHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=OVuo97XMUoIoea64ilbyzme2krrsLcku+PGv1YrKHIw=;
+        fh=YClbOjYgM6MnOo8S6Xa5gjnIOPFl6R3M5PHhkdEuqtM=;
+        b=IZOqMP985/4cSt+DFFExJK/MYenwUS74RstywasRnF2B5ewQV8SFdKQB9W0f4/DQ3B
+         MaPujINdigrd/4W5F8ljXu2s9iMpvu8HIua+6Z+RZI/IOsrn32bIQ3MHHZTGDMSY/7wN
+         E1L5M7GskvFNAQK9dLe5yEZgQiXsMtzoy1pCF55EA8eFm90douOnXVtpAnTJQz/JwPVr
+         OiG7p+Hnx+YiL3Kc3HamuOiuzNXeaEK7jIFWBo9orO6jx/oFLJJ8/41j9+Xvgy9MSXut
+         si2gQ+/U/Knl9X+UDiC6G3tLAOeDTV8fUlfx8tVSEEeey6yHuPlSOaugoP1Q5lsL49uJ
+         ap8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=khu.ac.kr; s=google; t=1789610258; x=1790215058; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OVuo97XMUoIoea64ilbyzme2krrsLcku+PGv1YrKHIw=;
+        b=IvwhEMby4OtlMHgVR9TStFBs0e01NjyFym2BEDERnCJgRiV/uzAS/Pl++24MjhqE+/
+         AaDvcpfvFk5QKQ3kTYJOqzbC/5voIkAUJKtiRG/d6RgMk+7zdCG8R6JfiTkHMuYM5Rld
+         0qnx5FhwUfTALpeakjIYRyFJBrGHwZi6Nx7MU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789610258; x=1790215058;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OVuo97XMUoIoea64ilbyzme2krrsLcku+PGv1YrKHIw=;
+        b=KTR5vdprx6Ue9XuD8hXoHnYqwprVVr3Rb/aqDgL5J3FxeAnpCOFotYR2nZffc+stMo
+         Llq71NOMWsfVpoT0I1Lq0/c9dyX7hwj+8utrrLj3/BivH+UIHGBY1HFK2ea1LVPYX8pw
+         1EEyhgw2W9p2RL0F3RG5BYtFR9PAIW+vl4FtuQeRucIe4yDgKB7PPw8rHoO9MFq1o0C3
+         BTQjfpFhpb0RuVUZU1GxWs3/6ZwWHPxqOMk0KL8v/v1QBnqY+I0PTUqKYka8+aL4YazE
+         3c4Kq+TIlIU+QYroIv5mkJNvvDtEGtd2hsbsjRG0yhCUbHMY0Z4SbGh4EvCw/s5IsEyR
+         wsnw==
+X-Forwarded-Encrypted: i=1; AKwUvBwaaizpSsdVavlI6TIMvWYcT3ubx+Mk8b3mZywJm39Ghb321ZvBADCJ8MeeE5eFj5eJsqAIvUoWhmYMHVo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFOiNQiVY5eJJ1AN2YUrs+GFWX5qjaKmu0OdH6RPDhotYRennU
+	JscujNCnZjfEyS17YCxUafoUiSrOTXtOVf5UeEIpFinKkLZ8a9I/AelLmKYbqN6MtEQXcokXsxB
+	MJeXsQO9+HG/UlBc2BOZa55BDS0AgbJ2HkAkn7GP6oQ==
+X-Gm-Gg: AYBFou3BvwBJ/5RvRIv7omZJlLYxDm+dPbXqQyrubOSn91Ll4CaihW8A/PyDcUJbKgm
+	ZQmbGYhB1TseKnJVmrlY4Zqwx1Qhb93hBJ+xv37mo+0i96VTGY5fiNZ1VoOMjW8qIn4FTLc2HtC
+	m1D5a7h5wROHPqWm/0qyJYx5gjvzSZ3rQjh/7brswoiklltyqJKwKvQgjtNSLbkVvpp0s9a71fe
+	xgDRMNp2d2ziAJ7lHGHCuYVVSmVuNA3GD8dbfPpQsRkI+CC29azFjllcfoaHmXEeMsiRW0ATKlE
+	ZcgNnoBCk0n5nXLjL3MLgaIJ7EN+xu7ov51A7PJxpDu+vofAn2AY1Ps=
+X-Received: by 2002:a05:6512:251f:b0:5b6:4ae:5b82 with SMTP id
+ 2adb3069b0e04-5b8b6649be0mr1252947e87.32.1789610258067; Wed, 16 Sep 2026
+ 18:57:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260913-codex-rtw-rx-v2-v2-0-f09c964e0b96@khu.ac.kr>
+ <20260913-codex-rtw-rx-v2-v2-1-f09c964e0b96@khu.ac.kr> <de086af71cc346d9ac8ca4e7bf8787e0@realtek.com>
+In-Reply-To: <de086af71cc346d9ac8ca4e7bf8787e0@realtek.com>
+From: =?UTF-8?B?4oCN6rmA7Jqw7ISdW+2VmeyDnV0o7KCE7J6Q7KCV67O064yA7ZWZIOyghOyekOqzte2VmeqzvA==?=
+	=?UTF-8?B?KQ==?= <5mghybrid@khu.ac.kr>
+Date: Thu, 17 Sep 2026 10:57:24 +0900
+X-Gm-Features: AcwNN1WIT0733jVhCBZTpclD_qLBOl00l4tmau6fIT9YXpXIFhaoVivvV1ifv1w
+Message-ID: <CAH1Bc_xaD2kjBRp7aVjmAcz4Pv=zK2Tx7ro38UsdZZtXRY3Oig@mail.gmail.com>
+Subject: Re: [PATCH rtw-next v2 1/4] wifi: rtl8xxxu: free RX skb when URB
+ submission fails
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, Jes Sorensen <Jes.Sorensen@gmail.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Since commit e66fe1bc6d25 ("bpf: arena: Reintroduce memcg accounting"),
-arena pages are charged to the memcg of the process that created the arena.
-That exposes a problem in the arena user page fault path: the fault-in
-allocation runs under arena->spinlock, so it can only use the non-blocking
-allocator, which never reclaims. Once memory.current is at memory.max the
-allocation simply fails, even when the memcg is full of page cache that
-could be dropped right away. Reaching memory.max is completely normal for a
-healthy application - e.g. reading a large file fills memory.current with
-page cache - and the process then gets SIGSEGV on a perfectly valid arena
-address.
+Hi Ping-Ke,
 
-Preallocate the page outside the lock (patch 2), the way do_anonymous_page()
-does, so the allocation can sleep and reclaim. It never invokes the OOM
-killer: the page is charged to the map's memcg, which need not be the
-faulting task's, so an OOM there could kill unrelated tasks in the map's
-cgroup. On a genuine failure the fault returns VM_FAULT_SIGBUS. This needs a
-sleepable allocator (patch 1), because bpf_map_alloc_pages() can use the
-non-blocking allocator, which never reclaims. patch 3&4 adds a selftest that
-fills a memcg with reclaimable page cache and faults an arena in under
-memory.max: without the fix the child gets SIGSEGV on a valid address, with
-it the fault-in reclaims and succeeds.
+Sure. Please use:
+Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
 
-
-v4 -> v7:
-   - Simplify the implementation: do not aim for OOM anymore. An arena is
-     shared between processes and can be shared across cgroups, so the OOM
-     killer is the wrong tool here - it would act on the map's memcg, which
-     need not be the faulting task's. Only try to reclaim now, via
-     __GFP_RETRY_MAYFAIL. Everything else is kept as before.
-   - selftest: changed accordingly - fill the memcg with reclaimable page
-     cache and check that the arena fault-in succeeds by reclaiming it,
-     instead of relying on an OOM kill.
-
-v3 -> v4:
-   - rebase bpf-next and fix conflict
-   - add Reviewed-by tag from Emil Tsalapatis
-
-v2 -> v3:
-   - selftest: check the memcg OOM via memory.events "oom_kill" instead of
-     the exit signal; it only aims to pass on the fixed kernel, since the
-     unfixed SIGSEGV is racy.
-
-v1 -> v2:
-   - Rebase on the separate deadlock fix (found by the Sashiko AI review),
-     now applied to bpf-next.
-   - Honor the map's NUMA node on fault-in.
-   - Return VM_FAULT_SIGBUS for the non-recoverable faults (lock, range-tree
-     and page-table failures); a scratch-page hole stays VM_FAULT_SIGSEGV
-     only under BPF_F_SEGV_ON_FAULT. (Kumar Kartikeya Dwivedi)
-   - Add read_cgroup_file() to cgroup_helpers instead of open-coding the
-     /mnt/... path in the test. (Emil Tsalapatis)
-   - Dump the cgroup memory stats on test failure to ease debugging.
-
-v4:
-https://lore.kernel.org/bpf/20260821050250.35112-1-jiayuan.chen@linux.dev/T/#t
-v2:
-https://lore.kernel.org/bpf/20260805091720.139924-1-jiayuan.chen@linux.dev/
-v1:
-https://lore.kernel.org/bpf/20260727062521.376231-1-jiayuan.chen@linux.dev/
-
-Jiayuan Chen (4):
-  bpf: Add a sleepable page allocator for map memory
-  bpf: arena: allocate the fault-in page outside the lock
-  selftests/bpf: Add read_cgroup_file() to cgroup_helpers
-  selftests/bpf: Add a test for arena fault-in under memory.max
-
- include/linux/bpf.h                           |   1 +
- kernel/bpf/arena.c                            |  86 ++++++--
- kernel/bpf/syscall.c                          |  28 ++-
- tools/testing/selftests/bpf/cgroup_helpers.c  |  67 ++++++
- tools/testing/selftests/bpf/cgroup_helpers.h  |   4 +
- .../selftests/bpf/prog_tests/arena_memcg.c    | 196 ++++++++++++++++++
- .../testing/selftests/bpf/progs/arena_memcg.c |  23 ++
- 7 files changed, 381 insertions(+), 24 deletions(-)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/arena_memcg.c
- create mode 100644 tools/testing/selftests/bpf/progs/arena_memcg.c
-
--- 
-2.43.0
-
+Thanks
