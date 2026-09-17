@@ -1,84 +1,80 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E7D1448E0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D30A30E85D;
+	Thu, 17 Sep 2026 01:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608386; cv=none; b=uTuCQVqilJ1l7ZNI169ZjxfdNFbG8ikG1zKx41PO/7kRmRaLh+yJDEJqtVB4vEWx3/S1veUcqbBavIWZBcNkBNk+CETC+ylXyCOmeN86ira9VzD0+lzkMgJJCCaDkAAvfQQX2OGRdswRoFtckz8qamx3GoDoOD30gG6Yu62bPNc=
+	t=1789608420; cv=none; b=arKhv8PZpJGK25hsH7SJBRjHCilE6WceUmK1fbe043i4yXuP3y9XrUnw/A228Lqcv5NceOwVCc5u1sgBC2dK6PwCQUy7GWzN/BWxHjBCD+NxNBKo81mVLhyWXb34TBblBJ4d/15UCEdejhUTczXegGe9e4LNuEhN704nR6D7zcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608386; c=relaxed/simple;
-	bh=Iwg1o8xrjdDAaqXLF1g326tRg46pawtn9ctQd5koHlA=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=npqyTDX61hLLt17qJOoHS0Rv5Qs1Niu83Ox1sfMrGYcrYYBXRlpFrDGvDZm3kNSv4KlHpVyNbKT+3axGi5FMuGsPnrXZOm3HvA2bQGnILuTLvJv2CI/xRuU9g8iUKjQRnsPXBPKs0zAKa+2vhw+uk2RyBCjAnswh8MPcFYNbCPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28dafb8e1so620085b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:26:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789608383; x=1790213183;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6bhjM9tsttQJijG6S5/dISBKB3H8JDI8AFC6jULLqi4=;
-        b=klQdS1jyQdPM5vXmTdzi4ApIeO0rNmBNcQCv+drlYR8od4fIpH9iOK8YUvQKaemMcO
-         xgM5cGGCwEc7Q6YDT2Xg6Ays5JKMdEkPEd0yU8lRNnv9ScZI9YR5kT4Mpdx7kuhy3UPA
-         6hXHYSImHPdkIra2Q/tuAZeo+fTQoB10O0J57hoEYRNMvW8/mkT+b+GUphwt3/ctTVjc
-         SMMdPrnb7JTmjvAfswb69Bs8Y3g9DLLOMiJ9TiAwd+PxiBtBgaNcV/jIxIgmOo5kErUw
-         ITYh+Oy0Sls1CtifPvWtQ9vMVipbbnW2ht9+Z0tI/iGOpcVBqqzz7Tw4GC7uQWHzhVsg
-         Xktg==
-X-Gm-Message-State: AFuF++mgKt74DAgSEiq70usEP6qqDRAwiO/0ljuu/0ar+Mxz1kwxmZE4
-	G3wym0MkVTosfj/APv2TLWVn6gt4jgUOrrNmUzWockza8qfED8jjo7ooEIvflNxAaqOPdtNxOlh
-	nK8+0XU1j6JAsN3nU50QIWrE1PpKhgTpEn+FCw0T8erBj7an02KKB3fkOQfI=
+	s=arc-20240116; t=1789608420; c=relaxed/simple;
+	bh=cBp5GIMyxCsKFy3UwdUrKY6HCKiImUb1JXgoTTrwaho=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gwK/z4cZl47YZsoGZAxTg/Hbf493cF5oH+0EvtiNElk3MhwpoobbUZBaCTY6q3glpfXodBlmivdXWQ5dZOFfZhS5U6SYUZLKJ/JpqApXYvYpC7ca/ZeYsm2ymhcNlt/w9JrJX+HAloAMN6V7aXjpPEfXJE0XxUTh93VJT8x/VUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NRDo5fsT; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NRDo5fsT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B981D1F000FF;
+	Thu, 17 Sep 2026 01:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789608418;
+	bh=6OMNz3CzLTryMajvI16kLuSSdViwFTIviZ5J9O+nTJk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NRDo5fsTaWRBzlfqECIeSUYrTQGoI8rKKgDF7QPrWg4KSFgezopRMNebgitb/ys4Y
+	 lB2PcCpQXn+qRrwjlqQ8e5xUsGils15XgZC3/RholiTa6vC8JlM6mz5HVNG+AK0vVT
+	 wAm3KSMkrtQS9obmQfH45lt6NgT40qF8kMlwaT9xo0f+UFRWkVxk3qX9udWoSZEnEu
+	 y2eicZ+QVDTYWkt/m6lgjEhzroBnwJDB4r/cFgjswaOdm2H/Tv/AuICCK7lScOEpNJ
+	 vbwIDUimWyEsRyGBpP32cTpMiRi5Sp4UqrFTmQDwutvIeoAW7dMzhcQENfN+IG2/k8
+	 JHqqP7nUm0HiQ==
+From: SJ Park <sj@kernel.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] mm/damon/tests/core-kunit: test the size charged for a filter-trimmed region
+Date: Wed, 16 Sep 2026 18:26:51 -0700
+Message-ID: <20260917012651.101228-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260917003553.2465523-3-donggeunyoo.kernel@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:5090:b0:4c5:e178:2a4e with SMTP id
- 5614622812f47-4ca4c17f285mr6357370b6e.20.1789608383788; Wed, 16 Sep 2026
- 18:26:23 -0700 (PDT)
-Date: Wed, 16 Sep 2026 18:26:23 -0700
-In-Reply-To: <6aa4a377.f81106d8.2ab401.0024.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab41bf.b398a7c9.1f86be.0004.GAE@google.com>
-Subject: Forwarded: [PATCH] WARNING: suspicious RCU usage in expect_iter_name
-From: syzbot <syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On Thu, 17 Sep 2026 09:35:53 +0900 Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
 
-***
+> damos_test_filter_out() checks that an address range filter splits a
+> region at the filter boundary, and stops there.  Nothing checks what
+> damos_apply_scheme() then charges to the quota and reports as tried.
+> 
+> damos_test_apply_scheme_filtered_sz() covers the two ways such a filter
+> trims a region: one that starts before the filter's range, and one that
+> starts inside it.
+> 
+> damos_test_apply_scheme_filter_sz_unchanged() and
+> damos_test_apply_scheme_quota_sz() cover the cases whose accounting must
+> not change: a region wholly inside a reject range, one wholly inside an
+> allow range, two filters trimming in a single call, a filter type that
+> never splits, no filter at all, a region the quota trims, and a quota
+> remainder too small for one region.
 
-Subject: [PATCH] WARNING: suspicious RCU usage in expect_iter_name
-Author: jchuang26@m.fudan.edu.cn
+Thank you for adding these tests!  I to be honestly would prefer making the
+code shorter, but I wouldn't block this.  We could cleanup later if it turns
+out causing real readability issues.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git master
+> 
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-Reported-by: syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com
+Reviewed-by: SJ Park <sj@kernel.org>
 
-diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
-index 9b4e29557..d2ce1cc1a 100644
---- a/net/netfilter/nf_conntrack_netlink.c
-+++ b/net/netfilter/nf_conntrack_netlink.c
-@@ -3390,7 +3390,14 @@ static bool expect_iter_name(struct nf_conntrack_expect *exp, void *data)
- 	struct nf_conntrack_helper *helper;
- 	const char *name = data;
- 
--	helper = rcu_dereference(exp->helper);
-+	/*
-+	 * This runs from nf_ct_expect_iterate_net() with the
-+	 * nf_conntrack_expect_lock held.  A helper is only released after all
-+	 * expectations referring to it have been unlinked under that same lock,
-+	 * so the lock (not an RCU read-side section) keeps exp->helper valid.
-+	 */
-+	helper = rcu_dereference_protected(exp->helper,
-+					   lockdep_is_held(&nf_conntrack_expect_lock));
- 	if (!helper)
- 		return false;
- 
+
+Thanks,
+SJ
+
+[...]
