@@ -1,81 +1,152 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3EED4E50C5;
-	Thu, 17 Sep 2026 08:00:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A3132B13F
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632011; cv=none; b=UkJleTjXS8W8QSO+95a0YPWLHyfkBTY3ID1uzSg7lEcAbJttG8vz/u8BGUilG749tHnZrthvydLD0X7JNmbN7QIXj9PmqM5706Lszug+TLkUN2obVsoActZXLygDg8sSkSRR3TuIYVF+GEoeMIsnwOERY2m09eb1Xbl/a4xR5y4=
+	t=1789632011; cv=none; b=cvBF6cEWb6z0QziEgnMysw9UWpR+45M+z/D/jeyQHsylXz7cI4a7mnDVxrPnWpWwYocLiNC+YBcmeKF6Di7ltCabuIlWVFV9MTFNe1UxS/iUBE3ThvMZ//N1UvctYXBwPIMEkYZIqbQFVMBziCWN5SJeSBw02F6whsAs1jiFsjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789632011; c=relaxed/simple;
-	bh=bK1heq2iTwxS2TSzMTf75BnqQiCXKeCGgjqyPJctAy0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=D2GgVdotHmyC3xllpExN9wIwxudQ5O9C1yjN5mKGaeu9x9nMwWq4Pp0h8ETVHBs83Qw/dYidpn3vYeqxFskPgfUQUvZGWRa0xVf7MWd+85ERrPzyeeqXpkMMkcWOjehnHrixB9QZYLCNPJUpMYq+mgfdVWkeh4vLAUNHMImXtZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Uo7wXIjD; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	bh=96SmEBMpH/wqIXtgKcP04dOn4OMx0kaCIPIVm7vT7qg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IYFrxQH6d4H0wNKpsHksjm0x3eLq5hCFMBtOun5lsV0fJvdKYSrAXpZ89/ENBxwXhYCHprSqzgGSWpVLA7OsWhCo1o0kbJc+r2ba2nJAGJ4vibL2RUINoGE01sRqL1L9Dv2HcoBiFtEn0g7rrqog2ZaJyq5Kk5EMzFcxAobMG24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NxQNvtq5; arc=none smtp.client-ip=74.125.227.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Uo7wXIjD"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68H7xhzO73116695, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789631984; bh=bK1heq2iTwxS2TSzMTf75BnqQiCXKeCGgjqyPJctAy0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=Uo7wXIjDWIiNEmcDADrZT0qFVmt9I5/PTLhiJvUveFjI0GE7RQ8h3BxhIefqKr3+4
-	 JpuXm/KfzKMhAZi01wLhege7esklnTwrOVObvUpRAX4clsd4Cluw+3mt/sIx6tq5Rb
-	 vFCPfjNAAlof5LaOSqcK+GS9wa2b6SiUi87Q91ZGzXAhplLugQizSLxtcAxLNI1Gfg
-	 lXvtkhvU1gQ+YBSoer9Pplz1WCsQ0U2CS5drRvL++T8EAX2lEJneWpFf3Cp2kYYNMT
-	 0DUhP2XyEUF6fQA4fjuburrSwP+lg1uReeoLAZRrZiCHwP/PkuhcxxbEWYkvdRIUOs
-	 vRajXvNryuOew==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68H7xhzO73116695
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 17 Sep 2026 15:59:44 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 17 Sep 2026 15:59:43 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Thu, 17 Sep 2026 15:59:43 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Alastair D'Silva <alastair@d-silva.org>, Kalle Valo <kvalo@kernel.org>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] wifi: rtw88: sdio: Fix unhandled RX request interrupt
- storm
-Thread-Topic: [PATCH] wifi: rtw88: sdio: Fix unhandled RX request interrupt
- storm
-Thread-Index: AQHdRZjHlTD58hEpHEaBWkK5Af0sf7bSYOjA
-Date: Thu, 17 Sep 2026 07:59:42 +0000
-Message-ID: <ea3434d849b34a4286b0a193351a610e@realtek.com>
-References: <20260916040635.205094-1-alastair@d-silva.org>
-In-Reply-To: <20260916040635.205094-1-alastair@d-silva.org>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NxQNvtq5"
+Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2d747f0135fso5205185ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:00:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789632009; x=1790236809; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=scFjHYyfb0SgwjNAVVjkYsuuibhuV8HJMFO5s2VNqw4=;
+        b=NxQNvtq58YFqjoF00FXiWfe6CAwEJoqeBfVmNEJjb9lwetdA0PoMM2nHSAokyLoPln
+         n7lr5BcePoUvmaLgeDAPpo93X53PrCC94pGbeKyZkfHF9svbOWRauu77ZoiYmoNwm2qw
+         JTV8TKNw3QFu8yjx96HEk4mGn/BtP2swE1PRrofc0aweUcKPRo6BrkL/Ddzo3SdeH9rC
+         Uh2bO280WIfWN6nNFv0ULLC1xxrGg2Ym//Ix9lP0AZHRBLkFLCoMybOLaLCuolvtkooO
+         GeHpZ5hQDdXJs1rlQHJ0/Qaht8CLXM3+P37rZF3iIHrZJSgT3w4SgjD44y4tv0iYjIPZ
+         8Lpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789632009; x=1790236809;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=scFjHYyfb0SgwjNAVVjkYsuuibhuV8HJMFO5s2VNqw4=;
+        b=Dy6FXutAlxKKW0hLn7ctem+VlzIassSii5eWYY5K1JSiSzwBMfrTyzRG0VmDs+PaBa
+         CQInTzuxfmkFIYj4FzwSqbmsG3BL1I5QFqh5XlZYyKI306dkHN5RF53+D/us9dk6vP2w
+         oDjv0A/TAnQT4H0RSHi9RIOuVGGbBfAKr1a+iLoZitfwPaHxn24rumeVwHkI/LByVBzD
+         NOQ13IxKjVUURre9Ra6lhEe3UFqdcoy9zBiTcSk3ZM5lxvVNbzi+ocH77Vsyc5UOWs2d
+         o1CarswlUdoSAoTBxw9EhJ6xQTH087Ji6Y8hLZBrkvzmJvkVyrPth99dK2uxxToUyA6G
+         Vd3w==
+X-Forwarded-Encrypted: i=1; AKwUvBwAi/O0pKCaSN4Y7/bbNs16yPqHoA4ptzcE2FZO3F4VGWMKChPjiZfRzvIp2ILcckWr+TZ42YFTNwUz0Xs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAPpgS+PKofpzXrS1ffI2k+/qJq/POhbhEroGH1VIjQ5SWHf1G
+	zEpAuqlcORgvNVjJSI1k9dz5YcJ9UGVJzrsh923Eqeizz+1z2DZxem32
+X-Gm-Gg: AYBFou1I8w0fc977eKSivc2HK5I5M5AnD+ujXbghjqgB0pKI/vyYkQPf7WnidhnQDQ1
+	TRuQiFr4/ZN3+UAxBI58PW+aTbTKS1+/5OPgkCC5Sl3QdjgTR8+SMwd01nC+4uPFA9x7gLoxxqk
+	/wYhL319KmzG2H3JOyIiCd+EF+YIT/vpxgd4AWjUwtwdEiRBP1M2YUF2Lv8mAZlIlsg9pJXZf+q
+	kYCn8rzxXC9J8ZBDKi1aY4yUzt7v7f0DEWkljKPfXI1jEdp/SCJLgxeMSjIXzYWfviXutFBStwJ
+	gZA5tl+ylJiY4gRUvRmufN7E5PvhWf1zWOikjzCzZmUevIItgW9bae9o0yJehmCSaaH1pZvPbN/
+	MKWOVCQ7VbE27mLCgT4C1fSCP7tgZb4Vtzk7jPZDlDtCLcNiGdH8TofLFsM1b0bAS0qoNy5gmTm
+	XJXCmiehDx+F/tetiKi0r2GNdwlfsIJ3FxaPIEIi1CQL3ztOut6J7UucN1KEhax1jn3wO6EIdrx
+	zpzSqCMkninbDaBAU9+uli9gg==
+X-Received: by 2002:a17:903:4b0c:b0:2d9:2149:57c0 with SMTP id d9443c01a7336-2dd8e7a2c5cmr128507045ad.22.1789632008976;
+        Thu, 17 Sep 2026 01:00:08 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5b2753csm26539542eec.31.2026.09.17.01.00.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 01:00:08 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] tools/thermal: fix typo "binded" in comments
+Date: Thu, 17 Sep 2026 13:30:02 +0530
+Message-ID: <20260917080002.23952-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Martin,
+"binded" is not a word; the past participle of "bind" is "bound".
 
-Alastair D'Silva <alastair@d-silva.org> wrote:
-> In rtw_sdio_handle_interrupt(), the HISR status register is cleared using
-> Write-1-to-Clear (W1C) semantics. However, the driver masks out the
-> REG_SDIO_HISR_RX_REQUEST bit in the local 'hisr' variable before writing
-> it back, causing a 0 to be written to that bit.
+The tmon.h comment counts cooling devices, so the noun is plural there,
+matching the wording already used for MAX_NR_CDEV_TRIP.  The tui.c clause
+needs "is" to read as a sentence.
 
-I feel this patch makes sense.
+Only touches comments, no code changes.
 
-Did you remember why you clear the bit locally? Can you share vendor
-driver you referenced?
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+Randy, your Reviewed-by was for the v1 series; the two hunks below changed
+after it, so please say if you would rather I dropped the tag.
 
-Ping-Ke
+v2: tmon.h: "cooling device" -> "cooling devices".  Randy Dunlap pointed
+    out the comment counts devices, and MAX_NR_CDEV_TRIP just above it
+    already uses the plural.
+
+    tui.c: "is bound to" rather than plain "bound to".  v1 left the
+    comment reading "trip point id that bound to this cdev", which is
+    still not a sentence.
+
+    sysfs.c is unchanged from v1.
+
+v1: https://lore.kernel.org/all/20260907064725.10686-4-hemanth.selam@gmail.com/
+
+ tools/thermal/tmon/sysfs.c | 2 +-
+ tools/thermal/tmon/tmon.h  | 2 +-
+ tools/thermal/tmon/tui.c   | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/tools/thermal/tmon/sysfs.c b/tools/thermal/tmon/sysfs.c
+index cb1108bc9249..5d64aff12a86 100644
+--- a/tools/thermal/tmon/sysfs.c
++++ b/tools/thermal/tmon/sysfs.c
+@@ -225,7 +225,7 @@ static int find_tzone_cdev(struct dirent *nl, char *tz_name,
+ 				cdev_name, cdev_name_linked, cdev_id);
+ 			tzi->cdev_binding |= (1 << cdev_id);
+ 
+-			/* find the trip point in which the cdev is binded to
++			/* find the trip point in which the cdev is bound to
+ 			 * in this tzone
+ 			 */
+ 			snprintf(cdev_trip_name, sizeof(cdev_trip_name) - 1,
+diff --git a/tools/thermal/tmon/tmon.h b/tools/thermal/tmon/tmon.h
+index 44d16d778f04..b7767056f189 100644
+--- a/tools/thermal/tmon/tmon.h
++++ b/tools/thermal/tmon/tmon.h
+@@ -77,7 +77,7 @@ struct tz_info {
+ 	char type[256]; /* e.g. acpitz */
+ 	int instance;
+ 	int passive; /* active zone has passive node to force passive mode */
+-	int nr_cdev; /* number of cooling device binded */
++	int nr_cdev; /* number of cooling devices bound */
+ 	int nr_trip_pts;
+ 	struct trip_point tp[MAX_NR_TRIP];
+ 	unsigned long cdev_binding; /* bitmap for attached cdevs */
+diff --git a/tools/thermal/tmon/tui.c b/tools/thermal/tmon/tui.c
+index 7f5dd2b87f15..dbc3ca95c724 100644
+--- a/tools/thermal/tmon/tui.c
++++ b/tools/thermal/tmon/tui.c
+@@ -238,7 +238,7 @@ void show_cooling_device(void)
+ 				unsigned long trip_binding =
+ 					ptdata.tzi[i].trip_binding[cdev_inst];
+ 				int k = 0; /* per zone trip point id that
+-					    * binded to this cdev, one to
++					    * is bound to this cdev, one to
+ 					    * many possible based on the
+ 					    * binding bitmask.
+ 					    */
+-- 
+2.48.1
 
