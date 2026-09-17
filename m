@@ -1,101 +1,97 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822434B95A2
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AA24B4893;
+	Thu, 17 Sep 2026 10:00:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639222; cv=none; b=D7v09v8xcH1NsiBgpdySEBmDHvd+q5qeREjTw02RYSO8zgLy9lGvQHMWXcO/doUDozzbldyxb//5BE7wXnPszG9xd/GQ0YIwFdud8/z5l12rOZ7eHWDRBQohWuyY3I2D+5xya7NnBFjRHBxo69P29DMyA8JR3FLIxzZqgUJUv0o=
+	t=1789639236; cv=none; b=TNRne5JSJkUMyY1WH6xy5TNwU1i2Ryl7I4+m9+VsOUjBCMw3xDEeLrmVm+vSPMuLN9cJOaYIoaqQ6JBqdlZ23FaUawKyDCYPAyYVOJ40QUfLD5yjeWiE33nQvUVsSqt+EEsCzt++fo53F3D82rpEDoNFwBppF5rISmCqIRJ42aQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639222; c=relaxed/simple;
-	bh=paeQyicGy4uOJnj9MMiYfbfBIScuQX5Dy7auLPzshnU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H+dBzqsjrX4gYtQhm95cvo260ZcopWvN9UJ/sZZQGy3i+Ku/HCaqwRObUhsSMVVGwrxuvs8pepioyL1MYHprPSOjMn0bIj/y4sDLCE+GpjymrSvzoX6dYDh8coLb+QmBHdteH4IzkzcjoEN79DtL/edrHEbKlFeQg1d0cqY+cSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c83be8db39so363720e0c.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:00:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789639207; x=1790244007;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PgwBsZe/a4Fuzb0Py083b181bySHfV18F3y848rFS0s=;
-        b=bBbgGH21uKynQRsHjMQQ4y0Dzyz9LR69yZeXnObTIszhL6cgkErIQPKNKEx9rx0LK+
-         1JsTT6sYRxP1UplWkrR3q+Cv25oNyBNi6faFXVrij4W4TKs4/T007QhArAbfJnmQ9c16
-         96uTf2DSnQI7lrG2ZjNnkkGV0uJIWrhVjDRJrAsat2bEL5NWMuKYa0Yrm19vF1FvYBFR
-         vjf6GgEoDSGycIjEvvcXJZ0Soou2mAIlFhU3/Jg3WB2LwLUZS2jLIq1BZjvO/FkBnv9y
-         gm1+X0F5uHzM9khwPf1Nxty3yy17shrH6AQhZuPXkrZ72BrAUqg/DSGgaY1ftHufAbvx
-         5HZA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKnkDac1DbrX+Clshk9KzIrBhj1kHKkkPYOH5sfrJnjHAs686KHV9QAQUeaRfEZFmaH8DW2l+SBjAR/Do=@vger.kernel.org
-X-Gm-Message-State: AFuF++koV7ZhmPp3Nja6rRfmrvsrpqV/wEbvchnfjBARNAEWFsU7Rfxv
-	4UKnEcUez10mKk2QZZ7Talq4GmFaCGeBnQ3z7uMr/Cu6Ynn1rVYwsuN7g8FQ1GfjHVw=
-X-Gm-Gg: AYBFou1jA/HAmlOV4kPqTrYJwfda1UzD5Q28ANUak/vF1q+WBqRei8f/UKoybbjECNQ
-	miTbGaTUfreLkZk2oCF7TujdNitgPEHkH1vGpagxUSV2v9dTV6WTdn0R5/Glz2N0Hd4ByoIpU3q
-	X8YIRIlFtbbBSCvnwKiy3gpw5uFSgStNswbVd9zINiubliVNQgUqCMqA47BXErnjWZds+Wxzi8h
-	7cltGZspnmIMy7htvAw/fSji48SBGbIunFcMtxRn6oEVjNnYpJFcHFWXZ4QCgIjMun/sDxsieAg
-	aJK3fEwOVF6/MbQT7wBrMbdldFuZByMhTm8Macd9e/vV8kIJ8lxX9MWohCGfEcLLFrLLl29cFMy
-	N/aAwJux4w9ZIvAZWpSA7Qji/MfKN1Ef8Sgg4F23ZgfR+oEcVut54e7U5WOepNv5Xm0yVXWKwOG
-	QUO+kYJ5By9WCXlMqX20LZq4AiJTzCwCsdUQJwd6eVpOEy7W1cDDZErglYVHkyVcZg7k8eAgfaV
-	VKDPbGnQaMjqqs2VipgH8hEY5krcq4mRBT2Fw==
-X-Received: by 2002:a05:6122:378d:b0:5c8:c5f:e8fa with SMTP id 71dfb90a1353d-5c9a629e338mr942953e0c.4.1789639206843;
-        Thu, 17 Sep 2026 03:00:06 -0700 (PDT)
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9a53b2ba1sm2131019e0c.8.2026.09.17.03.00.05
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 03:00:05 -0700 (PDT)
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78569cf871bso382442137.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:00:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxnTdaaKXlTHMsx9lf9VMSgnE3QxB7sidRmAosI4X/Y4ROFCtmMQLcj+JDL676jMHL851LkLkpHKFqE404=@vger.kernel.org
-X-Received: by 2002:a05:6102:9d0:b0:7a1:f7d2:e826 with SMTP id
- ada2fe7eead31-7a2049c966fmr811148137.31.1789639205042; Thu, 17 Sep 2026
- 03:00:05 -0700 (PDT)
+	s=arc-20240116; t=1789639236; c=relaxed/simple;
+	bh=JFvGJdYLcE+PpqMEvTmxD3+T+JMsQbZeOa/GAxlsjok=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gK8jqFk9U7sURdpwuuu7NWOYY46nXCr/FzxTA2h0mzw+7bsovq3uqa0M972/86oHZs9xw7H3NICQJqB3lbXQXE3ngkaHXMMnBtjel0+HC+odLyrcs0qgksc8MvqtpCe9EjokJxlyPYSEU59GIEltdFyK42tpAX0aybAT9buaQuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADHMTwquqtqXC5+CA--.100S2;
+	Thu, 17 Sep 2026 18:00:10 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: bingbu.cao@intel.com
+Cc: hverkuil+cisco@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	lixu.zhang@intel.com,
+	make24@iscas.ac.cn,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	Wentao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH] media: ivsc: Fix csi_dev use-after-free in mei_ace_setup_dev_link()
+Date: Thu, 17 Sep 2026 10:00:10 +0000
+Message-Id: <20260917100010.2145775-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910085430.3173166-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260910085430.3173166-10-cosmin-gabriel.tanislav.xa@renesas.com>
-In-Reply-To: <20260910085430.3173166-10-cosmin-gabriel.tanislav.xa@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 17 Sep 2026 11:59:54 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWcPMD9kzEUbkZofv6O6EoCz7mZ52Rp-ennBYP30v9-Yg@mail.gmail.com>
-X-Gm-Features: AcwNN1XQBPUy3BHOan6ZOGxBXs0JV-45PEV0B5RSS4MUAdKXHpMlIwNQ2uEPp3k
-Message-ID: <CAMuHMdWcPMD9kzEUbkZofv6O6EoCz7mZ52Rp-ennBYP30v9-Yg@mail.gmail.com>
-Subject: Re: [PATCH v2 9/9] arm64: dts: renesas: r9a09g087: Wire up DMA
- support for ADC
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADHMTwquqtqXC5+CA--.100S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tF1DZw43AF4kZrWkJF45trb_yoW8XryUpa
+	yqgayqyrW5Xr4jgryDAa4UuF90qF4a9a13GrsIyws7Wa15Z347Jryjqa4UWwn2yr93Ja4j
+	yF17KFWfAFs5Ar7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
+	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07jbHUDUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgkNA2qrq3Y7uQAAsf
 
-On Thu, 10 Sept 2026 at 10:56, Cosmin Tanislav
-<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
-> RZ/N2H (R9A09G087) has three DMA controllers that can be used by
-> peripherals like the ADC to offload data transfers from the CPU.
->
-> Wire up the DMA channels for the ADC peripherals.
->
-> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+device_link_add() only takes a reference to the supplier when the
+link is created successfully.  When it fails it returns NULL without
+taking one, so the put_device(csi_dev) before the error check can
+drop the last reference to csi_dev and dev_name(csi_dev) then
+dereferences a freed device.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+Move the put_device() below the error check and release the
+reference through the existing err_put label on the failure path so
+that csi_dev is no longer touched after it has been put.
 
-Gr{oetje,eeting}s,
+Fixes: 765abb76f51f ("media: ivsc: Release csi_dev reference early in mei_ace_setup_dev_link()")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/media/pci/intel/ivsc/mei_ace.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-                        Geert
-
+diff --git a/drivers/media/pci/intel/ivsc/mei_ace.c b/drivers/media/pci/intel/ivsc/mei_ace.c
+index b306a320b70f..bb57656fc85a 100644
+--- a/drivers/media/pci/intel/ivsc/mei_ace.c
++++ b/drivers/media/pci/intel/ivsc/mei_ace.c
+@@ -414,13 +414,13 @@ static int mei_ace_setup_dev_link(struct mei_ace *ace)
+ 	/* setup link between mei_ace and mei_csi */
+ 	ace->csi_link = device_link_add(csi_dev, dev, DL_FLAG_PM_RUNTIME |
+ 					DL_FLAG_RPM_ACTIVE | DL_FLAG_STATELESS);
+-	put_device(csi_dev);
+ 	if (!ace->csi_link) {
+ 		ret = -EINVAL;
+ 		dev_err(dev, "failed to link to %s\n", dev_name(csi_dev));
+-		goto err;
++		goto err_put;
+ 	}
+ 
++	put_device(csi_dev);
+ 	ace->csi_dev = csi_dev;
+ 
+ 	return 0;
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.34.1
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
