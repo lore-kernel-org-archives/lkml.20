@@ -1,175 +1,85 @@
-Received: from va-2-40.ptr.blmpb.com (va-2-40.ptr.blmpb.com [209.127.231.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A1E513579
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:06:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DE54F4725;
+	Thu, 17 Sep 2026 13:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650423; cv=none; b=gplOvsWxRZlRu6KC4fCBKuw/QXOD9M+PAbmRdnoVbTGY7kponB/rsgzs2Ni92RY1dC/OL06qXZMjpMmi9Cc5b1CiNyUcGP/08OZkw0unY6tg5nPFemFh4s5pmDqm5xEEPGzhMHuZGmGJ4/u/NdKJzUj9y9KZONUzLgEzPpS8YQA=
+	t=1789650506; cv=none; b=IE0R7vCYdLgmrLmfpvNhy9a7NMzvIv1HU1nHjZPfrGWCNwt0c2uXT9D+y46irczmHT80d0pLCZU6xpQ9y82Xvfah2I+xgLjEPck7S1915/NaQeQephXJ50GCyrUk4XTjrpwlwoD5hJPFGKi8nvy+vMhca92H0WmH9TBcm7xx+k8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650423; c=relaxed/simple;
-	bh=A99s6qGzXGsm0xJ39yw3mTC3dYxbI1dGX7ih7zzTNhk=;
-	h=Date:Content-Type:To:Subject:Message-Id:In-Reply-To:Mime-Version:
-	 References:Cc:From; b=Cnefod3kbAXyJqZFHuo017/FLjD3tn3MVkCVCZFAh4IfawKVI17Dp1FkGci9wIXrM9Qtqr/Oa6O1vVWVPf0PeqKo12ZtmsttsQ3jhseENM78awn6IyT0rueauPefpXMtixdVqdor5NYJLGRtMi23Q7/aYtPjRBfv550RBUqWwX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=sYBSOhG8; arc=none smtp.client-ip=209.127.231.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="sYBSOhG8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1789650390; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=+K/fwK8bvxELpb1D1iB7Tjzey3gE1mQsPqJM5hXilTs=;
- b=sYBSOhG8F9ggTDfXjZcy9GmaHBoFZpDBmcQrP5vAkuVxIsruenpevWL3XhFROaSwMXva8g
- hOjg+9/h9Z3O8YUUXV8cd326/jo0xInCsAR+nymvihEoCCuLxjgF2s06MDiQJGFZxgG8GM
- qvFOMH7u9mvbXOx0ONmZ1Xel+oc/m+XDWqNXTWNtZuFEhWTfvzWicgI6/1gsWNvYKuWUkA
- gziiE+eidvtlEdgsibY4OQL9YKwJuQawplmlYuq0S+9hOPjlFRjzf5GPmjuJsLdlt0tbX5
- sWnBdM4E677M3N2HqlbodIsXOhxIwBaKvmRiSE+KwO3oMgtpOD4TfdyiDRslxg==
-Date: Thu, 17 Sep 2026 21:06:25 +0800
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-User-Agent: Mozilla Thunderbird
-Received: from [172.16.155.39] ([120.234.49.250]) by smtp.feishu.cn with ESMTPS; Thu, 17 Sep 2026 21:06:27 +0800
-To: "Kumar,  Udit" <u-kumar1@ti.com>
-Subject: Re: [PATCH v3] serial: 8250_dw: Prefer SRBR in bogus RX timeout workaround if available
-Message-Id: <ab256e4a-a9cc-410e-b889-f75fb01e77c7@picoheart.com>
-In-Reply-To: <52822f65-58c4-4def-a1b6-e37055d4c0c6@ti.com>
+	s=arc-20240116; t=1789650506; c=relaxed/simple;
+	bh=NqzNgsDSPkthvw7ErPB/aEJ8PevOQbn1gOg40xcgy7E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bxRcAeCiSuCtjg+/5n8IEmIWmDp5PCv9+O13lbQyuRmPJCT1uWDY84eO0I29l04blf4hKDk8+oqArM5JkVjBTThJlebLqfrPArIsX3+UKxlNwAK0nwxVcZD3puwA0dzDsuNHznH7OtuzrqzickNy8Ll/6VAKzCji8G2Qc3dehXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADHMTw65qtqMiGBCA--.3314S2;
+	Thu, 17 Sep 2026 21:08:11 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: devicetree@vger.kernel.org
+Cc: joe@perches.com,
+	linux-kernel@vger.kernel.org,
+	pantelis.antoniou@konsulko.com,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] of: unittest: Fix np reference leak in of_unittest_printf()
+Date: Thu, 17 Sep 2026 13:08:10 +0000
+Message-Id: <20260917130810.2152851-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26aabe5d4+ae2f41+vger.kernel.org+yang.yicong@picoheart.com>
-X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
-References: <20260908141524.20302-1-yang.yicong@picoheart.com> <52822f65-58c4-4def-a1b6-e37055d4c0c6@ti.com>
-Cc: <ilpo.jarvinen@linux.intel.com>, <andriy.shevchenko@linux.intel.com>, 
-	<linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<yang.yicong@picoheart.com>, <gregkh@linuxfoundation.org>, 
-	<jirislaby@kernel.org>, <geshijian@picoheart.com>, 
-	<yangyang.8776@picoheart.com>, <yanligen@picoheart.com>
-From: "Yicong Yang" <yang.yicong@picoheart.com>
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADHMTw65qtqMiGBCA--.3314S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JryftryrXw4UZw45Cr1rJFb_yoWfWrXEkF
+	92vr97GrW8CF1q9Fn3Zr1fZFZFv3W8WrW8ZwnFy3sxCrWjvF1UXrn09rn5Jw15Z3ySkF9r
+	tr1DGw1vyrsrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbqxYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
+	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
+	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUtVW8ZwC20s026c02F40E
+	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
+	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAF
+	wI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr
+	0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7IU1mL
+	vtUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMNA2qrq3a6NwAAsa
 
-On 9/17/26 6:47 PM, Kumar, Udit wrote:
-> Hi Yicong,
-> 
-> On 9/8/2026 7:45 PM, Yicong Yang wrote:
->> The DW uart could get into the cases where a bogus RX timeout
->> interrupt is asserted but no available data. This could be
->> workaround by doing a bogus read.
->>
->> Currently the driver's using the standard RBR (receive buffer
->> register) for this bogus read. However the reading of RBR
->> in this case is allowed to raise a hardware error if vendor
->> choose to implement in this way (our platform). It's also
->> allowed to do the bogus read using SRBR (shadow RBR) for
->> workaround which won't raise the hardware error. So change
->> to use the SRBR to workaround the issue if it's available.
->>
-> 
-> Thanks for the patch. If I understand correctly, the IP you are using
-> does not allow reading an empty FIFO, so you decided to read the SRBR
-> instead.
+of_find_node_by_path() returns a node with an elevated reference count,
+but the function returns without ever dropping it. Add the missing
+of_node_put() so the reference is not leaked.
 
-yes but under certain condition, see blow.
+Fixes: ce4fecf1fe15 ("vsprintf: Add %p extension "%pOF" for device tree")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/of/unittest.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> 
-> Does this same case applies when you open a port without any data in the
-> FIFO:
-> https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/tty/serial/8250/8250_port.c#L710
-> ?
-> 
-> If yes then I am wondering, how the condition mentioned above is bypassed
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index e6e938bcb100..340e23725d7a 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -354,6 +354,8 @@ static void __init of_unittest_printf(void)
+ 	of_unittest_printf_one(np, "%pOFc", "test-sub-device");
+ 	of_unittest_printf_one(np, "%pOFC",
+ 			"\"test-sub-device\",\"test-compat2\",\"test-compat3\"");
++
++	of_node_put(np);
+ }
+ 
+ struct node_hash {
+-- 
+2.34.1
 
-reading an empty FIFO (by RBR) will be fine when the fifo is disabled.
-so I think serial8250_clear_interrupts() you referred is always invoked
-when the FIFO is disabled.
-
-I also find a similar issue related to serial8250_clear_interrupts()
-that trigger the PSLVERR when reading the empty FIFO when the FIFO
-is enabled. this is fixed by 7f8fdd4dbffc ("serial: 8250: fix panic due to PSLVERR")
-
-thanks.
-
-> 
-> Thanks
-> Udit
-> 
-> 
->> Signed-off-by: Yicong Yang <yang.yicong@picoheart.com>
->> ---
->> Change since v1:
->> - refine the comments and type per Andy
->> Link: https://lore.kernel.org/linux-serial/20260907074035.77796-1-yang.yicong@picoheart.com/
->>
->> Change since v1:
->> - simply the workaround path per Ilpo and Andy
->> - run ~48k reboot tests and didn't reproduce the issue
->> Link: https://lore.kernel.org/linux-serial/20260629075510.32854-1-yang.yicong@picoheart.com/
->>
->>  drivers/tty/serial/8250/8250_dw.c    | 9 ++++++++-
->>  drivers/tty/serial/8250/8250_dwlib.c | 5 +++++
->>  drivers/tty/serial/8250/8250_dwlib.h | 5 +++++
->>  3 files changed, 18 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
->> index 51d026f20825..b8a0bca8b536 100644
->> --- a/drivers/tty/serial/8250/8250_dw.c
->> +++ b/drivers/tty/serial/8250/8250_dw.c
->> @@ -439,8 +439,15 @@ static int dw8250_handle_irq(struct uart_port *p)
->>  	if (!up->dma && rx_timeout) {
->>  		status = serial_lsr_in(up);
->>  
->> +		/*
->> +		 * Do the bogus read from Shadow RBR (SRBR) if provided.
->> +		 * Both RBR and SRBR are supported ways to workaround
->> +		 * this problem. But read RBR can cause hardware error
->> +		 * (PSLVERR) if hardware choose to implement in this way
->> +		 * (implement REG_TIMEOUT_WIDTH to 0), whereas SRBR won't.
->> +		 */
->>  		if (!(status & (UART_LSR_DR | UART_LSR_BI)))
->> -			serial_port_in(p, UART_RX);
->> +			serial_port_in(p, d->data.srbr);
->>  	}
->>  
->>  	/* Manually stop the Rx DMA transfer when acting as flow controller */
->> diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
->> index 8859e66d2d71..9bb02a4ab11f 100644
->> --- a/drivers/tty/serial/8250/8250_dwlib.c
->> +++ b/drivers/tty/serial/8250/8250_dwlib.c
->> @@ -247,5 +247,10 @@ void dw8250_setup_port(struct uart_port *p)
->>  
->>  	if (reg & DW_UART_CPR_SIR_MODE)
->>  		up->capabilities |= UART_CAP_IRDA;
->> +
->> +	if (reg & DW_UART_CPR_SHADOW)
->> +		pd->srbr = DW_UART_SRBR_0;
->> +	else
->> +		pd->srbr = UART_RX;
->>  }
->>  EXPORT_SYMBOL_GPL(dw8250_setup_port);
->> diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
->> index 1fe52332e774..ee7a07fac0f6 100644
->> --- a/drivers/tty/serial/8250/8250_dwlib.h
->> +++ b/drivers/tty/serial/8250/8250_dwlib.h
->> @@ -13,6 +13,7 @@
->>  #include "8250.h"
->>  
->>  /* Offsets for the DesignWare specific registers */
->> +#define DW_UART_SRBR_0	0x0c /* Shadow Receive Buffer Register */
->>  #define DW_UART_USR	0x1f /* UART Status Register */
->>  #define DW_UART_DMASA	0xa8 /* DMA Software Ack */
->>  #define DW_UART_TCR	0xac /* Transceiver Control Register (RS485) */
->> @@ -90,6 +91,10 @@ struct dw8250_port_data {
->>  
->>  	/* RS485 variables */
->>  	bool			hw_rs485_support;
->> +
->> +	/* Register offsets */
->> +	/* Shadow RBR (if not defined RBR will be used) */
->> +	int		srbr;
->>  };
->>  
->>  void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
