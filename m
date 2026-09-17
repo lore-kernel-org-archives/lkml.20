@@ -1,107 +1,86 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69434DEC05
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:48:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EAB2751AEC3;
+	Thu, 17 Sep 2026 16:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663726; cv=none; b=Dyqloqc829y2wHB7xS4qnxZZbE63gSQEfaX1oxKqc17IdjvBpbZqUH98Y1ZVYRP7bnlek5cBAjEveSLAHAWESEV3vHGQL10wwIgOLLTbW292LHFcVhkDSKgqAHkt7yBu9vkJlnUNVvGa9ZkRfXx2ihcpDip6R/jZfs5BTbKu49U=
+	t=1789663732; cv=none; b=NJJeVoS5B59LwQtkujvpARejgUqKR6ZLdGmRerHFkTZw5tne8tLgpJ2xX+u6ZqOSW7XRTayIGAPwHIdSTothVfLGXueQEsFegaix7RtBL7pymgZTBhlHSGT1QMyRLX6KvG9Sszz3ZuukeYr8HIYcboadqj6Bx2Sm3VKwHukxl/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663726; c=relaxed/simple;
-	bh=dnNSjv6xLEel0IBLPtV4HS3EBau0mn9uPwhapcfw/Zo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=FO/3Sr3L691GNu4Yde94bsZkTYLDAvHunDWcMaBXcK1AIVasA3E2uAAWaOSCd7hf3cvCSVFEdx8YF33VbSkQolwt4TZbV6i1UwZ5Y+ssqxSEjuEeJRKD/K7h9GxPT2KtmSffB76mVAPMtAIqfTeRTKdFYodzbC2Kqoj1EjRtj5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b2f2b8d88fso1555214b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:48:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789663723; x=1790268523;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nFZh9Cy3YRkgXARijTiARDYrMQR43FdwLIY1MsdhbWA=;
-        b=cXU0Ju5lbG/EU40JqqHp33qwiE+8V+TssoJSSIlV7ksYC3/vXhUX4jh/uUaux9aPkq
-         zr3Kuf3WO7G4oomr0+bsAXzgQcD2uFtWSwaLxyPDkiyu0owPxvJeyQK6yBLnRWGn5wWt
-         p46fUN8SafT913CT1arirRzTbNKIUduaPyEYqg/5RrTKCJ+6vS08LBN4oW0NKEkrKfF/
-         aHBdPTH2Uf5TnWDOb1Fget562vsEylGvsUCP6j48ZTPbHzKYXBQG0Glqa6XkF0DPYrQ5
-         qcuQFyIsffKSe03yA/GkYr5KBaA0UtPr7akb7iuXRKPJJxJlsxbPsCmwFP/dH+bCOzxf
-         JMuA==
-X-Gm-Message-State: AFuF++lvVxUtfyR4hT/DdOd65czYR3lTbagVRY4hueRexT7AhtoeYJ3C
-	ZSpQa05xDJ9MYXoCrvhmOg8K2nhlqqJyZ2EsYAZGB+1uE8bdjrSAR92MJnX+rx3uc9W7n8GhGJy
-	We0PLKVR6OVzJhDjIuoqtZu34vv+d6buTYRzSc/CLij7fpHhdUWMGCzUdHJg=
+	s=arc-20240116; t=1789663732; c=relaxed/simple;
+	bh=v2C7EiRZuO4diAaDVWghy6mD5U5YPo2XvV9CYJSeGiQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VKl3mwzztV/M9nF7GUmNzeMjhOetfzOaURnZDUjl+zS8dZccoAHyzvfk+F1xcM6Vg4CW7z75+QZnhel9DtfMEOHDr4+ieXr14iBUZNGSi/iQLEQp3Oox1pgcKy7wem87MHUYxaxlbUPad3Ew8ikM74JXQKp+JkQHOzBqi3yfYmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dbf7TZpW; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="dbf7TZpW"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E1422143D;
+	Thu, 17 Sep 2026 09:48:46 -0700 (PDT)
+Received: from [10.57.6.197] (unknown [10.57.6.197])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 886E13F86F;
+	Thu, 17 Sep 2026 09:48:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789663730; bh=v2C7EiRZuO4diAaDVWghy6mD5U5YPo2XvV9CYJSeGiQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dbf7TZpWogEREN5RtxsT/Ausx25/I4HOlW/ITLaj4+pQXjm4b7U/AGcpjhwZoulPA
+	 gVQE4SzxWT43WU1WQtx3stH4r63UHBcaPC3cu+7Z+VBaHDnmHer/mADG0jng9X3W14
+	 CT+yQz3WNYuJywEWBzHIlrYl+7VHRdeC1KfxlkUg=
+Message-ID: <888527d9-6355-45fc-b4a1-e485ae32d377@arm.com>
+Date: Thu, 17 Sep 2026 17:48:46 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1242:b0:4c5:a75f:c5e1 with SMTP id
- 5614622812f47-4ca4bf7b68fmr9501807b6e.13.1789663723766; Thu, 17 Sep 2026
- 09:48:43 -0700 (PDT)
-Date: Thu, 17 Sep 2026 09:48:43 -0700
-In-Reply-To: <6a8278d8.dbb3a75c.20434b.0041.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aac19eb.87c06881.1db2b3.0017.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [kernel?] KASAN: slab-use-after-free Read in disable_device
-From: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 12/23] KVM: arm64: Widen the scope of "protected" VMs
+Content-Language: en-GB
+To: Fuad Tabba <tabba@google.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+ gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+ alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+ lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
+ <20260915160141.3543048-13-suzuki.poulose@arm.com>
+ <CA+EHjTxfbG6-LPjJVoErQ3iJk4vAvhVO=Qv6hjcxDXL0yByiQA@mail.gmail.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CA+EHjTxfbG6-LPjJVoErQ3iJk4vAvhVO=Qv6hjcxDXL0yByiQA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On 17/09/2026 12:51, Fuad Tabba wrote:
+> Hi Suzuki,
+> 
+> On Tue, 15 Sep 2026 17:01:30 +0100, Suzuki K Poulose
+> <suzuki.poulose@arm.com> wrote:
+> [...]
+>> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> [...]
+>> -#define kvm_vm_is_protected(kvm)        ((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM)
+>> +#define kvm_vm_is_protected(kvm)        ((kvm)->arch.vm_flavor >= __VM_PROTECTED)
+>> +#define kvm_vm_is_protected_pkvm(kvm)        ((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM)
+>>   #define kvm_vm_is_unprotected_pkvm(kvm)        ((kvm)->arch.vm_flavor == VM_PKVM)
+> 
+> Agree with Marc that this belongs in patch 5. When it moves, could you
+> add vcpu_is_protected_pkvm() next to vcpu_is_protected()? The pKVM
+> host-side series [1] has vcpu_is_protected() checks that are pKVM
+> mechanism (the vCPU feature allowlist, CPU_ON against the pKVM
+> power-off state, the ONE_REG rejection after the first run), and with
+> the wider predicate those have to carry a pKVM-specific name.
 
-***
+Ack.
 
-Subject: Re: [syzbot] [kernel?] KASAN: slab-use-after-free Read in disable_device
-Author: adarshdas950@gmail.com
+Suzuki
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/20260914113338.159227-1-fuad.tabba@linux.dev/
 
-diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
-index ddbc4d7482d2..ecba33abb6b1 100644
---- a/lib/kobject_uevent.c
-+++ b/lib/kobject_uevent.c
-@@ -411,9 +411,15 @@ static int kobject_uevent_net_broadcast(struct kobject *kobj,
- 						    devpath);
- 	else {
- 		const struct net *net = container_of(ns, struct net, ns);
-+		struct uevent_sock *ue_sk;
- 
--		ret = uevent_net_broadcast_tagged(net->uevent_sock->sk, env,
--						  action_string, devpath);
-+		mutex_lock(&uevent_sock_mutex);
-+		ue_sk = net->uevent_sock;
-+		if (ue_sk && ue_sk->sk)
-+			ret = uevent_net_broadcast_tagged(ue_sk->sk, env,
-+							  action_string,
-+							  devpath);
-+		mutex_unlock(&uevent_sock_mutex);
- 	}
- #endif
- 
-@@ -804,13 +810,17 @@ static int uevent_net_init(struct net *net)
- 
- static void uevent_net_exit(struct net *net)
- {
--	struct uevent_sock *ue_sk = net->uevent_sock;
-+	struct uevent_sock *ue_sk;
- 
--	if (sock_net(ue_sk->sk)->user_ns == &init_user_ns) {
--		mutex_lock(&uevent_sock_mutex);
-+	mutex_lock(&uevent_sock_mutex);
-+	ue_sk = net->uevent_sock;
-+	net->uevent_sock = NULL;
-+	if (ue_sk && sock_net(ue_sk->sk)->user_ns == &init_user_ns)
- 		list_del(&ue_sk->list);
--		mutex_unlock(&uevent_sock_mutex);
--	}
-+	mutex_unlock(&uevent_sock_mutex);
-+
-+	if (!ue_sk)
-+		return;
- 
- 	netlink_kernel_release(ue_sk->sk);
- 	kfree(ue_sk);
