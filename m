@@ -1,138 +1,70 @@
-Received: from gentwo.org (gentwo.org [62.72.0.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from k29.k3ae2098.use4.send.mailgun.net (k29.k3ae2098.use4.send.mailgun.net [204.220.183.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08AA03B19A3;
-	Thu, 17 Sep 2026 21:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039464A49A5
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:36:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.220.183.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789681014; cv=none; b=VKMt52TITcm/eZCtVSgjl2kS7QbFrbNKoGYkmTf4T1Ee3YkgK5a7jZ4kdo6G4a36qbo5r2YMhnKyvv0A3Wgw4C3CbOd2ZVI3L/PkiWJHv7JPZ2WjO4BT5fSoBg7VMtyzwsIUPsi1tcw6MGZy1NLzK7yMgYesuZU4TKnHHB6p0jE=
+	t=1789681019; cv=none; b=mb2gm4E7GrhVXY5qp2tbHY/WO2+Txk0vS19DoaV32l/SGPkaaP0KJCIltFvqwgPtI45fXXWbFkHyWJPQ0rer4Xc6ttCf74Tha6q+buZcnev64iWLerC3gEWmJ6Kedz7SkwFdam5jQfnvjfRaHkQQOT6Egyjz/jo4L78616tfNR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789681014; c=relaxed/simple;
-	bh=wNrHsjDKVfWS8zXNLUqwBHM5EXAhWqtMXDjFXL6wzKI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gBakDdxXRgt4IyzWPLtVeiZg5sT52ZfftuYRONnTllDqU4Afwfna1pBuvMWuW6L0HTsVCr5owVBERzLmCEjCSyQXdNQe0HzaMB2aFZbJA6W5bxVNw/osWNITdcL9gNfzF7Je8nwbLdprSetpwRx0TByTggOAV9dSZlcjUjBtKyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=CM0SLvpk; arc=none smtp.client-ip=62.72.0.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	s=arc-20240116; t=1789681019; c=relaxed/simple;
+	bh=t3N3cMXiQFEq4nhxvATM3kN0reVjqgVeSWrzjIzkV+c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tmWBK4L2vy7EhSaz0iYOE8FD3tnJUWCMuPxUY+HVlsZRVta+kUK2/WCUAAO3ZMDq9LpOALKBC5LQ7XuxsonfTGH3EjUy7V0skf2W8eXgUfPv2H40dO71YHd0u6+mdza3umAeXDggOuCRl+OOajEQdWCjl0/aLyIZjEV1ToHEyRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=equiv.tech; spf=pass smtp.mailfrom=equiv.tech; dkim=pass (2048-bit key) header.d=equiv.tech header.i=@equiv.tech header.b=mQyz4vp8; arc=none smtp.client-ip=204.220.183.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=equiv.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=equiv.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="CM0SLvpk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1789677807;
-	bh=wNrHsjDKVfWS8zXNLUqwBHM5EXAhWqtMXDjFXL6wzKI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=CM0SLvpkmXSePx9Tojt0+WyfIF7ZNk4P7SVDVgG+C5iyjzUbinJuHNglKXaUdgW3t
-	 Z4FBepHBhVJbRLIlCiqY0lQAR/6UO9bgj0z9lZDm3dlURxauhX6+5fQoQi7fy0uhrE
-	 KOZaq/g2I9x5vXqRTPddzpyMCI/axpKZPBEe/C84=
-Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTPS id 0E00640834;
-	Thu, 17 Sep 2026 13:43:27 -0700 (PDT)
-From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Date: Thu, 17 Sep 2026 13:43:25 -0700
-Subject: [RFC PATCH v2 2/2] sched/wait: Clarify WF_SYNC wakeup semantics
+	dkim=pass (2048-bit key) header.d=equiv.tech header.i=@equiv.tech header.b="mQyz4vp8"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=equiv.tech; q=dns/txt; s=pdk1; t=1789681015; x=1789688215;
+ h=In-Reply-To: Content-Type: MIME-Version: References: Message-ID: Subject: Subject: Cc: To: To: From: From: Date: Sender: Sender;
+ bh=tmCjTtf74fJzZCxzPTtdpsX+Bj9MyF0VdQaJp6zwaZM=;
+ b=mQyz4vp81lPA9eTLGl57xhZdJQyClHEu949fRLdpmzB/VPCZqvYdMlmCpvplLCq3/IzzwEEITSI5Rb8YYU7QFr4rx5vOzAMVodw6An459Wq8ilBR7S7ZXV5qnBgzJpLbYCYRC1JJ2OCC2Y3+vNaa6AujYFbiPzXzOHW4fzo6yKWnyiezplDYf5OvApOYWBgonZ7w4seHJEwHFNBORIiKTKDu25DMbpSdwV1oW8LNUobyp44C3OzXG3wcL9m9YyS90pRW+ZMoaNsXk7kH1nt79Ozie+1nfY9bLCJ9tkHM3jWhS6ejt6uNrxlzv5QOsXoY0b8kuXVJAPayo4w5KxHCog==
+X-Mailgun-Sid: WyI4ZWI3MiIsImxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmciLCI5M2Q1YWIiXQ==
+Received: from mail.equiv.tech (equiv.tech [142.93.28.83]) by
+ 1d83990cfc41646456b83b879f462e6ff8167ee03124f26cddc22a86bca75460 with SMTP id
+ 6aac5d772dfa5e6eb605cebc (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 17 Sep 2026 21:36:55 GMT
+X-Mailgun-Sending-Ip: 204.220.183.29
+Sender: james@equiv.tech
+Date: Thu, 17 Sep 2026 14:36:54 -0700
+From: James Seo <james@equiv.tech>
+To: Kees Cook <kees@kernel.org>
+Cc: Kees Cook <kees+treewide@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH] hwmon: hp-wmi-sensors: Fix info_map[] allocation type
+Message-ID: <aqxddgcDH1khPlwq@equiv.tech>
+References: <20260917211338.i.682-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-sched-wf-sync-doc-v2-2-6d1f107c0596@gentwo.org>
-References: <20260917-sched-wf-sync-doc-v2-0-6d1f107c0596@gentwo.org>
-In-Reply-To: <20260917-sched-wf-sync-doc-v2-0-6d1f107c0596@gentwo.org>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>, 
- Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
- Shrikanth Hegde <sshegde@linux.ibm.com>, 
- Madadi Vineeth Reddy <vineethr@linux.ibm.com>, 
- Christopher Lameter <clameter@amperecomputing.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789677805; l=3313;
- i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
- bh=wNrHsjDKVfWS8zXNLUqwBHM5EXAhWqtMXDjFXL6wzKI=;
- b=oT5B6U5CH9K2QzLrVe1eoPzmq4znP02JcICOLXbXwCGvHXqBnrWUJuXG6M1L2UWNz0o9ceWWA
- ZPW+KXrVXhjBbLc+WmgmoNFBZQ86VkmghYaebIEklDWV40C5VM3o6RC
-X-Developer-Key: i=sh@gentwo.org; a=ed25519;
- pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260917211338.i.682-kees@kernel.org>
 
-The synchronous waitqueue wakeup comments state that the wakee will not
-be migrated to another CPU. This is not guaranteed by the current
-scheduler wakeup path.
-
-The synchronous helpers pass WF_SYNC to waitqueue wake functions. The
-default wake function forwards it to the scheduler, where fair-class
-tasks can use it as a wakeup-placement and preemption hint.
-
-Correct the API comments to describe this behavior and remove the
-incorrect no-migration guarantee.
-
-Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
----
- kernel/sched/wait.c | 30 ++++++++++++++++--------------
- 1 file changed, 16 insertions(+), 14 deletions(-)
-
-diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
-index d033f600f48c6fc3a0a088ea5d9f6ed95ec4c86e..ac1d260a6a37fc35b934079706819b79e20df4ba 100644
---- a/kernel/sched/wait.c
-+++ b/kernel/sched/wait.c
-@@ -174,15 +174,16 @@ EXPORT_SYMBOL_GPL(__wake_up_locked_key);
-  * @mode: which threads
-  * @key: opaque value to be passed to wakeup targets
-  *
-- * The sync wakeup differs that the waker knows that it will schedule
-- * away soon, so while the target thread will be woken up, it will not
-- * be migrated to another CPU - ie. the two threads are 'synchronized'
-- * with each other. This can prevent needless bouncing between CPUs.
-+ * The caller expects the waker to schedule away soon. This helper passes
-+ * WF_SYNC to waitqueue wake functions. The default wake function forwards
-+ * it to the scheduler.
-  *
-- * On UP it can prevent extra preemption.
-+ * For fair-class tasks, WF_SYNC is a wakeup-placement and preemption
-+ * hint. It does not guarantee that the wakee will run on the waker CPU
-+ * or avoid migration. On UP, this may avoid an unnecessary preemption.
-  *
-- * If this function wakes up a task, it executes a full memory barrier before
-- * accessing the task state.
-+ * If this function wakes up a task, it executes a full memory barrier
-+ * before accessing the task state.
-  */
- void __wake_up_sync_key(struct wait_queue_head *wq_head, unsigned int mode,
- 			void *key)
-@@ -200,15 +201,16 @@ EXPORT_SYMBOL_GPL(__wake_up_sync_key);
-  * @mode: which threads
-  * @key: opaque value to be passed to wakeup targets
-  *
-- * The sync wakeup differs in that the waker knows that it will schedule
-- * away soon, so while the target thread will be woken up, it will not
-- * be migrated to another CPU - ie. the two threads are 'synchronized'
-- * with each other. This can prevent needless bouncing between CPUs.
-+ * The caller expects the waker to schedule away soon. This helper passes
-+ * WF_SYNC to waitqueue wake functions. The default wake function forwards
-+ * it to the scheduler
-  *
-- * On UP it can prevent extra preemption.
-+ * For fair-class tasks, WF_SYNC is a wakeup-placement and preemption
-+ * hint. It does not guarantee that the wakee will run on the waker CPU
-+ * or avoid migration. On UP, this may avoid an unnecessary preemption.
-  *
-- * If this function wakes up a task, it executes a full memory barrier before
-- * accessing the task state.
-+ * If this function wakes up a task, it executes a full memory barrier
-+ * before accessing the task state.
-  */
- void __wake_up_locked_sync_key(struct wait_queue_head *wq_head,
- 			       unsigned int mode, void *key)
-
--- 
-2.52.0
+On Thu, Sep 17, 2026 at 02:13:39PM -0700, Kees Cook wrote:
+>  drivers/hwmon/hp-wmi-sensors.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hwmon/hp-wmi-sensors.c b/drivers/hwmon/hp-wmi-sensors.c
+> index 03c684ba83bd..cc193a8890f2 100644
+> --- a/drivers/hwmon/hp-wmi-sensors.c
+> +++ b/drivers/hwmon/hp-wmi-sensors.c
+> @@ -1788,7 +1788,7 @@ static int init_numeric_sensors(struct hp_wmi_sensors *state,
+>  
+>  		if (!info_map[type]) {
+>  			info_map[type] = devm_kcalloc(dev, channel_count[type],
+> -						      sizeof(*info_map),
+> +						      sizeof(*info_map[type]),
+>  						      GFP_KERNEL);
+>  			if (!info_map[type])
+>  				return -ENOMEM;
+> -- 
+> 2.34.1
+>
+Acked-by: James Seo <james@equiv.tech>
 
