@@ -1,102 +1,124 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCE04E36C4
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:56:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2234D4892
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789675005; cv=none; b=qoj6t5V/SyaoyC5KMmRotbJFRSOMf7vHn1iL+gUC+GDaGQRqZ4gWzQo3IOXX3tT0QeUkVk7E3PJVRv3vO7bysRvRDH0wxTkyRKnihSmNXUHe9qQgb/Ds46XJtv+6usF5z9XQqRxDpmvImPQLNYTdsxUhuUVnyN5rCDVgueNMvmg=
+	t=1789675127; cv=none; b=Av+/N6CkyENV/2B+hXs+9E2IThC9LjssecJQPyp7iiyELYWeKKpNKzDUv/6ceP/dxlf0gegwXjI6zeq8avJx7ZVdlZOI7G0CMYFCG0lr0uwaLeLTqQ8Ioag2l9skMiUiBSUEVx3NQXNimzKsfw8XgbG47jGyaotHZqTZJpA4TwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789675005; c=relaxed/simple;
-	bh=W+2SsK/cigQTPstzwPG2slSwXf5M0E4ZMStmSx8218M=;
+	s=arc-20240116; t=1789675127; c=relaxed/simple;
+	bh=bxO9WUb/4DzN5ytx/uaTvJHdqQRS5NyvDOIf+9sjzpU=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AGvPBC9145AJDTNFQv8TO9fs8JGlfxV8+6fhR4KG4Pjwg8+HmzqX+xHorCjpiKQk9McylsbJhnaSjPKaGOdpCvdgAC8AShR82lbxkka0nE2H8CrRzuoM0sTqjW8EvOp7as7P/trVVXszsqsR0/CnfygRY2OtHLJoCUcxzi8rQV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TP6wpzQ6; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=IDW1Gk2G; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:MIME-Version; b=Otf+BT8f7iEMnZmFkRoft+CTt/IiHbtkEHRWVpvvSJ1Z5Xvb92Gn7ou43Mrvqwpr5WlrZ98I7WC2FsGwOSi4QQPLT9WaSugJUM7AEAwbXDnsdVhHsGRkHEKhHzHccXlFEM3INPeD3C3rrTddCBTDRr9luFRjHeGeAFSByCWwu3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=fDBQpGzX; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TP6wpzQ6";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="IDW1Gk2G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789675002;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SK8FkV9t4hK7QEUa6h1DUFLUc29+3sFP86iMsPEZQZY=;
-	b=TP6wpzQ6ml567Ke0w5iVj4EnAhw8PZglN03u0PvDpdmvarV+DQdIZNVsHZypyNlOrd6x9I
-	5751j8xrETLiFQdUZkKcMu77qKmgFmfhN6kQYLrIVPl0s8EE3KrjybUQtGq7KEUNE/k8LE
-	Vo/oMlLZpcZXPj7Gwulp+tOFNs4MviA=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-647-8LeobCZnOXSanJ3KILCo8Q-1; Thu, 17 Sep 2026 15:56:39 -0400
-X-MC-Unique: 8LeobCZnOXSanJ3KILCo8Q-1
-X-Mimecast-MFC-AGG-ID: 8LeobCZnOXSanJ3KILCo8Q_1789674999
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a07b5b5efso248883885a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:56:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="fDBQpGzX"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aa8e6bbso46839d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:58:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789674999; x=1790279799; darn=vger.kernel.org;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789675124; x=1790279924; darn=vger.kernel.org;
         h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=SK8FkV9t4hK7QEUa6h1DUFLUc29+3sFP86iMsPEZQZY=;
-        b=IDW1Gk2GjGyYcsP6uE1mHSfeo8R3aoqF4T7Dj9Z/p2bLdzYnGMd7zA3s/68ZrgMghs
-         hALx4WXFnMI7/iMsnvvtdk5EZx2ojKWZ1PkB1LI5AMUuokZ1sCyP57mRqpQVfeKr2zjV
-         S7/EDfhm9Zmcjv3Gdz/+2Bnw4IbYuklJqfJHXL8P96g6IO5tJza8W8GuZTUT+5Y8tYvK
-         E51rjcadV5gbAUj8hGfi9PQMzbFrhiwJvyE+i19YuPpBlbG3/aNOxQ+LwHJP4nt3qbkT
-         wVF8b7/qdAX4rxPuvO1wtNqgNUmg8IWh4DhjPwBeWtaEsCAG+EFiPus6tYgxyrcdVwfY
-         sY9g==
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v6iCBcEf8GcFTAOhqKwWgH8/cYBgudBWZTcaBLmy9wc=;
+        b=fDBQpGzX9p8Km3lZqIkwUTLWw5O+1VfAKu00QMAuKQe/dKL6jY/i07ccUkDNmdR6d7
+         B9P5SIXzQd1hjBlh/A/5EAYUPE2SzJPpXpupNhdHwY/5xUpGZuxbZo2TBUFgrbsLHlJc
+         l/qOoCRfIqWFChhFFXU6QyseFnYMl91v/iCfy342PVQWM2zwMBbhtVjGzqEMpF2L0nyA
+         MfT3Athq2RSrb1V9AzoDvvLGOv0oALrKgSw5YzTX+zLL256IzJ1Jf879Mtugf4RJZPoS
+         TBOk5qtJzrVqRUde09on7WBcAuR+3/4TqWPz2Z8N2rG9AJFvRbhTgJ78rT0zWryYmzaL
+         Cgmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789674999; x=1790279799;
+        d=1e100.net; s=20260707; t=1789675124; x=1790279924;
         h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SK8FkV9t4hK7QEUa6h1DUFLUc29+3sFP86iMsPEZQZY=;
-        b=uSI8dAF7NwmQ4ZqFmLe4V+5xL0aNq0J/zPPxMfhHHpWq1z5h9JDnStnssLDigqKKd6
-         o2gbr152oY8F0abyG4MmkwcYz9XTeOiwMBMICJdZPOEFBQs8vj5rVg033B5QnMpHKN3N
-         C1HQiRt9no8CW3A3aW20CMva6jJwGnVP/t9TupU5378k7xrDpM4goxDkGR81tepfL7ty
-         UOlYJriQZlixUyFogu5+22RHl828HjScIxYN5EPOT6uJZRPqS26QsIK12Kqp52Vmgwbd
-         zTFm5MoztB4Ufd/ZdBV0AmKqC3Iho/72sWCUeUNsdsL5dnWiAaYdNWmnknWbb0Felh+N
-         qI1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxYUblykb7wu70VUdvawz8cBNB0NDiYlTa18O3PG3Ig6ATWf4Arf9e+Ec1G82VnzXoBotMS90BaUSN8EWg=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6UCvRjGp5VR/JanvyBac1p9U7OXWtgsqJ3SUAbo85vAJSMfhi
-	I+osynhDr48g7o866mCYc8ynKCFrcYxXeHJzwQpCb4C9rIC1p33wBOZpobc7hK1/H3I7B5Mrt2H
-	vF4XJk3YSJBpPU2x0BCAua2BpABFmmRzbvg7RgjpWvLV/Gz2p6ks1P5iCU8vlKlApYA==
-X-Gm-Gg: AYBFou27fckZWglV7zb82Y7axF5Fg4S3MvSuR21Z9rIxoaaNXDhkj6DB6vAV/3TTe/4
-	1siTjAhgBGjn7f+0T/nviVjhMcnQ8VibVEH4e+vVUk4YEaWE0jaRhqoZguMIs1p2yU7w69sm8Bp
-	7/QGyAEKoS1D44KCk+Nx1PLKI9GpaDLBunotFGB7Ik+fyLwJzyyxrQeZOE2FvOb01ZY+/jNTvTn
-	2zg9/2aTJH3NNaPDk2KRXG23hD8Zg8R8fwxqER3AW6FNzAxeoFXu3DVPZVcNbcqy4pAUDadJgD2
-	ZG8cCdDIh5TvbJGgDG2Y0yhpyaMlQbUee0Uhw7ztIADH/GhHs2hOSXxSoZUNiqgSL7iyTGdx
-X-Received: by 2002:a05:620a:4055:b0:939:a45:8c96 with SMTP id af79cd13be357-93bc62c0d2amr633010885a.19.1789674999131;
-        Thu, 17 Sep 2026 12:56:39 -0700 (PDT)
-X-Received: by 2002:a05:620a:4055:b0:939:a45:8c96 with SMTP id af79cd13be357-93bc62c0d2amr633006785a.19.1789674998638;
-        Thu, 17 Sep 2026 12:56:38 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b7825b6d3sm538457085a.31.2026.09.17.12.56.37
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=v6iCBcEf8GcFTAOhqKwWgH8/cYBgudBWZTcaBLmy9wc=;
+        b=wjfo+bQIlGXjCi56oNZZHSdOr2W+vnZ2XXCvi7inDDmpJ4gYMtpQePNJeyTlcI0/b0
+         /v3odF1W3z4EbZJPEFKbmvSxT0pfV+VDmxAGhwJ9m09TIR3qRVTZfsEInnAVoHtc5Zfv
+         GyjZKBnp7Ej7l62ZZcwKazcrhuAk+FQ4Nnn2wtYydnZTd3ssJxMgdRy3M5UHNjaqUb3M
+         /io+pl7A9n2+wnWAUYLrtzItSHQNgUynZi9hJdbGAQ2yI3Z4cN4TYzDU/iILkrcLz7yM
+         ZF1DvPjqT9KkElwSBhbKuk8Qte8fcuk00ESk0hQGPy+cEcRlYKOHuz3xXfVQ9FIdMK1o
+         sQNA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQl4GXfKiesFB35Lx22sGTlIwXPr6sLSuR31QNK3qfOcQ1MawAtfG8dl3o6ECDyPMhSjKhY1tH6Yj6fPo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKDsloA7pFcwF7Smgcb1gAQSdDKEAc5rz98sU18WheHSNRsCQk
+	EoxWY2xTjhD0rAqBoqYVwAPggpO2NoR+ECg0kjqioqz5B67v4Xci8651h4hbGqzhOMM=
+X-Gm-Gg: AYBFou3FIZMwNXOknM1qyqRYjntcQXaxGKli/tPoxLGwI8PFksSYY0DCG1M8PNmayFk
+	J30df5w7NQuGZyg3DP0kWDxGI+84ZN4fgK/yL5qPItqppQWOHuDlhOu21Qf8l/qKdNME0puhae4
+	1tUUJqLsYPLmvawRDx2VifcGIfK6BqKSbzgJd74rFE1/yg70ROQsodCy1HU/wYY2pB3Fd3Mma4q
+	f8U2wk0oZbgUqWxGXPNVoq96Z7QyYb3Knw6QSoCPQqDKpWdrSH2C9hXoB1lA4sgLUqiLzeYNZkx
+	4mdzAZFQ7nXjmdZm/3M6001p4zyw6BJZAY3Wbx0bA1EqUDj2g8SiVuIgzmf+mgFPp89hpjYYmIl
+	iwcfw114dFjIN6n0RGhmvGdSVs+CrqVFcXgZA1kgrz3cpT823Cl9Q3nSb1GYGhHm2aiEAdObSS5
+	ifXMtgsty/jWwqeMsN49HxIVgJ7LKVWW87fj4jSdvqC3KRBNuT4PR52gCxPoFaDwAwHgpnAy47H
+	MAiLs+iqJm0Nl1K/8jtiDLvoFzAsSwW/j26R2vC+AZmUozkP0AxatlKZMkY66Xj4t8x2frtnUg1
+	34ciwRQmDl1f5NKn1yuEGJkPr8nwFQBa1uP3/cvMfL3YmmZy7JtZ0cIVYRlg59rQoA==
+X-Received: by 2002:a05:690e:80b:20b0:671:251e:a5b with SMTP id 956f58d0204a3-6717ff43653mr35604d50.35.1789675124282;
+        Thu, 17 Sep 2026 12:58:44 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:b801:b375:5db3:9ec3? ([2600:1700:6476:1430:b801:b375:5db3:9ec3])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6715f751142sm2977580d50.16.2026.09.17.12.58.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 12:56:38 -0700 (PDT)
-Message-ID: <f21df5ff995cba8272f3bfb30c0129a76e2cf3ed.camel@redhat.com>
-Subject: Re: [PATCH 2/2] drm/nouveau/uvmm: reject replace across page sizes
-From: lyude@redhat.com
-To: moonafterrain@outlook.com, Danilo Krummrich <dakr@kernel.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Andrew Morton
- <akpm@linux-foundation.org>, Balbir Singh	 <balbirs@nvidia.com>, Mary
- Guillemard <mary@mary.zone>, Mohamed Ahmed	
- <mohamedahmedegypt2001@gmail.com>, James Jones <jajones@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+        Thu, 17 Sep 2026 12:58:43 -0700 (PDT)
+Message-ID: <13b330df140a2ee488952b4c7145e261ec884555.camel@dubeyko.com>
+Subject: Re: [PATCH v3] nilfs2: fix checkpoint root lifetime on sysfs errors
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
+	 <konishi.ryusuke@gmail.com>
+Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 15:56:37 -0400
-In-Reply-To: <20260817-nouveau-fixes-v1-2-f518d0c735f3@outlook.com>
-References: <20260817-nouveau-fixes-v1-0-f518d0c735f3@outlook.com>
-	 <20260817-nouveau-fixes-v1-2-f518d0c735f3@outlook.com>
+Date: Thu, 17 Sep 2026 12:58:39 -0700
+In-Reply-To: <20260916235025.379600-1-qwe.aldo@gmail.com>
+References: <20260915041206.2430937-1-qwe.aldo@gmail.com>
+	 <20260916235025.379600-1-qwe.aldo@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,156 +126,184 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Changes down below:
-
-On Mon, 2026-08-17 at 14:50 +0800, Junrui Luo via B4 Relay wrote:
-> From: Junrui Luo <moonafterrain@outlook.com>
+On Wed, 2026-09-16 at 20:50 -0300, Aldo Ariel Panzardo wrote:
+> nilfs_find_or_create_root() publishes a new root in the checkpoint
+> tree before creating its sysfs object.=C2=A0 If sysfs registration fails,
+> the root is freed while it is still reachable from the tree.=C2=A0 A
+> concurrent nilfs_lookup_root() can then dereference freed memory.
 >=20
-> A new mapping takes over the page tables of the mappings it replaces.
-> nouveau_uvmm_sm_prepare() only acquires page tables for the range no
-> existing mapping covers, and the map path frees the replaced mappings
-> without putting their references. That is only valid while all of
-> them
-> use the same page size, which select_page_shift() no longer
-> guarantees.
+> The fix needs the lock to be held across the sysfs call, but
+> nilfs_sysfs_create_snapshot_group() can sleep, so the existing
+> spinlock is not suitable.
 >=20
-> Rebinding a GART BO over a 2MiB VRAM BO therefore leaves the new
-> mapping
-> owning page tables built for a different page size, and it then maps
-> at a
-> size that was never referenced over that range. Since raw map does
-> not
-> allocate, nvkm_vmm_iter() can walk down to a NULL leaf and
-> dereference
-> it. The remainders of a split have the same problem: op_map_prepare()
-> recomputes a page size with select_page_shift() while the remainder
-> keeps
-> the parent's page tables, so a parent that was itself downgraded can
-> leave
-> a remainder that re-aligns to a larger size. This happens on the
-> unmap
-> path too.
+> Convert ns_cptree_lock from a spinlock to a mutex.=C2=A0 All existing
+> callers are in process context (mount, lookup, segctor, recovery),
+> and nilfs_put_root() can use refcount_dec_and_mutex_lock() as the
+> atomic decrement-and-acquire primitive.
 >=20
-> Reject the bind, and make split remainders inherit the page size of
-> the
-> mapping they are split from.
+> With the mutex, nilfs_find_or_create_root() can hold it across the
+> sysfs registration and only insert the root into the rbtree after
+> sysfs succeeds.=C2=A0 On failure, the root was never visible and can be
+> freed after waiting for the kobject release callback to complete.
 >=20
-> Fixes: c488a94e7e14 ("drm/nouveau/uvmm: Allow larger pages")
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> Assisted-by: Claude:claude-opus-5
+> Both the creation error path and the normal removal path must wait
+> for the embedded kobject release via wait_for_completion() before
+> freeing the container, because kobject_put() does not guarantee
+> synchronous release (CONFIG_DEBUG_KOBJECT_RELEASE defers it).
+>=20
+> Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 > ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_uvmm.c | 33
-> ++++++++++++++++++++++++++++++++-
-> =C2=A01 file changed, 32 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> index f5e4756b4de4..6404c54d097c 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> @@ -85,6 +85,8 @@ struct uvmm_map_args {
-> =C2=A0	u64 addr;
-> =C2=A0	u64 range;
-> =C2=A0	u8 kind;
-> +	/* Page size to give the new mapping, or 0 to derive it from
-> the op. */
-> +	u8 page_shift;
-> =C2=A0};
-> =C2=A0
-> =C2=A0static int
-> @@ -655,7 +657,8 @@ op_map_prepare(struct nouveau_uvmm *uvmm,
-> =C2=A0
-> =C2=A0	uvma->region =3D args->region;
-> =C2=A0	uvma->kind =3D args->kind;
-> -	uvma->page_shift =3D select_page_shift(uvmm, op);
-> +	uvma->page_shift =3D args->page_shift ? args->page_shift :
-> +			=C2=A0=C2=A0 select_page_shift(uvmm, op);
+> Changes in v3:
+> =C2=A0 - Move wait_for_completion() after mutex_unlock() in
+> =C2=A0=C2=A0=C2=A0 nilfs_put_root() to avoid holding the lock during an
+> =C2=A0=C2=A0=C2=A0 unbounded wait, as noted by Viacheslav Dubeyko.
+> =C2=A0=C2=A0=C2=A0 After rb_erase() the root is no longer in the tree
+> =C2=A0=C2=A0=C2=A0 and the refcount is zero, so no concurrent path can
+> =C2=A0=C2=A0=C2=A0 reach it.
+>=20
+> Changes in v2:
+> =C2=A0 - Convert ns_cptree_lock from spinlock to mutex instead of adding
+> =C2=A0=C2=A0=C2=A0 a second lock, as suggested by Viacheslav Dubeyko.=C2=
+=A0 Use
+> =C2=A0=C2=A0=C2=A0 refcount_dec_and_mutex_lock() in nilfs_put_root().
+>=20
+> =C2=A0fs/nilfs2/the_nilfs.c | 37 ++++++++++++++++++++-----------------
+> =C2=A0fs/nilfs2/the_nilfs.h |=C2=A0 2 +-
+> =C2=A02 files changed, 21 insertions(+), 18 deletions(-)
+>=20
+> diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
+> index 7b23e373a1..XXXXXXX 100644
+> --- a/fs/nilfs2/the_nilfs.c
+> +++ b/fs/nilfs2/the_nilfs.c
+> @@ -70,7 +70,7 @@ struct the_nilfs *alloc_nilfs(struct super_block
+> *sb)
+> =C2=A0	spin_lock_init(&nilfs->ns_inode_lock);
+> =C2=A0	spin_lock_init(&nilfs->ns_last_segment_lock);
+> =C2=A0	nilfs->ns_cptree =3D RB_ROOT;
+> -	spin_lock_init(&nilfs->ns_cptree_lock);
+> +	mutex_init(&nilfs->ns_cptree_lock);
+> =C2=A0	init_rwsem(&nilfs->ns_segctor_sem);
+> =C2=A0	nilfs->ns_sb_update_freq =3D NILFS_SB_FREQ;
+>=20
+> @@ -846,7 +846,7 @@ struct nilfs_root *nilfs_lookup_root(struct
+> the_nilfs *nilfs, __u64 cno)
+> =C2=A0	struct rb_node *n;
+> =C2=A0	struct nilfs_root *root;
+>=20
+> -	spin_lock(&nilfs->ns_cptree_lock);
+> +	mutex_lock(&nilfs->ns_cptree_lock);
+> =C2=A0	n =3D nilfs->ns_cptree.rb_node;
+> =C2=A0	while (n) {
+> =C2=A0		root =3D rb_entry(n, struct nilfs_root, rb_node);
+> @@ -857,11 +857,11 @@ struct nilfs_root *nilfs_lookup_root(struct
+> the_nilfs *nilfs, __u64 cno)
+> =C2=A0			n =3D n->rb_right;
+> =C2=A0		} else {
+> =C2=A0			refcount_inc(&root->count);
+> -			spin_unlock(&nilfs->ns_cptree_lock);
+> +			mutex_unlock(&nilfs->ns_cptree_lock);
+> =C2=A0			return root;
+> =C2=A0		}
+> =C2=A0	}
+> -	spin_unlock(&nilfs->ns_cptree_lock);
+> +	mutex_unlock(&nilfs->ns_cptree_lock);
+>=20
+> =C2=A0	return NULL;
+> =C2=A0}
+> @@ -881,7 +881,7 @@ nilfs_find_or_create_root(struct the_nilfs
+> *nilfs, __u64 cno)
+> =C2=A0	if (!new)
+> =C2=A0		return NULL;
+>=20
+> -	spin_lock(&nilfs->ns_cptree_lock);
+> +	mutex_lock(&nilfs->ns_cptree_lock);
+>=20
+> =C2=A0	p =3D &nilfs->ns_cptree.rb_node;
+> =C2=A0	parent =3D NULL;
+> @@ -896,7 +896,7 @@ nilfs_find_or_create_root(struct the_nilfs
+> *nilfs, __u64 cno)
+> =C2=A0			p =3D &(*p)->rb_right;
+> =C2=A0		} else {
+> =C2=A0			refcount_inc(&root->count);
+> -			spin_unlock(&nilfs->ns_cptree_lock);
+> +			mutex_unlock(&nilfs->ns_cptree_lock);
+> =C2=A0			kfree(new);
+> =C2=A0			return root;
+> =C2=A0		}
+> @@ -909,17 +909,19 @@ nilfs_find_or_create_root(struct the_nilfs
+> *nilfs, __u64 cno)
+> =C2=A0	atomic64_set(&new->inodes_count, 0);
+> =C2=A0	atomic64_set(&new->blocks_count, 0);
+>=20
+> -	rb_link_node(&new->rb_node, parent, p);
+> -	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
+> -
+> -	spin_unlock(&nilfs->ns_cptree_lock);
+> -
+> =C2=A0	err =3D nilfs_sysfs_create_snapshot_group(new);
+> =C2=A0	if (err) {
+> +		mutex_unlock(&nilfs->ns_cptree_lock);
+> +		wait_for_completion(&new->snapshot_kobj_unregister);
 
-This can just be:
+Should we consider wait_for_completion_killable_timeout()? What do you
+think? Do we need to use timeout?
 
-   args->page_shift ?: select_page_shift(uvmm, op);
-
-> =C2=A0
-> =C2=A0	drm_gpuva_map(&uvmm->base, &uvma->va, op);
-> =C2=A0
-> @@ -684,8 +687,20 @@ nouveau_uvmm_sm_prepare(struct nouveau_uvmm
-> *uvmm,
-> =C2=A0	struct drm_gpuva_op *op;
-> =C2=A0	u64 vmm_get_start =3D args ? args->addr : 0;
-> =C2=A0	u64 vmm_get_end =3D args ? args->addr + args->range : 0;
-> +	u8 map_page_shift =3D 0;
-> =C2=A0	int ret;
-> =C2=A0
-> +	/* A new mapping takes over the page tables of the mappings
-> it replaces,
-> +	 * so every one of them has to be using its page size. The
-> new mapping
-> +	 * is the last op drm_gpuvm_sm_map_ops_create() emits.
-> +	 */
-> +	if (args) {
-> +		struct drm_gpuva_op *last =3D drm_gpuva_last_op(ops);
+> =C2=A0		kfree(new);
+> -		new =3D NULL;
+> +		return NULL;
+> =C2=A0	}
+>=20
+> +	rb_link_node(&new->rb_node, parent, p);
+> +	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
 > +
-> +		if (last->op =3D=3D DRM_GPUVA_OP_MAP)
-> +			map_page_shift =3D select_page_shift(uvmm,
-> &last->map);
-> +	}
+> +	mutex_unlock(&nilfs->ns_cptree_lock);
 > +
-> =C2=A0	drm_gpuva_for_each_op(op, ops) {
-> =C2=A0		switch (op->op) {
-> =C2=A0		case DRM_GPUVA_OP_MAP: {
-> @@ -713,11 +728,22 @@ nouveau_uvmm_sm_prepare(struct nouveau_uvmm
-> *uvmm,
-> =C2=A0			struct uvmm_map_args remap_args =3D {
-> =C2=A0				.kind =3D uvma_from_va(va)->kind,
-> =C2=A0				.region =3D uvma_from_va(va)->region,
-> +				/* The remainders of the split keep
-> the page
-> +				 * tables of the mapping they are
-> split from,
-> +				 * so they must keep its page size
-> too.
-> +				 */
-> +				.page_shift =3D uvma_from_va(va)-
-> >page_shift,
-> =C2=A0			};
-> =C2=A0			u64 ustart =3D va->va.addr;
-> =C2=A0			u64 urange =3D va->va.range;
-> =C2=A0			u64 uend =3D ustart + urange;
-> =C2=A0
-> +			if (map_page_shift &&
-> +			=C2=A0=C2=A0=C2=A0 uvma_from_va(va)->page_shift !=3D
-> map_page_shift) {
+> =C2=A0	return new;
+> =C2=A0}
+>=20
+> @@ -927,14 +929,15 @@ void nilfs_put_root(struct nilfs_root *root)
+> =C2=A0{
+> =C2=A0	struct the_nilfs *nilfs =3D root->nilfs;
+>=20
+> -	if (refcount_dec_and_lock(&root->count, &nilfs-
+> >ns_cptree_lock)) {
+> +	if (refcount_dec_and_mutex_lock(&root->count,
+> +					&nilfs->ns_cptree_lock)) {
+> =C2=A0		rb_erase(&root->rb_node, &nilfs->ns_cptree);
+> -		spin_unlock(&nilfs->ns_cptree_lock);
+> -
+> =C2=A0		nilfs_sysfs_delete_snapshot_group(root);
+> -		iput(root->ifile);
+> +		mutex_unlock(&nilfs->ns_cptree_lock);
+>=20
+> +		wait_for_completion(&root-
+> >snapshot_kobj_unregister);
 
-Let's just take this value from remap_args instead of doing
-uvma_from_va(va), it makes it a bit easier for people to understand
-what's happening here.
+Ditto.
 
-With those nitpicks fixed:
+Thanks,
+Slava.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-
-> +				ret =3D -EINVAL;
-> +				goto unwind;
-> +			}
-> +
-> =C2=A0			op_unmap_prepare(r->unmap);
-> =C2=A0
-> =C2=A0			if (r->prev) {
-> @@ -756,6 +782,11 @@ nouveau_uvmm_sm_prepare(struct nouveau_uvmm
-> *uvmm,
-> =C2=A0			u64 uend =3D ustart + urange;
-> =C2=A0			u8 page_shift =3D uvma_from_va(va)-
-> >page_shift;
-> =C2=A0
-> +			if (map_page_shift && page_shift !=3D
-> map_page_shift) {
-> +				ret =3D -EINVAL;
-> +				goto unwind;
-> +			}
-> +
-> =C2=A0			op_unmap_prepare(u);
-> =C2=A0
-> =C2=A0			if (!args)
-
+> +		iput(root->ifile);
+> =C2=A0		kfree(root);
+> =C2=A0	}
+> =C2=A0}
+> diff --git a/fs/nilfs2/the_nilfs.h b/fs/nilfs2/the_nilfs.h
+> index 4776a70f01..074644c64a 100644
+> --- a/fs/nilfs2/the_nilfs.h
+> +++ b/fs/nilfs2/the_nilfs.h
+> @@ -150,7 +150,7 @@ struct the_nilfs {
+>=20
+> =C2=A0	/* Checkpoint tree */
+> =C2=A0	struct rb_root		ns_cptree;
+> -	spinlock_t		ns_cptree_lock;
+> +	struct mutex		ns_cptree_lock; /* Protects
+> ns_cptree */
+>=20
+> =C2=A0	/* Dirty inode list */
+> =C2=A0	struct list_head	ns_dirty_files;
+> --
+> 2.43.0
