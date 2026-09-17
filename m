@@ -1,92 +1,157 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14742D0602
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:04:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991E6376BC2
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:05:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789617899; cv=none; b=IdrT16FrT+ypMFxiY+jxdePLcACDBE5JJag1vsMYlU7jJD4D9Ed1UkrDSRfBuygWNJb1p/SRbgVPIsmNmyXwVql4RAdGbPJqF4DAPumCd91SwXaMp7o9GiKqg2Bbp0QVAQO+JsiFmp8RFfc2dWT3B4J0x7Tz4rsD9kCqcIOM7eo=
+	t=1789617939; cv=none; b=CYXkhyoD0MSyK3+kcwN2sudI9pR606fUjyKgfLRGkh/uo0oMONe6ClnQfERg8ZCR5J1yNIoDjfH9Vu2ixUzYO9FxLG1bOpzhXA+wh+ATMTs4vXXnzFFjOGZuZXQ3WPqZsoYMlWM8fSpBcAb2r8ca0uyw2VKE0mAAzbhOmiJWMz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789617899; c=relaxed/simple;
-	bh=4x6GhmtGWZcDWlCsZP+Z6VHVWD16hV9/GAZe2iE0DSI=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=A8wJs5NfMLsT8bcJCipHwM2f17wQfSUReTKMLl0gGyICpf76MRft21ytSrJcckjYubmu8Mt+9wL/39n8F/sXDGS+EpGNuadpBFEat8gB/E9GZOILGTBdS3g4fZANA128JJ0ojtx40UbYDBCWnNWPQk9VddBaSiv1vfDENhRDq3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=u+5Pcpem; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	s=arc-20240116; t=1789617939; c=relaxed/simple;
+	bh=JTbnAtARgUQ4AFZJU9OHPxz7uBUe6OrzJYGrchxPvP8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OIOc8YZCf34RW7g+saApnkFe7p69OA0GoLHM7V+X5M4xkDQ26oRsZyLa+5x4/7VnV/ufG0nBdKHpRkkMQc6h29YXPg9aGZpl10hBwfcXTmWyGNBb+AQjaquoFndPnhdTtCwg8VIctZKhQqlA4nvboEVRWG81X0yq/YH+r4pXHBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jBYTwpVt; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="u+5Pcpem"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39af92138f9so825630a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:04:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jBYTwpVt"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-868cfc5c244so215637b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:05:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789617898; x=1790222698; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6KOfG9uLmv3KAcRE/q/Ui3q169Q8pkPefjKGmb/vg0I=;
-        b=u+5PcpemIF2jDcMY5A6mNtsXcO/qgB/W86vLEObrP42ygPPaKf+o1xzTLTWuNFh0Vb
-         8cDTIMuDLRW7Qk2k62H4vkUH8iTtZH9CAAQj+LPASYN/pqIY4ZNWKF1q+JqRKg4DOAn1
-         J7WnPyvG9qok1n2uNonzUoIPC92wO96RyMQGowuQ52/2mqf6Vppc3GL0fnJABh5kd311
-         5NpDlgiueA/PtzekYI+QRlsn/1GKfIGUeqZPdBOAvawFk7gdYH27aSG52ALUJ63FhkoX
-         MGUWPkvsC9GyNKaLG9qqhyJQBG8o658sSLinx8jMcMPGSS8OmFXTAEt+gsUpaC+Z9Y1o
-         rPdQ==
+        d=gmail.com; s=20251104; t=1789617934; x=1790222734; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YtX/Qf6NK/20sK/bOaui84KkOiA6Sp6G7U7L/FiPWA0=;
+        b=jBYTwpVt5Gk2BmxBp86oAxG+yLbCOEbJDABiddOhM+yxobsuSaDzazf90TaAZQWTFi
+         tloJBuKMNcTgaEiJdxU1TVuUt+q7DQFO9WINLUbYK5yOFWZW0CzRrSYvXhIT+ah9pt+y
+         NMabFUABPCyvQrdIb8nqNQ12pCiOO5rlQbazjaOu9ATKx/zYPKJQmySpk8K3K+ZQ3sfW
+         2WsckDRlnckbFxcJ18lk0qGo6EI0ajJ26JKaMY7EiWJvEAqpUy8DoNOJtPjoHH+JssvW
+         HULUbOBgAfFwkY2HweNg8ZXCh9eK1JljaNyxpw78uWfJl05zN0rigQROlPHqb6DvLaiC
+         NKVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789617898; x=1790222698;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6KOfG9uLmv3KAcRE/q/Ui3q169Q8pkPefjKGmb/vg0I=;
-        b=XilEm9OrYIvmVYAFTKHSGIssJgH2a4K4ljpYTr4aKVgiUS8yXx1qFjhECHOTz/IX5T
-         82Z1HlskIInD09JoFlT4hYLCh6j7HmFDXZnDpGt3Eujs8h/AI1IaVWMSCqIGd1G70dWv
-         cRKPXxknjAQ4WUr8YtJ8G+ziaAHkNob+Cjl5E2sTMx9XO2sPPRnqyv5X1Nt25ibt6tFo
-         9OyPh3E3G9cpCdc1lmGl6tkDqhxpeNYZ9N1dykdo8DhV+KKMm1tc6B4qCxHEUJT6uGKD
-         rb+9Wlmuh1iuXGjra4c9vzxeUZruBx4dwH9/xrmatBl9IDCd3BadO6K/Q4L35nEEv3J+
-         qrjg==
-X-Forwarded-Encrypted: i=1; AKwUvBzY3psafTBI/WHpfDD6KCLSEt1Tg6PpNOOhhqjFWryvoKdlG7vJswmwNnU1MPw4Phx7i74KjVDWjwjo2P8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8XV0sinq0M/uePhc53rkcg5twXZatwpKx/bDTFTfsP9MyKbvU
-	Z3bvTpDXQyJNH0XgzDS2fO3BnygThgszWOAxThVg5Npf5FDXcuuS9/PXjSdTvKyYwHHc3N8t+sr
-	ena1ypRfoyw==
-X-Received: from dlbur23.prod.google.com ([2002:a05:7022:ea57:b0:143:8d74:244a])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:134f:b0:398:a649:8fa3
- with SMTP id 98e67ed59e1d1-39e361588a6mr3047399a91.23.1789617897624; Wed, 16
- Sep 2026 21:04:57 -0700 (PDT)
-Date: Wed, 16 Sep 2026 21:04:54 -0700
+        d=1e100.net; s=20260707; t=1789617934; x=1790222734;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YtX/Qf6NK/20sK/bOaui84KkOiA6Sp6G7U7L/FiPWA0=;
+        b=o8exF70Ur6GG3XLsVHe5CLG9UY6uhuui4CZrToGn7TNZ0E4VOgQ8QidfdYua7guOdj
+         OKf2nAuIGW8A5csPgq1gMt8t2+kq8/kUViEvPE5ZQjWM6iuBsIIyI7Ith76YXrdwRMFE
+         dJ/qZiZoLu6y0mu8OgjSLSUjGRDd/w2MqP4ZGI34b1hCThGvRH4w8YE4rr5H2+OSgow6
+         Dpf8iRKxCxC9wgG+8PXirGbnEQNiQ9XIzJBJq2jEjdnQFz45JyHexyreZrSqcrl7Iw9+
+         D3mjY5s4gzf/DQo/4hykiX6ar1GV5VCC+7ZX6CDbCfKEDI3DqlQPD6vQy6MAnMVYZK0E
+         j6gQ==
+X-Forwarded-Encrypted: i=1; AKwUvByOnIMeuXHP2AdNxA7xeH1ECPdvvBsM0OdW/oOWacPVWO1wuhe26k9pvkhjDLfIpvCsNeKCZVdNDap+zXA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+eVlgS6EWls6ait54lpIOF6ypIGX4ag6Co/6KsS1jE3ScpIKF
+	P8tSgeFInfx9ysAkub/ZiN2oVvAld77hQjQJ4w43CV2AlEia7PDIacgm
+X-Gm-Gg: AYBFou39QVMEoYjNQM1cp02wLC4d8Q2XV293mgdtGbkRZwcF2Zn0Tn4f7RNwjCreht9
+	cpMlibdAUETp3A81AGakvVO5QnuIq0zoaV1rqCqrmeHu7eCqPy9aNEIy3ER+aW4LHtn5iPe6LLm
+	fOZhvxV8yYoelPvNeDHgBlhpu3sY7m57MUBNsDsAJHM+dojx8aBidy1oKTKsuVfgjxTIhICj6TM
+	NbzgL3ARxkCdnRLh2ecjTfheCRzAiBJOQR6Nrcq2YcTZhy1FLZfVOKrWfNT0DaaCl4Smw/TlSK/
+	SE5X/DoT90ZauHqwQ8bdxe5nFuQkwBFDEnsqj/2QENXvqcLgLJ42DPGKDGpkUvmLW4uhSo/NPAw
+	WoOP7kZJQp9TkK/Jki1//ff8MgHFbyzBirAPq4ABL+RUtaNNuUP0weBY5XAjYCTiom4a3DmW5jt
+	jEcTFpmYw/masex2pDr2tpQmL303qwY6r9ST/W8FM8J6oKc4DdVRV/fTh4lio5Lz6/K+KFX8svt
+	IBo7tQzZuBzsRqQIYoXGp2WEYTsix1GI1LUng==
+X-Received: by 2002:a17:90b:4a51:b0:39d:ee20:1e28 with SMTP id 98e67ed59e1d1-39e1e510f73mr14802785a91.21.1789617934135;
+        Wed, 16 Sep 2026 21:05:34 -0700 (PDT)
+Received: from amd.ban-spse ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395cacce6sm10195833c88.1.2026.09.16.21.05.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 21:05:33 -0700 (PDT)
+From: Malathi A <malathi.a2000@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: Malathi A <malathi.a2000@gmail.com>
+Subject: [PATCH v2] serial: 8250_uniphier: Use devm_clk_get_enabled()
+Date: Thu, 17 Sep 2026 04:05:09 +0000
+Message-ID: <20260917040511.103232-1-malathi.a2000@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260917040454.32916-1-irogers@google.com>
-Subject: [PATCH v1] tools include: Add missing stdarg.h include
-From: Ian Rogers <irogers@google.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Cc: sashiko-bot@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Header file makes use of varargs but doesn't directly include stdarg.h.
+uniphier_uart_probe() enables priv->clk by hand and is then responsible
+for disabling it again on every error path. It misses one: when
+uart_read_port_properties() fails the function returns directly, leaving
+the clock prepared and enabled. The neighbouring path, taken when
+serial8250_register_8250_port() fails, does call clk_disable_unprepare(),
+which shows the leak is an oversight rather than intent.
 
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/linux-perf-users/20260916062233.192271F000FF@smtp.kernel.org/
-Signed-off-by: Ian Rogers <irogers@google.com>
+Rather than adding another manual unwind, switch to
+devm_clk_get_enabled() so the clock is released by devres. That removes
+the error path entirely, along with the explicit disables in the
+register failure path and in uniphier_uart_remove().
+
+The clock is still disabled and re-enabled by hand across system sleep,
+which stays balanced: only SET_SYSTEM_SLEEP_PM_OPS is used, so the
+device cannot be unbound while suspended and devres always sees an
+enabled clock at detach.
+
+Found by smatch:
+
+  drivers/tty/serial/8250/8250_uniphier.c:232 uniphier_uart_probe() warn: 'priv->clk' from clk_prepare_enable() not released on lines: 205.
+
+Fixes: 26e8349c0d76 ("serial: 8250_uniphier: Switch to use uart_read_port_properties()")
+Signed-off-by: Malathi A <malathi.a2000@gmail.com>
 ---
- tools/include/tools/dis-asm-compat.h | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+- Use devm_clk_get_enabled() instead of adding a clk_disable_unprepare()
+  to the failing path, as suggested in review. This also lets the
+  explicit disables in the serial8250_register_8250_port() error path and
+  in uniphier_uart_remove() go away.
+- Reworded the commit message accordingly.
 
-diff --git a/tools/include/tools/dis-asm-compat.h b/tools/include/tools/dis-asm-compat.h
-index 70f331e23ed3..1e0586d8451b 100644
---- a/tools/include/tools/dis-asm-compat.h
-+++ b/tools/include/tools/dis-asm-compat.h
-@@ -2,6 +2,7 @@
- #ifndef _TOOLS_DIS_ASM_COMPAT_H
- #define _TOOLS_DIS_ASM_COMPAT_H
+ drivers/tty/serial/8250/8250_uniphier.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/tty/serial/8250/8250_uniphier.c b/drivers/tty/serial/8250/8250_uniphier.c
+index e3db60bf50c9..6fffac12277a 100644
+--- a/drivers/tty/serial/8250/8250_uniphier.c
++++ b/drivers/tty/serial/8250/8250_uniphier.c
+@@ -180,16 +180,12 @@ static int uniphier_uart_probe(struct platform_device *pdev)
  
-+#include <stdarg.h>
- #include <stdio.h>
- #include <dis-asm.h>
+ 	memset(&up, 0, sizeof(up));
  
+-	priv->clk = devm_clk_get(dev, NULL);
++	priv->clk = devm_clk_get_enabled(dev, NULL);
+ 	if (IS_ERR(priv->clk)) {
+-		dev_err(dev, "failed to get clock\n");
++		dev_err(dev, "failed to get and enable clock\n");
+ 		return PTR_ERR(priv->clk);
+ 	}
+ 
+-	ret = clk_prepare_enable(priv->clk);
+-	if (ret)
+-		return ret;
+-
+ 	up.port.uartclk = clk_get_rate(priv->clk);
+ 
+ 	spin_lock_init(&priv->atomic_write_lock);
+@@ -222,7 +218,6 @@ static int uniphier_uart_probe(struct platform_device *pdev)
+ 	ret = serial8250_register_8250_port(&up);
+ 	if (ret < 0) {
+ 		dev_err(dev, "failed to register 8250 port\n");
+-		clk_disable_unprepare(priv->clk);
+ 		return ret;
+ 	}
+ 	priv->line = ret;
+@@ -237,7 +232,6 @@ static void uniphier_uart_remove(struct platform_device *pdev)
+ 	struct uniphier8250_priv *priv = platform_get_drvdata(pdev);
+ 
+ 	serial8250_unregister_port(priv->line);
+-	clk_disable_unprepare(priv->clk);
+ }
+ 
+ static int __maybe_unused uniphier_uart_suspend(struct device *dev)
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+2.43.0
 
