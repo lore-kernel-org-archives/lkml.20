@@ -1,66 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5B33955CD;
-	Thu, 17 Sep 2026 08:57:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8993955F6;
+	Thu, 17 Sep 2026 08:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789635435; cv=none; b=BV6igoeX1QB+oeS1BARUCTU6diMWgjELJ0wllAm4rpbmv1FSMeAvS6F2tPCECAbp3nWFTRJU1tKI3dFGgSzZ6KXYIGJtGKAZT+forxv2oyPJ78vy0LecG+sfbg4jwbUO6ooVJ0pjBZczoJAmvx0uWCanH/8wM6nLktaDYCL+7NM=
+	t=1789635497; cv=none; b=ZBD8xy7psSE5tceuCC82jrBdr9cxjn1T1jAuXoRdi36U9Jtytyv+ZycQUTBF/bTprgRnVOH+hs9RrPnClvDUI/S6s8zbYxb5qWj6OPREsuCi7y0qiBNZBhGfMNAY45koKlbvcJH5sYcUsJ3YVndlwOjdD2yxgf3moBq7uy9PiFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789635435; c=relaxed/simple;
-	bh=185K7E+yDGpdqm72K1yyJEdvhz2PLVSX2+A8CdqzS6I=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=bPcTpheqh6hMx4BgA8YVkz09TZiPL7aAiRscYgNg5V3tr1vCgDh2vdfz4KU4XQF7uGa+a0+HOCnL+FKayDctALIqM8uBLhN7DReHwzbjUslAYjZxL7/GGSPaJfTOyJLFptxACJiVmVJu7LZ8MWJMECCVKEZaGmCGlI/5JVBBnwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPwotUdR; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPwotUdR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 767731F000FF;
-	Thu, 17 Sep 2026 08:57:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789635433;
-	bh=185K7E+yDGpdqm72K1yyJEdvhz2PLVSX2+A8CdqzS6I=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=lPwotUdRj/KhDUwr6PxOoMJXRA3U3CJGfvY955sz8mLgUGfdhysIeIfTAN+uLZSXb
-	 luvwBhp6oqA53N6tbBpBviSzZWlcMa7CzlKasGyxkvRTfrYbYT4o/6mYEYlyxZf4r4
-	 H5nI9/akUADQ3NHayuTtYJw3/zOMLYR+mYC2pqfeGpkHZL4M5VbwtUEuY1G48+cGz9
-	 HUr3w5hczsSFKBMQKX1IebxiASM0Mr0+xIfbBOfZsFY5UsIpTruW2aZBK8xDUezhTG
-	 9V7nBw9s2Wq5fvtqtQ2JZrpepVHc7NAUgXkvEWum7ZzFZQSUHT41PJSy4n02ZHuk3y
-	 qtlwfNC3ew7mw==
+	s=arc-20240116; t=1789635497; c=relaxed/simple;
+	bh=1OhrZnBzZ0nAxpdHUgjsoW31W68d9nELbU2q61wPWic=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RSSacxHzHrTokbqECjuV4MNLG47EC0WzBwEnFWBmNd0rqnQN46PRr86knYLn9I+vUPsPYIUS2bOIhpgT4XXDsSYrXSh0HNORbsPi4vPPRPdfZZEvQ55ON61RlekSoFxhsOfpvbEKFki8fyspkMACvfLyZgDPj9WdXrcqtwk9k7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+X-PTX-Original-Recipient: andriy.shevchenko@intel.com
+X-PTX-Original-Recipient: kees@kernel.org
+X-PTX-Original-Recipient: andy@kernel.org
+X-PTX-Original-Recipient: akpm@linux-foundation.org
+X-PTX-Original-Recipient: linux-hardening@vger.kernel.org
+X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
+X-PTX-Original-Recipient: kernel@pengutronix.de
+Received: from [0.0.0.0] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
+	(Authenticated sender: jre@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5C427202591;
+	Thu, 17 Sep 2026 10:58:11 +0200 (CEST)
+Message-ID: <8f85aad8-060d-4809-bd81-56d7279e5cd2@pengutronix.de>
+Date: Thu, 17 Sep 2026 10:58:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 17 Sep 2026 10:57:08 +0200
-Message-Id: <DLHGT9SR5T1E.2Z3D1088WA64H@kernel.org>
-Subject: Re: [PATCH v4 2/2] gpu: nova-core: use cv! for constant casts
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260917-cv-v4-0-547ef5727451@nvidia.com>
- <20260917-cv-v4-2-547ef5727451@nvidia.com>
-In-Reply-To: <20260917-cv-v4-2-547ef5727451@nvidia.com>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] lib/tests: string_helpers: check null terminator too
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@pengutronix.de
+References: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
+ <20260916-string_unescape-v1-1-7f8bd986fa33@pengutronix.de>
+ <aquTPXq3d2CoW7Am@ashevche-desk.local>
+Content-Language: en-US
+From: Jonas Rebmann <jre@pengutronix.de>
+In-Reply-To: <aquTPXq3d2CoW7Am@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu Sep 17, 2026 at 10:34 AM CEST, Eliot Courtney wrote:
-> The new `cv!` macro allows safe casting of constant expressions in a
-> const context. Update code in nova-core to use it.
->
-> Reviewed-by: Gary Guo <gary@garyguo.net>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+Hi,
 
-Reviewed-by: Danilo Krummrich <dakr@kernel.org>
+On 2026-09-17 09:14, Andy Shevchenko wrote:
+> On Wed, Sep 16, 2026 at 07:38:06PM +0200, Jonas Rebmann wrote:
+>> string_unescape() returns the number of character written to dst, not
+>> counting the null terminator which is always written.
+>>
+>> Ensure string_unescape has included the null terminator by adding a
+>> separate check.
+> 
+> ...
+> 
+>> -	KUNIT_ASSERT_EQ_MSG(test, q_real, q_test, "name:%s", name);
+>> +	KUNIT_EXPECT_EQ_MSG(test, q_real, q_test, "name:%s", name);
+>>   				  char *out_test, size_t q_test)
+> 
+> The commit message doesn't explain why it's safe to continue the test if the
+> first assertion fails. Care to elaborate?
+> 
+
+It is safe against out of bounds access because both buffers are
+allocated by the callers, not by the function under test, and the
+comparison is done for the number of bytes expected, not whatever the
+function under test indicates was written.
+
+I would add this explanation to the v2 commit message
+
+-- 
+Pengutronix e.K.                           | Jonas Rebmann               |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
