@@ -1,35 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B72942A14D;
-	Thu, 17 Sep 2026 08:25:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F76D426D0C;
+	Thu, 17 Sep 2026 08:26:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633576; cv=none; b=t5QL2D3P63aJuCiuAHQ1xMAP/0hcBpJ97iH2DZTUDUdj8cDRN3U7sQj3UK03wHJnhID9DQgS2SDVZHlJNYhnDWgOqcIEfVS9tRI5Jz2eXawlkRK7lyCgPvOOTdTXvl/lAcUx+MKP5+Q8Y9V4oFSZVHLNTqvl4483YpCxOrhbbC4=
+	t=1789633580; cv=none; b=hBvXU1t5eAq/9D4ulLoq2LTtNP8QlNAaA+guuv7/WFSBwyyPcSOVdFwszv7KRLVbp9cY0l+IRrYycGjRZxdgRImrkfz3QdrQAi8s3wePDhvMZf8SCloKAndLY8G0UxRFewVa1wR9FtothBDa78hyhjbqd7Mt09iik4lQ/SwbdAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633576; c=relaxed/simple;
-	bh=Xiy1CMZcScJOjJMm6KuN9S/S57ILP1RjqYToK9VmGTM=;
+	s=arc-20240116; t=1789633580; c=relaxed/simple;
+	bh=HGpw61OlyqRrCGSdAUvBwJGvASu1hXV3WIhP5pJuNcQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kQUba6u9y0OMoyDf3qDZKTNDpVMvgm/dUgwzG+n+qvzWSiezA0KjkixGZdufWAi8CPWtXUbT40emfO3Rr9bCeywM6IG6KTKQVBoTIFa43RH/GXXrzxpkk0yPVIwRdYZ929dFJ7hFUIaYmU7s2fxXBfR7ucVZOb0qWn6MRSJo1rc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=OFRFSD4G; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=mJZjJt+OOCLI/tt1hkhyQ7hhZ2nvXNv603OLGxOxGZbwTukb0NlYj9sPa9R0dM4bHscOtMahAGT4w+pvQIni+N4YyCQCXfAmVOA+fh8kmY7X7dWeobDhdsxTLATQmtEJ0tmb2wDVC0OUA9J/HHWzitLM91rabKIUMV+d2V5hivg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=i+SKV+cu; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="OFRFSD4G"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="i+SKV+cu"
 Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0526A145C;
-	Thu, 17 Sep 2026 10:23:51 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B8DC2C51;
+	Thu, 17 Sep 2026 10:23:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789633432;
-	bh=Xiy1CMZcScJOjJMm6KuN9S/S57ILP1RjqYToK9VmGTM=;
+	s=mail; t=1789633438;
+	bh=HGpw61OlyqRrCGSdAUvBwJGvASu1hXV3WIhP5pJuNcQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=OFRFSD4GTgAykqpO9WniQqkBXOBAWrTr5XXGF6fuOl4cahRKG/AN50xk8bghNzp5w
-	 otg2i/rjdO8i1+k+rjJINzsC13s34xUAp3iuqukqioR4IClUadtyWosswzYecL38ae
-	 0dpqTbEHqtWdTFz6QSPH2/Q/Mtxj4o5YH3qDLfao=
+	b=i+SKV+cuuhRQFEeiVb3nA8RBFwFG710mYBj+f/1p6kGJcLotNvSbzBB7BHYNXLrRk
+	 F1wqupALZURBcYXNL3fVYnm0KJxxsJGQcRlj1eAIX50maZKMZXaUaoR9+n9VQWeWbv
+	 hdU7FM5Z86s2JezSL735VESh3E2tLK0AbzpzDCys=
 From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Thu, 17 Sep 2026 13:53:12 +0530
-Subject: [PATCH v5 06/10] platform/raspberrypi: vchiq: Add helpers for
- vchiq driver data
+Date: Thu, 17 Sep 2026 13:53:13 +0530
+Subject: [PATCH v5 07/10] media: videobuf2: Allow exporting of a struct
+ dmabuf
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-vchiq-isp-v5-6-2d8870add2c0@ideasonboard.com>
+Message-Id: <20260917-b4-vchiq-isp-v5-7-2d8870add2c0@ideasonboard.com>
 References: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
 In-Reply-To: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>, 
@@ -53,59 +53,163 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Paul Elder <paul.elder@ideasonboard.com>, Hans Verkuil <hans@jjverkuil.nl>, 
  Tomasz Figa <tfiga@chromium.org>, linux-media@vger.kernel.org, 
  linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Jai Luthra <jai.luthra@ideasonboard.com>, Umang Jain <uajain@igalia.com>
+ Jai Luthra <jai.luthra@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1204;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4777;
  i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=Xiy1CMZcScJOjJMm6KuN9S/S57ILP1RjqYToK9VmGTM=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqq6PT8q9tP2H7GWM7tGlpqKkxybWJ8CVhh0bYu
- QMrjuuNlpqJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaquj0wAKCRBD3pH5JJpx
- RQMnD/93BJ/v6mmxPLxYiOP8KxdMVQ+jP6rFSlwk/sjLjKqGnt9DbX2y+7jIU6bjjuKtC3lmcVM
- Ate+0/5Qzmt/+EKhvtM7x5xhB2aKmm9Z4KC4IamURkLXZbvLVFmfuVlLKfh+mnWBSP8kR0+sEFj
- fSoDAr+n3TF1lZDrdsuSQXAnCGB1vvQ2jVEJqJEwVDb9MoP1+/BM+gv9wbgQPcF9oype5t/WX84
- jOkgb9uIdBM5Cu1hOlGjUQs4Ob5wvmIh66JuFi1csBKkH6VuwBJn2Q17Rk8zVgFLYwcacfgVDUE
- R04Dp6Beua/Wt3FK2Q5cwARAWwCtyJ+Zv4PWk7uvlSw991kHXYtKMqbt5P67jLZvEOIZ5D3Ee1g
- qlOgovzad6VrwR8qIshvid0oCt4FGymEQaR6b0b3f4i7ApgBz254/185FpiJNdkg33OmhVy4Ad4
- ADyhuCKLynaj+ktC7LMEQVJoZ68nfhfi90m5nJcb/LL5+GMTQiPjwUucZfHzOI4udZH3irIb2os
- 9hEJr/plWURbIvws2k22UqO51E3TpJJtAMmMlJ8ElW472uJF98+v4J9DPbZMisykbIFar9ugivq
- cSkcvRDvsDqXp7VLRBYVdzG5HaiCf7xLz4PyZ61Gv/h1rVCsIynHzMzRi8sEgIaVnXQ1VqWHP+U
- 3od4hBiEPUrvVcA==
+ bh=Cr6kOKE2wSeMf6SN/lh4O5ooGvUto6gq3Zw5IiCRfpw=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqq6PU0276fr7dn1KPrLbJeqYbC+IAgPxgQczt+
+ i59PW0d2UGJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaquj1AAKCRBD3pH5JJpx
+ RTB4D/9tbBdVl0xTv6ppE+sXcNslevWiv1KgQzd7gFnGh2S5SrnQhlS9gOPSh4kyGzjkYAublo2
+ A1YdeWCIdbE49vF773tOZBlQVjqzWoV2gkecfuz93M5JNL9YU1vvE+TAjZdAg5GGLs5ONbXASTU
+ BjGV9boQfQIw3RCFEMs6yUcoQeExPIV+i//V0S4QSsh9z8GtHWFLK0rYzt+y9Rf1MLmGnxaR8nx
+ 3w3INCXdivnNXu+91sH/p/shDLoSWcKMaFjDtuFqidZ8D4pDg636I0yaSFyQJTwMRSXqPOjTLkr
+ 4ZS36THApUPWocWy+/PNLsfZK2rK9UhVZOqMPh95CcV9bESEGGEfCHCwB8skUSr/wSoVUXaW9Ni
+ /djusminQq3RXkR7hN6lnDu0l8xQUAljuQouAxzXI8PIp1ejCryiJitPbCxlwPujve/HiXFeYO3
+ ihdZxUcahKR6yN8Tn8skqZIUvf7Pd8bWO/2XO4rXCiC6F1qdCvsd4TZtLXeKah15o+PtjY4E+qj
+ nvkLrcwTNVgEIivI037KtBcGWt5L3WEsjACYRVDzdiM9KUXPbv2BP5/GY1e8GoOqGWOdXFib+Up
+ vTA3pCsZzr77UxUYHv+PrKB8aUu6rSB6bwl79HTnn4uX8VYMmj1kJoS6d+K0vU9JDtQTPTafu7+
+ sn6kfesN3oCKO2Q==
 X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
  fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-Add helpers to set and get vchiq driver data. vchiq_set_drvdata() and
-vchiq_get_drvdata() wraps dev_set_drvdata() and dev_get_drvdata()
-respectively.
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-Signed-off-by: Umang Jain <umang.jain@ideasonboard.com>
+videobuf2 only allowed exporting a dmabuf as a file descriptor,
+but there are instances where having the struct dma_buf is
+useful within the kernel.
+
+Split the current implementation into two, one step which
+exports a struct dma_buf, and the second which converts that
+into an fd.
+
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
 Tested-by: Paul Elder <paul.elder@ideasonboard.com>
 Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- include/linux/raspberrypi/vchiq_bus.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Changes in v5:
+- Update documentation of return type to only ERR_PTR and not NULL
+Changes in v4:
+- Return a pointer to struct dmabuf instead of passing it as a double
+  pointer argument and returning an int for errors (Laurent)
+- Document the return type (Paul)
+---
+ drivers/media/common/videobuf2/videobuf2-core.c | 45 ++++++++++++++++---------
+ include/media/videobuf2-core.h                  | 16 +++++++++
+ 2 files changed, 45 insertions(+), 16 deletions(-)
 
-diff --git a/include/linux/raspberrypi/vchiq_bus.h b/include/linux/raspberrypi/vchiq_bus.h
-index e52291a3b247..513a144bfbe9 100644
---- a/include/linux/raspberrypi/vchiq_bus.h
-+++ b/include/linux/raspberrypi/vchiq_bus.h
-@@ -37,6 +37,16 @@ static inline struct vchiq_driver *to_vchiq_driver(struct device_driver *d)
- 	return container_of(d, struct vchiq_driver, driver);
+diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+index 5e318165659f..7b99d39d7cb1 100644
+--- a/drivers/media/common/videobuf2/videobuf2-core.c
++++ b/drivers/media/common/videobuf2/videobuf2-core.c
+@@ -2419,50 +2419,63 @@ static int __find_plane_by_offset(struct vb2_queue *q, unsigned long offset,
+ 	return 0;
  }
  
-+static inline void *vchiq_get_drvdata(const struct vchiq_device *device)
-+{
-+	return dev_get_drvdata(&device->dev);
-+}
-+
-+static inline void vchiq_set_drvdata(struct vchiq_device *device, void *data)
-+{
-+	dev_set_drvdata(&device->dev, data);
-+}
-+
- extern const struct bus_type vchiq_bus_type;
+-int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
+-		    unsigned int plane, unsigned int flags)
++struct dma_buf *vb2_core_expbuf_dmabuf(struct vb2_queue *q,
++				       struct vb2_buffer *vb,
++				       unsigned int plane, unsigned int flags)
+ {
+ 	struct vb2_plane *vb_plane;
+-	int ret;
+-	struct dma_buf *dbuf;
++	struct dma_buf *dmabuf;
  
- struct vchiq_device *
+ 	if (q->memory != VB2_MEMORY_MMAP) {
+ 		dprintk(q, 1, "queue is not currently set up for mmap\n");
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 	}
+ 
+ 	if (!q->mem_ops->get_dmabuf) {
+ 		dprintk(q, 1, "queue does not support DMA buffer exporting\n");
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 	}
+ 
+ 	if (flags & ~(O_CLOEXEC | O_ACCMODE)) {
+-		dprintk(q, 1, "queue does support only O_CLOEXEC and access mode flags\n");
+-		return -EINVAL;
++		dprintk(q, 1, "queue supports only O_CLOEXEC and access mode flags\n");
++		return ERR_PTR(-EINVAL);
+ 	}
+ 
+ 	if (plane >= vb->num_planes) {
+ 		dprintk(q, 1, "buffer plane out of range\n");
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 	}
+ 
+ 	if (vb2_fileio_is_active(q)) {
+ 		dprintk(q, 1, "expbuf: file io in progress\n");
+-		return -EBUSY;
++		return ERR_PTR(-EBUSY);
+ 	}
+ 
+ 	vb_plane = &vb->planes[plane];
+ 
+-	dbuf = call_ptr_memop(get_dmabuf,
+-			      vb,
+-			      vb_plane->mem_priv,
+-			      flags & O_ACCMODE);
+-	if (IS_ERR_OR_NULL(dbuf)) {
++	dmabuf = call_ptr_memop(get_dmabuf, vb, vb_plane->mem_priv,
++				flags & O_ACCMODE);
++	if (IS_ERR_OR_NULL(dmabuf)) {
+ 		dprintk(q, 1, "failed to export buffer %d, plane %d\n",
+ 			vb->index, plane);
+-		return -EINVAL;
++		if (!dmabuf)
++			dmabuf = ERR_PTR(-EINVAL);
+ 	}
+ 
++	return dmabuf;
++}
++EXPORT_SYMBOL_GPL(vb2_core_expbuf_dmabuf);
++
++int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
++		    unsigned int plane, unsigned int flags)
++{
++	struct dma_buf *dbuf;
++	int ret;
++
++	dbuf = vb2_core_expbuf_dmabuf(q, vb, plane, flags);
++	if (IS_ERR(dbuf))
++		return PTR_ERR(dbuf);
++
+ 	ret = dma_buf_fd(dbuf, flags & ~O_ACCMODE);
+ 	if (ret < 0) {
+ 		dprintk(q, 3, "buffer %d, plane %d failed to export (%d)\n",
+diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+index feda638d0064..45bfe8a2a12a 100644
+--- a/include/media/videobuf2-core.h
++++ b/include/media/videobuf2-core.h
+@@ -954,6 +954,22 @@ int vb2_core_streamon(struct vb2_queue *q, unsigned int type);
+  */
+ int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
+ 
++/**
++ * vb2_core_expbuf_dmabuf() - Export a buffer as a dma_buf structure
++ * @q:		pointer to &struct vb2_queue with videobuf2 queue
++ * @vb:		pointer to &struct vb2_buffer
++ * @plane:	index of the plane to be exported, 0 for single plane queues
++ * @flags:	file flags for newly created file, as defined at
++ *		include/uapi/asm-generic/fcntl.h.
++ *		Currently, the only used flag is %O_CLOEXEC.
++ *		is supported, refer to manual of open syscall for more details.
++ *
++ * Return: returns a pointer to &struct dma_buf on success; an ERR_PTR otherwise.
++ */
++struct dma_buf *vb2_core_expbuf_dmabuf(struct vb2_queue *q,
++				       struct vb2_buffer *vb,
++				       unsigned int plane, unsigned int flags);
++
+ /**
+  * vb2_core_expbuf() - Export a buffer as a file descriptor.
+  * @q:		pointer to &struct vb2_queue with videobuf2 queue.
 
 -- 
 2.55.0
