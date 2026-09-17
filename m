@@ -1,167 +1,106 @@
-Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp87.cstnet.cn [159.226.251.87])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E461A4D956F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789643814; cv=pass; b=JtzRsTrr8Dky/B6a1C1idxWaPXv3oWhmG4JyT+4F9mylC8UBvprX0xLDA1qrPYbcHylAm5Ywe0ZyVacqM+v2YRFccw6Eo2/07iiPO6xXpZcUD2aCT8HrBHubGP3F2mr47gMez0V8kna8H7OS74aiv6TzDNQRiZPZgDnkxQvABqI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789643814; c=relaxed/simple;
-	bh=L+7jrrmM1xceNH5ZDG2/Kd0WCxATH/Vel0IisJNbBPA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZapU0m8uWxK6WuifvqxXKfGmKfrVHt8f8UGEAe1ymLwpKFhw903x0eWJaT1Jx9Rfvacm37nw4wXw1u73xOBhjAIZHrIvnX2hmrvwdqUfpIu6JWQD2mAAS8OgaRF7TyrOgRKiF3Ab0LKWqZGk/glp2GZ05lho+xgw9lcUWSce4PE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=fHCW3CnH; arc=pass smtp.client-ip=165.173.182.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="fHCW3CnH"
-ARC-Seal: i=1; a=rsa-sha256; t=1789643753; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=eULJmLEuwv9sBnXxHcwQJE5HTxIvPrHEhvJn0UJbP4WaF1WdxZdpQJc9fKmAmuaelKDU6MFEG/h5tsTjevVaGUNEwuYtNcvqrAlts861YcCabnEHeMEoT5SkIlVE33tEnV/ge01RoIcI1zIbNpAatIhwVyIxBTVn+hlAHJPIAg0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789643753; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=L+7jrrmM1xceNH5ZDG2/Kd0WCxATH/Vel0IisJNbBPA=; 
-	b=FJQRfbqRm+mJMKFxD43UkwdtEzpJplzRD8xuPnh99zhoizTulrC5T94tolYsVrylH4Pey/lwBj9zb4b59+5goqOe+x8l24CjhGEnBAId9WT+kffG16BDyoD9c29Wxuaa400DRT8W+sBP22yPbiCQCLb+wT0K+tFPItczLxXkoxs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789643753;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=L+7jrrmM1xceNH5ZDG2/Kd0WCxATH/Vel0IisJNbBPA=;
-	b=fHCW3CnHaIVW1eDh1hW7EoqdMjqgwzdh4TzthQw+wJ2ld3pis1jC9rGYkaXvI1jO
-	v2jjHF+FVy+1tWxxU0PGAxbaivcUqoiu5ArVgRveLZBopeji1tZNGSgMH/RR7GMibtf
-	XZt7iboMb6hXhInrcdzUtOP7Vy85ef4UYHVvM50TeYa1x52kJzifPNXUvmKAYytiIl/
-	ymfuJlGampHWZyp9CGJVhJ8k1XXJDMZQ296Mjb3/v0kLDgLsgNP1LLf75mkFPr4kDIu
-	hkiZWncWDpvinCFqTsD6t27GUiQmoOV9cmSTiTubOZUR8CAGyYaZZtWbJ2mAY9PlBtF
-	qLCHwHRk2w==
-Received: by smtp.zohomail.com with SMTPS id 1789643751945368.595441490814;
-	Thu, 17 Sep 2026 04:15:51 -0700 (PDT)
-Message-ID: <6d21e808d343283264665ec16d297317000fdf4d.camel@icenowy.me>
-Subject: Re: [PATCH RFT v2 0/5] drm: Add and use
- drm_fb_dma_get_gem_clipped_addr() helper
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Chen-Yu Tsai <wenst@chromium.org>, Liu Ying <victor.liu@nxp.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, Lucas Stach
- <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>,  Jernej Skrabec
- <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	linux-sunxi@lists.linux.dev, imx@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1090E42D757
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.87
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789643870; cv=none; b=lWt1mifqCpnvrvNW7aU2pNUl2Jg1Duvg0Mo8dt0B3IJnqB8Wx1YgebdwnX6MmFbbz1mi3QAihUpGFLhW6SKD9FUTImr83B5IFBuKyUX2LeCKZP4wE8DB+L4seDEicVW/M7jvNTYJ044hNQzvSch5pRz6evdbkiuuvr22zRcVU4I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789643870; c=relaxed/simple;
+	bh=+zn+qeJxd15AJym2QjbAXG3qQGjvXskF1wuAhor94E8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=rAzBBYF4i23dR2QSVKZJ/p0Z7+aqfV9+9FJH7At2JEwLeE3aVnaELeU2TQFog5CuInBuIr10SQOhWXsj1btrczNFFNeuPC79nfc7Y8br8giF1W3UaaxlClJa2vps/dkfeqYa8/jJ85Q7p/kWD7qTDkVJwrULWnbrpI5UQGtygFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn; spf=pass smtp.mailfrom=semi.ac.cn; arc=none smtp.client-ip=159.226.251.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=semi.ac.cn
+Received: from huanggaobin23$semi.ac.cn ( [159.226.228.11] ) by
+ ajax-webmail-APP-17 (Coremail) ; Thu, 17 Sep 2026 19:17:37 +0800
+ (GMT+08:00)
+Date: Thu, 17 Sep 2026 19:17:37 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?6buE6auY5b2s?= <huanggaobin23@semi.ac.cn>
+To: "Anisa Su" <anisa.su887@gmail.com>
+Cc: jic23@kernel.org, djbw@kernel.org, iweiny@kernel.org, dave@stgolabs.net, 
+	dave.jiang@intel.com, alison.schofield@intel.com, 
+	vishal.l.verma@intel.com, ming.li@zohomail.com, icheng@nvidia.com, 
 	linux-kernel@vger.kernel.org
-Date: Thu, 17 Sep 2026 19:15:45 +0800
-In-Reply-To: <20260916033327.3054126-1-wenst@chromium.org>
-References: <20260916033327.3054126-1-wenst@chromium.org>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Subject: Re: Re: [PATCH 1/2] cxl/mbox: clamp the event record count to the
+ received payload
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.1-cmXT5 build
+ 20240627(e6c6db66) Copyright (c) 2002-2026 www.mailtech.cn cnic.cn
+In-Reply-To: <aqnr04OgqRuKg1xo@cxlqual>
+References: <20260914125701.1160136-1-huanggaobin23@semi.ac.cn>
+ <20260914125701.1160136-2-huanggaobin23@semi.ac.cn>
+ <aqnr04OgqRuKg1xo@cxlqual>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Message-ID: <527b2e04.e72c.1a0af16200c.Coremail.huanggaobin23@semi.ac.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:qgCowAAH8hBRzKtqmiMPAA--.27932W
+X-CM-SenderInfo: xkxd0wxjdruxrqstq2xhplhtffof0/1tbiCRQNDGqrq01k9wADsr
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-=E5=9C=A8 2026-09-16=E4=B8=89=E7=9A=84 11:33 +0800=EF=BC=8CChen-Yu Tsai=E5=
-=86=99=E9=81=93=EF=BC=9A
-> Hi,
->=20
-> This is v2 of my drm_fb_dma_get_gem_clipped_addr() series.
->=20
-> Changes since v1:
-> - Add and use new drm_framebuffer_get_block_offset() helper (Thomas)
->=20
->=20
-> This series adds a helper to retrieve the buffer starting address of
-> a
-> "clipped" framebuffer. This contrasts with drm_fb_dma_get_gem_addr(),
-> which gives the address of the full buffer.
-
-Should vs_fb_get_dma_addr() in verisilicon/vs_plane.c be replaced with
-this helper too?
-
-I implemented manual framebuffer offset addition here.
-
-Thanks,
-Icenowy
-
->=20
-> Some drivers program their hardware with clipped dimensions, so they
-> should be using the clipped buffer address as well, unless the
-> hardware
-> can advance the scanout directly. (Side note: many drivers still use
-> the non-clipped dimensions.)
->=20
-> While at it, also pull out the offset calculation of
-> drm_fb_dma_get_gem_addr()
-> into a separate helper in drm_framebuffer.[ch], thereby separating
-> responsibilities.
->=20
-> The sun4i driver was recently incorrectly converted to use the
-> unclipped
-> drm_fb_dma_get_gem_addr() helper. This broke offsets into subsampled
-> pixel groups, but also exposed the mismatch between the dimensions
-> used
-> vs the buffer address. Two other drivers were also touched.
->=20
->=20
-> Patch 1 adds a new helper to return the byte offset into a
-> framebuffer
-> for the start of the pixel block of the given pixel coordinates.
->=20
-> Patch 2 adds the new helper to return the buffer address based on
-> clipped coordinates.
->=20
-> Patch 3 switches the sun4i driver to the new helper, and fixes the
-> luma plane buffer address offset for subsampled YUV formats.
->=20
-> Patch 4 converts the imx/dc driver to use the new helper. This fixes
-> a
-> mismatch between the programmed coordinates and the buffer address.
->=20
-> Patch 5 replaces the open coded buffer address calculation in the
-> imx/dcss driver with the new helper. Existing behavior, which might
-> be
-> wrong, is preserved.
->=20
->=20
-> Please help test. The series is only compile tested on my end. The
-> sun4i
-> changes should revert its behavior to before the
-> drm_fb_dma_get_gem_addr()
-> was adopted. The imx/dcss changes should not have any behavioral
-> difference.
->=20
->=20
-> Thanks
-> ChenYu
->=20
-> Chen-Yu Tsai (5):
-> =C2=A0 drm: Split framebuffer pixel offset calculation from
-> =C2=A0=C2=A0=C2=A0 drm_fb_dma_get_gem_addr()
-> =C2=A0 drm/fb-dma-helper: Add drm_fb_dma_get_gem_clipped_addr()
-> =C2=A0 drm/sun4i: layers: Fix VI buffer address for clipped offsets
-> =C2=A0 drm/imx/dc: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
-> =C2=A0 drm/imx/dcss: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
->=20
-> =C2=A0drivers/gpu/drm/drm_fb_dma_helper.c=C2=A0=C2=A0=C2=A0 | 61 ++++++++=
-++++++----------
-> --
-> =C2=A0drivers/gpu/drm/drm_framebuffer.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 4=
-5 +++++++++++++++++++
-> =C2=A0drivers/gpu/drm/imx/dc/dc-plane.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 4 +-
-> =C2=A0drivers/gpu/drm/imx/dcss/dcss-plane.c=C2=A0 | 34 ++++++--------
-> =C2=A0drivers/gpu/drm/sun4i/sun8i_ui_layer.c |=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 16 ++++++-
-> =C2=A0include/drm/drm_fb_dma_helper.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 4 ++
-> =C2=A0include/drm/drm_framebuffer.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++
-> =C2=A08 files changed, 118 insertions(+), 51 deletions(-)
+PiBJIHNlbnQgYSBzaW1pbGFyIHBhdGNoIGEgcGFydCBvZiBhIHNlcmllcyB3aGlsZSBhZ28gYW5k
+IHJlY2VpdmVkIHRoZSBnZW5lcmFsCj4gZmVlZGJhY2sgdGhhdCB0aGUgZHJpdmVyIGRvZXMgbm90
+IG5lZWQgc3BlY2lhbCBoYW5kbGluZyBmb3IgYSBidWdneSBkZXZpY2U6Cj4gaHR0cHM6Ly9sb3Jl
+Lmtlcm5lbC5vcmcvbGludXgtY3hsLzIwMjYwOTAxMDAyOTEyLjk1OC0xLWFuaXNhLnN1QHNhbXN1
+bmcuY29tL1QvI20zOGVkOGQ2NDgyOTAyZjg1N2JjZWVmMzE0MTMzYTY3OTM3Y2MwMTJmCgpUaGFu
+ayB5b3UgZm9yIHRoZSBwb2ludGVyIC0tIEkgaGFkIG5vdCBmb3VuZCB5b3VyIHNlcmllcywgYW5k
+IGhhdmluZyByZWFkIGl0IEkKYW0gd2l0aGRyYXdpbmcgb3VyIHBhdGNoLiAgW1BBVENIIHYyIDIv
+NF0gY3hsL2V2ZW50czogVmFsaWRhdGUgdGhlIHJlY29yZCBjb3VudApyZXBvcnRlZCBieSB0aGUg
+ZGV2aWNlIGlzIHRoZSBzYW1lIGJ1ZyBpbiB0aGUgc2FtZSBmdW5jdGlvbiwgYm91bmRzIHRoZSBj
+b3VudAp3aXRoIHRoZSBzYW1lIGV4cHJlc3Npb24sIGFuZCBjYXJyaWVzIHRoZSBzYW1lIEZpeGVz
+OiBjb21taXQgKDZlYmUyOGY5ZWM3MikuCkl0IGlzIGFsc28gdGhlIGJldHRlciBvZiB0aGUgdHdv
+LCB3aGljaCBJIGRpZCBub3QgYXBwcmVjaWF0ZSB1bnRpbCBJIHdyb3RlIGJvdGgKbG9vcHMgb3V0
+IHNpZGUgYnkgc2lkZToKCiAgLSB5b3VycyBmYWlscyB0aGUgY29tbWFuZCwgc28gdGhlIHdhbGsg
+c3RvcHMgYXQgdGhlIGZpcnN0IHNpZ24gb2YgYSBiYWQgY291bnQ7CiAgLSBvdXJzIGNsYW1wZWQg
+bnJfcmVjIHRvIHdoYXQgdGhlIHBheWxvYWQgaG9sZHMgYW5kIGNhcnJpZWQgb24sIHdoaWNoIGxl
+YXZlcwogICAgbnJfcmVjIG5vbi16ZXJvIGFuZCBsZXRzIGB9IHdoaWxlIChucl9yZWMpO2Aga2Vl
+cCBpc3N1aW5nIEdldCBhbmQgQ2xlYXIKICAgIEV2ZW50IFJlY29yZHMgdG8gYSBkZXZpY2UgdGhh
+dCBuZXZlciBhY3R1YWxseSBjbGVhcnMgdGhlbS4gIEFnYWluc3QgYSBkZXZpY2UKICAgIHRoYXQg
+a2VlcHMgY2xhaW1pbmcgcmVjb3JkcyBpdCBkb2VzIG5vdCBkZWxpdmVyLCB0aGF0IGlzIGEgaGFu
+ZzsKICAtIHlvdXIgc2VyaWVzIGJvdW5kcyB0aGUgcGVyLWxvZyBsb29wIGFzIHdlbGwgKENYTF9F
+VkVOVF9MT0dfTUFYX1BBU1NFUyksCiAgICB3aGljaCBvdXJzIGhhZCBub3RoaW5nIGZvci4KCkFu
+eXRoaW5nIHRoYXQgZml4ZXMgdGhlIHJlYWQgYnV0IGxlYXZlcyBhIGRldmljZSBhYmxlIHRvIHNw
+aW4gdGhlIGtlcm5lbCBpcyBub3QKd29ydGggcG9zdGluZywgc28gdjIgb2Ygb3VyIHNlcmllcyBk
+cm9wcyBpdC4KCj4gUmVwb3J0IGEgYmFkIHJlY29yZCBjb3VudCBhcyBhbiBlcnJvciByYXRoZXIg
+dGhhbiBhIGRyYWluZWQgbG9nLCBzbyBhIGRldmljZQo+IHJlcGVhdGluZyB0aGUgYmFkIGNvdW50
+IGRvZXMgbm90IGtlZXAgdGhlIGV2ZW50IHRocmVhZCByZS1yZWFkaW5nIGl0LgoKVGhpcyBpcyB0
+aGUgcGFydCBJIGdvdCB3cm9uZy4gIEkgaGFkIGFyZ3VlZCB0aGF0IGNsYW1waW5nICJ0ZXJtaW5h
+dGVzIiBiZWNhdXNlIGEKY291bnQgb2YgemVybyB0YWtlcyB0aGUgZXhpc3RpbmcgYGlmICghbnJf
+cmVjKSBicmVhaztgLiAgVGhhdCBvbmx5IGNvdmVycyB0aGUKZGV2aWNlIHRoYXQgZGVsaXZlcnMg
+bm90aGluZzsgYSBkZXZpY2UgdGhhdCBkZWxpdmVycyBvbmUgcmVjb3JkIGFuZCBjbGFpbXMKNjU1
+MzUgZXZlcnkgdGltZSBuZXZlciByZWFjaGVzIGl0LgoKPiBBbmQgY291bGQgeW91IENDIG1lIG9u
+IHYyPyBUaGVyZSBhcmUgc29tZSBtaW5vciBjb25mbGljdHMgd2l0aCB0aGUgRENECj4gcHJlcCBw
+YXRjaCBJJ20gd29ya2luZyBvbiwgc28gSSB3aWxsIG5lZWQgdG8gcmViYXNlIHRob3NlLgoKWW91
+IGFyZSBDYydkIG9uIHRoZSBwYXRjaCB3ZSBrZXB0OgoKICBbUEFUQ0ggdjJdIGN4bC9tYm94OiBi
+b3VuZCB0aGUgR2V0IFN1cHBvcnRlZCBMb2dzIGVudHJ5IGNvdW50IGJ5IHRoZSBwYXlsb2FkCiAg
+aHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYwOTE3MTA0NjAzLjI2NTg1MjktMS1odWFu
+Z2dhb2JpbjIzQHNlbWkuYWMuY24vCgpJdCBpcyBub3QgaW4geW91ciBzZXJpZXM6IGl0IGlzIHRo
+ZSBHZXQgU3VwcG9ydGVkIExvZ3MgZW50cnkgY291bnQgZHVyaW5nCmNvbW1hbmQgZW51bWVyYXRp
+b24sIGEgZGlmZmVyZW50IGZ1bmN0aW9uIGFuZCBhIGRpZmZlcmVudCByZXNwb25zZSwgc28gaXQK
+c2hvdWxkIG5vdCBjb25mbGljdCB3aXRoIHlvdXIgRENEIHByZXBhcmF0b3J5IHdvcmsuCgpUd28g
+dGhpbmdzIHRoYXQgbWF5IGJlIG9mIHVzZToKCi0gd2UgaGF2ZSBhbiBpbmRlcGVuZGVudCByZXBy
+b2R1Y3Rpb24gZnJvbSBhIFFFTVUgVHlwZS0zIGRldmljZSB0aGF0IGxpZXMgYWJvdXQKICB0aGUg
+cmVjb3JkIGNvdW50IHBlciByZXNwb25zZSwgd2l0aCB0aGUgYm91bmRhcnkgbWVhc3VyZWQ6IGEg
+Y2xhaW0gb2YgMTYgc3RheXMKICBpbnNpZGUgdGhlIDIwNDggYnl0ZSBidWZmZXIgYW5kIDE3IGlz
+IHRoZSBmaXJzdCB0aGF0IGRvZXMgbm90LCBLQVNBTiBpbgogIGN4bF9jbGVhcl9ldmVudF9yZWNv
+cmQuICBIYXBweSB0byBzZW5kIGl0IGFzIHN1cHBvcnRpbmcgZXZpZGVuY2UsIG9yIGFzIGEgdGVz
+dAogIGNhc2UgZm9yIHlvdXIgcGF0Y2guCgotIG9uZSBvcHRpb25hbCBzdWdnZXN0aW9uOiBjeGxf
+Y2xlYXJfZXZlbnRfcmVjb3JkKCkgc3RpbGwgcmUtcmVhZHMKICBnZXRfcGwtPnJlY29yZF9jb3Vu
+dCB0byBkZWNpZGUgaG93IG1hbnkgaGFuZGxlcyB0byBzZW5kLiAgUGFzc2luZyB0aGUgY291bnQK
+ICB5b3UgdmFsaWRhdGVkIHdvdWxkIHJlbW92ZSB0aGUgaW52YXJpYW50IHRoZSB0d28gZnVuY3Rp
+b25zIGhhdmUgdG8gYWdyZWUKICBhYm91dCwgdGhvdWdoIHdpdGggYSBzaW5nbGUgc3RhdGljIGNh
+bGxlciBpdCBpcyBub3QgbG9hZCBiZWFyaW5nIHRvZGF5LiAgSQogIG1lbnRpb24gaXQgb25seSBi
+ZWNhdXNlIGl0IGlzIHRoZSBvbmUgdGhpbmcgb3VyIHZlcnNpb24gZGlkIGRpZmZlcmVudGx5IHRo
+YXQKICB3YXMgbm90IHdvcnNlLgoKR2FvYmlu
