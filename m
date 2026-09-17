@@ -1,243 +1,218 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E948D4FD283;
-	Thu, 17 Sep 2026 17:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDD74C10CA;
+	Thu, 17 Sep 2026 17:31:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789666107; cv=none; b=P0Sz7zi74npZvzZaQBzg2KeTEo+Q/p6szG43VYq3PPuHGp26e7drf+a4cPpjFqeo8nagBIPa6CWqWJMOF46t30mkkfnNaM4KcaquF+JPrRTC34NXWpr2mKNrFbhU0tnLcLhcS60Z+Ugb0o5NUgEunU2AUpnkRQjodA9JVdbHNug=
+	t=1789666271; cv=none; b=o1gcGoquJTYF7DNMWscwHWpK4MJUjbMRaNTsccAo20Dv5VFGdUjzlp9GnRL6rQEw4UpBDTx950P3Uu5sB1U3xNrffNvXJbPZ562bqRGHbkLMaUD5ziOdjtQxQT2E30OJUuHR/fyWwhDaPSY3CLeogXGZMwG5vzksu/IkoRLLC1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789666107; c=relaxed/simple;
-	bh=e+C7jweyfvHzPOlW8hxz8v3C7UF0nD8KwYxETIQeorU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GuWoKTp7PNVjCS6V4GjFAzAwa9ebrpmixEyyFPg64wLqKZOfnk68J9j/XNVr1okQTHhNN7aMT0bwr5ia+gQvChSCPPBIRHWlqcCe70ofLTXQtZOVYwscow306jeNaSFFrEQfIvLPGZKlXJEEfUcvQL68Fp/trAEaTc1g+LMJAqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SdECUU/n; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789666271; c=relaxed/simple;
+	bh=TYcvdafd8HgHwSOKIsLyAciRDxl8Fs3Zzj6+2B2/nTY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Hcw9/M3jwbbuakTOe6/nVN/M1BUrIhBzfPY8/VWtN2x02wqeg+3oVor54Eln3Q6MtYkalCQyW45DL73r/+ZkmyjK3eJFOb/UWN6ZEM403EC9iJjDUuWndbOpR5ef3N8jkZOaa778h7vNgbwnTpTifhvx8mMA9mNdUv9201puLFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4iK4azk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SdECUU/n"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 60BA4C653E5;
-	Thu, 17 Sep 2026 17:29:07 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C108A60580;
-	Thu, 17 Sep 2026 17:28:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B0FE111C787D7;
-	Thu, 17 Sep 2026 19:28:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789666101; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=hNJxwhBrwzDgqLAquVY8yCZwaijeExwguM1iRW3rd+E=;
-	b=SdECUU/ntQfdCok7oD11+N1Kj9mqBsKm+6H7XhpDp4yjCZb4WBG9KvJoUPLETsi7Dd18Gb
-	xZsLiBysaHvymD9rzpyxZzIXEeqnRxHUVwEDr/CcDlA3SOx2C0bCZQg+2eUN5fyVrbkus0
-	2xAh/m77tNG6VeqD5RuqGh/HVRq+VbXvna2YXnmDab+phNgeWtd7SYMs7cDPfDNDVAwy+b
-	4KauanhzbWTZbuS1drfMdKLqhwXKGodObBf8MYiHWhC2aunXOl13Ge8tMD55z+epesEOn7
-	cKa8aXk0CBvWoVhhKsf6NRylgT3t0+h5grPxe0g9WIibh1yCSMM4Uuuf9D9YpA==
-Date: Thu, 17 Sep 2026 19:28:14 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 09/15] libfdt: Handle unknown tags in fdt_next_tag()
-Message-ID: <20260917192814.70cbecbb@bootlin.com>
-In-Reply-To: <aqu0c3qMJOLoD0Ho@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-10-herve.codina@bootlin.com>
-	<aqpc9HZ2T74Q2lYs@gractus.seuss>
-	<20260917103410.1fcfe0f1@bootlin.com>
-	<aqu0c3qMJOLoD0Ho@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4iK4azk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E5B1F000FF;
+	Thu, 17 Sep 2026 17:31:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789666269;
+	bh=ITKt7qSYJh0Ams1mBnoZPY+2GMW0TGf7MafFP4Osdns=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=G4iK4azkT45+GiEIl1+afwL0bCkoD/DWlI24v7uOLcQMBignq7I66Z7OMsVY/DeKx
+	 ebWQVIo39HY/GS1S3lpbu7o/ywkjb/cg7PqpOXtRKrQtdcxaNR3UQ+0IdrXdOssrrk
+	 T7W29cPoVFqDio/1Y85kTp7eT/SKpjG6rqs9o45GPnb6cSwcMZerZI5nafFQbhlSEO
+	 bq7bFhw6yyay0IF4zxoQ1BOaeMgsYKC9TkzY8/60Iao8D9iqcPTfcZuqIPEhtucGQE
+	 Y86XGNc+4l/gqlkPCH0wjz9vlPUsA/058k7E4O0SflW4Ui70OuM37ejfLO0gFCMOOC
+	 jq6pE9IOMAvtQ==
+Subject: Re: [PATCH] net: ena: fix PHC cleanup on probe failure
+From: netdev-bot+sashiko@kernel.org
+To: lgs201920130244@gmail.com
+Cc: akiyano@amazon.com, darinzon@amazon.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ ekffu200098@gmail.com, niklas.soderlund+renesas@ragnatech.se,
+ dawei.feng@seu.edu.cn, amitbern@amazon.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 17:31:08 +0000
+Message-ID: <178966626828.22033.11993324516511047736@kernel.org>
+In-Reply-To: <20260916022954.2690322-1-lgs201920130244@gmail.com>
+References: <20260916022954.2690322-1-lgs201920130244@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-On Thu, 17 Sep 2026 19:36:06 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+Critical: 0 · High: 0 · Medium: 2 · Low: 0 (1)
 
-> On Thu, Sep 17, 2026 at 10:34:10AM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Wed, 16 Sep 2026 19:10:27 +1000
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> >   
-> > > On Wed, Aug 26, 2026 at 10:31:40AM +0200, Herve Codina wrote:  
-> > > > The structured tag value definition introduced recently gives the
-> > > > ability to ignore unknown tags without any error when they are read.
-> > > > 
-> > > > libfdt uses fdt_next_tag() to get a tag.
-> > > > 
-> > > > Filtering out tags that should be ignored in fdt_next_tag() allows to
-> > > > have the filtering done globally and allows, in future releases, to have
-> > > > a central place to add new known tags that should not be filtered out.
-> > > > 
-> > > > An already known tag exists with the meaning of "just ignore". This tag
-> > > > is FDT_NOP. fdt_next_tag() callers already handle the FDT_NOP tag.
-> > > > 
-> > > > Avoid unneeded modification at callers side and use a fake FDT_NOP tag
-> > > > when an unknown tag that should be ignored is encountered.
-> > > > 
-> > > > Add also fdt_next_tag_() internal function for callers who need to know
-> > > > if the FDT_NOP tag returned is a real FDT_NOP or a fake FDT_NOP due to
-> > > > an unknown tag.    
-> > > 
-> > > I'm a bit unsure about this one.  If we were designing the libfdt
-> > > interface from scratch, I'd definitely say that fdt_next_tag() - as a
-> > > low level function - should return every tag, and it's up to the
-> > > caller to skip unknown ones.  fdt_next_tag() already provides
-> > > nextoffset making it fairly easy to do so.
-> > > 
-> > > But, of course, we're not building from scratch so we do need to
-> > > consider backwards compatibility.  Supplying a skipping and
-> > > non-skipping version as you have here is the obvious approach.
-> > > 
-> > > But I'm not entirely convinced it's the only or best approach.  A user
-> > > which calls fdt_next_tag() is, in a sense, already opting in to
-> > > low-level handling of the dtb.  They could well already be broken by
-> > > new tags (depending on how they handle the default case).  Arguably
-> > > it's reasonable to require them to be updated (once only) for this new
-> > > family of tags.  
-> > 
-> > I can go in that way. We will have same kind of sequence in almost all
-> > callers.
-> > 
-> >    do {
-> >       tag = fdt_next_tag()
-> >    } while (!fdt_tag_is_unknown(tag));  
-> 
-> Not really - users of fdt_next_tag() will typically already have a
-> switch on the tag type, so the unknown tag handling would be an
-> addition to the 'default' case, not requiring an extra loop.
+- [Medium] ena_probe() error unwind still omits
+  ena_com_mmio_reg_read_request_destroy(), leaking the DMA-coherent…
+- [Medium] The commit message's premise is not reachable: during an
+  initial ena_probe(), PHC is always disabled, so no PTP clock and no…
 
-Ok, those are to be update to use a switch on tag but that's not big deal
- - fdt_check_node_offset_()
- - fdt_check_prop_offset_()
- - fdt_add_subnode_namelen()
- - fdt_finish()
+Pre-existing issues:
+- [Low] ena_probe()'s err_worker_destroy label calls
+  timer_delete(&adapter->timer_service)…
 
-Some others like nextprop_() or fdt_next_node() mix a while loop and a
-switch/case. Some rework to be planned.
+--
 
-> 
-> > We have to care about those "unknown_and_skippable" tags only when
-> > we modify a dtb. This is handled by a few functions.
-> > 
-> > The vast majority of callers of fdt_next_tag() just want to skip
-> > unknown tags.  
-> 
-> I'm not sure that's true of the (few) callers outside libfdt itself.
+net: ena: fix PHC cleanup on probe failure
 
-Well, today there is no "unknown" tags and existing callers works correctly.
+This adds a call to ena_phc_destroy() to the err_device_destroy label in
+ena_probe(), so the probe error path mirrors the ena_destroy_device()
+teardown before ena_phc_free() runs.
 
-Unknown tags are reported as FDT_NOP. It should be ok with existing callers.
-They should handle FDT_NOP.
+A couple of questions about the changelog and the error path below.
 
-> 
-> > > Another potential approach would be to actually use the symbol
-> > > versioning we have, but have som far only minimally exploited.  The
-> > > LIBFDT_1.2 version of fdt_next_tag() would skip tags that postdate it,
-> > > but we'd introduce a new version tag and the new default version of
-> > > fdt_next_tag() would return all tags.  That would of course require
-> > > figuring out how to do that with the verison script.  
-> > 
-> > Hum, I really don't want to have versioning in loop for fdt_next_tag().
-> 
-> I'm not sure what you mean by "in loop" here.
+>     The normal removal path calls ena_phc_destroy() through
+>     ena_destroy_device() before ena_phc_free(). However, if probe fails
+>     after ena_device_init() succeeds, the error path reaches ena_phc_free()
+>     without unregistering the PTP clock or destroying the device PHC
+>     resources.
 
-I don't want to add the versioning extra complexity in this context.
-I am sure we can find a solution for this "all tags vs only known tags"
-topic without versioning involved.
+[Severity: Medium]
+Is there actually a registered PTP clock or allocated device PHC resource
+at that point during an initial probe?
 
-> 
-> > Also, this could work in the dynamic lib (.so) case but not for static
-> > link and even less for libfdt code copy compiled in bootloaders or Linux
-> > kernel code.  
-> 
-> Are symbol versions entirely unsupported with static libraries?
+Following the state that PHC has when ena_device_init() returns 0:
 
-I would say yes but maybe I am wrong.
+ena_phc_alloc() vzalloc()s phc_info, so phc_info->enabled is false, and
+ena_devlink_configure_params() seeds the driverinit ENABLE_PHC value from
+that state:
 
-https://sourceware.org/binutils/docs/ld/VERSION.html
-https://sourceware.org/binutils/docs/ld.html#index-_002d_002dversion_002dscript_003dversion_002dscriptfile
+	value.vbool = ena_phc_is_enabled(adapter);
+	devl_param_driverinit_value_set(devlink,
+					DEVLINK_PARAM_GENERIC_ID_ENABLE_PHC,
+					&value);
 
-> Obviously they'd have to be resolved at (static) link time, not
-> runtime, but I don't see that it's impossible.
-> 
-> > fdt_next_tag() is a low level function accessible out of libfdt (API).
-> > If it doesn't skip unknown tags even for other libfdt internal function it
-> > will be a too lower function.  
-> 
-> I don't really follow what you're saying here.
+ena_device_init() -> ena_devlink_params_get() then reads that value back
+and calls ena_phc_enable(adapter, false), so ena_phc_init() takes:
 
-Skipping unknown tag is a low level feature.
-I think fdt_next_tag() can handle this low level feature.
+	if (!ena_phc_is_enabled(adapter)) {
+		netdev_dbg(netdev, "PHC feature is not enabled by the kernel\n");
+		goto err_ena_com_phc_init;
+	}
 
-Upper layer using fdt_next_tag() should not handle this tag skipping the
-general case and let fdt_next_tag() do this job.
+which skips ena_com_phc_init() (phc->virt_addr stays NULL) and
+ena_phc_register() (phc_info->clock stays NULL).
 
-Got the feeling that we are going to add complexity at upper layer to handle
-a feature that should be handled at low level.
+Userspace cannot flip the param earlier either, since devlink netlink
+lookup rejects instances that are not registered yet
+(devlink_get_from_attrs_lock() requires devl_is_registered()), and ENA
+only calls ena_devlink_register() at the successful end of ena_probe().
 
-> 
-> > Ok, we can have a wrapper on top of
-> > fdt_next_tag() to skip unknown tags.
-> > 
-> > fdt_next_tag() is a low level function but the rule related to skipping
-> > unknown tags is also a low level rule.
-> > 
-> > We have to choose:
-> > a) fdt_next_tag() as I proposed
-> >    Of course ok for me
-> > 
-> > b) fdt_next_tag() returns all tags -> Full handling at caller side
-> >    Ok, we can go in that direction but it will bring quite a lot of
-> >    code duplication.  
-> 
-> I'm not sure it's that bad, since fdt_next_tag() loops will typically
-> already have a 'default' case for irrelevant tags, which will
-> generally be handled the same as unknown tags.
+So on every path that can reach the new call, ena_phc_unregister()
+returns immediately via ena_phc_is_active() and ena_com_phc_destroy()
+returns immediately on !phc->virt_addr. The only path where PHC can
+really be active on failure is ena_restore_device(), which already calls
+ena_phc_destroy().
 
-Well as we did for "offset 0 vs real root node offset", I think the best way
-to known if it's bad or not is to try.
- 
-I will not have time this week to propose something and I have a training
-next week.
+Given that, are the Fixes: tag and Cc: stable warranted here, or would
+describing this as hardening for symmetry be more accurate?
 
-If you're ok for a try, I will do it but not as quickly as I did for the
-"offset 0 vs real root node offset" topic.
+> diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.c b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> index ea89619039d89..5f0864d16dd3c 100644
+> --- a/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> +++ b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> @@ -4122,6 +4122,7 @@ static int ena_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  err_device_destroy:
+>  	ena_com_delete_host_info(ena_dev);
+>  	ena_com_admin_destroy(ena_dev);
+> +	ena_phc_destroy(adapter);
 
-> 
-> > I am not fully convinced by this option.
-> > 
-> > c) lib version
-> >    I disagree on my side  
-> 
-> Yeah, I'm not really convinced by this one either.
+[Severity: Medium]
+Does this label still leak the mmio read-less response buffer allocated
+by ena_com_mmio_reg_read_request_init()?
 
-We are on the same page.
+ena_device_init() calls ena_com_mmio_reg_read_request_init()
+unconditionally, which does:
 
-> 
-> > d) Other idea
-> >    Of course, I am still open.  
-> 
-> I haven't thought of any more ideas yet.
-> 
+	mmio_read->read_resp = dma_alloc_coherent(ena_dev->dmadev, sizeof(*mmio_read->read_resp),
+						  &mmio_read->read_resp_dma_addr, GFP_KERNEL);
 
-Best regards,
-Hervé
+and programs that address into the device via
+ena_com_mmio_reg_read_request_write_dev_addr(). It is only released
+inside ena_device_init() itself, at its err_mmio_read_less label.
+
+The teardown sequence this patch is modelled on does three steps:
+
+drivers/net/ethernet/amazon/ena/ena_netdev.c:ena_destroy_device() {
+	...
+	ena_com_admin_destroy(ena_dev);
+
+	ena_phc_destroy(adapter);
+
+	ena_com_mmio_reg_read_request_destroy(ena_dev);
+	...
+}
+
+and ena_restore_device()'s error path pairs them the same way:
+
+	ena_phc_destroy(adapter);
+	ena_com_mmio_reg_read_request_destroy(ena_dev);
+
+The new code adds the middle step but not the last one, so once
+ena_device_init() has returned 0, any later probe failure walks
+err_device_destroy -> ena_devlink_free() ->
+ena_com_delete_customer_metrics_buffer() -> ena_phc_free() ->
+free_netdev() -> vfree(ena_dev) with mmio_read.read_resp still
+allocated. After vfree(ena_dev) the pointer and DMA handle are gone, and
+the device's ENA_REGS_MMIO_RESP_LO/HI registers keep the stale address,
+since only ena_com_mmio_reg_read_request_destroy() zeroes them:
+
+	writel(0x0, ena_dev->reg_bar + ENA_REGS_MMIO_RESP_LO_OFF);
+	writel(0x0, ena_dev->reg_bar + ENA_REGS_MMIO_RESP_HI_OFF);
+
+	dma_free_coherent(ena_dev->dmadev, sizeof(*mmio_read->read_resp), mmio_read->read_resp,
+			  mmio_read->read_resp_dma_addr);
+
+Reachable failures include max_num_io_queues == 0 (which also does no
+ena_com_dev_reset()), ena_com_init_interrupt_moderation() failure,
+ena_enable_msix_and_set_admin_interrupts() failure,
+ena_rss_init_default() failure and register_netdev() failure.
+
+Should ena_com_mmio_reg_read_request_destroy(ena_dev) be added right
+after the new ena_phc_destroy(adapter) here?
+
+>  ena_devlink_destroy:
+>  	ena_devlink_free(devlink);
+>  err_metrics_destroy:
+>  	ena_com_delete_customer_metrics_buffer(ena_dev);
+
+[Severity: Low]
+This is a pre-existing issue and was not introduced by this patch, but
+while looking at the labels just above the changed one: does
+err_worker_destroy call timer_delete() on an uninitialized timer?
+
+	err_worker_destroy:
+		timer_delete(&adapter->timer_service);
+
+timer_service is only ever set up after register_netdev() succeeds:
+
+	timer_setup(&adapter->timer_service, ena_timer_service, 0);
+	mod_timer(&adapter->timer_service, round_jiffies(jiffies + HZ));
+
+and there is no failure goto after that point, so every path that lands
+on err_worker_destroy (MSI-X setup failure, ena_rss_init_default()
+failure falling through err_free_msix, register_netdev() failure falling
+through err_rss) runs before timer_setup(). The memory is the zeroed
+netdev private area from alloc_etherdev_mq().
+
+With CONFIG_DEBUG_OBJECTS_TIMERS, __timer_delete() starts with
+debug_assert_init(timer), and timer_is_static_object() requires
+entry.next == TIMER_ENTRY_STATIC while the zeroed timer has
+entry.next == NULL, so debug_print_object() issues an "assert_init"
+warning before timer_fixup_assert_init() installs a stub. Without that
+option, timer_pending() is false and the call is a no-op, so this only
+shows up as a splat on debug kernels during an already-failing probe.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916022954.2690322-1-lgs201920130244%40gmail.com
