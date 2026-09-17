@@ -1,104 +1,111 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82F53AA4FA
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0D74E73B0;
+	Thu, 17 Sep 2026 20:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789677104; cv=none; b=Uh464WOCGx/J76KgkLChssn+YNPV8p8RXhbGjEBzAjYa9afchgUqg8ZI8+CAV0N0H7EBv5/sEkNOrGlEmx5eZFmwVkaLVQDg0/6EVAUMNd34XTBc6N1RXD0LYTnFvkSPb+0OOCY5G6me4LtzOi3VejlpqUdZzm/Z4RqzvfrGFMU=
+	t=1789677106; cv=none; b=s37v/MrYjc29FeUT4m+sUS3cXBBeeIfT5T+BrazsvN2g7HXV1yDwFExXeroNESB+iLfWvk+NCWB17TuLrHqii3vGK7HfqfACTgctJIIuwOZ+rPkOBQwo0/e/70/xFumo1fSVLttp641tUJ1OPj1WRtPP8+see/HfQW1HihYluPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789677104; c=relaxed/simple;
-	bh=jjW01VLSoIPxZW4fDFMR7nraOFBGpt6W4TKrJ1/nJ+I=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=X2mOZ+R/GV1eEfjjNvdeL9kHwK/v+SBMEoA4ealteJwHLmu1BZy/fRKUAy4cYgbvD3Ohng0KBpDzTW1EtkhF1ytqaK6R8nlERSyFMbJerAdVhaIaRcd0GsG215tCAG9NmfuEI5LDAoNFrDHCwJn+4ICqtXzHK00JkmADCaleMFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-48e5de5a23cso156171b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:31:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789677101; x=1790281901;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0NwrCQwkqCO4ZxeGRRn18jLE7nKNEmEBo4oXo+KExrQ=;
-        b=s78eGdSoRT6wS0JjXxDlw2Vre8+vD45NJ89krjQHAsNC+6bJyzpx/9eaharRhaUQiu
-         zlX6n0P//e+fgex0He8sPYrs+JoKldgNLIeVqzdstz+0cNKeUeVrtKkbGy67OIaY6HZ/
-         r6BmitNCbaPTOVJHQtDeEgpwLChzlcTlb6pBXCrGp2lo2aWSMRYhPQL5VzLPgqNANPgi
-         KoIeVM4Tfd2unnA94TMqSIUTN7rRQRVTMIM39S/4WGe0mUBSwSTPLZZMM+wDygJBmC2w
-         9AzHTwOpSlNOqqr8l5LgcmobTIG2phDZQ0srvedAcWRDE6dnu9UdKv18jW9roTbwjQIG
-         W0PQ==
-X-Gm-Message-State: AFuF++lXwUa5oEhSL014C7Xs2Bl1rxhmnNAErtn0VnO5+1PGR9Zuqn8+
-	Ud/olLTh6Iz3t5pAXuXmdoe0P9G/KOyuo4q7MQAtbdPElv9nW6Tzt5FUT+TAtjUCRtQrg4SBLAv
-	U2x9hoONuju0nga//W3wrpMKeJ1B8ew87V27R9k8wCNU9gTQE7CthkN+SpnA=
+	s=arc-20240116; t=1789677106; c=relaxed/simple;
+	bh=vcpJ74ZsKVFhAmNXcqmoG9+n/y5nCZi+8o+QaYEnJuM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QTpxX9iT+/F6XUVIJR5XJ4px9ei1xCy807iiK+r5EcT4AL/Cef1JqTR2tEgaHFRwZbv32A27B03vN6wZzFgIcsMDdMEPKwYTabQNaBYUfp7VaoCgBmbjD0u5953vyWQGGryj7Dtd022nBoek0mUBwB5+6joBSdjPGYVRTL81kUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ts3RaYNr; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ts3RaYNr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F115D1F000FF;
+	Thu, 17 Sep 2026 20:31:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789677105;
+	bh=1DNCW5bB+cAYVy5PyJp5VUEN9k9DZzvAe3lm+iP5ciY=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=Ts3RaYNrEkFulPAP4OS7uNGnQMm/6SzgIVeMh8NGZAkrMhOzleLAdfRvTZ6hDjBpn
+	 sK3Xe4dOcnOhN9iirOMs0CB2GL2Z6qOI3aMMVN9pozJjUFCtPX2GsXChdiXAMvHv/H
+	 A9ja+yO6aO4CuwpA4BPDb/njnc8+lhp17d7MAKl8dciFXjoqTpMKiBiwhuhirN0XzO
+	 D1azThDi/j3Cf7bGLueAkZ9BywzCDXdnK4GG5oCv2G8CqZplWKkn8lYBpNwE7UR8ay
+	 wI53qK8FbjQmzeKpADME9erclbbWiZVtKHS3EtpdnGGngJcrveU/fvURFyEGsddimA
+	 W8zBwB4+X35YA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id AF6E2CE1771; Thu, 17 Sep 2026 13:31:44 -0700 (PDT)
+Date: Thu, 17 Sep 2026 13:31:44 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation
+ for reader-marked trampolines
+Message-ID: <ef2cf89b-4cc6-4778-af91-6bb67fb10188@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
+ <aqqpRoTfywUuTgoC@localhost.localdomain>
+ <aqqsAUVV8a1yrQzX@localhost.localdomain>
+ <6afb0afe-e7b8-46b4-9fea-2c7cf4791044@paulmck-laptop>
+ <aqq0cwvRDsorGwgc@localhost.localdomain>
+ <8b73e1b3-0580-4ba9-b2e0-6363e429808d@paulmck-laptop>
+ <aqvZwfUVsiEI7q7y@localhost.localdomain>
+ <8fea176a-0ca0-4a70-8cf9-8240a22359e4@paulmck-laptop>
+ <aqw1UNGO3cQxvCco@pavilion.home>
+ <33b8e33a-3fad-4b33-9ae7-3948f0e6d3aa@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3a10:b0:4cb:f21c:a798 with SMTP id
- 5614622812f47-4ccf915e618mr497680b6e.32.1789677101696; Thu, 17 Sep 2026
- 13:31:41 -0700 (PDT)
-Date: Thu, 17 Sep 2026 13:31:41 -0700
-In-Reply-To: <6aa96ab7.4c28b7d0.c1bba.003d.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aac4e2d.71f81b7d.278072.0021.GAE@google.com>
-Subject: Forwarded: [PATCH] can: dev: fix missing skb header initialization in init_can_skb
-From: syzbot <syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <33b8e33a-3fad-4b33-9ae7-3948f0e6d3aa@paulmck-laptop>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Thu, Sep 17, 2026 at 12:25:40PM -0700, Paul E. McKenney wrote:
+> On Thu, Sep 17, 2026 at 08:45:36PM +0200, Frederic Weisbecker wrote:
+> > Le Thu, Sep 17, 2026 at 08:40:10AM -0700, Paul E. McKenney a écrit :
+> > > > > Trampolines that transfer control to tracing code could supply the needed
+> > > > > cleanup call.  But last I checked, there were trampolines that transferred
+> > > > > directly back to the original code, with no opportunity for cleaning up.
+> > > > > 
+> > > > > Or am I still missing a trick here?
+> > > > 
+> > > > You're right. So we'll indeed need to reuse the deferred qs points here.
+> > > 
+> > > Except this is getting a bit involved.
+> > > 
+> > > Don't get me wrong, if Josef is happy to take this on, far be it from me
+> > > to stand in his way.  But if not, we should be willing to treat this
+> > > optimization as a follow-on effort, whether by Josef or someone else.
+> > 
+> > Sure, I guess I can try the follow-on, especially if it leads to removing
+> > all this RCU tasks black magic.
+> 
+> That sounds most excellent, thank you!
 
-***
+Ah, and in case anyone (especially Josef) is wondering, one big advantage
+of the more elaborate approach is that it allowed the real-time guys to
+avoid yet another source of IPIs messing with their latencies.
 
-Subject: [PATCH] can: dev: fix missing skb header initialization in init_can_skb
-Author: shaunakkdatar@gmail.com
-
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-
-__alloc_skb() sets skb->mac_header to (typeof(skb->mac_header))~0U via
-__finalize_skb_around(). skb_reset_mac_len() checks if the value has been
-updated via the skb_mac_header_was_set() and fires
-DEBUG_NET_WARN_ON_ONCE(1) if not.
-
-init_can_skb() previously included three header reset calls:
-
-skb_reset_mac_header(skb)
-skb_reset_network_header(skb)
-skb_reset_transport_header(skb)
-
-Commit 9f10374bb024 ("can: remove private CAN skb headroom
-infrastructure") dropped these calls which leads to the skb->mac_header
-retaining the original value.
-
-Restore the three missing calls in the init_can_skb().
-
-Fixes: 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
-Reported-by: syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1aae11dc8d42ec1a87ec
-Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
----
- drivers/net/can/dev/skb.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
-index 95fcdc1026f8..9cbddc1edd41 100644
---- a/drivers/net/can/dev/skb.c
-+++ b/drivers/net/can/dev/skb.c
-@@ -210,6 +210,9 @@ static void init_can_skb(struct sk_buff *skb)
- {
- 	skb->pkt_type = PACKET_BROADCAST;
- 	skb->ip_summed = CHECKSUM_UNNECESSARY;
-+	skb_reset_mac_header(skb);
-+	skb_reset_network_header(skb);
-+	skb_reset_transport_header(skb);
- }
- 
- struct sk_buff *alloc_can_skb(struct net_device *dev, struct can_frame **cf)
--- 
-2.53.0
-
+							Thanx, Paul
