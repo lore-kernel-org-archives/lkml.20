@@ -1,372 +1,302 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0C725B082
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:40:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F4925B082
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:42:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789623656; cv=none; b=AR8uS3QdVvh7uKk+iM5ndAXZ6A9ghTeXjuBLNTRU33ZjLWJyavRbB/Po9V4yhfyrVUJG0+Ytg9j4tVCLrisD/csYdo9FvQneZb0cfwC1McO8WZ/OxfE3q6tfp8mPaIWuDa9GNlBlPMPCBIxvDqqXq15Belbl19Dqr5hshk+sYtA=
+	t=1789623773; cv=none; b=lyqDoaDDsebTcdG9BjY+2xc6KVtOHRo9lbBtTSA+nkqsAymcf94lVkJE/p1O+gUIRUkZsWpWpI8WqEQvnLHyy7t1DQtssFWpTfu/KTHzRUtqO+I/pdsCuizqipfAHzUr+o+jYbn/lwEcc9hjaPqhIfW49LYuOYOhH2XZBb4Cg0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789623656; c=relaxed/simple;
-	bh=zMB8BtNn5kNhUEXeNPqpwF2g5qlF0A5ZkPug210tldE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NIyNAyxUAvlvShm0aXBoKPffVb5Hs15LVSnAAn+IMXI99aJrAX50BQ3gBZbuMC4wtWmxTWHArJEoZDbR7iYa/htptEHYsLxIIP3SrDM8nte5tdxCzr29izqm+oG0sG8k0H5xNRtlQIfQhMUAZLfsL9No6+Bs4U36j3PRdSvq8Hc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qGd9XZMX; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789623773; c=relaxed/simple;
+	bh=qglo1qgSqvpKcfXUwbHrKpztUmqRkGBYvY7E1ws0TUw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cd5xmqa6HO/phlt9vFUjfxj/rspRRWq5Izhul6UltZ46MXgRivgfNvQWQ1DoJ5N+HuzIsUdx1U68n6FcYaXFyyd9ZD4aGKw6ie1+G9pAM3H+tgaj+Rr1e2j+ezfUObLUSxDSHHtL+HoJWj8sn3zZ7gcN0HLFZLIBJx+vwZIMQFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hcKf4THM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Wy3Tleze; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qGd9XZMX"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so336089a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:40:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hcKf4THM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Wy3Tleze"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H1O1ai3897809
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:42:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	k1NtjGOsgxTer/ktLWGwA754RLEQUuhJE+6j0sZd88w=; b=hcKf4THMRAh/vmJp
+	BubSj/LyppmFhIkPNTS2wErU1g/5Gghmmau6DFxcsRpUN7AjOgn2remCMZ7XXhS4
+	5r40cva5vmvuMtGQvUmnccAAHKgfHf2LgKXnP02J3JxR6sad7hK/jWJMJwgkx3nN
+	7cyEuEedo67hpT7UckiTX35NydDQ+ut+5jA4ZJ5vqpbwfmHyxFxQQ2Vgqk/ZJvRv
+	8vvzW6MIHIH3fG+PHLJvVmnso1m8V2jIyidtv8Kz3dZKDTEyLWRutSLu4MJle0Et
+	KweAGkFLF3a+z+PJjpR+T3NAA6OIcdX2oHxQ0jlF8Y4e4S0oueuu+uuLKmZL/jVS
+	6nRd2w==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqy6atja4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:42:49 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8710450f731so658602b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:42:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789623652; x=1790228452; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ULIWVdAV0jqU2cF413VZCETAT/3KHunB02MWjhzXSTg=;
-        b=qGd9XZMXf1LLW8pKLkgkVNjZmje36J0Nn5A7ljfafnsGHEP5D4kALq4ttJBURO5WKv
-         8aOsqezSsrUd0hpoxFyQALQlT2xWXgxMykvJIuvBJoC+CouQeFbc+nIjA0LW3Eugx6M3
-         f2DgcVnECAwcEHw0zU42MOY+vXtxzP1gEV4mY4ogzc3gl7tbPXr/6XABuhqmhe3ibKkc
-         ix2y/CPOPd0HCnb0FN2jkRaHA81BUZcRJ/XRruj405uwCqeLU+oSbdaauP4hKKrlCjB+
-         yQiCCzTxTJc4GNoaXfFG1jlV7Lh82V/T+U+XdrEDZiljjoKMAkOiZEHKicnS0QgnJyBq
-         32Ng==
+        d=oss.qualcomm.com; s=google; t=1789623768; x=1790228568; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k1NtjGOsgxTer/ktLWGwA754RLEQUuhJE+6j0sZd88w=;
+        b=Wy3TlezeVsC4kFilPbO8xt/f/kkNmc5Rlxmp2OarNLkS3AruSIG4a+hGZGwZhreM2e
+         e6kt1CXuYHugLAw7jQclyK1pvhuz4nZRdL2n/1epCSLaW836Gy6ATgBD8p6swWfaz/hc
+         8f5OELcG8/uxzhwfhRtJ9Yob6stV42oE52UMr3rMyROncRYoxtGzmDcaqAH47W554fNR
+         ZBGyEoX7IWHu4+OnhE5NtTXVS69ZMVbO+mZMXP0ZYjsbICIITH8JjJMKaRqHDVvMxuTu
+         xHewrinZFrsoqhp6SYW1XXrlsk+rnZWtA1q85FxMziyWsN7b/LHV2zS12fEfvdpDOIax
+         mkOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789623652; x=1790228452;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789623768; x=1790228568;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ULIWVdAV0jqU2cF413VZCETAT/3KHunB02MWjhzXSTg=;
-        b=n0MawKY2nQ3v8TO/6Z6cl5Qy6tuJY7j60sOaWNQOmCuFSnoILX6OxJJErb4X7wSlWY
-         r1LhxPOKWxAEMHD6mK5FJxtnyZHVK4iQZ2kxE5iYvMiEsfth7somdt56+XpGBAHSECBd
-         6FpqVHavSGymHlKPnFdSf67NutVwhX0XqH3YEAvZq+d9BDm5U7N5ChC8Uy0C+NVP4Pta
-         gOxHgtaqDDWK+gNyhXRg0fqbHZEw2P0zzXgVA6SbUGn/Aq+rkslROwfGfu6cCI3ICX1d
-         t2DJFFosQpjKliOaAkAqX8rFsUpJ1K6bQmsmcdRqyLIwZye4DUGLc3vNAiEMeQOt9hi9
-         SuSQ==
-X-Forwarded-Encrypted: i=1; AKwUvByL6uknBI0CVREaFjI4N1eDkCLZ0pO1KLGs3LZjrivW80Wh5+5nxfJC/NAz0cegrBioK6lahEAg95yqUuU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYhvxy4a4fkXITQ32uGCf9H3SGWxtuU77URCh+n/pu3PIcMn9S
-	YeXs0b2NEgqRmbivIgpvFcjjr6rIztz8TPmOLMfn0ybdgXVK04e0nga1
-X-Gm-Gg: AYBFou3ezt8lRcAnixAnKR/eNrTAxoqR3ORfrc0T68dFerA0k/A1xNNENijb6fLJy3T
-	R2q2mEr1GPgI9i0adPHTDjISJ59RiMAf4BomWKaKICxj3sVofdw24TXXYFhm0RIQUwIgBcDn/sb
-	RT8oc6/dsgk8iMZh/CtoDFSkmBzZzQvnNvDUiiEixRaIxJ5J1/EPG22Mpni7C8m9S0/Rx2/4TxV
-	me2iu6OLNun/M0kLu+boy1LcSDGPvQt9cxeqjK+uS10FLfEC8k9wTndXNiljN643qjNFMDteMfT
-	hq34ZhpcWk3NW0YWt3rqljxovRj8j8MolLEfujenQwzGRv2IOKnlo94JWKj7A3WjBzrQjxPeOQs
-	UDSRFa+bmVSDuNc9kbu3P2s+CgkpBmNrtUcId5tv3cJzdrPOKW8NGnggqr6zJBpcbfIwicyD7Zb
-	6RIUxWE3+RFLasDrhmHUZAlWlFwxo0fh+TPTUJHOhW2EFpfFstWPZS0ae2dLOCobEqzACrEDMQb
-	4LN3a19HosMxwX0hwaJSdBK0vw=
-X-Received: by 2002:a17:90b:4d0e:b0:39e:17b:a13d with SMTP id 98e67ed59e1d1-39e1e539c36mr14946564a91.23.1789623652088;
-        Wed, 16 Sep 2026 22:40:52 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c00ede586sm9663662eec.10.2026.09.16.22.40.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 22:40:51 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Support Opensource <support.opensource@diasemi.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Botsz HUANG <huang.botsz@gmail.com>,
-	Nick Huang <sef1548@gmail.com>,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org
-Subject: [PATCH v5] mfd: Fix typos in comments
-Date: Thu, 17 Sep 2026 11:10:45 +0530
-Message-ID: <20260917054045.15805-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        bh=k1NtjGOsgxTer/ktLWGwA754RLEQUuhJE+6j0sZd88w=;
+        b=a5X8NPChyQUve9CoLSVqpT4d6x2j0a9YuSPdwJO9ftKO7tEwhrZtFY5GGjq5TcX6sd
+         q9JDyb/SbJ4OlPVheE+Ub4gPhEDOV5ZKwvHmpk6o39X0CFX21q1k5i8jWKub54wrk+lh
+         xi+zd/4er+dfvsQRbrKfawECZPWAVof/8h2EWM4CkrglntWYb4H125jBnsn2Uet+DMS2
+         NTtdbeLVvzZrJfAFV+v+ES8ozgFYkkJImXaoWMbx89o4MhLKT/wsEbiNbBc1oJEHrigp
+         qi2v9F2lf9FJNk5suT+nGGaOGXN1gPh5U0zRtnXsQD3GCnjvXm93RHNQG8wS7/L9w6RN
+         Nijw==
+X-Forwarded-Encrypted: i=1; AKwUvBy+XOZTD2isX+OlpTPkAQ12Bsk2zPfnprlvvyUiFR8GXv88DUCFtstfLyYpwySaOUPjbk7QDHWsS9ufDcM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ks589v395Mwqs8u2Ozd0Dsjbc2vRFeDA6HIXkL8MgSQzr7F4Cf
+	C6LGn9VED2QEQjiJiLynbqjfdjy7Kuma2N5c7ge9sBf4Fnf2VMMX9j4D+FNjWpBeua0MUw8eiM8
+	83KqBkftk544wF3s7lSjIBa9N9/tbNPKPqVj04YnB7jQGDNVKtkPLnHO5/vTHGngn7Uobd/hdff
+	Q=
+X-Gm-Gg: AYBFou2wiJS72+CNXN1ykwJcrtilnwZp+UT1xi7JfnlTI7Cm63FnSNYPNUc1fBYD94u
+	+Gv6TNyVdcrbme9g0oFsHEFifW3tnmO3H/qQhxXRle10Ml6hRn09LtNrNl1rmqAoAMeGmmkptKa
+	ZFJafboVia1nvXwbXUul36tB/pZCNkwULq8mTZudQApwgjjKSlFLjtVZL8Dy2EeJC/YRPNLbwyE
+	gOXHEEZrvNCHeSUk4g2e6I7ACatHoZDfkK3u/VY6KK4wS7teNjK1SykRgCFVnMBI88ERlo6DGzH
+	Zl497/yUc38L3P7GKX8S9eIIyCcaQYQ1/h0sjKVE8lCooLe4YSGgXORFpQ5b+nBeOpX+JGzCxj/
+	BS/CJHvis7rxWGT++M2IiWS2sgVUL
+X-Received: by 2002:a05:6a21:514:b0:3c3:6928:8b25 with SMTP id adf61e73a8af0-3dd5f5ab211mr15101549637.17.1789623768385;
+        Wed, 16 Sep 2026 22:42:48 -0700 (PDT)
+X-Received: by 2002:a05:6a21:514:b0:3c3:6928:8b25 with SMTP id adf61e73a8af0-3dd5f5ab211mr15101484637.17.1789623767817;
+        Wed, 16 Sep 2026 22:42:47 -0700 (PDT)
+Received: from [10.204.78.119] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5af4f0bsm14466679eec.24.2026.09.16.22.42.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 22:42:47 -0700 (PDT)
+Message-ID: <7d2611bb-532f-4553-9d16-66c4b9c495c9@oss.qualcomm.com>
+Date: Thu, 17 Sep 2026 11:12:38 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/17] dt-bindings: display/msm: Document Nord MDSS
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org,
+        Ritesh Kumar
+ <ritesh.kumar@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>
+References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
+ <20260911-nord-drv-dt-v1-3-e25c073cf1b6@oss.qualcomm.com>
+ <aqtECDwHPiUUZqTB@QCOM-aGQu4IUr3Y>
+Content-Language: en-GB
+From: Nabige Aala <nabige.aala@oss.qualcomm.com>
+In-Reply-To: <aqtECDwHPiUUZqTB@QCOM-aGQu4IUr3Y>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: n7_OLOTOiWEQkkHz-Yt_sGA2Bd-M3ZGd
+X-Proofpoint-ORIG-GUID: n7_OLOTOiWEQkkHz-Yt_sGA2Bd-M3ZGd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDA3MyBTYWx0ZWRfX42wc0UXCv2K6
+ 2OElG55lqVo+7fCmgWp+wI3jOUZml9/Yf/rElavbJjyTg+YXXll8hGOQs1YWT7ICYxe6A4X9TfO
+ kRfeEGkocD3b3MvepqkaFacR1dx7scD4a355+CtM2iBDv2HxGFBmObi3PgZOGzBVxaj3L886/8V
+ GKFoVvn4i52YN0wF+ZodUenihHcgIxJTfBalvbawZpu7Uf9rXoT8b/3grcAnY84c3imEQ0SYIrf
+ GgjezKq2UbyIJUrF8Pmjw4h60vq1KLdXx/LDhZDhItDM9guiKsNqTpRRHmsGr4aF+83/oIbnx2w
+ 469yQ4gM38JdPeOera3VelfgCzHO0eb4sLnvJ/0/JHMOS13X5Qj2uXetqUCE/aBGf4dQUuM9gHM
+ mzXFpy7SJLUYPuZ4wV8ubuzfEkJTrniWiv/PIa6jMVmtBA2S//5XT80Mhm9ectrvF6a6+WtCmPU
+ giMi21BpyztWu39blww==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDA3MyBTYWx0ZWRfX2EzB8v8vfhpR
+ FzSpRlsfupm042C0V/VXveMHFxcuYq77LOrAjOubUL92TJpA0s+8FNz8HRbLgJ0cvm5ee5OnDhV
+ 30IiaMr0mVddSKnQ2icPECkRP/yuF+E=
+X-Authority-Analysis: v=2.4 cv=VIRIDNPX c=1 sm=1 tr=0 ts=6aab7dd9 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=gEfo2CItAAAA:8 a=JfrnYn6hAAAA:8 a=EUspDBNiAAAA:8 a=T1TI9GLrlG5TBy_zXBgA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+ a=sptkURWiP4Gy88Gu7hUp:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 adultscore=0 priorityscore=1501 bulkscore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170073
 
-Fix misspellings in comments across the MFD drivers and headers, found
-with scripts/checkpatch.pl using the list in scripts/spelling.txt.
 
-Only touches comments, no code changes.
+On 9/17/2026 7:06 AM, Shawn Guo wrote:
+> On Fri, Sep 11, 2026 at 09:06:34PM +0530, Nabige Aala wrote:
+>> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>>
+>> Add the binding for the display subsystem (MDSS) found on the Qualcomm
+>> Nord SoC. Nord is MDSS 12.1, DP-only (no DSI), with two independent DP
+>> controllers.
+>>
+>> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+>> ---
+>>   .../bindings/display/msm/qcom,nord-mdss.yaml       | 98 ++++++++++++++++++++++
+>>   1 file changed, 98 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.yaml
+>> new file mode 100644
+>> index 000000000000..0b0cacdca9db
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.yaml
+>> @@ -0,0 +1,98 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/msm/qcom,nord-mdss.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm Nord display subsystem (MDSS)
+>> +
+>> +maintainers:
+>> +  - Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>> +
+>> +description:
+>> +  Nord display subsystem consists of MDSS (display controller), DPU 1499A
+>> +  (display processing unit), and display interface controllers (DP only, no DSI).
+>> +  This is MDSS 12.1, DP-only, with 2 independent DP controllers.
+>> +
+>> +$ref: /schemas/display/msm/mdss-common.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: qcom,nord-mdss
+>> +
+>> +  clocks:
+>> +    items:
+>> +      - description: Display AHB
+>> +      - description: Display hf AXI
+>> +      - description: Display core
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: iface
+>> +      - const: bus
+>> +      - const: core
+>> +
+>> +  iommus:
+>> +    maxItems: 1
+> The DTS in downstream repository doesn't seem to agree. There is two
+> items for iommus.
 
-Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
-v5: no change to the diff; moved the version notes below the --- where
-    they belong rather than leaving them in the commit log.
+I checked the Nord IPCAT. the resulted SID is same for both the SID 
+(i.e.  0x03e0) in downstream repository.
 
-v4: dropped the two Acked-by tags that v3 added, keeping only Matti's
-    Reviewed-by, and dropped the Assisted-by trailer.
+I think we should update the downstream DT and use a single SID entry.
 
-v2: also corrects "wainting" and "comapletion" in
-    include/linux/mfd/si476x-core.h, which checkpatch did not flag;
-    "comapletion" sits on the same line as the "wainting" Matti asked
-    about.  Subject capitalised to match the MFD convention.
+>> +
+>> +  interconnects:
+>> +    items:
+>> +      - description: Interconnect path from mdp0 port to the data bus
+>> +      - description: Interconnect path from CPU to the reg bus
+>> +
+>> +  interconnect-names:
+>> +    items:
+>> +      - const: mdp0-mem
+>> +      - const: cpu-cfg
+>> +
+>> +patternProperties:
+>> +  "^display-controller@[0-9a-f]+$":
+>> +    type: object
+>> +    additionalProperties: true
+>> +    properties:
+>> +      compatible:
+>> +        const: qcom,nord-dpu
+>> +
+>> +  "^displayport-controller@[0-9a-f]+$":
+>> +    type: object
+>> +    additionalProperties: true
+>> +    properties:
+>> +      compatible:
+>> +        const: qcom,nord-dp
+>> +
+>> +  "^phy@[0-9a-f]+$":
+>> +    type: object
+>> +    additionalProperties: true
+>> +    properties:
+>> +      compatible:
+>> +        const: qcom,nord-dp-phy
+>> +
+>> +required:
+>> +  - compatible
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/clock/qcom,dispcc-nord.h>
+> Please run dt_binding_check against mainline kernel where the header is
+> actually qcom,nord-dispcc.h.
 
- drivers/mfd/88pm800.c                |  2 +-
- drivers/mfd/kempld-core.c            |  2 +-
- drivers/mfd/max8998.c                |  2 +-
- drivers/mfd/rave-sp.c                |  6 +++---
- drivers/mfd/si476x-i2c.c             |  2 +-
- include/linux/mfd/da9063/registers.h |  2 +-
- include/linux/mfd/db8500-prcmu.h     | 32 ++++++++++++++--------------
- include/linux/mfd/lp8788.h           |  2 +-
- include/linux/mfd/max8998.h          |  2 +-
- include/linux/mfd/palmas.h           |  2 +-
- include/linux/mfd/rohm-bd71828.h     |  2 +-
- include/linux/mfd/samsung/core.h     |  2 +-
- include/linux/mfd/si476x-core.h      |  4 ++--
- include/linux/mfd/twl.h              |  2 +-
- 14 files changed, 32 insertions(+), 32 deletions(-)
+Ack, I will update according to mainline kernel.
 
-diff --git a/drivers/mfd/88pm800.c b/drivers/mfd/88pm800.c
-index e9941da58b18..aac630322b3c 100644
---- a/drivers/mfd/88pm800.c
-+++ b/drivers/mfd/88pm800.c
-@@ -275,7 +275,7 @@ static int device_gpadc_init(struct pm80x_chip *chip,
- 		goto out;
- 
- 	/*
--	 * the defult of PM800 is GPADC operates at 100Ks/s rate
-+	 * the default of PM800 is GPADC operates at 100Ks/s rate
- 	 * and Number of GPADC slots with active current bias prior
- 	 * to GPADC sampling = 1 slot for all GPADCs set for
- 	 * Temprature mesurmants
-diff --git a/drivers/mfd/kempld-core.c b/drivers/mfd/kempld-core.c
-index b64729918dfd..47062f876e5d 100644
---- a/drivers/mfd/kempld-core.c
-+++ b/drivers/mfd/kempld-core.c
-@@ -37,7 +37,7 @@ static void kempld_get_hardware_mutex(struct kempld_device_data *pld)
- 
- static void kempld_release_hardware_mutex(struct kempld_device_data *pld)
- {
--	/* The harware mutex is released when 1 is written to the mutex bit. */
-+	/* The hardware mutex is released when 1 is written to the mutex bit. */
- 	iowrite8(KEMPLD_MUTEX_KEY, pld->io_index);
- }
- 
-diff --git a/drivers/mfd/max8998.c b/drivers/mfd/max8998.c
-index eb13bbaeda55..5032eab05bb4 100644
---- a/drivers/mfd/max8998.c
-+++ b/drivers/mfd/max8998.c
-@@ -146,7 +146,7 @@ static struct max8998_platform_data *max8998_i2c_parse_dt_pdata(
- 
- 	/*
- 	 * ToDo: the 'wakeup' member in the platform data is more of a linux
--	 * specfic information. Hence, there is no binding for that yet and
-+	 * specific information. Hence, there is no binding for that yet and
- 	 * not parsed here.
- 	 */
- 	return pd;
-diff --git a/drivers/mfd/rave-sp.c b/drivers/mfd/rave-sp.c
-index 05d26d92df03..53c57bafea8f 100644
---- a/drivers/mfd/rave-sp.c
-+++ b/drivers/mfd/rave-sp.c
-@@ -331,7 +331,7 @@ static u8 rave_sp_reply_code(u8 command)
- 		return command + 0x20;
- 	case 0xE0 ... 0xEF:
- 		/*
--		 * Events emitted by all versions of the firmare use
-+		 * Events emitted by all versions of the firmware use
- 		 * least significant bit to get an ACK code
- 		 */
- 		return command | 0x01;
-@@ -544,7 +544,7 @@ static size_t rave_sp_receive_buf(struct serdev_device *serdev,
- 				 * NOTE: The above means that only the
- 				 * frame started by third SOF, sent
- 				 * after this one will have a chance
--				 * to get throught.
-+				 * to get through.
- 				 */
- 				goto reset_framer;
- 			case RAVE_SP_DLE:
-@@ -595,7 +595,7 @@ static size_t rave_sp_receive_buf(struct serdev_device *serdev,
- 
- 	/*
- 	 * The only way to get out of the above loop and end up here
--	 * is throught consuming all of the supplied data, so here we
-+	 * is through consuming all of the supplied data, so here we
- 	 * report that we processed it all.
- 	 */
- 	return size;
-diff --git a/drivers/mfd/si476x-i2c.c b/drivers/mfd/si476x-i2c.c
-index 9bce720a0a08..6351aef2d3bb 100644
---- a/drivers/mfd/si476x-i2c.c
-+++ b/drivers/mfd/si476x-i2c.c
-@@ -222,7 +222,7 @@ int si476x_core_stop(struct si476x_core *core, bool soft)
- 	atomic_set(&core->is_alive, 0);
- 
- 	if (soft) {
--		/* TODO: This probably shoud be a configurable option,
-+		/* TODO: This probably should be a configurable option,
- 		 * so it is possible to have the chips keep their
- 		 * oscillators running
- 		 */
-diff --git a/include/linux/mfd/da9063/registers.h b/include/linux/mfd/da9063/registers.h
-index 7b8364bd08a0..376c5d330599 100644
---- a/include/linux/mfd/da9063/registers.h
-+++ b/include/linux/mfd/da9063/registers.h
-@@ -14,7 +14,7 @@
- #define DA9063_I2C_PAGE_SEL_SHIFT	1
- #define	DA9063_EVENT_REG_NUM		4
- 
--/* Page selection I2C or SPI always in the begining of any page. */
-+/* Page selection I2C or SPI always in the beginning of any page. */
- /* Page 0 : I2C access 0x000 - 0x0FF	SPI access 0x000 - 0x07F */
- /* Page 1 :				SPI access 0x080 - 0x0FF */
- /* Page 2 : I2C access 0x100 - 0x1FF	SPI access 0x100 - 0x17F */
-diff --git a/include/linux/mfd/db8500-prcmu.h b/include/linux/mfd/db8500-prcmu.h
-index c939c9a1170a..87a28c4f1d81 100644
---- a/include/linux/mfd/db8500-prcmu.h
-+++ b/include/linux/mfd/db8500-prcmu.h
-@@ -337,31 +337,31 @@ enum sia_mmdsp_stat {
-  * @SYSCLKOK_ERR: The SYSCLK is not available in the given time
-  * @BOOT_ERR: Romcode has not validated the XP70 self reset in the given time
-  * @ROMCODESAVECONTEXT: The Romcode didn.t correctly save it secure context
-- * @VARMHIGHSPEEDVALTO_ERR: The ARM high speed supply value transfered
-+ * @VARMHIGHSPEEDVALTO_ERR: The ARM high speed supply value transferred
-  *          through I2C has not been correctly executed in the given time
-- * @VARMHIGHSPEEDACCESS_ERR: The command value of VarmHighSpeedVal transfered
-+ * @VARMHIGHSPEEDACCESS_ERR: The command value of VarmHighSpeedVal transferred
-  *             through I2C has not been correctly executed in the given time
-- * @VARMLOWSPEEDVALTO_ERR:The ARM low speed supply value transfered through
-+ * @VARMLOWSPEEDVALTO_ERR:The ARM low speed supply value transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VARMLOWSPEEDACCESS_ERR: The command value of VarmLowSpeedVal transfered
-+ * @VARMLOWSPEEDACCESS_ERR: The command value of VarmLowSpeedVal transferred
-  *             through I2C has not been correctly executed in the given time
-- * @VARMRETENTIONVALTO_ERR: The ARM retention supply value transfered through
-+ * @VARMRETENTIONVALTO_ERR: The ARM retention supply value transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VARMRETENTIONACCESS_ERR: The command value of VarmRetentionVal transfered
-+ * @VARMRETENTIONACCESS_ERR: The command value of VarmRetentionVal transferred
-  *             through I2C has not been correctly executed in the given time
-- * @VAPEHIGHSPEEDVALTO_ERR: The APE highspeed supply value transfered through
-+ * @VAPEHIGHSPEEDVALTO_ERR: The APE highspeed supply value transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VSAFEHPVALTO_ERR: The SAFE high power supply value transfered through I2C
-+ * @VSAFEHPVALTO_ERR: The SAFE high power supply value transferred through I2C
-  *                         has not been correctly executed in the given time
-- * @VMODSEL1VALTO_ERR: The MODEM sel1 supply value transfered through I2C has
-+ * @VMODSEL1VALTO_ERR: The MODEM sel1 supply value transferred through I2C has
-  *                             not been correctly executed in the given time
-- * @VMODSEL2VALTO_ERR: The MODEM sel2 supply value transfered through I2C has
-+ * @VMODSEL2VALTO_ERR: The MODEM sel2 supply value transferred through I2C has
-  *                             not been correctly executed in the given time
-- * @VARMOFFACCESS_ERR: The command value of Varm ON/OFF transfered through
-+ * @VARMOFFACCESS_ERR: The command value of Varm ON/OFF transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VAPEOFFACCESS_ERR: The command value of Vape ON/OFF transfered through
-+ * @VAPEOFFACCESS_ERR: The command value of Vape ON/OFF transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VARMRETACCES_ERR: The command value of Varm retention ON/OFF transfered
-+ * @VARMRETACCES_ERR: The command value of Varm retention ON/OFF transferred
-  *             through I2C has not been correctly executed in the given time
-  * @CURAPPWRSTISNOTBOOT:Generated when Arm want to do power state transition
-  *             ApBoot to ApExecute but the power current state is not Apboot
-@@ -376,11 +376,11 @@ enum sia_mmdsp_stat {
-  *                    been correctly executed in the given time
-  * @ARMREGU2VALTO_ERR: The ArmRegu2 value transferred through I2C has not
-  *                    been correctly executed in the given time
-- * @VAPEREGUVALTO_ERR: The VApeRegu value transfered through I2C has not
-+ * @VAPEREGUVALTO_ERR: The VApeRegu value transferred through I2C has not
-  *                    been correctly executed in the given time
-- * @VSMPS3REGUVALTO_ERR: The VSmps3Regu value transfered through I2C has not
-+ * @VSMPS3REGUVALTO_ERR: The VSmps3Regu value transferred through I2C has not
-  *                      been correctly executed in the given time
-- * @VMODREGUVALTO_ERR: The VModemRegu value transfered through I2C has not
-+ * @VMODREGUVALTO_ERR: The VModemRegu value transferred through I2C has not
-  *                    been correctly executed in the given time
-  */
- enum mbox_to_arm_err {
-diff --git a/include/linux/mfd/lp8788.h b/include/linux/mfd/lp8788.h
-index fd17bec2a33e..e8c50bd38a8a 100644
---- a/include/linux/mfd/lp8788.h
-+++ b/include/linux/mfd/lp8788.h
-@@ -34,7 +34,7 @@
- #define LP8788_ALM_IRQ		"ALARM_IRQ"
- 
- enum lp8788_int_id {
--	/* interrup register 1 : Addr 00h */
-+	/* interrupt register 1 : Addr 00h */
- 	LP8788_INT_TSDL,
- 	LP8788_INT_TSDH,
- 	LP8788_INT_UVLO,
-diff --git a/include/linux/mfd/max8998.h b/include/linux/mfd/max8998.h
-index 5473f1983e31..ad2ad24412fb 100644
---- a/include/linux/mfd/max8998.h
-+++ b/include/linux/mfd/max8998.h
-@@ -45,7 +45,7 @@ enum {
- /**
-  * max8998_regulator_data - regulator data
-  * @id: regulator id
-- * @initdata: regulator init data (contraints, supplies, ...)
-+ * @initdata: regulator init data (constraints, supplies, ...)
-  * @reg_node: DT node of regulator (unused on non-DT platforms)
-  */
- struct max8998_regulator_data {
-diff --git a/include/linux/mfd/palmas.h b/include/linux/mfd/palmas.h
-index dabcc0dea802..1d872363820a 100644
---- a/include/linux/mfd/palmas.h
-+++ b/include/linux/mfd/palmas.h
-@@ -251,7 +251,7 @@ enum tps65917_regulators {
- 	TPS65917_NUM_REGS,
- };
- 
--/* External controll signal name */
-+/* External control signal name */
- enum {
- 	PALMAS_EXT_CONTROL_ENABLE1      = 0x1,
- 	PALMAS_EXT_CONTROL_ENABLE2      = 0x2,
-diff --git a/include/linux/mfd/rohm-bd71828.h b/include/linux/mfd/rohm-bd71828.h
-index 39fe275a8117..ea9b1a8f495f 100644
---- a/include/linux/mfd/rohm-bd71828.h
-+++ b/include/linux/mfd/rohm-bd71828.h
-@@ -186,7 +186,7 @@ enum {
- #define BD71828_REG_RTC_ALM2		0x63
- #define BD71828_REG_RTC_START		BD71828_REG_RTC_SEC
- 
--/* Charger/Battey */
-+/* Charger/Battery */
- #define BD71828_REG_CHG_STATE		0x65
- #define BD71828_REG_CHG_FULL		0xd2
- #define BD71828_REG_CHG_EN		0x6F
-diff --git a/include/linux/mfd/samsung/core.h b/include/linux/mfd/samsung/core.h
-index 6191f409de94..e489ca0d55ed 100644
---- a/include/linux/mfd/samsung/core.h
-+++ b/include/linux/mfd/samsung/core.h
-@@ -106,7 +106,7 @@ struct sec_platform_data {
- /**
-  * sec_regulator_data - regulator data
-  * @id: regulator id
-- * @initdata: regulator init data (contraints, supplies, ...)
-+ * @initdata: regulator init data (constraints, supplies, ...)
-  */
- struct sec_regulator_data {
- 	int				id;
-diff --git a/include/linux/mfd/si476x-core.h b/include/linux/mfd/si476x-core.h
-index d9e3a322134c..3e924ca4db00 100644
---- a/include/linux/mfd/si476x-core.h
-+++ b/include/linux/mfd/si476x-core.h
-@@ -94,10 +94,10 @@ enum si476x_power_state {
-  * of the @rds_fifo_drainer.
-  * @rds_drainer_status_lock: Lock used to guard access to the
-  * @rds_drainer_is_working variable.
-- * @command: Wait queue for wainting on the command comapletion.
-+ * @command: Wait queue for waiting on the command completion.
-  * @cts: Clear To Send flag set upon receiving first status with CTS
-  * set.
-- * @tuning: Wait queue used for wainting for tune/seek comand
-+ * @tuning: Wait queue used for waiting for tune/seek command
-  * completion.
-  * @stc: Similar to @cts, but for the STC bit of the status value.
-  * @power_up_parameters: Parameters used as argument for POWER_UP
-diff --git a/include/linux/mfd/twl.h b/include/linux/mfd/twl.h
-index b31e07fa4d51..238d9dcefc35 100644
---- a/include/linux/mfd/twl.h
-+++ b/include/linux/mfd/twl.h
-@@ -739,7 +739,7 @@ int twl4030_sih_setup(struct device *dev, int module, int irq_base);
- #define TWL4030_REG_VUSB3V1	19
- 
- /* TWL6030 SMPS/LDO's */
--/* EXTERNAL dc-to-dc buck convertor controllable via SR */
-+/* EXTERNAL dc-to-dc buck converter controllable via SR */
- #define TWL6030_REG_VDD1	30
- #define TWL6030_REG_VDD2	31
- #define TWL6030_REG_VDD3	32
+Thanks,
+
+Nabige
+
+>
+> Shawn
+>
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+>> +
+>> +    display-subsystem@ae00000 {
+>> +        compatible = "qcom,nord-mdss";
+>> +        reg = <0x0ae00000 0x1000>;
+>> +        reg-names = "mdss";
+>> +        power-domains = <&dispcc_gdsc>;
+>> +        clocks = <&dispcc DISPCC_MDSS_AHB_CLK>,
+>> +                 <&gcc GCC_DISP_HF_AXI_CLK>,
+>> +                 <&dispcc DISPCC_MDSS_MDP_CLK>;
+>> +        clock-names = "iface", "bus", "core";
+>> +        resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
+>> +        interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
+>> +        interrupt-controller;
+>> +        #interrupt-cells = <1>;
+>> +        iommus = <&apps_smmu 0x800 0x420>;
+>> +        #address-cells = <1>;
+>> +        #size-cells = <1>;
+>> +        ranges;
+>> +    };
+>>
+>> -- 
+>> 2.34.1
+>>
+>>
+>> -- 
+>> linux-phy mailing list
+>> linux-phy@lists.infradead.org
+>> https://lists.infradead.org/mailman/listinfo/linux-phy
