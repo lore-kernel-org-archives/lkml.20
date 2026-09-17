@@ -1,157 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010006.outbound.protection.outlook.com [52.101.46.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5995D4908A2;
-	Thu, 17 Sep 2026 08:39:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634369; cv=none; b=gMYrBa7KizHcwBLGWAWm8JqoA5IlvMg61mby9r7mhxBQU1/B3SYo5sOKOAv6NiNSyM53CKZBfOjQqDNGhFxxDHVp741/K9tC0lMxwDp40LuBR0sAFF4O4JORyJNWzGClG0cOqoHzDNfKFOmbcUlUpvIfvxwRoU056wA1A3npwEA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634369; c=relaxed/simple;
-	bh=VOIt5Ueo84n51MFKJuHQvwxVAUjNMQhMgUwGhvuj4U0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oX3DpDLutkQFHTuTu6Bo1gjwgXCFdZ668Bu8QQzWS6cxyshkUVmzr1LLCRaGSmJhu58HzPevYjPTRCKfKc9xZgAicoGVe+fdM660CV5nab+17SVT2VuP/289wBHckG0EYLsHEnldVPRV1gCgGjwdCJHGLngxF4AKctCZy9MzGGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=op4rD8uE; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A22E490C1E;
+	Thu, 17 Sep 2026 08:39:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789634366; cv=fail; b=b9pxoEG5h5aMO7i5MjvIimlcdvAPJZ4VM5AAWLdutrN+53ZS7athfJlGIPXZ5fu00lDV0mzYFs4SXbX7I6aUyEGCgmI5wrjXPDBTt+GC/gSZOevFHQO4l2GrIDleUfhU0vBgcKfcGK/cCjVyFz7lOm2AqQ26nJ47lq319htRB1E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789634366; c=relaxed/simple;
+	bh=FiYxvLQfZOzn0S+erQOmR9MUw8KrCg6OCPCvGDzWFN4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ToO3lmK6RC/99e3wLHS9gJpPM9XHINBIUMjFahB5s6KqWq3bxBqOuXuSd+zQAhsbSxCN6gbXPU6CzvZnmZ32KYIyP/TKO/BsyyZYqW6XNj0up8ZMnYeo3onITGL+kf6RfJ6+8trrXNr/J3niRErc0QWjs/A35p+/GqH4f2yEstU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=T7p+GvDo; arc=fail smtp.client-ip=52.101.46.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="op4rD8uE"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9323EC2BCB9;
-	Thu, 17 Sep 2026 08:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789634368;
-	bh=VOIt5Ueo84n51MFKJuHQvwxVAUjNMQhMgUwGhvuj4U0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=op4rD8uEUK/AzE43MHX1I9PC4JU96Ro7LGZYPP2WsNqMVftFZdPt+OQEzHiQVfe0F
-	 CCf3ZZupv+nE+xTjsVSShPRWfRhDp2vqQ7HZxYtWtoBJFIifPR/T2DA54k2oByeEtt
-	 GrP6hnPAAyPe95qwfwBmkE/mfG+JNQ7Q4eP1eWcMz7HgPFtEUmcNlxDaaGZpXAWpTl
-	 +aFhRQ/5kbGY+arZ2I41sRCmK4IYPkPT4J0dqx6Ru0lz/sNWqiAlPO6qXXMDLRSN5M
-	 HaF8eunC1qG16QPm4khVdyF16nQdDNYmm+0Tz/BjGk0rqkqp9kZsSDBOMZoUNZeCcJ
-	 BdoImS9cS5Qsw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E17BC88E72;
-	Thu, 17 Sep 2026 08:39:28 +0000 (UTC)
-From: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
-Date: Thu, 17 Sep 2026 16:39:09 +0800
-Subject: [PATCH v3] dt-bindings: clock: Add Amlogic A9 SCMI clock
- controller
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="T7p+GvDo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iYZddRV6+c+ZAMCRFicTDM7sSTlYr/k5J45PUjhwoaZ9qJfOYTlYSoJcexCOKTT3HWI87AZT1ab6Q0CN2X4TElMQWbgVROBHhbr58abm2nXSykHhT0aG2uEVMphD3Sehk7Y6E7hNFhJen5BH20UV57O/FZFTGexEgJIM0vpCsVOwikG8nHOJUCENtldqzgfpOg6KLmZf7JluapienzDBecXtvTdgsD8Nnmc7TKDnmzrxOQTTqXMhIhzA97RfUK1mwrXd9tnJ24G6f6ca+YvjTEfG95QPwGF8PHOSyQLZdwLCLGZd6teKJ2Jiyo3ZTFJIE/QCvJDOPwUm2PGwlVRfxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Kxi7wE8XfHSshdHEh9HFbWphzQEHHBqurR6ZiwHBKiY=;
+ b=F8OVRrWKX23j6Q+IWtgETSAttJ0fVwuJ6a4LIKnl4os7+qEzCeXFv3pFkOTkpg/Ls24BBYu2/K/oBpC3T5QODf1SHdFDGjcJEbmeAUAKRoxZB0FdpOEE4YsvjaiRs0J9NbytaY3QdhRfNGl8//XXDCK00IXBjYql9PsTl1Y9aViHd6PNUGXkr76beFSnoINm/JdTdakVPk1n9xWtzdyYTg9VYQ4+AwRxngmv3FQo1RLoKp6W9Vg0lfVo8vM8xtgk+gCBtYDLFOD75tOKXrjnk/FCpCoY7nEbxJKxUTvHAblHGT6+x7uI+H9T8xwrq7exklT78SM9/s5tP/fKfZeB2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Kxi7wE8XfHSshdHEh9HFbWphzQEHHBqurR6ZiwHBKiY=;
+ b=T7p+GvDo2xRSMfcJXF3Uld1+w7YXHD5LO+o5AnCJ4mioYM6tYPS7GTHsQaKRnGOgXNJZIA6wy7303t61Vh5RK0ikhM3NjkX/r/NxO5rm91PMBMb88xFa5jSS2taDpz5R4O/pXcx6BLjviXXoqV0rCIoO6KPwRwXEIau0sBP4V5g=
+Received: from CP6P284CA0029.BRAP284.PROD.OUTLOOK.COM (2603:10d6:103:15d::12)
+ by CH1PPF2C6B99E0C.namprd12.prod.outlook.com (2603:10b6:61f:fc00::609) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Thu, 17 Sep
+ 2026 08:39:01 +0000
+Received: from BN1PEPF00004680.namprd03.prod.outlook.com
+ (2603:10d6:103:15d:cafe::98) by CP6P284CA0029.outlook.office365.com
+ (2603:10d6:103:15d::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
+ 17 Sep 2026 08:39:00 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00004680.mail.protection.outlook.com (10.167.243.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 08:39:00 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 03:38:56 -0500
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49
+ via Frontend Transport; Thu, 17 Sep 2026 03:38:52 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <vkoul@kernel.org>
+CC: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
+	<yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
+	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
+ Mukunda" <Vijendar.Mukunda@amd.com>
+Subject: [PATCH V2 3/9] soundwire: amd: fix work drain ordering in remove path
+Date: Thu, 17 Sep 2026 14:04:14 +0530
+Message-ID: <20260917083732.3803526-4-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260917083732.3803526-1-Vijendar.Mukunda@amd.com>
+References: <20260917083732.3803526-1-Vijendar.Mukunda@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-a9_scmi-v3-1-5ad843766774@amlogic.com>
-X-B4-Tracking: v=1; b=H4sIACynq2oC/2XMQQrCMBCF4auUWRuZJrW0rryHFJmmYztgGkkkK
- CV3N3br8n88vg0iB+EI52qDwEmi+LWEOVRgF1pnVjKVBo26xRaNov4WrRPVkG5MPWI3cQfl/Qx
- 8l/cuXYfSi8SXD58dTvq3/htJq1qZExLbnsYa6ULu4WexR+sdDDnnL5hzRWqgAAAA
-X-Change-ID: 20260603-a9_scmi-4a2431b08de8
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
- Jian Hu <jian.hu@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789634366; l=2919;
- i=jian.hu@amlogic.com; s=20260415; h=from:subject:message-id;
- bh=WQM5jl9E8gItT5ANuR7GZhx7n8JoVv2XfXGNwu6d1P4=;
- b=i/KIdVkG2b96oq/izhj1bcE1ZkVA1v5Ve8xYqMnFWGApZWJaIXYUIAbiX6LELtXvgkzAxlzDX
- L0FTn9MOAM2BdQSkxT50WnOFjr2jpeoR5t4ILIqtXG035TmpkTXEIIK
-X-Developer-Key: i=jian.hu@amlogic.com; a=ed25519;
- pk=zHUE+rNtH9z+Sb8au1/elWknjFQmy5QDVkBoxleuOIA=
-X-Endpoint-Received: by B4 Relay for jian.hu@amlogic.com/20260415 with
- auth_id=735
-X-Original-From: Jian Hu <jian.hu@amlogic.com>
-Reply-To: jian.hu@amlogic.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004680:EE_|CH1PPF2C6B99E0C:EE_
+X-MS-Office365-Filtering-Correlation-Id: 74c5fc01-6364-4bc6-2781-08df14971f25
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|10067099003|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	rZ7j2Sv/FjiDF94noiOUdZ7ROq/cc4ByGiqd2EgiZ9pLaL/ul5QsSXtMYEJ/CICtpNUrfWSpKTOdPMepjIzsKLqbp1RaHBV/7mtAmm5rOWWFj6RmH5xCQJP2TteWSnHMEEcibGejUfvJCjxqiFaa4hOSkgJF6sh377iuJb8LlQfeSugjDye1KBFgJuXlFaDb9XQ6J+43e2zMoqMpgFxig6zX/2UfqWtdBHFMhB/kfvuvCXxYJ+Y+Wu76AYuu3LYckRRA7o13j/V5JInT2WLCsoj3nhfq0MafzJDpe6qS/FD4nxzw4uHLACwsl81wYF3Uc20TUprtI3CR94HThq4ViaiHulDqq4DD4ESwIo0+qa6YPkGOaZE/IFp6SrBK237VRjsSDp79ooVwUEmPmr+ZT4Z7zeDHCMN5tb+xPyBFn11zH24k3licnn4zgeYlX+m0LhCkL3gd342ckwftIguy9Jh/UO17b5oeORFZ63yk7xatno7jDIgySyqhSYPDj3nVFQCC9aUD6wsZpipWhihFDwrrksLl/NGRkx5L4j10MsIqmLGBD89/YbzRUEc45roQhyM0+GxoZf6HHPQFASXvtihMlHWu4XHoRLGaOeH+tvZWF3cBYm2egedeDVxDZk79fztTzrt7pvEd/08yrcUXRBF0SapDda/hO3xt1cS/2HJXwTDOBpxwwpExTZGCDzdaO1/pEKykeccfoaiMI+7eLA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	YdbzD/pfx25ph7aGnsWCw0jCoVLxPMGfIP22bOi+1agDOtvGqrAkuKTfF0w9BtivNZHh1C+uc+/13+YaKzvbuPGDfUJmbCv8zxlTE/Ikm2PfGHM1g574gRyOioAnLq0U0L2JfyoK6zrIVfbuzDYnSpd5SUgD4jw76owt8KzwOnEoI+58/1tgJhEpE9TrEruAK8ZdxWk77zEZjHIaCvx7fZmbXS9XkrHa9BEtT6Q9xmq0DGzjUEZEizIigZfYbjTuoXivkv1hACgeXvj7iiPO5YiSyCZ8JPtkRhEoJcHqX7o3lYKf+8KGTGiRNZJKz6Chi4q3qmQBUYlLeczckcSKN9eaDr4aImrnquforMQoGURs7c/bRlzEydurjjlFzka+pdHBPrpCOOROci/jWGgLv32kW+lRnxlkV4vUPMizFio+4u3J7fpsI3E3hgkW8jE7
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 08:39:00.4632
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74c5fc01-6364-4bc6-2781-08df14971f25
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00004680.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF2C6B99E0C
 
-From: Jian Hu <jian.hu@amlogic.com>
+amd_sdw_manager_remove() cancelled amd_sdw_work but not
+amd_sdw_irq_thread. Since amd_sdw_irq_thread() calls
+schedule_work(&amd_sdw_work), an in-flight irq_thread item can
+re-queue amd_sdw_work after its cancel returns, defeating the
+cancellation.
 
-Add the SCMI clock controller dt-bindings for the Amlogic A9 SoC family.
+Fix by calling amd_disable_sdw_interrupts() first to quiesce the
+hardware IRQ source, then cancel_work_sync() for amd_sdw_irq_thread,
+then cancel_work_sync() for amd_sdw_work. The existing
+cancel_work_sync(amd_sdw_work) is also moved to after
+amd_disable_sdw_interrupts() so that any work item queued between the
+old cancel position and the interrupt disable cannot escape draining.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+synchronize_irq() is deliberately not used before the
+cancel_work_sync() calls. Once SoundWire interrupts are masked, no new
+IRQ deliveries can occur. An IRQ handler already in flight may still
+queue amd_sdw_irq_thread, so cancel_work_sync() is used to drain both
+amd_sdw_irq_thread and any amd_sdw_work items it may have scheduled.
+This fully quiesces the driver workqueues, making synchronize_irq()
+unnecessary.
+
+Fixes: f93b697ed98e ("soundwire: amd: cancel pending slave status handling workqueue during remove sequence")
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
-Changes in v3:
-- Add Conor Dooley's Acked-by tag.
-- Link to v2: https://lore.kernel.org/r/20260603-a9_scmi-v2-1-350aec9ab10a@amlogic.com
+ drivers/soundwire/amd_manager.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- Split the A9 clock driver and send the SCMI clock separately.
-  The A9 PLL introduces several new features, and the Meson PLL framework
-  needs to be refactored to support them. Since this work requires more
-  time and there is no hard dependency between the different A9 clock
-  controllers, split out the A9 clock driver and submit it separately to
-  ease review.
-- Link to v1: https://lore.kernel.org/all/20260511-b4-a9_clk-v1-1-41cb4071b7c9@amlogic.com/
----
- include/dt-bindings/clock/amlogic,a9-scmi-clkc.h | 51 ++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
-
-diff --git a/include/dt-bindings/clock/amlogic,a9-scmi-clkc.h b/include/dt-bindings/clock/amlogic,a9-scmi-clkc.h
-new file mode 100644
-index 000000000000..d543db9fe035
---- /dev/null
-+++ b/include/dt-bindings/clock/amlogic,a9-scmi-clkc.h
-@@ -0,0 +1,51 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (C) 2026 Amlogic, Inc. All rights reserved.
-+ */
-+
-+#ifndef __AMLOGIC_A9_SCMI_CLKC_H
-+#define __AMLOGIC_A9_SCMI_CLKC_H
-+
-+#define CLKID_GP0_PLL_OSC			0
-+#define CLKID_GP1_PLL_OSC			1
-+#define CLKID_HIFI_PLL_OSC			2
-+#define CLKID_GP2_PLL_OSC			3
-+#define CLKID_MCLK_PLL_OSC			4
-+#define CLKID_FIXED_PLL				5
-+#define CLKID_FCLK_50M_PREDIV			6
-+#define CLKID_FCLK_50M_DIV			7
-+#define CLKID_FCLK_50M				8
-+#define CLKID_FCLK_DIV2_DIV			9
-+#define CLKID_FCLK_DIV2				10
-+#define CLKID_FCLK_DIV2P5_DIV			11
-+#define CLKID_FCLK_DIV2P5			12
-+#define CLKID_FCLK_DIV3_DIV			13
-+#define CLKID_FCLK_DIV3				14
-+#define CLKID_FCLK_DIV4_DIV			15
-+#define CLKID_FCLK_DIV4				16
-+#define CLKID_FCLK_DIV5_DIV			17
-+#define CLKID_FCLK_DIV5				18
-+#define CLKID_FCLK_DIV7_DIV			19
-+#define CLKID_FCLK_DIV7				20
-+#define CLKID_SYS_CLK				21
-+#define CLKID_SYS_AO_SYS			22
-+#define CLKID_SYS_MMC_APB			23
-+#define CLKID_SYS_CPU_APB			24
-+#define CLKID_SYS_GIC				25
-+#define CLKID_AXI_CLK				26
-+#define CLKID_AXI_SYS_NIC			27
-+#define CLKID_AXI_RAMA				28
-+#define CLKID_CPU_CLK				29
-+#define CLKID_A78_CLK				30
-+#define CLKID_DSU_CLK				31
-+#define CLKID_ACLKM				32
-+#define CLKID_GP1_PLL				33
-+#define CLKID_GP2_PLL				34
-+#define CLKID_SYS_PLL_DIV16			35
-+#define CLKID_CPU_CLK_DIV16			36
-+#define CLKID_A78_CLK_DIV16			37
-+#define CLKID_DSU_CLK_DIV16			38
-+#define CLKID_GIC_CLK				39
-+#define CLKID_RTC				40
-+
-+#endif /* __AMLOGIC_A9_SCMI_CLKC_H */
-
----
-base-commit: 43e1705ecab981c66baee89041e6f728c0436f19
-change-id: 20260603-a9_scmi-4a2431b08de8
-
-Best regards,
+diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+index a57b59609bfe..dfbe9a181983 100644
+--- a/drivers/soundwire/amd_manager.c
++++ b/drivers/soundwire/amd_manager.c
+@@ -1173,8 +1173,9 @@ static void amd_sdw_manager_remove(struct platform_device *pdev)
+ 	int ret;
+ 
+ 	pm_runtime_disable(&pdev->dev);
+-	cancel_work_sync(&amd_manager->amd_sdw_work);
+ 	amd_disable_sdw_interrupts(amd_manager);
++	cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
++	cancel_work_sync(&amd_manager->amd_sdw_work);
+ 	sdw_bus_master_delete(&amd_manager->bus);
+ 	ret = amd_disable_sdw_manager(amd_manager);
+ 	if (ret)
 -- 
-Jian Hu <jian.hu@amlogic.com>
-
+2.48.1
 
