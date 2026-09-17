@@ -1,87 +1,129 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80174349A5;
-	Thu, 17 Sep 2026 13:39:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635BB53A894;
+	Thu, 17 Sep 2026 13:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652395; cv=none; b=tEbBU9cvMvDITsTOp4Q9XkNdpyb2GrKqDxxqAnBe+m+83aafvhqZFxY5Je0Hu6jT7NT0Bu1LJzOvGbO/QUeDwldPAzJ3TVTB1J+E7vKTQN45OpLRKrJfrQcn6PHViCIZOmNRnVZ4fNqUPxpTMM1ay2CXk8PoJ6YMfghmLxU+gsM=
+	t=1789652391; cv=none; b=mNeGSPkiJ/8fQrqdD9o7zo9HQMVv1gs++FKHH7S6ph+lCCfUY9jMHoLUK7bDM/deW/kk8ZkskksTBYbHIWuf9kuPjdbij2BXkBF6fKpgen1L6P2kaUf4UNhbWeyhI7CkIBa299c/B96kduQnlW8NfD8DiueUFcSAO/i1/rktmP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652395; c=relaxed/simple;
-	bh=/8AM3r7K/WsqLW1c6+ZSRPBonW3byGfDs+cOUNpTW/o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oO/T4wjJdAS2pBzF5+/rLYC//lAp5iR7C5/1z5dCV0cj11a1cQYq63blFS1+OJPXepbhNzI3PEGqIcZ568zZhBTY9ong+pK32gp9TzUJzy2KCceHnBRKY3Ecv7Hopfibbwxjw1ZsQTriEyBA7KZ1UcFRXCvg6x6pQ2j7/OM7fVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAC36EKX7atqMqSBCA--.3927S2;
-	Thu, 17 Sep 2026 21:39:35 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: linux-kernel@vger.kernel.org
-Cc: linux-phy@lists.infradead.org,
-	mani@kernel.org,
-	mchehab+huawei@kernel.org,
-	neil.armstrong@linaro.org,
-	vkoul@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] phy: HiSilicon: Fix PCIe device reference leak in hi3670_pcie_get_resources_from_pcie()
-Date: Thu, 17 Sep 2026 13:39:35 +0000
-Message-Id: <20260917133935.2153674-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789652391; c=relaxed/simple;
+	bh=MnY1GpEk653T3W368n0d8F1LgMP7hnnNeolcOILf7YY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s3dIOsetBu2i3CijDIl4goShtZ+sfsNE50SLEPMDkKsJkRx9L6YomJiMJ/2GmuxOwsJNo5nnm3CEdpxwKJJ/L9vquGXouf5d0atJAcRZNmNnlliGiSoFMHbCcW+RmVcWj4DOMIChMslanpSIz/nJSVziZ5CiXw2CEL8+Tov1m5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LoJck14g; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LoJck14g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789652383; x=1821188383;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=MnY1GpEk653T3W368n0d8F1LgMP7hnnNeolcOILf7YY=;
+  b=LoJck14g9OH6ak1im/MzX9C98A8Qe5HZ63+0qzLiztGtkcu48k+HHJFm
+   0FjQQKH0G55A8KoJTDxr65qUEEzEaDlpSfmHY+s+fJ111cciMdN79c73w
+   HqVGuhMoLboUcKXR0sAQq+qxcTy4f1gkLypwMQWyF9UylOfy+yGmFqlf9
+   UXqz7exkI+97WILwPU3G9O/2yrktbyqXfkKEGEMFc10TcX4Bz9vs4GfSP
+   Awg4i92o3tTCBLXDDb0m3lhxslErpFeBgL7d2Rd0yJfnfyFT3Ac1AZ/G6
+   uhOl8YMXd85hfXwsZGVbaQpsL6xIEyAbJsvDsTNBX/3+/0YcGS7gnTqC6
+   A==;
+X-CSE-ConnectionGUID: PakNZgARSRy0b4ULU1X2uA==
+X-CSE-MsgGUID: dE0CtnbSR8asx0XjETe7oQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92584744"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="92584744"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 06:39:32 -0700
+X-CSE-ConnectionGUID: m8Ad4rALTgC8pQ7Y8K6K2Q==
+X-CSE-MsgGUID: 71aozPS4RbCh6yssA8UqZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="271155797"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 06:39:30 -0700
+Date: Thu, 17 Sep 2026 16:39:28 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Frank Wunderlich (linux)" <linux@fw-web.de>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Frank Wunderlich <frank-w@public-files.de>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	frank.wunderlich@linux.dev
+Subject: Re: [PATCH] gpiolib: use of_node_name if line-name is missing
+Message-ID: <aqvtkNQQp15cr35G@ashevche-desk.local>
+References: <20260917122815.88601-1-linux@fw-web.de>
+ <aqvkU_1_ki5lGXS_@ashevche-desk.local>
+ <85b0d147af3b63a6b2419b7daaf81332@fw-web.de>
+ <aqvtMDiqCzsxUDKw@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAC36EKX7atqMqSBCA--.3927S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7GFyUZFy5ZrWUur15JFW5Wrg_yoWkuwb_GF
-	95uFn7Zr40grZxA3srAr95Zr9FyFnrZFyIqws7tFWay39xZr1a9F15Zws0k3ZrurW3uF1k
-	Aw1UZw1jkrZrWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfAYjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
-	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
-	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7IU57rcDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUNA2qrq03P3gAAsk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqvtMDiqCzsxUDKw@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-hi3670_pcie_get_resources_from_pcie() gets a reference to the PCIe
-platform device with bus_find_device_by_of_node(), but never releases
-it.  The reference is not stored anywhere, so it is leaked both when
-dev_get_regmap() fails and on the success path.
+On Thu, Sep 17, 2026 at 04:37:57PM +0300, Andy Shevchenko wrote:
+> On Thu, Sep 17, 2026 at 03:20:49PM +0200, Frank Wunderlich (linux) wrote:
+> > Am 2026-09-17 15:00, schrieb Andy Shevchenko:
+> > > On Thu, Sep 17, 2026 at 02:28:13PM +0200, Frank Wunderlich wrote:
 
-Drop the reference right after the regmap lookup, the last use of the
-device.
+...
 
-Fixes: 73075011ffff ("phy: HiSilicon: Add driver for Kirin 970 PCIe PHY")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/phy/hisilicon/phy-hi3670-pcie.c | 1 +
- 1 file changed, 1 insertion(+)
+> > > > int gpiochip_add_hog(struct gpio_chip *gc, struct fwnode_handle
+> > > > *fwnode)
+> > > 
+> > > >  	fwnode_property_read_string(fwnode, "line-name", &name);
+> > > > 
+> > > > +	if (!name && is_of_node(fwnode))
+> > > > +		name = to_of_node(fwnode)->name;
+> > > 
+> > > Can we move it inside the loop? Yes, I understand that it will be
+> > > unnecessarily
+> > > called more times than required, but gpiod_hog() is called anyway in the
+> > > loop,
+> > > so I don't think it will be a big deal. With that it will allow to group
+> > > OF-specific code in one location.
+> > > 
+> > > >  	for (unsigned int i = 0; i < num_hogs; i++) {
+> > > >  		if (is_of_node(fwnode)) {
+> > > 
+> > > 		...somewhere inside this conditional...
+> > > 
+> > > >  			/*
+> > 
+> > I'm not sure what you want to achieve here (maybe only to have the
+> > is_of_node-condition once?, as the loop imho is only for enumerating
+> > multiple gpio (like "gpios = <3 0>, <4 0>;") inside one hog of_node.
+> 
+> The primary goal is stop spreading OF-specific code. If you have noticed the
+> function was also rewritten (during the move) to be fwnode agnostic, but that
+> was not feasible by 100%, the leftover is collected inside the mentioned loop.
+> That's why I really prefer to keep all OF code there.
+> 
+> > Here the node-name will never change (like the line-name above) and read-once
+> > is correct.
+> > But while looking at the code i also thought about these multi-gpio-hogs
+> > (label and output-X). Imho here something like the gpio-controllers
+> > "line-names" would make sense as well as something similar for the output
+> > (or just handling this with the GPIO_ACTIVE_HIGH/LOW param).
+> > 
+> > But if you think the part should be moved into the loop, that's no big deal.
+> 
+> Yes, I think that way.
 
-diff --git a/drivers/phy/hisilicon/phy-hi3670-pcie.c b/drivers/phy/hisilicon/phy-hi3670-pcie.c
-index dbc7dcce682b..87eac058a4bc 100644
---- a/drivers/phy/hisilicon/phy-hi3670-pcie.c
-+++ b/drivers/phy/hisilicon/phy-hi3670-pcie.c
-@@ -584,6 +584,7 @@ static int hi3670_pcie_get_resources_from_pcie(struct hi3670_pcie_phy *phy)
- 	 * right regmap. So, let's use the named version.
- 	 */
- 	phy->apb = dev_get_regmap(pcie_dev, "kirin_pcie_apb");
-+	put_device(pcie_dev);
- 	if (!phy->apb) {
- 		dev_err(dev, "Failed to get APB regmap\n");
- 		return -ENODEV;
+Btw, while doing that, also add a comment explaining why (like we have now for
+the OF flag translations).
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
