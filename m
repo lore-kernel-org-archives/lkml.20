@@ -1,421 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EE649EC6E;
-	Thu, 17 Sep 2026 21:20:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8FE39A4C4
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789680035; cv=none; b=rYQ+sKaMrkk0ket2RttyXhSXSSdxlV4uS5rt4cesdkewK3AlRwFZio79lleGADI8HYTB4t2ZikFYQakhiJn4AfdaL1VdeKqB4KqyDN8klK4a0oMcUVlmN6HYpS1MADSKarDDpJjRZKielCRz14DAseAonlPH+cPXkHBDAJhbJG0=
+	t=1789680061; cv=none; b=bFcqafaLfXhWx4KUBAgA+jvZFiiopgBaXOdmM5wXV5T/CDETBLkyU6+/dl7pVaNcJe5tTHbqf8feG0VOqYcaFTm7m0H/TIbBeLvh+TXn8D5B9R164GWMGDrfoHXzS7w3MzH1cmNnbwQ1Xv6ETkBU7JUKme6ceHUV5EVC2yk6bv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789680035; c=relaxed/simple;
-	bh=PK/vI3gJpOjSUbmuWp8bS7qffOZFRo9YhPSotm7E0YE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=r5gyDrieqN0tDI5xHLaFyd1xiMUJ4Vv8hIUlqHX5E9U5ZEYb0fLre+aDF97rxKrNE2OIpVBT7iPe5dhwBfwSR4x+QqxCqolWXouqPN48xxtpvOh9jPhoIoRMKVIslTkVXKviYaWlxNjLH8DQnBfYhu4oBvkL3NyO6CS98/U2sTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H9HYC50+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789680061; c=relaxed/simple;
+	bh=QE1foUdYJae9HDSsPf8Vbf/GALiJroO+QkvmRCAznlw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=I1GvmeXaXvalBElQvDL8AYvHu/y5iO36u5FKuHegfudV6Tn9J9IkdcIhupnSM8Z5xVeKtkk7SVncIeW4RHGd1KPgNFZR2y+4Og+R80aJHfOGrZoAkmvlYr20Pm+wbQnQKe+wkiln/O9CCkUnbaxwoSEqxFu9LXdxSBP0BIP9l2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Qv3+PfzE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=M8O/rveh; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H9HYC50+"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 41F06C2BCB3;
-	Thu, 17 Sep 2026 21:20:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789680035;
-	bh=PK/vI3gJpOjSUbmuWp8bS7qffOZFRo9YhPSotm7E0YE=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=H9HYC50+2G2bvKO6y0HMMe/v4PcAhQyZZEi+bfOlcnsY4bgbGHvGhSbL+3YYHimXX
-	 e0a1pCY2tOmXKB2+FPBS9YJ4sTITnP4gEOXMNxhnpcTgPyPivV7fdqpUFaz6BJwVEq
-	 Z1YTiUh/jt0zJxI9iJ9V35ob6WaHjAb8rD/REW1J78MeHgqfBD7+HOGt58/1Tm4xyH
-	 no+CubNOWe4C0rDeFOI/3ECul3fSsWUz9wKb0H47d6EuhrvDlAtKrrx7cfdXWYgYhM
-	 4SpsgHxI1aE7l8SmmeN0y0BA3/KNUpxQB0a8a7my4AOy0mb9G8tbBts/2jzgeU3xZX
-	 lwsSDkGoUvq9g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F1E5C982D0;
-	Thu, 17 Sep 2026 21:20:35 +0000 (UTC)
-From: 0xSmash0th via B4 Relay <devnull+0xSmash0th.gmail.com@kernel.org>
-Date: Thu, 17 Sep 2026 17:20:24 -0400
-Subject: [PATCH] firmware: tegra: ivc: back off when a peer stalls the
- handshake
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Qv3+PfzE";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="M8O/rveh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789680053;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6VsOqYOO7JiWmEXlBhZj+zFUtxnW7W9uLbNfBZMlGXA=;
+	b=Qv3+PfzEMFs3PlTHL7S6/SWbqrUeNbAm44jb2e4slObzNFWM1su5BA8cKEcRbrZxkKzTN6
+	Noul7vBRquIKSABQFfo8qIcag2I0A3wqjEyWpLXFbvVQCrOust8FoFMj7TyAXittFSci4Q
+	i7aGmaOTvshdn9P63KfTLr1zuUNM9p0=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-118-R2J3GXkzPj6xelzDZ-rcLw-1; Thu, 17 Sep 2026 17:20:51 -0400
+X-MC-Unique: R2J3GXkzPj6xelzDZ-rcLw-1
+X-Mimecast-MFC-AGG-ID: R2J3GXkzPj6xelzDZ-rcLw_1789680050
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91235881828so3150656d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:20:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789680050; x=1790284850; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=6VsOqYOO7JiWmEXlBhZj+zFUtxnW7W9uLbNfBZMlGXA=;
+        b=M8O/rvehofPT0tboiL47aHKQ9EL5M1LRNG+I+PZ+Q8yIEpPOCWgo8PvlhqmTcK0Fc6
+         10b/rEtYgKJ37+ITb1HKvog+Ftn7ImjLC5jnKsVLin63BrOuTfuBBHvx1LvdIOsRxEbN
+         /sjcTMDspr+KC2ZpVZBK4N9+sJwLtrq4JDIO3OKWm4A2QT2GvkDn1cp+oqzmGwZCnCjn
+         pdf8ZxiOCVIbz6fX01sppVEg84A4N568W7ETzx3clT1ujlkhX9iaJ1N+ShrKEAouXdM9
+         WauKiEQCNXAmoTwDB/k3LogJ2d7zOBY3TLYq4eoPHSKMIV3/tydJ8JX34WqQXuHH0LlE
+         qPlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789680050; x=1790284850;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6VsOqYOO7JiWmEXlBhZj+zFUtxnW7W9uLbNfBZMlGXA=;
+        b=GBgVZ3pt60kzll96VXxwCsfAt7l0EUD6ZXst4kNh8fZes+f3AwcaIW2MU8G1jRWqga
+         Tajd0RMuEbk9gmWCwHrjwFk2WJuleW3vvsHEq0NQzTlMyNS5GWyvouEv+yn4BsOA+WFt
+         pUbkm7L7ZfxXTCGrzLrm7nNTCqfMMfW3ORUp22dTKfmJBrOxpIQUPQxTNd9xgHDVA2El
+         PZkn0MLWPunyUk6xnzNMLjmCxSKBI9aqduTVd78D4hfHWhwzJi2nC3ZCBAcLy/U/pd9a
+         MeAj6Fu9W2t18ANRyM01NHpc4mJSTIwHrIXvojogE6YP4uurVYRZCMRYKAzOkdKmSaO/
+         ssKA==
+X-Gm-Message-State: AFuF++n+bEZQZSUeHnYD00SXlJeeIvIzD1N3n2Eou5aM1qhCMX4nab9z
+	nxVMbuNe5dis1lyfxGIyjWNKqhzqcTRrnVpRkOuYfFUrcLRWhO7hKxxOb676nc8hcEV+/SgjQsj
+	m2lt1ZSSZfXFVfMmeDgbOOlQ/fwIHP/aNN0pw1WE7B0fXG087FdIL+4WqPIcK1YT4Fw==
+X-Gm-Gg: AYBFou1UoQdEsPzS+sSrUtN5HVQnfMHr/VIoxwEZQrSjAvgsV5CAS7bjxUn8BdldVsb
+	1iRPeHX5WhE9Oe9kR/9s8vggujuaumZP2UelUOhmLqP3olhsnOdo3A7Yz3KYGC4aWhuBHjIK7RT
+	nvdocJ0a4OcaXSj3NsB05wosIw9tILfZHUUpWaESnOFBFDF4vdU5+2lu5Y9LD53RsH94vvLdDEK
+	vJbdd2QnMzQZFXp6Fc0ojc5C5tHAPtlidFL2rGY8jd3JJmKQH7Zri4XV41Fy2Naj4CwonrkVBnj
+	L5fJuqvatq11rx3WiyjfavR0GTLt4PzuMTzHZvoxLC0K2Q3EWRncltUrdhoHF3huHNhzFsE7
+X-Received: by 2002:a05:620a:4503:b0:93b:d79f:d94a with SMTP id af79cd13be357-93bdca2b54cmr40080485a.63.1789680050249;
+        Thu, 17 Sep 2026 14:20:50 -0700 (PDT)
+X-Received: by 2002:a05:620a:4503:b0:93b:d79f:d94a with SMTP id af79cd13be357-93bdca2b54cmr40075985a.63.1789680049769;
+        Thu, 17 Sep 2026 14:20:49 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b78223240sm561790285a.23.2026.09.17.14.20.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 14:20:49 -0700 (PDT)
+Message-ID: <fb1701bbd7fb65ae808f495488880e2f0fbbced3.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau: don't bump pin count on failed re-pin in
+ nouveau_bo_pin_locked()
+From: lyude@redhat.com
+To: Peiyang He <peiyang_he@smail.nju.edu.cn>, dakr@kernel.org, 
+	dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, bskeggs@redhat.com
+Date: Thu, 17 Sep 2026 17:20:48 -0400
+In-Reply-To: <4C61D1CE5BB7CD58+20260910080659.2798052-1-peiyang_he@smail.nju.edu.cn>
+References: 
+	<4C61D1CE5BB7CD58+20260910080659.2798052-1-peiyang_he@smail.nju.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-ivc-resync-backoff-v1-1-dd41ef3a1390@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBuwIM2uEi10GmsILBSiiO6et
- HyL/x/InIQzDNUDiU/JsseCpq6AVhcXRpmLoVWtVrYxKCdh4nxHQu9o20NAb3TfacteEUEJj8R
- Brn86Tu/7AazuO8VkAAAA
-X-Change-ID: 20260917-ivc-resync-backoff-b768569eb0cc
-To: Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- 0xSmash0th <0xSmash0th@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789680034; l=13677;
- i=0xSmash0th@gmail.com; s=20260917; h=from:subject:message-id;
- bh=xI23HGnd1O7JPgGTS/M47lGy5+o/8IZV4S5U1Ah6NHw=;
- b=GM9OUxc05mtbQd3pbhl3RcsXMbSB7uqdjcegbRRk+L+IrGaBBaCj7H1rcOuczia/9STMK+0RK
- NxOYCWLMOcDAYEhkzzRwlqmVoxEM9vpJVxxtx5e6NAJAJNNsKRh/JiQ
-X-Developer-Key: i=0xSmash0th@gmail.com; a=ed25519;
- pk=zVeoR0UBzAAUPJSb7skqhhRlouyNu+2xwsW4ThiH5YU=
-X-Endpoint-Received: by B4 Relay for 0xSmash0th@gmail.com/20260917 with
- auth_id=1034
-X-Original-From: 0xSmash0th <0xSmash0th@gmail.com>
-Reply-To: 0xSmash0th@gmail.com
 
-From: 0xSmash0th <0xSmash0th@gmail.com>
+On Thu, 2026-09-10 at 16:06 +0800, Peiyang He wrote:
+> nouveau_bo_pin_locked() checks whether an already pinned BO is in a
+> memory domain compatible with a new pin request. When the domains are
+> incompatible, it sets -EBUSY but still calls ttm_bo_pin() before
+> returning.
+>=20
+> Callers treat a failed nouveau_bo_pin() as not having acquired a new
+> pin,
+> so the extra pin count is never decreased by a matching unpin.
+> This triggers the warning in ttm_bo_release():
+>=20
+> 	WARN_ON_ONCE(bo->pin_count);
+>=20
+> Found when fuzzing the nouveau driver with a modified Syzkaller:
+>=20
+> 	WARNING: drivers/gpu/drm/ttm/ttm_bo.c:256 at
+> ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256, CPU#1:
+> syz.3.24/2212
+> 	Modules linked in:
+> 	CPU: 1 UID: 0 PID: 2212 Comm: syz.3.24 Not tainted 7.2.0 #24
+> PREEMPT(lazy)=20
+> 	nouveau 0000:01:00.0: gsp:msg fn:103 len:0x40/0x20 res:0x19
+> resp:0x19
+> 	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
+> 1.16.3-debian-1.16.3-2 04/01/2014
+> 	RIP: 0010:ttm_bo_release+0x827/0x9e0
+> drivers/gpu/drm/ttm/ttm_bo.c:256
+> 	Code: 02 00 0f 85 51 01 00 00 48 8b 7b 08 e8 d2 20 01 00 e9
+> 80 fd ff ff e8 d8 15 c0 fe 90 0f 0b 90 e9 e1 f8 ff ff e8 ca 15 c0 fe
+> 90 <0f> 0b 90 e9 a4 f8 ff ff e8 bc 15 c0 fe be 03 00 00 00 4c 89 e7
+> e8
+> 	msg: 00000000: 05 00 d0 c1 04 00 f0 f1 01 30 00 00 2d 90 00
+> 00=C2=A0 .........0..-...
+> 	RSP: 0018:ffffc9000f5cf710 EFLAGS: 00010293
+> 	RAX: 0000000000000000 RBX: ffff888018e5d2a8 RCX:
+> ffffffff82bb1b36
+> 	RDX: ffff888017b68000 RSI: 0000000000000004 RDI:
+> ffff888018e5d2a8
+> 	msg: 00000010: 19 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00=C2=A0 ................
+> 	RBP: ffff88801261c720 R08: 0000000000000001 R09:
+> ffffed10031cba55
+> 	R10: ffff888018e5d2ab R11: 00000000000000f3 R12:
+> ffff888018e5d290
+> 	R13: ffff888018e5d2d4 R14: ffff88801b219c18 R15:
+> dffffc0000000000
+> 	FS:=C2=A0 0000000000000000(0000) GS:ffff8880e0f6f000(0000)
+> knlGS:0000000000000000
+> 	CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> 	CR2: 0000001b31223ffc CR3: 0000000028e00005 CR4:
+> 0000000000770ef0
+> 	PKRU: 80000000
+> 	Call Trace:
+> 	<TASK>
+> 	kref_put include/linux/kref.h:65 [inline]
+> 	ttm_bo_put drivers/gpu/drm/ttm/ttm_bo.c:325 [inline]
+> 	ttm_bo_fini+0x55/0x80 drivers/gpu/drm/ttm/ttm_bo.c:330
+> 	nouveau_gem_object_del+0xb2/0x1b0
+> drivers/gpu/drm/nouveau/nouveau_gem.c:90
+> 	drm_gem_object_free+0x5f/0x90 drivers/gpu/drm/drm_gem.c:1165
+> 	kref_put include/linux/kref.h:65 [inline]
+> 	__drm_gem_object_put include/drm/drm_gem.h:562 [inline]
+> 	drm_gem_object_put include/drm/drm_gem.h:575 [inline]
+> 	nouveau_abi16_chan_fini.constprop.0+0x44f/0x5a0
+> drivers/gpu/drm/nouveau/nouveau_abi16.c:195
+> 	nouveau 0000:01:00.0: syz.2.23[2209]: Unknown handle
+> 0x00000000
+> 	nouveau_abi16_fini+0x1d0/0x340
+> drivers/gpu/drm/nouveau/nouveau_abi16.c:225
+> 	nouveau_drm_postclose+0x18b/0x3e0
+> drivers/gpu/drm/nouveau/nouveau_drm.c:1284
+> 	nouveau 0000:01:00.0: syz.2.23[2209]: validate_init
+> 	drm_file_free.part.0+0x6d6/0xb60
+> drivers/gpu/drm/drm_file.c:267
+> 	drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
+> 	drm_close_helper.isra.0+0x11a/0x160
+> drivers/gpu/drm/drm_file.c:290
+> 	drm_release+0x1ab/0x330 drivers/gpu/drm/drm_file.c:438
+> 	__fput+0x39c/0xa60 fs/file_table.c:512
+> 	nouveau 0000:01:00.0: syz.2.23[2209]: validate: -2
+> 	task_work_run+0x15a/0x230 kernel/task_work.c:233
+> 	exit_task_work include/linux/task_work.h:40 [inline]
+> 	do_exit+0x82b/0x25a0 kernel/exit.c:1009
+> 	do_group_exit+0xc2/0x280 kernel/exit.c:1152
+> 	get_signal+0x1d6e/0x1f30 kernel/signal.c:3046
+> 	arch_do_signal_or_restart+0x7d/0x6e0
+> arch/x86/kernel/signal.c:337
+> 	__exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
+> 	exit_to_user_mode_loop+0xdf/0x440 kernel/entry/common.c:101
+> 	__exit_to_user_mode_prepare include/linux/irq-entry-
+> common.h:207 [inline]
+> 	syscall_exit_to_user_mode_prepare include/linux/irq-entry-
+> common.h:230 [inline]
+> 	syscall_exit_to_user_mode include/linux/entry-common.h:318
+> [inline]
+> 	do_syscall_64+0x4f8/0x690 arch/x86/entry/syscall_64.c:100
+> 	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 	RIP: 0033:0x7f12bac8594d
+> 	Code: Unable to access opcode bytes at 0x7f12bac85923.
+> 	RSP: 002b:00007f12b96e70d8 EFLAGS: 00000246 ORIG_RAX:
+> 00000000000000ca
+> 	RAX: 0000000000000001 RBX: 00007f12baf15fa8 RCX:
+> 00007f12bac8594d
+> 	RDX: 00000000000f4240 RSI: 0000000000000081 RDI:
+> 00007f12baf15fac
+> 	RBP: 00007f12baf15fa0 R08: 00007f12baee8000 R09:
+> 0000000000000000
+> 	R10: 0000000000000000 R11: 0000000000000246 R12:
+> 0000000000000000
+> 	R13: 00007f12baf16038 R14: 0000000000000006 R15:
+> 00007ffe2ed394b0
+> 	</TASK>
+> 	irq event stamp: 47867
+> 	hardirqs last=C2=A0 enabled at (47883): [<ffffffff815cafc6>]
+> __up_console_sem+0x66/0x70 kernel/printk/printk.c:347
+> 	hardirqs last disabled at (47892): [<ffffffff815cafab>]
+> __up_console_sem+0x4b/0x70 kernel/printk/printk.c:345
+> 	softirqs last=C2=A0 enabled at (47880): [<ffffffff81434277>]
+> __do_softirq kernel/softirq.c:656 [inline]
+> 	softirqs last=C2=A0 enabled at (47880): [<ffffffff81434277>]
+> invoke_softirq kernel/softirq.c:496 [inline]
+> 	softirqs last=C2=A0 enabled at (47880): [<ffffffff81434277>]
+> __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+> 	softirqs last disabled at (47875): [<ffffffff81434277>]
+> __do_softirq kernel/softirq.c:656 [inline]
+> 	softirqs last disabled at (47875): [<ffffffff81434277>]
+> invoke_softirq kernel/softirq.c:496 [inline]
+> 	softirqs last disabled at (47875): [<ffffffff81434277>]
+> __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+>=20
+> Fix by going to the out path as soon as the incompatible placement
+> is detected. This matches the correct bahaviour in other DRM drivers
+> such as amdgpu_bo_pin() in amdgpu.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: ad76b3f7c7a0 ("drm/nouveau: teach nouveau_bo_pin() how to
+> force a contig vram allocation")
+> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+> Assisted-by: Codex:gpt-5.5
 
-An untrusted peer can wedge a channel for ever: park its state word on
-SYNC and stop touching the ring.  No path in tegra_ivc_notified() can
-change the victim's rx word, so rx_state stays SYNC and the loop is
-absorbing rather than slow -- pass 7,651,085 is indistinguishable from
-pass 1.  Each pass rewrites the ACK already in tx.state, re-zeroes both
-counters, rings the doorbell and returns -EAGAIN.
-
-The only in-tree caller, tegra186_bpmp_channel_reset(), retries on that
-with no timeout, no iteration cap and no cpu_relax(), on both the probe
-and the resume path, so the victim burns a core at roughly 1.5M
-iterations per second for as long as the peer stays quiet.
-
-A peer is a service, not a VM: one untrusted guest can hold a channel to
-each of a rack of service partitions, and nothing here makes wedging the
-tenth harder than the first.
-
-This is not a new class of concern for ivc.c.  tegra_ivc_empty() already
-carries an over-full check "to prevent denial of service attacks", and
-calls that condition "an invalid case caused by a potentially malicious
-peer".  That defence covers the counters; the handshake has none.
-
-Apply geometric backoff to calls that make no progress, modelled on
-xen_irq_lateeoi_locked(): a saturating count, a doubling delay, a hard
-cap, and a reset the moment the peer moves.  Progress is detected by
-reading tx.state back rather than by tracking which branch ran, so the
-states from which no branch can escape are covered too.  The wait is a
-bounded busy-wait by default because tegra_bpmp_transfer_atomic() reaches
-this with interrupts disabled, and it uses local_clock() because the
-resume path can run with timekeeping suspended.
-
-This is a floor, not a fix.  The return value is unchanged, the caller
-still retries for ever and probe or resume still never completes -- the
-spin just stops costing what other channels have to share.  Bounding the
-loop belongs in the caller.
+This can and probably should just be:
 
 Assisted-by: LLM
-Signed-off-by: 0xSmash0th <0xSmash0th@gmail.com>
----
-Precedent
----------
-ivc.c already models a hostile peer.  tegra_ivc_empty() carries an
-over-full check "to prevent denial of service attacks", and calls the
-condition "an invalid case caused by a potentially malicious peer".  That
-defence covers the counters; the handshake has none.  This closes the
-second path, not a new class of concern.
 
-The handshake has never been revisited: since 2016, every patch to ivc.c
-has been the import itself or a tree-wide sweep.
+Instead of mentioning the LLM specifically used.
 
-Scope
------
-A peer is a service on one channel, not a VM: DRIVE OS is one untrusted
-Linux guest with a channel to each of about ten service partitions.  One
-hostile peer wedges one channel, and nothing makes wedging the tenth
-harder than the first.
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_bo.c | 1 +
+> =C2=A01 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c
+> b/drivers/gpu/drm/nouveau/nouveau_bo.c
+> index 0e8de6d4b36f..bdd0390b590e 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_bo.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+> @@ -578,6 +578,7 @@ int nouveau_bo_pin_locked(struct nouveau_bo
+> *nvbo, uint32_t domain, bool contig)
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "0x%08x vs 0x%08x\n", bo,
+> =C2=A0				 bo->resource->mem_type, domain);
+> =C2=A0			ret =3D -EBUSY;
+> +			goto out;
 
-Whether x services down becomes the SoC down, I cannot show.  That needs
-the spinning partitions to share cores rather than being pinned apart by
-the PCT, and the hypervisor to enforce no per-partition CPU budget.  I
-have no Tegra hardware and have not looked at the hypervisor -- treat the
-SoC-wide version as something to check, not a claim made here.
+Would probably be better to just turn this into an else:
 
-Measurements
-------------
-Keying the test on the first branch -- where the doorbell amplification
-lives -- would cover only a third of the reachable cases.  Over 30 inputs
-that stall the loop:
+	if (error) {
+		NV_ERROR(drm, "bo %p pinned elsewhere: "
+			      "0x%08x vs 0x%08x\n", bo,
+			 bo->resource->mem_type, domain);
+		ret =3D -EBUSY;
+	} else {
+		ttm_bo_pin(&nvbo->bo);
+	}
 
-    looping endpoint                  n    before        after
-    rx=SYNC, tx=ACK   (branch A)      9   ~7,700,000      50-64
-    rx=SYNC, tx=SYNC  (enters A)      2   ~7,700,000         65
-    tx=SYNC, rx=EST   (empty else)   15    8,387,013      63-64
-    tx=SYNC, rx=OTHER (empty else)    3    7,648,606         64
-    tx=OTHER, rx=EST  (no escape)     1    8,244,347         64
 
-Two thirds are the do-nothing else at the end of the chain, which emits no
-doorbell at all -- silent, and so easier to miss.  The last row is an
-out-of-enum tx.state from which no branch can escape.
-
-Why only a floor
-----------------
-xen-netback puts five layers between a hostile frontend and the host that
-IVC has none of: a thread per peer, a blocking wait, stall detection that
-parks and recovers, a per-peer quota, and a fatal way to declare one peer
-dead.  Backoff is the floor under those, not a substitute.
-
-The two tunables and two counters are documented at their declarations in
-ivc.h.  Nothing in the tree sets or reads them yet.
-
-Testing
--------
-Exercised under LKL with a userspace fuzzer driving ivc.c directly; the
-numbers above are from those runs.
-
-arm64 defconfig builds clean to vmlinux and Image under W=1 with TEGRA_IVC,
-TEGRA_BPMP and the 186/194/234/264 SoC options on.  ivc.o also builds clean
-for 32-bit ARM and pulls in no 64-bit division helper.  Not run on Tegra
-hardware.
-
-Tool assistance
----------------
-AI tooling was used throughout -- audit, fuzzing setup, patch and changelog
--- but never fully automated; every step was hand-checked.  The Assisted-by
-trailer is on the patch.
----
- drivers/firmware/tegra/ivc.c | 132 +++++++++++++++++++++++++++++++++++++++++++
- include/soc/tegra/ivc.h      |  44 +++++++++++++++
- 2 files changed, 176 insertions(+)
-
-diff --git a/drivers/firmware/tegra/ivc.c b/drivers/firmware/tegra/ivc.c
-index 8c9aff9804c0..2b7d7a240aa6 100644
---- a/drivers/firmware/tegra/ivc.c
-+++ b/drivers/firmware/tegra/ivc.c
-@@ -3,6 +3,12 @@
-  * Copyright (c) 2014-2016, NVIDIA CORPORATION.  All rights reserved.
-  */
- 
-+#include <linux/delay.h>
-+#include <linux/math64.h>
-+#include <linux/minmax.h>
-+#include <linux/sched/clock.h>
-+#include <linux/time64.h>
-+
- #include <soc/tegra/ivc.h>
- 
- #define TEGRA_IVC_ALIGN 64
-@@ -395,10 +401,111 @@ int tegra_ivc_write_advance(struct tegra_ivc *ivc)
- }
- EXPORT_SYMBOL(tegra_ivc_write_advance);
- 
-+/*
-+ * A peer that moves to the SYNC state and then stops responding leaves this
-+ * end with nothing to do. Each call to tegra_ivc_notified() repeats the same
-+ * work, changes no state and returns -EAGAIN again, and the only in-tree
-+ * caller retries in a loop with no timeout and no iteration limit. The result
-+ * is a doorbell and several shared memory writes per iteration, for as long as
-+ * the peer stays silent.
-+ *
-+ * Delay the call instead of skipping the work. Each call still does everything
-+ * it did before, so the behaviour a caller sees is unchanged apart from how
-+ * long the call takes. The delay doubles on each fruitless call, up to
-+ * TEGRA_IVC_RESYNC_MAX_NS, which reduces the doorbell rate, the memory traffic
-+ * and the CPU time together.
-+ *
-+ * A call counts as fruitless if it did not change this end's own state and is
-+ * about to return -EAGAIN. That covers every case where a peer can stall the
-+ * handshake, including the states from which no branch below can make
-+ * progress, without naming any of them.
-+ *
-+ * The loop itself is not bounded by this. The channel really is not ready, so
-+ * the return value does not change and a caller that retries forever still
-+ * does. Only the cost of retrying falls.
-+ */
-+#define TEGRA_IVC_RESYNC_MIN_NS		(10 * NSEC_PER_USEC)
-+#define TEGRA_IVC_RESYNC_MAX_NS		(100 * NSEC_PER_MSEC)
-+#define TEGRA_IVC_RESYNC_MAX_SHIFT	16
-+#define TEGRA_IVC_RESYNC_THRESHOLD	1
-+
-+/*
-+ * resync_count stops increasing at U8_MAX, so a threshold near that value
-+ * would leave no room for the delay to grow and the backoff would never take
-+ * effect. Clamp the threshold so that a larger value always means a longer
-+ * grace period, and leave TEGRA_IVC_RESYNC_DISABLED as the only way to turn
-+ * the backoff off.
-+ */
-+#define TEGRA_IVC_RESYNC_THRESHOLD_MAX	32
-+
-+static void tegra_ivc_resync_restart(struct tegra_ivc *ivc)
-+{
-+	ivc->resync_count = 0;
-+}
-+
-+static void tegra_ivc_resync_wait(struct tegra_ivc *ivc)
-+{
-+	unsigned int threshold = ivc->resync_threshold;
-+	unsigned int shift;
-+	u64 deadline;
-+	u64 delay;
-+
-+	if (threshold == TEGRA_IVC_RESYNC_DISABLED)
-+		return;
-+
-+	if (!threshold)
-+		threshold = TEGRA_IVC_RESYNC_THRESHOLD;
-+	else if (threshold > TEGRA_IVC_RESYNC_THRESHOLD_MAX)
-+		threshold = TEGRA_IVC_RESYNC_THRESHOLD_MAX;
-+
-+	ivc->resync_events++;
-+
-+	if (ivc->resync_count != U8_MAX)
-+		ivc->resync_count++;
-+
-+	/*
-+	 * A small number of fruitless calls is normal while a peer catches
-+	 * up, so they are not delayed. Still yield to any sibling thread,
-+	 * because the caller is likely to be spinning.
-+	 */
-+	if (ivc->resync_count <= threshold) {
-+		cpu_relax();
-+		return;
-+	}
-+
-+	shift = ivc->resync_count - 1 - threshold;
-+	if (shift >= TEGRA_IVC_RESYNC_MAX_SHIFT)
-+		delay = TEGRA_IVC_RESYNC_MAX_NS;
-+	else
-+		delay = min_t(u64, TEGRA_IVC_RESYNC_MIN_NS << shift,
-+			      TEGRA_IVC_RESYNC_MAX_NS);
-+
-+	ivc->resync_delayed_ns += delay;
-+
-+	if (ivc->resync_can_sleep) {
-+		might_sleep();
-+		fsleep(div_u64(delay, NSEC_PER_USEC));
-+		return;
-+	}
-+
-+	/*
-+	 * This can be reached while the device is suspended, where
-+	 * timekeeping may also be suspended and ktime_get() would warn and
-+	 * return a clock that is not advancing. local_clock() remains valid
-+	 * there, and tegra_bpmp_wait_request_channel_free() busy-waits the
-+	 * same way for the same reason.
-+	 */
-+	deadline = local_clock() + delay;
-+	while (local_clock() < deadline)
-+		cpu_relax();
-+}
-+
- void tegra_ivc_reset(struct tegra_ivc *ivc)
- {
- 	unsigned int offset = offsetof(struct tegra_ivc_header, tx.count);
- 
-+	tegra_ivc_resync_restart(ivc);
-+
- 	tegra_ivc_header_write_field(&ivc->tx.map, tx.state, TEGRA_IVC_STATE_SYNC);
- 	tegra_ivc_flush(ivc, ivc->tx.phys + offset);
- 	ivc->notify(ivc, ivc->notify_data);
-@@ -546,6 +653,17 @@ int tegra_ivc_notified(struct tegra_ivc *ivc)
- 		 */
- 	}
- 
-+	/*
-+	 * Read the state back to find out whether any of the branches above
-+	 * changed it, rather than tracking which branch ran. A peer that is
-+	 * making progress moves us along and resets the backoff; a peer that
-+	 * has stopped leaves the value sampled at the top of this function.
-+	 */
-+	if (tegra_ivc_header_read_field(&ivc->tx.map, tx.state) != tx_state)
-+		tegra_ivc_resync_restart(ivc);
-+	else if (tx_state != TEGRA_IVC_STATE_ESTABLISHED)
-+		tegra_ivc_resync_wait(ivc);
-+
- 	if (tx_state != TEGRA_IVC_STATE_ESTABLISHED)
- 		return -EAGAIN;
- 
-@@ -702,6 +820,20 @@ int tegra_ivc_init(struct tegra_ivc *ivc, struct device *peer, const struct iosy
- 	ivc->tx.position = 0;
- 	ivc->rx.position = 0;
- 
-+	/*
-+	 * This function assigns the fields it uses and does not zero the
-+	 * structure, so clear the backoff state explicitly. A caller that
-+	 * passes an uninitialised structure would otherwise inherit a random
-+	 * resync_can_sleep and could end up sleeping in atomic context. Both
-+	 * of the caller-settable fields are cleared here, so they have to be
-+	 * set after this function returns.
-+	 */
-+	ivc->resync_can_sleep = false;
-+	ivc->resync_threshold = 0;
-+	ivc->resync_count = 0;
-+	ivc->resync_events = 0;
-+	ivc->resync_delayed_ns = 0;
-+
- 	return 0;
- }
- EXPORT_SYMBOL(tegra_ivc_init);
-diff --git a/include/soc/tegra/ivc.h b/include/soc/tegra/ivc.h
-index be45d5f5adea..548512e3113f 100644
---- a/include/soc/tegra/ivc.h
-+++ b/include/soc/tegra/ivc.h
-@@ -7,12 +7,20 @@
- #define __TEGRA_IVC_H
- 
- #include <linux/device.h>
-+#include <linux/limits.h>
- #include <linux/dma-mapping.h>
- #include <linux/iosys-map.h>
- #include <linux/types.h>
- 
- struct tegra_ivc_header;
- 
-+/*
-+ * Store this in tegra_ivc.resync_threshold to turn the re-synchronisation
-+ * backoff off. tegra_ivc_notified() then behaves as it did before the backoff
-+ * was added, and the counters below stay at zero.
-+ */
-+#define TEGRA_IVC_RESYNC_DISABLED	U8_MAX
-+
- struct tegra_ivc {
- 	struct device *peer;
- 
-@@ -27,6 +35,42 @@ struct tegra_ivc {
- 
- 	unsigned int num_frames;
- 	size_t frame_size;
-+
-+	/*
-+	 * Backoff applied when a peer stops responding and calls to
-+	 * tegra_ivc_notified() stop making progress. The call is delayed
-+	 * rather than skipped, so the work it does is unchanged and only the
-+	 * rate at which a retrying caller can repeat it falls. See the comment
-+	 * above TEGRA_IVC_RESYNC_MIN_NS in ivc.c.
-+	 *
-+	 * @resync_can_sleep: set only if every call site of
-+	 * tegra_ivc_notified() is allowed to sleep. When false, which is the
-+	 * default, the delay is a bounded busy-wait that is safe in any
-+	 * context. Do not set it just because the common path can sleep, as
-+	 * tegra_bpmp_transfer_atomic() reaches this code with interrupts
-+	 * disabled.
-+	 *
-+	 * @resync_threshold: how many calls that make no progress are allowed
-+	 * through before the delay begins. Zero selects a default. Values
-+	 * above TEGRA_IVC_RESYNC_THRESHOLD_MAX are clamped, so a larger value
-+	 * always means a longer grace period and never disables the backoff.
-+	 *
-+	 * Both of the above are cleared by tegra_ivc_init(), so set them after
-+	 * calling it.
-+	 *
-+	 * @resync_count: how many calls in a row have made no progress. Reset
-+	 * whenever the state changes and by tegra_ivc_reset(). Internal.
-+	 *
-+	 * @resync_events: how many calls have made no progress in total.
-+	 * @resync_delayed_ns: how long this channel has spent delayed, in
-+	 * nanoseconds. Both are for diagnostics, are only cleared by
-+	 * tegra_ivc_init(), and are not used elsewhere in the kernel.
-+	 */
-+	bool resync_can_sleep;
-+	u8 resync_threshold;
-+	u8 resync_count;
-+	u32 resync_events;
-+	u64 resync_delayed_ns;
- };
- 
- /**
-
----
-base-commit: dc9c9c4fcb88a5660259dcef93c1ef5acd767189
-change-id: 20260917-ivc-resync-backoff-b768569eb0cc
-
-Best regards,
--- 
-0xSmash0th <0xSmash0th@gmail.com>
-
+> =C2=A0		}
+> =C2=A0		ttm_bo_pin(&nvbo->bo);
+> =C2=A0		goto out;
+>=20
+> base-commit: df2908090cda368b01ff43709f51890076c56157
 
