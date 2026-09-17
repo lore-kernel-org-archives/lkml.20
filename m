@@ -1,85 +1,153 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD054B4873;
-	Thu, 17 Sep 2026 09:53:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DDD94B1D03
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789638801; cv=none; b=eTXUvu0/kGwpIsGnRvRSnS/ht0itezF3t5mJkBhWGayUxrZ1bKa+HA4rCuPJuLTMSoHuy1TDYh273mCsPeUmUuBkg2D/k2xzwBhL2qLhPKxkc331mghjWIBF0GWwKfbmeN0JQM1hnqztM2yeWrGM/QK3R9/4ePLw638TMxjZXQA=
+	t=1789638841; cv=none; b=LQwZa3P8BZwTIqdsATaUBIunSboSjOyFAkCnIOj7Zn+SVlzgImy7wXShZyOiCn2KFgP7gwWidV5tqxTgwjfLQOFLcnk75pGwgjbZKVHElb4VuDcV+Wgepjq5OdznQeQ4937ctPvS1iFNX3MvAA5+M/bN8tz6r8NBIUmjynHgw88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789638801; c=relaxed/simple;
-	bh=3f+jxO7PK1JG6jEHmHY1Phs4vDzY8wgV/qRx4U2vZNA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NZgRs9VerTYbL8pdvaa0FPcZiYgSuWTbEMi03TX0Y4a7Q7jV2W8M+cDgyIMpF6j/UlA/aY9WfFQAu8wc5doQ5plIkU2FhW+piA25vugFR/2lMYuKLXz2smpTtRe/FS/JjV6ASeeTaVU730PK3cPUa3ixeG/VdGnEc6AtMagUomU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAXgDp+uKtqMQ9+CA--.63250S2;
-	Thu, 17 Sep 2026 17:53:02 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: davem@davemloft.net
-Cc: linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mailhol@kernel.org,
-	mkl@pengutronix.de,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] can: flexcan: Fix OF node reference leak in flexcan_setup_stop_mode_gpr()
-Date: Thu, 17 Sep 2026 09:53:02 +0000
-Message-Id: <20260917095302.2145506-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789638841; c=relaxed/simple;
+	bh=Cve130myEL9inyJHbquCFXzlJXeFLlPCSP2ZaBXKxNY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d/vd99SU08xHhaitBYPOHJnDgDM+TG4nhOncBTC3fRfX7EhScvDRZ+SYuc9nW2qdRNSVNrisBuU0yg8jFz8t0hzbi4TybF+Hl+mHbVWv5lwItNcPjCnSsISoKjLKk362mum9ckZOTfZJjXFHeL6ikoVI1bq6830n/k2OPtktgKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ejIHOTYX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VCHGC3W+; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ejIHOTYX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VCHGC3W+"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H9ZWGr1257756
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:53:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	D7idV/SmHuaFlrgRp6yA6OaUWlWvXCzc//paIK5S5A8=; b=ejIHOTYXd+7K/NKL
+	fmqCwe0oAAkmWpSrf1jb+S9hKpG/SVZYu3Rc5ZJdbURb71uvDdLtk3ZYHf90bL9b
+	EJoLe2RkjC1DcT3lKSWJUZ0W+WawpExtxQi9yZQMQPrzaonEkbkAJBp5byR6m7nb
+	ePfzvRaGN0An3EEJl/4365aruYCgb0BftO5i23kjrw0oZfUyCpp4dI5JssvBd31E
+	jG6daaGGnuPHV/TuiOzt2rvQNUed5dZLk/cmUJQ4N3fYk06yxh6MuSDxeTHd+h8T
+	yc7A6bP+X9J3V0IQY5vj/5/9VpqPgz+dMaEZcKN8cblAx20YhqMf/dxY0jRvfcyl
+	tGc6cA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grdftg4c3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:53:47 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-530ea61172cso462841cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:53:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789638826; x=1790243626; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D7idV/SmHuaFlrgRp6yA6OaUWlWvXCzc//paIK5S5A8=;
+        b=VCHGC3W+SHpUaE0QU6E+1D9Apqkn3JFrCI/5Skh/B0vT0sY5Hgq/2UKzPD/MkqzI/G
+         jeSoCtLZUzZQlXQkhQea5Xo8MXr/sFxbV6p+dlTGyEWVeK2DoItJNArpmdbAmPCiSr2D
+         Dcx7CfinEAC6/seCzBlrGBc8uWOQDdMf+MR0qFDV+mUYM9KnumDDe9RSBSxIruhcBEHg
+         RspsoIRx/1EVXCnpIGLR2tBcaigWynjvcNb4tI++lcMtu8qyDP3mpqmt/BeflYq65xr6
+         UFlw6qtTe/Ja341K9QlNwQvoqO5LOtmcd/n/Xp8v9zHafM1LEZOxRNkYqsJNmkMfCPOg
+         RmGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789638826; x=1790243626;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D7idV/SmHuaFlrgRp6yA6OaUWlWvXCzc//paIK5S5A8=;
+        b=HzSz7lK3gWEhMYNV27haH1WqWkTXezPBxh3vwsaNIKbVjuDzTd3SqQ3Sv1N54rFyP3
+         1ZsmSRN47yHwgpoQd9zuuWXhE0+PPSe43xCm3GYU667SvO2wzTmz5wGwNYaYBRig1XG4
+         9T37HUf7ZQPbuiyW8Wve/rgxs0EC9+1dtRtlOf9Zmsd/wQS3g5DJoXDUOLcOqeCxIaDn
+         C9tj6mtr63mH3aKyCQeBPDxeisomHuHNNv2LLGgDiPqGxtpu1xtGV2vHTtnQveigPyRn
+         xKoxVDFvS++n6d7xBNQW2CJ651Y2SkrV8AqlxR0JwEPDTZw9hfDx21oNN5Y7P+8/YGag
+         rOAA==
+X-Forwarded-Encrypted: i=1; AKwUvBwW2z2tfSp6JESh5HoTny6eWh6CYPbTYlLZ/Q3cEsrILVoGDLM5MInmhI3+PYSHf0gmEoY8N8QvDWtW06M=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJbuKeSNGfxa+jtwEJ5jPJ8gCWL6QKrpIw5f5XFcV+LNDnqEvM
+	EYITafmxu255120yXag8TUAXv0lNl+vVmxsdF4cp/ZDfimst/BBdGqC9SNnBQtzHJPoODMgynAK
+	mQTcOtHpu4k+5NpQIINpRBbLP/w0zBx6plKUqTUAzGqXXra1B9qrxYjkb7VWTBk1mnbk=
+X-Gm-Gg: AYBFou3ehAZOkqT1XMi8r5pPetmY+f34DElgGROjbCDhEdDGtETtrSl+0QHFWMUHxbn
+	WtF+9Dt0V1RlIETq5Vxojr/+QMycv5Agjs6CbbQHInh84Jv2LrA5l9t+DeEu6yibHwlkTPMriOn
+	35Iqc2QgZcE7aNv0ijidLe2T2NnCWx4aPpStmPwNvU/6Xkh2IQWxM8cKvFpKhASfj1O+/Pzioio
+	87mBbbCKg2lwuucjldARoMCGkgYmCzuO1XrmjBZ2pmdazmlOytK6g2TO6pLUjJbfDyuwH1k68Hf
+	jC5NdKDUJd1cp2ivyuYZ6jKSTZJ1/fKNgRbLdnsKuz52xGI1yGYQA6owWzkHakepK8VMhNueAkN
+	NzFKJiFymEwVplhKjAygACw==
+X-Received: by 2002:a05:6214:508e:b0:912:3128:bbef with SMTP id 6a1803df08f44-9124ff4e920mr3296186d6.0.1789638826425;
+        Thu, 17 Sep 2026 02:53:46 -0700 (PDT)
+X-Received: by 2002:a05:6214:508e:b0:912:3128:bbef with SMTP id 6a1803df08f44-9124ff4e920mr3295926d6.0.1789638826034;
+        Thu, 17 Sep 2026 02:53:46 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de602065sm254533866b.47.2026.09.17.02.53.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 02:53:45 -0700 (PDT)
+Message-ID: <d8ae41d9-2312-4232-ab60-2f061ac5fdeb@oss.qualcomm.com>
+Date: Thu, 17 Sep 2026 11:53:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXgDp+uKtqMQ9+CA--.63250S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruF4xZFWkWFW7Wr4xCr17ZFb_yoWkXFb_Gr
-	97uF93Ww1UurnrKw4UKw43ZrZa9F1DXF95Xr4xtFW3GayjqF1UtrWfZF45GwsrJrs5ZF9Y
-	kF9xArW0g34UXjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbskFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2
-	jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52
-	x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
-	twAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
-	vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI
-	7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73Uj
-	IFyTuYvjfUOMKuUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUNA2qrrRks4QAAs0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 1/2] arm64: dts: qcom: sdm845-google: Add dual front
+ IMX355 cameras
+To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>,
+        Richard Acayan <mailingradian@gmail.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260917-pixel3-camera-v10-0-df631279b39d@ixit.cz>
+ <20260917-pixel3-camera-v10-1-df631279b39d@ixit.cz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260917-pixel3-camera-v10-1-df631279b39d@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDEzNSBTYWx0ZWRfX3VTm6eUmeDzm
+ cDeI7p6zwC+jHk7vJpDsnIpUSfwGqCOh0SlvUDvEx1htaauE/zxT4DH277vgDhsU4+FRJMwVQgr
+ ouLUsWbBUeekvCvtZRm20Up+w7cuy9avU66PDYZjYcndZzDAHvcc5g3qZ8E3obhbMemXGObTf4y
+ KX+pXJ+RjD+9n2khUtT/Yn2sHizLEbzu919sFkhWkWwN+kqMXbQS+XNhXeA/D+d7AyccGpHlUxQ
+ DXtHfB0VnFYsekByDgeYIvrD874RYa/AembotCq3w5ioG/lnijR7NaiVshYq3Ipy6iNDFDDT2k1
+ zKeDZx/1KAkT9bWk2L34ZTVsY5H6YyGHO0GzxfomrqpwrsL+doK2u7Uj2HeVGV7hpezDgnQZgGk
+ HOXapPdiM+X4dKGfHfVgnvA5SmN5WFSqKxwJ5mNugh3HaDVZioePDNIrOBj4VhWM7t31WElL8+3
+ ikxG2lvgDPypxSXmYAg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDEzNSBTYWx0ZWRfXz+ABu/YpT+AE
+ TsB9uG3sMdmoiD5UwXRCSdppAFCWX4MyhBFNLsYx4wC3nG85wm+o6N9y1pQmuD87yg1nfAVc9Nz
+ Q30VpoSEgKdMeuBHMMawyy1ymLNCDAs=
+X-Proofpoint-GUID: 9ukjyUDGPhpniPtjHfFb6eLfukoip4S3
+X-Proofpoint-ORIG-GUID: 9ukjyUDGPhpniPtjHfFb6eLfukoip4S3
+X-Authority-Analysis: v=2.4 cv=K+W3jCWI c=1 sm=1 tr=0 ts=6aabb8ab cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=uxpBaPyPSpK-buiB_gcA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 adultscore=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170135
 
-of_find_node_by_phandle() takes a reference on the GPR node and the
-error path releases it through out_put_node.  The success path returns
-before reaching that label, so the reference is leaked every time the
-stop mode is set up successfully, and the node can never be freed.
+On 9/17/26 11:46 AM, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> The Pixel 3 features two front-facing Sony IMX355 sensors with
+> different focal lengths (standard and wide-angle).
+> 
+> Sensors are connected via CSIPHY port 1 and 2 and controlled over CCI
+> I2C1, using MCLK2 as the clock source.
+> 
+> This enables support for the dual front camera configuration.
+> 
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
 
-Release the node reference before returning.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Fixes: 13dfb3fa4943 ("Merge git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/net/can/flexcan/flexcan-core.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
-index f5d22c61503f..68699d674fc3 100644
---- a/drivers/net/can/flexcan/flexcan-core.c
-+++ b/drivers/net/can/flexcan/flexcan-core.c
-@@ -1986,6 +1986,7 @@ static int flexcan_setup_stop_mode_gpr(struct platform_device *pdev)
- 		"gpr %s req_gpr=0x02%x req_bit=%u\n",
- 		gpr_np->full_name, priv->stm.req_gpr, priv->stm.req_bit);
- 
-+	of_node_put(gpr_np);
- 	return 0;
- 
- out_put_node:
--- 
-2.34.1
-
+Konrad
