@@ -1,144 +1,146 @@
-Received: from mail-ej2-f29.google.com (mail-ej2-f29.google.com [74.125.228.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A483EA955
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.157
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789669136; cv=pass; b=FBvHr/UxgDqaEtvaRpEXcurHpF1Nf8z1JxLi1Rcl1TKZgAS5H4m8YU8X5/3171UezWdwQU+kDQQE0a1nUfkhAiqklNJKO3UW8i7SjoklNZPn4//emogdKeLwcbUQePwQUaQCwKkADOTLX4yZPBPDdLYxzAZbtOojbDgIH4AxKHM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789669136; c=relaxed/simple;
-	bh=TOT1meVSqfblGDrdqsFf6MzcvOlETVrJmJLU2ZhnqmQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hmIkr/pdqbM2XjMiFYCgRi5ffYXmxg6ey171iiDJluZFiUzZZN7uXOFi+IgSW1gyaKMgp2eDdu/ZbAOQeib3mBQbrpZipEw8MAZJ1nqL0eKKnGWVkVx94OBLPc919rDEPJ3Om1grh2WFNEnQa/ARbLo3G2NEOfnLI/5WXXqzN+A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Eymp/YJL; arc=pass smtp.client-ip=74.125.228.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799F34CEE44
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789669175; cv=none; b=X+kuz++oR8p8uDGNI3l2twne08QxhxUK5DLp+0L0To29S9WpC+Crkey3rXuESxHV8JvJBoXVzI3193/tny6+juhAoYZoc8HkzVkaXL+eWGDyHLqBNsnPCw03YnKUMhhsoZ9lNq0br2cNt5ZJSSGCLuJJ5m+RIlvng4KtrmKV8+M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789669175; c=relaxed/simple;
+	bh=Yk+dsBCvOCH3KYRJfgG+xXG8w0PVzLsSfAJEvJo42do=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZtwE6PDZeF2FmHn2rJEZBx+wnWyWavf3eW/7bMXawiM3SG/S2j+mdKPWvTwWYWgMEdkb8LgHa0D2d+2csu/83nRG5syKCrMEfDttICD5qCTEp75D8MO0S6RBCVHJso+K1200HSlAZr384TGPhw6xULf/zDFj/sgtzpKIIW5i25A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eQ1kgs5Y; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Vg4WZEBk; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Eymp/YJL"
-Received: by mail-ej2-f29.google.com with SMTP id a640c23a62f3a-c294496989aso184427966b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:18:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789669133; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TkOzpuARYH+4i9ujUfBNl2J/5nPLCSfElAXQLJkI2mk4b3V6hIL5G3J5Dpoh8U5b5S
-         D+TH3puOMIW7hVJmubqROuUMyaGbyfF/mtR2A4e9H8PhzhS/Q6IZ4jfukFIxBeINR8A5
-         P1cxt8m2f6vWNIPBokvBCG7d0x9fB3/Sukq9qjyJCVJw2EWrq0umQgBBjev37aG5ke9P
-         ztmhc7CW2lfKHRUVrYoJjZ1Nc0qbpVRmWDcbOA4xdWq/kY8sEWzcwFuhuDRc73pJGz0P
-         udyLCFtbiWNBs61WMcu7UpK5FZ9JLV3tl/k0z0em6kZn1ANYQ2gAzaYH3cQCoSPDAdLZ
-         OPrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=l20clSa/FKU397EhPwh18Xmkk9Ag+DiAxpnayaLKjKc=;
-        fh=1D8lE1lrmt6IVAptJApeFD5nHHEkAfkFt0IpcQc0KqQ=;
-        b=Ki6fxX/gdD5WXOvWphL3xaQci+0nrDVsN03EqwL7aVrD49CyHwEfCp1+2RS7gnAoKQ
-         heLNU0+JYdUe/Gu0xCWGSs6pUDS3Lwmju6T/R7uhkBanypBuq9G7TyH/YI8EO1L7aKMf
-         RXSx5W47m8/KxdVGftAsE26w7sZByKoMDr2EFAy3VaFM+Md6ZIqyWfjH67e77sZS2kfO
-         72dDlpYCOKGIWX/VkuxOiFwDvckb7H5eoW34YqZ/qvqsnbGufKk/p2+Cy8rYUgm/pLy1
-         suy1QoH8UrpGLn6YdsWjvwj2jPMqY+ud5VRaZ4YZl9CfEsqiGp/lvGIJyxGM8rEbdZim
-         Np7A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eQ1kgs5Y";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Vg4WZEBk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789669173;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6EVrUJFQJF3dnaOQZb2Gx1UGobWA2s6Fo3aIIPVgJwM=;
+	b=eQ1kgs5YRkdxVIaL8ISyVhLYqxwnhIWVNc+ATVOyF08s/9kHlYq80n7gJMTsIl93IhQuHd
+	8vzivDZmumQlGpTI+o2bVdoggHuU1HXS9iWUgwudbCYFIQpieuUdUpzxAV2fa0z7WAIfdX
+	0QrOX1jze9Ul4pD9RVq9Y7HbsUypM90=
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
+ [209.85.217.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-526-UUSYQxxcOomL5ufjX_EI4w-1; Thu, 17 Sep 2026 14:19:32 -0400
+X-MC-Unique: UUSYQxxcOomL5ufjX_EI4w-1
+X-Mimecast-MFC-AGG-ID: UUSYQxxcOomL5ufjX_EI4w_1789669171
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-79630cb8723so340571137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:19:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789669133; x=1790273933; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l20clSa/FKU397EhPwh18Xmkk9Ag+DiAxpnayaLKjKc=;
-        b=Eymp/YJL/5kDsNlGBeFZP+xB5GX/1wPjs4PMA0frT41jOFom5zx9NrfOIT2Y4jPDdQ
-         dG7FdmVQZAGHZh/B2LyloFJqjteQwQMZm7ez3e2ssKYbZ2r6Ks0ZZ6PtLTnPw+g5fhHk
-         xJBCtENVDWYTLdNV/2eYGMqkjiAJISvYEgssbo/Eg/hyVL71ciRgh9bdtjkOWTV/TPw3
-         07+kmmso/ujJRT3iO44sXIR06oyxCPiF96tZ7Xo6fQz6i/JMdmjGm8qYjjWsc4oWrclI
-         G+GHwd58UUe55bRXjhevXnYXsQ0L88rFt3YXnKLmT0BMFdJQBofSjjMcftNfQlhb+ckg
-         ULrg==
+        d=redhat.com; s=google; t=1789669171; x=1790273971; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=6EVrUJFQJF3dnaOQZb2Gx1UGobWA2s6Fo3aIIPVgJwM=;
+        b=Vg4WZEBk9FPzRD5wJvsm7ZKp33KpWqTyEz3KShV1o6tSIJwJyyedZl5AFH5MWBr82u
+         ncUdV+UCLyT04cpr5T5K+194PiZsDUf2oKhq/mXEcuLoZO6/PIVokc2gkmIZh2qGdEnu
+         uZpJOJwTWUd3CKSRubUa5lhCMHydtUmiWdn1jT82WM0pRlTLbp8W4RzpuD3257mbZP3y
+         IjdZIrYhGmze+NC1aEoTqBqpj/DkflTyTyhFOIFJos0uEgtco7XVmmtOF3ETQ1sqwU24
+         cUsyjA4GRWPPE2JNF7ot3nbiatxTS5b5DvXtL9lksccFvB3HTwolVP2PRgJrSkCSuh7W
+         gdog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789669133; x=1790273933;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789669171; x=1790273971;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=l20clSa/FKU397EhPwh18Xmkk9Ag+DiAxpnayaLKjKc=;
-        b=ryQQPv/NFk7UmLJSQBX0TxuYCiIa5sTUoWX5Qgyna3Z9hD0kB/aMV4WBAJMK1ijFbP
-         sXwVo+Tnb3AmpLr7cc2MrSPL69QueJRJlS7/Sx+/yZtE3VoppbfdPX1YQaRx0dwpKFv3
-         YEtrQYwQn3qfjVnE0G+5SpDyGc8KudjYpMCf+EJPI12TuBE1Wim0qDeRElQ0Z9RAHLEF
-         reSQFLtlq0O4Lpx8CdUeTLnRRp/y3wwxf+WIxpHu1sqYy42xGKETeJ0EvUMp5N5lAAyQ
-         4ZcZPt8YI9YQJrv4rt2KCx6L4Vvvh/IAv4pM6lzpu0Wax0KLIw0QPCyLNgurN2cQK6aP
-         RoIw==
-X-Forwarded-Encrypted: i=1; AKwUvByboGnmdPVXQLjaWYmhoVAsMKbYGawesoYdLEPRbKNk/cGKDRHsGrBaeehw8HjeY+e1iQR0ZdIlOVGJBQI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mY41s/XUxNiAXe4Cpa3ysC6MuW2LV23UtC3OHp3t24lzcGo7jX
-	ITxJuDGwDiTvCH3xmCQf8l9eILwaxWBDTMFXTz+9CmPEa1dpeqJbh6JjrohkLM5bjK7UCr9/Ans
-	5VHVxfW7mbDVYD38XygRySutPjgdZGw==
-X-Gm-Gg: AYBFou0pFTNyt2ZxvpFRr4sfgy3AZezn9wMmnKq38LFPRdTZIDIggnglxgCZWrcTzd+
-	e5QFhZ61u0/OTIgxf8+3PcS+aD1aP0JxZ/VNgXZvMkRm1i6gR5mQivYULlUB+JG5EViB2F/FCh3
-	x/81o8gDHA3vFKgKN/GMiMVL5ZxVhF8oQa0tP8tr3M8+/aXSLO+psvUb0KmVsyWOSPTYeGJUKZU
-	iqU1aVK1hIN/x7c6x/UROnFEix8iyoBy3MfbBp1WSFPlWOyvjNT23leP6/45qxwrQagqpO2t47h
-	oC17pur8kXn5llGFUj7I+INGZvvoWqnmR+wTSkRtyc4D4A6sXv3JHeu1tn8ZqFK6Q+4MIftUeOh
-	SevLiUHynbrC+f5NnQt5M5C7zByvMz9BIH0GtBEFyAr3k95T8LfXD2TSAuR+aWKQpYVDM
-X-Received: by 2002:a17:907:1ca4:b0:c28:599b:7782 with SMTP id
- a640c23a62f3a-c2a15b11ac5mr1428866b.21.1789669133187; Thu, 17 Sep 2026
- 11:18:53 -0700 (PDT)
+        bh=6EVrUJFQJF3dnaOQZb2Gx1UGobWA2s6Fo3aIIPVgJwM=;
+        b=WaH1+3pw5aYyfmRSLPqgl9kkfF4vDEvDFnptiFojUEAQJ8PMNnJcMXVkDz2a9+OGfo
+         gbYD2chbwDuLaYd3YXfMCovR1KO27JrUij0+1pOa+Ifr0T9F5jdJJiauEMKuCfZPc+7f
+         9d7rE3y3znmAjRORvnptlL+j9//pa0F34GbQ4aK90b09itOAeas35Z71pgwLfbhBz/vW
+         fYml/7r7fJkbU51kKpOVufM4Ry4vGR2tSlxl38XUyjKmvAtkvzwGznyGaYH8GmQaP6O7
+         lGD75POE3vaFBj4H+zcU5r8MA7UxIbfBoK/W1qWD0cxyQmlyHTvW0LiJZtmiI8WuJwRT
+         dkMg==
+X-Forwarded-Encrypted: i=1; AKwUvBztcPTP4xi/dTbJBtKqtJDxg2aoCfFLStabVb0x4JFql/2aXF5oXhnhdY0KK/yAip7XMLGsF2WrAup+Mes=@vger.kernel.org
+X-Gm-Message-State: AFuF++mC5ofVBu4TN2Jeo1Y6+BDKcNtlGmtMyhMOSLwppiptZ5KxcJFN
+	37j00ESXk0Tc4IIW5XG4r2O1XifUocCPdhrqxXUsDZgpFOfmM2YsHx7bsjAsZM+zs46gZNtyNac
+	QSCxDG0zKq5XfxFa0qqK9J2j0sJ1530lHT1PxUO3veXOxhgtXkaVLlEHoj0kAN0qVnQ==
+X-Gm-Gg: AYBFou0GLfmxPghjtwWrjldCHqHMjhkQXQh2yoXd7YqSA+kG9kVD0MFOyJ6/9ApMiRO
+	KGruGzE8N6SQU7346f5B/XnF4m2g8jIqBpWYfY/dv8XxYiPvo9grDdsheJSPlFjQtAPv5f2JedL
+	icNk+0R1oXyYX+FJLq3yoh/oXd2IdsMatOg3ecdboBpB/31NIRT3MpmYYGk7ZC6krd8TODAvRbW
+	W1sCOcUM+FdME3PedG7Xd+Aicx+0M7n9TmAIbhUIy6F1RLAWuxk7nX8+5yzjw06ZnPuiznmmpIp
+	W8F+fkiCjOR5vzdkhLXyFLCVvtYWkuk6eQ1pESzOBbC7AdB6Lrd8oLdrQ74AiJ7JnIikuRDt
+X-Received: by 2002:a67:e708:0:b0:797:e5aa:61c2 with SMTP id ada2fe7eead31-7a024dcd2e6mr7627693137.3.1789669171519;
+        Thu, 17 Sep 2026 11:19:31 -0700 (PDT)
+X-Received: by 2002:a67:e708:0:b0:797:e5aa:61c2 with SMTP id ada2fe7eead31-7a024dcd2e6mr7627685137.3.1789669170960;
+        Thu, 17 Sep 2026 11:19:30 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a1e292ee59sm4120534137.6.2026.09.17.11.19.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 11:19:30 -0700 (PDT)
+Message-ID: <d43ff56c010c83fc4cbef634e7a632940f5d20f7.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau: Fix gem reference leak in validate_init()
+From: lyude@redhat.com
+To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
+Cc: bskeggs@redhat.com, dakr@kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, nouveau@lists.freedesktop.org, simona@ffwll.ch, 
+	tzimmermann@suse.de, stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 14:19:29 -0400
+In-Reply-To: <20260916180202.2090231-1-vulab@iscas.ac.cn>
+References: <20260916180202.2090231-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913212500.60272-1-mhun512@gmail.com> <SJ1PR11MB6083885F54ECDC88B894EEDAFCBB2@SJ1PR11MB6083.namprd11.prod.outlook.com>
- <20260915005334.GEaqiXDqDGVsYE_NXp@fat_crate.local>
-In-Reply-To: <20260915005334.GEaqiXDqDGVsYE_NXp@fat_crate.local>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Thu, 17 Sep 2026 14:18:39 -0400
-X-Gm-Features: AcwNN1VlayQ9ktzuVqf3oQSFFUBVBchkxRwlj1BULSIKdsZ4RrkQ3EahK_ExkJM
-Message-ID: <CAGEsz8EZhS_5sBDXo0KgmMAXh4JKaa2yjUg=rhL2KMkQddSvmw@mail.gmail.com>
-Subject: Re: [PATCH] EDAC/ie31200: Disable PCI device when probing fails
-To: Borislav Petkov <bp@alien8.de>
-Cc: "Luck, Tony" <tony.luck@intel.com>, Jason Baron <jbaron@akamai.com>, 
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Thanks, Tony and Boris, for applying the patch and fixing the tag.
-I'll use "Assisted-by: LLM" in future submissions.
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Best regards,
-Myeonghun Pak
+Will push to drm-misc-fixes in a bit
 
-2026=EB=85=84 9=EC=9B=94 14=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 8:53, B=
-orislav Petkov <bp@alien8.de>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> On Mon, Sep 14, 2026 at 04:51:07PM +0000, Luck, Tony wrote:
-> > > Assisted-by: OpenAI:GPT-5.6
-> >
-> > I added "LLM" to this tag based on current guidance in Documentation/pr=
-ocess/coding-assistants.rst
->
-> Nah, it needs to be only LLM:
->
-> "Assisted-by: LLM"
->
-> because
->
-> commit 816d9992d9ed434ec52cfbd63080d518e535a41b
-> Author: Christian Brauner <brauner@kernel.org>
-> Date:   Wed Jul 1 17:54:48 2026 +0200
->
->     coding-assistants: simplify attribution
->
->     The requirement to identify specific models used in the Assisted-by t=
-ag
->     provides free advertising to proprietary software companies while add=
-ing
->     little or no useful information.  Change the requirement to simply:
->
->       Assisted-by: LLM
->
->     to capture the fact that an LLM was used without tracking which one.
->
-> Lemme fix it up.
->
-> --
-> Regards/Gruss,
->     Boris.
->
-> https://people.kernel.org/tglx/notes-about-netiquette
+On Wed, 2026-09-16 at 18:02 +0000, Wentao Liang wrote:
+> On the ttm_bo_reserve() failure and "vma not found" error paths, the
+> loop breaks without adding the looked-up object to any validate list,
+> so the reference taken by drm_gem_object_lookup() is never released;
+> validate_fini() only walks the spliced lists.=C2=A0 Drop the reference
+> before breaking out on both paths.
+>=20
+> Fixes: 19ca10d82e33bcfe ("drm/nouveau/gem: lookup VMAs for buffers
+> referenced by pushbuf ioctl")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_gem.c | 2 ++
+> =C2=A01 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c
+> b/drivers/gpu/drm/nouveau/nouveau_gem.c
+> index 20dba02d6175..c2601b559947 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_gem.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+> @@ -513,6 +513,7 @@ validate_init(struct nouveau_channel *chan,
+> struct drm_file *file_priv,
+> =C2=A0			if (unlikely(ret)) {
+> =C2=A0				if (ret !=3D -ERESTARTSYS)
+> =C2=A0					NV_PRINTK(err, cli, "fail
+> reserve\n");
+> +				drm_gem_object_put(gem);
+> =C2=A0				break;
+> =C2=A0			}
+> =C2=A0		}
+> @@ -522,6 +523,7 @@ validate_init(struct nouveau_channel *chan,
+> struct drm_file *file_priv,
+> =C2=A0			struct nouveau_vma *vma =3D
+> nouveau_vma_find(nvbo, vmm);
+> =C2=A0			if (!vma) {
+> =C2=A0				NV_PRINTK(err, cli, "vma not
+> found!\n");
+> +				drm_gem_object_put(gem);
+> =C2=A0				ret =3D -EINVAL;
+> =C2=A0				break;
+> =C2=A0			}
+
