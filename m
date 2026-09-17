@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBE925B0AC;
-	Thu, 17 Sep 2026 00:15:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E35E1C6FF5;
+	Thu, 17 Sep 2026 00:17:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789604125; cv=none; b=kbsy2BoWmvnX+dOBHbjCyKv/9ENFVWDdif15AiVb8b8jX2CatnDSjoHpbfR6HcbyY22jsHuxYV+TA+NES8EIsxDQ5EfpN3kAsfcHdcc7H+7FI3s6HrvaJiMic387fx2zASvjkQCJ214iUrRC4+FwwgPURIrSCWC5EC3xGZXKdwE=
+	t=1789604245; cv=none; b=ExSU277OrY/g0SJwjywDTweusCKh6pO5zqfrFA6shlCGIOihObG1pBLhtbTjCs1/02utwg4xeH46CFslnYqbHCDXDGlG7g/7M44JozEJh/bqA03lQpZoS4HK6AZ4ipS95ljb0JH5uV+9KpY3tSiUsHoUKoTWJ10AClvNljHQmZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789604125; c=relaxed/simple;
-	bh=czW/fvrVtqxI4u3KGivAA0dUquI3pNQk2btbCYoYgKU=;
+	s=arc-20240116; t=1789604245; c=relaxed/simple;
+	bh=IGjAEWFOc/+1R+37HJVbwF2xGRkU8Xs9dy+KXyWcoeM=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F9mpQQdzZjJMiJ+buKYOeNpVDR74xGKYaK30TjzMhTEgeDXwbsva5NVQezA3MU13348YrCkbZbflH0JtRQiw3IKqt9lpvLirg3XEF191cDQjbMIU966EcrF5FSEbcKdNMJI0t8goSeCG61VVBpYvAmA0hUq9bXCpUhTI+31UT+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h4hy+MZM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=mCIIuFs7f0IasydMgrmYs6H8RCYBmOfAJBM2IWFw+GeAvO7bTHR90X6/Nx7tYsYCLz4sP3eijujeEyepciHh6FXrvIqzwz+Lj9Bsrm6xK5fk9bjwSJ0FbOQYzlQ0XiS65em9W0/16rwZU1IAvve4gs/0f9AN5o7y1AFwnkXghHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c6fXj4C7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h4hy+MZM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDAD11F000FF;
-	Thu, 17 Sep 2026 00:15:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c6fXj4C7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69BE21F000FF;
+	Thu, 17 Sep 2026 00:17:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789604123;
-	bh=FBD2M7EHU+xk7BgFAzGt5KdnHPiie45TXShxSTbtRCI=;
+	s=k20260515; t=1789604243;
+	bh=IGjAEWFOc/+1R+37HJVbwF2xGRkU8Xs9dy+KXyWcoeM=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=h4hy+MZMVMNiZP2lByogTdWfeXqlDxT8lNSsQ4Yrfu3+lBwdfakKsyJzfwbV8K20/
-	 neyyIC4huCUD78mLtAnGwJ8Wu5oU3jL3tKxRXdltL7GZ44tcIeow/pVHycwv5aONxq
-	 zKx+/5R3xdvNL1z0aTQXzjo/Kzx3HSxz47vSdTXVUX2iaiXuziBLu6rD6M+O1eyT1B
-	 xwgAUs9zUeASk7XO7XlpvKBEylPa7FkLp6Untf03hNFe+NLDWMAAx0kgrudSH2WZg7
-	 35R0pM2hz+Ab0RH4Jm7e4+Gi1bmGypdh59V0tkUsm7r3cvAPekD433zpBdvjR9b6/2
-	 78Jq7L3VpdvoA==
-Date: Thu, 17 Sep 2026 01:15:18 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: andy@kernel.org, dlechner@baylibre.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, nuno.sa@analog.com,
- petre.rodan@subdimension.ro
-Subject: Re: [PATCH] iio: accel: bma220: Fix trigger reference leak in
- bma220_common_probe()
-Message-ID: <20260917011518.297868ca@jic23-hlaptop>
-In-Reply-To: <20260916160823.2082283-1-vulab@iscas.ac.cn>
-References: <20260916160823.2082283-1-vulab@iscas.ac.cn>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	b=c6fXj4C7zfoO3ysMN3CknStyxZALc7cDJG9f5em9uh4dsZtjEFsta8iUcAJpzpE0Z
+	 Pnoq11vahqq/r8AsfhTS+sQ4t/PWsnRbPV8S74HrphZ4RZH0pM/ZL+VF5RneQhk9LI
+	 gjbzKD3N++R9EYo/hfsdCN50g5nrRvytSGe20g++qtPePLIP+fwohN6GeUBK6w60Qc
+	 vWYY7spemUeLj5IkgKIIkXO/aI/o3M2Z25nwoTx6vH1La6CtcQRMH1oRgtyDj2G0U8
+	 EbzYW5r0rWOaZPsU0gqlvMSMdyCHAizYvFg3/AL7AjXKp1DIf6szo8UyMFzliwiFqB
+	 nziLVRIkUOxBA==
+Date: Wed, 16 Sep 2026 17:17:22 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Aamir Ahmed <elb12345@hotmail.co.uk>
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>, Paul Fertser
+ <fercerpav@gmail.com>, Simon Horman <horms@kernel.org>, Joel Stanley
+ <joel@jms.id.au>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 1/2] net: ncsi: validate response packet length
+ before accessing fields
+Message-ID: <20260916171722.39e323fb@kernel.org>
+In-Reply-To: <AS8P251MB000151B1FA33EDC00D8275D2C8BD2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+References: <AS8P251MB000151B1FA33EDC00D8275D2C8BD2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,70 +47,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Wed, 16 Sep 2026 16:08:23 +0000
-Wentao Liang <vulab@iscas.ac.cn> wrote:
+On Sat, 12 Sep 2026 19:09:37 +0100 Aamir Ahmed wrote:
+> ncsi_validate_rsp_pkt() takes a pointer to the response header and then
+> reads the checksum at the end of the padded payload, without checking
+> that the skb holds either. ncsi_rcv_rsp() reads the common header the
+> same way before that.
 
-> indio_dev->trig holds an extra reference taken by iio_trigger_get(). It is
-> only dropped by iio_dev_release() when the device has a triggered mode set,
-> and indio_dev->modes is still INDIO_DIRECT_MODE until
-> devm_iio_triggered_buffer_setup() runs. Both early error paths return
-> before that point, so the reference is leaked.
-> 
-> Release the trigger reference on the IRQ request and the deinit action
-> failure paths.
-> 
-> Fixes: b7e17ca10793 ("iio: accel: bma220: add interrupt trigger")
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-
-When doing a fix like this send one only and then wait before sending
-more.  Also look at the discussions that have already gone on around
-this topic on the list.  Sashiko mentions this ever time and there
-are numerous replies to why it is a 'fix later' issue.
-
-This is a lot more complex than simply doing a trigger put not because
-it is technically wrong but because it leaves us with considerably less
-readable and maintainable code.  The solution needs to be proper
-devm_ registration and cleanup. However that is complex to actually do.
-
-We have known it was an issue for some time and no fix has been forthcoming
-yet.  There are userspace paths to put this trigger at runtime and we need
-to distinguish between those registered via the devm path and those that
-are not. Only the driver registered ones should be cleaned up.
-
-Mixing and matching between devm calls and manual cleanup is not a solution
-to this that I am going to consider.
-
-Jonathan
-
-
-> ---
->  drivers/iio/accel/bma220_core.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/accel/bma220_core.c b/drivers/iio/accel/bma220_core.c
-> index f32d875b994e..4820d99e214a 100644
-> --- a/drivers/iio/accel/bma220_core.c
-> +++ b/drivers/iio/accel/bma220_core.c
-> @@ -544,14 +544,19 @@ int bma220_common_probe(struct device *dev, struct regmap *regmap, int irq)
->  		ret = devm_request_threaded_irq(dev, irq, NULL,
->  						&bma220_irq_handler, IRQF_ONESHOT,
->  						indio_dev->name, indio_dev);
-> -		if (ret)
-> +		if (ret) {
-> +			iio_trigger_put(indio_dev->trig);
->  			return dev_err_probe(dev, ret,
->  					     "request irq %d failed\n", irq);
-> +		}
->  	}
->  
->  	ret = devm_add_action_or_reset(dev, bma220_deinit, data);
-> -	if (ret)
-> +	if (ret) {
-> +		if (indio_dev->trig)
-> +			iio_trigger_put(indio_dev->trig);
->  		return ret;
-> +	}
->  
->  	ret = devm_iio_triggered_buffer_setup(dev, indio_dev, NULL,
->  					      bma220_trigger_handler, NULL);
-
+Patches need to be posted in one thread, which is the default for git
+send-email. Patch 2 should be in reply to patch 1. Please repost.
