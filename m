@@ -1,192 +1,190 @@
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com [205.220.178.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF7D48489A;
-	Thu, 17 Sep 2026 15:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.178.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3504C10FB
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:47:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660034; cv=fail; b=Bvm8ZSAeiBMunD1KGaa0Vf8F9w9y9bpu4UnpZsbSgI/Ytg4XrTS/jusNo6IE1EEZPfEsohGk8rdAOh/f+l6e/D/aFoPGAvYPKm/TOfeOeeESIyl1KuoykSq8kTe9idNpcrswx0TaLUX9J/akG2+Vprc9GSKs10YWzYWsBkvVcro=
+	t=1789660051; cv=pass; b=ra4NwZvc9RMgu+Ve7a+J+MuHKlFYnxQVfwhRODahTYzkBVw5avNGrQDUE3Ld6ng+lZR2pg9ucLrNT6EH/p4N0gNBTZxvvtZNWOyO09a+Cyrc3794vowQWObnmNDNUoTf8+SMPrH0JA4Jf/Sj/GkKua28Urv177qP26qc+G6SEKE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660034; c=relaxed/simple;
-	bh=AuAKqdtCtlceDbVGlieWOyIur4CzN9vLo590H1c8w3A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WkG+pFWevbVW6OXRfiXpzbghkXQQdO7VXwUtczwfgZZWQLuqVliYKfyOjQmtKtmnnf7TaCL6zGbtw3IS+eTGEmhvfjnTKhsXH1lOMwj1zOMC3Z7ZxgyC1hBR9HX2gD46pL9g+N0jSfMN6bS2PQYAdjEQ4p9FafIpsv03kzWcXC4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=fail smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=fttoSdk6; arc=fail smtp.client-ip=205.220.178.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=windriver.com
+	s=arc-20240116; t=1789660051; c=relaxed/simple;
+	bh=HhKgh+AhoovE+nLXKxFmLwpFzc2TTxLCaPaNRYCrGXE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FbR5Zr8lnOLjor47HxYHdplxCyqvskc8xiS7B28wfgFsYSO4wZwAnaJxpfOqciqha/E7UznjqJoMwXA36a3CpNY0ecJYdLIxTDx4Zyts2GjQNAp/0vCVRXSJsZmx/qPvaej4AsGIh7kpxJ43oRLjSL0jjSAZg+pUEgDY5lqVjoA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UPH7Kn5G; arc=pass smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="fttoSdk6"
-Received: from pps.filterd (m0250812.ppops.net [127.0.0.1])
-	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HDe2YH3744487;
-	Thu, 17 Sep 2026 15:46:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	PPS06212021; bh=HRZLsg5K3Lo1PKM0f+T8R7JvXdOZr93lSJ8tW5SDpdc=; b=
-	fttoSdk6Yd7819QGRV11SpjM4BsvZvj6WLwI9rshOiMHjN2wl0osEJdzHcSDhjgD
-	va72YaSmZFPvaGWX9ok7faemWdlFDbcsU8ird0NQZmn3q+wWMJ5T4optIjKuIvAy
-	dfXM6xCUZzFD4WjOItfyQi6yQ0h5pyYhil3/RC6PJyCKAksTTU8B0PqaIYI5lm0U
-	PkV0A7upIxMlDuV5bMN1EMlPVjlIXncpLgTCQPdh6KGoL8rCMTrcxmxULFPSvGJu
-	EkQdzwa+PmI1O/zRpgeBJgTZeElZdbQFBXsYPGuTwbjEqVVU7Sza+e3RvurYgeBo
-	FhFyUadh4sNiRw6uUnRoBg==
-Received: from dm1pr04cu001.outbound.protection.outlook.com (mail-centralusazon11020111.outbound.protection.outlook.com [52.101.61.111])
-	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4gqvxdtnmf-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 15:46:10 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yW+PM7OiH+ICEjnomBBy2RPq6qU+LYJNR/IMyDCHq5msYc0Pr8bIfIJi60hUlKvx6cE8M4nRQ6nRD0o6XWuevuNRtQuzCYBvDRnavJrs+RbhsmHvf6V/Oq+a7xHJezZDomfADUQeFf6vmYXQdhNKrH09jQlqS7FWtGsqsLlII5bSeuVaFHGao3F/mR/GmU0LbjsvUeb77XdABeaBqZEMDk8j/kbQ/Bvmgrs46EmPy1ovtv+3LgSzUyOB5Cv+h+ZJfIaYAEUvoDNQJ2oimZKCRGEAO6IvoSXDjB2qsYmQS2VcbH0Td8MeU1vcSQSOQJdr298wdWD8GSb6U7INYmww9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HRZLsg5K3Lo1PKM0f+T8R7JvXdOZr93lSJ8tW5SDpdc=;
- b=gX7s00gSMvdWtVufaM2M240EU91lpwS1ZJcxmrhBIJ684Ib6gt1xn5dJxs7n8Ykhiz5FsGijl9INGPMzQMHzUQ0B2qamgNQsJZ0b7kpqkmGOirXGuxJiFN/rw9JdniXyAJ3R+n4WOyr0MtW+C82VxFTrmWLNwL86xr+OuPEMkmQiNn5K64d9PvmPy8rq+fYeh3uQrrOCKgol9l1dWIGuj6P8gShrVj2cXh+ouSNnRiLYazbxVbdnGWfUqf+PZLcIpEbXYAETBZVtS2x4F4+z9UmPvpEMShnK0o18BDI+DWL8TTQw7nZPHvRUQcI7WSkVWfOjgGJARbRJzJCxGFulfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=windriver.com; dmarc=pass action=none
- header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
-Received: from SJ2PR11MB7546.namprd11.prod.outlook.com (2603:10b6:a03:4cc::8)
- by DM3PPF777B3455C.namprd11.prod.outlook.com (2603:10b6:f:fc00::f2f) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 15:45:28 +0000
-Received: from SJ2PR11MB7546.namprd11.prod.outlook.com
- ([fe80::ca9b:dcf:8881:bced]) by SJ2PR11MB7546.namprd11.prod.outlook.com
- ([fe80::ca9b:dcf:8881:bced%3]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
- 15:45:27 +0000
-From: "Ionut Nechita (Wind River)" <ionut.nechita@windriver.com>
-To: atomlin@atomlin.com
-Cc: axboe@kernel.dk, tglx@kernel.org, mkp@kernel.org, frederic@kernel.org,
-        bigeasy@linutronix.de, corbet@lwn.net, vincent.guittot@linaro.org,
-        mingo@redhat.com, peterz@infradead.org, marco.crivellari@suse.com,
-        neelx@suse.com, linux-doc@vger.kernel.org, linux-block@vger.kernel.org,
-        linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v16 0/9] blk: honor isolcpus configuration
-Date: Thu, 17 Sep 2026 18:44:51 +0300
-Message-ID: <20260917154455.386769-1-ionut.nechita@windriver.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910164237.500196-1-atomlin@atomlin.com>
-References: <20260910164237.500196-1-atomlin@atomlin.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: JNAP275CA0052.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:4e::15)
- To SJ2PR11MB7546.namprd11.prod.outlook.com (2603:10b6:a03:4cc::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UPH7Kn5G"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1744eso846942e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:47:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789660036; cv=none;
+        d=google.com; s=arc-20260327;
+        b=d/Oc3Rh8pkFaH89ESSFPK0BiLACSGtznEl0kDMhiblwgDbP62BvE+tDKlAeVJcgkMl
+         Jk+svxmJtlieBrt1HugRx0RCT+/Vp6TBZqO0Ld/3w0t5rg6xb/QzNlnSEdK/2KQe14N6
+         N8pAFW4nZqrd42Vs586mVJ62xJxR6CEO3ehxNoqB2C+0GIKhn5plgbo4k4cKXMWtqXjS
+         OlpeiMfA7Oo0Fo25a1zJmHfPz0MX1FZ/4CBb1Ma8aYGD2FAx8Nv412sdeuEtIsDiS2Rw
+         tMR1h/3SNsLHzjhWo07rhWu0cV7gMNeIyTQc0XKhr4z2wBxA+47myJAujOafHzJB84J/
+         ivXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jzy+gQGDahxjRYzrMpnyvQ4GBuSr45Ef8jvJeyFAvyM=;
+        fh=8F3DVi9T8rNGJ3B5HmwM/VosbksNSXCmdtIoolmtyd0=;
+        b=Jmm1CvqMz06SXGvaR9Ky6BGqe3fDp1IwRvhyqeN4JPU2cmoOgGCLZ0IjJkpnIEPvkx
+         JXsOxbHL3q62h+mzALUdIuoab20HlLo+xSOAW+O3FnVxaOZGkEsKd8L0VrMT9NXjCKDy
+         a1r5d+62mxl6MySElalQqS9JcimjYM/lz8qmXmbtSMRFz/TNSknZockGMxGIORVCBlcP
+         V/7gCgRKXb/+97CmqC2vxjBAjfH+v0MJOJnZvk5pDA3uKte2XzfVK+D7KBtlwlA/PlL2
+         QYwqmhFg3aB16X0D8cyoKDJqIi19yjlaf91axsmONjRhU/1gHnRfjqx8R/3YB+y0wGE7
+         dp8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789660036; x=1790264836; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jzy+gQGDahxjRYzrMpnyvQ4GBuSr45Ef8jvJeyFAvyM=;
+        b=UPH7Kn5Gc2k5NVCrqN4WeOufJSlpZ0TE3hCzj/ldttsZGZq9jp1U0DQLBq6Mtsm+oa
+         q93kPN4FQdFYjocqX9S+IMHHNEnVxrbkcQ8OqXrn2H7O/J77oZRbHjdI4Ae0WBusAqpp
+         Hdlg9wkikrS3ZgmZPHx5jWzWbLBJJGxW6bhqWIWDdA7lY1DNlyX1waPlZzSqUC48kxE8
+         qe3HwkoliuyoYNKDASyiwJi6UTc5X4Dur03+KAkVPxWEFP7C/YFdG2uDKfbgfFkcqjej
+         rS7fR9SMTsIY9HUnjvNVvtJ4Aq7rsauHNksjf0LJciyzd1qY1Ri5JrPXiLlEHlNAON1o
+         QmOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789660036; x=1790264836;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jzy+gQGDahxjRYzrMpnyvQ4GBuSr45Ef8jvJeyFAvyM=;
+        b=MjYwrKD7pk8GgFf1TlENzALG63qSH/C0EKkByLPteRw4NG68gY0z+SaCZbuplNzekW
+         VdPGUah2gc7Diz++G07O6KZKjS8dD3noMqMoR3Try0Iikxj4NS8Xod6v7+Fvq8b+Sfpv
+         ZeCSSz2cYvEOvcIqrGLuAZ/sel1La81ZlxDH+OqEt1xt/3Q8RQaBcEOKzyyiL+3wdwgh
+         GXuXyXkLr0MlQ1tA6PytLlx2TvTjhbsuCMEFKsUAURonoMBkerhai3R9flpik7XKUuBP
+         uhdXqBWxaLB3nRKTsabKpYP2ZpmO/mGZlAmIgm92aqc9sHZXVMUPkeWeTcaxhwZVi4zj
+         Nxdg==
+X-Forwarded-Encrypted: i=1; AKwUvBzhj5RxDA3H4cdJSzSPjyD+Sd1ugWUUAGtMSj5xzr/VMAy94jiU9AMqPvY531DBfC0OADD4m6/IYIrBJZk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9oWSA0MT6KgvVo+qVUoD/u9ToPkVyFM3hldn4drFZVtI4Fxq4
+	9nOQpYQWBSiMSRGSXlfJHx+ezjmzOlIQS6cJ+4xVFTbRzZTQ3opDeBEwoQ4B5qY/M+SusdXjhi7
+	scIu2pL0kDatrexYmTVMeYh1LOrBWYvk=
+X-Gm-Gg: AYBFou0EB6D9u34THuCSMuuEUM2tiPnJ6KqMkAm2C5dpJuJuWAwz2AG0kA6l6vb5BLx
+	WEKcMcTO4puCV/KNUCV9Zf0Gl1Fjz2aK7LNjliFsejJV2JXwnn6la0CrXPr70HWba8HWoKViS5f
+	8ITWv4n4h85CIU8zfm6KD+l7GP0U5My3JepkU8mZiYUPrA3Z2/SQJQiscEocsyW2A00h7gIeKeR
+	xCRsnE7U2rhKfCKSULqpivyVMH1CVymTe1NSjpwgZltiVM0fNaIKV1BZeeB5eAYqUIrwgp/944w
+	RQu7uznGCG4+kpI9g1SaJQYrH9Q8qFzGzrDa8Xc0o2ULs2JOFp0dSKTR
+X-Received: by 2002:a05:6512:3ba8:b0:5b6:183c:5c94 with SMTP id
+ 2adb3069b0e04-5b8b66525c1mr2236156e87.50.1789660036136; Thu, 17 Sep 2026
+ 08:47:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB7546:EE_|DM3PPF777B3455C:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c28a848-6757-45e1-703e-08df14d2b211
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|52116014|1800799024|7416014|10067099003|6133799003|11063799006|22082099003|18002099003|56012099006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	u+LPZk5fHf6Z/vwcAv9aRT1sTRARNQ8xCw4hIv79Y4taLtxeHOZ95rZ7Y8TSbRlcmj8gIAZcQEvoHW7RhqBdJ9w61mq1W4rzkJWRIgefCFmLL/ddFylcDh2WKiR72AQpQDuuasLc7R/B/l7Keztywye+Pih9V9YIejaIKI9t36LVm9oQE4D2A5vJhusPC2hN1zFdAgTQrTqoyX5f44m7ihdwwIpTto67vCA4aqBiCq0IcXZB0SncuJ5HaUm45WVFVBSeolvbAbWMI2brb1zoqH0tTgtvE1RQpHYGupmJvt2E+1pZm/Eh55sr4h2EeJgjrsk7rDo04rc0H2AYwRloe9EsERCJUco+9bl6U8qR0srlcu/LvCGA7rGHvnQtLWLIa8ev0/zwm09RyV4Y7RFLBmUo+wpxkWEjCyWyyCZQS8a+B5nRP7MGCu6scEXANy/Dv2fJF1khzwlkj6h8kgRXDUGF9oMnz/iqkVj95rT+NCQ3F0mJ5kbJrdCkkZjw3CUlZSgmj3vVPI8AuCJEqZeeiMLdevgvpacHvzLCr4t6O87wEITh3vnjTfiSNpGYijdWPhQCTnlvZ8qmt0GhT1Vy4p3KA5p4mVnmdgfK2xYf3VLyRI7fvEMktplNtKUzKi1IULTTxXHXhz1vMikTqMDy8+nP8mWWu7sST2hlMFDemxY0f1spg4Thj7ZDRG/P0CpGezhkKnfbavJhOC7qV7U2XO7vcrIVJuYd1h53cBE6/YM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB7546.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(52116014)(1800799024)(7416014)(10067099003)(6133799003)(11063799006)(22082099003)(18002099003)(56012099006)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cWgflZZxotQACx8Jploq4ZCMEUil60fadIWbLdsGRNjOAcvL+gNYcg/Gwx7U?=
- =?us-ascii?Q?Ej6DC7K95m4VEAuXyaaO/0YsJmmvloj2QQAGDHTIy11g9WNcICuz8tNS088r?=
- =?us-ascii?Q?vEe7BJpPwuFGD07LUjB4JKpz4/PY9nsCfAED17x/burcbc6UJqhISqMwxK7b?=
- =?us-ascii?Q?Mj1uBqS6a4z7s/y9RXAtktgdaocD7cLnSJ27MJ588O7l/Jsl83+BX4/EUwlc?=
- =?us-ascii?Q?NoB/Q88mQqvPuqo1mei8n6QNYYU+lbDMpLarK9mp7RHH0LRbhz4DJL/BIT58?=
- =?us-ascii?Q?w592rI3Wik8ZlX6JZEbXonDi4lHOiWrnt3dqS3RU6On95wLuIOK/9IVtUAmz?=
- =?us-ascii?Q?f9JNQGWXPoSsK4YjeKKtxUda9xAJgl/sFu3PdKJw+d+jc8UiJ8hdH1p/JCYA?=
- =?us-ascii?Q?6MWzc9yjgZZbNJg3dPJZpt/I6J6TJoAtXvjJyyptU/CABtITVErXvPYCitmG?=
- =?us-ascii?Q?+wOxGiB9VwT2urNzHbtqrx7x7OG4s9qHk6gFCpHPsCoRpTuAODixCzVWtcCF?=
- =?us-ascii?Q?Gurt+gcrE1CKDHTGmcrAP1ZUU3G0c+2H6oi1EhAO1tGafWZYOR5o8z6OpqoI?=
- =?us-ascii?Q?d0MXAR6fLToF53zEIBAqrvgXMDWg8gAyI2ASpIvhHvJiU9ecCtRAEbHq6f7W?=
- =?us-ascii?Q?ZFltwo3S62G4xIusjUWTUoumZc59gQGm9csNq8LOzbQ8OhVczCivrm+pRmkz?=
- =?us-ascii?Q?kF9ckXTTEfyy6QCAcAvPV5aS0LotCOEFZrKrhe3tVG6Dd4CM6LHfgbwXPCsF?=
- =?us-ascii?Q?MxpIhgrfvBhfLPbORk8wwA6qJzS39XZ2YnqimLBtjd2CjN0kd0SGoXhuYdcZ?=
- =?us-ascii?Q?3cYxUcERz14De0zJd8XTEscxVW7IKMYNHvuAeKkNEQu2fRRd4HmJKXDywxl3?=
- =?us-ascii?Q?ZPkX680Gc4CSFUDFugBC1w5cQ3g6HSYooGmNTt2UatffHI8oN2Mc50/2dppU?=
- =?us-ascii?Q?y6Y2+qV1Ruh3znhv2AIVzsldP7gBTxFFNPK62lytl0Qf3kG2hhNvAg4jVtZ/?=
- =?us-ascii?Q?qerxGfg0xgzPVWksNzlsBruoygbAeqo7HrhCK1bg9v7RXVhXlZMfUYT9bHuX?=
- =?us-ascii?Q?hV8Ty1l4W4QqBZpIJ3N6a0QNN1DImO5+QskWKRjkeIar1RhUgF5YsPiWx3m/?=
- =?us-ascii?Q?0ap0u6pzt+IA6TqDPBAvi5wFP1kbtE2TPmvP9tHT2xhiMpDlcekDKC8Rcdvb?=
- =?us-ascii?Q?IUQ+Q5ZqHbvY+X9eYM3YOxrJB2g+Tt6xSTop4y8k5yqg2lmg+vdc0H5z7j69?=
- =?us-ascii?Q?mrqxOUrUdickoK3sO4YzG8n1RZLCj82DunEDbOZQeiBJRJChFhgvkKe0zAq+?=
- =?us-ascii?Q?nIxbfMcMS/g8yWCe138Tj//HlkG42kfhQLaF+NbEmb0+Qsf4iTdjNt/iHuko?=
- =?us-ascii?Q?RB8wjVe+HM5mJC/SEvoyroXlvx40NP2NJh5GIE/GpH4S457gE0kx2T/YMstb?=
- =?us-ascii?Q?Rs9ejACKx5fRwaC+qabVxDFohiVlST00V6za6Q9NWs0HsNpbxnP2nDVO5LhX?=
- =?us-ascii?Q?wu6pZOWMI1rrJCeyRlB/M9jFfZ9wZHzqUhlJCr2k+mmQmrevpFUY/IfQ1Yr2?=
- =?us-ascii?Q?zyC7L9cxqBEPgm1d0zj5VFC3sEPByuO7TluSErGwZokoNN3kA3DDwh4T+4Yx?=
- =?us-ascii?Q?REy4/c3bbhYZuK9rEt3vLHjLivD1N3dSC64pBRO9Qk1YLbWnVZVMMaLt6i0V?=
- =?us-ascii?Q?bbOt3dX4SkRG+WjT+wwAa8hwpvj4rs5uEg2a5DyGUZsoDWjkFnBZmlV+J31J?=
- =?us-ascii?Q?iJtLX94ghxusZihbmofmCkbHsmR6L9U=3D?=
-X-Exchange-RoutingPolicyChecked:
-	Ig1j7rnuEaroKJFAXHQ3r503vFaeVJwtKyN2xkB3NQGiN+x9Lbslo7NZ6YmlHI3DWPmsNCWc1xciVZ07A3qOno/2R+0hCrQYH44RBTHoUAb1KxBuKhDv+toXWiUFO/pU3v+hM4U47U7bQUBorPWFuTbMx62kphT5nKzVkA+B2D3qPtCqR8QKmOZ4GR3bzTAgvkQzJKTlHj40sDqvYjaHna/5ggfXyGvwnxrD8wS2gl2DQDFVzyEiw1ZZnM06+edllqeyZkea9s2KBH5ylSXqWGt2wG/XJVcbPCAXNI/RJnXsklD4MRkt1Ki0XMMdWxUpPNF5/ylULN2XbHmp6Nco6g==
-X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c28a848-6757-45e1-703e-08df14d2b211
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB7546.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 15:45:27.7997
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dWaiMH2FI6JZ8XMgaOqMUzcoKRcXG3fgLqJswB5ukY6XQ+XB7pzobsxykgidZco6Fe1rA/0os1ZcRSwXGpxQ6nj47CVgf2+o01Stf0WOajw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF777B3455C
-X-Authority-Analysis: v=2.4 cv=OPayTiaB c=1 sm=1 tr=0 ts=6aac0b42 cx=c_pps
- a=GSDfjOocp3kRe1wCCJtFmg==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=bi6dqmuHe4P4UrxVR6um:22 a=fTW__CHxibyLmBMfj2wP:22 a=OvQFxdf2BpoGyvGMKAIA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDIyMyBTYWx0ZWRfXxWzmT1ZrmjjP
- a52AP9OtMyepv2cAs4DhYZTjNYCHZtkgkPELY8tQyeHKv+0u7vgkP/4Hdx4AKjvucU6KgRfxNDV
- ElF0NQsPmwIaDGpFC254FK0RywOBfvLgGRTvle7I8PzcJnbRHbDR
-X-Proofpoint-ORIG-GUID: nNHsks0iwFSUZkpf3rZsrPEXb27wmHkk
-X-Proofpoint-GUID: nNHsks0iwFSUZkpf3rZsrPEXb27wmHkk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDIyMyBTYWx0ZWRfX+nQIQgK/HuxU
- Dc3U+vIfq3l1IUFooIzsDakcaFAAQW5noywDroSfSn2qx9bV29Fn/H18PqL8AknrsusYQgWHuvs
- 0Xhk/IZ1WEdWDS5vgD+9r3iQlc4z3uHNdvoX7nTtQ4cs+rTZnyUjlpM+7QFdwhZv8EZPShWRkta
- dFp/HfvNc7AA9NKdfu+pKv6xAAmqikHPPJfjg/c1s3QAjaR0m/HCsWDdXfrAaVT0mDBk+Js71tZ
- IFqCm0bpg04wqiFF4a1qDOL7RoRa85T55Dayzp0ZUzj7TRHuSfm0LMRokdCRwK7wR0Z+T+TjpD8
- dQIPamBPzdR0MOjHxLLdB1Cis+V91LMG+EY5DJPDshA9uB884j0miXSUN3ZXqENc+hWqZN3R0Ce
- ELYf3qcdT1l51+tQBGLHe8Jw0GS/7ELWZvVb7YCTng04ILFgJioGV60qe/UGNzGc/IE98Nx681y
- uRnSFKc9hq/agkhD8+Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 bulkscore=0 malwarescore=0 clxscore=1011
- lowpriorityscore=0 phishscore=0 suspectscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170223
+References: <20260915195223.3331909-1-qwe.aldo@gmail.com> <8eef80c6c8d21e863c5a3721b1ae681fc4ccf54f.camel@dubeyko.com>
+In-Reply-To: <8eef80c6c8d21e863c5a3721b1ae681fc4ccf54f.camel@dubeyko.com>
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Date: Fri, 18 Sep 2026 00:46:59 +0900
+X-Gm-Features: AcwNN1W8Hxz9umrd0xiz0nxXV4xs0ZDavlInPR_CBX7SqfB6dwEpospt6ft_-2s
+Message-ID: <CAKFNMok804k_g2CHXfrn0LaOY38r8FtMnAk1kRc3YeZ=omCoag@mail.gmail.com>
+Subject: Re: [PATCH v2] nilfs2: validate segment number in nilfs_sufile_get_suinfo()
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Aaron, Daniel,
+On Thu, Sep 17, 2026 at 4:06=E2=80=AFAM Viacheslav Dubeyko wrote:
+>
+> On Tue, 2026-09-15 at 16:52 -0300, Aldo Ariel Panzardo wrote:
+> > nilfs_sufile_get_suinfo() subtracts the caller-provided segment
+> > number
+> > from the total number of segments without first checking its range.
+> > If
+> > the requested number is greater than the total, the unsigned
+> > subtraction
+> > wraps and the function may process segment numbers outside the
+> > filesystem.
+> >
+> > Cache the total while holding the metadata semaphore and return no
+> > entries
+> > when the starting segment number is at or beyond the end.
+> >
+> > Fixes: 6c98cd4ecb0a ("nilfs2: segment usage file")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> > ---
+> >  fs/nilfs2/sufile.c | 10 +++++++---
+> >  1 file changed, 7 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
+> > index eceedca026..573646c5f7 100644
+> > --- a/fs/nilfs2/sufile.c
+> > +++ b/fs/nilfs2/sufile.c
+> > @@ -870,10 +870,14 @@ ssize_t nilfs_sufile_get_suinfo(struct inode
+> > *sufile, __u64 segnum, void *buf,
+> >
+> >       down_read(&NILFS_MDT(sufile)->mi_sem);
+> >
+> > +     nsegs =3D nilfs_sufile_get_nsegments(sufile);
+> > +     if (segnum >=3D nsegs) {
+> > +             ret =3D 0;
+> > +             goto out;
+> > +     }
+> > +
+> >       segusages_per_block =3D
+> > nilfs_sufile_segment_usages_per_block(sufile);
+> > -     nsegs =3D min_t(unsigned long,
+> > -                   nilfs_sufile_get_nsegments(sufile) - segnum,
+> > -                   nsi);
+> > +     nsegs =3D min_t(unsigned long, nsegs - segnum, nsi);
+> >       for (i =3D 0; i < nsegs; i +=3D n, segnum +=3D n) {
+> >               n =3D min_t(unsigned long,
+> >                         segusages_per_block -
+>
+> Looks good to me.
+>
+> Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+>
+> Thanks,
+> Slava.
 
-Thanks for respinning this and for the move to
-"isolcpus=managed_irq_strict".
+Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
 
-Just a heads-up that I have picked up v16 and am backporting it to the
-6.18 LTS tree so I can exercise the new parameter on our PREEMPT_RT
-configuration. The goal is to validate the end-to-end behaviour of
-managed_irq_strict on multiqueue hardware (NVMe and SCSI) with isolated
-cores, in particular:
+Hi Viacheslav,
 
-  - managed IRQ affinity and the reserved pre/post vectors staying off
-    the isolated set and confined to housekeeping CPUs;
-  - the blk-mq hotplug guard that refuses to offline the last
-    housekeeping CPU still serving an online isolated core;
-  - queue/vector counts on systems where nr_vectors >= nr_cpus
-    (narrow housekeeping pools, many PFs + NVMe).
+Please take this directly.
 
-I will follow up on this thread with results (effective_affinity and
-blk-mq queue mapping data, plus any backport-specific findings) once
-testing on 6.18 LTS is complete.
+I also agree that this change makes sense, and my local test results
+are as expected.
 
-On the maintainer question (option 1 vs option 2): from a
-downstream/product standpoint I favour option 1, keeping
-"managed_irq_strict" as an explicit opt-in. Leaving the legacy
-"managed_irq" semantics unchanged avoids a silent behavioural change
-for existing deployments, while the strict variant gives new users a
-clear, predictable knob.
+However, please drop the 'Cc: stable' tag since it does not cause any
+fatal issues at the moment.
+If a real-world problem is found or reported, I think it would be fine
+to request a manual backport then.
 
-Thanks for driving this forward.
+While acquiring information on out-of-range segments due to
+wrap-around is indeed possible, sufile is also a metadata management
+file.
+When accessing out-of-range areas, it simply hits as a hole block and
+returns empty data.
 
-Ionut
+Neither memory overrun in user space or kernel space, nor
+out-of-bounds block device access or information leaks will occur.
+
+Well-behaved userland tools read segment information based on the
+statistics obtained via nilfs_get_sustat(), so no problem will occur
+(the difference in behavior was visually indistinguishable).
+
+Therefore, I modified the nilfs-utils to perform ill-behaved calls and
+tested it.
+Although out-of-range non-existent segments were displayed as empty
+data, no critical issue that compromises kernel stability occurred.
+
+At present, it does not appear to meet the basic criteria for stable
+backporting, so when backporting, we need to be able to organize and
+demonstrate the reasoning why it is necessary.
+
+Thanks,
+Ryusuke Konishi
