@@ -1,100 +1,105 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF413A0E8D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B70A363C48;
+	Thu, 17 Sep 2026 07:20:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789629589; cv=none; b=p8Yx3eQysmCAqZ0dJV5+9xWEX7tlNHCuomeBSctRwVsgaJAR5L4aUTymCY8rN1N6LVu3+U5CGcu72ZFFjPiRonY0g2sVYEemksCrZQ107sPbFQbbZT7tCJzDWI3fDpmDuvqVGeVqLRmM1piM1VhRTl+cHAV/6rqsVNSplHvT/y8=
+	t=1789629642; cv=none; b=rf0Lf+6OwzazYO0mFXw4hYERbIrXf8slCCGeDCl2NFd/oA66TDztOjPZAWdQ/2LmUM49A+PPx1JZKV/oqI5+gmdHvrwMZHlwHQjT0+TeQOyP0GhTeZpUj5w3wOj+XjObTWSz4Jd8Iibjx1GPkIoaqGijUJzMqOxm2659nBanvoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789629589; c=relaxed/simple;
-	bh=mU5PtjMmV4lxfiPkXIaDIUNhRMnvQ/eS+f/tszi1Bno=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fa9Dk5M+jqa/l9qPqhUKcUIynQ//5el1U5izs7iCmPnDCj52I3atUf7wquM891sOr4jre7KVSjxUWCnTTMGLWyXG1eN/c+kmnAwuv+7lWK5L8NNfY10K2WhtuiaQSRWDQ8PviIzT96aD5bQBk0OWFH0PuyKSAiNVD6onrFWlWQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dT6TS6Q8; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789629642; c=relaxed/simple;
+	bh=wx2SyeWf9JRa6cDG3qjLvpIGJJwnS7Rcq5rTMoIyWUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WNAKDInTe7QESlSRneVIBhiI0eruQ2NW3nmH4M9PoiNf+FgzYkPuPFho6btA91K3IsgyzMbExTY6U44RQbddxzIsX5Ep3OuG+LHb5m9CglOYPJ+D/cRpWhPhH1/QYbJRmrd8JRMwjnHCqX6bPyy/HXTpXh/7DNuH9dXCXsoJ4+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lNMP9y0s; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dT6TS6Q8"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so2375915e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:19:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789629586; x=1790234386; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NsNOKUmy+9wwtirE1XH9Jsj581s6JNQM8IbXZP/ifso=;
-        b=dT6TS6Q8Efjw/VnZFfl2tHPRoKz5PiFlI/dCCeNW9PDHRAHsLuKTO1jEPs8eWOs1+9
-         jP77m2DBhuIBO5jZaDvko6OxQVzO4n7VeGUMm62vubEtTW0Wzf3QBXyC21llDb20nJeA
-         DCV9Gh2IQMrNm6/+7iz1WT+FvQIVAfkMpwMFi6ww50P0Qx85FaFBcSFqlFcojNuV60I0
-         dxiDR523gBKKY1NdTVLXyU82ZQUm7CRlWoFVHgBaH1sBsX6zWwHToc5MUaNRxP2ItB85
-         db+8/ndENIpchXGzEqQSyDb11na0SkKaClkeLkqRVU9xbeh9FEnKXdxVXi2AUfFkq1NY
-         LSoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789629586; x=1790234386;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NsNOKUmy+9wwtirE1XH9Jsj581s6JNQM8IbXZP/ifso=;
-        b=flXKzGcOCf/ifBLivvELRcaHmyz0O1cF54o/oS1FrQelUTgLcfrYfO4qAa1abfCpNL
-         nzznDeI/LqswmO960dUBoG3FUwmV20nZ59d4ySasuaFZR8+mmBQwf03xBxaZRPWhbD46
-         M1OiDBxzek9fmkEIJ5Cfv6RdLKiggV/+yscaCcwrRWrnX3gDJjQg/i7GaYvXW0y60BuK
-         q1jPVIFEMHWlxoUlwNIH2M/zEnmJa6M9MzHAR1wJd/q0hO/BT3wq3iVzFpE5eD+2yFKO
-         6sK/3EJ76XxmtNlCEBHrRAIMU8u5ANjXMof8zITbk676I0XvgPA20qQ661j7lrMgg6bh
-         V52A==
-X-Forwarded-Encrypted: i=1; AKwUvBw2CQiam1+V+mqqVmLxJERksAANjRNK0VX3/EIeuCz82axz+UxASrHGLE96sRB891zczQcdnFZquvQGgTY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbfUz9+jVFvKU1k3HMVv3k73dHmNvJhlg1uycOcU/UNiFZB8KW
-	RLmo6CkgQZKqF75KiNujvhIMOE9ji9Lomq9qJm3NIwPlTUyIBnjPIcgf
-X-Gm-Gg: AYBFou2nR7/goDNWAysj8l3PIYfsLN135iXjkawmQPpPafXKqz3Fkcl1An9elN/qzPx
-	fauzMdl7oXJ82AekeJqnqVZXZNAseNicPTomNIpcLiCOP2aA+rbLeqblmfBtCAmh3xqqw2MWMgh
-	j2jQynw+xX2f99DfymO9EHP90U6f6kszNu9a7JdAUkOBNC4y0gktZSdqWOILjjzZsC34PgZ1krl
-	i0VlD9SPV+0pQAbblxwyO67vBpk6iKvVDKvIirBuseNBtVB4lEs9eQrH07kVa5y0cSI0kEZNqBp
-	UbmMEaWyx9lkUnPtI+8cOP9zB1a1BJe1pMw6//QLUhKP1cmgMpD6du3lm/51rJqCMGsyEJOo25F
-	KVBdv8hvHBNnh1PJVvNW/JhBCEaOujqHtCQ7BedwuPlZtj515NhQG2EJ9ZpxreViPqi4kDEGfon
-	HHFVEK5Kx32uTwtmb1Pj3A+ZlNLhISAU5idcIl5Npxyn97QouBGV6DrKB/3yJfanGwI34i
-X-Received: by 2002:a05:600c:c168:b0:49e:6b55:22b8 with SMTP id 5b1f17b1804b1-49eac463871mr64369645e9.4.1789629586166;
-        Thu, 17 Sep 2026 00:19:46 -0700 (PDT)
-Received: from omermac ([82.222.238.173])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd216028sm50324175e9.7.2026.09.17.00.19.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 00:19:45 -0700 (PDT)
-From: Omer PALA <palaomer100@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] staging: rtl8723bs: replace msleep with usleep_range
-Date: Thu, 17 Sep 2026 10:19:31 +0300
-Message-ID: <20260917071931.8063-1-palaomer100@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lNMP9y0s"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 469D71A091E;
+	Thu, 17 Sep 2026 07:11:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 12D5E5FAA3;
+	Thu, 17 Sep 2026 07:11:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E779D11C79EF2;
+	Thu, 17 Sep 2026 09:11:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789629116; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=v9SMgrY/6nxdHVGIqM+9vmlR0VE53yEvAwFaJ+/kk44=;
+	b=lNMP9y0sVjOhtTt6UinCCihuLL1n93QUA3hR32zzgX6Q86t1MsbyoXpgSYkulQUYA/qvAM
+	Ic3P7tFZb8QDRAqU8y+ZbHph2YgmDiwiHWmvxwVSd3P03OWS8l0axbmWYvPFeIahmjrUE7
+	tDu7Mal3dzvZsarAjS/bf1HzyGTGGFW9e4lagA+sQQJ1WNZE/I45AFNMK7UeNyNSAw3E6x
+	LJFuTLxqqHvWeSJfFnqy5APiSkdGmqV9p7xKBUCkxbJN2OaP4aRVVdWXRJpyRmBHz19UJb
+	XEK3WRwW65p1XBwUcrLGj+WtxZK9agtS3+mVDJbt0V037CYXEbZ1Wbvvp00L2g==
+Date: Thu, 17 Sep 2026 09:11:52 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 08/15] flattree: Handle unknown tags
+Message-ID: <20260917091152.7ad271a8@bootlin.com>
+In-Reply-To: <aqpS_ejYTENzaE6-@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-9-herve.codina@bootlin.com>
+	<aqevEJ_VlBxYUp81@gractus.seuss>
+	<20260915121635.39f13d34@bootlin.com>
+	<aqkxacdQHZuhhyxw@gractus.seuss>
+	<20260916083130.7b14e90e@bootlin.com>
+	<aqpS_ejYTENzaE6-@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Replace msleep(1) with usleep_range(1000, 1500) because msleep with small
-values (<20ms) can sleep for up to 20ms due to timer tick resolution.
-Using usleep_range provides a more precise and consistent delay for
-hardware power control operations.
+On Wed, 16 Sep 2026 18:27:53 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-Signed-off-by: Omer PALA <palaomer100@gmail.com>
----
- drivers/staging/rtl8723bs/core/rtw_pwrctrl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> On Wed, Sep 16, 2026 at 08:31:30AM +0200, Herve Codina wrote:
+> > Hi David,
+> > 
+> > On Tue, 15 Sep 2026 21:52:24 +1000
+> > David Gibson <david@gibson.dropbear.id.au> wrote:  
+> [snip]
+> > > > This avoid the need for 2 dtbs generated by treegen and also avoid to compare
+> > > > binary files which are difficult to analyze when the comparison detects a problem
+> > > > due to something broken by some modifications.    
+> > > 
+> > > We _want_ to understand and test things at the binary byte level.
+> > > Debugging differences is a little trickier, but it's really not that
+> > > bad - -Odts or fdtdump or dtdiff can be used if/when there's a test
+> > > failure.  I really think doing the comparison in binary is preferable
+> > > - that's the level at which the behaviour is specified and should be
+> > > tested.  
+> > 
+> > Right, will see what I can do. Probably generating using two specific dtbs
+> > as suggested in your first proposal.
+> > 
+> > Worth noting that each time a dtb will change due to, for instance, a new
+> > dtb version (or any other header field update), this test will need to be
+> > updated. DTC will generate the dtb with new headers value.  
+> 
+> If you use the default call for the header in treegen, which always
+> uses the latest version, then it should be fine.
+> 
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c b/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
-index 448611ad8..1d3262413 100644
---- a/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
-@@ -561,7 +561,7 @@ void LPS_Leave_check(struct adapter *padapter)
- 		if (jiffies_to_msecs(jiffies - start_time) > 100)
- 			break;
- 
--		msleep(1);
-+		usleep_range(1000, 1500);
- 	}
- }
- 
--- 
-2.55.0
+Yes indeed. Will give a try.
 
+Best regards,
+Hervé
