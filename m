@@ -1,187 +1,262 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24425.protonmail.ch (mail-24425.protonmail.ch [109.224.244.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA704E020D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:28:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6140F384CD5;
+	Thu, 17 Sep 2026 21:29:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789680496; cv=none; b=CLeeaml+GghURUjZCDb2dywB8ttK9VfMKp746sR1iTsgWFl9v14CN8e3NBaxNhZvtj1Tj4XEHEWr53n0sRutpI4WCw1KVJBRJlRCxe2Tkb0edPtxzXpY5/GhLsbUA2Gp3TEbBfwxe1BIQvgG/kU5SEi+QIxH939hrUiUJyuFEe4=
+	t=1789680569; cv=none; b=G4OemEryXbOvGsmVWRaVW0qGNaxx0TOy+OYJa3pOoNJVlvGO9PKgae1C8ZN0W4EKFWZLWcpUZFqG+Gimw7HWlHAAPLgOkvZzKCowvFnKQtvNFWGsyvpCWfWJ70/c1LL3zWFdkwVRLjjP44bj5aylatufFQhItBepTslhRA1rhio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789680496; c=relaxed/simple;
-	bh=18SRVwnsAR28xSVXqGmgLVILEzIjVLYd+f+ZrUfMrEQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RLzJWv5mxgpGaEhC4OujUGqQ0xrbN2w0AZ5T1u9mAkC37Z/q1GfgrpvwH/U5Eva99/4LmZonv49890UJsysdzsPAJf5M/3J4J4TMhqVsH+B3xQhgYsLeqj88X/FHDnwqFeYRLdE6J8o2wHgHCUwKi9zSiSa7RHONXh/Tgw14a70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=grZ9Jx7Q; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789680569; c=relaxed/simple;
+	bh=2AaG/8sjy+eCEJHFf4JWFo01ht84hNyteLxaptHw7jo=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=iG9SdzwAyn40ZgoczL8GIa91dbB8bOUBO9GKNbtivOr5Gr2bGFJNtZpYFaTK57s9nN+aCPTyTLhrZccaRnbzxFsItYHNvIplcu5cyOMiojxgTGVwz6hqJEXoVvJjUbzXUS3dwSlgEi2DLhBTm32t4Dxv26YKhPtPS7T7mAxHK0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=kwDJMDLi; arc=none smtp.client-ip=109.224.244.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="grZ9Jx7Q"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso820525e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:28:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789680492; x=1790285292; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UdNOXmL6pOGJYRNkQffneuXoPJ9jf1AzKM8aZVFlRK8=;
-        b=grZ9Jx7Q2kYf/LkFmHvifUFMh+EjKYdvuXaLdmFyPPh2PXCtZcbgJXT3NFXTSrTWg+
-         BECA5+6ssn/XJ+0FxnLpo05cSKsnVxT+atsyE+PtZiYMDjjl8QN2q02ZYNWFofrgxvDq
-         m5Bx85hnQDID76ZQ0lKaSRpdsoiaz3FOaba42eVin6rYeRGeWlfHee8g8iBe5JlnAd5g
-         aOrLKMLUSEJjDFinLfjqnDWVCw8C5Ojx3HlOEC8gQWndsPq6LVMsncuWTUGflRDeqKdp
-         RySLVYioK/Ws3/O0ZRpJcY8Wm+C1hGw+bYqNP8lugKVz6Z/BkUOVHS0Qcw01vfuT85ON
-         E6og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789680492; x=1790285292;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UdNOXmL6pOGJYRNkQffneuXoPJ9jf1AzKM8aZVFlRK8=;
-        b=q/+jVRncVT1ZhPULIy5reogivZg3QAmXsCzERnxHji/+LcPlkuVRkNdRVwIOeFl7Vp
-         q1cxL6bUqSiJuR6AGLxTx/WRIpbjy9Sy/vgrf/2McFVqmieOG6+Ftu/F+FxXPMAYTlWp
-         HWeeKnJk8oR7/42NnuEEQ6oe9fly1gKw2JVK23ZMOPVTmV82WW1Xily5ymt6zPO+mVj7
-         gCM4Gg5e+BNq+PHh4t0ODVk3UFnk/M3Bp9bThKdEMzWLcnt1J3CRbTEVq47UuUeF3qZ6
-         SjU1KTB6tOhlCDjEiFXsDJu+I9AGDimMcpy7PyLM2D+8SqFkbx9rHIcPvnA9I0Z5COSo
-         cPZg==
-X-Forwarded-Encrypted: i=1; AKwUvBz4jAP8l2jq+7gH5iKfeceA+23Gtc1OR+VU2hgQ16Z4Ve0SMkT+6p/7MJ77606dmMAC4yEjH2JSOYUHv3Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lapHD6nmpfEKU60TY7ePj2q86wISZTNGPXz5vipyGKfDZmf2NJ
-	NjKmJiNTW1GlgdKnVBwYa+Lx92sF3SNs0lUxMajWnVQh/TjrW7TzGJPu
-X-Gm-Gg: AYBFou3z0f+1Vu0UZhOj4AOAC9obtjcv+gXZzd8wod2HyIaIUkZE5c9/KIg5d+/m8pO
-	kWF7+ADCoXCk3KhfjwrMWcj9PmHGXG9h8mMWNTypzLFqIvzYq9+8F3tJvrvyqVzpt6z7vZ5ojuQ
-	ARy4Zx1hEQEIl1+pNGzog/hIVX5lc1HT+8kfFJ1AvnMC5nHmWif6O3De22z28PRa1Uli452xdOR
-	FN/CEsFLia4hwbErev+upeRV/SZ5BsbYl+N6LbufkIRMNHKKXo/HHCCdLUkUq4/sR0yhr/cU42a
-	V7MGhWPtZpuxmKhivXS6GeqJagWEyPN6wy/VHkKHvT+LfcVqPhseJQbCp+qbnH9Z5kfKEViJQLL
-	7YnqB+i8cXiSzBsHTY4dVUl9Vu6YrwJsf3/fMLJXF+fYEGPcgeZJgSRJEGp3vnFiqL8Q8JGCfVU
-	PJMZub4xokpnxc6J4VWPaQFLons+5+agkbiylk2oLT+Rti9Kw9as9fg+k4lJIVyXtE77Iihlcf2
-	qywn1X0PwzLc8Y=
-X-Received: by 2002:a05:600c:19c6:b0:49c:f4e1:4c2d with SMTP id 5b1f17b1804b1-49fc5741239mr2248305e9.16.1789680491683;
-        Thu, 17 Sep 2026 14:28:11 -0700 (PDT)
-Received: from localhost.localdomain ([176.220.99.102])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf37e69sm18148838f8f.29.2026.09.17.14.28.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 14:28:11 -0700 (PDT)
-From: Omer PALA <palaomer100@gmail.com>
-To: nuno.sa@analog.com,
-	Michael.Hennerich@analog.com,
-	jic23@kernel.org,
-	dlechner@baylibre.com,
-	andy@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux@analog.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: iio: adc: Add AD7816 binding
-Date: Fri, 18 Sep 2026 00:27:51 +0300
-Message-ID: <20260917212751.16729-1-palaomer100@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="kwDJMDLi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1789680561; x=1789939761;
+	bh=2AaG/8sjy+eCEJHFf4JWFo01ht84hNyteLxaptHw7jo=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=kwDJMDLiVXQTPshe+Vrt0ZuCwn25yJ0jcCxqMITr8b4V/RnoaxN0wTzcnHCGAV1Ar
+	 IPql07UnuiqPP14j82A95EBtqA9XrYU3v69V9Xeoyy7Sb+VYMSlJzln+Spp9cvIwCE
+	 gJwtpdCNmVBPiem5i5hZ5DmFSWE8o7o1Xf1UyY6Z84UBR1vPGRdvN5E2GufHoMYgf+
+	 tMmMDeRXJ/yN6phKH3j7lDJFFYGy6F6R1bAbDpC8JPsWjI+Fr/3doeArLpxrZxXPP/
+	 gm48GLPBQRnqQYcZnWjABZ81J0EhiXdq1ekHMaWId/ad0aNoLRvuHp+vwzwo3kBamg
+	 yUL/sK/elFFSQ==
+Date: Thu, 17 Sep 2026 21:29:18 +0000
+To: "basavaraj.natikar@amd.com" <basavaraj.natikar@amd.com>
+From: lendev4 <lendev4@proton.me>
+Cc: "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [BUG] amd_sfh: ~10-second resume delay from accelerometer response timeout
+Message-ID: <r-KymkVy-4izifHW2zOJPRL2gc9ZLKwqkfwBrypFKNEaRtg_MH3O_39jVJ_4588fcPpb2sEqFxvQq2s8BURbZk6nKwIxErObyo4m6fm-6nM=@proton.me>
+Feedback-ID: 134010188:user:proton
+X-Pm-Message-ID: e3a2b118ede8be4e60c319f061ba5ec1d80cf8a1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed;
+ boundary="b1=_9M0Vhq1ntf81ep0G7DF8KgweFjudy6pW4VkXqruQ"
 
-Add a DeviceTree binding schema for the Analog Devices AD7816
-digital temperature sensor. The same schema also covers the
-compatible AD7817 and AD7818 variants.
+--b1=_9M0Vhq1ntf81ep0G7DF8KgweFjudy6pW4VkXqruQ
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The driver currently lives under drivers/staging/iio/adc/ad7816.c.
+Hello,
+I am reporting a reproducible ~10-second resume delay in amd_sfh associated=
+ with an accelerometer response timeout.
 
-Signed-off-by: Omer PALA <palaomer100@gmail.com>
----
- .../bindings/iio/adc/adi,ad7816.yaml          | 82 +++++++++++++++++++
- 1 file changed, 82 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
+Hardware: HP ENVY x360 2-in-1 Laptop 15-ey0xxx, board 8A31, BIOS F.14 (2023=
+-07-05); AMD sensor hub 1022:15e4 at 0000:04:00.7.
+Software: Linux 7.2.5, s2idle suspend.
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
-new file mode 100644
-index 000000000..1ffaa4a68
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
-@@ -0,0 +1,82 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/adi,ad7816.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices ADC AD7816
-+
-+maintainers:
-+  - Omer PALA <palaomer100@gmail.com>
-+
-+description: |
-+  This schema defines devicetree rules for
-+  Analog Devices ADC AD7816
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,ad7816
-+      - adi,ad7817
-+      - adi,ad7818
-+
-+  reg:
-+    maxItems: 1
-+
-+  spi-max-frequency: true
-+
-+  interrupts:
-+    maxItems: 1
-+    description: Base interrupt pin for AD7816
-+
-+  rdwr-gpios:
-+    maxItems: 1
-+    description: I/O control pin
-+
-+  convert-gpios:
-+    maxItems: 1
-+    description: Conversion start pin
-+
-+  busy-gpios:
-+    maxItems: 1
-+    description: Busy pin
-+
-+required:
-+  - compatible
-+  - reg
-+  - rdwr-gpios
-+  - convert-gpios
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - adi,ad7816
-+              - adi,ad7817
-+
-+    then:
-+      required:
-+        - busy-gpios
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    spi {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      adc@0 {
-+        compatible = "adi,ad7816";
-+        reg = <0>;
-+        spi-max-frequency = <1000000>;
-+
-+        rdwr-gpios = <&gpio0 1 0>;
-+        convert-gpios = <&gpio0 2 0>;
-+        busy-gpios = <&gpio0 3 0>;
-+      };
-+    };
--- 
-2.55.0
+To reproduce, load amd_sfh with sensor_mask=3D-1 and suspend with systemctl=
+ suspend. After wake, the display shows a stale frame for about 8-10 second=
+s, including without locking. PM timing measured the sensor-hub resume call=
+back at 10,011,884 us.
+
+Unloading amd_sfh removes the delay; reloading it with default discovery re=
+stores it. Using sensor_mask=3D0x88002, excluding accelerometer ID 0 while =
+retaining gyro 1, operating mode 15, and ALS 19, also removes the delay.
+
+With the normal 500 us polling sleep parameter, kprobes show the accelerome=
+ter enable command 0xc8001011. On the failing resume, polling first reads 0=
+x00130340 and then repeatedly reads 0x000a0340 (status 0, enabled, sensor I=
+D 10) until the 10-second timeout. The other sensors subsequently receive m=
+atching acknowledgments.
+
+Successful driver initialization and the failed resume use the same acceler=
+ometer command and DMA address.
+
+As an experiment, I changed only the polling sleep parameter in amd_sfh_wai=
+t_response_v2() from 500 us to 20 us, leaving the 10-second timeout and all=
+ response checks unchanged. This eliminated the delay in two uninstrumented=
+ tests and one traced test. Accelerometer initialization and resume were co=
+nfirmed enabled in both uninstrumented tests.
+
+The successful traced resume shows:
+
++69 us: matching accelerometer acknowledgment 0x340 read
++71 us: driver reports success
++90 us: subsequent gyro wait reads 0xa0340 (sensor ID 10)
+
+This suggests that the driver may be missing a short-lived matching acknowl=
+edgment before another sensor response replaces it. However, the failing tr=
+aces do not establish that firmware actually published the correct accelero=
+meter acknowledgment during those wakes, and I have tested only this laptop=
+.
+
+For the experiment, only amd_sfh was rebuilt against the installed headers =
+from Linux 7.2.5 source, with a header-compatibility patch renaming platfor=
+m-state enums. The rebuilt baseline .text matched the installed driver's .t=
+ext byte for byte; srcversion metadata differed.
+
+I have attached focused trace excerpts and the experimental polling change;=
+ I am not proposing the polling change as a final fix. Full traces and the =
+kprobe script are available if useful.
+
+The investigation and preparation of this report were AI-assisted; I verifi=
+ed the reported tests, measurements, and trace data. I currently use the ac=
+celerometer exclusion as a workaround.
+
+Is the additional sensor ID 10 response expected here, and could it explain=
+ the accelerometer response timeout with the current polling sleep paramete=
+r?
+
+Thank you.
+--b1=_9M0Vhq1ntf81ep0G7DF8KgweFjudy6pW4VkXqruQ
+Content-Type: text/x-patch; name=polling-change.diff
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=polling-change.diff
+
+LS0tIGEvZHJpdmVycy9oaWQvYW1kLXNmaC1oaWQvYW1kX3NmaF9wY2llLmMKKysrIGIvZHJpdmVy
+cy9oaWQvYW1kLXNmaC1oaWQvYW1kX3NmaF9wY2llLmMKQEAgLTQ4LDcgKzQ4LDcgQEAKIAlpZiAo
+IXJlYWRsX3BvbGxfdGltZW91dChtcDItPm1taW8gKyBBTURfUDJDX01TRygwKSwgY21kX3Jlc3Au
+cmVzcCwKIAkJCQkoY21kX3Jlc3AucmVzcG9uc2VfdjIucmVzcG9uc2UgPT0gc2Vuc29yX3N0cyAm
+JgogCQkJCWNtZF9yZXNwLnJlc3BvbnNlX3YyLnN0YXR1cyA9PSAwICYmIChzaWQgPT0gMHhmZiB8
+fAotCQkJCWNtZF9yZXNwLnJlc3BvbnNlX3YyLnNlbnNvcl9pZCA9PSBzaWQpKSwgNTAwLCAxMDAw
+MDAwMCkpCisJCQkJY21kX3Jlc3AucmVzcG9uc2VfdjIuc2Vuc29yX2lkID09IHNpZCkpLCAyMCwg
+MTAwMDAwMDApKQogCQlyZXR1cm4gY21kX3Jlc3AucmVzcG9uc2VfdjIucmVzcG9uc2U7CiAKIAly
+ZXR1cm4gU0VOU09SX0RJU0FCTEVEOwo=
+
+--b1=_9M0Vhq1ntf81ep0G7DF8KgweFjudy6pW4VkXqruQ
+Content-Type: text/plain; name=trace-excerpts.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=trace-excerpts.txt
+
+Rm9jdXNlZCBrcHJvYmUgdHJhY2UgZXhjZXJwdHMuIFRpbWVzdGFtcHMgYXJlIHNlY29uZHMgZnJv
+bSB0aGUgdHJhY2UgY2xvY2suCk9yaWdpbmFsIHRyYWNlIGxpbmVzIGJlbG93IGFyZSB1bmNoYW5n
+ZWQ7IHVucmVsYXRlZC9yZXBlYXRlZCBsaW5lcyBhcmUgb21pdHRlZC4KClByb2JlIGxvY2F0aW9u
+cyB3ZXJlIHZlcmlmaWVkIGJ5IGRpc2Fzc2VtYmxpbmcgdGhlIGluc3RhbGxlZCBhbmQgcmVidWls
+dCBtb2R1bGVzOgogIHN0YXJ0X2NvbW1hbmQ6IGFtZF9zdGFydF9zZW5zb3JfdjIrMHg1ZSwgaW1t
+ZWRpYXRlbHkgYmVmb3JlIGNvbW1hbmQgd3JpdGU7CiAgICAgICAgICAgICAgICAgY29tbWFuZD0l
+cjk6eDMyLCBkbWE9JXI4Ong2NAogIHBvbGw6IGFtZF9zZmhfd2FpdF9yZXNwb25zZV92MisweDY3
+LCBpbW1lZGlhdGVseSBhZnRlciByZXNwb25zZSByZWFkOwogICAgICAgIHJhdz0lZHg6eDMyLCBz
+ZW5zb3I9JXIxNDp1OCwgZXhwZWN0ZWQ9JWJwOnUzMgogIHN1Y2Nlc3M6IGFtZF9zZmhfd2FpdF9y
+ZXNwb25zZV92MisweDg5CiAgdGltZW91dDogYW1kX3NmaF93YWl0X3Jlc3BvbnNlX3YyKzB4OWUK
+ClJlc3BvbnNlIGRlY29kaW5nOiBzdGF0dXM9cmF3ICYgMzsgc3RhdGU9KHJhdyA+PiA0KSAmIDE1
+OwogICAgICAgICAgICAgICAgICBzZW5zb3IgSUQ9KHJhdyA+PiAxNikgJiA2My4gRW5hYmxlZD00
+OyBkaXNhYmxlZD01LgpPZmZzZXRzIGFyZSBzcGVjaWZpYyB0byB0aGUgdmVyaWZpZWQgZHJpdmVy
+IGJpbmFyaWVzLgoKTk9STUFMIFBPTExJTkcgKDUwMCB1cyk6IFNVQ0NFU1NGVUwgUkVJTklUSUFM
+SVpBVElPTiBBTkQgRkFJTEVEIFJFU1VNRQojIGVudHJpZXMtaW4tYnVmZmVyL2VudHJpZXMtd3Jp
+dHRlbjogMjAxMTEvMjAxMTEgICAjUDoxMgogICAgICAgICAgICBiYXNoLTczMjcgICAgWzAwMl0g
+Li4uMS4gIDExODkuOTg3MjQ1OiB0cmFjaW5nX21hcmtfd3JpdGU6IEJFR0lOX0JJTkQKICAgICBr
+d29ya2VyLzI6Mi04MjggICAgIFswMDJdIC4uWmZmICAxMTg5Ljk4NzgzNzogc3RhcnRfY29tbWFu
+ZDogKGFtZF9zdGFydF9zZW5zb3JfdjIrMHg1ZS8weDgwIFthbWRfc2ZoXSkgY29tbWFuZD0weGM4
+MDAxMDExIGRtYT0weGZmZmViMDAwCiAgICAga3dvcmtlci8yOjItODI4ICAgICBbMDAyXSAuLlpm
+ZiAgMTE4OS45ODc4NDE6IHBvbGw6IChhbWRfc2ZoX3dhaXRfcmVzcG9uc2VfdjIrMHg2Ny8weGMw
+IFthbWRfc2ZoXSkgcmF3PTB4MzUwIHNlbnNvcj0wIGV4cGVjdGVkPTQKICAgICBrd29ya2VyLzI6
+Mi04MjggICAgIFswMDJdIC4uWmZmICAxMTg5Ljk4ODM1NDogcG9sbDogKGFtZF9zZmhfd2FpdF9y
+ZXNwb25zZV92MisweDY3LzB4YzAgW2FtZF9zZmhdKSByYXc9MHgzNDAgc2Vuc29yPTAgZXhwZWN0
+ZWQ9NAogICAgIGt3b3JrZXIvMjoyLTgyOCAgICAgWzAwMl0gLi5aZmYgIDExODkuOTg4MzU2OiBz
+dWNjZXNzOiAoYW1kX3NmaF93YWl0X3Jlc3BvbnNlX3YyKzB4ODkvMHhjMCBbYW1kX3NmaF0pIHNl
+bnNvcj0wIGV4cGVjdGVkPTQKICAgICBrd29ya2VyLzI6Mi04MjggICAgIFswMDJdIC4uWmZmICAx
+MTg5Ljk4ODM2Nzogc3RhcnRfY29tbWFuZDogKGFtZF9zdGFydF9zZW5zb3JfdjIrMHg1ZS8weDgw
+IFthbWRfc2ZoXSkgY29tbWFuZD0weGM4MDExMDExIGRtYT0weGZmZmVhMDAwCiAgICAga3dvcmtl
+ci8yOjItODI4ICAgICBbMDAyXSAuLlpmZiAgMTE4OS45ODgzNzA6IHBvbGw6IChhbWRfc2ZoX3dh
+aXRfcmVzcG9uc2VfdjIrMHg2Ny8weGMwIFthbWRfc2ZoXSkgcmF3PTB4MzQwIHNlbnNvcj0xIGV4
+cGVjdGVkPTQKICAgICBrd29ya2VyLzI6Mi04MjggICAgIFswMDJdIC4uWmZmICAxMTg5Ljk4ODc0
+ODogcG9sbDogKGFtZF9zZmhfd2FpdF9yZXNwb25zZV92MisweDY3LzB4YzAgW2FtZF9zZmhdKSBy
+YXc9MHhhMDM0MCBzZW5zb3I9MSBleHBlY3RlZD00CiAgICAga3dvcmtlci8yOjItODI4ICAgICBb
+MDAyXSAuLlpmZiAgMTE4OS45ODkyNjQ6IHBvbGw6IChhbWRfc2ZoX3dhaXRfcmVzcG9uc2VfdjIr
+MHg2Ny8weGMwIFthbWRfc2ZoXSkgcmF3PTB4MTAzNDAgc2Vuc29yPTEgZXhwZWN0ZWQ9NAogICAg
+IGt3b3JrZXIvMjoyLTgyOCAgICAgWzAwMl0gLi5aZmYgIDExODkuOTg5MjY2OiBzdWNjZXNzOiAo
+YW1kX3NmaF93YWl0X3Jlc3BvbnNlX3YyKzB4ODkvMHhjMCBbYW1kX3NmaF0pIHNlbnNvcj0xIGV4
+cGVjdGVkPTQKICAgICBrd29ya2VyLzI6Mi04MjggICAgIFswMDJdIC4uWmZmICAxMTg5Ljk4OTI3
+NDogc3RhcnRfY29tbWFuZDogKGFtZF9zdGFydF9zZW5zb3JfdjIrMHg1ZS8weDgwIFthbWRfc2Zo
+XSkgY29tbWFuZD0weGM4MGYxMDExIGRtYT0weGZmZmZhMDAwCiAgICAga3dvcmtlci8yOjItODI4
+ICAgICBbMDAyXSAuLlpmZiAgMTE4OS45OTEzMDQ6IHN1Y2Nlc3M6IChhbWRfc2ZoX3dhaXRfcmVz
+cG9uc2VfdjIrMHg4OS8weGMwIFthbWRfc2ZoXSkgc2Vuc29yPTE1IGV4cGVjdGVkPTQKICAgICBr
+d29ya2VyLzI6Mi04MjggICAgIFswMDJdIC4uWmZmICAxMTg5Ljk5MTMxODogc3RhcnRfY29tbWFu
+ZDogKGFtZF9zdGFydF9zZW5zb3JfdjIrMHg1ZS8weDgwIFthbWRfc2ZoXSkgY29tbWFuZD0weGM4
+MTM5MDExIGRtYT0weGZmZmY5MDAwCiAgICAga3dvcmtlci8yOjItODI4ICAgICBbMDAyXSAuLlpm
+ZiAgMTE4OS45OTg1NzI6IHN1Y2Nlc3M6IChhbWRfc2ZoX3dhaXRfcmVzcG9uc2VfdjIrMHg4OS8w
+eGMwIFthbWRfc2ZoXSkgc2Vuc29yPTE5IGV4cGVjdGVkPTQKICAgICAgICAgICAgYmFzaC03MzI3
+ICAgIFswMDZdIC4uLjEuICAxMjE5Ljk4NTE0MjogdHJhY2luZ19tYXJrX3dyaXRlOiBJTklUSUFM
+SVpBVElPTl9DQVBUVVJFRF9CRUZPUkVfU1VTUEVORAogIGt3b3JrZXIvdTQ4OjEyLTU4NCAgICAg
+WzAwNV0gLi4uLi4gIDEyMzMuMTA0MzAwOiBzdGFydF9jb21tYW5kOiAoYW1kX3N0YXJ0X3NlbnNv
+cl92MisweDVlLzB4ODAgW2FtZF9zZmhdKSBjb21tYW5kPTB4YzgwMDEwMTEgZG1hPTB4ZmZmZWIw
+MDAKICBrd29ya2VyL3U0ODoxMi01ODQgICAgIFswMDVdIC4uLi4uICAxMjMzLjEwNDMwNzogcG9s
+bDogKGFtZF9zZmhfd2FpdF9yZXNwb25zZV92MisweDY3LzB4YzAgW2FtZF9zZmhdKSByYXc9MHgx
+MzAzNDAgc2Vuc29yPTAgZXhwZWN0ZWQ9NAogIGt3b3JrZXIvdTQ4OjEyLTU4NCAgICAgWzAwNV0g
+Li4uLi4gIDEyMzMuMTA0ODIyOiBwb2xsOiAoYW1kX3NmaF93YWl0X3Jlc3BvbnNlX3YyKzB4Njcv
+MHhjMCBbYW1kX3NmaF0pIHJhdz0weGEwMzQwIHNlbnNvcj0wIGV4cGVjdGVkPTQKICBrd29ya2Vy
+L3U0ODoxMi01ODQgICAgIFswMDJdIC4uLi4uICAxMjQzLjEwMDU4MDogcG9sbDogKGFtZF9zZmhf
+d2FpdF9yZXNwb25zZV92MisweDY3LzB4YzAgW2FtZF9zZmhdKSByYXc9MHhhMDM0MCBzZW5zb3I9
+MCBleHBlY3RlZD00CiAga3dvcmtlci91NDg6MTItNTg0ICAgICBbMDAyXSAuLi4uLiAgMTI0My4x
+MDEwMjk6IHBvbGw6IChhbWRfc2ZoX3dhaXRfcmVzcG9uc2VfdjIrMHg2Ny8weGMwIFthbWRfc2Zo
+XSkgcmF3PTB4YTAzNDAgc2Vuc29yPTAgZXhwZWN0ZWQ9NAogIGt3b3JrZXIvdTQ4OjEyLTU4NCAg
+ICAgWzAwMl0gLi4uLi4gIDEyNDMuMTAxNTc0OiBwb2xsOiAoYW1kX3NmaF93YWl0X3Jlc3BvbnNl
+X3YyKzB4NjcvMHhjMCBbYW1kX3NmaF0pIHJhdz0weGEwMzQwIHNlbnNvcj0wIGV4cGVjdGVkPTQK
+ICBrd29ya2VyL3U0ODoxMi01ODQgICAgIFswMDJdIC4uLi4uICAxMjQzLjEwMTU3ODogdGltZW91
+dDogKGFtZF9zZmhfd2FpdF9yZXNwb25zZV92MisweDllLzB4YzAgW2FtZF9zZmhdKSBzZW5zb3I9
+MCBleHBlY3RlZD00CiAga3dvcmtlci91NDg6MTItNTg0ICAgICBbMDAyXSAuLi4uLiAgMTI0My4x
+MDE1OTI6IHN0YXJ0X2NvbW1hbmQ6IChhbWRfc3RhcnRfc2Vuc29yX3YyKzB4NWUvMHg4MCBbYW1k
+X3NmaF0pIGNvbW1hbmQ9MHhjODAxMTAxMSBkbWE9MHhmZmZlYTAwMAogIGt3b3JrZXIvdTQ4OjEy
+LTU4NCAgICAgWzAwMl0gLi4uLi4gIDEyNDMuMTAxNTk1OiBwb2xsOiAoYW1kX3NmaF93YWl0X3Jl
+c3BvbnNlX3YyKzB4NjcvMHhjMCBbYW1kX3NmaF0pIHJhdz0weGEwMzQwIHNlbnNvcj0xIGV4cGVj
+dGVkPTQKICBrd29ya2VyL3U0ODoxMi01ODQgICAgIFswMDJdIC4uLi4uICAxMjQzLjEwMjAyOTog
+cG9sbDogKGFtZF9zZmhfd2FpdF9yZXNwb25zZV92MisweDY3LzB4YzAgW2FtZF9zZmhdKSByYXc9
+MHhhMDM0MCBzZW5zb3I9MSBleHBlY3RlZD00CiAga3dvcmtlci91NDg6MTItNTg0ICAgICBbMDAy
+XSAuLi4uLiAgMTI0My4xMDI1NzQ6IHBvbGw6IChhbWRfc2ZoX3dhaXRfcmVzcG9uc2VfdjIrMHg2
+Ny8weGMwIFthbWRfc2ZoXSkgcmF3PTB4YTAzNDAgc2Vuc29yPTEgZXhwZWN0ZWQ9NAogIGt3b3Jr
+ZXIvdTQ4OjEyLTU4NCAgICAgWzAwMl0gLi4uLi4gIDEyNDMuMTAzMDI4OiBwb2xsOiAoYW1kX3Nm
+aF93YWl0X3Jlc3BvbnNlX3YyKzB4NjcvMHhjMCBbYW1kX3NmaF0pIHJhdz0weDEwMzQwIHNlbnNv
+cj0xIGV4cGVjdGVkPTQKICBrd29ya2VyL3U0ODoxMi01ODQgICAgIFswMDJdIC4uLi4uICAxMjQz
+LjEwMzAzMjogc3VjY2VzczogKGFtZF9zZmhfd2FpdF9yZXNwb25zZV92MisweDg5LzB4YzAgW2Ft
+ZF9zZmhdKSBzZW5zb3I9MSBleHBlY3RlZD00CiAga3dvcmtlci91NDg6MTItNTg0ICAgICBbMDAy
+XSAuLi4uLiAgMTI0My4xMDMwNDQ6IHN0YXJ0X2NvbW1hbmQ6IChhbWRfc3RhcnRfc2Vuc29yX3Yy
+KzB4NWUvMHg4MCBbYW1kX3NmaF0pIGNvbW1hbmQ9MHhjODBmMTAxMSBkbWE9MHhmZmZmYTAwMAog
+IGt3b3JrZXIvdTQ4OjEyLTU4NCAgICAgWzAwMl0gLi4uLi4gIDEyNDMuMTA3MDI5OiBzdWNjZXNz
+OiAoYW1kX3NmaF93YWl0X3Jlc3BvbnNlX3YyKzB4ODkvMHhjMCBbYW1kX3NmaF0pIHNlbnNvcj0x
+NSBleHBlY3RlZD00CiAga3dvcmtlci91NDg6MTItNTg0ICAgICBbMDAyXSAuLi4uLiAgMTI0My4x
+MDcwNDI6IHN0YXJ0X2NvbW1hbmQ6IChhbWRfc3RhcnRfc2Vuc29yX3YyKzB4NWUvMHg4MCBbYW1k
+X3NmaF0pIGNvbW1hbmQ9MHhjODEzOTAxMSBkbWE9MHhmZmZmOTAwMAogIGt3b3JrZXIvdTQ4OjEy
+LTU4NCAgICAgWzAwMl0gLi4uLi4gIDEyNDMuMTEyNTY1OiBzdWNjZXNzOiAoYW1kX3NmaF93YWl0
+X3Jlc3BvbnNlX3YyKzB4ODkvMHhjMCBbYW1kX3NmaF0pIHNlbnNvcj0xOSBleHBlY3RlZD00CgpG
+QVNUIFBPTExJTkcgKDIwIHVzKTogU1VDQ0VTU0ZVTCBSRVNVTUUKIyBlbnRyaWVzLWluLWJ1ZmZl
+ci9lbnRyaWVzLXdyaXR0ZW46IDM5MS8zOTEgICAjUDoxMgogICBrd29ya2VyL3U0ODo5LTk1MTUg
+ICAgWzAwNV0gLi4uLi4gIDE4MDAuNzAwMTk1OiBzdGFydF9jb21tYW5kOiAoYW1kX3N0YXJ0X3Nl
+bnNvcl92MisweDVlLzB4ODAgW2FtZF9zZmhdKSBjb21tYW5kPTB4YzgwMDEwMTEgZG1hPTB4ZmZm
+ZTIwMDAKICAga3dvcmtlci91NDg6OS05NTE1ICAgIFswMDVdIC4uLi4uICAxODAwLjcwMDIwMjog
+cG9sbDogKGFtZF9zZmhfd2FpdF9yZXNwb25zZV92MisweDY3LzB4YzAgW2FtZF9zZmhdKSByYXc9
+MHgxMzAzNDAgc2Vuc29yPTAgZXhwZWN0ZWQ9NAogICBrd29ya2VyL3U0ODo5LTk1MTUgICAgWzAw
+NV0gLi4uLi4gIDE4MDAuNzAwMjM2OiBwb2xsOiAoYW1kX3NmaF93YWl0X3Jlc3BvbnNlX3YyKzB4
+NjcvMHhjMCBbYW1kX3NmaF0pIHJhdz0weDEzMDM0MCBzZW5zb3I9MCBleHBlY3RlZD00CiAgIGt3
+b3JrZXIvdTQ4OjktOTUxNSAgICBbMDA1XSAuLi4uLiAgMTgwMC43MDAyNjQ6IHBvbGw6IChhbWRf
+c2ZoX3dhaXRfcmVzcG9uc2VfdjIrMHg2Ny8weGMwIFthbWRfc2ZoXSkgcmF3PTB4MzQwIHNlbnNv
+cj0wIGV4cGVjdGVkPTQKICAga3dvcmtlci91NDg6OS05NTE1ICAgIFswMDVdIC4uLi4uICAxODAw
+LjcwMDI2Njogc3VjY2VzczogKGFtZF9zZmhfd2FpdF9yZXNwb25zZV92MisweDg5LzB4YzAgW2Ft
+ZF9zZmhdKSBzZW5zb3I9MCBleHBlY3RlZD00CiAgIGt3b3JrZXIvdTQ4OjktOTUxNSAgICBbMDA1
+XSAuLi4uLiAgMTgwMC43MDAyODI6IHN0YXJ0X2NvbW1hbmQ6IChhbWRfc3RhcnRfc2Vuc29yX3Yy
+KzB4NWUvMHg4MCBbYW1kX3NmaF0pIGNvbW1hbmQ9MHhjODAxMTAxMSBkbWE9MHhmZmZlMTAwMAog
+ICBrd29ya2VyL3U0ODo5LTk1MTUgICAgWzAwNV0gLi4uLi4gIDE4MDAuNzAwMjg1OiBwb2xsOiAo
+YW1kX3NmaF93YWl0X3Jlc3BvbnNlX3YyKzB4NjcvMHhjMCBbYW1kX3NmaF0pIHJhdz0weGEwMzQw
+IHNlbnNvcj0xIGV4cGVjdGVkPTQKICAga3dvcmtlci91NDg6OS05NTE1ICAgIFswMDVdIC4uLi4u
+ICAxODAwLjcwMDMyMzogcG9sbDogKGFtZF9zZmhfd2FpdF9yZXNwb25zZV92MisweDY3LzB4YzAg
+W2FtZF9zZmhdKSByYXc9MHhhMDM0MCBzZW5zb3I9MSBleHBlY3RlZD00CiAgIGt3b3JrZXIvdTQ4
+OjktOTUxNSAgICBbMDA4XSAuLi4uLiAgMTgwMC43MDAzNTU6IHBvbGw6IChhbWRfc2ZoX3dhaXRf
+cmVzcG9uc2VfdjIrMHg2Ny8weGMwIFthbWRfc2ZoXSkgcmF3PTB4MTAzNDAgc2Vuc29yPTEgZXhw
+ZWN0ZWQ9NAogICBrd29ya2VyL3U0ODo5LTk1MTUgICAgWzAwOF0gLi4uLi4gIDE4MDAuNzAwMzU4
+OiBzdWNjZXNzOiAoYW1kX3NmaF93YWl0X3Jlc3BvbnNlX3YyKzB4ODkvMHhjMCBbYW1kX3NmaF0p
+IHNlbnNvcj0xIGV4cGVjdGVkPTQKICAga3dvcmtlci91NDg6OS05NTE1ICAgIFswMDhdIC4uLi4u
+ICAxODAwLjcwMDM3NTogc3RhcnRfY29tbWFuZDogKGFtZF9zdGFydF9zZW5zb3JfdjIrMHg1ZS8w
+eDgwIFthbWRfc2ZoXSkgY29tbWFuZD0weGM4MGYxMDExIGRtYT0weGZmZmUwMDAwCiAgIGt3b3Jr
+ZXIvdTQ4OjktOTUxNSAgICBbMDA4XSAuLi4uLiAgMTgwMC43MDE5MzY6IHN1Y2Nlc3M6IChhbWRf
+c2ZoX3dhaXRfcmVzcG9uc2VfdjIrMHg4OS8weGMwIFthbWRfc2ZoXSkgc2Vuc29yPTE1IGV4cGVj
+dGVkPTQKICAga3dvcmtlci91NDg6OS05NTE1ICAgIFswMDhdIC4uLi4uICAxODAwLjcwMTk0MTog
+c3RhcnRfY29tbWFuZDogKGFtZF9zdGFydF9zZW5zb3JfdjIrMHg1ZS8weDgwIFthbWRfc2ZoXSkg
+Y29tbWFuZD0weGM4MTM5MDExIGRtYT0weGZmZmRmMDAwCiAgIGt3b3JrZXIvdTQ4OjktOTUxNSAg
+ICBbMDAwXSAuLi4uLiAgMTgwMC43MDg0NTA6IHN1Y2Nlc3M6IChhbWRfc2ZoX3dhaXRfcmVzcG9u
+c2VfdjIrMHg4OS8weGMwIFthbWRfc2ZoXSkgc2Vuc29yPTE5IGV4cGVjdGVkPTQKCkJvdGggZnVs
+bCB0cmFjZSBidWZmZXJzIHJldGFpbmVkIGV2ZXJ5IHdyaXR0ZW4gZW50cnkuIFByb2JlLXByb2Zp
+bGUgY291bnRlcnMKcmVwb3J0ZWQgemVybyBtaXNzZWQgcHJvYmVzLiBGYXN0LXBvbGxpbmcgY2Fw
+dHVyZSByZXBvcnRlZCB6ZXJvIHRpbWVvdXRzLgo=
+
+--b1=_9M0Vhq1ntf81ep0G7DF8KgweFjudy6pW4VkXqruQ--
 
