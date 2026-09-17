@@ -1,168 +1,111 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-wr2-f36.google.com (mail-wr2-f36.google.com [74.125.225.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045E8358D27
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0285F4B7A41
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:39:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659545; cv=none; b=dSIWAVxvVHk1Y/xNSDpwg2SgdHnJh4GB8+lscfugCcmJtPJvRDYwpukjvaakZfrSuFb5OsIrmmd3HeB91+U2iZgtOl3n8hORvQ7i+dmUnzxjQHnjzuCSuBkWO+E3V2tHZwBbPxZbFhPADuPmKOTMTEB2KKU2AYi8c6/rBigP30w=
+	t=1789659550; cv=none; b=E8+w1kN67v67rYWYNITYBR71uO6acNZdOybAZW464VcJ37CYsiz6vt+BT7zYBdMcI+fsXquG+TOJ9ap5WM0SGSNfem/+Za4HHV3mC7/ymTZyhjeuEJkTen0N6JKROUAJO7oRqPyX6bRIklvvWqG/P2C6e9A2aYnqsyoroW7bwd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659545; c=relaxed/simple;
-	bh=273R7P4iV55BuQ0Vv3fFNp7dBDML9cdOiqCSVSzG80Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HmaD9r24ypqYhHzJhuKNo9kFPm+na8vu/1zwvkX9qsnk3YHbRtLPdjm+OzvRRFf03sK4zbVEeSq4AbTN38iBp0ywnJIDQAM2ADn6ZZ8476wdiTCdwRu6vCoQp0CATLPAgUMCxXm24lP65bmXz3TywVGDd9P3uOJTDqN5lkT6npk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=XrzjwFf7; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1789659550; c=relaxed/simple;
+	bh=tL1lU3S6y66CYudldJj/uj6mbDDp8Lup5C09IlTTtlc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=b3QL7DMTJIyXCFdM8d9aR/GqA5AcbAmGLNioDxQ8TATtGplqate9xGu9rWDfPr36dM9mAFUVb1QwWTHT1Hvmu9owE5jZOYiYcoWiiWzF1Ds1XiWvOtjPg6rMbKm7GN7ZOaCRCPh0QF/KeBr5heTy/gcgATlqq3rHS8Wx2swPzqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dITHWZII; arc=none smtp.client-ip=74.125.225.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="XrzjwFf7"
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93a2dea320fso93650385a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:38:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dITHWZII"
+Received: by mail-wr2-f36.google.com with SMTP id ffacd0b85a97d-4843c3ee4cfso580591f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:39:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1789659534; x=1790264334; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789659537; x=1790264337; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jc5S0ginpT++NJYPgFJw0iizISYmUmx4tHS2Km60SDM=;
-        b=XrzjwFf70plw/4t5bMgrM7fpJ87WEKVY38wL7TJZNa1kXncLxwa2bNpAZIUfxg6reE
-         WAYvgciPNmu6Xv/1Unc4HPt2EbF80ziBUR2OXV5vSwgcVV06OFATBIZiFIZAM7dsvV/K
-         9tki7a1S5dz8OsXUyVmjT8odBXntGDN/27KQNAb5fpR+zqDQ+llSgozPzD/vD+u/gXF/
-         V9Ngzvo3y8VybtLzEDqn7G4cMfNBMkUBD8voV8dD5ncoCLFbAdo2ht2mUBZNWb8M8sOa
-         ETnhA376RRwdnwdKwUvnChTIho2vM5sHE6vhfXvwJ/KkEY0o13IuASIz//EKOAdbPO9L
-         6BDw==
+        bh=tL1lU3S6y66CYudldJj/uj6mbDDp8Lup5C09IlTTtlc=;
+        b=dITHWZIIOXYOGvtQ7uv4SXeffJmzqUnQPhv2Uj+bOODsz72IkLCgMU7zwkN7FeI+dO
+         hfU99AIIAaXivM9mjUCJpGL1hY+8u3VKWgMJLdpxjZ3xQb8E1+3IESxigo/YKKeVFQ7r
+         TOnFk47UzukMreeoY2IKO7Vp4WtqB8Ri3iuILcTW+IXzLWTs+LrPGnKuAO1KjlB/A3r4
+         QbiZ/EiP7ncRnU/4WRO/IBG+Sed+rTmZxdVv1ZeZULsN47NUANA0gkrFQfDCcB2chWJQ
+         OoVjyCOOO5+pA5Fr6VC/loA5fevaJJgAcbmYPXb7Kks6UsRKrsT3oUSYsrO6OBkMaJUh
+         RMwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789659534; x=1790264334;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789659537; x=1790264337;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jc5S0ginpT++NJYPgFJw0iizISYmUmx4tHS2Km60SDM=;
-        b=qT4qFO49QGO4bEzWH8vefuNYCDF7PICxI3mn+j40j59a6rWlqFR2nJdlBazDfoUrUk
-         RVjGDswonThApqClQingC1sf/yKfBbRY6BlqgMjQWwcSue2BdlYhj2hvr1FxbOPmazw/
-         Ukh25x6g+ZsAwP36VshJtwz1DNAqS2WbKphWtnMYI6GdB87ERUCNLttMNGLvvlsMg+I3
-         4+9J+S4M2xTxQzYhVd41hMaEXeHemRs+7/CdNuCHE6esqOBJFcUFFlQZ+xHySmlq0rc0
-         5oI8/wXsimjVVEFAm7lh0SuEGEz6TuozFDy15pacgw/p+bjVBL5C6m9HtbyC/y1z9baZ
-         UbCA==
-X-Forwarded-Encrypted: i=1; AKwUvBxI0CR31cUhKc3ehe5lBmbQiiEITmhbry91XXdO83TS2yu1/V+NS3eI5CxzBDyRT9ZH6e37OLB1PTHh30M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kW7df2vEfNjGF2TBaRsW35H7oq7qOJ5jo0SmTx1nEP+6AygX3W
-	nRZSMS/4l/sbqWI76plW+Tyk7Gs0wSL0rRD5+7HCxcndYDqi9Oqf4mme0UgAWDFktw==
-X-Gm-Gg: AYBFou0RMasFjQzw7R2/9n9Gnh6RJmT3yJ3WyPSHAEvdXbnZB4GHxchJ2O2YJEPAugM
-	/ywEPsj3/MByJZESqp/2IrvokgTsJFIJFwTEvvkcaoROuIFdO25keO9o7aH8HqqYtk/I4D16eMn
-	cUyBWoa7Ula/GB+cbpdhDwbBWXUqXOtDU1sa0iN8LPgdoVRMZAWys8vgwXGmCmesP2OPYhUkS4p
-	oSt6c9avjxV0/fckSK+lJUr4vO+7ob8Z27IevLJ4B4HbybkK0MomyIKq9o88fSzZhUzdgycm8zm
-	9dBlbnE54hTdxBJKAt/G8kIO09sTc7pap7apH6oYoFv3j25Jn+JF3sAnikMxgHVfMDg959loan0
-	71ualr2WDtRjLPCB4MmDbaH+yq0LVg3ocRMqIIWCtOZyRkrNDdAGDDv9RcvgIrMfzbw4OS2WdJz
-	Wbgf1yVdYYDpKmbr8JNL42UpW8LT50PDhnP5+i1oxojRMU5Ees7A6amktdwR3eyUQ1ZvMLXn54
-X-Received: by 2002:a05:620a:254f:b0:939:57ca:7e0a with SMTP id af79cd13be357-93bb76a7bb1mr1296427185a.7.1789659533820;
-        Thu, 17 Sep 2026 08:38:53 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b781dfde3sm498388785a.12.2026.09.17.08.38.52
+        bh=tL1lU3S6y66CYudldJj/uj6mbDDp8Lup5C09IlTTtlc=;
+        b=GckdL9uN9hDFi5P6tl0K+gybNC0Xis7+H1zTI4mlbwubE+3zXo9qEUmDvGogYsPwkr
+         cfRAso9J/RB7XsHMsg9Qz6Dn4mybwRFsN5uLMCmfm5ysNWVMSUQngaNkStFaxplnnyqk
+         +62kJ0Hl2EN7XH4F+jUXpMVc/IvQMYzf07HDs1NwxvJUfl8vGA60CQ5Flc7tQgc3Md27
+         ycVTJQpQTiUYdBdOLLzuZw8W6vXo+zkZbkF4Mh3+4vUF4iFD1nmWcqpsDTOUTCkS9kR8
+         bpmYLm1eXpyp69XuhT89UEK851EDonAcTjlQZetvyw8Mv3+6qn6B3AYaxXuuI+ksppi7
+         e0ZA==
+X-Forwarded-Encrypted: i=1; AKwUvBxWNH69qqgqbjO5QjbKXey9xGzt+bFrUfR6W1ChmOOqpiSn3dsNnRySN4hpsykMWpvoew9GrCd0DX15+qE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m29ttD8DYScuGNVLWsIjrtmAr383e+T+2cLpHb+aa35dIvkrCA
+	Q59nGiRddWLeCv9Ul/axvb+RRUDxxg26LK1Li4BW8KizBNVz+Bjc9oQm
+X-Gm-Gg: AYBFou0VDfuD3U+zm6/L4ehTzI9q6on7Ewz5XPxfNWpE68R1Xv1Zmi+iqKmdJv38dlj
+	qqfibaTk25CHAcfvhCvAs6FXCHZPLt5mfLosSxXBEwrHT8kAdjamM6qK9hG5f2DpqDLxLfyERoQ
+	bmJotebbOnl9DN6xDRxjtdj1YEdoQlORAe0+r28K0Mjj7Eomj1O681SCAVkZpc/0dfyC1ex0Z/N
+	pdcpfb2ro1sRs77wb6K5L6iwZXa2fzzj7Pfcshs28T5RoxWfdZAZ9bpl7Qltz/FO19/yfuiA4TK
+	97T37hR/IE90wQsAbUQ0Wkzc81wCBomvWYiAMh1+PLNfoDeNleX8Hb3qAjlTaeYEgLyLhJIQ+gv
+	RaKkeAlbpczuRjnBzFD8F8DW0JcJbMTNDpmnzK4qXUitgjJ1/8vmJ+UkX5KLSXhZnvJbCGRXurj
+	pfcMH6GR5+EXC2mtzEFbEA9Y6+yie2bwKXF+Eu84JfDBTLZSWJJOWFZX9xHOEOgWTdFbE/pt69J
+	Ii7wVGl8nHenbASOH8=
+X-Received: by 2002:a05:6000:644:b0:487:4ba:97f2 with SMTP id ffacd0b85a97d-4870cf27ad0mr9119569f8f.3.1789659537241;
+        Thu, 17 Sep 2026 08:38:57 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.113])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4870bf462cesm15872185f8f.37.2026.09.17.08.38.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:38:53 -0700 (PDT)
-Date: Thu, 17 Sep 2026 11:38:49 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Minseo Kim <neck3922@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrey Konovalov <andreyknvl@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, syzkaller@googlegroups.com
-Subject: Re: [BUG] usb: gadgetfs: KASAN null-ptr-deref and intermittent UAF
- in ep_aio_cancel()
-Message-ID: <9c07ce98-a5bf-4bcc-9304-e7f5e1747842@rowland.harvard.edu>
-References: <cec9b2a0-3454-45a6-b128-51d708cc8cbc@rowland.harvard.edu>
- <CAFmvuTUwGr-=joWrsYMu-Ra3XpHTe_HFhaY5inJnhg=e5b=1PA@mail.gmail.com>
- <1a93bb26-9ded-4b71-b409-62896a2681a6@rowland.harvard.edu>
- <CAFmvuTUogd8MyQM02VpM7iHaopzrOoex+X-McQE28X1fgb_AeQ@mail.gmail.com>
- <0b6b13ff-789e-4ba4-9765-1052a154ef27@rowland.harvard.edu>
- <CAFmvuTXeg2LykJa060WUYAhhQpdwGV74VFkMb6Wu5zjyqWzxmw@mail.gmail.com>
- <f42b44ef-b083-4976-bf06-f2a21098474b@rowland.harvard.edu>
- <CAFmvuTUZ+iP313qz5J5vaT7QGz2y-tHQ6XMrq2tnvStZqXDECg@mail.gmail.com>
- <7a87e293-633c-4100-aa8d-91560ba5e5c5@rowland.harvard.edu>
- <CAFmvuTU9xfCWFaoXzE6J0uC6y6eCZ43CRg+JWkLV3dgLNYu5Cw@mail.gmail.com>
+        Thu, 17 Sep 2026 08:38:56 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Dietmar Eggemann <dietmar.eggemann@arm.com>
+Cc: Ananthu C V <ananthu.cv@oss.qualcomm.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Beata Michalska <beata.michalska@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] arch_topology: use the boost frequencies for capacity_freq_ref
+Date: Thu, 17 Sep 2026 17:38:47 +0200
+Message-ID: <178965952769.2757.5034972953349001664@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <bddc9273-fe02-4984-bfe9-5078e9e6e111@arm.com>
+References: <bddc9273-fe02-4984-bfe9-5078e9e6e111@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFmvuTU9xfCWFaoXzE6J0uC6y6eCZ43CRg+JWkLV3dgLNYu5Cw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 11:02:13PM +0900, Minseo Kim wrote:
-> Hi Alan,
-> 
-> Thank you for the patch.
-> 
-> > Can you repeat these tests with the patch below applied on top
-> > of the other two?  It should cause usb_gadget_unregister_driver() to
-> > wait until ep_aio_complete() returns (the actual wait loop is in
-> > dummy-hcd's dummy_udc_async_callbacks() routine).
-> 
-> Yes. With the new dummy_hcd change applied on top of the two GadgetFS
-> patches, usb_gadget_unregister_driver() waited in
-> dummy_udc_async_callbacks() until the held ep_aio_complete() callback
-> returned in both the normal transfer path through dummy_giveback() and
-> the direct giveback path in dummy_queue().
-> 
-> I used upstream v7.2-rc1 as the base. Because dummy_giveback() is not
-> present in v7.2-rc1, both matched test trees also included the changes
-> from upstream commit d5e5cd3654d2b5359a12ea6586120f05b28634ee
-> ("usb: gadget: dummy_hcd: prevent fifo_req reuse during giveback").
+Hi Dietmar,
 
-Okay.  I recently rebased my kernel tree to v7.3-rc3, so a few 
-discrepancies are to be expected.
+On Thu, Sep 17, 2026, Dietmar Eggemann wrote:
+> Ah, you want to fix this for 'frequency table' drivers.
+>
+> IMHO,
+> https://lore.kernel.org/r/20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com
+> is trying the same at the moment.
 
-> In the normal transfer case, I held ep_aio_complete() immediately after
-> iocb->ki_complete(). Without the new dummy_hcd change,
-> dummy_udc_async_callbacks(false) saw callback_usage equal to 0, and the
-> ep0 close returned while the callback was still held. With the change,
-> it saw callback_usage equal to 1, and the ep0 close task remained blocked
-> in dummy_udc_async_callbacks(). The relevant part of the blocked close
-> task's stack was:
-> 
->     dummy_udc_async_callbacks [dummy_hcd]
->     gadget_unbind_driver
->     device_remove
->     device_release_driver_internal
->     driver_detach
->     bus_remove_driver
->     driver_unregister
->     usb_gadget_unregister_driver
->     dev_release [gadgetfs]
+Thanks, I had missed that series. Please drop my 2/2 in favour of it.
 
-That is just as it should be.
+Patch 1/2 here is still needed, and becomes a prerequisite for his series
+on this SoC: with the reference at 4723200 kHz from boot,
+arch_freq_get_on_cpu() wraps and cpuinfo_avg_freq reads about 524283 kHz
+unless the multiply stays in 64 bits.
 
-dummy-hcd emulates a UDC driver.  With a real driver, givebacks would be 
-triggered by a device interrupt (signalling completion of a request) and 
-the synchronize_irq() call in gadget_unbind_driver() would wait until 
-outstanding calls to the IRQ handler (and thus the completion handler) 
-had completed.  But dummy-hcd doesn't have real hardware, so instead of 
-device interrupts it relies on timer interrupts and its 
-dummy_ucd_async_callbacks() routine is supposed to emulate 
-synchronize_irq().  Thus it should wait until all outstanding completion 
-handler calls have completed.
+I will test his series on the Yoga Slim 7x Gen 11 and reply there.
 
-> After I released the callback gate, ep_aio_complete() returned,
-> callback_usage fell to 0, and the same close completed. I observed this
-> sequence in four separate runs with the new change.
-> 
-> To exercise the other accounting site, I separately tested the direct
-> giveback path for a 64-byte write in dummy_queue(). With the change, the
-> close task again waited in dummy_udc_async_callbacks() with callback_usage
-> equal to 1. In the matched control, dummy_udc_async_callbacks() returned
-> with callback_usage at 0, and gadgetfs_unbind() then remained in its
-> existing udc_usage wait until I released the callback gate.
-
-I wonder which part of the code was holding udc_usage above 0?
-
-> I also repeated the case where the request was still on the endpoint
-> queue when usb_ep_disable() began. Neither usb_ep_disable() nor the ep0
-> close returned while the completion callback was held. After I released
-> the callback gate, io_getevents() returned one completion with
-> res=-ESHUTDOWN, and a subsequent check returned no additional completion
-> event.
-
-It all sounds good.  I will submit the patches, with your Signed-off-by: 
-added to this one also, if that's okay with you.
-
-Alan Stern
+Thanks,
+Oleg
