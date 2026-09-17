@@ -1,81 +1,75 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012010.outbound.protection.outlook.com [40.107.209.10])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010060.outbound.protection.outlook.com [52.101.201.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B4F370AFB;
-	Thu, 17 Sep 2026 18:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3973AA4E8;
+	Thu, 17 Sep 2026 18:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.60
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789669618; cv=fail; b=C4CeO3pyrrke01GC9ciQdo5twkBnkFcntuQtaI0KMxCORjQuitl5sFs2OZ5H8tbwRIXLgYr7MdOdJTWtlRxczQotbxy1hEuM84r7BIR4Kf0VjgBQkpLKVcQe89onVrpfc7qiq5L/EATZXkvB5bKqPBnxLKjv9MsZASo7ArbcrcM=
+	t=1789669621; cv=fail; b=Vf5xE0o/rG4ukoo5j3x5MbCMzBELjGYIhRUAwN1UCBYW6TwCZnKYCnF1P2Rod74LPd4sJbujR3C9hHWbWzQFERtGGXUzfH+NYA4ubAWXnth2GsKpRthIB5LvFy/6mQK8KpOif74/uOUouSBV/wTSM/Wk+GZ/+O5xo+58ExxsY5w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789669618; c=relaxed/simple;
-	bh=kdz5oC1fUXC+q9so7nTIOoDK9PPYa5LRf/Jj1Cb9HJI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=O2M/L2AOatzgjzKeN4dh/IHYqiHtFIOt3ni+siRY942GROyha9lqwvKn2U91tfZhSx1WZ5dKauMjHQkGiRWx0A4sb/cx3wrZ15K42zd/5ahErUHKICl9eCNXJaDWRM7OCNtuGQ4OtOG9xGfFR/K3ieTAhGooN3POncDh5iLo5R0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=neyB3KZL; arc=fail smtp.client-ip=40.107.209.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1789669621; c=relaxed/simple;
+	bh=zfNkGNa5zIkLF1sgRHgRErQNt3XEM9DVbK4vzSDMP7E=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=DPMP2NuQqTgj03SgfzPK15hmARP3aYC+EsN/ucyh/k0r6uipvj6I/oRI4JGuhh8pRa8onFT6B35hJgtkp7GXbsaAGls77ykOy0LoxaOSCc3P1wqDY8O/WWZPbaCQDkukqasIEBqauOiPBP/hVReA8OdCk47vWm50fO8l0DSRyfE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=A7pj6WGf; arc=fail smtp.client-ip=52.101.201.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="neyB3KZL"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="A7pj6WGf"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c/NBBrsA07E9K8JFz1zhUR+RZ1RAyfuRtjf8wP5WEgh/uDVPIJH8xE1NHST6Wdn3RI7inmQe/pv+obGGJBSbC/mUsSP1w/A8TWYXK/8Y7xmpbV6HIHUvB5WoALELlM+93ordF9lfjW6d6paVnH0MixYlzkyNGEl8QgHT1siYovHKlq8/pgyrxY8+V3Yp2nI2/fIm+CQfUSochq/82f1IfuyahXDkC9qHfs1zBRDednCMJ377L/wreDORKvhdAvexzpGNK3bgcT7nO+DOxHPQ7Jar3hhRODakRXkTRnL7CKLAlsA3Mn1ce7yVIICCajGl2H+dlhdtR27Mqiqw7WsVjg==
+ b=q7FW/XGI6jYvPdgqfQckh5Qr5AqgQ4JcIBzWpy1q59AYWYvMGa2TdsF8gPC4FrqyJaY+ErFtxqne76c4dtANIwBwb+aAJrpoiJ/APkpQ7BsBYkXSErYwcnvjdV6U+Mi0bGncKHD3XkH4bf7CGNPBOKkXJwPd01QmPLFCGuN/CVVn59t5Y2uC2CXbdFwUpwpsfOhCWA5CI45R+TjzpPAiBcKKnMoMTrQ+6ARBu5wTC57KJ3juCyLlX9VIahxqkWyeX41eIJbygWfBGuhUQCHdMlh/msX5an19R3amazY8eg3rehJpcnz/G1YjKZxN7kRHnXWBVf07+C8jSNLMchdG0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bhjICdduYnGsnXLaQEioNFx0GnKLT3SZilYpLWhyQrw=;
- b=NszfkqgXPFjGVSm8RLkLVIKmwUm9lLQMQyQ5jmreN/4wcetHRrTyr10362oSfcaKjB0sixR/YvJ+PE/Sdibvk7Lo2KrDw4mJdOtzYVwVGrRRhiWEEGVgsS6MjwXk/LTvE4HfpEuG827zAe8uflJxFMeD4PgEbETEMStUoyxFd3tuplRLup1mHjrOLmgYn5Py9PbCj5D0rsDRZqVkExqoA0DbKLBtkW3hKcmBHilWx2sXnJ1VxR0pDjzWAaW3dS78MEZ2h6vZqSHWOHCBis9645owNTAYKml/7WIqc2BOLX1QIOUo08uHQcdl/R73eu2IEGhtcYeZjrLbmjucTbFvNA==
+ bh=aBRjkuQkjwRkF520gfBvh52lLXx3fW8ngecQzD6xeqU=;
+ b=lHnAdihDmS6nJLtIxWv4TjcXuiRvnwbErf9QBhX3r807q7UUhuuVhuD5M/IjxOKIR3eCV/o8xAbQ6hy9aMY9h/1oGGzN2rpKJ+yswdeROt95HyYSYZAsVLQPyaoAHBXvpzi+7/3Hjv2JfCbWr/4VR7ZsVOr29MupsZsEVbXocUGmYCgO1g55Vyxru/PfWme0zbCbkH4lFjrQhUM7Dp4bmAt6fzppGedII2Z16/XuKSxCfK/GmpETTxrnRPCH6j49kbq3riCEr2g/dwFnBPTYVSRN5GAhZYGNo9r9YVkgVhSULn0OGUSqZ1/4QW4XiNmdfryJFtikJfrSo8gDlGsgoA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bhjICdduYnGsnXLaQEioNFx0GnKLT3SZilYpLWhyQrw=;
- b=neyB3KZLXO1nx7L+GUUN0Av21/VxxIH85+PsFQN7/lpwE68YpbXcBNKT3yg5QZO+fqo+p0jvTf9EEerppQh4DP11LBhjjYJVdMb1Yzbu/hC7unAbTBCFMReiTY+WMJ0649WfwSQ7t0iE4HgQvDPJcId16JKjsD/yJZ8jpXZmsCGiZjbRphk7CjvD2L9zBZ/ahkjL07jYErsf2Hng8ouTAaO6z/XB1VemZsqGR9w/txT2UkM1hfVolcZrkChW/u6rAMUUdlwmIUYSbpfQU8Mz10CgDPwVW6Cv2NWpnmyC2dMe2Y7C5jXk50IwhSblGrYCRUnS/zzLAAxpb+abP3Xsgg==
+ bh=aBRjkuQkjwRkF520gfBvh52lLXx3fW8ngecQzD6xeqU=;
+ b=A7pj6WGfBfCfWNcMfL/88X4QBNTUR07hPCSNVXeO8I4D3+ZZotvkY4TaFEYrmAFprysv7q7bW7/jKheFU4TR0L//2ZEvydg5DJSoeTYBdBN9w2RnvT124eGG5X5gTF6nUTTIxTKosjoDPxt+NZ9k9+9WYiFGRdv0ARFuJhhEo7U=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by CH3PR12MB7716.namprd12.prod.outlook.com
- (2603:10b6:610:145::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Thu, 17 Sep
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by SA5PPF7D510B798.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8d0) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
  2026 18:26:49 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0428.009; Thu, 17 Sep 2026
  18:26:49 +0000
-Date: Thu, 17 Sep 2026 14:10:56 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Alex Williamson <alex@shazbot.org>, Zhi Wang <zhiw@nvidia.com>,
-	acourbot@nvidia.com, yishaih@nvidia.com, skolothumtho@nvidia.com,
-	kevin.tian@intel.com, airlied@gmail.com, simona@ffwll.ch,
-	ojeda@kernel.org, alex.gaynor@gmail.com, boqun.feng@gmail.com,
-	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
-	a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
-	jhubbard@nvidia.com, ecourtney@nvidia.com, cjia@nvidia.com,
-	smitra@nvidia.com, kjaju@nvidia.com, alkumar@nvidia.com,
-	ankita@nvidia.com, aniketa@nvidia.com, kwankhede@nvidia.com,
-	targupta@nvidia.com, nova-gpu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, zhiwang@kernel.org,
-	kvm@vger.kernel.org
-Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO variant
- driver
-Message-ID: <20260917171056.GF3968357@nvidia.com>
-References: <20260914121217.70fa0d93@shazbot.org>
- <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
- <20260915120148.7548a8ca@shazbot.org>
- <DLG7C7MLGSTC.2GSTD84WI595N@kernel.org>
- <20260916141718.GU3968357@nvidia.com>
- <DLGUPX9KPFKF.12CU304YAST79@kernel.org>
- <20260916162817.GW3968357@nvidia.com>
- <DLGXS4SCP3VT.28XXX09BL963U@kernel.org>
- <20260917132829.GA3968357@nvidia.com>
- <DLHOBJB1NYJA.3FCP9OLPBVRZA@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLHOBJB1NYJA.3FCP9OLPBVRZA@kernel.org>
-X-ClientProxiedBy: SCXP298CA0159.CHLP298.PROD.OUTLOOK.COM
- (2603:10d6:300:14d::20) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+Message-ID: <114e1e54-3990-4498-9e27-42afa1aaa8fb@amd.com>
+Date: Thu, 17 Sep 2026 13:26:46 -0500
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v5 12/16] fs/resctrl: Program kernel mode assignments on
+ CPU hotplug
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ Dave.Martin@arm.com, james.morse@arm.com, bp@alien8.de, ben.horgan@arm.com
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+ hpa@zytor.com, fenghuay@nvidia.com, akpm@linux-foundation.org,
+ rppt@kernel.org, dapeng1.mi@linux.intel.com, elver@google.com,
+ jlayton@kernel.org, enelsonmoore@gmail.com, kuba@kernel.org,
+ ebiggers@kernel.org, seanjc@google.com, peterz@infradead.org,
+ chao.gao@intel.com, jmattson@google.com, naveen@kernel.org,
+ ricardo.neri-calderon@linux.intel.com, tiala@microsoft.com,
+ chang.seok.bae@intel.com, prathyushi.nangia@amd.com, kim.phillips@amd.com,
+ elena.reshetova@intel.com, darwi@linutronix.de, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <cover.1787772750.git.babu.moger@amd.com>
+ <16b8b0e9d91c9224722691009317464c4d585178.1787772750.git.babu.moger@amd.com>
+ <f93c9241-8fc9-4076-a290-47b89021e1b2@intel.com>
+Content-Language: en-US
+From: Babu Moger <babu.moger@amd.com>
+In-Reply-To: <f93c9241-8fc9-4076-a290-47b89021e1b2@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0P221CA0044.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:610:11d::27) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,101 +77,176 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CH3PR12MB7716:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20d78b44-c958-49ed-2805-08df14e93d06
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|SA5PPF7D510B798:EE_
+X-MS-Office365-Filtering-Correlation-Id: abe456f2-fec1-4fca-ab78-08df14e93d05
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|18002099003|22082099003|10067099003|11063799006|56012099006|4143699003;
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	81HXB8ho9IokFZvXNFeful+kz/KeJcnhacHodPHqf0fihmR1esv59j+z6dB9QC6coZQKdiTKuiDtuyxY4lYdb1Cg339aJ89UFzxNgGYXARGZJOL4y7zLieDN0XDtWpoBl7iabxDHZslH6WlTcoJNgvU0RV+BRSdzYIrEzMQ6YBXjblcnu4D/YrSHghUNNQoWgaPuB76FACYRJ/RggJJ17BuQMx34Tau2dKz+6vOqm33++r/0CJr8nHaHnxA5IZWcSvNnTmS3uJs2vUFwlIbJ9MkNaOCMn2v9vmXK7g/KXUGuszeeqcHvV04yaWzAXgpfBJp2v24mfwUsnmMyJa0+bL42+lTsNceJZK0EsqEL34GWoWaoebp0IfCRvsGfXyW8D8/2VEV+9krIKYaeR5rpIt5Tkh82KSg92LBjh9/WW2zqUhKJB1FKuGV+A+VRXMp5cjpZO48ouxGU4/cF0BFCo/cZdF+MyQ9I3dS3x6Bks8fMrQWMmx39fJc0RDoDaTwR+2L49xp7EEnrSfqNeyfMh6IydxFjT+4xjvFHK5rIY9A/KClob3CZLOQnMxx/mfAfdE5V2mh0/Pvp344p8uTFdmYSnXu8KYhGcNt1v6nIiGmrpCNjoKiI/SvpeYV45Q5C2b/BWEZRDDaue+/GihupTE7TxRs38G/gXk/ZVIibTqQ=
+	LOx7BJGfZDe8hsrZ+EAuxWOruSmZ8bZgrOkchbr1zg+o6fVhKDQAcOLsscNaqEv/szS7F8keZEWKi04jAOyfUSQBvCZtEG2DTnLOKYbo3OHkqHOn9M5AhgXLTvE2ZHhcDK9u7hAVVMuUMH8AI49Z9oXsTJea2IuBKncI9zScmGpuVeS6oWKplR4WvMbDHF/vdcwKyKwLV60F8hoqbjjPQBNv1+HItfng84ZQtbU9nHqupEMIg4RzQ7RLV9Ix+M7FuO7x/D1tNBl49qevM0Q+G9cFWv5MDHe/YcsjW2aDSuJhVFqKFVJGcYdC6A4rjsh6R2oPQdR9Jo2Vghr7h32KzflNEHyo5c8etCEwtd21sAkpS7upAjzvzQ3cqiuFU7rvRwsHcGbOu3Ir2MjFXFwAjuQh8fIk7tLSX1/cLrFV4zZnc+lBRurMvk2kDIQXOduOcrDlpQUlQ2wRI7zyET9BvsSfUrOEMqaIBnOTrkuTm3vOHqtxnOfV6UL2OsKclB9yKgznonyLaVZdbNL6vPIC0EdBGHpmRJRdx3qp2LfFeLxGzvmgrvn1YeaMlrl0z89wv9ZxLHUqzhjS7LWyF42bjBJUUIekIYQTVAgrgChKV3JgSAlWZEeYXXE3bjj/h6PAvYrfBA9nA/bxtwPKBGUq1QdI7vghYR3ZUaO/rrv3I+w=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?AqTG/W0Mnc5GbSMDG5QhK3J7mcu5vE/NTm/XHC+Jw0sk7W/upBtTpfo6Nr26?=
- =?us-ascii?Q?QBQRiE778o8DMwNQC05pWhHJHcJCVMowDHsrPnZR1PXmCv/rPawjC9xN9/SN?=
- =?us-ascii?Q?uf0OUZ8Yy260e3oao3JEaToCVJ4e99xf0LQKhaRBDgrrBTPvD+yUatqp0QxT?=
- =?us-ascii?Q?chb8AglDF4z2SPF3SyEuQ2BOe8sFATry1EWk4l/BRgGRYARdnoKQyrCAXT1r?=
- =?us-ascii?Q?Nn86jRJrtdW2EyaXsGHa306aDmKySsGsPbH3ule+pgHGETxwnPD+KykeoaFz?=
- =?us-ascii?Q?fX2xzYsd8+S4MO8Wga2uhZBrFxffs36CcDQgRO32ZOm0W3pdn40OgiWe+YQA?=
- =?us-ascii?Q?PYmcO31lHQ+fnK1tLlotfGZIvEo8/qVPyLCP0uMM4/6KRIQFy7X53DioFXhn?=
- =?us-ascii?Q?5TZ0WLIXC6yrW0ebIb0n+6DORkPMPmTUnHsR4CAKTIFpCMFO9v5axYjye46g?=
- =?us-ascii?Q?i7Uu3pvv/P8GtUiTICZJl0CRX9khhtGLrN9DGJ7qnE5PJNhWHKGmH1Mar9eF?=
- =?us-ascii?Q?XUJOFiznpM3BhD5+lRiEHPkFhOxJ3P6eBX9E5sBxH2H5F54Gs6G3ux2kVOmW?=
- =?us-ascii?Q?SeA48ySPWfASv8WCxC1AoI3FqH/NjGKSw/eK9Bn/lHBTJG8pWcx8bhwuERGR?=
- =?us-ascii?Q?iGpjUGlqtUr2l0HBRT96Oaz/ALiHcGCw2+jWyANpRrUWaS6uEBEItoH7jgLO?=
- =?us-ascii?Q?ncBAVPT/4pgYz0TIwLvZb8/GQI8/GYbN7ffXAtnZZ8RwHfRCBWUNHDWfBqOl?=
- =?us-ascii?Q?RfD6sAmJBM9vbRDh9d03Y57eeI218WBZ/scvmEnQabP3ibyp4cCk5KhyeZ4+?=
- =?us-ascii?Q?AM4wHdbj/HJ9jYIx/Y5nJylT8bxxRCIsWBmsVZ1za+05CD6RVDGU9G+J33C2?=
- =?us-ascii?Q?lQnzFg9aDrOeJSUyt3joEmtwVv/WPjZM4ZU5MJyURwb01WFwjNveufle7PKf?=
- =?us-ascii?Q?yKq8cWwIjtgRPectf0otZv061Hg37m3+2050shc9sGcCq89U69KPqxGDcwth?=
- =?us-ascii?Q?DtxDFucGtXOyo5EjqDKgwa+hhNds1BASyuS5AcHAurwMXyF3VW5GGy+l79tl?=
- =?us-ascii?Q?epnaUBvFhPYntvLz/9TEu7SWNSMDrS1fpsGuNICjdH7VCR2Kir8y+Vp3RXnJ?=
- =?us-ascii?Q?m7JaVh6JRWaT3Xl7cqeSOrf2+3E66mETaZnEJ7O+oVwviXML3muCQshIUJ4g?=
- =?us-ascii?Q?1l7uTBSKNqvVVb0lp0LumoZt51tjUWKCg7qcZTuLZE/kJbT/Bin5iWwiEM6L?=
- =?us-ascii?Q?DQvtY6jf9KC+hJgPFyKhI5ce4/JdxSsnLXrilKrVTi7Bzl1JEHj3jgrXcMRw?=
- =?us-ascii?Q?axNvS7CAgwMYOy2QwDfWja3H+Tl9KA2lAE7coSVlN7xGEARm7j5Tu27OBAgn?=
- =?us-ascii?Q?7NyYQr3/GD+LcDYNbGCcdD9TGh9bPrvntWRg3xxQ8uaFGRaXGSu3OKbSooWt?=
- =?us-ascii?Q?0M1n8xvQJ03UqZDVjGApU/TB+CzcDYoDzI4Ha90D7Xz/6F4vxmVJgp4Aht2k?=
- =?us-ascii?Q?iXI+4b15Z5yYBGXmjNxirTDzC9ln/p+TzmmlaGmlYp6/Dro7BsYBYoEBPf92?=
- =?us-ascii?Q?vBH7qMoWIC/b+i/uJ684olkX9uMLaFGxk1PsqeNHEQZf+et0S1owd+Sx+Qqk?=
- =?us-ascii?Q?vVtnfDOIr30jkYH1v++lUiUJfCFe+1Ac0/gf7qVC9ZY23P4JpDxigUreNhlV?=
- =?us-ascii?Q?ezugFj6LFJrMR6zlRPOTHLEi3imWlQCAx2f1h8Y7aas326wB?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20d78b44-c958-49ed-2805-08df14e93d06
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+	=?utf-8?B?RG12UzlrZVZIc0pDTFpJc0paOXRmK05nM3RXNDBpNmo5bGpydXBUWEo0cVZC?=
+ =?utf-8?B?VmJXMXRMNzFOZktVcG1uRkh5VkpjQ2hCVWE4eFB6aEo2ajBEaUJiZ2dlTGtN?=
+ =?utf-8?B?Ry9hQmIwY2hSTFY0QkQyd0ZrNk9lNWdEd05tMkRTelYzTzF5TDhSMlZqVHc3?=
+ =?utf-8?B?ZXlUeE1HSEErdTZHTENNVEhSRThJTnBNdVZaYnhBWENWYlMwWlR5Vm9tcFB1?=
+ =?utf-8?B?OEk0cDBuRFBYUDJNOVpSZHcrU0JDSlpRQUhIZXNWbHhCWXJHSFFlOXprWkt0?=
+ =?utf-8?B?QkVTUU1heEFxYkE1K2VDWW5DNGRmamVYTU04K1dyUTE2ay9LU2c1T2xpcFpB?=
+ =?utf-8?B?Y2Rha3hRcU1hL0lKdzMyNG9kOTdLUTZCdllRMEtMNVNLMGFsQVdlcUpxL3BR?=
+ =?utf-8?B?citzVEhzRWRxYVcybzN0eWhBeFhUUSt3L2JMU0F3RC9pZHN3bExnaWZuSFl3?=
+ =?utf-8?B?WGdnbjdoVFM5Uy95eEVxU2ZCOVNtSENxa1ZjWlFYa3ZmYTR1cUVMVERBMUt5?=
+ =?utf-8?B?Umw3VkYxbit0MUdyYmxmK2JMVHk1UGM4S2RibDFEbCtIdnNsUVFObk9kajQv?=
+ =?utf-8?B?YjF2dytrUXZzdnJ5Yks1OEtVWWVkR25GZnFnWUVZQkp2eUxrdHZxRldxZ3E0?=
+ =?utf-8?B?dE5yUDJ0Slk5a2RnNzNtR3B3NWhtaXVCMGsxKzc0WThvQXYwZDBxT1lZUFRr?=
+ =?utf-8?B?elRzSjZjRjVtVHZxRmlSTis2V1NOZVVwSFZOTHVSNlVvT3FQV0h4NHBQRmhJ?=
+ =?utf-8?B?VCs4OGI0cklqS1kxM2QrT3NCOHVVTTB4cTZ4QXdwTnpIVFBEZWlNSDhvWm1L?=
+ =?utf-8?B?ZGJVUGNCYjgwdUtYeGYrK3B2VkdadTFQNGYyazRDUVpoU0VNUU9OQ05JeWFq?=
+ =?utf-8?B?aFhnTld2Vmk1cXlYQTdrWVZQSjBndDkvc3lEQ3JSeEhHSFU5VVhXOXU4SmNa?=
+ =?utf-8?B?clB6SkYwN0VzZ3MrWjY5WkljZEdhQzl4c3drUDU2RnBZd2ZraXl3RUllQzU1?=
+ =?utf-8?B?WFErK0VCTThEc2dIdk1DU0F5VzlrQ3hMM0ozbjhvUVVnZjYrVkhzd2FTM2tL?=
+ =?utf-8?B?Z2tWeThoei9MSlRSSlZtcDdhTS81OXVjSnJTTGtjTEJRUkV5TlAvcTI0QUc4?=
+ =?utf-8?B?dUN3aFNXYjVEV0swbDAzSTZyL210Z3RFMk5vY0ZDVXRNWDc1RFZIOHZKd3pl?=
+ =?utf-8?B?WFlMY3lTVUp5R0hmM3d5dVl3aHBOSHJmV1NIUDRQRHJTTXp6YzVjdm1FRFNM?=
+ =?utf-8?B?MmVrY1lwYkpYb2QxWVZBNHR0ZkplbUZIYnVZN3BmNWQyWXhSZ3dtZEd4QzN0?=
+ =?utf-8?B?TldQOEFOY2tSTlFYaUl2VFM1amRXNjh0amhVRU5iWU10YlVrV2dKUFhhdkpo?=
+ =?utf-8?B?eDV3UTdyWVFtOWpXRzQvM21DaXhZc3lFemZDYkZoM2p2akJTTmk4UGJHKzQy?=
+ =?utf-8?B?VzNXMG95ZStDdGVrZ0orVzYrR29keWFWcVl6aGI1YUg0bUhxSjN6bFdUZkND?=
+ =?utf-8?B?SW5lRERJb25iRnU4c3liRDRGQVBWbUE4T2t5UlBLcXZUVkxRSGV6Q2pab0Iw?=
+ =?utf-8?B?WlBhQmF1aWUya1V0RWVmUDFITFlyTTI0ek95WGhGVnNUdEN4RjdZeUNQTWpw?=
+ =?utf-8?B?NFRKV2tiVXJxd0FPVHJ6L2YxUUVIeTlQamZVWENJbWVNT3VuRnlCKzMvRThU?=
+ =?utf-8?B?RDM1K1N1d0x1N0Y3YWthcEFQWjgxVnJlbEh5akRvU2lSZndBalJuY3pUL3V1?=
+ =?utf-8?B?K3hQV0w4b3ljUG5wZXFPdVpPeEVPRTdsLzMvemF2NjNDZUw4bklzMEZqQ1Vk?=
+ =?utf-8?B?MjNORGgxWk1nQUx5bUdYUWczbTNGbXFzaFlqNXlhRVlXRUFXYXZINkZEeC9D?=
+ =?utf-8?B?ZUtYMUxwV0cweHRFN251MERRUG92NkNrUzVJYU1UcXI1S01RUDhHRkZBcFVB?=
+ =?utf-8?B?OVFUWDVYY2dnQzJsTFpSOXpWSG1LVDlrRDlsOTErRVJPQ0REaHZBVit4UzFH?=
+ =?utf-8?B?TzFRbkxjTzNlRU56RXl6SlNOay9RM2MwTkhrMnFQbjIrYzlEQVpBak01eVhY?=
+ =?utf-8?B?UGw3UFpxUGFLMGJnUjZMVXRUL25VT1RpZ1hNbitTSVZBZTNVQ0wvM3hRTUZC?=
+ =?utf-8?B?dnJUWTVFUno2WXM4R2hReUtpVFRQNDhVOWlKVWN4dGNmUktyQUZkaUpXWUlL?=
+ =?utf-8?B?dU85SFo2SEVnRXlxQUV0RGJZUUowRVJPdWRxZ044aGQ2NDZDNTRHYU82Szhu?=
+ =?utf-8?B?ckdxMmJLUFE2UXF1STZ2ZmZtNVdmL01mUWxFQjBuTGUzQmNyaGlGRXN1S2lq?=
+ =?utf-8?Q?hRtmWiW14FlDFqUQ3Y?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: abe456f2-fec1-4fca-ab78-08df14e93d05
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 18:26:49.4746
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 18:26:49.4815
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KfL7PvgXTSWJ62SgJA5C2idyEiGd9WmpsfEa4rEBJhOz/MVBHPtkOT7b5v9y6OvE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7716
+X-MS-Exchange-CrossTenant-UserPrincipalName: olYO5MSD1cmAgQFq/a5fPq2j7tnWG4ANybbClCJGJqPfUN8GqtwKFSFfX1mAw8pK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF7D510B798
 
-On Thu, Sep 17, 2026 at 04:50:07PM +0200, Danilo Krummrich wrote:
-> On Thu Sep 17, 2026 at 3:28 PM CEST, Jason Gunthorpe wrote:
-> > On Wed, Sep 16, 2026 at 08:02:17PM +0200, Danilo Krummrich wrote:
-> >> >> TBH, I don't think it makes a difference; having Rust abstractions is pretty
-> >> >> much the same as having another driver. I.e. it would be equivalent to saying
-> >> >> "before we accept another pci-vfio driver we need to do some rework".
-> >> >
-> >> > Well, it is, but thats the point when judging effort..
-> >> 
-> >> So it seems that we agree that there isn't really a difference between adding a
-> >> new C or Rust driver in this regard.
-> >
-> > To be clear I was trying to say I think you are are underestimating
-> > how much work this is and how long it will take. Including all the
-> > preconditon C reworks has to be included when considering how much
-> > work is involved.
+Hi Reinette,
+
+On 9/16/26 00:35, Reinette Chatre wrote:
+> Hi Babu,
 > 
-> I'm not sure I follow what you mean by "preconditon C reworks".
-
-Rust bindings often seem to need C code rework for Rust, drvdata here
-is an example.
-
-> Or do you refer to other C core reworks people are working on? If so, they are
-> only relevant if they affect the drivers. And if they affect the drivers,
-> there's not really a difference between adding a new C driver and adding a Rust
-> abstraction.
-
-A new C driver should not need reworks?
-
-> > I cannot forsee rust bindings for vfio until sometime in 2027.
+> On 8/26/26 12:32 PM, Babu Moger wrote:
 > 
-> What is different in 2027 than is now?
+> 
+>> ---
+>>   fs/resctrl/rdtgroup.c | 59 +++++++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 59 insertions(+)
+>>
+>> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+>> index 06e74b027044..97e4176669e5 100644
+>> --- a/fs/resctrl/rdtgroup.c
+>> +++ b/fs/resctrl/rdtgroup.c
+>> @@ -4951,11 +4951,67 @@ int resctrl_online_mon_domain(struct rdt_resource *r, struct rdt_domain_hdr *hdr
+>>   	return err;
+>>   }
+>>   
+>> +/*
+>> + * resctrl_kmode_online_cpu() - Program kernel mode association for @cpu
+>> + * @cpu: CPU that has just been brought online
+>> + *
+>> + * If assign_global_enable_per_cpu is active and the rdtgroup has an active
+>> + * kernel-mode association, add @cpu to kmode_cpu_mask and program the
+>> + * corresponding kernel mode association.
+>> + */
+>> +static void resctrl_kmode_online_cpu(unsigned int cpu)
+>> +{
+>> +	struct rdtgroup *rdtgrp = resctrl_kcfg.active.k_rdtgrp;
+>> +	bool assign_ctrl, assign_mon;
+>> +
+>> +	if (resctrl_kcfg.active.kmode_cur != RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU ||
+>> +	    !rdtgrp || !rdtgrp->kmode)
+>> +		return;
+>> +
+>> +	assign_ctrl = (resctrl_kcfg.active.ctrl_mode == KMODE_ASSIGN);
+>> +	assign_mon = (resctrl_kcfg.active.mon_mode == KMODE_ASSIGN);
+>> +
+>> +	cpumask_set_cpu(cpu, &rdtgrp->kmode_cpu_mask);
+>> +
+>> +	resctrl_arch_configure_kmode(cpumask_of(cpu), rdtgrp->closid, assign_ctrl,
+>> +				     rdtgrp->mon.rmid, assign_mon, true);
+> 
+> If I counted right, at end of this series, resctrl_arch_configure_kmode() is called
+> six times and _every_ call is preceded with the same two line pattern above:
+> 
+> 	assign_ctrl = (resctrl_kcfg.active.ctrl_mode == KMODE_ASSIGN);
+> 	assign_mon = (resctrl_kcfg.active.mon_mode == KMODE_ASSIGN);
+> 
+> Could this be simplified with a single helper that does something like:
+> 
+> static void resctrl_configure_global_kmode(const struct cpumask *mask,
+> 					   struct rdtgroup *rdtgrp, bool enable)
+> {
+>    	resctrl_arch_configure_global_kmode(mask, rdtgrp->closid,
+>    					    resctrl_kcfg.active.ctrl_mode == KMODE_ASSIGN,
+> 					    rdtgrp->mon.rmid,
+> 					    resctrl_kcfg.active.mon_mode == KMODE_ASSIGN,
+> 					    enable);
+> }
+> 
 
-I mean I think that is how long it will take to merge something like
-that, given how many other vfio series there are, the lack of
-expertise, and some general expectations. There are already lots of
-series for vfio that are in front of something like this in the queue.
+Sure. That will do. Thanks.
 
-And then we end up with what will be one of the most complex drivers
-in a form nobody familiar with vfio can review.
+> 
+>> +}
+>> +
+>> +/*
+>> + * resctrl_kmode_offline_cpu() - Clear kernel mode association for @cpu
+>> + * @cpu: CPU being taken offline.
+>> + *
+>> + * If assign_global_enable_per_cpu is active, disable the kernel mode
+>> + * association for @cpu and remove it from kmode_cpu_mask.
+>> + */
+>> +static void resctrl_kmode_offline_cpu(unsigned int cpu)
+>> +{
+>> +	struct rdtgroup *rdtgrp = resctrl_kcfg.active.k_rdtgrp;
+>> +	bool assign_ctrl, assign_mon;
+>> +
+>> +	if (resctrl_kcfg.active.kmode_cur != RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU ||
+>> +	    !rdtgrp || !rdtgrp->kmode)
+>> +		return;
+>> +
+>> +	if (!cpumask_test_cpu(cpu, &rdtgrp->kmode_cpu_mask))
+>> +		return;
+>> +
+>> +	assign_ctrl = (resctrl_kcfg.active.ctrl_mode == KMODE_ASSIGN);
+>> +	assign_mon = (resctrl_kcfg.active.mon_mode == KMODE_ASSIGN);
+>> +
+>> +	cpumask_clear_cpu(cpu, &rdtgrp->kmode_cpu_mask);
+>> +
+>> +	resctrl_arch_configure_kmode(cpumask_of(cpu), rdtgrp->closid, assign_ctrl,
+>> +				     rdtgrp->mon.rmid, assign_mon, false);
+>> +}
+>> +
+>>   void resctrl_online_cpu(unsigned int cpu)
+>>   {
+>>   	mutex_lock(&rdtgroup_mutex);
+>>   	/* The CPU is set in default rdtgroup after online. */
+>>   	cpumask_set_cpu(cpu, &rdtgroup_default.cpu_mask);
+>> +	/* Program any active kernel mode association on this CPU. */
+> 
+> This comment is not helpful.
 
-It just seems like a much bigger thing to me than whatever the ffi
-problem is..
+Will remove these comments.
 
-Jason
+Thanks
+Babu
