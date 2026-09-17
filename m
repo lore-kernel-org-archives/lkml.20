@@ -1,111 +1,156 @@
-Received: from mxout3.routing.net (mxout3.routing.net [134.0.28.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5430B523798;
-	Thu, 17 Sep 2026 13:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.0.28.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A53524B1C
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789651602; cv=none; b=uGwHaHZqdUxNQoL7kabRTGJBYai+TYk5lWwMTE/eVix9uF7NKpDBoRqpcyzVhvghEZ1emVJpHt/HFBT4dsqTIb73r8YqWPHRCs1ZsinNK4eCW0bVQ8GPnSCZuG2WF1qk065gpTOo/XgiVmopVJKWIxTfOfksZUOAjkpaW5mYVCo=
+	t=1789651606; cv=none; b=QJwi1GSTaUWi4qVe8GRbZG8A3/c85t9nxfbEwDKWEqMWQDF7ORW2EPrUOpmPwh1mPrlkjj6d47aJox9xpYOseYLX4VmnSCr5PwMgAmVOZpMyW9zfr79exgSN2aFV2daxuu8NMgU/wG2rl7nRBU85c9LwW6huXZpC1aPW4ARLGMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789651602; c=relaxed/simple;
-	bh=PGIgIE4wTCTWIbQZRWt+QuBxf9eusAIAlFk67LHWHjA=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=Ld2Vd/COuQAn+bY5R4KF8vosSyJCnODoyH2iypR0vCDow1MrM53eooaSlNEy3GO9shee9j4AVy2hQQb2TgEqEpYTxxBuzahshRUsab/U8g1ZlWH6igAxAyqU5LSujvwOFOH+AZhjoq1Onu8+YveJMOZgmyDeHdY8mzjnEbx5jYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fw-web.de; spf=pass smtp.mailfrom=fw-web.de; dkim=pass (1024-bit key) header.d=mailerdienst.de header.i=@mailerdienst.de header.b=hcO9jXlm; arc=none smtp.client-ip=134.0.28.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fw-web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fw-web.de
+	s=arc-20240116; t=1789651606; c=relaxed/simple;
+	bh=m2UU0/l7oXH4nDDm4aNiVdsK/0ORRSvCe00W37MZM54=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YfsRZX+hdNMBh1XYgtfkcmcxDkDWJs0HjduLhoHCdk+dKuYIOSjpY7yuNomh3lOuIepLKmfsI79ZW5kzBaJpqPwfnCWQHXijhrk/1RHQfBFe2xrcpDOVqRfgiBhWRnrCl80mvggUWCd5syjUohDwfBHM4TOjJEkDggSBHeDng+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems; spf=pass smtp.mailfrom=starlabs.systems; dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b=QU/D8fjp; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starlabs.systems
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mailerdienst.de header.i=@mailerdienst.de header.b="hcO9jXlm"
-Received: from mxbox1.masterlogin.de (unknown [192.168.10.88])
-	by mxout3.routing.net (Postfix) with ESMTP id A4B19606C9;
-	Thu, 17 Sep 2026 13:20:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailerdienst.de;
-	s=routing; t=1789651250;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2EwFQkqyBiAApy771fwJy2rsJy2A9762vPkKowyaH3A=;
-	b=hcO9jXlmmO1lV8DEnWGD4PDkdgWvS55qx6pga8RsLmEoCUYej2uKkuqaHky7RWtj+mWdQG
-	h9JMM7849Fxh/QPHJAOt2ZEFnuGxxRo0xpubOIKGTZ7RrXafnEtsGzdFMT7zLse5C5TQ6W
-	c+lE+AAfap9oeVZSTNBIv0fyGHbjttU=
-Received: from webmail.hosting.de (unknown [134.0.26.148])
-	by mxbox1.masterlogin.de (Postfix) with ESMTPSA id 1D1F4401E4;
-	Thu, 17 Sep 2026 13:20:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="QU/D8fjp"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f88so540625f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:26:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1789651600; x=1790256400; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cYqy4JvgQiRzCuvqvHp97HhL8V2ft2LLYeHwmXteui8=;
+        b=QU/D8fjp3FdyDDs4Zw9GAUX6wERcZu4+cCkyTquYLgUKh2K4/e9Z3CsogrukcRlqPV
+         vezxT1Ppfy/HTuw1YeP0wufv879MH8X7xJkJ1MdhLQH5ePyPCnknaSToD+H0i996QU2F
+         ezfeJ+0PBOx4S8si0MtVHuAfvcykyJktxeeL7ziqs0eX4kuOegbziJVg+5HH+xjX3S6z
+         pkIYymfTPOhXklw5VmQc54VDQOy1Vnfbw0l5jri+63+CNzStVTBydn46tUL6K8WPBUkO
+         g5uLV7mA7yLzAMvEwt//2gUw1IC9ou5KNBZSIu0siJysW3Yy0Yv+s2D4rYPSWfC8r/9D
+         w4xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789651600; x=1790256400;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cYqy4JvgQiRzCuvqvHp97HhL8V2ft2LLYeHwmXteui8=;
+        b=Vtll6DS6ti/rTzU4fR5dwWUOx08u9h4XsN3hQYoAYLvu7VNpMz6Wiq9dRp0b1sRfpp
+         wxQkUklVpKnNrKeLH3Hfn1mpLy4kwjiHFMnhrYo2k2Y6EV0CCTM+fPIc8d6CK3Mxzi1s
+         6U6tAGzNNBnYFc6htJils3G7CzU7MGz274LVnJuWPhgRsIyoLIBrofqsex/QB/U6asC8
+         hvyuAI2WS149B0ZXfj66kQB4JASt4UFjfXP7RMYL0Vj+wgy+3ExTc0Wub61TQX/XWens
+         I7Dh6vAdhhO8YMh1fVg7xZ0muuNRJ423/Os1+1Px/oEnTSDKxxN1sFDdPQJMfffMPFpH
+         U3/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx5897nImtctLUapLaAyD0jq4eiczQez+0Z9R5QWMx0kx7b8PpdF+iCa8X3gFpKHQZsGCGIML+dPO0fYS8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m31YJo8kBY/gf6eA6EdUUIMDCscM/m/0qs6tf3KJBsoFbM2HjY
+	Nk/v+pCLcUieaX2A8YOYpAHusqDXqIR9grTqIndftQdWaIqJBC3QCKhSlpZD64KeHg==
+X-Gm-Gg: AYBFou25VcSsLD+me6KXzEEANHx2Kp3AMPNr90rTF1U5Jw45Jc6ynbPSj7tpouTbCBb
+	XDfLBZWSX1EejpQuYIPfyPgzcGAde+QdnRE2LXOivJhdyQyfuqGKAacPlxH/5+ZY8QVo5wnmt3p
+	5VVOW2og1pTQkIpEzV4Cc20Mli13FKctDzlg40N5DNA0+Po4+OuvnXmPOp72PUtECndi7RJaE3K
+	n1VOyXQqqTzwutE7wSQSNlln2kd77A1AsLPXAUfbDtl3bW06FfmUCKE9r60Af37chDL/GewDKF4
+	zKocwiZbUCHVe1REO0VX5Kxt2ch1z1GmkBkz0oiwP7XkzYZHTv8+me8fkKUT/Qr030mpMTXX3JX
+	J3nJWXlFVQldxc0iWQrN1xbbJKjOxaDFcISRoMJGjDWCEi1/nRJC44+37aSOb2CH4hAKijCi7FN
+	QJKDCHTlhWI6julrWLfEWUJUqpKfYHAw46vfuFGaGIUUyDGsg8pLsbg54df1KWVxDPCUguj6BQu
+	8cLMIJGy3Iadx/HdzoSSGRuqstw
+X-Received: by 2002:a05:6000:4209:b0:487:77c:f6c4 with SMTP id ffacd0b85a97d-4870d0667a0mr8425263f8f.35.1789651599627;
+        Thu, 17 Sep 2026 06:26:39 -0700 (PDT)
+Received: from fighter ([216.128.28.240])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1f6cfsm15879947f8f.13.2026.09.17.06.26.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 06:26:39 -0700 (PDT)
+From: Sean Rhodes <sean@starlabs.systems>
+To: linux-pm@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Sean Rhodes <sean@starlabs.systems>,
+	Evan Green <evgreen@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	linux-block@vger.kernel.org,
+	linux-mm@kvack.org,
+	Xueqin Luo <luoxueqin@kylinos.cn>,
+	Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>
+Subject: [PATCH v3 3/4] PM: hibernate: permit encrypted snapshot device under lockdown
+Date: Thu, 17 Sep 2026 14:26:30 +0100
+Message-ID: <f237b56e8444ea7b477dbcf4aa6dafd2ff0c1dc7.1789651581.git.sean@starlabs.systems>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1789651581.git.sean@starlabs.systems>
+References: <cover.1789651581.git.sean@starlabs.systems>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 17 Sep 2026 15:20:49 +0200
-From: "Frank Wunderlich (linux)" <linux@fw-web.de>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Frank Wunderlich <frank-w@public-files.de>, Mika
- Westerberg <mika.westerberg@linux.intel.com>, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, frank.wunderlich@linux.dev
-Subject: Re: [PATCH] gpiolib: use of_node_name if line-name is missing
-In-Reply-To: <aqvkU_1_ki5lGXS_@ashevche-desk.local>
-References: <20260917122815.88601-1-linux@fw-web.de>
- <aqvkU_1_ki5lGXS_@ashevche-desk.local>
-Message-ID: <85b0d147af3b63a6b2419b7daaf81332@fw-web.de>
-X-Sender: linux@fw-web.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mail-ID: f3537e52-0881-484c-bcba-f3ad08769ce3
+Content-Transfer-Encoding: 8bit
 
-Am 2026-09-17 15:00, schrieb Andy Shevchenko:
-> On Thu, Sep 17, 2026 at 02:28:13PM +0200, Frank Wunderlich wrote:
-> 
->> Until v7.0, GPIO hogs inherited the DT node name when no line-name
->> property was specified. This was implemented as a fallback in
->> of_parse_own_gpio().
->> 
->> Commit d1d564ec4992 ("gpio: move hogs into GPIO core") moved hog 
->> parsing
->> into the GPIO core and removed this fallback.
->> 
->> Consequently, GPIO hogs without a line-name property are now displayed
->> with a ? in /sys/kernel/debug/gpio. Restore the old fallback.
-> 
-> ...
-> 
->> int gpiochip_add_hog(struct gpio_chip *gc, struct fwnode_handle 
->> *fwnode)
-> 
->>  	fwnode_property_read_string(fwnode, "line-name", &name);
->> 
->> +	if (!name && is_of_node(fwnode))
->> +		name = to_of_node(fwnode)->name;
-> 
-> Can we move it inside the loop? Yes, I understand that it will be 
-> unnecessarily
-> called more times than required, but gpiod_hog() is called anyway in 
-> the loop,
-> so I don't think it will be a big deal. With that it will allow to 
-> group
-> OF-specific code in one location.
-> 
->>  	for (unsigned int i = 0; i < num_hogs; i++) {
->>  		if (is_of_node(fwnode)) {
-> 
-> 		...somewhere inside this conditional...
-> 
->>  			/*
+Lockdown disables hibernation because restoring attacker-controlled image
+data can modify kernel memory. Permit opening the userspace snapshot
+device under lockdown when encrypted hibernation support is built, but
+require encryption to be enabled before image data can be read or written
+and before restore or power-off ioctls can proceed.
 
-I'm not sure what you want to achieve here (maybe only to have the 
-is_of_node-condition once?, as the loop imho is only for enumerating 
-multiple gpio (like "gpios = <3 0>, <4 0>;") inside one hog of_node. 
-Here the node-name will never change (like the line-name above) and 
-read-once is correct.
-But while looking at the code i also thought about these multi-gpio-hogs 
-(label and output-X). Imho here something like the gpio-controllers 
-"line-names" would make sense as well as something similar for the 
-output (or just handling this with the GPIO_ACTIVE_HIGH/LOW param).
+Tested on StarFighter MTL with lockdown enabled: encrypted uswsusp
+hibernate and restore used the snapshot device path.
 
-But if you think the part should be moved into the loop, that's no big 
-deal.
+Signed-off-by: Sean Rhodes <sean@starlabs.systems>
+---
+ kernel/power/hibernate.c | 8 ++++++++
+ kernel/power/power.h     | 1 +
+ kernel/power/user.c      | 2 +-
+ 3 files changed, 10 insertions(+), 1 deletion(-)
 
-regards Frank
+diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+index a95cb447a13a..0b8626bdf81a 100644
+--- a/kernel/power/hibernate.c
++++ b/kernel/power/hibernate.c
+@@ -114,6 +114,14 @@ bool hibernation_available(void)
+ 		!secretmem_active() && !cxl_mem_active();
+ }
+ 
++bool hibernation_snapshot_dev_available(void)
++{
++	return nohibernate == 0 &&
++		(!security_locked_down(LOCKDOWN_HIBERNATION) ||
++		 IS_ENABLED(CONFIG_ENCRYPTED_HIBERNATION)) &&
++		!secretmem_active() && !cxl_mem_active();
++}
++
+ /**
+  * hibernation_set_ops - Set the global hibernate operations.
+  * @ops: Hibernation operations to use in subsequent hibernation transitions.
+diff --git a/kernel/power/power.h b/kernel/power/power.h
+index 815c84c1e0dd..351b5f68bde3 100644
+--- a/kernel/power/power.h
++++ b/kernel/power/power.h
+@@ -168,6 +168,7 @@ extern int snapshot_image_loaded(struct snapshot_handle *handle);
+ 
+ extern bool hibernate_acquire(void);
+ extern void hibernate_release(void);
++bool hibernation_snapshot_dev_available(void);
+ 
+ extern sector_t alloc_swapdev_block(int swap);
+ bool swsusp_swap_range_allocated(int swap, loff_t pos, size_t count);
+diff --git a/kernel/power/user.c b/kernel/power/user.c
+index de41f590c98d..b8d3342f1548 100644
+--- a/kernel/power/user.c
++++ b/kernel/power/user.c
+@@ -184,7 +184,7 @@ static int snapshot_open(struct inode *inode, struct file *filp)
+ 	unsigned int sleep_flags;
+ 	int error;
+ 
+-	if (!hibernation_available())
++	if (!hibernation_snapshot_dev_available())
+ 		return -EPERM;
+ 
+ 	sleep_flags = lock_system_sleep();
