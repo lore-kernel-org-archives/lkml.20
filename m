@@ -1,32 +1,47 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 200764F799F;
-	Thu, 17 Sep 2026 14:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF1E5908CD
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:27:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655140; cv=none; b=OMY4b2ywdB+cQeH5mmE8p/ebAm35/mttTvIKMHCxfvA7/6fOlZs9yJ78kL8aoeXwgw6h1VSy0ZJyXoDMuGnaojK42GjzIBQGqyvnyeoAmugnA6pyAaHxPfZ0/uFKzLNYxmihx+zLjoGbSrmwvsAC5EO/iHV93jD0wDwG5Y1qvQc=
+	t=1789655234; cv=none; b=aBIm19uhQlwGx++R51xcZtuEC1yjy08IgduLNNDOx7ZLSk2iEiEZinQirIMWOyyX9uZzAaKQa9oggxO99779QYMNvJ4iYikhNsV74o8/sQeuirnYs9PVk6wbUYj0hRHOXDosNGVDgyMrw0/icoD5zfALwTHh2EFmhiZjv1QMdbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655140; c=relaxed/simple;
-	bh=0dMub+a3axmD2mf8X4K4kavErvLdqT8YJfzyOvI3VaQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QvsaRgZsBkX+5qsI+qmP1YXG8X9CIxqmefzEbg1nkPiviN2cFzn2t7xq0jT3W7HVRe0TofyC+HE4zSabaCBrAAbAHyHR+X54vu//WMtFxEKTAC+EgskFpaKsClKqK7RC87IjKJ9JpFM9szML/9gnvZPyAamwcbpnriqBiM4Bmg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAnlT9f+Ktqn2iCCA--.4870S2;
-	Thu, 17 Sep 2026 22:25:35 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: digetx@gmail.com,
-	lgirdwood@gmail.com,
+	s=arc-20240116; t=1789655234; c=relaxed/simple;
+	bh=yT4Adw+HYU+Hwm526vroWsA5fwFd8do9OPOt3aExbw4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ATwB31pMHKrGSOJctpr88lkqD+4S/LY3FmBkgEkzVsNArcuPZjb+rrc7DYdy1C+g1W4S4yU7bPHfsE6TawAJMVH5SmM8xd72MwY4UP6FDCMHUAFE+68fU5f1mqyOEmVJwTnW1f/kFNIo36f/zkpkFFfVCjO4x4qegfYU09rdKpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=P2iZJTYG; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="P2iZJTYG"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id F2BED4E4079D;
+	Thu, 17 Sep 2026 14:27:07 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C6CD05FAA3;
+	Thu, 17 Sep 2026 14:27:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C377511C78B65;
+	Thu, 17 Sep 2026 16:27:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789655223; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=NQIErD8RMj3c96Y2peru6EPUda/1WEEQ4CrKh42s+Ao=;
+	b=P2iZJTYGnfnqJojdbtYjMw0NsX3IKbGQZwtyfwF7klzE9sejGGQuU+sMJj5CodLdxxuPyF
+	TWX+uX7+XeAXIgySTKN7/T/ss7RSXNklzznuW4uhjVi6FJmUROnCAXDI9tvz9VflRr/Bhy
+	AFqzDL2d9byn1moj/z+ps/8sIilM8hb2e230YS2v4uMWw5sCAk99HAy8O10ihSESZ/3fab
+	YmdGqWlVwepuGJKIh88GWNWXrkHxuVMCRWbz0UdHLxs1toRqy7VGXAPLv44tC704OaWon0
+	MmeNEYXNNfNNcooGuk3DXQduEQLZx2feOe61ug3DrkxRpwL8sNGC2BFS5c2eXg==
+From: alexandre.belloni@bootlin.com
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Nishanth Menon <nm@ti.com>,
+	Santosh Shilimkar <ssantosh@kernel.org>
+Cc: linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] regulator: core: Fix c_rdev reference leak in regulator_resolve_coupling()
-Date: Thu, 17 Sep 2026 14:25:35 +0000
-Message-Id: <20260917142535.2156720-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] rtc: omap: remove unused argument
+Date: Thu, 17 Sep 2026 16:26:53 +0200
+Message-ID: <20260917142654.2576889-1-alexandre.belloni@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,49 +49,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAnlT9f+Ktqn2iCCA--.4870S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7GF1DWrWxtF4xXr48tF4UXFb_yoWDJFc_Gr
-	n8Aa4xuws7Zw4kCr1IqF1qvr9xZr1q9a93u3y8KFW3CFWUAFyUC3sxJry3Cr4UJw4UXr9r
-	Zr17GF48Zw13ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfkYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
-	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
-	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aVCY1x
-	0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxUw9NVDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAINA2qr9nAE2gAAsZ
+X-Last-TLS-Session-Version: TLSv1.3
 
-of_parse_coupled_regulator() returns the coupled regulator with its
-device reference incremented, but regulator_resolve_coupling() returns
-without dropping it when the coupled regulator belongs to a different
-coupler, leaking the reference.
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
 
-Fixes: d8ca7d184b33 ("regulator: core: Introduce API for regulators coupling customization")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+omap_rtc_power_off_program takes one argument that is never used. One call
+passes the struct device of the rtc but the other one passes its parent.
+To avoid confusion, stop taking any argument
+
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 ---
- drivers/regulator/core.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/rtc/rtc-omap.c       | 5 ++---
+ drivers/soc/ti/pm33xx.c      | 2 +-
+ include/linux/rtc/rtc-omap.h | 2 +-
+ 3 files changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index dc5d67767336..0ae11a521943 100644
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -5843,6 +5843,7 @@ static void regulator_resolve_coupling(struct regulator_dev *rdev)
- 		if (c_rdev->coupling_desc.coupler != coupler) {
- 			rdev_err(rdev, "coupler mismatch with %s\n",
- 				 rdev_get_name(c_rdev));
-+			put_device(&c_rdev->dev);
- 			return;
- 		}
+diff --git a/drivers/rtc/rtc-omap.c b/drivers/rtc/rtc-omap.c
+index 0f90065e352c..18492165a19f 100644
+--- a/drivers/rtc/rtc-omap.c
++++ b/drivers/rtc/rtc-omap.c
+@@ -408,7 +408,7 @@ static struct omap_rtc *omap_rtc_power_off_rtc;
+  * generates pmic_pwr_enable control, which can be used to control an external
+  * PMIC.
+  */
+-int omap_rtc_power_off_program(struct device *dev)
++int omap_rtc_power_off_program(void)
+ {
+ 	struct omap_rtc *rtc = omap_rtc_power_off_rtc;
+ 	struct rtc_time tm;
+@@ -481,10 +481,9 @@ EXPORT_SYMBOL(omap_rtc_power_off_program);
+  */
+ static void omap_rtc_power_off(void)
+ {
+-	struct rtc_device *rtc = omap_rtc_power_off_rtc->rtc;
+ 	u32 val;
  
+-	omap_rtc_power_off_program(rtc->dev.parent);
++	omap_rtc_power_off_program();
+ 
+ 	/* Set PMIC power enable and EXT_WAKEUP in case PB power on is used */
+ 	omap_rtc_power_off_rtc->type->unlock(omap_rtc_power_off_rtc);
+diff --git a/drivers/soc/ti/pm33xx.c b/drivers/soc/ti/pm33xx.c
+index dc52a2197d24..82979122417d 100644
+--- a/drivers/soc/ti/pm33xx.c
++++ b/drivers/soc/ti/pm33xx.c
+@@ -174,7 +174,7 @@ static struct wkup_m3_wakeup_src rtc_wake_src(void)
+ 
+ static int am33xx_rtc_only_idle(unsigned long wfi_flags)
+ {
+-	omap_rtc_power_off_program(&omap_rtc->dev);
++	omap_rtc_power_off_program();
+ 	am33xx_do_wfi_sram(wfi_flags);
+ 	return 0;
+ }
+diff --git a/include/linux/rtc/rtc-omap.h b/include/linux/rtc/rtc-omap.h
+index 9f03a329e63f..d6ec7c4daea6 100644
+--- a/include/linux/rtc/rtc-omap.h
++++ b/include/linux/rtc/rtc-omap.h
+@@ -3,5 +3,5 @@
+ #ifndef _LINUX_RTCOMAP_H_
+ #define _LINUX_RTCOMAP_H_
+ 
+-int omap_rtc_power_off_program(struct device *dev);
++int omap_rtc_power_off_program(void);
+ #endif /* _LINUX_RTCOMAP_H_ */
 -- 
-2.34.1
+2.55.0
 
