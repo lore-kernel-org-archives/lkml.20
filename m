@@ -1,44 +1,43 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A580A5519B6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4172653ED05;
 	Thu, 17 Sep 2026 13:49:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652975; cv=none; b=s30gFEar68RNvlFvzAxdVbpPVrg+72+gdSiyQTyvKhB//fLUPdKPHwlqTGai+E4VM5R7j5C5OKX9897Y6AT4228fmbS+LBBJoHM13Vk4AvFR5iujTKnkXpt8yDQDTSSO6/oeVbatsCGIhXrBWUnyrr0snhT9ZsQWe1jZgKDovTE=
+	t=1789652978; cv=none; b=JRsrsV7Dat4jAo3OMOsOX6wuEfeX78R79I9uXuMY+HFcfAFQvw2rTZlyuVQtddZcjaLoKITAHPNpHlrfwXqPb9Osfisp3tzc5JZESsgq4MwhXzk0cedsguNy9D7iYbe9T8XYXgf7iT+CrTlXodg/p4J8u8ugzLt+BbXHRdYIaYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652975; c=relaxed/simple;
-	bh=VXjQmgPNcP6TxrE9fEJyZi07Hi5P0Q3culnMpUj9c98=;
+	s=arc-20240116; t=1789652978; c=relaxed/simple;
+	bh=tiAXtxGxkrnKvU2eq5NeqSXpRtY5IBhw2szF9OLHTKs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=G09+iO00wbzqhUoCbOAphbDpdtkrHLCuJVRTfT3F3b0UTRfFv8Ui1fm3R1JGUG7s2GRPj6clcSRy8KCYtUykNcjPmo5v4PJ/ynxzDAStnHMj5GgJRBxSbSAHfmVUVLZ/Mt0mDhLdtmzReW6aZ+8RjoLkk0kf2/+D9DA/urcRgVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=L/TADqrj; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=gyva6Z8GFrq9/TgoYyVvXLT1+fI3+Hez4jcGSuWe4Yg1yjw7MBwV1RX3/icdYazj3MBztxXCZGjtgcuBEfSQhTReI8b7SZ7oYhQuwgIcY28ZHSlgaNqNHcGPQS4mEexsQK5rSnShrSeYKGs06CmqeIwjeYqtGk/bZrdD0BoGIGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mfEEPMHZ; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="L/TADqrj"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mfEEPMHZ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1789652962;
-	bh=VXjQmgPNcP6TxrE9fEJyZi07Hi5P0Q3culnMpUj9c98=;
+	bh=tiAXtxGxkrnKvU2eq5NeqSXpRtY5IBhw2szF9OLHTKs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=L/TADqrjmFPk2K1ZX7k+LW5ZVhcd2vFs6kFuZZA6Jlhddudj5mKXh83EctWmN0tqt
-	 5rMwd1BHGe+slfldSeYdjDPi0oWUZZCCdMgsNvPyofWih3Wgx7LpkvAednoRqRxPeE
-	 aQ7sm3sRmykZOJG5NhjLapX/c6W22z6JVknnsw2SjFVJUD+KQVEa7u0fIcMzbIFdaG
-	 qcDysICHQsCWfIZXY2loWh61qOZKX4NvI6AvXn475qG+ud4TBKhP/rxSOKm1r++m64
-	 tpJYKsVTFVoafTpDDIs1FC3siumxQrosMrib23Jup1YdVziIgI6qI2P2jfwLiNyUv0
-	 MmFc5c7eJuW+Q==
+	b=mfEEPMHZi6bq0dHpVN5YC36TT+Hxjhh/GnxoeJmqjUcPN4BYW/Xt8MILjKjb9hAA4
+	 n9yq+NddK/Z5zEBAwAvAePDQLFB7aQRMdZczAtXVMx9w3oyV2bPVqDRwwhoYLpTtX0
+	 0r/ybOffsQ/HLZy8VdwHW6/qwGTyeiR3OoCPNIn4xbaqG1ORY8wR1nJNbrJJftP8Yg
+	 +ez3rwdUhcy9pTDTMmJbvGeBooJpOdILVWvOGYBt6yuBs5NjbKzkdHU5izV8KT5Osn
+	 IUdHdgzI+QBvBdSIeyWfXY7jmPRuYEMx3b19STjuRJg50ZEUqJYTnHMbwY/RJX3ag0
+	 ZclT2D5JimMog==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 222FB17E0D43;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 28BDC17E0D49;
 	Thu, 17 Sep 2026 15:49:22 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 83215480038; Thu, 17 Sep 2026 15:49:21 +0200 (CEST)
+	id 84E4C48003A; Thu, 17 Sep 2026 15:49:21 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 17 Sep 2026 15:49:18 +0200
-Subject: [PATCH 6/8] clk: rockchip: rk3588: add PCLK_DDR_MON_CH gate
- branches
+Date: Thu, 17 Sep 2026 15:49:19 +0200
+Subject: [PATCH 7/8] PM / devfreq: rockchip-dfi: make RK3588 use its clocks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,7 +46,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-rockchip-dfi-cleanup-v1-6-4f00a97a69a6@collabora.com>
+Message-Id: <20260917-rockchip-dfi-cleanup-v1-7-4f00a97a69a6@collabora.com>
 References: <20260917-rockchip-dfi-cleanup-v1-0-4f00a97a69a6@collabora.com>
 In-Reply-To: <20260917-rockchip-dfi-cleanup-v1-0-4f00a97a69a6@collabora.com>
 To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
@@ -64,62 +63,114 @@ Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
  kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1856;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3489;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=WfqRSjYFz7+ljRQE5uaOc11qdMoKK31EtGs4gkDrNM4=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqr7+FXLCthP7tD49VfVvHeEO0xRiIMMWLgb
- bnWmG28Z5g7+okCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqq+/hAAoJENju1/PI
- O/qaTb0P/A/x5egj1nQnkPWKzWJD+O+aQG9ru/DmIrFaBLMjgGQrkSHhtEIZ8awBiU0V3dMMoH+
- IDh/siTsRM7qE5prdXcGNwomi4yfg2uhlfSNAKfXSXMEWfA3W2dqypLAPqoepd4Nwb125f9+tU3
- NRgBy6NZRNnXfY1cdeqLtLEcuGT5xXVzS0T3xMIGRPErATCCwG826QuCv5qV0d/8dpswZW/f6fz
- K3Df5RDIa/jLXjpA262tTj+BFgz2TI+ISm9oYvLtISL1ACHRUxDTMlbZ+euWTaoySFa6XcWcbpo
- h8bgi5d8K0YkW6t7lwgCmtK4WeAGHLthgQCQa2ndYiz9mMRlrk0p6cqV9xOJwJrTJElzrt3yAeE
- E775KVtDdK+JhhFWwnSRl0drOyZOIE5khUf1KJyn/N5RA+GTNc3lcoQ3x0JWilijOiM7dQYTR/q
- RzUe+xEWItOEDnpmtfkwHo86FzBH2DHEC/ht3ZFu1hz126rDKjvK7ZHnY1SsGwuw0uiOgb0aE51
- 7LbAXuouUGATBzvyJ9Hb27Kfd3bHYjDKezCA2OiI0udmD1EyTenElgTNi3G4iF+BuIRABkCB4o7
- 4DLTPUSRI+LnSIOkJBKRDowlqsr6O4u/z2UMstpgKjQW3folhlQ+QT0iEUmA1HRmV043byt8Qoi
- rBK2hfyG7aKXuLpeFftkuKA==
+ bh=qvocAYEOUWCK+4Q9yI0ZwLs4Fy1aQdG/tLvtq/e+Jqc=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqr7+GFV+M6adaNBJbuYk6kVjFVMZuBUGmle
+ T/HWkCpx4u3jIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqq+/hAAoJENju1/PI
+ O/qa0i0P/2kmfmF5wFPZRp1Kce15wZ231gZnotouedinOs2H9/RgOfH0OUXthZ5UIOdn2lpjzY0
+ M35pLf2QzmsKUPp/d/51sOgNCn7/UOH57PwjQtA6CzwpR0fXUQGH4yjTq/vvroYaqkrUtfbKRxZ
+ vnPs5kcYCZeCrvJT5q/p+GoIw/kq53ZddMzBuzwruqavFVffybXEO/pBF9lyvaBRsN5lxMuV6Mh
+ QgPFnj7vIIsbYgZLWzRPeY6rd65qwNpSKRf/hwF1O0MtxZhx289jXtMTYmv50Y6N9+1X0RCoOW1
+ NpNZU+ZU5YF6Q2SsloVeCIV+CJP/zjUI42q4wvsAqe1E2oJdUN+YaihGWeGSOy+wc8MkgZGQ0e2
+ hvryTdERy+YnZlnKxoXkYlOSe8o9wDbRS+8HmF6Z1Nx3YUai+g4aQ93VSr3KkTIhddWr3sC1EvC
+ 0c5bdHo0bJ7r1YspPD0hOVY62Jst4SNXT3CQakQh85UcdzaK1UFBY5vWrrZTIF/A/nWKPD2Iqyn
+ ny7OPUN/VY2bZ18nLC28p+lOJPomUJeSfriuSybOT5P4ebzYrsv8ZhbriCMdALz4gm6bcEdlp3N
+ uF0dn/VtfneDFSfLtwVwN6K+9bo0oSYBzDoeeBR1x4683J3qeEbZr3FLmqBxttcUtLS8L22TyiT
+ u7zp3tHNWhjU80N8HZb070g==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-On the Rockchip RK3588, each memory channel has some bandwidth
-monitoring silicon (hence the "DDR_MON"), which is driven by a clock
-gated by PCLK_DDR_MON_CH0/1/2/3.
+So far, RK3588 doesn't have the pclks for DDRMON used in the driver, as
+they weren't modelled before.
 
-These clock branches were left out of the mainline clock tree until now.
+However, they are now correctly modelled, so the driver should use them
+when possible.
 
-Add them, with the proper CRU reg bits, and the proper parent.  They are
-given the "CLK_IGNORE_UNUSED" flag, so that older device trees with
-newer kernels don't turn off the clocks because they're seen as not in
-use.
+Instead of unconditionally getting them for this SoC, add a new variant
+member that specifies whether the driver should let missing clocks
+slide. This is needed because we want old device trees to keep
+functioning, as otherwise we'd be introducing a breaking change for
+literally no functional difference here.
+
+Fill out a clock name list for this variant as well, and hand it to it.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/clk/rockchip/clk-rk3588.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/devfreq/event/rockchip-dfi.c | 29 +++++++++++++++++++++++++++--
+ 1 file changed, 27 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/rockchip/clk-rk3588.c b/drivers/clk/rockchip/clk-rk3588.c
-index 24baa0ef9bf3..0485faf27163 100644
---- a/drivers/clk/rockchip/clk-rk3588.c
-+++ b/drivers/clk/rockchip/clk-rk3588.c
-@@ -1349,6 +1349,14 @@ static struct rockchip_clk_branch rk3588_early_clk_branches[] __initdata = {
- 	COMPOSITE(CLK_DDR_CM0_RTC, "clk_ddr_cm0_rtc", mux_24m_32k_p, CLK_IS_CRITICAL,
- 			RK3588_CLKSEL_CON(166), 5, 1, MFLAGS, 0, 5, DFLAGS,
- 			RK3588_CLKGATE_CON(70), 4, GFLAGS),
-+	GATE(PCLK_DDR_MON_CH0, "pclk_ddr_mon_ch0", "pclk_center_root", CLK_IGNORE_UNUSED,
-+			RK3588_CLKGATE_CON(20), 1, GFLAGS),
-+	GATE(PCLK_DDR_MON_CH1, "pclk_ddr_mon_ch1", "pclk_center_root", CLK_IGNORE_UNUSED,
-+			RK3588_CLKGATE_CON(20), 14, GFLAGS),
-+	GATE(PCLK_DDR_MON_CH2, "pclk_ddr_mon_ch2", "pclk_center_root", CLK_IGNORE_UNUSED,
-+			RK3588_CLKGATE_CON(23), 1, GFLAGS),
-+	GATE(PCLK_DDR_MON_CH3, "pclk_ddr_mon_ch3", "pclk_center_root", CLK_IGNORE_UNUSED,
-+			RK3588_CLKGATE_CON(23), 14, GFLAGS),
- 	GATE(PCLK_WDT, "pclk_wdt", "pclk_center_root", 0,
- 			RK3588_CLKGATE_CON(70), 7, GFLAGS),
- 	GATE(PCLK_TIMER, "pclk_timer", "pclk_center_root", 0,
+diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event/rockchip-dfi.c
+index b61ec500eaed..380361a231a2 100644
+--- a/drivers/devfreq/event/rockchip-dfi.c
++++ b/drivers/devfreq/event/rockchip-dfi.c
+@@ -117,6 +117,18 @@ struct rockchip_dfi {
+ 	const struct rockchip_dfi_variant *variant;
+ };
+ 
++/**
++ * struct rockchip_dfi_variant
++ * @init: pointer to the variant-specific initialisation function
++ * @stride: address offset between the DDRMON per-channel instances
++ * @ctrl_single: whether only one DDRMON instance monitors multiple channels
++ * @max_channels: maximum number of memory channels for this SoC
++ * @clk_names: pointer to a constant array of constant clock name strings
++ * @num_clk: the number of elements in the @clk_names array
++ * @clocks_optional: whether not finding the clocks is non-fatal. Set if the
++ *                   DT binding for this variant didn't require clocks in the
++ *                   past, so that the driver remains compatible with old DTs.
++ */
+ struct rockchip_dfi_variant {
+ 	int (*init)(struct rockchip_dfi *dfi);
+ 	int stride;
+@@ -124,6 +136,7 @@ struct rockchip_dfi_variant {
+ 	unsigned int max_channels;
+ 	const char * const *clk_names;
+ 	unsigned int num_clks;
++	bool clocks_optional;
+ };
+ 
+ static int rockchip_dfi_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl)
+@@ -804,6 +817,11 @@ static const char * const rk3399_clk_names[] = {
+ 	"pclk_ddr_mon",
+ };
+ 
++static const char * const rk3588_clk_names[] = {
++	"pclk_ddr_mon_ch0", "pclk_ddr_mon_ch1", "pclk_ddr_mon_ch2",
++	"pclk_ddr_mon_ch3",
++};
++
+ static const struct rockchip_dfi_variant rk3399_variant = {
+ 	.init = rk3399_dfi_init,
+ 	.stride = 0x14,
+@@ -824,6 +842,9 @@ static const struct rockchip_dfi_variant rk3588_variant = {
+ 	.init = rk3588_dfi_init,
+ 	.stride = 0x4000,
+ 	.max_channels = 4,
++	.clk_names = rk3588_clk_names,
++	.num_clks = ARRAY_SIZE(rk3588_clk_names),
++	.clocks_optional = true,
+ };
+ 
+ static const struct of_device_id rockchip_dfi_id_match[] = {
+@@ -883,8 +904,12 @@ static int rockchip_dfi_probe(struct platform_device *pdev)
+ 		for (i = 0; i < dfi->variant->num_clks; i++)
+ 			dfi->clocks[i].id = dfi->variant->clk_names[i];
+ 
+-		ret = devm_clk_bulk_get(dev, dfi->variant->num_clks,
+-					dfi->clocks);
++		if (dfi->variant->clocks_optional)
++			ret = devm_clk_bulk_get_optional(dev, dfi->variant->num_clks,
++							 dfi->clocks);
++		else
++			ret = devm_clk_bulk_get(dev, dfi->variant->num_clks,
++						dfi->clocks);
+ 		if (ret)
+ 			return dev_err_probe(dev, ret, "failed to get clocks\n");
+ 	}
 
 -- 
 2.53.0
