@@ -1,205 +1,175 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C754D9F76
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:42:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645384; cv=pass; b=L19ndrR8f5cgW4JFFbuEf1skj5Vx35qAxh+Ea4YLQVOj5lgpGdoE5akj2dwlD5208aDpEhz2UOkxJj3pSxP7kiBTWVrKeDdZMsZ491F3gXs3ZRIpZS0XIK/id57vgbgzhBM5Vj/ZnFFP3GCHvv9F/yDCDenZPfOriTVK44RKFsU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645384; c=relaxed/simple;
-	bh=vbrxd5srWOipj09aXDQHzqS5lMVRJ7HAcTG0L1bqBDk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KqmK19eHYO7VT0KUA8Neu2/JNq5QOjfdy+18aL6jaXVpNKUBQc/gx+I2Si5vJoVrh8AVuJ/xvQenXwbaEJjx2Rar8ffAKLS8HAsGeU67/gRkwVzgmNDspYYnPkLuDr1NmlV0PfIofCHr+QsBLasRAOdHXJuvMpodS5bqiW26+hk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Z6lNuCY4; arc=pass smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE434D957F;
+	Thu, 17 Sep 2026 11:43:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789645404; cv=none; b=XtmXCwrVmUGy/ldCadUZTSRETwgkUuz+qtepSh+itoesx04yqIApn0jfIMowd9AE92vGQi3g+69GQphOIRrMBi1bfQhb6p1ywTX2FaKf2Yf2WSn6zsvFxhul1n3R5U19tDybjNR2amdziPpJzADEJPL5YB+D+k0pdIN3qKE2Koc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789645404; c=relaxed/simple;
+	bh=/RRMaZvdYXyjxKi28+jDlAuOmVYD4lujZJGTistu1V4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=U1astRSNqqD1HCYHIbFoxsISccUoCUSVYKykuDIvZvohKlP7B9mwbXVKDWobMqTg94nAcFXs+kN/RjyVqyHQiI97lo1HAh2aBfic1Tw2Fna/HJtK1blKtQfleuoS2QKnMqjnqUjwFM4oAaZej8KS3NwK2fXAvhD1bHYSAx5Zdx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpy6M+kW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Z6lNuCY4"
-Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-66e56a1fe3fso623251d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:42:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789645372; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WFtZd0BUFNhvtPCP4p7rqaj8tlx1bcPOWofHoJqTbaAKRoJdqxka0dVxkJFUPRUDe/
-         /UQ8OqVPtpofxC/mqDR+sHI8TGtZlimvF4ahtjz5VPXtx3k1NXth+2Vk50biCW01TQ1e
-         j1RdmILmFjCylJN+FLbld6LQlzcgwCrHdhLBau9QDMB9nYWutgDHAjF3cXNq5DxOalxG
-         750eLopTfdL067NUku5fuNcQV7DJeCYl94NAW8PIZ56p5uDpo4WvZOE6qHH0zS7c826z
-         Z6p1yBcT5MxnaWlTzbfdqYQho7fG++ClftXNYBzXpqoFKDQJmIVu05zFGo3vJvCl3gEX
-         N24w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=glNGbXLPG/pOAS+pJMdVn3sfq0+G6eulTKEjqN2qPww=;
-        fh=eZmhsGPwR2jJpHp13aNC5fIe8WrMq+XsJb6rfSNDyfk=;
-        b=IP9Fu7C972m9KdNkI3A7vR7NeHKtcvY9MGlk+XDXYLVfhCdIUXtQfbvCfaGMsqaYTU
-         HAaARp2EBj+zhqTxBGXCM9HvVcTgqIhGW5yS34rhXrKcXXxd0YqZbga0nJMXPCn7MFKA
-         YZ3Bmwu1oOqYEEbTluwYLR97nmCERRJ2mptq6xYCx3G3w2sLvZ8d0vPhQjFoOnWFIjOt
-         yadHJqi6yqomDa7rBQy4bDoYmx/q0ejIdFyhz2EiJCJQvuzPPFgVX6gB5lvdG0lD4XZh
-         xalRAa56oTu82xFz6oBkJIHdlwgfJpGJQm8VTFO/BJXxF74smg/GeWqW2/0iRWvUh3JA
-         0nkg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789645372; x=1790250172; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=glNGbXLPG/pOAS+pJMdVn3sfq0+G6eulTKEjqN2qPww=;
-        b=Z6lNuCY4gE6sFsdgRC8dhHeA26EM/JX+utE3xfIQJE1t4mtSPU3u37JiKG8oQPP343
-         nD+khk6UbF8qwB6xqmTL3mfPiXVzOHBV00/6LrGteIaflvPlaJyqwzgW88Gjzk8Y04kv
-         QcUhlcMMM2OmM1PJQ8iXJW37qiDP/mjGNcE5M=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789645372; x=1790250172;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=glNGbXLPG/pOAS+pJMdVn3sfq0+G6eulTKEjqN2qPww=;
-        b=Axltj+BmGBoQdjKVG8JaOmVJRx5bowCzHCD4YYBq2xoOlvo77NrpnMtfm+8nz1sFCY
-         Qh+xWlJZMDnnT8SNC/ecMjIG89WXxb+2O9vip3a3y/b4gRA7lL0OszBZhxngSAW+j8uH
-         z7TQKn4CKu5bo+dc5ImDqrVkMYqc54qLjdb7uw8VQlqW9g63wHXm9DhoKInAs8xK4Btd
-         xRgRCssl+hlF8szV3oBIZGmzrj7oEvhR4UPiexcosVKrgOqq/wsnWQe0VlAYzhAKhB53
-         /9EiK2ylmbgVhDhXaE5jqlYiWCTx+yv2B05eN7P7tf4t/mSr8HZ1yhvghbNRmyHMjJ+I
-         NlbA==
-X-Forwarded-Encrypted: i=1; AKwUvByv2hGy3K/+CrM+2YWbFiy07GRsNHPr3LtalJJrgYnzn4WyUtTzlPMdAHL7HpJ+Df6uoblCmDIFqAkmads=@vger.kernel.org
-X-Gm-Message-State: AFuF++lN0SLdmTvKWiiFQ0W1lGU2D1VNaq1abk4WipieGAN9XDWoSJ4X
-	djvS+MGPIQrjIJT7NTOrulTWzA1z34H0A8TgkghHG2zaua7uT59CUMc67AlEtzQFL67fR+Fwk7l
-	YnLWeNl/piZ+bABzC32eC8f3B4AM3/FNBcq6+THgR
-X-Gm-Gg: AYBFou1N8mPC8MYqt1cqHwbBxl9sGX77URYqJo0y9i0/YnCWPQepFhxzxPSH3oSXHiz
-	irU2T7ijPwsuD3R5XsA0G/IgUby37uCesUDR5HOR12dQY4e4rgdJlPlMg988GCWlfAYH9CntwEM
-	1BYwM8vUX329wIftFDAYJVSzQB1TfWs2U/hu1+zuYiPO2Xg1y6RqQmayJ82utI1SU3X4KoInedp
-	CPdSh1GWXMuxoVLwprWC6EMdYZ/Ok84Ua37XQteHIGxBpxfcHH7Zb/Vu70iRCC5Z/QvqhW+E4rK
-	Wr12XQC+tIE3yijz6yDi+eR1t6QA4bjBvrLZJAJhPgMpyyAAHPiiilgbjAuliLfI9cPL/v9Pj4j
-	wGzw3Xq1x
-X-Received: by 2002:a05:690e:1181:b0:66e:54a0:cdd3 with SMTP id
- 956f58d0204a3-6717724501emr313133d50.42.1789645371777; Thu, 17 Sep 2026
- 04:42:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpy6M+kW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F7FC1F00893;
+	Thu, 17 Sep 2026 11:43:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789645395;
+	bh=oND2i0wmdeDmPpu5wQ4bCyCIBtaTeFPGekdA2ZtJIkI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=cpy6M+kWPx7Ph0TALecXe1q/gnEj4PeACYpuh/e0L+I+6n9H2qjunF6sMccIpseCd
+	 0MODjSJR77Rcvybh1rIDL2qn+E/YFYVfEV1DjRENV031/WgGK8CNNOhf77npEbAikP
+	 WR5hGHmJRe6YvDcACZvdYxDYPri01Yz1cCSw6e1lKo3cvx2+1a30X/X82sfsW5awTT
+	 A1rixweyl2MkF/571q8+pW9mDHosTTjAqQk9LS6ncUzYLYYRPOF2JJ5AE0IrFcjyCf
+	 ccZsht2lZWOCq5Hnhra+8iQVm3BNR5t6518EEKqMyNYucZSCqXsZxJV5zjB8aETu9m
+	 fRzKUKZC6ElbQ==
+Subject:
+ Re: [PATCH net] net: phy: reject attach while the PHY driver is in transition
+From: netdev-bot+sashiko@kernel.org
+To: f@lex.la
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org
+Date: Thu, 17 Sep 2026 11:43:14 +0000
+Message-ID: <178964539462.22033.78864518608969481@kernel.org>
+In-Reply-To: <20260914204200.2743251-1-f@lex.la>
+References: <20260914204200.2743251-1-f@lex.la>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916033327.3054126-1-wenst@chromium.org> <6d21e808d343283264665ec16d297317000fdf4d.camel@icenowy.me>
-In-Reply-To: <6d21e808d343283264665ec16d297317000fdf4d.camel@icenowy.me>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Thu, 17 Sep 2026 19:42:39 +0800
-X-Gm-Features: AcwNN1UiSWBQWxLfTBKkSaF0uFiyhB3L4EIUoSHVNJlTekBmF6uuJ4F5EBEDj-E
-Message-ID: <CAGXv+5FHiW8umZ=wLLb5wK5Qz3hf-mbxC_zH5v+pwxxyUNTwew@mail.gmail.com>
-Subject: Re: [PATCH RFT v2 0/5] drm: Add and use drm_fb_dma_get_gem_clipped_addr()
- helper
-To: Icenowy Zheng <uwu@icenowy.me>
-Cc: Liu Ying <victor.liu@nxp.com>, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
-	Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	linux-sunxi@lists.linux.dev, imx@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 7:16=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me> wrot=
-e:
->
-> =E5=9C=A8 2026-09-16=E4=B8=89=E7=9A=84 11:33 +0800=EF=BC=8CChen-Yu Tsai=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > Hi,
-> >
-> > This is v2 of my drm_fb_dma_get_gem_clipped_addr() series.
-> >
-> > Changes since v1:
-> > - Add and use new drm_framebuffer_get_block_offset() helper (Thomas)
-> >
-> >
-> > This series adds a helper to retrieve the buffer starting address of
-> > a
-> > "clipped" framebuffer. This contrasts with drm_fb_dma_get_gem_addr(),
-> > which gives the address of the full buffer.
->
-> Should vs_fb_get_dma_addr() in verisilicon/vs_plane.c be replaced with
-> this helper too?
->
-> I implemented manual framebuffer offset addition here.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-Didn't I replace vs_fb_get_dma_addr() with drm_fb_dma_get_gem_addr()
-already? At the time only primary and cursor planes were supported by
-the driver. The primary plane can't be clipped, and the cursor plane
-had some custom clipping, but seemed to want the unclipped address.
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
+- [High] Incomplete fix / residual TOCTOU: the new `else if
+  (!phydev->drv)` test in phy_attach_direct()…
+- [Medium] Module reference imbalance survives the residual unbind window
+  that this patch claims to close.
 
-ChenYu
+--
 
-> Thanks,
-> Icenowy
->
-> >
-> > Some drivers program their hardware with clipped dimensions, so they
-> > should be using the clipped buffer address as well, unless the
-> > hardware
-> > can advance the scanout directly. (Side note: many drivers still use
-> > the non-clipped dimensions.)
-> >
-> > While at it, also pull out the offset calculation of
-> > drm_fb_dma_get_gem_addr()
-> > into a separate helper in drm_framebuffer.[ch], thereby separating
-> > responsibilities.
-> >
-> > The sun4i driver was recently incorrectly converted to use the
-> > unclipped
-> > drm_fb_dma_get_gem_addr() helper. This broke offsets into subsampled
-> > pixel groups, but also exposed the mismatch between the dimensions
-> > used
-> > vs the buffer address. Two other drivers were also touched.
-> >
-> >
-> > Patch 1 adds a new helper to return the byte offset into a
-> > framebuffer
-> > for the start of the pixel block of the given pixel coordinates.
-> >
-> > Patch 2 adds the new helper to return the buffer address based on
-> > clipped coordinates.
-> >
-> > Patch 3 switches the sun4i driver to the new helper, and fixes the
-> > luma plane buffer address offset for subsampled YUV formats.
-> >
-> > Patch 4 converts the imx/dc driver to use the new helper. This fixes
-> > a
-> > mismatch between the programmed coordinates and the buffer address.
-> >
-> > Patch 5 replaces the open coded buffer address calculation in the
-> > imx/dcss driver with the new helper. Existing behavior, which might
-> > be
-> > wrong, is preserved.
-> >
-> >
-> > Please help test. The series is only compile tested on my end. The
-> > sun4i
-> > changes should revert its behavior to before the
-> > drm_fb_dma_get_gem_addr()
-> > was adopted. The imx/dcss changes should not have any behavioral
-> > difference.
-> >
-> >
-> > Thanks
-> > ChenYu
-> >
-> > Chen-Yu Tsai (5):
-> >   drm: Split framebuffer pixel offset calculation from
-> >     drm_fb_dma_get_gem_addr()
-> >   drm/fb-dma-helper: Add drm_fb_dma_get_gem_clipped_addr()
-> >   drm/sun4i: layers: Fix VI buffer address for clipped offsets
-> >   drm/imx/dc: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
-> >   drm/imx/dcss: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
-> >
-> >  drivers/gpu/drm/drm_fb_dma_helper.c    | 61 ++++++++++++++----------
-> > --
-> >  drivers/gpu/drm/drm_framebuffer.c      | 45 +++++++++++++++++++
-> >  drivers/gpu/drm/imx/dc/dc-plane.c      |  4 +-
-> >  drivers/gpu/drm/imx/dcss/dcss-plane.c  | 34 ++++++--------
-> >  drivers/gpu/drm/sun4i/sun8i_ui_layer.c |  2 +-
-> >  drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 16 ++++++-
-> >  include/drm/drm_fb_dma_helper.h        |  4 ++
-> >  include/drm/drm_framebuffer.h          |  3 ++
-> >  8 files changed, 118 insertions(+), 51 deletions(-)
+net: phy: reject attach while the PHY driver is in transition
+
+The patch adds an early -EBUSY return in phy_attach_direct() when
+d->driver is still set but phydev->drv has already been cleared, which is
+the window between phy_remove() and device_unbind_cleanup(). The intent is
+to avoid dereferencing a NULL phydev->drv in phy_drv_supports_irq() and to
+avoid leaking the PHY driver module reference.
+
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 94b2e85e00a37..044cefd9840bb 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -1781,6 +1781,10 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
+>  			d->driver = &genphy_driver.mdiodrv.driver;
+>  
+>  		phydev->is_genphy_driven = 1;
+> +	} else if (!phydev->drv) {
+> +		/* d->driver outlives phydev->drv on unbind, precedes it on bind */
+> +		err = -EBUSY;
+> +		goto error_put_device;
+>  	}
+
+[Severity: High]
+Is this check able to prevent the oops quoted in the changelog, given that
+it samples phydev->drv once and the dereference happens much later in the
+same function?
+
+The commit message says the function holds no lock over phydev->drv, and
+get_device(d) only pins the device object, so the unbind can land right
+after the test:
+
+CPU0 phy_attach_direct()
+	} else if (!phydev->drv) {	/* passes, drv still set */
+
+CPU1 phy_remove()
+	phydev->drv = NULL;
+
+CPU0 continues in phy_attach_direct()
+	if (!phy_drv_supports_irq(phydev->drv) && phy_interrupt_is_valid(phydev))
+
+and phy_drv_supports_irq() has no NULL test:
+
+static bool phy_drv_supports_irq(const struct phy_driver *phydrv)
+{
+	return phydrv->config_intr && phydrv->handle_interrupt;
+}
+
+That is the same faulting access described in the notes (offset 0x128 being
+phy_driver::config_intr), and it is the dereference named by the Fixes: tag.
+The changelog does acknowledge "an unbind starting mid-attach still races",
+but with a Fixes: tag attached, would a stable backporter reasonably
+conclude the crash signature is gone when it is still reachable?
+
+Should the single unguarded use be made NULL-tolerant instead, the way
+phy_init_hw() already is, rather than adding a sampled check far away from
+it?
+
+There is a second dereference in the same window. If
+device_unbind_cleanup() also runs, dev->driver becomes NULL:
+
+drivers/base/dd.c:device_unbind_cleanup() {
+	...
+	device_set_driver(dev, NULL);
+	...
+}
+
+and the statement immediately after the new check re-reads it:
+
+	if (!try_module_get(d->driver->owner)) {
+
+Can that path fault too, since the new test looks at phydev->drv but this
+line dereferences d->driver?
+
+Finally, phylink_bringup_phy() dereferences phy->drv right after a
+successful attach. If the unbind stores land just as phy_attach_direct()
+returns 0, does that caller hit a NULL phy->drv as well?
+
+[Severity: Medium]
+The changelog gives the module reference leak as a reason to fail here:
+
+  "a continued attach would already hold the driver module reference that
+  phy_detach() drops only while d->driver is set, leaking it once the
+  unbind completes"
+
+Does that leak remain reachable in the window the patch leaves open?
+phy_attach_direct() charges the reference keyed on the mutable field, right
+after the new check:
+
+	if (!try_module_get(d->driver->owner)) {
+
+and phy_detach() re-reads the same field at release time instead of the
+module that was charged:
+
+	if (phydev->mdio.dev.driver)
+		module_put(phydev->mdio.dev.driver->owner);
+
+So for the sequence [new check passes] -> [try_module_get(A->owner)] ->
+[phy_remove() clears phydev->drv, device_unbind_cleanup() clears
+dev->driver] -> [attach fails later, for example on the phydev->attached_dev
+"PHY already attached" path, phy_link_topo_add_phy() or phy_init_hw(), or
+the netdev is brought down afterwards], phy_detach() sees a NULL
+d->driver and skips the module_put(). Does module A then stay pinned
+forever?
+
+There is also a mismatched-module variant: if the mdio device is bound to a
+different PHY driver B via sysfs before phy_detach() runs, phy_detach()
+would call module_put(B->owner) for a reference it never took. Can that
+underflow B's refcount and allow unloading a module still in use?
+
+Would recording the module pinned at attach time, rather than sampling
+d->driver twice, close both cases?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914204200.2743251-1-f%40lex.la
