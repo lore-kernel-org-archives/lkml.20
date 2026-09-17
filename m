@@ -1,168 +1,90 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9D751CF79
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663591; cv=pass; b=uMPHA7tvJ1tcys1tEiQlg1xREE37auMollu2UqsrcwUo2MShPlLGjgktO8tTNiTtzDT69S4ogxCNIisilohMqwaeO7uBozy5CirWwguE5gW9zcE1xP7Pu8QjoWRi58doOHe1ojRGBmeKEjpHK1DV9mmCOEj77GaxMZLUMc+JFFo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663591; c=relaxed/simple;
-	bh=eYYWM3K0Z9Uro9HwA9hQ8je2naly/JqA+zNhzp9DrpU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oAASJWPZDBWuU79tZ2BXC3K4ANFODbarYF50cgHW0oaB7qfCBpRy+7cKQsBX1PzTLnA0MoEMUpSBl/+qgwTaY3GYn9Mk7lcL2M8kkLZCXPs7/Y3rFu3wMptQNZrtcyzvqiXPbrca0qWneV7HZ0Q9/G6dyKs+1e3zK13Ky7hnN3g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZTTX6g4m; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=H200DWtJ; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZTTX6g4m";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="H200DWtJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789663588;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wJkyJ4XReVojvgclcE9i/BeATq3QWWN8a1a2t1DdhcM=;
-	b=ZTTX6g4mYj0vlRM1lqShOllZvQyzIx2owUz//QT3uX3LDPwvQ13gLfFul3EjOEEnhQRL8+
-	IgQ/7XdL20/z2P4kFnyzkp7ERWfZuLKKKkUCSaqJIXTrE/hkbCg/FbDPz+nqS3uMZjRKFl
-	rRIN2A0cBVjwRsvMvG/YvP3IE3QaPqs=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-140-_biktBNkMUKnN78ev1dirA-1; Thu, 17 Sep 2026 12:46:26 -0400
-X-MC-Unique: _biktBNkMUKnN78ev1dirA-1
-X-Mimecast-MFC-AGG-ID: _biktBNkMUKnN78ev1dirA_1789663585
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c29bc25836fso139656266b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:46:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789663585; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZftGcjQoHh2W7voDXJ60k9RyDZ3i6C64k4nSP0ClssbsmssY99ktzNPcrAIrdmx953
-         jTtPnkXZoYYBeEv6B3DzsENczWC7CaNm75RNarKIUG43Pj9LvVtkF/nnRMOYEpxxQVVV
-         a+abiRYdNmFapRqjfHpKe8xSRqC8VA0AN/JTQ+4yMSPsfFYejhI5/WuAnsT7BieBNJrW
-         6Gry17bCkORArp04hek14lIm2FJ0owZ5qRLAGQbToujt+pysYvhgPKbaWkwN1cvbvJFc
-         rqlAUXeF2ReVYTNLp+nB6hv8tvc/pPQRFL+W6YCk+ANX/yVoxx44V6iwo3EM4Z9c6lIy
-         uFpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wJkyJ4XReVojvgclcE9i/BeATq3QWWN8a1a2t1DdhcM=;
-        fh=YWlXEUbBDmrTbcwAL4szVh5YYHemwpSHlgjXyytwIoY=;
-        b=q1OTFc0cJivRobRHknm9EmhnCPeSfA3WgceZ7z0e0+UQRCEpU1gUwpz0L2qJf5b00Z
-         X5R4vnBRpkeme5EhwCG/6Go2Jm2FNCEhx/zZ5F+1sxixxlln0BBcMumYhy/dB2rqolRm
-         6pmSKlJcuU7m0MO7oMgRj9VWXbXdiiEp4+3uz1nTXowsXWJYFDNjszbyl7bRHhD1Kt/o
-         RA0BlK8LsXkWpnFvEBSji3+rZecBbyucd8S4C587Y0SlMcLW3qZe6BDJKH4cFv/hrkAf
-         /3yUADP4hjqn1AI3MT2NtwLhDiVGEB2kjXeeAjDjf/w6y2SIb7mAK8NYTLV34Mwz8w8C
-         Rovw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789663585; x=1790268385; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wJkyJ4XReVojvgclcE9i/BeATq3QWWN8a1a2t1DdhcM=;
-        b=H200DWtJICF9QH6JHKN/nmm5tV86eiUouPYi7aafDRycxl6U169OnOUHb3rKCENsez
-         +0RXYTDalsgbqK5ghOadRO1Q8ILIs3srTU1f8QjOTFAsX6a0xyq2jTukvLaLDFgK2T3X
-         nqWiLKjVhJUi1FY9XS2W+MFSI/Yfh90CWlNqT5+QBG5KUeK+wYo2J2lpSvjs9TNMBe+y
-         xQ+ptvfiXIvmOWzzcDpd4BoaAXwTWRZRRuQ6ZGdvEVm7fpOJRHQ6Y+CSZnj1bU6AMMRf
-         3uQUC6XuxCuwpCc07yBmfv3xF+IN8gmARl5UVfqxlHr6om+vwq01CYDReMmqjLfntZU/
-         SgDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789663585; x=1790268385;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wJkyJ4XReVojvgclcE9i/BeATq3QWWN8a1a2t1DdhcM=;
-        b=KHPwS1e0iwnPuAgkBLw40x1PM7Wazoyl7G2L7wYjtTflkAtlzKgDJdM06fMkWegVb+
-         gnhvfijunAjUeakqozl3xX95OFRFi9GwvWi4O7Tf0peLIrNsdntuBaxIVmgw3sep8WJs
-         gT0mu69Vtbg9ZaZgOU8IpMWN6dqxFzZ8EggLLTZbu/agK3Nif3gix9pp/rSBRM7dY6l7
-         UmfvpgLP4Si2JeaJ8+RbqmXvEdtZQnfZE3uxEJ3mQcGbfW7yKWFX9VMVWYtHCmP/6Bkk
-         6vKWVnS8s6fcVh3/WHRFVimNO5/kQyiRbxVui0xpjon7xGOSbI0kuCVL6oA/AuOxuBq7
-         +/wQ==
-X-Forwarded-Encrypted: i=1; AKwUvBylnvakmPaD7DxQ57KubHiu+sZqRZoNMleWPovT0+ehuLg10z1FfrYk9xQj6fPuRgli+cKDiTE6JRBhpR0=@vger.kernel.org
-X-Gm-Message-State: AFuF++la5aCtiYjyMAiRLDtrNwlrEdx5uadSauHNCadL991sySKuComk
-	ZmF9/KHvqvjUEAc7JOBjOaP3pAI5GARiTZv3zfcQM38faJWK+ZOr1uoxYc31N2Ul9gMYS83i2Z9
-	k/E91SDL9lUF7809UjSsHcroKf6NFPj3E9Q0CVa9NXxqSz8q5+/aCJPPPDrevnDMQgJOKryFOpr
-	3KjHyt321f0fhfbpaE59HoBpSAKmidkrj1xAcfenE9aRuawDIsYHo=
-X-Gm-Gg: AYBFou1GRsgwSl72z8Rk0pyjajcLus2bF++4xYyHEZy7ZhL2F9bGT84iY1BkY9ju75K
-	beI5sepvkIhlwPd/yC/wmKoDMSNostR4DmkCDXP1v1uSFXJRUmLQAMJbDLEWE72MnYY3nFN6Apj
-	hb4YC+fyN5lN4irdxOQTw99hs+dW+WQalnPvPkij4WsfwwK6HKDZY2bi5RmONW2B6kerZr096n7
-	BxsVplIaGGtk3D/t684dj+st4VYyg5qfz8NzVH6u7KTDzF6ZSbP63bjubcLCH6txO6yhzkFrpL+
-	xNA=
-X-Received: by 2002:a17:906:4fc5:b0:c26:19de:9ad2 with SMTP id a640c23a62f3a-c29e53184f0mr504528566b.42.1789663585528;
-        Thu, 17 Sep 2026 09:46:25 -0700 (PDT)
-X-Received: by 2002:a17:906:4fc5:b0:c26:19de:9ad2 with SMTP id
- a640c23a62f3a-c29e53184f0mr504523266b.42.1789663585091; Thu, 17 Sep 2026
- 09:46:25 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D6A51A134;
+	Thu, 17 Sep 2026 16:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789663596; cv=none; b=N+1mqOgqi9PtiK+jt/6fOxnnmEtsyGpbFZnkU2C0sHluqTgHcAPGNypmmLgRQ8OvCTHYna2OfyBHoCwNuB5v38TL0O6w/pncmhVc8dIH7X8hWf7oeIbq2PIMr9GjeorMLhWonWeODtzJfLkskuej/5US0htWRYPhmwkOGlSD5rk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789663596; c=relaxed/simple;
+	bh=8RIfnfRH+aOZKq7lB5+mDcmjSHUGSrRgsrUz5ma4HUs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JGE3AyKcShRQyiZTxBBzH2yzMCoe4+91lRr53i2NoFynluFSjwklbnjzvG08I2kgjX8YtWL1/Aw2MH8oQl50eyd7JZFRlkr/s1J/rMAW0nkXjJPSvU2glx05hWmW+ZIrNgZkUVfzOkKnOBXkyEVBZmEPRK49d6p8jCAuafxjT8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACnEDthGaxqzsCECA--.739S2;
+	Fri, 18 Sep 2026 00:46:25 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: broonie@kernel.org
+Cc: ckeepax@opensource.cirrus.com,
+	cw00.choi@samsung.com,
+	lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: arizona-jack: Fix runtime PM leak in arizona_start_mic()
+Date: Thu, 17 Sep 2026 16:46:25 +0000
+Message-Id: <20260917164625.2163097-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788351089.git.rrobaina@redhat.com> <b4ab47d2551d090520b4fa81a884b5988b9655c7.1788351089.git.rrobaina@redhat.com>
- <apkuNj1paR_GO3x9@willie-the-truck>
-In-Reply-To: <apkuNj1paR_GO3x9@willie-the-truck>
-From: Ricardo Robaina <rrobaina@redhat.com>
-Date: Thu, 17 Sep 2026 13:46:11 -0300
-X-Gm-Features: AcwNN1UTQywdGW9xqj12KwNHAYLGfDNNso402GZvP3WcYYwXGdDJ7Oiz7qML_cg
-Message-ID: <CAABTaaCoNztwDUA-HPp4LaikxL4dxk-1bvCCpoZEGD4rnds1oA@mail.gmail.com>
-Subject: Re: [PATCH v2 04/13] arm64: pass pt_regs to audit_syscall_entry()
-To: Will Deacon <will@kernel.org>
-Cc: audit@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-csky@vger.kernel.org, linux-mips@vger.kernel.org, 
-	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
-	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-um@lists.infradead.org, bpf@vger.kernel.org, paul@paul-moore.com, 
-	eparis@redhat.com, sgrubb@redhat.com, oleg@redhat.com, 
-	richard.henderson@linaro.org, mattst88@gmail.com, linmag7@gmail.com, 
-	linux@armlinux.org.uk, catalin.marinas@arm.com, guoren@kernel.org, 
-	monstr@monstr.eu, tsbogend@alpha.franken.de, jonas@southpole.se, 
-	stefan.kristiansson@saunalahti.fi, shorne@gmail.com, 
-	James.Bottomley@hansenpartnership.com, deller@gmx.de, 
-	ysato@users.sourceforge.jp, dalias@libc.org, glaubitz@physik.fu-berlin.de, 
-	davem@davemloft.net, andreas@gaisler.com, richard@nod.at, 
-	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net, chris@zankel.net, 
-	jcmvbkbc@gmail.com, tglx@kernel.org, peterz@infradead.org, luto@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACnEDthGaxqzsCECA--.739S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZFy8tF45KF17Kry5JrWxXrb_yoWkKrc_Ca
+	1fuw1DurWjgrZ2ya1DZFn8Z397uFyDGFWfZa1qyF4UtFWUKan8ZryUAr9xCrs2q3yfXa43
+	A3WDuFW3A3srujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbfAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E
+	87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
+	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
+	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
+	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7Cj
+	xVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
+	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
+	0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbUPEDUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qr9nBTXwAAsJ
 
-On Thu, Sep 3, 2026 at 5:22=E2=80=AFAM Will Deacon <will@kernel.org> wrote:
->
-> On Wed, Sep 02, 2026 at 11:43:37AM -0300, Ricardo Robaina wrote:
-> > audit_syscall_entry() now takes a pointer to pt_regs and extracts
-> > the syscall arguments itself via syscall_get_arguments(). Drop the
-> > individual argument registers from the call and pass regs instead.
-> >
-> > Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
-> > ---
-> >  arch/arm64/kernel/ptrace.c | 3 +--
-> >  1 file changed, 1 insertion(+), 2 deletions(-)
-> >
-> > diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
-> > index f743cbec1c3a..65532b2a8cd4 100644
-> > --- a/arch/arm64/kernel/ptrace.c
-> > +++ b/arch/arm64/kernel/ptrace.c
-> > @@ -2476,8 +2476,7 @@ int syscall_trace_enter(struct pt_regs *regs)
-> >       if (test_thread_flag(TIF_SYSCALL_TRACEPOINT))
-> >               trace_sys_enter(regs, regs->syscallno);
-> >
-> > -     audit_syscall_entry(regs->syscallno, regs->orig_x0, regs->regs[1]=
-,
-> > -                         regs->regs[2], regs->regs[3]);
-> > +     audit_syscall_entry(regs->syscallno, regs);
->
-> Acked-by: Will Deacon <will@kernel.org>
->
-> Thanks for doing this.
->
-> Will
->
+arizona_start_mic() takes a runtime PM reference before enabling mic
+detection, but the error path taken when regmap_update_bits_check()
+fails returns without releasing it, since pm_runtime_put_autosuspend()
+is only called in the !change branch. This leaks a runtime PM reference
+whenever the register write fails.
 
-Thanks, Will!
+Release the reference on the error path as well.
 
--Ricardo
+Fixes: fbdc60b2a787 ("extcon: arizona: Correct error handling on regmap_update_bits_check")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ sound/soc/codecs/arizona-jack.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/soc/codecs/arizona-jack.c b/sound/soc/codecs/arizona-jack.c
+index a9063bac2752..09a100846fdb 100644
+--- a/sound/soc/codecs/arizona-jack.c
++++ b/sound/soc/codecs/arizona-jack.c
+@@ -274,6 +274,7 @@ static void arizona_start_mic(struct arizona_priv *info)
+ 				       &change);
+ 	if (ret < 0) {
+ 		dev_err(arizona->dev, "Failed to enable micd: %d\n", ret);
++		pm_runtime_put_autosuspend(arizona->dev);
+ 	} else if (!change) {
+ 		regulator_disable(info->micvdd);
+ 		pm_runtime_put_autosuspend(arizona->dev);
+-- 
+2.34.1
 
