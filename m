@@ -1,163 +1,191 @@
-Received: from va-2-16.ptr.blmpb.com (va-2-16.ptr.blmpb.com [209.127.231.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E5137C908
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:20:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5533859EC;
+	Thu, 17 Sep 2026 02:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611637; cv=none; b=Rj58SGastp6M5MgZYPH1hiX2chfBwyKQh985PzU2aqtZulRWCJuX2UEP0i5hCK+yKeWiXUQhFwZ6imqckCyA7c+q7qLuiKUJCq/jnLe/Svbw1gdzHqBBsfYnXsZEFlkB2i5jVgqL6pd2Q9QhgatEmUNhu+FGfPozU4R20RoTmNs=
+	t=1789611637; cv=none; b=X6BlNPayR/fFPEbRyVxpUMaEqTa8AgwcuoMRCTFlZKNMrdxQ4U30/ct14yMUXMEhv3t8A83kp/G2MgW+4jEZKkB6STtHDmH6BFtwwgkr0qq+WWlolXQE/KiIXp/V3rRtQ6mvqkGu99CpyWzKKjDl8HH4aJv783UaciUpvTN0YT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789611637; c=relaxed/simple;
-	bh=8kWsfvkyvhV104ITNeH/Fh1fDCcX6OdfZ06BqDoNoIo=;
-	h=Mime-Version:Cc:From:Message-Id:Content-Type:To:Subject:Date:
-	 References:In-Reply-To; b=dqdTfeNJ4CDNcPzOOgEQ2IJguwCzKAn2SJD4P+u4PSQug1VmnJXcYMK23Wh3l6QSa05ZVQn4licNfXCDOhRK4KhVI3WGgC2cPXbYgP7/BpEgVDOK3UpAeEiQLAAqkJ6xeo7yWSlqmgF4S6PsnKphikWJ1LcxNpFKisov9LORQV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=SEem00pg; arc=none smtp.client-ip=209.127.231.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
+	bh=2hEhyk0s4WVmFdIupv816I4A+gouGd9M8wYttLHRGbg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ID6I/35gzwxFhIQjy3MwqIa3XJZ6/9dOrg6B56HbsNsInNp4KJ1AmNE7LQxHQ9+F8ARiBW1pdh8mQGJMSw8OFwf42eK1nhYVWFTPgxAcvb1hQU6BoPhtk6V4jbvHqUPrqss0MVRaZa15nu42tHDaDYk2ZtwqyN28+j1gCKho6gQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=CPaKDwdl reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="SEem00pg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1789611624;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=/ijL8TbZ6QRAV8M0Mh8w1uQRFFCioTjBpSOLAWpXmV0=;
- b=SEem00pguABdRSb516GEE1ByZN38VNAeU/wsDB62zVfbMGGdND7JOYJGY0HDKPr4+s3O77
- X9HGAT0dtvFE15AKpAdrEBGoD90GJxmnjZj3sf+vcvpFllFm4Pg4zA02QoNLZ73CK06lqv
- 9x39w17/Btji+MCJHSllOlUGVeljWGOw34iy0QPBuypfApDckLB7vgNV6KRCaz5ePwmm/7
- N9sMYctsnrTaGHSRpDgjogWRIwAEffIrYv1njQ1zB7RiCK53Q9H3PpQEYGfyJhhKxbuDGW
- NQfuDaYgqVmTWlpLzHmzvcz3zpA+lpoYIYeRCrWWXviQx1wYSNdKFMpvnKWs9g==
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="CPaKDwdl"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B90C440E00B9;
+	Thu, 17 Sep 2026 02:20:26 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id Oqanxm5HEzvI; Thu, 17 Sep 2026 02:20:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789611616; bh=t+xhCY2klvKxUHYu8YVGd1Jq3dnIAaBznhM5u4gjcEw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CPaKDwdlQE4UQKX5VEGrvNFhWWNdZ5an+ir3VDDwOLNb6Thz2NZnvhPfPvM++nh1s
+	 VROsc8PIAf1rBld9VtHkliStCc5QOBkUfvkvLN6XzSyomnq5VgwkOnTcHJYn5y9w4N
+	 SE8zZ5Jd3EO/527Jd5FDgUJeeFgZKkqi6SWcTs0LH6a0KFHG5Ff79mpy/E/tLpu8am
+	 ZiA7szmkmZy8E+3FKpU+4Eqfvr5JMqail4qIA9Xuu6sufv7nTP2Ohx079BBbTcSCCL
+	 kzannFLMQ2DHAqs/tnDbkk9thbJ4iMfo3muzW6OBGoi7XG3n+W64ijBmTVHuwr5wIO
+	 B6i/1t0bSpSdzJFB6PmqZ1LSgp8S5eSHypxnfW+BarzoQey4PtjgDGpTWVIwcm+il6
+	 bjKC2FbBgFO4QREQRreqD+80QNfypJB6GZJcRSmvruu4RRAoTve2bwj+gKNMFhFjj2
+	 5RISMtwUxlPOqPYDNphTDxoIbghtrlNdnVdNcbmfIiv/dqOCMWNr3+1MP2KvnqZy3I
+	 6u9m+KPChF6vYRN2QhUwdKCyxQ4Q5X3ghAZENYaa14hVxAK23COKU6uaSESM6BPfc/
+	 h2my2Tpa8xQaGxnNFgyShc8qpJGhFS5mY7FESabANNs4/FR9yXHeSoVuBJRZKvqNxf
+	 C4zFsSARasged0QxHNaCVV3A=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 1CEBE40E015B;
+	Thu, 17 Sep 2026 02:19:40 +0000 (UTC)
+Date: Wed, 16 Sep 2026 19:19:37 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: sashiko-reviews@lists.linux.dev
+Cc: Ashish Kalra <Ashish.Kalra@amd.com>, kvm@vger.kernel.org,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	seanjc@google.com, peterz@infradead.org, thomas.lendacky@amd.com,
+	herbert@gondor.apana.org.au, davem@davemloft.net, ardb@kernel.org,
+	pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
+	KPrateek.Nayak@amd.com, Tycho.Andersen@amd.com,
+	Nathan.Fontenot@amd.com, ackerleytng@google.com, jackyli@google.com,
+	pgonda@google.com, rientjes@google.com, jacobhxu@google.com,
+	xin@zytor.com, pawan.kumar.gupta@linux.intel.com,
+	babu.moger@amd.com, dyoung@redhat.com, nikunj@amd.com,
+	darwi@linutronix.de, linux-kernel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-coco@lists.linux.dev
+Subject: Re: [PATCH v16 2/5] x86/sev: Disable CPU hotplug while SNP is active
+Message-ID: <20260917021937.GEaqtOOfbceTzNy0um@fat_crate.local>
+References: <cover.1789594774.git.ashish.kalra@amd.com>
+ <cd6962a88d691a020c2bf40fe77a6a3f3852fdfc.1789594774.git.ashish.kalra@amd.com>
+ <20260916223630.C5E1C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26aab4e66+012f3e+vger.kernel.org+yanli.yang@bedmex.com>
-Cc: <marcel@holtmann.org>, <luiz.dentz@gmail.com>, 
-	<devicetree@vger.kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>, 
-	<conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<zhirunliu@aicsemi.com>, <dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, 
-	<liheng.wei@bedmex.com>, <yanli.yang@bedmex.com>
-X-Original-From: Yanli Yang <yanli.yang@bedmex.com>
-Content-Transfer-Encoding: 7bit
-From: "Yanli Yang" <yanli.yang@bedmex.com>
-Message-Id: <576ee8b117196c67797588987c10aada174e3d45.1789546358.git.yanli.yang@bedmex.com>
-Content-Type: text/plain; charset=UTF-8
-Received: from [127.0.1.1] ([36.141.79.164]) by smtp.feishu.cn with ESMTPS; Thu, 17 Sep 2026 10:20:21 +0800
-To: <linux-bluetooth@vger.kernel.org>
-Subject: [RFC PATCH bluetooth-next 2/3] dt-bindings: net: bluetooth: Add AIC8800D80
-Date: Wed, 16 Sep 2026 16:12:37 +0800
-References: <cover.1789546358.git.yanli.yang@bedmex.com>
-In-Reply-To: <cover.1789546358.git.yanli.yang@bedmex.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260916223630.C5E1C1F000FF@smtp.kernel.org>
+Content-Transfer-Encoding: quoted-printable
 
-Describe the AIC8800D80 Bluetooth SDIO firmware-loading function and
-UART HCI interface. Link the UART node to its SDIO firmware provider
-with the aic,firmware-sdio phandle.
+On Wed, Sep 16, 2026 at 10:36:30PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential is=
+sue(s) to consider:
+> - [High] x86/sev: CPU hotplug disablement bypassed on early kexec error=
+s
+> --
+>=20
+> commit ac084f2d7188c520f2ee3ced2ab76e4c068df91f
+> Author: Ashish Kalra <ashish.kalra@amd.com>
+>=20
+> x86/sev: Disable CPU hotplug while SNP is active
+>=20
+> This commit disables CPU hotplug when SNP is enabled to prevent SNP gue=
+st
+> memory from being broken by CPUs coming online without the SnpEn bit se=
+t.
+> It ties CPU hotplug to the SNP-enable bit, disabling it in snp_prepare(=
+)
+> and re-enabling it in snp_shutdown() when SNP is disabled. It also
+> explicitly disables CPU hotplug during kexec if SNP is already enabled.
+>=20
+> > diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
+> > index cff285d8ad8e3..558f7924a3f85 100644
+> > --- a/arch/x86/virt/svm/sev.c
+> > +++ b/arch/x86/virt/svm/sev.c
+>=20
+> [ ... ]
+>=20
+> > @@ -577,6 +582,8 @@ EXPORT_SYMBOL_FOR_MODULES(snp_shutdown, "ccp");
+> >   */
+> >  int __init snp_rmptable_init(void)
+> >  {
+> > +	u64 val;
+> > +
+> >  	if (WARN_ON_ONCE(!cc_platform_has(CC_ATTR_HOST_SEV_SNP)))
+> >  		return -ENOSYS;
+> > =20
+> > @@ -586,6 +593,15 @@ int __init snp_rmptable_init(void)
+> >  	if (!setup_rmptable())
+> >  		return -ENOSYS;
+> > =20
+> > +	/*
+> > +	 * On a kexec boot SNP may already be enabled (legacy firmware leav=
+es
+> > +	 * SnpEn set across shutdown), in which case snp_prepare() bails wi=
+thout
+> > +	 * disabling CPU hotplug, so disable it here.
+> > +	 */
+> > +	rdmsrq(MSR_AMD64_SYSCFG, val);
+> > +	if (val & MSR_AMD64_SYSCFG_SNP_EN)
+> > +		cpu_hotplug_disable();
+>=20
+> [Severity: High]
+> If a kexec kernel boots into a system where the previous kernel left
+> MSR_AMD64_SYSCFG_SNP_EN active, and an early initialization step fails
+> (such as passing amd_iommu=3Doff
 
-The UART interface uses H4 at 1500000 baud with hardware flow control.
-Include an example showing both nodes and their association.
-Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
-Signed-off-by: Dijia Xu <dijiaxu@aicsemi.com>
-Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
-Signed-off-by: Liheng Wei <liheng.wei@bedmex.com>
-Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
----
- .../net/bluetooth/aic,aic8800d80-bt.yaml      | 87 +++++++++++++++++++
- 1 file changed, 87 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
+amd_iommu=3Doff means no SNP.
 
-diff --git a/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
-new file mode 100644
-index 000000000000..6fabb226cf15
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
-@@ -0,0 +1,87 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/bluetooth/aic,aic8800d80-bt.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: AIC AIC8800D80 Bluetooth
-+
-+maintainers:
-+  - Zhirun Liu <zhirunliu@aicsemi.com>
-+  - Dijia Xu <dijiaxu@aicsemi.com>
-+  - Chunqiu Liu <chunqiuliu@aicsemi.com>
-+  - Liheng Wei <liheng.wei@bedmex.com>
-+  - Yanli Yang <yanli.yang@bedmex.com>
-+
-+description:
-+  The AIC8800D80 is a Wi-Fi and Bluetooth combination chip. The Bluetooth
-+  firmware is loaded through SDIO function 1, while Bluetooth HCI traffic uses
-+  the H4 protocol over a UART interface with hardware flow control.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - aic,aic8800d80-bt
-+      - aic,aic8800d80-bt-sdio
-+
-+  reg:
-+    maxItems: 1
-+
-+  max-speed: true
-+
-+  aic,firmware-sdio:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the SDIO function used to load the Bluetooth firmware.
-+
-+required:
-+  - compatible
-+
-+allOf:
-+  - $ref: bluetooth-controller.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          const: aic,aic8800d80-bt-sdio
-+    then:
-+      properties:
-+        reg:
-+          const: 1
-+        max-speed: false
-+        aic,firmware-sdio: false
-+      required:
-+        - reg
-+    else:
-+      properties:
-+        reg: false
-+        max-speed:
-+          const: 1500000
-+      required:
-+        - max-speed
-+        - aic,firmware-sdio
-+      allOf:
-+        - $ref: /schemas/serial/serial-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    mmc {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        bt_sdio: bluetooth@1 {
-+            compatible = "aic,aic8800d80-bt-sdio";
-+            reg = <1>;
-+        };
-+    };
-+
-+    serial {
-+        uart-has-rtscts;
-+
-+        bluetooth {
-+            compatible = "aic,aic8800d80-bt";
-+            max-speed = <1500000>;
-+            aic,firmware-sdio = <&bt_sdio>;
-+        };
-+    };
--- 
-2.34.1
+> on the kernel command line resulting in !amd_iommu_snp_en, or
+> setup_rmptable() failing),
+
+The same happens in that case:
+
+        if (snp_rmptable_init()) {
+                pr_warn("SNP: RMP initialization failed, SNP cannot be su=
+pported.\n");
+                goto disable_snp;
+		     ^^^^^^^^^^^
+
+Does Sashiko not see that or somehow it ate a lot of credits so it cannot=
+ use
+enough now to "swap in" the whole context... if that is the AI that is go=
+ing
+to destroy the world, then I'm not too worried. :)
+
+Or is my AI failing me right now?
+
+:-P
+
+Leaving in the rest.
+
+> snp_rmptable_init() will
+> return -ENOSYS before checking the physical MSR hardware state and
+> disabling CPU hotplug.
+>=20
+> Because hotplug remains enabled and the CCP driver skips initialization=
+ on
+> failure (bypassing snp_prepare()), could a subsequently hotplugged CPU =
+come
+> online without the SNP_EN bit set?
+
+Yes, but the above disabled all our intention of running SNP in the first
+place...
+=20
+> If this results in a mixed hardware state, does it violate firmware
+> constraints and cause fatal RMP faults when the new CPU accesses memory=
+?
+>=20
+> Should the hardware state be checked and hotplug disabled unconditional=
+ly
+> before the software configuration checks?
+>=20
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.178959477=
+4.git.ashish.kalra@amd.com?part=3D2
+
+--=20
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
