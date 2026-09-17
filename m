@@ -1,290 +1,164 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022119.outbound.protection.outlook.com [40.107.75.119])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3082296BCF;
-	Thu, 17 Sep 2026 03:07:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.119
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789614449; cv=fail; b=PkhoJJr7Z0yzDZE2uWF/BtLxtsmuenbaFsM5PND+/o46X1FazIu6d4jWo8tkWUsiJOj4CzTFDd3GT8ASOjZD5SlXMrHqEEooAA6ZcHmgkYwjdA+PVdw5HrBR0OmAeQEbhyfsP1PDuueJpRDENG1EUpZUREHMg92t/ZRGMu3+h2U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789614449; c=relaxed/simple;
-	bh=oR1eot1zSxhvkxG4nh2IFXgAJ3EDz4ahx4HeyFxNsY8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=l42rZOWaS02Ad27mqYW/lulB54wmhCNJjgBkgeiVpDH5zwRP/gn3B67s2q8o+FtEFw9FrU5FocaC9tee9uAP4Mkr5pAGsiptJmfow8weQP+n5vm3dVLk0xJXprPG5qHLux3TJ4qXx8nUXNQ2Ib8oboChga3cUUtFHnL2/dlOvNY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=fOh1M8xu; arc=fail smtp.client-ip=40.107.75.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8353A1D14
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789614489; cv=none; b=ryUPNiWAbwq75eb73fGCkQqm/ONir7lm0hq1hpDWVrPuDBy8qCjcob7iCCiCKnEGhUJa6soTAF23dSmebAN7DI1khJkdmKtlfDfT+k6M8gFIcSsLEBGZLdPlmD6Xtfh/hJo6o48ryd9mRs1lRDNQxcinJG9B9m/Oqq7G0GkzpcE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789614489; c=relaxed/simple;
+	bh=BFWJBTnLF1aE8X+tLyBABld1kYZc7ehMNU4s+4XJNu0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K4kUVkpeHSWn7nX12FpGC6j3GlR+25smjutOLBFFuYZIt4o+VQYZuTXTFwMEtOz4W1InAeZaygZ231BWUPi4tEyScxc0tFPBUXzNgQJKIBAOXjA3GmsJk3lbZim23CAuFfkJfceLG19IknJKP90M80Cxu1ll2TiPPzzYARRq2/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XGUyAhsi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AhYRd0NT; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="fOh1M8xu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fcnip0W/pDzoRD/TXGCRm4ieIEkRTdLhVcybq2r2r0u58aZaZL7g2Iz2Q40RzeZVU5lT4ILAwR1/ZurlT7YLk4APS8RvRXjp6h6S0Ed+JoPXU3Bg1TfvfD3gcvS1oeeWgLo/eW9VJZIcWIWe7EJV0ZoQcRMADP2wndYv4f2qBuYYcBz8xUQW0WAXtMLTtTRPr11eY6JIVHofuTxmKU45KATn+bK5acEi2d0FDTo7fNPIF/+m4TixWXXiA17CS9z9cOCClupNM+UE47Kp1OLgzYzpW9Sq0iqeakPwbYeVQZEHwZbZbE4rqU3ZcVNv1W1yKXHJpN80R6zIRrDhF7yXWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P/Br1j44rWw4aWXxj20HxUCf8rvxxOPSrGp031/z63o=;
- b=myoofK/fbNzWYwd8a6Us6bReK2+YPG0T7ZzY/PEM7Bkqj9aV4Dt4lM7SHcBL3pbqTqOVa0XgLp8t1RecZ01yj7NHR2jEvfwBYb25znhwa66OBzrQZezfevuRZA8NhmhXxQphZBCyfJaridgfP5y9rAJOFqmawPym7q8XlCZUW8eqeBSisggh+xdpp+kp9HyHikZ+Ll+SsDC+8aaZdwxLtLQpao4e603V6i26SMDlOqK901L94rBa2C5N3dijdCQlB0vXufB+YmJ5QER2kgcrMzZVOTbvmupoDAIcESd9ZP11SdvIOf/h7Ctf+Z7Z6IpcC/sqSJE383VHQLJuTkVO6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P/Br1j44rWw4aWXxj20HxUCf8rvxxOPSrGp031/z63o=;
- b=fOh1M8xuAJ64DyMGyui0plFxxKu2ibI+Hqg0kiTRaqYa6tLd3aXN/ZAiMU0MSJniWX7xrDl/PIbjOm2x75jt5PBonDpsOEh7BmPxNZCP+++bbSOhz4MdY1qVh1AlTCzkD53v6MnJbmPxw2Lr6BSaYOcQs3w8XHuOfT/+zUkHCiDzpk+WV9moxh9QMzbkVJhrhYJP2YxxcImzMJx/mu/4iKOPEkxBLvZAdyhQBWI+z6993gRqYbJRLPRXJrM8CmVpGY3ORaNYGx8lyGLFTBVjv9Z0CBovzz7IRqffoggrm9tQzMj1iT/2xBTh9Xl4uf2kTZAnPwqTj2eU/VKJqzrz0A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
- by SEYPR03MB6628.apcprd03.prod.outlook.com (2603:1096:101:81::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 03:07:15 +0000
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
- 03:07:15 +0000
-Message-ID: <37bbcf5c-644a-4388-ba8b-11608f444ae3@amlogic.com>
-Date: Thu, 17 Sep 2026 11:07:10 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260914-b4-s4-vdec-upstream-v9-0-72fdb0d71b02@amlogic.com>
- <20260914-b4-s4-vdec-upstream-v9-3-72fdb0d71b02@amlogic.com>
- <20260916-fat-enthusiastic-termite-44b2e2@quoll>
-From: Zhentao Guo <zhentao.guo@amlogic.com>
-In-Reply-To: <20260916-fat-enthusiastic-termite-44b2e2@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SE2P216CA0089.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2c2::15) To KL1PR03MB5521.apcprd03.prod.outlook.com
- (2603:1096:820:51::12)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XGUyAhsi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AhYRd0NT"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H0skR13402897
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:07:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/2v5Ij2HkXLd7w5QHHLHFy8fu/Zau4E+h+giE13eitE=; b=XGUyAhsiSSf4ibJL
+	HJ8s5IV447hEWu3UaG/napa2e7oeGY2/hn73H06enD1j6ojitvTEhejF2dW++lIj
+	GxIiwVm07MLDhvwm45r1LAu0Fu5DP5BRIS4kwMSYEagMHrLLxZH7kELO6PqO70Ug
+	gBCz4hCSi8f1YWLAXDKBYWrzF0pTLev9GCaocAu9TH14CT/+PlDIH92MXeaLm7N1
+	ePVHzWCMN6vilRGoYrcPUT1RS5x52BfshIRNxNMVcMAMq9I4CKpd1WnqNjNRTPVx
+	1tpjoQQwPUw63P932dObFXjSxKqybcBVBMrwIkOUnqW2G3kUysRL28EVG5H8NqC1
+	2W5jVQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqy2d27na-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:07:54 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1eb205d31so509697a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:07:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789614474; x=1790219274; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/2v5Ij2HkXLd7w5QHHLHFy8fu/Zau4E+h+giE13eitE=;
+        b=AhYRd0NTIH7oyVPBFXTkSA7EGe9O9QL9kopnn1H9vFbsFCxRTpulraWKNvsqF2dj71
+         t5e0/gh9mTNzldCkOOY1pzbD5cWjzkge+WxLCmpPui/TfLp/FJhcApMrq8K2GTgtvu9H
+         zxFUbgQTpSz83EOteY56qS3nV7Yoe9oavDc02KOWSd3Ccagu1bbP1GOpCWLVcJx2Fwpm
+         1jtIlUIKM2Ub4zzZ6xraRpqEVoEEXu9gy7DTUIUwn+mPkioNK/a9JYVEj1/hMCPZH6O/
+         O1kt+Lxi3VTlnNwIUsOJQ/5HNBAr7aM3oUTwVBb3K9/t6kr8lb3HloVq/rC8DpEzB/G8
+         C0CQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789614474; x=1790219274;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/2v5Ij2HkXLd7w5QHHLHFy8fu/Zau4E+h+giE13eitE=;
+        b=PsW7MgF5iQs5+IGdKjiHZAHJVByxOm8rUfWmZOH4Rvj+GJSaOWi9D8RrcmSmjiILj8
+         c9Ixx4rZXZSNvMldYRxLj1NCxJSfzBxfSBmPHs4MsunnsJUSWlRWSLbemNkMIg4Pn01n
+         QAmwuJ+561FB2pJcotwdCueV0TMYn3KaQ56gkllILAIN0auQOKiJVAjXifheSDG/SzOz
+         wvU5hoNONWbtUhQUq980veqX2cyuC4ygI3zjsc6472fVtgdCQZXdQLvgdpUgli1gz674
+         3tBstWQNZMWTalAZ3nn5BAO5OUPxDsOX6o9XFSNydyi0S5bf4Qy2C938gTFH2AR25J/H
+         zZJg==
+X-Forwarded-Encrypted: i=1; AKwUvBwNPrO7QswqvalhwWa5Bf3/SL5AifI8G1K0qxiJ32A+P0447k1P1IgknFXMIrUDLiNDrY5b4OLlLNS7IGE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTR+WZLOcgnvJrmZFPBdPqwPoqrlTl9x42d8YiEFtf6To7Vq5c
+	trdDKw7xQMJ8JxHulwIN7Wpzx6ou1TN4oeEHPNjGJf2a+0a6NCmM0E29x6imJ3NDAvxlzivV9ud
+	JKrVsHAOfE2NGjtjwdkeVx+stUU79o6QlahENbYIcJ1W6Us0o23KT2D6aLKn8gT7No5k=
+X-Gm-Gg: AYBFou2/vxVN6I+moeRRyxtRUDUcZi4KKbXHYKlNGw3vsAdHcfdMJrozmYLjI5ugrFz
+	6Mboh7rHnlh1BdZUvgoubIKbQ48wNBoiRMyHE1wuJkpaST5k+F+SEIvX1Gc66ucnowt6vBt4Y2i
+	UWMkNlyvnsEC8XVkKpty1K7zivMsqQlUHXoXJJ8IBInJc3wELo6E1LtLGIuGrp14+ArAOlzhGur
+	CbbtLltRFxKk8FNCRASQw/5my145zT6HPQjhsjTFOAF31sqNjCAUctJLLKNZUlznLJa6ea+j7x6
+	jrLldQNEinwpqUayvNC/5KJbaeoTXrFTcIfOas6rvDrpyQjfr9YR61i5BfV57wvHRTDmBzB90Ls
+	uIx2UIcjg/iVidqkVaas0KzyD1fI43ruePoBf2DzxXgxcyAo3aMQHug3Jz24E0Cx6SSCN504W
+X-Received: by 2002:a05:6a20:4311:b0:3cc:f008:8123 with SMTP id adf61e73a8af0-3dd5f448831mr11834384637.8.1789614474170;
+        Wed, 16 Sep 2026 20:07:54 -0700 (PDT)
+X-Received: by 2002:a05:6a20:4311:b0:3cc:f008:8123 with SMTP id adf61e73a8af0-3dd5f448831mr11834312637.8.1789614473570;
+        Wed, 16 Sep 2026 20:07:53 -0700 (PDT)
+Received: from [10.133.33.84] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50abae95csm2452404a12.25.2026.09.16.20.07.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 20:07:53 -0700 (PDT)
+Message-ID: <670a6d6d-2d95-41b2-b64a-997a39d4f320@oss.qualcomm.com>
+Date: Thu, 17 Sep 2026 11:07:51 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|SEYPR03MB6628:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b0ac331-2330-43c7-a711-08df1468c6cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|10067099003|4143699003|3023799007|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	ZQMhwo/irEERRfV8w857VXmy28Lumlo/mKBm3n1k8ePcweYpDQTXW98cHYCxgHZ5AWzuXARwnjGBqJdWceUNQQdKvLojUnMFq100B8+BMtrgiVI8CoKaDt+f04CDvZL+9CIUEBCD0sJlKJvHE48WcYEAtQHS46lKQh7nn6DG8XVyWYx14qcRLr/3Do1Py1jcSkx3uZcPL6BKCXqV0xKPLQ37XKeyaVS4yiArAmDc2wiOf8q4ZEgc2D+BFzh8MuxlFOsUxIriwtoEeqfq3+Co3oRN5bVujsYgGGnyaIim5PkZSAlwwO59PFM598jNKSV2mXRceTix+UydwdDCCQyWSV1ZW4eQkuuQB1xGhU70TpSmiVOfDcpj4YGmleiOZjZ4maNU2Xt9cDTACrbQYt7ZzxmK+tqrWkrkBgBfSR1IdooCVDBNO+iWpj2ZUWZWsHUIYrFQyj7HLo0Z94Y62iFHJ2riyUHT6SzgheBZTMFZBnt/IFUmdbloqUMga21eAFhWUrehjAhpWDS5sF+ya0dOtPAGWv6KwhGc34dS1UCDABSXRKkuYaEBUXyaSrp3FZSg0trUaQVQB96uyuJYuCXvzIfKbb1+7UzG/nYjnDWY7mfdReqFDz/SfA3PnOpXJ4UR
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(10067099003)(4143699003)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UDRHSHROTmR2YUVic1Nzc3BiLzl0K29SdzhGSnNDbHNDRTdIQ042VjdiNTNt?=
- =?utf-8?B?NU4rRVM2QUZhSFp4RlRWMlExaSswQmNtdDZkRnA1Sm0rUVdHQStydGFEcXR1?=
- =?utf-8?B?VmViN2E2TTNsa3ZQQi9oWkQwcWEyR3FEamF0YVJseHdrOWwzRTlETHJnMnBW?=
- =?utf-8?B?N1lTMFI4U1Z3WFVoeXBYU1RnNlZ5bno3M1hvRjdzcGxJMDRqeUhQNjVyODBR?=
- =?utf-8?B?akNpbjBkdWNJRHo0am82aGVwbUV2aUl1S2syQ0dPcUpLK1RiM1JuaGs5VWtR?=
- =?utf-8?B?QUptdlhJZzZHazBCWC9Ca1JYR0pSSkd3UWNYbHFUSkh0SjZYQnlXNTdDUTcz?=
- =?utf-8?B?OUMxcmVhQ3FVdnBTaUR2YkdkaU10N2JzdkNOMGtieFU3WGs2UWxib2tEMjlB?=
- =?utf-8?B?NmMxdysrTmhpdFdiZGEySFlpNkNyRTcya3UzajRmTlR6a0E4SEpEbVBPL0ZO?=
- =?utf-8?B?TlI2ZzVqQUJidEJFbHlsb09tZkNMVk5vbmsvY0ZqUDQwa254WjJManIvb3Z4?=
- =?utf-8?B?SUhFcnpzSkJjSkQ0ZnN0V2trQ2hOVnZ0azd0aHltRUhGR2srNy91a1J2QnRu?=
- =?utf-8?B?ZWNjc3F3RGtZMVl2QXJtcnJUMm0xaG1ZcDJHTWtwOWhId2s2NDZxVmpBT0dw?=
- =?utf-8?B?VkJyaU9WMEpMbnRtaGcxRlp4L29SbnZ0Ly9sclFmanpZSjloY2xHR3VHelhB?=
- =?utf-8?B?dlpYRE5oTGNCSmRrRU8va0NqNU9OMFk0bVFiS2UzMFYweVpVTm9HY0R5OS8y?=
- =?utf-8?B?ZW1Gd3UzRWQ4VjdUSkU0SHNhYmJlcklLNHBKMWs1UFdWeEpCV0xLTnV2RW5H?=
- =?utf-8?B?WEZjd3pKd0ZsWit4V0pkdkkyeWFrVWk3ajB4T0pNaGhxamRkaDE5ZjIwVVVy?=
- =?utf-8?B?SnY1WThpZkZWVnFrMyt6SjdvYnpDckZXUFh0QmJKN2tSamlySXJ3QXQzbDNs?=
- =?utf-8?B?blk5YjZqTzFEazVhaTNqMExURk9IS0JsTXZCMXJHMEJ3MnQwSnpaeVl4dWkv?=
- =?utf-8?B?Yk5ob0FkNlVQTDRndXhrQjlnOHdYMFJTejBBRVNxaGRDTjBkZ1B2QjZoUmlk?=
- =?utf-8?B?dFNVVk55ZFo1L2o4TTVVRHNjbU9KVEs4RC9YdlJsQmlSTWl2RVhjdWY0eFh5?=
- =?utf-8?B?YWowR2t6RE83R0E0UFZPVld4bGZsRXNlRzdGWWsyanY4WnRrNmEvdzdrR2xR?=
- =?utf-8?B?ZmRwN0IrMWwwSkNEYTgrek42VmpXSVo4cmQ0Mm1zN0xWNUZ0dWQ2dlpiTnFZ?=
- =?utf-8?B?c0o5N0x4T1FGcTBSL3ExS3UyNFRKcDhTRGhhYU5jMVl2ZSt0citRNTNyTmlW?=
- =?utf-8?B?citTZk5DZHFDSDJkVDNIODhsV0E5MHA3ZTdRU3Y3OW11cnVuMGZYL0xqcGNk?=
- =?utf-8?B?ZEZaSU4zZW5ENTBGb0l0a0NUMm42SmNNRkRucXVyMEVDbTdNeVlNdXdlUCtL?=
- =?utf-8?B?RTVDOGN0Y29QekswVCtWSStvK0d3Tkswb1QzU0tja0RxeWh2MXV2cmExT01U?=
- =?utf-8?B?dXR4TmJVNGxUR3pZWmlmTVVoL2lNMUo1eXlsdEgzNGRDWmxTMm9jbTFJK25m?=
- =?utf-8?B?LzYvYUV3UGJKL0RoMEoyQ05QWXdsOEpGVFZBSXVyRzRUeXZEaWw1VGp3a0Np?=
- =?utf-8?B?amdETWZ6ZHZvUmM0SUVHWklkbEFpRWhXa095eEQxR2dJT1NaMllCZmcrZzZL?=
- =?utf-8?B?RHEweWpaNlhkM2ZJY3pueWE0dXpzY3RJOU9ZTTJSNEQ5alYvZXp4U2ozMEhu?=
- =?utf-8?B?L2l1cDdRU2tDZzdMV0ZrbEV4MXBkeVdmQ2lOZ0gwbnp6UlpHM3NyZjdPUncy?=
- =?utf-8?B?Z21yZGQ3YmVXY0toY2JSWFFWSi90M2tkK2Ewc3VJMjB0M0xYTVRDdHh4NGxD?=
- =?utf-8?B?OXQrTk54N211R0VZQmI5ekJKYUlCbHUxNmEyeWNYZUYxN2FFWjBPMnJ4bFM0?=
- =?utf-8?B?ZEZUYzFTaUhpbUgzV2c5Zi9iVlhKbTFRNENudW1CaUdPaWV1SHBuaGhxbUI0?=
- =?utf-8?B?UE5hT1ZCMXB4K0tEejJJNEQ5c3craWozVVJjdlZnY1lGTzIxb0pvaTdVSWNI?=
- =?utf-8?B?WHJZV2RvMlJGOU1SK2JMOGZQdEU0dDk0MWlTY0tUZURvQ1NkTmU1enVLclV4?=
- =?utf-8?B?ckJIYVJYRzl4QVo2TDB5eWxYZTRyWTk3UEpEYlJjSjg4Z3ZYQk1RODFQd2hI?=
- =?utf-8?B?dU04ZllWQnFlR25RN3VDVkJoSlV4WGM3dFN3UjBZdjFyR0s4Q3F2a0hGZHNt?=
- =?utf-8?B?QXZMbWlVWVd0d2xXWWFGdWdXcy9PS1JPRWJQOEd4amRPTzhTSTJLY3FMemQy?=
- =?utf-8?B?OTNCVmNWeS9oMTZob0ZHSnBGL1lOVGY3Q2xycU1JSEJ5UVdBbGJVQT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b0ac331-2330-43c7-a711-08df1468c6cb
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 03:07:15.5887
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: g+GGjPVcR8qQE+tp55ZDpHaq7QTmMHZOXCFYU6vpRIaSuFJyz3Fqs51Z++t0D67xmSdJBXDpFeLxhDB6lhBhNA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB6628
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: ath12k: fix chain-mask shift on 64-bit big-endian
+To: Michael Pfeifroth <micpf@westermo.com>,
+        Jeff Johnson
+ <jjohnson@kernel.org>, Kalle Valo <kvalo@kernel.org>
+Cc: ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <aqqoAVbsVu574FwT@mpf-ESPRIMO-P9012>
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <aqqoAVbsVu574FwT@mpf-ESPRIMO-P9012>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: uLJDuHGUz8yeWw31OZpUrL9cXwZa3MVo
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDAzOCBTYWx0ZWRfX6kWLAkbkrSJI
+ DOPhy5Gc/5wpSTOMcDQ5eKUsdf41wI96aY8unW/EETBsgtswNXHM3TPp6tO8c7IDic+4TVmy1rL
+ Vx0JB5Sj423MNbSi3Nc75G95llz9toc=
+X-Authority-Analysis: v=2.4 cv=HbeB3SE8 c=1 sm=1 tr=0 ts=6aab598a cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=N9GNhs4bAAAA:8 a=EUspDBNiAAAA:8 a=81S0BUt_Dk-okXjJcTQA:9
+ a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22 a=PZhj9NlD-CKO8hVp7yCs:22
+X-Proofpoint-GUID: uLJDuHGUz8yeWw31OZpUrL9cXwZa3MVo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDAzOCBTYWx0ZWRfXyqgzKZd44YEv
+ sCg2t4+WJNRRTHCHaxV9ZHjVEy3zcnvk8Gc/hcvpTFYPpLvkoE7MQR9D5Xiy6kX7GYQhMBO5jUY
+ 2G8aUT9lJ04lVUOP3QL3Hn/Dh+9Zg+lh6EpEfg7nxUKIrC3gv7yBPv9Itee4ETIU84SjB8X+/Yh
+ DGgORcYGJS7r3aS+EJhuw1UcWq6jvT1i1AH0oudD1A5bOdqdBWUtRnlSKWW61k2aOyXofCr9rNM
+ qA3eWKhVGNvPHTKbSeiTw8qgB9wMWV8lDcVtG6SIA0kRcSg20hzJhbdBa2nD+mm0hDqRQBXoILH
+ gvEidnLBHXQbvkZ6hSg3FtmEQbD2bAgFodbL9hpVYybPxzG2AkBrVxE4h8IvIae7fOMRvMz0wPe
+ mZyu/8TTCC+hOpgTZCXKd5fyye32c5tjjxcXZCGsT69J23AfykosegPA36h0pO0gnuZgMl2eFcy
+ CJkjZP5s5AL16CAxdsA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0
+ suspectscore=0 malwarescore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170038
 
-Hi Krzysztof,
 
-> On Mon, Sep 14, 2026 at 04:10:20PM +0800, Zhentao Guo wrote:
->> Describe the initial support for the V4L2 stateless video decoder
->> driver used with the Amlogic S4 (S805X2) platform.
-> Drop driver. Describe the hardware instead.
-OK，got it.
->> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
->> ---
->>   .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
->>   1 file changed, 114 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
->> new file mode 100644
->> index 000000000000..d350b3e68a38
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
->> @@ -0,0 +1,114 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Amlogic Video Decode Accelerator
->> +
->> +maintainers:
->> +  - Zhentao Guo <zhentao.guo@amlogic.com>
->> +
->> +description:
->> +  The Video Decoder Accelerator present on Amlogic SOCs.
->> +  It supports stateless h264 decoding.
->> +
->> +properties:
->> +  compatible:
->> +    const: amlogic,s4-vdec
->> +
->> +  reg:
->> +    maxItems: 2
->> +
->> +  reg-names:
->> +    items:
->> +      - const: dos
->> +      - const: dmc
->> +
->> +  interrupts:
->> +    maxItems: 2
->> +
->> +  interrupt-names:
->> +    items:
->> +      - const: core_hvdec
->> +      - const: core_vdec
-> Drop "core_" from both... or rather some consistency would be more
-> useful. Below you call them core_v and core_h, but there is also:
->
->> +
->> +  clocks:
->> +    items:
->> +      - description: Clock for dos core
-> core dos?
 
-To explain this, I would like to show you the structure diagram of the 
-Amlogic hardware decoder IP:
+On 9/16/2026 10:30 PM, Michael Pfeifroth wrote:
+> ath12k_pull_mac_phy_cap_svc_ready_ext() derives the tx/rx chain-mask shift
+> with find_first_bit((unsigned long *)&pdev_cap->rx_chain_mask, 32).
+> 
+> pdev_cap->{tx,rx}_chain_mask are u32, but find_first_bit() treats the
+> pointer as an array of unsigned long. On 64-bit big-endian, unsigned long
+> is 8 bytes, so the u32 value ends up in the high 32 bits of the word while
+> find_first_bit(..., 32) only scans the low 32 bits, i.e. the adjacent
+> struct member. rx_chain_mask_shift is therefore computed as 32,
+> ath12k_mac_setup_ht_vht_cap() evaluates cfg_rx_chainmask >> 32 == 0, and
+> the driver advertises a VHT RX-MCS map with all streams "not supported".
+> mac80211 then rejects the VHT capability ("Ignoring VHT IE ... due to
+> invalid rx_mcs_map"), so the link only comes up as HT40 and never
+> negotiates 80/160 MHz. tx_chain_mask_shift happens to scan a zero word and
+> stays 0, so only the RX side is affected.
+> 
+> Use __ffs() on the mask value instead of pointing find_first_bit() at the
+> u32's storage. __ffs() takes its argument by value, so the shift is
+> computed correctly regardless of word size or endianness. The chain masks
+> are always non-zero here, so __ffs() is well defined.
+> 
+> Fixes: d889913205cf ("wifi: ath12k: driver for Qualcomm Wi-Fi 7 devices")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Michael Pfeifroth <micpf@westermo.com>
 
-+-----------+------------------------+
-|           |                        |
-|           |        vdec            |
-|           |                        |
-|    dos    +------------------------+
-|           |                        |
-|           |        hvdec           |
-|           |                        |
-+-----------+------------------------+
+ath11k has the same issue, interested to fix it as well?
 
-The IP consists of three cores. Dos core is in the front of the IP, 
-which controls the rest two cores. The actual hardware decoding is 
-handled by the two cores vdec and hvdec.
+anyway:
 
-Each of the three cores has its own independent clock source.
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
 
->> +      - description: Clock for vdec core
->> +      - description: Clock for hvdec core
->> +
->> +  clock-names:
->> +    items:
->> +      - const: dos
->> +      - const: core_v
-> hvdec?
->
->> +      - const: core_h
-> vdec? to keep the naming and order of interrupts?
-Actually, in the interrupt vector table they are arranged exactly this 
-way: hvdec comes first, followed by vdec. This is indeed the reverse of 
-the order used for clk and power-domain.
->> +
->> +  power-domains:
->> +    maxItems: 2
->> +
->> +  power-domain-names:
->> +    items:
->> +      - const: dos_v
->> +      - const: dos_h
-> So there is also dos variant v and h?
->
-> Pretty confusing.
-
-That is indeed a bit odd, I'll give them new names.
-
-Also, I'd like to ask your advice on these names. I remember that in 
-your review comments on v7, you mentioned that having "vdec" as the 
-module name and then reusing it for the clock/interrupt/power-domain 
-name felt repetitive. But as shown in the diagram above, the decoder 
-hardware does have a sub-core called vdec, so do you think it is 
-appropriate if I'm also using "vdec" to name its clock, power-domain, 
-and interrupt, to indicate that these all used by vdec core? I would be 
-grateful for your feedback on this.
->> +
->> +  resets:
->> +    maxItems: 1
->> +
->> +  amlogic,canvas:
->> +    description: Canvas maintains an index-to-physical-address
->> +     mapping table that allows the 16-bit AMRISC decoder core
->> +     to access 32-bit or 64-bit physical address.
->> +    $ref: /schemas/types.yaml#/definitions/phandle
->> +
->> +  amlogic,secure-monitor:
->> +    description: Used to decrypt and load the signed decoder
->> +     firmware through ARM SMC (Secure Monitor Call).
->> +    $ref: /schemas/types.yaml#/definitions/phandle
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - reg-names
->> +  - interrupts
->> +  - clocks
->> +  - clock-names
->> +  - power-domains
->> +  - power-domain-names
->> +  - resets
->> +  - amlogic,canvas
->> +  - amlogic,secure-monitor
->> +
->> +additionalProperties: false
-> Best regards,
-> Krzysztof
-
-BRs
-
-Zhentao
 
