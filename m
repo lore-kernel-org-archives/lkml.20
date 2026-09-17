@@ -1,142 +1,177 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCECB49B44F;
-	Thu, 17 Sep 2026 22:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFDF49A3B4
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789683006; cv=none; b=IuzpmurS6p6nRTBBQ+vfNT3dgr1chGawFyvL9oJ5cezAdJA0EHYxq+YGtTeyK3Uq3b1vVz7ZbbStDSv1R6ceTu7KXnfw/0D2d8cY/nTQdl7X6DV8JxpzrgDjpPRqD6mUnpsS2mXT5fyMRbnmCoAbS9CWUm9zuU9YB84GxBf5W74=
+	t=1789683012; cv=none; b=uRQswF5MVdQdUszgQ+/k13HTymYrawA74yx6B+lYnFYfk7zhLJr9n2+NAnT9doK6kcZeCG6JUOQ05xRiyHxmT4ZGXJSw0nhNdiskmmOutfq9tp28V30R2Xgm6+YQmjuOgw+BiOALN7qyRl/RMu16eRYluF2uwG28AxL+rPDfy4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789683006; c=relaxed/simple;
-	bh=mCpl6QvIFmZxeLmdoMUfxKfCOG+tsTZ73OkJqmhqtOQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hxPZZFznieh2Pq7P0oVtpVxezet6ZQ7T1tlM3YdxKXUXhIWUp5TmNWSY40WkKw07bVniRo+bLNczotDVHDApeNOsvSlVKWID9044gDGM1zaaIbph3dc+EwTzhiTCDIFrQ/+k3MaSzZvOsAvcJ0gyqsdO2+KZ9WZRTgOIOX6UJzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=j/4Vg1or; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1789683012; c=relaxed/simple;
+	bh=12ZdNO7zSI97z1JPZ+K2FUDIbHGKQ4ykZe7DLc4rB7k=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EUTSYBk3+Sx6sQfNEipf1JIGDzQCJNvLgGbFCLQkRXqynaC/5t2E7dkqtCOkfTXAKYcT9zlS4Xc1EzFoqLHdYh2SoiZn0VCYxf9SByA5UHwJ0KdTWvhtl+J/5OVv2QDZl70TpN3B16OFl6Xoh3aCsuAKUjpgI+EWr4m4dF528g8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Yu0T3zI2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NTMfz2lS; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="j/4Vg1or"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id E38C753401DD;
-	Fri, 18 Sep 2026 00:10:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1789683001;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Yu0T3zI2";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NTMfz2lS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789683009;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=w542DP45Fab9ijkwZo5VGiQ54TLBbOLVPnee5WaS4as=;
-	b=j/4Vg1orluWplRkwEdZE6ATs2D6kCLuIcSMCfQb4oZH84n6A28CrKfsBTk/15uGjBpcn6J
-	rRhd5wcHRuGcMPiNfXY5JamS9sRF9pBT+eBbu9w7F8jT7O2bBF5EkTIUU2LcfWyCvq3S9y
-	KwPNu67boLcLCBqrtZZNW+uVOJCk3AE=
-Message-ID: <34d95e25-be4a-406c-b486-0ad9e7c86838@ixit.cz>
-Date: Fri, 18 Sep 2026 00:10:00 +0200
+	 in-reply-to:in-reply-to:references:references;
+	bh=8z7jGkncFvYX44ONKGgmNu9yUifGbhbRMAl3u7dsO+Y=;
+	b=Yu0T3zI2kaVbKBqcjdHKigmTqHbDV2kSwdUY6dg+ZquyB8+ECWYpTR7qXhTgQ8wSWN6ncH
+	iI6DNk+5TyNxEeYlZICIvk4p9hVXuUmpIGBqSA9KNMlbskqm2jmG6PuJ4/v7XnK7IFXH7F
+	xgNgh0cIAL4FuYLkvbZiMj1f58I2mRk=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-630-C4FMd91zPWujR30I8sArBA-1; Thu, 17 Sep 2026 18:10:08 -0400
+X-MC-Unique: C4FMd91zPWujR30I8sArBA-1
+X-Mimecast-MFC-AGG-ID: C4FMd91zPWujR30I8sArBA_1789683008
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-912330dd4dbso29469186d6.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:10:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789683008; x=1790287808; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:to:from:subject:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8z7jGkncFvYX44ONKGgmNu9yUifGbhbRMAl3u7dsO+Y=;
+        b=NTMfz2lSR7X+hkySfNi6kz6ecEFL/BowIfKAsz+TM2DlFCfK19iF/XaUx/tBnc0a6r
+         2yXKAPn+kPcJqha8Zuolr4FBeGGNQITsj5liDmUmG5YzXXCO7L1OdUGFFSt3pgRzqQ2u
+         6hYBXaN+sDA7shpKu4wWgEV+4zjvbh0MGWheUeiJcU7t+A7N6V6Z1XfDiMw1IADYTBvb
+         8KIo40L4m8ultqCOZwdt5gpdtabOlJYwmbqiFsjuP5NzvreX3Yfi+GmuxtCqLk/7PZkb
+         9m6PU3ZU+ZSiGnrFHiwb6BVMr2Cc2U0/9n3DW3s//5vrgYoCr+ezIsGMqgkoxzXiWpE9
+         IwPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789683008; x=1790287808;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8z7jGkncFvYX44ONKGgmNu9yUifGbhbRMAl3u7dsO+Y=;
+        b=wIPFlOBKebvcRPoRlw8SPYAHgERvso2CnECNdKzDrMOT6ZHs6i0uaNfuk+Ba5F4MoI
+         kNSGiphKu/JfZ1ZT4dWZUzVBSX443Kcct3FluDLLrRUA7Xrwf5Z29gMlq8advLhcu5Xc
+         Xe7dq0PXCQSujqbnr4IANUamvwcLyv0MRiETxMpvRB2ArNnZnLW+BgsurXC8W2rn5PqK
+         bY2jL3pGhcShrs84PEG1hHRLia8Bj+Ci0cRkyf4sFjI+5Aireb76ZDTYOB6pL120A6VP
+         OfhTlrTnRO09zUQ1ELGMyHDAd9ahI74dU+q88camajH+B0vAUPY4+C/GC/GkbfXWfFX8
+         Yzzw==
+X-Forwarded-Encrypted: i=1; AKwUvByjfcwIEL2KmR20qwUkwi8eepLzOYaAq7YADlYJL+r84pEL0minRGNbG0/FEbwhZDkojcTq3BkDgKweLHY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOyXEtSDqK/4QQX1QqeS+Om9eN/pUhqJ2VWKlSDae1t9fcOdDW
+	olACcbjjEhNlkWV6abSObiJ7ORwo8hH1Me2wsuZoeb/TEDJAcxUjHDRMXECYkNnPR2OO9Gnb2ba
+	eGHHPIv7KDdXazZmmv8T6MWlLypC+Uu1QxbxztjsK8V53kQSP4hDUJ6fT1F5QHyyiyg==
+X-Gm-Gg: AYBFou1izBA/SWM+c6KYCW4whxHZzCS0EATqgkpM48c10X2v0oHIiL18wTe7GYOtu+M
+	j8lzPUcjBRl/baXi0Vg77jNrf0w3IF10P7SKESxUN6d9A3WZexr10taUy7E15GifLxc6lDpe69K
+	Pr39mEgYC7D7XKeSZKRabCkeznRrlLlbciioiPA+5IH8UghjRo0l2bOUZT1/hAHR6LHXOINsvvk
+	fKBvBl+PH+Wy0pPpGDKha/etwtRC++7eAxnl2THzDjx43HaiZaLIHfuO3NbEs9elvQP37WuIf3I
+	30irJ6o1w2/KT+LwJPwMc5O2bGtfdbeCLStVcZ5Tz/t02RsoT2/A31lDzYOGax3S1XZFPeJ2
+X-Received: by 2002:a05:620a:1a17:b0:93a:1091:e692 with SMTP id af79cd13be357-93bdbaa321dmr92009685a.7.1789683007745;
+        Thu, 17 Sep 2026 15:10:07 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a17:b0:93a:1091:e692 with SMTP id af79cd13be357-93bdbaa321dmr92006185a.7.1789683007243;
+        Thu, 17 Sep 2026 15:10:07 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b781dfde3sm572372785a.12.2026.09.17.15.10.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 15:10:06 -0700 (PDT)
+Message-ID: <ff3015a1c4b08088b0638b00670e86d612a27978.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau: Fix memory leaks in debugfs and hwmon init
+ error paths
+From: lyude@redhat.com
+To: liupeng <liupeng01@kylinos.cn>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Guenter Roeck
+ <linux@roeck-us.net>, "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+	 <dri-devel@lists.freedesktop.org>, "open list:DRM DRIVER FOR NVIDIA
+ GEFORCE/QUADRO GPUS" <nouveau@lists.freedesktop.org>, open list
+ <linux-kernel@vger.kernel.org>, "open list:HARDWARE 
+ ""MONITORING:Keyword:(devm_)?hwmon_device_(un)?register(|_with_groups|_with_info)"
+	 <linux-hwmon@vger.kernel.org>
+Date: Thu, 17 Sep 2026 18:10:05 -0400
+In-Reply-To: <20260824090505.49913-1-liupeng01@kylinos.cn>
+References: <20260824090505.49913-1-liupeng01@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] serial: qcom-geni: keep registered console runtime active
-To: Konrad Dybcio <konradybcio@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Praveen Talari <praveen.talari@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260819-topic-geni_console_poweredoff-v1-1-7f7bb3aad8da@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260819-topic-geni_console_poweredoff-v1-1-7f7bb3aad8da@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 19/08/2026 18:46, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Commit aee1f94dab13 ("serial: qcom-geni: remove .pm callback, use
-> runtime PM in startup/shutdown") moved runtime PM references from the
-> serial-core PM callback to the port startup and shutdown callbacks.
-> 
-> The serial core used to leave the console port powered after
-> registration, but after the callback was removed the temporary probe
-> reference is always released. Console writes are not tied to an open TTY
-> and can run from contexts which cannot resume the device, so a
-> runtime-suspended console can stall. This was observed on a Qualcomm
-> X1E80100 CRD device, as the boot console became flakey across boots.
-> 
-> Acquire a runtime PM reference when the console is set up and release it
-> through the console exit callback. This keeps the device active only
-> while the console is registered and balances the reference when the
-> console is disabled or re-enabled through sysfs.
-> 
-> Fixes: aee1f94dab13 ("serial: qcom-geni: remove .pm callback, use runtime PM in startup/shutdown")
-> Assisted-by: LLM
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Mind adding the proper Fixes: tags and Cc: tags here?
+
+On Mon, 2026-08-24 at 17:05 +0800, liupeng wrote:
+> In nouveau_debugfs_init(), if nvif_object_ctor() fails, the
+> previously
+> allocated drm->debugfs is leaked because the function returns the
+> error code directly.
+>=20
+> In nouveau_hwmon_init(), if hwmon_device_register_with_info() fails,
+> the allocated hwmon structure is leaked because the function returns
+> the error code directly.
+>=20
+> Fix both by freeing the allocated memory and clearing the pointer on
+> the error paths.
+>=20
+> Signed-off-by: liupeng <liupeng01@kylinos.cn>
 > ---
->   drivers/tty/serial/qcom_geni_serial.c | 26 ++++++++++++++++++++++++--
->   1 file changed, 24 insertions(+), 2 deletions(-)
-> 
-This also fixes a regression on sdm845: since v7.3-rc1 (or on next-20260820), 
-OnePlus 6 and 6T crash into the Qualcomm crash dump mode on every s2idle suspend 
-attempt (no kernel output, warm reset via PS_HOLD with the TZ download cookie 
-set, no panic in ramoops).
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_debugfs.c | 15 ++++++++++++---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_hwmon.c=C2=A0=C2=A0 |=C2=A0 2 ++
+> =C2=A02 files changed, 14 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
+> b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
+> index 47d5579c568d..88223931f382 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
+> @@ -295,13 +295,22 @@ nouveau_drm_debugfs_init(struct drm_minor
+> *minor)
+> =C2=A0int
+> =C2=A0nouveau_debugfs_init(struct nouveau_drm *drm)
+> =C2=A0{
+> +	int ret;
+> +
+> =C2=A0	drm->debugfs =3D kzalloc_obj(*drm->debugfs);
+> =C2=A0	if (!drm->debugfs)
+> =C2=A0		return -ENOMEM;
+> =C2=A0
+> -	return nvif_object_ctor(&drm->client.device.object,
+> "debugfsCtrl", 0,
+> -				NVIF_CLASS_CONTROL, NULL, 0,
+> -				&drm->debugfs->ctrl);
+> +	ret =3D nvif_object_ctor(&drm->client.device.object,
+> "debugfsCtrl", 0,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NVIF_CLASS_CONTROL, NULL, 0,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &drm->debugfs->ctrl);
+> +	if (ret) {
+> +		kfree(drm->debugfs);
+> +		drm->debugfs =3D NULL;
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> =C2=A0}
+> =C2=A0
+> =C2=A0void
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
+> b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
+> index 726397ab035d..ffbe7f542ab0 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
+> @@ -697,6 +697,8 @@ nouveau_hwmon_init(struct drm_device *dev)
+> =C2=A0	if (IS_ERR(hwmon_dev)) {
+> =C2=A0		ret =3D PTR_ERR(hwmon_dev);
+> =C2=A0		NV_ERROR(drm, "Unable to register hwmon device:
+> %d\n", ret);
+> +		drm->hwmon =3D NULL;
+> +		kfree(hwmon);
+> =C2=A0		return ret;
+> =C2=A0	}
+> =C2=A0
 
-Tested-by: David Heidelberg <david@ixit.cz> # OnePlus 6T (sdm845)
-
-One thing this leaves open: with the console holding a single reference,
-pm_runtime_force_suspend() goes through pm_runtime_need_not_resume() and
-pm_runtime_force_resume() does not power the port back up, so
-uart_resume_port() programs the termios and resumes the console on a
-powered-down port; it only comes back through startup() if the tty was
-open. I'll send a patch on top for that.
-
-Thank you
-David
