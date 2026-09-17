@@ -1,111 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9132931C7
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:35:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077793845B0;
+	Thu, 17 Sep 2026 05:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789623329; cv=none; b=p5MvRmm013Q3dLXx02sjnzqnbzUM7G0w80yedaUbxMszdHjWuNoUSQCZKooxor7PMifkgBdHeNx4vSIxaU5gy8T3STuPBXVSvpC8sJb+1FZbvHNI8SU17lxxCAWqc6krXAsg5bLAaSYvSxFVkW2wLvl2MlVJmVOB+XIJJwDlpV8=
+	t=1789623418; cv=none; b=KsLFkDDF07ZTXjU2xWEW+mJKSwE0JZgRNogjBUnFu4Y/oxQFv7iu5aGYC58wAsYs1K2m0uR4PvbcKf4uT1KKSIAU4W/9rKch/6S/gqhFeCX72tw4gGVkWl4YgId33PNSTzC1OSicoP7nIxtOfqjruVEHT18pUohvZk8x5b99tzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789623329; c=relaxed/simple;
-	bh=LDoaXxYyXuD8LClMN5+HnZQcP+VuNNaN4IVCaalDO5o=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=crA/c3Zc9j5z3ZlJrZYpF0Gk1Px3cqOvZIqe0aKCd0J29EKuKOQrahIXf33hH8hvVkIv7l1g+Cr+ogOxsIPvVpfA957XweQD5v/EE0hg7FeQ57Qc+3ZMOheaMOJHaYMo/W8CDMg16DDDy5Qs1sT2xOlawGOEe0ncUs4lM1QeOIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=sRFmYT6o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789623418; c=relaxed/simple;
+	bh=X9SJs/sY96Vy6jNsW50HK4N4xIB89JOQo1fJdlS1z0g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WLFDCaStqMw9CrKJ2vA71TUWurPVbftlMshqwfBDKFFHIfbjD/7Hhi1d9AtQhcFqVBd/JEkyT5PgH2K/T/CXFqbumqQSbKIM7WhXmyM7GLidELygarOPHvY9NwWTSb8JjuRsm1tw0U7mJGN0xK25h1N9mOaTZ4yOcyEjajxnag4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jeSiE7yM; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="sRFmYT6o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EBF51F000FF;
-	Thu, 17 Sep 2026 05:35:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789623327;
-	bh=5LDe9JBY33kVRmTAOxxfbfg2OmHYv79TUa9VIuLFDDA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=sRFmYT6oG5XNkNhzD4PX0oeq57NPguBwfSqG4ah+CHJSstWgg5SOHFilDgkzZK/RO
-	 X3w+VcDuaWccad5MKLqlsNrO7mXkMPkKpLYmFafSeU50BpVU/e2z/OmI60wQNuRdBI
-	 nboJ6Zxsil7L3eTvARfiCmr38fVTreIOGf7ruykg=
-Date: Wed, 16 Sep 2026 22:35:25 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, mingo@redhat.com,
- peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
- ziy@nvidia.com, baolin.wang@linux.alibaba.com, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org,
- matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
- jannh@google.com, pfalcato@suse.de, osalvador@suse.de, hannes@cmpxchg.org,
- raghavendra.kt@amd.com
-Subject: Re: [PATCH v2 0/4] sched/numa: stop VMA scan filters from gating
- promotion
-Message-Id: <20260916223525.65ae1628b1457a716efc298f@linux-foundation.org>
-In-Reply-To: <20260911001826.2109390-1-gourry@gourry.net>
-References: <20260911001826.2109390-1-gourry@gourry.net>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jeSiE7yM"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 15E2AC63440;
+	Thu, 17 Sep 2026 05:37:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A7A6D60580;
+	Thu, 17 Sep 2026 05:36:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C31D511C79C1A;
+	Thu, 17 Sep 2026 07:36:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789623409; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=qj8/gd1aVy2AiuqNBTIl5F66/IiKLO5YZ1ExmZ84VAY=;
+	b=jeSiE7yMt2uvUGWHQv0Zmg4MMO5BDc1wX2D0i8UVpALRNwSdTbNom0dLEe9DmXdm/R8TT4
+	nzjqdzcA3/KNa12KvwPJJB1CPg63gNbV22tuuZc1op+l7pP08xrNyBWM4k2FxF179fDyxO
+	dybmAvGQAi/BoQsKRGjY0B7pOkulMogFLmKRxuT79UEs0LWc4UM6LdGJEvVDpJVzrFJ/Hs
+	kWEmwXU38CDLBC9kKrvhho6Wa5Q1qdfhNdckBuXis1DMxYOnf2WPLFxbFulzYSisCnRnXM
+	MwUr3QJ7y4ULjmm47CaBVlZ3XDK4ns7LrrHzkkJQTZTedvB4nXgExr4fepMa2Q==
+Message-ID: <3bdf2ecc-9dd1-428c-8841-36b1f19916e7@bootlin.com>
+Date: Thu, 17 Sep 2026 07:36:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 2/2] net: stmmac: qcom-ethqos: advertise supported
+ SerDes interfaces
+To: Thomas Karpiniec <tom.karpiniec@outlook.com>,
+ Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Coia Prant <coiaprant@gmail.com>
+Cc: netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Russell King <rmk+kernel@armlinux.org.uk>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <CH3PR11MB8413FCBA598F7FABC04ADCFEE4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
+ <CH3PR11MB841353E5708DDD7C5E2EA1D5E4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
+ <aqqI9wOnradk9d7K@oss.qualcomm.com>
+ <97924d2f-45f9-44d5-b482-97fcbb70abdc@bootlin.com>
+ <CH3PR11MB8413131D50175690DF9FDAB0E4B82@CH3PR11MB8413.namprd11.prod.outlook.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <CH3PR11MB8413131D50175690DF9FDAB0E4B82@CH3PR11MB8413.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 10 Sep 2026 20:18:22 -0400 Gregory Price <gourry@gourry.net> wrote:
+Hi Thomas,
 
-> NUMA balancing uses hinting faults for both task placement and memory-tier
-> promotion. Several filters designed to avoid unproductive socket-placement
-> faults can also prevent promotion.
-> 
-> Read-only file mappings and VMAs without recent PID activity may never be
-> scanned, while lower MM layers reject some shared folios. Hot memory in
-> these mappings can therefore remain on a slow tier indefinitely.
-> 
-> Separate promotion-only scans from socket-placement scans.
-> 
-> MM_CP_PROT_NUMA_PROMO_ONLY carries that choice for one protection walk, so
-> the PTE and PMD paths can restrict hinting faults to promotion candidates.
-> Keeping this transient state in the protection flags avoids per-mm state and
-> its associated lifetime, concurrency, and VMA identity problems.
-> 
->   - Allow eligible shared folios to be promoted to a fast tier.
->   - Scan read-only file mappings and PID-inactive VMAs for promotion
->     without re-enabling placement sampling.
->   - Track the last placement scan separately so promotion-only scans
->     cannot postpone the existing placement-starvation fallback.
-> 
-> The series is ordered as follows:
-> 
->   1. Add promotion-only NUMA protection walks without changing behavior.
->   2. Permit eligible shared folios to be promoted to a fast tier.
->   3. Scan read-only file mappings using promotion-only scans.
->   4. Scan PID-inactive VMAs for promotion and account for placement scans
->      separately.
-> 
-> Tested on a host with 768GB/256GB DRAM/CXL.
-> Ran 2 ~430GB database workloads with large (>300GB) shmem VMAs.
-> 
-> Before change:
->   - 150-200GB/s DRAM bandwidth usage
->   - 40-45GB/s CXL bandwidth usage (maxed out)
->   - request latencies over 5ms (longer tails)
-> 
-> After chage:
->   - 250GB/s+ sustained DRAM bandwidth usage
->   - ~10GB/s sustained CXL bandwidth usage
->   - request latencies 800us-2ms.
-> 
-> Functional observation:
->   A 20 GB hash table VMA that previously remained entirely on CXL was
->   split evenly between DRAM and CXL after the changes - and tier
->   residency tracked hotness.  This was previously affected by the
->   stavation issue caused by the "unaccessed VMA" filter.
++Coia
 
-This seems very significant?
+On 9/17/26 06:29, Thomas Karpiniec wrote:
 
-Why cc:stable and Fixes:?  Is this something which ran at these sorts
-of speeds before the offending commits?
+>> Can you test settung the STMMAC_FLAG_SERDES_SUPPORTS_2500M flag in
+>> dwmac-qcom-ethqos ?
+> 
+> I can confirm that dma_cap.pcs = Y.
+
+Thanks for looking up :) This is a good start
+
+> 
+> I tested setting STMMAC_FLAG_SERDES_SUPPORTS_2500M on hardware and unfortunately the flag alone doesn't solve the problem.
+
+Yeah, but it's still the right first move. Russell planned to do that as well :
+
+https://lore.kernel.org/netdev/E1vvDJi-0000000ArhH-3ipf@rmk-PC.armlinux.org.uk/#t
+
+> 
+> I think there are a couple of things missing. stmmac_phylink_setup doesn't use the integrated PCS bitmap to populate config->supported_interfaces, so SGMII is still not advertised to phylink as a usable host interface. Also stmmac_integrated_pcs_init is adding 1000BASE-X unconditionally, which wouldn't be appropriate here.
+
+Ok so, the missing bit seems to be that priv->integrated_pcs isn't taken
+into account in stmmac_phylink_setup(). This needs to be added then :)
+
+Looks like there's also the inband support that needs addressing, that was
+part of his RFC here :
+
+https://lore.kernel.org/netdev/E1vvDJi-0000000ArhH-3ipf@rmk-PC.armlinux.org.uk/#t
+
+> I did a proof-of-concept fixing those things and the end result looks a little messy: config->supported_interfaces could come from either get_interfaces _or_ the integrated PCS with unclear (to me) responsibility.
+
+There's only dwmac-intel, dwmac-spacemit and dwmac-rk that use the
+.get_interfaces() API. Let me add Coia in CC, as they're working
+on better PCS support specifically for Rockchip :
+
+https://lore.kernel.org/netdev/20260915123802.1561724-1-coiaprant@gmail.com/
+
+For spacemit, looks like it's not really a problem as there's no PCS
+involved. For intel though, heh... Intel platforms with dwmac AND PCS
+are hard to come by, but I think at that point let's roll with the
+bitwise or'int of get_interfaces + pcs interfaces.
+
+> This POC did show that STMMAC_FLAG_SERDES_SUPPORTS_2500M enabled phylink to configure the integrated PCS for 2500BASE-X and a 2.5 Gbps link came up with no apparent issues.
+
+Maybe the blind spot is inband aneg. Mohd, you were quite involved in
+this, do you remember where we stand on that front ?
+
+Thanks,
+
+Maxime
+
 
