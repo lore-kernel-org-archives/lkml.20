@@ -1,180 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E7D3AAF44;
-	Thu, 17 Sep 2026 07:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32CB3AAF44
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:33:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789630387; cv=none; b=Zw4sTo+9L/JlxQPecXS4JbPUhN1pmOMYxvj12zcXSdgjoB79eMpQXi8x3rqU4zMHma55drnHjqphoCmFu8Snyz0ZmS+vUjBAb2ITnPDqUXHVKEy58ZspPD/45PUyyO7eNwCDtchbnEAEc8m4tyr7JF11/wNPpNBR6QSVOL89wCE=
+	t=1789630430; cv=none; b=GoJOyl+l/AdSrUj1owwQI9ZkoyB2f3H6Ny5RtI/lV9jMNeMv5Nk6Lvv56VDWOgS8wfldg6L6mPJ3qLzZu4XLJHnm44+CdLHlXC1/TBV1vdkDGOglLOpcSdNUIFpEVnPW8XKLY4g2zP2vWGEotJ8MrWuZwaYxRShCJB/Rr220tI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789630387; c=relaxed/simple;
-	bh=OqnPiTNjAqjVxKgEBD7t4LAZoC7s4CYHM+rwUWFCRLI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FVRiLjViSRzVvTM6c+qcPvc9vO4z/bBVUfSXdmArs8Qih1ZqoePhbkRWrSJ1suM4wrGFnWgI1D6lF/3HV5vyjMcPbWLNwcnoT2PrI0tim3nlXAZ/TQ3ah/gTwRPqomTNxCZaz4RWQvcHzIrVKfV9Ll4zyCsg3TZHTw4qXxi15Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rzy5n5s2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789630430; c=relaxed/simple;
+	bh=MsbIPrrwvE0+ZhMmPkfPVv+eirHu/xeIr5rn5hICKQ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e5ejmmRt9Ckn13lwEe4v79jbPSWTYh+EmpB0PqOGN9vYqEO/oQzjf099wkTuZJ/5RTAZ68yQXlkrRK9gUr/3RBOdTuH4eQm290/2NXdc/hc4LcV+u1Rqp79RwEWPporU/Ozp+VJKmOyv9RQXGQ7B3O6cod8cwu+tWAXX7vW12i4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/gpry6n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rzy5n5s2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ADB93C2BCFC;
-	Thu, 17 Sep 2026 07:33:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789630386;
-	bh=OqnPiTNjAqjVxKgEBD7t4LAZoC7s4CYHM+rwUWFCRLI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=rzy5n5s2mqinkiSaA8hBf7bDSYzVNv/k/HDOs2i6LyCMDB8tVyZIvaCNWXn+5keTY
-	 2EJv6f6mYFxIqVChzBputriqCXTNL3p2ISdPHC8gh3eqh/bOSPCBxuk1nF0CI3uIGj
-	 9XtCK545KBlbERe4J1V7Rx/GdcD5ExRZMjni32yWXD8OoGOyPjw20HibPPIv3Oo9qe
-	 af1QjhTiKaNNCDlMNr5n1KdGe1aDCg8E+NNOuXDuHEQLaYwChI/dhMQ3JNBjoHXDAd
-	 ZnNUE6/S5G60EZpXH2KVsKSYDWTvUkTX2WM/y5baG8MetpM93CpfbdEoeIu1JnMFN+
-	 cOq/dEylSx8EA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F35DC982D0;
-	Thu, 17 Sep 2026 07:33:06 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Thu, 17 Sep 2026 10:32:07 +0300
-Subject: [PATCH 2/3] usb: mtu3: introduce platform data
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/gpry6n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A2861F000FF;
+	Thu, 17 Sep 2026 07:33:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789630428;
+	bh=f3MHSwgWFxQg4O55BYQfsNvcopLMvsypzWg9o4j1hEk=;
+	h=From:To:Cc:Subject:Date;
+	b=Q/gpry6nDY8SHTNYLyqAd0W7QvmJuIXb4FlVVFI1Cb1bca0VnCFxAF6DIKJhala5q
+	 r2x6sfQlGCQ8b506jpru31RAbHnsB3jqN29kcC3yJiG6A7aRbpxFR6D/q38mf/7Ihx
+	 wT7VHtWqa6QFTxrRKRy+JDNEaQqRNvxELrR9+iwXqKizgO1uTJmy3x5sNSIu+FcHtB
+	 +kJ8HWfgcdOSbTmV1yzbfZU3JXuQfto5oFNI6odP0mM8+khyEOJX8MITQRSx26KFlc
+	 jLCXUvQpYqGGhwCMEsobSZWaalzXiOEwKR+NyO9OLkVMnC4CTJut1SeoIKR0oaPPRv
+	 LzQ34c5TdsdFg==
+From: Chao Yu <chao@kernel.org>
+To: jaegeuk@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Chao Yu <chao@kernel.org>
+Subject: [PATCH v9 00/12] f2fs: introduce metadata cache
+Date: Thu, 17 Sep 2026 15:33:31 +0800
+Message-ID: <20260917073343.2823157-1-chao@kernel.org>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-6595-mtu3-v1-2-a2ba7c230d68@protonmail.com>
-References: <20260917-6595-mtu3-v1-0-a2ba7c230d68@protonmail.com>
-In-Reply-To: <20260917-6595-mtu3-v1-0-a2ba7c230d68@protonmail.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789630384; l=3695;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=y54e7myPthNulRzCzcIJqcwIVSWOKyZTdFwExQoLyXc=;
- b=UIxXZokLjiwTb3X/I4dC6/m0foRCb+50aMrzGk4ic71sBFhvXZTvwmMWDWVOp7TwTdKwjiBsq
- R3kw84kLEVLAbkVLA4kLPs1mAoFC5cjwCZQGDHwFGm+bUt1wbq5SnvF
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Roman Vivchar <rva333@protonmail.com>
+This patchset introduces a self-managed metadata block cache in f2fs,
+decoupling meta blocks, node blocks, and compressed data blocks from
+the Linux VFS page cache and fake internal inodes.
 
-Some SoCs, such as mt6595, require specific quirks for the MTU3 to
-function properly.
+=== 1. Background & Motivation ===
 
-The mt6595 IP block doesn't support multiple slots for the FIFO,
-resulting FIFO wrap.
+Currently, F2FS uses fake VFS inodes (meta_inode, node_inode, and
+compress_inode) to manage internal block caching through the VFS page
+cache. Because of this implementation, the f2fs block size was
+historically coupled to the kernel page size.
 
-Fix this by adding platform data with a field to handle FIFO limitation.
+We now want to unbind block size from page size to support configurations
+where block size <= PAGE_SIZE (e.g., mounting a 4KB-block F2FS image on a
+16KB or 64KB page system).
 
-Assisted-by: LLM (debugging)
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- drivers/usb/mtu3/mtu3.h        | 9 +++++++++
- drivers/usb/mtu3/mtu3_core.c   | 5 +++++
- drivers/usb/mtu3/mtu3_gadget.c | 8 ++++++--
- drivers/usb/mtu3/mtu3_plat.c   | 8 ++++++--
- 4 files changed, 26 insertions(+), 4 deletions(-)
+One possible approach is to continue using the VFS page cache to store
+metadata blocks. However, doing so introduces three major architectural
+issues (illustrated by a 4KB block on a 16KB page system):
 
-diff --git a/drivers/usb/mtu3/mtu3.h b/drivers/usb/mtu3/mtu3.h
-index ba5a63669e5f..1258aa7483aa 100644
---- a/drivers/usb/mtu3/mtu3.h
-+++ b/drivers/usb/mtu3/mtu3.h
-@@ -315,6 +315,14 @@ static inline struct ssusb_mtk *dev_to_ssusb(struct device *dev)
- 	return dev_get_drvdata(dev);
- }
- 
-+/**
-+ * struct mtu3_platform_data - platform data for the driver.
-+ * @single_slot: the IP can handle only one buffer for bulk transfers
-+ */
-+struct mtu3_platform_data {
-+	bool single_slot;
-+};
-+
- /**
-  * struct mtu3 - device driver instance data.
-  * @slot: MTU3_U2_IP_SLOT_DEFAULT for U2 IP only,
-@@ -369,6 +377,7 @@ struct mtu3 {
- 	unsigned connected:1;
- 	unsigned async_callbacks:1;
- 	unsigned separate_fifo:1;
-+	unsigned single_slot:1;
- 
- 	u8 address;
- 	u8 test_mode_nr;
-diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
-index 66dbfe1705d5..03e28c93bc51 100644
---- a/drivers/usb/mtu3/mtu3_core.c
-+++ b/drivers/usb/mtu3/mtu3_core.c
-@@ -923,6 +923,7 @@ int ssusb_gadget_init(struct ssusb_mtk *ssusb)
- {
- 	struct device *dev = ssusb->dev;
- 	struct platform_device *pdev = to_platform_device(dev);
-+	const struct mtu3_platform_data *pdata = NULL;
- 	struct mtu3 *mtu = NULL;
- 	int ret = -ENOMEM;
- 
-@@ -930,6 +931,10 @@ int ssusb_gadget_init(struct ssusb_mtk *ssusb)
- 	if (mtu == NULL)
- 		return -ENOMEM;
- 
-+	pdata = device_get_match_data(dev);
-+	if (pdata)
-+		mtu->single_slot = pdata->single_slot;
-+
- 	mtu->irq = platform_get_irq_byname_optional(pdev, "device");
- 	if (mtu->irq < 0) {
- 		if (mtu->irq == -EPROBE_DEFER)
-diff --git a/drivers/usb/mtu3/mtu3_gadget.c b/drivers/usb/mtu3/mtu3_gadget.c
-index f224f2ee379a..bfacb1ba152e 100644
---- a/drivers/usb/mtu3/mtu3_gadget.c
-+++ b/drivers/usb/mtu3/mtu3_gadget.c
-@@ -112,8 +112,12 @@ static int mtu3_ep_enable(struct mtu3_ep *mep)
- 	mep->ep.desc = desc;
- 	mep->ep.comp_desc = comp_desc;
- 
--	/* slot mainly affects bulk/isoc transfer, so ignore int */
--	mep->slot = usb_endpoint_xfer_int(desc) ? 0 : mtu->slot;
-+	if (mtu->single_slot)
-+		/* older IPs can handle only one slot reliably */
-+		mep->slot = 0;
-+	else
-+		/* slot mainly affects bulk/isoc transfer, so ignore int */
-+		mep->slot = usb_endpoint_xfer_int(desc) ? 0 : mtu->slot;
- 
- 	ret = mtu3_config_ep(mtu, mep, interval, burst, mult);
- 	if (ret < 0)
-diff --git a/drivers/usb/mtu3/mtu3_plat.c b/drivers/usb/mtu3/mtu3_plat.c
-index cc8a864dbd63..bc65acdfb0de 100644
---- a/drivers/usb/mtu3/mtu3_plat.c
-+++ b/drivers/usb/mtu3/mtu3_plat.c
-@@ -611,9 +611,13 @@ static const struct dev_pm_ops mtu3_pm_ops = {
- 
- #define DEV_PM_OPS (IS_ENABLED(CONFIG_PM) ? &mtu3_pm_ops : NULL)
- 
-+static const struct mtu3_platform_data mt8173_platform_data = {
-+	.single_slot = false,
-+};
-+
- static const struct of_device_id mtu3_of_match[] = {
--	{.compatible = "mediatek,mt8173-mtu3",},
--	{.compatible = "mediatek,mtu3",},
-+	{ .compatible = "mediatek,mt8173-mtu3", .data = &mt8173_platform_data },
-+	{ .compatible = "mediatek,mtu3", .data = &mt8173_platform_data },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, mtu3_of_match);
+1. Memory Overhead:
+   Metadata access patterns are typically random and sparse. Caching a
+   single 4KB metadata block inside a page cache folio forces the
+   allocation of an entire 16KB folio, resulting in 4x memory waste.
+
+2. Folio and Sub-block Conversion Complexity:
+   Using larger folios requires tracking individual sub-block dirty/uptodate
+   states within each folio and performing index-to-offset conversions across
+   function boundaries. Because core metadata structures (e.g., f2fs_checkpoint,
+   f2fs_sit_block, f2fs_nat_block, f2fs_summary_block, f2fs_node) are accessed
+   extensively throughout the filesystem, this sub-block management and offset
+   calculation complexity would spread across the entire F2FS codebase.
+
+3. Lock Contention:
+   Multiple independent node blocks (e.g., dnode blocks belonging to
+   different files) can reside within the same folio. Concurrent fsync()
+   calls on unrelated files would contend on the same folio_lock(),
+   serializing metadata updates and degrading multi-threaded performance.
+
+Decoupling metadata caching from PAGE_SIZE by allocating exact
+block-sized cache entries is the critical first step toward supporting
+4KB-block F2FS images on 16KB/64KB page systems.
+
+=== 2. Metadata Cache Architecture & Design ===
+
+This patchset introduces a dedicated, block-size-aligned caching
+infrastructure with the following key components:
+
+- Block-Size Aligned Allocation:
+  Allocates memory buffers matching exactly the filesystem block size
+  (4KB or 16KB) via kzalloc(), fully independent of the host
+  architecture's PAGE_SIZE.
+
+- Radix Tree Indexing with Fast Tag Scanning:
+  Each cache instance (META_CACHE, NODE_CACHE, COMPRESS_CACHE) indexes
+  cached blocks via a radix tree (keyed by Physical Block Address for meta/
+  compress cache, and Node ID for node cache). Radix tree tags
+  (F2FS_CACHE_TAG_DIRTY, F2FS_CACHE_TAG_WRITEBACK) provide O(1) batch gang
+  lookups for flushing and writeback without dual-list shuffling.
+
+- Lightweight Bit-Locking:
+  Individual entries use atomic bit locks (F2FS_BLOCK_LOCKED via
+  wait_on_bit_lock() / clear_and_wake_up_bit()) rather than heavyweight
+  embedded mutexes/semaphores, minimizing memory footprint per entry.
+
+- Direct BIO Read/Write & BIO Merging:
+  Decouples metadata/node I/O from VFS address spaces by submitting direct
+  BIOs (f2fs_submit_cache_read / f2fs_submit_cache_write) with chained
+  adjacent vector merging (entry->next_entry) and dedicated completion
+  handlers.
+
+- Memory Reclamation Shrinker:
+  Integrates with the kernel shrinker subsystem via a 3-phase isolation
+  algorithm (isolate unreferenced clean entries -> truncate from radix tree
+  under lock -> splice un-reclaimed entries back to LRU) to safely reclaim
+  clean cached blocks under system memory pressure.
+
+- Background Writeback Kthread & Checkpoint Integration:
+  Provides a dedicated background kthread (f2fs_writeback-X:Y) for periodic
+  dirty cache flushing, combined with synchronous flushing during checkpoint
+  commit.
+
+- Fault Injection, Tracepoints & Debugfs Observability:
+  Integrates FAULT_KALLOC fault injection, tracepoints for cache state
+  transitions and batch writeback, and per-cache memory breakdowns in debugfs.
+
+=== 3. Patchset Organization ===
+
+- Patch 01: Implement the core metadata cache infrastructure & direct BIO I/O.
+- Patch 02: Initialize and teardown META_CACHE in sb_info.
+- Patch 03: Integrate metadata cache into the memory shrinker subsystem.
+- Patch 04: Introduce the background writeback kernel thread.
+- Patch 05: Migrate metadata block caching (SIT, NAT, SSA, CP, recovery, GC)
+            from meta_inode to META_CACHE.
+- Patch 06: Initialize and teardown NODE_CACHE in sb_info.
+- Patch 07: Migrate node and inode block caching from node_inode to NODE_CACHE.
+- Patch 08: Initialize and teardown COMPRESS_CACHE in sb_info.
+- Patch 09: Migrate compressed cluster caching from compress_inode to COMPRESS_CACHE.
+- Patch 10: Add fault injection support for cache allocation paths.
+- Patch 11: Introduce ftrace tracepoints for cache dirty and writeback events.
+- Patch 12: Expose per-cache memory usage in debugfs.
+
+Changelog:
+
+v8->v9
+- add a boundary for cache_wb_interval sysfs node
+- avoid to exceed 80 column in cache.c in Patch 1/12
+- fix to alloc folio for entry->data in Patch 1/12 to avoid accessing
+  incorrect address w/ cache_folio(entry) in IS_INODE(),ino_of_node()..
+  recovery to use kmalloc after dropping cache_folio() in Patch 7/12
+- fix to show consistent nr_to_write in trace_f2fs_write_caches() in
+  f2fs_writeback_node_caches()
+- :%s/__submit_merged_write_cond/__submit_merged_data_write_cond/g
+
+Chao Yu (12):
+  f2fs: cache: implement metadata cache
+  f2fs: cache: initialize meta cache
+  f2fs: cache: introduce shrinker
+  f2fs: cache: introduce writeback thread
+  f2fs: cache: use meta cache
+  f2fs: cache: initialize node cache
+  f2fs: cache: use node cache
+  f2fs: cache: initialize compress cache
+  f2fs: cache: use compress cache
+  f2fs: cache: support fault injection
+  f2fs: cache: introduce tracepoints
+  f2fs: cache: show per-cache usage in debugfs
+
+ Documentation/ABI/testing/sysfs-fs-f2fs |    7 +
+ fs/f2fs/Makefile                        |    2 +-
+ fs/f2fs/acl.c                           |   26 +-
+ fs/f2fs/acl.h                           |    8 +-
+ fs/f2fs/cache.c                         |  720 +++++++++++++++
+ fs/f2fs/cache.h                         |  240 +++++
+ fs/f2fs/checkpoint.c                    |  448 +++++----
+ fs/f2fs/compress.c                      |  165 ++--
+ fs/f2fs/data.c                          |  523 +++++++----
+ fs/f2fs/debug.c                         |   70 +-
+ fs/f2fs/dir.c                           |  170 ++--
+ fs/f2fs/extent_cache.c                  |   14 +-
+ fs/f2fs/f2fs.h                          |  376 ++++----
+ fs/f2fs/file.c                          |   82 +-
+ fs/f2fs/gc.c                            |  185 ++--
+ fs/f2fs/inline.c                        |  284 +++---
+ fs/f2fs/inode.c                         |  217 ++---
+ fs/f2fs/iostat.h                        |   11 +
+ fs/f2fs/namei.c                         |  114 +--
+ fs/f2fs/node.c                          | 1104 +++++++++++------------
+ fs/f2fs/node.h                          |  118 +--
+ fs/f2fs/recovery.c                      |  251 +++---
+ fs/f2fs/segment.c                       |  305 ++++---
+ fs/f2fs/segment.h                       |   37 +-
+ fs/f2fs/shrinker.c                      |   14 +
+ fs/f2fs/super.c                         |  140 ++-
+ fs/f2fs/sysfs.c                         |   22 +-
+ fs/f2fs/xattr.c                         |  123 ++-
+ fs/f2fs/xattr.h                         |   12 +-
+ include/linux/f2fs_fs.h                 |    3 -
+ include/trace/events/f2fs.h             |   71 ++
+ 31 files changed, 3530 insertions(+), 2332 deletions(-)
+ create mode 100644 fs/f2fs/cache.c
+ create mode 100644 fs/f2fs/cache.h
 
 -- 
-2.55.0
-
+2.49.0
 
