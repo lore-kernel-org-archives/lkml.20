@@ -1,114 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A1D4AC156;
-	Thu, 17 Sep 2026 14:50:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881ED3939A4;
+	Thu, 17 Sep 2026 14:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789656626; cv=none; b=eq7BMTKTJhWAHcAgA8tT0rgTdN0m0zcXCHhVG8Ina2QhjVSOycA31H38nzc3ZsNZl8x3b0fcpscSbcfpyCIVINUfxqtTMm/bIAXGQNJxu3b9hTok3jpmXliW41WZalBrzIM8uHgi9ERmaFioTF7hoMKoFNLbZVPADHcJlDLHm4A=
+	t=1789656678; cv=none; b=hzIrZDxJEqV5M/5P47XN3MtaRcCp9DQiRo0neS9AG2b8y/eG7C7pxBOo5e6/xxyLnpYIToxMmVymx23Fvcfge+GQeM+N4SRXV19N4tjKGeagMFETBHTgzGQ6ytNw1pzBYoHaout/yy1RxSjzF8hr9GHTYkAvolcI8DxIACjY7lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789656626; c=relaxed/simple;
-	bh=eVWkWy44/qDOlZVCkQ/31R9pnyw9ab52gVT5TqfCAO0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=B5WIg1pt959W2s0tQyNkjhnyFEVjuZu9HplMLQ5/MLiL0D4/1lsGDOyBnar0xrNseqakZAXQvlsk6RcQghwuTgbWMFxVXgeG8hy5tMQq8Dc7Rad5MgSn7mmCf161IFD4uKYVhNPqbrdtBjkofn0unmbPVW/GEfczzYXKgb5YpRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I49YKlLL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789656678; c=relaxed/simple;
+	bh=w7OzSmNXC//lxD13rV6BMtWmlMgU8Hxnvdr4Kx8O9zY=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=kAOwVAF8dBHXwSIqUjFQYsMVJWxxSLDW1aLNTLUJ67DGaQFHnlu3JN9Deg6NDES3LbxtduY0EXP2cB0pcV8cPEa7zLZXdLa0q391uPkRzC3u5n4uQzXgLAVrNEC6cko00No3MOZee//xa+I/WJrvzFfJ8tH/daUzX0xJm/n4Tko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cJxZ4Xbu; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I49YKlLL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CA801F000FF;
-	Thu, 17 Sep 2026 14:50:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789656614;
-	bh=eVWkWy44/qDOlZVCkQ/31R9pnyw9ab52gVT5TqfCAO0=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=I49YKlLLMTvB9vk0Gu3n+YjOJxQEVSm58I+lrWE1hPAvm0pC4HCMMZO09nKz/PtPK
-	 T8di+cUIcza7liOtk1FLG0eQu13im1F5RLxR/FnEUj4APzIvkoTDWIT6GO4HQOrfpe
-	 0YKm03/7InEljX8XHT0fZhlI3LfH5lv2oZ9RdLOJpBqC6Ax+0yA+WIioS6T/41HtCV
-	 WLalJcMYWSMMCF7cbUcN/azRmBMyU+j2N8/OOUZ1tjazujy/wvPlKWP9mbEDMDhTYF
-	 4k8FAP2/3GmGn1J7a/WvJstSihDTq/G1PGgwB3XZs7a5PJvvtbjFnzhxS6hII9fhMv
-	 Xhr2olBbgT+1A==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cJxZ4Xbu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789656668; x=1821192668;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=w7OzSmNXC//lxD13rV6BMtWmlMgU8Hxnvdr4Kx8O9zY=;
+  b=cJxZ4XbuMaxEZdbXpP+YykYY+NxbqVXB15gcyZeKeq9EGcfuSnRv/Pgs
+   O635N6KeUfBVavI+xYHuSL2eyna+sgwRFJiiHWCTdIAeoHl4kHebiI/bN
+   S2DM9uVceMBeqQA2Sr6T6mQ7gCVcfTn1Z5g3hl9DTnlBBg0Ym7TNtPNjr
+   mWKoQQqh1RIY1Bo9e7Q6opbdiiRwEz2+/eKdhJQQAUtZL1Zs4wht2mrad
+   GgWAd0jhylTU6wwrm87ocAOztfQNz6cdHpoj9KXo8p62sf9zaUd0Si+w5
+   9ta8FwsurNvanTMXsuTpRAPk0P0jo8OHiJUZLJZ3hJNhyyZ6nxI0WhgZm
+   g==;
+X-CSE-ConnectionGUID: ViZgoWHtRaqEoHRGRpjmzQ==
+X-CSE-MsgGUID: XsAKiouPSz2Ob5AIuMsVhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89220747"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89220747"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 07:51:03 -0700
+X-CSE-ConnectionGUID: kMAdJ0HoQdWUXxuummNPeQ==
+X-CSE-MsgGUID: 7c6L0DOHTLK2S0OHTVWJ5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2024630"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.62])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 07:51:02 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 17 Sep 2026 17:50:59 +0300 (EEST)
+To: Arav Verma <svav2021@gmail.com>
+cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 1/2] platform/x86: intel: wmi: Use sysfs_emit in
+ sbl-fw-update
+In-Reply-To: <20260822174038.619473-1-svav2021@gmail.com>
+Message-ID: <2e047550-6272-9b5a-60b3-0f2c1742b555@linux.intel.com>
+References: <20260822174038.619473-1-svav2021@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 17 Sep 2026 16:50:07 +0200
-Message-Id: <DLHOBJB1NYJA.3FCP9OLPBVRZA@kernel.org>
-Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
- variant driver
-Cc: "Alex Williamson" <alex@shazbot.org>, "Zhi Wang" <zhiw@nvidia.com>,
- <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
- <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
- <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
- <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
- <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
- <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <kvm@vger.kernel.org>
-To: "Jason Gunthorpe" <jgg@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260905081116.106613-13-zhiw@nvidia.com>
- <DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
- <20260914121217.70fa0d93@shazbot.org>
- <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
- <20260915120148.7548a8ca@shazbot.org>
- <DLG7C7MLGSTC.2GSTD84WI595N@kernel.org>
- <20260916141718.GU3968357@nvidia.com>
- <DLGUPX9KPFKF.12CU304YAST79@kernel.org>
- <20260916162817.GW3968357@nvidia.com>
- <DLGXS4SCP3VT.28XXX09BL963U@kernel.org>
- <20260917132829.GA3968357@nvidia.com>
-In-Reply-To: <20260917132829.GA3968357@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu Sep 17, 2026 at 3:28 PM CEST, Jason Gunthorpe wrote:
-> On Wed, Sep 16, 2026 at 08:02:17PM +0200, Danilo Krummrich wrote:
->> >> TBH, I don't think it makes a difference; having Rust abstractions is=
- pretty
->> >> much the same as having another driver. I.e. it would be equivalent t=
-o saying
->> >> "before we accept another pci-vfio driver we need to do some rework".
->> >
->> > Well, it is, but thats the point when judging effort..
->>=20
->> So it seems that we agree that there isn't really a difference between a=
-dding a
->> new C or Rust driver in this regard.
->
-> To be clear I was trying to say I think you are are underestimating
-> how much work this is and how long it will take. Including all the
-> preconditon C reworks has to be included when considering how much
-> work is involved.
+On Sat, 22 Aug 2026, svav2021@gmail.com wrote:
 
-I'm not sure I follow what you mean by "preconditon C reworks".
+> From: Arav Verma <svav2021@gmail.com>
+> 
+> Modernize firmware_update_request_show by replacing legacy
+> sprintf() call with sysfs_emit. When altering string,
+> corrected format specified from %d to %u to match u32 type of
+> target variable.
 
-Do you refer to the drvdata thing? That seems rather trivial to address?
+Hi,
 
-Or do you refer to other C core reworks people are working on? If so, they =
-are
-only relevant if they affect the drivers. And if they affect the drivers,
-there's not really a difference between adding a new C driver and adding a =
-Rust
-abstraction.
+Unfortunately, we cannot accept changes that are not signed off. Please 
+see Documentation/process/submitting-patches.rst for more information what 
+you certify when signing off a patch and how to do that.
 
-> Why can't we just go forward with what Zhi already drafted? Do we
-> really need another side quest?
+-- 
+ i.
 
-Because I don't think it is a side quest. As mentioned, the FFI layer is al=
-ready
-more complicated than the Rust abstraction we need, and I also don't see th=
-at
-this work is progressed further than the Rust abstraction I drafted. So, wh=
-y not
-just go for the proper solution right away?
+> ---
+> v3: Resending as v3 due to git send-email formatting error, no code changes have been made.
+> 
+>  drivers/platform/x86/intel/wmi/sbl-fw-update.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/platform/x86/intel/wmi/sbl-fw-update.c b/drivers/platform/x86/intel/wmi/sbl-fw-update.c
+> index 62c9c7f1842ba..cfef71f4f3284 100644
+> --- a/drivers/platform/x86/intel/wmi/sbl-fw-update.c
+> +++ b/drivers/platform/x86/intel/wmi/sbl-fw-update.c
+> @@ -61,7 +61,7 @@ static ssize_t firmware_update_request_show(struct device *dev,
+>  	if (ret)
+>  		return ret;
+>  
+> -	return sprintf(buf, "%d\n", val);
+> +	return sysfs_emit(buf, "%u\n", val);
+>  }
+>  
+>  static ssize_t firmware_update_request_store(struct device *dev,
+> 
 
-I still have to finish some talks, but I could probably finish that work un=
-til
-LPC and then we can walk through it?
+-- 
+ i.
 
-> I cannot forsee rust bindings for vfio until sometime in 2027.
-
-What is different in 2027 than is now?
