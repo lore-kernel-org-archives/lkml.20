@@ -1,114 +1,105 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2F3AB390CA6;
-	Thu, 17 Sep 2026 14:47:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17353389DEC
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789656477; cv=none; b=WmHJRaDIiThSV7FKlGQvnrE68VTCxRNxa1qMPSM8QHgTWeyDMuVxEOwN6o86U0TzUIwSKrYNjsRBrt51xxzcbn9GTspM1ouQur5nsc0PRvhA4SU9CP6cNt9hfibBbgHao2uiguHWU7CnoWXBvEMlwzqn5nTM4/1tb8kqW37vApM=
+	t=1789656489; cv=none; b=VNZeLyVlEORZxDbUCrGozdIJtSPoS9u2sdKlC6LdSg+vndt053zf5ylcZ6KEByx4Agoy7dQT0WG5bK1dtYlzLfX30NNVUsqjhduzH8rlFX+HcgRdEEYiu1f9gaoqh2+JTECRbL61K2uVuKgs8e1TpD6b++k2jWHILAu4QNgEs9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789656477; c=relaxed/simple;
-	bh=M6L3gDgo7kZ+fxTWrN1ZIsrMlAv/aP6jh31bZohJ0Rs=;
+	s=arc-20240116; t=1789656489; c=relaxed/simple;
+	bh=8OKXsz9hzSBOLyRt6ZGiGqsj9o3YPba4rRlzGXKqqrw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RCzAOPFGa4ebpahvaOppnQjatrE5PhBh2u6MjtOZT4E2PnBPspqelbIUyY35vLTCqsl1Qs9CZDi0DuC1iCe10MbE7tGERufGm6B9PEkggFXd+YazmJGTLJXuFUzkb3/DO+K5Ml17Go60LSKGEV4NOXy3Xcrw2FE1jnV6On3cs/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FfOzLZ+3; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=VrKFtnypz6ar1fx2zJ+HI5OzB/yHRODZjMHYRZJ0OqVu9Bmds3wf5T5lVYoDgrfCx4LCq0YYDhQ5O4bRBzFnD5C2gFeGMp9uYNfZ9RodR0ZOmtnZ1a03DmWtjlS0QxxNWdOVUP1hd52cyWv7yv671QlW2uDFuskRYtcA0qkeGTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aVOXONVU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FfOzLZ+3"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 52F5B1476;
-	Thu, 17 Sep 2026 07:47:42 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 011E03F86F;
-	Thu, 17 Sep 2026 07:47:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789656465; bh=M6L3gDgo7kZ+fxTWrN1ZIsrMlAv/aP6jh31bZohJ0Rs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FfOzLZ+3Qia0W7RivVKaHNN7ieAHkjlQ0vn4TRTzuF7z8OiKjJ/k086OfMvanwLe4
-	 ELpOh1p5+42rsPtfbx27NAQlMXC2xMiCbIVs5xTJrXk64zRBISqHGguvSJA4aBz7vA
-	 RLAIQplJPf8iM7ccnFiG8UpvaheI8Ih5+YH3OgPE=
-Date: Thu, 17 Sep 2026 15:47:37 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH v4 1/5] dma: swiotlb: Centralize default pool policy
- selection
-Message-ID: <aqv9icxsfN3PLErN@arm.com>
-References: <20260914070135.313337-1-aneesh.kumar@kernel.org>
- <20260914070135.313337-2-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aVOXONVU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68C921F000FF;
+	Thu, 17 Sep 2026 14:47:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789656480;
+	bh=qLYTs/uFA5ShSM0CB+bV1mMUjyWXMl17MTCOQCMWRos=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aVOXONVUfCTCYLBS3TVoJ6MNC7sIoKwJIQMEBDFOwco9j7WXXkju9M25l8TZWnU2b
+	 Z3n6/2GvxjhXIOCMD2Oaj4JC1L6/Au1rOhI337t6UvPqaPdhVfAkS8nxZI5BK+tD1T
+	 UIFvBAkDoOz43Go74hfvWghH6mwfcPpKl9Ofd4hxa9ER+S2DxA48UUGopkW/JrjAPE
+	 cAUzVf+xhpulX9NIO9ubr/sitzKvkQT+qlhZv/gNRf+LRYDSHwvQQSzble71aaIhqA
+	 aKOfE8r7U2fz2UHmg7Qz32xRP7I5S6JksbwY/Vw6615SHR2oM/j/NUDHRjwgGM+zL7
+	 jFhoB5pD6OrQw==
+Date: Thu, 17 Sep 2026 16:47:57 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Quchaosheng <quchaosheng000406@163.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Waiman Long <longman@redhat.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] kthread: Report cpumask allocation failure
+ without warning
+Message-ID: <aqv9nYRtwcTkJJ64@localhost.localdomain>
+References: <20260915014222.13423-2-quchaosheng000406@163.com>
+ <aqqR-up8wovbEsv7@localhost.localdomain>
+ <20260917092116.388262-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260914070135.313337-2-aneesh.kumar@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260917092116.388262-1-quchaosheng000406@163.com>
 
-On Mon, Sep 14, 2026 at 12:31:30PM +0530, Aneesh Kumar K.V (Arm) wrote:
-> diff --git a/arch/x86/include/asm/iommu.h b/arch/x86/include/asm/iommu.h
-> index 3be2451e7bc8..22c8190fe34d 100644
-> --- a/arch/x86/include/asm/iommu.h
-> +++ b/arch/x86/include/asm/iommu.h
-> @@ -14,8 +14,10 @@ extern bool amd_iommu_snp_en;
->  
->  #ifdef CONFIG_SWIOTLB
->  extern bool x86_swiotlb_enable;
-> +extern unsigned int x86_swiotlb_flags;
->  #else
->  #define x86_swiotlb_enable false
-> +#define x86_swiotlb_flags 0
->  #endif
->  
->  /* 10 seconds */
-> diff --git a/arch/x86/kernel/amd_gart_64.c b/arch/x86/kernel/amd_gart_64.c
-> index b5f1f031d45b..d0fbc0271e43 100644
-> --- a/arch/x86/kernel/amd_gart_64.c
-> +++ b/arch/x86/kernel/amd_gart_64.c
-> @@ -814,6 +814,7 @@ int __init gart_iommu_init(void)
->  	dma_ops = &gart_dma_ops;
->  	x86_platform.iommu_shutdown = gart_iommu_shutdown;
->  	x86_swiotlb_enable = false;
-> +	x86_swiotlb_flags = 0;
+Le Thu, Sep 17, 2026 at 05:21:16PM +0800, Quchaosheng a écrit :
+> Hi Frederic,
+> 
+> Thanks for looking at it.
+> 
+> You are right that pr_warn_once() is easy to miss, and that this matters
+> least at boot under memory pressure. The case I was worried about is the
+> WARN itself: __warn() taints the kernel and calls check_panic_on_warn(), so
+> on a box running panic_on_warn=1 a recoverable allocation failure turns
+> into a panic.
 
-I don't think the flags are still read anywhere after this function.
-gart_iommu_init() is called long after swiotlb_init(). So you can drop
-this and make x86_swiotlb_flags static in pci-dma.c.
+panic_on_warn=1 can be useful for debugging but I doubt it's ever a good
+idea on production though.
 
-With this:
+> That said, the allocation is GFP_KERNEL on a path that runs
+> once per thread and almost always at boot, so if you would rather keep the
+> warning as it is, I am fine with that. It is your call and I will not push
+> it further.
+> 
+> Two things I should mention, since you are the maintainer here:
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Well I'm not exactly a kthread maintainer, though we all care about that file
+and I can do a pull request when necessary, so I'm just giving my opinion here:
+I would rather keep the warning because when that allocation fails, something
+bad happens that is unrecoverable and that's what warnings are for.
+
+> 
+> 1. I am not going to re-send this. Waiman said the patch looked good to
+>    him, but you are the one who would take it, and "mildly convinced" is
+>    not an ack. If you want a revision with the message kept as WARN, say so
+>    and I will send one; otherwise please just drop it.
+
+I don't think it's a necessary change but let's see if others have different
+opinions.
+
+> 
+> 2. This was prepared with an LLM coding assistant and should have carried
+>    an "Assisted-by: LLM" tag per
+>    Documentation/process/coding-assistants.rst. It did not, and I am adding
+>    the tag on anything I send from now on.
+
+Ah yes please! It's useful for us to know that when we review.
+
+> Sorry for the extra round trip.
+
+No problem, iterations is how we work :-)
+
+Thanks.
+
+-- 
+Frederic Weisbecker
+SUSE Labs
