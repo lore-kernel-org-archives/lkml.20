@@ -1,53 +1,76 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161745326B5;
-	Thu, 17 Sep 2026 16:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405D45326DD
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663114; cv=none; b=DvMlbHDfEp0yKctpkJrgX38l2Ziv50Qj4m/6oX9ojGeQk8db7f9DFI3+ccVhGRGPUej+zMuyYNgWycThEp6Q5ZvGN8DFb650KBIPZ162iI6GwAubjpTZHpk6YdSU8GHUEmLXw6czmhHLUxXhWYnOtxjI188Qfyv+0p2lO+4hi68=
+	t=1789663115; cv=none; b=hpCrh8lRAN8cOHhfv4qTimsyElC2nqnYGbzx/sse4JrVBCNTLRIgcNv2WnXDXVdC3o0FIGcUM1y5W+WuD6vV6qKOyvA1bJOTjE1RBrhpDqEtLe4WwEdsS3VCG/gfsraaO6jdcwqpZvJVc0dDtvSNppjVsa4dZLsISKZeXHszdOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663114; c=relaxed/simple;
-	bh=BX9WNdZufbWprvJbPMPD1w4q+D+NjqKR6JUQjxpvVYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mkx4az2CgWeVSd/ppb4laoK+hVwkRU62GHQI/J2NGduBywlFCRNxLJTdgsiotccfdfzpF65G23ZDZM9qu5zLQAFy3ROBGTfmoq8AoTZcK+3iALfMUaGJESN9aZKGUWknQDh0xFKLEwfAxFbeP9B8rO2vJti1zE6fgRULlQqWAXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Uey6ojlB; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=GJFMSOJ/; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789663115; c=relaxed/simple;
+	bh=Tkmhq7ipcJ4eJBwsM1IcqrP9wqQcBe6egEgtbha4A80=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ef90fn6vCayIq4fDpiGh7Mgu7sqtJVG8t1Cq6D/2nrgQZKLLOLXkeTXE1WovQM5csdxz4hD4yb1kFL1sxpT0/dIS/PH7x5DShfICkv1z0COB13+ddaoXdCTuYevMWH44+1oQq7OIrlXNb8Ckg7bYshVFtwVtf2ZZ+/xzSJVJES8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RTJWZfe+; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Uey6ojlB";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="GJFMSOJ/"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1789663110; bh=UzuuztJ96GodZiYpCdr9PXx
-	KbUbb9g6GDMlOpp8jCz0=; b=Uey6ojlBricx6j3eF+zvmZVsAm3pr7poFIvNCspe5oYMpEOujq
-	8k9LgLJQ9U+Lj+i519fVPnOGYoy1NAEv4cCcmxBAuwCeEOe+TMECGOodA4gRNB7zYxN9tPstrKn
-	r756ENzcqc4qcBPAdjnGfFotcpPyxeemJKBB21Q54VDhotiIWots39X7XD+lduqUQ/dCPkNZO16
-	C5vpqWiERKYPZqdSFsHBx49rjm6qMxDUsnBnD9xw+n6d/NTENC/qTVN7Yrulxhl5L9MmCTzKBFD
-	7eaqZZiY0dXEnN1sk4iBpnOokSX1bLUBb9R6S+auGhuMe4cl/cX9BfU9jMHwMvqjwzQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1789663110; bh=UzuuztJ96GodZiYpCdr9PXx
-	KbUbb9g6GDMlOpp8jCz0=; b=GJFMSOJ/EFRHywZQSyCl/9IdHYQgafn6hclK0Aj0bToaciOukv
-	QY8DN1ApE4yNlmhRfc4Vsd89PmOMG64jVeDA==;
-From: Bradley Morgan <brads@mainlining.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vineet Gupta <vgupta@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-snps-arc@lists.infradead.org,
-	linux-csky@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bradley Morgan <brads@mainlining.org>
-Subject: [PATCH v3 0/5] Add two-byte cmpxchg emulation and wire it into the architectures
-Date: Thu, 17 Sep 2026 16:38:25 +0000
-Message-ID: <20260917163830.3748-1-brads@mainlining.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RTJWZfe+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789663113;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J5XvO9ED1PnQW6LvxI91yeoYZ/9/NbKN8AWis2OJ8FM=;
+	b=RTJWZfe+vQ4uAvkEPxSX4BRUGFaFwWarF3KmcAO+Jl7ZELiAqandvhi0BXoCdkgHV4sdLz
+	rxjpy0u+BoPDeJ0RBgnRtyn9YQocFGIEhPSJ5MAu8nPCqda2HhL6zciMCXKY+ye/wncuwA
+	QdmfA26npnO79O3W6LC4PAMZRz60kkY=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-88-CeX5IH-BPMSoXeUtkPmpQA-1; Thu,
+ 17 Sep 2026 12:38:29 -0400
+X-MC-Unique: CeX5IH-BPMSoXeUtkPmpQA-1
+X-Mimecast-MFC-AGG-ID: CeX5IH-BPMSoXeUtkPmpQA_1789663104
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C3D801944E40;
+	Thu, 17 Sep 2026 16:38:24 +0000 (UTC)
+Received: from djeffery-thinkpadp1gen3.rmtusga.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 179061800345;
+	Thu, 17 Sep 2026 16:38:20 +0000 (UTC)
+From: David Jeffery <djeffery@redhat.com>
+To: driver-core@lists.linux.dev,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	Tarun Sahu <tarunsahu@google.com>,
+	Stuart Hayes <stuart.w.hayes@gmail.com>,
+	Laurence Oberman <loberman@redhat.com>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	kexec@lists.infradead.org,
+	"Ewan Milne" <emilne@redhat.com>,
+	"John Meneghini" <jmeneghi@redhat.com>,
+	"Lombardi, Maurizio" <mlombard@redhat.com>,
+	"Bart Van Assche" <bvanassche@acm.org>,
+	"John Garry" <john.g.garry@oracle.com>,
+	"Jeremy Allison" <jallison@ciq.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	"Pasha Tatashin" <tatashin@google.com>,
+	David Jeffery <djeffery@redhat.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Subject: [PATCH 8/9] PCI: Enable async shutdown support
+Date: Thu, 17 Sep 2026 12:37:43 -0400
+Message-ID: <20260917163744.191748-9-djeffery@redhat.com>
+In-Reply-To: <20260917163744.191748-1-djeffery@redhat.com>
+References: <20260917163744.191748-1-djeffery@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,43 +78,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-This is v3 of the two byte cmpxchg emulation series, wiring
-cmpxchg_emu_u16() into arc, csky, sh and xtensa.
+Like its async suspend support, allow PCI device shutdown to be performed
+asynchronously to reduce shutdown time.
 
-v2 tried u16 as the parameter type. David Laight pointed out that
-this does not compile warning free when exchanging a pointer type,
-because the switch statements in the architecture macros instantiate
-every size case, so a pointer cmpxchg() type checks the two byte
-case, and the (u16) casts there warn. v3 takes the old and new
-values as unsigned long and casts to u16 inside the function, so the
-call sites need no narrowing casts and pointer exchanges compile
-clean. The function still compares and returns exactly the 16 bits
-of the emulated halfword, which matches hardware cmpxchg r16
-behaviour, and a host test of 972 cases across both halfword offsets
-against a byte level reference model still passes.
+Signed-off-by: David Jeffery <djeffery@redhat.com>
+Signed-off-by: Stuart Hayes <stuart.w.hayes@gmail.com>
+Tested-by: Laurence Oberman <loberman@redhat.com>
+Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
+---
+ drivers/pci/probe.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-David also noted the missing pointer to integer type check in some
-of the macros, so cmpxchg(&p, 4, 5) compiled silently. The csky
-macros typed __old and __new through __typeof__(old), which skips
-the check, and sh had none either. Both now type check through
-(unsigned long)(0 ? *(ptr) : (old)), the idiom David suggested,
-which keeps the pointer to integer conversion explicit while making
-the compiler reject mismatched types. Both of his test cases now
-fail to compile on every macro shape.
-
-The ARMv6 wiring stays dropped from v1, per Arnd Bergmann's offer to
-take the INTEGRATOR_CM1136JFS cleanup in his platform removal series.
-
-Thank you, Paul McKenney for suggesting this, and David Laight and
-Arnd Bergmann for the review that shaped all three revisions.
-
-Bradley Morgan (5):
-  lib: Add two-byte cmpxchg emulation function
-  ARC: Emulate two-byte cmpxchg
-  csky: Emulate two-byte cmpxchg
-  sh: Emulate two-byte cmpxchg
-  xtensa: Emulate two-byte cmpxchg
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 27008e2ea5af..101a96718acd 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -1038,6 +1038,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+ 	if (err)
+ 		goto free;
+ 
++	dev_set_async_shutdown(&bridge->dev);
+ 	/* Temporarily move resources off the list */
+ 	list_splice_init(&bridge->windows, &resources);
+ 	err = device_add(&bridge->dev);
+@@ -2748,6 +2749,7 @@ void pci_device_add(struct pci_dev *dev, struct pci_bus *bus)
+ 	pci_reassigndev_resource_alignment(dev);
+ 
+ 	pci_init_capabilities(dev);
++	dev_set_async_shutdown(&dev->dev);
+ 
+ 	platform_pci_configure_wake(dev);
+ 
 -- 
-2.47.3
+2.55.0
 
