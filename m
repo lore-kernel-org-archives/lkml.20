@@ -1,347 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F3A328267;
-	Thu, 17 Sep 2026 03:48:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40AEB340283
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:51:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789616941; cv=none; b=GGgk9G/isppvPhctT6MZ6lj33GYa7Rlah16ZVHmjvqvkAnh8XOs2tI0yMeayJXxSVtedXnTuHWtUjh5WpHX17EnFavG1qJDNZMPyBabntWof8ZCHeGKzw54VjjKMbw9ty5VKqrPBg9+tTKpvGefOKQQ00C+TM78grUN12B17QSg=
+	t=1789617079; cv=none; b=tmbkf0hQZqn2KEhJFUXpGhL5G+7Enxc7v8CUYpkUHv+xVr0NZe5SmcPetueO4MgXPImGRqvGGnc8j1B9uhDi1+t5CnxvZBIj/vM2jG7wFLaOe99fH+CwmEPiS720z5VXKCW5dU9K9ZMxNTmFR/VkUJJtFHAhox9Ix4YVo71oXAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789616941; c=relaxed/simple;
-	bh=Uat/z6cGATNJ4kkEWkITpJru7QWK9y/TQx+wvyOKnSs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MX0x5m+h+Y/B2nsHxDEo3f9YVNYZqKDC/P95DM4qE4FCk7o76j7E6QVZ+2uKY3fN8PCzanYFj0U3T3sg+7AAMcRQOdxrb7TmJJUnB82TmuSJLzar6GvIiTWQ/E2ZACXNfsTGOJhJJ06VcZYygouLtZGofQJDuBXmBCVz+zGn7tM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aU/V5gQ9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789617079; c=relaxed/simple;
+	bh=0/lTK2oUPp2WJTmHlX8v9sdqVImUGtpcz9XDcsTgqKU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kE8ruGZROu6vpHX3izCoJs8AU/fkSAoTkEXD5qQaPKJb5JMqbr+jCshWsxBbCSbpToTvi24JoTqmKuNgBMrnMlLLCjV2FzeWUPOIPuz7JVPTioSpGc/BAsS5xseUDAg1OLBaZqTVnT83qc/exWZq9l8/ya+ybd6kL8e1wF0/yPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NHc7XHz/; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aU/V5gQ9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5011F000FF;
-	Thu, 17 Sep 2026 03:48:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789616939;
-	bh=Y6cGKpFcCklW5Jo9lNnPFtDobTnBJlFsS9ENQ2sHdzE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aU/V5gQ93+pC+HRvqA/GfcLuuoJerzIZRwAVgWFNc1LPfEN8aD/9NTQTIHJhKnRGz
-	 P65Loi3/d44DMrYVZYIBARgqHf9R6cwuxfZbhOMxd56L4yRuEAv3QZPwQkWsK3/0Fh
-	 0DavfcfmTFDDYChL6uO/OZO9md8pqPXyuO/PgtZUNQSu8ncGDMjAxbwIoRDdORoDTy
-	 zd6rm/pduy0W2mtPO4P2jFyL0STx4B3wMwkTfi1vECbn5MUwMSkUIzwLd0dd7fpvrg
-	 OYKgu5R18lPgUS9d/AzoJ2AZQCYwv7NIyuqnIP/JwcDNDCX8gUOHj9rkEkEZOLVC18
-	 cC0HI/3hZMQZQ==
-Date: Thu, 17 Sep 2026 04:48:52 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Lee
- Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>, Luca Leonardo
- Scorcia <l.scorcia@gmail.com>
-Subject: Re: [PATCH 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
- driver
-Message-ID: <20260917044852.3da6f7e5@jic23-hlaptop>
-In-Reply-To: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-2-d35d2ac3d6f0@gmail.com>
-References: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
-	<20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-2-d35d2ac3d6f0@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NHc7XHz/"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc433d52421so204839a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:51:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789617077; x=1790221877; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JRmdnL9sNsJDGBqUtbxtJpJaFIxSIcgheyfrXvLiSpc=;
+        b=NHc7XHz/GXIMcYUqA59R4ibfDOIo+E8MCw2Eem7Tqj+4lZWjvh8CZW9UQwoTEFPkMM
+         +tIWFpaVjgJPLFLoSt74sBBKIF+0COwDs/5vIZkaZN7oTnjdYFpxOWrPRFjYFo/xymQC
+         JkT8wAdYSqP9FT1LZCMg6HlFiJ+pjgAn3xzD5pqZARGli0YUImqrQKdQhTNW0vjsJxEh
+         us7gJ76G/YB7S3kkeSgbQeWA8Z37uGBItFMzcmL0s7FPATbUZzPSnqOA8CWXQ1OX6xc2
+         Nk476kzm9ZEiNHOc0lAR0SmE8LRoxZxnDXnYE2bJzRGnOnebwIEoaURaAVc5x1uZP19c
+         8SkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789617077; x=1790221877;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JRmdnL9sNsJDGBqUtbxtJpJaFIxSIcgheyfrXvLiSpc=;
+        b=Tr95ltFb97eBxGNCoPwXdj8Jan+OOx4j1DeSfWhBx1MQ5nmdA2p78vpIFXaK9sK5pY
+         t/QrCv9tVgAcK00gXOQUBQQTvJsFCBEeazBkZ6YvdqVU8ejeV8TupIhmTh6FsHa+6oUx
+         kfj9n5ci6pmixnEH8ssoMpsIbqYEsS6CENfqdTFO8tt3OlJ5WfRwjttNzTfgDp6XBPmM
+         b7Jd67YC6mg8rhHByPfhBDHM075QSxi2rnr2+PYO3ptrFX4gPzdkdV2mr7i44TW2C8Xg
+         7sx/0or+z1srzMM2ZEUuo23aVB5cAGPhseR3RlFib6VpmYveS/ArGU9N9W+NiDTLvSAz
+         mOfA==
+X-Forwarded-Encrypted: i=1; AKwUvBw4ylq6PeaQzN+8N20U9tcs7d4aUAZto1gpv85pO9or6W3kYu5AZK/MQVHrAJk7ueWI836T32dkU2PUqQc=@vger.kernel.org
+X-Gm-Message-State: AFuF++khQVnruM9JC4kJB5h4oXfIA7pfPeaZpSDQV9T08PR80KoB65hI
+	0wbT7QfcBvuII8/Unr6gbDbZex6fPwoxFZf4lBSRKHfR1N2aQqU1Lrgx
+X-Gm-Gg: AYBFou2G6HJCdl+UW2+jtA52jgoj5N6YiGyvLKcTwgmVVrvKwL6IEv+UBIJJVcs0v97
+	a/HekolhsaoG2AVnehUIAj14DpTxHTtSY3tRTtuHJ98VCl3ksvEj16+CTNsT0JD/fTBz93HXdbw
+	l1UXbcvBtbzUatkJKODBXgm+/sjN7Lm7/aMA/5vdTPqHWroGCvERQySA5vnWXMVODeOyQLNdvpS
+	HrFsZSADMilT8kVmydZABmx6u4S4+FbAck2jaxVryNEyBBYmFSjB0EnhffS25Cd1oseAJSplef2
+	CqkJSiEauvO1Z7nxMHxUYYh1qGi8/gQBzU1/xFx0hyR/LXuwH4xln0d7NuI3V+NHyO2h0IT971t
+	+XXYzYrHr/+889r2MIQe/3SJg4rT42ECFTkquvgBfTbEmcqyuJepSudj7fvFdaTYUHr6ls4asz5
+	d9XthIUeMvc+HCAyo7SLRtaC90RajtAikF0nkI1XuaZO0j2ucTHPli9rSiaNZrC7RmWxlor0Ayn
+	Re4Luhsq6uuc5c=
+X-Received: by 2002:a05:6a21:6b10:b0:3da:3bdb:b22a with SMTP id adf61e73a8af0-3dd5f71a912mr13402383637.20.1789617077327;
+        Wed, 16 Sep 2026 20:51:17 -0700 (PDT)
+Received: from Default ([2409:40f4:1034:933e:9332:d934:54b1:70e5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf596e1f6sm13906581eec.1.2026.09.16.20.51.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 20:51:16 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: dgc@kernel.org
+Cc: cem@kernel.org,
+	jeffinphilip14@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-xfs@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] xfs: change xfs log item refcount design
+Date: Thu, 17 Sep 2026 09:21:04 +0530
+Message-ID: <20260917035104.10762-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <aqsYHjEp-7TM1h8F@dread>
+References: <aqsYHjEp-7TM1h8F@dread>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 15 Sep 2026 23:15:27 -0500
-Ryan Brue <ryanbrue.dev@gmail.com> wrote:
+On Wed, September 16 2026 at 10:28 PM, Dave Chinner wrote:
+>On Fri, Sep 11, 2026 at 03:55:00PM +0530, Jeffin Philip wrote:
+>> This patch series is the first of the series where we attempt to convert
+>> the XFS Log item reference counting design to be more generic
+>> compared to the previous type-specific state to fix the "zero
+>> refcount but in AIL means alive" state. The patch series follows
+>> instructions outlined here[1].
+>> 
+>> Obviously, the wrappers will be integrated in type-specific functions
+>> later on.
+>> 
+>> No behavioral change as of yet.
+>> 
+>> [1]: https://lore.kernel.org/all/aqI6v-_dc2DDSbgB@dread/
+>> 
+>> Jeffin Philip (2):
+>>   xfs: add lockref and generic helpers for refcounting
+>>   xfs: change xfs_trans_ail_delete return type to bool
+>
+>It's great to see you starting on this, but there's not much point
+>in just posting wrappers that aren't used by anything. Until there
+>is code that uses them, we can't really say anythign useful about
+>the wrappers. e.g.
+>
+>Is the API optimal? Don't know.
+>
+>Is open coding the init correct for the generic case or is that just
+>projecting an antipattern from the BLI reference counting? Don't
+>know.
+>
+>And so on. Hence it's best to present the wrappers with the code
+>that then uses them so we have the necessary context with which to
+>review them.
 
-> The mt6397 AUXADC is a 10-bit ADC behind the SoC's PMIC wrapper. On boards
-> built around this PMIC it is the only way to read the battery: the SoC's
-> AUXADC is wired to board thermistors and the charger ICs these boards use
-> have no ADC of their own.
-> 
-> Add a driver exposing the battery voltage and battery temperature
-> channels. Only those two are described, so a channel ID in the device tree
-> is an index into the driver's channel array rather than the PMIC's channel
-> number, as mt6323-auxadc does. The ready bit lives in a channel's raw
-> result register, but the value comes from the chip's trimmed copy of it,
-> which is what the vendor driver reads for a measurement.
-> 
-> Both channels need more than that, as the vendor programs them. The
-> battery voltage is measured through ISENSE, because a board with a
-> switching charger in the power path leaves BATSNS on the charger's system
-> rail instead of on the pack. The thermistor only reads correctly with the
-> PMIC's battery-detect bias and input buffer enabled, which take 20 ms to
-> settle. Both are switched back off afterwards.
-> 
-> Reads average sixteen conversions in software; the chip's sample
-> accumulator makes no measurable difference at any setting, so it is left
-> at one sample per conversion.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+The BLI changes have almost been finished and I am testing them. The
+reason I did not post it is because I wanted it to face more proper
+review and that is likely to be stricter when the patches are
+few. I could still write the entire implementation and post it as a
+giant patch series provided it does not fatigue the reviewers from
+reviewing several tens of patches at a time. Until then, I feel like
+it mould be much better to post 1 implementation step at a time in 1
+patchset. If you prefer otherwise, that can be done too.
 
-I took a quick look but Andy called out the biggest question,
-why doesn't it make sense to extend an existing driver to
-cover this part?  Might not make sense but you need to talk
-through why not in the cover letter.
-
-> diff --git a/drivers/iio/adc/mt6397-auxadc.c b/drivers/iio/adc/mt6397-auxadc.c
-> new file mode 100644
-> index 000000000000..dbfa82341d6c
-> --- /dev/null
-> +++ b/drivers/iio/adc/mt6397-auxadc.c
-...
-
-> +/*
-> + * CHR_CON16 and the two SOURCE_CH0 selects route either BATSNS or ISENSE onto
-> + * the battery channel. Only ISENSE is used: with a switching charger in the
-> + * power path BATSNS sits on the system rail rather than on the pack.
-> + */
-> +#define MT6397_CHR_CON16		0x0020
-> +#define MT6397_CHR_CON16_ADCIN_VSEN_EN	BIT(11)
-> +#define MT6397_CHR_CON16_ADCIN_VBAT_EN	BIT(10)
-
-These are used as values for the ADCIN_SEL.
-I think they should have names to make that clear and be
-1 and 2 rather than bits.
-
-> +#define MT6397_CHR_CON16_ADCIN_SEL	(MT6397_CHR_CON16_ADCIN_VSEN_EN | \
-> +					 MT6397_CHR_CON16_ADCIN_VBAT_EN)
-
-This would then be a register field mask from GENMASK()
-
-> +#define MT6397_AUXADC_CON14		0x055e
-> +#define MT6397_AUXADC_CON14_CH0_NORM_SEL BIT(2)
-> +#define MT6397_AUXADC_CON14_CH0_LBAT_SEL BIT(0)
-
-A common visual trick in IIO drivers separates register addresses from fields
-and from values.
-#define MT6397_AUXADC_CON14		0x055e
-#define   MT6397_AUXADC_CON14_CH0_NORM_SEL BIT(2)
-#define   MT6397_AUXADC_CON14_CH0_LBAT_SEL BIT(0)
-
-Also blank line here as the settle time is not directly related to the
-register.
-> +#define MT6397_AUXADC_ISENSE_SETTLE_US	USEC_PER_MSEC
-> +
-> +struct mt6397_auxadc {
-> +	struct regmap *regmap;
-> +	/* AUXADC doesn't support reading multiple channels simultaneously. */
-
-I'd rather you said why than simply not supported. Seems
-that it's a multi register sequence so needs to be atomic wrt
-to other channel reads.
-
-> +	struct mutex lock;
-> +};
-> +
-> +#define MTK_PMIC_IIO_CHAN(_name, _chan, _hwchan)                \
-> +{                                                               \
-> +	.type = IIO_VOLTAGE,                                    \
-> +	.indexed = 1,                                           \
-> +	.channel = _chan,                                       \
-> +	.address = _hwchan,                                     \
-> +	.datasheet_name = __stringify(_name),                   \
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |          \
-> +			      BIT(IIO_CHAN_INFO_SCALE),         \
-> +}
-For two the macro is of marginal benefit. I'd just put the structure
-values in directly.  Then we know which parameter is which etc.
-> +
-> +/*
-> + * A device tree channel ID indexes this array; .address holds the PMIC channel
-> + * number. The thermistor reports as a voltage because that is all the PMIC
-> + * measures: the divider across an NTC whose curve belongs to the board.
-> + */
-> +static const struct iio_chan_spec mt6397_auxadc_channels[] = {
-> +	MTK_PMIC_IIO_CHAN(isense,   MT6397_AUXADC_ISENSE,
-
-If you do keep this, one space is enough. Aligning when there
-are lines in between brings little value that I can see.
-
-> +			  MT6397_AUXADC_HWCHAN_BATSNS),
-> +	MTK_PMIC_IIO_CHAN(bat_temp, MT6397_AUXADC_BAT_TEMP,
-> +			  MT6397_AUXADC_HWCHAN_BAT_TEMP),
-> +};
-> +
-> +static int mt6397_auxadc_read_once(struct mt6397_auxadc *adc,
-> +				   const struct iio_chan_spec *chan, int *val)
-> +{
-> +	struct regmap *map = adc->regmap;
-> +	unsigned int reg;
-> +	int ret;
-> +
-> +	ret = regmap_update_bits(map, MT6397_AUXADC_CON1,
-> +				 MT6397_AUXADC_CON1_CHSEL,
-> +				 FIELD_PREP(MT6397_AUXADC_CON1_CHSEL,
-> +					    chan->address));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* START is edge triggered: it has to be lowered before being raised. */
-> +	ret = regmap_clear_bits(map, MT6397_AUXADC_CON1,
-> +				MT6397_AUXADC_CON1_START);
-For lines that go not much over 80 chars and where it helps readability it
-is fine to break that limit.  I think that applies here.
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_set_bits(map, MT6397_AUXADC_CON1,
-> +			      MT6397_AUXADC_CON1_START);
-and here.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	fsleep(MT6397_AUXADC_START_US);
-> +
-> +	ret = regmap_read_poll_timeout(map, MT6397_AUXADC_ADC(chan->address),
-> +				       reg, reg & MT6397_AUXADC_ADC_RDY,
-> +				       100, 100 * USEC_PER_MSEC);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_read(map, MT6397_AUXADC_ADC_TRIM(chan->address), &reg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = FIELD_GET(MT6397_AUXADC_ADC_VAL, reg);
-> +
-> +	return 0;
-> +}
-> +
-> +static int mt6397_auxadc_battemp_bias(struct mt6397_auxadc *adc, bool on)
-> +{
-> +	struct regmap *map = adc->regmap;
-> +	int ret;
-> +
-> +	if (on) {
-> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
-> +				      MT6397_AUXADC_CON0_BUF_PWD_ON);
-> +		if (ret)
-> +			return ret;
-Add a blank line here 
-> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
-> +				      MT6397_AUXADC_CON0_BUF_PWD_B);
-> +		if (ret)
-> +			return ret;
-and here.  Small readability improvement but worth having!
-
-> +		return regmap_set_bits(map, MT6397_CHR_CON7,
-> +				       MT6397_CHR_CON7_BATON_TDET_EN);
-> +	}
-
-For cases like this I'd use and else.
-Not strictly necessary but makes it visually obvious it is an either or
-question.
-
-> +
-> +	ret = regmap_clear_bits(map, MT6397_CHR_CON7,
-> +				MT6397_CHR_CON7_BATON_TDET_EN);
-> +	ret = ret ?: regmap_clear_bits(map, MT6397_AUXADC_CON0,
-> +				       MT6397_AUXADC_CON0_BUF_PWD_B);
-> +	return ret ?: regmap_clear_bits(map, MT6397_AUXADC_CON0,
-> +					MT6397_AUXADC_CON0_BUF_PWD_ON);
-> +}
-
-> +
-> +static int mt6397_auxadc_isense_disable(struct mt6397_auxadc *adc)
-> +{
-> +	struct regmap *map = adc->regmap;
-> +	int ret;
-> +
-> +	ret = regmap_clear_bits(map, MT6397_AUXADC_CON14,
-> +				MT6397_AUXADC_CON14_CH0_NORM_SEL |
-> +				MT6397_AUXADC_CON14_CH0_LBAT_SEL);
-> +
-> +	return ret ?: regmap_clear_bits(map, MT6397_CHR_CON16,
-> +					MT6397_CHR_CON16_ADCIN_SEL);
-
-Andy called this out already.  LLM being too clever maybe?
-Anyhow, just burn a few lines of code for readability!
-
-> +}
-> +
-> +static int mt6397_auxadc_read_channel(struct mt6397_auxadc *adc,
-> +				      const struct iio_chan_spec *chan,
-> +				      int *val)
-> +{
-> +	unsigned int i, sum = 0;
-
-Please split variables that are initialized from ones that aren't.
-Can be hard to spot when just one is.
-
-> +	int ret, sample;
-> +
-> +	/* Held across the whole burst: the channel select is shared state. */
-> +	guard(mutex)(&adc->lock);
-> +
-> +	if (chan->channel == MT6397_AUXADC_ISENSE) {
-> +		ret = mt6397_auxadc_isense_enable(adc);
-> +		if (ret)
-> +			return ret;
-> +		fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
-> +	} else {
-> +		ret = mt6397_auxadc_battemp_bias(adc, true);
-> +		if (ret)
-> +			return ret;
-> +		fsleep(MT6397_AUXADC_BATTEMP_SETTLE_US);
-> +	}
-> +
-> +	for (i = 0; i < MT6397_AUXADC_SAMPLES; i++) {
-
-	for (unsigned int i = 0; ...
-
-> +		ret = mt6397_auxadc_read_once(adc, chan, &sample);
-> +		if (ret)
-> +			break;
-> +
-> +		sum += sample;
-> +	}
-> +
-> +	/* Lower START so the converter is not left armed between reads. */
-> +	regmap_clear_bits(adc->regmap, MT6397_AUXADC_CON1,
-> +			  MT6397_AUXADC_CON1_START);
-> +
-> +	if (chan->channel == MT6397_AUXADC_ISENSE)
-> +		mt6397_auxadc_isense_disable(adc);
-> +	else
-> +		mt6397_auxadc_battemp_bias(adc, false);
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = DIV_ROUND_CLOSEST(sum, MT6397_AUXADC_SAMPLES);
-> +
-> +	return 0;
-> +}
-
-> +
-> +static int mt6397_auxadc_init(struct mt6397_auxadc *adc)
-> +{
-> +	return regmap_update_bits(adc->regmap, MT6397_AUXADC_CON0,
-> +				  MT6397_AUXADC_CON0_SPL_NUM,
-> +				  FIELD_PREP(MT6397_AUXADC_CON0_SPL_NUM, 1));
-
-Not worth having a helper to call just one thing. Put this regmap
-call inline.
-
-> +}
-
-> +
-> +static const struct of_device_id mt6397_auxadc_of_match[] = {
-> +	{ .compatible = "mediatek,mt6397-auxadc" },
-> +	{ /* sentinel */ }
-	{ }
-
-Is enough.  The sentinel nature of that is kind of obvious so
-a while back we removed all those comments from IIO.
-
-
-> +};
-> +MODULE_DEVICE_TABLE(of, mt6397_auxadc_of_match);
-
+Thanks,
+Jeffin.
