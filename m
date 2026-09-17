@@ -1,66 +1,66 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D104E3B7750
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:00:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12473B8111
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:00:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789617616; cv=none; b=pbYOqa1BOugqP3UXnGhSf0hp4af4YbjM+E+bJERok9UtMc3GhqHqwenR3eEPiLJQyKGuH8M0fEDTAj363YIULmBB27TKFRWcdPRoo5rKUlyvQnusLAmNSK9rlbUDbAGP5RcaN/NkSTWKNG1+nOCqm3QKRSRuaH+3qrLiGcecY18=
+	t=1789617619; cv=none; b=iRcAuhWEZQqR7qiLQ7V6mMqYDUL1gWCnZyeHj8X/GIlO5JZQc4Il3twb60TPxxZXMbUj38XFIU+iQrhJvLLqlvRPJfkfnPoSxzltb9JkepSlXPt6roZbG+zV/S61F8Pbi/SuaF9MkW4raa/eAd03uXhFLz1U+vNvGbj/kIbM9Ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789617616; c=relaxed/simple;
-	bh=J/bZaVCssFw0vW7xv0YPZK10RdXKVFgMBVYfQvPz70I=;
+	s=arc-20240116; t=1789617619; c=relaxed/simple;
+	bh=t6kqad3R5WgeKWtDof9fjSN4rKNL6g8fBl1fgnljyQY=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TGge5V3MxIxWSFn6dwTr39UDrPLoYX7iSRdz5XGbDYPQZ36Ao1UUha7p7KG3i2RK/9V0kJMGrxOVhDaYOTNrOuePUi8naGuxwaMdHagDUOYl+sP6mPJaYI2MsLAfDq1ph0x8NPX2BcUHkGDk6pvVAwx8OZX9epF/eDEQbbogqL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OY93VsRB; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=dLlo2jZ6sW/kHjICHAhlz7oj7lhNpgvwuWgpeo3+56yjln70J6PeJRR43QKkRW963fplTKpmyWorF8PGSAEEi+IaXFg6AcwxlTkgmBHpsQP4/mT2JphjPb/JVTxvaVttfI3po9A8jGyNGLeRAjvTBuFWwVOtfFJWdsQXclLq6Ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KRWCu49k; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OY93VsRB"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b965f447cso2816005e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:00:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KRWCu49k"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so3341165e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:00:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789617613; x=1790222413; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789617615; x=1790222415; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Hq+RhWH5t3rOMXgtP2JnH29EHWf8ckfy/YyUirWvEQo=;
-        b=OY93VsRB9RWb+uma3Sd056ZLFElfVyWZBfpjfAVHs827XE92RXKIrNAA7WZUnmTVnp
-         4ef8EebmYT4RH99cLk24bXUkzkuV6SFc/9aU5EYckyaQZtPqZPrkcaVJ2EDng8J21duO
-         jaE14Rvmh7NR/vrxl7VXjmTMELtrlLcTAzQbBD/GHe7Dr+6OTTv/hDC9hF3QwRa+he28
-         8gJWTW2WX9be3otjZhGy11ujarNC/dw2aIeTSculsa8TSI0jTfa9YIuUg/EG5d4dtrQ/
-         DZsXEGeLLbU+YwuSr5YLo5/cHi5Xy4sljiVD8VH+FYU5nIA2o1wqeMSj8QNOuag2sgqL
-         MReA==
+        bh=pBijyL0HZR3/5g7v7DmejWL3K0668IdfViWW12KzHHg=;
+        b=KRWCu49kYszdxlHpATD5vkmIMj2m8Kip6NJW/tt5iDBcrV/mep4+DF9I4W2VDvb8h9
+         ILHMmk21bIooIfHTXBz1Bb0xqQ700Fu20BGvp3ouDBSdHijiXkhhJzocpnM7ln3nSpr2
+         x1a1n68/0oqhei9FtT+kVAjxDMx8FuV1n15jsPw5iYCkCoa1d/MeagS1gTUTf/Td/zBc
+         fR+pDGybqD19mbkla1VMryN7fsbV12WqJoPCPEFKsNg6KEoh8WbWNf4tFuKNrkP3IyBd
+         +XvxiX/9D2QPrbMTI9bjdIp1y3k8xkC6bz7TX9AFon1zUedDHya+wDhYOAx1vB8eDJJk
+         4vlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789617613; x=1790222413;
+        d=1e100.net; s=20260707; t=1789617615; x=1790222415;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hq+RhWH5t3rOMXgtP2JnH29EHWf8ckfy/YyUirWvEQo=;
-        b=NqJ7pN+j31CdTVJAOV1YZaXQuPANlsztOFvLckrVy3zFHjimON0AD6tjZhzgDnPzbv
-         z+DqZHm3qsa/PfwAj5LDPijQ98Ct0QhkbNleK03Vy2RiLNFQoCsBz9rMyfaYbJlRQcTR
-         uUIXsmMAQWGnD0i/gkQI4HU+KR0pOZMV0E/iLqAF0DcqlJnoPA3a1m+tGPGg+TCSjBeA
-         2Q5BGl31lxh8ci8T4rxwdyD0FqdcOZzGT7eglrwQapWjsbj4QVnMDdCSqXmdqOyZsjD7
-         8TYTYM1tKw+QHGV3h67Yhz8Ai5FIJUtySTbGQ+pu8EzKpb39SF9L/pd2LCV1zuKDEJSW
-         8EpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwwaiX6Jv8g1BRJimaieKkNSX1z2GwFCFewMibp3UNqtFm9NXktAyp8K2WIqy8clrtykkQVwMx/s/D6S4Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++nX0xNNbug77E+yKSnx5kD7R+3knVB7UKSVehvfl0RhLkJqvKAy
-	lXXrDDAPSYeVabm+M0dtsanE8CMTlX7Kf3/gsmppREV3F/Jjpd+Skd3w
-X-Gm-Gg: AYBFou1Th794Bh9mCLZgplGb4qPhqWOpqdxQEuGlMKo8NNeg74OzZZD19m7eoat1iU5
-	JkI24N0H1OT/XSOckNRLLGPV4Fk9l9guDme0dBGQk5fdRFJZbAgVa1lg205546ewCDjDa2bs+dv
-	GKYqKTZP+D731Th6Ar+vzhQeBGbtqsZnC0/m3RR3B/CKuXXPGp/+Trd1q9GQ+QCZweSflcujUrI
-	sK5mjZJhlN7fjlbQaJYt/U4KtYmAcIchuReTRKqnTTHhIHbSqLMkAABy6MC9Sno2oZbOiuPgOYd
-	AfVYyNrxioejlzu1WG3qitO6gF3Uwpx7uBfuFKf1xCWxgXsXI6w7K5DajkrbJIpd9NYiE5zZIl6
-	9Y/Aw49k9cRiDgDWqHUQ79+5elFdwQdQBDzPbkwkkgm60aIgVPnqnX75aw/z7+OdJ+rTNoPrF1J
-	DEPacc93XkApMfcBDEW5BFsAbm1yq1QA5d7Jdi1woUrF6PtrbBqxloVDyjh4j8To5Wazno+Y0y8
-	5XYTx/Sjq4Ml2yXkwi4cwqJPUZJigNImHxBilYbkSEaabik2DtEAWUyDcf95VtHJZpymDW+K2F2
-	D6aLEE7e5m2F0OosMFC20abufKamHn4RvJczWxHgvoUP6jXF3B5DYM5hXSGLR8SuyLTwkfs6cEn
-	g
-X-Received: by 2002:a05:600c:4e48:b0:49c:fa20:cc00 with SMTP id 5b1f17b1804b1-49eb732d38emr61576605e9.23.1789617612631;
-        Wed, 16 Sep 2026 21:00:12 -0700 (PDT)
+        bh=pBijyL0HZR3/5g7v7DmejWL3K0668IdfViWW12KzHHg=;
+        b=PMI9HWJ1mTMjVz84/dzkWjWU5HNtxg5+zEM5FuyX8Jblp4qJj1I4M8GFpqi1ojknLA
+         BJ6EJH5CD5/+0DrDDIg4VL/IED9Ak5Ta8Fct5idaCO1Rw3hxkm94ZVzNy4ge3XUydFzz
+         dqDnpKLJ4ZKlzmANjbMIWVRTpZQ+HM7ls/Fp8sMGy+JTMGssHmzbU3uU2/S16fpaJOwR
+         Uu/D+9XbeLQ32tzLrDOyLVTi/wGUbzAkJRZ2N0tsmcwMYIuVBsNFPXCJJaKXDhHpoqfQ
+         eeWY3rBwvN2Xpd7f2gED/IMHR2uO7rUYqd27Z9iyYO7MWISytfAtLlkoWz47KO+wz1cA
+         z2YQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbc7f27MHqbHw1NlkYkw190eOhXuKD6BseGuyPTlvgJxhBkMozYN544mT8UA7760QZrJ4diMwM0FDVCvI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mA9s1GWhX0eKgp6sdVtgxox6+VwCRXPFDhaLXujfKHjM4GyYQo
+	0iy1f6aqR6UqOGE7vGqIwloMOOfZXZYjoUV29SYlT5OkqG1wDzcoN8gQssSNtR1m
+X-Gm-Gg: AYBFou2qpmZZAo1TgaHQofu/+wYqkxztrj4d61XDUg5oenAqOQWH3Cof1ujG1Fg9FZh
+	Xpswk7/V0zA4z0hQDX3QeztxWXjy4nHj9PgrkfDl2d9X5+HCG1TB5NmK1k9fpTt5pzACtlish/b
+	+PxWr4FxQsEU23ONuDthxW3uuA4n9PhIDqyhgBaTYY2jd0goArneUaBe7cEX/tdPEA83E462vgw
+	jCUH+/R7pAuP0T4ZxPWZSiq9zZRIRJAsk6wtpUGja1E0MBeL1AqdDIJGGNiKOX7vkAO6cQ6NWTd
+	g/it9aZp7ZQ0/KuvqaO+ZhpIrhDckxFDsU0qeOYcV4dluFvPJ6b/GnnhSlPaT3wJVK02K0P2KM8
+	hOSnX/SUAg3z+iQxiC5Hwdo5Z67CtSKVgAyPnIk9aEhbqNxuKfjA6imI9SnejypnzIdnVmmNM8X
+	T4lhq/pxRv/DBEJXU7SKU0Rv6njF0jEcPG7AN4lDUYbutsVxN5lqjh9P7roN8MIDoEDDmvy9IWM
+	S+p3Uu1u3pi2TfYiCSdBuONyFbcRJr1ZisZrURAorr1DtO72Pfa8+4yrZ4sXHnUyVwuQzfR9rBq
+	JEjrpZSkd7nsIhZAUHpw44Mf7fy8x84967qWNhiaC+1eLewLH/aG+pV68k4shcUdX92HzzZ+XN4
+	S
+X-Received: by 2002:a05:600c:3e0a:b0:49e:81db:4926 with SMTP id 5b1f17b1804b1-49eac4638femr61582055e9.5.1789617614946;
+        Wed, 16 Sep 2026 21:00:14 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-9dc6-c001-54ee-4741-4927-0a28.310.pool.telefonica.de. [2a02:3100:9dc6:c001:54ee:4741:4927:a28])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbfd935cfsm6880015e9.0.2026.09.16.21.00.11
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbfd935cfsm6880015e9.0.2026.09.16.21.00.12
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 16 Sep 2026 21:00:12 -0700 (PDT)
+        Wed, 16 Sep 2026 21:00:13 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: stable@vger.kernel.org
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
@@ -71,20 +71,21 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	marcel@holtmann.org,
 	johan.hedberg@gmail.com,
 	eadavis@qq.com,
-	pav@iki.fi,
 	davem@davemloft.net,
 	kuba@kernel.org,
 	linux-bluetooth@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
+	pav@iki.fi,
 	syzbot+b7f6f8c9303466e16c8a@syzkaller.appspotmail.com
-Subject: [PATCH 5.15.y 0/2] Bluetooth: L2CAP: fix connectionless receive path
-Date: Thu, 17 Sep 2026 06:00:02 +0200
-Message-Id: <20260917040004.21041-1-kmehltretter@gmail.com>
+Subject: [PATCH 5.15.y 1/2] Bluetooth: L2CAP: Fix deadlock
+Date: Thu, 17 Sep 2026 06:00:03 +0200
+Message-Id: <20260917040004.21041-2-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260913202907.3100-1-kmehltretter@gmail.com>
+In-Reply-To: <20260917040004.21041-1-kmehltretter@gmail.com>
 References: <20260912065526.833703348@linuxfoundation.org> <20260912065546.976652519@linuxfoundation.org> <20260913202907.3100-1-kmehltretter@gmail.com>
+ <20260917040004.21041-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,75 +94,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.15.y has two problems on the L2CAP connectionless receive path. The first
-comes from a backport that landed without its prerequisite, the second from
-a fix that never landed at all. Upstream contains both fixes.
+From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-1) c531e63871c0 ("Bluetooth: l2cap: always unlock channel in
-   l2cap_conless_channel()") was backported as 5caf0ffaf915 without
-   f1a8f402f13f ("Bluetooth: L2CAP: Fix deadlock"), which is what adds the
-   matching lock. l2cap_conless_channel() therefore calls
-   l2cap_chan_unlock() on a mutex it never acquired, and
-   l2cap_sock_recv_cb() runs with no chan->lock at all on that path.
-   Patch 1 applies the l2cap_core.c hunks of f1a8f402f13f, which supply
-   the lock.
+[ Upstream commit f1a8f402f13f94263cf349216c257b2985100927 ]
 
-2) 89e856e124f9 ("bluetooth/l2cap: sync sock recv cb and release") never
-   landed here, so l2cap_sock_recv_cb() has no NULL check on chan->data,
-   while l2cap_sock_destruct() still sets it to NULL. Closing a receiving
-   socket while L2CAP data is inbound gives lock_sock(NULL). Patch 2
-   restores that guard in the form the commit has after f1a8f402f13f, that
-   is without the channel locking that caused the recursive chan->lock
-   deadlock.
+This fixes the following deadlock introduced by 39a92a55be13
+("bluetooth/l2cap: sync sock recv cb and release")
 
-89e856e124f9 is the fix for CVE-2024-41062. It went to 6.1.101, 6.6.42,
-6.9.11 and 6.10 in July 2024 and to 5.10.270 this month. 5.15.y has never
-carried it.
+============================================
+WARNING: possible recursive locking detected
+6.10.0-rc3-g4029dba6b6f1 #6823 Not tainted
+--------------------------------------------
+kworker/u5:0/35 is trying to acquire lock:
+ffff888002ec2510 (&chan->lock#2/1){+.+.}-{3:3}, at:
+l2cap_sock_recv_cb+0x44/0x1e0
 
-On why patch 1 is only part of f1a8f402f13f: as posted, that patch touched
-only net/bluetooth/l2cap_core.c and net/bluetooth/l2cap_sock.c.
+but task is already holding lock:
+ffff888002ec2510 (&chan->lock#2/1){+.+.}-{3:3}, at:
+l2cap_get_chan_by_scid+0xaf/0xd0
 
-  https://lore.kernel.org/linux-bluetooth/20240624134637.3790278-1-luiz.dentz@gmail.com/
+other info that might help us debug this:
+ Possible unsafe locking scenario:
 
-The hci_core.c, hci_sync.c and hci_sync.h changes in the merged commit come
-from a separate patch that was squashed into it while the pull request was
-prepared. The author noted this when the AUTOSEL backport came up in 2024
-and said that for stable it would be better to unmerge them:
+       CPU0
+       ----
+  lock(&chan->lock#2/1);
+  lock(&chan->lock#2/1);
 
-  https://lore.kernel.org/linux-bluetooth/CABBYNZLzf2x6cScmjGv2Rxk-i3F9=QKVWosrSEBgmHBdHqOWtg@mail.gmail.com/
+ *** DEADLOCK ***
 
-Of the two posted files, only the l2cap_core.c side applies here, because
-l2cap_sock_recv_cb() in 5.15.y has no channel locking to remove.
+ May be due to missing lock nesting notation
 
-Tested in QEMU with two virtual BR/EDR controllers, PROVE_LOCKING,
-DEBUG_MUTEXES and KASAN. Three runs of each variant:
+3 locks held by kworker/u5:0/35:
+ #0: ffff888002b8a940 ((wq_completion)hci0#2){+.+.}-{0:0}, at:
+process_one_work+0x750/0x930
+ #1: ffff888002c67dd0 ((work_completion)(&hdev->rx_work)){+.+.}-{0:0},
+at: process_one_work+0x44e/0x930
+ #2: ffff888002ec2510 (&chan->lock#2/1){+.+.}-{3:3}, at:
+l2cap_get_chan_by_scid+0xaf/0xd0
 
-  v5.15.221 as released   bad unlock balance, and a fatal NULL dereference
-                          in l2cap_sock_recv_cb() from hci_rx_work, 3/3
-  + patch 1               unbalanced unlock gone, NULL deref remains 3/3
-  + patch 1 and 2         clean 3/3 over 300 socket close cycles
+To fix the original problem this introduces l2cap_chan_lock at
+l2cap_conless_channel to ensure that l2cap_sock_recv_cb is called with
+chan->lock held.
 
-  BUG: kernel NULL pointer dereference, address: 000000000000008c
-  Workqueue: hci0 hci_rx_work
-    lock_sock_nested
-    l2cap_sock_recv_cb+0x36/0xf0
-    l2cap_recv_frame
-
-BlueZ l2cap-tester, rfcomm-tester, smp-tester, bnep-tester, sco-tester and
-hci-tester give identical results before and after.
-
-Also on a Raspberry Pi 400 with a second board as the L2CAP peer, each test
-from its own boot so lockdep was armed for each. The released kernel
-reproduced the connectionless lockdep warning, and both it and the
-patch-1-only kernel died under teardown stress. With both patches, 300
-receiver close cycles against 25,877 peer datagram floods completed with no
-warning and debug_locks still 1. Connected L2CAP and A2DP playback showed
-no regression on any of the three. The hardware crashes left no readable
-trace, so the attributed NULL dereference above is from QEMU.
-
-The 5.10.y fix has a different shape and was sent separately as
-20260916193454.9996-1-kmehltretter@gmail.com. That tree still has
-89e856e124f9, so both L2CAP hunks of f1a8f402f13f apply there unchanged and
-one patch covers it.
-
-base-commit: 0248c33e835ecbec3a591f93fdaae53f7b90a4d6
+Fixes: 89e856e124f9 ("bluetooth/l2cap: sync sock recv cb and release")
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ Karl Mehltretter: backport only the l2cap_core.c changes. The HCI
+  changes are from an unrelated patch accidentally squashed into this
+  commit. The l2cap_sock.c change removes locking added by 89e856e124f9,
+  which is absent from 5.15.y, so the quoted deadlock cannot occur. The
+  core changes are needed because c531e63871c0 was backported without
+  the matching lock. ]
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 34f89f7f993b..f1d7a6cdd8aa 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -7992,6 +7992,8 @@ static void l2cap_conless_channel(struct l2cap_conn *conn, __le16 psm,
+ 
+ 	BT_DBG("chan %p, len %d", chan, skb->len);
+ 
++	l2cap_chan_lock(chan);
++
+ 	if (chan->state != BT_BOUND && chan->state != BT_CONNECTED)
+ 		goto drop;
+ 
+@@ -8009,6 +8011,7 @@ static void l2cap_conless_channel(struct l2cap_conn *conn, __le16 psm,
+ 	}
+ 
+ drop:
++	l2cap_chan_unlock(chan);
+ 	l2cap_chan_put(chan);
+ free_skb:
+ 	kfree_skb(skb);
+-- 
+2.51.0
