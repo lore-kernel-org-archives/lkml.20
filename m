@@ -1,318 +1,134 @@
-Received: from mail-pf1-f225.google.com (mail-pf1-f225.google.com [209.85.210.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1189E4E5354
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:08:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CCA4E73A9;
+	Thu, 17 Sep 2026 18:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789668491; cv=none; b=bBYWCFy8YitI/0eVEIkjGHp1BMOQXJOjMhx2rbG2u6RhVT6ZEtl64+JmvpDosIDpbI56Vjc2oI2GSdc1lIfiSkeON5YM/Y4GYad82XfEl7RhyfL0qTizZLlPn0BmzSEoo3iP6SCL+xWGlrAW342WZqgYrgXCAzjxAlYFtCXGoBw=
+	t=1789668504; cv=none; b=uzBgGOIYa4HYJbLfwT5WAhPEMq6Zs4WfeND62g5JWXIFZltvlBhDBT34K0XN5ccfN3MuxG1wlnU+RqGI+mQaVZKiqB0Xlnj3SqZ69deLbWos23pwHZk5ZCv0M721SldOzOLjNJ59th/23PzIiw88wbCL0YVMzRZeAYvnRT2ueAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789668491; c=relaxed/simple;
-	bh=w/42s5y6r1QEPmPyX63aIZchjFol3iMtDCS4JJKo+OM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=vCQrqPYNzDum8FFtcT4lxJS6rXdUrzxSnwh5RWtj77NleHCUTV01GnA2DGUbURtCCmKw7lYb1yy25tMXHipLOyYEzAZ69lUYQQuknMiXZVKqX0cITeKqOHkXJPtKwceDzgWGfjOnK4Yxc+yIafpsavsihnv0uFd+XoHMZaSQR9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=JzAkSI1T; arc=none smtp.client-ip=209.85.210.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1789668504; c=relaxed/simple;
+	bh=fhL58jgtvL1dddXrA20/eQLD4DACWKB2bp3h0acSLwk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LYlZoJ54GUXZK4C9xuGFJaqcAjL0T4k14kOZorH+yo53wDRFF2da8m9WPwfy+KuzbaDrEPVwQ69tDLEKhXNg2tRrMWDOgryVUustoATPszhahI8B9FIqvynTMrp291kiJFOaCO/P6QXXYUY73thhIukPHDzBuc62IkxOiEWDV8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=abdh4N/q; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="JzAkSI1T"
-Received: by mail-pf1-f225.google.com with SMTP id d2e1a72fcca58-86a31708876so157282b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:08:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789668489; x=1790273289;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uRVq4fBwhsWfGHCO3KGKov+Y2fN8ICMz2M0tQKo4ZE8=;
-        b=g6Vd2NULB5kQBHWRW4R0ytGZ2bDI82ZUtUrjYLZs3VmZ3/9OFmdpjAgOY8GhMX8cGb
-         h8W1ut/q1SvF5JumuublSdKMZNmqsbN2DrkJFJpadn6qnHfrvcHyg+Bysy8y5eNHS4Uf
-         tfw1rRE83Lk7g/FM8tJE861hUP6RvUJTfInqjrpKIsYNzrtvoj1eJEiHJU+ZcSkZm8C5
-         BGXbkgLv2nELsy7nxSWqM+D8+5HdwoF8tTsBRUHUu1JD5R5MwgwG9H5srKz4Gn32nPrJ
-         QmhcDkMhvTIJbHD7Shx9+lFb+9qaEyWjjQdJX5eaehk6ksT10YDrP7pvWxzLEnjtd2yl
-         9JCA==
-X-Forwarded-Encrypted: i=1; AKwUvBywdIrHsb4QiW5mQwMd17GG6bo6cDrYKsrpf7laqbWtbPnbn7RVPTQSAbunCPaX6J1PsInjybiMoe14LHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSJUo21YdFM+6GtuCTAuuefLyT0snk6Gf/H8Y3zqV1bio442Rh
-	9xVBVsHqj4pea4BaQ2VX7o6cCA5EOfuRu6BK3h8VPvlv5jfVCz8FkyDjt0T9Dq988MwfDlhiLeE
-	WdVqDvNCyN2faUxkF95wyYdQmTxzrrtbt5fduS9/cS/eVQu/m0mH1ZD6klLedvum/Bh/U+D6AYy
-	hvlT5Ik64SgUYPIASqAg5cGhGTeTb/tZ2YVsYUtYUiXNkEUGtHc1ritry7kpJsGBsk/JPc4F4Kn
-	8Mp27mqoVpG8hZ9L3fS
-X-Gm-Gg: AYBFou224g+NrVjAxMAuRkU3N3CS/7RzCxJyiV+0x3/YVsNzU77AitUYQxcs8LjygPK
-	4JK2eSQry4AboGIo+YTPnG7mrXHWRE3HA8Am6CjPCMhdysggcT5csDlVRNduTMb6Wk4WHPOdvgd
-	un8kL5TJAFkbcH8Cp6LRVLiw4JcVnpelqcIQjOOnePt/opGILhXo/e6BcwGMSVsKPTwfatz5OAa
-	sVa4dt+yiARc+2JJ8CAXlWUdS83ZWaZg3iTirBozDYXBEkYJ7WIPTui13q6NLhbAB8IEIvu13J8
-	vKyF1LYphipfc7ZHm3xZViLWCsHep+XreruRZ0Fhczr6ay30duyTgSYFFgOq3BuWC+AFPdo2Nu4
-	784k2XV9UjqfdxQOHxfBQYBj4uj4j0mPf/Lx+2NygVy29A/5QUCasNSJx7MRL2UBwgmSXFyDLcH
-	w5F76wRzUafd8zKl3TauJXeF2FAKvgFTGirpYxPPY=
-X-Received: by 2002:a05:6a00:1817:b0:851:8bde:7873 with SMTP id d2e1a72fcca58-872375bd78bmr15434892b3a.8.1789668489167;
-        Thu, 17 Sep 2026 11:08:09 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-872ee64b90dsm1269014b3a.8.2026.09.17.11.08.08
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 17 Sep 2026 11:08:09 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c29959eb71fso123697066b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:08:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789668487; x=1790273287; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uRVq4fBwhsWfGHCO3KGKov+Y2fN8ICMz2M0tQKo4ZE8=;
-        b=JzAkSI1TxZ2frvAOFYsRFeI1jvBkhNuLGIg2nSYhePKkaTPK9+uzMM7qNSCvwmVeCU
-         buYLZco4GdcaOK9DuNdpUS5Yy3x38peuusUvO5x8kw0U5XjOcJ8exMcOHC/09+uzpYI7
-         vbMDhjCDZiMVLvdHv7lrKOntKFqbwCX1A8sm4=
-X-Forwarded-Encrypted: i=1; AKwUvBycRvySPLQHpDIR9EgMWAgLvRH8mUaOr+uc9LGd6sdhGyUiVfkyfM8l1iYwjxvvZbLVn/tkR/ZCepzpLIk=@vger.kernel.org
-X-Received: by 2002:a17:907:1c91:b0:c29:62d8:68b8 with SMTP id a640c23a62f3a-c29e532b637mr572226966b.48.1789668486779;
-        Thu, 17 Sep 2026 11:08:06 -0700 (PDT)
-X-Received: by 2002:a17:907:1c91:b0:c29:62d8:68b8 with SMTP id
- a640c23a62f3a-c29e532b637mr572223966b.48.1789668486322; Thu, 17 Sep 2026
- 11:08:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="abdh4N/q"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HHVdGp2998402;
+	Thu, 17 Sep 2026 18:08:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=GhoL6V
+	W6zauK2jjrPKHJ3zzBMgo00GMyDSFSKueWuTk=; b=abdh4N/qLpnGTiRFJ3UR5J
+	HMgymQxhanli1DzpUltLT60qkAIEpeQZHewi/7epAZSTZxKQutPZVzWPCdxb2c7o
+	b7fG06JKFNjS1zva5otXY86GXIINt9PCe//fiswREfUoyRtrP14EDxfV3J7oOPuF
+	GfG/mJXz6G2sHXKYiZ+SSJj6u7m5xhFptLLMvTB1QlavkcurVz4qVy1ixlNbyz/M
+	AIyWOTv4Uz/pAVQB9BpwkeykaRgyeT0dUJyrkHPAfDkhzZATsz4/Zmwkpb7GtklH
+	vcOCzotQQga2BE0y0JMfLDl9zRkib5YWrQsdtMiFm+6EhdiMVzuiEBfogbBOUGaA
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmv5j3tat-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 18:08:22 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68HH91w23510127;
+	Thu, 17 Sep 2026 18:08:21 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gr5xa3kjg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 18:08:21 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68HI8Kci45482420
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 17 Sep 2026 18:08:20 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 63B1058053;
+	Thu, 17 Sep 2026 18:08:20 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BD23D58059;
+	Thu, 17 Sep 2026 18:08:18 +0000 (GMT)
+Received: from [9.61.246.38] (unknown [9.61.246.38])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 17 Sep 2026 18:08:18 +0000 (GMT)
+Message-ID: <4870421d-39dc-48f7-ad34-6e9f642f1c66@linux.ibm.com>
+Date: Thu, 17 Sep 2026 11:08:18 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911233541.1650895-1-james.quinlan@broadcom.com>
- <20260911233541.1650895-12-james.quinlan@broadcom.com> <6ce4208a-3869-4eea-9ae1-06985c9774e7@broadcom.com>
-In-Reply-To: <6ce4208a-3869-4eea-9ae1-06985c9774e7@broadcom.com>
-From: Jim Quinlan <james.quinlan@broadcom.com>
-Date: Thu, 17 Sep 2026 14:07:53 -0400
-X-Gm-Features: AcwNN1UU-8XC5Z3nHrhgoIVmWAvdQIlVjifTkLgZoE09TXPfLT3Nxu4b8U_xWlE
-Message-ID: <CA+-6iNznU3xyESOZYWfYFKghTgOLy0Vd1WvMCd=1EJPfBF7M2Q@mail.gmail.com>
-Subject: Re: [PATCH 11/13] PCI: brcmstb: Put max_burst_size setting in cfg_data
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: linux-pci@vger.kernel.org, Nicolas Saenz Julienne <nsaenz@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
-	bcm-kernel-feedback-list@broadcom.com, jim2101024@gmail.com, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>, 
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000715b2c065bb1aa7c"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/4] s390/pci: Don't report recovery success on skipped
+ recovery
+To: Niklas Schnelle <schnelle@linux.ibm.com>,
+        Gerd Bayer <gbayer@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Benjamin Block <bblock@linux.ibm.com>,
+        Julian Ruess <julianr@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ramesh Errabolu <ramesh@linux.ibm.com>,
+        Tobias Schumacher <ts@linux.ibm.com>,
+        Halil Pasic <pasic@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260916-fix_zpci_report_status_pdev_leak-v3-0-61a2f980e71d@linux.ibm.com>
+ <20260916-fix_zpci_report_status_pdev_leak-v3-4-61a2f980e71d@linux.ibm.com>
+Content-Language: en-US
+From: Farhan Ali <alifm@linux.ibm.com>
+In-Reply-To: <20260916-fix_zpci_report_status_pdev_leak-v3-4-61a2f980e71d@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDI1NyBTYWx0ZWRfX7SFncSIUTg3y
+ oCrcCCVoz7g+ZrTQ79SbtBtU3SKnHcMACirdL8uqdvQj1pWIecMJosiZRdZinDrVWAz8ThnkN9m
+ KKyUCKJKDIcfKhxBooMenWXOPQeQ0vTYsoCPxsyxJurmlgEPg//1R4VYiu+V0//8avCJ71rY9uO
+ CfH6U0TC3ZxkDaPryXYRymyj7wrwTPFbXQwBsaq0RRjQugn1Y/Zr+q/QVdsApBwSiUFOgFHHhNY
+ NZn+EwkTB0A7p5Gco52PuYrsdONVCsH+1/1l4YC6f5zRJJed+jSGXBjAXepxY5HijAZFP5cvKFv
+ 1zhwdnV6VOUpKWK6YJN4sqWiHdlkcwnpxlyG+g1U6tx4QPRcbBv0Rju7IVkhB/HU8JBCe1z+thN
+ EJOq58D1gYxfpxHQb+BepeZN5/IqNz/udJdvWO5l7G9ddQRQPZ3+HW0yu3GOOZ7AWMcETd/0FeG
+ e5ezDExmty/k3Wszq4A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDI1NyBTYWx0ZWRfX0cBnemsB2Ae8
+ kzGXc2QZk0IOdrw2RJ+WGbAemCYGyKZZH+o6vMWOLJDT9a+Mj/RcQ85TZCF4If2mPFp4LNOFd/C
+ PpGj5hUQb5M19/npbyDryLbi9NnqZas=
+X-Authority-Analysis: v=2.4 cv=Zsx4uN7G c=1 sm=1 tr=0 ts=6aac2c96 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=4Un3bHBAJC8VMyDCUI4A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: iNnBuYcvmudzLkOq1bKkm9jPu2CK0wdD
+X-Proofpoint-GUID: iNnBuYcvmudzLkOq1bKkm9jPu2CK0wdD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609170257
 
---000000000000715b2c065bb1aa7c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 1:05=E2=80=AFPM Florian Fainelli
-<florian.fainelli@broadcom.com> wrote:
+On 9/16/2026 8:14 AM, Niklas Schnelle wrote:
+> When a PCI device is already in the permanent failure state, recovery is
+> skipped, but the SCLP recovery report still shows success. Fix this by
+> changing the status string to explicitly state that recovery was skipped
+> due to permanent failure.
 >
-> On 9/11/26 16:35, Jim Quinlan wrote:
-> > Rather than ascertaining the max_burst_size setting by comparing differ=
-ent
-> > SoC IDs, specify the setting in the config_data structure for each SoC.
-> > Also add a comment on each SoC's encoding of this field.
-> >
-> > Note: Previously, the max burst setting used for the 4908 Soc was 2.
-> > However, it appears that the setting of 2 is illegal for this chip.  Se=
-t it
-> > to 0 as (a) this is the safest (smallest) choice and (b) the 2 was prob=
-ably
-> > interpreted by the HW as a 0 anyway.
-> >
-> > Signed-off-by: Jim Quinlan <james.quinlan@broadcom.com>
-> > ---
-> >   drivers/pci/controller/pcie-brcmstb.c | 29 ++++++++++++--------------=
--
-> >   1 file changed, 13 insertions(+), 16 deletions(-)
-> >
-> > diff --git a/drivers/pci/controller/pcie-brcmstb.c b/drivers/pci/contro=
-ller/pcie-brcmstb.c
-> > index 047783e33ae4..8bca98e6f5fa 100644
-> > --- a/drivers/pci/controller/pcie-brcmstb.c
-> > +++ b/drivers/pci/controller/pcie-brcmstb.c
-> > @@ -317,6 +317,7 @@ struct pcie_cfg_data {
-> >       u32 flags;
-> >       u32 quirks;
-> >       u8 num_inbound_wins;
-> > +     u8 burst_setting;
-> >       int (*perst_set)(struct brcm_pcie *pcie, u32 val);
-> >       int (*bridge_sw_init_set)(struct brcm_pcie *pcie, u32 val);
-> >       int (*post_setup)(struct brcm_pcie *pcie);
-> > @@ -1153,7 +1154,7 @@ static int brcm_pcie_setup(struct brcm_pcie *pcie=
-)
-> >       void __iomem *base =3D pcie->base;
-> >       struct pci_host_bridge *bridge;
-> >       struct resource_entry *entry;
-> > -     u32 tmp, burst, num_lanes, num_lanes_cap;
-> > +     u32 tmp, num_lanes, num_lanes_cap;
-> >       u8 num_out_wins =3D 0;
-> >       int num_inbound_wins =3D 0;
-> >       int memc, ret;
-> > @@ -1188,20 +1189,6 @@ static int brcm_pcie_setup(struct brcm_pcie *pci=
-e)
-> >       /* Wait for SerDes to be stable */
-> >       usleep_range(100, 200);
-> >
-> > -     /*
-> > -      * SCB_MAX_BURST_SIZE is a two bit field.  For GENERIC chips it
-> > -      * is encoded as 0=3D128, 1=3D256, 2=3D512, 3=3DRsvd, for BCM7278=
- it
-> > -      * is encoded as 0=3DRsvd, 1=3D128, 2=3D256, 3=3D512.
-> > -      */
-> > -     if (BFLAG(pcie, IS_BMIPS))
-> > -             burst =3D 0x1; /* 256 bytes */
-> > -     else if (pcie->cfg->soc_base =3D=3D BCM2711)
-> > -             burst =3D 0x0; /* 128 bytes */
-> > -     else if (pcie->cfg->soc_base =3D=3D BCM7278)
-> > -             burst =3D 0x3; /* 512 bytes */
-> > -     else
-> > -             burst =3D 0x2; /* 512 bytes */
-> > -
-> >       /*
-> >        * Set SCB_MAX_BURST_SIZE, CFG_READ_UR_MODE, SCB_ACCESS_EN,
-> >        * RCB_MPS_MODE, RCB_64B_MODE
-> > @@ -1209,7 +1196,8 @@ static int brcm_pcie_setup(struct brcm_pcie *pcie=
-)
-> >       tmp =3D readl(base + PCIE_MISC_MISC_CTRL);
-> >       u32p_replace_bits(&tmp, 1, PCIE_MISC_MISC_CTRL_SCB_ACCESS_EN_MASK=
-);
-> >       u32p_replace_bits(&tmp, 1, PCIE_MISC_MISC_CTRL_CFG_READ_UR_MODE_M=
-ASK);
-> > -     u32p_replace_bits(&tmp, burst, PCIE_MISC_MISC_CTRL_MAX_BURST_SIZE=
-_MASK);
-> > +     u32p_replace_bits(&tmp, pcie->cfg->burst_setting,
-> > +                       PCIE_MISC_MISC_CTRL_MAX_BURST_SIZE_MASK);
-> >       u32p_replace_bits(&tmp, 1, PCIE_MISC_MISC_CTRL_PCIE_RCB_MPS_MODE_=
-MASK);
-> >       u32p_replace_bits(&tmp, 1, PCIE_MISC_MISC_CTRL_PCIE_RCB_64B_MODE_=
-MASK);
-> >       writel(tmp, base + PCIE_MISC_MISC_CTRL);
-> > @@ -1961,6 +1949,7 @@ static const struct pcie_cfg_data generic_cfg =3D=
- {
-> >       .perst_set      =3D brcm_pcie_perst_set_generic,
-> >       .bridge_sw_init_set =3D brcm_pcie_bridge_sw_init_set_generic,
-> >       .num_inbound_wins =3D 3,
-> > +     .burst_setting  =3D 0x2, /* 0=3D128B, 1=3D256B, 2=3D512B, 3=3DRsv=
-d */
->
-> Not sure this one is much of an improvement, especially if we end up
-> repeating the comment,
-The new code is simpler and does not do any "if" conditions like
-"pcie->cfg->soc_base =3D=3D BCM2711".  This is the commit series' major goa=
-l.
+> Cc:stable@vger.kernel.org
+> Fixes: 4ec6054e7321 ("s390/pci: Report PCI error recovery results via SCLP")
+> Signed-off-by: Niklas Schnelle<schnelle@linux.ibm.com>
+> ---
+>   arch/s390/pci/pci_event.c | 1 +
+>   1 file changed, 1 insertion(+)
 
-Additionally, the existing comment lacks sufficient information for someone
-to change a specific setting. Of the nine comment lines in the commit, only=
- four
-lines are duplicates. Also keep in mind that I plan to add several new SoCs
-in future commits which may require yet more interpretations of this field,
-requiring more "else if" clauses.
+Reviewed-by: Farhan Ali <alifm@linux.ibm.com>
 
-> also there is inconsistent decimal versus hexadecimal.
-Ack, will fix along with s/Resv/Rsvd/ for consistency.
 
-Jim Quinlan
-Broadcom CM/STB
-> --
-> Florian
-
---000000000000715b2c065bb1aa7c
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-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
-P6nIShznyqOL2EoCa0IXujxvXUo0pANFYsDhrCVF5JOVPeEL3Y2m+4flRtOI+YlRQoepb+TEVdkY
-/g1rlWG7GIYrtHxrFFRvn2/Iqqpv/x5kzJgoTYFOyTTGlXIqGkKTqCWFrN09kJWzhhmxhxtJprJs
-KveDLF8yhHSbqmXfKTkT+CIrynXXDro+80qXEXC8CM9W9d+2lDDM+hWTlC6Pt/ikMYf/ZB4K2Nr8
-VFruDYGZfAHhh9/lqK3SpS2Z/8cB88K62U+Eb1yNAgMBAAGjggHeMIIB2jAOBgNVHQ8BAf8EBAMC
-BaAwDAYDVR0TAQH/BAIwADCBkwYIKwYBBQUHAQEEgYYwgYMwRgYIKwYBBQUHMAKGOmh0dHA6Ly9z
-ZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0L2dzZ2NjcjZzbWltZWNhMjAyMy5jcnQwOQYIKwYB
-BQUHMAGGLWh0dHA6Ly9vY3NwLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMzBlBgNV
-HSAEXjBcMAkGB2eBDAEFAwMwCwYJKwYBBAGgMgEoMEIGCisGAQQBoDIKAwIwNDAyBggrBgEFBQcC
-ARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3NpdG9yeS8wQQYDVR0fBDowODA2oDSg
-MoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCUGA1Ud
-EQQeMByBGmphbWVzLnF1aW5sYW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQiuRLoBkhIaas+1j3yf23P
-ffVFcjANBgkqhkiG9w0BAQsFAAOCAgEAp1y0fznw9Uo7UzExANVpYjj+OG1c3C7MhWOvAd7LvfPX
-BSFisMaabop5Pyfc/sWzb/jCNfVkkDW5Ij2mzpUsUca2qpILoFhOUT9b0d+nc48MCZ4/Wj6vX5QJ
-i9VdYeuv3DYASZsQdH8iYnV5X5YCYo1AO/pyW+M4gG022Nsji9+3A9zkx8JRPDIXkPaDLrzcGD9L
-rEVIYnnSK9b/4VHzITVgEmSsUTAIzOD6M6TzgrSoJZFmKNMXlAqo+m1nlNyJkM4OyOvaDx5y+2hA
-mp4tzD9gJNU9TzQpQRZFz53+c8BkCpzvcHqT8lMluRlCrIYWqaSOUDHX9HPYvzbtO4iYV+irMdGN
-2PBz6Wtfaoi1xTfFSKK9ON1mvxACK+E4B5gycSoZcOBADTbGXLDMqiygl7Wz0oooAPqZpUnaD1nc
-x/pX7N8Ff6YK+iN3vVah34vLkE1CMFyDQMtyTCzQPW+7XCTxCL9ML3LBAF+eNAtKpPOsrGIdRHy5
-6oQr+2ZquSMvWj447q4v3sk1LHs7ata+sP8/kmcPKn3WPXQ/4xMevqFVyv2VIFrBK9ZnOZ//fz8R
-7SjJ7t2kOITvbWcMkizMc33S9hfmYiXaVTjIi89NiO3EXCJouYShpptgGNG6mpYHcddnfdKiILOS
-06KlKNuHO4IpRmaGrzcDjsUQQSn8amMxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgwHM7pH5w7o7Qb7yXUwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEINZK
-hMGyDyPOuUZs1N2ag+Aw3q0dJX4UilBb8byBVATaMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDkxNzE4MDgwN1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFFK7Odpq9EablSgtblzzAl/P/mJU+mAMBpSNFpu
-omcP2HQAjwUId1+h0CuumRHlktWGyZbK+IcG7zquyk4+ztq6rjTKCx2xUVoXwsfrWZMRqJfBB0n2
-c6RiejE/T2loHtTi4OgpoKnEQ8+odfrla7lw+nappaw/esu7u7DLbnbsqOa2V6bowkmhHE9Y5Hng
-UksZtfRT3Br/Y7Shi/OSJrd4tPLw4MU0RSOPKVyIrTACP6JfkNKX4zJC96v0i1AoNI2n5K45kmCv
-Z8OoAM2wLRL+mHMVEnzet12HN4TsyVf48YLnwpH08gyICOx9PGLQ7Am2M9Cqv9w7SaQv/TOTpHc=
---000000000000715b2c065bb1aa7c--
