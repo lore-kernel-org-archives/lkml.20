@@ -1,71 +1,98 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3C1390CB8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805AC3A0B38;
+	Thu, 17 Sep 2026 02:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613297; cv=none; b=bCrbT2M9y8L8Iaf5h203h3ZDnvkFhzvUrMyGOCEi9u/R821ovvFLRTf+EovTEZOgH85nkPY25Algh18XKQhR7YNsXP/5vu9XUd1ViFteDNLSf7yKMnhQTYBGWVQOHBA+d8OEnSh4gKpd8I5oinG3CWbJzXaJN7gwwf9xjaFhl50=
+	t=1789613319; cv=none; b=XMRa1VfFbcmObfDEDIq3g9dgw+iLwLAOnYetp7dw2d53FyQnul8/j3z2m+BfcqfNNy+/WfcURh5Gj0qd4ncE8aHCRXEKAg1A7aPHCg4a1yRlE2+a5ZI9hkiyALYte92fw+ImWFAO6rZcitI96zXV4c/TDMG7243Ryr8OhvDNcfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613297; c=relaxed/simple;
-	bh=ETm9f82XA4KM83RzXe9GKLCHbjkw7eM8w2ALr78SYTI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=SrqrkTXxgZ9P3U7l6Y+1ONNjsqLqVfDQS37ZHtOB1if53uTk9UiIXu1HIs8NXvIcF+V81yuarRVdonX3kxqvpl1bZ0I+OduLiWqs5wXj+uq91C0cpasP2noliBsUzXo5Me4Xnuf0NRk0KMESqViC2BwzvIPiYzqQ69YjKZH8eaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c879132577so303821eaf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:48:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789613282; x=1790218082;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=a4eBGDyXWDHivu2ZaLEBDjiciPPXMe5wJ+bD7gvbVg4=;
-        b=qCp2zXPERnsI3nSgMZTjpy5/mjCueY9fAKchCoB25lzI32vOvrrbXlckeX0Ab2HYAO
-         IzGpgZ9kfuDavPSGMuTB8MD538C2KXoh6e6vwuBsp8oOht3Wrsjy+RCVZboZHVQQHccL
-         RUWI0tu77Qh+N1bGbNWKFPaObP2dfmbS3yp6q3ZlVi6nf0gIFBMTE6GEZ0x5KFLkrlIG
-         ISmZxY9LdNI9Ko3r7HHFyc32HVK09p5sTmHOgOTNxSuxVmgGWOLixSExvJQhtKbSGjfO
-         xmxx7+Lc2nQfAz+jb9lr3EOfQETfduyjzy14g9bKZtaDNIGiQ/TZVJXmh//Xr07yhBl2
-         QZ+g==
-X-Gm-Message-State: AFuF++nsgWWA1C4qzuaAV/k3Kw8Eo5sHQtrLtHiwOwveDibj1hAxe+Bl
-	k7PVYFK8V+IPsHQ/zBbrZr6ch/7XjU7RiSYRqd4/+67nJ0tvvbS8Ig+YvaT9btcxE7ml/srU8Ij
-	EgT4SilmxWKSQcyaFfiDzTCu4HAxNMMz2hejLBlvG5Due9XLhxvPC0WDHpIo=
+	s=arc-20240116; t=1789613319; c=relaxed/simple;
+	bh=MdsBzPPTMTEs2N5lZytr1NtR7R3OMpKNe68tMPv4umA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hSS5B8END91MZ6TTLAEb+SuLE25LmdCwpdCjOBK3nBs0UWd4yMIGiKgfqRs0ofeLxTpbu1WSHWEMuQ0z1FMemr130pjPiTDdXXboJMa8hfhCw3KREGS15NOyl9dcEddeNP2z3epSML4fsh4DRUNbm61dncX+IbiZJrvaROzd3vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=iJznK+sK; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="iJznK+sK"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 89F44104926;
+	Thu, 17 Sep 2026 04:48:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1789613306; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=8XwjObmrp5asFV1peNWNr4+DrZXPTQeb9HJH0KvSrNg=;
+	b=iJznK+sKVZHtHEsfI5HvxWqVqujEFhnkdNTgSkwOygtf7me5vokdaaO4H3KIU4u5EROBPM
+	epufNq1/irVO7PwVCTptC5tDmo9JJytN7eHYGoc9fAs14O5fPodUbW3P8NwHtkmTwIXeWC
+	yYNYC46iF8bUVwiCERec8aZfwKSJsluH1hhMWDus1y5/jjb91a0WL7skEsNXrJroZ6dFuJ
+	f63i/xmVrOnTeURHVOSenvItKa5fLb0qlPbvDTs5NbamcV9bqHL4fXAtlNwSAWNM5/Dqb2
+	jX+akEs1ZLXBmKWbIZV8IJ1tdFTWEBkVZo+GxcwMhF8qQEtAxLkn1R8ZyMu9uw==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Aswath Govindraju <a-govindraju@ti.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/3] dt-bindings: arm: fsl: Document Data Modul i.MX95 eDM SBC
+Date: Thu, 17 Sep 2026 04:47:34 +0200
+Message-ID: <20260917024805.517030-2-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917024805.517030-1-marex@nabladev.com>
+References: <20260917024805.517030-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f02c:b0:6b1:42ab:d040 with SMTP id
- 006d021491bc7-6c7d22dcbdemr4856537eaf.28.1789613282009; Wed, 16 Sep 2026
- 19:48:02 -0700 (PDT)
-Date: Wed, 16 Sep 2026 19:48:01 -0700
-In-Reply-To: <CAFJkwZxO+=cYaCFSAEejhBgJeiJczxuua1y0+Dcs1Fj5Sg_vaw@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab54e1.b398a7c9.1f86be.000c.GAE@google.com>
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
-From: syzbot <syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, neganhat@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hello,
+Document Data Modul i.MX95 eDM SBC board. This is an evaluation
+board for various custom display units. Currently supported are
+serial console, ethernet, eMMC, SD, SPI NOR, USB host and PCIe.
 
-syzbot tried to test the proposed patch but the build/boot failed:
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Aswath Govindraju <a-govindraju@ti.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-can@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+V2: No change
+V3: No change
+---
+ Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-failed to apply patch:
-error: corrupt patch at line 4
-
-
-
-Tested on:
-
-commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=e909ffe6b35dddb7
-dashboard link: https://syzkaller.appspot.com/bug?extid=b9529ebe6a9394ddf825
-compiler:       
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=103258c9580000
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index 36e28e0e4ad99..04abae2018043 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1548,6 +1548,7 @@ properties:
+       - description: i.MX95 based Boards
+         items:
+           - enum:
++              - dmo,imx95-data-modul-edm-sbc # i.MX95 eDM SBC
+               - fsl,imx95-15x15-ab2       # i.MX95 15x15 Audio Board V2
+               - fsl,imx95-15x15-evk       # i.MX95 15x15 EVK Board
+               - fsl,imx95-15x15-frdm      # i.MX95 15x15 FRDM Board
+-- 
+2.53.0
 
