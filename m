@@ -1,81 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB874A1E19;
-	Thu, 17 Sep 2026 22:24:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F18C3C8719;
+	Thu, 17 Sep 2026 22:24:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789683846; cv=none; b=hV2gX+gfPN3gaBbqm1lrs6DIMoaGJDA4LVCjLHMuDS6/Obu8UHBQ91SCyVFaT6OBu6cf/Z6lu9wlbkixHklfXyE67QEcTpVwdBR4Hx9he3mSvnx0Y0Dfo7fvvLe17ix8WqKgDFHovGM4/kAHR8eg/OdRoO9GnaYlPTkFassIaiA=
+	t=1789683881; cv=none; b=HBJlVE4Kmqvzp5mnhYeJLUTtO/WPGZfgvDk4YRSJb3DqdYTKqGFJYoqZlQhihqSXc2054QKshQAeN0kKSirrzH+mZ54CRmDLzAG40ngwuw3yXy1kIYjvhVqx8IIaOwGm8GDVZUqrQ4oXQEg0xswBEOUJ3qzwkB9U64H9aT2CDQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789683846; c=relaxed/simple;
-	bh=DngOUU3PrpW3GHcTycPXn35MuZ0jXd3DuXkkv2n28Ss=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lu7DNlWzcX6ZFR9L9BnSb6ip2qnbehZxcgQcMGxEj91k/eWKpx//ktZDECoASz3/c4jZ9lyKhRR4ISrgB3iD4e0s6R8Mr/gqRoMiBLq3U6WJiWtTna6Ky9ktuPO4xea0HjFeAOmF88GiRj/YfXARqmfTqmaM4hMMTODvCCSmJUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5Rp/lhg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789683881; c=relaxed/simple;
+	bh=j72GprFdgf4mO78M0LzOo+/v4R/w6Ztrh0eI86vdWCw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oM7wvkTa8iZKkqPIuBPtloK6U+/jgxj9lJng3e0bZN64XU7TMOClKH4vyyElcOWGf+Non18yWpLtOhscNR0+w1WtMALmpQmaQfumIGKuGT6EjB4e3NhPaSB2FD5JJwIj8N37uqr95kcaMyAdrzjt7XBNEaiq9I3XlRMnHEP5pIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=URW5CTVX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5Rp/lhg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619271F000FF;
-	Thu, 17 Sep 2026 22:24:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="URW5CTVX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 174801F000FF;
+	Thu, 17 Sep 2026 22:24:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789683844;
-	bh=DngOUU3PrpW3GHcTycPXn35MuZ0jXd3DuXkkv2n28Ss=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K5Rp/lhgLcEVaZt3CCRwiyw1e3ah3cPvX7BX8gLC6Aer0eMbtZBTIvVki66+sP69o
-	 tQhfkrPCTGH8FqMfcd1aC7a3GpalCRCQMt95YcQbmBklFQjpIunAEQEqjWLIEJl+Av
-	 DUuIm73i6GB9tdHv/zG85LtXxoYvY7jVvqSPUSlnJW93po4B8dFLeHBCTF9YH20LEW
-	 vVDjzIwFPcC1AUOX6aW7JQDBCqHvC4NnhwYG3CYZEel4ms86+p9xja+NQ4EfmoyR7+
-	 Ir8kJrQyUCq2WGvAAxgTCHZAhnp8n4B0caNuooNJ+LAaSmhPYDg/TWuilC4JUdHsid
-	 m3NiAR6OuzfUA==
-Date: Thu, 17 Sep 2026 23:24:00 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: hansg@kernel.org, linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org, sbinding@opensource.cirrus.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] spi: fix controller reference leak in
- acpi_spi_device_alloc()
-Message-ID: <01e2065b-8ebe-4cd3-b80a-bbb6e7719873@sirena.org.uk>
-References: <20260917154826.2160933-1-vulab@iscas.ac.cn>
+	s=k20260515; t=1789683880;
+	bh=TamPH02i1OSS5Z8ZfUS2RChlKcRo0wIi/arFQah9c4A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=URW5CTVXI+MAEyQe+j3J6o8Rn7YxYH8OfKj9ei3t9qw1exRKDWvuK5Opn3okVN18C
+	 zkkPs59ghbpx3SHvj1u3HARNIy01fme0462XLsG08Q4yPKSujKQfNUrtngQkOOQeRl
+	 dQe/ruMU6pRz95Hu3i2xOaHWBPtgFjztMlRDtBGea9CRuLOlee5y7j1UBXN9pBqbrO
+	 M3bW+i4DNVb+zxD+ulfGD1uyrKZRTxF4gxTABrasJEfGd9wykUBSRbesJplozQMG3o
+	 3C44pYWQcutHSZNmicBeFiQEvWChSad53zlEZ1qqw/nyHhTF0ESCxvm6NitiiSIwVD
+	 OWhqtF09v9ebw==
+Date: Thu, 17 Sep 2026 15:24:39 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Qingshuang Fu <fuqingshuang@kylinos.cn>
+Cc: Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, Willem de Bruijn
+ <willemb@google.com>, Anton Danilov <littlesmilingcloud@gmail.com>,
+ netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests: net: fou_mcast_encap: conditionally load fou
+ module and skip IPv4 case
+Message-ID: <20260917152439.64d14833@kernel.org>
+In-Reply-To: <14cff809-d338-4a95-8e7d-10759615b394@kylinos.cn>
+References: <20260911100158.854183-1-fuqingshuang@kylinos.cn>
+	<20260916174029.78939f6b@kernel.org>
+	<14cff809-d338-4a95-8e7d-10759615b394@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oXuJvBPixL6sPYYC"
-Content-Disposition: inline
-In-Reply-To: <20260917154826.2160933-1-vulab@iscas.ac.cn>
-X-Cookie: Whip it, whip it good!
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, 17 Sep 2026 11:33:09 +0800 Qingshuang Fu wrote:
+> >> +if modprobe -q fou; then
+> >> +	setup_ipv4
+> >> +	run_ping_test -4 eoudp4 "$TUN4_R" "FOU/GRETAP IPv4 multicast encap r=
+esubmit"
+> >> +else
+> >> +	log_test_skip "FOU/GRETAP IPv4 multicast encap resubmit"
+> >> +fi =20
+> >=20
+> > Two very important questions you must answer before posting v2 or any
+> > other similar fix:
+> >=20
+> > Have you actually run into this or it's a result of an LLM scan?
+> >=20
+> > How many of such fixes would we need to make all the net/ tests
+> > clean from similar issues? =20
+>=20
+> I noticed it reading the script, then reproduced it on 6.8.0-138-generic.
+> This Ubuntu kernel ships with CONFIG_NET_FOU=3Dm by default. Without the =
+fou
+> module loaded, tunnel creation fails with "RTNETLINK answers: Invalid=20
+> argument"
+> and the test reports a false failure at 0/100 packets. After applying=20
+> the patch
+> the subtest skips cleanly.
+>=20
+> For FOU this was the only gap. The two other net/ tests that use it
+> (pmtu.sh, rtnetlink.sh) already load the module.
 
---oXuJvBPixL6sPYYC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I did not ask about FOU
 
-On Thu, Sep 17, 2026 at 03:48:26PM +0000, Wentao Liang wrote:
-> acpi_spi_add_resource() stores the controller returned by
-> acpi_spi_find_controller_by_adev() in lookup->ctlr. That lookup takes a
-> reference via class_find_device(), which acpi_spi_device_alloc() never
-> releases, leaking it on the error paths and on the success path too,
-> where spi_alloc_device() takes its own reference. Drop the lookup
-> reference when the caller did not pass a controller.
+> v2 sent: drop Fixes tag and the in=E2=80=91script comment as requested. T=
+hanks=20
+> for the review.
 
-This doesn't apply against current code, please check and resend.
+I guess I wasn't clear enough. When I say "before posting v2"=20
+I was hoping you'd give me a chance to respond too :/
 
---oXuJvBPixL6sPYYC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsaIAACgkQJNaLcl1U
-h9D/Lwf+OTtUmiNxcWSVu+1PsZRS/ZISuDSrS2QSxPLZKRGC78Huru9il2pqqVIa
-K5HinymltkO0gMOZdW/zcwBsOobg8JnCssx5m6Tgl7EhByhrVuMGYQNotjj+FcBU
-h7JlzhJcJJ+613c1HXHcukTCIIlyUv7fDrVyalkg2yNgA6gWDiTSVj6VVLzy1jO8
-0Q7JWqcO1TnUpSco/AsXvsjibWu+8jUVpBWTJSvNvPdKS9+GPe439sW9a0+hRjzU
-PfbROJkJ5Z8ltuIm+aRiwiO2mLyuEtn9gD7Gw2EB9qjP/+NxPsZU8DwYlgNrZB9t
-h7up/mu7yr+J4e9PlMOHKbAVFon5Vw==
-=cUqX
------END PGP SIGNATURE-----
-
---oXuJvBPixL6sPYYC--
+Whatever.
