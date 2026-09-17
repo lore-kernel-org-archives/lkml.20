@@ -1,52 +1,33 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C4E511E82;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC8A4FB9A6;
 	Thu, 17 Sep 2026 13:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650367; cv=none; b=fovJPFI9lVTY3K5zAsqjt7H/gBkzpmwDhdVg07i43ryuGAOzmWUnWn3TT5mUgS8t+AEL3/ftPsVLRwqnMdIT/ZkEYmky7xw4faH6N/7GfmD5z2ApcSI4u1fDvEIV5zraIA7HK0+4g+WnoCg94TIO4hNO0xH5Ox95r8kZ4BdXZoQ=
+	t=1789650370; cv=none; b=YbkDm7U8aVuhtNxug4UBzUF3JkDkVDONtP6YfG6Jwaec5PTWifQb5TQ6P9PmwjJ5O3x1NlD7AqtCqoiJX+Z8Q8LKXcwaTMbD1rjqZzdUG8Y0WJx2ma/s/jU/rK69d95TM7Y98TVXwsVlTnd6rg+wz6B9pABkxgCxK6YvjaLW7/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650367; c=relaxed/simple;
-	bh=KDlAIIhnKS5fkAl4BuwIZmGCpqtsvUd9uHPkTZ/YAUg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bu1P51ZrOozRzm5F7ThV1L9jIupCrU1u6t/gxspyOQP88u7JSDgj5hPZ3CQuYvNOf3knjLuMAl0wXtFsu1OqbGdU+39fXUfy4AUbmi4jDtvLk43o0pMBpn9Uuwdh47l1Cfb0WWR3WdgFoW5+WxIuh/fsZOj2cfo6qBHepOtSavQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=dvdAoZxR; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="dvdAoZxR"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 211744BA1CE;
-	Thu, 17 Sep 2026 15:05:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1789650350; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=sI54x/ez5T6fsA2elcHz3RaGZcESZ5CGlXIm7sI1To0=;
-	b=dvdAoZxR7+zpdIT9didapD0CnUxXZbgsxzFNbc8GaOUiMocOHERVj+2HE+WHqLEaiBlq96
-	4k2dImmfjZV4lOGTQzFOeDC1F3A5eBPZCveyRIeEOS5CdrlcXFub3etJTRd0BxO9YyXgrM
-	tEY3g62eK+rDHUk5XgQZT+gc/dhzVWHNhZS5jNUPgm7HhY2L0XogJ5u1ygLlTENnq/Cq2y
-	A2yQDHvUp0gjTdiYbvCHvMQI2PtRovIkkrbYUMNmimHwYnbz5iMxEGEVUZ9i8NfjgnZIlE
-	R26Wzw5LaWNZodaXthaZq3gpGHKbpUFm2A43e3TK7yTp+3drllO6+izKcEgTkA==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: netdev@vger.kernel.org
-Cc: daniel@makrotopia.org,
-	dqfext@gmail.com,
-	SkyLake.Huang@mediatek.com,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
+	s=arc-20240116; t=1789650370; c=relaxed/simple;
+	bh=oezo/SszkwE+zd4QWtRoMT8kUkoRl08sTrTSZxrGGac=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J6+rXXBQmLZBR2JxShr3ZwyvXJeQslb7NCwD3kQNh9pdnv5tR0oKGzHTP5c8eKntNq9u+c3qAqR8CUL9U/fSCzwJt+2bSfUJIUKjidtDXLl3+G3LLlACH8s1ynDm2H6EseKGatD8ceNlEIMU9edaRCPdJsoPKdpOqjbiHgol2Ao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnF0Kz5atqHxmBCA--.3307S2;
+	Thu, 17 Sep 2026 21:05:55 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: devicetree@vger.kernel.org
+Cc: grant.likely@linaro.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Caleb James DeLisle <cjd@cjdns.fr>,
-	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Subject: [PATCH v6 net-next] net: phy: mediatek: support MT7530 PHYs on EN71221 MCM
-Date: Thu, 17 Sep 2026 13:05:34 +0000
-Message-Id: <20260917130534.297930-1-cjd@cjdns.fr>
+	robh@kernel.org,
+	saravanak@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] of: unittest: Fix pdev reference leaks in of_unittest_platform_populate()
+Date: Thu, 17 Sep 2026 13:05:55 +0000
+Message-Id: <20260917130555.2152765-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,138 +35,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-CM-TRANSID:zQCowADnF0Kz5atqHxmBCA--.3307S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zw1UAFW8CF1xCFy8AFykAFb_yoW8JF4Dpr
+	W7KFWa9rn5GF47taykuFyUZFyIyanxK395GryUJ3ZY9an3Aa43AryUXay0gFn8XFWxWayY
+	yFnrtrWDJa9FvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07b818PUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qrrJquywADsT
 
-The EcoNet EN751221 multi-chip module implementation of the MT7530
-requires some additional configuration of the PHYs on startup.
-The reason for this is not known, but it is possible that it has
-to do with the fact that the EN751221 MCM implementation of the
-MT7530 runs at an abnormal PLL frequency (362.5Mhz).
+The platform devices obtained with of_find_device_by_node() are never
+released, and the second lookup overwrites the first one, losing its
+reference as well. Drop each reference once the device has been used.
 
-Detect whether the MT7530 PHY is attached to the MDIO bus of an
-EcoNet EN751221 switch and if so, apply the necessary register
-updates. Additionally, never attempt to configure an MT7530
-identified PHY which does not have gigabit support because the same
-ID is used for another (FE) PHY.
-
-Co-developed-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Signed-off-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+Fixes: 82c0f5897a87 ("of: selftest: add deferred probe interrupt test")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/phy/mediatek/mtk-ge.c | 81 ++++++++++++++++++++++++++++++-
- 1 file changed, 80 insertions(+), 1 deletion(-)
+ drivers/of/unittest.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/phy/mediatek/mtk-ge.c b/drivers/net/phy/mediatek/mtk-ge.c
-index 96d8ac5154e5..62e3eff37b80 100644
---- a/drivers/net/phy/mediatek/mtk-ge.c
-+++ b/drivers/net/phy/mediatek/mtk-ge.c
-@@ -1,4 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0+
-+#include <linux/of.h>
- #include <linux/bitfield.h>
- #include <linux/module.h>
- #include <linux/phy.h>
-@@ -101,6 +102,69 @@ static int mt7530_phy_config_init(struct phy_device *phydev)
- 	return 0;
- }
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index 4a8af9b992c4..e6e938bcb100 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -1946,6 +1946,7 @@ static void __init of_unittest_platform_populate(void)
+ 		unittest(irq == -EPROBE_DEFER,
+ 			 "device deferred probe failed - %d\n", irq);
+ 		of_node_put(np);
++		platform_device_put(pdev);
  
-+/*
-+ * The EcoNet EN751221 "G" multi-chip module MT7530 requires additional PHY
-+ * configuration.
-+ */
-+static int en751221_mcm_phy_config_init(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	ret = genphy_soft_reset(phydev);
-+	if (ret)
-+		return ret;
-+
-+	ret = phy_write_paged(phydev, MTK_PHY_PAGE_EXTENDED_1,
-+			      MTK_PHY_AUX_CTRL_AND_STATUS, 0x3a04);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Clause 45 global/local data from mt7530GePhyCfgLoad(E3.0). */
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x0417, 0x7775);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x00a6, 0x0350);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x0012, 0xd210);
-+	if (ret < 0)
-+		return ret;
-+
-+	return mt7530_phy_config_init(phydev);
-+}
-+
-+static bool en751221_is_mcm_phy(struct phy_device *phydev)
-+{
-+	struct device *parent = phydev->mdio.bus->parent;
-+
-+	return parent && parent->of_node &&
-+	       of_device_is_compatible(parent->of_node, "econet,en751221");
-+}
-+
-+/*
-+ * MTK_GPHY_ID_MT7530 ID is also used for an EcoNet SoC FE phy, but that PHY
-+ * does not advertise ESTATUS_1000_TFULL.
-+ */
-+static bool mt7530_is_gphy(struct phy_device *phydev)
-+{
-+	return phydev->phy_id == MTK_GPHY_ID_MT7530 &&
-+	       (phy_read(phydev, MII_ESTATUS) & ESTATUS_1000_TFULL) != 0;
-+}
-+
-+static int mt7530_phy_match(struct phy_device *phydev,
-+			    const struct phy_driver *phydrv)
-+{
-+	return mt7530_is_gphy(phydev) && !en751221_is_mcm_phy(phydev);
-+}
-+
-+static int en751221_phy_match(struct phy_device *phydev,
-+			      const struct phy_driver *phydrv)
-+{
-+	return mt7530_is_gphy(phydev) && en751221_is_mcm_phy(phydev);
-+}
-+
- static int mt7531_phy_config_init(struct phy_device *phydev)
- {
- 	mtk_gephy_config_init(phydev);
-@@ -126,7 +190,6 @@ static int mt7531_phy_config_init(struct phy_device *phydev)
+ 		/* Test that a parsing failure does not return -EPROBE_DEFER */
+ 		np = of_find_node_by_path("/testcase-data/testcase-device2");
+@@ -1964,6 +1965,7 @@ static void __init of_unittest_platform_populate(void)
+ 			 "device parsing error failed - %d\n", irq);
+ 	}
+ 	of_node_put(np);
++	platform_device_put(pdev);
  
- static struct phy_driver mtk_gephy_driver[] = {
- 	{
--		PHY_ID_MATCH_EXACT(MTK_GPHY_ID_MT7530),
- 		.name		= "MediaTek MT7530 PHY",
- 		.probe		= mt7530_phy_probe,
- 		.config_init	= mt7530_phy_config_init,
-@@ -135,6 +198,22 @@ static struct phy_driver mtk_gephy_driver[] = {
- 		 */
- 		.config_intr	= genphy_no_config_intr,
- 		.handle_interrupt = genphy_handle_interrupt_no_ack,
-+		.match_phy_device = mt7530_phy_match,
-+		.suspend	= genphy_suspend,
-+		.resume		= genphy_resume,
-+		.read_page	= mtk_phy_read_page,
-+		.write_page	= mtk_phy_write_page,
-+	},
-+	{
-+		.name		= "EcoNet EN751221 MCM PHY",
-+		.probe		= mt7530_phy_probe,
-+		.config_init	= en751221_mcm_phy_config_init,
-+		/* Interrupts are handled by the switch, not the PHY
-+		 * itself.
-+		 */
-+		.config_intr	= genphy_no_config_intr,
-+		.handle_interrupt = genphy_handle_interrupt_no_ack,
-+		.match_phy_device = en751221_phy_match,
- 		.suspend	= genphy_suspend,
- 		.resume		= genphy_resume,
- 		.read_page	= mtk_phy_read_page,
+ 	np = of_find_node_by_path("/testcase-data/platform-tests");
+ 	unittest(np, "No testcase data in device tree\n");
 -- 
-2.39.5
+2.34.1
 
