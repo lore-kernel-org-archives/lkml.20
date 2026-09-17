@@ -1,34 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525084718EE;
-	Thu, 17 Sep 2026 09:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87644A4983
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:07:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636047; cv=none; b=HizgGiTb1pb088QS+aZtMlEr3TiKVKh2Af9ESo/Ea+Co/AtJNmENydC+E7Bfjycr4dQ26KS0dYd+St9srFh7jpn5pch6q7KWPxSzy2MCeY1HPv6gWcS0PU/WgMBdeJ/YikWQj3HqIw0y4SXvM+twvpnEP4vbQ49YzwcO9pzQa0E=
+	t=1789636048; cv=none; b=Y/Q40dC4oMQXCoiyOaXX2nXM3/r4OR4R9LPFbxqGqXKgad/B1Gikc27O5IkGHcTunvp56x3vH3FgyLyTpl+wiuKU4IJhcA/ASnA/xbIV1lpD3hB6sSD/Y125IK/rAlOof2sU/AHfeV7KJPWlHOq6flzbyQQZK3VqcqKXMYqekpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636047; c=relaxed/simple;
-	bh=GHLtme7NDMufS6DWbRTLTYLKLClTqWKEGfOqK73WaTI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iUiGfGpVagw9tn8TTM8AlQQz3dBvnGRiWa6RlNDzi23Kt9Dx7NJ5ObOmJTS07emlKqgk0Sl6pA/xHdvZ3+o7heWUIsg18Us5go3OJosHiSjNeQRB8vTlRErfZBrnHASveFF7gHeLlNIYlooBKJ7sFaJK+NIYQwx5PgG+noh8Hag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRt0zySM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789636048; c=relaxed/simple;
+	bh=fFTHVcSxnVH4BOcSYbBtzmohd1ABiXBFSqnZHydNdPI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IKpNLvlUuw461TUTXcBtdirIKqe9JIEtoaXJfCvZeJL+bi1F2nU6tH9p3Z2f71PFa24Z7HzpYRnp2A+u6nmntW/ujzg/vtsfZlljeNvqW8boVhaaCOZezSDUFYKAhG/flWZ74zo+qffCN9TTjDwExgRPHFX2bfTyARs6mKvt91A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ASB8bWKM; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRt0zySM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B4791F00893;
-	Thu, 17 Sep 2026 09:07:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789636046;
-	bh=JLK9Gif7xz707Dqma1dcllSycd1rrGEmnGWxi/D/qSg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=lRt0zySMa+BGnlh9QjzQeRNwLRg7IjOvn/6XlrVHKLKAn+YD6eE16F8s1DzLvE49F
-	 9pcpWeKJ7IKHjivftdsSX913uy2yk607jn7ZMCmx//6zkhPnkwsBoDZnnt5UamG10L
-	 E8CMtD36UJff0fjghi8KmJDmRgfTgetQ44Hqt0SXAoYNcnqXPFO+lkrZE8erKj1eKr
-	 SXRDsMYzRBEM2uLD2U/khcwbv4GCIaA4zwhMrOWSx+3pMJ5nObI/sjrPJP58OhAC8H
-	 VWnzrYN5/jTIh6YX5jgymycDoiXz9co+MEWtoK52wLYHv7OEhQ6tTyTgZRr3zIsIS/
-	 Q/hrnK8Q8D5OQ==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Thu, 17 Sep 2026 11:06:53 +0200
-Subject: [PATCH 1/3] clk: qcom: rcg2: Initialize shared floor clock state
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ASB8bWKM"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so4124245e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:07:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789636045; x=1790240845; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ft02DoC4Lx1YaLkXIk+hlVL3bHmDCb9OgkRYwRmtwuM=;
+        b=ASB8bWKM+3SXpQeLj9nSpSycq6rXrtVq5o3ujEee+MPwA94b0x+imvjUssejksepvT
+         q442zI9gVDbshHbMUhSnHpArlph4KKoyw47Iwm3N4VrLxWNi6015cuJlDu2Z0QQG2qK8
+         7bEck+dFVdTcI4luWt+QFUmdMaYCcywASNDFPIINTnuJJwH1JZ+XdozXu+vDkxa9fsmG
+         3fnTszO3wh8U6azoxuxHP6IkzzU1/D3Q3lytnWeJzOcDTm08JhOdlnDhzZdgDdj/2fPI
+         nHNPA/6AbAnkece8ckzNs86MHOG+vPx0XAlWBkedfGEC9tZlwSdPvHfVtsMa8Ttpgosp
+         FKWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789636045; x=1790240845;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Ft02DoC4Lx1YaLkXIk+hlVL3bHmDCb9OgkRYwRmtwuM=;
+        b=syO5LPyYhzO7BQxeWcyPTMj/4En3cNgj8szunOjKRgDEG9KiMyq19XNSwnWun7lX9W
+         2545OrSbluRAB6Uvo8JiJpOqh6UNeKFA1PVBwgzIahpxJHYFQ4xHCxCzHHtLfdriZ7M2
+         A/0rU3bOTroBljXYL1ovl4LkN3fSOFn5FUWPCY+LSVrP5Sxq952rWURxgmQHlcpm9SGy
+         dicopAhRmoazvyA6zeCBQKChR0rAqSe+kh7R1AzL24q9IlOYNsw4HpCHayQm11SSaZHm
+         7BlVsiOvoyhZzWf+OBzX5tBYVeg9kZQlB0aCYOC0N/pG1fIlKvaMwRW3kfnvCO10e73G
+         VXXw==
+X-Forwarded-Encrypted: i=1; AKwUvByCpGmfVvbmomkflrVYirDm44+7rOoy91rCbBqFbo2+QCnZeFS9rkTGKVYiKYPKbYk8zS6HxIzOstMd550=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCobr758ewwnXzuVb80Qm6VJFgBNVM4w10wlt2K9OfaR5LWxZl
+	absqY62ykQhFt3l3u7h89axr/9bjDb3dxnQ+lveI1gLSzGvcVhe1vAY48KVG149NANo=
+X-Gm-Gg: AYBFou2MQCdb9HmLZMM/uLNHjFqwKtaOVbW10PUFQTApVs3zu39MsYQpbGebZiPCIYe
+	1Zv6rMbomHCkZHdQockmnba9f1SBw2OndfW6kgTU4RfzLnEkS8oIBfBraR7sOTjbAi9LWu3tGFy
+	5YtvRRY1TqS3JuZfM+YJfULUy9U+8BKNxzVCPYAY08BGFQFuYZxWEs/iop7y8fjvWeYNUMviUeQ
+	cbqZEgyP1S41rXRNXANy1I0B5wdnaog1rTRMo+MpwH8rRqzO6zfUb4SmSdIUy6y3ycdUbjLmrQK
+	YrznWMi4oYTZmFHKgENo72X5T3wOl6MdDTPf66usyVH68/dBZ59z24dGW6f8Vop97cWgEgHY3vm
+	catRINcMHQO+/cnWUdK5Azkkq3ABo4D9WbRQsQFvcV6yvc2VcHhhsmE1eHgjIFRGUfJUt+RYABw
+	XB3YK2ELps3V6u9QggkiOIjz6GzH6MOeDs1d3JP4VkoT6933gdcMI1lPaI0Ed5tqHBFfueQVrLq
+	84JseVG4vFxtWYXpX0=
+X-Received: by 2002:a05:600c:e549:10b0:49e:745d:c317 with SMTP id 5b1f17b1804b1-49f1d516934mr42427645e9.12.1789636044780;
+        Thu, 17 Sep 2026 02:07:24 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd2160c2sm60891875e9.6.2026.09.17.02.07.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 02:07:24 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Thu, 17 Sep 2026 11:07:23 +0200
+Subject: [PATCH] soc: qcom: geni-se: ignore invalid PROG_RAM_DEPTH when
+ checking for firmware size
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,92 +70,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-topic-qc_clk_fixes-v1-1-5531cb00514b@oss.qualcomm.com>
-References: <20260917-topic-qc_clk_fixes-v1-0-5531cb00514b@oss.qualcomm.com>
-In-Reply-To: <20260917-topic-qc_clk_fixes-v1-0-5531cb00514b@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Amit Nischal <quic_anischal@quicinc.com>, 
- Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789636037; l=2220;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=tfh3/y1GaAsjd2wJBp33BDTZSBpDeCti9KhPKvCTPPU=;
- b=N13hvY2ui53EQFPsSSXBa0vDWSmJQ5kp7JDmARvQRIuW05X3mpzaw3VDx0giiN5t1zLAphRcG
- JFNQLVi3k2eAWgUU9xrParRq3RakCV6rixg395d6tOrm2wD4d3Gd+IG
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Message-Id: <20260917-topic-sm8x50-i2c-hub-fw-ram-v1-1-f49286d8c8db@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAMqtq2oC/yXMSw6CQAwA0KuQrm1SBgbRqxgXTC1SEz6ZgpIQ7
+ s6oy7d5G5hEFYNrtkGUt5qOQ0J+yoC7ZngK6iMZHLmKLvkZ53FSRuvr1ROqY+yWgO0HY9OjL9l
+ TEaSiooY0TFFaXX/77f63LeElPH9L2PcDImz/xH8AAAA=
+X-Change-ID: 20260917-topic-sm8x50-i2c-hub-fw-ram-54c503be6038
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1240;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=fFTHVcSxnVH4BOcSYbBtzmohd1ABiXBFSqnZHydNdPI=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqq63LbA6mKSkysG5k0oIX8bW4KbJw+Ojm08gHJiYV
+ krV3yciJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaqutywAKCRB33NvayMhJ0bspD/
+ 4y8VKjx/jssGG7f+iyZ2+RH18i7WGea/pHjEEUakOoNh970zxrEhzFHMlI3/Tq68qphqu0m5bn8oss
+ oJz9FBR5e0sWi5sdZRnptoAwNZ5t7i0OBkHGe8hfYCc74xVr9g++0cG7huHMifVT9C2Vk/VSnzSRNs
+ W7UZGpa3+98ZI9mx/0udIO2PkJnAtgcPDQ2FL0lGBHKIEiFXtWQsPwSJCaB39JJ5nzBx1DlVG3HE9n
+ VvegfAPewtsn0GTBKab2iZLDxvpkhzeB5ftSG72mIkIiqbO8KKZs97WL1/u+GyUYN9EeHGc0tcVVEs
+ LOGqQh9OrNReZ6tNa6deO4z7yg4zOmskehd4R0Qbxrn+OUeeyh9Yq01Xmul2Oy0iZTyVRGmVeONOy7
+ d+QZqGCRKFq0z+sIgKTdtyP8xrI78rN614mzU0w4QjLhvxWxl7grsWCBKZt+DSQFVDsEOmD57f6W3p
+ LYen9933QEU9cFntkXrtIA2kNZXVnrajrSrjz8i+ITPOVu5+ZOl3DV60T5vGtBqDnhioJp99sRVEGO
+ B7srtuAzc83rMCr92jgj+0d17sgiJZcja0DFughvuResUD1AyJIQKw4QS5l7l8jEWSxDrSlzbE0l7j
+ VXXzI/MPB/TnbjPifE/S+5qTxuXs5w/nzHEKPwjRCmwWRzhHN7kxeM4/MsCw==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+The I2C Hub serial elements lacks DMA, so the SE_HW_PARAM_2 register which
+is in the DMA register space doesn't exist for those instances.
 
-Shared floor RCGs use the cached parked_cfg whenever CCF considers the
-clock disabled. Unlike the other shared RCG variants, their ops do not
-initialize that cache, leaving it zeroed until the first disable or rate
-change. This can make registration report an undivided XO configuration
-instead of the boot-programmed parent and divider.
+Simply ignore the ram depth if it return 0.
 
-Initialize parked_cfg from CFG_REG without parking or otherwise changing
-the hardware. Propagate read failures so a clock with unknown initial
-state is not registered.
-
-Fixes: aec8c0e28ce4 ("clk: qcom: rcg2: add clk_rcg2_shared_floor_ops")
-Assisted-by: LLM
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Fixes: 522bfb4f33c0 ("soc: qcom: geni-se: Use HW PROG_RAM_DEPTH to validate firmware size")
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/clk/qcom/clk-rcg2.c | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ drivers/soc/qcom/qcom-geni-se.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/clk/qcom/clk-rcg2.c b/drivers/clk/qcom/clk-rcg2.c
-index d7914e59129f..adb03c3aa0dc 100644
---- a/drivers/clk/qcom/clk-rcg2.c
-+++ b/drivers/clk/qcom/clk-rcg2.c
-@@ -1555,7 +1555,20 @@ const struct clk_ops clk_rcg2_shared_ops = {
- };
- EXPORT_SYMBOL_GPL(clk_rcg2_shared_ops);
+diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni-se.c
+index 873bfbd6b2b7..e75349f2c15d 100644
+--- a/drivers/soc/qcom/qcom-geni-se.c
++++ b/drivers/soc/qcom/qcom-geni-se.c
+@@ -1308,7 +1308,7 @@ static struct se_fw_hdr *geni_find_protocol_fw(struct geni_se *se, const struct
  
-+static int clk_rcg2_shared_no_init_park(struct clk_hw *hw)
-+{
-+	struct clk_rcg2 *rcg = to_clk_rcg2(hw);
-+
-+	/*
-+	 * Read the config register so that the parent is properly mapped at
-+	 * registration time.
-+	 */
-+	return regmap_read(rcg->clkr.regmap, rcg->cmd_rcgr + CFG_REG,
-+			   &rcg->parked_cfg);
-+}
-+
- const struct clk_ops clk_rcg2_shared_floor_ops = {
-+	.init = clk_rcg2_shared_no_init_park,
- 	.enable = clk_rcg2_shared_enable,
- 	.disable = clk_rcg2_shared_disable,
- 	.get_parent = clk_rcg2_shared_get_parent,
-@@ -1567,19 +1580,6 @@ const struct clk_ops clk_rcg2_shared_floor_ops = {
- };
- EXPORT_SYMBOL_GPL(clk_rcg2_shared_floor_ops);
- 
--static int clk_rcg2_shared_no_init_park(struct clk_hw *hw)
--{
--	struct clk_rcg2 *rcg = to_clk_rcg2(hw);
--
--	/*
--	 * Read the config register so that the parent is properly mapped at
--	 * registration time.
--	 */
--	regmap_read(rcg->clkr.regmap, rcg->cmd_rcgr + CFG_REG, &rcg->parked_cfg);
--
--	return 0;
--}
--
- /*
-  * Like clk_rcg2_shared_ops but skip the init so that the clk frequency is left
-  * unchanged at registration time.
+ 		prog_ram_depth = FIELD_GET(PROG_RAM_DEPTH_MSK,
+ 					   readl_relaxed(se->base + SE_HW_PARAM_2));
+-		if (fw_size >= prog_ram_depth) {
++		if (prog_ram_depth && fw_size >= prog_ram_depth) {
+ 			dev_err(dev, "Firmware size (%u) exceeds RAM size (%u)\n",
+ 				fw_size, prog_ram_depth);
+ 			continue;
 
--- 
-2.55.0
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260917-topic-sm8x50-i2c-hub-fw-ram-54c503be6038
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
