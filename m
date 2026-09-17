@@ -1,167 +1,161 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E534CDDFE
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:54:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B4F4F68C8
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789667644; cv=pass; b=K8yrd45Jn7zGUeUUXlDsUPgzlFHTGTQd83GKtVqb9pJBcImNLDySIu9DRqGe4TGuyfDSp9mcKqilwzTLTvVyG5awPASsxIkKIcaL55TQULj9wNoag1Ar/njl726fTDSqVhOneBKjCYp8hAip1rM+I9lvTjrVRbQLJ/ktoShAguQ=
+	t=1789667666; cv=pass; b=qQJajDhbN45hkWxA3wAh7+BACmRTplHDeLDDF9VsBxxiq5VYanAlnwF+zpNnGjS9YseaHHislELyRDbFD28ES0hCwvAoK3vqAmjp0r1D+Q67CoVCtU4gSaDcCGvg7PprLtGguhJhY6IFlWm7OD5wJUndt8S2TTZ7u4UW6c7f9l0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789667644; c=relaxed/simple;
-	bh=IS9D+TLpfpc2Bj2GEFKo9FFCZuN+GGyYFZtnrMjlJcM=;
+	s=arc-20240116; t=1789667666; c=relaxed/simple;
+	bh=lV53x9iap7CWHKayETL36WLG11uBzdsYNl2pBib1Gp8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VgmIQ08ORt8tyEAP/vN3UB2FsGVZLRuWdGvhFXv3UqXAnVLdOCGyndnMqad73eUepUC7HmBNpBVe9HAzrOIcRpb+T93omdatEr6M84bvRPMUiirM880btjtUOLk3o6/U9LCM3aIj1fwi/A5zJ95ik8/ZcAmFZM5aYQoB/8pM/VE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=g9q2MCzm; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=Dw9D/BD7t3eodcf0Blr4vW5PhA2dOI1Ym18UnPDGYawstHsg7CVmDAFilL4AZ+lPk89J6YGM93cyhDwS0NYpfURmWAchNNSVz2c0E6lZNyNbIZ4lBIqgAyq4p0Z0THzJYmkLS821TyMETEO/foSLMdouC5DBG0Lsw3bMbRCZbJI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mpPSHEmV; arc=pass smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="g9q2MCzm"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c3so973090f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:54:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789667640; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mpPSHEmV"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1d00daaaso2169724a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:54:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789667662; cv=none;
         d=google.com; s=arc-20260327;
-        b=U51P+0lxlYY+TNyy+CRWMxau1615atQmvui97bTPR9nvWgP8kXJQOLWGp4K+Wowai1
-         KZ2DzjdppPfRbr9RWE0pG2ZmDHGoQipxuHfLypJgzBPfr3ApSNTkSBIJgMVkB1Yr3dy1
-         WZbKtIXsm8AM/miVUETCokYE8214vIX7Ti7rY4HTAqrSJ4Eq4UDIJWzy000aTSMdbMbg
-         cLHErN8MgUYPN9diwd2YEMfeNUUIBjqtHMKw3EARmxbEtAFeYwh6B8vnvjY0OwmnwSGZ
-         uJ+ssKWTLaBnuxhE3zT2YGnuTmU0kmWMWskS2aUXyiMOu9apCu0+Il4djKfN+gaf70cY
-         7XmQ==
+        b=ZF2/xo98nf7ZufjLM7wiK0UHg88CRH0D6e4pLtSbUCRx3zhx/k4dYDl9mKHp7L5Hva
+         AsqN3250rKXT0NXjGMSzVawI+yxt2FMJFGFfrkmq+PRFV8NxoYluOI/kWxyF47a9RsGJ
+         PDACRbSYzNRTYhaCTrOBh/0yMuUA2oNweTc9bTSQXsVtiJhO1VqlwysPyC5t8MugLQpR
+         EdjJ9Q6v5qxkIvLIqLrCpHmu4SsAENmiZNIRlBe0Wu11V/+OpA4528B3hfA2UkDBDRKs
+         pUZBxdUnn197etCj0BWMFVGavk1EdIa9OQJj8h8kHJytedwGRi0ug8Pd8DQv82UtPH5I
+         aCzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=NBUntA6XnetLIHSwHzywNE5ItGjByb7JgKxOppnvP5Y=;
-        fh=jnCYbZtkdNAHCNfzEojzp8cxNnPTDPJDdCzFs5ZjAxQ=;
-        b=LAcktDOzaZPJiB3t6gXcoUp3JFX8q47+V4btNdUkRTjnbRhY5qCn/v/hZ2nHjzu7KE
-         8PNBFgKDBj8JDlVlx23n40U8WXHPSPWBphNGqsjVyXaX0/1PtifnUaMXezamx9fpv7K6
-         hYsSD4cU/SeOMalnb3g+XlcGyEQ3ynR4D4NM1u4CMBy6mn/R3ygRb0JUK9EInmhDF1vW
-         y2fsWHq/ctRG8dskQ6ZyB/LMkFsjJXS1uRc12RQ+fGXsu2jItiBg4acuWs9N00DUcew6
-         6OgJGAZemVq09cda9WBE73s1F4oPm6o0h8Sr5IFHRRr0xvAQMUNYf3/C8d/HIKGL/7jU
-         H3Dg==;
+        bh=5Buk1YbOGNfq7p+FGXzo+IE9gOuA+FToX+F15GNq95I=;
+        fh=jW8gfCf7mN99bB+KVJ3tbjWo29oYDUl6WZSeUGkCNLA=;
+        b=cOs1Ke6fAHm6G1C+r7hBWSBFYjOFbIfZ8ro8SD95Vq4+AgF923++hQg4nWzL3JE6tC
+         MUkGzNDLwNInb/wXKwl1yFZF6Mtt6ZNT7iRDVvM6/dcilaA+hVcdyOTgtTbQZ1xWw/DV
+         3AcGih7huo/MEJfiBIer7xKLl5GJFNXJ3i3tVD8u75Ko+P0Q3Pf2zZDYeIYqSpJfUEr3
+         fLKmvvwEblg5Ytt0YBBN0lvem/QjHWze2vdqfW0tZ3jjX0YLe1dVvOu7KdP/kNbqPdr+
+         5/S3206lyF+Nn0I7QqM13ZegCMh9NRT9xjBc6lRXyxetwZEGerYqIWe1WLQBbgujR9Nj
+         XyKA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789667640; x=1790272440; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789667662; x=1790272462; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=NBUntA6XnetLIHSwHzywNE5ItGjByb7JgKxOppnvP5Y=;
-        b=g9q2MCzmtTNy+v8tUTqCwMthxb4PTs+omcItcRbbrOCpmT6ki77Vv3qcFyG6RAnZfV
-         a600eG27/zo0BtwGWT+LjgLcJFX7WEMhP0q4qRgge2qJswSB3lblrUVte+qzhk4y41uE
-         WVeiTm6Vr7rFMHbL+up+X29s6KDmTN98y9fj26CvL22XJY8HnqvFEBL3ReQfHhA/lK68
-         ocpEoG2YFEpTX5GQ+FB5VXvkwc5bEcpRvazjDul2cUVDTzypF/g+IGwL1GNNUcWbyNzw
-         GOZNTr/u269lrBL4OSgXrUm3Yl1rzPfH7FKIRxHxbWursNBFsP+UK/BV3LeIb44LWHrV
-         d52w==
+        bh=5Buk1YbOGNfq7p+FGXzo+IE9gOuA+FToX+F15GNq95I=;
+        b=mpPSHEmVzw3vcv8GfUUr/yPtx9dfgVBoOqkTtcEupeTV/34oICBDbPpiZJ+MyjYeq/
+         zxgG13txuumlE2Q6kcgEjDdWd8e1tHqMBosOpEG6lEzRV+rienp25DkasDniTkhBmSjl
+         XAEPuSF5bgbC7WYZS7lMzL0jFTHg8oUJCKa7FAUOPnGYISmAQvERPdqIWpALrBnrj8kT
+         r9iZbjtvXCJ8VVTMiU67L8scTTHToyNLx6diO/GDBNMLYNpMnaRrpoUXlklDk8rZtgOg
+         So8R6Q087gIi91I7+dt+XxIdHOr+jPAjKbJqofo+sHblWvHUsyiLsapZ0HuaGXy3gTNM
+         6DDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789667640; x=1790272440;
+        d=1e100.net; s=20260707; t=1789667662; x=1790272462;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NBUntA6XnetLIHSwHzywNE5ItGjByb7JgKxOppnvP5Y=;
-        b=cZQHceYW+0taXH8tIaNV7sRBxDZaZAfx1gIL3AKVmco/Zkk6hl1j4dbpMPgM4Z9W2v
-         evmhtBgjEEwtUyQlPFdPpn/WPxsLa95eLZVmKeToMHQ16VCFicahFNVIdlTeaE88QksF
-         KvJpbQCy8vmQ/YIkh43+F8ff3JlY5gyPgVqWfEepvAq+b3I3UA5wiG60npVJNHBzBVen
-         NWzcYkHRXNlLtFkT8nZA4EJvjhZRVg/7+d1LPHA8JDJa2daVPJuIrJYG6mVp7gIIGPvF
-         hX7nYpDN7oPofCl8m3DgC7kpWkkfPJjYvTIq/f1NPqnu1nwm0qyRjQyrbryl9hu5b1+f
-         Gi+Q==
-X-Forwarded-Encrypted: i=1; AKwUvByCmqWoDlCjcnBMZQHMZ8TfnQuhjmS4SIxmb3+HKfYWRo1nB5aRXrcV6l8zgJWVPBED0SxYzLb0Bfuvn8o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnRSbxFOz65IQFZIzwp46k4TzeYYDq27ivd3OmJEQf0zepGqgW
-	aXomdddnk8nr+7ogpdQ3S72RwmiZ99cxXi6Fdo8Cwil4EGyCZtT35fPZ57Rfhp+Fcij96TY++fT
-	QbgODvV+QNnxnTJ//oPdUuN2k29OqYRk/UoBR0ho=
-X-Gm-Gg: AYBFou1TP1W1WIQe9WXAWRvSwjEqgdLBKHqqVU+OiYxIX3kOtBjhoOuUIul6kLtICZk
-	a7kxGawtrMr/zLAO2i5087zdxBdsHALwd4QEqmjiydGOpA5/xQOyyrnw09kmE1gxqGPB2Ekgmi5
-	ilAS1jMw5zVwY2OPZRmPokhFTT8CVHUD03MdRPGIbAcgt3HYdK2uTXVZKWE4Xe4sbnbiYOjHGLB
-	jlXXtITBgttrgTOhPEVYrwItG1SJEA7sK63FTPk3+Y5LLp+noCvd1u3wobd7pKcFQ00t2D9OG0A
-	QANVj0sIqKzpy5OsI/EhX3/aI6ZbE/MjLilSTiDGDs6HdD3yhwuUj+G748b8RdEzb53tQVBHMm5
-	020zhNpF3nUK9ldB+DfzkalEaTNu1ZefVFdlY5FCZDZkBQEmlswGLCvmzQRFvM13NcvKHZKE9mM
-	t0EfkjYg==
-X-Received: by 2002:a05:6000:1842:b0:487:36a:c870 with SMTP id
- ffacd0b85a97d-4870cf0a4e0mr10752436f8f.11.1789667639766; Thu, 17 Sep 2026
- 10:53:59 -0700 (PDT)
+        bh=5Buk1YbOGNfq7p+FGXzo+IE9gOuA+FToX+F15GNq95I=;
+        b=XASxdDWE3G40uww+RBLSeKBIwskwP1APPIL1n23oRl/5RGPvo+MZabllyoQZYqAKR+
+         DhDvmGfCv2Q1NfuvnuOAQO0ADSyKmMRGiGp8xhl5/557SY6EEuuXIOi0/HFq8+/TNvje
+         gUGduscc7UQ0rJkihuW/uD2Wp4uS5hXaQklRdbbrJzdkzv4cpbwgoXDGRKSLDWLz5ayr
+         z6HCSie81+0jvp0guRiqBsHhFxzBfGgfXywDenDDw1Xxdqwzp+0Pe/vS+opW+CetnhPG
+         otn6GBUPvGsI7PjQIFYcVxE4KpwSLy6vAnVxPmNelG7XibQcm3YmKfQNmeJZ1lIGuveK
+         L/og==
+X-Forwarded-Encrypted: i=1; AKwUvBzhmGXPR7dyCZQCgoJ5EiyDEHdPLcMHPqD7A3KM7w7Yum2X9EXFICv1B0jQSIGYas+QiRbzXoM5jP1k8kA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTT7rv1HWt+60tjKVsvbkjiDRneMNO20u0XiIAs3bev97rG0wW
+	Kl5+TnemhYtVfq7C1z2b8eVG9N8hIcdWdub7xMD3IP+1uQRYHkrx2S2bIut1+7ik3Zxkt8JSJDY
+	Fa7YOkorOJmD8Cs3XT2B+GxNfSh3HtUo=
+X-Gm-Gg: AYBFou3reduzb3WvptL46JBJZiOo84IfZ9QZdjKK2iJyFnbHQfiRW6g49hUTvHOLK5T
+	Bo2VeeUvRhM5SJmf4xlNBgTmoN2gc9LeJf0AtAuMwZGw52ynXRkRhr56ntmQJ2Mv7kz9B99u8Bk
+	0XR8Zx4sD8bUgeNmCXfhFeeed9noKCbMqDIhP1/bUomb8Jw7WknSUEYM1/nNiv9OqWQak6u+F7p
+	Mn21iX0g7a0NRTef1fBhUoGUVx2seKhaM7d6zR0nbyFOp2kyMj7/4jLXKlyBPo13WhHk2rvuUeU
+	CIYnpbeKz8esUeJXOnBoNoeTyi9pDrWyGIEd0V4O2DIW20UiImIjbkgYEIBcesbWcKcvPzKXnYf
+	8hWmV9f7jAJ16ztRDdBBkw4ajoCNEPE+ckJYKHoV8ng==
+X-Received: by 2002:a17:907:3e08:b0:c29:6092:39de with SMTP id
+ a640c23a62f3a-c29e5311b55mr533263066b.48.1789667662379; Thu, 17 Sep 2026
+ 10:54:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917043339.2093426-1-suleiman@google.com> <20260917085805.GD2009045@noisy.programming.kicks-ass.net>
-In-Reply-To: <20260917085805.GD2009045@noisy.programming.kicks-ass.net>
-From: John Stultz <jstultz@google.com>
-Date: Thu, 17 Sep 2026 10:53:47 -0700
-X-Gm-Features: AcwNN1XBQjQe6G1zj5SHDRwoIM_6B-O6h323u-InqcNGlLM137E3Por3CDeqil0
-Message-ID: <CANDhNCp0fufkpOSRQz15YQNDKkR=1-CC9QAsXujikz-DY05EoQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 00/12] FUTEX_PING: A stealable futex using Proxy Execution.
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Suleiman Souhlal <suleiman@google.com>, linux-kernel@vger.kernel.org, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>, 
-	Davidlohr Bueso <dave@stgolabs.net>, =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	zhidao su <soolaugust@gmail.com>, Qais Yousef <qyousef@google.com>, ssouhlal@freebsd.org
+References: <20260912-alpha-kernel-compression-v1-0-ce9d55330193@gmail.com>
+ <20260912-alpha-kernel-compression-v1-1-ce9d55330193@gmail.com> <20260915220301.64f72f3f.lasse.collin@tukaani.org>
+In-Reply-To: <20260915220301.64f72f3f.lasse.collin@tukaani.org>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Thu, 17 Sep 2026 19:54:10 +0200
+X-Gm-Features: AcwNN1XFQaD3-In1KSOuGhL77cLzYksu55zUVpJQR1dIQvXxYtX117DrcpPGuP0
+Message-ID: <CA+=Fv5SSK4CXcHkyZMNyU1DigGzevJHYMR+dKPQZgGKdEeu4dw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] xz: add arch-specific tuning for alpha
+To: Lasse Collin <lasse.collin@tukaani.org>
+Cc: Matt Turner <mattst88@gmail.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 1:58=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
-g> wrote:
-> On Thu, Sep 17, 2026 at 04:33:24AM +0000, Suleiman Souhlal wrote:
-> >
-> > This patch series adds a new type of PI futexes, PI Next Generation,
-> > or PING (name coined by Steven Rostedt) (but other name suggestions
-> > are welcome!), that differs from classic PI futexes in that they can
-> > be stolen from the top waiter, and use Proxy Execution instead of
-> > rtmutexes internally.
-> >
-> > The reason to allow the futexes to be stolen is that with classic PI
-> > futex's strict handoff to the top waiter, new contending lockers are
-> > now forced to wait in queue, which means that any locking operation
-> > now becomes a scheduling event. With stealing, a contending locker has
-> > the chance of taking the lock without blocking. The longer wait time
-> > of blocked tasks can be mitigated by forcing the lock to be handed
-> > off to them in a way that can't be stolen, when they've been stolen
-> > from too much, to ensure they don't get starved.
-> >
-> > The use of Proxy Execution lets us also get Priority Inheritance for
-> > for fair tasks, which PI futexes don't really allow.
+Hi Lasse,
+
+On Tue, Sep 15, 2026 at 9:03=E2=80=AFPM Lasse Collin <lasse.collin@tukaani.=
+org> wrote:
 >
-> https://patch.msgid.link/1490204338-1856-1-git-send-email-longman%40redha=
-t.com
+> On 2026-09-12 Matt Turner wrote:
+> > Alpha has fixed-length, 4-byte-aligned instructions and no XZ BCJ
+> > filter, so it wants the same LZMA2 settings as the other
+> > 4-byte-aligned targets. Without an entry it hits the default case,
+> > which warns
+> >
+> >   scripts/xz_wrap.sh: Arch-specific tuning is missing for 'alpha'
+> >
+> > and conservatively assumes 2-byte alignment. Alpha gains
+> > HAVE_KERNEL_XZ later in this series; the correct alignment also
+> > shrinks a UP1500 kernel's XZ image from 6469320 to 6448840 bytes.
+> >
+> > Signed-off-by: Matt Turner <mattst88@gmail.com>
+> > ---
+> >  scripts/xz_wrap.sh | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >
+> > diff --git a/scripts/xz_wrap.sh b/scripts/xz_wrap.sh
+> > index f19369687030..5af0d9045cbc 100755
+> > --- a/scripts/xz_wrap.sh
+> > +++ b/scripts/xz_wrap.sh
+> > @@ -10,6 +10,7 @@
+> >  # XZ-compressed kernel isn't currently supported on every listed arch.
+> >  #   Arch        Align   Notes
+> > +#   alpha         4
+> >  #   arm          2/4    ARM and ARM-Thumb2
+> >  #   arm64         4
+> >  #   csky          2
+> > @@ -44,6 +45,10 @@ BCJ=3D
+> >  # Set the BCJ filter if one is available.
+> >  # It must match the #ifdef usage in lib/decompress_unxz.c.
+> >  case $SRCARCH in
+> > +     alpha)
+> > +             ALIGN=3D4
+> > +             ;;
+> > +
+> >       arm)
+> >               if is_enabled CONFIG_THUMB2_KERNEL; then
+> >                       ALIGN=3D2
+> >
+>
+> Thanks for Cc'ing me. For this patch:
+>
+> Reviewed-by: Lasse Collin <lasse.collin@tukaani.org>
+>
+> I looked at the other patches too and didn't see any issues around the
+> decompressor usage, but I didn't really review them.
+>
+> --
+> Lasse Collin
 
-Thanks for that reference! I'm sure we can learn a lot from that series.
-(I do like the straightforward FUTEX_LOCK/UNLOCK over the PING name here :)
+Collected your tag and added this to my for-next.
 
-> Also, the goal is to eventually delete rt_mutex and have it be the
-> normal mutex, in which case the existing FUTEX_*_PI things will
-> automagically work.
+Thanks
 
-Indeed, moving rt_mutexes to proxy is a goal.  Though the performance
-concerns from FUTEX_*_PI have to do with the semantics it (and
-rt_mutex) promises: strict RT prio order handoff - esentially FIFO for
-SCHED_NORMAL.  Not so much the mechanism it uses for boosting.
-
-That's why it seems a new FUTEX op is needed. Since we 1) need to
-communicate the owner to the kernel 2) want different semantics for
-lock-handoff and stealing.
-
-Even when we get to moving rt_mutexes to proxy, it seems to me we're
-likely going to have to keep the rt_mutex itself (even if the PI
-boosting is proxy based) as a distinguisher, since the users likely
-desire the strict semantics (or at least we will need to add some
-behavior flags to the mutex struct so it can still satisfy those
-semantics).
-
-> So I'm thinking all of this is way premature.
-
-So it is just an initial RFC, and we are looking for input.
-
-But there is a strong appetite to solve this, as we're already seeing
-vendors doing less ideal things, like passing who the waiter thinks
-the owner is (racy) in via unused fields of FUTEX_WAIT, so that
-out-of-tree custom scheduler boosting can (temporarily - as again it
-can be wrong) try to get that owner to release the lock. The longer we
-go without a usable upstream solution, the more entrenched these less
-ideal solutions become.
-
-thanks
--john
+Magnus
