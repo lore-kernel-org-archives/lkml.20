@@ -1,91 +1,81 @@
-Received: from mail.zipdox.net (195-240-81-79.fixed.kpn.net [195.240.81.79])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B1C5908AC;
-	Thu, 17 Sep 2026 14:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.240.81.79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A821595721
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:24:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655040; cv=none; b=Gl6DnkbQFSELZf7kL05fA4OgIB3idtOF8N6fkvllK2P/yt49du3vWJS//XCrb40ODLnOs8avx7wcJWPDfEj+5klS4RmkHbpuHD12HqO49iTyH2f0iGbrV9CnSjx4rgP8oGPB32rezS4anpqyOPSG9eXmjdhEhMewGbcxcN+DJVI=
+	t=1789655044; cv=none; b=XRNxuwDGiCmYgBs5GpGIX1xWmL8xxMbKiVgBfM/XddO/PB2B3arv6NEwHOFPIoMukXPi+jkzevdtUxrT75474D0MIy05MidnlbMFrlQgM53YYgeXAYZacItUAu6ls2wAP1JqwNzwonDZtBdvOggeUjBBGX7Qq2AYeVsjK/lsOPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655040; c=relaxed/simple;
-	bh=jsmkWGdkOXjl5vCehHtXpCIFIRPU1ahWWGONREhd7AQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b/b+tJtdO/ZMjR0xCtVGnbvSh2rCcbpWpxLame7O9GMX89bPHMXEIQHwt49vExXEBDdIcpVaKWAWlENFlRpoPsUTYTP658aIaYRFq9xupMS34w9k60iipZIZbkTjiTOg6jpRy2gY7rxhQvNswLh+dEv72cHUlHJvmsElnthVtL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net; spf=pass smtp.mailfrom=zipdox.net; dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b=A8pUoPok; arc=none smtp.client-ip=195.240.81.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zipdox.net
+	s=arc-20240116; t=1789655044; c=relaxed/simple;
+	bh=FjlnWPIx5y429CqcIh1t9J/qE8xAtJvW6N/FaKhhntM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XqQKUFPjtXs/7zrdEy1KIwBdECbAMKQIJGAa4hEOfNf1dqvojW24EYSj0gFH7O0B+nHX1ZLjrxWC1JNxB2u5ooR6Gt9H7L5YA3qZuTwKTo8NKNp2CvsnQNQsKa2KNMwEFXCG38OK8EPRoLXKqk5+gypf9QtCIZz1YLFl9SR9UwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X0MollIM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b="A8pUoPok"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F326D9214C4;
-	Thu, 17 Sep 2026 16:23:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zipdox.net; s=dkim;
-	t=1789655027; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=A/+4s5tba7S/aVWS7Khr8WD3jS2p0L3YwMxihJqGpMQ=;
-	b=A8pUoPokHBcXvbjwQaHAfr+qS1yvdg9SZRPRkGh4L6d/DvgDkt5GkFH28wCFyhhyHNAr6B
-	YoSIXAh1VRb2XdJFJ1Vhw+GpmFtlgxOmUP/9u60h2O/wV+TKaKfDlMz6PkYZZDKc6QQ3Nb
-	4c2udji/Qk7pHU2+Z14oUl4Hc55W5RxWLxpfPzCPhlJyxef85OVLlAlMAK2fETSyk9z/0v
-	y9MAq9ZE67NGhfNwW+FiiO/Njw6ugVMZTyGwSZBqq7ArfUnC0mM4PKdVreZ2kreAlgcz/F
-	mrnVuKg+CHBTfVC0L0mWhsfNM/bLHZYXC2NkPpNaFqXfYRHIvJjjj3HAA0s8Hw==
-Message-ID: <895b9e3d-bc81-4688-8513-8aa42d40e4fa@zipdox.net>
-Date: Thu, 17 Sep 2026 16:23:41 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X0MollIM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63C31F000FF;
+	Thu, 17 Sep 2026 14:24:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789655042;
+	bh=Cdva6YpF/Ja+1yjzpPsUXCUumY3O2u6hUMGtR0VRNpo=;
+	h=From:To:Cc:Subject:Date;
+	b=X0MollIMPRneb9S1Dc5mWlLOeAeV5sc0w8LGstnzb4Z3p16J/udWOCiDjGiDb6nB6
+	 kc3V3uyJ9uG52wFSxTwqUrSu6rC1u5pO0TTmqUqCIRv9C/yB7H8fwv0gsScPK3m86F
+	 E5HCpVk2js3bPdnRnGjF1QQxO6nWnySUj5SAJbBvs+hrvid8fRnsy7q2bveLi8VHH3
+	 reLJYhJ0St9MQf6jzmVMfvn6dSoAX9TrBHW4SkX0Rs/3PO6DniGu5Gsz/Gb3u/eNFK
+	 cqepOPT5zUo6alNheK5SybThILWKSoGWbseUBTRPsilpKyzRvRzrU0/6S8yTQUUV3h
+	 Ps58AhixZQHlw==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>,
+	Jianan Huang <jnhuang95@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Kelvin Zhang <zhangxp1998@gmail.com>,
+	Daeho Jeong <daehojeong@google.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] f2fs: quota: fix unused-label warning
+Date: Thu, 17 Sep 2026 16:21:42 +0200
+Message-ID: <20260917142222.1591270-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR
- and RANGE
-To: Takashi Iwai <tiwai@suse.de>
-Cc: linux-sound@vger.kernel.org, perex@perex.cz,
- linux-kernel@vger.kernel.org, tiwai@suse.com
-References: <d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net>
- <87bj9yn55n.wl-tiwai@suse.de>
- <59b3dc9b-f324-42e7-ab03-a01c04e8b915@zipdox.net>
- <8733vamwaz.wl-tiwai@suse.de>
- <da56664f-901e-497b-a74c-ae41cbc5cac4@zipdox.net>
- <87a4phjjay.wl-tiwai@suse.de> <8733v9jfp1.wl-tiwai@suse.de>
- <87y0d1hx9y.wl-tiwai@suse.de>
-Content-Language: en-US
-From: Zipdox <zipdox@zipdox.net>
-In-Reply-To: <87y0d1hx9y.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+From: Arnd Bergmann <arnd@arndb.de>
 
+The newly added label causes a warning when QUOTA is turned off:
 
-On 9/16/26 8:22 PM, Takashi Iwai wrote:
-> 
-> ... or maybe a less cryptic version like below.
-> 
-> 
-> Takashi
-> 
-> -- 8< --
-> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-> index 33a6a1281410..c6639a45fb24 100644
-> --- a/sound/usb/mixer.c
-> +++ b/sound/usb/mixer.c
-> @@ -335,6 +335,16 @@ static int get_ctl_value_v1(struct usb_mixer_elem_info *cval, int request,
->   	return -EINVAL;
->   }
->   
-> +/* convert the given UAC1 wValue (ICN+1|OCN+1) to UAC2 MCN */
-> +static unsigned int to_mcn(const struct usb_mixer_elem_info *cval,
-> +			   unsigned int validx)
-> +{
-> +	unsigned char m = (validx >> 8) & 0xff;
-> +	unsigned char v = validx & 0xff;
-> +
-> +	return (m - 1) * cval->num_outputs * (v - 1);
-> +}
-You used multiplication instead of addition for the last part. I assume 
-this is a mistake? Also you should probably also bitwise and that with 
-0xFF to make sure it's not more than one byte. The product of the number 
-of input and output channels must be no greater than 256 according to 
-the spec. I don't know if this is checked elsewhere. Other than that it 
-looks good for a patch to get it working. I'll try it out and send a 
-follow-up email shortly.
+fs/f2fs/super.c: In function '__f2fs_remount':
+fs/f2fs/super.c:3142:1: error: label 'restore_holder' defined but not used [-Werror=unused-label]
+ 3142 | restore_holder:
+      | ^~~~~~~~~~~~~~
+
+Fixes: 3f140a60c92a ("f2fs: quota: fix stale lock holder on remount failure")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ fs/f2fs/super.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 6a2f09c61dcd..8358cdefa859 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -3139,7 +3139,9 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
+ 	sbi->mount_opt = org_mount_opt;
+ 	sb->s_flags = old_sb_flags;
+ 
++#ifdef CONFIG_QUOTA
+ restore_holder:
++#endif
+ 	sbi->umount_lock_holder = NULL;
+ 	return err;
+ }
+-- 
+2.53.0
+
