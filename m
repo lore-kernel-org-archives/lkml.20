@@ -1,88 +1,107 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7140049D583;
-	Thu, 17 Sep 2026 16:58:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F58318EC7;
+	Thu, 17 Sep 2026 17:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664342; cv=none; b=lcJQCNvL9OFplIaApEtFNvzU73m5gNvffFmse5gejzt9lD1dz7Ubrxe7nhRaN4kF6VUYkD1MaKm0NmViKBxmMD0KP/NXWGwhf/iwudkDIeJx3bOgsTKNu5d9k7eKbE01F8Cjs41lzx4XgkiImWRchOkpDCRvl6bk0C6Ug7k1JiE=
+	t=1789664438; cv=none; b=NWXyado3a7SnTHYBnQmGdiBxehTYQ8YfVvM1H4mw4dpdkbE56I6oc+yZdgo0no6lzrZ9+nRGqLmT5IkG0Yq5daIyku4ekOKS62cyu2KMwFN7OBREzhmwHIE6F6cISpyMZEgK4+cq8OPfpAQpjGAqqTAuV5B6SlO0jIP1OoYF+3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664342; c=relaxed/simple;
-	bh=MycG3yYr3m3hyQ3sKhvgTVcsHY/rCjgmG4aI/ttkpOU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tp8asiNaYQAtJiDCGUoE3VreFej5Lrn5FwomBfPFxnAoD2uZz4MFRf/qwaGHUR2MSLM8Vgud4qbIk3wYm2ksi6o3Ko4D4lLbAfUrXBOdpU6lQDPzcVbntL7CGHvlbfubyJzABbSfB4/JLTaTYTBElwIt3ZrBhFV1irHSJSY9Dts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADH+EJLHKxqMO+ECA--.48164S2;
-	Fri, 18 Sep 2026 00:58:51 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: kuninori.morimoto.gx@renesas.com,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: audio-graph-card2: Fix use-after-free in audio_graph2_link_c2c()
-Date: Thu, 17 Sep 2026 16:58:51 +0000
-Message-Id: <20260917165851.2163548-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789664438; c=relaxed/simple;
+	bh=mNvMcqpI1Z7+mxUvi5cAUusbvx+X+P5nbmchktaqRAI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qdyg7VvN4mjgOyxV4LvEprJqml+YkFwpTbMZNUxKiQ/j9uttRehzHFEapCaZrLmmiVDCeF5iwhkqEOoLaAIEGwVrtF0A7VlYuSwJNwIds1qVzPFbXa4EvweY71vdKqSnr3NfsaoCnUGPyk4sG44YXUVPr/u65xXYTzHpcP6cmX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=0C8myMUz; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="0C8myMUz"
+Received: from francesco-nb (unknown [178.197.222.34])
+	by mail11.truemail.it (Postfix) with ESMTPA id D37761F81F;
+	Thu, 17 Sep 2026 19:00:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789664432;
+	bh=WJB4/M6PcBSGQIQbVbWuwScsUxZylXwtKq33s3tug4I=; h=From:To:Subject;
+	b=0C8myMUzp0uN4t4xtVEJhAB+zL2aVucmlEetjYJl7CCFZ/EWhET5kRM0tRRNKzXGa
+	 bWZ+527oiSifcyt85FaXsTo36iWpEFWBTX6begY0z3ll6RuEnBifhZiisgHfycEE7w
+	 gZ69oZPMUIIRSPTWTBtbD36rGvdXgCdcEEuONY/g5/yCLNvsaFc9lqK4Ne5rq448xS
+	 sF9V0qnJsaNIm+iqkqQooeVhrLW2PJjcy8IjnzJPqsu+tO2izztcriCAg/Ilobx30x
+	 4BTkYula8k3H3r749g4TXSeLoYOPXTYVr+HPQgS/8/7e04kcOZ1CVnRY0MncqOLMe1
+	 rIbLCoMfojxAg==
+Date: Thu, 17 Sep 2026 19:00:27 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Frank Li <Frank.Li@nxp.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Franz Schnyder <franz.schnyder@toradex.com>
+Subject: Re: [PATCH v2 3/7] arm64: dts: freescale: Add Lino iMX93
+Message-ID: <20260917170027.GA6655@francesco-nb>
+References: <20260911091952.96233-1-francesco@dolcini.it>
+ <20260911091952.96233-4-francesco@dolcini.it>
+ <aqQQjCW1xaGfPdss@SMW015318>
+ <20260914054214.GA19835@francesco-nb>
+ <aqgEfRl9INLZ-DWM@SMW015318>
+ <aqgGgxzqiIbF66DX@francesco-nb>
+ <20260917140836.GA119572@francesco-nb>
+ <aqwMib54h5ys5HZL@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADH+EJLHKxqMO+ECA--.48164S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrWkJryrGw4fur15XryrWFg_yoW8GF4kp3
-	Z5KFZ8JrWDWw4UuF40vrykJrZ0yanrC3yrGF1UJ3yqkanxt3yfZa4UZrn5uF4YkFs5uFWk
-	JryDtas7Jws8AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvC1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
-	87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
-	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IY
-	c2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJV
-	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
-	1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2Kf
-	nxnUUI43ZEXa7VUbUPEDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUNA2qr9LZdKAAAsk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqwMib54h5ys5HZL@SMW015318>
 
-of_graph_get_next_port() consumes the reference of its prev argument.
-port0 is only borrowed from the caller's iterator, so the call drops a
-reference the function does not own, and port0 is dereferenced again
-afterwards. Pass an extra reference, as graph_count_c2c() does, so the
-reference the callee consumes is the one taken here.
+Hello Frank,
 
-Fixes: 5f281c3e82b1 ("ASoC: audio-graph-card2: use __free(device_node) for device node")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- sound/soc/generic/audio-graph-card2.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On Thu, Sep 17, 2026 at 10:51:37AM -0500, Frank Li wrote:
+> On Thu, Sep 17, 2026 at 04:08:36PM +0200, Francesco Dolcini wrote:
+> > On Mon, Sep 14, 2026 at 04:36:51PM +0200, Francesco Dolcini wrote:
+> > > On Mon, Sep 14, 2026 at 09:28:13AM -0500, Frank Li wrote:
+> > > > On Mon, Sep 14, 2026 at 07:42:14AM +0200, Francesco Dolcini wrote:
+> > > > > On Fri, Sep 11, 2026 at 09:30:36AM -0500, Frank Li wrote:
+> > > > > > On Fri, Sep 11, 2026 at 11:19:46AM +0200, Francesco Dolcini wrote:
+> > > > > > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > > > > > >
+> > > > > > > Add support for the Lino iMX93 SoM, its Verdin adapter and development
+> > > > > > > carrier board.
+> > > > > > >
+> > > > > > > The SoM is available in two variants, with i.MX91 or i.MX93 SoC, using
+> > > > > > > the same PCB (the two chips are pin to pin compatible), to avoid
+> > > > > > > duplication create a common dtsi to share commonalities.
 
-diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index 0202ed0ee78e..268023d6f939 100644
---- a/sound/soc/generic/audio-graph-card2.c
-+++ b/sound/soc/generic/audio-graph-card2.c
-@@ -969,7 +969,8 @@ int audio_graph2_link_c2c(struct simple_util_priv *priv,
- 	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
- 	struct device_node *port0 = lnk;
- 	struct device_node *ports __free(device_node) = port_to_ports(port0);
--	struct device_node *port1 __free(device_node) = of_graph_get_next_port(ports, port0);
-+	struct device_node *port1 __free(device_node) =
-+		of_graph_get_next_port(ports, of_node_get(port0));
- 	u32 val = 0;
- 	int ret = -EINVAL;
- 
--- 
-2.34.1
+[...]
+
+> > > > > Is this blocking this from being picked up?
+> > > > > Is there any other concern on this series?
+> > >
+> > > Can you answer these two questions?
+> >
+> > Please let me know if it is a requirement to have the gpio line names
+> > wrapped with 4 elements per row or not. I am waiting on your answer on
+> > this.
+> 
+> Although it is not "must" requirement, I think it is easy to read by
+> packed 4 elements.
+
+Thanks for the reply. Given this comment and the disagreement we have on
+the read-ability I do not plan to change anything in this patch series.
+
+Let me know if any other issue is present or if anything changes on this
+specific regard.
+
+Thanks,
+Francesco
+
 
