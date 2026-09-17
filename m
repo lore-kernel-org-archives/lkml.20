@@ -1,47 +1,42 @@
-Received: from mxout4.routing.net (mxout4.routing.net [134.0.28.9])
+Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D264F647C;
-	Thu, 17 Sep 2026 12:36:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.0.28.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8514F796E;
+	Thu, 17 Sep 2026 12:36:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648593; cv=none; b=oJdlxw6MQJwRYJ0bWTHsbP4Y/UD0CTQ5PUCm0kHdn5lF/049W9iJGDbv8VD1dYXGnXkQyfi3m/1gLKuZm2JfT4+642I1MWzEvdT3cUFedsJBMTSslxky7XpSFn86+YcAFHdsCha52FnVNFna11zTrFWxX7FFZ933MBNS+q2lPkc=
+	t=1789648620; cv=none; b=XH82mnZ1vApU9qLSOwo5u9nfR3yqYmogU4OqBC3U/88EcY6XE9zKnoi9z2gwdzivii/67Orxg51414jH5F9Zc/NQeGpuA1HA5V5bszWh9vjU5squCwJxVcZvBqqmUEAgYfWl4kYI7wVTPCK2y/iuaGrRcEKKpENK1H6AZd+sOs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648593; c=relaxed/simple;
-	bh=vDFNqr6wrO5a5WZ86wEzQNtQWw7SNvsqbvr6B1fcDcI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pjTgibw+O9q5V/ILdWqZU65dcGQc+4N5pv/91tonKsqu1WctpJMrhoeywvsZA1rppJHX+X8ggKnS4RjrlYRzjcI7XPfms0Uug/+Z+ORPYIXlZOi01SYAqO7RVy/0MMtq0R68RpQxEcQ/J71NuzqzZ0im/czzal7OLCLDMu78IwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fw-web.de; spf=pass smtp.mailfrom=fw-web.de; dkim=pass (1024-bit key) header.d=mailerdienst.de header.i=@mailerdienst.de header.b=UN5CSL9u; arc=none smtp.client-ip=134.0.28.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fw-web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fw-web.de
+	s=arc-20240116; t=1789648620; c=relaxed/simple;
+	bh=iJbWXjGa09K85l+Faf54/Co/f4hPkBE63xcz9emaIYY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gtax+NjPhgo7FONtxB+3J4qvTJg7551BGX7q0hzT9PNkhqQWGGqHoidzmd13n48UG2qBgjX5edeyExhD5BnwXC9bsWbN9Ze43UvPsvFZ6BXqyQ+UhDOzmvJwlJzjM5dfvHh6IaQFE7lcU/gGfM85BgYpECQNwrIZGcpsAv4uVc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=HrmjLp8v; arc=none smtp.client-ip=115.124.28.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mailerdienst.de header.i=@mailerdienst.de header.b="UN5CSL9u"
-Received: from mxbulk.masterlogin.de (unknown [192.168.10.85])
-	by mxout4.routing.net (Postfix) with ESMTP id 93F65101037;
-	Thu, 17 Sep 2026 12:28:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailerdienst.de;
-	s=routing; t=1789648109;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=P65DvSEjF/5oOd6NhkSx9EnAFvz8DzcFYjVCih46KL8=;
-	b=UN5CSL9uGT6IFiFSyNo9bivUJyMMhrkAIrMIyNdsQ523FQAskZe80dAX/fZlBQADNyKmJx
-	YTtqUC6Ye2gkpY09VxAzfCEI6JgRZ3c5wZxp1j8/f73rPNuMrmB/EdWWiSwZoklIGnc02D
-	EXPeJ6zQ4tPH3d8Yt+RvChkKNoSVobE=
-Received: from frank-G5-5590 (fttx-pool-217.61.148.160.bambit.de [217.61.148.160])
-	by mxbulk.masterlogin.de (Postfix) with ESMTPSA id 72F131200CB;
-	Thu, 17 Sep 2026 12:28:29 +0000 (UTC)
-From: Frank Wunderlich <linux@fw-web.de>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Frank Wunderlich <frank-w@public-files.de>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] gpiolib: use of_node_name if line-name is missing
-Date: Thu, 17 Sep 2026 14:28:13 +0200
-Message-ID: <20260917122815.88601-1-linux@fw-web.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="HrmjLp8v"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789648595; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=c3MkuaBbDHUpaO4lzVpAovoUtzejyJ13kjQbhZJvXYQ=;
+	b=HrmjLp8v8Imfx6Q4/REYFWyDrjTTtumYeo135RA/BS8m564/CkXyWYM5fw49HlCv5010NC9Qd12VrP63uDz47yzoUxi6r8pAd1BQdKXdV+2zKKhz3nEAFysT7z9MOxT64cNrZ7InXY3xqwp0v6clnLcwhtKmZz6SYTTuPzW35nQ=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08340329|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0165461-0.00308746-0.980366;FP=12533628751979366192|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jFtbaHJ_1789648273;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jFtbaHJ_1789648273 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 17 Sep 2026 20:31:14 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: gregkh@linuxfoundation.org
+Cc: michal.simek@amd.com,
+	linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	liuwb@xiaopeng.com,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH] usb: gadget: udc-xilinx: clamp bytes_to_rx in xudc_ep0_out()
+Date: Thu, 17 Sep 2026 20:31:11 +0800
+Message-ID: <20260917123111.3757737-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,38 +45,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Frank Wunderlich <frank-w@public-files.de>
+xudc_ep0_out() reads the received byte count from a hardware register
+and adds it to req->usb_req.actual without checking whether it exceeds
+the remaining buffer space (req->usb_req.length - req->usb_req.actual).
+The same unclamped count is then passed to memcpy_toio(), which can
+write past the end of the request buffer.
 
-Until v7.0, GPIO hogs inherited the DT node name when no line-name
-property was specified. This was implemented as a fallback in
-of_parse_own_gpio().
+A malicious USB host can send more data than the gadget function
+expects on a control OUT transfer, triggering a heap buffer overflow.
 
-Commit d1d564ec4992 ("gpio: move hogs into GPIO core") moved hog parsing
-into the GPIO core and removed this fallback.
+Note that Haofeng Li's recent patch for the non-EP0 path
+(xudc_read_fifo) explicitly excludes EP0, so this code path was not
+covered by that fix.
 
-Consequently, GPIO hogs without a line-name property are now displayed
-with a ? in /sys/kernel/debug/gpio. Restore the old fallback.
+Clamp bytes_to_rx to the remaining buffer space before accumulating it.
 
-Fixes: d1d564ec4992 ("gpio: move hogs into GPIO core")
-Signed-off-by: Frank Wunderlich <frank-w@public-files.de>
+Fixes: 1f7b0c6d8e34 ("usb: gadget: udc-xilinx: Add Software data structures and APIs for xilinx udc")
+Cc: stable@vger.kernel.org
+Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- drivers/gpio/gpiolib.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/usb/gadget/udc/udc-xilinx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-index ef8ccaf17c9c..acf41cfbcf10 100644
---- a/drivers/gpio/gpiolib.c
-+++ b/drivers/gpio/gpiolib.c
-@@ -1013,6 +1013,9 @@ int gpiochip_add_hog(struct gpio_chip *gc, struct fwnode_handle *fwnode)
+diff --git a/drivers/usb/gadget/udc/udc-xilinx.c b/drivers/usb/gadget/udc/udc-xilinx.c
+index bef06fe75..77f06076e 100644
+--- a/drivers/usb/gadget/udc/udc-xilinx.c
++++ b/drivers/usb/gadget/udc/udc-xilinx.c
+@@ -1842,6 +1842,8 @@ static void xudc_ep0_out(struct xusb_udc *udc)
+ 		ep0rambase = (u8 __force *) (udc->addr +
+ 			     (ep0->rambase << 2));
+ 		buffer = req->usb_req.buf + req->usb_req.actual;
++		if (bytes_to_rx > req->usb_req.length - req->usb_req.actual)
++			bytes_to_rx = req->usb_req.length - req->usb_req.actual;
+ 		req->usb_req.actual = req->usb_req.actual + bytes_to_rx;
+ 		memcpy_toio((void __iomem *)buffer, ep0rambase, bytes_to_rx);
  
- 	fwnode_property_read_string(fwnode, "line-name", &name);
- 
-+	if (!name && is_of_node(fwnode))
-+		name = to_of_node(fwnode)->name;
-+
- 	for (unsigned int i = 0; i < num_hogs; i++) {
- 		if (is_of_node(fwnode)) {
- 			/*
 -- 
-2.53.0
+2.50.1
 
