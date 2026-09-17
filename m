@@ -1,69 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC5F58B6CD;
-	Thu, 17 Sep 2026 14:53:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C984DE737
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:53:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789656798; cv=none; b=Ys8GXOEG5/nddRDncKHOQC5BTn7Ytvf/jpGG6rDgLJC+sEaL32vUUHRUmkXM/u27b9IFqA1KtG3jdf/vyIfxwLPRIuMPQaO6fa5gs/gb8fESfeqU4OiQm3eEA+BKWnyMOFWNV/DoP0Z3O/HeOJgVJkwCTTT2h2F+o8nd/5YcBoQ=
+	t=1789656836; cv=none; b=mSObrCYILkvq13ilbd1V5cqzrJiqK18HnsR+rs2hool0CN5I4WfRAq9Q9KOpW1uyai3LciZrtFrYgpsKI7WNLyTwT3j6tqcLc9RasYEeBBRFqgREGjXQN5VgvHYPmKWRL0B1BqDzjZ767eDgT3fOg/zLVxqQL+gyw65pyRajHxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789656798; c=relaxed/simple;
-	bh=d8RdIhOHoZdIBdAQFG8udmKfkOZ+UIY9nPFEEMKFz0o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vBuj9OqCBdcU1/m2QR8Hsfk9NLcL1JaHPezEQZeH+dT/gYdqUOcGs6gqEfQPbLLK6iSX5Jbff3kpUCGUHzKi73cbrKPI1DN+vbSNYcVjtKg6xwHUc4ps4oxnesezA1H+62vcCv+8eCJweFuRMokNmy2XhMrqBtQwt8oifZycdHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SxNbbx+N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789656836; c=relaxed/simple;
+	bh=7ohNtD5OcVop+vmR21aODVLWrXHyx4prPieiBlgesvQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eJ7ZBJ89ND7bI6hRjR/1JUIcM5pm3TH/1J2+udK3TSjW/8YUOHLGTnogI+FCWpky9uNa3UVq2CKrWqDiNWhV40Wdd6wJYEZIM11UDsVq+QHEpo9xMwMcc1sQTBxvve48e/FdsAkrm7c5oyZw7yMVuVMNLJRMmlRP1CKZ7lf4WcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n7KPNBt8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SxNbbx+N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D01BA1F000FF;
-	Thu, 17 Sep 2026 14:53:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789656788;
-	bh=7Vy5EvpWPgBEeIJ3xF/KQS+oApkjxSsfLwoKOwx0i3w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SxNbbx+NRNTcafU63eSB8LK9pkNbX45AzITypEU5CPuoGxdYDWOen0V4I0FDsbzT0
-	 Wjngn9zdSD9GB+iVkdWqfLITem9gzEJzAnBOPrgVGGg4fAsoCmuAwl6pCKoMLcYygJ
-	 Pz0GCq8RnzEtcxO6En/TJdNdOfvPMCEeLW1SlVLA=
-Date: Thu, 17 Sep 2026 15:51:12 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Adarsh Das <adarshdas950@gmail.com>
-Cc: rafael@kernel.org, dakr@kernel.org, driver-core@lists.linux.dev,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
-Subject: Re: [PATCH] kobject: fix uevent socket use-after-free on net
- namespace delete
-Message-ID: <2026091756-widen-doozy-399c@gregkh>
-References: <20260917144206.85836-1-adarshdas950@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7KPNBt8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 869C61F000FF;
+	Thu, 17 Sep 2026 14:53:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789656814;
+	bh=Zme1/j//8hVtp+4/QWWa3g4/McE5mzwvHjuUv+HdYe0=;
+	h=From:To:Cc:Subject:Date;
+	b=n7KPNBt8BssW6FjCsgT4HnAFxsE7sITGXB31GVgcqwajO+DfTErWNwVJSJy94EzC0
+	 RJAmRRdTtYMIIT2Ddf2S3Xn6EmDVd6Sl2Ql13BAnu8MXPj3I7AoxxAa/gcQsDVEKfm
+	 XMzU93nnERkAs83o0xTW8Cb0fBWS9iVaFHcW4KyauigE9RZ4Mae5XuAxVZA4cfUucx
+	 M4ZsWx9aUsYLXF6SrF3n3FKYIRFZ0vXGwXLMDoRysrHBMInW/tl5UbrVnZ66pknus0
+	 oDFTnMVy7zp7/GlyWubCnlaTsQieYC36pJTQgtQA4IfghmGaOKqnRUK0sqL+d+btV8
+	 +1s9Kec9+Ggbg==
+From: "Richard Weinberger (sigma star gmbh)" <rw@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: linux-mtd@lists.infradead.org,
+	vigneshr@ti.com,
+	miquel.raynal@bootlin.com,
+	Richard Weinberger <richard@nod.at>
+Subject: [PATCH] mtd: Call get_wunit() on the master partition
+Date: Thu, 17 Sep 2026 16:53:29 +0200
+Message-ID: <20260917145329.380628-1-rw@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917144206.85836-1-adarshdas950@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 08:12:06PM +0530, Adarsh Das wrote:
-> When a network namespace is deleted, we free its uevent socket. But
-> sometimes a device in that namespace is still being removed and tries to
-> send a uevent through that socket. The socket is already freed, so KASAN
-> reports a use-after-free.
-> 
-> This patch attempts the fix of taking a lock around both the send path
-> and the free path, and clear the pointer before freeing so nobody uses
-> it after free.
-> 
-> Reported-by: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
-> Link: https://syzkaller.appspot.com/bug?extid=4393dfdddf166f2de2b0
-> Signed-off-by: Adarsh Das <adarshdas950@gmail.com>
-> ---
->  lib/kobject_uevent.c | 24 +++++++++++++++++-------
->  1 file changed, 17 insertions(+), 7 deletions(-)
+From: Richard Weinberger <richard@nod.at>
 
-Did you forget an Assisted-by: tag?
+The code checks whether master has get_wunit() but still calls
+it on the child. Fix this.
 
-How was this tested?
+Fixes: 46b5889cc2c5 ("mtd: implement proper partition handling")
+Signed-off-by: Richard Weinberger <richard@nod.at>
+---
+ drivers/mtd/mtdcore.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-thanks,
+diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+index 16629382a787..82b1e6392b16 100644
+--- a/drivers/mtd/mtdcore.c
++++ b/drivers/mtd/mtdcore.c
+@@ -563,7 +563,7 @@ int mtd_pairing_info_to_wunit(struct mtd_info *mtd,
+ 		return -EINVAL;
+ 
+ 	if (master->pairing && master->pairing->get_wunit)
+-		return mtd->pairing->get_wunit(master, info);
++		return master->pairing->get_wunit(master, info);
+ 
+ 	return info->pair;
+ }
+-- 
+2.55.0
 
-greg k-h
