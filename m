@@ -1,32 +1,35 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFFC455633;
-	Thu, 17 Sep 2026 14:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C94F58FD1D;
+	Thu, 17 Sep 2026 14:22:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654892; cv=none; b=JcniWCbeSZXt1+Sm+irv/9Sw+r1IeWGnoPYaoay96RbReB5qf9qHdVbFihMO+yfKshT2y+idLWkUdvq+uXHJnW+tRO4lIWCfvkTC4p1g929oNGIMW9ZSgp3fdirGo1zru4tECUYwSpqk8GnlafedCaVIFs8DNEn0iiivhalsGw8=
+	t=1789654926; cv=none; b=e4sg/gtnDobBXI0zP0sWMpbeNehyOIH6/ZCHyYoNYMEXQh553KoVZH4pReO+UzqTsjWB9cFfPeBldiwI3MKH+tdYLrMMENMCiFW5Kw8aN3sWWg0WMTY7Bb83bbbH6bAyoepdkz1OQBs28rblyTsKeMwz6hvWITaxATiKwQgXrxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654892; c=relaxed/simple;
-	bh=3fBpd0e6y6DTTmL2ORjhRIfxlCsibK2j4Huiq4VjuKg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=H/iskBfDyBtTGWMpRCkqhVNJqL3FORBll0FQozjBnNt5b8gYdul6du5B4ag3srIl0MyT+ZFgPUG9LfxSjIeB6g2LGiDiBK3emHfYmTQvhGZ4ujNiLNJygAorQ7EJUHbIJGP/aeU1mhVAo1egR9uE72f0XfPr+g9254MXPpXpztk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAXgDpn96tq+1OCCA--.2271S2;
-	Thu, 17 Sep 2026 22:21:27 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: linux-kernel@vger.kernel.org
-Cc: linux-pm@vger.kernel.org,
-	mike.looijmans@topic.nl,
-	sre@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] power: supply: ltc2941: Fix of_node reference leak in ltc294x_i2c_probe()
-Date: Thu, 17 Sep 2026 14:21:27 +0000
-Message-Id: <20260917142127.2156568-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789654926; c=relaxed/simple;
+	bh=ip1flpcRIjMldJWNOit5YtRQaHkCJwO5mD9/2P4s+HY=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=s98rA5vS7mOY1Zsbfm9Z6Kctix84Hb5SXMaRWItmOkfBZ2ymRQh/seK6Ea4JhhQ3tKLb1jfBP5XvIEYyN5CezO+p5Kv3Pck0yVQovRUFXzEm+WtteTC6Lp+GMlsLeZVScY4rM745WlpxnrcdruD9YNTpfJMsfzrbQTiajDrfElQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=luOLLHi8; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="luOLLHi8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03DDD1F000FF;
+	Thu, 17 Sep 2026 14:22:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789654925;
+	bh=Q+kB1vPD/x4kkH8oa2bN4dsg1HODvpdInHMMuRK6EA4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=luOLLHi8PurtGd4Kz5EWPBP9DpEEYaUdmt2vpFRYr5KYYx37dVvdkUh0xfyB7RxuC
+	 +vrfA4ZC1nkkUsypPhGk/94CT63MQYp2GTk8IZSTMjAHREbxHKIMzJdYox9PPA0+nh
+	 WjakmP0oHn2Rle1DedIZbEP+WTZTD2A7SktdYjqpDZuI73f3g/dx/P+Bj4A2ymcERp
+	 OWwxVq0blM9Nul2lrfynRCwGMlDbj5BdjqigwT4tzPTKpsSUN4KTAmW1Z7vHw+1IrO
+	 bzF8LBEtQ+fk9VE9TsmmBA/V0aIF0r6OjZmsNuawkGQus429crnhtiCCdoRCthwoBc
+	 Z511TiEXj9mXw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A91381196A;
+	Thu, 17 Sep 2026 14:20:59 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,66 +37,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXgDpn96tq+1OCCA--.2271S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF1DZFy3KFWrWw1Duw17ZFb_yoW8AryfpF
-	45CFWayFy5W3WxC3y5AF1UXa4fKa1FyryYyrZrt3s09F1YqFZ8trykXFZ09FWDGrWrCayY
-	qa1Dtay7Xr45urDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUB0b7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4j6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
-	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
-	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aVCY1x
-	0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxUwwIDUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qr9LYGlQAAsD
+Subject: Re: [PATCH net-next v2] netlink: specs: fix duplicate if/then keys in
+ netlink-raw schema
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178965485830.3670790.9144403134041634623.git-patchwork-notify@kernel.org>
+Date: Thu, 17 Sep 2026 14:20:58 +0000
+References: <20260914-ynl-robustness-v2-1-c6125003b21e@gmail.com>
+In-Reply-To: <20260914-ynl-robustness-v2-1-c6125003b21e@gmail.com>
+To: Taylor Bates <tmbates12@gmail.com>
+Cc: donald.hunter@gmail.com, kuba@kernel.org, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org, jiri@resnulli.us,
+ sdf@fomichev.me, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-ltc294x_i2c_probe() takes a reference on the device node with
-of_node_get(), but never drops it, so the reference leaks on every
-return path, including the success path.
+Hello:
 
-The node is only used to read the battery properties and to set
-info->supply_desc.name, so release it after its last use and also on
-the lltc,resistor-sense error path.
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Fixes: 085bc24d1553 ("Add LTC2941/LTC2943 Battery Gauge Driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/power/supply/ltc2941-battery-gauge.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+On Mon, 14 Sep 2026 21:53:15 -0400 you wrote:
+> Currently netlink-raw.yaml contains two if keys and two then keys in a
+> single mapping that enforces a "len" for "pad" members and a "len" or
+> "struct" for binary members.
+> 
+> During validation PyYAML resolves duplicate keys last-wins, so only the
+> binary rule survives. Pad has not been validated since commit
+> bf08f32c8ced ("tools/net/ynl: Add support for nested structs") added
+> the second if/then pair in January 2024.
+> 
+> [...]
 
-diff --git a/drivers/power/supply/ltc2941-battery-gauge.c b/drivers/power/supply/ltc2941-battery-gauge.c
-index a1ddc4b060ce..bf0b268b10bf 100644
---- a/drivers/power/supply/ltc2941-battery-gauge.c
-+++ b/drivers/power/supply/ltc2941-battery-gauge.c
-@@ -464,9 +464,11 @@ static int ltc294x_i2c_probe(struct i2c_client *client)
- 	/* r_sense can be negative, when sense+ is connected to the battery
- 	 * instead of the sense-. This results in reversed measurements. */
- 	ret = of_property_read_u32(np, "lltc,resistor-sense", &r_sense);
--	if (ret < 0)
-+	if (ret < 0) {
-+		of_node_put(np);
- 		return dev_err_probe(&client->dev, ret,
- 			"Could not find lltc,resistor-sense in devicetree\n");
-+	}
- 	info->r_sense = r_sense;
- 
- 	ret = of_property_read_u32(np, "lltc,prescaler-exponent",
-@@ -477,6 +479,8 @@ static int ltc294x_i2c_probe(struct i2c_client *client)
- 		prescaler_exp = LTC2941_MAX_PRESCALER_EXP;
- 	}
- 
-+	of_node_put(np);
-+
- 	if (info->id == LTC2943_ID) {
- 		if (prescaler_exp > LTC2943_MAX_PRESCALER_EXP)
- 			prescaler_exp = LTC2943_MAX_PRESCALER_EXP;
+Here is the summary with links:
+  - [net-next,v2] netlink: specs: fix duplicate if/then keys in netlink-raw schema
+    https://git.kernel.org/netdev/net-next/c/5ccdfb2c3203
+
+You are awesome, thank you!
 -- 
-2.34.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
