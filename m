@@ -1,171 +1,282 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B75639B4A5
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F100F502545;
+	Thu, 17 Sep 2026 16:30:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662636; cv=none; b=FKnxfpzLFNYGxyzTty+d+CTrHD/lJKRYp7IK6/qckvlt30e5lrJ8mTzpyQbx/d+UyIOr+uZpneD5uOF0eGeKItCJTAGyEW42bKYFf2f3fmYPGaEI3DL6rMimbHGcCP9a7liWYtAzSisiriD/WbEKh3ifVDgCQM6KrgkLYjtfNzE=
+	t=1789662640; cv=none; b=UV3TX25DeJCh8LAnTuYoLZrY367APV9F/6IyyglWEPn6lBOAH6eKpxJ5TNJyhzLcWHjeStz4e7YuZzrP+2+tQsH//LJpCqAClFwMsS1O/PATvRiIm8KlvvlC5fqny1NOgJOwIjC8otZOln4d2NIRy9llkeYpWAYgKBEQUyl52/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662636; c=relaxed/simple;
-	bh=1uKQgdK2ZQ67pQ69htT9iF0krrGap0M3PIVWMzu37pA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WSK1RhMguDAqYuzyNv5WQY4/eWpmVwWB3amnR37tBld9SuU4fThR7X+j01wCK1syD91zOIRRoAJKtt1WZFKXjoEJbpMuBL3CgnQKnXCX0fpY+XRW0VIYLaLLpXp0jd3lLlJXlUib/AJK4k8Yk42q8GbOgAdi/rYFHodsSfJo0S0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aqMWM1TP; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789662640; c=relaxed/simple;
+	bh=nMd3B7YARPUXIbfbJDzc6m3UAcco9vqw6A7IL7GS27c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=To0ZaauNpJ1HMXCJIRCNJXJStNMqhsr5TT203zA0Lj0Qjv8OPtK1PaKpUzSa5X5LOqoZu28wcgrzcuG2Hd30WWPovX0cJ9UuNokC7r+2emjuyt2P7wrsclHrB5tuiGa2OfHuq4qJfX3BVPf1btt7aq1Yg05hyFlzZetVlMlxMp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CgeGrjeB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aqMWM1TP"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so13871625e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:30:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789662632; x=1790267432; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=epvtes+QTuG/8pdcW3OWOMHUppdH8T7oJtRmUkiI2+8=;
-        b=aqMWM1TPIyqazhICTpRfrGH6VWZ43iEOepqgEHCW0GmOJ7CnvhBlmFza3iajce7mfv
-         MkURq553STUfSpkKMNPKGoNnlv6EGe3YgvUozgo+ckV/1SvEAJD7HLroDrGiVx6+Enq4
-         1DVWly2htn88ghQ+EBELu+a1SicSmabI949ZpY/io215oeXuyTTmHPwrzl3aqIcv4NvL
-         EtoIOK3zfhHd9Ur0ZU6dDnCqR7WC+GsWNQknTFV1OHwpnK9idNPq2kQvW2sAd7t+Q0P0
-         JWtTT5JKZF6oiBsmdp10TQAMK1dPNgKn0NcJckoLJL9ezL/ugL6RVhkg4adoF10pYz53
-         kTtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789662632; x=1790267432;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=epvtes+QTuG/8pdcW3OWOMHUppdH8T7oJtRmUkiI2+8=;
-        b=YZgCNMZSqgrHrWhuCK7ODPGGAOr0BvBxHFCuxgCzmwbyg90wFtZmEaVMKQUSEjgZxT
-         mt7UH/T7H1la0tEl1xtjQFtXJ9nkFr8PZ7C4uWwN07c7dmdPm8oEgfOkfyy6Ui96P6JE
-         kzjlGtpurNGbV92X/MzQI7wvbBCpBFf8E/hqkpJH0Xu9vPuCGdtLo9ElLaWEQb5EgJdx
-         RWc7l+iqJA2NIMVY7qf9mtoBT0WlBFu6Rdoc5gBYvGojkk9lkNFbMiyurccX4qrnUVZc
-         ayInsQSH7S3VJVNFCN7YvMNqVgKoKPeO2bCWYrpaEQSY/WcuOvHN9hLnIhaYEihUBajh
-         vmYg==
-X-Forwarded-Encrypted: i=1; AKwUvBwsXXvGDcacVffWP3PXjfDpUvmatp1Jdy7zqjOF6r9KZ/iuXsP5xXwYUAS+aiosN2Hi7Jxfb8UaP24pWPA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5h314a9YxpFlFEvEZRoZc/5r6RypTViY7MG22vkxE2R0X8FTQ
-	J6NErhwq0MB7oLKAtDvrgn/5CaSA3xSqnDPO2VCbMu0LWlINJfVDJe97
-X-Gm-Gg: AYBFou2FTIOzf0u0Yedxlk3JDGf2a37XRpBsT6MhVtgwNHc5ZdUhYxm1GtRoySPVzHL
-	DfZgcnch2lkpByK6IsKrKABWXuej+BtLjFglyanlH4LmT93NNarZgmzH7P5NlbmGg4pYyHKSfND
-	GZahBSn+EBBAOlO7NFefIA9pr0iTsJX6dXrGDQtzNI4Ho5ssQEM8wPY7T5tGNfVbNxHBLsYmnoT
-	35KeKoEXD18i3e74HuNvuQItd7cN7CKLjqvZLOF3fy+sfZHXec9ZQRoRSuvb89KqD0L9bYZ2xOK
-	sqZ2l/ky2fb+WtZTweYOg9mZxC07IUGd8Y1bMaZGufuXiOVlC0jNzqSPMApShHBGt/lb3Vw3ajw
-	f9oWKTpYvyB3VnLdkWs7Tv13bq6DpVjU8r9QozY5uW/XPTXF3eqa3YatH/61uA1awSrLirnUbWt
-	QnOj5/f4E0Zr54V5ZKoRyepC31v+gp6M+eDEyIYdRx2wtFGCUcuiNRDAmqf3zGTpE5ITnJvJWb0
-	THrALHPE7GpzSmU1fxC
-X-Received: by 2002:a05:600c:e549:10b0:49e:745d:c317 with SMTP id 5b1f17b1804b1-49f1d516934mr56467995e9.12.1789662632070;
-        Thu, 17 Sep 2026 09:30:32 -0700 (PDT)
-Received: from localhost.localdomain ([72.255.58.127])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbf515cfdsm77508595e9.11.2026.09.17.09.30.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 09:30:31 -0700 (PDT)
-From: Mahad Ibrahim <mahad.ibrahim.dev@gmail.com>
-To: Keguang Zhang <keguang.zhang@gmail.com>,
-	Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>,
-	Frank Li <Frank.li@oss.nxp.com>,
-	linux-mips@vger.kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mahad Ibrahim <mahad.ibrahim.dev@gmail.com>
-Subject: [PATCH v3] dmaengine: loongson1-apb-dma: avoid using iterator variable after list_for_each_entry()
-Date: Thu, 17 Sep 2026 16:30:25 +0000
-Message-ID: <20260917163025.7171-1-mahad.ibrahim.dev@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CgeGrjeB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF1D1F00893;
+	Thu, 17 Sep 2026 16:30:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789662638;
+	bh=ImRrf8Uis4VeyDKpz9HIiHrVsyekRqVAuTCVKg6Blzg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=CgeGrjeBYmhKGotgIUun9axeK/dNVfBXSzmtlshBYV+wBy3A1YCYGxLNnaJ6AR/aH
+	 zrsKDDlxEJCZprBbBAU7t6ymn5Mpi4VqWku8K/u0pLpLVD1BmNhwPtet7NcBHg6JOm
+	 2kHufx0ZreU0q2o4SI4S0LfhAK3pRQr4HdFdNpKPLpACNA8NW0QmJhPaKRQ+9tZqNd
+	 ysF6WgzqVf7aK5iwfSDYpEgj8ymuJHJjiJVthF93k427hNRKrXka1T2gcB6alnCkW/
+	 0SW6GYu8RDgilJA8AN+MUvnaUNLilJB0GS6DHv4SowpmKmlxb+LPmPJLfkmCTp8r7g
+	 7HPDZ7Utyv3Yw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:22:24 +0100
+Subject: [PATCH v3 15/40] mm/vma: add vma[_flags]_is_kernel_owned()
+ predicates
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-15-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5409; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=nMd3B7YARPUXIbfbJDzc6m3UAcco9vqw6A7IL7GS27c=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB9QONtu/kXVi7PDt/2g89NrD4OPLJ+YlpqWUxs19
+ 1LSPcvnHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZhI2gpGhi0HtkmeOZzPYbe0
+ oCPyny7fLT+bjdf3fRW8zSnebmM7w5Thf5DoBNGchodfxH3WXZn14qnkejXRrQX+akVf3jzst1d
+ ZywoA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-ls1x_dma_tx_status() locates the descriptor actively being processed by
-walking the LLI list and comparing the hardware reported next descriptor
-pointer against each element's next-descriptor pointer.
+Rather than referring to VMA flags with uncertain meaning, add a new
+predicate that explicitly describes what possession of the VMA_PFNMAP_BIT
+or VMA_MIXEDMAP_BIT flags mean, and then refer to that function for
+determining VMA mergeability.
 
-A list_for_each_entry macro is used in the comparison phase, which at
-the end of the loop leaves the lli pointer at the currently executing LLI.
-However this also subsequently runs for a non-match lli, in which it
-points at the head. This causes a type confusion bug which treats the
-head, which is a ls1x_dma_desc, as a ls1x_dma_lli object. Additionally it
-goes forwards and prints garbage via the dev_dbg.
+Either flag means the contents of the mapping are owned by the kernel,
+usually a driver, rather than by the core mm: the memory may be MMIO,
+kernel-allocated pages or even ordinary pages the driver maps itself, but
+the core must not populate, reclaim, migrate, copy-on-write or merge the
+range on its own initiative.
 
-Fix the type confusion bug by only allowing matched LLI descriptor chains
-to print the current LLI and residue calculation, as failing to match
-should be treated as an unexpected condition.
+We initially also include VMA_IO_BIT here, as by implication, these must be
+kernel-owned. (mlock() also sets VMA_IO_BIT transiently on ordinary VMAs
+while locking them, which is addressed later in this series.)
 
-Found by the following Coccinelle check:
+However the intent is to in future remove this, as no mapping should be
+marked as an I/O mapping without also being marked with VMA_PFNMAP_BIT.
 
-  scripts/coccinelle/iterators/use_after_iter.cocci
+This forms the basis of further work intended to improve how we express VMA
+properties such as this.
 
-  drivers/dma/loongson/loongson1-apb-dma.c:461:6-9: ERROR: invalid
-  reference to the index variable of the iterator on line 450
+Also update the VMA userland tests to reflect the change.
 
-Compile test only; Hardware testing by Keguang Zhang.
+No functional change intended.
 
-Signed-off-by: Mahad Ibrahim <mahad.ibrahim.dev@gmail.com>
-Reviewed-by: Keguang Zhang <keguang.zhang@gmail.com>
-Tested-by: Keguang Zhang <keguang.zhang@gmail.com> # on LS1B & LS1C
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
+ include/linux/mm.h              | 56 ++++++++++++++++++++++++++++++++++++++++-
+ tools/testing/vma/include/dup.h | 29 ++++++++++++++++++++-
+ 2 files changed, 83 insertions(+), 2 deletions(-)
 
-v2:
-- encapsulate residue calculation and dev_dbg inside the
-  list_for_each_entry() macro. Treat non-matching LLI as an unexpected
-  case.
-- link: https://lore.kernel.org/all/20260729143247.6111-1-mahad.ibrahim.dev@gmail.com/
-
-
-v3:
-- Collect tags from Keguang Zhang.
-- Repost patch in a new thread.
-- Change chan2dev to the newer dmaengine_chan_dev.
-
-
- drivers/dma/loongson/loongson1-apb-dma.c | 27 ++++++++++++++----------
- 1 file changed, 16 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/dma/loongson/loongson1-apb-dma.c b/drivers/dma/loongson/loongson1-apb-dma.c
-index 46b4bfef45e2..e62ab26c8327 100644
---- a/drivers/dma/loongson/loongson1-apb-dma.c
-+++ b/drivers/dma/loongson/loongson1-apb-dma.c
-@@ -441,22 +441,27 @@ static enum dma_status ls1x_dma_tx_status(struct dma_chan *dchan,
- 
- 			/* locate the current lli */
- 			next_phys = chan->curr_lli->hw[LS1X_DMADESC_NEXT];
--			list_for_each_entry(lli, &desc->lli_list, node)
--				if (lli->hw[LS1X_DMADESC_NEXT] == next_phys)
--					break;
-+			list_for_each_entry(lli, &desc->lli_list, node) {
-+				if (lli->hw[LS1X_DMADESC_NEXT] != next_phys)
-+					continue;
- 
--			dev_dbg(dmaengine_chan_dev(dchan), "current lli_phys=%pad",
--				&lli->phys);
-+				dev_dbg(dmaengine_chan_dev(dchan), "current lli_phys=%pad\n",
-+					&lli->phys);
- 
--			/* count the residues */
--			list_for_each_entry_from(lli, &desc->lli_list, node)
--				bytes += lli->hw[LS1X_DMADESC_LENGTH] *
--					 chan->bus_width;
-+				/* count the residues */
-+				list_for_each_entry_from(lli, &desc->lli_list, node)
-+					bytes += lli->hw[LS1X_DMADESC_LENGTH] *
-+						 chan->bus_width;
-+
-+				dma_set_residue(state, bytes);
-+				return status;
-+			}
-+
-+			dev_warn(dmaengine_chan_dev(dchan),
-+				 "unable to locate current lli.\n");
- 		}
- 	}
- 
--	dma_set_residue(state, bytes);
--
- 	return status;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 2a92193ac6a5..cab29d6e15c1 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1612,6 +1612,44 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+ 	return is_shared_maywrite(&vma->flags);
  }
  
++/**
++ * vma_flags_is_kernel_owned() - Do the specified VMA flags indicate that the
++ * contents of the VMA are owned by the kernel rather than the core mm?
++ * @flags: The VMA flags to test.
++ *
++ * A kernel-owned mapping is one whose contents are established and controlled
++ * by the kernel, typically a driver, rather than by the core mm's fault and
++ * rmap machinery.
++ *
++ * The mapping may be memory-mapped I/O, kernel-allocated pages or ordinary
++ * pages the owner has chosen to map itself (shmem via a PFN map, for instance).
++ *
++ * In all cases the core mm must not populate, reclaim, migrate, copy-on-write
++ * or merge it of its own accord.
++ *
++ * Pages mapped this way are not necessarily reference counted or map counted.
++ *
++ * Returns: true if the flags indicate a kernel-owned mapping.
++ */
++static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
++{
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
++				  VMA_IO_BIT);
++}
++
++/**
++ * vma_is_kernel_owned() - Are the contents of @vma owned by the kernel?
++ * @vma: The VMA to test.
++ *
++ * See vma_flags_is_kernel_owned() for a description of this property.
++ *
++ * Returns: true if the VMA is kernel-owned.
++ */
++static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_kernel_owned(&vma->flags);
++}
++
+ /**
+  * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
+  * merged with another?
+@@ -1620,7 +1658,23 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+  */
+ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ {
+-	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
++	/*
++	 * VMA merging assumes that a VMA's flags and fields completely describe
++	 * its state.
++	 *
++	 * However, kernel-owned mappings may have established state upon mapping
++	 * not embodied in any attribute of the VMA.
++	 *
++	 * Additionally, private (CoW) PFN maps encode the source PFN of the
++	 * range in vma->vm_pgoff, which may otherwise cause spurious merges.
++	 */
++	if (vma_flags_is_kernel_owned(flags))
++		return false;
++	/* VMA explicitly marked as being unmergeable. */
++	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++		return false;
++
++	return true;
+ }
+ 
+ /**
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 1d5f6b3cbd21..d09148ce2305 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1665,7 +1665,34 @@ static inline bool file_is_dev_zero(const struct file *file)
+ 	return file && file->f_op == &zero_fops;
+ }
+ 
++static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
++{
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
++				  VMA_IO_BIT);
++}
++
++static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_kernel_owned(&vma->flags);
++}
++
+ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ {
+-	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
++	/*
++	 * VMA merging assumes that a VMA's flags and fields completely describe
++	 * its state.
++	 *
++	 * However, kernel-owned mappings may have established state upon mapping
++	 * not embodied in any attribute of the VMA.
++	 *
++	 * Additionally, private (CoW) PFN maps encode the source PFN of the
++	 * range in vma->vm_pgoff, which may otherwise cause spurious merges.
++	 */
++	if (vma_flags_is_kernel_owned(flags))
++		return false;
++	/* VMA explicitly marked as being unmergeable. */
++	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++		return false;
++
++	return true;
+ }
+
 -- 
-2.54.0
+2.55.0
 
