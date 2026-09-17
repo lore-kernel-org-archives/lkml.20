@@ -1,156 +1,165 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6DF85013DE
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D884E324F;
+	Thu, 17 Sep 2026 15:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658920; cv=none; b=WG9hk6PgW9cWeG8e/i76aMa30hdqEsaKPFv59+tUNtZNqYbNB/sjxtST02rZQ4r6h3MBcjP59XelLeHSbGc3EmutX0OwHCVEQR1F9nMy3P0X+q04Mc+LTX1k36RHxTh/edyVjkZ0sH7htYeFu/4K8MvOBL/7/nq9COnvS9zldrM=
+	t=1789658930; cv=none; b=gdAqqJsFCgqctLLtHcVACDA1yBsXb36Ovjj0n950nzE1Xv/VcWU0a4Wi1Hv9IFo4IT9qdblNC61uhceFMoXlthlA7DQ+Fr2+9TbCVXIAu7Gu4CiT3ghhpb1YJmka5VG9ia0VNrcSJ1QC2eV14jphNi2F3gLLyq31/KAqDZ+2UxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658920; c=relaxed/simple;
-	bh=qwGaYA5J8cQoMsVQMVZn6rsA2VlKVu1tTczIgrpjkX4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WCCdAwkwWc8gPYy0VRWsPCZmWA5dF+8pTd7VoRdBqsyMKNYghd+QJ8eeb9qWvg6y6ZWHbjYCqO7NsIN5avP5EkPgoox7pBXmIoK621cd8Y7JXxSqm2ZNj3FnIcLSluMKv5Uvkwb3mohEMeCh/fVFQpoD0dkSdmmQokKn2W1U6C4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SoDptICm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ASzlukID; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789658930; c=relaxed/simple;
+	bh=spGyfUBCYh3KlTVzWWfoJXnz3KSmwZ/Jna0x/WafKaE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u/A8eo+cDeJbFoWmz6au14kayYKTLMwZZKQJj+JnvQpBXOqXLEp1zK39vAu4RRT+yz/+Q0d19gp9t0z1eUBFU6Yq35bkc3qlhO1pa6c28dfHDEYa3phUi06PMXe7tqg7QfroD+ovhhVNiicXaj1fedX8KiU8/rmdBl0DFI4a3Ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iiPr30OJ; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SoDptICm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ASzlukID"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HDjdDE1307344
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:28:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=/+Kdrxqgr+DvSDtGHpmdyPJ+
-	B7JjcHm1WIvNra5tjA8=; b=SoDptICml04LDj+/Hm62uX9L2Hm9dE6SyQxVys8Q
-	k7ktWMgoOV8o+O/EpE8Qp+cXlre8FEjO/SdNH3MwBzXNJGtMoIrI6g+s6U61AQ7T
-	37sYmKtsXOOYyf+0vxHw4Zkx/DAXj2rgUksaIzaS8YDdQ1RYSuIz7WDHtg9tOZtp
-	uQQBGFuVRb9ybhW9TsaznIgeGGrYljvpNc4FqhDc3R/2u5yOj0kHA8VoZEfelkFn
-	aPm+6x/m22buDEGhOAbyBBsu7QHewNMActhvFlBDUN2LjS2ijS0PaB0uKAevdswT
-	3p9MyAqJVqWMTrNpTIsXcFnVAALR1pKtR0bo7i2f76CM3A==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grcra9vwr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:28:22 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-936708f129aso160038085a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:28:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789658901; x=1790263701; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/+Kdrxqgr+DvSDtGHpmdyPJ+B7JjcHm1WIvNra5tjA8=;
-        b=ASzlukIDuxICcITl9iPYDV+3iYdUNDfD6gkUS5UNm09dMB0oKW4FQUuQXlVzfzoaAs
-         8GSpjmCKTXVkNopmgvqh4ievCT03QT7L+ozm2IcaxZz7ms4FfUWG693BSA/GBSNlOevM
-         CFzYLdpphC4X1fW8mAJsYpt3PCaNu3Dke0niWDDipfvFVRM8SaVgm8/1+YQpqZLXRg8E
-         5P0F3b9GZnWn/GyP3x9tjdpCMxYuHikEw60C+O7nC6Gw4wtQWSvnKz/7AdYseAvfXExx
-         Bb2TOg+32dpl/x7EhJS7d5C2dlDyv7FafrI6pjOIW40qNrB1/sIAj1YI4rLnhJXR5Kwz
-         OoPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789658901; x=1790263701;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/+Kdrxqgr+DvSDtGHpmdyPJ+B7JjcHm1WIvNra5tjA8=;
-        b=KnAVEQRsW3rW+LS09mAA0yM7ZO6/DOeNyRz63RK65/Nw28bmR5Jk0jVT4Mi3AEikfD
-         JuCIE1af/C6JBczdUBGlw/yHfNHOV8MnQz8AyVeUqE9lW85GfrvK+YJfGOgYS1WzKAK1
-         7YARVJGQe2OVginRQtSZnPr1W+auSPiO6LJ6dOO3hMrmTazITzIRuHzdnAKoKtslHU5b
-         gO/DW8QEQgixuCSMPGyVbpzdOuSFlvFpcY3aKahlwLnO2ScxDL7F+/ecWZG1uk4shq0O
-         LYZfHc6ieKWy/AHwybDwvGKbsKCIz2gyzLKn9WJEZmqZpG7vC8UYvLjefDT9EhlYojrO
-         ELdg==
-X-Forwarded-Encrypted: i=1; AKwUvByTj8gyhe1Y1LH4wCyXRDTRGu9LwxZsjVDaVBF1S0m9nkb3uq5BWR9Pfe/nwpbcIgWlkYWt7BqhvY8vKsw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLu3r2OZsocbo7JPlKLOurZABT1LOYAypvRfB1mtfVh+Ug1jsZ
-	AK8m33WkGhnBcUiIQoGCy5+xjMgbXgBCf3U0Buzy17Buo5Qj2HMCSgiRvMq8yVotfA2AY4IXVfa
-	Rak846YdLoFN61tYdoe8qgWsU1vctOjf/RfS1Zn5AjN/A9u1mUxonTqEF3OQWn9NmMGw=
-X-Gm-Gg: AYBFou02Jxsg2BeRyfzeMWryoIHnityFVZGRUsnw6NwxVyJEQUuM+IDnix80DZkJ7lG
-	bWYaShDobUVY21ZJw9bFnXYmfJqoLVygj1uueKhfHsxUK/x5O2x0536QCtRao0rH4iJZZzcyBay
-	2Pok/Dmm/CbEPjuOPBFAb+I046izrkHij9gpWknysLCpwUdCiMZJTa+wP9dhWOBv7YBc3z2zsOx
-	cxHUm+G4whB1U1hr3n0VoSWGmZUvAqSaHDddtLXoR1jzehX0YcByER+uJbveal8urvCf3ISrsX4
-	9DEkmQ1+H/WSy66Yf2V08F+WeaxqwM7HMuS2YDHFSCt7ZgH4fxwPyXQ0v+EC3lD8ImaupAS8HTe
-	S6a6twiWGKHVV0oM=
-X-Received: by 2002:a05:620a:600b:b0:939:fc74:b6af with SMTP id af79cd13be357-93bb76bb19emr1300810985a.11.1789658900978;
-        Thu, 17 Sep 2026 08:28:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:600b:b0:939:fc74:b6af with SMTP id af79cd13be357-93bb76bb19emr1300804985a.11.1789658900484;
-        Thu, 17 Sep 2026 08:28:20 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e847ecf52sm135817625e9.2.2026.09.17.08.28.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:28:19 -0700 (PDT)
-Date: Thu, 17 Sep 2026 18:28:16 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Abel Vesa <abelvesa@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-i2c@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        Suresh Vankadara <quic_svankada@quicinc.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v8 3/5] arm64: dts: qcom: shikra: Add mclks pin
- configuration for Shikra
-Message-ID: <o4tjzh6mufahuvhllyxse7p6vvbmbnw4mlqg5zrmgyqa6ated7@m6rmnyse42g4>
-References: <20260917-shikra-camss-review-v8-0-9b9596221cfa@oss.qualcomm.com>
- <20260917-shikra-camss-review-v8-3-9b9596221cfa@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iiPr30OJ"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HE1OqE2697537;
+	Thu, 17 Sep 2026 15:28:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=U0Tc9u
+	yXmMfyLV1ayrCY/xTViDSnXLmr1wgF/h8IAVw=; b=iiPr30OJs+eg1mpPQVAdTE
+	GUkpXItMTwPexOS2jKew0Lep1esnbkDmVGkL/0MOjJ+aIOOH8UijTYbOsmoUrFV4
+	NskABVACAMX3bCOhtoypLSINqFk4GU1xRa4V1Gqy+P0AL672gIS9R+SPgpHpU7MU
+	BSgGdtTNsFTTu3EGzWihFy4tLEQhkBY0yF6tE9/NBuP40bUCOdrTHQGBPsVXoHpR
+	aCuNxyRDAHnFjmjGgFOEHTr5dgN/p3VBDMjdQgJ/9cdjVOMs/v3aUVLQJs5IU/yB
+	bEPkI4ZrnA5vWBzQp1zrhUAEU/KeC9AeddVLbiaJUupm+HwvqCKMx+SkD0h5N1PA
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmx8437w6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 15:28:29 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68HDa8tO3244819;
+	Thu, 17 Sep 2026 15:28:28 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr5ffb128-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 15:28:28 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68HFSRk321430892
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 17 Sep 2026 15:28:27 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3ECD158050;
+	Thu, 17 Sep 2026 15:28:27 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CE4B158045;
+	Thu, 17 Sep 2026 15:28:25 +0000 (GMT)
+Received: from [9.61.177.109] (unknown [9.61.177.109])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 17 Sep 2026 15:28:25 +0000 (GMT)
+Message-ID: <dae3c7cd-21aa-4263-bec5-792b018d21e2@linux.ibm.com>
+Date: Thu, 17 Sep 2026 11:28:25 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-shikra-camss-review-v8-3-9b9596221cfa@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDIxOCBTYWx0ZWRfX2+3UT/6tF6+d
- zTbLpOxXxa3tbxD2GAmrT4D1FrqGUBT1W4ShcmBGuKRAKZiLkTf1TlJZmR4JsA2Y+p38uIl/OU1
- vVYrp1JO5Q1/hJZZGD+Ox2cNN/sstPM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDIxOCBTYWx0ZWRfX1THGWopg+Elw
- nb4bcZKlU/J+B6pxYod2E1LkjyqkG0DFs9+sxQucD850Wzdfls3CCV8kboL/9bpA4+w4PMifqRV
- OPaGYYoK+8HR1bIEdOEaikdOq9fVGQxenVi4AX7wFt6FYk9OqYdljytcFnSasWpmb/ScNblPK3p
- ds9I+pHj4vC95ECzWucsz3A0xoMfAHZjFXG3Eja29Y8H2DPrrKZhABa7qhuM/dQsa/pdWoaho5R
- Aw65Ey3tM19bdgrrCHnn8jNqgIBEQtQjSGxS0gTFtjnDHxx5iESL8yuM3kmaFtQr37CNpukMeUs
- mY53UsOsw8N45dwVETNLqNw3efO2Ak6wH0egJFJ0JuBnaab6B0k2/E1sIFij154Wbl1RtIKYMVw
- +Ye5F33X+cP3nMJjj+zD/7mQqZcSEt5YgeWyE7/HNJagMXOJP8KnK8IpsvKdfGmtaq33SScyeTe
- c4DvH4DaKtsvhJq+ZgA==
-X-Authority-Analysis: v=2.4 cv=WL/qzXsR c=1 sm=1 tr=0 ts=6aac0716 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=kTwRDD6jQfcqJCPQX_EA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: -6mYB2K7LdJL90wTM_EjQSK_TfNnGwY5
-X-Proofpoint-ORIG-GUID: -6mYB2K7LdJL90wTM_EjQSK_TfNnGwY5
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/4] s390/pci: Reuse FMB buffer and preserve state in
+ device re-enablement
+To: Omar Elghoul <oelghoul@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
+        alifm@linux.ibm.com, farman@linux.ibm.com, gbayer@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org
+References: <20260916213222.233-1-oelghoul@linux.ibm.com>
+ <20260916213222.233-3-oelghoul@linux.ibm.com>
+ <099b4e3f-4156-42e4-a2e9-bdc715547bef@linux.ibm.com>
+ <85cb647d-b1c8-4804-b206-2cae1e03e20d@linux.ibm.com>
+From: Matthew Rosato <mjrosato@linux.ibm.com>
+Content-Language: en-US
+In-Reply-To: <85cb647d-b1c8-4804-b206-2cae1e03e20d@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDIxMyBTYWx0ZWRfXyCERjNxpZfVK
+ bhU16/nvWM5Wq7KBv5fdyrBhnnYdly2yPDyuvL5PpFPibG1aQnrl6XxfHtfu0qV/obQX8JLOn7c
+ N8OLvqHKwN1NSD3R9PP7StimSmmbLNPyzwd/++A3ALpPYQwbTg94WORxd9kEsRuTMTqU0jZJ74x
+ zMleZXiIrIq/ojw5RvW+qaqyj4pazcDth7eRz7GEWL5ZRQBZOtlw8gW9rl81v0iyKDvyE3AduKg
+ DGTFIM5loRLrSDRtXk4NME6aeM9jXu1nWpFUkmm+fUfG4JdxeQ6sd/8Dcae14T5qbFJuH3Cw0IN
+ l86ihH4NYK3rZ0XD7FY/pnk1DLeYWlgPOk4th6SuHZFLZ16TuEDuSrH4BYwZI8MLdIyUm5ty5Vj
+ XhtM6mOGGz5kbrHGQ/NW5piqUTztLmmMSfSOl90uCrhEtT4pa22lk+Jbq9TaAuVHUXYHGrEcVYW
+ vgHXWV6QZsEOsVBuV1A==
+X-Proofpoint-ORIG-GUID: 4HXhigPyXuNUNIC4p-7LJLBKi6HBMXeT
+X-Proofpoint-GUID: 4HXhigPyXuNUNIC4p-7LJLBKi6HBMXeT
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDIxMyBTYWx0ZWRfX8xDrPTutH1Tn
+ mOq1INcIwdfAmLAFf1o7IMQm8pMyQGNYccf3KKLlUCcLnGFa2nkOoCn2rvuRORHFQCV+ax0VTcq
+ AV67lhzQg1WbR4rpvOB+FY05dIlqjW4=
+X-Authority-Analysis: v=2.4 cv=cY9HPXDM c=1 sm=1 tr=0 ts=6aac071d cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=sr11kz5vdOI1Ry7keEkA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-17_03,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
- malwarescore=0 bulkscore=0 phishscore=0 priorityscore=1501 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609170218
+ priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170213
 
-On 26-09-17 17:11:02, Nihal Kumar Gupta wrote:
-> Add pinctrl configuration for the four available camera master clocks.
+On 9/17/26 9:32 AM, Omar Elghoul wrote:
+> On 9/16/26 10:21 PM, Matthew Rosato wrote:
+>>
+>>> +int zpci_fmb_reenable_device(struct zpci_dev *zdev)
+>>> +{
+>>> +    u64 req = ZPCI_CREATE_REQ(zdev->fh, 0, ZPCI_MOD_FC_SET_MEASURE);
+>>> +    struct zpci_fib fib = {0};
+>>> +    u8 cc, status;
+>>> +
+>>> +    lockdep_assert_held(&zdev->fmb_lock);
+>>> +
+>>> +    if (!zdev->fmb_enabled)
+>>> +        return zpci_fmb_enable_device(zdev);
+>>
+>> Sashiko has a point here, won't all paths that call zpci_reenable_device
+>> now unconditionally turn on FMB here even if it was purposely disabled?
+>>
+>> The pattern of callers for zpci_reenable_device() is:
+>>
+>> zpci_disable_device()
+>> ...
+>> zpci_reenable_device()
+>>
+>> We only care to re-enable the FMB during device re-enable if the device
+>> had FMB enabled at the time zpci_disable_device() was called.
 > 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> The way I thought of it was pcibios_enable_device() already enables
+> measurement, so we might as well ensure it is enabled when the zdev is
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Yes, FMB starts enabled by default but then it could be disabled
+intentionally via sysfs; if a recovery action occurs on the device
+sometime after I manually disabled FMB for a device, I'd expect it to
+still be disabled after the recovery action but AFAICT with this
+codepath it will always get re-enabled.
+
+Completely removing the device and re-introducing it to the system is a
+different matter; in that case yeah we'd be back to FMB-enabled because
+that's our default starting state via pcibios_enable_device().
+
+> re-enabled. That default state is also helpful for the later patches
+> because kvm_s390_pci_register_kvm() calls zpci_reenable_device().
+> 
+> But I guess if we didn't want to conflate the two, we could also add an
+> unconditional zpci_fmb_reenable_device() within the KVM register hook,
+> to run after the zpci_reenable_device(), whichever you'd prefer.
+
+Do we even want it to be part of the KVM register hook at all, or could
+we leave it off until we get a VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE?
+
+That way if a guest isn't using FMB (we never intercepted the associated
+MPCIFC to enable measurement), QEMU would never issue
+VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE and then we just leave the host FMB off.
+
+In practice, yes, FMB is always on by default for a linux guest today
+but if we were to ever move to a model where we make it opt-in, it would
+be nice to only enable the host FMB when the guest actually wants it.
