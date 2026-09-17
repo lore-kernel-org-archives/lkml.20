@@ -1,128 +1,302 @@
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6CF4CE670
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645672; cv=pass; b=EKKYNuaRhdhVrvdLyGgVAQlYjXJady9OXX6hN5juqe8ThnwjLd5n7iKa+r4HiZrvIFzkxJ/g876m7z2XBEJxYLoYA5KH56CfiywExj5AfP680tubqLhZIvLKGlwdvctD5GkxCsqQYWydyXjGcxbQEt9EAW8RdfOVKcAIXgoELMw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645672; c=relaxed/simple;
-	bh=FzFQy2j7fd5eTJJCXIk006/qLEE8a/Xai2F79n9BXDI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AW+eWu9O4Q4xuAjlf1Srz0wL8cq66W3xsbavGGHBE683l8MeHbco9/THiJ3qadvUoiQd6fBhzrmE6TPdz4cHlzT4O3wxbdappTQMneID7ojedgoI1YoJfbuqfiNjNyReHySlUGNTW05Qx0isFflG6L5jEsRZretP4Lg00zrmZ8g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AxxjaZA5; arc=pass smtp.client-ip=209.85.167.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008C848CD55
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789645716; cv=none; b=CCU8xgwu0wNxnW2x96rgRN4nrMHNySA1mgubSshzAsdNyhY2AbU8OUo0JgAqrnjBEQXMfNvVmbbd0Z+vLCC/0tJg7GNh++vigfGhr9G2TET4KyKQ4S5RqhwwZmyw4QT07UmIAa+6AjE+CTmqTZ5RCgtw0VY1hcNtFvnyjL64LXo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789645716; c=relaxed/simple;
+	bh=40S5Rsrxf9rWkVmZASWWlCuWh4sMf9Qidfv4Hhq2I9o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N+adOS7iQoWFNzE4tu8PJ8E+hcGOWhCISVtzozX8ExHjX3nnpLFQTb0GWdFdP9zNaGbmpo74pOIb8FZQRHAdzPnJQhUk1UGNWqsXZQUd+cGV+dOJHBBfrc0Ivu0svORpspClDLvop5mkPiRgSDCGBJT74FIrSm0JMZWPSnWaXNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HDbpNIpx; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AxxjaZA5"
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b5e5aaf7deso1126e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:47:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789645669; cv=none;
-        d=google.com; s=arc-20260327;
-        b=O9e+6rhUvO7rbq3dwLwisEKw0UyXSMyEISHhOEbCUkc4gjvUyBuhoavAdfvKT1FXWI
-         EHbNdngh3+Lkv2ZxJEL+6mV1R8SOUClHE+Z345Rhmsz5byCQeFui5nAaJTmnNjHyERAM
-         RVTrZKurKz0GXxrMIg5GgpBy2AD1zPw5+coLClo9EwpnI7mCs1CpLmRJwaW5UaMW+8nB
-         O1nXuOFSdWB9D4b9go/HKqAo6acbfF8ddOWWR8Ymjy8JpiOyI2XygVUUQ5yoYAgWFay5
-         F5Vz1DSt05yWpPPOPZUqjkNePJ1y/YlP0Mz8AglEy9lZOeST00WXbiNcuJ5rkV+4mKoT
-         ZJKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=AuZmGKQOozDdYhExUfv4iQ5oFoGABaotqoRByOfZs54=;
-        fh=cblg+5gP5yag6vu5L4JRmajjB+BMZadPiztbdHiVBcM=;
-        b=EqlhE/a7Z8ADrYF71ek9nFqHmZHm63U5qLUm2VrDvHI6gpKZ49+/hKBifsNw9+s04S
-         EbMK2IOw6IVVPj8+AmX1fk+dBJdPx+7tdzW8Rkp8n6wK7Cic5qErL0O7xTagCR1hrfnQ
-         8CNJTYw0MAwsOfOfiqxb1HaYgXBdpyjNuHP6wkSih6lH+HaFyKTjOVd76Pg099c20Dzy
-         ZqepOP0SBq1Ys5txLPHG+cWc7lZ5WBs09U72Wsr1JdE/eiHqvRr5J8Q67QNiG3V2FS0z
-         Sju92f9QVj3iYxzjTbPdLzMkIhx/zc0VHwxVeWB0TK2UlF1090O4DfokU2XoM8Zcx9NZ
-         oOFQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HDbpNIpx"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d93ff61046so6593065ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:48:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789645669; x=1790250469; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789645713; x=1790250513; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AuZmGKQOozDdYhExUfv4iQ5oFoGABaotqoRByOfZs54=;
-        b=AxxjaZA5GviweJ17Q3K6ID4epFqp79D1CYzArB+FfA+Mj0RUK8DqzonI5aaqRYmVF/
-         PA7vHqlH9J/RuYk99E5Zb/I9B89zpoHUMWZhvzz+AzdFdRa0XgKp2ugr6vl76b7EDFI6
-         s3XbQ8KKS5eSfbPGy+1Sn8fg1HKj/whH9ib7zOqt/nXyRznorH3IN4GGN6BEQL6NZXaU
-         iomkvOD61uW0BWZb9dsfETh8JkXpbwVME4gmrjn1WqZEJRTo3TmPgW1jBlrZ5My4j3Mw
-         e11ikF5EeCB5O1qFWOaSrFmG9z68xlzPYiSqLNcHsr4Q68OHgqMA+RGQvhFeRhbsXK/t
-         HlMg==
+        bh=0XIXiLce8oloEY4uUyIzwGoSl4i1s4G1pZ5kG8wUw3I=;
+        b=HDbpNIpxrcBjqA/Chvc9mLkeMpKwsF8DsjoEjf4P9ByPYcSa0CAj8XuvTxQqcJPEkB
+         8K44R7MPfB5jqamNBkOUis8qt/ibVHyCQabfYwvxdELmWLJJUIinVn2bFcri1250ipNo
+         o31mQ7LBJgZPq0u2Znb0NRZIEohAQk5L/6ljujLOM14R18umYjJYCyYo4ULl+sv4UIBD
+         HpnekR8lkJ98aP/K6rSKUEk7t4GvDeXqMMXk+x/otLpjahnAge60gCR4ML94s32XxiEJ
+         lqlCiv9ig5FsWRQN2ycKM0LEL9niwLJYTUNh8m7K1KEAaKfaxR8/gxoWO/jjYMpLckhy
+         XjSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789645669; x=1790250469;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AuZmGKQOozDdYhExUfv4iQ5oFoGABaotqoRByOfZs54=;
-        b=mMis8qCyrgeDOPg9Tl4QZUPr6Ganyl9Z0+2Pnp9iGypHZ9lQgWuCMSkBffu7da/F4u
-         +IUgr9xL53ZP0QaghAlswK138tOE58W4XyHdJrEIjo/lqBT10JmQQ8kLqVQ+DLCKrLKR
-         mOOQ2/E5TCjL+FpknD4S5PrvxgrWGnvNO7qSSFf5SYaaCLftZ00hUoSaYv7BAT4LvYsh
-         RCerfvpc9fNuVXcaY4A02WsNxztRQZdGIxR3olBKldx9kA5CxdCriQ/GCb3U96Xt7UMs
-         UlyQrOjGHlKi66JjCg+RmI0QFAGO8lsyM/gQ6ZNF8E2hGoOkapoxbuLUGPS2bIKaUG+F
-         xZCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzR0ecKe9XWkg577Znk0iN5jwALeu98gz0av14kYfRB7+UKOXIcfQ+EBeB2wUftww+/+sSzBOOe7/U85Qs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lC6iVv+SAlsnYpkz3LTvhQ+TG+ptGenXHHfhYTz3wlewsLqwq6
-	Qf6XmdGbgrOWPVTBmhCCdfsRYRLAuAYJHsFu6UQGutnBETqNFRA/vmZUcFOpvIJLz8d9ZjxZQOy
-	ZNcUARaiuDPBrQoi7DJUxAxb5lEfnzZNqITzkvvA2
-X-Gm-Gg: AYBFou1tGkNi2YT3fXxpZjNbIhOm5q77wDTT+7J8RRG+sFr+KUcNX9br5QLWW6iEl/8
-	SZMKx2vrU6aGxw2/grIlkMt/KlNsHbfdA6zF1GFKwUdK7ZxNY2ONHw+anA8uV46M8yWqH3yljHK
-	awMt/s12cT/C6IURV7rmqYLLCvSlFTVGOQ5HJkV8Dvxq0IWQXG+Zp9VQmLL5MSP/imdGBzYUV6R
-	z3PEFdlwjlAHvE0A+tSMwalUordarLbS0pdl1Sx6njtSrYSRTQ3jEch9wiGfEtmOp1getlnK7B/
-	RVSLtbqGoIvBHeXpZt0Cxls9UFKgvYYS75mYp6BikmW9MRzBQ7DGJm+0IVCVAz4sRE9xbjkJrBJ
-	wsONRsFl6exbPew==
-X-Received: by 2002:a05:6512:3c86:b0:5ae:b726:5f1f with SMTP id
- 2adb3069b0e04-5b8bff2c01dmr18224e87.8.1789645668434; Thu, 17 Sep 2026
- 04:47:48 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789645713; x=1790250513;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0XIXiLce8oloEY4uUyIzwGoSl4i1s4G1pZ5kG8wUw3I=;
+        b=lMg5JGfjDQeUeitqzib1OHq02KfrCWwkIs93w0xuDxASUQSSDUvEe1F0IgeKEtrAac
+         aUsvH09EaUQNwJf/yVfrtLVoDH0wv1gfh/i8MfegiCzQIjsBXnSY/8UbflbJhB30j470
+         HXsqEVEehkdwGHNLRQwkV4BcgSLI/hHPu1hw/nacRBhW2XIzUPHvcEq4rvTCUa6Y/AFW
+         O7rDLZLi+c7rQm2cv9TZlgRQp9E74KE//2VwDjChUPMjRFTu7F4Xeq4A+sUdkISICUKR
+         ec66vf59NBvrCrCpmAZkDQkjrlppqB49aumG959bWA1TEZAJa6zBCREZw/AI1MxzPqRJ
+         vp4g==
+X-Forwarded-Encrypted: i=1; AKwUvBxYdAYCD6+SuZYInnPa4gHlY+7W/zdkQaDaDyBxoCqaUOtLw/z2Iz9v/4i69aDwPgjYeXazB+8t9/KYFmA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOVUqFtQUMWu7QuW8AiEERFKbVByWQN7lNeh/ZLaDKmUfucH3C
+	LAr3ryV/OfYLWkjwphYZqXt3YST4bMB4RAACn74CvSOQ873Xn+46z5nFa+xdtEzfoeQ=
+X-Gm-Gg: AYBFou310Fey721TG09pCWWhdoERqZgfEaBxitzoU7up9RwMuKzMslTsDOPTOdC9GiX
+	uYqnffzTGOa7XMvXSSUNEo2odER0t6dIuVg9erWXrdq14YHX7ll4cMcGUYLnxaucu20DhAhRIll
+	D5Dwq4pJfZWKDWlQ0nSKJPnyUo9HlVHaTfvERI3RmdLTk+W8YC2ia0s+6lgrjPsgi2r9Nnp9c0b
+	/zrG1cGLkA/klNRrzsus3KMhXoAVV/VYY7iKUiZzeLIIRg3teDk8oKXQlLsDyoeG2U2DLBougmS
+	hfXPPN0SFmobvv/d9U4LuimYgrOAqo9QGUUUKzXuZV6gMTM1BMPjANKYRIeJelOfH/L6yJWTWr+
+	wx7+ZnlJC+MXopAW2lUdH9M1h3heEzWW41OLcITQKR1nteDgU1m0Til6OjUBktFR+CuokaA+HD4
+	k9ayEjoMSFY/sCWjJO/3wyQV9kMxUISZE//d8oCxCg7dPVghId/Ex9HLCZdB/ozSyvEAJCrDsvw
+	cYfwh34QVXeQWh02ZQ=
+X-Received: by 2002:a17:902:f549:b0:2d8:d4cc:5bb1 with SMTP id d9443c01a7336-2dd8e5244bbmr129000285ad.17.1789645712939;
+        Thu, 17 Sep 2026 04:48:32 -0700 (PDT)
+Received: from [100.125.248.95] ([124.70.231.46])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d8e6a3sm25444085ad.7.2026.09.17.04.48.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 04:48:32 -0700 (PDT)
+Message-ID: <fd49e71a-34e9-4e72-9510-1b1692bbfca3@gmail.com>
+Date: Thu, 17 Sep 2026 19:48:11 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915160141.3543048-1-suzuki.poulose@arm.com> <20260915160141.3543048-12-suzuki.poulose@arm.com>
-In-Reply-To: <20260915160141.3543048-12-suzuki.poulose@arm.com>
-From: Fuad Tabba <tabba@google.com>
-Date: Thu, 17 Sep 2026 12:47:12 +0100
-X-Gm-Features: AcwNN1UOph-dvwenB_bEiuZFqzb6gytAI9_L8AUcm8oP9DDQEKK-aUQXatB0jDI
-Message-ID: <CA+EHjTzOR7xczcb1HbUAi3H7K8ta=pFcdjxJb7UixZEh7QS-Eg@mail.gmail.com>
-Subject: Re: [PATCH v18 11/23] KVM: arm64: Use kvm_vm_is_unprotected() for !kvm_vm_is_protected()
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
-	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
-	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] mm/truncate: fix data loss when splitting
+ straddling large folios fails
+To: Brian Foster <bfoster@redhat.com>, Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, hughd@google.com, baolin.wang@linux.alibaba.com,
+ willy@infradead.org, jack@suse.cz, ziy@nvidia.com, joannelkoong@gmail.com,
+ djwong@kernel.org, yi.zhang@huawei.com, yangerkun@huawei.com,
+ chengzhihao1@huawei.com, wangkefeng.wang@huawei.com, yukuai@fnnas.com
+References: <20260916092450.654408-1-yi.zhang@huaweicloud.com>
+ <20260916092450.654408-2-yi.zhang@huaweicloud.com> <aqrUGRd0JClEZNzN@bfoster>
+Content-Language: en-US
+From: Zhang Yi <yizhang089@gmail.com>
+In-Reply-To: <aqrUGRd0JClEZNzN@bfoster>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Suzuki,
+On 9/17/2026 1:38 AM, Brian Foster wrote:
+> On Wed, Sep 16, 2026 at 05:24:48PM +0800, Zhang Yi wrote:
+>> From: Zhang Yi <yi.zhang@huawei.com>
+>>
+>> truncate_inode_partial_folio() splits a large folio so that the caller's
+>> truncate loop can drop the in-range sub-folios while keeping the
+>> out-of-range tail. The first split at the punch start edge is
+>> non-uniform, which leaves the sub-folio at the truncation end edge as
+>> large as possible, this means it may still straddle the range, holding
+>> both zeroed in-range and valid out-of-range data. The function then
+>> attempts a second split at offset + length to isolate that tail.
+>>
+>> If the second split fails the straddling sub-folio stays merged. The
+>> function returned true unconditionally on all exit paths of the success
+>> block, telling the caller it was fully handled. The caller kept its
+>> default end and the truncate loop truncated every sub-folio below it,
+>> including the merged straddler, discarding the valid out-of-range tail.
+>>
+>> For example, a 4-page order-2 folio punched from offset 0 to the middle
+>> of the last page:
+>>
+>>    truncate_inode_pages_range()
+>>      truncate_inode_partial_folio()      # same_folio == true
+>>        1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
+>>        folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
+>>        2nd split of folio2 fails / cannot lock
+>>        return true                       # BUG: caller keeps default end
+>>      end = 3
+>>      loop truncates p0, p1, p2-3        # p3's valid tail is lost
+>>
+>> This became reachable after commit 7460b470a131 ("mm/truncate: use
+>> folio_split() in truncate operation") replaced the atomic split_folio()
+>> with folio_split(), whose non-uniform split can partially split a folio
+>> and leave the end edge merged.
+>>
+>> It has gone unnoticed because a dirty large folio normally carries the
+>> filesystem's private data, for example buffer_head, so
+>> filemap_release_folio() -> iomap_release_folio() returns false on a
+>> dirty folio and folio_split() aborts with -EBUSY before any split,
+>> leaving the straddler safely unsplit. The bug is only reachable on paths
+>> that produce dirty large folios without filesystem private data, and it
+>> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
+>> attached.
+>>
+>> Rework the contract so the caller is told the page range to discard:
+>>
+>>    - Add pgoff_t *pstart and *pend out-parameters that receive the page
+>>      range fully covered by [lstart, lend] after any split (or none),
+>>      i.e. the pages wholly within the range and safe to discard.
+>>
+>>    - Adjust the ordering of the validate check when splitting folio2.
+>>      folio2->index is only reliable after the reference count and lock
+>>      have been successfully acquired, since it may have been split
+>>      concurrently, or freed and recycled to an unrelated mapping. On any
+>>      failure to obtain a reliable end position, fall back to
+>>      folio->index, which is safe but leaves the sub-folios split off at
+>>      the offset edge in the page cache.
+>>
+>>    - Rename the byte-range parameters start/end to lstart/lend to better
+>>      express their semantics.
+>>
+>> Callers in truncate_inode_pages_range() and shmem_undo_range() pass
+>> &pstart for the folio at the start edge and &pend for the folio at the
+>> end edge, so the truncate loop drops exactly the fully covered pages and
+>> never touches a straddling folio that still holds valid out-of-range
+>> data.
+>>
+>> Suggested-by: Brian Foster <bfoster@redhat.com>
+>> Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
+>> Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
+>> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+>> ---
+>>   mm/internal.h |  4 +--
+>>   mm/shmem.c    | 13 +++-----
+>>   mm/truncate.c | 89 ++++++++++++++++++++++++++++++++++++---------------
+>>   3 files changed, 71 insertions(+), 35 deletions(-)
+>>
+> ...
+>> diff --git a/mm/truncate.c b/mm/truncate.c
+>> index b58ba940be47..bec6d881d022 100644
+>> --- a/mm/truncate.c
+>> +++ b/mm/truncate.c
+> ...
+>> @@ -259,32 +271,62 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
+>>   		 * for shmem truncate
+>>   		 */
+>>   		struct folio *folio2;
+>> +		pgoff_t end, aligned_end = (pos + offset + length) >>
+>> +					   PAGE_SHIFT;
+>>   
+>> -		if (offset + length == size)
+>> -			goto no_split;
+>> +		if (pstart)
+>> +			*pstart = round_up(pos + offset, PAGE_SIZE) >>
+>> +				  PAGE_SHIFT;
+>> +
+>> +		if (offset + length == size) {
+>> +			end = aligned_end;
+>> +			goto out;
+>> +		}
+>>   
+>>   		split_at2 = folio_page(folio,
+>>   				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
+>>   		folio2 = page_folio(split_at2);
+>>   
+>> +		/*
+>> +		 * folio2 may become stale due to a concurrent split or
+>> +		 * freeing, so validate it before and after taking its lock.
+>> +		 * If it fails, we can't get an accurate end position and fall
+>> +		 * back to folio->index, which may leave sub-folios split off
+>> +		 * at the offset edge in the page cache this round.
+>> +		 */
+>> +		end = folio->index;
+>>   		if (!folio_try_get(folio2))
+>> -			goto no_split;
+>> -
+>> -		if (!folio_test_large(folio2))
+>>   			goto out;
+>>   
+>> +		if (folio2->mapping != folio->mapping ||
+>> +		    !folio_test_large(folio2))
+>> +			goto out_put;
+>> +
+> 
+> Hi Zhang,
+> 
+> The only thing that sticks out to me in this version is the
+> !folio_test_large() check above. If we split (or something happens) such
+> that folio2 is no longer large, wouldn't it be more likely to catch it
+> here and fail to update end like we do in the same check a bit further
+> down after the folio lock? Maybe I'm missing something here, but it
+> seems a little odd for the same condition to return two possible states
+> like this. Otherwise I like the changes you've made and the rest of the
+> patch LGTM.
+> 
+> Brian
 
-On Tue, 15 Sep 2026 17:01:29 +0100, Suzuki K Poulose
-<suzuki.poulose@arm.com> wrote:
-[...]
-> diff --git a/arch/arm64/kvm/handle_exit.c b/arch/arm64/kvm/handle_exit.c
-[...]
-> @@ -490,7 +490,7 @@ static void handle_exit_pkvm_state(struct kvm_vcpu *vcpu, int exception_index)
->  {
->          int exception_code = ARM_EXCEPTION_CODE(exception_index);
->
-> -        if (!is_protected_kvm_enabled() || kvm_vm_is_protected(vcpu->kvm))
-> +        if (!kvm_vm_is_unprotected_pkvm(vcpu->kvm))
->                  return;
+Yes, you're right! That check should be dropped, I got myself
+confused with all these complicated checks. Fortunately Jan and Zi Yan
+suggested using __filemap_get_folio(), and with that I think we can
+get rid of all these convoluted checks.
 
-Could the two pKVM-only helpers keep the static key in front? With
-`is_protected_kvm_enabled() &&` inside kvm_vm_is_unprotected_pkvm()
-and kvm_vm_is_protected_pkvm(), as kvm_vm_is_protected() had it before
-patch 5, the boot-patched branch skips the load again for every user.
-This runs on every exit: the old test is a cpucap, so on a host
-without pKVM the function returns straight away, while the new one
-loads vcpu->kvm->arch.vm_flavor on every host. The wide
-kvm_vm_is_protected() can't have it, since Realms run without pKVM.
+Thanks,
+Yi.
 
-Cheers,
-/fuad
+> 
+>>   		if (!folio_trylock(folio2))
+>> -			goto out;
+>> +			goto out_put;
+>>   
+>> -		/* make sure folio2 is large and does not change its mapping */
+>> -		if (folio_test_large(folio2) &&
+>> -		    folio2->mapping == folio->mapping)
+>> -			folio_split_or_unmap(folio2, split_at2, min_order);
+>> +		if (page_folio(split_at2) != folio2) {
+>> +			folio_unlock(folio2);
+>> +			goto out_put;
+>> +		}
+>> +		if (!folio_test_large(folio2)) {
+>> +			end = aligned_end;
+>> +			folio_unlock(folio2);
+>> +			goto out_put;
+>> +		}
+>> +
+>> +		/* Split failed: back off to the head of the straddler */
+>> +		if (folio_split_or_unmap(folio2, split_at2, min_order))
+>> +			end = folio2->index;
+>> +		else
+>> +			end = aligned_end;
+>>   
+>>   		folio_unlock(folio2);
+>> -out:
+>> +out_put:
+>>   		folio_put(folio2);
+>> -no_split:
+>> +out:
+>> +		if (pend)
+>> +			*pend = end;
+>>   		return true;
+>>   	}
+>>   	if (folio_test_dirty(folio))
+>> @@ -413,11 +455,8 @@ void truncate_inode_pages_range(struct address_space *mapping,
+>>   	folio = __filemap_get_folio(mapping, lstart >> PAGE_SHIFT, FGP_LOCK, 0);
+>>   	if (!IS_ERR(folio)) {
+>>   		same_folio = lend < folio_next_pos(folio);
+>> -		if (!truncate_inode_partial_folio(folio, lstart, lend)) {
+>> -			start = folio_next_index(folio);
+>> -			if (same_folio)
+>> -				end = folio->index;
+>> -		}
+>> +		truncate_inode_partial_folio(folio, lstart, lend, &start,
+>> +					     same_folio ? &end : NULL);
+>>   		folio_unlock(folio);
+>>   		folio_put(folio);
+>>   		folio = NULL;
+>> @@ -427,8 +466,8 @@ void truncate_inode_pages_range(struct address_space *mapping,
+>>   		folio = __filemap_get_folio(mapping, lend >> PAGE_SHIFT,
+>>   						FGP_LOCK, 0);
+>>   		if (!IS_ERR(folio)) {
+>> -			if (!truncate_inode_partial_folio(folio, lstart, lend))
+>> -				end = folio->index;
+>> +			truncate_inode_partial_folio(folio, lstart, lend,
+>> +						     NULL, &end);
+>>   			folio_unlock(folio);
+>>   			folio_put(folio);
+>>   		}
+>> -- 
+>> 2.52.0
+>>
+> 
+
