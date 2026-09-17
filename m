@@ -1,114 +1,337 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3246F52845A;
-	Thu, 17 Sep 2026 16:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B6B3B5E01;
+	Thu, 17 Sep 2026 16:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662899; cv=none; b=nNxXsz5gQL6jBP8DfEyM8jSBfr5xipPShZMwusflKEXCxtlqH8rinGL2j05lQcRQmmzHeDagM0BenukoOMIKk7cN0zlmaa2d9t/T7u9GTeMNw1C89BYARSNRlJ4CKjpjwFF1HefxgHS2kbNEMNFlG8MFJWnnku6uU3zhS1F/iKQ=
+	t=1789662914; cv=none; b=Ypb/GVf45hdIB+xrjpfaRa2Qnb8m44MDt/tj7tajyFgb4lfFCpeyqhY5U7KImBr8tqFG3KaOsU4Jdhuh4JM9CinFaQo8Kkx1riWsgnGe2IJQlaXBb7a3rMLS9VdXx0ZP7dTJ6JZFYbXjxVU4t4/8rLlo6M/7zfB9336SuziDuMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662899; c=relaxed/simple;
-	bh=WL33Y42nIYwQDnqCTIKBZ4BA1khv9nabZhRlPNj7qes=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aiXb4Xr0Q+gKrmDr0kIs4Mw2PcOg3Ww2NgUWnclOCsHLwmeTKkbKG+t6GvDMqBBvF7Zb7UK4VUgncdm7IQTJYxUBL7WF3th1ePmT4UhZEkmABSSgLamLUG0K1j5RQLKzdZ4SNUe236opyrUQ/Lkj0OqP9vejLT0Hs2URlaFxxRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnF0KfFqxqQpKECA--.6825S2;
-	Fri, 18 Sep 2026 00:34:39 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: bharathsm@microsoft.com
-Cc: linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	pc@manguebit.org,
-	ronniesahlberg@gmail.com,
-	samba-technical@lists.samba.org,
-	sfrench@samba.org,
-	sprasad@microsoft.com,
-	tom@talpey.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] cifs: Fix server use-after-free in cifs_chan_skip_or_disable()
-Date: Thu, 17 Sep 2026 16:34:39 +0000
-Message-Id: <20260917163439.2162539-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789662914; c=relaxed/simple;
+	bh=/pi2tmOR3YT+ZF3zfKDveG7AsuWVeuqglzukqGZd1a8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=X2rNM8Y4UI8GOysXMDiyfx00rEZt1359hIKdUgdU8YikIuNCcXtoJD6cwUFKPXDMvvp683tJeq1qbURo4QNoaWz82TVFCkmgAOaPsQvDHBUyYTQzHn+QfYvkLjpQWcUTWfaCaqk+YHSjCWFlh60pp8D9TrDTLlfK3yH4oPz91DE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NbGrMViY; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NbGrMViY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C0D1F00893;
+	Thu, 17 Sep 2026 16:34:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789662912;
+	bh=iUrUzF8/4le7qbZJTJU61T+Fa+3vJMcHcbFMQMklauE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=NbGrMViY3FCte36X1jspWft9Z2nr7hlK1j1KoUCdouicGQ4vngnADXTaDJ13pqF2h
+	 gZP8hVDVTwk81EIp0XvKf4jIYJomoz10GNlI/vsArmiZaDbHLdlb6ch6TKWeY+xZPN
+	 8jYdpuaVkfapPTsJTos1M6YJilAonCM43SKhaLLpVDcn6jkPX7b+6rZjyAJ/fp9PhK
+	 zG5XdUTGkfUfWUrEvAuz6PusjaJRL1HI7ANV+0EZ+P6w/THbhupmu16d9+sItdmJ+T
+	 lTnhjA/FMaqU8r+N6HCPwSbriaKRn0EZuAj+IVgNupantuDiUDu9oQH7andD5ab4wD
+	 76EQDMaDeZ7tA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:22:33 +0100
+Subject: [PATCH v3 24/40] mm/mlock: eliminate weird VMA_IO_BIT abuse and
+ simplify
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnF0KfFqxqQpKECA--.6825S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uF1UZw4ftr1xZr4DAr43ZFb_yoW8Zw43pr
-	W7KrWj9F95GFnxZFWkAFWUXFyY9F47W3WF93yDAw1xuws5Aay7WF4jqw1vg3Wak395GFZ0
-	grnIq3yvvayUJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBj1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
-	87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzx
-	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	AVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x02
-	62kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr
-	1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
-	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20E
-	Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267
-	AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUgXocUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcNA2qr889TtwAAsW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-24-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7394; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=/pi2tmOR3YT+ZF3zfKDveG7AsuWVeuqglzukqGZd1a8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB9ii9uce+yv+vNykVzHytZ5Wnl1/B4BHQ4qj3uVm
+ GqaNm7qKGVhEONikBVTZHn+RXx/kEjYvM4L/m4wc1iZQIYwcHEKwERuvmRkWKiX+yo/70SBUcLa
+ uYLVd8JT9m6+Fqca7a1zor481mbPW4b/sStP3m2c5WPzTPfrqkMx85nuW++dyVLWILBlR2fcz6V
+ 1HAA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-When a secondary channel is no longer supported by the server,
-cifs_chan_skip_or_disable() drops the channel reference with
-cifs_put_tcp_session() and then continues to use the server pointer by
-calling cifs_signal_cifsd_for_reconnect() on it and reading its
-primary_server pointer. cifs_put_tcp_session() can drop the last
-reference of the channel and tear it down, so both the channel and the
-primary server (whose reference is also dropped by
-cifs_put_tcp_session()) can be freed before they are signaled for
-reconnect.
+When performing mlock() or munlock() otherwise normal VMAs have VMA_IO_BIT
+solely to fix a race with migration which might otherwise double-count
+mlock VMAs.
 
-Signal the channel and the primary server and capture the primary
-server pointer before dropping the channel reference with
-cifs_put_tcp_session().
+This is unnecessary - at the point of applying folio mlock state, whether
+setting or clearing PG_mlocked, we know whether or not we are locking.
 
-Fixes: f591062bdbf4 ("cifs: handle servers that still advertise multichannel after disabling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Solve this in two ways - thread a boolean through the page table walk
+indicating whether a lock or unlock is being performed, and run a locking
+walk with VMA_LOCKONFAULT_BIT set and VMA_LOCKED_BIT cleared.
+
+This state never occurs otherwise, as VMA_LOCKONFAULT_BIT always implies
+VMA_LOCKED_BIT. These are also always cleared together.
+
+Then, update folio_add_lru_vma() and mlock_folio() to check only for
+VMA_LOCKED_BIT, and update try_to_unmap_one() to check for VMA_LOCKED_MASK
+instead.
+
+Also remove the useless invocation of allow_mlock_munlock() which simply
+returns true if unlocking and instead rename it to allow_mlock() and only
+call it when locking.
+
+Finally, with the other mlock abuse of VMA_IO_BIT addressed, update
+mlock_vma_folio() and folio_add_lru_vma() to simply test for
+VMA_LOCKED_BIT. munlock_vma_folio() tests VMA_LOCKED_MASK instead, as an
+unmap racing with the locking walk must still munlock folios the walk has
+already counted.
+
+While here, also replace some deprecated VMA flag predicates.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- fs/smb/client/smb2pdu.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ mm/folio.c    |  2 +-
+ mm/internal.h | 10 +++++++---
+ mm/mlock.c    | 51 +++++++++++++++++++--------------------------------
+ mm/rmap.c     |  4 +++-
+ 4 files changed, 30 insertions(+), 37 deletions(-)
 
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 3bd300347f16..a33f9b9ed32b 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -189,18 +189,19 @@ cifs_chan_skip_or_disable(struct cifs_ses *ses,
- 		spin_unlock(&ses->chan_lock);
+diff --git a/mm/folio.c b/mm/folio.c
+index 47a437e0f7fd..35e242b48870 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -505,7 +505,7 @@ void folio_add_lru_vma(struct folio *folio, struct vm_area_struct *vma)
+ {
+ 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+ 
+-	if (unlikely((vma->vm_flags & (VM_LOCKED | VM_SPECIAL)) == VM_LOCKED))
++	if (vma_test(vma, VMA_LOCKED_BIT))
+ 		mlock_new_folio(folio);
+ 	else
+ 		folio_add_lru(folio);
+diff --git a/mm/internal.h b/mm/internal.h
+index b2c6c9435021..84aa3e6c8bac 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -971,8 +971,7 @@ void mlock_folio(struct folio *folio);
+ static inline void mlock_vma_folio(struct folio *folio,
+ 				struct vm_area_struct *vma)
+ {
+-	/* The VM_IO check prevents migration from double-counting during mlock. */
+-	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
++	if (vma_test(vma, VMA_LOCKED_BIT))
+ 		mlock_folio(folio);
+ }
+ 
+@@ -989,7 +988,12 @@ static inline void munlock_vma_folio(struct folio *folio,
+ 	 * always munlock the folio and page reclaim will correct it
+ 	 * if it's wrong.
+ 	 */
+-	if (unlikely(vma->vm_flags & VM_LOCKED))
++	/*
++	 * VMA_LOCKONFAULT_BIT alone marks an mlock walk in progress, see
++	 * mlock_vma_pages_range(). An unmap racing with the walk must still
++	 * munlock folios the walk has already counted.
++	 */
++	if (unlikely(vma_test_any_mask(vma, VMA_LOCKED_MASK)))
+ 		munlock_folio(folio);
+ }
+ 
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 39215a3eab1f..4235a1518fc9 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -316,22 +316,10 @@ static inline unsigned int folio_mlock_step(struct folio *folio,
+ 	return folio_pte_batch(folio, pte, ptent, count);
+ }
+ 
+-static inline bool allow_mlock_munlock(struct folio *folio,
++static inline bool allow_mlock(struct folio *folio,
+ 		struct vm_area_struct *vma, unsigned long start,
+ 		unsigned long end, unsigned int step)
+ {
+-	/*
+-	 * For unlock, allow munlock large folio which is partially
+-	 * mapped to VMA. As it's possible that large folio is
+-	 * mlocked and VMA is split later.
+-	 *
+-	 * During memory pressure, such kind of large folio can
+-	 * be split. And the pages are not in VM_LOCKed VMA
+-	 * can be reclaimed.
+-	 */
+-	if (!vma_test(vma, VMA_LOCKED_BIT))
+-		return true;
+-
+ 	/* folio_within_range() cannot take KSM, but any small folio is OK */
+ 	if (!folio_test_large(folio))
+ 		return true;
+@@ -352,6 +340,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+ 
+ {
+ 	struct vm_area_struct *vma = walk->vma;
++	const bool lock = walk->private;
+ 	spinlock_t *ptl;
+ 	pte_t *start_pte, *pte;
+ 	pte_t ptent;
+@@ -368,7 +357,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+ 		folio = pmd_folio(*pmd);
+ 		if (folio_is_zone_device(folio))
+ 			goto out;
+-		if (vma_test(vma, VMA_LOCKED_BIT))
++		if (lock)
+ 			mlock_folio(folio);
+ 		else
+ 			munlock_folio(folio);
+@@ -390,10 +379,10 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+ 			continue;
+ 
+ 		step = folio_mlock_step(folio, pte, addr, end);
+-		if (!allow_mlock_munlock(folio, vma, start, end, step))
++		if (lock && !allow_mlock(folio, vma, start, end, step))
+ 			goto next_entry;
+ 
+-		if (vma_test(vma, VMA_LOCKED_BIT))
++		if (lock)
+ 			mlock_folio(folio);
+ 		else
+ 			munlock_folio(folio);
+@@ -428,31 +417,29 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
+ 		.pmd_entry = mlock_pte_range,
+ 		.walk_lock = PGWALK_WRLOCK_VERIFY,
+ 	};
++	const bool lock = vma_flags_test(new_vma_flags, VMA_LOCKED_BIT);
++	vma_flags_t walk_flags = *new_vma_flags;
+ 
+ 	/*
+-	 * There is a slight chance that concurrent page migration,
+-	 * or page reclaim finding a page of this now-VMA_LOCKED_BIT vma,
+-	 * will call mlock_vma_folio() and raise page's mlock_count:
+-	 * double counting, leaving the page unevictable indefinitely.
+-	 * Communicate this danger to mlock_vma_folio() with VMA_IO_BIT,
+-	 * which is a VMA_SPECIAL_FLAGS flag not allowed on VMA_LOCKED_BIT vmas.
+-	 * mmap_lock is held in write mode here, so this weird
+-	 * combination should not be visible to other mmap_lock users;
+-	 * but WRITE_ONCE so rmap walkers must see VMA_IO_BIT if VMA_LOCKED_BIT.
++	 * LOCKONFAULT without LOCKED never otherwise occurs: it marks a walk in
++	 * progress so that rmap-side callers, which test VMA_LOCKED_BIT, do not
++	 * count folios, while try_to_unmap_one(), which tests VMA_LOCKED_MASK,
++	 * still refuses to unmap them.
+ 	 */
+-	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
+-		vma_flags_set(new_vma_flags, VMA_IO_BIT);
++	if (lock) {
++		vma_flags_clear(&walk_flags, VMA_LOCKED_BIT);
++		vma_flags_set(&walk_flags, VMA_LOCKONFAULT_BIT);
++	}
++
+ 	vma_start_write(vma);
+-	vma_flags_reset_once(vma, new_vma_flags);
++	vma_flags_reset_once(vma, &walk_flags);
+ 
+ 	lru_add_drain();
+-	walk_page_range_vma(vma, start, end, &mlock_walk_ops, NULL);
++	walk_page_range_vma(vma, start, end, &mlock_walk_ops, (void *)lock);
+ 	lru_add_drain();
+ 
+-	if (vma_flags_test(new_vma_flags, VMA_IO_BIT)) {
+-		vma_flags_clear(new_vma_flags, VMA_IO_BIT);
++	if (lock)
+ 		vma_flags_reset_once(vma, new_vma_flags);
+-	}
+ }
+ 
+ /*
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 5332c52909be..6661bc11ce65 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -2239,9 +2239,11 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
  
  		/*
--		 * the above reference of server by channel
--		 * needs to be dropped without holding chan_lock
--		 * as cifs_put_tcp_session takes a higher lock
--		 * i.e. cifs_tcp_ses_lock
-+		 * signal the channel and its primary server to
-+		 * reconnect before dropping the above reference of
-+		 * server by channel, which is done without holding
-+		 * chan_lock as cifs_put_tcp_session takes a higher
-+		 * lock i.e. cifs_tcp_ses_lock
+ 		 * If the folio is in an mlock()d vma, we must not swap it out.
++		 * VMA_LOCKONFAULT_BIT alone marks an mlock walk in progress, see
++		 * mlock_vma_pages_range().
  		 */
--		cifs_put_tcp_session(server, from_reconnect);
--
- 		cifs_signal_cifsd_for_reconnect(server, false);
+ 		if (!(flags & TTU_IGNORE_MLOCK) &&
+-		    (vma->vm_flags & VM_LOCKED)) {
++		    vma_test_any_mask(vma, VMA_LOCKED_MASK)) {
+ 			ptes++;
  
- 		/* mark primary server as needing reconnect */
- 		pserver = server->primary_server;
- 		cifs_signal_cifsd_for_reconnect(pserver, false);
-+
-+		cifs_put_tcp_session(server, from_reconnect);
- skip_terminate:
- 		return -EHOSTDOWN;
- 	}
+ 			/*
+
 -- 
-2.34.1
+2.55.0
 
