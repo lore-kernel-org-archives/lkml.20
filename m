@@ -1,102 +1,128 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929A55A9874
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF674D489A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:09:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657748; cv=none; b=VoV78W0ac+x+AvzgP3ggSLnszcdf9BSmpxNNOCxrowzJvYTZIAtoqKdZkcucLP/I5L/O5uISiuAX5yayfd9L3Qcl3q6ldDDMiqceYv1A82krttrwqzWj8fEMec+JoD+508Xnjy/KkfySI/8783/2D9AL5VE37JGRyFIV47ZVnW8=
+	t=1789657752; cv=none; b=dIz9eOuQ0YufyXnnxmeXiZ/fD7TpBo/Tzfl0GkSxshYa72KAKYhxqIVcXt5MKZofC7hcT/J7EuQiJldiYhoe4jXyzslABoxtd2k+QQMG3lfMWoCuRJe0YwyNRnle/byKlwp7tSrtjkGWEoTBImhOMddg8bI4vhrMS2e08Bi89Cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657748; c=relaxed/simple;
-	bh=YyZeXPq0Ae8f8lUdWHQOs5TvNKT/kbLtCKws5UuFMkQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PoeU77+Irb4N4eNfHMiF4OIbb0dtk4m+vXk7Ip5aP2EgHDlQbZkeSoVaNjczs1uW+x6EqJRD06eb1JnwdSFlrC8//Sah3WLFu4RW0KNSCgLPvDjB6bR8UXQ7AahLamKFY2jf0+gnPWixCuB3DdEGGzDW9e2RDKwbeVVUM6GuRik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=BOX767Ip; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1789657752; c=relaxed/simple;
+	bh=ZNQ+cRgP+nXk8+UUGlAkoMqikfrO1wJLVlFUQk1/0iY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UoCw9VK1OircUsbzZBUyzBPjA1VLrjNmTRfs3tbDDfOKsR8+1xjRMj1Y4fj3OOagtiU3Z+e+DhbNYEoD+SnEo7TSRbKmbBHhJw30HSBgPvCPIjR0PNJF8Xiw99j52gyFE7BRGb6Yx0Xq3ImR2OV0MJWEBUiGDfHf4M53vCpP0Ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ofvGyRIF; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="BOX767Ip"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93a2218d7c2so32089685a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:09:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ofvGyRIF"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e620fa473so5922555e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:09:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1789657740; x=1790262540; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FFzbULtBbWTbkARPGWfpXQTKad5t9+A3qD1Uocl7bNI=;
-        b=BOX767IpBw1b291f1zdc5pfC8RklSI93B9CZjvFuOehgZBt4HbEuOhsEOrVYbRcigb
-         UVGCG5+gn9L9HI5XVdRDtz0BWjLwGUtXT9XgqQCJc0ZhkH2h+h6qlxSBEUN+04Shtzcw
-         j/q9F14OmKbYg00zix/VPk9gcHXu2WQHcF5AoXHyXWv6YhgaS41r3vj1ItSRx0W81bLp
-         L03/iiIh+HMK1v+LBOTtclpS4uQj0nd4sSqdCm0QGHBA5iRK1DXcOxDyNPASw5CF4Rfo
-         19BQ31LzNmpip9dZdTWADOMHLEnsmda0QmuMdE1Wa0ZZDM0QVFhUYEmnAs+2fMbailko
-         2+Sw==
+        d=gmail.com; s=20251104; t=1789657742; x=1790262542; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9b/fhEwmBPxpFcptPOeQ0kZ30PMWIDMPcXHfa9JyTQU=;
+        b=ofvGyRIFwtBj6ax81jRlJtum+MjOvT/mTUE2seOY29TvDLvyuFcBHYXYJPFtnPLevB
+         aNV0Qq1p8fm8RvelJ6ZOltzi1kaXTdZqcYNzH7oUs5OI6hgWCq3MUyvcfCgERpm4MQMf
+         1Ec5HcyJL8MuhrSTLin+0AKsniCStA9s5i7JmVWLJ+Qx2n5PvSjQdlzzj22dtaYVA4+M
+         o8jgYVmh+hyfTY1Js7EuDPF4GRG3pbzyCKgpA374ysPdvMcjMmh0J+deHuhO5UotjGWL
+         EGJWBaYulYoHEBzSFrBsW8Osg09XKGlkewxSnRsvIphi6ICLOaPlb8rarB/WnLYtuqjO
+         h+HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789657740; x=1790262540;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FFzbULtBbWTbkARPGWfpXQTKad5t9+A3qD1Uocl7bNI=;
-        b=0Pe/p1c/nDFjFXNmS32SoygpTbVEu66IGABI77X1Rq2TRNOQm1SnyAoQQVhRi4L4Fx
-         pI6r7hxvAmxzWmjGcfDB/rotJbymdNDx/zUHMvyTLp36aW1Pi/YV6R8PJhtWTfewsW6c
-         elSSijkfWgL+V5UPnc+lZW+P2UIR9/XzWGjZTqv6rueLJfnAixXhTwFlxxLNKmf0XRZ8
-         Y1Yxm1ahy0vnV9oVr6wMwLBbinvRspfBA10LPjE3Hb2zAlLnKYyymiNjbxusS+XJh0Th
-         qPMuPhrHDi5MYBP/CRy4ca2HnTHH/5pRhwDWEF4AWvBRQkzVCoagkYeAMK48jMCG5tOb
-         Nocg==
-X-Forwarded-Encrypted: i=1; AKwUvByRSCU/Wu9q1fKHdr/9712UAB/BC+URXu410OeDR718X2jKVRAPqNShHE0dDUT+Sgu39SM8pXkGSXxGFqM=@vger.kernel.org
-X-Gm-Message-State: AFuF++ny0/nPG3IPalF9lPGW6CPfUuB/gk+gYCeYuzi2Tya8VEDZDEgB
-	Y5iUXFiKTPymYW2TASzGbeSIEAlALG1XB9/e7VU3N7TJi23r1DHNP7F28VBDmtaz+g==
-X-Gm-Gg: AYBFou1YxKi9IMTXOAzJH9RyoIza+zAFgg6eqhgXowYRRn02TbYuAH4yWQYWEpsEott
-	kpz04x1WgTnJT5QaNIyGfhLSZrGg61svxmeTNOdKX5gOlmls0EGs4PzpuX0YrgVAw8Y+HWCALF2
-	JaGByXg71yWd1nJlSU/4/KxXKgf9JddvQn2hFvxqUdOA7bGk+jBN75S1kqwdmZ7t/FoA/HDzwAj
-	NqsTyjeMKWEe1kAUqTZXzDJg6Kfxaji4lzlVphZ5Ukf4d9jsuQIggEmJf7fZicwvq7228HnINpp
-	pwLdYJ7CY8xrFSo51fpWT5NUX167e/MrL+8qNkqhipKTal3K7BcfkxwAmEN3g/oXv6t/FevLwLw
-	ABqK6mfHO7L3ofxiFuqTM9zlv+uqKWnqNa90xbpOvvSvzLNvBBRnncJ/pk0LWLyYcTdSSNyNz4n
-	O2vBnumtKNDwikXwB8MOe3F/nbewQGPf0OSqTc5iyFqJVngRTHh/pzYREcnehjnbj8PCP5o300
-X-Received: by 2002:a05:620a:2888:b0:936:cd75:8f91 with SMTP id af79cd13be357-93bc632c0ebmr562759185a.12.1789657737981;
-        Thu, 17 Sep 2026 08:08:57 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b781d94c0sm474614285a.10.2026.09.17.08.08.54
+        d=1e100.net; s=20260707; t=1789657742; x=1790262542;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9b/fhEwmBPxpFcptPOeQ0kZ30PMWIDMPcXHfa9JyTQU=;
+        b=LsuXxsvXQTKuvoE73xnDMPRqsP4wmepUpTWgToYxJm4zVRJqws9F/wvWz9nvugXPpA
+         GKeWmkYwRIvG8K/UrJViAdcesQUx01Kbk/tW9hUZq4uItXtvPjPYe/uotnpqeWcMdCJU
+         iBm/jwIdKGPgEUXO51XihzT7lP6BGJqhthpYUk94YMorU9ZlYdbTPozZAWpV8F1bEf3c
+         cG3PREX+WTvCeOxaElsXzTXUUCIaQh6eh5bpfg03V5i3nYDzMfxirG+AMAug0As7I2Vj
+         aMayeqMTFswtrmAVr7LleJdIkHS13bAfQLsoZyXdluinwrGkmvy79twmT+K2u5vqqe1S
+         Lf8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxDJQErlJeXc+kuqDeSfFnDcqpSAZl23XCk4ox4/XnVXYnzF+Cr0Vo8JKviUUxb9P3KbTBJ9/L/sKJ24J0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWYbWKf2DJH/5xp4az/z4VYsBnmEHCIDEwb6tqemuFsrv2JZgv
+	IlTYyqdnVgofrbLYHrWkd6IbBkLYhH4hAKRUZ9AwO1TEhOBE+x6jJhnc
+X-Gm-Gg: AYBFou2AYLPieJ5ZLKHW1kjl5Rr/nRCi7fbe0+ra0YU44/qkSDEYToFgARgidam1ZFf
+	T0wxrEHu0W3jzWnMbgHGQgfqsXhH3LN9iB+u5wibn2EHUP37cRxFd8PVRIXv6CwvcERplnMDPAp
+	6ZyqcPTd/Y/EtNJ7InhAAw/KRDzm9WL8R4X9qa3qb1wL55NzBejYkQv+OQtSlHNOHaO79FFRKsV
+	1mlVwzjHnMjDhTOLSlYzcEsNeF9mE5MLEdHPdYhKHFu1rtpUcLR5/cOJBD1acR8iG59qeJBfCFU
+	76DqnRUcc4XkWo1+xPbVrp8G4I5cew+we017F/Jh/hkKf6XL7rTTE9hVoqxhXir2U3j3KSDBRI5
+	o9SV2IFBenRU1zzcL3L8gDGVucNdt0lGv6ImCM8jZRv/WsMrbtmfSTr5jRnXGYsu3P8e0/2iYvN
+	GaA3cA4lNr1RGzE2imNLplBKO9Jq5uHiNw04c0gveP/3yx9EdLZdTyKzxi0rJWxOJQ04uspB5cV
+	FMfk4nndn80wmHY+w9F1pCOroIHsS9Aavv+mCUnr0nD4i6H+x9hb6/FcfK4NEvtkdxCz9EVHSto
+	NzMy9H+AEfBdRXVGp7CcPA==
+X-Received: by 2002:a05:600c:314a:b0:49d:16f1:94a5 with SMTP id 5b1f17b1804b1-49eb732b59emr86524435e9.25.1789657742060;
+        Thu, 17 Sep 2026 08:09:02 -0700 (PDT)
+Received: from Lord-Beerus.station ([31.27.155.43])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd226ef3sm82531345e9.1.2026.09.17.08.09.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:08:55 -0700 (PDT)
-Date: Thu, 17 Sep 2026 11:08:52 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: CJ <firefly0158@163.com>
-Cc: gregkh@linuxfoundation.org, kees@kernel.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] usb: dummy_hcd: general protection fault in set_link_state
- on unbind
-Message-ID: <bfaf8216-d618-4062-b3f7-ae4da2fccd3b@rowland.harvard.edu>
-References: <34667d49.9099.1a09f41e473.Coremail.firefly0158@163.com>
+        Thu, 17 Sep 2026 08:09:01 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nate Drude <nate.d@variscite.com>
+Subject: [PATCH v1 3/3] arm64: dts: imx8mm-var-dart: increase PHY reset deassert delay
+Date: Thu, 17 Sep 2026 17:08:45 +0200
+Message-ID: <197308a77fb4310a3615bbef084b25fb1874c753.1789657399.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1789657399.git.stefano.r@variscite.com>
+References: <cover.1789657399.git.stefano.r@variscite.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <34667d49.9099.1a09f41e473.Coremail.firefly0158@163.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 04:00:00PM +0800, CJ wrote:
-> 
-> Hi,
-> 
-> 
-> I am reporting a general protection fault in the dummy_hcd link-state handling,
-> triggered by a syzkaller USB reproducer.  The issue is reproducible with HEAD
-> commit cee9395acd8043be0644b25c34bfa86623f2b935 (v7.3-rc1, Linux 7.3.0-rc1).
-> 
-> 
-> The reproducer connects a synthetic HID USB device through dummy_hcd and then
-> unbinds the dummy_hcd.0 platform device by writing its name to the driver's
-> unbind attribute.  The failure happens during the teardown that follows.
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-This patch:
+The Ethernet PHY reset signal also controls the regulators supplying
+VDDA2P5 and VDD1P0, so releasing reset restores the PHY's 2.5 V and
+1.0 V analog supplies.
 
-https://lore.kernel.org/linux-usb/18ec3122-7566-49e5-9964-1028857405b1@mail.kernel.org/
+The existing 100 ms reset deassertion delay is not sufficient for
+reliable PHY detection. The TI DP83867 requires 200 ms of stabilization
+after power-up before MDIO register access.
 
-was submitted at the end of July but it hasn't been merged yet.  Does it 
-fix the problem?
+Increase the reset deassertion delay to 200 ms to ensure reliable PHY
+detection across repeated boots.
 
-Alan Stern
+Co-developed-by: Nate Drude <nate.d@variscite.com>
+Signed-off-by: Nate Drude <nate.d@variscite.com>
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
+ arch/arm64/boot/dts/freescale/imx8mm-var-dart.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-dart.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-var-dart.dtsi
+index 9fc0f7e551ca..fcd937d8d29a 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-var-dart.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm-var-dart.dtsi
+@@ -123,7 +123,7 @@ ethphy0: ethernet-phy@0 {
+ 			reg = <0>;
+ 			reset-gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
+ 			reset-assert-us = <10000>;
+-			reset-deassert-us = <100000>;
++			reset-deassert-us = <200000>;
+ 			vddio-supply = <&reg_phy_vddio>;
+ 		};
+ 	};
+-- 
+2.47.3
+
