@@ -1,164 +1,108 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 220364FECDD
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:44:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C120D4AD7DD;
+	Thu, 17 Sep 2026 12:44:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649094; cv=none; b=bLiqKMp5NC3xfKMnrc1XTIT9tdJYqILwFjQ6fXuRLmu9kNP38sZQsa/g2Ypnsgieo32HI18RIvIRwfEqXH/ury2OJpdEnDevpUOuWK6oKtOpJsT3USACTKZgXHmPoU2lkMhqQGQt1dVvhOvidd1N0z5orh8kUsb4rRzzfVDC3Wo=
+	t=1789649101; cv=none; b=I5/86iT6msriUjxC/ZsekW/spyDdJfBXga3SrFZEbPgPSk9IMHBqmX86P2bxkJVPEIsEK9UpGJ9Oz6YRq7FucwMfyfWBOEezkY1SonxZpG3hsrcfwY0SWdP209XaxQHm1PFWhBjvkw/IF1/duaaN2ZPZD2dQOlqW+kXmcGYTGxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649094; c=relaxed/simple;
-	bh=EsnZ1DK9B73rdVZvb4yaLlND2bYXmTNqpeEfyhoeu74=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=o6RTVDx9BaRPaVCSPucV7tY+mHhBU5jNKD+cYiT109k4qhaWOKb9OIb7YORo9HObpJ3xp1CzfWQbuWbD1ZOpRVWSRxUcSv7XwRtwzb+D5bBv9Y8dKGNeCTYgJK20xcdmAYht42Xbwovl1iOgBrJAW1+7qfnFAPIDY1kNCwAnBVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=iHb8gPWJ; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	s=arc-20240116; t=1789649101; c=relaxed/simple;
+	bh=Et3Dd7CnMhawxZfrawZeh/YHWG6zUOvgBYdFTpdbvPU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sfcDYLUQ7He+mpNdJDSnIjqUtwPCzbbaPktv9rfqAoCioQMvQFLT6I8DFzQtDyaECKfVDjkAs8VSbvFNIrsRNBBXur3vUJg5lxmZ2WFd5eZPbjyzMZ0/RhgJFtGVDyLPR9Af4X8naXsCgVB2aTS36c5oBhle0Efb7uczJdP6JHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=AzYpqDKD; arc=none smtp.client-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="iHb8gPWJ"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874aso631037f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:44:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1789649088; x=1790253888; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pdehwlkISRfMSm0XKDXRgBO0xTq2wH3UxOwDNkTmaec=;
-        b=iHb8gPWJxUx8/sgflbjIr4OZ89/8fIJwqAi1c9u4Mcv3JKtYNWf+L07jJzKQcAhTtE
-         zlRk1+AaQiKyHTHT+AWI9jgY88AeVvrF+ont0sABoPVLwDArzfXIgWCwByWITeJjuSzd
-         alhTmnm2O/794keM1XGDG4bpjch10eiug5HakfJtI6UyJNDnwPEpE5UnAzFBw7wONmRu
-         oDgH0M1/6TNzjTsPRw0UOa6HM2wyFt30WhBjsQE2GmjKY8ku0ZRmOBI+ycNm0bkSTa8w
-         TqsyDvPItudrynyJzW1BtQ16q75FYTIHmiEojjg/nKLgTyc3g2JbgjF/2uH6C+Mha8vn
-         TmXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789649088; x=1790253888;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=pdehwlkISRfMSm0XKDXRgBO0xTq2wH3UxOwDNkTmaec=;
-        b=QVgWzfduQAqyJ3uRcTFomuAfzNerBDiBuIAMDfSh9JiQgMbtCsH9f0uBu379oHi64j
-         koPaQEayvDM2W7Wog8YHm8iNsL4NpTFICJOWShn38ZUJPTex3YW66v5G1k0vaHsEf7TW
-         8MGpQqBjvfslIv5IGvSXvUp9uDubEsQjQkvdCX/pQD/N4CERT9gdhckhiOvQFs6JtW0b
-         RFgGff0Osf6oGz4nHs0qCd/ZfBDXtJ14OLJEWQSdCKEadmoanLDA7NZPGFlPiNTw+FK/
-         6RGjnyG+4sDzrUO8cprVKpVXFKJtcZmc32bVClZji1uyPIx/B8Aeo4E6HyyxYBJFBRwM
-         tfiA==
-X-Forwarded-Encrypted: i=1; AKwUvBwCt2ltkDJ4LK7U98bPfrYI/2XwIyOd6DLViVUxcM8IDvNr9KpEpEnYYp/ESYt2XTY9JrE/CpETUOgVyFM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXeIa4XJasr41usOdUTccoXN2sD20oTd8Z+CKHAVvmhb6+hu0K
-	9aLE1TzvrB1GCYZUT1PreuXXZMCdV2KfQtAXtEefQgVEQaCbDQlQn+njpd6vevi82bA=
-X-Gm-Gg: AYBFou2nUlcPKQ26uiVbvmbR6bLMXOwLiqudM+nqVsetv211IkrOCiLe5Fsw1PYQSbn
-	9x3Ty6pdECRfmPArlPSrQyFtuUMSJUA7e+dT5lsP60GhgSvwrBW2TXiVWlO8EO7roskhmqJjomt
-	43fTbngMj5jf/bmHJJIa9nKE848fEsQ7j8f5M8nMz0myL+PCWJzeXNVJR9xrgq8UJSi+NZlAPp9
-	Jd7WfyICbawFi8cTHpsp1C7b33ivE7WS/OyohXFsb8ztZaveMo6UjyTa4kSH1L/2LXqBOh7BBzy
-	Pobs8EgZup2k55zJjHAc9bhV9LT9Qe5ZGlcjyvfp712WIyxdxVOiAOP2TQoEYV+OPH3BN9iw9DP
-	Kuq2i/zz9vT7TmEBbmsof3ZctHnPQ1ZXT3aBBdZhqwuRUW6VsF13qG+lpSHTOW8PA7PAR5DzXoE
-	TGulh3MDHL1wSwPXKo9dxyBFIsJb7ALPPLd2tmwp9APOYAcraKb4PBTXUm6E3x4TKJtKx0y6/0N
-	7BwExFzcuFGct7WV4KOYfcwbT14YLqsyv4W/Ad1pr2GtsiNoPc=
-X-Received: by 2002:a05:6000:2502:b0:487:88b:4681 with SMTP id ffacd0b85a97d-4870cf037d3mr14945921f8f.10.1789649088231;
-        Thu, 17 Sep 2026 05:44:48 -0700 (PDT)
-Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf418dcsm15274665f8f.35.2026.09.17.05.44.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 05:44:47 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Thu, 17 Sep 2026 16:44:39 +0400
-Subject: [PATCH v2] dt-bindings: mfd: ti,bq25703a: Expand to include
- BQ25798
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="AzYpqDKD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ud
+	jmkgviHBM10spBzNASNtKUvaVRGwvulqW5jHHFEYk=; b=AzYpqDKDPT6uQ0QNSp
+	AFQsykS5eszIdzvKC3sbJDAip2ApyxCFKrWC6tJaLF1+7RPasXvilXi6Pv7wri5E
+	g+VqD3iMmMBdgFqxdzkS0/RWwgXjKtARdm3OM5BGFA6IYOHMo8IQdGadJVm20AKt
+	euVjcPEPKQy509PH5tBse5m7Q=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD31zM84KtqpddEBg--.12077S2;
+	Thu, 17 Sep 2026 20:42:38 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: maxime.chevallier@bootlin.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com
+Cc: netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: stmmac: do not cache the new TSO MSS before it reaches the DMA
+Date: Thu, 17 Sep 2026 20:42:34 +0800
+Message-Id: <20260917124234.1348673-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-bq25798-v2-1-5086845cd3eb@flipper.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNyw6CMBBFf4XM2hpa+gBW/odhAWWQMQZqi42G8
- O8WXLo8ybnnrhDQEwaosxU8Rgo0TwnEKQM7ttMNGfWJQeRC5xWXrHsKZaqSaWN02cpccYOQbOd
- xoPdRujY/Dq/ujnbZ57sxUlhm/zmuIt+9/2rkjLPeKhRoC1lYeRke5Bz684QLNNu2fQFunRjUs
- gAAAA==
-X-Change-ID: 20260914-bq25798-67768a40517e
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chris Morgan <macromorgan@hotmail.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2190; i=alchark@flipper.net;
- h=from:subject:message-id; bh=EsnZ1DK9B73rdVZvb4yaLlND2bYXmTNqpeEfyhoeu74=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWStfrBbjF3UbNcxjrlsm05yfEp9LPl3TcqEJzsbO3bPz
- J1dNuvT9I6JLAxiXAyWYoosc78tsZ1qxDdrl4fHV5g5rEwgQ6RFGhiAgIWBLzcxr9RIx0jPVNtQ
- z9BIx1jHiIGLUwCm2kaXkeFH9fsdFxbpvgztXfrwRpC+nLayzx7RAn+5u3lf/F9tyelnZJgYGlK
- suCdAeHuK4SRdM4vdct0qsYtrOQwZ5SdfyU/N4wYA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD31zM84KtqpddEBg--.12077S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJr4rJFW7WF17XFW8KryrXrb_yoW8urW7pF
+	4UAayvy3s8Jr1fZw48Cw40va45JayxtFWYkw1UGr9xCr43Jr9FgrySgrW8W34UJ3y5ZF1S
+	ka1Du347AF45JrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlhFsUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqR7Mo2qr4D5VtQAA3n
 
-TI has unpublished the BQ25792 charger variant and pulled its docs from
-their website.
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-BQ25798 is a pin and register compatible replacement, which also adds MPPT
-tracking support (reg 0x15, added in BQ25798 and reserved in BQ25792) and
-backup mode (reg 0x0f[1], reg 0x10[7:6], reg 0x16[0] and reg 0x1c[7:5] on
-BQ25798 - all of them reserved on BQ25792).
+stmmac_tso_xmit() fills the MSS context descriptor and stores the new
+MSS in tx_q->mss right away, but the descriptor only gets its OWN bit
+much later, right before the frame is handed to the DMA. Every error
+path in between - the dma_map_single() of the linear part and the
+skb_frag_dma_map() of each fragment - returns with tx_q->mss already
+updated while the MAC is still programmed with the previous MSS; the
+abandoned context descriptor is later reclaimed by stmmac_tx_clean().
 
-Expand the existing binding to include BQ25798 with a fallback compatible
-to BQ25792.
+The next skb carrying the same MSS then compares equal to the cached
+value, so no context descriptor is emitted and the hardware segments
+the TCP stream with a stale MSS, generating frames whose payload size
+does not match what the stack accounted for.
 
-Link: https://www.ti.com/product/BQ25798
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
+Only update tx_q->mss once the context descriptor has been given to the
+DMA so that the cached value always describes what the hardware is
+actually programmed with.
+
+Fixes: f748be531d70 ("stmmac: support new GMAC4")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 ---
-Changes in v2:
-- Fixed the conditional to ensure the constraints are applied to ti,bq25798 (Sashiko)
-- Link to v1: https://patch.msgid.link/20260914-bq25798-v1-1-dc5e2ec343c4@flipper.net
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-To: Lee Jones <lee@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Chris Morgan <macromorgan@hotmail.com>
-Cc: mfd@lists.linux.dev
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- Documentation/devicetree/bindings/mfd/ti,bq25703a.yaml | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/mfd/ti,bq25703a.yaml b/Documentation/devicetree/bindings/mfd/ti,bq25703a.yaml
-index cdce83f05804..3bc07f25d063 100644
---- a/Documentation/devicetree/bindings/mfd/ti,bq25703a.yaml
-+++ b/Documentation/devicetree/bindings/mfd/ti,bq25703a.yaml
-@@ -11,9 +11,14 @@ maintainers:
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index af2d38a2bb3d..a8f94cd6abb4 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4563,7 +4563,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			mss_desc = &tx_q->dma_tx[tx_q->cur_tx];
  
- properties:
-   compatible:
--    enum:
--      - ti,bq25703a
--      - ti,bq25792
-+    oneOf:
-+      - enum:
-+          - ti,bq25703a
-+          - ti,bq25792
-+      - items:
-+          - enum:
-+              - ti,bq25798
-+          - const: ti,bq25792
+ 		stmmac_set_mss(priv, mss_desc, mss);
+-		tx_q->mss = mss;
+ 		tx_q->cur_tx = STMMAC_NEXT_ENTRY(tx_q->cur_tx,
+ 						priv->dma_conf.dma_tx_size);
+ 		WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
+@@ -4714,6 +4713,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		 */
+ 		dma_wmb();
+ 		stmmac_set_tx_owner(priv, mss_desc);
++		tx_q->mss = mss;
+ 	}
  
-   reg:
-     const: 0x6b
-@@ -103,7 +108,8 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          const: ti,bq25792
-+          contains:
-+            const: ti,bq25792
-     then:
-       properties:
-         input-current-limit-microamp:
-
----
-base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
-change-id: 20260914-bq25798-67768a40517e
-
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
+ 	if (netif_msg_pktdata(priv)) {
+-- 
+2.25.1
 
