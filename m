@@ -1,192 +1,161 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011064.outbound.protection.outlook.com [40.93.194.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315EF457E67
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634374; cv=none; b=HEKkVi9FPeTp/yaV1Bhe/njeZb+FblY60RMuiSaag3o1FrC6puhq/qQJQiPvxzcx29BQPUKIErRCEP9udCrlyGYW5KxIgWpK/IVzYt+R8XjWixPzknw3JodczZ/2aGTW4Ol7fI84VlGeX7l1HIFQGE/O7l4aCfaK+OZ5yOI1R6c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634374; c=relaxed/simple;
-	bh=XvreuLeOtfvNywpcxb8bwQSkEogyi1YRQ/XuBi2qtaQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=L2O78WdDbtA8CA61+BLr9bE+ReIbTsJY4mvf30JK2mwIGl3CFG5OQ2RWO/HHKYe0dLIHGBpbslZPtLveBmkBEFU/e9GhJyKD6V0cmkyVMuC2YVkh82PvzUnHb44WPbZwhgV7/95qJx1G3ZJ2en7MD9xePWvfeqgi7P6x1SkGELg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=p43hO+iZ; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC0148D884;
+	Thu, 17 Sep 2026 08:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789634373; cv=fail; b=A4/xX2iqZx9+EnfbvbTI1msnIlEXaILijFY3pnkndKof/PbcwDemrIrWQcd41YHYxeeJIyzbIIQP+KvQfa3iHFV19YzrdKLA+/is0bV/pcT6XC5Drsizmb8tYavuOXN63UQ3LOY6y9jsPQ5ZhD2uqSr2C1xzldvo2wkhTbbL/Jk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789634373; c=relaxed/simple;
+	bh=NWmfg8PkXWApSrD/HNGOAmbgIvhW5yLjpA1/mMVGrMs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=X+8vEJlfZ7nSl1ogDhSN1HJif7cGMSofwXhAsvBvxxfPk4gNPc8segmEzZElsV2jiYMlOKVfD29+2UkZdIaXkeuREP5bVTR/gTtPRhAdQ9QozGZv5ukOzC/6O5Xm7R/Po1MdcVaTK6eU97mOemPLM3CsG/9I9VK6wsLqj7vob/s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4WFMzmtY; arc=fail smtp.client-ip=40.93.194.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="p43hO+iZ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C498E1A0923;
-	Thu, 17 Sep 2026 08:39:12 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8D6965FAA3;
-	Thu, 17 Sep 2026 08:39:12 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2B3DF11C7B03D;
-	Thu, 17 Sep 2026 10:39:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789634351; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=QuoRrFfTxIZUivKnEfDlkI8xh2XYY3hVccu5BeUQVu0=;
-	b=p43hO+iZNKIVcVxx0knz5+yLFxD+GWfHsSWNxKV047TChC0YUx5bFYrHLZUv3OPEUZTgu2
-	cE/YxOyAjapcOisgMFuumn+H3mvQj9Kut6fVmGJx4mQQTkwatNSTUHsIenzvzft4mT62C3
-	zlxq7OLFrxkSeTKuVEX6ApPdq9D+5GQ9BNF2r56Scobfr8YVnOnSDitvxotPURizwFP6oM
-	Kk15WmMFy9E2NcpbtYbUt+CCtbTWa1cXvSNO2tIRvXKEb6TYrWj09i40wc2ZNTW8yZBhuH
-	bHA7VwkIcp5zJdb4SghgU+4RnM5v7rJIBOS318ijEdcvWR8ABi9W15LMn/7c+g==
-From: "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-Date: Thu, 17 Sep 2026 10:39:04 +0200
-Subject: [PATCH net v2] net: dsa: microchip: save the periodic output
- request
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4WFMzmtY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vGoMRRah/U6O/uVOWggRNiQ/K4sLyg1IC25dJqnKHkHr42CAN5f5/ig6szwDPt/nazdlQTtVz7tW54FkNK2F9N3LNi/oYr9vVCQ8CMOQZse0LRloQL7VJ0qq7pfhVTXhTVgXyekInjgojFK9737J8xrUxIdL96IVbUl+MnNH1ci9d12442h/+GMXmawCEwquf3kzkLN1VQBF4SxPMPplRt4wAGaEqG/cJmH8UAwXrptJFliZ6EKtSoxpBtl4KtgjKCip6rDzoNKgC8EepojlFaEYhQToJOYB9MRIIatufPpVXZ6vzzRVX+IcHnqkEq649JTfW72NdqLbEo3aqORXFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+/BB4mj2h1naswNQfVcvWfadcd+r4Z63Ld2vw1mUC84=;
+ b=f5qSeRJhdy9GIWOVmDzp6VIjabuklP2+VOE1V75yEXSOQUzth1WxFlhkCiLcXBX7LTJa7Yc6dNVv6BMb2aKE0Hb0XpmObBEXz2MMQyGhc+hUexjWHfo7Po/BlRV6gGNFg0QyVIPSnr/Bo4XjGaz5MG7YUP+FSq0bxP7z8FajN8B3TPBx10FBWDPTSr4G0jiMPFUlRhEPT4yKOqmiRcIKvUbAqbEB+vBwdebI6ORU/3S4FzdcbIhhRoGsWcZLQ52mz7SLMKpxQNL3VHRLxkjckm0hBNlx4i3a/Ofx/BChOqrMxyqiyTX2EQEoa34A0hSAR95yghYVU7aYQtN9fQxdJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+/BB4mj2h1naswNQfVcvWfadcd+r4Z63Ld2vw1mUC84=;
+ b=4WFMzmtY3KxB74DPv8jP3rPYqptPQnZHZQVu1OuLbTLL3Vby5k9PXvM1eg2cWGxZabZ0O8GBhYr65GLH9JpqRpzdnCrvHbAoiDfbIfOw9xg6dWBPhH/a0oqhJAgMJkNS3SSILW70aHIK3tZkVS2unfGzGCUKkcm/8+hhLSLqneI=
+Received: from BY3PR04CA0014.namprd04.prod.outlook.com (2603:10b6:a03:217::19)
+ by IA1PR12MB7495.namprd12.prod.outlook.com (2603:10b6:208:419::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
+ 2026 08:39:14 +0000
+Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
+ (2603:10b6:a03:217:cafe::1c) by BY3PR04CA0014.outlook.office365.com
+ (2603:10b6:a03:217::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Thu, 17
+ Sep 2026 08:39:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Thu, 17 Sep 2026 08:39:13 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 03:39:12 -0500
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49
+ via Frontend Transport; Thu, 17 Sep 2026 03:39:08 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <vkoul@kernel.org>
+CC: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
+	<yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
+	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
+ Mukunda" <Vijendar.Mukunda@amd.com>
+Subject: [PATCH V2 7/9] soundwire: amd: drop amd_deinit_sdw_manager() in POWER_OFF suspend
+Date: Thu, 17 Sep 2026 14:04:18 +0530
+Message-ID: <20260917083732.3803526-8-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260917083732.3803526-1-Vijendar.Mukunda@amd.com>
+References: <20260917083732.3803526-1-Vijendar.Mukunda@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-fix-perout-v2-1-d8acf3eea6f7@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ7CIBREr9L8tZiCRaAr72G6aOnH/kShASSap
- neXdO1y5mXebJAwEibomw0iFkoUfA3i1IBdRv9ARnPNIFpxbQ3vmKMPWzGGd2ZWW6PEpM2sHNT
- BGrHSQ3YHjxmGWi6Ucojf46DwA/1zFc44M66T8sJHJbW8TSHkJ/mzDS8Y9n3/Af7w4xOrAAAA
-X-Change-ID: 20260914-fix-perout-c8c972b89d7f
-To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Christian Eggers <ceggers@arri.de>, 
- Arun Ramadoss <arun.ramadoss@microchip.com>
-Cc: Pascal Eberhard <pascal.eberhard@se.com>, 
- =?utf-8?q?Miqu=C3=A8l_Raynal?= <miquel.raynal@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|IA1PR12MB7495:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48a0b74c-85fd-4bb4-981f-08df149726f2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|10067099003|56012099006|6133799003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	hpsoaNvDCMpTWYUyehwlciukYTczbWkEBMMaPSO+CdOcsp/eDNhhTssBzftroBxON9IlGmn9dOFStXJuhkVZ8PyXfAV720cYMDa64PSmjQe6kLtmsUSQHMEOOK9EXJUNMETrrZLhJ7uB2rr4+6Gf9rz+LZDzbqfAZKy+k0ak+pnOMImyfgtmzDrXEUaWj3jkNaLgKcMHTZ4Xj65+3T//4Z2nCzw+pOSn7Q3NN2vhHMWiz3hJWxTVIVOZEvwwtY9G1A2+wRs8Q8+ltDJmtja2XALnW6GEJiZaUDm8V4Mwh8tlH6n6hgT2asmVfw4SiiREE2EP7cFQoZTZfY3xHLYXOnuD5jvriV4m0froL96HchaRq6m0SZWdnZWdyJgLMKMHgkQZ3242JKZr+BeKCnJ4MPorQ7hwkygxHeext0DNSYmTzdttG+x9scSTwHCfpmBOnE1ypmHD+ohCqT7gnDpaHG1089J+H3aBJKvGrgQvpwWoDjTQj6wQ2bHP/7Ub9ILOHGctPzOJvZ7g3xs6cST2A0bl66k9DXt1zXOsMDV4Tt/KRU5vHbGY0UZFEN87TGnUxxwx5r5Pa30aQV9FdBUrEq+LicCtAz6TNP76Jd8Mz4a486AZh98Xfy6yVHP+BA+qfzjaEocaGSFYRdk6WaoMIPrkeB8XVSGSmKJybuSsonK+3fs1vKiuuCVApJ4ElO7OXegoDWgUhDxPXDbjUlLJGw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(10067099003)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	GoI3056FFFxYXQW2qo6ob56Uswx+KPJWSd5c85u2bLwoxm7NJQVweuU8sXIj9NGiNgCxUf7X/zrBPP3s2l19jfW+7gEp1Maw/CdUpNKKvNimZejkGwRt4/UaJ1mTBwv186y638yORONFGQTKuaYN0FvHO3MHD7oCpeWwzc++btreXvhCbDiNhYSGCN+ggUetkR113zxVZ9Wn6bbhJkEU9SIVBm6sw1xQ+MmXUMK/s1MTvzVJWuZrXEHi8Jktw0q9RqyEoPLT6hu+O1iZ1OkVSKXHMMRyRw4YzKkP1VM6SF5WB0CW4DbwgZK0RUbGZTsKLOuFn8zLamOtsWEuYJyHZu+AKr4356wFYrhmF3CQ7h7jLfLpWbEVq76NPD+3cRwG0UpyMcRmnY2r4+3auCsbKqVAWsTmMqCnjQgbhZej8PxxOM9ushFsGVTtADrm17HM
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 08:39:13.5192
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48a0b74c-85fd-4bb4-981f-08df149726f2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C6194.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7495
 
-When a periodic output is initialized, only the start and the period are
-stored, not the flags nor the pin index. So when the periodic output is
-restarted, the request flags and index are always set to 0. So if a pin
-other than the first one was used, or if a flag was set in the request
-that triggered the periodic output, it is lost when the output is
-restarted.
+amd_deinit_sdw_manager() was a small helper that bundled
+amd_disable_sdw_interrupts() and amd_disable_sdw_manager() together.
+Expand the two POWER_OFF_MODE call sites in amd_suspend() and
+amd_suspend_runtime() to call those two functions directly, then remove
+the helper. No functional change.
 
-Save the full request when the periodic output is initialized.
-Use the saved request when the periodic output is reset
-
-Cc: stable@vger.kernel.org
-Fixes: 1f12ae5b6760 ("net: dsa: microchip: ptp: add periodic output signal")
-Signed-off-by: Bastien Curutchet (Schneider Electric) <bastien.curutchet@bootlin.com>
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
-Changes in v2:
-- Save the full request insead of only flags and index.
-- Link to v1: https://lore.kernel.org/r/20260914-fix-perout-v1-1-9f45531a7585@bootlin.com
----
- drivers/net/dsa/microchip/ksz_ptp.c | 30 ++++++++++++++++--------------
- drivers/net/dsa/microchip/ksz_ptp.h |  3 +--
- 2 files changed, 17 insertions(+), 16 deletions(-)
+ drivers/soundwire/amd_manager.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
-index 39cc70d65900..0979b6e04d1e 100644
---- a/drivers/net/dsa/microchip/ksz_ptp.c
-+++ b/drivers/net/dsa/microchip/ksz_ptp.c
-@@ -189,6 +189,7 @@ static int ksz_ptp_enable_perout(struct ksz_device *dev,
- {
- 	struct ksz_ptp_data *ptp_data = &dev->ptp_data;
- 	u64 req_pulse_width_ns;
-+	struct timespec64 tmp;
- 	u64 cycle_width_ns;
- 	u64 pulse_width_ns;
- 	int pin = 0;
-@@ -222,13 +223,11 @@ static int ksz_ptp_enable_perout(struct ksz_device *dev,
- 		return 0;
- 	}
- 
--	ptp_data->perout_target_time_first.tv_sec  = request->start.sec;
--	ptp_data->perout_target_time_first.tv_nsec = request->start.nsec;
-+	memcpy(&ptp_data->perout_request, request, sizeof(struct ptp_perout_request));
- 
--	ptp_data->perout_period.tv_sec = request->period.sec;
--	ptp_data->perout_period.tv_nsec = request->period.nsec;
--
--	cycle_width_ns = timespec64_to_ns(&ptp_data->perout_period);
-+	tmp.tv_sec = ptp_data->perout_request.period.sec;
-+	tmp.tv_nsec = ptp_data->perout_request.period.nsec;
-+	cycle_width_ns = timespec64_to_ns(&tmp);
- 	if ((cycle_width_ns & TRIG_CYCLE_WIDTH_M) != cycle_width_ns)
- 		return -EINVAL;
- 
-@@ -249,9 +248,10 @@ static int ksz_ptp_enable_perout(struct ksz_device *dev,
- 	if (ret)
- 		return ret;
- 
-+	tmp.tv_sec = ptp_data->perout_request.start.sec;
-+	tmp.tv_nsec = ptp_data->perout_request.start.nsec;
- 	ret = ksz_ptp_configure_perout(dev, cycle_width_ns, pulse_width_ns,
--				       &ptp_data->perout_target_time_first,
--				       pin);
-+				       &tmp, pin);
- 	if (ret)
- 		return ret;
- 
-@@ -763,6 +763,7 @@ static int ksz_ptp_restart_perout(struct ksz_device *dev)
- 	struct ptp_perout_request request;
- 	struct timespec64 next;
- 	struct timespec64 now;
-+	struct timespec64 tmp;
- 	unsigned int count;
- 	int ret;
- 
-@@ -773,10 +774,14 @@ static int ksz_ptp_restart_perout(struct ksz_device *dev)
- 		return ret;
- 
- 	now_ns = timespec64_to_ns(&now);
--	first_ns = timespec64_to_ns(&ptp_data->perout_target_time_first);
-+	tmp.tv_sec = ptp_data->perout_request.start.sec;
-+	tmp.tv_nsec = ptp_data->perout_request.start.nsec;
-+	first_ns = timespec64_to_ns(&tmp);
- 
- 	/* Calculate next perout event based on start time and period */
--	period_ns = timespec64_to_ns(&ptp_data->perout_period);
-+	tmp.tv_sec = ptp_data->perout_request.period.sec;
-+	tmp.tv_nsec = ptp_data->perout_request.period.nsec;
-+	period_ns = timespec64_to_ns(&tmp);
- 
- 	if (first_ns < now_ns) {
- 		count = div_u64(now_ns - first_ns, period_ns);
-@@ -791,12 +796,9 @@ static int ksz_ptp_restart_perout(struct ksz_device *dev)
- 
- 	/* Restart periodic output signal */
- 	next = ns_to_timespec64(next_ns);
-+	memcpy(&request, &ptp_data->perout_request, sizeof(struct ptp_perout_request));
- 	request.start.sec  = next.tv_sec;
- 	request.start.nsec = next.tv_nsec;
--	request.period.sec  = ptp_data->perout_period.tv_sec;
--	request.period.nsec = ptp_data->perout_period.tv_nsec;
--	request.index = 0;
--	request.flags = 0;
- 
- 	return ksz_ptp_enable_perout(dev, &request, 1);
+diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+index 2d2f628230ee..6af224ca54a3 100644
+--- a/drivers/soundwire/amd_manager.c
++++ b/drivers/soundwire/amd_manager.c
+@@ -146,12 +146,6 @@ static void amd_disable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
+ 	writel(0x00, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
  }
-diff --git a/drivers/net/dsa/microchip/ksz_ptp.h b/drivers/net/dsa/microchip/ksz_ptp.h
-index 7067ec9bd1e6..eb3827203b96 100644
---- a/drivers/net/dsa/microchip/ksz_ptp.h
-+++ b/drivers/net/dsa/microchip/ksz_ptp.h
-@@ -29,8 +29,7 @@ struct ksz_ptp_data {
- 	spinlock_t clock_lock;
- 	struct timespec64 clock_time;
- 	enum ksz_ptp_tou_mode tou_mode;
--	struct timespec64 perout_target_time_first;  /* start of first pulse */
--	struct timespec64 perout_period;
-+	struct ptp_perout_request perout_request;
- };
  
- int ksz_ptp_clock_register(struct dsa_switch *ds);
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260914-fix-perout-c8c972b89d7f
-
-Best regards,
+-static int amd_deinit_sdw_manager(struct amd_sdw_manager *amd_manager)
+-{
+-	amd_disable_sdw_interrupts(amd_manager);
+-	return amd_disable_sdw_manager(amd_manager);
+-}
+-
+ static void amd_sdw_set_frameshape(struct amd_sdw_manager *amd_manager)
+ {
+ 	u32 frame_size;
+@@ -1336,7 +1330,8 @@ static int __maybe_unused amd_suspend(struct device *dev)
+ 		ret = amd_sdw_clock_stop(amd_manager);
+ 		if (ret)
+ 			return ret;
+-		ret = amd_deinit_sdw_manager(amd_manager);
++		amd_disable_sdw_interrupts(amd_manager);
++		ret = amd_disable_sdw_manager(amd_manager);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -1380,7 +1375,8 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
+ 		ret = amd_sdw_clock_stop(amd_manager);
+ 		if (ret)
+ 			return ret;
+-		ret = amd_deinit_sdw_manager(amd_manager);
++		amd_disable_sdw_interrupts(amd_manager);
++		ret = amd_disable_sdw_manager(amd_manager);
+ 		if (ret)
+ 			return ret;
+ 	}
 -- 
-Bastien Curutchet (Schneider Electric) <bastien.curutchet@bootlin.com>
+2.48.1
 
