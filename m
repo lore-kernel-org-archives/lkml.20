@@ -1,94 +1,136 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7C6EF5A0AA3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:56:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 03DFA59D623;
+	Thu, 17 Sep 2026 14:56:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657007; cv=none; b=LPZpNkrg3nKAQ+fd9MOayaGvQr+I39onjzBmmSUozrbuEWEFP+hNXeSm532gzTshHOuZJ3rh5kfgUoaG2RfOMMJCpkv9dsjRuIp2iLLp8rMadAqkk3/CUUiJYT6PEwZX5nDYoeku7Mj1O7rSrr0G3MLQXspOgwVopwAosPO6UG4=
+	t=1789657010; cv=none; b=p4GHkZd/Yxl8+Q4r4QV8YWcIJqpXGE3doyODuo5oGiZwwi+oCtbhoeyhVYTMimB4+66qqceffA0R1vSLt82fHWhx7UtGTgNDaVi5xpUOSPNQRyVi5GAdjcqyZUzRI9wV3EliZ+WQf4si0OakNOfWVAxAgnaqW4rN6iz2UHjw0aU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657007; c=relaxed/simple;
-	bh=EQBvkZtIHffAkr5/QWRSIbFbmywWBucVousASbKrX8o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gWbZETVCaNDqceX7kBAjgD4/8vYELJSNTtc1QpCANthufECz8H0O2ehMLU9J7orccAddzqw+fvOi5mL3eaarYKUJVnKIi/epsK1FVvDgyAzPj7RZdqYfBFwV8CGhA/4DJ95M2MLWSMaI/r/RWyU/mMfILKEIZ7MYMZdGzmiY3zU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=uOkCjQnP; arc=none smtp.client-ip=217.140.110.172
+	s=arc-20240116; t=1789657010; c=relaxed/simple;
+	bh=eUxG9747wszXc+62EGP/WBFIfzWwzDqmVrDkyyASluY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uzuGX8QSsLM/OUpZ/SWF35qj4/632DYm0neHYmQ8j/U05xSTTnOejRaemDSIDxwWZbbEyLpwU4yGdG5hkScY+kH0W+vvszvOhFkDKOotrL5Zrg6wm8VxKblKPjWc8ixiO644cF9lv7Xyx4EDu11xrBki/HALBM6D2hQOHIEefGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TsyKfiEi; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="uOkCjQnP"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TsyKfiEi"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D123E1F02;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 793A11AED;
+	Thu, 17 Sep 2026 07:56:25 -0700 (PDT)
+Received: from [192.168.4.158] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 717683FAF5;
 	Thu, 17 Sep 2026 07:56:26 -0700 (PDT)
-Received: from e134344.cambridge.arm.com (unknown [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 06B663F86F;
-	Thu, 17 Sep 2026 07:56:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789656990; bh=EQBvkZtIHffAkr5/QWRSIbFbmywWBucVousASbKrX8o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=uOkCjQnPBTnLED+Ju1Wsd5Ys3DpvforX8qQNzjUaaf+/HOyzl34vFEwDPh1tvVFmT
-	 JGHngIm/imqQGLAj1jcWRbDMrIHUceHZuze7jHzq8LHA2I3uzV19KzIruXBXczz6xj
-	 hgeHtuXflkeAe9klb8QfQiHRm9lNl+uX8LO7J0JA=
-From: Ben Horgan <ben.horgan@arm.com>
-To: ben.horgan@arm.com
-Cc: james.morse@arm.com,
-	reinette.chatre@intel.com,
-	fenghuay@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	dave.martin@arm.com,
-	andre.przywara@arm.com,
-	Gavin Shan <gshan@redhat.com>
-Subject: [PATCH v2 02/12] arm_mpam: Restore the error interrupt enable from mpam_cpu_online()
-Date: Thu, 17 Sep 2026 15:56:07 +0100
-Message-ID: <20260917145617.2202986-3-ben.horgan@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260917145617.2202986-1-ben.horgan@arm.com>
-References: <20260917145617.2202986-1-ben.horgan@arm.com>
+	t=1789656989; bh=eUxG9747wszXc+62EGP/WBFIfzWwzDqmVrDkyyASluY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=TsyKfiEiMhJBNLVveiQpLq85U6MQ93vNKCu3TgmqxqLIMIdSx9GBKJi8IP9JDllJU
+	 7pB41kUm+a3xgdocm3fTfC/tvwzwS08OzoGuh1QpB/RhCCf+SCq70C29VDVUcQK7/O
+	 UUmSYCXbKSoxUdqmV8OqGAfBjt9YCJrAmcFb3qlU=
+Message-ID: <1ed53b83-a598-49c7-aa42-7736df87e2b1@arm.com>
+Date: Thu, 17 Sep 2026 15:56:25 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 20/23] KVM: arm64: CCA: Don't expose unsupported
+ capabilities for realm guests
+Content-Language: en-GB
+To: Fuad Tabba <tabba@google.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+ gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+ alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+ lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
+ <20260915160141.3543048-21-suzuki.poulose@arm.com>
+ <CA+EHjTwYqTFzGdNPproWW5L6j5pNqmuWeFuu9HbHa8LBLPvY2A@mail.gmail.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CA+EHjTwYqTFzGdNPproWW5L6j5pNqmuWeFuu9HbHa8LBLPvY2A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When all the associated CPUs to an MSC are offline, possibly caused by
-PSCI_CPU_OFF, the power supply to the MSC can be cut off and all the
-registers that are unknown out of reset, including MPAMF_ECR.INTEN, are
-lost. Afterwards, we need to explicitly set MPAMF_ECR.INTEN when the first
-associated CPU becomes online and the power supply to the MSC is recovered.
+On 17/09/2026 14:16, Fuad Tabba wrote:
+> Hi Suzuki,
+> 
+> On Tue, 15 Sep 2026 17:01:38 +0100, Suzuki K Poulose
+> <suzuki.poulose@arm.com> wrote:
+> [...]
+>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> [...]
+>> +static inline bool kvm_realm_ext_allowed(long ext)
+>> +{
+>> +        switch (ext) {
+>> +        case KVM_CAP_ARM_PSCI:
+>> +        case KVM_CAP_ARM_PSCI_0_2:
+>> +        case KVM_CAP_NR_VCPUS:
+>> +        case KVM_CAP_MAX_VCPUS:
+>> +        case KVM_CAP_MAX_VCPU_ID:
+>> +        case KVM_CAP_MSI_DEVID:
+>> +        case KVM_CAP_ARM_VM_IPA_SIZE:
+>> +        case KVM_CAP_ARM_SVE:
+>> +        case KVM_CAP_ONE_REG:
+>> +        case KVM_CAP_ARM_PTRAUTH_ADDRESS:
+>> +        case KVM_CAP_ARM_PTRAUTH_GENERIC:
+>> +        case KVM_CAP_SYNC_MMU:
+>> +                return true;
+>> +        }
+>> +        return false;
+>> +}
+> 
+> I'd keep KVM_CAP_IRQCHIP in this list. api.rst has it advertising
+> KVM_IRQ_LINE as well as KVM_CREATE_IRQCHIP, so the cap means in-kernel
+> irqchip rather than GICv2, and the GICv2 case is already rejected by
+> patch 18 in kvm_vgic_create(). It also keeps the two protected lists
 
-Restore MPAMF_ECR.INTEN in mpam_cpu_online() when the first associated CPU
-of the MSC becomes online.
+Ack
 
-Fixes: 49aa621c4dca ("arm_mpam: Register and enable IRQs")
-Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-Tested-by: Gavin Shan <gshan@redhat.com>
----
-Changes since v1:
-Update the commit message (Gavin)
----
- drivers/resctrl/mpam_devices.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+> the same where the support is the same. And could this live in
+> kvm_rmi.h, next to where kvm_pkvm_ext_allowed() lives in kvm_pkvm.h,
+> rather than in arm.c?
 
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index 580d7ed38569..32bde94dfbc3 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -1856,8 +1856,14 @@ static int mpam_cpu_online(unsigned int cpu)
- 		if (msc->reenable_error_ppi)
- 			_enable_percpu_irq(&msc->reenable_error_ppi);
- 
--		if (atomic_fetch_inc(&msc->online_refs) == 0)
-+		if (atomic_fetch_inc(&msc->online_refs) == 0) {
-+			mutex_lock(&msc->error_irq_lock);
-+			if (msc->error_irq_hw_enabled)
-+				mpam_touch_msc(msc, mpam_enable_msc_ecr, msc);
-+			mutex_unlock(&msc->error_irq_lock);
-+
- 			mpam_reprogram_msc(msc);
-+		}
- 	}
- 
- 	if (mpam_resctrl_enabled)
--- 
-2.43.0
+ From what I remember, it creates weird header file dependencies. I
+will see if I can resolve them.
+
+> 
+> [...]
+>> +static inline bool kvm_arch_vm_ioctl_allowed(struct kvm *kvm, unsigned int ioctl)
+>> +{
+>> +        long ext;
+>> +        int r;
+>> +
+>> +        r = kvm_get_cap_for_kvm_ioctl(ioctl, &ext);
+>> +        if (WARN_ON_ONCE(r < 0))
+>> +                return false;
+> 
+> You told Sashiko my fix covers this one [1], but that fix changes
+> kvm_pkvm_ioctl_allowed(), which this patch deletes, so the `if (r <
+> 0)` has to go into this copy too. The guard you posted for the second
+> finding still leaves the WARN reachable on pKVM and Realm hosts, which
+> is the case the fix removed.
+
+I had the chat with Marc about this and his recommendation was to
+post my changes as they are and he would resolve the changes
+while managing the conflict.
+
+> 
+> nit: kvm_arch_ is the prefix generic KVM uses for the hooks it calls
+> into the arch. For two static helpers in arm.c, kvm_vm_ext_allowed()
+> and kvm_vm_ioctl_allowed() would avoid the collision, and the same for
+> kvm_arch_vm_ext_allowed() above.
+
+Ack
+
+Suzuki
+
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/20260914093838.1082637-1-fuad.tabba@linux.dev/
 
