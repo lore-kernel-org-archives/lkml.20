@@ -1,90 +1,151 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC8A4FB9A6;
-	Thu, 17 Sep 2026 13:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA78514773;
+	Thu, 17 Sep 2026 13:06:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650370; cv=none; b=YbkDm7U8aVuhtNxug4UBzUF3JkDkVDONtP6YfG6Jwaec5PTWifQb5TQ6P9PmwjJ5O3x1NlD7AqtCqoiJX+Z8Q8LKXcwaTMbD1rjqZzdUG8Y0WJx2ma/s/jU/rK69d95TM7Y98TVXwsVlTnd6rg+wz6B9pABkxgCxK6YvjaLW7/8=
+	t=1789650414; cv=none; b=UgK4D1Yt8h4kHl+s4htecmZyi3KjAuxReWQSQyq4Eyqki5ilcuJ7Gb+pgvBZSO03M/13BYsMHgkb3BIi2cUz1pcEqZeM9+pZQAqWtrep09baMbz7xCrtDPu/KaRLuZOZexgjfrCTJ+aoNtDd5GvpxdODBWrlbbCQR0gufBnWHpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650370; c=relaxed/simple;
-	bh=oezo/SszkwE+zd4QWtRoMT8kUkoRl08sTrTSZxrGGac=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J6+rXXBQmLZBR2JxShr3ZwyvXJeQslb7NCwD3kQNh9pdnv5tR0oKGzHTP5c8eKntNq9u+c3qAqR8CUL9U/fSCzwJt+2bSfUJIUKjidtDXLl3+G3LLlACH8s1ynDm2H6EseKGatD8ceNlEIMU9edaRCPdJsoPKdpOqjbiHgol2Ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnF0Kz5atqHxmBCA--.3307S2;
-	Thu, 17 Sep 2026 21:05:55 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: devicetree@vger.kernel.org
-Cc: grant.likely@linaro.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	saravanak@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] of: unittest: Fix pdev reference leaks in of_unittest_platform_populate()
-Date: Thu, 17 Sep 2026 13:05:55 +0000
-Message-Id: <20260917130555.2152765-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789650414; c=relaxed/simple;
+	bh=6fjy9ZBmXn0UPSK1BLLKsFzED6I434bUX3EwUrM41tE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RpHr5oqF/qOCmIqvdzjYa/X37R6ZL7vaMlBY4a1T1CY8G6qgv/XTgutZXdyygsPavF8gFe6DIxCbBEYZpPHalAIprxKp0vjVwLFQKfUmmSvneELYqS0rLCY0d0tVg1+am7KCEq7oIuyixb/bt5FDSbBjgMgHHqbXDFw0T5FRnfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=eBxZRgdn; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="eBxZRgdn"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=4l+0/KB5shywkowpBJPfrdIhgydMAX7BiWEFJvhsp7Y=;
+	b=eBxZRgdnZIvmrxcH13n4208C4A/NcXSIVfuRIfXFtY7fKXd+iRRsCkyA8O75EpA8zgd7ohdOD
+	Rq+12qgLZ+kQFJPI3JeRuFw/uO4UXeWDD3M269NrieNcyBq3sBPy/83JkTk2a7qmWXfBcBv61CV
+	fNrheYk9hpTnwYYiPZDQXAA=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hlwj829qtzKm5t;
+	Thu, 17 Sep 2026 20:55:40 +0800 (CST)
+Received: from kwepemp200012.china.huawei.com (unknown [7.202.194.234])
+	by mail.maildlp.com (Postfix) with ESMTPS id 5B7F340586;
+	Thu, 17 Sep 2026 21:06:43 +0800 (CST)
+Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
+ kwepemp200012.china.huawei.com (7.202.194.234) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 17 Sep 2026 21:06:43 +0800
+Received: from localhost.localdomain (10.50.163.32) by
+ kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 17 Sep 2026 21:06:42 +0800
+From: Xingui Yang <yangxingui@huawei.com>
+To: <john.garry@linux.dev>, <yanaijie@huawei.com>, <jejb@linux.ibm.com>,
+	<mkp@kernel.org>
+CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linuxarm@huawei.com>, <yangxingui@huawei.com>, <liuyonglong@huawei.com>,
+	<kangfenglong@huawei.com>
+Subject: [PATCH v2] scsi: libsas: Fix SMP IO deadlock during HA resume
+Date: Thu, 17 Sep 2026 21:06:42 +0800
+Message-ID: <20260917130642.1796231-1-yangxingui@huawei.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnF0Kz5atqHxmBCA--.3307S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zw1UAFW8CF1xCFy8AFykAFb_yoW8JF4Dpr
-	W7KFWa9rn5GF47taykuFyUZFyIyanxK395GryUJ3ZY9an3Aa43AryUXay0gFn8XFWxWayY
-	yFnrtrWDJa9FvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07b818PUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qrrJquywADsT
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemp500015.china.huawei.com (7.202.195.9)
 
-The platform devices obtained with of_find_device_by_node() are never
-released, and the second lookup overwrites the first one, losing its
-reference as well. Drop each reference once the device has been used.
+When the controller resumes, sas_resume_ha() -> sas_drain_work()
+processes the DISCE_RESUME work, which restores the ATA ports through
+the libata error handler (ata_sas_port_resume() requests ATA_EH_RESET)
+and waits for it in sas_ata_flush_pm_eh(). For an expander-attached
+ATA device the hard reset in that recovery is an SMP PHY CONTROL
+command sent to the expander:
 
-Fixes: 82c0f5897a87 ("of: selftest: add deferred probe interrupt test")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+  ata_eh_recover() -> ata_eh_reset() -> sas_ata_hard_reset()
+    -> lldd_I_T_nexus_reset() -> sas_phy_reset()
+      -> sas_smp_phy_control() -> smp_execute_task_sg()
+
+For a runtime resume ha->dev is still RPM_RESUMING while the callback
+runs, so the pm_runtime_get_sync() in smp_execute_task_sg() blocks
+waiting for the resume to complete, but the resume is blocked in
+sas_drain_work() waiting for that very SMP IO — a deadlock.
+
+Use pm_runtime_get_noresume()/pm_runtime_put_noidle() when
+SAS_HA_RESUMING is set: the usage counter stays elevated for the whole
+duration of the IO, so the controller cannot autosuspend underneath an
+in-flight SMP IO issued by a thread which the drain does not wait on,
+while avoiding the wait for the already ongoing resume. The hardware
+is already initialized by the LLDD before sas_resume_ha() runs.
+SAS_HA_RESUMING is also set during a system sleep resume, where
+ha->dev is RPM_ACTIVE and the noresume variants are harmless.
+
+Outside of the resume window, convert the pm_runtime_get_sync() call
+to pm_runtime_resume_and_get() and check the result, so that an SMP IO
+is not submitted to a host whose runtime resume failed (the return
+value was previously ignored).
+
+Only hisi_sas enables runtime PM among libsas LLDDs, so other drivers
+(pm8001, isci, aic94xx, mvsas) are unaffected.
+
+Fixes: 0da7ca4c4fd9 ("scsi: libsas: Resume host while sending SMP I/Os")
+Signed-off-by: Xingui Yang <yangxingui@huawei.com>
 ---
- drivers/of/unittest.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changes since v1:
 
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index 4a8af9b992c4..e6e938bcb100 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -1946,6 +1946,7 @@ static void __init of_unittest_platform_populate(void)
- 		unittest(irq == -EPROBE_DEFER,
- 			 "device deferred probe failed - %d\n", irq);
- 		of_node_put(np);
-+		platform_device_put(pdev);
- 
- 		/* Test that a parsing failure does not return -EPROBE_DEFER */
- 		np = of_find_node_by_path("/testcase-data/testcase-device2");
-@@ -1964,6 +1965,7 @@ static void __init of_unittest_platform_populate(void)
- 			 "device parsing error failed - %d\n", irq);
+- Use pm_runtime_get_noresume()/put_noidle() during HA resume instead
+  of skipping the PM reference entirely, so an in-flight SMP IO always
+  keeps autosuspend away.
+- Convert pm_runtime_get_sync() to pm_runtime_resume_and_get() and
+  check the result (pre-existing issue flagged by sashiko).
+
+ drivers/scsi/libsas/sas_expander.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/scsi/libsas/sas_expander.c b/drivers/scsi/libsas/sas_expander.c
+index 811c9eb4fef1..43cb90188f44 100644
+--- a/drivers/scsi/libsas/sas_expander.c
++++ b/drivers/scsi/libsas/sas_expander.c
+@@ -61,8 +61,23 @@ static int smp_execute_task_sg(struct domain_device *dev,
+ 	struct sas_internal *i =
+ 		to_sas_internal(dev->port->ha->shost->transportt);
+ 	struct sas_ha_struct *ha = dev->port->ha;
+-
+-	pm_runtime_get_sync(ha->dev);
++	bool ha_resuming = test_bit(SAS_HA_RESUMING, &ha->state);
++
++	/*
++	 * While the host is resuming, ha->dev may be RPM_RESUMING and
++	 * the resume blocked in sas_drain_work() waiting for this very
++	 * SMP IO, so waiting for the host to resume here would deadlock.
++	 * Use the noresume/noidle variants to still hold a PM reference
++	 * for the duration of the IO, the hardware is already initialized
++	 * by the LLDD before sas_resume_ha() runs.
++	 */
++	if (ha_resuming) {
++		pm_runtime_get_noresume(ha->dev);
++	} else {
++		res = pm_runtime_resume_and_get(ha->dev);
++		if (res)
++			return res;
++	}
+ 	mutex_lock(&dev->ex_dev.cmd_mutex);
+ 	for (retry = 0; retry < 3; retry++) {
+ 		if (test_bit(SAS_DEV_GONE, &dev->state)) {
+@@ -135,7 +150,10 @@ static int smp_execute_task_sg(struct domain_device *dev,
+ 		}
  	}
- 	of_node_put(np);
-+	platform_device_put(pdev);
+ 	mutex_unlock(&dev->ex_dev.cmd_mutex);
+-	pm_runtime_put_sync(ha->dev);
++	if (ha_resuming)
++		pm_runtime_put_noidle(ha->dev);
++	else
++		pm_runtime_put_sync(ha->dev);
  
- 	np = of_find_node_by_path("/testcase-data/platform-tests");
- 	unittest(np, "No testcase data in device tree\n");
+ 	BUG_ON(retry == 3 && task != NULL);
+ 	sas_free_task(task);
 -- 
-2.34.1
+2.43.0
 
