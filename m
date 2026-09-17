@@ -1,217 +1,216 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013000.outbound.protection.outlook.com [40.107.159.0])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9199F4F4049
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664634; cv=none; b=cHuc/wcMdxC53hADHzAlut2x5Kr5e4TCR9TvlM0D3YnMeuVbr9CBqaQag4TOzw33w6k6bnX2RFGy5Dn/SC54disIqmmY//oOO3F/vi6NVa2WLKJfCwgwyK3ujkMLY+FIg+eI4S5lshTGoBeYFob1czSXLtB5wWOiKsVxfJQcxck=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664634; c=relaxed/simple;
-	bh=k1b9tX5Jwv3uNgscKob4uuEdw0rOMuEmq7nFj3can/8=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CHVdHLa22ZaEiqcvVpMjt3LGwMMJTOVlBFNiixg4cgtexftYU5/Yp1AUvSkxeLjIpL6zjWlySYRwe8RwanmFxIIbObEcF2Td9ljt4LWB448FgQMj81AVWN+h8x8vr0VyaP4Z3et0L0DEPryid3FO9/nrubDGm9Jlpoo8lRS0vXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AfVZUUiv; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3692A4F3916;
+	Thu, 17 Sep 2026 17:04:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789664644; cv=fail; b=uNb9Ty4zdkZTWvenMpOwW9jqm3Z3S29+5BA1SU7X/bw7dYleo8xMQXS3RI5Ai3qD/x5f6gemWs8n4QCjb/w5YcB+DvNSL/c+7ec/QoioEk3lDtGvOJhkoQHqdDfW2f9RclJQj71F8gZWlgVeVht7Jo2YZBWy4m6fDqizonnGofc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789664644; c=relaxed/simple;
+	bh=3oOnq8cVSqD7FF0ljlCkmTw/0yYReZS8LtKQ0NDDMiw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=m1J9lut+pBmC4UjaSAvQPoukxy8BWUirkr8DHQB1bj2MZmAatwXMikcOcypLEng9MUTgrv88/Lzv/uaJpkj2VKDeftqNWlpjneTkbdlJqDFtumizdvz7f0+HWaZitNruwY01qLj1hauA/nILXrkrtqed1HkDlIo2T1F8sejv7eI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=o51/sb+F; arc=fail smtp.client-ip=40.107.159.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AfVZUUiv"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99c5de614so1521691a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:03:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789664630; x=1790269430; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fH5cw0fhsMPy1+1s3VO0uTAvQBMG9JXZ6ItIaasS8bk=;
-        b=AfVZUUivLfJNHSbYiEpA4A/AZkkNYcqjsXOzVrNW4S7MbXRIzX5n05Z3WNW9x6E9Qx
-         G6q/+udip5NqWtDRYBWuKhcW7Cf9rQ4NpOIuxBbEyhTyslD4NMF8BxtkaFkLLWw7T/oG
-         EWC2W1nVxG9cgnaYYOJ0GaxUt7UA+oZqTv+p/cerz3lbPwkdHfNEiq2dLBz3+EWwnCFr
-         DnpxCgfpgXP5q6oJAAomD2/ji0Knu5mRgoifiPWHLaCSfxHHr01AXV6Klr0WvJ+olxij
-         SQUihU2dsNJxDWUgRiNXWlewMgIrYQkgq1S/G9+7SLFrtqmKFpIpev/KR5pEzqhxEmfK
-         Zhfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789664630; x=1790269430;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fH5cw0fhsMPy1+1s3VO0uTAvQBMG9JXZ6ItIaasS8bk=;
-        b=U6NKi9z+iSJw06h+E20bDfN89P2C7kF9+6aXaZE2ZemnYmrzmUD4RUf2aiXBCPFmaE
-         CtP8TObkCY4aWMWyeieYhPvyBWqO1PE29s+u8BE7iBnR7H1pK6HMiMbFZsSXJUIvMNqx
-         e7AKlUTpR8JhTXquT1wHyGUJo0oaHVm44QNgRMEPLLKpu0MD9i+sPv2X/3nBdZkc5V+t
-         xz+CMdwI25kUS510PgDngzp3ytctguwqpWzWVWBxuXrjW1T78af8EsbApDZL7eH5hMsS
-         r/TQQetW/SmK+B28AQNQLul3PLMsjy8dT/+MfQ90rBIDlbRSk3GqjC3LMxcj+gW6UoQw
-         0tBg==
-X-Forwarded-Encrypted: i=1; AKwUvBym8ZzMV2VefMbRuOVSf14u0S1ZEjaEXaERTCWWmMSDJYdIpQlkK8nCW9lFzeE6OAeAaRqG821HwffBw7k=@vger.kernel.org
-X-Gm-Message-State: AFuF++l52pKvwrzLrTLr+ljdfmqgpd5UPt0pQilOpIvG3ipi1YmkReoC
-	13E2WoEZmR22ZQqTvvFfrh14HuSL07QEVXBYSDHkaNT7LnqefYcsdSjD
-X-Gm-Gg: AYBFou11gcmiJu1wwUFGvHJjXOb4bzZqzWIVc2/eO07L1m61bEHjRwllTBIF+NZ7Y5n
-	XXmDMaUC63BZiEVjIKm6KAJ/VWPckEnOHZvC8UAGE2zGHyG9xrLr3T/mw1Z2FTy/y4CcmPpBsrT
-	i2e9cvvkwg7IojfPihS/IsppOKdhiMf7HlFBOy3Twi2xM1cFamv5aW6su8FYB4i3DZSwgfvQYBY
-	3vviMJJiY5bejGhyGKJeQiEl71JCppT9FFcJVP1Z/CpfvmrFJtEkqK0QroYmac+AKgmLovAMEfN
-	aano4TE0ty5AAPF5hSXKfeDJ8Ma7vlJPGH96y6LZSOqF6quo7UiM1/9xR7+rTV+S/9HXwJkfuGz
-	SceWpew65ankCUqqtWAQCCChWmEDTC4LSqxFrdk6yKeiPFZA1HYGbnYmhVN9csiqAicP/B9sHVj
-	WIB+TyDDmLaQQhusdaOLIJeT1NGRGixBwpnv0=
-X-Received: by 2002:a05:6402:440b:b0:6a6:21d9:541f with SMTP id 4fb4d7f45d1cf-6aa22375faemr10992820a12.6.1789664630199;
-        Thu, 17 Sep 2026 10:03:50 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d29a1bdsm4317739a12.26.2026.09.17.10.03.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 10:03:49 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Thu, 17 Sep 2026 19:03:47 +0200
-To: Hillf Danton <hdanton@sina.com>
-Cc: Uladzislau Rezki <urezki@gmail.com>, linux-mm@kvack.org,
-	Baoquan He <bhe@redhat.com>, LKML <linux-kernel@vger.kernel.org>,
-	Dev Jain <dev.jain@arm.com>, lirongqing <lirongqing@baidu.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH RESEND] mm/vmalloc: Use dedicated unbound workqueues for
- vmap drain
-Message-ID: <aqwdc7Oh24b_bxOQ@milan>
-References: <aqq9FM3ti6NIHxQ0@milan>
- <20260917000738.115-1-hdanton@sina.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="o51/sb+F"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ok5KcLiIRJ9/XhnhP8BavHwPgysMz2H+atWeHT1NItngkiRaeiCfXgBrS6MpUoSiPnRf0xBsAB7LpsuCMJApwmjmmZ2jW4XwBE4Buc7/tvzXsIB4zrYFgR5+pE2ROiPIJOxDdS6DKa9l7ZGQxfVtk7zFX/4+QrtGs3P02hjgotyAKf3qpdhMJj9n14MUU8pW0MrLCPrSH8UTW8ZeaRvtL0CVe+tEPcQJShrZtmkq3cVWDqo80OurwA+ouEHDhhF+b2yaK68t4Jgy5SxI9c2SC2hIapbu7Y6BYIqM/USiOI3nkQe2TQgm4aHVFCQLDSP2UiOlV7EEbfeMKeFG9DDfKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FhSr8cj1YPQ4FSdk0Jq0j++PQzCDwfIfDg2oJ0fDllo=;
+ b=rEP1kLuKfJNORaG33qfq3u/PZHsIrHHquIIW+n4di8uaFt97GeQFGzOg9mzI7fyBkwvysca2kNo1PLhfLEMVkT020yc5wiWQhS/vnj3nnAFdySEdu09VqwI6/wRpG5F7ZUBOb+ik8686LE58/yK8otMQNyt2kwlkIPsxTyfhPZemVM8+geXbGoSa+XyPWSTMs3DUrmC9ZJqKKJ/sCE1/c7AKz8FyQdyHJFLYAngJfwJYciww+2k3oiMmcJNWuTah1P2Jiv711B0F+6PbNMFtRrYnlab/V6XOehieq3P/TqIHgh4M8MCmHGQn5T64FhYUsfurIkMEgNwkgfTdQnbgeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FhSr8cj1YPQ4FSdk0Jq0j++PQzCDwfIfDg2oJ0fDllo=;
+ b=o51/sb+F7musXE848qu9cwfTuDIsngJoCskoA582kOJopkEtr7AkUZuPucBj/4nPYY1voC/oO1h5ZhWwhOBhAdIyJEElIrdQIC8FohmAWzQwpKvwGxDPqYSVoYXTCIJHRg1ZutJfGEvTzbLp6klsZYMso8E1n36xRabqtYsc6T3xuMxwF26aqcXpJqSrUvG6Y9A5ZOYWjJZs3MKAxMIObo6qoBoKpVq4u4MhdfGhKd1/RZ++RWkY5jK3xxVzqG6rhr7LsdlYwvvir3VeXB88Pxdq4VteYf9IDLW8cbSZZsvbFPxZZh2/QWy/660FE2uoQaNumSdHCizAKtZ9ejhSOA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MIWPR04MB105056.eurprd04.prod.outlook.com (2603:10a6:290:e6::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 17:03:59 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Thu, 17 Sep 2026
+ 17:03:59 +0000
+Date: Thu, 17 Sep 2026 12:03:50 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Mahad Ibrahim <mahad.ibrahim.dev@gmail.com>
+Cc: Keguang Zhang <keguang.zhang@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, linux-mips@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] dmaengine: loongson1-apb-dma: avoid using iterator
+ variable after list_for_each_entry()
+Message-ID: <aqwddneAK_yPAkVS@SMW015318>
+References: <20260917163025.7171-1-mahad.ibrahim.dev@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917163025.7171-1-mahad.ibrahim.dev@gmail.com>
+X-ClientProxiedBy: PH8P223CA0005.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:2db::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917000738.115-1-hdanton@sina.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MIWPR04MB105056:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d2e84be-a5b4-44a5-b1f5-08df14ddaa82
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|366016|19092799006|1800799024|56012099006|11063799006|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	8MdQlQeCZUqS7w1FiErHxstKPpZoDjWCW4GpukmiamrpEjnSpd46UKVa3e0WQa/q7TrQuRnwoPcgLBRJ9SAPybBDoS8k4JoLuyl4eSqS7nOHw42bDyJk0xM5b9TovY4Zzk4vgnz9lRYHeZXjlRprBzfMTOJT3RO+ipHiMANt5adOcAeB67E3x5FpF7azKQNzujrHrLTs/RGfG/VCd9ABFHLZBJKDdCAxEC4+gstE2zb0l1NrSJKYXZM9XE+imuEt866XAPbu5jjmegeTLxo/kATUNc1krWj6xZ/hjpuTF45dvbIzZ5RHyG9O0p83nJtcmTS8cXBtp9UEYTzErgTjq86zom82JYYrSBjhVXuOyV890l12LZBeZGAR5ybBMMnNT6JqTEzVwo5ADGDDVKaQj7e+AtxZ2Kjl2dteh5hsUSsiAGCd0NEybKScGu7alxUqMVw1cPH1hUNvO41axdhx2338NsfIKYjspZdZ3EMYte8kq80/UidO3xnFvwkSaxnISzp4xFYIkQ5Rgycs38miGli9+hgtPK0bdIXcHb1wPk9cfdvdxf4LVlYxJY1oUjvYb0LCwFKjaP5wTMYNv2RgAlA4sI3YNagGjvMParT/q6nBl2Gm/C9HjsFvCURVnFgKB7Qw1oJ9E8qBpMSd76jhNNdz0TScXflqI8QXUku/0nc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(19092799006)(1800799024)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HYsI6MpYpGjxTXceeZzsVjN/ZSbXN0zzDjs6P84Fcwz/PY/g9paARW6zfdAM?=
+ =?us-ascii?Q?ZbtSAMVGD6/8anAZV+ma0fMWHWIFUCqFzdjZU17rtR4kdykpAUdShZfePJwI?=
+ =?us-ascii?Q?s2u4LDXFITVy271WeSYXOELv7cmU9j500/e8FG0shU8s9OpDgqWZxBZRZ809?=
+ =?us-ascii?Q?lnbiANqHSuWbdXV+Jc9cqDnNUll5gePRjCcMd5szP773W8UWccOle/NvORyP?=
+ =?us-ascii?Q?VNIcrZj5RTXuAarvP7w2NSPDIolA3SyH1+RAL9oV4FYTHXPK7KEXae1lM2xA?=
+ =?us-ascii?Q?nY5eYsE3kAE6jTRUVJ7PpXGeOonOwFaiLFdPO2P3CtJp1r5S44jmY37sQF7z?=
+ =?us-ascii?Q?K6jrqXgqCS5nEDHxX3LrwECrDjdUCDkG+2VtCzErhPmsL1Vgh6Wr9/SYpacS?=
+ =?us-ascii?Q?c1UFsLlam/DtfY+rs3V0nrLKEjp8YrZHQURZ6nJW4ArunyG+GNW2tdvfYr7r?=
+ =?us-ascii?Q?zE88oluwwAnDH97nGmKgLiLjmzADuPGSgEeoavidqSr6WUYr04zgGehGUOhQ?=
+ =?us-ascii?Q?PYDy36LOTIeJoT3pYkP1SuKWx5m4Uf1xd6lppnuXUZYMPjIDuuI+HQ7rKvlY?=
+ =?us-ascii?Q?pLoxUp1BK9xQcgLmIkPIXJYpL8ocnePPaOO9SHHOXIxQMk/rDcwsOQ/bDqbm?=
+ =?us-ascii?Q?/h6xUFIz23XyVlKB1YsKtF4Mp6+yqBwGjx0vfNTtAgkjyqQ5EftY8At0fCuG?=
+ =?us-ascii?Q?Vuh4oBSuNhYjSzX4fF8idx64oK/gSFSmkivDnCRdqOvG2N/XrlkR/ktWiNDs?=
+ =?us-ascii?Q?YHCqQc11QY17rDSD465XXfcFdRufQ6OlfH4/jLICCP9xvlJ/pmGgrHvZAy/W?=
+ =?us-ascii?Q?N5JpEAbQ8gfv6EiXx9tFwt4rWP5Y9xBY5Avn0NasmDVln09hXZfUrCKJQck7?=
+ =?us-ascii?Q?FcXVyppRhnKbX4kFRHzyBwwJAnykIZLRCUx5NRC0zsBq4ioekD3QinsizSkV?=
+ =?us-ascii?Q?+0KL4Tiemvq8PSOmwLtEXCaMXh6qm8W6Ese6cArBq1uddaPgM2d7OR5G/riP?=
+ =?us-ascii?Q?t8uMS/WmZv3qA2fmZKC3lIo7nRaTWzm9KhlyruiQ2BfNMNWfn9cpoK2gYBsv?=
+ =?us-ascii?Q?aKxBPHhQUYypNVQTM3HdSnPg4kApnpDYc4nUz9IERMLue0ZdDsB1YMAMorMl?=
+ =?us-ascii?Q?rKklJKKeDOafB5K/vGcdLpth5YEY7VHvRuvnAZ4IhuANddvvvPZkYz8/JLrX?=
+ =?us-ascii?Q?0CSjkKnmQTn496mY51aPjrEhtdzwBA6rL/E1JuyUGnzmss/rnuMZlbcc+YdA?=
+ =?us-ascii?Q?gahiyvCqkFvHDC9hy9lJbs4im2AKPHAexvWgE7PXRnWBm9xH/YrzD12JH+jx?=
+ =?us-ascii?Q?Z4Z5OMcYlwJUDRlUXctwRZzK5hDZOdGeV1nPlGA1QKqRPZei2ZQ8ATC9lyxH?=
+ =?us-ascii?Q?Ro49nVG+CPpDwD6dpBn+K+OvKQxAuAZgIdeD2WKTY9tOujKteAxc3aCYY42F?=
+ =?us-ascii?Q?9F6yzRHEcPcPOzpi7Y54CHlM0D0Vb/gzE26kZ/J9I9Zn75JhHCLPOluTRQp/?=
+ =?us-ascii?Q?R+YGUkLPC9VTZlP4fiDZx8N0bTOj9g2FRfHGLIzEyBDcnBcS8jmpstwUWDwI?=
+ =?us-ascii?Q?b+yXDutZZSznkyTz/xmDOEgEq5Oi9RAwIiw1mqi2RX483V0HOmqxC4Ad/BaF?=
+ =?us-ascii?Q?xaQO54RK0A5KKJZYinVRpad+idVIuENieSa3FP+8YZBkyHFtsFAY/Dev7Ab2?=
+ =?us-ascii?Q?pzEmGl5dX/pte0rzVvSHK1JeInUwoj6s5ftGSHrnJI0u/PGZuGw404sRJ+Lm?=
+ =?us-ascii?Q?1TOD9qPHIVCxi5PguaSPSI9ZZI0700d1HZ/vd6eSeKB6FrWCO8IG?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d2e84be-a5b4-44a5-b1f5-08df14ddaa82
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 17:03:59.4149
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IiOMFJIayfNYY2jH/Q0v+Ks+G0VlpCEglihlPfUkyKJo5UbeKX8R921gXMtAVIExc9QBth4bhWBgTpHtWB3LXdSfiDN87wW4gPl8VvCmsPTRmKG2iViJrvgXBdetoCeb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MIWPR04MB105056
 
-On Thu, Sep 17, 2026 at 08:07:37AM +0800, Hillf Danton wrote:
-> On Wed, 16 Sep 2026 18:00:20 +0200 "Uladzislau Rezki (Sony)" wrote:
-> > On Wed, Sep 16, 2026 at 08:12:27AM +0800, Hillf Danton wrote:
-> > > On Mon, 14 Sep 2026 18:56:26 +0200 "Uladzislau Rezki (Sony)" wrote:
-> > > > This patch does not use queue_work_on() semantic thus i do not want to
-> > > > queue all helpers on current CPU. Instead scheduler does balancing and
-> > > > that is it.
-> > > > 
-> > > [Fair queue in the Eric Dumazet accent]
-> > > 
-> > > +static bool
-> > > +schedule_drain_vmap_work(struct workqueue_struct *wq,
-> > > +		struct work_struct *work)
-> > > +{
-> > > +	if (wq)
-> > > +		return queue_work(wq, work);
-> > > +
-> > > +	return false;
-> > > +}
-> > > +
-> > > 
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/workqueue.h#n697
-> > > 
-> > > static inline bool queue_work(struct workqueue_struct *wq,
-> > > 			      struct work_struct *work)
-> > > {
-> > > 	return queue_work_on(WORK_CPU_UNBOUND, wq, work);
-> > > }
-> > > 
-> > > queue_work_on
-> > >   __queue_work
-> > > 	if (req_cpu == WORK_CPU_UNBOUND) {
-> > > 		if (wq->flags & WQ_UNBOUND)
-> > > 			cpu = wq_select_unbound_cpu(raw_smp_processor_id());
-> > > 		else
-> > > 			cpu = raw_smp_processor_id();
-> > > 	}
-> > > /*
-> > >  * When queueing an unbound work item to a wq, prefer local CPU if allowed
-> > >  * by wq_unbound_cpumask.  Otherwise, round robin among the allowed ones to
-> > >  * avoid perturbing sensitive tasks.
-> > >  */
-> > > static int wq_select_unbound_cpu(int cpu)
-> > > {
-> > >  	pr_warn_once("workqueue: round-robin CPU selection forced, expect performance impact\n");
-> > > }
-> > > 
-> > /**
-> >  * worker_attach_to_pool() - attach a worker to a pool
-> >  * @worker: worker to be attached
-> >  * @pool: the target pool
-> >  *
-> >  * Attach @worker to @pool.  Once attached, the %WORKER_UNBOUND flag and
-> >  * cpu-binding of @worker are kept coordinated with the pool across
-> >  * cpu-[un]hotplugs.
-> >  */
-> > static void worker_attach_to_pool(struct worker *worker,
-> > 				  struct worker_pool *pool)
-> > {
-> > 	mutex_lock(&wq_pool_attach_mutex);
-> > 
-> > 	/*
-> > 	 * The wq_pool_attach_mutex ensures %POOL_DISASSOCIATED remains stable
-> > 	 * across this function. See the comments above the flag definition for
-> > 	 * details. BH workers are, while per-CPU, always DISASSOCIATED.
-> > 	 */
-> > 	if (pool->flags & POOL_DISASSOCIATED) {
-> > 		worker->flags |= WORKER_UNBOUND;
-> > 	} else {
-> > 		WARN_ON_ONCE(pool->flags & POOL_BH);
-> > 		kthread_set_per_cpu(worker->task, pool->cpu);
-> > 	}
-> > ...
-> > }
-> > 
-> > A local CPU preference for WQ_UNBOUND is not the same as executing on
-> > the __bound__ per-CPU system kworker.
-> >
-> As Ulad, like Yu Zhao, is one of the couple black horses I saw in mm the
-> past a couple years, lad, I make the difference between BOUND and UNBOUND
-> workers as clear as it is.
+On Thu, Sep 17, 2026 at 04:30:25PM +0000, Mahad Ibrahim wrote:
+> ls1x_dma_tx_status() locates the descriptor actively being processed by
+> walking the LLI list and comparing the hardware reported next descriptor
+> pointer against each element's next-descriptor pointer.
 >
-This is very good :)
-
-> 
-> Given numa node1 including cpu8-15 without cpu hotplug cared, a bound worker
-> for cpu9 can not migrate to any other cpu, while a unbound worker can run on
-> any cpu of node1, that is all.
-> 
-Right. 
-
-<snip>
-	if (list_empty(&pwq->inactive_works) && pwq_tryinc_nr_active(pwq, false)) {
-		if (list_empty(&pool->worklist))
-			pool->last_progress_ts = jiffies;
-
-		trace_workqueue_activate_work(work);
-		insert_work(pwq, work, &pool->worklist, work_flags);
-		kick_pool_pick(pool, &wake_task);
-	} else {
-		work_flags |= WORK_STRUCT_INACTIVE;
-		insert_work(pwq, work, &pwq->inactive_works, work_flags);
-	}
-
-out:
-	raw_spin_unlock(&pool->lock);
-	if (wake_task)
-		wake_up_process(wake_task);
-<snip>
-
-wake_up_process(wake_task) - this guy takes care about task placement.
-For us it is TASK_FAIR thus select_task_rq_fair() decides the fate of
-unbound kworker.
-
-> Important UN/BOUND have nothing to do with eevdf (and balancing cpus) because
-> of different layers.
-> 
-> And at best I suspect what you missed is the difference between drain_vmap_work
-> and lru_add_drain_work, but I do not like the latter as it annoyed the RT/full
-> nohz apps more than thought [11].
-> 
-> static DECLARE_WORK(drain_vmap_work, drain_vmap_area_work);
-> static DEFINE_PER_CPU(struct work_struct, lru_add_drain_work);
-> 
-> [11] Subject: [PATCH v4 3/4] swap: apply new pw_queue_on() interface
-> https://lore.kernel.org/lkml/20260519012754.240804-4-leobras.c@gmail.com/
+> A list_for_each_entry macro is used in the comparison phase, which at
+> the end of the loop leaves the lli pointer at the currently executing LLI.
+> However this also subsequently runs for a non-match lli, in which it
+> points at the head. This causes a type confusion bug which treats the
+> head, which is a ls1x_dma_desc, as a ls1x_dma_lli object. Additionally it
+> goes forwards and prints garbage via the dev_dbg.
 >
-I am not sure a drain_vmap_work should be per-cpu, IMO.
+> Fix the type confusion bug by only allowing matched LLI descriptor chains
+> to print the current LLI and residue calculation, as failing to match
+> should be treated as an unexpected condition.
+>
+> Found by the following Coccinelle check:
+>
+>   scripts/coccinelle/iterators/use_after_iter.cocci
+>
+>   drivers/dma/loongson/loongson1-apb-dma.c:461:6-9: ERROR: invalid
+>   reference to the index variable of the iterator on line 450
+>
+> Compile test only; Hardware testing by Keguang Zhang.
+>
+> Signed-off-by: Mahad Ibrahim <mahad.ibrahim.dev@gmail.com>
+> Reviewed-by: Keguang Zhang <keguang.zhang@gmail.com>
+> Tested-by: Keguang Zhang <keguang.zhang@gmail.com> # on LS1B & LS1C
+> ---
 
-Thanks!
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
---
-Uladzislau Rezki
+>
+> v2:
+> - encapsulate residue calculation and dev_dbg inside the
+>   list_for_each_entry() macro. Treat non-matching LLI as an unexpected
+>   case.
+> - link: https://lore.kernel.org/all/20260729143247.6111-1-mahad.ibrahim.dev@gmail.com/
+>
+>
+> v3:
+> - Collect tags from Keguang Zhang.
+> - Repost patch in a new thread.
+> - Change chan2dev to the newer dmaengine_chan_dev.
+>
+>
+>  drivers/dma/loongson/loongson1-apb-dma.c | 27 ++++++++++++++----------
+>  1 file changed, 16 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/dma/loongson/loongson1-apb-dma.c b/drivers/dma/loongson/loongson1-apb-dma.c
+> index 46b4bfef45e2..e62ab26c8327 100644
+> --- a/drivers/dma/loongson/loongson1-apb-dma.c
+> +++ b/drivers/dma/loongson/loongson1-apb-dma.c
+> @@ -441,22 +441,27 @@ static enum dma_status ls1x_dma_tx_status(struct dma_chan *dchan,
+>
+>  			/* locate the current lli */
+>  			next_phys = chan->curr_lli->hw[LS1X_DMADESC_NEXT];
+> -			list_for_each_entry(lli, &desc->lli_list, node)
+> -				if (lli->hw[LS1X_DMADESC_NEXT] == next_phys)
+> -					break;
+> +			list_for_each_entry(lli, &desc->lli_list, node) {
+> +				if (lli->hw[LS1X_DMADESC_NEXT] != next_phys)
+> +					continue;
+>
+> -			dev_dbg(dmaengine_chan_dev(dchan), "current lli_phys=%pad",
+> -				&lli->phys);
+> +				dev_dbg(dmaengine_chan_dev(dchan), "current lli_phys=%pad\n",
+> +					&lli->phys);
+>
+> -			/* count the residues */
+> -			list_for_each_entry_from(lli, &desc->lli_list, node)
+> -				bytes += lli->hw[LS1X_DMADESC_LENGTH] *
+> -					 chan->bus_width;
+> +				/* count the residues */
+> +				list_for_each_entry_from(lli, &desc->lli_list, node)
+> +					bytes += lli->hw[LS1X_DMADESC_LENGTH] *
+> +						 chan->bus_width;
+> +
+> +				dma_set_residue(state, bytes);
+> +				return status;
+> +			}
+> +
+> +			dev_warn(dmaengine_chan_dev(dchan),
+> +				 "unable to locate current lli.\n");
+>  		}
+>  	}
+>
+> -	dma_set_residue(state, bytes);
+> -
+>  	return status;
+>  }
+>
+> --
+> 2.54.0
+>
