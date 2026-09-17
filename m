@@ -1,114 +1,136 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F714B7155
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:13:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16414A689C;
+	Thu, 17 Sep 2026 11:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789643629; cv=none; b=P+NhEPkcI4LhF42DLSNORbJmYMpSpdn1f/CMR47lYijI9EfrhmWjv7CCiQUjtZxPH7q6eH7nauC4IQJX9E0keuv0IZja04lg41UzjyoD8J5PMaDbItqBwlxppYZyq1uVqbqGpk6un8JBoe/KFfJFweGaeA/5pYncVBYbxnPG/jw=
+	t=1789643667; cv=none; b=lSMMsivScx6joBPQh43dBYt7gkHhZBMIelROx2S+626w8AQkiMv4UXbs+wdHwS2xB6wPuj3MU/jJpK5i2pGbuQB4Cm4Q8BNMZrN3mjCp1CWRmBGUnlN4RGIGOV0aOQ6kXjwfp9/pfxwxzzM9KkYxrZqAZ1oMxQOKdEFHqD3bE6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789643629; c=relaxed/simple;
-	bh=FPRRsaLOotLLGU2qlqoDfHiPkXVpRDaTl35pAxkM6mA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ueNvASz2YAe9HDL6UBeeQNcDBotGd+AFdLDvpTWQzbCu+yTRjkaHPuxiRsWw3wm16miyv+6VVogbpb3c8Y08ZoRh7uvnP76gS8ROiyN2x7el11N9M0Qn5wxixaoPLPmP3fxvZnB/Xk3dtA7Z/NuHAUMW9a1dv99jeR5rPf8tioE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=odPfWtlx; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789643667; c=relaxed/simple;
+	bh=Eh1kp7Vh9u2XwfP67rB8hZGCjl701FbziCDAThPuEg0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jI1ZW7ElEL4RRTq9c0P5x33YDmAsNgkAHUkuSfut4psrsf2/td6UE5kHvf13JnVsAQvnPp1bD0MsD/3OcrRDhNdRgo3qq4ZRYqeyvF6rqoz3KuQqzGlLDPcrkcp8YAphUEBgvZsmlxDzxmq+X3zWgM/oChQJMlWa6deWCpApI0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=KgxfjJ+i; arc=none smtp.client-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="odPfWtlx"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f16f12so593347e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:13:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789643621; x=1790248421; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1BcjxxUUz9REzI1Cz/zHV7EuDapF8kpq7QNpQA5pel8=;
-        b=odPfWtlxZd9XnKySyT3gVVZnv06c0MWBDu8Ho0r9qdRgBR1qY3O4Yrvih27VVbIfCI
-         9mzyvT2kmc/udK7CASKRQ+wEQzm9j/1XKZI9auhqdtzJwEDR7g6HMZNXmvW7BIAP548W
-         yIJzQVW7RrBpsV2mB8oCqSfd4QVPOYhtzZbSxb1bFP9GMcHiNeKSnUG3m/QqPdO0x3ut
-         xiabW2Xk4Z1MJdabZrOGxU6mzwdSTnQTPkowm+Kc1JPF/JwHE7U0eXQt/zLkmwLkPd+f
-         RuLtdWzfMHm+6HUzNXC84Pqbx08j48+ACa8Sewsa8lNvm7VuhGHc470C8ekgtz6y3cqI
-         RbfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789643621; x=1790248421;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1BcjxxUUz9REzI1Cz/zHV7EuDapF8kpq7QNpQA5pel8=;
-        b=Rs4LH643CDgQPRp10dNX4n6J+GE7M3i5noNlLJPcKwesA7/lI795NMpTBGUWzaVnWa
-         Ed0T12XoBn3rlt/YX+yoeAf//MHTdl8VzMf75gJI0a+XCic8ylaqUYeBWMNZDhvPOMs1
-         +bt2g1um/vNA1D516luO1HjralcFggr+zMfaYb5UN4NuQSXdB1kJ2CsYcsbbnM3J0rql
-         Nr5z28VKc8GOpZa8wdPQ8WFeDqVX0zpF/JEuFO3Jgpii6gbeJiAo8t/2Fe6dk8Pu/d0J
-         8W/VzwuJY3B+X1E7g6k9/W7gE9Hdciz6mluCUM3Vx2eNrmN/pW4FE7ypiBIJJqgHrzo5
-         XhdA==
-X-Forwarded-Encrypted: i=1; AKwUvBxAzbCA/moadKzr4MEURSJ6sLfRJYvTSxT2r+guN+oEEY9Y6TrbNlH5NDJV1vgRaNSVF4dW8beEHc0o5Fs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLlaqPtnTytV2E075MSIkrPfkWPTrUxDt/F8yQUwNTZi9fCZul
-	wKwJx4VSp/gjgA4zkNjGNYisEqheSM0zj4nhUGD7On+2aMTwnILvx9fMMH26gw==
-X-Gm-Gg: AYBFou2xls2cBfDtLYUvZHpmgB+CNAzZkadc024UYWthw581HgtCT5lo6iP50JS6wjK
-	oZfOLMQf2kwHHgHNfn7a5vSIeaSBCt9xpCwngZ+f/hF5PAuBADbbsv0Qp8IRJ5mtSJTSsV+mRK5
-	Ure5J9mBLtwAf9EsTQIlnZ7iNRe/ZPgv+3kQgU2X+Y5UaPV5mgWoNX9fc3yvLBdCdnBjngYBNLN
-	F0u8q1t4QlQP3+nMsk/uylB/v2/zRkQkogTxurnmK7uHZF7U5BNr7erQieUMVeoRbZ8/3MxrmIN
-	g3kMIFIZcVZEQGSZpT90qBjVYkfVLA//pS+0fAkttuG0wk7FQwIKw5d9biAzoIwopRVu6d3Hezn
-	hesv2hic1gDjQoTm3IO8VAGtSIcYSGR0lNUjN97oFHBwT3EQs8gVoUWAgvQhN6W8lLyKn+tLhyy
-	/7QQx3TNVAKgbOCm3PvVJWM3PJm+Sk8ggclp5knJCZiRh7v0NYdRKpCkNd9hWMe0l0fUglBRsP1
-	IqydLs52nzwr1hy4dJmN6tvkPe2vEy8nO+iZbHeWvadoDV/fNWOfJodPRvi7gQw6MJ8nWm3chnX
-X-Received: by 2002:a05:6512:31c2:b0:5b8:bc5e:d10f with SMTP id 2adb3069b0e04-5b8bc5ed2dfmr596727e87.57.1789643620561;
-        Thu, 17 Sep 2026 04:13:40 -0700 (PDT)
-Received: from localhost.localdomain ([176.40.225.86])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8b57c3b81sm1702367e87.20.2026.09.17.04.13.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 04:13:40 -0700 (PDT)
-From: Alper Ak <alperyasinak1@gmail.com>
-To: Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: Alper Ak <alperyasinak1@gmail.com>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mmc: sdhci-pci: Replace deprecated PCI functions
-Date: Thu, 17 Sep 2026 14:13:35 +0300
-Message-ID: <20260917111336.1102829-1-alperyasinak1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="KgxfjJ+i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=ugkZvHY8M4baNm0OaUOuPZx4bPzR30VWOKhrqoA5hX0=;
+	b=KgxfjJ+iEtCX4qom4lWLCyTIaSTYcPC9+BlixsqhbCdTu/CD6kmAkeXuFiPd7h
+	MT8pi2rch9R1FnlLOrRhroD3sMYjHiaHTNDdam/WauIXrUCzroGVBckyHjp9x5cr
+	NNuDJbrLFwf3/16EuLO3aQSlZ8Fm2Un4aCKUXAyFBBhtA=
+Message-ID: <44959d96-2572-4dd7-a79b-493110cc002e@126.com>
+Date: Thu, 17 Sep 2026 19:13:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Intel-wired-lan] [PATCH net v2 1/2] ixgbe: do not busy wait in
+ ixgbe_devlink_reload_empr_finish()
+To: Paul Menzel <pmenzel@molgen.mpg.de>, Linkui Xiao <xiaolinkui@kylinos.cn>
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ jedrzej.jagielski@intel.com, kees@kernel.org, aleksandr.loktionov@intel.com,
+ intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260917065436.1181073-1-xiaolinkui@126.com>
+ <7107796a-a233-4ddf-9106-460de575f29b@molgen.mpg.de>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <7107796a-a233-4ddf-9106-460de575f29b@molgen.mpg.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PikvCgD3v5xBy6tqbW4wIA--.23370S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXr4UtF43tr1rGw1kAw48Xrb_yoW5Ar4DpF
+	WUWFn8Aws7Xr1Fg34Iva18ZasIva1Ig3yYgFyftrZ8Zas5Arn8tr1Utr4Sg348Zrs8Ww10
+	vF4Y9rs3AF45AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UZeOXUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqAKIX2qry0JfIgAA3I
 
-pcim_iomap_regions() and pcim_iomap_table() have been deprecated.
-Replace them with pcim_iomap_region(), which requests and maps a single
-BAR and returns the mapping directly.
 
-pcim_iomap_region() returns an IOMEM_ERR_PTR() on failure, so check the
-result with IS_ERR() and propagate the error with ERR_CAST().
 
-Signed-off-by: Alper Ak <alperyasinak1@gmail.com>
----
- drivers/mmc/host/sdhci-pci-core.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+On 2026/9/17 15:09, Paul Menzel wrote:
+> Dear Linkui,
+> 
+> 
+> Thank you for your patch.
+> 
+> Am 17.09.26 um 08:54 schrieb Linkui Xiao:
+>> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+>>
+>> ixgbe_devlink_reload_empr_finish() is the .reload_up devlink operation,
+>> so it always runs in process context with the devlink instance lock held.
+>> Its polling loop delays with mdelay(500), i.e. it spins the CPU for half
+>> a second per iteration and, because the loop bound is 20 iterations, for
+>> up to ten seconds. That keeps a CPU fully occupied while the firmware
+>> performs the EMP reset, and on CONFIG_PREEMPT_NONE it also makes the
+>> loop non-preemptible for that whole window. The loop does not need to be
+>> atomic and holds no spinlock.
+>>
+>> Use msleep() instead.
+> 
+> Should you resend, please document the commands how to test this, for 
+> example, how to trigger .reload.
+Hi Paul,
 
-diff --git a/drivers/mmc/host/sdhci-pci-core.c b/drivers/mmc/host/sdhci-pci-core.c
-index b121d896a804..a9000f3bd419 100644
---- a/drivers/mmc/host/sdhci-pci-core.c
-+++ b/drivers/mmc/host/sdhci-pci-core.c
-@@ -2170,14 +2170,12 @@ static struct sdhci_pci_slot *sdhci_pci_probe_slot(
- 
- 	host->irq = pdev->irq;
- 
--	ret = pcim_iomap_regions(pdev, BIT(bar), mmc_hostname(host->mmc));
--	if (ret) {
-+	host->ioaddr = pcim_iomap_region(pdev, bar, mmc_hostname(host->mmc));
-+	if (IS_ERR(host->ioaddr)) {
- 		dev_err(&pdev->dev, "cannot request region\n");
--		return ERR_PTR(ret);
-+		return ERR_CAST(host->ioaddr);
- 	}
- 
--	host->ioaddr = pcim_iomap_table(pdev)[bar];
--
- 	if (chip->fixes && chip->fixes->probe_slot) {
- 		ret = chip->fixes->probe_slot(slot);
- 		if (ret)
--- 
-2.43.0
+Thanks for the review and the Reviewed-by.
+
+I don't have an E610 adapter available to actually exercise the devlink
+reload path, so I can't provide a tested-by or a verified test log. The
+change is a mechanical mdelay() -> msleep() conversion in a sleepable
+process-context loop; the rationale stands on its own, but I understand
+if you'd prefer to wait for someone with the hardware to run it.
+
+If you'd still like the test commands documented for reference, I can
+add them to the changelog, but I want to be clear that I have not run
+them myself.
+
+Thanks,
+Linkui
+> 
+>> Fixes: c9e563cae19e ("ixgbe: add support for devlink reload")
+>> Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+>> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+>> ---
+>> v1:https://lore.kernel.org/all/20260914092626.263886-1-xiaolinkui@126.com/
+>>
+>> v2:
+>>    - Reworded the commit message: mdelay() does not mask interrupts or
+>>      disable preemption, and the ~10 s window is below the soft lockup /
+>>      RCU stall thresholds.  State the actual rationale instead.
+>>    - Split the macro rename into a separate patch.
+>>    - The mdelay() -> msleep() change itself is unchanged, so the
+>>      Reviewed-by tag is kept.
+>>
+>>   drivers/net/ethernet/intel/ixgbe/devlink/devlink.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c 
+>> b/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
+>> index cf8908b82f8a..781f13240a0d 100644
+>> --- a/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
+>> +++ b/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
+>> @@ -460,7 +460,7 @@ static int ixgbe_devlink_reload_empr_finish(struct 
+>> devlink *devlink,
+>>            * may be not cleared yet, so begin the loop with the delay
+>>            * in order to not check the not updated register.
+>>            */
+>> -        mdelay(500);
+>> +        msleep(500);
+>>           fwsm = IXGBE_READ_REG(hw, IXGBE_FWSM(hw));
+> 
+> 
+> Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+> 
+> 
+> Kind regards,
+> 
+> Paul
 
