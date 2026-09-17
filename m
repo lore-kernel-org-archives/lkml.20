@@ -1,45 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BBB1F4631;
-	Thu, 17 Sep 2026 10:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D3F4BCAA5;
+	Thu, 17 Sep 2026 10:04:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639470; cv=none; b=GamU/uujxuHkHgpB2oUd/07NkTJH3/ldRXr0ZS1q5V+4Uz6RQ3nvdBHhpAwqnT17++C8dboLu86HnRjqgqVVyiUi0dO9S20KHY2Tz6QKJSSPwXr17SxP0YCPe4mCuUcJd1f4QQwaOUC8HDeGRxVa3sRw4b9SppbyWUilObVvrK0=
+	t=1789639476; cv=none; b=YOP40xukKfzFRKOBgMVWRP2Bh1fhMCcxDeG91nx0tx59Ey0akXjDFje/ASjW0r3DMuOyB+I50uwVSr4CMBM50fpL5guhCo3S/knAZt6MFn8NhAKv2tdYlCD1rKHs+JK0QjS2/S4BWzWX35gduEME8VKhUpSEX2aaB9RKjeqBUek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639470; c=relaxed/simple;
-	bh=tqUsQnVQ6+0AGejYyjS3eeE+jYuqzZYYt2aVEmhleFk=;
+	s=arc-20240116; t=1789639476; c=relaxed/simple;
+	bh=Zw0go1bY/h0Fvnvwmo4x3hJ1ZrAO60jCIR7sgEMVdwk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=biJS5UPZaPbpaKY1L3fgWBv/Hql80NBYbRd6VqFGCDqy3QHzSbcRwZ/prBM8muMh2UJm1DvXo6UItFxKySMDzrf8IGT9hp99sJ8h0ZwfheId6FQTt3TnKIQ817HM7veDTrVy86RVPBv2sfJW6AA02DMvguJLOUX9pXwltE3rSeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCWO23E7; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fydl4SKzYv6HbWclmbu05/zpejY/2mbKvJ6eMEVhV+CIyJIGcWR/o3xda5RksCehwOf0y4HSzkF0D/4mt16R7fETcWg2c+6dSXTInM9Wrdma1aFZuuYVAEA5XbM9SaSo/jsKdCXS1dz9+/DkvltLfa0OrD/rqtmOf7GXvWDLz5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ASAy3Hp1; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Ij3Pu7oW; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCWO23E7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C3A81F000FF;
-	Thu, 17 Sep 2026 10:04:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789639456;
-	bh=9RJR2h0qHtxMiw9TYA3+iKS1eMqprIRMDs4v7Dy4PLg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oCWO23E7KxKz8qfc36onezw+s4uvcvZKbFDjGYlDb9R8zOZq2Hpb9UHIJDysoVhuK
-	 rz5Nsh6zw8RPtmNi4ZbevYC/BPq2HOe2kyarxeIDM6bFM4zfJsOM8CnjwICuA+Vd70
-	 yVM8iugGHOZRDzsjPJG9BEdSgRnrm1F0riet0B7I7FEdjLl3HgAVAtX82w7NXooGoS
-	 CZx/02xumAQgM7OfTNzbyol1MS0eBVrEB278ZG5Y52zpsoTIQUkqVajQ7VwBbqGLqu
-	 rx0/XdbHnk5wOkjOC12XSxkvoM32sXzukSLanuBifqEhpFD9Yd2Ura6A/iAReeFK0K
-	 MV4p5XuYiPHdA==
-Date: Thu, 17 Sep 2026 12:04:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Arthur Crepin Leblond <arthur@marmottus.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v8 2/3] dt-bindings: net: wiznet,w5100: add link
- status interrupt
-Message-ID: <20260917-sexy-quixotic-ermine-138eab@quoll>
-References: <20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net>
- <20260915-wiznet-link-gpio-v8-2-d173622474cc@marmottus.net>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ASAy3Hp1";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Ij3Pu7oW"
+Date: Thu, 17 Sep 2026 12:04:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789639469;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gUoSclQfN4Mc0MDUxCK/MPlKgNaoIFGqLPM9QL3S5wM=;
+	b=ASAy3Hp1LHtsIx0mSVn6CabihAkqnMmSrWieGr/JGKWUdSJzwsQqo8ZASmhkXEYLeSLCMY
+	N7qhGDncA037YRWVuqQ57D9cPHojsnnti6VNH6BLX8y4eQ0X/9+RzKnQ2TGaDKQdABB0hD
+	3mvqRz/4CouIIzK5BbIha/N4VrbactnScER7ixCG6ReylFcwemlHxwiyX5OI93Ld8IjpSw
+	z/yKvKNUHVjyH6i6vX2ISl0NouDZHj417OoRJ3McTR0DfB+Hf+/ulPQyVnMQmc44C9a6sz
+	RLXWb4nxHBrKqa6YFhcKujhCks621Jl1DdyArHSv7lDDPprfytDzA2RhcJ7H8g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789639469;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gUoSclQfN4Mc0MDUxCK/MPlKgNaoIFGqLPM9QL3S5wM=;
+	b=Ij3Pu7oWy/cj3245y6NTY1PjubHosGSwrvK0hDjS7Iejv/SciM8DeKelAi0wnUWdWeZoCu
+	IptkBDZXc/5dxWAg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: linux-gpio@vger.kernel.org, Rosen Penev <rosenp@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCHv2] gpio: mvebu: keep resume masks within the irqchip cache
+Message-ID: <20260917100428.LT2ZUBVd@linutronix.de>
+References: <20260915004406.115230-1-rosenp@gmail.com>
+ <178963874726.7902.8784965092061133801.b4-ty@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,71 +57,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260915-wiznet-link-gpio-v8-2-d173622474cc@marmottus.net>
+In-Reply-To: <178963874726.7902.8784965092061133801.b4-ty@oss.qualcomm.com>
 
-On Tue, Sep 15, 2026 at 10:06:03AM +0200, Arthur Crepin Leblond wrote:
-> Add an optional link status interrupt which can be connected to the
-> LINKLED pin on the device to detect link status changes. This second
-> interrupt is only supported on wiznet,w5500.
-> 
-> Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
-> ---
-> v8:
->  - Remove Krzysztof Kozlowski reviewed-by tag after Sashiko review
->    changes
->   - Make the interrupts property conditional
-> 
-> v7:
->  - No changes
-> 
-> v6:
->  - Fix DT error: use minItems
->  - Remove conditional properties
-> 
-> v5:
->  - Make the DT interrupts property dynamic from the compatible one
->  - Fix DT bindings errors
-> 
-> v4:
->  - Update interrupts in DT bindings
-> 
-> v3:
->  - Fix DT binding errors
-> 
-> v2:
->  - Convert device tree binding to YAML
-> ---
->  .../devicetree/bindings/net/wiznet,w5100.yaml      | 38 ++++++++++++++++++----
->  1 file changed, 31 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-> index 25098308eb6e..da03f4e07f29 100644
-> --- a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-> @@ -12,10 +12,6 @@ maintainers:
->  description: |
->    This is a standalone 10/100 MBit Ethernet controller with SPI interface.
->  
-> -allOf:
-> -  - $ref: /schemas/net/ethernet-controller.yaml#
-> -  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> -
->  properties:
->    compatible:
->      enum:
-> @@ -24,8 +20,11 @@ properties:
->        - wiznet,w5500
->  
->    interrupts:
-> -    maxItems: 1
+On 2026-09-17 11:52:29 [+0200], Bartosz Golaszewski wrote:
+> Applied, thanks!
 
-Broadest constraints always stay here.
+This looks like a hack with no explanation about the root cause.
 
-I already asked for proper syntax here:
-https://lore.kernel.org/all/688f57cd-a098-4904-b8cd-965470a89386@kernel.org/
+> [1/1] gpio: mvebu: keep resume masks within the irqchip cache
+>       https://git.kernel.org/brgl/c/02af7eac17bc62a72335c1fc8c4af4471654f6cc
 
-https://elixir.bootlin.com/linux/v6.11-rc6/source/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml#L127
-
-Best regards,
-Krzysztof
-
+Sebastian
