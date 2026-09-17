@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8734DA9D3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:00:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284B950C2B3
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:00:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650052; cv=none; b=beY1VxjJv9ClUwIF8KXSseJSAojtrJJA7pjca+ob5JU8AEzpXtvcEC0Q3XIMspgv0ANp2duCc3VpUG/eCEejX/Z7s6QSM/z181sFhMN/Y+qVhvFtR2gcfW1xRnfMDAmn9BKkx/CFvkGSJp606Kl8DY4QnrChugzGInJvhnAjIdc=
+	t=1789650055; cv=none; b=EU6lR/LrVEi73/TeKpq1L9edY1D48vT9e5Ue1M2+j8YAkXLIluaj30jOTn5dH5S91QzWUwnzS+yUIK3bbCMDdE0i3Ho4OkgLj/sZa05ZZ318mEWnTmPg5Ve8B9tVNnN7jtJ7sjVizh07mNAAtV8tEjc1wYZwNJw1Z6bh82GZDls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650052; c=relaxed/simple;
-	bh=ST6lkf8zWnv1Bb1/dVgKbAOWbpFORRupmi8n5QqXhzg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mgCDSuZ695Frkmg58JRfuzq8K6TJRXDdLmcuiRStInAZ//6pBIjjjPuiaBD58+WhMD4299o8aEH+hl3kwNP2eOVsz/LfvALP/A7olj8vt61cGpro1VbOCuBYyOtPtnSi25TZAWTS7BCkDFpRi/wpeHAKiZSowDVXyMRzRlEbPAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O2xVGkNY; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789650055; c=relaxed/simple;
+	bh=M7K41bEmZRs8zEe7ciQ4rClIT6UHkTQUin6UUaJnqrw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HrlEsX9lapfXN3MJD+KaQoHBzbOGXVkSyhCoxVIfO6oz/YXnbP3HHlT8e23PxaHo1W3Xb80X6SjOg8iT39uTiiqTDM7pJnNvVXciGgFj4TuNjOn/a8B+YL5m3YufueMSOd9kZSXa0DN6eh6cnqv98RkKY38t0rRhSzDWBdekVXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DMbFsdVZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O2xVGkNY"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 86337C2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DMbFsdVZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B441EC2BCFA;
 	Thu, 17 Sep 2026 13:00:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789650051;
-	bh=ST6lkf8zWnv1Bb1/dVgKbAOWbpFORRupmi8n5QqXhzg=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=O2xVGkNYcjWxXO1fS8hOL/A6OIxU+lKxCvrv684Qa4NATwuSJyx8UTY3l5L/x1AYS
-	 VERPE/MfXsUuJjKpkZfm0h8PuJVYhvZ5V73UlYG3PcRn33jtGpIVR+bEoxdrz2wTWi
-	 psfpcJ3QA4kOk34kal9+/LK6Bm+4wm+rC2H3clgBrO0AoXWmYh4TYpOCpGQT1q4b8z
-	 2GmQFhZ2ry+1Vc6cvM6dPUHS3Cub1xsSJjunlf4nIhqzqFGySDtiQ5XSZGZX64WqNl
-	 OdmBR5Rzl/eJfy/2O5ALtU2gAVUKrWlux3Lw7K34pOuopwSTOnpsKqWRN1bCHgeSZm
-	 fQxBcmu1lQf4g==
+	bh=M7K41bEmZRs8zEe7ciQ4rClIT6UHkTQUin6UUaJnqrw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=DMbFsdVZryHSuLXAkoXUoHDyCQMI0m7RO0Gy7mcQbYVfmnlIm70l4NXQAbil9/nk+
+	 M7QHaxVcdN1K2T1Ekfq9rv+M3bRiC3DlNv0ltHd5kFfNgsdA9j6UNSm2SpNAKLLtD1
+	 tFkymnwkgxRwkoTQZVtJsI/5lZK0HN0R8Dk35bxW78e5HOdu0M8ZQW+cEBHtQN4RQb
+	 NcDWNIYYQ8/iSAIUiz5jFVR1UQp503DI4apgSHhkhiPbPvGqM4NDDqY0H+1iPV0DMS
+	 XuzBlwee9ITxeoz3NOsKZ/jM+9JunfnsqiErKr+SVLdw26DQ1mJyIKIk7L2ptnb2KV
+	 DTfqmvj0kxYZA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7218CC982D1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B3F5C982D5;
 	Thu, 17 Sep 2026 13:00:51 +0000 (UTC)
 From: Peter-Simon Dieterich via B4 Relay <devnull+peter-simon.dieterich.vaillant-group.com@kernel.org>
-Subject: [PATCH 0/2] mtd: rawnand: Handle GigaDevice chips behind the ESMT
- manufacturer ID
-Date: Thu, 17 Sep 2026 15:00:41 +0200
-Message-Id: <20260917-esmt-gd9fu2g8f3a-v1-0-577c0ab2d31a@vaillant-group.com>
+Date: Thu, 17 Sep 2026 15:00:43 +0200
+Subject: [PATCH 2/2] mtd: rawnand: Reflect that ESMT and GigaDevice share
+ ID 0xc8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,21 +41,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHnkq2oC/yXMQQqEMAxA0atI1hbSKqJzlcFF1bRG0BkaK4J4d
- 6su3+L/A4QCk8AnOyDQxsK/JUHnGfSjXTwpHpLBoKmwNqhI5lX5oXHR+NoVVjVlp11FGrGwkLJ
- /IMf7s/y2ryV2E/Xr/YHzvACsPd/+dAAAAA==
-X-Change-ID: 20260820-esmt-gd9fu2g8f3a-94b1f6e1003a
+Message-Id: <20260917-esmt-gd9fu2g8f3a-v1-2-577c0ab2d31a@vaillant-group.com>
+References: <20260917-esmt-gd9fu2g8f3a-v1-0-577c0ab2d31a@vaillant-group.com>
+In-Reply-To: <20260917-esmt-gd9fu2g8f3a-v1-0-577c0ab2d31a@vaillant-group.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
 Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789650050; l=1814;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789650050; l=1759;
  i=peter-simon.dieterich@vaillant-group.com; s=20260820;
  h=from:subject:message-id;
- bh=ST6lkf8zWnv1Bb1/dVgKbAOWbpFORRupmi8n5QqXhzg=;
- b=v8R4RThorGStiRkYuqiy4vVHp2R3EYd1tnzChzEJWSj/iyUf1N530ytqr6Kzl4/5Gzj+SBMGs
- ExPLfO26ZG8C66WNLgYeqkRM0iUeYbWEH7rxbWUuKgU5Mu+4jS6HEzv
+ bh=GVgrbaeNYYC74jEu4meBBZ7WRozFmcBvWG5whH/D0VM=;
+ b=l0SsMisYo5Dfq77I3F5DLjARmFARoNm+su+9JXxGB+DtQTaQrbkkGFRcVSCRzJQ4zmwFZdYYk
+ oLMu8xtFbkRASk2T/LZE2YjQ83lC8FgGTFHxMwqqWNHGT7upYXwwOT9
 X-Developer-Key: i=peter-simon.dieterich@vaillant-group.com; a=ed25519;
  pk=YI8VL1pBCnAIu0GVWI3a6qn/SG0pMQhm9n/RZTI5KZg=
 X-Endpoint-Received: by B4 Relay for
@@ -63,43 +62,50 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
 Reply-To: peter-simon.dieterich@vaillant-group.com
 
-JEDEC manufacturer ID 0xc8 is shared between ESMT and GigaDevice, so
-GigaDevice raw NAND chips are detected as ESMT and handled by
-nand_esmt.c. This series deals with a GigaDevice part that ends up there.
+From: Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
 
-Patch 1 works around a broken timing mode feature on the GD9FU2G8F3A:
-the parameter page advertises SET/GET_FEATURES support, but
-GET_FEATURES(TIMING_MODE) does not report the mode that was written, so
-the core does not see its selection acknowledged and falls back to timing
-mode 0. GigaDevice confirmed the chip is compatible with every timing
-mode it advertises and that SET_FEATURES is not required to enter them,
-so the feature is unflagged for this model and only the host side is
-configured. This mirrors the existing handling of the Macronix MX30LF AC
-series in nand_macronix.c.
+JEDEC manufacturer ID 0xc8 is used by both ESMT and GigaDevice, so
+nand_esmt.c handles chips from both vendors. Chips from either
+vendor are currently reported as "ESMT", which is misleading when
+debugging a GigaDevice part.
 
-Patch 2 is cosmetic: it renames the manufacturer entry to
-"ESMT/GigaDevice" and documents the ID collision, so a GigaDevice part
-is no longer reported as ESMT at detection time. It is independent of
-patch 1 and can be dropped or deferred without affecting the fix.
-
-Tested on an i.MX6ULL board using gpmi-nand with a GD9FU2G8F3A.
+Rename the manufacturer entry to "ESMT/GigaDevice" and document the
+collision next to the NAND_MFR_ESMT definition. The only behavioural
+change is the manufacturer name printed at detection time.
 
 Signed-off-by: Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
 ---
-Peter-Simon Dieterich (2):
-      mtd: rawnand: esmt: Disable broken timings feature on GD9FU2G8F3A
-      mtd: rawnand: Reflect that ESMT and GigaDevice share ID 0xc8
+ drivers/mtd/nand/raw/internals.h | 1 +
+ drivers/mtd/nand/raw/nand_ids.c  | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
- drivers/mtd/nand/raw/internals.h |  1 +
- drivers/mtd/nand/raw/nand_esmt.c | 34 ++++++++++++++++++++++++++++++++++
- drivers/mtd/nand/raw/nand_ids.c  |  2 +-
- 3 files changed, 36 insertions(+), 1 deletion(-)
----
-base-commit: 7e874b1750a40f3dc9a629aeb72eba09c77f77e9
-change-id: 20260820-esmt-gd9fu2g8f3a-94b1f6e1003a
+diff --git a/drivers/mtd/nand/raw/internals.h b/drivers/mtd/nand/raw/internals.h
+index b7162ced9efa..b8b29341b88c 100644
+--- a/drivers/mtd/nand/raw/internals.h
++++ b/drivers/mtd/nand/raw/internals.h
+@@ -19,6 +19,7 @@
+ #define NAND_MFR_AMD		0x01
+ #define NAND_MFR_ATO		0x9b
+ #define NAND_MFR_EON		0x92
++/* ESMT and GigaDevice share the same manufacturer ID. */
+ #define NAND_MFR_ESMT		0xc8
+ #define NAND_MFR_FUJITSU	0x04
+ #define NAND_MFR_HYNIX		0xad
+diff --git a/drivers/mtd/nand/raw/nand_ids.c b/drivers/mtd/nand/raw/nand_ids.c
+index 08707ce9d7c0..9b2dd246398f 100644
+--- a/drivers/mtd/nand/raw/nand_ids.c
++++ b/drivers/mtd/nand/raw/nand_ids.c
+@@ -185,7 +185,7 @@ static const struct nand_manufacturer_desc nand_manufacturer_descs[] = {
+ 	{NAND_MFR_AMD, "AMD/Spansion", &amd_nand_manuf_ops},
+ 	{NAND_MFR_ATO, "ATO"},
+ 	{NAND_MFR_EON, "Eon"},
+-	{NAND_MFR_ESMT, "ESMT", &esmt_nand_manuf_ops},
++	{NAND_MFR_ESMT, "ESMT/GigaDevice", &esmt_nand_manuf_ops},
+ 	{NAND_MFR_FUJITSU, "Fujitsu"},
+ 	{NAND_MFR_HYNIX, "Hynix", &hynix_nand_manuf_ops},
+ 	{NAND_MFR_INTEL, "Intel"},
 
-Best regards,
---  
-Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
+-- 
+2.55.0
 
 
