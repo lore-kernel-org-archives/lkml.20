@@ -1,56 +1,56 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE0B5372C6
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0D553B34D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:39:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663191; cv=none; b=L0j2GDRWthfCs5n22Wu/fVRFoajgv/xnI84TSzPO6JYdZkvYs4zLno/J6LXmFNhiLE3W9gGfQtWy2Y1//4THcahOvux0V5A2BdN8LRNtN4wCqsMMu0Zme7z1ZPG2SPWQ8+x1ySqAGdtk9VDJOOg6E6j/i7QI3LK5K5VGeKK+VpU=
+	t=1789663193; cv=none; b=BbxrehkTarKvRuCZRuZN++hHzFIu+7ZJCC11K7/qz2glORW+lk1LGLtkN2aCobdpkR48P3fklSP3Y8byxVBuMU5nYJjp1e9TR6UDzqw2B43GjXIpd1V26A84JKSvY6gdzbqB6HtN5lq24yLISs5/xdWCC8O3ZV+hY/W9U3Zoe0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663191; c=relaxed/simple;
-	bh=uXUyVsWXdGRR9r0Yf+u2xCJJUCEXrufHCD6FF1dYRUw=;
+	s=arc-20240116; t=1789663193; c=relaxed/simple;
+	bh=bYT8WVcurMLOEfyNp8NqaepgaxFS5df3jeYD3CQhJBQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=hQ6FmhSsLv/GBI28aXb2z6qKJghyt3yg8IvndpXyC1ClNQmcSSUC1tWgKqBS5MqnOz6xlQKqalEl/WQWS8PYKdnBFqojTd0yiCpmsJPELexnbQLoEgrh+u7uindYSyzcAn6PEEK2ou5wi9wDkHH5jRgGwbcS1EwWT1lw39bHpsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p+aNd8zv; arc=none smtp.client-ip=209.85.215.198
+	 To:Cc:Content-Type; b=s7cIG0gLxgfyChWuGR9gFZ56g2d2J5EItMB8xMgzXa8Tb9xizzrWtxawGAIC4uod5XeSvoTVcEjbKjXVBykh9QjCUalodv2O/X2XhJMDg8foEmJny5q2G/OpAWiHWCtv1zaJTAkULJ51HHeBw3Hy1aX0qA8evoKeJkoSppK9EUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dYflWEeL; arc=none smtp.client-ip=209.85.215.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p+aNd8zv"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1cdfb337eso1478772a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:39:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dYflWEeL"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1b8088202so1144818a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:39:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789663189; x=1790267989; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789663191; x=1790267991; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0q/ZlHbTsYZyN2/8M0P/yh3YerzxVzD8tkGrmWQ37IA=;
-        b=p+aNd8zvJVtBwNmPNZxyobP+Yo0ls6vOKsrz6jdP4vJxRvouWO4j6vztrGAp65DmIR
-         vhxIEc3gDAKATzK7Qu5uNaCX54DUHHF/jktCFyv/q187l7yxn3AOGx/LZSyeLJ73hcnh
-         Upaz+yzy1BHpONNGeLiBSHhZAcAh/gifR+L2HhiFn8gSHkIDIEeWZoP60JkOA82WQR2Y
-         sNeO2snLh6BwQOWYehFuBkVorzzE2NnK6p4baqFl9oPaDMba7KXznfglyejxSBDUOcyB
-         NUbJRnLi+kg8IhvfW6cYf339c45VLSFq4fhAKFoyUj7/DuZQWpjJlYM4VOZHeR0t7I/J
-         u5+g==
+        bh=nhdENFaJa2NETWrV9GF10gghTb/oZJa/1Sd4bZnoKoc=;
+        b=dYflWEeLHocHmzlCyY9IigZLm2FHceet0+lh3G8PnSerwMhYEiCxMmogBILHPE7Nli
+         RmT86Q+FCtNjiOOxqzc6V1ReLbzogyvfLAnI8XEWTA8BzZI87/Kp7FU9AMZKecqnI+k1
+         Rv9PMQjuRCUY0MAECF+s+JHQ/SCyN/r3lUdw6trrU/cbUIqKTJfurO79fzL4+0ftI0aV
+         qQi/I5kJFg3rbrV7/XClIuaModdvKqUZsyNLia4qyQiTIiVU3vMYoT8Gox2+gzcyiLFE
+         hwxs8BedQyoDU+YA+CHcLdcwcd3Ckzk8dkyXM4nKlvWG3qCa61ub2aTKlZe0BwGDUpAK
+         EkmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789663189; x=1790267989;
+        d=1e100.net; s=20260707; t=1789663191; x=1790267991;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0q/ZlHbTsYZyN2/8M0P/yh3YerzxVzD8tkGrmWQ37IA=;
-        b=cOYHjGt9p4I6t5gAmtmfjFW0nD2efKz/LWXkFcQq8X9A1pUMVwv8P+P8SEFmOIS65p
-         sIl4+QWys359qcqD3dBU0mBtoRENAqfiOI0DMyW/ebfqBxYWxHLCtHQ4Ryd//4QobyPe
-         zw7QFTyvLZLmXSUw+WxNyxxO9pJ3iw8rCi0WBnpBIlBldnrbTRYxIYx+uwFlHQXXswIe
-         GDsX7LrJDOte7/uLSR3HB/0RvM9Cs60SbsTnMGYsawkSxOLf1QrMlKcmu3POGJEoElXf
-         +oCz0F9OzQYTzhG6h9t4+BM4G15bhZvult/sMNwurX7FSvobMUQQFNAhk+ITVj3KNrYc
-         V4wQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzusQ8bFFdHXzSs5JrknUZM9aiij6pv7/UYP0gMXJ/v2nZ+9m01L1oZFlfdgsIq4cV9c6kmaeWHB70ZOLk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzATmxFVqsA01BvBJQ7W1ACNEBhCnXXwGGt+SlIeHo0X306y67
-	WEIZumajNR3be+yw/PQPPaFccGJ0GjtLOgqQ3Ti74/qyZagVpJWiAGxCj+EylHm0NKUP5MXG49z
-	JNnp5itJzGw==
-X-Received: from dldyr11-n1.prod.google.com ([2002:a05:701b:450b:10b0:143:64ee:152c])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:ce46:b0:3dd:85a8:4c5b
- with SMTP id adf61e73a8af0-3dd85a84e3fmr1512128637.34.1789663188695; Thu, 17
- Sep 2026 09:39:48 -0700 (PDT)
-Date: Thu, 17 Sep 2026 09:39:00 -0700
+        bh=nhdENFaJa2NETWrV9GF10gghTb/oZJa/1Sd4bZnoKoc=;
+        b=cJIu+XozBeRQ7Ybu54DhAusbtmc+SmG7IVcRpGVVytLrAF3XnEsgT/dr55kkUUh0n7
+         ZgVmHEEreh0GzJTm5GfJbSMpfvyjcFOEA7msCdmIIfntMEhe6RYeO9GBLOph1dKPUPWU
+         /d1nYaEjsqBAWbvpq3g7Y190Hwp8DB1UE1x+IrcrydbTO4xXYpJLZRT7LYK11GGYB/zo
+         bqzWuYXmOB3Ejb2oLYaKkShgPAMmG6fpeBH7Mc11hT13oaZyxL85vPRLW/NOtT81O1O2
+         GFPeAsXisBCwHY64R8yguijC+iIovkafW+/jeFxFqBVGeoFSVoAxRuPe981QvD7bgIuB
+         fhKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/WAlLkjiamCmhfrDAgNapjLx63CuOEDL85KS6HUuIhVeNo0tzD2IyTi+KWXCGOEbQxYamhl3DtFhNUdM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZEtBKcqWLMINZkRxmqwyd/CCp6XgmwICiG6OZ6wvRq8lzdq/p
+	biFHwLOUbetqtStWaR+Exi63oocEeeHPIipa/0gd5a1oOrOujRIkeEumMmaps//erVi+WMmQy1h
+	atjfkAg7DWg==
+X-Received: from dlbtx10.prod.google.com ([2002:a05:7022:fc0a:b0:143:7c9b:184f])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:9090:b0:3d0:e034:a26f
+ with SMTP id adf61e73a8af0-3dd5f5d8672mr19199628637.17.1789663191036; Thu, 17
+ Sep 2026 09:39:51 -0700 (PDT)
+Date: Thu, 17 Sep 2026 09:39:01 -0700
 In-Reply-To: <cover.1789662556.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789662556.git.irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <c031566fe3af02b978c7e7ae47c6f7d4a05515aa.1789662556.git.irogers@google.com>
-Subject: [PATCH v2 12/14] perf test trace_btf_general: Drop --max-events=1 and
- make non-exclusive
+Message-ID: <f889a6e06cc80f612cf741e403ce2acd136f2fec.1789662556.git.irogers@google.com>
+Subject: [PATCH v2 13/14] perf test trace_summary: Make non-exclusive
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
@@ -70,15 +69,12 @@ Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
 	mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-trace_btf_general.sh used `--max-events=1` with `perf trace` on
-commands such as `mv`, `echo`, and `sleep`. When background activity
-occurs or tests run in parallel, `perf trace` can capture an event
-from an unrelated process and exit prematurely before recording the
-target command's syscalls.
+trace_summary.sh tests various summary modes of `perf trace`. It already
+directs output to a unique temporary file without polluting the current
+working directory.
 
-Drop `--max-events=1` and let tracing run until the command completes,
-checking for the expected output with grep (matching trace_btf_enum.sh).
-Remove the (exclusive) tag so the test runs in parallel.
+Remove the (exclusive) tag so it can run concurrently in parallel test
+runs.
 
 Running perf trace in parallel is only safe now that the probe tests no
 longer name their probes "vfs_getname...": perf trace opens everything
@@ -88,47 +84,20 @@ those probes and make their cleanup fail with -EBUSY.
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/tests/shell/trace_btf_general.sh | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ tools/perf/tests/shell/trace_summary.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/perf/tests/shell/trace_btf_general.sh b/tools/perf/tests/shell/trace_btf_general.sh
-index 7a94a5743924..4d654b687a4e 100755
---- a/tools/perf/tests/shell/trace_btf_general.sh
-+++ b/tools/perf/tests/shell/trace_btf_general.sh
+diff --git a/tools/perf/tests/shell/trace_summary.sh b/tools/perf/tests/shell/trace_summary.sh
+index f975176247b5..e2834bc4eee6 100755
+--- a/tools/perf/tests/shell/trace_summary.sh
++++ b/tools/perf/tests/shell/trace_summary.sh
 @@ -1,5 +1,5 @@
  #!/bin/bash
--# perf trace BTF general tests (exclusive)
-+# perf trace BTF general tests
+-# perf trace summary (exclusive)
++# perf trace summary
  # SPDX-License-Identifier: GPL-2.0
  
- err=0
-@@ -27,7 +27,7 @@ check_vmlinux() {
- 
- trace_test_string() {
-   echo "Testing perf trace's string augmentation"
--  output="$(perf trace --sort-events -e renameat* --max-events=1 -- mv ${file1} ${file2} 2>&1)"
-+  output="$(perf trace --sort-events -e renameat* -- mv ${file1} ${file2} 2>&1)"
-   if ! echo "$output" | grep -q -E "^mv/[0-9]+ renameat(2)?\(.*, \"${file1}\", .*, \"${file2}\", .*\) += +[0-9]+$"
-   then
-     printf "String augmentation test failed, output:\n$output\n"
-@@ -38,7 +38,7 @@ trace_test_string() {
- trace_test_buffer() {
-   echo "Testing perf trace's buffer augmentation"
-   # echo will insert a newline (\10) at the end of the buffer
--  output="$(perf trace --sort-events -e write --max-events=1 -- echo "${buffer}" 2>&1)"
-+  output="$(perf trace --sort-events -e write -- echo "${buffer}" 2>&1)"
-   if ! echo "$output" | grep -q -E "^echo/[0-9]+ write\([0-9]+, ${buffer}.*, [0-9]+\) += +[0-9]+$"
-   then
-     printf "Buffer augmentation test failed, output:\n$output\n"
-@@ -48,7 +48,7 @@ trace_test_buffer() {
- 
- trace_test_struct_btf() {
-   echo "Testing perf trace's struct augmentation"
--  output="$(perf trace --sort-events -e clock_nanosleep --force-btf --max-events=1 -- sleep 1 2>&1)"
-+  output="$(perf trace --sort-events -e clock_nanosleep --force-btf -- sleep 1 2>&1)"
-   if ! echo "$output" | grep -q -E "^sleep/[0-9]+ clock_nanosleep\(0, 0, \{1,.*\}, 0x[0-9a-f]+\) += +[0-9]+$"
-   then
- 	printf "BTF struct augmentation test failed, output:\n$output\n"
+ # Check that perf trace works with various summary mode
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
