@@ -1,165 +1,214 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A2C45041C;
-	Thu, 17 Sep 2026 11:52:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6484D957E;
+	Thu, 17 Sep 2026 11:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645977; cv=none; b=LfrgehwYfTBXPajjkwJjcbmrZ7Duya+RWCsti+MegzhrdZekszR42ts5rcS4Ht+eAEdsIyPYWK1clqLvbOGMoFTC9hpMdrbjv0IKNdBnDGA7GRa/ozXpMSMsLMeReUJMy/rYi9JAPdGbPM2iJM3SBtJ8C93ZH6QUteTi43A6Kqk=
+	t=1789646044; cv=none; b=IPxlTdzmTDtBDt57/EWMRGaS26v3ol5neBeFDkiwWiuZ+eL1Ucnf6MwpKQsXttgmCvbkpitPkfz8e7YekqRRY+3t0A929Fnpmg6APjW+Ws2EZa0OtV9D+hc4238ZV7dnPxyuUbe0KInVM32Vvh6Se/zFVB3UZA2XlvTi/m2dIq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645977; c=relaxed/simple;
-	bh=6DZwOywmLCmxldQCAPmN+CEVBFVbwD8U2OuiFHh+iBY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OsZigX5btOhCWTU40ZbJW1x27z/h0boikdhMDwMem/bnxDFui4pSXvYomtvF6QLxhIXzTTu/rVPhzR0bk3aXnzQCg0gqGRPlwW3Msi7TVwLKRKJG9qgn66mGs9VxRGM/YoqVTd6BwbgERTfLPzBMO9OmJ8MEYpZsGa86ZkNIxSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=boDkEukG; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789646044; c=relaxed/simple;
+	bh=jvaLVEbnFCdM/+XrIG6EfmKoeNrEdotsynpBFgLSflw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qO9UX/PHyDnJ0UI3OqSNg7BLcluv9wqHjip7CHpPG7jaxX5V1TOB39FgBBMTWTRlZq0CnY2aYl65qCCK+Y6LsnFUmfSYWCSNR8earJjGX+dO6CwWPckzTPgtmYp3dHYG0vvtCyPTIyCWaDOmJYnWt7xW+BnNAZJLxtgOE50mBKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YUw+lKOe; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="boDkEukG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789645968; x=1821181968;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6DZwOywmLCmxldQCAPmN+CEVBFVbwD8U2OuiFHh+iBY=;
-  b=boDkEukGY/sNwm6TkyRAFdbEIusk5Sopuq2F/oC5KdrAX3OlbZp+FjLF
-   6F/MXGI5SV5kIC1Uq0x8u0TshWnyOWVzguMVt7TNzzsfJI/xQ8HiEuZmm
-   4xZQkzdqNnAW8Y9NPhppH9sDmAPxfVi/YmdYlEaBLoegRC0sEh9z6JZv2
-   lMcj+IIszQb98FZHONc4gAzfIfV5hAPsS4TRK59MCg4kc1gF4c+Pvx9iU
-   +GjvgpR7r2v7VToiAli0CPBOkeFhXquzK3VWRtkdqvbTYSf4iBvXyOv6c
-   9oUblke5aSz7XCGr3v4ZnCNK8MN2QKcMd/a/1K4pTS2XPqApZdalahmHW
-   w==;
-X-CSE-ConnectionGUID: XNpp9JYoSli0B2vibz0r0Q==
-X-CSE-MsgGUID: ZLiRGNbET9GRMGSBeSWRVw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90076778"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90076778"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 04:52:43 -0700
-X-CSE-ConnectionGUID: wkXVoG4lQUacyzDslXyuFw==
-X-CSE-MsgGUID: CC3aSRjfSSaqXfYvyBBH/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="275691779"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.32])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 04:52:42 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id E578011FB34;
-	Thu, 17 Sep 2026 14:52:38 +0300 (EEST)
-Date: Thu, 17 Sep 2026 14:52:38 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	German Pablo Lindo <germanpapulindez@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: ipu-bridge: the Surface Pro 11 rear sensor is
- mounted upside down
-Message-ID: <aqvUhvk22ZZLnhwD@kekkonen.localdomain>
-References: <20260913153526.80287-1-lsa.uz@pm.me>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YUw+lKOe"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HA1UTc322340;
+	Thu, 17 Sep 2026 11:53:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=V9ERVpr4ybPvUdFY/gMcMooqa+vD4ZbFk/cBj5IgD
+	w4=; b=YUw+lKOeEBkeEyWzEjaUwnCe1skx5PLSvUCiPgcFElcEkaW5cTHV3dzhl
+	Q5TeeH8U133qOTWWwvXXTFaKFS7ggQ/aUaraNWlK68dcdiu7JMS7ZVNvdbXele9u
+	nw1Ve3Udja2RTnheWpeLqVHqBBHiTiX+Na0pA4fa0SwbQDw/mdqlki6tDPt0ZPYo
+	A9XpgmLCnYuo6hFbZz6rSjIt3NvOZ2qMeNJPGPC8Hkvx3Uxjz0J5KWheW7byg+Ov
+	F0rNmNc5ugKp8t9HojFDY/g8/2y1i5VI712B8BHr/i/dv/ewzvRJLwZQb/STJVTh
+	5j8ISOmK3W823Nn/WCifYmwUzHl3A==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxdqj443-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 11:53:47 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68H9aQBd2917878;
+	Thu, 17 Sep 2026 11:53:46 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gr5xa23tb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 11:53:46 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68HBreGJ36569418
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 17 Sep 2026 11:53:40 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4E0532004B;
+	Thu, 17 Sep 2026 11:53:40 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 29B1220043;
+	Thu, 17 Sep 2026 11:53:40 +0000 (GMT)
+Received: from p-imbrenda.ehn-de.ibm.com (unknown [9.224.75.30])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 17 Sep 2026 11:53:40 +0000 (GMT)
+From: Claudio Imbrenda <imbrenda@linux.ibm.com>
+To: linux-kernel@vger.kernel.org
+Cc: kvm@vger.kernel.org, linux-s390@vger.kernel.org, borntraeger@de.ibm.com,
+        frankja@linux.ibm.com, david@kernel.org, seiden@linux.ibm.com,
+        nrb@linux.ibm.com, schlameuss@linux.ibm.com, gra@linux.ibm.com
+Subject: [PATCH v1 1/1] KVM: s390: Fix UCONTROL inconsistencies
+Date: Thu, 17 Sep 2026 13:53:40 +0200
+Message-ID: <20260917115340.126628-1-imbrenda@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913153526.80287-1-lsa.uz@pm.me>
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDE2MCBTYWx0ZWRfX9/h2sGx1Zc23
+ LH1WeP3vsLjFxLejr0y5MQFF9wX5H4q1vzYtSU3n8W8Ad3We5ceE2CDLyP9gqpPffPNJ6Qrnl+o
+ guK49yjIdOmXvFodwfKkf+1S2GDtnJGpj+m30IdeiGy56+vdl0M1wol56CWk14Yqda3occWWJtu
+ 0y/bxMcaoN7suftVexyBT2FZqoSHjJHN55PP1EcQ1bpUH0RZdgg3NvhsXHmc4KNx6pCsexGOgGb
+ 26GlAoQCgye9XkOKtWQi+cFlqPKqmeAcw/9rR/eUoefe+j9SzvalFS1b8dEWDCWsj5wNs0xGdli
+ kVoQYKaWpgQi0oHnsNJAO3MG4MTZiIhrakRWcjF+JirEKGHsuvuRLuyKhGNuWMDTBf4YKiTnAxn
+ O39zBW9KAwOO0poqWTCPlpKH9F3P0L6GojJg8uOC26FoJfGfydYbX6MqQiQ9CCCPwy/uFh1ZVRB
+ fS439W0nqFxZuFGANfw==
+X-Proofpoint-GUID: JpaoghcP1i0kzQ8kq5d5B8KBSNaQ5fGw
+X-Authority-Analysis: v=2.4 cv=DobDa2/+ c=1 sm=1 tr=0 ts=6aabd4cb cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=UYoTy7AoXebUC5eqFE8A:9
+X-Proofpoint-ORIG-GUID: JpaoghcP1i0kzQ8kq5d5B8KBSNaQ5fGw
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDE2MCBTYWx0ZWRfX8r6YoMyasJuf
+ saMChlnQlFgSf+R4swL+9vR1eBjd78UOscgXNPmBNeF6h4xaAiE+fA1oEUlIqaXKpe9s1PMPNTs
+ DWzJdBZxLBp67AkSEDlD0dUydYQQkMs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 impostorscore=0
+ spamscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170160
 
-Hi Sergey,
+For UCONTROL VMs, when a vCPU segment entry is mapped but unallocated,
+the tl field was set to 1. This collides with the present bit, which
+means that other parts of gmap would mistake the entry for a present
+one.
 
-On Sun, Sep 13, 2026 at 03:35:32PM +0000, Sergey Lebedev wrote:
-> The Microsoft Surface Pro for Business 11th Edition with Intel mounts its
-> OV13858 rear sensor rotated 180 degrees and declares it in neither the SSDB
-> nor a matching _PLD, so the rotation reads as 0 and every frame arrives
-> inverted with nothing to say so.
-> 
-> Add it to upside_down_sensor_dmi_ids, the table that exists for this class
-> of firmware. Matched on DMI_PRODUCT_NAME as the rest of that table is; the
-> entry only takes effect when the ACPI HID matches too, so a machine of the
-> same model that shipped a different rear sensor is left alone.
-> 
-> Measured on the machine. Before:
-> 
->   camera_sensor_rotation  min=0 max=0 value=0
->   libcamera: Property: Rotation = 0
-> 
-> After:
-> 
->   camera_sensor_rotation  min=180 max=180 value=180
->   libcamera: Property: Rotation = 180
-> 
-> and the front sensor is untouched at 0.
-> 
-> This makes the kernel report the mounting truthfully, and that is all it
-> does. The pixels are unchanged: capturing one static scene through
-> libcamera with the property at 0 and at 180 and correlating the vertical
-> brightness profile gives +0.995 the same way up and -0.781 flipped, so
-> libcamera delivers the same buffer either way. The sensor has no flip
-> controls, so nothing is corrected in hardware either.
-> 
-> An application that reads the property can now rotate; one that ignores it
-> still shows the image inverted. That is a userspace matter and is not
-> addressed here.
+Refactor the code to use a different combination of flags to indicate a
+mapped but unallocated segment.
 
-This commit message of a trivial patch is exceedingly long, please shorten
-it. See examples of similar patches, for instance.
+Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Fixes: a2c17f9270cc ("KVM: s390: New gmap code")
+---
+ arch/s390/kvm/gmap/dat.h  | 16 +++++++++++++++-
+ arch/s390/kvm/gmap/gmap.c | 40 ++++++++++++++++++---------------------
+ 2 files changed, 33 insertions(+), 23 deletions(-)
 
-> 
-> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
-> ---
-> Written 2026-08-31 against a variant of upside_down_sensor_dmi_ids that
-> takes a struct with a match type and an id list. No such variant exists in
-> media/next, so the patch could never have applied and was never sent;
-> rewritten today in the form the table actually uses, and measured.
-> 
-> Applies to media/next on its own and on top of
-> 
->   https://lore.kernel.org/linux-media/20260913142034.5632-1-lsa.uz@pm.me/
-> 
-> which adds the OVTID858 bridge entry the same machine needs.
-> 
-> A second machine reporting the same DMI product name independently reports
-> the same inverted image, in three different applications:
-> 
->   https://lore.kernel.org/linux-media/20260913144127.17995-1-germanpapulindez@gmail.com/
->   https://lore.kernel.org/linux-media/20260903080854.16266-1-germanpapulindez@gmail.com/
-> 
-> I have asked its owner to confirm the string and to say whether any of those
-> three applications turns the picture the right way up once the property is
-> set. It would surprise me if they did.
-> 
->  drivers/media/pci/intel/ipu-bridge.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-> index 7e65491faf..a5de450284 100644
-> --- a/drivers/media/pci/intel/ipu-bridge.c
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -192,6 +192,14 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
->  		},
->  		.driver_data = "OVTI02E1",
->  	},
-> +	{
-> +		.matches = {
-> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-
-Let's aim to keep these alphabetically ordered.
-
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
-> +					"Surface Pro for Business 11th Edition with Intel"),
-> +		},
-> +		.driver_data = "OVTID858",
-> +	},
->  	{} /* Terminating entry */
->  };
->  
-> 
-
+diff --git a/arch/s390/kvm/gmap/dat.h b/arch/s390/kvm/gmap/dat.h
+index 90389d47ba4e..4665c1112bb9 100644
+--- a/arch/s390/kvm/gmap/dat.h
++++ b/arch/s390/kvm/gmap/dat.h
+@@ -109,6 +109,8 @@ union pte {
+ #define _REGION3_FR_MASK	(_REGION3_MASK >> PAGE_SHIFT)
+ #define _PAGES_PER_SEGMENT	_PAGE_ENTRIES
+ #define _PAGES_PER_REGION3	(_PAGES_PER_SEGMENT * _CRST_ENTRIES)
++#define _UCAS_ENTRY_LENGTH	0
++#define _UCAS_ENTRY_OFFSET	3
+ 
+ /* Soft dirty, needed as macro for atomic operations on ptes */
+ #define _PAGE_SD 0x002
+@@ -421,6 +423,17 @@ static inline union crste _crste_fc0(kvm_pfn_t pfn, int tt)
+ 	return res;
+ }
+ 
++static inline union crste _crste_ucas(kvm_pfn_t pfn)
++{
++	union crste res = { .val = PFN_PHYS(pfn) };
++
++	res.h.i = 1;
++	res.h.tt = TABLE_TYPE_SEGMENT;
++	res.h.fc0.tl = _UCAS_ENTRY_LENGTH;
++	res.h.fc0.tf = _UCAS_ENTRY_OFFSET;
++	return res;
++}
++
+ /**
+  * _crste() - Useful constructor for union crste with FC=1
+  * @pfn: the pfn this pte should point to.
+@@ -985,7 +998,8 @@ static inline int dat_create_slot(struct kvm_s390_mmu_cache *mc, union asce asce
+ 
+ static inline bool crste_is_ucas(union crste crste)
+ {
+-	return is_pmd(crste) && crste.h.i && crste.h.fc0.tl == 1 && crste.h.fc == 0;
++	return is_pmd(crste) && crste.h.i && !crste.h.fc &&
++	       crste.h.fc0.tl == _UCAS_ENTRY_LENGTH && crste.h.fc0.tf == _UCAS_ENTRY_OFFSET;
+ }
+ 
+ #endif /* ARCH_KVM_GMAP_DAT_H */
+diff --git a/arch/s390/kvm/gmap/gmap.c b/arch/s390/kvm/gmap/gmap.c
+index 3f3fa864cc36..554015e0dad0 100644
+--- a/arch/s390/kvm/gmap/gmap.c
++++ b/arch/s390/kvm/gmap/gmap.c
+@@ -773,9 +773,7 @@ static int gmap_ucas_map_one(struct kvm_s390_mmu_cache *mc, struct gmap *gmap,
+ 	if (rc)
+ 		return rc;
+ 	if (!ptep) {
+-		newcrste = _crste_fc0(p_gfn, TABLE_TYPE_SEGMENT);
+-		newcrste.h.i = 1;
+-		newcrste.h.fc0.tl = 1;
++		newcrste = _crste_ucas(p_gfn);
+ 	} else {
+ 		pt = pte_table_start(ptep);
+ 		dat_set_ptval(pt, PTVAL_VMADDR, p_gfn >> (_SEGMENT_SHIFT - PAGE_SHIFT));
+@@ -836,26 +834,24 @@ int gmap_ucas_translate(struct kvm_s390_mmu_cache *mc, struct gmap *gmap, gpa_t
+ 		if (rc <= 0)
+ 			return rc;
+ 	}
+-	do {
+-		scoped_guard(write_lock, &gmap->kvm->mmu_lock) {
+-			rc = gmap_ucas_translate_simple(gmap, gaddr, &crstep);
+-			if (rc <= 0)
+-				return rc;
+-			translated_address = (*gaddr & ~_SEGMENT_MASK) |
+-					     (crstep->val & _SEGMENT_MASK);
+-			rc = gmap_ucas_map_one(mc, gmap, gpa_to_gfn(translated_address), gfn, true);
+-		}
+-		if (!rc) {
+-			*gaddr = translated_address;
+-			return 0;
+-		}
+-		if (rc != -ENOMEM)
+-			return -EREMOTE;
+-		rc = kvm_s390_mmu_cache_topup(mc);
+-		if (rc)
++	rc = kvm_s390_mmu_cache_topup(mc);
++	if (rc)
++		return rc;
++
++	scoped_guard(write_lock, &gmap->kvm->mmu_lock) {
++		rc = gmap_ucas_translate_simple(gmap, gaddr, &crstep);
++		if (rc <= 0)
+ 			return rc;
+-	} while (1);
+-	return 0;
++		translated_address = (*gaddr & ~_SEGMENT_MASK) |
++				     (crstep->val & _SEGMENT_MASK);
++		rc = gmap_ucas_map_one(mc, gmap, gpa_to_gfn(translated_address), gfn, true);
++	}
++
++	if (!rc)
++		*gaddr = translated_address;
++	if (!rc || rc == -ENOMEM)
++		return rc;
++	return -EREMOTE;
+ }
+ 
+ int gmap_ucas_map(struct gmap *gmap, gfn_t p_gfn, gfn_t c_gfn, unsigned long count)
 -- 
-Regards,
+2.55.0
 
-Sakari Ailus
