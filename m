@@ -1,424 +1,106 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6844DDB3A
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:14:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658090; cv=pass; b=UgrIoG8GVooxMiGlf7vJxNELhSvuFSEuylG9k8z4sjIx3jOSJ4km79YfQREIQ7upOWulB6mWPctqIOmTYSBupEfprbNd5v/Ll5bXzPyIvBdU8h5/YRM9xuyU79wAO7V1JX6mMSvADPd4TSMLekaLlVM9dHvBaI3E5JtXOgYAwnA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658090; c=relaxed/simple;
-	bh=UFML2e457ZW3pIU5/pg+b/DC8XOfx2EOR7iCXso0RAw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=E2ZwaBvx6tiI6xvPzc5aS/cEsJaf4CUpXwggTcaTL0Bxu8JJxW5SkSf4g+zSrL9807kwapXlktBrZsLOBlI/VHSmzKx0QP0xePTDmaKmsXylaxfa/Dgwq2gqyMoQJ1VwcHuA+JI4Bkp81SsNZe/URcM0DvQUzMsgkIcG7MmhPI0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HB+FEKQd; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BEAB497384;
+	Thu, 17 Sep 2026 15:14:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789658091; cv=none; b=pG03u+CXsEhcetPiABgFfbhRk9mUweV0+iUlBPUYwBhy9cjq5rZMp9lQ+4B1nmKLQGkzD8ZUovC9pbSYwKiLSdjAYEJ24gBnbSa6IMQjr5Ed+Rc1eSz3UcppjHshcvsJQ/zzeMG6fVJsHjKuTCR0Rcl94iNftxZWG5pTxtSZhok=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789658091; c=relaxed/simple;
+	bh=bno2OaQ++0XptPjxv4KLgDTOcVdE7Tfrme9WXDcNkg4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=nqMAw2liJk4fqfnlx0/UmrJ7Jt6IIZH3fBkrMmVB21jgVgfrn5cy0T3DgKEbUodI8ErWYalW4cQyCxMw9su6rjp+5v1RgRPx69mdLhCbAGX5oGhwMnLKz4vTrAtZQX7jrvCdq1H97CqbeJWo2x1w2frgEH3ByT/4CmN+ShCBCPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=06JGvczP; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HB+FEKQd"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f5603a0so154811866b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:14:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789658074; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GLPsR3ISyYjsesGJQzhX6dr5sBpXcoUFXTZhHglikVo0mJg/tlgMjDxgebRGB9GnRb
-         zZ30Uq6fsnEF05izMXO0YX5XGnZ5ukR9r13Trd3VEeFB/VrYt8yLrnagsixvJESHMicK
-         o5pJbbrnQFAfbdjveEXYkZinz8xUJJoa7F66yVMsKV7XsIdhJ2138j64Au/PDEiqmckD
-         c5Kl/RoyS3PsacNCkYZYBiuLAvqroy9HHMLCCOLBSpfZfvsWYFCN4e8EvpQIklBNWeB3
-         2uzn8vN7uQOgtREnoa1+ROu+3d8JU187N7osUSGBZW3T+ttgmsPMjWJ7AbulIQrjXU8X
-         Os1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TCGGfYUyiWy8h8GhXDRfHIV8Kfgm9E+ThBdTgsBhNN0=;
-        fh=s8OfCqPy6O1GXjcVM2Fj6XqIaJpJqqwJoJVAVPGgmig=;
-        b=JjYYhH1l/JrlHzqhOew+TugKoHJvB7S0Pa8anoQ74rxhZxUuDaRZ3QpS6zNItMvfPs
-         m6eBIiQ/LX0ngRxvgXki8Wb9bD7HKPrWBi6sJ1KxvsenqXri3vOO0Eu//ljgbozE1fUz
-         jOdv9WDxMkqJDDBmukgtEdrhCmhH9fFltfoj3bMF7hgatLnZKdAsGA0iMQlo17ECqj0l
-         mKYOKoEMwXRh45ESM9WYh78gBqSf1cWiBruP1QfsmGg15awQ1vX8n/GxCgG+ekZH89mh
-         HeE35bMuB4kRVRoG4eWoIgodeH/PaXVlK0bvBpFEfU+x+hLkxDd4EnTS8YUaTIugXbvc
-         3Njw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789658074; x=1790262874; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TCGGfYUyiWy8h8GhXDRfHIV8Kfgm9E+ThBdTgsBhNN0=;
-        b=HB+FEKQdqKb13fHFX8CKhRYFMKZ6FINmHq4lYwCrblJLocJ38DXP07KO/U8cm5Exxn
-         2CMDj7HIrrpL6o1gj/y5FXsyv7ZBoi2jG/HTGbfV4Sm1poGg0d9+ax35Gl3wAQtBjak4
-         PbI29Nx5aRZdHa/v6/aQSs+rb3aPWIOUDR4rpem4UFt57n37n94088N3kvMftdOyWn1D
-         D9MGsE1We2ME698+PIiSQfxMkhw95kSEPukp27KJe6lUQ8rz0jZfDhZEa7u5FQ49e1sW
-         cb/zk7YMEsWDelhOs+qoIkBsKs1O/TNkPbgJ8CNzGtMhZgK1Mlx5T9GYwfojvbkR0mlG
-         JsAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789658074; x=1790262874;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TCGGfYUyiWy8h8GhXDRfHIV8Kfgm9E+ThBdTgsBhNN0=;
-        b=0y7HZ2Xsydbcu5hPhZmWllsCJi72jJg8su2BlZ1B+bf3Pi9hfXzY3Uy2CFrWaLgbmW
-         JU0tFKNvM+TkNQHYpHPabjeMty1qeC+VnV4cHjXjF2RznpJcLmiX4GLovReC2M0p5EhJ
-         qr86cAkBsmI/3zIazB8kWQpACd7LQeacAtbABE66SK6/pC6KnPUH64SHHuFGWxILPUne
-         csW2b1OJxOoFlQ5zjM3q/Tf5l6KjK8b80sIJs/SJ+qmkJL/OzsdlFQIjL6a0/82ENUH0
-         RUc7uCtA6JVvs9qgFCCwdQk+b+tC1CnZj/pF4kjKCeVMTBc+OVi2mvdgIeLoIUgVpryd
-         og2Q==
-X-Forwarded-Encrypted: i=1; AKwUvByqlzX/hx+GeM0we03p4UE0obXJx6Wr/ztBrbKdUCbr42ac+x84DdHF66XCmEUCk2XfkKRUbP/RySOKUFI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPmAI4/k2H4alioCj1nHCNQByaQWJuU2RsHx1wB5xCd+0ojDT+
-	+jl1x59tdvMCPNure2qQvuvycIkTrau6scsoHze+siPPYfRhesH0uaLQgB29vGhGr3Ry67tj6NZ
-	1pu+hNoBZQ6vt93QlrsuEWEljnwngWP4=
-X-Gm-Gg: AYBFou2Gk+3kzoEwmAPxyQCXavoN6kTd2S+BvH+UleycNfbvDONvMTHeNixFjZAzY9p
-	FUvn95XLSsr2NBinGKZAtvy/gt3nhOCuDwQGmRiojx/EGM9daBG7UVRCLcIUWDc0wfD95QrtZPA
-	OPDMleyJr+32FLJbqhlM31plmJYXXzpbBmtsnm/HpojZRxOzSxWGnqoKMB2zNWDUr3ZPQ/E9ZFZ
-	9y90wJ/Vo+KsTACr99I7t3XRpxO8eTdiYScvBF6QtkIuQfDA31PucegyMVfgs1shmpK9V0ZwsmP
-	tzox5TpNj4AP5UbJrnZXCdtrA1qnIJ1eRgXiQleZtO9EPrFA99mJSrdy
-X-Received: by 2002:a17:907:9606:b0:c21:1b58:fa96 with SMTP id
- a640c23a62f3a-c29e520cb4fmr486611366b.3.1789658074237; Thu, 17 Sep 2026
- 08:14:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="06JGvczP"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id E6FF44E407AC;
+	Thu, 17 Sep 2026 15:14:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B08065FAA3;
+	Thu, 17 Sep 2026 15:14:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 19AA311C7B064;
+	Thu, 17 Sep 2026 17:14:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789658075; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=bno2OaQ++0XptPjxv4KLgDTOcVdE7Tfrme9WXDcNkg4=;
+	b=06JGvczP9h2B9VsHO67nopzA/zScpYBAk95FVUSIdBi80r/e4D/4/f6p2O7Rgdt4/dQ7tq
+	cpXZh4/+EdLpVWWxsGPDs6WWpSUu8xdPaITv2jauejuiq8ryxXsmJPBHiASw/IBpCPyZ2B
+	YcIRa30DnBr9Jd20ufOksMI3GG8UO+hcxwp0XCPfSs6+Fun0COv8Fd5SlUIjkDJw7dbh2s
+	xTupwiu/if9HcVDsoQ+E7xRTy7QNCAU2qF2fO3mWUJc+owfEb/YZdNYMeNshIovXTvouWd
+	fYrOcoIGoJHzWOOXBrg3IVedQSQ40U7HezUpFSUb36WWC5Ysaoh0A5ToeRNQyg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260916155629.32421-1-luis@igalia.com> <20260916155629.32421-7-luis@igalia.com>
-In-Reply-To: <20260916155629.32421-7-luis@igalia.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Thu, 17 Sep 2026 17:14:22 +0200
-X-Gm-Features: AcwNN1XrTA3dUrmLafi4P5dEpMrugxsYg13C0OFBhbE2Rz9-I-DuXWy9pmfwykk
-Message-ID: <CAOQ4uxhTBOH27USdM5KQ7fypp2-9ihGEmr6TJF21RVpZdsZz7w@mail.gmail.com>
-Subject: Re: [RFC PATCH v4 6/8] selftests/fuse: add some extra ACL caching tests
-To: Luis Henriques <luis@igalia.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Chen Linxuan <me@black-desk.cn>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, fuse-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Matt Harvey <mharvey@jumptrading.com>, kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 17:14:20 +0200
+Message-Id: <DLHOU2RLKSDR.YLNQEAWXPDRE@bootlin.com>
+Subject: Re: [PATCH v3 18/19] drm/tve200: don't create a panel_bridge
+Cc: "Albert Esteve" <aesteve@redhat.com>, "Anusha Srivatsa"
+ <asrivats@redhat.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
+ "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-mips@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>, <asahi@lists.linux.dev>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-tegra@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-samsung-soc@vger.kernel.org>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>,
+ "Lucas Stach" <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>,
+ "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Paul
+ Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>,
+ "Linus Walleij" <linusw@kernel.org>, "Inki Dae" <inki.dae@samsung.com>,
+ "Jagan Teki" <jagan@amarulasolutions.com>, "Marek Szyprowski"
+ <m.szyprowski@samsung.com>, "Sean Paul" <sean@poorly.run>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
+ Dunlap" <rdunlap@infradead.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-18-83afb4f1a707@bootlin.com>
+In-Reply-To: <20260916-drm-bridge-every-panel-v3-18-83afb4f1a707@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 16, 2026 at 5:55=E2=80=AFPM Luis Henriques <luis@igalia.com> wr=
-ote:
->
-> This adds some extra tests to ACL caching:
-> - Verify that reading ACLs results in the expected number of requests
->   being sent user-space, depending on whether cache is enabled or disable=
-d
-> - Verify caching behaviour on some caching invalidation scenarios
->
-> While there, add test binary to .gitignore.
->
-> Signed-off-by: Luis Henriques <luis@igalia.com>
-> ---
->  .../selftests/filesystems/fuse/.gitignore     |   1 +
->  .../filesystems/fuse/fuse_acl_cache_test.c    | 203 +++++++++++++++++-
->  2 files changed, 202 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/testing/selftests/filesystems/fuse/.gitignore b/tools/=
-testing/selftests/filesystems/fuse/.gitignore
-> index fb51603fe419..f7f3dd345a50 100644
-> --- a/tools/testing/selftests/filesystems/fuse/.gitignore
-> +++ b/tools/testing/selftests/filesystems/fuse/.gitignore
-> @@ -2,3 +2,4 @@
->  fuse_mnt
->  fusectl_test
->  write_extend_eof_test
-> +fuse_acl_cache_test
-> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test=
-.c b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
-> index fb4e3554e3c9..173063efeee8 100644
-> --- a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
-> +++ b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
-> @@ -84,6 +84,9 @@ struct daemon_state {
->         uint8_t         *acl;
->         size_t          acl_size;
->         int             getxattr_count;
-> +       uid_t           uid;
-> +       uid_t           gid;
-> +       bool            cache;
->  };
->
->  /*
-> @@ -92,9 +95,17 @@ struct daemon_state {
->   */
->  static struct daemon_state g_ds =3D {
->         .lock =3D PTHREAD_MUTEX_INITIALIZER,
-> +       .cache =3D false,
->  };
->
->  /* ---- FUSE lowlevel callbacks ----------------------------------------=
----- */
-> +static void fs_init(void *userdata, struct fuse_conn_info *conn)
-> +{
-> +       pthread_mutex_lock(&g_ds.lock);
-> +       if (g_ds.cache)
-> +               fuse_set_feature_flag(conn, FUSE_CAP_POSIX_ACL);
-> +       pthread_mutex_unlock(&g_ds.lock);
-> +}
->
->  static void fs_lookup(fuse_req_t req, fuse_ino_t parent, const char *nam=
-e)
->  {
-> @@ -116,6 +127,10 @@ static void fs_lookup(fuse_req_t req, fuse_ino_t par=
-ent, const char *name)
->         e.attr.st_ino     =3D FILE_INO;
->         e.attr.st_mode    =3D S_IFREG | 0644;
->         e.attr.st_nlink   =3D 1;
-> +       pthread_mutex_lock(&g_ds.lock);
-> +       e.attr.st_uid =3D g_ds.uid;
-> +       e.attr.st_gid =3D g_ds.gid;
-> +       pthread_mutex_unlock(&g_ds.lock);
->         fuse_reply_entry(req, &e);
->  }
->
-> @@ -133,6 +148,10 @@ static void fs_getattr(fuse_req_t req, fuse_ino_t in=
-o,
->                 st.st_ino   =3D FILE_INO;
->                 st.st_mode  =3D S_IFREG | 0644;
->                 st.st_nlink =3D 1;
-> +               pthread_mutex_lock(&g_ds.lock);
-> +               st.st_uid =3D g_ds.uid;
-> +               st.st_gid =3D g_ds.gid;
-> +               pthread_mutex_unlock(&g_ds.lock);
->         } else {
->                 fuse_reply_err(req, ENOENT);
->                 return;
-> @@ -161,12 +180,14 @@ static void fs_getxattr(fuse_req_t req, fuse_ino_t =
-ino, const char *name,
->         }
->         pthread_mutex_lock(&g_ds.lock);
->         acl_size =3D g_ds.acl_size;
-> -       if (acl && (size >=3D acl_size))
-> +       if (acl && acl_size && (size >=3D acl_size))
->                 memcpy(acl, g_ds.acl, acl_size);
->         g_ds.getxattr_count++;
->         pthread_mutex_unlock(&g_ds.lock);
->
-> -       if (size =3D=3D 0)
-> +       if (acl_size =3D=3D 0)
-> +               fuse_reply_err(req, ENODATA);
-> +       else if (size =3D=3D 0)
->                 fuse_reply_xattr(req, acl_size);
->         else if (size < acl_size)
->                 fuse_reply_err(req, ERANGE);
-> @@ -176,10 +197,42 @@ static void fs_getxattr(fuse_req_t req, fuse_ino_t =
-ino, const char *name,
->         free(acl);
->  }
->
-> +static void fs_setxattr(fuse_req_t req, fuse_ino_t ino, const char *name=
-,
-> +                           const char *value, size_t size, int flags)
-> +{
-> +       int ret =3D 0;
-> +       uint8_t *acl;
-> +
-> +       if (ino !=3D FILE_INO) {
-> +               ret =3D ENOENT;
-> +               goto out;
-> +       } else if (strcmp(name, "system.posix_acl_access") !=3D 0) {
-> +               ret =3D ENOTSUP;
-> +               goto out;
-> +       }
-> +       acl =3D malloc(size);
-> +       if (!acl) {
-> +               ret =3D ENOMEM;
-> +               goto out;
-> +       }
-> +       memcpy(acl, value, size);
-> +       pthread_mutex_lock(&g_ds.lock);
-> +       if (g_ds.acl)
-> +               free(g_ds.acl);
-> +       g_ds.acl =3D acl;
-> +       g_ds.acl_size =3D size;
-> +       pthread_mutex_unlock(&g_ds.lock);
-> +
-> +out:
-> +       fuse_reply_err(req, ret);
-> +}
-> +
->  static const struct fuse_lowlevel_ops fs_ops =3D {
-> +       .init     =3D fs_init,
->         .lookup   =3D fs_lookup,
->         .getattr  =3D fs_getattr,
->         .getxattr =3D fs_getxattr,
-> +       .setxattr =3D fs_setxattr,
->  };
->
->  /* ---- kselftest harness ----------------------------------------------=
------ */
-> @@ -198,6 +251,9 @@ FIXTURE_SETUP(acl_cache)
->         ASSERT_NE(g_ds.acl, NULL);
->         memcpy(g_ds.acl, acl_a, g_ds.acl_size);
->         g_ds.getxattr_count =3D 0;
-> +       g_ds.uid =3D getuid();
-> +       g_ds.gid =3D getgid();
-> +       g_ds.cache =3D false;
->
->         if (fs_setup(&fs_ops, &g_ds.ctx, err))
->                 SKIP(goto out, err);
-> @@ -325,4 +381,147 @@ TEST_F(acl_cache, stale_after_force_sync)
->         EXPECT_EQ(count, 4);
->  }
->
-> +FIXTURE(acl_cache_onoff)
-> +{
-> +       char pathname[PATH_MAX];
-> +};
-> +
-> +FIXTURE_VARIANT(acl_cache_onoff) { bool cache; };
-> +FIXTURE_VARIANT_ADD(acl_cache_onoff, nocache) { .cache =3D false, };
-> +FIXTURE_VARIANT_ADD(acl_cache_onoff, docache) { .cache =3D true, };
-> +
-> +FIXTURE_SETUP(acl_cache_onoff)
-> +{
-> +       char err[MAX_ERR_MSG];
-> +
-> +       pthread_mutex_lock(&g_ds.lock);
-> +       g_ds.acl =3D NULL;
-> +       g_ds.acl_size =3D 0;
-> +       g_ds.getxattr_count =3D 0;
-> +       g_ds.cache =3D variant->cache;
-> +       g_ds.uid =3D getuid();
-> +       g_ds.gid =3D getgid();
-> +
-> +       if (fs_setup(&fs_ops, &g_ds.ctx, err))
-> +               SKIP(goto out, err);
-> +
-> +       snprintf(self->pathname, sizeof(self->pathname),
-> +                "%s/" FILE_NAME, g_ds.ctx.mountpoint);
-> +out:
-> +       pthread_mutex_unlock(&g_ds.lock);
-> +}
-> +
-> +FIXTURE_TEARDOWN(acl_cache_onoff)
-> +{
-> +       pthread_mutex_lock(&g_ds.lock);
-> +       fs_teardown(&g_ds.ctx);
-> +       pthread_mutex_unlock(&g_ds.lock);
-> +       free(g_ds.acl);
-> +}
-> +
-> +/*
-> + * This is the most basic ACL caching test: verify that, when reading AC=
-Ls for
-> + * an inode, user-space is called:
-> + * - Only once if ACLs cache is enabled, or
-> + * - Once per access if cache i disabled.
+Hello,
 
-Typo "is disabled"
+On Wed Sep 16, 2026 at 3:45 PM CEST, Luca Ceresoli wrote:
+> Now a panel_bridge is automatically created for every drm_panel and the
+> panel-bridge API is just a deprecated wrapper to access it.
+>
+> Update and simplify the code by just getting a reference to the
+> already-existing bridge using of_drm_get_bridge_by_endpoint().
+>
+> And since of_drm_find_and_get_bridge() returns a refcounted bridge, take
+> care of putting the bridge reference.
+>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-> + */
-> +TEST_F(acl_cache_onoff, test_acl_cache_enable_disable)
-> +{
-> +       char buf[512];
-> +       ssize_t sz;
-> +       bool cache;
-> +       int counter;
-> +       int i;
-> +
-> +       ASSERT_EQ(lsetxattr(self->pathname, "system.posix_acl_access",
-> +                           acl_a, sizeof(acl_a), 0), 0);
-> +
-> +       for (i =3D 0; i < 100; i++) {
-> +               sz =3D lgetxattr(self->pathname, "system.posix_acl_access=
-",
-> +                              buf, sizeof(buf));
-> +               ASSERT_EQ(sz, sizeof(acl_a));
-> +               ASSERT_EQ(memcmp(buf, acl_a, sz), 0);
-> +       }
-> +
-> +       pthread_mutex_lock(&g_ds.lock);
-> +       counter =3D g_ds.getxattr_count;
-> +       cache =3D g_ds.cache;
-> +       pthread_mutex_unlock(&g_ds.lock);
-> +
-> +       if (cache) {
-> +               ASSERT_EQ(counter, 1);
-> +       } else {
-> +               ASSERT_EQ(counter, 100);
-> +       }
-> +
-> +       TH_LOG("User-space called %d time(s) with ACL caching %s",
-> +              counter, cache ? "enabled" : "disabled");
-> +}
-> +
-> +/*
-> + * Test caching invalidation for several scenarios:
-> + * 1. When a new ACL is set
-> + * 2. When invalidating an inode (NOTIFY_INODE_INVAL)
+I just found this patch fails building on current drm-misc-next due to
+another patch landed earlier this week. Will be fixed in v4.
 
-Typo NOTIFY_INVAL_INODE
+Luca
 
-
-With that fix, feel free to add
-
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-
-Thanks,
-Amir.
-
-> + */
-> +TEST_F(acl_cache_onoff, test_acl_cache_invalidation)
-> +{
-> +       char buf[512];
-> +       ssize_t sz;
-> +       int counter;
-> +       bool cache;
-> +       int i;
-> +
-> +       /* Set an ACL */
-> +       ASSERT_EQ(lsetxattr(self->pathname, "system.posix_acl_access",
-> +                           acl_a, sizeof(acl_a), 0), 0);
-> +
-> +       for (i =3D 0; i < 100; i++) {
-> +               sz =3D lgetxattr(self->pathname, "system.posix_acl_access=
-",
-> +                              buf, sizeof(buf));
-> +               ASSERT_EQ(sz, sizeof(acl_a));
-> +               ASSERT_EQ(memcmp(buf, acl_a, sz), 0);
-> +       }
-> +
-> +       /* 1. force cache invalidation by setting a new ACL */
-> +       ASSERT_EQ(lsetxattr(self->pathname, "system.posix_acl_access",
-> +                           acl_b, sizeof(acl_b), 0), 0);
-> +
-> +       sz =3D lgetxattr(self->pathname, "system.posix_acl_access",
-> +                      buf, sizeof(buf));
-> +       ASSERT_EQ(sz, sizeof(acl_b));
-> +       ASSERT_EQ(memcmp(buf, acl_b, sz), 0);
-> +
-> +       pthread_mutex_lock(&g_ds.lock);
-> +       counter =3D g_ds.getxattr_count;
-> +       cache =3D g_ds.cache;
-> +       pthread_mutex_unlock(&g_ds.lock);
-> +
-> +       if (cache) {
-> +               ASSERT_EQ(counter, 2);
-> +       } else {
-> +               ASSERT_EQ(counter, 101);
-> +       }
-> +       TH_LOG("Invalidation by setting new ACL: OK");
-> +
-> +       /* 2. send FUSE_NOTIFY_INVAL_INODE */
-> +       fuse_lowlevel_notify_inval_inode(g_ds.ctx.se, FILE_INO, 0, 0);
-> +
-> +       sz =3D lgetxattr(self->pathname, "system.posix_acl_access",
-> +                      buf, sizeof(buf));
-> +       ASSERT_EQ(sz, sizeof(acl_b));
-> +       ASSERT_EQ(memcmp(buf, acl_b, sz), 0);
-> +
-> +       pthread_mutex_lock(&g_ds.lock);
-> +       counter =3D g_ds.getxattr_count;
-> +       cache =3D g_ds.cache;
-> +       pthread_mutex_unlock(&g_ds.lock);
-> +
-> +       if (cache) {
-> +               ASSERT_EQ(counter, 3);
-> +       } else {
-> +               ASSERT_EQ(counter, 102);
-> +       }
-> +       TH_LOG("Invalidation through FUSE_NOTIFY_INVAL_INODE: OK");
-> +}
-> +
->  TEST_HARNESS_MAIN
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
