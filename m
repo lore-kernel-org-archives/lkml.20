@@ -1,127 +1,112 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9213C50129D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789668157; cv=pass; b=I4r40E+uwdQ9zJ/aQTdVXYskP9HfRKo9S7iPrKzo0IR8IQMKolbNXXir9ATms7QlITMDuDmJ8h7t7873X9DX8cyuDoUomVfZSDVJMClbhLoyQeQdI7uM3wByM6equrrZZsJvVO+hJ9wIW7EJpk2Yj+y9pucI8yILwRnuIK2SZW4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789668157; c=relaxed/simple;
-	bh=Pgrlp+kanKdNoXJ+vKvKqsAcIb9YRQaef/KFSYsD/eY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UMWPO9ylHRIC9qNrCUA2j13u2gy3hhfMnRqMxzxvUU142aR0xN8/FUYYaTwKgjVdXJOtSplab+gADWsn6QZX/YLj4x1LEG5otYo0MDDUT5ZuLT7On15mDdj05XYJIdH6Sc4H0uXmwqhG4qLE0iSOy8tlvvwuEz6XSMpaMAAVOUE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BlFaUimK; arc=pass smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3DA3DA5DE
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:04:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789668249; cv=none; b=PuM/axsr/ddgsO854c+jrQEproorf0An4Lsm3ALuD61XoSSBCt9m72qp0hO4+zW2mBieKm0nvNW2CA2RU8gTBvQqt6VR+D7Jw8Ebku7+tOzKUOGa7Cjw5NbBJ8qQmmm7OoFUFZLauq6CyvbJCEr8Mtgae8LG6eGbsee0YlpS7MM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789668249; c=relaxed/simple;
+	bh=5jk7arBCrVb9gyiNByAj8Ixk+2+PmKJPbPReCUIsRVM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=REnA8ARzGXrOLKetH3e4To36bUIz0Q7VqbnjeATFQ1eLE6kiZTqCw/s/bdMwvkjMAeOOzQaXghedudVWB0m7+hxRAIoBY/+pTOrpUsTcBgzUAtqA06fbmkzZh5bg8yw60EwXlhm4E78pKkqkLmVUuUvkmfwbayHoLzqPxRSGNUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LjeeclU5; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BlFaUimK"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso10653405ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:02:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789668155; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AaYDxwOfqO+LSNIRFQiGaTI/+jvs5NkTDYdvV23gGzzz/bt+Pkcn8Rzmb55Yhm/DA6
-         2w9wKWLkMI90Qwvn1cJgYGc2Sm86ChF16y78GcrYqwnJpQ7CbhEhwViUkjIbI3e/wQIc
-         arbgZP2JQRUt8/TmV8QLZsEeFl2x6+mZOOq7x3OU0lpng+FXTimXkj0gFidtXXAoRmIp
-         CnMhdRt+Y9FsAvPxW1h/kTuQVixzX+4Mym7jrQD8MGFoAgAXxt+TfWe7wCUbKbjEUW1z
-         0XSsKhd1QgUJhr9NXWfTREqsNvJ6BNJykV1/ZJdRDbuVBeYSiOYox6XICLFeJ433vxpN
-         gVDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Pgrlp+kanKdNoXJ+vKvKqsAcIb9YRQaef/KFSYsD/eY=;
-        fh=FkImZ7BguSQTFVdWao3hYMA6Jl/VZaJUXjMofVXDk70=;
-        b=j87Sj3DWt2h3gUeASKh62GNpffQDx0eEhgpkeL6Um/hmS59dc3LzZOAabRMpjM2ZSK
-         Hu0MCHecuDtTNl7E3XnYWfxve6GvBChb1OZfuWxLOexNAt7iOevap+7m3X3BNMLobDz2
-         Hz/H35tQlthnC/zF+LYsHsjwIv5oKduyj93kr30x/u/yUCf2c1+TKprxTwE629DA0Aul
-         Ulwbm/HPic9UuYufq+d2UEfxeNr0c5CZob8xZB2X/hsi6f3hArVdX9gPeX2vI6kSJceJ
-         LsHTqhcCeRVFJbxnVVmUuzlPHT323jOz1rvHID5RjkA2sGlr9s5k9gLTOL576AE1fkt4
-         8X+w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LjeeclU5"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2db1ca069c8so11318395ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:04:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789668155; x=1790272955; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Pgrlp+kanKdNoXJ+vKvKqsAcIb9YRQaef/KFSYsD/eY=;
-        b=BlFaUimKgEMiwJjvnh+MIlGCw8cRY/xzAVpoJT/XjQemq4kvLFSuujj9G4trL9QpdZ
-         zU9PnHetcCm9+7Wp5oSP41fQ/ZNP4AxGCZTKxjugPqQMrZ2KHM9B0A67VLotIhIa/p7R
-         bjMdNF3/eAROzbNi+wbQL22aqhAXVqm2ErWodY0KM11WqjcCEXLCjw/AzTWRX0nlx5JR
-         jqCrz9ocPDwzetP7g5/4kknPikr/+Iz7cwzd0ku/D6Zsv4LO4raSctzJKCCAnenWU0gO
-         9SfCe7kr26AEOLyZ1PvU7UN8qNK77mxpqh4dU14ezbWsCewx2+z7Q/RHr5nIrFeKKEaO
-         lezg==
+        d=gmail.com; s=20251104; t=1789668248; x=1790273048; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WTaXNCz+u/KtBO7bBU1VDH/lYm/1KJNlXPOVs0ymj2g=;
+        b=LjeeclU5UDnkO4dvHqIeMhoRgL0/bfOSN6n0nmOokLvsrkO0QiETOzRP8wsfYd/ukb
+         dfXKDHFOnsFyZmzu/CtNLSt0hXi0A1/9lXVSgA7u2UVyDs30HZ4Ih7ZJH01YHrAwefu5
+         J+xzRSpyHkrIqeZwc5Gm1yq7oOdKQxFWEWRCiVR5y/xs9HhvakOIuh4mtYt2POWDOn5V
+         YzMbVP2jmkYHHfeoR0EY9hwz9BV6qIQVLC82NQZd2wu0UdT0ym2JPdvqpvNbbDZ2ph7c
+         4DiaMBlXNxZxmyJND/iOJpYtWrVE+qZs3U4ipllQiDQQh3Dr21LSMyXOAQQ97meAF/w/
+         uVkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789668155; x=1790272955;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pgrlp+kanKdNoXJ+vKvKqsAcIb9YRQaef/KFSYsD/eY=;
-        b=naogLcioOnKOtwTfyF+MGMr1NEAhkJtjCdpZoxGA/SxqLCNl9nBWHRWCirVV9EEpNm
-         6UTK8msIEy4JD9Hr/RbxDWDvy+0PRm9r29bHvHRv7+HQtFmUHIfEDWY07bozD5xbImzY
-         oLboSHwgV63wsemKXQQwl18sBkJZarUZ208f+zqNdjYJ7Fy+dsnpuvd2svXzM4NioMt3
-         nmrDmE7I+iUGQvPKypQFRgf8d4AlZBKHmLbszOuY78gsMDbiiuEz327f4SSCJMC9uwAv
-         aFwUJyl7N9Q9oKgHOhc8rdHipVFKkJrnLtUKRhpcL+pa5zz7OtPjP7jpnUdwQHeg9Oo/
-         K87g==
-X-Forwarded-Encrypted: i=1; AKwUvBxt+4QpuaoV8m8VpGNMS7a8gSLCmcG9uWk8F3UHCH+7ac4Bs7NKkFzkFjT8hCibJSmxsc6Z+P5pVVe1Ml0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nsE26D8x4gxMA2S76piFyBfNj5PEIjcpG0Arpj5/GyUJwzINxz
-	XFinYnvQMaucx3LUDbMIK2/1M2hzmiPEeIXpP8E528qZAQEYgk8QWnsh1X4rMH3XlpMXMQGdYK1
-	D+rskzGbEKpCtx2xrdVplTgCZ7gZ6JhA=
-X-Gm-Gg: AYBFou1RBxZPPvTYciXECZgvlyxtJuW0rTNNHYjgJBcL+kNCYITNNkgNDwIlF6RuGkH
-	gveuFCCm3Gwa0xlmdimBRKBnIx8S7dLCprO3NKDsQd0H/nhlibn6+wEWaWsiS/8qREuMeU3PB8+
-	3kP7kbEgW5lzaXJPZRjQITiNSpJMnaTYpNbho3yKCVWs7Jvnz+dmJ7NTexT5nR2uluAuMC2Oubm
-	l5MmsDkydhd+UL8nhln1nh5VRGlljLgOSJ1qvt8n/xKKQthtEJCNlTllziyFRiH5P+F/5mopVFC
-	9b+C2KInNL5OVCPXr7yhOwauxgfpcH3IAEttEqN0a1elzBhSL61KHH9eWj4K0cD3upGI+l1cl2W
-	sNGYCV6MytJ1ja+osFnwNdeGQqwYB299D6d8=
-X-Received: by 2002:a17:903:2007:b0:2cf:afa5:b19a with SMTP id
- d9443c01a7336-2ddb1ae16a9mr141875ad.11.1789668154804; Thu, 17 Sep 2026
- 11:02:34 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789668248; x=1790273048;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WTaXNCz+u/KtBO7bBU1VDH/lYm/1KJNlXPOVs0ymj2g=;
+        b=w9WZOESRNfu00AXN0SM/etJUqpefsKgzBtEntJRgHXtTbAO0+jdakAfKM6ziag1iDI
+         kkMp9mMLenZRjRpG44nIV8eYN3glT/Zy2TrGHUpUH5bw/RvKfCilXdQMSRmLew2YvOOO
+         H6PSD2pMAggk+pxM4IWM9eU4qjpBjGLceLPkWRrhcitQm/3QeNqmI3XdTXl3ifZqhqox
+         hx4eMFatoIKczf5G8OhAtamkhH2SK2r85F8zSv+wJlIP8t5pPy5bID7ySAHVWHLAoAtG
+         IvXDE9D8NDcY0/QN4FMC7EZ/UHg2Kq4Rxk86BIXWsdP+OVBMRXPp/rCLVMBKQWe7PiI/
+         ZZJg==
+X-Forwarded-Encrypted: i=1; AKwUvBwwg+QoNFWpBKV25FkQFVPUZ47tYtbg6NK/aHf5Bl4W0OxKLmCAf7cUVpzhoztlPSonpvAJDhbbzmgo8Yc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUmtbN0kESNgLOwYSvSgxRWMkaGSqgk7QpGx9K2v1f8gSF43Mk
+	vHbLWA8x1W0Mfna3vRB+erUDJ4gvwtoxiJ8eI2iVeZktxcdtmc7UUKmS
+X-Gm-Gg: AYBFou0+GvshxdlCcHxU04caJSBC5Pk44ux/LJwS91uc0BK1jdtByekimj8njcjlUhq
+	+i+HLDQofTlcwlBb9Ed0VMrkN95Vuy82SZ8cYzOkw+w8eJLYe2zdKX/EMh0w785MWmMmZ+d1Fu5
+	7f554KJuT0pHwWESpkaoqNTWr7TARLUXktAQTMxr3hc+0HEs1qV6WE1yHY6LrGpBl0Hu8wPsLVC
+	AoZipN4MnQitC6ER7aYdyqVIUIWHw+uC4qpoCQf5ZUiK5RQiMqA7GtTB2Tlr2NXsrYmV88aAJWw
+	fFc8XObbEqB+XBbYWc5ef/UgCCgnp1Un9oT/FAg8mxxGXrmNSA6qiXvbr/9hX8MXgF5THwRwNMM
+	FQaIQ+lt2csOLPdKTZfI2OsadrcZW6f2STuW/ksQ9slyWLBgkBqLbcuAWmgf1ckKg4EZjONlp64
+	uxOY0SRYZaJtdUskyZ8K2v4i0A9Y2qzL1wOQXIto5KZQD5wdv3aPlaN5A9FHIfGUKJwvPR/d7vm
+	XRnnDarUzxCy+CfcB9xiJlq18A8JZbo+VASts8xrSOQaWQvjzZr+6gExfJPEr0knfIWrQ==
+X-Received: by 2002:a17:902:fd83:b0:2dd:ad74:6d12 with SMTP id d9443c01a7336-2ddad748f03mr21198015ad.24.1789668247846;
+        Thu, 17 Sep 2026 11:04:07 -0700 (PDT)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:455:c3eb:633c:5d3])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89eff35asm30446485ad.58.2026.09.17.11.04.04
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 17 Sep 2026 11:04:06 -0700 (PDT)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aryan Sinha <sinha.aryan03@gmail.com>
+Subject: [PATCH] pinctrl: gemini: fix kernel-doc warnings
+Date: Thu, 17 Sep 2026 23:33:25 +0530
+Message-ID: <20260917180339.49882-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAAsRjR=1iL+Nw0+0erVH2t8igpobXBfcqijz4vzMO7cW=ryHPw@mail.gmail.com>
- <20260917155929.GA1023894@bhelgaas>
-In-Reply-To: <20260917155929.GA1023894@bhelgaas>
-From: Semih Baskan <strst.gs@gmail.com>
-Date: Thu, 17 Sep 2026 21:02:23 +0300
-X-Gm-Features: AcwNN1WnIP6FLPzSZ9jqUd4tiuCtAEofHa6BPB6t-cxgjZWjftKahJr7LIWgfdk
-Message-ID: <CAAsRjRmmPanAjpquZ4VnDDw9jqRkxPkLsu+KjrpwsOMj8-TE-Q@mail.gmail.com>
-Subject: Re: [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
-	robh@kernel.org, bhelgaas@google.com, rjui@broadcom.com, 
-	sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com, 
-	rafal@milecki.pl, zajec5@gmail.com, florian.fainelli@broadcom.com, 
-	arnd@arndb.de, linux-pci@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	rosenp@gmail.com, rani.hod@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 10:59:29AM -0500, Bjorn Helgaas wrote:
-> And why do we need pcie-iproc-platform, since pcie-iproc-bcma.c will
-> claim them?
+struct gemini_pmx documents a virtbase member that does not exist and
+leaves pctl undocumented. struct gemini_pmx_func is missing num_groups.
 
-I do not see anything on Northstar that needs it. I think
-pcie-iproc-platform is the front end for the iProc SoCs that have no
-bcma bus.
+Drop the stale entry and add the two missing ones. No functional change.
 
-> Is there a requirement that pcie-iproc-platform must be able to claim
-> the PCI host bridge if CONFIG_PCIE_IPROC_BCMA is not enabled?
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+---
+ drivers/pinctrl/pinctrl-gemini.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-None that I can find. Neither symbol depends on the other, no in-tree
-defconfig sets either one, and multi_v7_defconfig gets both from their
-defaults. OpenWrt builds only the BCMA one. The one use of the
-platform driver on Northstar I know of is Rafa=C5=82's: 767012397976 says
-it was tested with it on BCM47094, and his test in the thread on the
-axi ranges ran both drivers on his board. The platform driver
-enumerated the two BCM4366 devices on its own:
-https://lore.kernel.org/all/93ee7456-4179-4d78-b980-1df0b7e0278a@gmail.com/
-I have not looked outside the tree.
+diff --git a/drivers/pinctrl/pinctrl-gemini.c b/drivers/pinctrl/pinctrl-gemini.c
+index e9f619278..a029cab22 100644
+--- a/drivers/pinctrl/pinctrl-gemini.c
++++ b/drivers/pinctrl/pinctrl-gemini.c
+@@ -41,7 +41,7 @@ struct gemini_pin_conf {
+ /**
+  * struct gemini_pmx - state holder for the gemini pin controller
+  * @dev: a pointer back to containing device
+- * @virtbase: the offset to the controller in virtual memory
++ * @pctl: the pin controller device
+  * @map: regmap to access registers
+  * @is_3512: whether the SoC/package is the 3512 variant
+  * @is_3516: whether the SoC/package is the 3516 variant
+@@ -2031,6 +2031,7 @@ static const struct pinctrl_ops gemini_pctrl_ops = {
+  * struct gemini_pmx_func - describes Gemini pinmux functions
+  * @name: the name of this specific function
+  * @groups: corresponding pin groups
++ * @num_groups: the number of pin groups
+  */
+ struct gemini_pmx_func {
+ 	const char *name;
+-- 
+2.46.0
 
-Best regards,
-Semih
