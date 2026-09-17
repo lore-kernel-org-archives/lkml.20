@@ -1,106 +1,119 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A6A545296;
-	Thu, 17 Sep 2026 13:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452CC53ECE3
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652654; cv=none; b=p5mvXQt1Sn7k8LaDa2TxQyuoR7Wz9m5nitQQnRxPTEJzW2uQ27NiSchoZpENdOpkzvEQ/+snV+aLUfxTtIXGF4nZxpDbNNPkq9nW/cd9miE5IARoYlx6KiMhKSDRqUGPfsCQxg9tZvI0ipqFW77Y89YX9hNOLADLBGnYAIIg4Zk=
+	t=1789652688; cv=none; b=eTQko29O5wvZrcJH1XtrxUG2vklVqth14Mr17xnc8wclIVhGd+xJSULi5NqUukDS3d5IQkUaWgyBND2eKA/37Vky5ldM4gTG+OiiYP9aw+wXErZliZtm40ybeX7AFwn7bO3dUcKoB0f/Z7dMMhRCpa5VXusc+un0bhFl4DVBWn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652654; c=relaxed/simple;
-	bh=6NK1JBecSf9h0oNBHeQuXMoPmY2ZNns6C96/vVI7DVY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NU/s/ydInorxEbjluN6bpVNlNkmso9sju/xq3mq+02hZ0Jsu6R9aioQ2T88rTXsMtonW1AC2wlOnexSO4clWT60weJt3B/k1CXeCEfuc2qYuPRL7jkBbGxwVf5+3thOO0ZhhQeuKGlpZAxK4RURLBacY5/LFr6EAMI4yrBOUj7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHtD6Y7qtq+raBCA--.3864S2;
-	Thu, 17 Sep 2026 21:43:53 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: hpchen0nvt@gmail.com
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	neil.armstrong@linaro.org,
-	schung@nuvoton.com,
-	vkoul@kernel.org,
-	ychuang3@nuvoton.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] phy: nuvoton: Fix clock reference leak in ma35_usb_phy_probe()
-Date: Thu, 17 Sep 2026 13:43:53 +0000
-Message-Id: <20260917134353.2153788-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789652688; c=relaxed/simple;
+	bh=xkT6eoN6SNKXL4VzXso2H312Ve7Wds/u8g2CpTKBkBw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=nF0IBxhTtoRBag2iR/Y/WomZPP8eiS4QfiLXeYYA/8EftfVwCqroWRsVSWJxuCAgpREBc+VEwuKi+aQvVYRzbStGqiksyvv8jvm9hNqaRGXdgLhIudNkORIdgYweNyPQtqtl2oUT3pjcyRdN+VSi4AXZGka2MlYvKbOiPKV5HEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=HctIIHov; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SStFEGzx; arc=none smtp.client-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="HctIIHov";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SStFEGzx"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id F249C7A00C5;
+	Thu, 17 Sep 2026 09:44:33 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 17 Sep 2026 09:44:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789652673;
+	 x=1789739073; bh=tv6AvKyUBKOBYVm3p89JvK4vd3gPLoZ8aFTemFA9YCI=; b=
+	HctIIHovHKiSYvDiERhQbil2j0rxOiLLU1DR3yhzfDgVf8OBAturF4DW+rjA/pvm
+	2TzLUXFsqesfBe/VzUjY5Ju64T2L/iMnYi4Iad2YoqCjrFCCtJcrFNty7KYaAkMX
+	Ee/ThGhSNY9K8EqUjlX3DBBbEx/iD4zw0n9T1lAR0UcjIAiS2QIu/DGeFtM2gKsx
+	vC1618xkmUgbuhahywNtoXIoFCQd2T41JK7SONpIEAZmn+k+g8Jw5bH1gN58C5uA
+	t8Lr/iqGzj6AwyMMsO2Hr/46k0jobJDn5xUdIBJtFKTOKQynTNruPylRBw3+OFm5
+	rALKY7nbPduQzYQgGCpRlw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789652673; x=
+	1789739073; bh=tv6AvKyUBKOBYVm3p89JvK4vd3gPLoZ8aFTemFA9YCI=; b=S
+	StFEGzxtmEHfc/qCz0zCotM/62OuKzHd85UKp5on/sqrapd1073iSGEnIW7cbSU7
+	x2iYOlCqOJmN9CH8dnJujRjyRNx+0Rb73k/x41hsFYPrlYd2ic888Qg4bHieUev0
+	3FFiY6py7o5tIBq3fNUbqObBJ50xldle8fiPYdOH+CviFb/BaFBlsuOtg6vFTK5D
+	5Qr8IGCFMBL7Va8qzEd++eIm+bgE3qiIFyV3deBWLoZagMOgLU+IqfH2zXVZK0sD
+	MxphVkaC4athozVsO406Gkt4RMZ6mI3CfIbWSGKuKSb2IR1EmHhKSgL2cJ3oo/Cw
+	LNnPjasrPOmybL2sjzNEg==
+X-ME-Sender: <xms:ue6raubhOIm_07ibcU_1fa-IfTv8byRULWi1LALnQy-fA0E2tY0Srw>
+    <xme:ue6rasOmwxcXa8Wfg2C-_h7nr62L9J8dQar2w6fePo7tE4wXV0xe8LEFTYt2la4PA
+    KUxM64DVB6RS4XXJQMinIIyzgI_tpBcQtlz_SbRXvdozZS20hX3LyNt>
+X-ME-Proxy-Cause: dmFkZTExMucRjVTWbs21V42SBnhmaV4MID8KsqHtSlc5cs4YSlrkOBHN5kHw1e+1PjA916
+    9qrZOYYnJrxL7qGwwWQpGSNzj3uskNb1QR5XO03BL513/hPDNlb+fwDHlSeoO/Pnk6whk/
+    LKQVd28yHC8/KBccPHePZI6mTeqh7yKWU7/09ViA1FxBpR+uoLt/wrYJds6oeJvJ4T29MG
+    ali7NZeCPIsmZJ6nf39KUC39gTsQlaZhWsinf8igZnwI0CQL9I7h460JI5zfd282v19One
+    8AMUBGUCj/m/2aPL9jLGr34OcqninFy5SCx6sSEPZxU8KripIQ9SH8D3iL5s5EvCzYv8sI
+    wZjcD2Bn7eiQwRwVXeqeR/9N2Y3tP6i9ckJC3pgPUvWLAjUcibwBKHIY8jh4h+xPZzq1nd
+    TPrj0XpO6qnyktQZQKsYUSyo95ZxXoWVkoA7ifbMitPAufHtbx1Z3XLM/j8Q8PglVwx6HD
+    6GYlJIWjRNmErVFsasLUHAKF94+gS4YDbgUP5MUSiiG2DK2pcD8Zr32GAbYbZMY6aIqxvj
+    DGuJJ9M61UrNiu4+tC5HCX02FO52ZhZpCswYDg3LN86DXC44SZDHIDoIqtdOb2HgBaioMs
+    Mc9xIQ5KTHz6ivWOO1NuhCfGmll1SfbHC98gRcXftXYmOy06u0bj6SjFbNEg
+X-ME-Proxy: <xmx:vO6rauwaldgalYcXLr1iUTZ-Yqqll9kaYJgXcGfgFOiCmdk0O1-4vg>
+    <xmx:vO6rak9X4skk0eo5ap8breFmETkR6IBJzZCF4GfrEu2e7le3oOg3IQ>
+    <xmx:vO6ram_ZY1uk8OnoV0dvj0u_2vAdP1GWb5CobItxUECZc3B_2rG8tg>
+    <xmx:vO6ravfpWfBhtWEhSXDKDQePAwXV4Ir0NIoNrn2v1YqONWlZnIVUAw>
+    <xmx:we6rarCG3xGFO3pdABduVOIx9yvQlZsGjax8CXya8lN4zOy4cyqZ6KEq>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 7306C32A0084; Thu, 17 Sep 2026 09:44:25 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHtD6Y7qtq+raBCA--.3864S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tryxuFy5uw13tr4fur4xXrb_yoW8WFy3pF
-	WDGF1ayryvyF1Iq3yDJw4kX3W5Ca47trs5KFZ7ua4kZa98Jr4UuayfXryFvF40vrykCa4a
-	qw1kAFyrAFy5ur7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
-	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
-	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
-	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
-	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF
-	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
-	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
-	07UZSdgUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qrrJrIjgAAsy
+X-ThreadId: ACGBcqtoOIMw
+Date: Thu, 17 Sep 2026 15:44:05 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Andrew Morton" <akpm@linux-foundation.org>
+Cc: "Arnd Bergmann" <arnd@kernel.org>, "Johannes Weiner" <hannes@cmpxchg.org>,
+ "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Michal Hocko" <mhocko@kernel.org>, "Qi Zheng" <qi.zheng@linux.dev>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>, "Lorenzo Stoakes" <ljs@kernel.org>,
+ "Kairui Song" <kasong@tencent.com>, "Barry Song" <baohua@kernel.org>,
+ "Axel Rasmussen" <axelrasmussen@google.com>,
+ "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu" <weixugc@google.com>,
+ "Baoquan He" <baoquan.he@linux.dev>,
+ "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Ridong Chen" <chenridong@xiaomi.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <be7213e7-db2a-44e2-ae36-7735b17c20d5@app.fastmail.com>
+In-Reply-To: <d832c2d1-d691-4583-852a-f05d4335e9ce@app.fastmail.com>
+References: <20260916083456.4136132-1-arnd@kernel.org>
+ <20260916162816.39f0f33f6a48d30a71be3575@linux-foundation.org>
+ <20260916163044.3daa3811d9b2bf7d958f1f27@linux-foundation.org>
+ <75939625-482c-464f-83fb-fa12d3e1d79c@app.fastmail.com>
+ <20260916230330.f0923cdb679de0b39d1c5d3a@linux-foundation.org>
+ <d832c2d1-d691-4583-852a-f05d4335e9ce@app.fastmail.com>
+Subject: Re: [PATCH] mm/vmscan: avoid false-positive -Wuninitialized warning, again
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-ma35_usb_phy_probe() obtains the USB PHY clock with of_clk_get(), but
-returns without calling clk_put() when devm_phy_create() or
-devm_of_phy_provider_register() fails, leaking the reference.  The
-clock is only meant to be kept on the success path, where it is stored
-in p_phy->clk and used by the PHY operations.
+On Thu, Sep 17, 2026, at 12:15, Arnd Bergmann wrote:
+> On Thu, Sep 17, 2026, at 08:03, Andrew Morton wrote:
 
-Drop the reference on those two error paths.
+> I also managed to create a reduced test case, see
+> https://godbolt.org/z/xofecssz4 but this still doesn't make sense
+> to me. I do see that gcc creates a both an out-of-line version
+> of read_ctrl_pos() and also inlines it. Marking it either
+> __always_inline or noinline avoids the warning.
 
-Fixes: b48baf69db97 ("phy: nuvoton: add new driver for the Nuvoton MA35 SoC USB 2.0 PHY")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/phy/nuvoton/phy-ma35d1-usb2.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+I now reported this as a gcc bug at
 
-diff --git a/drivers/phy/nuvoton/phy-ma35d1-usb2.c b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
-index 9a459b700ed4..3752e244134b 100644
---- a/drivers/phy/nuvoton/phy-ma35d1-usb2.c
-+++ b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
-@@ -111,15 +111,20 @@ static int ma35_usb_phy_probe(struct platform_device *pdev)
- 				     "failed to find usb_phy clock\n");
- 
- 	phy = devm_phy_create(&pdev->dev, NULL, &ma35_usb_phy_ops);
--	if (IS_ERR(phy))
--		return dev_err_probe(&pdev->dev, PTR_ERR(phy), "Failed to create PHY\n");
-+	if (IS_ERR(phy)) {
-+		clk_put(p_phy->clk);
-+		return dev_err_probe(&pdev->dev, PTR_ERR(phy),
-+				     "Failed to create PHY\n");
-+	}
- 
- 	phy_set_drvdata(phy, p_phy);
- 
- 	provider = devm_of_phy_provider_register(&pdev->dev, of_phy_simple_xlate);
--	if (IS_ERR(provider))
-+	if (IS_ERR(provider)) {
-+		clk_put(p_phy->clk);
- 		return dev_err_probe(&pdev->dev, PTR_ERR(provider),
- 				     "Failed to register PHY provider\n");
-+	}
- 	return 0;
- }
- 
--- 
-2.34.1
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=127454
 
+Let's see what they think.
+
+    Arnd
