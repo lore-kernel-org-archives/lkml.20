@@ -1,102 +1,98 @@
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF9850AC34;
-	Thu, 17 Sep 2026 14:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2343A59B690;
+	Thu, 17 Sep 2026 14:45:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789656360; cv=none; b=lWZs/q5IqYlQYTkqIOeNPBDYnHQ4iWtZgqCbqBKuG9YkOgtn/mJUrYg70fXwPCn8qoKx09/CwOCt3dqpkPG/SZnaRBS0SojhDZK9JaNGGJf9kik8z9qkY/ynGR1wYoQ1FqXhOiNI0gtaeyFGWl2qDP1ZUnabfXXAbM71LovrU+c=
+	t=1789656364; cv=none; b=W6rm9zjntqwmsNxjzgExkctJbViLmoJPJAbddtHxnkWln9+vAhMuDGkoBTIpIfku6SVWtNh9TAcIERw612c/2Y4MVGp7frLx8JgsZ2MH2eGyDhrMnRMcu37icfGj5bwx79upE7DXIYE1ZkoKkJYLjXGl309BXJJDTzVAtp+UhnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789656360; c=relaxed/simple;
-	bh=daVQI+qTWasJ8ocgi404tC3nyAFZlDzW2llpatpllHI=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=DkHJhCU6b3Zih9FtYuSeQo9AvfqnbOPe5k43ZZ62kxJqFCETfkoMtiPMTBsd1bRMZjI+7Tg7z4w3nMq3dN5j4jSGtcy2doOi83/L25ienItRJZEp1g0WrGd7PHSns5g+LPgR43RilYci8uapgtXb2VorUPtkRLu6wNDVYBYMVbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=C3K5D0t9; arc=none smtp.client-ip=79.135.106.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="C3K5D0t9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789656341; x=1789915541;
-	bh=jOBlXbqAr/UdxcO0mpeCEJrFIaWa0zp4c5j63AaUT+o=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=C3K5D0t9Jpvax0r8up6/8XAqscyLOlbWY7E0YTDRRtL/2iEuFDRKkNhkFvyuBQEba
-	 0j4ncTzhw3qtWFTVRZ4wT+My1c3PZT6TG22+Ir4AA03QPX4dqQA4k7b8VCbFhzhpq8
-	 ce2110Jak4Lg/DRx4Edm/AB9tWKBz/ITM23vidcz9ySWxU4SO4BTlmJrtpzv/E5QqB
-	 rqTD4IGzJZoPnFWvYCIbGY9dUwDsujLeOMHl1N7TeEZhUtTQPV+rp4X7zlbrN65zOQ
-	 2t3/WF2T2gXHhtqMQ3l3BkMmybKngmhdLWanCB1IBcAeTJwqY9iXpCenIBEPJNLjZg
-	 ZCVVytmrj5L8w==
-Date: Thu, 17 Sep 2026 14:45:35 +0000
-To: linux-media@vger.kernel.org
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: ipu-bridge: Add upside-down quirk for Surface Pro 11
-Message-ID: <20260917144527.24804-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 84976921d744c9300155ae0c92d6e26f49bb34ac
+	s=arc-20240116; t=1789656364; c=relaxed/simple;
+	bh=AZYYmhBC/w3RO0SZ+OmhD/2TH6fxqkHiEGeTAsW/xhc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iAE8NE5BI/leLepjv3lkJkdkO0KlSSRxNw6EQlNm5+remS38ov+8FdqdyIkfh4i0a0RJw5c8pSci5dQhLwRTZsnaPu6uRinjlfkWEQvKJoy/tCg7B+4QlJJTeFv2eF5H8+6/ZCxgeuuCodbR/T7UJFpOAYtgyJ0sVyJbDmk55m4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACnFD8X_atqxcmCCA--.4993S2;
+	Thu, 17 Sep 2026 22:45:43 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: James.Bottomley@HansenPartnership.com
+Cc: jsmart2021@gmail.com,
+	justin.tee@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	paul.ely@broadcom.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: lpfc: Fix ndlp reference leak in lpfc_nlp_reg_node()
+Date: Thu, 17 Sep 2026 14:45:43 +0000
+Message-Id: <20260917144543.2157614-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACnFD8X_atqxcmCCA--.4993S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ArWrtw45KF17tF1kuFyrtFb_yoW8GFW3pa
+	yfGay5A3s5tay0kF47AF4UXF90ka4xJrZ7Cayxta4Fgr4xGry7Jr48uFWjqFyDGFW09rW7
+	tFn8KFZ8WF48Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UZSdgUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwYNA2qr9tgORwAAsp
 
-The Microsoft Surface Pro for Business 11th Edition with Intel mounts
-its OV13858 rear sensor rotated 180 degrees, but reports a rotation of
-0 in its SSDB and has no matching _PLD, so without a DMI quirk the
-image is presented upside down.
+In the NVMET case the driver takes a node reference in
+lpfc_nlp_reg_node() because the target does not register rports, but
+lpfc_nlp_unreg_node() only releases that reference when the
+NVME_XPT_REGD flag is set, and the NVMET path never sets it, so the
+reference is leaked until the node is torn down.
 
-Add a DMI quirk entry for this model so that a rotation of 180 degrees
-is reported for its OVTID858 sensor.
+Set NVME_XPT_REGD when the reference is taken so the existing put in
+lpfc_nlp_unreg_node() balances it.
 
-Tested on the affected machine: camera_sensor_rotation reads 180 and
-libcamera reports Rotation =3D 180. Confirmed independently on a second
-machine of the same model, where GNOME Snapshot and Firefox present
-the image the right way up once the quirk is applied; qcam, which
-talks to libcamera directly, does not.
-
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
-Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
+Fixes: 0614568361b0 ("scsi: lpfc: Delay unregistering from transport until GIDFT or ADISC completes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-Changes in v2:
- - shortened the commit message, per Sakari's review of v1
- - moved the entry into vendor order, before the Samsung entries
- - added German Pablo Lindo's Tested-by
+ drivers/scsi/lpfc/lpfc_hbadisc.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-v1: https://lore.kernel.org/linux-media/20260913153526.80287-1-lsa.uz@pm.me=
-/
-
-The quirk only has an effect once OVTID858 is a recognised sensor, which
-  https://lore.kernel.org/linux-media/20260913142034.5632-1-lsa.uz@pm.me/
-adds; this patch applies to media/next independently of it.
-
- drivers/media/pci/intel/ipu-bridge.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 952868ad8..0e4bb9d73 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -210,6 +210,14 @@ static const struct dmi_system_id upside_down_sensor_d=
-mi_ids[] =3D {
- =09=09},
- =09=09.driver_data =3D "SONY471A",
- =09},
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
-+=09=09=09=09=09"Surface Pro for Business 11th Edition with Intel"),
-+=09=09},
-+=09=09.driver_data =3D "OVTID858",
-+=09},
- =09{
- =09=09/* Samsung Galaxy Book5 Pro 360 */
- =09=09.matches =3D {
---=20
-2.54.0 (Apple Git-157)
-
+diff --git a/drivers/scsi/lpfc/lpfc_hbadisc.c b/drivers/scsi/lpfc/lpfc_hbadisc.c
+index f3a85f6c796e..9e920eaff9ef 100644
+--- a/drivers/scsi/lpfc/lpfc_hbadisc.c
++++ b/drivers/scsi/lpfc/lpfc_hbadisc.c
+@@ -4664,9 +4664,15 @@ lpfc_nlp_reg_node(struct lpfc_vport *vport, struct lpfc_nodelist *ndlp)
+ 			}
+ 		} else {
+ 			/* Just take an NDLP ref count since the
+-			 * target does not register rports.
++			 * target does not register rports. Mark it as
++			 * an NVME transport ref so that
++			 * lpfc_nlp_unreg_node() releases it.
+ 			 */
+ 			lpfc_nlp_get(ndlp);
++
++			spin_lock_irqsave(&ndlp->lock, iflags);
++			ndlp->fc4_xpt_flags |= NVME_XPT_REGD;
++			spin_unlock_irqrestore(&ndlp->lock, iflags);
+ 		}
+ 	}
+ }
+-- 
+2.34.1
 
