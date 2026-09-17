@@ -1,82 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E0F5921EA;
-	Thu, 17 Sep 2026 14:24:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C213E5908D7
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:24:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655073; cv=none; b=XSf9K8Wso6KSPm6V4yVfYMBWNT6fH3C8HvY6/l/eVlh2C7JZOHZEUqdHGudS64FhbfpL0eLvrfDw3qLFk+vVFHeGBGijxjj1UsVHR0/M/OoBkjwFy18DfuLwNipzcqY17Efjy4L0WVE3LHOxH3PeDB1iEkI441UxiIl2km2fOkM=
+	t=1789655074; cv=none; b=D5n55UhLh5s0gxhI5WfvoIbD15DC+2g5j4tmRDpuXjobIMFpaM0GfXdR7GtAdtPFe6GeNuumWZnwCe2RZT17F6hXnIdoxcjsxLGwYcvyk7ebrGWLFmsX5fg5+SSlu01drCoBB0q+cGdLPkhmbQoz0EpXtWHLfJhY3NL8RfxQvwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655073; c=relaxed/simple;
-	bh=JepDnajJ/W4U/PpuAGDRTUHGL//wfk7k2lcWVt5yb6k=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=uEldAy/CWtmq+xX9fAEy8P5H0P01gs2f2enSVBXggjqqM+MU/Svjxqeax6OGDTgEYJNOv32xyH21LKrGcuAjLV59eyGr27folzcHaFty4AZNynHI+ZOmYrJTOChqsFgTGfLV1yt1K4GF9dG9nwNqj4OTNeKkN2Kmj0ZhMN3lYQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kfiEg9+M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789655074; c=relaxed/simple;
+	bh=8jktS7JYfypCcDIAdFDJF7TJB11M1e1igwwZQesJgAI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e8K2Oh8H5EKdfsC4Ze7QO3MqpkEU/PRK76hT+5dyXA2SDxBbyhPMWgiBaQeB1kfVOjLBKqCntZlNJ89Ap10jr0fLhbXtbx2kf1KbzMxYBCQEDeqktWVcp7xQ1QK8xTiga2dCwf75kg+bqMtOP6waQIcbHSWCS7El8GL7jetPcV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AHIQSD+h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kfiEg9+M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F541F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AHIQSD+h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D830B1F00898;
 	Thu, 17 Sep 2026 14:24:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789655071;
-	bh=JepDnajJ/W4U/PpuAGDRTUHGL//wfk7k2lcWVt5yb6k=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References;
-	b=kfiEg9+MeJtNn0q1Ll91Q6PFCn9fq1HDPUE4O8psCdV1onj+0BINLdrI7YxoGiAk1
-	 rKUnffvWYdM/anMj+1Y4uvHR3cissW3tqu+6P0aXSXWOticaatHW0JIts1/xwoORTi
-	 sQhDz0bUoM5PBwF6seIntDWZXCcIIKwCGGuE2vslSjx4pa7QTbrXsvLsoMukmZRAde
-	 h/TEMVqCn+M4wZcmigZmXCfc7i0c81E7vjO6MTmIRoOHE+6EcdnbdD2+Rk3d7M5FOD
-	 jAbgwRAvq4doghCcUxSVCung8G6vJeBYz810eET/4KcjfdXx+LeKVO8duLyGwYbKQC
-	 sYDobzge8GzoQ==
-Date: Thu, 17 Sep 2026 07:24:31 -0700
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>, Andrew Morton <akpm@linux-foundation.org>
-CC: Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3=5D_seq=5Fbuf?=
- =?US-ASCII?Q?=3A_add_seq=5Fbuf=5Fstrlen=28=29?=
- =?US-ASCII?Q?=2C_seq=5Fbuf=5Finit=5Fappend=28?=
- =?US-ASCII?Q?=29=2C_seq=5Fbuf=5Fputs=5Ftrunc=28=29?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20260917011359.1585961-1-morbo@google.com>
-References: <20260916222125.1259631-1-morbo@google.com> <20260917011359.1585961-1-morbo@google.com>
-Message-ID: <9DA6BE5B-E65F-4E8B-8B56-A861042100E4@kernel.org>
+	s=k20260515; t=1789655072;
+	bh=6jvbgmg7xBtScoD3A0f2vhmMoi9r4XqdACuqMBZf3Ck=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AHIQSD+h1jIAoULc5w1mw2MyZqWiLrZtHAKmAcoKDntOnOeV0+yqpesaoOoMR7eVi
+	 IpMHSZCG+c+ok3HLCcdLj4pWkmSj5+lcRf494LfPj5Th6eCASKd0UJEZJNd1OG6w9Z
+	 B9rzrsy5CWHQANyIY7pgE6rwi7SuFoG/71O9vpD5E6RaCfRAduztW8rodtLhcSf6Cl
+	 q5zPbZL+OamuWhIv4/BuI6c86ck139ABhqwv9BHZfszpLen41pzoFP8ghmtYnDpTvh
+	 aY9g6XKoMfWhlVwpJASX933yAbx49rH8e5fKGxeRFXHeyOZnCEGCZDjKouhgRM7QGm
+	 vy3lzx1yBVMvQ==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 6F5261980058;
+	Thu, 17 Sep 2026 10:24:28 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Thu, 17 Sep 2026 10:24:30 -0400
+X-ME-Sender: <xms:G_iram7feomC7yHwoinUmV_EtURuOT0zCp1oq-VywvzhfxAriT5yoQ>
+    <xme:G_iravx0WGzz525s18ZiaN_-9RCEPwRrPcGsb5-Pqd0s90r6kz8_b3jjIBEhiQg_J
+    OteLnfpvNC1KosPmBSxjs8qlEwdV6HmaRVjtL7LfqqL2MNDtuZ6TQNQ>
+X-ME-Received: <xmr:G_iraiw-7FGHmDWJxUNTC9kcBQNFuNMNLeA-qWZRyrZ9IaPP3rYnTd03ZyY>
+X-ME-Proxy-Cause: dmFkZTFiJne9d7ut4379TdaEhOYJEfhNk6de6RP62W62P6FcjK5SF6md/cm+0pDsJ25MrT
+    /q6b15+QdXJ4Q1HGGR/b3YzO/kHRjEJgJEiAF+bLeugjD8pgFSavNNW5zgHiVI/booYvZf
+    kqEKROzApTaL7eavowumjxtah55MGiGQyJ0/sMX7tH7eTbOYHPwAAaPYo6WH8oB7SLZdNv
+    s8uL89t5P21QtKRiN+SY57IOX8vl4IdH8LZbaBXCWmf80ijDQCW/BPea8fNAamtw/cwwt7
+    DvTEPOpwvT3NLW8y1fDd58r+ope38dheM434OKaEhZ27no1CzKhT/lnNIik1REnIdS/Qnx
+    mi8Z25zrHV6+kn79/GCdIQnPr6oqUUU67MmaMLSYY7Z4GH7aWCZkGwpB/+1CA4NVjY6omy
+    CYFOfJgyetf9iqIM7ckIEs8i7/rc8+uid6ArZcOZAIsIcr6QbiGTwp1ceBl/3GvbPM3lZg
+    Fw7oCJ/gsWpzA3/CGZ6QM5Qz+m3JAIU//z2KpUpI4YfwRLYNdHnc6Tfp54d652QoQtVwYN
+    +GzoXKTcu55PdT3fa7PR8bYTLWlixiEOYX5J8DqT9Ae76+kAd+YLBBkZgcfi0EyL9YTdVG
+    ST5pzni+bfMhUA8V+D2XS6NHTccps8iMVuAs0gRAptXOgIZvxUbVVn9keTnQ
+X-ME-Proxy: <xmx:G_iravW3soFWJBvmG4AbpX0rIC0cOvK6wD7ei3yKMjZXYvRACs4Ssw>
+    <xmx:G_iranRGwgxnIUqS_DVePtf7AhH_7oEw7inC343PgTqXMCytVCSnQA>
+    <xmx:G_iramN9zte4BK_h9dAAH_-WqYZoVXN0xLZWha1S8k6UHPzWX6Dung>
+    <xmx:G_iraswQJ_c-x_GaCZD00s3uuePekcUo5PCaf9FRyGLseDdTP07Iqg>
+    <xmx:HPiraooHDiMj3vUXgdjlUgDQvalcmd_5bMD4uWYPym_kQj2ncEaytHCU>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 17 Sep 2026 10:24:27 -0400 (EDT)
+Date: Thu, 17 Sep 2026 15:24:26 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] mm/huge_memory: simplify pgtable deposit detection
+Message-ID: <aqv1gZso6EwHEcoI@thinkstation>
+References: <20260917054015.23553-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917054015.23553-1-lance.yang@linux.dev>
 
+On Thu, Sep 17, 2026 at 01:40:15PM +0800, Lance Yang wrote:
+> Whether a PMD has a deposited PTE page table only depends on whether the
+> architecture requires deposits or the VMA is anonymous.
+> 
+> Implement this rule directly in vma_has_deposited_pgtable(), avoiding
+> mistaking a non-anonymous raw PFN PMD for one with a deposit and attempting
+> to withdraw a page table that was never deposited.
+> 
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Signed-off-by: Lance Yang <lance.yang@linux.dev>
 
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-On September 16, 2026 6:13:59 PM PDT, Bill Wendling <morbo@google=2Ecom> w=
-rote:
->Converting some strlcat() call sites seq_buf need behavior seq_buf
->doesn't currently provide, either directly or without introducing subtle
->bugs:
-
-Ah, our implementations have crossed paths in flight=2E :)
-
-> - seq_buf_strlen(): seq_buf_used() reports the full buffer size when
-
-We agree, we need this one=2E :)
-
-
-> - seq_buf_init_append(): seq_buf_init() always clears the buffer it's
-
-Oh, nice, yeah this is cool=2E I'd like a different name that mentions "st=
-r"? Maybe _from_str?
-
-> - seq_buf_puts_trunc(): seq_buf_puts() (like seq_buf_printf() and
-
-I prefer my solution that just truncates and sets overflow=2E Nothing i fo=
-und needed the non-trunc behavior=2E
-
-I'll send a v2 of the other series with seq_buf_init_from_str?
-
--Kees
-
---=20
-Kees Cook
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
