@@ -1,135 +1,99 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C746E43CED9
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:55:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEA34349B6;
+	Thu, 17 Sep 2026 06:56:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789628138; cv=none; b=qSy6cB29xsTeUJz0xk5w4nK3Ilbrl+zLGsGuKGm/PMfZTrfyi+cK9PFBM/6zi6pp3IOYZpQcuW++lEpFtKjsvaIxYwKkNhPOuJgoSzZDv31wvgA6FdY7gu1mthajOq0GlDo6Rgl7pBncRTCCZW9Sgv7q0BOnBOUjdk/RAVTyHMs=
+	t=1789628176; cv=none; b=Fl5bJVm9AHoufmZv1/ksqPTv2tdk5bYu9tt5FnEQefNDON8lRWNaUxfvypx8rgm/HE9XmxHtihuj13dwgagouTTuPtSTbrgUzmhDjJImiCPKzgrdiWVw9qE1Q5U3zX7VApkqL/dg+wM5RJXOQ8VTNI35HY6tRkVGeXSODbWzQnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789628138; c=relaxed/simple;
-	bh=CS2cwFdXUqiLJJhG9B82sxQOgAkaZzVT0GzQwzD3wv4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AGk+AklIlBsobIr3IBVJ06kJejsvAqwUJ2/lJJBXazyOVucjYnesBzl9kTZLiEz2nlIPsU7Z56cbqF41uxc0jdjUhRhsvgJYl25VrDX2CUV3XAe7rW1aY95ApssvDx4UuAQlO/yC2oB7qbOw307ordvTRRE5ncjZpLPRMSQc/04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DpS/eJq8; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789628176; c=relaxed/simple;
+	bh=0Za2lkAnzkGqgRO9rTZ+jPl7p2hJOwl9Twhs0pOpREU=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=aJCA+pBgE0YryMLKyWZxkWAU/9yAZGFANcbP+6c3RxFru6hRyS6cwSlcZmnOChfSRT0K93mM//wj96tU+z3czNfFtRvXGw3k+8e6JiikBPQkU54yV1bUYwuxEQM6FhXFG0tfmZavbPjDijHrPIVmOTNAHK/bcQM+NbcPeV+W880=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=QlkL6Xoi; arc=none smtp.client-ip=162.62.58.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DpS/eJq8"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874fso138644f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:55:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789628135; x=1790232935; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=30cUCuKfgfqmVMRq8leKktvsIG+ddt8eRO9Ay65U310=;
-        b=DpS/eJq8R5txoU+RHSEOI3RxJDzcL/t1LE9cAdXUBhg5DrJj7MX1/b0uXgIobQRJAH
-         zm4N7vxDBI0vaEkVXaWwPI0N++USG8+U+PQsB6DT5TG7WX6z3TBrB4WHk82A/dodgjsV
-         6Kbv6HRlXlmAoRsAET+KNFOhkwUHlz7uT+UeRF4A8lLh6VmxLt+70naEBjDmZl+hZnA2
-         42kFdEWnqMrLvsNowyHf8nP2vXuCMQtDdra2oToSyRNgFekGeEyhxwPSwGcCeluaqJ+o
-         35cRKlJxL8MymA2YtSzvNAJI1I/aREexMr92N7CFQGz20I5nX/7TruS06jF++ax11Fnq
-         vfjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789628135; x=1790232935;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=30cUCuKfgfqmVMRq8leKktvsIG+ddt8eRO9Ay65U310=;
-        b=QqyS1byUL2GEj6ud+kF8jqAczkOTEXuEGwW8M0ht4ww2zB/7d5GATxqppKCZZZwkXu
-         36icJqVx1zkfCjbGjqecJMlqr7E7NLmKY33K2VyFBmDGbuOpG6rAHCawO7nMNHrgtDqL
-         Qj9GytduRYMAzudt/8ouk/ZIZLsnC4+g9fZMi9vTmcjvJMA54Q67bqET4Ds6rcBGoDz/
-         UBcUkLiqRPDBctWBafv8YAQCOLEUbmuS82ZewG1NNhbuwmLRUGFJZPczW3EDqX/dE5X0
-         qXxgBWvEP/m5xgF3Xe5E8fZhKiA0qHXi03CACaf/i516kfL8BpBu4G6b/muLl/185e2n
-         yTQA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQyyo5IJt1Z02LMs3fotaCkDWtL3IPAqiv7brvmVm5KUMkRX/yQM/RKvNYdW3pzeofTs2g3cr/StS3ANI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOxEv5+jmXCfnL4zgbuQ/pqZwOU+N6OJg2gLpPdnR85XLJPdwL
-	haVGBx0NWfg6wXjnSIHDI/HQbmgy1EJgFOybo7wp4/jY4dX1sbFSSyWLPLzDcDBgqg==
-X-Gm-Gg: AYBFou15BK3E3wpDIvQf2gl+qm74PmLfbPduOojoOA39QL149tc/sLhsZIF0vVDooBv
-	w3e2DMzja4DeywZx9M0vp0ol9piqPB4DNUbD0XK0n9KmBtXvVIWQyN6NmZQMOVz3vtfpDLjSLAG
-	Wmn/0Q6GgH1F11brzki7YrGJqOVhQxGYCWhZF4svQQdfGC77E9AAGxwnZHNl4DwAlqZv53K69HK
-	i9jHTKLGinvwL4sJqzow4HJt/qab5q/13l5IKYQYtfYdlrOHXjXMv2ahwVy2JzqeuRyHmqovlH8
-	f7slxLakLC4YSJlH34o246uUxjjLI4tJsKx2/lactVE00/U75CQKhVqZcdTKyllsxVHrfggflPE
-	2fUEBdRbDy2Tq0gMeZYoDhcHBw6dwU22g4vQ54r2XJoVVvKqfoCZHMhfu8xUdi5bDFC4IOnP9T5
-	rpcOHxaLcQYQii44FaAlkvxdGFTS+HfE0KmWkYik2ltKoLHw6YBf0sMllFrqPhuBBx4fMtQNUVq
-	49dhrwCH48SSrMogZydOdMYLuQ3YbI7Pv0gFSeLY5c=
-X-Received: by 2002:a05:600c:1992:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49fbd1af43dmr28764665e9.3.1789628133837;
-        Wed, 16 Sep 2026 23:55:33 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd23a815sm54524765e9.14.2026.09.16.23.55.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 23:55:32 -0700 (PDT)
-Date: Thu, 17 Sep 2026 07:55:29 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: rostedt@goodmis.org, mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] ring-buffer: Take cpus_read_lock() when changing the
- subbuf order
-Message-ID: <aquO4fKay-7zTBRw@google.com>
-References: <20260914182850.21449-1-devnexen@gmail.com>
- <20260916192628.274136-1-devnexen@gmail.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="QlkL6Xoi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1789628163; bh=/Gw4qlBm6AwOO9f3v1AjzWTUa+PP0TWvSh7qf0BcJ+o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QlkL6XoiajoxE1YRt1P4cYPyUq15YiRaPMQlniQCnR7q2KpQabOe0aMHylFY6wW9a
+	 hQmG+mnjn/DvxAMKFK63VgzPhOqwylLIXdU7X5HLxyHr5jTBJt8ZBt+uoRNrIrCHOa
+	 SbHkwQECoJYZ22RxX4aRTUC67R8r/x0C72rcswlc=
+Received: from XJSH01426.meizu.com ([210.13.72.171])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id E0103260; Thu, 17 Sep 2026 14:56:01 +0800
+X-QQ-mid: xmsmtpt1789628161t6wm6c29w
+Message-ID: <tencent_0490E1CAA4336214AB70F813325F3020A608@qq.com>
+X-QQ-XMAILINFO: MllZffuBkEb5IDDSwlR44w363NKaPSXoFFztIYYIE9nq8IFqj6QiMqzVbvj+lM
+	 lgaAUcXvi9S+FhsvJ3SfXcHAO7kPtrIdhsDch7GFjJar4SsVIPfKEbrgD2CAIQlfIh23Ck5R9GI3
+	 fM4CFGa2shtVXEaG2byNsT+v0mu34w2bo2+oamvoK5n2e4yEV7683dy+btJY3nAPVckx5yJrc19g
+	 xdhQ3Ze5UvVM8np4HtDfq4xUrnOCcRuVBVB+p284afZ5qeJ9RsqgBV4nuKW4sqekwYxzkIMVRVSM
+	 ZVbLAtFZIpoIRY3lxWMb1bznnZQMR2L+9ioyoWkxLADyLIGmCiEP9PzF5wm0CEBYZtPZQ1BfzTy8
+	 SnRWxaOODZQbgzt9uD4MvffoL1TXsxgtdiXdjLnquAv1tLT8o0728OyNbLE5M+Vj5mEIdaWnnp12
+	 /UWxJiA8g05eghyytDrEKZmd44HgMj7JfK6gxHrKzxNry9vRtwFydBAl/9WeM+9qYDHj0F0t6Dyq
+	 6pDCrb40cqzhLT+ewOvzpybp/sKgaHcrYr8ccQKlI/6C8seEPZsX0RXExNpd2syaKlmgz/0weWd4
+	 aGyhUVc7+hJb3VYDlqrGaAI9a5yzFbk9WT8jVfb6EfX8EqLlDIkG1XeFd9tvxd18Y/EXg6FhHRbY
+	 vDCOC80grqgDrClXJxQMJZw9D7IMbRpVIVv8wsLTeYMfFkTVYlvwTTTnEAeGzEirYbQ4WZklpXpv
+	 YjGg0EPulTx/HLSag1//v4wgk7iyLuw9p+FmWGZ8yVU6V69jcVN1upCvNPiPW1NDHXFMXiszGo5t
+	 W1GXurAXC5v4Lwzmi4Pkf7sdjgx8s4cU8bg8eGAsIjFP32iH4QMScnu9Ll1pBd+5acajSnJHypmv
+	 Ib2qopG/K/TxGjfG1M4m7hc39Za+lmZDCOpxjJQt6TsbLmzJaeK8fTDplPAcw0CAB5d9us6lZ8uY
+	 2BHjSfjwzDlBXdStd4CqVZROo4EjvJMLjbfdXlBjXl6uxa6F1MieMejqwcnI/q6TOGEGh9XGApyo
+	 un33hB+mvWLnBRRiRlGi+aIgQbYF0dj2MUlSL1OLKq2FxMLkDPcXEBqqaZKk3Y6797lyX0IYGhAP
+	 QTVD+MnTbJLvl6jK7y4W431VEWww==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Zhenghui Hao <zhenghui.hao@qq.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org,
+	linux-parisc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] init, hugetlb: fix early parameter ordering
+Date: Thu, 17 Sep 2026 14:55:55 +0800
+X-OQ-MSGID: <20260917065600.564083-1-zhenghui.hao@qq.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917062837.558251-1-zhenghui.hao@qq.com>
+References: <20260917062837.558251-1-zhenghui.hao@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916192628.274136-1-devnexen@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 08:26:28PM +0100, David Carlier wrote:
-> A CPU coming online for the first time gets its per CPU buffer allocated
-> by trace_rb_cpu_prepare(), which then adds it to buffer->cpumask. If that
-> happens while ring_buffer_subbuf_order_set() is running, the CPU shows up
-> after the allocation loop and the install loop walks it with an empty
-> new_pages list, corrupting the buffer.
-> 
-> Take cpus_read_lock() as ring_buffer_resize() does.
-> 
-> Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Carlier <devnexen@gmail.com>
+hugetlb records its command line parameters from early_param()
+handlers and consumes them later from hugetlb_bootmem_alloc().
 
-It is usually good practice to not link the different versions of patches
-together.
+Commit d49004c5f0c1 ("arch, mm: consolidate initialization of nodes,
+zones and memory map") moved that consumer into mm_core_init_early(),
+which runs before the generic parse_early_param() call in
+start_kernel().  Architectures that call parse_early_param() from
+setup_arch() are not affected, but on parisc the parameters are then
+recorded after they have already been consumed and are silently
+dropped.
 
-Beside,
+Patch 1/2 moves parse_early_param() before mm_core_init_early(),
+together with jump_label_init() and static_call_init() so that the
+"parameters may set static keys" guarantee still holds.
 
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Patch 2/2 makes this class of ordering problem non-silent.  It cannot
+fire once 1/2 is applied; if you would rather take only the fix,
+please drop 2/2.
 
-> ---
-> 
-> Notes:
->     v2:
->      - Reword the changelog: offlined CPUs stay in ->cpumask, so only a CPU
->        coming online for the first time can appear mid-flight (Vincent)
->      - Drop the comment above guard(cpus_read_lock)() (Vincent)
->     
->     v1: https://lore.kernel.org/linux-trace-kernel/20260914182850.21449-1-devnexen@gmail.com/
-> 
->  kernel/trace/ring_buffer.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> index 04bb94c29f58..e78fb4bb2195 100644
-> --- a/kernel/trace/ring_buffer.c
-> +++ b/kernel/trace/ring_buffer.c
-> @@ -7464,6 +7464,8 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
->  	if (psize > RB_WRITE_MASK + 1)
->  		return -EINVAL;
->  
-> +	guard(cpus_read_lock)();
-> +
->  	/* prevent another thread from changing buffer sizes */
->  	guard(mutex)(&buffer->mutex);
->  
-> -- 
-> 2.55.0
-> 
+Not tested on parisc hardware.
 
+Zhenghui Hao (2):
+  init: parse early parameters before memory initialization
+  hugetlb: report cmdline parameters recorded too late
+
+ init/main.c  |  8 ++++----
+ mm/hugetlb.c | 14 ++++++++++++++
+ 2 files changed, 18 insertions(+), 4 deletions(-)
+
+
+base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
 -- 
-Vincent
+2.53.0
+
