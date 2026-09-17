@@ -1,87 +1,55 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0CE447813
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:47:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298273A8FEE
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627667; cv=none; b=DipfWrprKMa2daBE/anXgdFphK0GgJmN1BVZ3dZMtGQSuYNkMLI8Xp1DYuMYgNPt++zmyC4Z+HUWaPJWfz97UcSI402lovldoN720igQb9nAdtnXcgC/4sLv15Ab/LD8t9Y8iKGAPmOLl6EuOb2M/VMO6xGeshz9EB6TEMTBYyw=
+	t=1789627724; cv=none; b=MQVS2XEZEVMaZC4lNyOUZFKf7Lp5sGbSCI76OnTEWXSdbcsAGwDWnypARYclJun2ueFUe9lo/IsNvUP9KI4t2uaFqrOgdAhhKObDdh+f+r9nk4Te0nF4qjTEsVfW6auQLT9wTA75P1CJ25iExEKTEaxIr6wfb6fnMZ18GfMph0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627667; c=relaxed/simple;
-	bh=3AdI/BQYPg6y23Mk+YkLKGWL7iI3glitB+qiS7zTldk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pKKQkb+QnplKvqdD4w9tyAQ7c3ECj6UrH5Szjkud2tCuhaz6jDMc5nWcF8gG768RjSntK9K1w1VTZEk8fKA1+a6p7Lypao2bxFPt7vijN8E8mZTLKp2AH33z3JuRPKJSHFp1Wbf/cr4dFEwElHK8S7z2BW5xCv3sBdqe2nJirIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OTD4+RoM; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789627724; c=relaxed/simple;
+	bh=3jIIF/WOU9H2yQV04mRQjY74nmF7dGtB9JYdYQvm+1U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cO9ZlBCHQ7M5UnCroGHtiDvYfG3hezA78grBMhpN3LXn7dwHHVUfuK1714O6++gpfclkUMudwEgEV5euS3GfhmL7aW77oBwSfh8G6qyybpImV/sgBEZ11hrYmNS14YmtsOdOmhWI6e65frlb5L5Sm/xjd5Ag7+vehL3dxkGWrJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i8vKrf0F; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OTD4+RoM"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so2190335e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:47:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789627664; x=1790232464; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y3wbvAbBWnutdIwHnF3F6m/7uEF6jqU2B+avYv0omNg=;
-        b=OTD4+RoM5uTERP3mOlPQntz1c/c6k9oR7kAwKmVnnSEeUVZh0AXJ7rR2JE3mw7v5Ts
-         JksLeD1O37XZWAITYjFxSdcfSWknGG9MV2xnWMsdtDg/P4fwM6adS/y5LETFkn31gLAc
-         kFGkB8OpXiTo70mDlI+DWVUAeshK5lUC9zIrjHszqLM+HL7ogoFk2fjqpKsdAMDBClKu
-         ThjsBWFcpI4P4RwdfE1NxpRJG1nnA88KCIdoz3HXf+6zktfMyQbnZPiaoePBk2M3tDkg
-         wCKaFdZmpIEwtn48SLfezt30nJQIE/l3/ETu9I+IslMkRl8+2g17ZhgRBWRNTAFwAe4x
-         tWAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789627664; x=1790232464;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y3wbvAbBWnutdIwHnF3F6m/7uEF6jqU2B+avYv0omNg=;
-        b=olrHodUFeEmz1GJ5FMiJT+Q9+GXdW0XNiWB5gN/Q7xnCe3zBKM1HVZ2VxuJFHouJBW
-         zjKyB4wQTMA+TGh/xbnC6So7dIoMVBnFbm+otGGtCcpMbNg89gDYwxiVcBsZKm/kdLUs
-         jx3BQlne4WGV/vKi8AvIbEPLk1cOmtCRjMh8WFD10TJc9QZ5XTBrVdIQIvJzsxNGK+py
-         biU1XrMlAG9F1Nd5ayBMiu5xez8QMpG47/6sLYWlIQPf0krFj7DhBdriHLPc2ghT5MTb
-         TWnbyMTVjbLNqXvi+pwPW3qNs/DHAf4WA32QicNI0EcYk9JMUUK9UBDYOIQlzUmjfWa2
-         /ceg==
-X-Forwarded-Encrypted: i=1; AKwUvBzFp6ro1POXUfUV81OW7oc6H3v5Hy+JLoQTBWnuDxGHuNGtC635MYvKwbGDaY4UzlYvhL3WDEk2Sj2rcdc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYGylFRVuGWKV61LZ/o46nwzrPMs1mHQRTuiHHFmXC7IgF56w9
-	fw1BtwRgc6lTFwVJM1b6WospqpIJttFMkK81PtK+jdxAzCJM5B68chNO
-X-Gm-Gg: AYBFou0zvfi5v9f7afaDhzOT3V5RA43eIjCfaaS2DQRcY5GIjyhatvWRVT3IFN55d4E
-	OE3fJbnaurHfDSEfZq5jF2LmML9J5vW55zYoihks3Bs+By/iolXEuJEknJhebCLEdDVtZ0HMWo8
-	y48lffE//KcTrgRrHAjwOt7apDvsO7cBXOQLhk3a6Y/tRPUsHDvvOqazdjUY97SK2iwRxivwAtY
-	Yy6ewYq3PWyFR9EE6zSZqoeEpcvrS2fLEuxKsYpJ8UOeNUB4+aVjFhyMknUab3E+guBkZhx+mZ2
-	AgdpWANfygSlhqtlDCfmarAz7KmgW7xl1Dc1M3FNp+OHrctzxrB5Q4Oh0Yc5u43xlLS5RhbUuba
-	pJvdtxjyVI64x9z8IURfHD4oL0u3iuEmHzOHZgSVHIZb7b8M1x4NXxv6kX53Kdz4zhuGP/mNIy4
-	IA4gYPctbJDrhVm9AkmCLaZN6ihYdLSM3s9yxKA6mdX4a5pBa8XuEdm4CJBfLat3LmWduCdkPFD
-	xwRI21VJJMpRdSMmF9Olcx7DOPRAP4lRS8iY2V7BsJIown5cUfDiMxTqWwIhyV5XzHhJpOtV+0N
-	UaOWk6Z2zO94sZliSfRs9cBsA1BoycMKqn396p8NK4uf5jQDrOP4y3z4Ral/rExSTcUu2iFvgEQ
-	W
-X-Received: by 2002:a05:600c:8b17:b0:49c:fa20:cc0a with SMTP id 5b1f17b1804b1-49eb7339522mr57916485e9.33.1789627663778;
-        Wed, 16 Sep 2026 23:47:43 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-9dc6-c001-54ee-4741-4927-0a28.310.pool.telefonica.de. [2a02:3100:9dc6:c001:54ee:4741:4927:a28])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf438fbsm13129266f8f.36.2026.09.16.23.47.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 16 Sep 2026 23:47:43 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Steen Hegelund <Steen.Hegelund@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	UNGLinuxDriver@microchip.com
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <david@davidgow.net>,
-	Rae Moar <raemoar63@gmail.com>,
-	linux-kselftest@vger.kernel.org,
-	kunit-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: microchip: vcap: Stop selecting DEBUG_FS for KUnit tests
-Date: Thu, 17 Sep 2026 08:47:36 +0200
-Message-Id: <20260917064736.77354-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i8vKrf0F"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789627722;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=38XCC3pzzBeGcbj7BSYYe61HHKXklyzXx0gZrWcUPq4=;
+	b=i8vKrf0FA+Oww7jZf2aSaZ/o+81HUPip+u0guErohTdPqjGglP/A8CrdK1zIzGYglVnt/x
+	AqggsmWLoBGiew3kagSmWhhUmAu0pklXhIs32M1IL3P43VuJUhsuGhoYwtdjHeNXXLyNLN
+	VDieqVk7vibeB7psWIJRNWyJxFf6wSk=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-623-L0mNYR8MM02UZed6OsDEtA-1; Thu,
+ 17 Sep 2026 02:48:38 -0400
+X-MC-Unique: L0mNYR8MM02UZed6OsDEtA-1
+X-Mimecast-MFC-AGG-ID: L0mNYR8MM02UZed6OsDEtA_1789627717
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F405E18CD2FA;
+	Thu, 17 Sep 2026 06:48:30 +0000 (UTC)
+Received: from fedora.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B8AA23003EED;
+	Thu, 17 Sep 2026 06:48:28 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: jjohnson@kernel.org
+Cc: ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Subject: [PATCH v7 0/4] ath11k/ath12k: implement TX flow control
+Date: Thu, 17 Sep 2026 08:48:21 +0200
+Message-ID: <20260917064825.12747-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,37 +57,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-VCAP_KUNIT_TEST enables DEBUG_FS even when the kernel configuration
-leaves it disabled. Remove the selection, following the dependency rule
-in Documentation/dev-tools/kunit/style.rst.
+This series implements custom wake_tx_queue operations for ath11k and
+ath12k drivers to prevent hardware ring overflow issues under heavy
+traffic.
 
-The debugfs implementation and its tests are already built only with
-DEBUG_FS. The other VCAP tests can run without it.
+Without proper flow control, both drivers experience -ENOMEM errors
+("failed to transmit frame -12") when the hardware TCL ring fills up.
+Additionally, ath12k can hang under sustained high throughput. These
+issues are more commonly observed in VMs with PCIe passthrough but
+also occur on bare metal systems.
 
-Fixes: 552b7d131aa0 ("net: microchip: sparx5: Add VCAP debugfs KUNIT test")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Validation on net c9151088f167: x86_64 LLVM builds and QEMU runs
-with DEBUG_FS disabled and enabled. The other VCAP suites pass in both
-configurations. The debugfs suite is present only with DEBUG_FS=y and
-all four cases pass.
+The implementation follows the pattern used in the iwlwifi driver,
+adapted for ath11k/ath12k hardware ring architecture, checking
+hardware ring space before dequeuing packets from mac80211.
 
- drivers/net/ethernet/microchip/vcap/Kconfig | 1 -
- 1 file changed, 1 deletion(-)
+Testing shows stable operation with eliminated -ENOMEM errors, no hangs,
+and improved throughput under heavy traffic conditions.
 
-diff --git a/drivers/net/ethernet/microchip/vcap/Kconfig b/drivers/net/ethernet/microchip/vcap/Kconfig
-index 97f43fd4473f..1af30a358a15 100644
---- a/drivers/net/ethernet/microchip/vcap/Kconfig
-+++ b/drivers/net/ethernet/microchip/vcap/Kconfig
-@@ -40,7 +40,6 @@ config VCAP_KUNIT_TEST
- 	bool "KUnit test for VCAP library" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
- 	depends on KUNIT=y && VCAP=y && y
--	select DEBUG_FS
- 	default KUNIT_ALL_TESTS
- 	help
- 	  This builds unit tests for the VCAP library.
+Jose Ignacio Tornos Martinez (4):
+  wifi: ath11k: use queue mapping for WCN6750 ring selection
+  wifi: ath11k/ath12k: remove skb parameter from get_ring_selector
+  wifi: ath11k: implement custom wake_tx_queue with flow control
+  wifi: ath12k: implement custom wake_tx_queue with flow control
 
-base-commit: c9151088f1674fd29ff26a20f5fc687acf53a2f0
+v7: No modification in patches 1 and 2
+    Address comments from Jeff Johnson:
+      Patch 3: Add the defensive pattern _bh in both spinlocks (ath11k)
+      Patch 4: Add the defensive pattern _bh in both spinlocks (ath12k)
+v6: https://lore.kernel.org/all/20260811172435.616200-1-jtornosm@redhat.com/
+--
+2.49.0
+
