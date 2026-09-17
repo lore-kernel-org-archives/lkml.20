@@ -1,127 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A513A83BF;
-	Thu, 17 Sep 2026 07:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D6833970F;
+	Thu, 17 Sep 2026 07:11:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789629004; cv=none; b=O/z0ZouVRmolrxTWLw9REACJppFQvoKlZBI80pHUFAJ5od2BzOh6xaIiLH+Fg8Vjr4Bgo3BDmVjjum7yIcWSWzKIXaIvSkeRhW0B8DzhQOfisgv+80SxdXfa6IjMJ0eY3Rg50UupyB+QNVBtpT2FiPMlvHU5GeuL05csGZyWGeQ=
+	t=1789629070; cv=none; b=LmBytPqrxxxy1mwIN+lgh0psFlT0jAAIrpetA6HNagXHP6I5eHS9LzBBxie1v/xGoxmOKpWiLDln/hy2qq3YXjVt0UzWVe20NK/Eg7Zb85iXifluZXV9C2IAV7rPhtjSO2PfsUw7zDemLbK9cU7n8k7wkZ15dgykk7bcDacP21E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789629004; c=relaxed/simple;
-	bh=mEsXJXUfeg+J2wdVlTN6mxmLM6jb7gdwBS092oeyO38=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IgB+sfAhkL4qKxxPAQmJOkyWaHiuPaWwD2vLkxx6Lzd2sx9KnvLKj1afhD5gnm0uuc3ptUNriMMSnD6sDLkg4KLjMBfhq4iYXkUsBLAsAUB4Chnp8eOktua4Q5Oj7w+DgChFZh0BQdSYzqHeaWHxNhI420AV4JSyPWeAOrkMDhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hqs02RGj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789629070; c=relaxed/simple;
+	bh=kduyFj4uA1YolZIh647fkGFe6s6EobSdPK3+l8qGZW4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eudagFZ/k62dzKAGuo1NWAlqxd07eiMcrTVNkEPUOf7lUMoaEmHOT/8jc/IyhGcmdX8L5ijQemSl1IbUnMeXqjW0hXKGRMmZ2qo28EvJtz7GXpLqZrMnY1ALIfvBFQxHkDoaaPBewbJCizOCM9NrGF8XCY4+0iJ+/gkRHSBOhS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b=Pt9a8Tz2; arc=none smtp.client-ip=141.14.17.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hqs02RGj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 515B31F000FF;
-	Thu, 17 Sep 2026 07:10:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789629003;
-	bh=rbz4sBgqfAts7eX1udBwlfoWe0KdCOY5WEmV0mk1Z6M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Hqs02RGjFzhob40I4I0u75rm4iBFm92AjrYKUIrTHn5bYY4DvgK4R4DdtER7Qs2Zz
-	 6pkucpOlySv3U3tgDbrPmzhHFBu9RGxrzXqK/+OKs1qVQ7RCOMvsE0monbKYImOzZR
-	 GB+S8m4hHm8cNtcEeUMqv2PD+bTjPo7yOsA1+5NNQSWXXF/NAFL2MQBLnR80BQkqoL
-	 10jWWMEBjkB5IkbA44Mxp0OWmveDj4NjduB96NJYR+VOmQorU7V7LdxMlSlnYw/ghv
-	 yZvmcxJX7yYC4GxaPgFP3X0YRd9KIFoQ6ilAIw0H9Ymxkzi7NWcaQT8OBc/lr5LZ05
-	 0/9aMwJv+mGJQ==
-Date: Thu, 17 Sep 2026 09:09:59 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	iommu@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v11 0/9] media: iris: Add support for glymur platform
-Message-ID: <20260917-dangerous-illegal-honeybee-cf479a@quoll>
-References: <20260917-glymur-v11-0-e0c8bc914742@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b="Pt9a8Tz2"
+Received: from [192.168.2.217] (p5dc55dbb.dip0.t-ipconnect.de [93.197.93.187])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pmenzel)
+	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 8E2E24C442F868;
+	Thu, 17 Sep 2026 09:10:01 +0200 (CEST)
+Message-ID: <7107796a-a233-4ddf-9106-460de575f29b@molgen.mpg.de>
+Date: Thu, 17 Sep 2026 09:09:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917-glymur-v11-0-e0c8bc914742@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Intel-wired-lan] [PATCH net v2 1/2] ixgbe: do not busy wait in
+ ixgbe_devlink_reload_empr_finish()
+To: Linkui Xiao <xiaolinkui@126.com>, Linkui Xiao <xiaolinkui@kylinos.cn>
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ jedrzej.jagielski@intel.com, kees@kernel.org, aleksandr.loktionov@intel.com,
+ intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260917065436.1181073-1-xiaolinkui@126.com>
+Content-Language: en-US
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20260917065436.1181073-1-xiaolinkui@126.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=molgen.mpg.de; s=20260906; 
+	t=1789629003; 
+	h=from:from:subject:date:message-id:mime-version:content-type:content-transfer-encoding; 
+	bh=hS+daQcmSuh57lLpq5vbnK6PgZknYEP3Fmnjb15/5kI=; 
+	b=Pt9a8Tz2IF3GKh0P1Pq85zeCW6wCNSiaDvzR+1JrOinqC65iPGgmXZOI46eoxoIt0qmZLfD3KSkv
+	/YB23ECsoufSGGvwEXOHn78OjfKpST/Nym61pwSOYCbL3Dd0TB+le0iSCZyVNTcFGAXMBrEAcZQtqn
+	F1xlGfmr28897Zr2C5DSFicekSAFYf19fOpHjqNqx2g1/XCyqkPll1XpZpuf3C0SB+6bbXm/7kaFFv
+	eGPeM5BOx4viNkfi1NbgH8vDYPRRh/3iWWsfwd7ZsL61K4MNNwKID2Pm71jcZ8+KzO2dSI8eQbB2jz
+	eYxgvlENNX+CsSIxZ61pGYiRbPyI4mKQ==
 
-On Thu, Sep 17, 2026 at 10:30:19AM +0530, Vishnu Reddy wrote:
-> ---
-> Mukesh Ojha (1):
->       media: iris: Enable Secure PAS support with IOMMU managed by Linux
+Dear Linkui,
+
+
+Thank you for your patch.
+
+Am 17.09.26 um 08:54 schrieb Linkui Xiao:
+> From: Linkui Xiao <xiaolinkui@kylinos.cn>
 > 
-> Vishnu Reddy (8):
->       dt-bindings: media: qcom,glymur-iris: Add glymur video codec
->       media: iris: Replace enum-indexed clock and power domain tables with per-block structures
->       media: iris: Add power sequence for glymur
->       media: iris: Handle CPU_CS_SCIACMDARG3 register write via program bootup registers hook
->       media: iris: Add support to select core for dual core platforms
->       media: iris: Add platform data for glymur
->       arm64: dts: qcom: glymur: Add iris video node
->       arm64: dts: qcom: glymur-crd: Enable iris video codec node
+> ixgbe_devlink_reload_empr_finish() is the .reload_up devlink operation,
+> so it always runs in process context with the devlink instance lock held.
+> Its polling loop delays with mdelay(500), i.e. it spins the CPU for half
+> a second per iteration and, because the loop bound is 20 iterations, for
+> up to ten seconds. That keeps a CPU fully occupied while the firmware
+> performs the EMP reset, and on CONFIG_PREEMPT_NONE it also makes the
+> loop non-preemptible for that whole window. The loop does not need to be
+> atomic and holds no spinlock.
 > 
->  .../bindings/media/qcom,glymur-iris.yaml           | 218 +++++++++++++++++++++
->  .../bindings/media/qcom,sm8550-iris.yaml           |   6 +
->  .../bindings/media/qcom,sm8750-iris.yaml           |   6 +
->  .../bindings/media/qcom,venus-common.yaml          |  11 +-
->  arch/arm64/boot/dts/qcom/glymur-crd.dtsi           |  10 +
->  arch/arm64/boot/dts/qcom/glymur.dtsi               | 120 ++++++++++++
->  drivers/media/platform/qcom/iris/Makefile          |   1 +
->  drivers/media/platform/qcom/iris/iris_common.c     |  10 +
->  drivers/media/platform/qcom/iris/iris_common.h     |   1 +
->  drivers/media/platform/qcom/iris/iris_core.h       |  32 ++-
->  drivers/media/platform/qcom/iris/iris_firmware.c   |  69 +++++--
->  drivers/media/platform/qcom/iris/iris_hfi_common.h |   1 +
->  .../platform/qcom/iris/iris_hfi_gen2_command.c     |  19 ++
->  .../platform/qcom/iris/iris_hfi_gen2_defines.h     |   1 +
->  drivers/media/platform/qcom/iris/iris_instance.h   |   2 +
->  .../platform/qcom/iris/iris_platform_common.h      |  46 ++---
->  .../platform/qcom/iris/iris_platform_glymur.c      |  78 ++++++++
->  .../platform/qcom/iris/iris_platform_glymur.h      |  15 ++
->  .../platform/qcom/iris/iris_platform_sc7280.h      |  28 ++-
->  .../platform/qcom/iris/iris_platform_sm8250.h      |  26 ++-
->  .../platform/qcom/iris/iris_platform_sm8550.h      |  26 ++-
->  .../platform/qcom/iris/iris_platform_sm8750.h      |  29 ++-
->  .../media/platform/qcom/iris/iris_platform_vpu2.c  |  20 +-
->  .../media/platform/qcom/iris/iris_platform_vpu3x.c |  67 ++++---
->  .../platform/qcom/iris/iris_platform_x1p42100.h    |  27 ++-
->  drivers/media/platform/qcom/iris/iris_power.c      |  20 +-
->  drivers/media/platform/qcom/iris/iris_probe.c      | 153 +++++++++++++--
->  drivers/media/platform/qcom/iris/iris_resources.c  |  81 ++++----
->  drivers/media/platform/qcom/iris/iris_resources.h  |   8 +-
->  drivers/media/platform/qcom/iris/iris_utils.c      |  58 ++++--
->  drivers/media/platform/qcom/iris/iris_utils.h      |   3 +-
->  drivers/media/platform/qcom/iris/iris_vb2.c        |   4 +
->  drivers/media/platform/qcom/iris/iris_vidc.c       |   6 +-
->  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 216 +++++++++++++++++---
->  drivers/media/platform/qcom/iris/iris_vpu4x.c      | 137 ++-----------
->  drivers/media/platform/qcom/iris/iris_vpu_common.c | 102 ++--------
->  drivers/media/platform/qcom/iris/iris_vpu_common.h |   3 +
->  .../platform/qcom/iris/iris_vpu_register_defines.h |  13 ++
->  38 files changed, 1229 insertions(+), 444 deletions(-)
+> Use msleep() instead.
+
+Should you resend, please document the commands how to test this, for 
+example, how to trigger .reload.
+
+> Fixes: c9e563cae19e ("ixgbe: add support for devlink reload")
+> Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 > ---
-> base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
-> change-id: 20260917-glymur-627d049900e0
+> v1:https://lore.kernel.org/all/20260914092626.263886-1-xiaolinkui@126.com/
+> 
+> v2:
+>    - Reworded the commit message: mdelay() does not mask interrupts or
+>      disable preemption, and the ~10 s window is below the soft lockup /
+>      RCU stall thresholds.  State the actual rationale instead.
+>    - Split the macro rename into a separate patch.
+>    - The mdelay() -> msleep() change itself is unchanged, so the
+>      Reviewed-by tag is kept.
+> 
+>   drivers/net/ethernet/intel/ixgbe/devlink/devlink.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c b/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
+> index cf8908b82f8a..781f13240a0d 100644
+> --- a/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
+> +++ b/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
+> @@ -460,7 +460,7 @@ static int ixgbe_devlink_reload_empr_finish(struct devlink *devlink,
+>   		 * may be not cleared yet, so begin the loop with the delay
+>   		 * in order to not check the not updated register.
+>   		 */
+> -		mdelay(500);
+> +		msleep(500);
+>   
+>   		fwsm = IXGBE_READ_REG(hw, IXGBE_FWSM(hw));
 
-Look here:
-https://lore.kernel.org/all/20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com/
-change-id: 20260601-glymur-4fcd4d832ecc
 
-so now does this work?
-	b4 diff '20260917-glymur-v11-1-e0c8bc914742@oss.qualcomm.com'
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
 
-No, it does not. You are sending bigger work, multi-version one, part of
-even bigger work, so please get the process working correct to make
-reviews easier.
 
-Best regards,
-Krzysztof
+Kind regards,
 
+Paul
