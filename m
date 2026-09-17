@@ -1,213 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4BE5544D5A;
-	Thu, 17 Sep 2026 16:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28BC544D5F
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663382; cv=none; b=IIKUKix2NSF5yB/dmygOPidLRAFVv4l8zM/gQOJDLW1Qp4vI2Vn+1gjsXI+E6stKQoxaBWRKFvxuMkRI65ucNZNKXLqvHA1yOq/5NlrTIU5nT1T34z1UPaCUkWXLEp4yhSBbeVlGZryTj0Kiy11BLnpLFfuMLfWHy3oz4vvbHwA=
+	t=1789663385; cv=none; b=CVJZAviwL+MVqmruEdQViAXZhna9kngQf3I2iovIGhC4Iykk1As91wT19nI5KddV4HPXMO2xlofXL2CIvPoZCQVu0okS+/WQygSJjd5n79icYKkeNF01QLW8xRFeaDgGPDpmE0civV/7o2HNCuB5xjN6WY1yOVbpvfFXNkXKDbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663382; c=relaxed/simple;
-	bh=2A3Cmsn/41H3VCQe0yUXH8gcl1gq+lw+YTsrD11Z3Vo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jceuS2rpoCCL8+MH2aJfqRqqQnF6f6Zz7AGBPhUJMxPWBD4VLqppFA65QOWAv6fi3IcssCswnk4XtMH09zdTq6V/M73xvoqP8+K/juiOJtdwhABbB44v6sWGRMcjh83P2y7v76blJ+eOg6pB0Ew5Kpth8yPEFzW7gHE3O9/6Zdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VX8sd0/6; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VX8sd0/6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A367C1F00893;
-	Thu, 17 Sep 2026 16:42:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789663380;
-	bh=6Dab/JGj5h11GJwmfZC2qp9KBu5kIrwqs5kjA45qPyk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VX8sd0/66chGwBSXTRN6xewgRxbkdbYKvu8TXFtU97j1gbO5MtY4GA3FuN4pxa8kQ
-	 sJFEbTFNFVlyAMa8Na6QNMRSq4oSA2gdS7Gui7OgLAi4IQQEmsyqhalKYGXl/bRxNX
-	 D/3ycl79FQ5ht15gqYWhPEtIXytHr54JCpZjtE74fYeYcilBPDWfVgMKr2V1oU/68Z
-	 G8QA8UvvCFGiQf+kJvlF9KEewMqtI6KFQNL2DNfh1SCDpC9shan+s0AyJYsTXjtS55
-	 kKPDtzbkzQHcQvlV0ZfbpqeyZW2rJ1hQkTlYasEVZKlfMcTqdFSz8jOjTnyvV7i/MB
-	 wwiohy6LPq+FQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:48 +0100
-Subject: [PATCH v3 39/40] mm/huge_memory: remove vma_is_special_huge()
+	s=arc-20240116; t=1789663385; c=relaxed/simple;
+	bh=cIsAonBm7AT9kKib+ne06UjOt6UC2xGlJRlfH1/tsdg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Kc/XYdfURoJW859E7EANxlgAg5q8JMYzV5FKdOCa3nuNiyBP/AAhqAvVeDagkdRti+Y2G2gKzTGZ+MIiuQdKt9smQF80313nWjT7gTtx3M+f6S0rNVrw7qUMRZTql09iZ5URbVmfE/Tgu+5D8ZlBg+8YUhA4W7ZLsZPzyg6r6WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7f653940ba4so1549125a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:43:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789663382; x=1790268182;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=K/fbjJV/JtFxyOtwCt/9zadIM0Su0RoqnaXFyA+VsBU=;
+        b=EqjGb3LRSLJ5FYSrtOF2v5JRFCDAl5SVD/Lzaz6f67MzUtcODdCeP1UN+VBm4PaX3J
+         TY07d/CTiA2SrnoHH/jUZHM7TS+jMKjU/0pGYHTalxG3AKAJkU+zzuMQGlWtJorZysLT
+         Lp1Ap8jXIuvuvrTOrSKJObBBWbBKDJ3GB+2//4oee6VyCyHhij9l+Loet0NokXJBObxu
+         7lHYP/3PR+3f31u6zgzoMJUufTeenj/CkSaH8HpxQMKUtGU38u8i9dbpXTYkJzgwK0Rt
+         i7LTiWGk8L7Co+PoAWI5yoAlMYgoyd8whv2+GP172PQDTE1UI6WZf3+UcpXcKPAHqi9I
+         lgdA==
+X-Forwarded-Encrypted: i=1; AKwUvBybMM3h+wmMCa3fzRsYtAWbWWFCD5fSkyW9YOqq4eBksjK5UD1LngZSvHWieJUKTBYyzv0TUpWqtTChpu8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kO+B6mihAEZjC5n/Vv+mEZtRHPIQydqF33IZ3KC590ETXz0SHJ
+	B9kWbM+0YPM3He9wsoDPZYkzEldFpj1NBHmym6iJqUQ/Iswjwbw3i2VsmHd3wDesEiPSjC86Yf4
+	ujF39A5YgiZAMZJSCPeJEF88k4wE2MNXNROVLKey+f9bZcG1tL50lKwj//i4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-39-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2897; i=ljs@kernel.org;
- h=from:subject:message-id; bh=2A3Cmsn/41H3VCQe0yUXH8gcl1gq+lw+YTsrD11Z3Vo=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB9lesOuX7ti9tWy2c9VHG+vaQz+v+5YpsmCpzf36
- +yddNxVv6OUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATSSxiZPgjojDnQIHWZ/7i
- 7KigVRu+qSZ3zDwz3WZ1X3jD3fN2uzkY/tdPWPJHbRnXvkl3jv1m+3NH3lmwI/DhuRfzVp0wPNM
- WvJEDAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-Received: by 2002:a05:6820:6ac4:b0:6be:2c0f:e415 with SMTP id
+ 006d021491bc7-6c7d1fd8823mr7559769eaf.27.1789663382316; Thu, 17 Sep 2026
+ 09:43:02 -0700 (PDT)
+Date: Thu, 17 Sep 2026 09:43:02 -0700
+In-Reply-To: <20260917162900.97210-1-adarshdas950@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aac1896.b398a7c9.1f86be.001e.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] KASAN: slab-use-after-free Read in disable_device
+From: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
+To: adarshdas950@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-vma_is_special_huge() tests whether either the VMA_PFNMAP_BIT or
-VMA_MIXEDMAP_BIT is set (i.e. whether the VMA is a kernel-owned mapping),
-but with a DAX carve-out.
+Hello,
 
-DAX however no longer sets VMA_MIXEDMAP_BIT, so this carve-out is no longer
-required.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+KASAN: slab-use-after-free Read in disable_device
 
-Therefore test for vma_is_kernel_owned() instead and also drop the
-VMA_IO_BIT check, as it is now redundant since it is enforced that only
-kernel-owned mappings can set this flag.
+smbdirect: ib_dev[rxe11] removed
+=========================
+==================================================================
+BUG: KASAN: slab-use-after-free in kobject_uevent_net_broadcast lib/kobject_uevent.c:415 [inline]
+BUG: KASAN: slab-use-after-free in kobject_uevent_env+0x1383/0x18b0 lib/kobject_uevent.c:611
+Read of size 8 at addr ffff88802c191610 by task kworker/u33:13/1182
 
-This also eliminates another overloaded use of 'special' within mm.
+CPU: 0 UID: 0 PID: 1182 Comm: kworker/u33:13 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: ib-unreg-wq ib_unregister_work
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ kobject_uevent_net_broadcast lib/kobject_uevent.c:415 [inline]
+ kobject_uevent_env+0x1383/0x18b0 lib/kobject_uevent.c:611
+ device_del+0x605/0x9b0 drivers/base/core.c:3983
+ remove_one_compat_dev drivers/infiniband/core/device.c:1036 [inline]
+ remove_compat_devs drivers/infiniband/core/device.c:1047 [inline]
+ disable_device+0x1ea/0x280 drivers/infiniband/core/device.c:1339
+ __ib_unregister_device+0x2b4/0x480 drivers/infiniband/core/device.c:1571
+ ib_unregister_work+0x19/0x30 drivers/infiniband/core/device.c:1683
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-No functional change intended.
+Allocated by task 6226:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5563
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ uevent_net_init+0xd3/0x330 lib/kobject_uevent.c:782
+ ops_init+0x1e2/0x5f0 net/core/net_namespace.c:137
+ setup_net+0x118/0x3a0 net/core/net_namespace.c:443
+ copy_net_ns+0x345/0x7a0 net/core/net_namespace.c:582
+ create_new_namespaces+0x3ea/0xac0 kernel/nsproxy.c:132
+ unshare_nsproxy_namespaces+0xf2/0x220 kernel/nsproxy.c:234
+ ksys_unshare+0x4a2/0xa70 kernel/fork.c:3295
+ __do_sys_unshare kernel/fork.c:3359 [inline]
+ __se_sys_unshare kernel/fork.c:3357 [inline]
+ __x64_sys_unshare+0x31/0x40 kernel/fork.c:3357
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- mm/huge_memory.c | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
+Freed by task 12:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6508 [inline]
+ kfree+0x22b/0x6d0 mm/slub.c:6801
+ ops_exit_list net/core/net_namespace.c:200 [inline]
+ ops_undo_list+0x2ee/0xab0 net/core/net_namespace.c:253
+ cleanup_net+0x499/0x920 net/core/net_namespace.c:706
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index c3c98ea672c3..3cb8e2d4d65c 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -110,14 +110,6 @@ static inline bool file_thp_enabled(const struct vm_area_struct *vma)
- 	return S_ISREG(inode->i_mode);
- }
- 
--/* If returns true, we are unable to access the VMA's folios. */
--static bool vma_is_special_huge(const struct vm_area_struct *vma)
--{
--	if (vma_is_dax(vma))
--		return false;
--	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
--}
--
- static bool vma_file_bypass_thp_tuneables(const struct vm_area_struct *vma,
- 		enum tva_type type)
- {
-@@ -192,7 +184,7 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 	/* Check the intersection of requested and supported orders. */
- 	if (vma_is_anonymous(vma))
- 		supported_orders = THP_ORDERS_ALL_ANON;
--	else if (vma_is_dax(vma) || vma_is_special_huge(vma))
-+	else if (vma_is_dax(vma) || vma_is_kernel_owned(vma))
- 		supported_orders = THP_ORDERS_ALL_SPECIAL_DAX;
- 	else
- 		supported_orders = THP_ORDERS_ALL_FILE_DEFAULT;
-@@ -3066,7 +3058,7 @@ int zap_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 	orig_pud = pudp_huge_get_and_clear_full(vma, addr, pud, tlb->fullmm);
- 	arch_check_zapped_pud(vma, orig_pud);
- 	tlb_remove_pud_tlb_entry(tlb, pud, addr);
--	if (vma_is_special_huge(vma)) {
-+	if (vma_is_kernel_owned(vma)) {
- 		spin_unlock(ptl);
- 		/* No zero page support yet */
- 	} else {
-@@ -3222,7 +3214,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 		 */
- 		if (arch_needs_pgtable_deposit())
- 			zap_deposited_table(mm, pmd);
--		if (vma_is_special_huge(vma))
-+		if (vma_is_kernel_owned(vma))
- 			return;
- 		if (unlikely(pmd_is_migration_entry(old_pmd))) {
- 			const softleaf_t old_entry = softleaf_from_pmd(old_pmd);
-@@ -4765,9 +4757,7 @@ static inline bool vma_not_suitable_for_thp_split(struct vm_area_struct *vma)
- {
- 	if (vma_is_dax(vma))
- 		return true;
--	if (vma_is_special_huge(vma))
--		return true;
--	if (vma_test(vma, VMA_IO_BIT))
-+	if (vma_is_kernel_owned(vma))
- 		return true;
- 	if (vma_is_hugetlb(vma))
- 		return true;
+The buggy address belongs to the object at ffff88802c191600
+ which belongs to the cache kmalloc-32 of size 32
+The buggy address is located 16 bytes inside of
+ freed 32-byte region [ffff88802c191600, ffff88802c191620)
 
--- 
-2.55.0
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88802c191b00 pfn:0x2c191
+flags: 0xfff00000000200(workingset|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000200 ffff88801c042780 ffffea00009e2150 ffffea0000b76b90
+raw: ffff88802c191b00 000000000040002e 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2800(GFP_NOWAIT|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5277, tgid 5277 (v4l_id), ts 17982672979
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7417
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ slab_free_hook mm/slub.c:2700 [inline]
+ slab_free mm/slub.c:6508 [inline]
+ kmem_cache_free+0x40f/0x6c0 mm/slub.c:6635
+ anon_vma_free mm/rmap.c:137 [inline]
+ __put_anon_vma+0x114/0x3a0 mm/rmap.c:2970
+ put_anon_vma mm/internal.h:290 [inline]
+ unlink_anon_vmas+0x5e4/0x8d0 mm/rmap.c:536
+ free_pgtables+0x2e7/0xd80 mm/memory.c:414
+ exit_mmap+0x44c/0xa00 mm/mmap.c:1327
+ __mmput+0x12a/0x410 kernel/fork.c:1193
+ mmput+0x67/0x80 kernel/fork.c:1216
+ exit_mm kernel/exit.c:617 [inline]
+ do_exit+0x8b1/0x2ae0 kernel/exit.c:999
+ do_group_exit+0xd5/0x2a0 kernel/exit.c:1154
+page last free pid 5151 tgid 5151 ts 17918242618 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
+ __pagetable_free include/linux/mm.h:3804 [inline]
+ pagetable_free include/linux/mm.h:3828 [inline]
+ pagetable_dtor_free include/linux/mm.h:3927 [inline]
+ __tlb_remove_table include/asm-generic/tlb.h:221 [inline]
+ __tlb_remove_table_free mm/mmu_gather.c:228 [inline]
+ tlb_remove_table_rcu+0x2cf/0x380 mm/mmu_gather.c:291
+ rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+ rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
+ handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
+ do_softirq kernel/softirq.c:546 [inline]
+ do_softirq+0xaf/0xf0 kernel/softirq.c:533
+ __local_bh_enable_ip+0xff/0x120 kernel/softirq.c:473
+ local_bh_enable include/linux/bottom_half.h:33 [inline]
+ fpregs_unlock arch/x86/include/asm/fpu/api.h:77 [inline]
+ fpu_clone+0x11d/0x7a0 arch/x86/kernel/fpu/core.c:714
+ copy_thread+0x4ae/0xbe0 arch/x86/kernel/process.c:226
+ copy_process+0x4cf7/0x8370 kernel/fork.c:2319
+ kernel_clone+0x176/0x9d0 kernel/fork.c:2769
+ __do_sys_clone+0xd9/0x120 kernel/fork.c:2911
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
+Memory state around the buggy address:
+ ffff88802c191500: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+ ffff88802c191580: 00 00 00 00 fc fc fc fc 00 00 00 00 fc fc fc fc
+>ffff88802c191600: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+                         ^
+ ffff88802c191680: 00 00 00 00 fc fc fc fc fa fb fb fb fc fc fc fc
+ ffff88802c191700: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+==================================================================
+
+
+Tested on:
+
+commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=144ed3f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=4393dfdddf166f2de2b0
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+
+Note: no patches were applied.
