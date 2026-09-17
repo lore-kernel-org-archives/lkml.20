@@ -1,114 +1,144 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E741E4DDB44
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34286582BBB
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:14:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658112; cv=none; b=e0oK8sDgRX4T64I8s+A284bWOloGYoK/RWbNEKDRs/GDCB3qoe2ocJTaQVQHOcdluXqfPI++Fm1vJrtmFDIoqJmyYrKWiqfM6F6Z5pM48M8Kw7ye4P9N1+3z5R8TSYVnLcGeUuXmAgMi301JgyTNKxLNpDjbFLM+WqH54VqACis=
+	t=1789658110; cv=none; b=EkJTzu6Rqvl93adm7Pc1NwGiXacwwVjSSkJIXrK9019ZNy/znj3pVkaOtkH+nNpSu4NcvgvHlRsWugQn8S5oFcVmpTVHEUxQzYSf37nG/OQgfyn3tYxOP1sV+sAIIdeKD2SVuuWjFdKVAh1xnQjcNrolbpmhcfoRqNSf95TcKoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658112; c=relaxed/simple;
-	bh=lj1AArdURKntw/KnF8ugndUqAFz8UXcJI2HmidLS8Go=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=peXCvEwL6VN3HRS0gE6R5dSr72WJMdLT7jImOShHLb5EXvaacM80OgH5rEBuFm2OEwjVM3tA4tX9dyxavuO/6zHYKQ8jdd6MGCqkD4dhySMDckgfN3mXbM2C0z/sx5hhkp990vbXqpw2/dkANSlDweAI/nzkjejVGkwY9phynjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O6flIGCj; arc=none smtp.client-ip=209.85.216.47
+	s=arc-20240116; t=1789658110; c=relaxed/simple;
+	bh=d6UKzQKyPiGJsGM+Qu7tJG56YQxLOxqIMP9yGCsnkHs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IOFtQWFPclE+wHDHnN5wQ6mrlhYPCqFC7PfN7DOzmrg7igoUpeMI5wLz2wXaARMRXZ8IBzpVmpa5cexZfiZECfbBIG5SGEIrkBdZ7eT0Teaw6uirNzM2DDnVluCf11KIwyjp2769vRFSADWyrcuB5JXbnkUKuXNamcQe5wwK//k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gSOdclJR; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O6flIGCj"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so713627a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:15:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gSOdclJR"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469d20963so659418b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:14:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789658105; x=1790262905; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UlhivK+zlFu4a3uy9GJIwu4Lv0iGdPKrQsjr7JexLOk=;
-        b=O6flIGCj9rp24USOjCztpgIJePjlgnwlN8C5DvBkzvIBEKVxVT03prxyQXioWoRk6q
-         LHXkmZ/cMLYUhmVJkr/9KxlBGmM9sV2eyyX7pAt8w2GM3KcQ/nJmEImRZxGs4/pRqVzN
-         NmpSv6HmEIRENo2jQ0QdgeSVDJDJtlnFYqz4rW30tFRxP/tSb9tQ1zGnmCnvnLa9IhhC
-         OHorTofhHEC3Szg9AeosrOMiJn6XHTCyqgvWPTvm71U/SUjM28plNuFUvytsrQeMKmJV
-         9lV+XkiXhRDG3e1J+biR3ZCjqOBdeQwVqzZ+JRA5L0TAPfxp9xum1EEpEaxaw1xUaJ0x
-         4uzQ==
+        d=gmail.com; s=20251104; t=1789658095; x=1790262895; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rh2mXdJ4Gx0vDgozfrCs3n1I8ixRE20WMk7/6kOasWU=;
+        b=gSOdclJR0V/29vw/cXtzcSqZ7ML754aPOdcdxqZ3SUsmMrc7RZLXUOdgvdAypqoMdR
+         vqBvDYhnHtaUsIbla/38YGegMKDn51ycdplqKY5Bj1GCat9SwqT/75WBEigKSsoYD+hi
+         rdbKOhdWkDodYUEaYJZZJZzxh3nd+LeMYp/ddXvHgF5bgGYeSF5OTFFJcDFg213HH/ra
+         SPn+GQo2JX0ASebRqyw8wZl1TovpfiD/8CtuF2rWiMBhc7pwz/3KWjc61YZsfpOgFNxG
+         d+D4S0UG7UMYXtiBGDhygMQe3UGTLA5Ax0HtEvplebXT8Bgkb+ny5OhyLc0i5TLcVO0m
+         StWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789658105; x=1790262905;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UlhivK+zlFu4a3uy9GJIwu4Lv0iGdPKrQsjr7JexLOk=;
-        b=C2RnXYAsmFEx6DQ8rSGVwxhmErASJxqkBofQXxyhbMFMA8QTs3mh/BbgYenZuJrgwp
-         Cfhx6YkR4n/FNLbYcuDB7wtsIZfIeWcpBhV0B8Ia5YaF1g1IjQv52NtFn4R7CJ0LMvyz
-         2gjREwU1DFkOY4njg2LsDxxZaxkrpZ3TUmRR63L6W6Aanj7sD7DcB0QyJxlSy19Uc1iN
-         ZNUx18VUOynlB9VZokaOqBMHGDfWNFq+IjWygJKvRL4B6RfTF74YRAj/4Qdtvj5Tl76D
-         LvDoVehoWGnqNrX8+XVpTEXKktdgilfL7OIS3AVjXJMBWHlwjZZi/jCfNkL9PX9enlz5
-         3ZpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxq2ubAm7ppypm5hVwdGrPZ0eSGYEEmC4+XdLxA3+F34kOFqIU9kCrtfrVzahCzIX1Girb53BU02QABbMo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUiiEFcvGsCUcPKSwnF0e18HgaxgMM2sYiqotMT4Mk0LfaptsG
-	aiYSDfBchRPVLXxHBP13aGh8MIwe198Fna7P2/nEgLkKLjm01OU/fLDT0NLOSQ==
-X-Gm-Gg: AYBFou3QIbAljtR02xyvUMtFY7j3Qq9yjF7iLnItvBtkeCn+M/0MBNY1C73PeNKCT6q
-	4b14q+6DUXyHRtGb+eaINAjIrO027ghyooWKcCC9H3MPxAmDqa7+cHV1gq9gdobYG11sphLTV12
-	+u70zqwc9rILi1fW/QV2iW2gL2rHVFJMxbf+noKTuCwaWzdzaNF3lDnyVQh/JxVFaTr7LdBmj9I
-	2jaltMEENWSGc1y4uXexZeIb+usxRigCr4JCNtNS6BUzR3b6LQng3c2bVuOgUh3yW+fMzPve9OZ
-	iLZZ8XPLCgywv6lanUNj85bfcUgrSXTrMtamckxAedl66bwofHKnd6+3JvTHKXQNMK21kcuXNm4
-	Fk7cNojdYZwIOoLEEmiH4yF9KTO6bsVMveN48fNvZekIgqvQ7yDfP3mae/ep+6tggrnoQMRZC7A
-	7rB+p9OmNigiRfkVKlBM2fkrY/iLhitrG6EyNmvBkAtHa+sg55CAfi2nUHiwcOPXJx0lbvgt1FI
-	TybixQK7Oz4BaArF+raLiYpO1EgY9ktTq0tm0Fp
-X-Received: by 2002:a17:90b:3f4f:b0:39e:4c97:ce06 with SMTP id 98e67ed59e1d1-39e4c97cf1bmr761796a91.39.1789658105113;
-        Thu, 17 Sep 2026 08:15:05 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:48d2:6852:2cc5:a7b1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5af6593sm15799800eec.25.2026.09.17.08.15.04
+        d=1e100.net; s=20260707; t=1789658095; x=1790262895;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rh2mXdJ4Gx0vDgozfrCs3n1I8ixRE20WMk7/6kOasWU=;
+        b=QBRrTEojtVIhdATLum7cq+aPxjW7rnqlCUzDqGm+5ijTtYuJKBiIYdrzlEwD+OT0XN
+         4ke/Fa8kh0na01v0rhXbVNtBdl/QtcFoMmkYqKRbCnvEFOkStuZO8YF+MrnnYtDr+wvO
+         /a6HCH4jluagLYsH4Orpgd9yHuku9FEQi2Ar/i5cuwi+wed90pbStUYWYPDnf2FnQMWz
+         rqDxJjhpQQZ45ifOoz3u/NBvqZaqT/QKisBe1VlvBhMGpYuc/+Zw3ggMO3z7BsTZPd+7
+         IEtRMMEujDtr6VrMmgqMoaj/QAgWCoRcZBY1viqLIucVP3sk2bFPcsP1OYDji5uqpKaQ
+         zeBw==
+X-Forwarded-Encrypted: i=1; AKwUvBxdKs7pzLb0KRYEKRBVzFFS1jXF/qq+cEwj487nydrbKkaNI+JN69SS2I9i/WPtHx7CLRYW0c7Cqec/6KQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfKKGLbNmiXyQggZOyHpgPisVXMydSBoEATDcZZt5jQAvO7aGd
+	qGs3h0j1HpP60CCglRSzjpRqxgRuUKSz0UlVRU1GUUwCXBs/EtN+QRtcKnHAoUF8bY4=
+X-Gm-Gg: AYBFou3+FYGdXi9SUoYUbqyJr3uj61ij/ZxiOS88s2tM5PddMRRJiZQG6wWI4uHdr+s
+	n/zOyxpK+0JOkjlePcVdsPBkeGjc1b1muYGyo450jdgLhSHbloQULguRm2POd0hYq+5refVT+Vb
+	kcYmzZdG+AlY2M24peM/mnUxPRHsNmLKvipx/c7OujtZ+vHTky3J7ZwyrLfKtPBzcgbguv1ALVK
+	MvbJroE5Qxp/X1UHGPUFQJ1qhi/zxRoASXUW8cFFAX+oB/hcBe1+8FHEIHGL3h2Ed4c4rYlJyy+
+	1ovY5B7FKY364HeC1nMTu4g1P+jC1Ue1IAsoYWDZ7Q4dzmdMatUFafsOQbwZMf9XCcTBHW1KtwG
+	q3Ms5hXpG4SaRDCf4ihx9QDyV1xobfeB+mbNgkPQN8TQBgxlznhfYd81AoJ3Jw/8Lf/c48RjE2i
+	8tY8wwliw+JiHBJPQwY/DfKVooOhmVM4M947LMq7ELE/p6jsfOVPPb9pmZ7vP4wunA3MuUL+qFT
+	vyekeX0T+LB90LleRKHeIzqmTb8CUnfyQk=
+X-Received: by 2002:a05:6a20:6a0c:b0:3d3:adbf:777d with SMTP id adf61e73a8af0-3dd5f79059emr17452137637.25.1789658094318;
+        Thu, 17 Sep 2026 08:14:54 -0700 (PDT)
+Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50abc400bsm3523663a12.29.2026.09.17.08.14.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:15:04 -0700 (PDT)
-Date: Thu, 17 Sep 2026 08:15:01 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: dudl@cypress.com, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] Input: cyapa - fix runtime PM leak in
- cyapa_update_rt_suspend_scanrate()
-Message-ID: <aqwD1o6J4svIevWW@google.com>
-References: <20260916185015.2093520-1-vulab@iscas.ac.cn>
+        Thu, 17 Sep 2026 08:14:53 -0700 (PDT)
+From: MarkLee131 <kaixuanli0131@gmail.com>
+X-Google-Original-From: MarkLee131 <kaixuan.li@ntu.edu.sg>
+To: kaixuanli0131@gmail.com,
+	linux-ext4@vger.kernel.org
+Cc: "Theodore Ts'o" <tytso@mit.edu>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ext4: don't read past the UAPI struct in EXT4_IOC_GROUP_ADD
+Date: Thu, 17 Sep 2026 23:14:41 +0800
+Message-Id: <20260917151441.413135-1-kaixuan.li@ntu.edu.sg>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916185015.2093520-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
 
-Hi Wentao,
+From: Kaixuan Li <kaixuanli0131@gmail.com>
 
-On Wed, Sep 16, 2026 at 06:50:15PM +0000, Wentao Liang wrote:
-> pm_runtime_get_sync() unconditionally increments the runtime PM usage
-> counter. If mutex_lock_interruptible() is interrupted, the function
-> returns without dropping that reference. Add the missing
-> pm_runtime_put_sync_autosuspend() call on the error path.
-> 
-> Fixes: 672865080a8f ("Input: cyapa - add runtime power management support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/input/mouse/cyapa.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/input/mouse/cyapa.c b/drivers/input/mouse/cyapa.c
-> index 6e0d956617a1..5edf4fdbb373 100644
-> --- a/drivers/input/mouse/cyapa.c
-> +++ b/drivers/input/mouse/cyapa.c
-> @@ -901,8 +901,10 @@ static ssize_t cyapa_update_rt_suspend_scanrate(struct device *dev,
->  	pm_runtime_get_sync(dev);
->  
->  	error = mutex_lock_interruptible(&cyapa->state_sync_lock);
-> -	if (error)
-> +	if (error) {
-> +		pm_runtime_put_sync_autosuspend(dev);
+EXT4_IOC_GROUP_ADD casts the user pointer to struct ext4_new_group_input,
+its UAPI type, but sizes the copy by struct ext4_new_group_data, the
+internal type:
 
-Why does it have to be "sync" variant?
+	struct ext4_new_group_data input;
 
-Thanks.
+	if (copy_from_user(&input, (struct ext4_new_group_input __user *)arg,
+			sizeof(input)))
 
+The UAPI struct is 40 bytes, the internal one 48.  A caller that follows
+the UAPI and allocates 40 bytes gets 8 bytes read past its object, and the
+ioctl returns EFAULT when those bytes are unmapped.  The internal struct
+has carried the extra fields since ext4 was split from ext3, so the copy
+has always over-read the UAPI object.
+
+The two extra fields are not used from this path: free_clusters_count is
+overwritten by verify_group_input(), and mdata_blocks is used only by
+ext4_resize_fs(), which builds its own group_data array.  The compat path
+already copies the six UAPI fields individually; the native path does not.
+
+Copy the UAPI struct, then set the internal fields from it.
+
+Reproducible on v6.12.9 and v7.2.4 by placing a 40-byte struct at the end
+of a mapped page whose successor is unmapped: the ioctl returns EFAULT.
+
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+---
+Built fs/ext4/ioctl.o warning-free (W=1, x86_64 defconfig) and checkpatch-clean.
+The bug (EFAULT on a conforming 40-byte object) was reproduced under QEMU on
+v6.12.9 and v7.2.4; the fix itself was not runtime-tested.
+ fs/ext4/ioctl.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
+index c8387e6a2c6e..ea3cd8cdae25 100644
+--- a/fs/ext4/ioctl.c
++++ b/fs/ext4/ioctl.c
+@@ -1674,12 +1674,22 @@ static long __ext4_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+ 	}
+ 
+ 	case EXT4_IOC_GROUP_ADD: {
++		struct ext4_new_group_input uinput;
+ 		struct ext4_new_group_data input;
+ 
+-		if (copy_from_user(&input, (struct ext4_new_group_input __user *)arg,
+-				sizeof(input)))
++		if (copy_from_user(&uinput,
++				   (struct ext4_new_group_input __user *)arg,
++				   sizeof(uinput)))
+ 			return -EFAULT;
+ 
++		memset(&input, 0, sizeof(input));
++		input.group		= uinput.group;
++		input.block_bitmap	= uinput.block_bitmap;
++		input.inode_bitmap	= uinput.inode_bitmap;
++		input.inode_table	= uinput.inode_table;
++		input.blocks_count	= uinput.blocks_count;
++		input.reserved_blocks	= uinput.reserved_blocks;
++
+ 		return ext4_ioctl_group_add(filp, &input);
+ 	}
+ 
 -- 
-Dmitry
+2.34.1
+
