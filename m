@@ -1,102 +1,80 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A614AF67F;
-	Thu, 17 Sep 2026 09:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6F64B1D0F;
+	Thu, 17 Sep 2026 09:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789638001; cv=none; b=Pw1a/+Qel1QxnMdfQYC0qUmD/bAuPAQfgSm4fjgo5xr9fKsdWTcZZVArUKhZs7GOkR9Mf9XXSwAHbZ73h553UdPH+v9hgidTLPgvuUh9erSzWma66Rvn0EN+jHIY4OJ+0GdpZiv0YU1zqTnfOy33sJ4XAzUTXH1CLWUOiDWiWpw=
+	t=1789638020; cv=none; b=t72EL6S7KgN+pzYgzDXgCgHdZnbFdrlmv2JB6vMR2sEHqfMZhyw+TDFDgXqopek2kUPu85eVOKONtAW53hg0Qmddrxco7vIj9uSs6CXyu4pBxC0h6YQClfpg7iUjkDo8EchkBSI0w1s7zcTxpDu5x5qXK30Hb1Y31U/7jhMVpuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789638001; c=relaxed/simple;
-	bh=F1trdqHzs1JgC5v5fTb9iTjTOfhiHlP/mkgk6yUACd4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=t5Ri5rINCHv4Ksl5u0MMiqNKw1D5JkXcf0i3M63mrrF7tubIRk3wbrovy3ywmCxEoxsx6519ooBi64TdtquF3nkLmG8i/NUtYo9Ub5nbvXxZwix9GmmDtU6rdHyQ39Cbg0zZTcqyBkyvVKSig8wgDAtDQIC6XUUJTE9E+T7jjN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADH+EJLtatqTtJ9CA--.40665S2;
-	Thu, 17 Sep 2026 17:39:23 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: angelogioacchino.delregno@collabora.com
-Cc: bibby.hsieh@mediatek.com,
-	ck.hu@mediatek.com,
-	jassisinghbrar@gmail.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	matthias.bgg@gmail.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] mailbox: mtk-cmdq: Fix runtime PM leak in cmdq_mbox_flush()
-Date: Thu, 17 Sep 2026 09:39:23 +0000
-Message-Id: <20260917093923.2145007-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789638020; c=relaxed/simple;
+	bh=dYKhPsTzVH4KrFqy9k+jmhgSz5dJCz2S4pWY10zrzPo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=mBSDAwCdkjfoWDMPRBZponyeZB/N30C/IyTzrtyBI8iDBZXJS/X/+28dMiSpC/wEqLhLcxnQesX/toroH5qJSL8dPrbGkAoXDmIM7tKRWJqQgyoIlz2o1EWDnbzPdn5vIVxBqTUgvUP09mExUGJFv1w30+/Q7qmwzLnrYlkmrkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pj+pbhe8; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pj+pbhe8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70C301F00893;
+	Thu, 17 Sep 2026 09:39:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789638001;
+	bh=Oer9j0DWbCwhco3vi5BHRvWEzq7DRzgjgVjzSG/KR2s=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Pj+pbhe8Qj5Dw9OpUiShqFgGBt1I3DkuWfnr6JonXQxPsPNmtCs+SV9+Qz1uzqtaB
+	 F2fHUY/Ectz+DfzFM2YOzxYgqZ17inpfjymvVHnS9pwlW0v6pBGUKWPgkDLEeuhlro
+	 sz5xlDWE5CEZCrjStzJuYzCy7oYB5wFZGO6bEnxT6uXgkaSZxTSH3CCk+4+ROAJyQU
+	 Rip76Ah5eyACJ6e2velsVOGgabq5jdEA/EB9b5DJVR8dimgbm2MqkUIEWgZTOdTDDv
+	 0nst5BX3m2Z4hCwG1CKiLSDkRvm5BM2Wz7Xcf1zJjHNWwdjbNUWvm7618QtS5y+dvX
+	 t6hCSqEDTeDnw==
+From: Christian Brauner <brauner@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Tejun Heo <tj@kernel.org>, Christian Brauner <brauner@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Meta kernel team <kernel-team@meta.com>, linux-fsdevel@vger.kernel.org, 
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260910045406.485295-1-shakeel.butt@linux.dev>
+References: <20260910045406.485295-1-shakeel.butt@linux.dev>
+Subject: Re: [PATCH] kernfs: don't hold kernfs_rwsem across notification
+ delivery
+Message-Id: <20260917-keimzelle-koordinaten-sparsam-ca35d792d848@brauner>
+Date: Thu, 17 Sep 2026 11:39:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADH+EJLtatqTtJ9CA--.40665S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF4UCF48CryUZF15Cr13XFb_yoW8XFy3pF
-	Wjqa43GFW8XF47ZF1qk3Z3XFyaka40qrWDA3ySgas5Zwn8J3WrXa45K3sYqF1kCr15tFWU
-	J3s7t347CF1qkFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9E1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
-	87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
-	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_
-	JF1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x02
-	62kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr
-	1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
-	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20E
-	Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxV
-	AFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7VU1eWlPUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUNA2qrq00tEQAAsJ
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=911; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=dYKhPsTzVH4KrFqy9k+jmhgSz5dJCz2S4pWY10zrzPo=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt3ppr+UGWs6Tp/i/PyBxrhbznvEUrjjGUT9vNfWpV0
+ 9SFkfvaO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACbia8TwV6j68wF2pRWiqT8T
+ OU6nsyo8ijxR5JnxstRk0eNP6xk+uTMyTDvGMNmnfvmFXUzRi15LFoZvX/b+fV2tTc3ZvVtbH+/
+ dxg4A
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-pm_runtime_get_sync() leaves the runtime PM usage counter incremented
-even when it fails, but cmdq_mbox_flush() returns the error without
-dropping it.  The same happens when the GCE thread does not drain in
-time and the function bails out with -EFAULT.
+On Wed, 09 Sep 2026 21:54:06 -0700, Shakeel Butt wrote:
+> kernfs: don't hold kernfs_rwsem across notification delivery
 
-Undo the reference on both error paths.
+Applied to the vfs-7.4.kernfs branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.kernfs branch should appear in linux-next soon.
 
-Fixes: b0524f7c9635 ("mailbox: mediatek: implement flush function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/mailbox/mtk-cmdq-mailbox.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-diff --git a/drivers/mailbox/mtk-cmdq-mailbox.c b/drivers/mailbox/mtk-cmdq-mailbox.c
-index eadd340f8fee..07a8c2382c93 100644
---- a/drivers/mailbox/mtk-cmdq-mailbox.c
-+++ b/drivers/mailbox/mtk-cmdq-mailbox.c
-@@ -565,8 +565,10 @@ static int cmdq_mbox_flush(struct mbox_chan *chan, unsigned long timeout)
- 	int ret;
- 
- 	ret = pm_runtime_get_sync(cmdq->mbox.dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(cmdq->mbox.dev);
- 		return ret;
-+	}
- 
- 	spin_lock_irqsave(&thread->chan->lock, flags);
- 	if (list_empty(&thread->task_busy_list))
-@@ -603,6 +605,9 @@ static int cmdq_mbox_flush(struct mbox_chan *chan, unsigned long timeout)
- 		dev_err(cmdq->mbox.dev, "Fail to wait GCE thread 0x%x done\n",
- 			(u32)(thread->base - cmdq->base));
- 
-+		pm_runtime_mark_last_busy(cmdq->mbox.dev);
-+		pm_runtime_put_autosuspend(cmdq->mbox.dev);
-+
- 		return -EFAULT;
- 	}
- 	pm_runtime_mark_last_busy(cmdq->mbox.dev);
--- 
-2.34.1
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.kernfs
+
+[1/1] kernfs: don't hold kernfs_rwsem across notification delivery
+      https://git.kernel.org/vfs/vfs/c/23985e2b1f31
 
