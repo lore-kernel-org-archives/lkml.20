@@ -1,159 +1,177 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013055.outbound.protection.outlook.com [40.107.201.55])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5224FC8F1
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789651720; cv=fail; b=KcfMmpwWtzWEJxQ1nxGNhdZ5fVu6J+RfgqSAqzmU7Lih6vwT217jlUHkLGwT+AUDIkPbJYW1PBcC5BIirOZ7umWE9J3nqz2jvb1fYFeQXyAxqMXIMFIDVHU0LekxGI7nlfbLj2mxLSJSwfTQtT+JmZQQ3CvHiC+R80yRXHbq4Ls=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789651720; c=relaxed/simple;
-	bh=KuX598sFpmHAwE4Lv8RqFLJXliBzruMpV9nIouy6Mp0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=RK+C01ntdhbGNtxmsb8M2sbuW0gcam/MIdV1gSBqEvmix8zYB5FkavykdzvLT1PTph6i654/BgjyLcbROd+jR/uoFPcggLDFWQscjscnzIE3sMzl03MAdQclr8IIqq2tMiyiJoxBqbjP2O9H8CvcBbnBRqz8NQHGBj1XACzh+GE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Bv5OZQJj; arc=fail smtp.client-ip=40.107.201.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 383B6526AAA
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789651730; cv=none; b=KhHu5Avq7IBB6Bq6LlKQTYaEY1qpdt/TpflM6eRe+w7/p0pu14lcKK9qjnmEHvbqwtCVKVbP3irSBe7q13ynXVko2CukR6DSKho0Qj2ZflupLF4HIBDZEszH+HqWhB1kim5HuJLqi15wlmtqJ3I6lMq2aO3oNJQUdamPEBPYFVU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789651730; c=relaxed/simple;
+	bh=VFMW7WqD2H7/PGZFsYRVm7qkjfszn4L3nBbD2J+r3Uo=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=FzO3Bkq0TvEnYMAjBwpANKKIlxaIdm8CI6kDSgpt/p/QcPNWdmxah+i2tScgRMihh3rOCzpyxm4O6S6wOCq+mxZY8GyTU7hKTYKGW0SX73S+X93/G9aJxzoeANrtWd0racgRzorS/aXcDrus4fReOYMyfLnPuKDZNPnSQVQiXTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LK4faxT9; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Bv5OZQJj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E5G6ag3Gau7c5LrAlAFVuqXYNGsm96L4VFKr04hz4BP6It4L3Jxvn4SqDvMa2o0wyt0ead/YF3/sL9j5PD2zkpmQZDLjm/x0asB6WARg6WMhKu5S3Yo3WqhL4rtSG4VXqqUMi+JEg0pu7NSKm6thbBWoVDLLK9ysiFYfHcANTSbO806SDBtnat4rf5jueY7YIE0yMchAX2Vl2tqtuLPrLNsQcopPDk0+F+Fx7IiMwPaVkt/RwJCq/obUDmGHMRwhSNaOLeMKHbeSu/gt79bGcLjXooZSQYNLqT1NCFxBuYaO8cFsdqeybIgXRSPkTAPFUYa19O2bk9QpONXoP3odlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=USSaLadD5HZV0myvONbZ4v65zu3rnNL4yD8l48T4zWE=;
- b=BTAvTf9lqJfWp4Njqz10d1OAb06ZxOG8agg++DI/jbPIr1cBJcVyZ/Fkw+KExrcwADk+p+v3mMsEsaFYUyrAaRkjhnYoCiindfcGIeHRlAaA/4BW0aJnxunkwg6XOJ9jq4jAX4urUUsjQN0n0pBRHc1IKj0lqp8zmneTMRi44P1TUQqGNAy5p3ISCpZT6Gp28/N05BO5kMT8lbVPPOX6vB339fYtlWS3TVS0F+58sGh65QP2ZH3p6Wy0DGv+OHS+SzV8NE+WgXShtBhFODxMStvx9TQpUgBjsiPoFaHgx5iLyH6o2K+yz6fmEUflLK2hlMhQcmgodpRcZc1wGkp0LA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=USSaLadD5HZV0myvONbZ4v65zu3rnNL4yD8l48T4zWE=;
- b=Bv5OZQJjm1yhvvoWo+hVZlLOFfNttViYI96uocqaihF7UnXIGa8fTUClA/Zz1VLoJO+Z8Mm1BiLe/xjf1JGheoxmOWluDTUxUtJRSBHIUvvKjQWBevmXbNsCyU6GMGFgISiO67gVfLYinzSl+t1UbxJriveoy5ciJ5pC7ecjvI1d0tpb1v6Msp4A79Q8fdw4f0BXuxpR3sHn+6YUALC6MPQgi+/NB3aHWvuQfujWSIbyyaUBKM2bpA+UeVUZ7WrfpC0Vv/7/mRQHltubgBGfdjVQi0oysXKXXWRIEwQhHyreFtfISgN/ohEmKxyjPe9VGdJquEKs6nsUeQNfKNVSWA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by PH8PR12MB6819.namprd12.prod.outlook.com
- (2603:10b6:510:1ca::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
- 2026 13:28:33 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
- 13:28:33 +0000
-Date: Thu, 17 Sep 2026 10:28:29 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Alex Williamson <alex@shazbot.org>, Zhi Wang <zhiw@nvidia.com>,
-	acourbot@nvidia.com, yishaih@nvidia.com, skolothumtho@nvidia.com,
-	kevin.tian@intel.com, airlied@gmail.com, simona@ffwll.ch,
-	ojeda@kernel.org, alex.gaynor@gmail.com, boqun.feng@gmail.com,
-	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
-	a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
-	jhubbard@nvidia.com, ecourtney@nvidia.com, cjia@nvidia.com,
-	smitra@nvidia.com, kjaju@nvidia.com, alkumar@nvidia.com,
-	ankita@nvidia.com, aniketa@nvidia.com, kwankhede@nvidia.com,
-	targupta@nvidia.com, nova-gpu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, zhiwang@kernel.org,
-	kvm@vger.kernel.org
-Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO variant
- driver
-Message-ID: <20260917132829.GA3968357@nvidia.com>
-References: <20260905081116.106613-13-zhiw@nvidia.com>
- <DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
- <20260914121217.70fa0d93@shazbot.org>
- <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
- <20260915120148.7548a8ca@shazbot.org>
- <DLG7C7MLGSTC.2GSTD84WI595N@kernel.org>
- <20260916141718.GU3968357@nvidia.com>
- <DLGUPX9KPFKF.12CU304YAST79@kernel.org>
- <20260916162817.GW3968357@nvidia.com>
- <DLGXS4SCP3VT.28XXX09BL963U@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLGXS4SCP3VT.28XXX09BL963U@kernel.org>
-X-ClientProxiedBy: CP3P284CA0050.BRAP284.PROD.OUTLOOK.COM
- (2603:10d6:103:6d::25) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LK4faxT9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789651728; x=1821187728;
+  h=date:from:to:cc:subject:message-id;
+  bh=VFMW7WqD2H7/PGZFsYRVm7qkjfszn4L3nBbD2J+r3Uo=;
+  b=LK4faxT92Pkx7nBJQwxlMT2IQqBfNohNDZoVxS1etFYq8siwQ+aLmr4m
+   Lcn/vKMHW0iFXm3xgRMi2MNzOrlCUxCCJxis9dBqTPMp4JJj6gmoCJN6N
+   Kll0xK+5V21iXOgsBkC2Y1Ill3yYAx0Y4xsHoqBwV9GP6penp3l3k54KG
+   ZqaXmpgzSjsnwZoniAzfrELfNjszN6l/DcStYwWjNJqwZo43vgE8Ji4iR
+   waUjf674zsAIZzCkzWVZfEdiWVol3SGxW88QoCZzPeN7eh7fZlgRX9zSG
+   KfghTKIneCLYZXEL7eCWq+I9oWoULtfSEStBqIxN93sgmytWHwM/5cYjt
+   w==;
+X-CSE-ConnectionGUID: KNREj6pBQ9q5OcsXrSq19Q==
+X-CSE-MsgGUID: jgrgHmVzS4yOh1Po67+NwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77638084"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="77638084"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 06:28:44 -0700
+X-CSE-ConnectionGUID: B3l6yliPRmyukrASCpvjsA==
+X-CSE-MsgGUID: LRF0M+P1Shijj+3iwJQDRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="267549048"
+Received: from igk-lkp-server01.igk.intel.com (HELO fe5626a770c0) ([10.211.93.152])
+  by fmviesa009.fm.intel.com with ESMTP; 17 Sep 2026 06:28:43 -0700
+Received: from kbuild by fe5626a770c0 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x7CAK-000000000bg-26uK;
+	Thu, 17 Sep 2026 13:28:40 +0000
+Date: Thu, 17 Sep 2026 15:28:13 +0200
+From: kernel test robot <lkp@intel.com>
+To: John Garry <john.g.garry@oracle.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Ulf Hansson <ulfh@kernel.org>
+Subject: drivers/mmc/host/bcm2835.c:1343:3-16: opportunity for
+ str_enabled_disabled(host -> dma_dev)
+Message-ID: <202609171525.Y5oqkp1i-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|PH8PR12MB6819:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7b1aa42-289a-4ad4-c308-08df14bf924b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	12eB4ZCbevc2X2qN2YjH807CS14diBXrhqly8S+ZkrqB+40aVqSi/Ic3cGxYuJPXjTLzasvto4SDuh009xzh0RROey81Nj+iQx85R5p/U0uH6nxUK/IwNec4ZHqhpP4uWZAhJjnOGTMoX8RPiMs0UBXfet1Xqvk6Tv2WnQjFePj66jBwVnxqXovPRoH8WBxnEbC5GiX1JG84QC6e4lsouQ25J5xw0n68hQ224Q2JJJ3DiYfF1AqBb288DcZ3Ly0HQoeXjuV2LN4o1kgCRtuDkXdkUCtupop0dz4038GzFZDbUCL+j4L/XcfzJcb47oGyHo5PZ9Px0OScwVOo4LIAHHzgQLDDmJgCYhCC82oh60qgdCVNFW5aRh/HEbJcIPyYWiGvXCNz/4uRnpn2lbyRYgiVS44UOvYpbyD7l/Hp7XhEpvvT8LgCpRQp6uGIovdE7NgWtzYfUQrHBox+8iRC7aDwkQhlpSVJdQDAP3gX7lqgsdYEDai/H6ORAT0BHDJGwEVFiDvmIPoTe+QfgljOcf8RxE4PE07cWex2XW981RQba4S8nySPbvu6cI1yDGF+b/qIgV5NN/hkcXM3aadgMobLbDAfV71rznmlY50bHkQrjq0jEhoA4Bg5vBeI8gWs7yqF21A16NSIgDpulXlzgrDckLBKEBdOfgwuT+v8kgo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1STGUL9KRoQ/h/b3Wc9BCN+3ZikqqPJpBe5jVWg8Tfo8tUOabQ5y+bAdxFU8?=
- =?us-ascii?Q?RWlo+3lPLaY723Cm2rTPwjaRbdmewuzpYonwPMyvPh3iHXaiisf0U4li+dw/?=
- =?us-ascii?Q?QfLNO8PCpQ0v91bNOjTvlxbJghJzP+TtthD72CsUPusAOKWX2inqUAflhuZX?=
- =?us-ascii?Q?obV/yZT81yUtj0C60oeIEeD2cgiYNSemhg0nurkQL4iTCwAJeJzHnk/EdDkx?=
- =?us-ascii?Q?H3ze8E+BTJUpMe58DwRshEVI/AcJTIzRs3V5K4g9q6Wj8eQz9Cu7M+mKT/nR?=
- =?us-ascii?Q?I613Yz1vvEc82Tcz70wcXpxqId3zyV/pLKToON3KNKnHTqmo9579P4anTDgn?=
- =?us-ascii?Q?17QGyon9U8FmZMYRJpCmSREJQnAHrRgL0H0KhkNWeOJoHRLlvzu8vSUQmbKJ?=
- =?us-ascii?Q?NfpYVPIqBAi7e5QUzp8UvgdNb793+PxtDN2WF9gPDbMZBW/lP7Ow5J2Y6HXN?=
- =?us-ascii?Q?4bW2MLHes7g++0/epHELSiTbsw3HaRi0uLWkRkzDs64WtKGKfvRnMEDJxtWY?=
- =?us-ascii?Q?7jHPgmMfK7D+5On3w9APx5FdjjafuU3q/MGE29S+lbG59C5v++Ksi8mWp/b/?=
- =?us-ascii?Q?WAer+cggIw/LLlaryOMOobmYg3R5iZF/gRHoCUhZazRnbA5CaImR27fQnwbo?=
- =?us-ascii?Q?UozHsIKXRqtQ10fkJZJ5yB33SicQ468r1h5NSEXoUcr/RXb5AwRm4s63f3R2?=
- =?us-ascii?Q?pnepOYAs8UuDxR7dF975h8ppWsb4opIC8gcT7jZzKYwaAAKMwpdUUUGDCzUn?=
- =?us-ascii?Q?W3gpD4UQ9x8OPbl4bSvSH40qmtCG+sT9SZF0RHzd4axIdWLjPEJOgFxipW24?=
- =?us-ascii?Q?c/SyMuGg0SxqpmnoV86Ghp39JHqZufxTJZWif+dvOMkjlNKiVpAqjTE9/dRm?=
- =?us-ascii?Q?w0ATRhSjOPyBvzYIBTKFAfLxyrssTUQxpVIt+f2FuViHb+v1Xr08Vj/kOnXr?=
- =?us-ascii?Q?9HIeL5qYCAFI/V9WUdJa9VsV2X0SW5nYiP48OjTi1rJtifaaMpoinOTfouly?=
- =?us-ascii?Q?07nDG4/8DFTQCu6Cxfm4p1XItDIvdNntkWZqtMSxICrG7uRo+largZ6CL8Uv?=
- =?us-ascii?Q?dKd/p5/c/Bsyie4OP4zBG+ZwUQv3TBoh+AfiGfHSD57ls+Zu20NVJUYcDn4E?=
- =?us-ascii?Q?DMQnjdL5R07sl8jfa1QDBSezVjeYhKO7QabMX/qIHs0fqmarddKAEa8mHbyj?=
- =?us-ascii?Q?vsmogvVOTFJpFwmh8W4LyQCmosZFed4k3uwtKOB+5Tqs3R9yW1GWSmXrtATQ?=
- =?us-ascii?Q?Ojdna+E9bebIcok1t+w/t7lUJ7bKeFE0jUTwkdumERFOyxWx68FFHaqnULcl?=
- =?us-ascii?Q?Ql/reIJjVl9IrO7iB+L7qEQ6Y80mEstbzgj+30ij9seTo9xGCTCPCV0+c6jJ?=
- =?us-ascii?Q?ZqZUg3SZRSk2sK+JQa9cZUDbTT5RcmKRjDZC5bqJO6lcyEdwmzPT6vH8Olil?=
- =?us-ascii?Q?2/bMI7V/JxieuzKd2WOqOIapJutiWDbH1OEeXGmsTwL+VC9FdM9+NFLniQ6/?=
- =?us-ascii?Q?s8LKkAF6ZzrYdHCVC2N/yz5ZkSWnpbUKbA0QKSJW+os1W12CZ3HKoUrW3bvL?=
- =?us-ascii?Q?X83NXkszzuqcwDyx+GflAviX4YafdsGBI1fc6iUeT2pCWMnAIc95hEKeJLrz?=
- =?us-ascii?Q?czpH4QnOK6VLWGUA8q/lNf9yi/hSX5c3sdTA6U5YDCkP/jqRtZmwiWmJPv1p?=
- =?us-ascii?Q?xIUL/IhiIOiq3MaDcgJ02NOAIW4UexFr3mrNx5kAnh3Wdcqq?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7b1aa42-289a-4ad4-c308-08df14bf924b
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 13:28:33.6588
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rbDnTTE3ApTRKSBC0vxGOA4590Yv2mVxUjnhjehskAejwYx+GeZQufTqUeG5qSc9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6819
 
-On Wed, Sep 16, 2026 at 08:02:17PM +0200, Danilo Krummrich wrote:
-> >> TBH, I don't think it makes a difference; having Rust abstractions is pretty
-> >> much the same as having another driver. I.e. it would be equivalent to saying
-> >> "before we accept another pci-vfio driver we need to do some rework".
-> >
-> > Well, it is, but thats the point when judging effort..
-> 
-> So it seems that we agree that there isn't really a difference between adding a
-> new C or Rust driver in this regard.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   238650ef6c7c7cca08e032527329424c9fbd70e5
+commit: 5608386899d9de8030980bce3d05bded28f9bfb8 mmc: bcm2835: DMA mapping improvements
+date:   9 weeks ago
+config: riscv-randconfig-r2104-20260917 (https://download.01.org/0day-ci/archive/20260917/202609171525.Y5oqkp1i-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c20428cbb5f551d54520d492b1d27011e4076f5b)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
 
-To be clear I was trying to say I think you are are underestimating
-how much work this is and how long it will take. Including all the
-preconditon C reworks has to be included when considering how much
-work is involved.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 5608386899d9 ("mmc: bcm2835: DMA mapping improvements")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609171525.Y5oqkp1i-lkp@intel.com/
 
-Why can't we just go forward with what Zhi already drafted? Do we
-really need another side quest?
+cocci warnings: (new ones prefixed by >>)
+>> drivers/mmc/host/bcm2835.c:1343:3-16: opportunity for str_enabled_disabled(host -> dma_dev)
 
-I cannot forsee rust bindings for vfio until sometime in 2027.
+vim +1343 drivers/mmc/host/bcm2835.c
 
-Jason
+  1256	
+  1257	static int bcm2835_add_host(struct bcm2835_host *host)
+  1258	{
+  1259		struct mmc_host *mmc = mmc_from_priv(host);
+  1260		struct device *dev = &host->pdev->dev;
+  1261		char pio_limit_string[20];
+  1262		int ret;
+  1263	
+  1264		if (!mmc->f_max || mmc->f_max > host->max_clk)
+  1265			mmc->f_max = host->max_clk;
+  1266		mmc->f_min = host->max_clk / SDCDIV_MAX_CDIV;
+  1267	
+  1268		mmc->max_busy_timeout = ~0 / (mmc->f_max / 1000);
+  1269	
+  1270		dev_dbg(dev, "f_max %d, f_min %d, max_busy_timeout %d\n",
+  1271			mmc->f_max, mmc->f_min, mmc->max_busy_timeout);
+  1272	
+  1273		/* host controller capabilities */
+  1274		mmc->caps |= MMC_CAP_SD_HIGHSPEED | MMC_CAP_MMC_HIGHSPEED |
+  1275			     MMC_CAP_NEEDS_POLL | MMC_CAP_HW_RESET | MMC_CAP_CMD23;
+  1276	
+  1277		spin_lock_init(&host->lock);
+  1278		mutex_init(&host->mutex);
+  1279	
+  1280		if (!host->dma_chan_rxtx) {
+  1281			dev_warn(dev, "unable to initialise DMA channel. Falling back to PIO\n");
+  1282		} else {
+  1283			host->dma_cfg_tx.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+  1284			host->dma_cfg_tx.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+  1285			host->dma_cfg_tx.direction = DMA_MEM_TO_DEV;
+  1286			host->dma_cfg_tx.src_addr = 0;
+  1287			host->dma_cfg_tx.dst_addr = host->phys_addr + SDDATA;
+  1288	
+  1289			host->dma_cfg_rx.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+  1290			host->dma_cfg_rx.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+  1291			host->dma_cfg_rx.direction = DMA_DEV_TO_MEM;
+  1292			host->dma_cfg_rx.src_addr = host->phys_addr + SDDATA;
+  1293			host->dma_cfg_rx.dst_addr = 0;
+  1294	
+  1295			if (!dmaengine_slave_config(host->dma_chan_rxtx,
+  1296						   &host->dma_cfg_tx) &&
+  1297			    !dmaengine_slave_config(host->dma_chan_rxtx,
+  1298						   &host->dma_cfg_rx)) {
+  1299				host->dma_dev =
+  1300					dmaengine_get_dma_device(host->dma_chan_rxtx);
+  1301			}
+  1302		}
+  1303	
+  1304		mmc->max_segs = 128;
+  1305		mmc->max_req_size = 524288;
+  1306		if (host->dma_dev) {
+  1307			mmc->max_req_size = min_t(size_t, mmc->max_req_size,
+  1308					dma_max_mapping_size(host->dma_dev));
+  1309		}
+  1310		mmc->max_seg_size = mmc->max_req_size;
+  1311		mmc->max_blk_size = 1024;
+  1312		mmc->max_blk_count =  65535;
+  1313	
+  1314		/* report supported voltage ranges */
+  1315		mmc->ocr_avail = MMC_VDD_32_33 | MMC_VDD_33_34;
+  1316	
+  1317		INIT_WORK(&host->dma_work, bcm2835_dma_complete_work);
+  1318		INIT_DELAYED_WORK(&host->timeout_work, bcm2835_timeout);
+  1319	
+  1320		/* Set interrupt enables */
+  1321		host->hcfg = SDHCFG_BUSY_IRPT_EN;
+  1322	
+  1323		bcm2835_reset_internal(host);
+  1324	
+  1325		ret = request_threaded_irq(host->irq, bcm2835_irq,
+  1326					   bcm2835_threaded_irq,
+  1327					   0, mmc_hostname(mmc), host);
+  1328		if (ret) {
+  1329			dev_err(dev, "failed to request IRQ %d: %d\n", host->irq, ret);
+  1330			return ret;
+  1331		}
+  1332	
+  1333		ret = mmc_add_host(mmc);
+  1334		if (ret) {
+  1335			free_irq(host->irq, host);
+  1336			return ret;
+  1337		}
+  1338	
+  1339		pio_limit_string[0] = '\0';
+  1340		if (host->dma_dev && (PIO_THRESHOLD > 0))
+  1341			sprintf(pio_limit_string, " (>%d)", PIO_THRESHOLD);
+  1342		dev_info(dev, "loaded - DMA %s%s\n",
+> 1343			 host->dma_dev ? "enabled" : "disabled", pio_limit_string);
+  1344	
+  1345		return 0;
+  1346	}
+  1347	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
