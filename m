@@ -1,39 +1,75 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8D9269D18;
-	Thu, 17 Sep 2026 10:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C88D4CCDC2
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:57:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789642649; cv=none; b=Imlb390LSKAmBVvpzS4QFsxlhjdT3Tb0ixmYqjxFZMBxFdK1kefm/WKsoZVMdhXTbsR8Z3sUjT64FidRxh5NsNtlbLp9rXsiQS9K0lbLr6wFIMgkj9+ox4Xb25InVhSGf7F8Dkoc2x1nJ4HNT78xauLk6CrTBaqpEHzDQzEOn7Q=
+	t=1789642650; cv=none; b=cKFhT/+7y+ZT6uAIVc4noV/a1pDf+z7SQUPYrJ+DIjDn1VCrnq2Bmb3B19hAvoe9AKnOcN4bUwuafD71g20sODW7t1wYMC3NwqDpHTzJ2n/W7CdE+O+wyiKBnv4HjrF9fWizknQ0XZ6aP/RH9j5qBZxhvqqFiFyUokEkztOjdNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789642649; c=relaxed/simple;
-	bh=hDoSqsBm7GKBR+809pd6BRgpS2bitg9x/F9+9TgRMnQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OEuQOrMZNrTpJCmoqmAMmSMMhUcdP0zfMRbp4o978DLRYk5JbR7+ZnmdFigaug0tX4fvWTLHQdYA2zHqei+qf57w3jzs09qLgBADwa4ejZtxuruT4RDa6lJwvdsuy2HVD2KQjdlhMfZ9H5hWCA5XjRY0Bh7hLb1RxvSposYTK4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHtD6Jx6tqIxR_CA--.1135S2;
-	Thu, 17 Sep 2026 18:57:13 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andrew+netdev@lunn.ch
-Cc: atul.gupta@chelsio.com,
-	bharat@chelsio.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	ganeshgr@chelsio.com,
-	kuba@kernel.org,
+	s=arc-20240116; t=1789642650; c=relaxed/simple;
+	bh=q8YXsS2Mnty1xFmiXZ0wd8c6UDOy/RD/D6nsd15HyW0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cYLFVjtRDiy+dOdQShviSRf7stZVZ8vuCGzrCzWsQdfmNd3CyJYcP+PbypClwrqGH0PI+kb5aO3AjSxGl3ThLmdl+b4gqr8BJalmgUlVywUIEkDIlqGGHIGzeGQ210/ZqghloNDoN1ca7sO+CKy/ONCRnFfK/H0dStq0U7hp/h4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=fjvMlNYu; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="fjvMlNYu"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e83a388f8so4830205e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:57:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1789642634; x=1790247434; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vBiI+NCmLUKT+8KZgMAIP50JLY8JB1G0uYn55nZbHhQ=;
+        b=fjvMlNYu5m7ufVikOMpk21ncFdBgIlRcLQe5SLxtY8URK2O7HmWcOCmbMjT5BL+VbH
+         +o0XursZ7FrqKs6qMrJ53nXBeMT8rllB256GUaIj5ZldBZWptG7bApip4c0IbxT+/BIm
+         BQra8yFP+ohwUPDCAZLyYrSRcteaqcUDnHOGLtk4epFgSdtPsRC9cQCtS+UZSf8kRE7S
+         zUW/Cc2BeSBWG4kU0h55l7U8XnhuIeLW9EarR4y5betJDpH20ukxaXv5x7DDgCbayeIe
+         2RGkyNAO1yokUFZihc+VrTmuq6z4FCNCLKP/1AnEQBXvNpBEqg0JPtX5rojkh3sl4Xld
+         1s5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789642634; x=1790247434;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vBiI+NCmLUKT+8KZgMAIP50JLY8JB1G0uYn55nZbHhQ=;
+        b=a6mPIf/QPJU6l/Is6bGLdWxO3RlehKt3yI0HQfCtYvxo+Y8zhS9rFnY2itNmtde0AI
+         1fPiV21sdQsV8UFQ2oQ8XNOup4xfVW3gITfdGkSj1FrYOKxvr/Xa1cuHcvarPKffT4fm
+         8zO1K5DbO9R1AN5RrWfkEkOBJt2vTX5YUMQK8ebJ+v6nfLqoPIDqTDbMPAtmq2Doa+mj
+         hkxiTSyLKUTEXLPm9q4zOAIhUDsCWy9bwlNCZkHAPOX2dKaHqkrcR/yCL6BRSHsvQmzI
+         UlYuTNEGNhNf3srDBlnkF3+E7RPmwojXrK5gNehfzigO3kDYdy/bJSk7gR6SiEozm5EW
+         T1Yw==
+X-Forwarded-Encrypted: i=1; AKwUvBzGWFrhBwaQA1n3CVWs0K1lIDlr7DrdmykL1KKRvtjgaf7rTkfZeXQSA26NvIOM6d53ljtDDvOwQ3XaLAI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvx9LFiNQKtwmxnR6kv9Bq13lhn9XCMyGu0WC8JnxavOtXhObd
+	Wu239e7vPeUB1G9tVzJSFByAMLfLKyW/IG8SD4zF9LWH0PAHMfvH2AHkqA969EoyK5g=
+X-Gm-Gg: AYBFou3UrW028WCvKOrDcXFv5I+xxGHpJrDH+B24jja+K8rWug402oqxcjhpbdMLseQ
+	ycxZAoahm4cAKQYOjDWjg3x0xLGMQ3UZYno4cLM0IONpSyrm+vH64lUOYQp+8RvDiksClyVzqTh
+	ehhqWvrwFyo4ioYshW2b9VV2o7JZqd/Nddge2ZQYLeksLzlWLMwfVd9+DE9ffGqR/+3jl8MCCNa
+	VWORSohsb+4rU1B3NRcX0puR0mfQaE4lmwxLiOxl/AYn2h0bF3Piezuls7YOsAmiM6+CxP91nxM
+	GCFr1YPNdwY7eYdEe4lP4UizD9ubazkA7M35NBrj7i8KBCGmWjSty7//NCEIgX2D5h0T6YfM6oK
+	83LO2lCjsMzRxDZs8qzT7ziVSpCPJxjggYDcYX/HTLXZefyBKxejdVaVL48k4ZIomKf7hxZC97K
+	v64CW8959YEYrAvVhA4ttzaiPgszJVktAKk5e/6zQBGCNxV9K0X2MYNZmxGIsQ9Ge1bZhn3KYIa
+	rrB1J+v
+X-Received: by 2002:a05:600c:8586:b0:49f:bd3c:bc28 with SMTP id 5b1f17b1804b1-49fbd3cbd97mr26974735e9.35.1789642634000;
+        Thu, 17 Sep 2026 03:57:14 -0700 (PDT)
+Received: from localhost ([85.195.240.20])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4870bf1fe7esm14884635f8f.6.2026.09.17.03.57.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 03:57:12 -0700 (PDT)
+From: Bruno Produit <bruno.produit@trailofbits.com>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Kyle Zeng <kylebot@openai.com>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	richardcochran@gmail.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] cxgb4: Fix ptp_tx_skb reference leak in cxgb4_eth_xmit()
-Date: Thu, 17 Sep 2026 10:57:13 +0000
-Message-Id: <20260917105713.2147903-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
+	stable@vger.kernel.org,
+	Bruno Produit <bruno.produit@trailofbits.com>
+Subject: [PATCH] ALSA: seq: Serialize compat port-info ioctls
+Date: Thu, 17 Sep 2026 12:56:43 +0200
+Message-ID: <20260917105643.90102-1-bruno.produit@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,84 +77,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHtD6Jx6tqIxR_CA--.1135S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CF1fJw1rKF1rCw1xJr4ruFg_yoW8ury7pF
-	s0kFW8A3yvqFs7Wa1kAw4fWFnakw4ktryfKFyxCw1rZ3s8tryDua4j93yjyrs5Ars5WF4a
-	yrsFvFnFgrs5Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
-	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
-	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
-	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
-	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
-	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvE
-	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
-	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
-	Xa7IU5TOJ7UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMNA2qrrJpY0wAAs9
 
-When PTP is enabled, cxgb4_eth_xmit() takes an extra reference on the
-skb and stores it in adap->ptp_tx_skb. If the Tx queue is full the
-function returns NETDEV_TX_BUSY, and the remaining error paths jump to
-out_free; neither path releases that extra reference, so the skb is
-leaked and adap->ptp_tx_skb keeps a stale pointer.
+From: Kyle Zeng <kylebot@openai.com>
 
-Move the adapter lookup before the first error path so out_free can use
-it, then release adap->ptp_tx_skb on both paths.
+The native sequencer ioctl path serializes handler calls with
+client->ioctl_mutex, but the translated port-info compat path invokes the
+same handlers through snd_seq_kernel_client_ctl() without taking that
+mutex.
 
-Fixes: a456950445a0 ("cxgb4: time stamping interface for PTP")
+This lets concurrent compat CREATE_PORT requests pass the port-count
+check before any request reaches the serialized insertion. The computed
+integer port index can then exceed the address field range and wrap to an
+existing index. Subsequent subscriber teardown can resolve the duplicate
+address to the wrong port and access a freed subscriber.
+
+Take ioctl_mutex while dispatching converted port-info requests, matching
+the native ioctl path. All translated port-info commands share this
+helper, so their accesses to the client port state are serialized as
+well.
+
+Fixes: b3defb791b26 ("ALSA: seq: Make ioctls race-free")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Assisted-by: Codex:gpt-5.6-sol gpt-6-astra
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
 ---
- drivers/net/ethernet/chelsio/cxgb4/sge.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/chelsio/cxgb4/sge.c b/drivers/net/ethernet/chelsio/cxgb4/sge.c
-index 9fccb8ea9bcd..5d4c63d9a937 100644
---- a/drivers/net/ethernet/chelsio/cxgb4/sge.c
-+++ b/drivers/net/ethernet/chelsio/cxgb4/sge.c
-@@ -1503,12 +1503,13 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
- 	unsigned int chip_ver;
- 	struct adapter *adap;
+Trail of Bits has a reproducer for this bug that triggers a
+KASAN use-after-free and can it share if needed
+
+ sound/core/seq/seq_compat.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/sound/core/seq/seq_compat.c b/sound/core/seq/seq_compat.c
+index 22679dca9..80110501d 100644
+--- a/sound/core/seq/seq_compat.c
++++ b/sound/core/seq/seq_compat.c
+@@ -44,7 +44,9 @@ static int snd_seq_call_port_info_ioctl(struct snd_seq_client *client, unsigned
+ 		return -EFAULT;
+ 	data->kernel = NULL;
  
-+	pi = netdev_priv(dev);
-+	adap = pi->adapter;
-+
- 	ret = cxgb4_validate_skb(skb, dev, ETH_HLEN);
- 	if (ret)
- 		goto out_free;
- 
--	pi = netdev_priv(dev);
--	adap = pi->adapter;
- 	ssi = skb_shinfo(skb);
- #if IS_ENABLED(CONFIG_CHELSIO_IPSEC_INLINE)
- 	if (xfrm_offload(skb) && !ssi->gso_size)
-@@ -1553,6 +1554,10 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
- 		dev_err(adap->pdev_dev,
- 			"%s: Tx ring %u full while queue awake!\n",
- 			dev->name, qidx);
-+		if (adap->ptp_tx_skb == skb) {
-+			dev_kfree_skb_any(adap->ptp_tx_skb);
-+			adap->ptp_tx_skb = NULL;
-+		}
- 		return NETDEV_TX_BUSY;
- 	}
- 
-@@ -1723,6 +1728,10 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
- 	return NETDEV_TX_OK;
- 
- out_free:
-+	if (adap->ptp_tx_skb == skb) {
-+		dev_kfree_skb_any(adap->ptp_tx_skb);
-+		adap->ptp_tx_skb = NULL;
+-	err = snd_seq_kernel_client_ctl(client->number, cmd, data);
++	scoped_guard(mutex, &client->ioctl_mutex) {
++		err = snd_seq_kernel_client_ctl(client->number, cmd, data);
 +	}
- 	dev_kfree_skb_any(skb);
- 	return NETDEV_TX_OK;
- }
--- 
-2.34.1
-
+ 	if (err < 0)
+ 		return err;
+ 
