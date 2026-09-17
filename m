@@ -1,161 +1,126 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BFC33ADBF
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:56:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6041C3F8250
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:56:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789624606; cv=none; b=Pz5wwjRLTFDAZr7N2N8fDpafWyoS1uWq2moVsgVNxS4DaZboPa/nBHn5KmxWm5zqGyMqQ/i1kngCg/iz7M9lldP8lpLOK9N3WN8VKKokaAJt1PoJVyKdbfgsWohlGthslA/dGXbMEKFBaCqnNrDybGG07H1EVSK1Htix/tTkDg0=
+	t=1789624619; cv=none; b=uD8zaYE7Wj8FFbsgpNOO9EPnynkxBzVq8gYux/RGRV1o/umAwV70Beiz7JkPb63p9erenb2AXk+f9VzNY3VnHWSSr7wKfM++iwa+kY/R0o8pNoA70zAYQ2e856jMxIuPNSpdUAgrKe5Aps+lNeghu/A5BXrVMxD9ag0CpRzIls4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789624606; c=relaxed/simple;
-	bh=IRwy3v4RbeEQb7tDTKXoI8cnAJR4oVGR+vCDRpGGxF0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ahA0m8HcZ4F5Kaii1tLP/CvFkoiRn8FypW71gnak7CwMaU5mCHcUkD3XGV5MgRdzOeKFS1wA2g9rX/kXqW6HR8A7C5gpMMIpTPWNLEO8tQDjPodwm593RgeR4Ai6KaIrqC7yvX1g6YghoKSE8p0QvMsLQzwojnWPMzLwaIGzTQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MNpbfkV9; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Cx3pGQJk; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789624619; c=relaxed/simple;
+	bh=axjKGAd5Z/3bPAjXWt5In13wd/F8lTzuocyx1Fp1oag=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Nr8uur3BDwr5cJQsDytdB0CNBZfLJwSqWwNmOO560z8pm9ILw4X4GJolBT/luBEQULdMpJts9vkgGNx6gXC9vzavI4VyvkUidxuRfcbX7Wqyf687S5UrBHtoSIIfwvsFIrBzInIYsZusmJ+SK32T+3lAzUtWWrr+vNHkfrk7GN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Is5sYCTW; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MNpbfkV9";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Cx3pGQJk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789624603;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=a5IexDE5RwVjuRt7QVn2TA0PVUO278ucUqo3lGJjXXA=;
-	b=MNpbfkV9rcuZoJyvzbeGrnMwU+4p3svFlwF/SaXuh/x0ofE1rtl7jpF8rhnSu2eO2f5YUZ
-	+ioa/vRrGxZ3s11Su7myEwPlwdXl1EiKSDx0qhHWwuJ2fgZIDxldTHwYvE9cXnj1KrVajY
-	JhCWVCJmOll1SHE2UYb6AVztIt0JYOc=
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-539-tQEIuf7iO2WD4lqwaJUiLQ-1; Thu, 17 Sep 2026 01:56:36 -0400
-X-MC-Unique: tQEIuf7iO2WD4lqwaJUiLQ-1
-X-Mimecast-MFC-AGG-ID: tQEIuf7iO2WD4lqwaJUiLQ_1789624591
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a6f4ba619so584381b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:56:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Is5sYCTW"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d391aso3170535e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:56:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789624591; x=1790229391; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a5IexDE5RwVjuRt7QVn2TA0PVUO278ucUqo3lGJjXXA=;
-        b=Cx3pGQJkdGIa0WKNWPCo9W40OW6agjBtqMbLXozguwAQOZ09O0lmRIyVSdEDlNHL61
-         ZM8vYafka1jfEe9RU8lAlpW6X5zs4fhBkFKT+B1r3RWI2buvR7kugGta6SodmOPn+b30
-         zgktbNNNPcN5Y41EL1l9jxilkITlDseD+tCcwxICKsVCiLvMxgmKESPFMi0uPwpHCkad
-         GjE0DLNr996/spZQUAA+eWZrA4uUhvU2oaW0/JAVafkGhew2plOmrivnz2g0+9i4dHEt
-         mgaXsLuqLcnCw4vlkkLzhoZMuriyTFgfbkb64yeUIG2PRP7uDgre8DdBHnpv2I8g16/A
-         Nn2w==
+        d=gmail.com; s=20251104; t=1789624616; x=1790229416; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TXa2jqQKkTliyGqricPHkYJ8GTisx6eCrgeiQ3lmh5M=;
+        b=Is5sYCTWeKu+bYQiM7B63cAOJ4NXKZMHIlOUp3yaK8FDUJ1KZcoqjSR1X/xWKwnM1f
+         jVroKGDczKboO785tS2sjWOQFbNE27Vamk1fuf3HV83H7xU1UTPEJnWuiEwcSi2gI+hO
+         IBfCWz7SPEcShWvkoND1vmR4cBDHVVNQhDz1JDn6eBTMKsPOhe0bFyYCKgMjMspmipwB
+         Fa+fMNzl6fijGcFfsRQ/XBNuLIYcggAY7cSPhNoXTRrMoKywa6hAUstG8EDxh2QhjM8r
+         Jv2F8MldT4XWRNOTczerGxCD4Pl8fKHSk+kB5zf0IqPMm41uHVc/NfkH/0RR2n98lSQv
+         kRYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789624591; x=1790229391;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789624616; x=1790229416;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a5IexDE5RwVjuRt7QVn2TA0PVUO278ucUqo3lGJjXXA=;
-        b=tGjth647eCWEhFWCgmSMAcAIG2m8UyBBhYlrMHz6JoHT9rMke8mFMZL0dmFZMTgUdI
-         U9WsZHGQuK7PVzSf38L6zpZNRSFVlyadJucQ34ALvNBajeLC5/B/Qi8ihRD5+6iASRFj
-         EX4/oJ1zZKWUYFT0aPKIoPAICZuk+7UH2WdMUn4Q5cFJAF/qo6HrboBCtILpUNnllt+E
-         KlP9/F0zY38E6kg77dOZfjkGnDn5KHzUAuHQsKPbnaE+lsX62rLhhwdNWp82ROzRvOmv
-         ZF9p6XGsn47BWpVnesR4Xh1n5IkdyrX09xqtOEVwLUlOiFcO6FN1IpkEvNQeeY/Gc2jQ
-         pE2A==
-X-Forwarded-Encrypted: i=1; AKwUvBz4e48dZPyxMynD1PsUBZmq6Q1QtwfHJ+MEEmhHHSMFeNngQGV0MnzFe4cWEZ0QaQtAeLw2G3Wu6UPMHpE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiZQpREGbRoscEuXgKSkjTzenwAwdblZDkG/cbFbjE5zbB49tL
-	1raw+wYNtocusE7HZLsXh4jwCdinNeE+NGaH3ERXbghcLXLXh2hRi66Zwms/qgLybwb4nL162q8
-	3dXysoa1czlnETBvT45WrLnj8AaRo5zMPxl4o/lRSfXB+cZlFZSVQIWl20ug60rGntg==
-X-Gm-Gg: AYBFou3YJau5WQpBbe1Q/f5Z76h20iBcMFkF/6ZaeAL7np1T48DpWTAP6b/JQDsctob
-	d2UlLj8dQPJilIVi8ZHjM2p/wKKZyXf/fDEnm37sGAD0EtVrwBr5gfz/ytZzZ+XgusWjUPrZ9BF
-	C57VKC9FEnpYQ+2P24RxQ1NjAJc/NndtxHm8+hTLi0oNaQOKzHm9pBRkXQmjbdkccN7TjiKR9LG
-	ybH4o3Dul8q9/WTQsy3Pf8DQNP28ibgs7pDQhKvwZUU4jGx6FzZgJY+8Q/GjJ7iMIQgXAjpHL9D
-	Dcain916pTsrDU4f4jZk/A/bEK2exRTwzVlrjXWhIijioOUoR24PgiCK+HY4kCy8B0dxMGGNI2B
-	vyZRQiwNWqnzn3HxaiVgS0AAUIKjG6Qr7GKbBGol1zw==
-X-Received: by 2002:a05:6a00:bd0e:b0:845:ba94:a56 with SMTP id d2e1a72fcca58-872372c313emr11817049b3a.5.1789624590918;
-        Wed, 16 Sep 2026 22:56:30 -0700 (PDT)
-X-Received: by 2002:a05:6a00:bd0e:b0:845:ba94:a56 with SMTP id d2e1a72fcca58-872372c313emr11816999b3a.5.1789624590365;
-        Wed, 16 Sep 2026 22:56:30 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-871febde2f7sm2262500b3a.6.2026.09.16.22.56.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 22:56:29 -0700 (PDT)
-Message-ID: <dc160a37-5413-4dc0-bda9-ce75c388f665@redhat.com>
-Date: Thu, 17 Sep 2026 15:56:24 +1000
+        bh=TXa2jqQKkTliyGqricPHkYJ8GTisx6eCrgeiQ3lmh5M=;
+        b=1VpwSxvVqk7lOBUXcyedPSw+rkBOChj85VAQd11xyqTnQvE93yw8OHckWA06I9Oub8
+         n7meIIUnNzvFWHwB4uuBJPznBH8G+WQJjXpdOHLLFfLo/7FWHs0PZZZekXJgJANmPT3B
+         IFmg524GtecMnxMyvg6GFwpNhI7NFn7/p+5amLy3miUpkv1I2VArPmyi+TAb6y9NUNN7
+         QwszGgOJlTAXq/bFYT1CAjyIslOD1JN1TrEd5aWdH3IPpuws6Go6BWcZs+WR00FSka3p
+         JuxkXJQ+0e6fNJKk83MbzQV/cVvi+1AaMoJ9qgF3H1no7VfQXVm15Hnd4m5Qktdha8Xe
+         2I7A==
+X-Forwarded-Encrypted: i=1; AKwUvBwNHMvnvSLuypZPJBraESqjO8foxVNpL7MFmkAfGY6KYCNni93FqqthdzfhRHG0abJyemCGL94y8rb9vSY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaNd4+OwY4JCkD3nEM3NAuL5dSjq7VuM6CHWTaWE4Hs1XXEjCX
+	fq7d+TVtuTKAyGqQfc79FVZR49uIGbAHcYFiXGuia4odSqA+RWgNqC4g
+X-Gm-Gg: AYBFou01L7SPP5BwTQ1S2VupQatHnZsa+Cl2xmXTy5n7ZFTzbLJCMK0k6WFgvCYzoKM
+	3Hd+l9MvY2VzwIS2+FjgXqknE2IxwQsvzu37dOoMtK7IOMA/qpULoeb/1swtZarJhYsoBtmOJar
+	gxqCBmga1eGhEUiJs4asCrXtX42Pb/CrRyqI+rJywepRUKJ2zazlUa5dTHb5lHW2925tx77rIrB
+	ramfpNCzpacpju/CW7Kd4GaeWl2QVEyN94AJy45qhnaUk4xjmgGoq85mJzh5hJ/c3qb8VG5EL6p
+	w4rG+BIoZDt6TD8h2eBdd7WPnDJkJGg3GpCSTS0l71jwpvFlNSB5HfLqkAu9CQjkWOIcL+zXDP5
+	ZBh8wMdW8lwD6BN6+JUDKQKmeOAtOTWI8I3FxAdbAnDtIdy8bvfJ+LxJDM31bgWjfxOa0PTaBei
+	WDUOA6wFf9DDXnkBPj2nwLz2atH/DYvOkArXoPesX7HjMIrVT0f/GGQrQbnlHKJXNeBWAkYpdmr
+	TMg4/uB3G1DdkSSq1Iwrt5sHEzIt0GseaGAm2OWyxMsMi1IMNj5OlLnBgOS+jAU84j16Aq0QQ45
+	6ijq+GhNqPIr1O1Wy3aB05621RAcGfmzhXScZjd8a7NktDXp3ExbiarfFupd/g2b4lIlkHZ6q9Z
+	G6YT4AVjo44z7NO2jGUorPZeYww==
+X-Received: by 2002:a05:600c:c8f:b0:49c:fc6c:be15 with SMTP id 5b1f17b1804b1-49eb733c62dmr64900215e9.27.1789624616385;
+        Wed, 16 Sep 2026 22:56:56 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-9dc6-c001-54ee-4741-4927-0a28.310.pool.telefonica.de. [2a02:3100:9dc6:c001:54ee:4741:4927:a28])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e847eab65sm76230685e9.2.2026.09.16.22.56.54
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 16 Sep 2026 22:56:55 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Haren Myneni <haren@us.ibm.com>,
+	Dan Streetman <ddstreet@ieee.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-crypto@vger.kernel.org,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>,
+	Rae Moar <raemoar63@gmail.com>,
+	linux-kselftest@vger.kernel.org,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] lib/842: depend on the decompressor for KUnit tests
+Date: Thu, 17 Sep 2026 07:56:45 +0200
+Message-Id: <20260917055645.26780-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: resctrl: Catch and propagate error from
- get_cpu_cacheinfo_id()
-To: Andre Przywara <andre.przywara@arm.com>, Ben Horgan <ben.horgan@arm.com>,
- James Morse <james.morse@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>,
- Fenghua Yu <fenghuay@nvidia.com>, Tony Luck <tony.luck@intel.com>,
- Dave Martin <Dave.Martin@arm.com>, Yin Li <yin.li@oss.qualcomm.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260902143757.3469690-1-andre.przywara@arm.com>
- <ea42f2a7-f4f7-46ab-a5e0-239c74174499@arm.com>
- <2c682691-3037-4d62-a941-bc41baca35aa@arm.com>
- <4f35abf6-6dac-4c60-9ece-c1af02a98c9c@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <4f35abf6-6dac-4c60-9ece-c1af02a98c9c@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/16/26 11:34 PM, Andre Przywara wrote:
-> On 9/16/26 11:49, Ben Horgan wrote:
->> On 07/09/2026 13:59, Ben Horgan wrote:
->>> On 02/09/2026 15:37, Andre Przywara wrote:
->>>> get_cpu_cacheinfo_id() can fail, in which case it returns a negative
->>>> error value.
->>>>
->>>> Check the returned value for this error condition, before passing the
->>>> value on to other code, which would hide the negative number in some high
->>>> value in the unsigned type.
->>>>
->>>> Fixes: 36528c7681b8 ("arm_mpam: resctrl: Add support for 'MB' resource")
->>>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
->>>
->>> This looks good to me. Out of interest what led you to find this?
->>>
->>> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
->>
->> I seem to have been a bit hasty here.
->>
->> Sashiko points out at [1] that 0xFFFFFFFF is the only value we were previously considering invalid
->> and that the value coming from dt or acpi can provid other valid values that would after this patch
->> be considered invalid.
-> 
-> Fair, and I can easily change the check to only check explicitly for -1.
-> 
-> But this is somewhat broken already, right? I mean the return type for the existing get_cpu_cacheinfo_id() has always been "int". It looks like this comes from the x86 world, where the cache IDs never get that large? I can have a deeper look, but my gut feeling is that this is practically irrelevant, since we barely see Aff3 at all, not to mention high values of it.
-> 
+842_DECOMPRESS_KUNIT_TEST selects the decompressor even when no other
+option needs it, including through KUNIT_ALL_TESTS.
 
-I guess we also can exploit CACHE_ID flag in struct cacheinfo::attributes.
-struct cacheinfo::id is valid only when CACHE_ID flag is set. So we would
-introduce our own helper as below, where an extra return value to indicate
-the (returned) cached ID is valid or not.
+Depend on 842_DECOMPRESS as required by
+Documentation/dev-tools/kunit/style.rst. This also prevents the test from
+promoting a modular decompressor to built-in.
 
-In drivers/resctrl/mpam_internal.h:
+Fixes: cca072cb1423 ("lib/842: add KUnit tests for the decompressor")
+Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Closes: https://lore.kernel.org/r/CAMuHMdVcZ5cV4-HrjLYfFKh6UshiVxq5eXCNyp0Z1k_SMAvF5g@mail.gmail.com/
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Follow-up to the accepted commit, based on cryptodev-2.6/master.
 
-/* NULL is returned if struct cacheinfo::attributes don't have CACHE_ID set */
-static inline bool mpam_cpu_cache_id(int cpu, int level, unsigned int *id)
-{
-         struct cacheinfo *ci = get_cpu_cacheinfo_level(cpu, level);
+Testing: Checked Kconfig dependency resolution for eight x86_64
+configurations before and after the change, including KUNIT_ALL_TESTS
+and modular/built-in combinations.
 
-         if (!ci)
-                 return false;
-         
-         if (id)
-                 *id = ci->id;
-         
-         return true;
-}
+ lib/Kconfig.debug | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Gavin
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 48201092b3df..49f74005394b 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2228,7 +2228,7 @@ if RUNTIME_TESTING_MENU
+ config 842_DECOMPRESS_KUNIT_TEST
+ 	tristate "KUnit tests for the 842 decompressor" if !KUNIT_ALL_TESTS
+ 	depends on KUNIT
+-	select 842_DECOMPRESS
++	depends on 842_DECOMPRESS
+ 	default KUNIT_ALL_TESTS
+ 	help
+ 	  Enable stream-validation and boundary tests for the software 842
 
+base-commit: 9e06d371730b841ad8fe79ebfccf0def9470201f
+-- 
+2.39.5 (Apple Git-154)
