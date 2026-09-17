@@ -1,60 +1,40 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947633890F6;
-	Thu, 17 Sep 2026 15:17:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B61D550DB8;
+	Thu, 17 Sep 2026 15:17:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658253; cv=none; b=Hka2ORkNgy0GNzdXaJUD3fp7X3EA2P+FSbIZqxeoaDxwQIG1Whf4PBtEI/d6UPsukih/W+5mU4IaUw57S1spHWH/yA4a69h1ndmZAhIuAb4rVWr3crtV/MNe2/l/9CE28AOA5vcfcu7Jm4jR/XL4gIodMLziRUtd5TKWAkRcnQw=
+	t=1789658272; cv=none; b=XbGrl/6WG3j/DIMOqxXVvXSNRGfwuHUDniGTmVl86gW34aa6AXW0+rEdawC8BYcy5DHhaHkqZEyGyDo2igh0rsXzluZ/W3fs7uwOXJQPwZz29ZPJk8xdQ+x+TQW0hBhz2Brp5yH+rqEnvqgWNqHnE3kDw+015tS/pTiAPE8r6O8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658253; c=relaxed/simple;
-	bh=NT3+ATGeONp3oK/FSMfxmNCRnlixycSJ6Gkz34ZYjfA=;
+	s=arc-20240116; t=1789658272; c=relaxed/simple;
+	bh=WCjWZ4ko8FeIN8sqh99s+ccnuIOlIyUFY3KoAf3vhJI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CIXOiejKELYcD8e0BQUbBVP7tNhXbG5EqvpNbqCj07F5GXonK+LLopm+IxeDbGHjhNGToOggDwItyfcU9yned1DL8SRxqYbHwILWyh1vHewF1vzLVlVtZ09+11HZn6rEb0SDj7D5c2cdt3cD6E7VScogO8iZknJ2vJFgLjLTOtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oAa8WcM1; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=DyMDjRw5+aDh8hZnKDT7OXnM2SuokGLjcAG4tGIXSmHRrnXZ6NblZK1icyUJ/+uLLHEOKEBQHTajbdK1rgLDWBxvk3ocNFsv4mFDuNTtfkpiWVLE5Uc9moTbwR/xVWe3Kt8ZUhZEEGMisF5CiomDmLy83pv8SOpzi8ryyYF4kb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wjSpXKYJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oAa8WcM1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789658245; x=1821194245;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NT3+ATGeONp3oK/FSMfxmNCRnlixycSJ6Gkz34ZYjfA=;
-  b=oAa8WcM1ZSzk3yiUysZnZDBs6jHcCMvFVbdTwCuB8Yssh1NGFhTz0ysB
-   QsZDZYoveaPBF00SB8/sNcaD8Zeu+mpfADFEnLxzWP9/8llYDvPc0dSLt
-   bs8k7CeAej2dZZeJTXaLRZnTlFJTpjinBc2TrBdjHzkKaifl3aNqk8Hzc
-   KjnP1FEZO4BWxI1TTAsgarNkOc+sS82VLUlxQgfe9Len4dTihtKfJt3Tr
-   kD8rPr0dGgzP0vBEvVeV2iJeWod5i2BWzbQs8E0cCUJpM01Y4yEgkDtds
-   QdDiFev5LATs6GGe7yTBm/5Og1/Ab1Iz/sNtKblU7bfApDxKqHXEnsCoe
-   A==;
-X-CSE-ConnectionGUID: NE5o52KpQsWe9KPz0ed1Jg==
-X-CSE-MsgGUID: AqlkBajiT3+UjFys79mhvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101436946"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="101436946"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:17:17 -0700
-X-CSE-ConnectionGUID: y+czv+RFS/upre1CRvYDWQ==
-X-CSE-MsgGUID: yA8acciLQymRCApaAYukRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269590351"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:17:15 -0700
-Date: Thu, 17 Sep 2026 18:17:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Kent Gibson <warthog618@gmail.com>,
-	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] gpio: cdev: fix kernel stack leak to user-space in error
- path
-Message-ID: <aqwEeLLuIC1AoLQ1@ashevche-desk.local>
-References: <20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wjSpXKYJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B99A1F008AB;
+	Thu, 17 Sep 2026 15:17:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789658241;
+	bh=06xNhlMbIFLF21+BuJrYXqeFqRP7MJS9PBsX0UaCkhQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=wjSpXKYJHPFycTzd1iXnjgHzdvBxBhlFzL2mfY2SS5StsMkvkflCULZj9hBz9mnoS
+	 YK9wAs0H+AZPtBikMp4GcXgoLGh1OBadn3Yf4BJKhfmexFcZMZ81KEfF6COFdLEwcV
+	 EBLxm+bEMe11XktZ9D2lkLo8HDjGeISOIrlT7adU=
+Date: Thu, 17 Sep 2026 16:15:26 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: zjamg <ndaugoing@gmail.com>
+Cc: Michal Nazarewicz <mina86@mina86.com>,
+	Robert Baldyga <r.baldyga@samsung.com>, Felipe Balbi <balbi@ti.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/1] usb: gadget: f_fs: Fix NULL pointer dereference in
+ FUNCTIONFS_ENDPOINT_DESC
+Message-ID: <2026091710-trapper-sudden-0d05@gregkh>
+References: <20260917135337.65444-1-ndaugoing@gmail.com>
+ <20260917135337.65444-2-ndaugoing@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,31 +43,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260917135337.65444-2-ndaugoing@gmail.com>
 
-On Thu, Sep 17, 2026 at 04:39:05PM +0200, Bartosz Golaszewski wrote:
-> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
-> return immediately before zeroing the info struct we'll end up passing
-> to the user-space later in lineinfo_get_v1(). This may leak the kernel
-> stack contents. Move the memset() before trying to acquire the SRCU read
-> lock.
+On Thu, Sep 17, 2026 at 09:53:37PM +0800, zjamg wrote:
+> When user space sets up FunctionFS with only full-speed descriptors
+> (e.g., flags = FUNCTIONFS_HAS_FS_DESC) and the gadget operates at a
+> higher speed (such as USB_SPEED_HIGH or USB_SPEED_SUPER),
+> config_ep_by_speed() detects that the function lacks descriptors for
+> the current speed, logs a warning, and falls back to full-speed
+> descriptors. The endpoint is then successfully enabled via
+> usb_ep_enable(), and epfile->ep becomes valid.
+> 
+> However, when user space subsequently issues the FUNCTIONFS_ENDPOINT_DESC
+> ioctl to query the endpoint descriptor, ffs_epfile_ioctl() selects the
+> descriptor index solely based on gadget->speed:
+> 
+> 	switch (epfile->ffs->gadget->speed) {
+> 	case USB_SPEED_SUPER:
+> 	case USB_SPEED_SUPER_PLUS:
+> 		desc_idx = 2;
+> 		break;
+> 	case USB_SPEED_HIGH:
+> 		desc_idx = 1;
+> 		break;
+> 	default:
+> 		desc_idx = 0;
+> 	}
+> 	desc = epfile->ep->descs[desc_idx];
+> 	memcpy(&desc1, desc, desc->bLength);
+> 
+> Because user space only supplied full-speed descriptors,
+> epfile->ep->descs[1] is NULL. Dereferencing desc->bLength triggers an
+> immediate kernel NULL pointer dereference panic.
+> 
+> Fix this by falling back through lower speed descriptors if the current
+> speed descriptor was not supplied, matching the fallback logic in
+> config_ep_by_speed() and historical f_fs behavior. If still missing,
+> fall back to epfile->ep->ep->desc (the active descriptor), and return
+> -EINVAL safely if no valid descriptor is found. In addition, mark desc
+> as const to match struct usb_ep::desc and avoid discarding qualifiers.
+> 
+> Fixes: c559a3534109 ("usb: gadget: f_fs: add ioctl returning ep descriptor")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: zjamg <ndaugoing@gmail.com>
+> ---
+>  drivers/usb/gadget/function/f_fs.c | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+> 
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Hi,
 
-...
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
->  	unsigned long dflags;
->  	const char *label;
+You are receiving this message because of the following common error(s)
+as indicated below:
 
-It might be not obvious for a reader, perhaps a short comment why it's done
-here?
+- It looks like you did not use your "real" name for the patch on either
+  the Signed-off-by: line, or the From: line (both of which have to
+  match).  Please read the kernel file,
+  Documentation/process/submitting-patches.rst for how to do this
+  correctly.
 
-> +	memset(info, 0, sizeof(*info));
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
--- 
-With Best Regards,
-Andy Shevchenko
+thanks,
 
-
+greg k-h's patch email bot
