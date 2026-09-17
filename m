@@ -1,184 +1,115 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4293546DE
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:30:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 322AE30216D;
+	Thu, 17 Sep 2026 05:31:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789623053; cv=none; b=ZMQzkAY8fhoAGfe4vJjUi4REUNu3Mni/uzpQ9Kt+eNH5cG4RVUpnj3hcHL4K4yzaUTbuYvXTZH1GCiCFGX43T47F85+n+tXjkjJJv7tODK8G18oebJvA1JTIYUD1y1GlpcPoWWL8zbrdc38NsiBnJ5lY/UeaOy+ykT4jXnH596o=
+	t=1789623070; cv=none; b=pQfITuilME2P9w/epDqxIQG8wX9miLXqumwa+SmbL/fW1jVQvYMmZr2+aoDQjp9efUVg0CsvAI9aZ2sz46PH6AnHP6bS0B1by5yV9mJ5roZUTaw7xevEPp4vEvftwLGOwYgc6m3fQPT8GLGmAkqJBN58IQ4uut26LcSZrA7DG0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789623053; c=relaxed/simple;
-	bh=x7tKdQKG0sWWcxPRX+uUg1aYDnd/OPPFByjyr1enwkU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cL2cJeoEHpDw3C4Wv2VBvu8wrOIF2ksQ3AyX+RNU5VVd0lxKVkAHZz7mFHHuY84mYddCLAvKtcxaxdK3IGQVqYdashdM7zQJqhx3MXzTOb6s9uewvgeDMQnr++rA669oRmyhiApYZcDLx2KV9EOdsFVKJOwwnq7ohdy4bUW4YFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ggCgWO7r; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789623070; c=relaxed/simple;
+	bh=33pHxhqcKOACoiDbk8F25AIt1rOFzy0h0XB5mJ7Slew=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MtNGP8zQujwTmFNhkd+tlOQrc1UzLb8pH21E9iII2pVjsMNc0fUV9vY8tYEQLOYRi9QtF6CZhLJgaOwV295eEREk1JPmTpk+U/tsPjGDKvPL6d4+QDg6eq5tXClhL/C61Aonwmnw11XWahCrpuNIEbuWiXmWGDeF7iWtKmYVF5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=nODgqGEV; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ggCgWO7r"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fdc579daso4584705ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:30:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789623051; x=1790227851; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/8rYVhg/v6BbsXS7Hdm4I0mlpI54bk8irnJCIlnxFJI=;
-        b=ggCgWO7rVrOciBHAnAwhiTPaAF+iPfbXMiik5N9TXTVDgbmSWi8GkVkjb0T8aul798
-         BLgLCXLyHJtgOBXiPEjA4eUfj7IXZ64ak3UmUrYLQ7myHCOibsRZ+QdHYVLK8dKxZ0nv
-         j0yHep/LgblNlstKNohfypQlGTwqneuvNsRK7iq4d1QoWb35nLbNwVivo4RiQDq5Em/C
-         Kb8fpPDiMKuF0svgVShkieTqw2iN4ccO1IwPZ3AXlNKpJQz8yFu+eQ3J3AEyBOWD/vVd
-         VvUPna90+iXSCOneYxV5AgR+hP3yFFtAU8RrbMH0YCqigpArFqJVO595n6ZIPVNlfq5v
-         wqUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789623051; x=1790227851;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/8rYVhg/v6BbsXS7Hdm4I0mlpI54bk8irnJCIlnxFJI=;
-        b=oU3INVGYefxj+2bNkeQg5z8II8ncc50x6a1EPDIXPrvxsU3tBAuNNj6k0Ms/0f7P9V
-         z892AkYjiOev17GHw/Ef5MP4r56qyjbJJGA+nz0hxyxssNV3oaeCrOm9eLWVXOzML/K/
-         3b0NCOQht1OxK0vb5Ckki/8KhG04mTTVyH/p0y2meE334DkC778sYPmHcj6kEQN8dKrZ
-         fkq/+hCotwEGdxMdNaqzRihEz/RIwBIY9UL6OigIvhgW+YDKy6TRwqfhEf8os8wqamix
-         hdK9u6+dNpbBX3AUb++wO8ELwgHIJl0O00BVdB65gK6pn69zqPR7gdoRT/D1ALkXRhzD
-         SGiA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/KI4oJcfD5MZDf5zBXpt/IfGTY5hROiQ7orL5dLhNihn/J8k/lApE/MVziZmggbBUjBeWyZMnmfO2p5Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/uivkOdoE/qw35Pf5cyCu6BEUvwQwtjb+LFYSDztgWm4xBKlH
-	99DKwa3JXADWxspFbdQlJ066lcAgyHpd5v3sWgu0EumG/R1EryqSNJ1E
-X-Gm-Gg: AYBFou1HmEnxcwRJ9wVU4Cu2rR4fAWBBITHuJCowSqMhDpIFVUCUZ4+p3yeCh930yV5
-	Xv/lQPLk3tLrYMwpeLJlS9Oslb6poxFoCkoHetaEXej4Uix99PAOar5VAYoHiNn17rHJA/k+gkc
-	77wRN+Z+y3zbKw1yWnqsNv5EuhNMTV8tFPdiPQKrQ519Q59Ji2U12s/yn0V7V6M358yVoKi3JkT
-	LnVA6zoiKEsWaS/kNO9t/v1LEE9B5oA05da7VUqJKVteZ59u8b/kUZjIrwP8jer6jrEj4vh9aZ4
-	xshbvN6eoLBXYlvNqS2RdK2ohgFBWaG4ZoT02XS79Ju5/AB3DV5zPLZIhhW70xS3pqTuUitVrAE
-	5pvqSCn6w8gAOdyN/aBird6g60k6lo9z0ZFCk+bP+KwH591gttkZrmZcdt0sFgkOB7fu8yU19jD
-	jats6eMZ4uqxIo15hRfZvoLS0PkXJdK9z6L+5O2NAQF4n/pNQKXUo9dBmbPOSGCISScCq6eyXj7
-	W2pa44kiLswWJ8U5WXy3Ml6YKmZcCdLpNUImF8=
-X-Received: by 2002:a17:90b:2b4c:b0:39d:f024:c7ec with SMTP id 98e67ed59e1d1-39e1e484b5emr13289860a91.16.1789623051007;
-        Wed, 16 Sep 2026 22:30:51 -0700 (PDT)
-Received: from mi-OptiPlex-7060.mioffice.cn ([43.224.245.234])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3abada87sm1955836a91.14.2026.09.16.22.30.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 22:30:50 -0700 (PDT)
-From: Wen Jiang <jiangwenxiaomi@gmail.com>
-To: akpm@linux-foundation.org,
-	catalin.marinas@arm.com,
-	linux-mm@kvack.org,
-	urezki@gmail.com,
-	will@kernel.org
-Cc: Xueyuan.chen21@gmail.com,
-	ajd@linux.ibm.com,
-	anshuman.khandual@arm.com,
-	baohua@kernel.org,
-	chleroy@kernel.org,
-	david@kernel.org,
-	dev.jain@arm.com,
-	jiangwen6@xiaomi.com,
-	leo.yan@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	rppt@kernel.org,
-	ryan.roberts@arm.com,
-	Xueyuan Chen <xueyuan.chen21@gmail.com>
-Subject: [PATCH v8 10/10] mm/vmalloc: align vm_area so vmap() can batch mappings
-Date: Thu, 17 Sep 2026 13:29:33 +0800
-Message-Id: <20260917052933.188679-11-jiangwenxiaomi@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
-References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="nODgqGEV"
+Received: from [10.26.7.43] (unknown [4.213.232.21])
+	by linux.microsoft.com (Postfix) with ESMTPSA id B6D7A20B7169;
+	Wed, 16 Sep 2026 22:30:20 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B6D7A20B7169
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1789623023;
+	bh=L1pN5bVd9usMHlHHI6Pzx9hyCre9b6mdSIltt5Mq1Eo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nODgqGEVBO2Xo1Jk6m0Eopf6OvUMppRSgUHv89lQYFLzYWp3sC6JBwa1HsHkxm3qi
+	 eHXm2Tey7eS63QOF46hN5SRZof5Yd14FjOBK4QZUx/H1Qp9Rvfz0GbJQZYkx4TR203
+	 L7uQR09mJ9LC31UVy0Nvzka0677iUqNpuPgOYQ1M=
+Message-ID: <011f1fa5-89c5-4bc5-8b2e-c5f415a57559@linux.microsoft.com>
+Date: Thu, 17 Sep 2026 11:01:03 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI: hv: Probe vPCI buses asynchronously
+To: Naman Jain <namjain@linux.microsoft.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260907054742.235389-1-namjain@linux.microsoft.com>
+Content-Language: en-US
+From: Sahil Chandna <sahilchandna@linux.microsoft.com>
+In-Reply-To: <20260907054742.235389-1-namjain@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+On 07-09-2026 11:17, Naman Jain wrote:
+> On Hyper-V guests each virtual PCI bus is enumerated by its own
+> hv_pci_probe() call. The probe performs several synchronous host
+> request/response exchanges while negotiating the protocol, querying bus
+> relations, entering D0, and reporting allocated resources. These waits
+> are latency-bound rather than CPU-bound.
+> 
+> hv_pci registers as an ordinary VMBus driver, so driver_register() walks
+> matching vPCI buses and probes them sequentially while the driver's
+> initcall runs. On guests that expose several devices, each through its
+> own vPCI bus, this serialization adds the host round-trip latencies to
+> device initialization.
+> 
+> Each bus is described by its own struct hv_pcibus_device, so
+> independent buses can be probed concurrently. Request asynchronous
+> probing via PROBE_PREFER_ASYNCHRONOUS, causing the driver core to
+> schedule matching buses for asynchronous probe work.
+> 
+> On an Azure Standard_L32s_v3 guest with five vPCI targets (four NVMe
+> controllers and one Mellanox VF), Linux 7.2.3 was tested with one warm-up
+> and three measured boots per variant. The median interval from the first
+> hv_pci_probe() entry to the last return decreased from 2847.968 ms to
+> 2786.709 ms, a 61.259 ms (2.15%) improvement.
+> 
+> Co-developed-by: Dexuan Cui <decui@microsoft.com>
+> Signed-off-by: Dexuan Cui <decui@microsoft.com>
+> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+> ---
+> 
+> Previous discussion around this change:
+> https://lore.kernel.org/all/20230420024037.5921-7-decui@microsoft.com/
+> 
+> Skipping removal of pci_rescan_remove_lock, due to possible
+> synchronization problems associated with this lock removal. Also, with
+> my current setup, I was not able to see much improvements with this
+> change, so keeping it for later. Asynchronous probing change is not
+> dependent on this.
+> 
+> ---
+>  drivers/pci/controller/pci-hyperv.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
+> index 89816a2bd7cd3..056d379b3cee4 100644
+> --- a/drivers/pci/controller/pci-hyperv.c
+> +++ b/drivers/pci/controller/pci-hyperv.c
+> @@ -4155,6 +4155,9 @@ static struct hv_driver hv_pci_drv = {
+>  	.remove		= hv_pci_remove,
+>  	.suspend	= hv_pci_suspend,
+>  	.resume		= hv_pci_resume,
+> +	.driver = {
+> +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+> +	},
+>  };
+>  
+>  static void __exit exit_hv_pci_drv(void)
+LGTM.
+Reviewed-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
 
-Try to align the vmap virtual address to PMD_SHIFT or a
-larger PTE mapping size hinted by the architecture, so
-contiguous pages can be batch-mapped when setting PMD or
-PTE entries. We do not expect any significant overhead for
-this.
-
-Add __get_vm_area_node_aligned_caller() as a wrapper over
-__get_vm_area_node() to simplify repeated calls with fixed
-arguments.
-
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
-Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Tested-by: Leo Yan <leo.yan@arm.com>
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
----
- mm/vmalloc.c | 35 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
-
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index bce2d2c09f546..84413def1d771 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -3306,6 +3306,14 @@ struct vm_struct *get_vm_area_caller(unsigned long size, unsigned long flags,
- 				  NUMA_NO_NODE, GFP_KERNEL, caller);
- }
- 
-+static struct vm_struct *__get_vm_area_node_aligned_caller(unsigned long size,
-+		unsigned long align, unsigned long flags, const void *caller)
-+{
-+	return __get_vm_area_node(size, align, PAGE_SHIFT, flags,
-+				  VMALLOC_START, VMALLOC_END,
-+				  NUMA_NO_NODE, GFP_KERNEL, caller);
-+}
-+
- /**
-  * find_vm_area - find a continuous kernel virtual area
-  * @addr:	  base address
-@@ -3619,6 +3627,30 @@ static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
- 	return err;
- }
- 
-+static struct vm_struct *vmap_get_aligned_vm_area(unsigned long size,
-+		unsigned long flags, pgprot_t prot, const void *caller)
-+{
-+	struct vm_struct *vm_area;
-+	unsigned int shift;
-+
-+	if (arch_vmap_pmd_supported(prot) && size >= PMD_SIZE) {
-+		vm_area = __get_vm_area_node_aligned_caller(size, PMD_SIZE,
-+				flags, caller);
-+		if (vm_area)
-+			return vm_area;
-+	}
-+
-+	shift = arch_vmap_pte_supported_shift(size);
-+	if (shift > PAGE_SHIFT) {
-+		vm_area = __get_vm_area_node_aligned_caller(size, 1UL << shift,
-+				flags, caller);
-+		if (vm_area)
-+			return vm_area;
-+	}
-+
-+	return __get_vm_area_node_aligned_caller(size, PAGE_SIZE, flags, caller);
-+}
-+
- /**
-  * vmap - map an array of pages into virtually contiguous space
-  * @pages: array of page pointers
-@@ -3657,7 +3689,8 @@ void *vmap(struct page **pages, unsigned int count,
- 		return NULL;
- 
- 	size = (unsigned long)count << PAGE_SHIFT;
--	area = get_vm_area_caller(size, flags, __builtin_return_address(0));
-+	area = vmap_get_aligned_vm_area(size, flags, prot,
-+				__builtin_return_address(0));
- 	if (!area)
- 		return NULL;
- 
--- 
-2.34.1
-
+Regards,
+Sahil
