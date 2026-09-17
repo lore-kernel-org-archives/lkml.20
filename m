@@ -1,213 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9214E560AD8;
-	Thu, 17 Sep 2026 14:33:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20ACB58FD2D;
+	Thu, 17 Sep 2026 14:33:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655602; cv=none; b=SkyGr1Lc15d+ne7llnGqrFfg8G9WutII2fYYJfbusddSc9aJ90lfGVlKkyk5LzCNsBXrpWrHITlRSQmNoxFp58Db2duzxpjaI6tYGOw7iv6qcgKNlDVnb/apuMoXXVV+6JE3cRrS2E34uAFosHUBFSmWx8q/WWXvExi/sRU8mKE=
+	t=1789655632; cv=none; b=MK68NLnNTHTN/gL57vKnEYXFwr/+X7L7+PYxOmgAJ6GI9AVQlP5zz7yElvpI19h+v2IRYUAI16nP2tHxWhOtVwLAjkmgOdIpyQ2bmDuQMmqNhBCWoNNnL1FU6GdIhUy28a2JzAy2h2r9nyvm6mSeZDAH2DMH8Cdujw6D0ErkoPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655602; c=relaxed/simple;
-	bh=5BFAUSbEC7ZqbPP+Xzk9lFiGhkxIv2UN6woEzekMIFQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UQmzThq+7qPrU7ETl/a1fV4LmirsMtDGqIDMNtPF/H6H9vFmZ89JZCmCbtio+g8Ot0+yVCkA4xJeEcR2nzTsJkl5FOfTmp/XdnA3lR4k3jX0h6JDYhYDQ6y2C9kunOjgi2VCIyLl45Z1Em2/UpmgdjOoW8bypnBMbVMfdvd+NGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KaomMELo; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KaomMELo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3316A1F00893;
-	Thu, 17 Sep 2026 14:33:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789655601;
-	bh=STP9v5KOajoZJXPO9JYtwCREu7QupIFOB+O6jedYzzo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KaomMELo9HnBPfx379ckKTBRz8xrgxZj9csIJyS2KJHIMGfO4piQEYFrzLVylAMPb
-	 MHCaJ+Kxw9Dz3kv+opO5st5h6HFdAOYvLdhDOhe3pEl2FzMBqAgApW8nNorexRadyV
-	 z0jZPdtVA00j6X7WjMqm5ujRvOjIMZ5moe4ZS+X4FTd2qYNJFGv04d+7uPWCn0Rn3N
-	 2lz1FqVnIrEHDlavAncuYAJ8MT6iQgCr9gOMuW6fcsohjLNuo/j6Zf37p9dif7k0cF
-	 Jo6hiEtF/T0fyzhwBHoV0cCtus1cI1unkmfY83VqLT1oGTjW2hnPQ4plQ8UCbVBRKI
-	 MViYMo0Q7/AaQ==
-Date: Thu, 17 Sep 2026 15:33:17 +0100
-From: Lee Jones <lee@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-leds@vger.kernel.org, Pavel Machek <pavel@kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] leds: rgb: qcom-lpg: Use fwnode APIs for LED parsing
-Message-ID: <20260917143317.GL1605367@google.com>
-References: <20260908053221.29955-1-rosenp@gmail.com>
+	s=arc-20240116; t=1789655632; c=relaxed/simple;
+	bh=0CifYHpF4P3lIw7O5N0oKzN9TKKTgUgRGII2NQXFflE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=B2WDXgnatNTJYCFrWTUKTkgsEdXjqtphNih3OSb7ugxHN0OhfI87oZ+jnyWT1R2lFY4Dj1HlkCVtGCRbeDMCPS/MKcPnVqEDOw7FkCTnlb/WM/VSW6v5Xigwlmv/09uOjbexN6jTZtasSApQPsVJXOT18Dw7/VPOeiybkkKdVUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACHuEJL+qtqp4+CCA--.4947S2;
+	Thu, 17 Sep 2026 22:33:47 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andersson@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org,
+	mathieu.poirier@linaro.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] rpmsg: qcom_smd: Fix edge of_node leak in qcom_smd_edge_release()
+Date: Thu, 17 Sep 2026 14:33:47 +0000
+Message-Id: <20260917143347.2157055-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908053221.29955-1-rosenp@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACHuEJL+qtqp4+CCA--.4947S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JFWrKFy7WFy5Zw17JrykAFb_yoWftrgEka
+	s7uwn3XFyUAr4fAw129FZ8Zr9avF1DXrZ7Zr4qqF4rZFWYqFs2gr9agwsYvrZxCr4Iqry3
+	uw1DJr4rAr429jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UMq2NUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgQNA2qr888PuAAAsG
 
-On Mon, 07 Sep 2026, Rosen Penev wrote:
+qcom_smd_parse_edge() stores an extra reference to the edge's device
+node in edge->of_node, and it is used after probe by
+qcom_smd_match_channel(). The error path drops that reference, but the
+success path does not, and qcom_smd_edge_release() only frees the edge,
+so the reference is leaked when the edge is unregistered.
 
-> Convert LED and channel parsing in lpg_add_led() and
-> lpg_parse_channel() from DT-specific helpers to the fwnode API.
-> The probe loop now uses device_for_each_child_node_scoped(),
-> dropping explicit node lifetime handling.
-> 
-> Behaviour is unchanged for device tree: fwnode_get_child_node_count()
-> and both child iteration helpers skip unavailable children on OF,
-> and the fwnode handle is passed straight to LED registration.
-> 
-> cdev->default_trigger is only assigned when
-> fwnode_property_read_string() succeeds, so an absent
-> linux,default-trigger property no longer yields an uninitialized
-> pointer.
-> 
-> Assisted-by: opencode:deepseek-v4-flash-free
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  drivers/leds/rgb/leds-qcom-lpg.c | 36 ++++++++++++++++++--------------
->  1 file changed, 20 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/leds/rgb/leds-qcom-lpg.c b/drivers/leds/rgb/leds-qcom-lpg.c
-> index d7d6518de30f..dcc8e6f14c8b 100644
-> --- a/drivers/leds/rgb/leds-qcom-lpg.c
-> +++ b/drivers/leds/rgb/leds-qcom-lpg.c
-> @@ -11,6 +11,7 @@
->  #include <linux/nvmem-consumer.h>
->  #include <linux/of.h>
->  #include <linux/platform_device.h>
-> +#include <linux/property.h>
->  #include <linux/pwm.h>
->  #include <linux/regmap.h>
->  #include <linux/slab.h>
-> @@ -1342,7 +1343,7 @@ static int lpg_add_pwm(struct lpg *lpg)
->  	return ret;
->  }
->  
-> -static int lpg_parse_channel(struct lpg *lpg, struct device_node *np,
-> +static int lpg_parse_channel(struct lpg *lpg, struct fwnode_handle *fw,
->  			     struct lpg_channel **channel)
->  {
->  	struct lpg_channel *chan;
-> @@ -1350,17 +1351,18 @@ static int lpg_parse_channel(struct lpg *lpg, struct device_node *np,
->  	u32 reg;
->  	int ret;
->  
-> -	ret = of_property_read_u32(np, "reg", &reg);
-> +	ret = fwnode_property_read_u32(fw, "reg", &reg);
->  	if (ret || !reg || reg > lpg->num_channels)
-> -		return dev_err_probe(lpg->dev, -EINVAL, "invalid \"reg\" of %pOFn\n", np);
-> +		return dev_err_probe(lpg->dev, -EINVAL,
-> +				     "invalid \"reg\" of %s\n", fwnode_get_name(fw));
->  
->  	chan = &lpg->channels[reg - 1];
->  	chan->in_use = true;
->  
-> -	ret = of_property_read_u32(np, "color", &color);
-> +	ret = fwnode_property_read_u32(fw, "color", &color);
->  	if (ret < 0 && ret != -EINVAL)
->  		return dev_err_probe(lpg->dev, ret,
-> -				     "failed to parse \"color\" of %pOF\n", np);
-> +				     "failed to parse \"color\" of %s\n", fwnode_get_name(fw));
->  
->  	chan->color = color;
->  
-> @@ -1369,25 +1371,26 @@ static int lpg_parse_channel(struct lpg *lpg, struct device_node *np,
->  	return 0;
->  }
->  
-> -static int lpg_add_led(struct lpg *lpg, struct device_node *np)
-> +static int lpg_add_led(struct lpg *lpg, struct fwnode_handle *fw)
->  {
->  	struct led_init_data init_data = {};
->  	struct led_classdev *cdev;
->  	struct mc_subled *info;
->  	struct lpg_led *led;
-> +	const char *trigger;
->  	const char *state;
->  	int num_channels;
->  	u32 color = 0;
->  	int ret;
->  	int i;
->  
-> -	ret = of_property_read_u32(np, "color", &color);
-> +	ret = fwnode_property_read_u32(fw, "color", &color);
->  	if (ret < 0 && ret != -EINVAL)
->  		return dev_err_probe(lpg->dev, ret,
-> -			      "failed to parse \"color\" of %pOF\n", np);
-> +			      "failed to parse \"color\" of %s\n", fwnode_get_name(fw));
->  
->  	if (color == LED_COLOR_ID_RGB || color == LED_COLOR_ID_MULTI)
-> -		num_channels = of_get_available_child_count(np);
-> +		num_channels = fwnode_get_child_node_count(fw);
+Release the device node when the edge is freed.
 
-Are you sure 'fwnode_get_child_node_count()' skips unavailable children?  It
-counts all children, whereas 'of_get_available_child_count()' only counted
-available ones.  If there are disabled child nodes, 'led->mcdev.num_colors' will
-be larger than the number of populated subleds, leading to uninitialised memory
-access in the LED core.  Should we be using 'i' for 'num_colors' instead, or
-counting available nodes properly?
+Fixes: 53e2822e56c7 ("rpmsg: Introduce Qualcomm SMD backend")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/rpmsg/qcom_smd.c | 1 +
+ 1 file changed, 1 insertion(+)
 
->  	else
->  		num_channels = 1;
->  
-> @@ -1403,7 +1406,7 @@ static int lpg_add_led(struct lpg *lpg, struct device_node *np)
->  		if (!info)
->  			return -ENOMEM;
->  		i = 0;
-> -		for_each_available_child_of_node_scoped(np, child) {
-> +		fwnode_for_each_available_child_node_scoped(fw, child) {
->  			ret = lpg_parse_channel(lpg, child, &led->channels[i]);
->  			if (ret < 0)
->  				return ret;
-> @@ -1426,7 +1429,7 @@ static int lpg_add_led(struct lpg *lpg, struct device_node *np)
->  			cdev->pattern_clear = lpg_pattern_mc_clear;
->  		}
->  	} else {
-> -		ret = lpg_parse_channel(lpg, np, &led->channels[0]);
-> +		ret = lpg_parse_channel(lpg, fw, &led->channels[0]);
->  		if (ret < 0)
->  			return ret;
->  
-> @@ -1441,14 +1444,15 @@ static int lpg_add_led(struct lpg *lpg, struct device_node *np)
->  		}
->  	}
->  
-> -	cdev->default_trigger = of_get_property(np, "linux,default-trigger", NULL);
-> +	if (!fwnode_property_read_string(fw, "linux,default-trigger", &trigger))
-> +		cdev->default_trigger = trigger;
->  
->  	if (lpg->lpg_chan_sdam)
->  		cdev->max_brightness = PPG_MAX_LED_BRIGHTNESS;
->  	else
->  		cdev->max_brightness = LPG_RESOLUTION_9BIT - 1;
->  
-> -	if (!of_property_read_string(np, "default-state", &state) &&
-> +	if (!fwnode_property_read_string(fw, "default-state", &state) &&
->  	    !strcmp(state, "on"))
->  		cdev->brightness = cdev->max_brightness;
->  	else
-> @@ -1456,7 +1460,7 @@ static int lpg_add_led(struct lpg *lpg, struct device_node *np)
->  
->  	cdev->brightness_set_blocking(cdev, cdev->brightness);
->  
-> -	init_data.fwnode = of_fwnode_handle(np);
-> +	init_data.fwnode = fw;
->  
->  	if (color == LED_COLOR_ID_RGB || color == LED_COLOR_ID_MULTI)
->  		ret = devm_led_classdev_multicolor_register_ext(lpg->dev, &led->mcdev, &init_data);
-> @@ -1638,8 +1642,8 @@ static int lpg_probe(struct platform_device *pdev)
->  	if (ret < 0)
->  		return ret;
->  
-> -	for_each_available_child_of_node_scoped(pdev->dev.of_node, np) {
-> -		ret = lpg_add_led(lpg, np);
-> +	device_for_each_child_node_scoped(&pdev->dev, child) {
-> +		ret = lpg_add_led(lpg, child);
->  		if (ret)
->  			return ret;
->  	}
-> -- 
-> 2.55.0
-> 
-
+diff --git a/drivers/rpmsg/qcom_smd.c b/drivers/rpmsg/qcom_smd.c
+index 3ac863f400ec..d98e8bbf9bd2 100644
+--- a/drivers/rpmsg/qcom_smd.c
++++ b/drivers/rpmsg/qcom_smd.c
+@@ -1452,6 +1452,7 @@ static void qcom_smd_edge_release(struct device *dev)
+ 		kfree(channel);
+ 	}
+ 
++	of_node_put(edge->of_node);
+ 	kfree(edge);
+ }
+ 
 -- 
-Lee Jones
+2.34.1
+
