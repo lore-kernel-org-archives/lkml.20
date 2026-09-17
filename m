@@ -1,103 +1,110 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176AC3B42C0;
-	Thu, 17 Sep 2026 06:24:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C16D299A82
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:25:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789626292; cv=none; b=pDhVfYXquwcVxybckaM+/L5/uVSO5c6JlHNaYPbpXVAlsJAzi31Oux3l4tfjrZJlnqexrCcNMUBeijvLtrSkt+9bRyIItWssyTy/Bw4m2I4LFWmFKBiXovYek2u510PEPzfnGO0WX7y/57VpS91tSv4os05cZlSte2vj3fN8yeI=
+	t=1789626354; cv=none; b=uxY2N0t5ByZmpTx/5Szejd8mFgWPZ3TmbvLFSnYzvNJTw8S1BHe9/yvVlEYw4a09TABUIi3noEWguhFr/xtHuOpqEOq0STve8qiyou+13g8vPwgFiUh2ekcrVEQQgM7VVML7rit97uHRXO/7iGUTAi/h8GgWdMz8tXFKD3FbM5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789626292; c=relaxed/simple;
-	bh=rnJOIiNTcdbASSkEuhTpF8A1YSK0nv3UCrd+KByTuhQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=f20k7ngaG5C18wWQoOhF496uAHdg7ViyA/OgtJPRhYuNXzXW3F3kViw8m4JqjPM5HrA0+H+17fAZaJ1lAzaNsNmWu4/3NgCYyF1uqG6xR7Elq5+JTKsPzjfD2SVcihbKoUYD5DWaGU62U1YlFHgG+8FBJ1Tzp0MuX4EDhEMn5AU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=rn/ZrrgS; arc=none smtp.client-ip=79.135.106.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1789626354; c=relaxed/simple;
+	bh=nCqjXs0qiz0F6e0kKhfQjdMGLU2hzlzq71MRbkYP0c8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bL0dT9k1ZQwHABRigZM/Ek5XZY64nHI57CD8c6u0pSLkLccgJuv21uf/qjqa4NDrVn/UnZGuYgKfig/xdWCu9PksRsnSDww5QUrFRVM7+Y2nvPDz0uvk0fOdLD7J3uJYdt1yP+TSMKVBv79gm8AWIu84/yPqGboXfXeCqWidV30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=GKXWeyCy; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="rn/ZrrgS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789626284; x=1789885484;
-	bh=TA6rlXyicXZfTTHClBxkqFgtYRL1l+vtdpQgmLVwMGc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=rn/ZrrgSSIExsU9ZgAdwG6yolw/s2LXHZUHF2mUWlphzHYutwhNubTUZg45iVdC+v
-	 VOtFkfwQMll90wLolFnkO9sJfG3UlYHVtYg+V7QU04Qn9BBPSVp+9qTms7ZwJjJJPi
-	 5ny5hurjyLw7UcCd4uOw2kn0wNUdqkHTCmQBChi5/eNcfy8JWSNjBMJyDFiD6HatkV
-	 zkBk1GNeCtS5mHfbZrgDEj+JvjqlEvasNegPYzOJ+7g+4XXNVoe1f6Xnfk2JYv/Bw/
-	 rh02FUsdBUSPRJqJvJbmDKpOMR7M7hXxGioZdifxQMp9zC77czok/coL9dmVatuNfJ
-	 1Q5B9p3uDXLqg==
-X-Pm-Submission-Id: 4hlm220bDBz2ScPL
-From: Esben Haabendal <esben@geanix.com>
-To: "Jonathan Cameron" <jic23@kernel.org>
-Cc: "Martin Kepplinger" <martink@posteo.de>,  "Lars-Peter Clausen"
- <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Sean Nyekjaer" <sean@geanix.com>,  "David Lechner"
- <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
-  "Andy Shevchenko"
- <andy@kernel.org>,  "Martin Kepplinger"
- <martin.kepplinger@theobroma-systems.com>,  "Christoph Muellner"
- <christoph.muellner@theobroma-systems.com>,  <linux-iio@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v8 9/9] iio: accel: mma8452: Support interrupt sharing
-In-Reply-To: <20260917034607.2674781e@jic23-hlaptop>
-References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
-	<20260907-mma8452-open-drain-v8-9-c17407e22118@geanix.com>
-	<_9NG2PCqwv-AxkrhQVOkPVIgvYD4-t2CFH5W5HVBmr35w9xmX9v9FIraB1OPE8Ssbd_pjQqM-bq3DEAtRl78Sg==@protonmail.internalid>
-	<20260914002203.5ca07dd0@jic23-hlaptop> <87y0d4pal0.fsf@geanix.com>
-	<C6aGTWK07IZGyMQVOFXCAuZody8OsqRS5uG0Kd88ikhzwZ4SDBhHmsku0KivRAa0i6oyuYBvLiau1uFJKwa5Mg==@protonmail.internalid>
-	<20260917034607.2674781e@jic23-hlaptop>
-Date: Thu, 17 Sep 2026 08:24:41 +0200
-Message-ID: <871pas8keu.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="GKXWeyCy"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so3317955e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:25:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789626350; x=1790231150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LTzr2PS56pB9oIMjh38Rw2y10FQepTrU7TuGcerh19M=;
+        b=GKXWeyCyHujb1/69o9GGd+D2MYLBtdFSk4rLVsWHMqSg+DRw/PCSF/g1eMje/TqzYS
+         2m8TsTPxVJ0lwklbLJIQ5atMWZJnqAcDctK+0gMsYLbeCg0fCWHdWd1nz9O//cg8LHMM
+         eB4ZIuZTDcfujKpuE+SKi0xEQFIA06bQZLrjPqrjxDNpW/UFhKhZyQZXueI1b+zNlhHD
+         JQmd1dbpBlWKukPE7EesTIGooCkiup8TzsW8xujn6jmuDM9JV5XWzr1o+DPz4RZ4LMGm
+         bhjlrmNEvQ8mHUhHZjUP84wSIsG2M5e1QlYEWUAZKsakBbZX++Pq32Gfq8NpG80GU/3T
+         teZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789626350; x=1790231150;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LTzr2PS56pB9oIMjh38Rw2y10FQepTrU7TuGcerh19M=;
+        b=tzf09LAqfZanpVbQwiBBmU58zMivibEendM2iXKe73KbvdZ4OVV5im42BVW5SZgiIq
+         GJ2YL3PpzIf94u54fXNzGpIcNZT/gXzC5cNnPShxnsKJbrbvZKthX2ugmlsYZ+TmQhOS
+         Od6VsK3mdPjoa6zgT0EZoHTyHph1JARO+DfVhYOnXLSxkDe6CgZbfo6/zPcW4j5gA2Xs
+         a/hCgw+8aV4ToTnRrMpCnGtHtsN1uqLSLR+F82CC+Db9NS8cLSnXBYkacHbtpxUUMVJ1
+         ArCJXNEv0XjYJN1xc667JqcCuFxwqD4wia5kT+Y7wc2198MbbxvKs6bYWvLfLUyyMcex
+         dgOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFfEqXphjfYkN0t2V73eOn4brdIxJV18SbsjFFuC4+WnhOiJcxzg9CC3HIQhit9/cDfoy2t2M8CYjCF/I=@vger.kernel.org
+X-Gm-Message-State: AFuF++n67Adeeuxarsv7AtMt73BUz7U0xNlMwQ/B1CUs9o4vRfexYXzv
+	cqDQWlycEMrKXUJe6HO1tBV4LC1BC44iypgXX3akngGBOFUIsLSa9FGkF588EmOnaCE=
+X-Gm-Gg: AYBFou2qCh5fZr25qwB4DXl3kzFw0dMKI6tLR4qdmctLInPJ5irC+yeAcl+APb5I4dT
+	+jv1lIpJ6NCyOXbixnb/krvBgVyH6a6y0GIkctuYiSU4ch3VWkwABRuNk911JlYea6X1zPtRIFb
+	q0tuV+1p3vR8ikqwmp/L+c6R+SwjLVcowaWkzFq2eFsGRFjrsF3zMwO7l7VMXKQifxp0hNbS36M
+	RyfphhXYcLVVJZXG3gbS+g9ny78J4cPqA3HoqtAihV+oHNaCliAHpBo8GrQS0rAJC3r83BNBB2J
+	vei48GvKD+PXy0mPpMME9PPmTrr4mrtpkhwkx8pAKYItvq+rdTgHHX8sXaAOXYi+hmQvhSqu6ix
+	aRjXOmZXrxn5EQ+fq6HmYwPw8tgRjMT/ZNojocdkvwH5io4VsvvCW9kgnE1lQ09w01O1uSI0V6k
+	Lo3/CRRv1ZGXPn4OLXLjVZCxp3S8VrHsSWTb11nlbYUYlvd6NLlQy3G/fkGpFf/jji6z9xrQz4l
+	zejZFfO5PEZiEg=
+X-Received: by 2002:a05:600c:4e48:b0:49e:663c:c67e with SMTP id 5b1f17b1804b1-49ebe991792mr68477175e9.25.1789626350235;
+        Wed, 16 Sep 2026 23:25:50 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49e847eab65sm77377045e9.2.2026.09.16.23.25.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 23:25:48 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Dominik Brodowski <linux@dominikbrodowski.net>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] docs: pcmcia: Update location of PCMCIA_DEV_ID_MATCH_* constants
+Date: Thu, 17 Sep 2026 08:25:36 +0200
+Message-ID: <20260917062537.112663-2-u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1177; i=u.kleine-koenig@baylibre.com; h=from:subject; bh=nCqjXs0qiz0F6e0kKhfQjdMGLU2hzlzq71MRbkYP0c8=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqq4fh2cLfpgpwwkKf4XZu9s6qS//Z74mDcLmfs lPxQlOE58yJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCaquH4QAKCRCPgPtYfRL+ TpjNB/9w2qCDlGYD6j5cMcOO6TOQGEPcSMXsSgvDpcc/LC6I8FzLRb2Jt6QwFvM2pO1WfhL9F+G ccftR9lpwyVf72/OQ7EOlkxC4+o421byU+7ubps5ooqgCyMZuQU1dox9TXVJGTUIL8rcfpkMNYc G2aPg3TiA7DXuNXNNy1tLGruMh8WxSbl2iKMOMULOnCNzZR+iFeZ0T7iwoIh2MzyV7ryA1WXyay NfAYg9aZNYl1MgTNA5HfnHgKwMcx4DwhCWB8GzpX/4hcdDo+X5QNWU5lFYViF5BKhqxtZhNJZLR fpiXVZP3feAkzo0THqapQSF3EaT+JbgP+fvO6ahh33DDNsh+
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 
-"Jonathan Cameron" <jic23@kernel.org> writes:
+Recently <linux/mod_devicetable.h> was split into per-bus headers in
+commit ad428f5811bd ("mod_devicetable.h: Split into per subsystem
+headers"). Update the pcmcia documentation to refer to the new location
+of the mentioned #defines.
 
->> >> +	if (pm_status == 0)
->> >> +		return IRQ_NONE; /* device is powered down */
->> >
->> >> @@ -1784,29 +1796,62 @@ static void mma8452_remove(struct i2c_client *client)
->> >>  #ifdef CONFIG_PM
->> >>  static int mma8452_runtime_suspend(struct device *dev)
->> >>  {
->> >> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
->> >> +	struct i2c_client *client = to_i2c_client(dev);
->> >> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
->> >>  	struct mma8452_data *data = iio_priv(indio_dev);
->> >>  	int ret;
->> >>
->> >> -	scoped_guard(mutex, &data->lock)
->> >> -		ret = mma8452_standby(data);
->> >> +	guard(mutex)(&data->lock);
->> > Mixing guards...
->>
->> Yes, I know. Resolving that turned out to be a bit more painful than I
->> thought. I do have that resolved in the next series I keep on talking
->> about. But distilling that as a separate patch for adding to this series
->> turned out to be impossible, as it relies on some of the other work,
->> like refactoring of the ACTIVE/STANDBY state handling (synchronization),
->> and most importantly, the switch to using regmap caching to properly
->> handle restoring of register values on resume.
->>
->> I am therefore hoping that we can find some way to agree on things here,
->> and then properly resolve it in the next series...
->
-> Ok. It is fine for now.  Perhaps add a comment along the lines of
-> /* Must be first action in scope that needs to be undone on error */
->
-> And hopefully it won't be around long enough for anyone to copy it
-> into more code!
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+---
+ Documentation/pcmcia/driver.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Ok. I got a bit trigger happy, so v9 is now sent with a proposed
-(temporary) fix for it it instead. If that meets resistance, I will
-consider falling back to adding the comment you proposed above.
+diff --git a/Documentation/pcmcia/driver.rst b/Documentation/pcmcia/driver.rst
+index 5c4fe84d51c1..b91e5c14cb87 100644
+--- a/Documentation/pcmcia/driver.rst
++++ b/Documentation/pcmcia/driver.rst
+@@ -15,7 +15,7 @@ runtime as shown below::
+ All fields are passed in as hexadecimal values (no leading 0x).
+ The meaning is described in the PCMCIA specification, the match_flags is
+ a bitwise or-ed combination from PCMCIA_DEV_ID_MATCH_* constants
+-defined in include/linux/mod_devicetable.h.
++defined in include/linux/device-id/pcmcia.h.
+ 
+ Once added, the driver probe routine will be invoked for any unclaimed
+ PCMCIA device listed in its (newly updated) pcmcia_device_id list.
 
-/Esben
+base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
+-- 
+2.55.0.11.g153666a7d9bb
+
