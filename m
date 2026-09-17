@@ -1,164 +1,187 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FAD519DF7
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662543; cv=pass; b=kuyIbSrpfbZaC1eVeLM50Pm75MKI0+t8ULrvl1c/mU9ZkteZSvJK0lIFncvqyu/fF18Kq+D2KTumvDvDlupcvaoDfrHw8MFugYCvmHVuqSLXo/VAO4yrH2z24kRQbOUqD374gRy55vcXMRSEi1XNlJLlH89aMgeGgi3sozJRgIw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662543; c=relaxed/simple;
-	bh=rvD7x46ttJWZaM5cVCvUskJpm2Xz/cV1oMWfQ5BnG+k=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Content-Type; b=F7SALGumjl40GH821ZK+QCLR1xe7kcub9+ita9Impwa/WgT2XHTb0WhWXSYu0If8i5uZgsNdaFlgkQ2vLV3Re3vr7D44PRIL5OA1fpauHP/DGtkmmjLSfFlz4aGIZateP70jWytG0U6vHCN5C2H4t3lk5kkuL2lmz8Q2KOk8yp4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pRo1uyBG; arc=pass smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6DC519E0E;
+	Thu, 17 Sep 2026 16:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789662548; cv=none; b=WYEKOQ4iORPvPGq2v+lC4VnWx8GxP8LQhVWoKrKNN7ph5yiKPJl/ENdjORwsMFFpvzch0MBdGFTVkIjsaRHErVgw5RMFjsVMZJ6iJ4ik+TEReXXviVAD3OhR2Ai6YZLk2dfULs/TIes4psaUzU6gxQ26d5UrwneRdr49p8gqmsA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789662548; c=relaxed/simple;
+	bh=X46vXp5xg8nLI6IG+V/Ab12M7pEZi9uJqKdEh54QAaM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kTi+wRodsrliP/eWx6waSKOx1dibr6/4KfMu9Ne+UlZyiL5206KENY7W866ZJEfP40VtFgtTWlyGyKYTokqJlQOFnkbVBF0yw334wuZoMRaj4vzu8wxeXw/u+qhhTmfwQWZiDsmZrTzKuZifpvoHojpHGmaQBHJs6PAnuno4Hbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HypnJxB5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pRo1uyBG"
-Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-671017a4b55so1019702d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:29:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789662541; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jCq/XKmGqMT9A/BxdQDBaFfBNT3APZtZvXfH2DqYu7CfUWcxnVXwwSH7+KjvHgsig4
-         bA9pogmC8KGsAxe/AbjxKsr2IXTDCgRN/3BoVVdycwfiOye6cGIvK0MbeDc+t7IewCRO
-         p4RwYzOiY7sHM1K10CBNLxhFY4ld/urIOEFzRY6ozdRx/H7HMljR+Jn+TIO/ICJpMGwZ
-         bv+hvRHFoHzo1ZPIv3sWxsm73xROhsF+KFiRzy7c8iN6uP5+/WMlYasBD6Q4KKixKBtB
-         N9NOh6vo/Tj7/jQ8yzDRALTkGhQns86ZqdhTiBOxus/1ayFqqUI2wiA99wRW7tmx1CgP
-         VBHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=oedZKDoguVwNLbYxz2lRBjmCCu67v3k6W9evv7i7wzc=;
-        fh=hhIiv3dZ5RM+vbl9mZEW8fASDEtQeALkjm7AJQpRL1s=;
-        b=DkYKs8Gg6gf0kou+LjZAcjBZZ4Jqe2U458GpBdd7k5QGrbVd38PqZ4GceLSby+JMG7
-         eLI/VX5N79KUQTlDRObrAM2tiBQ1MRyxp6z8uJnwqaUzF4BGAVK9PTrGDEvKUG5M8lkS
-         /wqrOKXyiJPXPTTEe7M25wHsEiXQslJbx9CfrYl7rIUSXWN6sd0zBemKWhNLkP+Hqicu
-         t68W88OF6VC9KNd7mREyFHd9iHc/mnNub+xqX8Ti4rUdygC514qQWrxYKGZx1vWxibI0
-         aNR4+wcnCpfFnWGw1YIcD/WyU+9eSWVAA1V4RoDjmKmd5ptoXXQe+Vao8Iqp/23o+ZaX
-         /f5Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789662541; x=1790267341; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:mime-version:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=oedZKDoguVwNLbYxz2lRBjmCCu67v3k6W9evv7i7wzc=;
-        b=pRo1uyBG4AeX0tygq+zALrpaRCOQBcXlUzx0fp5AqjxJ+LBjZODOCE+xAAZGVJIvUl
-         fV4EF30C2Z3nBP6VFCKebqcZh8oYrgSekRdrrdL0bT5QTwmdfhqKBLzdcRaXrgoyA4Rr
-         09MrHNWOdtaAl01uHJOx+lcxWgbHztrEBY0kPs9Ch5FYB6UMNnrklUutLDllJEzEErzc
-         +SPBEa7+jPg5uTX6M1EC0YAQo35K4pTlnSA9XitC1beeCVNO5K7ASaBecNsksHOfy0cc
-         ca8gVtg3jsNXA4sK3PH9hCWwLR3Nbx0gVERVsFC8kntpjF5RLdF2ptpxheQuLOuDX4aZ
-         X0eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789662541; x=1790267341;
-        h=content-type:to:subject:message-id:date:mime-version:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oedZKDoguVwNLbYxz2lRBjmCCu67v3k6W9evv7i7wzc=;
-        b=2m6OahZOTrkOALJFt+XCjOyGTpRouupu5npeNeUbGxDFskfJaRB52f6vRmy44sLWbn
-         v9vgGd0+zSjYAe8UB8tleTmDr7r1hnOE2ajZ1WdH1fzbbu08g4GfB3pCnLPQU8kmNw5q
-         1fi1ubrnZtf68HDCmeCWI6SP9pZY7oNzT4q/PFWuTgqqtiwgP88obhv+GpJCqNgk/A+k
-         2Ni0+Eo0v/ssNLf6wfngqtdQzWSI1mfdPm4iQNoXSU25ftlk6NY8xjjQ7SL/0cyYCRmJ
-         +1hBHoMqasCFhHgKxK0EHZigAgSx+tpR5WWBRKrX1gpZiVGqGPbytZ1OgityggBuKMyM
-         wBFw==
-X-Forwarded-Encrypted: i=1; AKwUvBw30q7ceqytqZD+C3WnraStDVxEZzJuiBNrci0tW+6GQ5QDJA65AqwdvEQhq4O7ftrnFIYGQN75KMndu1k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfgXfzJsuzitWwLdaZ4ZtFWhSKk2QDRLubk/QMYrPm8XU4AVhm
-	sdjp0C3BZ0MhJl8J8ripfEwEucPiJcSJdiDrVkPIW/0VbjqnqiBI6OMdObBrPdJMtgWrkJO4I4p
-	wfipTGJ+WsvXp1Ro7HAYV0Axtoad2N0IX4g==
-X-Gm-Gg: AYBFou3qlocyNdLDvJbuD12mJBD081QiJODkkPrFlD4/7sJrRAac0t2HbMiI4rSM2q0
-	nuNA9hm4UmZRNtPpL1e0OoPFqssgly6wVRfg/sJAQNNTBwxLz+C8t9OudF0aeC5nX673n6pZoak
-	Nc5sgM21M4nE+vucpETn3lQuN68kxfqosxork4cRi5HhvruhmzjxLh9GX5IpIg0mYVZGjEahzJ3
-	02RRWmLg3T07zz+hfCM6CpfjZ4YoTaSK1yHJ5O2PdZtTegE6n/T8LKKovk2bIMp3SMGOs5boWu4
-	kA1ieR0yAxld5tk8hi30acrMNh4Cr5gBr+Yf00kWWlBjh4OqNTOxR4kwraOqTYI76NgAcubsFi9
-	NLhxvqrvdPuwcYO8neQ==
-X-Received: by 2002:a05:690e:428b:20b0:671:5c2e:82a8 with SMTP id
- 956f58d0204a3-671632732afmr1767388d50.52.1789662541223; Thu, 17 Sep 2026
- 09:29:01 -0700 (PDT)
-Received: from 313336824172 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 17 Sep 2026 09:29:00 -0700
-Received: from 313336824172 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 17 Sep 2026 09:29:00 -0700
-From: alan.hovgaard@gmail.com
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HypnJxB5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CE821F00898;
+	Thu, 17 Sep 2026 16:28:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789662546;
+	bh=qivR91Lb5/7S8p3yp1PCCxRNqvAnmMyhYSRWXpH7C6E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=HypnJxB5nIvhdu/4lyn5V2mzaHKgTstFT3NwAe1e5+ZqghSmo2Hj7mjOK5CoYdPTx
+	 PARyOmBlb+YzHiiTbiLYqT+yzZYIAG1LQnY4c8bg49GVruVJRAH7a6NjefXjko9YKe
+	 9r3cgnvRiFC1xOnahoCdXU8zbumCPYOfyFGs4CNmNaflrU5KmEGeqQTv6WftryliCv
+	 CRL4rfF58Fu402gQsvBPnH8MGc7bjyLyzMq12dc+KlyivUJWTpRdYhUPAbO0MiuYkb
+	 PKD1LFiaRtReUNXpDsNBS9Zzu0GWIjj5xX+3hcbxhXXBLaGJKY68gTeOSmcn1LIJG2
+	 /RIfIU50StAcQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:22:21 +0100
+Subject: [PATCH v3 12/40] selinux: reject writable opens of policy file,
+ drop mmap shared/write check
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 17 Sep 2026 09:29:00 -0700
-X-Gm-Features: AcwNN1V7jOBqK4FdRC1JlcHGnDHEP0gBHD6CVBE-iRa0WkhDx235spPNxiQwXKk
-Message-ID: <CAJEbJRCH_YwTt68oPEmqz_-CGAgCJ5-dGocALr7k4zjyUUnY=Q@mail.gmail.com>
-Subject: False-positive missing-firmware warnings for devices not present on
- the machine
-To: linux-firmware@kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-12-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1924; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=X46vXp5xg8nLI6IG+V/Ab12M7pEZi9uJqKdEh54QAaM=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB/4+lNC4kLT9Xfr2cNNWOx/bZBxCA3lc/ddrff0/
+ HctqbfsHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIwDKGn4wMy14xmso2pPDv
+ D3n68b3oKp3jKyvnaKX67T30WCys7jQjw36LHf1Lmqed1JoeuUrratDu63IFu0+J/2G76s1hYfO
+ rihkA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Hello linux-firmware maintainers and Linux kernel maintainers,
+The policy file has no write method and is exposed read-only (S_IRUGO in
+selinux_files[]), yet sel_open_policy() performs no open mode check, so a
+CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, as
+kernfs does.
 
-I am an Arch Linux user writing about a user-facing warning that
-appears on every kernel upgrade. It is driven by MODULE_FIRMWARE
-metadata on in-tree modules, then printed by the distro initramfs
-generator (mkinitcpio) as:
+The file can then never be mapped with FMODE_WRITE, so do_mmap() always
+clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARED
+check in sel_mmap_policy() cannot be reached. Remove it.
 
-    WARNING: Possibly missing firmware for module: 'ast'
-    WARNING: Possibly missing firmware for module: 'xhci_pci_renesas'
-    WARNING: Possibly missing firmware for module: 'qla2xxx'
-    WARNING: Possibly missing firmware for module: 'qed'
-    WARNING: Possibly missing firmware for module: 'aic94xx'
-    WARNING: Possibly missing firmware for module: 'bfa'
-    WARNING: Possibly missing firmware for module: 'wd719x'
-    WARNING: Possibly missing firmware for module: 'qla1280'
+This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that is
+neither a PFN map nor a mixed map, ahead of the core enforcing that only
+such mappings may do so.
 
-None of that hardware is in this computer. I find it a strange
-antipattern to report missing firmware for devices that are not
-present. Treating that as a WARNING is, in my view, plain wrong and
-misleading. Why on earth is the default to warn about hardware that
-is not even in the machine?
+Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Reviewed-by: Jann Horn <jannh@google.com>
+Acked-by: Paul Moore <paul@paul-moore.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ security/selinux/selinuxfs.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-Machine: Lenovo Legion Pro 5 16IRX8 (laptop)
-GPU:     Intel Raptor Lake-S UHD + NVIDIA GeForce RTX 4070 Max-Q
-USB:     Intel 700 Series xHCI
-Storage: Samsung NVMe
-Ethernet: Realtek RTL8111
-Wi-Fi:   Intel CNVi
+diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+index c7d91476971c..545a6f89f9e7 100644
+--- a/security/selinux/selinuxfs.c
++++ b/security/selinux/selinuxfs.c
+@@ -340,6 +340,9 @@ static int sel_open_policy(struct inode *inode, struct file *filp)
+ 	struct policy_load_memory *plm = NULL;
+ 	int rc;
+ 
++	if (filp->f_mode & FMODE_WRITE)
++		return -EACCES;
++
+ 	rc = avc_has_perm(current_sid(), SECINITSID_SECURITY,
+ 			  SECCLASS_SECURITY, SECURITY__READ_POLICY, NULL);
+ 	if (rc)
+@@ -424,14 +427,6 @@ static const struct vm_operations_struct sel_mmap_policy_ops = {
+ 
+ static int sel_mmap_policy(struct file *filp, struct vm_area_struct *vma)
+ {
+-	if (vma->vm_flags & VM_SHARED) {
+-		/* do not allow mprotect to make mapping writable */
+-		vm_flags_clear(vma, VM_MAYWRITE);
+-
+-		if (vma->vm_flags & VM_WRITE)
+-			return -EACCES;
+-	}
+-
+ 	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+ 	vma->vm_ops = &sel_mmap_policy_ops;
+ 
 
-  Module              What it is                         On this PC
-  ------------------  ---------------------------------
-------------------------------------------
-  ast                 ASPEED BMC/IPMI server graphics    No -- Intel
-UHD + RTX 4070
-  xhci_pci_renesas    Renesas USB 3.0 xHCI firmware      No -- USB is
-Intel 700-series xHCI
-  qla2xxx             QLogic Fibre Channel HBA           No
-  qed                 QLogic FastLinQ enterprise NIC     No --
-ethernet is Realtek RTL8111
-  aic94xx             Adaptec SAS/SATA RAID              No
-  bfa                 Brocade Fibre Channel HBA          No
-  wd719x              Old Western Digital SCSI HBA       No
-  qla1280             Old QLogic SCSI HBA                No
+-- 
+2.55.0
 
-None of those modules are loaded. lspci shows no matching devices.
-
-I understand MODULE_FIRMWARE lists every blob a driver might request
-for any supported device variant, not "firmware required on this
-host." Distros then treat that list as a checklist when they pack
-generic storage/USB/GPU modules into an initramfs. The result is
-false-positive WARNINGs on ordinary laptops for QLogic Fibre Channel,
-Brocade FC, Adaptec RAID, old SCSI cards, ASPEED BMC, and Renesas USB.
-
-A warning should mean something is actually wrong with this machine.
-I am asking for this default to change.
-
-On the kernel / firmware-metadata side, that could mean:
-
-  - Distinguishing required vs optional firmware in MODULE_FIRMWARE /
-    modinfo, so initramfs generators can stop false-positive warnings
-  - Or documenting a stable way for userspace to know that a firmware
-    blob is only needed if a given PCI ID is present
-
-I am sending the same request to the Arch mkinitcpio maintainers,
-who emit the warning today. I would like the user-visible default to
-stop warning about devices that are not in the computer.
-
-Thank you,
-Alan Hovgaard
-Arch Linux user
