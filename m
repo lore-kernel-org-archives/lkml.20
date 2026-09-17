@@ -1,134 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA3F439F7C
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:36:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156CE47C116;
+	Thu, 17 Sep 2026 08:36:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634193; cv=none; b=ejdH/0AvbVKiRAmiL8jF/pqhvhWbEpxoErd8DxtTqnG+TceB0IVNpPco5g/+BSBS7qmgc5NqxV88BWty5ynumIDXG7aVVfw1ijpPrEwV31Nirj3gmzuzS5vsb1568Fs9vV/FuL10BxiplSx6tdiOhBZL+nOZIqChUL+vvpAuqdo=
+	t=1789634218; cv=none; b=oAlTCtWx4gWoJ9MtiMxi9Kp+Ii5TSeBfZ56WIngq3yw0jZPO8fKl27Iiki0tOZRQs5Hbnqx4NUvN0Qw28+k0zYsfRXD2aaR5KNr50WTTJEwx7adzwtUBIzcYq4QsT+mNZ+usP1oEL8lje+4bJB3Jb+e/E/2Fe3V8zJoEhQWOB8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634193; c=relaxed/simple;
-	bh=z4GA6U2YHgkODGVI6X0tv9KlPQw3EoQLOuSi3vpR6wk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UXSsVc3fKV1BmOHMXjA6le2VpQ0yoODRA2B3wyiJVoB9htPfTcyMZwsd59nE+HsdqPa7ztPLqHNkxncEXE1MDe0f1VunVzOfWxDnlbr8OZjmB7HR7cGouQjw62IkzPjRm4aOvtwXE9+gk9Rbo1/TwcqimUdzUeGbUyLQiwUJqk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZsStLhyF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789634218; c=relaxed/simple;
+	bh=AjPQQ34DjEurplenLQ7sBH+VHMaZnGFbeJBQVIWEoTs=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=RR0M1ygdRaLAm/GBqH75fEcxqlzt9CqOW69KhKGE+vhkUVZcFecORvRVvYBBTF9v0Azwn8tSFvy00qhKSemvyokSDxSn+EoIgFggdEpPL1zKX6jmAsAva7T/XyCBByDxyZkJWyRYS3LRArw5Qgt/cIy/s0uKUZqxRIb2EyQ+zIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GTwzq7Eo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZsStLhyF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706E31F000FF;
-	Thu, 17 Sep 2026 08:36:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789634179;
-	bh=6tt8ooUC4qwD81am6RpayzVZyABrT9XuF5VVEzzFin8=;
-	h=From:To:Cc:Subject:Date;
-	b=ZsStLhyFU+R08q4g7z7KdDHsIwmVtW9k7dVyNQ4f7AbCLaEUyf+KybejrK2NfYZ14
-	 L/D8lxiIUPvv8uhJByC72d16GmOKKhJ3SMwL9NachmZ/NkCgFN8YblwrIt07nQVqP2
-	 LsCjmoVOaB5go7jDbMrTe7oa/35cSVwP88NbUsIg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: cmllamas@google.com
-Cc: tkjos@android.com,
-	aliceryhl@google.com,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v2] binder: Fix up Kconfig dependancy due to removal of .c code
-Date: Thu, 17 Sep 2026 09:34:20 +0100
-Message-ID: <2026091719-irregular-corral-5d59@gregkh>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GTwzq7Eo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608871F00899;
+	Thu, 17 Sep 2026 08:36:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789634211;
+	bh=AjPQQ34DjEurplenLQ7sBH+VHMaZnGFbeJBQVIWEoTs=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=GTwzq7Eo0fBeR7MbMPqG5QLnCXLBSCeWvnu/N3aKXYGQ2NJ5mpS7jNeHApp2BVkEh
+	 TGjtPquNf1ssqU3LqUcdUGEut8DwCIblXT674DSBUi6tNfbgpjynjyaMlWZQ8+z7C4
+	 iVi4opq6Zv0A5Ej/KrP6xAvxFlBWgodtpMWTBIINbx34ZRlDr6uJFMVEQuSOQiYL+B
+	 fB7eATby8veC/x7ZoDQi8Rm83xicxahVrIa0imLmvrvRhtgIOPgB+Y2rlB9geNt+xo
+	 9P5JEwqqo53McOnSUqDzI4mGwrDXSEE6jMABDE5xhyvQit0bxef0Mvrq/ffLXvTSmC
+	 fYy4WwAr26v0w==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id BC76B198003A;
+	Thu, 17 Sep 2026 04:36:49 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 17 Sep 2026 04:36:49 -0400
+X-ME-Sender: <xms:oKaranGauXjJYBj2OHr5Ts3ZvWM-4P-vVhEP88gSLbqJWXHSD3BNHw>
+    <xme:oKaravIbg2HlGEmoHcVv_BjVLGPcHG3OsFaw2-tJq5-Ru_f4b8y5ECjPkzp1utBBK
+    P23XCMBuaGC-H9G9AqqrsLxfuebjf2uUpS9Ra4GUy5YXVdrvKdU4dp1>
+X-ME-Proxy-Cause: dmFkZTGj/iOcN9vrW1Y04XJ/AbklSHO56cmeyUArUFrIGsnEAsW1WzgWJpdGXhSDI7lJyV
+    bdMpwFH+usjcjY7/COJk6gayth2TOAtCB2AC9NXaVyvx0FogMmVkwM1Rt5S1TRPBRm0AwW
+    Tz8HpyDOcazHAujGIOBFh6IFCRZtW425tt72Z39CVDtoa3ORSC+Ab5eZ5DsUyRSHg0b8Ac
+    RGtdgKZNiuJRaMiyAagQi6jtB/FMOuFVuHwUvCBgudqw1jy5engrVn8IUrhoE50CboVrP/
+    7XSOVhIVuwZO53XChsmGCLD65qwOHNXmjVM9BKT62ezMOPmUR/BFSF8mPh4tQ7lGprTrWa
+    9mTiQIc8wc1GAN+3Ahl2dla4xmDGYl4+yfi5TEvlPsdiC6jeqYR8W7l8UN2Ni3RsWaw+gx
+    9p4WMNomgaOJXC0V5EXrDlzDqcSepzundyrYNOynftfN4nZtOPuO3pnNw+c1JV+mvLx4PE
+    T3Hmx4bqGAmTNFStkN59JUhRUv4RulqdoOFRxmDOTL41GS96e3lSuaGGMvfG3q1KJgXLzn
+    eBMfQKYA8whbXtNdH4j9kMHopFEzSkAj3BFz3VCcZLHtjntDm0++6RnViXGiuQmVfHH4gh
+    u74N2kVAktG0wMcyiOsA3vRrJIyLrumMiHT+OH6wyx+ummuByCYwrog0GxOA
+X-ME-Proxy: <xmx:oaaraqqUsvWTVUn08_QhGUNB-TZy4cvST8lLYfiHzLuf9OGB4DDBLw>
+    <xmx:oaaraq4MIIb6MeK-bsdetCGQ8aC7D0y_JCeibS3zNQuiAnAdrvwyHQ>
+    <xmx:oaaraheWtWY6kO5-2xy6uDVF5Y2vxmU6O9oCu6BnoyOMX4mMhutvoA>
+    <xmx:oaarav7_DL630r33YPBKlyq-QbrG3RS6-Ocm81lTh_KRXnWrN7nDtA>
+    <xmx:oaaraosHZCMzFL_XVKvF4xJ_HoeSk3B6IOBOU5KxHzCCqPe1SeDBpQGu>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id F059AF80084; Thu, 17 Sep 2026 04:36:47 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3616; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=z4GA6U2YHgkODGVI6X0tv9KlPQw3EoQLOuSi3vpR6wk=; b=owGbwMvMwCRo6H6F97bub03G02pJDFmrl3HzWppurHpScVNiplDDdbnXXj3nfoQm5Pbx/HWZy rv94fbIjlgWBkEmBlkxRZYv23iO7q84pOhlaHsaZg4rE8gQBi5OAZjI5VUMc4WVN5WbWPhqXbhv GhMqclZG5/WHKIZ5+i2P2zbJnr/W5ijIzxqzUHbnWf6tAA==
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
-Content-Transfer-Encoding: 8bit
+Date: Thu, 17 Sep 2026 10:36:26 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Prashant Singh" <singhpra@juniper.net>, "Jeremy Kerr" <jk@ozlabs.org>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Jonathan Corbet" <corbet@lwn.net>, linux-doc@vger.kernel.org
+Message-Id: <60d0b7a5-cc1f-4841-b4f2-754e1b921794@app.fastmail.com>
+In-Reply-To: <20260917071600.5587-1-singhpra@juniper.net>
+References: <20260917071600.5587-1-singhpra@juniper.net>
+Subject: Re: [PATCH] efivarfs: avoid slow QueryVariableInfo() in statfs()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-When the .c binder code was removed, building the kernel if the rust
-binder code was enabled, will cause the binder to not be built at all as
-the option changed from .c to .rs which is probably not what the
-original build wanted.
+Hello Prashant,
 
-Fix this up by renaming the option back to the _RUST version.  If in the
-future, that suffix wants to be dropped, we can do so and then it will
-be prompted for a choice again, but for this release cycle, it should
-stay as-is.
+On Thu, 17 Sep 2026, at 09:16, Prashant Singh wrote:
+> QueryVariableInfo() is an EFI runtime service that, on some platforms,
+> takes tens of milliseconds and runs with preemption disabled, freezing
+> the CPU that services it for the whole call. efivarfs_statfs() issued
+> this call on every statfs(2) (e.g. every "df"), which produced large
+> latency spikes for unrelated latency-sensitive workloads pinned to the
+> same CPU.
+>
+> Commit b2326338dc68 ("efivarfs: Rate limit statfs() handler") already
+> bounds the firmware call to twice per second. That helps against a
+> statfs() flood, but on a real-time / dataplane system even the residual
+> 2 calls/s x ~40ms = up to ~80ms/s of preempt-disabled CPU time is
+> unacceptable: any unprivileged process (or a periodic monitoring "df")
+> can still inject ~40ms stalls into a co-located latency-sensitive task.
+>
 
-Fixes: binder: rm -f binder.c
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
-v2: Fix up "_RUST_RUST" problem in Kconfig option
+Could we instead introduce a mount option that disables used/available
+reporting entirely? Feel free to set the default to 'disabled' when
+CONFIG_PREEMPT_RT is set.
 
- drivers/android/Kconfig                                      | 4 ++--
- drivers/android/Makefile                                     | 2 +-
- drivers/android/binder/Makefile                              | 2 +-
- tools/testing/selftests/filesystems/binderfs/binderfs_test.c | 2 +-
- tools/testing/selftests/filesystems/binderfs/config          | 2 +-
- 5 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/android/Kconfig b/drivers/android/Kconfig
-index 403e5f3eab5a..c920d52c0221 100644
---- a/drivers/android/Kconfig
-+++ b/drivers/android/Kconfig
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- menu "Android"
- 
--config ANDROID_BINDER_IPC
-+config ANDROID_BINDER_IPC_RUST
- 	bool "Android Binder IPC Driver"
- 	depends on MMU
- 	depends on NET
-@@ -17,7 +17,7 @@ config ANDROID_BINDER_IPC
- 
- config ANDROID_BINDER_DEVICES
- 	string "Android Binder devices"
--	depends on ANDROID_BINDER_IPC
-+	depends on ANDROID_BINDER_IPC_RUST
- 	default "binder,hwbinder,vndbinder"
- 	help
- 	  Default value for the binder.devices parameter.
-diff --git a/drivers/android/Makefile b/drivers/android/Makefile
-index dc19d21037af..f83d39d16f6e 100644
---- a/drivers/android/Makefile
-+++ b/drivers/android/Makefile
-@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0-only
- ccflags-y += -I$(src)			# needed for trace events
- 
--obj-$(CONFIG_ANDROID_BINDER_IPC)	+= binder/
-+obj-$(CONFIG_ANDROID_BINDER_IPC_RUST)	+= binder/
-diff --git a/drivers/android/binder/Makefile b/drivers/android/binder/Makefile
-index 661f5cca8918..fe474628a94e 100644
---- a/drivers/android/binder/Makefile
-+++ b/drivers/android/binder/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- ccflags-y += -I$(src)	# needed for trace events
- 
--obj-$(CONFIG_ANDROID_BINDER_IPC) += binder.o
-+obj-$(CONFIG_ANDROID_BINDER_IPC_RUST) += binder.o
- binder-y := \
- 	rust_binder_main.o	\
- 	rust_binderfs.o		\
-diff --git a/tools/testing/selftests/filesystems/binderfs/binderfs_test.c b/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
-index 7310622098ff..cd82c89f558f 100644
---- a/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
-+++ b/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
-@@ -414,7 +414,7 @@ TEST(binderfs_stress)
- 
- 		ret = mount(NULL, binderfs_mntpt, "binder", 0, 0);
- 		ASSERT_EQ(ret, 0) {
--			TH_LOG("%s - Failed to mount binderfs, check if CONFIG_ANDROID_BINDER_IPC is enabled in the running kernel",
-+			TH_LOG("%s - Failed to mount binderfs, check if CONFIG_ANDROID_BINDER_IPC_RUST is enabled in the running kernel",
- 				strerror(errno));
- 		}
- 
-diff --git a/tools/testing/selftests/filesystems/binderfs/config b/tools/testing/selftests/filesystems/binderfs/config
-index e0c1958a3675..80e4221c2d82 100644
---- a/tools/testing/selftests/filesystems/binderfs/config
-+++ b/tools/testing/selftests/filesystems/binderfs/config
-@@ -1 +1 @@
--CONFIG_ANDROID_BINDER_IPC=y
-+CONFIG_ANDROID_BINDER_IPC_RUST=y
--- 
-2.55.0
 
