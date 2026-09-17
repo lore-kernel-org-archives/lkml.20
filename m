@@ -1,93 +1,123 @@
-Received: from mail-aws33103.qiye.163.com (mail-aws33103.qiye.163.com [54.168.33.103])
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7693DAACE;
-	Thu, 17 Sep 2026 16:45:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.168.33.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1555D3DAAC9;
+	Thu, 17 Sep 2026 16:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663550; cv=none; b=Bd54GmC+vHdtMBAp52LvEDgNX+dAxVTXXy/3/VMZNQLWQrRiEDp2sz+3gyi/6zcLPGlYyW3pelomVvqAH8msAeJ+kEhAG0ITw+fdPa1cFqSA+3bF9b7qrr6sgUINg0pt7dgH9RR8QnGYFjyZtD7c5PGLaeIFLf3Mjuhx1Niqa3w=
+	t=1789663551; cv=none; b=FIYRP9DDRjYTLcq0Cyi0Roj93yO0cHGNuVBoMmFqcGC29g8Cc6xeoJKKhYjwibuQOb2iAZ+T5kTBIxTH0WqdthhLhF3sKZGq1wxrAnSz0rqwGwukb1UlBu31JMYQuNuB7/pft8TbPKBkmIOQKt7fGtQxylZxZnpJsyfAgAD25Zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663550; c=relaxed/simple;
-	bh=ybUw/VAHJ34uriUZtpn0bT3L0WPyk0v+DTnIOENRITc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=cDXC0RwQC9s572fbrPs9eXGlNYUOcV9V4iZmEB2Ce0egls0V7yGjGl5Au8AMYX/coFOgXXuaxU5xC6IAHMgQRpcz50u4kTuKUADyQ9iU4deqaJiETISr/V7QCcRhotIaN4AbkXb8xRv5TF5weJpzRDmJ9WfQEZrjQQt5qUSEYCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=AJBIpqTB; arc=none smtp.client-ip=54.168.33.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1789663551; c=relaxed/simple;
+	bh=wzguD82Bxmn2t0ZmkzkAp/MrCpv/zzbAGjWUCYwhsaA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=uREpAb2o2QCiuetYCuXPV76qQX4EM1t0eaaufpyMvocTkRQo45dk0daNCCxLkjr4wXX1GJDQ0TcEYV6P/Frw36nGJsootRhDfyFq3BKj/mHtqkvLRD9CLIoejgmm4AVl6Oz9nsusTlBbZD27G2Pq61EV003MGqxWmagQzCJVnxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=KeCD27Yt; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="AJBIpqTB"
-Received: from localhost.localdomain (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e203485e;
-	Thu, 17 Sep 2026 16:49:01 +0800 (GMT+08:00)
-From: Shawn Lin <shawn.lin@rock-chips.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shawn Lin <shawn.lin@linux.dev>
-Subject: [PATCH 3/3] mmc: core: fix stale mmc_start_req() references in comments
-Date: Thu, 17 Sep 2026 16:48:37 +0800
-Message-Id: <1789634917-143165-4-git-send-email-shawn.lin@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1789634917-143165-1-git-send-email-shawn.lin@rock-chips.com>
-References: <1789634917-143165-1-git-send-email-shawn.lin@rock-chips.com>
-X-HM-Tid: 0aa0ae8e123003a4kunm476cf0c8983d6
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQhoeSFZDQkNMGEMaGk
-	xPHk5WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=AJBIpqTB66BmBkvQGDaS6nhAmkGwXURz4jekSHHbDQAOcxRTSzXCcTZXkQcCWBLmhg2lsVTmBFOwnVAHPqwy/WRq0QrsOgRK+gqL3NTeEQsOeelbHPLRKXm5IEZpR1JCbXoxJRoDljZjP0w7d1UBtrwflykP9DMGvVwvQGJYd0Y=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=/k6J3dxPvPltz/ZMrbyXh8Ewz7+GFZJ0zTlamg5BQ3Q=;
-	h=date:mime-version:subject:message-id:from;
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="KeCD27Yt"
+Message-ID: <7077da32d9aaa1d748bbc39e9416974ccf6aa8ea.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1789663547;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wzguD82Bxmn2t0ZmkzkAp/MrCpv/zzbAGjWUCYwhsaA=;
+	b=KeCD27Yt6Z2BGpiHVPP5ps+cMStp5VYaNRfcTgaSb0vzJhFK2SLo5GfFY+Kho1pBtyE1nt
+	t0TCE4PFp1HJX1DTPcEV/KMrjhEbbdsFFFsEYsD4QlPwEJ/HvBpHqQfK9SQ5FqD+08dCnz
+	FIT7eXD8EfKfSZDoku4kkRw9nZCsi9s=
+Subject: Re: [PATCH 0/2] fs: honor FOP_UNSIGNED_OFFSET in llseek and
+ positional I/O
+From: Stian Halseth <stian@itx.no>
+To: Florian Weimer <fweimer@redhat.com>
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	sparclinux@vger.kernel.org, schwab@suse.de
+Date: Thu, 17 Sep 2026 18:45:45 +0200
+In-Reply-To: <lhuo6dv50l2.fsf@oldenburg.str.redhat.com>
+References: <20260917151614.376867-1-stian@itx.no>
+	 <lhuo6dv50l2.fsf@oldenburg.str.redhat.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-ErG7nOQjqGsN6l2Jh7B4"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-From: Shawn Lin <shawn.lin@linux.dev>
 
-Two comments still refer to mmc_start_req(). That function was renamed
-to mmc_start_areq() then removed.
+--=-ErG7nOQjqGsN6l2Jh7B4
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-So, let's update the mmc_is_req_done() and mmc_pre_req() comments to refer
-to the current APIs: mmc_start_request() and mmc_wait_for_req().
+Hi,
 
-Signed-off-by: Shawn Lin <shawn.lin@linux.dev>
----
+On Thu, 2026-09-17 at 18:01 +0200, Florian Weimer wrote:
+> * Stian Halseth:
+>=20
+> > Tested on an UltraSPARC T4: pread(), preadv(), pwrite(), pwritev()
+> > and
+> > lseek() on /proc/PID/mem at positions above 2^63 return the correct
+> > data
+> > and offset; a negative position on a regular file or a pipe still
+> > fails
+> > with EINVAL and position 0 on a pipe with ESPIPE, as before; and
+> > the
+> > stock pldd(1) works again.=A0 On other architectures the change is a
+> > no-op
+> > for every file without FOP_UNSIGNED_OFFSET, and userspace addresses
+> > never set the top bit, so the new paths are only reachable by
+> > passing
+> > a bogus position to /proc/PID/mem or /dev/mem, which then fails in
+> > the
+> > driver instead of the wrapper.
+>=20
+> For lseek, aren't some file offsets (the top 4095 bytes or so just
+> before 2**64) ambiguous as error indicators?=A0 You would have to use
+> _llseek when accessing /proc/PID/mem.
 
- drivers/mmc/core/core.c | 4 ++--
- drivers/mmc/core/core.h | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+Yes, for lseek, anything in the top MAX_ERRNO bytes below 2^64 cannot
+be separated from -errno.=A0
 
-diff --git a/drivers/mmc/core/core.c b/drivers/mmc/core/core.c
-index 59430bc..920e4b1 100644
---- a/drivers/mmc/core/core.c
-+++ b/drivers/mmc/core/core.c
-@@ -588,8 +588,8 @@ EXPORT_SYMBOL(mmc_cqe_recovery);
-  *	mmc_is_req_done() is used with requests that have
-  *	mrq->cap_cmd_during_tfr = true. mmc_is_req_done() must be called after
-  *	starting a request and before waiting for it to complete. That is,
-- *	either in between calls to mmc_start_req(), or after mmc_wait_for_req()
-- *	and before mmc_wait_for_req_done(). If it is called at other times the
-+ *	after mmc_start_request() or mmc_wait_for_req() and before
-+ *	mmc_wait_for_req_done(). If it is called at other times the
-  *	result is not meaningful.
-  */
- bool mmc_is_req_done(struct mmc_host *host, struct mmc_request *mrq)
-diff --git a/drivers/mmc/core/core.h b/drivers/mmc/core/core.h
-index 601c737..9be2875 100644
---- a/drivers/mmc/core/core.h
-+++ b/drivers/mmc/core/core.h
-@@ -170,7 +170,7 @@ int mmc_cqe_recovery(struct mmc_host *host);
-  *	@host: MMC host to prepare command
-  *	@mrq: MMC request to prepare for
-  *
-- *	mmc_pre_req() is called in prior to mmc_start_req() to let
-+ *	mmc_pre_req() is called in prior to mmc_start_request() to let
-  *	host prepare for the new request. Preparation of a request may be
-  *	performed while another request is running on the host.
-  */
--- 
-2.7.4
+For that reason _llseek is the interface that can be exact.
 
+Patch 1 ensures that _llseek works for everything except that 4095-byte
+window. The patch does _not_ change the fact that _llseek can't return
+an offset in said window.
+
+I think fixing the window requires llseek to report errors separately
+from the offset. A bigger change, I would need some feedback before
+attempting to implement that.
+
+That being said, I _think_ the window is unreachable in practice, and
+that no architecture maps user memory there.=A0
+
+I could add a sentense to patch 1 noting the limitation, or look at the
+larger change if the VFS maintainers think it's worth it.
+
+On the glibc side: 64-bit glibc uses lseek except on sparc64 and ppc64,
+which use _llseek, so those two get the exact result with patch 1,
+and the rest carry the lseek ambiguity for that top window regardless.
+
+Best regards,
+Stian
+
+>=20
+> Thanks,
+> Florian
+>=20
+
+--=-ErG7nOQjqGsN6l2Jh7B4
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCaqwZOQAKCRDoeAEuJe36
+VkoZAQCDy3TkbtQ6JnO16PSxWhQze7dMZrROIG8dWHifhd1rzQEAglxCtIFZm4TY
+fXk9wuxKxj6kBKmCxz81UfctgIiq7wI=
+=R+T/
+-----END PGP SIGNATURE-----
+
+--=-ErG7nOQjqGsN6l2Jh7B4--
