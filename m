@@ -1,493 +1,225 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011053.outbound.protection.outlook.com [52.101.57.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08685013C3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648012; cv=none; b=myW3YksDxWb2cXh5nAfX9IpBD/ehH/jSOlu1b2P2mAvDKNZXzM6xKps5EVh2GjK4bVtFTrwojEr2dmHsxJZXq5iNDa7DJgqha9fZj6XuZYO2g27hZhnPMOsnmh7ZBpR9u9a23mgn+ewx8QUhSmvJdkekvCEFvEAEhQ/aUfKrOkw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648012; c=relaxed/simple;
-	bh=c34PmATKX7HJZ8CFFmEFy9pekuCN3k6Yqq9JkOd7bLs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rgpBT+Hus9pYaLHbPZ13xcg3NmOUUdp4Quz9BoJBlvGiE7FPWAT6+LG2Q4LM7xInArKpqjAxtuyyS3xU6geZ0hhvZhiPab4NHMurPSNTz74fZIeszmxKrRP6ysENyopOfQI/hJ7SsKOLeyibdCW7Q8UJu8IuSqtGoPz8J430Jyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E6/PP/En; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BYW1elUw; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9936D3AD539;
+	Thu, 17 Sep 2026 12:26:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789648019; cv=fail; b=CoJyGFS+JuNw4W96c5xhq51Dg4MJnnVVgRqYJDWq39AecszJrGhdSZxIcljb9AlFUXsYUGPX7WG7endbj4kFzavsrAeUKvExep7NBSNVrRxrU0kfSgegLpYBy34P5htFJFtRpmpQm/+7dyWOmIW9FZYc24leAGNI11iPNXbvgZ8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789648019; c=relaxed/simple;
+	bh=UFcj0n4AUIqhFJzWPsT95CnKmYRZzz5Sf/UyaTCSquM=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=YxZaVAT8wfxsAwMTgl/XazkQm4+ztpKee1C0KxsSRmIAbn7Bt6l7WkSwdFoqjGCnPwjtC2q0sVqfK7ZmOld3v6wUMdiYgfoauvbNjh9odaKbGvDvrUeQFIiga5b4ehcVUV3L6WqMOb52c5ovZ0d9zHA+/KNRMO0lY7jN1giF+1o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=X3kt5knl; arc=fail smtp.client-ip=52.101.57.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E6/PP/En";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BYW1elUw"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H9ZZZH1257819
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:26:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8Keor29M37/WrX1rWIERWan+exH4m2x3okekxAnZW8Y=; b=E6/PP/EnHwlumjVS
-	Sr4sCBAotVcah94KqPf2Ah6pV9jSvlvFv5wMjuMb/kV1+K7OJcrIip2N67sxs5cF
-	jlzjYy+xUpm5grFrHRJ2JkrnD8Od3VMWwze9Tw+W2K/VfmYRT7dqTSRdYFg8PdkM
-	Ca6io3lTLjndJem+EUagmY0EFYEBPCCptkwsMzRzlfu6M299h7E59xqx/j7c1iu6
-	BykZyQi4XgaeC7D08Ej1NhwxB1/iwII7NPPKXIWDENbY43qlXlLiq8wCUnyT/zcd
-	HgCUsGCYqyVqW94UnPHgT2keFrqORj31QfmA3oE2JeXr+YpuLvoFD59t9S2iRqRc
-	2jcoSw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grdftgqc6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:26:30 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398d0010cfaso1543501a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:26:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789647990; x=1790252790; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Keor29M37/WrX1rWIERWan+exH4m2x3okekxAnZW8Y=;
-        b=BYW1elUwluC0/dSeNcUSFONoy6IUrQyuib6YV956m84HLsaKYeVjXM6jqmyuy+ZvXO
-         a600xhGZ1piLfXFBUatk3SYTA8IBsR8LcU9WaseRJ/YKLzvqd2j0hjzQdDIDyNF1IuJZ
-         Qpt04d6EurI38/PbpVqXQIab1DKHejfdUvY3kSMudaojN7d3KlqieM7gmGOXnnOsytp4
-         oj1j80CNHR5K+Yh4fH5lOi3lrUOmYZA98MXp8ndFeEWAqexztIWnQ6yegyxrtfDIzUko
-         fRyj1ZzeV0Dlsyq5ofKxUP4rEXnvOKKRP/QOHfCHHJloKM51yGeTi65fmsRJa74lkqWT
-         GvCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789647990; x=1790252790;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8Keor29M37/WrX1rWIERWan+exH4m2x3okekxAnZW8Y=;
-        b=XomtN470Vp9ljUegNI8P0SNrrlpCiJe0BrcSSupcGU9Ez52FEHYE8ztSesY/mRoAnO
-         7VMKVtFd50w85nrpTi8ER9PlkFU4Db8Fhu7ZLjhxm6Z5+Zr/PH4rSr3QgQvMIHszS57N
-         8Rv8cE4NfePeaSgDdM80fHgBksuGiUSSSKcA8rSxroZ2olADBDZx4teTCLLpq8MgwURU
-         SLNAw7vOvjcA0K5pQLjsMNUyn1LOZcXN8bGGGHvwur7GutjQ1aiHIPcVcNequeDnYs7E
-         7FYp6JRGZvmao/KSBXOdjqq/Ob9grkWloIolHiiB4TXd3p/73GE8vyOd5IodeewEfHu1
-         NZug==
-X-Forwarded-Encrypted: i=1; AKwUvBw9Yf85ADUeaXM8dSqOeE1uaeXZ5ZdBjJ/F5y8ya0/XIhxys6epcOCQWvd1o1QhVTsc3qRiUNRpHqd1GSk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDA110TF6mqzrm9OPGnqn9aZaV4XqlJPJhXeiKTMh77lXBYlgs
-	n9N/8DVbM6zKetEj0+qqFa4G5yNE/Q5/hyg4mTEKLFJnNsV9TJDTKuCCf5SBGkiAKQzZkR/KFGM
-	o+nkmXbOusjdV98NernK/16FVLQ5KhqG4cmdO99c6I98DKBdPAZXuejNSg7oZxCPm12Y=
-X-Gm-Gg: AYBFou3xwnwQK3nhoIQcH9vBwlBXzyhDolazpX3s6TDBbLZLDA73mj8F4I6eJgoCp0n
-	xs7ovPEkEUORlRybwFpTNiALVoOyLA5SQUkNhfWjUaGmP1AffPtV3DiSYv2w9jXogJVqYShHqaQ
-	wWn5GlzxnhscSByU7PXJbbGEA8LPup6ODK8md6ZX/rZkxp46okcm0KiaEUEmnXyMBp6TjwSbqBp
-	Jb+lQc6LKOex+zVG6pa/c98ER/eamCqkFagCVnM17gf+6+b74MoxKDIL4pHpC/js9APBIfJ7li3
-	54DY1varivvzF6UoxgagKPBaE7l6laM0gFMTolm6V/BPYJPp3rwyGGgJgBLKd6oz+PyTnSNqufI
-	fFOqyGmy4PdVQroh3TDR+0X2NUnDJvJc19vY=
-X-Received: by 2002:a17:90b:390f:b0:39e:1c4e:5473 with SMTP id 98e67ed59e1d1-39e1e47ab6dmr18810371a91.16.1789647989611;
-        Thu, 17 Sep 2026 05:26:29 -0700 (PDT)
-X-Received: by 2002:a17:90b:390f:b0:39e:1c4e:5473 with SMTP id 98e67ed59e1d1-39e1e47ab6dmr18810332a91.16.1789647989168;
-        Thu, 17 Sep 2026 05:26:29 -0700 (PDT)
-Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a175sm16380968eec.9.2026.09.17.05.26.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 05:26:28 -0700 (PDT)
-From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Date: Thu, 17 Sep 2026 17:55:29 +0530
-Subject: [PATCH v2 15/15] arm64: dts: qcom: sm8550: Move PCIe phy and GPIOs
- to root port node
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="X3kt5knl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gen54zvfSvNeuMusMfEjgl0A/QKQtVVJL7e7ZhFrfJIcYYE9vTxZpJGMluPHp4xbnNu8wOAKQuSjRMR9wK6ktaBShIzYGuTr0/Ft/bsPNW2InvJOniUgGlzdfp0vcImWx94BVKN2lJA9XxjKQmMnV+OQjduU5CPEwZz/fHSZ+Jecy1Fx4aIRmeh4NVuc5ZML4eR0MRJTgSbfmMq/DDnG8/OFrYmLpG5ntBekZfSk6cn+obtWKoRYpNUm6L+GYZVqh9iJGSNiFnzFja6KIBERYhyFIBNTVk3/xigAp6Av+2q8DkIg+iVpAtRDMcqoyVzGOBa43sXTPtumYVJ6NmJQoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q9aSkKKc7WtnQVFW80/zLdDT1oTrC0xtTfmak4Yieus=;
+ b=SkK5MkqaFfIK4yjfYh30qP6oK9SbDLUhAflFGWEkX3u6D7jYdUl77vvvtWovgAzekUi47m9ogR8p2XzlSoKW0CNOl5JI9sv6Jp+w81tru48Vp1wMQNKpC6FOVg8toO0KrFZqNalUk+6tG4iqvNGLepLgTRiqMVEGsxqGq+1n/mGZ8r5C2e5hzlIiCICCqD9BSU3RSnaohhrdy7VqQzRKBDNXZe9ilv0Pn5q7mGJathqeEb4y44ok6uMytQR95Fdee2cp9qdIHpHCGWo0oLMsMXa8VtjgnomH2YSAW3E9U9ctGwIAFlQPWCZCe4LpqPhkdTfWzgBjt04PstVZMFzIpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q9aSkKKc7WtnQVFW80/zLdDT1oTrC0xtTfmak4Yieus=;
+ b=X3kt5knl63d8q0jq/vKxdF1iCEuu56/DL4kXcRhRx4j3ocLyBNbBsxtnpLO7TIgSpvundMgPYY/aD9f/i2jKvGjMw9gX3OJxqjAOGjpFWg2p4syA6aEUiDP9Dz9kGT2FgvuxTEk+15qiKlbOYL+LpS4AS/Iebu+spbtA8lu221DW+/KISReHnahTzri2xnYi8IHqajjyv0klpIDgIKpKsYLyd51067TSpsungZi05w3SLHAAchz1sIxUx5rGyJwWWPDUba2VpspfLS10skUPR7Rp1K5oxMQD+bxZVOZaA0n45kclZ1rv37VhrOKGhwW0Bu10kuZA7G9u5pziLBR5Nw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ SA3PR12MB176418.namprd12.prod.outlook.com (2603:10b6:806:513::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 12:26:33 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+ 12:26:33 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 21:26:29 +0900
+Message-Id: <DLHL9KBOH0I3.FBEIRPGX0U5D@nvidia.com>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 0/3] rust: const_eval: add a mechanism to do const
+ trait calls
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260903-cv-v2-0-e93b1613e40c@garyguo.net>
+ <CANiq72mgqhjAYR-a5gSnMjK++TVc1n6RFpj=Go6QqXtQRX3=9g@mail.gmail.com>
+ <DL5SQWU5QH9S.1F1V38FAA5Y4Q@garyguo.net>
+ <DL8Z2OZLK8KS.1KVH6W27ZTOWG@nvidia.com>
+ <DLAUXSH2302V.2OKAZYA7XOEEF@garyguo.net>
+In-Reply-To: <DLAUXSH2302V.2OKAZYA7XOEEF@garyguo.net>
+X-ClientProxiedBy: TY4P286CA0109.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:380::15) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-root_port_v2-v2-15-6272b7caae9a@oss.qualcomm.com>
-References: <20260917-root_port_v2-v2-0-6272b7caae9a@oss.qualcomm.com>
-In-Reply-To: <20260917-root_port_v2-v2-0-6272b7caae9a@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789647930; l=9709;
- i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
- bh=c34PmATKX7HJZ8CFFmEFy9pekuCN3k6Yqq9JkOd7bLs=;
- b=eDJC9WHsWuKZ2A8MN5t1Azo+gIuEfzTCP9hg9oH0Jeto1bi+T5l6TVaVDPT2c6UN1fmeEl0yS
- Zg3Yd+04+3HDB76KsqCBBvXuG0QogSbHEGobS//4ImFOTzcwwUVx+/f
-X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
- pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDE3NCBTYWx0ZWRfX2RACuc52g4KZ
- TeYx9HrJun6hkkSqXLQWNPLnROY3miZsgsohnMiMBf1bF+Q6VUwajc9MOPQ9eOyq68+LwGhPWN9
- Z1Ax0VVLiQb0sSZ7QAM0jNhV9GhxP++WdFg9Or0vHE1pUHSn1Y4WDpYRbQ5O3CX07w226KPNPaK
- rg4gR8f2NaQHZRaKQMTMIgh1nAgAXi/d9eLYzPXnczU0BmmbwnSk9rEnvqHEUi3hq3ZaDMLxwu6
- V4Nt+rw9MLl9USYshneuuBlJGPNwPMj7ii1OP/FTmrwNej4o59n1dauyaBkwrGEjRqLawNVF2gU
- hthVC4sEtOQBfqOt/pkFHgTXJrvftT5x8qVIKEg6iZWenFmlY4cGDJdaUpJ3aYMaakeaJmtyJCp
- N2v2oFaVsywms4M3LTboAHEdSWKSoY7E9+/Ge1j9UK/Ev4+Pvnmnp8M6L7uyP2vsNiykqjiwV9B
- geszRf+uKdaSmSMb6Ow==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDE3NCBTYWx0ZWRfX8sYwMK69D8HX
- 0L9ocFvS1zwIWbZXrCUSlgZQCyYGj8Lg8yqD86/3teBjpq7K2ez4pS1f9PTCAweRtxO/ahc9jct
- LY0TJ/uMFqv8w/8jTPcwlcj/LZV+o70=
-X-Proofpoint-GUID: nsMa6qoozFMC6-DG-ZRmPBcCBD585_eJ
-X-Proofpoint-ORIG-GUID: nsMa6qoozFMC6-DG-ZRmPBcCBD585_eJ
-X-Authority-Analysis: v=2.4 cv=K+W3jCWI c=1 sm=1 tr=0 ts=6aabdc76 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=0YZnkYH-Kwr_kGOSl84A:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 adultscore=0
- malwarescore=0 priorityscore=1501 suspectscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170174
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SA3PR12MB176418:EE_
+X-MS-Office365-Filtering-Correlation-Id: 822f72bd-c4f2-45e6-6979-08df14b6e890
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|10070799003|6133799003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	B+r8SKpx/LaNXrL73gNL4ONxrVSnzcc/bm/WJegnRNqPhfJoWTJWYTaYbAnomZCPR97sZKC7pcjNDJIVjX9KivuoyVekDC9X/f1J9R+u6bc1X9lvrgpiObCS626z8Hnxi8uHVKeUIWh7cxK9KtjQ/9KFFC3XKabdlo0LU8zilh+s86TPWlqBKDtz2qtqpw0I8FSigBmW9+TEIoD67+/IahdCUj/Cbywt4qWp3kaIss2cO0Fpppkm3sQNP1ZkkVK0s6wwf2Hrk2KZuD30VZ4QoRttlJWG9d4aUpgTLSY81Q1jYwHUoOCnuVGd+fcdIKbbbAMxfWlZtDOONXp5v2+bzP04fQjT87LF9nVv6hfx8NsmGLxJz7dZ2m7cMXLRXv16WDpjYD/ifPO8N+bVfjojo57ZBp1rNv7y7ZUPDKUT3p2wpgXx30lx2SxRrUudMDkQ+LIjsMy/Tqu2JmxcO8A8YRVp8CkbagD+j7DOHj7/eSrHW16ZY9uAygzsOqOBzB1JJfavJwcU7AIR2rjhh7DSx/Rv2QxJmqt9cclKnIBuL1gBRYt/5RPVo6ttQo2nZFQgpvBzMQzP8ukdcNDKmfPNTKBo+EjfWAi7i7dD2laIFSn8ov/6J7cgeS9HF1zkyeK9n1GnRA2tgu1naYmmkY9F56GZ7M8e/T5VY7547DHJWnA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(10070799003)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d29JNTMxUzh2QjREcWVVbTZ1ZlhPT3BwOEticFNkdHlWTVFsWThrMWxaZlFn?=
+ =?utf-8?B?dUkwZll3Y1V5QUZuYW55Q1h0SkV2bGJVcWhPcVhmRm5CRW5IWUZ6VjUvZjhC?=
+ =?utf-8?B?RGhRQ29LSWd3K2JPRHRDUUZTS0VUeDF6WUlCbVYwdGJ1V0hCSHlNTHBDcEUv?=
+ =?utf-8?B?U3d1MkZVN3pScDlxS3hvQW1FM0d3NStFaHZtREVkOVFrYWVhVHVNc2hLR1Vn?=
+ =?utf-8?B?MWtXU3J6U1c1dWRTblZzM2hFRTAwTWRNU2xtVEF0cE8xSVRjRlY1cm9NT1RM?=
+ =?utf-8?B?SkdoVFRzNHVMUEdjdDlHczgrdWdleGZidHJQWFg0YjJuY0l3KzExWEtZRlJu?=
+ =?utf-8?B?cC9heWhqQVJpMktFbWg4amNJWUVqTm8xNW4yMi9LbExYOU5FckRTYkFKN1BR?=
+ =?utf-8?B?SndvSVZKL0d5TzR4R1loSXpTa2dqVXlMeHJyeko4Rk9lVSt2czJxdVBQR0RN?=
+ =?utf-8?B?NWw5SVd0blZOTDNDRk53NHlGYURMNVhSTlFaM2Jzb0ZxbjVFY0J2ano2bmF0?=
+ =?utf-8?B?bkcwNEtuTHlJWFVVWkVvQTE1N04rS3dJRWNFK2hMU2dJcFZFYUg4emM4MWJm?=
+ =?utf-8?B?dHB3SGNibTdoTnJMQmYrUkw5aEdpMDdNS21NRXFvWVJ6RUtpQUord0d4U3NN?=
+ =?utf-8?B?c1BMd2FFYmh1VXEzY0tVZXcrcXNQbTczNCtoM3JyWHl4RkE4cHE2Rm5mZ0Fm?=
+ =?utf-8?B?eXg5Y0RiRys1dit3MUQ2b1pNR1JGNDE5SlVraDAxL29XekNRNEtEcFQyc01G?=
+ =?utf-8?B?TGlneU5EZTBld0NueXZPVTZ0TDBtVnQrNEs3SFRJL3FpZXE2UFpSb0VYUmVh?=
+ =?utf-8?B?V20yOWEzNFZoSVJxaGN6R1RxZHdBUjliMzR0QmlUWW51Mnp4ZXZteVVaNHVk?=
+ =?utf-8?B?QnlnQTBISFVVYm56REF4WFBwN05wa3pzSnZTMk0vZVBTTmRBaVBJN1hhdWI0?=
+ =?utf-8?B?bWJZdTJ2eVJ5aDZ2V3I2ZVBKVkVwN29yUVBwSUsxdnF4SUZMZlpPUnpMUklk?=
+ =?utf-8?B?aTBNdWJwbnZPS2xBSlZ5LytRRytYNVdROXFHVzlEelZ5WFlKVDZ0TDIxUzI2?=
+ =?utf-8?B?T2VrVXZlUWJJTE82UlpIemJ4cWJyeE8za2Rvd1Fkby8xM2Q5SXBNN090SXhL?=
+ =?utf-8?B?NmV1MDdVM3hKMGNNK3R3cFlzZnVYZVY0bmJUQ3F3S29MVCtXMjVJRnd3cGJw?=
+ =?utf-8?B?RnVJTEJpaHpYaC9xZ29tOUNIOU52dEhsRWpwMzFReFlIRDMvVVA5ZUFEN0RZ?=
+ =?utf-8?B?VHFSamdML0lpQmtpd2kwdEQxTnh6RlpsTXNSUXJ3WEFWbXdmc0JlenpXYm00?=
+ =?utf-8?B?RU5sRFZZc3Y1K1dqZFhZS3kvRVF0Ump4eEQ3RzcwUG9CWkQwR0lWbEcreHBR?=
+ =?utf-8?B?ZDViRkIzendGZmVJUmZ2UGhUeGxkSmtFYzVTMEFsc1JpNkJjNWtWWGN2TGk0?=
+ =?utf-8?B?eFNDVVE4eEsvWE12bUlxL2FRR2hEeVJKYU91QzBSbGRMMFE4dzJXWUxyZVA0?=
+ =?utf-8?B?eEo3MElxeGZmbkVxWWlXbkF5K3JxQjV4c1g2djAxdzliNkxhZ05EY0t0Ynd1?=
+ =?utf-8?B?cjFWVXRsUFBoSGExNitEMUxkeEkyQWFJWXBJc1hxMWpyOXZYSzhsZ0taOU9D?=
+ =?utf-8?B?bmdxczBBK2c0Z3FGN2lObEx2T2NwTk5nRnF2dEVNcnlZbW5CbHdUQnl5WVov?=
+ =?utf-8?B?eWgwSEFSVFNiUDUwMlBoaXJtMEZERWIyU2UyZDZ6U0lsQXYvYzY2ZFNzbExz?=
+ =?utf-8?B?Tjkwajl5SUY5b0UxZEVBamR1S0hpSGltc2I2REJOazVkTGpuQ3pzQ2N2VmdF?=
+ =?utf-8?B?eHJPSDBHazB6cEZqcUFvSng1Rlc2TzNacXRFZmRzRFNyQTIzQ2Jtci9KQml5?=
+ =?utf-8?B?dHdSSit1ZVptS2JjQTdRZW4ybWluK3lqSExuWkRZWHpwUFQvZGZjUnAwU1Q5?=
+ =?utf-8?B?YW5CSldYMWNlM2RCdTBpQ2E5YTFVMzVMVU01SXZHWTBVQXdjcUtDUG8xeTQ4?=
+ =?utf-8?B?SWJTbHpSU3Z1Y3kvWjQzTkY2N01SbDl2UFdkMjkwU0doNzFXOU42eVNSOVY4?=
+ =?utf-8?B?ODZrajNhMGtMa1FJVEtaaHd1cy9lZEIwVkJVc2VOQllJVS9ETnFDUU1QYU5i?=
+ =?utf-8?B?a3BRZmV2cG9RUmxlNXUrZHBrbkowN3dzbmowNkVmSkJFTnpjVTFsam00aGtL?=
+ =?utf-8?B?bnJSQ2NiQUtxZlhYbkMxamtxc1BUd2Nrbmlha2xyelZYbk9NOGRYSEFXRGh0?=
+ =?utf-8?B?UG43dGxma1drRzZYYlN6ZS9pWDM4RnRHTVpGeFV2L0FuajhlenRiZ2JBd1l1?=
+ =?utf-8?B?T3hWc1ZTMk1pRnQxa25odHBGZ2MrcDNWdGN4TFErcjhjZE5scEZ2cmdBMU0x?=
+ =?utf-8?Q?avHj3veemDlGBtJipgbGBoEMHW13QwlntUA+4wZcqTJuh?=
+X-MS-Exchange-AntiSpam-MessageData-1: kpThwvzejkp3uQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 822f72bd-c4f2-45e6-6979-08df14b6e890
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 12:26:32.9946
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KaxK2SrRyOAel2STOUe7+cp8V9HMLErcmDkJajrdaCFeQoJ15WiM1hEErjb7rFaZrIy14lxh4nhH1+ww5MtTNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB176418
 
-The PCIe phy reference and the perst/wake GPIO properties are
-per root port and belong in the root port node (pcie@0), not in the
-RC controller node. Move phys and phy-names from the controller to
-the existing pcieport0 and newly labeled pcie1_port0, allowing
-board-level overrides. Move perst-gpios/wake-gpios from the
-controller overrides to the respective port nodes in the board files,
-renaming perst-gpios to reset-gpios to match the binding used in the
-root port context.
+On Wed Sep 9, 2026 at 11:32 PM JST, Gary Guo wrote:
+> On Mon Sep 7, 2026 at 10:21 AM BST, Eliot Courtney wrote:
+>> On Fri Sep 4, 2026 at 12:46 AM JST, Gary Guo wrote:
+>>> On Thu Sep 3, 2026 at 4:34 PM BST, Miguel Ojeda wrote:
+>>>> On Thu, Sep 3, 2026 at 5:21=E2=80=AFPM Gary Guo <gary@garyguo.net> wro=
+te:
+>>>>>
+>>>>> Add a mechanism to perform const trait method calls, with the same ty=
+pe
+>>>>> inference capabilities. This would only work for concrete types (not =
+inside
+>>>>> generic functions).
+>>>>>
+>>>>> As an example, convert `as_char_ptr_in_const_context`, so instead of
+>>>>>
+>>>>>     kernel::str::as_char_ptr_in_const_context(c_str)
+>>>>>
+>>>>> one may write
+>>>>>
+>>>>>     const_call!(c_str.as_char_ptr())
+>>>>>
+>>>>> instead.
+>>>>>
+>>>>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>>>>
+>>>> Thanks for resending this!
+>>>>
+>>>> So I definitely like having `#[const_eval_only]`, because we do want
+>>>> to limit those calls sometimes and it is nice to have C++'s equivalent
+>>>> to `consteval` (perhaps this could be called just `#[consteval]` to
+>>>> match?); i.e. what we talked about in the call.
+>
+> I'm okay with either. I put in `_only` because I think it makes it very c=
+lear
+> that this is not just const-evalutable (that's provided by `const`) and i=
+s
+> *always* const evaled.
+>
+>>>>
+>>>> On `Const` and `const_call!`, i.e. the other two patches: I am not
+>>>> sure if we care that much to introduce a macro for it, but it doesn't
+>>>> look bad either. I guess perhaps it helps to have a consistent way to
+>>>> do it and to easily remove it later when the actual feature lands in
+>>>> Rust. I would like to hear some thoughts on it from others.
+>
+>>>
+>>> I think it's good to have such macro compared to our current approach; =
+it can be
+>>> made into a identity macro once we have const trait impl.
+>>>
+>>> FWIW, I even considered an extra macro that allow you to write
+>>>
+>>>     #[const_trait_impl] // #[const_trait_impl(foreign)] for core types
+>>>     impl MyTrait for MyType {}
+>>>
+>>> and generate the `impl Const` part too (and also add a line to the docu=
+mentation
+>>> that the method is const-callable with `const_call!()`).
+>>>
+>>> Best,
+>>> Gary
+>>
+>> I agree with the consteval macro, that sounds very nice.
+>>
+>> On the const_call! I have similar thoughts to Miguel. I reckon if we
+>> have a bunch of prospective users of this right now, and some thoughts
+>> on what would use this in the future then it's good. If it's just one
+>> use case right now, then not so sure.
+>
+> Some other candidates include `Alignable` (we currently have a "const_ali=
+gn_up")
+> and maybe `IntoSafeCast`.
+>
+> Best,
+> Gary
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs8550-aim300.dtsi       | 16 ++++++++-----
- arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts       | 12 +++++-----
- arch/arm64/boot/dts/qcom/sm8550-hdk.dts            | 28 ++++++++++++----------
- arch/arm64/boot/dts/qcom/sm8550-mtp.dts            | 16 ++++++++-----
- arch/arm64/boot/dts/qcom/sm8550-qrd.dts            | 20 ++++++++--------
- arch/arm64/boot/dts/qcom/sm8550-samsung-q5q.dts    |  7 ++++--
- .../dts/qcom/sm8550-sony-xperia-yodo-pdx234.dts    |  8 ++++---
- arch/arm64/boot/dts/qcom/sm8550.dtsi               | 10 ++++----
- 8 files changed, 65 insertions(+), 52 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-aim300.dtsi b/arch/arm64/boot/dts/qcom/qcs8550-aim300.dtsi
-index aaf5eb57ce23..4faedcca3c5b 100644
---- a/arch/arm64/boot/dts/qcom/qcs8550-aim300.dtsi
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-aim300.dtsi
-@@ -335,9 +335,6 @@ &mdss_dsi0_phy {
- };
- 
- &pcie0 {
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-0 = <&pcie0_default_state>;
- 	pinctrl-names = "default";
- };
-@@ -347,10 +344,12 @@ &pcie0_phy {
- 	vdda-pll-supply = <&vreg_l3e_1p2>;
- };
- 
--&pcie1 {
--	perst-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+&pcie0_port0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
-+};
- 
-+&pcie1 {
- 	pinctrl-0 = <&pcie1_default_state>;
- 	pinctrl-names = "default";
- };
-@@ -361,6 +360,11 @@ &pcie1_phy {
- 	vdda-qref-supply = <&vreg_l1e_0p88>;
- };
- 
-+&pcie1_port0 {
-+	reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+};
-+
- &pm8550b_eusb2_repeater {
- 	vdd18-supply = <&vreg_l15b_1p8>;
- 	vdd3-supply = <&vreg_l5b_3p1>;
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts b/arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts
-index 41b09ab43d0c..42e3e862e6f4 100644
---- a/arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts
-@@ -1045,9 +1045,6 @@ &mdss_dp0 {
- &pcie0 {
- 	vddpe-3v3-supply = <&pcie_upd_3p3>;
- 
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-0 = <&pcie0_default_state>;
- 	pinctrl-names = "default";
- 
-@@ -1074,6 +1071,9 @@ &pcie0_phy {
- };
- 
- &pcie0_port0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
-+
- 	pcie@0,0 {
- 		compatible = "pci1179,0623";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-@@ -1146,9 +1146,6 @@ pci@0,1 {
- };
- 
- &pcie1 {
--	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-0 = <&pcie1_default_state>;
- 	pinctrl-names = "default";
- 
-@@ -1176,6 +1173,9 @@ &pcie1_phy {
- };
- 
- &pcie1_port0 {
-+	reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+
- 	pcie@0,0 {
- 		compatible = "pci1179,0623";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-index 4777c908c4d7..e75e3b878e89 100644
---- a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-@@ -1087,16 +1087,23 @@ &mdss_dp0 {
- };
- 
- &pcie0 {
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-0 = <&pcie0_default_state>;
- 	pinctrl-names = "default";
- 
- 	status = "okay";
- };
- 
-+&pcie0_phy {
-+	vdda-phy-supply = <&vreg_l1e_0p88>;
-+	vdda-pll-supply = <&vreg_l3e_1p2>;
-+
-+	status = "okay";
-+};
-+
- &pcie0_port0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
-+
- 	wifi@0 {
- 		compatible = "pci17cb,1107";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-@@ -1113,17 +1120,7 @@ wifi@0 {
- 	};
- };
- 
--&pcie0_phy {
--	vdda-phy-supply = <&vreg_l1e_0p88>;
--	vdda-pll-supply = <&vreg_l3e_1p2>;
--
--	status = "okay";
--};
--
- &pcie1 {
--	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-0 = <&pcie1_default_state>;
- 	pinctrl-names = "default";
- 
-@@ -1138,6 +1135,11 @@ &pcie1_phy {
- 	status = "okay";
- };
- 
-+&pcie1_port0 {
-+	reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+};
-+
- &pm8550_gpios {
- 	sdc2_card_det_n: sdc2-card-det-state {
- 		pins = "gpio12";
-diff --git a/arch/arm64/boot/dts/qcom/sm8550-mtp.dts b/arch/arm64/boot/dts/qcom/sm8550-mtp.dts
-index eb1de33e5ba5..7b191c9553f0 100644
---- a/arch/arm64/boot/dts/qcom/sm8550-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8550-mtp.dts
-@@ -739,9 +739,6 @@ &mdss_dp0 {
- };
- 
- &pcie0 {
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie0_default_state>;
- 
-@@ -755,10 +752,12 @@ &pcie0_phy {
- 	status = "okay";
- };
- 
--&pcie1 {
--	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-+&pcie0_port0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
-+};
- 
-+&pcie1 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie1_default_state>;
- 
-@@ -773,6 +772,11 @@ &pcie1_phy {
- 	status = "okay";
- };
- 
-+&pcie1_port0 {
-+	reset-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+};
-+
- &pm8550_gpios {
- 	sdc2_card_det_n: sdc2-card-det-state {
- 		pins = "gpio12";
-diff --git a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-index 13cdb5b0ce40..a3ab0bd3fb01 100644
---- a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-@@ -987,16 +987,23 @@ &mdss_dp0 {
- };
- 
- &pcie0 {
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-0 = <&pcie0_default_state>;
- 	pinctrl-names = "default";
- 
- 	status = "okay";
- };
- 
-+&pcie0_phy {
-+	vdda-phy-supply = <&vreg_l1e_0p88>;
-+	vdda-pll-supply = <&vreg_l3e_1p2>;
-+
-+	status = "okay";
-+};
-+
- &pcie0_port0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
-+
- 	wifi@0 {
- 		compatible = "pci17cb,1107";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-@@ -1013,13 +1020,6 @@ wifi@0 {
- 	};
- };
- 
--&pcie0_phy {
--	vdda-phy-supply = <&vreg_l1e_0p88>;
--	vdda-pll-supply = <&vreg_l3e_1p2>;
--
--	status = "okay";
--};
--
- &pm8550_flash {
- 	status = "okay";
- 
-diff --git a/arch/arm64/boot/dts/qcom/sm8550-samsung-q5q.dts b/arch/arm64/boot/dts/qcom/sm8550-samsung-q5q.dts
-index cf4e4e9d9e26..bf0b16d690e6 100644
---- a/arch/arm64/boot/dts/qcom/sm8550-samsung-q5q.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8550-samsung-q5q.dts
-@@ -510,8 +510,6 @@ &i2c_master_hub_0 {
- };
- 
- &pcie0 {
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
- 	pinctrl-0 = <&pcie0_default_state>;
- 	pinctrl-names = "default";
- 	status = "okay";
-@@ -523,6 +521,11 @@ &pcie0_phy {
- 	status = "okay";
- };
- 
-+&pcie0_port0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
-+};
-+
- &pm8550_gpios {
- 	volume_up_n: volume-up-n-state {
- 		pins = "gpio6";
-diff --git a/arch/arm64/boot/dts/qcom/sm8550-sony-xperia-yodo-pdx234.dts b/arch/arm64/boot/dts/qcom/sm8550-sony-xperia-yodo-pdx234.dts
-index 9f347bea6c74..a23ebd3cd065 100644
---- a/arch/arm64/boot/dts/qcom/sm8550-sony-xperia-yodo-pdx234.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8550-sony-xperia-yodo-pdx234.dts
-@@ -584,9 +584,6 @@ cirrus,gpio-ctrl2 {
- };
- 
- &pcie0 {
--	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
--	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-0 = <&pcie0_default_state>;
- 	pinctrl-names = "default";
- 
-@@ -600,6 +597,11 @@ &pcie0_phy {
- 	status = "okay";
- };
- 
-+&pcie0_port0 {
-+	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
-+};
-+
- &pm8550_flash {
- 	status = "okay";
- 
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 0e701e709235..9bbc31346f90 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -2397,9 +2397,6 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 
- 			power-domains = <&gcc PCIE_0_GDSC>;
- 
--			phys = <&pcie0_phy>;
--			phy-names = "pciephy";
--
- 			operating-points-v2 = <&pcie0_opp_table>;
- 
- 			status = "disabled";
-@@ -2461,6 +2458,8 @@ pcie0_port0: pcie@0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-+				phys = <&pcie0_phy>;
-+
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-@@ -2583,9 +2582,6 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 
- 			power-domains = <&gcc PCIE_1_GDSC>;
- 
--			phys = <&pcie1_phy>;
--			phy-names = "pciephy";
--
- 			operating-points-v2 = <&pcie1_opp_table>;
- 
- 			status = "disabled";
-@@ -2663,6 +2659,8 @@ pcie1_port0: pcie@0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-+				phys = <&pcie1_phy>;
-+
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-
--- 
-2.34.1
-
+I'm definitely not opposed to a const trait polyfill, it's pretty cool
+actually IMO. I also do think there is a bit of survivorship bias on the
+argument (which I made) that there are not many users. And it can be
+removed once const traits become available in MSRV. I am keen to hear
+from others on this.
