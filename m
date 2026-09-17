@@ -1,100 +1,79 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 80F834BA1D1;
-	Thu, 17 Sep 2026 09:58:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B4C4B4874
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639105; cv=none; b=W9g9YjoFnTWV/I3SydA/8KmCV21/xfLqQbNywpdPhO8bye970ZaupPqBe3QuxXoR2l7ExG8nwqKVXMBYUKn6VsYflB9Ab6oFAAtqhIYO+5Yo6KhHCkq6Mxug8YVzh9HhKtoVluN3iMZ3jYTy+bZhGvwjz0YvTtWC1WL6OybjGeE=
+	t=1789639154; cv=none; b=f4R3b8L5xuRIheGKfW9kvXWQI28uEmsgr5/5y6V+8zEDgbxuuhE7x60vIjrqLYmL/2nfji/aGZ60Hi2agP6ugpHffGrIfz0qx9VxHbGfd/y8CO0S6eptqAe3a5unZLljCMWQgk6D9nNVdvUobsWkXSNAk44E71awHRneZx2313E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639105; c=relaxed/simple;
-	bh=SAbrL6Yo4aTznG6Nf+upN9iXj0sj5B+8T0tuPN0Buzo=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ofpxTEiQD5q23i3Cvm8QPkcKSZOwXa/RGB5PBpgVmAlC5SBRpi/HBCrHpJoUackmYvqpvHOtXMGbW/Lei5w5J+FZEQqO6l4fdpLZ2Uewz/348cR4/RYs+Bbm4pgzkbu9/hnL4j4KQvWySKORyAuDVp33MyOLsmbZzdVxfdKBstM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HdUtlPf+; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789639154; c=relaxed/simple;
+	bh=1C100L8bLcVs1OmCDJ5ExHbei+nHSxHlT2hyva+aaWA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=a+0olz2lDupNeOdhfaQmUHaw5RPBOEaV75vU4gqN36zEHEN4IV0yaGyW5m/aZyNrOxJF7uzfT5yn62PFD6ayaofAxw1YU6oW/kko5yHVW3xhoqRTyujYDdMap8S206Aqaw9xc8nnfoKFFRxV7jT2hJUF6iMJdNOWcCg0ockDJ0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+bjroZK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HdUtlPf+"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2241C1A9A;
-	Thu, 17 Sep 2026 02:58:06 -0700 (PDT)
-Received: from [10.57.50.144] (unknown [10.57.50.144])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CC53D3F7B4;
-	Thu, 17 Sep 2026 02:58:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789639089; bh=SAbrL6Yo4aTznG6Nf+upN9iXj0sj5B+8T0tuPN0Buzo=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=HdUtlPf+UtGCtFhRNC8lxU52elkz5qFJooks2Adyr+lOQH/trlYVfeOSNxbWIt8SX
-	 Z5KGVUWdu2Wkj4ERzVo1Chff2RkkbiEZkaLKnP1IHDlUjaAgZ1iymoqlm98qC6GVRf
-	 f4nbnmz2B5O0sHtnwfTdkpYsiopdvu4OILU5iyEw=
-Message-ID: <b129997a-8d49-41be-a93a-7e0343c952e3@arm.com>
-Date: Thu, 17 Sep 2026 10:58:04 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+bjroZK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7444E1F008A2
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:58:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789639127;
+	bh=1C100L8bLcVs1OmCDJ5ExHbei+nHSxHlT2hyva+aaWA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=C+bjroZKmJEkCHvSXNw/CXxjY+JkwBuhMzng5AA3YvtwfNyvFqFK+/WOLXWJ6PS4H
+	 9TZ776QZpY25/FdhzqTWV2ig2qOJthZcrz+5E0/DgTv/dTtQhI+LATRFpJZ0meWmZs
+	 XwyLfbxTQ6nhTukV8+YrEiKVCn4U+nLSPwm+/vZ/iISkucA0mgZNHHStcLgVJ2rh+4
+	 1kj2uVYrE9bH8m+H3xoG7DnGECFMbbGoYLQbu/NJgct3JjmkwAQqiNXKI3usq9ALhb
+	 dSw/uTMPtNHogu4/cr5nSAp62I6bKV7tBAhrrqzLYodYDnbkpbZsJwiXMjv7mdEs9T
+	 9ySJKNx7qEs/Q==
+Received: by mail-lr2-f18.google.com with SMTP id 38308e7fff4ca-3a354118856so5182461fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:58:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwKL5FtSTJ9/4V+vFWK0GYRS2fv+0e4b6dEeiSpUqUETXzRSFDjFY+G2gI/m1lJsHKejcQYsFSH9AppbDQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7FAxHfMoGCF303ic4Ki2abC+ymNtBLmvSwaDkaWWqBoP6IBhV
+	rXtqnlTc+hI0Dg65Iq7aa5S84VbCOXXbzsBpG2Sx8IkqigHFsqwYUvGTEca+rqH1um8N7NftagU
+	Mux6j+A0t0e2ryOydANkWyvxCtFUn1tVr8RQmTsPM0g==
+X-Received: by 2002:a2e:8a86:0:b0:3a5:cee6:940b with SMTP id
+ 38308e7fff4ca-3a5dc9be4acmr11717551fa.7.1789639126058; Thu, 17 Sep 2026
+ 02:58:46 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 17 Sep 2026 05:58:44 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 17 Sep 2026 05:58:44 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260917075611.47881-2-farbere@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] sched/fair: Randomize equally shallow slow-path
- candidates
-From: Christian Loehle <christian.loehle@arm.com>
-To: Shubhang <sh@gentwo.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Beata Michalska <beata.michalska@arm.com>, Elif Topuz <elif.topuz@arm.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Christoph Lameter
- <cl@gentwo.org>, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-References: <20260916100116.701206-1-christian.loehle@arm.com>
- <20260916100116.701206-3-christian.loehle@arm.com>
- <08339e62-1787-e203-569c-a7fd3026395f@gentwo.org>
- <e11d588b-e597-4210-baa3-278eaeb0cf52@arm.com>
-Content-Language: en-US
-In-Reply-To: <e11d588b-e597-4210-baa3-278eaeb0cf52@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260916182641.9768-1-farbere@amazon.com> <20260917075611.47881-1-farbere@amazon.com>
+ <20260917075611.47881-2-farbere@amazon.com>
+Date: Thu, 17 Sep 2026 05:58:44 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mff_Lyt6-0qQ2U1aG_CBG=xD2NxoCbw2dhmCffX5s_h1g@mail.gmail.com>
+X-Gm-Features: AcwNN1XWj9I0TdBuyBZglQXFeft5zXi_OVwexcXK0RKPOD6pE-syCJpIOfCJxh8
+Message-ID: <CAMRc=Mff_Lyt6-0qQ2U1aG_CBG=xD2NxoCbw2dhmCffX5s_h1g@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] pps: clients: gpio: propagate probe error codes
+To: Eliav Farber <farbere@amazon.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Fabio Estevam <festevam@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/17/26 08:47, Christian Loehle wrote:
-> On 9/16/26 20:43, Shubhang wrote:
->> Hi Christian,
->>
->> On Wed, 16 Sep 2026, Christian Loehle wrote:
->>
->>> +            } else if (!idle || idle->exit_latency == min_exit_latency) {
->>> +                nr_candidates++;
->>> +                if (nr_candidates == 1 ||
->>> +                    !reciprocal_scale(sched_rng(), nr_candidates))
->>> +                    shallowest_idle_cpu = i;
->>
->> available_idle_cpu(i) ensures that this is an idle CPU, but !idle means that no active cpuidle state, meaning no exit latency is available for comparison.
->>
->> [PATCH 1/2] treats such a CPU as a fallback i.e. it is selected only when no idle candidate has been found yet. Here it becomes an equal reservoir candidate, even after selecting a CPU with the minimum known exit latency. That is, it is added to the random selection pool and can replace shallowest_idle_cpu.
->>
->> Is that intentional ? If not, should reservoir sampling be limited to
->> candidates with `idle->exit_latency == min_exit_latency`, while retaining the first !idle CPU only as the fallback?
-> 
-> Hi Shubhang,
-> 
-> Thanks for taking a look. Including !idle candidates was intentional,
-> although you're right that this changes their treatment.
-> 
-> I think there's a case for giving NULL a zero ranking. With a working
-> cpuidle driver, NULL can mean the CPU is preparing for entry or finishing
-> after exit, making it a good low-latency candidate.
-> Architecture fallbacks are also reasonable candidates AFAICS.
-> In any case, I'd prefer to address that separately (perhaps through a
-> helper in the idle/cpuidle code rather than embedding those assumptions
-> in fair.c and will drop !idle CPUs competing with min_exit_latency CPUs,
-> the patch doesn't need it.
-Actually about the last part, I'm leaning towards sticking with v1, because
-that is actually the current upstream behaviour. !idle CPUs currently trump
-any CPU seen so far, but preserve min_exit_latency, therefore sticking it
-into the shallowest seen reservoir is consistent IMO (although we can
-certainly debate if that should be the case).
-I'd prefer sending a follow-up with an idle helper and making a properly
-defined policy there, but that's adjacent to this patch.
+On Thu, 17 Sep 2026 09:56:09 +0200, Eliav Farber <farbere@amazon.com> said:
+> On the two probe error paths that map and request the interrupt, probe
+> overwrote the error from gpiod_to_irq() and request_threaded_irq() with a
+> hardcoded -EINVAL, hiding meaningful codes such as -EBUSY, -ENOMEM or
+> -EPROBE_DEFER from the caller. The request_threaded_irq() failure message
+> also logged the IRQ number but not the errno.
+>
+> Return the actual error code from both paths, and add the errno to the
+> request_threaded_irq() failure message.
+>
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> ---
+
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
