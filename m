@@ -1,141 +1,92 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8C5D22D0602
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14742D0602
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:04:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789617765; cv=none; b=PfhUAxQYZaQKFfiXPBC/a4w4Q0MOTgv2yjh4CkDtgdbK+sYHlLHiR+lGVnc13XesDI+QrDDeT52/V0S0pu2Ln9pwaoSvZ5nqtFhj3/mqxXAIZkvEWm8GgzrL5CDrPIOgpFeloIYXPDNHKUu3alieJr1lKMJV/HO2clr8yrTICeM=
+	t=1789617899; cv=none; b=IdrT16FrT+ypMFxiY+jxdePLcACDBE5JJag1vsMYlU7jJD4D9Ed1UkrDSRfBuygWNJb1p/SRbgVPIsmNmyXwVql4RAdGbPJqF4DAPumCd91SwXaMp7o9GiKqg2Bbp0QVAQO+JsiFmp8RFfc2dWT3B4J0x7Tz4rsD9kCqcIOM7eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789617765; c=relaxed/simple;
-	bh=pvRE23ivxd9BXCfxEuHJgM+rJ6GOZz+syS/Pgj8gpR0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oPg7uFrrsy7sF/Ibmwu/O2WpYdYUI43wKW0yCOiYWjCj6xwCsl9aoIhnHgO1u68mAXs2aaqx/93VTCfGMBPhdjdGxnQKZ2ojREmp+p9p30NzHl+b4TkIHrRI1Z9wZb2YB7jOXu/pEydzvzDrw69gOCHrEqr3+XZTAqDpa386LXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=mBJ1WsLF; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789617899; c=relaxed/simple;
+	bh=4x6GhmtGWZcDWlCsZP+Z6VHVWD16hV9/GAZe2iE0DSI=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=A8wJs5NfMLsT8bcJCipHwM2f17wQfSUReTKMLl0gGyICpf76MRft21ytSrJcckjYubmu8Mt+9wL/39n8F/sXDGS+EpGNuadpBFEat8gB/E9GZOILGTBdS3g4fZANA128JJ0ojtx40UbYDBCWnNWPQk9VddBaSiv1vfDENhRDq3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=u+5Pcpem; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="mBJ1WsLF"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D7ABF1476;
-	Wed, 16 Sep 2026 21:02:36 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A7FC83F7B4;
-	Wed, 16 Sep 2026 21:02:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789617760; bh=pvRE23ivxd9BXCfxEuHJgM+rJ6GOZz+syS/Pgj8gpR0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mBJ1WsLFSDfD9zO4hIbZuImbAbY2/Ig1hMvMo3Wbk7+hngEkxgy28wy/ZxxPf5vI0
-	 d+zOHmasm2jaRAfC67ZhqbOytBK3+dNgBBgQFSdXdQpx9G9kndvMqNwamAqXhQpcWs
-	 b0yuJgaUEjzp51JEEt6yp3d8Spvn1PHwYnv9ZeVM=
-Date: Thu, 17 Sep 2026 09:32:36 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Subject: Re: [PATCH V2 01/14] mm: Add read-write accessors for vm_page_prot
-Message-ID: <lhvfz6htwibeee2xgnp2sdfh474lmklooep3e6c6467kegtxu4@jejzhb4jlekh>
-References: <20260907035030.2839978-1-anshuman.khandual@arm.com>
- <20260907035030.2839978-2-anshuman.khandual@arm.com>
- <69a7987f-15fb-4793-81b6-cc436525224e@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="u+5Pcpem"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39af92138f9so825630a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:04:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789617898; x=1790222698; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6KOfG9uLmv3KAcRE/q/Ui3q169Q8pkPefjKGmb/vg0I=;
+        b=u+5PcpemIF2jDcMY5A6mNtsXcO/qgB/W86vLEObrP42ygPPaKf+o1xzTLTWuNFh0Vb
+         8cDTIMuDLRW7Qk2k62H4vkUH8iTtZH9CAAQj+LPASYN/pqIY4ZNWKF1q+JqRKg4DOAn1
+         J7WnPyvG9qok1n2uNonzUoIPC92wO96RyMQGowuQ52/2mqf6Vppc3GL0fnJABh5kd311
+         5NpDlgiueA/PtzekYI+QRlsn/1GKfIGUeqZPdBOAvawFk7gdYH27aSG52ALUJ63FhkoX
+         MGUWPkvsC9GyNKaLG9qqhyJQBG8o658sSLinx8jMcMPGSS8OmFXTAEt+gsUpaC+Z9Y1o
+         rPdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789617898; x=1790222698;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6KOfG9uLmv3KAcRE/q/Ui3q169Q8pkPefjKGmb/vg0I=;
+        b=XilEm9OrYIvmVYAFTKHSGIssJgH2a4K4ljpYTr4aKVgiUS8yXx1qFjhECHOTz/IX5T
+         82Z1HlskIInD09JoFlT4hYLCh6j7HmFDXZnDpGt3Eujs8h/AI1IaVWMSCqIGd1G70dWv
+         cRKPXxknjAQ4WUr8YtJ8G+ziaAHkNob+Cjl5E2sTMx9XO2sPPRnqyv5X1Nt25ibt6tFo
+         9OyPh3E3G9cpCdc1lmGl6tkDqhxpeNYZ9N1dykdo8DhV+KKMm1tc6B4qCxHEUJT6uGKD
+         rb+9Wlmuh1iuXGjra4c9vzxeUZruBx4dwH9/xrmatBl9IDCd3BadO6K/Q4L35nEEv3J+
+         qrjg==
+X-Forwarded-Encrypted: i=1; AKwUvBzY3psafTBI/WHpfDD6KCLSEt1Tg6PpNOOhhqjFWryvoKdlG7vJswmwNnU1MPw4Phx7i74KjVDWjwjo2P8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8XV0sinq0M/uePhc53rkcg5twXZatwpKx/bDTFTfsP9MyKbvU
+	Z3bvTpDXQyJNH0XgzDS2fO3BnygThgszWOAxThVg5Npf5FDXcuuS9/PXjSdTvKyYwHHc3N8t+sr
+	ena1ypRfoyw==
+X-Received: from dlbur23.prod.google.com ([2002:a05:7022:ea57:b0:143:8d74:244a])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:134f:b0:398:a649:8fa3
+ with SMTP id 98e67ed59e1d1-39e361588a6mr3047399a91.23.1789617897624; Wed, 16
+ Sep 2026 21:04:57 -0700 (PDT)
+Date: Wed, 16 Sep 2026 21:04:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <69a7987f-15fb-4793-81b6-cc436525224e@kernel.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260917040454.32916-1-irogers@google.com>
+Subject: [PATCH v1] tools include: Add missing stdarg.h include
+From: Ian Rogers <irogers@google.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Cc: sashiko-bot@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 16, 2026 at 03:23:13PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/7/26 05:50, Anshuman Khandual wrote:
-> > Currently vma->vm_page_prot is safely read from and written to, without any
-> > locks with READ_ONCE() and WRITE_ONCE(). But with introduction of D128 page
-> > tables on arm64 platform, vm_page_prot grows to 128 bits which can't safely
-> > be handled with READ_ONCE() and WRITE_ONCE().
-> > 
-> > Add read and write accessors for vm_page_prot like pgprot_[read|write]()
-> > which any platform can override when required, although still defaulting as
-> > READ_ONCE() and WRITE_ONCE(), thus preserving the functionality for others.
-> > 
-> > Cc: Andrew Morton <akpm@linux-foundation.org>
-> > Cc: David Hildenbrand <david@kernel.org>
-> > Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-> > Cc: Mike Rapoport <rppt@kernel.org>
-> > Cc: linux-mm@kvack.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
-> > ---
-> >  include/linux/pgtable.h | 14 ++++++++++++++
-> >  mm/huge_memory.c        |  4 ++--
-> >  mm/memory.c             |  2 +-
-> >  mm/migrate.c            |  2 +-
-> >  mm/mmap.c               |  2 +-
-> >  5 files changed, 19 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> > index e3c8ab96941c..0df57a5c19ef 100644
-> > --- a/include/linux/pgtable.h
-> > +++ b/include/linux/pgtable.h
-> > @@ -524,6 +524,20 @@ static inline pgd_t pgdp_get(pgd_t *pgdp)
-> >  }
-> >  #endif
-> >  
-> > +#ifndef pgprot_read
-> > +static inline pgprot_t pgprot_read(pgprot_t *prot)
-> 
-> Try passing "const pgprot_t *prot" instead.
+Header file makes use of varargs but doesn't directly include stdarg.h.
 
-OK - will change.
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-perf-users/20260916062233.192271F000FF@smtp.kernel.org/
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/include/tools/dis-asm-compat.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-> 
-> [...]
-> 
-> > diff --git a/mm/migrate.c b/mm/migrate.c
-> > index 15b45832bcfa..579152cce502 100644
-> > --- a/mm/migrate.c
-> > +++ b/mm/migrate.c
-> > @@ -387,7 +387,7 @@ static bool remove_migration_pte(struct folio *folio,
-> >  
-> >  		folio_get(folio);
-> >  		new = folio_page(folio, idx);
-> > -		pte = mk_pte(new, READ_ONCE(vma->vm_page_prot));
-> > +		pte = mk_pte(new, pgprot_read(&vma->vm_page_prot));
-> I do wonder whether a
-> 
-> ogprot_t vma_get_page_prot(const struct vm_area_struct *vma)
-> 
-> where we hide the pgprot access would be a good complement for vma_set_page_prot().
+diff --git a/tools/include/tools/dis-asm-compat.h b/tools/include/tools/dis-asm-compat.h
+index 70f331e23ed3..1e0586d8451b 100644
+--- a/tools/include/tools/dis-asm-compat.h
++++ b/tools/include/tools/dis-asm-compat.h
+@@ -2,6 +2,7 @@
+ #ifndef _TOOLS_DIS_ASM_COMPAT_H
+ #define _TOOLS_DIS_ASM_COMPAT_H
+ 
++#include <stdarg.h>
+ #include <stdio.h>
+ #include <dis-asm.h>
+ 
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
-Could you please elaborate ?
-
-AFAICS both these helpers vma_get_page_prot()/vma_set_page_prot() are already present.
-Are you suggesting to change vma_get_page_prot() instead ?
-
-> 
-> Just a thought.
-> 
-> 
-> > diff --git a/mm/mmap.c b/mm/mmap.c
-> > index 4bf26b0f1e6e..729bc244b317 100644
-> > --- a/mm/mmap.c
-> > +++ b/mm/mmap.c
-> > @@ -89,7 +89,7 @@ void vma_set_page_prot(struct vm_area_struct *vma)
-> >  		vm_page_prot = vma_pgprot_modify(vm_page_prot, vma_flags);
-> >  	}
-> >  	/* remove_protection_ptes reads vma->vm_page_prot without mmap_lock */
-> > -	WRITE_ONCE(vma->vm_page_prot, vm_page_prot);
-> > +	pgprot_write(&vma->vm_page_prot, vm_page_prot);
-> >  }
-> >  
-> >  /*
-> 
-> 
-> -- 
-> Cheers,
-> 
-> David
