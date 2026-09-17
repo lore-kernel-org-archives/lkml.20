@@ -1,152 +1,121 @@
-Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A3132B13F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:00:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934D93B42EE;
+	Thu, 17 Sep 2026 08:00:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632011; cv=none; b=cvBF6cEWb6z0QziEgnMysw9UWpR+45M+z/D/jeyQHsylXz7cI4a7mnDVxrPnWpWwYocLiNC+YBcmeKF6Di7ltCabuIlWVFV9MTFNe1UxS/iUBE3ThvMZ//N1UvctYXBwPIMEkYZIqbQFVMBziCWN5SJeSBw02F6whsAs1jiFsjI=
+	t=1789632013; cv=none; b=Hq0PAcOjCC1ogc567VAdvLDgaWrV7bLWuDDtT3g/v4vAmrHY7KxD3l/gKIByQI3LLKZN/Qromp9IiuOgLyBbfJA7EW63covWLVVUoZyVhx3l5q+o/8c+jWKiXUx3GtZEWqeCK2ClBS0L3GoZzzzvfG1IXzK9TCuZFdEgHuI2y8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632011; c=relaxed/simple;
-	bh=96SmEBMpH/wqIXtgKcP04dOn4OMx0kaCIPIVm7vT7qg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IYFrxQH6d4H0wNKpsHksjm0x3eLq5hCFMBtOun5lsV0fJvdKYSrAXpZ89/ENBxwXhYCHprSqzgGSWpVLA7OsWhCo1o0kbJc+r2ba2nJAGJ4vibL2RUINoGE01sRqL1L9Dv2HcoBiFtEn0g7rrqog2ZaJyq5Kk5EMzFcxAobMG24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NxQNvtq5; arc=none smtp.client-ip=74.125.227.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789632013; c=relaxed/simple;
+	bh=t4eRF8+XBIuFbxJfnNVPbx4Ln4LJwPIhnhzoFSEuVvs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ByqOSi0FcTe2ItP7+VCVHO+s/t65tvtTDabPkckyIT167SyaY8NYu3zp5nYAsjoEvZVcbBfP0uHpXip1yTh2M4MVbKh4xMlXfG3vZFlFQGqQD1wf7gfgL2srV60NKOJgGt5/bEcImY0Z15Enip6SctIUPkIw09cP7+O7UdbIuYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MS8tPaGZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NxQNvtq5"
-Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2d747f0135fso5205185ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:00:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789632009; x=1790236809; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=scFjHYyfb0SgwjNAVVjkYsuuibhuV8HJMFO5s2VNqw4=;
-        b=NxQNvtq58YFqjoF00FXiWfe6CAwEJoqeBfVmNEJjb9lwetdA0PoMM2nHSAokyLoPln
-         n7lr5BcePoUvmaLgeDAPpo93X53PrCC94pGbeKyZkfHF9svbOWRauu77ZoiYmoNwm2qw
-         JTV8TKNw3QFu8yjx96HEk4mGn/BtP2swE1PRrofc0aweUcKPRo6BrkL/Ddzo3SdeH9rC
-         Uh2bO280WIfWN6nNFv0ULLC1xxrGg2Ym//Ix9lP0AZHRBLkFLCoMybOLaLCuolvtkooO
-         GeHpZ5hQDdXJs1rlQHJ0/Qaht8CLXM3+P37rZF3iIHrZJSgT3w4SgjD44y4tv0iYjIPZ
-         8Lpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789632009; x=1790236809;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=scFjHYyfb0SgwjNAVVjkYsuuibhuV8HJMFO5s2VNqw4=;
-        b=Dy6FXutAlxKKW0hLn7ctem+VlzIassSii5eWYY5K1JSiSzwBMfrTyzRG0VmDs+PaBa
-         CQInTzuxfmkFIYj4FzwSqbmsG3BL1I5QFqh5XlZYyKI306dkHN5RF53+D/us9dk6vP2w
-         oDjv0A/TAnQT4H0RSHi9RIOuVGGbBfAKr1a+iLoZitfwPaHxn24rumeVwHkI/LByVBzD
-         NOQ13IxKjVUURre9Ra6lhEe3UFqdcoy9zBiTcSk3ZM5lxvVNbzi+ocH77Vsyc5UOWs2d
-         o1CarswlUdoSAoTBxw9EhJ6xQTH087Ji6Y8hLZBrkvzmJvkVyrPth99dK2uxxToUyA6G
-         Vd3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwAi/O0pKCaSN4Y7/bbNs16yPqHoA4ptzcE2FZO3F4VGWMKChPjiZfRzvIp2ILcckWr+TZ42YFTNwUz0Xs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAPpgS+PKofpzXrS1ffI2k+/qJq/POhbhEroGH1VIjQ5SWHf1G
-	zEpAuqlcORgvNVjJSI1k9dz5YcJ9UGVJzrsh923Eqeizz+1z2DZxem32
-X-Gm-Gg: AYBFou1I8w0fc977eKSivc2HK5I5M5AnD+ujXbghjqgB0pKI/vyYkQPf7WnidhnQDQ1
-	TRuQiFr4/ZN3+UAxBI58PW+aTbTKS1+/5OPgkCC5Sl3QdjgTR8+SMwd01nC+4uPFA9x7gLoxxqk
-	/wYhL319KmzG2H3JOyIiCd+EF+YIT/vpxgd4AWjUwtwdEiRBP1M2YUF2Lv8mAZlIlsg9pJXZf+q
-	kYCn8rzxXC9J8ZBDKi1aY4yUzt7v7f0DEWkljKPfXI1jEdp/SCJLgxeMSjIXzYWfviXutFBStwJ
-	gZA5tl+ylJiY4gRUvRmufN7E5PvhWf1zWOikjzCzZmUevIItgW9bae9o0yJehmCSaaH1pZvPbN/
-	MKWOVCQ7VbE27mLCgT4C1fSCP7tgZb4Vtzk7jPZDlDtCLcNiGdH8TofLFsM1b0bAS0qoNy5gmTm
-	XJXCmiehDx+F/tetiKi0r2GNdwlfsIJ3FxaPIEIi1CQL3ztOut6J7UucN1KEhax1jn3wO6EIdrx
-	zpzSqCMkninbDaBAU9+uli9gg==
-X-Received: by 2002:a17:903:4b0c:b0:2d9:2149:57c0 with SMTP id d9443c01a7336-2dd8e7a2c5cmr128507045ad.22.1789632008976;
-        Thu, 17 Sep 2026 01:00:08 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5b2753csm26539542eec.31.2026.09.17.01.00.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 01:00:08 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] tools/thermal: fix typo "binded" in comments
-Date: Thu, 17 Sep 2026 13:30:02 +0530
-Message-ID: <20260917080002.23952-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MS8tPaGZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160821F00898;
+	Thu, 17 Sep 2026 08:00:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789632012;
+	bh=uE9UWharQqy5/fAiwBZmsbswzhzEgqPDu8gY7vY8sVs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MS8tPaGZgC6kUVPjJLHzxqMpCYM03N/2wB6Qnl4lupTK5ptNWVq17LosxvW15sGBP
+	 ehIcGeieeaG/wHDo3v9sYYLhqyWuWejbMqVz2p/4OlYtWzH1RTfDKk25OlKzpktxgY
+	 yI3AV1TVMUTkIqdZyR2L8R9W7klFJZ+6E3g9wln7KcVyih9LZTIrQ95eoEAiR5k0Rb
+	 NYk0COnOf/tUEwetFCcBVjv7wCbIEhCXhQE4TdVMLz7hJIE0WPo8jS75yBk+eTsUPo
+	 js5ugsDU7Tt4bMnm9daNa/ZGBjhbF0jEWauFy7zCyLJMpTqRtD/jcUQq/QpYlfrSll
+	 qb0aTtu0JNjzA==
+Date: Thu, 17 Sep 2026 10:00:07 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Lee Jones <lee@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, 
+	Michael Zaidman <michael.zaidman@gmail.com>, jikos@kernel.org, brgl@kernel.org, linux-input@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/13] HID: ft260: add UART and GPIO support, plus I2C
+ fixes
+Message-ID: <aqucXBi0Fmq-tCWr@beelink>
+References: <20260827205116.GJ2943942@google.com>
+ <20260827222550.24634-1-michael.zaidman@gmail.com>
+ <apaLLD4ZXhNV-Dph@beelink>
+ <CAD++jLng_gdqoehT+c8sXoqy+tdUc7eAXXpAvhC_zJZwnX5tzA@mail.gmail.com>
+ <20260916125806.GR11487@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260916125806.GR11487@google.com>
 
-"binded" is not a word; the past participle of "bind" is "bound".
+On Sep 16 2026, Lee Jones wrote:
+> On Mon, 14 Sep 2026, Linus Walleij wrote:
+> 
+> > Hi Benjamin, Lee,
+> > 
+> > On Tue, Sep 1, 2026 at 4:03 PM Benjamin Tissoires <bentiss@kernel.org> wrote:
+> > 
+> > > TBH, I'm not a big fan of having multiple subsystems children into HID.
+> > > Mostly because I can't review the best practive in each of them. However,
+> > > for quite a long time, HID was mostly for input devices, and input is a
+> > > different subsystem.
+> > >
+> > > That being said, there are 2 types of HID devices:
+> > > - ones with defined standard usages (keyboards, mice, touchscreen,
+> > >         battery, etc) and using MFD for those would certainly be overthinking
+> > > - others use raw HID device with a custom protocol (cp2112, mcp2221,
+> > >         ft260), these could be MFD candidates
+> > 
+> > Surely, as HID start to attract chips which clearly fall into the MFD
+> > category of things, with a plethora of subsystems hooking into the
+> > same HID device, we must find a way for HID devices to spawn
+> > MFD cells?
+> > 
+> > MFD solved and evolved a system for handling exactly this type
+> > of situation.
+> > 
+> > Whether there should be an MFD device in the middle spawning
+> > each a HID, GPIO, I2C, UART cell or whether HID device itself should
+> > sit in the nexus and gain the ability to simply spawn out MFD cells
+> > from itself is what we need to figure out.
+> 
+> There's no figuring that part out.
+> 
+> If you want to use the MFD API, the part that uses it must reside in
+> drivers/mfd.  Else it becomes a nightmare to maintain and things get
+> wild, quickly.
 
-The tmon.h comment counts cooling devices, so the noun is plural there,
-matching the wording already used for MAX_NR_CDEV_TRIP.  The tui.c clause
-needs "is" to read as a sentence.
+Historically speaking, HID devices always have been under drivers/hid.
+They are usually leaf drivers, only hooking to input/battery/LEDs.
 
-Only touches comments, no code changes.
+As mentioned, hid-sensor-hub is an exception but this got sorted out by
+splitting the HID part from the IIO.
 
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
-Randy, your Reviewed-by was for the v1 series; the two hunks below changed
-after it, so please say if you would rather I dropped the tag.
+Looking at the various MFD-like HID drivers, they all share the common
+point of not really being HID devices: they rely on a custom protocol
+handled in .raw_event().
 
-v2: tmon.h: "cooling device" -> "cooling devices".  Randy Dunlap pointed
-    out the comment counts devices, and MAX_NR_CDEV_TRIP just above it
-    already uses the plural.
+So I think I'd be OK to have those drivers moved to the mfd tree as long
+as they only rely on low level HID API, and do not have to deal with
+"generic" HID report descriptors. If that arise, I think we should split
+the HID/MFD parts like hid-sensor-hub does.
 
-    tui.c: "is bound to" rather than plain "bound to".  v1 left the
-    comment reading "trip point id that bound to this cdev", which is
-    still not a sentence.
+So you can have my unformal acked-by for transfering those drivers.
 
-    sysfs.c is unchanged from v1.
+Last, I'm currently using a cp2112 as a i2c-hid bridge in my upstream
+CI. It's relying on a DSDT override in the VM to actually work, and I'd
+like to keep that around. So my main request here is to keep the
+equivalent of the DSDT override in the MFD cells, at least for this one.
 
-v1: https://lore.kernel.org/all/20260907064725.10686-4-hemanth.selam@gmail.com/
+Cheers,
+Benjamin
 
- tools/thermal/tmon/sysfs.c | 2 +-
- tools/thermal/tmon/tmon.h  | 2 +-
- tools/thermal/tmon/tui.c   | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/tools/thermal/tmon/sysfs.c b/tools/thermal/tmon/sysfs.c
-index cb1108bc9249..5d64aff12a86 100644
---- a/tools/thermal/tmon/sysfs.c
-+++ b/tools/thermal/tmon/sysfs.c
-@@ -225,7 +225,7 @@ static int find_tzone_cdev(struct dirent *nl, char *tz_name,
- 				cdev_name, cdev_name_linked, cdev_id);
- 			tzi->cdev_binding |= (1 << cdev_id);
- 
--			/* find the trip point in which the cdev is binded to
-+			/* find the trip point in which the cdev is bound to
- 			 * in this tzone
- 			 */
- 			snprintf(cdev_trip_name, sizeof(cdev_trip_name) - 1,
-diff --git a/tools/thermal/tmon/tmon.h b/tools/thermal/tmon/tmon.h
-index 44d16d778f04..b7767056f189 100644
---- a/tools/thermal/tmon/tmon.h
-+++ b/tools/thermal/tmon/tmon.h
-@@ -77,7 +77,7 @@ struct tz_info {
- 	char type[256]; /* e.g. acpitz */
- 	int instance;
- 	int passive; /* active zone has passive node to force passive mode */
--	int nr_cdev; /* number of cooling device binded */
-+	int nr_cdev; /* number of cooling devices bound */
- 	int nr_trip_pts;
- 	struct trip_point tp[MAX_NR_TRIP];
- 	unsigned long cdev_binding; /* bitmap for attached cdevs */
-diff --git a/tools/thermal/tmon/tui.c b/tools/thermal/tmon/tui.c
-index 7f5dd2b87f15..dbc3ca95c724 100644
---- a/tools/thermal/tmon/tui.c
-+++ b/tools/thermal/tmon/tui.c
-@@ -238,7 +238,7 @@ void show_cooling_device(void)
- 				unsigned long trip_binding =
- 					ptdata.tzi[i].trip_binding[cdev_inst];
- 				int k = 0; /* per zone trip point id that
--					    * binded to this cdev, one to
-+					    * is bound to this cdev, one to
- 					    * many possible based on the
- 					    * binding bitmask.
- 					    */
--- 
-2.48.1
-
+> 
+> You'd be surprised what "creative" engineers can do with it!
+> 
+> -- 
+> Lee Jones
+> 
