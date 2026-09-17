@@ -1,448 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D90D4CDA22;
-	Thu, 17 Sep 2026 14:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8598F4E2F3A;
+	Thu, 17 Sep 2026 14:18:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654653; cv=none; b=sCf5Vlzmj+mqIDvNdqiWnMuU9GxjfxGyN8AGRHUHiwQNXHKEFBQExFTCASxLAZIOgVTCle577LMNCZengR/JNd4N/diozRvfyJDLKXauopbtdlHIusxPCQBnwjRqzZ29fjbnH/XH1ywducAy/vZuIB/EeMEJVLG3kXkAcgAAgYw=
+	t=1789654717; cv=none; b=qym1YTDY0K1fgiy13INEZFD1jf3BWRyKbfisiktc+WceW+m4LZAvCi7MVVqZa3ZqTiKctgjWksxtsxBRAa80Zt/n7f1gNLtcgldlBR9MT0NY6/6jFXNXjWsfCyoLoglTfvhVxxNYY3xn7KXMuuQqP+LsMoUCON7qd/wlfDxEUsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654653; c=relaxed/simple;
-	bh=KUsWfUmR/YkNz1cVII4rJx/gCm1LD/pb+4mqpUO+M4c=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Qh6DbD2l8h5QFlPpHzPteR3BHpMLp7TFaTpD6uyLlK5yY74gV4+GD2RxPFqNi9SVrxV/8T83/ToHzSjmk7cWoIxXNVlQBM1weD4PJ68mtrnGkUawShTd3AY2ySmefF4HDx1LJ0ddILElvm2SukKU6mufeipYTPMQkH8Vd9vj6VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YB6En9N7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789654717; c=relaxed/simple;
+	bh=sBxu93ntkSf2EUgxRcvdCDlKltgmL/NyoVJM9Ujl5m4=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=nt6aXQiTYKAlzZ2WagQapnkSyIRoj6cB1aDwe01F+y9nsNMM+AIrh3qG9zuQ2Fmh+24d+Ofe9pXo0iyRfkwzzVIPsx5Yct+SgTnjNev8dh8xXsLEPoxKUdu+44UlOJr+wGb3cTg62ExyAyIaLhFMZfXGZ6z5l1kf8bEjE+YnuX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YB2/eWbt; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YB6En9N7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2C9D1F000FF;
-	Thu, 17 Sep 2026 14:17:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789654651;
-	bh=rnjriWvdE1yvZq6NzpfFMgF3p9YCgsclH/C0ba5bhBY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=YB6En9N7IUjIl3x29LX93QGBwHx6qcTGsAQ1SzImnoREdd40/BS+NOIqYCP/4dXjK
-	 N3RFRx9kcsWNpDbXESFuvQrqnNDZmFCdf0OI/I1SC1QnFTjvLDhAdVEhUYOxf6YPQV
-	 HcGNvX3eBNnWZW5pdKM4j9SLckYzxo7eiiTFJmJUtUEASL9mjWTUrpEObcSSiBh3Ke
-	 16hRI/Qqjsx3cCY+zQkntTUaEENlzcfHJ0F1uQsBHd99kByWq3V6Cb3H6IZmPTRY1b
-	 ejz5qlBgY/0G19vMsa+mqywCzTX0LINfNGLNokauo1N5MuGJZ1ATfxVP8QbkDw7zde
-	 VZawm0aUR1SDw==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [RFC PATCH v6 00/11] iommufd: Infrastructure for vIOMMU
- creation for confidential guests and guest TSM requests
-In-Reply-To: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
-Date: Thu, 17 Sep 2026 19:47:21 +0530
-Message-ID: <yq5afqz80xou.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YB2/eWbt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789654715; x=1821190715;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=sBxu93ntkSf2EUgxRcvdCDlKltgmL/NyoVJM9Ujl5m4=;
+  b=YB2/eWbtAckReLPI0wvr4qCdFrvlytjx0kzQRbunq4lO5X2sVfcl2PJC
+   Sgo+DpFDteYBn7IyY5c0kfh8jzScR62yzy95S9gF0SiewHEdPQjAOgsoZ
+   9Sy/VGdIN+j9VQ+q7BEboatayEJoopTLSLwKWlBQ9cvz4fuJR+ZNNwQal
+   EG7zf+FPZ+bfrWGw3/HE4/QKaVQNx+hjmbc5fSspiKjhXmzceORZzKzl2
+   rgXjmln6bWi2001O38GFMO/MQnj7VxaXWZ8VfuaVXwnYPC8yEnKXEbOcs
+   CNA0FE5nQheei7qM33Kp1SV8bIXajQAzzvOkdGc0p6pjnujD5bxz3uy85
+   g==;
+X-CSE-ConnectionGUID: ZnYTVbupRWeyhErdDlUlvQ==
+X-CSE-MsgGUID: kcKNP4bzTUKkstwHmSnKwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100744295"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100744295"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 07:18:34 -0700
+X-CSE-ConnectionGUID: uDgtl66KRI6dxI0+WkYCmQ==
+X-CSE-MsgGUID: yfJsfrAnTmGpXHOdP5UFMA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2043329"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.62])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 07:18:32 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 17 Sep 2026 17:18:28 +0300 (EEST)
+To: Muhammad Bilal <meatuni001@gmail.com>
+cc: platform-driver-x86@vger.kernel.org, jorge.lopez2@hp.com, 
+    Hans de Goede <hansg@kernel.org>, linux@weissschuh.net, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] platform/x86: hp-bioscfg: remove dead bounds
+ check in audit_log_entries_show
+In-Reply-To: <20260818191120.38556-3-meatuni001@gmail.com>
+Message-ID: <248467bd-0f04-0588-4680-871f6e34ca2f@linux.intel.com>
+References: <20260818191120.38556-1-meatuni001@gmail.com> <20260818191120.38556-3-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/mixed; boundary="8323328-1652208460-1789654708=:1179"
 
-"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> writes:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-> This series adds the IOMMUFD and PCI/TSM infrastructure required for device
-> assignment. It introduces an IOMMUFD-owned vIOMMU provider registry and the
-> IOMMU_VDEVICE_TSM_REQ ioctl.
->
-> The series adds a vIOMMU provider abstraction that allows a subsystem
-> other than the physical IOMMU driver to implement a vIOMMU type. It groups
-> the vIOMMU operations with their module owner and private data, and makes
-> that implementation discoverable during vIOMMU allocation.
->
-> External providers are selected by exact vIOMMU type. When no provider
-> matches, vIOMMU creation falls back to the physical IOMMU driver. Once a
-> provider matches, its result is authoritative and failures do not trigger
-> fallback.
->
-> Guest TSM requests are dispatched through the vdevice. PCI/TSM uses
-> reference-counted contexts to retain the resources needed by providers,
-> without introducing separate IOMMUFD TSM bind or unbind ioctls.
->
-> Note: Codex was used to assist with commit message formatting and code
-> rearrangement.
->
+--8323328-1652208460-1789654708=:1179
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
- [ ... 99 lines skipped ... ] 
+On Wed, 19 Aug 2026, Muhammad Bilal wrote:
 
-Related Arm CCA host changes is below
+> audit_log_entries_show() checks "count * LOG_ENTRY_SIZE > PAGE_SIZE"
+> prior to entering the loop. Because "count" is already bounded to fit
+> within PAGE_SIZE, the inner loop check "(LOG_ENTRY_SIZE * i) > PAGE_SIZE"
+> can never be reached and is dead code.
+>=20
+> Remove the redundant inner bounds check and eliminate the unnecessary
+> "else" block after "break" to clean up the loop control flow.
+>=20
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> ---
+> Changes in v3:
+>   - Remove the dead inner loop check completely instead of adjusting
+>     the boundary arithmetic, as noted by Ilpo J=C3=A4rvinen.
+>   - Remove the redundant else block after break.
+>=20
+> Changes in v2:
+>   - None for this patch; resubmitted as part of the v2 series.
+>=20
+> Link: https://lore.kernel.org/r/20260803143037.93105-1-meatuni001@gmail.c=
+om [v1]
+> Link: https://lore.kernel.org/r/20260812111829.172273-1-meatuni001@gmail.=
+com [v2]
+> ---
+>  drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c | 9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c b/=
+drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
+> index b57e42f29282..3b20757a3e74 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
+> @@ -93,15 +93,12 @@ static ssize_t audit_log_entries_show(struct kobject =
+*kobj,
+>  =09=09=09=09=09   HPWMI_SURESTART,
+>  =09=09=09=09=09   audit_log_buffer, 1, 128);
+> =20
+> -=09=09if (ret < 0 || (LOG_ENTRY_SIZE * i) > PAGE_SIZE) {
+> -=09=09=09/*
+> -=09=09=09 * Encountered a failure while reading
+> -=09=09=09 * individual logs. Only a partial list of
+> -=09=09=09 * audit log will be returned.
+> -=09=09=09 */
+> +=09=09/*
+> +=09=09 * Encountered a failure while reading individual logs.
+> +=09=09 * Only a partial list of audit log will be returned.
+> +=09=09 */
+> +=09=09if (ret < 0)
+>  =09=09=09break;
+> -=09=09} else {
+> -=09=09=09memcpy(buf, audit_log_buffer, LOG_ENTRY_SIZE);
+> -=09=09=09buf +=3D LOG_ENTRY_SIZE;
+> -=09=09}
+> +
+> +=09=09memcpy(buf, audit_log_buffer, LOG_ENTRY_SIZE);
+> +=09=09buf +=3D LOG_ENTRY_SIZE;
+>  =09}
+> =20
+>  =09return i * LOG_ENTRY_SIZE;
+>=20
 
-commit 66225895e48fa38b13aea493e1e6e3babab8f6aa
-Author: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
-Date:   Wed Sep 16 14:06:15 2026 +0530
+Patch 1 didn't apply without special trickery, this patch 2 doesn't even=20
+get that far:
 
-    virt: arm-cca-host: Register the Realm vIOMMU provider with IOMMUFD
-    
-    Register the Realm SMMUv3 provider directly with IOMMUFD. Retain active TSM
-    resources until the final provider release and remove the registration
-    before TSM teardown.
-    
-    Create CCA-owned vdevices using PCI/TSM contexts, balance pSMMU stream-
-    table lifetime, and mark a function bound only after successful
-    initialization. Keep the KVM file and active pSMMU alive through the vIOMMU
-    lifetime.
+checking file drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
+patch: **** malformed patch at line 65:         }
 
-diff --git a/drivers/virt/coco/arm-cca-host/Kconfig b/drivers/virt/coco/arm-cca-host/Kconfig
-index 4a2bc64c2568..d0c636f92d9e 100644
---- a/drivers/virt/coco/arm-cca-host/Kconfig
-+++ b/drivers/virt/coco/arm-cca-host/Kconfig
-@@ -7,6 +7,7 @@ config ARM_CCA_HOST
- 	depends on ARM64
- 	depends on PCI
- 	depends on ARM_RMM
-+	depends on IOMMUFD
- 	depends on HAVE_ARM_SMCCC_DISCOVERY
- 	select PCI_TSM
- 	select KEYS
-diff --git a/drivers/virt/coco/arm-cca-host/Makefile b/drivers/virt/coco/arm-cca-host/Makefile
-index d48e8940af46..2732352a7ae2 100644
---- a/drivers/virt/coco/arm-cca-host/Makefile
-+++ b/drivers/virt/coco/arm-cca-host/Makefile
-@@ -2,4 +2,4 @@
- #
- obj-$(CONFIG_ARM_CCA_HOST) += arm-cca-host.o
- 
--arm-cca-host-y	+=  arm-cca.o rmi-da.o
-+arm-cca-host-y	+=  arm-cca.o rmi-da.o viommu.o
-diff --git a/drivers/virt/coco/arm-cca-host/arm-cca.c b/drivers/virt/coco/arm-cca-host/arm-cca.c
-index 182733e00dfc..b5d50685eaeb 100644
---- a/drivers/virt/coco/arm-cca-host/arm-cca.c
-+++ b/drivers/virt/coco/arm-cca-host/arm-cca.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/arm-smccc.h>
- #include <linux/arm-smccc-bus.h>
-+#include <linux/iommufd.h>
- #include <linux/pci-tsm.h>
- #include <linux/pci-ide.h>
- #include <linux/module.h>
-@@ -427,6 +428,24 @@ static struct pci_tsm_ops cca_link_pci_ops = {
- 	.disconnect = cca_tsm_disconnect,
- };
- 
-+static void cca_viommu_provider_release(void *data)
-+{
-+	tsm_put(data);
-+}
-+
-+static const struct iommufd_viommu_provider_ops cca_viommu_provider_ops = {
-+	.owner = THIS_MODULE,
-+	.type = IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3,
-+	.get_size = cca_viommu_get_size,
-+	.init = cca_viommu_init,
-+	.release = cca_viommu_provider_release,
-+};
-+
-+static void cca_viommu_provider_remove(void *provider)
-+{
-+	iommufd_unregister_viommu_provider(provider);
-+}
-+
- static void cca_link_tsm_remove(void *tsm_dev)
- {
- 	tsm_unregister(tsm_dev);
-@@ -439,7 +458,9 @@ static bool rmi_has_reg2_feature(unsigned long feature)
- 
- static int cca_link_tsm_probe(struct arm_smccc_device *sdev)
- {
-+	struct iommufd_viommu_provider *provider;
- 	struct tsm_dev *tsm_dev;
-+	int ret;
- 
- 	if (!rmi_has_reg2_feature(RMI_FEATURE_REGISTER_2_DA))
- 		return -ENODEV;
-@@ -448,8 +469,22 @@ static int cca_link_tsm_probe(struct arm_smccc_device *sdev)
- 	if (IS_ERR(tsm_dev))
- 		return PTR_ERR(tsm_dev);
- 
--	return devm_add_action_or_reset(&sdev->dev, cca_link_tsm_remove,
--					tsm_dev);
-+	ret = devm_add_action_or_reset(&sdev->dev, cca_link_tsm_remove, tsm_dev);
-+	if (ret)
-+		return ret;
-+
-+	/* Retain PCI/TSM resources until the last provider user is released. */
-+	tsm_get(tsm_dev);
-+	provider = iommufd_register_viommu_provider(&cca_viommu_provider_ops,
-+						  tsm_dev);
-+	if (IS_ERR(provider)) {
-+		tsm_put(tsm_dev);
-+		return PTR_ERR(provider);
-+	}
-+
-+	/* Remove from lookup before the earlier TSM unregister action runs. */
-+	return devm_add_action_or_reset(&sdev->dev, cca_viommu_provider_remove,
-+					provider);
- }
- 
- static const struct arm_smccc_device_id cca_link_tsm_id_table[] = {
-diff --git a/drivers/virt/coco/arm-cca-host/rmi-da.h b/drivers/virt/coco/arm-cca-host/rmi-da.h
-index 306f64749f26..07642eeb3245 100644
---- a/drivers/virt/coco/arm-cca-host/rmi-da.h
-+++ b/drivers/virt/coco/arm-cca-host/rmi-da.h
-@@ -16,6 +16,11 @@
- #include <linux/atomic.h>
- #include <linux/kref.h>
- #include <linux/wait.h>
-+#include <uapi/linux/iommufd.h>
-+
-+struct iommufd_viommu;
-+struct iommu_domain;
-+struct iommu_user_data;
- 
- #define MAX_CACHE_OBJ_SIZE	SZ_16M
- #define CACHE_CHUNK_SIZE	SZ_4K
-@@ -119,6 +124,11 @@ struct cca_host_fn_dsc {
- 	struct pci_tsm pci;
- };
- 
-+size_t cca_viommu_get_size(struct device *dev, enum iommu_viommu_type type);
-+int cca_viommu_init(struct iommufd_viommu *viommu, struct device *dev,
-+		    struct iommu_domain *parent,
-+		    const struct iommu_user_data *user_data);
-+
- enum dev_comm_type {
- 	PDEV_COMMUNICATE = 0x1,
- 	VDEV_COMMUNICATE = 0x2,
-diff --git a/drivers/virt/coco/arm-cca-host/viommu.c b/drivers/virt/coco/arm-cca-host/viommu.c
-index 5cd261551b17..9daa3ff3ca1c 100644
---- a/drivers/virt/coco/arm-cca-host/viommu.c
-+++ b/drivers/virt/coco/arm-cca-host/viommu.c
-@@ -32,6 +32,13 @@ struct cca_viommu {
- 	struct cca_psmmu *psmmu;
- };
- 
-+struct cca_vdevice {
-+	struct iommufd_vdevice core;
-+	struct pci_tsm_context *tsm_context;
-+	struct cca_host_tdi host_tdi;
-+	u32 l2_sid;
-+};
-+
- static LIST_HEAD(cca_psmmus);
- static DEFINE_MUTEX(cca_psmmus_lock);
- 
-@@ -40,6 +47,11 @@ static struct cca_viommu *to_cca_viommu(struct iommufd_viommu *viommu)
- 	return container_of(viommu, struct cca_viommu, core);
- }
- 
-+static struct tsm_dev *cca_viommu_tsm_dev(struct iommufd_viommu *viommu)
-+{
-+	return viommu->provider_data;
-+}
-+
- static struct cca_psmmu *
- cca_psmmu_get(const struct arm_smmu_realm_params *params)
- {
-@@ -99,3 +111,192 @@ static void cca_psmmu_put(struct cca_psmmu *psmmu)
- 	list_del(&psmmu->node);
- 	kfree(psmmu);
- }
-+
-+static void cca_viommu_destroy(struct iommufd_viommu *viommu)
-+{
-+	struct cca_viommu *cca = to_cca_viommu(viommu);
-+
-+	if (cca->psmmu)
-+		cca_psmmu_put(cca->psmmu);
-+}
-+
-+static int cca_psmmu_create_l2(struct cca_psmmu *psmmu, u32 l2_sid)
-+{
-+	unsigned long rmi_ret = 0;
-+	int ret;
-+
-+	guard(mutex)(&cca_psmmus_lock);
-+	ret = rmi_psmmu_st_l2_create(psmmu->phys, l2_sid, &rmi_ret);
-+	if (!ret && !rmi_ret)
-+		return 0;
-+	if (RMI_RETURN_STATUS(rmi_ret) == RMI_ERROR_PSMMU_ST &&
-+	    RMI_RETURN_INDEX(rmi_ret) == 2)
-+		return 0;
-+	return -EIO;
-+}
-+
-+static void cca_psmmu_destroy_l2(struct cca_psmmu *psmmu, u32 l2_sid,
-+				 struct device *dev)
-+{
-+	unsigned long rmi_ret = 0;
-+	int ret;
-+
-+	guard(mutex)(&cca_psmmus_lock);
-+	ret = rmi_psmmu_st_l2_destroy(psmmu->phys, l2_sid, &rmi_ret);
-+	if (!ret && !rmi_ret)
-+		return;
-+	if (RMI_RETURN_STATUS(rmi_ret) == RMI_ERROR_PSMMU_ST &&
-+	    RMI_RETURN_INDEX(rmi_ret) == 2)
-+		return;
-+	dev_warn(dev, "failed to destroy Realm stream mapping\n");
-+}
-+
-+static void cca_vdevice_destroy(struct iommufd_vdevice *vdev)
-+{
-+	struct cca_vdevice *cca_vdev =
-+		container_of(vdev, struct cca_vdevice, core);
-+	struct cca_viommu *cca = to_cca_viommu(vdev->viommu);
-+	struct device *dev = iommufd_vdevice_to_device(vdev);
-+	struct pci_tsm_context *context = cca_vdev->tsm_context;
-+	struct pci_dev *pdev = to_pci_dev(dev);
-+	struct pci_tsm_pf0 *pf0 = pci_tsm_context_pf0(context);
-+	struct pci_dev *dsm_dev = pci_tsm_context_dsm_dev(context);
-+	struct cca_host_tdi *host_tdi = &cca_vdev->host_tdi;
-+	struct realm *realm = &host_tdi->kvm->arch.realm;
-+
-+	scoped_guard(mutex, &pf0->lock) {
-+		cca_vdev_destroy(host_tdi, realm, pdev, dsm_dev);
-+		kvfree(host_tdi->interface_report);
-+		kvfree(host_tdi->measurements);
-+		cca_psmmu_destroy_l2(cca->psmmu, cca_vdev->l2_sid, dev);
-+	}
-+	pci_tsm_context_put(context);
-+}
-+
-+static int cca_vdevice_init(struct iommufd_vdevice *vdev)
-+{
-+	struct cca_vdevice *cca_vdev =
-+		container_of(vdev, struct cca_vdevice, core);
-+	struct arm_smmu_realm_params params;
-+	struct cca_viommu *cca = to_cca_viommu(vdev->viommu);
-+	struct cca_psmmu *psmmu = cca->psmmu;
-+	struct device *dev = iommufd_vdevice_to_device(vdev);
-+	struct tsm_dev *tsm_dev = cca_viommu_tsm_dev(vdev->viommu);
-+	struct pci_tsm_context *context;
-+	struct pci_dev *pdev;
-+	struct pci_tsm_pf0 *pf0;
-+	struct pci_dev *dsm_dev;
-+	struct cca_host_tdi *host_tdi = &cca_vdev->host_tdi;
-+	struct kvm *kvm = vdev->viommu->kvm_file->private_data;
-+	void *rmm_vdev;
-+	int ret;
-+
-+	if (!dev_is_pci(dev))
-+		return 0;
-+	/* Devices without a Link TSM remain ordinary vdevices. */
-+	pdev = to_pci_dev(dev);
-+	context = pci_tsm_context_get(pdev);
-+	if (IS_ERR(context)) {
-+		if (PTR_ERR(context) == -EOPNOTSUPP)
-+			return 0;
-+		return PTR_ERR(context);
-+	}
-+	if (pci_tsm_context_tsm_dev(context) != tsm_dev) {
-+		ret = -EXDEV;
-+		goto out_put_context;
-+	}
-+
-+	ret = iommu_viommu_get_params(dev,
-+		IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3, &params,
-+		sizeof(params));
-+	if (ret)
-+		goto out_put_context;
-+	if (params.psmmu_phys != psmmu->phys) {
-+		ret = -EINVAL;
-+		goto out_put_context;
-+	}
-+
-+	host_tdi->kvm = kvm;
-+	cca_vdev->l2_sid = params.l2_sid;
-+	pf0 = pci_tsm_context_pf0(context);
-+	dsm_dev = pci_tsm_context_dsm_dev(context);
-+
-+	scoped_guard(mutex, &pf0->lock) {
-+		ret = cca_psmmu_create_l2(psmmu, params.l2_sid);
-+		if (!ret) {
-+			rmm_vdev = cca_vdev_create(host_tdi, &kvm->arch.realm,
-+						   pdev, dsm_dev, vdev->virt_id);
-+			if (IS_ERR_OR_NULL(rmm_vdev)) {
-+				ret = rmm_vdev ? PTR_ERR(rmm_vdev) : -ENOMEM;
-+				cca_psmmu_destroy_l2(psmmu, params.l2_sid, dev);
-+			}
-+		}
-+		if (!ret)
-+			pci_tsm_context_mark_bound(context);
-+	}
-+	if (ret)
-+		goto out_put_context;
-+	cca_vdev->tsm_context = context;
-+	vdev->destroy = cca_vdevice_destroy;
-+	return 0;
-+
-+out_put_context:
-+	pci_tsm_context_put(context);
-+	return ret;
-+}
-+
-+static const struct iommufd_viommu_ops cca_viommu_ops = {
-+	.destroy = cca_viommu_destroy,
-+	.vdevice_size = VDEVICE_STRUCT_SIZE(struct cca_vdevice, core),
-+	.vdevice_init = cca_vdevice_init,
-+};
-+
-+size_t cca_viommu_get_size(struct device *dev, enum iommu_viommu_type type)
-+{
-+	struct arm_smmu_realm_params params;
-+
-+	if (type != IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3)
-+		return 0;
-+	if (iommu_viommu_get_params(dev, type, &params, sizeof(params)))
-+		return 0;
-+	return VIOMMU_STRUCT_SIZE(struct cca_viommu, core);
-+}
-+
-+int cca_viommu_init(struct iommufd_viommu *viommu, struct device *dev,
-+		    struct iommu_domain *parent,
-+		    const struct iommu_user_data *user_data)
-+{
-+	struct arm_smmu_realm_params params;
-+	struct cca_viommu *cca = to_cca_viommu(viommu);
-+	struct cca_psmmu *psmmu;
-+	struct kvm *kvm;
-+	int ret;
-+
-+	(void)user_data;
-+
-+	if (viommu->type != IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3)
-+		return -EOPNOTSUPP;
-+	if (!viommu->kvm_file)
-+		return -EINVAL;
-+	kvm = viommu->kvm_file->private_data;
-+	ret = kvm_realm_ensure_created(kvm);
-+	if (ret)
-+		return ret;
-+
-+	ret = iommu_viommu_validate_parent(dev, viommu->type, parent);
-+	if (ret)
-+		return ret;
-+	ret = iommu_viommu_get_params(dev, viommu->type, &params,
-+				      sizeof(params));
-+	if (ret)
-+		return ret;
-+
-+	psmmu = cca_psmmu_get(&params);
-+	if (IS_ERR(psmmu))
-+		return PTR_ERR(psmmu);
-+	cca->psmmu = psmmu;
-+	viommu->ops = &cca_viommu_ops;
-+	return 0;
-+}
-+
-+MODULE_IMPORT_NS("IOMMUFD");
+:-(
+
+--=20
+ i.
+
+--8323328-1652208460-1789654708=:1179--
