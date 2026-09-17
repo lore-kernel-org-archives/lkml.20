@@ -1,181 +1,307 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010003.outbound.protection.outlook.com [52.101.201.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88E74DA9AD;
-	Thu, 17 Sep 2026 11:41:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645317; cv=none; b=vFFTk8gd4fjyOS9cA6X4uohaooVnlHhBM5V+ljKjWVxu/Dp4BvUJ7USyFVxKElEixnknFWg92bGYXuAH10x1JGnf1A6Qms7O8f7o5UVC4zQeQa/aJvVTjGP6/r1oPlBTHRdnbKCS8/tYJrrE9TV61nT5m4pIxrVt7qjlyzgnfmg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645317; c=relaxed/simple;
-	bh=vDKlQ2rl4BEjEMKeeUXZZykr0CFc26klDVFsMOaWkKQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aATJ+ivdU/AtIL25E1xYrgwkjDgGdzi16N/lXQi3cZmki+q7eQFoh0Hze/hrAPWmj2rV3Nv3flJmOzE4LeH0dP2YkBbLUjKLYJ0V/F/Hzc+eEkW/6XbaBK+gmyuE98ICKcnzFvH77yRKAYwk/dW1rUoPTSqNuHmuPKvRwW8qlfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=fdCccc/0; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2127B4B95BE;
+	Thu, 17 Sep 2026 11:42:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789645338; cv=fail; b=QSeEY8Rh0hKlmAPjiAnyx9MYesTZvj7DO2LnirEeYSuz5FKTfYpbrhD6o+tNikoyle8JYEeZkPmhbTXJAcASInyQIG8lOo45oL6ZoPl4F2XCunLUgs2aQxg92mgbw9URFZlaJIB6+hZx7mFp0V/0Ad/fqWAB7/uagitfd+oFa9g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789645338; c=relaxed/simple;
+	bh=Ae/q79c16wjyYCi4O/M3VaON5SdxGA6jQipPbBuxTsw=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=BZqqS1e/suf/mA++sevL2Qe939A8sib0wpn/jfAHvZ5/sWitmMXLUZzKEf2nqqn/3nT5ODqHSB8ozyRQvTfd50Z+v+tCqmmrRN794uc8xUOvnqpnR1UTKPweRNnnk1O5z+oyMOxIRaEKAX4XA/vJB3BLVmMKuAXfzyOarR76KSw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lBjGyDwC; arc=fail smtp.client-ip=52.101.201.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="fdCccc/0"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HA1SIs322296;
-	Thu, 17 Sep 2026 11:41:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=OWR9zTAHWVLpK4bmZCBTkD/N7ttjRZ
-	I1QCl8LhAualQ=; b=fdCccc/0BBlVyT49fbLhHCklz8pg8BrLjarFIP3eUti3pZ
-	YN0nFpYyDOGyGNQVn99nVNtUVTMUrWxZsGamfnhLEjbU/UIlXyssCXcOedjrMYrL
-	EhiCVOfHWktjzQedPpc6iw58LxpE4VrSjj5e9OmlC+tDPG7caqi73e6UrA/2/ZbJ
-	qI5wDIZDuS1bh0Hnun3gl2ClMgaynlmFmUdmKPsWItMm2RNOYiwXfKi7ZqOUlTe9
-	c4Cw9sgaEMKAnrGCkOvnYnHFLCIPzuxo0K0IPj/PKAZVnRdSujw6DVA/YkFI4b+U
-	+qR0AhiHbeS4mHPyxcvwYTdnSX53e+/AeGafH4ng==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxdqj2gt-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 11:41:28 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68H9aHtU2962371;
-	Thu, 17 Sep 2026 11:41:27 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gra3ys762-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 11:41:27 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68HBfNxs41746868
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 17 Sep 2026 11:41:24 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CAE4E20040;
-	Thu, 17 Sep 2026 11:41:23 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6DD592004E;
-	Thu, 17 Sep 2026 11:41:23 +0000 (GMT)
-Received: from osiris (unknown [9.224.76.185])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Thu, 17 Sep 2026 11:41:23 +0000 (GMT)
-Date: Thu, 17 Sep 2026 13:41:22 +0200
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org,
-        kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v7 23/23] KVM: s390: arm64: Add KVM_S390_ARM64 Kconfig
- and Makefile
-Message-ID: <20260917114122.474297-B-seiden@linux.ibm.com>
-References: <20260831144802.834315-1-seiden@linux.ibm.com>
- <20260831144802.834315-24-seiden@linux.ibm.com>
- <aphMx5hsoXwIpNjt@google.com>
- <20260903083857.33034-B-seiden@linux.ibm.com>
- <apmHrnxRLl9BuVhn@google.com>
- <20260903154317.246414-A-seiden@linux.ibm.com>
- <apmhX8H-WUc3U4_N@google.com>
- <51286424-e802-4ea9-b958-925fee8025ed@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lBjGyDwC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yxn3K2UpsQ+dDgFeDVs6OHk08zt/gNOydgkpIfLcAa+0AHhzvh+737d/A81p5YSRuIcibjmshboosBnun2Y6aC/p9hz0yXXa3LR9UNU/jurnvyUDcOKdxkrx5p1oWOlCSHpHHWIO+lKM5kXzjYKFiBdQsf0E4CAxnzGAsYzN2OpKCTW4ZU/9RKyCEAsGh9veIyuB68PhjfstpGRrmrcfDivRiXOVGtFDmVrFYhqrztfWclIVJKU70JSn29o+28Oj3Ss4bD8/0/0ix5wt2JjT4iJ93vLCB85Q1fv24Yh/bS0KyLcx3QKfsk2dkjcyV90VQ24R1KWum7ZPFbr9j+qp2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LuenNrnlVkNBGHeXc6GXaQVy/5kMClE2H3lql5Htim0=;
+ b=Vujooz7bUZpkFYxKKIgi5JVYBZpEh3ni9/0hvnNPelDo6x6bxsNahQ9h7CenX1K9Tld4PIvTngwgWHJQNl4ry7UuX+AH6Ippp//qiq8wAU7kOlMlELT8eO+26TOJhB0Dtbtns3fMDfSKQE3FB1WEVRSrli+SCqCdp6JL67FYtjTXTWkcuiAcxAlSPRBtIO5rN9X7hy1/ykIgw7OrTpdTUHcfj3MJJ/OcO/MfAwMUj+DhHDnQb5edvaBsVbMNxX2hjkCVhZ3QLaK4uI9i2DyYQYyXzcxYhKxj6luw6Sbx6uFx++q8PExp0EyQFAnfcUsqAXGat4tDiF7+cIK9Kb+1Og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LuenNrnlVkNBGHeXc6GXaQVy/5kMClE2H3lql5Htim0=;
+ b=lBjGyDwCsAQobc1YrpDG1fXtATlRCR3gjKy6yLcDmfoeMU/IbQh7OJbypgpEIf3r4kbSAFVouZ6FFxFgU76a9Sl3bR48h5h/TCTz84mfHWK5RyssFYd5ycH7mjsuJettShk3AzgleJ9bUmtAcscV/sQKsEP/Kx1Czvl7g/iQgBRBg2ilHIK1tGjIh/FPACPv403tQ0UV4MK0HPooZi59rbPHn0qGago7kn7rg7CHYQZyEygMj+OCNBSutZg0t/00peioqUCE+AuzhfqfrSWSVBlZaWNX94DHqjnZSFUC9zipohVOIkgdAFpkpImNkPnU8zE22A4FbT0RrUOmVUwbjw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ DM4PR12MB6088.namprd12.prod.outlook.com (2603:10b6:8:af::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.13; Thu, 17 Sep 2026 11:42:11 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+ 11:42:11 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 20:42:07 +0900
+Message-Id: <DLHKBLIVFIX8.346WFGAIJBL9D@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
+ Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 7/8] gpu: nova-core: add NVKV typed decoding
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Alexandre Courbot" <acourbot@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
+ <DLEQBIQ50C39.23F0YZK9D7VUD@nvidia.com>
+ <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
+ <DLHFGW1ISL53.3D3X360WD8HPV@garyguo.net>
+ <DLHGE0SNY9CO.1OPWR5QXKJLAZ@nvidia.com>
+ <DLHGPFAO0A8J.TU9XW1AZ8XAK@garyguo.net>
+In-Reply-To: <DLHGPFAO0A8J.TU9XW1AZ8XAK@garyguo.net>
+X-ClientProxiedBy: TYCP301CA0020.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:381::13) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <51286424-e802-4ea9-b958-925fee8025ed@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDE2MCBTYWx0ZWRfX21RDwL9VzF5j
- aJTLFTOCjHBV8pAJckEPMbqTIyBiThBHZJd8dllJ3JnFt+uArqyb4+UYlqY04brIHLUk8HJj7Rs
- FseQMmPMFOtivK4tzrLPNE9mEq3oHBxLHdUiz1EbWZWI8PxN7Go35NDY/cc02Ffu4/cBY4+B1Rp
- cLpTl3fNMN8AqrThipIaUry8aSxZ1/93/OIzSK4E0Is3CHCpS4HJOKt5GqDYxkFqOvLumFUUNgw
- KL+k6I7mEDreHZoRW+1SF6OTOhuTyw2LzliXfynO5facXjDbmiy42M+R2vrZL4AxUl/+yNVNhiY
- oU09LHQSekY/l10HNKury6qDyBKApPmFXzGEsugJDcuNU8ENiRQKEYruvLPWBx3OXp9YUD2hW7H
- wcIENwyGViDoRbpDFxjJuHxrP3CXOugq9DaL+I2XMVjqoMcpt5STFP3ejHykSdAlZCLBbPRlicI
- VND80dd+b/oAtsWeRyQ==
-X-Proofpoint-GUID: mEIQfDHlg26Av6E-D7a4lLq9rs4V3krI
-X-Authority-Analysis: v=2.4 cv=DobDa2/+ c=1 sm=1 tr=0 ts=6aabd1e9 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=fFzJ_os4vFYzPQsHbnAA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: e9PGhILaeHOEO5CT_bB5ZuJF45-PfPe0
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDE2MCBTYWx0ZWRfXyKbRztHCxg7j
- FZFDYZrOj0mk8jUgeCjgYhXfFeH5KbBUra8SmtMujMguTjMWheMQ/fT+7bzyaB5ERzZumWkCHGC
- uJT/At1ZUEYJ+1z9o2fZn+jkiAPnJp8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 impostorscore=0
- spamscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170160
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DM4PR12MB6088:EE_
+X-MS-Office365-Filtering-Correlation-Id: d533a4f7-d98a-4b2f-fe8f-08df14b0b5df
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|10070799003|23010399003|1800799024|7416014|376014|10067099003|56012099006|3023799007|10063799003|22082099003|11063799006|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	Y8Bbd8b8lGqFMgiCZzOxINHrHcFg+IJ7GvYObtqsQA0mJnbCzOXkQk3fBeWNQagZ/o/suzZZjFi7qg6EWPGpeVkr6/d9DAAOlJdezHW09S+mubeckFwMe6I5AfqT7tMPLTz+d54EdQK89N9gMnzeebePh4NXcYWVFMwsiE52pB6gUglJiGPT5e0urepb5pmyf4nvAZcvkSbQzx3jHKfpufLe+V3ePuIU+3sir6xQIKnUy3L1BmK2o7eINFFDWDOcxlbeP99fvXtESDLMOGYIVdS2Y+3CGGqoLlgj5kF1KJ93kqg3BDUNw9ZcI+N6u/Y040KnTtV3JtET/6gjR/g/ASjbwTbjymJgf1TN3dbHAUaJr9unXIOhM4K3KRreEQmnKxGU4obZtCg5BBi9czbS8swG7ogKDCYmtEhNtSQMI0aA8UM3+hjHkvr+qBxj2xtSQ9SF54xZoAtZq6yrrFh0HZzWCqqkZKljQNDT70NFVOVRklWlzPDXJNpFXPFHOD0cADkMU++RM0KZfmFyrhhWMLIft2Fc1Px1TLLjXOjwDyqYPfINmbs/4pTsKWlGPhA59zJhU9oIi0sU54W/gAwlxcXu1TRdzMNcNOd6472KWDLUDQisPL+H/7kbhCdCjTD7SgEP8SdRRP41FrG6J0MGJCLr9YBURpTdYi/TtbxO7zQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(23010399003)(1800799024)(7416014)(376014)(10067099003)(56012099006)(3023799007)(10063799003)(22082099003)(11063799006)(18002099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K2Nsc1VFVHFNb2FEOGxXSjZmY0tEblBWZlhQa3ZiYndBSXB6SDN6VmY5aENp?=
+ =?utf-8?B?Z1NacjhhQ2xjSlNYZUNNWFh3aE1aSW5FWU1OZlNUQnFhVkVYTy9uZzVWRE8z?=
+ =?utf-8?B?UTR3SXZEenNBYXBhQ1Q2Szg5QWJPWkxUSHVuajMyNmVMR2h6allMSGkvckhS?=
+ =?utf-8?B?WjdzMjkyQXJyRDJWYnoyTG5oaEJqeFBZMU94ODdlR0VCK1JsTkNsUUMrTjh0?=
+ =?utf-8?B?VVF4VnJnTERXd3J3TnVsblRQdHlpa001QlFjWEtGb3FLQjJQMDYwRFlVVDBq?=
+ =?utf-8?B?enNGYWVTYkhHaVNoOEhnMEVTd1V1ajh6bWkzV0RFbzNpbityZFdudWRFK1dJ?=
+ =?utf-8?B?SmU2R0M0N0pZM3B6SktRcFhaT1NqRlY1TDZmVnJiWG84eE5oVTgvNllXOGtD?=
+ =?utf-8?B?VFNPQlQySVl1YlR0QXFGVWVwaTdGakU3RHVoSEtRbm5KZVJnOWp5TFU4bisy?=
+ =?utf-8?B?bC9hSnVpeldndndOVFV6Tk9GYVd2OE02and2dmg1YnR5bWJXVGMvNWoyU3NE?=
+ =?utf-8?B?MUVVYlNWNWtuVDJ4cHpsZ0daSlArVTZaZXN6WUFhd1RDa3BtQ0Z2YzYwVDVw?=
+ =?utf-8?B?K2dLellYbUZnMTJFKzAxN0VRczIxMGhad1hIUTZlazd5ZGdCb2ltcHg2bDJL?=
+ =?utf-8?B?Y0M2eHRmRC9zZm1LNFEvUjZLb0hXeCtJK2wvVmFkWHBydkRmRzR2NlVzNnRB?=
+ =?utf-8?B?OWlPdUJzRXYzY3Uxd3Z4ejZIVURCalpQYS9LMCtKeTdDd1hNQlkxbnpQMkd6?=
+ =?utf-8?B?YjJPQVBMYkhTYnduODlnRmp2elJtMklrUkRBMFNPNFVJY2JsbGdQYjlsc2Z4?=
+ =?utf-8?B?T0s4R1hPTjZwUHVNUWs4WU0wd1lSY1RLbk9oNURMSE9QQlM2enUwaTdJUUdF?=
+ =?utf-8?B?TDBzaGVKR2lqMTFGa3A1ODJib3Q2d0UxRVlYeC9BNEp4VFVJaXR0cThvNWI2?=
+ =?utf-8?B?ejdhUGkyM0dTcEo4aWJ2bjdZcjVwNWx0VjdUM1NGNG13aklkQ0F5WitPeEpN?=
+ =?utf-8?B?c1pmVTI0ZkFIeTdLV3N0ZE5pODR6dDNFOTZqRDJNdkNNcjIrRjlNMldHaVVK?=
+ =?utf-8?B?c0JtOWdSWmVEcUlSdHpyTTRaeUtHYVdRRXJBbGlMUktRKy9DUzRiV0Y0eEVt?=
+ =?utf-8?B?MDljdFZWSUVDZVVidVVkdGIyK2Z1eHl6V0tINytJK2NaYWxRR2EzdHQraXRU?=
+ =?utf-8?B?RzMzVHByY09WREdTM2Q5bTBHbkIxUlNJbENHdUcydXNlMEdFT2cyRWtJc3B4?=
+ =?utf-8?B?Qys1ZHJwdGRORFJRdWFqT2hmV2lZaTZsTll2MVYweGpKR1VvSk1rQlYzeTM5?=
+ =?utf-8?B?MFI5THNRb2Y2ZmM1d1AvRWlYazNkU0cwOEJmeVZDSHBOOXpzVS9LZ1dBUWJF?=
+ =?utf-8?B?YUVDRVpzd21sOXFCYTRleUxnamtESU9JZ2ttMUZGVi9wLzVmVkExMWc4Vkc0?=
+ =?utf-8?B?TnJOV2xCb3B4MjNuaDhaM2tqLzZHNkIrbW5kY1NTMUlVbkV3MTl1V0ZadkFB?=
+ =?utf-8?B?a0dQaml0ZFpobm9YVE1SeVp5bFhPSTVyQUUvS2pVOFBiRG9NZlVrY0hEeXVX?=
+ =?utf-8?B?M2syY1FQaHdBNEtPTkhUa0cxQXNaOHd3V0RtTDBnbGNPamc3cC9RZ1JXMnhu?=
+ =?utf-8?B?V0dUdFdrQkZPTlliNFhMTG11SXcvZGlUY0xnOXVETnJ2Tm5ROExhcW1PRHNk?=
+ =?utf-8?B?cmtEekt4UzJ6dllyZDRXZ1RjS2puRXNFblVqUmJQSjIwaEp0WkpBZ29qbU52?=
+ =?utf-8?B?Uk5WaDdNcGJxbjBQR0N4bkFLR3ZYLzc4WE9jQzRpN08rR2hXYlVtRnV1Ujl5?=
+ =?utf-8?B?Q1IrZHhqZDZwaHFzUGI0RmdkYUo1TWNwME9LU3JnTjBnMW82Tm41TXBvSnZB?=
+ =?utf-8?B?WnV0OE5zU3o5UGc4N0NXem92TDYzdEMvTFV4UXFucktKenZZazg2WnBFazNl?=
+ =?utf-8?B?VE9Qa2Z5ZnVuQkpCaEZQNTRRSGQ5N25kbzhHRUhpdEdQTzZWL0k0U1JCSTR6?=
+ =?utf-8?B?ZXNOQ2FQM1hmcUVwREQ1TUtQa1lTcFhkVlFrWXQvWmRXZlFCMVMvZU1jVnBT?=
+ =?utf-8?B?MnFNeEJJeUJSOVB6UktKYi9nR3R4MWxmN0dkRXdaUkNMYkt6K1RRV05uU3E3?=
+ =?utf-8?B?eld5aHZnYlR2Y3dWekgydm8xNDJOejBDdUI4YXZ1UGFJc0RSUVUwcEl4MVNx?=
+ =?utf-8?B?M0lqQTV0bEVHWHh2M05HWi9lNEtSRjd0NytyL0RXV2hZaTdRb1Bzd1llNDY0?=
+ =?utf-8?B?ZVFBV1ZxV2tKNlVaU3lQNEVDeDdEM2FIZDBNN1VSdkpTQ3BkeHMydjhSK0x2?=
+ =?utf-8?B?OUVzbUc5VGptaGVWRXBUUlVFcGF6YWg5dEVlNDhVV1JlVjRtOVQvei9iRjR2?=
+ =?utf-8?Q?OfcK8n2jo9pq71gRGHHmzKNRv8xK0u6sou+91ojaLayD9?=
+X-MS-Exchange-AntiSpam-MessageData-1: 6i4IlDmghvznyQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d533a4f7-d98a-4b2f-fe8f-08df14b0b5df
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 11:42:10.9917
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0GfuqYVndhjP2PHa2drseAeWxkdjnWsHO659VBfeGFp19V9X2UA9NoD+XdlzieFkSP1JN0CC2BC4yrqPQbBqiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6088
 
-On Thu, Sep 17, 2026 at 01:07:47PM +0200, Christian Borntraeger wrote:
-> 
-> 
-> Am 03.09.26 um 18:33 schrieb Sean Christopherson:
-> > On Thu, Sep 03, 2026, Steffen Eiden wrote:
-> > > On Thu, Sep 03, 2026 at 07:43:58AM -0700, Sean Christopherson wrote:
-> > > > And FWIW, while it might seem daunting, from my perspective it's not actually that
-> > > > much churn to do things "right".  Provide KVM_S390_NATIVE, and then have KVM reflect
-> > > > the "weakest" of S390_NATIVE vs. S390_ARCH.  I.e. make KVM=m if either of the "real"
-> > > > KVMs will be a module.  That requires some creative shenanigans, but it's not hard,
-> > > > just weird.
-> > > 
-> > > FYI the first versions of this series had a 3 configs approach very
-> > > similar to yours.
-> > > 
-> > > IIRC it was not so much the churn we have in (upstream) kernel code but
-> > > more on the distro side and to everyone building the kernel in their
-> > > favourite architecture (s390 :))
-> > 
-> > How many people are running distro kernels on s390 hardware?  And how many distros
-> > actually change the default KVM settings, e.g. to build KVM as a module instead of
-> > baking it into the kernel?  My guess is "not many" and "almost none", i.e. the
-> > actual impact on downstream users is likely miniscule.
-> > 
-> > > Suddenly the KVM config changed its behaviour (effectively becoming a noop)
-> > 
-> > Not really, because "KVM" itself is inaccessible (well, unless someone is hand-
-> > editing .configs or generating them by script, but that's their own fault).
-> > E.g. upgrading to a new kernel will explicitly prompt the user to choose for both
-> > KVM_S390_NATIVE and KVM_S390_ARM64 (or whatever they get called).
-> > 
-> > > I am starting to think that having no separate config option for arm on
-> > > s390 might be the easisest way. Just KVM and guard both modules behind
-> > > it. It reduces the config space bloat and I do not see a reason why somoeone
-> > > should only compile one KVM module but not the other. kvm-arm64 won't
-> > > load if you do not have the hardware anyways.
-> > 
-> > Because there may be an unforseen need down the road?  Smushing things together
-> > after the fact is generally easy, pulling things apart without breaking everything
-> > is usually much, much harder.
-> > 
-> > > But I am not opposed to the x86 approach. Just thinking loud.
-> > > 
-> > > Anyways, I am off for vacation expect a reduced reply frequency from my
-> > > side :)
-> Yet another option
-> I think there is value in keeping the config space simpte for users.
-> Why not simply keep CONFIG_KVM and it will disable, module build, compile-in
-> both variants.
+On Thu Sep 17, 2026 at 5:52 PM JST, Gary Guo wrote:
+> On Thu Sep 17, 2026 at 9:37 AM BST, Alexandre Courbot wrote:
+>> On Thu Sep 17, 2026 at 8:53 AM BST, Gary Guo wrote:
+>>> On Mon Sep 14, 2026 at 7:55 AM BST, Eliot Courtney wrote:
+>>>> On Mon Sep 14, 2026 at 12:46 PM JST, Alexandre Courbot wrote:
+>>>>> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
+>>>>>>  use crate::gsp::nvkv::{
+>>>>>> +    Array,
+>>>>>>      Index,
+>>>>>> +    Key,
+>>>>>>      KeyId,
+>>>>>>      Op,
+>>>>>>      Opcode, //
+>>>>>>  };
+>>>>>>  use crate::num;
+>>>>>> =20
+>>>>>> +/// Defines a schema struct together with its [`Schema`] implementa=
+tion that decodes into `$target`.
+>>>>>> +///
+>>>>>> +/// Each member of the struct should implement `Schema`. For every =
+(key, index, value) triple
+>>>>>> +/// decoded from the NVKV stream, the generated parent `Schema` imp=
+lementation will call each member
+>>>>>> +/// in declaration order with that triple. If a member consumes tha=
+t triple, it will stop there.
+>>>>>> +/// Otherwise it will keep going until all members are tried.
+>>>>>> +///
+>>>>>> +/// The schema struct holds the state required by the schema implem=
+entation to do the decode. It's
+>>>>>> +/// recommended to use one of the existing Schema kinds (`Required`=
+, `Accumulated`, `Key`, `Array`,
+>>>>>> +/// `Indexed`) for each member.
+>>>>>> +///
+>>>>>> +/// # Examples
+>>>>>> +///
+>>>>>> +/// ```
+>>>>>> +/// nvkv_decode! {
+>>>>>> +///     struct RequestSchema =3D> Request {
+>>>>>> +///         id: Required<u32, 0x0001>,
+>>>>>> +///         name: Array<u8, 64, 0x0002>,
+>>>>>> +///     }
+>>>>>> +/// }
+>>>>>> +/// ```
+>>>>>> +macro_rules! nvkv_decode {
+>>>>>> +    (
+>>>>>> +        $(#[$attr:meta])*
+>>>>>> +        $vis:vis struct $name:ident =3D> $target:ident {
+>>>>>> +            $(
+>>>>>> +                $(#[$field_attr:meta])*
+>>>>>> +                $field_vis:vis $field:ident : $ty:ty
+>>>>>> +            ),* $(,)?
+>>>>>> +        }
+>>>>>> +    ) =3D> {
+>>>>>> +        $(#[$attr])*
+>>>>>> +        $vis struct $name {
+>>>>>> +            $(
+>>>>>> +                $(#[$field_attr])*
+>>>>>> +                $field_vis $field: $ty,
+>>>>>> +            )*
+>>>>>> +        }
+>>>>>> +
+>>>>>> +        impl $crate::gsp::nvkv::Schema for $name {
+>>>>>> +            type Target =3D $target;
+>>>>>> +
+>>>>>> +            fn init() -> impl ::kernel::prelude::Init<Self> {
+>>>>>> +                ::pin_init::init!(Self {
+>>>>>> +                    $( $field <- <$ty as $crate::gsp::nvkv::Schema>=
+::init(), )*
+>>>>>> +                })
+>>>>>> +            }
+>>>>>> +
+>>>>>> +            fn visit(
+>>>>>> +                &mut self,
+>>>>>> +                key: $crate::gsp::nvkv::KeyId,
+>>>>>> +                index: $crate::gsp::nvkv::Index,
+>>>>>> +                value: $crate::gsp::nvkv::DecoderValue<'_>,
+>>>>>> +            ) -> ::kernel::error::Result<bool> {
+>>>>>> +                Ok(false
+>>>>>> +                    $( || $crate::gsp::nvkv::Schema::visit(&mut sel=
+f.$field, key, index, value)? )*)
+>>>>>
+>>>>> Mmm looks like this is going to be `O(n)` with `n` being the number o=
+f
+>>>>> fields?
+>>>>>
+>>>>> This is ok for a first implementation but eventually I hope we can
+>>>>> switch to a more efficient dispatch.
+>>>>
+>>>> I thought quite a bit about this while writing this code, since we nee=
+d
+>>>> the escape hatch to imperative decode (custom Schema impl basically). =
+To
+>>>> be able to get it down to a match on the key, we need to know ahead of
+>>>> time which keys a Schema will consume. That duplicates the info from t=
+he
+>>>> visit() implementation.
+>>>>
+>>>> I thought up a few methods but it's unclear to me which one is best, s=
+o
+>>>> I just left it for now. Please LMK if you think this is urgent, I can
+>>>> try in a follow up to improve this. Here are my ideas (when I say O(1)
+>>>> lookup I mean modulo how the compiler decides to do it with the set of
+>>>> key IDs it gets):
+>>>>
+>>>> 1. current code - just visit()
+>>>> pros: key source of truth not duplicates
+>>>> cons: O(field) visit as you say
+>>>>
+>>>> 2. Associated const KEY_ID: Option<KeyId> - None if a Schema accepts m=
+ultiple keys.
+>>>> You can match on each associated const in the macro.
+>>>> pros: O(1) if the current key goes to a field with KEY_ID =3D Some(...=
+)
+>>>> cons: O(#fields accepting multiple keys) if current key is one of them
+>>>>
+>>>> 3. fn accepts() -> bool
+>>>> You can match on `if F::accepts(key)` for each field. We could potenti=
+ally make
+>>>> this const with Gary's const traits polyfill.
+>>>> pros: O(1) if you write an inline-able+optimizable implementation.
+>>>>
+>>>> 4. Associated const KEYS table; use tricks to concat tables
+>>>> pros: O(1) lookup=20
+>>>> cons: actually MSRV can't get this to optimize down to O(1)=20
+>>>>   if you use slice::contains(), but stable can.
+>>>
+>>> Hmm, am I missing the obvious? Why not generate a `match` expression on=
+ IDs of
+>>> fields? It looks like in the example all keys would have a known ID to =
+the
+>>> macro.
+>>
+>> Some keys may come from embedded structs, which the macro has no way to
+>> see.
+>
+> You can match all keys that you can see, and delegate to embedded structs=
+ if
+> keys are not known.
+>
+> This is essentially the same pattern that `#[serde(flatten)]` uses, just
+> replacing identifier names with keys.
+>
+> The keys don't need be part of the type system, and it just additional me=
+tadata
+> for the macro to generate correct impl.
+>
+> Best,
+> Gary
 
-Good Idea. I'll merge the configs into one.
+This sounds approximately equivalent to the option #2 I mentioned
+(w.r.t. delegating if the keys are not known).
 
+I considered a serde-like approach where the metadata is annotated for
+the macro rather than by the type system, but I wanted to keep the macro
+simple and not introduce more macro-DSL than I need to. And also keep it
+kinda easy to write manual Schemas by not keeping the deserialization
+info in macro metadata.
