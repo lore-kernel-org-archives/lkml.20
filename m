@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0ADE53D9EC;
-	Thu, 17 Sep 2026 16:40:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8554B53D9DC;
+	Thu, 17 Sep 2026 16:40:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663253; cv=none; b=q/zuVa05iLSkOMfhYpOKkdjNpg4sA6obRFyJogr2XKstNBVo+jLIjL0zLMsoY+cFt/jx5qL7KX3Yquh8XVO6F8MjzwWj6tn5FPkRaokRn3wwQCdOH9AHiZ9G5HHT94P/uiDAzlc4Sej0v8TGxsjeWd0xdOTQWY8UbxfWseZ79dI=
+	t=1789663250; cv=none; b=DhI9S68a0UnCG01NIdkjUs/oZCvNMSogKDBQxKEoxkHO8sSEcX0R1MmY3sHtVviS6EnWNKSobjT1CtTtG3JHTUKRxursVGDT8cwEuahmMWqgyimO86yz4edyYi69aXkoMM3UtXOtmCfCjf+qGkGumwKw10mt35490itI7jhquhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663253; c=relaxed/simple;
-	bh=FP0m+/daRgFsTGYKDwEWaqsS+U/czkReAu6L4vJb+Rc=;
+	s=arc-20240116; t=1789663250; c=relaxed/simple;
+	bh=n1oNxYGfRcoalPfX9zdnossg9cc0L6I1D+UkL3guyNw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=thBp2pav2Q7rFkyAkSSjY4zYk3HeG0vPEocmxTQORXtn2NW5SKuzomnZ7twHzyik4qkgqavpBIDQoll6RTxEJN1eEOOWj5IMvGQ8okLXLBUdn1CsTd7EEfRJqHdk9ubhAZIwTUPpyTUdzFSEuyKiDSNAtY2SUe2bcGlL0nqEnhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hOylyqeR; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=QVY/Kv9S5ML/MYMfIm1Gl4ZrlCJ3eFQlUt3xuTL/MvHsjADbsYAXhmkZL53k3nmStRJ8hio9mqXkQnSjippHED18OXvI75U6BVRvjaTMAVSTJReaEXTox9JF1e1RYrH8LZsd78Df/61iB3Apm10LlTyyRtAj8v/micjUTG0JeZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fcobTGYY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hOylyqeR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3574F1F008A4;
-	Thu, 17 Sep 2026 16:40:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fcobTGYY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00351F008A0;
+	Thu, 17 Sep 2026 16:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789663249;
-	bh=+jkL1uQZ6ukkDkuWJSROlqGE0IqqKjykC1dpYNpP4j8=;
+	s=k20260515; t=1789663247;
+	bh=gkQV6uIygahwb1xChVEc3Iot4Tsj9Co3eDwLqaA/YzM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=hOylyqeRrcXJBlifZq7zFvroXYs7fovNt5XHTo361ZaOdLgxLyx/WP3CdGKIWaTe1
-	 dTVEQn2jeEFfL2hY3Ogm4IaiqBDbWiSKNqA0OtvLS2GqIRyRSVnHnbULB2qteoe+r+
-	 QYpZMJwSaZEn+f0Wxgyz33HE/fqWsMGVvnpy8jt+G9Vymk/JEacbgfXHhHn6dUNOc8
-	 GG6ruPq7eUSufjvDISGpLA8ncnAa+EQ+dXIkgvEIvYW0vXvXr/Pr2XkSltbYAVqj0a
-	 mJjXtz+bBoWUJsPaSVgGdj0R9ns/KoppmUyVxOpfkyGTxxvvPmgr5IZYcrfMMIr62v
-	 4gejm9RCJsAqA==
+	b=fcobTGYYxN5JNgZkfMkVb9p8w1puh9jl9qqB8/Y//hPCIVoE0Wda3wlfDQZU/otbQ
+	 GVShK2kJXf5sPwt+seh9azaeZVXLspMnh50HwJKKFwlHtOy/9Deu2F20h5y49Okm7c
+	 vUftpNF6BBzWqt0hZuoYpAywtlkO3n0yCU77XLrzXEs+AU+2e2pKZok9bdlMRCUeol
+	 kQrKPWMxAm+fZ6OgX8JkqC/1j/PUaHbqm2HB7hrSK1DqGx/nMTb3ppB2dAGlayLS66
+	 MeykaAwV7c6JUY5Zb2eWmMtv19dhN7VKZgbg8ccRaq+UTW8rpszprMp1Eg8y7ZQGZg
+	 2b4IqWYZGpA1Q==
 From: Drew Fustini <fustini@kernel.org>
-Date: Thu, 17 Sep 2026 09:39:41 -0700
-Subject: [PATCH v8 5/5] riscv_cbqri: Add CBQRI capacity allocation platform
- driver
+Date: Thu, 17 Sep 2026 09:39:37 -0700
+Subject: [PATCH v8 1/5] riscv_cbqri: Add capacity controller probe and
+ allocation device ops
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-dfustini-atl-sc-cbqri-dt-v8-5-7964e8d73fe8@kernel.org>
+Message-Id: <20260917-dfustini-atl-sc-cbqri-dt-v8-1-7964e8d73fe8@kernel.org>
 References: <20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org>
 In-Reply-To: <20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org>
 To: Adrien Ricciardi <aricciardi@baylibre.com>, 
@@ -72,219 +72,816 @@ Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
  x86@kernel.org, devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
  linux-doc@vger.kernel.org
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6986; i=fustini@kernel.org;
- h=from:subject:message-id; bh=FP0m+/daRgFsTGYKDwEWaqsS+U/czkReAu6L4vJb+Rc=;
- b=owGbwMvMwCV2+43O4ZsaG3kYT6slMWStkeC9nCfJKqTy1eGMReGmMxOuOa9hXbtT8a1TpdFM4
- U+5ry25O0pZGMS4GGTFFFk2fci7sMQr9OuC+S+2wcxhZQIZwsDFKQAT+RrKyLB5F/9vzUVXO2ym
- dE5hdsh9uEmu4XzbSaFEH2ndvbwzbm1gZLiZ+8WQdZnH1ZN+vJPYfbZ0T+5bJLn/9gulfZx98cu
- ZT7ECAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=26493; i=fustini@kernel.org;
+ h=from:subject:message-id; bh=n1oNxYGfRcoalPfX9zdnossg9cc0L6I1D+UkL3guyNw=;
+ b=owGbwMvMwCV2+43O4ZsaG3kYT6slMWStkeCN7bQoey34+KJXOce6lsZegRLu04zF13Q/vT51z
+ 6f03s4THaUsDGJcDLJiiiybPuRdWOIV+nXB/BfbYOawMoEMYeDiFICJvLdgZLh+71H08unOf6WP
+ Ls2bECLpq7/iXFQO+y9mWyUhS8Z51msY/lec7yhcfTJZ4c7yGRMS7X5bxPXHTP1aZH/dq+lM9Nm
+ iGzwA
 X-Developer-Key: i=fustini@kernel.org; a=openpgp;
  fpr=1B6F948213EA489734F3997035D5CD577C1E6010
 
-Add a platform driver for CBQRI capacity controllers described in
-device tree with the riscv,cbqri-capacity-controller compatible.
-
-The controller node points at the cache it governs with a
-riscv,cbqri-cache phandle. The driver looks that cache up in cacheinfo
-and uses its cache id as the resctrl domain id, so the binding does not
-need to carry a CPU mask. The controller is then handed to the CBQRI
-core, which probes its capabilities and decides whether to expose it
-through resctrl.
-
-Nothing is vendor-specific and reg is the CBQRI register block itself,
-so any SoC that describes a CBQRI capacity controller in device tree can
-use the driver unchanged.
+Add support for the RISC-V CBQRI capacity controller. A platform driver
+passes a cbqri_controller_info descriptor together with the cache level
+to riscv_cbqri_register_cc_dt(), which probes the controller and adds it
+to the controller list.
 
 Assisted-by: LLM
-Tested-by: Chen Pei <cp0613@linux.alibaba.com>
+Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
 Signed-off-by: Drew Fustini <fustini@kernel.org>
 ---
- MAINTAINERS                      |   1 +
- drivers/resctrl/Kconfig          |  15 +++++
- drivers/resctrl/Makefile         |   1 +
- drivers/resctrl/cbqri_capacity.c | 127 +++++++++++++++++++++++++++++++++++++++
- 4 files changed, 144 insertions(+)
+ MAINTAINERS                      |   3 +
+ drivers/resctrl/Kconfig          |   9 +
+ drivers/resctrl/Makefile         |   3 +
+ drivers/resctrl/cbqri_devices.c  | 556 +++++++++++++++++++++++++++++++++++++++
+ drivers/resctrl/cbqri_internal.h | 122 +++++++++
+ include/linux/riscv_cbqri.h      |  45 ++++
+ 6 files changed, 738 insertions(+)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index c362d53ed355..00b92842ef12 100644
+index 3a19da74d00c..92b111cd25c0 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -23573,6 +23573,7 @@ F:	Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
+@@ -23571,6 +23571,9 @@ L:	linux-riscv@lists.infradead.org
+ S:	Supported
  F:	arch/riscv/include/asm/qos.h
- F:	arch/riscv/include/asm/resctrl.h
  F:	arch/riscv/kernel/qos.c
-+F:	drivers/resctrl/cbqri_capacity.c
- F:	drivers/resctrl/cbqri_devices.c
- F:	drivers/resctrl/cbqri_internal.h
- F:	drivers/resctrl/cbqri_resctrl.c
++F:	drivers/resctrl/cbqri_devices.c
++F:	drivers/resctrl/cbqri_internal.h
++F:	include/linux/riscv_cbqri.h
+ 
+ RISC-V RPMI AND MPXY DRIVERS
+ M:	Rahul Pathak <rahul@summations.net>
 diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
-index 617b813b9808..689a91873d7b 100644
+index 672abea3b03c..1219fb29aa2e 100644
 --- a/drivers/resctrl/Kconfig
 +++ b/drivers/resctrl/Kconfig
-@@ -41,6 +41,21 @@ menuconfig RISCV_CBQRI
- 	  allocation through the resctrl filesystem at /sys/fs/resctrl when
- 	  RESCTRL_FS is also enabled.
- 
-+if RISCV_CBQRI
+@@ -29,3 +29,12 @@ config ARM64_MPAM_RESCTRL_FS
+ 	default y if ARM64_MPAM_DRIVER && RESCTRL_FS
+ 	select RESCTRL_RMID_DEPENDS_ON_CLOSID
+ 	select RESCTRL_ASSIGN_FIXED
 +
-+config RISCV_CBQRI_CAPACITY
-+	bool "RISC-V CBQRI cache capacity-allocation controller"
-+	depends on OF
++menuconfig RISCV_CBQRI
++	bool "RISC-V CBQRI support"
++	depends on RISCV && RISCV_ISA_SSQOSID
 +	help
-+	  Enable driver for a RISC-V CBQRI capacity controller that
-+	  governs a CPU cache, matching the "riscv,cbqri-capacity-controller"
-+	  compatible. The controller's cache phandle gives the cache level and
-+	  id, which the driver registers as a resctrl cache-allocation resource.
-+
-+	  Say N unless your device tree describes a CBQRI capacity controller.
-+
-+endif
-+
- config RISCV_CBQRI_RESCTRL_FS
- 	bool
- 	default y if RISCV_CBQRI && RESCTRL_FS
++	  Capacity and Bandwidth QoS Register Interface (CBQRI) support for
++	  RISC-V cache QoS resources. CBQRI exposes cache capacity
++	  allocation through the resctrl filesystem at /sys/fs/resctrl when
++	  RESCTRL_FS is also enabled.
 diff --git a/drivers/resctrl/Makefile b/drivers/resctrl/Makefile
-index a7631712dba9..c8339113ef1f 100644
+index 4f6d0e81f9b8..4d8a2c4b5627 100644
 --- a/drivers/resctrl/Makefile
 +++ b/drivers/resctrl/Makefile
-@@ -7,3 +7,4 @@ ccflags-$(CONFIG_ARM64_MPAM_DRIVER_DEBUG)	+= -DDEBUG
- obj-$(CONFIG_RISCV_CBQRI)			+= cbqri.o
- cbqri-y						+= cbqri_devices.o
- cbqri-$(CONFIG_RISCV_CBQRI_RESCTRL_FS)		+= cbqri_resctrl.o
-+cbqri-$(CONFIG_RISCV_CBQRI_CAPACITY)		+= cbqri_capacity.o
-diff --git a/drivers/resctrl/cbqri_capacity.c b/drivers/resctrl/cbqri_capacity.c
+@@ -3,3 +3,6 @@ mpam-y						+= mpam_devices.o
+ mpam-$(CONFIG_ARM64_MPAM_RESCTRL_FS)		+= mpam_resctrl.o
+ 
+ ccflags-$(CONFIG_ARM64_MPAM_DRIVER_DEBUG)	+= -DDEBUG
++
++obj-$(CONFIG_RISCV_CBQRI)			+= cbqri.o
++cbqri-y						+= cbqri_devices.o
+diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devices.c
 new file mode 100644
-index 000000000000..0670a676bdb1
+index 000000000000..778189799178
 --- /dev/null
-+++ b/drivers/resctrl/cbqri_capacity.c
-@@ -0,0 +1,127 @@
++++ b/drivers/resctrl/cbqri_devices.c
+@@ -0,0 +1,556 @@
 +// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Platform driver for a RISC-V CBQRI capacity controller that backs a CPU
-+ * cache. The controller is described in device tree by the generic
-+ * "riscv,cbqri-capacity-controller" compatible together with a phandle to the
-+ * cache node it governs. The driver hands it to the CBQRI core, which probes
-+ * the capabilities register and exposes a controller that supports allocation
-+ * as the resctrl cache allocation resource for that cache.
-+ */
 +
-+#define pr_fmt(fmt) "cbqri-capacity: " fmt
++#define pr_fmt(fmt) "%s:%s: " fmt, KBUILD_MODNAME, __func__
 +
-+#include <linux/cacheinfo.h>
-+#include <linux/cpu.h>
-+#include <linux/device-id/of.h>
-+#include <linux/ioport.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/printk.h>
++#include <linux/bitfield.h>
++#include <linux/cleanup.h>
 +#include <linux/riscv_cbqri.h>
++#include <linux/err.h>
++#include <linux/io.h>
++#include <linux/iopoll.h>
++#include <linux/ioport.h>
++#include <linux/list.h>
++#include <linux/mutex.h>
++#include <linux/printk.h>
++#include <linux/slab.h>
 +#include <linux/types.h>
 +
-+static int cbqri_capacity_probe(struct platform_device *pdev)
++#include <asm/csr.h>
++
++#include "cbqri_internal.h"
++
++LIST_HEAD(cbqri_controllers);
++
++/*
++ * Serializes cbqri_controllers mutations against a concurrent insert under
++ * asynchronous driver probing, and against the boot-time walk in the resctrl
++ * glue. Runtime cpuhp walks happen after registration has settled.
++ */
++DEFINE_MUTEX(cbqri_controllers_lock);
++
++/*
++ * CBQRI registers are 64-bit, but the spec only guarantees single-copy
++ * atomicity for naturally aligned 4-byte accesses. Read the two halves and
++ * reconstruct, so the driver does not rely on native 64-bit MMIO.
++ *
++ * The halves are not sampled atomically, but a tear is harmless. The fields
++ * that change while an operation runs, BUSY (bit 39) and STATUS (bits
++ * 38:32), are in the high half and read by the single high readl(). The low
++ * half (OP/AT/RCID) is software-written and constant for the operation.
++ */
++static u64 cbqri_readq(void __iomem *addr)
 +{
-+	struct device *dev = &pdev->dev;
-+	struct cbqri_controller_info info = {};
-+	struct device_node *cache_np;
-+	struct resource *res;
-+	u32 rcid_count, cache_level;
-+	int cache_id, cpu, ret;
++	u32 lo = readl(addr);
++	u32 hi = readl(addr + 4);
 +
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	if (!res)
-+		return -EINVAL;
++	return (u64)hi << 32 | lo;
++}
 +
-+	ret = of_property_read_u32(dev->of_node, "riscv,cbqri-rcid", &rcid_count);
-+	if (ret) {
-+		dev_err(dev, "missing riscv,cbqri-rcid\n");
++/* Set capacity block mask (cc_block_mask) */
++static void cbqri_set_cbm(struct cbqri_controller *ctrl, u64 cbm)
++{
++	/*
++	 * cbqri_probe_cc() rejects ncblks > 32, so the mask fits the low word.
++	 * Per CBQRI 3.5 the cc_block_mask bits above NCBLKS are read-only zero,
++	 * so the upper word needs no write.
++	 */
++	writel(lower_32_bits(cbm), ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
++}
++
++/*
++ * Clear cc_cunits so a CONFIG_LIMIT on a CUNITS-capable controller imposes no
++ * capacity-unit limit. resctrl models only the block mask. On controllers
++ * with cc_capabilities.CUNITS == 0 the register is read-only zero, so there is
++ * nothing to do.
++ */
++static void cbqri_clear_cunits(struct cbqri_controller *ctrl)
++{
++	if (ctrl->cc.cunits) {
++		writel(0, ctrl->base + CBQRI_CC_CUNITS_OFF);
++		writel(0, ctrl->base + CBQRI_CC_CUNITS_OFF + 4);
++	}
++}
++
++static int cbqri_wait_busy_flag(struct cbqri_controller *ctrl, int reg_offset,
++				u64 *regp)
++{
++	u64 reg;
++	int ret;
++
++	/*
++	 * Sleeping poll: caller holds ctrl->lock as a sleeping mutex, so
++	 * 10us/1ms is safe under PREEMPT_RT.
++	 */
++	ret = read_poll_timeout(cbqri_readq, reg,
++				!FIELD_GET(CBQRI_CONTROL_REGISTERS_BUSY_MASK, reg),
++				10, 1000, false, ctrl->base + reg_offset);
++	if (ret)
 +		return ret;
++	if (regp)
++		*regp = reg;
++	return 0;
++}
++
++/*
++ * Perform capacity allocation control operation on capacity controller.
++ * cbm is staged in cc_block_mask and cc_cunits is cleared only after BUSY
++ * reads 0, since CBQRI 3.4 leaves writes to those registers UNSPECIFIED
++ * while an operation is in flight. READ_LIMIT overwrites both on success,
++ * so staging 0 before a read makes a silent firmware no-op visible.
++ * Caller must hold ctrl->lock.
++ */
++static int cbqri_cc_alloc_op(struct cbqri_controller *ctrl, int operation,
++			     int rcid, u32 at, u64 cbm)
++{
++	int reg_offset = CBQRI_CC_ALLOC_CTL_OFF;
++	int status;
++	u64 reg;
++
++	lockdep_assert_held(&ctrl->lock);
++
++	if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
++		pr_err_ratelimited("BUSY timeout before starting operation\n");
++		return -EIO;
 +	}
 +
-+	cache_np = of_parse_phandle(dev->of_node, "riscv,cbqri-cache", 0);
-+	if (!cache_np) {
-+		dev_err(dev, "missing riscv,cbqri-cache phandle\n");
-+		return -EINVAL;
++	cbqri_set_cbm(ctrl, cbm);
++	cbqri_clear_cunits(ctrl);
++
++	FIELD_MODIFY(CBQRI_CONTROL_REGISTERS_OP_MASK, &reg, operation);
++	FIELD_MODIFY(CBQRI_CONTROL_REGISTERS_RCID_MASK, &reg, rcid);
++
++	/*
++	 * CBQRI Table 1: AT 0=Data, 1=Code. Program AT on controllers
++	 * that report supports_alloc_at_code. On controllers that don't,
++	 * AT is reserved-zero and the op acts on both halves.
++	 */
++	reg &= ~CBQRI_CONTROL_REGISTERS_AT_MASK;
++	if (ctrl->cc.supports_alloc_at_code)
++		reg |= FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MASK, at);
++
++	writel(lower_32_bits(reg), ctrl->base + reg_offset);
++
++	if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
++		pr_err_ratelimited("BUSY timeout during operation\n");
++		return -EIO;
 +	}
 +
-+	ret = of_property_read_u32(cache_np, "cache-level", &cache_level);
-+	if (ret) {
-+		dev_err(dev, "%pOF: missing cache-level\n", cache_np);
-+		goto out_put;
++	status = FIELD_GET(CBQRI_CONTROL_REGISTERS_STATUS_MASK, reg);
++	if (status != CBQRI_CC_ALLOC_CTL_STATUS_SUCCESS) {
++		pr_err_ratelimited("operation %d failed: status=%d\n", operation, status);
++		return -EIO;
++	}
++
++	return 0;
++}
++
++/*
++ * Apply a capacity block mask and verify via CONFIG_LIMIT + READ_LIMIT.
++ *
++ * AT-capable controllers with CDP off need a second CONFIG_LIMIT on the
++ * other AT half (the spec encodes AT only as 0=Data / 1=Code, there is
++ * no "both halves" value). CDP-on issues separate per-type writes from
++ * resctrl, so a single CONFIG_LIMIT per call is correct.
++ */
++int cbqri_apply_cache_config(struct cbqri_controller *ctrl, u32 closid,
++			     const struct cbqri_cc_config *cfg)
++{
++	bool need_at_mirror;
++	u64 saved_cbm = 0;
++	int err = 0;
++	u64 reg;
++
++	mutex_lock(&ctrl->lock);
++
++	need_at_mirror = ctrl->cc.supports_alloc_at_code && !cfg->cdp_enabled;
++
++	/*
++	 * Capture the cfg->at half CBM before any write so a partial
++	 * AT-mirror failure can revert and keep the two halves consistent.
++	 */
++	if (need_at_mirror) {
++		err = cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT,
++					closid, cfg->at, 0);
++		if (err < 0)
++			goto out;
++		saved_cbm = cbqri_readq(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
++	}
++
++	/* Capacity config limit operation for the AT half implied by cfg->at */
++	err = cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_CONFIG_LIMIT,
++				closid, cfg->at, cfg->cbm);
++	if (err < 0)
++		goto out;
++
++	/*
++	 * CDP-off mirror: on AT-capable controllers, also program the
++	 * other AT half with the same mask so the two halves stay in sync.
++	 */
++	if (need_at_mirror) {
++		u32 other = (cfg->at == CBQRI_CONTROL_REGISTERS_AT_CODE) ?
++			    CBQRI_CONTROL_REGISTERS_AT_DATA :
++			    CBQRI_CONTROL_REGISTERS_AT_CODE;
++
++		err = cbqri_cc_alloc_op(ctrl,
++					CBQRI_CC_ALLOC_CTL_OP_CONFIG_LIMIT,
++					closid, other, cfg->cbm);
++		if (err < 0) {
++			int rerr;
++
++			/*
++			 * Best-effort revert of the cfg->at half so the two
++			 * halves stay in sync. A schemata read sees only one
++			 * half, so silent divergence would otherwise report
++			 * the new value as if the write had succeeded.
++			 */
++			rerr = cbqri_cc_alloc_op(ctrl,
++						 CBQRI_CC_ALLOC_CTL_OP_CONFIG_LIMIT,
++						 closid, cfg->at, saved_cbm);
++			if (rerr < 0)
++				pr_err_ratelimited("AT-mirror revert failed (err=%d), AT halves diverged\n",
++						   rerr);
++			goto out;
++		}
++	}
++
++	/* Read the limit back to verify the block mask landed */
++	err = cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT,
++				closid, cfg->at, 0);
++	if (err < 0)
++		goto out;
++
++	/*
++	 * Read capacity blockmask and narrow to u32 to match resctrl's CBM
++	 * width. cbqri_probe_cc() rejects ncblks > 32 so the upper bits are
++	 * reserved zero.
++	 */
++	reg = cbqri_readq(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
++	if (lower_32_bits(reg) != cfg->cbm) {
++		pr_err_ratelimited("CBM verify mismatch (reg=%llx != cbm=%llx)\n",
++				   reg, cfg->cbm);
++		err = -EIO;
++	}
++
++out:
++	mutex_unlock(&ctrl->lock);
++	return err;
++}
++
++/* Read the configured CBM for closid on the at half via READ_LIMIT. */
++int cbqri_read_cache_config(struct cbqri_controller *ctrl, u32 closid,
++			    u32 at, u32 *cbm_out)
++{
++	int err;
++
++	mutex_lock(&ctrl->lock);
++	err = cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT, closid, at, 0);
++	if (err == 0) {
++		/*
++		 * resctrl exposes the CBM as a u32 and cbqri_probe_cc() rejects
++		 * ncblks > 32, so the mask fits the low 32-bit word of the
++		 * cc_block_mask register.
++		 */
++		*cbm_out = readl(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
++	}
++	mutex_unlock(&ctrl->lock);
++	return err;
++}
++
++static int cbqri_probe_feature(struct cbqri_controller *ctrl, int reg_offset,
++			       int operation, int *status, bool *access_type_supported)
++{
++	const u64 active_mask = CBQRI_CONTROL_REGISTERS_OP_MASK |
++				CBQRI_CONTROL_REGISTERS_AT_MASK |
++				CBQRI_CONTROL_REGISTERS_RCID_MASK;
++	u64 reg, saved_reg;
++	int at;
++
++	/*
++	 * Default the output to false so the status==0 (feature not
++	 * implemented) path returns a deterministic value to the caller
++	 * rather than leaving an uninitialized bool.
++	 */
++	*access_type_supported = false;
++
++	/* Keep the initial register value to preserve the WPRI fields */
++	reg = cbqri_readq(ctrl->base + reg_offset);
++	saved_reg = reg;
++
++	/* Drain any in-flight firmware op before issuing our own write. */
++	if (cbqri_wait_busy_flag(ctrl, reg_offset, &saved_reg) < 0) {
++		pr_err("BUSY timeout before probe operation\n");
++		return -EIO;
 +	}
 +
 +	/*
-+	 * Associate the controller with its cache instance via cacheinfo.
-+	 * The matching cache provides the cache id used as the resctrl
-+	 * domain id.
-+	 *
-+	 * Taking the first leaf at the level is sufficient, because fw_token
-+	 * is keyed on the DT cache node, so sibling leaves of a split cache
-+	 * share it, and riscv,cbqri-cache must reference a unified shared
-+	 * cache (cache-unified), not a split private L1.
++	 * Execute the requested operation with all active fields
++	 * (OP/AT/RCID) zeroed except OP itself. Every bit not in
++	 * active_mask is WPRI and gets carried over from saved_reg.
 +	 */
-+	cache_id = -1;
-+	cpus_read_lock();
-+	for_each_online_cpu(cpu) {
-+		struct cacheinfo *ci = get_cpu_cacheinfo_level(cpu, cache_level);
++	reg = (saved_reg & ~active_mask) |
++	      FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation);
++	writel(lower_32_bits(reg), ctrl->base + reg_offset);
++	if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
++		pr_err_ratelimited("BUSY timeout during operation\n");
++		return -EIO;
++	}
 +
-+		if (ci && ci->fw_token == cache_np) {
-+			cache_id = ci->id;
-+			break;
++	/* Get the operation status */
++	*status = FIELD_GET(CBQRI_CONTROL_REGISTERS_STATUS_MASK, reg);
++
++	/*
++	 * Check for the AT support if the register is implemented
++	 * (if not, the status value will remain 0)
++	 */
++	if (*status != 0) {
++		/*
++		 * Re-issue operation with AT=CODE so the controller
++		 * latches AT=CODE on supported hardware (or resets it to 0
++		 * on hardware that doesn't). OP must be a defined CBQRI op
++		 * here. OP=0 is a no-op and would silently disable CDP.
++		 */
++		reg = (saved_reg & ~active_mask) |
++		      FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation) |
++		      FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MASK,
++				 CBQRI_CONTROL_REGISTERS_AT_CODE);
++		writel(lower_32_bits(reg), ctrl->base + reg_offset);
++		if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
++			pr_err("BUSY timeout setting AT field\n");
++			return -EIO;
 +		}
-+	}
-+	cpus_read_unlock();
 +
-+	if (cache_id < 0) {
-+		dev_err(dev, "%pOF: no online hart reports an L%u cache for this node\n",
-+			cache_np, cache_level);
-+		ret = -ENODEV;
-+		goto out_put;
-+	}
-+
-+	info.type = CBQRI_CONTROLLER_TYPE_CAPACITY;
-+	info.addr = res->start;
-+	info.size = resource_size(res);
-+	info.rcid_count = rcid_count;
-+	info.cache_id = cache_id;
-+
-+	ret = riscv_cbqri_register_cc_dt(&info, cache_level);
-+	if (ret) {
-+		dev_err(dev, "failed to register capacity controller: %d\n", ret);
-+		goto out_put;
++		/*
++		 * If the AT field value has been reset to zero,
++		 * then the AT support is not present
++		 */
++		at = FIELD_GET(CBQRI_CONTROL_REGISTERS_AT_MASK, reg);
++		if (at == CBQRI_CONTROL_REGISTERS_AT_CODE)
++			*access_type_supported = true;
 +	}
 +
-+	dev_info(dev, "registered L%u capacity controller at %pa (cache_id=%d, rcid=%u)\n",
-+		 cache_level, &info.addr, cache_id, rcid_count);
++	/*
++	 * Restore the original register value.
++	 * Clear OP to avoid re-triggering the probe op.
++	 */
++	saved_reg &= ~CBQRI_CONTROL_REGISTERS_OP_MASK;
++	writel(lower_32_bits(saved_reg), ctrl->base + reg_offset);
++	if (cbqri_wait_busy_flag(ctrl, reg_offset, NULL) < 0) {
++		pr_err("BUSY timeout restoring register value\n");
++		return -EIO;
++	}
 +
-+out_put:
-+	of_node_put(cache_np);
-+	return ret;
++	return 0;
 +}
 +
-+static const struct of_device_id cbqri_capacity_of_match[] = {
-+	{ .compatible = "riscv,cbqri-capacity-controller" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, cbqri_capacity_of_match);
++static int cbqri_probe_cc(struct cbqri_controller *ctrl)
++{
++	int err, status;
++	int ver_major, ver_minor;
++	u64 reg;
 +
-+static struct platform_driver cbqri_capacity_driver = {
-+	.probe	= cbqri_capacity_probe,
-+	.driver = {
-+		.name		= "cbqri-capacity",
-+		.of_match_table	= cbqri_capacity_of_match,
-+		/*
-+		 * The controller is registered permanently into the
-+		 * CBQRI core for the life of the system. Block unbind
-+		 * so userspace cannot leave a dangling controller.
-+		 */
-+		.suppress_bind_attrs = true,
-+	},
-+};
++	reg = cbqri_readq(ctrl->base + CBQRI_CC_CAPABILITIES_OFF);
++	if (reg == 0)
++		return -ENODEV;
++
++	ver_minor = FIELD_GET(CBQRI_CC_CAPABILITIES_VER_MINOR_MASK, reg);
++	ver_major = FIELD_GET(CBQRI_CC_CAPABILITIES_VER_MAJOR_MASK, reg);
++	ctrl->cc.ncblks = FIELD_GET(CBQRI_CC_CAPABILITIES_NCBLKS_MASK, reg);
++
++	pr_debug("version=%d.%d ncblks=%d cache_level=%d\n",
++		 ver_major, ver_minor,
++		 ctrl->cc.ncblks, ctrl->cache.cache_level);
++
++	/*
++	 * NCBLKS == 0 would divide-by-zero in the schemata math while
++	 * ctrl->lock is held.
++	 */
++	if (!ctrl->cc.ncblks) {
++		pr_warn("CC at %pa has 0 capacity blocks, skipping\n",
++			&ctrl->addr);
++		return -ENODEV;
++	}
++
++	/*
++	 * resctrl represents the capacity bitmask (CBM) as a u32, so a
++	 * controller with more than 32 capacity blocks cannot be expressed
++	 * through the schemata interface. Skip it rather than truncate.
++	 */
++	if (ctrl->cc.ncblks > 32) {
++		pr_warn("CC at %pa has ncblks=%u > 32 (resctrl CBM is u32), skipping\n",
++			&ctrl->addr, ctrl->cc.ncblks);
++		return -ENODEV;
++	}
++
++	/*
++	 * On a CUNITS-capable controller, CONFIG_LIMIT also consumes cc_cunits,
++	 * whose reset value is unspecified. The driver clears it to 0 (no limit)
++	 * on every CONFIG_LIMIT, so cc_cunits at 0x28 must be within the mapping.
++	 */
++	ctrl->cc.cunits = FIELD_GET(CBQRI_CC_CAPABILITIES_CUNITS_MASK, reg);
++	if (ctrl->cc.cunits && ctrl->size < CBQRI_CC_CUNITS_OFF + 8) {
++		pr_warn("CC at %pa supports CUNITS but maps only %pa, skipping\n",
++			&ctrl->addr, &ctrl->size);
++		return -ENODEV;
++	}
++
++	/* Probe allocation features */
++	err = cbqri_probe_feature(ctrl, CBQRI_CC_ALLOC_CTL_OFF,
++				  CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT,
++				  &status, &ctrl->cc.supports_alloc_at_code);
++	if (err)
++		return err;
++
++	if (status == CBQRI_CC_ALLOC_CTL_STATUS_SUCCESS)
++		ctrl->alloc_capable = true;
++
++	return 0;
++}
++
++static int cbqri_probe_controller(struct cbqri_controller *ctrl)
++{
++	int err;
++
++	pr_debug("controller info: type=%d addr=%pa size=%pa max-rcid=%u\n",
++		 ctrl->type, &ctrl->addr, &ctrl->size, ctrl->rcid_count);
++
++	if (!ctrl->addr) {
++		pr_warn("controller has invalid addr=0x0, skipping\n");
++		return -EINVAL;
++	}
++
++	if (ctrl->size < CBQRI_CTRL_MIN_REG_SPAN) {
++		pr_warn("controller at %pa: size %pa < minimum 0x%x, skipping\n",
++			&ctrl->addr, &ctrl->size, CBQRI_CTRL_MIN_REG_SPAN);
++		return -EINVAL;
++	}
++
++	if (!request_mem_region(ctrl->addr, ctrl->size, "cbqri_controller")) {
++		pr_err("request_mem_region failed for %pa\n", &ctrl->addr);
++		return -EBUSY;
++	}
++
++	ctrl->base = ioremap(ctrl->addr, ctrl->size);
++	if (!ctrl->base) {
++		pr_err("ioremap failed for %pa\n", &ctrl->addr);
++		err = -ENOMEM;
++		goto err_release;
++	}
++
++	switch (ctrl->type) {
++	case CBQRI_CONTROLLER_TYPE_CAPACITY:
++		err = cbqri_probe_cc(ctrl);
++		break;
++	default:
++		pr_err("unknown controller type %d\n", ctrl->type);
++		err = -ENODEV;
++		break;
++	}
++
++	if (err)
++		goto err_iounmap;
++
++	return 0;
++
++err_iounmap:
++	iounmap(ctrl->base);
++	ctrl->base = NULL;
++err_release:
++	release_mem_region(ctrl->addr, ctrl->size);
++	return err;
++}
++
++void cbqri_controller_destroy(struct cbqri_controller *ctrl)
++{
++	/*
++	 * cbqri_probe_controller() clears ctrl->base on its error paths and
++	 * releases the mem region itself, so reach into both only when
++	 * destroy is rolling back a successful probe.
++	 */
++	if (ctrl->base) {
++		iounmap(ctrl->base);
++		release_mem_region(ctrl->addr, ctrl->size);
++	}
++	kfree(ctrl);
++}
++
++/**
++ * riscv_cbqri_register_cc_dt() - register a DT-described capacity controller
++ * @info:        registration descriptor. info->cache_id is used as the
++ *               resctrl domain id. info->type must be CAPACITY.
++ * @cache_level: cache level (2 or 3) the controller backs, mapped to the
++ *               resctrl L2/L3 resource by the resctrl glue.
++ *
++ * The cache level and id (info->cache_id) are supplied directly by the
++ * caller, which resolves them from cacheinfo. Domain membership is resolved
++ * per CPU at hotplug, so no cpu mask is stored. There is no firmware table
++ * to resolve any of this from.
++ *
++ * Return: 0 on success, or a negative errno on failure.
++ */
++int riscv_cbqri_register_cc_dt(const struct cbqri_controller_info *info,
++			       u32 cache_level)
++{
++	struct cbqri_controller *ctrl;
++	int err;
++
++	if (!info->addr) {
++		pr_warn("skipping controller with invalid addr=0x0\n");
++		return -EINVAL;
++	}
++
++	if (info->type != CBQRI_CONTROLLER_TYPE_CAPACITY) {
++		pr_warn("register_cc_dt called with non-capacity type %u\n",
++			info->type);
++		return -EINVAL;
++	}
++
++	ctrl = kzalloc(sizeof(*ctrl), GFP_KERNEL);
++	if (!ctrl)
++		return -ENOMEM;
++
++	mutex_init(&ctrl->lock);
++
++	ctrl->addr = info->addr;
++	ctrl->size = info->size;
++	ctrl->type = info->type;
++	ctrl->rcid_count = info->rcid_count;
++
++	/*
++	 * SRMCFG encodes RCID in 12 bits. Reject an out-of-range count rather
++	 * than silently truncating in every FIELD_PREP(SRMCFG_RCID_MASK, closid)
++	 * on the schedule-in fast path.
++	 */
++	if (ctrl->rcid_count > FIELD_MAX(SRMCFG_RCID_MASK) + 1) {
++		pr_warn("CC at %pa has RCID count %u beyond the 12-bit SRMCFG field, skipping\n",
++			&ctrl->addr, ctrl->rcid_count);
++		cbqri_controller_destroy(ctrl);
++		return -EINVAL;
++	}
++
++	ctrl->cache.cache_id = info->cache_id;
++	ctrl->cache.cache_level = cache_level;
++
++	err = cbqri_probe_controller(ctrl);
++	if (err) {
++		cbqri_controller_destroy(ctrl);
++		return err;
++	}
++
++	/*
++	 * Allocation capability comes from the capabilities register probed
++	 * above, not from device tree. rcid_count only bounds the RCID range,
++	 * so a controller the hardware reports as alloc-capable but described
++	 * with no RCID count cannot be driven. Reject that inconsistency. A
++	 * monitoring-only controller (not alloc_capable) needs no RCID count.
++	 */
++	if (ctrl->alloc_capable && !ctrl->rcid_count) {
++		pr_warn("CC at %pa is alloc-capable but has no RCID count, skipping\n",
++			&ctrl->addr);
++		cbqri_controller_destroy(ctrl);
++		return -EINVAL;
++	}
++
++	guard(mutex)(&cbqri_controllers_lock);
++	list_add_tail(&ctrl->list, &cbqri_controllers);
++	return 0;
++}
+diff --git a/drivers/resctrl/cbqri_internal.h b/drivers/resctrl/cbqri_internal.h
+new file mode 100644
+index 000000000000..77429f39f874
+--- /dev/null
++++ b/drivers/resctrl/cbqri_internal.h
+@@ -0,0 +1,122 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef _DRIVERS_RESCTRL_CBQRI_INTERNAL_H
++#define _DRIVERS_RESCTRL_CBQRI_INTERNAL_H
++
++#include <linux/bitfield.h>
++#include <linux/riscv_cbqri.h>
++#include <linux/list.h>
++#include <linux/mutex.h>
++#include <linux/types.h>
++
++/* Capacity Controller (CC) MMIO register offsets. */
++#define CBQRI_CC_CAPABILITIES_OFF 0
++#define CBQRI_CC_ALLOC_CTL_OFF   24
++#define CBQRI_CC_BLOCK_MASK_OFF  32
 +
 +/*
-+ * Register at device_initcall so probe runs before the CBQRI core's
-+ * late_initcall which walks the cbqri_controllers list.
++ * Per CBQRI 3.5 the block-mask width BMW is the smallest multiple of 64 bits
++ * that holds NCBLKS, so cc_cunits sits at 32 + BMW/8 bytes. This constant is
++ * valid only while NCBLKS <= 64. cbqri_probe_cc() rejects ncblks > 32 before
++ * it reads cc_capabilities.CUNITS, forcing BMW to 64 bits, one 8-byte block
++ * mask, and cc_cunits at 0x28. Raising that cap above 64 would require
++ * computing 32 + roundup(ncblks, 64) / 8 instead of a constant.
 + */
-+builtin_platform_driver(cbqri_capacity_driver);
++#define CBQRI_CC_CUNITS_OFF      40
++
++/*
++ * Highest base register offset (cc_block_mask at 0x20) plus its 8-byte width.
++ * cbqri_probe_controller() rejects smaller mappings. cc_cunits at 0x28 is
++ * optional and only required when cc_capabilities.CUNITS is set, which
++ * cbqri_probe_cc() checks against the mapping size separately.
++ */
++#define CBQRI_CTRL_MIN_REG_SPAN  0x28u
++
++#define CBQRI_CC_CAPABILITIES_VER_MINOR_MASK  GENMASK_ULL(3, 0)
++#define CBQRI_CC_CAPABILITIES_VER_MAJOR_MASK  GENMASK_ULL(7, 4)
++#define CBQRI_CC_CAPABILITIES_NCBLKS_MASK     GENMASK_ULL(23, 8)
++#define CBQRI_CC_CAPABILITIES_CUNITS_MASK     BIT_ULL(25)
++
++/*
++ * CC control registers are 64-bit, but the CBQRI spec only guarantees
++ * single-copy atomicity for naturally aligned 4-byte accesses. They are read
++ * as two 32-bit halves (cbqri_readq) reconstructed into a u64 for field
++ * extraction, and written via the low 32-bit half, so the driver does not
++ * depend on native 64-bit MMIO. Keep every field mask GENMASK_ULL so
++ * FIELD_MODIFY() or ~mask on the reconstructed u64 never zero-extends a
++ * 32-bit mask and clobbers STATUS/BUSY/WPRI in bits 63:32.
++ */
++#define CBQRI_CONTROL_REGISTERS_OP_MASK      GENMASK_ULL(4, 0)
++#define CBQRI_CONTROL_REGISTERS_AT_MASK      GENMASK_ULL(7, 5)
++/* AT field values (CBQRI Table 1): data vs code half for CDP */
++#define CBQRI_CONTROL_REGISTERS_AT_DATA      0
++#define CBQRI_CONTROL_REGISTERS_AT_CODE      1
++#define CBQRI_CONTROL_REGISTERS_RCID_MASK    GENMASK_ULL(19, 8)
++#define CBQRI_CONTROL_REGISTERS_STATUS_MASK  GENMASK_ULL(38, 32)
++#define CBQRI_CONTROL_REGISTERS_BUSY_MASK    GENMASK_ULL(39, 39)
++
++#define CBQRI_CC_ALLOC_CTL_OP_CONFIG_LIMIT 1
++#define CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT   2
++#define CBQRI_CC_ALLOC_CTL_STATUS_SUCCESS  1
++
++/* Capacity Controller hardware capabilities */
++struct riscv_cbqri_capacity_caps {
++	u16 ncblks;
++	bool supports_alloc_at_code;
++	/* cc_capabilities.CUNITS: controller enforces a capacity-unit limit */
++	bool cunits;
++};
++
++/**
++ * struct cbqri_cc_config - desired capacity allocation state for one rcid
++ * @cbm:         capacity block mask
++ * @at:          AT half the @cbm applies to (CBQRI_CONTROL_REGISTERS_AT_DATA
++ *               or CBQRI_CONTROL_REGISTERS_AT_CODE)
++ * @cdp_enabled: when false and the controller supports AT, mirror @cbm
++ *               into the other AT half so both stay in sync
++ */
++struct cbqri_cc_config {
++	u64  cbm;
++	u32  at;
++	bool cdp_enabled;
++};
++
++struct cbqri_controller {
++	void __iomem *base;
++	/*
++	 * Serializes the write-then-poll-busy MMIO sequences on this
++	 * controller. Each CBQRI op may busy-wait up to 1 ms on slow
++	 * firmware, so use a sleeping mutex to keep preemption enabled.
++	 * All resctrl-arch entry points run in process context.
++	 */
++	struct mutex lock;
++
++	struct riscv_cbqri_capacity_caps cc;
++
++	bool alloc_capable;
++
++	phys_addr_t addr;
++	phys_addr_t size;
++	enum cbqri_controller_type type;
++	u32 rcid_count;
++
++	struct list_head list;
++
++	struct cache_controller {
++		u32 cache_level;
++		/* Cache id used as the resctrl domain id */
++		u32 cache_id;
++	} cache;
++};
++
++extern struct list_head cbqri_controllers;
++extern struct mutex cbqri_controllers_lock;
++
++void cbqri_controller_destroy(struct cbqri_controller *ctrl);
++
++int cbqri_apply_cache_config(struct cbqri_controller *ctrl, u32 closid,
++			     const struct cbqri_cc_config *cfg);
++
++int cbqri_read_cache_config(struct cbqri_controller *ctrl, u32 closid,
++			    u32 at, u32 *cbm_out);
++
++#endif /* _DRIVERS_RESCTRL_CBQRI_INTERNAL_H */
+diff --git a/include/linux/riscv_cbqri.h b/include/linux/riscv_cbqri.h
+new file mode 100644
+index 000000000000..e6b3febbed89
+--- /dev/null
++++ b/include/linux/riscv_cbqri.h
+@@ -0,0 +1,45 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Public registration API for the RISC-V Capacity and Bandwidth QoS
++ * Register Interface (CBQRI) core. Discovery layers (device tree
++ * platform drivers) call riscv_cbqri_register_cc_dt() to hand a capacity
++ * controller descriptor to the core, which owns all subsequent state.
++ */
++#ifndef _LINUX_RISCV_CBQRI_H
++#define _LINUX_RISCV_CBQRI_H
++
++#include <linux/types.h>
++
++enum cbqri_controller_type {
++	CBQRI_CONTROLLER_TYPE_CAPACITY,
++};
++
++/**
++ * struct cbqri_controller_info - registration descriptor
++ * @addr:        MMIO base address of the controller's register interface
++ * @size:        size of the MMIO region
++ * @type:        controller type (capacity)
++ * @rcid_count:  number of supported RCIDs
++ * @cache_id:    cache id used as the resctrl domain id
++ */
++struct cbqri_controller_info {
++	phys_addr_t			addr;
++	phys_addr_t			size;
++	enum cbqri_controller_type	type;
++	u32				rcid_count;
++	u32				cache_id;
++};
++
++#if IS_ENABLED(CONFIG_RISCV_CBQRI)
++int riscv_cbqri_register_cc_dt(const struct cbqri_controller_info *info,
++			       u32 cache_level);
++#else
++static inline int
++riscv_cbqri_register_cc_dt(const struct cbqri_controller_info *info,
++			   u32 cache_level)
++{
++	return -ENODEV;
++}
++#endif
++
++#endif /* _LINUX_RISCV_CBQRI_H */
 
 -- 
 2.43.0
