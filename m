@@ -1,109 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF574B44AA;
-	Thu, 17 Sep 2026 15:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEA14ABBBF;
+	Thu, 17 Sep 2026 15:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659316; cv=none; b=VoP//a98Dsih2h+akgnw98h7ywh7/kbYDCmMIcHnZxDTGdI8OoSgwwJxOChGuRHrNS6Jt1AKlJWVVH5rF9wPdTJE/BiKtjTl0/5JPzLbMacLOagX5O3wwfL18kXteqmYfgcgvz2FKAZzBoakfTyte/i7Uk3V9f/yTuJlWmSYetw=
+	t=1789659361; cv=none; b=nuD2IZpgI3U/Q1INcXvRZT43JZw2laupcUKaGHolXoUoHf0IUVC9Mf/n8AWshv4Ppf+Yu7MBRv1JVTRPNCIjdBISjMn3S7Adfe5KT8fSJtNyolynwv4/Aznou8DyCuve1zjoLY2a3uzKLTTOL0b73Djt1TTLXztk1kREv/zMc3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659316; c=relaxed/simple;
-	bh=Dh6tUyQP9xyXhZWsWYa7WA4mu0Sws+dL1p7Kflb1hFk=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=Em68y6F+iLDxZAOSNj9E+Wl6qAGAj2CKRmKrRR6YIoObVDmfINcVDvqOT0Fn6ifbc3aojc5gLoREkAG1Kwz9EplmcnGevmH9IAKy13Ze89EUz9FHdWD7Sg2y5S3mNyMkSC6bWt0MDRzKY/QqjHbLsZKjPak5bvz9urilJJniTbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvHb8BnH; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvHb8BnH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7571F000FF;
-	Thu, 17 Sep 2026 15:35:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789659302;
-	bh=byzDL3MM3tw9yBCOxQadk27VtOlUpG08zfgZFmn7Qx4=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=nvHb8BnHVmnWvOPaWQkbtOqXe6xbAv1B7uJUuoCalSS+Qba3wk76RY0ZerNxby6an
-	 bLvpuY9NlPw8aUMhvSt5nMI8G5EmKxxCsXmPplY0DFI44mCa/a1gRta6L+AVUNfdLo
-	 oXLvPZ//YDLxV71wXesQxGrK10oSq7Dxv6laFaE6R+Iju4lkbH0Pqm/l7AfK6Xd8Tx
-	 8AAby4VCZ7A5mzJ7cVtZEEYz2eWQEYRdfWWsbDjCBCQoX8cJ52iuGFJst6VXhS+5H1
-	 r2J1u/qaANTp4Nbiif2sA/uOsSctgGh7sSAULQJUIqh0nMKaigRHZMYuqAMZxBecHi
-	 fF3nEK+Ti+6/A==
-Date: Thu, 17 Sep 2026 10:35:00 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1789659361; c=relaxed/simple;
+	bh=faQk4oBM6ipFIE7kPqu4vhA30jcr+003meSTLglZNaA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hfUDqqyaqi+u2aLHFJ3VQ+pPB93fl6xe2xjiDsNcLb0Re17uSMCGEYw+heZQceUFL76AZ8uHvoCX65jMSyGTZYue5yKRYYWYH7dKAEhZBUjX0PwRyFFvQF34NaNR+/n2sjIYh6vTuQvySSHICIADFjuh878feyMaisgLdZVO0Jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAHcz3WCKxqlauDCA--.46402S2;
+	Thu, 17 Sep 2026 23:35:50 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: conor.dooley@microchip.com
+Cc: daire.mcnamara@microchip.com,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] soc: microchip: mpfs: Fix flash leak in mpfs_sys_controller_probe()
+Date: Thu, 17 Sep 2026 15:35:50 +0000
+Message-Id: <20260917153550.2160672-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
- devicetree@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
- Linus Walleij <linusw@kernel.org>, Fabio Estevam <festevam@gmail.com>, 
- Takashi Sakamoto <o-takashi@sakamocchi.jp>, linux-kernel@vger.kernel.org, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Rodolfo Giometti <giometti@enneenne.com>
-To: Eliav Farber <farbere@amazon.com>
-In-Reply-To: <20260917075611.47881-3-farbere@amazon.com>
-References: <20260916182641.9768-1-farbere@amazon.com>
- <20260917075611.47881-1-farbere@amazon.com>
- <20260917075611.47881-3-farbere@amazon.com>
-Message-Id: <178965920965.2201509.11424324343969407479.robh@kernel.org>
-Subject: Re: [PATCH v3 2/3] dt-bindings: pps: pps-gpio: document optional
- pinctrl states
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHcz3WCKxqlauDCA--.46402S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJr1ftryUtF47JFWUGw15Arb_yoW8ZFWUpF
+	4UJrW7tF18KF45JF10kw18GF1fZFnFqw1kWws7Gw17A34fW3srZFy3A3yrWFy8JryIgr15
+	Cr45Ja1xJFsrAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UMq2NUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggNA2qr888yaQAAsm
 
+of_get_mtd_device_by_node() returns an MTD device reference that the
+caller has to drop with put_mtd_device().  The probe error paths return
+without releasing it, and the reference stored in sys_controller->flash
+is never dropped when the controller is destroyed either.
 
-On Thu, 17 Sep 2026 07:56:10 +0000, Eliav Farber wrote:
-> When the PPS input GPIO is routed through a pin controller, a board may
-> need to mux those pins to a different function while pps-gpio is not
-> driving PPS (for example after the driver is unbound or across a kexec).
-> 
-> Document the optional "default" and "inactive" pinctrl-names and show
-> both in the example. The "default" state selects the PPS/GPIO function
-> and is applied by the driver core before probe; the optional "inactive"
-> state, when present, describes the mux to restore when the driver is
-> unbound or the system is shut down. The driver looks the states up by
-> name, so "inactive" may appear in any position; it only requires that a
-> "default" state also exists.
-> 
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
-> Changes in v3:
-> - Do not constrain pinctrl-names to a fixed ["default", "inactive"]
->   tuple. The driver looks the states up by name, so "inactive" may
->   appear in any position and other states may coexist; only require
->   (via "contains") that a "default" state exists, and reword the
->   description accordingly
-> 
-> Changes in v2:
-> - Rename the released state from "idle" to "inactive"
-> 
->  .../devicetree/bindings/pps/pps-gpio.yaml        | 16 +++++++++++++++-
->  1 file changed, 15 insertions(+), 1 deletion(-)
-> 
+Release the flash on the probe error paths and in
+mpfs_sys_controller_delete(), so the reference is always put.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Fixes: 742aa6c563d2 ("soc: microchip: mpfs: enable access to the system controller's flash")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/soc/microchip/mpfs-sys-controller.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/pps/pps-gpio.example.dtb: pps (pps-gpio): pinctrl-names: ['default', 'inactive'] is too long
-	from schema $id: http://devicetree.org/schemas/pps/pps-gpio.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260917075611.47881-3-farbere@amazon.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+diff --git a/drivers/soc/microchip/mpfs-sys-controller.c b/drivers/soc/microchip/mpfs-sys-controller.c
+index 92d1142a59e6..ad57b09e5807 100644
+--- a/drivers/soc/microchip/mpfs-sys-controller.c
++++ b/drivers/soc/microchip/mpfs-sys-controller.c
+@@ -98,6 +98,8 @@ static void mpfs_sys_controller_delete(struct kref *kref)
+ 	struct mpfs_sys_controller *sys_controller =
+ 		container_of(kref, struct mpfs_sys_controller, consumers);
+ 
++	if (sys_controller->flash)
++		put_mtd_device(sys_controller->flash);
+ 	mbox_free_channel(sys_controller->chan);
+ 	kfree(sys_controller);
+ }
+@@ -159,7 +161,8 @@ static int mpfs_sys_controller_probe(struct platform_device *pdev)
+ 	of_data = (struct mpfs_syscon_config *) device_get_match_data(dev);
+ 	if (!of_data) {
+ 		dev_err(dev, "Error getting match data\n");
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto out_free;
+ 	}
+ 
+ 	for (i = 0; i < of_data->nb_subdevs; i++) {
+@@ -174,6 +177,10 @@ static int mpfs_sys_controller_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ out_free:
++	if (!IS_ERR_OR_NULL(sys_controller->flash))
++		put_mtd_device(sys_controller->flash);
++	if (!IS_ERR_OR_NULL(sys_controller->chan))
++		mbox_free_channel(sys_controller->chan);
+ 	kfree(sys_controller);
+ 	return ret;
+ }
+-- 
+2.34.1
 
