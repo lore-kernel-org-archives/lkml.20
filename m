@@ -1,85 +1,87 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D5337BE99;
-	Thu, 17 Sep 2026 08:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83958411FBF;
+	Thu, 17 Sep 2026 08:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789635512; cv=none; b=AoarRXKS/8Aq2/+yLy98EWimXKSSLmDIgD2E2WGtFj5T+0onjj35dI6dN0koBeikUEC6qqLEVKZRx9y1ytxN/gcBUO7Do/nmvbhAcqKfv7OAI40flIYqaRA1W7CdmeWnDHMumrabwwIejSdJcLaCbgUpPJ8dZDdCHLrixq5utdo=
+	t=1789635548; cv=none; b=ntbkzdt9ZaTP8eCn38aL183+R7nkIoQQvkb4fM0V388Praecwkagpw1F0yyzg/R/a7sbVTAUtpkPDvLWiG+JZhsLkFFqWEnhc7Wdu2Xjlzxl0oolk3zaK0yAi2gCas787YEm/LdxVuEWSi2sh0TDRavEicZVGghUdy75z7BAe6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789635512; c=relaxed/simple;
-	bh=+n6fZ+G9W1QUrU4Ah11+hE5GJDijNAISFkHP0a3DC7I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uwnLvkPoVv70SZb70M7V37BindInu8xaK/6WWHeXm833r/ZsazS1ELGuI3WwLkKktzVW3z+zAnEyDxsiXPYwze3TtCYgn9tunrvka6jjpb5If6GuPFb6gB5d+OuK6x6sAZbBlYLTeGh0mdtVmolZGPyovAr/W6rp6yb8ffhuP9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: andriy.shevchenko@intel.com
-X-PTX-Original-Recipient: kees@kernel.org
-X-PTX-Original-Recipient: andy@kernel.org
-X-PTX-Original-Recipient: akpm@linux-foundation.org
-X-PTX-Original-Recipient: linux-hardening@vger.kernel.org
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-X-PTX-Original-Recipient: kernel@pengutronix.de
-Received: from [0.0.0.0] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: jre@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 994B1201A8D;
-	Thu, 17 Sep 2026 10:58:27 +0200 (CEST)
-Message-ID: <7ad3889a-d9f9-426c-916f-3900d2c4ab8a@pengutronix.de>
-Date: Thu, 17 Sep 2026 10:58:27 +0200
+	s=arc-20240116; t=1789635548; c=relaxed/simple;
+	bh=d8OZXXA3/j9FC+/Jd6gcls4IlNBIslKKM7gOayq1wAQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=c+KvZv4oG7h6BTqOMddiWwaiYy3oUwIB5o6FkSCjbVhTlBlY4e8inuDvP1K/FDpcd7etYQPQap7mCOJjiqkPLQiv4dPWTEjQ/NA+XXil2lv8YD56K0JCOa/BTNjI/rpX3lMQi/0vTKzxvlJNLEi0qondXJKMJDkevAu9/wy4bMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 8F85E200044;
+	Thu, 17 Sep 2026 10:59:00 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 58F812002C8;
+	Thu, 17 Sep 2026 10:59:00 +0200 (CEST)
+Received: from lsv031125.swis.in-blr01.nxp.com (lsv031125.swis.in-blr01.nxp.com [10.12.177.172])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 2C360180006C;
+	Thu, 17 Sep 2026 16:58:59 +0800 (+08)
+From: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+To: andi.shyti@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	peda@lysator.liu.se,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+Subject: [PATCH v2 0/2] Add NXP PCA9641 I2C bus master arbiter support
+Date: Thu, 17 Sep 2026 14:28:50 +0530
+Message-Id: <20260917085852.552079-1-shivprakash.gupta@nxp.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] lib/tests: string_helpers: introduce
- test_string_unescape_one
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de
-References: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
- <20260916-string_unescape-v1-3-7f8bd986fa33@pengutronix.de>
- <aquVCG4NwM1ezLLm@ashevche-desk.local>
-Content-Language: en-US
-From: Jonas Rebmann <jre@pengutronix.de>
-In-Reply-To: <aquVCG4NwM1ezLLm@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On 2026-09-17 09:21, Andy Shevchenko wrote:
-> On Wed, Sep 16, 2026 at 07:38:08PM +0200, Jonas Rebmann wrote:
->> The existing test_string_unescape() function follows a complex procedure
->> where it, given a set of UNESCAPE flags, appends multiple test fragments
->> and predicts their unescape result for the chosen set of flags. Rename
->> test_string_unescape() to a more descriptive
->> test_string_unescape_combined
->>
->> In preparation to add simple regression tests, introduce
->> test_string_unescape_one() which asserts on exactly one call to
->> string_unescape.
->>
->> Add some tests for corner cases which already pass.
-> 
-> So, this is two-in-one patch change. Needs a split, but I'm not sure why
-> we even need this. Can't your case be incorporated into the existing
-> "combined" variant?
+This series adds device tree bindings and an I2C mux driver for the NXP
+PCA9641 2-to-1 I2C bus master arbiter. The PCA9641 lets two upstream I2C
+masters share a single downstream slave bus using a lock/grant protocol:
+a master asserts LOCK_REQ, waits for LOCK_GRANT, sets BUS_CONNECT to open
+the switch, performs its transactions, and then clears LOCK_REQ to release
+the bus. The driver plugs into the i2c-mux core as an I2C_MUX_ARBITRATOR
+and supports interrupt-assisted arbitration (via INT0/INT1 wired to a
+GPIO) with a fallback to polling when no interrupt is configured.
 
-They can not be incorporated into the combined variant because that
-makes it impossible to control the size of the destination buffer. This
-can not be fixed because the idea of the combined test is that all test
-strings are combined into one buffer. The bugs fixed in this series only
-occur when the destination buffer is limited.
+Changes in v2:
+- Binding: add Acked-by from Conor Dooley (no functional changes).
+- Driver: drop IRQF_SHARED from the threaded IRQ request.
+- Driver: clear the latched LOCK_REQ on every timeout path in
+  select_chan() so a master that gives up does not block the peer.
+- Driver: reorder probe interrupt setup - mask all sources and clear
+  stale INT_STATUS before requesting the IRQ, then unmask LOCK_GRANT
+  and BUS_LOST.
+- Driver: re-mask interrupts if i2c_mux_add_adapter() fails.
+- Driver: unregister the child adapter before masking interrupts in
+  remove().
+- Driver: use a named initializer for the i2c_device_id table.
 
-Furthermore, for the regression tests, I want each test tailored for a
-specific case and when it fails, to show me which one failed.
+Shiv Prakash Gupta (2):
+  dt-bindings: i2c: Add NXP PCA9641 I2C bus master arbiter
+  i2c: mux: Add NXP PCA9641 I2C bus master arbiter driver
 
-I'll update the commit message and split the commit.
+ .../devicetree/bindings/i2c/nxp,pca9641.yaml  | 109 +++++
+ MAINTAINERS                                   |   7 +
+ drivers/i2c/muxes/Kconfig                     |  15 +
+ drivers/i2c/muxes/Makefile                    |   1 +
+ drivers/i2c/muxes/i2c-mux-pca9641.c           | 420 ++++++++++++++++++
+ 5 files changed, 552 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/nxp,pca9641.yaml
+ create mode 100644 drivers/i2c/muxes/i2c-mux-pca9641.c
 
 -- 
-Pengutronix e.K.                           | Jonas Rebmann               |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
+2.34.1
+
