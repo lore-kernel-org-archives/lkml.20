@@ -1,91 +1,97 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FEA64BD0FD;
-	Thu, 17 Sep 2026 10:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5D44AF9D8;
+	Thu, 17 Sep 2026 10:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789642273; cv=none; b=Uu4Z/eum4cGcUBp8odg6i0dOwhvIWnvSmMq0fBpzAYMftaY3E3qO7IkDDDDAgbsSaYVWv78dw64oKUwmSrlKNWNf7qTHk2Gm7qDMRtbduMYEjgmtJ2LWYRDxyxzRVTkLgBTbgz+Ky8pgtubk0sclklPUtKSCRCzSF5JnLpeYzb8=
+	t=1789642295; cv=none; b=HOYBkQS93PXADPhgAdbW66ByPhiproafRODjGuACHSdSeoruwMiQXpZ62wEAz7EUf4EPKqxaMsHm7+8kMYR+Wrr3+lrMcHR+ZJHJLaYYYWOlrFMDkho6Op00PtWBqiBExCYF8IB/KiOiBB0Ld8Sl+9JMQ8WxRp8CKELOq2WFSEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789642273; c=relaxed/simple;
-	bh=XihqMbgiW7kyP3lfZhBkDWHC5GYJp5plq+bKZoZZO64=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WM/TIbBt//p/lZ6Z2zx9PIMx1zNIczarLqmyd8LHHRAaWfvO5iWMOPglwxPFtcroxmtb7+fQRxGt0kTTdDngx24N7+kPgSsqi2ZFV4A6peiE9/16yJfrsBJnOgyEyDgV4WQkXBEHSabLdbaWeCgZbvqL3kObqQiPgZFrWX8RD9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RtNfF25a; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RtNfF25a"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97B191476;
-	Thu, 17 Sep 2026 03:50:59 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B2D533F882;
-	Thu, 17 Sep 2026 03:51:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789642263; bh=XihqMbgiW7kyP3lfZhBkDWHC5GYJp5plq+bKZoZZO64=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RtNfF25amyqFFOwy8f7Iwf2XNcgtv+nIar7eBklFC+H7xAzdIEqMy9x0nlPGgqPRB
-	 cJk9SAnVOKw5yit88ub9YsR0jRng8wnZMYVoikwQM+HrvrznRNZAqoMaF/uTPYGa02
-	 tQe/QcLuEmF28RDLit3va2X5NLtfgxw0mBTlrlP8=
-Date: Thu, 17 Sep 2026 11:50:58 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Florian Weimer <fweimer@redhat.com>,
-	Darren Hart <dvhart@infradead.org>, Ingo Molnar <mingo@kernel.org>,
-	Davidlohr Bueso <dave@stgolabs.net>, Arnd Bergmann <arnd@arndb.de>,
-	Uros Bizjak <ubizjak@gmail.com>,
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org, kernel-dev@igalia.com
-Subject: Re: [PATCH v8 4/4] arm64: vdso32: Implement
- __vdso_futex_robust_try_unlock()
-Message-ID: <aqvGEiZEtZFEWvjL@J2N7QTR9R3>
-References: <20260821-tonyk-robust_arm-v8-0-077707b6f1c7@igalia.com>
- <20260821-tonyk-robust_arm-v8-4-077707b6f1c7@igalia.com>
- <aqqngEKC_CsrS62n@J2N7QTR9R3>
- <d0c5ada8-929f-4d39-9f8e-32860fa5b853@igalia.com>
+	s=arc-20240116; t=1789642295; c=relaxed/simple;
+	bh=VdTPJyVCO26D0ME9c3UkWlcovgq8+DrvUMuLM8iRBNw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aThfLfNwNyiMs2bzFuixy3YbhhjJAucRx3v08z51ZJBNAzgNcTneeNaoqAWraSy+cAI9cztCdl9rtAg3BkNZUgX4azUbHoqi2NSqU76wFX6Ngof4VS4ST8N5Zulpk+1HVvpxfkkFsRqLxRDaI+Ms8zGhFV5aATJW2uhsGLo2n88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAB3pkAYxqtqgft+CA--.1014S2;
+	Thu, 17 Sep 2026 18:51:05 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrew+netdev@lunn.ch
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	mchan@broadcom.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	pavan.chebbi@broadcom.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] tg3: Fix peer device double put in tg3_find_peer()
+Date: Thu, 17 Sep 2026 10:51:04 +0000
+Message-Id: <20260917105104.2147646-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d0c5ada8-929f-4d39-9f8e-32860fa5b853@igalia.com>
+X-CM-TRANSID:zQCowAB3pkAYxqtqgft+CA--.1014S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cry5JFykXFW5AFW7Kw45ZFb_yoW8Jw13pa
+	nxJa4j9ry8Grn0ya18Ja1fXFn09a97t345WrW7C34rZFW5Za45Cr9YkFZ0qrn5ArZ3XF12
+	vw1jvanxurs0kaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
+	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
+	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
+	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
+	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvE
+	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
+	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
+	Xa7IU8rR65UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qrq3ZdKgAAsh
 
-On Wed, Sep 16, 2026 at 10:11:01PM -0300, André Almeida wrote:
-> Em 16/09/2026 11:28, Mark Rutland escreveu:
-> > On Fri, Aug 21, 2026 at 06:50:45PM -0300, André Almeida wrote:
-> > > Based on aarch64 implementation, provide a 32 bit entry point for
-> > > this vDSO.
-> > > 
-> > > In order to keep compatibility with arm64_futex_robust_unlock_get_pop(),
-> > > make sure to store the pop address at r2 and the compare result value
-> > > at r3.
-> > 
-> > Before we add this to the compat vdso, we'll need to implement this on
-> > arch/arm/.
-> > 
-> > Otherwise, my comments on the patch for the native vdso functions apply
-> > here too.
-> 
-> Right, and the compat entry point at arch/arm64/ would point to the
-> __vdso_futex_robust_list32_try_unlock implementation at arch/arm/?
+pci_get_slot() returns a device with its reference count incremented.
+When the loop ends on tp->pdev (which happens when the adapter sits at
+PCI function 7 and no other function is present) that reference has
+already been dropped inside the loop, but the trailing pci_dev_put()
+drops it a second time, underflowing the refcount of tp->pdev.
 
-So far we've had arm64 provide its own copy (which e.g. might use
-sequences relying on ARMv8+ instructions), so I think we'd do the same
-here.
+Treat a loop end on tp->pdev as single-port mode, just like the
+existing !peer case.
 
-The key thing is that 32-bit tasks on arm64 should see the same ABI as
-native tasks on 32-bit arm. As there's a risk that 32-bit arm might have
-some ABI quirks (e.g. due to older processors), we don't want to enable
-features for compat tasks on arm64 before that's been implemented on
-32-bit arm.
+Fixes: 16fe9d74f14e ("[TG3]: Fix 5704 single-port mode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/ethernet/broadcom/tg3.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Mark.
+diff --git a/drivers/net/ethernet/broadcom/tg3.c b/drivers/net/ethernet/broadcom/tg3.c
+index 73a4b569b03e..57669a22c036 100644
+--- a/drivers/net/ethernet/broadcom/tg3.c
++++ b/drivers/net/ethernet/broadcom/tg3.c
+@@ -16122,9 +16122,10 @@ static struct pci_dev *tg3_find_peer(struct tg3 *tp)
+ 		pci_dev_put(peer);
+ 	}
+ 	/* 5704 can be configured in single-port mode, set peer to
+-	 * tp->pdev in that case.
++	 * tp->pdev in that case. The loop can also end on tp->pdev
++	 * itself, whose reference was already dropped above.
+ 	 */
+-	if (!peer) {
++	if (!peer || peer == tp->pdev) {
+ 		peer = tp->pdev;
+ 		return peer;
+ 	}
+-- 
+2.34.1
+
