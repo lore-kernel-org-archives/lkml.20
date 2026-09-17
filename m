@@ -1,302 +1,102 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008C848CD55
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62324DAFB8;
+	Thu, 17 Sep 2026 11:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645716; cv=none; b=CCU8xgwu0wNxnW2x96rgRN4nrMHNySA1mgubSshzAsdNyhY2AbU8OUo0JgAqrnjBEQXMfNvVmbbd0Z+vLCC/0tJg7GNh++vigfGhr9G2TET4KyKQ4S5RqhwwZmyw4QT07UmIAa+6AjE+CTmqTZ5RCgtw0VY1hcNtFvnyjL64LXo=
+	t=1789645723; cv=none; b=iHGJITV9YPLADg/6eftsRWxZ3FsUQWUMjZZfBrt9ihh5WigyLKsv9EbLq27S6sdK0aLXRka6YKVaOhuXftGZ00ujYdHqc/FnU7ekosDxTv/tjSUo1I0v7T2W/Hvyhg/ZTFgnaJykq9OM/ovvye1w1xW30cKsWZxfmXUBSNR1q30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645716; c=relaxed/simple;
-	bh=40S5Rsrxf9rWkVmZASWWlCuWh4sMf9Qidfv4Hhq2I9o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N+adOS7iQoWFNzE4tu8PJ8E+hcGOWhCISVtzozX8ExHjX3nnpLFQTb0GWdFdP9zNaGbmpo74pOIb8FZQRHAdzPnJQhUk1UGNWqsXZQUd+cGV+dOJHBBfrc0Ivu0svORpspClDLvop5mkPiRgSDCGBJT74FIrSm0JMZWPSnWaXNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HDbpNIpx; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HDbpNIpx"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d93ff61046so6593065ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:48:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789645713; x=1790250513; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0XIXiLce8oloEY4uUyIzwGoSl4i1s4G1pZ5kG8wUw3I=;
-        b=HDbpNIpxrcBjqA/Chvc9mLkeMpKwsF8DsjoEjf4P9ByPYcSa0CAj8XuvTxQqcJPEkB
-         8K44R7MPfB5jqamNBkOUis8qt/ibVHyCQabfYwvxdELmWLJJUIinVn2bFcri1250ipNo
-         o31mQ7LBJgZPq0u2Znb0NRZIEohAQk5L/6ljujLOM14R18umYjJYCyYo4ULl+sv4UIBD
-         HpnekR8lkJ98aP/K6rSKUEk7t4GvDeXqMMXk+x/otLpjahnAge60gCR4ML94s32XxiEJ
-         lqlCiv9ig5FsWRQN2ycKM0LEL9niwLJYTUNh8m7K1KEAaKfaxR8/gxoWO/jjYMpLckhy
-         XjSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789645713; x=1790250513;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0XIXiLce8oloEY4uUyIzwGoSl4i1s4G1pZ5kG8wUw3I=;
-        b=lMg5JGfjDQeUeitqzib1OHq02KfrCWwkIs93w0xuDxASUQSSDUvEe1F0IgeKEtrAac
-         aUsvH09EaUQNwJf/yVfrtLVoDH0wv1gfh/i8MfegiCzQIjsBXnSY/8UbflbJhB30j470
-         HXsqEVEehkdwGHNLRQwkV4BcgSLI/hHPu1hw/nacRBhW2XIzUPHvcEq4rvTCUa6Y/AFW
-         O7rDLZLi+c7rQm2cv9TZlgRQp9E74KE//2VwDjChUPMjRFTu7F4Xeq4A+sUdkISICUKR
-         ec66vf59NBvrCrCpmAZkDQkjrlppqB49aumG959bWA1TEZAJa6zBCREZw/AI1MxzPqRJ
-         vp4g==
-X-Forwarded-Encrypted: i=1; AKwUvBxYdAYCD6+SuZYInnPa4gHlY+7W/zdkQaDaDyBxoCqaUOtLw/z2Iz9v/4i69aDwPgjYeXazB+8t9/KYFmA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOVUqFtQUMWu7QuW8AiEERFKbVByWQN7lNeh/ZLaDKmUfucH3C
-	LAr3ryV/OfYLWkjwphYZqXt3YST4bMB4RAACn74CvSOQ873Xn+46z5nFa+xdtEzfoeQ=
-X-Gm-Gg: AYBFou310Fey721TG09pCWWhdoERqZgfEaBxitzoU7up9RwMuKzMslTsDOPTOdC9GiX
-	uYqnffzTGOa7XMvXSSUNEo2odER0t6dIuVg9erWXrdq14YHX7ll4cMcGUYLnxaucu20DhAhRIll
-	D5Dwq4pJfZWKDWlQ0nSKJPnyUo9HlVHaTfvERI3RmdLTk+W8YC2ia0s+6lgrjPsgi2r9Nnp9c0b
-	/zrG1cGLkA/klNRrzsus3KMhXoAVV/VYY7iKUiZzeLIIRg3teDk8oKXQlLsDyoeG2U2DLBougmS
-	hfXPPN0SFmobvv/d9U4LuimYgrOAqo9QGUUUKzXuZV6gMTM1BMPjANKYRIeJelOfH/L6yJWTWr+
-	wx7+ZnlJC+MXopAW2lUdH9M1h3heEzWW41OLcITQKR1nteDgU1m0Til6OjUBktFR+CuokaA+HD4
-	k9ayEjoMSFY/sCWjJO/3wyQV9kMxUISZE//d8oCxCg7dPVghId/Ex9HLCZdB/ozSyvEAJCrDsvw
-	cYfwh34QVXeQWh02ZQ=
-X-Received: by 2002:a17:902:f549:b0:2d8:d4cc:5bb1 with SMTP id d9443c01a7336-2dd8e5244bbmr129000285ad.17.1789645712939;
-        Thu, 17 Sep 2026 04:48:32 -0700 (PDT)
-Received: from [100.125.248.95] ([124.70.231.46])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d8e6a3sm25444085ad.7.2026.09.17.04.48.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 04:48:32 -0700 (PDT)
-Message-ID: <fd49e71a-34e9-4e72-9510-1b1692bbfca3@gmail.com>
-Date: Thu, 17 Sep 2026 19:48:11 +0800
+	s=arc-20240116; t=1789645723; c=relaxed/simple;
+	bh=ITg4GgxqkN+/I92LhrsqbUthy8oVwbzjlBSGtmJtJ78=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Zwl5v3/zbVDQ7852ZpCtDMIL3qlFEsloebUL5HAwjypXybH1jP0mbbyiUl08VskyHSMpBiSLl17JzkNSXFN3wN/k8T57MhduhhbeKe4GPjaqqa9ikPXCWpvByljl/fO66hw0XMToSOUscjwFfypvo25VoIcU7bMD/Q638xbD8to=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABn0TuF06tqIeF_CA--.2029S2;
+	Thu, 17 Sep 2026 19:48:21 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alex.aring@gmail.com
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-wpan@vger.kernel.org,
+	marcel@holtmann.org,
+	miquel.raynal@bootlin.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	stefan@datenfreihafen.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ieee802154: atusb: Fix URB reference leak in atusb_work_urbs()
+Date: Thu, 17 Sep 2026 11:48:21 +0000
+Message-Id: <20260917114821.2149704-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] mm/truncate: fix data loss when splitting
- straddling large folios fails
-To: Brian Foster <bfoster@redhat.com>, Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, hughd@google.com, baolin.wang@linux.alibaba.com,
- willy@infradead.org, jack@suse.cz, ziy@nvidia.com, joannelkoong@gmail.com,
- djwong@kernel.org, yi.zhang@huawei.com, yangerkun@huawei.com,
- chengzhihao1@huawei.com, wangkefeng.wang@huawei.com, yukuai@fnnas.com
-References: <20260916092450.654408-1-yi.zhang@huaweicloud.com>
- <20260916092450.654408-2-yi.zhang@huaweicloud.com> <aqrUGRd0JClEZNzN@bfoster>
-Content-Language: en-US
-From: Zhang Yi <yizhang089@gmail.com>
-In-Reply-To: <aqrUGRd0JClEZNzN@bfoster>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABn0TuF06tqIeF_CA--.2029S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tFyfKFWDGrW5Zw13Xw17trb_yoW8Gw18pa
+	y5u3Wagrs8Xa1Iyan7Jw1IvFyFyw4jk34xCFyru397Zrs5tw17Ka4xGanavF48JrW8ZFya
+	vr12qr47Gwn8Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
+	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
+	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
+	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
+	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvE
+	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
+	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
+	Xa7IU8czVUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQNA2qrrJp39gAAsw
 
-On 9/17/2026 1:38 AM, Brian Foster wrote:
-> On Wed, Sep 16, 2026 at 05:24:48PM +0800, Zhang Yi wrote:
->> From: Zhang Yi <yi.zhang@huawei.com>
->>
->> truncate_inode_partial_folio() splits a large folio so that the caller's
->> truncate loop can drop the in-range sub-folios while keeping the
->> out-of-range tail. The first split at the punch start edge is
->> non-uniform, which leaves the sub-folio at the truncation end edge as
->> large as possible, this means it may still straddle the range, holding
->> both zeroed in-range and valid out-of-range data. The function then
->> attempts a second split at offset + length to isolate that tail.
->>
->> If the second split fails the straddling sub-folio stays merged. The
->> function returned true unconditionally on all exit paths of the success
->> block, telling the caller it was fully handled. The caller kept its
->> default end and the truncate loop truncated every sub-folio below it,
->> including the merged straddler, discarding the valid out-of-range tail.
->>
->> For example, a 4-page order-2 folio punched from offset 0 to the middle
->> of the last page:
->>
->>    truncate_inode_pages_range()
->>      truncate_inode_partial_folio()      # same_folio == true
->>        1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
->>        folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
->>        2nd split of folio2 fails / cannot lock
->>        return true                       # BUG: caller keeps default end
->>      end = 3
->>      loop truncates p0, p1, p2-3        # p3's valid tail is lost
->>
->> This became reachable after commit 7460b470a131 ("mm/truncate: use
->> folio_split() in truncate operation") replaced the atomic split_folio()
->> with folio_split(), whose non-uniform split can partially split a folio
->> and leave the end edge merged.
->>
->> It has gone unnoticed because a dirty large folio normally carries the
->> filesystem's private data, for example buffer_head, so
->> filemap_release_folio() -> iomap_release_folio() returns false on a
->> dirty folio and folio_split() aborts with -EBUSY before any split,
->> leaving the straddler safely unsplit. The bug is only reachable on paths
->> that produce dirty large folios without filesystem private data, and it
->> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
->> attached.
->>
->> Rework the contract so the caller is told the page range to discard:
->>
->>    - Add pgoff_t *pstart and *pend out-parameters that receive the page
->>      range fully covered by [lstart, lend] after any split (or none),
->>      i.e. the pages wholly within the range and safe to discard.
->>
->>    - Adjust the ordering of the validate check when splitting folio2.
->>      folio2->index is only reliable after the reference count and lock
->>      have been successfully acquired, since it may have been split
->>      concurrently, or freed and recycled to an unrelated mapping. On any
->>      failure to obtain a reliable end position, fall back to
->>      folio->index, which is safe but leaves the sub-folios split off at
->>      the offset edge in the page cache.
->>
->>    - Rename the byte-range parameters start/end to lstart/lend to better
->>      express their semantics.
->>
->> Callers in truncate_inode_pages_range() and shmem_undo_range() pass
->> &pstart for the folio at the start edge and &pend for the folio at the
->> end edge, so the truncate loop drops exactly the fully covered pages and
->> never touches a straddling folio that still holds valid out-of-range
->> data.
->>
->> Suggested-by: Brian Foster <bfoster@redhat.com>
->> Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
->> Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
->> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
->> ---
->>   mm/internal.h |  4 +--
->>   mm/shmem.c    | 13 +++-----
->>   mm/truncate.c | 89 ++++++++++++++++++++++++++++++++++++---------------
->>   3 files changed, 71 insertions(+), 35 deletions(-)
->>
-> ...
->> diff --git a/mm/truncate.c b/mm/truncate.c
->> index b58ba940be47..bec6d881d022 100644
->> --- a/mm/truncate.c
->> +++ b/mm/truncate.c
-> ...
->> @@ -259,32 +271,62 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
->>   		 * for shmem truncate
->>   		 */
->>   		struct folio *folio2;
->> +		pgoff_t end, aligned_end = (pos + offset + length) >>
->> +					   PAGE_SHIFT;
->>   
->> -		if (offset + length == size)
->> -			goto no_split;
->> +		if (pstart)
->> +			*pstart = round_up(pos + offset, PAGE_SIZE) >>
->> +				  PAGE_SHIFT;
->> +
->> +		if (offset + length == size) {
->> +			end = aligned_end;
->> +			goto out;
->> +		}
->>   
->>   		split_at2 = folio_page(folio,
->>   				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
->>   		folio2 = page_folio(split_at2);
->>   
->> +		/*
->> +		 * folio2 may become stale due to a concurrent split or
->> +		 * freeing, so validate it before and after taking its lock.
->> +		 * If it fails, we can't get an accurate end position and fall
->> +		 * back to folio->index, which may leave sub-folios split off
->> +		 * at the offset edge in the page cache this round.
->> +		 */
->> +		end = folio->index;
->>   		if (!folio_try_get(folio2))
->> -			goto no_split;
->> -
->> -		if (!folio_test_large(folio2))
->>   			goto out;
->>   
->> +		if (folio2->mapping != folio->mapping ||
->> +		    !folio_test_large(folio2))
->> +			goto out_put;
->> +
-> 
-> Hi Zhang,
-> 
-> The only thing that sticks out to me in this version is the
-> !folio_test_large() check above. If we split (or something happens) such
-> that folio2 is no longer large, wouldn't it be more likely to catch it
-> here and fail to update end like we do in the same check a bit further
-> down after the folio lock? Maybe I'm missing something here, but it
-> seems a little odd for the same condition to return two possible states
-> like this. Otherwise I like the changes you've made and the rest of the
-> patch LGTM.
-> 
-> Brian
+usb_get_from_anchor() hands over a reference to the URB, which the caller
+has to release. atusb_work_urbs() never does, so every URB collected from
+the idle anchor keeps an extra reference: the reference count grows on
+each retry cycle and the URBs are never freed on disconnect. Drop the
+reference after a successful submission, and after the URB has been put
+back on the idle anchor when submission failed, as the HCD holds its own
+reference while the URB is in flight.
 
-Yes, you're right! That check should be dropped, I got myself
-confused with all these complicated checks. Fortunately Jan and Zi Yan
-suggested using __filemap_get_folio(), and with that I think we can
-get rid of all these convoluted checks.
+Fixes: 7490b008d123 ("ieee802154: add support for atusb transceiver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/ieee802154/atusb.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Thanks,
-Yi.
-
-> 
->>   		if (!folio_trylock(folio2))
->> -			goto out;
->> +			goto out_put;
->>   
->> -		/* make sure folio2 is large and does not change its mapping */
->> -		if (folio_test_large(folio2) &&
->> -		    folio2->mapping == folio->mapping)
->> -			folio_split_or_unmap(folio2, split_at2, min_order);
->> +		if (page_folio(split_at2) != folio2) {
->> +			folio_unlock(folio2);
->> +			goto out_put;
->> +		}
->> +		if (!folio_test_large(folio2)) {
->> +			end = aligned_end;
->> +			folio_unlock(folio2);
->> +			goto out_put;
->> +		}
->> +
->> +		/* Split failed: back off to the head of the straddler */
->> +		if (folio_split_or_unmap(folio2, split_at2, min_order))
->> +			end = folio2->index;
->> +		else
->> +			end = aligned_end;
->>   
->>   		folio_unlock(folio2);
->> -out:
->> +out_put:
->>   		folio_put(folio2);
->> -no_split:
->> +out:
->> +		if (pend)
->> +			*pend = end;
->>   		return true;
->>   	}
->>   	if (folio_test_dirty(folio))
->> @@ -413,11 +455,8 @@ void truncate_inode_pages_range(struct address_space *mapping,
->>   	folio = __filemap_get_folio(mapping, lstart >> PAGE_SHIFT, FGP_LOCK, 0);
->>   	if (!IS_ERR(folio)) {
->>   		same_folio = lend < folio_next_pos(folio);
->> -		if (!truncate_inode_partial_folio(folio, lstart, lend)) {
->> -			start = folio_next_index(folio);
->> -			if (same_folio)
->> -				end = folio->index;
->> -		}
->> +		truncate_inode_partial_folio(folio, lstart, lend, &start,
->> +					     same_folio ? &end : NULL);
->>   		folio_unlock(folio);
->>   		folio_put(folio);
->>   		folio = NULL;
->> @@ -427,8 +466,8 @@ void truncate_inode_pages_range(struct address_space *mapping,
->>   		folio = __filemap_get_folio(mapping, lend >> PAGE_SHIFT,
->>   						FGP_LOCK, 0);
->>   		if (!IS_ERR(folio)) {
->> -			if (!truncate_inode_partial_folio(folio, lstart, lend))
->> -				end = folio->index;
->> +			truncate_inode_partial_folio(folio, lstart, lend,
->> +						     NULL, &end);
->>   			folio_unlock(folio);
->>   			folio_put(folio);
->>   		}
->> -- 
->> 2.52.0
->>
-> 
+diff --git a/drivers/net/ieee802154/atusb.c b/drivers/net/ieee802154/atusb.c
+index 5f7fc4ee7a07..3dbb142eccb2 100644
+--- a/drivers/net/ieee802154/atusb.c
++++ b/drivers/net/ieee802154/atusb.c
+@@ -180,9 +180,15 @@ static void atusb_work_urbs(struct work_struct *work)
+ 		if (!urb)
+ 			return;
+ 		ret = atusb_submit_rx_urb(atusb, urb);
++		if (!ret)
++			usb_put_urb(urb);
+ 	} while (!ret);
+ 
++	/* The reference obtained above is dropped once the URB is back
++	 * on the idle anchor.
++	 */
+ 	usb_anchor_urb(urb, &atusb->idle_urbs);
++	usb_put_urb(urb);
+ 	dev_warn_ratelimited(&usb_dev->dev,
+ 			     "atusb_in: can't allocate/submit URB (%d)\n", ret);
+ 	schedule_delayed_work(&atusb->work,
+-- 
+2.34.1
 
