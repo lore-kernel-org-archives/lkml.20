@@ -1,174 +1,109 @@
-Received: from out28-2.mail.aliyun.com (out28-2.mail.aliyun.com [115.124.28.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25FB841D217;
-	Thu, 17 Sep 2026 08:23:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C91421229;
+	Thu, 17 Sep 2026 08:23:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633388; cv=none; b=ovLVbfAwV0zP0GZTa4RvpSHjARDX0IlRcuQSdkzEvfyZCsoO0RFhTg/83mP+CxqSJSwVt+7BIt7wXuf7H+zpdpnpNmGkhmUbarEN0HcrLBykiIzjXSq1kU5SsIpRY8YvS1OoGLfadpXoO6lt4B+6fbJiAmvhgoO0WLbhkSYVgU8=
+	t=1789633394; cv=none; b=DvAFYpOUPgH/GlcCblzVWzsQkoHbH5Z/qGCHTB26ooKx3+Iz/EMLBNMxQDL3xi2ovm5nm6n5OcqjxvUjTzdrzlIHXpog76vTZK6b4Xovd60D+lPEsoZICKVHm3z1ZvtSgpE5wjvoxJhb7pA8YOcjLCzM7JGiz5Fo4a1Clu5T2rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633388; c=relaxed/simple;
-	bh=6S4t0ZgT2gB/7xqWgjdCX+82wx4t5+lvGMecv1HXUNE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bSgrFC9ifPMG5SrJfbpLXCvmsh71DfCdq5geXqURdfFuPMDuUQOyVcBfJcgB7BHOelD6HWzteN1PP1Ne27QITdXTGnGyuqz1TiOCvm1h+Ow2WLQ1I8W3GorwlLmqHwlkzObuqpv8a1Lx7u71K0B0MIIP+HDh1LJxElAdIClp7Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07439085|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.230025-0.00361779-0.766357;FP=10359120858868172667|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037021217;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jFj6VNe_1789633368;
-Received: from 172.18.22.44(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.jFj6VNe_1789633368 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 17 Sep 2026 16:22:51 +0800
-Message-ID: <cd63935b-8239-4caf-8e97-0896ab7743f1@open-hieco.net>
-Date: Thu, 17 Sep 2026 16:22:48 +0800
+	s=arc-20240116; t=1789633394; c=relaxed/simple;
+	bh=g1co1jzH7U1K18tKATjRSARI6guUiPRLxJTf+3GujnI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YNGWV/z7AH3EJkbvDsHqDR3woF7ei3O0sxZtPVq+IxSoxtZM+j2ksvkKP70y+6fLMxCDExNOH2jjA7u3+dIS2G358xplSpc8igr3dx0qL41+LXV6WaC0HZjR7cN6NcNwliTatfZZY7jR8dnLTJTlTqcGBU0HCtrHcxjLm0PX4KY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ma88aExs; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ma88aExs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982D11F000FF;
+	Thu, 17 Sep 2026 08:23:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789633387;
+	bh=62ejS+gQZ18rqUWud6FQTYSOrMgOR5ZniszKprxfiyQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ma88aExs8lQ9yv5XG3Y60kIpNEUk9Mtpwuhb+xm7fCrX6C9jPpnPAiQuOYlZuCQU1
+	 7rAF6d1MNH7basfamWJKcVoHh1pw7FrkwfDDOlyxXLUSrQzBkUhxUMYKtH3aO1t3du
+	 G0kjs4EXWQ9ZQT0fT9TCkafofdMugJmjTp/KxlDnw3XzCxO7CNe2Gn+DWDLsR2vMcn
+	 7jKSb7ikMFAA+qg/qYcyiteFyL6HC1po3FAU51b17iEhAP26ZnlJNTxxXq3QlF8RB9
+	 xgHT45YOBCiaWZGzVSdO0ozXpHQbRsY4Vf+rArVdS1wahHAU13KkaWCCVuvw63MuMG
+	 e9zq6nHuYU/sw==
+Date: Thu, 17 Sep 2026 10:23:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Taniya Das <taniya.das@oss.qualcomm.com>, 
+	Vinod Koul <vkoul@kernel.org>, Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
+	Ajit Pandey <quic_ajipan@quicinc.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Imran Shaik <quic_imrashai@quicinc.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Tengfei Fan <tengfei.fan@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 01/52] dt-bindings: clock: qcom: gcc-sdm845: Add CX
+ power domain
+Message-ID: <20260917-flexible-unbiased-grebe-3a5dbc@quoll>
+References: <20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com>
+ <20260914-qcom-tie-cx-to-gcc-v4-1-9d5a606ada33@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 8/8] KVM: selftests: Add nested SVM DecodeAssists test
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org,
- Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>,
- zhouyanjing@hygon.cn, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1789281096.git.zhang_wei@open-hieco.net>
- <016ecb3a3187b20fac299f1c2cb15aac01358412.1789281096.git.zhang_wei@open-hieco.net>
- <CALMp9eSnoFAk5PN-JudLc=xB6jzKzERfTVPEeAaRbLTYqtnKKA@mail.gmail.com>
-Content-Language: en-US
-From: Tina Zhang <zhang_wei@open-hieco.net>
-In-Reply-To: <CALMp9eSnoFAk5PN-JudLc=xB6jzKzERfTVPEeAaRbLTYqtnKKA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260914-qcom-tie-cx-to-gcc-v4-1-9d5a606ada33@oss.qualcomm.com>
 
+On Mon, Sep 14, 2026 at 03:47:00PM +0300, Abel Vesa wrote:
+> Describe the CX power-domain dependency for SDM845 and SDM670 GCCs, and
 
+The domain is already there thus first part "describe ..." is not
+accurate. You changed nothing.
 
-On 9/15/2026 6:33 AM, Jim Mattson wrote:
-> On Sat, Sep 12, 2026 at 11:44 PM Tina Zhang <zhang_wei@open-hieco.net> wrote:
->>
->> Add a focused nested SVM selftest for DecodeAssists.  Verify that KVM
->> exposes the feature to L1 and synthesizes EXITINFO for representative
->> MOV CR/DR, CLTS, INTn, INVLPG, and INVLPGA intercepts.
->>
->> Exercise instruction bytes for hardware and synthesized #NPF/#PF exits.
->> Cover a synthesized #NPF that follows a hardware #NPF in the same emulated
->> instruction, an unreadable instruction tail that leaves only the cached
->> opcode, and the absence of bytes for an instruction-fetch #PF.  Modify the
->> MOVSB opcode while its MMIO read is pending to verify that the emulator's
->> cached bytes are preserved.
->>
->> Inject a userspace #PF while an MMIO read is pending.  Verify that after
->> MMIO completion, L1 receives instruction bytes from the current RIP,
->> not the previous instruction's emulator cache.
->>
->> The synthesized OUTSB #NPF and userspace-injected #PF cases run by
->> default.  The forced-emulation #PF and instruction-intercept cases
->> require kvm.force_emulation_prefix=1.
->>
->> Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
->> ---
->> ...
->> +static const struct instruction_intercept_test instruction_intercept_tests[] = {
->> +       {
->> +               .name = "MOV-from-CR4",
->> +               .code = l2_fep_mov_from_cr4_code,
->> +               .intercept_cr = BIT(INTERCEPT_CR4_READ),
->> +               .exit_code = SVM_EXIT_READ_CR4,
->> +               .exit_info_1 = BIT_ULL(63) | 10,
->> +               .exit_info_1_mask = ~0ULL,
->> +       }, {
->> +               .name = "MOV-to-DR7",
->> +               .code = l2_fep_mov_to_dr7_code,
->> +               .intercept_dr = BIT(INTERCEPT_DR7_WRITE),
->> +               .exit_code = SVM_EXIT_WRITE_DR7,
->> +               .exit_info_1 = 3,
->> +               .exit_info_1_mask = ~0ULL,
->> +       }, {
->> +               .name = "CLTS",
->> +               .code = l2_fep_clts_code,
->> +               .intercept_cr = BIT(INTERCEPT_CR0_WRITE),
->> +               .exit_code = SVM_EXIT_WRITE_CR0,
->> +               .exit_info_1_mask = BIT_ULL(63),
+> require it for both compatibles.
 > 
-> Should this be:
+> Without this dependency, GCC GDSC consumers cannot vote for CX and RPMh may
+> undervolt it.
 > 
-> .exit_info_1 = BIT_ULL(63),
-> .exit_info_1_mask = ~0ULL,
-
-Did you mean .exit_info_1 = 0? For CLTS, bit 63 should be clear.
-
-I tested CLTS without FEP on an EPYC 9754 and captured EXITINFO1 at
-the L0 kvm_exit tracepoint, before reflection to L1. It was zero in
-all cases, with CR0.TS both clear and set. Each case followed a
-MOV-from-CR4 exit that populated EXITINFO1 with 0x800000000000000a.
-
-The current mask checks only that bit 63 is clear. Would you prefer
-checking the entire field against zero?
-
-I'm a little unsure how to interpret the APM here: “If the instruction 
-is LMSW or CLTS, no additional information is provided and bit 63 is
-not set.” Does “no additional information” mean the remaining bits
-must be zero, or simply that they contain no valid decode information
-and should be ignored?
-
-
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/clock/qcom,gcc-sdm845.yaml | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
 > 
-> 
->> +       }, {
->> +               .name = "INTn",
->> +               .code = l2_fep_int_code,
->> +               .intercept = BIT_ULL(INTERCEPT_INTn),
->> +               .exit_code = SVM_EXIT_SWINT,
->> +               .exit_info_1 = TEST_INT_VECTOR,
->> +               .exit_info_1_mask = ~0ULL,
->> +       }, {
->> +               .name = "INVLPG",
->> +               .code = l2_fep_invlpg_code,
->> +               .intercept = BIT_ULL(INTERCEPT_INVLPG),
->> +               .exit_code = SVM_EXIT_INVLPG,
->> +               .exit_info_1 = (u64)&npf_target,
->> +               .exit_info_1_mask = ~0ULL,
->> +       }, {
->> +               .name = "INVLPGA",
->> +               .code = l2_fep_invlpga_code,
->> +               .intercept = BIT_ULL(INTERCEPT_INVLPGA),
->> +               .exit_code = SVM_EXIT_INVLPGA,
->> +               .exit_info_1_mask = ~0ULL,
->> +               .check_rax = true,
->> +               .rax = (u64)&npf_target,
->> +       },
->> +};
-> 
-> If you omit the FEP from the assembly in
-> instruction_intercept_tests[], KVM will copy VMCS02's EXITINFO1 to
-> VMCS12. Assuming L1 itself is not nested, this can be used to validate
-> KVM emulator behavior against hardware. (Maybe this can be used to see
-> if I'm right about CR0_SEL_WRITE, which is currently untested.)
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-sdm845.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-sdm845.yaml
+> index a7523a414341..356af877353d 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,gcc-sdm845.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,gcc-sdm845.yaml
+> @@ -31,7 +31,8 @@ properties:
+>      maxItems: 5
+>  
+>    power-domains:
+> -    maxItems: 1
+> +    items:
+> +      - description: CX power domain
+>  
+>  required:
+>    - compatible
+> @@ -56,6 +57,8 @@ allOf:
+>              - const: bi_tcxo
+>              - const: bi_tcxo_ao
+>              - const: sleep_clk
+> +      required:
+> +        - power-domains
+>  
+>    - if:
+>        properties:
+> @@ -78,6 +81,8 @@ allOf:
+>              - const: sleep_clk
+>              - const: pcie_0_pipe_clk
+>              - const: pcie_1_pipe_clk
+> +      required:
+> +        - power-domains
 
-Good idea. This will let us verify that the L0 emulator reports the same 
-DecodeAssist information as the hardware.
+Why is this required per each "if" branch, but not in the top-level?
+There are only two compatibles here.
 
-> 
->> ...
->> +static void run_intercept_test(struct svm_test_data *svm,
->> +                              const struct instruction_intercept_test *test)
->> +{
->> +       struct vmcb *vmcb = svm->vmcb;
->> +       struct vmcb_control_area *control = &vmcb->control;
->> +       u64 expected_exit_info_1 = test->exit_info_1 & test->exit_info_1_mask;
->> +
->> +       control->intercept |= test->intercept;
->> +       control->intercept_cr |= test->intercept_cr;
->> +       control->intercept_dr |= test->intercept_dr;
->> +
->> +       control->exit_info_1 = ~0ULL;
-> 
-> Perhaps you should poison insn_len and insn_bytes here as well?
-
-Makes sense.
-
-
-Thanks,
-Tina
+Best regards,
+Krzysztof
 
