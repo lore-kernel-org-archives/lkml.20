@@ -1,72 +1,106 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9226E4A441D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2704A7C9B
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789637105; cv=none; b=ev0qml/5zoWfrcNFLlC3r6sQdnxUuj8kUYFkT6S9cLW1f2ZpmOgFNkNQ1q+1lThIUrK+dNu73Tp59RjCic84iTp0L8Rte8EHW3lDuYDWoPpHYxuyWQZjYS5+cShySbZ2ZHfxcosGu2TpmBLUsxHAW/D7bwNaJMNch/PdGjxFs7k=
+	t=1789637108; cv=none; b=K0chb1E8SVKc0u77MaDFv6IOyz0dGg3xlRNOPsN94FGZrahQqADsz4rfH84eMREM4hT8mbA2zxF6GDvHY6CF7NqcoEN0n7UGrO4OnPm3AmKTC0ZvMquNpbz6vGtQmJmIiZr0UiOCiFnklGyE2DCXlJHmAYDBLYUIOqu0Vwy1wsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789637105; c=relaxed/simple;
-	bh=7XFTrGhFbj+Lf+penYPUsX0jhtQQdDTfwi3uAhefeq4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=qmE8tJRgEIDvTawm27AJUMnR3Xc5S+crlnbHqSDFPnY9lTcOO7Gvk4EYqbsVM/I98WxzMBRp0oStDrX75TgQThwlFb7AyxMZA6Cm5QmrZWbZs5ExmnHuyrsDm+rNu0SMdK2A7pCPfzpn4YMKBLrCANXnQ72a38i0J2a8Ucl1ZvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28d7ffab1so838579b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:25:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789637102; x=1790241902;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OqImgZlJqOHDdc/+u4d9Pc2VClYEv5Qy+vzB6lz2LYs=;
-        b=1O4TKoVP2ml0nlRdkFkJ3zeOLVWFB7eaCcPUlL2B5Yz/nroYSItE6W3iW6kwzeOwH8
-         n8JPXfCx9u7a9fZ2F38Lw3OrMUnaDOSe23q5O8efjyMAmLICdV8WKX3fD502EHe7YOFf
-         8dQXLOsAQF0SSYc1UFz4ivwDh0a5JMhrwPp4OjA40fYJ+eKWo+cm/5Mf1DmYPiuibzfS
-         Rt8eUii0IzI6Wmg/Oss9rqJo8cJCXaQ06FKkwERwupuhCMj4t0FfN/4s3WaW2lZGnql6
-         4cJ0abZSmJIMR+RpZvGubYwtodzXi9uR80hFtrms7ywj0289mNy8Flne8FKY5NVZfT7y
-         nyMQ==
-X-Forwarded-Encrypted: i=1; AKwUvByOvj9M7NxGlIngw+b+RHksy9he6vHAVzvAgInGnEzMXTE9lg64hn3NAo0NL5dqMqek2kHI3rG3cgN1q+o=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4Gl9yjbdJrQgnamx53QoPzzeiMjHYBxn7YB4lzGiNZKe5ST91
-	4bt2iMFoV2sNtwygCBf9BcCqQxfczzKlFnwPGgK+MqFZ/x2E3HLRocizjiJVV2EJQujQL3DeEU7
-	c2D7JiKMaY40DxRAyAWPPV0mNhxeUAlxldAz/c1/5gZNOrt3zTsk70GdqFyo=
+	s=arc-20240116; t=1789637108; c=relaxed/simple;
+	bh=UjSFHajnMILZWxbmA5Zc/wuKB0wweyyY0bVfJnze0YU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 References; b=Yf0ez9GqD5qk2jeqgGh1WTphTQciXi2YNzL346t0hPgBGU8PcdG/l4coiP0Wis95USkxk1yrd1yiGMAlPvjl3YZT/UZbYiOOJ9GfZPUV+bGb4NK9VDMJk9zelQEl9l0AoqNSdTBNx0by1e/b1XCyGDuhTYq0WBw/bkEy1mn+1Rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=ebjGhFe7; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="ebjGhFe7"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260917092457euoutp02f3db705cfd59ff17474e9cc856f39fef~WEXU04Gu_3121831218euoutp02b
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:24:57 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260917092457euoutp02f3db705cfd59ff17474e9cc856f39fef~WEXU04Gu_3121831218euoutp02b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789637097;
+	bh=z7NFobjYfhJYbpAFEGtTimYkcpegeHRA1ijapWFH4zQ=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=ebjGhFe71IqCOmthg3AT9Nohdo1Cl6E5sMy+aM8IrpnotT+coSbLPbUo+Si2oABmx
+	 JXxKEKAQ6CuLwMbWio57iSo0abSBZxciWAhmBSZvCEizZc8Mc42AxgmrEuz23TaQKn
+	 Ds+NCkxkwNosXrnNI8/iCB5cWU2YpeTOVxcnCN+g=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260917092456eucas1p138229ed33c56428e9c0f2247245bad18~WEXUi_g3v2137821378eucas1p1z;
+	Thu, 17 Sep 2026 09:24:56 +0000 (GMT)
+Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260917092455eusmtip1c7e28d52ddeab9ff3b1103116c3a2409~WEXTV1Ev_1342913429eusmtip1Y;
+	Thu, 17 Sep 2026 09:24:55 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, Marek Szyprowski
+	<m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, "Aneesh
+ Kumar K . V" <aneesh.kumar@kernel.org>, Donggeun Yoo
+	<donggeunyoo.kernel@gmail.com>
+Subject: [GIT PULL] dma-mapping fixes for Linux 7.3
+Date: Thu, 17 Sep 2026 11:24:42 +0200
+Message-ID: <20260917092443.342396-1-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:13ce:b0:4b8:4703:db97 with SMTP id
- 5614622812f47-4cb6af29710mr1945795b6e.32.1789637102365; Thu, 17 Sep 2026
- 02:25:02 -0700 (PDT)
-Date: Thu, 17 Sep 2026 02:25:02 -0700
-In-Reply-To: <20260917090134.1003642-1-eadavis@sina.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aabb1ee.b398a7c9.1f86be.0016.GAE@google.com>
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-use-after-free Read in ecryptfs_destroy_mount_crypt_stat
-From: syzbot <syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com>
-To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260917092456eucas1p138229ed33c56428e9c0f2247245bad18
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260917092456eucas1p138229ed33c56428e9c0f2247245bad18
+X-EPHeader: CA
+X-CMS-RootMailID: 20260917092456eucas1p138229ed33c56428e9c0f2247245bad18
+References: <CGME20260917092456eucas1p138229ed33c56428e9c0f2247245bad18@eucas1p1.samsung.com>
 
-Hello,
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-Reported-by: syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com
-Tested-by: syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com
+are available in the Git repository at:
 
-Tested on:
+  https://git.kernel.org/pub/scm/linux/kernel/git/mszyprowski/linux.git tags/dma-mapping-7.3-2026-09-17
 
-commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=14607925580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=baa24e4b7e349e388442
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=102e53f9580000
+for you to fetch changes up to 55a8e1451869233db837a97e8f3cbf9983bc8678:
 
-Note: testing is done by a robot and is best-effort only.
+  x86/mm: Don't force unencrypted DMA for IOMMU-backed devices (2026-09-11 10:30:50 +0200)
+
+----------------------------------------------------------------
+dma-mapping fixes for Linux 7.3
+
+A few fixes for the DMA-mapping code:
+- resolved regression in accessing encrypted memory by IOMMU-backed
+devices (Aneesh Kumar K.V),
+- improved failure handling and removed rare bug in swiotlb/highmem
+(Donggeun Yoo).
+
+----------------------------------------------------------------
+Aneesh Kumar K.V (Arm) (1):
+      x86/mm: Don't force unencrypted DMA for IOMMU-backed devices
+
+Donggeun Yoo (3):
+      dma-coherent: report a failed reserved memory assignment
+      swiotlb: use the adjusted address for the highmem page lookup
+      dma-mapping: don't trace the DMA address when the allocation fails
+
+ arch/x86/mm/mem_encrypt.c  | 3 ++-
+ include/trace/events/dma.h | 2 +-
+ kernel/dma/coherent.c      | 3 +--
+ kernel/dma/swiotlb.c       | 4 ++--
+ 4 files changed, 6 insertions(+), 6 deletions(-)
+
+----------------------------------------------------------------
+
+Thanks!
+
+Best regards
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
