@@ -1,85 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB074AA593;
-	Thu, 17 Sep 2026 22:27:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46583F44CE;
+	Thu, 17 Sep 2026 22:27:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789684022; cv=none; b=bPCytG8SZ85jhKv6guhVUKMumd1PAzJ5j/1ww+9xCyJ/r30j3CFAU9WeKKamhcIPF+QOT6VuE5gXC0fMI/nZ2CpjKz/96kWRN/TzZAQaB8rYdcMp84//rfXvtx1dw+aJ9IRELZtC1Ge0cTkgz7Sikxz7WUNeqgFiRwJuQ+6u25Y=
+	t=1789684037; cv=none; b=Wc8JZ4TfqKJnr065XLHIsvyqf86V6BdEQjlBJTTYXhIq7FNN5J44t+twZYqNmRzljatfqx5lGmL0J34EuRlPCelj6aAchvEWPd7wy0SwMnqKqqZyRcnezPpQLpd+9tiIMYzMtLMGTWSaHcIWxVBHB4lhAbeZhp984kkRJnBVKDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789684022; c=relaxed/simple;
-	bh=dQTC9TkPJgydmhYfBsQYl9MojASDlaJ/9nZB2/9xisg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VgH4jjmDDRHgAS2iH+T2egCW818l2uYGfeEuDr/0uqxcv1xan+BkEGBHlOzFpGojs7puSgxZS7tDgVCOkZ+2GyvrvI8P2RTo8M8FVGHSRTMPhiO0GpSLOJUPG4b6lOEvXSWNGW+36eWc9vOglkEE+Owmee+3XrxgS3wG1pNEjJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cvdffjmh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789684037; c=relaxed/simple;
+	bh=IoV/TvoK1T+71j19D6cXfcqyH2n6c6UdSSdYdQi2UY8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M6kMPUotUt6NI7pQ7Lj2iFETY56v3Ts0z5fBZgiSmKoMGcOOlGYWiZtkgxZwwE+EGIyRhZBjkKmYD+CMgx6SEKzYzXxEXFRxf9rJm0rXBh6uFxglsY4Jm8KNjqbVDWEcIHJ7n0uttVo6HowuSgDdt44RXOGKl6khMRxE1sk4chc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1Ch8FmE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cvdffjmh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219661F00899;
-	Thu, 17 Sep 2026 22:26:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1Ch8FmE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36F21F000FF;
+	Thu, 17 Sep 2026 22:27:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789684019;
-	bh=gEiIJyyKtrv62zUu183o4SDBSVBXFGY7UjsvYnEA6UQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CvdffjmhyoU0j23RhYsHJglOXeJg2wvzgtKGra6w4Lk9V5/5zYJM9psFqT76lscfz
-	 hqsqwpDPkQsssA0lTPbCWEbbM1+ejCfQMrr9CbpgD5WjQi/ghXRZguj/+IiXJZkpsz
-	 98nLiNfqZSYQnHTIY9Bvv2GHTpVzVdy+tLGVI2+3zBOdeUA2x5L7K0Kx8M+XHqzCL4
-	 eozQAh9DSbk6DNPllS7qzNvMxcgEGD9SX/ljZGcHImDdahK9obVfZF03VDvQOrMc+t
-	 7wW6xuzl6KRBJFXTBfu8UmkfrNElz7KpVFA3A6kiZiejuuEbyZM2zTV8jOa2UVIPYG
-	 G7gbcvze+324g==
-Message-ID: <ce5e9669-cab0-475a-87fc-cb555a87505e@kernel.org>
-Date: Thu, 17 Sep 2026 23:26:56 +0100
+	s=k20260515; t=1789684036;
+	bh=yqZXwnT4sTbfdvOMcGPrEviywWtc9S3DZ3O1HarHNx0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T1Ch8FmEiDOu1G4fnoJuLj1rEhyz4E/ziyDrsJZ9x4LQWGIVRxnAKXftZ6pOkq0cV
+	 k/B8IdIfBNledOY1f9g38IVV8BrpBoSMSIu+lh+YHvym5y1Z1NQRJNtF6S3Q7bMBRF
+	 dMsU5FV1q4t4A4hIwC7E5PLIF2cNGkC3wolLzWWODHyQxwtkpaLmKs7/zJJlIncvx8
+	 NZBsWZICRa0Iq9VByDkAUgeriSBjwz6lhGxW4iCWDZik9l+a1vkX5lWbfhMvYRL82i
+	 nbN0PhtXBdsgAigUJoqR4xGqxnL7FxhSzWTFywmuGVz5Pll1HxEfm1SYpAtypTB4wm
+	 Nes7zqLQvzOLg==
+Date: Thu, 17 Sep 2026 17:27:14 -0500
+From: Rob Herring <robh@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Chia-Wei Wang <chiawei_wang@aspeedtech.com>,
+	Oskar Senft <osk@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Jani Nikula <jani.nikula@intel.com>,
+	Vitaly Lubart <lubvital@gmail.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexander Usyskin <alexander.usyskin@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Breno Leitao <leitao@debian.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	James Morse <james.morse@arm.com>, Paolo Abeni <pabeni@redhat.com>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	Dave Penkler <dpenkler@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>, Dan Williams <djbw@kernel.org>,
+	Mukesh Rathor <mrathor@linux.microsoft.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Alexandra Winter <wintera@linux.ibm.com>,
+	Julian Braha <julianbraha@gmail.com>,
+	Karthikeyan KS <karthiproffesional@gmail.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org
+Subject: Re: [PATCH v2 3/4] dt-bindings: uart-routing: Add binding for
+ StarFive JHB100 UART routing
+Message-ID: <20260917222714.GB4081995-robh@kernel.org>
+References: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
+ <20260905102901.126035-4-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] slimbus: qcom-ngd-ctrl: match downstream DEF_ACT_CHAN
- encoding
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- casey@samaritansolutions.net, Srinivas Kandagatla <srini@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260807-slimbus-def-act-chan-v1-1-fd542efb3d30@samaritansolutions.net>
- <84be0a35-b088-4ab2-9111-80809d6d2d53@oss.qualcomm.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <84be0a35-b088-4ab2-9111-80809d6d2d53@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905102901.126035-4-changhuang.liang@starfivetech.com>
 
+On Sat, Sep 05, 2026 at 03:29:00AM -0700, Changhuang Liang wrote:
+> Add device tree binding for the StarFive JHB100 UART routing controller.
+> This controller allows dynamic routing of inputs between built-in UARTs
+> and physical serial I/O ports, enabling use cases such as Host <-> BMC
+> communication via UARTs.
 
+Also, drop 'binding for ' in the subject. The subject already said 
+binding once.
 
-On 8/18/26 1:50 PM, Konrad Dybcio wrote:
-> On 8/8/26 2:35 AM, Casey Tunturi via B4 Relay wrote:
->> From: Casey Tunturi <casey@samaritansolutions.net>
->>
->> During my investigations, and some rather incessant cross-checking of
->> blueline's SLIMbus path, I found that Qualcomm's downstream driver
->> packs the first DEF_ACT_CHAN byte differently from mainline. Bits [7:5]
->> hold the data format; bits [4:0] hold the five-bit client number.
->>
->> I changed ours to match. It made no immediate difference on my own
->> hardware: blueline's current values produce 0x0f either way. The
->> downstream layout is correct and should help devices that use upper
->> logical-address bits or a non-zero data format.
->>
->> Fixes: 52490169cddf ("slimbus: ngd: add stream support")
->> Cc: stable@vger.kernel.org
-
-there is no regression
-
-We already set this in(stream.c) define_channel_content for each port
-after enabling the channel.
-
---srini
->> Signed-off-by: Casey Tunturi <casey@samaritansolutions.net>
->> ---
-> 
-> The semantics match, I don't know what side effects that may uncover>
-> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Konrad
-
+Rob
