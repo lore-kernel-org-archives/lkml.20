@@ -1,238 +1,200 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3B34BEE37
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:04:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C0B3CDBD3;
+	Thu, 17 Sep 2026 20:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789675484; cv=none; b=Ue6lH1sxSimZE2/GISZqXmiYAv8o21dpcSDCEcDdn9K8GDQx1Z4TKgs8B0yzPJkul1UTzGo6HVcEEQZ6sOwSSpuEQ6C3CimIdBVcTFF38jSFyLWvjqdb0kascfVpq5hPiAlDRWDWIyMloFQ1G1k0CtotLKFRzhqEPSMadH0jvh4=
+	t=1789675542; cv=none; b=cXres6E9HDzHv2QMRMCyYV2R2mbS4KD8djqsvPo7lMW8M4faJmemCD6hRQUaR0J7TGLBvhNRNvKVRusAJnfhmbrTDgbhVHYBUT/yNrOQiCmmbrp6OSivScRRbEqwsPsnm+al1Oh6Gh6Y4ZKt8+WAI8QRS+5tlmpSO+D2jKQZVs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789675484; c=relaxed/simple;
-	bh=LFbrsGUqW8yrpFURqHYXM1g6SNb29x00BPNmfjfVMzA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=CGKRHO4AyR67VEHBQq6gDxm7Eam2K+wIaHaLg2khPqk3AAqpRTXu9dj5Q3OHSzhN1YL+G1nTRe0ORWsfm1meZXRNdQh6KDPBKjSHgcPjI6TySyyMCKsv8d/ezbzIJGZzvcMAYDRz72jFMzl2GIGPpVew49y6zamTnbJllu75/j0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=fx2jmNqS; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789675542; c=relaxed/simple;
+	bh=GNiDzXO14cDFLHSrneHYdCGSV6sSR6GgVqXHOxgawbI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UUE9PPhCAxQ4NL6Y1bcfzlbTluE5dYLeNbDJzresFhqt1OImpgeZ1PLfctyQMX/Ht9UpNc4mdMK7MxDvVtdBeKGXS44sD/cEIv+VjefBjTW2YghdQVkdmzZJX8Xztrt+/mRuXof87AdB5vtQaQaURPbL/NWR5UnkIMZuPAyqz5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HE1FZOpl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="fx2jmNqS"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dc83so993143f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:04:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789675480; x=1790280280; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LFbrsGUqW8yrpFURqHYXM1g6SNb29x00BPNmfjfVMzA=;
-        b=fx2jmNqSi8OQ//jgkB/LIc6yoJIQbbeczZcSSPRZspiZtnXEBsYz9E7yeRRFL8j89z
-         tmKLSor0bzRreZq4RGDj5J+XzfUzEij7bvYJ28kYDagkDno6T9e6Moi6GcxVn3FDK83A
-         7gqyu5shSOCTr7pWkeuFCgWDT/inqlqKpEFp186LcxXrF/3lsk3GblWc9DwCcr8Dvqjx
-         mPdW57KEBob/prgsrxGPnW0lnDMFLo/Yv3IGPGlK1EKpufbvFD7ick2a2NoRTr+XQpOw
-         SCaIp7SE3+MpgmBQ/11RHTVfyekmpS6joqXrFsKrjyKAr53Qk+dnMgVCxfcTuse40bTH
-         kCiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789675480; x=1790280280;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LFbrsGUqW8yrpFURqHYXM1g6SNb29x00BPNmfjfVMzA=;
-        b=Fj8gQgzhCfzKQdADEPL5ECBCWKXcZwaNry+lP/8hqei9kM5FIK0BsRQg/rf12KYheq
-         kxPLJxecIyjoENON0Z+dmGhAbYsMLYgV6cCi3Mxw31cRXUJOEVnWDRAGduHfVg+iGyGG
-         2e9/57u9qdLq9rZ2pmK+9XNj+SIXylkjiaGv9sv095tVJLRaKZO6k0AeZlIXhV09k+tn
-         lHcp8ANDUoqj9WbXQvEbwP6by/zxLMd9BRpgaxxO5KpG6vjG//tvjYVG9vAXBAlKQ6fG
-         f9cgfpMkGh89S7T2VYpbSy/H8AzInEbdFQ5xDUVYpiS6H6KwfOpNOiN/NnNNxeuwsrpY
-         XDzg==
-X-Forwarded-Encrypted: i=1; AKwUvBwK/ptqS6uiwUPlXrENGbBfeNPCd0sXwLvx7XDESoS8zVkSW4vRZe9DGkEIf+Hj6GlVyM0VctSrDtefTag=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJhg0PZzV8fh6SlbnNZRYswUReSyx8Di0EaZI2pG2f/jBJlIW7
-	zGsFNY6HV/Tg/t3U5S7br44CGgkZ1tnSCEcPukea8L3tYnAQ83Wur3ZWIR21Ud/crNU=
-X-Gm-Gg: AYBFou3xx9I4O1QncpcSNSB2Dp5JgbCgf3rTeavXx/iulDh9twg/SmsWb5FZLN80wyJ
-	5i+EJ6bVZqsGqTyulhePatcuz0t0o7fuMVt+quYIxWlRyBSjpbLqT8E1kCYvwNFV61lxTnEPpsA
-	KhkjAjJkWw4sHPYM6jHweX6BwrqDF60gfMvRisvBhUqaXmx6yTkkTV3EK+SMuCaU35+W9Nn04eI
-	PcAQZ2WBWSrkhqXArhphWdyos+E5ML3/U40gjUcXzhzZkWcYz50aeCTkJAHTG9t3IpF1x19GgCW
-	eDCeRBT9t6ZZJmq4FLEYGMIVa4Q9yfxoqF1rD9BUdjlEX9WtcgPpBOSuh1roydZuqkIEhuTW85H
-	w3oItKFRPBpxEPqgI9/a8SEp/CocVob24eGkViyWK887RF23ofcOK+5+PKxQ0vgCQEyDAs+YTub
-	AdBQKeRsVChqwZJXkwNJnrY4wzaOEzFjNvM240FGRtOqtjUequs52ed5W5CDdfoH+7
-X-Received: by 2002:a05:6000:41f0:b0:487:7fd:730 with SMTP id ffacd0b85a97d-4871e254ef7mr23744f8f.13.1789675480228;
-        Thu, 17 Sep 2026 13:04:40 -0700 (PDT)
-Received: from [10.1.0.43] ([62.214.88.102])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bef7687sm19968531f8f.1.2026.09.17.13.04.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 13:04:39 -0700 (PDT)
-Message-ID: <ceac20d1-7222-403f-a9ea-1bc2194684c7@suse.com>
-Date: Thu, 17 Sep 2026 22:04:39 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HE1FZOpl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E31F81F000FF;
+	Thu, 17 Sep 2026 20:05:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789675540;
+	bh=Er2BY6U9h42ItjW5DZ/9PeWsE2jitUgEHLUUtX6RBoo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=HE1FZOpl3W0JTi+sZ4Ud/5CT6+eSwXPOASVyUjGsEytc4Omd9uuk3icHlwVlQK6Q9
+	 VlhlXaYTy193sUVXEx281R6ETU6fAsi5kgG7nkKOAJq4nEx3u3oglRkpxv3YpjArvN
+	 VMSA0LKFT31wcEZd5mIbI7JaodMCq0ccN8dCUqa7AvY8cXYsZKayoEeDhWNj2bZL1j
+	 mw39gMDzNkno//4phKaTuAy8KmP6Idhffao10UqWmTxx/UKRZbAZefgkRSmhRmbgyi
+	 bKjVY9ffmGdoq32ANPw4cBiQH+y933tykxmobDha5s7t/eEmXB6yQSEpnpRZphTOp2
+	 wunKqpszhi0SQ==
+Subject: Re: [PATCH] net: dsa: mv88e6xxx: fix netdev reference leak on remove
+From: netdev-bot+sashiko@kernel.org
+To: lgs201920130244@gmail.com
+Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, f.fainelli@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 20:05:39 +0000
+Message-ID: <178967553941.22033.735612463412868083@kernel.org>
+In-Reply-To: <20260916020340.2580417-1-lgs201920130244@gmail.com>
+References: <20260916020340.2580417-1-lgs201920130244@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: CVE-2026-90310: xen/xenbus: check otherend_id only after it has
- been initialized
-To: cve@kernel.org, linux-kernel@vger.kernel.org
-References: <2026091756-CVE-2026-90310-3b21@gregkh>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <2026091756-CVE-2026-90310-3b21@gregkh>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------u0s0u7s60hizkOeJTyVW7zHZ"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------u0s0u7s60hizkOeJTyVW7zHZ
-Content-Type: multipart/mixed; boundary="------------HSjMX0rwW7XmHuO69cngoFbq";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: cve@kernel.org, linux-kernel@vger.kernel.org
-Message-ID: <ceac20d1-7222-403f-a9ea-1bc2194684c7@suse.com>
-Subject: Re: CVE-2026-90310: xen/xenbus: check otherend_id only after it has
- been initialized
-References: <2026091756-CVE-2026-90310-3b21@gregkh>
-In-Reply-To: <2026091756-CVE-2026-90310-3b21@gregkh>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
---------------HSjMX0rwW7XmHuO69cngoFbq
-Content-Type: multipart/mixed; boundary="------------si5nIhDq4P1fjYRRgLoBsnjE"
+Critical: 0 · High: 1 · Medium: 2 · Low: 0
 
---------------si5nIhDq4P1fjYRRgLoBsnjE
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+- [High] mv88e6xxx_remove() (drivers/net/dsa/mv88e6xxx/chip.c:7499-7500)
+  now calls dev_put(pdata->netdev), but the mv88e6xxx driver never…
+- [Medium] The changelog states as established fact that
+  'mv88e6xxx_probe() uses the referenced network device provided through…
+- [Medium] The commit message asserts 'The probe failure path correctly
+  calls dev_put() for pdata->netdev', but one probe failure exit still…
 
-T24gMTcuMDkuMjYgMTg6MTIsIEdyZWcgS3JvYWgtSGFydG1hbiB3cm90ZToNCj4gRnJvbTog
-R3JlZyBLcm9haC1IYXJ0bWFuIDxncmVna2hAa2VybmVsLm9yZz4NCj4gDQo+IERlc2NyaXB0
-aW9uDQo+ID09PT09PT09PT09DQo+IA0KPiBJbiB0aGUgTGludXgga2VybmVsLCB0aGUgZm9s
-bG93aW5nIHZ1bG5lcmFiaWxpdHkgaGFzIGJlZW4gcmVzb2x2ZWQ6DQo+IA0KPiB4ZW4veGVu
-YnVzOiBjaGVjayBvdGhlcmVuZF9pZCBvbmx5IGFmdGVyIGl0IGhhcyBiZWVuIGluaXRpYWxp
-emVkDQo+IA0KPiBXaGVuIGRldmljZSBqdXN0IGdvdCBpbml0aWFsaXplZCAoZm9yIGV4YW1w
-bGUgb24gbW9kdWxlIGxvYWQpLCB0aGUNCj4gb3RoZXJlbmRfaWQgZmllbGQgaXMgaW5pdGlh
-bGl6ZWQgb25seSBhZnRlcg0KPiB4ZW5idXNfcmVhZF9vdGhlcmVuZF9kZXRhaWxzKCkgZ2V0
-cyBjYWxsZWQuIElmIHhlbnN0b3JlIHdhdGNoIHRyaWdnZXJzDQo+IHhlbmJ1c19kZXZfY2hh
-bmdlZCgpIGJlZm9yZSB0aGF0LCBpdCBtaWdodCBjb25zaWRlciBzdGlsbCB6ZXJvZWQNCj4g
-b3RoZXJlbmRfaWQgZmllbGQgKG5vdCBtYXRjaGluZyBhY3R1YWwgeGVuc3RvcmUgY29udGVu
-dCkgYXMgYSBzaWduIG9mDQo+IGRldmljZSBzdGF0ZSByZXNldC4gSXQgY2FuIGhhcHBlbiBi
-ZWNhdXNlIHhlbnN0b3JlIHdhdGNoIGFyZSBoYW5kbGVkIGluDQo+IGFub3RoZXIgdGhyZWFk
-ICh4ZW53YXRjaCksIHdoaWNoIGNhbiBydW4gaW4gcGFyYWxsZWwgdG8gdGhlIGluaXRpYWwN
-Cj4gZGV2aWNlIHByb2JlIHJ1bm5pbmcgYXQgbW9kdWxlIGxvYWQuIEluIHRoYXQgY2FzZSwg
-aXQgd291bGQgY2FsbA0KPiBkZXZpY2VfdW5yZWdpc3RlcigpLCB3aGljaCB3b3VsZCBkZWFk
-bG9jayBhZ2FpbnN0IGRldmljZSBwcm9iZSBmcm9tDQo+IG1vZHVsZSBpbml0Lg0KPiANCj4g
-Rml4IHRoaXMgYnkgY29uc2lkZXJpbmcgZGV2LT5vdGhlcmVuZF9pZCBjaGFuZ2Ugb25seSBh
-ZnRlciBkZXYtPm90aGVyZW5kDQo+IGlzIHNldCAod2hpY2ggaGFwcGVuIGFmdGVyIG90aGVy
-ZW5kX2lkIGlzIGluaXRpYWxpemVkKS4NCj4gDQo+IFRoZSBMaW51eCBrZXJuZWwgQ1ZFIHRl
-YW0gaGFzIGFzc2lnbmVkIENWRS0yMDI2LTkwMzEwIHRvIHRoaXMgaXNzdWUuDQoNCkknZCBs
-aWtlIHRvIGRpc3B1dGUgdGhpcyBDVkUuDQoNClRoaXMgaXMgbm90aGluZyBhbiB1bnByaXZp
-bGVnZWQgdXNlciBoYXMgYW55IGluZmx1ZW5jZSBvbi4gVGhlIHJhY2UgY2FuDQpoYXBwZW4g
-b25seSBpbiBYZW4gZ3Vlc3RzIGFmdGVyIGEgbmV3IFBWLWRldmljZSBoYXMgYmVlbiBhZGRl
-ZCB0byBpdCBieSB0aGUNCmhvc3QgYWRtaW5pc3RyYXRvci4NCg0KVGhpcyBpcyBqdXN0IGEg
-cmVndWxhciBidWcgd2l0aCBubyBzZWN1cml0eSBhc3BlY3QsIHNvIHBsZWFzZSByZXZva2Ug
-dGhpcyBDVkUuDQoNCg0KSnVlcmdlbg0K
---------------si5nIhDq4P1fjYRRgLoBsnjE
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+--
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+net: dsa: mv88e6xxx: fix netdev reference leak on remove
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+This adds a dev_put(pdata->netdev) call at the end of mv88e6xxx_remove()
+to mirror the dev_put() that already exists on the probe error path, on
+the grounds that a successful probe leaves the platform-data supplied
+net_device reference unbalanced.  The change is tagged Fixes: and
+Cc: stable.
 
---------------si5nIhDq4P1fjYRRgLoBsnjE--
+> diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
+> index 7f68a0c558026..4869fcba34cb4 100644
+> --- a/drivers/net/dsa/mv88e6xxx/chip.c
+> +++ b/drivers/net/dsa/mv88e6xxx/chip.c
 
---------------HSjMX0rwW7XmHuO69cngoFbq--
+>     mv88e6xxx_probe() uses the referenced network device provided through
+>     platform data, but the remove path does not drop the corresponding
+>     reference.
+>
+>     The probe failure path correctly calls dev_put() for pdata->netdev.
 
---------------u0s0u7s60hizkOeJTyVW7zHZ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+[Severity: Medium]
+Can the phrase "uses the referenced network device" be backed up by code in
+the driver?  Searching drivers/net/dsa/mv88e6xxx/ for an acquire turns up
+nothing: there is no dev_hold(), no netdev_hold() and no dev_get_by_name()
+anywhere in the driver.  The only two reference operations are the existing
+dev_put() at the probe out: label and the one this patch adds.
 
------BEGIN PGP SIGNATURE-----
+What mv88e6xxx_probe() actually does with pdata->netdev is validate it and
+publish its embedded struct device:
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmqsR9cFAwAAAAAACgkQsN6d1ii/Ey8G
-Nwf/dQR5GOlagD1UWG5nqlG5q/VqFiRNebbxODwhW0ZZXTwHBSC9TWYinQsjB97nJon8Uyrvv6+n
-R87sdtg9Yy+WpyZ+xcHvb7Sc3xr5+3/Zchrdmroi+sLPn7Y3hNBYxUtUSMgOXSme7QuOSKBVhhLV
-yIB4jGuGgS/DoeLv+qwURU7EyeKm8J/DwvSAzHAvXGIWFGQM8e00Rge83U7+s3WI+6iNpiZE/vGb
-8NP++Bb6NzN9wVKO0rdulJLvnT5ycXgFPP/FUf6nwLkWXwNEi5xPo74qaZyxBsMXaJ5OnC8UzRrB
-tLEGm/h4zNHqQ5uO6VwKHcJkLHe8P5eIS1Me/t2kBQ==
-=bhKa
------END PGP SIGNATURE-----
+	if (pdata) {
+		compat_info = pdata_device_get_match_data(dev);
 
---------------u0s0u7s60hizkOeJTyVW7zHZ--
+		if (!pdata->netdev)
+			return -EINVAL;
+
+		for (port = 0; port < DSA_MAX_PORTS; port++) {
+			...
+			pdata->cd.netdev[port] = &pdata->netdev->dev;
+			break;
+		}
+	}
+
+The DSA core does its own balanced accounting for the conduit in
+dsa_port_parse():
+
+	conduit = to_net_dev(d);
+	netdev_hold(conduit, &dp->conduit_tracker, GFP_KERNEL);
+	put_device(d);
+
+and releases it from dsa_switch_release_ports() (reached via
+dsa_unregister_switch()) and dsa_switch_shutdown().
+
+Also, include/linux/platform_data/mv88e6xxx.h documents only that cd must
+come first; it says nothing about who holds or drops the netdev reference.
+Could the changelog state which side of the interface takes the reference,
+and could that rule be written down in the header if the patch is respun?
+
+One more behavioural note for backporters: before this patch the reference
+was consumed only on probe failure and retained on success; afterwards it is
+also consumed on remove.  A provider written against the old behaviour
+(hold before mdio_device_register(), put after removal) would now double-put.
+
+> @@ -7472,6 +7472,7 @@ static int mv88e6xxx_probe(struct mdio_device *mdiodev)
+>  
+>  static void mv88e6xxx_remove(struct mdio_device *mdiodev)
+>  {
+> +	struct dsa_mv88e6xxx_pdata *pdata = mdiodev->dev.platform_data;
+>  	struct dsa_switch *ds = dev_get_drvdata(&mdiodev->dev);
+>  	struct mv88e6xxx_chip *chip;
+>  
+> @@ -7494,6 +7495,9 @@ static void mv88e6xxx_remove(struct mdio_device *mdiodev)
+>  		mv88e6xxx_irq_poll_free(chip);
+>  
+>  	mv88e6xxx_phy_destroy(chip);
+> +
+> +	if (pdata)
+> +		dev_put(pdata->netdev);
+>  }
+
+[Severity: High]
+Can this underflow the refcount of pdata->netdev?  Since the driver never
+acquires a reference on that net_device, this put has no matching get.
+
+Platform data outlives a single binding, so the put here is not idempotent
+across the device lifetime:
+
+  bind    -> mv88e6xxx_probe()  takes no reference
+  unbind  -> mv88e6xxx_remove() dev_put(pdata->netdev)
+  bind    -> mv88e6xxx_probe()  takes no reference
+  unbind  -> mv88e6xxx_remove() dev_put(pdata->netdev)
+
+The same holds for a deferred or failed probe followed by a successful one:
+the out: label in mv88e6xxx_probe() already issues one put, and remove now
+issues another, for at most one donated reference.
+
+	out:
+		if (pdata)
+			dev_put(pdata->netdev);
+
+		return err;
+
+Once the count drops below what was taken, the conduit net_device can be
+freed while pdata->cd.netdev[] still points at its embedded struct device,
+which the next probe dereferences through dev_find_class()/get_device()/
+to_net_dev() in dsa_port_parse().
+
+Would it be better to make the acquire side explicit, i.e. add a
+dev_hold()/netdev_hold() in mv88e6xxx_probe() paired with puts on both the
+error and remove paths, or alternatively drop the unmatched dev_put() in the
+probe error path?  As written the patch extends the unmatched-put pattern
+rather than balancing it.
+
+[Severity: Medium]
+Taking the ownership model in this patch at face value, is one probe failure
+exit still missing the put?  After the pdata block has validated
+pdata->netdev and stored &pdata->netdev->dev into pdata->cd.netdev[port],
+the compatible check in mv88e6xxx_probe() returns directly:
+
+	if (!compat_info)
+		return -EINVAL;
+
+pdata_device_get_match_data() returns NULL whenever pdata->compatible
+matches no entry of the driver's of_match_table:
+
+	for (; matches->name[0] || matches->type[0] || matches->compatible[0];
+	     matches++) {
+		if (!strcmp(pdata->compatible, matches->compatible))
+			return matches->data;
+	}
+	return NULL;
+
+so that path skips the out: label and its dev_put(pdata->netdev), which
+contradicts the changelog statement that "The probe failure path correctly
+calls dev_put() for pdata->netdev".  Would changing it to
+"err = -EINVAL; goto out;" be appropriate here?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916020340.2580417-1-lgs201920130244%40gmail.com
