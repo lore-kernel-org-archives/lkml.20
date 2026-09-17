@@ -1,99 +1,113 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8CD243B42C0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:18:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB853F4128
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:21:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789625923; cv=none; b=kNu3JPROsUZV44GJ7xuLs/QAYgiE4udKCpXzohz8JlFjCxggagBGcw/0Crpu4CUOsuZslXPClQLpE9dn33ljMhBXWWfXkWxZ/4Ec5MD0AzwSg0/iNmMn14Xr9wSU+292sbp0JLu6gjrzIwXZ9KOvcnfai2KbvS/Ggy3OFS5D7bI=
+	t=1789626099; cv=none; b=ELBlMZuR4/KqekffQxtoOq3r6zXwjzRvuDqzNEemxov8d4JDFIFpTZSPNqS4CtaXKDvsEWGIXRuDXEW9WhxkX+N5kmS7k26CvyAb3WeASlyGHK0wdfk9kN6CJuJItYNS/GE2Xx6XxjobJAabJriYOpFppIW73wmJqMTh5jZn8TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789625923; c=relaxed/simple;
-	bh=5r38bdBPwTF0dKcq39wGt84GgYIEr0WGkYnRDt6n+mU=;
+	s=arc-20240116; t=1789626099; c=relaxed/simple;
+	bh=DyGM4eKCpX0oFdU/kC7JOPbgVB4Nf2f+nkUWqwsDaEY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PxS9kxdecHz45eXL2ykHCQhra7KcV/uV+B2/VcbsxbjIcd5bbuT4zWx/Xvgh5EBGzrL54WzAVgjbhD5d7Oo9wFNLjiGSHggl0aT54seelx2lrOJNlAysWVIuIz/CWchjf3Ndpnme7jsF1GoFTDQOh9HAY4rinWsU2wjbo6/mutQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kJtvYv00; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=a9jIvH5gqt9k5EP32lia10CfIj2g9LHyusrXGqCqsyqxydkgahMD3To0uInuTpZUiKbkHBfScQMcEm0Kit/q5Gfxk84pglWl50vhLd42BDBbfcvobf1qLfsb11VNGWkLezE6lbHgOipbxo63q6FESlw8nIT36+QcfOttF/+yk+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=RIzMPkB1; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kJtvYv00"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EA7F41476;
-	Wed, 16 Sep 2026 23:18:35 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C32C13F882;
-	Wed, 16 Sep 2026 23:18:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789625919; bh=5r38bdBPwTF0dKcq39wGt84GgYIEr0WGkYnRDt6n+mU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kJtvYv00iOOtQNWrUiPJgkunbZExZ9AoaM+TawX53wEJeFEfHYJnbH9aeFZT81Y91
-	 MEMhDAFakHNbfdim7oqxayZbv5pf5JaGb0mBpGx/dtTNOhjzCgL1ulUdTWkr/Caupb
-	 +d4+lEau/tWsjjqSA5GLJiGG/qd1lBQYl0PSilro=
-Date: Thu, 17 Sep 2026 11:48:36 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH V2 06/14] arm64/mm: Enable fixmap with 5 level page table
-Message-ID: <pi6o4hjdaz2tndzlx64qvzbgxhuyh3kyewpfetiqnnetbtpzpa@prrxusgc3lpm>
-References: <20260907035030.2839978-1-anshuman.khandual@arm.com>
- <20260907035030.2839978-7-anshuman.khandual@arm.com>
- <be1c0a62-4589-4fe4-a500-d3fe16a6e610@kernel.org>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="RIzMPkB1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=lpp8
+	RfFAA5K/P8yPpq2eAT+Rs9fG81TGsq4OC9q6tg8=; b=RIzMPkB1M/i+XwLLe9B5
+	X1B12pGSO1FLk3NWlRHP6Ush+JtBK+lqcUvYND9j7in/VlS5CPFtpgfqewvbASt/
+	1ArRZ01qf+mnB9nXf+L0VFj0+9yF4ISy8CZDr+G5goRzTLRFF+bgEXZEJBM1g+E1
+	/k7pF/ZWYz/t5SyZfQww0y5fVtwzSZI7D/BTjDhLZCh47gLgrSOWUHEjPtGWY/t/
+	z4JEwe5nQe488UIprwCEKo2ixlA00lAnt/JQNjYb10qXEdrawKJ1Du60RcwCnr0o
+	EIWneFjGsWqcANpnwPiMecNfh5p8Ucpricix+b6aS3XXGjJBzwaEkfMFKX5xkOoK
+	hw==
+Received: (qmail 1872352 invoked from network); 17 Sep 2026 08:21:32 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Sep 2026 08:21:32 +0200
+X-UD-Smtp-Session: l3s3148p1@dkyAy6dbBOQujnsL
+Date: Thu, 17 Sep 2026 08:21:28 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Wentao Liang <vulab@iscas.ac.cn>, Frank.Li@kernel.org,
+	dmaengine@vger.kernel.org, geert+renesas@glider.be,
+	laurent.pinchart+renesas@ideasonboard.com,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	magnus.damm@gmail.com, vkoul@kernel.org, lkml@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 4/4] dmaengine: rcar-dmac: Fix runtime PM leak in error
+ path of channel alloc
+Message-ID: <aquG5D6mspgqjRr7@ninjato>
+References: <20260915035602.1724403-1-vulab@iscas.ac.cn>
+ <aqrtPpSO-FOnUZZx@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MNiQ2dFXZM6vZHzB"
+Content-Disposition: inline
+In-Reply-To: <aqrtPpSO-FOnUZZx@SMW015318>
+
+--MNiQ2dFXZM6vZHzB
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <be1c0a62-4589-4fe4-a500-d3fe16a6e610@kernel.org>
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 04:30:05PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/7/26 05:50, Anshuman Khandual wrote:
-> > FEAT_D128 halves PTRS_PER_PXX thus shrinking the VA range coverage
-> > for each page table level. Hence in order to preserve all existing
-> > VA range configurations, some geometry now need to become 5-level.
-> > 
-> 
-> Hmm, wasn't this 5-levels before, but other code allocated+initialized the p4d
-> table for us?
+On Wed, Sep 16, 2026 at 02:25:50PM -0500, Frank Li wrote:
+> On Tue, Sep 15, 2026 at 03:56:02AM +0000, Wentao Liang wrote:
+> > [You don't often get email from vulab@iscas.ac.cn. Learn why this is im=
+portant at https://aka.ms/LearnAboutSenderIdentification ]
+> >
+> > rcar_dmac_alloc_chan_resources() ends with
+> > "return pm_runtime_get_sync(chan->device->dev);".  Even when
+> > pm_runtime_get_sync() fails, it leaves the device's runtime PM
+> > usage count incremented, and the negative return value propagates
+> > straight to the dmaengine core, which aborts the channel
+> > allocation without ever calling device_free_chan_resources().  The
+> > balanced pm_runtime_put() only happens later in
+> > rcar_dmac_free_chan_resources(), so the reference is leaked
+> > whenever resuming the device fails.
+> >
+> > Use pm_runtime_resume_and_get() instead, which drops the reference
+> > again on failure and returns 0 on success.
+> >
+> > Fixes: 87244fe5abdf ("dmaengine: rcar-dmac: Add Renesas R-Car Gen2 DMA =
+Controller (DMAC) driver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> > ---
+>=20
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-But fixmap was never 5 level earlier.
+I'll take the liberty to add this tag to the old, 100% identical patch I
+am going to resend soon (together with other patches for rcar-dmac which
+fell through cracks)
 
-> 
-> I mean, I see how we are filling in another level, but I don't see how we would
-> reconfigure something to use 5 page table levels?
 
-IIUC existing configurations which never required 5 levels would not need
-this reconfiguration even now.
+--MNiQ2dFXZM6vZHzB
+Content-Type: application/pgp-signature; name=signature.asc
 
-> 
-> > Since fixmap is used to build and manipulate page tables early on
-> > during boot the mapping must also gain that additional level which
-> > was not required earlier.
-> 
-> I am no expert ... but I am confused :)
-> 
-> We do have a loop only in early_fixmap_init_pmd(). So we cannot possibly span
-> more than a single ... PTE table?
-> 
-> > 
-> > Enable fixmap with 5 level page table when required. This creates table
-> > entries at the PGD level. Add a fallback stub for pgd_page_paddr() when
-> > (PGTBALE_LEVELS <= 4) which helps in intercepting any unintended usage.
-> 
-> 
-> Again, I am very confused. Is it really just "As the page table layout changes,
-> we might no longer have a p4d table pre-populated for the range our fixmap falls
-> into. So if there is no p4d table yet, populate a static one just like we do for
-> the other levels."
+-----BEGIN PGP SIGNATURE-----
 
-Right.
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqrhuQACgkQFA3kzBSg
+KbbuaBAAqLPNcCdcV6luT7lunE6knLUniuRdjoJ3Ch8ONIhZ5ZP2Y21+HzfYuvyt
+BJqBsIlVoNXeFTIlS/GRcp+y1HrbH5ewb1n0nM3WWBaeng+aCMRrjMVnZjdAr1nr
+STGbpcT1wmIpij7sHon6FvUq0e6wXy0HXttF6Xr/nuX6RpqSSkELPkd4CzhJF6+8
+z4rAJjfP9NOqxt0p3nT/c9fGDFp7l5SqBRO2Nh1XZd0CYjNJA5oONugbQHt9vsSA
+0lueK4QdL86XKi7mKWQzIBX44xjwA83oG19swqQ5IIcb6UhIxxggbBXaCtfMJLoP
+wrKHPA64nCx+zP8JBn5stxrSk822fMTYNMb+f/rLoPiwIAnTnDLjvtQ/PLjm1tn+
+N0gjq4SIp/sRav4BI9hKvaETTysD0TfRgkR5WBiPGs3ir6iV+lORoLulkagoIrIJ
+K8FSFFCkSQWdCDF0IqlMknEBu+OJs3J/47rmP3tbSa3W8raOV7jW6kkmqeuBIXmf
+CtWZ7y1/x15Aa07ASI+U8tq+H+QG5YIsfcRUpV9Xu2jJbP9A7WFJYKIlaYSHYVgZ
+sc3OXYnrzCvo/A/5a55T5Adu+ds1LqBW/7qGb+HEavQx1nxK648qOQ2xr77WXQUi
+fvHSAJPfTA5lKapnBmNyKh/J7sa3/7eFA+geQM88YaCQ7ZF6sQY=
+=GKwW
+-----END PGP SIGNATURE-----
 
-> 
-> -- 
-> Cheers,
-> 
-> David
+--MNiQ2dFXZM6vZHzB--
