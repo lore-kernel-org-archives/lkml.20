@@ -1,113 +1,110 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DA419F40B
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:57:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5D24F93C0;
+	Thu, 17 Sep 2026 16:57:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664234; cv=none; b=CxkWRpZi5w16JZbBnY4caeG7zndh2z/YRwu8aN5NtdiS2kUMrjjrQFBuW7IEsNH+eAGj8wiXyC6ZSgKw4AwSUW3yW6MoG/POgdul/4WElljjxd+noLS+e8X2wAjNEP5HgOAxj1wORteITPWpgRf/XbmklcGNgSj1qCjkOoAHxFo=
+	t=1789664264; cv=none; b=e7q1+hQiFy5H3bx4n/x0xy3hkN5J6Anw3MWMaFwhA0ZkobAlxLBOWH2syX+kZiLh+gw20IhipY4QOwrDHdFWI5iIrKdwfAw9qHP/84JQ4r08OUMWOyxFGBh8xa+6iFNNeSHMmsAmpeEgkTSyrVcAyzmIbR5y0/qp89iqXPI5O14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664234; c=relaxed/simple;
-	bh=zydFOkLusCsvZen2mb4Pq9HJvg/Y0I4yNFZXUL0us2g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ohFfxtWnk7GaUmGi0GDIe9Z2g4gNUMbD4FSvAAW0jHOl+qqVCXd03l9lRoloKjiVbO+E5z9WsrvLYE1ij8BVULlpowDw/nJrMRrWN7Kmp7lrCvFsSc+RE+/lGQnFb71aMcs+34KENllnDWKZZVd/ALR/Oz6xc6BzImObKwNpmXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QeI8fBzU; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789664264; c=relaxed/simple;
+	bh=B3L9UpHoXcugN4pOHbftcrWm91hFHUBy6z+pwFBCiMg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XiAFF4mGUcUf09bpqNI/IfGSQIaPZ2L9RHa9kD2GB8yz0L6mxxIXIDLv7+mzt7buHbyej1F+o752yB40sYOVW+ct88rsuDdjXjTQ5Hf3+yUJm+z3UQlA7b0QOfw6ZtQaHZjE0ZNPUE44ijPjVzOQzdYOtK4oVP52iyuUAcMbFuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCbvTMIb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QeI8fBzU"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb766bfd6so9251101cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:57:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789664232; x=1790269032; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3nD+nNF4AReTcmzz2bWEK23wh0b/1V/6DLReQB0yfH8=;
-        b=QeI8fBzUWYvgw0Nz+sCzeNQpdmafdCJfwGHBb/OWanS3WIEYR3XsNyUsMQlOio+l5W
-         piOcmF3DFirdegouY+Rc9T+klOP4YoCTCqyhQlhDVMWZn2TSfHs5The6llY/5FQPoqT/
-         c7viRyJYYvO+lCWXyghBeFoWzlRrot6MiN43pg+J9lZe2XDJ1kx5Uejna1GGqttBnikH
-         MhC7iKhF9WFVpxh0DLFtMqzJX4SlRJvJY3Q0j5dS+22ca0e1NX1cBDPCuGCqiLczCnT6
-         u27qzB0XzSIq9ViQpjUr4L7vzFAxRnhKFwXztG2Z7IP4GtrShWjoc6RnApXLJDgQBG2L
-         trsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789664232; x=1790269032;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3nD+nNF4AReTcmzz2bWEK23wh0b/1V/6DLReQB0yfH8=;
-        b=zFyLCzx4xFanh5egxvwmng4nEakYqvef73zp04kwKFG3j9Lq+dpVQsjlh5YI2KfT1S
-         RbO8hzQPZcMH0tsZBdwsl4yyzz/2yrGc3V3j6XScoxfYEo26YZDvlbQYWHkUMYFEBqM/
-         6TZYgQ6h2VtuLR1Hlz41S9egONIwb9gu9MofT/0h2ZnmV+kFkTK2d94FQWavN0EHHqJg
-         02SsdkH9jA1+xkQEpKxNEuZnMWwzGaKodNCi75vnHNFpemttNTG/l0WY7bQsiH6CpY85
-         x6fGoO/K6Wph6RA9NgT3FOdFOs8PkTSXCapmoPsHDJeu/j55oOfFlBtq1rMm0So9Nwm0
-         LwYA==
-X-Forwarded-Encrypted: i=1; AKwUvBzgWG8tu5vH6gPOQfilvBaDKVAokdIORPL+/0KPCfS28NMbFSz/MAC6hUxFPkMJPrPfzFuODQRFrtoH8Dg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mX1ggiLgHrZulPoABuj9obO0AtF8xWlAzjvYSaP+ZGfUfBulVl
-	g3FHNVhoD0s7IXx3ffh8rFBt9zz3gdXzsn2bblB7qe21VfdXP8lLuea3
-X-Gm-Gg: AYBFou37FkmHQ0iXXC9G9O96jsWg2GsH1atb1rxsis3Tbw14hnovNNea+iLK8QKrkqr
-	VeFiM0W/vrfM9I4piBQjiTam8Wmp4R3ZOrqlnfbwuGmg36eBlK1bV9KaVnhVHFmw4zSADmp3hQ+
-	M4mS87EyhTIIn1z16rDkLq5RSXaOVDub1lVam8DJIv3Ld5IowJut/DHtXgUvX5U8JsYjvj+OPRi
-	U1v0KFwKVo+TXhLvA6JtmV3sdbdzfdBtTqBydc7/dzP2prz77jixTLoUGpWHdER08B9+3oo3pF2
-	mUcGF3kk5EwlH4ONExcrB8UYPVzTfU4cBQd6B2dRjCkM3yuKlBaHt1ycO3nuUJC0sqQoVY3jNnr
-	WGMQ162FHQ3cWsdGYk5TAnLSHkKJVifTtzhcd8eX1SNBSioeJbMrktTE9M/zHrI/ywprKV1a3sK
-	6rxyH/vxIBZ7afTmM9dauKyLGzay1Sq6AsQ84rj5Ceoyl+RMuHWjGNjUPvtSYkFRH7l/v4BjawL
-	N3ZJ8EtxsmvWcfsrumzhJADnw==
-X-Received: by 2002:a05:6214:e8a:b0:90e:7c37:230c with SMTP id 6a1803df08f44-9123d701242mr168976896d6.1.1789664231623;
-        Thu, 17 Sep 2026 09:57:11 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252cd40d8sm1989826d6.35.2026.09.17.09.57.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 09:57:10 -0700 (PDT)
-Message-ID: <d1d113fd-2943-4262-b8e9-b0dac7e373b9@gmail.com>
-Date: Thu, 17 Sep 2026 09:57:07 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCbvTMIb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390201F000FF;
+	Thu, 17 Sep 2026 16:57:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789664263;
+	bh=WTHGYau84w7vw3YMl4OjEoYJpFQd/6G7nW3gRxw5Xho=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NCbvTMIbR1zxj6v7W2WmNt6fFAyBliACrLBGksoRCO5auTTSpfpBc6Tr3CQuHfx75
+	 apyKlBmxT4K+3yOw9rfFVfdmrFy+3wWnaANn2m02kHuW9VgW4D0sC4QOEaQJ9QHO47
+	 TbeJ9Kblu6+wZjTq8POU2wuwJvt1vA3CDbHi8P/ORhb1sfKpzBO0ikZKdOzot4Ceh4
+	 LxP3JZKSovqPEHyzDqeST0cPI532z5CYIvTvQCdtMA41a80KHEPlq+iOdEGEou2Rl8
+	 v91ZRyuxznUJI93NsZ+dCGXLnHGJqb2Wc8UVNExBo3G24xDPbytF/yrL9bGHuJSBtQ
+	 D2LFrKhCb3NCw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/5] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Drew Fustini" <fustini@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260917-dfustini-atl-sc-cbqri-dt-v8-2-7964e8d73fe8@kernel.org>
+References: <20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org>
+ <20260917-dfustini-atl-sc-cbqri-dt-v8-2-7964e8d73fe8@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 16:57:42 +0000
+Message-Id: <20260917165743.390201F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260917151539.408551884@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/17/26 07:59, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.111 release.
-> There are 1102 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 19 Sep 2026 15:13:49 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.111-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] cbqri: late-registered capacity controllers bypass capability ag=
+reement check
+--
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+commit d3ff1ae1d79d6e8e4041b4efbc3516187f2222a6
+Author: Drew Fustini <fustini@kernel.org>
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+riscv_cbqri: resctrl: Add cache allocation via capacity block mask
+
+This commit wires up CBQRI capacity controllers into resctrl for L2 and
+L3 resources. It manages control domains during CPU hotplug and requires
+all controllers at the same cache level to report identical capabilities.
+
+> diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resc=
+trl.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/resctrl/cbqri_resctrl.c
+
+[ ... ]
+
+> +static int cbqri_attach_cpu_to_all_ctrls(unsigned int cpu)
+> +{
+> +	static const u32 levels[] =3D { 2, 3 };
+> +	struct cbqri_controller *ctrl, *c;
+> +	struct cbqri_resctrl_res *hw_res;
+> +	struct rdt_ctrl_domain *d;
+
+[ ... ]
+
+> +		d =3D cbqri_find_ctrl_domain(&hw_res->resctrl_res.ctrl_domains,
+> +					   ci->id);
+> +		if (d) {
+> +			cpumask_set_cpu(cpu, &d->hdr.cpu_mask);
+> +			continue;
+> +		}
+> +
+> +		d =3D cbqri_create_ctrl_domain(ctrl, &hw_res->resctrl_res, cpu,
+> +					     ci->id);
+
+[Severity: Medium]
+Does this bypass the capability agreement check for dynamically registered
+controllers?
+
+If a CBQRI capacity controller is registered late (for instance, via a DT
+overlay) and its CPU is subsequently onlined,
+cbqri_attach_cpu_to_all_ctrls() will discover the controller backing the
+new CPU and create a domain for it.
+
+However, I don't see a call to cbqri_cc_caps_agree(hw_res->ctrl, ctrl)
+before creation to verify that the late controller's capabilities match.
+If the new controller has capabilities (like block mask size or RCID count)
+that differ from the boot-time selected controller, will this group
+mismatched controllers into the same resctrl resource?
+
+Could this cause capacity configuration operations to fail gracefully with
+-EIO when hardware limits are exceeded, or otherwise abort CPU hotplug?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-dfustini-a=
+tl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org?part=3D2
