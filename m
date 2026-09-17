@@ -1,145 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3AF4A8438;
-	Thu, 17 Sep 2026 09:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636923; cv=none; b=KqQ+i4qwAwkUox97V1ZhfZDOTvd8FAae73zKgLOVCq/CKdOX1Jym2kYLRcKOJ1vNZSXi68aCW7ZnIThXYWaw3EsPToadEf6/K+3y2vUKEQyHWUPK+wL78j4Rh02FgrCcXq/hXrm10mdqGY7zfr+cteJZj3yV73kMrmH5Ip8hKnA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636923; c=relaxed/simple;
-	bh=Nk0j+dgBYsStc9vpRTyL0WR/JxUM8VjdwJ3S9rVxXCQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Q3IhY9+RzUVOrm5AI+0CkE+DoHMvke6cUleyfANRDkT6UsmVchcFYJ46/0mP5qjyVv2wIBt4eRbXCSndFR0O/RgpwcuzwEPYJLaUiO7UqgPwXQMk+q4eTCE329KXRryuCVHM0iKeDyfpVSqKj6yAjBH3AXfZnkgR1U/99MF+KSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dXaNVEGT; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FFF4582F3
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789636942; cv=pass; b=AKCvDWUG17hileRMLUDgFcOLxKPMeCO/BVe6X9l8JGkwVHSoID1+Bry3ftdPbLbBZ+MmwLlmIOJPlz9sstagvXeWe1Glaya9V5qY2qG07eKJQLLsSmPTLFQio9gctWJORZgrczol6/4k/AafENOBMVFn4k/nQrcmW0AFrWJ143E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789636942; c=relaxed/simple;
+	bh=q+ma/8aYfxNGmFq5c8KlrcKT51onboM1niI7EeZQn40=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aJ9mvPOuRNZJZNEZWaNxDXw++4sFW/iRe2HFb5R2yoaDsSUm4W7RFjLxOSgD1pKDKnZUYrbtPsCRPj6gcIX+85ZJbOb5+Q59tKus7LAJXF/IbuxDrGmuqKiDt+kQaLn1hjMQFpXcor3UBrMid2MbL3VNE1iz4C19kk6PkGso8DE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uiwmo/bP; arc=pass smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dXaNVEGT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14F281F000FF;
-	Thu, 17 Sep 2026 09:22:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789636921;
-	bh=8YWpnH8IbdMwhsJsF7hY+uJ8SswyuZ3cWpTMar8JdEo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dXaNVEGTLIx6WD1q9hQSFDlyEE4Tn4wfGD05ZJlzzA0s6imOBgLH3d9cuZo9qqxj7
-	 uELo3otxvhjASRjT5cgjvNqfcAjixCbKfs4rAGo6p6uZ2ROPiOfbWGL+YHsBmwYlVv
-	 7Lo5XZWzEEhbpnjVU8R4kp2n7o3iacTEWuzEHEfgy0RYlAcPpoVcP0RM/DoSSRUAjx
-	 I3+HpMJJue4HhfpxqC+f1sE6FitE2ctJsdwuepeD6cFWMNuSJxyI3OLacdKQryA5Jl
-	 rKE18NYmeO+1rSYu93U1oNXPYZo0NU2Og5ZC/PfOpNKwu9cltZ4/3KdCi2BCG6p97U
-	 1LO5PEU8p7Cjw==
-Subject: Re: [PATCH net v2] selftests/net: run tun tests in a dedicated
- network namespace
-From: netdev-bot+sashiko@kernel.org
-To: edoardo.canepa@canonical.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
- xudu@redhat.com, po-hsu.lin@canonical.com, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 17 Sep 2026 09:22:00 +0000
-Message-ID: <178963692060.22033.17689197531256265922@kernel.org>
-In-Reply-To: <20260914211921.3786609-1-edoardo.canepa@canonical.com>
-References: <20260914211921.3786609-1-edoardo.canepa@canonical.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uiwmo/bP"
+Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-80a7469f5e9so393360a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:22:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789636940; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RTvIeROFWVOeBP3nylBXTaspNZq82rKL8c+mj9waQa+FGFvNOwsxju6VFm9lINMbeP
+         NH7bne3r53tICk/4ikOP5Wly3pJ/2WUpDbCCpPs12WexFGrN5rrViAaBCLrRvBai4ukt
+         mfikXTbwC4WDA0drZ28DJresbz9rB1ewcdcRE1h8jclkIVygnxXILBILUJQiOnfv3PUK
+         PBN1p72Vp5+ztVKa7yFa7UYVkf6pJ5VLRKXBgsoY9QPkqgxa+GzvEzTcx/ZQtZQOSD3P
+         Bkzx3CnRnd0Poex1CioiGom5Ra0bglUw6u6T6+UZ8DzffZUFixhTIfrcSg4iT46Xighe
+         gXdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xML49QZPU1Thc36BE9MAJyCWem50hfkHhyKIdhFthUI=;
+        fh=V4aNWLLjNLtJ6KsFIcr6qKEQ3bO7daSifcu76iWwvFo=;
+        b=AMTqlatcl8GDqNQFGxlDSRZsz4CS3pocYGC2nL1/9re5g9F2+1erY/F/zY7ssR7qbK
+         qVjT6g6Okb87127qxntPjyy4qOsFnMYhxs1hwjESuXcPeZndacHPn8lyrxWr6odp8HkR
+         Q6NY57NyEWGH//wk6YRxsGhcAZH+Z9eZ3ZCIKhSTJiKJZOXC/FPBls/B4WQP1zFcseT/
+         BLuR95AYpDkvR+8K9PD/fVZUrgXuLJMYiylRzeBhYdAzEmtUMSLIiCUI9Thv8/3ljIxC
+         KGJon3MGUwq/gYE8U7DJj6BoH5Jtt2BUGDIanLbP6SP+qsnLK+NDlfyyI24hyYbeafAV
+         nSlQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789636940; x=1790241740; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xML49QZPU1Thc36BE9MAJyCWem50hfkHhyKIdhFthUI=;
+        b=Uiwmo/bPg/BQ8jwOEEcptdd9E7YXNzU0Tft8OpcdZDC0+gV45nWXX9imHV7gAMXRQO
+         P/1RDTZj91oA2Inh7+JO10p25ydpYM2/zG65P+hBsHAT1ZXUvArr6br+HiScgtDRRrRS
+         5hMRspONgiG4dhvbdqBvWXZX/HIWL0bCT8fGrz4M3ttCnYNNf9vAAWgZyywWo6r+t6lr
+         DvAl9HM2R8qYMtT1Vf91JQIbUHl+6r6ffpZz8xiNtD0jsbkY4yeQaYlukE6j2ZjUm6Is
+         yyrDG5i8br+LkIwrB8WsyEau8S73KLKiNJqo7duzFVAbs/+tFGUQpn84dXK6axsPmk86
+         DP/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789636940; x=1790241740;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xML49QZPU1Thc36BE9MAJyCWem50hfkHhyKIdhFthUI=;
+        b=UD810AfpiFMIwPam9trn/vMYARkoMu3wIdy390JeRl0NyjZ4PJ6OiNdttYjLvlZcvc
+         7qLYBGdS0q0l8IfuFsR/a/FA3JACvspOWBOzCne2GpbvhqIjJWH8RPaozQz1tzhhuj5I
+         tsAKfhqhcyZUcDYQ+9dwOzYWCaE6VzkhvLWHjPpyuFE+F0sp7p1tuig5Y1s4AKRFl93n
+         T/hDyheHJd1rKho12WFJiEOIvMCZ4vqXKlHTgwzvOotdOpJJCewchjex1VYDHjg4yA0i
+         0NnUt2MN22BfYajdyPXMln2euzzM3edrS2wR4g472VesN20+QVgkEZRpo1uO21LYuif5
+         gY+A==
+X-Forwarded-Encrypted: i=1; AKwUvByltyUhzVz7XOv/tZ7D278sdlJHOSTU1Rek/+I1Ek1cvUUD/qoDB6q8q0wYwMJJbi/3sslRFqox697inhg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/XNdxUvpk4QwiaOE55IB3lOjxAtDufhIAVuEQRJfCySez6FnF
+	N7ZC7eKrVL6PVpp2siwytFVQ8E/RYbxnwdFe9zWUzWiIeCV65q0D4Ao6sapZunOMCmHcK7NkkRS
+	FCYb1iMXOPdugzkVg1k1wrOgm0BkQhB8=
+X-Gm-Gg: AYBFou2gzF/uZslVsOjPrfdVzzTDTkFMSGl7dLtT/ZYVPqQDmRNfW/bOxcpoG7jAIXT
+	IvLDBLB3/0gfYoWorTOL/hHL5V1uEj91VCSTxB1us5YQkRo6WoxTlGTrWOoorWfHfxhset7dlCi
+	kTVYlV/7GqGyQV288RARcBzAroOsJP+GbG45LvvZdpsG79tEdWSKwA1lENfyGAcfM1cCMJ7jAB6
+	cgLYTDToaL5RsTceaflo4W+KZIu4k16vZ/q4nID+rjqbTmvgWTn8WGk8sDWbVcCkLp48e9xJOwe
+	hRs+eb6z08qEhVVXMNicw4NGtgS/bA/bAT85HSx3SwR8V1bO/Of8sUGWA/es64ab+iuAmiU0Es9
+	BB+Nvq2VGEQSTBbM2npOhW7RxBnf4bIPFLY1ewEGw9A==
+X-Received: by 2002:a05:6830:4c05:b0:7fa:ac4f:7a2 with SMTP id
+ 46e09a7af769-80b2fae21b0mr6132293a34.30.1789636940009; Thu, 17 Sep 2026
+ 02:22:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260829004608.25252-1-mikhail.v.gavrilov@gmail.com> <20260829085941.106318-1-mikhail.v.gavrilov@gmail.com>
+In-Reply-To: <20260829085941.106318-1-mikhail.v.gavrilov@gmail.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Thu, 17 Sep 2026 14:22:07 +0500
+X-Gm-Features: AcwNN1Vv-J6lv17tD-bMi7gxggeLr8WQiXsU2DbcXEie7e_OqjgYjTWegQ9t7A8
+Message-ID: <CABXGCsNQZY+g5AB17yiZP4aD3eKBpNWWNqcOL3_eh5JLxp=H3A@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: add missing CRC engine 1 registers
+ and masks for DCN3.2
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+	Alex Deucher <alexander.deucher@amd.com>
+Cc: Wayne Lin <Wayne.Lin@amd.com>, ChiaHsuan Chung <chiahsuan.chung@amd.com>, 
+	Roman Li <roman.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, sashiko-bot@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+On Sat, Aug 29, 2026 at 1:59=E2=80=AFPM Mikhail Gavrilov
+<mikhail.v.gavrilov@gmail.com> wrote:
+>
+> Opening the CRTC CRC debugfs file on a DCN3.2 card triggers a WARN from
+> dc_helper.c on the first attempt after boot:
+>
+>   WARNING: drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:53 at
+>   set_reg_field_values.isra.0+0x30d/0x730 [amdgpu], CPU#1: cat/58468
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Gentle ping.  Is there anything you would like changed here?
 
-- [Medium] The commit message's closing note ("Note that without the fix
-  a failure is not self-contained: the fixture setup aborts before…
-- [Low] The commit message uses `Assisted-by: Claude:claude-opus-5` while
-  the v2 changelog claims "Use the Assisted-by: format documented in…
+Since this carries a Fixes: tag for a commit that landed in the 7.3
+merge window, I was not sure whether it belongs in drm-fixes rather
+than amd-staging-drm-next - happy to resend against whichever tree you
+prefer.
 
---
+And if DC header lists are easier to regenerate in your internal tree,
+say so and I will drop this patch: the WARN is harmless in practice
+and I only sent it because I had the hardware to test it.
 
-selftests/net: run tun tests in a dedicated network namespace
-
-The tun and tun_vnet_udptnl fixtures now call unshare(CLONE_NEWNET) in
-their setup so each forked test process gets a private network namespace,
-which keeps systemd-udevd's RTM_SETLINK (MACAddressPolicy=persistent) from
-flushing the NUD_PERMANENT neighbor entry the test installs.  If unshare()
-fails the test is reported with SKIP() instead of aborting.
-
-Closes: https://bugs.launchpad.net/bugs/2158217
-
-Both observations below are about the commit message only, so the diff
-hunks are snipped.
-
-[ ... ]
-
->     Note that without the fix a failure is not self-contained: the fixture
->     setup aborts before FIXTURE_TEARDOWN runs, so the tap and geneve
->     devices are left behind in the init netns and every later run fails
->     right away in geneve_create().  Running in a private namespace also
->     removes that, since the namespace is torn down with the test process.
-
-[Severity: Medium]
-Does this paragraph describe the same failure the message quotes earlier?
-
-The quoted diagnostics
-
-  tun.c:947:send_gso_packet:Expected ret (0) == variant->data_size (1423)
-  tun.c:948:send_gso_packet:Expected r_num_mss (0) == variant->r_num_mss (2)
-
-map (with the nine lines this patch adds above them) to the two checks at
-the end of TEST_F(tun_vnet_udptnl, send_gso_packet):
-
-	ret = receive_gso_packet_from_tunnel(self, variant, &r_num_mss);
-	EXPECT_EQ(ret, variant->data_size);
-	EXPECT_EQ(r_num_mss, variant->r_num_mss);
-
-That is after FIXTURE_SETUP(tun_vnet_udptnl) has completed, not an abort
-during setup.  EXPECT_EQ only records KSFT_FAIL and continues, so the test
-body returns normally and __TEST_F_IMPL in kselftest_harness.h has already
-cleared no_teardown and then calls the teardown unconditionally:
-
-			*_metadata->no_teardown = false; \
-			fixture_name##_##test_name(_metadata, self, variant->data); \
-			_metadata->teardown_fn(false, _metadata, self, variant->data); \
-
-FIXTURE_TEARDOWN(tun_vnet_udptnl) then does run:
-
-	ret = ip_link_del(param_dev_geneve_name);
-	EXPECT_EQ(ret, 0);
-
-	ret = tun_delete(self->ifname);
-	EXPECT_EQ(ret, 0);
-
-A harness timeout does not look like the mechanism either: udp_socket_open()
-sets SO_RCVTIMEO to TIMEOUT_SEC (10 s) and receive_gso_packet_from_tun()
-select()s with the same 10 s bound, both under TEST_TIMEOUT_DEFAULT (30 s).
-The tap is also opened without IFF_PERSIST, so it goes away when the child
-closes its fd.
-
-Could the leftover geneve1 and tap devices that were observed have come from
-a different abort or setup-failure path than the neighbor flush described
-here?  Since the v2 measurement methodology ("with the tap and geneve devices
-removed between iterations") is justified by this paragraph, it would help to
-either identify that path or drop the claim.
-
->     Assisted-by: Claude:claude-opus-5
-
-[Severity: Low]
-This isn't a bug, but the v2 changelog says "Use the Assisted-by: format
-documented in Documentation/process/coding-assistants.rst", and that
-document specifies:
-
-  Assisted-by: LLM [TOOL1] [TOOL2]
-
-* ``[TOOL1] [TOOL2]`` are optional specialized analysis tools used
-  (e.g., coccinelle, sparse, smatch, clang-tidy)
-
-The literal LLM token is required and the optional trailing fields are
-analysis tools rather than a vendor or model name, so the trailer as written
-does not match either part.  Should this read "Assisted-by: LLM"?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914211921.3786609-1-edoardo.canepa%40canonical.com
+--=20
+Thanks,
+Mikhail Gavrilov.
