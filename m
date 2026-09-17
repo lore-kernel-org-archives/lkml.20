@@ -1,140 +1,79 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BDD2754CF65;
-	Thu, 17 Sep 2026 16:01:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECBF55931E
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:01:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660889; cv=none; b=bpUtCnjKzOI9YjF/wV6XJJqdXRGNDIbn3UdbOcWL6zuMOetp7j5/zqoIlIDplFL5FZB4RHmuTHkp2MZe1MtScf7kAjDN6elmNU1bM8B+UxIvsMqWdrxM33CHK7ciRdTW9BfmG8E8jrI9kzMrmEu+0kctqBEZREk8v2/Yd6I1Sf8=
+	t=1789660893; cv=none; b=HguXBICBoSH5ODnlD9tg3naQ/sAqXSuk0h64+FlXiG963ko4lS5GqqbNdSYfW4lv3bLRSvDQrDsUHGscggi/ORC/bmgaDW3g4XT5jp+A6o38kiIRHIDY0EwhhY4qkepM9qaw9+aioO5Z0y0tIfdyBS4ZsUj81W+46DuKnbLd8VU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660889; c=relaxed/simple;
-	bh=3nxaGPsEg8eoqMzcy20YoG9qkdjPhPlkwj7avR4Xtkc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j8MC1jmOK2K+fnd/wJQuL1hnxTQpK7hwakDwrSr+cjLZcZoQ/mwLWhh/PborUzczFSgPSK/hZrZfNiJhI6wOXOKLWa+NNmtsxG/ekwLbkIk52sSF6FgpGfZsuGSp0iLM5t+/N3WfH634yHPxxH3j3g1gJzyKjj5DOYry4uqB2Ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HvRk3lHH; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789660893; c=relaxed/simple;
+	bh=L7XJVn3zJKEYZntTNEdwCrWKBFrCg6HrvKLQHNiolyA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IDbo1lFZRcgW53mDU4OqIXIISdEBIhbe3nNPwZCNyOJuKoNPOC+F1flWa6jYXlvGTy0oKyqEvhfhI0Py474Tvr/EAhDwewVUgGcZa1hNpOWaqjq8rEjtVZRux3QIBDI3SC7Ua3B1jRgldGQJLy97YKrHLAuacu+W0wOJQE+xaB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iLCKsPy8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HvRk3lHH"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8EBA61476;
-	Thu, 17 Sep 2026 09:01:20 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 034863F7B4;
-	Thu, 17 Sep 2026 09:01:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789660884; bh=3nxaGPsEg8eoqMzcy20YoG9qkdjPhPlkwj7avR4Xtkc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HvRk3lHHAxbYc9/FMV3MR/AvVJ4syk7rVtjiM2FAGMzndUvrk1vx1uzhYG/W/uwo2
-	 z+Y+O5VzFk4npQ2CgSetJiBldjzEu7lz+44DCqBVvUNxP2F00WP802DjByw5nkT30m
-	 sEFJdsA++LcuM5wRswT/MmCIXOnO/7g7mth8ebDI=
-Date: Thu, 17 Sep 2026 17:01:20 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Breno Leitao <leitao@debian.org>,
-	"sami.mujawar@arm.com" <Sami.Mujawar@arm.com>
-Subject: Re: [PATCH] firmware: efi: add a separate timeout for UpdateCapsule()
-Message-ID: <aqwO0EdIwzBQlnmW@e129823.arm.com>
-References: <20260903113238.2291844-1-yeoreum.yun@arm.com>
- <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
- <apl_29t7Jxr2mv9C@e129823.arm.com>
- <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
- <23ce2fb0-1002-409f-bb84-f592db9d0b89@app.fastmail.com>
- <apmFpUvkRBgMdOH2@e129823.arm.com>
- <aqkGohQYChzkBPZ7@e129823.arm.com>
- <b6602c6e-4c77-4dcf-8683-95b5c8fc4693@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iLCKsPy8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F48E1F00898
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:01:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789660891;
+	bh=+DhS//7o7owj41t5iDIwF0SCGyy9ibYv4B+yFcVevxo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=iLCKsPy8hA6x/lcktVIlsdyn8sjQTyqgjVUWBF7en1MLAP8475WnPTJKZOB82zlBn
+	 NhkNmK//XwCB31rqv2Ge84kDd/YzHO1lz0SCO2+wnBC2rQRHEakVW+ZvChRZuGOzSp
+	 fAdyMg1ZW+Xh8qZJ9WdvT+qegs5dV/p2RoJJveW2q8/nxmn+6MAt5jwF3eCrNUzq8l
+	 vD3ym1+00U5oIa0PAE4sKfkXIyepkbCZKZN0h+uLAYm5k7muZcGm3Gv8JReJEdvOFe
+	 2Dvx+G8xaxU5sbMzYo+S1J5lq38BOsw2tB0XArQN3iIRmvftMhRaChy8g1Mlm5qBm+
+	 PS2VVLAtMl5UQ==
+Received: by mail-ed2-f27.google.com with SMTP id 4fb4d7f45d1cf-6aa135d6e97so1653613a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:01:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByZ2rHDFRRBHb26vXCvf06bAynMbA5rotT7t3ubaNozKHW4ScW4liBZZ+23iyNq6hPO+3WjBzjyX5jkFqw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kR/JRbxaER2wCybDbhZtyvSfuzpQj4pi7kxAbBt5R3HNcavfc3
+	37fHh47YJWmwXFjJ8gO9PFCpKUYAFgrHJmEVnhr67hk/RVpFgsIstmTWfr/+DIkD9CrMStldX+y
+	rfwmQZTKFzfB9BaocOBk7tG5VXrwvrQ==
+X-Received: by 2002:a17:907:960c:b0:c29:f5d8:9c72 with SMTP id
+ a640c23a62f3a-c29f5d89db1mr290535766b.33.1789660889600; Thu, 17 Sep 2026
+ 09:01:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b6602c6e-4c77-4dcf-8683-95b5c8fc4693@app.fastmail.com>
+References: <20260917124653.2151894-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260917124653.2151894-1-vulab@iscas.ac.cn>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 17 Sep 2026 11:01:18 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJoUywigy2A-tfe4Jg+r_bVsk5utZ0L4qZZu+rF9RXmLg@mail.gmail.com>
+X-Gm-Features: AcwNN1WoXj-aX4pp7VlWV3BhGAP-WQFU2LTbUI4Kt3JEKGaQRag-A_cEy77_ASo
+Message-ID: <CAL_JsqJoUywigy2A-tfe4Jg+r_bVsk5utZ0L4qZZu+rF9RXmLg@mail.gmail.com>
+Subject: Re: [PATCH] of: unittest: Fix np reference leak in of_unittest_bus_3cell_ranges()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	saravanak@kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Ard,
+On Thu, Sep 17, 2026 at 7:46=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
+ote:
+>
+> of_range_parser_init() can fail when the node lacks a ranges property.
+> That error path returns without dropping the reference taken by
+> of_find_node_by_path(). Add the missing of_node_put().
+>
+> Fixes: 3d5089c4263d ("of/address: Add support for 3 address cell bus")
+> Cc: stable@vger.kernel.org
 
-> 
-> On Tue, 15 Sep 2026, at 10:49, Yeoreum Yun wrote:
-> >> > On Thu, 3 Sep 2026, at 16:29, Ard Biesheuvel wrote:
-> >> > > On Thu, 3 Sep 2026, at 16:10, Yeoreum Yun wrote:
-> >> > >> Hi Ard,
-> >> > >>
-> >> > >>> Hello Yeoreum Yun,
-> >> > >>> 
-> >> > >>> On Thu, 3 Sep 2026, at 13:32, Yeoreum Yun wrote:
-> >> > >>> > On platforms that allows to update firmware in runtime, UpdateCapsule()
-> >> > >>> > may immediately write a firmware image to persistent storage.
-> >> > >>> > This operation can take longer than EFI_RTS_TIMEOUT.
-> >> > >>> >
-> >> > >>> > Use a separate timeout for the UpdateCapsule() runtime service. By
-> >> > >>> > default, wait indefinitely to avoid interrupting an ongoing firmware
-> >> > >>> > update. Administrators may configure an appropriate timeout, in seconds,
-> >> > >>> > through /sys/firmware/efi/capsule_update_timeout.
-> >> > >>> >
-> >> > >>> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> >> > >>> > ---
-> >> > >>> >  drivers/firmware/efi/efi.c              | 41 +++++++++++++++++++++++++
-> >> > >>> >  drivers/firmware/efi/runtime-wrappers.c | 14 +++------
-> >> > >>> >  include/linux/efi.h                     | 10 ++++++
-> >> > >>> >  3 files changed, 55 insertions(+), 10 deletions(-)
-> >> > >>> >
-> >> > >>> 
-> >> > >>> Given that UpdateCapsule() is rarely used these days at runtime, I
-> >> > >>> wonder if we should just call it synchronously instead of via the
-> >> > >>> EFI workqueue.
-> >> > >>> 
-> >> > >>> I assume that would also solve the timeout issue?
-> >> > >>
-> >> > >> Might be. But it would make *non-preemptible* for UpdateCapsule().
-> >> > >> AFAIK the purpose of running runtime service with efi_queue to
-> >> > >> run it in indepdent context and to be preemtible in case of arm64.
-> >> > >>
-> >> > >
-> >> > > No.
-> >> > >
-> >> > >> Since most of UpdateCapsule() will be called via capsule-loader's misc
-> >> > >> device, if UpdateCaspule() is called synchronously, It would be
-> >> > >> non-preemtible in arm64 platform.
-> >> > >>
-> >> > >> But, some platform could be preemptible while updating firmware so
-> >> > >> I think it would be better that it would be called via EFI workqueue.
-> >> > >>
-> >> > >
-> >> > > EFI runtime service invocations are preemptible on arm64, so this is
-> >> > > not a problem.
-> >> > 
-> >> > Ah wait - you're right, they are only preemptible when invoked from the
-> >> > work queue.
-> >> 
-> >> Yes. That's why I think it would be better to call via EFI workqueue
-> >> when I see arch_efi_call_virt_setup().
-> >
-> > Hi Ard,
-> >
-> > Could there be any issues with doing it this way, or would there be
-> > a better approach?
-> >
-> 
-> Would it make sense to simply have different limits for UpdateCapsule() and
-> for everything else? How much longer than 2 minutes do you need in the
-> typical case?
+I don't really think we need backports for all of these.
 
-Although the time required to complete a firmware update depends onthe platform
-and other factors, such as whether the capsule contains a single firmware image
-or multiple images, it is generally reasonable to expect the update to complete
-within 10 minutes.
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/of/unittest.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-If, for some reason, an update is expected to take longer than 10 minutes,
-the sysfs interface for configuring capsule_update_timeout would be useful.
+A general comment for all of these unittest fixes. I think we did a
+pass of using the scoped cleanups, but if we could use those it would
+be better.
 
-This would allow the timeout to be adjusted as needed, for example to
-15 minutes, before capsule update. 
-
-Am I missing something?
-
--- 
-Sincerely,
-Yeoreum Yun
+Rob
