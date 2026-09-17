@@ -1,78 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3525F4582F3;
-	Thu, 17 Sep 2026 09:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9226E4A441D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:25:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789637074; cv=none; b=OXT3aLmrPUnoDSBSHVtmdQ7ays8yV6IXurjczdI6I21myQMlnA728GYwp0v9ishKC+pjSGGWEp1nC41qqbSSG2mOp0C2UNBpt3pBHXzd96Ik8Rbg17sDxELJS0U9WiX1Bz7X7xusT4S8ecwRab9X9wOeJUpGP1EQAfyiBeoP0HY=
+	t=1789637105; cv=none; b=ev0qml/5zoWfrcNFLlC3r6sQdnxUuj8kUYFkT6S9cLW1f2ZpmOgFNkNQ1q+1lThIUrK+dNu73Tp59RjCic84iTp0L8Rte8EHW3lDuYDWoPpHYxuyWQZjYS5+cShySbZ2ZHfxcosGu2TpmBLUsxHAW/D7bwNaJMNch/PdGjxFs7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789637074; c=relaxed/simple;
-	bh=IeZdclOlcVa3lbSfPCK+9kOIB7jPAeSe6KelOoaITz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=khs8lwpd2G1Hnbgd28780+arXXOjK3eDgb4wdF1TaRj/PG31rpjTOk+VdfQYg11iZb2nEXfyBlpOUwlAjvsiVeY7h9kHDniEBhDx9MEOnKTQLgMVBgB4T/rhsf3MqouiKZ/TCypbYY9/aM1RZESgRCUX/SStVte9Ma8XnRmEZiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A7nTL6wc; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A7nTL6wc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068291F000FF;
-	Thu, 17 Sep 2026 09:24:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789637071;
-	bh=db+J/eRafWaa5Opoxh0rMyEWvwLPAsRb9zxs1a/2IX0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A7nTL6wcRzYXqhqEG/+xy8On5u4zPxqx9DlF9EAwwrOUEF0KWpIIzYKJpXhAoWKMI
-	 qBQ8bvokZnrxS6cGZm4kES+K2AStiw5K0us2xS2g/NW2FwkqsJd5em3ZPzjv7UwMkD
-	 mza2XpCfTSfkBJOxPmWmPs8vfOjYZfTZjkZbd4kS124DvvySgUEn5Z82YO0yxHnhaT
-	 6CpPLz1E22uUUr6yLoq6nKEkwuQ3RL2jKEqDSXcPjEjyThPQ5qvSXtAi2k2MR2FbpL
-	 pHz5EOuKGXA54yKHEIZxXDs9CUE7kLS4Oo8jsrv09GB6eE0Fg5hll2uodOX1AIlT47
-	 wbsYnbrQ9HZQQ==
-From: Christian Brauner <brauner@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	netfs@lists.linux.dev,
-	linux-cifs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] netfs: Fix netfs_read_gaps() to use separate sink folios
-Date: Thu, 17 Sep 2026 11:24:21 +0200
-Message-ID: <20260917-klinke-pulsadern-kehrseite-da39a9e5b6b9@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <3228134.1789399227@warthog.procyon.org.uk>
-References: <3228134.1789399227@warthog.procyon.org.uk>
+	s=arc-20240116; t=1789637105; c=relaxed/simple;
+	bh=7XFTrGhFbj+Lf+penYPUsX0jhtQQdDTfwi3uAhefeq4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=qmE8tJRgEIDvTawm27AJUMnR3Xc5S+crlnbHqSDFPnY9lTcOO7Gvk4EYqbsVM/I98WxzMBRp0oStDrX75TgQThwlFb7AyxMZA6Cm5QmrZWbZs5ExmnHuyrsDm+rNu0SMdK2A7pCPfzpn4YMKBLrCANXnQ72a38i0J2a8Ucl1ZvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28d7ffab1so838579b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:25:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789637102; x=1790241902;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OqImgZlJqOHDdc/+u4d9Pc2VClYEv5Qy+vzB6lz2LYs=;
+        b=1O4TKoVP2ml0nlRdkFkJ3zeOLVWFB7eaCcPUlL2B5Yz/nroYSItE6W3iW6kwzeOwH8
+         n8JPXfCx9u7a9fZ2F38Lw3OrMUnaDOSe23q5O8efjyMAmLICdV8WKX3fD502EHe7YOFf
+         8dQXLOsAQF0SSYc1UFz4ivwDh0a5JMhrwPp4OjA40fYJ+eKWo+cm/5Mf1DmYPiuibzfS
+         Rt8eUii0IzI6Wmg/Oss9rqJo8cJCXaQ06FKkwERwupuhCMj4t0FfN/4s3WaW2lZGnql6
+         4cJ0abZSmJIMR+RpZvGubYwtodzXi9uR80hFtrms7ywj0289mNy8Flne8FKY5NVZfT7y
+         nyMQ==
+X-Forwarded-Encrypted: i=1; AKwUvByOvj9M7NxGlIngw+b+RHksy9he6vHAVzvAgInGnEzMXTE9lg64hn3NAo0NL5dqMqek2kHI3rG3cgN1q+o=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4Gl9yjbdJrQgnamx53QoPzzeiMjHYBxn7YB4lzGiNZKe5ST91
+	4bt2iMFoV2sNtwygCBf9BcCqQxfczzKlFnwPGgK+MqFZ/x2E3HLRocizjiJVV2EJQujQL3DeEU7
+	c2D7JiKMaY40DxRAyAWPPV0mNhxeUAlxldAz/c1/5gZNOrt3zTsk70GdqFyo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1024; i=brauner@kernel.org; h=from:subject:message-id; bh=IeZdclOlcVa3lbSfPCK+9kOIB7jPAeSe6KelOoaITz4=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt3njye+aB1rfhjBemO4TxV8WIWd878zMuc/NKE+6Vt q92Ha9+2FHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRC4mMDBtFuaTMJiYL8Msm 73JLnL65cKlSlvGmPb3CNkLdFjUpnowMb4OfXt+bz23F1uWwq932yWrmKftmtl49J2YUpaBxu3I tFwA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:13ce:b0:4b8:4703:db97 with SMTP id
+ 5614622812f47-4cb6af29710mr1945795b6e.32.1789637102365; Thu, 17 Sep 2026
+ 02:25:02 -0700 (PDT)
+Date: Thu, 17 Sep 2026 02:25:02 -0700
+In-Reply-To: <20260917090134.1003642-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aabb1ee.b398a7c9.1f86be.0016.GAE@google.com>
+Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-use-after-free Read in ecryptfs_destroy_mount_crypt_stat
+From: syzbot <syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 14 Sep 2026 16:20:27 +0100, David Howells wrote:
-> 
-> Fix netfs_read_gaps() to use separate folios rather than re-using a single
-> sink folio to discard the unwanted data so that cifs checksum checking sees
-> all the data that was fetched.
+Hello,
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Reported-by: syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com
+Tested-by: syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Tested on:
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=14607925580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=baa24e4b7e349e388442
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=102e53f9580000
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] netfs: Fix netfs_read_gaps() to use separate sink folios
-      https://git.kernel.org/vfs/vfs/c/fc3ae66514ca
+Note: testing is done by a robot and is best-effort only.
