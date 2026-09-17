@@ -1,113 +1,135 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f41.google.com (mail-oi2-f41.google.com [74.125.231.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809D34E2F01;
-	Thu, 17 Sep 2026 12:17:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456C74DAF8C
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789647476; cv=none; b=OchPlI7Qxh40EH5ihRzzlBBMTDKxfwi+W5NZaQImG3v448qkxR1P4niFuJ503DljZdq+Mj9dYTThdFQCWQjFjB+n6rsDK4O9mfrnSCWbqZfnc7YBOhCp3TjiLi6dl8yqAkY3tR58JqOtfyC8+eqygPeLL6l+gipX//bv+lkandY=
+	t=1789647476; cv=none; b=FF/2ZvF3MTF0lhfrRSz7L8DOHJeGQDtOO+0ZfljdyzGQJLOz3CXech+mlVCuKObdBvc5vRNhVRGva1zoKoLoFHAMecMxGQOKuLfGgFJeUt2uR86VoXgj/aAay5T9vLgkunOXxvUN/hxFVzyBixcg+2AKNYgkkQiHoMC3Ad6SN64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789647476; c=relaxed/simple;
-	bh=pJhDjtEfI3y/JufdwLLfcoX28rId297lZF6Ojq5idWk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iNHCJpYPh4vDNoceQ7aF0siP2QhrS2BiYqLciixKBdxw8slUjz3fUZ1GT7bvARSW+joWJomdQMztRM3/hb7CKdbJrKrxrlM8hH56qhPLsydCviZK6IQENRDozx3ttpdGLnJCJF6oh1wzuC4t2vIrZWwAwV49YxlPlS+/w7wpYao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=nZ6F752Z; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	bh=jxxrLK1RVTIembjFJi4fT/dtsvhHsrbPFHD5t5ovx+U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nVQWOfGPpgO1GVICOFP24Lba5SkAxp7CBFKBEgYna0TWSFhJmtRgwIOtuEp5/tfDi6UUxvcarvexmBgVZKOmswwMguSN317Grmr9YumVBX4ODPHUNuDI4Rs6UAVu7X6rak2oFb9T58ZuUOkDXt/NDDFucNWfSEDbhTPXsE8pPeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org; spf=pass smtp.mailfrom=ieee.org; dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b=brwS8Gzi; arc=none smtp.client-ip=74.125.231.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="nZ6F752Z"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1959F2C6;
-	Thu, 17 Sep 2026 14:15:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789647357;
-	bh=pJhDjtEfI3y/JufdwLLfcoX28rId297lZF6Ojq5idWk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nZ6F752ZtElaAUm6diuaB4eUGYTulF1GRH97dfMKLfFjIEWMlDW+Jv4ge6Tn2VWH8
-	 pBQReX2ZMk0xeqVZQsN73mjKODnJrxyJqMXvp+8H8VxNDOfb/7Sr2y4LQazH+7t3pR
-	 v3mGlAlaAciE8asKKJTcyuD3jMLcauYzi0sv4fMo=
-Date: Thu, 17 Sep 2026 15:17:37 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH 00/10] media: rcar-fcp, vsp1: Enable on R-Car X5H
-Message-ID: <20260917121737.GB44274@killaraus.ideasonboard.com>
-References: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b="brwS8Gzi"
+Received: by mail-oi2-f41.google.com with SMTP id 46e09a7af769-805cc8b4231so494999a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:17:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ieee.org; s=google; t=1789647461; x=1790252261; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P/CnLftEvKl62DKetab2YvCs3DqAzBULF24/3TZ0i+E=;
+        b=brwS8GziG2zICsy+/ioB/6JStxIhgk1QG8R9AIZ4BT6wcDuuef725e5/d0dRyWzPyr
+         4hFoyHKX6D7QwoIL0ItSrgbWcOElOZDFKteQP9tHT69O/KceU2klTdpttHHvmCm9z2qV
+         4tCUo9oTUyOTvmwNtsCVuMwdDpzGrWosoOZUY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789647461; x=1790252261;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P/CnLftEvKl62DKetab2YvCs3DqAzBULF24/3TZ0i+E=;
+        b=KzQ4svVOeaXnfYmXGKdyxRaG0LZepvJeiP5oXriXWeLrnLVw2qA6LYzbKuJ2rt2cg0
+         HSWePNusmCSQ8LYdrXHJZ8HzNPTNcN9SbEVYIP+THQeBoJtuOgnzHZFJNxxA1MwBvJyz
+         DPL4QacvJj6F35hQjP8U6nGcZnxZYJLdhRz3A/QXzQ9HjX8uX1TTNJx8IJE5XI9UCP9I
+         aBAq3pJwhdyTxDXv3shAABgtLCmN/EWe/QzHQhTzDzgV7mNDt+XxYITTT88l+NsfLMq6
+         p33p66Bz81LfxYrh/JK5Bd/pg7YZRKwpKYyakAfDMtUrTl68DkpzfzZvDgLKspzlhsCK
+         u1dg==
+X-Forwarded-Encrypted: i=1; AKwUvBz7MRx78Tv8FDp8EzCcNS7m52jKGvYt8bwqhzuP6tGzUXZsXaOGLcOoqD9ctzzFNgjQ/tI15H65zI9FW6M=@vger.kernel.org
+X-Gm-Message-State: AFuF++mxAbfIfexnT3nQ+i5a68MG7dXUaBLp8HGJCiqXUfmy2mwBrWvc
+	jryzRMMLPJGK/5v6Zt0hoFry714mfkq3/RtIT//ylhDeDbixvIajDr8SIaVTnl6/5Q==
+X-Gm-Gg: AYBFou0lxjHck++Zs2UCd8n0XFLTZsUd/FjX3Gt+UxiboC9lJtK1DyzD1zmvg/rnCqw
+	Xd2t8sUavry4xGal9pWhxfzCJWMB2LSQ9aqDoT7c2A4VshNo0Aqmwwb58Kt+iY0vuTRCXzILQ84
+	cqUFA7XFI5pkueifsiKlxADRy+EinH0e+o7828BBRZrgXR44FnCa6SS1sfX8VtoA0vMkwAn29nJ
+	f6OXY8uE8L1jUPHsMupbpF4qJUcuMMHwhQnD3yw6sVLdBPIE8J6iR9FvDtbMUAYRFrcVsQaj3wN
+	m7KWwscNgXtJsfMm5brNelTdhgNMCwckg/1HUBKaOqU1Ykzm7P6W492dVFMaaw0LO9/kki7ER5P
+	1UDToXLee6FGi5PCN/1d9+4E/if/yS+pVNwhsQKug+YsHrUWYTW/YC+nDd/kjZVuBXG6byjSMaL
+	3wWrr87s1TPw3g1ybUShKGh2NLfuSoCc/Pgw+VaijRU4RPKMueWlB2HMrwdkOH/mKOuhtddLbB4
+	iVJ
+X-Received: by 2002:a05:6830:83b2:b0:7fa:ac4f:785 with SMTP id 46e09a7af769-80b2dc1d7d8mr6835533a34.17.1789647461009;
+        Thu, 17 Sep 2026 05:17:41 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-80c46cb6675sm2805680a34.16.2026.09.17.05.17.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 05:17:40 -0700 (PDT)
+Message-ID: <692ed9ca-fac1-42cd-a514-517f6903f8d8@ieee.org>
+Date: Thu, 17 Sep 2026 07:17:38 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net: ipa: Fix enabled_state leak in ipa_smp2p_init()
+To: Wentao Liang <vulab@iscas.ac.cn>, andrew+netdev@lunn.ch
+Cc: davem@davemloft.net, edumazet@google.com, elder@kernel.org,
+ kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ pabeni@redhat.com, stable@vger.kernel.org
+References: <20260917115216.2149867-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20260917115216.2149867-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 09:04:39PM +0900, Paul Elder wrote:
-> This series is based on Geert's
-> "topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3" branch [0]. A
-> branch including this series is available here [1].
-> 
-> This series enables the FCPV[BI] and the VSP[BI] blocks on the Renesas
-> R-Car X5H SoC.
-> 
-> This has been tested on an Ironhide with the vsp-tests test suite [2]:
-> 148 tests: 142 passed, 0 failed, 6 skipped
-> 
-> There was some odd behavior with the clocks, where from what I
-> understood was that the clocks for the FCPV[BI] and VSP[BI] are
-> always-on, but the tests would hang unless I explicitly enabled...  the
-> always-on clock (or fsleep). Then after I removed the patch that
-> explicitly enabled the always-on clock everything ran fine. Just
-> reporting that this happened just in case it's relevant.
+On 9/17/26 6:52 AM, Wentao Liang wrote:
+> qcom_smem_state_get() takes a reference on the state, but
+> ipa_smp2p_init() returns without releasing the "ipa-clock-enabled" state
+> when the bit number is out of range, when the smp2p structure cannot be
+> allocated, and on the error paths that free the structure. Release the
+> reference on all of these paths.
 
-Well, it's always worrying, but as you can't reproduce it now it's hard
-to debug it. Let's keep an eye on that during further VSP work.
+Where did you get the code used in this patch?  It doesn't
+match what is currently present in Linux v7.2.
 
-> [0] https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git/log/?h=topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3
-> [1] https://git.ideasonboard.com/epaul/linux/src/branch/epaul/v7.3-rc1/x5h/vsp/fcp
-> [2] https://git.ideasonboard.com/renesas/vsp-tests/commit/900168f58c9d96be0592c2593f4d8f34edc9c69e
-> 
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+This issue was reported and already fixed:
+   96ca1e658ae45 net: ipa: fix SMEM state handle leaks in SMP2P init
+
+					-Alex
+
+> Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
-> Paul Elder (10):
->       dt-bindings: clock: renesas,r8a78000-cpg: Add CPG_SGD4_VIO_DP_{TX,OTHER}
->       clk: renesas: r8a78000: Add clock for FCPV and VSP for SCP FW SDKv4.36
->       pmdomain: renesas: r8a78000: Add maps for VIO for SCP FW SDKv4.36
->       arm64: renesas: r8a78000: Add FCPV[BI] nodes
->       arm64: renesas: r8a78000: Add VSP[BI] nodes
->       media: rcar-fcp: Check device revision at probe time
->       media: rcar-fcp: Handle resets
->       media: vsp1: Support full VSPB on R-Car M3-W, M3-N and E3
->       media: vsp1: Document X5H SoC ID
->       media: rcar-fcp: Add R-Car X5H support
+>   drivers/net/ipa/ipa_smp2p.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
 > 
->  arch/arm64/boot/dts/renesas/r8a78000.dtsi        | 171 +++++++++++++++++++++++
->  drivers/clk/renesas/r8a78000-cpg.c               |   2 +
->  drivers/media/platform/renesas/rcar-fcp.c        | 162 +++++++++++++++++++--
->  drivers/media/platform/renesas/vsp1/vsp1_drv.c   |  13 +-
->  drivers/media/platform/renesas/vsp1/vsp1_regs.h  |   3 +-
->  drivers/pmdomain/renesas/r8a78000-mdlc.c         |  34 ++++-
->  include/dt-bindings/clock/renesas,r8a78000-cpg.h |   2 +
->  7 files changed, 372 insertions(+), 15 deletions(-)
-> ---
-> base-commit: 02c5d61866607bce0b3271e7c1b838c53dbedc55
-> change-id: 20260917-epaul-v7-3-rc1-x5h-vsp-fcp-8afdeb2740f7
+> diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
+> index 2f0ccdd937cc..78f6df2cad76 100644
+> --- a/drivers/net/ipa/ipa_smp2p.c
+> +++ b/drivers/net/ipa/ipa_smp2p.c
+> @@ -239,12 +239,16 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
+>   					    &enabled_bit);
+>   	if (IS_ERR(enabled_state))
+>   		return PTR_ERR(enabled_state);
+> -	if (enabled_bit >= 32)		/* BITS_PER_U32 */
+> +	if (enabled_bit >= 32) {	/* BITS_PER_U32 */
+> +		qcom_smem_state_put(enabled_state);
+>   		return -EINVAL;
+> +	}
+>   
+>   	smp2p = kzalloc_obj(*smp2p);
+> -	if (!smp2p)
+> +	if (!smp2p) {
+> +		qcom_smem_state_put(enabled_state);
+>   		return -ENOMEM;
+> +	}
+>   
+>   	smp2p->ipa = ipa;
+>   
+> @@ -288,6 +292,7 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
+>   err_null_smp2p:
+>   	ipa->smp2p = NULL;
+>   	mutex_destroy(&smp2p->mutex);
+> +	qcom_smem_state_put(enabled_state);
+>   	kfree(smp2p);
+>   
+>   	return ret;
 
--- 
-Regards,
-
-Laurent Pinchart
