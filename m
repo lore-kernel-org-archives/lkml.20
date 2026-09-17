@@ -1,84 +1,239 @@
-Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF03F497396;
-	Thu, 17 Sep 2026 19:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.128.210.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5B34B7A3D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:35:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789673747; cv=none; b=urRiE/GsUnot1ykAh1x6XbQuL40GyHXZHg//CIKpohpApwdAvhkObrr2ifLiAR2H8cC0q7vBNjQKWPkW4xY4eL5d+V1yeLYo79VOtCzC2tVFm7SmUUG3fUlYShDl5YpWi0NOp42ObADO+pJGdVcAMBAJrGDgDCv66A2tm6vezG0=
+	t=1789673745; cv=none; b=ZFNIIchGejivTh5k2+bQWHJ3br9dKsj+kG6eCwBhr5h9OlRVvuDAmu46xBxgZQ4rgZwEI83cKyraka/FYE6rIjKlZj4HMh2zDgNplqMttyR8LgkGNF4W3JTweLWQHJE5l3TocaBL274aqMgyZ98sFPnBl6xDa4ugUc35PEWm54c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789673747; c=relaxed/simple;
-	bh=omY/NeZCi/3VxuAc6JP30WeLJ3esTsutz1YtUvdbJYA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dKOa3gf84cFhRsiGmZseyfvp+khuTk0Wr2bZyAOMAsN4+BFYBYO2NNti/gF40GXp5ZFQXEt+ijJVj+7iv93nYtbrviBjwKJu4+2W6lz4BB4McEQ1cMz7Jeak5t53/1fit5YB3yEQRY/s+oOcplITMAn9fke504uO479+J//o5IY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net; spf=pass smtp.mailfrom=librecast.net; arc=none smtp.client-ip=185.128.210.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
-Date: Thu, 17 Sep 2026 19:35:34 +0000
-From: Brett A C Sheffield <bacs@librecast.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
-Message-ID: <aqxBBu5GXVhHcqTz@auntie.librecast.net>
-References: <20260917151539.408551884@linuxfoundation.org>
+	s=arc-20240116; t=1789673745; c=relaxed/simple;
+	bh=CFbJiR+V6GoupLt9b/9ikjwGkfcFR3qlMuOgtlHDU6g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QU2Dx6GxB9rsR4mKqOxU9i5QqdMqlCrjC194DRH/qoHyf80vpulSZdhnsw+EU3fRMEuMVaplPltXpgSJXwQYLdCPmoeOSDwxbaT0d6YK7tRoiR+2n90iWWy0H34Byd0YHeCkIluOBDwdHlqy2ZEQXCi0uFOGK+eACd7v4gbf2WQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NVL6Vt27; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NVL6Vt27"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026B21F0089B
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:35:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789673744;
+	bh=3a9FjfFkPEGSCX372g1imqPw8idUvhGgu5KPAwR8rKE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NVL6Vt27Edo/gnQShR2JzSRyrdEffclsbWg48H2x33Sk9wV1iaLfZRJ1MFsD8gtug
+	 I9o2MtLeiPJ3QUQPkZqwwdz9tfqDdHRVh6z/qJUTLqWpTcxAIbI/u4I4bjR7NmsfWR
+	 Ui30j3BAEYmPVhSbA6oSRgsIo5WtUEYXJ3+tJUbJ3aKq6fgo6HlYG1UjEgyTrFg5rJ
+	 Is01Rxk5yMOCOIMwrcnx8MAHPi4xOVszR7x1BmzAVBIRRxg7vuiFAhUYub9Dq6jcg9
+	 5ebeggvj+W+56sLcILaeLZMxwSYkrN1MVZnMZiiXbwiKooq9FL8axCtnUjLRCOm1VK
+	 T6c28dxUsoajQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1801fso1238176e87.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:35:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzd/sH5QI9QRveckh8WKPhDJcmxZhuFneF99liakWP4WTLNGZOoCw+bUWTLb1ejIHgIoI7RcnJ92teyi6E=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksNoaGM874IUybVygs53u326tCx0n5sK++dIYuRoQlVgRTlRQU
+	+dIvJIyat28hSfV/8uZbeJ+X2Yt5OqvAwvPpbBblfkS3E2lqX7NrR52vRMxi2x4AHKyxjcyekq4
+	bdQucRAqgDID5FfnLYktOqH76mhFTtfs=
+X-Received: by 2002:a05:6512:3b90:b0:5b8:b428:4abb with SMTP id
+ 2adb3069b0e04-5b8b6612144mr2409946e87.9.1789673742273; Thu, 17 Sep 2026
+ 12:35:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
+References: <20260729061549.13419-1-tianyaxiong@kylinos.cn>
+In-Reply-To: <20260729061549.13419-1-tianyaxiong@kylinos.cn>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 17 Sep 2026 21:34:19 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jbOz=vdxrLQTOrM=iTL-+n0KioCvN0Y9XNoFcnj5ETZQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XWajak3BVQusHHcAXgW7Pb_sHWQ7is5G5UHOuR4DJVyjca-MmiBMcS2q8
+Message-ID: <CAJZ5v0jbOz=vdxrLQTOrM=iTL-+n0KioCvN0Y9XNoFcnj5ETZQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/6] cpuidle: speed up do_idle() by caching the
+ governor latency QoS constraint
+To: Yaxiong Tian <tianyaxiong@kylinos.cn>
+Cc: rafael@kernel.org, daniel.lezcano@kernel.org, christian.loehle@arm.com, 
+	lenb@kernel.org, pavel@kernel.org, shuah@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-09-17 15:59, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.111 release.
-> There are 1102 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 19 Sep 2026 15:13:49 +0000.
-> Anything received after that time might be too late.
+On Wed, Jul 29, 2026 at 8:16=E2=80=AFAM Yaxiong Tian <tianyaxiong@kylinos.c=
+n> wrote:
+>
+> cpuidle_governor_latency_req() is evaluated on every idle-state
+> selection.  It aggregates the per-CPU resume latency with the global
+> CPU latency and wakeup latency QoS limits
 
-6.12.111-rc1 hangs on boot on this machine (AMD Ryzen 9 9950X).
+True.
 
-Bisected:
+> by repeatedly calling
+> get_cpu_device() and pm_qos_read_value() cpu_latency_qos_limit()
+> cpu_wakeup_latency_qos_limit().
 
-git bisect start
-# status: waiting for both 'good' and 'bad' commits
-# bad: [18db24293f4d9b64614e0adf6dbe298073aa8860] Linux 6.12.111-rc1
-git bisect bad 18db24293f4d9b64614e0adf6dbe298073aa8860
-# status: waiting for 'good' commit(s), 'bad' commit known
-# good: [fa5b06866b643cce7072a4e7c6be7ee3f0f1b95c] Linux 6.12.110
-git bisect good fa5b06866b643cce7072a4e7c6be7ee3f0f1b95c
-# good: [06d602e1997cdab008184b921c752f5b07fa16ef] Bluetooth: btintel: bound firmware ID by TLV length
-git bisect good 06d602e1997cdab008184b921c752f5b07fa16ef
-# good: [a126d69b9dd9f2cbd25d1672053851ae90ec549b] accel/ivpu: Limit firmware log name prints to field size
-git bisect good a126d69b9dd9f2cbd25d1672053851ae90ec549b
-# good: [efe1f0c0257ae22c17fab4f1b55c1863a4d5bd98] ipv6: add some unlikely()/likely() clauses in ip6_output.c
-git bisect good efe1f0c0257ae22c17fab4f1b55c1863a4d5bd98
-# bad: [8a1320dc29ad21696ba7f0aa99a3fabf295e74c5] NFSD: Prevent client use-after-free during delegation revoke
-git bisect bad 8a1320dc29ad21696ba7f0aa99a3fabf295e74c5
-# bad: [5e4974a45323fd751aabfdd78c04457d231ac126] mm/slab: move and refactor __kmem_cache_alias()
-git bisect bad 5e4974a45323fd751aabfdd78c04457d231ac126
-# good: [562e14e2bbc8c9ad3c72c193a3afadc3a0cc1527] KVM: SEV: Track the GPA of the guest-controlled VMSA used for SNP guests
-git bisect good 562e14e2bbc8c9ad3c72c193a3afadc3a0cc1527
-# good: [4eaf9e48d2a7b9a5067206d54ae260c0292d595f] mm/gup: fix always draining LRU caches in collect_longterm_unpinnable_folios()
-git bisect good 4eaf9e48d2a7b9a5067206d54ae260c0292d595f
-# bad: [091b6f51c9330d9e2cacb8d6e4ab3e6e2e8d93fe] mm/mglru: reset page lru tier bits when activating
-git bisect bad 091b6f51c9330d9e2cacb8d6e4ab3e6e2e8d93fe
-# good: [8417718d642fbef80df65fb3369c3fc4b38cdbdd] pidfd: hold exec_update_lock around namespace ioctl
-git bisect good 8417718d642fbef80df65fb3369c3fc4b38cdbdd
-# bad: [22ae428b0045981bd19f8c75f700a67198062f32] mm/hugetlb: initialize gigantic bootmem hugepage struct pages earlier
-git bisect bad 22ae428b0045981bd19f8c75f700a67198062f32
-# first 'bad' commit: [22ae428b0045981bd19f8c75f700a67198062f32] mm/hugetlb: initialize gigantic bootmem hugepage struct pages earlier
+I would say "every time" rather than "repeatedly", but fair enough.
 
+However, those functions don't do anything expensive except for
+defensive checks that can be omitted.  Have you tried to omit them?
 
-Brett
+>
+> Use ftrace's function_graph, we can see:
+> parent:          do_idle
+> parent_total_ns: 36671010505
+> parent_count:    5994
+>
+> SYMBOL                                                      TIME_NS    %R=
+OOT  %PARENT      COUNT
+> -------------------------------------------------------------------------=
+-------------------------
+> do_idle                                                 36671010505  100.=
+00%  100.00%       5994
+>   cpuidle_idle_call                                     35566528731   96.=
+99%   96.99%       8570
+>     call_cpuidle                                        35476606844   96.=
+74%   99.75%       8561
+>       cpuidle_enter                                     35472932468   96.=
+73%   99.99%       8526
+>     cpuidle_select                                         52097031    0.=
+14%    0.15%       8580
+>       menu_select                                          49555181    0.=
+14%   95.12%       8580
+>         tick_nohz_get_sleep_length                         28843887    0.=
+08%   58.21%       8570
+>         cpuidle_governor_latency_req                        9567488    0.=
+03%   19.31%       8580
+>         tick_nohz_tick_stopped                              2057031    0.=
+01%    4.15%      15695
+>     cpuidle_reflect                                        11427201    0.=
+03%    0.03%       8561
+>       menu_reflect                                          6579506    0.=
+02%   57.58%       8526
+>         tick_nohz_idle_got_tick                             2231559    0.=
+01%   33.92%       8526
+>       __sysvec_apic_timer_interrupt                          105520    0.=
+00%    0.92%          3
+>     tick_nohz_idle_stop_tick                                8279641    0.=
+02%    0.02%       1475
+>     ---- skip
+>
+> The majority of the time spent in cpuidle_enter for CPUs entering
+> idle state has already been charged to the idle path. Among the
+> remaining contributors, cpuidle_governor_latency_req() accounts
+> for a non-negligible portion of the overall latency.
+>
+> Under the menu governor this shows up hot: ftrace data shows,
+>  cpuidle_governor_latency_req() accounts for about 19.9% of
+> menu_select() time (~1.9 us/call).  After caching the aggregated
+> value per CPU and invalidating via QoS notifiers, that share drops to
+> about 4.2% (~0.3 us/call), roughly a 6x reduction on this path.
+
+Is there any real-world workload in which that difference is actually visib=
+le?
+
+> The ftrace data before and after the optimization is shown below:
+> 1) original
+> parent:          menu_select
+> parent_total_ns: 160492937
+> parent_count:    16718
+>
+> SYMBOL                                                      TIME_NS    %R=
+OOT  %PARENT      COUNT
+> -------------------------------------------------------------------------=
+-------------------------
+> menu_select                                               160492937  100.=
+00%  100.00%      16718
+
+Where did you lose menu_update()?
+
+>   tick_nohz_get_sleep_length                              100262940   62.=
+47%   62.47%      16698
+>     tick_nohz_next_event                                   67891299   42.=
+30%   67.71%      16689
+>       rcu_needs_cpu                                         2825649    1.=
+76%    4.16%      16689
+>       timekeeping_max_deferment                             2380377    1.=
+48%    3.51%      15296
+>     hrtimer_next_event_without                             17865162   11.=
+13%   17.82%      15296
+>       hrtimer_bases_next_event_without                      2707631    1.=
+69%   15.16%      15296
+>       _raw_spin_lock_irqsave                                2461132    1.=
+53%   13.78%      15296
+>         native_queued_spin_lock_slowpath                        177    0.=
+00%    0.01%          1
+>       _raw_spin_unlock_irqrestore                           2364647    1.=
+47%   13.24%      15296
+>     can_stop_idle_tick                                      2906072    1.=
+81%    2.90%      16698
+>   cpuidle_governor_latency_req                             31988150   19.=
+93%   19.93%      16718
+>     get_cpu_device                                          4122502    2.=
+57%   12.89%      16718
+>     pm_qos_read_value                                       3427318    2.=
+14%   10.71%      16718
+>     cpu_latency_qos_limit                                   3005804    1.=
+87%    9.40%      16718
+>     cpu_wakeup_latency_qos_limit                            3005475    1.=
+87%    9.40%      16718
+>   tick_nohz_tick_stopped                                    4551981    2.=
+84%    2.84%      29496
+>
+> %ROOT =3D share of menu_select; %PARENT =3D share of immediate caller (in=
+clusive)
+>
+> 2) post-optimized
+> parent:          menu_select
+> parent_total_ns: 55428604
+> parent_count:    7626
+>
+> SYMBOL                                                      TIME_NS    %R=
+OOT  %PARENT      COUNT
+> -------------------------------------------------------------------------=
+-------------------------
+> menu_select                                                55428604  100.=
+00%  100.00%       7626
+
+And here?
+
+>   tick_nohz_get_sleep_length                               37464607   67.=
+59%   67.59%       7544
+>     tick_nohz_next_event                                   24076913   43.=
+44%   64.27%       7522
+>       get_next_timer_interrupt                             16332381   29.=
+47%   67.83%       5854
+>       rcu_needs_cpu                                         1489633    2.=
+69%    6.19%       7522
+>       timekeeping_max_deferment                              870851    1.=
+57%    3.62%       5586
+>     hrtimer_next_event_without                              6140153   11.=
+08%   16.39%       5586
+>       hrtimer_bases_next_event_without                       979000    1.=
+77%   15.94%       5586
+>       _raw_spin_lock_irqsave                                 808786    1.=
+46%   13.17%       5586
+>       _raw_spin_unlock_irqrestore                            785518    1.=
+42%   12.79%       5586
+>     can_stop_idle_tick                                      1583137    2.=
+86%    4.23%       7544
+>   cpuidle_governor_latency_req                              2321119    4.=
+19%    4.19%       7626
+>   tick_nohz_tick_stopped                                    1863015    3.=
+36%    3.36%      12751
+>
+> %ROOT =3D share of menu_select; %PARENT =3D share of immediate caller (in=
+clusive)
+>
+> This series:
+> - patch1~pathc3: Add QoS notifiers-related infrastructure and updates to
+> latency_req_gen.
+> - patch4: Implement QoS constraint for cache-aggregated governor latency
+> - patch5: add latency_req QoS idle-state selection test
+> - patch6: add idle-state disable selftest
+
+So this adds two per-CPU variables and a ton of extra complexity to
+optimize the case in which the majority of the governor computations
+aren't actually done.
+
+I'm totally unconvinced.
+
+Thanks!
