@@ -1,209 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CD533D6CA;
-	Thu, 17 Sep 2026 04:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E7D3515F7
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789620811; cv=none; b=tdai2GkGBGnXQoMZTt2xDhr9OHayCcpBIqSUN7yuZLEwZ0PefN05IwyU5qcZ+1sOdaYazNpZBnw/AD7K+J+cGOlTx9uZGaPV0Ew2NcI+QaVs+QIW9wrDFCDejGyixLl4ZYIBUow+gRrllac3Ep5dCo6auNao58XQ89w43ol965A=
+	t=1789620817; cv=none; b=qZxtlWVkMDHmk9TyTSRP6PFUWv43vzVFHzEjplVZAlGEw0xGZjQfzAH9Cn5furvi2SlZeUJGVlRr79hqekd/F3wjXKDM7KDAGb7LcGpf8Q2bG8bWEMaut/0oB6BYDfH+lRevZMDl76+oj4xntgz23aIMArHlk50sD1tJX0M7lOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789620811; c=relaxed/simple;
-	bh=mmm7o7N6Lw7ByP16zajA0WXABcIztVAyaGTEDsqylks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZWMWPRcrwIrKMmBqFH+Rdt4lL2csMoR/n+KvdQURl/E+tsEx2VRxliIRtmz7n7bUH6CeVpJvUqq5dyVwhwCiwCuv/cXk7eZWgcq+HlNdPO6YL81L+i3XXV7mPr3EDINM9UGdoM67HbfeECvihOP5RePQ6PsiJFQ1ueiIWmoykNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f/glVN5L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789620817; c=relaxed/simple;
+	bh=4KvZJH6YRwPglA9o3nI6z1rEnSsw3vH+LveBOSJFiwY=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=r+/fiBOnsgjcHZOiIQZAQqAAsgHfDgWNaxafhRPwfftkRlCZOHpKr8cVvp7ra+DNPKjE3PForfv8jdECSo8peeM+whEYrX9w2pFRidT07JWfsC9DRNZnYOaEjV9kGvNUVXthqesxsmI3LG+gakUJvwShlQ2yqM4das7TZq0Jby4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=W8oTM/0X; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f/glVN5L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A28051F000FF;
-	Thu, 17 Sep 2026 04:53:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789620809;
-	bh=8pkmHG2dnlc2UQMeYp0dXCe3ELJF/DIESwxhTUqAvI8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=f/glVN5Lc9URTH/2XaU7rMpQrhosqnb05CJfODfOQPBu9JTiOAjfZrUcIIer1i23w
-	 3VuVkGxbj9eeLlfCR9RMe9j/MIW5HthiBQqlkAN6jFcznxJUYUDxyu53S5HevS4Omc
-	 ad2t44P2YhInQTtUy3DNTuy6WRYIKUIOl3460P0xTvy2d2mGHZSYLC5YEFa89RSGYz
-	 MzuRBdvenYixMj6uFVqAA89e1XFR1BrPKvRlZh0ziJLMBnr83pujf3JSB2BpKqRYri
-	 V5bZLnMUERRWiDqgdkLZyl9S5dOF3iGeN1IQl94rHiImDbHEhVFHRtdKYY9Cema/0Q
-	 SZqckZ13skj0w==
-Date: Thu, 17 Sep 2026 06:53:07 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Bryan O'Donoghue <bod@kernel.org>, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v17 1/5] phy: core: Fix use-after-free in phy_get paths
-Message-ID: <4jzaqafeeecrp7c56bqh7asop2hucv6h4eem5esmoamckk33jz@k2jkerutehs2>
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org>
- <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-1-e2197a3e2551@linaro.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="W8oTM/0X"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39deb05ef51so711472a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:53:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789620815; x=1790225615; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bOKipafnbhub0qpZgGArEWzHEFMMWCTscOxRR7YZKWY=;
+        b=W8oTM/0XH6Zp//oJTh4UyX1ZAtHHqVGx3CBsHuKRF/mdpkbcbhGBBh24vy7YiYjdxW
+         0biKZIDZmdQFBdGpuJe9CQ9b1yJ3X3uiAkzXnS372njNo9z67eACinoWCjyOznxiu9Gd
+         V1JsAPS0Gq4bdQKWtjeJ++lB8cKs38K75DQn+ae2k3iChRR1orYwfSl9hy4k2OsemQnJ
+         Qr9WzFxciimRT13gv/qWgxdSfqI8xOsn+Kr6+y8W9z3Sp6KLiBE9QX4DMSFsCVyitpZ8
+         5WVpmrAW58Jp0M3wunBKsvfn6NVd+5VAzxJ4ysCSU1aoXdLWseFw1no/xOJrqKRevdub
+         syWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789620815; x=1790225615;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bOKipafnbhub0qpZgGArEWzHEFMMWCTscOxRR7YZKWY=;
+        b=QPhEC90ykD6JJHVXZRk+PSRGZZ3PEewqwZMEXsvIw78Upz49PJPl7oi4sWTqM1MnWX
+         TaDpShQMMAXWu3yS3xspbtgNSt0CNcPSAKK4/x5LzYP1yvpqM9CYoXRussJ2VMF1Moon
+         hA1d9IubbQa7Jdf6A7Vew9hTVlzekZxdcP1t5tvyy+PBy/R9052+aOzpSaw68FrP2bUi
+         wmhdYh4JhTECpP3oYapSPHD5LQ493YUTgxvYheoPwDQSdWTpv9FbwY5XXFoB7Drhm7mU
+         KOqg+UeG3NZXNYfU2UFrptu4lCO4D3HkhjQmD/5y2rsGy054/cVzx2eKIEGYXzH69lBF
+         HbVg==
+X-Forwarded-Encrypted: i=1; AKwUvBxaS21iwqnuZ+kuEZ0mLaV1/kZjTcDI/kjw+TeEl1BkiG4D4BRSk2sXLRtx7WOaSgGSd/AJsBbF94t1Pis=@vger.kernel.org
+X-Gm-Message-State: AFuF++nY68pg3HOSst+VCMC2MwfFXYdsf1EdkXb4s5blXwfabTOahwbQ
+	8SN+IHIs+XJNv2TQrFGA2bcLy9yE72ejOlKTr3PuLP+c6fwODrvpZsAVmkAkZbKmoSBI8Vkv2bT
+	5TAi7IZPwQw==
+X-Received: from dli5-n1.prod.google.com ([2002:a05:7022:285:10b0:144:c0e8:a153])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4a51:b0:39d:ee20:1e28
+ with SMTP id 98e67ed59e1d1-39e1e510f73mr15259716a91.21.1789620814920; Wed, 16
+ Sep 2026 21:53:34 -0700 (PDT)
+Date: Wed, 16 Sep 2026 21:53:16 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-1-e2197a3e2551@linaro.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260917045326.63601-1-irogers@google.com>
+Subject: [PATCH v1 01/11] perf aslr: Add missing includes and sort headers
+From: Ian Rogers <irogers@google.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Cc: sashiko-bot@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Sep 06, 2026 at 03:17:05PM +0100, Bryan O'Donoghue wrote:
-> Sashiko asked during a patch review if the existing usage pattern had a
-> race condition; specifically in of_phy_get() if it was possible between
-> returning from _of_phy_get() and running try_module_get() that a module
-> might be unbound leading to use-after-free.
-> 
-> Looking at the code this appears to be so, there is no linkage between the
-> phy and module under a synchronisation primitive.
-> 
-> Using the phy_provider_mutex in phy_get() will ensure there is a link between
-> the returned phy pointer and the module_get() bumping the module reference
-> count.
-> 
-> Amend phy_get(), of_phy_get() and devm_of_phy_get_by_index() to fix the
-> same usage pattern.
-> 
-> phy_provider_unregister() must take the phy_provider_mutex so amending
-> phy_get()/of_phy_get() to take that same mutex guarantees there is no
-> use-after-free.
-> 
-> Fixes: ff764963479a1 ("drivers: phy: add generic PHY framework")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->  drivers/phy/phy-core.c | 45 ++++++++++++++++++++++++++++++---------------
->  1 file changed, 30 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-> index 21aaf2f76e53e..89addd732bff3 100644
-> --- a/drivers/phy/phy-core.c
-> +++ b/drivers/phy/phy-core.c
-> @@ -124,13 +124,13 @@ static struct phy *phy_find(struct device *dev, const char *con_id)
->  	const char *dev_id = dev_name(dev);
->  	struct phy_lookup *p, *pl = NULL;
->  
-> -	mutex_lock(&phy_provider_mutex);
-> +	lockdep_assert_held(&phy_provider_mutex);
-> +
->  	list_for_each_entry(p, &phys, node)
->  		if (!strcmp(p->dev_id, dev_id) && !strcmp(p->con_id, con_id)) {
->  			pl = p;
->  			break;
->  		}
-> -	mutex_unlock(&phy_provider_mutex);
->  
->  	return pl ? pl->phy : ERR_PTR(-ENODEV);
->  }
-> @@ -624,6 +624,8 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
->  	struct phy *phy = NULL;
->  	struct of_phandle_args args;
->  
-> +	lockdep_assert_held(&phy_provider_mutex);
-> +
->  	ret = of_parse_phandle_with_args(np, "phys", "#phy-cells",
->  		index, &args);
->  	if (ret)
-> @@ -635,11 +637,10 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
->  		goto out_put_node;
->  	}
->  
-> -	mutex_lock(&phy_provider_mutex);
->  	phy_provider = of_phy_provider_lookup(args.np);
->  	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner)) {
->  		phy = ERR_PTR(-EPROBE_DEFER);
-> -		goto out_unlock;
-> +		goto out_put_node;
->  	}
->  
->  	if (!of_device_is_available(args.np)) {
-> @@ -653,8 +654,6 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
->  out_put_module:
->  	module_put(phy_provider->owner);
->  
-> -out_unlock:
-> -	mutex_unlock(&phy_provider_mutex);
->  out_put_node:
->  	of_node_put(args.np);
->  
-> @@ -678,15 +677,21 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
->  	if (con_id)
->  		index = of_property_match_string(np, "phy-names", con_id);
->  
-> +	mutex_lock(&phy_provider_mutex);
-> +
+Sashiko reported:
 
-I was tempted to suggest using "guard(mutex)(&phy_provider_mutex)" in all 3
-functions, but then realised that this patch is pointing the Fixes commit dating
-back to the origin of the PHY framework. So cleanup.h won't be available and
-backporting to older kernels won't be possible. So manual lock/unlock is OK
-here.
+  When building the perf utility against strict C standard libraries
+  such as musl libc, compilation fails in tools/perf/util/aslr.c due
+  to missing explicit inclusions of <stdlib.h> and <string.h>.
 
->  	phy = _of_phy_get(np, index);
->  	if (IS_ERR(phy))
-> -		return phy;
-> +		goto out_unlock;
->  
-> -	if (!try_module_get(phy->ops->owner))
-> -		return ERR_PTR(-EPROBE_DEFER);
-> +	if (!try_module_get(phy->ops->owner)) {
-> +		phy = ERR_PTR(-EPROBE_DEFER);
-> +		goto out_unlock;
-> +	}
->  
->  	get_device(&phy->dev);
->  
-> +out_unlock:
-> +	mutex_unlock(&phy_provider_mutex);
->  	return phy;
->  }
->  EXPORT_SYMBOL_GPL(of_phy_get);
-> @@ -786,6 +791,7 @@ struct phy *phy_get(struct device *dev, const char *string)
->  	struct phy *phy;
->  	struct device_link *link;
->  
-> +	mutex_lock(&phy_provider_mutex);
->  	if (dev->of_node) {
->  		if (string)
->  			index = of_property_match_string(dev->of_node, "phy-names",
-> @@ -796,15 +802,18 @@ struct phy *phy_get(struct device *dev, const char *string)
->  	} else {
->  		if (string == NULL) {
->  			dev_WARN(dev, "missing string\n");
-> -			return ERR_PTR(-EINVAL);
-> +			phy = ERR_PTR(-EINVAL);
-> +			goto out_unlock;
->  		}
->  		phy = phy_find(dev, string);
->  	}
->  	if (IS_ERR(phy))
-> -		return phy;
-> +		goto out_unlock;
->  
-> -	if (!try_module_get(phy->ops->owner))
-> -		return ERR_PTR(-EPROBE_DEFER);
-> +	if (!try_module_get(phy->ops->owner)) {
-> +		phy = ERR_PTR(-EPROBE_DEFER);
-> +		goto out_unlock;
-> +	}
->  
->  	get_device(&phy->dev);
+  The implementation relies on standard memory management and string
+  functions like malloc(), free(), memcpy(), and memset() in routines
+  such as aslr_tool__findnew_mapping(), aslr_tool__process_sample(),
+  and aslr_tool__delete(). Because the required headers are omitted,
+  the compiler must resolve these calls via implicit function
+  declarations. While glibc may transitively provide these definitions
+  via other headers, musl libc does not. This violates strict C99+
+  standard compliance and triggers fatal build errors under modern
+  compiler configurations.
 
-You could've dropped the mutex here itself instead of covering the whole
-function. But that's not a deal breaker here. So,
+Add the header files and use git clang-format to sort.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Reported-by: sashiko-bot@kernel.org
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/util/aslr.c | 32 ++++++++++++++++++--------------
+ 1 file changed, 18 insertions(+), 14 deletions(-)
 
-- Mani
-
+diff --git a/tools/perf/util/aslr.c b/tools/perf/util/aslr.c
+index 027695d96779..f49e965243aa 100644
+--- a/tools/perf/util/aslr.c
++++ b/tools/perf/util/aslr.c
+@@ -1,28 +1,32 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include "aslr.h"
+ 
++#include <errno.h>
++#include <inttypes.h>
++#include <stdlib.h>
++#include <string.h>
++
++#include <byteswap.h>
++#include <linux/compiler.h>
++#include <linux/zalloc.h>
++#include <unistd.h>
++
++#include <internal/lib.h> /* page_size */
++
+ #include "addr_location.h"
++#include "data.h"
+ #include "debug.h"
++#include "dso.h"
+ #include "event.h"
+-#include "evsel.h"
+ #include "evlist.h"
++#include "evsel.h"
+ #include "machine.h"
+ #include "map.h"
+-#include "thread.h"
+-#include "tool.h"
+-#include "session.h"
+-#include "data.h"
+-#include "dso.h"
+ #include "pmu.h"
+ #include "pmus.h"
+-
+-#include <internal/lib.h>  /* page_size */
+-#include <linux/compiler.h>
+-#include <linux/zalloc.h>
+-#include <errno.h>
+-#include <inttypes.h>
+-#include <unistd.h>
+-#include <byteswap.h>
++#include "session.h"
++#include "thread.h"
++#include "tool.h"
+ 
+ /**
+  * struct remap_addresses_key - Key for mapping original addresses to remapped ones.
 -- 
-மணிவண்ணன் சதாசிவம்
+2.55.0.1082.g2b9226bbc0-goog
+
