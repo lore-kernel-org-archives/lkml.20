@@ -1,405 +1,99 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246A34D9F90
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2FEE4DAF98;
+	Thu, 17 Sep 2026 11:39:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645137; cv=none; b=FRnyKNotrTtt5u+aPJ8kZjvnbzFoXQjeybOqnLhI7JCwLnKUMFR0AQY87x6YAEPy+1ZMzfTHUF5xpre7yBsO5ld7QM1fz7RHsxnjYYabDYV+/rqok3KEZjmHwrIASj+axPHbtKEOqK6bnWJGGzprxZFMBgFCVEXS8d8YIzGoOE4=
+	t=1789645204; cv=none; b=NhfGp+IGa3aHTZOqR31GLgD7+dXoGTzukvQhC+MU2xG3deyG7RniCRpG77RzlW4FE+h1KhVFpnVZ5n2XWzNugljOL2gqujC66afTzK1bnFLLgq/o/RIHcpVpbNahsUF1MsIfThwLoqmjTZLzFe7wii3LnPrNoD3s5J+inC3ixcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645137; c=relaxed/simple;
-	bh=1LSgm1kMO5s/yefz9Us0QM31TaVFnEv1jCNWvGFWin8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AlPKnMnE1vWLFh44ZhqzVfnzEMbVCEcsqafuxNZGmO9lSbPjt8wNYJ2ta2B3TpGfX7+ukx9qoX3ZGcATK/rMGV092cDzps6POuFlzsKhhXRoqzJva001gCWNAD8xAOZxIPIB0+zjJDHrB0e+8wCYPZrsOqD3CINCXyBIx9F6Fy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hn8narJf; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hn8narJf"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b2e1d7so542753b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:38:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789645134; x=1790249934; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qax2Y7ONpWhvJcoWb2lMaau5W7EezZJfLvrgASjSPV0=;
-        b=Hn8narJfwmCZXe+d+kCxGTuVCOILJSKsQIjgm8nwebXI1FMR0m7+8f5cGAz4nuASIS
-         jbnZqdaEtp+HbU9i3lUVPfjOHrBsCLA+yAqoGV0KW25hHteGKo6xCoiFMqVsaysKoaQ5
-         es2LPKoaMF0ZF1NrmjGp/AWEfGEixLEtUfjgdFPZrQD43KxGKEjY128NKheJO+tbiSY0
-         e23d7Oi/RVSE5i1NBsYRM5kxY1ZUrbr343MQJqkd3v5zTXetNe8xjUJo8SZejHib98z/
-         gEwFS8Cr+s0nvxman+qCiU3duK8OYy/OI6+HZ7gqGht0ddu5Qxjdcg22cZW5MMJV3aA5
-         KPiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789645134; x=1790249934;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qax2Y7ONpWhvJcoWb2lMaau5W7EezZJfLvrgASjSPV0=;
-        b=R+WVUfvPOAfdT2OQhxcwSbyCaEBeDj7PZCEe1pqgHOtDw30D8v8nfsWcNKEv3EA61i
-         QtPGsR7Nuc4KcuprZiKLGAG6DMo9dAYeMu+trJU+nIYcH3DS5xVBPm/k13T7xBialU8t
-         K0kdEGgA/CYVSdtuvlNYc2NgXvGKQGcMqL7tkUeLbqun0o4korMpPVPEusz374vjlnJ+
-         aUcNX3PadK44tUteFdSQA11vXSEB2DJWC/Fx4m0RWPs1Q2FfMA27CYJe7PMBqcEDKf7g
-         hm+cJ+p7KNMiYBQXi/o1OfNpLioNjzuHdobr8nxePnPCRfJhhYNoncpuXf3udTxf+QHB
-         NaOg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+x7r6bQwWbFO9zsYmtw8CHb2TaCfHC6bfmTilG4d8UQ4g421dCXRmyCZmaOx0qFKkVk6nkrLvwHcwI7M=@vger.kernel.org
-X-Gm-Message-State: AFuF++myYEjYaTX876n16gB7SyfcNtblkjfwi8lmz6a7XCMpd5g3b4qu
-	OfDsehK6lvwZzvo+tbYlGMfKgD5I/RWpaLh9O9j/pbhXfq8dL/1X2EfB
-X-Gm-Gg: AYBFou2YWIKCUx1dNtS0/KJmlKzpjXBIg4EomGt1Lls1O/5BAUG5TebMXX89Z2n6Ksj
-	T2kAdq46jAfD7JvjybptIzYMyR9vMdXGZc4ZOOyp/Ep0evOG0PBBeY9RqkQptt0P59xHZtifsF/
-	LEA+VEnyTl7+0wTp3U1/UdPHHmkRhVuvm2cEfCOEhv6MdxbygGvWHBuo1utPUMMPHlWxRrCl8D9
-	+RoilW7FQRcc30Vr7ouHooFwmSE7M9HhNi0jKLVZu1knWTpyKxXenNCrAyl2r9C63f+l9p3OsjN
-	HoyV9WGXFhsiYZRuj06Ngq/aUbjXj7QzSesMiLeQQ8whp2T83zLv6IoUHFRXBwT0Bltd3dsGUpD
-	Hxcu8TTJoQF5R8Ryc30GLPNl+6+PDg+UNWncNqzqzP1I87Pim7aX6cuAWMzzVDHq3m24NcS9n/B
-	LKqm3jv+9omwV9xBMfKhrEnlARcFQRUz7eglF70QfrAvTam0x+oJZA/GASOZVeJQZgc2gLA4rNh
-	diNS04p4iE8AwdwaoQ=
-X-Received: by 2002:a05:6a00:1813:b0:871:b1b0:e49b with SMTP id d2e1a72fcca58-872378b3d61mr12425061b3a.10.1789645134016;
-        Thu, 17 Sep 2026 04:38:54 -0700 (PDT)
-Received: from [100.125.248.95] ([124.70.231.46])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201733075sm2650941b3a.40.2026.09.17.04.38.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 04:38:53 -0700 (PDT)
-Message-ID: <9d931f5e-cb34-4721-9def-7aeeda48700c@gmail.com>
-Date: Thu, 17 Sep 2026 19:38:35 +0800
+	s=arc-20240116; t=1789645204; c=relaxed/simple;
+	bh=NoxzKN8cAx+3h795kfAfNwSlZamFjjRAyGkJWepcSro=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rjgD4KUA9j+iEtccYOjGlyk83grgKc2PeTjqYK2sYFxc2B+rNCYX/SvwYN8l1njSNkyWh8KtJyfHiAsEcsl9kVksAm6JGg3y4HyqvqHkfQOuYeqzfjf30r+n9VWx93KrXBe6TTjsSJKqwEYMqF5xDbAmXvygvSQ+9NyNYXjaHCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAA3oDqB0atqp7x_CA--.1766S2;
+	Thu, 17 Sep 2026 19:39:45 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexandre.torgue@foss.st.com
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	mcoquelin.stm32@gmail.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	treding@nvidia.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: stmmac: Fix MDIO node leak in stmmac_mdio_setup()
+Date: Thu, 17 Sep 2026 11:39:45 +0000
+Message-Id: <20260917113945.2149361-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] mm/truncate: fix data loss when splitting
- straddling large folios fails
-To: Zi Yan <ziy@nvidia.com>, Jan Kara <jack@suse.cz>,
- Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, hughd@google.com, baolin.wang@linux.alibaba.com,
- willy@infradead.org, bfoster@redhat.com, joannelkoong@gmail.com,
- djwong@kernel.org, yi.zhang@huawei.com, yangerkun@huawei.com,
- chengzhihao1@huawei.com, wangkefeng.wang@huawei.com, yukuai@fnnas.com
-References: <20260916092450.654408-1-yi.zhang@huaweicloud.com>
- <20260916092450.654408-2-yi.zhang@huaweicloud.com>
- <xl2rtnntlxoxoozkddgrlkcsgukcngvvcwazm7gb7q5g32yxir@ef5ltcwueboh>
- <DLGXT0ERY79Z.3C5DYVJVX6S9Z@nvidia.com>
-Content-Language: en-US
-From: Zhang Yi <yizhang089@gmail.com>
-In-Reply-To: <DLGXT0ERY79Z.3C5DYVJVX6S9Z@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAA3oDqB0atqp7x_CA--.1766S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AFyDtr17WF13CF1UKr17KFg_yoW8GrWrp3
+	y7Ca9Fvr95Gr97tw4kJr40vFWFkayayrWUGr1Ikanavan8GFWaqryaqrWjvas7GrWDWa4a
+	qr10kw4UZF1DArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
+	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
+	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
+	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
+	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvE
+	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
+	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
+	Xa7IU878n5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgYNA2qrq3Z7RAAAst
 
-On 9/17/2026 2:03 AM, Zi Yan wrote:
-> On Wed Sep 16, 2026 at 8:02 AM EDT, Jan Kara wrote:
->> On Wed 16-09-26 17:24:48, Zhang Yi wrote:
->>> From: Zhang Yi <yi.zhang@huawei.com>
->>>
->>> truncate_inode_partial_folio() splits a large folio so that the caller's
->>> truncate loop can drop the in-range sub-folios while keeping the
->>> out-of-range tail. The first split at the punch start edge is
->>> non-uniform, which leaves the sub-folio at the truncation end edge as
->>> large as possible, this means it may still straddle the range, holding
->>> both zeroed in-range and valid out-of-range data. The function then
->>> attempts a second split at offset + length to isolate that tail.
->>>
->>> If the second split fails the straddling sub-folio stays merged. The
->>> function returned true unconditionally on all exit paths of the success
->>> block, telling the caller it was fully handled. The caller kept its
->>> default end and the truncate loop truncated every sub-folio below it,
->>> including the merged straddler, discarding the valid out-of-range tail.
->>>
->>> For example, a 4-page order-2 folio punched from offset 0 to the middle
->>> of the last page:
->>>
->>>    truncate_inode_pages_range()
->>>      truncate_inode_partial_folio()      # same_folio == true
->>>        1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
->>>        folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
->>>        2nd split of folio2 fails / cannot lock
->>>        return true                       # BUG: caller keeps default end
->>>      end = 3
->>>      loop truncates p0, p1, p2-3        # p3's valid tail is lost
->>>
->>> This became reachable after commit 7460b470a131 ("mm/truncate: use
->>> folio_split() in truncate operation") replaced the atomic split_folio()
->>> with folio_split(), whose non-uniform split can partially split a folio
->>> and leave the end edge merged.
->>>
->>> It has gone unnoticed because a dirty large folio normally carries the
->>> filesystem's private data, for example buffer_head, so
->>> filemap_release_folio() -> iomap_release_folio() returns false on a
->>> dirty folio and folio_split() aborts with -EBUSY before any split,
->>> leaving the straddler safely unsplit. The bug is only reachable on paths
->>> that produce dirty large folios without filesystem private data, and it
->>> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
->>> attached.
->>>
->>> Rework the contract so the caller is told the page range to discard:
->>>
->>>    - Add pgoff_t *pstart and *pend out-parameters that receive the page
->>>      range fully covered by [lstart, lend] after any split (or none),
->>>      i.e. the pages wholly within the range and safe to discard.
->>>
->>>    - Adjust the ordering of the validate check when splitting folio2.
->>>      folio2->index is only reliable after the reference count and lock
->>>      have been successfully acquired, since it may have been split
->>>      concurrently, or freed and recycled to an unrelated mapping. On any
->>>      failure to obtain a reliable end position, fall back to
->>>      folio->index, which is safe but leaves the sub-folios split off at
->>>      the offset edge in the page cache.
->>>
->>>    - Rename the byte-range parameters start/end to lstart/lend to better
->>>      express their semantics.
->>>
->>> Callers in truncate_inode_pages_range() and shmem_undo_range() pass
->>> &pstart for the folio at the start edge and &pend for the folio at the
->>> end edge, so the truncate loop drops exactly the fully covered pages and
->>> never touches a straddling folio that still holds valid out-of-range
->>> data.
->>>
->>> Suggested-by: Brian Foster <bfoster@redhat.com>
->>> Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
->>> Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
->>> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
->>
->> The changes mostly look good to me but I have some confusion around the
->> folio2 splitting below.
->>
->>> @@ -259,32 +271,62 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
->>>   		 * for shmem truncate
->>>   		 */
->>>   		struct folio *folio2;
->>> +		pgoff_t end, aligned_end = (pos + offset + length) >>
->>> +					   PAGE_SHIFT;
->>>   
->>> -		if (offset + length == size)
->>> -			goto no_split;
->>> +		if (pstart)
->>> +			*pstart = round_up(pos + offset, PAGE_SIZE) >>
->>> +				  PAGE_SHIFT;
->>> +
->>> +		if (offset + length == size) {
->>> +			end = aligned_end;
->>> +			goto out;
->>> +		}
->>>   
->>>   		split_at2 = folio_page(folio,
->>>   				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
->>>   		folio2 = page_folio(split_at2);
->>>   
->>> +		/*
->>> +		 * folio2 may become stale due to a concurrent split or
->>> +		 * freeing, so validate it before and after taking its lock.
->>> +		 * If it fails, we can't get an accurate end position and fall
->>> +		 * back to folio->index, which may leave sub-folios split off
->>> +		 * at the offset edge in the page cache this round.
->>> +		 */
->>> +		end = folio->index;
->>>   		if (!folio_try_get(folio2))
->>> -			goto no_split;
->>> -
->>> -		if (!folio_test_large(folio2))
->>>   			goto out;
->>>   
->>> +		if (folio2->mapping != folio->mapping ||
->>> +		    !folio_test_large(folio2))
->>> +			goto out_put;
->>> +
->>>   		if (!folio_trylock(folio2))
->>> -			goto out;
->>> +			goto out_put;
->>>   
->>> -		/* make sure folio2 is large and does not change its mapping */
->>> -		if (folio_test_large(folio2) &&
->>> -		    folio2->mapping == folio->mapping)
->>> -			folio_split_or_unmap(folio2, split_at2, min_order);
->>> +		if (page_folio(split_at2) != folio2) {
->>> +			folio_unlock(folio2);
->>> +			goto out_put;
->>> +		}
->>> +		if (!folio_test_large(folio2)) {
->>> +			end = aligned_end;
->>> +			folio_unlock(folio2);
->>> +			goto out_put;
->>> +		}
->>
->> So I always found this folio2 lookup and revalidation somewhat suspicious
->> and now that we're digging into it I'll ask: As you note in the changelog,
->> by the time we compute split_at2 the page can be already freed and reused
->> because it was split off from the original 'folio'. It can be for example a
->> slab page or anything else. So is it guaranteed that page_folio() actually
-> 
-> For a slab or unrelated page, folio->mapping check rejects them.
-> 
->> returns something sensible? What guarantees we properly detect the "reuse
-> 
-> No, but folio_try_get() prevents non ref'd folios.
-> 
->> for something else" case in all possible cases for which the page can be
->> reused? I understand this is mostly a preexisting issue so maybe these
->> questions are more for MM guys than you...
-> 
-> I agree with you that trying to split a unlocked and not ref'd folio2 is
-> flaky. And it almost does a __filemap_get_folio() like you proposed
-> below.
-> 
+stmmac_mdio_setup() acquires a reference on the MDIO node through
+stmmac_of_get_mdio() and stores it in plat->mdio_node. If the allocation
+of plat->mdio_bus_data fails, the function returns -ENOMEM and the
+caller takes the error_put_phy path, which only releases plat->phy_node,
+so the MDIO node reference is leaked.
 
-I think this is indeed a pre-existing issue, as Sashiko pointed out:
+Release plat->mdio_node on this error path.
 
- > [Severity: Critical]
- > Does this speculative lookup handle the reallocation race correctly 
-if the
- > folio is reallocated to a different file offset?
- >
- > After the first split, the tail pages are added to the page cache and
- > unlocked. During speculative lookup, the tail page could be concurrently
- > reclaimed, freed, and reallocated as a new large folio in the same 
-mapping
- > but at a completely different file offset.
- >
- > The validation checks earlier and the page_folio check here will all pass
- > because the physical page split_at2 is part of the new allocation.
- >
- > However, the file index of the folio is not verified. If this 
-unrelated large
- > folio fails to split, the fallback path assigns its index to end here:
- >
- >     if (folio_split_or_unmap(folio2, split_at2, min_order))
- >         end = folio2->index;
- >
- > This unrelated file offset is then returned to the caller via pend, which
- > can cause the hole punch loop to truncate an unrelated segment of the 
-file.
- >
- > Should we verify that the file index of folio2 matches the expected index
- > (e.g. folio2->index + folio_page_idx(folio2, split_at2) == 
-expected_index)
- > before using it?
+Fixes: 1a981c0586c0 ("net: stmmac: Make MDIO bus reset optional")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-the current mapping check on the folio2 and the folio !=
-page_folio(split_at) check in __folio_split() are not able to catch this
-problem, which could then cause folio2 to be split at the wrong
-position. Does that sound right?
-
->>
->> So for me as an filesystem guy I'd appreciate some comment in this code
->> explaining why grabbing folio2 this way is actually safe. The really safe
->> way of getting to folio2 would be to use
->>    __filemap_get_folio(mapping, (offset+length) >> PAGE_SHIFT, FGP_LOCK, 0)
->> but I suppose we don't use the mapping lookup as it is more expensive?
-> 
-> __filemap_get_folio() is a better version of the existing folio2 finding
-> code. When I wrote the code, I never thought about using
-> __filemap_get_folio(), but I probably should have done it.
-> 
-> BTW,
-> __filemap_get_folio(mapping, folio->index + (offset+length) >> PAGE_SHIFT,
-> 		FGP_LOCK | FGP_NOWAIT, 0)
-> might be better:
-> 1. folio->index is needed to get the right folio2,
-> 2. nowait can us nonblocking.
-> 
-> 
-
-Following your suggestion, I reworked my existing patch to use
-__filemap_get_folio(), and it ends up looking roughly like the
-following(not tested yet). What do you think?
-
-Besides, if the issue Sashiko pointed out does indeed exist, I can
-extract the __filemap_get_folio() change into a separate patch to fix it
-on its own.
-
-Thanks,
-Yi.
-
-diff --git a/mm/truncate.c b/mm/truncate.c
-index 23c90f00b530..b5e5bdf5f9ef 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -279,51 +279,46 @@ bool truncate_inode_partial_folio(struct folio 
-*folio, loff_t lstart,
-  			*pstart = round_up(pos + offset,
-  					   min_nrbytes) >> PAGE_SHIFT;
-
--		if (offset + length == size) {
--			end = aligned_end;
-+		end = aligned_end;
-+		if (offset + length == size)
-  			goto out;
--		}
--
--		split_at2 = folio_page(folio,
--				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
--		folio2 = page_folio(split_at2);
-
-  		/*
--		 * folio2 may become stale due to a concurrent split or
--		 * freeing, so validate it before and after taking its lock.
--		 * If it fails, we can't get an accurate end position and fall
--		 * back to folio->index, which may leave sub-folios split off
--		 * at the offset edge in the page cache this round.
-+		 * After the first split at the start edge, the folio at the
-+		 * end edge may be freed and reused concurrently.
-+		 * __filemap_get_folio() looks up the straddler at
-+		 * aligned_end and returns it locked and ref'd with the
-+		 * mapping validated.
-  		 */
--		end = folio->index;
--		if (!folio_try_get(folio2))
-+		folio2 = __filemap_get_folio(folio->mapping, aligned_end,
-+					     FGP_LOCK | FGP_NOWAIT, 0);
-+		if (IS_ERR(folio2)) {
-+			/*
-+			 * No sub-folio straddles the boundary when aligned_end
-+			 * is empty so discarding up to it is safe.  Otherwise
-+			 * the straddler is locked by someone else and we
-+			 * cannot obtain a reliable end position, so we fall
-+			 * back to folio->index.  This is safe but may leave
-+			 * pages split off at the offset edge lingering in the
-+			 * page cache this round.
-+			 */
-+			if (PTR_ERR(folio2) != -ENOENT)
-+				end = folio->index;
-  			goto out;
--
--		if (folio2->mapping != folio->mapping ||
--		    !folio_test_large(folio2))
--			goto out_put;
--
--		if (!folio_trylock(folio2))
--			goto out_put;
--
--		if (page_folio(split_at2) != folio2) {
--			folio_unlock(folio2);
--			goto out_put;
--		}
--		if (!folio_test_large(folio2)) {
--			end = aligned_end;
--			folio_unlock(folio2);
--			goto out_put;
-  		}
-
--		/* Split failed: back off to the head of the straddler */
-+		/* Already at the minimum order, nothing to split */
-+		if (folio_order(folio2) == min_order)
-+			goto out_put;
-+
-+		split_at2 = folio_page(folio2, (aligned_end - folio2->index));
-+
-+		/* Split failed, keep the straddler intact */
-  		if (folio_split_or_unmap(folio2, split_at2, min_order))
-  			end = folio2->index;
--		else
--			end = aligned_end;
-
--		folio_unlock(folio2);
-  out_put:
-+		folio_unlock(folio2);
-  		folio_put(folio2);
-  out:
-  		if (pend)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 5cae2aa72906..09359ccb32ef 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -356,8 +356,11 @@ static int stmmac_mdio_setup(struct plat_stmmacenet_data *plat,
+ 		plat->mdio_bus_data = devm_kzalloc(dev,
+ 						   sizeof(*plat->mdio_bus_data),
+ 						   GFP_KERNEL);
+-		if (!plat->mdio_bus_data)
++		if (!plat->mdio_bus_data) {
++			of_node_put(plat->mdio_node);
++			plat->mdio_node = NULL;
+ 			return -ENOMEM;
++		}
+ 
+ 		plat->mdio_bus_data->needs_reset = true;
+ 	}
+-- 
+2.34.1
 
