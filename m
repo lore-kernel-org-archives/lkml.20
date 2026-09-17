@@ -1,98 +1,99 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC77E4B7A4D;
-	Thu, 17 Sep 2026 15:06:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66BA138B124;
+	Thu, 17 Sep 2026 15:06:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657575; cv=none; b=I4jjv/wfx1vzTj3tah7xmtV7zIj0NWEqjQL8NaSjw/aXx89MBtYHdOys+CFkTNR9YcjxwQSo6ZcCgGGSfLO9AHyz0jEV8E12Q+mqL2UWKdkllAwIWQfMnxl4xLBdOc5uccniNicKONakgPZuJR9GuJrgH6rNAIIY/HxKPbswn/8=
+	t=1789657591; cv=none; b=IpCM7OWvbyvo/4IifAinHDSh1nFP47Lcg3m4pjxKa0zLreJIzsQnipuhykAXl+DU+PdvXopQBo+0I3iWzLvksodRsthdWW2aDEUNcyY5/V9asnFbtrTPEBMR32rRe19g+azVE0lmXPVq5Xklwk1h3PNsmA2c6MvawRfANJ6t1tI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657575; c=relaxed/simple;
-	bh=/OfWtIewPY5C/r0HMIf+o2IIttSmiKU4y8rC/hzPssc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=QLzWEgBGUNrjF4ixd+Y9/F+XDqMbkdTLlJ9cU0mOMEPCqDhvYUGUURJM1OIsNI4nDrdVmz5RMW6lfrF5uu88FgLdFkKaN7Ce4fQGe8GxQr4Kvw44+/6VUI7qrSyOeSZSCjAJgBht5RL+3s/PeEtxYBYz0cqNt5rJ8uW9FmG2oCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ngBXbn7/; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789657591; c=relaxed/simple;
+	bh=F06S3muBwIFxsUQylcInCznpkcEWUBoslR1nKphRXtc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=OPHoIgCLdFJVKOEz6yqm7czMTW773NWRCpxjG5XgHe+c5g28caUBD6kE7dArDC7R9xrRzl7fFA3GXIjWHKi8HwlUnlK/rAte9HGpYHnv2UlXeeepzFUNTKx20jN0zNck4ACUFdVRkqJyjJx42Giy0+pUhw6Cgp1MgCbCOmneuo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FnQ9rKdm; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ngBXbn7/"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 84E4D4E407AC;
-	Thu, 17 Sep 2026 15:05:59 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 46CE460649;
-	Thu, 17 Sep 2026 15:05:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C35C211C7B08C;
-	Thu, 17 Sep 2026 17:05:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789657549; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=/OfWtIewPY5C/r0HMIf+o2IIttSmiKU4y8rC/hzPssc=;
-	b=ngBXbn7/ts81Rynz7n5bSN7vmTTpu4edcR52tEjvtmzV0mtJnaTqQaaGTaP6UXbcZcuttd
-	OmHSxedWnPBXZuzpLcrjJddURZ4iBxRQxqWuUXqCtPjgw44XdjtUZzeb4ixeueEh/Pjs3x
-	/eWz9LcI5bxvgzjpghmVc+XOtR8IQ3BUPB6X/utwtHLYoy1NQVdzrmV/b3RW+jMtn6MkTh
-	+P+X9EUacmGoXpVXdFe93bfZwrZ5ww11hjFw5RlJwwEHjnY4K+Lzz34RW8ywCr6zBFQl5u
-	wZSqY+rp+UjM2V2g8x9tD4szg7BX2Co1MnCeqc+BhGY2Fm25gVBYVqzQV44emw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Daniel Matyas <matyasdaniel006@gmail.com>
-Cc: Lee Jones <lee@kernel.org>,  =?utf-8?Q?Andr=C3=A9?= Draszik
- <andre.draszik@linaro.org>,
-  Ulf Hansson <ulfh@kernel.org>,  Liang Yang <liang.yang@amlogic.com>,
-  Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Neil Armstrong <neil.armstrong@linaro.org>,  Kevin
- Hilman <khilman@baylibre.com>,  Jerome Brunet <jbrunet@baylibre.com>,
-  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,  Andrew Lunn
- <andrew+netdev@lunn.ch>,  "David S. Miller" <davem@davemloft.net>,  Eric
- Dumazet <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>,  Paolo
- Abeni <pabeni@redhat.com>,  Bjorn Helgaas <bhelgaas@google.com>,  Lorenzo
- Pieralisi <lpieralisi@kernel.org>,  Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>,  Manivannan Sadhasivam <mani@kernel.org>,  Ray
- Jui <rjui@broadcom.com>,  Scott Branden <sbranden@broadcom.com>,  Broadcom
- internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,  Will
- Deacon <will@kernel.org>,  Mark Rutland <mark.rutland@arm.com>,  Vinod
- Koul <vkoul@kernel.org>,  Thierry Reding <thierry.reding@kernel.org>,
-  Jonathan Hunter <jonathanh@nvidia.com>,  Liam Girdwood
- <lgirdwood@gmail.com>,  Mark Brown <broonie@kernel.org>,  Jose Abreu
- <joabreu@synopsys.com>,  Ray Jui <ray.jui@broadcom.com>,  Scott Branden
- <scott.branden@broadcom.com>,  Atish Patra <atishp@rivosinc.com>,  Shawn
- Guo <shawn.guo@linaro.org>,  Dmitry Osipenko <digetx@gmail.com>,  Thierry
- Reding <thierry.reding@gmail.com>,  Ibrahim Tilki
- <Ibrahim.Tilki@analog.com>,  Okan Sahin <Okan.Sahin@analog.com>,
-  devicetree@vger.kernel.org,  Paul Walmsley <paul.walmsley@sifive.com>,
-  Palmer Dabbelt <palmer@sifive.com>,  Conor Dooley <conor@kernel.org>,
-  linux-rtc@vger.kernel.org,  Ricard Wanderlof <ricardw@axis.com>,
-  patches@opensource.cirrus.com,  Lukas Wunner <lukas@wunner.de>,  Chunfeng
- Yun <chunfeng.yun@mediatek.com>,  Eugen Hristev <ehristev@kernel.org>,
-  dri-devel@lists.freedesktop.org,  linux-arm-kernel@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  linux-hwmon@vger.kernel.org,
-  linux-iio@vger.kernel.org,  linux@analog.com,
-  linux-input@vger.kernel.org,  chrome-platform@lists.linux.dev,
-  linux-riscv@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: Expand flow lists to block lists
-In-Reply-To: <20260917144028.459053-1-matyasdaniel006@gmail.com> (Daniel
-	Matyas's message of "Thu, 17 Sep 2026 17:40:28 +0300")
-References: <20260917144028.459053-1-matyasdaniel006@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 17 Sep 2026 17:05:33 +0200
-Message-ID: <87tsnnj4ua.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FnQ9rKdm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789657584; x=1821193584;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=F06S3muBwIFxsUQylcInCznpkcEWUBoslR1nKphRXtc=;
+  b=FnQ9rKdmff8jhawgLZzKSSB8vbeDjzvpF5KY+JNo+/6Cj0yyuS8Q1Dze
+   v7FgP1HuoULqpAndbKAPJIHcqZnc83giDJEYuEqtfmIITH3Gn9CXgkpaO
+   k8Wmz8wpP4nFuF+6yJ/JgXgJp7Vu1FLnTJ1SD+ozwb5EiaofKywBsM52W
+   Oo8mPRsO5/vUEBO/4kLXK9wBSprpB01i23QMZzQW9MVYrcFMQRPZsqdnX
+   Xxj8Z2LSWeoHRxmoTRE1zU6OnbSrRGkPVYd/X9fm5b/juZbKEaECojSbD
+   Jmz9BV7pqasPYH2/1s9C/bS3PlIGwXs7JOOMjdkzGqcHdbH8qfY4gGNrb
+   A==;
+X-CSE-ConnectionGUID: N2m8O55nQTqXCg8gLPCK6Q==
+X-CSE-MsgGUID: 9/ZdPi3oSj+5FYYD40hsiA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101433704"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="101433704"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:04:10 -0700
+X-CSE-ConnectionGUID: Ye20C1nmRcKxJCL/EN5sXg==
+X-CSE-MsgGUID: 3xml8dD9TZezgZ9E5SUOFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="275797888"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.62])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:04:08 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: hansg@kernel.org, 
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260818203427.2738209-1-srinivas.pandruvada@linux.intel.com>
+References: <20260818203427.2738209-1-srinivas.pandruvada@linux.intel.com>
+Subject: Re: [PATCH v2] platform/x86: ISST: Avoid model check for recent
+ servers
+Message-Id: <178965744374.22350.4555360742713357018.b4-ty@b4>
+Date: Thu, 17 Sep 2026 18:04:03 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On 17/09/2026 at 17:40:28 +03, Daniel Matyas <matyasdaniel006@gmail.com> wrote:
+On Tue, 18 Aug 2026 13:34:27 -0700, Srinivas Pandruvada wrote:
 
-> Running dt_bindings_check returned:
-> [error] string value is redundantly quoted with any quotes (quoted-strings)
->
-> The files used quotation marks in flow lists because the strings had
-> commas and these commas were interpreted as separators. Convert flow
-> style lists to block style lists, so that there is no problems with the
-> commas.
->
-> Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
+> To enable SST functions, a CPU model entry is required. This causes
+> unnecessary delays in deploying new servers on older kernels.
+> 
+> To avoid this, if no CPU model match is found, allow the SST common
+> driver to load, when all of the following conditions are met:
+> 
+> - Not running as a guest.
+> - The platform is identified as a server via ACPI PM profile.
+> - The CPU belongs to the Intel family 19 (decimal), which starts with
+> Diamond Rapids. All recent servers are capable of enumerating SST
+> features.
+> - MSR_PM_LOGICAL_ID (0x54) is present to retrieve the PM logical ID.
+> 
+> [...]
 
-Acked-by: Miquel Raynal <miquel.raynal@bootlin.com> # MTD
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
+
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
+
+The list of commits applied:
+[1/1] platform/x86: ISST: Avoid model check for recent servers
+      commit: 153de724f47af43f0e0a1acc3b1dada18322cd18
+
+--
+ i.
+
