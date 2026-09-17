@@ -1,62 +1,64 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F58E4E13F8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:22:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B84F4C225C
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:22:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789647733; cv=none; b=jc/xT9eSasyLDW6u5iiQpi3e8UtNfBjqBjQPKNWCMwTyGlukmKn1lhXlwmPiwfgDOiaEBekj0uh9d44dOA/7Q8FppyZ5hoi+gS6ddppDO4FCB5aUfY+dM0fOWxGQaf9dXQKES2U+1sHqa2jmPFpRJlF4uZ6sSplQ9E+kxq2Y/PE=
+	t=1789647742; cv=none; b=J/GaHFwnHp9hZ8FqqIYJz0oB3Pkg5MBo9dkro229hLO/GB7kMUoACgVLsrzpxwdpnyR4yWY+kZyyXJZH8ziIibsF7cCQTRZ3YqrvTRM4wd+fyrvsXCJ3P+4quN1KE5WbOmPAHELO8c3qNeGDlUkmnJM+Qwd3Rg9heJQ6CpqxtJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789647733; c=relaxed/simple;
-	bh=yv9V25MsTxXQ+CtBI34DZGk4K6MHpHhwH3ULOdiBLI4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ooJxpBvOha8RjJS84bmpNS+Ux89TQ6XM5/0TDsW7smG2oo43EUitXfRaMvG3+3mAMODdq2TgTMJPpk7HU1r/e+F3bgo1KJi62v/14M7YqvAWTcp3wrSQJpvZsYwFQMp0JR4l6jv/EKMbBDNy/JJRXbOCcocI0dnhXK4877EJEz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YmAg5uYP; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789647742; c=relaxed/simple;
+	bh=g0bdFEp165C2AD6nwvlIUU4+9x/xgS5Nk0xlq49gsLU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hh+2GNHD6p0L88TlgW/R04sSRRlt1Iik8KS0zqoShT3GhCkH4f1Dg8pOI2X0a8yLTJO07oX+HRo+ytMSzLtTae/Y4Wboyd5d5keDu46uKMg8bv5KWz/RA7Oudxk03iUO/Nml6dh3XAj3BlFJvDTFt7/TWYOk7/oW2bByOxJTQM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QSv+nxHt; arc=none smtp.client-ip=74.125.227.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YmAg5uYP"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4c7a0so423220a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:22:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QSv+nxHt"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-39d654f02baso611988a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:22:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789647725; x=1790252525; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qUk0T8EqRqX4g3LbdKzV8ANkS9WrPtV8VqMhWs7aAjA=;
-        b=YmAg5uYPhAvOEnUeGbBpL7/9s3DSigCAfcDuxs2yvE9I7I+vMnb9DxP4gxhMfrJ1dZ
-         ug3XXNEi+vokUNRHCJ5Akq+/1ysGAfdX0lMBFKqJOpYVOuB8j7V8zoBvebpCICOt1z0y
-         lo4TIxdN+0rSE9oTH+JmehejK3GigQFnWbRPIEM+bzEJEvsVNiAHYxccWM59piE4vC0K
-         J4wOULEin39CDU8IhjVS0tcUyYB/UA4ffKXAY3EfqM1Ki69ygPW3w+2Y+3G/D3Y0Cs9I
-         9EfJj8ISOjCsL9WtOD0zN30Quge5/cjBbpOG8ebB7PxU0E04AF+fCXZwwfMGuBCYSmnP
-         29wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789647725; x=1790252525;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789647733; x=1790252533; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qUk0T8EqRqX4g3LbdKzV8ANkS9WrPtV8VqMhWs7aAjA=;
-        b=aGgRQqBvBB13M7zes2rLDu3XyFhGA4Pj13rOK4bMzFvJMji6fPIjwF/9uoKzbKt74b
-         9E1j+paBc4Nb3Vh6MdWI50U957YXnRwgs6d1B2BsqerFVVpm2xD5rcKWb3xBDWx8mId5
-         r0L7xY2fB1jdNNHsNU3BgVuE+tI2TdX98Sj822m44pUSiJzFJL8ZlPv8pBB8TLyw9ucV
-         ptdVVkboDiGn0QHf90tT7YjXFpt2cOhuo48YZTgGY+3VgEhNtukBFcr0+49FXGr+tCVj
-         EryXxu9DRcWMdAW4S3+7OS8wkGFIGuNVlI6gflNWf8pcQon9zn0s25B6KhCcu1kYtdtJ
-         Wufg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8RLHYkEKGSzfxEKQBeEhVmV1QONgFtsRg6aW2TGLSkDTVreR5orOSGjzoMWU4SjPlJLWVJ5NDtjWcaSo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k61ASkUc4TFMjdFdI4pEdojKCIfVYKz5jFmichvj5hizXCznaJ
-	F5Gf2HIP6/1Bslx54imtb5EIv16/qGtjyMrwA/NUkxsutN5tcUb8mb6L
-X-Gm-Gg: AYBFou25ILkcONAB1OL2kapoZI9qzow5jvs0+7nKwcgq6bzBit+6O+ASS+mgagtur51
-	o11b+Qt2UAJupQW4FK499D2k7+FvpbAkSKkzxPjp4jMU9iLsHztVU+BD3e1Bp+D9YUKxneaykYn
-	xqiIUes8ZT1MASwEim6sgzgbnHrZa4ylH2IfgzTeTSCt26u25lBoDaaema6IUNGJIr7aHscNqYc
-	QAtii9xJZnVDOLU5t4/BfPH90yLdMfNcXWB2gU4Owv6bxJj3OLhgy0W/FzhqOqbOBotHHz/1f0J
-	8D7GKz8igH4NHX+MaG2MQl+p7HnPoIb21+hWsqXxARFEL3wLBywIzVCOnnNfQNSDrOdfkkUwta7
-	2iBMpD+mwgpqup0i+yTebxLHj/RKoEua4NdHTbxwQjWqBUrktwffYdSC6+fDYJwAW1qTrSdFhcT
-	Tg50L2HO9WcnBy+vKQ7UhyhKPYMsoZO5+WF9p5uv2mWxmd1VIQ+YrTVMG17hOcUy5XP0zrwvDKm
-	nu0uXkI8sKs4ePqV4GUzoadjrJgLA==
-X-Received: by 2002:a17:902:cf03:b0:2db:31d5:1448 with SMTP id d9443c01a7336-2dd8e77cddcmr147673095ad.22.1789647725459;
-        Thu, 17 Sep 2026 05:22:05 -0700 (PDT)
+        bh=BdQwb9cZ0fnhKPkeH9+sCKU6IXQWmPIm14OBXxFtvO4=;
+        b=QSv+nxHtOtAMNnECfF981ajiftX6qt+tZtgyuSvm2Aqz2qEOeNyS7aRURsLJj2Visk
+         c8R44wll7BD721B7rbDyj1wkhaBcELNr7CyZd9TALQnu5D1bEQA20/0MOo8f4f++QRHX
+         O25bwT1gkTCd1t81g7L7Cci5Shiisxb4JuduQrFcS9/ZD7tchbDy55csIAKQjdUTMM4w
+         CA3ypsvPrTG8RXYbKtEDBESJSwnJHZfiiXmTWse1jx0jtxh7jfW3pHpK5TuX/516IsqB
+         qx0Shxs0QVur3cXGho2eTkDzXLThkBw8Bkk/18l6OaDGmCQ3w5tKoo5GPgIAgBgnwYG6
+         R4Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789647733; x=1790252533;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BdQwb9cZ0fnhKPkeH9+sCKU6IXQWmPIm14OBXxFtvO4=;
+        b=NMeGdcsujuXOlUw0VqMe0iWgESty0cMIqcSI9ETHVYzg2s1RXLIpy+svTIlmGzG4uY
+         M0LoG1MAa94UkWpNUNnkLJWdhoeal2+DIZwpMmZ54HH/+DZPXs++UaXYyYaU3278lY/F
+         r+/t9XJk0KVm6hItZfs7kiHMvjCUB6RJ+BwlbLPWmMRfiPlnB3KAQR7u4f5Q9ljtaVvG
+         /kodx3jv0KElxaVddFu82N97n4xSLcDu488/5GD59HvgIWfF4T+Acr1ToyBsmLrZDWvW
+         Yu9nBG80k2Huaer5r1RMpY/7QdB3YRNsmooQ5fLq60EWvEZQGs6lod1asobxfprHnAod
+         EwHw==
+X-Forwarded-Encrypted: i=1; AKwUvByQddlOB38vTuaJq0Rb2/zUwnN1QSeBsuZdH4hwkXrJvQsWAi9zByg5NUv1ubS6TQs5UU0WlbfJAoyknV4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfsGB5r7n+EVSvTZU+Naipu59+Rbyz0rSoWHaytvxs7SgaQD7z
+	+Fd3sKH3f1w0FdvTJQQ7L+cu+/Mw7pRDrGLLh5B1DvBcYp2ul2rXMDXK
+X-Gm-Gg: AYBFou3sNa7V0wKwumiycQDbONN2BmVrPQUIT9+j7hP9jQ1gtTb9AjdubhBsEQ5z74L
+	8ROd8zd8fSVs9VR1d5lOUbiKEkTbCQMJFeQa9DuLD/hyo91045Fs0ZPWO+sqIFnmVNekzKGmpYA
+	vk6cPj28DOtR7RLkfbh22avspL34cOnth1ex4bKI+4ay6jXvw5UpPHUJjRcWlweeBfVcQJV1x8s
+	rUic5q+nWt5H2RiZ+FWMTNd/IoXXgRFrquRplpiUObRLla355WkXPxaQ1nIyyCUJ3hrouuZGIKe
+	whi8OEJyEK2EgALd/8q1zxauGn2TCX9oOAWn3pEusWVRPa3Ga8s3zl7bJXlit+e2SJxNM/vvHN0
+	ntFA+KKHCLT1GRVIXRQCt3kskmrT9AQimO+697107t5ZxVBND49xjN1f8dnr2Qfk4BZHRiFHBz2
+	tdG8k3SZmKkIw/PL9Zce2ZB9xuBWiEB1ZdiYOuUhtAunfJ7sVi7yvPl3GIOmbBJxSIqo0q+5w8H
+	vCrPmOp6y27vtMU8qoAtoR6mzK1
+X-Received: by 2002:a17:90b:2b8f:b0:38e:fea2:df53 with SMTP id 98e67ed59e1d1-39e1e24fa85mr14609273a91.4.1789647732855;
+        Thu, 17 Sep 2026 05:22:12 -0700 (PDT)
 Received: from localhost.localdomain ([183.194.144.114])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a175sm16360661eec.9.2026.09.17.05.21.59
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a175sm16360661eec.9.2026.09.17.05.22.07
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 05:22:04 -0700 (PDT)
+        Thu, 17 Sep 2026 05:22:12 -0700 (PDT)
 From: zjamg <ndaugoing@gmail.com>
 To: "David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
@@ -68,11 +70,14 @@ Cc: Simon Horman <horms@kernel.org>,
 	Jiri Pirko <jiri@resnulli.us>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	zjamg <ndaugoing@gmail.com>
-Subject: [PATCH 0/2] net: fix negative transport offset handling in GSO pkt len calculation
-Date: Thu, 17 Sep 2026 20:21:51 +0800
-Message-ID: <20260917122153.62722-1-ndaugoing@gmail.com>
+	zjamg <ndaugoing@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] net: fix OOB read in qdisc_pkt_len_segs_init() on negative transport offset
+Date: Thu, 17 Sep 2026 20:21:52 +0800
+Message-ID: <20260917122153.62722-2-ndaugoing@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260917122153.62722-1-ndaugoing@gmail.com>
+References: <20260917122153.62722-1-ndaugoing@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,50 +86,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+In qdisc_pkt_len_segs_init(), the header length up to the transport layer
+is computed via skb_transport_offset() or skb_inner_transport_offset():
 
-This series fixes an out-of-bounds read and kernel crash in
-qdisc_pkt_len_segs_init() (and similar borrowed logic in sch_cake) when
-processing packets whose transport offset has become negative.
+	/* mac layer + network layer */
+	if (!skb->encapsulation) {
+		if (unlikely(!skb_transport_header_was_set(skb)))
+			return SKB_NOT_DROPPED_YET;
+		hdr_len = skb_transport_offset(skb);
+	} else {
+		hdr_len = skb_inner_transport_offset(skb);
+	}
 
-Both skb_transport_offset() and skb_inner_transport_offset() return a
-signed int. However, qdisc_pkt_len_segs_init() stores the offset into an
-unsigned int hdr_len.
+Both offset accessors return a signed int, but hdr_len is declared as
+unsigned int.
 
-When an encapsulated or tagged packet has undergone header operations
-(such as skb_vlan_untag() pulling stacked VLAN tags without updating
-inner_transport_header, or other header stripping that advances skb->data
-past the transport header), the computed offset becomes negative.
+If a packet undergoes header operations (such as skb_vlan_untag() pulling
+stacked VLAN tags without updating inner_transport_header, or other header
+stripping that advances skb->data past the transport header), the offset
+becomes negative.
 
-Converting this negative int to unsigned int results in a value near
-UINT_MAX (e.g. 0xFFFFFFF0). Consequently:
+When stored into unsigned int hdr_len, negative values are converted to
+large positive numbers near UINT_MAX (e.g. (unsigned int)-16 is
+0xFFFFFFF0). Subsequently:
 
-1. pskb_may_pull(skb, hdr_len + sizeof(struct tcphdr)) computes
-   0xFFFFFFF0 + 20, which wraps around in 32-bit unsigned arithmetic to 4.
-   This passes the check if skb->len >= 4, completely defeating the guard.
+1. pskb_may_pull(skb, hdr_len + sizeof(struct tcphdr)) evaluates
+   0xFFFFFFF0 + 20, which overflows 32-bit unsigned arithmetic to 4.
+   Since the packet length exceeds 4 bytes, pskb_may_pull() returns true,
+   bypassing the bounds check.
 
 2. th = (const struct tcphdr *)(skb->data + hdr_len) zero-extends hdr_len
-   to 64 bits, producing a wild pointer ~4 GiB past skb->data.
+   on 64-bit architectures, creating a wild pointer pointing ~4 GiB past
+   skb->data into unmapped memory.
 
-3. __tcp_hdrlen(th) dereferences th->doff at that address, triggering an
-   immediate translation fault / KASAN wild-memory-access panic.
+3. __tcp_hdrlen(th) dereferences th->doff, triggering an immediate kernel
+   crash (page fault / KASAN wild-memory-access panic).
 
-Patch 1 declares hdr_len as int and drops packets with negative offset
-via SKB_DROP_REASON_SKB_BAD_GSO.
-Patch 2 fixes the corresponding logic borrowed in sch_cake.
+A similar unsigned overflow occurs for UDP (SKB_GSO_UDP_L4).
 
-Thanks,
-zjamg
+Fix this by declaring hdr_len as int to match the return types of
+skb_transport_offset() and skb_inner_transport_offset(), and explicitly
+rejecting negative offsets by returning SKB_DROP_REASON_SKB_BAD_GSO.
 
-zjamg (2):
-  net: fix OOB read in qdisc_pkt_len_segs_init() on negative transport
-    offset
-  net/sched: sch_cake: check negative transport offset in
-    cake_overhead()
+Fixes: 7fb4c1967011 ("net: pull headers in qdisc_pkt_len_segs_init()")
+Cc: stable@vger.kernel.org
+Signed-off-by: zjamg <ndaugoing@gmail.com>
+---
+ net/core/dev.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
- net/core/dev.c       | 5 ++++-
- net/sched/sch_cake.c | 6 +++++-
- 2 files changed, 9 insertions(+), 2 deletions(-)
-
+diff --git a/net/core/dev.c b/net/core/dev.c
+index ecfbd72d5d1a..f2dbf99181ec 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -4159,8 +4159,9 @@ EXPORT_SYMBOL_GPL(validate_xmit_skb_list);
+ static enum skb_drop_reason qdisc_pkt_len_segs_init(struct sk_buff *skb)
+ {
+ 	struct skb_shared_info *shinfo = skb_shinfo(skb);
+-	unsigned int hdr_len, tlen;
++	unsigned int tlen;
+ 	u16 gso_segs;
++	int hdr_len;
+ 
+ 	qdisc_skb_cb(skb)->pkt_len = skb->len;
+ 	if (!shinfo->gso_size) {
+@@ -4182,6 +4183,8 @@ static enum skb_drop_reason qdisc_pkt_len_segs_init(struct sk_buff *skb)
+ 	} else {
+ 		hdr_len = skb_inner_transport_offset(skb);
+ 	}
++	if (unlikely(hdr_len < 0))
++		return SKB_DROP_REASON_SKB_BAD_GSO;
+ 	/* + transport layer */
+ 	if (likely(shinfo->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))) {
+ 		const struct tcphdr *th;
 -- 
 2.53.0
+
