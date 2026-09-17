@@ -1,180 +1,89 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A93F4BC00B;
-	Thu, 17 Sep 2026 10:28:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC1846E008
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640900; cv=none; b=E90azIXAOt+Jgtf2ct1CsUClHLFOAqQAqpNKYP9xlBtviI9xWLpgmRZjQeL9+QR+sR014WZWUofeZVTUXeRDNcNL58PIklFiTErBTsFkexvMdzKN0ufxTWzdi/iGtB3B1pOxfQprWKezJJ3KuBDsgFetq0UnCXN4TcVJgUCGKFs=
+	t=1789640908; cv=none; b=gAXOhDMJf661sBW4DRlhAPLa+t8hJ5OSWolH7R0GL3objKz8Zi+hCuDcGRBt+mVJCmYUi/Sea8HnsLe6O1d2pX+5+8RG6KJYcVMZ0XrZBhjDx9CIBO12O4GU4u7Kppcb7b0YjkIrvgV9BNpH0NoGTm5U4DVmx7/bC+PuAl4RRHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640900; c=relaxed/simple;
-	bh=fLAwyxJU/avsaVgGvmVbChT34DCHO2PGP7Xf6y4z8w0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=m+cKYJYoorgH/vpNrxolhGPs0yY/cv6tOIJQ3m5X2M5/N/fH0GSx/vE8psjnTkILdKpx6EqDB0yuyxqpx5TIDj/d803Ytv1UBY86/uEGGk9KcXJrZPiCze45BEa4VNnBiRm8f7l2zIwhG7rlXs25762TZBbV4xk12kH1uEGmQHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAXgDq0wKtqR5x+CA--.63922S2;
-	Thu, 17 Sep 2026 18:28:04 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexandre.belloni@bootlin.com
-Cc: bbrezillon@kernel.org,
-	claudiu.beznea@tuxon.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mtd@lists.infradead.org,
-	miquel.raynal@bootlin.com,
-	nicolas.ferre@microchip.com,
-	richard@nod.at,
-	vigneshr@ti.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] mtd: rawnand: atmel: Fix HSMC clock leak in legacy controller init
-Date: Thu, 17 Sep 2026 10:28:04 +0000
-Message-Id: <20260917102804.2146887-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789640908; c=relaxed/simple;
+	bh=/KGrvuzO5WgI2djWZCnyXfveLevJfivnlQ9jhj/0M7Q=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=p342K6N9TmS87Wj6dIhjQd4yE8fB5oLSLaEa2zZK97L+93UmOiVP06zzy5OrZodVo+YgZio5yh64NusURmqSeoQuDsTBKGs86Prql1cWwYalzdwOmBD7Nj1lUxSdViUMq7R9fkxJ8HurQlxQZcYMnYy2Taren1KweIJXkksdEds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eno8RS3B; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eno8RS3B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D971F00899
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:28:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789640902;
+	bh=fUnCmQJMiMWVZ5F6RQNnetI76cz8E/J8n7008wDjvaw=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=eno8RS3Bzcy/1R+Ef38g17VWIzzAmMZusPCGws5p73k6TOV8xG5oRpp8fHU/N0bJD
+	 RQDWwUukZO4I1gBidY5VtIqV3ERGOs7sIs2QiRw+a27nyBFUtk6Zh3Ly2lls2sLVSI
+	 9SsWNdnri7yvuusUJRYfG5n8CfXeppYvgxiUzCHzdSU7+tE3YDanuMHBNua8wxZeQz
+	 oyDuKp7AMo8ca4HZ9Iefj0TzLiUtXXOhfTYaXXrtX+PFbmbu9zZYgRPPOaKuw/R+l9
+	 mtU8DWuDXQhevoh//F7161bfE3hBbkTjOs9ms2frkniWNYXQzG6/UDTvUvIqyZjIv3
+	 1E9b5cA+7E4dg==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5d0ad9b89so5482761fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:28:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwn/cXI1hEnj/bxfQuw350X+L2/CKBYGRRAy8hTPBqXfaXjsz6L8xoRUI0gvEl1lcOxE2CuyWPYcF4vRF8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kupNIKC+75jlAWPirZGuf54LilfgROlhMIW2qVZ4XVosFSBX5M
+	jzODNe+GOSqwFjAU8C6CgP0I+Q8MxgVgPh42XgjGNhB+q93lSC5v6bJeDFz0JcrYgY4ETaa9GP9
+	Z5HuW8dMBqpZu8qHtXH4YOLEvOQ9E9f7BoZvqPLmbUw==
+X-Received: by 2002:a2e:a595:0:b0:3a3:74b9:8a7d with SMTP id
+ 38308e7fff4ca-3a5dca03df0mr10502251fa.22.1789640901382; Thu, 17 Sep 2026
+ 03:28:21 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 17 Sep 2026 06:28:20 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 17 Sep 2026 06:28:20 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260912123529.7951-1-tzungbi@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXgDq0wKtqR5x+CA--.63922S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJF47Aw1UXryxKFyfJFyrJFb_yoW5uFyxpF
-	W7XFWxGw18XayfZFZrKa1UWF1FqFs7KFyDCwsxW34fZw4aqryqyF1rZFyFqFW5GFWfXw43
-	Za17t3W8CFn5A3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
-	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
-	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
-	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
-	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
-	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
-	vjxUqdHjUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggNA2qrq3ZOXQABsO
+References: <20260912123529.7951-1-tzungbi@kernel.org>
+Date: Thu, 17 Sep 2026 06:28:20 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MfohVc8Cg0exc6EQggiq_QgYTpQHLF-OomKFwWO_Ay2gw@mail.gmail.com>
+X-Gm-Features: AcwNN1Wk-k5l4_dC4zg7mrE7Or59D0lDd35pgExi6SmDys6wSdeqpqTNlj0MpCg
+Message-ID: <CAMRc=MfohVc8Cg0exc6EQggiq_QgYTpQHLF-OomKFwWO_Ay2gw@mail.gmail.com>
+Subject: Re: [PATCH v13 0/3] drivers/base: Introduce revocable
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-atmel_hsmc_nand_controller_legacy_init() takes a reference to the
-HSMC clock with of_clk_get() and enables it, but the error paths
-that follow only release the device node, so both the reference and
-the enable are leaked whenever the controller cannot be fully
-initialized.  The probe fails in that case and never reaches
-atmel_hsmc_nand_controller_remove(), which is where the clock is
-normally disabled and put.
+On Sat, 12 Sep 2026 14:35:26 +0200, Tzung-Bi Shih <tzungbi@kernel.org> said:
+> This series introduces the "revocable" mechanism, a synchronization
+> primitive designed to prevent Use-After-Free errors.
+>
+> - Patch 1 introduces the revocable which is an implementation of ideas
+>   from the talk [1][2].
+>
+> - Patch 2 adds KUnit test cases.
+>
+> - Patch 3 transitions the UAF prevention logic within the GPIO core
+>   (gpiolib) to use the "revocable" mechanism.
+>
+>   The existing code aims to prevent UAF issues when the underlying GPIO
+>   chip is removed.  The patch replaces that custom logic with the
+>   generic "revocable" API, which is designed to handle such lifecycle
+>   dependencies.  There should be no changes in behavior.
+>
+> Since v9, there are two ways to manage the resource provider handle.
+> - Embedded allocation: patch 3 is the user.
+> - Dynamic allocation: no user yet; I could find it later.
+>
+> [1] https://lpc.events/event/17/contributions/1627/
+> [2] https://lpc.events/event/19/contributions/2262/
 
-Add an err_disable_clk path that disables and releases the clock
-before jumping to the existing out path.
-
-Fixes: f88fc122cc34 ("mtd: nand: Cleanup/rework the atmel_nand driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/mtd/nand/raw/atmel/nand-controller.c | 25 +++++++++++++-------
- 1 file changed, 16 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/mtd/nand/raw/atmel/nand-controller.c b/drivers/mtd/nand/raw/atmel/nand-controller.c
-index e7fdf532c5fe..87d9227f6ecc 100644
---- a/drivers/mtd/nand/raw/atmel/nand-controller.c
-+++ b/drivers/mtd/nand/raw/atmel/nand-controller.c
-@@ -2184,6 +2184,7 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
- 	if (ret) {
- 		dev_err(dev, "Failed to enable the HSMC clock (err = %d)\n",
- 			ret);
-+		clk_put(nc->clk);
- 		goto out;
- 	}
- 
-@@ -2193,20 +2194,20 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
- 		if (ret != -EPROBE_DEFER)
- 			dev_err(dev, "Failed to get IRQ number (err = %d)\n",
- 				ret);
--		goto out;
-+		goto err_disable_clk;
- 	}
- 
- 	ret = of_address_to_resource(nfc_np, 0, &res);
- 	if (ret) {
- 		dev_err(dev, "Invalid or missing NFC IO resource (err = %d)\n",
- 			ret);
--		goto out;
-+		goto err_disable_clk;
- 	}
- 
- 	iomem = devm_ioremap_resource(dev, &res);
- 	if (IS_ERR(iomem)) {
- 		ret = PTR_ERR(iomem);
--		goto out;
-+		goto err_disable_clk;
- 	}
- 
- 	regmap_conf.name = "nfc-io";
-@@ -2216,20 +2217,20 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
- 		ret = PTR_ERR(nc->io);
- 		dev_err(dev, "Could not create NFC IO regmap (err = %d)\n",
- 			ret);
--		goto out;
-+		goto err_disable_clk;
- 	}
- 
- 	ret = of_address_to_resource(nfc_np, 1, &res);
- 	if (ret) {
- 		dev_err(dev, "Invalid or missing HSMC resource (err = %d)\n",
- 			ret);
--		goto out;
-+		goto err_disable_clk;
- 	}
- 
- 	iomem = devm_ioremap_resource(dev, &res);
- 	if (IS_ERR(iomem)) {
- 		ret = PTR_ERR(iomem);
--		goto out;
-+		goto err_disable_clk;
- 	}
- 
- 	regmap_conf.name = "smc";
-@@ -2239,20 +2240,20 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
- 		ret = PTR_ERR(nc->base.smc);
- 		dev_err(dev, "Could not create NFC IO regmap (err = %d)\n",
- 			ret);
--		goto out;
-+		goto err_disable_clk;
- 	}
- 
- 	ret = of_address_to_resource(nfc_np, 2, &res);
- 	if (ret) {
- 		dev_err(dev, "Invalid or missing SRAM resource (err = %d)\n",
- 			ret);
--		goto out;
-+		goto err_disable_clk;
- 	}
- 
- 	nc->sram.virt = devm_ioremap_resource(dev, &res);
- 	if (IS_ERR(nc->sram.virt)) {
- 		ret = PTR_ERR(nc->sram.virt);
--		goto out;
-+		goto err_disable_clk;
- 	}
- 
- 	nc->sram.dma = res.start;
-@@ -2261,6 +2262,12 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
- 	of_node_put(nfc_np);
- 
- 	return ret;
-+
-+err_disable_clk:
-+	clk_disable_unprepare(nc->clk);
-+	clk_put(nc->clk);
-+
-+	goto out;
- }
- 
- static int
--- 
-2.34.1
-
+Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
