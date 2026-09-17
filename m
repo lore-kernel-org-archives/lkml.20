@@ -1,84 +1,97 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5AD4B4882;
-	Thu, 17 Sep 2026 10:09:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85A837B018;
+	Thu, 17 Sep 2026 10:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639773; cv=none; b=IPAdn6rTJThCKblFriOpAlYJSTHPSFxEEaPTv+7pnIQVQqtB9CmKd5zjaAnn6lxivYSMZf4Z14aXjZ0Ve4S0KxvVlX0WCjfK0ZXJL0xjiMxBF+7EtB/7ZYptApcEEX1zjwO22iAJrqvYI3s3+iq8ASjmR507Gy9DG2U7LFUcUnM=
+	t=1789639777; cv=none; b=MsVRgMRtVhh5Z/tspH61zFNTsbFoFDXeGbEmxH1vDnJUYXLlC0+eGXHbynwkJAbINlNFmol4JTu81I9n6bqD5RzJ3+BUmEinaB+YOV7HVw8jP5Hzfi58/0wG4wLDrf447+Ku2pSo4tmqQl726l13dZWyvB3GABBdCgGElt9m4Ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639773; c=relaxed/simple;
-	bh=7SA88uXt27Vh7dQvfKYPBRkBazuTc6H6MbT/2EtPVIM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=swR00HoKWgx++l5fE9tH/0envNyB2qEQCX9fD0LwBSQyrc6DpaViSKirINHW6iURv+trnigUNy+7Foci07hhW2rsiVeTkW83cR/PxMC2Tz6Cyt7s9q6VmFdsGjX4gIhQSe3VyptwKp6889A22UI4pnJc9lD+gD+bN4Osnj8S/ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABnl0FUvKtqDlN+CA--.307S2;
-	Thu, 17 Sep 2026 18:09:25 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: isely@pobox.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: pvrusb2: Fix USB parent device leak in class_dev_create()
-Date: Thu, 17 Sep 2026 10:09:24 +0000
-Message-Id: <20260917100924.2146125-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789639777; c=relaxed/simple;
+	bh=+vM4iam60z6KEMZ9Fm7CWrPAoXIWYPpYAI+Auic9Xdk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P8P0Qvv3B2D1sF4Yqaf0rndTQR67HtYFZXL6DvYvrps2QcS6bThHXORwAYJt4/OzRbGNtNbdTM+Ej7m9ikoUEm+Vn/W2EzenkLGzhR+BG+mWDPNw74nG3oqjQ4PX5nvrPR3+ZZ2+pNawnWW0BZfXHvTLGbIySDNigeYz0M8Il6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HvhOvwMl; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HvhOvwMl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 407DD1F000FF;
+	Thu, 17 Sep 2026 10:09:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789639772;
+	bh=odyX8Gm1Y2ZTjmiQ0iSsIgjm/HtHjgSv+tCSjKDPb5M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HvhOvwMlYlnZ+cN0MAQXkcjZrD+linEkZtim1BW+RbYdDK02HVd99vKbs/TbCTZgg
+	 aOUGF0UQYBeLkG6BKTzfTdO7VJ+QI/8U5hfqnZ4AImilGLnfIFKIE3PyXhP/WZoz+p
+	 u+C1uFhlnsynh2gcUET2p7QvGWQUSwy81Kc7urw99Jfq3lkKNHkXqPv9HMtI0I3xh0
+	 w0aeQUahI7tRqEJia+CCVBzc1jXz8IpagdpKCUHLz/laNMQv8nwhkVSEm5+Xe1UgDu
+	 ECklgS+47cWHi98UUh0W9oD791fXHyh0FwruElwA/9A20mj238SYKg4srYReaDNNtN
+	 OWdCW5Bwv35vQ==
+Date: Thu, 17 Sep 2026 11:09:24 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Seiji Adachi <seiji_adachi@yahoo.co.jp>
+Cc: Vijendar.Mukunda@amd.com, venkataprasad.potturu@amd.com,
+	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RESEND PATCH] ASoC: amd: yc: Add Lenovo ThinkPad E16 Gen 2
+ (21JN) to quirks
+Message-ID: <599be753-cccd-4c71-b3a7-d35ebcd349d0@sirena.org.uk>
+References: <almeAbvirJwQ5doF.ref@adriana>
+ <almeAbvirJwQ5doF@adriana>
+ <alnKI3bPaZUc6uwB@adriana>
+ <aoukqUoiIzcctf-k@adriana>
+ <aqu4HOCmdCUs_unm@adriana>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABnl0FUvKtqDlN+CA--.307S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKrW3GrW5Jw4UWF17uF1fCrg_yoWkGrc_Gr
-	1jvr92qw18Jw4rKr1avw1rZrW5GasFvrykXr47ta1fWrWag34rZw4Y9rn5Ary7Wr43ZF13
-	Ja4qgrZ5G34fGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07b51v-UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQNA2qrrJo63gABsU
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xKi8rWeAm6eeTz1x"
+Content-Disposition: inline
+In-Reply-To: <aqu4HOCmdCUs_unm@adriana>
+X-Cookie: Whip it, whip it good!
 
-class_dev_create() stores a reference to the USB device obtained with
-get_device() in class_dev->parent, which class_dev_destroy() releases.
-When device_register() fails the function only drops class_dev, so the
-reference to the USB parent device is never released.
 
-Drop the parent reference on the failure path as well.
+--xKi8rWeAm6eeTz1x
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 28c4a5e6d324 ("V4L/DVB: pvrusb2: Fix USB parent device reference count")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/media/usb/pvrusb2/pvrusb2-sysfs.c | 1 +
- 1 file changed, 1 insertion(+)
+On Thu, Sep 17, 2026 at 06:51:24PM +0900, Seiji Adachi wrote:
+> Hi,
+>=20
+> I am resending this request along with the code change (diff) required fo=
+r=20
+> Lenovo ThinkPad E16 Gen 2 (21JN).
+>=20
+> Could you please review and consider applying the following patch to=20
+> sound/soc/amd/yc/acp6x-mach.c?
 
-diff --git a/drivers/media/usb/pvrusb2/pvrusb2-sysfs.c b/drivers/media/usb/pvrusb2/pvrusb2-sysfs.c
-index dba43d4c24f2..678e069b4c92 100644
---- a/drivers/media/usb/pvrusb2/pvrusb2-sysfs.c
-+++ b/drivers/media/usb/pvrusb2/pvrusb2-sysfs.c
-@@ -633,6 +633,7 @@ static void class_dev_create(struct pvr2_sysfs *sfp)
- 	if (ret) {
- 		pvr2_trace(PVR2_TRACE_ERROR_LEGS,
- 			   "device_register failed");
-+		put_device(class_dev->parent);
- 		put_device(class_dev);
- 		return;
- 	}
--- 
-2.34.1
+Please submit patches following the process documented in
+submitting-patches.rst, the formatting of the email is quite important
+for tools to be able to process the patch.
 
+You might want to look at b4 to send the patches, especially it's web
+submission endpoint which avoids having to configure mail:
+
+   https://b4.docs.kernel.org/en/latest/contributor/overview.html
+
+
+--xKi8rWeAm6eeTz1x
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqrvFQACgkQJNaLcl1U
+h9AT3AgAgfqXJPuXiOz2Gzgi7mI9LjPvYOH+q8BtOYx+pzeFb2HdFLteMiNNKhXl
++DHzV4Cpatw6vB4iyoVx02Fz/Te4uLkNR00H9wyomVYXWO5GJmnXoH8CVgKTxKG7
+/EJbtaX55bD30SHDUVBeYh755iGhFQP29HIyMt8DNhCP8/VrFQyQKAEvvyigNOTg
+LwJSbnj6nUDu2WCTsoVDIw6fgB7OzF8XBLWZ9/ZKT0DU/ZjtA3MnjYX4l1lFvOnh
+7PLBj2/7Iqxv801cjyvhVDyHBQM+J2ep7CkcwfVw0tI3iXR//AwifKe0BBomNUh6
+UTaREDyrgkbO9T3DloS1pcXDF4z+Ow==
+=jZM1
+-----END PGP SIGNATURE-----
+
+--xKi8rWeAm6eeTz1x--
