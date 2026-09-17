@@ -1,151 +1,178 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D033E4FD27E;
-	Thu, 17 Sep 2026 16:40:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAE14F4CED;
+	Thu, 17 Sep 2026 16:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663261; cv=none; b=mxsTkrYkQ8+iyCVB/Ru3PY5kfo1EPNBXL8UpV7Cl3l3K+Otc0ZWi5HtVZ6+DBeG4co4KwU5SrIrzn1a+BDZK2Kgg6ceMqkKEXojbNLwedV5JtMMcBn31/cZ3kOtR1VZ6wourgDWE1pIw/Apb96vFv10Nn2FIAd3oCdZt8F5CnZg=
+	t=1789663266; cv=none; b=CA0Y4vaVl22U3cbLJ0PAgaxKu9KmcngWmOeQz2BqJFsDFyztq7zWHxxY6NtpsSXNS5pEUEXyNb0D4UjXTKK9rImTfI/+d1e2+Qbidbscbp3YiTfUfrheO7c1Y2I+IAs8tIpKjps3xXItCxqi14qMKsJjb+bwhBehwEQiqDydVGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663261; c=relaxed/simple;
-	bh=FJPfu7LFjRjc6ZJbnsAto0bfKwxBduCiy3SP0uqRsFM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FRhuJpNu8jYdzPoLJAkG9nRPsogVMjFjWIyDjvPjahTMQn8Hzk3WoSiMFzzp37KkBXD+4XWDxZ6sne5ByUiOBfQYbaAaOh5a8Zcc1MxZUUzX0VZK90RFIKI4yggmqV5rWCR7oTHre0o+QJDiwc/QCvVqA83m4fpezjl4OBkU5kY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=YTDbLKwM; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=vOxLdiXe; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789663266; c=relaxed/simple;
+	bh=5FAbYOI3d6kLn4/03hVYDZrZobbTRvc1SkdQqGzL7jM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=a3BjIteGf+IPburVE31vDc3wZb4Uq2eWW2jCw585aL4OVpfk3wy6AVOhWstKUnm+cJ0m7t2faB02UeZBThORQRyLC5BGiospZUleJ/l0ZISswCdp0FzwygpOE6b/RDStr+vMEB9DjtWGEGOrwdu4VdEVFwhSJq/wXx+0ekFzPPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PTYSEn+H; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5zhg47LL; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hmX1Ew1o; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Kcntsagq; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="YTDbLKwM";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="vOxLdiXe"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1789663111; bh=gF0jpOzqVIhOvYSoNgdvd4z
-	PpHZVOqEDRyAYG3KMg0M=; b=YTDbLKwMGcQTYm5dxY3iKNEBtq5PZYfPplCnBNArkKE9tM2Zz/
-	eu0hGtCPX/qsIDEUpNe8nt4G/I4+qgrRuNu+McSLl6zKJMldhvE96d1mjoPQh3y5tNVgmqY/9t3
-	eZQO5dUgjPoXBcHFiuuFtvcAnt2gwzwhDspUmcltwll5RVMTRsENWLQkDWZyxbt8Lk7YPRf3hh2
-	iPLD+UyvG7kmcQb6W3Cytg+q4b0y1i4qwne+cS7AVS+7n72nbPFCe/4UckhR2ozTMVo2YMsNL8G
-	uaDIWKGcjWM1b2QrFKX6p2Ebu9KYCS8TB47+v++JA8rGv0Rd9i1+88LM6pACdnY9CoA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1789663111; bh=gF0jpOzqVIhOvYSoNgdvd4z
-	PpHZVOqEDRyAYG3KMg0M=; b=vOxLdiXeRsfXKHFjjuEd8N46x17rPZMf9Y7yTn2qUgVQuicb97
-	nSPzupPG62E/fI1TAHC6dAzXDxySnyWkQGAw==;
-From: Bradley Morgan <brads@mainlining.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vineet Gupta <vgupta@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-snps-arc@lists.infradead.org,
-	linux-csky@vger.kernel.org,
-	linux-sh@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PTYSEn+H";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5zhg47LL";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hmX1Ew1o";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Kcntsagq"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 4A9571FFA0;
+	Thu, 17 Sep 2026 16:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789663258; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7mH0FIVer3GoGr7wIgb7gp2ZvqBkBDTqED8d7FnkK8w=;
+	b=PTYSEn+HBneKRSdJlIbbRc1ju/nHxtebdDms9iAg56cbdSZU2F860ezQGy05pUI4egECu0
+	374w9gv6ZaBOUY+4nhGq7zwcheHFkH5bO75snrZTvBExNlaGhspYOfmKMeiKoQTdWQGW1Z
+	LQDym4p7mez3DWycj4/h27XAIXR/BZo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789663258;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7mH0FIVer3GoGr7wIgb7gp2ZvqBkBDTqED8d7FnkK8w=;
+	b=5zhg47LL8ivlSi5IavIEDZcqGRb6QW2iPXndVrNtCKorbPnXlhQPtH2XsFUB6aOm+/IX1f
+	hoZkPtnGKmWskfDw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=hmX1Ew1o;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Kcntsagq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789663254; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7mH0FIVer3GoGr7wIgb7gp2ZvqBkBDTqED8d7FnkK8w=;
+	b=hmX1Ew1o1A2bFnfIxIw7FGkc4FzN8sgZ7vzbQseXTGW+chFSbT7bCwXiL2ZRr3+As89bEr
+	eFUjU/nKnJYPUtH5VxfuhoCQ7vQvXBoH5g3UYIu/+M/RFGqTEnW6AUX77EQAb/1Ox/eZ3h
+	h3cz9Ze7fGGb3HJRg8Vc4RRLomwUTg8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789663254;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7mH0FIVer3GoGr7wIgb7gp2ZvqBkBDTqED8d7FnkK8w=;
+	b=Kcntsagq3McmKLGntue1Uc5++fi0scWHG1G2txL2VzzsqBOYuIDc6TSTDYrXLx+5Ma86SD
+	HGk9S8+9NZ/NWOAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EEFC9134B3;
+	Thu, 17 Sep 2026 16:40:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id wk7cMBUYrGojFwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 17 Sep 2026 16:40:53 +0000
+Date: Thu, 17 Sep 2026 18:40:53 +0200
+Message-ID: <87o6dvg7ai.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Zipdox <zipdox@zipdox.net>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
 	linux-kernel@vger.kernel.org,
-	Bradley Morgan <brads@mainlining.org>
-Subject: [PATCH v3 3/5] csky: Emulate two-byte cmpxchg
-Date: Thu, 17 Sep 2026 16:38:28 +0000
-Message-ID: <20260917163830.3748-4-brads@mainlining.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260917163830.3748-1-brads@mainlining.org>
-References: <20260917163830.3748-1-brads@mainlining.org>
+	tiwai@suse.com
+Subject: Re: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR and RANGE
+In-Reply-To: <13f9ee6e-acf2-4166-93cc-33cbc2d4bd89@zipdox.net>
+References: <d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net>
+	<87bj9yn55n.wl-tiwai@suse.de>
+	<59b3dc9b-f324-42e7-ab03-a01c04e8b915@zipdox.net>
+	<8733vamwaz.wl-tiwai@suse.de>
+	<da56664f-901e-497b-a74c-ae41cbc5cac4@zipdox.net>
+	<87a4phjjay.wl-tiwai@suse.de>
+	<8733v9jfp1.wl-tiwai@suse.de>
+	<87y0d1hx9y.wl-tiwai@suse.de>
+	<895b9e3d-bc81-4688-8513-8aa42d40e4fa@zipdox.net>
+	<05a53b37-8de3-4075-93c0-21129a839356@zipdox.net>
+	<87se37g8gu.wl-tiwai@suse.de>
+	<13f9ee6e-acf2-4166-93cc-33cbc2d4bd89@zipdox.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-2022-JP
+X-Spam-Score: -3.51
+X-Rspamd-Queue-Id: 4A9571FFA0
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-CSKY has no two-byte atomic compare and swap, so the __cmpxchg()
-switches in cmpxchg.h let case 2 fall through to the undefined
-__cmpxchg_called_with_bad_pointer(), failing at link time. Route case
-2 through the new cmpxchg_emu_u16(), which takes the old and new
-values as unsigned long and narrows them itself, so the (uintptr_t)
-casts on __old and __new come off in all three switch instances.
-The (u16) casts are gone for the same reason.
+On Thu, 17 Sep 2026 18:33:50 +0200,
+Zipdox wrote:
+> 
+> On 9/17/26 6:15 PM, Takashi Iwai wrote:
+> > Good to hear.  If you have a chance to test my last series of patches,
+> > it'd be appreciated.
+> > 
+> > BTW, I'll be off from tomorrow, and the issue is no new bug to be
+> > urgently fixed, so I'll handle after back to work again :)
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi
+> 
+> I have compiled your patches and the mixer unit control seems to work
+> correctly.
+> 
+> Another thing on my mind is the following section from section
+> 5.2.5.5.1 from the spec:
+> > A Mixer Unit consists of a number of Mixer Controls, either programmable or fixed. A Mixer Control must
+> > support the CUR and RANGE(MIN, MAX, RES) attributes. The settings for the CUR, MIN, and MAX
+> > attributes can range from +127.9961 dB (0x7FFF) down to -127.9961 dB (0x8001) in steps of 1/256 dB or
+> > 0.00390625 dB (0x0001). The settings for the RES attribute can only have positive values and range from
+> > 1/256 dB (0x0001) to +127.9961 dB (0x7FFF).
+> > In addition, code 0x8000, representing silence (i.e., -∞ dB), must always be implemented. However, it must
+> > never be reported as the MIN attribute value.
+> 
+> Is this presently handled? For reference, 0x8000 is -32768. When I use
+> qasmixer or alsamixer, for example, it only goes down to -32767. This
+> is the same in UAC1 by the way. Should we add a mute control to mixer
+> nodes? Or perhaps extend the reported range downward by one, and
+> overwrite the lowest value to -32768 when writing to a mixer unit. The
+> latter is my preferred solution.
 
-The __old and __new declarations were typed __typeof__(old) and
-__typeof__(new), which skips the pointer-integer type check, so
-cmpxchg(&p, 4, 5) compiled silently. Typing them through
-(unsigned long)(0 ? *(ptr) : (old)) keeps the value conversion while
-making the compiler reject mismatched types, the idiom David
-Laight suggested. The same check is added for new.
+I guess it's not; there is cval->min_mute flag, but it's for another
+case (the minimal volume = mute) for the statically mapped mixer
+elements, and not for this mixer unit case.
 
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
----
- arch/csky/include/asm/cmpxchg.h | 33 +++++++++++++++++++++------------
- 1 file changed, 21 insertions(+), 12 deletions(-)
+Maybe they should be implemented by additional mute switches.
 
-diff --git a/arch/csky/include/asm/cmpxchg.h b/arch/csky/include/asm/cmpxchg.h
-index db6dda47184e..29dc56e4b7f1 100644
---- a/arch/csky/include/asm/cmpxchg.h
-+++ b/arch/csky/include/asm/cmpxchg.h
-@@ -57,13 +57,16 @@
- #define __cmpxchg_relaxed(ptr, old, new, size)			\
- ({								\
- 	__typeof__(ptr) __ptr = (ptr);				\
--	__typeof__(new) __new = (new);				\
--	__typeof__(new) __tmp;					\
--	__typeof__(old) __old = (old);				\
-+	unsigned long __old = (unsigned long)(0 ? *(ptr) : (old));	\
-+	unsigned long __new = (unsigned long)(0 ? *(ptr) : (new));	\
-+	unsigned long __tmp;					\
- 	__typeof__(*(ptr)) __ret;				\
- 	switch (size) {						\
- 	case 1:							\
--		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, __old, __new); \
-+		break;						\
-+	case 2:							\
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *)__ptr, __old, __new); \
- 		break;						\
- 	case 4:							\
- 		asm volatile (					\
-@@ -90,13 +93,16 @@
- #define __cmpxchg_acquire(ptr, old, new, size)			\
- ({								\
- 	__typeof__(ptr) __ptr = (ptr);				\
--	__typeof__(new) __new = (new);				\
--	__typeof__(new) __tmp;					\
--	__typeof__(old) __old = (old);				\
-+	unsigned long __old = (unsigned long)(0 ? *(ptr) : (old));	\
-+	unsigned long __new = (unsigned long)(0 ? *(ptr) : (new));	\
-+	unsigned long __tmp;					\
- 	__typeof__(*(ptr)) __ret;				\
- 	switch (size) {						\
- 	case 1:							\
--		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, __old, __new); \
-+		break;						\
-+	case 2:							\
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *)__ptr, __old, __new); \
- 		break;						\
- 	case 4:							\
- 		asm volatile (					\
-@@ -124,13 +130,16 @@
- #define __cmpxchg(ptr, old, new, size)				\
- ({								\
- 	__typeof__(ptr) __ptr = (ptr);				\
--	__typeof__(new) __new = (new);				\
--	__typeof__(new) __tmp;					\
--	__typeof__(old) __old = (old);				\
-+	unsigned long __old = (unsigned long)(0 ? *(ptr) : (old));	\
-+	unsigned long __new = (unsigned long)(0 ? *(ptr) : (new));	\
-+	unsigned long __tmp;					\
- 	__typeof__(*(ptr)) __ret;				\
- 	switch (size) {						\
- 	case 1:							\
--		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, __old, __new); \
-+		break;						\
-+	case 2:							\
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *)__ptr, __old, __new); \
- 		break;						\
- 	case 4:							\
- 		asm volatile (					\
--- 
-2.47.3
+Overall, the mixer unit controls have been rarely used by the devices,
+so far, and that's the reason we didn't hit this over years :)
 
+
+Takashi
