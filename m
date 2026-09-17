@@ -1,181 +1,205 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805571C5F1B
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:08:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907831FE471
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789603729; cv=none; b=RSF/oOpn2A/jXBtW6g2JEK5uYBXWzbtqPwLAJGIVeQ70PLwKd7Dq5sg74tvfcEzLT1gjmqJhMqMqSxpUz5X7N3oTq599ji1cSxvqUL9lNgoW0bx+dbGWirDUWh20JjPEFe5FwgEN4nN1zi91tqQvWGHNmpGoazFyZ9h/wImwv2Q=
+	t=1789603890; cv=none; b=aC4XovjSqZkIHylnfae6Iowc4XHylhb1jxHix9Z2P1aNt2jZKu/fIznrwv3fOhTH1Uxv/nr9yhF8aCcaPjqu8X6HHbRzprQqDFAuawpXGCX1mGVcUyLy8RZz611qev2V28Gtj+Ys9gVyuKIJo8lKLuUQuXIhIN9Tu7lF6Px7cbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789603729; c=relaxed/simple;
-	bh=axt0pyxvikct4TP8X4Wmmrq2ZpEZQ2m5UBXWa5Kgtkg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SVCbp+iNqV/oLk0hwZghZ1TgCQDV65O+YtmpQWZSU8TulTTI5sy8bUgD1zPPSfe7nANeKwtKraGimpvmwSi1lUXUpdMfrjdEdFU/t8tfVHgSBJf51EdXE3vN4iadXqAQB5dJ97irf1rnyee+OV0C+W1ZlvQ0NSNOYOSD/4L8Nqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=siP5ne7c; arc=none smtp.client-ip=74.125.231.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1789603890; c=relaxed/simple;
+	bh=ckLfNY5m7sw42q1GlHV4ctBFyqc0HiyBfdvgQ/3RKy4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=kpIP4I0tlL+NhAzgc1GyqlGlpu8MsW4n/LGKS4y21qrEVG7LkyEcTFLVp8/7kk09lPQ1EAJHyivisC5uRXnJnGT/IPUF/J2d34n7+adpf8tu2iULjwDSGKrG8C3JpUZfo/EGiF1whBWJ07vM5PSAa4eio9rlbERmWXorCzU+m4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dYIlCm+g; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="siP5ne7c"
-Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6bda350b708so81480eaf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:08:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dYIlCm+g"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ad2273so30311685a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:11:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789603726; x=1790208526; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+        d=gmail.com; s=20251104; t=1789603887; x=1790208687; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=Ij5FQ1cxo8ePhLeDltni+VDXBFGoj/hemI8tUtKAvVo=;
-        b=siP5ne7cdpE6qyoSfDKnBF9UvzXBJVWfSggJ7pxyxgWUtXzDQn+u/xQvaYJtmOqADX
-         hryhlua0r67mPATDeDqj6DvSw0Ti3bj627oa1z1oGXhCyBVs4I3m3Iwx1PZpwoe+PQaP
-         OPhcO+faiHf0EOXsLEOmIExQeeuQzYcgD4MCoI+mKJgMnuzhkmMdeHOig3LitJPm6VG4
-         qiZSvd4ZtjXx7AN5S+jj49oYgnm7+jd6OdDJxcNvYhvZPzmtNaRMHE8XIm1fRjJJa3xf
-         y22BJvrULyCc+VLXOFT60ihvGDeIFRB+l7CVSONVnNULjNNyg5+altKXxXfCzIKIG1wJ
-         9V9w==
+        bh=Kxh7qp6INDtgYuziuWlOBCsKbnHlhHZqtJui1JeMELI=;
+        b=dYIlCm+gUgCP/q0SLLM4KC/RBdn1c5VrpBkO7l+OnCJQgZzjVKbNz8hqCm6FyS9qIv
+         nAtxfpikhHTdgaAdSHvbpTmVNmwHLpnqmW9qBK96bWS1TPKyWgjVGRgt7vrl+sjh1Z47
+         UUvx1i3jgvDlSBApn0FZeOqGCJqvLTHujCbicDy0tn/rwklpKuYamyU0iaeFu883BHkq
+         e/N054p86VQWPMtXD+2PblBLI5Xhq8wo8Ww0r1C4xP4B7swCTkhy+fuXDclKqVutqzTV
+         l3QAKB2PiupnA+aiTih4fh418DE0qE8nP+PDeT/YYfJe3+1+YaAfyqrUeI3Mrq5jLUwr
+         Lgug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789603726; x=1790208526;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+        d=1e100.net; s=20260707; t=1789603887; x=1790208687;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ij5FQ1cxo8ePhLeDltni+VDXBFGoj/hemI8tUtKAvVo=;
-        b=zZe0BfV4hYZJ4WF5W4qlXmmFtQKdu6hU+v+kscnLBVPd0pEe2OZVDeU1ync05Rwh3i
-         TtQsXvaXu3HXObKqy0KbBIi6+n+HWj/o+fK3JOQ6RVjPQtT0bb90xlgO0LUvSIpt+AkW
-         AD8ec1AITXuFgRX0CIUpdcU/E629VDQwqHpkxkE1AUAsGBv5Ey75tJtTUsSqv3NCAkPv
-         2RjyunlCQDNWTvzKeuCQRzMaP52/Js4XpKPTCfxbekyFnyEp68FBmfADWl9xt/4KFJYI
-         kTR1YmIG9QHPXxQOzDLM69vg3RiHMdj4m5beoSx2seOBZrfuIKqGsRuDqqxjGHXVHf3B
-         uTyA==
-X-Forwarded-Encrypted: i=1; AKwUvBxcnyyY5CQsOwbLnXLCVqnPZPtAm2Xt5wyTS/LCbz5k9sg/3fGnFvSj1EohN725b32yAh9p00Xu6gMn758=@vger.kernel.org
-X-Gm-Message-State: AFuF++lX+P3thIpaRVDqk/4XocFWop3u8Qs1EmFg4dS5USGQ96CC04ho
-	aPljx9nu6zS5ukoSjUtzh3kj3PawsTD6T46SF4K33WDmu9+jV9mCDf7sF7xR8I8i
-X-Gm-Gg: AYBFou25AOB3MnrboWb32qg33XZDFVb3swKUQ4KPFOnLmOpHgdRLbLGiM/JFxBZ+jQ1
-	czG/SegMAj7QtLbDerdAL0Um+bC5dlhCmsrRr6l8QPydSg2D6RmLZXBKjHR9NK8EMgw1UGnycIX
-	yiekXA0vgqJBl0xzBn9jfpUjmBgljeTrR/BhbphPN9ou+5mt8fQlEz4D6wi9bgyGOrj2KBuBBfX
-	ZzdsmRq363ZgS8ioCkXOc2y0ByP8Cjfg2v0goZUQ/kHscndeYhViQLMfb+1czf4fHEvNjp85lIc
-	JMRXbypNJTowc/L51zBjxkHtXpoPI6upik7M0H38zvNl859megIVscPBO8tucPCnVZtLiJzXukr
-	wKh0uZmkbPjW/RpUENjqh+CiFgrxM87plEzQfYEWbjcLXeAeR+UCJuVPxgf604MipVnB2yHyc4a
-	OHTB2Zjy5uVJXAbfpxirtDo1TYZFOl3L2slduweEkEDD2/FPwcLclu883O6lQYdK0aduu8NdCXd
-	kv9GZAM+p6K
-X-Received: by 2002:a05:6820:818e:b0:6b7:8396:f3cc with SMTP id 006d021491bc7-6c7d3ceffe5mr4919325eaf.46.1789603726487;
-        Wed, 16 Sep 2026 17:08:46 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14397197dc8sm8595889c88.3.2026.09.16.17.08.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 17:08:45 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 17:08:45 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: James Seo <james@equiv.tech>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: Re: [PATCH] hwmon: (hp-wmi-sensors) Improve raw WMI string handling
-Message-ID: <4fae6e7c-2667-4002-93d2-bb3c53910fe7@roeck-us.net>
-References: <20260916221912.434119-5-james@equiv.tech>
+        bh=Kxh7qp6INDtgYuziuWlOBCsKbnHlhHZqtJui1JeMELI=;
+        b=uqgOE0VQmvk8+eEin7sEkeCEmOIaZl3h8LVGkngntj7ccCmCWS9bt19DDfhfF+7FqI
+         1oPk3rfW0bsGcU1cR81pIr8+pMIM7arWkL0/5PhGKr6Fby9yCHvq5vRF+rU3sAgUh20l
+         prPQYPoxol0L/iXbQVj6gfRoZDsO243QI0i+V4YyE2a2PgpJiTJISSNIPA0u2ERHWy4J
+         4eiiobkSW8xHhTZVzEatUNhiB6o9xPdDuHzyoRBtSEdzbONZtklyvKyMskV4gdeIE3Xn
+         rSJMVoV1cLsCIoSTKBVDKTOI/gi1/pGxUWvroQJ8nxvrAqHjxfZUyZOHlgvZzu5WNcA+
+         O1qw==
+X-Forwarded-Encrypted: i=1; AKwUvByE0/5SAnxxN78hCSBc8XqN09ZuITNu1vAbJQ+zzpF6SIcdA72BM/hzij6UFEnfp2AgJkibiIuubqDzbOc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKwWrHAgPZ+6wLTrU6RxdWAQDLci8yDu7NY1TOXsjXk0/Gj1us
+	XDpz7yhNAd1QtP3rhwzBKhb4cUYChdS1v8l12euKSu+3Zfiqfzp1QBxY
+X-Gm-Gg: AYBFou3JSNW8+t5wPxE0xuaH+oim41jLbVe5Tqkg4skig+20xJwlKDCs7RTHm4zmUZ9
+	VC0BWWzzwHnNemyz1Z2n1n76Zw9dk7EHN08n9rBZnrR/NXxsSUe8875JDqaXqJrVhh5r66jSQ3L
+	YcnFhTyLWLxSi+FoJ3Dry/zELFw/xIdycPMnfN7+Uhh90u+J//zQqK6T3r6xq77UsN5YC2Ce0FB
+	PJNIOURM7DoSqZm3sPRUrYWFkj4s5y2BcpK4Nt1ZTFbZpSmJsLC3W0pKZ6p/mp0wwxbe24sUzzL
+	Hz8q4CeIptd1QYaeWEMr0rLUBh81QOMb7wsCcQz1N2nKcztK+XH/nVNuNAeo/g0crxvEzkgujD+
+	ZozhiYiq/M1MONv6P7AElyVFP/wJQ90w+iT6PafVVLVWbnvDIUBydzCuC8tI3uIJTWwfcrR8W2G
+	EZTmjkPKNdt9KnbJlvbHlUrSwUWFessX+P1rfTkFC4yWGDtIMAghqQIC85galDJbeisQJLdyFgC
+	9uF8dn8M2ozm0U=
+X-Received: by 2002:a05:620a:294a:b0:937:27fb:96f8 with SMTP id af79cd13be357-93bb7900601mr761224785a.41.1789603887335;
+        Wed, 16 Sep 2026 17:11:27 -0700 (PDT)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b7824d7b1sm338655085a.27.2026.09.16.17.11.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 17:11:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916221912.434119-5-james@equiv.tech>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 16 Sep 2026 20:11:25 -0400
+Message-Id: <DLH5MRIK84UU.1ZS2B8TGS8TKO@gmail.com>
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+Cc: <edumazet@google.com>, <ncardwell@google.com>, <kuniyu@google.com>,
+ <davem@davemloft.net>, <kuba@kernel.org>, <pabeni@redhat.com>,
+ <horms@kernel.org>, <willemdebruijn.kernel@gmail.com>,
+ <andrew+netdev@lunn.ch>, <shuah@kernel.org>, <willemb@google.com>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH net v2 2/2] selftests: drv-net: psp: test PSP and TCP
+ ULP mutual exclusion
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20260915-psp-ktls-fix-v2-2-0eedc3b148ec@gmail.com>
+ <178960039600.22033.386517201454373799@kernel.org>
+In-Reply-To: <178960039600.22033.386517201454373799@kernel.org>
 
-On Wed, Sep 16, 2026 at 03:19:15PM -0700, James Seo wrote:
-> Commit c9ba59258094 ("hwmon: (hp-wmi-sensors) Fix failure to load on
-> EliteDesk 800 G6") left out some logic for recognizing raw WMI
-> strings in check_numeric_sensor_wobj(). This issue was reported by a
-> user along with an incomplete and unsuitable proposed solution [1].
-> 
-> Add the missing logic and properly remedy the issue. Also slightly
-> refactor how raw WMI strings are recognized elsewhere to make the
-> intent that they should be treated as regular ACPI strings clearer.
-> 
-> Reported-by: Muhammad Bilal <meatuni001@gmail.com>
-> Link: https://lore.kernel.org/linux-hwmon/20260916002907.161210-1-meatuni001@gmail.com/ [1]
-> Fixes: c9ba59258094 ("hwmon: (hp-wmi-sensors) Fix failure to load on EliteDesk 800 G6")
-> Signed-off-by: James Seo <james@equiv.tech>
+On Wed Sep 16, 2026 at 7:13 PM EDT, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
+>
+> - [Medium] In tools/testing/selftests/drivers/net/psp.py, the new helper
+>   `_require_tls_ulp()` (lines 338-344) wraps=E2=80=A6
+>
+> --
+>
+> selftests: drv-net: psp: test PSP and TCP ULP mutual exclusion
+>
+> This adds two psp.py cases that check PSP associations and TCP ULPs are
+> mutually exclusive in both orders, plus a _require_tls_ulp() helper that
+> skips when kTLS is unavailable, and enables CONFIG_TLS=3Dy in the
+> drivers/net selftest config.
+>
+>> diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/=
+selftests/drivers/net/psp.py
+>> index 315648a770d00..a5b1e14f120f0 100755
+>> --- a/tools/testing/selftests/drivers/net/psp.py
+>> +++ b/tools/testing/selftests/drivers/net/psp.py
+>
+> [ ... ]
+>
+>> @@ -333,6 +335,50 @@ def assoc_version_mismatch(cfg):
+>>              ksft_eq(the_exception.nl_msg.error, -errno.EINVAL)
+>> =20
+>> =20
+>> +def _require_tls_ulp():
+>> +    with socket.create_server(("localhost", 0)) as srv, \
+>> +         socket.create_connection(srv.getsockname()) as s:
+>> +        try:
+>> +            s.setsockopt(socket.SOL_TCP, TCP_ULP, b"tls")
+>> +        except OSError as exc:
+>> +            raise KsftSkipEx("kTLS not available") from exc
+>
+> [Severity: Medium]
+>
 
-Never mind my previous reply. Applied.
+I understand the point, but I'm not sure this really worth the change. I
+considered checking for specific error codes here, but decided against
+it because maybe that would be end up being brittle if someone in the
+future changed or added error codes. Aside from ENOENT when the feature
+is not available, I think the only other error this could throw is
+ENOMEM.
 
-Thanks,
-Guenter
+> Should this handler be narrowed to the errnos that actually mean "no
+> kTLS"?  As written, every OSError from the TCP_ULP setsockopt turns into
+> a skip, including -EINVAL, which is exactly the errno the kernel side of
+> this series returns:
+>
+> net/ipv4/tcp_ulp.c:__tcp_set_ulp() {
+> 	...
+> 	err =3D -EINVAL;
+> 	if (sk_has_decrypt_user(sk))
+> 		goto out_err;
+> 	...
+> }
+>
+> The probe socket here is a plain loopback TCP connection with no PSP
+> association, so the only legitimate reasons to skip are the "ULP unknown
+> / TLS not built" errnos, ENOENT from __tcp_ulp_find_autoload() and
+> EOPNOTSUPP.
+>
+> If sk_has_decrypt_user() ever returns true for an ordinary TCP socket -
 
-> ---
->  drivers/hwmon/hp-wmi-sensors.c | 30 ++++++++++++++++++++++--------
->  1 file changed, 22 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/hwmon/hp-wmi-sensors.c b/drivers/hwmon/hp-wmi-sensors.c
-> index 03c684ba83bd..cb2eb9bd278a 100644
-> --- a/drivers/hwmon/hp-wmi-sensors.c
-> +++ b/drivers/hwmon/hp-wmi-sensors.c
-> @@ -526,14 +526,12 @@ static int check_wobj(const union acpi_object *wobj,
->  	for (prop = 0; prop <= last_prop; prop++) {
->  		type = elements[prop].type;
->  		valid_type = property_map[prop];
-> -		if (type != valid_type) {
-> -			if (type == ACPI_TYPE_BUFFER &&
-> -			    valid_type == ACPI_TYPE_STRING &&
-> -			    is_raw_wmi_string(elements[prop].buffer.pointer,
-> -					      elements[prop].buffer.length))
-> -				continue;
-> +		if (type == ACPI_TYPE_BUFFER &&
-> +		    is_raw_wmi_string(elements[prop].buffer.pointer,
-> +				      elements[prop].buffer.length))
-> +			type = ACPI_TYPE_STRING;
-> +		if (type != valid_type)
->  			return -EINVAL;
-> -		}
->  	}
->  
->  	return 0;
-> @@ -579,6 +577,7 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
->  	int prop = HP_WMI_PROPERTY_NAME;
->  	acpi_object_type valid_type;
->  	union acpi_object *elements;
-> +	union acpi_object *element;
->  	u32 elem_count;
->  	int last_prop;
->  	bool is_new;
-> @@ -602,13 +601,20 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
->  	    elem_count > HP_WMI_MAX_PROPERTIES)
->  		return -EINVAL;
->  
-> -	type = elements[HP_WMI_PROPERTY_SIZE].type;
-> +	element = &elements[HP_WMI_PROPERTY_SIZE];
-> +	type = element->type;
->  	switch (type) {
->  	case ACPI_TYPE_INTEGER:
->  		is_new = true;
->  		last_prop = HP_WMI_PROPERTY_RATE_UNITS;
->  		break;
->  
-> +	case ACPI_TYPE_BUFFER:
-> +		if (!is_raw_wmi_string(element->buffer.pointer,
-> +				       element->buffer.length))
-> +			return -EINVAL;
-> +		fallthrough;
-> +
->  	case ACPI_TYPE_STRING:
->  		is_new = false;
->  		last_prop = HP_WMI_PROPERTY_CURRENT_READING;
-> @@ -631,6 +637,10 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
->  	for (i = 0; i < elem_count && prop <= last_prop; i++, prop++) {
->  		type = elements[i].type;
->  		valid_type = hp_wmi_property_map[prop];
-> +		if (type == ACPI_TYPE_BUFFER &&
-> +		    is_raw_wmi_string(elements[i].buffer.pointer,
-> +				      elements[i].buffer.length))
-> +			type = ACPI_TYPE_STRING;
->  		if (type != valid_type)
->  			return -EINVAL;
->  
-> @@ -651,6 +661,10 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
->  			/* PossibleStates[0] has already been type-checked. */
->  			for (j = 0; i + 1 < elem_count && j + 1 < count; j++) {
->  				type = elements[++i].type;
-> +				if (type == ACPI_TYPE_BUFFER &&
-> +				    is_raw_wmi_string(elements[i].buffer.pointer,
-> +						      elements[i].buffer.length))
-> +					type = ACPI_TYPE_STRING;
->  				if (type != valid_type)
->  					return -EINVAL;
->  			}
+The code in question can't take this branch as it is now, and if it did,
+a skip seems arguably more appropriate to me, because otherwise how
+would we even interpret the result of the test.
+
+> and the parent commit anticipates growth there ("As other users of
+> skb->decrypted come along, they can be added to sk_has_decrypt_user()") -
+> the probe fails with EINVAL and the helper reports a skip.
+>
+> Would restricting the skip to exc.errno in (errno.ENOENT,
+> errno.EOPNOTSUPP) and letting other errnos propagate keep the assertions
+> below load-bearing?
+>
+>> +
+>> +
+>> +def assoc_psp_ulp_exclusive(cfg):
+>> +    """ Test that a TCP ULP cannot be attached to a PSP socket """
+>> +    _init_psp_dev(cfg)
+>> +    _require_tls_ulp()
+>
+> [Severity: Medium]
+>
+> Since _require_tls_ulp() is the first gate in both assoc_psp_ulp_exclusiv=
+e()
+> and assoc_ulp_psp_exclusive(), does an over-broad kernel-side
+> sk_has_decrypt_user() end up disabling both directions of the
+> mutual-exclusion check at once?  The result would be two skips in CI rath=
+er
+> than a failure for the case these tests were added to catch.
+>
+>> +
+>> +    with _make_clr_conn(cfg) as s:
+>> +        try:
+>> +            cfg.pspnl.rx_assoc({"version": 0,
+>> +                                "dev-id": cfg.psp_dev_id,
+>> +                                "sock-fd": s.fileno()})
+>> +            with ksft_raises(OSError) as cm:
+>> +                s.setsockopt(socket.SOL_TCP, TCP_ULP, b"tls")
+>> +            ksft_eq(cm.exception.errno, errno.EINVAL)
+>> +        finally:
+>> +            _close_conn(cfg, s)
+>> +
+>> +
+>> +def assoc_ulp_psp_exclusive(cfg):
+>> +    """ Test that a PSP assoc cannot be added to a socket with a TCP UL=
+P """
+>> +    _init_psp_dev(cfg)
+>> +    _require_tls_ulp()
+>
+> [ ... ]
+
