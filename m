@@ -1,187 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CABAA51B196;
-	Thu, 17 Sep 2026 16:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B75639B4A5
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:30:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662610; cv=none; b=pCf+QHZHG/ruLU0sRnQo2qG6BjSUS+O6P8WJOXF/rJgXfP2KgwGOafBODZvqIH4leOg/cmUy9p1QJdmxYFyBVzI3FXe/aWbbYi7rh9Q3SjOlHAp1i61yO4YDb5mgFTFNwxNMZQ5tkebtto0GNdc/HmSUw6RRvccOk+visF/KK6w=
+	t=1789662636; cv=none; b=FKnxfpzLFNYGxyzTty+d+CTrHD/lJKRYp7IK6/qckvlt30e5lrJ8mTzpyQbx/d+UyIOr+uZpneD5uOF0eGeKItCJTAGyEW42bKYFf2f3fmYPGaEI3DL6rMimbHGcCP9a7liWYtAzSisiriD/WbEKh3ifVDgCQM6KrgkLYjtfNzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662610; c=relaxed/simple;
-	bh=R3tb6SjOVu7d1sP7Jc7DgfQesg/5MmuNI7Jhk6g3s7I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PpeN4xkSy8avY2MjLigT3wAv7/XlMKLzlRiFdATAr7qE/R9EyOLQQuGzPgAssl+715PvIrNbACP5kgI5PoxU9DFjxkGF43sR+fFAPWQ7SyDtDmyW0iEo3xkNj2s3QbTyvlnpKm8aFzm+dR3NtbBQ5Y9JU7uwifbL7K+Xpuso+hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HFj1ZcuE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789662636; c=relaxed/simple;
+	bh=1uKQgdK2ZQ67pQ69htT9iF0krrGap0M3PIVWMzu37pA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WSK1RhMguDAqYuzyNv5WQY4/eWpmVwWB3amnR37tBld9SuU4fThR7X+j01wCK1syD91zOIRRoAJKtt1WZFKXjoEJbpMuBL3CgnQKnXCX0fpY+XRW0VIYLaLLpXp0jd3lLlJXlUib/AJK4k8Yk42q8GbOgAdi/rYFHodsSfJo0S0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aqMWM1TP; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HFj1ZcuE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB891F000FF;
-	Thu, 17 Sep 2026 16:29:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789662608;
-	bh=qgN2FFKKPpmp05DaHJUklpQtNOudy/Yy1fqR/MizKYA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HFj1ZcuEDNTMnh2Nqg6+fJfV02zj4ziSKQ6RRu3yQsj5p9v46CsiyUooZCzc+YKP8
-	 34+cHO9Ai3c1E0itgx/XfzOSuRfYmy8HAt254s7g3BLKzyjpUAnQOVrO0QhDVNgiq3
-	 flPs+hy1XGA0Y7fr1T5cxhyfnmG67B5FQqIFoWXsIONz3QdBqErmu8iV1XFY4RLphO
-	 IFPC2LNRFjPKPOaYpFPD72y8tC/6OnYCr6cG2Sad5uOHcVDlZ4CJ7psZsf+Fnn5m50
-	 NrSpWB5QWg5LSJldkts2rYONeMhUptkU9gWhvtFpmXXEctHjrUlI2vfeMdLEBsJtm/
-	 Oqt+2k9sPTlrw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:23 +0100
-Subject: [PATCH v3 14/40] bpf: arena: mark arena_map_mmap() mappings
- VM_MIXEDMAP
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aqMWM1TP"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so13871625e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:30:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789662632; x=1790267432; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=epvtes+QTuG/8pdcW3OWOMHUppdH8T7oJtRmUkiI2+8=;
+        b=aqMWM1TPIyqazhICTpRfrGH6VWZ43iEOepqgEHCW0GmOJ7CnvhBlmFza3iajce7mfv
+         MkURq553STUfSpkKMNPKGoNnlv6EGe3YgvUozgo+ckV/1SvEAJD7HLroDrGiVx6+Enq4
+         1DVWly2htn88ghQ+EBELu+a1SicSmabI949ZpY/io215oeXuyTTmHPwrzl3aqIcv4NvL
+         EtoIOK3zfhHd9Ur0ZU6dDnCqR7WC+GsWNQknTFV1OHwpnK9idNPq2kQvW2sAd7t+Q0P0
+         JWtTT5JKZF6oiBsmdp10TQAMK1dPNgKn0NcJckoLJL9ezL/ugL6RVhkg4adoF10pYz53
+         kTtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789662632; x=1790267432;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=epvtes+QTuG/8pdcW3OWOMHUppdH8T7oJtRmUkiI2+8=;
+        b=YZgCNMZSqgrHrWhuCK7ODPGGAOr0BvBxHFCuxgCzmwbyg90wFtZmEaVMKQUSEjgZxT
+         mt7UH/T7H1la0tEl1xtjQFtXJ9nkFr8PZ7C4uWwN07c7dmdPm8oEgfOkfyy6Ui96P6JE
+         kzjlGtpurNGbV92X/MzQI7wvbBCpBFf8E/hqkpJH0Xu9vPuCGdtLo9ElLaWEQb5EgJdx
+         RWc7l+iqJA2NIMVY7qf9mtoBT0WlBFu6Rdoc5gBYvGojkk9lkNFbMiyurccX4qrnUVZc
+         ayInsQSH7S3VJVNFCN7YvMNqVgKoKPeO2bCWYrpaEQSY/WcuOvHN9hLnIhaYEihUBajh
+         vmYg==
+X-Forwarded-Encrypted: i=1; AKwUvBwsXXvGDcacVffWP3PXjfDpUvmatp1Jdy7zqjOF6r9KZ/iuXsP5xXwYUAS+aiosN2Hi7Jxfb8UaP24pWPA=@vger.kernel.org
+X-Gm-Message-State: AFuF++n5h314a9YxpFlFEvEZRoZc/5r6RypTViY7MG22vkxE2R0X8FTQ
+	J6NErhwq0MB7oLKAtDvrgn/5CaSA3xSqnDPO2VCbMu0LWlINJfVDJe97
+X-Gm-Gg: AYBFou2FTIOzf0u0Yedxlk3JDGf2a37XRpBsT6MhVtgwNHc5ZdUhYxm1GtRoySPVzHL
+	DfZgcnch2lkpByK6IsKrKABWXuej+BtLjFglyanlH4LmT93NNarZgmzH7P5NlbmGg4pYyHKSfND
+	GZahBSn+EBBAOlO7NFefIA9pr0iTsJX6dXrGDQtzNI4Ho5ssQEM8wPY7T5tGNfVbNxHBLsYmnoT
+	35KeKoEXD18i3e74HuNvuQItd7cN7CKLjqvZLOF3fy+sfZHXec9ZQRoRSuvb89KqD0L9bYZ2xOK
+	sqZ2l/ky2fb+WtZTweYOg9mZxC07IUGd8Y1bMaZGufuXiOVlC0jNzqSPMApShHBGt/lb3Vw3ajw
+	f9oWKTpYvyB3VnLdkWs7Tv13bq6DpVjU8r9QozY5uW/XPTXF3eqa3YatH/61uA1awSrLirnUbWt
+	QnOj5/f4E0Zr54V5ZKoRyepC31v+gp6M+eDEyIYdRx2wtFGCUcuiNRDAmqf3zGTpE5ITnJvJWb0
+	THrALHPE7GpzSmU1fxC
+X-Received: by 2002:a05:600c:e549:10b0:49e:745d:c317 with SMTP id 5b1f17b1804b1-49f1d516934mr56467995e9.12.1789662632070;
+        Thu, 17 Sep 2026 09:30:32 -0700 (PDT)
+Received: from localhost.localdomain ([72.255.58.127])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbf515cfdsm77508595e9.11.2026.09.17.09.30.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 09:30:31 -0700 (PDT)
+From: Mahad Ibrahim <mahad.ibrahim.dev@gmail.com>
+To: Keguang Zhang <keguang.zhang@gmail.com>,
+	Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	Frank Li <Frank.li@oss.nxp.com>,
+	linux-mips@vger.kernel.org,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mahad Ibrahim <mahad.ibrahim.dev@gmail.com>
+Subject: [PATCH v3] dmaengine: loongson1-apb-dma: avoid using iterator variable after list_for_each_entry()
+Date: Thu, 17 Sep 2026 16:30:25 +0000
+Message-ID: <20260917163025.7171-1-mahad.ibrahim.dev@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-14-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2130; i=ljs@kernel.org;
- h=from:subject:message-id; bh=R3tb6SjOVu7d1sP7Jc7DgfQesg/5MmuNI7Jhk6g3s7I=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB9I54nnNvtaIzQtQLirIc/9iwfHss/3oxY92Nyjp
- NYufetcRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACby8iIjw4Z/yqcuR2/Xfn+H
- S/lV3fFHj2t+hpZ0/BU4/O3EpbNTVAwZGa7W9Yjb2IRpLFvWrbWlSPbedPOzxjoW/zcszF4buGz
- NIRYA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set to
-one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
-or arena_map_mmap().
+ls1x_dma_tx_status() locates the descriptor actively being processed by
+walking the LLI list and comparing the hardware reported next descriptor
+pointer against each element's next-descriptor pointer.
 
-It is convention in mm to mark mappings whose pages the kernel manages
-itself with VM_MIXEDMAP, so the core mm knows not to treat them as ordinary
-page cache or anonymous memory.
+A list_for_each_entry macro is used in the comparison phase, which at
+the end of the loop leaves the lli pointer at the currently executing LLI.
+However this also subsequently runs for a non-match lli, in which it
+points at the head. This causes a type confusion bug which treats the
+head, which is a ls1x_dma_desc, as a ls1x_dma_lli object. Additionally it
+goes forwards and prints garbage via the dev_dbg.
 
-The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
-use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and so
-marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
-explicitly.
+Fix the type confusion bug by only allowing matched LLI descriptor chains
+to print the current LLI and residue calculation, as failing to match
+should be treated as an unexpected condition.
 
-However, the exception to this is arena_map_mmap(), which doesn't set the
-flag.
+Found by the following Coccinelle check:
 
-This patch corrects this and updates the comment to reflect it.
+  scripts/coccinelle/iterators/use_after_iter.cocci
 
-The pages are refcounted and vm_normal_page() finds them regardless of the
-flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
-thus unmergeable). The one effect is that NUMA balancing now skips these
-VMAs, as it already does for the other bpf map mappings, which is the
-reason array_map_mmap() gives for setting the flag.
+  drivers/dma/loongson/loongson1-apb-dma.c:461:6-9: ERROR: invalid
+  reference to the index variable of the iterator on line 450
 
-The intent of this patch is to be able to establish the invariant that only
-PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
-in bpf_map_mmap().
+Compile test only; Hardware testing by Keguang Zhang.
 
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Mahad Ibrahim <mahad.ibrahim.dev@gmail.com>
+Reviewed-by: Keguang Zhang <keguang.zhang@gmail.com>
+Tested-by: Keguang Zhang <keguang.zhang@gmail.com> # on LS1B & LS1C
 ---
- kernel/bpf/arena.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-index 7b6847200b43..b69fe5e34339 100644
---- a/kernel/bpf/arena.c
-+++ b/kernel/bpf/arena.c
-@@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
- 	 * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
- 	 * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
- 	 * being copied into the child process on fork.
-+	 * This is a kernel page so set VM_MIXEDMAP.
- 	 */
--	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
-+	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
- 	vma->vm_ops = &arena_vm_ops;
- 	return 0;
+v2:
+- encapsulate residue calculation and dev_dbg inside the
+  list_for_each_entry() macro. Treat non-matching LLI as an unexpected
+  case.
+- link: https://lore.kernel.org/all/20260729143247.6111-1-mahad.ibrahim.dev@gmail.com/
+
+
+v3:
+- Collect tags from Keguang Zhang.
+- Repost patch in a new thread.
+- Change chan2dev to the newer dmaengine_chan_dev.
+
+
+ drivers/dma/loongson/loongson1-apb-dma.c | 27 ++++++++++++++----------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/dma/loongson/loongson1-apb-dma.c b/drivers/dma/loongson/loongson1-apb-dma.c
+index 46b4bfef45e2..e62ab26c8327 100644
+--- a/drivers/dma/loongson/loongson1-apb-dma.c
++++ b/drivers/dma/loongson/loongson1-apb-dma.c
+@@ -441,22 +441,27 @@ static enum dma_status ls1x_dma_tx_status(struct dma_chan *dchan,
+ 
+ 			/* locate the current lli */
+ 			next_phys = chan->curr_lli->hw[LS1X_DMADESC_NEXT];
+-			list_for_each_entry(lli, &desc->lli_list, node)
+-				if (lli->hw[LS1X_DMADESC_NEXT] == next_phys)
+-					break;
++			list_for_each_entry(lli, &desc->lli_list, node) {
++				if (lli->hw[LS1X_DMADESC_NEXT] != next_phys)
++					continue;
+ 
+-			dev_dbg(dmaengine_chan_dev(dchan), "current lli_phys=%pad",
+-				&lli->phys);
++				dev_dbg(dmaengine_chan_dev(dchan), "current lli_phys=%pad\n",
++					&lli->phys);
+ 
+-			/* count the residues */
+-			list_for_each_entry_from(lli, &desc->lli_list, node)
+-				bytes += lli->hw[LS1X_DMADESC_LENGTH] *
+-					 chan->bus_width;
++				/* count the residues */
++				list_for_each_entry_from(lli, &desc->lli_list, node)
++					bytes += lli->hw[LS1X_DMADESC_LENGTH] *
++						 chan->bus_width;
++
++				dma_set_residue(state, bytes);
++				return status;
++			}
++
++			dev_warn(dmaengine_chan_dev(dchan),
++				 "unable to locate current lli.\n");
+ 		}
+ 	}
+ 
+-	dma_set_residue(state, bytes);
+-
+ 	return status;
  }
-
+ 
 -- 
-2.55.0
+2.54.0
 
