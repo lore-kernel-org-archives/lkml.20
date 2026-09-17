@@ -1,235 +1,319 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E052554087
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE13549371;
+	Thu, 17 Sep 2026 16:32:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662729; cv=none; b=T5zPLQeIHMSJch3T5kjxT/tDztrZjRbUTXVvbHBRAdiHR5AIpDtfwdCbe6rLFeaREJBgkcKc7lRWUxuzis9WktVBjtvu+5fhh+E8+yEt58TQRsS+BPw+R9OOAuTSBAyy5AqgfxH2MEduaHPXMSGXCgcGCMuWyAka7iyTofkibw8=
+	t=1789662731; cv=none; b=bl6dt7niiuxRtFNKh6SeN1GKGW2sTLdjI+zVkwYYnrIzZnLdwzxBj8teokKCJptSznPIfEN99Qof7RmojFnX6Tk4ESNPKbZrg/MD2eG6JZdmvqOH9Uzj7K7wRxv7A5fKVoXl8/CpG3MhHqbWiClhE+G6BuhOieM/tqFJI/XAu+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662729; c=relaxed/simple;
-	bh=bVHUXHUOUexMnPvGq2onJmA5oGKTIVSb8tJKzygO4/M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=skcn6WSPZ5FJz67vSk6r/u2rp6L4hSdx41yDqcMG1z6h3yM5W9whFsYTUtZe32ELntU/HN2000SM4lxuD/EbKXsUzKd2+f4+GjkUt0Qbd+fNxRcOsHfUokV1enQ6fxKOZAq1b1hKCpqT080mxXWDm07YEu941YLRar0fV5w6JMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=moTb35UO; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1789662731; c=relaxed/simple;
+	bh=HTYbod2OP3AjRPEv6Ph886TsUDFUWldGDo6PKBX7Wqs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=h8CRp2L8edqOHE7xYRgGW4rlYp15nUIdCIcbZkEC4tMu4UlBIWqEk0NMhyRUrMTtCp5ylv4TrxMvNjsMLinWkVbvciiHqs6DRdu3bAX4IgHDP5M427PDvfzjDgB/5hbFr7u3PajYtffQ3sw8jMGDm/W0DH8sGzD3t1YCs3ZI1NM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Em9Vcp7v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="moTb35UO"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso667749f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:32:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1789662726; x=1790267526; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pRGmy+CD/OZqkunxYFlKpBWDzUnxWp+wru3td2Hvozs=;
-        b=moTb35UOORPHc4OW1jgyZHA5D7MsPFNIMZfbV2d/0YkXDZKj21/ISzeozJ2W0D7w7O
-         MkFyCQBNyTD3C7yUvPDLUtKWD9qfnm+LYVa5D4YEaIM9Fc1cn2m2Mqmg3rh7pOX5PLNK
-         jDYI31HfSrdKsvXrdvnV49+VxpefBCprFKepU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789662726; x=1790267526;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pRGmy+CD/OZqkunxYFlKpBWDzUnxWp+wru3td2Hvozs=;
-        b=jnppI5PLokOjBnMSl/iSiR5vdy+/fc09DntvzAFVnruJ58x2Mak6YfSjpjvl+0YJXT
-         82Q8aUuGUtPzdLZM+XGH9/zUil4Mg6DbWQXZuxAjCjxUyE2GKxtBCdCUy9kPifh6u5XE
-         S6ju8N4P1nN7zJy/vvZdBHHk/UayN+T4DjqtJ3yrL2a3enNaZV+idjN4wB2Vu4bpt0/l
-         H7xp8llWzd/KLrHE2X1QjQ8ZFh5GXNsbnoK7B1S7Mv/z7b18jetXzYr0eYMh9cp8j3j2
-         J2VOdQz6B3eTKik0akaefzka9JqpTgcaELizI1RXcPo0noJCrC0EdaXG4Y73Pnplttq4
-         Vtjg==
-X-Gm-Message-State: AFuF++kBbmW+hlg2x4GW1xvHdph72HoK3K7GweUvr7vUT/YL3Y0lZvT0
-	3VAsStCtzzxcuTptqcvy4tteVZb/PLIYCZspGgun/ZTDgjgXR9FAwhier4c5UKqtpuhx+yS7ARk
-	BBiIB
-X-Gm-Gg: AYBFou0a+CLZcZ1LA0MH95wl/nTi8BXWnWmLTHtL77sf2DV0rIZsiWIHk8ijN493MJH
-	qY3olsnMlwBX+oWXtyiehw3XNSd5j3LWlRqIAs1woRaURWSmuGnSmHna1zepXO37KLu2o3cLLFl
-	STziTQ/WtHeb5JnbLufkmy7x6QkOM5RjClG0yJqsmzBDcBfkHYubykahGOnC0vjlgrWQT5RwJx+
-	H/d5kwSDZtYNZN032JmEN78SfPDYFf6tT5WPespd2w448A+mrivIL3suRk2Fh+U21lergSS59QW
-	VgKSHSZ5wlSY8jOhEMew0M3gaOVft+LlSzmwLq+6qTChZ2y4n1+KB4aI91rZcDHouD17IIFlQFK
-	HlOvI5PC0Ix40asUEawB5YhW+cgsrbr5ij+gECCdCa1shH3DZgNvDW4RY2lNCb7/PjgEzXRvILI
-	6xQHOHajvshIocw5AQAfo/FmyxqvFI8+z7geT9IKMyhF5mJMAGmArVrZkLw2K5vYTOqY60roP7/
-	MAuCMtgO18kFLWw
-X-Received: by 2002:a05:6000:41d3:b0:487:ff2:14f5 with SMTP id ffacd0b85a97d-4870ff21542mr7461497f8f.4.1789662725767;
-        Thu, 17 Sep 2026 09:32:05 -0700 (PDT)
-Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf418dcsm16842652f8f.35.2026.09.17.09.32.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 09:32:05 -0700 (PDT)
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	dinguyen@kernel.org,
-	arnemaximilian.richter@draeger.com,
-	martynas.grybauskas@draeger.com,
-	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v6 3/3] arm: dts: altera: add Draeger M48 CPU Module
-Date: Thu, 17 Sep 2026 19:31:56 +0300
-Message-ID: <20260917163157.1380860-4-petko.manolov@konsulko.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260917163157.1380860-1-petko.manolov@konsulko.com>
-References: <20260917163157.1380860-1-petko.manolov@konsulko.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Em9Vcp7v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F145F1F00898;
+	Thu, 17 Sep 2026 16:31:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789662729;
+	bh=zqpk9MXgaX25nS5Ys5rO6UCVR/iTsHvR4Kg11ITNpTs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Em9Vcp7vsIS4Jn8qf/ahkPwaLGTBcJ8S5LIKDJMNWb3KRHsMyPmFX4JPiU7TvPOmF
+	 +MrSzGz5nbDpirTrKKpT7f6veK5ZPsJ2sVnniUA2IYHo6fkoPifqJuSw6gsonsSdOk
+	 qXJfQMLxAO1xfepbXhdfm+6hYk7pWgyENu3ZHr5AgPibg54dq2nQxPUic4WtiQZx5A
+	 DwAUQEVEZXEwEOTOE62x/pD269SFWj0pYwkt33CXVoAPjv7oZfWr5BxshfaNUB250A
+	 h9QMdMAmTMKLNhEYJLvTV4VhhkZ0P8xHGGUUAVCdZVEIt0VSeavBiKuRA5nUo2iTbx
+	 bVHAAHQknK+jw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:22:27 +0100
+Subject: [PATCH v3 18/40] scsi: sg: convert mmap hook to mmap_prepare and
+ rework
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-18-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5937; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=HTYbod2OP3AjRPEv6Ph886TsUDFUWldGDo6PKBX7Wqs=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB+MTmlykN749ErGgtLIbfJWW1wOmzJePeXSkp6a7
+ iw7/7ZYRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACay7x3D/+Iwtu3lofl/9wnM
+ 1bQpCNefY17DevBw5pv01fefayU83s/wT5t1Z0mEyM2PT4XbeZ4tWbny13uNg/Ymxre/m73J9S3
+ vZgMA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Draeger M48 CPU Module that is built around Altera SoCFPGA.
+Move from the deprecated mmap hook to the new mmap_prepare hook.
 
-Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+We are mapping kernel pages here, so use the discontiguous kernel mapping
+mmap action to do so.
+
+Unwind the rather confusing loop and instead map as many pages as we can at
+one time.
+
+Note that we do not need to pay attention to rsv_schp->k_use_sg here, as
+the pages are populated for the length of the buffer at
+rsv_schp->page_order granularity as compound pages.
+
+The discontiguous kernel page mapping logic handles the compound pages for
+us.
+
+sfp->mmap_called keeps the buffer stable for us. As before it is never
+cleared, so a failed mmap also leaves it set.
+
+We also remove some useless vma, vma->vm_file NULL checks - these will
+always be non-NULL if you reached the mmap hook logic.
+
+We retain log output for consistency, but change what's output on page
+mapping to indicate that sg_discontig_get() does the work now.
+
+Note that we drop the VMA_IO_BIT flag for the VMA here. It was never
+necessary as we invoke alloc_pages() which gives us refcounted folios that
+are fine for GUP to access (VMA_IO_BIT would prevent that).
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
- .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 123 ++++++++++++++++++
- 2 files changed, 124 insertions(+)
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+ drivers/scsi/sg.c | 115 ++++++++++++++++++++++++------------------------------
+ 1 file changed, 51 insertions(+), 64 deletions(-)
 
-diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
-index 8df0976da01c..cdcea11abdfa 100644
---- a/arch/arm/boot/dts/intel/socfpga/Makefile
-+++ b/arch/arm/boot/dts/intel/socfpga/Makefile
-@@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
- 	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
- 	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
- 	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
-+	socfpga_cyclone5_draeger_m48.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
-diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-new file mode 100644
-index 000000000000..dae809c02adb
---- /dev/null
-+++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-@@ -0,0 +1,123 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ */
-+#include "socfpga_cyclone5.dtsi"
+diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
+index 5408f002e6c0..3f9e08725602 100644
+--- a/drivers/scsi/sg.c
++++ b/drivers/scsi/sg.c
+@@ -1212,85 +1212,72 @@ sg_fasync(int fd, struct file *filp, int mode)
+ 	return fasync_helper(fd, filp, mode, &sfp->async_qp);
+ }
+ 
+-static vm_fault_t
+-sg_vma_fault(struct vm_fault *vmf)
++static int sg_discontig_init(void *vm_private_data, void **private)
+ {
+-	struct vm_area_struct *vma = vmf->vma;
+-	Sg_fd *sfp;
+-	unsigned long offset, len, sa;
+-	Sg_scatter_hold *rsv_schp;
+-	int k, length;
+-
+-	if ((NULL == vma) || (!(sfp = (Sg_fd *) vma->vm_private_data)))
+-		return VM_FAULT_SIGBUS;
+-	rsv_schp = &sfp->reserve;
+-	offset = vmf->pgoff << PAGE_SHIFT;
+-	if (offset >= rsv_schp->bufflen)
+-		return VM_FAULT_SIGBUS;
+-	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
+-				      "sg_vma_fault: offset=%lu, scatg=%d\n",
+-				      offset, rsv_schp->k_use_sg));
+-	sa = vma->vm_start;
+-	length = 1 << (PAGE_SHIFT + rsv_schp->page_order);
+-	for (k = 0; k < rsv_schp->k_use_sg && sa < vma->vm_end; k++) {
+-		len = vma->vm_end - sa;
+-		len = (len < length) ? len : length;
+-		if (offset < len) {
+-			struct page *page = rsv_schp->pages[k] + (offset >> PAGE_SHIFT);
+-			get_page(page);	/* increment page count */
+-			vmf->page = page;
+-			return 0; /* success */
+-		}
+-		sa += len;
+-		offset -= len;
++	const unsigned long req_sz = (unsigned long)*private;
++	Sg_fd *sfp = vm_private_data;
++	Sg_scatter_hold *rsv_schp = &sfp->reserve;
++	int err = 0;
 +
-+/ {
-+	model = "Draeger M48 Cyclone V SoC";
-+	compatible = "draeger,m48", "altr,socfpga-cyclone5", "altr,socfpga";
++	mutex_lock(&sfp->f_mutex);
++	if (req_sz > rsv_schp->bufflen) {
++		err = -ENOMEM;	/* cannot map more than reserved buffer */
++		goto out;
++	}
++	sfp->mmap_called = 1; /* Prevents changes to buffer size. */
++out:
++	mutex_unlock(&sfp->f_mutex);
++	return err;
++}
 +
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
++static int
++sg_discontig_get(struct discontig_kernel_page_state *state)
++{
++	Sg_fd *sfp = state->vm_private_data;
++	Sg_scatter_hold *rsv_schp = &sfp->reserve;
++	const unsigned int order = rsv_schp->page_order;
++	const pgoff_t nr_pages = state->nr_pages_mapped;
 +
-+	memory@0 {
-+		name = "memory";
-+		device_type = "memory";
-+		reg = <0x0 0x40000000>;
-+	};
++	if (nr_pages >= (rsv_schp->bufflen >> PAGE_SHIFT)) {
++		discontig_kernel_map_abort(state);
++		return 0;
+ 	}
+ 
+-	return VM_FAULT_SIGBUS;
++	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
++				      "%s: offset=%lu, scatg=%d\n", __func__,
++				      nr_pages << PAGE_SHIFT, rsv_schp->k_use_sg));
 +
-+	aliases {
-+		/* this allow the ethaddr uboot environmnet variable contents
-+		 * to be added to the gmac0 device tree blob.
-+		 */
-+		ethernet0 = &gmac0;
-+	};
++	discontig_kernel_map_page(state, rsv_schp->pages[nr_pages >> order]);
++	return 0;
+ }
+ 
+-static const struct vm_operations_struct sg_mmap_vm_ops = {
+-	.fault = sg_vma_fault,
++static const struct discontig_kernel_page_ops sg_discontig_ops = {
++	.init = sg_discontig_init,
++	.get = sg_discontig_get,
+ };
+ 
+ static int
+-sg_mmap(struct file *filp, struct vm_area_struct *vma)
++sg_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	Sg_fd *sfp;
+-	unsigned long req_sz, len, sa;
+-	Sg_scatter_hold *rsv_schp;
+-	int k, length;
+-	int ret = 0;
++	Sg_fd *sfp = desc->file->private_data;
++	const unsigned long req_sz = vma_desc_size(desc);
+ 
+-	if ((!filp) || (!vma) || (!(sfp = (Sg_fd *) filp->private_data)))
++	if (!sfp)
+ 		return -ENXIO;
+-	req_sz = vma->vm_end - vma->vm_start;
 +
-+	soc {
-+		gpio3: gpio@ff202000 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "snps,dw-apb-gpio";
-+			reg = <0xff202000 0x20>;
+ 	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
+ 				      "sg_mmap starting, vm_start=%p, len=%d\n",
+-				      (void *) vma->vm_start, (int) req_sz));
+-	if (vma->vm_pgoff)
++				      (void *) desc->start, (int) req_sz));
 +
-+			portd: gpio-controller@0 {
-+				compatible = "snps,dw-apb-gpio-port";
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				snps,nr-gpios = <2>;
-+				reg = <0>;
-+			};
-+		};
-+
-+		gpio4: gpio@ff202020 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "snps,dw-apb-gpio";
-+			reg = <0xff202020 0x20>;
-+
-+			porte: gpio-controller@0 {
-+				compatible = "snps,dw-apb-gpio-port";
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				snps,nr-gpios = <2>;
-+				reg = <0>;
-+			};
-+		};
-+	};
-+};
-+
-+&gmac0 {
-+	status = "okay";
-+	phy-mode = "rgmii-id";
-+	rxc-skew-ps = <1860>;
-+	rxd0-skew-ps = <0>;
-+	rxd1-skew-ps = <0>;
-+	rxd2-skew-ps = <0>;
-+	rxd3-skew-ps = <0>;
-+	rxdv-skew-ps = <0>;
-+	txc-skew-ps = <900>;
-+	txd0-skew-ps = <0>;
-+	txd1-skew-ps = <0>;
-+	txd2-skew-ps = <0>;
-+	txd3-skew-ps = <0>;
-+	txen-skew-ps = <0>;
-+};
-+
-+&gpio0 {
-+	status = "okay";
-+};
-+
-+&gpio1 {
-+	status = "okay";
-+};
-+
-+&gpio2 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+	clock-frequency = <100000>;
-+
-+	eeprom_mac: eeprom@50 {
-+		compatible = "atmel,24c08";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&mmc0 {
-+	status = "okay";
-+};
-+
-+&qspi {
-+	status = "okay";
-+
-+	flash: flash@0 {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "micron,n25q256a", "jedec,spi-nor";
-+		reg = <0>;
-+
-+		/* chip select */
-+		spi-max-frequency = <100000000>;
-+		m25p,fast-read;
-+		cdns,read-delay = <4>;
-+		cdns,tshsl-ns = <50>;
-+		cdns,tsd2d-ns = <50>;
-+		cdns,tchsh-ns = <4>;
-+		cdns,tslch-ns = <4>;
-+	};
-+};
++	if (desc->pgoff)
+ 		return -EINVAL;	/* want no offset */
+-	rsv_schp = &sfp->reserve;
+-	mutex_lock(&sfp->f_mutex);
+-	if (req_sz > rsv_schp->bufflen) {
+-		ret = -ENOMEM;	/* cannot map more than reserved buffer */
+-		goto out;
+-	}
+ 
+-	sa = vma->vm_start;
+-	length = 1 << (PAGE_SHIFT + rsv_schp->page_order);
+-	for (k = 0; k < rsv_schp->k_use_sg && sa < vma->vm_end; k++) {
+-		len = vma->vm_end - sa;
+-		len = (len < length) ? len : length;
+-		sa += len;
+-	}
++	vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
++	desc->private_data = sfp;
+ 
+-	sfp->mmap_called = 1;
+-	vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
+-	vma->vm_private_data = sfp;
+-	vma->vm_ops = &sg_mmap_vm_ops;
+-out:
+-	mutex_unlock(&sfp->f_mutex);
+-	return ret;
++	mmap_action_map_discontig_kernel_pages(desc, (void *)req_sz,
++					       &sg_discontig_ops);
++	return 0;
+ }
+ 
+ static void
+@@ -1415,7 +1402,7 @@ static const struct file_operations sg_fops = {
+ 	.unlocked_ioctl = sg_ioctl,
+ 	.compat_ioctl = compat_ptr_ioctl,
+ 	.open = sg_open,
+-	.mmap = sg_mmap,
++	.mmap_prepare = sg_mmap_prepare,
+ 	.release = sg_release,
+ 	.fasync = sg_fasync,
+ };
+
 -- 
-2.47.3
+2.55.0
 
