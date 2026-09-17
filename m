@@ -1,133 +1,84 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552085921FE
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:28:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A9C5921EC;
+	Thu, 17 Sep 2026 14:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655293; cv=none; b=pdlC4VG5UXYjlVzI1dxQh8DuJvl56VGTSU6/hbIJt0x8tk4uB9aj/X86pum6EZslnG3+fE1DRlKbk95IgaEW8zPuQNW/2tx5H1vCqZo4XCq/Zn5JheMpEJGal1kz1z6/E505LXksGxE2EholnBJO52nfmk+4K7qztkVun3aXp3c=
+	t=1789655296; cv=none; b=pqK6OpI3hHVjixLFYxMSyMIwC2+xvMTIpxoVwOVA5y+uxwQQnyJ2NBEQHfnZx+FAkakyv80i3oguorT6YfOdHaMrn1Rt57eJIQC2iSldfGQsM9i3a4//lSeUKL5wIZauQCSC5wsfcnFisOgQh8lBvGrVE1SMp+VQ8vFbANJiziM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655293; c=relaxed/simple;
-	bh=zD+yqYOk9BEwYrlkE41XIJFd2WjARDFI5ce4WJxm+Ls=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XzWOjJcFqFqvLIlmyyXKo+j00pZZ3a9ywWna7CdEN3d0ACqARCaDhfcY2+ZFf7r82fs8YswjC39hfEPKmRZYHNT0bEJGVhln5KQYjIXodgkHxnpqeukwshzYdpUgKKsJbUSFLtEoAOgOtKY00aUZmeAJ5/laDIQVbeT1cHg4KEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jOZBXJLw; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jOZBXJLw"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9106feddbdfso7299406d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:28:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1789655290; x=1790260090; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jw1k2NAja1Um952Tl85LJupIp0nZbLj8NYpKbR9I6hU=;
-        b=jOZBXJLwf6JP3b19azmsQ5fLkQfodPWKCQ4sDgsm74opbQurokqxNrasGuNyOPVzvE
-         CTVWAdgBhof6iu0XiS8kaZ358Ree3L9tOC68tPaGgk6QmS7dj/CAh2cDH6Ri94YsKWYE
-         zFgjnox0YrTKuN8CziN0SVinO8YFZz6H8x2igaWxvbrgFrudFRNrFyWtefERJIZGn9WM
-         /YRBE5l7nBeTmhMKMbx56N0o1l466lNeHVloV8m2iSh8w9+kxpuV28bJDRjIUAx2mv9y
-         5MOsangOpHqTW06zyEsy1fwdV0ITN+uat3lRUftLj9jAXlHsH37VEcNIWu8qGi0F66Q2
-         koBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789655290; x=1790260090;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Jw1k2NAja1Um952Tl85LJupIp0nZbLj8NYpKbR9I6hU=;
-        b=eWk9bwxy5oBEN63VpV0vG2JDzxCfEGqVnBXKoffxCIRpolJHxceg6itOCuovaVuuW5
-         3pSgyiaXMOTIC0dnWzj5mteybEEzbC9l1/JWVfOj8xWGRHCg2zq+rc1ubfqUGNB/iBmG
-         IYtTpnLDjBLwHPuTEaZtGBvJ4mpoMqj4CVfLb2n/yTfkMiO8+7lcGt5l157wzkFu2iMK
-         Uo/GFJ8taTmmN3ICfgBJv+CV5XEJJuPi3dIpKrDTi8kRMoRvuJPu814h1IQ8zvtegINN
-         Z2czNKpi7v9Rs0gSWaDiqsG9ilavbBRUOUg8aJ9k98Xin2ECQO/N14zANJvy2TK+BJl0
-         Exbg==
-X-Forwarded-Encrypted: i=1; AKwUvBxSIDJ+JRA5MheSoPdw+p9nMpzUPlYTOC7nzEwCq2FlvSIp8hwmh3jHSypTtrsUsKfyHqV94QYD3jTqbJs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqwUzsBNJ3kBKfwdgFk7uzdBFcZtaEUmsTM1OKIcBQ57Qgq3ic
-	pWTMS8shjJEIlDrEJULTnanpNR/1UZQTEPOY8bqIzY+IA0YsXcekte9qVu+NMDMCKzM=
-X-Gm-Gg: AYBFou0uQEN7uq7pyJWcwXJ6jKCPD5ybV0JEhHTfsMQv9xvAiL2niIRMv7a9zHpLeZm
-	hbrpDKhqgX3HzCqDFDemJDUXUZNJAySG6kzMiY5xRad2nIqFV3ubOjhWcwzC2GAtOrmF4XPGS2y
-	mgJ6l7Pf2n3wshrirflhva8HBnidLxbYImXNXltWzFMi45/ldU0MVzaNU4Y0PwYJPWyychcGypG
-	KI+xmm440XjJGKK8UzZ+40o6d0XgPiadQL+UCBJ9H39/BQy7UMXz9eS0a+G8PKBv+0rtepwq05w
-	zZWyf4LYdbzS1+fwb4xS87RDdYURcsBWn9HbwReo5Sy7yWkTXtNou8IalKWQg6VGhbw3ti1jnna
-	kDwZGrG2OrjMVxzRgj/KpMhrOHcSofg+Ma+zUjmTSU+5e9WO5BgYBqVGSsYwpp5lh3DBRsZ//28
-	uMeicPDHxKUhrDWcm06qMjjfg4jKKaTGOeF/xYWkaWHdCGirBML/3jDYtIRCKSOfImstmvoneY7
-	qgyfRTMt+DSkwKuvMyceZb15kVN+it0rBRbr8R9YdNU4Y6PYrEGEorm
-X-Received: by 2002:a05:6214:1316:b0:912:517b:911 with SMTP id 6a1803df08f44-912517b0beamr9926716d6.48.1789655289706;
-        Thu, 17 Sep 2026 07:28:09 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123be9ca82sm51192626d6.32.2026.09.17.07.28.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 07:28:09 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x7D5s-0000000CrE5-25RS;
-	Thu, 17 Sep 2026 11:28:08 -0300
-Date: Thu, 17 Sep 2026 11:28:08 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-Message-ID: <20260917142808.GH3196566@ziepe.ca>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
- <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
- <f3708893-4760-4157-83a3-313867a94e78@amd.com>
+	s=arc-20240116; t=1789655296; c=relaxed/simple;
+	bh=C36nkIdIAii2ztIyD1UPt8TsxIrHC849VboK/FSWLis=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aMkERr3dIpEyX7aGZ2Hb+EpmYggz6Phv8vPZc4EnVpdrR7uMpQ/GnHApNdun51LG5DbGRehhUpYd+ulOmfsDZuqDoyBI07tLLI5vg5gUAEc7pi/xnNTvuLuf/bc+GSAAngiTh8Lex6hcALLVlrk4WXQbSUSq63qGzUKrbV6UcKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAnlT_6+KtqOnWCCA--.4922S2;
+	Thu, 17 Sep 2026 22:28:10 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: broonie@kernel.org
+Cc: lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	mirq-linux@rere.qmqm.pl,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] regulator: core: Fix rdev reference leak in regulator_resolve_supply()
+Date: Thu, 17 Sep 2026 14:28:10 +0000
+Message-Id: <20260917142810.2156816-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f3708893-4760-4157-83a3-313867a94e78@amd.com>
+X-CM-TRANSID:zQCowAAnlT_6+KtqOnWCCA--.4922S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GFykCrykWF4ftr4fAw1kKrg_yoWDKFX_Ka
+	4rA3WxC397CF4DKr1IqF4vyr9avF1jva93ur4xKFW5KrZ0kF15Xw13Jr9xAr47Xw4UCr9x
+	Zw17GF48Zr13ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbfAYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
+	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
+	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7
+	CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7IU1mLvtUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qr888MtwAAsM
 
-On Thu, Sep 17, 2026 at 04:00:33PM +0200, Christian König wrote:
-> > However, at least for the Intel GPUs, ATS enablement is based on the
-> > PCIe-side enable bit.
-> 
-> Yeah, I can confirm as well that this is something really exotic.
+regulator_resolve_supply() takes a reference on the looked-up regulator
+with regulator_dev_lookup(), but when the supply resolves to the
+regulator itself that reference is never dropped: it leaks on the early
+return and is lost as well when r is replaced with the dummy regulator.
 
-In most datacenter systems it is only the NIC that initiates the P2P
-transfers, so it should not be surprising that NIC HW has more
-optimizations for this. In real systems ATS carries such a perf cost
-that you do need to be selective about it. I would expect every
-serious NIC to have this capability or it will not be perf
-competitive.
+Release the reference before handling the self-referent case.
 
-NIC and GPU are using ATS for completely different reasons.
+Fixes: 4b639e254d3d ("regulator: avoid resolve_supply() infinite recursion")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/regulator/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> Additional to that the setup that ACS seems to be disabled for some
-> bridges bit not all also sounds extremely uncommon.
+diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+index 0ae11a521943..31893c7decd5 100644
+--- a/drivers/regulator/core.c
++++ b/drivers/regulator/core.c
+@@ -2221,6 +2221,7 @@ static int regulator_resolve_supply(struct regulator_dev *rdev)
+ 	if (r == rdev) {
+ 		dev_err(dev, "Supply for %s (%s) resolved to itself\n",
+ 			rdev->desc->name, rdev->supply_name);
++		put_device(&rdev->dev);
+ 		if (!have_full_constraints()) {
+ 			ret = -EINVAL;
+ 			goto out;
+-- 
+2.34.1
 
-I'm not sure where you saw ACS disabled, you can look rdma-core now
-has a tool to help people get their RDMA NICs working in GPU systems:
-
-https://github.com/linux-rdma/rdma-core/blob/master/kernel-boot/rdma_topo
-
-I would view most of that stuff as completely normal at this point,
-people have been doing versions of this by hand for almost 10 years
-now. Especially the asymmetric translated/untranslated routing.
-
-Jason
