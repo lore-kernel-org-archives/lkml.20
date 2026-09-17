@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131D14E324A;
-	Thu, 17 Sep 2026 19:50:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2124B4E324A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:51:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789674611; cv=none; b=C8HlavVbdVazNjzLaCH4+RURbptfn9N6RwjHsZ/7x3NHTn1+Mt2I6jydiapu4XKOYv+wpNrDLFrAU4OArOdT5g8SUdK4iuf6H/QzOYDKUJwTqQjJRWPbB1OPEnep8EahFL6Bhtj5vaW5y3u+D8qFp2gkhavVnge4mWSfh9XCplw=
+	t=1789674696; cv=none; b=JUkU183qizUNk7p3rgJ27HC+wYUxprr07bhUFDuRiMeLO+FhVTTvjakAe8FqjLPYU/xG96xkTL3Ejx6nP+h9ScovBkaTMEAuSeyoVRtsislibZrhH+kGwQRkmfjFUEoAffsZLI5QshVLpcOZz7FWu3Wt6Z8pxCBKNHPdgh8siMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789674611; c=relaxed/simple;
-	bh=EOHdecQpaL/GlKIrm1Ple59SctseC42flfYo8o3xhhQ=;
+	s=arc-20240116; t=1789674696; c=relaxed/simple;
+	bh=cnmnDNmuM5/t6RHT2YWu4h0QpQzgHzv5CGThSi+AsRY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HGWvBm/gICGJJ0Chizlx+6G4r7O/NoEFhtldYr+/OTUIgNaYloq3jgKybXdKVaXocrElYsRitmjvj+Eh15AcpbgI0+yB+ytwMNU9pqMhUAi5N71jy5ybf0pKJsidzLBmw3UVYJaGQ4WqAOa0kedM2OWw+Sb6lCm7pBgqiSLjuQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mrECmR+l; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=PaYPbQ8NYnUmEDlfsxcOR0ZOEhMyyNvxtsGWzzhlLkgNqzKC4bSchyFzZAv5cQVIhfkTv4gMOXQpiSgOWfEFC99KEJ30uHGYLssuaz3RqFAhuEHdfTmPGtBXz624BJ2BMOVm+1/rGhlAGLw2ahbThrcfhUPKvK03l/J+OfZxvOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gB9PTePX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mrECmR+l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE8A1F000FF;
-	Thu, 17 Sep 2026 19:50:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gB9PTePX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0306D1F000FF;
+	Thu, 17 Sep 2026 19:51:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789674609;
-	bh=G0Ueg6iQdpUNa9p9nLh4vzjWRkCm6UmXBREY4j0sk+U=;
+	s=k20260515; t=1789674694;
+	bh=286m7qqU+1+My40bWAQal2p0ydHLws71vmZkeNKrn+E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mrECmR+lIdha3cKWAI20UARLbzlqrmStsU1mbB9l0xqH0HC1BWjbgOJ1RkXnLZnxF
-	 5X1SDOU67OY5zntAv5Mb18P2FsycYaZI+kluhsiz8oKAZ39Lgc4pfKDNX2uy17RNBt
-	 d1WgXVU4oKoZUM2GuPSqvut4RwbzNho5vU38AdR8EjXIiuRp4NfSmK2RjEez0pnQ+G
-	 6ndqKtIUtiHQO/zVMIvkYb9FKJzFtXrbqSbb8XFb6Sq4ChFBb1WgT3MAx2TrlZvBDi
-	 AWEJcLX7VZSbvk22fMcwgyfW5XZ+gqJUAMeNsDzdX4qXZZzQWql86URAymj1p6p++o
-	 dAKwVt8RbrcHA==
-Date: Thu, 17 Sep 2026 14:50:07 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: simona.toaca@nxp.com, devicetree@vger.kernel.org,
-	daniel.baluta@gmail.com, "David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Tony Lindgren <tony@atomide.com>, linux-kernel@vger.kernel.org,
-	m-chawdhry@ti.com, Eric Dumazet <edumazet@google.com>,
-	netdev@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	goledhruva@gmail.com, Paolo Abeni <pabeni@redhat.com>
-Subject: Re: [PATCH v3] dt-bindings: net: ti,davinci-emac: Convert to DT
- schema
-Message-ID: <178967460728.3473947.18194028941421372719.robh@kernel.org>
-References: <20260901-ti-davinci-emac-v3-1-db41e32f3f6d@gmail.com>
+	b=gB9PTePXbF3dauZ1CP3Ma7tHqUqd5YHVsVecXPlfNJ+NUCfHThYFSDLNzMr4GjILJ
+	 3qHuCDIMjzIq1xBGE7WugEHUGgsTY6tq/n5mzrD9U8XDFkOfzyNvsxrrONnPUv/nrM
+	 aBQh2VZzECZ0r394i/BXUwUcjcusRsxGgM6kP+25IowEDpZ82CjD3ODQS2g8QPuFBu
+	 x190+xbzPh6rGFMk9MT4pz5LPAyE4NnYwXkw4vuLCComMUx0KvaS1+mNz11WyCnTuX
+	 /PvalH5Vgv6+eLGaRf+ptzbFQK6VyTjvMOYz6i8kuZhTA5tK0LpJcwRSSAlODPHD36
+	 ZYuQkFxd+1oGQ==
+Date: Thu, 17 Sep 2026 13:51:32 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Maurizio Lombardi <mlombard@redhat.com>,
+	Arnd Bergmann <arnd@arndb.de>, Hannes Reinecke <hare@kernel.org>,
+	Nilay Shroff <nilay@linux.ibm.com>,
+	John Garry <john.g.garry@oracle.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nvme: work around -Wformat-security warning
+Message-ID: <aqxExPzdo2VMII7Q@kbusch-mbp>
+References: <20260916114533.237863-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,36 +48,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260901-ti-davinci-emac-v3-1-db41e32f3f6d@gmail.com>
+In-Reply-To: <20260916114533.237863-1-arnd@kernel.org>
 
+On Wed, Sep 16, 2026 at 01:44:51PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> Passing a string variable into dev_set_name() causes a warning
+> when building with -Wformat-security enabled:
+> 
+> drivers/nvme/host/core.c: In function 'nvme_cdev_add':
+> drivers/nvme/host/core.c:3911:9: error: format not a string literal and no format arguments [-Werror=format-security]
+>  3911 |         ret = dev_set_name(cdev_device, name);
+> 
+> Remove the temporary strings and let dev_set_name() do the
+> same thing internally.
 
-On Tue, 01 Sep 2026 05:45:50 +0530, Bhargav Joshi wrote:
-> Convert Texas Instruments DaVinci EMAC binding from text to DT schema.
-> 
-> Changes from the original binding:
-> - Add clocks, clock-names, syscon, power-domains, and ti,hwmods
->   properties that are used in existing DTS files but were undocumented.
-> - Disallow syscon and clock-names for ti,davinci-dm6467-emac since they
->   are not applicable to that SoC.
-> - Allow 1-2 reg entries for DM816.
-> - Make clocks a required property as driver probe fails without it.
-> - Mark ti,hwmods as deprecated.
-> 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
-> Changes in v3:
-> - Rebase to latest mainline rc.
-> - Allow 2 regs for DM816x only.
-> - Link to v2: https://lore.kernel.org/r/20260818-ti-davinci-emac-v2-1-805736d99e65@gmail.com
-> 
-> Changes in v2:
-> - Remove original text binding that was left in v1
-> - Link to v1: https://lore.kernel.org/r/20260817-ti-davinci-emac-v1-1-022678d966e9@gmail.com
-> ---
->  .../devicetree/bindings/net/davinci_emac.txt       |  44 -------
->  .../devicetree/bindings/net/ti,davinci-emac.yaml   | 127 +++++++++++++++++++++
->  2 files changed, 127 insertions(+), 44 deletions(-)
-> 
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
+Thanks, applied to nvme-7.3.
