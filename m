@@ -1,123 +1,113 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A1541685C
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:24:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633482; cv=none; b=kfWfqIMRjRZEqPNQd28rsoGwHOgKy40Q2Hltgh7EVeRpzZqBMEScwLGLbF6MQ8pZv4wYGGYTV3Vo+aDiretGrkFO4DwtVuhSdARddjbCFomJdhMye8/TYNry2RBg6sTyxk03LvOzhC1g7ZNRvkiJZ/C47pJLv8GrFTpqDQGO/Pg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633482; c=relaxed/simple;
-	bh=L9v9q98gPrJzJTT1P+rysIIc1Lf8YnVgiDYtobB54jQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MhENvokWPxLoESKyRTqvCCCj/E1geJR2lXHN9HP0eKDSyKuyN9reW4b+/xqDgD4WdlafcL5jpUeOmhANLmeKfZdaom1CqkVtpBirw1k2NgmMVTwFCDHA6mcXD6sFjqTl1x7ybEe2EVuGzr7wALqgH8R8d57bRdy9rqEtRiOK7tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bE57fl7Y; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075C23A48E2
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:24:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789633493; cv=pass; b=OL46NTMIJUnulF3eOR7xVSGZey3GtObYV4yEgAF+/1hYnLDwuCYabI4byOg6Hz+Po1gjNPpJjS7ImR30xpxALl/oWAX61Xwx75wcdzstdRE+1Oj/kNl8SslCVlfRDHlY+d9qYuNCNg7OPClUU1zAzGfTz8j+fvGZMsv0e6B7NQA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789633493; c=relaxed/simple;
+	bh=r2S4M+ZWj1phTNXOZ/5yE5XvxkCbLMX58PHwpwI7Dn4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tPm5sajjflezofFjWshxLtAxNvaeno6GSW1eAzpmkKgIk3rekk/BegEx7gn2Pb4ZXMz2WuDLTQaxhOptmgLpED8N2Nqazv0xQYsBgocx0+gt4X7OC0N6DoGkApv3G7bRnHtH1/FdacCaxUvDFKDdb6TTimMJnxzRZeKu5ehJn1w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dLP3GBK3; arc=pass smtp.client-ip=74.125.230.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bE57fl7Y"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccff31419so4599105e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:24:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dLP3GBK3"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530d8a00bcdso3095491cf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:24:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789633486; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MNL41LLcnPdwmJz48/PwTO8Kzn+me6C1onrpxB8dxnvJx5OdnQQ784cC87uonVatRU
+         D0c4h/+9VJrr1s9Vd25/TE23Ta7G+faBL2kGZyp8cLRx1boAfYtfB7VEQZ8ND7paXBOg
+         vEMLMrxovW1lAskfiaH88iz6FiR/ReogAAEF3tODym2AW27rQmr/uKe+BI2reLpR2TRb
+         IaX9+S//7c+EXhP+3EoM3af6juDlAa219/+L06JrCHQPHPk7PlL6+hckrDgulGYk0dT5
+         RO1Jf2yNWu7ALe/8/ZCm04W1moc0iylo/6//bHZ62cpJmiDQf4MhbIMlGIQZ/S2NRgPG
+         tjWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=r2S4M+ZWj1phTNXOZ/5yE5XvxkCbLMX58PHwpwI7Dn4=;
+        fh=KovdIYiRqgqh9SwpBK2o8Nm5pygzO2MBy3SOJ6BhX7c=;
+        b=s7wgfjYZSOJ3tefBggwKdWxZD9kV+ZI8XYykTt0ZPxXV6akZkeerZSTmlgumq2tlCB
+         Ve/sD++U1zwiTKBfUBgG1cndoXdEoa8yt8QYBE05zW77hhHptmH3Q4Ye+O8BwOZ6pz7f
+         91r4Aa/1V8UmFDzNsaHEIW0xfv6W/vgHLSfnSdi0scM4fgCA0WvumV9bElSm/Yz0iya8
+         g8NdHMBk1f50bzxkHpOxVfajulB9YB4iAuapQz8YEatwtLmplmsGowd9UuWCtUE4DZl8
+         YPUXCe+VE4+Iiorz2m+GrdZmMQYeG8lRgFeYgIF936ANImHTwrdNwOfpseNu91MnplHa
+         tEyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789633472; x=1790238272; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DFlrcxSZmPD5dZXM5GhCeqxfFV5r+Gw3spLtAai033g=;
-        b=bE57fl7YT2VHCDXMweQkJ6TSCAvOwhs7l9Zkr4F5IU7l8QEr0fvlbLIhRAZQo9SsfG
-         fGqOzBIHpSU1qGIF57Kuo1G8kT5TSjma0K4fwgqBzMvfbHRkNQirYy2jg3sDZCCxNiAa
-         UgCwdTlqiypXSA7UnXfv4DBF6UNbloDBrfU/Ghqy/+7IFSnXTsAGbbcNINUFhMg+Kgrh
-         hgCWjyDLfKiiJKpmISDg53AgzT/NvKBHMblZ0+/M86sQNnLFr1qGTc1UdZkU3artMQ7C
-         dDBR0zqRV65qqhXSprm2ZUOjxy2Nze68CxTlCXSCZZBDVvL5+sv5CLWBUyidLxpZHP7F
-         w+wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789633472; x=1790238272;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789633486; x=1790238286; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DFlrcxSZmPD5dZXM5GhCeqxfFV5r+Gw3spLtAai033g=;
-        b=tV6GDT7zStnWNnGMmSQ3pgj8Ug5HQbuoRcFF5SxTXK6jgR++I2gn+Og6JEf4p3Ow48
-         5U3XegIMLOFGzCOPaWaS5+x4jNYEinnPp/7J5r/TChnptl/iCjvELoUpnYQ0iPvP9afZ
-         hJWhiLiu571LW/tpw1/jbAmZ6KzIny50Ew4778AAoOnk3rMIVFaDcFEwGKfnNb49s3oZ
-         y5nmh+TEDhrWeZcebvYGkesrBCMJAXI/9Qm/YAOZjSwCmh5hn4i3kVZtLWuM1WNYPCM5
-         BGXngDAq40z3hUY7fqMdefRbi0NeG1XrHrKwRCGneCmz3ou0+MNbD45iPnCYDu7RkP1s
-         myVA==
-X-Forwarded-Encrypted: i=1; AKwUvBxaiCwnPCaC9iSdrsuSlWuQ+oaDGAIj2V71vZ1KtLFiDwbZCdGjIOf7vJItpB4alWWTAl434/iAbQfiCIA=@vger.kernel.org
-X-Gm-Message-State: AFuF++knKkpPwfWQKZ2AkrLrO8DfnGNhVs1tjtR4AtOBP2jVBf9iWvit
-	6415KbdCuyzXo/bFmrEjB4dIa0v+yMPfvQOyYyEWDsJDSQV68I5+esfu
-X-Gm-Gg: AYBFou0P0zT+VB1M4EJCelxY04AT4RJsokMBhdHmqmZ1OfZDOVxkDfylyPYffJUXwqM
-	9STVgyA28Dq7irbzEAFQDqvPhTUVeqvzpAK3OXkKdAWaUHXV8kT/RPsg+uhbFvOfkHvAVs5iH/H
-	hIaNfUBJbVcsTtqm+YiJ9V48kpyyEJO/4WblaLsP/4LrGW1GH63+JsGeYJkesx3Q9f0Us7FNZoS
-	Rejdkmpw9qJda2WJdsekfiBHorXG/VqP2TPmzEgd8I+o8oaefXszN6c14u76igCSnnDLHRDRWpO
-	RFASw15ozT94nJ179MkAJFsPlFk1YQIqMgS4+iZRgGrLiaj/BoaGlKI0658ivCSg12eCLLH0z8s
-	JNaoVV624Qy6CLJl/Mg2Tszm/Kz8OM3hKjJbO7VnuG5/u00kuBUb0gwsfmwhBueD6G2NWSkN/Wt
-	t/KqNqUqmY4hsVf8rAuqL9F8DWATB1o+hQhhcgci1Syz7KUoJAUo3SGIJQ/yqHA3WOwfGB9BVuD
-	sQYPmNgfzsk65IqYIiNEOhiS/e9JJp7Ha8+k1cHWaLulEMeezHt8DUdcinWCQwwvCicodNjS38c
-	wfHVOPpt44w7C5sw/OQXL7uDlOxoTce0rwBuxAQ6YiezB6RWA90ZTp9cpzVLla44Kx4Wn6RGdFl
-	VpbVE2fs8ra76TEx05qWvjoU1ZCWLyPFztIfZwNsZ/ro0YGQI/UqjoKTSvePoVOcWySRhcomVur
-	5v+gekyEyFZ/qcC20=
-X-Received: by 2002:a05:600c:35d0:b0:49d:827:e5b6 with SMTP id 5b1f17b1804b1-49eb7320b76mr75942795e9.20.1789633471744;
-        Thu, 17 Sep 2026 01:24:31 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbefe1791sm38435265e9.1.2026.09.17.01.24.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 01:24:31 -0700 (PDT)
-Date: Thu, 17 Sep 2026 10:24:29 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Johan Hovold <johan@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Peng
- Fan <peng.fan@nxp.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Frank
- Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
- Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- linux-clk@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] clk: imx: add missing
- pm_runtime_dont_use_autosuspend() calls
-Message-ID: <20260917102429.00002faf@gmail.com>
-In-Reply-To: <aqq_ymTi1I951uQp@SMW015318>
-References: <20260915103345.1334-1-joshua.crofts1@gmail.com>
-	<aqpgUPWUGZp5Cjzt@hovoldconsulting.com>
-	<aqq_ymTi1I951uQp@SMW015318>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=r2S4M+ZWj1phTNXOZ/5yE5XvxkCbLMX58PHwpwI7Dn4=;
+        b=dLP3GBK3Cd6WoVXMwHrmi1LqwRAoYm5O/NIncsZnlCbh9LBOWkNJogIes8iUvgK9Pl
+         uprZJvy8mZYwizsSGeHq0ID35zecAjYqYjtBWMMGhHaLf0ZNob36fVkO77Y/ACxf5hey
+         3moh+mmyZNUtG56AK0nN91iZF956iPqpS/liS4Z//fUp/Qmu5PfH81x6XXky2EA5BSll
+         kIfdDbxCo/SA6WW0XGgZxJeaFpBJWsfl0eLBQrwWXahpfdsjDQwWaFSnbTDx+qH5caV5
+         5MsEVDwilTdSa/YdmmukKqcKZZsPS2dUsoxOZnb8qI5ehvnbuOkxXgVi/t1s7soISqOY
+         C+eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789633486; x=1790238286;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=r2S4M+ZWj1phTNXOZ/5yE5XvxkCbLMX58PHwpwI7Dn4=;
+        b=ntTOVRrQTj0E/fAzW7WBatzs6YcryxEscs5I2Eut8FaSXuPS5x6YFwcvEeIaWFuIG6
+         afmNPp/qQrfroFwQ+k4pUNAYYRN/Fpgr98ZBV/x4DjDbeVP0h72YqycRkV+oKblr3hU4
+         wEy+JZbIrmICpj/0dbFC5CcnaZhD0DvCkb5ioJGu2GK9/DkGBv5OYjCdYtXv8vAGGCpE
+         asgVPKTjTbBkxaRk09dxBLUYSnJtVZ7BvGHkDv/i7S0vWNxJPoUO5BJblQivWtYfl8j9
+         0xHy1nLtEFh3nQpyvnb12UsJ36YqPzbbeWpVzfJbilbEWVubJLBtC0k9PaSKvg2Dc7AX
+         S/AQ==
+X-Forwarded-Encrypted: i=1; AKwUvBycoaPngjSrZmlnk3ZkTCyvCbolozXlv+8De1jhkNo9X43ftt4CKReBUAVXPatMp3tabi+Hjxb1jkekKbQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++klxLFuE5gw/KbU7PKDsse5QnIzz4oYcJtHfXAl4PtAIMIylwow
+	JvkywnRDPvn/fmoQ3+kaz50h9drr8wLEj16wSCtk6+BVucvo83j9qiJTfBCeHXT91SJSmf89uTJ
+	m51TLiDgm743ektpGyDDog1aNkSNHc9Y=
+X-Gm-Gg: AYBFou1gRgVnZRnl1DtdDpVHrsVf1NmiggtyDZeKwbUWL7oVsCXzN0L5aDRzqPcxE6t
+	4DilpGlVzMED9k7tN6T6dkga4LmkrfXHdtLwafNmRoRlozuYkdz5cA2+PB+tTmH+WyyYaRF0DGo
+	UyqY5bAxoJEK3GyK5sEWGTir/yiajZ2XLnBBFJb1DCD3zkf3W20VCCL2N5pnZQscM/FvIEdSxOC
+	DtssFMuDrjYCu0Y37Ldrv7107SXlekZYpTuCDDXDSgi0j6LB0enLdoKX2RECkENqH7q8uaPC9yw
+	lLuWwC8PSyP8acEB9R2JlRUbDXxMBdevPLKCpu5uSglX0IjhGdAMhEFV
+X-Received: by 2002:ac8:5990:0:b0:530:780e:9613 with SMTP id
+ d75a77b69052e-5327ed7f4aamr99464371cf.8.1789633485846; Thu, 17 Sep 2026
+ 01:24:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260917071931.8063-1-palaomer100@gmail.com> <87mrtgthqb.fsf@yellow.woof>
+In-Reply-To: <87mrtgthqb.fsf@yellow.woof>
+From: =?UTF-8?Q?=C3=96mer_PALA?= <palaomer100@gmail.com>
+Date: Thu, 17 Sep 2026 11:24:23 +0300
+X-Gm-Features: AcwNN1VQnPQe_ExU8gbeuuD_N1Yh4S4QTlzsRNiFBaOPLKoRHW2NMXy83p31l3U
+Message-ID: <CAKhZXnpmg7wcwyjFuh0EQQQMke9XBKp2pndSq2awEkh+FRCyiA@mail.gmail.com>
+Subject: Re: [PATCH] staging: rtl8723bs: replace msleep with usleep_range
+To: Nam Cao <namcao@linutronix.de>
+Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 16 Sep 2026 11:11:54 -0500
-Frank Li <Frank.li@oss.nxp.com> wrote:
+Nam Cao <namcao@linutronix.de> wrote:
+> Why is precise delay important for power control?
+>
+> Precise delay comes with a cost, so we don't do that unless necessary.
+>
+> Nam
 
-> On Wed, Sep 16, 2026 at 11:24:32AM +0200, Johan Hovold wrote:
-> > On Tue, Sep 15, 2026 at 10:33:43AM +0000, Joshua Crofts wrote:  
-> > > Several drivers in the clk subsystem forget to call dont_use_autosuspend()
-> > > on teardown or error, causing potential resource leaks. This series adds
-> > > the missing calls.  
-> >
-> > No, as I've explained repeatedly elsewhere, it does not cause any
-> > resource leaks. [1][2]
-> >
-> > The autosuspend setting leaks if you will, but that only matters in the
-> > theoretical corner case of someone rebinding a different driver (which
-> > will soon also taint the kernel).
-> >
-> > So don't exaggerate the impact, this is essentially just a cleanup,
-> > which is fine in itself.  
-> 
-> Is it possilbe to create/improve runtime pm API, let runtime_pm enable/disable
-> include these pair functions.
-> 
-> I get many similar patches since scan tools is more powerful now.
+Thanks for feedback.
+I am sorry for wasting your time.
+I thought waiting up to 20ms was too much for power control, so I
+submitted this patch.
+So i wrote this patch.
 
-I suppose that could work. One would still have to scrub the kernel of legacy
-use/dont_use_autosuspend() calls though, so it could end up being a large
-patchset.
+I understand this isn't necessary.
+You can drop my patch.
 
--- 
-Kind regards,
-Joshua Crofts
+Best regards,
+Omer PALA
