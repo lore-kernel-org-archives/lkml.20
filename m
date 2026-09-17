@@ -1,182 +1,251 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010053.outbound.protection.outlook.com [40.93.198.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA55476CF7;
-	Thu, 17 Sep 2026 07:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789628865; cv=none; b=hHL4Be6So8/XSbWCD8IMfeQF7SlFL+vbvyx0wWUeutwU/3shdjEGABvABGwclh8uY4AKpAO0oIbgXlWsCYyGrqQG0e4TXPNTN+HX063hqypv1LedTVGnw7kigcTtnLYkDyIw/2AuqAWcYd10yCvVMOQknVoc2HT3QMi44obY4HU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789628865; c=relaxed/simple;
-	bh=8HSF+LrOlvT0k5flvlCc9IPHOrpQnuowms4Y/Lxxaz4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lBJxeSFfwAXfF3jYFMgFGGmgRtkwS048GMBFD93SSBtqxpwLplrw6UxMBzVOIbdrlNBF2tH43OZbW/dVC058u0frOkysl/uTxTuEhBlo7Y6gOHQiJkzMLAkchUsGB5tzdIu+4aPNT5kndwJojPo3pkovIvMz2FvPGDNdAe8xktA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jjc3v8Im; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=e2NjjuV1; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=n+XMeo1n; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=X/KXqiqy; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E793B42C0
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789628888; cv=fail; b=le083slVsi5pxlEMMqi8eUnumNLY6IBIhFotKDgtWnX9MYdLc2V9qOJZtNXFpF77MPhkQTQE0ts3HPp3FLrF6XhF/nmSyHgGJ9bsc4wdgJM9sW0EG2cC3JZO/kPDW0Rin5xnkVChUu+uwdRd8WcFMBpETpZ/r7YOf3dzUmn/98c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789628888; c=relaxed/simple;
+	bh=CuoLwoLTpQOtma0ugsJmQIsDYBxG2QfKiL9VDnHxh3Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=sbuIi5zmcn/GoKugWkDzO4xni/J+1W2B18bpO8QyngZxXXabfGLEAbaobrzAICT40K/dOmK5ZHjilmv2WWWePAcdqY04EEL26MtV3Gch44VkAKdHtoIQB4tD4oOd9hI9mbPWekhAz0OMkrcBF7t28gCegvKgakHCZloImeZ7ROw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=O7FqqITX; arc=fail smtp.client-ip=40.93.198.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jjc3v8Im";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="e2NjjuV1";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="n+XMeo1n";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="X/KXqiqy"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 05D2B21D70;
-	Thu, 17 Sep 2026 07:07:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789628858; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kjvcZvmqEPMRF/LhXJIRs4s3bEudB5Jl4m8qJV2Wu9c=;
-	b=jjc3v8Im+QznQHTfpETVxbLzdwbn66ZxeLS+slepvGG71PY68L8mGhA4e3y6aaw0yonVan
-	6r37fyI8QLtFcrrMF7CScPYfZIE/x/VS33aVWqNuiCBdR8Drz6l3kY0V4BIN7le40CWMIo
-	8WldHXQfo12Y5SZ2rO3LI5a+lx5iPsU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789628858;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kjvcZvmqEPMRF/LhXJIRs4s3bEudB5Jl4m8qJV2Wu9c=;
-	b=e2NjjuV1H2CD9Lzxd2acRiVhAoOK+Il5RWy8Hy8LWAOu0Q0tffD4TY8vO+I8dEymOyFEyA
-	Iy7/EqwCyw9bEUAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789628854; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kjvcZvmqEPMRF/LhXJIRs4s3bEudB5Jl4m8qJV2Wu9c=;
-	b=n+XMeo1njqwW4rBjHQ5AWI6m0SMaGEfUbAGFDiheonChgXMKnJuMxdY81cQR4v30GUehCM
-	R85SwqWTJmi5GNfoxd1X/0xBNJWQymabL+cJGEpNgghBfhjPBsxqDgIyXSW0+c3FO+4PFb
-	ZtNw/JrSYru4Bxcyv6DDlcdbP0uWQMY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789628854;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kjvcZvmqEPMRF/LhXJIRs4s3bEudB5Jl4m8qJV2Wu9c=;
-	b=X/KXqiqyecFWWd8CAP7aMBf1OFjZw2VEQe97l6lpFTg5iFvU/uOTb2qTBGLZ50DE1DQh0V
-	S7UEp3klHc7BJ+Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D81D8134B3;
-	Thu, 17 Sep 2026 07:07:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id MOz5KLSRq2rfCwAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Thu, 17 Sep 2026 07:07:32 +0000
-Message-ID: <f557e44a-86b6-4ebb-ad35-d7bc5902929a@suse.de>
-Date: Thu, 17 Sep 2026 09:06:48 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="O7FqqITX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jlC5kZI3YQ3z0Fhvk2exZxEAxj2Fh3RINDpij2r5Q5k3ymlPdGdkzY0+ndp3LdJw38+0to0cln+Qgbr0jPLv7woZOmMqBZM3VOb8uRbo6CLNm4ntoJimgypGY6Iqhz9O+WCWShLYHUoWjICOK4eT37+M5XbVu+9GNH0cNnnOanpSSr1TYadaAvFaEzCDIDfw2RTN4fVUeXDFbd+/f6bxwH60zm/WCMqzq+Cm/iRh3LUoAc2X4SCupBF2HnowRMW+HZBvGJQPynzszyHxHVLSoE110LTk0I9gKBMHBw8xAolGCw9IdPL4hcvSlIgBG2MxFihpW4eUJGqDqa2QkEbUnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cBOGkVeyJPInxBnbxblSXI8MwWaO2vLdD6cq+Yp97tY=;
+ b=SgMADEf8kwOegMpdJ08rNdPIFondG3mJ5Jw/o+qhz5JPzBBlhFbW8lTfMNFbbUlkNQ5FmxB9o4g6vDUjgKvCF3QSpczACqIhai+0f9EJ6JKI8iFi7zsQ3q2GP//ug0xe4eOKYY6bwH9A6StUDBA/ZimIZrdO+d3xrl0+geRiR5Y9LSaeS3baXJKNmsMR7mWH6p0Ca/NV4V5bmkqFYecG4fx75lT59lfxR0punbf+U74aNa4RA2XpnHHiCDlTDYOLDxFr83Z/YvjM4DsM2JR/HMbh4cvQI9IeiLiw3Id1jV2MP7tLD6tWs8ocSGIVjOpmjKMNZsXEqC2z1df9Bv8btg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cBOGkVeyJPInxBnbxblSXI8MwWaO2vLdD6cq+Yp97tY=;
+ b=O7FqqITX2vPaRgkaCX/mLpCmu5R+GbB4LySe1k/aUnXRwfd7FbxWrRfgZOUsFBkI4QmUbxTjN4VinXum5N7LQKg1UnZY4GqaS4GpzW/vtWzbhhKjoA3k41C/7efPE7PxDtWBzxIw2pxCjaqHYA95NcqH8t2zEqZQD5p2izFmM+jr9xHmd9qnAFwyi7L2kGtj5vefIPIcn3gJKqgOEVjwpTjy5d6IedWZdHshNVGappS7aVMeA0ULr/Uf+FW4wRA+JGCU5rsjJxCXthWFwCd3RuvCIAxIvcbHvl+0CYFYHgTD8LWkAv9xyInoyeMT5c8/JHs/V5nZC7wmk2ST2oTLUA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by IA0PR12MB8647.namprd12.prod.outlook.com (2603:10b6:208:480::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 17 Sep
+ 2026 07:08:02 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0428.008; Thu, 17 Sep 2026
+ 07:08:02 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: Emil Tsalapatis <etsal@meta.com>,
+	Cheng-Yang Chou <yphbchou0911@gmail.com>,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCHSET v6 sched_ext/for-7.4] sched_ext: Add lazy preemption support
+Date: Thu, 17 Sep 2026 09:02:51 +0200
+Message-ID: <20260917070751.3617935-1-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI0P293CA0003.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:44::9) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] selftests: net: update netfilter netlink config
-To: Hangbin Liu <hangbin.liu@linux.dev>, Matthieu Baerts
- <matttbe@kernel.org>, Mat Martineau <martineau@kernel.org>,
- Geliang Tang <geliang@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Shuah Khan <shuah@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>,
- Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, mptcp@lists.linux.dev,
- Hangbin Liu <liuhangbin@kylinos.cn>
-References: <20260917-selftest_config-v1-1-bf25ccbfb18e@kylinos.cn>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <20260917-selftest_config-v1-1-bf25ccbfb18e@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.997];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,kylinos.cn:email]
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|IA0PR12MB8647:EE_
+X-MS-Office365-Filtering-Correlation-Id: a22d8a96-2274-4d70-dfe4-08df148a69cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|6133799003|18002099003|11063799006|56012099006|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	a/5XjxayT6X/HRPrrTyD7J2qNURWmW7oQKCUVIkH34RMeOO6K3fqVY43afpFlfpEBOEBl/94+GaG9RH8+bFR9zx0L7KdwrM4Ev/5xXDEoTriA3EzDPxpKaNtpLSmCVLpxdDFX6LfpweysDrxP9DMlo/XLMaCq3dWOfVM0lfgNnEYN8EypuiBUndOh0COF4m6HPbZbjiNWRr5pjsEMvvyBrLQizW1Kosu4IiUA5bz7JE5x6T5qG1ikgbOZrArUGw/7kq3JOx8dosF/71aO1Matm/K+L0zmqWAGaZFe1q6OX3kmIVDCq7Z+com8g1hJvHUGuethNlamVu8qgxgPvFAZRqLSw/4DKAbzqpDswM5gEZcPTSkkAgGWFyejRdODvKsR4azWlIW3TMa7gVzJayl34UG41ote7SubYRrcVs60Q8Nv83kLrXbptO5ipEJvHOO9iBgdwg7zACl8x4eO45qzKzCEtpw+5FIHfjSBPkyxSHTQ93VMHovHW3/Ns1hyWWBkNBV1VIYf4eySbQDR9tammioQYl9fE+UrraLDC1zv042VNsGDIaMxM0J/mEbdrUJ5IWgQWIH+GleG/tcjsNsNvYnKGG6IZ7O+pgFLDiw+KnVR2WpfHJcAxk6ub4UTqXV5ZDt3pbl6Ys0717TaQwBaRKzOnMv8epPkOgTiRrh1vU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(6133799003)(18002099003)(11063799006)(56012099006)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?kGkm8EjxocQDjDJwan3vzQHJ5B8ISlL5f/adLAT9ylmEDpm+d6E+jph/Vza4?=
+ =?us-ascii?Q?KPdCyVQl54gC+Kt207YCDuY9xK34dBTB1AmdgEpH4KpUzzoZaaMSkaj7Sz95?=
+ =?us-ascii?Q?SgBoKXQ2LRYjLg3xksYWLre7gf7Acovjzvst+cshSeIAseZ5rIEyiJzWwvha?=
+ =?us-ascii?Q?jBhCCgs71JdmZgyvrbjdpWUDNfMIqGdZ1rUcyy1rsNTyKCv5KNgj3zHY0dTT?=
+ =?us-ascii?Q?Un9/YJjpcsQYVskhcewmoisxgmL7aSzxh4g1noXps2+VVkhfd04bXRZN7jYO?=
+ =?us-ascii?Q?YMPt1b2Ih/3zhcr4tMs6Fj9dzGlkjlgEmw8AlJOSRIoBFaWiOa7CqfFWifCD?=
+ =?us-ascii?Q?1vQD1jK9H4VCGZH/kYBRAdIQn3y9n70uAVepAnYksHfKhlN1LJ2yiL2CIaCa?=
+ =?us-ascii?Q?giE/3prwJ7Xr/8Sd7CsUgUy6MsWXu941YW2oTywo5CkoqqpRGpjA3/lE6OO6?=
+ =?us-ascii?Q?HjB2505wd1NsbxBqQagL1pYNRWNrG0zGx2uv52sKyakP3N8Y057yxQ32m/C4?=
+ =?us-ascii?Q?RQ1Z8dfs0Ju/UDmF3Th2acZZ2Wdxf6ItXnasqBKFZSDM3Z39A8cuYPK87I84?=
+ =?us-ascii?Q?DTO3qdtFxem74PSTZbwRa4Y5Eej6cDvFoNQHEWcXxxJRmLfhHmk2PFUFZQSY?=
+ =?us-ascii?Q?naOE2Bzbrx+cmGBMaEjRj5LRCWvBjs77RSLdqyRXyn/Qe/OGRC2xNECv/KTu?=
+ =?us-ascii?Q?uzWAfbdiEw22aNQdtqy2DAHKHVlznn9w246k0lh9OEoNh7jr+X1r8z4ByfmZ?=
+ =?us-ascii?Q?zDO2BBeQo9pjpmdrPSiz9+36pZam6LFHYa8Wfr94edAcsYxxKbWVfzLK3k9f?=
+ =?us-ascii?Q?jsXAKOBBudHKFLxxx7U+1XfH64EDEewmtL70HgNVBeJGSitq17bkXJ4jtZH3?=
+ =?us-ascii?Q?qMG73O7T02xxdbfSm+KAocad7ono5opDfr9ScGnnqQ69VpfCkBEbEsePTZy7?=
+ =?us-ascii?Q?oaKDkbUJiIZB8mvBknLydmy57wknMXuQfAwFAGsY5acjf7u0sOHgpmlHxE4a?=
+ =?us-ascii?Q?wKIiWiUXm1ZgvffwOXQm2yeqUvn/054lZqvcHLXkFvKdff4Yk/8gCJURxCqJ?=
+ =?us-ascii?Q?ndZzNZChHdFeFbP1ZD6P1+5ZC5DHOsF2mGjFDA8ruQPO0xJWxjga4E4DNhpa?=
+ =?us-ascii?Q?NCWQadJKJq7tTEUZLRYVhH72k6ySSwR85whV7sfaLPywuUDtEhZhD/udW3j3?=
+ =?us-ascii?Q?qs983j05e2IK9Z/YjMaegqgP+/By8Zx4+8TT6WQQtU5ECxG28BGpCWBmQu6F?=
+ =?us-ascii?Q?r2Os/GDdYiunqhETYlWTB/T38cN5rgrAeJrycPHPj1aRDcmiUIl/gjSsGXbR?=
+ =?us-ascii?Q?wItUReYVYk83QFWb4XxTNsGWRmISqdCE7gWqkgTOG5fhM5iv7qJOcRnIzOkS?=
+ =?us-ascii?Q?xT8Vn2gHkZ1exO8cIQuUnP4kQTSaEV9rUuH4WtWoglnTcFeI9NmGsycqSoVg?=
+ =?us-ascii?Q?2Q3ODHqE/Kj7ehJVX+/f5RsC5rkqCtV20os/ySYRT9VxJtgsLIVuG7ezI1/B?=
+ =?us-ascii?Q?PHgv85lE1Er4SXusii3mvgM4EguaiQ6qqhD+CI5U0X9erqaiHvZYYqXU3yLm?=
+ =?us-ascii?Q?tOk2mcy0VPVG4NnEYNrgr/umvdGF7RrXmAj4ZaIIpJdInihuA1cl346sa++0?=
+ =?us-ascii?Q?FmKe6TIabXk93a8fjIwIJcjnX/VYrqVcYrAH+Wkd5UICXAxV7TEcJBHIbaS1?=
+ =?us-ascii?Q?Adp7k3BgrbWCnKNMt6KBuNIzTI5L/oQ7cK73yF8kw21d15ZyYtBYBZr63SAX?=
+ =?us-ascii?Q?t8hsxn1GiQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a22d8a96-2274-4d70-dfe4-08df148a69cd
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 07:08:02.4859
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: L/G9Hvk0ThmlGFCVXU4yOc2GvpNcPbmLF7tlEe9lqFYwy2KRRvdh/kQ1U6Qla6zjS95jOwYPrLagZGIlk1mKNg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8647
 
-On 9/17/26 4:17 AM, Hangbin Liu wrote:
-> From: Hangbin Liu <liuhangbin@kylinos.cn>
-> 
-> Since commit d4349ba9872d ("netfilter: allow nfnetlink built-in only"),
-> NETFILTER_NETLINK was changed to a bool. Use 'y' instead of 'm'.
-> Otherwise the build emits:
-> 
->    .config:5688:warning: symbol value 'm' invalid for NETFILTER_NETLINK
-> 
-> Fixes: d4349ba9872d ("netfilter: allow nfnetlink built-in only")
-> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+The fair scheduling class can defer a scheduling boundary through lazy
+rescheduling, but sched_ext currently exposes only immediate preemption to BPF
+schedulers.
 
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+This series adds lazy variants of the enqueue and kick preemption flags. They
+expire the running sched_ext task's slice while allowing the scheduling boundary
+to be deferred until a return to user space or the next scheduler tick.
 
-Thanks!
+SCX_OPS_LAZY_SLICE_EXPIRY selects lazy slice expiry by default. Schedulers can
+override that default in either direction for individual tasks through
+scx_bpf_task_set_slice_expiry(). The helper preserves sub-scheduler task
+ownership boundaries. Bypass continues to force immediate rescheduling.
 
-> ---
-> This is a simple update addressing the same issue, so I’d like to post it
-> directly to netdev instead of bothering two separate subsystems
-> (mptcp and netfilter).
-> ---
->   tools/testing/selftests/net/mptcp/config     | 2 +-
->   tools/testing/selftests/net/netfilter/config | 2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/net/mptcp/config b/tools/testing/selftests/net/mptcp/config
-> index 59051ee2a986..bb9c4c97c620 100644
-> --- a/tools/testing/selftests/net/mptcp/config
-> +++ b/tools/testing/selftests/net/mptcp/config
-> @@ -18,7 +18,7 @@ CONFIG_NET_CLS_ACT=y
->   CONFIG_NET_CLS_FW=m
->   CONFIG_NETFILTER=y
->   CONFIG_NETFILTER_ADVANCED=y
-> -CONFIG_NETFILTER_NETLINK=m
-> +CONFIG_NETFILTER_NETLINK=y
->   CONFIG_NETFILTER_XTABLES=m
->   CONFIG_NETFILTER_XTABLES_LEGACY=y
->   CONFIG_NETFILTER_XT_MATCH_BPF=m
-> diff --git a/tools/testing/selftests/net/netfilter/config b/tools/testing/selftests/net/netfilter/config
-> index c3c121b6f300..629b2b29ed1a 100644
-> --- a/tools/testing/selftests/net/netfilter/config
-> +++ b/tools/testing/selftests/net/netfilter/config
-> @@ -44,7 +44,7 @@ CONFIG_NET_CLS_U32=m
->   CONFIG_NETDEVSIM=m
->   CONFIG_NETFILTER=y
->   CONFIG_NETFILTER_ADVANCED=y
-> -CONFIG_NETFILTER_NETLINK=m
-> +CONFIG_NETFILTER_NETLINK=y
->   CONFIG_NETFILTER_NETLINK_QUEUE=m
->   CONFIG_NETFILTER_SYNPROXY=m
->   CONFIG_NETFILTER_XTABLES=m
-> 
-> ---
-> base-commit: 1dd85662fee6e2ac580b1c4f9a0c0a7ae6e31f0e
-> change-id: 20260917-selftest_config-286bdd44b22b
-> 
-> Best regards,
+Lazy enqueue and kick requests also restore the scheduler tick when targeting an
+infinite-slice task on a NO_HZ_FULL CPU. The reschedule request is set first so
+that the dependency update's IPI can serve it on return to user space, while the
+restored tick guarantees eventual promotion otherwise.
 
+The selftests cover immediate and lazy preemption, coalescing and precedence
+between kick modes, enqueue preemption, per-task slice-expiry overrides, invalid
+flags, and lazy preemption of infinite-slice tasks on NO_HZ_FULL CPUs.  The
+NO_HZ_FULL cases verify that the tick has stopped before issuing the lazy
+request.
+
+Tested in separate virtme-ng runs, covering preempt=lazy and nohz_full:
+
+ $ vng -a "preempt=lazy" -- \
+     tools/testing/selftests/sched_ext/runner -t kick
+
+  kick:
+    PASSED:  6
+    SKIPPED: 0
+    FAILED:  0
+
+ $ vng --cpus 4 -a "nohz_full=1-3" -- \
+     tools/testing/selftests/sched_ext/runner -t nohz_tick
+
+  nohz_tick:
+    CPU 1 received 6 finite-slice ticks
+    PASSED:  1
+    SKIPPED: 0
+    FAILED:  0
+
+The mode-sensitive kick_lazy and kick_tick cases also passed after switching
+/sys/kernel/debug/sched/preempt between lazy and full.
+
+Changes in v6:
+ - Pack slice_expires_lazy next to scx.disallow instead of growing task_struct
+   by eight bytes (Tejun Heo).
+ - Correct the SCX_OPS_LAZY_SLICE_EXPIRY documentation for PREEMPT_DYNAMIC and
+   bypass (Tejun Heo).
+ - Set the lazy reschedule request before restoring the tick dependency, so the
+   dependency update's IPI can serve it on return to user space (Tejun Heo).
+ - Explain the pinned rq locking and the newly rejected unknown kick flags in
+   the patch description (Tejun Heo).
+ - Regenerate the enum headers in definition order (Tejun Heo).
+ - kselftest: use SCX_OPS_ENQ_LAST to drive kick-test victims through
+   ops.stopping() (Tejun Heo).
+ - kselftest: poll for the SCX_KICK_WAIT callback after ops.stopping()
+   (Tejun Heo).
+ - kselftest: skip trace-based tests when their BTF targets are unavailable
+   (Tejun Heo).
+ - kselftest: verify that the NO_HZ_FULL tick has stopped before testing lazy
+   enqueue and kick requests (Tejun Heo).
+ - Link to v5: https://lore.kernel.org/r/20260915194611.2674127-1-arighi@nvidia.com
+
+Changes in v5:
+ - kselftest: detect static lazy preemption when CONFIG_PREEMPT_DYNAMIC is
+   disabled and the sched/preempt debugfs file is unavailable (Cheng-Yang Chou).
+ - Link to v4: https://lore.kernel.org/r/20260915090127.2321020-1-arighi@nvidia.com
+
+Changes in v4:
+ - Preserve SCX_KICK_WAIT synchronization when it is combined with
+   SCX_KICK_PREEMPT_LAZY (Sashiko).
+ - Restore the scheduler tick dependency when ops.tick() lazily expires an
+   infinite slice, ensuring the request is promoted by a later tick (Sashiko).
+ - kselftest: verify that the deferred SCX_KICK_WAIT callback runs (Sashiko).
+ - kselftest: keep the kick test controller off the victim CPU and skip cleanly
+   when a second allowed CPU is unavailable (Sashiko).
+ - kselftest: select the nohz_tick controller from allowed housekeeping CPUs
+   outside the NOHZ_FULL mask and skip when the required topology is
+   unavailable.
+ - Link to v3: https://lore.kernel.org/r/20260914144620.2032614-1-arighi@nvidia.com
+
+Changes in v3:
+ - Avoid redundant rq clock updates when restoring the tick dependency and use
+   the pinned rq lock helpers for lazy kick delivery (Sashiko).
+ - Set PR_SET_PDEATHSIG for the indefinitely spinning kick test workers so they
+   don't survive unexpected test-runner exit (Sashiko).
+ - Wait for a delta in nr_lazy_victim_running instead of an absolute count that
+   may include reschedules from the previous phase (Sashiko).
+ - Increase the nohz_tick scheduler watchdog and phase timeouts to tolerate
+   scheduling delays in oversubscribed test VMs.
+ - Link to v2: https://lore.kernel.org/r/20260914084955.1798562-1-arighi@nvidia.com
+
+Changes in v2:
+ - Make lazy slice expiry a per-task property (Tejun Heo).
+ - Add scx_bpf_task_set_slice_expiry() for per-task overrides from any sched_ext
+   callback (preserving sub-scheduler task ownership).
+ - Restore the scheduler tick dependency for lazy enqueue and kick preemption of
+   infinite-slice tasks on NO_HZ_FULL CPUs (Tejun Heo).
+ - Accumulate immediate and lazy kick requests independently and resolve their
+   precedence in kick_one_cpu() (Tejun Heo).
+ - Allow PREEMPT|PREEMPT_LAZY and WAIT|PREEMPT_LAZY, immediate preemption, WAIT
+   and plain kicks take precedence over lazy preemption (Tejun Heo).
+ - Clear both preemption masks together when processing or skipping a preemption
+   request (Tejun Heo).
+ - Extend the kselftests with combined and ordered kick requests, per-task
+   expiry overrides and NO_HZ_FULL coverage.
+ - Link to v1: https://lore.kernel.org/r/20260911195800.974364-1-arighi@nvidia.com
+
+Andrea Righi (2):
+  sched_ext: Add lazy preemption support
+  selftests/sched_ext: Add lazy preemption tests
+
+ include/linux/sched/ext.h                         |   8 +
+ kernel/sched/ext/ext.c                            | 152 ++++-
+ kernel/sched/ext/internal.h                       |  40 +-
+ kernel/sched/ext/sub.c                            |  15 +-
+ tools/sched_ext/include/scx/compat.bpf.h          |  17 +
+ tools/sched_ext/include/scx/enum_defs.autogen.h   |   3 +
+ tools/sched_ext/include/scx/enums.autogen.bpf.h   |   6 +
+ tools/sched_ext/include/scx/enums.autogen.h       |   2 +
+ tools/sched_ext/include/scx/enums_abi.autogen.h   |   5 +-
+ tools/testing/selftests/sched_ext/Makefile        |   1 +
+ tools/testing/selftests/sched_ext/kick.bpf.c      | 191 +++++++
+ tools/testing/selftests/sched_ext/kick.c          | 655 ++++++++++++++++++++++
+ tools/testing/selftests/sched_ext/nohz_tick.bpf.c |  62 +-
+ tools/testing/selftests/sched_ext/nohz_tick.c     | 280 ++++++++-
+ 14 files changed, 1372 insertions(+), 65 deletions(-)
