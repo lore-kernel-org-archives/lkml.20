@@ -1,103 +1,98 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2764973BA;
-	Thu, 17 Sep 2026 15:05:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC77E4B7A4D;
+	Thu, 17 Sep 2026 15:06:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657558; cv=none; b=aoVE+ly8ZSujstC3ra8atYeckytguZvWxewJgFovZ0DWeEApd8uToFC+pC1LLPqPT2eUx8+QwfGxDo9A4qMb6Nxoi1ARiVScb3OlPtv3/8NhQR9JAYp63kKswDNGAWVgSQcE21ETPT+pIh2gzV7a69lzkg+tKJI+/DSI/0E7r44=
+	t=1789657575; cv=none; b=I4jjv/wfx1vzTj3tah7xmtV7zIj0NWEqjQL8NaSjw/aXx89MBtYHdOys+CFkTNR9YcjxwQSo6ZcCgGGSfLO9AHyz0jEV8E12Q+mqL2UWKdkllAwIWQfMnxl4xLBdOc5uccniNicKONakgPZuJR9GuJrgH6rNAIIY/HxKPbswn/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657558; c=relaxed/simple;
-	bh=LqL/0kljGKJhXL31YOmzbq3nfv6vRF4UJIBHY7IP5Sc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uzxMpdaBBvd8ItUexv8s1YPhgN4Q5jgcpy/73le86XudTDc/frMnLTb9eH3HlruHfsHq3dAju6+vmvWI/fs9RWYNpKmsooarZtFoSWHNdOv+Fx1iSwvolSk7foOp6wDJebx2jxikrTc9oOHLBO9HZx/vSV4rsbmUrwbuKEszy5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=t2/qzzzy; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789657575; c=relaxed/simple;
+	bh=/OfWtIewPY5C/r0HMIf+o2IIttSmiKU4y8rC/hzPssc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=QLzWEgBGUNrjF4ixd+Y9/F+XDqMbkdTLlJ9cU0mOMEPCqDhvYUGUURJM1OIsNI4nDrdVmz5RMW6lfrF5uu88FgLdFkKaN7Ce4fQGe8GxQr4Kvw44+/6VUI7qrSyOeSZSCjAJgBht5RL+3s/PeEtxYBYz0cqNt5rJ8uW9FmG2oCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ngBXbn7/; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="t2/qzzzy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=xJOwgYi9AsLFETj5P07KS7icxDQTYVsi9d2yzmRT4T0=; b=t2/qzzzyp9tTNVrahR16BD/kfi
-	QGsz5UiuR0lAl4EpGn+qCgG78KupUM6RXniV88PUv3kprugmNm3aT5Xm+smJDRlIbg55yRhPd42ba
-	2qfi/hL9zPhWcg78bfSyCnRipuf2Qhzqwev7E2gYZyXWIrlJHyyFFbuIRCbcipo9cGkk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x7Dft-005hJS-1x; Thu, 17 Sep 2026 17:05:21 +0200
-Date: Thu, 17 Sep 2026 17:05:21 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Linkui Xiao <xiaolinkui@126.com>
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com, netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH net] net: stmmac: ethtool: validate TX coalesce before
- reprogramming RX
-Message-ID: <15b8cbc2-f3ca-4845-9a93-7fff6c5aede6@lunn.ch>
-References: <20260917131235.1360959-1-xiaolinkui@126.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ngBXbn7/"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 84E4D4E407AC;
+	Thu, 17 Sep 2026 15:05:59 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 46CE460649;
+	Thu, 17 Sep 2026 15:05:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C35C211C7B08C;
+	Thu, 17 Sep 2026 17:05:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789657549; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=/OfWtIewPY5C/r0HMIf+o2IIttSmiKU4y8rC/hzPssc=;
+	b=ngBXbn7/ts81Rynz7n5bSN7vmTTpu4edcR52tEjvtmzV0mtJnaTqQaaGTaP6UXbcZcuttd
+	OmHSxedWnPBXZuzpLcrjJddURZ4iBxRQxqWuUXqCtPjgw44XdjtUZzeb4ixeueEh/Pjs3x
+	/eWz9LcI5bxvgzjpghmVc+XOtR8IQ3BUPB6X/utwtHLYoy1NQVdzrmV/b3RW+jMtn6MkTh
+	+P+X9EUacmGoXpVXdFe93bfZwrZ5ww11hjFw5RlJwwEHjnY4K+Lzz34RW8ywCr6zBFQl5u
+	wZSqY+rp+UjM2V2g8x9tD4szg7BX2Co1MnCeqc+BhGY2Fm25gVBYVqzQV44emw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Daniel Matyas <matyasdaniel006@gmail.com>
+Cc: Lee Jones <lee@kernel.org>,  =?utf-8?Q?Andr=C3=A9?= Draszik
+ <andre.draszik@linaro.org>,
+  Ulf Hansson <ulfh@kernel.org>,  Liang Yang <liang.yang@amlogic.com>,
+  Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Neil Armstrong <neil.armstrong@linaro.org>,  Kevin
+ Hilman <khilman@baylibre.com>,  Jerome Brunet <jbrunet@baylibre.com>,
+  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,  Andrew Lunn
+ <andrew+netdev@lunn.ch>,  "David S. Miller" <davem@davemloft.net>,  Eric
+ Dumazet <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>,  Paolo
+ Abeni <pabeni@redhat.com>,  Bjorn Helgaas <bhelgaas@google.com>,  Lorenzo
+ Pieralisi <lpieralisi@kernel.org>,  Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>,  Manivannan Sadhasivam <mani@kernel.org>,  Ray
+ Jui <rjui@broadcom.com>,  Scott Branden <sbranden@broadcom.com>,  Broadcom
+ internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,  Will
+ Deacon <will@kernel.org>,  Mark Rutland <mark.rutland@arm.com>,  Vinod
+ Koul <vkoul@kernel.org>,  Thierry Reding <thierry.reding@kernel.org>,
+  Jonathan Hunter <jonathanh@nvidia.com>,  Liam Girdwood
+ <lgirdwood@gmail.com>,  Mark Brown <broonie@kernel.org>,  Jose Abreu
+ <joabreu@synopsys.com>,  Ray Jui <ray.jui@broadcom.com>,  Scott Branden
+ <scott.branden@broadcom.com>,  Atish Patra <atishp@rivosinc.com>,  Shawn
+ Guo <shawn.guo@linaro.org>,  Dmitry Osipenko <digetx@gmail.com>,  Thierry
+ Reding <thierry.reding@gmail.com>,  Ibrahim Tilki
+ <Ibrahim.Tilki@analog.com>,  Okan Sahin <Okan.Sahin@analog.com>,
+  devicetree@vger.kernel.org,  Paul Walmsley <paul.walmsley@sifive.com>,
+  Palmer Dabbelt <palmer@sifive.com>,  Conor Dooley <conor@kernel.org>,
+  linux-rtc@vger.kernel.org,  Ricard Wanderlof <ricardw@axis.com>,
+  patches@opensource.cirrus.com,  Lukas Wunner <lukas@wunner.de>,  Chunfeng
+ Yun <chunfeng.yun@mediatek.com>,  Eugen Hristev <ehristev@kernel.org>,
+  dri-devel@lists.freedesktop.org,  linux-arm-kernel@lists.infradead.org,
+  linux-kernel@vger.kernel.org,  linux-hwmon@vger.kernel.org,
+  linux-iio@vger.kernel.org,  linux@analog.com,
+  linux-input@vger.kernel.org,  chrome-platform@lists.linux.dev,
+  linux-riscv@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: Expand flow lists to block lists
+In-Reply-To: <20260917144028.459053-1-matyasdaniel006@gmail.com> (Daniel
+	Matyas's message of "Thu, 17 Sep 2026 17:40:28 +0300")
+References: <20260917144028.459053-1-matyasdaniel006@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 17 Sep 2026 17:05:33 +0200
+Message-ID: <87tsnnj4ua.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917131235.1360959-1-xiaolinkui@126.com>
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Sep 17, 2026 at 09:12:35PM +0800, Linkui Xiao wrote:
-> From: Linkui Xiao <xiaolinkui@kylinos.cn>
-> 
-> __stmmac_set_coalesce() applies the RX part of the request first and
-> only afterwards checks the TX parameters. The RX path already calls
-> stmmac_rx_watchdog() and stores rx_riwt[] and rx_coal_frames[], so when
-> the TX check rejects the request the driver returns -EINVAL after having
-> silently changed the hardware. A following ethtool -c then reports the
-> new RX values even though the command failed.
-> 
-> This became easy to hit once the per-queue interface was added.
-> __stmmac_get_coalesce() reports tx-usecs and tx-frames as 0 for a queue
-> index that is RX-only, and ethtool applies per-queue coalesce by reading
-> the current values first and sending them straight back. The next set is
-> therefore guaranteed to trip the test for both TX fields being zero,
-> right after the RX watchdog has been reprogrammed.
-> 
-> Move both TX checks in front of the RX block so a request is either
-> applied completely or rejected without touching the device.
-> 
-> Fixes: db2f2842e6f5 ("net: stmmac: add per-queue TX & RX coalesce ethtool support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
-> ---
->  .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 21 ++++++++++++-------
->  1 file changed, 13 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> index 154cc0c7623d..325db062f72a 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> @@ -850,6 +850,19 @@ static int __stmmac_set_coalesce(struct net_device *dev,
->  	else if (queue >= max_cnt)
->  		return -EINVAL;
->  
-> +	/* Check the TX parameters before anything is applied: the RX part
-> +	 * below already writes to the hardware, so rejecting the request
-> +	 * afterwards would leave the device with only half of the settings
-> +	 * the caller asked for while reporting a failure.
-> +	 */
+On 17/09/2026 at 17:40:28 +03, Daniel Matyas <matyasdaniel006@gmail.com> wrote:
 
-Why such a verbose comment? Look at the rest of the code and make your
-comments similar in verbosity.
+> Running dt_bindings_check returned:
+> [error] string value is redundantly quoted with any quotes (quoted-strings)
+>
+> The files used quotation marks in flow lists because the strings had
+> commas and these commas were interpreted as separators. Convert flow
+> style lists to block style lists, so that there is no problems with the
+> commas.
+>
+> Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
 
-    Andrew
-
----
-pw-bot: cr
-
-
+Acked-by: Miquel Raynal <miquel.raynal@bootlin.com> # MTD
