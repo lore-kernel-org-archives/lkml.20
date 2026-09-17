@@ -1,1115 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013036.outbound.protection.outlook.com [40.107.162.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB4C4DDB22;
-	Thu, 17 Sep 2026 18:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789670303; cv=none; b=D5g9EdBthH9RQRniiOv1U9TLMGlA+cCd9o1G9Wy2A++Dz6NpHnHKf0/ePKKJjtrXyXofzPKzBSAYJrgeATXx1orggJSJ84SkLGPuPyc9lGT0xpWBC45Sfy9hOgcG0AVnEmx4v1cpUTYo40A6s1eViMOuBWyMJYVNqqUYBAtXcs0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789670303; c=relaxed/simple;
-	bh=TeBt3V75PWrgMgZAfS44/kWsqJiDkKvpRXfk3qwt+G8=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ocouap1fPfzb7v23/V/9Jc/152kRA3tlLhkj9GT9G52RvW0JmeBo49xcfU4koA0hzccUWuYSWGCeBInAgFwYv/1x9dgFfvdeV9i0YUsk/F4PaIMnnY3Zl8a5qPaMOsniu9a41CgsavofzV0Zh7OPUvqlZkrZ0ieM1qgl95EFl4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TtT0qAnc; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7943DD85E;
+	Thu, 17 Sep 2026 18:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789670360; cv=fail; b=aNMY0rd47d8rTYPq5oa2gZaG6iwjhpu48QcpKPNwaX4JJz3SHLO1pRAI/3Hf/1YKLFibl/savWlxirtXnIdjAtaj2fosyaTUXDcLzBrz3Qe68TO7Hc/XunMm98QN8xSI2IxceAeCkdtBlUxx0O8cGloQAZ/toT5gVjotZ0BxhNE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789670360; c=relaxed/simple;
+	bh=Ya/0+CIyk0S3wWXSlqsS6zWi4iSP7yp1Mub/jK5oZiE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=NqaiKpNG4ot0Fv99MRpGFhEFitLeP5Bpq6HZwBDMlV0Y8lpZSXE4ZmIqbuc+5xDu7+jzo+41ZLWgVoNaekA6ubrp/XSLAYLfA6YbIqhom2ofokFjq+uLxipFCZImwktWENu8Lvx9tVA3up9pSpYM1deOqeY5evomUNrFgCNXJQk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=NHz9knxu; arc=fail smtp.client-ip=40.107.162.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TtT0qAnc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75C0D1F00893;
-	Thu, 17 Sep 2026 18:38:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789670299;
-	bh=vFJ83dMavxspRJfLpFnxL1Ynn4WHazaHxF4+mLoUoh0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=TtT0qAncIsE0NdFY499mMj//R50cs4AdsXWOfmeM8g2EHmgl+yPNKVetgo5+4znqp
-	 Pked6mWyZWn9a6UCikf4Nlz2Z3y3OV2E2YwcT/jGCyJtV33fCjDZA45dxLWDN92I+Q
-	 hw0ReQFMJbDTzzO+CX/whVzGNiMKR3yVuRwfngI4eji7WkthrkBUyzvPOAWgNMl2ou
-	 oeaArbMA+ThOZN1dBM6z1RUUmOr11rLEUQSUQ3PKAR1+xHgT+5Q3lRBC8ZYgtk9Kup
-	 y6IO1+EkVloopQfNBvRuU5//iGNEZgNrV7m30+PqaBjoit0gJ2KdglSkLG07BpbLrA
-	 sJDl7z+xPG0iQ==
-Subject: Re: [PATCH net-next v6 07/11] net: pcs: xpcs: add Rockchip RK3568
- platform glue driver
-From: netdev-bot+sashiko@kernel.org
-To: coiaprant@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, heiko@sntech.de, vkoul@kernel.org,
- maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- romain.gantois@bootlin.com, hkallweit1@gmail.com, neil.armstrong@linaro.org,
- linux@armlinux.org.uk, shawn.lin@rock-chips.com, david@ixit.cz,
- netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
-Date: Thu, 17 Sep 2026 18:38:18 +0000
-Message-ID: <178967029805.22033.5645939036963586824@kernel.org>
-In-Reply-To: <20260915123802.1561724-8-coiaprant@gmail.com>
-References: <20260915123802.1561724-8-coiaprant@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="NHz9knxu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jOOTtjCk8k3WRHkVsaJ5mSbhmc39gqMozDY+ivxCCGgVEmdE/fFg1x6RCMw3aBbqzh1OE5y0E4sPOzZ79ZRLJwtbscnBmMi61tanzKieGZUj2Gpg0/3tIgI11Z/dxgGnAzw6hI+RrpeS82h6Sc+TvvJ5/4IE3l9Fvt3k455EULQxdO3ZMbLL7vc+izoMmm1ZWcR0YrQHvTAO75yIPCdNIxRX5339HmbyleWB3xHMv7FUu1n1neZwpiKupNtxjB0fzyoWpjGytpyS500WKKMaqv6kPQPpQebNs58MR0O9Mj16kuxSyi3S0fzLFY6M3G6vVM9+ZofmPhCjylzTiXs8Xg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nunh38Th2PdBodaZ/99lYrDafMRHYtN6/PKB5UW6Y6o=;
+ b=aBXBjOLaQC/YWmiu7KWCSECoDFg896uSD1mAq6UY2AzH8O4dFrh8Bf4L0urRFUQLf0diS066rmTmn8Y6TsLn/AlehGxAmo/HR17dA50hk3tX22/SrLSVAJV8gypjiy64urF96WZnfZFOZcC+VIWoF3Th2Ok/2gDJbiODP9evwaZTMh6MolgbbQBnHxrS8COQ3Oe3KValDxEIEkRPCeNIlVcMuU+RXSMuvrkKXvGl7QWspvI2pxnnoYJHfGUO2dHCmxysIpsphWjQrrINagfCRFeCo8JUe2KqdO6ayl4QLNE0klr20NaA+CFPvdHd5qEWrhpDPUKizkR8vVh8FKqOqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nunh38Th2PdBodaZ/99lYrDafMRHYtN6/PKB5UW6Y6o=;
+ b=NHz9knxumyBRnfnqwvVJXQBs0PFkjSJkLsQnv8sEa7gmO5c9nKge2LYEC+me9FdYYgH97inewxQuuJEQSG7aKvc7Co2erUOYEXoM/NQ8cQGeBOBrhFMhYuxt9jCG9M4jXllKOpgSBYlwui+fxfgcP+SzDCUZjTcwHMrtWjvR6GW1kldqji56Ao5ucHdKfa9BTcsqbNcA7wNWIYbgQAi9is4CpfMzypagofvB6xs2LqdZzmB26pO/IoOYv/K4rzCdhtu4Y2A/LyRjszWdCkBoNqNVCxnvOcAYmLlCCM5PpVGPuGSE6CDdrovz7mA2+Ql5AOmGRcnUYK3YJnSguQL6qQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM8PR04MB7476.eurprd04.prod.outlook.com (2603:10a6:20b:1d1::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Thu, 17 Sep
+ 2026 18:39:15 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Thu, 17 Sep 2026
+ 18:39:14 +0000
+Date: Thu, 17 Sep 2026 13:39:06 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: broonie@kernel.org, haibo.chen@nxp.com, han.xu@nxp.com,
+	imx@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org, yogeshgaur.83@gmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] spi: nxp-fspi: Fix runtime PM leak in nxp_fspi_probe()
+Message-ID: <aqwzyjKASxfxtxTT@SMW015318>
+References: <20260917153713.2160743-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917153713.2160743-1-vulab@iscas.ac.cn>
+X-ClientProxiedBy: CY8P220CA0042.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:930:47::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7476:EE_
+X-MS-Office365-Filtering-Correlation-Id: 14682ef8-d6c2-4212-bc0f-08df14eaf936
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|376014|1800799024|366016|10067099003|11063799006|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	c1YKtsgp58XMp2xDVIMvnlrjHurGjaam9nrXuNdBEL87q0QPRskemBK7/hIBF8i2W2KpSMaSc/3QmD/qCsKmTXIlERXOgIqnSl2Zx7K7Cb56zS7SLVolkZyWKqRbB6KlShnlkt1Q90SMZgbetso4wmeBxlHZ3WwplZ8N6cUNOt4fy+zohHVS0olP7jQlzCEvjajE332yDc3uutfE+8FquytCf7UmW1eVddzD9le1cjB5a8djUKtNzWHHfVO9mPbgn862c6i5V8RdTTOGlE+UOMfeSnnXi1qUNqOB/pZp/YAJKeM7RiXo+FwUw1tfDxnl8lkUY77IXOGK0O6fZ+5wYbWRC78thJvL11rBZyqGXrp4DDMtNh+QLJl/kD50tccODniwuFqZiWzRCF2Dri4yys4y8O7+6wUAA3kbYxKkKUsDKW+/gogL8QrpDlYj5jRIiWY4arHRwdXyFEFMBB1+zFLxyWU0FjS5OOmW1BiCzR8GfGdwFvKbHXm8ph+ClwX+z7epdNlogCGPmq4KBJlwa6/YW80vLmgdz7QI1nd6WSvJ4+7YA3bvUEUPyMzli3rzqHcunAmgmckJqQ94nYPsdIR6Qc4KcfjSFHWCS3k7PxTPPxubyO9fDvuTFNoAnzLs6qTUF9qyaN3ipu5S+OtMPcm+6nMzaNOe7S7EX+0roX4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(1800799024)(366016)(10067099003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Ytwk0sYxvlv7JwbuXtgC8nV6A06SsG+uJITSW7Qs1y7hPZuCQGux47+Gbya9?=
+ =?us-ascii?Q?J2n6OqVWcSaIfGYBMaHAm6jetaGMqmB4M+0ZKPUmaor3Um5R2pr5jzKJbhXR?=
+ =?us-ascii?Q?e6HBTOHnLBX/3V6HEqLXZH2k2Z2OiMxfrrwne2v7NKFPizSzzNIAeMIGI/ya?=
+ =?us-ascii?Q?tDzjiotftuu81CmcaBV3gDpQCD0SuAzRsToh2DgNsgEzyaXN02p2MeiuzpWC?=
+ =?us-ascii?Q?U/Luq2Rz+sFFLpZCneAcle91tSKL5TEw8Jgnl3fw2hcHGihAggbOndILdKhw?=
+ =?us-ascii?Q?qgGJdZ2HIpoxJNIEVdWb/rjgJw2xNGxlv5cAypoSUfnEU+PXSOV9b3KEug0z?=
+ =?us-ascii?Q?aw3Ygf+OFnix0kWDsi0npFh1pSlK1LWK/GQecaBMM4Li9v+ND1vMfYETPoUa?=
+ =?us-ascii?Q?wyYdgOImxGaMuBZqrby5IpE9FE62IMnrG6+CZoP/oDsOG+wjcUkuyWP81EBv?=
+ =?us-ascii?Q?qR3lbpfJUu0inKRMBNndYvQ5IhmrNOROCZIWt70uXkkAC0I+6ha4Hdxvteup?=
+ =?us-ascii?Q?0/HQiUUV27wCP4to1flTqIl4/YWBj0Nj+RWg7U27oV5GvZ1VDccykQUl1Hjs?=
+ =?us-ascii?Q?ARnrPkVS7sQUamzpSCAH60NKW/rftn5WYjiGUwtSHPzYfy3F0UfSyiQK5Wn6?=
+ =?us-ascii?Q?Lh1aI/X/gkTb6yXlZhx2feM/KtytNvZPdcQHh/PX+qfTp1fSRUMqWfT3sBXO?=
+ =?us-ascii?Q?pc4+lsMRVY6eVP12lCmbyxwd1z930r5EBPhk111GM/+J1kRySXch8TdHlNW/?=
+ =?us-ascii?Q?9xEA0qaXajdSvifPee6peQdpnI1Xj27WhI3O0BQB4Hzrd9jYKNA3Kb7yK2Yu?=
+ =?us-ascii?Q?2nnlXE2WBuzIDU33KUYqlDyF98D6lKEcltj1ggupzkpeu08GzZ1XMo//my9E?=
+ =?us-ascii?Q?cDFkR6vJZ7V80KG+48Qq5/VWJOqkppFqxOY+G/3fWeqH4KmEFhXFrlY2QCPJ?=
+ =?us-ascii?Q?mWbfOFt9kUgeq+EF2Iwk0RNKDyDP6u8+QW5cNHfZAOachhOX67yaIOjubWV0?=
+ =?us-ascii?Q?OQGWdq3uuKEcoH8dT/VstjYE0Pf78+aq4BR7FapY8SIzQkvq4zfwcn50aL8T?=
+ =?us-ascii?Q?8afMhlx+xrOyX0+r34hJdLIQFiGH0roroVdGBaUaKRwHRL0jTsPqNKIYGIUo?=
+ =?us-ascii?Q?oZSL8sKbuYJY1kChI5Ifr2L91EeSuOHmCnuF4aWts5iE/BnciZtrngGVc3wj?=
+ =?us-ascii?Q?ItVxxAa3cWFfFHnL2odEENMN33UCLWYJa3VTRYV/RU8Cn0K62w3u5D428o24?=
+ =?us-ascii?Q?6ERnWI3KourLTPlpTmcgx/F0OaZ8KfMbeO2JjVgatr2NBmEtiPTjoklMCjsK?=
+ =?us-ascii?Q?urAQcY7DoxnW1/Hvev6VcQJ7x4ruAc+qw4K3uDH2tnR7czY8HNIVCmhYKTJ7?=
+ =?us-ascii?Q?F5iifep4kurg7cMRpWwqH7aH1t8y27aDmwuXmfYV+AQHpIou6ethIosVIZAW?=
+ =?us-ascii?Q?4IGr9IC6UaAGS+NTkEvGeIF9Wbvo0ixsPG5o4migDeZa3PLSn+C4eaTMf/ui?=
+ =?us-ascii?Q?+zhpmwopiPsz3ycd4lsV3ks4ERPqg+2Oa6x5A+j3Zrvn9F4IXbvEL+IHD4tI?=
+ =?us-ascii?Q?ogHddCtmpstMQXo/SzEiDN7rS0PYSv5wPR6RCNqg7/bSYxki5OH0kX3XUdXG?=
+ =?us-ascii?Q?/Sh7d1+fm5sI22naj7vq+xEopJ9IFBdbCpjyQxgwezq8p+hW2jUWXuFUx4fc?=
+ =?us-ascii?Q?fGVpmnipTOhiWW8HLVd51hGyKpO6Efd4ThUMzxRbUPHntg9ixrUD5td3OQUj?=
+ =?us-ascii?Q?LERxgLNlvT2a9ATfeJcY3mUxmIF401526fj9AvMTwKsQ8ZIalTPZ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14682ef8-d6c2-4212-bc0f-08df14eaf936
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 18:39:14.8919
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 87o8B87DA9Ucvil6TT6ajt+PjMjPIfzQJza2ZianqS60uI1lcF3XyMmX8NZZSEQkqCVPHFkBDYAshIcOc/u2iVTwLflCIYUSpbrWJbQJJ+iOJDeLkQ2/f0sU86fFf/KW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7476
 
-Thank you for your contribution! Sashiko AI review found 10 potential
-issue(s) to consider:
-
-Critical: 0 · High: 2 · Medium: 3 · Low: 5
-
-- [High] xpcs_rk_create() creates an implicitly managed device link
-  (device_link_add() with only DL_FLAG_AUTOREMOVE_CONSUMER, so…
-- [High] xpcs_rk_create() reads another device's driver-private data with
-  platform_get_drvdata() without holding device_lock(&pdev->dev) and…
-- [Medium] PCS_XPCS_ROCKCHIP does 'select PM_GENERIC_DOMAINS' without
-  'depends on PM'.
-- [Medium] Read/write MMD asymmetry for the vendor registers:
-  xpcs_rk_mdio_read_remapping() maps every MDIO_MMD_VEND2 read by port…
-- [Medium] xpcs_get_state_c37_sgmii() now unconditionally clears
-  DW_VR_MII_AN_INTR_STS and writes BMCR_ANRESTART for every latched AN-…
-- [Low] xpcs_rk_create() is exported with no in-tree caller at this
-  commit (drivers/net/pcs/pcs-xpcs-rk.c), and include/linux/pcs/pcs-…
-- [Low] The binding marks phys/phy-names as required and the driver
-  treats a missing "serdes" PHY as a fatal probe error…
-- [Low] The RK3568 binding description advertises QSGMII while the
-  generic Synopsys XPCS compatibility table has no…
-- [Low] When MMD remapping fails (any MMD other than MDIO_MMD_PMAPMD or
-  MDIO_MMD_VEND2, for which the remappers return -ENXIO), the MDIO bus…
-- [Low] net: pcs: integer underflow in EEE multiplier calculation
-
---
-
-net: pcs: xpcs: add Rockchip RK3568 platform glue driver
-
-This adds a Rockchip RK3568 glue driver that exposes the SoC's APB3-mapped
-DesignWare XPCS as a virtual MDIO bus for the generic pcs-xpcs core, with
-per-port MMD remapping for the four MII ports.  It also splits the generic
-platform glue out of the pcs_xpcs composite object behind a new
-PCS_XPCS_PLATFORM symbol.
-
-Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part1%20V1.1-20210301.pdf (Page 59, CRU_CLKSEL_CON29)
-Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part2%20V1.1-20210301.pdf (Page 2078)
-
-A few questions below.
-
-> diff --git a/drivers/net/pcs/Kconfig b/drivers/net/pcs/Kconfig
-> index e417fd66f660a..3db9b343ac0c7 100644
-> --- a/drivers/net/pcs/Kconfig
-> +++ b/drivers/net/pcs/Kconfig
-> @@ -12,6 +12,31 @@ config PCS_XPCS
->  	  This module provides a driver and helper functions for Synopsys
->  	  DesignWare XPCS controllers.
->  
-> +if PCS_XPCS
-> +
-> +config PCS_XPCS_PLATFORM
-> +	tristate "Generic XPCS controller support"
-> +	default PCS_XPCS
-> +	help
-> +	  Generic DWXPCS driver for platforms that don't require any
-> +	  platform specific code to function or is using platform
-> +	  data for setup.
-> +
-> +	  If you have a controller with this interface, say Y or M here.
-> +
-> +config PCS_XPCS_ROCKCHIP
-> +	tristate "Rockchip XPCS controller support"
-> +	default ARCH_ROCKCHIP
-> +	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
-> +	select GENERIC_PHY
-> +	select PM_GENERIC_DOMAINS
-
-[Severity: Medium]
-Should PCS_XPCS_ROCKCHIP also carry "depends on PM"?
-
-PM_GENERIC_DOMAINS in kernel/power/Kconfig is:
-
-  config PM_GENERIC_DOMAINS
-	bool
-	depends on PM
-
-Since select does not propagate dependencies, does a COMPILE_TEST or
-randconfig build with CONFIG_PM=n force PM_GENERIC_DOMAINS on with unmet
-direct dependencies, i.e. the sym_warn_unmet_dep() warning?
-
-The same missing dependency looks functional as well.  The APB3/CSR clock
-is only ever prepared in the runtime resume callback:
-
-  static int xpcs_rk_pm_runtime_resume(struct device *dev)
-  {
-	struct dw_xpcs_rk *pxpcs = dev_get_drvdata(dev);
-
-	return clk_prepare_enable(pxpcs->csr_clk);
-  }
-
-which is reachable only through .pm = pm_ptr(&xpcs_rk_pm_ops), and pm_ptr()
-is NULL when CONFIG_PM=n.  In that configuration
-pm_runtime_resume_and_get() in xpcs_rk_read_reg()/xpcs_rk_write_reg()
-returns 0 without invoking any callback, so does every readl()/writel() on
-reg_base then run with the CSR clock gated?  That is the abort case the
-probe comment warns about.
-
-Would "depends on PM" (or "depends on PM_GENERIC_DOMAINS") instead of
-"select PM_GENERIC_DOMAINS" be the right expression here?
-
-> +	help
-> +	  Support for XPCS controller on Rockchip RK356x SoC.
-> +
-> +	  If you have a Rockchip SoC with this interface, say Y or M here.
-> +
-> +endif # PCS_XPCS
-> +
->  config PCS_LYNX
->  	tristate
->  	help
-
-[ ... ]
-
-> diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
-> new file mode 100644
-> index 0000000000000..d5e0f22c973c2
-> --- /dev/null
-> +++ b/drivers/net/pcs/pcs-xpcs-rk.c
-
-[ ... ]
-
-> +#define ROCKCHIP_MMD_MII1	2
-> +#define ROCKCHIP_MMD_MII2	3
-> +#define ROCKCHIP_MMD_MII3	4
-> +#define ROCKCHIP_MMD_PMAPMD	6
-> +#define ROCKCHIP_MMD_MII	7
-
-[ ... ]
-
-> +static int xpcs_rk_mdio_read_remapping(int addr, int dev, int reg)
-> +{
-> +	switch (dev) {
-> +	case MDIO_MMD_PMAPMD:
-> +		return ROCKCHIP_MMD_PMAPMD;
-> +	case MDIO_MMD_VEND2:
-> +		break;
-> +	default:
-> +		return -ENXIO;
+On Thu, Sep 17, 2026 at 03:37:13PM +0000, Wentao Liang wrote:
+> pm_runtime_get_sync() increments the runtime PM usage counter even when
+> it fails.  If it returns an error, nxp_fspi_probe() returns without
+> dropping that reference, so the counter stays unbalanced.
+>
+> Balance the counter with pm_runtime_put_noidle() before returning, as
+> nxp_fspi_remove() already does.
+>
+> Fixes: 97be4b919a60 ("spi: spi-nxp-fspi: enable runtime pm for fspi")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/spi/spi-nxp-fspi.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/spi/spi-nxp-fspi.c b/drivers/spi/spi-nxp-fspi.c
+> index 1e36ae084dd8..9883e5149dc4 100644
+> --- a/drivers/spi/spi-nxp-fspi.c
+> +++ b/drivers/spi/spi-nxp-fspi.c
+> @@ -1351,8 +1351,10 @@ static int nxp_fspi_probe(struct platform_device *pdev)
+>
+>  	/* enable clock */
+>  	ret = pm_runtime_get_sync(f->dev);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+> +		pm_runtime_put_noidle(f->dev);
+>  		return dev_err_probe(dev, ret, "Failed to enable clock");
 > +	}
-> +
-> +	/*
-> +	 * Reads are redirected by hardware to the port's read-only mirror;
-> +	 * only writes have to be targeted at MII (see the write path).
-> +	 */
-> +	switch (addr) {
-> +	case 0:
-> +		return ROCKCHIP_MMD_MII;
-> +	case 1:
-> +		return ROCKCHIP_MMD_MII1;
-> +	case 2:
-> +		return ROCKCHIP_MMD_MII2;
-> +	case 3:
-> +		return ROCKCHIP_MMD_MII3;
-> +	default:
-> +		return -ENODEV;
-> +	}
-> +}
-> +
-> +static int xpcs_rk_mdio_write_remapping(int addr, int dev, int reg)
-> +{
-> +	switch (dev) {
-> +	case MDIO_MMD_PMAPMD:
-> +		return ROCKCHIP_MMD_PMAPMD;
-> +	case MDIO_MMD_VEND2:
-> +		break;
-> +	default:
-> +		return -ENXIO;
-> +	}
-> +
-> +	/*
-> +	 * These registers physically live only in MII (the management port).
-> +	 * Ports 1-3 expose read-only mirrors of these bits, so writes must
-> +	 * always target MII; the read path remaps per address and the
-> +	 * hardware redirects to the port's mirror.
-> +	 */
-> +	switch (reg) {
-> +	case DW_VR_MII_AN_CTRL:
-> +	case DW_VR_MII_AN_INTR_STS:
-> +	case DW_VR_MII_EEE_MCTRL0:
-> +	case DW_VR_MII_EEE_MCTRL1:
-> +	case DW_VR_MII_DIG_CTRL2:
-> +		return ROCKCHIP_MMD_MII;
 
-[Severity: Medium]
-Reads of MDIO_MMD_VEND2 are remapped per port address (MMD 7/2/3/4), while
-writes of these five registers always go to MMD 7.  How does that interact
-with the read-modify-write sequences the core performs on exactly these
-registers?
 
-For a PCS on port 1, xpcs_do_config() does:
+use pm_runtime_resume_and_get()
 
-  xpcs_modify(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_CTRL, mask, val);
-
-which reads MMD 2 and writes the computed value into MMD 7.  Is the value
-written derived from the register that is actually being modified, and can
-the mdio_lock make that pair atomic when the two halves land in different
-physical blocks?
-
-Two further cases look related:
-
-  - DW_VR_MII_AN_INTR_STS is write-to-clear and is cleared by
-    xpcs_get_state_c37_sgmii() and by the AN handling paths.  With every
-    port clearing MMD 7, can one port consume another port's latched
-    AN-complete indication?
-
-  - xpcs_config_eee() clears DW_VR_MII_EEE_MCTRL0/1 on disable.  With two
-    ports routed to different GMACs, does disabling EEE on one port clear
-    the LPI controls of the other?
-
-If these registers really are global to the block, should the provider
-arbitrate them (or refuse more than one active port) rather than letting
-each phylink_pcs instance program them independently?
-
-> +	default:
-> +		break;
-> +	}
-> +
-> +	switch (addr) {
-> +	case 0:
-> +		return ROCKCHIP_MMD_MII;
-> +	case 1:
-> +		return ROCKCHIP_MMD_MII1;
-> +	case 2:
-> +		return ROCKCHIP_MMD_MII2;
-> +	case 3:
-> +		return ROCKCHIP_MMD_MII3;
-> +	default:
-> +		return -ENODEV;
-> +	}
-> +}
-
-[ ... ]
-
-> +static int xpcs_rk_read_c45(struct mii_bus *bus, int addr, int dev, int reg)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_read_remapping(addr, dev, reg);
-> +	if (dev < 0)
-> +		return 0xffff;
-> +
-> +	return xpcs_rk_read_reg(pxpcs, dev, reg);
-> +}
-> +
-> +static int xpcs_rk_write_c45(struct mii_bus *bus, int addr, int dev, int reg, u16 val)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_write_remapping(addr, dev, reg);
-> +	if (dev < 0)
-> +		return 0;
-> +
-> +	return xpcs_rk_write_reg(pxpcs, dev, reg, val);
-> +}
-
-[Severity: Low]
-When the remapping returns -ENXIO (any MMD other than MDIO_MMD_PMAPMD or
-MDIO_MMD_VEND2), the bus callbacks fabricate a result instead of reporting
-the error: the read paths return 0xffff and the write paths return 0 as if
-the APB3 transaction had happened.  The c22 wrappers do the same.
-
-For the modes this glue supports the only reachable user appears to be
-xpcs_read_ids(), which tolerates id == 0xffffffff and falls back to
-MDIO_MMD_VEND2, so the fabricated value is load-bearing for probe and
-returning the errno instead would make xpcs_read_ids() fail with -ENODEV.
-
-Given that, could this behaviour at least get a comment saying that
-unsupported MMDs are deliberately faked so probe keeps working?  And would
-it be better for the instance to advertise only the interfaces this MMD map
-can actually serve, so a future C73 path does not silently write into
-nothing?
-
-> +
-> +static struct dw_xpcs_rk *xpcs_rk_create_data(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +static int xpcs_rk_serdes_phy_init(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +
-> +	pxpcs->serdes_phy = devm_phy_get(dev, "serdes");
-> +	if (IS_ERR(pxpcs->serdes_phy))
-> +		return dev_err_probe(dev, PTR_ERR(pxpcs->serdes_phy),
-> +					"Failed to get SerDes PHY\n");
-> +
-> +	return 0;
-> +}
-
-[Severity: Low]
-This makes a missing "serdes" phy fatal for probe, and the binding added
-earlier in the series lists phys and phy-names under required:, but the
-SoC-level node in arch/arm64/boot/dts/rockchip/rk3568.dtsi
-(ethernet-pcs@fda00000) has neither property - only
-rk3568-photonicat.dts adds:
-
-  phys = <&combphy2 PHY_TYPE_SGMII>;
-  phy-names = "serdes";
-
-Does "make dtbs_check" then report "'phys' is a required property" for
-every rk3568 dtb that includes rk3568.dtsi, given that dt-validate also
-checks disabled nodes?  And does a board that only flips &xpcs to
-status = "okay" get an unexplained probe failure here?
-
-Would dropping phys/phy-names from required: (leaving them to board level)
-or adding the phys reference to the SoC dtsi be the intended arrangement?
-
-[ ... ]
-
-> +struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node *np)
-> +{
-
-[ ... ]
-
-> +	pdev = of_find_device_by_node(pcs_np);
-> +	of_node_put(pcs_np);
-> +	if (!pdev)
-> +		return ERR_PTR(-EPROBE_DEFER);
-> +
-> +	if (!device_link_add(dev, &pdev->dev, DL_FLAG_AUTOREMOVE_CONSUMER)) {
-> +		put_device(&pdev->dev);
-> +		return ERR_PTR(-ENOMEM);
-> +	}
-> +
-> +	pxpcs = platform_get_drvdata(pdev);
-> +	if (!pxpcs || !pxpcs->bus) {
-> +		device_link_remove(dev, &pdev->dev);
-
-[Severity: High]
-Can device_link_remove() actually drop this link?
-
-device_link_add() is called with only DL_FLAG_AUTOREMOVE_CONSUMER, so
-DL_FLAG_STATELESS is absent and the core adds DL_FLAG_MANAGED.  In
-drivers/base/core.c, device_link_remove() -> device_link_put_kref() then
-takes:
-
-  if (device_link_test(link, DL_FLAG_STATELESS))
-	kref_put(&link->kref, __device_link_del);
-  else if (!device_is_registered(link->consumer))
-	__device_link_del(&link->kref);
-  else
-	WARN(1, "Unable to drop a managed device link reference\n");
-
-The consumer here is the stmmac device, which is registered, so does this
-hit the WARN(1) splat (and panic with panic_on_warn) while leaving the link
-in place?
-
-The -EPROBE_DEFER path looks easy to reach: "pcs-handle" is not among the
-fw_devlink-parsed properties in drivers/of/property.c, so nothing orders
-the GMAC probe after the XPCS probe.  Whenever the GMAC probes first,
-device_link_add() succeeds and platform_get_drvdata() returns NULL.
-
-Would it be simpler to create the link only after the fallible XPCS
-creation has succeeded (calling xpcs_destroy() if the link then fails), or
-to use device_link_del() / a stateless link consistently?
-
-> +		put_device(&pdev->dev);
-> +		return ERR_PTR(-EPROBE_DEFER);
-> +	}
-> +
-> +	xpcs = xpcs_create_mdiodev(pxpcs->bus, (int)port);
-
-[Severity: High]
-Is reading the supplier's drvdata here safe against the supplier
-unbinding?
-
-This runs from another device's probe (rk_pcs_init() during stmmac probe),
-without device_lock(&pdev->dev) and without a device_is_bound() check.  In
-drivers/base/dd.c, device_unbind_cleanup() does:
-
-  devres_release_all(dev);
-  ...
-  device_set_driver(dev, NULL);
-  dev_set_drvdata(dev, NULL);
-
-So if the XPCS probe fails (for example -EPROBE_DEFER from
-devm_phy_get(dev, "serdes")) or the device is unbound while this function
-sits between device_link_add() and platform_get_drvdata(), the devm
-allocation holding pxpcs is already freed while drvdata still points at
-it.  Does the "!pxpcs || !pxpcs->bus" test then read freed memory, and can
-the freed devm mii_bus be handed to xpcs_create_mdiodev()?
-
-Note also that device_link_add() does not block an unbinding supplier
-(device_link_init_status() just assigns DL_STATE_SUPPLIER_UNBIND), and
-__device_release_driver() does not re-check for consumers appearing after
-its device_links_busy() loop.
-
-Related to this, xpcs_rk_create_data() publishes the structure at the very
-start of probe:
-
-  pxpcs->pdev = pdev;
-
-  dev_set_drvdata(&pdev->dev, pxpcs);
-
-while reg_base, the clocks, eee_mult_fact and bus are filled in later, and
-xpcs_rk_init_bus() ends with a plain "pxpcs->bus = bus;".  Is the non-NULL
-bus field being used as a cross-device readiness flag without any
-release/acquire pairing?
-
-Would validating the supplier under device_lock(&pdev->dev) with
-device_is_bound(), and holding a reference for the lifetime of the returned
-dw_xpcs (the pdev reference is dropped with put_device() before returning,
-and mdio_device_create() never registers on the bus), close this?
-
-> +	if (IS_ERR(xpcs)) {
-> +		device_link_remove(dev, &pdev->dev);
-> +		put_device(&pdev->dev);
-> +		return xpcs;
-> +	}
-> +
-> +	xpcs_config_eee_mult_fact(xpcs, pxpcs->eee_mult_fact);
-> +	put_device(&pdev->dev);
-> +	return xpcs;
-> +}
-> +EXPORT_SYMBOL_GPL(xpcs_rk_create);
-
-[ ... ]
-
-One more question about a different patch in the same series, "net: pcs:
-xpcs: add ANRESTART support for SGMII link recovery", since it interacts
-with this driver:
-
-[Severity: Medium]
-In xpcs_get_state_c37_sgmii() (drivers/net/pcs/pcs-xpcs.c) the status
-clear was turned into a clear plus an AN restart:
-
-  if (state->an_complete) {
-	/* Clear AN complete status or interrupt */
-	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-	...
-	/* Initiate the next round of AN */
-	ret = xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_ANRESTART,
-			  BMCR_ANRESTART);
-
-The changelog describes this as an RK3568 timing quirk, but the code has no
-device-ID or quirk gate and no link-transition tracking, so it applies to
-every DesignWare XPCS in DW_AN_C37_SGMII mode.
-
-The block is entered whenever DW_VR_MII_AN_STS_C37_ANCMPLT_INTR is set and
-DW_VR_MII_C37_ANSGM_SP_LNKSTS is clear, which is a legitimate state (PCS
-configuration exchange complete, PHY link still down).
-
-Does that mean an AN restart is issued once per poll interval, for as long
-as the attached PHY reports AN complete with link down, on parts that do
-not need the workaround?  Should the restart be gated on a per-device
-quirk?
-
-[ ... ]
-
-> @@ -0,0 +1,573 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Rockchip XPCS platform device driver
-> + *
-> + * Based on the Synopsys DesignWare XPCS platform driver.
-> + * Copyright (C) 2024 Serge Semin
-> + *
-> + * Adapted for Rockchip SoCs, with reference to the Rockchip OEM driver.
-> + * Copyright (C) 2026 Coia Prant
-> + */
-> +
-> +#include <linux/atomic.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/device.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/math.h>
-> +#include <linux/mdio.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/pcs/pcs-xpcs-rk.h>
-> +#include <linux/phy.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_domain.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/property.h>
-> +#include <linux/sizes.h>
-> +#include <linux/time.h>
-> +
-> +#include "pcs-xpcs.h"
-> +
-> +struct dw_xpcs_rk {
-> +	struct platform_device *pdev;
-> +	struct mii_bus *bus;
-> +	void __iomem *reg_base;
-> +	struct phy *serdes_phy;
-> +	struct clk *csr_clk;
-> +	struct clk *eee_clk;
-> +	u8 eee_mult_fact;
-> +};
-> +
-> +static ptrdiff_t xpcs_rk_addr_format(int dev, int reg)
-> +{
-> +	return FIELD_PREP(0x70000, dev) | FIELD_PREP(0xffff, reg);
-> +}
-> +
-> +static int xpcs_rk_read_reg(struct dw_xpcs_rk *pxpcs, int dev, int reg)
-> +{
-> +	ptrdiff_t csr;
-> +	int ret;
-> +
-> +	csr = xpcs_rk_addr_format(dev, reg);
-> +
-> +	ret = pm_runtime_resume_and_get(&pxpcs->pdev->dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = readl(pxpcs->reg_base + (csr << 2)) & 0xffff;
-> +
-> +	pm_runtime_put(&pxpcs->pdev->dev);
-> +	return ret;
-> +}
-> +
-> +static int xpcs_rk_write_reg(struct dw_xpcs_rk *pxpcs, int dev, int reg, u16 val)
-> +{
-> +	ptrdiff_t csr;
-> +	int ret;
-> +
-> +	csr = xpcs_rk_addr_format(dev, reg);
-> +
-> +	ret = pm_runtime_resume_and_get(&pxpcs->pdev->dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	writel(val, pxpcs->reg_base + (csr << 2));
-> +
-> +	pm_runtime_put(&pxpcs->pdev->dev);
-> +	return 0;
-> +}
-> +
-> +#define ROCKCHIP_MMD_MII1	2
-> +#define ROCKCHIP_MMD_MII2	3
-> +#define ROCKCHIP_MMD_MII3	4
-> +#define ROCKCHIP_MMD_PMAPMD	6
-> +#define ROCKCHIP_MMD_MII	7
-> +
-> +static bool xpcs_rk_mdio_addr_validate(int addr)
-> +{
-> +	return !(addr < 0 || addr > 3);
-> +}
-> +
-> +static int xpcs_rk_mdio_read_remapping(int addr, int dev, int reg)
-> +{
-> +	switch (dev) {
-> +	case MDIO_MMD_PMAPMD:
-> +		return ROCKCHIP_MMD_PMAPMD;
-> +	case MDIO_MMD_VEND2:
-> +		break;
-> +	default:
-> +		return -ENXIO;
-> +	}
-> +
-> +	/*
-> +	 * Reads are redirected by hardware to the port's read-only mirror;
-> +	 * only writes have to be targeted at MII (see the write path).
-> +	 */
-> +	switch (addr) {
-> +	case 0:
-> +		return ROCKCHIP_MMD_MII;
-> +	case 1:
-> +		return ROCKCHIP_MMD_MII1;
-> +	case 2:
-> +		return ROCKCHIP_MMD_MII2;
-> +	case 3:
-> +		return ROCKCHIP_MMD_MII3;
-> +	default:
-> +		return -ENODEV;
-> +	}
-> +}
-> +
-> +static int xpcs_rk_mdio_write_remapping(int addr, int dev, int reg)
-> +{
-> +	switch (dev) {
-> +	case MDIO_MMD_PMAPMD:
-> +		return ROCKCHIP_MMD_PMAPMD;
-> +	case MDIO_MMD_VEND2:
-> +		break;
-> +	default:
-> +		return -ENXIO;
-> +	}
-> +
-> +	/*
-> +	 * These registers physically live only in MII (the management port).
-> +	 * Ports 1-3 expose read-only mirrors of these bits, so writes must
-> +	 * always target MII; the read path remaps per address and the
-> +	 * hardware redirects to the port's mirror.
-> +	 */
-> +	switch (reg) {
-> +	case DW_VR_MII_AN_CTRL:
-> +	case DW_VR_MII_AN_INTR_STS:
-> +	case DW_VR_MII_EEE_MCTRL0:
-> +	case DW_VR_MII_EEE_MCTRL1:
-> +	case DW_VR_MII_DIG_CTRL2:
-> +		return ROCKCHIP_MMD_MII;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	switch (addr) {
-> +	case 0:
-> +		return ROCKCHIP_MMD_MII;
-> +	case 1:
-> +		return ROCKCHIP_MMD_MII1;
-> +	case 2:
-> +		return ROCKCHIP_MMD_MII2;
-> +	case 3:
-> +		return ROCKCHIP_MMD_MII3;
-> +	default:
-> +		return -ENODEV;
-> +	}
-> +}
-> +
-> +static int xpcs_rk_read_c22(struct mii_bus *bus, int addr, int reg)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +	int dev;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_read_remapping(addr, MDIO_MMD_VEND2, reg);
-> +	if (dev < 0)
-> +		return 0xffff;
-> +
-> +	return xpcs_rk_read_reg(pxpcs, dev, reg);
-> +}
-> +
-> +static int xpcs_rk_write_c22(struct mii_bus *bus, int addr, int reg, u16 val)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +	int dev;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_write_remapping(addr, MDIO_MMD_VEND2, reg);
-> +	if (dev < 0)
-> +		return 0;
-> +
-> +	return xpcs_rk_write_reg(pxpcs, dev, reg, val);
-> +}
-> +
-> +static int xpcs_rk_read_c45(struct mii_bus *bus, int addr, int dev, int reg)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_read_remapping(addr, dev, reg);
-> +	if (dev < 0)
-> +		return 0xffff;
-> +
-> +	return xpcs_rk_read_reg(pxpcs, dev, reg);
-> +}
-> +
-> +static int xpcs_rk_write_c45(struct mii_bus *bus, int addr, int dev, int reg, u16 val)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_write_remapping(addr, dev, reg);
-> +	if (dev < 0)
-> +		return 0;
-> +
-> +	return xpcs_rk_write_reg(pxpcs, dev, reg, val);
-> +}
-> +
-> +static struct dw_xpcs_rk *xpcs_rk_create_data(struct platform_device *pdev)
-> +{
-> +	struct dw_xpcs_rk *pxpcs;
-> +
-> +	pxpcs = devm_kzalloc(&pdev->dev, sizeof(*pxpcs), GFP_KERNEL);
-> +	if (!pxpcs)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	pxpcs->pdev = pdev;
-> +
-> +	dev_set_drvdata(&pdev->dev, pxpcs);
-> +
-> +	return pxpcs;
-> +}
-> +
-> +static int xpcs_rk_serdes_phy_init(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +
-> +	pxpcs->serdes_phy = devm_phy_get(dev, "serdes");
-> +	if (IS_ERR(pxpcs->serdes_phy))
-> +		return dev_err_probe(dev, PTR_ERR(pxpcs->serdes_phy),
-> +					"Failed to get SerDes PHY\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static void xpcs_rk_serdes_phy_poweroff(void *data)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = data;
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +
-> +	phy_power_off(pxpcs->serdes_phy);
-> +	phy_exit(pxpcs->serdes_phy);
-> +
-> +	dev_pm_genpd_rpm_always_on(dev, false);
-> +}
-> +
-> +static int xpcs_rk_serdes_phy_poweron(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +	int ret;
-> +
-> +	/*
-> +	 * The power domain is required and must be enabled, which allows us to
-> +	 * dynamically turn the CSR clock on/off using PM while keeping the PCS
-> +	 * powered on.
-> +	 */
-> +	ret = dev_pm_genpd_rpm_always_on(dev, true);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to power on power-domains\n");
-> +		return ret;
-> +	}
-> +
-> +	ret = phy_init(pxpcs->serdes_phy);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to init SerDes PHY\n");
-> +		goto pm_domain;
-> +	}
-> +
-> +	ret = phy_power_on(pxpcs->serdes_phy);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to power on SerDes PHY\n");
-> +		goto serdes_phy;
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(dev, xpcs_rk_serdes_phy_poweroff, pxpcs);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to register devm for SerDes PHY: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +
-> +serdes_phy:
-> +	phy_exit(pxpcs->serdes_phy);
-> +pm_domain:
-> +	dev_pm_genpd_rpm_always_on(dev, false);
-> +	return ret;
-> +}
-> +
-> +static int xpcs_rk_init_res(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct platform_device *pdev = pxpcs->pdev;
-> +	struct device *dev = &pdev->dev;
-> +	struct resource *res;
-> +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res) {
-> +		dev_err(dev, "No reg-space found\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (resource_size(res) < SZ_2M) {
-> +		dev_err(dev, "Invalid reg-space size\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	pxpcs->reg_base = devm_ioremap_resource(dev, res);
-> +	if (IS_ERR(pxpcs->reg_base)) {
-> +		dev_err(dev, "Failed to map reg-space\n");
-> +		return PTR_ERR(pxpcs->reg_base);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void xpcs_rk_exit_clk(void *data)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = data;
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +
-> +	pm_runtime_force_suspend(dev);
-> +	clk_disable_unprepare(pxpcs->eee_clk);
-> +}
-> +
-> +static int xpcs_rk_init_clk(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +	unsigned long rate;
-> +	u64 mult;
-> +	int ret;
-> +
-> +	pxpcs->csr_clk = devm_clk_get(dev, "csr");
-> +	if (IS_ERR(pxpcs->csr_clk))
-> +		return dev_err_probe(dev, PTR_ERR(pxpcs->csr_clk),
-> +					 "Failed to get CSR clock\n");
-> +
-> +	pxpcs->eee_clk = devm_clk_get(dev, "eee");
-> +	if (IS_ERR(pxpcs->eee_clk))
-> +		return dev_err_probe(dev, PTR_ERR(pxpcs->eee_clk),
-> +					 "Failed to get EEE clock\n");
-> +
-> +	ret = clk_prepare_enable(pxpcs->eee_clk);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to enable EEE clock\n");
-> +		return ret;
-> +	}
-> +
-> +	pm_runtime_set_suspended(dev);
-> +	pm_runtime_enable(dev);
-> +
-> +	ret = devm_add_action_or_reset(dev, xpcs_rk_exit_clk, pxpcs);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to register devm for EEE clock: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * Compute the multiplier for the EEE clock so that
-> +	 * clk_eee_period * (mult_fact + 1) falls within 80..120 ns.
-> +	 *
-> +	 * On RK3568, clk_xpcs_eee is muxed between gpll200 (200 MHz, 5 ns)
-> +	 * and cpll125 (125 MHz, 8 ns), selected by CRU_CLKSEL_CON29 bit 13.
-> +	 * The reset value is 0 (200 MHz), but derive the value at runtime to
-> +	 * stay correct if the mux is changed by a board.
-> +	 *
-> +	 * Use a 64-bit intermediate: on 32-bit builds, 100 * 200000000
-> +	 * does not fit in unsigned long. Clamp to the 4-bit
-> +	 * DW_VR_MII_EEE_MULT_FACT_100NS field.
-> +	 */
-> +	rate = clk_get_rate(pxpcs->eee_clk);
-> +	if (!rate)
-> +		return dev_err_probe(dev, -EINVAL, "Invalid EEE clock rate\n");
-> +
-> +	mult = DIV_ROUND_CLOSEST_ULL(100ULL * rate, NSEC_PER_SEC) - 1;
-> +	pxpcs->eee_mult_fact = min_t(u64, mult, 15);
-> +	return 0;
-> +}
-> +
-> +static int xpcs_rk_init_bus(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +	static atomic_t id = ATOMIC_INIT(-1);
-> +	struct mii_bus *bus;
-> +	int ret;
-> +
-> +	bus = devm_mdiobus_alloc_size(dev, 0);
-> +	if (!bus)
-> +		return -ENOMEM;
-> +
-> +	bus->name = "Rockchip DW XPCS MCI/APB3";
-> +	bus->read = xpcs_rk_read_c22;
-> +	bus->write = xpcs_rk_write_c22;
-> +	bus->read_c45 = xpcs_rk_read_c45;
-> +	bus->write_c45 = xpcs_rk_write_c45;
-> +	bus->phy_mask = ~0;
-> +	bus->parent = dev;
-> +	bus->priv = pxpcs;
-> +
-> +	snprintf(bus->id, MII_BUS_ID_SIZE,
-> +		 "rockchip_dwxpcs-%x", atomic_inc_return(&id));
-> +
-> +	/*
-> +	 * MDIO-bus here serves as just a back-end engine abstracting out
-> +	 * the MDIO and MCI/APB3 IO interfaces utilized for the Rockchip DWXPCS CSRs
-> +	 * access.
-> +	 */
-> +	ret = devm_mdiobus_register(dev, bus);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to create MDIO bus\n");
-> +		return ret;
-> +	}
-> +
-> +	pxpcs->bus = bus;
-> +	return 0;
-> +}
-> +
-> +static int xpcs_rk_probe(struct platform_device *pdev)
-> +{
-> +	struct dw_xpcs_rk *pxpcs;
-> +	int ret;
-> +
-> +	pxpcs = xpcs_rk_create_data(pdev);
-> +	if (IS_ERR(pxpcs))
-> +		return PTR_ERR(pxpcs);
-> +
-> +	/*
-> +	 * The XPCS may be attached to a power domain (e.g. PD_PIPE). The domain
-> +	 * must be powered on before any register access, otherwise the SoC will
-> +	 * trigger a synchronous external abort (SError).
-> +	 *
-> +	 * Accessing the XPCS registers also requires a TX clock from the SerDes,
-> +	 * which is needed for the soft reset.
-> +	 */
-> +	ret = xpcs_rk_serdes_phy_init(pxpcs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = xpcs_rk_serdes_phy_poweron(pxpcs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = xpcs_rk_init_res(pxpcs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = xpcs_rk_init_clk(pxpcs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = xpcs_rk_init_bus(pxpcs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id xpcs_rk_of_ids[] = {
-> +	{ .compatible = "rockchip,rk3568-xpcs" },
-> +	{ /* sentinel */ },
-> +};
-> +MODULE_DEVICE_TABLE(of, xpcs_rk_of_ids);
-> +
-> +struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node *np)
-> +{
-> +	struct platform_device *pdev;
-> +	struct device_node *pcs_np;
-> +	struct dw_xpcs_rk *pxpcs;
-> +	struct dw_xpcs *xpcs;
-> +	u32 port;
-> +
-> +	if (!of_device_is_available(np))
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	if (of_property_read_u32(np, "reg", &port))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	if (!xpcs_rk_mdio_addr_validate((int)port))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	/* The XPCS pdev is attached to the parent node */
-> +	pcs_np = of_get_parent(np);
-> +	if (!pcs_np)
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	if (!of_device_is_available(pcs_np)) {
-> +		of_node_put(pcs_np);
-> +		return ERR_PTR(-ENODEV);
-> +	}
-> +
-> +	if (!of_match_node(xpcs_rk_of_ids, pcs_np)) {
-> +		of_node_put(pcs_np);
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	pdev = of_find_device_by_node(pcs_np);
-> +	of_node_put(pcs_np);
-> +	if (!pdev)
-> +		return ERR_PTR(-EPROBE_DEFER);
-> +
-> +	if (!device_link_add(dev, &pdev->dev, DL_FLAG_AUTOREMOVE_CONSUMER)) {
-> +		put_device(&pdev->dev);
-> +		return ERR_PTR(-ENOMEM);
-> +	}
-> +
-> +	pxpcs = platform_get_drvdata(pdev);
-> +	if (!pxpcs || !pxpcs->bus) {
-> +		device_link_remove(dev, &pdev->dev);
-> +		put_device(&pdev->dev);
-> +		return ERR_PTR(-EPROBE_DEFER);
-> +	}
-> +
-> +	xpcs = xpcs_create_mdiodev(pxpcs->bus, (int)port);
-> +	if (IS_ERR(xpcs)) {
-> +		device_link_remove(dev, &pdev->dev);
-> +		put_device(&pdev->dev);
-> +		return xpcs;
-> +	}
-> +
-> +	xpcs_config_eee_mult_fact(xpcs, pxpcs->eee_mult_fact);
-> +	put_device(&pdev->dev);
-> +	return xpcs;
-> +}
-> +EXPORT_SYMBOL_GPL(xpcs_rk_create);
-> +
-> +static int xpcs_rk_pm_runtime_suspend(struct device *dev)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = dev_get_drvdata(dev);
-> +
-> +	clk_disable_unprepare(pxpcs->csr_clk);
-> +
-> +	return 0;
-> +}
-> +
-> +static int xpcs_rk_pm_runtime_resume(struct device *dev)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = dev_get_drvdata(dev);
-> +
-> +	return clk_prepare_enable(pxpcs->csr_clk);
-> +}
-> +
-> +static DEFINE_RUNTIME_DEV_PM_OPS(xpcs_rk_pm_ops,
-> +			   xpcs_rk_pm_runtime_suspend,
-> +			   xpcs_rk_pm_runtime_resume,
-> +			   NULL);
-> +
-> +static struct platform_driver xpcs_rk_driver = {
-> +	.probe = xpcs_rk_probe,
-> +	.driver = {
-> +		.name = "rk_xpcs-dwxpcs",
-> +		.pm = pm_ptr(&xpcs_rk_pm_ops),
-> +		.of_match_table = xpcs_rk_of_ids,
-> +	},
-> +};
-> +module_platform_driver(xpcs_rk_driver);
-> +
-> +MODULE_DESCRIPTION("Rockchip XPCS platform device driver");
-> +MODULE_AUTHOR("Coia Prant <coiaprant@gmail.com>");
-> +MODULE_LICENSE("GPL");
-
-[Severity: Low]
-Is the "- 1" here safe for every rate clk_get_rate() can return?
-
-mult is u64, so if the EEE clock ends up slower than ~5 MHz (a
-mis-described clock in DT, a mux left in an unexpected position, a
-board that reparents clk_xpcs_eee) then
-DIV_ROUND_CLOSEST_ULL(100ULL * rate, NSEC_PER_SEC) evaluates to 0 and
-the subtraction wraps to U64_MAX.  The clamp on the next line does not
-catch that: min_t(u64, mult, 15) compares U64_MAX against 15 and keeps
-15, so the slowest possible clock programs the largest
-DW_VR_MII_EEE_MULT_FACT_100NS value instead of the smallest.  The only
-rate that is rejected today is exactly 0, via the !rate check just
-above.
-
-So the failure mode is the opposite of what the comment intends:
-clk_eee_period * (mult_fact + 1) would be far outside the 80..120 ns
-window rather than clamped to the nearest end of it.
-
-Would it be clearer to compute the product first and clamp before
-decrementing, e.g. keep the DIV_ROUND_CLOSEST_ULL() result in mult,
-clamp it into 1..16, and only then subtract 1?  Or, if a rate that low
-is simply not a valid configuration for this block, should
-xpcs_rk_init_clk() reject it with dev_err_probe() the way it already
-rejects rate == 0, rather than silently picking a multiplier?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915123802.1561724-1-coiaprant%40gmail.com
+Frank
+>
+>  	/* Clear potential interrupts */
+>  	reg = fspi_readl(f, f->iobase + FSPI_INTR);
+> --
+> 2.34.1
+>
+>
