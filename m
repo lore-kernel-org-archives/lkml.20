@@ -1,141 +1,127 @@
-Received: from mta0.migadu.com (out-187.mta0.migadu.com [91.218.175.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DAD372673
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F67E2BEC23;
+	Thu, 17 Sep 2026 07:31:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789630298; cv=none; b=F9H23GgxkpB+EXm2z4wJiAm2mYZJgS5sbA2AxBrV3wk4y7ICzzt5Sw1Gy2MzaZBjijkHNkYu37nfn2ewmF4gZ+AsM+ROf76eEoeDINwQ2IHS/vXDx6F9TRTZ9oxCh7SzkPvf16ZpUweJVNkqIcHS0ZEpaz5aWDeaSjwy900Qmhw=
+	t=1789630300; cv=none; b=Y6TUakPLb4rzq9k4Xh/yQszN+bZn2a8arNP4U26H2JjMhIFyjJ5KmgsefLNhX1hnRjt9m6QP/6unen8Jxg8cniPPuvZCuU6YKnR54p2DxJOh5qzeCA4RzMkEHWcMv8vX03WU0Jv4UTsSRg/dBQlrahpbgGt0tPxzyBuB4E+Z7yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789630298; c=relaxed/simple;
-	bh=aalPA+YRmodnwncx7vuTjRQb/Aq0fSpOz9DM5u9UYQE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dk8jHfuA0iHlAQJqyS3kF2VmoPdqPn9gmmLTy2BqWGrrJHFdjdYaLwfNnDdbKnwHqu8mI+zNW2vCDV4ezgTrNZQTwLdmlPeTx8jVFYo2hgIoYCaO3vcI/FHqOZ7HCZ+xwHfY4Wbv3WY6wuYcjYQuauNpBhVUQeBKEKxmWt5Dv7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Rfzwbpe8; arc=none smtp.client-ip=91.218.175.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789630300; c=relaxed/simple;
+	bh=7nfqPkWorX3eXoaV+JOhDFIXNM/mucQ/rx94rQSp2l8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fSAd/85RyFd13lFCk8O6Ddsn5tKX1D5maNsaUPBeFc3dCygpZ0QZzYUmYGOjO47WFV66FYjShcb9oMhsN2pXni5ptsaiFpDTWcclWyZdUU5Yt9nLtnt1l3QLf4fJUsA98YhrecpCPuSYPOXcQevogmJNK/UFmMuFukiBxng/XlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=nlsSPQJQ; arc=none smtp.client-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Rfzwbpe8"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aalPA+YRmodnwncx7vuTjRQb/Aq0fSpOz9DM5u9UYQE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789630293; v=1; x=1790235093;
- b=Rfzwbpe8yyVr9rj9qFOOkFMkU5Ub8czdj3NZdqoEMD32nh5ej9Yzkalix658YVMzO2Hy0mLW
- 1JopZ4l798pdinxvGgcRzqfl3plBPL+He5SqIUPJGbwgVGuyFn02JQQSXmurSe2CnvTwQviuKwE
- qEYm7+6lUhvsYYsA8nrAyq5o=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id c1cd059ca47fcf9d;
-	Thu, 17 Sep 2026 07:31:31 +0000
-X-Mizu-Trace-ID: c1cd059ca47fcf9d
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 17 Sep 2026 15:31:23 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
-	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
-	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com,
-	yosry@kernel.org, shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev, david@kernel.org,
-	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
-Subject: Re: [PATCH v3 00/14] mm, swap: extendable swap devices (xswap)
-Message-ID: <aquWKJoP5JLP8Ci7@fedora>
-References: <20260916101929.149106-1-hebaoquan@kylinos.cn>
- <aqrHjfHwyEtRIr5S@cmpxchg.org>
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="nlsSPQJQ"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Ab0t+i5nnrof6CvOdbOMvW8GucM3FAS252b7jVA/X6A=;
+	b=nlsSPQJQniLR551mo3DJOpMhFXUUZZxKcDo8ZkJ1Ca27SkpTbE1plUepc1OWLXDWb9pJURpjc
+	RnqqjXbAG7j7tfmEdiMpCmiQHkvFss+bgNqqZp7jNujMn2N9azGD7QyJYfctEc3cUYNDi9d4oNt
+	TW7AJ0UDDHt+QbpgrAJKYlM=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hlnGQ1ZNszmV8g;
+	Thu, 17 Sep 2026 15:20:30 +0800 (CST)
+Received: from kwepemr100001.china.huawei.com (unknown [7.202.195.168])
+	by mail.maildlp.com (Postfix) with ESMTPS id 9C5E2402AB;
+	Thu, 17 Sep 2026 15:31:29 +0800 (CST)
+Received: from huawei.com (10.50.159.234) by kwepemr100001.china.huawei.com
+ (7.202.195.168) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
+ 2026 15:31:28 +0800
+From: xietangxin <xietangxin@h-partners.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, Jason Wang
+	<jasowangio@gmail.com>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, huyizhen
+	<huyizhen2@huawei.com>, gaoxingwang <gaoxingwang1@huawei.com>, xietangxin
+	<xietangxin@h-partners.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH net] net: tun: fix race condition between tun_attach and tun_get_user with XDP
+Date: Thu, 17 Sep 2026 15:41:49 +0800
+Message-ID: <20260917074149.1799437-1-xietangxin@h-partners.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqrHjfHwyEtRIr5S@cmpxchg.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemr100001.china.huawei.com (7.202.195.168)
 
-On 09/16/26 at 12:45pm, Johannes Weiner wrote:
-> On Wed, Sep 16, 2026 at 06:19:07PM +0800, Baoquan He wrote:
-> > xswap is a swap device with no backing storage. Swapped-out pages live                                
-> > in zswap. Its cluster_info[] array lives in a VM_SPARSE vmalloc area,                                 
-> > and the area is grown and shrunk on demand as swap usage changes.                                     
-> >                                                                                                       
-> > The problem being solved is the static size of compressed swap. Both   
-> > zram and zswap need the size fixed in advance, and neither gives memory 
-> > back when the workload shrinks. The solution should be a device whose
-> > size can scale up/down as per usage. xswap does that by mapping the
-> > metadata lazily instead of reserving it for the whole range.
-> > 
-> > Design   
-> > ------                           
-> > - si->cluster_info[] stays a plain array. Access is still
-> >   &si->cluster_info[offset / SWAPFILE_CLUSTER]: no per-access branch, no 
-> >   RCU discipline, no tear-down state machine, no NULL return.              
-> > - Only an initial chunk is mapped at creation. The rest of the address     
-> >   space is reserved, not allocated, so an idle device costs nothing.
-> > - Growth is driven by allocation. When no free cluster is left and the       
-> >   address space has room, the next chunk is mapped and added to the free  
-> >   list. No userspace involvement.
-> > - Shrink is driven by frees. The free tail is scanned, and whole chunks
-> >   are unmapped once the mapped range is at most half in use and several
-> >   chunks can go. One chunk is left mapped as slack, so the next                                       
-> >   allocation does not map it straight back. A ceiling lowered below the                               
-> >   mapped range skips the half-in-use rule and is enforced at once.
-> 
-> If the swap maintainers prefer the VM_SPARSE route, I'm happy to defer
-> to them on that.
-> 
-> However, from the cgroup and zswap camp, two stipulations that I
-> reasoned out in the other thread[1]:
+Concurrent TUNSETIFF ioctls and write() operations on the same
+file descriptor can trigger a WARN_ONCE in netif_get_rxqueue():
 
-> 
-> 1. You must not charge compression space as swap space to the cgroup.
+  virt_tun0 received packet on queue 2, but number of RX queues is 2
+  WARNING: CPU: 2 PID: 5989 at net/core/dev.c:5494
+  Call trace:
+   bpf_prog_run_generic_xdp
+   netif_receive_generic_xdp
+   do_xdp_generic
+   tun_get_user
+   tun_chr_write_iter
 
-Hmm, I don't have a stance on this. However, isn't this an issue
-zswap/zram have been doing? It feels like an independent issue which
-should be done separately?
+Because tfile->tun is published before tun_set_real_num_queues()
+updates dev->real_num_rx_queues. Concurrent tun_get_user() can
+observe the newly attached tun file and process packets with
+the new queue_index before dev->real_num_rx_queues is updated.
 
-> 
-> 2. You must make the compression space large enough to be outside the
->    range where users can hit space limits before hitting memory limits.
+CPU 0 (tun_attach)         CPU 1 (tun_get_user)
+tfile->queue_index = 2
+rcu_assign_pointer(tfile->tun)
+                           skb_record_rx_queue(skb,tfile->queue_index)
+                             do_xdp_generic()
+                               netif_receive_generic_xdp()
+                               bpf_prog_run_generic_xdp()
+                               netif_get_rxqueue()
+                               // index(2) >= real_num_rx_queues(2)
+                                 WARN_ONCE
+tun_set_real_num_queues()
+  dev->real_num_rx_queues = 3
 
-We may need a way to define 'large enough' at first. From my limited
-understanding, take zstd (the best compression ratio) as an exmaple,
-the ratio is about 30%, 2xRAM as si->max is enough. Unless we want to
-swap to the backing disk with huge content which is much much bigger
-than RAM when xswap is ful. I am wondering if there is a actual scenario 
-and concrete number.
+Fix this by increase tun->numqueues and call tun_set_real_num_queues()
+prior to publishing tfile->tun. This ensures dev->real_num_rx_queues
+is updated before any concurrent packet processing path can observe
+the attached tun file.
 
-I am not against a large enough si->max size, that's very easy to change
-in code, just one line of adjustment. Just a concrete number and reasonable
-description is needed. I think this can be done later with a separate
-patch with a convincing log if someone can provide?
+Fixes: 3fe260e00cd0 ("net: tun: record RX queue in skb before do_xdp_generic()")
+Cc: stable@vger.kernel.org
+Signed-off-by: xietangxin <xietangxin@h-partners.com>
+---
+ drivers/net/tun.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-static int xswap_create(int prio)
-{ 
-	...
-        ram = totalram_pages();
-        maxpages = min_t(unsigned long, ram * 2, swapfile_maximum_size);
-	...
-}
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index 5a302709a68a..2fb8df036d8c 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -807,15 +807,16 @@ static int tun_attach(struct tun_struct *tun, struct file *file,
+ 	 * refcnt.
+ 	 */
+ 
++	WRITE_ONCE(tun->numqueues, tun->numqueues + 1);
++	tun_set_real_num_queues(tun);
++
+ 	/* Publish tfile->tun and tun->tfiles only after we've fully
+ 	 * initialized tfile; otherwise we risk using half-initialized
+ 	 * object.
+ 	 */
+ 	if (publish_tun)
+ 		rcu_assign_pointer(tfile->tun, tun);
+-	rcu_assign_pointer(tun->tfiles[tun->numqueues], tfile);
+-	WRITE_ONCE(tun->numqueues, tun->numqueues + 1);
+-	tun_set_real_num_queues(tun);
++	rcu_assign_pointer(tun->tfiles[tun->numqueues - 1], tfile);
+ out:
+ 	return err;
+ }
+-- 
+2.43.0
 
-> 
->    That also means not allowing setups where this is possible.
-
-And the limit is only an optional knob. If the admin does not set it,
-the device grows to the full address space, so there is no space limit
-to hit at all. It already behaves the way you want by default. The knob
-is only for admins who want a ceiling, they can use it or not. I hope
-this would not be a problem for your use case.                                                  
-
-> 
->    I'm fine with fixing the zeroed page flood issue separately, as
->    Kairui proposed.
-> 
-> So if you're willing to fix the cgroup charging, and if you're willing
-> to drop the sizing interface for a statically sized space that is
-> sufficiently large, I think we can find common ground.
-
-Thanks for the input, I am open to discuss either of them further.
-
-> 
-> [1] https://lore.kernel.org/linux-mm/aqLi6cIjD2wJwk0B@cmpxchg.org/
-> 
