@@ -1,56 +1,56 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44F843B6F5
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:42:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D3843C05B
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627372; cv=none; b=W7L+Le6h7Kvba37ewwT+nZSf5XPv0tnxoWEr/4u5oM2uqcX86rtoMT7wMiJ8qyvD3Mm6R8nQpauBiH5+Jnc67vWnlk7B1OQHYbAq32QnRcKvCnO4W5wUJmLJqPgctJUMj/ffTsoCfl/6lDk8xZEivkNyectz0R8sAO497FD7oBA=
+	t=1789627376; cv=none; b=St4DwEd1A3hzcHmv1V+XSf88fmAh1z4x3eZnMe6p80JEBnXlIQ2PQ9Cdm5HoJS0978q9F3Dgxh0n6gGoASMtV5SkyoUi2uiBWNf/Wi8JLOQ05gwpnsVRQflX/d08ooKed5j2X9kcyWAcsXTYrbECRzgnMr8qL6G+mTFHXlXulXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627372; c=relaxed/simple;
-	bh=AIhDuxYXm6TPBGEUGmeWMYRdVi5UgiMgDR7MkYv1egM=;
+	s=arc-20240116; t=1789627376; c=relaxed/simple;
+	bh=lx7wyF3Qu/HpKTFDnfOd4iCQJKE+aEvsCq9kKuv30HU=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=D1RYx5UHXC8k7i3EZMISH6ZvO9Y4bBwcJ0Gt84NCQGynwcriu+CjjvRCIsQ4xrYsdWdDbCSVgSMXJqHjXnrzEeyBjWeWraYmUPu+nd922IiPQvbdbnTjmmt8yLwx7wqG2wcVQYK8iG2cHRHxoaggis3hj8rL2pn9pvoBRBRbV/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=N6X5waKt; arc=none smtp.client-ip=209.85.216.71
+	 To:Cc:Content-Type; b=Kuk2O5vjuvdsbp1LF+0hssSpyoWKxek/q3luRRBXweH3g9t8Cb11WZFB++EmN5G79cr7s/m3HQvfcv9CMItV1Rat+ETot/zR1E7tZr22yW9GfRRA8TrJ0P0q//Jmz7QBj5x5trAOCUjIhzWFq1O+Ng9UkqdLgqVfZMra6B2mtWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TiqMasi4; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="N6X5waKt"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39af92138f9so1040773a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:42:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TiqMasi4"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dcfed75f77so8613295ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:42:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789627370; x=1790232170; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789627374; x=1790232174; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XZ4suTwVR71QEmnzgMO/8pQXqTLVqgY6KmKt7zHzuV0=;
-        b=N6X5waKtBrJ3DFkBvIxotV62jCMLeBTvHVZEA7vl/y3xuU6aoeA76Pbms3qPYLRMMP
-         BbuFqC5XNAhEBUgduPeaqfSXffpD0tWQWufDwxvghPpBc/6eF3o6un5pFfHBg1dBm3yb
-         ZWX1piL2aojnbC3Hb3fQx60+ieAphoAQH+fKd1Rvvwv8NH0YVO95MR+aMTydawuwKbqS
-         dHKpwhPH6a3f5BDvJlbzVmli1Tai11cTPys2fSURNr4Lu394QzhuMzvvVp9ydLfSoEiE
-         0u9vy9I0WNd4xasa3ua8t/ixbWjB+WoPyNAnpiKQSKNSDELKZHbBl8oR6PmRWlgFv5+e
-         4u6g==
+        bh=iDa4jCWG1HgPZsp/vqH9L8ol0+fyo/nirzG/z+7DOWE=;
+        b=TiqMasi4FEpnpLyPFNAufz8q/Lc5FNSsQU/6rN4q3vtL7jika3+1/MLKGlNCo/135L
+         tiMF7XgDJfv45e99eDW1oG8lIrsQAA0LmYpKgm7500xP5lSGQh4bk5S5ddnr/ZbKXZ99
+         sRN13UoUOvCJ342NgXc2gOCQIo5sDtzZkMW6ci2nOPJSAg5V6//cnJy5/SuTVMTqbFP6
+         ezg4wzKoaRqN29MihJGWslSDyOtXfjqdrxuWpqmQrJ9uBVJQWvf+z2dLfuxeJ9a9R0Vl
+         ki3nSG4aIk0Spu2UTSMZyp1OTfmGLOPCppZnkSeJPlVx3eo8YkUepgUdQsXyOdU1N5l+
+         eqCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789627370; x=1790232170;
+        d=1e100.net; s=20260707; t=1789627374; x=1790232174;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XZ4suTwVR71QEmnzgMO/8pQXqTLVqgY6KmKt7zHzuV0=;
-        b=BlSLXRcho9ItdwbzQI9GXe5czzs33hjcXlayod8ujZOg4e103QukzrqkIXdKZaDyq0
-         pBGqAWy2SMXQee5ADMVXoCJYt8xCzgdWOs2ffnIbkNZvTrhh+XfU4SzOs6RzJp9Aob8T
-         /jqFPgWdOsUg8D2Jt2hqVg8vyN1JUcy/O/aaBXfIlC9YiXYshor0/PvquoaJ1IxtmbI6
-         Iic6idNlFXr+IMG7GYZaRO69w0hCGowTD/wn/098sRjG05K+icT0RDNipnI5Fhjm7gdj
-         0SKiLrDu3rQ9RE3oGqHOQOdR9v5t20ieI96dtzfAfdU3ytpIx8QKn0kEoNJzFZzB3kuW
-         jiuQ==
-X-Forwarded-Encrypted: i=1; AKwUvByb41KCo/+0OIsggWeu6BRslLqr/95VzpEDwA+q74YfiI/lf35ywoPwdPIwrZvKoZNBil8Sivye4nJGF8E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwNCLz9cSqFNAZC0r7EMbQlwNY9eoleG1fLGXxBTfJ67qjZ0Qt
-	z5fBA4XUB/nHXwFDmwp1du/FsxJqMVxR5eRge+fXzqImSv4Pnv9Dpza2HMb6nnFItzrv7pubXdO
-	rfnEZifu3xQ==
-X-Received: from dleb1-n2.prod.google.com ([2002:a05:701b:4241:20b0:144:4896:d41])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:50cc:b0:39e:fd1:bd46
- with SMTP id 98e67ed59e1d1-39e35da22efmr4205823a91.7.1789627369960; Wed, 16
- Sep 2026 23:42:49 -0700 (PDT)
-Date: Wed, 16 Sep 2026 23:42:23 -0700
+        bh=iDa4jCWG1HgPZsp/vqH9L8ol0+fyo/nirzG/z+7DOWE=;
+        b=ToiNSANJ0BYV3USNrgwYcWHU0mSgUgqFHf1Br5WlIQmNsnJQc2frKuKEHvWdn/agoF
+         4jBsqOGtGRL1tPrSsKx21KFpQY5todaE/TU1bfwQO5d4Fw/BiBzs1ygSENek8rjpS/XE
+         SxVdb4G96lHdkAXFjhwPYX6DsPNE6Pk7C/enJmqwBOESL9qPYDZgo2kkk+qtp/AZpPkd
+         /P1W6N8Jq7pZ2ZJTX4ahz6ntbnhgjaQCcML3iArEcaslHhsHIj5OYhxu0l4fSMUfVsPT
+         hwjwcKy+Rnpu4I2Sc4Pv6E/pZYyrpcpnyOrYINIup8NP6vxTPgphWxcRj5rCnW9H/Bnc
+         aBRA==
+X-Forwarded-Encrypted: i=1; AKwUvByrIdGGVtfSUOm3CGJyWJxp/LB3U5rlAQyc59HEAbV0BFkIpPA+HTIqvfX/2HWHRugJtdfpgfQP3HiS/Es=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBFu04UGfYE7eijwiVA8DBOQPW3quPUtyn1sh1JnAsLfizVL8w
+	FrpH2fKZKZ5/q46W/JpM4+zgvDG0B2z/6bt68WHkrPC+G4wCxWMgXQeMaZwAdKQEcoQEG86/SP0
+	djtwBuywpKw==
+X-Received: from dlbrl7.prod.google.com ([2002:a05:7022:f507:b0:143:94b1:ba45])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2803:b0:39d:ef3e:9035
+ with SMTP id 98e67ed59e1d1-39e1e324463mr18457457a91.10.1789627373850; Wed, 16
+ Sep 2026 23:42:53 -0700 (PDT)
+Date: Wed, 16 Sep 2026 23:42:25 -0700
 In-Reply-To: <cover.1789626977.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789626977.git.irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <91623303ca281e878444068063fba4bec464bc60.1789626978.git.irogers@google.com>
-Subject: [PATCH v1 01/13] perf trace: Start BPF summary before starting workload
+Message-ID: <fc961a7169e4c00c91cf543e5d505cc5deded5f6.1789626978.git.irogers@google.com>
+Subject: [PATCH v1 03/13] perf trace: Do not set unaugmented BPF program on
+ sys_exit map
 From: Ian Rogers <irogers@google.com>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
 Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
@@ -70,56 +71,97 @@ Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri 
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-When using --bpf-summary, trace_start_bpf_summary() sets
-skel->bss->enabled = 1. In trace__run(), trace_start_bpf_summary() was
-previously invoked after evlist__start_workload().
+In trace__init_syscalls_bpf_prog_array_maps(), the BPF program array map
+for sys_exit (syscalls_sys_exit) was populated with the result of
+trace__bpf_prog_sys_exit_fd().
 
-Because evlist__start_workload() immediately unblocks the child process
-by writing to its go_pipe, short-lived workloads (such as `cat /dev/null`)
-can execute and complete their initial system calls before
-trace_start_bpf_summary() is reached by the parent process. Furthermore,
-under high system load, the child process may finish before the BPF
-summary tracking is enabled in the kernel at all, causing syscall
-summary tests to fail. Additionally, if initial_delay was configured,
-the workload was started before sleeping.
+When a syscall had no specific exit augmenter,
+trace__find_syscall_bpf_prog() fell back to unaugmented_prog
+(syscall_unaugmented). However, syscall_unaugmented is a sys_enter
+program that outputs enter arguments to __augmented_syscalls__.
 
-Move trace_start_bpf_summary() to be invoked before
-evlist__start_workload(), matching evlist__enable(), and ensure it
-respects target.initial_delay.
+As a consequence, when an unaugmented syscall exited, sys_exit
+tail-called syscall_unaugmented, which interpreted the exit arguments as
+enter arguments and emitted a duplicate, corrupt sys_enter event into
+__augmented_syscalls__ right as the syscall completed.
+
+Fix this by:
+1. Returning NULL from trace__find_syscall_bpf_prog() when looking up exit
+   augmenters and none is found.
+2. Returning -1 from trace__bpf_prog_sys_exit_fd() when no exit program
+   is present.
+3. Only updating map_exit_fd when prog_fd >= 0.
+4. Clearing err = 0 when trace__bpf_sys_enter_beauty_map() returns
+   non-zero (indicating the syscall has no augmentable pointer arguments)
+   before continuing the loop, so a trailing run of such syscalls (e.g.
+   'perf trace -e close') does not leave err non-zero on return and abort
+   the session.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/builtin-trace.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ tools/perf/builtin-trace.c | 28 ++++++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 6 deletions(-)
 
 diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index 20fffc24507b..8da0c51ec380 100644
+index af9696aadaec..a68d34256996 100644
 --- a/tools/perf/builtin-trace.c
 +++ b/tools/perf/builtin-trace.c
-@@ -4838,17 +4838,19 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
- 	if (!target__none(&trace->opts.target) && !trace->opts.target.initial_delay)
- 		evlist__enable(evlist);
+@@ -4117,7 +4117,12 @@ static struct bpf_program *trace__find_syscall_bpf_prog(struct trace *trace __ma
+ 	pr_debug("Couldn't find BPF prog \"%s\" to associate with syscalls:sys_%s_%s, not augmenting it\n",
+ 		 prog_name, type, sc->name);
+ out_unaugmented:
+-	return unaugmented_prog;
++	/*
++	 * Do not set unaugmented_prog for exit: syscall_unaugmented is a
++	 * sys_enter program that outputs enter arguments. Exit without a
++	 * specialized return augmenter returns 1 directly from sys_exit.
++	 */
++	return !strcmp(type, "exit") ? NULL : unaugmented_prog;
+ }
  
-+	if (trace->summary_bpf && !trace->opts.target.initial_delay)
-+		trace_start_bpf_summary();
-+
- 	if (forks)
- 		evlist__start_workload(evlist);
+ static void trace__init_syscall_bpf_progs(struct trace *trace, int e_machine, int id)
+@@ -4140,7 +4145,7 @@ static int trace__bpf_prog_sys_enter_fd(struct trace *trace, int e_machine, int
+ static int trace__bpf_prog_sys_exit_fd(struct trace *trace, int e_machine, int id)
+ {
+ 	struct syscall *sc = trace__syscall_info(trace, NULL, e_machine, id);
+-	return sc ? bpf_program__fd(sc->bpf_prog.sys_exit) : bpf_program__fd(unaugmented_prog);
++	return sc && sc->bpf_prog.sys_exit ? bpf_program__fd(sc->bpf_prog.sys_exit) : -1;
+ }
  
- 	if (trace->opts.target.initial_delay) {
- 		usleep(trace->opts.target.initial_delay * 1000);
- 		evlist__enable(evlist);
-+		if (trace->summary_bpf)
-+			trace_start_bpf_summary();
- 	}
+ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, int key, unsigned int *beauty_array)
+@@ -4395,16 +4400,27 @@ static int trace__init_syscalls_bpf_prog_array_maps(struct trace *trace, int e_m
+ 		err = bpf_map_update_elem(map_enter_fd, &key, &prog_fd, BPF_ANY);
+ 		if (err)
+ 			break;
++		/* Only update the exit prog array map if an exit augmenter exists */
+ 		prog_fd = trace__bpf_prog_sys_exit_fd(trace, e_machine, key);
+-		err = bpf_map_update_elem(map_exit_fd, &key, &prog_fd, BPF_ANY);
+-		if (err)
+-			break;
++		if (prog_fd >= 0) {
++			err = bpf_map_update_elem(map_exit_fd, &key, &prog_fd, BPF_ANY);
++			if (err)
++				break;
++		}
  
--	if (trace->summary_bpf)
--		trace_start_bpf_summary();
--
- 	trace->multiple_threads = perf_thread_map__pid(evlist__core(evlist)->threads, 0) == -1 ||
- 		perf_thread_map__nr(evlist__core(evlist)->threads) > 1 ||
- 		evlist__first(evlist)->core.attr.inherit;
+ 		/* use beauty_map to tell BPF how many bytes to collect, set beauty_map's value here */
+ 		memset(beauty_array, 0, sizeof(beauty_array));
+ 		err = trace__bpf_sys_enter_beauty_map(trace, e_machine, key, (unsigned int *)beauty_array);
+-		if (err)
++		if (err) {
++			/*
++			 * Not a failure: the syscall just has no augmentable
++			 * arguments. Clear err, or a trailing run of such
++			 * syscalls, e.g. all of them for 'perf trace -e close',
++			 * would leave it set on return and abort the session.
++			 */
++			err = 0;
+ 			continue;
++		}
+ 		err = bpf_map_update_elem(beauty_map_fd, &key, beauty_array, BPF_ANY);
+ 		if (err)
+ 			break;
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
