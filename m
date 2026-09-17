@@ -1,156 +1,412 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A52F4E73DF
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AA64ED1BD;
+	Thu, 17 Sep 2026 16:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662512; cv=none; b=fByfjMwdRzjIHr5eCESbCUmrn9kmKbHuYM8P6N/wxvivlq2L+Y3mJ5srFTa77ux8InDvf80KTU/LD+/gQr7YNdAIgnwEDlZcEmCyX7rvKfx3XWqflALQNpwz46UVIo3CabeBu5BezV/P+KAeSWUFW1axJXASe5To7iMctW/BzrU=
+	t=1789662518; cv=none; b=fIoA8/GRIt60oTxh/nSa+6AldVmFfNbcrMtrmDi0TUYu7wUGZU4tIWKsxrpjP85D8RK4l/QROac+l8x4CYN1yM/4CkrSruRTGOkjM2A/9QH0YaR/0rciSJ8+3HiqmJ4KsZhbTE8w2F3y7XIFuND2eUHJkc+qS/hGDuwlk+Lh+/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662512; c=relaxed/simple;
-	bh=BKtnu8ZYAwY5KCtnezIu0Q0b+yLVi/TmHjEAzvyhV+w=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rJncvryx56UO7TF32aZS4OIM8uCOUuRwYG9EdN5finKruQ7nQPylWpBazSWwuyWWtMF1Xaqd3KoZcDlso0jCXzTPaar3fsCCs3Cqt+9UVcJNt6tCcqvH7howqpnxnOXG5RlVkEahFtc3amsvVNSztqr8inVwbmQf4TMIC1KbKDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZBAG4kkq; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oulKEdAy; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789662518; c=relaxed/simple;
+	bh=t2zMqz7GwrO9LwCoKVbfTLpQhoUUcOpzKx1NKvIhX3o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=BeThh0zBwa7io6QwGGYFSsodm29OUdMDVZob7Nj2PJ4TcmDMklXAn3175vrPPVX4WGRuR7RqMXs9Ry3yhR0B8+MNRdOHPh2RG1DGhBQ96a193gpW5NiTcgo4k5GdAMZ4IEpLgISyKrA/pKnorxcA3oBEQT3pKH3v8RHMYaJFnE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eptxRHyb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZBAG4kkq";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oulKEdAy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789662508;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T9Zesbadxeg7oTrWei3JYdZLdaxPsolNq8bf7iCfLoA=;
-	b=ZBAG4kkq2oppSJ1PixwqeKhBSiY9IJNl+9e/ipjcPlQ0CecQfSmCUY9qfv/BCbisZCiFL7
-	5OMpCoqJDkH5M/86fK7SgoK8DlGcRbNg+V3kBjoUAE85PBUn7sJeZsqlh7HhycCy4n5Rzd
-	18kpObIIh59pJu8qHqSKJ5/V7buOhq8=
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com
- [74.125.224.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-551-NjzNjMNyP9WyjaWoAc_7aA-1; Thu, 17 Sep 2026 12:28:25 -0400
-X-MC-Unique: NjzNjMNyP9WyjaWoAc_7aA-1
-X-Mimecast-MFC-AGG-ID: NjzNjMNyP9WyjaWoAc_7aA_1789662505
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-66cbfb7ec42so1400988d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:28:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789662505; x=1790267305; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=T9Zesbadxeg7oTrWei3JYdZLdaxPsolNq8bf7iCfLoA=;
-        b=oulKEdAyvWNHFZlhUA1lawSY7TPeKLD3t/G22DBNhA2FV+eCR4l8zCSYSTg4Mlnw0v
-         rC+xF/kf4d6Rtk2vWjXgDrYrwbZ8etqDOzZBK25WIPpBDIwQ+rAO7XpRvxIGtdJeYNGR
-         c3UTQtM5+88cp21UhgFlPeVMu+6sNcFqfPrUACUKeW6CFo8TJBUDlTvI9hkFq1KLtSmz
-         X0DmHKrjcZ6zAUBU6hA44vl3lGwbXMpefMkUip7CNSbWjsRIwjA7ywbQJKN9cgzTTyrX
-         2jkRG7pubjw/gOa7Ha11G+bAJK1j+8Sve+1/D9/axBV6IAw6g4Nb+tFysIfXkdtLF47a
-         nvHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789662505; x=1790267305;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T9Zesbadxeg7oTrWei3JYdZLdaxPsolNq8bf7iCfLoA=;
-        b=mNmxK4jbaf2NvDZ59UXkRsKa9nomnRB/bIczYu58zDWhZQbyn86CAY8/elzrQfwb2L
-         GGQ4fHDNK9O0yM20F7XFk0qZfwXp0oARMhOZpRHTkXaRKP90F9KLuzty8QYGdcGsaWXn
-         9UlfPGxY6PrsSfd83gLxsjSgnuPsqqQR6/JKvKKuG4Qil3ezfTf0zbMMyyId45Jg60zs
-         7SkdlJJiAvJzU9rzxSmS1ZJUrAZ6VwkrHQoch25y/udJVtD8YzKTDMpOlgiWGIoO9l1Y
-         U0bvUiXWgj6cj2u2s3tDALQukqsej7K6/v38cGcwnZtyecnLDi42PSg7rmATlUFmgR3B
-         Xk3g==
-X-Forwarded-Encrypted: i=1; AKwUvBzNdLkSd8qwUTQcHZ9R01gOcnHNk9wrYYQC6GxgGgOQ1l+/8qfjUPu+Olev0OMxE+YU/S+ZQ5HN7IOt89s=@vger.kernel.org
-X-Gm-Message-State: AFuF++klCNwDrWePKB7nUyOii/C9B4CpffimAI6qxtJqmYrGFogalxHI
-	uGY6efJ+sZVjc8hs6rYpc4nVauH5ObciqaSgNqgpOGFzJSToJznB3MoYM5wLMx/nMcbDDikryXx
-	v8ahJ534nzxxrKFIyiSzlzO1IsTdXWv0deClfSgMo1ILviUgYEl0C0RdfVw/bR2FGIA==
-X-Gm-Gg: AYBFou3c6pZVfPFmHf1iAVZA750h/vL9LdlzPkEKMBuOhw1Fk5GsXLtlH0qXW/odAiG
-	RFr7EoZ0IupV7m6MWMWbyz9ZwLbnO1G3cbxDW0s2lHuy7/Jj/1FHmPbZ0aZ8Tbnvy/yLvRxNnF5
-	43aDXNvKXFgNOBd20WAik3G1yLVCIiPplzpS51OYH/zqGhbzH5HAzVzyL+KjQrV4dIodr3ACdzM
-	QDzXIt6tqWWrAHv5jCykGB2eiy3T3pOb9Prk6DpC1ZZ1ZXrge0YuHO/H1INwoAeE8BAJJjB0vpj
-	KrVzEMavA06k6hViqMwsf0qZseYCCoxh2qY8H4uGbXS4yqdXrdaMUWVqVmOIbViRG/GKPnfy
-X-Received: by 2002:a05:690e:480c:b0:66f:c1bc:4099 with SMTP id 956f58d0204a3-671632fcb0dmr1856044d50.92.1789662504430;
-        Thu, 17 Sep 2026 09:28:24 -0700 (PDT)
-X-Received: by 2002:a05:690e:480c:b0:66f:c1bc:4099 with SMTP id 956f58d0204a3-671632fcb0dmr1856033d50.92.1789662503824;
-        Thu, 17 Sep 2026 09:28:23 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-896ca03f345sm1229717b3.20.2026.09.17.09.28.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 09:28:22 -0700 (PDT)
-Message-ID: <4170733fbe8a738f925986f0a17d03c39b066c17.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau/disp: don't reject HDMI config on cards
- without SCDC
-From: lyude@redhat.com
-To: Tano Dzhinski <tano.dzhinski@gmail.com>, Danilo Krummrich
- <dakr@kernel.org>
-Cc: Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 	linux-kernel@vger.kernel.org
-Date: Thu, 17 Sep 2026 12:28:21 -0400
-In-Reply-To: <20260917135051.47683-1-tano.dzhinski@gmail.com>
-References: <20260917135051.47683-1-tano.dzhinski@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eptxRHyb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2124A1F000FF;
+	Thu, 17 Sep 2026 16:28:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789662516;
+	bh=10L90PzOXSgbgk2Yp7RVeipj6WjV7mej+Ed4jbhmuXc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=eptxRHybXyah7jNOCIE+oNZ/IohTqXcA0mkjUlcUQNeIMBlwC5WNDaEuR8zKtnzp4
+	 d8gtAZBhi138AiUGojyUOlhSC6Bwi6+oyHGdcO6uaB+TO6TNwiasU++a5qxAMoMUOU
+	 8XiShLwMIh5+BqAn96wOTWp1Dc0vJZpa0rkoYOfM+K+a5qP8hlcAxkdbt9H+MGcfGy
+	 SuiBKUxlWP78pgDt3HtcFJ07iR5IUgdl05lka5bLNHOTdtpu07zevV83G1yl6K/X5j
+	 JUeen7SEg+ZMhnQNHztAL3ahdOERkML9Qe/Tsy/kHlDigHfQHtqNpfEX71xIsrSuE7
+	 N8yKvZuWdcGTw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:22:20 +0100
+Subject: [PATCH v3 11/40] infiniband: update hfi1 to use
+ remap_vmalloc_range()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-11-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10306; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=t2zMqz7GwrO9LwCoKVbfTLpQhoUUcOpzKx1NKvIhX3o=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB/I5ar705nlbL5p8RP3w1ENcvnWn7/u+3DPM1z4x
+ s7dtlNWdJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAioQsZGZbmbN6bpFR6+7/T
+ KY9TJsH7NW+e73vXWf95deY+y18yvwwY/mmcfu6nElTK9/PA1i+9Bi9XdGeveP9BuvB0xKNzR2Z
+ nfmAHAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Hi - apologies for missing the patch previously, and thank you for
-bringing this to my attention!
+In cases which map chip memory from vmalloc()'d ranges, the hfi1 infiniband
+drivers currently installs a fault handler, and then smuggles the kernel
+virtual address of this range in vma->vm_pgoff.
 
-Would you mind re-sending with the original authorship + a Co-authored-
-by tag for yourself to make sure we give the original author credit?
+This is exposing KASLR-sensitive internal kernel state in the VMA, and is
+entirely unnecessary.
 
-On Thu, 2026-09-17 at 13:50 +0000, Tano Dzhinski wrote:
-> nv50_hdmi_enable() passes the sink's SCDC capability from its EDID
-> straight through to nvif_outp_hdmi(). On pre-Maxwell-2 cards there is
-> no
-> hdmi->scdc callback, so nvkm_uoutp_mthd_hdmi() rejects the whole
-> configuration with -EINVAL, and nv50_hdmi_enable() returns before
-> hdmi->ctrl() runs and before the AVI and VSI infoframes are sent.
->=20
-> The result on such a card driving an SCDC-capable HDMI 2.0 sink is
-> that
-> HDMI audio silently stops working. Video is unaffected, and nothing
-> is
-> logged, which makes the failure hard to attribute.
->=20
-> SCDC is optional, and the hdmi->scdc() call further down is already
-> guarded against a missing callback. Requesting it on a card that
-> cannot
-> do it need not invalidate the rest of the HDMI configuration, so drop
-> that term from the condition and let the existing guard skip SCDC
-> alone.
->=20
-> Giuseppe Ranieri posted a fix for this to the nouveau list on
-> 2026-01-17, which received no review:
-> https://ratatoskr.run/nouveau/2026/01/16963412
->=20
-> Fixes: 6c6abab20b99 ("drm/nouveau/disp: add output hdmi config
-> method")
-> Signed-off-by: Tano Dzhinski <tano.dzhinski@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c | 3 +--
-> =C2=A01 file changed, 1 insertion(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
-> b/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
-> index 377d0e0cef84..9887b3898505 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
-> @@ -253,8 +253,7 @@ nvkm_uoutp_mthd_hdmi(struct nvkm_outp *outp, void
-> *argv, u32 argc)
-> =C2=A0
-> =C2=A0	if (!ior->func->hdmi ||
-> =C2=A0	=C2=A0=C2=A0=C2=A0 args->v0.max_ac_packet > 0x1f ||
-> -	=C2=A0=C2=A0=C2=A0 args->v0.rekey > 0x7f ||
-> -	=C2=A0=C2=A0=C2=A0 (args->v0.scdc && !ior->func->hdmi->scdc))
-> +	=C2=A0=C2=A0=C2=A0 args->v0.rekey > 0x7f)
-> =C2=A0		return -EINVAL;
-> =C2=A0
-> =C2=A0	if (!args->v0.enable) {
+Instead, use remap_vmalloc_range() to remap the VMA to the span, and
+eliminate the fault handler altogether.
+
+remap_vmalloc_range() checks that the VMA does not extend beyond the
+vmalloc area, and the driver already requires the VMA to exactly match the
+span of the memory being mapped, so this has no impact.
+
+The memory is all preallocated so not having a fault handler has no impact
+either, other than pre-mapping the ranges which is beneficial.
+
+We also remove the VM_IO flag as it's not appropriate here, and the
+VM_DONTEXPAND flag as remap_vmalloc_range() will set it (and also mark the
+range correctly as a mixed map).
+
+We also update the vmalloc paths to place the virtual kernel address in
+memvirt, rather than overloading the physical address memaddr. We predicate
+the vmalloc handling on the vmalloc flag before we check memvirt for the
+virtual address-derived PFN remap path, so this works fine.
+
+remap_vmalloc_range() requires that the vmalloc()'d areas were all
+allocated using vmalloc_user() - each of cq->comps,
+uctxt->subctxt_rcvegrbuf, uctxt->subctxt_rcvhdr_base,
+uctxt->subctxt_uregbase and dd->events were allocated this way, so that
+requirement is satisfied.
+
+We also remove VM_IO and VM_DONTEXPAND from the STATUS command, as these
+are both set on remap.
+
+Finally, we remove VM_DONTEXPAND from the PIO_BUFS, PIO_BUFS_SOP and UREGS
+commands, as these are also all set on remap. PIO_CRED retains it, as
+dma_mmap_coherent() may map via vm_insert_page() on the IOMMU-DMA path,
+which sets only VM_MIXEDMAP. The RCV_HDRQ, RCV_EGRBUF and RTAIL commands
+also map via dma_mmap_coherent() and never set VM_DONTEXPAND, so set it for
+them for the same reason.
+
+Note that we retain expected behaviour throughout - the vmalloc remapped
+ranges set VM_MIXEDMAP | VM_DONTDUMP | VM_DONTEXPAND for each range.
+
+VM_IO was never appropriate as the ranges are explicitly not MMIO, and the
+reference to the v3.7 VM_RESERVED semantics map on to VM_MIXEDMAP |
+VM_DONTDUMP | VM_DONTEXPAND correctly - no core dump, unmergeable, no
+normal vm page for purposes of reclaim/migration/etc.
+
+There is a change in behaviour in that pages mapped using
+remap_vmalloc_range() will now have normal GUP-able pages, however this
+should have no impact as there is no reason not to allow this.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ drivers/infiniband/hw/hfi1/file_ops.c | 83 +++++++++++------------------------
+ 1 file changed, 25 insertions(+), 58 deletions(-)
+
+diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
+index dc548e6802e2..b02d1f1dbb27 100644
+--- a/drivers/infiniband/hw/hfi1/file_ops.c
++++ b/drivers/infiniband/hw/hfi1/file_ops.c
+@@ -70,7 +70,6 @@ static int set_ctxt_pkey(struct hfi1_ctxtdata *uctxt, unsigned long arg);
+ static int ctxt_reset(struct hfi1_ctxtdata *uctxt);
+ static int manage_rcvq(struct hfi1_ctxtdata *uctxt, u16 subctxt,
+ 		       unsigned long arg);
+-static vm_fault_t vma_fault(struct vm_fault *vmf);
+ static long hfi1_file_ioctl(struct file *fp, unsigned int cmd,
+ 			    unsigned long arg);
+ 
+@@ -85,10 +84,6 @@ static const struct file_operations hfi1_file_ops = {
+ 	.llseek = noop_llseek,
+ };
+ 
+-static const struct vm_operations_struct vm_ops = {
+-	.fault = vma_fault,
+-};
+-
+ /*
+  * Types of memories mapped into user processes' space
+  */
+@@ -304,13 +299,13 @@ static ssize_t hfi1_write_iter(struct kiocb *kiocb, struct iov_iter *from)
+ 	return reqs;
+ }
+ 
+-static inline void mmap_cdbg(u16 ctxt, u8 subctxt, u8 type, u8 mapio, u8 vmf,
++static inline void mmap_cdbg(u16 ctxt, u8 subctxt, u8 type, u8 mapio, u8 is_vmalloc,
+ 			     u64 memaddr, void *memvirt, dma_addr_t memdma,
+ 			     ssize_t memlen, struct vm_area_struct *vma)
+ {
+ 	hfi1_cdbg(PROC,
+-		  "%u:%u type:%u io/vf/dma:%d/%d/%d, addr:0x%llx, len:%lu(%lu), flags:0x%lx",
+-		  ctxt, subctxt, type, mapio, vmf, !!memdma,
++		  "%u:%u type:%u io/vmalloc/dma:%d/%d/%d, addr:0x%llx, len:%lu(%lu), flags:0x%lx",
++		  ctxt, subctxt, type, mapio, is_vmalloc, !!memdma,
+ 		  memaddr ?: (u64)memvirt, memlen,
+ 		  vma->vm_end - vma->vm_start, vma->vm_flags);
+ }
+@@ -325,7 +320,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		memaddr = 0;
+ 	void *memvirt = NULL;
+ 	dma_addr_t memdma = 0;
+-	u8 subctxt, mapio = 0, vmf = 0, type;
++	u8 subctxt, mapio = 0, is_vmalloc = 0, type;
+ 	ssize_t memlen = 0;
+ 	int ret = 0;
+ 	u16 ctxt;
+@@ -347,7 +342,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 	/*
+ 	 * vm_pgoff is used as a buffer selector cookie.  Always mmap from
+ 	 * the beginning.
+-	 */ 
++	 */
+ 	vma->vm_pgoff = 0;
+ 	flags = vma->vm_flags;
+ 
+@@ -366,7 +361,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		 */
+ 		memlen = PAGE_ALIGN(uctxt->sc->credits * PIO_BLOCK_SIZE);
+ 		flags &= ~VM_MAYREAD;
+-		flags |= VM_DONTCOPY | VM_DONTEXPAND;
++		flags |= VM_DONTCOPY;
+ 		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
+ 		mapio = 1;
+ 		break;
+@@ -401,6 +396,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		memlen = rcvhdrq_size(uctxt);
+ 		memvirt = uctxt->rcvhdrq;
+ 		memdma = uctxt->rcvhdrq_dma;
++		flags |= VM_DONTEXPAND;
+ 		break;
+ 	case RCV_EGRBUF: {
+ 		unsigned long vm_start_save;
+@@ -422,7 +418,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 			ret = -EPERM;
+ 			goto done;
+ 		}
+-		vm_flags_clear(vma, VM_MAYWRITE);
++		vm_flags_mod(vma, VM_DONTEXPAND, VM_MAYWRITE);
+ 		/*
+ 		 * Mmap multiple separate allocations into a single vma.  From
+ 		 * here, dma_mmap_coherent() calls dma_direct_mmap(), which
+@@ -438,7 +434,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 			memvirt = uctxt->egrbufs.buffers[i].addr;
+ 			memdma = uctxt->egrbufs.buffers[i].dma;
+ 			vma->vm_end += memlen;
+-			mmap_cdbg(ctxt, subctxt, type, mapio, vmf, memaddr,
++			mmap_cdbg(ctxt, subctxt, type, mapio, is_vmalloc, memaddr,
+ 				  memvirt, memdma, memlen, vma);
+ 			ret = dma_mmap_coherent(&dd->pcidev->dev, vma,
+ 						memvirt, memdma, memlen);
+@@ -467,7 +463,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		 * user registers.
+ 		 */
+ 		memlen = PAGE_SIZE;
+-		flags |= VM_DONTCOPY | VM_DONTEXPAND;
++		flags |= VM_DONTCOPY;
+ 		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+ 		mapio = 1;
+ 		break;
+@@ -476,15 +472,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		 * Use the page where this context's flags are. User level
+ 		 * knows where it's own bitmap is within the page.
+ 		 */
+-		memaddr = (unsigned long)
+-			(dd->events + uctxt_offset(uctxt)) & PAGE_MASK;
++		memvirt = dd->events + uctxt_offset(uctxt);
++		memvirt = (void *)(((uintptr_t)memvirt) & PAGE_MASK);
+ 		memlen = PAGE_SIZE;
+-		/*
+-		 * v3.7 removes VM_RESERVED but the effect is kept by
+-		 * using VM_IO.
+-		 */
+-		flags |= VM_IO | VM_DONTEXPAND;
+-		vmf = 1;
++		is_vmalloc = 1;
+ 		break;
+ 	case STATUS:
+ 		if (flags & VM_WRITE) {
+@@ -493,7 +484,6 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		}
+ 		memaddr = kvirt_to_phys((void *)dd->status);
+ 		memlen = PAGE_SIZE;
+-		flags |= VM_IO | VM_DONTEXPAND;
+ 		break;
+ 	case RTAIL:
+ 		if (!HFI1_CAP_IS_USET(DMA_RTAIL)) {
+@@ -512,25 +502,23 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 		memvirt = (void *)hfi1_rcvhdrtail_kvaddr(uctxt);
+ 		memdma = uctxt->rcvhdrqtailaddr_dma;
+ 		flags &= ~VM_MAYWRITE;
++		flags |= VM_DONTEXPAND;
+ 		break;
+ 	case SUBCTXT_UREGS:
+-		memaddr = (u64)uctxt->subctxt_uregbase;
++		memvirt = uctxt->subctxt_uregbase;
+ 		memlen = PAGE_SIZE;
+-		flags |= VM_IO | VM_DONTEXPAND;
+-		vmf = 1;
++		is_vmalloc = 1;
+ 		break;
+ 	case SUBCTXT_RCV_HDRQ:
+-		memaddr = (u64)uctxt->subctxt_rcvhdr_base;
++		memvirt = uctxt->subctxt_rcvhdr_base;
+ 		memlen = rcvhdrq_size(uctxt) * uctxt->subctxt_cnt;
+-		flags |= VM_IO | VM_DONTEXPAND;
+-		vmf = 1;
++		is_vmalloc = 1;
+ 		break;
+ 	case SUBCTXT_EGRBUF:
+-		memaddr = (u64)uctxt->subctxt_rcvegrbuf;
++		memvirt = uctxt->subctxt_rcvegrbuf;
+ 		memlen = uctxt->egrbufs.size * uctxt->subctxt_cnt;
+-		flags |= VM_IO | VM_DONTEXPAND;
+ 		flags &= ~VM_MAYWRITE;
+-		vmf = 1;
++		is_vmalloc = 1;
+ 		break;
+ 	case SDMA_COMP: {
+ 		struct hfi1_user_sdma_comp_q *cq = fd->cq;
+@@ -539,10 +527,9 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 			ret = -EFAULT;
+ 			goto done;
+ 		}
+-		memaddr = (u64)cq->comps;
++		memvirt = cq->comps;
+ 		memlen = PAGE_ALIGN(sizeof(*cq->comps) * cq->nentries);
+-		flags |= VM_IO | VM_DONTEXPAND;
+-		vmf = 1;
++		is_vmalloc = 1;
+ 		break;
+ 	}
+ 	default:
+@@ -559,12 +546,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 	}
+ 
+ 	vm_flags_reset(vma, flags);
+-	mmap_cdbg(ctxt, subctxt, type, mapio, vmf, memaddr, memvirt, memdma, 
++	mmap_cdbg(ctxt, subctxt, type, mapio, is_vmalloc, memaddr, memvirt, memdma,
+ 		  memlen, vma);
+-	if (vmf) {
+-		vma->vm_pgoff = PFN_DOWN(memaddr);
+-		vma->vm_ops = &vm_ops;
+-		ret = 0;
++	if (is_vmalloc) {
++		ret = remap_vmalloc_range(vma, memvirt, 0);
+ 	} else if (memdma) {
+ 		ret = dma_mmap_coherent(&dd->pcidev->dev, vma,
+ 					memvirt, memdma, memlen);
+@@ -588,24 +573,6 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 	return ret;
+ }
+ 
+-/*
+- * Local (non-chip) user memory is not mapped right away but as it is
+- * accessed by the user-level code.
+- */
+-static vm_fault_t vma_fault(struct vm_fault *vmf)
+-{
+-	struct page *page;
+-
+-	page = vmalloc_to_page((void *)(vmf->pgoff << PAGE_SHIFT));
+-	if (!page)
+-		return VM_FAULT_SIGBUS;
+-
+-	get_page(page);
+-	vmf->page = page;
+-
+-	return 0;
+-}
+-
+ static __poll_t hfi1_poll(struct file *fp, struct poll_table_struct *pt)
+ {
+ 	struct hfi1_ctxtdata *uctxt;
+
+-- 
+2.55.0
 
