@@ -1,407 +1,262 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012017.outbound.protection.outlook.com [52.101.43.17])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CF0497387;
-	Thu, 17 Sep 2026 15:29:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658969; cv=fail; b=LiQ1hA9JRXxnP+v+UgC8zTid89XpNMn5kO0nB3y9e/BR7e9JueZNF1TjMlrq9lpa/8D1GlH8yJdduxDgV6vn/8JQUDIOh8Re7kb3DchlQ825mulwC7OTX4piQvwzYllf8lsJRwPxKzqiCgpYYiYDf+Z3nT55DNokDq1xbJJGIew=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658969; c=relaxed/simple;
-	bh=QxduImbOM9h2FQ8kPBbwRgoO81dPWxJ7+MnrRv3fJ9E=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Ykg7rutOlVqENbU07A3Q0QSDxRcCSCnXFsUi2bZEm1ZBJtyMrQM7OiuByANbZkfx4jXB0R5jW0fUHDbIdSjM9pLSTkAMTbKFLqKrGKblCyqMvWPgUslg0qdHdAWramLIx2ywedqN1ETOAldiX4+qKZ21AjtdNrID7xIVRXQcJ7g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=E3MF2nVC; arc=fail smtp.client-ip=52.101.43.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213B44D4890
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:29:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789658980; cv=none; b=ffENwxdJ1nf3dABOJ0bAWQUjv25u+Ino7y++pPDzqh14sWQVjzkp87pxYV0CsIRIhjZTK/zOhIagxSIJnDpWCBhgMFtTk2t+NtTCR8/TYJhHpaI4qaM907siwp0Ozk/0iIeT2Mx3uC+fLdz79HM0Lv/NQ1U4eA4zLanyf/Iq9DU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789658980; c=relaxed/simple;
+	bh=afCLU5fxI03J9D9nLtH4Td2enen0wBmzqGDH5gE8voo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=I5rhjynuANCJ0+e0oNcfgIiVf0lj/xCx4VtWlHSxjYsH92VRoVa98mkAVmxmDgVDU9WqvrsItoNmhDimtJ33tcsn0/g8EreEoy2/UF462bZxC7gFRY+pgxz6N9q04/ALFShFN5/QuCol7Akh1593PfHvA40EXqnBk4C40X84opE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jnpRfSJ4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aZCPAdat; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="E3MF2nVC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HIQWysZuFq4GodIdn6kKx7yxU3LWhLpFiqJTD3vXaLloPS4j7RUuphu4Z+s/voI0dgqyRMfYJncZbKSz/n/tCAT5cFFR9t7nPJzKUkWh+LcGdYeDobtpLZ4Rdp13t03a2y7Ks13DweA3lrNMbjSmYLHVN/LFD5o3MeedlIexFrqqkC+3IcoUS4T2j+cTBpRWW0RnGTEz2fRTq6qaaIdzFSXJHS13tCdF4mQoe/TA6kuB1fl2rJ1/WRQ1YvjgKZJm2JKSRBMhaotG7cvbDEizsa44V769iHWI3I8KU3Ny06jfAKvb6qKglH3IO0f2EZX9HBsjM7mGGM1cir9FMQY2HQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kGm88tsFwkAJ+VQgCZlPotE2PYVvCn4wBgeJdCLwg6o=;
- b=b7ff3i/fLPBnyGY2vOXuC51fGk+N6fFrySnk4lqQphPubERoOUC5mODPzN8K82qnvq7YDGzKi/6hIR89RDcw7CSkpzMEESuDllEq3sb/ciQFArFSja/qPBTnbocGM0UTp8hzwX+num+xF3q7oHjsPTDj+m2AwltsRX6uNJYWAVv1KcK07bkznCyzpcrDZhjXtrbh1rKoYCCGbIQJMEqlvHjcAjy7yv/OZWBuE8GoNtC53avgOd4OC+Q5S2kyyRFMBunan8NMajAsLgnwuExDTuauJuC2QyMusQw+m5oeV3gcFUUMEQJqQYJtLDGWMe98uxPbIwOtTtQCRDonSI+Xmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kGm88tsFwkAJ+VQgCZlPotE2PYVvCn4wBgeJdCLwg6o=;
- b=E3MF2nVCF6+n0C1yGRRQVpZSWtHMSP6mnmQMUSCGGbovEXtGfKFqHWq+p8c0f504XfcUAc2PMYu+fjHI6ZOPn6SGNBa91MvPCljmxS9ePbh2ZE8PQaPyN245Wl/o9QLns1/w1XGSLA59UMy7o06Kr4grI+XvRj0p6PHzEAVUjgg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
- by MN0PR12MB6199.namprd12.prod.outlook.com (2603:10b6:208:3c4::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
- 2026 15:29:10 +0000
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0428.009; Thu, 17 Sep 2026
- 15:29:10 +0000
-Message-ID: <31a8026e-a1d3-4866-b32a-780b5127d7a1@amd.com>
-Date: Thu, 17 Sep 2026 10:29:06 -0500
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v5 09/16] fs/resctrl: Add interface to display supported
- and active kernel modes
-To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
- Dave.Martin@arm.com, james.morse@arm.com, bp@alien8.de, ben.horgan@arm.com
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
- tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
- hpa@zytor.com, fenghuay@nvidia.com, akpm@linux-foundation.org,
- rppt@kernel.org, dapeng1.mi@linux.intel.com, elver@google.com,
- jlayton@kernel.org, enelsonmoore@gmail.com, kuba@kernel.org,
- ebiggers@kernel.org, seanjc@google.com, peterz@infradead.org,
- chao.gao@intel.com, jmattson@google.com, naveen@kernel.org,
- ricardo.neri-calderon@linux.intel.com, tiala@microsoft.com,
- chang.seok.bae@intel.com, prathyushi.nangia@amd.com, kim.phillips@amd.com,
- elena.reshetova@intel.com, darwi@linutronix.de, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, x86@kernel.org
-References: <cover.1787772750.git.babu.moger@amd.com>
- <530d77a64117347dc1a4d2666967df188a3a4757.1787772750.git.babu.moger@amd.com>
- <4d22e8ff-1050-4a88-af47-e78c96db1f6e@intel.com>
-Content-Language: en-US
-From: Babu Moger <babu.moger@amd.com>
-In-Reply-To: <4d22e8ff-1050-4a88-af47-e78c96db1f6e@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH2PR04CA0027.namprd04.prod.outlook.com
- (2603:10b6:610:52::37) To BL1PR12MB5320.namprd12.prod.outlook.com
- (2603:10b6:208:314::17)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jnpRfSJ4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aZCPAdat"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HDiglU2086730
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:29:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8OUOF3KkA/tkt+9vyyn8ikxcgLqvceoLwvPfCfImShY=; b=jnpRfSJ4rjCbNWS0
+	xiiILtPf06hva7AOteF0kErGZPSFvTM1Rr0T6xNf+48zRaxmx+mz67Z0W4Oty8he
+	RV8Di2Bno/stUGAU2ulD0ECZ/OkEXnhj6c2/6Q9ADh3CYU/IMfgrU+8r1yHwZMqa
+	NwVd6xUsxpxV3IJXI0cNNZ7OpWj6bW2SCqyxIhmf6/ENZIkWZtv1nmo/g1FLu4J6
+	sWon1lqcxblCkr5XNIXyAgtn90Yj2e30wJsDqnaRNYJ+LAQgfBBhaR4o0ve3IHNH
+	uqGFGcsv0zajuDmDmqvOwk8gyfuRyC5UmZX8lfnSvEp/riMFO3mjk/FHkXrHg2G/
+	2wZbpA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grfu41144-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:29:31 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39533bb224cso1719992a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:29:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789658970; x=1790263770; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8OUOF3KkA/tkt+9vyyn8ikxcgLqvceoLwvPfCfImShY=;
+        b=aZCPAdata71evZclEsf91hqJnw14MYjX7UfdSECnr3Dmgg5u+UJFix2ZNZNtx6MYpK
+         8RC1IdfaAwNNMz+cDtbcIUbMyvLhM791kHRDMS5Dik4nLB6t1FQFVkgPx8YyUhBWVdMx
+         ioGMGnscUrNJJYYLezglMGfwn6uvVJqB8PpNoHOiM8pSNJv21rrogXbAJSzGe11SPqtX
+         ha9xDxxSdICXmnYlrDAuE+EfhzHts/DvzRVafGwLWoygupo5GBpvBgnSjQOv9M34yesJ
+         lXUXYxl3SPJSYXrtebr75s3g1dK5TA7Ob9JD1fECFsVyQGBZWgttblLHKVZs1/f6h5eQ
+         V6Aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789658970; x=1790263770;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8OUOF3KkA/tkt+9vyyn8ikxcgLqvceoLwvPfCfImShY=;
+        b=B8Fi3hYu1GmDEPSRONTCt5f+4DfnLznH2EQFCeiVYXyx5lBq0vOYwSywnPQgdU1pk0
+         BKeODP6/p5N30QgXTNIhOJKX4ocLgln0+rUmSn0/CNfzY6GmS2VS26rUeT9YRNL1g9qO
+         7EvXjKXGb4eZ4ggCtwrCxrUNBS4H9MjyVymunQrCaKQoCmL2QxS+LokoExhvHDbqs2XW
+         Lcpr825WPtO8dxS4Rdt5pmMdlBacZkoPD8EnQH60X2EFSzUeTK5t9xca80ZDIUFa9FfB
+         MZbUJP3obdg6P2pR3N+Qq8BOWpsyRpZc8sB599jyUQGsjbzM5gIb9lNlZZIUI8t+B08l
+         Ln7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwO1XL630oEAAbrrccS0BBnWYZqURNSnNsZ81F7ie6WSXT0uMNN+ii40G2ifAh1rP06OEBZv/ONPcHCFlc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLfJGPn25zhN31FJblPDoV4xOGW12UN7mQ2rVwBgF0bp6B1c1p
+	kBxA+C6k38INDQjEBXswHquGLGlldRDI0ZjVCXvQ5jWnYjw5VlmolofEfR4VIGVHQagU70MnDI+
+	GiTdNWcVbm0ZbhXFVlkj0zGrF5PYAgnQ/S/7mnpz/WfS8cgoR9YP8A04aRheCYXw5YYM=
+X-Gm-Gg: AYBFou0aI6DwOzlNSbjy/0AN/wfZJqrlD2YhwcH+ue0XCKP9wyT9CDkq8Yw1t3wrJL5
+	1vv+R37Z2sm98cypznqeUjtg8rQAlEP1Q5+mQvw1YRyIAPJXjq0x8wTD3/Yeqs+QafVprDcl+gc
+	+CF8OY72M7lUjX4G9NlpcPQ0YHctDm32wbR12orvE+YmQl/g8amtlllP+EH9aeEXidXtfHQCNf/
+	uoZg4J1DAWQlnccemhtPwjRrDvtdYmRtapMIvcRdJDX+61EZObXXDvtkfBjYLXVr4ipGV1mOvzz
+	mRgIsDL265djSHoFclghc3auPEaWRDrYnMHawTFWNRzu7oIU14FSXeKo8Pgn0svdfgb1Low+/an
+	URK1qZpoeoLYswCy4jsa2Mdyv6PXRr3Ga
+X-Received: by 2002:a17:90b:2744:b0:37d:f983:7b5 with SMTP id 98e67ed59e1d1-39e1e30240amr14285377a91.9.1789658970039;
+        Thu, 17 Sep 2026 08:29:30 -0700 (PDT)
+X-Received: by 2002:a17:90b:2744:b0:37d:f983:7b5 with SMTP id 98e67ed59e1d1-39e1e30240amr14285316a91.9.1789658969424;
+        Thu, 17 Sep 2026 08:29:29 -0700 (PDT)
+Received: from [10.171.1.18] ([106.221.191.153])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5ac978esm15988035eec.18.2026.09.17.08.29.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 08:29:28 -0700 (PDT)
+Message-ID: <70a79153-5acc-7826-b08b-6fd869ec34a3@oss.qualcomm.com>
+Date: Thu, 17 Sep 2026 20:59:22 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|MN0PR12MB6199:EE_
-X-MS-Office365-Filtering-Correlation-Id: 02ef995f-5471-453a-0911-08df14d06be7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|56012099006|5023799004|11063799006|4143699003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	6s+0jDvFfw1f+bHxZ2RwTHkzSy91QKE2BPHpOenNRabGqrecwZRVSu1+HJ/LJwyEij0f0cCmLMXpyrgd1nkVXmrKkIk1cMOxk1cN25uKir0QfA5z3Q5/wcFFOhr09FRgDLhSkMYKetjm6pyXxJzVpdh1x/ySiV3iMi0asIpvImcXaeJRd0WNUDv/4kTJchShNjPFMtjAfoXwCDUMWNO+ZcQMLQTeJ22tVxTslD3X+kCZyiZEh/qUjt8Tn6Y8SGj7idL+R7eAhSoHLnA9LqleGesU2EP3MyzV7y/HzgdXDjdjy++Tx9zwiZaqBNznvFW1/2hm8SZmcpUbvx8IFHqpnOYt5M4BQPDEfnmN3D4unUx4aKuncFWWNsH0sIOCaHFxmz7ShTeGA2R1rrhBQXgEe66KfEvVnvNJdBNip6mfP0vhiQ8eITEUrfs3brDL36h5ekws/N5Twk/d0qOueeWqMxctpPhucxgeMmFRwWjr/hfs4ETzMEuPtlvrBE5XNiL35WF9LdPE9eIEzePWsjQhd+dDcOhZTn+1+19O7+DWq7LHXhfwqH6ZUGVwxM/67DxYM3zre8haSw1i4jE6CMjAwx57ICxb9AHRGLR3Vz0iOjE+lEKRZsxXqqyLiknhDi0jeNkPSVuyEy3TMWXaVn4WrYFCD14RnLEX/7V8TY/iAJU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(56012099006)(5023799004)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NWRrbDU2NXpmQVBVR1FtOHAzZGlNSkgyWHBrN1g1ODJBNzlhb2Evc08wOW9U?=
- =?utf-8?B?ajhtVjR3dys5WVVPeU5XR2JRaWlOQ1JEOWZpUXRWSGt0d0pvdmNPb2NZQ3py?=
- =?utf-8?B?R3lRZEZnMUp3RVRxa3RPUE8wTDU5N052Y0dXMldxdUZZMmQyalU2S01IN0xC?=
- =?utf-8?B?cUphKzJOZjF1aWYzZVFlcHA0UEhzaVpkdUxHeDBKeDFGQVZaTU14UkU0SFk4?=
- =?utf-8?B?d2V5Y0tBZVZ6b3hpeFRCQzJ6ZU9pelVXdTYrTlB5UzlUSTV2VVNzeHNuWTNz?=
- =?utf-8?B?dFNOMUx4bkhJMXQ2dXI4TWdGTW5LWXNNMElWMGxBZ1BDcWxQdWVYTzBIc2xi?=
- =?utf-8?B?bi92cVNIMzI2eUhEc2NUeFNxVTBBUEtvYzhhdGRDb0RvZktKbUFlMGMwZE51?=
- =?utf-8?B?L2RXdU5TQVVGbWNtdnplQ2VDZ0lTaDRtYjBxTllCQVFkNlVwblZOMlU5dEo2?=
- =?utf-8?B?bjRKRk83L0x3V2RLQ0hDUzZyRzJUZTI3WmtXampESGJTSE9yYkRLY3lnSHcy?=
- =?utf-8?B?T3RJcENGZDFqalBEakJtQkdjQmRBTkpaUUlVQXdOZklMaFpENlJGck1ka204?=
- =?utf-8?B?bHdSeFV1VFFmUDljNmRZakhKRWJQRTlyRU81RitxbDZubWx1WGQxRks1Z2Fa?=
- =?utf-8?B?aU9qdHdLbFIwNlJqc1R2K3FpbG9aUmZ6WXFxSUZzeUd5emxiakEvMWZhVi9p?=
- =?utf-8?B?ckt6MURxand6SFBzbEErRXUvb1hkbkxXTDdsa1RUT3BJa3JsYm5PeDg4VUV5?=
- =?utf-8?B?TEdxemg3T1NCWThJaUkzR3UyeE5udVFrYkh6WkhzeVYxVzN1Wjl3aWRjeE9T?=
- =?utf-8?B?VlBxUmRZelZYUGxUaStEUCtYOUlRYU9ZZzZvcVpjSURpbzA4cGRMeGhXZCtP?=
- =?utf-8?B?SHFZWDI4WWlENDhtOTI4cFN3RzdtTEdFbW9EclJHUFpJUHNKdUFmbHdJVmlC?=
- =?utf-8?B?YmN6Y3QrMS85UjhXWG1EY3JzWG8wUDZMaDNyeVpIc3k3TzRtcGh5ZEdVb2da?=
- =?utf-8?B?UDJUSHFzV0tETGRMSE5leUMxYm9ZU1FSRjNJYjhXUDRkcEwwYmM3eTVjeWhx?=
- =?utf-8?B?eHpWbEhwQVRjS2MydnlWbEpxVGIwV0thU2xndXFYZU5scUNKMGFzTENTVlFD?=
- =?utf-8?B?Nno5NmZLbDJjZEd3WWExb040RHhFeGwwMGZWQXFPWjJ0TVliZ1NWN1lDNTVS?=
- =?utf-8?B?aXgrVWsycjZobndqckgxWXVyQXBDNnFHMkdhQUpJY0lQbUNCVm51bDlxb0NB?=
- =?utf-8?B?eS9DN0pORWpNdnZrSGlCY2F5Z2JuMG9TUVdDSnZOVjZ3aC9ZR1k2VkVEMlh3?=
- =?utf-8?B?UHRNN04za3c4LzBLTTZ6VWMxNkg5bS9mK253WTd5TGVMS3BFakNFYnRxOHc3?=
- =?utf-8?B?dXUwK3JoR0RVRWd1NS9XT0puT085UHlwWTRPaStpSVppbDZ6OG1jK2xOYklW?=
- =?utf-8?B?Z0ZJa2VTQ2dma3BCZzgxQVA1dDN2V2EweGJIRFFPNURoeHdVMVNYMU9zSFF6?=
- =?utf-8?B?RGNZYkQwT2RjbU5MRXNFQWNSdXl0WHp5Vk15aHVWTGlEUEFLZFRHOGlXeDdu?=
- =?utf-8?B?dlA0WmhMMVdqWWgwcHFTM3JNcjdINHFNenZHQjZhYXVjREtHZklqTTl3NWNw?=
- =?utf-8?B?Yi9FY2Ivd05JUUVKRGdaR0YxZlVwSEhLbDZjY0UyNy8zVlgxQ0dleTJrZXk1?=
- =?utf-8?B?UWlndHV5ZVIxYng4VVh3ZHp2ekNWN0kwVTZwb0lGUHpJR1JjQlFRaFBGYzgx?=
- =?utf-8?B?a2FFWTlrYlh1WkpmTmVMK2tmMFhQM3BwQWdoeFJPSzNodHhVN1VOOUhmZTM3?=
- =?utf-8?B?ejd2bmwwNUd0bG1TNmFEaGRvNnJ5d1ZOcWtiVEk0d0tjSHdVWHorM2tldTJQ?=
- =?utf-8?B?Rk1lamcyRE9MUHR5SldYakxXc0VCTDNVNWFjbDF6aVdNRkZUS3BEblY0NnVB?=
- =?utf-8?B?RTloSmU5SC9Ba0U1TUp5alBLSkJaVStrNHlVN3NGMk5JMlc5akplanROa2wr?=
- =?utf-8?B?UFFDUUYwcCswUU5kSXpqL2tROCtFZ3lHNVFRT0ZtbGVGem5xQlU0anNMNWZ2?=
- =?utf-8?B?eU51WmFFVHJKaWdPc0RSZi9hbThJU1N2UlRkdG5pYXJaTkdjZHNaMENlMXBa?=
- =?utf-8?B?Mng1LzhiSUFNc1gyS2FSQTd2d1c2cVdZZ3JCb3k1cHBxOEZLSEhnQVExTGtW?=
- =?utf-8?B?YVBpOTUzNnpJdVBlbUE3U3l1bG5nbVdmdG9MMTIySlB2eFZqUjIyQ2hKbUZk?=
- =?utf-8?B?RFpaZ01TOUl6ZlRWbndJOTFWaDU5cnlEb2d3TXBkRFZ6MjNCTHRWYWNRbU5k?=
- =?utf-8?Q?KC8p4ejvgBj1jA5SF8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02ef995f-5471-453a-0911-08df14d06be7
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 15:29:10.7076
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ymphhLvao2HXTBisFZ13TSvrUC+xjerkWDlbobljdRHszRoVEYarxAa3G0326CNq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6199
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] media: iris: prevent sys_error_handler from restarting
+ core during remove
+Content-Language: en-US
+To: Fan Wu <fanwu01@zju.edu.cn>, vikash.garodia@oss.qualcomm.com,
+        dikshita.agarwal@oss.qualcomm.com
+Cc: abhinav.kumar@linux.dev, bod@kernel.org, mchehab@kernel.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260705032529.2439425-1-fanwu01@zju.edu.cn>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260705032529.2439425-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: a-FjLWHHTxHNz4KfttsopLa62exjZq8L
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDIyMCBTYWx0ZWRfX3DJcu5Dj4rIL
+ QxhKkvUmd1OTnQNPG8ZVfgYKD7LQqYHpzGA7YqfSLSZAKgBKgsaZU1RSJBp7jUzSs8jST9rUFW0
+ OUcUJMvO6vSlJWsqSz76cOqs0wcyRqM=
+X-Proofpoint-ORIG-GUID: a-FjLWHHTxHNz4KfttsopLa62exjZq8L
+X-Authority-Analysis: v=2.4 cv=LbipeTfi c=1 sm=1 tr=0 ts=6aac075b cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=BDBwzOTuoAJfZxoRWNzZ7Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=JVhh-pDQcx9uSaxsvHEA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDIyMCBTYWx0ZWRfX++kNivmDLo4d
+ YMu6MqjQFfY+2YJN7K/eoXVcS4wkiTRv9ia4OAq0RKN5nkVtzMl/c2x0/um2SAQeHK7UAB8Tywb
+ CUbQZ3WaudcI6R3ZAhWJSoI4pn++oyfcxmCBol2YgJfEZFRDfvygBRVJgxyahsaYBqM+mDW69Ps
+ xnsTDEAbHf3te/C1wmpJjCe3uK8wAKQkzLaXaWlRAMjhkFkQrqtZ4LG0snFzb5NLkHydloSVunw
+ NaIqH3sOauDTFnodFSX67w9cMOIV8xK9kkvfHcrBJq2r5VGaRv7bI32PEz+Y/62ti9ne0MP6RLN
+ uLl5FJfJrJbkJnq2QaQt3myUBQ2+rHB5y+oGjuZncTyvcMA/fApipNXCrXf2XL9ZdFM21uU0qbD
+ LjKed8bZYgGCiclJLtaXBQ+VJK6Hzy9sQ9FzCVhqMkmw+vyQJhlonN95uO5QqjklwM/Bj+IpXAz
+ 3b4z0F0INxeOlO0cTXA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 spamscore=0 priorityscore=1501 adultscore=0
+ clxscore=1015 impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170220
 
-Hi Reinette,
 
-On 9/16/26 00:32, Reinette Chatre wrote:
-> Hi Babu,
-> 
-> On 8/26/26 12:32 PM, Babu Moger wrote:
->> ---
->>   Documentation/filesystems/resctrl.rst |  29 +++++++
->>   fs/resctrl/rdtgroup.c                 | 115 ++++++++++++++++++++++++++
->>   2 files changed, 144 insertions(+)
->>
->> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
->> index f3e941404967..c6e8cf828e18 100644
->> --- a/Documentation/filesystems/resctrl.rst
->> +++ b/Documentation/filesystems/resctrl.rst
->> @@ -528,6 +528,35 @@ conveyed in the error returns from file operations. E.g.
->>   	# cat info/last_cmd_status
->>   	mask f7 has non-consecutive 1-bits
->>   
->> +"kernel_mode":
->> +	In the top level of the "info" directory, "kernel_mode" reports
->> +	supported and active kernel modes available on the system.
->> +
->> +	Reading the file lists one mode per line. The active mode is wrapped in
->> +	square brackets. inherit_user is shown without options.
->> +	assign_global_enable_per_cpu is shown as::
->> +
->> +	  assign_global_enable_per_cpu:ctrl=<assign|inherit>;mon=<assign|inherit>;group=<ctrl>/<mon>/
->> +
->> +	- inherit_user: inherit allocation and monitoring from the user task.
-> 
-> To make this easier to read, instead of mixing the modes, could you please have text like:
-> 	
-> 	Possible kernel modes are:
-> 	
-> 	<description of inherit_user>
-> 
-> 	<description of assign_global_enable_per_cpu>
-> 
-> In addition to being easier to read something like above will also be easier to expand.
+On 7/5/2026 8:55 AM, Fan Wu wrote:
+> iris_remove() does not cancel the sys_error_handler delayed work, which is
+> armed from the HFI response path on system errors. The handler calls
+> iris_core_deinit() followed by iris_core_init(), so a pending handler can
+> restart the core after iris_remove() has started tearing it down.
+>
+> Set an unregistering flag under the core mutex and make
+> iris_core_init() refuse to re-initialize the core once removal has begun.
+> Check the same flag while holding the core mutex in the HFI response
+> handlers before arming the delayed work, so a system-error interrupt
+> cannot queue new work after removal starts.
+>
+> Cancel any delayed work that was queued before the flag was set before
+> destroying the core mutex.
+>
+> Fixes: fb583a214337 ("media: iris: introduce host firmware interface with necessary hooks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+>  drivers/media/platform/qcom/iris/iris_core.c           |  5 +++++
+>  drivers/media/platform/qcom/iris/iris_core.h           |  4 ++++
+>  .../media/platform/qcom/iris/iris_hfi_gen1_response.c  |  5 +++--
+>  .../media/platform/qcom/iris/iris_hfi_gen2_response.c  |  5 +++--
+>  drivers/media/platform/qcom/iris/iris_probe.c          | 10 ++++++++++
+>  5 files changed, 25 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
+> index 52bf56e517f9..b843ab0d484c 100644
+> --- a/drivers/media/platform/qcom/iris/iris_core.c
+> +++ b/drivers/media/platform/qcom/iris/iris_core.c
+> @@ -48,6 +48,11 @@ int iris_core_init(struct iris_core *core)
+>  	int ret;
+>  
+>  	mutex_lock(&core->lock);
+> +	if (core->unregistering) {
+> +		ret = -EINVAL;
+> +		goto exit;
+> +	}
+> +
+>  	if (core->state == IRIS_CORE_INIT) {
+>  		ret = 0;
+>  		goto exit;
+> diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
+> index 24da60448cf2..a52d2a1f07c4 100644
+> --- a/drivers/media/platform/qcom/iris/iris_core.h
+> +++ b/drivers/media/platform/qcom/iris/iris_core.h
+> @@ -74,6 +74,9 @@ struct qcom_ubwc_cfg_data;
+>   * @core_init_done: structure of signal completion for system response
+>   * @intr_status: interrupt status
+>   * @sys_error_handler: a delayed work for handling system fatal error
+> + * @unregistering: set under @lock in iris_remove() to block core re-init
+> + *	and sys_error re-arming; checked under @lock in iris_core_init() and
+> + *	the HFI system-error handlers
+>   * @instances: a list_head of all instances
+>   * @inst_fw_caps_dec: an array of supported instance capabilities by decoder
+>   * @inst_fw_caps_enc: an array of supported instance capabilities by encoder
+> @@ -119,6 +122,7 @@ struct iris_core {
+>  	struct completion			core_init_done;
+>  	u32					intr_status;
+>  	struct delayed_work			sys_error_handler;
+> +	bool					unregistering;
+>  	struct list_head			instances;
+>  	/* encoder and decoder have overlapping caps, so two different arrays are required */
+>  	struct platform_inst_fw_cap		inst_fw_caps_dec[INST_FW_CAP_MAX];
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> index bfd7495bf44f..c9100112d07b 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> @@ -230,9 +230,10 @@ iris_hfi_gen1_sys_event_notify(struct iris_core *core, void *packet)
+>  	mutex_lock(&core->lock);
+>  	list_for_each_entry(instance, &core->instances, list)
+>  		iris_inst_change_state(instance, IRIS_INST_ERROR);
+> +	if (!core->unregistering)
+> +		schedule_delayed_work(&core->sys_error_handler,
+> +				      msecs_to_jiffies(10));
+>  	mutex_unlock(&core->lock);
+> -
+> -	schedule_delayed_work(&core->sys_error_handler, msecs_to_jiffies(10));
+>  }
+>  
+>  static void
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+> index 25162ae71357..7f0c121866f2 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+> @@ -285,10 +285,11 @@ static int iris_hfi_gen2_handle_system_error(struct iris_core *core,
+>  	mutex_lock(&core->lock);
+>  	list_for_each_entry(instance, &core->instances, list)
+>  		iris_inst_change_state(instance, IRIS_INST_ERROR);
+> +	if (!core->unregistering)
+> +		schedule_delayed_work(&core->sys_error_handler,
+> +				      msecs_to_jiffies(10));
+>  	mutex_unlock(&core->lock);
+>  
+> -	schedule_delayed_work(&core->sys_error_handler, msecs_to_jiffies(10));
+> -
+>  	return 0;
+>  }
+>  
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+> index c2dcb50a2782..c8553bc7619f 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -200,7 +200,17 @@ static void iris_remove(struct platform_device *pdev)
+>  	if (!core)
+>  		return;
+>  
+> +	/*
+> +	 * Prevent the system-error work from re-initializing the core once
+> +	 * teardown begins.  Then drain any work that was queued before the
+> +	 * flag was set, before destroying the mutex used by the work function.
+> +	 */
+> +	mutex_lock(&core->lock);
+> +	core->unregistering = true;
+> +	mutex_unlock(&core->lock);
+> +
 
-Sure. Will do.
+Calling cancel_delayed_work_sync() before iris_core_deinit() is sufficient. It
+already cancels any pending work and waits for a running handler to complete,
+so the unregistering flag and related checks are unnecessary.
 
-> 
->> +	- assign_global_enable_per_cpu: kernel mode may use separate
->> +	  allocation and/or monitoring associations. ctrl= and mon= show
->> +	  whether each is assigned or inherited, and group= identifies the
-> 
-> Earlier is "ctrl=<assign|inherit>;mon=<assign|inherit>" and above is
-> "ctrl= and mon= show whether each is assigned or inherited". This is rewrites
-> the same thing in different ways without helping to explain what the parameters
-> and their values mean.
+The patch below is sufficient to address this issue:
+https://lore.kernel.org/linux-media/20260604054708.42426-1-dennylin0707@gmail.com
 
-Will add of the descriptions of "mon" and "ctrl" states.
-
-> 
-> 
->> +	  associated resource group using <CTRL_MON>/<MON>/ path syntax.
-> 
-> This text is difficult to parse. It switches between "assigned" and "associated"
-> *in the same sentence* when referring to the same thing. Please use consistent terms
-> and just be specific about what this actually by avoiding this vague language.
-
-Ok. Will rephrase.
-
-> 
->> +
->> +	Only supported modes are listed. On an inactive
->> +	assign_global_enable_per_cpu line, ctrl= and mon= show platform
->> +	capability defaults rather than the last active assignment, and
-> 
-> I find the text to be very vague. Above could be moved to section dedicated to
-> the assign_global_enable_per_cpu mode and be made specific. For example,
-> 
-> 	When inactive, the parameter values displayed are the default values
-> 	that will be used when no new value is provided during enabling/activation(*)
-> 	
-> 	(*) pick a term and stick with it
-
-Ok. Sure.
-
-> 
->> +	group=// is shown. When the mode is active, ctrl= and mon= report
->> +	the current assignment state and group= identifies the associated
->> +	resource group.
-> 
-> Last sentence just repeats the paragraph above, no?
-
-Yes. Will rephrase this paragraph.
-
-> 
-> 
->> +
->> +	Example::
->> +
->> +	  # cat info/kernel_mode
->> +	  [inherit_user]
->> +	  assign_global_enable_per_cpu:ctrl=assign;mon=assign;group=//
->> +
->>   Resource alloc and monitor groups
->>   =================================
->>   
->> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
->> index 3bb0e3a203ac..992af586a194 100644
->> --- a/fs/resctrl/rdtgroup.c
->> +++ b/fs/resctrl/rdtgroup.c
->> @@ -1010,6 +1010,114 @@ static int rdt_last_cmd_status_show(struct kernfs_open_file *of,
->>   	return 0;
->>   }
->>   
->> +/* Sysfs lines for info/kernel_mode; indexed by enum resctrl_kernel_mode */
->> +static const char * const resctrl_mode_str[] = {
-> 
-> This is incredibly close to resctrl's existing rdtgroup_mode_str while being
-> very high level. Could it be renamed to be more specific to this feature?
-> For example, resctrl_kmode_str[]?
-
-Sure.
-
-> 
->> +	[RESCTRL_INHERIT_USER]	=			"inherit_user",
->> +	[RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU] =	"assign_global_enable_per_cpu"
-> 
-> As mentioned earlier I am starting to think that the "assign" in the name
-> is not necessary and creates confusion with the "assign" values of its
-> parameters.
-
-Sure. Will remove "assign" from the name.
-
-> 
->> +};
->> +
->> +static_assert(ARRAY_SIZE(resctrl_mode_str) == RESCTRL_NUM_KERNEL_MODES);
->> +
->> +static const char *resctrl_kmode_state_str(enum kmode_state state)
->> +{
->> +	return state == KMODE_ASSIGN ? "assign" : "inherit";
->> +}
->> +
->> +static void resctrl_kmode_group_path(struct rdtgroup *rdtgrp,
->> +				     const char **ctrl, const char **mon)
->> +{
->> +	*ctrl = "";
->> +	*mon = "";
->> +
->> +	if (!rdtgrp)
->> +		return;
->> +
->> +	if (rdtgrp->type == RDTMON_GROUP) {
->> +		*ctrl = rdt_kn_name(rdtgrp->mon.parent->kn);
->> +		*mon = rdt_kn_name(rdtgrp->kn);
->> +	} else {
->> +		*ctrl = rdt_kn_name(rdtgrp->kn);
->> +	}
->> +}
->> +
->> +/**
->> + * resctrl_kernel_mode_show() - Display supported and active kernel modes
->> + * @of: kernfs open file
->> + * @seq: output seq_file
->> + * @v: unused
->> + *
->> + * Lists one line per mode set in resctrl_kcfg.caps.kmode_sup. Brackets the
->> + * active mode. inherit_user is shown without any options.
->> + * assign_global_enable_per_cpu is shown as:
->> + *
->> + *   assign_global_enable_per_cpu:ctrl=<assign|inherit>;mon=<assign|inherit>;\
->> + *					group=<ctrl>/<mon>/
->> + *
->> + * When assign_global_enable_per_cpu is inactive, ctrl=assign and mon=assign
->> + * reflect resctrl_kcfg.caps.ctrl_en and resctrl_kcfg.caps.mon_en, and
->> + * group=//. When active, assign state comes from resctrl_kcfg.active.ctrl_mode
->> + * and resctrl_kcfg.active.mon_mode.
-> 
-> The code is much easier to read than above summary of it.
-
-Let me rephrase it briefly.
-
-> 
->> + *
->> + * Return: 0 on success, or -ENOENT on error.
->> + */
->> +static int resctrl_kernel_mode_show(struct kernfs_open_file *of,
->> +				    struct seq_file *seq, void *v)
->> +{
->> +	const char *ctrl_state, *mon_state;
->> +	enum resctrl_kernel_mode mode;
->> +	struct rdtgroup *rdtgrp;
->> +	const char *ctrl, *mon;
->> +	bool active;
->> +	int ret = 0;
->> +
->> +	if (!info_kn_lock(of->kn))
->> +		return -ENOENT;
->> +
->> +	for (mode = 0; mode < RESCTRL_NUM_KERNEL_MODES; mode++) {
->> +		if (!test_bit(mode, resctrl_kcfg.caps.kmode_sup))
->> +			continue;
->> +
->> +		active = (resctrl_kcfg.active.kmode_cur == mode);
->> +
->> +		if (mode == RESCTRL_INHERIT_USER) {
->> +			seq_printf(seq, active ? "[%s]\n" : "%s\n",
->> +				   resctrl_mode_str[mode]);
->> +			continue;
->> +		}
->> +
->> +		if (active) {
->> +			ctrl_state = resctrl_kmode_state_str(resctrl_kcfg.active.ctrl_mode);
->> +			mon_state = resctrl_kmode_state_str(resctrl_kcfg.active.mon_mode);
->> +			rdtgrp = resctrl_kcfg.active.k_rdtgrp;
->> +			if (WARN_ON(!rdtgrp)) {
-> 
-> Just pr_warn() is sufficient and avoids the discussion about panic_on_warn kernels.
-
-ok.
-
-> 
->> +				rdt_last_cmd_puts("Invalid kernel mode group\n");
->> +				ret = -ENOENT;
->> +				goto out_unlock;
->> +			}
->> +			resctrl_kmode_group_path(rdtgrp, &ctrl, &mon);
->> +		} else {
->> +			ctrl_state = resctrl_kcfg.caps.ctrl_en ? "assign" : "inherit";
-> 
-> This does not look right. As I understand ctrl_en represents whether the system supports
-> allocation or not. So above means that if system supports allocation then the allocation
-> state is "assign" while a system that does *not* support allocation inherits *allocation*
-> association from user space?
-
-When allocation is not supported, we should not print "ctrl". It should 
-just print "<mode>:mon=assign;group=//"
-
-Same way just print "<mode>ctrl=assign;group=//" when monitoring is not 
-supported.
-
-Will take care of it.
-> 
->> +			mon_state = resctrl_kcfg.caps.mon_en ? "assign" : "inherit";
->> +			ctrl = "";
->> +			mon = "";
->> +		}
->> +
->> +		if (active) {
-> 
-> Why are there two separate "if (active)" blocks?
-
-Will merge it.
-
-> 
->> +			seq_printf(seq, "[%s:ctrl=%s;mon=%s;group=%s/%s/]\n",
-> 
-> This does not look right. The reason why this version moved to a single global mode
-> with parameters is to be able to support systems that do not support allocation or
-> monitoring. Having these separate parameters thus enables resctrl to only show the
-> "ctrl=" parameter on a system that only supports allocation and only show the
-> "mon=" parameter on a system that only supports monitoring. Above just keeps showing
-> both whether system supports allocation/monitoring or not.
-
-Yes. That is correct. It should only print states that are supported. 
-Will change it.
-
-thanks
-Babu
+>  	iris_core_deinit(core);
+> +	cancel_delayed_work_sync(&core->sys_error_handler);
+>  
+>  	video_unregister_device(core->vdev_dec);
+>  	video_unregister_device(core->vdev_enc);
