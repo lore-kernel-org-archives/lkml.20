@@ -1,249 +1,256 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011065.outbound.protection.outlook.com [40.107.74.65])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BED4D597B;
-	Thu, 17 Sep 2026 13:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 872074D9558
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650547; cv=fail; b=YrfpuE63ty8lU6Uf6qs9awiueZWFFdp4piRYN7ApKa88BRwKsxTNoExsQHvBm2aMmaOeqt9L3XdoHuEUoSkp6iN67Owfr02sMz28r0sXSfOeWmcoeu2hMNi4J0g8CtAjQPzRSNNuqeQ9PFbtc6dgOiz3i9g1BBlqMSuOaYKeZxA=
+	t=1789650614; cv=pass; b=r7Rhggv3oYLIqoQFC7oYwh1nZFk5QLHP7OH5hiWn9MOPN8Zr77HVsQB4JEh8UGB4TD8zqplwHMOmjqqhTdDR3eJOYCRXEscENVplvCMwR5B2mv0zlGPFPg+Lhxe1IxMjSNZ0ZHbNnVGr1x/xCtnkVQU1gBCRIBtDF1y5pC44iw0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650547; c=relaxed/simple;
-	bh=BknMmSeaKkZVbPQeiE8N5YcAhRMc0qlzeIGvD1EdCKs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=bdrlJvfhy6AlfnWlaI1sd4uWOzOgJgDjSk6VkPmT7HYLECsHo+wSlBzTowqNAp8JoVUpUZFXCKPnYY9kiT1geURK7PL3FqW19E2k9eVZnDspOenf8lIfe3Q/yhZB4aXI0g22veVgqt1t4/Y0LGegNq61pXrJDlzC+Y+hd+ihuPA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=B6iY9uLg; arc=fail smtp.client-ip=40.107.74.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	s=arc-20240116; t=1789650614; c=relaxed/simple;
+	bh=dSn/lYCGf47xluUTvALJXGbm/i/dzTFyyRRAL+e7HRw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AbM+OE36PTThENQ7/D9B0eqE87ccqhsdh/DNP3WStS+gMIyk9+pJBk2hLrrs2WN541AxgMDC1mLWvjQ4iIotggf1/+WbTyuu/3EX83/boptjaWtKMY5C8zmAVyjti3D75t+C3hTmzz5ZbPcWrFrz+9SWV8JKwSwVNkVySZ1ZxKs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h5LO6BYp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ijyCWsoi; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="B6iY9uLg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lWWQ1gCRoo4HX1JuyBSQdMRy5oRAL5T1lxx45UUCGUJpPKIQQ/o5yjA63xziUnMxDIH5R/TktjCF5RgQCla8xbHsYY2eiryilIsmv0qwwcun7NlxRL4PjgGipw4TqeMb5ePESA5m0FnJude4osWxiZ/MOYQth9LVV+RqH9m9Vs5AjXVjpkTmmmmJJB+KJ4g3Y7QpCppMQBT1IgdHmbsNvDhMxx6XSHb16WSdqYHW3eNHguIJEU5CCfSrDHuJUwBLub9xq5AbMROG0bDMM3WfCCvRn6l1FZLsXE4w6SOisOhNTMnDLV/7aNPajhfJxujjqGw1HYav/ITIp1FwZ9K2gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BsUO9tpIKJzSnzK0wJPJXu22C0qJLFYe0hFX4nOmFmk=;
- b=D/1y3N75zkXjGYQGo9IaBJ4Oh1fqcBm0/NWHnAUnwR90zs+IYz3bvBzGiJj1wSCyn4XVnziDpNdi4UXZ+WiqCppwvT2XbyYCKBQhAZzP8QbcG0qoqOd9mnI4FPNppGbdGlyRAXAePk4fTMJXFrJ6CxNcFvIEusRXYfD5tP1aNnMOJKbXO0oozDRQrFnXgUJa656zO6n55MCG1FtXo3kk7M6LMh8GsGcAJ8sQKddFdEOEqYF8qIC9s6MADASfkag1yv26UaAN7z5ghYGkr+L70pdAcrtHcuTPnQ19DqCIr1XD0p6ydaQ1zYsoPjfWUPZR6oEMvIjS8XrRKNKssO6wTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BsUO9tpIKJzSnzK0wJPJXu22C0qJLFYe0hFX4nOmFmk=;
- b=B6iY9uLgJROqFNPgVxQ3Lm9TrWVIvGWqoULyBA4d5oYoSC5rRKYfhGErvyn12ACR8HuKZS9KaxtStz87/TviqDStRAVmebGbQShj8gY3BHkSKaFkJCYH7J9BWJCOhDm5LmmIYoSaAY214hoz6o3YMmiNEsJXByI8j1PYfkmverc=
-Received: from TYCPR01MB11865.jpnprd01.prod.outlook.com (2603:1096:400:38c::6)
- by TY3PR01MB11073.jpnprd01.prod.outlook.com (2603:1096:400:3b5::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 13:08:52 +0000
-Received: from TYCPR01MB11865.jpnprd01.prod.outlook.com
- ([fe80::981:1b9:f809:a0c3]) by TYCPR01MB11865.jpnprd01.prod.outlook.com
- ([fe80::981:1b9:f809:a0c3%5]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
- 13:08:52 +0000
-From: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
-To: geert <geert@linux-m68k.org>
-CC: "magnus.damm" <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, Chris Paterson
-	<Chris.Paterson2@renesas.com>, Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH 03/10] pmdomain: renesas: rcar-sys: Add r8a774a3 support
-Thread-Topic: [PATCH 03/10] pmdomain: renesas: rcar-sys: Add r8a774a3 support
-Thread-Index: AQHdMX5/dPjx0ySNWUKgGyqdvbBHELa+mdoAgBRMZ8A=
-Date: Thu, 17 Sep 2026 13:08:51 +0000
-Message-ID:
- <TYCPR01MB118651BE60ED87BA4CE9D38BFA2B82@TYCPR01MB11865.jpnprd01.prod.outlook.com>
-References: <20260821150408.73829-1-ayman.chaudhry.kc@renesas.com>
- <20260821150408.73829-4-ayman.chaudhry.kc@renesas.com>
- <CAMuHMdWH2ojjcpKK4vDWQWw7buj67H4y9=Mpf9L-xn-qD_4U6Q@mail.gmail.com>
-In-Reply-To:
- <CAMuHMdWH2ojjcpKK4vDWQWw7buj67H4y9=Mpf9L-xn-qD_4U6Q@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYCPR01MB11865:EE_|TY3PR01MB11073:EE_
-x-ms-office365-filtering-correlation-id: 78ec62ee-e25f-4325-853a-08df14bcd207
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|38070700021|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- RoShSXAL3bFG4D0GzmFAUjxhfK0emMjhaKilRt8bXN9pIcNOwB/fGpy1oHVb+H4KTq8hrVi5dgBHfE7on7hA0SEV/KWy87j2TkqaNI2Y7r7LZ98pdBitGagdZY0RWJzLebYRt7/useP+ixYy2TZgT9j2o+ZLqfFfPRLXqM34oaXHojppP5UDTXsNn5Rmj3nDz5nN6N7nyUXo+crof2rOPWnJ0MQS8R9waQNaKlKDVpB/bvif9BeLobqyraJZwpsSDtBK1BFkuv0C9MFCOJlTCgP+YZ87UgPftfr58xQsU2EaXu3RzkOVS7iEoAA8Y0qZoYS9qATvnj2M/IAiIXLG1YbLFKZyipQ84NFQHFlKo182OYT8w47GNrA5UU0cWkXL1ydchBPwPXD5tZxWl5daqBVM6Vm1oTHynWgFxat2cGKOo5ofE/8CsKXLFhgxGiaSqF4tbomEt/FrYQIMmrnP+gr2bEFzfNZ/l9T95CKx4Xb8j/fAt7BSTu1zJRzx2gYpTIMIp8DuoAzVPooVSUb27uYfArEv0IiaU9auELUm108DzpMzQshrDTdVRDGd7u9AV9XhZ6ifvHW3rztah4UkQAe+OgpHr2e9qom92FGQySpE0/4EHV2rjBHzVaFNgEKIP5yU9ac/jyWV8tT+DVP3uo0VBnO5Sy2ytJgYcAg5bojaHEcv2+dJSWZFzVVOEBJk02LS1AW7LTG7OHROeBfFpFUaFOXA9meXYoKbEJj/9vw=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11865.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(38070700021)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?a5yiHrbBBFCfKMo4aeT0jXpqz8ACML/Uxmwz2uY5FgP1eQA6yZzv1bNHAawQ?=
- =?us-ascii?Q?0Tff3oWxdz41QsHJlTAbKrndb9mmT5XA1wyECj1XKKe1027OQe4GypbE8Wa8?=
- =?us-ascii?Q?2Z6/bpKgHutHFbuZUQ75d4K5znWWsg2hZa4gnjDMSr741wAkIKpf/RV6a0qD?=
- =?us-ascii?Q?OJB2o9HLkBUCcVyDvN8ie/RYtEM6yZH80WIU1HbF7MGW/bJ+iOQtDPmOgwdv?=
- =?us-ascii?Q?c24I/UwWsQYmVJLaPP4ZjQPTsbM+A3FDsdWW1oGE4u8P+Pgi2kIGJuxu4KNS?=
- =?us-ascii?Q?PA9aFVWrktZriOhUlD6Qkpg2c2miafgKOKMVrT+1oJXOOGmfHRsWomgb0IcY?=
- =?us-ascii?Q?tO1B6NritSBiSXkxDqhy4PbmWPYiswGQou7zVy/lIUJl3xX4MXx2p8yFoy9i?=
- =?us-ascii?Q?z4lNK2hZ7/p0MWZygmV2eccQNIcIQaoRybaMKscXpOZO83vB74cwjqXQ3JkE?=
- =?us-ascii?Q?yqLdSewB3+HsPRjoePnkmUIa12z2Ow7XB0WFXPhk6adXoIOjnaYtivpuIj+T?=
- =?us-ascii?Q?4rEPYbHa9fbAuht25/mm9p3kqIkM7BRsGRwzmIBUAyV5zEkrQ1Pgi0EfHOR5?=
- =?us-ascii?Q?krb0l3TObwS+kmaVwl31Un01LjSxCIn0s6pAqIXzqGYbAt8ZDA9aW4BTEMO1?=
- =?us-ascii?Q?MbPf4QDJqJt3ArpujnnodQbxzp6VjXnbTdjCBf3Lkn8Xd7RvOoFKIa/di/I9?=
- =?us-ascii?Q?BpmSsV10dY/zEaVD60HRKOBHVCboZhbRGkr7QRu0c+jMyHHQ8Q85Qv1QGyMy?=
- =?us-ascii?Q?6NdZ++1Hd95Ov0VBcpbm2RXdMKk9lR1x75NkCmm4pe+bMFTXwlKF3kJRxPdu?=
- =?us-ascii?Q?XoYyYITJa7HBPEmPsnCx3lUKC4QcCANICVUNJzxM2gZ0yf5Yn7C095bJaqbj?=
- =?us-ascii?Q?cHD0RmJUjM5Fr8/SoY0Nj4gl8Q324WAaW+8hyalFQd3Rbs2lDkeASTw7Gc19?=
- =?us-ascii?Q?3SjxA0qBfZDabKulMGBOSBkun82S2xISJ5A4Su2wU22L8AoGKpqYqik3cO7M?=
- =?us-ascii?Q?muZezoKgS/pnkUSY9eLNrXVqkUEcVb9xrx7Uy+E/qxidKprlZZPw19LZ2ZD3?=
- =?us-ascii?Q?JM6RIRS+WuKOjYIjITSFZXH4K0cpfqwRfdGfoFLgm5PsC7wgh4qGdtyywTaF?=
- =?us-ascii?Q?Rs2Ghfd+Ds0D9CM0MWpi5+aovw/QYXFw0HyQL/qf5OL+Nx5TU0YyBNjCBrjD?=
- =?us-ascii?Q?GyEX2TPrLORqTxMvaCpgV5dJBtD+HLSrQPwR3C/cgBNiVuO2OUoCwVM5/sOk?=
- =?us-ascii?Q?Vmwb3QG6AJdStes1zjjJwPa1m80ajAerGEyLXebr5xLZ9Cjw9OuivVQtloiJ?=
- =?us-ascii?Q?Dbj4zLH+jj7VMdJEl6kVK17wmiXo82KCQFyy4SvMNG/YPBkREf+EuNt5giTC?=
- =?us-ascii?Q?uQHSeE+mvSAEdug8eT/8/VMJjnW5TWPGAhLYjg0MpNHBqfIo56f74zYC6mFi?=
- =?us-ascii?Q?/W3elHyHzQmFNtRuTT3O+aepBogh0FR4s63fGIPUG3zp6JOnrQCrBTU04DUr?=
- =?us-ascii?Q?rkJ083umiNWDL6JGFJlGciLwjusxVaWtv8VrN2ZObuLmLj6oWWjIwfGZRfUA?=
- =?us-ascii?Q?0vbWvZjjIavKnOpLUHngH2B+tj0I9zI4HJUrqbXiTpSFjGxT5P0Y3Jq7HP1j?=
- =?us-ascii?Q?iXFNkGw417mu8L5lDFuYm7wfsHGvJVcIZwWrKPlyoWREYl9zKl5NTGpInntR?=
- =?us-ascii?Q?uRUif74//LiSIAgt6dNK/2X/9nXHcU9RRobfrpfmB2haRSCwv0M59RY1v+9K?=
- =?us-ascii?Q?BvnM1CKSiq7vMMMlGtJ5Ltlryu8PY2Y=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h5LO6BYp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ijyCWsoi"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HBowkE2013663
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:10:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dSn/lYCGf47xluUTvALJXGbm/i/dzTFyyRRAL+e7HRw=; b=h5LO6BYpTXAH5nwx
+	VwuBSfEzIGBVZY+9K99uOxxLNxaGkJyTt4VyrwOZoNAcIhfJeVVSAZ0eCaIQaJvS
+	nDVEOCFYHSRyevvYxRN1OWXFxpvJz3jbojOzibn8tN8m54CTzFz6Ac9mjN6JA+dq
+	pjPJ2KGX4qfNJTznoMF9junvBNjI2gDnqyYGB7Mb2+jxCxx9Lc0W50NkZSoQnd15
+	WvZyMJQ8f6ojh0k3aD687Sdon0RPTgkQ0kO/g0rU/8BaMDwpAT7IT08qPc95tjEJ
+	Mj+NIYVuL5xZvvLVQ/0eLmGn3p6czFlPjWYh9vvJHXu6UEqYdabOfzVt5bKjiKMR
+	XbgxQw==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grfppg9cd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:10:08 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39deda201bcso1486637a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:10:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789650608; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oundVJr/QuamjjA/mgxhZ7t1CdPb24bWg+wo72wCna1uzqStdLRptEIo+Jai5hRgHs
+         m0ebv0r26UeZ1z/aYSA9WHdHYJTi9dr1Kin85EYv7xVGq2tfDSBXaNCDEBc2/aUZmRXK
+         1PlnvQ/7sT/H3Ufg9Gxx6+0oQ+iozuT39nx/O8nC/5SSVEWngvgiIsJupaisyOh50kXE
+         Z0JdZfIQHfFYf3lLkBGFeo47vblf0v04GhuP3lsRDXnERLWiZXZrhi9I/0AKZLJih8gy
+         WV20Uf8yMwQYaRzT7Z6OL9+tPuq7g+PBt6tF0izpn72aJRA92HSnCO4VWXs3WRtKl+kU
+         GOog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dSn/lYCGf47xluUTvALJXGbm/i/dzTFyyRRAL+e7HRw=;
+        fh=MGQpBsJk4gO1YhThc5c6kKaG5XEKc/M9gOi8cZspMno=;
+        b=hgQrct2yZnrkMXGULG2m671P+ja1SoADhClmgSFAxFBe5+skBpFuTTZ8F8MqqgutxR
+         nmkDU2Dzm9MD3i0ughgytYNoBiFtzgaoCjHsJfGq8ngIa+6Rn9LsLLraV8jBM76e7yGC
+         Q81qL1H+WZ7wAxjz2gdUDdAuDVI50pqs88krOLAGchUf9f6iui/fEB1IeaxPV79gqrOB
+         YtuF5kgklFX56TGaf8c0BWN45yWIsxeXPK+qNGpcTWkNud1tFNsDybqAZeDW/O5VDW9C
+         JG85hCuiQv485rhQUsGs0z1YUy/8h3HsctbGeKCaEWGeZnFVMPg2H8lIZ7gpbUiXuntg
+         UpVw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789650608; x=1790255408; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dSn/lYCGf47xluUTvALJXGbm/i/dzTFyyRRAL+e7HRw=;
+        b=ijyCWsoit4oqsavP6utjnmAj9dlRZGniBMbrAKl9nel08X72/JFlWBwLpB/bwW4fY8
+         A03WrJ+gtgkijRIKhJHOhe9gX581DWw8oKemynMVTUIsR9TsThcXFcYsceOjwuOc2yda
+         bIMTavfmFlO3xP2UXZkwRNWW8oP0pGZ8RlLTCtOotKxQNZvzoRXWySlfDtdVEJhVT4Md
+         LT6jQ1BdGKg+arXMC3JlI422C4/EL/q/c5ke8czKiK1f8lqaynOYzz9GfGUtdhzO1d4O
+         i2rPIsvSZUPOyg2MiTjOSJDVba6oAqFEL9ofhAYcjiVv8hCvMmQe5OQ+ow41aNNGI7yG
+         eRIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789650608; x=1790255408;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dSn/lYCGf47xluUTvALJXGbm/i/dzTFyyRRAL+e7HRw=;
+        b=h76gxI52u8mbqGrRDr/FnqFNCnIPSjKEx3hwbhjWiwf/CmMEMMPB+yOG2gcdtvnB/w
+         MLAGTO/UpS8/Plm9fLEVxZeKoOlg0RumUXlSI4WyxjYYyLpf2rtGcfnuxQwRa4d+VF3B
+         vx1k7O/XcuPERangAhmMjwdHI2UOqJ2PQQB8695YKxbSyRzbafkc+SEANPStlDYCBvnq
+         NagG5IwUOaul+Ow+SEfJ65kR5DY537ykH+zHuuDSWjv1iTNxIAMwD9VPwkQIyS1yrL25
+         f6sgKggfrvSpftIXg3+ghmKzGy7BxL0KUnkMhbMPJyHnOUnlVfj+eaHKd1E3nrYAycqh
+         nILA==
+X-Forwarded-Encrypted: i=1; AKwUvByOAor19IhNc24T2z4G9WUxXAEc8q1Lo7e0sFoN46czh4oT5MhGHzcaIRI9suWwTq0txfA5SpzsrF0WYUM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDYpRHU+JHVd6LHOASjN5f3c+DnIijSPgiLRza2csGcT8YSz6f
+	Q3xuE9KlVj63t7P5Ivh3TsnjUoU/zWCjZtk3O9ewHJ4tBoncQFwWjgu6XyvlwJW73dbbTB7dd/o
+	BRhQXS+6fe2dtXYoWzLi9ixS0ixLcW7lV6ccMDISiTy8HFnY22kx/FoUgAU4kW4qrIgEqXT1U1W
+	mkt9DYHrkN3UnfKOxMNNo6DHsFhRm62OVpvVY73g4KRQ==
+X-Gm-Gg: AYBFou03ZlJTDOgz5ty0geQBvkHQ5u2J/cGNHxSH/gwdwJAkQVA3vyBLjRtTG+VA+SB
+	csfrs5UFRXmLw6BD7sG+QNXQkuyr85/BFBiaSbqtA5mjBLFNVqys3rU5ju0IUqcuce+VPBtICYE
+	2SajoJFNipJN+hVDP/fd1L6aAfIboFqwQVSLa4RFZs6aHs/VLsQ3tPLwbfVA==
+X-Received: by 2002:a17:903:40cc:b0:2dd:7979:246 with SMTP id d9443c01a7336-2dd8e633921mr148273425ad.16.1789650607504;
+        Thu, 17 Sep 2026 06:10:07 -0700 (PDT)
+X-Received: by 2002:a17:903:40cc:b0:2dd:7979:246 with SMTP id
+ d9443c01a7336-2dd8e633921mr148272805ad.16.1789650606942; Thu, 17 Sep 2026
+ 06:10:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11865.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78ec62ee-e25f-4325-853a-08df14bcd207
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 13:08:51.9748
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vrGBVjPv+U2H59prCAeGnVjd3PVszqrEr3AzsX/4fwucUynYRp9Mp9aqhYuqLl2x/47fdGF8gAfrpG4onMs2S8CuauoMhwnd3zh8cE38LH4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11073
+References: <20260915132052.273212-1-ulf.hansson@oss.qualcomm.com>
+ <20260915132052.273212-3-ulf.hansson@oss.qualcomm.com> <aqpIl5NWCFiuKy9b@hovoldconsulting.com>
+ <CAPx+jO86Sy+of41dw3Gi5CNfyc5+iOyDU4CZypz4YGzG27QW0A@mail.gmail.com>
+ <aqpovla0rTDnmwRh@hovoldconsulting.com> <CAPx+jO8WS3MqzS3txy1B3FnQ9OzRjDGzxMLLZ+Mys-jqego3_w@mail.gmail.com>
+ <aqudoCAtZTgq_31Y@hovoldconsulting.com>
+In-Reply-To: <aqudoCAtZTgq_31Y@hovoldconsulting.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Thu, 17 Sep 2026 15:09:56 +0200
+X-Gm-Features: AcwNN1XmCRz3ewGD_qaDz6B9arOOIwfnzlm8ZiND-YnUnSWbnYkPL_h4vprGqQc
+Message-ID: <CAPx+jO8ETnyiZ8i2AJKa03HZ-iOryjf3Y8DPOqqvu-W_9ThZFQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] mmc: core: Turn mmc_alloc|free_host() into static functions
+To: Johan Hovold <johan@kernel.org>
+Cc: linux-mmc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
+        Rui Miguel Silva <rmfrfs@gmail.com>, Alex Elder <elder@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: 0HwIprw5i5YHRXHNEdC8cXMtbEZfnLdw
+X-Authority-Analysis: v=2.4 cv=YcYodARf c=1 sm=1 tr=0 ts=6aabe6b0 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=ODYK8XF4EdztDUzRPCIA:9
+ a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-ORIG-GUID: 0HwIprw5i5YHRXHNEdC8cXMtbEZfnLdw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDE4NSBTYWx0ZWRfXyxK5aWvZxyvU
+ bUe26J6k2HTnPZInzVeQWQlf3NM5HmORj23lcOWbSawr+D4aXXbmMrYlW7wHouCYhzhUPz/DzyD
+ zQFTT8/VVGJDkfmOrOUNPorbxsai5tMTYVMZSDAVumADNHRm4EDrnTmWzWqFXu2lwVRKQMS+/mc
+ Gs6tk9q+GPnwkHxHBqOWMP/27KBjsl0S+MeXpQwGi/mWglGpDnw8HwAxP7PKu3oSn3UOsbZJGnd
+ 1cKuUTEyRv3L1Aj9I9E1NxHTogFglo6SWApDLXpTwZHQkzLrwGOWqbyNaTigBVHpxM1tWND3Y4g
+ vWpxYzeefncLIOu6CXFxuQ7pvTuHG0KLq/1G2zMbN2UzrhZ7+Ls71b/qVQogn4A9OxYWFoS3vQ7
+ MUc7mFdi//ItuNxi5qieM2XMA5vARoDD+MX6z+IpzztNfL2xYrxPFs6DaJb9O0oNFRloXl+CNSZ
+ jdzJy0dsWuY7kkenKbg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDE4NSBTYWx0ZWRfX/SEmA0wcO5w0
+ jOHqGKQqUuCVUXwQoXTUKxQdJwrl9SZXUqxTgTT+EefdpWIx0bpjKRn45V5Z3Mbbzl3ODwMt0B4
+ I9HqDl+q1jitnfj+pNKBiyHG16gm8Y8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 spamscore=0 suspectscore=0 phishscore=0
+ clxscore=1015 bulkscore=0 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609170185
 
-Hi Geert,
-
-Thanks for the review!
-
-> From: Geert Uytterhoeven <geert@linux-m68k.org>
-> Sent: Friday, September 4, 2026 4:03 PM
-> To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
-> Cc: magnus.damm <magnus.damm@gmail.com>; Rob Herring
-> <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor Dooley
-> <conor+dt@kernel.org>; Stephen Boyd <sboyd@kernel.org>; Brian Masney
-> <bmasney+clk@redhat.com>; Jerome Brunet <jbrunet+clk@baylibre.com>;
-> Ulf Hansson <ulfh@kernel.org>; linux-renesas-soc@vger.kernel.org;
-> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-
-> clk@vger.kernel.org; linux-pm@vger.kernel.org; Chris Paterson
-> <Chris.Paterson2@renesas.com>; Biju Das <biju.das.jz@bp.renesas.com>;
-> Fabrizio Castro <fabrizio.castro.jz@renesas.com>; Prabhakar Mahadev Lad
-> <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Subject: Re: [PATCH 03/10] pmdomain: renesas: rcar-sys: Add r8a774a3
-> support
->=20
-> Hi Ayman,
->=20
-> On Fri, 21 Aug 2026 at 17:05, Ayman Chaudhry
-> <ayman.chaudhry.kc@renesas.com> wrote:
-> > Add support for Renesas RZ/G2M v3.0 (a.k.a. R8A774A3) SoC power areas
-> > to the R-Car SYSC driver. The RZ/G2M v3.0 SYSC is similar to the
-> > RZ/G2M
-> > v1.3 SYSC, however it lacks the A2VC0 power area.
+On Thu, Sep 17, 2026 at 9:58=E2=80=AFAM Johan Hovold <johan@kernel.org> wro=
+te:
+>
+> On Wed, Sep 16, 2026 at 04:12:10PM +0200, Ulf Hansson wrote:
+> > On Wed, Sep 16, 2026 at 12:00=E2=80=AFPM Johan Hovold <johan@kernel.org=
+> wrote:
+>
+> > > Devres generally only works when all resources are device managed.
+> > > Therefore you should always provide the underlying non-devres manages
+> > > interface as well so that you don't force devres on drivers where it
+> > > could cause trouble.
+> > >
+> > > > > Especially with the work cancellations present in mmc_free_host()=
+ (which
+> > > > > I have pointed out elsewhere should not be there), a driver may n=
+eed to
+> > > > > free the host before tearing down other non-devres managed resour=
+ces
+> > > > > during unbind.
+> > > >
+> > > > Can you please point me to such an example so I can try to understa=
+nd better?
+> > >
+> > > We just discussed the renesas driver which can schedule rescan work
+> > > before registering the host controller. [1]
 > >
-> > Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
->=20
-> Thanks for your patch!
->=20
-> > --- /dev/null
-> > +++ b/drivers/pmdomain/renesas/r8a774a3-sysc.c
-> > @@ -0,0 +1,45 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Renesas RZ/G2M v3.0 System Controller
-> > + * Copyright (C) 2026 Renesas Electronics Corp.
-> > + *
-> > + * Based on Renesas R-Car M3-W System Controller
-> > + * Copyright (C) 2016 Glider bvba
-> > + */
-> > +
-> > +#include <linux/kernel.h>
-> > +
-> > +#include <dt-bindings/power/r8a774a3-sysc.h>
-> > +
-> > +#include "rcar-sysc.h"
-> > +
-> > +static const struct rcar_sysc_area r8a774a3_areas[] __initconst =3D {
-> > +       { "always-on",     0, 0, R8A774A3_PD_ALWAYS_ON, -1,
-> PD_ALWAYS_ON },
-> > +       { "ca57-scu",  0x1c0, 0, R8A774A3_PD_CA57_SCU,
-> R8A774A3_PD_ALWAYS_ON,
-> > +         PD_SCU },
-> > +       { "ca57-cpu0",  0x80, 0, R8A774A3_PD_CA57_CPU0,
-> R8A774A3_PD_CA57_SCU,
-> > +         PD_CPU_NOCR },
-> > +       { "ca57-cpu1",  0x80, 1, R8A774A3_PD_CA57_CPU1,
-> R8A774A3_PD_CA57_SCU,
-> > +         PD_CPU_NOCR},
->=20
-> Please add a space before the closing curly brace.
+> > That isn't a problem, but it's not the right thing to do as
+> > host->rescan_disable is set.
+>
+> Ok, good, I see now that you also cancel the rescan work when the host
+> is stopped so that seems fine even if the second cancel when freeing the
+> host is unexpected and bit misleading (as it was added to work around a
+> driver doing something it should not have).
+>
+> > > If such a driver also has non-devres managed resources that are freed
+> > > before the work is cancelled you have a use-after-free.
+> >
+> > If you are referring to the mmc rescan work; mmc_rescan() will just
+> > bail out as host->rescan_disable has been set as soon as
+> > mmc_remove_host() is called (see mmc_stop_host()). In other words, I
+> > don't see how a use-after-free would be possible in this regard.
+>
+> Looks like you also recently fixed a related issue with sdio interrupt
+> work which also wasn't stopped (see commit 6feadbecdae6 ("mmc: core:
+> Cancel SDIO IRQ work before freeing host")).
+>
+> So I was referring to all work which may still be running after
+> mmc_remove_host() and potentially call back into the driver being
+> unbound.
 
-Thanks for catching this, I will fix it in v2.
+Okay, I see and understand your concern.
 
-Kind Regards,
-Ayman
+Although, if things work as they *should*, the mmc core must not call
+back into the host driver when mmc_remove_host() has returned.
 
->=20
-> > +       { "ca53-scu",  0x140, 0, R8A774A3_PD_CA53_SCU,
-> R8A774A3_PD_ALWAYS_ON,
-> > +         PD_SCU },
-> > +       { "ca53-cpu0", 0x200, 0, R8A774A3_PD_CA53_CPU0,
-> R8A774A3_PD_CA53_SCU,
-> > +         PD_CPU_NOCR },
-> > +       { "ca53-cpu1", 0x200, 1, R8A774A3_PD_CA53_CPU1,
-> R8A774A3_PD_CA53_SCU,
-> > +         PD_CPU_NOCR },
-> > +       { "ca53-cpu2", 0x200, 2, R8A774A3_PD_CA53_CPU2,
-> R8A774A3_PD_CA53_SCU,
-> > +         PD_CPU_NOCR },
-> > +       { "ca53-cpu3", 0x200, 3, R8A774A3_PD_CA53_CPU3,
-> R8A774A3_PD_CA53_SCU,
-> > +         PD_CPU_NOCR },
-> > +       { "a3vc",      0x380, 0, R8A774A3_PD_A3VC,
-> R8A774A3_PD_ALWAYS_ON },
-> > +       { "a2vc1",     0x3c0, 1, R8A774A3_PD_A2VC1, R8A774A3_PD_A3VC },
-> > +       { "3dg-a",     0x100, 0, R8A774A3_PD_3DG_A,
-> R8A774A3_PD_ALWAYS_ON },
-> > +       { "3dg-b",     0x100, 1, R8A774A3_PD_3DG_B, R8A774A3_PD_3DG_A }=
-,
-> > +};
->=20
-> For the content:
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
->=20
-> Gr{oetje,eeting}s,
->=20
->                         Geert
->=20
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-
-> m68k.org
->=20
-> In personal conversations with technical people, I call myself a hacker. =
-But
-> when I'm talking to journalists I just say "programmer" or something like=
- that.
->                                 -- Linus Torvalds
+*If* that would be the case, then there is a bug in the mmc core that
+needs to be fixed.
+
+>
+> A quick look at a driver using sdio_signal_irq() indicates that this may
+> still be racy. In dw_mci_remove() the host is removed and clocks
+> disabled before freeing the host and cancelling the sdio work. A racing
+> interrupt could have scheduled work that may result in MMIO accesses
+> with clocks disabled.
+
+In this case, mmc_remove_host() also removes the corresponding SDIO
+functional devices that correspond to the SDIO card, see
+mmc_sdio_remove().
+
+This leads to the SDIO functional driver's ->remove() callback being
+called and from there it's expected that the SDIO irqs gets released
+(see sdio_card_irq_put()), which must be done with the mmc host
+claimed. If this isn't happening, it's a bug in the SDIO functional
+driver.
+
+Yes, there may still be an sdio_irq_work scheduled beyond this, but
+when it runs and claims the host in sdio_run_irqs(), it sees that
+there is no SDIO irqs enabled anymore and just returns. So, there
+should be no calls back into the host beyond mmc_remove_host().
+
+>
+> > > I only pointed at greybus as an example of a driver which has non-dev=
+res
+> > > managed resources. If there is (rescan) work still scheduled after
+> > > probe() or remove() returns, there's a potential use-after-free.
+> >
+> > See above. This should not be an issue, at least it has nothing to do
+> > whether we are using managed resources or not.
+>
+> Sure, if mmc core guarantees that no callbacks are made despite the work
+> being left running it should be fine. But that does not seem to be the
+> case with sdio interrupts currently.
+
+See above. SDIO irqs should work perfectly fine too.
+
+>
+> But regardless of any potential races in mmc core, my devres comment is
+> a more general one: subsystems should not force devres on anyone.
+
+I understand your point, but I don't agree, at least for mmc.
+
+Instead my take is; come with a use case where devres doesn't work and
+I am perfectly fine to bring back the non-devres helpers.
+
+Kind regards
+Uffe
