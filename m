@@ -1,100 +1,122 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0706654DADA;
-	Thu, 17 Sep 2026 13:48:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 346D05505D5;
+	Thu, 17 Sep 2026 13:49:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652904; cv=none; b=qAdU5x5wwpsYoqJBTe+P+6GJXK9QozwGK/DPuxoWAnxUd8iOJyrUz77y1HMDs9ZROtF9gWkIr8Ih0eDLOGvPO3eeHXzhpuyEY2KUsOHMpqsAaHhUkE3boBFv15X9JtsSAr8achdK0406fRM+0eySwFQoDSDEN7xV1Moiq7fQE4Q=
+	t=1789652969; cv=none; b=okNWqi42ZpxD0nqMEBk+fS2nHdNOJS+kfEhBz6HUml1/CGybQ57AinQO7Ox/BZ54t0KlWITOdXvjkTFOlE+ojIAFLZtaYu2Cmt6oq0gzj9uUa3EgSQvKFLyh2+8cODFuHQiW5EU4q+UGCA5D09CM/4lPx3yKTuAo7GgLzsZPrXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652904; c=relaxed/simple;
-	bh=FtoDbAwUNEAcVuzYKJWUIZPIEF5psBdBgH5jYE+cz/k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Lvj/iSlhmugF2A4KZzUzxnENONWczLckdUrJ9rfdd6rJhPm/kn3M4oR/B7mP9+12kPqbEbpenFrf4wMDPiB6ps+NqSeD0eQPToktoLOb12NjAFZWJGIn9Ngx7RXcGCB0WkrdW5xtWaG34o8kaTpjm8AdQsdjgadDqq8gVZeD/+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAB3pkCb76tqlceBCA--.3932S2;
-	Thu, 17 Sep 2026 21:48:11 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: linusw@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	schung@nuvoton.com,
-	ychuang3@nuvoton.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] pinctrl: nuvoton: Fix clock reference leak in ma35_get_bank_data()
-Date: Thu, 17 Sep 2026 13:48:11 +0000
-Message-Id: <20260917134811.2153902-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789652969; c=relaxed/simple;
+	bh=3W2f0MAd/j+4iELbcrQn9aunsEIzQRT+obAqYgIAROM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=njioaXcjKaU/1+uwZRlC9uJmgR/P0VtR4/0hzMPWiFKGENhTpCU5nsE2P5YHhPyxLkelPkW+BgKRL05iXsuOqEmV7Q+C9pMhbbOuYdCKdoPwc38L5uzzg3Q/dwoPnjV4j8qe6KABA4uSUiyZXbrNIUMBdCpjPqnm/3dsgAWPrxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=FTb1GP4b; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="FTb1GP4b"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789652961;
+	bh=3W2f0MAd/j+4iELbcrQn9aunsEIzQRT+obAqYgIAROM=;
+	h=From:Subject:Date:To:Cc:From;
+	b=FTb1GP4brkFWQbicGPdBD4UGPyDUQUtTCq7HOTdN40XE31utUs8K72+0naAGWmWQp
+	 7DjM0ZlF6xKRdeLyL9jdUDtr8rDFKNhpGf7LmaigbtTHcTu7p8YUfaWeI6ddDAQBwR
+	 9vnYiylZB2SYS3+2Z4RKF9BP1lyZ7VaABQQr5XO+eXoGXKqIorBHh+8PJzzYGkkFCO
+	 pt5AOFndErQYi3Q7zBriaKNMJpu9Owck2p9Fg4C9sm0wn7KRs8kz03u38Pt3ZrIKWz
+	 lxGLROnJqzhZ74kzx3XbVSWcWLf7PL/pRGfKS9DKHmB0NFxlkA2sPKmLzAdAlOQUJv
+	 O4f/lKdIL1/0Q==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C3BF017E0074;
+	Thu, 17 Sep 2026 15:49:21 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 7987148002B; Thu, 17 Sep 2026 15:49:21 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: [PATCH 0/8] PM / devfreq: rockchip-dfi: cleanups
+Date: Thu, 17 Sep 2026 15:49:12 +0200
+Message-Id: <20260917-rockchip-dfi-cleanup-v1-0-4f00a97a69a6@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB3pkCb76tqlceBCA--.3932S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar4xtF4xJr1fXF4fKF4Uurg_yoW8XF47pa
-	9xKrWYkrW3JFWvy3yDA3yUAFy5Ka1Iyr1UK348Ka4vva13JFyUJFy5Ka48AF4vkrWrCr45
-	Jr43AFyq9r45JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UNTmhUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcNA2qrq3bTQQAAsB
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBG4avIrDugLix6FXGRjn90bIkhqSIE7
+ 25al9/ivUQRQRGpKxIF7Bp1dRnVoyCZjZvAOmZTXdZN2VZPDqu8ZVbPo1WWD4zbPFsYNIA1aIV
+ y6gOsHv9tP9yO22uBfH8vOs8Luw4py3gAAAA=
+X-Change-ID: 20260917-rockchip-dfi-cleanup-feae6eefae9c
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Chanwoo Choi <cw00.choi@samsung.com>, 
+ MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1846;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=3W2f0MAd/j+4iELbcrQn9aunsEIzQRT+obAqYgIAROM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqr7+G/yDfpsZ794SvTCOLXgxCZftsZzOK/G
+ hPSHHcl6U3/5IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqq+/hAAoJENju1/PI
+ O/qaqzMP/2g61okvGwUd0WJq6OBMB2CN3yCavL+mEw1uNG23b3iZL3ARcMyN0xmRrhGSqidt3yD
+ weVkBxPCABW1lBc5bwHvwS0ewq2LdDhKa2G6IguXm1bA1KewClmitCTfmvhzjGLWTD7/RL1PEFY
+ /Anww/cvsNMY9hRUxTTcQ8Yl0j1JxSDNNlkSfYzqordRFqOfjCrwvGwZxvOf7e5u698DRVIjpZL
+ cYNxckC9/Ez22IeXlNJcBlkguR4SVg543D4C5pmSQIp/r+GtiGVHDC70fv+MDGBE48dneSGaFsx
+ x7L4M1kVabWVC+m9q40tEybX0dBNLFOpYKEojY7vznyWdsoaOzmEg1tijH3Z4L2z21TEGdgcX2Y
+ J6x6GXKJPl6XhoJIEoJowgtYYTPf8tSm0rEGXF26Ok3DISn9LykSMkVvNUSbtrKiNuhBgRERnGq
+ bGyEhu71fcVT9/a4vBkOLDExLX3lkYhV+r/o4+YSyPZ3Qjz891jOaXj1bZndhCcisjl0PuFIiPI
+ SHyG3K0uhKvyXHPGqPsJMhulC349cF4z2DXMCEd0WoZa/g7CN8HQNpR9zuVwDBFJ4RBOYNq1Xtt
+ 7W5DhCjMFnq6Av3T/tuWfuEoo/0J9D9vKJYbWHwIQ3cDtRp+RqSO3h7tmtPry+RylsL3DMZMWlN
+ IhXxrtsS2OPsqjYBsMVYvjA==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-ma35_get_bank_data() obtains the bank clock with of_clk_get() and
-stores it in bank->clk, but returns clk_prepare_enable() directly.  If
-that call fails, the reference taken by of_clk_get() is never dropped,
-and the driver has no other clk_put() for it.
+This adds proper handling of the RK3588 clocks required for DDR memory
+monitoring, which involves adding them to the clock driver and the DT
+bindings first. The change is done in a backwards compatible way by
+marking them as CLK_IGNORE_UNUSED and using optional clock get in the
+DFI driver. The series also applies a few cleanups to the DFI driver
+while at it. This is done in preparation for RK3576 support, which
+will also come with some DFI specific clocks.
 
-Drop the reference when clk_prepare_enable() fails.
+As everything is done backwards compatible, patches do not need to
+be merged together. So Heiko can take the Rockchip specific patches
+and Chanwoo Choi can take the DFI driver patches.
 
-Fixes: f805e356313b ("pinctrl: nuvoton: Add ma35d1 pinctrl and GPIO driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/pinctrl/nuvoton/pinctrl-ma35.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Nicolas Frattaroli (8):
+      dt-bindings: clock: rk3588: add PCLK_DDR_MON_CH clocks
+      dt-bindings: devfreq: event: rockchip,dfi: add clocks to rk3588
+      PM / devfreq: rockchip-dfi: move to per-variant const structs
+      PM / devfreq: rockchip-dfi: add NO_INTERRUPT perf capability
+      PM / devfreq: rockchip-dfi: use bulk clock APIs
+      clk: rockchip: rk3588: add PCLK_DDR_MON_CH gate branches
+      PM / devfreq: rockchip-dfi: make RK3588 use its clocks
+      arm64: dts: rockchip: add dfi clocks on RK3588
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-ma35.c b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-index f01344201628..c94c4adb2125 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-@@ -557,6 +557,8 @@ static int ma35_gpiolib_register(struct platform_device *pdev, struct ma35_pinct
- 
- static int ma35_get_bank_data(struct ma35_pin_bank *bank)
- {
-+	int ret;
-+
- 	bank->reg_base = fwnode_iomap(bank->fwnode, 0);
- 	if (!bank->reg_base)
- 		return -ENOMEM;
-@@ -569,7 +571,11 @@ static int ma35_get_bank_data(struct ma35_pin_bank *bank)
- 	if (IS_ERR(bank->clk))
- 		return PTR_ERR(bank->clk);
- 
--	return clk_prepare_enable(bank->clk);
-+	ret = clk_prepare_enable(bank->clk);
-+	if (ret)
-+		clk_put(bank->clk);
-+
-+	return ret;
- }
- 
- static int ma35_pinctrl_get_soc_data(struct ma35_pinctrl *pctl, struct platform_device *pdev)
--- 
-2.34.1
+ .../bindings/devfreq/event/rockchip,dfi.yaml       |  84 +++++++++--
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |   4 +
+ drivers/clk/rockchip/clk-rk3588.c                  |   8 ++
+ drivers/devfreq/event/rockchip-dfi.c               | 160 ++++++++++++++-------
+ include/dt-bindings/clock/rockchip,rk3588-cru.h    |   4 +
+ 5 files changed, 198 insertions(+), 62 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260917-rockchip-dfi-cleanup-feae6eefae9c
+
+Best regards,
+--  
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
