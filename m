@@ -1,133 +1,87 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41484AD4B9;
-	Thu, 17 Sep 2026 09:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1683A440A07;
+	Thu, 17 Sep 2026 09:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789637817; cv=none; b=Yi66T7ipGadsF44G4mnN+YnymhiRY5RT7eRVIPjuKkJPf2iyPa+2dxl0hOQoc6JluKcjm2YS/7vG6KZ04lbIYzeZJMtO9o5zinNgAhaDWapqbZ9azVgxsWngPyX2jC/ufip1bHe7+KtewL3rFUvuCRWC7t5FKEJN4U1sIju92lk=
+	t=1789637823; cv=none; b=n+/KoIJ/aPfri8oSakXmApW6f2sl6mR6FiwEYK5mjcmdRMqzjt9rkLzM8lYtRVfNDbJ3B+xQPt/v0RcS8zKKuugcIHT28pPRlL3jk3sZQ2FInTtmxCF7SkEI/X+hkQp9/GZHZ8HVRqdAfaBhs0Wi8RcQwsf1HT5HUFEFtsBDRDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789637817; c=relaxed/simple;
-	bh=2Sf+S9cOAIGjnMuUoWLx3jxqSb4baH2NMOZXkOdv1ME=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=u1+g5QJ2dgVXt+ugrptkwEzoHWE/SH6zqfVH/nIJ0o5BnkwEfBlQtYkCp1m4YINHTWekJdDXUuCTYVAdA4ZLYqfRuIW4FyLb2oli1cyQypMFZivIxCF9TeFqDjTD/dCtK0NkHgl0tJcpFdW5+czif3AjzQh1u17BZG6zkgvVX+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=DTlSowL3; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="DTlSowL3"
-dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=4qKfA/3QEG+L09Ej0W0JUmXjP14WgIp0UD1F6ZxKGEQ=;
-	b=DTlSowL3Lp5IlKr8I4O810oODvMG7RcpjuCN6edc+KXf4K5wuZSjrdzelnteyiCUA85xklR42
-	Dh95ybOJeH696idTZaIq8ejFJpU4zjPmnUGz89VJlcGcMXrPC5kFQBdz1GQx3hRLRYlQybxG3WT
-	YoMMQNUSbU+e5zhyb1bW5mE=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hlr2Y5dl2z12LHn;
-	Thu, 17 Sep 2026 17:25:25 +0800 (CST)
-Received: from kwepemp200001.china.huawei.com (unknown [7.202.195.150])
-	by mail.maildlp.com (Postfix) with ESMTPS id 687014057F;
-	Thu, 17 Sep 2026 17:36:33 +0800 (CST)
-Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
- kwepemp200001.china.huawei.com (7.202.195.150) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 17 Sep 2026 17:36:33 +0800
-Received: from [10.67.120.108] (10.67.120.108) by
- kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 17 Sep 2026 17:36:32 +0800
-Message-ID: <f9071dfe-2345-6ee3-c4ae-8408bdf781e4@huawei.com>
-Date: Thu, 17 Sep 2026 17:36:32 +0800
+	s=arc-20240116; t=1789637823; c=relaxed/simple;
+	bh=Ef2hvkf7vwnpshLd3Fy/dachfnpC6W2xudbHwBNL/5k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kOdcFxlVf9jZ9+lhE0YDAWWbpsxTi1hNLGBE3j7BVUXhHe7IOLNY35OFvsxzDCfX/B3Lnx9tMGwhc6c+mLhq9Of6hRAphkR81LDW/9gtSimrpogxN7D21OlgA213TAsg4tAArcKs51hrjNDpnEUIXrKF1U7NntqOTb29l30IqQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABnmEKptKtqGcd9CA--.40725S2;
+	Thu, 17 Sep 2026 17:36:41 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: lee@kernel.org
+Cc: linusw@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	pavel@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] leds: netxbig: Fix platform device reference leak on successful probe
+Date: Thu, 17 Sep 2026 09:36:41 +0000
+Message-Id: <20260917093641.2144866-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.1
-Subject: Re: [PATCH] scsi: libsas: Fix SMP IO deadlock during HA resume
-Content-Language: en-CA
-To: John Garry <john.garry@linux.dev>, <yanaijie@huawei.com>,
-	<jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <mkp@kernel.org>
-CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linuxarm@huawei.com>, <liuyonglong@huawei.com>, <kangfenglong@huawei.com>
-References: <20260826032845.1632348-1-yangxingui@huawei.com>
- <a97c6cfb-8476-1030-a07a-fea1c004ecbe@huawei.com>
- <2c1aee3c-3ea5-44f7-915c-5a812a261032@linux.dev>
-From: yangxingui <yangxingui@huawei.com>
-In-Reply-To: <2c1aee3c-3ea5-44f7-915c-5a812a261032@linux.dev>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemp500015.china.huawei.com (7.202.195.9)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABnmEKptKtqGcd9CA--.40725S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrurW5Cw1DXr4rGr45tr47Jwb_yoWDXwb_ur
+	yIg3s7XFW8XF40yw15Zr1YvryfCFsrXF48ursFvas5JrW3XrW3WrWq9r98Cr1DZa1xAFn8
+	CFnruF15Aw17WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbsxFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
+	aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07
+	x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17
+	McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
+	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij
+	64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0x
+	ZFpf9x0JUdKsbUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qrq3Yp0AAAsv
 
-Hi John
+of_find_device_by_node() returns the GPIO extension device with an
+elevated reference count.  The error paths release it through the
+put_device label, but the success path returns directly, so the
+reference is leaked whenever the LED driver probes successfully.
 
-Thank you for the review.
+Let the success path fall through to the put_device label.
 
-On 2026/9/16 21:58, John Garry wrote:
-> On 9/11/26 02:00, yangxingui wrote:
->> Hi John & Jason,
->>
->> Kindly ping for review...
-> 
-> What about the sashiko comment:
-> 
-> - [High] Bypassing PM reference counting via a global state flag creates 
-> a race condition where concurrent independent threads can submit SMP 
-> I/Os without holding a PM reference, risking premature hardware suspend.
-> 
-> It looks correct.
+Fixes: 9af512e81964 ("leds: netxbig: Convert to use GPIO descriptors")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/leds/leds-netxbig.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Agreed. Although the possibility is very slim.
-The SMP IO which sas_drain_work() waits on cannot outlive the
-SAS_HA_RESUMING window, but a BSG request submitted during the window
-takes no PM reference for the duration of its IO, and the controller
-may autosuspend underneath it. v2 takes the reference with
-pm_runtime_get_noresume()/pm_runtime_put_noidle() instead: the usage
-counter stays elevated for the IO duration, without waiting for the
-already ongoing resume.
+diff --git a/drivers/leds/leds-netxbig.c b/drivers/leds/leds-netxbig.c
+index 99df46f2d9f5..d79fee1d9143 100644
+--- a/drivers/leds/leds-netxbig.c
++++ b/drivers/leds/leds-netxbig.c
+@@ -597,8 +597,7 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
+ 	pdata->leds = leds;
+ 	pdata->num_leds = num_leds;
+ 
+-	return 0;
+-
++	ret = 0;
+ put_device:
+ 	put_device(gpio_ext_dev);
+ 	return ret;
+-- 
+2.34.1
 
-> 
->>
->> On 2026/8/26 11:28, Xingui Yang wrote:
->>> During sas_resume_ha() -> sas_drain_work(), 
-> 
-> This is poorly described - what does during sas_resume_ha() -> 
-> sas_drain_work() even mean?
-
-The deadlock happens during a runtime resume, while
-sas_resume_ha() is inside sas_drain_work(), flushing the event and
-discovery workqueues. That flush includes the DISCE_RESUME work queued
-when the phys come back up: sas_resume_devices() -> sas_resume_sata()
-resumes the ATA ports through the libata error handler and waits for
-it in sas_ata_flush_pm_eh(). So the resume is blocked in
-sas_drain_work() waiting on that error handling - and the error
-handling's reset of the expander-attached ATA device blocks on the
-host being RPM_RESUMING, i.e. on the very resume which is waiting on
-it.
-
-> 
->> ATA EH will trigger SMP
->>> IOs via
->>> sas_phy_reset() -> sas_smp_phy_control() for expander-attached ATA 
->>> devices.
-> 
-> What commands are these specifically?
-
-SMP PHY CONTROL (hard reset or link reset) commands, sent to the
-expander which owns the phy of the ATA device being recovered:
-
-   ata_eh_recover() -> ata_eh_reset() -> sas_ata_hard_reset()
-     -> lldd_I_T_nexus_reset() -> sas_phy_reset()
-       -> sas_smp_phy_control() -> smp_execute_task_sg()
-
-A directly-attached device would take the lldd_control_phy() path
-instead, which is why only the EXP topology deadlocks.
-
-
-Thanks,
-Xingui
-.
