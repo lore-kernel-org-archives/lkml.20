@@ -1,185 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F8831E852;
-	Thu, 17 Sep 2026 16:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661212; cv=none; b=dlcDNVfS9vOO/RdDH/RdBxnl7K3kvyJw8YwhDOqIKQoH30Sw32aJgr2zKDKf34Bt1FjJkivvKk2/u1b5z5fFGcLxyegxSpr2kSlepyDyFkdYDtJe3WXUeadzEnTjco06831uh5mKkQu5Oq8QxoLZHvytV8cKyrC8u4yQyTfUxDo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661212; c=relaxed/simple;
-	bh=l1vzsOfhsFZq93BiP7aFzUsiv0IMtDncs4AVYzcTaZE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qfZnzf+uruhNKSeYLJ7sJPXCpdPmrr6n/0ajTgR86YO5UXysib3QnvixPPsfs2HKQIZVAeU3lUrNF7yUKt/tEUn47CgxtFoLGJhpl6xp6vxXwRrLPp4KlvNU5OEGNeusy+hhN1Aq+VpN4+HcTLW99i8vZr1g+SDMnKWNezLEi+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TSMYLQve; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D281858F063
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:06:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789661217; cv=pass; b=Xf8bgiZjHgaT3A0KdiETJFRclSFXaVyGR/8kvwPZBRLxIKoURLIcGnZzsgCbmrgKfGyc3YFKVCsCmCxZaSZYehekkfyrTn2ci5dyUcKvpJPD0i8S2omwkMTmTQn2/Ruj4J2wDyL3boOSJHqDAvpVUdez9NWEfgO7x2qxpLPpc0A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789661217; c=relaxed/simple;
+	bh=De/999h84+l9BVfIL2AOjoR3XEAJ+zsNfEgHR7DHgHM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XgzXHcLx5isoWgtD+v8ofw3ms9qOjASvLEYz5HeV5fH84luJKXrhL1W5WFlmBJJ+CXzvY/bAH61mtYSCD/SmHjNs2R+nmD8UYAlBAlVowTE7S98abiI4/fiCTMclVWDsju8qfNNFOujBUDIWdNRZJKNy66uamuHJJdjv+OuX9yc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TVMDzdko; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TSMYLQve"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696041F000FF;
-	Thu, 17 Sep 2026 16:06:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789661211;
-	bh=uki1B8//a8y/AGrwtR+zPRw8RRYXCi63rXRxRzPghWk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=TSMYLQvevSmCMIQXZwH4IdgOEa03i1Y2ZGsU+7rSmg1QbUE8rcWHe/bU98D97TMD9
-	 LEiz+Mi3ivMNHMslS4SK/y0WYyPspGGN/gIAGxVkgbQehhQA2x0g3Azi99T9ozy+La
-	 oQ1W3hYVy7jcgnX0TezIbP+Dz/CQz4vVIK/+hHj1YLX6aIRQ5qSLbBNX4ysI4+lARw
-	 ZE37de5YgvYGLz6cok+wwYv2rW0VySI+Xv7uaVXjo+LtxBAyGggDwP1R5tevt5sWtH
-	 2RQSJfZxxeT3y3LKcH79e4qBYAOtrJHp15AlS1rS4hnW5UIJu8Q4L7XuXfB/ZOvrvO
-	 /1HkwrElUharQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:06:11 +0100
-Subject: [PATCH v3 01/20] kbuild: do not allocate .modinfo in vmlinux
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TVMDzdko"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so171727766b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:06:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789661214; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TBDaWQ2ih0lpsHY/23tEGi9/zGUp5K1Rlx+EJCjPBOEYDn8aqc2iaE4hY67EdFvy27
+         RawYLWCom1GRGMvnpjPUDsTpaU4EkIAiwQ0zXwncFTL1i17IbjlZ0l7xFf0uP5vrEKAs
+         yVvACqyxUM2yD5yovIl1zkAYSeN7uVqY8csbPNUBaluNNibtvO0pXNqSSb69GvPJZxew
+         oQaFxPFEnu9WJpjW1N2QXkIUL8lU2iCmzqt6cs8MsAmlE77tMhmgcKY9d0p0RiyyVI6i
+         uDK7wt5DiaEuS22QjRLpFW0MqLI7h2iOrVlhvWWpW3CZDfaEcRsjDP0aNNa/UbAHXMqH
+         pdgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=l7vZZOfF1oChOGtrYGJqCH6mbY72WxmGbaYDIaKFF2w=;
+        fh=H8TYnqwDoJthABfkYNmWgxm9OFMtOEFAm55VMEnrc7M=;
+        b=G+JR6lzol4hRBkgkjFPJLU6w1ihYvUJoMT0d0MpqEDdfk2MYIIgbnG1kkKl8h91O5X
+         2eQzUlIZe9R/E4JZfncYwLBw9IQo6NMDQQDP6VyRCWUsR8tuiGhYacnNEbSTC6YRGluJ
+         8fMuvBeETeMIqet07sNcDjqmG2OBwXQkIuxLohdh4lduKESCJfLH3uQP8Agd88ZebYLc
+         vgalsKw1zLOWUH+OjBmOtOzR+BQf4kuBAKtL6c0NfvDKq8urRVFLCKcGT5XDogAX0r3j
+         o2g6+77+rQ1E9u9lPvBeIHXat+fy+WN3x8zzswFYwYUSaGXISX/DuZdd+W2BWyKlPKTv
+         M01Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789661214; x=1790266014; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l7vZZOfF1oChOGtrYGJqCH6mbY72WxmGbaYDIaKFF2w=;
+        b=TVMDzdkopOmt2usUSN7tJ/CXOAKGsQSGVXc0qJUp5OMsXpsmYcMBMfwu/yvo9kPLKh
+         ZIxjvXgL35LY5U3tJHHSoD1Qa/FXvj4TjWY1Q9zekXLpuLwNi75KOjyi49n/PdIWj5On
+         PFmmIjoHGmSbXQV6IG7fwRtI/IrpSmqMSNKmwQ56m4vn88CkXK3zwHGXeXirPV4lREVt
+         ktDuyUVikiSZ2Asg7JvIDU2MiA3AnAqyWEqsQXVfwPfFi8rS5VazlX80JqsKsPx4Sidu
+         KkQQu3joPJPcStZIdaRdq3Vw26q/XEhcgyHWptSrP7nL3lKF2wDNLDc+/oNCgvd8RA6U
+         eg5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789661214; x=1790266014;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=l7vZZOfF1oChOGtrYGJqCH6mbY72WxmGbaYDIaKFF2w=;
+        b=HVjqOAUizgJEFdedAzcyxA86aDQEppzUyOoqgiZZ65Dp3Hb7JSeDmFJKuRAvicB9Ow
+         2b3dYiwm8eflMwmMj6K/tfBwVniR4enmxd09TmAVO+W7JQhsJsWUvRbe6AXoaixpHsCB
+         Ey72H+jmvV4LJkZc6Ww7N6pm++kiLgISigVDoEqE4at4KyJp7hMwt0cLshjp66o5yQik
+         1jbC2XVodokmxNuH/xJI3RQRuqJ2JYNY25sG5CjUR5pQGnXQZqJzSf6EejmFQi3WFOeg
+         gSakDjRxWGAP/YH/VOJ8SU1zVhZsfGCPfXXVxiv4gM4oagBc0bhOwocIWYc2wm4E+hhy
+         nJ/w==
+X-Forwarded-Encrypted: i=1; AKwUvBwV4q+JsvgRTkU2Ji47/9VCm0ZK8T1C7xb9M5Z0yebJ/5gJ0C8gq9yZcF3K8p2nk+MR3oU8zO1uugixtSU=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3Tdccl9SjuT50+VzFgIcgw2hIjl3/OOAwlNR91hT1ZPt4Sf3c
+	QjvERoJ9qBwg7PzBRls2XUVK1/fU4STPg8JyEwmuu+xWo4dqlkljqcrIB9m88qF1tvNqZc6+YTh
+	NLMtqpr0rL+G1J5dv9B/NLurXMLDGpkeXwzefnuxs7w==
+X-Gm-Gg: AYBFou17mklDdtkvBPeki4oiPQHLasXyL69k7DNlsoXW+63W1kjcQX1v9AU0BdTKi8f
+	7SlrRQXHlAkbk4jX0cA4WB+Mv/mkHL2DOumm9laszGjzaYm1lFzv/s16dLa7IGw4mOhgBsxoFWD
+	LaYD5KgvXAtn0JkLm1B9beTda0hJCo0L6MZEjDWyOp1fQjECRsVUWlQrnuz3+sxvK462E9CxwBd
+	KS8XNGd+2Rwg0QaqbArCe3RGmMOFBdFw/7l/GhAwplyLujgrCO9E0yp4WM6NlyVOTa4pb+hIb6z
+	LYC8Bv5E7qIqWhIOUmDnka9CT4rsDHvUfZEr2KdRSpqu+NQJiC2SzewGGM3nHXZg0DhArHrCLA7
+	keL5WyHbJiD/l
+X-Received: by 2002:a17:906:c108:b0:c29:3821:ae6c with SMTP id
+ a640c23a62f3a-c29e532ba26mr550909566b.37.1789661213976; Thu, 17 Sep 2026
+ 09:06:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-build-speedup-v3-1-9ecf4163ff36@kernel.org>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
-In-Reply-To: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
- linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4498; i=ljs@kernel.org;
- h=from:subject:message-id; bh=l1vzsOfhsFZq93BiP7aFzUsiv0IMtDncs4AVYzcTaZE=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLW8P9pjAkMtjVYIrIsJlycfxL3+5fz1rlv5Dx3su9H+
- qngxGNsHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIrwaG/w4MvdqCB8UOfk8/
- GhH7YdGq9RbFze3Ta45qyLv82LZn8WNGht3t3y+/z5YLvZfw+nbHrrebsp+ZM5dtnr/Y+tPxc/5
- GVWwA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+References: <20260917153915.1563875-1-christian.loehle@arm.com> <20260917153915.1563875-3-christian.loehle@arm.com>
+In-Reply-To: <20260917153915.1563875-3-christian.loehle@arm.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Thu, 17 Sep 2026 18:06:42 +0200
+X-Gm-Features: AcwNN1VDgoUHXaC_qbFB1CwxOWF1VmJqBSwM0r22FFa4FgrlUpPPIB6AguxFn6o
+Message-ID: <CAKfTPtBft2pVrsZQGJu0UBjuqaGJ2ViE9N6YExLvBnpgEXDvag@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] sched/fair: Randomize equally shallow slow-path candidates
+To: Christian Loehle <christian.loehle@arm.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Beata Michalska <beata.michalska@arm.com>, Elif Topuz <elif.topuz@arm.com>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Shubhang Kaushik <sh@gentwo.org>, Christoph Lameter <cl@gentwo.org>, 
+	Huang Shijie <shijie@os.amperecomputing.com>, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Commit 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
-placed MODULE_INFO() strings in the .modinfo section in vmlinux.unstripped,
-however it left the section allocatable, so it gets assigned an address and
-on arm64, arm and riscv, the section is tagged as PT_LOAD.
+On Thu, 17 Sept 2026 at 17:41, Christian Loehle
+<christian.loehle@arm.com> wrote:
+>
+> Picking the first eligible idle CPU leaves a scan-order bias. Concurrent
+> slow-path selectors can choose the same CPU before either task is enqueued.
+>
+> Use reservoir sampling for equal exit latencies, resetting the candidate
+> count when a shallower candidate appears. Use the per-CPU scheduler PRNG
+> and reciprocal_scale() to avoid variable division or a second scan.
+>
+> Use a u64 latency key with U64_MAX for unpublished states. Published
+> states take precedence; when none are found, sample among the idle CPUs
+> without a published state.
+>
+> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 
-This is useless as the data is ultimately stripped anyway.
+Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
 
-Doing this results in a lot of unnecessary work - each pass copies the
-whole file, 450 MIB with relocations for an x86 allmodconfig build and 250
-MiB for an arm64 allmodconfig build.
-
-This adds ~0.7s on the serial tail of every build for arm64 and ~0.2s for
-x86 (the tail is single-threaded work done after parallel work has
-finished).
-
-Nothing requires .modinfo to exist at an address, so fix this by using
---dump-section which prevents the allocation.
-
-Image, bzImage, System.map and modules.builtin.modinfo are unchanged and
-the stripped vmlinux differs only in its program headers.
-
-The objcopy passes are on the serial tail of every build that links
-vmlinux, no-op builds are unchanged.
-
-Whole build, 128-thread Threadripper 9980X, best of N runs:
-
-                                         before   after     delta
-                                         -------------------------------
-  x86 defconfig, touch mm/vma.c, gcc       11.2s    11.1s    -0.15s (-1%)
-  x86 defconfig, touch mm/vma.c, clang     11.3s    11.1s    -0.19s (-2%)
-  x86 defconfig, clean, gcc                32.5s    32.3s    -0.16s (-1%)
-  x86 defconfig, clean, clang              34.5s    34.2s    -0.26s (-1%)
-  x86 allmodconfig, touch mm/vma.c, gcc    40.1s    39.7s    -0.44s (-1%)
-
-Assisted-by: LLM
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- include/asm-generic/vmlinux.lds.h |  2 +-
- scripts/Makefile.vmlinux          | 22 ++++------------------
- 2 files changed, 5 insertions(+), 19 deletions(-)
-
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index b2988aa12f66..7be9e0321867 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -855,7 +855,7 @@
- 		KLP_SYMID
- 
- #define MODINFO								\
--		.modinfo : { *(.modinfo) . = ALIGN(8); }
-+		.modinfo (INFO) : { *(.modinfo) . = ALIGN(8); }
- 
- #ifdef CONFIG_GENERIC_BUG
- #define BUG_TABLE							\
-diff --git a/scripts/Makefile.vmlinux b/scripts/Makefile.vmlinux
-index fcae1e432d9a..88881826335c 100644
---- a/scripts/Makefile.vmlinux
-+++ b/scripts/Makefile.vmlinux
-@@ -89,11 +89,8 @@ remove-section-$(CONFIG_ARCH_VMLINUX_NEEDS_RELOCS) += '.rel.*'
- 
- remove-symbols := -w --strip-unneeded-symbol='__mod_device_table__*'
- 
--# To avoid warnings: "empty loadable segment detected at ..." from GNU objcopy,
--# it is necessary to remove the PT_LOAD flag from the segment.
- quiet_cmd_strip_relocs = OBJCOPY $@
--      cmd_strip_relocs = $(OBJCOPY) $(patsubst %,--set-section-flags %=noload,$(remove-section-y)) $< $@; \
--                         $(OBJCOPY) $(addprefix --remove-section=,$(remove-section-y)) $(remove-symbols) $@
-+      cmd_strip_relocs = $(OBJCOPY) $(addprefix --remove-section=,$(remove-section-y)) $(remove-symbols) $< $@
- 
- targets += vmlinux
- vmlinux: vmlinux.unstripped FORCE
-@@ -102,21 +99,10 @@ vmlinux: vmlinux.unstripped FORCE
- # modules.builtin.modinfo
- # ---------------------------------------------------------------------------
- 
--# .modinfo in vmlinux.unstripped is aligned to 8 bytes for compatibility with
--# tools that expect vmlinux to have sufficiently aligned sections but the
--# additional bytes used for padding .modinfo to satisfy this requirement break
--# certain versions of kmod with
--#
--#   depmod: ERROR: kmod_builtin_iter_next: unexpected string without modname prefix
--#
--# Strip the trailing padding bytes after extracting .modinfo to comply with
--# what kmod expects to parse.
- quiet_cmd_modules_builtin_modinfo = GEN     $@
--      cmd_modules_builtin_modinfo = $(cmd_objcopy); \
--                                    sed -i 's/\x00\+$$/\x00/g' $@; \
--                                    chmod -x $@
--
--OBJCOPYFLAGS_modules.builtin.modinfo := -j .modinfo -O binary
-+      cmd_modules_builtin_modinfo = $(OBJCOPY) -O binary -j .modinfo --dump-section .modinfo=$@ $< $@.tmp; \
-+                                    rm -f $@.tmp; \
-+                                    sed -i 's/\x00\+$$/\x00/g' $@
- 
- targets += modules.builtin.modinfo
- modules.builtin.modinfo: vmlinux.unstripped FORCE
-
--- 
-2.55.0
-
+> ---
+>  kernel/sched/fair.c | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
+>
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index ff5793bddc35..810343f40316 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -24,6 +24,7 @@
+>  #include <linux/mmap_lock.h>
+>  #include <linux/hugetlb_inline.h>
+>  #include <linux/jiffies.h>
+> +#include <linux/math.h>
+>  #include <linux/mm_api.h>
+>  #include <linux/highmem.h>
+>  #include <linux/hrtimer.h>
+> @@ -8458,7 +8459,8 @@ static int
+>  sched_balance_find_dst_group_cpu(struct sched_group *group, struct task_struct *p, int this_cpu)
+>  {
+>         unsigned long load, min_load = ULONG_MAX;
+> -       unsigned int min_exit_latency = UINT_MAX;
+> +       u64 min_exit_latency = U64_MAX;
+> +       unsigned int nr_candidates = 0;
+>         int least_loaded_cpu = this_cpu;
+>         int shallowest_idle_cpu = -1;
+>         int i;
+> @@ -8479,12 +8481,16 @@ sched_balance_find_dst_group_cpu(struct sched_group *group, struct task_struct *
+>
+>                 if (available_idle_cpu(i)) {
+>                         struct cpuidle_state *idle = idle_get_state(rq);
+> -                       if (idle && idle->exit_latency < min_exit_latency) {
+> -                               min_exit_latency = idle->exit_latency;
+> -                               shallowest_idle_cpu = i;
+> -                       } else if ((!idle || idle->exit_latency == min_exit_latency) &&
+> -                                  shallowest_idle_cpu == -1) {
+> +                       u64 exit_latency = idle ? idle->exit_latency : U64_MAX;
+> +
+> +                       if (shallowest_idle_cpu == -1 || exit_latency < min_exit_latency) {
+> +                               min_exit_latency = exit_latency;
+>                                 shallowest_idle_cpu = i;
+> +                               nr_candidates = 1;
+> +                       } else if (exit_latency == min_exit_latency) {
+> +                               nr_candidates++;
+> +                               if (!reciprocal_scale(sched_rng(), nr_candidates))
+> +                                       shallowest_idle_cpu = i;
+>                         }
+>                 } else if (shallowest_idle_cpu == -1) {
+>                         load = cpu_load(cpu_rq(i));
+> --
+> 2.34.1
+>
