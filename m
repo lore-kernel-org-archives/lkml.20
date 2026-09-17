@@ -1,177 +1,110 @@
-Received: from ironport.ite.com.tw (itemail.ite.com.tw [60.251.196.230])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ECD131E852;
-	Thu, 17 Sep 2026 03:30:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.251.196.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28C6340283;
+	Thu, 17 Sep 2026 03:30:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789615835; cv=none; b=M7Yn/cX8neeaMN63n2+KEtkCr0sCTbJvuqaQpD+eyxgAFOT0kgkUSs5pYWShTc3YGvlHtxswfYuDUfusEgxiN8qh7fHS7dFw5HfJb1HkmW2OWFznGQ4BNzy4gWO86lCLUzQpGdRWM6kf4EfuukPqaoNfCvf7Ibh31QhVvw4jE5M=
+	t=1789615848; cv=none; b=bHTOlJNVim+dMINaFyIiuYT+kKdugdN49fbCehUOapoFlKyx8/nr19iK2P9O1Ey9bpvsCcePU9LFr8NxMrPr3mRnzqeOZYQhKjb4XRIiOkzJnzCKX0HB6btLyZ64YrLhFNzMufoG59EuRU/tNHvH1X3N2GpRbbgkPRialoIGmiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789615835; c=relaxed/simple;
-	bh=N5Xy7ZkMvjjOXildOHEkyCQlsIyHI2NzfIgSgKrH/88=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=GLp1StyNpP0AU1cb3fxVENiubVxoQvGnHPY45k4iquA58rpayi9bNeFM84l1srtvM5oBE56vmDKTCPHJorMqQUIIXgFjSVBvpFEQmBjCkU46Bk8cPlejUorqSQzkpofSnMQKCTN38AmtmnvgIY9JRsx6xgKAwCGK3HAQyUOVn5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=N1JtFubz; arc=none smtp.client-ip=60.251.196.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	s=arc-20240116; t=1789615848; c=relaxed/simple;
+	bh=Dn6E2yBK7kEygIb9Qi0GhSlfOkGfB/GdvTVUFJBqowI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Cc6McErKS6g182AANZfNgyJf6DrCPtpaGuk0F1Jjj5af88cLVdj+KqJrTpuDjmOk6P9UbWgqk4hXlRtmZiFMkZeAI/9DXhEE21vyXr3WYZ/ek6lKn9D6s+j+yoS2SY4Bz8BjnLxBD/0cZdXUAQsWuAJk0HDmowcRTfSW+Mib4BM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jiRlGO2B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="N1JtFubz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=N5Xy7ZkMvjjOXildOHEkyCQlsIyHI2NzfIgSgKrH/88=;
-  b=N1JtFubzpaqFLTyQdsEdU+ZkobGv1LKIikmnWVI1+PTErIx72M4WbWX/
-   Bh8q8qBu/GRmzjR5X121eBTvMSSn72hwK+vTZFJOmVmYa5gq/hn+w3ZFT
-   m42DORS9YSYlIVTNGNpKOO8ruRpsVgxmWCk6AvCaQGnV6paT/Ei6u7vQK
-   QWd2vbzbKTRi7O7dBYbsRAIXklnJiOYCAat9i9l01e8LCqrs1FvGdGOVz
-   zWCpzGXeJ5IZgBc+YGMQxBhis0h4SEXevGbuGbysDkleuGAjX8eoFJSru
-   NP2XCAnu7GOM8A7iDCFoJi0Z9esFUvbSEWmA+VeQbLusLt7S1IdwNhGdF
-   g==;
-X-CSE-ConnectionGUID: ThT1y//LQOW8gV/dCGT4Pw==
-X-CSE-MsgGUID: /EQKOGTFShCG5nEnoXOelg==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 17 Sep 2026 11:30:24 +0800
-Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
-	by mse.ite.com.tw with ESMTP id 68H3UNsd051639;
-	Thu, 17 Sep 2026 11:30:23 +0800 (+08)
-	(envelope-from Hermes.Wu@ite.com.tw)
-Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
- TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 17 Sep 2026 11:30:22 +0800
-Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
- TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
- 15.02.2562.046; Thu, 17 Sep 2026 11:30:22 +0800
-From: <Hermes.Wu@ite.com.tw>
-To: <sakari.ailus@iki.fi>
-CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <linux-media@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v10 2/2] media: i2c: add driver for ITE IT6625/IT6626
-Thread-Topic: [PATCH v10 2/2] media: i2c: add driver for ITE IT6625/IT6626
-Thread-Index: AQHdRcrfR52ysx4AzUm0Gl5EXWXcg7bSHTgw
-Date: Thu, 17 Sep 2026 03:30:22 +0000
-Message-ID: <834ad400ea0849b785c08938070c3950@ite.com.tw>
-References: <20260811-upstream-it6625-it6626-v10-0-9b6bb75262c9@ite.com.tw>
- <20260811-upstream-it6625-it6626-v10-2-9b6bb75262c9@ite.com.tw>
- <aqp3MYVynMUMVvcy@valkosipuli.retiisi.eu>
-In-Reply-To: <aqp3MYVynMUMVvcy@valkosipuli.retiisi.eu>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-tm-snts-smtp: B76852D2B49B18FB6DD34141D526B0634349B78EFCA05827EAD1C0B468522A172002:8
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jiRlGO2B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 221101F00893;
+	Thu, 17 Sep 2026 03:30:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789615846;
+	bh=N8InjZ6/ORC11SBQj7YIuoYb2957bHwGRZbEOmovL64=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jiRlGO2BuJXDM67CWFuhWoX5LjEC+2xbYhDxYi04aMChwy50nQi9HCMeQQW6eh+LZ
+	 iHTRmYN8isMAuJNdf6DJ9g/ibGLSmo7RljB1mklRjbclTyoNCE58HG7WoyD+ZVTnq9
+	 QPLpAZ7vU2gh7Mt9o5VgxOK+7RqsyZFbb1wbSPzmlJb5K2X3n3y99d+ogPZZubugfS
+	 ZOhLhy+1qL34upB7mWrxRylSoq3pZxUa5F39Q8civyfnYWLU4NsdJTq3SRLge8ujJ8
+	 JW56EsDimNJVfL+UomAbnySI1L1QQ3lwoL/ABkwfTUhWdAs1+LFXAFN7Yw0L2M2Ans
+	 EczZblmwGdz8g==
+Date: Thu, 17 Sep 2026 04:30:39 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com,
+ nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ Michael.Hennerich@analog.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v2 09/15] dt-bindings: iio: adc: adi,ad4134: Document
+ SPI connection mode
+Message-ID: <20260917043039.6b9fc505@jic23-hlaptop>
+In-Reply-To: <20260916160025.GA382310-robh@kernel.org>
+References: <cover.1789494473.git.marcelo.schmitt@analog.com>
+	<304d10f12a3418fbd5598160609a6eda09ed4100.1789494473.git.marcelo.schmitt@analog.com>
+	<20260916160025.GA382310-robh@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MAIL:mse.ite.com.tw 68H3UNsd051639
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-SGkgU2FrYXJpLA0KDQpUaGFuayB5b3UgZm9yIHRoZSByZXZpZXcuIEknbGwgYWRkcmVzcyB0aGVz
-ZSBpbiBmb2xsb3ctdXAgcGF0Y2hlcy4NCg0KPiBXaHkgaXMgdGhlIGRlZmF1bHQgdG8gZW5hYmxl
-IHByaW50aW5nIGFsbCBkZWJ1ZyBpbmZvcm1hdGlvbj8gU2hvdWxkbid0IHRoaXMNCj4gYmUgMD8N
-Cg0KWWVzLCBJJ2xsIGNoYW5nZSB0aGUgZGVmYXVsdCBkZWJ1ZyBsZXZlbCB0byAwLg0KDQo+IFlv
-dSBoYXZlIGEgc2luZ2xlIHN1Yi1kZXZpY2UuIFdoeSBub3QgdG8gdXNlIHRoZSBzdWItZGV2aWNl
-IHN0YXRlIGxvY2sgZm9yDQo+IHRoaXM/IFRoaXMgZHJpdmVyIHNob3VsZCBhbHNvIGZ1bGx5IHN3
-aXRjaCB0byBzdWItZGV2aWNlIHN0YXRlIChyZWxhdGVkDQo+IGNvbW1lbnRzIGJlbG93KS4NCg0K
-QWdyZWVkLiBJJ2xsIHVzZSB0aGUgZHJpdmVyIG11dGV4IGFzIHRoZSBzdWItZGV2aWNlIHN0YXRl
-IGxvY2sgYW5kIG1vdmUgdGhlDQphY3RpdmUgcGFkLWZvcm1hdCBzdGF0ZSBpbnRvIHRoZSBjZW50
-cmFsaXplZCBzdWItZGV2aWNlIHN0YXRlLg0KDQpUaGUgc2VwYXJhdGUgRURJRCBhbmQgSW5mb0Zy
-YW1lIGxvY2tzIHdpbGwgcmVtYWluLCBhcyB0aGV5IHNlcmlhbGl6ZQ0KaW5kZXBlbmRlbnQgbXVs
-dGktc3RlcCB0cmFuc2FjdGlvbnMgcmF0aGVyIHRoYW4gcGFkLWZvcm1hdCBzdGF0ZS4NCg0KPiBU
-aGlzIHNlZW1zIHRvIGJlIHVudXNlZC4NCg0KQ29ycmVjdC4gSSdsbCByZW1vdmUgdGhlIHVudXNl
-ZCBidXMgbWVtYmVyLg0KDQo+IEF2b2lkIHN0b3Jpbmcgc3RhdGUgaW5mb3JtYXRpb24gb3V0c2lk
-ZSBzdWItZGV2aWUgc3RhdGUuDQoNCkFncmVlZC4gSSdsbCBtb3ZlIGNzaV9mb3JtYXQvbWJ1c19m
-bXRfY29kZSBpbnRvIHRoZSBhY3RpdmUgcGFkIGZvcm1hdCBhbmQNCmRlcml2ZSB0aGUgaGFyZHdh
-cmUgQ1NJIGRhdGEgdHlwZSBmcm9tIHRoZSBtZWRpYS1idXMgY29kZSB3aGVuIG5lZWRlZC4NCg0K
-PiBZb3Ugd29uJ3QgYmUgc3dpdGNoaW5nIFBIWXMgYXQgcnVudGltZSwgd2lsbCB5b3U/IFlvdSBz
-aG91bGQgaGF2ZSB0d28NCj4gYXJyYXlzIGluIHRoaXMgY2FzZSwgc2VsZWN0ZWQgYmFzZWQgb24g
-UEhZIHR5cGUuDQoNCkNvcnJlY3QsIHRoZSBQSFkgdHlwZSBpcyBmaXhlZCBieSBmaXJtd2FyZSBj
-b25maWd1cmF0aW9uLiBJJ2xsIHVzZSBzZXBhcmF0ZQ0Kc2luZ2xlLWVudHJ5IGxpbmstZnJlcXVl
-bmN5IGFycmF5cyBmb3IgRC1QSFkgYW5kIEMtUEhZLg0KDQo+IFBsZWFzZSBkcm9wLCBtaW5pbXVt
-IGlzIDguMSBub3dhZGF5cy4NCg0KV2lsbCBkby4NCg0KPiBEaXR0by4NCg0KSSdsbCByZW1vdmUg
-dGhlIHJlZHVuZGFudCByZXNlcnZlZCBpbml0aWFsaXplcnMgZnJvbSBib3RoIHRpbWluZyBjYXBh
-YmlsaXR5DQpzdHJ1Y3R1cmVzLg0KDQo+IHVuc2lnbmVkIGludCBhbmQgeW91IGNhbiBkZWNsYXJl
-IGl0IGhlcmUuDQoNCkFncmVlZC4gSSdsbCB1cGRhdGUgYm90aCBsb29rdXAgbG9vcHMgYWNjb3Jk
-aW5nbHkuDQoNCj4gUGxlYXNlIG1ha2UgdmFyaWFibGUgZGVjbGFyYXRpb25zIGxvb2sgbGlrZSBh
-IHJldmVyc2UgQ2hyaXN0bWFzIHRyZWUuDQo+IEFwcGxpZXMgdG8gdGhlIHJlc3Qgb2YgdGhlIGRy
-aXZlciwgdG9vLg0KDQpXaWxsIGRvLiBJJ2xsIGF1ZGl0IHRoZSBkcml2ZXIgcmF0aGVyIHRoYW4g
-bGltaXRpbmcgdGhlIGNsZWFudXAgdG8gdGhpcw0KZnVuY3Rpb24uDQoNCj4gcy8xMDAwL1VTRUNf
-UEVSX01TRUMvDQo+DQo+IERpdHRvLg0KDQpBZ3JlZWQuIEknbGwgdXNlIHRoZSB1bml0IG1hY3Jv
-cyBhbmQgaW5jbHVkZSA8bGludXgvdW5pdHMuaD4uDQoNCj4gTm8gbmVlZCB0byBjYXN0IHJ2YWwu
-DQo+DQo+IElzIHRoaXMgdXNlZnVsPyBTaG91bGRuJ3QgdGhpcyBiZSBkZXZfZGJnKCk/DQoNCkFn
-cmVlZCBvbiBib3RoIHBvaW50cy4gSSdsbCByZW1vdmUgdGhlIGNhc3QgYW5kIGNoYW5nZSB0aGUg
-bm9ybWFsIHN0YXR1cw0KbWVzc2FnZSB0byBkZXZfZGJnKCkuDQoNCj4gUmVkdW5kYW50IHBhcmVu
-dGhlc2VzLg0KPg0KPiBEaXR0by4NCg0KQWdyZWVkLiBJJ2xsIHNpbXBsaWZ5IGFsbCBmb3VyIGJv
-b2xlYW4gaGVscGVycy4NCg0KPiBzdGF0aWMgY29uc3Q/DQoNClllcywgSSdsbCBtYWtlIHRoZSBs
-b29rdXAgdGFibGUgc3RhdGljIGNvbnN0Lg0KDQo+IHMvNC9zaXplb2YoY2spLw0KDQpXaWxsIGRv
-Lg0KDQo+IHBjbGsgPSBnZXRfdW5hbGlnbmVkX2JlMzIoY2spOw0KPg0KPiBBbmQgaW5jbHVkZSBs
-aW51eC91bmFsaWduZWQuaC4gSSBndWVzcyBpdCdkIGJlIHNhZmUgdG8gYXNzdW1lIHRoaXMgd291
-bGQgYmUNCj4gYWxpZ25lZCB0aG91Z2guDQoNCkFncmVlZC4gSSdsbCB1c2UgZ2V0X3VuYWxpZ25l
-ZF9iZTMyKCkgYW5kIGluY2x1ZGUgPGxpbnV4L3VuYWxpZ25lZC5oPi4NCg0KPiBzLzEwMDAvS0ha
-X1BFUl9NSFovDQo+DQo+IEFuZCBpbmNsdWRlIGxpbnV4L3VuaXRzLmguDQoNCldpbGwgZG8uDQoN
-Cj4gdW5zaWduZWQgaW50IGkuLi4/DQoNCkFncmVlZC4NCg0KPiB1bnNpZ25lZCBpbnQgZXhjZXB0
-IGZvciBlcnI/DQoNCkFncmVlZC4gSSdsbCByZXRhaW4gYSBzaWduZWQgdHlwZSBmb3IgdGhlIHJl
-dHVybmVkIGVycm9yIGFuZCB1c2UgdW5zaWduZWQNCnR5cGVzIGZvciB0aGUgYmxvY2sgYW5kIGJh
-bmsgaW5kaWNlcy4NCg0KPiBFaXRoZXIgYWxpZ24gdGhlIGxhdHRlciBsaW5lIHRvIHN0YXJ0IGFm
-dGVyIHRoZSBvcGVuaW5nIHBhcmVudGhlc2lzIG9yIHdyYXANCj4gYWZ0ZXIgJz0nIGluc3RlYWQu
-DQoNCldpbGwgZml4Lg0KDQo+IHdpZHRoID0gZ2V0X3VuYWxpZ25lZF9iZTE2KGJ1ZmZlcik7DQo+
-DQo+IGhlaWdodCA9IGdldF91bmFsaWduZWRfYmUxNihidWZmZXIgKyAyKTsNCj4NCj4gSXQnZCBi
-ZSBuaWNlciB0byBkZWZpbmUgYSBzdHJ1Y3QgZm9yIHRoaXMgYWN0dWFsbHkuDQo+DQo+IFNhbWUg
-Zm9yIHRoaXMgb25lLg0KDQpBZ3JlZWQuIEknbGwgZGVmaW5lIHN0cnVjdHVyZXMgbWF0Y2hpbmcg
-dGhlIGNvbnRpZ3VvdXMgdGltaW5nLXJlZ2lzdGVyDQpsYXlvdXRzIGFuZCB1c2UgdGhlIHVuYWxp
-Z25lZCBiaWctZW5kaWFuIGFjY2Vzc29ycyBmb3IgdGhlaXIgZmllbGRzLg0KDQo+IERvbid0IGRv
-IGJpdHdpc2Ugb3Igb24gZXJyb3IgY29kZXMhDQoNCkFncmVlZC4gVGhpcyBmdW5jdGlvbiBhbHNv
-IGN1cnJlbnRseSBkaXNjYXJkcyB0aGUgYWNjdW11bGF0ZWQgcmVzdWx0IGJ5DQpyZXR1cm5pbmcg
-MC4gSSdsbCBleGVjdXRlIHRoZSB1cGRhdGVzIHNlcXVlbnRpYWxseSBhbmQgcmV0dXJuIHRoZSBm
-aXJzdA0KZXJyb3IuDQoNCj4gWW91IGNhbiBhc3NpZ24gdGhlc2UgaW4gZGVjbGFyYXRpb24gYXMg
-eW91IGRvIGJlbG93Lg0KDQpXaWxsIGRvLg0KDQo+IHsgU3BhY2VzIGluc2lkZSBicmFjZXMsIHBs
-ZWFzZS4gfQ0KDQpXaWxsIGZpeC4NCg0KPiBEbyB5b3UgbmVlZCB0aGlzPyBWNEwyIGFscmVhZHkg
-aGFzIG5hbWVzIGZvciBmb3JtYXRzLg0KDQpUaGlzIGhlbHBlciBpcyBvbmx5IHVzZWQgYnkgbG9n
-X3N0YXR1cygpLiBJIGNvdWxkIG5vdCBmaW5kIGFuIGluLWtlcm5lbA0KaGVscGVyIGluIHRoZSBj
-dXJyZW50IHRyZWUgdGhhdCBjb252ZXJ0cyBNRURJQV9CVVNfRk1UXyogdmFsdWVzIHRvIHByaW50
-YWJsZQ0KbmFtZXM7IHRoZSBmb3VyY2MgaGVscGVycyBkbyBub3QgYXBwbHkgdG8gbWVkaWEtYnVz
-IGNvZGVzLg0KDQpEaWQgeW91IG1lYW4gdGhhdCB0aGUgc3RhdHVzIG91dHB1dCBzaG91bGQgdXNl
-IHRoZSBzdGFuZGFyZCBNRURJQV9CVVNfRk1UXyoNCnJlcHJlc2VudGF0aW9uIGluc3RlYWQgb2Yg
-dGhlc2UgY3VzdG9tIGRlc2NyaXB0aW9ucz8gSWYgc28sIEknbGwgZHJvcCB0aGUNCmhlbHBlciBh
-bmQgcmVwb3J0IHRoZSBtZWRpYS1idXMgY29kZSBpbnN0ZWFkLg0KDQo+IAkJcmV0dXJuIDA7DQo+
-DQo+IAkJcmV0dXJuIC1FUkFOR0U7DQo+DQo+IAlyZXR1cm4gMTsNCj4NCj4gQW5kIGRyb3AgdGhl
-IGVsc2Uncy4NCg0KQWdyZWVkLiBJJ2xsIGNvbnZlcnQgdGhpcyB0byBlYXJseSByZXR1cm5zLg0K
-DQo+IEVycm9yIGNoZWNrcyBhcmUgbWlzc2luZy4NCj4NCj4gVGhlIHNfc3RyZWFtKCkgdmlkZW8g
-b3AgaXMgZGVwcmVjYXRlZCwgcGxlYXNlIHN3aXRjaCB0byBlbmFibGVfc3RyZWFtcyBhbmQNCj4g
-ZGlzYWJsZV9zdHJlYW1zIHBhZCBvcHMuDQoNCkFncmVlZC4gSSdsbCBjb252ZXJ0IHRoZSByZWdp
-c3RlciBoZWxwZXJzIHRvIHJldHVybiBlcnJvcnMsIGltcGxlbWVudCB0aGUgcGFkDQplbmFibGVf
-c3RyZWFtcyBhbmQgZGlzYWJsZV9zdHJlYW1zIG9wZXJhdGlvbnMsIGFuZCB1c2UNCnY0bDJfc3Vi
-ZGV2X3Nfc3RyZWFtX2hlbHBlciBmb3IgbGVnYWN5IGNhbGxlcnMuDQoNCj4gdW5zaWduZWQgaW50
-IGk/DQoNCkFncmVlZC4NCg0KPiBUaGVzZSB2YWx1ZXMgY29tZSBmcm9tIERUIC0tIHNlZSBteSBj
-b21tZW50cyBvbiB0aGUgMXN0IHBhdGNoLCB0b28uDQoNCkFncmVlZC4gSSdsbCByZW1vdmUgdGhl
-IGRlZmF1bHQgbGFuZSBjb3VudCwgb3V0cHV0LXBvcnQgY291bnQsIGFuZCBQSFkgdHlwZS4NClRo
-ZXkgd2lsbCBiZSBzZXQgb25seSBmcm9tIHRoZSBmaXJtd2FyZSBncmFwaC4NCg0KPiBQbGVhc2Ug
-ZG9uJ3QgYWRkIHRoaXMsIHRoZSBkcml2ZXIgc2hvdWxkIGFzc3VtZSB0aGUgY29uZmlndXJhdGlv
-biAqaXMqDQo+IGF2YWlsYWJsZSBpbiBEVC4gQWxzbyB0aGUgTlVMTCBjaGVjayBpcyByZWR1bmRh
-bnQ7DQo+IHY0bDJfZndub2RlX2VuZHBvaW50X2FsbG9jX3BhcnNlKCkgZG9lcyBpdC4NCg0KQWdy
-ZWVkLiBUaGUgYmluZGluZyByZXF1aXJlcyBwb3J0QDAgYW5kIGl0cyBkYXRhLWxhbmVzLCBzbyBz
-aWxlbnRseQ0KY29udGludWluZyB3aXRob3V0IGFuIGVuZHBvaW50IGlzIGluY29uc2lzdGVudCB3
-aXRoIHRoZSBiaW5kaW5nLiBJJ2xsIHJlbW92ZQ0KdGhlIGZhbGxiYWNrIGFuZCBsZXQgZW5kcG9p
-bnQgcGFyc2luZyByZXBvcnQgdGhlIGVycm9yLg0KDQo+IEVpdGhlciBjb21iaW5lIHRoZSBlcnJv
-ciBjaGVja3Mgb3IgYWRkIGEgbGFiZWwgZm9yIGVycm9yIGhhbmRsaW5nLCB1c2UgZ290bw0KPiBo
-ZXJlIGFuZCBiZWxvdy4NCg0KQWdyZWVkLiBJJ2xsIGNvbnNvbGlkYXRlIGVuZHBvaW50IGNsZWFu
-dXAgdGhyb3VnaCBhIGNvbW1vbiBlcnJvciBwYXRoLg0KDQo+IEkgd29uZGVyIGlmIGl0J2QgYmUg
-Y2xlYW5lciB0byBoYXZlIHRoaXMgaW4gcHJvYmUgLS0gZXJyb3IgaGFuZGxpbmcgYmVjb21lcw0K
-PiBkaWZmaWN1bHQgd2l0aCB0aGVzZSBpbnRlcm1lZGlhdGUgaW5pdGlhbGlzYXRpb24gaGVscGVy
-cyB0aGF0IGRvIGFwcHJlbnRseQ0KPiB1bnJlbGF0ZWQgdGhpbmdzLg0KDQpBZ3JlZWQuIEknbGwg
-bW92ZSB0aGUgc3ViLWRldmljZSwgY29udHJvbCwgbWVkaWEtZW50aXR5IGFuZCBzdGF0ZQ0KaW5p
-dGlhbGl6YXRpb24gc2VxdWVuY2UgaW50byBwcm9iZSBzbyB0aGUgdW53aW5kIHBhdGggaXMgZXhw
-bGljaXQuDQoNCj4gWW91J2xsIG5lZWQgdG8gY2FsbCB2NGwyX3N1YmRldl9pbml0X2ZpbmFsaXpl
-KCkgaGVyZSB0byBmdWxseSBpbml0aWFsaXNlDQo+IHRoZSBzdWItZGV2aWNlIHN0YXRlLg0KPg0K
-PiBTaW1pbGFybHksIGNhbGwgdjRsMl9zdWJkZXZfY2xlYW51cCgpIG9uIGVycm9yIHBhdGggYWZ0
-ZXIgZmluYWxpemUoKSBhcw0KPiB3ZWxsIGFzIGluIHJlbW92ZS4NCg0KQWdyZWVkLiBJJ2xsIGNh
-bGwgdjRsMl9zdWJkZXZfaW5pdF9maW5hbGl6ZSgpIGFmdGVyIGluaXRpYWxpemluZyB0aGUgbWVk
-aWENCmVudGl0eSBhbmQgYmVmb3JlIHJlZ2lzdGVyaW5nIHRoZSBzdWItZGV2aWNlLiBJJ2xsIGFk
-ZA0KdjRsMl9zdWJkZXZfY2xlYW51cCgpIHRvIHRoZSBjb3JyZXNwb25kaW5nIHByb2JlIGVycm9y
-IHBhdGggYW5kIHRoZSByZW1vdmUNCnBhdGguDQoNCktpbmQgcmVnYXJkcywNCkhlcm1lcw0K
+On Wed, 16 Sep 2026 11:00:25 -0500
+Rob Herring <robh@kernel.org> wrote:
+
+> On Tue, Sep 15, 2026 at 04:14:44PM -0300, Marcelo Schmitt wrote:
+> > Document how AD4134 chips are connected to the host SPI controller
+> > according to different wiring configurations.
+> > 
+> > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > ---
+> > Change log v1 -> v2:
+> > - Set default for adi,spi-mode property.
+> > - Added '#daisy-chained-devices' property.
+> > - Documented constraints for adi,spi-mode + #daisy-chained-devices combinations.
+> > 
+> >  .../bindings/iio/adc/adi,ad4134.yaml          | 51 ++++++++++++++++---
+> >  1 file changed, 44 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > index ea6d7e026419..012e09decf7a 100644
+> > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > @@ -131,6 +131,26 @@ properties:
+> >      enum: [ free-running, gated ]
+> >      default: gated
+> >  
+> > +  adi,spi-mode:
+> > +    $ref: /schemas/types.yaml#/definitions/string
+> > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
+> > +    default: no-cs
+> > +    description: |
+> > +      This property indicates the SPI wiring configuration.
+> > +      * no-cs: The datasheet calls this "minimum I/O mode". In this mode, the CS
+> > +        line is not used (tied to GND).
+> > +      * 4-wire: Specifies a conventional SPI wiring configuration.  
+> 
+> Absence of this property should be conventional mode.
+Hi Rob,
+
+Unfortunately we missed this in the binding originally so we are left with the default
+of what the driver did at the time.
+
+I wouldn't be against merging a change in that default as a fix though if we
+don't think this is yet in heavy use (merged in 7.0, but given not a complete
+feature set yet, maybe?)
+
+Jonathan
+
+> 
+> > +      * one-channel-chain: In this mode, the DOUT0 line of one chip is connected
+> > +        to DOUT2 of the next chip upstream in the chain. Only the data interface
+> > +        of the upmost device in the stream is in direct connection with the
+> > +        digital host.
+> > +      * two-channel-chain: In this mode, the DOUT0 and DOUT1 lines of one chip
+> > +        are respectively connected to DOUT2 and DOUT3 of the next chip upstream
+> > +        in the chain. Only the data interface of the upmost device in the stream
+> > +        is in direct connection with the digital host.  
+
