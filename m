@@ -1,64 +1,64 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4846351C2E;
-	Thu, 17 Sep 2026 02:00:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C8D377563;
+	Thu, 17 Sep 2026 02:00:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789610412; cv=none; b=MN7UIfU/2JkIY+ijlGB27iEx/jagEQPB017l8xjaE/spwIjm+6Zi/RmFsjDZsb3repTlhR6JZAuAFOtSWUmuiMHs5hFiSdWKfotOYzOjHZk0iwkt0IgC7LrPqg3u2uODT7ian8bp9PYB2rmNI1Yb0VhrD5qqc5yl3Rw/6BMEHmo=
+	t=1789610413; cv=none; b=EO1tex0tbqH6rUh+VXL1UENb1KXogMgqvb3+ccYNT1J6CLgGlaYHOUBWRThLgeTQEkLBkSBic8NiNP3oDmX2a9bypoeH/M5Y9F/s+Iv1z2TVpv9yxkeSM5vxL9dQt/rVdFL/OSW9q6J9JgHLvOh8aWAwpgaGq6mSnKgaiqfY0+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789610412; c=relaxed/simple;
-	bh=66nRGvVue7yxITQfRjkMRaaoiGoCxloORIWhztOpPRk=;
+	s=arc-20240116; t=1789610413; c=relaxed/simple;
+	bh=pYZkoy7QVxe/4p4E33pbVtANmmOIfy7NTVghJ0XnBck=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=iFYNkmEPZCI7DSf4hF4t3aL3K6BVDcHhJ+z+GPAtvLXjJaMk864yWX8sgg76Omc158EWCgCUW7g2S3YApzdo8w5NmpIJrSPIU3vUyy1iV83uAe5fDUNqx87U9JKl0hIjH1zX2cYA6NTX7I2pF/uOd8nrFUSNHrrJS4TA2/ljrXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WcvMCnRN; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=R8CC9YPm; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=PS4XjyJF2867IOePVnJPvFlTF8HHlFXHOdhmy4yiG4h6ApI8+/EJU4TUVS27hGPEeu9fpxvjtjinpwEAJ/80ckA/LojSDsukc4uhuXxAJzvVTsP6JJKZKKA12QJMfl9RfuHXxdX4UFGoNIXNrSgNsbMvE8BVDkRB3kK5Aj7bTvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Kt67QHH+; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=/KJKjhGt; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WcvMCnRN";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="R8CC9YPm"
-Date: Thu, 17 Sep 2026 02:00:06 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Kt67QHH+";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="/KJKjhGt"
+Date: Thu, 17 Sep 2026 02:00:08 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789610408;
+	s=2020; t=1789610410;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nl+J7EdJkNMd0L9vMAiD0OTe5p0q0vgVXMINX1p2ZJ4=;
-	b=WcvMCnRNA+qeAYFnhTh4bImRrxq9cCRO1UNQQEai9ery03gRF1gm4piIzZN2As5sekgvcQ
-	W7/dFaFEOSY7WE/G3M0KFvJA7X1r3prqx7FSDv3q8K3qkoY4e2w6SmUIkdnKNy/kya4PiK
-	ls6+cfjr/I1sSBVel/xTKhOjIuzZt9SFM7E9ukEmK7aG/kl/M2UhV4glPD8nAg6CEE+zox
-	Wo5lr2jqVqn5hww3r3Cnm7hHLZUFPogcDSR0Yv3ZY7KpjslfWlh74ix0HxQoVYTYQqd83f
-	18aA1qAs5LX3C+AF0JXexVd0n71BNNRC/c/EIUCz3XzflDgaLs/YxyeAjMx3zA==
+	bh=NQLQixg7Ctq+ToTymQE2LtvUDZJTkChQzM2Mwu0fOwU=;
+	b=Kt67QHH+60uyqPlS/szp66sn9BA3MJIOHpva9rj1M9KZYX6urZMhw0Kaqo8v5kUMnXFdgc
+	RMZdeRMxQFqYF7WGJBD5ofhLa8HdDD9pjnDZ6bgEXJvVAARNO0M+mitq8T7ARAQ18WGRFj
+	h1a+qLmzJ3XHRiDn+/8KQNySQ3Paz5gZZgfq6Kc4qIWq0/ro1ODiHffAZt63O418HwbnOt
+	sMSL+/xzY6k8R4FdC7nlE1339dpyYAMh6ATEQHJv/Z8QXwcseZNkRtemFS3yLjjfwvuMUB
+	4uKr10rrte/PF3N/9SP0BFllcqNDDhG8yceVxvUkaH/0dXLjmI5aOekV95TE6g==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789610408;
+	s=2020e; t=1789610410;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nl+J7EdJkNMd0L9vMAiD0OTe5p0q0vgVXMINX1p2ZJ4=;
-	b=R8CC9YPmppQGXOps1WxgHkZO5uuTB/P9LDaOZu6BUziu8I08SWEewLaqUwMTP/7w1QHZs4
-	nyCrfEVqnkM+qgCA==
+	bh=NQLQixg7Ctq+ToTymQE2LtvUDZJTkChQzM2Mwu0fOwU=;
+	b=/KJKjhGtfLUU+ltV5Ql5h782ATyu6TcbXquancjVGJXh5bRn//XrgGVpfyPgoFww+ByiFE
+	EKadQte1JRDi+uBA==
 From: "tip-bot2 for Ihor Solodrai" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/cpu] x86/cpu: Don't transiently clear the boot CPU's capabilities
+Subject: [tip: x86/cpu] x86/cpu: Move 32-bit SEP setup into identify_cpu()
 Cc: Ihor Solodrai <ihor.solodrai@linux.dev>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, x86@kernel.org,
+ "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Nikolay Borisov <nik.borisov@suse.com>, x86@kernel.org,
  linux-kernel@vger.kernel.org
-In-Reply-To: <20260916195203.1099646-6-ihor.solodrai@linux.dev>
-References: <20260916195203.1099646-6-ihor.solodrai@linux.dev>
+In-Reply-To: <20260916195203.1099646-5-ihor.solodrai@linux.dev>
+References: <20260916195203.1099646-5-ihor.solodrai@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178961040663.1720534.16515337025931220992.tip-bot2@tip-bot2>
+Message-ID: <178961040821.1720534.10158787074095798094.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -68,66 +68,63 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the x86/cpu branch of tip:
 
-Commit-ID:     2711d67bc3a776abcfc651ad87be5d29ada19166
-Gitweb:        https://git.kernel.org/tip/2711d67bc3a776abcfc651ad87be5d29ada=
-19166
+Commit-ID:     db349783ca7aa99345f3809523bff2db8f8714de
+Gitweb:        https://git.kernel.org/tip/db349783ca7aa99345f3809523bff2db8f8=
+714de
 Author:        Ihor Solodrai <ihor.solodrai@linux.dev>
-AuthorDate:    Wed, 16 Sep 2026 12:52:03 -07:00
+AuthorDate:    Wed, 16 Sep 2026 12:52:02 -07:00
 Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Thu, 17 Sep 2026 02:05:39 +02:00
+CommitterDate: Thu, 17 Sep 2026 02:02:18 +02:00
 
-x86/cpu: Don't transiently clear the boot CPU's capabilities
+x86/cpu: Move 32-bit SEP setup into identify_cpu()
 
-On the boot CPU, identify_cpu() runs from arch_cpu_finalize_init(), with
-interrupts enabled and before alternatives are patched. So
-cpu_feature_enabled() still evaluates against boot_cpu_data.
+identify_boot_cpu() and identify_secondary_cpu() both call
+enable_sep_cpu() under CONFIG_X86_32 immediately after identify_cpu().
 
-identify_cpu() rebuilds c->x86_capability from scratch: the reset zeroes the
-array and the CPUID rescan fills it in again. An interrupt delivered in that
-window finds X86_FEATURE_LA57 clear in boot_cpu_data, so pgtable_l5_enabled()
-is false and KASAN checks a 5-level address against the 4-level addressability
-limit. The result is a bogus "wild-memory-access" report, and under
-kasan_multi_shot a report storm that wedges the boot.
+Do it once and drop the ifdefs while at it.
 
-The boot CPU has already been scanned by early_identify_cpu(), with interrupts
-disabled, and its capabilities cannot have changed since. Reset only the CPUs
-which have not been scanned yet.
+No functional changes.
 
-The window is as old as identify_cpu() rebuilding the capabilities.  Commit
-
-  39b9552281ab ("x86/mm: Optimize boot-time paging mode switching cost")
-
-merely let KASAN notice it by making pgtable_l5_enabled() read the feature
-bit. So no Fixes: tag.
-
-Closes: https://lore.kernel.org/bpf/20260610175651.647515-1-ihor.solodrai@lin=
-ux.dev/
 Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
 Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Link: https://patch.msgid.link/20260916195203.1099646-6-ihor.solodrai@linux.d=
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+Link: https://patch.msgid.link/20260916195203.1099646-5-ihor.solodrai@linux.d=
 ev
 ---
- arch/x86/kernel/cpu/common.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ arch/x86/kernel/cpu/common.c |  9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-index 156a7b8..7d4ff29 100644
+index 79a1260..156a7b8 100644
 --- a/arch/x86/kernel/cpu/common.c
 +++ b/arch/x86/kernel/cpu/common.c
-@@ -2000,8 +2000,6 @@ static void identify_cpu(struct cpuinfo_x86 *c)
+@@ -2128,6 +2128,9 @@ no_cpuid:
+ 	mcheck_cpu_init(c);
 =20
- 	c->loops_per_jiffy =3D loops_per_jiffy;
+ 	numa_add_cpu(smp_processor_id());
++
++	if (IS_ENABLED(CONFIG_X86_32))
++		enable_sep_cpu();
+ }
 =20
--	init_cpu_info(c);
--
- 	if (!cpuid_feature())
- 		identify_cpu_without_cpuid(c);
+ /*
+@@ -2165,9 +2168,6 @@ static __init void identify_boot_cpu(void)
+ 	identify_cpu(&boot_cpu_data);
+ 	if (HAS_KERNEL_IBT && cpu_feature_enabled(X86_FEATURE_IBT))
+ 		pr_info("CET detected: Indirect Branch Tracking enabled\n");
+-#ifdef CONFIG_X86_32
+-	enable_sep_cpu();
+-#endif
+ 	cpu_detect_tlb(&boot_cpu_data);
+ 	setup_cr_pinning();
 =20
-@@ -2186,6 +2184,7 @@ void identify_secondary_cpu(unsigned int cpu)
- 		*c =3D boot_cpu_data;
+@@ -2187,9 +2187,6 @@ void identify_secondary_cpu(unsigned int cpu)
  	c->cpu_index =3D cpu;
 =20
-+	init_cpu_info(c);
  	identify_cpu(c);
+-#ifdef CONFIG_X86_32
+-	enable_sep_cpu();
+-#endif
  	x86_spec_ctrl_setup_ap();
  	update_srbds_msr();
+ 	if (boot_cpu_has_bug(X86_BUG_GDS))
