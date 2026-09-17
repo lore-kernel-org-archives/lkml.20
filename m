@@ -1,92 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B5C9376BC2;
-	Thu, 17 Sep 2026 05:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B663E6DEB;
+	Thu, 17 Sep 2026 05:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789621560; cv=none; b=nq/9QBswnAfQ26h9wGx+lMaRcWI6m2UgDuNrqFVxWuKJUeQsTdNtQ0zwuXp9d5QMfvw9n35/fZvs3ncxMEsRS07jJ1UlOT2uneiBBB4iam/gbx03rGe26CSsriJ/xTXX1kXNjoyprf0WV5nS3uMxSllil4wI89LZtvsqRn6cPts=
+	t=1789621669; cv=none; b=Y09ZU3J8/2btzXVnJsLzHSI8Oiq1yThdQU9qvSzgZtD1uE8OpvqeZGxct7cqMIQkYZHJ9QB6bqcnAoYsro4hqEIuSM9RWtYQ8yiNSv0WlPQMoJPsv7jGzopSe1dK/Pv2xPjboL2tgBwfPtkXBkrf9X7Gj9IGCGx/l6hX3XBmf98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789621560; c=relaxed/simple;
-	bh=t/1lYna6Fojo4ycYGVRCzYj6VpZFiRIWWmHmkMk/QCU=;
+	s=arc-20240116; t=1789621669; c=relaxed/simple;
+	bh=JDHt+DZA2r3cGukq83JQ5GZAP0tXyFrszNZ+k1moAOg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z6w+k1ZQIzidYlKUre9T0Jg1FWRYXl1CvC/KiBAIrGBjRpt/UDr7KLy+izj/S25kKwUs9vbd7gKOKIR7RpEGwEwtDDwNNbJQ+QAi7ZFkGN7bl0WY1HThicZ+UalEGWlu7FO4r8Hq4DrDDLfHbhZl08ZdO7gblbGbJmQuuZbBjOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIGDNRZe; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=s+WBduopAhY6lWQJURFzQe/ke5ofCfNxLPL5MwdVEIZUDPpvzCXMn6X57bhgcWzoi+I8ZbYA6eu0Qwy7MtqXQJMUXuYQb/So2JukjCsW0xTuXjGifZi0UbTQeOeoBgL/A8OjHVHO/jSUAZiq1K8kDGq2zJ0tVRbkeLdXSr2Fs1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kHbmNo62; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIGDNRZe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01B7D1F000FF;
-	Thu, 17 Sep 2026 05:05:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789621558;
-	bh=DGo6AhwgmkpHtSr4d5GjSyskQfqpHDpbLVINJLURtfY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kIGDNRZepAWiHQRuUHfpKhopiZRy+tGkTS56I4aWiX2olLs5Ihu0jMa1dJk5g1Eov
-	 y3RW1q2rWfAzsL9SLQ7GLIcvFRGgXJZ/vLmzb1xKmXFoJ+TpduJ8+Bji8x1iL8NtxX
-	 qmLvSX+rD6xcM2oFs45gxyVGXg/8cyauZlLuiR2w2clwtnNvr4vDvbJTalBRn70tud
-	 sm+//CRfiZX9M1z0i9pFhsmSS9khVwXD8JoN5gARWr6HetESQKFrJbAj0tUiJOiLiW
-	 C0wQmkHWzid6e3GizGo1yfDwdYTz+VRPJrVdq2G5qQ2kgpc7uErJyXShKwLo0hXnfz
-	 4w8Zxh6mLsgsA==
-Date: Thu, 17 Sep 2026 07:05:36 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Bryan O'Donoghue <bod@kernel.org>, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v17 3/5] phy: core: Add devm_phy_get_by_of_node()
-Message-ID: <unvsbhemwvuuj46tau2ioc4v6yvvywpnocg3jy5qsrcz3w7mne@xczbo4otqxtl>
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org>
- <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-3-e2197a3e2551@linaro.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kHbmNo62"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789621667; x=1821157667;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JDHt+DZA2r3cGukq83JQ5GZAP0tXyFrszNZ+k1moAOg=;
+  b=kHbmNo62DtYt7gKlusww2G5daIkC/CDytQxdNDbnbtPSd3xMGbgNnJwg
+   0yrYH+Zdn8iHBgyKPT1FTrVqQs9t8GM9EaVmk5Oc8REcjDKbRiGeoABGo
+   +qoASeNSTQIfnkAsgiUW51TDWvqs3AqOxY2oLln6HZ6izl6W5tL6yKa7k
+   wLBw1Fy0P3mw//awWp7/WwLdKaUmqAxnF2bqNTiF74wZU+a0k91+FYPxz
+   iJW9OTlVSn/R39VZ02BcwhXkX8paI5cpFMHSnbaTt2069h/1QvBYLxs1/
+   VEJC/kELaPI9pA/gTyVhPfzeBz+t9y54KZ2ScSs9QGySuJyVuHlqQ7zIP
+   g==;
+X-CSE-ConnectionGUID: A9smDBa5QHuWYAy7rlyA8w==
+X-CSE-MsgGUID: 3vH6GRF4SR2C4oQ+kSFA0A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77569704"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="77569704"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 22:07:46 -0700
+X-CSE-ConnectionGUID: 06bxm0V8TL+zpU/jg7yeOw==
+X-CSE-MsgGUID: 08O/Qh76Tn+MX2mQQjldlg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="278799025"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 16 Sep 2026 22:07:44 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x74LV-00000000785-1aRx;
+	Thu, 17 Sep 2026 05:07:41 +0000
+Date: Thu, 17 Sep 2026 13:06:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Ping Cheng <ping.cheng@wacom.com>,
+	Jason Gerecke <jason.gerecke@wacom.com>,
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: Re: [PATCH v2] HID: wacom: avoid overflows in sequence number
+ tracking
+Message-ID: <202609171246.TbpsuolV-lkp@intel.com>
+References: <20260915141621.3011011-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-3-e2197a3e2551@linaro.org>
+In-Reply-To: <20260915141621.3011011-1-qwe.aldo@gmail.com>
 
-On Sun, Sep 06, 2026 at 03:17:07PM +0100, Bryan O'Donoghue wrote:
-> Add a devm variant of phy_get_by_of_node() to allow for the familiar
-> pattern of having devres automatically release resources on the driver's
-> exit path.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->  drivers/phy/phy-core.c  | 34 ++++++++++++++++++++++++++++++++++
->  include/linux/phy/phy.h |  7 +++++++
->  2 files changed, 41 insertions(+)
-> 
-> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-> index 490a7cde6d40a..2e3581ecb42ee 100644
-> --- a/drivers/phy/phy-core.c
-> +++ b/drivers/phy/phy-core.c
-> @@ -1050,6 +1050,40 @@ struct phy *phy_get_by_of_node(struct device_node *np)
->  }
->  EXPORT_SYMBOL_GPL(phy_get_by_of_node);
->  
-> +/**
-> + * devm_phy_get_by_of_node() - devm managed lookup and obtain phy reference by device node
-> + * @dev: device requesting the PHY
-> + * @np: device_node of the PHY provider
-> + *
-> + * Returns phy associated with the device_node or ERR_PTR. devres manages
+Hi Aldo,
 
-'Returns:'
+kernel test robot noticed the following build errors:
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+[auto build test ERROR on hid/for-next]
+[also build test ERROR on linus/master v7.3-rc3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-- Mani
+url:    https://github.com/intel-lab-lkp/linux/commits/Aldo-Ariel-Panzardo/HID-wacom-avoid-overflows-in-sequence-number-tracking/20260915-111621
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
+patch link:    https://lore.kernel.org/r/20260915141621.3011011-1-qwe.aldo%40gmail.com
+patch subject: [PATCH v2] HID: wacom: avoid overflows in sequence number tracking
+config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20260917/202609171246.TbpsuolV-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 148ee2b266b73a49f1f31d0bd17d4818b91bee9f)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260917/202609171246.TbpsuolV-lkp@intel.com/reproduce)
 
--- 
-மணிவண்ணன் சதாசிவம்
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609171246.TbpsuolV-lkp@intel.com/
+
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+>> ERROR: modpost: drivers/hid/wacom.ko: symbol '__hexagon_moddi3' undefined!
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
