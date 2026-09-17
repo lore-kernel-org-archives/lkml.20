@@ -1,28 +1,28 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11020074.outbound.protection.outlook.com [52.101.46.74])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11021115.outbound.protection.outlook.com [52.101.62.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5C343DEA2;
-	Thu, 17 Sep 2026 22:59:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B484B4864;
+	Thu, 17 Sep 2026 22:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.115
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789685985; cv=fail; b=HqPs9lCoXcKKrfHw8LeF4jVVingmMjFAb4QMlB741NqaDG1O/L1W+T2PQEAUAWZzSH1BnUz7yWAhJCYey6jymVpmp4dnv5zBbKfb3P0XNye3KXVGx917+xsPjGfP0tt91ccDY9Dfj3V5KT3yHCL1Y6oFX5qo7PWxFLsfzwRlhRU=
+	t=1789685994; cv=fail; b=FxOBARCS6rprGc2A9bE/yb3I4ShjulVBrbx3i/8lJYUwQp2DGEfvd2rLKmzWQBn4HTwiazWY80t87nZMCk6ENcU0AkbGD5Htsu6DUrRxU0jHS2Yjmjm2q+9xwhasbCmkuxl1RvHeyo396XOPLLupJ8ob7T6lyWrJcDydD340678=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789685985; c=relaxed/simple;
-	bh=tGz3nA1IkJ/SbNyGqO+JMDRvMrB1e04pevIkLGWaS7c=;
+	s=arc-20240116; t=1789685994; c=relaxed/simple;
+	bh=zmm8d7v6SuOSeaEZ2OQrsdvrrSc+3yTFtZpg5jDML8w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MJN8XWugpqL5t2H/qX047UuKHJr/A/z1NW3B5Jmlaqh3NGWvRrgXNaZo4//DbyDevs7NnoqARgQqKPUxx3QMl65hZZGTEQnqxKIUG+ii95wnpH2/9vno50W6I57BX6BPk43rb3QU2eZn37Qac1P20fEpbK3fhZW1hboYtP4G/iw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=c65R40Cw; arc=fail smtp.client-ip=52.101.46.74
+	 MIME-Version:Content-Type; b=A8dt/kiBCjdD5kC/GfC+UtTEi4rf3bhHHb/ammFSGKmdw4qCAni8vNO4Fo+HaATzu7uqA3ENHiOWUZlH7KbL+32NY0d+WGWREpwM88Ai6ao8b9QLvwbUwTmpJJ0/D1ofn1mo2O8nzvAo6I3whFJhqJD0Kc0PlDPzp/WAkTVTyhU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=Z7mepCfO; arc=fail smtp.client-ip=52.101.62.115
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="c65R40Cw"
+	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="Z7mepCfO"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rDGjJU8VBm20D28FjpMuaLpp+8gzZf8qHg7AbszfiZr4u10PqZP7JxBmc4rJsu8mtHWcAA1peAr3NDU3etAtUA7mceSEnWGwxoy9Ug4s38WEFfbp/MTlWloVdwSnNJMuGNoKiA+ImYilSgss9BCE87TddnBv0n4XgL7JJX9WfjVQy7g7/1Kya2v5XFXFLlDr5R6HRrtiHYvqqa8dr+Aqi9+eIawP6RdkZ+KeqRXtj5LjCjLMuNwubFPZyHHQ0yGnNmwANvUftTbH6ybTB8lmE7evTu2CT8UP3u/vG6U45PyvuVRLNgeHqWkSXHf7ixRc7LT74/rX0C/+knv0FPl7Sg==
+ b=fgf6e23A1xYebIq0zHSiSbiQz4dOp9hBRNC+OreS2w0c8kNq97ArvMIUaqBgtqlSZJ5ABG2d95d/mHzYMLhRhlnXX47mIC714k+aKxxxDuUNtWG7g41ym5nlFaB/jiNwWqDAvyOzQV1M3FmjrOFSU18Xt7CcCzPq/BpRSYCcL50did8S5ymCj3KOyYYVHW39snFFb3AOty4xBOMH0eqHXe4I+VQ4q1ry8T/Lm5UCFCqRwmiKowF+3zZnOtsV9pmpyfEzAn4xWcTxziviApmU5KH315gGZTFlwbD19cffQYYYPbVom/PnnFSm8uk3cihQ8sw+IdI380HPbk+InsB5RA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s1m9vDA9rGtFlC3YUIVbDELEb1F5sbVpEg50LGXOiLw=;
- b=tbz6ZT/wTOHCpG1sch3nIp+nwnb2Ao4b7c17HUDZeTXiRyNnosLWF/Cz4pW6HG2cVUN3m0KBoyS/V940hplng2rsgenFs8CpAzc401Q4rFXibS+T/UQk/qV7ei9jLX4HavNxg8eiXoScDlSjInAD9CAQ8M02AjQONJ5rQgPXdAiS0XIV7sct5cENxZN4BlsIwomLOqfdGYP5W0zdhRONmSaC5U0GUS/cFk+x12UsoRH5GLAwyCMSU/lZfVCQAok521m8KFmoUvR6BMP5/t1ltnnLD4CYm5+InzpkNiyJHrsZB9k+ajaXF17O39vzyM5mK90HZe1bhZ3m4qqJW26mSA==
+ bh=kcFfijZeV2dayzaTQy1HddPt3o0QadNbDV9JFToJgbg=;
+ b=A94/z5TRqzWnDzqWCCRcMngUJ29EfVpxAstgEYLz9Gmpo1dR2b5h8KjzmMYr+bwFF4dj2O3c63gi6qBp4UmIUeJ8OPijcvwkX+mm+oeWFGZkyjoGtAi+8JjBkbaCLwiIn0n95BviymDLpF7ZcRl6bDqYv03RfjiSqbmwYwQFasyGve0WCe9aRlWPoBLo+41Znh5tVXmfDqDO1uYqVSPqkM73Ueuk5q8Bb3VbRVgbLzN8WfsGYxmPk8pMwQEDkE5g7SvPViQY4L2yuRZJPkoiVet3lAbrCh0CLDVfvEGv0/46eKPr0pNxTjQFKyEsKY7d/nzTl6vpRpo+cDMf5xvPQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  192.86.86.210) smtp.rcpttodomain=cryptography.com smtp.mailfrom=rambus.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=rambus.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s1m9vDA9rGtFlC3YUIVbDELEb1F5sbVpEg50LGXOiLw=;
- b=c65R40Cwpn1K1gOkuMFVj+PpWjGNWJJMauLu0OnwR+I7bIv3MrQGvYfTOJx8lNrAuVA5320Obel9hOR2FAeRbV0V4oGv4kdYIGQ3M3ysmTqeSUUl4KyknsCTXV1hkLN6zHuW0Vlxp6CsBunJ4TBQcB3c/pkdAHgwDPkkcpJZg1a60ZfPf5FcFXnmGR8HjXp+84YOQNn07c3FyK7urX+8q9LZAL+GRZc820H+GmdQ1LIC4VV5jNynXBwWsXJ4ZUpXGhxFqIX3/rGKuqKQCxJLP9lEipeDcsGuteHkbIqqR3+7VU5gqN4smIYgW+z4dEVVbCKdsla9lBiUrsolQR0Inw==
-Received: from CH5P221CA0023.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1f2::25)
- by SJ0PR04MB7757.namprd04.prod.outlook.com (2603:10b6:a03:3af::24) with
+ bh=kcFfijZeV2dayzaTQy1HddPt3o0QadNbDV9JFToJgbg=;
+ b=Z7mepCfOJV34+zQ8wfOSb4u+Tc90oQdS1ghg6A7ui9OW+QzmZ6+f5CIv9c2fBuH7kKQI5dyCkAZ/ROE6t5S4I9yHd0etxmSWCu+fMMAyMXJcQFIMvLOAbzG9QBUVHtC2FH1U7/fhc5Yfmq5E15a3KVYR7AK8xMBCD7JFdssIE0OexGMVyRHyiw33vLlZSMv3bwFhb/t67um+sauMGadO3N6oR0N0T+h/0EIEl5BSj5PNAj3cdPvAQmD9HkjtPMNyUbAUOdwWF1XSupL6JvCaX7J2Cw84rCYDl80RmYQrKaQIVG0ePGjhpN2f+8fvda3p7apvR35o8L41X8j7ZLmX9w==
+Received: from BY5PR04CA0027.namprd04.prod.outlook.com (2603:10b6:a03:1d0::37)
+ by DM6PR04MB6778.namprd04.prod.outlook.com (2603:10b6:5:24c::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Thu, 17 Sep
- 2026 22:59:33 +0000
-Received: from BN2PEPF0000A801.namprd02.prod.outlook.com
- (2603:10b6:610:1f2:cafe::2d) by CH5P221CA0023.outlook.office365.com
- (2603:10b6:610:1f2::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
- 17 Sep 2026 22:59:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.14; Thu, 17 Sep
+ 2026 22:59:35 +0000
+Received: from SJ5PEPF000001C8.namprd05.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::5e) by BY5PR04CA0027.outlook.office365.com
+ (2603:10b6:a03:1d0::37) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Thu,
+ 17 Sep 2026 22:59:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 192.86.86.210)
  smtp.mailfrom=rambus.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=rambus.com;
@@ -49,12 +49,12 @@ Received-SPF: Pass (protection.outlook.com: domain of rambus.com designates
  192.86.86.210 as permitted sender) receiver=protection.outlook.com;
  client-ip=192.86.86.210; helo=hqxsv-psmtppxy02.rambus.com; pr=C
 Received: from hqxsv-psmtppxy02.rambus.com (192.86.86.210) by
- BN2PEPF0000A801.mail.protection.outlook.com (10.167.245.170) with Microsoft
+ SJ5PEPF000001C8.mail.protection.outlook.com (10.167.242.36) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
- via Frontend Transport; Thu, 17 Sep 2026 22:59:33 +0000
+ via Frontend Transport; Thu, 17 Sep 2026 22:59:34 +0000
 Received: from hqxsv-cmdev3-aousherovitch.rambus.com (hqn-lb-int-float.rambus.com [10.12.20.20])
-	by hqxsv-psmtppxy02.rambus.com (Postfix) with ESMTP id F3E411801760;
-	Thu, 17 Sep 2026 22:59:31 +0000 (UTC)
+	by hqxsv-psmtppxy02.rambus.com (Postfix) with ESMTP id A045E1801771;
+	Thu, 17 Sep 2026 22:59:32 +0000 (UTC)
 From: Alex Ousherovitch <aousherovitch@rambus.com>
 To: Albert Ou <aou@eecs.berkeley.edu>,
 	Alex Ousherovitch <aousherovitch@rambus.com>,
@@ -79,9 +79,9 @@ Cc: Alexandre Ghiti <alex@ghiti.fr>,
 	linux-riscv@lists.infradead.org,
 	Shuah Khan <skhan@linuxfoundation.org>,
 	Thi Nguyen <thin@rambus.com>
-Subject: [PATCH v5 05/19] crypto: cmh - add HMAC ahash
-Date: Thu, 17 Sep 2026 15:59:14 -0700
-Message-ID: <20260917225929.2494111-6-aousherovitch@rambus.com>
+Subject: [PATCH v5 18/19] selftests: crypto: cmh - add kselftest for management ioctl
+Date: Thu, 17 Sep 2026 15:59:27 -0700
+Message-ID: <20260917225929.2494111-19-aousherovitch@rambus.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260917225929.2494111-1-aousherovitch@rambus.com>
 References: <20260917225929.2494111-1-aousherovitch@rambus.com>
@@ -94,1046 +94,278 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A801:EE_|SJ0PR04MB7757:EE_
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C8:EE_|DM6PR04MB6778:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 02cc95f3-7163-49df-b935-08df150f56cc
+X-MS-Office365-Filtering-Correlation-Id: 2df82056-0781-49b1-61ad-08df150f5779
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|1800799024|7416014|376014|56012099006|11063799006|5023799004|3023799007|10067099003|6133799003|921020|22082099003|18002099003;
+	BCL:0;ARA:13230040|36860700016|7416014|23010399003|82310400026|376014|1800799024|6133799003|921020|18002099003|22082099003|11063799006|56012099006|10067099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	U6mKRGFR453fDzb2KI6d2bT1uA3vpZjaNVe8+zLHAaHTuonBLuFr6EtjF5F3yZMk2tPPtDuXr6iJWmnaldplA+U8ahXLNf2qxUC2W9PrTUvxXYEdBp+IvYhhG4Lgwy1gYcohcNPJnOeJr/oPDmSkHrCGtr7rGnafMzad2+bjjYeoKSEcwfmcoj84tX0iuGZHCNqv9FBFMrwRIXUstdenvIqKwl8XXHyWWNugfPZlGacPTgDWM2XJKQkiCYPiA0ixT2RrI8clDXjf3+gMa5AfBBPLH2rczNqmZio6JE88VHKtRuvIYcB0iZKsHWkoc2mszkqbB6YaFfeEnmTEe1FsAff0pCm7n39DHwaeIdgNdIY96fcOvk6ExGdNrNW9gNGUQCkwWsSG29JciSyDNZ/ScdELD6vn+Q0ZU42yLXU2ipG9Tpev95gePDCXPyzWnY0OkN6fnajyc2npF90n/bQep89w2JiZibmFZwDv8Dnq1BjfdlfyUatSBogiHhz2byd/au1g9jpkBYUgitvRxcKjvmeQdvIFQKOOihdmBfq87m7jgLDyHeT/rFrViLglb+UxIU0a0jBdWiSDfJM+9Sj9CnHAMVDC76dXHFfwKIY/h/PJxRZhrF0i7bF1DpXZWAwB8aWMyqXHDC4qRbto62kt7Z9iUgmIiPlZ708lYlfPMeV1hEixJBJECj0tRBy2+p9yNiBlAiagunpuWyVPyGwQVCa0wVb0lg2QwW7KAowmrHTKBmMHjh6PLi66PEZzInWJ
+	DlognZQEuK92YC0QLvHriAGiVtnBoCSwSWOfbUS0Yf9RiFnhRjLsIeW9DPDFUuCUNKZ04WgY2vIFfCiR4W7EBjiWSRivOWJta1Me/zB0azGGkfOCi59FGadmgkSdFtJ3+75eSpxqsj+XJZA6+uUab3V5aAzqIfzhQipi7oHwOD1fi6yPgBD+C9PqcDcGfw5Q1ZEW4CM70JaBrJBXbNRnkE8gKHInEGlIVH158McdF2h+OxAFWBsRoAOxg1QziEp19qrf9l6hGS9fJ1cIVIsKccLugelaCF+3FPS9Ls21DtfHL8Q1JGv1RVYRXE4qU+B3SARmCwkTa9jdjxFLahXeeLBMS8L3mmaJW9ilcr9CYdZ6MM9TALNVAkeRqI3T0nPPh+mXAhepGkjJu+4M1pFFogLOl0XsL91z6buWMHd7oQ+W2gnlbnKryVcyw6JTRJcpUNN1jJAMZwwefdi60iS4HBEsDLRKMGVy4Z4m1VxaDBP4taMyW36aHtZi3f4hbV2TYE3AdgJigNh/fGO+nDxWvJAgIhruLlvaeTh8E1Qb34DrmDVzs7AjBiYSOzUK7Vs4C73/e0ZJujYmrPN2teQEyn1QRU62G4rXUTyPAEn80gmXpGOB6nMEfXAKHf+A8NpTdwCtqs4wvdsY4B1myVwqboPS/3Ri9qOAFSFLjWA4u2G0imVWRD7Hb3cA1bGJhLKJL/f2i72qjSpCCfhapqXSizASL1uocclRScmlzv26+N5a5FJ25BO7iw4ivYL44g0o
 X-Forefront-Antispam-Report:
-	CIP:192.86.86.210;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hqxsv-psmtppxy02.rambus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(7416014)(376014)(56012099006)(11063799006)(5023799004)(3023799007)(10067099003)(6133799003)(921020)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:192.86.86.210;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hqxsv-psmtppxy02.rambus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(23010399003)(82310400026)(376014)(1800799024)(6133799003)(921020)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	r89V1pKlXgfDf6mVh/MXLrl0DFWmV7dUcf5cDRnVwev6QBKHweqhX0VvRJh6fCFhKM4qUm5Rd3QzhqM30k8aYbX22W8M61Eb1J25A5Ygf0ipgIbTwQkILKQ2NLBmHg88gIER+I5h1U4g+MdqQWturdUYcq77SL4XEty8IbSzn8MsD0wHU7RGfi/N4LAJRRbOSdcNzWNmuxcPgdtcbUj2Xqk7mYMnHeRhf1Is9gDNor0Jlj6B5c5JzBKGUlPvoQdSt8jDtSYZCzDRAD0bD+i1MmnBSaT0dh1FLEGe+xwBSmJa1xK7larwJNPAj23PA1jYwbS+gJF697711Gs1HVLmxnfVhPXhoAKolZACon0M2/IRSXyoa2q4QMpKzc48vuNk5jHSNMxSFqKZyOnoLOfVC1KJ/KxahcxJSPNnMtciB+DOSmRzHtN8WTr3e2HKdwtW
+	IzQ+yxG1aQsgyugswv3/T1l7YW9hPu/iKqV76J2OboUZ5mS/rfE7KBBZ3O5XOQjz25wKCMoMVk8TQ+7I5N/N/Jd5cYzs1WAoWQ7AHG71my5b7Xu0exnRkocMheY9M3gmt/MOHEHXqezAc82UonXa5yQEdbbYMS+TrF6pUOd7svZnoNs19653BECcxZlTNRPOLY+vzJ3hcQVy0Y6zQIg6vMuRVXnmBDBj18bhLf7umEfRPVdrQ2WkzTmlFp+4KO6owJIxi4cgVd4OPSxme+HIvlDd9Y1osaYzcacnGOfvRRGsjdHyT3Azc3RUHQai9X/WjO10HBedYiUkRhd3L5rKsgpmmY+uyrccG7XUK2Q5ZKtznVvVpMysdAorlzi3RLy4AIManyTBWkmmDnvBtWt1GEN93KE5760xxII6KBTkgPrB/rNYbMRF/mJW/8fZrUTk
 X-OriginatorOrg: rambus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 22:59:33.2535
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 22:59:34.5710
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02cc95f3-7163-49df-b935-08df150f56cc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2df82056-0781-49b1-61ad-08df150f5779
 X-MS-Exchange-CrossTenant-Id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bd0ba799-c2b9-413c-9c56-5d1731c4827c;Ip=[192.86.86.210];Helo=[hqxsv-psmtppxy02.rambus.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A801.namprd02.prod.outlook.com
+	SJ5PEPF000001C8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR04MB7757
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR04MB6778
 
-Register ahash algorithms for HMAC-SHA-224, HMAC-SHA-256,
-HMAC-SHA-384, HMAC-SHA-512, HMAC-SHA3-224, HMAC-SHA3-256,
-HMAC-SHA3-384, and HMAC-SHA3-512 using the CMH hash core.
+Add a minimal kselftest exercising the /dev/cmh_mgmt ioctl interface:
 
-HMAC is deliberately not CRYPTO_AHASH_ALG_BLOCK_ONLY, unlike the plain
-hashes: the hardware has no keyed-MAC save/restore, so a MAC cannot be
-computed block-incrementally.  The driver accumulates the request
-input and submits it in a single HW transaction at finalize.  Above a
-64KB hardware window it switches transparently to the generic software
-HMAC, so there is no input-size limit.
+  - open/close the device node
+  - invalid ioctl returns -ENOTTY
+  - bad version field returns -EINVAL
+  - KEY_NEW + KEY_DELETE lifecycle
+  - KIC HKDF1 key derivation
+  - ML-KEM-768 keygen via hardware RNG
+
+Tests use the kselftest_harness.h fixture framework and output TAP.
+Tests that require hardware features not present on the device under
+test are gracefully skipped (SKIP).
 
 Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
 Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
 Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
 ---
- drivers/crypto/cmh/Makefile           |   3 +-
- drivers/crypto/cmh/cmh_hmac.c         | 908 ++++++++++++++++++++++++++
- drivers/crypto/cmh/cmh_main.c         |   9 +
- drivers/crypto/cmh/include/cmh_hmac.h |  16 +
- 4 files changed, 935 insertions(+), 1 deletion(-)
- create mode 100644 drivers/crypto/cmh/cmh_hmac.c
- create mode 100644 drivers/crypto/cmh/include/cmh_hmac.h
+ tools/testing/selftests/Makefile              |   1 +
+ .../selftests/drivers/crypto/cmh/Makefile     |   6 +
+ .../drivers/crypto/cmh/cmh_mgmt_test.c        | 183 ++++++++++++++++++
+ .../selftests/drivers/crypto/cmh/config       |   1 +
+ 4 files changed, 191 insertions(+)
+ create mode 100644 tools/testing/selftests/drivers/crypto/cmh/Makefile
+ create mode 100644 tools/testing/selftests/drivers/crypto/cmh/cmh_mgmt_test.c
+ create mode 100644 tools/testing/selftests/drivers/crypto/cmh/config
 
-diff --git a/drivers/crypto/cmh/Makefile b/drivers/crypto/cmh/Makefile
-index 79c94d87e9ee..acd1827cc084 100644
---- a/drivers/crypto/cmh/Makefile
-+++ b/drivers/crypto/cmh/Makefile
-@@ -15,7 +15,8 @@ cmh-y := \
- 	cmh_sysfs.o \
- 	cmh_key.o \
- 	cmh_sys.o \
--	cmh_hash.o
-+	cmh_hash.o \
-+	cmh_hmac.o
- 
- # Management ioctl device (/dev/cmh_mgmt): key lifecycle, PKE, PQC ioctls.
- cmh-$(CONFIG_CRYPTO_DEV_CMH_MGMT) += \
-diff --git a/drivers/crypto/cmh/cmh_hmac.c b/drivers/crypto/cmh/cmh_hmac.c
+diff --git a/tools/testing/selftests/Makefile b/tools/testing/selftests/Makefile
+index 2d960626750e..71eed3f8b591 100644
+--- a/tools/testing/selftests/Makefile
++++ b/tools/testing/selftests/Makefile
+@@ -19,6 +19,7 @@ TARGETS += dax
+ TARGETS += devices/error_logs
+ TARGETS += devices/probe
+ TARGETS += dmabuf-heaps
++TARGETS += drivers/crypto/cmh
+ TARGETS += drivers/dma-buf
+ TARGETS += drivers/ntsync
+ TARGETS += drivers/s390x/uvdevice
+diff --git a/tools/testing/selftests/drivers/crypto/cmh/Makefile b/tools/testing/selftests/drivers/crypto/cmh/Makefile
 new file mode 100644
-index 000000000000..7d984bc745e1
+index 000000000000..86cb63839b27
 --- /dev/null
-+++ b/drivers/crypto/cmh/cmh_hmac.c
-@@ -0,0 +1,908 @@
++++ b/tools/testing/selftests/drivers/crypto/cmh/Makefile
+@@ -0,0 +1,6 @@
++# SPDX-License-Identifier: GPL-2.0
++TEST_GEN_PROGS := cmh_mgmt_test
++
++CFLAGS += -Wall -Wno-misleading-indentation -O2 $(KHDR_INCLUDES)
++
++include ../../../lib.mk
+diff --git a/tools/testing/selftests/drivers/crypto/cmh/cmh_mgmt_test.c b/tools/testing/selftests/drivers/crypto/cmh/cmh_mgmt_test.c
+new file mode 100644
+index 000000000000..8c2269a3cd13
+--- /dev/null
++++ b/tools/testing/selftests/drivers/crypto/cmh/cmh_mgmt_test.c
+@@ -0,0 +1,183 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Copyright (c) 2026 Cryptography Research, Inc. (CRI).
-+ * CMH LKM -- Kernel Crypto API HMAC Driver
++ * Kselftest for /dev/cmh_mgmt ioctl interface.
 + *
-+ * Registers HMAC ahash algorithms with the Linux crypto subsystem.
-+ * Supports HMAC-SHA-2 (224/256/384/512) and HMAC-SHA-3 (224/256/384/512)
-+ * using the CMH Hash Core (HC) via HC_CMD_HMAC.
++ * Tests basic ioctl operations on the Rambus CryptoManager Hub management
++ * device.  Requires the cmh module loaded on real or emulated hardware.
 + *
-+ * Uses the same self-contained transaction model as cmh_hash.c:
-+ *   .setkey() -> store raw key bytes
-+ *   .init()   -> software-only: initialize per-request context
-+ *   .update() -> software-only: copy SG data into per-call chunk
-+ *   .final()  -> [SYS_CMD_WRITE] + HC_CMD_HMAC + [GATHER] + FINAL + FLUSH
-+ *
-+ * Raw-key atomicity: SYS_CMD_WRITE to SYS_REF_TEMP is packed into
-+ * the same VCQ as HC_CMD_HMAC (see cmh_key.h for details).
-+ *
-+ * ahash .export()/.import() (state cloning): the HW hash core does NOT
-+ * support save/restore of intermediate HMAC state, so the driver
-+ * accumulates input in kernel memory and serialises that buffer for
-+ * the common (bounded) case.  When the accumulated input exceeds the
-+ * HW cap (HMAC_MAX_DATA, 64 KB) or the flat export window, the request
-+ * transparently switches to a generic software HMAC fallback that the
-+ * driver allocates and keys itself: buffered chunks are replayed into it and
-+ * all further input streams through it, so arbitrary-length hashing and
-+ * transform clone both remain conformant with O(1) driver memory.
++ * Run:  ./cmh_mgmt_test
++ * Output: TAP format (compatible with kselftest harness)
 + */
 +
-+#include <linux/module.h>
-+#include <linux/kernel.h>
-+#include <linux/crypto.h>
-+#include <crypto/internal/hash.h>
-+#include <crypto/hash.h>
-+#include <linux/scatterlist.h>
-+#include <linux/list.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
++#include <errno.h>
++#include <fcntl.h>
++#include <stdint.h>
++#include <string.h>
++#include <unistd.h>
++#include <sys/ioctl.h>
 +
-+#include "cmh_hmac.h"
-+#include "cmh_vcq.h"
-+#include "cmh_hc_abi.h"
-+#include "cmh_sys_abi.h"
-+#include "cmh_sys.h"
-+#include "cmh_txn.h"
-+#include "cmh_dma.h"
-+#include "cmh_key.h"
++#include "kselftest_harness.h"
++#include <linux/cmh_mgmt_ioctl.h>
 +
-+/*
-+ * Maximum data that can be accumulated across .update() calls.
-+ * HMAC save/restore is intentionally unsupported (see file header),
-+ * so all data must be buffered in kernel memory and submitted
-+ * atomically in .final().  This cap prevents unbounded allocation.
-+ */
-+#define HMAC_MAX_DATA		(64 * 1024)
++#define CMH_DEV "/dev/cmh_mgmt"
 +
-+/* Algorithm Table */
-+
-+struct cmh_hmac_alg_info {
-+	u32         hc_algo;        /* HC_ALGO_* */
-+	u32         digest_size;    /* bytes */
-+	u32         block_size;     /* cra_blocksize */
-+	const char *alg_name;       /* Linux crypto name: "hmac(sha256)" */
-+	const char *drv_name;       /* driver name: "rambus-cmh-hmac-sha256" */
++FIXTURE(cmh_mgmt)
++{
++	int fd;
 +};
 +
-+static const struct cmh_hmac_alg_info cmh_hmac_algs_info[] = {
-+	/* HMAC-SHA-2 family */
-+	{
-+		.hc_algo     = HC_ALGO_SHA2_224,
-+		.digest_size = CMH_SHA224_DIGEST_SIZE,
-+		.block_size  = 64,
-+		.alg_name    = "hmac(sha224)",
-+		.drv_name    = "rambus-cmh-hmac-sha224",
-+	},
-+	{
-+		.hc_algo     = HC_ALGO_SHA2_256,
-+		.digest_size = CMH_SHA256_DIGEST_SIZE,
-+		.block_size  = 64,
-+		.alg_name    = "hmac(sha256)",
-+		.drv_name    = "rambus-cmh-hmac-sha256",
-+	},
-+	{
-+		.hc_algo     = HC_ALGO_SHA2_384,
-+		.digest_size = CMH_SHA384_DIGEST_SIZE,
-+		.block_size  = 128,
-+		.alg_name    = "hmac(sha384)",
-+		.drv_name    = "rambus-cmh-hmac-sha384",
-+	},
-+	{
-+		.hc_algo     = HC_ALGO_SHA2_512,
-+		.digest_size = CMH_SHA512_DIGEST_SIZE,
-+		.block_size  = 128,
-+		.alg_name    = "hmac(sha512)",
-+		.drv_name    = "rambus-cmh-hmac-sha512",
-+	},
-+	/* HMAC-SHA-3 family */
-+	{
-+		.hc_algo     = HC_ALGO_SHA3_224,
-+		.digest_size = CMH_SHA3_224_DIGEST_SIZE,
-+		.block_size  = 144,
-+		.alg_name    = "hmac(sha3-224)",
-+		.drv_name    = "rambus-cmh-hmac-sha3-224",
-+	},
-+	{
-+		.hc_algo     = HC_ALGO_SHA3_256,
-+		.digest_size = CMH_SHA3_256_DIGEST_SIZE,
-+		.block_size  = 136,
-+		.alg_name    = "hmac(sha3-256)",
-+		.drv_name    = "rambus-cmh-hmac-sha3-256",
-+	},
-+	{
-+		.hc_algo     = HC_ALGO_SHA3_384,
-+		.digest_size = CMH_SHA3_384_DIGEST_SIZE,
-+		.block_size  = 104,
-+		.alg_name    = "hmac(sha3-384)",
-+		.drv_name    = "rambus-cmh-hmac-sha3-384",
-+	},
-+	{
-+		.hc_algo     = HC_ALGO_SHA3_512,
-+		.digest_size = CMH_SHA3_512_DIGEST_SIZE,
-+		.block_size  = 72,
-+		.alg_name    = "hmac(sha3-512)",
-+		.drv_name    = "rambus-cmh-hmac-sha3-512",
-+	},
-+};
-+
-+#define CMH_HMAC_ALG_COUNT  ARRAY_SIZE(cmh_hmac_algs_info)
-+
-+/* Per-Request State */
-+
-+struct cmh_hmac_chunk {
-+	struct list_head  list;
-+	struct list_head  tfm_node; /* per-tfm orphan tracking */
-+	u32               len;
-+	u8                data[];
-+};
-+
-+/*
-+ * Maximum payload commands any HMAC transaction can produce:
-+ *   [SYS_CMD_WRITE] + HC_CMD_HMAC + [GATHER] + FINAL + FLUSH = 5
-+ * Worst-case packed output (stride=7, 1 payload per VCQ):
-+ *   5 VCQs x 2 entries = 10
-+ */
-+#define CMH_HMAC_MAX_PAYLOAD    5
-+#define CMH_HMAC_MAX_PACKED     (CMH_HMAC_MAX_PAYLOAD * 2)
-+
-+struct cmh_hmac_reqctx {
-+	const struct cmh_hmac_alg_info *info;
-+	int                             error;
-+	struct list_head                chunks;
-+	u32                             num_chunks;
-+	u32                             total_len;
-+	bool                            switched;   /* handed off to SW fallback */
-+	/* DMA state for async final */
-+	dma_addr_t                      digest_dma;
-+	dma_addr_t                      key_dma;
-+	u8                             *digest_buf;
-+	struct cmh_sg_map              *sgm;
-+	u32                             keylen;
-+	struct vcq_cmd packed[CMH_HMAC_MAX_PACKED];
-+};
-+
-+/*
-+ * Flat state for export/import, tagged by the leading @format byte:
-+ *
-+ *   CMH_HMAC_FMT_RAW -- the accumulated input bytes, verbatim.  Used
-+ *     while the request is still on the HW-buffered path and fits the
-+ *     flat window (total_len <= CMH_HMAC_EXPORT_MAX).
-+ *   CMH_HMAC_FMT_FB  -- the software fallback's own exported state.
-+ *     Used once the request has switched to the fallback (oversized
-+ *     input, or an export past the flat window), so export/import
-+ *     (transform clone) works at any input length.
-+ */
-+#define CMH_HMAC_FMT_RAW 0
-+#define CMH_HMAC_FMT_FB  1
-+
-+struct cmh_hmac_export_state {
-+	u8  format;
-+	u8  __pad[3];
-+	u32 total_len;
-+	u8  data[];
-+};
-+
-+/*
-+ * The crypto subsystem pre-allocates statesize bytes per request.
-+ * CMH_HMAC_STATE_SIZE (4096) sizes both the CMH_HMAC_FMT_RAW window
-+ * (CMH_HMAC_EXPORT_MAX accumulated bytes) and the CMH_HMAC_FMT_FB
-+ * software state (the generic fallback's much smaller statesize).  A
-+ * RAW export past CMH_HMAC_EXPORT_MAX transparently switches to the
-+ * fallback and emits CMH_HMAC_FMT_FB instead, so export/import is not
-+ * capped.
-+ */
-+#define CMH_HMAC_STATE_SIZE 4096
-+#define CMH_HMAC_EXPORT_MAX (CMH_HMAC_STATE_SIZE - sizeof(struct cmh_hmac_export_state))
-+
-+/* Per-Transform State (carries key across requests) */
-+
-+struct cmh_hmac_tfm_ctx {
-+	struct cmh_key_ctx key;
-+	struct crypto_ahash *fb;	/* generic SW fallback (oversized ops) */
-+	spinlock_t         chunk_lock;  /* protects all_chunks + tfm_buffered */
-+	struct list_head   all_chunks;  /* orphan-safe chunk tracking */
-+	size_t             tfm_buffered; /* bytes on all_chunks; DoS cap */
-+};
-+
-+/*
-+ * Per-transform cap on total bytes buffered across all_chunks.  Bounds
-+ * memory an AF_ALG client can pin via repeated open/update/abandon of
-+ * request sockets (the crypto API has no per-request destructor).
-+ */
-+#define CMH_HMAC_TFM_MAX_BUFFERED	(16 * 1024 * 1024)
-+
-+/* VCQ Builders (HMAC-specific; shared builders in cmh_hc_abi.h / cmh_vcq.h) */
-+
-+/* Add an HC_CMD_HMAC entry */
-+static void vcq_add_hc_hmac(struct vcq_cmd *slot, u32 core_id, u64 key_ref,
-+			    u32 keylen, u32 algo)
++FIXTURE_SETUP(cmh_mgmt)
 +{
-+	memset(slot, 0, sizeof(*slot));
-+	slot->magic = VCQ_CMD_MAGIC;
-+	slot->id = VCQ_CMD_ID(core_id, 0, 1, HC_CMD_HMAC);
-+	slot->hwc.hc.cmd_hmac.key = key_ref;
-+	slot->hwc.hc.cmd_hmac.keylen = keylen;
-+	slot->hwc.hc.cmd_hmac.algo = algo;
++	self->fd = open(CMH_DEV, O_RDWR);
++	if (self->fd < 0 && errno == ENOENT)
++		SKIP(return, "Device " CMH_DEV " not present (module not loaded?)");
++	if (self->fd < 0 && errno == EACCES)
++		SKIP(return, "Permission denied -- run as root or with CAP_SYS_ADMIN");
++	ASSERT_GE(self->fd, 0);
 +}
 +
-+/* Request Context Cleanup */
-+
-+static void cmh_hmac_free_chunks(struct cmh_hmac_reqctx *rctx,
-+				 struct cmh_hmac_tfm_ctx *tctx)
++FIXTURE_TEARDOWN(cmh_mgmt)
 +{
-+	struct cmh_hmac_chunk *chunk, *tmp;
-+
-+	spin_lock_bh(&tctx->chunk_lock);
-+	list_for_each_entry_safe(chunk, tmp, &rctx->chunks, list) {
-+		list_del(&chunk->list);
-+		list_del(&chunk->tfm_node);
-+		tctx->tfm_buffered -= chunk->len;
-+		kfree_sensitive(chunk);
-+	}
-+	spin_unlock_bh(&tctx->chunk_lock);
-+	rctx->num_chunks = 0;
-+	rctx->total_len = 0;
++	if (self->fd >= 0)
++		close(self->fd);
 +}
 +
 +/*
-+ * Build a DMA-mapped CMH eSW scatter-gather chain from accumulated chunks.
++ * Test 1: open and close succeed.
++ * If we get here, FIXTURE_SETUP already validated the open.
 + */
-+static struct cmh_sg_map *
-+cmh_hmac_build_sg(struct cmh_hmac_reqctx *rctx, gfp_t gfp)
++TEST_F(cmh_mgmt, open_close)
 +{
-+	struct cmh_dma_buf *bufs;
-+	struct cmh_hmac_chunk *chunk;
-+	struct cmh_sg_map *sgm;
-+	u32 i;
-+
-+	bufs = kcalloc(rctx->num_chunks, sizeof(*bufs), gfp);
-+	if (!bufs)
-+		return NULL;
-+
-+	i = 0;
-+	list_for_each_entry(chunk, &rctx->chunks, list) {
-+		bufs[i].data = chunk->data;
-+		bufs[i].len = chunk->len;
-+		i++;
-+	}
-+
-+	sgm = cmh_dma_build_sg(bufs, rctx->num_chunks, gfp);
-+	kfree(bufs);
-+	return sgm;
-+}
-+
-+/* VCQ Packing + Submit */
-+
-+/* ahash Operations */
-+
-+struct cmh_hmac_alg_drv {
-+	struct ahash_alg                  alg;
-+	const struct cmh_hmac_alg_info   *info;
-+};
-+
-+static const struct cmh_hmac_alg_info *
-+cmh_hmac_get_info(struct crypto_ahash *tfm)
-+{
-+	struct ahash_alg *alg = crypto_ahash_alg(tfm);
-+
-+	return container_of(alg, struct cmh_hmac_alg_drv, alg)->info;
-+}
-+
-+/* Software-fallback helpers (arbitrary-length + transform-clone support) */
-+
-+/*
-+ * The fallback ahash_request lives immediately after the reqctx.
-+ * cmh_hmac_cra_init() reserves crypto_ahash_reqsize(fb) bytes for it and
-+ * PTR_ALIGN keeps it aligned for the fallback's own request context.
-+ */
-+static struct ahash_request *cmh_hmac_fb_req(struct cmh_hmac_reqctx *rctx)
-+{
-+	return PTR_ALIGN((void *)(rctx + 1), crypto_tfm_ctx_alignment());
++	ASSERT_GE(self->fd, 0);
 +}
 +
 +/*
-+ * Feed @len bytes of the linear buffer @data to the fallback request.
-+ * The core allocated the fallback as a virt-capable transform, so a
-+ * virtual address can be handed to it directly.  The fallback is
-+ * synchronous (shash-backed), so crypto_ahash_update() completes inline.
++ * Test 2: invalid ioctl number returns -ENOTTY.
 + */
-+static int cmh_hmac_fb_update_virt(struct ahash_request *fb_req,
-+				   const u8 *data, u32 len)
-+{
-+	ahash_request_set_virt(fb_req, data, NULL, len);
-+	return crypto_ahash_update(fb_req);
-+}
-+
-+/*
-+ * Switch a request from the HW-buffered path to the software fallback:
-+ * initialise the fallback request, replay every accumulated chunk
-+ * through it, then drop the chunks (their bytes now live in the
-+ * fallback's running state).  Afterwards the request is O(1) in memory
-+ * and no longer input-capped.  The fallback transform was keyed by
-+ * cmh_hmac_setkey() when the caller installed the MAC key.
-+ */
-+static int cmh_hmac_switch_to_fb(struct ahash_request *req)
-+{
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct cmh_hmac_tfm_ctx *tctx = crypto_ahash_ctx(tfm);
-+	struct cmh_hmac_reqctx *rctx = ahash_request_ctx(req);
-+	struct ahash_request *fb_req = cmh_hmac_fb_req(rctx);
-+	struct cmh_hmac_chunk *chunk;
-+	int ret;
-+
-+	ahash_request_set_tfm(fb_req, tctx->fb);
-+	ahash_request_set_callback(fb_req, 0, NULL, NULL);
-+
-+	ret = crypto_ahash_init(fb_req);
-+	if (ret)
-+		return ret;
-+
-+	list_for_each_entry(chunk, &rctx->chunks, list) {
-+		ret = cmh_hmac_fb_update_virt(fb_req, chunk->data, chunk->len);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	cmh_hmac_free_chunks(rctx, tctx);
-+	rctx->switched = true;
-+	return 0;
-+}
-+
-+/*
-+ * Forward the current update() payload to the fallback and remember any
-+ * error so a later final()/update() reports it.  @req may carry either a
-+ * virtual buffer or a scatterlist.
-+ */
-+static int cmh_hmac_fb_forward(struct ahash_request *req,
-+			       struct cmh_hmac_reqctx *rctx)
-+{
-+	struct ahash_request *fb_req = cmh_hmac_fb_req(rctx);
-+	int ret;
-+
-+	if (req->base.flags & CRYPTO_AHASH_REQ_VIRT) {
-+		ret = cmh_hmac_fb_update_virt(fb_req, req->svirt, req->nbytes);
-+	} else {
-+		ahash_request_set_crypt(fb_req, req->src, NULL, req->nbytes);
-+		ret = crypto_ahash_update(fb_req);
-+	}
-+	if (ret)
-+		rctx->error = ret;
-+	return ret;
-+}
-+
-+static int cmh_hmac_setkey(struct crypto_ahash *tfm, const u8 *key,
-+			   unsigned int keylen)
-+{
-+	struct cmh_hmac_tfm_ctx *tctx = crypto_ahash_ctx(tfm);
-+	int ret;
-+
-+	ret = cmh_key_setkey_raw(&tctx->key, key, keylen, CORE_ID_HC);
-+	if (ret)
-+		return ret;
-+
-+	/* Keep the software fallback keyed in lock-step for oversized ops. */
-+	return crypto_ahash_setkey(tctx->fb, key, keylen);
-+}
-+
-+static int cmh_hmac_init(struct ahash_request *req)
-+{
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct cmh_hmac_reqctx *rctx = ahash_request_ctx(req);
-+
-+	rctx->info = cmh_hmac_get_info(tfm);
-+	rctx->error = 0;
-+	INIT_LIST_HEAD(&rctx->chunks);
-+	rctx->num_chunks = 0;
-+	rctx->total_len = 0;
-+	rctx->switched = false;
-+
-+	return 0;
-+}
-+
-+static int cmh_hmac_update(struct ahash_request *req)
-+{
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct cmh_hmac_tfm_ctx *tctx = crypto_ahash_ctx(tfm);
-+	struct cmh_hmac_reqctx *rctx = ahash_request_ctx(req);
-+	struct cmh_hmac_chunk *chunk;
-+	int nents;
-+
-+	if (rctx->error)
-+		return rctx->error;
-+
-+	if (!req->nbytes)
-+		return 0;
-+
-+	/* Already handed off to the fallback: forward directly (O(1) mem). */
-+	if (rctx->switched)
-+		return cmh_hmac_fb_forward(req, rctx);
-+
-+	/*
-+	 * Exceeding the HW input cap: switch to the software fallback
-+	 * (replaying the buffered chunks) rather than failing, then
-+	 * forward this update.
-+	 */
-+	if (req->nbytes > HMAC_MAX_DATA - rctx->total_len) {
-+		rctx->error = cmh_hmac_switch_to_fb(req);
-+		if (rctx->error)
-+			goto err_free_chunks;
-+		return cmh_hmac_fb_forward(req, rctx);
-+	}
-+
-+	chunk = kmalloc(sizeof(*chunk) + req->nbytes,
-+			req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
-+			GFP_KERNEL : GFP_ATOMIC);
-+	if (!chunk) {
-+		rctx->error = -ENOMEM;
-+		goto err_free_chunks;
-+	}
-+
-+	chunk->len = req->nbytes;
-+	if (req->base.flags & CRYPTO_AHASH_REQ_VIRT) {
-+		memcpy(chunk->data, req->svirt, req->nbytes);
-+	} else {
-+		nents = sg_nents_for_len(req->src, req->nbytes);
-+		if (nents < 0 ||
-+		    sg_copy_to_buffer(req->src, nents,
-+				      chunk->data, req->nbytes) != req->nbytes) {
-+			kfree_sensitive(chunk);
-+			rctx->error = -EINVAL;
-+			goto err_free_chunks;
-+		}
-+	}
-+
-+	spin_lock_bh(&tctx->chunk_lock);
-+	if (tctx->tfm_buffered + chunk->len > CMH_HMAC_TFM_MAX_BUFFERED) {
-+		spin_unlock_bh(&tctx->chunk_lock);
-+		kfree_sensitive(chunk);
-+		rctx->error = -ENOMEM;
-+		goto err_free_chunks;
-+	}
-+	list_add_tail(&chunk->list, &rctx->chunks);
-+	list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
-+	tctx->tfm_buffered += chunk->len;
-+	spin_unlock_bh(&tctx->chunk_lock);
-+	rctx->num_chunks++;
-+	rctx->total_len += req->nbytes;
-+
-+	return 0;
-+
-+err_free_chunks:
-+	/*
-+	 * Terminal error -- free all previously accumulated chunks.
-+	 * The crypto API hash path does not call .final()
-+	 * on error, and hash_sock_destruct has no per-request
-+	 * destructor, so chunks would be orphaned otherwise.
-+	 */
-+	cmh_hmac_free_chunks(rctx, tctx);
-+	return rctx->error;
-+}
-+
-+static void cmh_hmac_complete(void *data, int error)
-+{
-+	struct ahash_request *req = data;
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct cmh_hmac_tfm_ctx *tctx = crypto_ahash_ctx(tfm);
-+	struct cmh_hmac_reqctx *rctx = ahash_request_ctx(req);
-+
-+	if (error == -EINPROGRESS) {
-+		cmh_complete(&req->base, error);
-+		return;
-+	}
-+
-+	cmh_dma_unmap_single(rctx->digest_dma, rctx->info->digest_size,
-+			     DMA_FROM_DEVICE);
-+
-+	if (!error)
-+		memcpy(req->result, rctx->digest_buf,
-+		       rctx->info->digest_size);
-+
-+	kfree(rctx->digest_buf);
-+	rctx->digest_buf = NULL;
-+	cmh_dma_free_sg(rctx->sgm);
-+	rctx->sgm = NULL;
-+	cmh_hmac_free_chunks(rctx, tctx);
-+	cmh_complete(&req->base, error);
-+}
-+
-+static int cmh_hmac_final(struct ahash_request *req)
-+{
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct cmh_hmac_tfm_ctx *tctx = crypto_ahash_ctx(tfm);
-+	struct cmh_hmac_reqctx *rctx = ahash_request_ctx(req);
-+	const struct cmh_hmac_alg_info *info = rctx->info;
-+	struct vcq_cmd cmds[CMH_HMAC_MAX_PAYLOAD];
-+	struct cmh_sg_map *sgm = NULL;
-+	dma_addr_t digest_dma = DMA_MAPPING_ERROR, key_dma = DMA_MAPPING_ERROR;
-+	u8 *digest_buf;
-+	u64 key_ref;
-+	u32 keylen;
-+	struct core_dispatch d;
-+	s32 target_mbx;
-+	u32 core_id;
-+	u32 idx;
-+	int ret;
-+	gfp_t gfp = req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
-+		   GFP_KERNEL : GFP_ATOMIC;
-+
-+	if (rctx->error) {
-+		ret = rctx->error;
-+		goto out_free;
-+	}
-+
-+	/* Switched to the software fallback: complete there (synchronous). */
-+	if (rctx->switched) {
-+		struct ahash_request *fb_req = cmh_hmac_fb_req(rctx);
-+
-+		ahash_request_set_crypt(fb_req, NULL, req->result, 0);
-+		return crypto_ahash_final(fb_req);
-+	}
-+
-+	if (tctx->key.mode == CMH_KEY_NONE) {
-+		ret = -ENOKEY;
-+		goto out_free;
-+	}
-+
-+	if (rctx->num_chunks > 0) {
-+		sgm = cmh_hmac_build_sg(rctx, gfp);
-+		if (!sgm) {
-+			ret = -ENOMEM;
-+			goto out_free;
-+		}
-+	}
-+
-+	digest_buf = kzalloc(info->digest_size, gfp);
-+	if (!digest_buf) {
-+		ret = -ENOMEM;
-+		goto out_free_sg;
-+	}
-+	digest_dma = cmh_dma_map_single(digest_buf, info->digest_size,
-+					DMA_FROM_DEVICE);
-+	if (cmh_dma_map_error(digest_dma)) {
-+		ret = -ENOMEM;
-+		goto out_free_digest;
-+	}
-+
-+	/* Resolve key reference */
-+	idx = 0;
-+
-+	/*
-+	 * Raw key: pack SYS_CMD_WRITE(SYS_REF_TEMP) into the
-+	 * same VCQ so the key write + HMAC are atomic.
-+	 */
-+	key_dma = tctx->key.raw.dma;
-+	vcq_add_sys_write(&cmds[idx++], SYS_REF_TEMP, (u64)key_dma,
-+			  SYS_REF_NONE, tctx->key.raw.len,
-+			  tctx->key.raw.sys_type);
-+	key_ref = SYS_REF_TEMP;
-+	keylen = tctx->key.raw.len;
-+	d = cmh_core_select_instance(CMH_CORE_HC);
-+
-+	target_mbx = d.mbx_idx;
-+
-+	core_id = d.core_id;
-+
-+	vcq_add_hc_hmac(&cmds[idx++], core_id, key_ref, keylen, info->hc_algo);
-+
-+	if (sgm)
-+		vcq_add_hc_gather(&cmds[idx++], core_id, (u64)sgm->items_dma,
-+				  HC_CMD_UPDATE);
-+
-+	vcq_add_hc_final(&cmds[idx++], core_id, (u64)digest_dma, info->digest_size);
-+	vcq_add_flush(&cmds[idx++], core_id);
-+
-+	rctx->digest_buf = digest_buf;
-+	rctx->digest_dma = digest_dma;
-+	rctx->sgm = sgm;
-+
-+	ret = cmh_vcq_pack_and_submit_async(cmds, idx, rctx->packed,
-+					    CMH_HMAC_MAX_PACKED,
-+					    target_mbx,
-+					    cmh_hmac_complete, req,
-+					    !!(req->base.flags &
-+					       CRYPTO_TFM_REQ_MAY_BACKLOG),
-+					    cmh_tm_async_timeout_jiffies());
-+	if (ret == -EBUSY)
-+		return -EBUSY;
-+	if (ret) {
-+		/*
-+		 * Synchronous rejection (e.g. -EAGAIN: CMQ full, no backlog).
-+		 * Free only the per-submit transients and keep the accumulated
-+		 * chunks intact so the caller can retry the identical final().
-+		 * If no retry comes, cra_exit reclaims the orphaned chunks; the
-+		 * per-tfm buffered-byte cap bounds how much stays pinned.
-+		 */
-+		cmh_dma_unmap_single(digest_dma, info->digest_size,
-+				     DMA_FROM_DEVICE);
-+		kfree(digest_buf);
-+		rctx->digest_buf = NULL;
-+		cmh_dma_free_sg(sgm);
-+		rctx->sgm = NULL;
-+		return ret;
-+	}
-+
-+	return -EINPROGRESS;
-+
-+out_free_digest:
-+	kfree(digest_buf);
-+
-+out_free_sg:
-+	cmh_dma_free_sg(sgm);
-+
-+out_free:
-+	cmh_hmac_free_chunks(rctx, tctx);
-+	return ret;
-+}
-+
-+static int cmh_hmac_finup(struct ahash_request *req)
++TEST_F(cmh_mgmt, invalid_ioctl)
 +{
 +	int ret;
++	unsigned long bogus_cmd = _IOC(_IOC_READ, 'J', 0xFF, 4);
 +
-+	ret = cmh_hmac_update(req);
-+	if (ret)
-+		return ret;
-+
-+	return cmh_hmac_final(req);
-+}
-+
-+static int cmh_hmac_digest(struct ahash_request *req)
-+{
-+	int ret;
-+
-+	ret = cmh_hmac_init(req);
-+	if (ret)
-+		return ret;
-+
-+	return cmh_hmac_finup(req);
++	ret = ioctl(self->fd, bogus_cmd, NULL);
++	ASSERT_EQ(ret, -1);
++	ASSERT_EQ(errno, ENOTTY);
 +}
 +
 +/*
-+ * ahash .export()/.import(): serialize/deserialize the software
-+ * accumulation buffer.  No HW state is involved.
++ * Test 3: KEY_NEW with bad version field returns -EINVAL.
 + */
-+
-+static int cmh_hmac_export(struct ahash_request *req, void *out)
++TEST_F(cmh_mgmt, bad_version)
 +{
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct cmh_hmac_reqctx *rctx = ahash_request_ctx(req);
-+	struct cmh_hmac_export_state *state = out;
-+	struct cmh_hmac_chunk *chunk;
-+	u32 offset = 0;
++	struct cmh_ioctl_key_new req;
 +	int ret;
 +
-+	/*
-+	 * If more data is buffered than the flat window holds, switch to
-+	 * the software fallback so a bounded, fixed-size state can be
-+	 * exported -- making export/import (clone) work at any length.
-+	 */
-+	if (!rctx->switched && rctx->total_len > CMH_HMAC_EXPORT_MAX) {
-+		ret = cmh_hmac_switch_to_fb(req);
-+		if (ret)
-+			return ret;
-+	}
++	memset(&req, 0, sizeof(req));
++	req.version = 0; /* invalid */
++	req.ds_type = CMH_DS_AES_KEY;
++	req.len = 32;
++	req.flags = CMH_FLAG_PT;
++	req.cid = 0xDEAD;
 +
-+	/* Zero the whole state buffer so no kernel memory leaks out. */
-+	memset(state, 0, crypto_ahash_statesize(tfm));
-+
-+	if (rctx->switched) {
-+		state->format = CMH_HMAC_FMT_FB;
-+		return crypto_ahash_export(cmh_hmac_fb_req(rctx), state->data);
-+	}
-+
-+	state->format = CMH_HMAC_FMT_RAW;
-+	state->total_len = rctx->total_len;
-+	list_for_each_entry(chunk, &rctx->chunks, list) {
-+		memcpy(state->data + offset, chunk->data, chunk->len);
-+		offset += chunk->len;
-+	}
-+	return 0;
++	ret = ioctl(self->fd, CMH_IOCTL_KEY_NEW, &req);
++	ASSERT_EQ(ret, -1);
++	ASSERT_EQ(errno, EINVAL);
 +}
 +
-+static int cmh_hmac_import(struct ahash_request *req, const void *in)
-+{
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct cmh_hmac_tfm_ctx *tctx = crypto_ahash_ctx(tfm);
-+	struct cmh_hmac_reqctx *rctx = ahash_request_ctx(req);
-+	const struct cmh_hmac_export_state *state = in;
-+	struct cmh_hmac_chunk *chunk;
-+
-+	/*
-+	 * Do NOT call free_chunks() here: the crypto API does not
-+	 * guarantee the request context is in a valid state before
-+	 * import(), so the list pointers may be stale or invalid.
-+	 * Re-initialize from scratch instead.  Any pre-existing chunks
-+	 * are tracked on tctx->all_chunks and freed in cra_exit.
-+	 */
-+	rctx->info = cmh_hmac_get_info(tfm);
-+	rctx->error = 0;
-+	INIT_LIST_HEAD(&rctx->chunks);
-+	rctx->num_chunks = 0;
-+	rctx->total_len = 0;
-+	rctx->switched = false;
-+
-+	/* Fallback-format state: replay it into a fallback request. */
-+	if (state->format == CMH_HMAC_FMT_FB) {
-+		struct ahash_request *fb_req = cmh_hmac_fb_req(rctx);
-+		int ret;
-+
-+		ahash_request_set_tfm(fb_req, tctx->fb);
-+		ahash_request_set_callback(fb_req, 0, NULL, NULL);
-+		ret = crypto_ahash_import(fb_req, state->data);
-+		if (ret)
-+			return ret;
-+		rctx->switched = true;
-+		return 0;
-+	}
-+
-+	if (state->format != CMH_HMAC_FMT_RAW)
-+		return -EINVAL;
-+
-+	if (state->total_len > CMH_HMAC_EXPORT_MAX)
-+		return -EINVAL;
-+
-+	if (state->total_len) {
-+		chunk = kmalloc(sizeof(*chunk) + state->total_len,
-+				req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
-+				GFP_KERNEL : GFP_ATOMIC);
-+		if (!chunk)
-+			return -ENOMEM;
-+		chunk->len = state->total_len;
-+		memcpy(chunk->data, state->data, state->total_len);
-+		spin_lock_bh(&tctx->chunk_lock);
-+		list_add_tail(&chunk->list, &rctx->chunks);
-+		list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
-+		tctx->tfm_buffered += chunk->len;
-+		spin_unlock_bh(&tctx->chunk_lock);
-+		rctx->num_chunks = 1;
-+		rctx->total_len = state->total_len;
-+	}
-+	return 0;
-+}
-+
-+/* Transform init/exit (cra_init/cra_exit) */
-+
-+static int cmh_hmac_cra_init(struct crypto_tfm *tfm)
-+{
-+	struct crypto_ahash *ahash = __crypto_ahash_cast(tfm);
-+	struct cmh_hmac_tfm_ctx *tctx = crypto_tfm_ctx(tfm);
-+	struct crypto_ahash *fb;
-+
-+	memset(tctx, 0, sizeof(*tctx));
-+	tctx->key.mode = CMH_KEY_NONE;
-+	spin_lock_init(&tctx->chunk_lock);
-+	INIT_LIST_HEAD(&tctx->all_chunks);
-+
-+	/*
-+	 * Allocate the generic software fallback used when the HW input cap
-+	 * is exceeded or an oversized clone is exported.  Masking out
-+	 * CRYPTO_ALG_ASYNC excludes this (async) driver, so the allocator
-+	 * picks the generic hmac; its request is embedded after the reqctx.
-+	 */
-+	fb = crypto_alloc_ahash(crypto_ahash_alg_name(ahash), 0,
-+				CRYPTO_ALG_ASYNC);
-+	if (IS_ERR(fb))
-+		return PTR_ERR(fb);
-+	tctx->fb = fb;
-+
-+	/*
-+	 * The FB-format export copies the fallback's state into the flat
-+	 * window (state->data, CMH_HMAC_EXPORT_MAX bytes).  If the fallback's
-+	 * statesize exceeds that, crypto_ahash_export() would overrun the
-+	 * driver's export buffer -- refuse to instantiate instead.
-+	 */
-+	if (crypto_ahash_statesize(fb) > CMH_HMAC_EXPORT_MAX) {
-+		crypto_free_ahash(fb);
-+		tctx->fb = NULL;
-+		return -EINVAL;
-+	}
-+
-+	crypto_ahash_set_reqsize(ahash,
-+				 sizeof(struct cmh_hmac_reqctx) +
-+				 crypto_tfm_ctx_alignment() +
-+				 sizeof(struct ahash_request) +
-+				 crypto_ahash_reqsize(fb));
-+	return 0;
-+}
-+
-+static void cmh_hmac_cra_exit(struct crypto_tfm *tfm)
-+{
-+	struct cmh_hmac_tfm_ctx *tctx = crypto_tfm_ctx(tfm);
-+	struct cmh_hmac_chunk *chunk, *tmp;
-+
-+	/* Free any orphaned chunks (e.g. testmgr export/reimport poison) */
-+	spin_lock_bh(&tctx->chunk_lock);
-+	list_for_each_entry_safe(chunk, tmp, &tctx->all_chunks, tfm_node) {
-+		list_del(&chunk->tfm_node);
-+		tctx->tfm_buffered -= chunk->len;
-+		kfree_sensitive(chunk);
-+	}
-+	spin_unlock_bh(&tctx->chunk_lock);
-+
-+	if (tctx->fb)
-+		crypto_free_ahash(tctx->fb);
-+	cmh_key_destroy(&tctx->key);
-+}
-+
-+/* Registration */
-+
-+static struct cmh_hmac_alg_drv cmh_hmac_drvs[CMH_HMAC_ALG_COUNT];
-+
-+/**
-+ * cmh_hmac_register() - Register HMAC-SHA hash algorithms with the crypto framework
-+ *
-+ * Return: 0 on success, negative errno on failure.
++/*
++ * Test 4: KEY_NEW creates a key, KEY_DELETE destroys it.
 + */
-+int cmh_hmac_register(void)
++TEST_F(cmh_mgmt, key_new_delete)
 +{
-+	unsigned int i;
++	struct cmh_ioctl_key_new new_req;
++	struct cmh_ioctl_key_grant del_req;
 +	int ret;
 +
-+	if (!cmh_core_present(CMH_CORE_HC))
-+		return 0;
++	memset(&new_req, 0, sizeof(new_req));
++	new_req.version = CMH_MGMT_V1;
++	new_req.ds_type = CMH_DS_AES_KEY;
++	new_req.len = 32;
++	new_req.flags = CMH_FLAG_PT;
++	new_req.cid = 0x5E1F7E57ULL; /* "SELFTEST" */
 +
-+	for (i = 0; i < CMH_HMAC_ALG_COUNT; i++) {
-+		const struct cmh_hmac_alg_info *info = &cmh_hmac_algs_info[i];
-+		struct cmh_hmac_alg_drv *drv = &cmh_hmac_drvs[i];
-+		struct ahash_alg *alg = &drv->alg;
++	ret = ioctl(self->fd, CMH_IOCTL_KEY_NEW, &new_req);
++	ASSERT_EQ(ret, 0);
++	ASSERT_NE(new_req.ref, (uint64_t)0);
 +
-+		drv->info = info;
++	/* Delete the key */
++	memset(&del_req, 0, sizeof(del_req));
++	del_req.version = CMH_MGMT_V1;
++	del_req.ref = new_req.ref;
 +
-+		alg->init   = cmh_hmac_init;
-+		alg->update = cmh_hmac_update;
-+		alg->final  = cmh_hmac_final;
-+		alg->finup  = cmh_hmac_finup;
-+		alg->digest = cmh_hmac_digest;
-+		alg->export = cmh_hmac_export;
-+		alg->import = cmh_hmac_import;
-+		alg->setkey = cmh_hmac_setkey;
-+
-+		alg->halg.digestsize = info->digest_size;
-+		alg->halg.statesize  = CMH_HMAC_STATE_SIZE;
-+
-+		strscpy(alg->halg.base.cra_name, info->alg_name,
-+			CRYPTO_MAX_ALG_NAME);
-+		strscpy(alg->halg.base.cra_driver_name, info->drv_name,
-+			CRYPTO_MAX_ALG_NAME);
-+		alg->halg.base.cra_priority    = 300;
-+		alg->halg.base.cra_flags       = CRYPTO_ALG_KERN_DRIVER_ONLY |
-+						 CRYPTO_ALG_NO_FALLBACK |
-+						 CRYPTO_ALG_ASYNC |
-+						 CRYPTO_ALG_REQ_VIRT;
-+		alg->halg.base.cra_blocksize   = info->block_size;
-+		alg->halg.base.cra_ctxsize     = sizeof(struct cmh_hmac_tfm_ctx);
-+		alg->halg.base.cra_init        = cmh_hmac_cra_init;
-+		alg->halg.base.cra_exit        = cmh_hmac_cra_exit;
-+		alg->halg.base.cra_module      = THIS_MODULE;
-+
-+		ret = crypto_register_ahash(alg);
-+		if (ret) {
-+			dev_err(cmh_dev(), "hmac: failed to register %s (rc=%d)\n",
-+				info->drv_name, ret);
-+			while (i--)
-+				crypto_unregister_ahash(&cmh_hmac_drvs[i].alg);
-+			return ret;
-+		}
-+
-+		dev_dbg(cmh_dev(), "hmac: registered %s (priority 300)\n",
-+			info->drv_name);
-+	}
-+
-+	return 0;
++	ret = ioctl(self->fd, CMH_IOCTL_KEY_DELETE, &del_req);
++	ASSERT_EQ(ret, 0);
 +}
 +
-+/**
-+ * cmh_hmac_unregister() - Unregister HMAC-SHA hash algorithms from the crypto framework
++/*
++ * Test 5: KIC HKDF1 key derivation from hardware base key.
++ * Requires at least one KIC base key provisioned (KIC_KEY1).
 + */
-+void cmh_hmac_unregister(void)
++TEST_F(cmh_mgmt, kic_hkdf1)
 +{
-+	unsigned int i;
++	struct cmh_ioctl_kic_hkdf1 req;
++	static const char label[] = "kselftest-label";
++	int ret;
 +
-+	if (!cmh_core_present(CMH_CORE_HC))
-+		return;
++	memset(&req, 0, sizeof(req));
++	req.version = CMH_MGMT_V1;
++	req.key_len = 32;
++	req.base_key = CMH_KIC_KEY1;
++	req.cid = 0x4B534C46ULL; /* "KSLF" */
++	req.label = (uint64_t)(uintptr_t)label;
++	req.label_len = sizeof(label) - 1;
++	req.flags = CMH_KIC_FLAG_TEMP;
 +
-+	for (i = 0; i < CMH_HMAC_ALG_COUNT; i++) {
-+		crypto_unregister_ahash(&cmh_hmac_drvs[i].alg);
-+		dev_dbg(cmh_dev(), "hmac: unregistered %s\n",
-+			cmh_hmac_algs_info[i].drv_name);
++	ret = ioctl(self->fd, CMH_IOCTL_KIC_HKDF1, &req);
++	if (ret < 0 && errno == EIO)
++		SKIP(return, "KIC base key 1 not provisioned on this device");
++	ASSERT_EQ(ret, 0);
++	ASSERT_NE(req.ref, (uint64_t)0);
++}
++
++/*
++ * Test 6: ML-KEM-768 keygen using hardware RNG.
++ * Verifies the PQC keygen path end-to-end.
++ */
++TEST_F(cmh_mgmt, ml_kem_keygen)
++{
++	struct cmh_ioctl_ml_kem_keygen req;
++	/* ML-KEM-768: ek = 384*3+32 = 1184, dk = 768*3+96 = 2400 */
++	uint8_t ek[1184];
++	uint8_t dk[2400];
++	int ret;
++
++	memset(&req, 0, sizeof(req));
++	req.version = CMH_MGMT_V1;
++	req.k = 3; /* ML-KEM-768 */
++	req.flags = CMH_QSE_FLAG_HW_RNG;
++	req.seed = 0; /* HW RNG */
++	req.z = 0;    /* HW RNG */
++	req.ek = (uint64_t)(uintptr_t)ek;
++	req.dk = (uint64_t)(uintptr_t)dk;
++	req.dk_cid = 0;
++	req.dk_ref = 0;
++
++	memset(ek, 0, sizeof(ek));
++	memset(dk, 0, sizeof(dk));
++
++	ret = ioctl(self->fd, CMH_IOCTL_ML_KEM_KEYGEN, &req);
++	if (ret < 0 && errno == ENODEV)
++		SKIP(return, "QSE core not available on this hardware");
++	ASSERT_EQ(ret, 0);
++
++	/* Verify output is non-zero (extremely unlikely for random keys) */
++	{
++		int i, nonzero = 0;
++
++		for (i = 0; i < 64; i++)
++			nonzero += (ek[i] != 0);
++		ASSERT_GT(nonzero, 0);
 +	}
 +}
-diff --git a/drivers/crypto/cmh/cmh_main.c b/drivers/crypto/cmh/cmh_main.c
-index 50218f19ad6f..589363cc4b28 100644
---- a/drivers/crypto/cmh/cmh_main.c
-+++ b/drivers/crypto/cmh/cmh_main.c
-@@ -32,6 +32,7 @@
- #include "cmh_txn.h"
- #include "cmh_rh.h"
- #include "cmh_hash.h"
-+#include "cmh_hmac.h"
- #include "cmh_mgmt.h"
- #include "cmh_registers.h"
- #include "cmh_debugfs.h"
-@@ -208,6 +209,11 @@ static int cmh_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_hash_register;
- 
-+	/* Register HMAC hash algorithms */
-+	ret = cmh_hmac_register();
-+	if (ret)
-+		goto err_hmac_register;
 +
- 	/* Register key management device (/dev/cmh_mgmt) */
- 	ret = cmh_mgmt_register();
- 	if (ret)
-@@ -218,6 +224,8 @@ static int cmh_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_mgmt_register:
-+	cmh_hmac_unregister();
-+err_hmac_register:
- 	cmh_hash_unregister();
- err_hash_register:
- 	cmh_rh_cleanup(cfg);
-@@ -246,6 +254,7 @@ static void cmh_remove(struct platform_device *pdev)
- 	cfg = &dev->config;
- 
- 	cmh_mgmt_unregister();
-+	cmh_hmac_unregister();
- 	cmh_hash_unregister();
- 	cmh_rh_cleanup(cfg);
- 	cmh_tm_cleanup();
-diff --git a/drivers/crypto/cmh/include/cmh_hmac.h b/drivers/crypto/cmh/include/cmh_hmac.h
++TEST_HARNESS_MAIN
+diff --git a/tools/testing/selftests/drivers/crypto/cmh/config b/tools/testing/selftests/drivers/crypto/cmh/config
 new file mode 100644
-index 000000000000..fb1a11fb76eb
+index 000000000000..063c1dd0e23b
 --- /dev/null
-+++ b/drivers/crypto/cmh/include/cmh_hmac.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2026 Cryptography Research, Inc. (CRI).
-+ * CMH LKM -- Kernel Crypto API HMAC Driver
-+ *
-+ * Registers HMAC ahash algorithms (HMAC-SHA-2, HMAC-SHA-3) with the
-+ * Linux crypto subsystem using HC_CMD_HMAC.
-+ */
-+
-+#ifndef CMH_HMAC_H
-+#define CMH_HMAC_H
-+
-+int  cmh_hmac_register(void);
-+void cmh_hmac_unregister(void);
-+
-+#endif /* CMH_HMAC_H */
++++ b/tools/testing/selftests/drivers/crypto/cmh/config
+@@ -0,0 +1 @@
++CONFIG_CRYPTO_DEV_CMH=m
 -- 
 2.43.7
 
