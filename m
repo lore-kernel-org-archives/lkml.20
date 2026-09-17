@@ -1,138 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B91236605E;
-	Thu, 17 Sep 2026 08:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CCB233929;
+	Thu, 17 Sep 2026 08:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632389; cv=none; b=bbUXfI2mm7D7QDBF8XW+G+gIIWECO3omhpGMx4Mn+Z+gNvtulSguWuqGTtxRgDtwnzU+T4/LHNmE/hUxHkNIpMF0T23cteu/croCxE/PtzNWYSByEoD9+eY+68qO/OSLZdXH2BQcpRCECA0PaU4iiVUdHFoO6gls8swToqTnjC4=
+	t=1789632397; cv=none; b=eKBZB2Y/7WirrV6PPz6bpvfoQaLscD/jSn4xJHGUxyVoFnRIllb6nuLAoQ/88dsDPlpkYz1pdzJd3G8NIRihyoE0O7+rWcPqXRcg0Lb7O14gSQuOGQHoWwKSwCFI1gWPbaX4lqrIL5+wvpnGi5mk4nXvVMqbWaL3aq1Fms3b7Yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632389; c=relaxed/simple;
-	bh=u7ObQVolWw9MKblkaJPHsSE7Whev9cReNutxD+1DSgc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SxF/jRSOOYb/NsaoFu92G7QQFylIUX5b2exz1kWGozM6ewAp2lEX8aSzl8Oukg67r4y5n00IduWiIYwNYaJHq+OWjdNwkdubBknPaYVfzzI4kcK86HS6wa8PtdXcO5v4JCxxnTd2UvzrO+cdCJ8qSPEuf9I4z1S5lymvTXj8jxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HqwdTew+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789632397; c=relaxed/simple;
+	bh=fqo8gm+019yK2fDOK8QTXcn7yDZrLVdxkB0gsooJVWU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Oc9+XG/nQpf4j4m5khmDb04VqAuFNC//iQlI/8fwRhQP+dCOFm/gGYt1zl/7DQoOnMfgLqdIoqsWljRG/MuvPOUvMytLzmrnDotdloC+VGTUxWwVWuL65VE2GwErgfGjx6twWbCuZvUdYb4Vc5QVb7l49Xib2p01fGYquKoZ1uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DvtATqvS; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HqwdTew+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 371F91F000FF;
-	Thu, 17 Sep 2026 08:06:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789632388;
-	bh=EL9YHt+j6bfoBIX/4XS2nc2u2ndOQPJF/fEXKcashqg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HqwdTew+DukHgkmSJw55733JWnBazNPruvtiHneZv8a2uLcAGrp0oNLuwWWF+H6jW
-	 0yetHujE6u7CjBYLS73qk3uUwNK3PK9WIiUL76fGkxSgszDPTkhoNFDAGHIJ85eDsy
-	 DJTHKJ7WTMdD92FVw/K9hFSmOqpoETVDAWrozQg6grzaIenZ7Lmf6pz5XOsK5qpKjj
-	 NeQp2p1MNOExBFN5IPUjZmd8UvTNp0TQUlhxgYlX4PU13kP7lbHtyYtPUd4bjCZ0ne
-	 eMJHZOi3R2m0drfv7Gp6XuxykvD95aYpUh33v3QHsMwOPkCxpN+pb9yuyWdNQcWSw+
-	 yZROMS3hn/f6w==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x778T-00000009yhL-3xfv;
-	Thu, 17 Sep 2026 08:06:26 +0000
-Date: Thu, 17 Sep 2026 09:06:25 +0100
-Message-ID: <865x045mke.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	steven.price@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com
-Subject: Re: [PATCH v3 15/18] KVM: arm64: Reject host access to protected VM private state
-In-Reply-To: <CA+EHjTzCQkeXQQcCDwABLR2w+NTmKTG3V6RSmhzYNayaoYXw3g@mail.gmail.com>
-References: <20260914113338.159227-1-fuad.tabba@linux.dev>
-	<20260914113338.159227-16-fuad.tabba@linux.dev>
-	<86a4ph5fb9.wl-maz@kernel.org>
-	<CA+EHjTzCQkeXQQcCDwABLR2w+NTmKTG3V6RSmhzYNayaoYXw3g@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DvtATqvS"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H60sBa1031543;
+	Thu, 17 Sep 2026 08:06:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=mgyaIekK9JpKqTtbgFAM34v0fKjmoY4G4/4
+	neLEAoRo=; b=DvtATqvSpEPfiQpWuyTQxntNpKK83RsLl8OnLhbRbuFzxnpVD35
+	CgzJeusPZrFtIQTV9OBQn4mNUH2ZBJQWLDs38nJ7crPFz2oh/iCxN13VZPf7eV/f
+	Q7RpKLpPST2r9Wx1WBgo7F57P7xDIXPbmuANpiTbHNrHmYDWT0xlX6dXH1tX3OA5
+	UlfGtMo5N08/9rjzYhNCH3LlE+YPzOaEZMpM6K5Ni6fgA7Alwc5VqweyEFq47QEC
+	cy3fgg7nYCJFd2/TBXdgKqzCXI8HMOyPgvai+JYSJ3ZBGXDBCBFFkVXnE3vjZ5qX
+	c7tWm2WjUozo6tvCVVfWjgrWqOMLECZ3dng==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqy7hb6jc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 08:06:29 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68H86Qfx1712615;
+	Thu, 17 Sep 2026 08:06:26 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com ([10.213.101.157])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 68H86PKh1712602
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 08:06:25 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2342877)
+	id D287B648; Thu, 17 Sep 2026 13:36:24 +0530 (+0530)
+From: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+To: vkoul@kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
+        neil.armstrong@linaro.org, mani@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-phy@lists.infradead.org,
+        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH V3] dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Add QMP UFS PHY compatible for Maili
+Date: Thu, 17 Sep 2026 13:36:22 +0530
+Message-Id: <20260917080622.824253-1-nitin.rawat@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, qperret@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDEwOSBTYWx0ZWRfX2SEO/Py5hus7
+ OD8PqQn7jjFdXN/ny09QWpQEzpCZGAFTmep0CscX/gKCwCbH/48zYDB7Ob3ljA5zydqgpovTW9v
+ 1bRFvP4SNXmYnZII5293O1mCk2c01K9np0+Lo2R0U//6G26RRByNO+9p6DmvpOEFXbRuvF41DC3
+ ibdW3EVm13JB6Po+ETykikzFitgIj4urcf54Y/72hpg5voJ/sSwQJc/SVwwYdwjV1E32RRSh57L
+ VxFrkur4ZfKnIlGKQoyz14jnBfGqOoKGK2d+35wwtjicXaKqJhN8vo3r+G5m4m9VSruBO4yX1xv
+ L+TOz9Nw51QjLDP8m2Mu/L9oY0GbxdxFZdDO84HW0BvcFtBtg07llnw2D4FpzZx5Whg6g+2MxjM
+ dCt4yZnBYytUV8jWjXzr888+w/130CTz+atA4yq79gHdX9SA9xYmRUAniu3vNFDWx93UQ2Bu7wk
+ 9WkBwdkvU7cxshNWgNg==
+X-Authority-Analysis: v=2.4 cv=L8aI0OT8 c=1 sm=1 tr=0 ts=6aab9f85 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=UH2bE8EBJgXlDjawRugA:9
+X-Proofpoint-GUID: Jl19jelWa-OXCnfRLrHGcCF5NJfZgXOJ
+X-Proofpoint-ORIG-GUID: Jl19jelWa-OXCnfRLrHGcCF5NJfZgXOJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDEwOSBTYWx0ZWRfX4KVBusxPfJGE
+ lQIdht3yThQcZAwV/7bjbLX8IajC/VrnHDC2N62S5+BrKOgPe6zMwWehlfCrKelfaMtAfOSengt
+ 23ei5QiDe7zzFQU973vF8Eoqx9yBB9Q=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_01,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 spamscore=0 phishscore=0 bulkscore=0
+ clxscore=1011 suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170109
 
-On Wed, 16 Sep 2026 20:07:28 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> Hi Marc,
-> 
-> On Wed, 16 Sept 2026 at 17:30, Marc Zyngier <maz@kernel.org> wrote:
-> [...]
-> > > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> [...]
-> > > +/*
-> > > + * Once a protected vCPU has run, the host copy is not the guest's state,
-> > > + * and EL2 has read mp_state, which it does only at hyp vCPU creation.
-> > > + */
-> > > +static long pkvm_filter_vcpu_ioctl(struct kvm_vcpu *vcpu, unsigned int ioctl)
-> > > +{
-> > > +        switch (ioctl) {
-> > > +        case KVM_ARM_VCPU_INIT:
-> > > +        case KVM_SET_ONE_REG:
-> > > +        case KVM_GET_ONE_REG:
-> > > +                if (vcpu_is_protected(vcpu) && vcpu_has_run_once(vcpu))
-> > > +                        return -EPERM;
-> > > +        }
-> > > +
-> > > +        return 0;
-> > > +}
-> > > +
-> >
-> > I'm not keen on returning -EPERM for the ONE_REG stuff. For a start,
-> > X0 *is* valid on MMIO, and when you want to support LD64B and co,
-> > you'll need to show the actual data there.
-> >
-> > I'd rather return what is in the host vcpu structure, as normal.
-> 
-> I think we should keep the error, for the reason s390 returns -EINVAL
-> from ONE_REG on a protected vCPU and x86 does from the register ioctls
-> for protected VM types:
+Document the QMP UFS PHY compatible for Qualcomm Maili to support
+physical layer functionality for UFS found on the SoC. Use fallback to
+indicate the compatibility of the QMP UFS PHY on the Maili with that on
+the Hawi.
 
-News flash, this is not x86, nor s390. I don't feel constrained by
-other architecture, and we deviate *everywhere* already.
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+---
+Change from V2:
+1. Addressed Mani's comment and dropped Jingyi's s-o-b tag.
 
-> once the vCPU has run, the copy is the VMM's
-> boot state plus what the exit handlers copy out, and the VMM can't
-> distinguish them. x0 on MMIO is one of those fields, but the VMM reads
-> it from kvm_run->mmio. For LD64B, EL2 would copy the operands out the
-> same way and the error could be relaxed to those registers. Loosening
-> later breaks nobody. The comment and the message do overstate it by
-> calling the copy "not the guest's state", and I'll reword both in v4.
-> More on the kvmtool thread [1].
+Change from V1:
+1. Fixed Signed-off-by chain order.
+---
+ .../devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml    | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-A protected-aware VMM already knows it cannot obtain the registers.
+diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
+index 4efe40c0dc97..eb289c09906a 100644
+--- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
+@@ -16,6 +16,10 @@ description:
+ properties:
+   compatible:
+     oneOf:
++      - items:
++          - enum:
++              - qcom,maili-qmp-ufs-phy
++          - const: qcom,hawi-qmp-ufs-phy
+       - items:
+           - enum:
+               - qcom,qcs8300-qmp-ufs-phy
+--
+2.34.1
 
-I don't want to have to revisit the userspace interface once you have
-to relax it, because I know for sure that you will have to.
-
-As far as LD64B is concerned, there is no place to copy anything in
-the run structure, and the relaxation would require to cover all the
-GPRs, ESR, and FAR. At this stage, returning whatever is there is the
-correct thing to do IMO.
-
-Thanks,
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
