@@ -1,77 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02900423E9A;
-	Thu, 17 Sep 2026 22:21:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EFF4A7C82;
+	Thu, 17 Sep 2026 22:21:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789683708; cv=none; b=gziE6FdhLaEZYrbHEuBQ4jZwH05J4hzeDo0Wu3x2phQnWMjdmq1F+6sfHpEpad4GNorcfwNu9xYTvEOlhkOeRABpx8rZzpo1Gzc9yAgDZ9W5VKGgcM4/41H5LVXRG+xcuW6bH3EJm3iDJIFYNb0k0tS7ot+QWOrXNH60ottvdh4=
+	t=1789683714; cv=none; b=i4kh41PvLYE0/+lcIiYcnBsplygBXhbDrS6XMhGbrBibFothTW/MezpRxyf5O7ftrHYP/6ywymtLCjM8HMZe3PLzxHUnSkwmfEA8hsE2hSKZAj9YP5GM3XajkiITptcqKTdoGWWvgv8i/T9iXFuyrU8VTFeZggqlAHt4vVxQE20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789683708; c=relaxed/simple;
-	bh=DYLKcdWgUxWKojVh4s9EMGySLtbagKKKLvKjv72fCKE=;
+	s=arc-20240116; t=1789683714; c=relaxed/simple;
+	bh=J4FC4khpeauWm78bJssX85LNLNuSo8lIcvo7zpH9wM0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oIasE3xHZwra3iJ7wtaIeXoF+ZyBl6GmEDmzi0U35C8Vz9R6axOLqG7BPuZh0lbDAnI0J2EYPVEVQwMXmWtun02lwd+RooKO1uZyn/tB0IzCLRx0XnAUH04an3kdvYPhE9erzV6Z59Uo1H4UiKKvQ/r5tu74H66nromTv6htcyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W7B8Jb6L; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ADlJH2QqORLDDBv8quA4UCdXJ71iP8TDacnnDjPj9oO6CZQPqFl03yJvQjmZI8YJyt7vc7GDh+8gzZNFOMFPQGXxd6AXTZQP29XRORcsjq3a5hSlzs2Fc98A43P8qUVFbs3uy9LI5rzNi3LKM6vdE5n+9fV5YOUtjE61vmSyspQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eO6zGBV8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W7B8Jb6L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 503C11F000FF;
-	Thu, 17 Sep 2026 22:21:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eO6zGBV8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055BE1F000FF;
+	Thu, 17 Sep 2026 22:21:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789683706;
-	bh=DYLKcdWgUxWKojVh4s9EMGySLtbagKKKLvKjv72fCKE=;
+	s=k20260515; t=1789683712;
+	bh=kv24bXbWsAIcA8t1uQLZ3qdBM15Z4Ui+R4ZrwqfmtgA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W7B8Jb6LsZgxQY1TGMe0NpwV+5mwH0cl173FgwDqS5agi8bDkUmeWR/q/8zdP5gCS
-	 ljvF+1zo82pwCgAgQ+t5UyNVuWniDEXoGiFFA/QyQFcbrURcLD3/qClJfIY+FBugPd
-	 6xiUD1biKQxGQwpkMgbxtWEaztuwQu0zAQtgNs6PW3leHq9jRiqMA8yI45vkyhO4Vk
-	 umi58PSoBAoZx3r56tdjyTpCIT+NOxEJRMxKUpVre8Ty8fkGHrIEWztUn4jFlNR6IZ
-	 pvJHZ+Ws5Gz/7JRCsZ78zN5z9lmNi7wknHiq137TlZDTFI7cNyngH9K+7UvHwuAdoP
-	 bU0uHayQSD4jw==
-Date: Thu, 17 Sep 2026 23:21:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: eblanc@baylibre.com, jneanne@baylibre.com, lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] regulator: tps6594-regulator: Fix np_pmic_parent leak in
- tps6594_regulator_probe()
-Message-ID: <9931609e-c74a-45b3-8dc9-ced30cc44d81@sirena.org.uk>
-References: <20260917143155.2156974-1-vulab@iscas.ac.cn>
+	b=eO6zGBV8OH2sh+6SoNrW82MS8trZVYCcqbtX0w9WIAxuhO6SmGSW21LqQqQ6zlwOS
+	 zfmTALyq8xRqpdLIbWiW0As3yN4KxsToZpCzPgvSvHEeJAio4E4EOPmezf0UURkzLD
+	 UGw/QMqP9udz7vmkqJLepjNAu6jescjbSduu7rZ12YM7GAUxKuo7OouA5T0mnZr3Et
+	 A0/lR8+afPUcWhWrkNRVOMhVRxekQH/2OFjlhchEq1pm8kItZhsWupGbkede7Bqbpv
+	 JVpSN33zEtu9F1iqTpl9cgnOPfzOeMByIds6HYCd9WPPXTuRGiRqr/mGIhEYcrhjk4
+	 TbcpOafrXFU+A==
+Date: Thu, 17 Sep 2026 17:21:50 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: linux-pci@vger.kernel.org, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Anand Moon <linux.amoon@gmail.com>, linux-tegra@vger.kernel.org,
+	Bjorn Helgaas <bhelgaas@google.com>, linux-kernel@vger.kernel.org,
+	Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v6] dt-bindings: pci: tegra: Convert to json-schema
+Message-ID: <178968370961.4071859.17924970660402899315.robh@kernel.org>
+References: <20260902142449.735168-1-thierry.reding@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6N4ON8eRNOABAT6C"
-Content-Disposition: inline
-In-Reply-To: <20260917143155.2156974-1-vulab@iscas.ac.cn>
-X-Cookie: Whip it, whip it good!
-
-
---6N4ON8eRNOABAT6C
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260902142449.735168-1-thierry.reding@kernel.org>
 
-On Thu, Sep 17, 2026 at 02:31:55PM +0000, Wentao Liang wrote:
-> tps6594_regulator_probe() takes a reference on the PMIC parent node
-> with of_get_parent(), but never drops it, so the reference leaks on
-> every loop iteration and on each error return of the probe.
 
-This doesn't apply against current code, please check and resend.
+On Wed, 02 Sep 2026 16:24:49 +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> Convert the Tegra PCIe controller bindings from the free-form text
+> format to json-schema.
+> 
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
+> Changes in v6:
+> - add additional constraints for num-lanes and phys properties
+> - reference pci-host-bridge.yaml and drop duplicate properties
+> - reference pci-pci-bridge.yaml and drop duplicate properties
+> - drop Tegra30, Tegra124 and Tegra186 examples
+> - remove unneeded properties from examples
+> - reduce number of ifs
+> 
+> Changes in v5:
+> - drop unneeded quotes
+> 
+> Changes in v4:
+> - remove path references
+> - use dual licensing
+> 
+> Changes in v3:
+> - fixup reference in MAINTAINERS
+> 
+> Changes in v2:
+> - drop description properties where they don't add information
+> - drop redundant $ref properties
+> 
+>  .../bindings/pci/nvidia,tegra20-pcie.txt      | 670 ------------------
+>  .../bindings/pci/nvidia,tegra20-pcie.yaml     | 532 ++++++++++++++
+>  2 files changed, 532 insertions(+), 670 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.txt
+>  create mode 100644 Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.yaml
+> 
 
---6N4ON8eRNOABAT6C
-Content-Type: application/pgp-signature; name="signature.asc"
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsZ/YACgkQJNaLcl1U
-h9Cl2Af/RWRfY6Grn0RvjuyGL6fTjLdWBtsBuIoGhW5aco9iZTCSYAWj6RqZQSDZ
-IIIUBB85VI0FRjIsR2aNvAA4Q/zlUASUgOGdfXeNRrOfOiN7WDXOUk4BqZCbS5E9
-EDsLfEyy4wSf62G33m4SowUNKbS1H1wNmz8G6Ioeq+PjBYkX6/6upzM7jtSbhzN/
-opakFHGduiR/Qd+yPy+rjoJE08m7Crj6+32l6YIAwmo2Yy38uF79cQPrOJubU4dN
-dT0yO1HhA9K4a0YjJ9Vvw9UwNHvBPpQlbzTIlXWRLFYDdj2FOKem6H7k7j3bLe7k
-vR1/g9xF88GweyyFHUl6bba4rgJYVA==
-=t3ZD
------END PGP SIGNATURE-----
-
---6N4ON8eRNOABAT6C--
