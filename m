@@ -1,216 +1,207 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F76D426D0C;
-	Thu, 17 Sep 2026 08:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 150A043F0B6;
+	Thu, 17 Sep 2026 08:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633580; cv=none; b=hBvXU1t5eAq/9D4ulLoq2LTtNP8QlNAaA+guuv7/WFSBwyyPcSOVdFwszv7KRLVbp9cY0l+IRrYycGjRZxdgRImrkfz3QdrQAi8s3wePDhvMZf8SCloKAndLY8G0UxRFewVa1wR9FtothBDa78hyhjbqd7Mt09iik4lQ/SwbdAU=
+	t=1789633577; cv=none; b=PVT5dNhpdkrqqs/YnG5t+h8BThwF3Qd06ph3psuN/vITOFs9sgqEy8y0jes4OLkn+MuMjZNPl+h/otmxOotv2rMiHzH3ZNPCUC0Yhh+NyIFO5NHfnrOA9yeBs02BdAkGRmNWQGbTImIu96UNZ6Omcr6r3Mirl+gVDasF14+4GKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633580; c=relaxed/simple;
-	bh=HGpw61OlyqRrCGSdAUvBwJGvASu1hXV3WIhP5pJuNcQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mJZjJt+OOCLI/tt1hkhyQ7hhZ2nvXNv603OLGxOxGZbwTukb0NlYj9sPa9R0dM4bHscOtMahAGT4w+pvQIni+N4YyCQCXfAmVOA+fh8kmY7X7dWeobDhdsxTLATQmtEJ0tmb2wDVC0OUA9J/HHWzitLM91rabKIUMV+d2V5hivg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=i+SKV+cu; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789633577; c=relaxed/simple;
+	bh=MVkmT+jinZBaMHn88zFFWa77kELwv/RcQz6CJnll7hY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZD2OUsB+fmnMCOrGBk1u10JUZfNBE+N9M6clJvsZ0rm1rytSXlbl0LCYm6WrD2vx1IyzRVgHZA8Z0dxebCMwtO3xA9fu7zZC9t8WRyNAyj8dEOZoZxIc0Py6+SMWNHgrl0vow9P9JcXTJadxN2Zybv6mBMwiaxhQO7auFM+4nZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cdNRKdw1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="i+SKV+cu"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B8DC2C51;
-	Thu, 17 Sep 2026 10:23:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789633438;
-	bh=HGpw61OlyqRrCGSdAUvBwJGvASu1hXV3WIhP5pJuNcQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=i+SKV+cuuhRQFEeiVb3nA8RBFwFG710mYBj+f/1p6kGJcLotNvSbzBB7BHYNXLrRk
-	 F1wqupALZURBcYXNL3fVYnm0KJxxsJGQcRlj1eAIX50maZKMZXaUaoR9+n9VQWeWbv
-	 hdU7FM5Z86s2JezSL735VESh3E2tLK0AbzpzDCys=
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Thu, 17 Sep 2026 13:53:13 +0530
-Subject: [PATCH v5 07/10] media: videobuf2: Allow exporting of a struct
- dmabuf
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cdNRKdw1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D30A1F00898;
+	Thu, 17 Sep 2026 08:25:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789633559;
+	bh=mQHMw6r6nqwobnl9nv1snvYpl3KQBT9u5YNt9xRmdv4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=cdNRKdw15K5pQanHCrNPdxNthlj1Wz1E7eRdhwDsu+dg5M4IqH7Ut6mgSe0GKuW5i
+	 YhJJjlq15CyKVda7Vh3xhD8QY/S0oKPif8dn4HSfc1TdH5s235WOGP525F+m8Etvia
+	 kQpY17cfhtSebIklwbVJV/t/35NjQuaohRy5fSs12+0xirreM5aORYHWofIDW37S46
+	 xEkC8NeDd5JQrBMMpPbMTJ6N0IoXUe++s0kowXwIQdUnxbHwK0zpCm0ko5q5TeDwUw
+	 oeq+SB1KjqyZq8enUKaobM1YDqbGmkzGi/aI0djQl1Y4oneNqxopdJYKKrBrDAsUah
+	 VOi/JAzMex0TA==
+Subject: Re: [PATCH net 2/2] net: dsa: mt7530: unregister the switch before
+ freeing its MDIO IRQs
+From: netdev-bot+sashiko@kernel.org
+To: f@lex.la
+Cc: netdev@vger.kernel.org, chester.a.unal@arinc9.com, daniel@makrotopia.org,
+ andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Date: Thu, 17 Sep 2026 08:25:57 +0000
+Message-ID: <178963355760.22033.11986863924471016494@kernel.org>
+In-Reply-To: <20260914202421.2737079-3-f@lex.la>
+References: <20260914202421.2737079-3-f@lex.la>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-vchiq-isp-v5-7-2d8870add2c0@ideasonboard.com>
-References: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
-In-Reply-To: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, 
- Tomasz Figa <tfiga@chromium.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, 
- Paul Elder <paul.elder@ideasonboard.com>, Hans Verkuil <hans@jjverkuil.nl>, 
- Tomasz Figa <tfiga@chromium.org>, linux-media@vger.kernel.org, 
- linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Jai Luthra <jai.luthra@ideasonboard.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4777;
- i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=Cr6kOKE2wSeMf6SN/lh4O5ooGvUto6gq3Zw5IiCRfpw=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqq6PU0276fr7dn1KPrLbJeqYbC+IAgPxgQczt+
- i59PW0d2UGJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaquj1AAKCRBD3pH5JJpx
- RTB4D/9tbBdVl0xTv6ppE+sXcNslevWiv1KgQzd7gFnGh2S5SrnQhlS9gOPSh4kyGzjkYAublo2
- A1YdeWCIdbE49vF773tOZBlQVjqzWoV2gkecfuz93M5JNL9YU1vvE+TAjZdAg5GGLs5ONbXASTU
- BjGV9boQfQIw3RCFEMs6yUcoQeExPIV+i//V0S4QSsh9z8GtHWFLK0rYzt+y9Rf1MLmGnxaR8nx
- 3w3INCXdivnNXu+91sH/p/shDLoSWcKMaFjDtuFqidZ8D4pDg636I0yaSFyQJTwMRSXqPOjTLkr
- 4ZS36THApUPWocWy+/PNLsfZK2rK9UhVZOqMPh95CcV9bESEGGEfCHCwB8skUSr/wSoVUXaW9Ni
- /djusminQq3RXkR7hN6lnDu0l8xQUAljuQouAxzXI8PIp1ejCryiJitPbCxlwPujve/HiXFeYO3
- ihdZxUcahKR6yN8Tn8skqZIUvf7Pd8bWO/2XO4rXCiC6F1qdCvsd4TZtLXeKah15o+PtjY4E+qj
- nvkLrcwTNVgEIivI037KtBcGWt5L3WEsjACYRVDzdiM9KUXPbv2BP5/GY1e8GoOqGWOdXFib+Up
- vTA3pCsZzr77UxUYHv+PrKB8aUu6rSB6bwl79HTnn4uX8VYMmj1kJoS6d+K0vU9JDtQTPTafu7+
- sn6kfesN3oCKO2Q==
-X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
- fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-videobuf2 only allowed exporting a dmabuf as a file descriptor,
-but there are instances where having the struct dma_buf is
-useful within the kernel.
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
 
-Split the current implementation into two, one step which
-exports a struct dma_buf, and the second which converts that
-into an fd.
+- [High] Incomplete fix: mt7530_remove_common()
+  (drivers/net/dsa/mt7530.c:3593-3602) still calls…
 
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
-Tested-by: Paul Elder <paul.elder@ideasonboard.com>
-Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
----
-Changes in v5:
-- Update documentation of return type to only ERR_PTR and not NULL
-Changes in v4:
-- Return a pointer to struct dmabuf instead of passing it as a double
-  pointer argument and returning an int for errors (Laurent)
-- Document the return type (Paul)
----
- drivers/media/common/videobuf2/videobuf2-core.c | 45 ++++++++++++++++---------
- include/media/videobuf2-core.h                  | 16 +++++++++
- 2 files changed, 45 insertions(+), 16 deletions(-)
+Pre-existing issues:
+- [Medium] Power-sequencing ordering on the MDIO front end:
+  mt7530_remove() in drivers/net/dsa/mt7530-mdio.c disables…
 
-diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-index 5e318165659f..7b99d39d7cb1 100644
---- a/drivers/media/common/videobuf2/videobuf2-core.c
-+++ b/drivers/media/common/videobuf2/videobuf2-core.c
-@@ -2419,50 +2419,63 @@ static int __find_plane_by_offset(struct vb2_queue *q, unsigned long offset,
- 	return 0;
- }
- 
--int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
--		    unsigned int plane, unsigned int flags)
-+struct dma_buf *vb2_core_expbuf_dmabuf(struct vb2_queue *q,
-+				       struct vb2_buffer *vb,
-+				       unsigned int plane, unsigned int flags)
- {
- 	struct vb2_plane *vb_plane;
--	int ret;
--	struct dma_buf *dbuf;
-+	struct dma_buf *dmabuf;
- 
- 	if (q->memory != VB2_MEMORY_MMAP) {
- 		dprintk(q, 1, "queue is not currently set up for mmap\n");
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 	}
- 
- 	if (!q->mem_ops->get_dmabuf) {
- 		dprintk(q, 1, "queue does not support DMA buffer exporting\n");
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 	}
- 
- 	if (flags & ~(O_CLOEXEC | O_ACCMODE)) {
--		dprintk(q, 1, "queue does support only O_CLOEXEC and access mode flags\n");
--		return -EINVAL;
-+		dprintk(q, 1, "queue supports only O_CLOEXEC and access mode flags\n");
-+		return ERR_PTR(-EINVAL);
- 	}
- 
- 	if (plane >= vb->num_planes) {
- 		dprintk(q, 1, "buffer plane out of range\n");
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 	}
- 
- 	if (vb2_fileio_is_active(q)) {
- 		dprintk(q, 1, "expbuf: file io in progress\n");
--		return -EBUSY;
-+		return ERR_PTR(-EBUSY);
- 	}
- 
- 	vb_plane = &vb->planes[plane];
- 
--	dbuf = call_ptr_memop(get_dmabuf,
--			      vb,
--			      vb_plane->mem_priv,
--			      flags & O_ACCMODE);
--	if (IS_ERR_OR_NULL(dbuf)) {
-+	dmabuf = call_ptr_memop(get_dmabuf, vb, vb_plane->mem_priv,
-+				flags & O_ACCMODE);
-+	if (IS_ERR_OR_NULL(dmabuf)) {
- 		dprintk(q, 1, "failed to export buffer %d, plane %d\n",
- 			vb->index, plane);
--		return -EINVAL;
-+		if (!dmabuf)
-+			dmabuf = ERR_PTR(-EINVAL);
- 	}
- 
-+	return dmabuf;
-+}
-+EXPORT_SYMBOL_GPL(vb2_core_expbuf_dmabuf);
-+
-+int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
-+		    unsigned int plane, unsigned int flags)
-+{
-+	struct dma_buf *dbuf;
-+	int ret;
-+
-+	dbuf = vb2_core_expbuf_dmabuf(q, vb, plane, flags);
-+	if (IS_ERR(dbuf))
-+		return PTR_ERR(dbuf);
-+
- 	ret = dma_buf_fd(dbuf, flags & ~O_ACCMODE);
- 	if (ret < 0) {
- 		dprintk(q, 3, "buffer %d, plane %d failed to export (%d)\n",
-diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-index feda638d0064..45bfe8a2a12a 100644
---- a/include/media/videobuf2-core.h
-+++ b/include/media/videobuf2-core.h
-@@ -954,6 +954,22 @@ int vb2_core_streamon(struct vb2_queue *q, unsigned int type);
-  */
- int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
- 
-+/**
-+ * vb2_core_expbuf_dmabuf() - Export a buffer as a dma_buf structure
-+ * @q:		pointer to &struct vb2_queue with videobuf2 queue
-+ * @vb:		pointer to &struct vb2_buffer
-+ * @plane:	index of the plane to be exported, 0 for single plane queues
-+ * @flags:	file flags for newly created file, as defined at
-+ *		include/uapi/asm-generic/fcntl.h.
-+ *		Currently, the only used flag is %O_CLOEXEC.
-+ *		is supported, refer to manual of open syscall for more details.
-+ *
-+ * Return: returns a pointer to &struct dma_buf on success; an ERR_PTR otherwise.
-+ */
-+struct dma_buf *vb2_core_expbuf_dmabuf(struct vb2_queue *q,
-+				       struct vb2_buffer *vb,
-+				       unsigned int plane, unsigned int flags);
-+
- /**
-  * vb2_core_expbuf() - Export a buffer as a file descriptor.
-  * @q:		pointer to &struct vb2_queue with videobuf2 queue.
+--
+
+net: dsa: mt7530: unregister the switch before freeing its MDIO IRQs
+
+This moves dsa_unregister_switch() ahead of the per-PHY interrupt
+disposal in mt7530_remove_common(), so that phylib frees the nested PHY
+interrupts before their mappings are destroyed. The reported symptom is a
+remove_proc_entry() warning from irq_free_descs() followed by a NULL
+dereference in handle_nested_irq().
+
+> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+> index 3e61eb3c2b1e2..90fd04665ebf1 100644
+> --- a/drivers/net/dsa/mt7530.c
+> +++ b/drivers/net/dsa/mt7530.c
+> @@ -3593,11 +3593,11 @@ EXPORT_SYMBOL_GPL(mt7530_probe_common);
+>  void
+>  mt7530_remove_common(struct mt7530_priv *priv)
+>  {
+> +	dsa_unregister_switch(priv->ds);
+> +
+>  	if (priv->irq_domain)
+>  		mt7530_free_mdio_irq(priv);
+
+[Severity: High]
+Does this reorder actually close the handle_nested_irq() fault described
+in the changelog, or does it only close the phylib half of it?
+
+The parent threaded interrupt is owned by devres.  mt7530_setup_irq()
+registers the chip with devm_regmap_add_irq_chip_fwnode() and keeps only
+the domain pointer:
+
+drivers/net/dsa/mt7530.c:mt7530_setup_irq() {
+	ret = devm_regmap_add_irq_chip_fwnode(dev, dev_fwnode(dev),
+					      priv->regmap, irq,
+					      IRQF_ONESHOT,
+					      0, chip,
+					      &irq_data);
+	...
+	priv->irq_domain = regmap_irq_get_domain(irq_data);
+}
+
+so free_irq() on the parent and irq_domain_remove() happen only from the
+devres release, devm_regmap_irq_chip_release() -> regmap_del_irq_chip(),
+which runs after mt7530_remove() has returned.  Nothing in
+mt7530_remove_common() disables, frees or synchronizes against that
+parent IRQ, so the regmap-irq thread is still live while
+mt7530_free_mdio_irq() destroys the mappings.
+
+On the thread side there is no zero check on the lookup:
+
+drivers/base/regmap/regmap-irq.c:regmap_irq_thread() {
+	...
+		data->status_buf[i] &= ~data->mask_buf[i];
+	...
+			handle_nested_irq(irq_find_mapping(data->domain, i));
+}
+
+mask_buf is read there without data->lock, so the thread can carry a
+pre-mask snapshot past the filter.  Can the following still happen with
+this patch applied, on a part with a PHY_LC bit latched?
+
+  regmap_irq_thread()			mt7530_remove_common()
+    read_irq_data(), PHY0_LC set
+    passes the mask_buf filter
+					dsa_unregister_switch()
+					  phy_disconnect()
+					    phy_free_interrupt()
+					      free_irq(nested virq)
+					mt7530_free_mdio_irq()
+					  irq_dispose_mapping()
+    irq_find_mapping() -> 0
+    handle_nested_irq(0)
+
+kernel/irq/chip.c:handle_nested_irq() has no NULL check:
+
+	struct irq_desc *desc = irq_to_desc(irq);
+	...
+	scoped_guard(raw_spinlock_irq, &desc->lock) {
+
+which is the read at handle_nested_irq+0xac quoted in the changelog.
+
+Is the driver-side disposal loop needed at all?  regmap_del_irq_chip()
+already walks the domain and disposes every mapping, and it does so in
+the safe order:
+
+drivers/base/regmap/regmap-irq.c:regmap_del_irq_chip() {
+	free_irq(irq, d);
+
+	/* Dispose all virtual irq from irq domain before removing it */
+	...
+}
+
+Would dropping mt7530_free_mdio_irq() from the remove path (leaving the
+disposal to regmap_del_irq_chip(), which runs after the parent IRQ is
+freed) be a better fix than moving it after dsa_unregister_switch()?
+
+> -	dsa_unregister_switch(priv->ds);
+> -
+>  	mutex_destroy(&priv->reg_mutex);
+>  }
+>  EXPORT_SYMBOL_GPL(mt7530_remove_common);
+
+[Severity: Medium]
+This is a pre-existing ordering problem and not something this patch
+introduces, but it interacts with the new placement of
+dsa_unregister_switch(), so it may be worth mentioning.
+
+On the MDIO front end the supplies are dropped before any of this runs:
+
+drivers/net/dsa/mt7530-mdio.c:mt7530_remove() {
+	if (priv->id == ID_MT7530) {
+		ret = regulator_disable(priv->core_pwr);
+		...
+		ret = regulator_disable(priv->io_pwr);
+		...
+	}
+
+	mt7530_remove_common(priv);
+}
+
+After this patch the whole register-level teardown reached from
+dsa_unregister_switch() - internal PHY power-down, port disable writes,
+and the regmap-irq mask sync that clears the PHY_LC bits through
+mt7530_irq_mask_sync() - is the first thing mt7530_remove_common() does,
+i.e. entirely after core_pwr and io_pwr were released on ID_MT7530.
+
+Can those writes still reach the chip?  MDIO writes are unacknowledged,
+and regmap-irq updates its mask_buf shadow regardless of what
+handle_mask_sync() returns:
+
+drivers/net/dsa/mt7530.c:mt7530_irq_mask_sync() {
+	ret = regmap_update_bits(priv->regmap, MT7530_SYS_INT_EN,
+				 mask_buf_def, ~mask_buf);
+	...
+}
+
+so MT7530_SYS_INT_EN can be left armed and MT7530_SYS_INT_STS latched
+while software believes they are masked.  MT7530_TOP_SIG_CTRL's
+TOP_SIG_CTRL_NORMAL bit, set in mt7530_setup_irq(), likewise has no
+teardown counterpart.  Should the regulator_disable() calls move after
+mt7530_remove_common() instead?
 
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914202421.2737079-1-f%40lex.la
