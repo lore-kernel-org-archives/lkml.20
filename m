@@ -1,186 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay15.grserver.gr (relay15.grserver.gr [46.62.234.254])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C924ABBD2;
-	Thu, 17 Sep 2026 22:53:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA2D4AB3AA
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:55:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.62.234.254
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789685613; cv=none; b=eS+IidKcj7pFajzG/7ZJqzXNdnA1LR25lM4JG/Ux/YC+l+C2Lf12fmKdGXBIQ6H/HO3FgM/IePj65jdqXIeaVB5mU84+YAvSiAvf/4f2g39KJoh+Whx2wV7o7shOqCRQUCJ5JRSYi6ZNl1x/uuZCBRg++7xpYkpxS4bR7/034Q4=
+	t=1789685713; cv=none; b=HjccezmbTgKdlDOmQ8H7LwaNlXokH2FqHIJe3fAuqhcFlL2uYajyC1peft9+m1v6CEuvxSRt1aEQvb7FQ+bMf1scpIAeu16vrtWYTaETs3yLXggXGV7Nn3QSHIMgmJofz3o3CmaJBWmMROcsvHumj3Gp9hvXJ7kGBPrw8lJY8GE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789685613; c=relaxed/simple;
-	bh=ExxYnWYn6C/No6i6oyBCisOAYxdrZZJINsyBxsN5ZLs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=fuPug7DikRC4Ud4OVzPnGXzxSRFT1iEQBhr1vM0ax6kSdXPsUwKjg3Urfy1gzYomej8R0WPjDJWZTTSNQoDNy5oKqIyNUW18jSduyA4osBCsMiW7znsHxu9QD4BTZNB3/Y9V4sef+FhmjFtBhwmpOb5Hp/59jmD/t2Z4jFmTlVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CWDH0coQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789685713; c=relaxed/simple;
+	bh=x8dJutPCFqdfkx8N765ADRUz9RAxSutdjnlXtXVNKjQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VOyLCjvxSR+0UFkKTCrwjJxXfVENnBT2x+S28xTXUfdNS+1bP6EeyhKE6WGA/Yfi+1qqOOkzakU6BgqF8HEEb/j5wGs2o+PcLUz5sUX54NzHjVjb4/xPwFTXb6PgGht+VBt3VHgyUxNIcpdZDQovB70iyOhDfCoVRmIBArK0iVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=Bzd83PbU; arc=none smtp.client-ip=46.62.234.254
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CWDH0coQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA1AC1F000FF;
-	Thu, 17 Sep 2026 22:53:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789685611;
-	bh=IXOjluZcFhH/flCEevB3M2TpvgfJxkLhPY+HcD+KzfE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=CWDH0coQlEF0AK9ifcMlkpSjaSisLZfGRekijJzsGseP8S+XXRhiiios8D2k0rtzp
-	 8/F2Bs5PXVT3Wm6PKbjY/N/xKFxDn+G2SJQYyFztHY2uSQssWBTWg2H1D2f3JkUvBG
-	 uBLJVuF2bF8/cLdT+UqQWjo4GhxvECq2Rw1+/GDaCG7mazusN32fcbR2i8pW0M1NTw
-	 lGoVq2TGGab8GVy2iaN81U1qpD5SGZutBlq8Ahx5AaJJrVcFie30Cl0ULk2P+VqvdH
-	 BcKFgdjLsHj0EKzKGY0l3hdaAVKhUxO1f+aF2+MND+job3dbmW3MtoNId3U8Fltliw
-	 SQDq8cROLWhYA==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: George Guo <dongtai.guo@linux.dev>,  rppt@kernel.org,
-  pasha.tatashin@soleen.com,  pratyush@kernel.org,  graf@amazon.com,
-  changyuanl@google.com,  akpm@linux-foundation.org,
-  chenhuacai@kernel.org,  liukexin@kylinos.cn,  guodongtai@kylinos.cn,
-  kexec@lists.infradead.org,  linux-mm@kvack.org,
-  loongarch@lists.linux.dev,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] liveupdate: kho: calculate per-node scratch sizes
- before allocation
-In-Reply-To: <0969ede4-f617-4e24-b32e-c5e30a96880e@linux.ibm.com> (Sourabh
-	Jain's message of "Thu, 17 Sep 2026 16:00:00 +0530")
-References: <20260904025101.9959-1-dongtai.guo@linux.dev>
-	<616daf17-4598-4a30-8574-16480dfc23cb@linux.ibm.com>
-	<0969ede4-f617-4e24-b32e-c5e30a96880e@linux.ibm.com>
-Date: Fri, 18 Sep 2026 00:53:27 +0200
-Message-ID: <2vxz1par7amw.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="Bzd83PbU"
+Received: from relay15 (localhost [127.0.0.1])
+	by relay15.grserver.gr (Proxmox) with ESMTP id 25B143F480
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:55:04 +0000 (UTC)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay15.grserver.gr (Proxmox) with ESMTPS id 5B4583F8C0
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:55:03 +0000 (UTC)
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id 13A3A200577
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:55:01 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1789685702;
+	bh=x8dJutPCFqdfkx8N765ADRUz9RAxSutdjnlXtXVNKjQ=;
+	h=Received:From:Subject:To;
+	b=Bzd83PbUDy55g5Q3EXGRA93oTEwbDvv92fRUsqn85Y2O9QAEUfI6DjMN7iPeljS5f
+	 73RUhR6vKoOyhLPKMosU2brjr8IPSbb8PY/3wHjOzE9yOuE0RHQ7dcfln2BLRV1Sob
+	 xhDf4+w75X/EQ1pjMRzO9j3Zdhn6i8pSAUlfrnfVujQoN0naBikepc2dnCmAOKkVfn
+	 YLFAz9FeTFGvfFsLySh0lXAWI6lE3xzYmx2dMjQgnFpLzvbXT1V++C+8L3oVaww2u7
+	 JOkUggJaa5pk+DaRwivLTbcacDv58ZY6GkAefd31SO9iS38G1TWQ+yZhMRufzq/z/n
+	 ZgtD6NJsAbuHw==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 74.125.230.204) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-qk2-f12.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-qk2-f12.google.com with SMTP id
+ d75a77b69052e-5309a20a55bso875591cf.1
+        for <linux-kernel@vger.kernel.org>;
+ Thu, 17 Sep 2026 15:55:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxvrNqQmLeC1NSoH0fnCvP7Ut30yxLVT3qfr3ntj3HLm/5aQUsK7IT5GcLx5kXsTLmqy/jg0PBXtuIpdGU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBCjlh3x4EctaId6Q4Bs2GanijjINTzGU/8KXbiL/4Ko8fkU+N
+	7Cux/23Rsvv3qRlYtBHXMrhk9mYqfGUXDWGsqh3AVaj2HsnkREbd0XQKODh+1dwFMk8lvyZBcdS
+	A08F02H5kfujD/cYIiv/LiOhcxd4lGG4=
+X-Received: by 2002:a05:622a:4d0f:b0:532:9adc:63bb with SMTP id
+ d75a77b69052e-5329e54b1demr12161021cf.76.1789685700622; Thu, 17 Sep 2026
+ 15:55:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: 
+ <CAGwozwEkgP9-VwhW81=WEvJOac5iD+PFO4tA4eVrFP_qDVaiWA@mail.gmail.com>
+ <20260917222327.63999-1-hello@matias.me>
+In-Reply-To: <20260917222327.63999-1-hello@matias.me>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Fri, 18 Sep 2026 00:54:47 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwGykWJFovoT3wEaTn54tpW-5Fo=Dym=RxtTg_Vk+DJgYg@mail.gmail.com>
+X-Gm-Features: AcwNN1VlQ546YbCygXwHhHsOnspKTvi6jbSQJqY6vuSHmUt0pgiHTXxpe-6M698
+Message-ID: 
+ <CAGwozwGykWJFovoT3wEaTn54tpW-5Fo=Dym=RxtTg_Vk+DJgYg@mail.gmail.com>
+Subject: Re: [PATCH v3] HID: ayaneo: Add AYANEO 3 detachable controller driver
+To: =?UTF-8?B?TWF0w61hcyBNYXJ0w61uZXo=?= <hello@matias.me>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Denis Benato <denis.benato@linux.dev>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Armin Wolf <W_Armin@gmx.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-PPP-Message-ID: 
+ <178968570268.329066.4034476748916102990@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-On Thu, Sep 17 2026, Sourabh Jain wrote:
-
-> Hello George,
+On Fri, 18 Sept 2026 at 00:23, Mat=C3=ADas Mart=C3=ADnez <hello@matias.me> =
+wrote:
 >
-> On 12/09/26 12:03, Sourabh Jain wrote:
->> Hello George,
->>
->> On 04/09/26 08:21, George Guo wrote:
->>> From: George Guo <guodongtai@kylinos.cn>
->>>
->>> The default percentage-based policy sizes scratch areas from the current
->>> kernel's MEMBLOCK_RSRV_KERN footprint. This is a reasonable heuristic for
->>> predicting the early memory demand of the next kernel.
->>>
->>> scratch_size_update() calculates the lowmem and global sizes before either
->>> area is allocated. However, kho_reserve_scratch() calculates each per-node
->>> size only after allocating the lowmem and global areas. Since memblock
->>> allocations are marked MEMBLOCK_RSRV_KERN, the per-node calculation
->>> includes those newly allocated scratch areas and scales them again.
->>
->> I may be missing something here, but doesn't memblock_reserved_kern_size()
->> check the node ID of the region before checking the region flag
->> (MEMBLOCK_RSRV_KERN)?
->>
->> Code snippet from memblock_reserved_kern_size()
->> ```
->> if (nid == memblock_get_region_node(r) || !numa_valid_node(nid))
->>     if (r->flags & MEMBLOCK_RSRV_KERN)
->>         total += size;
->> ```
->>
->> For a valid nid, my understanding is that the global and lowmem scratch
->> areas should not be counted because they are allocated with NUMA_NO_NODE
->> (-1). So, ideally, these regions should be excluded when calculating the
->> reserved memory for a specific node ID.
->>
->> Based on this, I am not sure that marking the lowmem and global areas as
->> MEMBLOCK_RSRV_KERN is what causes the per-node size calculation to be
->> inflated. I am looking into the code further to better understand the
->> actual cause of the issue that this patch is trying to address.
+> On Thu, 17 Sept 2026 at 23:48, Antheas Kapenekakis <lkml@antheas.dev> wro=
+te:
 >
-> I added some prints in kho_reserve_scratch() and found that the per-node size
-> calculation is not impacted by the lowmem and global scratch memory allocations.
+> Hi Antheas,
 >
-> KHO: Before low and global scratch allocations
-> KHO: low size = 899 KB
-> KHO: global size = 137 MB
-> KHO: Per node 2 = 80 MB
+> Thanks for going through v3, and for all the help along the way. This
+> driver exists because of your protocol work in Handheld Daemon and
+> your reviews of every revision here.
 >
-> KHO: After low and global scratch allocations
-> KHO: low size = 312195 KB
-> KHO: global size = 441 MB
-> KHO: Per node 2 = 80 MB
+> > After you submitted your patch series to the lore, why didn't the
+> > review take place here and take place downstream?
 >
-> KHO: After per node allocation
-> KHO: low size = 394115 KB
-> KHO: global size = 521 MB
-> KHO: Per node 2 = 240 MB
+> Sequencing rather than intent. The OGC kernel folks wanted the driver
+> submitted and tested in their tree first, and their maintainer's
+> review landed on the already-merged downstream PR after v1 and v2
+> were on the list. I folded it into v3 rather than ignoring it. Agreed
+> that from here on review belongs on the list.
 >
-> I only had one NUMA node (nid=2), and the per-NUMA
-> allocation before and after the lowmem and global scratch
-> memory allocations remained the same at 80 MB.
+> > The rby Denis should not be added by you. It should be added by
+> > denis by replying to the mailing list and then you carry it forward
+> > on future revisions (for provenance).
 >
-> The experiment was done on the PowerPC architecture.
+> Understood, I carried it over from his downstream review round.
+> Denis, if you are still fine with the driver as of v3, could you
+> confirm your Reviewed-by here? Otherwise I will drop the tag in v4.
+
+As I said, none of this is your responsibility.
+
+> > Consider exploring similar ABIs in e.g., Legion Go S hid and
+> > mirroring their ABI. Then remove this file. This is not the only
+> > breathing device. Moreover, delta_t values are ignored and you are
+> > introducing an ABI for them?
 >
-> I am wondering how the per-NUMA allocation in your setup is
-> getting inflated due to the lowmem and global scratch memory
-> reservations.
+> The delta_t point is fair: hw_pattern accepts timing values this
+> firmware cannot honor, and the sc27xx precedent does use them. For
+> context, hw_pattern was my reading of your v1 suggestion to find an
+> accepted ABI for the pulsing mode, and the downstream review
+> preferred the generic trigger ABI over adding a custom effect
+> attribute, so the two reviews point in opposite directions here.
+> hid-lenovo-go-s documents its effect/effect_index attributes in its
+> own ABI file, so a doc file exists on that path too, though shared
+> with a second driver it could become a common one. I am happy to
+> switch to effect/effect_index mirroring hid-lenovo-go-s (values
+> monocolor and breathe) if that is the preferred direction. Jiri,
+> Benjamin, a preference either way would settle this.
 
-I had the same question, so I asked AI. Here's what it says:
+If there is an existing ABI, you shouldnt add a new sysfs doc file.
 
---- 8< ---
+https://github.com/torvalds/linux/blob/b5a051f6b840d48f159166ef073d3021989b=
+fb50/Documentation/ABI/testing/sysfs-driver-hid-lenovo-go#L1-L13
 
-The bug was reported and tested using the KHO self-test runner
-(tools/testing/selftests/kho/vmtest.sh), which builds a test kernel
-using make olddefconfig with only a minimal set of CONFIG_* options.
-Crucially, CONFIG_NUMA is not enabled.
+There is an existing class of device in the same space with a new ABI
+that does exactly what this device needs. I am really not sure why you
+were guided on a LED PWM interface by the author of that ABI.
 
-When CONFIG_NUMA is disabled:
+You need to modify that sysfs file in a separate patch to make it
+generic by removing go.
 
-    #ifndef CONFIG_NUMA
-    static inline void memblock_set_region_node(struct memblock_region *r, int nid)
-    {
-    }
-    
-    static inline int memblock_get_region_node(const struct memblock_region *r)
-    {
-        return 0;
-    }
-    #endif
+> > I am not sure of the struct naming or whether a struct is needed in
+> > this case. if you do not use most of the report, consider
+> > documenting it somewhere else and doing direct accesses to the
+> > appropriate bytes.
+>
+> The packed structs came from the downstream review, mirroring
+> hid-lenovo-go; they replaced a set of byte-offset defines and the
+> static_asserts pin the wire sizes. I would mildly prefer to keep
+> them, but I am fine either way if the maintainers have a preference.
 
+I am also fine either way. I'd prefer what is simpler.
 
-struct memblock_region does not even contain an nid member.
+> > If you set vibration, you need to expose it to userspace. Otherwise
+> > this driver degrades functionality over userspace implementations.
+>
+> Agreed. v4 adds an attribute for the vibration level (the firmware
+> takes three) plus an index listing the options, instead of writing a
+> hardcoded default.
+>
+> > Prefer removing semicolons; they have a particular smell ;)
+>
+> Will reword the comment.
 
-memblock_set_region_node() is a no-op (the NUMA_NO_NODE argument is
-simply discarded), and memblock_get_region_node() is hardcoded to always
-return 0.
+All occurances.
 
-There is only one node (nid = 0), so for_each_node_state(nid, N_MEMORY)
-loops once for nid = 0.
+Thanks,
+Antheas
 
-Both memblock_phys_alloc_range() and memblock_phys_alloc() mark their
-allocations with MEMBLOCK_RSRV_KERN. Therefore, when
-scratch_size_node(0) runs after allocating the lowmem scratch buffer,
-memblock_get_region_node(r) returns 0 for that lowmem scratch buffer,
-and r->flags & MEMBLOCK_RSRV_KERN is true. As a result,
-scratch_size_node(0) counts the lowmem scratch area as part of Node 0's
-kernel footprint and scales it by scratch_scale (200%) again.
+> > Consider dropping the hid_device ... check block unless it is
+> > necessary. it seems like a premature test that can go wrong and you
+> > touch the device. Particularly, hid_device_io_start is a bit
+> > unconventional.
+>
+> Agreed, v4 drops the probe-time status check and with it the
+> hid_device_io_start call. Every sysfs read already talks to the
+> device live, so the check adds nothing, and without it the driver
+> generates no traffic unless userspace asks, which also keeps it inert
+> next to userspace implementations like yours.
+>
+> > I'd suggest waiting a week before the next revision and up to two
+> > weeks for jiri/Benjamin to reply with some comments as I think I
+> > was the only one that reviewed the previous revision.
+>
+> Will do. v4 waits for Jiri and Benjamin, and goes out as a fresh
+> thread.
+>
+> Thanks again,
+> Mat=C3=ADas
+>
 
---- >8 ---
-
-I didn't look closer, but it does seem to make sense.
-
-But in practice, this problem is only on CONFIG_NUMA=n and I don't think
-in practice KHO or LUO is being used in non-NUMA systems. So while I
-think it is worth fixing, I think we should also have a test where we
-enable CONFIG_NUMA.
-
-Your system probably has CONFIG_NUMA=y and that's why you aren't able to
-reproduce this bug.
-
-I think on NUMA systems the problem is the other way round. The
-calculation for the global scratch also counts per-node allocations.
-
-So I think the proper fix for scratch sizing is what this patch does and
-then a fixup for the global scratch calculation as well.
-
-[...]
-
--- 
-Regards,
-Pratyush Yadav
