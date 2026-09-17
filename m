@@ -1,57 +1,57 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE824DEC0F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:14:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278584D4891
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:14:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789672452; cv=none; b=SwPrE1tpdrfR7cT2oIn2ExqyHSzDfJz8RELCCyS7wyaXNtA9u39v/d0Ht5LtH8PurmjaVjiV53DsyhsjJ2ldZ5nNY0GBxdurvNYSJjar2FViwyUWjVpRWrqDK83X+1Iny3UzQmbeoFG1BiQobLgKldDykAR9eObajw1mYgnjDH0=
+	t=1789672453; cv=none; b=jnYq0pTHqb2f0xfovHgS/rdRUg2b5DJOz3ogmV/phl3So8eHp7X8YxcrgtGESLuQOC0R2oihz+OXo0ib6oqIjbLkn1KjbXrWijJF8eUzV8OFczyDKpHpVq7ISNNQyogrWrnitVKSrNwjrPeaHgHNVUL4Eu/hFTlY8cCd5A787Ko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789672452; c=relaxed/simple;
-	bh=dIcVzOaTZO1fs3vVHAqmHUmDdlEhoSgS/3LqdyEdb+I=;
+	s=arc-20240116; t=1789672453; c=relaxed/simple;
+	bh=z1Ysn0ALQpn96UsvNcVVXzDqe+f+3zOb78ZzcXMOS1k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oT0m1OhcMNMdCG6TfdaR1L+vlZutHQsDt3jukzsgRcf2T7q6DwIcz3D5u09szd8q+RkHVjajXnZkaWduSoElrXtIwoXnD3tFVHa87S6w5ss0iktiCT9ZU8OijjNCW8hsBhfMBTJ4mJndz3iSABk0RlVMNPAIrriCLcAJ55QlAPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bPau6LdG; arc=none smtp.client-ip=192.198.163.4
+	 MIME-Version; b=E+fLBp/HzWARyYnsaa3US9F2V36wjan3y/z5xqtxm4B7w0EpCRuJZRRepDie66nDDxD9+sr/iCokBebZobxo17w9kb166/lKhFmtQ30ZZOy32DccrJRpxLwKAUBkJ6PMTSkotdNLTV2aKzbdA5nL6i0ZPTYusZF1bIeiSJnQ/MQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kzK2jgri; arc=none smtp.client-ip=192.198.163.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bPau6LdG"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kzK2jgri"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789672450; x=1821208450;
+  t=1789672452; x=1821208452;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=dIcVzOaTZO1fs3vVHAqmHUmDdlEhoSgS/3LqdyEdb+I=;
-  b=bPau6LdGWpb9f6aNy3XNnZCPvhq0E5IF9Qht2IH7vpHMLvMMbOHCf82Z
-   OFe9IGrcgIsQl0oeRxZLF0PuNuSiS/aVyfssMYarB1K4S7BLPHXoNMDHj
-   DZq6kWRDtqmaEMwTs0AJ2P2ow9lpxD3cF9ej76qwjQW5j9LuD+Ps83AmY
-   jd0Xq6nePqC3PtHVUpIIjce3POvNRnO0TemRrv6ORi77up9/cBJLuMihD
-   NjyB8m6dUP434FNUq3o5aH5czOG4KlGrVe960ja+LES8rQEDz8AitTUv3
-   VWcOAnY9DcnIJ9JPyMkhVfNBFX5VJk3oXutfhfT7nleFfd45/HZkFJOtu
-   w==;
-X-CSE-ConnectionGUID: nZ1dfjWOTZ6IQxhHqnyLkA==
-X-CSE-MsgGUID: GUBRbFmxR3yV+4ndEhyXCg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="639866"
+  bh=z1Ysn0ALQpn96UsvNcVVXzDqe+f+3zOb78ZzcXMOS1k=;
+  b=kzK2jgriI6kh+Fv7NEduJX2Oeefbx0GtTOft8J0eFKkWsC/kyRp63XzI
+   7h/aAGT5Kz0HWOjYVzSq3CeTHTY3G7bt9ZDeSh98YUhF2xqNLacb2wniG
+   TkoEfsVgJIQcMe1Ao3VdTtjqIwEXl4nJ8O2MreWq65JbJCjek8IRQ28k1
+   og/+GD7Nfe3kRm3JmvJ9f3JBVn0WMkzMlXHu1d7UlWj0Jsv/at2D1Bnkp
+   OkuOJkC7YB1TG8qKoTtrTsMgNbYKxMPA7HNQbb5eKvoyw6tz+VKPPV5vw
+   a106/HYqZoBSVCbrUSV+loJNbg567YwSCiMS4vHQe3oLwu59dsUYiG425
+   A==;
+X-CSE-ConnectionGUID: 0yKGOUDoRaaHVWRGdokZPg==
+X-CSE-MsgGUID: QL4uZ38STt6v0YcemclPRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="639873"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="639866"
+   d="scan'208";a="639873"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 12:14:10 -0700
-X-CSE-ConnectionGUID: 4k9SUdIDQX66OlP2HsR25A==
-X-CSE-MsgGUID: I156SIMtTUeSHBTiSvgEfg==
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 12:14:12 -0700
+X-CSE-ConnectionGUID: QYJWFAdjQpewkl8I74tQLw==
+X-CSE-MsgGUID: J8n+oo17SiuEiPKQsSqLhw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="270271922"
+   d="scan'208";a="270271930"
 Received: from fpallare-mobl4.ger.corp.intel.com (HELO ahunter6-desk) ([10.245.245.5])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 12:14:08 -0700
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 12:14:10 -0700
 From: Adrian Hunter <adrian.hunter@intel.com>
 To: alexandre.belloni@bootlin.com
 Cc: Frank.Li@nxp.com,
 	billy_tsai@aspeedtech.com,
 	linux-i3c@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH V2 02/17] i3c: mipi-i3c-hci: Bounce short reads irrespective of the IOMMU
-Date: Thu, 17 Sep 2026 22:13:41 +0300
-Message-ID: <20260917191356.133242-3-adrian.hunter@intel.com>
+Subject: [PATCH V2 03/17] i3c: mipi-i3c-hci-pci: Set drvdata before creating LTR sysfs attribute
+Date: Thu, 17 Sep 2026 22:13:42 +0300
+Message-ID: <20260917191356.133242-4-adrian.hunter@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260917191356.133242-1-adrian.hunter@intel.com>
 References: <20260917191356.133242-1-adrian.hunter@intel.com>
@@ -64,55 +64,51 @@ MIME-Version: 1.0
 Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 - 4, Domiciled in Helsinki
 Content-Transfer-Encoding: 8bit
 
-The controller writes whole DWORDs, so a read whose length is not a
-multiple of 4 overwrites up to 3 bytes past the end of the destination
-buffer. That is a property of the controller, not of the IOMMU, but the
-bounce buffer that works around it was used only when the device was
-IOMMU mapped. Everywhere else the buffer is left unprotected.
+intel_i3c_init() creates the pm_qos_latency_tolerance_us sysfs attribute
+before probe calls pci_set_drvdata().  A userspace write to the attribute
+can therefore invoke intel_ltr_set(), which uses pci_get_drvdata(),
+before drvdata has been initialized.
 
-Drop the device_iommu_mapped() condition.
+Move pci_set_drvdata() before hci->info->init() so drvdata is available
+before the sysfs attribute becomes accessible.
 
-The overrun is easily seen with CONFIG_SLUB_DEBUG=y and kernel command
-line options intel_iommu=off slub_debug=FZPU, which reports it as a
-kmalloc redzone overwrite, like:
-
-  [kmalloc Redzone overwritten] 0xffff8a354561570e-0xffff8a354561570f @offset=1806. First byte 0x15 instead of 0xcc
-  =============================================================================
-  BUG kmalloc-8 (Not tainted): Object corrupt
-  Allocated in i3c_master_retrieve_dev_info+0xc1/0x760 age=40 cpu=6 pid=1
-  ...
-  Freed in i3c_master_enec_disec_locked+0xeb/0x140 age=40 cpu=6 pid=1
-  ...
-  WARNING: mm/slub.c:1233 at object_err+0x1c1/0x1cf, CPU#6: swapper/0/1
-  ...
-
-Fixes: 9e23897bca62 ("i3c: mipi-i3c-hci: Use physical device pointer with DMA API")
+Fixes: 884a33131f2a ("i3c: mipi-i3c-hci-pci: Add LTR support for Intel controllers")
 Cc: stable@vger.kernel.org
 Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 ---
 
 
 Changes in V2:
 
-	Added the slub_debug report to the commit message.
+	Added Frank Li's Reviewed-by tag.
 
 
- drivers/i3c/master/mipi-i3c-hci/dma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/i3c/master/mipi-i3c-hci/mipi-i3c-hci-pci.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i3c/master/mipi-i3c-hci/dma.c b/drivers/i3c/master/mipi-i3c-hci/dma.c
-index 7c2b20474130..5b195978f376 100644
---- a/drivers/i3c/master/mipi-i3c-hci/dma.c
-+++ b/drivers/i3c/master/mipi-i3c-hci/dma.c
-@@ -428,7 +428,7 @@ static void hci_dma_unmap_xfer(struct i3c_hci *hci,
- static struct i3c_dma *hci_dma_map_xfer(struct device *dev, struct hci_xfer *xfer)
- {
- 	enum dma_data_direction dir = xfer->rnw ? DMA_FROM_DEVICE : DMA_TO_DEVICE;
--	bool need_bounce = device_iommu_mapped(dev) && xfer->rnw && (xfer->data_len & 3);
-+	bool need_bounce = xfer->rnw && (xfer->data_len & 3);
+diff --git a/drivers/i3c/master/mipi-i3c-hci/mipi-i3c-hci-pci.c b/drivers/i3c/master/mipi-i3c-hci/mipi-i3c-hci-pci.c
+index ab595661db1e..af9595009b03 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/mipi-i3c-hci-pci.c
++++ b/drivers/i3c/master/mipi-i3c-hci/mipi-i3c-hci-pci.c
+@@ -445,6 +445,8 @@ static int mipi_i3c_hci_pci_probe(struct pci_dev *pci,
+ 	if (ret < 0)
+ 		return ret;
  
- 	return i3c_master_dma_map_single(dev, xfer->data, xfer->data_len, need_bounce, dir);
- }
++	pci_set_drvdata(pci, hci);
++
+ 	hci->info = (const struct mipi_i3c_hci_pci_info *)id->driver_data;
+ 
+ 	ret = hci->info->init ? hci->info->init(hci) : 0;
+@@ -455,8 +457,6 @@ static int mipi_i3c_hci_pci_probe(struct pci_dev *pci,
+ 	if (ret)
+ 		goto err_exit;
+ 
+-	pci_set_drvdata(pci, hci);
+-
+ 	mipi_i3c_hci_pci_rpm_allow(&pci->dev);
+ 
+ 	return 0;
 -- 
 2.53.0
 
