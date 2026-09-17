@@ -1,113 +1,220 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A293A3E7A
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26673B42ED;
+	Thu, 17 Sep 2026 03:35:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789616035; cv=none; b=cqlKs1UNfhibfkxYrtlsX5RjBBo07bzpcdOOioF4oRSlpXvtbbKlyd8OJl1XG+APRfsln/TdH4mU3YNy1WqQPkYBCWEgpduWBRRSDcQe0+EUlste93srbI3A6hrlbc+4REX6BptK9GwUjWPlu3S9CqObbgDVPzu+Fo+f81FzPnU=
+	t=1789616160; cv=none; b=RT7CaViy+THnCiVjsLkyedb1+ES7CD1zHGJuQN29bwUoRdcWzqtHJ8GjY9LyFCsivI/cvS/QVqW+zZz6ZKQDiUwrhze9nA42vGFlQCnSTAL6N+v6ISH6ep2Lo3n/rxXqLWzUxef40zj01s4k3QTqXIu8Kn2N7oXCQnR+Z3DXWGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789616035; c=relaxed/simple;
-	bh=xiYVn57pn0XMpas+wlR8SmSSTnMiv5JdI/rPUiCUEF8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=FRrPMlxmiBtUZNTW1wzMydgTuuPM1t1KSun0E7Mm6sJqcQ3haPEAAlPefLfV4aJN03nOXV39ePTduljax1XB0MVv5nicrvQynXm1DKm8Mnw/Csfnsp+1ARS2Xqb/R9sy5G3oc5UsID5qc1J9vTtizr73zBGq+ov0+r5jKie8b7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SQJJ9sWv; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789616160; c=relaxed/simple;
+	bh=NzWp1xLm/1UgUsJkiIzEJrhf41CU0kTYB88pdIRnwIc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ud6703Hfhg9TjgoiMI4nGDXN/mKnvOCAwqddlyIepFdsWsVrDnsBhCVGcJVVE74WFMWPUPDJWDZP126c4QE5NxVfNJDkzQUG1FVoo/Z37YMH3SWpCzBWVEcIB9TerOmBcMOvK1B/AglxMVatdc/54q8bKEIW+woFOkTwr8SpFWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eA/4gAT+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SQJJ9sWv"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d9004a1ac0so2547065ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:33:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789616024; x=1790220824; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xiYVn57pn0XMpas+wlR8SmSSTnMiv5JdI/rPUiCUEF8=;
-        b=SQJJ9sWv8kbqLvyicyIH8dA079Hpdf7sAIGAgsa3gu8az9fmonDf2Wj4CjjeHdDevw
-         GG5DXGNWmjOJystNj0aFKHITBrJ4HGEIRiBZgncCCyfssABBwoE9OjohnJi2mP0LKUKr
-         Egf2WxTdjAwi163gzObk0VTgGiKgJXLsa0bK4+Lh6hcZYw7+ytQCHpC038wYeFxjgBoG
-         wKzMSXHLic/tTqq0X7SnDw6UlRecSPNdDGwgx0Onfiw9m5xIbuhXLyYroSSik1DguWnx
-         ZmNMq1sTLuEOvpEHBv1THhC4lQBcket6CLDcZAxkol4Czdoh8q91xdXW77tVLbQSYnoD
-         GVSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789616024; x=1790220824;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xiYVn57pn0XMpas+wlR8SmSSTnMiv5JdI/rPUiCUEF8=;
-        b=TcOnn4oCOViFRqbM9Vdl2L7V/mL7sgiLBUkD3R0CGHzjhNBgazAl00J2T6rjvrrGi+
-         g0P1Q5c4pLVp89PjBgGO5vuKbhdg9I6dTvjll7TAwHYap5uSGH5Hd0cJAEcT6V6d1jqm
-         gMj9geTgrQxGYe9mvu3ldCi8qkbCigQ04Q6zF4woNmSUYJV2cmplW0JzPFPOEshU7SdF
-         +LcmI2VeYnKqPJatih/jqvdkc/Lg/+8ISwkGGSFJxXZR2kmtzSsaVNk6wQveFiK/088l
-         DHqHwU2cHQepFJFA3h5o94ULUKG5BAeIzKEIgr+uT8IUDcr9AnUXyAsJhK3T2ceLGDfO
-         M/Ag==
-X-Forwarded-Encrypted: i=1; AKwUvBxeChaWcWnmOTQvU1UyC/bslUSG7QW7sb2B37MVy5fvvfW4Ry+U4KtgsXVOP0WjP+vMfgd2B2YMJZ5eEj8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBc+qxlCKCSCS1VqfmIJgxZ0P8AsiQ8oRwHXP3971CKXPgfgnI
-	JVZlFkiBjz3o7m6AqJziCm9CfCdsFsnqB5uvnGvrf5b4JMJsFS1rTJlc
-X-Gm-Gg: AYBFou3+Cx+dCrmsVmn+dYNQlmiMVNj32vFQghQ9C3j0qH5NQb5fq5YOgAzZfcW4OCg
-	xq8BLBe6qgWLqnDqaw/UbWxkpoETVHZMfQKCZyGhNQZ8p5FuKoggzyuNUXm67vGljj9ug14GS+5
-	jD0Fgi2QQVkopbN8NnB1kR6ozDHODxgENC8Ht9Eb5ULhDaZRVL9WTBZbHEGZGSbKXImoi4ZPD1Z
-	balN3YlHoDCEc3gqcBprUvyRKqD5GY4NqFVf6eBq9rrL/mutf/GCxLt6MThx2JQfWII4Hmv2akD
-	wL/IVQAQm7Cr0tpsL0oerIr/e/al/w81EC0eNgOmof4naX3kOU73PNqO6WqZ464AecByML+frTt
-	ZlmkeB3fflwqvMI2rQTUJ3UkUReqbv6sVEwKiUcC6Vk3m2ulkXBTT2KecUhIWe1pr+6gfnd0UGP
-	BOYO5ZdwPegE1jprFjX60Zz+eLHkW+1Qk08Nj5S81RaHd1eqawl8jWMxKgMu3NsJJvJSJzAukAb
-	TG5Dqot2xZo4x9IX9CP8MGEA1TTlrDdIhRPLGEbnZRJWCfpKL6NGhDwK4vkentrUDPHz5cU4QWo
-	JcIj
-X-Received: by 2002:a17:902:d547:b0:2d0:cc92:f7a9 with SMTP id d9443c01a7336-2dd8dd0b15amr107107475ad.4.1789616024059;
-        Wed, 16 Sep 2026 20:33:44 -0700 (PDT)
-Received: from localhost ([153.61.198.240])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89eb5826sm19687585ad.30.2026.09.16.20.33.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 20:33:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eA/4gAT+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90D981F00893;
+	Thu, 17 Sep 2026 03:35:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789616145;
+	bh=3VXqga3dsBfnBGibv61xRLtLorbKQuhoOrsS0V2HPxI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eA/4gAT+NUwX5dh5HCZmtjQonvLwk+fkIdE/Z50R9gbc1RVYdbAAQ+1VGPzgy94kj
+	 cUVJtHCu4OwP/pvGyYiBincjEB7X1ySTSDA1nuDyGhPdzyxs//lZVBkuB37v+0xEi9
+	 Y449eYyksuhaP7qBkVf6zts/cTEDsLpHA04krRWoCE+4z6fXMXiWjRuYAiZd5L+aOt
+	 n0vyb3O3MGxKrfY06XOzT61KSo5CYzrBJAKV36kmEtsVsbhi8Qefae614ENEGI2Tpc
+	 Y7osmQUg3IgTdfa1kOuqPkQJyD9scT5QffqfzGdDPWXzHDiyMwKA2kclyxT1Myo2YZ
+	 rmy0XHsJkhEOQ==
+From: SJ Park <sj@kernel.org>
+To: Lian Wang <lianux.mm@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
+	akinobu.mita@gmail.com,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	akpm@linux-foundation.org,
+	corbet@lwn.net,
+	bijan311@gmail.com,
+	ajayjoshi@micron.com,
+	honggyu.kim@sk.com,
+	yunjeong.mun@sk.com,
+	rientjes@google.com,
+	weixugc@google.com,
+	jic23@kernel.org,
+	gourry@gourry.net,
+	Kunwu Chan <kunwu.chan@linux.dev>
+Subject: Re: DAMON reporting more hot memory on huge pages (was: "Re: [RFC PATCH v2 0/9] mm/damon: hardware-sampled access reports")
+Date: Wed, 16 Sep 2026 20:35:36 -0700
+Message-ID: <20260917033537.102943-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260917020653.46010-1-lianux.mm@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 17 Sep 2026 03:33:42 +0000
-Message-Id: <DLH9XN5U55Z6.32MF649M30C6P@gmail.com>
-Cc: "Nam Cao" <namcao@linutronix.de>, "LKML" <linux-kernel@vger.kernel.org>,
- "linux-trace-kernel" <linux-trace-kernel@vger.kernel.org>, "bpf"
- <bpf@vger.kernel.org>, "Wen Yang" <wen.yang@linux.dev>, "Tobias Schaffner"
- <tobias.schaffner@siemens.com>, "Viktor Malik" <vmalik@redhat.com>, "Linus
- Torvalds" <torvalds@linux-foundation.org>
-Subject: Re: [RFC PATCH 00/20] rv: Add support for BPF monitors
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Gabriele Monaco" <gmonaco@redhat.com>, "Steven Rostedt"
- <rostedt@goodmis.org>
-X-Mailer: aerc 0.17.0
-References: <20260831090524.106845-1-gmonaco@redhat.com>
- <87se3sakgi.fsf@yellow.woof>
- <df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
- <DL5B40CU17WD.3KD75URQZ6RRR@gmail.com>
- <eb3dd8158942d663ec8ad4c529eacd666c5f96d9.camel@redhat.com>
- <20260903090211.50d15220@gandalf.local.home>
- <CAADnVQK8e1Qp9rf1zThZxb3vr4Gc_bpo0nqpEO2LdnEwHdKokA@mail.gmail.com>
- <20260904074317.01b2c0e1@robin> <DL6O0KLPXLTA.2HJJUXQUVCP5@gmail.com>
- <20260904123108.1fa1d815@gandalf.local.home>
- <20260904132421.111c0279@gandalf.local.home>
- <DL6XBKITK7ZT.3RXK9YGGUYZZE@gmail.com>
- <20260904194620.0c7a8363@gandalf.local.home>
- <CAADnVQJH1SYR_GN6gewF3w_z_Sex9HFE1T1oXkQe6+v18bDTWA@mail.gmail.com>
- <20260904201741.2986efca@gandalf.local.home>
- <CAADnVQ+x4iRNXOg69nUmuJ53pB3-JtroePcyoReATy9+V1aRPg@mail.gmail.com>
- <228FE969-EBFF-4B60-B0E7-C1E4FD82FB8B@redhat.com>
- <DLDSQDSVXFHF.18X2UQUL5Y42D@gmail.com>
- <1f8caa71b79e70f554245bccaa29b66268452dbe.camel@redhat.com>
-In-Reply-To: <1f8caa71b79e70f554245bccaa29b66268452dbe.camel@redhat.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Sep 15, 2026 at 7:15 AM UTC, Gabriele Monaco wrote:
->
-> Essentially sharing the API simplified how the userspace component handle=
-s some
-> things and allowed to share reactors.
+On Thu, 17 Sep 2026 10:06:37 +0800 Lian Wang <lianux.mm@gmail.com> wrote:
 
-It's surely tempting to reuse userspace, but unlike kernel the user
-space is much easier to change, so let's not add kernel struct-ops,
-since they're not necessary to achieve the goal.
+> Hi SJ,
+> 
+> Thank you for thinking further about this and for suggesting the damon_prep
+> direction.  Let me first clarify the real-world use case and correct one
+> expectation that I created in my previous mail.
+> 
+> SXF develops a hyperconverged infrastructure platform.  The workloads running
+> in the guests are customer workloads, and their types, memory sizes and access
+> distributions are not controlled by us.  Oracle is the workload in the case
+> that exposed the problem, but we cannot define one Oracle access distribution
+> as representative of the platform or provide one generally applicable
+> workload-specific THP performance number.
+> 
+> The platform has two requirements:
+> 
+>   1. Host THP is enabled by default.  Large mappings generally provide useful
+>      translation and virtualization benefits, so disabling THP merely to make
+>      monitoring easier is not an acceptable general solution.
+> 
+>   2. We also need an estimate of each VM's active memory as an input to later
+>      memory-tiering configuration.  If a small number of distributed 4 KiB
+>      accesses makes many 2 MiB mappings appear fully active, the hot-tier
+>      requirement can be substantially overestimated.  VM sizes vary, so the
+>      absolute error can become large on a large VM when accesses are spread
+>      over many huge mappings.
 
+Thank you for sharing these.  Especially the second requirement is very
+interesting to me.
+
+As you may already know, DAMON can provide not only the observability but also
+such tiering like operation.  SK hynix and Micron are developing their tiering
+solution using DAMON.  I also developed [1] TPP-based solution.  I'm wondering
+if they considered directly using tiering solution instead of doing observation
+and operation separately.
+
+> 
+> The reported setup is a KVM/QEMU VM whose large guest-RAM allocation is backed
+> by a shared tmpfs file.  Oracle runs in the guest, host THP is enabled, and
+> host DAMON vaddr monitoring targets the QEMU process.  The field observation
+> is that, for the same business memory-use case, the measured hot proportion is
+> much higher with THP.  The guest-side tmpfs 4 KiB/2 MiB writer is a controlled
+> diagnostic for isolating this mechanism, not a model of the complete Oracle
+> access distribution.
+> 
+> The DAMON setup is:
+> 
+>   operations=vaddr
+>   monitoring_attrs/nr_regions/min=500
+>   monitoring_attrs/nr_regions/max=2000
+>   monitoring_attrs/intervals/sample_us=500000
+>   monitoring_attrs/intervals/aggr_us=20000000
+>   monitoring_attrs/intervals/update_us=60000000
+>   schemes/nr_schemes=1
+>   schemes/0/action=stat
+>   schemes/0/access_pattern/age/min=0
+>   schemes/0/access_pattern/age/max=18446744073709551615
+>   schemes/0/access_pattern/nr_accesses/min=1
+>   schemes/0/access_pattern/nr_accesses/max=18446744073709551615
+>   schemes/0/access_pattern/sz/min=0
+>   schemes/0/access_pattern/sz/max=18446744073709551615
+> 
+> The hot proportion is derived from the bytes selected by this stat-only scheme
+> (at least one observed access in a 20-second aggregation window) relative to
+> the monitored QEMU scope.  It is used for later configuration, not as a
+> request for DAMOS to split or migrate memory.
+
+Thank you very much for sharing these details.  I now get much clearer picture.
+
+I think the DAMON setup may have rooms to improve.  When someone asks me
+recommeded setup for access pattern observability, I recommend to use intervals
+auto-tuning and read idle time percentiles, similar to DAMON_STAT.  If you
+haven't tried that, I'd recommend to try it.  I presented [2] this basic idea
+at Lst year LPC refereed track.  Hopefully that could give you more ideas.  If
+you tried it and found some problems, and that resulted you in this setup,
+knowing the detailed context would be helpful for me.
+
+[...]
+> > I still want to better understand the real world use case before digging into
+> > the specific solution.  But, I was thinking perf event based monitoring might
+> > not feasible for the case.
+> 
+> We agree that perf-event feasibility should be established rather than
+> assumed.  We will test the address space reported while a KVM vCPU is running,
+> per-VM attribution, coverage and loss before relying on that path.  If you had
+> a specific feasibility concern in mind, please let us know so that we can
+> include it in the test.
+
+I'm still in a very early stage of perf event based monitoring prototyping.
+Hence I have no expertise to find a real concern at the moment.  I was just
+thinking it _might_.
+
+> 
+> > That is, we can request DAMON to do some preparation action for the data
+> > attribute sampling, using damon_prep.  At the moment, set_pgidle prep action is
+> > supported.  Maybe we could add a new prep action, say, split_pmd?  Then, the
+> > following sampling memory access check probe (would be a kind of "allow
+> > pidle_unset" probe filter) will be able to show the access on exactly the pte
+> > accessed bit, not the pmd accessed bit.
+> >
+> > Breaking pmd would cause the overhead, but it would be capped by the
+> > max_nr_regions.  So the user could at least consider about the tradeoff.  I
+> > think this is simpler and more intuitive than DAMOS-based pmd breaking, at
+> > least.
+> 
+> This placement makes sense to us.  A split_pmd preparation for access sampling
+> is clearer than exposing PMD breaking as a DAMOS action.  We understand it as
+> refining the mapping used for observation, without splitting the underlying
+> huge folio, and then letting the following probe observe PTE accessed bits.
+> 
+> We will follow this idea and validate it.  In particular, we will measure the
+> active-memory result and mapping cost, check whether max_nr_regions also bounds
+> the cumulative number of mappings that remain PTE-mapped over time, and verify
+> whether splitting the host process PMD is sufficient in the QEMU case or KVM's
+> large secondary mapping remains the limiting layer.  We will compare it with
+> the perf-event path, stat-only first, without proposing a user-visible DAMOS
+> split action or physical folio split.
+
+Sounds good, looking forward to the progress.
+
+> 
+> Please rest assured that we see this as a long-term technical discussion and
+> collaboration, not an attempt to rush one mechanism into the tree.  We will
+> continue sharing both positive and negative results.  I also plan to present
+> the scenario, evidence and tradeoffs in more detail at LPC.  Please feel free
+> to share any concerns or ideas at any time; we are happy to keep iterating on
+> them together.
+
+No worry.  Nothing needs to be rushed.
+
+> 
+> This topic has now become broader than Ravi's hardware-sampled report series.
+> If you think it would keep the discussions clearer, I can start a separate
+> thread focused on huge-page observation and the damon_prep approach, while
+> keeping perf-event implementation and testing comments on Ravi's thread.
+
+Indeed we might hijacking Ravi's thread and adding unexpected mails to
+recipients' inbox.  Please feel free to drop recipients or start a new thread,
+whatever you prefer.
+
+> 
+> Please let me know whether this clarifies the intended use and whether our
+> reading of the split_pmd damon_prep proposal matches what you had in mind.
+
+Yes, this is very helpful.  I have raised followup questions above, though ;)
+No pressure.  I understand not every detail can always be revealed, and
+sometimes it takes time.  Please answer only if you want, and when you get the
+chance.
+
+[1] https://lkml.kernel.org/r/20250420194030.75838-1-sj@kernel.org
+[2] https://lpc.events/event/19/contributions/2075/
+
+
+Thanks,
+SJ
+
+[...]
