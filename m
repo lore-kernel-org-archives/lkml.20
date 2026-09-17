@@ -1,71 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907825208C4;
-	Thu, 17 Sep 2026 16:47:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D721C5208CF;
+	Thu, 17 Sep 2026 16:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663677; cv=none; b=mKdEdwHCYD+mGAOcpZE3O7Dk6WVyscRf+1ZAGLLdttLy5vhb7l8fidE+sHnHSkWr0bTpRaeGgk1qtLY9IUbVYLP63C6j9x4J3v/T2mNJDsrWK+F887JyId+FOvDuwGSntD4X8fZ5vQeCsMb4MCCmG/jLH8IEzD+QsWmWJxLKA7M=
+	t=1789663679; cv=none; b=JSRIIaMQZyUFrX47oYtV0zGbVBjdEc/cEP+mIs+JVv+tVtF2uzNj/Zg1iAPgjPDBS0TMiegOlcxW41L8mUnvCXDGsf8gFTrkwmaoTulHOM4LqYVafoMztckvoTKGHdRwc+b6o9GVOjYO77ZB0J5OLqbcYIjUsMmOI0E2bIu5dW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663677; c=relaxed/simple;
-	bh=LAxtjYEua4plusINVTHcMgxVKXWmoP1/pA9iq8tgzLI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BmtTwGi/WzhTxlGPlVpgiEPhRZ4Xd7MsqHirsUM0ARULUpw5JJCArYFuLtENlh0XdzICEcjRShVDNMSAsAfvWD+Ei48og/7jIlilSa6u6WH2I/ZZc+YbjHrpsc6+je3aDequa9FJI42oIQe29gywr/uzAPVlwByT5DrWoucmam0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nTitcEIW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789663679; c=relaxed/simple;
+	bh=OVTdVYW4tByjiVxyCkYDgohXJD20Howf0MtVHvJ6joI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KFiZJawwQEL2xKI2qUQeIdZdjB856yBU0Q69Z1yAxwFi0cg2jM20+7+Kg0VJ4BuJCrx9FwsusLI57oadMl09T7zNTMG3xiCSwbKEhkW1OUG8iyFsVUPGIK6hKbnE1d+F49XCTl62DRMPoi0SysYh/ftj0CXQiziIUQMM/lYZESk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CH5gFber; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nTitcEIW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3566C1F00893;
-	Thu, 17 Sep 2026 16:47:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789663676;
-	bh=LAxtjYEua4plusINVTHcMgxVKXWmoP1/pA9iq8tgzLI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nTitcEIWbzlk+odPQnUeF0nJT6d5yWSXoqf8KNtrfF7Wtkxu5OSj8RUQdw61PuRgp
-	 IGYQ3h+rYgG17SJbxNWCOVMhLGJUdCuxI8FuU0Vt5UQO22rxZJxgBBZCVxJmFhlT5r
-	 cxi7DBGLJv681mS5YesTDO5zvdKjf2SB9C4Ez8p7h5uJ2KAeyAnFWEXhypXXy4rQeh
-	 GaMUcctlOEyWUpd/EfPmiQX5fVrEKaNY8ChfrNau4xL1n1BKYiLbw7YCGSslZK1556
-	 z0np5252lOVT/84rVd2yStnO8p0SomjB87tVT1h2TIoc+0sjjMseKtgdyB4MxwLWBe
-	 8HQcdSOR/zT/A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/9] driver core: warn should device_move try to move a
- need_parent_lock device
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rafael J. Wysocki" <rafael@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "David Jeffery" <djeffery@redhat.com>, driver-core@lists.linux.dev
-Cc: linux-pci@vger.kernel.org, "Stuart Hayes" <stuart.w.hayes@gmail.com>, "Laurence
- Oberman" <loberman@redhat.com>, "John Meneghini" <jmeneghi@redhat.com>, "Martin
- K . Petersen" <martin.petersen@oracle.com>, "Pasha Tatashin" <tatashin@google.com>, "Ewan
- Milne" <emilne@redhat.com>, "John Garry" <john.g.garry@oracle.com>, "Bart
- Van Assche" <bvanassche@acm.org>, "Tarun Sahu" <tarunsahu@google.com>, linux-kernel@vger.kernel.org, kexec@lists.infradead.org, Maurizio <mlombard@redhat.com>, "Jeremy
- Allison" <jallison@ciq.com>, linux-scsi@vger.kernel.org, "Bjorn Helgaas" <helgaas@kernel.org>
-In-Reply-To: <20260917163744.191748-4-djeffery@redhat.com>
-References: <20260917163744.191748-1-djeffery@redhat.com>
- <20260917163744.191748-4-djeffery@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 16:47:54 +0000
-Message-Id: <20260917164755.3566C1F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CH5gFber"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 922AE143D;
+	Thu, 17 Sep 2026 09:47:53 -0700 (PDT)
+Received: from [10.57.6.197] (unknown [10.57.6.197])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 363063F86F;
+	Thu, 17 Sep 2026 09:47:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789663677; bh=OVTdVYW4tByjiVxyCkYDgohXJD20Howf0MtVHvJ6joI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CH5gFberx7XfLcBWrdd12V63FKFULCygnd+iN6kj21c1iX60i0RQgUrQDusLX1rO/
+	 IfcdlzzsNuv+gxVhAuRFPn3N1a3z94Z40B3Zm8ua9Ub0KB+1voRiDzpJI/MNqBIWP3
+	 P6YMK8IMn5yM1C/VhSlFo+js0w1pfmZTyp2pAbvo=
+Message-ID: <d51bbcf4-f396-4009-994a-ef335d8963c8@arm.com>
+Date: Thu, 17 Sep 2026 17:47:52 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 11/23] KVM: arm64: Use kvm_vm_is_unprotected() for
+ !kvm_vm_is_protected()
+Content-Language: en-GB
+To: Fuad Tabba <tabba@google.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+ gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+ alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+ lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
+ <20260915160141.3543048-12-suzuki.poulose@arm.com>
+ <CA+EHjTzOR7xczcb1HbUAi3H7K8ta=pFcdjxJb7UixZEh7QS-Eg@mail.gmail.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CA+EHjTzOR7xczcb1HbUAi3H7K8ta=pFcdjxJb7UixZEh7QS-Eg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> Currently, no device has need_parent_lock set and is moved by
-> device_move. need_parent_lock is only set by the usb bus and very
-> few device types ever use device_move.
->=20
-> Add a warning to device_move to catch should it ever be used on a
-> device with need_parent_lock set. The combination would break
-> the immutable relationship needed between parent and child for
-> need_parent_lock when locking and unlocking both.
->=20
-> Suggested-by: Tarun Sahu <tarunsahu@google.com>
-> Signed-off-by: David Jeffery <djeffery@redhat.com>
+On 17/09/2026 12:47, Fuad Tabba wrote:
+> Hi Suzuki,
+> 
+> On Tue, 15 Sep 2026 17:01:29 +0100, Suzuki K Poulose
+> <suzuki.poulose@arm.com> wrote:
+> [...]
+>> diff --git a/arch/arm64/kvm/handle_exit.c b/arch/arm64/kvm/handle_exit.c
+> [...]
+>> @@ -490,7 +490,7 @@ static void handle_exit_pkvm_state(struct kvm_vcpu *vcpu, int exception_index)
+>>   {
+>>           int exception_code = ARM_EXCEPTION_CODE(exception_index);
+>>
+>> -        if (!is_protected_kvm_enabled() || kvm_vm_is_protected(vcpu->kvm))
+>> +        if (!kvm_vm_is_unprotected_pkvm(vcpu->kvm))
+>>                   return;
+> 
+> Could the two pKVM-only helpers keep the static key in front? With
+> `is_protected_kvm_enabled() &&` inside kvm_vm_is_unprotected_pkvm()
+> and kvm_vm_is_protected_pkvm(), as kvm_vm_is_protected() had it before
+> patch 5, the boot-patched branch skips the load again for every user.
+> This runs on every exit: the old test is a cpucap, so on a host
+> without pKVM the function returns straight away, while the new one
+> loads vcpu->kvm->arch.vm_flavor on every host. The wide
+> kvm_vm_is_protected() can't have it, since Realms run without pKVM.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Ack
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917163744.1917=
-48-1-djeffery@redhat.com?part=3D3
+Suzuki
+
+> 
+> Cheers,
+> /fuad
 
