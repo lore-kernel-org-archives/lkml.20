@@ -1,224 +1,122 @@
-Received: from mta0.migadu.com (out-154.mta0.migadu.com [91.218.175.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA0638C407
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:31:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2F6368958;
+	Thu, 17 Sep 2026 02:32:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789612330; cv=none; b=GnA+YQMScX3ZNjbxhjSewyZVHBqek/GLRZz5OqbY/mPalWwrRrCSgRXXjCGwiGHCv7Y4K+A+WlwRi/IFrAF3KR63eA7Xy1g0XDloezqg8Qhft4Xxph4i8nQqn04eYGkkVb2PF3Azg5JqImHkXrmXOwoVlEsDdUJufYLAfWMcwMA=
+	t=1789612344; cv=none; b=nHy95M/B1kgB2rrZMBq7VGXxjWghGRqII5qahny18R67DutTIcGRZifOm7klQXTeATK1zpmxsOgzM+YsD6+E1+Vn8gAaA1Gv0IwymnnDup3jtYcDe1JTGLtR2eiL2Yvuubv1476DXpaZ0qynaOvLRilenqbASG/SyC2CLvU6cEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789612330; c=relaxed/simple;
-	bh=OhFJYx2GLjFlM0DLOO0Nerpkg49eVGE1lC/5sreFBm0=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=oYdlNU1RSwePoVEZGV8Ovn/EaYadrNcIZOmY1umVadVSX9jj7IeCY8I1fVjjPdizg7xHUMdifZkVxQe1VuTNBCoyH42ApX8DW9kekj5LLZXPGwjUxlTl2DrWLaVX+BmbVwT2g5kEcH1yM47yeo/EpGJ3XIXVBh43Z2Oq01UE+n8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oV2M92L+; arc=none smtp.client-ip=91.218.175.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789612344; c=relaxed/simple;
+	bh=TXjNRLL9Uv4YfcS6euo6YsDJf7CBtcEvevfoQ3wjZc8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ocPK7PcXTSHvfwlRQvC3xBFy77gvn6Sy4cI/vymlF16AtABxI1IlDvs78QF2tsLLa2XFa685bM/3bDfKBYdOe5CfW8MLB+98vmmiLYc4rU59h/GQplbEikv2eQPfN/cqG/iAlEaoZznrnFEahbR7KSiyWHCJyeyR+zy6Ft6pRvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ms0uLPjQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oV2M92L+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OhFJYx2GLjFlM0DLOO0Nerpkg49eVGE1lC/5sreFBm0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789612310; v=1; x=1790217110;
- b=oV2M92L+Y4HS1jEHfAg7Psl5AchH93cD5oFaB815hE8m87I0XiLFBrKOHC9nzijOJ7Isbt+i
- amA30oHxD8XddBTnZSsLpS1sd1XgSJ5cTgVMO+wY0pMzQ/xGj2RTY46rSjFLOgFgswlbnHRceG+
- p8ed6ZdTNQXLrcF0m9K2t658=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e34d9e405c99d802;
-	Thu, 17 Sep 2026 02:31:50 +0000
-X-Mizu-Trace-ID: e34d9e405c99d802
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev>
-Date: Thu, 17 Sep 2026 10:32:48 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ms0uLPjQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36A261F000FF;
+	Thu, 17 Sep 2026 02:32:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789612337;
+	bh=I4E0GCKh4Sn5F9lgbZ/MqMACyLxDgq5v1Ztf72t9lrc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Ms0uLPjQOomGGJP9CefkdrMzk6KgUDy3DQ8ToQBXuMSSex0ntoT8cW3/cdoXOuqzz
+	 QZ2aSIIwRKneQtPGt0wcvX5A0PiX781QkJ7lzYS9jeGPwmhduyxHq4K4kQPGDGu3Ef
+	 atLJr9Fdhjfl92f3dIYSDCpa2Y7GEU/9ACzBTjUHXUONaT+8+5mLC5sIjUrKdxp0ri
+	 upGQqa8hbCcEhNYDXSVxQnaEHDGywFAFwVi7ln4Tsxi9mZzHKx/rblzHZmya8IHd+g
+	 Oy62M/o8hb5pUp7xnzTbPdZxela6XEyZ6K5CqXZAWlWiZhDE6oPx8t1dLldCpsOEWA
+	 waEp4WIxqjizw==
+Date: Thu, 17 Sep 2026 03:32:11 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macromorgan@hotmail.com>
+Cc: Kanak Shilledar <kanak.shilledar@axis.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Linmao Li
+ <lilinmao@kylinos.cn>, kernel@axis.com
+Subject: Re: [PATCH togreg v4 0/2] iio: imu: inv_icm42607: fix PM error
+ handling
+Message-ID: <20260917033211.6226c895@jic23-hlaptop>
+In-Reply-To: <PH0PR19MB99733868ECBD2EBDD57833E80BA5BA2@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260824035531.141429-1-lilinmao@kylinos.cn>
+	<178939644602.1670536.5651900027161221634.b4-review@b4>
+	<PH0PR19MB99733868ECBD2EBDD57833E80BA5BA2@PH0PR19MB997338.namprd19.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
-From: Hao Ge <hao.ge@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260915070001.113559-1-hao.ge@linux.dev>
- <20260915070001.113559-3-hao.ge@linux.dev>
- <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
- <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
- <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
- <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
- <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
-Content-Language: en-US
-In-Reply-To: <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Suren、David、Lorenzo
+On Tue, 15 Sep 2026 12:00:28 -0500
+Chris Morgan <macromorgan@hotmail.com> wrote:
 
-On 2026/9/17 09:12, Hao Ge wrote:
-> Hi Suren
+> On Mon, Sep 14, 2026 at 04:34:06PM +0200, Kanak Shilledar wrote:
+> > > The recently queued ICM-42607 PM support has two error paths that can leave
+> > > the PM core's state inconsistent with the device.
+> > > 
+> > > Patch 1 propagates sensor shutdown failures from runtime suspend.  Patch 2
+> > > ensures that system resume restores runtime PM management on both of its
+> > > error paths, so that a failed resume does not leave runtime PM disabled for
+> > > good.
+> > > 
+> > > Changes since v3:
+> > > - Patch 1: commit message expanded with the practical effect of the current
+> > >   behaviour, the cost of propagating the error, and a description of the
+> > >   recovery path that does not assume a particular regmap bus
+> > >   implementation.  No code change.
+> > > - Patch 2: unchanged.
+> > > 
+> > > Neither patch was reproduced on hardware; both were found by code
+> > > inspection.  They were compile-tested with W=1 and checked with smatch.
+> > > 
+> > > Whether patch 1 is worth making is still a fair question - it trades a
+> > > possible idle power leak that may be cleared by a later successful access
+> > > for a runtime PM error state that needs an explicit reset.  The commit
+> > > message spells that out; happy to drop it if you would rather not take
+> > > that trade.
+> > > 
+> > > Linmao Li (2):
+> > >   iio: imu: inv_icm42607: propagate runtime suspend errors
+> > >   iio: imu: inv_icm42607: restore runtime PM on system resume errors
+> > > 
+> > >  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 38 ++++++++++++++-----
+> > >  1 file changed, 29 insertions(+), 9 deletions(-)
+> > > 
+> > > base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425
+> > > --
+> > > 2.25.1  
+> > 
+> > Tested on Invensense, ICM-42370-P development board. Performed testing
+> > with basic r/w to the device and checking the PM runtime status. It
+> > worked as expeted.
+> > 
+> > Tested-by: Kanak Shilledar <kanak.shilledar@axis.com>
+> > 
+> > -- 
+> > Kanak Shilledar <kanak.shilledar@axis.com>  
 > 
-> On 2026/9/17 03:07, Suren Baghdasaryan wrote:
->> On Wed, Sep 16, 2026 at 9:31 AM Suren Baghdasaryan <surenb@google.com> wrote:
->>>
->>> On Tue, Sep 15, 2026 at 11:00 PM Hao Ge <hao.ge@linux.dev> wrote:
->>>>
->>>> Hi Suren
->>>>
->>>> Thanks for you review.
->>>>
->>>> On 2026/9/16 05:09, Suren Baghdasaryan wrote:
->>>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
->>>>>>
->>>>>> The reservation is already stored in the maple tree when
->>>>>> vm_module_tags_populate() fails. A failed load never unloads the
->>>>>> module, so nothing releases the entry. Release it and roll
->>>>>> module_tags.size back. Without the rollback a concurrent load that
->>>>>> already passed needs_section_mem() can reuse the freed gap, skip
->>>>>> vm_module_tags_populate() and write to unmapped memory.
->>>>>>
->>>>>> vmap_pages_range() may have installed some PTEs before failing. A
->>>>>> retry to populate the same range would BUG on them, so undo them,
->>>>>> but only if vmap actually ran.
->>>>>>
->>>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
->>>>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
->>>>>
->>>>> If a patch fixes two other patches, it likely needs to be split so
->>>>> that each part fixes one patch only. But read on please. I'm not sure
->>>>> if one of the fixes is correct.
->>>>>
->>>>
->>>> Kept them in one patch because they only make sense together.
->>>>
->>>> After a failed populate the reservation is released and the
->>>> size rolled back, so the next load takes the same gap and calls
->>>> vm_module_tags_populate() again, and that retry would trip over
->>>> the PTEs the failed vmap left behind.
->>>>
->>>> Without the rollback a load that already passed needs_section_mem()
->>>> just reuses the gap, skips populate and writes to unmapped memory.
->>>> So splitting them leaves each half broken.
->>>
->>> Yeah, that's why I think vmap_pages_range() cleanup should be a
->>> completely separate patch with vmap_pages_range() doing cleanup
->>> itself.
->>>
+> Sorry, I've been a bit busy with back-to-school stuff this month for my
+> kids. I've tested these patches and do not see any problems with them on
+> my device. Note though that I didn't observe any errors prior, but I can
+> at least confirm this doesn't appear to introduce new ones.
 > 
-> I think I get where you're coming from now.
-> Thanks for taking the time to explain.
+> Thank you,
+> Chris
 > 
->>>>
->>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>>>>> Cc: stable@vger.kernel.org
->>>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->>>>>> ---
->>>>>>  mm/alloc_tag.c | 10 ++++++++++
->>>>>>  1 file changed, 10 insertions(+)
->>>>>>
->>>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
->>>>>> index 2070e682fe10..95ddf5b743d0 100644
->>>>>> --- a/mm/alloc_tag.c
->>>>>> +++ b/mm/alloc_tag.c
->>>>>> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
->>>>>>                                      next_page, PAGE_SHIFT) < 0) {
->>>>>>                         release_pages_arg arg = { .pages = next_page };
->>>>>>
->>>>>> +                       /*
->>>>>> +                        * vmap_pages_range() only runs once all pages were
->>>>>> +                        * allocated, and it may have installed some mappings
->>>>>> +                        * before failing. Undo them.
->>>>>
->>>>> If vmap_pages_range() failed to map the range, why should we need to
->>>>> undo it? If it indeed leaves some partial mapping when failing then I
->>>>> would argue that vmap_pages_range() should be undoing these partial
->>>>> mappings itself before returning the error.
->>>>>
->>>> Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
->>>
->>> Hmm. I wonder if this behavior is intentional or requires a fix. The
->>> only possible reason I can think of is performance but I can't imagine
->>> a failure to map is a performance-critical case.
->>>
->>> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
->>
->> Huh, my gmail thinks you are still at your previous companies :)
->>
-> 
-> I manually fixed it on the mailing list for this thread.
-> 
->>> guys think? Shouldn't vmap_pages_range() undo its possible partial
->>> mapping when it fails?
->>>
->>>
->>>> pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
->>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
->>>> so I did the same here.
->>>>
->>>> If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
->>>> be a relatively large change, and we would need to consider many more cases. So I think we keep
->>>> the current behaviour for now.
->>>
->>> Yeah, I understand it would require a deeper cut but if that's the
->>> right way to handle this we might as well do that. Let's see what MM
->>> folks think.
->>>
-> 
-> Sounds good to me. Let's wait and hear what the MM folks say.
-> 
+> Tested-by: Chris Morgan <macromorgan@hotmail.com>
 
-I just looked into the call sites for __vmap_pages_range.
-And I found there's a bug in one vmalloc caller [1].
-When gfp_mask has __GFP_NOFAIL, the code keeps retrying
-__vmap_pages_range. If there are leftover PTE mappings,
-this can trigger a BUG(); [2]
-https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L3946 [1]
-https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L121  [2]
+Great. Thanks to both of your the tests.  We should never hit any of
+these conditions unless something has gone wrong hardware side.
 
-> Thanks
-> Best Regards
-> Hao
-> 
->>>>
->>>> Thanks
->>>> Best Regards
->>>> Hao
->>>>
->>>>>> +                        */
->>>>>> +                       if (nr == more_pages)
->>>>>> +                               vunmap_range(phys_end, phys_end + (nr << PAGE_SHIFT));
->>>>>>                         /* Clean up and error out */
->>>>>>                         release_pages(arg, nr);
->>>>>>                         return -ENOMEM;
->>>>>> @@ -947,6 +954,7 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
->>>>>>                 return ret;
->>>>>>
->>>>>>         if (module_tags.size < offset + size) {
->>>>>> +               unsigned long prev_size = module_tags.size;
->>>>>>                 int grow_res;
->>>>>>
->>>>>>                 module_tags.size = offset + size;
->>>>>> @@ -961,6 +969,8 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
->>>>>>                         shutdown_mem_profiling(true);
->>>>>>                         pr_err("Failed to allocate memory for allocation tags in the module %s. Memory allocation profiling is disabled!\n",
->>>>>>                                mod->name);
->>>>>> +                       release_module_tags(mod, false);
->>>>>> +                       module_tags.size = prev_size;
->>>>>
->>>>> Yes, this one is a valid fix. It fixes 0f9b685626da commit.
->>>>>
->>>>>>                         return ERR_PTR(grow_res);
->>>>>>                 }
->>>>>>         }
->>>>>> --
->>>>>> 2.25.1
->>>>>>
+Applied to the fixes-togreg branch of iio.git. Whether that
+goes upstream before the next merge window or waits until then
+is dependent on what else comes in.
+
+Thanks
+
+Jonathan
+
