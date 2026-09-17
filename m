@@ -1,89 +1,77 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010066.outbound.protection.outlook.com [52.101.201.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCA94F93BD;
-	Thu, 17 Sep 2026 18:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789668677; cv=fail; b=iTdC4tMNQKF/7++YQYSI6rXivo2WUNbt8reqBOHT86Npsdgplm4fXHW9/jBSObXA+8Yz8DTJDoh6No2KCqxNP428eVy5BBCuJUKgXAk++fBWlxfBVT4bmTwdBQHa49IOzevH+SZLD5anRBadNQHijUyNumJCRR0ofD8ipTNf01c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789668677; c=relaxed/simple;
-	bh=JY+425xCMi47BtA/EI1b8bFmU9+6jdynEQH6uhqDqVY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RCbAf2GhIg5OaGG6bFCbTYhCKG2Osn5C0hczaZ/RNJxk+6XEBcnnXOaa4R3Rh/S4BFiDUXUlRdQenmOpRIJ2RLsQdIq7H38y5jj9JPzZYlw8yZBlJPKzrKJNfP9C+1VIUI8T+L4TsGdNa0lfwlYi8MEzSJuvifpFFCARsyrXvX4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=F6iPhFg1; arc=fail smtp.client-ip=52.101.201.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9C34FB9C3
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:11:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789668680; cv=none; b=Nno4XtYMYeIErP9Jbv6Tb/g/FNuw/ZwQAb04kROA3OdlalblljXOUUU0nWRSQ18Q8zf8W7slNwL+og7c98xOWB2M6HKQfal1nzefQWVgrTYkQexJpABRYaxX0aGPnsNCLRxieuPey9GgdojQ/zW8sRoKqVCkv5BlLsunbl5Zx5E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789668680; c=relaxed/simple;
+	bh=iBKmB6XVbw2VzxW2s/DhdbL/zmmCm2V2XhWA9HVlSgI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nL87EFR/HUqKJARexvmmb8Rx36/quN2mGcYwteycxfJEo7wK+Ct4BqJE6D+m1sZKwdc3u46QR1punDpX8fU+8eKH7rb/sy0k9SLwi7esRLKX6j9CKpIbXv1bhFVkOhso6J8CBqXwXLuozRjmwfT9wCP7+dGtWVHwhvYcwifRtBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P2b/i9ag; arc=none smtp.client-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="F6iPhFg1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tFF9vEh6z4zfSq8O2eRJ4Ig+iH9mKSqRJ3YinB3MjM00QfsyXaxp1JpV1NKIVlQgZmRyuDRQP4bRsl/Wuw3ALGl+/hkwHklzv0U8FAx8uCP2ags9Qm+CM6xVkklU39jV7Ho078Z6CG9W2oNCi5swOQltN9iHjVMUvUTqqWjQPjNlw2YqlozomYv4JCThheDrFfxQm23ZzTg6nHXZG2OjOLF+fWRgl/aUekU+wWTSucMKT4vet9of9jaateLa2YfDmHMgiBPFAAOm4+3F39eEwgI9yu6+M/wYzSQxSG62OVqnYPVxDOneRReONaJy7laHE+AVpjxUhM+Rk6iRWNmx9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1WSRkB9p7B1WkV0ZDmZT74nZ6lsqbxP/uKjSV608p5M=;
- b=v4clwhQnBJf8el+zyvzoxX/ap7h1wbv5x5S8udR2+6RFQ3zjDtKINZapzNUwX/qql8wiQ5EGO2QtKXLH7YJRcBnV55HsQPdfGvT6wz4/3rJuAyth4VgMWsV9jQhaXnHngIR1bw7H3knWo2xhWRcSYFjHWDJaRvA7uERs2ppHOUbBEyy33VVzm9n7DYMNPfXyJ7VhQ3mXdKGCLc0UjfUphL0zVCV/otpQ/ulk90oHeVgo5xGOTkVAZ1iWc0K1BfctkTUFhXFPP4EWlengEurD24Z8K4X9yw1abM42eUabVxVZtBHfnYFVXaKjZgNMs77Hi7EX/VTmrQr6phmBqSdNPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1WSRkB9p7B1WkV0ZDmZT74nZ6lsqbxP/uKjSV608p5M=;
- b=F6iPhFg137SrpmL/KyqVgxAM5NAn7G48jEEDvdnRkju4ka3Bqjy5k+MblF4gYnp3+N6NhTOaTsa+wE5uDfJUd1s840u1E97IXd0R/u+bgK/agksv6zCIspu81jVQlJamarZBzNJoA/ZR85jEsoIkmO5Q4sG+IZiAIJcUgEhvBBAWxkS/p652bwA9z+j5FImEGx42mLdYE9rTpohKzSzF7nOGoBh/Xo2v3Y+N6NBUPzeS6g69NG1dpJ4UKyWdyZ1iC2VI0EghhQ0bb8UQBtMDlKz2fAPS33164wZrrOqlgyIxTGFLHHIjHBz6lbjPeu8Hm8e4lHFLwMOOzXKFVgZ5CQ==
-Received: from MW4PR04CA0188.namprd04.prod.outlook.com (2603:10b6:303:86::13)
- by PH0PR12MB8824.namprd12.prod.outlook.com (2603:10b6:510:26f::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Thu, 17 Sep
- 2026 18:11:12 +0000
-Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
- (2603:10b6:303:86:cafe::8) by MW4PR04CA0188.outlook.office365.com
- (2603:10b6:303:86::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
- 17 Sep 2026 18:11:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Thu, 17 Sep 2026 18:11:12 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 11:10:42 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 11:10:42 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.6)
- with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Thu, 17
- Sep 2026 11:10:36 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sabrina Dubroca <sd@queasysnail.net>
-CC: Boris Pismenny <borisp@nvidia.com>, Carolina Jubran <cjubran@nvidia.com>,
-	Cosmin Ratiu <cratiu@nvidia.com>, Daniel Zahka <daniel.zahka@gmail.com>,
-	Dragos Tatulea <dtatulea@nvidia.com>, Emeel Hakim <ehakim@nvidia.com>, "Gal
- Pressman" <gal@nvidia.com>, Jianbo Liu <jianbol@nvidia.com>, Leon Romanovsky
-	<leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
-	<linux-rdma@vger.kernel.org>, Lior Nahmanson <liorna@nvidia.com>, Mark Bloch
-	<mbloch@nvidia.com>, Parav Pandit <parav@nvidia.com>, Raed Salem
-	<raeds@nvidia.com>, Rahul Rameshbabu <rrameshbabu@nvidia.com>, Roi Dayan
-	<roid@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Steffen Klassert
-	<steffen.klassert@secunet.com>, Tariq Toukan <tariqt@nvidia.com>
-Subject: [PATCH net 7/7] net/mlx5e: shampo: Do not merge PSP packets
-Date: Thu, 17 Sep 2026 20:54:33 +0300
-Message-ID: <20260917175433.4090878-8-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20260917175433.4090878-1-tariqt@nvidia.com>
-References: <20260917175433.4090878-1-tariqt@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P2b/i9ag"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-39e249c766bso420087a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:11:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789668677; x=1790273477; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HWFtSmWZB00VeRuG33e5z2FRH2nwFCEJMuVCaDQLlH8=;
+        b=P2b/i9agi8HXVey8XMA8Z/RD62JPOYQLmEzOWigD/WDNSTq51GetAdC46PneGJz0LN
+         pABkpPwQp0chn2gHPPqJ0AY4IZ/Bk1Z9ql6Mv2bvqFYMnQr8YRug2o6HZPIYOaKy34qm
+         jfqu/fSAnBr++JbyBRzZz7yxT5hNk5DaW3OxbSUMq8F/Wu2NNt7no/xw6cLVezDGSZTq
+         Tlsn6HmCJ8SiOOcGU9g5tvu+LZr14LC/xfj5MnGqJQkjyQwjlh+iOofdXD4xcdvaL3at
+         AFNd1zSlZDt3uFb98OTx3GO26bH0TCp73udiH64jIU6pY9ZCcLY8gzP2ybjTrATeDhyM
+         RtUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789668677; x=1790273477;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HWFtSmWZB00VeRuG33e5z2FRH2nwFCEJMuVCaDQLlH8=;
+        b=Z3/rIxdW1ul10W0P6eMpWZqvaP6fKivxrQGDuGzOwYhSs12LU0wHX/tQfR+9KTea4j
+         HcbfkFuxD2U71d3BvonQ/wsLfCeW4cvwygxiloVmpRJ2V9TkudvKda8qCiYR6iuvIytC
+         5/iw57YGls329KGd0vOEYoHJwrk3MyQtEf73JvaPKIPbBAn96W4q4wsI7c8N1nFFt6fZ
+         7w+bdOld5GcZ9J9e/5duQF+HwwxsTp9WnL6nUSG517T7VveG1pPCtV8vu6rw6Sh25xNY
+         3b9cp2ROms8fDfAGkZaD4ilkDyJlcfs6h1BNe8cK65RoVgPE/EuJ7RKq0EcB48gk2gN/
+         kUiA==
+X-Forwarded-Encrypted: i=1; AKwUvBxQJKSZmI7m97bPp1LXkM6vXoY7akV6ZU3NCVu3YCjZ6HDJJYtz6MiJRun3/KmmxgIfufa3N6r06xe79zM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0YmgKYY3BsLloiTOvYczhHjBg6G5pVCtv/kf8HWmKOfUomoAt
+	tPI7BGaFy4WQ3AoDPmfH4aivTyU/+UObNsUGNlVheK+wDBTk2UlQXVs6
+X-Gm-Gg: AYBFou0QFyJcHeWdZGmGhspgZlDtSdHZdN6pXNLM8hGhkwHYcxCfBPKl3sadotzPCXV
+	V/RzQGcNFg2easzntQxsmJ3Cgtp1zyjytlqbKythYCECCQjHrrld1RNuKJ7aWI3qDDUZSoolMVV
+	nxsNJqsCsaHcGdKV7F/jspOAmHjBsgnwJZkTFxXSf4FeNP37C4lI2vRdswwW+91n4vuHnkUvajA
+	js0Gzlir1eHtMihkQNXYs1PBX2lfkVQlEk8Dao/KJ3EnjGh9C7AVI5vGEvcUO8IHp89NkfMKkbw
+	ogDYNKkshKsebJiLssp55k6g/vhg1I+18Nd7inZVS7cLvRTKMzqgxhMKjEkHcJOl9mdUXrEtcv9
+	L4AoFO9ZdCrw6lmh9EbKImv9/lOnQZajaaq+cfoRv9//QUp+55QbxIAcyA7Dq03gZ5mey5ZBEdj
+	+BjzB+L4NmJC/hhJn1623vqnZ90i59TVsylYdva7O7KTkkcO14JU7M/DxHizO1RZrPEA==
+X-Received: by 2002:a17:90b:4b90:b0:39e:4c81:6c62 with SMTP id 98e67ed59e1d1-39e54d65a40mr16963a91.29.1789668677248;
+        Thu, 17 Sep 2026 11:11:17 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:4c::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e361168c4sm6297189a91.4.2026.09.17.11.11.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 11:11:16 -0700 (PDT)
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	sdf@fomichev.me,
+	bobbyeshleman@meta.com,
+	almasrymina@google.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3 0/3] net: devmem: remove gen_pool from dma-buf allocations
+Date: Thu, 17 Sep 2026 11:11:13 -0700
+Message-ID: <20260917181116.3319017-1-sdf@fomichev.me>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,87 +79,155 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|PH0PR12MB8824:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ca943b7-7acb-4100-f664-08df14e70e91
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|82310400026|36860700016|3023799007|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	jYmXe0XZLKsGLcBKHvYe/DXGU8ClOCRewjThWVEfEvEEslRNvzo2K591N0hksEAiMJLyXTTJn0PC+RRz39+p6DZOclvhuIQZvaFqov4ssvq+pc1Vzj4pG1VvxigF8dYTzC1orZLsfhSj0WHy29bDZAJmd3UWzz3r4AgHL+WY+q9jz4Q4+2qjnYQFECVS/9XvRIcWsv+sE9Cj37Uyn1MpTADNut3aRHoOON0mw6nJFdsN/Vj4dSW3m7OT7t6DQ487Cd+xWTHp5RJE+zkY6AJ7Daopu+pjU6Yx/A5rq3V7xHXO9hChjdt/R9hC27x97RfssxK/oer8ahGIHXt6moSBGy/nbvHGJKpwUA2b17MwDg2bVmSzVW/+BuEADgxDdtc1lyeTTAU/DduKz6UemiO/L1zoOw+516eJHw5Xr8yH+Gsgl+E5rRrMLd8vlnaNldH7Dd5z5eEuWUY/UTOpgtiyom0jTaQspgdZVjriAHeLxFaADOZr/v7ibuSDxxN+ivDLrV36zs/teN386al7iqqgs/YeiH5wGcfBl3RhVY/5tS6boufKqi4vKzuidF+BVs7vhnaCo30PTNH8AhOAdDbY9+VR2nDCwo89oSRZXc9piYd5HQJItjhIkPBvZ6xYvMOr4Gj2D6Wxwd7h2g5JmA2wnvXpV8fqkWPytiHpbRpHbkS5C0wpV0EZxssxpO7fCAzg27y5RqI+wto25E9iCmJYRA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(82310400026)(36860700016)(3023799007)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Aol9Azlu4LWugktsICgqFVEKKCDEwhvWursCyLRgxC8XZhX38Fc7NjcpOmPnnJUSYRuISLL0f4pwG2qqw27QqVynZu6dDpX1Q5jnFbHDIQ9GoHBwsQCMsbPqPJOxa1dqWAVwnAQBRkvci54wvjx6if0K+hHRikHVDyzh43tCAOozqfVD/iQAgVCdnSbiHfCJljhDyXJRE0/RPb85YCmXKINet00cPuspQdgYf/xazFcdoLLV1+E2KSYZMBtZCEqyXHI4Jmvmmv4v3ApLqMCFBs9oRcWT+BioBDa2VdVvmu8ykgTFZ0KshEsiTPAWfhoYC0CDoWesbvj23hQQF/ssdxf9frQczEW8mRkBUFdUBU7C2TFdlyim1p2q56xBaJLaSVzXCUO3geGhYn0Rkk/lK2TW/Gy1ka5VZes7CEx7n39B++InokPGMmoCIUq34W0x
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 18:11:12.2964
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ca943b7-7acb-4100-f664-08df14e70e91
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6194.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8824
 
-From: Cosmin Ratiu <cratiu@nvidia.com>
+Replace devmem's gen_pool based fixed-size allocator with a binding-level
+freelist similar to the one used by io_uring zero-copy receive.
 
-PSP packets are UDP-encapsulated, and enabling HW GRO (SHAMPO in mlx5)
-makes it possible to merge those packets in a silly way:
-IP|UDP1|PSP1|payload1|UDP2|PSP2|payload2|...
+This is motivated by allocation latency observed in the NAPI receive path:
 
-That happens because the HW GRO machinery doesn't know about PSP and
-considers it part of the UDP payload.
+  [ 1036.228913]  ? gen_pool_create+0x90/0x90
+  [ 1036.228915]  net_devmem_alloc_dmabuf+0x1f/0x60
+  [ 1036.228918]  mp_dmabuf_devmem_alloc_netmems+0x17/0x80
+  [ 1036.228920]  mlx5e_post_rx_mpwqes+0xdbe/0xdd0
+  [ 1036.228926]  mlx5e_napi_poll+0x113/0x830
+  [ 1036.228928]  ? sched_clock+0x5/0x10
+  [ 1036.228931]  ? wake_up_process+0x778/0x14b0
+  [ 1036.228933]  net_rx_action+0x15d/0x570
+  [ 1036.228934]  ? update_rq_clock+0x31/0x240
+  [ 1036.228937]  ? __napi_schedule+0x55/0xa0
+  [ 1036.228938]  ? mlx5_eq_comp_int+0x137/0x230
+  [ 1036.228940]  ? atomic_notifier_call_chain+0x36/0x90
+  [ 1036.228943]  ? sched_clock+0x5/0x10
+  [ 1036.228944]  ? sched_clock_cpu+0xc/0x170
+  [ 1036.228947]  irq_exit_rcu+0x12b/0x370
+  [ 1036.228950]  common_interrupt+0x85/0x90
 
-This patch enforces no match in SW.
+udmabuf can create a very large number of SG entries. In the worst case,
+devmem ends up adding one gen_pool chunk for each net_iov allocation
+unit backed by those entries. The gen_pool allocation path then has to
+traverse a linked list that can become too long for this hot path.
 
-Fixes: 29d7f433fcec ("net/mlx5e: Add Rx data path offload")
-Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
----
- drivers/net/ethernet/mellanox/mlx5/core/en_rx.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+Patch 1 removes the gen_pool and replaces it with a simple freelist of
+net_iov pointers protected by the same spin_lock_bh() pattern used by
+io_uring zcrx. Patch 2 removes the now-unnecessary chunk owner wrapper by
+embedding the net_iov_area directly in the dma-buf binding. Patch 3
+batches freelist allocations.
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-index 7bd0606a5253..5e07cc8586f6 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-@@ -2224,6 +2224,16 @@ static bool mlx5e_hw_gro_skb_has_enough_space(struct sk_buff *skb,
- 		return page_size * nr_frags + data_bcnt <= GRO_LEGACY_MAX_SIZE;
- }
- 
-+static bool mlx5e_hw_gro_psp_match(struct sk_buff *skb, struct mlx5_cqe64 *cqe)
-+{
-+#ifdef CONFIG_MLX5_EN_PSP
-+	/* PSP packets cannot be merged. */
-+	return !mlx5e_psp_is_rx_flow(cqe);
-+#else
-+	return true;
-+#endif
-+}
-+
- static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cqe64 *cqe)
- {
- 	u16 data_bcnt		= mpwrq_get_cqe_byte_cnt(cqe) - cqe->shampo.header_size;
-@@ -2266,8 +2276,9 @@ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cq
- 	}
- 
- 	if (*skb &&
--	    !(match && mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt,
--							 page_size))) {
-+	    !(match &&
-+	      mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt, page_size) &&
-+	      mlx5e_hw_gro_psp_match(*skb, cqe))) {
- 		match = false;
- 		mlx5e_shampo_flush_skb(rq, cqe, match);
- 	}
+= Performance:
+
+kperf/client ... \
+        --num-rx-queues 4 \
+        --dmabuf-rx-size-mb 2048 \
+        --dmabuf-tx-size-mb 2048 \
+        --validate no \
+        --time 60 \
+        --read-size 67108864 \
+        --write-size 67108864 \
+        --num-connections 4 \
+        --tcp-cc dctcp \
+        --pin-off 4 \
+        --devmem-rx \
+        --devmem-tx \
+        --devmem-rx-memory cuda \
+        --devmem-tx-memory cuda
+
+With 4 queues, 4 flows, 2GB BB, cuda for both rx and tx I see no difference
+in throughput or cpu utilization (see selective runs below).
+
+== Before
+
+10 runs: 206.031 243.546 293.931 319.015 319.923 323.189 324.321 325.499 327.134 349.450 Gbps
+
+Sample:
+client: == Source <redacted>
+client:   Tx 48.170 Gbps (361716776960 bytes in 60072872 usec)
+client:   Tx101.256 Gbps (760343429120 bytes in 60072872 usec)
+client:   Tx101.077 Gbps (759001251840 bytes in 60072872 usec)
+client:   Tx 69.440 Gbps (521435873280 bytes in 60072872 usec)
+client:   Rx  0.000 Gbps (0 bytes in 60072872 usec)
+client:   Rx  0.000 Gbps (0 bytes in 60072872 usec)
+client:   Rx  0.000 Gbps (0 bytes in 60072872 usec)
+client:   Rx  0.000 Gbps (0 bytes in 60072872 usec)
+client: == Target <redacted>
+client:   Tx  0.000 Gbps (0 bytes in 60074846 usec)
+client:   Tx  0.000 Gbps (0 bytes in 60074846 usec)
+client:   Tx  0.000 Gbps (0 bytes in 60074846 usec)
+client:   Tx  0.000 Gbps (0 bytes in 60074846 usec)
+client:   Rx 48.158 Gbps (361638901920 bytes in 60074846 usec)
+client:   Rx101.253 Gbps (760343429120 bytes in 60074846 usec)
+client:   Rx101.074 Gbps (759001251840 bytes in 60074846 usec)
+client:   Rx 69.438 Gbps (521435873280 bytes in 60074846 usec)
+client:   net CPU  1: usr: 0.00% sys: 0.01% idle:39.42% iow: 0.00% irq: 0.64% sirq:59.91%
+client:   app CPU  5: usr: 1.21% sys:97.71% idle: 0.09% iow: 0.00% irq: 0.24% sirq: 0.71%
+client:   net CPU  2: usr: 0.00% sys: 0.00% idle:38.19% iow: 0.00% irq: 0.84% sirq:60.96%
+client:   app CPU  6: usr: 1.24% sys:97.73% idle: 0.04% iow: 0.00% irq: 0.24% sirq: 0.71%
+client:   net CPU  0: usr: 0.05% sys: 0.27% idle:69.92% iow: 0.00% irq: 7.71% sirq:22.04%
+client:   app CPU  4: usr: 1.78% sys:80.71% idle:16.79% iow: 0.00% irq: 0.38% sirq: 0.32%
+client:   net CPU  3: usr: 0.00% sys: 0.00% idle: 0.00% iow: 0.00% irq: 0.39% sirq:99.60%
+client:   app CPU  7: usr: 0.21% sys: 6.64% idle:90.75% iow: 0.00% irq: 0.05% sirq: 2.32%
+
+== After
+
+10 runs: 213.032 226.471 235.052 257.113 323.233 331.597 342.893 348.188 351.866 354.311 Gbps
+
+Sample:
+client: == Source <redacted>
+client:   Tx104.829 Gbps (786515886080 bytes in 60022934 usec)
+client:   Tx105.455 Gbps (791213506560 bytes in 60022934 usec)
+client:   Tx 61.717 Gbps (463051161600 bytes in 60022934 usec)
+client:   Tx 51.430 Gbps (385875968000 bytes in 60022934 usec)
+client:   Rx  0.000 Gbps (0 bytes in 60022934 usec)
+client:   Rx  0.000 Gbps (0 bytes in 60022934 usec)
+client:   Rx  0.000 Gbps (0 bytes in 60022934 usec)
+client:   Rx  0.000 Gbps (0 bytes in 60022934 usec)
+client: == Target <redacted>
+client:   Tx  0.000 Gbps (0 bytes in 60058283 usec)
+client:   Tx  0.000 Gbps (0 bytes in 60058283 usec)
+client:   Tx  0.000 Gbps (0 bytes in 60058283 usec)
+client:   Tx  0.000 Gbps (0 bytes in 60058283 usec)
+client:   Rx104.767 Gbps (786515886080 bytes in 60058283 usec)
+client:   Rx105.393 Gbps (791213506560 bytes in 60058283 usec)
+client:   Rx 61.673 Gbps (462998508768 bytes in 60058283 usec)
+client:   Rx 51.400 Gbps (385875968000 bytes in 60058283 usec)
+client:   net CPU  0: usr: 0.01% sys: 0.21% idle:65.30% iow: 0.00% irq: 9.15% sirq:25.29%
+client:   app CPU  4: usr: 1.19% sys:98.00% idle: 0.03% iow: 0.00% irq: 0.21% sirq: 0.54%
+client:   net CPU  2: usr: 0.00% sys: 0.00% idle: 0.03% iow: 0.00% irq: 0.44% sirq:99.51%
+client:   app CPU  6: usr: 2.14% sys:77.48% idle:19.92% iow: 0.00% irq: 0.36% sirq: 0.07%
+client:   net CPU  3: usr: 0.00% sys: 0.00% idle:43.01% iow: 0.00% irq: 0.69% sirq:56.28%
+client:   app CPU  7: usr: 2.03% sys:71.04% idle:26.45% iow: 0.00% irq: 0.37% sirq: 0.08%
+client:   net CPU  1: usr: 0.00% sys: 0.01% idle:46.66% iow: 0.00% irq: 0.56% sirq:52.75%
+client:   app CPU  5: usr: 0.05% sys: 0.08% idle:99.21% iow: 0.00% irq: 0.03% sirq: 0.61%
+
+== Comparison, over 10 runs
+
+Median Target RX:  321.556 Gbps vs 327.415 Gbps
+Mean Target RX: 303.204 Gbps vs 298.376 Gbps
+Range: 206.031-349.450 Gbps vs 213.032-354.311 Gbps
+
+v3:
+- fix 32-bit build (NIPA)
+- clarify the teardown warning (Mina)
+- make the freelist RX-only (Mina)
+- derive net_iov count from dma-buf size and fold the SG walks (Mina)
+- remove redundant total_niovs state (Mina)
+- remove redundant freelist slot clearing (Mina)
+- simplify net_devmem_iov_binding() (Mina)
+
+v2:
+- xmas tree (Jakub)
+- batching (Mina)
+- perf numbers (Mina & Jakub)
+
+Stanislav Fomichev (3):
+  net: devmem: replace gen_pool with freelist
+  net: devmem: embed net_iov_area in binding
+  net: devmem: batch net_iov allocations into the page_pool cache
+
+ net/Kconfig       |   1 -
+ net/core/devmem.c | 216 ++++++++++++++++++++--------------------------
+ net/core/devmem.h |  44 +++-------
+ 3 files changed, 104 insertions(+), 157 deletions(-)
+
 -- 
-2.44.0
+2.53.0-Meta
 
