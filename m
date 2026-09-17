@@ -1,97 +1,87 @@
-Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F1553CA8F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:38:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80174349A5;
+	Thu, 17 Sep 2026 13:39:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652334; cv=none; b=CfPxw0Sp1+hHDOxE31rVeYi+wNXxNEneNvT4b2IEPyqjolTJYj8XiXULyTGwfF7TPmkShdRg6kXo55mKIkYjEQ7RpqGYkjO+Lt2+UJxDP+d8it/aRM75MPyRt3qGbGWVe1UQoGE/K4fJFH1Y4XmJwLZ/kCkbtGhqQfdCtDYXB9I=
+	t=1789652395; cv=none; b=tEbBU9cvMvDITsTOp4Q9XkNdpyb2GrKqDxxqAnBe+m+83aafvhqZFxY5Je0Hu6jT7NT0Bu1LJzOvGbO/QUeDwldPAzJ3TVTB1J+E7vKTQN45OpLRKrJfrQcn6PHViCIZOmNRnVZ4fNqUPxpTMM1ay2CXk8PoJ6YMfghmLxU+gsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652334; c=relaxed/simple;
-	bh=6LM0tRxIx+t5YerwfG22b7MF1vCTnvahc03jd9dk4Ew=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PyM/Paru9fXoJZ3iWOmoJfsLkNsDd8hMoLxL2Rf+WVWtAdBF82zWYF3OOyFqVByQqAFqSFVoOi5zdcXLkTJBM8ahrN/hkRnOlX0BMOytsLh9R9vJrg1gltjHihUvdSkjrcxpWZO3VBrjWaqEz17cHLE/CUJdQerEuyDVVAGgjn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=d5bQJf8y; arc=none smtp.client-ip=91.218.175.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="d5bQJf8y"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6LM0tRxIx+t5YerwfG22b7MF1vCTnvahc03jd9dk4Ew=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789652319; v=1; x=1790257119;
- b=d5bQJf8yxml0lli2MJFk3ewyXZG0lvpa9PKhr7LRDQPmSMA3Y4bprjUGjkGeKnPaDjfoZ8ZW
- 3VjxS9dXZtzQe2bnLVU5h3IaZy91FL9NrlX22xxSiufrH+3HdCmAPhjYwmCzeQw8rc2VeXpqZvM
- YXYLo8IoHNNUGbZ00zJhAXUA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c02e8d635a10c1e4;
-	Thu, 17 Sep 2026 13:38:39 +0000
-X-Mizu-Trace-ID: c02e8d635a10c1e4
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 17 Sep 2026 15:38:33 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Martina Krasteva <martinax.krasteva@intel.com>, "Paul J. Murphy" <paul.j.murphy@intel.com>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 02/10] media: i2c: ov9282: fix line time and exposure
- time calculation
-Message-ID: <aqvrESE161rLiFHs@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <WBrW1cL2KYmGs9MJYUwvKwoGbzc8ybtUpuNiR3bortL_SdxmbyUjD-a-Gaz9U6CTbbztyGgQmN9up9-JDTpJqA==@protonmail.internalid>
- <20260914-ov9282-fixes-v1-2-f520af59df1b@linux.dev>
- <c439cc8c-8da2-4a07-8815-e4eb370de17c@kernel.org>
+	s=arc-20240116; t=1789652395; c=relaxed/simple;
+	bh=/8AM3r7K/WsqLW1c6+ZSRPBonW3byGfDs+cOUNpTW/o=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oO/T4wjJdAS2pBzF5+/rLYC//lAp5iR7C5/1z5dCV0cj11a1cQYq63blFS1+OJPXepbhNzI3PEGqIcZ568zZhBTY9ong+pK32gp9TzUJzy2KCceHnBRKY3Ecv7Hopfibbwxjw1ZsQTriEyBA7KZ1UcFRXCvg6x6pQ2j7/OM7fVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC36EKX7atqMqSBCA--.3927S2;
+	Thu, 17 Sep 2026 21:39:35 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: linux-kernel@vger.kernel.org
+Cc: linux-phy@lists.infradead.org,
+	mani@kernel.org,
+	mchehab+huawei@kernel.org,
+	neil.armstrong@linaro.org,
+	vkoul@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] phy: HiSilicon: Fix PCIe device reference leak in hi3670_pcie_get_resources_from_pcie()
+Date: Thu, 17 Sep 2026 13:39:35 +0000
+Message-Id: <20260917133935.2153674-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <c439cc8c-8da2-4a07-8815-e4eb370de17c@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC36EKX7atqMqSBCA--.3927S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GFyUZFy5ZrWUur15JFW5Wrg_yoWkuwb_GF
+	95uFn7Zr40grZxA3srAr95Zr9FyFnrZFyIqws7tFWay39xZr1a9F15Zws0k3ZrurW3uF1k
+	Aw1UZw1jkrZrWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbfAYjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
+	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
+	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7
+	CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7IU57rcDUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUNA2qrq03P3gAAsk
 
-Hi Bryan,
+hi3670_pcie_get_resources_from_pcie() gets a reference to the PCIe
+platform device with bus_find_device_by_of_node(), but never releases
+it.  The reference is not stored anywhere, so it is leaked both when
+dev_get_regmap() fails and on the success path.
 
-thanks for your feedback!
+Drop the reference right after the regmap lookup, the last use of the
+device.
 
-On Thu, Sep 17, 2026 at 11:51:46AM +0100, Bryan O'Donoghue wrote:
-> On 14/09/2026 20:20, Richard Leitner wrote:
-> >   The right
-> > clock is PLL2's system clock. With the PLL2 dividers left at their reset
-> > values the chain
-> 
-> I think this statement could use some more justification for the commit log.
+Fixes: 73075011ffff ("phy: HiSilicon: Add driver for Kirin 970 PCIe PHY")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/phy/hisilicon/phy-hi3670-pcie.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Which part do you mean? That "PLL2's system clock" is the right clock?
-Or the "dividers left at their reset values"?
-Or both? :-)
+diff --git a/drivers/phy/hisilicon/phy-hi3670-pcie.c b/drivers/phy/hisilicon/phy-hi3670-pcie.c
+index dbc7dcce682b..87eac058a4bc 100644
+--- a/drivers/phy/hisilicon/phy-hi3670-pcie.c
++++ b/drivers/phy/hisilicon/phy-hi3670-pcie.c
+@@ -584,6 +584,7 @@ static int hi3670_pcie_get_resources_from_pcie(struct hi3670_pcie_phy *phy)
+ 	 * right regmap. So, let's use the named version.
+ 	 */
+ 	phy->apb = dev_get_regmap(pcie_dev, "kirin_pcie_apb");
++	put_device(pcie_dev);
+ 	if (!phy->apb) {
+ 		dev_err(dev, "Failed to get APB regmap\n");
+ 		return -ENODEV;
+-- 
+2.34.1
 
-> 
-> PLL2 is stated in the data-sheet ?
-
-Yes, PLL2 and its clock dividers are described in the datasheet (similar
-to the formular shown in the commit message).
-
-The fact that "PLL2's system clock" is the right for this, i.e. proof that
-OV9282_REG_TIMING_HTS is counted in increments of it is according to my
-research not available in the datasheet.
-
-> 
-> Either way
-> 
-> Fixes:
-> Cc: stable@vger.kernel.org
-
-As this whole series basically fixes things, would it be acceptable to add
-the Cc for all patches?
-
-> 
-> ---
-> bod
-
-regards;rl
