@@ -1,293 +1,365 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61ECF4DEC2E
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:41:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FE14E2F08
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789674120; cv=none; b=KeyUBwv78xJHniSQX/CsB0//mVT7yiFgbdKW5wzZjAwluX+tCbzy9t7J7R+z7g4bz2lJQp0O21EKQ0s9sHNKPLb6FV+yi5zeq8nPjwv8nVG1QpMn3WHRQ+my6W9Sno1v/XqKyaaySqetFkG4UNrOdy2Yt8WYWkyxjNGyp4sipuE=
+	t=1789674155; cv=none; b=fH1ZQrSSjFQmPGP0UVajPVVj+TT4rwviDMezJGz5cB0dxmQKEaAqPfkFxdGtlDKJhwrfk6SAOI3oZHJYvbjN37mlnH+W7aoLy0p+8NwvaOidm2mem9qTMZCws0Zl06g1tm//SZ431/iZyklNsuG4OA91KA+b8t35TvLaFhIZpwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789674120; c=relaxed/simple;
-	bh=1Hld9TTJWtGYH7lz5zyhGISa5kNpgl8anUJ7rsyBj7Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WVwbM4B7G5O6Us4A7rJQgiJku00+6XLtmH0oNrwg2esTZhycG+lsxj2ykdbCDKPqZ5Se5p114rU+vPHhNpJDTsr0RzmoZzkjfhE/vJ8gnTjwkJTA2eaVRl5ZfkHpYQ3Hp60pQ0F31h8mvDoPPRmMTvIoC0gB9F6LjkpKB0N43dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=J12JDEDt; arc=none smtp.client-ip=74.125.231.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	s=arc-20240116; t=1789674155; c=relaxed/simple;
+	bh=foYHm2o2+MQYrdR+mpSr7B5iCKdVj48EFsHR+MXZsH4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mwvS5gj1mClDK9fo6dUX+Xin+ZhlWOkdmLF6MlCf+O7I0oKqJdCQ3Q6tX/SQ1QQV/HVv/b5bQol0X15pAVC5HqRe6cHLwgP8tu5+MyV6rS9kudff6WDshmJ1/uQFVIHExHQ3V5hdOvKnOEK9uVyOdHqmPwmZ2J6xc95vH/bWbeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UVdfF1p3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="J12JDEDt"
-Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f0d298caso552507a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:41:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1789674117; x=1790278917; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ba0alAdQ5OcFzYxRU0k2u0VIIUxrq/p04mYsfJo2yyk=;
-        b=J12JDEDtajYVcOGLiHdrJi9ZVTza7E2ZTtXZ/f5B6tqpGsm/uxSFwkDVFMYCF+mzEN
-         T8ORxoj3f3DLanB1L/KNDYSV9a0PbC3z0g4TgrCbm3HxRDZz4gdyFSon4bZ4zgB+ff+F
-         4RXMEc3lJbm52U5HbxyVF2lp9wPnDo4GUxCUGTeHCXdV+7wskzx4MxD12QulQ/1SQrNV
-         tQ7hK1nSU3bsB8QGQLDI7j0xaj7t5SdNMWdWN6iqMT72L7+owM/lsXcWUWzTHylb1WQR
-         ka065q8ZDTTwp/UaqfMBnNZGVtxieGaUOD9KKRaumSL9nHXJb+O9zQo6M18oDoCRBWh5
-         J4lQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789674117; x=1790278917;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ba0alAdQ5OcFzYxRU0k2u0VIIUxrq/p04mYsfJo2yyk=;
-        b=OsOVbQjdLc0LanCJX6or26HLdXNas57gYpvCuw0EafXWdzlcfk0bfBYodF7e3q5Cr8
-         t3PVv7QUVByBVw9EJSftGXI7DzA0lRXT8+yG/jpyfc0GD37suERxEnl4uh6JB7BMi3SM
-         1Ud/VatI0LbPh575Ughc5VDcWrfU+Uuef3ac7PyJMkFV7xC5E4CQcNzgn3j/8/lxozuz
-         b9uh7hNJDF8EwpOZhE690Udv8jhAc5OsEDJJb+y379qLTIilba947yfL5YZv8RuaZYQy
-         zZrzwsWVpzriYXCQ+7m5Kc6PXqmDu8tPFuPv+/eSbMTIEXrZsFXTRzeAxc39PLaREiFS
-         3Zrg==
-X-Forwarded-Encrypted: i=1; AKwUvBykiqfxOp3+Cv7ZyFCt1sXNuT3HPq9feR9doyrOFmLrAs+Mwr+/M8SBXFjBm39UKGptibQPlg1rKa5GHZk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+kRkrT2TfXxmWUim2SE5PAD/4uxPHe89tSCy2lmzDzr4uG5DV
-	u99+h2Nm6WyBcplrJ4RGomj+Ui/I/07hCuhLeEeU96MjehCmJXhRKlIg566iTdc7F78=
-X-Gm-Gg: AYBFou1vpopto3V+iyoxSb8GokeJa7m8yxD8LrXjlMVqcRNbwOziEHd1z9U0dFXnwUV
-	1MNtA2MwXAZX278ljVNf0PFY0R6nOZy/kO94gyL69rEWnaXK7kmTUu5/MuETbMch4ahTgdfMR2A
-	O7Q4qLr0Uu688O9lq4ZZY+XuPmRcaWnruvXPmktJkXfA/JGKtNDjjEtGG3bLjP6z10lmyqqOMUC
-	Qz6qZavGiPyy+uZuEcfhYOC6PliCq6RHrCcopzH0ol8sa8aSQNMrXeDyg1VKBvEmDipLKiwaWWR
-	vcEMNuqeTfi6a3GVngNxED3IlRRX70+tVWyBFCu8sihrRE7rKaV9TtN8lilqJwxoKpCwM20YYRT
-	jCc3XFNyyUDauR3dm+xK7aH/oFAOPjgfthLwHatXidjVhSY3Z/wvIofcQu8dzvcssLVWPStOU4R
-	3kiUluWc4qUvKC33OvnKyfAle8OTd0enb2G28I1OJVTaz7fPAUX4JKAQ==
-X-Received: by 2002:a05:6830:2992:b0:7d7:ea9f:c0f9 with SMTP id 46e09a7af769-80ddcbb6051mr246243a34.0.1789674117330;
-        Thu, 17 Sep 2026 12:41:57 -0700 (PDT)
-Received: from 20HS2G4 ([2a09:bac6:bf21:2632::3ce:23])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80c472b4907sm3876403a34.22.2026.09.17.12.41.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 12:41:56 -0700 (PDT)
-Date: Thu, 17 Sep 2026 14:41:54 -0500
-From: Chris Arges <carges@cloudflare.com>
-To: Ido Schimmel <idosch@nvidia.com>
-Cc: David Ahern <dsahern@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, kernel-team@cloudflare.com
-Subject: Re: [PATCH net-next v2 2/3] ipv6: hash uncached routes by device
-Message-ID: <aqxCgm7lV4FruQho@20HS2G4>
-References: <20260914-hash-bucket-route-lists-v2-0-29f6297d8a5a@cloudflare.com>
- <20260914-hash-bucket-route-lists-v2-2-29f6297d8a5a@cloudflare.com>
- <20260917101405.GA1202580@shredder>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UVdfF1p3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 375411F0089A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:42:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789674152;
+	bh=2BCWfhhEYgzD7DaQHesnxgyG/gcGvwv95EZYwth9a3Q=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UVdfF1p34mesS2N1qg/fL8ehSvSlAW6xkIbzgseznGO1lLVxamIM+z7SwM11kLNSG
+	 vO4khuUnVDuwav7wzRfjyXPGojkun6RPBE0paOhFl1o/ZLVOcbcI7ROrjLP16Un/A/
+	 pxz+CHvOTHIYQWvxCp0xvSscHvaS3H8PdmCDITLgjTrX1xZv8W4n6eTp3GyikS8C4O
+	 LVUwwmdKoJ1vDgCLt7DPv/ZDwXEjmV4SoHB2Qqig8Pk7r2s6/SQmRObiWOBEbupE6n
+	 zbJ65ZILkcPACJ556/WAugn5r2AGNN4VCB7Da9wjYhOj/Z+AO9sJmHGuyIrNJUntuz
+	 Tzq6qIUOhjogg==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1b846so1594109e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:42:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxZiBux2FJ06U2CzgzJAg0FVlSpKxMJ1yBuSUxCT0f10OPf9u2MuxzlYcXYZzt7Cdb9lq+37MT+z5N6S2c=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntA6rhjEBZbqyBLyhnOTrnNly5+DKr2NUz69R/nKtvkLaNnWJO
+	15NxTp5HYkYW/Ix+VCUBR18AVZdVh4ZmZnVcMdY7ej1TkYeKz9xaxPgjbLNBbi7D7ih2NUaQc3W
+	zVp/2q9iR0OVy2SE+qIByEC20XolIDT4=
+X-Received: by 2002:a05:6512:1194:b0:5ae:ba7a:1789 with SMTP id
+ 2adb3069b0e04-5b8b6600b10mr2624216e87.13.1789674150487; Thu, 17 Sep 2026
+ 12:42:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917101405.GA1202580@shredder>
+References: <20260904212000.4167880-1-briannorris@chromium.org> <20260904141215.5.Ib0272869f8b1178426106d911441c449ac299048@changeid>
+In-Reply-To: <20260904141215.5.Ib0272869f8b1178426106d911441c449ac299048@changeid>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 17 Sep 2026 21:41:05 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hsceFpdp7mW+cLDn+KTuyNSNzZO6ZtDLMcFG7311qOdg@mail.gmail.com>
+X-Gm-Features: AcwNN1WCL5grxwwX4Lp0R-9BaaiZJw5zDg8kY2f408iKFbGK6nYFbJ3kzC6Mzgs
+Message-ID: <CAJZ5v0hsceFpdp7mW+cLDn+KTuyNSNzZO6ZtDLMcFG7311qOdg@mail.gmail.com>
+Subject: Re: [PATCH 05/11] PM: core: Document struct dev_pm_info with kerneldoc
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org, 
+	Len Brown <lenb@kernel.org>, Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org, 
+	Pavel Machek <pavel@kernel.org>, Doug Anderson <dianders@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-09-17 13:14:05, Ido Schimmel wrote:
-> On Mon, Sep 14, 2026 at 09:03:36PM -0500, Chris J Arges wrote:
-> > rt6_uncached_list_flush_dev() currently walks every per-CPU uncached route
-> > list for each device being removed. Hash uncached routes by their inet6
-> > device so ordinary device teardown only visits the matching bucket on each
-> > CPU.
-> 
-> The code is doing something else and hashing using dst_dev():
-> 
-> 	struct net_device *rt_dev = dst_dev(&rt->dst);
-> [...]
-> 		ul = &table->buckets[hash_ptr(rt_dev,
-> 					      CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)];
-> 
-> > 
-> > ip6_rt_get_dev_rcu() can return loopback or an L3 master while rt6i_idev
-> > still refers to the original interface, so such a route must be reachable
-> > from either device. Place those routes on a separate per-CPU list that is
-> > always visited in addition to the keyed bucket.
-> > 
-> > This avoids growing struct rt6_info while filtering most unrelated routes
-> > from ordinary device teardown.
-> > 
-> > The table has 2^CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS buckets and defaults
-> > to 64. Larger values shorten each bucket, but every additional bit doubles
-> > the per-CPU memory used by the table. The default costs approximately
-> > 1.5 KiB per possible CPU on x86-64.
-> > 
-> > Signed-off-by: Chris J Arges <carges@cloudflare.com>
-> > ---
-> >  net/ipv6/Kconfig |  13 +++++++
-> 
-> Same comment as in patch 1 about the Kconfig.
-> 
-> >  net/ipv6/route.c | 102 +++++++++++++++++++++++++++++++++++++------------------
-> >  2 files changed, 82 insertions(+), 33 deletions(-)
-> > 
-> > diff --git a/net/ipv6/Kconfig b/net/ipv6/Kconfig
-> > index c3806c6ac96f..0253178668bd 100644
-> > --- a/net/ipv6/Kconfig
-> > +++ b/net/ipv6/Kconfig
-> > @@ -18,6 +18,19 @@ menuconfig IPV6
-> >  
-> >  if IPV6
-> >  
-> > +config IPV6_UNCACHED_ROUTE_HASH_BITS
-> > +	int "IPv6 uncached route hash bits"
-> > +	range 1 10
-> > +	default 6
-> > +	help
-> > +	  This option sets the number of buckets used in the IPv6 uncached
-> > +	  route hash table to 2^IPV6_UNCACHED_ROUTE_HASH_BITS buckets. The
-> > +	  allowed values select between 2 and 1024 buckets. Larger values
-> > +	  reduce collisions, but each additional bit doubles the per-CPU
-> > +	  memory used by the table.
-> > +
-> > +	  If unsure, use the default of 6 bits (64 buckets).
-> > +
-> >  config IPV6_ROUTER_PREF
-> >  	bool "IPv6: Router Preference (RFC 4191) support"
-> >  	help
-> > diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-> > index 7535b09068a0..080dce329168 100644
-> > --- a/net/ipv6/route.c
-> > +++ b/net/ipv6/route.c
-> > @@ -40,6 +40,7 @@
-> >  #include <linux/seq_file.h>
-> >  #include <linux/nsproxy.h>
-> >  #include <linux/slab.h>
-> > +#include <linux/hash.h>
-> >  #include <linux/jhash.h>
-> >  #include <linux/siphash.h>
-> >  #include <net/net_namespace.h>
-> > @@ -133,11 +134,27 @@ struct uncached_list {
-> >  	struct list_head	head;
-> >  };
-> >  
-> > -static DEFINE_PER_CPU_ALIGNED(struct uncached_list, rt6_uncached_list);
-> > +#define RT6_UNCACHED_HASH_SIZE	BIT(CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)
-> > +
-> > +struct rt6_uncached_table {
-> > +	struct uncached_list buckets[RT6_UNCACHED_HASH_SIZE];
-> > +	/* Routes that must be discoverable through two different devices. */
-> > +	struct uncached_list mismatch;
-> > +};
-> > +
-> > +static DEFINE_PER_CPU_ALIGNED(struct rt6_uncached_table, rt6_uncached_table);
-> >  
-> >  void rt6_uncached_list_add(struct rt6_info *rt)
-> >  {
-> > -	struct uncached_list *ul = raw_cpu_ptr(&rt6_uncached_list);
-> > +	struct rt6_uncached_table *table = raw_cpu_ptr(&rt6_uncached_table);
-> > +	struct net_device *rt_dev = dst_dev(&rt->dst);
-> > +	struct uncached_list *ul;
-> > +
-> > +	if (rt->rt6i_idev && rt->rt6i_idev->dev != rt_dev)
-> > +		ul = &table->mismatch;
-> > +	else
-> > +		ul = &table->buckets[hash_ptr(rt_dev,
-> > +					      CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)];
-> >  
-> >  	rt->dst.rt_uncached_list = ul;
-> >  
-> > @@ -157,40 +174,51 @@ void rt6_uncached_list_del(struct rt6_info *rt)
-> >  	}
-> >  }
-> >  
-> > +static void rt6_uncached_list_flush(struct uncached_list *ul,
-> > +				    struct net_device *dev)
-> > +{
-> > +	struct rt6_info *rt, *safe;
-> > +
-> > +	if (list_empty(&ul->head))
-> > +		return;
-> > +
-> > +	spin_lock_bh(&ul->lock);
-> > +	list_for_each_entry_safe(rt, safe, &ul->head, dst.rt_uncached) {
-> > +		struct inet6_dev *rt_idev = rt->rt6i_idev;
-> > +		struct net_device *rt_dev = dst_dev(&rt->dst);
-> > +		bool handled = false;
-> 
-> https://docs.kernel.org/next/process/maintainer-netdev.html#local-variable-ordering-reverse-xmas-tree-rcs
-> 
-> > +
-> > +		if (rt_idev && rt_idev->dev == dev) {
-> > +			rt->rt6i_idev = in6_dev_get(blackhole_netdev);
-> > +			in6_dev_put(rt_idev);
-> > +			handled = true;
-> > +		}
-> > +
-> > +		if (rt_dev == dev) {
-> > +			rt->dst.dev = blackhole_netdev;
-> 
-> Please use:
-> 
-> rcu_assign_pointer(rt->dst.dev_rcu, blackhole_netdev);
-> 
-> See commit 1469773b246a ("ipv4: use rcu_assign_pointer() in
-> rt_flush_dev()")
-> 
-> > +			netdev_ref_replace(rt_dev, blackhole_netdev,
-> > +					   &rt->dst.dev_tracker, GFP_ATOMIC);
-> > +			handled = true;
-> > +		}
-> > +		if (handled)
-> > +			list_del_init(&rt->dst.rt_uncached);
-> > +	}
-> > +	spin_unlock_bh(&ul->lock);
-> > +}
-> > +
-> >  static void rt6_uncached_list_flush_dev(struct net_device *dev)
-> >  {
-> >  	int cpu;
-> >  
-> >  	for_each_possible_cpu(cpu) {
-> > -		struct uncached_list *ul = per_cpu_ptr(&rt6_uncached_list, cpu);
-> > -		struct rt6_info *rt, *safe;
-> > +		struct rt6_uncached_table *table;
-> > +		struct uncached_list *ul;
-> >  
-> > -		if (list_empty(&ul->head))
-> > -			continue;
-> > -
-> > -		spin_lock_bh(&ul->lock);
-> > -		list_for_each_entry_safe(rt, safe, &ul->head, dst.rt_uncached) {
-> > -			struct inet6_dev *rt_idev = rt->rt6i_idev;
-> > -			struct net_device *rt_dev = rt->dst.dev;
-> > -			bool handled = false;
-> > -
-> > -			if (rt_idev && rt_idev->dev == dev) {
-> > -				rt->rt6i_idev = in6_dev_get(blackhole_netdev);
-> > -				in6_dev_put(rt_idev);
-> > -				handled = true;
-> > -			}
-> > -
-> > -			if (rt_dev == dev) {
-> > -				rt->dst.dev = blackhole_netdev;
-> > -				netdev_ref_replace(rt_dev, blackhole_netdev,
-> > -						   &rt->dst.dev_tracker,
-> > -						   GFP_ATOMIC);
-> > -				handled = true;
-> > -			}
-> > -			if (handled)
-> > -				list_del_init(&rt->dst.rt_uncached);
-> > -		}
-> > -		spin_unlock_bh(&ul->lock);
-> > +		table = per_cpu_ptr(&rt6_uncached_table, cpu);
-> > +		ul = &table->buckets[hash_ptr(dev,
-> > +					      CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)];
-> > +		rt6_uncached_list_flush(ul, dev);
-> > +		rt6_uncached_list_flush(&table->mismatch, dev);
-> 
-> The mismatch list can be quite long depending on the workload and every
-> device needs to walk it for every CPU.
-> 
-> AFAICT, when there is a mismatch, dst_dev() is either loopback or a VRF
-> device. Can you instead hash based on rt6i_idev->dev (fallback to
-> dst_dev() when not available) and only iterate over all the buckets when
-> the device that is going away is loopback / VRF?
-> 
-> That way, in the common case, you only need to walk one list per-CPU.
+On Fri, Sep 4, 2026 at 11:20=E2=80=AFPM Brian Norris <briannorris@chromium.=
+org> wrote:
+>
+> Documentation/power/runtime_pm.rst includes several descriptions of
+> dev_pm_info fields, but many of them are wrong these days, as the types
+> or behaviors have changed. This is a prime reason for keeping docs
+> closer to the code where possible.
+>
+> Adapt and rewrite some of these descriptions, and add them to
+> include/linux/pm.h directly. Then pull these docs into the generated
+> HTML.
+>
+> Tested with `make htmldocs`.
+>
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
 
-Ido,
-Yea I like this approach much better. Thank you for the reviews.
-I've re-tested and implemented your feedback into v3:
-https://lore.kernel.org/all/20260917-hash-bucket-route-lists-v3-0-30493a37b6eb@cloudflare.com/
---chris
+All of the previous patches and this one look fine to me and I'm going
+to pick them up right away.
+
+And thank you for doing this work!  It's been on my todo list for quite a w=
+hile.
+
+> ---
+>
+>  Documentation/power/runtime_pm.rst | 101 ++---------------------------
+>  include/linux/pm.h                 |  93 ++++++++++++++++++++++++++
+>  2 files changed, 98 insertions(+), 96 deletions(-)
+>
+> diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/run=
+time_pm.rst
+> index 380dad7590a9..39fdeeda7a1e 100644
+> --- a/Documentation/power/runtime_pm.rst
+> +++ b/Documentation/power/runtime_pm.rst
+> @@ -203,103 +203,12 @@ rules:
+>  3. Runtime PM Device Fields
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+>
+> -The following device runtime PM fields are present in 'struct dev_pm_inf=
+o', as
+> -defined in include/linux/pm.h:
+> +Device PM fields are found in 'struct dev_pm_info', as defined in
+> +include/linux/pm.h. Many of those fields track runtime PM configuration =
+and
+> +state.
+>
+> -  `struct timer_list suspend_timer;`
+> -    - timer used for scheduling (delayed) suspend and autosuspend reques=
+ts
+> -
+> -  `unsigned long timer_expires;`
+> -    - timer expiration time, in jiffies (if this is different from zero,=
+ the
+> -      timer is running and will expire at that time, otherwise the timer=
+ is not
+> -      running)
+> -
+> -  `struct work_struct work;`
+> -    - work structure used for queuing up requests (i.e. work items in pm=
+_wq)
+> -
+> -  `wait_queue_head_t wait_queue;`
+> -    - wait queue used if any of the helper functions needs to wait for a=
+nother
+> -      one to complete
+> -
+> -  `spinlock_t lock;`
+> -    - lock used for synchronization
+> -
+> -  `atomic_t usage_count;`
+> -    - the usage counter of the device
+> -
+> -  `atomic_t child_count;`
+> -    - the count of 'active' children of the device
+> -
+> -  `unsigned int ignore_children;`
+> -    - if set, the value of child_count is ignored (but still updated)
+> -
+> -  `unsigned int disable_depth;`
+> -    - used for disabling the helper functions (they work normally if thi=
+s is
+> -      equal to zero); the initial value of it is 1 (i.e. runtime PM is
+> -      initially disabled for all devices)
+> -
+> -  `int runtime_error;`
+> -    - if set, there was a fatal error (one of the callbacks returned err=
+or code
+> -      as described in Section 2), so the helper functions will not work =
+until
+> -      this flag is cleared; this is the error code returned by the faili=
+ng
+> -      callback
+> -
+> -  `unsigned int idle_notification;`
+> -    - if set, ->runtime_idle() is being executed
+> -
+> -  `unsigned int request_pending;`
+> -    - if set, there's a pending request (i.e. a work item queued up into=
+ pm_wq)
+> -
+> -  `enum rpm_request request;`
+> -    - type of request that's pending (valid if request_pending is set)
+> -
+> -  `unsigned int deferred_resume;`
+> -    - set if ->runtime_resume() is about to be run while ->runtime_suspe=
+nd() is
+> -      being executed for that device and it is not practical to wait for=
+ the
+> -      suspend to complete; means "start a resume as soon as you've suspe=
+nded"
+> -
+> -  `enum rpm_status runtime_status;`
+> -    - the runtime PM status of the device; this field's initial value is
+> -      RPM_SUSPENDED, which means that each device is initially regarded =
+by the
+> -      PM core as 'suspended', regardless of its real hardware status
+> -
+> -  `enum rpm_status last_status;`
+> -    - the last runtime PM status of the device captured before disabling=
+ runtime
+> -      PM for it (invalid initially and when disable_depth is 0)
+> -
+> -  `unsigned int runtime_auto;`
+> -    - if set, indicates that the user space has allowed the device drive=
+r to
+> -      power manage the device at run time via the /sys/devices/.../power=
+/control
+> -      `interface;` it may only be modified with the help of the
+> -      pm_runtime_allow() and pm_runtime_forbid() helper functions
+> -
+> -  `unsigned int no_callbacks;`
+> -    - indicates that the device does not use the runtime PM callbacks (s=
+ee
+> -      Section 8); it may be modified only by the pm_runtime_no_callbacks=
+()
+> -      helper function
+> -
+> -  `unsigned int irq_safe;`
+> -    - indicates that the ->runtime_suspend() and ->runtime_resume() call=
+backs
+> -      will be invoked with the spinlock held and interrupts disabled
+> -
+> -  `unsigned int use_autosuspend;`
+> -    - indicates that the device's driver supports delayed autosuspend (s=
+ee
+> -      Section 9); it may be modified only by the
+> -      pm_runtime{_dont}_use_autosuspend() helper functions
+> -
+> -  `unsigned int timer_autosuspends;`
+> -    - indicates that the PM core should attempt to carry out an autosusp=
+end
+> -      when the timer expires rather than a normal suspend
+> -
+> -  `int autosuspend_delay;`
+> -    - the delay time (in milliseconds) to be used for autosuspend
+> -
+> -  `unsigned long last_busy;`
+> -    - the time (in jiffies) when the pm_runtime_mark_last_busy() helper
+> -      function was last called for this device; used in calculating inac=
+tivity
+> -      periods for autosuspend
+> -
+> -All of the above fields are members of the 'power' member of 'struct dev=
+ice'.
+> +.. kernel-doc:: include/linux/pm.h
+> +   :identifiers: dev_pm_info
+>
+>  4. Runtime PM Device Helper Functions
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> diff --git a/include/linux/pm.h b/include/linux/pm.h
+> index afcaaa37a812..ef3f1310e749 100644
+> --- a/include/linux/pm.h
+> +++ b/include/linux/pm.h
+> @@ -663,6 +663,99 @@ struct pm_subsys_data {
+>  #define DPM_FLAG_SMART_SUSPEND         BIT(2)
+>  #define DPM_FLAG_MAY_SKIP_RESUME       BIT(3)
+>
+> +/**
+> + * struct dev_pm_info - Device power management information.
+> + *
+> + * @power_state: Legacy power state (mostly unused in modern kernels).
+> + * @can_wakeup: Device is capable of generating wakeup signals.
+> + * @async_suspend: Device can be suspended and resumed asynchronously.
+> + * @in_dpm_list: Device is on the dpm_list.
+> + * @is_prepared: Device's ->prepare() callback has run successfully.
+> + * @is_suspended: Device is suspended during a system sleep transition.
+> + * @is_noirq_suspended: Device's noirq suspend callback has run successf=
+ully.
+> + * @is_late_suspended: Device's late suspend callback has run successful=
+ly.
+> + * @no_pm: Device does not participate in power management transitions.
+> + * @early_init: Device was initialized before standard PM initialization=
+.
+> + * @direct_complete: Device can skip suspend/resume callbacks and remain
+> + *   runtime-suspended during system sleep.
+> + * @driver_flags: Driver flags (e.g. %DPM_FLAG_SMART_SUSPEND) set at pro=
+be time.
+> + * @lock: Spinlock used for synchronizing PM state transitions and runti=
+me PM
+> + *   operations.
+> + * @entry: List head for device power management lists.
+> + * @completion: Completion for synchronization during asynchronous syste=
+m
+> + *   suspend/resume.
+> + * @wakeup: Wakeup source object associated with the device.
+> + * @work_in_progress: Asynchronous PM operation in progress.
+> + * @wakeup_path: Device is in the wakeup path or can wake the system up.
+> + * @syscore: Device participates in syscore power management operations.
+> + * @no_pm_callbacks: Device has no PM callbacks; handled by parent or su=
+bsystem.
+> + * @smart_suspend: Driver requested smart-suspend behavior.
+> + * @must_resume: Device must be resumed during system resume.
+> + * @may_skip_resume: Set by subsystems to indicate driver resume callbac=
+ks may
+> + *   be skipped.
+> + * @out_band_wakeup: Out-of-band wakeup is supported.
+> + * @strict_midlayer: Middle layer code does not want callbacks invoked v=
+ia
+> + *   pm_runtime_force_suspend() / pm_runtime_force_resume().
+> + * @should_wakeup: Wakeup flag when system sleep is not enabled.
+> + * @suspend_timer: High-resolution timer used for scheduling delayed run=
+time
+> + *   suspend and autosuspend requests.
+> + * @timer_expires: Timer expiration time in nanoseconds monotonic time
+> + *   (runtime PM).
+> + * @work: Work structure used for queuing up requests into pm_wq (runtim=
+e PM).
+> + * @wait_queue: Wait queue used if any helper functions need to wait for=
+ another
+> + *   state change to complete (runtime PM).
+> + * @wakeirq: Dedicated wakeup interrupt for the device.
+> + * @usage_count: Device runtime PM usage counter.
+> + * @child_count: Count of active children of the device (runtime PM).
+> + * @disable_depth: Disable counter for runtime PM (runtime PM is enabled=
+ when
+> + *   this is 0; initial value is 1).
+> + * @idle_notification: Set if ->runtime_idle() is being executed.
+> + * @request_pending: Set if a work item is queued into pm_wq (runtime PM=
+).
+> + * @deferred_resume: Set if ->runtime_resume() should run as soon as
+> + *   ->runtime_suspend() completes.
+> + * @needs_force_resume: Indicates the device was forced into suspend by
+> + *   pm_runtime_force_suspend() and must be resumed by
+> + *   pm_runtime_force_resume().
+> + * @runtime_auto: User space has allowed the driver to power manage the =
+device
+> + *   at runtime via sysfs control attribute; also can be set by
+> + *   pm_runtime_allow() or pm_runtime_forbid().
+> + * @ignore_children: If set, the value of child_count is ignored for run=
+time
+> + *   suspend and idle decisions.
+> + * @no_callbacks: Indicates the device does not use runtime PM callbacks=
+.
+> + * @irq_safe: Indicates runtime PM callbacks will be invoked with the sp=
+inlock
+> + *   held and interrupts disabled.
+> + * @use_autosuspend: Indicates the device driver supports delayed runtim=
+e
+> + *   autosuspend.
+> + * @timer_autosuspends: Indicates the runtime PM core should attempt an
+> + *   autosuspend rather than a normal suspend when the timer expires.
+> + * @memalloc_noio: Indicates memory allocation during runtime PM transit=
+ions
+> + *   must avoid I/O (GFP_NOIO).
+> + * @links_count: Number of device links that require runtime PM coordina=
+tion.
+> + * @request: Type of pending runtime PM request (valid if request_pendin=
+g is
+> + *   set).
+> + * @runtime_status: Runtime PM status of the device.
+> + * @last_status: Last status captured before disabling runtime PM, or
+> + *   %RPM_BLOCKED / %RPM_INVALID.
+> + * @runtime_error: Fatal error code returned by a failing callback, bloc=
+king
+> + *   helpers until cleared.
+> + * @autosuspend_delay: Delay time in milliseconds to be used for runtime
+> + *   autosuspend.
+> + * @last_busy: Timestamp in nanoseconds when pm_runtime_mark_last_busy()=
+ was
+> + *   last called. Used in calculating inactivity periods for autosuspend=
+.
+> + * @active_time: Accumulated time in nanoseconds spent in %RPM_ACTIVE st=
+ate.
+> + * @suspended_time: Accumulated time in nanoseconds spent in %RPM_SUSPEN=
+DED
+> + *   state.
+> + * @accounting_timestamp: Timestamp in nanoseconds of the last runtime P=
+M state
+> + *   accounting update.
+> + * @subsys_data: Subsystem-specific power management data.
+> + * @set_latency_tolerance: Callback for setting latency tolerance.
+> + * @qos: Per-device PM Quality of Service (QoS) constraints.
+> + * @detach_power_off: Indicates device should be detached from PM domain=
+ on
+> + *   power off.
+> + *
+> + * Device power management information stored in the "power" member of s=
+truct
+> + * device.
+> + */
+>  struct dev_pm_info {
+>         pm_message_t            power_state;
+>         bool                    can_wakeup:1;
+> --
+> 2.55.0.979.g7e5102b832-goog
+>
