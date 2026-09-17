@@ -1,148 +1,164 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010048.outbound.protection.outlook.com [52.101.56.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940D350B410
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664016; cv=none; b=IFGyZUhmAw60AGqk5ufWgjKxpkddTCBLXVdfN+O8O2mSzgrCOB773mHDVs3zoL7J/qSvk7ypLUzY8uwQ8Dze4yOE/ggNKoFdkoemQco1i/p+fhj/Dq+1n76IkFo31S13BgMsUQFAkATpLeY58S5nOh44wkRAxdgTxeufndPjMmA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664016; c=relaxed/simple;
-	bh=QheSNJSTqInka+GwTg4+RnAArfueDQBZHVtlcFVNBTU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WuPs09hru/k/LGpkY+lv1glp2pa9m+kFg5X6NcAadQJMY/zAzAUdnSPbzIa5zAHKVny7trwKpRcWGvX7sz/wqzpDFs+7c1Cpkv7UPyMzENmFKer+fV18ncwzfoTcMATsYKd59tuQtCJJ8rhVJp9wmGOmO7GBbV4KqEy8sEJiIlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p/Qa17U6; arc=none smtp.client-ip=74.125.231.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E20F4E5322
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:54:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789664067; cv=fail; b=suoSrBsCVHWvRv1Adn3lNZ/Fa1nfsJr8RNAeaULME9+vLmCJP1uRubDZ3TyucZoT4HsDbKIbb7YYUWyhgrZ52sbVRyxsedE4IoJF2m5N6henLrcp0LcCiF1AJDSeem92yG93GW2sm4kF4pT8h8HwvfF+6/5zef/OzgLUYold+eM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789664067; c=relaxed/simple;
+	bh=Vc7YjqGWYRng16VPzCzOCithe0SOGvxRPkTiuw+UdQE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=T0NlJ29N79oMNQ9dCchp/+ZQbqIVfwNUK9YwTUHCyvyabXklFADV6ev96Soz9jOTY54U1IveDDZW2VRBMvQVCFkFFmWmDP2qk0F20qcc3yHoIHWPyD41LKWnTfIoDgJXoq4yHfKNrHDgimXDyzwAFyRPqxRqgXF/U1ZlixJbVwA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=kCvZ4dCN; arc=fail smtp.client-ip=52.101.56.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p/Qa17U6"
-Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4b37a2c0356so705071b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:53:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789664013; x=1790268813; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UR1otYHn7U3vnSL+rKz8JyoKuPNFmoYWrExJngJ/RnU=;
-        b=p/Qa17U6sxIGxWx6lHJTqBylof+SBmUmFm2WbYsi5iGEX0FGO7RALnVcCiRkqvFQFT
-         bcL0q4OO57SfL1hXg4C0gG5+iLnLxZKbZcFR2SdijdMPmGqU4d4UyhZHgtEKC8Zw1N9Z
-         Siw+F6jX0RyxT2fNKDw1lZIqhPCALap4uGGCYU9ikQyU3hCylnCtXbZT0697ntYoapqC
-         Tn7c+XMG04hjUZxrGNiZtzBOON6d2YSCJihak4R22v8COp2A0gAVGGExCtUUzj9hFSBM
-         yjQB46wQqMWRDjWjxv5FZHZ8I+5CARG85YghrrzOEMcgSvMgd0jUtEH1UFjnuKbkTz1x
-         RVzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789664013; x=1790268813;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UR1otYHn7U3vnSL+rKz8JyoKuPNFmoYWrExJngJ/RnU=;
-        b=TRWy/zKXWKdOrni4IqpQl+0qGivGuruo61hT/oCk0RxSnjVJuVTbcdIxAK6X2r4gV2
-         XqzxMNd9PDNkc4v5Y1usjAw6q9sMJN4amd1IldxOK+2u2nZ++xKRjhnR0fhh7ZCWOaz2
-         UTvD/p5mFlbjPWZ5hrDNf/mrOB+byabiOEK8zXDOEAsCzMsIWLQWliGFAPDd6+8UOoTC
-         c1KwwvfW/+i189ZPyO4ilQGCepX75dnLt7001AOiZ7PIU59FlLcxyV7ndwPCs4WsUFpE
-         B6l7TOjG2l7pnn/occwZ3lt0atkI+HgolgVJMMfO4tr+DOl1Ti7MLZzJuHhVUnDJeM2w
-         IMiw==
-X-Forwarded-Encrypted: i=1; AKwUvBxNkK4sIAJk2/RqINB7gMAJsxl/Zd1J4GRfQSaS2gf6P/QEWXq6l1UcvZwqLzu/iNWV6PDMrLoaZLrJaYw=@vger.kernel.org
-X-Gm-Message-State: AFuF++koK28Zd2OBCjx/uwkRfrdrlxZS7tYB3Gvd5tQi2vVqAIvOeLGF
-	SKN+WDMLa4rINmzppzP/xP1QDs6jwMvo7qNSoGFQtCUavnoOzqgn9rjw
-X-Gm-Gg: AYBFou0S//u5MJvx1SVFi5ZrwOOo2OEZjOw8yr6zc00UFNFmzEDZjSj8XfVx2iNlbk5
-	Gi+VIIG5wzd86oUZkR2e7CK9FNmHdVBFnzspsC3FllmJT3xTCxV3XtxhxgrXmKZsFNEgCZOZjJZ
-	2Z3ub7O+qm1eh8/fhfriS7zpfXKPwmJniFof4xBGzFlGVjcU1K/Iw0vJS22R+mFPl+p1Hxqd4qk
-	ofkV1KGR1LzxGiR4iITq3kkJGx2oOscw4BY4XczO8VKzecOWzxV42jEgESXgeWBGpvtLyCaloPH
-	skzwMDSDIwwg+d2PC9lo8JHYdGO5/ujUIH+sOv/uGRKjsXQcgKWQjdUYrJan8FPxE6IV79nNz7B
-	yCZvon+h0xTg1+GCCftMdK2qeNkXI2sckU+Ie6X2tGR9PEQSKs5wNh6b25V40znEepeTjdyOK1m
-	jrJGIERW/1AYsiEaCoOBTkFRljhLqcppYxgp9wcKJYXJp7N8gkrk+CWhvrHHVG0AzMMBDOpK5IJ
-	d94Inc74rs9H/c=
-X-Received: by 2002:a05:6808:4f11:b0:4b2:8ee8:8a38 with SMTP id 5614622812f47-4ca46878257mr9034077b6e.0.1789664013292;
-        Thu, 17 Sep 2026 09:53:33 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4cb6c80c75bsm3137159b6e.6.2026.09.17.09.53.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 09:53:30 -0700 (PDT)
-Date: Thu, 17 Sep 2026 13:54:33 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com, nuno.sa@analog.com,
-	dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
-Subject: Re: [PATCH v2 09/15] dt-bindings: iio: adc: adi,ad4134: Document SPI
- connection mode
-Message-ID: <aqwbSb2eeFaDyjLV@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1789494473.git.marcelo.schmitt@analog.com>
- <304d10f12a3418fbd5598160609a6eda09ed4100.1789494473.git.marcelo.schmitt@analog.com>
- <20260916160025.GA382310-robh@kernel.org>
- <20260917043039.6b9fc505@jic23-hlaptop>
- <20260917160709.GA2294753-robh@kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="kCvZ4dCN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h3u9OKoGO7u3djixUNiXz//uoqT/skoh6LS2NNGJa/8Gxr/z56EDH7DrVz7jtBm2D02bbgZMwJwyBM2q2GI/cma6xVGmHSmd0Vnk7Fmk8Gw/n6OgOH3qhKTUcFmVdHZLrfSKEXDqz9uvEMeo+gsFKcNGFm8XyvHy+AbYD7YRt2H2VzCYWy+Um6BG0lnidwowQd66EX2pQY5KHNJnLJFTdyEHsvrE8qBOmDVVEbiawff85H5/asCwK+UCQNoq5BfVCZ2cNo4IHoKni3iSmqzNaAqD0Qkb8Z6upX3KKn+MhGbhQWl8s93F3ZWLyPPLwwpV5VctJht/oTjgkA4FwZomUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZWTddPqlftsjH7l1b7QvikDR0/WlQ9I11h3NPlPOePQ=;
+ b=juEJTgIEmWxv4rttjlEePPjaPJu3FHlAc6xls+dI0b2DMXM6F3hxlMbWhw2bew+MO6S0xRS+uGkBBNnwaEIAn6zlhzqFa6I6HtwIPEk3kKV0t/RBLbUkb+rlR55q8Cgf+tO5vq9FXc10R42YDrTimTNykgwNb4EjGIS2y/ywtPyglqshG/EjYcG9r9PIqH5KN/TTB/HibpMK42Q1GNfLEFtHWaE7+gxv8tbovT6wwHGdq/W4vq3BmboI4KHu99m253IoWNDWc3T6rs5kCPPWoI5o6GmEecA93Abve3XYIXoZTgVmEHTVVk1nkb8pBNRUlan9+jeTdq0PUkUWIn8apA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZWTddPqlftsjH7l1b7QvikDR0/WlQ9I11h3NPlPOePQ=;
+ b=kCvZ4dCNPWXyLag4GfmDTVKdkX0/E/Rjb57aaHznHJY4bVk8F6c25oQ/xQlGLVXRtv5hFVslFW+wxNYysNzs9K3TtORNj02NI1LMVKEt+ebgcTy5bMyvvNZkkELGI3tF88VHLafTTJHb52KiD8/MmISacv/A55yoL0PbpHTSN4w=
+Received: from MN2PR22CA0018.namprd22.prod.outlook.com (2603:10b6:208:238::23)
+ by CH3PR12MB9429.namprd12.prod.outlook.com (2603:10b6:610:1c9::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Thu, 17 Sep
+ 2026 16:54:11 +0000
+Received: from BN1PEPF0000467F.namprd03.prod.outlook.com
+ (2603:10b6:208:238:cafe::42) by MN2PR22CA0018.outlook.office365.com
+ (2603:10b6:208:238::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Thu,
+ 17 Sep 2026 16:54:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF0000467F.mail.protection.outlook.com (10.167.243.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 16:54:11 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 11:54:11 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 17 Sep 2026 11:54:10 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>,
+	<dri-devel@lists.freedesktop.org>, <max.zhen@amd.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+	<sonal.santan@amd.com>
+Subject: [PATCH V2] accel/amdxdna: Set HMM_PFN_REQ_WRITE for writable BO faults
+Date: Thu, 17 Sep 2026 09:54:06 -0700
+Message-ID: <20260917165406.1881899-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917160709.GA2294753-robh@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000467F:EE_|CH3PR12MB9429:EE_
+X-MS-Office365-Filtering-Correlation-Id: c07abe1e-e5d7-4c3a-b736-08df14dc4c6e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|23010399003|18002099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	4eO/vFjNsZJoP9g9IB4IkSdzTyeqqjFOaSBfDgYa3D02KdVTHleNh1K4gwgbxNpquIHSdeiGrK7V5aggx70R26X/LLSUWl4AyJcV1Ne8iHlqe7oAFiJ+Y2p3V/L/W7AyA+XUaIZIpYe6+L1O1WTp736j2VRPS+jaLjnSzZh2KNKasGsESCeFtfVSDWPGRITdThxpCrOa1HQHikEJnwt8rQjBMVhMJbqnuL/Seu7ReUKulyNIyOMo8KO35xUi2gJs9+s5LPb0j2b0gwWmYf5gIT7imD8do9QHUkqND62GiYZ60PXCMj2vF6BIz2TV+6i0wTUSlKfCIIMvUDXaLVIKpvWfnB5nqNEVPjdrNDJilU2H6VkN4MGmyikrp523WcMOHfSkK4MzjjS8SZmeCkooQFrPW/WVn8/QOtNvFUHc/vsg4KGEeoP4CdamK/5SxAYK55GJUQtsjTruDSMPqtfgD+51IndJk6QA8mR4B+sbH23eX4GXDqgctiTJg1svtRbPYlaSxhGDniJzYIKT2z3h5iVSwNW58Nlv0J0y75HtKfGl0OVUvVYWQKMctmqNifFkRsmqnJHsvaqvl/zib6EYKD+9UDEQYLd5ApfWV8eyJ15dmCaGztnvEl6TWKUL0YI9FipzBXaOK2gz6R8XWs+Hn9AD9NoUXUbUxX7Rgu1xYUdPD3HTlb498MUNf67yoZIEnMBqNzfC/wpe0SKFYm+mvw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(23010399003)(18002099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pPpCSQuSZY2tzi7PMxkH5XKbfh4e+1cCkw2rsOR/9fDm8w8IK6wUGZX60VqeHk9H98hnFucqpT2OUb7GaYYhc8b9Fw1iKyTCugAzTQEUoI8mFElFKTENHFUfN8fbvgo4WxNV/LPDGk/UELtfkB6gEBWXO/l2hl2LZ/evlX8evFuB5KGspfeYuOOVbLm8ysTfb73rFjQX6JA3yLJNYjahIUWxas6vAx+lqkzGw826e+S8nFZF5aZ4r2g0gn9PjppOpJGW99BdU4TCddReplyAaGKsK3YqrRKaTVRKTOB5O6inP3h4Bysfk0GSaTUu/jGLilqV8yaXEdaGxrW4itdbZ1mXCAHSrrpuxUONTFufynd2QRFPmR+tMMDcTu4N+Sn3zKBXkXMI/jBmpKeyTnx1Td1ks7ya1zRWOVNdqhpmMWAf6X6bISWgqSDunpdeq0By
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 16:54:11.7155
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c07abe1e-e5d7-4c3a-b736-08df14dc4c6e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF0000467F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9429
 
-On 09/17, Rob Herring wrote:
-> On Thu, Sep 17, 2026 at 04:30:39AM +0100, Jonathan Cameron wrote:
-> > On Wed, 16 Sep 2026 11:00:25 -0500
-> > Rob Herring <robh@kernel.org> wrote:
-> > 
-> > > On Tue, Sep 15, 2026 at 04:14:44PM -0300, Marcelo Schmitt wrote:
-> > > > Document how AD4134 chips are connected to the host SPI controller
-> > > > according to different wiring configurations.
-> > > > 
-> > > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> > > > ---
-> > > > Change log v1 -> v2:
-> > > > - Set default for adi,spi-mode property.
-> > > > - Added '#daisy-chained-devices' property.
-> > > > - Documented constraints for adi,spi-mode + #daisy-chained-devices combinations.
-> > > > 
-> > > >  .../bindings/iio/adc/adi,ad4134.yaml          | 51 ++++++++++++++++---
-> > > >  1 file changed, 44 insertions(+), 7 deletions(-)
-> > > > 
-> > > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > index ea6d7e026419..012e09decf7a 100644
-> > > > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > @@ -131,6 +131,26 @@ properties:
-> > > >      enum: [ free-running, gated ]
-> > > >      default: gated
-> > > >  
-> > > > +  adi,spi-mode:
-> > > > +    $ref: /schemas/types.yaml#/definitions/string
-> > > > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
-> > > > +    default: no-cs
-> > > > +    description: |
-> > > > +      This property indicates the SPI wiring configuration.
-> > > > +      * no-cs: The datasheet calls this "minimum I/O mode". In this mode, the CS
-> > > > +        line is not used (tied to GND).
-> > > > +      * 4-wire: Specifies a conventional SPI wiring configuration.  
-> > > 
-> > > Absence of this property should be conventional mode.
-> > Hi Rob,
-> > 
-> > Unfortunately we missed this in the binding originally so we are left with the default
-> > of what the driver did at the time.
-> > 
-> > I wouldn't be against merging a change in that default as a fix though if we
-> > don't think this is yet in heavy use (merged in 7.0, but given not a complete
-> > feature set yet, maybe?)
-> 
-I don't believe this part is being extensively used. Going with the conventional
-4-wire default is the more natural choice so I'm growing my TODO list with a
-note for a follow up patch to update this default.
+When aie2_populate_range() faults in pages, it only sets
+HMM_PFN_REQ_FAULT. Without HMM_PFN_REQ_WRITE, handle_mm_fault() does not
+request write permissions and may populate the CPU page tables with
+read-only PTEs.
 
-> Ok, it's fine then. Just make sure the commit msg has this detail.
+Check the VMA flags and set HMM_PFN_REQ_WRITE when the VMA has VM_WRITE.
 
-Ok, will add.
+Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+V2:
+  Fix sashiko comment.
+ drivers/accel/amdxdna/amdxdna_gem.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index e861db6f9369..42d5f856a839 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -249,6 +249,20 @@ u64 amdxdna_gem_dev_addr(struct amdxdna_gem_obj *abo)
+ 	return amdxdna_obj_dma_addr(abo);
+ }
+ 
++static void amdxdna_umap_set_fault_flags(struct amdxdna_umap *mapp,
++					 struct vm_area_struct *vma)
++{
++	mapp->range.default_flags = HMM_PFN_REQ_FAULT;
++
++	if (!vma)
++		vma = vma_lookup(mapp->notifier.mm, mapp->range.start);
++
++	if (vma && vma->vm_start <= mapp->range.start &&
++	    vma->vm_end >= mapp->range.end &&
++	    (vma->vm_flags & VM_WRITE))
++		mapp->range.default_flags |= HMM_PFN_REQ_WRITE;
++}
++
+ static bool amdxdna_hmm_invalidate(struct mmu_interval_notifier *mni,
+ 				   const struct mmu_notifier_range *range,
+ 				   unsigned long cur_seq)
+@@ -270,6 +284,7 @@ static bool amdxdna_hmm_invalidate(struct mmu_interval_notifier *mni,
+ 	down_write(&xdna->notifier_lock);
+ 	abo->mem.map_invalid = true;
+ 	mapp->invalid = true;
++	amdxdna_umap_set_fault_flags(mapp, NULL);
+ 	mmu_interval_set_seq(&mapp->notifier, cur_seq);
+ 	up_write(&xdna->notifier_lock);
+ 
+@@ -418,7 +433,7 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+ 	mapp->range.notifier = &mapp->notifier;
+ 	mapp->range.start = vma->vm_start;
+ 	mapp->range.end = vma->vm_end;
+-	mapp->range.default_flags = HMM_PFN_REQ_FAULT;
++	amdxdna_umap_set_fault_flags(mapp, vma);
+ 	mapp->abo = abo;
+ 	kref_init(&mapp->refcnt);
+ 
+-- 
+2.34.1
 
-Thanks,
-Marcelo
