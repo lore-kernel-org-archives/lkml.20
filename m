@@ -1,332 +1,89 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1406366074
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2091B4257
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789607646; cv=none; b=gs0hutztOrukbMnnVqWaP0Ezz0SEB42EgXJZkglkzybc6JAlPsxLAzary4PpLwkwULuI+5WsmremJ+2TqYbQSOHww5UcKWDpVdOWujVuRQFk0qsAwjri1+24SW3DTmALqeZ8TKBdhG2IeeOzdcwVNs2tttIMl8wqiL2dcfdT/50=
+	t=1789607709; cv=none; b=t3IG7Z2ekj8Ty8VT8akFgmMVa/YRwzisR1HLrVr7EglOAC/unL5iwQ5yXGA985F82LGjYmEi1AkO9gcx0UFr0awFMj2w3pqCz8AqvYdiOnTLQOxVKmBJtionnJC2YGdksVqtY/ohTcKpbe3ANVblnwJyesdZSIowpisTrsWcFLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789607646; c=relaxed/simple;
-	bh=Ul6j9WsyP/r/ydqbSfLgKbi1bbJx+nz92awCbQVj1eM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=b8gvGs0WeLwKe/RFPj5+0PM+ToFBXA6W4DsGYt9/CSyk4oo9D76B7hqJ/c0zH248w5n61wZkbrXdDpCTFeWmHuD7vpI3AYTC5edHPeCfu5qPjnhVqtbpJmlXhyuWAQUmlRZYR7ocNg7qsgvSFGgF7Pi+hHqXGZRj2D+jQj4XFOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LTruY1Ul; arc=none smtp.client-ip=209.85.214.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LTruY1Ul"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d55d8cd938so5730655ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:14:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789607643; x=1790212443; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a+CdnO7yh4efRshGKkV5OBVfJv13nuMpKztWCTLiXjE=;
-        b=LTruY1Ul670RJDhVV+Rl9kI7Chsnp+tcmrzI/yfpY/dwxpYOM9pshD68YCW/FRpGV0
-         Z8uaaxOe5Qch8gojqY3oGPTdpmeaHdAYb2KjyzTrg8rB0KOf6sFYC5Mty3R+KZCmWbTt
-         Gz7zapMTW3cdKdrhnmj19FbBy6z/+Z7ozcciQQFSChx9xIMkxN/MchvWO8MP6lTrEs9M
-         DH3Uu8oV8w0AU7S0BghX4mP1DfbO7fqv6s3qLBxPx8FiCI+292MWk8/hKCxH2BvkCb2b
-         Hx7fvbj069/NwbrZD4/RV9GjIENeEG4zU6kd5TPzaOBkVLSLPWi5ZyzVX5sp+m3wybsd
-         Vasw==
+	s=arc-20240116; t=1789607709; c=relaxed/simple;
+	bh=PgeIC/6vl1sG8ajab7oZ1+VnM4mXkkMq2uJPJwCrsg0=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=cIWtUh00j7w+0FD7KkMuRZyKC0HgMT1hwPlijcEbqhtDQuVb4gJX2yUWbeaB18xeCyz4ebXk7ZPLgsIeyrKGZPMtTOaX62+Kjjkmrun4wl6QRBMwqnQ+PhIzq/mCazVyCgSU/k9r8Rxdr5Tw/tSUyo5VbxlIF7xNYblyWkUDFoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1b8b593a4so408810eaf.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:15:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789607643; x=1790212443;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a+CdnO7yh4efRshGKkV5OBVfJv13nuMpKztWCTLiXjE=;
-        b=oodbHJUw277WPr/kRD9jfCL/lpQ43/u9CquDOAPILfQfAmaVYf84kA2wFMHzJ6Cs0y
-         hsvyW3Av2aMAHq0XX0P9k5EY9N0vUBTHMvu8Gfy1U+xOhJ0K/SG1bZBSJf32Ww70csf0
-         NxkcinEDpNuwuP1HdXKS3xQEJJpexECEcWfG6KFqq4dO/wCOkuDLUuFtNUy+H5T6Jq+V
-         8cMpyoJSfX7veyr+b3CegqSgKG0Q8KLlQ/03uOCfTeUxyK+bFk3ZKPPAX1Ik82TtZlPC
-         6ummdUpR+rm6KEKPJPOS/F/YrEPoCrt0Euo8/qCH8mBIg3Pn24xJNDb2wgZgUE0vSmJV
-         vqiA==
-X-Forwarded-Encrypted: i=1; AKwUvBx9jC7teFegMOAWpZLe6F5APtgYpyZJ5gTN3WxSpg1otrciwHO89Uvn7w7sSRAg4wPh75ElfLD4cAVLGAI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3PAnZN4QC84eIxW5M9ggJwpcHqp1Ina5FL8UvfRlLJyr2S8pd
-	SgzD5Dcl2U9ytWgm8dqKrE9bu1ntPfVl+Gkhm7xtAW5vlt8sVSp5/aRp8F3pd27lVSEZw+xYOvK
-	w
-X-Received: from plcg5.prod.google.com ([2002:a17:902:c985:b0:2db:6c6c:8a80])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:b0b:b0:2dd:7646:35cd
- with SMTP id d9443c01a7336-2dd8ccccf6fmr106356295ad.0.1789607642593; Wed, 16
- Sep 2026 18:14:02 -0700 (PDT)
-Date: Thu, 17 Sep 2026 01:13:59 +0000
-In-Reply-To: <20260916222125.1259631-1-morbo@google.com>
+        d=1e100.net; s=20260707; t=1789607706; x=1790212506;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/WeKGDBZ2vtP71PzQm16tGvVEgbzc1JjDqniJZwRlIk=;
+        b=TDHPjg80eHY23m8/lcOSVCChvvvBaY6dBF7JhjewVqwuwjSSXOYAROMPUH2tNW2t4r
+         QChqMkztt5LbxhhxEn5ZIHWmkLam8x17kQtyeYBMPPuCqPVLCXPGLCIlhrznXFbWY/W0
+         wO4krranE4Uwy0HLBqsO44bHgOh7FneEqe6APU5ZBMYfnTZqZK3Oa1WiGH01PIY5YNgo
+         6eiZ2X+Jo02VeXURfJFZNgpd9G5euBEyyEeqZYDhhKzkINPqq+IUpsxzUMQK9TUVa/up
+         rtfTWOJiRVNVCO5hA57YUh5GGxBBsQhmbLRjUx9eWtOfc/S0X59WFnu5aE6qYN5Grccb
+         ixTw==
+X-Gm-Message-State: AFuF++mjMSRWyWBCTPeWxr05EHY5+mytMA6Ke55BEPmQT0nFC6E2lbI2
+	7JwEiCqC7Brsfo0mAfkFkfqSXMcJuTY8qqxFng7zS72Hh8yTNMSDN7FRS59j8kPCBnUctfIXCAS
+	wuGY2UY9QlYksRDmgQGfHuQ1nHVbUkdBVlKgsKvW5nITiAlvxFJTrmDy1vkc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260916222125.1259631-1-morbo@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260917011359.1585961-1-morbo@google.com>
-Subject: [PATCH v3] seq_buf: add seq_buf_strlen(), seq_buf_init_append(), seq_buf_puts_trunc()
-From: Bill Wendling <morbo@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Kees Cook <kees@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, Bill Wendling <morbo@google.com>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:16a8:b0:6b3:61f7:b8bd with SMTP id
+ 006d021491bc7-6c7d0bee1c3mr4510455eaf.1.1789607706444; Wed, 16 Sep 2026
+ 18:15:06 -0700 (PDT)
+Date: Wed, 16 Sep 2026 18:15:06 -0700
+In-Reply-To: <6a9b44e0.a5e650b3.363816.0002.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aab3f1a.b398a7c9.1f86be.0001.GAE@google.com>
+Subject: Forwarded: [PATCH] BUG: sleeping function called from invalid context
+ in null_insert_page
+From: syzbot <syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Converting some strlcat() call sites seq_buf need behavior seq_buf
-doesn't currently provide, either directly or without introducing subtle
-bugs:
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
- - seq_buf_strlen(): seq_buf_used() reports the full buffer size when
-   the buffer is completely filled, even though seq_buf_str() then
-   overwrites the final byte with a NUL terminator, leaving only size -
-   1 bytes of actual content. Callers that need the true length of the
-   NUL-terminated string have to fall back to strlen(seq_buf_str(s)).
-   seq_buf_strlen() mirrors seq_buf_str()'s NUL-termination logic but
-   returns the resulting string's length directly.
+***
 
- - seq_buf_init_append(): seq_buf_init() always clears the buffer it's
-   given via seq_buf_clear(). Code migrating from strlcat(buf, ...),
-   which appends to whatever @buf already contains, can't use
-   seq_buf_init() without silently discarding that existing content.
-   seq_buf_init_append() preserves it and positions the seq_buf to
-   append after it.
+Subject: [PATCH] BUG: sleeping function called from invalid context in null_insert_page
+Author: jchuang26@m.fudan.edu.cn
 
- - seq_buf_puts_trunc(): seq_buf_puts() (like seq_buf_printf() and
-   friends) writes nothing at all if the string doesn't fully fit,
-   whereas strlcat() always copies as much of the source as there is
-   room for. Converting a strlcat() call site that relied on that
-   partial-copy behavior to plain seq_buf_puts() can silently drop
-   content that used to survive truncated. seq_buf_puts_trunc() keeps
-   the leading bytes of the string that fit.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Assisted-by: LLM
-Suggested-by: Kees Cook <kees@kernel.org>
-Signed-off-by: Bill Wendling <morbo@google.com>
----
-v2: Reword the commit message to be clearer and not refer to a series of
-    patches
-v3: Add EXPORT_SYMBOL_GPL, make sure to overflow when truncating, correct
-    some logic discovered by the KUnit tests, and add KUnit tests.
----
- include/linux/seq_buf.h   | 60 +++++++++++++++++++++++++++++++++++++++
- lib/seq_buf.c             | 33 +++++++++++++++++++++
- lib/tests/seq_buf_kunit.c | 48 +++++++++++++++++++++++++++++++
- 3 files changed, 141 insertions(+)
+Reported-by: syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
 
-diff --git a/include/linux/seq_buf.h b/include/linux/seq_buf.h
-index 9f2839e73f8a..a552bcaab07f 100644
---- a/include/linux/seq_buf.h
-+++ b/include/linux/seq_buf.h
-@@ -30,6 +30,10 @@ struct seq_buf {
- 		.size = SIZE,				\
- 	}
+diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
+index 6beb1f5b7..d5ece457e 100644
+--- a/drivers/block/null_blk/main.c
++++ b/drivers/block/null_blk/main.c
+@@ -1861,8 +1861,17 @@ static int null_init_global_tag_set(void)
+ 		tag_set.flags |= BLK_MQ_F_NO_SCHED_BY_DEFAULT;
+ 	if (g_shared_tag_bitmap)
+ 		tag_set.flags |= BLK_MQ_F_TAG_HCTX_SHARED;
+-	if (g_blocking)
+-		tag_set.flags |= BLK_MQ_F_BLOCKING;
++
++	/*
++	 * A shared tag set may be used by a memory backed device, whose
++	 * ->queue_rq() performs GFP_NOIO allocations and therefore must be
++	 * allowed to sleep.  blk-mq picks its locking (RCU or SRCU) from
++	 * BLK_MQ_F_BLOCKING, so always mark the shared tag set blocking;
++	 * otherwise I/O submitted through blk_mq_run_dispatch_ops() runs
++	 * under the RCU read lock and triggers "sleeping function called
++	 * from invalid context" in null_alloc_page().
++	 */
++	tag_set.flags |= BLK_MQ_F_BLOCKING;
  
-+/**
-+ * seq_buf_clear - reset the seq_buf to be read / appended from the beginning
-+ * @s: the seq_buf handle
-+ */
- static inline void seq_buf_clear(struct seq_buf *s)
- {
- 	s->len = 0;
-@@ -37,6 +41,14 @@ static inline void seq_buf_clear(struct seq_buf *s)
- 		s->buffer[0] = '\0';
- }
- 
-+/**
-+ * seq_buf_init - initialize a seq_buf
-+ * @s: the seq_buf handle
-+ * @buf: pointer to the buffer
-+ * @size: total size of @buf
-+ *
-+ * The contents of the buffer are ignored.
-+ */
- static inline void
- seq_buf_init(struct seq_buf *s, char *buf, unsigned int size)
- {
-@@ -45,6 +57,26 @@ seq_buf_init(struct seq_buf *s, char *buf, unsigned int size)
- 	seq_buf_clear(s);
- }
- 
-+/**
-+ * seq_buf_init_append - initialize a seq_buf over a buffer that may
-+ *			 already hold NUL-terminated content
-+ * @s: the seq_buf handle
-+ * @buf: pointer to the (possibly non-empty) buffer
-+ * @size: total size of @buf
-+ *
-+ * Unlike seq_buf_init(), which always clears @buf, this preserves
-+ * whatever NUL-terminated content @buf already holds and positions
-+ * @s to append after it. Useful for converting code that used to
-+ * append to an existing buffer with strlcat()/scnprintf() and friends.
-+ */
-+static inline void
-+seq_buf_init_append(struct seq_buf *s, char *buf, unsigned int size)
-+{
-+	s->buffer = buf;
-+	s->size = size;
-+	s->len = strnlen(buf, size);
-+}
-+
- /*
-  * seq_buf have a buffer that might overflow. When this happens
-  * len is set to be greater than size.
-@@ -108,6 +140,33 @@ static inline const char *seq_buf_str(struct seq_buf *s)
- 	return s->buffer;
- }
- 
-+/**
-+ * seq_buf_strlen - get the length of the NUL-terminated string in seq_buf
-+ * @s: the seq_buf handle
-+ *
-+ * Like seq_buf_str(), this makes sure that the buffer in @s is
-+ * NUL-terminated, and returns the length of the resulting string.
-+ * Unlike seq_buf_used(), the returned length is always correct, even
-+ * when the buffer is completely full: in that case seq_buf_used()
-+ * reports @s->size, but the last byte was overwritten with the
-+ * trailing NUL, so only @s->size - 1 bytes of content remain.
-+ *
-+ * Returns: the length of the NUL-terminated string in @s->buffer.
-+ */
-+static inline size_t seq_buf_strlen(struct seq_buf *s)
-+{
-+	if (WARN_ON(s->size == 0))
-+		return 0;
-+
-+	if (seq_buf_buffer_left(s)) {
-+		s->buffer[s->len] = 0;
-+		return s->len;
-+	}
-+
-+	s->buffer[s->size - 1] = 0;
-+	return s->size - 1;
-+}
-+
- /**
-  * seq_buf_get_buf - get buffer to write arbitrary data to
-  * @s: the seq_buf handle
-@@ -179,6 +238,7 @@ extern int seq_buf_putmem(struct seq_buf *s, const void *mem, unsigned int len);
- extern int seq_buf_putmem_hex(struct seq_buf *s, const void *mem,
- 			      unsigned int len);
- extern int seq_buf_path(struct seq_buf *s, const struct path *path, const char *esc);
-+extern size_t seq_buf_puts_trunc(struct seq_buf *s, const char *str);
- extern int seq_buf_hex_dump(struct seq_buf *s, const char *prefix_str,
- 			    int prefix_type, int rowsize, int groupsize,
- 			    const void *buf, size_t len, bool ascii);
-diff --git a/lib/seq_buf.c b/lib/seq_buf.c
-index a92093f346da..831a1542fb78 100644
---- a/lib/seq_buf.c
-+++ b/lib/seq_buf.c
-@@ -199,6 +199,39 @@ int seq_buf_puts(struct seq_buf *s, const char *str)
- }
- EXPORT_SYMBOL_GPL(seq_buf_puts);
- 
-+/**
-+ * seq_buf_puts_trunc - append as much of a string as fits, keeping any of it
-+ * @s: the seq_buf handle
-+ * @str: the string to append
-+ *
-+ * This copies the leading bytes of @str that fit, reserving room for the NUL
-+ * terminator later added by seq_buf_str(). This differs from seq_buf_puts(),
-+ * which writes nothing at all if @str doesn't fully fit.
-+ *
-+ * Unlike seq_buf_puts(), this does NOT NUL-terminate @s->buffer as it
-+ * goes (it copies raw bytes via seq_buf_putmem(), not @str's own
-+ * terminator). Callers MUST call seq_buf_str() or seq_buf_strlen()
-+ * before using @s->buffer as a C string.
-+ *
-+ * Returns: the number of bytes copied from @str.
-+ */
-+size_t seq_buf_puts_trunc(struct seq_buf *s, const char *str)
-+{
-+	size_t len = strlen(str);
-+
-+	WARN_ON(s->size == 0);
-+
-+	if (seq_buf_can_fit(s, len))
-+		return seq_buf_puts(s, str);
-+
-+	/* Truncate the string to fit the buffer. */
-+	len = s->size - s->len;
-+	memcpy(s->buffer + s->len, str, len);
-+	seq_buf_set_overflow(s);
-+	return len;
-+}
-+EXPORT_SYMBOL_GPL(seq_buf_puts_trunc);
-+
- /**
-  * seq_buf_putc - sequence printing of simple character
-  * @s: seq_buf descriptor
-diff --git a/lib/tests/seq_buf_kunit.c b/lib/tests/seq_buf_kunit.c
-index eb466386bbef..a16b1365b503 100644
---- a/lib/tests/seq_buf_kunit.c
-+++ b/lib/tests/seq_buf_kunit.c
-@@ -23,6 +23,21 @@ static void seq_buf_init_test(struct kunit *test)
- 	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "");
- }
- 
-+static void seq_buf_init_append_test(struct kunit *test)
-+{
-+	char buf[32] = "hello world";
-+	struct seq_buf s;
-+
-+	seq_buf_init_append(&s, buf, sizeof(buf));
-+
-+	KUNIT_EXPECT_EQ(test, s.size, 32);
-+	KUNIT_EXPECT_EQ(test, s.len, 11);
-+	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&s));
-+	KUNIT_EXPECT_EQ(test, seq_buf_buffer_left(&s), 32 - 11);
-+	KUNIT_EXPECT_EQ(test, seq_buf_used(&s), 11);
-+	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "hello world");
-+}
-+
- static void seq_buf_declare_test(struct kunit *test)
- {
- 	DECLARE_SEQ_BUF(s, 24);
-@@ -51,6 +66,36 @@ static void seq_buf_clear_test(struct kunit *test)
- 	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "");
- }
- 
-+static void seq_buf_strlen_test(struct kunit *test)
-+{
-+	DECLARE_SEQ_BUF(s, 16);
-+
-+	seq_buf_puts(&s, "hello world!");
-+	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&s), 12);
-+	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&s));
-+	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "hello world!");
-+
-+	seq_buf_puts(&s, " It's a small world!");
-+	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&s), s.size - 1);
-+	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&s));
-+	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "hello world!");
-+}
-+
-+static void seq_buf_puts_trunc_test(struct kunit *test)
-+{
-+	DECLARE_SEQ_BUF(s, 10);
-+
-+	seq_buf_puts(&s, "hello");
-+	KUNIT_EXPECT_EQ(test, seq_buf_used(&s), 5);
-+	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&s));
-+	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "hello");
-+
-+	seq_buf_puts_trunc(&s, " world!");
-+	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&s), s.size - 1);
-+	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&s));
-+	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "hello wor");
-+}
-+
- static void seq_buf_puts_test(struct kunit *test)
- {
- 	DECLARE_SEQ_BUF(s, 16);
-@@ -218,8 +263,11 @@ static void seq_buf_putmem_hex_overflow_test(struct kunit *test)
- 
- static struct kunit_case seq_buf_test_cases[] = {
- 	KUNIT_CASE(seq_buf_init_test),
-+	KUNIT_CASE(seq_buf_init_append_test),
- 	KUNIT_CASE(seq_buf_declare_test),
- 	KUNIT_CASE(seq_buf_clear_test),
-+	KUNIT_CASE(seq_buf_strlen_test),
-+	KUNIT_CASE(seq_buf_puts_trunc_test),
- 	KUNIT_CASE(seq_buf_puts_test),
- 	KUNIT_CASE(seq_buf_puts_overflow_test),
- 	KUNIT_CASE(seq_buf_putc_test),
--- 
-2.55.0.1082.g2b9226bbc0-goog
-
+ 	error = null_init_tag_set(&tag_set, g_poll_queues);
+ 	if (error)
