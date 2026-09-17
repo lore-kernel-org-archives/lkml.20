@@ -1,86 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71334B95B1
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91BB3A5449;
+	Thu, 17 Sep 2026 09:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789638853; cv=none; b=Y+xi/Af2cPdnGT0nwgrH2RUliivoSIPbkUUsKrxg3rrCFGegf0eVGuGkjHTZEJN6SutkacuIz/bn0RNk+ODBx/+XthztMGG7EiFCLNJi3fHkK+6GCkEGqFqDUkl4bzBq81eiTcRhZxeLA75zDdiX8pO9FzuJIyVW+S9umma9/Vg=
+	t=1789638900; cv=none; b=ZtxhEorn10zU9iz4dwBnNv1D7nkFqr8+dE4DcDce67EXA05BgIxUi4Z5yCG8jLvvqYwgdqS0FvQEI8IRkJ2vfWL87zAVIyH2vQ6DaUqbJdW9pAppXXR2YRIOlOHYKtQ7dn1FLr7UsyDU/i2BsK1z+pXf1rqlPcnGscyOg/zcQxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789638853; c=relaxed/simple;
-	bh=J9VEFWHbLCc93Rj6UfpzHiK1m+T26lV5zxlLk6zOXqI=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GmzP3WLwHZQUTKiJSB/1KxxumHfzjcMZUpAjwp5Vt39Jjz4Wnvmd8UgGFkbAGeThH+RM2dsdxoJoJOT1N1iEl6VFFdN6f1Ek44waPKDwsIDSq0KYoScdGikI7lcbGFFOY+FkT+BAI+VKGaAsVqta7DowDPxIzNvwjxwmqGOey0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gRJWRkGb; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gRJWRkGb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FC541F00893
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:53:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789638836;
-	bh=J9VEFWHbLCc93Rj6UfpzHiK1m+T26lV5zxlLk6zOXqI=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=gRJWRkGbaDngRQ2kGsuxwQbIgi0AzkbeufU5K05Vulf8mQqRxbE/Mlkcj5GNfkbRz
-	 VCCcgf/4clyMakFkApciYP08gg2mPml5R725A+6qHDT5+cVaHE8oYyACExwaD/xww6
-	 8PtUC2wPX6mps1/gFG21tioiXoef4mgIyw9WMTFaGwYHtmDIj3/aLeMnJVfndNwQq/
-	 QZUPF5v5A73fLbWksf0BiPFLbvpXUvylVJ04KOOJAj5GJoLZ/BACUumgCnT+a5KYbA
-	 fu8WcNajTSbeBM2aY2ppqiWylGowcEMDoU/Nf5eCd5wO68jkSRauWYmU78+33x45Ui
-	 QKrtb+nMB1K1Q==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f16so514383e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:53:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwGoeu4c4F2VCeUG/bhN0vfi9RMpp2DeGgvYbgaa6K4svsQenstObfbvX5JlNrEPEuUyLO4XeZrKKXdjak=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgD6ErEGYNlThXShLY64P8REzjeqhjIN5oTp0hqRjilVqohnz+
-	Bf+ASOFwMzbyVRJTy+7bkpC4dkPuLS+RfYxZyPC5Y/CpWNslqfYUN4amDv1qWY43biGjIeISeeN
-	sD6U7wMqbpv5KIHDsr7NZw/M2MgwqpmeJMq5ukCPPJg==
-X-Received: by 2002:a05:6512:3990:b0:5b8:bc5e:d0fb with SMTP id
- 2adb3069b0e04-5b8bc5ed1e5mr490320e87.37.1789638835178; Thu, 17 Sep 2026
- 02:53:55 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 17 Sep 2026 05:53:53 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 17 Sep 2026 05:53:53 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260915031225.191639-1-rosenp@gmail.com>
+	s=arc-20240116; t=1789638900; c=relaxed/simple;
+	bh=GcgK0cOP/xsRIMscluwCnFRfGlh4TqqsN6j/q8dZFY4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GHrE8B6eRnhBlcnvVHLZqHkazMazp1MHe4GQujomsMPiJXfcVFlx7wM+AyWc3+kIDNQpcUp9SsASM/zBJY5Y/yNNSFr3H/qJZ5qcNtY2hdxxnmAj+/XaLy7BBsqdS05rPs80E4kCluCX9Dryp3BlR0ur9tCsq8bSNtMiSMvO8P4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnUDvjuKtqyxZ+CA--.40302S2;
+	Thu, 17 Sep 2026 17:54:43 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: hverkuil@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	shuah@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: au0828: Fix media device leak in au0828_usb_probe()
+Date: Thu, 17 Sep 2026 09:54:43 +0000
+Message-Id: <20260917095443.2145586-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915031225.191639-1-rosenp@gmail.com>
-Date: Thu, 17 Sep 2026 05:53:53 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Md+HpS6LDLAvfH_=7DrfUq+cFmRqFq=cW-RqBCfQPs6fw@mail.gmail.com>
-X-Gm-Features: AcwNN1W3w_VLVFp9ubNWkGJ_MQQOwAOc5cEpU_rUiQINqvY_RThfuCW5IzxIIC4
-Message-ID: <CAMRc=Md+HpS6LDLAvfH_=7DrfUq+cFmRqFq=cW-RqBCfQPs6fw@mail.gmail.com>
-Subject: Re: [PATCH] gpio: mvebu: fix Armada XP per-CPU mask register save/restore
-To: Rosen Penev <rosenp@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, 
-	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>, 
-	open list <linux-kernel@vger.kernel.org>, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnUDvjuKtqyxZ+CA--.40302S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Jr17tFyktw4UWF47XF4UXFb_yoW8JryUp3
+	ykJFy5CrWUJr4q9w4UJ3WUWF15W3ZavrWrCr97Aan3ur1fAa47JrW8Za4jgw4UtayIka4j
+	qr4UtrWrZr4Fkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
+	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
+	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07j0rWrUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMNA2qrq003VgABsT
 
-On Tue, 15 Sep 2026 05:12:25 +0200, Rosen Penev <rosenp@gmail.com> said:
-> The Armada XP variant keeps the per-CPU edge/level mask registers in a
-> second I/O window (percpu_regs) rather than in the main GPIO window.
-> The suspend and resume paths however read and wrote them through
-> mvchip->regs with the per-CPU offsets, which hits the global
-> GPIO_EDGE_MASK / GPIO_LEVEL_MASK registers instead. Per-CPU mask state
-> was therefore lost across suspend/resume, so a level line could end up
-> unmasked behind genirq's back and trigger an interrupt storm once
-> interrupts are re-enabled.
->
-> Use mvchip->percpu_regs for the Armada XP per-CPU mask registers in
-> both the suspend save and the resume restore paths, matching the
-> mask/unmask handlers and the probe-time masking.
->
-> Fixes: b5b7b487431b ("gpio: mvebu: add suspend/resume support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
+au0828_media_device_init() takes a reference to a media device with
+media_device_usb_allocate().  When au0828_v4l2_device_register()
+fails right after, the error path only unregisters the entities and
+frees au0828_dev, so that reference is never released.
 
-This doesn't apply on top of the earlier mvebu patch, can you rebase on top of
-gpio/for-current and resend, please?
+Release it with media_device_delete() on that path.
 
-Bart
+Fixes: 812658d88d26 ("media: change au0828 to use Media Device Allocator API")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/media/usb/au0828/au0828-core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/media/usb/au0828/au0828-core.c b/drivers/media/usb/au0828/au0828-core.c
+index 445cbeb7abae..c3826b3b8a2e 100644
+--- a/drivers/media/usb/au0828/au0828-core.c
++++ b/drivers/media/usb/au0828/au0828-core.c
+@@ -697,6 +697,10 @@ static int au0828_usb_probe(struct usb_interface *interface,
+ 	retval = au0828_v4l2_device_register(interface, dev);
+ 	if (retval) {
+ 		au0828_usb_v4l2_media_release(dev);
++#ifdef CONFIG_MEDIA_CONTROLLER
++		media_device_delete(dev->media_dev, KBUILD_MODNAME,
++				    THIS_MODULE);
++#endif
+ 		mutex_unlock(&dev->lock);
+ 		kfree(dev);
+ 		return retval;
+-- 
+2.34.1
+
