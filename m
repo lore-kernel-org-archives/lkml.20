@@ -1,72 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C581F09AD;
-	Fri, 18 Sep 2026 09:31:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A1632E13B;
+	Fri, 18 Sep 2026 09:31:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789723863; cv=none; b=uT9tD/Gxk+vUBpEEHmS+gS1pkXysOikz+5onD1ufjYhsd9fsxmijYYDCVHqhDR+xDXDJAfKGzSOz/97Mvn3byjLuAH5Te8ORzg08AtJAW1F53ovcg2v6D4WvRHXtOc8bNdvhrBptA1vH9wRHTd2h4FRZ6Y/0R7N4n0ll33QaAEo=
+	t=1789723880; cv=none; b=OJtnWH/ZAQiyuwZ8qQQnIOGeCjZll4Dmn3BTZeRW2ZLj50x5RJ9XhwS+v1XTQ/PJffDQP7/dO8COhWJZoBk44EguGW831y9MGvHlaGNvQqcfsoDnWhrTJO5pkocVEuK3FAOgSVpkrMQ8PiCLlnRPH1ST9UJw2YDxKbDpXUCjJbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789723863; c=relaxed/simple;
-	bh=L4YM+nBivMLSNNtlGU9JKIs4iMpnJtMwEQj+J8hlrd0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AosQmBBfFm/j1TyK3DYFwaXVl2yvHnXyuRWyXCxz/RQZia3r2ANGjL+WNe4D8UpyI9+LqVwACgHUP7eFJrOOHkEFRSFv7i5YjF/p5rOAaxzga/KVk1LIoGFc9w/tNbJJ+a6kv8URzKhGSpWODvZnee/zfyirL5QRoDhLALKRaj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A1uBqEnN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789723880; c=relaxed/simple;
+	bh=+x1vsXeiK2OueYvPkRtic76PEOrb1bBDEoW8fqqpLHo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=MXyOED1Pjd4xTEvV8jSfvzY23W6XxN+/dWp+FdK1RDUDBsXV6l7E8zYac5KO34F3J9/9y5cpq/Rx6B29wzdOsjmZIG+3xXM/SYWNVsDAOAed1AgF2/7aZYyRfGYjjkuLaWqsx4RM9wLVCEZ8ruqUmElLBqLR5Muh7/POuAYmaic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJ2+7PXX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A1uBqEnN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 538861F000FF;
-	Fri, 18 Sep 2026 09:30:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJ2+7PXX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB4271F000FF;
+	Fri, 18 Sep 2026 09:31:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789723862;
-	bh=jUkv5B4pUOLxWKcrJ90ETrNmPqz8J2MnsOKX2jmyHv4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A1uBqEnNDp4mapzjtRXODSu6/BBte8RVWokujt+OS4A12yrHyExHF0j7OXoB0U0LO
-	 VCwOZBeCBbPPusOtU+vU+Lk6/uEc6GfXvxkQjTBvIsrYP+IO7yDC5ceHdu7LXCpn5u
-	 BpMNelI/Z2NsM/MxxtaiFMsJtx5LBCKOATr1qAorj6Jt6jzowkjovGJCQ/rIVyaAxI
-	 fxs4Dn/bWwSPqytRV8RRsmCxGu1bMYFg8/mdPvuVeJnOW/TObFWznWQjMU7RSRZ5Ds
-	 u7AP4mTm1GTBzAznQTTvD+Rs4gkjOtJzpXhzX5zH8xsoLxS//lK9aeBIg9ZeCBvZRE
-	 IojTcHoJa044A==
-Date: Fri, 18 Sep 2026 10:30:56 +0100
-From: Simon Horman <horms@kernel.org>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Pantelis Antoniou <pantelis.antoniou@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>, Jeff Garzik <jeff@garzik.org>,
-	Scott Wood <scottwood@freescale.com>, linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] net: fs_enet: fix platform info memory leak on remove
-Message-ID: <20260918093056.GG51261@horms.kernel.org>
-References: <20260916031414.2875022-1-lgs201920130244@gmail.com>
+	s=k20260515; t=1789723878;
+	bh=q/6D673KNUj0CgskaDcgX/3a6KKrhwBSVGi57Q+uxGk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=DJ2+7PXX04ev9Sc9en7UiJZBPJa6suA/p1drNursm2NVCOb5kKfnO4OOc9htWsoJn
+	 YkXBQwlg+ue7XIxDoSae/trYEdIrNoSNyA7xfrh1rIRo8hV3zc5aAVYWtE9a2Qauhb
+	 VZcTEaaddc98Luc6MMEbcxQr++/5OLMR9E+JgsViJtrZH4uKguoG5m9/5zTqhojiTc
+	 zNAVbdrb782eVuV8uWgLCCQqQzTLXaK602IuBaafa0Nsfz4lVDMcbleOvhFBi5EOle
+	 J7FbOpfuOfu5lLWQC8qvwrbLKgj39Uz89qTiFb7TwigDcclHw6i7GW1X4JlYAynQhq
+	 zShKexqvO4C+w==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Shuming Fan <shumingf@realtek.com>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ Arnd Bergmann <arnd@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260917135950.405423-1-arnd@kernel.org>
+References: <20260917135950.405423-1-arnd@kernel.org>
+Subject: Re: [PATCH] [v2] ASoC: rt766: fix HID dependency for
+ SND_SOC_SDCA_HID
+Message-Id: <178967312351.285745.16568648284564941465.b4-ty@b4>
+Date: Thu, 17 Sep 2026 20:25:23 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916031414.2875022-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1123; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=+x1vsXeiK2OueYvPkRtic76PEOrb1bBDEoW8fqqpLHo=;
+ b=kA0DAAoBJNaLcl1Uh9AByyZiAGqtBOKhaQYvZp632ujQocl8o8spiAZthffsUZiR85d77htwd
+ okBMwQAAQoAHRYhBK3maKpnVxi1n+Kf6iTWi3JdVIfQBQJqrQTiAAoJECTWi3JdVIfQEGEH/ian
+ eDY2tzfJZH5KdZzVkLv/gLC0PfHh0nXciGVLNZLau/fRq2pL73AYzZ9Sb5Gm8tb83ckeBqN5H7D
+ 0AZICoHb+eRlfnK9un8TDL/bdTatMgDMLFyaZ82eJNMrsYzgcmD5hXhMmYbf6b4mbOy+RTFhNpj
+ jnlMBRaQn08tyfwsRWtycSdz3XcTr9Rjm41Bl1jbJbzXYKgSV6gtXq90YKTnsXCxvjZNQg/4MUl
+ yXEWyeg9Upi8SMHjLqiVMDQj3BlnZcpVHd2HT8xokbn+D0IvcrYB+3dtv7+YbIAwSdiPnn/6jCJ
+ 9Vbe5VNNbVq5PDm1AmYbv4lN8wCpwlsyodRZDtQ=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, Sep 16, 2026 at 11:14:14AM +0800, Guangshuo Li wrote:
-> fs_enet_probe() allocates the platform information structure with
-> kzalloc_obj() and stores it in fep->fpi.
-> 
-> The probe failure paths release this allocation with kfree(). However,
-> after a successful probe, fs_enet_remove() tears down the network
-> device without freeing fep->fpi, leaving the platform information
-> structure allocated after driver removal.
-> 
-> Free fep->fpi before releasing the network device.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 976de6a8c304 ("fs_enet: Be an of_platform device when CONFIG_PPC_CPM_NEW_BINDING is set.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+On Thu, 17 Sep 2026 15:58:51 +0200, Arnd Bergmann wrote:
+> ASoC: rt766: fix HID dependency for SND_SOC_SDCA_HID
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+
+Thanks!
+
+[1/1] ASoC: rt766: fix HID dependency for SND_SOC_SDCA_HID
+      https://git.kernel.org/broonie/sound/c/8d78e4f906cf
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
