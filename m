@@ -1,71 +1,111 @@
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96DF8359A91
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:39:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273B639B49E
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:43:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789619943; cv=none; b=D9GIhLIg28bN834tjdJ1FvEM7+GLPz0I7qCQo0qeAkEovQGgG7Dvbsp8UzY4UIMgAuNJJ+f8Zu8oXc48bXu29/7j9vXAD5WFQ2dxVAMpEWpdCXCIdTGsdz0NNqFP97CftZDP6quVFoQR1MBhCvUiiLw4HWD+RceHAtB9QXAbVck=
+	t=1789620232; cv=none; b=ubM1DBZ3vMWLKyJcs9qDkKmtgRwLeoC3bKMAUuFlWHqACpOZ6EnF2JeKZEVHfYwFiBOgKowjA4epFRJUQ2aDhrO25xmZBp+PH/i4kKDBWt8Q8g+K25vsWUCgQJj4dH/bNiWZhzxx81SlpxRZwqDysOvNV9J9OKuQnz0cFvPhXF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789619943; c=relaxed/simple;
-	bh=zRWoQcnt1AtrFvd89D0l0IA9kzku33Jra670bmlv2I4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=W7QW0XvogW8hfhhkyY6Y6ydH6fKu2TncKVs+Mi0idoLzqhSKBVoBG9OYzp1uvHiSU8ToiIIAOEw5RKA+Dps30bu6QtdppGpf82zLhE64uKPLZOxuNspN6u9McNL9fBHNwklI4g0KR3Rl5WFR/XtGEzlI3PVV70gUe/M+hS/QHOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-45eb9967696so677221fac.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:39:02 -0700 (PDT)
+	s=arc-20240116; t=1789620232; c=relaxed/simple;
+	bh=bvxNinmhhArVjCNyHtBoEX2+g0Xz/lQjyb7Hd/sVE8U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VE1tUaOe8l83fLLUGcmf8j6Sb9i+lufYwDRX3+4isP7UTPgLhI4OYd5YGSAYf4Dm09BdwLJM85BzdOtx1N8yuNQMCKDdyOOYz+7G42QRBJDru4NQPVzYkidxmLTMnAOCErodTr9R034iXp0CmbgDQuRbcBTRuVVmsUeGXjz7GrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R7R7fXMo; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R7R7fXMo"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39e03468a5fso368012a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:43:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789620230; x=1790225030; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=adrTALwJCdcmS4nJH3ZIST48L5iXRSGsY1/xx0Jbnik=;
+        b=R7R7fXMoUUKi3MBE8SCzPrJ2GG+XxmRDvJpQv7DfRtmVLWfYlWZO8W7ap+Bhqk+caK
+         fRjhAU7JSaQLQJSGzLtLTldHV1kSGrPJxbDN8ACwPA3pRtPc5fw0vH3H23LizOvegohe
+         H1JN4ReDkQoRGyAE0RIwIhRogbMPYaSAoKrray7ma2tvuY6pL/P+NQiSrFfQGG2/mOYW
+         HJJNBxsLRJ/iJFwu4IgSNVo8PIv/cuUVUTCgLfBGLOh+RIjsdcfB/UBWlCS0t/Y36IjV
+         CDTnkz/2bYYbY1+z5bGXGxkpeVfRXiKy0caKRRW6I1ui/ZW5smJMF+k3+mllYX10TGoX
+         HmaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789619941; x=1790224741;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OaAy1tcZDeHgpl08AKhiq6q7MhDpc3vUc92NrQsRQN8=;
-        b=2Otn3Rkw3CgQWzrrp6rDtTneXiv+qM2b4KTUbp6taLr2j7PQq2wXz36R46FsIj2NRW
-         ptRYnETs7DMKwne5YCRrE6hP8RnrP/DEUTmMhxLgyPEhDLzksE/X0DgKkw+4fmpWKkwP
-         9bnYou0vaBcKI8zs/NwRt6ik+7HuVcoI3NxGvmlwm+xlzklq/18K1f1HHbzG/GQRIPUl
-         T0Z601ys0XPshvCqBwI1OadW9EFVORPezifhmcU/pumj4vpPBMmF8vojU3obz5gna9S1
-         PZKmcstHv8vXMAh2rU5dNZH2+QGF4zhnm3tSmY4D2n+eLMysxMULBAj1z/3uB+tIDdaV
-         +ktw==
-X-Gm-Message-State: AFuF++kpES/DrfCSBJem6SLiQNQ1qrrl6IaCjPbkorEB3gk+POeyYWq1
-	+CydFkenR4MkRuJh+cK9ocSL6p98G7JXKEsBniuNdl7vuKQmwVIszWInxcu0idI+tBA4jZxg5Ca
-	86fPPNLqefJMnRtTP8K2zZUjKUs9/Rc6zwT16ijUY0XzN6YAGufPnC1HjnGw=
+        d=1e100.net; s=20260707; t=1789620230; x=1790225030;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=adrTALwJCdcmS4nJH3ZIST48L5iXRSGsY1/xx0Jbnik=;
+        b=K7J4qSQQhJP9IaIruiZWecHsUO3HrtQ8QhYYH9Hm2pPbjYmq/hVwb2Jd2mwmt1BY6z
+         NOcLUULuRgLjXBYab6nnCJBCHJbrw+r7wyxqLOdYgugaCzzzPocsEwhtwmlq3RmkF6YA
+         Q7bI4CEYBzgMEJyZMQreEdlvfOeps3iO1vy9EC6jIa2rxJDMxPCJYt5FnF2JfSDWvs/Z
+         8k0vpf/E86l+w+zlauw+ZEb+7gx1nSNVhX+N4VrAvzJhyzMNYOnvXPQ7q818vzAgH4Dt
+         jqUQpiSkOans/tiqhAT9xzPXSji1hVm/Gz3bHQa23JjJCkGwIbIqO2Os54bHo1fXybKg
+         +iYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwX1LRrRHlMvs3eLCNrIegCHa+5Hx88hWFDhXr0Vq/bzIRM2oJFWWefQ1vZPRc/0xPoH/7yCRcAxmIiB3I=@vger.kernel.org
+X-Gm-Message-State: AFuF++n54EiVOezfROclD2Tamrh+ajhjkOCMLfIQbTyU0fc7ByI0QMiz
+	Y0C5QzRCy0fyoTN2AeA8Iw+eFoLDvoL5moUIUeorlXPwFSX8l11T7uBL
+X-Gm-Gg: AYBFou3YyPXaXZ2A1AOYs143K1b/J0dPPEXf7SdoVdeAJhG7uXeo4LHgtOXPm/9LnvD
+	uu4dCp3/D2H8n9fwSRw0uwLmC/cBkqPodtOs6ciHjzxlz6XhejYowddQVb28xs7MyPI1rc1/TBh
+	7lqPwPjTaC1xZinshE3ylpIvSsGrqgTUCDVt+MPSFi5/2ci/qRn/ZKykJ5QTwb3wPdtepq8wTOL
+	YPWI6Qz5zp1S5/zrdW9wokRs/I77v9SlMEgJ/kPqEd5T0dZHaegb+ZZ65gCJOwtCj9WPxJpjWfR
+	IIBuANgQZ9ZX/bFTY/Ajwo+lKEK2W2/6iDoY1QRg3nt2IV1jk2yT4Eew5kbh0E7nQHOUppSFEuT
+	0j4uhgdMQQKtuHmWmtpSLuooZ1mAbUNUaKepjKGwdc2Cl7LFtDYq6NwxQIu+3+Xk/1t5azwWVRm
+	i++pdeyZYY4Ry7HVoN6MA8kC0pCECm+6k9YZ14acWAxXOwlXyal5PGaqO07l1YGw6JhQ0dCTEEP
+	+qmy+/PxIAhnqtTyZhTLm4yc3dahUyZhyFzYG99HSSTuOBPqzv1/0w=
+X-Received: by 2002:a17:90a:6c8f:b0:39e:345b:3322 with SMTP id 98e67ed59e1d1-39e345b3c87mr3872140a91.23.1789620230172;
+        Wed, 16 Sep 2026 21:43:50 -0700 (PDT)
+Received: from casta ([2401:d800:9045:4f1a:4e6d:4c1f:5b78:9e96])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e360a6c8asm3038405a91.13.2026.09.16.21.43.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 21:43:49 -0700 (PDT)
+From: Nguyen Duy Nhat Anh <neganhat@gmail.com>
+To: code@tonyhicks.com
+Cc: blum@kernel.org,
+	rdunlap@infradead.org,
+	chenyichong@uniontech.com,
+	zhangzekun@huwawei.com,
+	ebiggers@kernel.org,
+	ecryptfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com,
+	Nguyen Duy Nhat Anh <neganhat@gmail.com>
+Subject: [PATCH] fs/ecryptfs: fix slab-out-of-bounds read in ecryptfs_verify_auth_tok_from_key
+Date: Thu, 17 Sep 2026 11:43:26 +0700
+Message-ID: <20260917044326.41276-1-neganhat@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:c93:b0:6c7:6c8c:148e with SMTP id
- 006d021491bc7-6c8fe7cd3f0mr1362957eaf.30.1789619941609; Wed, 16 Sep 2026
- 21:39:01 -0700 (PDT)
-Date: Wed, 16 Sep 2026 21:39:01 -0700
-In-Reply-To: <CAFJkwZw8hjL7xSTayRqbVS37RYYENU5XFTgT0b90J05dG3gVXg@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab6ee5.71f81b7d.278072.0011.GAE@google.com>
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
-From: syzbot <syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, neganhat@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
-
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Add a bounds check in ecryptfs_get_key_payload_data() to ensure the
+key payload datalen is at least sizeof(struct ecryptfs_auth_tok) before
+returning the pointer. This prevents out-of-bounds reads when userspace
+supplies a short payload via add_key().
 
 Reported-by: syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com
-Tested-by: syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b9529ebe6a9394ddf825
+Signed-off-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
+---
+ fs/ecryptfs/ecryptfs_kernel.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Tested on:
+diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
+index 58165928ed1e..3baccd4143e8 100644
+--- a/fs/ecryptfs/ecryptfs_kernel.h
++++ b/fs/ecryptfs/ecryptfs_kernel.h
+@@ -124,6 +124,9 @@ ecryptfs_get_key_payload_data(struct key *key)
+ 	if (!ukp)
+ 		return ERR_PTR(-EKEYREVOKED);
+ 
++	if (ukp->datalen < sizeof(struct ecryptfs_auth_tok))
++		return ERR_PTR(-EINVAL);
++
+ 	return (struct ecryptfs_auth_tok *)ukp->data;
+ }
+ 
+-- 
+2.55.0
 
-commit:         f6e7b42b Merge tag 'sysctl-7.03-fixes-rc4' of git://gi..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1481ebf9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=e909ffe6b35dddb7
-dashboard link: https://syzkaller.appspot.com/bug?extid=b9529ebe6a9394ddf825
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=161658c9580000
-
-Note: testing is done by a robot and is best-effort only.
