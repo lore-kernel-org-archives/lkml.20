@@ -1,93 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035344CEE59;
-	Thu, 17 Sep 2026 10:59:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C274C4B0E2F;
+	Thu, 17 Sep 2026 10:59:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789642763; cv=none; b=lJfRqlAFYrZm2Xiew0q9K+sPPhhVpSppmlKAq1LfoXhTGT6TD5GO6O5hN3VpOpfxk6clMwzPj6YcETl0Iokrf7Pzs2BoFa3JS2HDGn0KvhVABY6xVPbFqUQMWUTOpVSlcG5Nb3x/q60qOg14HD9461SB2fqkr3lWgUsZc21BDTM=
+	t=1789642769; cv=none; b=NZuCAE21QrGNAkeu2dPINmocZqyfXKN9yzVCNoEyby093urWTnEhIcY2yqkw8noAferjO9zIG/UQcP3sV0NmDYQPvsfkRyob3sdIKPmwN38uyEEKix/ua4FgPHRtQTCCjWDenKo4Gc65il/78wOrx6g86Xaj4fG34Dc0FJ6ShaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789642763; c=relaxed/simple;
-	bh=CHGV4JYlQV7akQZQcx72HkUsV2pU8Q4RRKrijUBPgOo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A3yeoqscNLL44UyWY0vbvgD/1pi0RJuM1sx43RIPvWlmoJf7ncvdcg7uNJJ9QIv3SxmVeA467HelZHRokb2bgsB7GxR5njKwO7AoGmUyALwZmP6g4rB+teuzlSQCIWMDzmyQaoBmQl4Tfrs0bWUbuIryeFiP+A3+GXbZaQngexw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M0EEFDum; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789642769; c=relaxed/simple;
+	bh=rtq+KPDWjAOe8tvlJSjm0uLXI5F0yzZs7OGN9p0kt1M=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=INkxkMx1xh/8eX+I6ylFCfAeOxiKK+erXQf3qS7faTbcFfmZqB1A8KUqnFXivzG7VE0PqPBfOKEiPMOSLpZr3Syan8Ubn0FM48CZ7g1Nawz4k2rD1rm6ZjL9p8g5pSxD6Xoe6nInwAuWbuz7vDLspZKddBkHaKvKVIInXOW7Svo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFkfgEEA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M0EEFDum"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64C4D1F000FF;
-	Thu, 17 Sep 2026 10:59:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFkfgEEA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E157A1F00898;
+	Thu, 17 Sep 2026 10:59:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789642753;
-	bh=1zF2k/1AehTFbSxmRgz0xYeOXP0/eZLM3SXpAvN1Vqw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M0EEFDumKF85IWdtgeR1Dq0CpMU/JhVBYIcgwI2VU2Cekv+gsFXHwlVQefS1+8JnY
-	 Z2PiOVLgV1Lj6YSw4pGUbGVMVgZPg/ukXl36tL/HyzdSTZ5HeYCXysL8En8QgQGIL5
-	 USBA6IfecTHcgBtLuhg8Af05IopRrnE5mm8NUlVyW3Q6SpLeQdw7ug63swCq4pfnTH
-	 r6dJJpJ+kEpNoWaJLDn+vV960wFu6qA//lRFQHnqWVMwPJYHauId4ZTSk6VD43luPa
-	 31kbgiPdKizDMFFJ9hhpJtKu/rBvOVKqAHi9XkF0pJfVSYwhuma0dpL5aOf/pD2zBm
-	 v2IRCOF8UumyA==
-Date: Thu, 17 Sep 2026 11:59:08 +0100
-From: Lee Jones <lee@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
-	pierre-louis.bossart@linux.dev, linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com, mfd@lists.linux.dev,
+	s=k20260515; t=1789642756;
+	bh=8pvb3DrQTOeiip8i/IQe7dJP7/pPWH7CBfuHAq/9GoM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=CFkfgEEAfb4TssHRW4txBICPiBcbUS2rNEE8waAlHV0plSW9FG1AHr93v902SYLd8
+	 A0pdE3yBg01GQAl2o07+sJdflrXa2lPLrDbFxps1XpXURChdVNzIh0Tl0X965+Gtgo
+	 M3qPMJBoOMT6dyXJeIpGTkN/D9AETxVrMExYoh9/SdrO9lN1oDfqfXQhesBz43QJ0Y
+	 JLGbfBpnROj/zhvuM3iX+iWJAyb5sq0eXlDLcrSuxLuptHtNVD4mlZ9kclveLVa2kP
+	 TUF/GbihNlluTkfPtBe2rIOhr8cdNEfEHSzNu8sFmMtk8SC6Y64rago8pTSOuV2YW+
+	 IHF8p3JH4SzoA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x79pi-0000000A32Y-1qZt;
+	Thu, 17 Sep 2026 10:59:14 +0000
+Date: Thu, 17 Sep 2026 11:59:14 +0100
+Message-ID: <864ifo5ekd.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Xi Ruoyao <xry111@xry111.site>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Gavin Shan <gshan@redhat.com>,
+	Yuan Yao <yaoyuan@linux.alibaba.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add SoundWire detach helper
-Message-ID: <20260917105908.GI1605367@google.com>
-References: <20260831140157.1736905-1-ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH v3] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
+In-Reply-To: <CA+EHjTw0U0d91Cv4NYEJvUuT=JabwZeeYwpZ2P1xyVeOVX46Ew@mail.gmail.com>
+References: <20260911104715.307500-1-fuad.tabba@linux.dev>
+	<868q5579ol.wl-maz@kernel.org>
+	<CA+EHjTw0U0d91Cv4NYEJvUuT=JabwZeeYwpZ2P1xyVeOVX46Ew@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831140157.1736905-1-ckeepax@opensource.cirrus.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, catalin.marinas@arm.com, will@kernel.org, james.morse@arm.com, ben.horgan@arm.com, xry111@xry111.site, mark.rutland@arm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, seiden@linux.ibm.com, gshan@redhat.com, yaoyuan@linux.alibaba.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, 31 Aug 2026, Charles Keepax wrote:
+On Tue, 15 Sep 2026 19:51:00 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> 
+> Hi Marc,
+> 
+> On Sun, 13 Sept 2026 at 11:00, Marc Zyngier <maz@kernel.org> wrote:
+> [...]
+> > > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> [...]
+> > >  static void cpu_hyp_init_context(void)
+> > >  {
+> > > + u64 pfr0 = __read_sysreg_by_encoding(SYS_ID_AA64PFR0_EL1);
+> > > + u64 pfr1 = __read_sysreg_by_encoding(SYS_ID_AA64PFR1_EL1);
+> > > +
+> >
+> > Why not directly read_sysreg(id_aa64pfr0_el1) and co?
+> > __read_sysreg_by_encoding() is useful when the encoding comes from a
+> > variable, but it looks odd in the case of a literal sysreg.
+> 
+> It applies the arm64.nompam override, which is what
+> finalise_el2_state() tests. With the override set, EL2 setup leaves
+> the MPAM traps alone, and a raw read_sysreg() would still see MPAM in
+> the ID registers, so KVM would write MPAM2_EL2 on exactly the firmware
+> the option exists for. I'll add a comment.
 
-> Currently, if a SoundWire driver takes an action that causes the device
-> to detach from the bus it needs to be careful. There will be a period of
-> time until the detach is recognised by the core, if the driver
-> immediately
-> calls sdw_slave_wait_for_init() it is possible for that to complete
-> before the detach has been recognised. Leaving the driver with a device
-> that is potentially not ready for what follows.
-> 
-> To avoid this race add a new helper that drivers can use to inform the
-> core the device will detach. This clears the enumeration completions
-> ensuring that sdw_slave_wait_for_init() can't complete until the device
-> re-attaches.
-> 
-> This is the third part of a longer series of moving these slave
-> attach/deatach operations into the core:
-> 
-> https://lore.kernel.org/linux-sound/20260512103022.1154645-1-ckeepax@opensource.cirrus.com/
-> https://lore.kernel.org/linux-sound/20260608102714.2503120-1-ckeepax@opensource.cirrus.com/
-> 
-> I have based this series off Vinod's soundwire tree as that probably
-> makes sense for which tree to take it through.
-> 
-> Thanks,
-> Charles
-> 
-> Changes since v1:
->  - Correct kerneldoc
-> 
-> Charles Keepax (2):
->   soundwire: Add a helper function to indicate a device will detach
->   mfd: cs42l43: Move to core detach helper
-> 
->  drivers/mfd/cs42l43-sdw.c     |  2 --
->  drivers/mfd/cs42l43.c         | 15 +--------------
->  drivers/soundwire/bus.h       |  6 ------
->  include/linux/mfd/cs42l43.h   |  1 -
->  include/linux/soundwire/sdw.h | 26 ++++++++++++++++++++++++++
->  5 files changed, 27 insertions(+), 23 deletions(-)
+Ah, good point. A comment would help indeed.
 
-I can take the set with a Soundwire Ack.
+Thanks,
+
+	M.
 
 -- 
-Lee Jones
+Without deviation from the norm, progress is not possible.
