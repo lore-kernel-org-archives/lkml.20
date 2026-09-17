@@ -1,126 +1,144 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2FA4B7A41
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9784251118B
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:20:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658413; cv=none; b=suNWvnFw/By8bVloC4sprUJk0pPqMbO8coG9th1+jlePywYg43cgNA3SfFjvgauxW+caZUKfv+ecbnKwCtmac0fD1v3mHa3f98dnPs8FlgYb9FzvNUojQH4fFnQMouwx+bt/N+QSW9C8lrxXvlOn1iWHMsyjJzGmVFsDM8ySheY=
+	t=1789658421; cv=none; b=plkmUKFsI0ijJk4n0B2RFtnSCxipdaalTaE523tE9QBlytW8vrhIDq1nDoLM7FKq9UUSmJ7bZh4wlzKUgOHIwnTFxdXC5XqrDEsN9xUnxHXAaleR8udcxrltL4+W7bc1Lf2pJbFCaZF/nqbUb6HD1K93mlh1WKohXlg6UBLBtPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658413; c=relaxed/simple;
-	bh=Pr16IcWXUqBGT/dN8eDlUegItuWHeJylL28MXbSDECs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=GaJrw2kyVWCZEH+eDX/Wtj6HL1U8egSn/ZtdC0+2hgs9GKPRCGwUw+dWYjvm7rJX98nWfCLp1pNNsZN6t9BKbyWhIqPNvqhh7s3WgplmasPD4z1IEqxs80OR78otXaH4/e2L/G16LJCdWaDLrlfgR7FoEJwdUqdhqPLnusgvvbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W+MNZ6aL; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HN/kWEtL; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789658421; c=relaxed/simple;
+	bh=d6UKzQKyPiGJsGM+Qu7tJG56YQxLOxqIMP9yGCsnkHs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UYV8+SlxHnCErFKs7bi+bt4bmbHJ9Ui9eAninSNutnoremoYP4WSE70vu8E+2s47niL5haxesRnSt8U2if9tfHRUZZOZFbCk5f9q1q0x09PLLcC3F/jYOkOKUcKTBkj1fhQAcnO2A/Et3V3E/mHawn/esaKEjYj3uxFZna19ZO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ULytia+7; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W+MNZ6aL";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HN/kWEtL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789658401;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GB+o9a7/ALUFm3hEwLKClWS3yWNFMi9GdQLNbpiNa3g=;
-	b=W+MNZ6aLv1ziAepYMPkXQDY3+p/4DTdR1M45hNpUD8IP4g84J9Zh8ejYgyTb7QEjGgv6Mt
-	faP8DInuTdmHYzmqZxYhytnuKPjCO34XvA8HjPxKYv2T94Qh/5RB+foOKdQZlvbnpSBJ1h
-	V4WtQ+ubqx0VaA9he9YpvysMwaD7GWE=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-91-rNSiMT_rOq2XzHjh2_Ebtg-1; Thu, 17 Sep 2026 11:19:59 -0400
-X-MC-Unique: rNSiMT_rOq2XzHjh2_Ebtg-1
-X-Mimecast-MFC-AGG-ID: rNSiMT_rOq2XzHjh2_Ebtg_1789658399
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91235881828so21647326d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:19:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ULytia+7"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396cccbba92so856214a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:20:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789658398; x=1790263198; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GB+o9a7/ALUFm3hEwLKClWS3yWNFMi9GdQLNbpiNa3g=;
-        b=HN/kWEtLzfPc+mKHSJ0cr16N7LHxVVDX2B1griKK9lTZwzhGd3mOLFNTl9lrf4m61+
-         ynjZnjvEFOtS5Zt44Uvz1UlU6d9K9kEmkhMAb2qfS9sVP4jEGnJCmiXRXoO/k7et8ds6
-         /JRopAPK9UJnhLqxO4UFaOlfSxs+cQzMe+03yVkVn4IZvewaa8w6UsQRGnTPG2rMvexB
-         WfQxcjMmis+0PiACXIJkTVydn/YhtaYo7AB6fYSkrJzA8f79VGA4tlPsbpV/ghCo83G2
-         E2wlJ+ik0c+MdTNR25FBvQ2lhlEC8DaUwcJIkQxNA7Ws03xHOHVxl2hF55ipFNs/r8Ih
-         h7+w==
+        d=gmail.com; s=20251104; t=1789658409; x=1790263209; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rh2mXdJ4Gx0vDgozfrCs3n1I8ixRE20WMk7/6kOasWU=;
+        b=ULytia+7XYXtHm2WEvND6LCK207mHNIP8hvusm8aJJo7ABVuEudD2A1H3v+JF//u3n
+         1Z0qK97I4havFOwM1RBn53cQ2VxbU54go3Z8TPW6Dvdf22v6g4+k7PoFca/tuAl/+VZn
+         a5aBFtPxoyx6I1BNPOLd3jOEIqSAiCJaFiuWuJEP19f9ZpdrQhVc+muYZlcrKoJlIE3A
+         Cscu6fk//V4IyMz5jU+ct2mpxhy1a3N7EknX0BYw02wDHpZ/LtiTvEVkx2xK16Q9H2RA
+         qhtjEGcDK7PVyOI8cQRUiZwcigNrmRVha64Suy3j7Qf8SUz+fTZVz+irvEmUQNG45+WK
+         7DsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789658399; x=1790263199;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GB+o9a7/ALUFm3hEwLKClWS3yWNFMi9GdQLNbpiNa3g=;
-        b=ldemRdPs3uTBG8JV6l/TZDorDSVs3c18BpANMwHCcrPgWxF1C7D+DbgzacJZ2wdyyY
-         DIiIe6sVFG1y9Pr8h7A1t6sMlsejF11JDyUZvJrrN65WyOQTaM1ZdWE7DUKxJ0fHHS8t
-         QymKiSN6zWNV5jcDyg+NLQukSCUpLc82Ul/BsH+SnRlxu5ZQ0F5eI50M6ZMmyfGw4QSb
-         z+5+H3L2fTAbUENRj6+chUhoJijaxT3ns9YZh+TEUdXq5/K9JizAuNGiP74h0jJ746Du
-         xmvoAYTiBoMEuASt9sAzRd41KYR+4txloonXrLjEHMTSDsA9yWwia6KZHv8r0XUJFvUp
-         872Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzxKl1HAZyiQoQGaCYF7MSDUkugceZ9nkQcW8pNKowUjxWUsU559DN7YeIVwoKP7VdFzOdXjmIR9rrcudI=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+xbE8jCUn599mJAlB+OYrxvyvENyQ0vd8ryROuLwDRWHIGq8F
-	eTvAnwKNSc7ILgIRFmaHU1cEc8w2kyulOtpeExEvzvdJir9v0RJ7h2HqjxZmrIh8i8anQ2aVewP
-	gk1aPDp7vq7s9f8kEHbfruLVdtzd9xxtXvtDWBh64hxGcUPePNNzBCdb6STmpaHmKcQ==
-X-Gm-Gg: AYBFou0sqZkOFj+mzDeGcvjAUCovKr0E6lhu5sh3MYMerg+wsA4hKcejgEjFqVITJOF
-	WKe36j20JfdarRI2Wz532INZyd+YaeLmNtlEOWq2NTks0ScrKL7wnhILhr0BDMiYV9PM2XRSLOq
-	/n6pHAjRHTWaioO4ahIA3qQe0PyloPNSzzCotKF9oVEdGqCvfzN6fzpFkm6oDHKFNGI/ikN7tFr
-	KNe7BoRhwCJ4LzFGv46rgZFsUVmAMGIlGKgubkjNLowvglcYKk6IgOU2Sy7fWqqBDftClSnl6qa
-	Z3YrjtqXprT6vrkI1ELUeM4+cH7KWkxmrkeDRTyICxBDWj4c6G/QTTLehuhHJITxhu8Bt8UN5MQ
-	9a1bP4xW7swvw7nbEQYP+aoVecmUNSRBQltzcBG0=
-X-Received: by 2002:a05:6214:4002:b0:912:518e:aac7 with SMTP id 6a1803df08f44-912518eaec4mr13974746d6.58.1789658398489;
-        Thu, 17 Sep 2026 08:19:58 -0700 (PDT)
-X-Received: by 2002:a05:6214:4002:b0:912:518e:aac7 with SMTP id 6a1803df08f44-912518eaec4mr13974046d6.58.1789658398069;
-        Thu, 17 Sep 2026 08:19:58 -0700 (PDT)
-Received: from [192.168.1.3] (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252cc99a3sm112666d6.33.2026.09.17.08.19.56
+        d=1e100.net; s=20260707; t=1789658409; x=1790263209;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rh2mXdJ4Gx0vDgozfrCs3n1I8ixRE20WMk7/6kOasWU=;
+        b=tLz8qTiSDpxRy8/2M0wx/03dGkbIIdTOr/uqUYSUZ1I1t6SKPxpMQIZtWTY5dvoR1J
+         p0wOeg/oe9YlUH60+OOO95qLZdyE3OiS1pKXMcK4HP+E064ZkYLo91jYR8U5Ob03aq36
+         3GpKVQhhK4ulUq0sr4Lj7B1oebQcLDb3Unq7nzzF9qyDOL7WsDsWkeiZZyvzAFhL++iV
+         foUpOTLkKc1LBvBivRtfevuwq4/GcWx8WzamxdHf7d6fOlq3s86GA+9C+D9duqWVoZP/
+         vqilQ9I8KLuKr8L87/fLHhbrIUfr4JnWGBgRCBH+crA9H0pa4ou3Aut+w+KKvv7/xiOA
+         F3rw==
+X-Forwarded-Encrypted: i=1; AKwUvBxEqbmUBsdEJdIhZoiKIkbBbF2vCCZJrhOfLBsfFGoduYqjQ9XAKF5CYFoxR/1k8YsRqdjhbvMc6ybAhns=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDlKT/oZI4YTG5YBKeQ11RYxfgxCBB7CCgYehJg6vNNVhsVdo/
+	Fnh6UtzoCvHA8Iz772v6v67JviX4/vCa59OiPRK/Flhjb4JWbxMYKROa
+X-Gm-Gg: AYBFou1D7Np2TGn6SC/7t0DMv5NyV0PN8IKh+XOeDCaKihNHqMusVDUfJAHXS/a0F/3
+	w5/yfYcuwSIoMxvp+n8S5Omwr43NYr2/UK02Kr74GDPyWs33R0TX/ty4I/2H34FI9bCmcpYsO+5
+	7/EyIiZzPRWxdGqVbxy92KTyOHVDGjJmam0rUEftVfROtbpCMg5dCGcxjNiUgwUuMdxnz2Ll0tJ
+	Zxt+HKM3OMOyKmaH9L1P29u0Z5GcUfurTn/KetJ7HLbvkBHhtP9vW9GMPsYj/P2iH2g39sZyK/0
+	KjIwrdebY2qa2kF6rG7tK8oX0MjF3fq5O9OTQn+eW72puAwWki8jNevsIqLsz+2VEBDN1A7CbmY
+	tbFcv0xlEbLdWf1xe2ayGLvWqt1YahKELJeGdiKcECcWy4qC7itFZ9tZhxlo3W6tbT6Yso+4ZBc
+	fGCSfU2JMayDb2DzRtTFbuqLJtLUTC0UQ/nsCZ9fyY3g4DsMlTVjKtAVLEPcOGSVHabQdO+1hl9
+	i+e9MX1ykPUbJXdh+2nNlc=
+X-Received: by 2002:a17:90b:4cc8:b0:398:c292:ac80 with SMTP id 98e67ed59e1d1-39e1e330a2dmr17165225a91.10.1789658409372;
+        Thu, 17 Sep 2026 08:20:09 -0700 (PDT)
+Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35b589c2sm5556269a91.0.2026.09.17.08.20.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:19:57 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: linux-clk@vger.kernel.org, Rosen Penev <rosenp@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260912000527.231245-1-rosenp@gmail.com>
-References: <20260912000527.231245-1-rosenp@gmail.com>
-Subject: Re: [PATCHv2] clk: actions: owl-pll: cast delay to unsigned long
- for udelay()
-Message-Id: <178965838714.360090.14541070378650623903.b4-ty@b4>
-Date: Thu, 17 Sep 2026 11:19:47 -0400
+        Thu, 17 Sep 2026 08:20:08 -0700 (PDT)
+From: MarkLee131 <kaixuanli0131@gmail.com>
+X-Google-Original-From: MarkLee131 <kaixuan.li@ntu.edu.sg>
+To: linux-ext4@vger.kernel.org
+Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
+	"Theodore Ts'o" <tytso@mit.edu>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ext4: don't read past the UAPI struct in EXT4_IOC_GROUP_ADD
+Date: Thu, 17 Sep 2026 23:19:49 +0800
+Message-Id: <20260917151949.415967-1-kaixuan.li@ntu.edu.sg>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=329; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=GhNGxMokUfeR99zQB1+878eEK+CdEspBfCwGd+WWdEU=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLLWsEodOb+q38dQ7ICrtnytw02ZbZM5hFwlOly9ZjB83
- bTAegZ/RykLgxgXg6yYIsuSXKOCiNRVtvfuaLLAzGFlAhnCwMUpABOZYsbI8ODp/N58l+OBDnbP
- XvKbdj6466NvutF54qImySWL7T/l+zD84di17bXvo7nP/tQ7zY917J6/uNx/Spzc1eYjni/e/8l
- YywUA
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Transfer-Encoding: 8bit
 
+From: Kaixuan Li <kaixuanli0131@gmail.com>
 
-On Fri, 11 Sep 2026 17:05:27 -0700, Rosen Penev wrote:
-> clk: actions: owl-pll: cast delay to unsigned long for udelay()
+EXT4_IOC_GROUP_ADD casts the user pointer to struct ext4_new_group_input,
+its UAPI type, but sizes the copy by struct ext4_new_group_data, the
+internal type:
 
-Applied, thanks!
+	struct ext4_new_group_data input;
 
-[1/1] clk: actions: owl-pll: cast delay to unsigned long for udelay()
-      commit: 46c51c413242870a59f64d3c11df25d6693f6fb6
+	if (copy_from_user(&input, (struct ext4_new_group_input __user *)arg,
+			sizeof(input)))
 
-Best regards,
+The UAPI struct is 40 bytes, the internal one 48.  A caller that follows
+the UAPI and allocates 40 bytes gets 8 bytes read past its object, and the
+ioctl returns EFAULT when those bytes are unmapped.  The internal struct
+has carried the extra fields since ext4 was split from ext3, so the copy
+has always over-read the UAPI object.
+
+The two extra fields are not used from this path: free_clusters_count is
+overwritten by verify_group_input(), and mdata_blocks is used only by
+ext4_resize_fs(), which builds its own group_data array.  The compat path
+already copies the six UAPI fields individually; the native path does not.
+
+Copy the UAPI struct, then set the internal fields from it.
+
+Reproducible on v6.12.9 and v7.2.4 by placing a 40-byte struct at the end
+of a mapped page whose successor is unmapped: the ioctl returns EFAULT.
+
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+---
+Built fs/ext4/ioctl.o warning-free (W=1, x86_64 defconfig) and checkpatch-clean.
+The bug (EFAULT on a conforming 40-byte object) was reproduced under QEMU on
+v6.12.9 and v7.2.4; the fix itself was not runtime-tested.
+ fs/ext4/ioctl.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
+index c8387e6a2c6e..ea3cd8cdae25 100644
+--- a/fs/ext4/ioctl.c
++++ b/fs/ext4/ioctl.c
+@@ -1674,12 +1674,22 @@ static long __ext4_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+ 	}
+ 
+ 	case EXT4_IOC_GROUP_ADD: {
++		struct ext4_new_group_input uinput;
+ 		struct ext4_new_group_data input;
+ 
+-		if (copy_from_user(&input, (struct ext4_new_group_input __user *)arg,
+-				sizeof(input)))
++		if (copy_from_user(&uinput,
++				   (struct ext4_new_group_input __user *)arg,
++				   sizeof(uinput)))
+ 			return -EFAULT;
+ 
++		memset(&input, 0, sizeof(input));
++		input.group		= uinput.group;
++		input.block_bitmap	= uinput.block_bitmap;
++		input.inode_bitmap	= uinput.inode_bitmap;
++		input.inode_table	= uinput.inode_table;
++		input.blocks_count	= uinput.blocks_count;
++		input.reserved_blocks	= uinput.reserved_blocks;
++
+ 		return ext4_ioctl_group_add(filp, &input);
+ 	}
+ 
 -- 
-Brian Masney <bmasney@redhat.com>
+2.34.1
 
