@@ -1,112 +1,95 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED10A46C825;
-	Thu, 17 Sep 2026 10:29:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73BE4C2265
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640982; cv=none; b=KpOi94pgXT+A1yudK7ZSRUibvZQfsMj31CV2tlXCNaFlseJmuMZwwbhDxqPACXNl5A/2cQox5C/+2twnLuc/dBTKjISIob98EahizEtEo+RZoQ2WY9G+ijgSfN3Y8znHEHtmRX/3njrOL7QfyOSjunsPBGZsBqLnnelZz8SGMbw=
+	t=1789640987; cv=none; b=eBn9pZ3wJVap+LwWy93dG2OnNKcQOhIf3MgP9MtQ+DDYn2+ZJWJTizgpx3CyeHVBegjMvunsmjpWYSbw8nlQrvckzosPmycF13QQkesA3u37wbkiwzQKpnKp8dqonU2JlvsWWJjRh6utzfCIsY2v3ZFnBmEN6Z+YXIh4fY+P14I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640982; c=relaxed/simple;
-	bh=EplmcF5setmnsuwtOT6s4g6n7FgvVJt8j2JE47s67G4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=arcx+1t/pnWQ7m/crujWqQgCtJq9SjMyQzx96TVAqIqv5JAfy8N5vU9UF8lbVG/pT+C6RttWfykQCfvBk7X3KNjbBvwMny2beh/Q5EbDUeBAy9yx0Ld8cqVcD/U2C3eEQ38lYSXo0qxEudMfuSBSpW4kLtJFBAlp49cel27ByUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXAj0EwatqHKJ+CA--.635S2;
-	Thu, 17 Sep 2026 18:29:24 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexandre.belloni@bootlin.com
-Cc: bbrezillon@kernel.org,
-	claudiu.beznea@tuxon.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mtd@lists.infradead.org,
-	miquel.raynal@bootlin.com,
-	nicolas.ferre@microchip.com,
-	richard@nod.at,
-	vigneshr@ti.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] mtd: rawnand: atmel: Fix MCK clock leak in atmel_nand_controller_init()
-Date: Thu, 17 Sep 2026 10:29:24 +0000
-Message-Id: <20260917102924.2146959-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789640987; c=relaxed/simple;
+	bh=A2fdU7ZCV46uVFIhqaM+LkYuD7fWh0388vMbNgqTAGM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gtn5YnmIsVJcSuIKElgODdwgnzebWb7TyaOcoZj1+O03l0SGsX019EqQH/eLPHiAk6xMORMYQYM+3nidivQF18j+h3Dx+8tm4jeF5pUxeTbv6OwXYDtqyBXnFCAPR+KClu8BejbUZPzj0QhFYjmnqTqrKiI9jvFN28VeoiFiP+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jV3I3UmV; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jV3I3UmV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD9D1F00899;
+	Thu, 17 Sep 2026 10:29:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789640981;
+	bh=A2fdU7ZCV46uVFIhqaM+LkYuD7fWh0388vMbNgqTAGM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jV3I3UmViUB2+jLzp3yKXMQ3n1CJKdYKHEv8AM79KRyQbDlgrg57uHLfrDvo3ZURK
+	 QlRG+rWr4lSjeEVHGGtGmN6RDlZhH9aFZE7dfZBJ3rX8+8EfY9hzuvd2gzlHidvCyG
+	 eX+SPWfveocWla2CfbtdQSme2Cn3k3qYacGYuGrVUK9tXoVOApqS7opKUlSicdpi2f
+	 UcmPiRkpbscmIcGUAprpKkwJdOp5HEptgQ4p4rLIdVrJMp07vWPZbrO6LIiuG8V2AQ
+	 vkBQ7UUQ+U+rQNMEYVx6d76andzLuLTjhTLRXMB3W2C3hhpaEpcFybAXP0bjTAsJ2u
+	 kCPQDrqx3fq4Q==
+Date: Thu, 17 Sep 2026 11:29:35 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Bo Zhang <zhangbo0325@gmail.com>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, baohua@kernel.org, 
+	kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, david@kernel.org, 
+	mhocko@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Bo Zhang <zhangbo56@xiaomi.com>
+Subject: Re: [PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with low
+ swapcache
+Message-ID: <aqvA_tm8vSLyUWqe@gremlin>
+References: <20260903040131.4016290-1-zhangbo56@xiaomi.com>
+ <20260906011820.382381-1-zhangbo56@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXAj0EwatqHKJ+CA--.635S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4ruFW7urWxtF4DAry7Wrg_yoW8CF45pF
-	Wjqay7Xa1jyF43ZFsFkayxuFyfZa4kJF98C3ykXa4kZ3ZxWa4UXry5tr1IqFWkCFyxua15
-	Z3WUJ3WkZF1UGFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
-	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
-	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
-	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
-	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
-	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
-	vjxUqdHjUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRINA2qrq01RhQAAsm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260906011820.382381-1-zhangbo56@xiaomi.com>
 
-atmel_nand_controller_init() takes a reference to the MCK clock with
-of_clk_get() and keeps it in nc->mck for the lifetime of the
-controller.  If the "atmel,smc" phandle is missing or the SMC regmap
-cannot be obtained afterwards, the error path jumps to out_release_dma
-which only releases the DMA channel, so the clock reference is leaked.
-The callers return the error directly and never run
-atmel_nand_controller_cleanup(), where the clock is normally put.
 
-Release the reference on those error paths.  The path on which
-of_clk_get() itself fails keeps jumping to out_release_dma, as nc->mck
-only holds an error pointer there.
+This is the friendly patch-bot of Lorenzo Stoakes.
 
-Fixes: f9ce2eddf176 ("mtd: nand: atmel: Add ->setup_data_interface() hooks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/mtd/nand/raw/atmel/nand-controller.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+You have sent him a patch that has triggered this response.
 
-diff --git a/drivers/mtd/nand/raw/atmel/nand-controller.c b/drivers/mtd/nand/raw/atmel/nand-controller.c
-index 87d9227f6ecc..d61e84b8bc60 100644
---- a/drivers/mtd/nand/raw/atmel/nand-controller.c
-+++ b/drivers/mtd/nand/raw/atmel/nand-controller.c
-@@ -2086,7 +2086,7 @@ static int atmel_nand_controller_init(struct atmel_nand_controller *nc,
- 	if (!np) {
- 		dev_err(dev, "Missing or invalid atmel,smc property\n");
- 		ret = -EINVAL;
--		goto out_release_dma;
-+		goto out_put_mck;
- 	}
- 
- 	nc->smc = syscon_node_to_regmap(np);
-@@ -2094,11 +2094,13 @@ static int atmel_nand_controller_init(struct atmel_nand_controller *nc,
- 	if (IS_ERR(nc->smc)) {
- 		ret = PTR_ERR(nc->smc);
- 		dev_err(dev, "Could not get SMC regmap (err = %d)\n", ret);
--		goto out_release_dma;
-+		goto out_put_mck;
- 	}
- 
- 	return 0;
- 
-+out_put_mck:
-+	clk_put(nc->mck);
- out_release_dma:
- 	if (nc->dmac)
- 		dma_release_channel(nc->dmac);
--- 
-2.34.1
+He used to manually respond to these common problems, but in order to save
+his sanity (he kept writing the same thing over and over, yet to different
+people), I was created.
 
+Hopefully you will not take offence and will fix the problem in your patch
+and resubmit it so that it can be accepted into the Linux kernel tree.
+
+When sending emails to mm:
+
+New revisions sent in-reply-to mail
+
+Please always send new revisions of series individually, not in-reply-to
+any other email.
+
+The easiest way of accomplishing this is to use b4 [0] (the recommended
+way of sending patches to mm), otherwise format patches like this:
+
+For a patch series, e.g. at v2:
+
+$ git format-patch -v2 --cover-letter --thread ...
+
+For an individual patch, e.g. at v2:
+
+$ git format-patch -v2 HEAD~1
+
+[0]: https://b4.docs.kernel.org/en/latest/contributor/send.html
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Lorenzo will reply once he has dug out from the pending patches received
+from other developers.
+
+thanks,
+
+Lorenzo's patch email bot
+
+[ Idea shamelessly stolen from greg-kh ]
+
+--
+Cheers, Lorenzo
