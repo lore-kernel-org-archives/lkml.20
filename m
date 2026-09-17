@@ -1,162 +1,147 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F054DE713;
-	Thu, 17 Sep 2026 12:21:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8C84E2F0B
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:21:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789647681; cv=none; b=QYUAuVHHcRyiB7lDq4ukZD4/hc0xM60HogSE+sbin+bBSMRyepuxcCWdaQcM9vGWUTSFSgpVtvIi+aigMzGrX7CXT3D0WBTpDCbpbe1tsjTerHftA6DrKTddTevZOi0WuIaLwBsmGHuXOmraHXp87vcjBvMGQa6wgeD30l9lJt4=
+	t=1789647709; cv=none; b=botR+2LDZTMyFz4es3872i/jxmVfibvhvdI3ptWh/SzC0jctZdOVZ5sgKZP3Aj9h76tFqq/XWxmFFab0zsTKeWPlTvXp9ZUTh0zrZe+DMzmj+9Zu0z56hp7j7fqLPIybNboCCHQKyGh6hBKEtAuUdJPHaqDsGEfnuQnj8O5SOUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789647681; c=relaxed/simple;
-	bh=EbcdXFHrGSHSe3avH/oWkWcA7aUvQ9U1pf9dYa9aHFQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=a71Yu71qCkd8JRaOxHGWJPQsXHc6Ho00RnN6CtaLi4ohfm8MyOQ/UPxNnjTvkdwHt98IgGYMIG0wB3myz9BpAaIMxlwwIOc6exFRAvnO3tXqSfot2cKrEl16Iilc7MhgARAJfCDk7L05McJ5rijA/8C0gd8RbXPaQF/U5LxMfzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAB34jwq26tq1mSACA--.2616S2;
-	Thu, 17 Sep 2026 20:20:58 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: angelogioacchino.delregno@collabora.com
-Cc: kvalo@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	lorenzo@kernel.org,
-	matthias.bgg@gmail.com,
-	nbd@nbd.name,
-	ryder.lee@mediatek.com,
-	sean.wang@mediatek.com,
-	shayne.chen@mediatek.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: mt76: Fix skb reference leak on USB/SDIO tx_queue_skb error paths
-Date: Thu, 17 Sep 2026 12:20:58 +0000
-Message-Id: <20260917122058.2150817-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789647709; c=relaxed/simple;
+	bh=p+IXiJ+EE2Fjypax+gxoHE3ZHGysplGrD9n927sEoQk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OSWDIjAuGvr8EVXzS/IVuWRbs1p7O+Kqi1kESrrZhvvk8kQvlislUj9yBE6Sjv55jcJMpX959xREMQpipgOVggbYt1jh3kPG2r8WWhfJAFPzEzxmU2jB3GutXfcb/KHn8bQzsW7cY2cgGq40iMjV8pLfiklT4IIE1MSl8pIDWiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=nLiaUjzu; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="nLiaUjzu"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so5699365e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:21:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1789647699; x=1790252499; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hBTjOuIbpjCrSgc+53G/q1SlCRXTaO4XMWMEj7JJEBM=;
+        b=nLiaUjzu8wf6gCJN+MpVFTZB35jrtNSrgdXW6L9Wpf617bT20by6KPOGVAOJXgoHGe
+         7mRHIqVFSACTPs9GRNKQnbpazlr6Gij/mHQhDOgdQTJebF8I//EF1EPy3t+hhoHmPtOu
+         9+AWEISmriiHd+R1u5W9CFTLm2FslTrqC46+WbKax9+cDHtt+Djt5YQo+dC1G8pSLn7s
+         DVmMl700CywIkAWcblYYr1ynIux/Io3QwOq50iQoEDNAgj5ktYMPpTXBtftlq2A5VjAk
+         9DWAw0pNNOKCW2EX3KphyEiuxoRMTZayY3xzWlys/x8gAdkrpiP0QV0U/E4X+vD1KZII
+         iYXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789647699; x=1790252499;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=hBTjOuIbpjCrSgc+53G/q1SlCRXTaO4XMWMEj7JJEBM=;
+        b=i7e1j+c01t7dsdnRiJF6mkCNwCK6UwHhc4it9sr8ivVo9paSEThUkta+ESp66AXKHJ
+         H3agYvUQf3oUV7sueK5Xd2AaILZFfm0sLLC4BEreeeWOmP9+AZwku6AoQOFzxitOGeSU
+         DZBQhT+aE9awE63xbKdnP/AoVf9Zxob+YgvRjdAZp65U7SeNxU1TYzWYi8uEd9+udpCj
+         7O50+Gjn6wWmLsRSDybNak7tvJuRJnobNc4Q/aV9Gwxm49SG4BVQyHN8sA5KDJc6Tmy2
+         eX/Oio7v3kUJEWannYjKjAvBo7Zte4ldBCYpspWuP9g/qIZecwjxFEfXCdgik8bkJOLy
+         uMlA==
+X-Forwarded-Encrypted: i=1; AKwUvBywS5fJct8S1YfkJmzsJ3uVIUJ/VhI5+/riaV3zQ4mcaFofGgh6LSMJ5KXjS04jtC2VdxiIU1Qevk2WsLY=@vger.kernel.org
+X-Gm-Message-State: AFuF++luXsiINruVWZB0nKZiSJ8c8jnS0w1T7WH/d8bjxXSmWTG2TAyJ
+	ua3z/qZsrJwSBfaNbNDmYdCeZyemy5NWN8teCT9ARtBHTAGurmNOxdUKQ7jUKc5vLdA=
+X-Gm-Gg: AYBFou2gtKfVXpyUnHxmoiR8FY8lmuYv8uofhSL0OoBwBjZbXv5VOZzI4RmIFDAGsRh
+	yVcr2lpRCrt8wM90q8tUyTEhNL7vRxUb/GHbzX8zptf9begrvT/rxfwVXHJ3Eoj8q3wgpbeY77I
+	6DbxYrJ4LZRcMF2uIpu//FNIEgj4NXJaFj3KbvClSt/YczmpMHIf+UR15MzPlxteA2SAyOa4WrO
+	vp8vFk4346L9+uepw6cE1fcGxw9a5jdBfpvgfxbJJQdJ+3lJsMQGKAWWyXEQy7oINm5nnzlw+aa
+	N6pMiuVobgnoTjBwhIR32l9xSBqT5682Msx6OjaE6IEuONI9lUTACPaUQdiBnMpsvrxV68RFpNS
+	aER8Wc1TXTkzsPnwDyNOiv/9+oUef4TPHEFwF4vBjkhkRan6jUxtlCmfIsFCUgx4ZraRNFTD5rx
+	WJj7Q5x7YrA/0QhbudYflgzKXcJFQ5RwAbXOt8PO/ntf6d0mVjz192Gzbz3K+DkRzj2D9zsZ6nP
+	TPwTj6IIu1wjhGW0NU+mZrBKm5cjnNaCqnvOMH97bMQ97u522I=
+X-Received: by 2002:a05:600c:190e:b0:49c:f4ff:e872 with SMTP id 5b1f17b1804b1-49eb7314d54mr75624565e9.5.1789647698761;
+        Thu, 17 Sep 2026 05:21:38 -0700 (PDT)
+Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd1ce79csm81949715e9.0.2026.09.17.05.21.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 05:21:38 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Thu, 17 Sep 2026 16:21:30 +0400
+Subject: [PATCH] i2c: rk3x: Do not dispatch stale pending bits after a NAK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB34jwq26tq1mSACA--.2616S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGr1kZFy7XF47uryDZw48Xrb_yoW5Aw1fpF
-	WjgrWYkr18Jr4UG3Z7ua1UX3ZIya1rKFyakryfW34rurWrAr15XFWI9a42vrs3trs5C3W2
-	qr1ktrsxWrZ2qrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
-	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
-	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
-	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY
-	1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
-	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
-	07bnXd8UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgNA2qrrRmKFwABso
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-rk-i2c-stop-v1-1-e6ad83d8c888@flipper.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrE3SdqHhKmJBTRkSpINIGndXL
+ N/i/whCgUmgyiIEOll4XRJ0noEb22Ug5D4ZjDKFKrXFMCMbh7KvG3qvSNuOlLY9pGIL5Pn6bnX
+ zW45uIre/C7jvB3WgLmlvAAAA
+X-Change-ID: 20260917-rk-i2c-stop-ff0e17be017d
+To: Heiko Stuebner <heiko@sntech.de>, Andi Shyti <andi.shyti@kernel.org>, 
+ Max Schwarz <max.schwarz@online.de>, Wolfram Sang <wsa@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-i2c@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2125; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=p+IXiJ+EE2Fjypax+gxoHE3ZHGysplGrD9n927sEoQk=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWStvu3LHF2g33ulsnL7R2OZ6QF3zs/u2rRTOGtz+CQ5D
+ +u+vQ0yHRNZGMS4GCzFFFnmfltiO9WIb9YuD4+vMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
+ oZGOsY4RAxenAEx19WGGf8aTBR7cs2K0+fjW/3j61vLEVw2u+pzG1kl7Wldc/L2TR5uR4ZyJlmP
+ y/9DXb1hK9Ex+x3sE7VGaU2tq+W3m/nmP3aU4mAA=
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-The mt76 queue ops take ownership of the skb handed to tx_queue_skb():
-the DMA implementation releases it through ieee80211_tx_status_ext() on
-every error path, but mt76u_tx_queue_skb() and mt76s_tx_queue_skb() just
-return the error, so the reference is neither queued nor freed.
+A read that gets NAKed raises NAKRCV alongside the spurious START flag
+which the controller sets on every read. The NAK branch acks NAKRCV and
+calls rk3x_i2c_stop(), moving the state to STATE_STOP, but the leftover
+START bit survives the REG_INT_ALL mask, so the state machine below runs
+once more and dispatches it into rk3x_i2c_handle_stop().
 
-mt76_testmode_tx_pending() relies on that ownership transfer, so it leaks
-the extra skb reference taken with skb_get() whenever the queue is full or
-tx_prepare_skb()/mt76u_tx_setup_buffers() fails.
+That path finds no STOP bit, reports a bogus "unexpected irq in STOP",
+replaces -ENXIO with -EIO and calls rk3x_i2c_clean_ipd(), which clears
+the pending bit of the STOP that rk3x_i2c_stop() has just started. The
+completion interrupt is lost, so the transfer only ends when the 1s
+timeout expires, holding the adapter lock and stalling every other client
+on the bus.
 
-Release the skb on the error paths as well.
+Return from the handler once the NAK has been acted upon.
 
-Fixes: b40b15e1521f ("mt76: add usb support to mt76 layer")
-Fixes: d39b52e31aa6 ("mt76: introduce mt76_sdio module")
+Fixes: c41aa3ce938b ("i2c: rk3x: add driver for Rockchip RK3xxx SoC I2C adapter")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- drivers/net/wireless/mediatek/mt76/sdio.c | 13 ++++++++++---
- drivers/net/wireless/mediatek/mt76/usb.c  | 15 +++++++++++----
- 2 files changed, 21 insertions(+), 7 deletions(-)
+ drivers/i2c/busses/i2c-rk3x.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/sdio.c b/drivers/net/wireless/mediatek/mt76/sdio.c
-index 8bae77c761be..ef82af1f905c 100644
---- a/drivers/net/wireless/mediatek/mt76/sdio.c
-+++ b/drivers/net/wireless/mediatek/mt76/sdio.c
-@@ -526,13 +526,15 @@ mt76s_tx_queue_skb(struct mt76_phy *phy, struct mt76_queue *q,
- 	int err, len = skb->len;
- 	u16 idx = q->head;
+diff --git a/drivers/i2c/busses/i2c-rk3x.c b/drivers/i2c/busses/i2c-rk3x.c
+index fcede9f6ed54..7629ea7b6ac2 100644
+--- a/drivers/i2c/busses/i2c-rk3x.c
++++ b/drivers/i2c/busses/i2c-rk3x.c
+@@ -507,8 +507,18 @@ static irqreturn_t rk3x_i2c_irq(int irqno, void *dev_id)
  
--	if (q->queued == q->ndesc)
--		return -ENOSPC;
-+	if (q->queued == q->ndesc) {
-+		err = -ENOSPC;
-+		goto free_skb;
-+	}
+ 		ipd &= ~REG_INT_NAKRCV;
  
- 	skb->prev = skb->next = NULL;
- 	err = dev->drv->tx_prepare_skb(dev, NULL, qid, wcid, sta, &tx_info);
- 	if (err < 0)
--		return err;
-+		goto free_skb;
+-		if (!(i2c->msg->flags & I2C_M_IGNORE_NAK))
++		/*
++		 * rk3x_i2c_stop() moves us to STATE_STOP and arms the STOP
++		 * interrupt. The remaining pending bits belong to the state we
++		 * just left, so stop processing them here: dispatching them
++		 * into rk3x_i2c_handle_stop() would report a bogus "unexpected
++		 * irq in STOP", replace -ENXIO with -EIO and clear the pending
++		 * bits of the STOP we are waiting for.
++		 */
++		if (!(i2c->msg->flags & I2C_M_IGNORE_NAK)) {
+ 			rk3x_i2c_stop(i2c, -ENXIO);
++			goto out;
++		}
+ 	}
  
- 	q->entry[q->head].skb = tx_info.skb;
- 	q->entry[q->head].buf_sz = len;
-@@ -544,6 +546,11 @@ mt76s_tx_queue_skb(struct mt76_phy *phy, struct mt76_queue *q,
- 	q->queued++;
- 
- 	return idx;
-+
-+free_skb:
-+	dev_kfree_skb(tx_info.skb);
-+
-+	return err;
- }
- 
- static int
-diff --git a/drivers/net/wireless/mediatek/mt76/usb.c b/drivers/net/wireless/mediatek/mt76/usb.c
-index 632ae755c7a6..837b0b251b05 100644
---- a/drivers/net/wireless/mediatek/mt76/usb.c
-+++ b/drivers/net/wireless/mediatek/mt76/usb.c
-@@ -861,17 +861,19 @@ mt76u_tx_queue_skb(struct mt76_phy *phy, struct mt76_queue *q,
- 	u16 idx = q->head;
- 	int err;
- 
--	if (q->queued == q->ndesc)
--		return -ENOSPC;
-+	if (q->queued == q->ndesc) {
-+		err = -ENOSPC;
-+		goto free_skb;
-+	}
- 
- 	skb->prev = skb->next = NULL;
- 	err = dev->drv->tx_prepare_skb(dev, NULL, qid, wcid, sta, &tx_info);
- 	if (err < 0)
--		return err;
-+		goto free_skb;
- 
- 	err = mt76u_tx_setup_buffers(dev, tx_info.skb, q->entry[idx].urb);
- 	if (err < 0)
--		return err;
-+		goto free_skb;
- 
- 	mt76u_fill_bulk_urb(dev, USB_DIR_OUT, q->ep, q->entry[idx].urb,
- 			    mt76u_complete_tx, &q->entry[idx]);
-@@ -882,6 +884,11 @@ mt76u_tx_queue_skb(struct mt76_phy *phy, struct mt76_queue *q,
- 	q->queued++;
- 
- 	return idx;
-+
-+free_skb:
-+	dev_kfree_skb(tx_info.skb);
-+
-+	return err;
- }
- 
- static void mt76u_tx_kick(struct mt76_dev *dev, struct mt76_queue *q)
--- 
-2.34.1
+ 	/* is there anything left to handle? */
+
+---
+base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
+change-id: 20260917-rk-i2c-stop-ff0e17be017d
+
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
