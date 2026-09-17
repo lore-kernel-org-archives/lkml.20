@@ -1,129 +1,100 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD33754DAC0;
-	Thu, 17 Sep 2026 13:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0706654DADA;
+	Thu, 17 Sep 2026 13:48:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652890; cv=none; b=Kf0YuXBz3dFhlf5tBBJafArw2PZEV/VIPMvpmrH0uSIqI1fdrw0C+wdg259gtNfzS5a2YLftgsl1DhZL/Cji5rryiQxjbuWk6csMekc8zd5vk4jnV9j5XUu04QriliOlt3BfYxOn7+oYx5GiPuBGamKAsgIUSxXoKUOK6+LGLTU=
+	t=1789652904; cv=none; b=qAdU5x5wwpsYoqJBTe+P+6GJXK9QozwGK/DPuxoWAnxUd8iOJyrUz77y1HMDs9ZROtF9gWkIr8Ih0eDLOGvPO3eeHXzhpuyEY2KUsOHMpqsAaHhUkE3boBFv15X9JtsSAr8achdK0406fRM+0eySwFQoDSDEN7xV1Moiq7fQE4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652890; c=relaxed/simple;
-	bh=+q6xDl34YUOS8Avf5cU8XdLmZVvvs+tZYTzpjpHrFfE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=m8hMVkQl3fvSjB5mXo311wXQxOuf+xZ1pP7P9vBh3Yz6BGqgOiAg96gnzgf7f/R3yS7JUg9qRww4+zOfrpGpUDgf8d6a6HcRLfNQiAVeJcfL9h5XgzyurDiNiV3H9b+0y0QSPKn1AHrx+fBqcicvoywlXKlLMqLZkTO5BaXTKqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=AJQr/362; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="AJQr/362"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=FJzQcNI6ERpoXaAHSV1A2WIicaI84oaHobrpffLzFwo=; b=AJQr/362+8Dn/1bQmS3G6lbGp9
-	TQhbJJirbYuCXe79pG2OsxmjdEIi6JcALZvo57jSw1uhKe9RFGPJw30oEcnRKXHHNaAzFC+gTUHhj
-	KDHi01VMQK1ej46sFVY5tYAPnueEnTfkRUcWEWxUEYBqtOZDOjeuXLT2SRSD2TOZY0r+H/Dgcib6C
-	fAsu9JS0QREFQk8gteX2rDKndhp4XeGbolWPn0WzntUgO8z76QlUyIZdJWDemmsVZfgzJsvSiEhcA
-	LHUNlW3wPsyeXpd2njRns35wwSaIdUjo5pa40ulSxNPEYVVj+7uMKgC02Oqd6PnXCIoCyippBQNZl
-	TAgrazaQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x7CT4-005zBu-0p;
-	Thu, 17 Sep 2026 13:48:03 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 17 Sep 2026 06:47:37 -0700
-Subject: [PATCH 3/3] mm: kmemleak: raise min_unref_scans to 3 for verbose
- auto-scan
+	s=arc-20240116; t=1789652904; c=relaxed/simple;
+	bh=FtoDbAwUNEAcVuzYKJWUIZPIEF5psBdBgH5jYE+cz/k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Lvj/iSlhmugF2A4KZzUzxnENONWczLckdUrJ9rfdd6rJhPm/kn3M4oR/B7mP9+12kPqbEbpenFrf4wMDPiB6ps+NqSeD0eQPToktoLOb12NjAFZWJGIn9Ngx7RXcGCB0WkrdW5xtWaG34o8kaTpjm8AdQsdjgadDqq8gVZeD/+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAB3pkCb76tqlceBCA--.3932S2;
+	Thu, 17 Sep 2026 21:48:11 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: linusw@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	schung@nuvoton.com,
+	ychuang3@nuvoton.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] pinctrl: nuvoton: Fix clock reference leak in ma35_get_bank_data()
+Date: Thu, 17 Sep 2026 13:48:11 +0000
+Message-Id: <20260917134811.2153902-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-kmemleak-doc-v1-3-84fde6d1f749@debian.org>
-References: <20260917-b4-kmemleak-doc-v1-0-84fde6d1f749@debian.org>
-In-Reply-To: <20260917-b4-kmemleak-doc-v1-0-84fde6d1f749@debian.org>
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Breno Leitao <leitao@debian.org>, kernel-team@meta.com
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2472; i=leitao@debian.org;
- h=from:subject:message-id; bh=+q6xDl34YUOS8Avf5cU8XdLmZVvvs+tZYTzpjpHrFfE=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqq+97HiS12bKDm59NAUX6612dYs4+CKNi1kW0B
- Sye5XuP6jWJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqvvewAKCRA1o5Of/Hh3
- bRXZD/9gOr2ZVF/m47Q7MyVKTJ/pd5BoLlLNCHSYpmV1T8x5aMO9Pc6TVnsLOVtlO3cpWIA7+YN
- fanPS0vkin+q7U47J2sLd7XHMVOEGmEE7Qr0MZ1c4GcTZpg/edkYDZgQ2Rjtd/wigKKdyl0a44/
- 3uKSmBukPPCeq+E2F7yx87ERv5NANBYmU1crrR1O3imSN6PDVWiZtXM7Y9PtByrSc/bcJl70Q/5
- zkpns8QDBr/QgSclq8oWGlva5LQt8bZIqRKz+VwngVR97OOX7y1H6KSBZGQaCmyhEy1AgvjDEMT
- f4FVVk242Z93y7HdXp2W9ZHNhdcenhDoQrlTJcqsrpFQRv4fTt8tfwD/IuNuX9Rfv7XIO5rBxEq
- UIDPmahLS9rXcQk+pOSSHV4cGogL66IEPC52bGcRlPNyGdE2rcuJr7CqtU6gWYxMLtuhQwZcYW/
- gT05/1Rz8p39fm8ccG930jhfh/uNteROrYxEE8r7Z1Uh0yp6smXjt9IavDkHyt4ljbz4QDVXN1g
- bX0kvFKB0eDTlPw8R3o9ct57FyoqFTCE/3PFtB3hPCuwrevYTfdun50E3AFy1uaKaea1UiAprJH
- 4/o+AWUdDBxBAn9QuWm645trNK/QV2k8aZ0JpS5oqbHLE2GK23ba6FYH/FeDn7LYNdbcKu8+bgb
- EYLTQSDazJ6jmAQ==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB3pkCb76tqlceBCA--.3932S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar4xtF4xJr1fXF4fKF4Uurg_yoW8XF47pa
+	9xKrWYkrW3JFWvy3yDA3yUAFy5Ka1Iyr1UK348Ka4vva13JFyUJFy5Ka48AF4vkrWrCr45
+	Jr43AFyq9r45JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UNTmhUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcNA2qrq3bTQQAAsB
 
-CONFIG_DEBUG_KMEMLEAK_VERBOSE sends every report to the console, so a
-transient false positive there is broadcast to whatever collects the
-kernel log rather than sitting in the debugfs file until someone looks.
-That asymmetry justifies being more conservative than the general case.
+ma35_get_bank_data() obtains the bank clock with of_clk_get() and
+stores it in bank->clk, but returns clk_prepare_enable() directly.  If
+that call fails, the reference taken by of_clk_get() is never dropped,
+and the driver has no other clk_put() for it.
 
-Require one more consecutive unreferenced scan before reporting. The
-only cost is that a genuine leak is reported one scan interval later
-(600s by default); the value stays writable at run time through the
-module parameter.
+Drop the reference when clk_prepare_enable() fails.
 
-Kernels without CONFIG_DEBUG_KMEMLEAK_VERBOSE keep reporting on the
-first unreferenced scan.
-
-I've been running constant upstream kernel with
-CONFIG_DEBUG_KMEMLEAK_VERBOSE set, and I am still seeing some rare false
-positive, that goes away with min_unref_scans=3, so, making it the
-default based on my heuristic.
-
-Signed-off-by: Breno Leitao <leitao@debian.org>
+Fixes: f805e356313b ("pinctrl: nuvoton: Add ma35d1 pinctrl and GPIO driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- Documentation/dev-tools/kmemleak.rst | 2 +-
- mm/kmemleak.c                        | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/pinctrl/nuvoton/pinctrl-ma35.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/dev-tools/kmemleak.rst b/Documentation/dev-tools/kmemleak.rst
-index b5fe7e671d0f8..c0d3293723425 100644
---- a/Documentation/dev-tools/kmemleak.rst
-+++ b/Documentation/dev-tools/kmemleak.rst
-@@ -206,7 +206,7 @@ the minimum age of an object to be reported as a memory leak.
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-ma35.c b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
+index f01344201628..c94c4adb2125 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-ma35.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
+@@ -557,6 +557,8 @@ static int ma35_gpiolib_register(struct platform_device *pdev, struct ma35_pinct
  
- The ``min_unref_scans`` module parameter requires an object to be seen
- unreferenced in that many consecutive scans before it is reported. It
--defaults to 2 when CONFIG_DEBUG_KMEMLEAK_VERBOSE is enabled, where the
-+defaults to 3 when CONFIG_DEBUG_KMEMLEAK_VERBOSE is enabled, where the
- periodic scan thread confirms a leak on its own, and to 1 otherwise. A
- value of 1 preserves the historical behaviour; higher values filter the
- transient false positives described above, at the cost of delaying genuine
-diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-index 8fa409a4f9fb2..5d0daea93c471 100644
---- a/mm/kmemleak.c
-+++ b/mm/kmemleak.c
-@@ -238,7 +238,7 @@ static struct task_struct *scan_thread;
- static unsigned long jiffies_min_age;
- /* consecutive scans an object must stay unreferenced before reporting */
- static unsigned int min_unref_scans =
--	IS_ENABLED(CONFIG_DEBUG_KMEMLEAK_VERBOSE) ? 2 : 1;
-+	IS_ENABLED(CONFIG_DEBUG_KMEMLEAK_VERBOSE) ? 3 : 1;
- module_param(min_unref_scans, uint, 0644);
- static unsigned long jiffies_last_scan;
- /* delay between automatic memory scannings */
-
+ static int ma35_get_bank_data(struct ma35_pin_bank *bank)
+ {
++	int ret;
++
+ 	bank->reg_base = fwnode_iomap(bank->fwnode, 0);
+ 	if (!bank->reg_base)
+ 		return -ENOMEM;
+@@ -569,7 +571,11 @@ static int ma35_get_bank_data(struct ma35_pin_bank *bank)
+ 	if (IS_ERR(bank->clk))
+ 		return PTR_ERR(bank->clk);
+ 
+-	return clk_prepare_enable(bank->clk);
++	ret = clk_prepare_enable(bank->clk);
++	if (ret)
++		clk_put(bank->clk);
++
++	return ret;
+ }
+ 
+ static int ma35_pinctrl_get_soc_data(struct ma35_pinctrl *pctl, struct platform_device *pdev)
 -- 
-2.53.0-Meta
+2.34.1
 
