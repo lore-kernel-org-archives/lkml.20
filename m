@@ -1,87 +1,123 @@
-Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4D5A95E
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:10:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F76B4EA361
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:10:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789647061; cv=none; b=RY+x9KMtADyBEOXaI3n7QBb5TVjvQSgetk8JOjl2QFiA60sfUo/J4iwFLiASezizUX15uQtbhZqwg8GC0HBw2LKa0nUOkeb/OdMzzf4rxQd9pK7YUxFGkJIZKXv62kSsr1bWbMrgeoJgvSKv2gEsuNLWcgKgFTf94al836D3AmY=
+	t=1789647062; cv=none; b=omJT1scFHG2iA3TgiYlbvhtyZAkim7L+biQGzmALANEiZ4Eur7g1aUjljNoLunocoLUKNkZF3urMsCRtOh8oC5QuOjiL0HWZqfslshbXmDPLMdzZ+Uah4ZGkxQalEcMcJdFW8OpdDPo6wlVXhci2V2pAHC14B+G3we6Z5q9w0d0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789647061; c=relaxed/simple;
-	bh=47vcZ904lW3a6rNy/Fy96vjfGFEJ8yr3KRqKx1ywsiU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yv1T77MurGEM8/iF7m3ABG9oBkDgziy2gXcz7Lxvpi42YraVk1mqSXF0WMck3pNAkY8izw5P+lk7si+sumbLvmMWnrEmb0LrTT2tPCexn7UGBHLM03YW/J/Rw6mntMbnF6v7NqPSXvqnkxz/EXKd6SSq30caRy84rFES20nMdLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=u1YnfjAG; arc=none smtp.client-ip=91.218.175.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789647062; c=relaxed/simple;
+	bh=R/LUprRLLIwHn62Aa6X+Qeen23stIshNt80hL1nPc3A=;
+	h=To:Cc:Message-Id:References:Date:Mime-Version:Content-Type:From:
+	 Subject:In-Reply-To; b=bM7Zx8VHjonZwYRht9uy5dcTKsGi519TlV80Y7Xp8IZkqGCv6URGBV1a2Yw4f0QJX0c8y2PjETD/d869hbAnP8IJTnvxYEV/mFnDxeoJL0kCuqSjNr+q14SkyqEzqmxa4FaH8aIcxdBLVDjNLHajURWCNYyx2+QJMq0RBI7RRVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=eiYvEvni; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="u1YnfjAG"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=47vcZ904lW3a6rNy/Fy96vjfGFEJ8yr3KRqKx1ywsiU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789647035; v=1; x=1790251835;
- b=u1YnfjAGiN5FUhnln2+X/676E2irZhLeKYEPvFPpUaHzWhYAYIheDL21c0PBRGXXBpoc/oD4
- SMnPtdlGZ1+xn2iCciyZbvjqQQZfOCHJLS2iHBIzlUxKuQ32z/Jy3f+L+vSNgX1pARRhBiRRhOm
- ptcY+6DhH8x9L9kQI2AR+m5I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 44dfbe1cd77953d7;
-	Thu, 17 Sep 2026 12:10:18 +0000
-X-Mizu-Trace-ID: 44dfbe1cd77953d7
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: akpm@linux-foundation.org,
-	david@kernel.org
-Cc: ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] mm/huge_memory: disallow raw PMD mappings of the huge zero page
-Date: Thu, 17 Sep 2026 20:10:10 +0800
-Message-ID: <20260917121010.60966-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="eiYvEvni"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1789647046; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=/M6XW7TajI5wGVtKhZBxGWB0mPjI/XpBYPgZ/W1nlaQ=;
+ b=eiYvEvniDk/QnafpoHOXZg2e8cRAS7+or5s6fQLVpUw52Drmwxw+4BDEWuejbElHLkFggy
+ LPjCXo8AQ34r3KqsAYHppkX/kEebXDzFvKSr/TWCzxIYrdZyRNos6oRqLUUANzTFOPmk1X
+ aHi2D1EXcY9IeXTQN/y6T4JRWhUIlzkNh8DTHN5zFjfuzsoSxultY3rQuN3RR1QxKO6ba6
+ Onx/Ecmb+y5LxWlB6La+TpLB6EOVojFauEL5XJ6UGVmcG0t61zDIUgebTCiCDKb6bw4s/X
+ di30M59xD036NKOwoBxBJkg9LKXfc4vBLqU00gYgSIEtQkAXJdx+hhPGZdOG3A==
+To: <bpf@vger.kernel.org>
+Cc: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<john.fastabend@gmail.com>, <jakub@cloudflare.com>, 
+	<jiayuan.chen@linux.dev>, <edumazet@google.com>, <kuniyu@google.com>, 
+	<pabeni@redhat.com>, <willemb@google.com>, <davem@davemloft.net>, 
+	<kuba@kernel.org>, <horms@kernel.org>, <daniel@iogearbox.net>, 
+	"Zhao Gongyi" <zhaogongyi@BYTEDANCE.COM>
+Message-Id: <20260917121016.48171-1-zhaogongyi@bytedance.com>
+References: <20260915071743.29394-1-zhaogongyi@bytedance.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Date: Thu, 17 Sep 2026 20:10:16 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26aabd8c4+6b47c4+vger.kernel.org+zhaogongyi@bytedance.com>
+Content-Transfer-Encoding: 7bit
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Subject: [PATCH bpf v2] bpf, sockmap: reject max_entries > INT_MAX in sock_map_alloc
+In-Reply-To: <20260915071743.29394-1-zhaogongyi@bytedance.com>
 
-vm_mixed_zeropage_allowed() validates zeropage insertion into
-VM_MIXEDMAP VMAs. No in-tree user needs to insert the huge zero page
-through vmf_insert_pfn_pmd().
+From: Zhao Gongyi <zhaogongyi@BYTEDANCE.COM>
 
-Return VM_FAULT_SIGBUS if vmf_insert_pfn_pmd() is asked to map it.
+sock_map_alloc() only rejects max_entries == 0 and otherwise allows any
+u32 value.  sock_map_free() then walks the sks[] array with a signed int
+iterator:
 
-Link: https://lore.kernel.org/linux-mm/f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org/
-Suggested-by: Kiryl Shutsemau <kas@kernel.org>
-Suggested-by: David Hildenbrand <david@kernel.org>
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
+	int i;
+	for (i = 0; i < stab->map.max_entries; i++)
+		struct sock **psk = &stab->sks[i];
+
+When a SOCKMAP is created with max_entries = 0xffffffff (UINT_MAX), the
+allocation of 32 GiB can succeed on large-memory hosts.  During free the
+counter reaches 0x80000000, wraps to INT_MIN, is sign-extended by movslq
+and turned into a ~16 GiB negative offset from stab->sks, pointing far
+below the allocation.
+
+The faulting access is an xchg() write in sock_map_free().  Without
+KASAN, the same out-of-bounds write can fault on an unmapped vmalloc page
+or corrupt an unrelated allocation if that vmalloc address is populated.
+On a KASAN kernel with CONFIG_KASAN_VMALLOC=y, the shadow check for that
+address hits an unmapped shadow page and oopses first:
+
+  BUG: unable to handle page fault for address: fffff521b59c5a00
+  RIP: 0010:kasan_check_range+0x107/0x190
+  Call Trace:
+   sock_map_free+0x93/0x190
+   map_create+0x68d/0xb30
+   __sys_bpf+0x21e/0x2e70
+
+Vmcore confirmed stab->map.max_entries == 0xffffffff, stab->sks ==
+0xffffc911ace2d000, and the faulting address sks + (s64)INT_MIN * 8
+exactly at 0xffffc90dace2d000.  The same buggy path is reached on the
+normal close()/bpf_map_free_deferred() path whenever such a map is
+destroyed.
+
+sock_map_alloc() used to bound its allocation size through
+bpf_map_charge_init(), but the bound was dropped when rlimit-based memory
+accounting was removed.  Reject max_entries > INT_MAX at creation time so
+the signed iterator in sock_map_free() never sees a value that would
+overflow.
+
+Triggered by syzkaller and reproduced on both a 6.6-based KASAN kernel
+and the upstream v7.3-rc2 kernel.
+
+Fixes: 0d2c4f964050 ("bpf: Eliminate rlimit-based memory accounting for sockmap and sockhash maps")
+Signed-off-by: Zhao Gongyi <zhaogongyi@BYTEDANCE.COM>
 ---
- mm/huge_memory.c | 3 +++
- 1 file changed, 3 insertions(+)
+v2:
+- Correct the Fixes tag to the commit that removed the allocation-size
+  bound.
+- Clarify that the bug is an out-of-bounds write reachable without KASAN.
+- Add Daniel Borkmann to Cc.
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index bfd972b997f9..c02f21ce4f4c 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1728,6 +1728,9 @@ vm_fault_t vmf_insert_pfn_pmd(struct vm_fault *vmf, unsigned long pfn,
- 						(VM_PFNMAP|VM_MIXEDMAP));
- 	BUG_ON((vma->vm_flags & VM_PFNMAP) && vma_is_cow_mapping(vma));
+ net/core/sock_map.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/core/sock_map.c b/net/core/sock_map.c
+index ca49bc7f8..38df84284 100644
+--- a/net/core/sock_map.c
++++ b/net/core/sock_map.c
+@@ -41,6 +41,7 @@ static struct bpf_map *sock_map_alloc(union bpf_attr *attr)
+ 	struct bpf_stab *stab;
  
-+	if (unlikely(is_huge_zero_pfn(pfn)))
-+		return VM_FAULT_SIGBUS;
-+
- 	pfnmap_setup_cachemode_pfn(pfn, &pgprot);
- 
- 	return insert_pmd(vma, addr, vmf->pmd, fop, pgprot, write);
+ 	if (attr->max_entries == 0 ||
++	    attr->max_entries > INT_MAX ||
+ 	    attr->key_size    != 4 ||
+ 	    (attr->value_size != sizeof(u32) &&
+ 	     attr->value_size != sizeof(u64)) ||
 -- 
-2.39.3 (Apple Git-146)
+2.39.5 (Apple Git-154)
