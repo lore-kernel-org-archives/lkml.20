@@ -1,127 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477AC57C715;
-	Thu, 17 Sep 2026 14:03:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7E257C715
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:03:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789653792; cv=none; b=r425y4BddfUnL1WJcBB5j7wiWJolhpVlxOqlvnjF6sIVnyvNv/WXivj0HeGwrzUuDX5zabAI2XPyU+b7AmhuxwcRDIJPvoS2BoG7T4iyEYKtaIaFBnpz9FYXf3Jthq9tdqcUUT+NGg1bIyu+sLev1qfZCUC8yP1/NQDToBkXWWQ=
+	t=1789653798; cv=none; b=QXmvC/qkWSFepTzRR7qpB9fGpFJFiVaGILtm3VaQfjfIjTmw43UmFs0kbCtbinMc/BtnBwCfz4epfMCwGl+FEiT7alr9fPyesvTNTpMh8f/lj6no6fJdrGwqLG4dcfEjshBPc8sbGOXlTMS83Al/Tpc6cJD9vPePIrk8E96NDKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789653792; c=relaxed/simple;
-	bh=YZtKoM/a/CTrNr/NXer57PB2adeZTwdJ8R2O9Ner4K8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iM6m4Q18QgpUMOH3lTIUK68RpXl2NJgi4X0dCJH8lOyEO209sBOkIG0FBNTClPpR7ZxDT1CATGCLMHq+aDGP/hj8th5O9q6JqvGu25tv2+XrzM36jO+uIi7olPJ7k5jajd6lD1nji9UNFMsNQY+MpuzGSEnS6Euu4/75oJCSfsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dRWob39+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789653798; c=relaxed/simple;
+	bh=UbmtoRcQhGI6r6gk3HqT124AFhHJf8sbcEvBw8bmEJQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AXJE26k9C8P5ZiHuDU14WvvxlqXYhnArbHFuwuU4E9vRc4FO79Pvz49H+T/TPf3SPzFajQiH+bjw4oI0LwlSU5faYwm0HBrNSKLFRk7zaGiRAxRHdAQQqmkzFBYrOPaE5Q/MjKmFz0iuVvozbe/ttF4zG9AYwzFefMxzyzVJ+ao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DW44A5W9; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dRWob39+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 423901F000FF;
-	Thu, 17 Sep 2026 14:03:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789653789;
-	bh=7tyAQCrPqe5cIWkqIQCLhlpGkaY0VQtDzrIlPeSjyt4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dRWob39+RraIzMlZG3LBxOO2hKuUT7THDy8C0/wJ89Yywu1x0HlCbt4lOaZIdAZQn
-	 ltEf9WHXYocjXLrOTfTrU0qeJ8EKDxlLGRu1wN0yB8du85E2pYhC0Eut5qYau3Tyyv
-	 X5XhABAG8tp/hlGGfPVQeGz8ZUFiMwL10g0RkWJm/p4X9rOfHf9Q2YQJEgiDivA70/
-	 vSip73qkiTsA6r2Ygavempb2x6hUTzRzRajK35XKU9PHr5mUp1iq02sCXKuABlqQxo
-	 rnwa3IeyDlX8lz2+bWLA4Nt2yuKrp8gEyQ/gARu8VijemMA2rw7jWwhrm+R2+NPPFg
-	 C+70w6J85sdAA==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: [RFC PATCH v6 04/11] iommufd/viommu: Keep a reference to the KVM file
-Date: Thu, 17 Sep 2026 19:31:52 +0530
-Message-ID: <20260917140159.1163281-5-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DW44A5W9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789653797; x=1821189797;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UbmtoRcQhGI6r6gk3HqT124AFhHJf8sbcEvBw8bmEJQ=;
+  b=DW44A5W9T4L9NTRnQB3d7u5kT24PFFN3noR79JK+y2NkyU6GmKZFAIK4
+   fk+sfIOIxpI4ol7+V6Z0euh9D7bppty96Ds4krjO44x/bk2cm614Jz0ak
+   D0Iut1GTvXPgHnL9W7NQcX+Cf5fQUsrOSKU8IFlX6eUfBWayHlnyKmgNT
+   5LqtRz4dio7y7XohmfXMd2ZdZfYd76VsPUVP7HT0QcGrBBpXBzlEX41RM
+   220ho18vI6La7w19uVcPDDuhEY+yttBs/Fb7azTEypQOmz22afA2FfSbW
+   LEtrcqT8slwol7yByhjQsfQnIarf6I0QvFR1TAVWFhy+MKHQ6mlXkwvqD
+   Q==;
+X-CSE-ConnectionGUID: nkq66FjBSIO2h2ZyrKCQzg==
+X-CSE-MsgGUID: 0pl/L1VeTYW3q5KLMELmBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100674391"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100674391"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 07:03:16 -0700
+X-CSE-ConnectionGUID: oRv6ED30RkivZkkjjXAfSA==
+X-CSE-MsgGUID: Efotv8S7TkyMYsj349Uc9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="267571221"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.246.73])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 07:03:14 -0700
+Date: Thu, 17 Sep 2026 17:03:10 +0300
+From: Tony Lindgren <tony.lindgren@linux.intel.com>
+To: David Engraf <david.engraf@sysgo.com>
+Cc: pmladek@suse.com, rostedt@goodmis.org, john.ogness@linutronix.de,
+	senozhatsky@chromium.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] printk: Remove console options before decoding the
+ name
+Message-ID: <aqvzHtWzLZBFY5wk@tlindgre-MOBL1>
+References: <05107b0b-394d-4023-bbd5-8efef73f5542@sysgo.com>
+ <20260917060754.37315-3-david.engraf@sysgo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917060754.37315-3-david.engraf@sysgo.com>
 
-From: Nicolin Chen <nicolinc@nvidia.com>
+On Thu, Sep 17, 2026 at 09:05:51AM +0300, David Engraf wrote:
+> This fixes a regression when a console option includes ':'. Commit
+> 7640f1a44eba ("printk: Add match_devname_and_update_preferred_console()")
+> introduced console=DEVNAME:0.0 hardware style addressing by looking for a
+> colon. If the colon is part of an option the name is handled as devname
+> instead of ttyname.
 
-The TSM vDevice operations need access to the KVM associated with the
-device's vIOMMU. Save the device's KVM file in the iommufd_viommu when the
-vIOMMU is allocated, and take a file reference so it remains valid for the
-lifetime of the vIOMMU.
+Just curious, which console did you hit this issue with?
 
-Release the reference when the vIOMMU is destroyed.
+In any case, thanks for updating the comments:
 
-Based on an original patch by Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
-
-[nicolinc: hold kvm's users_count]
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
-[aneesh.kumar: Switch to use kvm_file]
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- drivers/iommu/iommufd/viommu.c | 5 +++++
- include/linux/iommufd.h        | 1 +
- 2 files changed, 6 insertions(+)
-
-diff --git a/drivers/iommu/iommufd/viommu.c b/drivers/iommu/iommufd/viommu.c
-index 4081deda9b33..bf5d58d55939 100644
---- a/drivers/iommu/iommufd/viommu.c
-+++ b/drivers/iommu/iommufd/viommu.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /* Copyright (c) 2024, NVIDIA CORPORATION & AFFILIATES
-  */
-+#include <linux/file.h>
- #include "iommufd_private.h"
- 
- void iommufd_viommu_destroy(struct iommufd_object *obj)
-@@ -11,6 +12,8 @@ void iommufd_viommu_destroy(struct iommufd_object *obj)
- 	if (viommu->ops && viommu->ops->destroy)
- 		viommu->ops->destroy(viommu);
- 	refcount_dec(&viommu->hwpt->common.obj.users);
-+	if (viommu->kvm_file)
-+		fput(viommu->kvm_file);
- 	xa_destroy(&viommu->vdevs);
- }
- 
-@@ -76,6 +79,8 @@ int iommufd_viommu_alloc_ioctl(struct iommufd_ucmd *ucmd)
- 	}
- 
- 	xa_init(&viommu->vdevs);
-+	if (idev->kvm_file)
-+		viommu->kvm_file = get_file(idev->kvm_file);
- 	viommu->type = cmd->type;
- 	viommu->ictx = ucmd->ictx;
- 	viommu->hwpt = hwpt_paging;
-diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
-index 0a0bb4abfbd2..3267717f676d 100644
---- a/include/linux/iommufd.h
-+++ b/include/linux/iommufd.h
-@@ -103,6 +103,7 @@ struct iommufd_viommu {
- 	struct iommufd_ctx *ictx;
- 	struct iommu_device *iommu_dev;
- 	struct iommufd_hwpt_paging *hwpt;
-+	struct file *kvm_file;
- 
- 	const struct iommufd_viommu_ops *ops;
- 
--- 
-2.43.0
-
+Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
