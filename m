@@ -1,443 +1,601 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BA6484887;
-	Thu, 17 Sep 2026 16:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E53C516168
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661493; cv=none; b=CTe3iZsrc+H5SDm6beLFmIe9pnHJ15LKNZ4zoSCEU8+u7KIHXSVYJX6kniRAfO2w7tdH0MVqy2+fhW5OAYQhjXBTpac82YUEPPlTVoYCq5w4GzUtQyelMXRftV8/udYoN5bv+OFfxAL/V3d+XMfNIEnc2+Tvu+I4hhjVZuunsJg=
+	t=1789661503; cv=none; b=bDsp8iDZQFhe19VrZ/QEj7JEmBOHIUZFb6UGkv+F183qJwZAcatDljnADa/WdzK6OQpmcvnbvs3ILrDdWR54Hz6mYaesMq/8Hw+1+gFcy9vpMqk/CW5Bj8HZIBG1SDaeXyi11yw4xjxdQyU+XjSf5nlqDTe7/9a9jbEcdUlvgZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661493; c=relaxed/simple;
-	bh=XLq14amChtVLngFo7FeTSWjQHy+Obkh+WCgmm2oxHMc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pWyKO8SB0SqTtCri/AiGTsu2hlT1nO0fERAYL06HsycqaMtJeilD/JmxRAc/ArJV9vYVhULY6rH0dWqum97ZXkH9KMGDmS6foU6OOlR/0kTAm9iRSp/hLUKhIXw3kXg8L7SA+n5tsI6tT99wx14jzczhwILGutonO7Py35p41TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5weQJSP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789661503; c=relaxed/simple;
+	bh=MAgHPugn9Mlm7BgzvpvgPqx3rEl1axLfGpnTHt/jbiE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MxcDW7gHbVm8TjhaLP3BrLHl82vE5/MO8QMSwyStMFzwdNcMwAv2KIsz+NOAOKiw9fnG8W9Y0eExITSVW1xV8GnJAanKZVGXlWug/JH6CzvJuUmhFMONlJ++G4cY4pmLZ89zEQb5EvXkTYDnPUyHWBWhQW9JRCCUAmx9HKVySlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fdM+MhJK; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5weQJSP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D5E21F00893;
-	Thu, 17 Sep 2026 16:11:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789661491;
-	bh=/OQVXbZ93H+3QSEAtwzj3ljgELqCMLc3VT6YdacFU4k=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=B5weQJSP8V6Visa/kHLA06nPztj/wPEcskitFHaO9ubuaSbQ9iqEiWD/jAuF3FmiB
-	 dGqhhavruo3mkhZ5WgHM7rsZDAzIouGfYSz43Cj5socIXgFl540QAYsAWai4y3rKU9
-	 XwxtLhUQDNncgMGoUmK9Cn+Tnd/4KY6eNgiHkHhVnVYso3mDHORKCVuWV2m7BHUuJo
-	 PY0gCeHtflfnk4+xP/weq/sCbrCBrTMYZPLXka9LTIU9s/wPlkOZOffN7bSJxsQBK/
-	 uIL4sGW2Kou37zdQQR7vE35juMLTNZQDG4xRyXBauGre7Eb3PKSg7Dja7/w+nTCNty
-	 R8MEN4oMI7FtA==
-Subject: Re: [PATCH net-next v16 5/6] net: dsa: mxl862xx: recover switch stuck
- in MCUboot rescue mode
-From: netdev-bot+sashiko@kernel.org
-To: daniel@makrotopia.org
-Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, gregkh@linuxfoundation.org,
- rafael@kernel.org, dakr@kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- netdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
-Date: Thu, 17 Sep 2026 16:11:29 +0000
-Message-ID: <178966148996.22033.4317503843038112442@kernel.org>
-In-Reply-To: =?utf-8?q?=3C1b6f092c5c93f34b6905e5f66f8498bdab6eeb23=2E1789477?=
- =?utf-8?q?568=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
-References: =?utf-8?q?=3C1b6f092c5c93f34b6905e5f66f8498bdab6eeb23=2E17894775?=
- =?utf-8?q?68=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fdM+MhJK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789661500;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=AA6ytuyu8e9Ag5D0RaaEukKBqabr/aQPMXklGmI2Eik=;
+	b=fdM+MhJKh/s/gecO3SHaCe1qcqg0n1BeWH3GQzmH7/Pts6W7EhfkMY/BifFgSfY3tB314I
+	JQf54d0DHjJPOB3K9CCFhIYbZS8bkEO9vdkzyEmO/nNzLyd6vXCXCRK55aGyuy687P8Ge8
+	YtTRRwLOxvDXKv60vt2mOtufBKo5ALk=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-676-BQ5JQ_usOLmv8vGo4VuQGw-1; Thu,
+ 17 Sep 2026 12:11:36 -0400
+X-MC-Unique: BQ5JQ_usOLmv8vGo4VuQGw-1
+X-Mimecast-MFC-AGG-ID: BQ5JQ_usOLmv8vGo4VuQGw_1789661495
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2DD481802557;
+	Thu, 17 Sep 2026 16:11:35 +0000 (UTC)
+Received: from pabeni-thinkpadp1gen8.rmtit.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3399B1800586;
+	Thu, 17 Sep 2026 16:11:32 +0000 (UTC)
+From: Paolo Abeni <pabeni@redhat.com>
+To: torvalds@linux-foundation.org
+Cc: kuba@kernel.org,
+	davem@davemloft.net,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] Networking for v7.3-rc4
+Date: Thu, 17 Sep 2026 18:11:23 +0200
+Message-ID: <20260917161123.383876-1-pabeni@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider:
+Hi Linus!
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 1
+The following changes since commit 78445023439506ebd83b86d40b1e428a3b309d4a:
 
-- [Medium] Rescue mode leaves priv->fw_version at 0.0.0, so
-  mxl862xx_phylink_get_caps() (drivers/net/dsa/mxl862xx/mxl862xx-…
-- [Medium] mxl862xx_setup() now calls mxl862xx_rescue_mode_detect() as
-  the very first switch access and returns its errno verbatim, so…
-- [Medium] mxl862xx_rescue_drain_finish() orders its checks so that `if
-  (!chunk)` pre-empts the 'a firmware is answering ... an image survived…
-- [Medium] mxl862xx_setup_rescue() queues the multi-minute (up to hours)
-  drain with queue_work(system_long_wq, &priv->rescue_heal_work).
-- [Low] struct mxl862xx_priv's kernel-doc documents @rescue_failed as
-  '(rescue_mode) the self-heal gave up or cannot run; the loader needs a…
+  Merge tag 'net-7.3-rc3' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net (2026-09-10 14:07:48 -0700)
 
---
+are available in the Git repository at:
 
-net: dsa: mxl862xx: recover switch stuck in MCUboot rescue mode
+  git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git net-7.3-rc4
 
-This adds probe-time detection of the MCUboot loader over the clause-22
-SB PDI mailbox, registers the switch in a reduced "rescue mode" so
-devlink stays usable, and adds a background work item that drains a
-download an interrupted host left wedged in the loader's receive loop.
+for you to fetch changes up to 3b95a04eb5f95bf6a016a1bb9ff37d3eee48de63:
 
-> diff --git a/drivers/net/dsa/mxl862xx/mxl862xx-fw.c b/drivers/net/dsa/mxl862xx/mxl862xx-fw.c
-> index 139c14adf2d98..d001a884e6fc6 100644
-> --- a/drivers/net/dsa/mxl862xx/mxl862xx-fw.c
-> +++ b/drivers/net/dsa/mxl862xx/mxl862xx-fw.c
+  Merge branch 'mptcp-misc-fixes-for-v7-3-rc4' (2026-09-17 08:14:39 -0700)
 
-[ ... ]
+----------------------------------------------------------------
+Including fixes from Netfilter, Bluetooth, IPSec and WiFi.
 
-> @@ -219,6 +269,379 @@ static void mxl862xx_flash_notify(struct devlink *dl, const char *status,
->  	devlink_flash_update_status_notify(dl, status, NULL, done, total);
->  }
->  
+Previous releases - regressions:
 
-[ ... ]
+  - netfilter: hold reference on ct until flow is released
 
-> +/* The loader is not asking for a chunk: it may still be programming the last
-> + * one, or the counter has reached zero and it is verifying the image and
-> + * resetting into READY. Before the first chunk it may also still be erasing
-> + * for the session that died, which no verify window covers. Wait that out --
-> + * STAT cannot tell the cases apart, and guessing would mean writing END into a
-> + * live receive loop.
-> + *
-> + * Return: 0 once the loader has left the loop, -EAGAIN if it asks for another
-> + * chunk after all, -EIO for a loader still holding the count when the window
-> + * expires, -ECANCELED on teardown, or an SMDIO bus error.
-> + */
-> +static int mxl862xx_rescue_drain_finish(struct mxl862xx_priv *priv, u32 chunk)
-> +{
-> +	struct device *dev = &priv->mdiodev->dev;
-> +	int stat;
-> +
-> +	if (chunk)
-> +		stat = mxl862xx_sb_pdi_poll_drain(priv, MXL862XX_SB_PDI_POLL_US,
-> +						  MXL862XX_SB_PDI_VERIFY_MS);
-> +	else
-> +		stat = mxl862xx_sb_pdi_poll_drain(priv,
-> +						  MXL862XX_SB_PDI_SLOW_POLL_US,
-> +						  MXL862XX_FW_ERASE_TIMEOUT_MS);
-> +	if (stat < 0)
-> +		return stat;
-> +	if (stat == MXL862XX_SB_PDI_READY)
-> +		return 0;
-> +	if (stat == MXL862XX_SB_PDI_VERIFY_BAD) {
-> +		dev_err(dev,
-> +			"flash: loader stuck after %u chunks, power cycle it\n",
-> +			chunk);
-> +		return -EIO;
-> +	}
-> +	if (stat) {
-> +		if (!chunk) {
-> +			dev_err(dev,
-> +				"flash: loader still busy after the erase window\n");
-> +			return -EIO;
-> +		}
-> +		/* A firmware is answering, not the loader: an image survived
-> +		 * in flash and booted.
-> +		 */
-> +		dev_info(dev, "flash: firmware booted while draining\n");
-> +		return 0;
-> +	}
+  - bridge:
+    - move switchdev call outside rcu
+    - vlan: fix bugs caused by switchdev deletion errors
 
-[Severity: Medium]
+  - wifi:
+    - mac80211: reset state when starting AP fails
+    - cfg80211: don't free driver-owned scan requests
 
-Is the ordering of the chunk == 0 test against the "firmware booted"
-case here intentional?  The same non-zero, non-READY STAT value returns
--EIO when chunk == 0 and 0 ("firmware booted while draining") when
-chunk > 0.
+  - tcp: don't call skb_clone_and_charge_r() for close()d listener in tcp_v6_do_rcv().
 
-There seems to be a path that reaches the chunk == 0 arm with a real
-firmware status word in STAT.  mxl862xx_rescue_mode_detect() already
-feeds one advance byte in its STAT == 0 branch:
+  - mptcp: return sk_wait_data() errors from recvmsg()
 
-	ret = mxl862xx_smdio_write(priv, MXL862XX_SB_PDI_STAT,
-				   MXL862XX_DRAIN_CHUNK_BYTES);
-	...
-	rb = mxl862xx_sb_pdi_poll_drain(priv, MXL862XX_SB_PDI_POLL_US,
-					MXL862XX_SB_PDI_STEP_MS);
+  - xfrm: serialize state GC with device state flush
 
-If that byte was the last one outstanding and the loader's verify plus
-reset outlasts MXL862XX_SB_PDI_STEP_MS, detection returns
-MXL862XX_IN_RESCUE with rescue_ready still false.  The heal work then
-starts its drain, its first mxl862xx_sb_pdi_poll_drain() sees the
-lingering count, and mxl862xx_rescue_drain_finish(priv, 0) waits up to
-MXL862XX_FW_ERASE_TIMEOUT_MS -- during which the freshly booted
-firmware publishes its own status word, which lands in the chunk == 0
-arm and returns -EIO.
+  - drop_monitor: synchronize tracepoint unregistration on error path
 
-mxl862xx_rescue_heal_work_fn() then latches rescue_failed and skips the
-reprobe, so priv->rescue_mode stays set for the life of the binding:
-mxl862xx_api_wrap() keeps returning -ENODEV, devlink dev info reports
-nothing and devlink dev flash returns -EIO, on a switch that is running
-firmware.
+  - bluetooth:
+    - eir: validate service data length before reading UUID
+    - hci_sync: serialize local codec list cleanup
+    - RFCOMM: avoid socket lock inversion in listener cleanup
 
-Does that conflict with the commit message?
+  - eth: lan743x: fix RX checksum use-after-free
 
-  "a valid image that a last-moment interruption left bootable comes up
-   as running firmware, with no second-guessing in the drain path"
+  - eth: mvpp2: prevent buffer overflow in page_pool allocation
 
-Would moving the chunk == 0 check after the "firmware booted"
-classification, or distinguishing the two by the STAT value rather than
-by chunk, cover this?
+Previous releases - always broken:
 
-[ ... ]
+  - core: lock the socket in sock_gettstamp()
 
-> +void mxl862xx_rescue_heal_work_fn(struct work_struct *work)
-> +{
-> +	struct mxl862xx_priv *priv =
-> +		container_of(work, struct mxl862xx_priv, rescue_heal_work);
-> +	struct device *dev = &priv->mdiodev->dev;
-> +	int ret;
-> +
-> +	ret = mxl862xx_rescue_drain(priv);
-> +	if (ret == -ECANCELED)
-> +		return;
-> +	if (ret) {
-> +		/* Nothing retries this, so say so: rescue_ready stays clear
-> +		 * and devlink dev flash reports why it refuses.
-> +		 */
-> +		dev_err(dev, "flash: download recovery failed: %pe\n",
-> +			ERR_PTR(ret));
-> +		WRITE_ONCE(priv->rescue_failed, true);
-> +		return;
-> +	}
+  - neighbour: enforce min/max to NDTPA_INTERVAL_PROBE_TIME_MS.
 
-[ ... ]
+  - sched: codel: bound the dropping loop per dequeue call
 
-> +	if (test_bit(MXL862XX_FLAG_WORK_STOPPED, &priv->flags))
-> +		return;
-> +
-> +	if (device_schedule_reprobe(dev, MXL862XX_FW_REPROBE_DELAY_MS))
-> +		WRITE_ONCE(priv->rescue_failed, true);
-> +}
+  - wifi: mac80211: include TIM bitmap control for buffered S1G mcast traffic
 
-[ ... ]
+  - psp: avoid conflicts with skb->decrypted and sk_validate_xmit_skb()
 
-> +int mxl862xx_rescue_mode_detect(struct mxl862xx_priv *priv, bool settle)
-> +{
-> +	int stat, dat, ret, rb, a, d;
-> +
-> +	/* rescue_ready gates flashing; a wedged loader needs the drain first. */
-> +	WRITE_ONCE(priv->rescue_ready, false);
-> +
-> +	ret = mxl862xx_sb_pdi_reset(priv);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Presence: a live chip latches the scratch write, an absent one floats. */
-> +	a = mxl862xx_smdio_write(priv, MXL862XX_SB_PDI_ADDR,
-> +				 MXL862XX_SB_PDI_PROBE_A);
-> +	if (a < 0)
-> +		return a;
-> +	d = mxl862xx_smdio_write(priv, MXL862XX_SB_PDI_DATA,
-> +				 MXL862XX_SB_PDI_PROBE_D);
-> +	if (d < 0)
-> +		return d;
-> +	a = mxl862xx_smdio_read(priv, MXL862XX_SB_PDI_ADDR);
-> +	if (a < 0)
-> +		return a;
-> +	d = mxl862xx_smdio_read(priv, MXL862XX_SB_PDI_DATA);
-> +	if (d < 0)
-> +		return d;
-> +	if ((u16)a != MXL862XX_SB_PDI_PROBE_A ||
-> +	    (u16)d != MXL862XX_SB_PDI_PROBE_D)
-> +		return -ENODEV;
+  - xfrm: fix stack OOB read in iptfs_skb_reset_frag_walk()
 
-[Severity: Medium]
+  - bluetooth: hci_qca: do not write to the serial port after it is closed
 
-Should a failure of the SB PDI probe be fatal to binding?  The rescue
-channel is an addition, but mxl862xx_setup() now runs this first and
-propagates the errno:
+  - dsa: mxl862xx: disable the stats poll on teardown
 
-	rescue = mxl862xx_rescue_mode_detect(priv, false);
-	if (rescue < 0) {
-		dev_err(ds->dev, "switch state detection failed: %pe\n",
-			ERR_PTR(rescue));
-		return rescue;
-	}
+  - eth: stmmac: fix TSO header length truncation
 
-so a part whose clause-45 mailbox works fine, but which does not latch
-0x5a5a/0xa5a5 at MXL862XX_SB_PDI_ADDR/DATA, now fails probe with -ENODEV
-and exposes no interfaces at all.  The file header states the offsets are
-not guaranteed:
+  - eth: ip_tunnel: initialize `options_len` before referencing options
 
-  * The SMDIO PHY address comes from the device tree; the 0xe1xx register
-  *   offsets are the OTP reset defaults and the only layout supported here.
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 
-Would treating a detection failure as "no rescue support available" and
-falling through to mxl862xx_reset()/mxl862xx_wait_ready() be safer than
-refusing to bind?
+----------------------------------------------------------------
+Aamir Ahmed (1):
+      Bluetooth: eir: validate service data length before reading UUID
 
-The STAT classification rests on the same single sample.  The commit
-message says a running firmware "answers with its own non-zero status
-word (0x0003 on the firmware tested)", and the STAT == 0 branch below
-calls 0 "the one value a running firmware never holds".  A firmware
-whose status word reads 0 gets the destructive CTRL=WR / DATA=0 / STAT=1
-poke and is then registered in rescue mode with every user port
-re-registered as unused.  Is that assumption documented anywhere outside
-the tested image?
+Ahmed Naseef (1):
+      net: phy: mediatek: do not report link and per-speed LED rules together
 
-[ ... ]
+Aleksandr Nogikh (1):
+      xfrm: add missing RCU read lock in xfrm_send_migrate_state()
 
-> diff --git a/drivers/net/dsa/mxl862xx/mxl862xx.c b/drivers/net/dsa/mxl862xx/mxl862xx.c
-> index 5668aac9ef7a1..d5e29fd74adbc 100644
-> --- a/drivers/net/dsa/mxl862xx/mxl862xx.c
-> +++ b/drivers/net/dsa/mxl862xx/mxl862xx.c
-> @@ -667,27 +667,85 @@ static void mxl862xx_free_bridge(struct dsa_switch *ds,
->  	priv->bridges[bridge->num] = 0;
->  }
->  
-> +static void mxl862xx_setup_rescue(struct dsa_switch *ds)
-> +{
-> +	struct mxl862xx_priv *priv = ds->priv;
-> +
-> +	if (priv->rescue_ready) {
-> +		dev_warn(ds->dev,
-> +			 "switch in MCUboot rescue mode, use devlink to flash new firmware\n");
-> +		return;
-> +	}
-> +
-> +	if (priv->rescue_failed) {
-> +		dev_warn(ds->dev,
-> +			 "switch in MCUboot with an unfinishable download, power cycle it\n");
-> +		return;
-> +	}
-> +
-> +	/* Drain the wedged download in the background so it never holds the
-> +	 * devlink lock; info and flash become available once ready.
-> +	 */
-> +	dev_warn(ds->dev,
-> +		 "switch in MCUboot with an interrupted download, recovering in background\n");
-> +	queue_work(system_long_wq, &priv->rescue_heal_work);
-> +}
+Ali Ahmet Memis (1):
+      wifi: wilc1000: fix out-of-bounds read in P2P public action frames
 
-[Severity: Medium]
+Andrea Mayer (1):
+      seg6: set IPSKB_L3SLAVE from IP6SKB_L3SLAVE on IPIP decapsulation
 
-What happens to this work item across a system suspend?  system_long_wq
-is not WQ_FREEZABLE, and the only abort condition inside
-mxl862xx_rescue_drain() and mxl862xx_sb_pdi_poll_drain() is
-MXL862XX_FLAG_WORK_STOPPED, which is set from the probe error path,
-remove(), shutdown() and the flash path, but not from any PM transition.
+Aohan Mei (1):
+      rds: ib: use rds_conn_drop() on protocol version mismatch
 
-The commit message says the drain "takes tens of minutes for a large
-image", so a suspend landing inside it does not look exotic.  The worker
-would keep issuing mxl862xx_smdio_read()/mxl862xx_smdio_write() while the
-MDIO controller or conduit driver suspends, and a negative return from
-those propagates out of mxl862xx_rescue_drain() into
-mxl862xx_rescue_heal_work_fn():
+Bogdan Nicolae (1):
+      wifi: brcmfmac: cyw: pass PMKID to firmware if present
 
-	if (ret) {
-		dev_err(dev, "flash: download recovery failed: %pe\n",
-			ERR_PTR(ret));
-		WRITE_ONCE(priv->rescue_failed, true);
-		return;
-	}
+Cen Zhang (Microsoft Security FORGE Labs) (1):
+      xfrm: hold net_device reference under RCU in bundle creation
 
-which then refuses devlink dev flash with -EIO for the rest of the
-binding, even though the loader is still drainable.  Would a freezable
-workqueue, or a PM notifier that sets MXL862XX_FLAG_WORK_STOPPED and
-requeues afterwards, fit better here?  device_schedule_reprobe() already
-uses system_freezable_wq for the same reason.
+Chandrashekar Devegowda (1):
+      Bluetooth: btintel_pcie: validate TX skb length in send_sync
 
->  static int mxl862xx_setup(struct dsa_switch *ds)
->  {
+Chengfeng Ye (2):
+      xfrm: serialize state GC with device state flush
+      Bluetooth: hci_sync: Serialize local codec list cleanup
 
-[ ... ]
+Chris Lu (2):
+      Bluetooth: btmtk: fix wrong status for short WMT FUNC_CTRL events
+      Bluetooth: btmtksdio, btmtkuart: validate WMT event length before struct access
 
-> +	priv->rescue_mode = rescue;
->  
-> +	/* Software-only SerDes state, needed before anything can reach phylink,
-> +	 * including a rescue-mode flash clearing rescue_mode ahead of reprobe.
-> +	 */
->  	mutex_init(&priv->serdes_lock);
->  	for (i = 0; i < ARRAY_SIZE(priv->serdes_ports); i++)
->  		mxl862xx_setup_pcs(priv, &priv->serdes_ports[i],
->  				   i + MXL862XX_FIRST_SERDES_PORT);
->  
-> +	if (priv->rescue_mode) {
-> +		mxl862xx_setup_rescue(ds);
-> +		return 0;
-> +	}
-> +
+Chunfeng Song (1):
+      rust: net: phy: fix off-by-one bit positions in device status accessors
 
-[Severity: Medium]
+Daehyeon Ko (1):
+      wifi: libipw: reject TKIP frames without a full MIC
 
-This path returns success with priv->fw_version still all zeros, since
-mxl862xx_wait_ready() -- the only writer of fw_version -- never runs in
-rescue mode.  Does that break phylink creation for the CPU port on some
-boards?
+Daniel Golle (1):
+      net: dsa: mxl862xx: disable the stats poll on teardown
 
-mxl862xx_phylink_get_caps() gates the SerDes interfaces on the cached
-version:
+Daniel Zahka (2):
+      net: psp: avoid conflicts with skb->decrypted and sk_validate_xmit_skb()
+      selftests: drv-net: psp: test PSP and TCP ULP mutual exclusion
 
-	case 10 ... 12:
-	case 14 ... 16:
-		if (!MXL862XX_FW_VER_MIN(priv, 1, 0, 84))
-			break;
-		__set_bit(PHY_INTERFACE_MODE_QSGMII, config->supported_interfaces);
+Devin Wittmayer (1):
+      wifi: mac80211: refuse to make a monitor active when it has no queue
 
-With 0.0.0 the gate is always false, so ports 10-12 and 14-16 end up with
-no supported_interfaces bit set at all, and ports 9/13 lose QSGMII and
-10G_QXGMII.  phylink_create() rejects that outright:
+Dmitriy Okunev (1):
+      net: mvpp2: prevent buffer overflow in page_pool allocation
 
-net/phy/phylink.c:phylink_create() {
-	if (phy_interface_empty(config->supported_interfaces)) {
-		dev_err(config->dev,
-			"phylink: error: empty supported_interfaces\n");
-		return ERR_PTR(-EINVAL);
-	...
-}
+Dong Chenchen (1):
+      ipv4: icmp: reject RTN_UNREACHABLE input routes in icmp_route_lookup
 
-and CPU ports have no unused-port fallback:
+Doruk Tan Ozturk (1):
+      wifi: mwifiex: bound the pairwise-cipher OUI walk to the IE length
 
-net/dsa/dsa.c:dsa_tree_setup_ports() {
-		if (dsa_port_is_dsa(dp) || dsa_port_is_cpu(dp)) {
-			err = dsa_port_setup(dp);
-			if (err)
-				goto teardown;
-	...
-}
+Eric Dumazet (10):
+      xfrm: add missing rcu_read_lock(), skb_dst_force() and dev_hold() for xfrm_trans_reinject()
+      tcp: do not let tcp_rmem be set below 4096
+      pppoatm: ensure a writable skb header and linear data
+      drop_monitor: synchronize tracepoint unregistration on error path
+      drop_monitor: use timer_shutdown_sync() to prevent timer rearming during teardown
+      drop_monitor: use raw_cpu_ptr() in tracepoint probes
+      drop_monitor: fix out-of-bounds write in reset_per_cpu_data()
+      netlink: do not free nlk->groups while lockless readers can use it
+      net: lock the socket in sock_gettstamp()
+      net: skbuff: do not leave stale header offsets after pskb_carve()
 
-So on a board whose CPU port is one of 10-12/14-16, or is 9/13 with
-phy-mode qsgmii or 10g-qxgmii, probe would fail with -EINVAL and rescue
-mode could never be entered.  The patch adds the rescue-mode bypass in
-mxl862xx_phylink_mac_select_pcs() -- should mxl862xx_phylink_get_caps()
-get the same treatment for its firmware-version gate?
+Fan Wu (1):
+      wifi: wcn36xx: Fix potential use-after-free in TX ack timer teardown
 
-[ ... ]
+Farhad Alemi (1):
+      net: remove WARN_ON_ONCE() from the dev_fill_forward_path() loop check
 
-> diff --git a/drivers/net/dsa/mxl862xx/mxl862xx.h b/drivers/net/dsa/mxl862xx/mxl862xx.h
-> index 2d38885ecfdab..4ed2fd5cbca7c 100644
-> --- a/drivers/net/dsa/mxl862xx/mxl862xx.h
-> +++ b/drivers/net/dsa/mxl862xx/mxl862xx.h
-> @@ -332,6 +338,16 @@ struct mxl862xx_fw_version {
+Fernando Fernandez Mancera (1):
+      netfilter: nf_tables: fix device name and prefix match in hook lookup
 
-[ ... ]
+Gris Ge (1):
+      net: ip_tunnel: initialize `options_len` before referencing options
 
-> + * @rescue_ready:       (rescue_mode) loader is at a clean READY and will accept
-> + *                      a flash; false while rescue_heal_work is draining
-> + * @rescue_failed:      (rescue_mode) the self-heal gave up or cannot run; the
-> + *                      loader needs a power cycle and no flash can be accepted
+Guanglei Zhu (3):
+      net: wwan: mhi_wwan_mbim: guard against a cyclic NDP chain
+      net: wwan: mhi_wwan_mbim: check skb_copy_bits() return value
+      net: wwan: t7xx: validate the netif index in t7xx_ccmni_recv_skb()
 
-[Severity: Low]
+Henry Martin (1):
+      xfrm: iptfs: fix runt reassembly panic from short inner tot_len
 
-This isn't a bug, but does "the loader needs a power cycle" hold for
-every producer of this flag?  mxl862xx_rescue_heal_work_fn() also sets it
-after a fully successful drain, purely because the hand-off failed:
+Hohyun Sim (1):
+      net: fddi: skfp: fix NULL deref when setting the MAC address while down
 
-	if (device_schedule_reprobe(dev, MXL862XX_FW_REPROBE_DELAY_MS))
-		WRITE_ONCE(priv->rescue_failed, true);
+Ibrahim Abdelkader (1):
+      Bluetooth: hci_qca: Do not write to the serial port after it is closed
 
-In that case the loader sits at a clean READY and only a driver rebind is
-needed, which is what the devlink documentation added later in this
-series says ("a completed drain whose reprobe could not be scheduled ...
-need only a driver rebind").
+Inbal Schussheim (2):
+      tcp: exclude old ACKs from tcp fast path
+      selftests: net: packetdrill: test exclusion of old ACK from TCP fast path
 
-A third producer is the START/ACK branch of
-mxl862xx_rescue_mode_detect(), where rescue_heal_work is never queued at
-all, so "the self-heal gave up or cannot run" does not describe it
-either.  All three collapse into the same -EIO and "download recovery
-failed" extack in mxl862xx_devlink_flash_update().  Could the kernel-doc
-just say the loader cannot accept a flash, and leave the per-cause
-remedies to the documentation?
+Ivan Pustogarov (1):
+      wifi: mac80211: avoid out-of-bounds read for empty PREQ elements
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1789477568.git.daniel%40makrotopia.org
+Jakub Kicinski (13):
+      Merge branch 'neighbour-small-fixes-for-rtm_-get-set-neightbl'
+      Merge tag 'nf-26-09-11' of git://git.kernel.org/pub/scm/linux/kernel/git/netfilter/nf
+      Merge tag 'for-net-2026-09-15' of git://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth
+      Merge branch 'af_unix-fix-inconsistent-scc_index'
+      Merge branch 'net-sched-fix-action-batch-deletion-cleanup'
+      Merge branch 'net-drop_monitor-fix-concurrency-issues-preemption-warning-and-buffer-overrun'
+      Merge tag 'ipsec-2026-09-16' of git://git.kernel.org/pub/scm/linux/kernel/git/klassert/ipsec
+      Merge tag 'wireless-2026-09-16' of https://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless
+      eth: fbnic: ring the doorbell if a burst ends in a drop
+      Merge branch 'net-stmmac-restore-previous-state-if-tc_setup_dwmac510_mqprio-fails'
+      Merge branch 'net-psp-avoid-conflicts-with-skb-decrypted-and-sk_validate_xmit_skb'
+      dpll: reject a reference sync pin which is not on the pin's dpll
+      Merge branch 'mptcp-misc-fixes-for-v7-3-rc4'
+
+Jamal Hadi Salim (4):
+      net/sched: hhf: cap hh_flows_limit at change time
+      selftests/tc-testing: add hhf hh_limit cap tests
+      net/sched: codel: bound the dropping loop per dequeue call
+      selftests/tc-testing: add codel/fq_codel interval boundary cases
+
+James Clark (1):
+      net: macb: fix ordering around PTP timestamp read
+
+Jiangshan Yi (2):
+      wifi: libertas_tf: fix UAF in lbtf_free_adapter()
+      wifi: brcmsmac: fix UAF in brcms_free_timer()
+
+Johannes Berg (35):
+      .get_maintainer.ignore: add myself
+      wifi: cfg80211: don't get the radio mask for netdev-less wdevs
+      wifi: cfg80211: check IP header size in cfg80211_classify8021d()
+      wifi: cfg80211: don't free driver-owned scan requests
+      wifi: cfg80211: only group hidden BSSes with beacon entries
+      wifi: cfg80211: don't filter by BSS type when removing stale entries
+      wifi: cfg80211: ibss: ref BSS entry for joined event
+      wifi: cfg80211: fix NAN regulatory enforcement
+      wifi: cfg80211: reduce RTNL holding in regulatory enforcement
+      wifi: mac80211: don't apply peer rates to off-channel frames
+      wifi: mac80211: don't drop scan probe requests for lack of peer rates
+      wifi: mac80211: don't start a ROC while scanning
+      wifi: mac80211: don't warn when an IBSS has no channel to scan
+      wifi: mac80211: don't offload TC setup on AP_VLAN interfaces
+      wifi: mac80211: suppress chanctx warning for debugfs reset
+      wifi: mac80211: abort chanswitch when leaving a mesh
+      wifi: mac80211: reset state when starting AP fails
+      wifi: mac80211: reset the LED state when ifup fails
+      wifi: mac80211: only operate on TDLS peers in the TDLS code
+      wifi: cfg80211: restore netns_immutable on failures
+      wifi: cfg80211: undo netns switch if renaming the wiphy fails
+      wifi: mac80211: unlist vifs when their netdev is unregistered
+      wifi: cfg80211: get the wiphy out of a dying network namespace
+      wifi: mac80211_hwsim: don't hand frames to mac80211 while stopping
+      wifi: mac80211: don't allow injecting frames wider than the chanctx
+      wifi: mac80211: reset the AP_VLAN tailroom counter on ifdown
+      wifi: mac80211: require a peer station for TDLS setup confirm
+      wifi: mac80211: don't allow link changes when iface is down
+      wifi: mac80211: don't RCU-dereference the mesh CSA settings we just set
+      wifi: mac80211: don't access the TSF of a down interface
+      wifi: mac80211: add HE 6 GHz capability in the scan elems len
+      wifi: mac80211: mesh: reset the CSA state when leaving
+      wifi: mac80211: mesh: release the channel if start fails
+      wifi: mac80211: set up the TX info early to fix failure paths
+      Merge tag 'ath-current-20260914' of git://git.kernel.org/pub/scm/linux/kernel/git/ath/ath
+
+Juan Perdomo (1):
+      Bluetooth: RFCOMM: avoid socket lock inversion in listener cleanup
+
+Karl Mehltretter (1):
+      wifi: brcmfmac: fix lost 802.1x TX completion wakeup
+
+Krzysztof Kozlowski (1):
+      wifi: ath12k: ahb: Revert undocumented ABI and dead code
+
+Kuniyuki Iwashima (7):
+      neighbour: Add missing RCU annotation for neightbl_dump_info().
+      neighbour: Enforce min/max to NDTPA_INTERVAL_PROBE_TIME_MS.
+      neighbour: Don't render blackhole_netdev via RTM_GETNEIGHTBL.
+      neighbour: Skip default parms when resumed in neightbl_dump_info().
+      tcp: Don't call skb_clone_and_charge_r() for close()d listener in tcp_v6_do_rcv().
+      af_unix: Unify scc_index when finalising SCC in __unix_walk_scc().
+      selftest: af_unix: Add test case with mixed lowpoint in scm_rights.c.
+
+Kyle Zeng (1):
+      xfrm: fix compat ALLOCSPI request use-after-free
+
+Lachlan Hodges (1):
+      wifi: mac80211: include TIM bitmap control for buffered S1G mcast traffic
+
+Laxman Acharya Padhya (1):
+      Bluetooth: hci_codec: validate vendor codec count length
+
+Linmao Li (1):
+      wifi: mwifiex: prevent authentication frame length truncation
+
+Linus Walleij (1):
+      net: ethernet: cortina: Ack RX overrun interrupt correctly
+
+Lorenzo Bianconi (4):
+      net: stmmac: fix TSO header length truncation
+      net: stmmac: do not overwrite phc_index when no PTP clock is registered
+      net: stmmac: propagate FPE preemption-class mapping errors
+      net: stmmac: preserve real_num_tx_queues on mqprio setup failure
+
+Luiz Augusto von Dentz (2):
+      Bluetooth: ISO: Fix parent socket leak in iso_conn_ready()
+      Bluetooth: ISO: set BT_LISTEN before requesting a BIG sync
+
+Maher Azzouzi (1):
+      esp: downgrade zerocopy managed frags before mutating skb frags
+
+Mariano Baragiola (1):
+      wifi: virt_wifi: free skb when disconnected
+
+Mark Amirkan (4):
+      net: lan743x: fix RX checksum use-after-free
+      net/packet: clear RX owner on VNET header error
+      mptcp: return sk_wait_data() errors from recvmsg()
+      net/packet: avoid truncating TPACKET_V3 private size
+
+Nicolai Buchwitz (1):
+      net: bcmgenet: restore the hardware filters on open
+
+Nicolas Escande (1):
+      wifi: ath11k: cleanup arsta in ath11k_mac_peer_cleanup_all()
+
+Nicolas Thibert (1):
+      Bluetooth: btusb: fix NXP IW610 composite device handling
+
+Nikolay Aleksandrov (2):
+      net: bridge: mst: move switchdev call outside rcu
+      net: bridge: vlan: fix bugs caused by switchdev deletion errors
+
+Pablo Neira Ayuso (2):
+      netfilter: nf_nat: unregister and release hooks on error
+      netfilter: flowtable: hold reference on ct until flow is released
+
+Paolo Abeni (4):
+      Merge branch 'tcp-exclude-old-acks-from-fast-path'
+      mptcp: avoid unneeded actions on subflow reset
+      mptcp: close race between scheduler and state change
+      mptcp: fix bad accounting in __mptcp_subflow_push_pending()
+
+Peng Hao (1):
+      wifi: mwifiex: fix IRQ leak using wrong index in MSI-X error path
+
+Pengpeng Hou (1):
+      wifi: mwifiex: validate scan response extents
+
+Radek Podgorny (2):
+      Bluetooth: put the peer's on-air address on air when we cannot resolve
+      Bluetooth: keep dst_type with dst when reusing an LE connection
+
+Rik van Riel (1):
+      wifi: mac80211: avoid WARN in set_bitrate_mask when sdata not in driver
+
+Roshan Kumar (1):
+      xfrm: iptfs: fix stack OOB read in iptfs_skb_reset_frag_walk()
+
+Runyu Xiao (1):
+      wifi: wlcore: release runtime PM ref on regdomain config failure
+
+Sai Teja Aluvala (1):
+      Bluetooth: btintel_pcie: fix off-by-one bounds check in RX submit
+
+Shengzhuo Wei (2):
+      wifi: p54: validate curve data length in the calibration curve converters
+      wifi: p54: require a full exp_if record in PDR_INTERFACE_LIST
+
+Shmulik Cohen (3):
+      wifi: libipw: reject too-short beacon and probe responses
+      wifi: libipw: reject too-short association responses
+      wifi: ipw2x00: bound management frame length to the receive buffer
+
+Siwei Zhang (1):
+      xfrm: use hlist_del_init_rcu for state_cache and state_cache_input
+
+Slawomir Stepien (4):
+      wifi: cfg80211: verify if AP_VLAN belongs to the correct AP
+      wifi: cfg80211: do not support direct add of station to AP_VLAN interfaces
+      wifi: cfg80211: move link_id validation earlier in nl80211_new_station()
+      wifi: cfg80211: check if AP has been started or joined a mesh before adding new station
+
+Stanislaw Gruszka (1):
+      wifi: iwlegacy: fix broadcast stations deallocation
+
+ThangNN99 (1):
+      Bluetooth: hci_core: Fix queuing tx_work after workqueue is drained
+
+Theodor Arsenij Larionov Trichkine (1):
+      netfilter: nft_nat: fully initialise new_addr in netmap setup
+
+Tianchu Chen (2):
+      wifi: rsi: fix heap OOB write on key removal
+      wifi: wilc1000: fix RX buffer OOB-write in wilc_wlan_handle_isr_ext()
+
+Tzung-Bi Shih (1):
+      Bluetooth: btmtksdio: Fix PM runtime reference leak in shutdown
+
+Weiming Shi (1):
+      Bluetooth: coredump: Quiesce dump work on unregister
+
+Wyatt Feng (1):
+      net: xfrm: reject unrepresentable espintcp transport headers
+
+Xuanqiang Luo (2):
+      net/sched: act_api: release tail references on DELACTION failure
+      selftests: tc-testing: test action batch deletion failure cleanup
+
+Yige Jiang (1):
+      net: netsec: fix device_node reference leak on phy_np
+
+Zhao Li (1):
+      wifi: mwifiex: validate action frame fixed fields
+
+Zhiling Zou (3):
+      ipv6: xfrm: use full sockets in local error paths
+      xfrm: save input state data before secpath resets
+      openvswitch: avoid reallocating confirmed conntrack labels
+
+Zihan Xi (1):
+      wifi: virt_wifi: don't transfer operstate before register
+
+ .get_maintainer.ignore                             |   2 +
+ Documentation/netlink/specs/rt-neigh.yaml          |   3 +
+ Documentation/networking/ip-sysctl.rst             |   4 +-
+ drivers/bluetooth/btintel_pcie.c                   |   8 +-
+ drivers/bluetooth/btmtk.c                          |   7 +-
+ drivers/bluetooth/btmtksdio.c                      |  24 +++-
+ drivers/bluetooth/btmtkuart.c                      |  20 +++-
+ drivers/bluetooth/btusb.c                          |  17 +++
+ drivers/bluetooth/hci_qca.c                        |  14 ++-
+ drivers/dpll/dpll_netlink.c                        |  17 ++-
+ drivers/net/dsa/mxl862xx/mxl862xx.c                |  23 ++--
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c     |  19 ++-
+ drivers/net/ethernet/cadence/macb_ptp.c            |   9 ++
+ drivers/net/ethernet/cortina/gemini.c              |   2 +-
+ drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c    |   3 +-
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.c       |  42 +++++--
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.h       |   9 +-
+ drivers/net/ethernet/microchip/lan743x_main.c      |   2 +-
+ drivers/net/ethernet/socionext/netsec.c            |   2 +
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |   2 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   |   2 -
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |   6 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c    |  99 +++++++++++-----
+ drivers/net/fddi/skfp/skfddi.c                     |   3 +-
+ drivers/net/phy/mediatek/mtk-phy-lib.c             |  27 +++--
+ drivers/net/wireless/ath/ath11k/mac.c              |  25 ++--
+ drivers/net/wireless/ath/ath12k/wifi7/ahb.c        |  51 +-------
+ drivers/net/wireless/ath/wcn36xx/dxe.c             |   2 +-
+ .../wireless/broadcom/brcm80211/brcmfmac/core.c    |   2 +
+ .../broadcom/brcm80211/brcmfmac/cyw/core.c         |   5 +-
+ .../broadcom/brcm80211/brcmsmac/mac80211_if.c      |   4 +
+ drivers/net/wireless/intel/ipw2x00/ipw2100.c       |   4 +-
+ drivers/net/wireless/intel/ipw2x00/ipw2200.c       |   9 ++
+ .../wireless/intel/ipw2x00/libipw_crypto_tkip.c    |  12 +-
+ drivers/net/wireless/intel/ipw2x00/libipw_rx.c     |   6 +
+ drivers/net/wireless/intel/iwlegacy/common.c       |   2 +-
+ drivers/net/wireless/intersil/p54/eeprom.c         |  22 +++-
+ drivers/net/wireless/marvell/libertas_tf/main.c    |   2 +-
+ drivers/net/wireless/marvell/mwifiex/cfg80211.c    |  12 +-
+ drivers/net/wireless/marvell/mwifiex/pcie.c        |   2 +-
+ drivers/net/wireless/marvell/mwifiex/scan.c        |  54 ++++++---
+ drivers/net/wireless/marvell/mwifiex/util.c        |  10 +-
+ drivers/net/wireless/microchip/wilc1000/cfg80211.c |  14 +++
+ drivers/net/wireless/microchip/wilc1000/wlan.c     |   9 ++
+ drivers/net/wireless/rsi/rsi_91x_mgmt.c            |   2 -
+ drivers/net/wireless/ti/wlcore/main.c              |   4 +-
+ drivers/net/wireless/virtual/mac80211_hwsim_main.c |  39 ++++---
+ drivers/net/wireless/virtual/virt_wifi.c           |   4 +-
+ drivers/net/wwan/mhi_wwan_mbim.c                   |  28 +++--
+ drivers/net/wwan/t7xx/t7xx_netdev.c                |   4 +
+ include/linux/ieee80211-mesh.h                     |   4 +-
+ include/net/bluetooth/coredump.h                   |   2 +
+ include/net/codel.h                                |   5 +
+ include/net/codel_impl.h                           |  16 ++-
+ include/net/mac80211.h                             |   5 +-
+ include/net/sock.h                                 |   2 +
+ net/atm/pppoatm.c                                  |  42 +++----
+ net/bluetooth/coredump.c                           |  65 +++++++----
+ net/bluetooth/eir.c                                |  10 +-
+ net/bluetooth/hci_codec.c                          |  36 +++---
+ net/bluetooth/hci_conn.c                           |  21 ++++
+ net/bluetooth/hci_core.c                           |  18 ++-
+ net/bluetooth/hci_sync.c                           |   2 +
+ net/bluetooth/iso.c                                |  53 +++++++--
+ net/bluetooth/rfcomm/sock.c                        |  13 ++-
+ net/bridge/br_mst.c                                |  20 ++--
+ net/bridge/br_vlan.c                               |  31 +++--
+ net/core/dev.c                                     |   2 +-
+ net/core/drop_monitor.c                            |  18 +--
+ net/core/neighbour.c                               |  35 ++++--
+ net/core/skbuff.c                                  |  32 ++++-
+ net/core/sock.c                                    |  16 ++-
+ net/ipv4/esp4.c                                    |   6 +
+ net/ipv4/icmp.c                                    |  17 +--
+ net/ipv4/ip_tunnel_core.c                          |  16 ++-
+ net/ipv4/sysctl_net_ipv4.c                         |   4 +-
+ net/ipv4/tcp_input.c                               |   3 +-
+ net/ipv4/tcp_ulp.c                                 |   4 +
+ net/ipv6/esp6.c                                    |   6 +
+ net/ipv6/seg6_local.c                              |   3 +
+ net/ipv6/tcp_ipv6.c                                |   3 +-
+ net/ipv6/xfrm6_output.c                            |  10 +-
+ net/mac80211/cfg.c                                 |  18 ++-
+ net/mac80211/debugfs.c                             |   2 +-
+ net/mac80211/debugfs_netdev.c                      |   9 ++
+ net/mac80211/ieee80211_i.h                         |   2 +-
+ net/mac80211/iface.c                               |  39 ++++++-
+ net/mac80211/main.c                                |   4 +
+ net/mac80211/mesh.c                                |  34 ++++--
+ net/mac80211/offchannel.c                          |   7 ++
+ net/mac80211/pm.c                                  |   8 +-
+ net/mac80211/rate.c                                |   8 ++
+ net/mac80211/scan.c                                |   2 +-
+ net/mac80211/tdls.c                                |  40 ++++---
+ net/mac80211/tx.c                                  | 115 +++++++++++-------
+ net/mptcp/protocol.c                               |  13 ++-
+ net/mptcp/protocol.h                               |   3 +-
+ net/mptcp/subflow.c                                |  11 ++
+ net/netfilter/nf_flow_table_core.c                 |  12 +-
+ net/netfilter/nf_nat_core.c                        |  46 +++++---
+ net/netfilter/nf_tables_api.c                      |  22 ++--
+ net/netfilter/nft_nat.c                            |   2 +-
+ net/netlink/af_netlink.c                           |  42 +++++--
+ net/netlink/diag.c                                 |  20 +++-
+ net/openvswitch/conntrack.c                        |   2 +-
+ net/packet/af_packet.c                             |   4 +-
+ net/packet/internal.h                              |   2 +-
+ net/psp/psp_sock.c                                 |   4 +
+ net/rds/ib_cm.c                                    |   2 +-
+ net/sched/act_api.c                                |  11 +-
+ net/sched/sch_hhf.c                                |   9 +-
+ net/unix/garbage.c                                 |  17 +--
+ net/wireless/core.c                                | 129 +++++++++++++--------
+ net/wireless/core.h                                |  18 ++-
+ net/wireless/ibss.c                                |  36 +++---
+ net/wireless/nl80211.c                             |  64 ++++++----
+ net/wireless/rdev-ops.h                            |   3 +
+ net/wireless/reg.c                                 |  52 +++++++--
+ net/wireless/reg.h                                 |  16 +++
+ net/wireless/scan.c                                |  43 +++++--
+ net/wireless/util.c                                |  38 ++++--
+ net/xfrm/espintcp.c                                |   6 +-
+ net/xfrm/xfrm_input.c                              |  22 +++-
+ net/xfrm/xfrm_iptfs.c                              |  12 +-
+ net/xfrm/xfrm_policy.c                             |  20 +++-
+ net/xfrm/xfrm_state.c                              |   9 +-
+ net/xfrm/xfrm_user.c                               |  18 +--
+ rust/kernel/net/phy.rs                             |  38 +++---
+ tools/testing/selftests/drivers/net/config         |   1 +
+ tools/testing/selftests/drivers/net/psp.py         |  46 ++++++++
+ tools/testing/selftests/net/af_unix/scm_rights.c   |  17 +++
+ .../net/packetdrill/tcp_rfc5961_reject-old-ack.pkt |  29 +++++
+ .../tc-testing/tc-tests/actions/batch-delete.json  | 115 ++++++++++++++++++
+ .../tc-testing/tc-tests/qdiscs/codel.json          |  72 ++++++++++++
+ .../tc-testing/tc-tests/qdiscs/fq_codel.json       |  72 ++++++++++++
+ .../tc-tests/qdiscs/hhf_flows_limit.json           | 128 ++++++++++++++++++++
+ 136 files changed, 2059 insertions(+), 669 deletions(-)
+ create mode 100644 tools/testing/selftests/net/packetdrill/tcp_rfc5961_reject-old-ack.pkt
+ create mode 100644 tools/testing/selftests/tc-testing/tc-tests/actions/batch-delete.json
+ create mode 100644 tools/testing/selftests/tc-testing/tc-tests/qdiscs/hhf_flows_limit.json
+
