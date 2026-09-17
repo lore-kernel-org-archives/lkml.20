@@ -1,35 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98ECF393DF3;
-	Thu, 17 Sep 2026 02:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0EE390231;
+	Thu, 17 Sep 2026 02:31:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789612294; cv=none; b=k09HbQ1sQt+owFxRgUZ+YU0wCoww+dFMbYXT4oItlNZz3YwG7Gj0sWLf3lHWKhdWkhKGvFTyTtBIHQFBBZNP7DMkEU9fg1IST7kCnVqt3W3deykTlCzKloPlr4rP33OPncatv96xHOObj3zgMxUjHPWPctlxoZikW1kmCjlZTFc=
+	t=1789612298; cv=none; b=OvTh1zB1muWgScpRuvidzI6nIjDJrPdiCnGeHsQOWDM3l/ximIQoERsyuYm5HOqonyNBXV2rI5068fHf/ISgkihkNEGJQ7aL/VGoB4Th3sfctnQ5ZtyOM7oxDWPUsXcminANW3gLShgR/XozsZrgkzfL/Iqa8brAH1ienWQea+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789612294; c=relaxed/simple;
-	bh=J8cqoGcOsyptVN0Opp2KpEo0JtP2WC5ccAc+V36dgSc=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=GA2IFjAY71Nu5iyK9P1NpcYIsd2JbZiEJ0CKUSB/rNA+NGOpiCIfRvVOql43LAEJGkwc8Pu7r/AYu+5k1Ai4nKeBA3hK9gDFBfTWDSuTFyizYmkE8p8Wd6mqm6IWSfbI4Psc6xUT72XWUeCBzXfVfvlSmrqtxvwlP2ElMIEa4xI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZoxOUKr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789612298; c=relaxed/simple;
+	bh=7rLta0uhvpHXdArFpa2nFMHkiAsyF9MYMzqzil31VOc=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Wc2NjkuxHZQcPvfUi4Szt+AIDP3W1oVXZsUYhixAQ3W+zkklNwbt0RPynGy88ii6JxiTf0if/p1QYrLxyh3isP++1S1tSlc/DbDN7aFh1yYEthMscm3N+5m9837UkAUZaEfHvmLFsZg0XJoyFte6FAC3xE1LVkIuStbE2aubBh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Wbc9QZ4Q; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZoxOUKr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C388B1F000FF;
-	Thu, 17 Sep 2026 02:31:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789612278;
-	bh=6f7z0MmMVQc6i7Kb2t/3+orNirPwd4Z0/B7z599bz88=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=mZoxOUKrGPAlCQuCsDYAwb5X1AqyUtmjwbvErPBrKmA7Npyg2ZAlmVYUSkoGS5oqz
-	 esRXNHl9rRJtb/lsHkVQdV8x3ZK33lUWjsi0h9l3zyXvobymTtTX+/OjsQgMEq7MJi
-	 kW1Bo+uaiwbed5zURWtcJDl5Ip5DHidd6ELuOqITxnzcPT3oYEB0YAKpKFExu2xGsy
-	 7qeCXn3Jw1FOapGlAL+7n/jqxxHBiqjgoy1hnjvtEHGHbsiXmdKERHLpqc/8OTqIq4
-	 4YaUkE9wF5QYyEuOgrfSNXhhmTAxCKzwDEWgkS7EUE5dMUIxrI2xVwznQjy8ycv1Gb
-	 oI5rTLEaiTm4A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A0939E960A;
-	Thu, 17 Sep 2026 02:30:13 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Wbc9QZ4Q"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=aXF6YrgcgA4YTuuysGFgLRiru7/qN9xHp9WtTJJgMfI=;
+	b=Wbc9QZ4QA1NKRWSOppyIC28YevU232aoPazyaoqpNrEPW6ujwe8OWriWm/RU7pRCUHhCnAnYY
+	+LQLo3bBpoDeRUjrKH1N4ttXPq4TYflEDNU8FMzUYs0FKvNXAY1xHXEyiw7KxF3NGbMOp1X4jr2
+	oLmFqaeAwMWMxsJmR5cZMJ0=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hlfbw6kzVz1K96s;
+	Thu, 17 Sep 2026 10:20:12 +0800 (CST)
+Received: from kwepemk300012.china.huawei.com (unknown [7.202.194.175])
+	by mail.maildlp.com (Postfix) with ESMTPS id 3AD3540565;
+	Thu, 17 Sep 2026 10:31:12 +0800 (CST)
+Received: from DESKTOP-A37P9LK.huawei.com (10.67.109.17) by
+ kwepemk300012.china.huawei.com (7.202.194.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 17 Sep 2026 10:31:11 +0800
+From: Xie Yuanbin <xieyuanbin1@huawei.com>
+To: <sashal@kernel.org>, <gregkh@linuxfoundation.org>,
+	<linux@armlinux.org.uk>, <bigeasy@linutronix.de>, <clrkwllms@kernel.org>,
+	<rostedt@goodmis.org>, <rmk+kernel@armlinux.org.uk>, <linusw@kernel.org>,
+	<kuninori.morimoto.gx@renesas.com>, <arnd@arndb.de>, <xiqi2@huawei.com>,
+	<ljs@kernel.org>, <wozizhi@huaweicloud.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-rt-devel@lists.linux.dev>, <stable@vger.kernel.org>,
+	<patches@lists.linux.dev>, <lisongze2@huawei.com>, <wangbing6@huawei.com>,
+	Xie Yuanbin <xieyuanbin1@huawei.com>
+Subject: [PATCH v2 5.10.y/5.15.y 1/3] ARM: fix hash_name() fault
+Date: Thu, 17 Sep 2026 10:30:54 +0800
+Message-ID: <20260917023056.2280-2-xieyuanbin1@huawei.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917023056.2280-1-xieyuanbin1@huawei.com>
+References: <20260917023056.2280-1-xieyuanbin1@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,47 +56,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2 0/2] net: psp: avoid conflicts with skb->decrypted
- and sk_validate_xmit_skb()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178961221263.3383832.6287862160202388316.git-patchwork-notify@kernel.org>
-Date: Thu, 17 Sep 2026 02:30:12 +0000
-References: <20260915-psp-ktls-fix-v2-0-0eedc3b148ec@gmail.com>
-In-Reply-To: <20260915-psp-ktls-fix-v2-0-0eedc3b148ec@gmail.com>
-To: Daniel Zahka <daniel.zahka@gmail.com>
-Cc: edumazet@google.com, ncardwell@google.com, kuniyu@google.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- willemdebruijn.kernel@gmail.com, andrew+netdev@lunn.ch, shuah@kernel.org,
- willemb@google.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk300012.china.huawei.com (7.202.194.175)
 
-Hello:
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+[ Upstream commit 7733bc7d299d682f2723dc38fc7f370b9bf973e9 ]
 
-On Tue, 15 Sep 2026 16:11:36 -0700 you wrote:
-> Sashiko's review of commit da630d1da2b1 ("netdevsim: psp: drop tx key
-> ops") [1] showed that there is a hazard between PSP and offloaded TLS,
-> where both can clobber what the other set in the sk_validate_xmit_skb
-> callback.
-> 
-> It was discussed further on the mailing list [2], and it was pointed out
-> that there are conflicts with PSP and TLS ULP both using the
-> skb->decrypted bit.
-> 
-> [...]
+Zizhi Wo reports:
 
-Here is the summary with links:
-  - [net,v2,1/2] net: psp: avoid conflicts with skb->decrypted and sk_validate_xmit_skb()
-    https://git.kernel.org/netdev/net/c/a41f24c612c3
-  - [net,v2,2/2] selftests: drv-net: psp: test PSP and TCP ULP mutual exclusion
-    https://git.kernel.org/netdev/net/c/b4288c59bda8
+"During the execution of hash_name()->load_unaligned_zeropad(), a
+ potential memory access beyond the PAGE boundary may occur. For
+ example, when the filename length is near the PAGE_SIZE boundary.
+ This triggers a page fault, which leads to a call to
+ do_page_fault()->mmap_read_trylock(). If we can't acquire the lock,
+ we have to fall back to the mmap_read_lock() path, which calls
+ might_sleep(). This breaks RCU semantics because path lookup occurs
+ under an RCU read-side critical section."
 
-You are awesome, thank you!
+This is seen with CONFIG_DEBUG_ATOMIC_SLEEP=y and CONFIG_KFENCE=y.
+
+Kernel addresses (with the exception of the vectors/kuser helper
+page) do not have VMAs associated with them. If the vectors/kuser
+helper page faults, then there are two possibilities:
+
+1. if the fault happened while in kernel mode, then we're basically
+   dead, because the CPU won't be able to vector through this page
+   to handle the fault.
+2. if the fault happened while in user mode, that means the page was
+   protected from user access, and we want to fault anyway.
+
+Thus, we can handle kernel addresses from any context entirely
+separately without going anywhere near the mmap lock. This gives us
+an entirely non-sleeping path for all kernel mode kernel address
+faults.
+
+As we handle the kernel address faults before interrupts are enabled,
+this change has the side effect of improving the branch predictor
+hardening, but does not completely solve the issue.
+
+[ Xie Yuanbin: At the upstream, the following patches are a patch set:
+  1. commit dea20281ac8822661576 ("ARM: group is_permission_fault() with
+     is_translation_fault()")
+  2. commit 40b466db1dffb41f0529 ("ARM: allow __do_kernel_fault() to
+     report execution of memory faults")
+  3. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault")
+  4. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening")
+  patch 1. and 2. is unneeded for 5.10.y and 5.15.y . This patch backports
+  patch 3. and simply adapts to the context differences. ]
+
+Reported-by: Zizhi Wo <wozizhi@huaweicloud.com>
+Reported-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+Link: https://lore.kernel.org/r/20251126090505.3057219-1-wozizhi@huaweicloud.com
+Reviewed-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+Tested-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Signed-off-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+---
+ arch/arm/mm/fault.c | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+
+diff --git a/arch/arm/mm/fault.c b/arch/arm/mm/fault.c
+index c16d6a293b97..094137cd29c8 100644
+--- a/arch/arm/mm/fault.c
++++ b/arch/arm/mm/fault.c
+@@ -247,6 +247,35 @@ __do_page_fault(struct mm_struct *mm, unsigned long addr, unsigned int fsr,
+ 	return fault;
+ }
+ 
++static int __kprobes
++do_kernel_address_page_fault(struct mm_struct *mm, unsigned long addr,
++			     unsigned int fsr, struct pt_regs *regs)
++{
++	if (user_mode(regs)) {
++		/*
++		 * Fault from user mode for a kernel space address. User mode
++		 * should not be faulting in kernel space, which includes the
++		 * vector/khelper page. Send a SIGSEGV.
++		 */
++		__do_user_fault(addr, fsr, SIGSEGV, SEGV_MAPERR, regs);
++	} else {
++		/*
++		 * Fault from kernel mode. Enable interrupts if they were
++		 * enabled in the parent context. Section (upper page table)
++		 * translation faults are handled via do_translation_fault(),
++		 * so we will only get here for a non-present kernel space
++		 * PTE or PTE permission fault. This may happen in exceptional
++		 * circumstances and need the fixup tables to be walked.
++		 */
++		if (interrupts_enabled(regs))
++			local_irq_enable();
++
++		__do_kernel_fault(mm, addr, fsr, regs);
++	}
++
++	return 0;
++}
++
+ static int __kprobes
+ do_page_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+ {
+@@ -261,6 +290,12 @@ do_page_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+ 
+ 	tsk = current;
+ 	mm  = tsk->mm;
++	/*
++	 * Handle kernel addresses faults separately, which avoids touching
++	 * the mmap lock from contexts that are not able to sleep.
++	 */
++	if (addr >= TASK_SIZE)
++		return do_kernel_address_page_fault(mm, addr, fsr, regs);
+ 
+ 	/* Enable interrupts if they were enabled in the parent context. */
+ 	if (interrupts_enabled(regs))
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.55.0
 
