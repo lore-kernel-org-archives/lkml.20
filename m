@@ -1,97 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156CE47C116;
-	Thu, 17 Sep 2026 08:36:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE9248C3E4
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634218; cv=none; b=oAlTCtWx4gWoJ9MtiMxi9Kp+Ii5TSeBfZ56WIngq3yw0jZPO8fKl27Iiki0tOZRQs5Hbnqx4NUvN0Qw28+k0zYsfRXD2aaR5KNr50WTTJEwx7adzwtUBIzcYq4QsT+mNZ+usP1oEL8lje+4bJB3Jb+e/E/2Fe3V8zJoEhQWOB8s=
+	t=1789634235; cv=none; b=UiFEpv6pbpLA1nXMNpHu/D2GFB6b5DJARzDLAwBhZpVngLku7eNjXU8cuCO1Wx6mGm+vukfhIdmjE8/VuvtCUj8oybgp1TfuOrdnvdkHxQsKI/15CDO6/ZQvl2c/qjQcNRQL3Dlf+TqNL/0BQSlasiG601pV8lMWeWr/XBuT948=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634218; c=relaxed/simple;
-	bh=AjPQQ34DjEurplenLQ7sBH+VHMaZnGFbeJBQVIWEoTs=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=RR0M1ygdRaLAm/GBqH75fEcxqlzt9CqOW69KhKGE+vhkUVZcFecORvRVvYBBTF9v0Azwn8tSFvy00qhKSemvyokSDxSn+EoIgFggdEpPL1zKX6jmAsAva7T/XyCBByDxyZkJWyRYS3LRArw5Qgt/cIy/s0uKUZqxRIb2EyQ+zIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GTwzq7Eo; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GTwzq7Eo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608871F00899;
-	Thu, 17 Sep 2026 08:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789634211;
-	bh=AjPQQ34DjEurplenLQ7sBH+VHMaZnGFbeJBQVIWEoTs=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=GTwzq7Eo0fBeR7MbMPqG5QLnCXLBSCeWvnu/N3aKXYGQ2NJ5mpS7jNeHApp2BVkEh
-	 TGjtPquNf1ssqU3LqUcdUGEut8DwCIblXT674DSBUi6tNfbgpjynjyaMlWZQ8+z7C4
-	 iVi4opq6Zv0A5Ej/KrP6xAvxFlBWgodtpMWTBIINbx34ZRlDr6uJFMVEQuSOQiYL+B
-	 fB7eATby8veC/x7ZoDQi8Rm83xicxahVrIa0imLmvrvRhtgIOPgB+Y2rlB9geNt+xo
-	 9P5JEwqqo53McOnSUqDzI4mGwrDXSEE6jMABDE5xhyvQit0bxef0Mvrq/ffLXvTSmC
-	 fYy4WwAr26v0w==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id BC76B198003A;
-	Thu, 17 Sep 2026 04:36:49 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 17 Sep 2026 04:36:49 -0400
-X-ME-Sender: <xms:oKaranGauXjJYBj2OHr5Ts3ZvWM-4P-vVhEP88gSLbqJWXHSD3BNHw>
-    <xme:oKaravIbg2HlGEmoHcVv_BjVLGPcHG3OsFaw2-tJq5-Ru_f4b8y5ECjPkzp1utBBK
-    P23XCMBuaGC-H9G9AqqrsLxfuebjf2uUpS9Ra4GUy5YXVdrvKdU4dp1>
-X-ME-Proxy-Cause: dmFkZTGj/iOcN9vrW1Y04XJ/AbklSHO56cmeyUArUFrIGsnEAsW1WzgWJpdGXhSDI7lJyV
-    bdMpwFH+usjcjY7/COJk6gayth2TOAtCB2AC9NXaVyvx0FogMmVkwM1Rt5S1TRPBRm0AwW
-    Tz8HpyDOcazHAujGIOBFh6IFCRZtW425tt72Z39CVDtoa3ORSC+Ab5eZ5DsUyRSHg0b8Ac
-    RGtdgKZNiuJRaMiyAagQi6jtB/FMOuFVuHwUvCBgudqw1jy5engrVn8IUrhoE50CboVrP/
-    7XSOVhIVuwZO53XChsmGCLD65qwOHNXmjVM9BKT62ezMOPmUR/BFSF8mPh4tQ7lGprTrWa
-    9mTiQIc8wc1GAN+3Ahl2dla4xmDGYl4+yfi5TEvlPsdiC6jeqYR8W7l8UN2Ni3RsWaw+gx
-    9p4WMNomgaOJXC0V5EXrDlzDqcSepzundyrYNOynftfN4nZtOPuO3pnNw+c1JV+mvLx4PE
-    T3Hmx4bqGAmTNFStkN59JUhRUv4RulqdoOFRxmDOTL41GS96e3lSuaGGMvfG3q1KJgXLzn
-    eBMfQKYA8whbXtNdH4j9kMHopFEzSkAj3BFz3VCcZLHtjntDm0++6RnViXGiuQmVfHH4gh
-    u74N2kVAktG0wMcyiOsA3vRrJIyLrumMiHT+OH6wyx+ummuByCYwrog0GxOA
-X-ME-Proxy: <xmx:oaaraqqUsvWTVUn08_QhGUNB-TZy4cvST8lLYfiHzLuf9OGB4DDBLw>
-    <xmx:oaaraq4MIIb6MeK-bsdetCGQ8aC7D0y_JCeibS3zNQuiAnAdrvwyHQ>
-    <xmx:oaaraheWtWY6kO5-2xy6uDVF5Y2vxmU6O9oCu6BnoyOMX4mMhutvoA>
-    <xmx:oaarav7_DL630r33YPBKlyq-QbrG3RS6-Ocm81lTh_KRXnWrN7nDtA>
-    <xmx:oaaraosHZCMzFL_XVKvF4xJ_HoeSk3B6IOBOU5KxHzCCqPe1SeDBpQGu>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id F059AF80084; Thu, 17 Sep 2026 04:36:47 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1789634235; c=relaxed/simple;
+	bh=oisXCmA2gqXKZ1tvx5HmoXhrxEPurs2e7HZrdYWEvUA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=ZHIhQF2bH6omEpcqQCta4F1+dwVvL9Cg3SRfKZDL8DLFz+KRi3TOGR0Z9gQCVQbpxL0YOv8/IwAtaa5D+UyAul+DT0L454lOFz72YwdBcpSHoDS+WEzdsvvO4l0OogGW70+yWsWVru8K3AQCN4ZdlcagN5V756B9itOnh9XmmJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-4574f1cac98so1122869fac.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:37:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789634228; x=1790239028;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=oisXCmA2gqXKZ1tvx5HmoXhrxEPurs2e7HZrdYWEvUA=;
+        b=SdrFTYcO2sq4E+uJN21NyU7yvqWKj/cWQESGdxZ/V/OfNBWEO01mm9t/QqgXz3hq0H
+         t1P37/S7K59B5EUACJNkS1xOKmD18F5cQavATF0rJxIvadyXAtm/esK+h49J9a5pCWoF
+         Wi26rl4HijEtNKLx6Eevj2+WkheqyJSn3135ZZYl7IZQhJ6R5hxNpLMMMeOOup8qfScn
+         EB7alfqZmWVELtFkHRPKXSpZsRbQcc237MEc/aK9y464yOIz/x7+3i9Ar7iD4XlB/Ax5
+         n8IeYG9BKLJogWTt6Vt5yE99kBsySrhTKKP5s07hzjhMN5wM8fu2e9wlEoh2VaDqdVmH
+         fXXw==
+X-Forwarded-Encrypted: i=1; AKwUvByGfHgGFHhw2htk4i0Bv3kZfuc7NuxA6XWnqV2z/6A55Cs0RuPjDfLA1kdnWWyQbP2Sf0Z6Tvh3A7T1p/g=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4AjRRdomwONhrynTh06RpD2k4xd1W/Nxnw3Ixd9NCLJJbU3J/
+	8JLam7/2pYGRf3QI82m75/dR5i2/8vrujdrA9DGkYsUveQPAT1lfoaz/7y+4GAf/LkycdxvKG1G
+	x2dAr7oWKeSo1NlefvdRx/anh3KwMNAgtXhRoxN5JBYrQ9jWnxoOWv+GWkAQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 17 Sep 2026 10:36:26 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Prashant Singh" <singhpra@juniper.net>, "Jeremy Kerr" <jk@ozlabs.org>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Jonathan Corbet" <corbet@lwn.net>, linux-doc@vger.kernel.org
-Message-Id: <60d0b7a5-cc1f-4841-b4f2-754e1b921794@app.fastmail.com>
-In-Reply-To: <20260917071600.5587-1-singhpra@juniper.net>
-References: <20260917071600.5587-1-singhpra@juniper.net>
-Subject: Re: [PATCH] efivarfs: avoid slow QueryVariableInfo() in statfs()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:1629:b0:6ae:8fc0:dbaf with SMTP id
+ 006d021491bc7-6c7d15ca0e3mr5732373eaf.1.1789634228189; Thu, 17 Sep 2026
+ 01:37:08 -0700 (PDT)
+Date: Thu, 17 Sep 2026 01:37:08 -0700
+In-Reply-To: <CADy8qZiJmfdwm11aV7z1mr+fjFJQ0kN8Wp6yBub0_0EP3uCssg@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaba6b4.71f81b7d.278072.001b.GAE@google.com>
+Subject: Re: [syzbot] BUG: unable to handle kernel paging request in __hfsplus_brec_find
+From: syzbot <syzbot+f957cf00261d1c41fafd@syzkaller.appspotmail.com>
+To: davemadmaxxx@gmail.com
+Cc: davemadmaxxx@gmail.com, frank.li@vivo.com, glaubitz@physik.fu-berlin.de, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	slava@dubeyko.com, syzkaller-bugs@googlegroups.com, 
+	syzkaller-upstream-moderation@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Prashant,
-
-On Thu, 17 Sep 2026, at 09:16, Prashant Singh wrote:
-> QueryVariableInfo() is an EFI runtime service that, on some platforms,
-> takes tens of milliseconds and runs with preemption disabled, freezing
-> the CPU that services it for the whole call. efivarfs_statfs() issued
-> this call on every statfs(2) (e.g. every "df"), which produced large
-> latency spikes for unrelated latency-sensitive workloads pinned to the
-> same CPU.
+> Hi,
 >
-> Commit b2326338dc68 ("efivarfs: Rate limit statfs() handler") already
-> bounds the firmware call to twice per second. That helps against a
-> statfs() flood, but on a real-time / dataplane system even the residual
-> 2 calls/s x ~40ms = up to ~80ms/s of preempt-disabled CPU time is
-> unacceptable: any unprivileged process (or a periodic monitoring "df")
-> can still inject ~40ms stalls into a co-located latency-sensitive task.
+> I am investigating the HFS+ crash reported by syzbot in
+> __hfsplus_brec_find() and would like to share the current results of a
+> function-by-function reconstruction of the failure path.
 >
+> The public report shows the fault address:
+>
+> fffffffffffffffb
+>
+> On 64-bit Linux this value is consistent with the encoding of
+> ERR_PTR(-EIO). I am treating that correspondence as an important clue,
+> not as proof that -EIO originated at any particular call site.
+>
+> STATIC AUDIT
+>
+> The audit identified two concrete producer-to-consumer gaps in
+> fs/hfsplus/brec.c. In both cases, hfs_bnode_find() can supply a value
+> that is assigned to fd->bnode without an IS_ERR() check before
+> fd->bnode is subsequently consumed as a struct hfs_bnode pointer.
+>
+> The first site is in hfs_brec_insert(), after a successful node split
+> and during the parent-node lookup. A second related site exists in
+> hfs_brec_update_parent().
+>
+> hfs_bnode_find() has error-return paths using ERR_PTR(), including
+> -EIO. This makes error-pointer propagation through these unchecked
+> assignments a mechanism worth testing. However, the existence of these
+> paths alone does not establish that either site produced the error
+> pointer in the original syzbot execution.
+>
+> RUNTIME REACHABILITY
+>
+> I then tested the relevant control flow in an isolated QEMU HFS+ environment.
+>
+> A clean HFS+ filesystem and a workload creating many long catalog
+> names naturally caused a Catalog B-tree node split and reached the
+> parent lookup in hfs_brec_insert(). No control-flow manipulation was
+> needed to reach that branch.
+>
+> This established runtime reachability of the exact branch containing
+> the first unchecked hfs_bnode_find() assignment.
+>
+> DIRECTED ERROR-POINTER EXPERIMENT
+>
+> Only after the natural control flow reached that parent-lookup point,
+> I deliberately injected:
+>
+> fd->bnode = ERR_PTR(-EIO)
+>
+> The unprotected execution then faulted at:
+>
+> fffffffffffffffb
+>
+> This is the same numerical fault address shown in the public syzbot report.
+>
+> I want to be explicit about the interpretation of this experiment: the
+> ERR_PTR(-EIO) value in this test was deliberately injected. Therefore
+> this is NOT a natural reproduction of the syzbot bug and does NOT
+> demonstrate that hfs_bnode_find() naturally returned -EIO in the
+> original report.
+>
+> What the experiment demonstrates is narrower: if ERR_PTR(-EIO) reaches
+> fd->bnode at this reachable producer-to-consumer gap, the resulting
+> invalid pointer can produce the same fault-address value observed by
+> syzbot.
+>
+> NAIVE CONTAINMENT AND CLEANUP BEHAVIOR
+>
+> An initial diagnostic attempt added an IS_ERR() check after assigning
+> hfs_bnode_find() directly to fd->bnode and returned the corresponding
+> error.
+>
+> That guard detected the injected -EIO, but the kernel subsequently
+> faulted again at fffffffffffffffb, this time through the cleanup path
+> ending in hfs_bnode_put().
+>
+> The reason was that fd->bnode still retained ERR_PTR(-EIO). The caller
+> cleanup eventually executed hfs_find_exit(), which calls
+> hfs_bnode_put(fd->bnode) without treating ERR_PTR as a valid state.
+>
+> This led to an additional source-level observation: fd->bnode appears
+> to have an effective cleanup contract of containing either a valid
+> hfs_bnode pointer or NULL, not an ERR_PTR value. Existing HFS+ code
+> also contains a safe pattern in which the hfs_bnode_find() result is
+> first held in a temporary pointer, checked with IS_ERR(), and only
+> then assigned to fd->bnode.
+>
+> NEW_NODE OWNERSHIP
+>
+> The split path also has a live new_node reference returned by
+> hfs_bnode_split(). Therefore simply returning on a failed parent
+> lookup would not be sufficient; the diagnostic error exit must also
+> account for that reference.
+>
+> DIAGNOSTIC PATCH 40P
+>
+> Based on those observations, I developed 40P as a diagnostic
+> containment patch. It modifies the two unchecked hfs_bnode_find()
+> sites identified in the audit.
+>
+> At each site, the hfs_bnode_find() result is first stored in a
+> temporary pointer. If IS_ERR() is true, the patch:
+>
+> 1. obtains the error with PTR_ERR();
+> 2. ensures fd->bnode is NULL rather than retaining the error pointer;
+> 3. releases the live new_node reference with hfs_bnode_put(new_node);
+> 4. returns the error;
+> 5. assigns the temporary pointer to fd->bnode only after it has passed
+> the error check.
+>
+> Under the same directed ERR_PTR(-EIO) condition, this diagnostic
+> version contained the tested error-pointer propagation without leaving
+> fd->bnode poisoned for the later cleanup path.
+>
+> 40P is a diagnostic patch only. It is not intended as an upstream fix.
+> Its purpose is to test and constrain the causal path while preserving
+> the local cleanup state observed in the source.
+>
+> CURRENT EVIDENCE BOUNDARY
+>
+> The evidence currently supports the following statements:
+>
+> - The public syzbot report contains the fault address fffffffffffffffb.
+> - That value is consistent with ERR_PTR(-EIO).
+> - Two unchecked hfs_bnode_find() -> fd->bnode producer-to-consumer
+> gaps were identified in brec.c.
+> - hfs_bnode_find() can return error pointers, including -EIO on an error path.
+> - hfs_brec_insert() and the relevant post-split parent-lookup branch
+> are naturally runtime-reachable in the controlled HFS+ workload.
+> - A deliberately injected ERR_PTR(-EIO) at that reachable point
+> produces the same numerical fault-address value.
+> - A naive IS_ERR()+return is insufficient because fd->bnode can remain
+> poisoned and be consumed during cleanup.
+> - 40P contains that directed condition while maintaining fd->bnode as
+> NULL on the tested error exit and releasing new_node.
+>
+> The evidence does NOT yet establish:
+>
+> - that the original syzbot execution naturally obtained -EIO from
+> hfs_bnode_find() at this site;
+> - that either of these two unchecked assignments is the complete root
+> cause of the public crash;
+> - or where the first naturally occurring invalid/error state
+> originates in the syzbot execution.
+>
+> NEXT DIAGNOSTIC QUESTION
+>
+> I am continuing to move the observation point backward around the
+> Catalog B-tree split and parent lookup, with the goal of separating:
+>
+> 1. the point where an error pointer can be prevented from propagating; and
+> 2. the point where the relevant error state first arises naturally.
+>
+> I would appreciate feedback on whether these two hfs_bnode_find()
+> sites are the appropriate boundary for continued instrumentation, and
+> whether there are specific HFS+ B-tree invariants, parent-node state
+> transitions, or error-propagation rules around
+> hfs_bnode_split()/parent lookup that should be checked next.
+>
+> #syz test
 
-Could we instead introduce a mount option that disables used/available
-reporting entirely? Feel free to set the default to 'disabled' when
-CONFIG_PREEMPT_RT is set.
+This crash does not have a reproducer. I cannot test it.
 
-
-
+>
+> The 40P diagnostic patch is attached as plain text so its whitespace
+> is preserved reliably.
+>
+> Thanks,
+> David Maximiliano Hermitte
