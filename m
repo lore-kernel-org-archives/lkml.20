@@ -1,36 +1,45 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58182342538;
-	Thu, 17 Sep 2026 15:56:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F75433AD;
+	Thu, 17 Sep 2026 15:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660618; cv=none; b=jcb6ShmoLL0xiL+0RG+o5H37ukHIzG8a6OU8Lnpe8XsKGcXqbf/FJuZEl+yyljunF9eeguGhzJNaV36KlY67bMrO/SMOW0ff5/3ur4RmyGLhO/kfhB7kINesV53+YEkzOfdvBIeXwwGW9lMwvoKM7qmdW6zGPnQZObUcOCBQQhQ=
+	t=1789660624; cv=none; b=bRHizJ01JrGVayJ1Pz9w5efGNF78sPyD6EM6QAw2MaiPICFWejbCGruAxV+jP0Mn70me6KHmeTC0Gv8csM+B6JcRZfVdVkEN0JSiiAvbvNWS3CRmaatkBvIPdDw90R8ePZvSbI/aBh2c7rcYyUHXSL/zQneVinuMp0pKktt+X/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660618; c=relaxed/simple;
-	bh=l/uy9ws6uDHU6z+5WCuv9BoP49zJ449mG0VxGCokVFs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Qe8QoPTXsx/ZGk+zg5WUVAUPDkt1QT+4zLpR3O7aKZxwMaMvafc59Du4De6yWMkNEeB5OHEVeOsY4ZrQEJAj9OReLc8bVHlQfGgpNASTGm1yMUbbpmaxbR99+FlO0+cUVb0gwOA00ot5W9A6CD2RMbZg507mB0iDB9JSddiFZ8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAC3HzrCDaxqPPmDCA--.6369S2;
-	Thu, 17 Sep 2026 23:56:50 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: ilpo.jarvinen@linux.intel.com,
-	jirislaby@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	s=arc-20240116; t=1789660624; c=relaxed/simple;
+	bh=/eEvWIGvI3aKrQ4e1fj77fUtnMYfN2KrI7neR/7GoCY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U1DkRS43NQ4l8AxIG8SAlOife/RUUxQOGgHQ08uZxxbQvu1igXS/WEAM1RHMHiloUiwSvkXivKrUbrBIOLBhLmmYUa62aHPtNcbB+kpH/iAzfWzWOlR3C4rUJGKMC1+Mq0LUblJTmqlM6QUZrUv/I92UBHMUtu8qBUwW8HaaoC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g8qX6gmb; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g8qX6gmb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346F31F000FF;
+	Thu, 17 Sep 2026 15:57:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789660623;
+	bh=f0ZOP0Yw/WONd2MaPzjS3OZNsmbzgPVfLO/uHIlT6Ts=;
+	h=From:To:Cc:Subject:Date;
+	b=g8qX6gmbZQpEq5eT71AJ5gbmxXa19dxWffSxyX9o9TjpZ8w0Tfk3p3RCh2re0xVt6
+	 kbouqQWxgZ45GwgVGaAuyeNdp3iIriXOra7LnafrrhwEvagSrnSZP6e7s980O5vtYo
+	 jYzzQT4nh09Js8TvECdCRI4nNX4EisYM3H6FzFCrqIt2CfukNNkrbUjiSPIpfhwl8p
+	 nAzm2Z+DSAT/fW2G/MAshmAHNGN/C/3NKU5G/lC3zT1hknaTOK+M7p+V5Ipd8Qs7wg
+	 /6gFHEGHhr/nraKAeAtIdKPgFNWmMh9T5+SgP5IgbX1gNem3i0yJOTBiMKS70kJgP8
+	 PwqgYADb7bPvw==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	schung@nuvoton.com,
-	ychuang3@nuvoton.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] serial: ma35d1: Fix clock reference leak in ma35d1serial_probe()
-Date: Thu, 17 Sep 2026 15:56:50 +0000
-Message-Id: <20260917155650.2161274-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] usb: gadget: pxa25x: prevent ixp4xx + pxa25x combination
+Date: Thu, 17 Sep 2026 17:56:27 +0200
+Message-ID: <20260917155657.2200191-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,70 +47,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAC3HzrCDaxqPPmDCA--.6369S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KFWUXF1ktr4rCryxuw4DArb_yoW8Xw4xpF
-	srKrZ5KayUGa48tw1Duw15Zr4fZw4Uta4xCrW7Ga4fuanIqr93tryfJa4jva1UCFykWF47
-	Jr1Iy345uF4jy37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPSb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
-	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
-	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
-	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
-	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF
-	7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxV
-	W8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7I
-	U1oUDJUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgENA2qr888+PAAAs2
 
-of_clk_get() returns a clock with a reference that has to be released
-with clk_put(). ma35d1serial_probe() never does that, so the reference
-is leaked on the probe error paths and also when the port is removed.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Release it on the error paths and in ma35d1serial_remove().
+The USB gadget driver is one of the holdouts of Arm single-platform
+support that conflicts with a multiplatform kernel. Trying to
+build this for both Intel PXA and IXP fails with:
 
-Fixes: 930cbf92db01 ("tty: serial: Add Nuvoton ma35d1 serial driver support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+drivers/usb/gadget/udc/pxa25x_udc.c:144:9: error: 'UDCCS_IO_ROF' redefined [-Werror]
+  144 | #define UDCCS_IO_ROF    (1 << 2)        /* Receive overflow */
+      |         ^~~~~~~~~~~~
+drivers/usb/gadget/udc/pxa25x_udc.c:141:9: note: this is the location of the previous definition
+  141 | #define UDCCS_IO_ROF    (1 << 3)        /* Receive overflow */
+      |         ^~~~~~~~~~~~
+drivers/usb/gadget/udc/pxa25x_udc.c:232:2: error: #error "Can't configure both IXP and PXA"
+  232 | #error "Can't configure both IXP and PXA"
+
+Until recently this was not a problem, as ixp4xx was only big-endian
+and pxa is only little-endian, so these could never be in the same
+kernel image.
+
+As this has changed recently, an allmodconfig kernel for ARMv5 runs
+into the above failure. I don't think this is an important scenario
+in practice, especially as pxa25x support is already rather broken,
+so prevent this configuration using a Kconfig dependency, and
+rework the driver to allow a combined ixp4xx/pxa3xx kernel that
+only uses this driver on ixp.
+
+Cc: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/tty/serial/ma35d1_serial.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/usb/gadget/udc/Kconfig      | 1 +
+ drivers/usb/gadget/udc/pxa25x_udc.c | 8 ++++----
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/tty/serial/ma35d1_serial.c b/drivers/tty/serial/ma35d1_serial.c
-index 285b0fe41a86..a073648cc5e4 100644
---- a/drivers/tty/serial/ma35d1_serial.c
-+++ b/drivers/tty/serial/ma35d1_serial.c
-@@ -720,7 +720,7 @@ static int ma35d1serial_probe(struct platform_device *pdev)
+diff --git a/drivers/usb/gadget/udc/Kconfig b/drivers/usb/gadget/udc/Kconfig
+index 7ddbc2606686..5142f70b6f3a 100644
+--- a/drivers/usb/gadget/udc/Kconfig
++++ b/drivers/usb/gadget/udc/Kconfig
+@@ -126,6 +126,7 @@ config USB_OMAP
+ config USB_PXA25X
+ 	tristate "PXA 25x or IXP 4xx"
+ 	depends on (ARCH_PXA && PXA25x) || ARCH_IXP4XX
++	depends on !(PXA25x && ARCH_IXP4XX)
+ 	depends on HAS_IOMEM
+ 	help
+ 	   Intel's PXA 25x series XScale ARM-5TE processors include
+diff --git a/drivers/usb/gadget/udc/pxa25x_udc.c b/drivers/usb/gadget/udc/pxa25x_udc.c
+index 594d67193763..7e158ca73fa1 100644
+--- a/drivers/usb/gadget/udc/pxa25x_udc.c
++++ b/drivers/usb/gadget/udc/pxa25x_udc.c
+@@ -140,7 +140,7 @@
+ #ifdef CONFIG_ARCH_IXP4XX /* FIXME: is this right?, datasheed says '2' */
+ #define UDCCS_IO_ROF	(1 << 3)	/* Receive overflow */
+ #endif
+-#ifdef CONFIG_ARCH_PXA
++#ifdef CONFIG_PXA25x
+ #define UDCCS_IO_ROF	(1 << 2)	/* Receive overflow */
+ #endif
+ #define UDCCS_IO_DME	(1 << 3)	/* DMA enable */
+@@ -228,7 +228,7 @@ static const char ep0name [] = "ep0";
+ #ifdef CONFIG_ARCH_IXP4XX
  
- 	ret = clk_prepare_enable(up->clk);
- 	if (ret)
--		goto err_iounmap;
-+		goto err_put_clk;
+ /* cpu-specific register addresses are compiled in to this code */
+-#ifdef CONFIG_ARCH_PXA
++#ifdef CONFIG_PXA25x
+ #error "Can't configure both IXP and PXA"
+ #endif
  
- 	if (up->port.line != 0)
- 		up->port.uartclk = clk_get_rate(up->clk);
-@@ -747,6 +747,9 @@ static int ma35d1serial_probe(struct platform_device *pdev)
- err_clk_disable:
- 	clk_disable_unprepare(up->clk);
+@@ -2230,7 +2230,7 @@ static struct pxa25x_udc memory = {
  
-+err_put_clk:
-+	clk_put(up->clk);
-+
- err_iounmap:
- 	iounmap(up->port.membase);
- 	return ret;
-@@ -762,6 +765,7 @@ static void ma35d1serial_remove(struct platform_device *dev)
+ #define CP15R0_VENDOR_MASK	0xffffe000
  
- 	uart_remove_one_port(&ma35d1serial_reg, port);
- 	clk_disable_unprepare(up->clk);
-+	clk_put(up->clk);
- }
+-#if	defined(CONFIG_ARCH_PXA)
++#if	defined(CONFIG_PXA25x)
+ #define CP15R0_XSCALE_VALUE	0x69052000	/* intel/arm/xscale */
  
- static int ma35d1serial_suspend(struct platform_device *dev, pm_message_t state)
+ #elif	defined(CONFIG_ARCH_IXP4XX)
+@@ -2282,7 +2282,7 @@ static int pxa25x_udc_probe(struct platform_device *pdev)
+ 
+ 	/* trigger chiprev-specific logic */
+ 	switch (chiprev & CP15R0_PRODREV_MASK) {
+-#if	defined(CONFIG_ARCH_PXA)
++#if	defined(CONFIG_PXA25x)
+ 	case PXA255_A0:
+ 		dev->has_cfr = 1;
+ 		break;
 -- 
-2.34.1
+2.53.0
 
