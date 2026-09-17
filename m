@@ -1,76 +1,105 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237FA3F1AAD
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9074A409635
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:24:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789622624; cv=none; b=mdaXUgZA+noDTNEEi4Z/bUHxssBvrjqvzaXibFhmyy9JiYeRqJKXzGOm8QeRp8QGkYYFkfbULRQ+w65h5+kpupLg/wcLjjs5plAqsu/7uy/mrn2ipsbrqEBY1zmqxjRRN3AYSkw2eSyB1+GiO7hpuTJqvqeyFERQU93qxgXlHh0=
+	t=1789622651; cv=none; b=DLhfcYFFhmvNF/SydYxaG+TZ096d04WQIVWmVZ/KcAZ8Nr03TB2x8r2Fexr6N2ou5ICAMAkZX7MyUqIE3eAsg+475lD++w1r6WwF4CVJZtIn8Q/TwSySwK54phQN3rojk/5OuT5ztOKyvQSyv8eZS9WjXhYisSg/LHHpj5LQP9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789622624; c=relaxed/simple;
-	bh=aTwtqSNm05OJSXGSGIVb0xW+X+nYCvqDgfSQuiaEtlQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VvpoagfNTMjWUrAbFNz2FB5atZz8HNRkRJjh3BNU+M1va2+V01I+s4nuSUcAI4K5mhRXuPuUYg5nQ54013tEtcN+PyxgIICaMK1hbsZ34P55dx88U74qNSZQYcfYLOkBpO4Mjv9pAZHRSZx3c3Mxx+i3zSOQeT31gA9JlshFnb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mLCbrKDM; arc=none smtp.client-ip=74.125.228.43
+	s=arc-20240116; t=1789622651; c=relaxed/simple;
+	bh=LOz+kG+J3+tYYVP6ckl971epwkiDBjgPiJtinKZ63gE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bGyMyA3DGimkgy+h17r0cWqDJ4Bym9UHBhrtnaLFL6M7nZkq/fCAKE2/hHseGmCNHHtPBr8APChdOrR+eXJIFu+Mua1w4RT7evkFItx9zuUtU0c5zGjKVn+e81+JxPR9i+QMNTBF/LIlggEiOFVHMtHDMaiXUPYU0Qm1c3u7E+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Stpzpt03; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mLCbrKDM"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469d249c4so386220b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:23:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Stpzpt03"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398a147688bso391131a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:24:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789622622; x=1790227422; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789622649; x=1790227449; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EijacSJHF51C+Y/V/hsmLgSVvJjLIJnbhuq1HdPUqnQ=;
-        b=mLCbrKDMrBZfNIabYGDMCO/hXFO0oje1vBn3cP3OMYB39P/+Ql4xe1yzgmSxsCacU2
-         G2C8RCnLmVZZ1BPKu9pC/LN46h32igmqj4INvHfTZwSVEleQEEe5lbATlyllUZm/l4cw
-         dkt4tz7jWD0nBgjqnfS2Xcm2SZJINEM1AEQcaKAPgPiyHSOAn5ElNUrsF+f1lUmXUEJY
-         HXUM+9JVbNMnMCdCMu2y1jkK3eIQy0VqodTS7ms3oXAK5WXaoPbeElXHIFVUKQq1PXnc
-         VO6M0fQ/8cCVX71G5JRPuCFN5knW9nqUjIx8pqp2AESstvRa10lqzSpje3JbhdERnK4F
-         NgkA==
+        bh=MgfC2YDA5MlWY7aPX9LW2hTwGflIkNfx7ki9cO3eyQ4=;
+        b=Stpzpt03yrykJqpYBHuBoVFyquFrttbc97YNG2jrHbrxttH23gU1qI4VVaDallvP94
+         BHBGVsB/om4NYf9hYnbjDPeX8TQW+WTWn3dlK9esN0r6i4INkaWPJilt6u62/YGHiyhb
+         ZRdrSQXtx+eflqYwxRaI/N7D5kCi/FELg+PbitAGwMIGtSitEuaD7pEGwztT3dlOMU/6
+         B4PtiqVz0gPc3igx84Q0C13T28qrheY+bOArSHCS3aNfCF1U9oebNu2nXKoeIJ5eonsJ
+         tztcAE9M9xSxc+DYzzGUuzjJ57dM+oJ29scNQsQIykfLuqY4xisXhRf0ERVyGMhrdUII
+         Ugig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789622622; x=1790227422;
+        d=1e100.net; s=20260707; t=1789622649; x=1790227449;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EijacSJHF51C+Y/V/hsmLgSVvJjLIJnbhuq1HdPUqnQ=;
-        b=zcvaEUZJV1me23/z+Rsjp4M+2H8xFbJO6b/0003m8VZkSfNsWm5WWe5EhVVCJltqGC
-         neLoo9+vRs1uFjAJxoMrGbCMvq2wcV6eU6U2avKM2PnJ6UwhRCBKAOslmkQ4DQO0lu61
-         o7o/1d3ZsYMVwHZO16hU38OMT/3E25zO6hU8g/FDeQSqoxmWQb9rgf5QYSKvI9aK6nYH
-         bnxZRrCJLRQ43SNnqeeZlwtmiPGYxBxYwcokranq90BODUfpOsEGRiauTugwC836yi/q
-         gU62vHpVOlU3Z3xIopZuzSjY3KGx5N9kPKQzO1BplkOPjaHgVb2P9Ej4u8HiZF0tFb/d
-         P9Dg==
-X-Forwarded-Encrypted: i=1; AKwUvByrEoRy0Ze6S93iYsG2VFU43hEkg1YBoE77VHzKOtMpGadq2q4ijWJeV97SDFuLYIzi1htfYFM5Ffj9ddY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpdDBYjYb7IE/QSyH+KjRysWKawLKSDx5+Y9NmCDPwM4D+JSi3
-	nPu8wOyUWtzhtQJBPNFbE3snHxzGe0Y1pMSN5LyPnRD8/RnDUyURmJoD
-X-Gm-Gg: AYBFou2VuhsePRDEZ7se1i719efZTvWMxq3YCnZkoE2wFunPBvVj7nZVEFccnEba53I
-	yKSSliC9237W7k/qiFG0oIeVuG97HBt4C7U41q6dX43J3mEU13mJV3e5axLrfNtu3F7k+MZDN6+
-	66eEuUC/NP2Kju4DFN11kJoL8SOqqAkX32eLzCblteL6wXxuqQOOTxvg1nsg/YfkHCn2NXZjiJF
-	YStdEQrqigNDlG1g2XpQbzR/k+2ImQ1UFs5pL2Y7j8coW7oQZPJhX/xLpAyDwFULwWOxYJxHAeE
-	Mgw6kIi50HNmL2hiAQq8FR5Brgqy/xPSd80BJEFkBkzPrIn81n5DZygObTVOSojrpG5pAG00Psg
-	2koRDOcc3h12BzxIFEBIUB1gNnwhge2VEVDWdniabgD9H/i7D9IslV4DfbmBVYRn/UPs7nDGkUG
-	S298EnlmIJBF860RsXOPf0jE5Zm3obr1u+cF9DUb5bjsF+kLr0X9kFmou/jpAXrHw2Yyiiq8OuP
-	bnGe0YRPY4SSx/U3xelB1gqeQ==
-X-Received: by 2002:a05:6a21:7008:b0:3c3:b57b:627d with SMTP id adf61e73a8af0-3dd5f44a101mr14246154637.12.1789622622323;
-        Wed, 16 Sep 2026 22:23:42 -0700 (PDT)
+        bh=MgfC2YDA5MlWY7aPX9LW2hTwGflIkNfx7ki9cO3eyQ4=;
+        b=J8NTDpl3CNkZz/IRKx+6TigxbG9QWh4rRr/9zJPX5OeqBm0kWq57lJTqw0iX/CXaKw
+         usQE52fH7gIa9eRAvCpfo+KYYjisH0QYG/X7FeeLQJ402vnxMd27L5D2ivea/SruhEDW
+         CNJMtAq4nJmxhluc0qhAKnvRhneK1uWnWDOnrDWIp/L4HcM985Ex1/Bd56ude/M3tKKO
+         Nq+xj8fshBmp0UG6zKBMv49/oVe/QO9xS00dyH8lRnOJFbcpId06ivnFOcW8AZnpUd6x
+         So1wiHHjhKSo0Rwfv7r2n1VNOUrofhBVYijVFSt6HC5NWDUXRg7VpW1+S52bs4dH6pdb
+         Jctg==
+X-Forwarded-Encrypted: i=1; AKwUvByA92eB1X1rrOH2ImIMAItv+CKMxCp0wCKukyM4D2t+4K2a/xtMZeQGvKOcoxWsgbn9xjduTFcROEw4tdo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVlB3vcPZnDRRMC8VrVBVnmuQEkH+2vBXD2MmX2kxVTbWSh5Ke
+	0r7qNf1JVjEnn5h3ad4TjSVnnJDLQ4VevkeFOv6SxUC5XVabpYgwW3SK
+X-Gm-Gg: AYBFou2Bkz+y7mCD3DfOKBjavvlfU8oe+WqV2j8ahUO+B2LPW0BHy151d3gxO8CQqaE
+	4btmNIONhkcGu4ahv5dAmxP0wbMdoD9Wh7gLvFFNUnGwhEdA3g8q50X/Y4FFRa6pFm04AZ1toAQ
+	loQYvI+eA2TU38OzCcTXiRFZEmq8A7SeWIup0SsXrClkSkw6Wi4QyK1SggLgj/txPlK3eF3KSb8
+	vUwTNmh3AWW4LBEgi0YQB/WbE+/IZjoygWKo1Vc31+3cUB2mp5+UY5VV7+q+3jQ3zWi6zS7YVpa
+	+qyuw3qRIsnCxJj2XwBD6KofTX42UWu7mp7vM6pNJHVxoCU15aLIqYLj++suREho/mD9aPeC+6+
+	00tQ/inwRYYhN6FGwRPIj/jKmAIF36eyyzy4rM9PC8CYIjeLSzF4rawTikR8KSHu56rzWdsr+V7
+	THIGnheGaGAxXOcfBysp+6WMLw3gX9ivs7a4vUt4mIijZwf9wUNDoqojJrV89FbSrP4lpOUnl96
+	F22DC3IQLtM2aOKTH9owUsovA==
+X-Received: by 2002:a17:90b:1fce:b0:39e:2faa:2e83 with SMTP id 98e67ed59e1d1-39e2faa31f1mr7696392a91.10.1789622648492;
+        Wed, 16 Sep 2026 22:24:08 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5aee8b0sm24486171eec.23.2026.09.16.22.23.38
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a93f1fsm12482915eec.11.2026.09.16.22.23.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 22:23:41 -0700 (PDT)
+        Wed, 16 Sep 2026 22:24:08 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Lee Jones <lee@kernel.org>,
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
 	Support Opensource <support.opensource@diasemi.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Botsz HUANG <huang.botsz@gmail.com>,
-	Nick Huang <sef1548@gmail.com>,
-	mfd@lists.linux.dev,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Oder Chiou <oder_chiou@realtek.com>,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Sen Wang <sen@ti.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Jarkko Nikula <jarkko.nikula@bitmer.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org
-Subject: [PATCH v4] mfd: Fix typos in comments
-Date: Thu, 17 Sep 2026 10:53:35 +0530
-Message-ID: <20260917052335.13288-1-hemanth.selam@gmail.com>
+	patches@opensource.cirrus.com,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-omap@vger.kernel.org
+Subject: [PATCH v3] ASoC: fix typos in comments
+Date: Thu, 17 Sep 2026 10:53:55 +0530
+Message-ID: <20260917052355.13344-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,291 +109,550 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix misspellings in comments across the MFD drivers and headers, found
-with scripts/checkpatch.pl using the list in scripts/spelling.txt.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-Since v1 this also corrects "wainting" and "comapletion" in
-include/linux/mfd/si476x-core.h, which checkpatch did not flag; Matti
-Vaittinen asked for "wainting" and "comapletion" is on the same line.
-The subject is also capitalised to match the MFD convention.
+v3 is v2 regenerated on top of broonie/sound.git for-next, with a
+base-commit trailer so the base is unambiguous.  v2 was reported as not
+applying; I could not reproduce that against for-next, for-7.4 or
+for-linus, so please let me know which branch you are applying to if this
+one still fails.
 
-v4 drops the two Acked-by tags that v3 added, as requested, keeping
-only Matti's Reviewed-by, and drops the Assisted-by trailer. The diff
-is unchanged from v2.
-
-Only touches comments, no code changes.
-
-Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/mfd/88pm800.c                |  2 +-
- drivers/mfd/kempld-core.c            |  2 +-
- drivers/mfd/max8998.c                |  2 +-
- drivers/mfd/rave-sp.c                |  6 +++---
- drivers/mfd/si476x-i2c.c             |  2 +-
- include/linux/mfd/da9063/registers.h |  2 +-
- include/linux/mfd/db8500-prcmu.h     | 32 ++++++++++++++--------------
- include/linux/mfd/lp8788.h           |  2 +-
- include/linux/mfd/max8998.h          |  2 +-
- include/linux/mfd/palmas.h           |  2 +-
- include/linux/mfd/rohm-bd71828.h     |  2 +-
- include/linux/mfd/samsung/core.h     |  2 +-
- include/linux/mfd/si476x-core.h      |  4 ++--
- include/linux/mfd/twl.h              |  2 +-
- 14 files changed, 32 insertions(+), 32 deletions(-)
+ sound/soc/atmel/atmel-pcm-dma.c            |  2 +-
+ sound/soc/bcm/cygnus-ssp.h                 |  2 +-
+ sound/soc/codecs/adau1701.c                |  4 ++--
+ sound/soc/codecs/cs35l33.c                 |  2 +-
+ sound/soc/codecs/cs35l34.c                 |  2 +-
+ sound/soc/codecs/cs42l42.c                 |  2 +-
+ sound/soc/codecs/cs42l73.c                 |  4 ++--
+ sound/soc/codecs/cx20442.c                 |  2 +-
+ sound/soc/codecs/da7210.c                  |  2 +-
+ sound/soc/codecs/hdac_hda.c                |  2 +-
+ sound/soc/codecs/hdac_hdmi.c               |  2 +-
+ sound/soc/codecs/max98927.c                |  4 ++--
+ sound/soc/codecs/mt6359.c                  |  8 ++++----
+ sound/soc/codecs/nau8825.c                 | 10 +++++-----
+ sound/soc/codecs/rt1320-sdw.c              |  2 +-
+ sound/soc/codecs/rt5631.h                  |  8 ++++----
+ sound/soc/codecs/rt5640.c                  |  2 +-
+ sound/soc/codecs/rt5645.c                  |  2 +-
+ sound/soc/codecs/rt5651.c                  |  2 +-
+ sound/soc/codecs/rt5670.c                  |  2 +-
+ sound/soc/codecs/tlv320dac33.c             |  2 +-
+ sound/soc/intel/atom/sst-mfld-dsp.h        |  2 +-
+ sound/soc/intel/atom/sst/sst.h             |  2 +-
+ sound/soc/intel/boards/sof_cirrus_common.c |  2 +-
+ sound/soc/qcom/qdsp6/q6asm-dai.c           |  2 +-
+ sound/soc/ti/davinci-i2s.c                 |  2 +-
+ sound/soc/ti/davinci-mcasp.c               |  2 +-
+ sound/soc/ti/omap-mcbsp.c                  |  2 +-
+ sound/soc/uniphier/aio.h                   |  2 +-
+ sound/soc/ux500/ux500_msp_i2s.c            |  2 +-
+ 30 files changed, 43 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/mfd/88pm800.c b/drivers/mfd/88pm800.c
-index e9941da58b18..aac630322b3c 100644
---- a/drivers/mfd/88pm800.c
-+++ b/drivers/mfd/88pm800.c
-@@ -275,7 +275,7 @@ static int device_gpadc_init(struct pm80x_chip *chip,
- 		goto out;
+diff --git a/sound/soc/atmel/atmel-pcm-dma.c b/sound/soc/atmel/atmel-pcm-dma.c
+index 7306e04da513..e4b73ae3df4f 100644
+--- a/sound/soc/atmel/atmel-pcm-dma.c
++++ b/sound/soc/atmel/atmel-pcm-dma.c
+@@ -47,7 +47,7 @@ static const struct snd_pcm_hardware atmel_pcm_dma_hardware = {
+  * atmel_pcm_dma_irq: SSC interrupt handler for DMAENGINE enabled SSC
+  *
+  * We use DMAENGINE to send/receive data to/from SSC so this ISR is only to
+- * check if any overrun occured.
++ * check if any overrun occurred.
+  */
+ static void atmel_pcm_dma_irq(u32 ssc_sr,
+ 	struct snd_pcm_substream *substream)
+diff --git a/sound/soc/bcm/cygnus-ssp.h b/sound/soc/bcm/cygnus-ssp.h
+index 4925e03c3c30..7848e15efbe1 100644
+--- a/sound/soc/bcm/cygnus-ssp.h
++++ b/sound/soc/bcm/cygnus-ssp.h
+@@ -27,7 +27,7 @@ struct ringbuf_regs {
+ 	unsigned wraddr;
+ 	unsigned baseaddr;
+ 	unsigned endaddr;
+-	unsigned fmark;   /* freemark for play, fullmark for caputure */
++	unsigned fmark;   /* freemark for play, fullmark for capture */
+ 	unsigned period_bytes;
+ 	unsigned buf_size;
+ };
+diff --git a/sound/soc/codecs/adau1701.c b/sound/soc/codecs/adau1701.c
+index a1311c7b56b1..d55cdc5d4413 100644
+--- a/sound/soc/codecs/adau1701.c
++++ b/sound/soc/codecs/adau1701.c
+@@ -4,7 +4,7 @@
+  *
+  * Copyright 2011 Analog Devices Inc.
+  * Author: Lars-Peter Clausen <lars@metafoo.de>
+- *	based on an inital version by Cliff Cai <cliff.cai@analog.com>
++ *	based on an initial version by Cliff Cai <cliff.cai@analog.com>
+  */
  
+ #include <linux/module.h>
+@@ -701,7 +701,7 @@ static int adau1701_probe(struct snd_soc_component *component)
+ 	 */
+ 	adau1701->pll_clkdiv = ADAU1707_CLKDIV_UNSET;
+ 
+-	/* initalize with pre-configured pll mode settings */
++	/* initialize with pre-configured pll mode settings */
+ 	ret = adau1701_reset(component, adau1701->pll_clkdiv, 0);
+ 	if (ret < 0)
+ 		goto exit_regulators_disable;
+diff --git a/sound/soc/codecs/cs35l33.c b/sound/soc/codecs/cs35l33.c
+index d0f9231f5e44..b8c19f175701 100644
+--- a/sound/soc/codecs/cs35l33.c
++++ b/sound/soc/codecs/cs35l33.c
+@@ -578,7 +578,7 @@ static int cs35l33_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
+ 			| CS35L33_X_LOC);
+ 	}
+ 
+-	/* disconnect {vp,vbst}_mon routes: eanble later if set in tx_mask*/
++	/* disconnect {vp,vbst}_mon routes: enable later if set in tx_mask*/
+ 	snd_soc_dapm_del_routes(dapm, cs35l33_vp_vbst_mon_route,
+ 		ARRAY_SIZE(cs35l33_vp_vbst_mon_route));
+ 
+diff --git a/sound/soc/codecs/cs35l34.c b/sound/soc/codecs/cs35l34.c
+index 3f265bd760f7..a72be629a31e 100644
+--- a/sound/soc/codecs/cs35l34.c
++++ b/sound/soc/codecs/cs35l34.c
+@@ -297,7 +297,7 @@ static int cs35l34_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
+ 				CS35L34_X_STATE | CS35L34_X_LOC,
+ 				CS35L34_X_STATE | CS35L34_X_LOC);
+ 
+-	/* disconnect {vp,vbst}_mon routes: eanble later if set in tx_mask*/
++	/* disconnect {vp,vbst}_mon routes: enable later if set in tx_mask*/
+ 	while (slot >= 0) {
+ 		/* configure VMON_TX_LOC */
+ 		if (slot_num == 0)
+diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
+index 866c21944729..84065d153ebf 100644
+--- a/sound/soc/codecs/cs42l42.c
++++ b/sound/soc/codecs/cs42l42.c
+@@ -1682,7 +1682,7 @@ irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ 	if (cs42l42->suspended || !cs42l42->init_done)
+ 		return IRQ_NONE;
+ 
+-	/* Read sticky registers to clear interurpt */
++	/* Read sticky registers to clear interrupt */
+ 	for (i = 0; i < ARRAY_SIZE(stickies); i++) {
+ 		regmap_read(cs42l42->regmap, irq_params_table[i].status_addr,
+ 				&(stickies[i]));
+diff --git a/sound/soc/codecs/cs42l73.c b/sound/soc/codecs/cs42l73.c
+index 72076ccf4570..72c4213ed74b 100644
+--- a/sound/soc/codecs/cs42l73.c
++++ b/sound/soc/codecs/cs42l73.c
+@@ -761,7 +761,7 @@ static const struct snd_soc_dapm_route cs42l73_audio_map[] = {
+ 	{"ASPOUTL", "ASP-IP Volume", "ASPL Output Mixer"},
+ 	{"ASPOUTR", "ASP-IP Volume", "ASPR Output Mixer"},
+ 
+-	/* Auxillary Capture */
++	/* Auxiliary Capture */
+ 	{"XSPL Output Mixer", NULL, "Input Left Capture"},
+ 	{"XSPR Output Mixer", NULL, "Input Right Capture"},
+ 
+@@ -1126,7 +1126,7 @@ static int cs42l73_set_bias_level(struct snd_soc_component *component,
+ 			mdelay(cs42l73->shutdwn_delay);
+ 			cs42l73->shutdwn_delay = 0;
+ 		} else {
+-			mdelay(15); /* Min amount of time requred to power
++			mdelay(15); /* Min amount of time required to power
+ 				     * down.
+ 				     */
+ 		}
+diff --git a/sound/soc/codecs/cx20442.c b/sound/soc/codecs/cx20442.c
+index 0dea84cd8ef2..d3c7a9370220 100644
+--- a/sound/soc/codecs/cx20442.c
++++ b/sound/soc/codecs/cx20442.c
+@@ -200,7 +200,7 @@ static int cx20442_write(struct snd_soc_component *component, unsigned int reg,
+  * Line discpline related code
+  *
+  * Any of the callback functions below can be used in two ways:
+- * 1) registerd by a machine driver as one of line discipline operations,
++ * 1) registered by a machine driver as one of line discipline operations,
+  * 2) called from a machine's provided line discipline callback function
+  *    in case when extra machine specific code must be run as well.
+  */
+diff --git a/sound/soc/codecs/da7210.c b/sound/soc/codecs/da7210.c
+index 597510de561a..40d759938edc 100644
+--- a/sound/soc/codecs/da7210.c
++++ b/sound/soc/codecs/da7210.c
+@@ -1158,7 +1158,7 @@ static int da7210_probe(struct snd_soc_component *component)
+ 	snd_soc_component_write(component, DA7210_PLL_DIV3, DA7210_MCLK_RANGE_10_20_MHZ |
+ 					      DA7210_PLL_BYP);
+ 
+-	/* Diable PLL and bypass it */
++	/* Disable PLL and bypass it */
+ 	snd_soc_component_write(component, DA7210_PLL, DA7210_PLL_FS_48000);
+ 
+ 	/* Activate all enabled subsystem */
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index 1c06fdbf0e71..7414be08d3d5 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -520,7 +520,7 @@ static int hdac_hda_codec_probe(struct snd_soc_component *component)
  	/*
--	 * the defult of PM800 is GPADC operates at 100Ks/s rate
-+	 * the default of PM800 is GPADC operates at 100Ks/s rate
- 	 * and Number of GPADC slots with active current bias prior
- 	 * to GPADC sampling = 1 slot for all GPADCs set for
- 	 * Temprature mesurmants
-diff --git a/drivers/mfd/kempld-core.c b/drivers/mfd/kempld-core.c
-index b64729918dfd..47062f876e5d 100644
---- a/drivers/mfd/kempld-core.c
-+++ b/drivers/mfd/kempld-core.c
-@@ -37,7 +37,7 @@ static void kempld_get_hardware_mutex(struct kempld_device_data *pld)
+ 	 * hdac_device core already sets the state to active and calls
+ 	 * get_noresume. So enable runtime and set the device to suspend.
+-	 * pm_runtime_enable is also called during codec registeration
++	 * pm_runtime_enable is also called during codec registration
+ 	 */
+ 	pm_runtime_put(&hdev->dev);
+ 	pm_runtime_suspend(&hdev->dev);
+diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
+index d9e6fa6d3e99..b3f677e7ddc9 100644
+--- a/sound/soc/codecs/hdac_hdmi.c
++++ b/sound/soc/codecs/hdac_hdmi.c
+@@ -1753,7 +1753,7 @@ static int hdmi_codec_resume(struct device *dev)
+ 	/*
+ 	 * As the ELD notify callback request is not entertained while the
+ 	 * device is in suspend state. Need to manually check detection of
+-	 * all pins here. pin capablity change is not support, so use the
++	 * all pins here. pin capability change is not support, so use the
+ 	 * already set pin caps.
+ 	 *
+ 	 * NOTE: this is safe to call even if the codec doesn't actually resume.
+diff --git a/sound/soc/codecs/max98927.c b/sound/soc/codecs/max98927.c
+index d8dfaefdca7e..285c9d1ea721 100644
+--- a/sound/soc/codecs/max98927.c
++++ b/sound/soc/codecs/max98927.c
+@@ -672,7 +672,7 @@ static int max98927_probe(struct snd_soc_component *component)
+ 		     0x80);
+ 	regmap_write(max98927->regmap, MAX98927_R0026_PCM_TO_SPK_MONOMIX_B,
+ 		     0x1);
+-	/* Set inital volume (+13dB) */
++	/* Set initial volume (+13dB) */
+ 	regmap_write(max98927->regmap, MAX98927_R0036_AMP_VOL_CTRL, 0x38);
+ 	regmap_write(max98927->regmap, MAX98927_R003C_SPK_GAIN, 0x05);
+ 	/* Enable DC blocker */
+@@ -870,7 +870,7 @@ static int max98927_i2c_probe(struct i2c_client *i2c)
+ 	/* voltage/current slot configuration */
+ 	max98927_slot_config(i2c, max98927);
  
- static void kempld_release_hardware_mutex(struct kempld_device_data *pld)
- {
--	/* The harware mutex is released when 1 is written to the mutex bit. */
-+	/* The hardware mutex is released when 1 is written to the mutex bit. */
- 	iowrite8(KEMPLD_MUTEX_KEY, pld->io_index);
+-	/* codec registeration */
++	/* codec registration */
+ 	ret = devm_snd_soc_register_component(&i2c->dev,
+ 		&soc_component_dev_max98927,
+ 		max98927_dai, ARRAY_SIZE(max98927_dai));
+diff --git a/sound/soc/codecs/mt6359.c b/sound/soc/codecs/mt6359.c
+index b15bdb15dbb0..c51eae602ca0 100644
+--- a/sound/soc/codecs/mt6359.c
++++ b/sound/soc/codecs/mt6359.c
+@@ -82,7 +82,7 @@ static void mt6359_reset_capture_gpio(struct mt6359_priv *priv)
+ 			   0x3 << 0, 0x0);
  }
  
-diff --git a/drivers/mfd/max8998.c b/drivers/mfd/max8998.c
-index eb13bbaeda55..5032eab05bb4 100644
---- a/drivers/mfd/max8998.c
-+++ b/drivers/mfd/max8998.c
-@@ -146,7 +146,7 @@ static struct max8998_platform_data *max8998_i2c_parse_dt_pdata(
+-/* use only when doing mtkaif calibraiton at the boot time */
++/* use only when doing mtkaif calibration at the boot time */
+ static void mt6359_set_dcxo(struct mt6359_priv *priv, bool enable)
+ {
+ 	regmap_update_bits(priv->regmap, MT6359_DCXO_CW12,
+@@ -90,7 +90,7 @@ static void mt6359_set_dcxo(struct mt6359_priv *priv, bool enable)
+ 			   (enable ? 1 : 0) << RG_XO_AUDIO_EN_M_SFT);
+ }
  
- 	/*
- 	 * ToDo: the 'wakeup' member in the platform data is more of a linux
--	 * specfic information. Hence, there is no binding for that yet and
-+	 * specific information. Hence, there is no binding for that yet and
- 	 * not parsed here.
- 	 */
- 	return pd;
-diff --git a/drivers/mfd/rave-sp.c b/drivers/mfd/rave-sp.c
-index 05d26d92df03..53c57bafea8f 100644
---- a/drivers/mfd/rave-sp.c
-+++ b/drivers/mfd/rave-sp.c
-@@ -331,7 +331,7 @@ static u8 rave_sp_reply_code(u8 command)
- 		return command + 0x20;
- 	case 0xE0 ... 0xEF:
- 		/*
--		 * Events emitted by all versions of the firmare use
-+		 * Events emitted by all versions of the firmware use
- 		 * least significant bit to get an ACK code
- 		 */
- 		return command | 0x01;
-@@ -544,7 +544,7 @@ static size_t rave_sp_receive_buf(struct serdev_device *serdev,
- 				 * NOTE: The above means that only the
- 				 * frame started by third SOF, sent
- 				 * after this one will have a chance
--				 * to get throught.
-+				 * to get through.
+-/* use only when doing mtkaif calibraiton at the boot time */
++/* use only when doing mtkaif calibration at the boot time */
+ static void mt6359_set_clksq(struct mt6359_priv *priv, bool enable)
+ {
+ 	/* Enable/disable CLKSQ 26MHz */
+@@ -99,7 +99,7 @@ static void mt6359_set_clksq(struct mt6359_priv *priv, bool enable)
+ 			   (enable ? 1 : 0) << RG_CLKSQ_EN_SFT);
+ }
+ 
+-/* use only when doing mtkaif calibraiton at the boot time */
++/* use only when doing mtkaif calibration at the boot time */
+ static void mt6359_set_aud_global_bias(struct mt6359_priv *priv, bool enable)
+ {
+ 	regmap_update_bits(priv->regmap, MT6359_AUDDEC_ANA_CON13,
+@@ -107,7 +107,7 @@ static void mt6359_set_aud_global_bias(struct mt6359_priv *priv, bool enable)
+ 			   (enable ? 0 : 1) << RG_AUDGLB_PWRDN_VA32_SFT);
+ }
+ 
+-/* use only when doing mtkaif calibraiton at the boot time */
++/* use only when doing mtkaif calibration at the boot time */
+ static void mt6359_set_topck(struct mt6359_priv *priv, bool enable)
+ {
+ 	regmap_update_bits(priv->regmap, MT6359_AUD_TOP_CKPDN_CON0,
+diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
+index 5165aeba4b67..2eb0efc983a0 100644
+--- a/sound/soc/codecs/nau8825.c
++++ b/sound/soc/codecs/nau8825.c
+@@ -345,10 +345,10 @@ static u32 nau8825_intlog10_dec3(u32 value)
+ /**
+  * nau8825_xtalk_sidetone - computes cross talk suppression sidetone gain.
+  *
+- * @sig_org: orignal signal level
++ * @sig_org: original signal level
+  * @sig_cros: cross talk signal level
+  *
+- * The orignal and cross talk signal vlues need to be characterized.
++ * The original and cross talk signal vlues need to be characterized.
+  * Once these values have been characterized, this sidetone value
+  * can be converted to decibel with the equation below.
+  * sidetone = 20 * log (original signal level / crosstalk signal level)
+@@ -671,11 +671,11 @@ static void nau8825_xtalk_imm_stop(struct nau8825 *nau8825)
+  * Thus, the measurement function has four states to complete whole sequence.
+  * 1. Prepare state : Prepare the resource for detection and transfer to HPR
+  *     IMM stat to make JKR1(HPR) impedance measure.
+- * 2. HPR IMM state : Read out orignal signal level of JKR1(HPR) and transfer
++ * 2. HPR IMM state : Read out original signal level of JKR1(HPR) and transfer
+  *     to HPL IMM state to make JKTIP(HPL) impedance measure.
+  * 3. HPL IMM state : Read out cross talk signal level of JKTIP(HPL) and
+  *     transfer to IMM state to determine suppression sidetone gain.
+- * 4. IMM state : Computes cross talk suppression sidetone gain with orignal
++ * 4. IMM state : Computes cross talk suppression sidetone gain with original
+  *     and cross talk signal level. Apply this gain and then restore codec
+  *     configuration. Then transfer to Done state for ending.
+  */
+@@ -724,7 +724,7 @@ static void nau8825_xtalk_measure(struct nau8825 *nau8825)
+ 		nau8825->xtalk_state = NAU8825_XTALK_IMM;
+ 		break;
+ 	case NAU8825_XTALK_IMM:
+-		/* In impedance measure state, the orignal and cross talk
++		/* In impedance measure state, the original and cross talk
+ 		 * signal level vlues are ready. The side tone gain is deter-
+ 		 * mined with these signal level. After all, restore codec
+ 		 * configuration.
+diff --git a/sound/soc/codecs/rt1320-sdw.c b/sound/soc/codecs/rt1320-sdw.c
+index 444a91755be9..b13622e54ae0 100644
+--- a/sound/soc/codecs/rt1320-sdw.c
++++ b/sound/soc/codecs/rt1320-sdw.c
+@@ -2084,7 +2084,7 @@ static int rt1320_rae_load(struct rt1320_sdw_priv *rt1320)
+ 		regmap_update_bits(rt1320->regmap, 0x20005818, 0x80, 0x80);
+ 		/* RAE run */
+ 		regmap_update_bits(rt1320->regmap, 0x2000301c, 0x01, 0x01);
+-		/* Phase sync eanble */
++		/* Phase sync enable */
+ 		regmap_update_bits(rt1320->regmap, 0xc047, 0x80, 0x80);
+ 		break;
+ 	}
+diff --git a/sound/soc/codecs/rt5631.h b/sound/soc/codecs/rt5631.h
+index 8a6b99a48c7c..00734207ac9f 100644
+--- a/sound/soc/codecs/rt5631.h
++++ b/sound/soc/codecs/rt5631.h
+@@ -415,7 +415,7 @@
+ #define RT5631_ADDA_FILTER_CLK_SEL_256FS		(0 << 7) /* 256FS */
+ #define RT5631_ADDA_FILTER_CLK_SEL_384FS		(1 << 7) /* 384FS */
+ 
+-/* Power managment addition 1 (0x3A) */
++/* Power management addition 1 (0x3A) */
+ #define RT5631_PWR_MAIN_I2S_EN			(0x1 << 15)
+ #define RT5631_PWR_MAIN_I2S_BIT			15
+ #define RT5631_PWR_CLASS_D				(0x1 << 12)
+@@ -435,7 +435,7 @@
+ #define RT5631_PWR_DAC_R_TO_MIXER			(0x1 << 5)
+ #define RT5631_PWR_DAC_R_TO_MIXER_BIT		5
+ 
+-/* Power managment addition 2 (0x3B) */
++/* Power management addition 2 (0x3B) */
+ #define RT5631_PWR_OUTMIXER_L				(0x1 << 15)
+ #define RT5631_PWR_OUTMIXER_L_BIT			15
+ #define RT5631_PWR_OUTMIXER_R				(0x1 << 14)
+@@ -461,7 +461,7 @@
+ #define RT5631_PWR_PLL2				(0x1 << 0)
+ #define RT5631_PWR_PLL2_BIT				0
+ 
+-/* Power managment addition 3(0x3C) */
++/* Power management addition 3(0x3C) */
+ #define RT5631_PWR_VREF				(0x1 << 15)
+ #define RT5631_PWR_VREF_BIT				15
+ #define RT5631_PWR_FAST_VREF_CTRL			(0x1 << 14)
+@@ -489,7 +489,7 @@
+ #define RT5631_PWR_HP_AMP_DRIVING			(0x1 << 0)
+ #define RT5631_PWR_HP_AMP_DRIVING_BIT		0
+ 
+-/* Power managment addition 4(0x3E) */
++/* Power management addition 4(0x3E) */
+ #define RT5631_PWR_SPK_L_VOL				(0x1 << 15)
+ #define RT5631_PWR_SPK_L_VOL_BIT			15
+ #define RT5631_PWR_SPK_R_VOL				(0x1 << 14)
+diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
+index 4fa1eee8e87f..03d0ac3359f5 100644
+--- a/sound/soc/codecs/rt5640.c
++++ b/sound/soc/codecs/rt5640.c
+@@ -1216,7 +1216,7 @@ static const struct snd_soc_dapm_widget rt5640_dapm_widgets[] = {
+ 		0, rt5640_spk_l_mix, ARRAY_SIZE(rt5640_spk_l_mix)),
+ 	SND_SOC_DAPM_MIXER("SPK MIXR", RT5640_PWR_MIXER, RT5640_PWR_SM_R_BIT,
+ 		0, rt5640_spk_r_mix, ARRAY_SIZE(rt5640_spk_r_mix)),
+-	/* Ouput Volume */
++	/* Output Volume */
+ 	SND_SOC_DAPM_PGA("SPKVOL L", RT5640_PWR_VOL,
+ 		RT5640_PWR_SV_L_BIT, 0, NULL, 0),
+ 	SND_SOC_DAPM_PGA("SPKVOL R", RT5640_PWR_VOL,
+diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
+index bf9f278c3de9..bb448254275f 100644
+--- a/sound/soc/codecs/rt5645.c
++++ b/sound/soc/codecs/rt5645.c
+@@ -2209,7 +2209,7 @@ static const struct snd_soc_dapm_widget rt5645_dapm_widgets[] = {
+ 		0, rt5645_out_l_mix, ARRAY_SIZE(rt5645_out_l_mix)),
+ 	SND_SOC_DAPM_MIXER("OUT MIXR", RT5645_PWR_MIXER, RT5645_PWR_OM_R_BIT,
+ 		0, rt5645_out_r_mix, ARRAY_SIZE(rt5645_out_r_mix)),
+-	/* Ouput Volume */
++	/* Output Volume */
+ 	SND_SOC_DAPM_SWITCH("SPKVOL L", RT5645_PWR_VOL, RT5645_PWR_SV_L_BIT, 0,
+ 		&spk_l_vol_control),
+ 	SND_SOC_DAPM_SWITCH("SPKVOL R", RT5645_PWR_VOL, RT5645_PWR_SV_R_BIT, 0,
+diff --git a/sound/soc/codecs/rt5651.c b/sound/soc/codecs/rt5651.c
+index 9723b4c7540c..b911757376f5 100644
+--- a/sound/soc/codecs/rt5651.c
++++ b/sound/soc/codecs/rt5651.c
+@@ -1024,7 +1024,7 @@ static const struct snd_soc_dapm_widget rt5651_dapm_widgets[] = {
+ 			   0, rt5651_out_l_mix, ARRAY_SIZE(rt5651_out_l_mix)),
+ 	SND_SOC_DAPM_MIXER("OUT MIXR", RT5651_PWR_MIXER, RT5651_PWR_OM_R_BIT,
+ 			   0, rt5651_out_r_mix, ARRAY_SIZE(rt5651_out_r_mix)),
+-	/* Ouput Volume */
++	/* Output Volume */
+ 	SND_SOC_DAPM_SWITCH("OUTVOL L", RT5651_PWR_VOL,
+ 			    RT5651_PWR_OV_L_BIT, 0, &outvol_l_control),
+ 	SND_SOC_DAPM_SWITCH("OUTVOL R", RT5651_PWR_VOL,
+diff --git a/sound/soc/codecs/rt5670.c b/sound/soc/codecs/rt5670.c
+index f772f093479a..62d4e7cea5af 100644
+--- a/sound/soc/codecs/rt5670.c
++++ b/sound/soc/codecs/rt5670.c
+@@ -1901,7 +1901,7 @@ static const struct snd_soc_dapm_widget rt5670_dapm_widgets[] = {
+ 			   0, rt5670_out_l_mix, ARRAY_SIZE(rt5670_out_l_mix)),
+ 	SND_SOC_DAPM_MIXER("OUT MIXR", RT5670_PWR_MIXER, RT5670_PWR_OM_R_BIT,
+ 			   0, rt5670_out_r_mix, ARRAY_SIZE(rt5670_out_r_mix)),
+-	/* Ouput Volume */
++	/* Output Volume */
+ 	SND_SOC_DAPM_MIXER("HPOVOL MIXL", RT5670_PWR_VOL,
+ 			   RT5670_PWR_HV_L_BIT, 0,
+ 			   rt5670_hpvoll_mix, ARRAY_SIZE(rt5670_hpvoll_mix)),
+diff --git a/sound/soc/codecs/tlv320dac33.c b/sound/soc/codecs/tlv320dac33.c
+index 55a95b62a650..b91ab42882d1 100644
+--- a/sound/soc/codecs/tlv320dac33.c
++++ b/sound/soc/codecs/tlv320dac33.c
+@@ -914,7 +914,7 @@ static int dac33_prepare_chip(struct snd_pcm_substream *substream,
+ 	/* OSC calibration time */
+ 	dac33_write(component, DAC33_CALIB_TIME, 96);
+ 
+-	/* adjustment treshold & step */
++	/* adjustment threshold & step */
+ 	dac33_write(component, DAC33_INT_OSC_CTRL_B, DAC33_ADJTHRSHLD(2) |
+ 						 DAC33_ADJSTEP(1));
+ 
+diff --git a/sound/soc/intel/atom/sst-mfld-dsp.h b/sound/soc/intel/atom/sst-mfld-dsp.h
+index c8f0816edb53..59606259a06e 100644
+--- a/sound/soc/intel/atom/sst-mfld-dsp.h
++++ b/sound/soc/intel/atom/sst-mfld-dsp.h
+@@ -189,7 +189,7 @@ struct ipc_dsp_hdr {
+ union ipc_header_high {
+ 	struct {
+ 		u32  msg_id:8;	    /* Message ID - Max 256 Message Types */
+-		u32  task_id:4;	    /* Task ID associated with this comand */
++		u32  task_id:4;	    /* Task ID associated with this command */
+ 		u32  drv_id:4;    /* Identifier for the driver to track*/
+ 		u32  rsvd1:8;	    /* Reserved */
+ 		u32  result:4;	    /* Reserved */
+diff --git a/sound/soc/intel/atom/sst/sst.h b/sound/soc/intel/atom/sst/sst.h
+index c43946c5ecee..e24d9dad7ef6 100644
+--- a/sound/soc/intel/atom/sst/sst.h
++++ b/sound/soc/intel/atom/sst/sst.h
+@@ -182,7 +182,7 @@ struct sst_block {
+  * @pcm_substream : PCM substream
+  * @period_elapsed : PCM period elapsed callback
+  * @sfreq : stream sampling freq
+- * @cumm_bytes : cummulative bytes decoded
++ * @cumm_bytes : cumulative bytes decoded
+  */
+ struct stream_info {
+ 	unsigned int		status;
+diff --git a/sound/soc/intel/boards/sof_cirrus_common.c b/sound/soc/intel/boards/sof_cirrus_common.c
+index 88fc6cb2bfd4..ec4bda40ae00 100644
+--- a/sound/soc/intel/boards/sof_cirrus_common.c
++++ b/sound/soc/intel/boards/sof_cirrus_common.c
+@@ -151,7 +151,7 @@ static const char * const cs35l41_name_prefixes[] = { "WL", "WR", "TL", "TR" };
+  * UID 0x2 -> TL
+  * UID 0x3 -> TR
+  * Note: If there are less than 4 Amps, UIDs still map to WL/WR/TL/TR. Dynamic code will only create
+- * dai links for UIDs which exist, and ignore non-existant ones. Only 2 or 4 amps are expected.
++ * dai links for UIDs which exist, and ignore non-existent ones. Only 2 or 4 amps are expected.
+  * Return number of codecs found.
+  */
+ static int cs35l41_compute_codec_conf(void)
+diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+index 4f09fdd40905..cd4f82bb8cc7 100644
+--- a/sound/soc/qcom/qdsp6/q6asm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+@@ -551,7 +551,7 @@ static void compress_event_handler(uint32_t opcode, uint32_t token,
+ 						 prtd->stream_id,
+ 						 CMD_CLOSE);
+ 				/*
+-				 * vaild stream ids start from 1, So we are
++				 * valid stream ids start from 1, So we are
+ 				 * toggling this between 1 and 2.
  				 */
- 				goto reset_framer;
- 			case RAVE_SP_DLE:
-@@ -595,7 +595,7 @@ static size_t rave_sp_receive_buf(struct serdev_device *serdev,
- 
+ 				prtd->stream_id = (prtd->stream_id == 1 ? 2 : 1);
+diff --git a/sound/soc/ti/davinci-i2s.c b/sound/soc/ti/davinci-i2s.c
+index ec7eb2f19b6f..3614f614117d 100644
+--- a/sound/soc/ti/davinci-i2s.c
++++ b/sound/soc/ti/davinci-i2s.c
+@@ -49,7 +49,7 @@
+  *    incompatible with ASP and with either McBSP.
+  *
+  * In short:  this uses ASP to implement I2S, not McBSP.
+- * And it won't be the only DaVinci implemention of I2S.
++ * And it won't be the only DaVinci implementation of I2S.
+  */
+ #define DAVINCI_MCBSP_DRR_REG	0x00
+ #define DAVINCI_MCBSP_DXR_REG	0x04
+diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+index ad9e194a3d0d..d461ab419655 100644
+--- a/sound/soc/ti/davinci-mcasp.c
++++ b/sound/soc/ti/davinci-mcasp.c
+@@ -1818,7 +1818,7 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
+ 	    !mcasp->async_mode)
+ 		max_channels = mcasp->channels;
  	/*
- 	 * The only way to get out of the above loop and end up here
--	 * is throught consuming all of the supplied data, so here we
-+	 * is through consuming all of the supplied data, so here we
- 	 * report that we processed it all.
+-	 * But we can always allow channels upto the amount of
++	 * But we can always allow channels up to the amount of
+ 	 * the available tdm_slots.
  	 */
- 	return size;
-diff --git a/drivers/mfd/si476x-i2c.c b/drivers/mfd/si476x-i2c.c
-index 9bce720a0a08..6351aef2d3bb 100644
---- a/drivers/mfd/si476x-i2c.c
-+++ b/drivers/mfd/si476x-i2c.c
-@@ -222,7 +222,7 @@ int si476x_core_stop(struct si476x_core *core, bool soft)
- 	atomic_set(&core->is_alive, 0);
+ 	if (max_channels < tdm_slots)
+diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
+index 5734388a4e4b..889e357b64d0 100644
+--- a/sound/soc/ti/omap-mcbsp.c
++++ b/sound/soc/ti/omap-mcbsp.c
+@@ -1237,7 +1237,7 @@ static int omap_mcbsp_dai_set_dai_sysclk(struct snd_soc_dai *cpu_dai,
+ 		break;
+ 	case OMAP_MCBSP_SYSCLK_CLKR_EXT:
+ 		regs->pcr0	|= SCLKME;
+-		/* Disable ouput on CLKR pin in master mode */
++		/* Disable output on CLKR pin in master mode */
+ 		regs->pcr0	&= ~CLKRM;
+ 		break;
+ 	default:
+diff --git a/sound/soc/uniphier/aio.h b/sound/soc/uniphier/aio.h
+index 1900ea01ce3d..87b27256cf80 100644
+--- a/sound/soc/uniphier/aio.h
++++ b/sound/soc/uniphier/aio.h
+@@ -183,7 +183,7 @@ struct uniphier_aio_selector {
+  *
+  * These are examples for sound data paths:
+  *
+- * For caputure device:
++ * For capture device:
+  *   (outer of AIO) -> iport -> iif -> ch -> rb -> (CPU)
+  * For playback device:
+  *   (CPU) -> rb -> ch -> oif -> oport -> (outer of AIO)
+diff --git a/sound/soc/ux500/ux500_msp_i2s.c b/sound/soc/ux500/ux500_msp_i2s.c
+index 683b485fb570..bd2cfc618290 100644
+--- a/sound/soc/ux500/ux500_msp_i2s.c
++++ b/sound/soc/ux500/ux500_msp_i2s.c
+@@ -19,7 +19,7 @@
  
- 	if (soft) {
--		/* TODO: This probably shoud be a configurable option,
-+		/* TODO: This probably should be a configurable option,
- 		 * so it is possible to have the chips keep their
- 		 * oscillators running
- 		 */
-diff --git a/include/linux/mfd/da9063/registers.h b/include/linux/mfd/da9063/registers.h
-index 7b8364bd08a0..376c5d330599 100644
---- a/include/linux/mfd/da9063/registers.h
-+++ b/include/linux/mfd/da9063/registers.h
-@@ -14,7 +14,7 @@
- #define DA9063_I2C_PAGE_SEL_SHIFT	1
- #define	DA9063_EVENT_REG_NUM		4
+ #include "ux500_msp_i2s.h"
  
--/* Page selection I2C or SPI always in the begining of any page. */
-+/* Page selection I2C or SPI always in the beginning of any page. */
- /* Page 0 : I2C access 0x000 - 0x0FF	SPI access 0x000 - 0x07F */
- /* Page 1 :				SPI access 0x080 - 0x0FF */
- /* Page 2 : I2C access 0x100 - 0x1FF	SPI access 0x100 - 0x17F */
-diff --git a/include/linux/mfd/db8500-prcmu.h b/include/linux/mfd/db8500-prcmu.h
-index c939c9a1170a..87a28c4f1d81 100644
---- a/include/linux/mfd/db8500-prcmu.h
-+++ b/include/linux/mfd/db8500-prcmu.h
-@@ -337,31 +337,31 @@ enum sia_mmdsp_stat {
-  * @SYSCLKOK_ERR: The SYSCLK is not available in the given time
-  * @BOOT_ERR: Romcode has not validated the XP70 self reset in the given time
-  * @ROMCODESAVECONTEXT: The Romcode didn.t correctly save it secure context
-- * @VARMHIGHSPEEDVALTO_ERR: The ARM high speed supply value transfered
-+ * @VARMHIGHSPEEDVALTO_ERR: The ARM high speed supply value transferred
-  *          through I2C has not been correctly executed in the given time
-- * @VARMHIGHSPEEDACCESS_ERR: The command value of VarmHighSpeedVal transfered
-+ * @VARMHIGHSPEEDACCESS_ERR: The command value of VarmHighSpeedVal transferred
-  *             through I2C has not been correctly executed in the given time
-- * @VARMLOWSPEEDVALTO_ERR:The ARM low speed supply value transfered through
-+ * @VARMLOWSPEEDVALTO_ERR:The ARM low speed supply value transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VARMLOWSPEEDACCESS_ERR: The command value of VarmLowSpeedVal transfered
-+ * @VARMLOWSPEEDACCESS_ERR: The command value of VarmLowSpeedVal transferred
-  *             through I2C has not been correctly executed in the given time
-- * @VARMRETENTIONVALTO_ERR: The ARM retention supply value transfered through
-+ * @VARMRETENTIONVALTO_ERR: The ARM retention supply value transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VARMRETENTIONACCESS_ERR: The command value of VarmRetentionVal transfered
-+ * @VARMRETENTIONACCESS_ERR: The command value of VarmRetentionVal transferred
-  *             through I2C has not been correctly executed in the given time
-- * @VAPEHIGHSPEEDVALTO_ERR: The APE highspeed supply value transfered through
-+ * @VAPEHIGHSPEEDVALTO_ERR: The APE highspeed supply value transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VSAFEHPVALTO_ERR: The SAFE high power supply value transfered through I2C
-+ * @VSAFEHPVALTO_ERR: The SAFE high power supply value transferred through I2C
-  *                         has not been correctly executed in the given time
-- * @VMODSEL1VALTO_ERR: The MODEM sel1 supply value transfered through I2C has
-+ * @VMODSEL1VALTO_ERR: The MODEM sel1 supply value transferred through I2C has
-  *                             not been correctly executed in the given time
-- * @VMODSEL2VALTO_ERR: The MODEM sel2 supply value transfered through I2C has
-+ * @VMODSEL2VALTO_ERR: The MODEM sel2 supply value transferred through I2C has
-  *                             not been correctly executed in the given time
-- * @VARMOFFACCESS_ERR: The command value of Varm ON/OFF transfered through
-+ * @VARMOFFACCESS_ERR: The command value of Varm ON/OFF transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VAPEOFFACCESS_ERR: The command value of Vape ON/OFF transfered through
-+ * @VAPEOFFACCESS_ERR: The command value of Vape ON/OFF transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VARMRETACCES_ERR: The command value of Varm retention ON/OFF transfered
-+ * @VARMRETACCES_ERR: The command value of Varm retention ON/OFF transferred
-  *             through I2C has not been correctly executed in the given time
-  * @CURAPPWRSTISNOTBOOT:Generated when Arm want to do power state transition
-  *             ApBoot to ApExecute but the power current state is not Apboot
-@@ -376,11 +376,11 @@ enum sia_mmdsp_stat {
-  *                    been correctly executed in the given time
-  * @ARMREGU2VALTO_ERR: The ArmRegu2 value transferred through I2C has not
-  *                    been correctly executed in the given time
-- * @VAPEREGUVALTO_ERR: The VApeRegu value transfered through I2C has not
-+ * @VAPEREGUVALTO_ERR: The VApeRegu value transferred through I2C has not
-  *                    been correctly executed in the given time
-- * @VSMPS3REGUVALTO_ERR: The VSmps3Regu value transfered through I2C has not
-+ * @VSMPS3REGUVALTO_ERR: The VSmps3Regu value transferred through I2C has not
-  *                      been correctly executed in the given time
-- * @VMODREGUVALTO_ERR: The VModemRegu value transfered through I2C has not
-+ * @VMODREGUVALTO_ERR: The VModemRegu value transferred through I2C has not
-  *                    been correctly executed in the given time
-  */
- enum mbox_to_arm_err {
-diff --git a/include/linux/mfd/lp8788.h b/include/linux/mfd/lp8788.h
-index fd17bec2a33e..e8c50bd38a8a 100644
---- a/include/linux/mfd/lp8788.h
-+++ b/include/linux/mfd/lp8788.h
-@@ -34,7 +34,7 @@
- #define LP8788_ALM_IRQ		"ALARM_IRQ"
- 
- enum lp8788_int_id {
--	/* interrup register 1 : Addr 00h */
-+	/* interrupt register 1 : Addr 00h */
- 	LP8788_INT_TSDL,
- 	LP8788_INT_TSDH,
- 	LP8788_INT_UVLO,
-diff --git a/include/linux/mfd/max8998.h b/include/linux/mfd/max8998.h
-index 5473f1983e31..ad2ad24412fb 100644
---- a/include/linux/mfd/max8998.h
-+++ b/include/linux/mfd/max8998.h
-@@ -45,7 +45,7 @@ enum {
- /**
-  * max8998_regulator_data - regulator data
-  * @id: regulator id
-- * @initdata: regulator init data (contraints, supplies, ...)
-+ * @initdata: regulator init data (constraints, supplies, ...)
-  * @reg_node: DT node of regulator (unused on non-DT platforms)
-  */
- struct max8998_regulator_data {
-diff --git a/include/linux/mfd/palmas.h b/include/linux/mfd/palmas.h
-index dabcc0dea802..1d872363820a 100644
---- a/include/linux/mfd/palmas.h
-+++ b/include/linux/mfd/palmas.h
-@@ -251,7 +251,7 @@ enum tps65917_regulators {
- 	TPS65917_NUM_REGS,
- };
- 
--/* External controll signal name */
-+/* External control signal name */
- enum {
- 	PALMAS_EXT_CONTROL_ENABLE1      = 0x1,
- 	PALMAS_EXT_CONTROL_ENABLE2      = 0x2,
-diff --git a/include/linux/mfd/rohm-bd71828.h b/include/linux/mfd/rohm-bd71828.h
-index 39fe275a8117..ea9b1a8f495f 100644
---- a/include/linux/mfd/rohm-bd71828.h
-+++ b/include/linux/mfd/rohm-bd71828.h
-@@ -186,7 +186,7 @@ enum {
- #define BD71828_REG_RTC_ALM2		0x63
- #define BD71828_REG_RTC_START		BD71828_REG_RTC_SEC
- 
--/* Charger/Battey */
-+/* Charger/Battery */
- #define BD71828_REG_CHG_STATE		0x65
- #define BD71828_REG_CHG_FULL		0xd2
- #define BD71828_REG_CHG_EN		0x6F
-diff --git a/include/linux/mfd/samsung/core.h b/include/linux/mfd/samsung/core.h
-index 6191f409de94..e489ca0d55ed 100644
---- a/include/linux/mfd/samsung/core.h
-+++ b/include/linux/mfd/samsung/core.h
-@@ -106,7 +106,7 @@ struct sec_platform_data {
- /**
-  * sec_regulator_data - regulator data
-  * @id: regulator id
-- * @initdata: regulator init data (contraints, supplies, ...)
-+ * @initdata: regulator init data (constraints, supplies, ...)
-  */
- struct sec_regulator_data {
- 	int				id;
-diff --git a/include/linux/mfd/si476x-core.h b/include/linux/mfd/si476x-core.h
-index d9e3a322134c..3e924ca4db00 100644
---- a/include/linux/mfd/si476x-core.h
-+++ b/include/linux/mfd/si476x-core.h
-@@ -94,10 +94,10 @@ enum si476x_power_state {
-  * of the @rds_fifo_drainer.
-  * @rds_drainer_status_lock: Lock used to guard access to the
-  * @rds_drainer_is_working variable.
-- * @command: Wait queue for wainting on the command comapletion.
-+ * @command: Wait queue for waiting on the command completion.
-  * @cts: Clear To Send flag set upon receiving first status with CTS
-  * set.
-- * @tuning: Wait queue used for wainting for tune/seek comand
-+ * @tuning: Wait queue used for waiting for tune/seek command
-  * completion.
-  * @stc: Similar to @cts, but for the STC bit of the status value.
-  * @power_up_parameters: Parameters used as argument for POWER_UP
-diff --git a/include/linux/mfd/twl.h b/include/linux/mfd/twl.h
-index b31e07fa4d51..238d9dcefc35 100644
---- a/include/linux/mfd/twl.h
-+++ b/include/linux/mfd/twl.h
-@@ -739,7 +739,7 @@ int twl4030_sih_setup(struct device *dev, int module, int irq_base);
- #define TWL4030_REG_VUSB3V1	19
- 
- /* TWL6030 SMPS/LDO's */
--/* EXTERNAL dc-to-dc buck convertor controllable via SR */
-+/* EXTERNAL dc-to-dc buck converter controllable via SR */
- #define TWL6030_REG_VDD1	30
- #define TWL6030_REG_VDD2	31
- #define TWL6030_REG_VDD3	32
+- /* Protocol desciptors */
++ /* Protocol descriptors */
+ static const struct msp_protdesc prot_descs[] = {
+ 	{ /* I2S */
+ 		MSP_SINGLE_PHASE,
+
+base-commit: 260a144af70c8babbf2f15d1a56bacfa83f8aef6
+-- 
+2.48.1
+
