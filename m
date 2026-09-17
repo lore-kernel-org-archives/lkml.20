@@ -1,156 +1,126 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165703911D5
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:02:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A39A42628D;
+	Thu, 17 Sep 2026 08:04:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632128; cv=none; b=Uvp5jtfl7t1kGYUNmj9TsR3w3I3SDX5uARuM0hDaMCcc8p8+bfwTlkg24WJJ6lckW/6sLH1ACea6GqGSO1ftpPzAmO+WDdHwLzbdwB7QOzUJS8fNjKamnVmH6XyLu7laIFhoXtOQuKFy+Hz2ZcXEmLUazRTNwQNNbYbZH/WItYw=
+	t=1789632275; cv=none; b=JNC3MRLLgNACjQDsZ7jCcsiYK3pAVFIrruj2+nLaaaZBrB11CoQBe65rPU9pzoxA6d19PNw01ClK2YvoCbJQdBylRLN3leZIqmvq02b5fU1cio2LuNJabCguG5XVz/254INbe8IF2ia3Dm3I0cUlMgx2OxzuKxd5VYY2CrNSpmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632128; c=relaxed/simple;
-	bh=O4McYQ43yAF3+S0C1n7WeGagveQomJ7h/JOsE63xDK8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mEctP3HaDUs8eIGmwJMt9Z0+EW0rO/KygnzEm2P0AHRfNptNcXNihKYIPdkyPwNyfYYRPHHIf70OtnCbCqsL1+KtsJp5Jg2oSSI7+SFYln9eNS0nEvZsJsuOVKRTADKydHChSzd7zukFTt0r/h3lCpsBCgZYjsRw//SsR0YuKZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Sjj0mTgV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kY+cbo8n; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789632275; c=relaxed/simple;
+	bh=ou/nevU3zQKfabX0KKwn1JcJFXk3b5jOGwor5+mK2fY=;
+	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=h7nURVDgSpZAH7UiwdLiukn1TeXEHgBwDcYRA4eqOBGROrA4Vjw9RoZZKrT+nTCZiIjCHiqNArUpY4eZQzXvZQymteq+WX95qg5YN/kj6MeGVpOL1TTuQX6IvvJ/YQiq8mljRXFm4ZRuOJszi4kyW1VlTlrTK+7G3LsHLMtWJ3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GCIwEF46; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Sjj0mTgV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kY+cbo8n"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H60ux71375673
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:02:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/Z1Yk65M75ZMuhaO9XZ5nn/CYe56pjK6jrBHgZjNvt8=; b=Sjj0mTgVD9gTeH6F
-	ga1mpK+Kwjpovj4ssnHA6scntUHLa829nowjeQNApH6QgZlrv1e6AM+hnw4Tf0vu
-	29gJza8PBqOidjg4BR141JtuT/oHAiE+Z1H0En1Mo5WUCRgXxTawhGggmTQOVTl8
-	OlRMwGxMqfOY3qNWjoTvSScpUZuWshS5/O474GZGPclFJ87wwhbmynJ6W8BjJODJ
-	ypzajH4Z/+JUVIilW19dN4ezdlHvTAlkqQJ5+ej6jjQwhY4VJFxnZtRiHuBy9n5t
-	Phm0oLUkVTknCNs+IuF8mcX+J1ejcmJ3I0cKTjSseDKSVR7uWFYUxy9O7Aqe/Oe/
-	MHkafw==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqy6au47x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:02:05 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9103db79014so1156656d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:02:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789632125; x=1790236925; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/Z1Yk65M75ZMuhaO9XZ5nn/CYe56pjK6jrBHgZjNvt8=;
-        b=kY+cbo8n98e0VSK22JY2TThPrZa4Vx4xCYLv1aHamEy4bmORZ0Wz4fQHcG5v+P+o16
-         zIOBahGscfw+z6nyh44z8k8M3/AQDkO5xA6ZUhoem/tXXi2jV80bGCG5W1PBoA3vXWu3
-         8XAl1xJMABNGFuHgTpDdo/Ab1+mKns6Yl6QvbOcMpX16Yx1gFFn/D2KZ1xKPZcCHh/0+
-         UBXo6OYJqAvi7mitv/CNqC/6Wd/XIwBJj3CdiO6pxIp5TZsoZZUhItyRonzKTwS6nx1C
-         pi6SgkoeQdzj5CvywSINAQ87rbHCwsyMSeTUFfPCXkbUnym0S9mJw//scmRRnqCZvxLh
-         CG9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789632125; x=1790236925;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/Z1Yk65M75ZMuhaO9XZ5nn/CYe56pjK6jrBHgZjNvt8=;
-        b=A1Ysn8UaWjz3FaSPA5Appi6nIvChbbip2gWOi3KVsn/SWvwaHm3IjsaXZSZOo9XcRD
-         CsX/9+AvrqB0Z8TmZQEJiM8SoYe6Z5u6r4OsVFk6/DiSxfsWlRmHo1H3y5mxOHjIHUeV
-         skppDYSZ4v8ZpmqiBhbI+vraESZwamc8CXOkfvE1f3J207GorchX0831w9kPl6mtaqzb
-         /LUC9+YFCqjqmIGLP+OEbfSLWe3e55ht493Mvlyu/bmfWjikkr9wgYO/iawtldVW+vXS
-         T89B1Yw8PL7PjPsNAnwIYaeFNNbPfVpcdYgkkbbR2HDWEtDZE1axG8P0rHQWf3h+Rsfs
-         hBJw==
-X-Forwarded-Encrypted: i=1; AKwUvBxUvDGSPe7Bby4AlhiflUo2t0fBWc7GMrilzZwmgc9v5D27fXfrfFe88o/W8OG85R8xD/XaIU+C5J8iQ3g=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOPMp7pGHqk1lHlJJGfqcwNArRSQrNoIFhkV9fEKKYRYgTStJ0
-	2dp4i/fTeHlJSg2kFJps6F2Q2Fsdq2lalQqntRVOdYkX1hxVbhI0cQBJiJ0RPzaRay4Zp5+ml+m
-	ceJXV3PWHOSfxTR3XT0pDC4huM+p7GCvTHBQc2dqngLUPszV32zyLtmSciZK9bNByd7I=
-X-Gm-Gg: AYBFou0oEClyv91xqmlf32fjF/mPbwE9RmGvTGxL3qfmnmZJzHM1a5cTlKpcNmiYeGi
-	QT2jEN6o04+8rDJMy9zNHP2m66XIAkivqn5EjzQ77MvsQfdgDpiz11Z4tkqTbAZHsxiTDzyuZcW
-	gC25g9S4YfKYt1Ov7QyN4iMKOTXRrLXgpHX1bvKV9eXuP0meUaVLTp7nBR5j/l4B2vsXtSYyTR4
-	Y96vWI/TsaJRQilJZv9/njBgxIPdV4z3Xuz3HVdrB1abfVZzsqzN3u1TYk67UAA4popXgJmasZ9
-	P103wJrfE20z6FAwWjgVBi0X0ihm9wrQTGSSN+zDMCO1tenrvgz0AuaTMWP5SfFaGabMtZKG2Sx
-	Og8MbmNfD7PCMy0JWp2r8uw==
-X-Received: by 2002:a05:620a:4408:b0:93a:19cc:107a with SMTP id af79cd13be357-93bb7635c63mr857708485a.1.1789632124768;
-        Thu, 17 Sep 2026 01:02:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:4408:b0:93a:19cc:107a with SMTP id af79cd13be357-93bb7635c63mr857704285a.1.1789632124372;
-        Thu, 17 Sep 2026 01:02:04 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8b57c3c34sm1578796e87.17.2026.09.17.01.02.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 01:02:03 -0700 (PDT)
-Message-ID: <8ef3b02d-b682-4eac-b129-df341b230449@oss.qualcomm.com>
-Date: Thu, 17 Sep 2026 10:02:00 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GCIwEF46"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id CCF851F00893;
+	Thu, 17 Sep 2026 08:04:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789632274;
+	bh=wosywDew5N+JCGuAr/8q3TYlO7vCGyn1j6CRNBjhqYQ=;
+	h=From:To:Cc:Subject:Date;
+	b=GCIwEF46q7A04pJ/SK/OlBzfbYTDJ5ranVWm1ZyvkACERK/SwKvH7FXSgxydmmE+/
+	 DDRiB4qxXg3jl3dSFc9oZmiwvIiRthMB53R7QhDOwmNSU7xv/KtHKeq6kfRSdElfnr
+	 2M0JKCvDhbLcn2b7jMrt4wHVhznnllFBSS8gRGjJaskHFRgo3ymse4LC4pEF0H8VZ5
+	 KitCQWxmphvZNhM1gxECQgm9zrZ7ksE83/juAbCO97aDfwPRTor5zDbTS/Xigwxd4t
+	 gziK3yl3HRIHK5sbhyGaVLzJxu2PMjhA4PiCc4+U8Epm3qrYnVlb/OVbhitrfpXMXT
+	 0pD95HiXfM/fg==
+From: "syzbot" <syzbot@kernel.org>
+To: syzkaller-bugs@googlegroups.com, Krystian Kaniewski <krystianmkaniewski@gmail.com>, "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Doug Gilbert" <dgilbert@interlog.com>, <linux-scsi@vger.kernel.org>, "Martin K. Petersen" <mkp@kernel.org>, "FUJITA Tomonori" <fujita.tomonori@lab.ntt.co.jp>
+Cc: linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
+Subject: [PATCH] scsi: sg: Fix shift-out-of-bounds in sg_build_indirect()
+Message-ID: <e68a2050-dc97-4531-95e2-29f4d1a109cb@mail.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: qcom: mmcc-sdm660: Fix MDSS AHB clock HWCG register
- offset
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
-        Martin Botka <martin.botka@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260916-clk-qcom-mmcc-sdm660-fix-mdss-ahb-hwcg-offset-v1-1-30dcf09d907c@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260916-clk-qcom-mmcc-sdm660-fix-mdss-ahb-hwcg-offset-v1-1-30dcf09d907c@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: xDFrJZN6tCn9PwOSFeK-uK5h7vBCrztu
-X-Proofpoint-ORIG-GUID: xDFrJZN6tCn9PwOSFeK-uK5h7vBCrztu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDEwOCBTYWx0ZWRfX2/Cvw8sEASOD
- DwhWJMjZuMqUgK20EnLHZunq1Z53131hPDEBSLp9mU+GGoY+rXavujpeOjkbemxpGKPnixxEJPs
- PZrSzxpR/yaS972LyL7+LcOE1CxnQggC75FQMHI/E2tANs+1ujc2WF40Ulva1KKLLQWN+gb/LLG
- k0759Z7kiSVWkjGg7HcGTMca2PKrO6yJyne5IKi9ETJuH9QciWBI6AXQFTuu3n9oy5r5lTvLAt2
- jr/hke6LvzNOOEHClbsx0oQj8cMMnE6BIUEkCM+wpc7S71llDMdoucqk5tOhai10bvXRcxRhutH
- 2wBDcEe1JDXwF4Z6cP/7TrDjmKaD7oBvsGEC3KiO9VBTBvsZzYMFHAH1kA2+AaAfPmoujOD5NGu
- 5BmdxKLeQbRtMCM82MrvXqkoiN9Q06oE49I9aWBmxXcJG+bnZb7EzcXmJvMHs+5XJx+ZTsQnW9+
- FapPtD+sWC+CM4tSt7Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDEwOCBTYWx0ZWRfX6OgtuJ7xgQO3
- a2TTn4TGD/CPxX5QOf46+wMGFnvDAPeIeInWFllRU7VBHqyN9B5IJzfCEp86jALNvqaja05Rql7
- 4OOcEqGaFW+YWrbB2KM5gclKvYiEB08=
-X-Authority-Analysis: v=2.4 cv=VIRIDNPX c=1 sm=1 tr=0 ts=6aab9e7d cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=VxEonCoOErEEB63zS2MA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_01,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 priorityscore=1501 bulkscore=0
- lowpriorityscore=0 suspectscore=0 clxscore=1015 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170108
+Content-Transfer-Encoding: 8bit
+Date: Thu, 17 Sep 2026 08:04:33 +0000 (UTC)
 
-On 9/16/26 1:55 PM, Abel Vesa wrote:
-> The MDSS AHB clock HWCG bit resides in the same register as the branch
-> enable and halt status bits, at offset 0x2308. The current HWCG register
-> offset of 0x8a004 exceeds the regmap maximum of 0x40000, so regmap rejects
-> the read in clk_branch_in_hwcg_mode(). Since the read error is ignored,
-> the helper uses an uninitialized value to decide whether to skip the
-> halt status check.
-> 
-> Correct the HWCG register offset so the helper reads the actual hardware
-> clock gating state.
-> 
-> Fixes: 5db3ae8b33de ("clk: qcom: Add SDM660 Multimedia Clock Controller (MMCC) driver")
-> Assisted-by: LLM
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
+From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Writing an invalid value such as 0 or a negative number to
+/sys/module/sg/parameters/scatter_elem_sz, or setting it at module load
+time, causes a shift-out-of-bounds bug during subsequent device operations.
+In init_sg(), scatter_elem_sz is checked against PAGE_SIZE, but because
+PAGE_SIZE is unsigned, the comparison is unsigned and bypasses negative
+values. When opening a device via sg_open(), the driver calls
+sg_build_indirect() to allocate scatter-gather buffers. In
+sg_build_indirect(), scatter_elem_sz is read into the local snapshot
+variable num. Because PAGE_SIZE is unsigned, comparing num against
+PAGE_SIZE also results in an unsigned comparison that bypasses negative
+values. Furthermore, even if the condition is met, the code updates the
+global scatter_elem_sz and scatter_elem_sz_prev variables but leaves the
+local snapshot variable num unupdated before get_order(). As a result, an
+invalid value such as 0 remains in num and is passed to order =
+get_order(num). Calling get_order(0) is undefined and underflows to 52 on
+64-bit systems, causing ret_sz = 1 << (PAGE_SHIFT + order) to compute 1 <<
+64. Shifting a 32-bit int by 64 bits triggers a UBSAN shift-out-of-bounds
+warning:
 
-Konrad
+UBSAN: shift-out-of-bounds in drivers/scsi/sg.c:1887:13
+shift exponent 64 is too large for 32-bit type 'int'
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
+ __ubsan_handle_shift_out_of_bounds+0x36d/0x400 lib/ubsan.c:494
+ sg_build_indirect+0x559/0x870 drivers/scsi/sg.c:1887
+ sg_build_reserve drivers/scsi/sg.c:1997 [inline]
+ sg_add_sfp drivers/scsi/sg.c:2177 [inline]
+ sg_open+0x1128/0x18a0 drivers/scsi/sg.c:349
+ chrdev_open+0x4d9/0x600 fs/char_dev.c:411
+ do_dentry_open+0x816/0x1380 fs/open.c:996
+ vfs_open+0x3b/0x340 fs/open.c:1101
+ </TASK>
+
+Fix this by casting PAGE_SIZE to int in both init_sg() and
+sg_build_indirect() so that the comparisons are signed and negative values
+do not bypass the check, and by updating the local snapshot variable num to
+PAGE_SIZE when num < (int)PAGE_SIZE in sg_build_indirect() before
+get_order() is called.
+
+Fixes: 10db10d144c0 ("sg: convert the indirect IO path to use the block layer")
+Assisted-by: Gemini:gemini-3.8-flash syzbot
+Reported-by: syzbot+270f1c719ee7baab9941@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=270f1c719ee7baab9941
+Link: https://syzkaller.appspot.com/ai_job?id=1d412b83-5bbc-4d73-b690-4c798d45cee4
+Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+
+---
+diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
+index 5408f002e..46117d1a1 100644
+--- a/drivers/scsi/sg.c
++++ b/drivers/scsi/sg.c
+@@ -1667,7 +1667,7 @@ init_sg(void)
+ {
+ 	int rc;
+ 
+-	if (scatter_elem_sz < PAGE_SIZE) {
++	if (scatter_elem_sz < (int)PAGE_SIZE) {
+ 		scatter_elem_sz = PAGE_SIZE;
+ 		scatter_elem_sz_prev = scatter_elem_sz;
+ 	}
+@@ -1875,9 +1875,10 @@ sg_build_indirect(Sg_scatter_hold * schp, Sg_fd * sfp, int buff_size)
+ 
+ 	num = scatter_elem_sz;
+ 	if (unlikely(num != scatter_elem_sz_prev)) {
+-		if (num < PAGE_SIZE) {
++		if (num < (int)PAGE_SIZE) {
+ 			scatter_elem_sz = PAGE_SIZE;
+ 			scatter_elem_sz_prev = PAGE_SIZE;
++			num = PAGE_SIZE;
+ 		} else
+ 			scatter_elem_sz_prev = num;
+ 	}
+
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
+-- 
+See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
+The person who has signed off on the patch is responsible for
+addressing comments.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
