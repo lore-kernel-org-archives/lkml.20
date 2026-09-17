@@ -1,57 +1,57 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6D14E77FF
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:14:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA954E9C0D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:14:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789672472; cv=none; b=PxVzLq6C4eYlRjEMwMvq/ACcmg581WfoMvLi4jGESkEs402V2D+wDMm1ZMv3/qkVdfo7PBJzFPxD8JG2igJI1tg6KAK/8OEG8BlIXkL8zi5857gDu+Wn4el3v3RuiLv1Fs0DuLIE+O6diyZJBP3rN3aLgKbwdkiIL2y9b8T/z3E=
+	t=1789672474; cv=none; b=j5uS0hRdO8GxsbM3D0yJ3ZXXDynT135wwIk9JTPrw3RZtBMfmV1FRtiePKOFU6rKhLyHUdgKjAk+Ep7SJCdyEHsJ6nA7AhM+hZxTge+GlMNHUHnJZ3sOAEYUBTwPZgm3fb0Yst3XMAQnnKU6VjSKoOFFeaaUMr+NVhFO8Kuw1Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789672472; c=relaxed/simple;
-	bh=h/WQ1CySimtto27MKEw6h0kwRBGh80WpJZja5OCfoIA=;
+	s=arc-20240116; t=1789672474; c=relaxed/simple;
+	bh=D/DpVFHgwB4vWn6wpiH6JtHfChyKWzbCVHv7xD4sKME=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U3XdHCQsMRc0P2mObUZ1Vjzqw3SuE6dcdE773qOQIdhbi/MUf9aDYqtvrPCdjfEQTUnqlM8aUH4GYmFLhQLnGji7Pc7XDUNAVf+8sp+7LBKiJml859T8DxW+G5/Dh5oLUAu/kXM1ojHS9upJZ+jpHtcpShwoCaMcAuZFlRRHfNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XSEH6/pv; arc=none smtp.client-ip=192.198.163.4
+	 MIME-Version; b=Koovud/Pg6e35jSKCeR1s8/5/z+5pBn0kpqLmekvdDYjQTzcxlsHiFoaSys/D+srL9ZMrBIehgW29S+qSvKpGLqWqd1qDJp5BFEomz7C2B40Da5zwZbH2EShEz6B/Lv8E+XSAYAeuoKSPpckvvUqD0JYHtTOhXCKht7vuI4lKX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XQSXlHCD; arc=none smtp.client-ip=192.198.163.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XSEH6/pv"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XQSXlHCD"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789672470; x=1821208470;
+  t=1789672472; x=1821208472;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=h/WQ1CySimtto27MKEw6h0kwRBGh80WpJZja5OCfoIA=;
-  b=XSEH6/pvtV9fI7aBFszAWbb4stB9jb2eJyhYBpSmwpMD7OdPC3mW6nHf
-   IjXGC8tPtAAwZu4PxpdiZwWiY184NDW0V3QskdLGDTHXiWQ2u5Y1iMdqU
-   u8dI8ppFuNiX9Vi4xQnRQ2ixQuzrsQs/3LLptPV8oVIxhuWqLad+d3U8j
-   E0sMSsUwhGW3dIg3/AvsdiUk5hlekH8JaR7iQkW0BH0LpPWK+G56TE0La
-   TsV2HtXoKHGxfzXInoGvFFswkix+vSlvwpjSBXjyJp3OmgsQDDgg/oz3b
-   /Z9UdtnsSb2+WiOVAgvJNjehlGZij38X1kJbQWqyGTRDJZ0cGYvrmLyFZ
-   Q==;
-X-CSE-ConnectionGUID: NvvvjZUIQpiVCAhQEnRmZg==
-X-CSE-MsgGUID: DOBSRIkZTDOrCT8dcHkC6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="639956"
+  bh=D/DpVFHgwB4vWn6wpiH6JtHfChyKWzbCVHv7xD4sKME=;
+  b=XQSXlHCDbl+mYSMLZSAzXpsaq9slqHp5CJctQ32Bco4+Uzd1Xi9MiypJ
+   /oDi9ETSGVoNC6eFmiECXJe+P3a5Cq8yaO7sJ2KLA08KGQSCtOkwiLHTC
+   zP4RyXyEeBxUdq3Ge6ooqWwPcO0NwF1uOU0aq8cVDHjawAUPtoS41LzPl
+   KA7XdNiyF5oz+FASbivQzWq4gY4PXHy4DbwbV8FnMszIqD2aQ8EG8u0xy
+   ops7KMlpTRGD8OtaFKSe5xX2cwfd7qPSjxbtgu+YrU9IfFHGBu78EiT5F
+   i7fnZRrDnqvePWxjJ5ZFcFmN9ArHfeMUSDIrzi8rNfW538Qe/4YJJIEel
+   g==;
+X-CSE-ConnectionGUID: 2WRJuvrwSyWsuYythSVaTg==
+X-CSE-MsgGUID: 7waxqVlmQruvM0k4xq1TOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="639962"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="639956"
+   d="scan'208";a="639962"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 12:14:30 -0700
-X-CSE-ConnectionGUID: xukVB5gZT/aDry/nMGmvaA==
-X-CSE-MsgGUID: GWdMM/17SyejzLevKBySiw==
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 12:14:32 -0700
+X-CSE-ConnectionGUID: aeiVfZYWQqiMmaj8lcPxNw==
+X-CSE-MsgGUID: S3+akhd+Qvmq0jHDDUWvWA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="270271999"
+   d="scan'208";a="270272006"
 Received: from fpallare-mobl4.ger.corp.intel.com (HELO ahunter6-desk) ([10.245.245.5])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 12:14:28 -0700
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 12:14:30 -0700
 From: Adrian Hunter <adrian.hunter@intel.com>
 To: alexandre.belloni@bootlin.com
 Cc: Frank.Li@nxp.com,
 	billy_tsai@aspeedtech.com,
 	linux-i3c@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH V2 12/17] i3c: mipi-i3c-hci: Correct RESP_DATA_LENGTH to bits 15:0
-Date: Thu, 17 Sep 2026 22:13:51 +0300
-Message-ID: <20260917191356.133242-13-adrian.hunter@intel.com>
+Subject: [PATCH V2 13/17] i3c: mipi-i3c-hci: Remove invalid transfer size limit
+Date: Thu, 17 Sep 2026 22:13:52 +0300
+Message-ID: <20260917191356.133242-14-adrian.hunter@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260917191356.133242-1-adrian.hunter@intel.com>
 References: <20260917191356.133242-1-adrian.hunter@intel.com>
@@ -64,44 +64,75 @@ MIME-Version: 1.0
 Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 - 4, Domiciled in Helsinki
 Content-Transfer-Encoding: 8bit
 
-The I3C HCI Response Descriptor defines DATA_LENGTH in Bits[15:0],
-with Bits[23:16] reserved in all published HCI specification versions:
-v1.0 (Table 91) and v1.1/v1.2 (Section 8.5). However,
-RESP_DATA_LENGTH extracts Bits[21:0], incorrectly including six
-reserved bits.
+The driver derives a maximum transfer size from
+HC_CAP_MAX_DATA_LENGTH in HC_CAPABILITIES, but no published version of
+the I3C HCI specification defines such a field.
 
-Update the mask to match the defined field width.
+HC_CAPABILITIES reserves Bits[31:8] in HCI v1.0 and Bits[27:22] in HCI
+v1.1 and v1.2, so the bits used by HC_CAP_MAX_DATA_LENGTH are reserved
+in all released HCI versions.  Neither the HCI nor the I3C TCRI
+specifications define a maximum data length capability.
 
-No functional change is expected because compliant controllers return
-zero in reserved fields.
+On compliant controllers reserved bits read as zero, making the
+computed limit 65536 bytes.  Since struct i3c_xfer.len is u16,
+transfers can never reach that size and the resulting -EFBIG check can
+never trigger.
+
+Remove the unused capability definition and the dead size check.
+
+The driver's effective limit remains unchanged. HCI specifications
+define DATA_LENGTH as a 16-bit field and require larger transfers to be
+split across multiple Transfer Descriptors.  The driver already relies
+on the core's 16-bit length types elsewhere when constructing
+descriptors.
 
 Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 ---
 
 
 Changes in V2:
 
-	Reworded the subject, which was previously "i3c: mipi-i3c-hci:
-	Fix Response Descriptor DATA_LENGTH mask", to name the macro and
-	the corrected bit range.
+	Added Frank Li's Reviewed-by tag.
 
 
- drivers/i3c/master/mipi-i3c-hci/cmd.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/i3c/master/mipi-i3c-hci/core.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/drivers/i3c/master/mipi-i3c-hci/cmd.h b/drivers/i3c/master/mipi-i3c-hci/cmd.h
-index 7bada7b4b2de..e0d4a6e0e319 100644
---- a/drivers/i3c/master/mipi-i3c-hci/cmd.h
-+++ b/drivers/i3c/master/mipi-i3c-hci/cmd.h
-@@ -24,7 +24,7 @@
-  */
- #define RESP_STATUS(resp)		FIELD_GET(GENMASK(31, 28), resp)
- #define RESP_TID(resp)			FIELD_GET(GENMASK(27, 24), resp)
--#define RESP_DATA_LENGTH(resp)		FIELD_GET(GENMASK(21,  0), resp)
-+#define RESP_DATA_LENGTH(resp)		FIELD_GET(GENMASK(15,  0), resp)
+diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
+index b9b20797d045..4629a16debc9 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/core.c
++++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+@@ -51,7 +51,6 @@
+ #define HC_CAP_SG_DC_EN			BIT(30)
+ #define HC_CAP_SG_IBI_EN		BIT(29)
+ #define HC_CAP_SG_CR_EN			BIT(28)
+-#define HC_CAP_MAX_DATA_LENGTH		GENMASK(24, 22)
+ #define HC_CAP_CMD_SIZE			GENMASK(21, 20)
+ #define HC_CAP_DIRECT_COMMANDS_EN	BIT(18)
+ #define HC_CAP_MULTI_LANE_EN		BIT(15)
+@@ -473,7 +472,6 @@ static int i3c_hci_i3c_xfers(struct i3c_dev_desc *dev,
+ 	struct i3c_hci *hci = to_i3c_hci(m);
+ 	struct hci_xfer *xfer;
+ 	DECLARE_COMPLETION_ONSTACK(done);
+-	unsigned int size_limit;
+ 	int i, last, ret = 0;
  
- #define RESP_ERR_FIELD			GENMASK(31, 28)
+ 	dev_dbg(&hci->master.dev, "nxfers = %d", nxfers);
+@@ -482,13 +480,8 @@ static int i3c_hci_i3c_xfers(struct i3c_dev_desc *dev,
+ 	if (!xfer)
+ 		return -ENOMEM;
  
+-	size_limit = 1U << (16 + FIELD_GET(HC_CAP_MAX_DATA_LENGTH, hci->caps));
+-
+ 	for (i = 0; i < nxfers; i++) {
+ 		xfer[i].data_len = i3c_xfers[i].len;
+-		ret = -EFBIG;
+-		if (xfer[i].data_len >= size_limit)
+-			goto out;
+ 		xfer[i].rnw = i3c_xfers[i].rnw;
+ 		if (i3c_xfers[i].rnw) {
+ 			xfer[i].data = i3c_xfers[i].data.in;
 -- 
 2.53.0
 
