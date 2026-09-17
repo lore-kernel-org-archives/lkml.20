@@ -1,61 +1,119 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10EBC381E84
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:53:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C60378D6B;
+	Thu, 17 Sep 2026 03:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789617231; cv=none; b=LR3l9Ms37OVodiK99xgqx4IJZTk070Sxa7F5kHOdQFuE9Uo0Y/1algbuDeGF16cy77HpJ9jAyZWOWWEsPYSd3Ve1R5vOBLl515K1qYh3FIcIKphLeb5MS5pRV6LMXG16bKRi848lcrWeHUrQxYI6Sb4aDVr5vwYXIZ4Ag2Y8q4Y=
+	t=1789617295; cv=none; b=By5Q/9FuXMZ3W34TuNWCMGWEp2szllMWC3YovCIXRU+Q/s4puuiNaSyVYrppL6TN3TjiIvIQZzZqytpKLGZ5Pd82hQTB0sBYupsK6BCpk0gUHnwMviMS+icJLnTXjDOrYljGETb/+smjQrOVVjumOoN1wdwN3Ooc2jUlEvcmlJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789617231; c=relaxed/simple;
-	bh=DGX6jE3mYLDDSUZ4X3+1GkIDB/peG79oUWGq/k2Ay8Y=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=OWMKB69dKrakq0kwVec31vUG+iFY++i0SYqOBgPPB/UVvZMlWUmBFPBkwtzkBiJWVTGEA6N1ocbQW6nsmezvD5P/Fzl3ylBy2/mHS+Plkxbwd0HpXAUptGiPUw64AHMrqJHIUqTltEOLr8eVCvQ8PLraUlc2UMXuXVCe9cfxteI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f4f0a1f4f2so629729a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:53:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789617229; x=1790222029;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DGX6jE3mYLDDSUZ4X3+1GkIDB/peG79oUWGq/k2Ay8Y=;
-        b=dSuydhFy78qqclT288aHwhHuXvWSoVgYtCAfCaWNrQtAXvM6mMQTNZBs3uqt0wNCs2
-         Glox2/GR2ojB66uoFCFNQQdVoPTb22turzeUFkNh3BYKlCBqmSqdzhdE46gMvHTBMtSU
-         NAge8wKl5LXO6hFCsLRQFhcUDV6kT6DDWe/pMesEfvTboC/qKURYYai1xkhxs7Bj8mnt
-         8JdVbUUlkhO4Q9zTfjiuDgSkguCMTG7EFgrExE3eGjp6b74jbV3T73K8PiUo/jZgSaD7
-         lOn2Xydo9HVDXUy36j+SuXnIbFj89ET9JHfwhJ4XGfYyJ44WP2QuTL/UAqSJMat7zO1+
-         XVSQ==
-X-Gm-Message-State: AFuF++m1YGebmduMQJ/wKf3CezhmCkOSA0sToZE+/C1t+vNl8C0Wj2YO
-	p3ivFxywwx44mZPiM1Gez+iU5ecksjdlYgrgtgrfNiAFtWyUNg3LTPX4Pul7NUx8xN3DQ4r7uuO
-	eqv65/qbY35IYgqR3PXpeRvIvxW2p2AvP6JB8LQs1Ca9f5j60a0q5+NSbYSk=
+	s=arc-20240116; t=1789617295; c=relaxed/simple;
+	bh=FnFprfLaNcz/hLEv5jHQiI96OeVZkEklWvIhYMDiwok=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DRHfS3P4GEDw4HGgVMwYclCM5XLjQb5EvmTgTryFWTHpFjxXd7hJ3Ha2F09kFuHOgsM5vlm5cyEvliKMqytDzgQy1gIBVYDlxUzhmR1r7krVehTHUS5506DZfpMh01LxNOwnbnIdfxQ52EMxCpwNfBeLZRQKJAUtBj4j6ixAacE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jhnSr6kS; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=FLVt3cPt; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jhnSr6kS";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="FLVt3cPt"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hlhj62pCHzMlGf;
+	Thu, 17 Sep 2026 05:54:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789617290;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=59dI4WGegvNV2Yxa9dtBKybVTOTl1mQ2TPpo9rdnORs=;
+	b=jhnSr6kSi/r0JOXMS13ck72S7T2YE0tG1awQM2euK3DXbfdNV9ZIA2VwrCbqjcqXOMM619
+	iBVEWGApdI+nxdyc22bpN4ALY6O+CcHseZGUii4aPxZH5rhVd3gvtZTXBdvZ//8/zlKisA
+	77lDlX9o8qqlmi1DYkF1EO7U9YPdIoDTt1p0f4QY1s5AcbkhggfToJY5vJpPJoVMDpLmy4
+	mqjqsJhwctEZyIrW3n5A5NjvBM8aU0JcLSOpodIrLhZ40KWEaTarqKmTGD0O2Lzx5ofel8
+	sF0MMyUimUstxYfEVpm/aZgXImIZkjYMUQ6VAPYFyCAorUYCZK0rt1BeczHCGg==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789617288;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=59dI4WGegvNV2Yxa9dtBKybVTOTl1mQ2TPpo9rdnORs=;
+	b=FLVt3cPtXtwbvE7jJmI2hbRrm44rSSZZgxPmIaJv5fiSVzdO99GBSPlGXonzBmZSToAq0h
+	8ZOjGJe3seWBJ5R/VUnICoPpMsvMTxAtFdJ5iC1RDGe2TpKfTny9qIu6z3cz9XOt7P7rmZ
+	2mgHCJVSkSTRSlJ9ipaLuYMqwFflOt5lbaMFKaLm5DXIjznGw6YbHw2C72acplxvMKJoq8
+	pczPCdoydTLadSywr2yQ7c7s8976UjrzdIIVnTRB0i4jAugkk8i17AMEJ6qnR/vlovcMNJ
+	V/cBA94ABpMuJs5xxFHgMhltlaQJWq4lmf6pqo5FXLZt8wkDuPIjx/mvN6iptQ==
+To: linux-gpio@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v4 1/2] dt-bindings: gpio: renesas,rcar-gpio: Document R-Car X5H (R8A78000) support
+Date: Thu, 17 Sep 2026 05:54:16 +0200
+Message-ID: <20260917035438.523010-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2918:b0:6c3:b78c:8e21 with SMTP id
- 006d021491bc7-6c7d16c6e63mr5088691eaf.21.1789617228858; Wed, 16 Sep 2026
- 20:53:48 -0700 (PDT)
-Date: Wed, 16 Sep 2026 20:53:48 -0700
-In-Reply-To: <6aaabb70.86093f18.33004f.0003.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab644c.87c06881.1db2b3.000d.GAE@google.com>
-Subject: Forwarded: Re: KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
-From: syzbot <syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: ier1wx6n9c4u1ommgchwuy8ox7oz1741
+X-MBO-RS-ID: 90b8ea45c3d7f42b50b
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Document support for the GPIO controller blocks in the
+Renesas R-Car X5H (R8A78000) SoC.
 
-***
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+V2: - Add AB from Conor
+    - Add RB from Geert
+V3: No change
+V4: Rebase on current next-20260916
+---
+ .../devicetree/bindings/gpio/renesas,rcar-gpio.yaml          | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Subject: Re: KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
-Author: neganhat@gmail.com
+diff --git a/Documentation/devicetree/bindings/gpio/renesas,rcar-gpio.yaml b/Documentation/devicetree/bindings/gpio/renesas,rcar-gpio.yaml
+index d32e103a64aac..95f5175c7a9da 100644
+--- a/Documentation/devicetree/bindings/gpio/renesas,rcar-gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/renesas,rcar-gpio.yaml
+@@ -56,6 +56,11 @@ properties:
+               - renesas,gpio-r8a779h0     # R-Car V4M
+           - const: renesas,rcar-gen4-gpio # R-Car Gen4
+ 
++      - items:
++          - enum:
++              - renesas,gpio-r8a78000     # R-Car X5H
++          - const: renesas,rcar-gen5-gpio # R-Car Gen5
++
+   reg:
+     maxItems: 1
+ 
+-- 
+2.53.0
 
-#syz test: upstream f6e7b42bf05b
