@@ -1,98 +1,116 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708B0258EDA
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:12:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBE925B0AC;
+	Thu, 17 Sep 2026 00:15:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789603933; cv=none; b=Hvh3LMgnJYvkZ1waKFQ+SH5zDzf2xuhM/H2EXhfmGsNfAFV4n+EZ5GjUBTXNsDCqhXRYW+r1h6XY+O7eKDS9wtm9f4yzqryZRIe6dg1Uj7vSXaUHiNl6izf7dyHliWw2r4AQEFj/OYWepRLvXnF0PcV1ltuTb0ooFoZ48Wg7Has=
+	t=1789604125; cv=none; b=kbsy2BoWmvnX+dOBHbjCyKv/9ENFVWDdif15AiVb8b8jX2CatnDSjoHpbfR6HcbyY22jsHuxYV+TA+NES8EIsxDQ5EfpN3kAsfcHdcc7H+7FI3s6HrvaJiMic387fx2zASvjkQCJ214iUrRC4+FwwgPURIrSCWC5EC3xGZXKdwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789603933; c=relaxed/simple;
-	bh=HozO84mXGPcKS1igoe/VwSJOG7i5lKGoSVIesNmNWWw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=WN7E3kV1+FGtLjLRIaZzM3j2TkPyN8X8cW469L7b3obaBIJmQ0SujzX51MQvG3Qvv1SUjqCsmzkC3lYdi6pSqynfMOl0tHiyO/88Gl6aoQuWjyrECL0MEjkUZZ89mYa8KrbVnhUJZpwXQ29VGdsRdnRSbP2U+RNN7n7t9AU6Svw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PIi8kwNO; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789604125; c=relaxed/simple;
+	bh=czW/fvrVtqxI4u3KGivAA0dUquI3pNQk2btbCYoYgKU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F9mpQQdzZjJMiJ+buKYOeNpVDR74xGKYaK30TjzMhTEgeDXwbsva5NVQezA3MU13348YrCkbZbflH0JtRQiw3IKqt9lpvLirg3XEF191cDQjbMIU966EcrF5FSEbcKdNMJI0t8goSeCG61VVBpYvAmA0hUq9bXCpUhTI+31UT+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h4hy+MZM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PIi8kwNO"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39d865b11b4so315348a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:12:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789603932; x=1790208732; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j6iDNH5wuGoL3/bmQAOC4Dn6hjBP2bgu5FvPAn8HKIQ=;
-        b=PIi8kwNOUE05OJOvW+p3JD2hKWNLG6LeG5NF4sm0t9pkSoAG3uIET79vZnP5gMjcnK
-         1Eg2mLY2GQZTsl0v7MYHN19VLBn34tsaRZawG3pLH0K6jtmrCs6dSLwoF2kZ5ptsPxm5
-         E4UjpLnrAyGbeGOSCmFxvyXMYW/6iQGsNizi7mityK33Qb5jfWqSwnr2xgAxOwa3xheb
-         ZzRBj5eQXvr14wvds5IMEMcczqTCb1oEoYCTbRhG0Ka1tNqxA7XUFkvirSEGQNfg7b6+
-         WagWMif4BuHJ3ByIhnNisFNYLrjFBQdm8PDe58XDeb+commwjD4Klb7oQMlXDCAJeE+6
-         FLmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789603932; x=1790208732;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j6iDNH5wuGoL3/bmQAOC4Dn6hjBP2bgu5FvPAn8HKIQ=;
-        b=KQgFRqUo011i6zdevdLFEH8AmFTZVqoa3Q5waOthPkgOJRzbBySDYLEhN/eZ5AQa7r
-         0p3nIF4LqwAWVqvuqQDhEhz/nTv3yug6RLcJxZ6+1yMW2IpHylW8S8qGDsP1kcIQhcy5
-         LQoQr+wDbPbvGK6uGnD1Qay5vnL/QJNoumrgCp/sZ5vRlpdYyVYjIpLONMkr3b+3oP+V
-         5H86Or4C64+QPXBpcclBeJpT2sd0UxxWSxk+tjubbjEDhhTeh5WlI/0nCQXbfAi39eFd
-         6T4DOm3ZcDPwGFw0mrcwvQNPXudofgMj/+ls5xtazdJ2SdHpGuJ1CmKI6llu7QbwsBOk
-         jdwg==
-X-Forwarded-Encrypted: i=1; AKwUvBwzGMrl/FTamODYyvRhzpOurUnshGLg4I4cjvqU2zGqBpfvvKU4YWZnj1Zq5NufPK1UKTSmDh4k9cnk/s0=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3ceHEPiSPci+PEK6hodY/ztd2ZRowEHjDt0X3JP/uASBwsvKA
-	+HlUKDljYaQK/TMUnLqL0z5/AVDRflAjHxbVOu8jl7eaXMI475o+PSm5UZwb/bSwDEj8jPF3VEJ
-	xSCONXA==
-X-Received: from pjqf7.prod.google.com ([2002:a17:90a:a787:b0:39e:18b3:6422])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:6cf:b0:38e:7168:281
- with SMTP id 98e67ed59e1d1-39e1e329409mr10995151a91.10.1789603931494; Wed, 16
- Sep 2026 17:12:11 -0700 (PDT)
-Date: Wed, 16 Sep 2026 17:12:10 -0700
-In-Reply-To: <aqe4QCxIhcoBL+po@yzhao56-desk.sh.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h4hy+MZM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDAD11F000FF;
+	Thu, 17 Sep 2026 00:15:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789604123;
+	bh=FBD2M7EHU+xk7BgFAzGt5KdnHPiie45TXShxSTbtRCI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=h4hy+MZMVMNiZP2lByogTdWfeXqlDxT8lNSsQ4Yrfu3+lBwdfakKsyJzfwbV8K20/
+	 neyyIC4huCUD78mLtAnGwJ8Wu5oU3jL3tKxRXdltL7GZ44tcIeow/pVHycwv5aONxq
+	 zKx+/5R3xdvNL1z0aTQXzjo/Kzx3HSxz47vSdTXVUX2iaiXuziBLu6rD6M+O1eyT1B
+	 xwgAUs9zUeASk7XO7XlpvKBEylPa7FkLp6Untf03hNFe+NLDWMAAx0kgrudSH2WZg7
+	 35R0pM2hz+Ab0RH4Jm7e4+Gi1bmGypdh59V0tkUsm7r3cvAPekD433zpBdvjR9b6/2
+	 78Jq7L3VpdvoA==
+Date: Thu, 17 Sep 2026 01:15:18 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andy@kernel.org, dlechner@baylibre.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nuno.sa@analog.com,
+ petre.rodan@subdimension.ro
+Subject: Re: [PATCH] iio: accel: bma220: Fix trigger reference leak in
+ bma220_common_probe()
+Message-ID: <20260917011518.297868ca@jic23-hlaptop>
+In-Reply-To: <20260916160823.2082283-1-vulab@iscas.ac.cn>
+References: <20260916160823.2082283-1-vulab@iscas.ac.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260902230932.2760127-1-seanjc@google.com> <20260902230932.2760127-2-seanjc@google.com>
- <aqe4QCxIhcoBL+po@yzhao56-desk.sh.intel.com>
-Message-ID: <aqswWjRN0_G-xyGJ@google.com>
-Subject: Re: [PATCH v3 1/3] KVM: x86/mmu: Use KVM's max TDP level to determine
- need for 32-bit TDP root
-From: Sean Christopherson <seanjc@google.com>
-To: Yan Zhao <yan.y.zhao@intel.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Kai Huang <kai.huang@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026, Yan Zhao wrote:
-> On a separate note, though it shouldn't be a real issue, is the below change
-> necessary?
+On Wed, 16 Sep 2026 16:08:23 +0000
+Wentao Liang <vulab@iscas.ac.cn> wrote:
 
-I would say this is technically correct, but unnecessary, because I can't imagine
-any 32-bit guest firmware would try to relocate BARs above 4G.
+> indio_dev->trig holds an extra reference taken by iio_trigger_get(). It is
+> only dropped by iio_dev_release() when the device has a triggered mode set,
+> and indio_dev->modes is still INDIO_DIRECT_MODE until
+> devm_iio_triggered_buffer_setup() runs. Both early error paths return
+> before that point, so the reference is leaked.
+> 
+> Release the trigger reference on the IRQ request and the deinit action
+> failure paths.
+> 
+> Fixes: b7e17ca10793 ("iio: accel: bma220: add interrupt trigger")
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-> diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
-> index bb68a021cfaf..abbba26dbdc6 100644
-> --- a/arch/x86/kvm/cpuid.c
-> +++ b/arch/x86/kvm/cpuid.c
-> @@ -1810,7 +1810,7 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
->                         phys_as = entry->eax & 0xff;
->                         g_phys_as = phys_as;
->                         if (kvm_mmu_get_max_tdp_level() < 5)
-> -                               g_phys_as = min(g_phys_as, 48U);
-> +                               g_phys_as = min(g_phys_as, kvm_mmu_get_max_tdp_level() == 3 ? 32U : 48U);
+When doing a fix like this send one only and then wait before sending
+more.  Also look at the discussions that have already gone on around
+this topic on the list.  Sashiko mentions this ever time and there
+are numerous replies to why it is a 'fix later' issue.
 
-FWIW, if we wanted to do this, my vote would be for:
+This is a lot more complex than simply doing a trigger put not because
+it is technically wrong but because it leaves us with considerably less
+readable and maintainable code.  The solution needs to be proper
+devm_ registration and cleanup. However that is complex to actually do.
 
-			if (kvm_mmu_get_max_tdp_level() < 4)
-				g_phys_as = min(g_phys_as, 32U);
-			else if (kvm_mmu_get_max_tdp_level() < 5)
-				g_phys_as = min(g_phys_as, 48U);
+We have known it was an issue for some time and no fix has been forthcoming
+yet.  There are userspace paths to put this trigger at runtime and we need
+to distinguish between those registered via the devm path and those that
+are not. Only the driver registered ones should be cleaned up.
 
-but I think I'd prefer to just leave this be.  Rr better, drop 32-bit kVM support :-D
+Mixing and matching between devm calls and manual cleanup is not a solution
+to this that I am going to consider.
+
+Jonathan
+
+
+> ---
+>  drivers/iio/accel/bma220_core.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/accel/bma220_core.c b/drivers/iio/accel/bma220_core.c
+> index f32d875b994e..4820d99e214a 100644
+> --- a/drivers/iio/accel/bma220_core.c
+> +++ b/drivers/iio/accel/bma220_core.c
+> @@ -544,14 +544,19 @@ int bma220_common_probe(struct device *dev, struct regmap *regmap, int irq)
+>  		ret = devm_request_threaded_irq(dev, irq, NULL,
+>  						&bma220_irq_handler, IRQF_ONESHOT,
+>  						indio_dev->name, indio_dev);
+> -		if (ret)
+> +		if (ret) {
+> +			iio_trigger_put(indio_dev->trig);
+>  			return dev_err_probe(dev, ret,
+>  					     "request irq %d failed\n", irq);
+> +		}
+>  	}
+>  
+>  	ret = devm_add_action_or_reset(dev, bma220_deinit, data);
+> -	if (ret)
+> +	if (ret) {
+> +		if (indio_dev->trig)
+> +			iio_trigger_put(indio_dev->trig);
+>  		return ret;
+> +	}
+>  
+>  	ret = devm_iio_triggered_buffer_setup(dev, indio_dev, NULL,
+>  					      bma220_trigger_handler, NULL);
+
