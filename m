@@ -1,87 +1,73 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-qv2-f29.google.com (mail-qv2-f29.google.com [74.125.230.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680D04E0B66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAD54E0B6B
 	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789669273; cv=none; b=lIhj+RNy6Fr7Kft2NU4No2mTu5mHc1GHsvLWqNEaZ2Oi+1VRUbfEm7SAoqz2IKTT7rUOPTHEi2139IVnGloV9BK2ETvlu4Y0SwQNg+H4hPaq/cpUnR3GMkJH4AE22z7GbRMoNWDXXyLHb2psCOnssHY1qYdQWyluf76kY4hozfQ=
+	t=1789669274; cv=none; b=D+wmhzrZUYSb7ObRrpVcZeLq75wSBa0DGNPq8cpF1v+kB4IFXKxoQTbaP4m5mpSPiCJkjxq2d9WP9HIHpbHaNyj0JKDU9r1DPgnrGMo8s7ZlFALIM1Bdug++u0SYsnzSx+UXANT/3SxhZ/enY2uZS/8rj4JKTDouvhyMCc8syjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789669273; c=relaxed/simple;
-	bh=fD/FBkx1Ez1YZo9i+o4hAzLDSVkeRh7196qjRUTI+mo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Siy7/fYkP/d43Zhh3O5i8gtZdjq2DIdH7mb4JXTxHa2qOBl+YMDo/eNnSM1wYxoS7/rgMpofGSbZPG2hVWtfexUTDoOGnZqms1M/Pxyq5N5qncLVPTBM4peMQg6CB4IiOtSEagA38kilaJIpoYbDXZo/RnF1P+2jQwFQGbI93pE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DbqcmGif; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789669274; c=relaxed/simple;
+	bh=6QaB1vCAHPDrZfq2UMtr0C/Dsi8/MZihkvuPXytBOdo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kl1ytyXG0kQY0cN0ZmqYaejnlJ/dSPWAVPI12sve8+pdFHRuU8GM5clu8f4SCKbvhxbfDG3+Q2A7ujFDmkC/yKYv2MEetDwizNCgUmV7XUkCmEeUzxSl9KPIpaCt/PF07978LUVtKqJJQcLMN3J8VCFAloYe85nPbCan0uVWMfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hsJyOlk0; arc=none smtp.client-ip=74.125.230.157
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DbqcmGif"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso11566385e9.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hsJyOlk0"
+Received: by mail-qv2-f29.google.com with SMTP id 6a1803df08f44-90cdfc9b6ebso9220606d6.2
         for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:21:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789669270; x=1790274070; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789669271; x=1790274071; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4gUHCOX6sUXg0tUw+Jt5/2DPSL1IAFpd2jKjnoUpgn0=;
-        b=DbqcmGif+2SbTCzdifVphuO+ybxkBr4cjWfzndIxbG030JhtSTzvicatomOWjlTPvh
-         S+u/u5sIrRGXnyu14Ls7Px+cUnYl+tXwpgwzJeEE6FmO0mS3l14bxCTVDtZPviNSjyhZ
-         0cmRVpBkFqBPU8cx+wPMlIZ/1Tc0LSI7Kua+92VJrYYlPkWUxQ7kyrrdf/uihV+Ed6GP
-         MW4Kob9GEBd6LSa5BaT/VNNZdAlsz9nDQ3wd5IjY3veOAC0jOxrH4WSh+LGLJXqeGXSj
-         d9oqJC/CgQB8MMUWVuEivuLfHkP9TfQ1sYTigYzftiJZu4BxCMYZfVZQirY9nOItmmru
-         WdOQ==
+        bh=wxvIE5VyPmqRXC8q+9POUQDnnJS4uUoBxGmPT77wF0A=;
+        b=hsJyOlk0GVVLp/TJvSOu56tX9ctJP+DNB+uKybx7JFxZmmvpr6c0/U+kKMuPNVG2Y4
+         aAjxscp5NAuG8QiTHHS0ZLCGoF8NIKN+e2u7UzoLXoi5N+Sl0pZQ4Xrw5qsJYfKwBuAS
+         tueGevEmShuRGR+ocbUT4uflEm0V7NTLsRYX27nFUO/NkT/KXZWRM+W1tZa9efWJWvrb
+         pZAhk92jcp6inapGjbjKfPs0gYKE2QzWRMoyp6qRWJH1Ui51FXzmxU4w+LGbrsf0PN/N
+         nU5wwShf22un+trMZTgxa2W+B79efUK3D29fSBlkKVcUpE70q0YCrGNTTQGq51PXnwHG
+         BvJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789669270; x=1790274070;
+        d=1e100.net; s=20260707; t=1789669271; x=1790274071;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4gUHCOX6sUXg0tUw+Jt5/2DPSL1IAFpd2jKjnoUpgn0=;
-        b=2LwEXxm8AlD+Xj2vZd1En70qafnCPYnnlteD5PBD2Ml1qRG12ncBCIN6jpdftFwIcq
-         AqfyQn0jpHAgEwC8OzH/6PDg75pVjVlP8THrW/dQJu9V4nUk+DIHgrqJIVxEL97+DXLf
-         j5rNElnccrWR+X4vitoO0wNvf7SWaDZyokoP2FAQiNBACXX/P6KQpCsTSNyB4m9K6FBU
-         vgv6MWqpxYhYmqPDAll3slaVjGC0dyx6WjuxOiIZ3fIz6BA3iRlIQeFWmmxFwFPNkJDK
-         LVNOKRrJbQGkHzjBjw2zhvC2Svvz72gqHCv1nsMxiOuF3zgWKMIVjiF32+5ptHse6Jcy
-         xM5A==
-X-Forwarded-Encrypted: i=1; AKwUvBxjqrUra1zqFflrlo6lY7VBPoIBbfIrKQdVQ+TPTlOD3+8JWVYPW71clcPJ6QOLD9fTQoH4KVBbjZdS0UQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSvGjRkE/ftAFp9X1GoqppR5pkSea0QNgk1R1hdYHXqm/pxgSE
-	crqWmHD+AtQIr6qM7tnD9ZO6DPDn67NmJCAmifsx5bgmc5jdNrYrpB8E
-X-Gm-Gg: AYBFou19XejQ80vercj79oG63Rcpec+3fQEDvmvyK2k1SWoRspy/3+CU1GTOVDwGJRe
-	434rOQXOzl3ZNNTP/6ihg8uQs7dJ83NqgtMsGjYceYm3TnnYfdOZTtHz7IHVDKcPhnISxc1ny2Y
-	XO2R3w7BQkuleanw6bxea2ceJF2o7R4rndYmVynFv4EryeTfKjd608MTqiBcJqREFUZyhiN5oot
-	D51KsDomsi1UKasoChPc67CTHKWrUM2bbPTNaghEDQoRO9LIIIgyLzfRDvzgB0LMORvb1WDrFGj
-	0T6K/LEHWCB08vPjqSW5CQQMSsURo+qz2ToMQfGmKfQkWP9s9+bJfHso+Xefp2rvZaA1tBO1jWy
-	zQfEE9U0iRPFSHsnHjYQRPniQhXpaWQqCIO7QZ9h3b5Nh81zjvw1dmhUes+4h3xFRbv9uu4EooJ
-	ntnPIOxZTvZfxGAu77zVy6aEscwI6mBC8vfm1NYkpWUe1Og1efqMPYxsB7KEX7x2kPU3pJsLLgC
-	59Adu/B
-X-Received: by 2002:a05:600c:1f87:b0:49c:d818:8764 with SMTP id 5b1f17b1804b1-49ead86eb54mr92023815e9.11.1789669269234;
+        bh=wxvIE5VyPmqRXC8q+9POUQDnnJS4uUoBxGmPT77wF0A=;
+        b=IZ06KrrSuxFRIQZJ4HC1hgE3+eS9dK3Wsvaqp6HV59SaScAZ33stIltER65z8bxZz5
+         YZmyI6FI3DIQSRfOwu7+FPJK0iRNnDv8rwiJ5uLYlEQtoASXSqGZA45+lVnP/H8Z/8+3
+         zxJTXv0ltrPRPRW5aLGwjh7UbR4WlInnOhg4eMp3Y3Jhyg2x9MjR2J5cDMcZRhusDE/A
+         woonVwUAochGDsTrxYhze2vmZIrwnlfCwWcp9M26M8GvA8zifa4Jl7NySa+C75kA9wNS
+         bVqNzQCf1I3mhlYBM1iCOCakZgLLMJ4QI9aLp73a4/N8g+/47tL+pXKzgC/VRvxg7DF2
+         UW0w==
+X-Forwarded-Encrypted: i=1; AKwUvBxWKgtA4SNpxfE5E1TABclp4Jzs9iR8an87vPDCmKc4u64SI6DESblA0JIJtlPqrRNUpmgxbv/xKyL1trg=@vger.kernel.org
+X-Gm-Message-State: AFuF++khJD8ARBDlOZ0+48D9HnbsJPGd0sq3CGVSzAwG2nOHeBQqaeYE
+	lExv65os/3mUBRwfCs54SeGrWfEMDNMnHKU2ZdIcXDWuisIjLp29mEK/snVsDz33KQ==
+X-Gm-Gg: AYBFou1ilyZRrMqcxaXt3pqpbXDaOId41QFnHGUAcEWoSuSS7pAbPD8SOFbryc7Hfg4
+	EmPCcDo2IldRaHwq17WGgyRu/LLWIUpO+xcPGtPZEgbMyD/3McaQFE9ljzjKfMgUePPE9A9oOqh
+	VFpWmjHSYo0vzFR8jmqLAJIfyY1QO9Y8ToRfffen3zJfAa30YFWuTNifntzg36dILY2e7zz5puW
+	3a7RhWtFJSOt/TIDVW6zPSf3Ot5PPDrbd3GT6VqAQY1KFN5Y66lFWT54cOJrx8mHjCY+GIcIUoG
+	1rWweL+qubXkjQRwhUVwl09VVET/uTTJw8MQ5LhBmHr0uVdCiV9c176iUcj7xLARZ1bz9hNWhwh
+	RktaLdpVh9CiXt5KtsLHN78HYRvpRynXuN0lSbafmLqwhFth5HHtjEwtS7pKelnBV7lJOtuCHFD
+	QVioalpAhOUiIEk7gIIyKQZGNBYlfZPlAw3qTDcfWlKmtibi84TIXateGw+aEhp/frNTbY6GI4y
+	EcT+WDaNYAVFkuJbXMVZmxidsg3ORIxXTyqLq64RKDWtcku64ogWdq1SSpAh2eans+jVmGp5A6C
+	Tz7ao56UGujiZ5CVnp6bhas/AEY/sPOGNVi3YMljy32nbL5c
+X-Received: by 2002:a05:6214:4119:b0:912:3c52:5f34 with SMTP id 6a1803df08f44-91254bd0194mr797506d6.31.1789669270580;
+        Thu, 17 Sep 2026 11:21:10 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.169.225])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252cc7ce2sm3684976d6.34.2026.09.17.11.21.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
         Thu, 17 Sep 2026 11:21:09 -0700 (PDT)
-Received: from localhost.localdomain ([94.252.75.113])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fbd225898sm101433835e9.9.2026.09.17.11.21.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 11:21:08 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Beata Michalska <beata.michalska@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org,
+From: Myeonghun Pak <mhun512@gmail.com>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ananthu C V <ananthu.cv@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org
-Subject: [PATCH v5] arm64: topology: fix arch_freq_get_on_cpu() overflow above 4.19 GHz
-Date: Thu, 17 Sep 2026 20:20:59 +0200
-Message-ID: <20260917182059.2851-1-okerixx@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: radio-maxiradio: balance PCI device enable on cleanup
+Date: Thu, 17 Sep 2026 14:21:08 -0400
+Message-ID: <20260917182108.32566-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,109 +76,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-arch_freq_get_on_cpu() computes the product of the frequency scale and
-the reference frequency as a u64, but assigns it to an unsigned int
-before shifting it back down:
+The tuner initialization failure and remove paths omit the matching
+pci_disable_device() after a successful pci_enable_device(). Disable
+the device on both paths, after the final hardware access on removal.
 
-	freq = scale * arch_scale_freq_ref(cpu);
-	freq >>= SCHED_CAPACITY_SHIFT;
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-The product is truncated to 32 bits before the shift, so the result
-wraps once arch_scale_freq_ref() exceeds 2^32 / SCHED_CAPACITY_SCALE,
-i.e. 4194304 kHz.
-
-On a Snapdragon X2 Elite (Glymur) laptop, whose boost OPP is 4723200
-kHz, cpuinfo_avg_freq reports 524283 kHz instead of ~4723200 kHz while
-the CPU demonstrably runs at the boost frequency: a fixed workload
-completes in 1.72 s at the 4723200 kHz OPP versus 2.01 s at 4032000
-kHz, matching the 1.171 frequency ratio.
-
-Compute it with cap_scale(), turned into a static inline taking u64 and
-moved to <linux/sched/topology.h> so it is usable outside kernel/sched.
-
-Fixes: 16d1e27475f6 ("arm64: Provide an AMU-based version of arch_freq_get_on_cpu")
-Signed-off-by: Oleg Keri <okerixx@gmail.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
-Changes in v5:
-- cap_scale() becomes a static inline taking u64 arguments instead of
-  a macro, as Dietmar proposed and Peter agreed, after Peter pointed out
-  that the macro relies on one operand being u64.  It now lives in
-  <linux/sched/topology.h>, where SCHED_CAPACITY_SHIFT is visible,
-  rather than <linux/topology.h>.
-- Patch 2/2 of v4 is dropped: it duplicated Ananthu C V's series [1],
-  which I tested instead.  This fix is needed with that series, since
-  it puts the reference above 4194304 kHz from boot.
-- v4: https://lore.kernel.org/all/20260917125112.2283-1-okerixx@gmail.com/
+Changes in v2:
+- Add a Fixes tag for the initial Git import, where the PCI enable
+  imbalance is already present. No code changes from v1.
 
-[1] https://lore.kernel.org/all/20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com/
-
- arch/arm64/kernel/topology.c   | 6 ++----
- include/linux/sched/topology.h | 5 +++++
- kernel/sched/sched.h           | 2 --
- 3 files changed, 7 insertions(+), 6 deletions(-)
-
-diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-index d28438f8b83f..39dd7f8575cd 100644
---- a/arch/arm64/kernel/topology.c
-+++ b/arch/arm64/kernel/topology.c
-@@ -19,6 +19,7 @@
- #include <linux/init.h>
- #include <linux/percpu.h>
- #include <linux/sched/isolation.h>
-+#include <linux/sched/topology.h>
- #include <linux/xarray.h>
+diff --git a/drivers/media/radio/radio-maxiradio.c b/drivers/media/radio/radio-maxiradio.c
+--- a/drivers/media/radio/radio-maxiradio.c
++++ b/drivers/media/radio/radio-maxiradio.c
+@@ -159,10 +159,12 @@
+ 	dev->io = pci_resource_start(pdev, 0);
+ 	if (snd_tea575x_init(&dev->tea, THIS_MODULE)) {
+ 		printk(KERN_ERR "radio-maxiradio: Unable to detect TEA575x tuner\n");
+-		goto err_out_free_region;
++		goto err_disable_device;
+ 	}
+ 	return 0;
  
- #include <asm/cpu.h>
-@@ -186,7 +187,6 @@ int arch_freq_get_on_cpu(int cpu)
- 	struct amu_cntr_sample *amu_sample;
- 	unsigned int start_cpu = cpu;
- 	unsigned long last_update;
--	unsigned int freq = 0;
- 	u64 scale;
- 
- 	if (!amu_fie_cpu_supported(cpu) || !arch_scale_freq_ref(cpu))
-@@ -245,9 +245,7 @@ int arch_freq_get_on_cpu(int cpu)
- 	 * (see amu_scale_freq_tick for details)
- 	 */
- 	scale = arch_scale_freq_capacity(cpu);
--	freq = scale * arch_scale_freq_ref(cpu);
--	freq >>= SCHED_CAPACITY_SHIFT;
--	return freq;
-+	return cap_scale(arch_scale_freq_ref(cpu), scale);
- }
- 
- static void amu_fie_setup(const struct cpumask *cpus)
-diff --git a/include/linux/sched/topology.h b/include/linux/sched/topology.h
-index b5d9d7c2b8ad..922b2f015e89 100644
---- a/include/linux/sched/topology.h
-+++ b/include/linux/sched/topology.h
-@@ -234,6 +234,11 @@ static inline void rebuild_sched_domains_energy(void)
- }
- #endif
- 
-+static inline u64 cap_scale(u64 value, u64 scale)
-+{
-+	return value * scale >> SCHED_CAPACITY_SHIFT;
-+}
-+
- #ifndef arch_scale_cpu_capacity
- /**
-  * arch_scale_cpu_capacity - get the capacity scale factor of a given CPU.
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6c3ad70e58b8..45796fccdc84 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -236,8 +236,6 @@ static inline int task_has_dl_policy(struct task_struct *p)
- 	return dl_policy(p->policy);
- }
- 
--#define cap_scale(v, s)		((v)*(s) >> SCHED_CAPACITY_SHIFT)
--
- static inline void update_avg(u64 *avg, u64 sample)
- {
- 	s64 diff = sample - *avg;
-
-base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
--- 
-2.55.0
-
++err_disable_device:
++	pci_disable_device(pdev);
+ err_out_free_region:
+ 	release_region(pci_resource_start(pdev, 0), pci_resource_len(pdev, 0));
+ err_hdl:
+@@ -180,6 +182,7 @@
+ 	snd_tea575x_exit(&dev->tea);
+ 	/* Turn off power */
+ 	outb(0, dev->io);
++	pci_disable_device(pdev);
+ 	v4l2_device_unregister(v4l2_dev);
+ 	release_region(pci_resource_start(pdev, 0), pci_resource_len(pdev, 0));
+ 	kfree(dev);
