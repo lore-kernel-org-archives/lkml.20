@@ -1,100 +1,116 @@
-Received: from mta0.migadu.com (out-36.mta0.migadu.com [91.218.175.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F90437E5C8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780EC1AAE28;
+	Thu, 17 Sep 2026 03:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789615331; cv=none; b=JfiU+pHbyLuoGcV1ThvE97PJfMCRytznhh0lsT237FgvIM+Z3P9qYPR77VGlxNft3weA7tPzeOBd2p8IVC7oqYkXYdrdQd+i8IuhwioaVC1rZyjsUooFXH5Vj/KFalWSaD6SX90K8Y4T8etcGfkmR55rYkz8LmAQxcZdEwInS+g=
+	t=1789615368; cv=none; b=MkI9VfyKHn/xeWIG44vV9s3EhNDpsOZ9nmOo09n4wWBuJ/Z63DcSUfqZT8rKIcWkHGyjSHV84ktUCN50jroZsJ1GNgZeE61kLFqsHzB/JFZ3zj0t60C1o0gMIwfq0WEtddnEIHusSQHi43FPVlhXrJo8kJpQfpQ+fxwhTo+dMmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789615331; c=relaxed/simple;
-	bh=yl/KOYtn7JZaIGJ+SR0TQ6PTflOSgSYVMpOp0AALSDk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rRp8sQgCQLtn7+U1zkavHkBz3fecG7b1F2d4UFgAtIK8jU7TiTC3WwzYp3MVbZLquaXYXEVCrOAwdHA57w3CgQkfWxEo3PjUeuST2u97pesBX2QxcWRD3Yp7LlU4QD+Zt0GFWStr7qh9MFf6acea0DaDpz1AiLHPChOBjrDxen8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=u6nTGN7v; arc=none smtp.client-ip=91.218.175.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789615368; c=relaxed/simple;
+	bh=OmpzvktthIMlmjbdkBRmlBz9EaCIIUVeLJJ8l3eMClI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Qs+eXmpNDMXLRjDxW5zceIA2MzhBuZYTICbcbFSER54lx8LDeC3gGEZqZJ3qRnyPEgvE3HDuZBsRiLNhVgU8q2cy7smlZM4h7XlG7+NkONXQyPqLyQ/SFiJy1re0lCnD+w3zHsk9pg86/xooiVdjOqBOUIC2CHphWS09fN30Ib0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jam9ldi3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="u6nTGN7v"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yl/KOYtn7JZaIGJ+SR0TQ6PTflOSgSYVMpOp0AALSDk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789615325; v=1; x=1790220125;
- b=u6nTGN7vfwbYe7PCRLE0iIbUUHW2Bf0Z8jwqGG0xde6hwjR2OE7yW+6khwRWfwpf6PwMC06B
- W8vILp7/v3pQE+Pcoe+2Ot5r6i+Pk9MyXjiEkRTswBQj3d6Zg0zu0dl/loB49sVYwklmLO5UOa1
- GublyU9w7HlrtYMy/VRjGwfw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3c089fae2f5f256c;
-	Thu, 17 Sep 2026 03:22:05 +0000
-X-Mizu-Trace-ID: 3c089fae2f5f256c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f12d0cd4-0704-4231-8199-4a04af367040@linux.dev>
-Date: Thu, 17 Sep 2026 11:21:57 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jam9ldi3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5023F1F000FF;
+	Thu, 17 Sep 2026 03:22:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789615367;
+	bh=SXsX5DsYswtzjcS3K0uNGf/QIEwH8p3X9vhYMBqrMQw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jam9ldi3KC+0+VczNEMScr4uJEqoxHZUdXakjFbdk17lAqJr8MpnPX0tD7I8KDZTu
+	 L5ePZWzNyrBGWdQDqszzwqZ30QYFkxBMYGweY4kKn4iU+h8lDdHimDGDq03HY9lXwS
+	 9pit+Z+1qA0/+XEvHdJgk0u3SnIk0/j2/EwVUmY5gvE48XPjwEJK1IR+sXxoSpy6Mm
+	 oY0OOMLEeCdFTqsbv/VckIvSPuygzDJ1x6Q2M8SiH+/RHUPhx5O3BMrjEMAYUW3Ein
+	 EyFKLS7DONzrAhXn3q7QyoB3BcQpCxg7xr5I5KHbhT4xqYXwfzlQvMhh/s8RsBaUMB
+	 3E0qRgxv0accA==
+Date: Thu, 17 Sep 2026 04:22:41 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: gregkh@linuxfoundation.org, nuno.sa@analog.com,
+ Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, joshua.crofts1@gmail.com
+Subject: Re: [PATCH v7 3/3] staging: iio: adc: ad7816: Fix DMA safety issues
+ in SPI transfers
+Message-ID: <20260917042241.05bc81a7@jic23-hlaptop>
+In-Reply-To: <20260915075939.18180-4-abdelnasserhussein11@gmail.com>
+References: <20260915075939.18180-1-abdelnasserhussein11@gmail.com>
+	<20260915075939.18180-4-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] mm/mglru: add tracepoint for scan_folios()
-To: Baoquan He <baoquan.he@linux.dev>, Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
- "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20260911102939.2485750-1-ridong.chen@linux.dev>
- <20260911102939.2485750-3-ridong.chen@linux.dev> <aqkoeJvFzqpoGeaP@fedora>
- <e38f2b80-20f2-4787-9e07-fb601552f550@linux.dev> <aqn7h3BVCCRFI2TI@fedora>
- <20260916095122.50cbb620@robin> <aqtBG9Oyu-RVI7jv@fedora>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <aqtBG9Oyu-RVI7jv@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Tue, 15 Sep 2026 10:59:39 +0300
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
-
-On 9/17/2026 9:23 AM, Baoquan He wrote:
-> On 09/16/26 at 09:51am, Steven Rostedt wrote:
->> On Wed, 16 Sep 2026 10:14:31 +0800
->> Baoquan He <baoquan.he@linux.dev> wrote:
->>
->>>> However, 'sc' is an internal structure, so sc->order cannot be accessed in
->>>> TP_fast_assign(), and I don't think it is worth making scan_control an
->>>> external structure just for this.
->>>
->>> Agree.
->>
->> Or what you can do is to move include/trace/events/vmscan.h to
->> mm/trace_mm.h (or whatever you want to call it) and struct scan_control
->> into "vmscan.h" and then you can use internal structures within the
->> trace event.
+> The SPI operations in this driver are not DMA safe:
+> 1. spi_read() uses a stack-allocated buffer.
+> 2. spi_write() in ad7816_spi_read() uses a struct member that shares a
+>    cacheline with other variables.
+> 3. spi_write() in ad7816_spi_write() passes a stack parameter by
+>    reference.
 > 
-> Sounds very reasonable, thanks for the valuable input.
+> Fix these violations by replacing all spi_read() and spi_write() calls
+> with spi_write_then_read(). This safely handles DMA by internally
+> allocating a bounce buffer for the transfers, avoiding cacheline
+> sharing issues without needing dedicated aligned buffers.
+> This implicitly corrects the size argument in read to sizeof(buf).
 > 
->>
->> Up to you, but this is what other subsystems have done.
+> Fixes: 7024425db64a ("staging: iio: adc: new driver for AD7816 devices")
+I tried to apply but having missed many of these in the path
+have a git hook that checks fixes tags.
+
+That commit doesn't exist.  Seems it is the fairly similar ID.
+
+7924425db04a  which is downright odd as two digits are different.
+Copy typing maybe?  Anyhow, fixed up and series applied.
+
+Jonathan
+
+
+> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+> ---
+>  drivers/staging/iio/adc/ad7816.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> Yeah, leave this to Ridong to decide.
-
-Thank you for the suggestion.
-
-I think it is worth doing. And we can also use that for other tracepoints that 
-are using sc->*.
-
-I will give this approach a try.
-
--- 
-Best regards
-Ridong
+> diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
+> index c18093ca8a82..f76f0215119a 100644
+> --- a/drivers/staging/iio/adc/ad7816.c
+> +++ b/drivers/staging/iio/adc/ad7816.c
+> @@ -74,7 +74,7 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
+>  
+>  	gpiod_set_value(chip->rdwr_pin, 1);
+>  	gpiod_set_value(chip->rdwr_pin, 0);
+> -	ret = spi_write(spi_dev, &chip->channel_id, sizeof(chip->channel_id));
+> +	ret = spi_write_then_read(spi_dev, &chip->channel_id, sizeof(chip->channel_id), NULL, 0);
+>  	if (ret < 0) {
+>  		dev_err(&spi_dev->dev, "SPI channel setting error\n");
+>  		return ret;
+> @@ -96,7 +96,7 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
+>  
+>  	gpiod_set_value(chip->rdwr_pin, 0);
+>  	gpiod_set_value(chip->rdwr_pin, 1);
+> -	ret = spi_read(spi_dev, &buf, sizeof(*data));
+> +	ret = spi_write_then_read(spi_dev, NULL, 0, &buf, sizeof(buf));
+>  	if (ret < 0) {
+>  		dev_err(&spi_dev->dev, "SPI data read error\n");
+>  		return ret;
+> @@ -116,7 +116,7 @@ static int ad7816_spi_write(struct ad7816_chip_info *chip, u8 data)
+>  
+>  	gpiod_set_value(chip->rdwr_pin, 1);
+>  	gpiod_set_value(chip->rdwr_pin, 0);
+> -	ret = spi_write(spi_dev, &data, sizeof(data));
+> +	ret = spi_write_then_read(spi_dev, &data, sizeof(data), NULL, 0);
+>  	if (ret < 0)
+>  		dev_err(&spi_dev->dev, "SPI oti data write error\n");
+>  
 
