@@ -1,52 +1,52 @@
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B495533D6CA
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:27:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB5A361951
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608440; cv=none; b=ZY7eLYx2MbN+IHenGwG+k9tz+Wwlef7uYdrjayt+nwMM4QMpEp9fSSLJuTr8w+0rxhL94xqcLt12qwj7V7H+wK3Wg5eqQ5hSClXVUMfqB5jOuVBebWob8m9SfMGEARyE3LUNbGpIVcmbJpoQelkCSSPvFCCWF4iIv9G99VEbfzE=
+	t=1789608476; cv=none; b=MJ0+aqE/CmWbzN3OW2U/HxrxtcHrEfHbnhKIajUDRg/4d+texh/SFNiD1Uj+8XttSXxgAVCfk6pjJg429chSxCAadrG/okOOAWqohifXncyIAr/XWG0xBn7PoSXSpCLxSQ5/FBz6I/uWCBHGEIDL1QcOECWKjSHv4B0VHYunEN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608440; c=relaxed/simple;
-	bh=kIm9OghPV6mG9UBRlIV2nG9TkE+Hr/yUFD/oQxbpq5M=;
+	s=arc-20240116; t=1789608476; c=relaxed/simple;
+	bh=yR0UWsmgRCqajJ+HXz0e5DLAKfcdZjncq/mq6J1gNnM=;
 	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=ktTINm6b8xG3dCq4SWJFP3uN/iNKcuAtbhR2u4Fj+DoL5ZiPKe1zmBc/kFnEUN7WA4CsPBpadyeV9MZ8M0hzm+1uBDRjsx0IBKMp63U8sW8dWUjAzn17qyKSUHLtZzwBCvaXjpM42FOuWaL8YzgVgGZC/X67z/TQBL0s7ADmHl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
+	 Content-Type; b=tvICBOB5umYW8hubkSp4Taba4KA3ZptK1dU4rwb2sXGHYpEUWQX35PI93zj5LWzdwqir/X46f8SU+UXnv92Qaib9Foe7gsw/OJWLShCs26f3YbgnDaQj4pTmmE1GrXBlIMAbO43JuE+rVT6Za1BPua4kVNEBi4DfYKXFUXSik/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-451d80641efso355765fac.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:27:18 -0700 (PDT)
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6bc8f608979so247571eaf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:27:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789608437; x=1790213237;
+        d=1e100.net; s=20260707; t=1789608473; x=1790213273;
         h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=NdSPuE381k4FlDjPbHybT93tlsDNiovETNZ/KVHbD2c=;
-        b=g1Y5h5w6tm/nhtcPvIEPexa/oyL7313RqkizQgMpONjvCaT+B0JfKU6k7IZFn0dXmi
-         pmrCAKflz+6ne04k3xNMpEmVEth/8HYltnZxywYLTgo4rvBhZ5ygtZ4y4PmwP56iJfCt
-         sWmqrU5Gt76aDRt52Z5Wo76l0BCx9aXZwHrSuuF3rSplanevLQSGauetT3muilR+YDve
-         thuVTAOiqqcqMLD48Xw+cc2lBZsVwaIQK1VysgUtbTRjIB2/4+tJrkSIftAsohGr5B6O
-         Nhp9dS3M7lMK97GD/KEiwu0N65+PbpmB2/YaVPCIGfbdjk5uluIDHqTE6DqXc8fynMr5
-         7Q4Q==
-X-Gm-Message-State: AFuF++myUd55FXnbPNuXyooroPdI06nASqxZ3pFigQM8oS6j8OgYDkzG
-	Py2qs78aHNcNJ29C8va8Zeex8OK/0Q04ydojw3xXZIty7i0appkH1GOuBzH8mp/hl0ntF/HjqPN
-	qa2XitszWRGWrQFLupmenCq3u5droMpToLYMwRmaiko7rDRjY2bwlPU5AdJo=
+        bh=1TjDSVWG2tvvyrrjEiLdJ1gDUoV1XQ3y1I6fJf9AK6E=;
+        b=FpqvZ3F81HInVM0YsfCh6q2z5W7dshREojLiTBIv4DLtv2a5FYYalkbcLrO8mQbs+6
+         PsKmKmXu0GN8E8N9w6X5UJDf//oXyg0B0DFTYuP0P0WY6Bx8Hn2jX26k56SpSFmVPjVY
+         yr+H7ntGXY8oQ7mfGcMOVMBYYKubBIhd2aLWiIJY2tJHZxgmwLz0LojLV9lAe8OO+Q0L
+         YX1q3Q87RNFooJlwggA4VyKr3Jyb3vKmM+M+5FnMH7lN5f80SAaRlC5bCTtXRcTapu57
+         5Htk+S9vjJOb0gioG/OcvRgX/HxFaL0jRigA5PT+mlmZZpEF/jcR0Q3B2eOMgGsgPkp7
+         5bCg==
+X-Gm-Message-State: AFuF++k+gEH/IqKGQNzaBKeGDiKDZYIlw5WLZU7mCo76Q9lehr0+PO/y
+	SKFo6cV3tygzJh7lSYHZr1Gu6y4TH/xbM+ZBI1OFdOZUe/NokZrydqB7Ww4b0a8l2SX9iIn6Od8
+	FOwvKatlwf53dMCjWT2AdHtzJoUUvCQkLiubRLsY5+QVYDjxGcn4pjvy2kF4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:81d8:b0:6bd:f333:7b83 with SMTP id
- 006d021491bc7-6c7d1bc845amr4864441eaf.16.1789608437674; Wed, 16 Sep 2026
- 18:27:17 -0700 (PDT)
-Date: Wed, 16 Sep 2026 18:27:17 -0700
-In-Reply-To: <6a9ef807.2bb5a69c.24b23c.0007.GAE@google.com>
+X-Received: by 2002:a05:6820:4b94:b0:6b7:46fc:1d4 with SMTP id
+ 006d021491bc7-6c7d3fec459mr5165927eaf.51.1789608473546; Wed, 16 Sep 2026
+ 18:27:53 -0700 (PDT)
+Date: Wed, 16 Sep 2026 18:27:53 -0700
+In-Reply-To: <6a8cf1e8.dbb3a75c.7844.001a.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab41f5.87c06881.1db2b3.0003.GAE@google.com>
-Subject: Forwarded: [PATCH] KASAN: vmalloc-out-of-bounds Read in rpc_queue_upcall
-From: syzbot <syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com>
+Message-ID: <6aab4219.87c06881.1db2b3.0004.GAE@google.com>
+Subject: Forwarded: [PATCH] WARNING: ODEBUG bug in vub300_disconnect
+From: syzbot <syzbot+f4a0159ce6802a0a4774@syzkaller.appspotmail.com>
 To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
@@ -55,63 +55,63 @@ linux-kernel@vger.kernel.org.
 
 ***
 
-Subject: [PATCH] KASAN: vmalloc-out-of-bounds Read in rpc_queue_upcall
+Subject: [PATCH] WARNING: ODEBUG bug in vub300_disconnect
 Author: jchuang26@m.fudan.edu.cn
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 50d05c7c76c96b90462f24debacca971d2e86713
 
-Reported-by: syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com
+Reported-by: syzbot+f4a0159ce6802a0a4774@syzkaller.appspotmail.com
 
-diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
-index d513971fb..90abdea16 100644
---- a/fs/nfsd/nfs4recover.c
-+++ b/fs/nfsd/nfs4recover.c
-@@ -647,6 +647,7 @@ struct cld_upcall {
- 	struct list_head	 cu_list;
- 	struct cld_net		*cu_net;
- 	struct completion	 cu_done;
-+	struct completion	 cu_msg_done;
- 	union {
- 		struct cld_msg_hdr	 cu_hdr;
- 		struct cld_msg		 cu_msg;
-@@ -671,6 +672,13 @@ __cld_pipe_upcall(struct rpc_pipe *pipe, void *cmsg, struct nfsd_net *nn)
- 	}
+diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
+index 2dae474dc..9914c8b58 100644
+--- a/drivers/mmc/host/vub300.c
++++ b/drivers/mmc/host/vub300.c
+@@ -744,7 +744,11 @@ static void vub300_inactivity_timer_expired(struct timer_list *t)
+ 	struct vub300_mmc_host *vub300 = timer_container_of(vub300, t,
+ 							    inactivity_timer);
+ 	if (!vub300->interface) {
+-		kref_put(&vub300->kref, vub300_delete);
++		/*
++		 * The disconnect/error paths have already shut this timer
++		 * down, so it can no longer be rearmed or run.
++		 */
++		return;
+ 	} else if (vub300->cmd) {
+ 		mod_timer(&vub300->inactivity_timer, jiffies + HZ);
+ 	} else {
+@@ -2327,7 +2331,6 @@ static int vub300_probe(struct usb_interface *interface,
+ 	INIT_WORK(&vub300->deadwork, vub300_deadwork_thread);
+ 	kref_init(&vub300->kref);
+ 	timer_setup(&vub300->sg_transfer_timer, vub300_sg_timed_out, 0);
+-	kref_get(&vub300->kref);
+ 	timer_setup(&vub300->inactivity_timer,
+ 		    vub300_inactivity_timer_expired, 0);
+ 	vub300->inactivity_timer.expires = jiffies + HZ;
+@@ -2349,6 +2352,13 @@ static int vub300_probe(struct usb_interface *interface,
+ 	return 0;
  
- 	wait_for_completion(&cup->cu_done);
+ err_stop_io:
 +	/*
-+	 * A downcall can be received before userspace reads the upcall.  Wait
-+	 * for cld_pipe_destroy_msg() to signal that @msg has been removed from
-+	 * the rpc_pipe, so the on-stack message is not left linked in the pipe
-+	 * after this function returns.
++	 * The inactivity timer was armed before mmc_add_host() failed.
++	 * Shut it down before dropping the host reference so that its
++	 * callback can neither run nor be rearmed after the memory
++	 * holding the timer has been freed.
 +	 */
-+	wait_for_completion(&cup->cu_msg_done);
++	timer_shutdown_sync(&vub300->inactivity_timer);
+ 	vub300->interface = NULL;
+ 	kref_put(&vub300->kref, vub300_delete);
  
- 	if (msg.errno < 0)
- 		ret = msg.errno;
-@@ -839,10 +847,15 @@ cld_pipe_destroy_msg(struct rpc_pipe_msg *msg)
- 						 cu_u.cu_msg);
- 
- 	/* errno >= 0 means we got a downcall */
--	if (msg->errno >= 0)
--		return;
-+	if (msg->errno < 0)
-+		complete(&cup->cu_done);
- 
--	complete(&cup->cu_done);
-+	/*
-+	 * Signal __cld_pipe_upcall() that @msg is no longer queued.  This is
-+	 * needed even when the downcall arrived first, otherwise the caller
-+	 * could return with the on-stack message still linked in the pipe.
-+	 */
-+	complete(&cup->cu_msg_done);
- }
- 
- static const struct rpc_pipe_ops cld_upcall_ops = {
-@@ -979,6 +992,7 @@ alloc_cld_upcall(struct nfsd_net *nn)
- 		}
- 	}
- 	init_completion(&new->cu_done);
-+	init_completion(&new->cu_msg_done);
- 	new->cu_u.cu_msg.cm_vers = nn->client_tracking_ops->version;
- 	put_unaligned(cn->cn_xid++, &new->cu_u.cu_msg.cm_xid);
- 	new->cu_net = cn;
+@@ -2382,6 +2392,13 @@ static void vub300_disconnect(struct usb_interface *interface)
+ 		} else {
+ 			int ifnum = interface_to_InterfaceNumber(interface);
+ 			usb_set_intfdata(interface, NULL);
++			/*
++			 * Shut the inactivity timer down before clearing interface.
++			 * Otherwise it can be rearmed (by its own callback or by a
++			 * concurrent path that already checked interface) and later
++			 * fire after the host, which embeds the timer, is freed.
++			 */
++			timer_shutdown_sync(&vub300->inactivity_timer);
+ 			/* prevent more I/O from starting */
+ 			vub300->interface = NULL;
+ 			mmc_remove_host(mmc);
