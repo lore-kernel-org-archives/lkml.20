@@ -1,97 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2174436BC9
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:40:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4E0346FA8;
+	Thu, 17 Sep 2026 06:42:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627237; cv=none; b=VoBib+R3FAdxVVXmtFViQdcWvq3W1urIsZptRU2dgJ7obpIx9KaZBZgIn58rhilEv+bbdSHJEKcLS97JtFxigVuhApoUxqNEE7aR/7Z3AvFXs8o5UlNUz6VE4Jk3D8F9bcgMSIY6aSsBuwS58EbWmGpqmoDPr8Y5iK84q1zAxdw=
+	t=1789627348; cv=none; b=SNS4VH/92cHi+B4/2D6BO98lXdlMPty3ynQA6zdmWy+Bxhqj1riVElZ7vGLryujw2Fx8gy6oL6lj8v+scmPZPQ0SdJ1zm2n8utCP5weN80fIf9AJC4woN5HRhHmJwI1jmP+hS65Tr4jIvMVsyOTl6+k2AqB/SvHj0SizX+3Lqrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627237; c=relaxed/simple;
-	bh=/lUyJrQOsEcQ2LLDS29EU3O8p0fu7SDGMtZO/LgCZq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZSQx01f8tTckIy6Y6Vh9/vQXJcGFIqcvhG2oAh+SGd2jTYYYiZVCxL7USuN8wxDRcpLzg4gVxEo6H0Ztpd7vl3Pwk+q6mzGoAHxNIUl4uJ8HKJzwhz3s0/JgVW0BQbkZ0ImdrwDyi+gqUrWvjrOLXR2fFcbb5Z6TTIC7Kzr7cQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RHGIiLex; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789627348; c=relaxed/simple;
+	bh=GLl+PNDb3G6wQ93kIOoz2vznPBNPJZqJdDb2FXYmeHI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KF2w0gZc3UeoM7VgSdLBQsGbeW1qgzygSyO3JZXlHcegKRc2mspl+olbLVNJd5EdRbYrFHo9Wn1KTBEMMH/m7nsdgmS+11PDByTk3mDJdF5uIu+iZmbxF7+XEAFcuNDlxfAKdu8D99NOZoJixOo3qpryiogm3kGXq4kmCxC7sYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HShAYTHQ; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RHGIiLex"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789627234;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YlcSCaOgVWAQsVp/37r62Fp85wjLzCNshdQoQFfZFUk=;
-	b=RHGIiLexxFL6IqGieVRpYs6QBXMnBliOpRCKyWtPLzUjmtw19hA5oR+bQk5gKp/wh7DqhP
-	wJFiG12XB8Sx4l3m2gvtF7+1BkK2eNrtygToJ/YqD9oJEy9J9AwOD3RvvXwVkejifQAEWA
-	VSVajXHKdWsXYT5keaJ3IICDZBLO7Aw=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-222-KKCv_-iXOf-U2idK-TwV8w-1; Thu,
- 17 Sep 2026 02:40:31 -0400
-X-MC-Unique: KKCv_-iXOf-U2idK-TwV8w-1
-X-Mimecast-MFC-AGG-ID: KKCv_-iXOf-U2idK-TwV8w_1789627229
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E3C9C1954122;
-	Thu, 17 Sep 2026 06:40:28 +0000 (UTC)
-Received: from fedora.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DB82B3003EED;
-	Thu, 17 Sep 2026 06:40:25 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: jeff.johnson@oss.qualcomm.com
-Cc: ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	dolinux.peng@gmail.com,
-	jjohnson@kernel.org,
-	jtornosm@redhat.com,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	toke@toke.dk
-Subject: Re: [PATCH v5 4/4] wifi: ath12k: implement custom wake_tx_queue with flow control
-Date: Thu, 17 Sep 2026 08:40:23 +0200
-Message-ID: <20260917064024.12175-1-jtornosm@redhat.com>
-In-Reply-To: <0bac4c07-6c78-478c-b3ec-1d897cdd8acf@oss.qualcomm.com>
-References: <0bac4c07-6c78-478c-b3ec-1d897cdd8acf@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HShAYTHQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789627347; x=1821163347;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GLl+PNDb3G6wQ93kIOoz2vznPBNPJZqJdDb2FXYmeHI=;
+  b=HShAYTHQkbsmZZehrsFH7wx68WSvyMKID8R97iQv/utoXYyXOVFcUEu5
+   T7aPPi0rtkqmW3fIm46TbbAjil+fjK1pV5y8mVUumTlGRbJYhZNxNMrL0
+   ar/UDHs6d/f4f8mo9nC9f40iwBGeWKEgYcFEV72O/mr57+8VnhgkwZLlZ
+   NwYKPaFS+zMlTzNaLfp+L+HrwdZKgqcvNHQ68vvDsP7TFAt5IvGRxJ8Pw
+   LXDC3r5HqonVpzzLXtu9TLGXE6BaRd73H/GnQvVK5W00r7qU28tVWJ3gl
+   HoiBMGks1itSpjOMpUj0DNjasYOAFq5WUoqzrU14rzT0WrNsp4obQ5Hct
+   w==;
+X-CSE-ConnectionGUID: OnofZLOvTfiKi/pToGZDQA==
+X-CSE-MsgGUID: KUqahWM8QluFEdC5suLRWw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92528025"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="92528025"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 23:42:25 -0700
+X-CSE-ConnectionGUID: PG/D0x/ySmKmZq1ey6kmtQ==
+X-CSE-MsgGUID: JHg0psEGTpaArnv+HRX1zw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="297099751"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 23:42:23 -0700
+Date: Thu, 17 Sep 2026 09:42:21 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Malathi A <malathi.a2000@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2] serial: 8250_uniphier: Use devm_clk_get_enabled()
+Message-ID: <aquLzbM25C8dDb0p@ashevche-desk.local>
+References: <20260917040511.103232-1-malathi.a2000@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917040511.103232-1-malathi.a2000@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hello Jeff,
+On Thu, Sep 17, 2026 at 04:05:09AM +0000, Malathi A wrote:
+> uniphier_uart_probe() enables priv->clk by hand and is then responsible
+> for disabling it again on every error path. It misses one: when
+> uart_read_port_properties() fails the function returns directly, leaving
+> the clock prepared and enabled. The neighbouring path, taken when
+> serial8250_register_8250_port() fails, does call clk_disable_unprepare(),
+> which shows the leak is an oversight rather than intent.
+> 
+> Rather than adding another manual unwind, switch to
+> devm_clk_get_enabled() so the clock is released by devres. That removes
+> the error path entirely, along with the explicit disables in the
+> register failure path and in uniphier_uart_remove().
+> 
+> The clock is still disabled and re-enabled by hand across system sleep,
+> which stays balanced: only SET_SYSTEM_SLEEP_PM_OPS is used, so the
+> device cannot be unbound while suspended and devres always sees an
+> enabled clock at detach.
+> 
+> Found by smatch:
+> 
+>   drivers/tty/serial/8250/8250_uniphier.c:232 uniphier_uart_probe() warn: 'priv->clk' from clk_prepare_enable() not released on lines: 205.
 
-Sorry for the late reply, I was on leave as noted in the v6 cover letter.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-> I have a fixup for ath9k which does:
->       171 -  ratetbl = rcu_dereference(sta->rates);
->       171 +  ratetbl = rcu_dereference_bh(sta->rates);
->
-> Should ath12k also use rcu_dereference_bh()?
-I think the ath9k and ath12k situations are different. 
+...
 
-In ath9k, the rcu_dereference(sta->rates) is already inside the
-spin_lock_bh(&sc->chan_lock) section, so BH is disabled and switching to
-rcu_dereference_bh() directly satisfies lockdep without needing
-rcu_read_lock().
+> -	priv->clk = devm_clk_get(dev, NULL);
+> +	priv->clk = devm_clk_get_enabled(dev, NULL);
+>  	if (IS_ERR(priv->clk)) {
+> -		dev_err(dev, "failed to get clock\n");
+> +		dev_err(dev, "failed to get and enable clock\n");
+>  		return PTR_ERR(priv->clk);
 
-In ath12k, narrowing the rcu_read_lock() scope would require changing the 4
-existing rcu_dereference() calls inside ath12k_wifi7_mac_op_tx() to
-rcu_dereference_bh(), since that function has an existing contract
-(/* Note: called under rcu_read_lock() */) and is called from wake_tx_queue.
-That is modifying working code beyond the scope of this series. Happy to do
-it as a follow-up if you prefer.
+Consider fixing another latent bug here, id est with intermittent probe defer
+this will spam the kernel dmesg a lot, so converting to use dev_err_probe()
+will fix the issue (but at the same time you may convert all of the error
+messages in probe to use return dev_err_probe() pattern). This needs to be
+a separate change.
 
-Thanks
+>  	}
 
-Best regards
-José Ignacio
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
