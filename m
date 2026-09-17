@@ -1,64 +1,80 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD334A386C;
-	Thu, 17 Sep 2026 12:17:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96FD4C33DC;
+	Thu, 17 Sep 2026 12:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789647489; cv=none; b=mhv1f4kSASVck3XgzX2Rwq6mVzcpKwgal8+ec4J8Dwp8Cj9C5Vzfcc1cZlLyuTc04RpO9GUIzVY3yvUA+778YBPmo61qBKUO0iqVVrVfJrRiOgVSmPLyfEcT1POjqeFZqVLgP7c6KbsQiruSuDBHNkA08O2A0aXm+eJFsdCckZM=
+	t=1789647536; cv=none; b=myAAhB0jdR43UYyb1iskgVZwARWxdAGz6ErriB4D5DGPggtCYkxYDsR28umc/a3QLNHesOR/ETzJ2DLXVshZTc5hviKEOHgoJbnslrjoil1RxHZLYjDkVtolnib8eY/GtlL99XD8vliMfJqLni0dxktCnk8ByEK5vQkzhOtBaaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789647489; c=relaxed/simple;
-	bh=wRkFRnQINsIrBIFpLGZ+2WGpiscqWrK5kh4MGKkfLAQ=;
+	s=arc-20240116; t=1789647536; c=relaxed/simple;
+	bh=0t8h+BhsPnywveReelml/OAF6d1eEcG7X6M0qNN81Ls=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eohHeUg6vDFkTbTmX2DC3V+ZGjDNulPhzBgjIEaq+NrP/2IIaXupmbvWDHrQPAGgtblsehC/fg2pc93C3DpI1DdiGKTlL/Jv3m9cLPB2i26QjC1FbwKH9aYgVpTw6CdcIXhjxVihf0/gv2y263b/ekbzSHRucJkInD91XlIpmY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eXVIGbV6; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kgyotNBdtCM9bgEQ6lr/hFhU8/j4V0opETdPWEZL7gNqFXRO0RgtKoUJ94QNw8ge6Ow0LX1DUeZxitMNQ9i53nQV7e47zuLaoNPat7nl/LGs/FdfcLKe7cz3+GoLGMns33dXS0xZ6Goze362w7vB0/V/mLMBey47Noa7gxY6qoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=BN4b26LO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=sUlSZn5J; arc=none smtp.client-ip=202.12.124.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eXVIGbV6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789647479; x=1821183479;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wRkFRnQINsIrBIFpLGZ+2WGpiscqWrK5kh4MGKkfLAQ=;
-  b=eXVIGbV6BPrk6+VIHjmkuJuuHaVYNGDbnJEMaOE6Ym5fQs2HuPferTC9
-   Tx8IM1qxXu1mhV6cWGRjdKGNWUB5D89mauSBTG0tHs8WYE7KNSRP6pqzn
-   9sC+SUNZDoHNwGUyua+BoIfrdfqmCJWvh4cWYs7qL1wl00H6qZ0A82jbI
-   HL3iNfyrtNelMjeFrjrNfjaov5kxI50THp+uTAv2mXGzGnuYuDvMmMUhe
-   eFRsO7hPUxYX8ASe495xNdt2NePrUnEDUXbc+PCRKnw36HkPkOYpCCdXS
-   NnTCFDei3iTdIQLEHAkZQdrOkNnQOd0XJeCr7U4ct6i6yZU+XWc+ZnBrV
-   w==;
-X-CSE-ConnectionGUID: pycBaEFcTZKFU1oLUS8XKA==
-X-CSE-MsgGUID: aqI02/9UTjSNE42kBseaYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="567542"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="567542"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 05:17:55 -0700
-X-CSE-ConnectionGUID: HvDjrdsDQpWveBzbgrTYZw==
-X-CSE-MsgGUID: dr1HhSx8TJKHRSvnG7UaTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="297246366"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 05:17:53 -0700
-Date: Thu, 17 Sep 2026 15:17:50 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonas Rebmann <jre@pengutronix.de>
-Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel@pengutronix.de
-Subject: Re: [PATCH 3/5] lib/tests: string_helpers: introduce
- test_string_unescape_one
-Message-ID: <aqvabt4J6jNM0ytX@ashevche-desk.local>
-References: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
- <20260916-string_unescape-v1-3-7f8bd986fa33@pengutronix.de>
- <aquVCG4NwM1ezLLm@ashevche-desk.local>
- <7ad3889a-d9f9-426c-916f-3900d2c4ab8a@pengutronix.de>
- <aquuHKFFN7tGKbCf@ashevche-desk.local>
- <1b101eed-29b3-43ee-9cf8-cfc38a5df05d@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="BN4b26LO";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="sUlSZn5J"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id BD20B7A00E6;
+	Thu, 17 Sep 2026 08:18:37 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Thu, 17 Sep 2026 08:18:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1789647517; x=1789733917; bh=LAjOOeUKDR
+	jXDJfarVM52blXGmzDeXnQH6eVQCc2rsE=; b=BN4b26LO70252BaFgO504zkUSI
+	DVP1fYGA3+9y0UggPypMZXGktMzycctvDtgEzc6tw+gIUC5m0BdmhO0Xalt9YT2X
+	WpHkn4PwyPDtI8it+Pk+mbVfNVDlCng2JxGnrlyA+8QQrVHAET3sMcou+GxU5Gn3
+	jG8xtqKgCL9rUz+HfqnsuYFIj2OCoknBMM1hXkbZHArz6gUulDxzM5OovQd0WtBd
+	Po8OapaPlVaeIaIadNUefwqBN7BvmHvirLe1QDNBT6rZo4TJCH/cErhoQbAA12pq
+	XCxqGV2glpD76X6O5GtMQjeRSADU8tiXledjTbZk5qy/zri54fl0Swwzfx5A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789647517; x=1789733917; bh=LAjOOeUKDRjXDJfarVM52blXGmzDeXnQH6e
+	VQCc2rsE=; b=sUlSZn5JnFHhz6zFk21+WuXMpccVyM/UBXdoxuWah1BpoeMjUCh
+	KbJYm2gZ++m6PWhWBOpK+H8vspHM06liVi28+0uc1EdMZZI1SMqNqbnk8sKuVOSB
+	Wrf/hP0CdbphCFU+kaW8d+FiJh620BJplWWH9/ujVotWfqRB49avAoIqe3HwMIW+
+	YzNd3p6HAbTpQOA0od2OK+bYQGCejbWCSSJs/oBrsDJ5vOxb0krpZP78CizsbYac
+	5F4yc1sAum1BAkxU2I7HcMFRNeZmwbg68vWuaehX7AK4S0OK7Zq2Stfez4z+lAFV
+	1oIQccRE+L2sj+dvm15tTO/Cl4EbmZp4fbw==
+X-ME-Sender: <xms:ndqraip6SfvQr-qlRp8jjeWMePOUAjLgYQgfzdoPtk5JlJkvCQM3gg>
+    <xme:ndqrah9xlKpdmnwz2V5JqHAfi6gUTmK_10ZW1GGJAUB345Ae7Vmgul2CgP_7el00M
+    ry_vdyNQ2MWeaOnvIcOsaLn49GYV8N6Te-TUY08GQGJpgv2ldo>
+X-ME-Received: <xmr:ndqrar0ImcQPcgKgDrJ7MXBVcUMlfzQ8NjeQT89s4jvf8DJAsdZE1wDKXQl4>
+X-ME-Proxy-Cause: dmFkZTGDah2Jb2jRQUEZgifNQBU+Lq0R5v+Bsd3VBbPUnA5QmfBTz4OmpdLw1ZSbpbr7SL
+    GHKNubWbjK/vPT3lS2J8HH527dFzsLxUmPIbQA53cCSDUqAk8YxEmraC6d8XWycovJ8jfD
+    3z6yfiwssT8G6xX3H1ILu799QeMMr2K+qwCasY03y3hppJfLI4T5c5GY60EY/MpAznL5PS
+    JPNbesxaa+WiaGIZ6jsu3NSDmqeHHswe46i+2euLABJ/+7hBJpeGZvLSaa8Pgcw5yXlwBn
+    /UVQLNbqHYThB9n5PpvSGCEOvD8FLTTJg5Wdip4V8h5NgS3/cLLDaV/cNBGtAFWXFM8kke
+    PfJZREdh9frD4QRTt5PeVs2vsqNEEC+Bk2aCZ9oeRRnZAvh8urANyDWTIaU+0x0zWk1oB1
+    1CKlcvOkzdbLhnhLqNNjiu+9b2pRDm4OcFcoKlmVuc0G4Tgz8TtYYaPDAIGX/tbg15R+1j
+    2e1DpCSgS3wUwvXpI88mPOE2UpKfU8W/1xxCfStNG/rUMaU2u3NTQFBVvQ7WtsX3mg+UU/
+    7XS1HZr58SiK+oBzNZafhajVmZDnlgTh7wmSJost1rD1bdoOpSeesR355G8t5NomuGFal7
+    nZ3yGe9Saxd6KZ7kFb/J7cqJkMLygNjSajne8V5dRhGRL8z4V0ypRcku4TMQ
+X-ME-Proxy: <xmx:ndqrakku-tE6KVAEniCUERa2rEIJMO6Lynf0jYcKBPh3LlHi6ruEHQ>
+    <xmx:ndqrao3ojGzimCwoLxEadFfkf-EohTHJPp_twjHpEI1kq1swHIipzw>
+    <xmx:ndqrajh5VpSP7Mgq7shCClApmogwIZcPzjfxqWBIDtkn-9pfQeSZsw>
+    <xmx:ndqramUwGP4Azsb7j7jzDhf4YCFK40X8vAJ-yblTAteAEIvB47sLLg>
+    <xmx:ndqrauxxGghxPCPq8CjVUmfz5IT3s-WBQYcXCVQYOsDcz7RnvDLo4QFy>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 17 Sep 2026 08:18:36 -0400 (EDT)
+Date: Thu, 17 Sep 2026 13:14:24 +0100
+From: Greg KH <greg@kroah.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	elder@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, pabeni@redhat.com, stable@vger.kernel.org
+Subject: Re: [PATCH] net: ipa: Fix valid_state leak in ipa_smp2p_init()
+Message-ID: <2026091702-engraving-bride-3af1@gregkh>
+References: <20260917115424.2149947-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,70 +83,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1b101eed-29b3-43ee-9cf8-cfc38a5df05d@pengutronix.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260917115424.2149947-1-vulab@iscas.ac.cn>
 
-On Thu, Sep 17, 2026 at 11:56:32AM +0200, Jonas Rebmann wrote:
-> On 2026-09-17 11:08, Andy Shevchenko wrote:
-> > On Thu, Sep 17, 2026 at 10:58:27AM +0200, Jonas Rebmann wrote:
-> > > On 2026-09-17 09:21, Andy Shevchenko wrote:
-> > > > On Wed, Sep 16, 2026 at 07:38:08PM +0200, Jonas Rebmann wrote:
-
-...
-
-> > > > > Add some tests for corner cases which already pass.
-> > > > 
-> > > > So, this is two-in-one patch change. Needs a split, but I'm not sure why
-> > > > we even need this. Can't your case be incorporated into the existing
-> > > > "combined" variant?
-> > > 
-> > > They can not be incorporated into the combined variant because that
-> > > makes it impossible to control the size of the destination buffer. This
-> > > can not be fixed because the idea of the combined test is that all test
-> > > strings are combined into one buffer. The bugs fixed in this series only
-> > > occur when the destination buffer is limited.
-> > 
-> > We may modify the loop to provide the length of the destination buffer to be
-> > exactly what we expect, no?
+On Thu, Sep 17, 2026 at 11:54:24AM +0000, Wentao Liang wrote:
+> qcom_smem_state_get() takes a reference on the state, but
+> ipa_smp2p_init() returns without releasing the "ipa-clock-enabled-valid"
+> state when the bit number is out of range, when the "ipa-clock-enabled"
+> state cannot be acquired or its bit number is out of range, when the
+> smp2p structure cannot be allocated, and on the error paths that free
+> the structure. Release the reference on all of these paths.
 > 
-> The problem with test_string_unescape_combined is this array crudely
-> named "strings":
+> Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/net/ipa/ipa_smp2p.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
 
-I don't see the name is a big issue here, but okay, we can rename it.
+Did you forget the Assisted-by: tag?
 
-> static const struct test_string strings[] = {
-> 	{
-> 		.in = "\\f\\ \\n\\r\\t\\v",
-> 		.out = "\f\\ \n\r\t\v",
-> 		.flags = UNESCAPE_SPACE,
-> 	},
-> 
-> 	...
-> 
-> it is not as one may expect a list of the individual tests which
-> string_unescape is subjected to.
-> 
-> Instead all of the in strings are concatenated and then string_unescape
-> is called on that for each possible set of flags:
-> 
-> string_unescape(\f\ \n\r\t\v\40\1\387\0064\05\040\8a\110\777\xv\xa\x2c\xD\x6f2\h\\\"\a\e\, out_real, 256, flags)
+Please reply to all of your sent patches and fix that up with new
+versions.
 
-Yes.
+thanks,
 
-> So there is no way how extending "strings" could test the code paths I
-> want to test.
-
-This is an open source, we can modify the loop to take the length into account.
-Any string piece can be added to the end of it (just be located at the end of
-the array. Also note, the combination of flags gives better coverage.
-
-I'm not sure we need individual test cases in that sense. We may also add
-something like printf() cases do, id est testing the result for all shortened
-output buffers.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+greg k-h
