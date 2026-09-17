@@ -1,193 +1,166 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011005.outbound.protection.outlook.com [40.107.130.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58173E0082;
-	Thu, 17 Sep 2026 20:09:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789675772; cv=fail; b=VVQlmOMELXJQq0NvWLUZU+MTqhiUTqqUTHpIODyrLtuZiLdgWp1+pcAm+tluUWlu8f3E0Q6NmsTpgKfMDC2tWJUD9zsVI6Qgqd/qZDOR9eT6+0+VW9gILzYABw00xo7B8M+5wM+2VpKUSomDUnqOXwGE8pI1iU7Kyh8SRjzawH0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789675772; c=relaxed/simple;
-	bh=7+1jGNcnjElR6VCV61IcmmJuJZz6/9KuJolfmyOrbsc=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=A5a9DYpM4KuW0AztCym953gCID0LQGHUov9htTZdEMCWSX1XKuUOTokNhKLn7KABwYs6aE9L4QFLqOkSt4DNHbCjKDCF5SfTvIVx/ZwnoAViWZ7Np4h2xgvGIAru2ECRsDSocdnzo7m3vWBEWX2++QIUOxYGrVYYzShXU9dr8jo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=KZFx4Czp; arc=fail smtp.client-ip=40.107.130.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF734E7815;
+	Thu, 17 Sep 2026 20:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789675816; cv=none; b=QKFYaijWnsQtl7RBJVp6qOPvxX2ba5f9EPl8dGQFTxBpTm32zKdyXUvlghQoAxzv8i9+NQ3IWn9Wup2LWyhEEWVOiA93JpknvKXcfm+q11lF2TdVigrWVxPeO7n1Q4yo2inCULyiZNeZ8iYpv2+lbjQ9u6gSXKeeWThHsnL27sk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789675816; c=relaxed/simple;
+	bh=MnlQLlGevuZVP81RDZeAwGxXWBL2kolyVjYGLCwaxxo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=Or0vV3sH00OxPM+mcA4xQ0xbLcwAYrUSgOoc+PQrYeJkJLbRbJSYm9rMxXN14e6E5qhMxYc0sdMw1mnYmW9yH0oPeUQvwx+Mhebx+6e/YO04woLCm/r54Oc57cg8nxUajMBmnb0VhQhhBtrThi7owi9HgviS2ddjkmWNMSfOmY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JopKv19W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="KZFx4Czp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZATmNoKz2DI1+aijT0D1b8o66nYcI0pPmHiI2JOajkDdkEcas+PRqp9HJ173yIQl5UOLlJPvkbwjj9pXwJWDU5SEMYJn97QqOymg+DurrsklRH/2LHlFkDH8k0GJORuOR/j4FqQhGFYer2VVadOOJTzfxXpusirLkYOzA0DDTwbobXgiGAQGrqJ6XjjNbAt44BeD/eIpgrlB+PJUZ7F6xF/juSf0VN9U+ZzkfICL5JSmig74BGdb6yem9t7UWFenZExnLxF6ibtl+qLlaJeikmE+aL1b+CATKS5LqaxX7sqlMEYKCR/iSVCzVOCU7i6Slb+c7B61AyHpixzGdGnbOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2g2BLNjZLS2tUh0mBpZfziTCB444M8Vw+dJ8cpShoe4=;
- b=xv8us3tpLDsGJZb6ECJreV35h8Ky3i4PG1c+7NsFar2y+68w5DwDTTEsFWGgbvsW2/v+gGg6HXMPpxHrwjthE5QqO9XcXfFGz9TWpV56kbCwFLszjxznUebyBZMcCDRx2LT649p4hrivAQ4s8RU+arxjNXAvsf2YEZbkADXUfofrcr/zJ47hwLEfYodAXBzgP3sdw6UpKGh7kD8GYOaB6bWuhKh0bBzdNGK2joo0ail853z4N5SsGbjuLSv2B26lwcGe5kxQG53/8H2Csuznp41tUvGNnIng/lCgwzhvO4xl81QxlIjeI8n9eXDk3P099s+yIy97K8fT9GVaMsMP0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2g2BLNjZLS2tUh0mBpZfziTCB444M8Vw+dJ8cpShoe4=;
- b=KZFx4CzpvhInZMN64Vg5gzvqUsZuEasN13n3Cb1/JL4QiUtmztLsEBzsoK2S7Fe4AiXnPJjywxSHu4nmZj4OEj6Cp9w9GFoHOdb8Aq2FYOZAOSt0cx9Gh1AjkDbX7Khszd9mqGMMfA/sRNnK4y7WcDHdS0Ah4pSWi1jKB9US4KWLqtX6ajqD17Bg/R4d+vtBIuz9tTBBS1iJdaku9KZx5olAGSwHR82l0cYV3BEu8dJwTr+Uhuhdk8pItj3RC29rpr6IiaNAnlqvHEFCP674eLv5uasTloKUgvESaLURn8E8R3Saak1cZvAK/e8JMr2UjfR6+9TiHPdFwzRmjSp1fA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DU4PR04MB11791.eurprd04.prod.outlook.com (2603:10a6:10:623::11)
- by PA4PR04MB9709.eurprd04.prod.outlook.com (2603:10a6:102:26b::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
- 2026 20:09:18 +0000
-Received: from DU4PR04MB11791.eurprd04.prod.outlook.com
- ([fe80::11ca:6b74:3234:d7de]) by DU4PR04MB11791.eurprd04.prod.outlook.com
- ([fe80::11ca:6b74:3234:d7de%5]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
- 20:09:18 +0000
-From: Frank.Li@oss.nxp.com
-Date: Thu, 17 Sep 2026 16:08:44 -0400
-Subject: [PATCH 2/2] ASoC: sprd: replace direct ->device_prep*() calls with
- standard DMA engine API
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-dmaengine-prep-slave-sg-v1-2-239c12864143@nxp.com>
-References: <20260917-b4-dmaengine-prep-slave-sg-v1-0-239c12864143@nxp.com>
-In-Reply-To: <20260917-b4-dmaengine-prep-slave-sg-v1-0-239c12864143@nxp.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Orson Zhai <orsonzhai@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Chunyan Zhang <zhang.lyra@gmail.com>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-sound@vger.kernel.org, imx@lists.linux.dev, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789675741; l=1862;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=bxzgGLe5soMgQpm1K/XpJNUpsViHqXjVJqz6EyRo5l0=;
- b=jkw5eEioIVlKn3x67FnTxzvjAxxdwT+ciJIHLg47rwfRsfFYaGY+jSLccCJHcUEJubNM2onZK
- dBGe7XVvm8RC4mEGzRUB7sC3rG13B3Lno640jdYgiEz2iC1yOyBUXDR
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: PH8PR22CA0004.namprd22.prod.outlook.com
- (2603:10b6:510:2d1::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JopKv19W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 267A51F00893;
+	Thu, 17 Sep 2026 20:09:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789675807;
+	bh=MnlQLlGevuZVP81RDZeAwGxXWBL2kolyVjYGLCwaxxo=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=JopKv19WRUWkE41hJ70SX3HyRVeng/Kbsm4nIx+iLweaUt/wP5WcMBBMjWRpsEcfe
+	 +IfG99GXJUvS0fp7yN4RzcExK5CnbdNbPPuPpAfvQZHL8ltdLCRHutAhSgcNE1tAw4
+	 MEHGK1+IFwwyDEuEo3tzH/JSSvTmua4TaFormbGx2hPZXMJeJ/jI4HqSBSPRQzK4EK
+	 xZvA+BiHaY1ClhqVA4fe3VTvBurWQvU7zg/n9DYrk2Wq8JsBTKCVe2hWzAVwbNMkMr
+	 oIuMX7SOuOIh9xcZiK4OgyJ+cggL3pIoIuFRwuAGpY+jFdUBYTagB9vJUKmR7YPC4H
+	 As5RPYcAbZgsA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU4PR04MB11791:EE_|PA4PR04MB9709:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0435cb7-6596-402b-2596-08df14f78dc9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|19092799006|23010399003|366016|1800799024|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	5pqQIqRgctwzkVhQGKgMlOIelPmeQn6PvXcUMnt4pZP0XrWkcIFK+GQ3vnV+UPtuCzA1M/O419jbMSgJG2addc6L10PvGaQ3jq2LJneEvZlPAzz8jYMpaiur8Jr+FzGlv2YhoVBQYe5hXMt0GJDOen9Sxze16Ts3rDoRuU+voQ78W9IxPs/6+SRdVkEYe6+/zY2NOkR+IIcXbfYpOypfniiIcG42hV3TlVMGxffw6rdaFe0e+c/6O5QMWcI9pFS7MqFe6692xdqYwBNSL003obWu40ujIPLkPkkG/yP1WZjaJi3yp0Y7ZbVTQF0O1KhKKdcnAHbXzw4M3RtOR6g8GV6umUYbPtanGG1vYpm5U/KPASWV9whykI6lsWcX7lQnHaHXdlv8irj+RP7MNcWcrE7dtsXbyJGztCDc8pLL3ybmM6Oef5HvPIhSG/MvSigmy/McjHGn0utba3/OPRQ59zww0OjRjpMBknjHuxH3JNrsyKNFHn0zGnpbJGcUjBIOMiFrqZYYPftk7Ss1VlS/pxPGiz2nRulkIinO9K+G2mhvO545a1LrZOyWPQiCwGN2fsEcXkag+Przdw6cYhHSWvUGNNO26n1bTfP+r1Eih7BfDRaiq0l/ulxwEoTZlZH6nVmdJGkmDA2hNs9eqzCaMuf50CHCEUp5exMj0GUw9xQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR04MB11791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(23010399003)(366016)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TGpDaG15VFZkRFp1RU5ZbFExaGtOK0p3U3VkZllZMGM3OEtYbXZRQ3EzS2F5?=
- =?utf-8?B?Zk12UXR4ZzYvNEFtZnhvb3h2a3VWS2FwbTRTRHBqTHh4TVQ3R3VyZU1NRTB4?=
- =?utf-8?B?TG5KV3kwc01BVkNNZzVvY29XSG5JSHJUeXltTWdmNkw1SWtVNUhDOSt3d3hi?=
- =?utf-8?B?NkZGdDBLeDB4UmI0TjlEQlNacTZNaEdPOEN3aVhXanIxblNjQjRpZVpiMHow?=
- =?utf-8?B?WjIwNnYxMkV5b1FkTkFsZVhDZHd4VUJHbmE2QzV3TWEyY1ROOU9jbHZjUzFl?=
- =?utf-8?B?V0s3RmlBb1NzbVlmTWsyQTdTL1R5OWlqTW5GUDJ2cXZwbDZJNUcxWTJMUGQx?=
- =?utf-8?B?ZmI3Rys1VS8wVElmY2loYTZKWmVGdGlmM3NzVjdjVFFNYVJrK0JpT0VSTjdz?=
- =?utf-8?B?VFRsVHpiM2ZiTXFoazJWWjkwMVVhNWl5azNBUUJ6WC81dTREZ2s3MkhxWFBo?=
- =?utf-8?B?NVIxL09UUndLWnFndnU4WW1yc1dVV3hJVWhFNFB0dGNySGdLQ0RyS3ZvdTVl?=
- =?utf-8?B?cFlxK1o5R1RMYWtyK2RNV1d2OCsvM3NqWFFVelB3R2ZXUjRNdEhmTVhpZVNE?=
- =?utf-8?B?RFpzbzlydEp6UW1uTE9TYWJYUWlQMHhTRUgrbUxSWjJzNnI3UnpEemo1RlBh?=
- =?utf-8?B?SDk0WmtxVWVIY0oyNFBFWUkxNHpIU092K0YrYmdCVmlZQ1VuYWRjMHY0d0xD?=
- =?utf-8?B?dzdURUlJOXJsSCszaHY0ZDg2RVgvNVNyY3JyQ3AySHp6cytweVFCUXo0Yjg0?=
- =?utf-8?B?Y0plSFRCT1ZTSDJ1MnRuVDZOZTRYWnNMU1VJSytGVE5VQ1duV3ZRTEpNQnVk?=
- =?utf-8?B?dVFRanpNUkFwM1p5NUxRd200TzF1dHZLZnYreXYxR3NGRTIzUEVwMm9XWXlj?=
- =?utf-8?B?Zk1UbG04RlAyTVRTeUJNRFVPK0lzYjVBRkF0ZFJmZTF5aWlnS25HTEIyWldC?=
- =?utf-8?B?WHJialJFSklRaWtRVVMycnVQVWE1YjZ4YlFSM2pqdGh1TnF1OG80S2tTZUpo?=
- =?utf-8?B?MDJ6d0xua2l6RVRWQkU0MXc0WHFhaTVDajEzZUhrTDhuUENNa1ppKzFzNDJD?=
- =?utf-8?B?Y3lDWjBqcWI0d205VlRVMFkrbEordHAvT3VaWWZPWjliTUVzZS8wZ0ZJd1lS?=
- =?utf-8?B?dmpzK1g4VmtKR3hvT21pSjJydmFzcFNrRlBIMWlYTmwrb2JpTC9CWUFSRHYw?=
- =?utf-8?B?VDdUR2hqY3pva0RtSERqZUkrdnF5b0lYRUVHSDFacnFjTHErM1Q2d2FEN0Rm?=
- =?utf-8?B?MXFmdkpiK2NRZ2NHbWE2MVF3ODh5NlZxbFdkeHovUC9ZVXVUUUxSRjhjRVZC?=
- =?utf-8?B?OGZPOHRLOUVtYzZ3TFNKSnkzYi81QllyQXQwR2tNemN5M2thaUo1ejRhdWxk?=
- =?utf-8?B?bkNWRldjOXpQYnJJV1VDbGE3dkNlK1grMXlyUVVxVnVzSi9neXFXQnExQVFZ?=
- =?utf-8?B?Q0JnWS9LU1IzdWljbGZ0ZDYrOGN4UnFZRHMxa1hDWlY4MGFOWm9nUCtkWlFM?=
- =?utf-8?B?aGFRRDlYTVJoYUg1YVA3L2RRUnU3VFJGenBuOExyekxGeHZYNnRUVitmbUZE?=
- =?utf-8?B?MlNMdUhPVVF6d28zZFJPcm8wWEtnRlBmUC8rY3JiZyswME52MFVzdUd3VWhM?=
- =?utf-8?B?U3lqQ3hhd01GYWlKQkh1bnRQMlJaYkFad203MHd5eWJac2JkQjlqUkxKZDZi?=
- =?utf-8?B?ZGE1d0lFNXVlc2QwVUlFa3hBRE1vWHlqRlJsZDB1RVJPWEtGc3hRQ2h1OGQw?=
- =?utf-8?B?eXFIYXJlZ1lCSmJCK0FCdEpNRHc4Q2M2Yk1tU3pxbkR2bUs2UTdhdUpkQTRw?=
- =?utf-8?B?MktEcTZ4ZTJDN0lmMnNzZUt5QmdHQ3hHMXFkOWthZnBPV0tTTVc4N3c4cE5Z?=
- =?utf-8?B?ODR0Q3dzN0Ftc29PaVIxZE1DQTUyUmdJMEdHYjFyVnJBdVd3R1ZjRXBrUFZj?=
- =?utf-8?B?SDVpZWsxY2hBMTRPWWM0ZWsrbVpvZmdkNi9xcjFuTXR1M3hERG40RWFMZzNG?=
- =?utf-8?B?MGwwUXhpcWFDYjJKcDc0SzE5NklxRDRNRDlJRm9NL0pjUEZmTHE4YlR3UWFL?=
- =?utf-8?B?bVBXd0h5UWZwa3cxRy9aT2FNWGFTTkpMeDhRbXRrZDZzVXBNaVhOVWlXNmoy?=
- =?utf-8?B?ZjhuUWUzeHBWdGljWTFLLythRWFGdVdEK0FseU5lWHlHd1hDMFQzL1EwZE0z?=
- =?utf-8?B?ZVZlUHhwSVVneG5DSDhadDRaNmFNYk5YaGRBR2JBeEFORXlZdGM0eDRRZ21U?=
- =?utf-8?B?OE1NdDQ1SHU0MC9TeHBiNG9KRFpqMjIxOXFCVTJyM3N6OW5SSVY4eklXamdv?=
- =?utf-8?B?QXlHVnhQTHJTdmM5R2RhQkQvUjlnOXoxV2FOdFhpaThiREpiaXhOTk95Mjh3?=
- =?utf-8?Q?wkj6pawEoR+VNLFsaKWFzQ9oxCAEKzRO1vPk9?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0435cb7-6596-402b-2596-08df14f78dc9
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 20:09:18.4049
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QMGyGDocXp+rQbwyVpzCv43HEa074yCX7v4XfiB3e8z0hwzegisATQwzppHK0hgRdD5p/8+ssI9JBRegGMz/O0W1eITZ30aZGPxLlsoeZUscP4GSajFXSyFLU1clazW2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9709
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 22:09:58 +0200
+Message-Id: <DLHV4FKD31CX.3JEB9FLV2327F@kernel.org>
+Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
+ variant driver
+Cc: "Alex Williamson" <alex@shazbot.org>, "Zhi Wang" <zhiw@nvidia.com>,
+ <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
+ <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
+ <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+ <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+ <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <kvm@vger.kernel.org>
+To: "Jason Gunthorpe" <jgg@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260914121217.70fa0d93@shazbot.org>
+ <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
+ <20260915120148.7548a8ca@shazbot.org>
+ <DLG7C7MLGSTC.2GSTD84WI595N@kernel.org>
+ <20260916141718.GU3968357@nvidia.com>
+ <DLGUPX9KPFKF.12CU304YAST79@kernel.org>
+ <20260916162817.GW3968357@nvidia.com>
+ <DLGXS4SCP3VT.28XXX09BL963U@kernel.org>
+ <20260917132829.GA3968357@nvidia.com>
+ <DLHOBJB1NYJA.3FCP9OLPBVRZA@kernel.org>
+ <20260917171056.GF3968357@nvidia.com>
+In-Reply-To: <20260917171056.GF3968357@nvidia.com>
 
-From: Frank Li <Frank.Li@nxp.com>
+On Thu Sep 17, 2026 at 7:10 PM CEST, Jason Gunthorpe wrote:
+> On Thu, Sep 17, 2026 at 04:50:07PM +0200, Danilo Krummrich wrote:
+>> On Thu Sep 17, 2026 at 3:28 PM CEST, Jason Gunthorpe wrote:
+>> > On Wed, Sep 16, 2026 at 08:02:17PM +0200, Danilo Krummrich wrote:
+>> >> >> TBH, I don't think it makes a difference; having Rust abstractions=
+ is pretty
+>> >> >> much the same as having another driver. I.e. it would be equivalen=
+t to saying
+>> >> >> "before we accept another pci-vfio driver we need to do some rewor=
+k".
+>> >> >
+>> >> > Well, it is, but thats the point when judging effort..
+>> >>=20
+>> >> So it seems that we agree that there isn't really a difference betwee=
+n adding a
+>> >> new C or Rust driver in this regard.
+>> >
+>> > To be clear I was trying to say I think you are are underestimating
+>> > how much work this is and how long it will take. Including all the
+>> > preconditon C reworks has to be included when considering how much
+>> > work is involved.
+>>=20
+>> I'm not sure I follow what you mean by "preconditon C reworks".
+>
+> Rust bindings often seem to need C code rework for Rust, drvdata here
+> is an example.
 
-DMA engine consumers must not call the channel's device_prep_*() function
-pointers directly. Use the standard dmaengine wrapper APIs instead.
+I can assure you we can set this concern aside. The driver core code, auxil=
+iary,
+platform, PCI, DMA, scatterlist, DRM, firmware loader, IRQ, I/O and fwctl, =
+to
+name just a few, did not need any changes. And from the top of my head I ca=
+n't
+think of any case where changes were needed.
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
- sound/soc/sprd/sprd-pcm-compress.c | 6 +++---
- sound/soc/sprd/sprd-pcm-dma.c      | 6 +++---
- 2 files changed, 6 insertions(+), 6 deletions(-)
+For VFIO I already wrote the code, and no changes were required either, exc=
+ept
+for the drvdata things of course.
 
-diff --git a/sound/soc/sprd/sprd-pcm-compress.c b/sound/soc/sprd/sprd-pcm-compress.c
-index e5249924b54d9..649e59462935d 100644
---- a/sound/soc/sprd/sprd-pcm-compress.c
-+++ b/sound/soc/sprd/sprd-pcm-compress.c
-@@ -235,9 +235,9 @@ static int sprd_platform_compr_dma_config(struct snd_soc_component *component,
- 	 * We configure the DMA request mode, interrupt mode, channel
- 	 * mode and channel trigger mode by the flags.
- 	 */
--	dma->desc = dma->chan->device->device_prep_slave_sg(dma->chan, sg,
--							    sg_num, dir,
--							    flags, &link);
-+	dma->desc = dmaengine_prep_slave_sg_context(dma->chan, sg,
-+						    sg_num, dir,
-+						    flags, &link);
- 	if (!dma->desc) {
- 		dev_err(dev, "failed to prepare slave sg\n");
- 		ret = -ENOMEM;
-diff --git a/sound/soc/sprd/sprd-pcm-dma.c b/sound/soc/sprd/sprd-pcm-dma.c
-index 2d5ffbe17e814..d31afbebfbd0e 100644
---- a/sound/soc/sprd/sprd-pcm-dma.c
-+++ b/sound/soc/sprd/sprd-pcm-dma.c
-@@ -276,9 +276,9 @@ static int sprd_pcm_hw_params(struct snd_soc_component *component,
- 		 */
- 		flags = SPRD_DMA_FLAGS(SPRD_DMA_CHN_MODE_NONE, SPRD_DMA_NO_TRG,
- 				       SPRD_DMA_FRAG_REQ, SPRD_DMA_TRANS_INT);
--		data->desc = chan->device->device_prep_slave_sg(chan, sg,
--								sg_num, dir,
--								flags, &link);
-+		data->desc = dmaengine_prep_slave_sg_context(chan, sg,
-+							     sg_num, dir,
-+							     flags, &link);
- 		if (!data->desc) {
- 			dev_err(component->dev, "failed to prepare slave sg\n");
- 			ret = -ENOMEM;
+But, as discussed, this is an existing layering violation. The Rust driver =
+code
+code simply relies on its own subsystem's API contract. Please let's not fr=
+ame
+this as a Rust issue.
 
--- 
-2.43.0
+Plus, it is trivial to address, so it luckily is not a huge problem anyway.=
+ :)
 
+>> Or do you refer to other C core reworks people are working on? If so, th=
+ey are
+>> only relevant if they affect the drivers. And if they affect the drivers=
+,
+>> there's not really a difference between adding a new C driver and adding=
+ a Rust
+>> abstraction.
+>
+> A new C driver should not need reworks?
+
+If a new C driver is not affected the Rust abstraction won't be affected ei=
+ther.
+They are just users of the same APIs the C drivers consume. So, that doesn'=
+t
+seem to be a concern then.
+
+>> > I cannot forsee rust bindings for vfio until sometime in 2027.
+>>=20
+>> What is different in 2027 than is now?
+>
+> I mean I think that is how long it will take to merge something like
+> that, given how many other vfio series there are, the lack of
+> expertise, and some general expectations. There are already lots of
+> series for vfio that are in front of something like this in the queue.
+
+The same would then be true for an nvidia-vgpu driver written in C, no? Aga=
+in,
+the Rust abstractions are nothing else than a driver in the end. They only
+consume the driver facing APIs and translate them to a safe Rust API.
+
+> And then we end up with what will be one of the most complex drivers
+> in a form nobody familiar with vfio can review.
+
+I think this isn't the case; the people you refer to can still review seman=
+tics
+and vfio design specifics. It's not like everything is different.
+
+For instance, there's still a get_region_info() callback on
+vfio::pci::Operations where people can review whether this semantically mak=
+es
+sense.
+
+And for the language specifics we have a lot of Rust familiar people around=
+ who
+will review the code and help to improve it.
+
+Why not see this as a chance to scale on both ends? More people on both end=
+s
+will get familiar with VFIO and Rust at the same time.
+
+Thanks,
+Danilo
