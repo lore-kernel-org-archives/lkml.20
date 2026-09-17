@@ -1,136 +1,83 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EDA49C4D3;
-	Thu, 17 Sep 2026 12:37:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034B74FECFF;
+	Thu, 17 Sep 2026 12:37:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648652; cv=none; b=eFUU0LLwdU80YnOt+ZJpeTZttSymT8hd+0A33QpgbgOaUCKdj3fAAzXxVqU5nijEaXPp9zX7QfIfTqU/+Xb23W+yRftoDPbD6hfV1INy3V8t8jclzVhywud0SDXciCYlE86GmF/DwJzvlWrGwWaqgDXk2VdOao/cWm3nwLAa9xo=
+	t=1789648667; cv=none; b=rHcDORqAD4COHNFo7oW4ZVhwweVsZ4W9JkTXQoKFvSRzEX/uVmSls/19eOuiy2CYh7gHC4Sgt0lCKcAjfthJgF4e9NJn6eVI+mC8tOs8A2BDSSnyLVHrbqMNsgtJwLG4TpAv0IS0bDJXHIXM4q/uW/OeOoZ9A9ogH1K0uWb+ggY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648652; c=relaxed/simple;
-	bh=cdlHw7kaZBru7Db0ys7AceoZFYCOW7iYpbcZggcZFgY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mnH7G3HadP2kc/PaTjxC7I6BWVkrlgrWUBJ/XSPKT8nnczgMRoqnhkn0d3qSzWKkQiv+wG5r0Cumjem6NRPnxB3RqXJtNUKqzkhY/lv2B0gZcshakWP29sXsPrN5v1ipOwr7W3qyQHCwywV/zWp3ddvDLN9zzgCv9QYdZ6na1F8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=BkaSSE+O; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=tgxwyj0X; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Hjv4dpIL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=pg9pc5dp; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="BkaSSE+O";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tgxwyj0X";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Hjv4dpIL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pg9pc5dp"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8B04B21B07;
-	Thu, 17 Sep 2026 12:37:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789648637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jWc3jf84fBt6+w/a5ZtwrpnpqLcK2LtnBZ8g5jbNWrw=;
-	b=BkaSSE+Onrb0jnDe1fLtNKWo1dTmBD3s6bl8+OSwGpDJ2vJ52VGeU0ml3jq4l+kKzFRrV5
-	KERv7loJZ6pQwinQmShmhs+rNvObAInRkhZjKueypBp9v3h6OTgvCemFDaO7D6B7i+vIHg
-	ka8rLsT37qNtvjX1MMG49c97r6DveqE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789648637;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jWc3jf84fBt6+w/a5ZtwrpnpqLcK2LtnBZ8g5jbNWrw=;
-	b=tgxwyj0XquTo10qsxSkhVcvkYaQSjYnHSMcSc1OG9L16hzFFv8jE2Rri22B4QhF6jQlkQD
-	dluhGIVuayY7zSCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789648633; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jWc3jf84fBt6+w/a5ZtwrpnpqLcK2LtnBZ8g5jbNWrw=;
-	b=Hjv4dpILuakX6y74fztR6lgWopixPzIYoCyw9wmgjpn2e4I6sfqiQ84jhAwxNOlyXSbH68
-	6kX+2JpuaDRqPmOVueSe/mYfWda8avNlGXHYcxAa4GzHlL4ky3bUmpv70eKimbieAhlaRi
-	lWKY6FBp0SBF6E6Eu4zzyiat+KmmYXU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789648633;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jWc3jf84fBt6+w/a5ZtwrpnpqLcK2LtnBZ8g5jbNWrw=;
-	b=pg9pc5dpQb18XJfusF4YlMkc7Ge9VIEwTs8TM3sHQc6p8Ox9D3TNqp87oIqypJSzJVm8XR
-	6YikXtsisbYs3oCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 201BC134B3;
-	Thu, 17 Sep 2026 12:37:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id d7p9N/jeq2oECQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 17 Sep 2026 12:37:13 +0000
-Date: Thu, 17 Sep 2026 14:37:12 +0200
-Message-ID: <87mrtggikn.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Randy Dunlap <rdunlap@infradead.org>
+	s=arc-20240116; t=1789648667; c=relaxed/simple;
+	bh=WZrUZBuBNeDKUGvKvqBtw3kK94Y/3aLJjqsDXnl8Kk0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ukl49hrBjVJOjm7sqJc6IBqWQWb0BG1r/sOAMx84ekJcpTfaCwGTiYV5Dt+Ygvg4sYchAk4n9lpWf3KuwAUwQmUJKO0wGY/8heMhesDhCZdaGBt3jpOdG754ay/bbqADtM7BKihSl7ZS3yc3UgZe6zc84u7q4A3o63d5fKFv76c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAB3pkAP36tqrKmACA--.2797S2;
+	Thu, 17 Sep 2026 20:37:35 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: gregkh@linuxfoundation.org
 Cc: linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-doc@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH v2] docs: sound: hdspm: clean up driver doc.
-In-Reply-To: <20260914195806.1544938-1-rdunlap@infradead.org>
-References: <20260914195806.1544938-1-rdunlap@infradead.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	miquel.raynal@bootlin.com,
+	mwalle@kernel.org,
+	srini@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvmem: layouts: sl28vpd: Fix np reference leak in sl28vpd_add_cells()
+Date: Thu, 17 Sep 2026 12:37:35 +0000
+Message-Id: <20260917123735.2151431-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: -3.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:email,imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB3pkAP36tqrKmACA--.2797S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7WryrAryUtFyxAr4xCrW3ZFb_yoWftFc_uw
+	1kuFWxXa48AFsrJw13tF1S9ryIqFy3Wrn7CF4IqrsxJr47uF13G3WFvws8Z34DZrWFqrnr
+	Grn0vF95Z347GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07jngAwUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQNA2qrrJqcHwAAsy
 
-On Mon, 14 Sep 2026 21:58:06 +0200,
-Randy Dunlap wrote:
-> 
-> Do some overall document cleanups:
-> 
-> - add driver name for clarification
-> - fix some punctuation issues
-> - correct some capitalization
-> - correct some grammar
-> - convert a few words from German to English
-> - eliminate double use of "note:"
-> - unindent Precise Pointer bullets so that they are not part of the Hint
-> - drop precise_ptr documentation since it has been modified to be
->   "always on"
-> 
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+of_get_child_by_name() returns a node with an elevated reference count.
+nvmem_add_one_cell() only takes ownership of that reference on success,
+so the caller must drop it when the call fails. Add the missing
+of_node_put() before returning so that info.np is not leaked.
 
-Applied to for-next branch now.  Thanks.
+Fixes: d9fae023fe86 ("nvmem: layouts: sl28vpd: Add new layout driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/nvmem/layouts/sl28vpd.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/drivers/nvmem/layouts/sl28vpd.c b/drivers/nvmem/layouts/sl28vpd.c
+index e93b020b0836..79de1e6947d0 100644
+--- a/drivers/nvmem/layouts/sl28vpd.c
++++ b/drivers/nvmem/layouts/sl28vpd.c
+@@ -126,6 +126,7 @@ static int sl28vpd_add_cells(struct nvmem_layout *layout)
+ 
+ 		ret = nvmem_add_one_cell(nvmem, &info);
+ 		if (ret) {
++			of_node_put(info.np);
+ 			of_node_put(layout_np);
+ 			return ret;
+ 		}
+-- 
+2.34.1
 
-Takashi
