@@ -1,137 +1,156 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765E838E121
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 464927081A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:28:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789669688; cv=none; b=IR9Tkv/PDKVbdu4wOtEBBVuGRDRSpe4bzLmWTvZJgOBeJOtguQ47r5XwoHmS20a6/wpDjUVA/63R7T0ONWDn6pJo8RLu4u1qmhQvVg7fBJAhnjwBPO2dIc6UZ3yjUQHY65NZZ2wuPJPGfKO/phd4ycIz2sF/dnBGIeDp4sK6Nf8=
+	t=1789669699; cv=none; b=s1VKIEd2xb+qP5IILvYcW2kpoVM0h1RorV4Iyi6eUW6W72o2kqGPQE47sivTV0X8M2aRZeJtJrFA8h7SU3mvmV47fYLeLdMw8TqzYoLkOQMTLoFhPC6FKTDnkfIOY+hku+EepAvGtaijWyVAnj22D3aqzlTlMrtKv8JW17xsuJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789669688; c=relaxed/simple;
-	bh=xdKyLiIvia9bLIAOVF5QT9eZb6J+17bObHxnS/Ki1Gc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bzMISOk2E3gF0CVw1sA7KvoiZ+R8wXzG2qheY+o4zDuTpvbvqNE0WoDm+mkClRBZrOhffWxXnhgprNv+x95VGFdCIFSFy4R+rvG/AAPP4XIG5HZ3fqcTHawjmSCPv56eYRBQDseqVeAJaLBvjBo5DWB1C9aqG6MSL49ZdI8CNTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T0Vghfzm; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789669699; c=relaxed/simple;
+	bh=PlN1J4bq5Zd5rPbVN3If9wdWVIq+fnSAryeGXeIQVBc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QZkjt6DuQKKCwY7wVxIowZjQCZDKwgjMeXShejw3IL1MtLTGLK/KEXZ2T+k4zDaGxXKkVxZQwx0EwDavCbDz697Bbfyk4Mm9vM52Qod9hRhC/ERfH+Vwl1MZOLAbQ2x8EIhW0NbK5G8rR8ZNMnrpZv/QJuFbRXml32N+2qFnahU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hx4f6/Jv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T0Vghfzm"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so6557805e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:28:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789669684; x=1790274484; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wXQrE0cSC2j1UcC86SeRkMHcu0uW3qI+LeREPCrSbF4=;
-        b=T0VghfzmgbFVPQqTJoIsA6iQIFywn4TP0cDpa5xxDsuy9hd5ESPNX5pIH6uLnCfeBb
-         B+FMPnmTR/7bARa+pMPr0v96Vpv4qPOhbphBOfk3/MmuQ+j0hOcVMH9J1l1l6UpsPGur
-         vLgZk3KVYrke4idxY7Y5tDlTH6aDzxaOM5zbabt9/V8VqM9da8MH8xtWvEhkxqKOqlx0
-         KG71zMtt4DqkKwWf/S6FK0H7/7dFJRyzsqMRc437jgDg2X4/TMEJwS/5Zqynop8ItLR9
-         Ev5YRnIBwXslmw5voAjlS1W3V2tEYT8jMaXmqUSxUaR2XSD3lVfl671O3xpEFTu0B70p
-         ygOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789669684; x=1790274484;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wXQrE0cSC2j1UcC86SeRkMHcu0uW3qI+LeREPCrSbF4=;
-        b=KIlu2mL4KRxbFq+SGyIIre82v6HcycUyXRYmAAiFXtFJj6Dxsq74x8LxW19p4Lh2dd
-         PioBnGbHJIJVfat76uskBpuAXsMLP2QNc2hdIsGfYN0FwodZF2IYW6MXNr2mqowyuq74
-         NuXTBtZxwO9yMW9Fy5zfR8CwUEr5BO0DWdRLWOtruwiC7TDrMH0TIMGUcK5bOZCD/H/W
-         7b8srIgjdTVwuqdpJXNp7t/JyCQjnGfXkZbet0ZfUWLstgnQss3vT5c8WbxLE/pvXk/i
-         FssaVs6e/9zmP9jUNG88xQbDwVdd+aDuGS8aAviBJLYlx0twBPwoBgp/avbMTchGLxRg
-         8D+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzPrWNe3vGEF+hCtOJDLHIxk2qf6CCz+3Cvus1VfsHbTGvOmbqEyKzJQpIKPpoTfrcmrAver56ywQjPl2k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQw3XiAbNrNf+wThe1bquPOsy79zD0KT03pNlxsCLc/zjO0BbH
-	7Qnr7Z1jOTUx69xzUgemoGEeVH1vpzqma5G+JxjxSelCNakrOGqXfzAo
-X-Gm-Gg: AYBFou1DwNjM1a/Rvr/Ken3MnjoVffG0gEKo27zwGZquXpp9q9IeS1Eo+FXEU/TFPNZ
-	9vWRJWukrgcPcuvn3/V5GNXM7hLknSnk2Pi8T3oZf8sCY+sdrakj8nyNDK6pC4pkXOjZiCRNJkq
-	UnYTvEhYABIzAk+Tj6+dki6jHRRd5WJxBslw80LUTLnAgEAYntqvQ2bKa86b1DPJ+58MPvToMcr
-	0nSMN+DVCLnWAONiDxAhLOp066ND5+8JgWsLHo5f497MwkK8qxAK4iPzR7p0qvfT2g2j0E/3wGQ
-	BtU4wwg/zJyIeDJS4SO1ep6N616W3aWmqKADMl3skmttileNkPsQ3btkY2nHxHNpohVpLLJCMN3
-	R0j1oq4Zg3DksZjIQmIm2Lg1IWqBT0OveyE6Bx8YlCWClZnaU4bCAKBLNlmIr7AWrfpRYr+JlBc
-	AbgvsFWSRu7P4tllCrMniWRkpLpIjj8rEzu3jPBZGCyZNmnp+1hDszRRqE/B7lKgGXGg26a6Igr
-	CFxnacl
-X-Received: by 2002:a05:600c:3492:b0:495:6e68:5df2 with SMTP id 5b1f17b1804b1-49eb72fb7f2mr83849295e9.12.1789669684372;
-        Thu, 17 Sep 2026 11:28:04 -0700 (PDT)
-Received: from localhost.localdomain ([94.252.75.113])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fbbd83e39sm126935705e9.4.2026.09.17.11.28.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 11:28:03 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-	Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH v4 4/9] phy: qualcomm: qmp-combo: Add hardware-specific DP PHY config fields
-Date: Thu, 17 Sep 2026 20:27:54 +0200
-Message-ID: <178966967452.3333.16125740437772430030@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260908-glymur-phy-v3-v4-4-ff22e5150538@oss.qualcomm.com>
-References: <20260908-glymur-phy-v3-v4-4-ff22e5150538@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hx4f6/Jv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D881F000FF;
+	Thu, 17 Sep 2026 18:28:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789669697;
+	bh=b5zVLhEkKOWEwakOfls77zzn3VcbclTffxYn4L85i8c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hx4f6/Jv3cwrMptmmP/azM4P7NNl4TgzLMYGPYxUvgj5fA03oSL4gHfl55lsCvHTT
+	 pn5EvppKp1xmJVGJoCg35YpgKo//7RnjqDcC6S8a+5bv13BmFQXoavodtPLD14ATOC
+	 rmLLzfgKdbwPSczeH8sX7PRwlBQtwwRWVY2CYFlhqSagmfzeq2QSmTyLzn5Sn1v1ez
+	 GsYSrSrknJk0CULzb4njUW5QsatEUpC4El2M6cPUEGGYdRiyicyK7Mntpp8rww/Avk
+	 Qil1cbyfX1lJNXxc5p1cZu4mSWyl9wU4Cbmp/v2R2k2C3fUf7DbdZRhNL48WnmlEFp
+	 ySmtFZ+wMOr1w==
+Message-ID: <efdec0bc-cab0-451f-ad70-ac24c1f69fdd@kernel.org>
+Date: Thu, 17 Sep 2026 20:28:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2 06/14] arm64/mm: Enable fixmap with 5 level page table
+To: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260907035030.2839978-1-anshuman.khandual@arm.com>
+ <20260907035030.2839978-7-anshuman.khandual@arm.com>
+ <be1c0a62-4589-4fe4-a500-d3fe16a6e610@kernel.org>
+ <pi6o4hjdaz2tndzlx64qvzbgxhuyh3kyewpfetiqnnetbtpzpa@prrxusgc3lpm>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <pi6o4hjdaz2tndzlx64qvzbgxhuyh3kyewpfetiqnnetbtpzpa@prrxusgc3lpm>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Nabige,
+On 9/17/26 08:18, Anshuman Khandual wrote:
+> On Wed, Sep 16, 2026 at 04:30:05PM +0200, David Hildenbrand (Arm) wrote:
+>> On 9/7/26 05:50, Anshuman Khandual wrote:
+>>> FEAT_D128 halves PTRS_PER_PXX thus shrinking the VA range coverage
+>>> for each page table level. Hence in order to preserve all existing
+>>> VA range configurations, some geometry now need to become 5-level.
+>>>
+>>
+>> Hmm, wasn't this 5-levels before, but other code allocated+initialized the p4d
+>> table for us?
+> 
+> But fixmap was never 5 level earlier.
 
-On Tue, Sep 08, 2026, Nabige Aala wrote:
-> Update qmp_combo_configure_dp_mode() to honor dp_mode_ignore_reverse,
-> so Glymur can bypass TypeC orientation-based lane reversal.
+I mean the page table hierarchy. It's confusing.
 
-This breaks 2-lane DP with a reversed plug on a Lenovo Yoga Slim 7x
-Gen 11 (Glymur), with the whole v4 series on next-20260916.
+> 
+>>
+>> I mean, I see how we are filling in another level, but I don't see how we would
+>> reconfigure something to use 5 page table levels?
+> 
+> IIUC existing configurations which never required 5 levels would not need
+> this reconfiguration even now.
 
-With dp_mode_ignore_reverse set, qmp_combo_configure_dp_mode() always
-programs the normal side (DP_PHY_MODE 0x5c, lane 2/3 power bits in
-DP_PHY_PD_CTL), while qmp_v8_configure_dp_phy() still follows the real
-orientation and enables TXA for a reversed plug. With fewer than four
-lanes the two no longer match.
+We only map a handful of MB into a single leaf page table. The only reason why
+we have to install more page tables into upper levels is because they were not
+instantiated by other code.
 
-On a 2-lane DP + USB3 dock (HBR2, one LTTPR) the reversed plug passes
-clock recovery and then never reaches channel EQ: the LTTPR reports
-CR_DONE on both lanes but never EQ_DONE or SYMBOL_LOCKED, walks its
-pre-emphasis request up to level 3 at swing level 0, and then clock
-recovery is lost. All four attempts end the same way:
+> 
+>>
+>>> Since fixmap is used to build and manipulate page tables early on
+>>> during boot the mapping must also gain that additional level which
+>>> was not required earlier.
+>>
+>> I am no expert ... but I am confused :)
+>>
+>> We do have a loop only in early_fixmap_init_pmd(). So we cannot possibly span
+>> more than a single ... PTE table?
+>>
+>>>
+>>> Enable fixmap with 5 level page table when required. This creates table
+>>> entries at the PGD level. Add a fallback stub for pgd_page_paddr() when
+>>> (PGTBALE_LEVELS <= 4) which helps in intercepting any unintended usage.
+>>
+>>
+>> Again, I am very confused. Is it really just "As the page table layout changes,
+>> we might no longer have a p4d table pre-populated for the range our fixmap falls
+>> into. So if there is no p4d table yet, populate a static one just like we do for
+>> the other levels."
+> 
+> Right.
 
-  [drm:msm_dp_ctrl_link_train_1_2] *ERROR* link training #2 on phy 1 failed. ret=-110
-  [drm:msm_dp_ctrl_setup_main_link] *ERROR* link training of LTTPR(s) failed. ret=-110
-  [drm:msm_dp_display_atomic_enable] *ERROR* Failed link training (rc=-104)
+Best to rewrite the patch description along these lines.
 
-The same dock trains at once with the plug the other way round. UCSI
-and pmic_glink_altmode report the same orientation in both cases, so
-the orientation itself is right.
+-- 
+Cheers,
 
-Ignoring the orientation only when all four lanes carry DP fixes it
-here, both orientations train:
-
--	bool reverse = (qmp->orientation == TYPEC_ORIENTATION_REVERSE) &&
--		       !cfg->dp_mode_ignore_reverse;
- 	const struct phy_configure_opts_dp *dp_opts = &qmp->dp_opts;
-+	bool reverse = (qmp->orientation == TYPEC_ORIENTATION_REVERSE) &&
-+		       !(cfg->dp_mode_ignore_reverse && dp_opts->lanes == 4);
-
-I have no 4-lane sink to check whether 0x5c is really needed for a
-reversed 4-lane link; could you say what the flag is for?
-
-Separately, on 7/9: LN0/LN1_DRV_LVL is now looked up from v/p levels,
-but only in qmp_v8_configure_dp_clocks(), i.e. at power-on when both
-are zero. Level changes during training go through configure_dp_tx(),
-which does not touch these registers, so they stay at the [0][0] entry
-(0x02 at HBR2) where the old code had 0x1f. I can test a v5 on this
-machine.
-
-Thanks,
-Oleg
+David
