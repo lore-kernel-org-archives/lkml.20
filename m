@@ -1,71 +1,105 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B78296BCF
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480B137D100
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:56:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613773; cv=none; b=WBVHNEwVpMd+DXmyUU88Wb/JKZDd254a5Bm6Q6puax4ZRsA0zOlGD8Z3iFTyQ7fw+ABkcGvYgPGdVyOCn38x/OOKNAGcpuWHak22YzvZURy0LK+evQ8vngAPqRqGEzDsnm3AIDLvYKe3ctXPhSgqxV5+D41r3sYre8YX8vhyPTk=
+	t=1789613783; cv=none; b=f8q3vxCwQccfgvtG3qVC8gbd8dm+pkop1WjRzCpE8uOWoCOBspqp2wegUO7hP+6/qSKwtK9GtkbT858xGoH8FmT51Mq5GioXjTneOnqtYF8ZHE1NWDY78ldNCo7bEYtdfVN2b9S2k30Gv72Em0jmrTBtnylxnHCzoNM5nqu8X9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613773; c=relaxed/simple;
-	bh=IkN/B4fykzUI1N7eRRWGdLAZEUTAR96FVOSyarHfWcM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=tubSxU4HIWDiqSGou78Of6F6EHJeZX5oIl6SDzrBihM7c/N8iykinODjfP/P2pjlPufGg8Z/9r7PUY2W3MpeZET6qHtbztJtnxYWHJk5Nt327lpcl3GNpBwWxyX6uMlQZGk3DExbSFeTAyNLu8jzgHvdGSTS0DEniJyn2V8vKXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-48e5de5a23cso680953b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:56:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789613763; x=1790218563;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=91AAdYCdPv8sBQtynSHvr+/Tp5CnNCm1LrT+DMDEktk=;
-        b=Sr4qTkU32tlQjD9RayU8u70V/d8RrurvGOvqZyWUWJnkxth1muxj/LkDVK4Nogs7GI
-         IIriL+ipKv3YpewkQKn72wsxpFZ7ktTbZqFtmWowO49XsFRfgN9/uqw4R1LzUxHDTKAJ
-         kp8vcxHJJES6cI8imUkykj1pUSZu6XKlBrpiLpxA00AjY2ocbc/tdIa4PNFJkD+udmTU
-         zzbHAOz3M+86NMdLQZ+SRXxbiyCwlGFYUHZGvzWU0Jjga9vUiT/70jl0UzhrbO/LAcFm
-         /RsOKNtFdvNBlgHBp56esmG/ofuZCsybrb5dTbSH8WS7Gx2FvyexpnhizRRuCSsn6wOx
-         3Gsg==
-X-Gm-Message-State: AFuF++mRXoPdmli1n16vwcGNFWcb3Fv31nDCAhMBAZ2uLkJTX/F6hE4A
-	Tv3wLoWmV5XURAt4MbQq7EScprL4KwxWa1u89K791XG7CAMFWWKOTSULHX6wq+Fnhh8FbQz0VWi
-	bpKcBth10JQkIExOy5wgDwndwpXihflvc/JUwpNfk/DBfcNXF4cdpub+f3x4=
+	s=arc-20240116; t=1789613783; c=relaxed/simple;
+	bh=BFXNjlWuUDwnZdCulxR6Q5megzB2xqd+7tQTNv5iTEY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=UJ1VCM220s885ATHV86Ao7nqKk8H0qkDcbQ/LEsLT+Pf3MdTU7/EAREoI11jZmw28soKXacCtKyzk+9WnEDFCEzdzb2tc9DvbgHoQVKLDQIXqbxn3hyWgAfLx2HSYnqFmsVnS38hDX6i+CRGppSp7jDOQVsZ19J2b9ymyPKNkM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=OhVB0Cub; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="OhVB0Cub"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789613765; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=/Y6Uh+LvQ8rP9w60VuF19J58tyBySgKuwMUmFXQ+Wl4=;
+	b=OhVB0CubxpRG0Y2QQbwTMPsB0Odqwur3OCA/XBo3iCb7Ar81Z02dkCC1x2CIJNW2A7Xmg7FpmMIyf/FkjLeFRid+Db4rc175hgbLSmqveYtfU0Dln9cWvmpAKJ7lR+NesXiSI9AU4TYXmvMa7Ut/HYK3icWgv0suMNGpS8UPKXc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R291e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XB6NTcz_1789613759;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XB6NTcz_1789613759 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 17 Sep 2026 10:56:02 +0800
+From: fangyu.yu@linux.alibaba.com
+To: tomasz.jeznach@linux.dev,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	baolu.lu@linux.intel.com,
+	jroedel@suse.de,
+	zong.li@sifive.com,
+	andrew.jones@oss.qualcomm.com,
+	anup@brainfault.org,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	kevin.tian@intel.com,
+	atish.patra@linux.dev,
+	skhawaja@google.com,
+	vasant.hegde@amd.com,
+	gsh517025@gmail.com,
+	joerg.roedel@amd.com
+Cc: fangyu.yu@linux.alibaba.com,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	kvm-riscv@lists.infradead.org
+Subject: [RFC PATCH v4 10/10] iommu/riscv: Add IOTINVAL.GVMA after updating DDT/PDT entries
+Date: Thu, 17 Sep 2026 10:54:46 +0800
+Message-Id: <20260917025446.4070-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20260915032828.11250-1-fangyu.yu@linux.alibaba.com>
+References: <20260915032828.11250-1-fangyu.yu@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c1f4:b0:4cb:818f:d572 with SMTP id
- 5614622812f47-4cb818fe229mr2040677b6e.26.1789613763278; Wed, 16 Sep 2026
- 19:56:03 -0700 (PDT)
-Date: Wed, 16 Sep 2026 19:56:03 -0700
-In-Reply-To: <CAFJkwZw6b0pX7rft72ke0A3d1UauhQR5kh+tWXg9xKT4CDikEg@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab56c3.87c06881.1db2b3.0009.GAE@google.com>
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
-From: syzbot <syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, neganhat@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 
-syzbot tried to test the proposed patch but the build/boot failed:
+Previously, only IOTINVAL.VMA was issued, which is insufficient for
+second-stage address translation consistency.
 
-failed to apply patch:
-error: corrupt patch at line 14
+Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+---
+ drivers/iommu/riscv/iommu.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-
-
-Tested on:
-
-commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=e909ffe6b35dddb7
-dashboard link: https://syzkaller.appspot.com/bug?extid=b9529ebe6a9394ddf825
-compiler:       
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=17d6b925580000
+diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+index 41b593def1f5..e848a7f97771 100644
+--- a/drivers/iommu/riscv/iommu.c
++++ b/drivers/iommu/riscv/iommu.c
+@@ -1153,12 +1153,15 @@ static void riscv_iommu_iodir_iotinval(struct riscv_iommu_device *iommu,
+ 		/*
+ 		 * else: IOTINVAL.VMA with GV=1,AV=PSCV=0,and
+ 		 * GSCID=DC.iohgatp.GSCID
+-		 *
++		 */
++		riscv_iommu_cmd_send(iommu, &cmd);
++		/*
+ 		 * IOTINVAL.GVMA with GV=1,AV=0,and
+ 		 * GSCID=DC.iohgatp.GSCID
+-		 * TODO: For now, the Second-Stage feature have not yet been merged,
+-		 * also issue IOTINVAL.GVMA once second-stage support is merged.
+ 		 */
++		riscv_iommu_cmd_inval_gvma(&cmd);
++		riscv_iommu_cmd_inval_set_gscid(&cmd,
++			FIELD_GET(RISCV_IOMMU_DC_IOHGATP_GSCID, iohgatp));
+ 	}
+ 	riscv_iommu_cmd_send(iommu, &cmd);
+ }
+-- 
+2.50.1
 
