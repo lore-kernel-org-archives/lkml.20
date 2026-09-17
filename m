@@ -1,56 +1,56 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8208C3B5E08
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:34:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8945A3C4B89
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:34:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789619647; cv=none; b=Jo/YkKhC+6xVBuc7ncM+oxrX8Ndst+HpWVZtzE0K/Re2YWkK9nqnQZGzdlDpvc7if2clDMT9RR5rM9OPiIOohUW+Rd+/wDjYcr3Y/DbOoEgw0YZI2J1vprzRLv61CnWTYu1KjhzfE/Nfjz1GO8QC5Tl+FrYya0GMhFddB5ehmzk=
+	t=1789619651; cv=none; b=sFR4AHhLcEdlCWwMtTtrhYGo8Dk7fNd7cArqcRR26BK0faHZEXt3pZ3P0WW4CMhqtAP3CCiTP4+QeZpjeSw1dtok0TZVj3/repPxlRwr4nrfDmVb6C87xe/fD1tBaWJs8y/VLV90HqKtaiV7O8X4xxR8IcG6xr7Rsi31o1KrWS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789619647; c=relaxed/simple;
-	bh=DzM1wwGRb2tHik98ddoG6RceyOa+DELhGaixssLReuc=;
+	s=arc-20240116; t=1789619651; c=relaxed/simple;
+	bh=0glP17tViegVOrpC8YhTjfFSd82Ld3O+ArMRj7ieEOM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=HIQzDOr8dwLg+6nekVKmRDN4gyFhEQsQK6blyVxfHgGbcZ/vhnrrl6amC/I+Cwt6WaEkxHkNXkWyj7yGlTpRrgT5Q3Ji6biYt2Onxh4wcopM0543ATdHUavSQqTo+WVlDi67LelXaBje5HLVlzywf3eAMU08QY4cG0Jj2tNuiyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--suleiman.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=djDDNR8T; arc=none smtp.client-ip=209.85.216.70
+	 To:Cc:Content-Type; b=d3PEqNN4MzA6D6lbIl0PPYNV5x0AjSE0fExyVXUmLyeBWGVlE9GNGOjKoY3AK9Ncr62Nfix74Tu9ZhuYhIFMmUZRaf0I6rRHGggg3mKMkKiFdBil8vLliSDEMTShh30Ti1a+gMVfoIzD9Fe/C7249BdiOEXCKoZ3/5BA5MZ63YQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--suleiman.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RAbqJs52; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--suleiman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="djDDNR8T"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398d0010cfaso838300a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:34:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RAbqJs52"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6f80c76e6so8937425ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:34:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789619644; x=1790224444; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789619645; x=1790224445; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ARME4+OC5I5xyK4kMYGfPWWw6m/P7auePB5jMoGWdY0=;
-        b=djDDNR8TZ9Oz06EJdza++P41hV3ZhzOAzgT6qq55gTziYHqF1fMO9QHx3cZ2ED0vjQ
-         YAtuTxeRyRd1H5erJ6wJf4GZtdtwuSyCbyeF4S8eEu7KGYMa1aV5QLADFsl++LKUWVk3
-         qSDfIJQIGr0SnXu9ezXU6LrgnoQQM444r/pfMfFyB28wkm1762q09fdw3NjfDTSG70wr
-         LpAVDG1gbSl901XSbtPHhgvizWis2vpugtU57qK3zMolbV8i5yvzSZegjQE6pSxkGjyJ
-         RK+vBeG6kT2fJtCa4Cd8iNzIOfcL1Rt9q/aEnRlvUfe5cS7DL3vNPdtXN514W6qOV6cP
-         rpng==
+        bh=10JHcTrzupSF1uhcqjTzPBoiXPS1yfbQ+6EhNUxQ2A4=;
+        b=RAbqJs52RFEfyKIVYgt+cPUT+BYlMfrszsVtxoqvrhrKxpnvgY3zHb8oNiPrX0kYJ6
+         v46mI7ZWoCdDVk9Y4hMywhmk57lucQL2YypmLEsUDdTp8Jx2su9oFQcplZro7ZfEL8lY
+         5sOHH0MPo97IjtI6ICePGJpiHWFs5E7YOHipAKRZTFyHzaTREJHAuZH2SaBQcpGq+hYJ
+         pXGoP9+bpdTOPZEMWeyyNTWqEkP+RqGlgcm9DGAsftFKP5+75adBzAVzNY5u+zNmqTnI
+         H/afQf4gO1zBCeP1EEEOQH6G4X75sKKEi9K9gtYszuS6X7TyxfhaYvDu3LtBxSu1xpeO
+         1ipg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789619644; x=1790224444;
+        d=1e100.net; s=20260707; t=1789619645; x=1790224445;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ARME4+OC5I5xyK4kMYGfPWWw6m/P7auePB5jMoGWdY0=;
-        b=kvbxknSVbWoA8mJgRFhntqH57fCjJoiOT88pdR1r/azFJfXjMJ+JpRnmglQPhotW/n
-         LyHNrsNu9oFsQL2FRG7Y/isnoCWRkv905GSH+ix/L2Q1AJsBfLzFd/66WWzFMVDMLxeN
-         ziXTRbV2/Hh7Z+g2O16vXu6gJSAOs2EWXtlHLdgG6V0VZmpaHWtT1B4hhwpuk9x4SsMh
-         62PqWLLW/jgi0upXtqTUjydyk6TmJDmawbyDvNhu/U7Xb/3/rjsb8zut1O3Ob8GHEBhy
-         RBc6SXGDSArY1DUafT2URZvAUl4doIKlGX6WNQ8Q00kfSBRsCRfQay6uqP1Odfj6doVH
-         8p1w==
-X-Gm-Message-State: AFuF++l9SuViNlAnOuY853K9pSJIS5AO00wOYzfWkqQAA9IbjwQ46h94
-	Erqf+bEvZCjjg31UBXyIssHVwfXP/E1L1B4/lMc58n8fqJNeNYKYeA0RnSvjC2afCAeXwovLHRH
-	RSAewY2BmutY2DnSIUnyVhm8yRnXKL7M8o5u38TkeIW3kUEE7J7NQh+0nDZt3PKyH18S/sYE4Rw
-	SkHzszjcfyE3hzOcdJ0Kl4CjBZYFr8ibBYRIje8xkYBlOGpvHd96U640o=
-X-Received: from pjbmj9.prod.google.com ([2002:a17:90b:3689:b0:39d:bebd:df7e])
+        bh=10JHcTrzupSF1uhcqjTzPBoiXPS1yfbQ+6EhNUxQ2A4=;
+        b=JHE+SHmOWU+YoxnIR+ogRofmdVMmSesb3yBRxIfFbygvU1RjdWzHHHMzLls832ZcV7
+         Ue5wAyZ+k+rFzC2T4129zdzkUlemoCHmWV0tKBJLU/4gO24/PwvJqVriQxCCFIaKWTzH
+         28pi7pDAWJO5JhR9ar7XVYCsIo6L7PUwbvVWZSCrvWtMmh4pcBX+VhqiHUsS/tudteau
+         WYxKMxuJKgB9SFS6ihnN34mRvgE+38RdIqFRi2Mn6PmZP4nvILsKzPgZSWn5AUcN139J
+         Imd9LSSi2BJZzktJe/G3RNhdLekVJ/ovQUwsZBT+uCptVXwrFw9cMHumaXQb0xs49xOr
+         qZRA==
+X-Gm-Message-State: AFuF++kQnkWub2Tr1ggyMH0tZrrYyqXl/8WI8YHDAGakjRHWWFfVK3pF
+	ySikycqFqoyTDjkBDaWRAjUoJ8BJ3RPiZ2t+s/GwLVJ8dYLs4I1P5hun7bQqUSObB1PFtXWtbMD
+	ftDL6gtlVMaHVQioqahXSy7X/7VyGQ/YKt1JlZufLR/ODJ+eCvN7j7cEE9ecJCz6O2jRlxJVSAv
+	TUSl73ZI+xRqKrZxHcKs/StssqT/F259GftU4/w2TzTEzWpt8vcFfo2G8=
+X-Received: from plcz17.prod.google.com ([2002:a17:903:4091:b0:2dd:1604:ef9d])
  (user=suleiman job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3b91:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-39e1e2bf7a7mr15545672a91.6.1789619643055;
- Wed, 16 Sep 2026 21:34:03 -0700 (PDT)
-Date: Thu, 17 Sep 2026 04:33:31 +0000
+ 2002:a17:902:da85:b0:2dd:89b1:7fd3 with SMTP id d9443c01a7336-2dd8dc06d6amr102021715ad.4.1789619644397;
+ Wed, 16 Sep 2026 21:34:04 -0700 (PDT)
+Date: Thu, 17 Sep 2026 04:33:32 +0000
 In-Reply-To: <20260917043339.2093426-1-suleiman@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260917043339.2093426-1-suleiman@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260917043339.2093426-8-suleiman@google.com>
-Subject: [RFC PATCH 07/12] futex: Make FUTEX_*_PING use Proxy Execution.
+Message-ID: <20260917043339.2093426-9-suleiman@google.com>
+Subject: [RFC PATCH 08/12] futex: Implement PING futex handoff.
 From: Suleiman Souhlal <suleiman@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Suleiman Souhlal <suleiman@google.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
@@ -75,145 +75,160 @@ Cc: Suleiman Souhlal <suleiman@google.com>, Thomas Gleixner <tglx@kernel.org>, I
 	Qais Yousef <qyousef@google.com>, ssouhlal@FreeBSD.org
 Content-Type: text/plain; charset="UTF-8"
 
-Set the locker side proxy execution bits, so that a task blocked on
-a PING futex can act as a donor.
+Implement handoff for PING futexes, to prevent starvation in case of
+a waiter being repeatedly stolen from.
+
+Currently engages after being stolen from once, after which the next
+unlocker hands off the futex such that it can't be stolen.
 
 Signed-off-by: Suleiman Souhlal <suleiman@google.com>
 ---
- include/linux/futex.h | 11 +++++++++++
- include/linux/sched.h | 12 ++++++++++++
- kernel/futex/ping.c   |  7 +++++++
- kernel/sched/core.c   |  7 +++++++
- 4 files changed, 37 insertions(+)
+ kernel/futex/futex.h |  2 ++
+ kernel/futex/ping.c  | 45 ++++++++++++++++++++++++++++++++++----------
+ 2 files changed, 37 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/futex.h b/include/linux/futex.h
-index b1b422b480fb..84eca792e44a 100644
---- a/include/linux/futex.h
-+++ b/include/linux/futex.h
-@@ -170,4 +170,15 @@ static inline struct task_struct *ping_mutex_owner(struct ping_mutex *ping_mutex
- 	return READ_ONCE(ping_mutex->owner);
- }
+diff --git a/kernel/futex/futex.h b/kernel/futex/futex.h
+index c0560d30aaaa..113289779dd1 100644
+--- a/kernel/futex/futex.h
++++ b/kernel/futex/futex.h
+@@ -174,6 +174,8 @@ struct futex_pi_state {
  
-+static inline void ping_mutex_lock_wait_lock(struct ping_mutex *ping_mutex)
-+{
-+	lockdep_assert_irqs_disabled();
-+	raw_spin_lock(&ping_mutex->wait_lock);
-+}
-+
-+static inline void ping_mutex_unlock_wait_lock(struct ping_mutex *ping_mutex)
-+{
-+	raw_spin_unlock(&ping_mutex->wait_lock);
-+}
-+
- #endif /* _LINUX_FUTEX_H */
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index a7de5c496e3c..200f41c38333 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -835,6 +835,7 @@ struct task_ipi_mask { };
- enum blocked_on_type {
- 	BO_T_NONE,
- 	BO_T_MUTEX,
-+	BO_T_PING_FUTEX,
- };
+ 	struct task_struct *owner;
+ 	refcount_t refcount;
++	bool handoff;
++	bool pickup;
  
- struct blocked_on_lock {
-@@ -2257,6 +2258,13 @@ static inline void __set_task_blocked_on(struct task_struct *p, void *m,
- 	p->blocked_on.type = type;
- }
- 
-+static inline void set_task_blocked_on(struct task_struct *p, void *m,
-+				       enum blocked_on_type type)
-+{
-+	guard(raw_spinlock_irqsave)(&p->blocked_lock);
-+	__set_task_blocked_on(p, m, type);
-+}
-+
- static inline void __clear_task_blocked_on(struct task_struct *p, void *m)
- {
- 	/* Currently we serialize blocked_on under the task::blocked_lock */
-@@ -2278,6 +2286,10 @@ static inline void clear_task_blocked_on(struct task_struct *p, void *m)
- }
- 
- #else
-+static inline void set_task_blocked_on(struct task_struct *p, void *m,
-+				       enum blocked_on_type type)
-+{
-+}
- static inline void __clear_task_blocked_on(struct task_struct *p, void *m)
- {
- }
+ 	union futex_key key;
+ } __randomize_layout;
 diff --git a/kernel/futex/ping.c b/kernel/futex/ping.c
-index ebcd3c4a7793..689f149f7150 100644
+index 689f149f7150..5bf2293bf582 100644
 --- a/kernel/futex/ping.c
 +++ b/kernel/futex/ping.c
-@@ -370,6 +370,9 @@ int futex_lock_ping(u32 __user *uaddr, unsigned int flags, ktime_t *time,
+@@ -7,7 +7,8 @@
+ #include "futex.h"
+ 
+ static int futex_trylock_ping_state(u32 __user *uaddr,
+-				    struct futex_pi_state *ping_state);
++				    struct futex_pi_state *ping_state,
++				    bool handoff);
+ 
+ static void ping_state_update_owner(struct futex_pi_state *ping_state,
+ 				    struct task_struct *new_owner)
+@@ -144,7 +145,8 @@ static void give_ping_state_to_next_waiter(struct futex_hash_bucket *hb,
+ 
+ /* Returns >0 if lock acquired, <0 on error */
+ static int futex_trylock_ping_state(u32 __user *uaddr,
+-				    struct futex_pi_state *ping_state)
++				    struct futex_pi_state *ping_state,
++				    bool handoff)
+ {
+ 	struct task_struct *owner;
+ 	u32 uval, new, newtid;
+@@ -152,13 +154,15 @@ static int futex_trylock_ping_state(u32 __user *uaddr,
+ 
+ 	ret = 0;
+ 	raw_spin_lock_irq(&ping_state->ping_mutex.wait_lock);
++	ret = futex_get_value_locked(&uval, uaddr);
++	if (ret)
++		goto err;
+ 	owner = ping_mutex_owner(&ping_state->ping_mutex);
+ 	if (owner == NULL) {
+ 		newtid = task_pid_vnr(current);
+ 
+-		ret = futex_get_value_locked(&uval, uaddr);
+-		if (ret)
+-			goto err;
++		WARN_ON_ONCE(ping_state->handoff || ping_state->pickup);
++
+ 		if (uval & FUTEX_TID_MASK) {
+ 			ret = -EAGAIN;
+ 			goto err;
+@@ -171,7 +175,19 @@ static int futex_trylock_ping_state(u32 __user *uaddr,
+ 			ping_state_update_owner(ping_state, current);
+ 		WRITE_ONCE(ping_state->ping_mutex.owner, current);
+ 		ret = 1;
+-	}
++	} else if (ping_state->pickup) {
++		if (owner != current) {
++			ret = -EAGAIN;
++			goto err;
++		}
++		if ((uval & FUTEX_TID_MASK) != task_pid_vnr(current)) {
++			ret = -EINVAL;
++			goto err;
++		}
++		ping_state->pickup = 0;
++		ret = 1;
++	} else if (handoff && !ping_state->handoff)
++		ping_state->handoff = 1;
+ 	raw_spin_unlock_irq(&ping_state->ping_mutex.wait_lock);
+ 	return ret;
+ 
+@@ -233,7 +249,7 @@ static int futex_lock_ping_atomic(u32 __user *uaddr,
+ 		_ps = top_waiter->ping_state;
+ 		if (_ps == NULL)
+ 			return -EINVAL;
+-		ret = futex_trylock_ping_state(uaddr, _ps);
++		ret = futex_trylock_ping_state(uaddr, _ps, false);
+ 		if (ret > 0) {
+ 			/* We stole the lock from the top waiter. */
+ 			raw_spin_lock_irq(&_ps->ping_mutex.wait_lock);
+@@ -297,7 +313,7 @@ int futex_lock_ping(u32 __user *uaddr, unsigned int flags, ktime_t *time,
+ 	struct hrtimer_sleeper timeout, *to;
+ 	struct task_struct *exiting;
+ 	struct futex_q q = futex_q_init;
+-	bool queued;
++	bool queued, should_handoff;
+ 	int ret;
+ 
+ 	if (refill_pi_state_cache())
+@@ -369,6 +385,7 @@ int futex_lock_ping(u32 __user *uaddr, unsigned int flags, ktime_t *time,
+ 		}
  
  		queued = false;
++		should_handoff = false;
  		while (1) {
-+			set_task_blocked_on(current, &q.ping_state->ping_mutex,
-+					    BO_T_PING_FUTEX);
-+
- 			set_current_state(TASK_INTERRUPTIBLE|TASK_FREEZABLE);
- 			if (!queued) {
- 				futex_queue(&q, hb, current);
-@@ -382,6 +385,9 @@ int futex_lock_ping(u32 __user *uaddr, unsigned int flags, ktime_t *time,
+ 			set_task_blocked_on(current, &q.ping_state->ping_mutex,
+ 					    BO_T_PING_FUTEX);
+@@ -398,13 +415,15 @@ int futex_lock_ping(u32 __user *uaddr, unsigned int flags, ktime_t *time,
+ 				goto out_unqueue;
+ 			}
  
- 			futex_do_wait(&q, to);
+-			ret = futex_trylock_ping_state(uaddr, q.ping_state);
++			ret = futex_trylock_ping_state(uaddr, q.ping_state,
++						       should_handoff);
+ 			if (ret > 0) {
+ 				/* Got the futex */
+ 				ret = 0;
+ 				goto out_unqueue;
+ 			} else if (ret < 0)
+ 				goto out_unqueue;
++			should_handoff = true;
+ 		}
  
-+			clear_task_blocked_on(current,
-+					      &q.ping_state->ping_mutex);
-+
- 			futex_q_lockptr_lock(&q);
- 			if (to && !to->task) {
- 				ret = -ETIMEDOUT;
-@@ -511,6 +517,7 @@ int futex_unlock_ping(u32 __user *uaddr, unsigned int flags)
- 	/* Leave it queued, it gets unqueued on the lock side */
- 	get_task_struct(top_waiter->task);
- 	wake_q_add_safe(&wake_q, top_waiter->task);
-+	clear_task_blocked_on(top_waiter->task, &ping_state->ping_mutex);
- 	spin_unlock(&hb->lock);
+ out_unqueue:
+@@ -526,6 +545,13 @@ int futex_unlock_ping(u32 __user *uaddr, unsigned int flags)
+ 	 * no top_waiter.
+ 	 */
+ 	new = FUTEX_WAITERS;
++	if (ping_state->handoff) {
++		new |= task_pid_vnr(top_waiter->task);
++		ping_state->handoff = 0;
++		ping_state->pickup = 1;
++		WRITE_ONCE(ping_state->ping_mutex.owner, top_waiter->task);
++	} else
++		WRITE_ONCE(ping_state->ping_mutex.owner, NULL);
+ 	ret = lock_pi_update_atomic(uaddr, uval, new);
+ 	if (ret) {
+ 		raw_spin_unlock_irq(&ping_state->ping_mutex.wait_lock);
+@@ -543,7 +569,6 @@ int futex_unlock_ping(u32 __user *uaddr, unsigned int flags)
+ 	}
  
- 	/*
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 2e8fe4b9bb88..1d35b1d90ea2 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -68,6 +68,7 @@
- #include <linux/wait_api.h>
- #include <linux/workqueue_api.h>
- #include <linux/livepatch_sched.h>
-+#include <linux/futex.h>
- 
- #ifdef CONFIG_PREEMPT_DYNAMIC
- # ifdef CONFIG_GENERIC_IRQ_ENTRY
-@@ -158,6 +159,8 @@ static inline struct task_struct *__blocked_on_owner(struct blocked_on_lock *bo)
- 		return NULL;
- 	case BO_T_MUTEX:
- 		return __mutex_owner(bo->lock);
-+	case BO_T_PING_FUTEX:
-+		return ping_mutex_owner(bo->lock);
- 	default:
- 		WARN_ON_ONCE(1);
- 		return NULL;
-@@ -6907,6 +6910,8 @@ lock_blocked_on_lock(struct blocked_on_lock *bo)
- {
- 	if (bo->type == BO_T_MUTEX)
- 		raw_spin_lock(&((struct mutex *)bo->lock)->wait_lock);
-+	else if (bo->type == BO_T_PING_FUTEX)
-+		ping_mutex_lock_wait_lock(bo->lock);
- 	else
- 		WARN_ON_ONCE(1);
- }
-@@ -6916,6 +6921,8 @@ unlock_blocked_on_lock(struct blocked_on_lock *bo)
- {
- 	if (bo->type == BO_T_MUTEX)
- 		raw_spin_unlock(&((struct mutex *)bo->lock)->wait_lock);
-+	else if (bo->type == BO_T_PING_FUTEX)
-+		ping_mutex_unlock_wait_lock(bo->lock);
- 	else
- 		WARN_ON_ONCE(1);
- }
+ 	ping_state_update_owner(ping_state, top_waiter->task);
+-	WRITE_ONCE(ping_state->ping_mutex.owner, NULL);
+ 	raw_spin_unlock_irq_wake(&ping_state->ping_mutex.wait_lock, &wake_q);
+ 	put_ping_state(ping_state);
+ 	return 0;
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
