@@ -1,149 +1,95 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1FB3A5E7D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE89C4D4876;
+	Thu, 17 Sep 2026 15:21:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658481; cv=none; b=jN2YnnTSVJ+Uam8lG3Wjuw0hjlSovrQRcuOOXYwHdvX5eb+2QmqVPfKIgasgmBJTVGdSleA+3DjAb1mpZti0mOOO+BdoAmv9kgthviqRp8c2J4g/tQhh8tOSTRQAeLqxjdVwKcZcybNObyu1L3lk6wcR5L6BcjMBi7fIVL0r1Co=
+	t=1789658498; cv=none; b=mYKOtU0cRvqBvtZeDqnulxC0GGCJURTTetDUUmeSesxD7IaPVZ6y8bJZoKt4p7FwJNN0NH/3W7dfQXX4Snp9+Bv6jwcaPikhI7K6HkIuJYK5qnVNr9WlFoz4CKYfqMTkq7LhSH2DPQb4Jw9XTpZxq7jnag92xgIFd/u6AujJWhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658481; c=relaxed/simple;
-	bh=twrgboY+FGQmnsHlBPho3Q6UZGpTdmrg5WyreHCXpw0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G2Q74OEJbeSd/lCZ0paauPSsWzQMTqy8/s+xkCPKuFAyIQKbGgPuUWn2Njvzz3iRe0JIaeIryU19t5EpL3wlk6lFfW6ft6kxAl+dmcFV7OQYgaCsDaKhlF0K5EnO9sv0TYpBG7HICLOVfnV4a6ZTCuVJng+0rJFcwTJ18tafhVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VELQo9br; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b98Nm+le; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VELQo9br";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b98Nm+le"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HDiQWF2086469
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:21:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=/tTW+lLwHomb6oSOol9clHo+
-	Od6D7SaNe+Gbi8U5oxI=; b=VELQo9brRFGtw8IueZoNq4B0AdZhmVoNKND+Cnsq
-	cb8hPrgnbgtKLsYNu3YcasMGXlubsgn68qzsfrAwcayO5YwThR8QdFJCm58jw9xi
-	nuXyQNzYzFeZ4w7jL4RPkfXy9cHpNMhwx4IhHE8eLmyRzzUQhnMioDnxAbbKfSFQ
-	Gv6ScnRKWAvL4KkcwalF/MhCy6OF0cPSFIyfWn/qwoJWncigxda/DUm0CVz8O7VO
-	qneFxFL/RZn9tNSU3hiLNoWGp9krqVm2xRb1tWczizdAaDl7IffprzwHTG4MXdrH
-	uSwmtGLGNQrGcnDnAgRK3IJZZslgeoES7tLYcJwKm1JvWA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grfu4100s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:21:07 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c26012cd0so18480711cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:21:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789658461; x=1790263261; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/tTW+lLwHomb6oSOol9clHo+Od6D7SaNe+Gbi8U5oxI=;
-        b=b98Nm+lePUNg2PLFUj93k6QL2U61jXjyvU1VKo/Idl0u5HN/0HUQh5KNReK55m+vlB
-         InLO7u3WO23AaK+u0J3becLhUIudA3W9jfSg+c6wniX21EdFHfIEjumTMJi15o3XPG1X
-         TA3gSOPN+wzGL2mmpDnxDDqqp4eDwVoH/JwROzlLzfFvf3bwLASg1UTzdVekQl/H40GH
-         0uUrBZ4ueG09gI5psYMbV4Aib0RF99g2YIh3B2uh5fs5z4kdZRK0sJ/ZlRWqn9MGM6bH
-         ivTrf1zi9GXS4D8BCdEf70z5YsX8z8Dy+VdvTH9fe7OICleiRJStY1xASBdb63wzvJva
-         itIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789658461; x=1790263261;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/tTW+lLwHomb6oSOol9clHo+Od6D7SaNe+Gbi8U5oxI=;
-        b=u0Ak/gk9IlFBKwWev9eJuDKxe+1EyWmc/Z3mbUubggO6uhsOrUTn3oD0AEZNNPrq5S
-         XyPRL5xHBzmxu3VzBxCWqXkZfJkb3dEBnblmHiUyCUHsBFB5dQI/HoQsjwkf0O7H/0rO
-         Eol5I3lsIGNVePqoqA6tx43wyS/ZLBOLDNtNonyB9+OpOSqUMuyZ4f7kXZQVBPIidewb
-         3GOP5ZcHPWMtdlR8KBJvwswbjvRohQMD9/bK8ttRtsLcP2QRgEprtf2HKdgzrld0qMrd
-         qAxpXyFGlHyESlV0DDfi3A5zIAWwiBGuRlPRHAt1xZdSY/KAA9Xn7+I3TqG3U5EENHRS
-         qoaw==
-X-Forwarded-Encrypted: i=1; AKwUvBxgAQsUHr9kNLX1w+jAgyc0lfQqmoqVuMWFE2qeAtsz/8KAeVRxFUwtrGkGeZBuQceoN/W6cmacjJwAt0U=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2eojw1pFIY2dDTQG9QsyG4ktBvZ+PC1BzTiApvKW9Fl/+iC5Y
-	7F1cWObJX+sF/GfV0Kh2dCOw5u1a/jwFKQogSmZ/7ZCxoSioXgaVLibQWrLNiKcsw2Qy6Ay3N/i
-	FGAUBKXDLre0rN3777Am/JGRyr2u1jgipRRqyeD3roW+OoxYleXfVSmfU4w77VCvvoh0=
-X-Gm-Gg: AYBFou2en1PBNGO9bzuY3avDygYDYiDuLfXJVTO1KMNsh88tso41QBYScVXjRq2GVsD
-	siPHJLcyBcxTB05X/R7xqBP+YznpOsAP4rzK5U6gx3FxKdBIPF66fxOIobJIBelBonGy/XOPRFI
-	9T7lQvtZqsYwCZolm0egYl7iQVsZwIfxR7/AIxdUAbrUn0rZK5oubIrzV7vYKIovlfGdFcP+Is4
-	tZuUsSOyqPuPoQsiDL4MDj3XOjxGUk74oahKaI+NEoRpuXLvm6rLgoyg66S2/kyr1kTJcJcPx+y
-	sF1MPTk+39T6pBe8Sn1UlZFBcvvus0nxatZhWZ+OK/CJS94iV1h0fxff0IoD8Ba43qSaVBaJEIU
-	V/PmGee9nPZ30gbY=
-X-Received: by 2002:a05:6214:5017:b0:912:517c:119 with SMTP id 6a1803df08f44-912517c08e4mr12930746d6.57.1789658461266;
-        Thu, 17 Sep 2026 08:21:01 -0700 (PDT)
-X-Received: by 2002:a05:6214:5017:b0:912:517c:119 with SMTP id 6a1803df08f44-912517c08e4mr12929806d6.57.1789658460638;
-        Thu, 17 Sep 2026 08:21:00 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27198sm16392480f8f.15.2026.09.17.08.20.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:20:59 -0700 (PDT)
-Date: Thu, 17 Sep 2026 18:20:57 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Guenter Roeck <linux@roeck-us.net>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: glymur-zenbook-a16: Add Embedded
- Controller
-Message-ID: <j74fubwlkynw22nwsof3wylypf77ptrwbg64q6tmldvh7ckq7r@6nsl5fgiut3r>
-References: <20260917-topic-asus_ec-v1-0-373516d347ae@oss.qualcomm.com>
- <20260917-topic-asus_ec-v1-3-373516d347ae@oss.qualcomm.com>
+	s=arc-20240116; t=1789658498; c=relaxed/simple;
+	bh=RYV7HFAVRXdmPMRYMY4FxY232zrON1v+knz7Z3599QQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FSMZlg5iPBhMNRMfEDpU0J3rPbea8ewmr0xrQE2dDRIWZ3hlD+Levu1SxoVxxWT2ez63rHbmBNQj2PRiQoQwxNVsk/okeFOMfNQhnN55mfC6L/acr7jfJL+wdHjflH7rjSt5Cxg054FipVGWmfvJy4KFouIIsmmvTHnK3YRwBHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABn0TtwBaxqlG6DCA--.5660S2;
+	Thu, 17 Sep 2026 23:21:20 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: GR-QLogic-Storage-Upstream@marvell.com
+Cc: James.Bottomley@HansenPartnership.com,
+	andrewv@marvell.com,
+	hmadhani@marvell.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	njavali@marvell.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: qla2xxx: Fix cs84xx reference leak in qla2x00_initialize_adapter()
+Date: Thu, 17 Sep 2026 15:21:20 +0000
+Message-Id: <20260917152120.2158829-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-topic-asus_ec-v1-3-373516d347ae@oss.qualcomm.com>
-X-Proofpoint-GUID: g9d8PCHUFOqI172n7z8VTRyVnj33Rndy
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDIxNyBTYWx0ZWRfX0g79DM1yy7AO
- HPBL8+V2ziku2dd0XQDt/EBCbjG7dFIOj6rcFzjfn7oh7n8I5krHaw/V/cvKINMQNiNu99FBPpu
- BfHw4pnkqX18QIIqpfRpAaK2uSDI6xU=
-X-Proofpoint-ORIG-GUID: g9d8PCHUFOqI172n7z8VTRyVnj33Rndy
-X-Authority-Analysis: v=2.4 cv=LbipeTfi c=1 sm=1 tr=0 ts=6aac0563 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=-FifcBtKAQNI-ioUATQA:9 a=CjuIK1q_8ugA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDIxNyBTYWx0ZWRfX3YZWwh2nnJoL
- +Yt9duKZY6HmsGNKPTqqZctxJ8j7JMqVYcTrlxkezWCANKBv42LQYQWkNCNWb8tlXH6iFdKqwGV
- I8e5v7+Ke++cDnG9fvKZVz2SAZ5OCA6K7GJrS211AOzGACLMrUcjwqEThKOQls8iOWurZzvuWpN
- HCfTWOffBwdO6n+Lgp2biC/tYRgCgE1492El2swB2eF5iemlck3+dddMV4+v/qrjGeIPT3l8V+F
- MM9uIIzyp9fOEPrGd3OMTlJ1AkS9t3LbISNhQJ3XCq2YLzxWtU3VImU1JwVVPGg6Gx++wGts2qS
- ULIwXD4FMyn29DaD+WColPRK0txbFv98gpAHWSrAFuCCHo9R5Nj7Zdg5P7GHd2RL458XQDX7wDK
- Ff70SHUQ03Hw8oxEk4pQin9s2CpSRrDjwLgSWQXEQ5FU7F/ZBqFANk8JWY2WiPNvaAKi+NKLdMF
- 2PC9a3kK2n11B1VKXfA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 spamscore=0 priorityscore=1501 adultscore=0
- clxscore=1015 impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170217
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABn0TtwBaxqlG6DCA--.5660S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JFWruFWUCFyktryUAryDtrb_yoWkKFbEgF
+	4UW34Igr1UuFs29w1Iqr13A392ya1kXw109w4Fy343CrWfW3W7Xrn0g39xua4xur40yFWD
+	Cw4ruryFvw129jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbgxYjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
+	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
+	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
+	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
+	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF
+	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
+	07bbXocUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAINA2qr9nAjRAABsh
 
-On 26-09-17 12:54:58, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> The Glymur-based Zenbook A16 features an Embedded Controller running
-> custom ASUS firmware (which is loosely based on the reference Qualcomm
-> Hamoa EC one with a lot of modifications). It provides keyboard
-> backlight control, additional temperature sensor readouts, fan speed
-> monitoring and a number of miscellaneous functions.
-> 
-> Describe it.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+qla84xx_get_chip() takes a reference on the shared 84xx chip state, but
+the early return taken when qla2x00_init_rings() fails does not release
+it. The reference is only dropped on the 84xx init failure and on
+driver removal, which never runs after a failed probe, so the chip
+state is leaked.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Drop the reference before returning on this error path.
+
+Fixes: 26a77799195f ("scsi: qla2xxx: Correct error handling during initialization failures")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/scsi/qla2xxx/qla_init.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/qla2xxx/qla_init.c b/drivers/scsi/qla2xxx/qla_init.c
+index e746c9274cde..b5bffe561735 100644
+--- a/drivers/scsi/qla2xxx/qla_init.c
++++ b/drivers/scsi/qla2xxx/qla_init.c
+@@ -2853,8 +2853,11 @@ qla2x00_initialize_adapter(scsi_qla_host_t *vha)
+ 		rval = qla2x00_init_rings(vha);
+ 
+ 	/* No point in continuing if firmware initialization failed. */
+-	if (rval != QLA_SUCCESS)
++	if (rval != QLA_SUCCESS) {
++		if (IS_QLA84XX(ha))
++			qla84xx_put_chip(vha);
+ 		return rval;
++	}
+ 
+ 	ha->flags.chip_reset_done = 1;
+ 
+-- 
+2.34.1
+
