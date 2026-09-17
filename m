@@ -1,35 +1,63 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from esa.hc5016-32.iphmx.com (esa.hc5016-32.iphmx.com [207.54.81.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3334FD7B5;
-	Thu, 17 Sep 2026 16:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3167651AFC8;
+	Thu, 17 Sep 2026 16:43:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.81.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663394; cv=none; b=FHO8BSPXzyKAqakzGuJM9cia4BF6CtUZYbSmZC2L6NcZpoTdW6P4TIawLeINmA8oTjCBtA+EcASr9qDQrGCTkj0w/AiMz7OFyPu//72MWLstUJywTvU+rzvrO4/ufPbN0IT9yGt2QSewY2kY0Bj76BvYS1fjAF1GKoee+25PFwA=
+	t=1789663395; cv=none; b=Eh/UilmCtaTbdwzaiZHVyhQartQc6ixJNZ2oTbYoL0qk4Q2eOuwgx6CxfSAkLb9gdKPuY+PLxMfgzSvV7SM51sbUa0Uj/15u9otTfua/tjLqXBRzcrgfSeXLvv85lbifz8AkbWhSW9ifb7Jvy5PmVFWetffwMOSSQd1XYjQvJ/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663394; c=relaxed/simple;
-	bh=XdmgUuJKQjGib5brpBbCB1KtyXLd5oEWHkyPMHuhRoc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tTEbXH9C/24pUh3OfOW/kdozM06VpuN844TO5yEEikK1WEFM/PJVAlSAdj5UAICXR5n63ZpNQBDor0QlVkqz58bgJk6yD4l2XZzIWE/ZuLFhm3ZgbnocHJ0T4aBg63pwN5jtEMHf5eewEu++3dsbz1Qp9UjvPARVPEkIsJJjFv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAHKkOWGKxq3bSECA--.47490S2;
-	Fri, 18 Sep 2026 00:43:02 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: apparmor@lists.ubuntu.com
-Cc: jmorris@namei.org,
-	john.johansen@canonical.com,
-	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	paul@paul-moore.com,
-	serge@hallyn.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] apparmor: Fix namespace reference leak in __aa_find_or_create_ns()
-Date: Thu, 17 Sep 2026 16:43:02 +0000
-Message-Id: <20260917164302.2162938-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789663395; c=relaxed/simple;
+	bh=xiQpSRTxxYg4rz3+vPV5z2yPbpfKd0ziGmyWDbunMYU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=M/CB0tVr+0+xGDjWc5bS7Elcva7g28igD5ReFMgMMyb2vKrt6MSSTvuY6MvzMoR8nfW97S+tkVpIoAjJKepY4yTLgUpHWIEap3fJnfEeF65/w/vOqGL2P3npfqVfjhV6gFotlfZTpCx1w2lLl+xksn+8DqjxypFqLi5Hk/Q2tnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=harman.com; spf=pass smtp.mailfrom=harman.com; dkim=pass (2048-bit key) header.d=harman.com header.i=@harman.com header.b=XGq+sDsj; arc=none smtp.client-ip=207.54.81.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=harman.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=harman.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=harman.com header.i=@harman.com header.b="XGq+sDsj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=harman.com; i=@harman.com; q=dns/txt; s=CES-HARMAN1;
+  t=1789663393; x=1821199393;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=GkiTyptilbJfCS2MwEdpWRze9xAaFquHOTTMlhaWQsY=;
+  b=XGq+sDsjnjtfCq0ReuaQytD2aI8ypZMGo61MODVb+zbZyskN9nOPrC6O
+   hrCtaceVpnsBW1TBtV0E/7rmkt6AM+XDWBSUG3uPWsbTWtRDAG26q4NXs
+   gCnyzBee0s9ocIybWG5GYvBPW1U+wAJO9uFvC4dXcL52GFZivckeF4CgP
+   lsBte4GTHLHuE048Xo0nqLKv6UH9v++z7Owul9NQ8gjcYQ4Tgf/RzGu5Z
+   Y0LobMcEEb/8sBfSJSo1qhoBUdSQwCj7fsUZ7LqBjFDwCF/o+X82xPpuz
+   YUXKgX3SgK2p5ZCG7qHVze+MpxIPwY27cQtKdlA5/giVTvUYAPtc7W+sY
+   Q==;
+X-CSE-ConnectionGUID: TEa2H403QCyYSQ45FxSRhA==
+X-CSE-MsgGUID: X+d/esInRW2Z/k1bCobbPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="120531231"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787025600"; 
+   d="scan'208";a="120531231"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO INMDWSHYB10.ad.harman.com) ([199.27.113.4])
+  by esa5.hc5016-32.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 12:42:02 -0400
+Received: from INMDWSHYB10.ad.harman.com (10.92.6.249) by
+ INMDWSHYB10.ad.harman.com (10.92.6.249) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 22:12:00 +0530
+Received: from awsmblx423bs002.localdomain (10.63.34.68) by
+ INMDWSHYB10.ad.harman.com (10.92.6.254) with Microsoft SMTP Server id
+ 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 22:12:00 +0530
+Received: by awsmblx423bs002.localdomain (Postfix, from userid 530975)
+	id 0E13A7D7ED; Thu, 17 Sep 2026 16:42:00 +0000 (UTC)
+From: Akshay Gujar <Akshay.Gujar@harman.com>
+To: <gregkh@linuxfoundation.org>
+CC: <Akshay.Gujar@harman.com>, <linux-kernel@vger.kernel.org>,
+	<linux-usb@vger.kernel.org>, <naveen.v@harman.com>, <oneukum@suse.com>,
+	<stern@rowland.harvard.edu>
+Subject: Re: [PATCH v6 0/3] driver core: add enumeration failure uevent helper
+Date: Thu, 17 Sep 2026 16:42:00 +0000
+Message-ID: <20260917164200.7560-1-Akshay.Gujar@harman.com>
+X-Mailer: git-send-email 2.19.0
+In-Reply-To: <2026081843-overlook-spokesman-0c68@gregkh>
+References: <2026081843-overlook-spokesman-0c68@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,55 +65,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAHKkOWGKxq3bSECA--.47490S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruF1DKw47Wr1DuFW7uFyrCrg_yoWkWFb_Ga
-	n7Za4kCr4DZF9Fkw1jya4IgF93WrW8GFyv93y8KFsrJ34rGr4xJFZrJrs5JrW7Zw42gr1D
-	Gas8CrsxJrnrWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbVkFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E
-	87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
-	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IY
-	c2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJV
-	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
-	1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2Kf
-	nxnUUI43ZEXa7VUbUPEDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qr9nBRugAAsv
+Content-Type: text/plain
 
-When the namespace already exists, the reference taken by aa_get_ns() is
-overwritten with ERR_PTR(-EEXIST) without being released. The caller in
-apparmorfs.c clears ns on IS_ERR() and so cannot drop it either, leaking
-the reference on every mkdir of an existing namespace.
+Hi Greg, 
 
-Release the reference before returning -EEXIST.
+Following up on this patch series.
 
-Fixes: 73688d1ed0b8 ("apparmor: refactor prepare_ns() and make usable from different views")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- security/apparmor/policy_ns.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Link to v6 series:
+https://lore.kernel.org/all/20260802233108.70950-1-Akshay.Gujar@harman.com/
 
-diff --git a/security/apparmor/policy_ns.c b/security/apparmor/policy_ns.c
-index 5a907a875d8f..c423f4504d4d 100644
---- a/security/apparmor/policy_ns.c
-+++ b/security/apparmor/policy_ns.c
-@@ -267,8 +267,10 @@ struct aa_ns *__aa_find_or_create_ns(struct aa_ns *parent, const char *name,
- 	ns = aa_get_ns(__aa_find_ns(&parent->sub_ns, name));
- 	if (!ns)
- 		ns = __aa_create_ns(parent, name, dir);
--	else
-+	else {
-+		aa_put_ns(ns);
- 		ns = ERR_PTR(-EEXIST);
-+	}
- 
- 	/* return ref */
- 	return ns;
--- 
-2.34.1
+Please let me know if any further changes are needed.
 
+Thanks,
+Akshay
