@@ -1,83 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518C23DE43B;
-	Thu, 17 Sep 2026 10:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED072E282B;
+	Thu, 17 Sep 2026 10:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.48.77.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789641242; cv=none; b=Zg04LPQArwz657GU1eHRU/xp3eQ20qhmFXxvELxNIigrGOlaWCM/57VQjqOn/QVrrlONY9Qs01Ab1c3PzzCQ4+UQV04aaH9S+5/zOeA5UzPcFnFijxhWsDa6aSHE15VdJeQkW1hCfTHR0zZa+DyaW3WJBig6mSEt6WsmxqLdMw8=
+	t=1789641249; cv=none; b=VMf9MkCzt6FkZZYhrqoUkJTZbniMnOyh75k+M3pKfuR7yEccYEBNDVnTCDIH6uHh86noZQlojsyfEjmFeJAch2gYrOwUQACMP21Z3KlgN+6g9r6AbeFWE2F2077gizVI1lDbnlPiHhJZZWm66wrDubiT7yqWveapYA9xuE9dVM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789641242; c=relaxed/simple;
-	bh=Psny2i9rsPFUYgI3PdFgwjuJsgQg7wez9vfxuMxMXXQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NKJu+kTnXGn3e3zm7FfjBTCqQLmM/7J8lnUw3me1chs5E1gbSu1ZEi79d1WyFiLGodFefuI4yTQRl0GWOM/4Vsp1vAkilfJIJo+KLPjuXnorRfHUZqirM1KoOAGS4UGBx5TFRxp8IO7v5jH7AvQpBTO4Dj5vbcShSmNOkuCi9Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fpwAa8y8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789641249; c=relaxed/simple;
+	bh=AUXXhyt3bGetJItXyKCM7nHT0krOIxBk3ZBdNv9cCoc=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=BXQ9ekiaXglr4XrIp6oAknLEiz+caDs8BmPYaZX47+R95USPtuWYR7XUyX27MjatGUvSkFwFDVNS6ubE1QZAujjhF/diTQI5sbAmNXfDeS02a8SkyZ511OO+WML2E4vGDHGStihLPRsii6cxjLr8lx+JbcppHaYpMI7fsyxpnTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru; spf=pass smtp.mailfrom=prosoftsystems.ru; dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b=irllvP58; arc=none smtp.client-ip=46.48.77.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fpwAa8y8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75A0C1F000FF;
-	Thu, 17 Sep 2026 10:33:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789641239;
-	bh=ymfaQy9wcYFqS9g4/KKsWkxgVIeRNm+K8w0qzvcNXJs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fpwAa8y8Hpg9sgMXLre6Ao2cqSngDIWctXChjkeRl1DSlY9FbWSaljCPKBuQtMVtm
-	 EoT8DWcExawmcdr1XOZZt4vjTIzqSWZa5r23EElG6Q78VQyjwOyx/DrLzsjWUUiSyV
-	 kU9UNMGTZ46R07FbAbwjHaXHK3aTxU/cS4Z7ujlOQNFKwSZ8vEaD+2s4ls0BXtTbbY
-	 B6DnEC0lQM/eXnyh51WqUqpgmz/JG3nlWM4sSfQkf0fORz5rCVZLcq8HQNs3yD4cKA
-	 LXPtVl0mnNHDILihyULlHzndOK9AQJSsZsphBoDvFVse6/1njjzYLRXYldX4WSQtV9
-	 W0hGj27OTeWYA==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	Yingchao Deng <dengyingchao@kylinsec.com.cn>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	qinyungao@kylinsec.com.cn
-Subject: Re: [PATCH] fs: fix misleading comments in read_write.c
-Date: Thu, 17 Sep 2026 12:33:53 +0200
-Message-ID: <20260917-lotsen-summt-hypnose-e6ffbabe7547@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <918177B3298981ED+20260914075337.1739-1-dengyingchao@kylinsec.com.cn>
-References: <918177B3298981ED+20260914075337.1739-1-dengyingchao@kylinsec.com.cn>
+	dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="irllvP58"
+Content-Language: ru-RU
+Content-Type: text/plain; charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
+	c=relaxed/relaxed; t=1789641229; h=from:to:date:message-id:subject;
+	bh=EgBQqAvkziZSC4if5GYgNa1XIGSJE0cOmghthV+RRF8=;
+	b=irllvP588oCD8N4EoPLPDvqghYWDMzrH91fO0SD3qQjX2pkkFZNuHv5UPvFndSCnWvttyV8WRDC
+	pdKfTISJrpmH2OIfZVhf+vThqSLa35EfepEjzkcb3Cq0hDB7kZ2m3eIJXhi7DI/3qVbYZFrnAt4tB
+	+K+SXWc3ibFIWGUUHHiC1AN6itFXovUxRawDD/tZlKmILg6sAYWULsATkVBGKBKn1/1b3F3StahQ9
+	cyIHZQt0qd6fwOw19tApPS92ahZX/nVuYbnqsZsJ/qsjGdINvZP7sMAoGo5FcVD2oa+7hfqF0wqcY
+	Msiz/yaJBUpXoxtwnPwXV8v2aH0GI/Rpkf1A==
+Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
+ (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Thu, 17 Sep
+ 2026 15:33:49 +0500
+Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
+ echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.39; Thu, 17 Sep 2026 15:33:48 +0500
+Received: from echo-2.prosoft.ural.ru ([::1]) by echo-2.prosoft.ural.ru
+ ([fe80::c1a2:90f7:8820:c669%17]) with mapi id 15.02.1748.039; Thu, 17 Sep
+ 2026 15:33:48 +0500
+From: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
+	<r.zhambakiev@prosoftsystems.ru>
+To: Aaro Koskinen <aaro.koskinen@iki.fi>
+CC: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
+	<r.zhambakiev@prosoftsystems.ru>, Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, "Tony
+ Lindgren" <tony@atomide.com>, Lee Jones <lee@kernel.org>, Grygorii Strashko
+	<grygorii.strashko@ti.com>, Marcin Niestroj <m.niestroj@grinn-global.com>,
+	"linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
+	"mfd@lists.linux.dev" <mfd@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "lvc-project@linuxtesting.org"
+	<lvc-project@linuxtesting.org>
+Subject: [PATCH v4 0/3] mfd: tps65217: Handle IRQ initialization errors
+Thread-Topic: [PATCH v4 0/3] mfd: tps65217: Handle IRQ initialization errors
+Thread-Index: AQHdRpAGpHT0ndxR306Cfla7HcDL1g==
+Date: Thu, 17 Sep 2026 10:33:48 +0000
+Message-ID: <20260917103312.92624-1-r.zhambakiev@prosoftsystems.ru>
+Accept-Language: ru-RU, en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1384; i=brauner@kernel.org; h=from:subject:message-id; bh=Psny2i9rsPFUYgI3PdFgwjuJsgQg7wez9vfxuMxMXXQ=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWStPiQUNbvl/gNztynr7p55KpHmcVtzccm0xbF3jksu6 8xVZ0o41VHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjARlreMDPcOnXvcv+2OaqVN sE7cve+KtxN/7y0+Fnj0p9HXhx9q5jAy/DM32vnLNv7OEZVVPXICc5fcSf485Zqdq4kz02bl2bm dPswA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
 
-On Mon, 14 Sep 2026 15:53:37 +0800, Yingchao Deng wrote:
-> generic_write_checks() returns the number of bytes that may be written
-> (possibly truncated by generic_write_check_limits()), not zero.  The
-> comment was likely copied from generic_copy_file_checks(), which is the
-> analogous function for copy_file_range() and does return 0 on success.
-> 
-> Also, no_seek_end_llseek() and no_seek_end_llseek_size() are helpers for
-> files that do not support SEEK_END (they only handle SEEK_SET and
-> SEEK_CUR), not for "fixed-sized devices"; that description was copied
-> from fixed_size_llseek().
-> 
-> [...]
+From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+The TPS65217 MFD driver does not validate the outcome of IRQ
+initialisation: tps65217_probe() ignores the return value of
+tps65217_irq_init(), so a failed irq_domain creation leaves the
+driver bound with a NULL tps->irq_domain and the remove callback
+oopses, and a failed write of the interrupt mask leaves the software
+mask out of sync with the hardware.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+On top of that the irq_domain is torn down in the wrong order: the
+remove callback disposes the mappings and removes the domain before
+the MFD children are unbound, so children that requested interrupts
+(e.g. tps65217-charger) release virtual IRQs whose descriptors are
+already disposed, and on probe failure the domain is leaked with its
+host_data pointing to freed memory. The enable_irq_wake() in probe
+is never balanced.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+This series plugs the probe error paths and moves the domain and
+wake-up teardown into devres, registered right after the domain is
+created. Devres actions are released in reverse order of
+registration, so on both removal and probe failure the MFD children
+release their IRQs first, then the parent interrupt is freed and its
+thread stopped, and only then is the domain removed.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+Changes since v3:
+  - No functional changes; applied the code-style fixes requested by
+    Lee Jones.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
+Link: https://lore.kernel.org/all/20260904063439.69881-1-r.zhambakiev@proso=
+ftsystems.ru/
 
-[1/1] fs: fix misleading comments in read_write.c
-      https://git.kernel.org/vfs/vfs/c/73a1ab6d7e14
+Radiy Zhambakiev (3):
+  mfd: tps65217: Fix NULL pointer dereference on IRQ init failure
+  mfd: tps65217: Check return value when masking interrupt sources
+  mfd: tps65217: Use devres for IRQ domain and wake teardown
+
+ drivers/mfd/tps65217.c | 70 +++++++++++++++++++++++++++++-------------
+ 1 file changed, 49 insertions(+), 21 deletions(-)
+
+--=20
+2.53.0
