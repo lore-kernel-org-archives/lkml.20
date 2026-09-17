@@ -1,157 +1,99 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4803B1ED7
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789665344; cv=pass; b=W1pbmyRKS6VLgPtr4z3RLdWPlUM0sg93lUw2Zid0H1d+6bAVfBD/us5RDTH2Dd8d8DRJpAVZACO8oS8LUUdyszi9dVqEZwK11ikPlWFEMy9jvr0dFHaldsQIuu0BP5wFcCD1M3N+YwfBES+KYCDYEuRnwBR4h2iAcJfAuTBzO6A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789665344; c=relaxed/simple;
-	bh=RyOCsoLeUmQHrPIIalVxsKpIalSmo1jF9l7pbYcnRnc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZEZZh2/EcmCQltQhs213ykpuMmtcZaFt+t1JpEzxp+IJVvOZ1LPiGt/Mcc3C8cPlK1efdE2TAEsWO13E/UC8i9XQytL9V741h2V0yKkVuNVhCRr3vlgaYN6owHVGZwQqpnLsLOlt43SGugkqppj52ZBulM/n7q6lrqA7GWDfbLw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cmtroP1K; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B974E0B97;
+	Thu, 17 Sep 2026 17:16:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789665364; cv=none; b=m80R7bAHEQWyVS56wS7mRm6/5bR+V5E9+BGiSDNz0xCgv+E42GxNe5KCAn1YxhbfLQB4DREdsTIhbW3WXboGAAxx/rmhM56ybxlwX6e0N/CKQhbPQ8zuLn0aLYLU22wxWk7Ea3trAgislybg1BLxTESP9XeHdbDFxsjIWmYI5kU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789665364; c=relaxed/simple;
+	bh=82KYVSZ6+P/lYvCQQCYrH++1VHotiPvySA50BPg7DGg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J4bCYWkBEXRUIl22R+GTpNVlAdBIdlMXnYFX0X1FZ18PYVF52/Ixgl1T5G7P9yO09MaxPhHXSptP9cTUS1hCIzvazrC4JKZdy5spYstpN/rLbJNiSiC7TAUpTQLjCX6am32H4aMQm89ljX9yFvrMMHTvgEl0smG7qJqbsRnzgz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IZlIvVVv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cmtroP1K"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso8504075e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:15:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789665341; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YxtLEpH0EAGKpU+pPfNBzz2dfyLmgpw/Fd3vDHXhLgp/Eo04bvYPUmeQttzjFdwHQV
-         tn1HE3FXttTJOEXt9dt0GT/F9y+JzQgj8XivgEsN1LBKOmiqZpgawIyS4P5lFL2RAtfY
-         O6fp3CCoiIZcJxdgYJ2EoGcJ64PGmVadW36CrvuGBTI16Em9tXYYhumzui/b/O0att3Q
-         5oDYSzlRTHb2QOzDMxjAED8Fpqd7eSCG25CZ9lJz9hy2XMUwPbTecGwSz5DuAthguxPr
-         9RXnjGIybLoQHfHWVFt5bqURfa4RVMmbjENrFV8tkkSXT2bpGcY5IUB+Aa2DWyffEmpA
-         2zdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=RyOCsoLeUmQHrPIIalVxsKpIalSmo1jF9l7pbYcnRnc=;
-        fh=kHMk4rgemaU8F7SNMgB4cumYp58sNNbI5byp1SqruRQ=;
-        b=gcwRhUFQqm/eGRNKi2/0u1pDOuGpQzZlUemMFvp13fy3QcL1p6c/bHDs5XqLTtggZi
-         dBJQbiPDC1Hb/VFmA3am/l+t1ZZb3Bhc8bTUeIm5a2Sybbn4f0e2rQtvIT2evjp+Tvic
-         SzTDceIOCnzTq1OQVw3M3/nETNEg+TN2xB7kNYd5jrQGNuMhpuoeWl25Z8RdWAsZ3c2d
-         iRIH4mxCY0Yzi8aMJ5vFRciCI2aW7U30RcBzdmSrmTSM1wQub36HV1ObaXSdi2Fjy0nt
-         ib5LxzBs6uPLQmNZhJrhF/dxh7CshD41ABc7X3UvG7hAVLbKEKjiccMMa4LfSyrM6Gli
-         mTyQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789665341; x=1790270141; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RyOCsoLeUmQHrPIIalVxsKpIalSmo1jF9l7pbYcnRnc=;
-        b=cmtroP1KmslUnoLM63kzYmrrCDDyAqg2yZZaIJoYvaHCxLYr3kTIxse8zMLZwc94sx
-         uaHp/ZvqrEN9PUufO2JKRCXpL36d2BaUi4NZ7+IDvDyesP5RLtOwZGgFnIH8zAnQPG92
-         hFk/+3X9jcT5KNf7HsmkTWbv50wgcpFGP0qzhNpWeYyq2AqxZU4zK8xMOsbWhJ3M0Qa3
-         FQpLr3mE/D5uS9uC/aYm6rPDkL7Q1Du7jMLB5wYFbbH+2EElGKTgGq4T227FxfeHfwLR
-         bGCynWV4EQbzbHk078bEeQe9egOYaiSmNiF1S+hTHX73RhYz/pNXQ5aUwCWb9bBCOh6W
-         /psw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789665341; x=1790270141;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RyOCsoLeUmQHrPIIalVxsKpIalSmo1jF9l7pbYcnRnc=;
-        b=C8RwXM7sRyvbyhvI8tywrV5NgFqDxYo8AFeqHrcEs3m/x/SuIA/J1drESqi05ng9HR
-         DseRglb4iZcR3tzGnILM/yXG3b7CxqMSQ8r4L6130UXdPb8NTu/xPZFpD/fLzkyAUL9n
-         4rp8xyuRKAIebB2lV0aaTq0a6PQ77C99Y36XyF9KeDXx6hzF4FtI6WyiSD+q9VlU+eVP
-         44DVvl+rYj7UcMP9nvmYe7ngT0fg48+t9nL0DtITXYjOgMiSkhkS0OKvspDkSzKI9hRm
-         3sDHRilz4KAxV6rBdUENDZ42OwZyABK3WMv/51yLu35gcQPNA89DP5UCx8RkN2nkwvU+
-         /9DA==
-X-Forwarded-Encrypted: i=1; AKwUvBwsswgdyDOym8GhUdmme+vMEcrxin+xUXUIBRUy9n2KnwgASK6UGCHErhznPJj9bXQNyT7TuxLY9N2VbME=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCbx3uiF+vAmCnt5vW657rLtBQLnudM8sU3rTJTtewjiB6RgJC
-	5gTbsOhWIjaTnB+WOkf681SkFLnLBEQoR+P3NzPV6Q74TuulC6Gi0SbxGlU5wwKJlSwDv4F71CS
-	tADFgF5SUTH/qeaYZW1tOb8ZSaAK4H/w=
-X-Gm-Gg: AYBFou1IDVWLQu6aG93GzNKfVI4yFz4WBpT5GKuXm3HsQKx4sY3CD9pX/NjEijZI4br
-	BHUn8vLINp0ag8/Pdw6HH2KZAG8ajc+gl0+uLD546sh1xcdNqfWUiNADfdXPLQe1fvJ9P6suyow
-	v66x9DsqleeJ38PfPS9ciR8mfPBcs8mg9W/N7g+dfrVoYRa7DYpCkoxw16pJBe1kij8XM61oJ4x
-	CmwRE6qDdY7AfxhVNUzZSQYjIC9G8powULsx45GOn3YKtMA2ZS7KVFJluUTeZaQxFqIaz2/Ctbw
-	hmv4ZIH5xheqmdD3q3X+JsB84Ped8I4PQ/VL8lLwXv9cPc08WVjtLJuuRe59OkC5nRURDkUWZrh
-	BewG3gWba3PeP4a4papMnaqcyknQzRE9oYq20k8xl2Hl9EbUk4f4jYpmFIige0/ISZRwV0ApJQ9
-	i0dC0UpjHaHdwr7rua+iM9a/5006QMcJuq260P9Bjd9VOO/mGddCopplnSKXINMrAi+AkBADHFW
-	O717LQ+r6UqVDd+wn5rAIMHJCwnljzM5RgOh+QwkRAuo/XS2VPrx7WRSg==
-X-Received: by 2002:a05:600d:4447:20b0:49f:bcce:13f5 with SMTP id
- 5b1f17b1804b1-49fbcce1a1dmr41833255e9.24.1789665341002; Thu, 17 Sep 2026
- 10:15:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IZlIvVVv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DEC61F000FF;
+	Thu, 17 Sep 2026 17:16:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789665362;
+	bh=82KYVSZ6+P/lYvCQQCYrH++1VHotiPvySA50BPg7DGg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IZlIvVVvXfQ/eqTa55hTCAXS2hRuC6mXS/KrW7gTMdCgZ0lB6NUSiFC3L8lJgEEmG
+	 fTGfIcC8BV2hTVhFJwEvLO1i45Porisk0zaRbGpQfBUCWHPtL1H6t6oljr0+S7vcmX
+	 NtjqBRoBzeiguqtp2XmVbmWff/RUwMsQ2uujOCO7iN0ukNX2eGA8niHP88a1VcWiRq
+	 OLrEVpnNQx+iIu4Be84okXvB+oFb9ZlOAq0fXV04xofv/0cXlbIGKiazpUB7av57cb
+	 rsYyrQ4oxADTUxULEWYC+2cbz8ELAJhKj0Z/hWGr7EkyEtYr0ImwW/lZhEUFU1xpKS
+	 r+iUxmJ1BXt3A==
+Date: Thu, 17 Sep 2026 18:15:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Eduard Zingerman <eddyz87@gmail.com>
+Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
+	Networking <netdev@vger.kernel.org>, linux-kernel@vger.kernel.org,
+	linux-next@vger.kernel.org
+Subject: Re: Missing signoff in the bpf tree
+Message-ID: <d6274d8b-807e-4546-8bad-29826b47a9a9@sirena.org.uk>
+References: <aqvBPVcN__UX8P85@sirena.org.uk>
+ <DLHJEZ0K0FV1.SCQLJJQNS1ES@gmail.com>
+ <66d3f5cd-12df-4000-8459-360ba57cea12@sirena.org.uk>
+ <DLHJUSTDSQ05.28VUGOV7YPS6V@gmail.com>
+ <ec2acd16-40e3-46b7-b120-ce9eec70e942@sirena.org.uk>
+ <DLHK013DCY3J.19Y8X3Z0RTWCI@gmail.com>
+ <9d668d7c-8f85-49ad-bdb9-5cb81fb6f60d@sirena.org.uk>
+ <c80c4e2aee9502d781fb52bcd5c0972ccd3bc7e4.camel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915103345.1334-1-joshua.crofts1@gmail.com>
- <aqpgUPWUGZp5Cjzt@hovoldconsulting.com> <aqq_ymTi1I951uQp@SMW015318>
- <20260917102429.00002faf@gmail.com> <20260917104233.00007a85@gmail.com> <aqwUky1jSMGbiXCf@SMW015318>
-In-Reply-To: <aqwUky1jSMGbiXCf@SMW015318>
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Thu, 17 Sep 2026 19:15:29 +0200
-X-Gm-Features: AcwNN1Vx0h8quqew4hNT7uRkgLUXPW_uCN9SLNcg_QuQOygx9-cYOKOmc0EAV7A
-Message-ID: <CALoEA-zMXhy1VX1MLVCy3d9pmC0fx22sJULamLhMmBX6xHutwg@mail.gmail.com>
-Subject: Re: [PATCH 0/2] clk: imx: add missing pm_runtime_dont_use_autosuspend()
- calls
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Johan Hovold <johan@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="E1hMGN2GjvYIXJPV"
+Content-Disposition: inline
+In-Reply-To: <c80c4e2aee9502d781fb52bcd5c0972ccd3bc7e4.camel@gmail.com>
+X-Cookie: Whip it, whip it good!
 
-On Thu, 17 Sept 2026 at 18:26, Frank Li <Frank.li@oss.nxp.com> wrote:
->
-> On Thu, Sep 17, 2026 at 10:42:33AM +0200, Joshua Crofts wrote:
-> > On Thu, 17 Sep 2026 10:24:29 +0200
-> > Joshua Crofts <joshua.crofts1@gmail.com> wrote:
-> >
-> > > On Wed, 16 Sep 2026 11:11:54 -0500
-> > > Frank Li <Frank.li@oss.nxp.com> wrote:
-> > >
-> > > > On Wed, Sep 16, 2026 at 11:24:32AM +0200, Johan Hovold wrote:
-> > > > > On Tue, Sep 15, 2026 at 10:33:43AM +0000, Joshua Crofts wrote:
-> > > > > > Several drivers in the clk subsystem forget to call dont_use_autosuspend()
-> > > > > > on teardown or error, causing potential resource leaks. This series adds
-> > > > > > the missing calls.
-> > > > >
-> > > > > No, as I've explained repeatedly elsewhere, it does not cause any
-> > > > > resource leaks. [1][2]
-> > > > >
-> > > > > The autosuspend setting leaks if you will, but that only matters in the
-> > > > > theoretical corner case of someone rebinding a different driver (which
-> > > > > will soon also taint the kernel).
-> > > > >
-> > > > > So don't exaggerate the impact, this is essentially just a cleanup,
-> > > > > which is fine in itself.
-> > > >
-> > > > Is it possilbe to create/improve runtime pm API, let runtime_pm enable/disable
-> > > > include these pair functions.
-> > > >
-> > > > I get many similar patches since scan tools is more powerful now.
-> > >
-> > > I suppose that could work. One would still have to scrub the kernel of legacy
-> > > use/dont_use_autosuspend() calls though, so it could end up being a large
-> > > patchset.
-> > >
-> >
-> > On second thought, some drivers do tend to disable PM runtime system sleep
-> > etc. so it probably isn't as simple as adding the autosuspend stuff to
-> > enable/disable.
->
-> if runtime pm disable, does autosuspend still work? suppose it should be
-> disable also
 
-If we add dont_use_autosuspend to disable then every time the system suspends
-and resumes we lose the autosuspend config, meaning it will never autosuspend
-again.
+--E1hMGN2GjvYIXJPV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I guess adding dont_use manually to the driver's remove() function is the only
-way (which according to my cocci script it's 195 drivers that should be patched)
+On Thu, Sep 17, 2026 at 10:08:38AM -0700, Eduard Zingerman wrote:
+> On Thu, 2026-09-17 at 16:03 +0100, Mark Brown wrote:
+> > On Thu, Sep 17, 2026 at 01:27:01PM +0200, Kumar Kartikeya Dwivedi wrote:
+> > > On Thu Sep 17, 2026 at 1:23 PM CEST, Mark Brown wrote:
 
---
-Kind regards,
-Joshua Crofts
+> > > > Do you have a full list of the current committers, I guess there's been
+> > > > more bitrot than just this?
+
+> > > It's me and Eduard, apart from Alexei, Daniel, and Andrii.
+
+> > I've added you and Eduard.
+
+> Apologies, that's on me, some issue with scripts configuration again.
+> What would you like me to do? Force push with SOBs?
+
+There's no problem I noticed with the tree - this is about making sure
+the list of people who I contact when there's issues with the tree
+includes all the committers.
+
+--E1hMGN2GjvYIXJPV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsIE0ACgkQJNaLcl1U
+h9D0Ggf/bPNxKd+RtYrnqms34RZdUAd5J70AlyeG0v6NJ0kP9UiE0yLmslT36KIQ
+rGl8uUIgBFsJexouefyvzHQU71hkgRy0aBDnYXUGR0oJxzZCtgDu+oRKGp5c40zc
+QMOVTlvgxU069sqcufzgWFsmHvD6RSvFuldWpleE9C3LC2bGZiK99Hbn0M9bJnTy
+vLWLv0xOrGoH4iTrhCvFQkz9/pSo+QgTSDP+w4PpgqPU1xaw5DqvYMdJG1Khe+4J
+S5whyf+wwRNDVTyMVP/YI6B91MpOV2s2hq4KHp0p+iNaC1gaZXalb+2l+sa/oEyD
+y9lsr04XQmETARlbBX7GUg8zMsr4cA==
+=Ve7z
+-----END PGP SIGNATURE-----
+
+--E1hMGN2GjvYIXJPV--
