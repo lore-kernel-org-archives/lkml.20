@@ -1,184 +1,161 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0884E4C40
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:03:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35B0547042;
+	Thu, 17 Sep 2026 20:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789675418; cv=none; b=TBk2K11PjlZ88C6nL2lX6cbtDtanPg8BuWrNfH4fAWwl7h03iAtKfhLqxwyImbMzam2SR0DoTXo5zvj69BeniN0izzEju7WOv1fR+Yc26BycItn2q7G51DFtngNGcHGU+XIXGYlJvKUG9NWZOC8QcpHlMLHSibe4Eosco9F4W90=
+	t=1789675465; cv=none; b=K76mRhy+FPntnRpprO9wrx2vUaq4eUMw3j18ac19tOezlO37ZLdt6T6FQ8jtGhcb4k8ARmQgIuVkYUj08dYRi8TKtS7BiPV0IDNLUbeItWbzzkkJeSI0IB4yzNwBT8+QACROAFUfE61hmaa88y9jcCJDjEyq19gYFa4eyorKs/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789675418; c=relaxed/simple;
-	bh=cy6gryX7xvTwXYc9D0rs04mwUAH67g0vEJ9EZm2av0Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eCpQyStBBrUeQ3b23VDSuckckB1Ofx/pNeZFhh0161hN9ONyTclanbdzFp99VJkV17HSIusjiz1BgQSV4PGg0su37b/KUroV1rrQyTmcGpI0r5ujdKru1BgzLPnAcHUxwje4Nx4iXuk+6pGxvk9hzL5sYRsnLS27VNWmfPEBgbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I/UKgliG; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789675465; c=relaxed/simple;
+	bh=Mr2SWEULNIyWKssATACvJHFK+HIf5bkG+CO21DBtg5M=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LRloxDzdSP/kJVXuahPb0oH9pzfVk6mIw990qAQw/flVKBWUp/Rko7/IaHydUn4rfDBLcBJJ8uF6wTP9ENGCMc27Vpxqn4htDnlg4GA/fA6MDwMOy5INKiazfb8dJe5Jqyq6UP+RRXkmblgri5nwZJrMBick/STVD1lnuSlF8qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jvWq7MPr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I/UKgliG"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1408417a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:03:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789675417; x=1790280217; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2YXZn9qln3Av2anrhIoMlqHVX55tm+WemDQSfecUoeU=;
-        b=I/UKgliGA0zdPZUgZnEH2FtFVlvhgZEzVd6bDnPPn6fZf9f2o/JmlkMQsQXaJHCPYI
-         YM8eaknmTDycUpAPeS9DyZKn1oLVjSE42XY9jV4+OFfkEyULuxBLSQKSdLCKVJIU8Jyo
-         QWr8EQRY0mK+Hv5JNsRe38nxfo1T4UhA6h1Vlnk47CfJUELaLRAJ4mMFLmbhqUm5HKO5
-         nHU0BvJ9rRe0wKhI0Z8+OCk8kChGzvubNusqTM1betPxaCW+JffIq4LnTXmjPHfN+yOT
-         Mk78xKjJpnYZ4AJzL5IphwUcmidgBMqgSYa8aAgaJaSas+1R2uomAFYY02YgYQ6btP+e
-         w+fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789675417; x=1790280217;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2YXZn9qln3Av2anrhIoMlqHVX55tm+WemDQSfecUoeU=;
-        b=2o4XjDU6s+obTxtlJxcyTzmpLs8iAw9WilpVnY0yPhe0GFDxztB4mMC/bXwxBuyQ0Q
-         PzBKklWBOCoKdMZ11wWOdzco8MwCxgx5+zw6YyMKyyo47tFO8GeQ9lvGQGkXO9c5azKe
-         NHUJic04TIUvspcwyNC6pkYY9OUCKIVhB6jSGHoU6qX3sXPfLYSFE1Yz5UpJxdaCWMh8
-         z1aOFhxcl9dDe8Bsweo+k/qKDHEqw6dnyJz1IWtSgSYF4dTMtHYk0QkugUL3XLMZxCin
-         JaHaKHBveY+4FYJfnm2azcbHxMfUCD0+4B1nV9o4hXlCTSOeugJI4MexYg9a+ndWVAh8
-         DgrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy/Ate+2abglTSFCKdyduSxO0U5D09f1FmLuQYpbfDtczNwGzu9rTyf7LjeTQphGQTqgR6IYeR42oAbJ+g=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXIvPU3Y5E66TyxXHm82M4JB/naiSaSccZ3psVMPHLyYDVlEey
-	78jr1aGa6ha0tJjdNhbAZWHVMtxfim+AalFSpXKndzQsizIeWk95x/YC
-X-Gm-Gg: AYBFou3dj6poS8n+gZqwQY9DdcsGpRWoZ7Ku7kkohOh4lvLlbHeAWEPfbCHLvbmJ1B8
-	Kt12a//+zJM7JPUtp8Ak/MnW7lu9SHdfOf+mgy8jscN3BBRNnEQRCn9G5/VebEl3yaU6748Iw+O
-	MxUO5R2LIWCdTh49ZNNIK7YW+8vE8aRJhpP7feU5s+vAI2VqxkZTCDLHuGm7nppApyXZp8gFtLF
-	HjP8O4D/vtuT6rHDmL2CDXXsrO79I3bSsMUMNE8TUJENx3xOFDr3FY3Rj6/Eh5PbRg1ZJMO+k/Q
-	HYqvEBi1hT3kL8Qb/HXizUtEAecRHbXyJlbqFZJTEBQuuiZIJ4pmhblUHl344x8cZf0PNRaWp+d
-	nypOQ88DhW0m4Nb7jTf0zldIp2mWjRIRmCh8eAeU3BXbpv2RyAPUqELmc3LXpnYkpQU9AQ0muv+
-	wvZWp44a3QyNDjMUEetI2/z0m8dF9oiTOqh7rX1O9eAzbdTLYn4FWqNXUNCxuyJAaVcRz46DXto
-	eqm/TfOP+4WZnI/91Xa4ntGU/F0QM+bevl5QcF5yi1nJF0G
-X-Received: by 2002:a05:6a21:140a:b0:3d3:aed2:6f29 with SMTP id adf61e73a8af0-3dd72702d34mr6589700637.29.1789675416705;
-        Thu, 17 Sep 2026 13:03:36 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5aa1e38sm18263572eec.16.2026.09.17.13.03.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 13:03:36 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <94109b63-7886-4bd3-8879-5c6740c69964@roeck-us.net>
-Date: Thu, 17 Sep 2026 13:03:35 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jvWq7MPr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D151B1F000FF;
+	Thu, 17 Sep 2026 20:04:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789675463;
+	bh=fzsN54GY0rHruAu/P7z9k5svS20PsIAJgVkPpUcXeWA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jvWq7MPrQFsqkF4lWQHn1mmYqZkKWtH+6i1hYvwLFOLoHbDSJqGz/dONI3N8xD2qN
+	 mIpjr2PMm8ZDF5CEfTf+z9YoMDm3o+W+VQAKK5Wfb7nub7mynEqe24YTQ4/XxR0nR4
+	 NuIacKhNprh8MRrGhawNKlsGN7YsnV4dIHbDzpzeHjLCpmZUuys8bNxPBgcIXvOLzs
+	 pFAnQXQNKWUfX5rtqvCYRZ4kEND1xcsFKE5CcjwqZeBV3e0IWRWZtQYFKSvF73UYPr
+	 Xa1kU0ofF1yqGQPHQyAi5cR/PMlZBpOPXrPaCho6QiVB+bK0PIMqyxmLv8JxSR7M1M
+	 UUbZzjmQvT3gw==
+Message-ID: <8e430ea8692853928f71d65f15654751a9888c4f.camel@kernel.org>
+Subject: Re: [PATCH] nfsd: Fix id-to-name cache entry leak in
+ idtoname_parse()
+From: Jeff Layton <jlayton@kernel.org>
+To: Chuck Lever <cel@kernel.org>
+Cc: Wentao Liang <vulab@iscas.ac.cn>, Dai.Ngo@oracle.com, akpm@osdl.org, 
+	chuck.lever@oracle.com, linux-kernel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, 	neil@brown.name, okorniev@redhat.com,
+ tom@talpey.com, stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 16:04:21 -0400
+In-Reply-To: <9cc180f6-f408-42f2-b143-e155df6f542a@slotpi15m67>
+References: <20260917163154.2162438-1-vulab@iscas.ac.cn>
+	 <f0ce5336a4062ff88775f81ba26726085dcb95a2.camel@kernel.org>
+	 <9cc180f6-f408-42f2-b143-e155df6f542a@slotpi15m67>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] hwmon: (nct6683) Enable pwm control on ASRock B850
- Steel Legend WiFi
-To: Fabio Baltieri <fabio.baltieri@gmail.com>,
- Johan Dahlin <jdahlin@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260825092546.669450-1-jdahlin@gmail.com>
- <20260825092546.669450-6-jdahlin@gmail.com> <aqwk3JIvOLD3rB_T@google.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <aqwk3JIvOLD3rB_T@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/17/26 10:35, Fabio Baltieri wrote:
-> Hi,
-> 
-> On Tue, Aug 25, 2026 at 11:25:46AM +0200, Johan Dahlin wrote:
->> Fan control has been measured on this board: with a fan in manual mode the
->> applied pwm value tracks what is written, and the fan responds
->> proportionally from 337 RPM at pwm 60 to 933 RPM at pwm 255.
->>
->> Allow pwm writes on this board.
->>
->> Signed-off-by: Johan Dahlin <jdahlin@gmail.com>
->> ---
->>   drivers/hwmon/nct6683.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/hwmon/nct6683.c b/drivers/hwmon/nct6683.c
->> index 6825e6c3af34..df28055b1a1c 100644
->> --- a/drivers/hwmon/nct6683.c
->> +++ b/drivers/hwmon/nct6683.c
->> @@ -972,7 +972,8 @@ SENSOR_TEMPLATE(pwm, "pwm%d", S_IRUGO, show_pwm, store_pwm, 0);
->>    */
->>   static bool nct6683_has_fan_control(struct nct6683_data *data)
->>   {
->> -	return data->customer_id == NCT6683_CUSTOMER_ID_MITAC;
->> +	return data->customer_id == NCT6683_CUSTOMER_ID_MITAC ||
->> +	       data->customer_id == NCT6683_CUSTOMER_ID_ASROCK8;
->>   }
->>   
->>   /*
-> 
-> Thanks for the patches, I tried this on an ASRock BC-250, also NCT6686D,
-> and it works fine there as well. The board id is
-> NCT6683_CUSTOMER_ID_AMD and all it needed was:
-> 
-> -              data->customer_id == NCT6683_CUSTOMER_ID_ASROCK8;
-> +              data->customer_id == NCT6683_CUSTOMER_ID_ASROCK8 ||
-> +              data->customer_id == NCT6683_CUSTOMER_ID_AMD;
-> 
-> Maybe you can add that as well once you send the v2 of this? (and a
-> Tested-by: Fabio Baltieri <fabio.baltieri@gmail.com>). Or I'm happy to
-> send a followup myself once this gets merged, whatever you prefer.
-> 
-> Either way I feel like this list is going to grow, maybe a
-> 
-> switch (data->customer_id) {
-> ...
-> 
-> would work out better long term here.
-> 
-Or maybe add a boolean have_fan_control or similar to struct nct6683_data,
-populate it in the probe function, and just use it.
+On Thu, 2026-09-17 at 14:53 -0400, Chuck Lever wrote:
+> On Thu, 2026-09-17 at 14:10 -0400, Jeff Layton wrote:
+> > Looks like we have the same bug later if idtoname_update() fails too?
+>=20
+> I don't think so: when sunrpc_cache_update() fails to allocate the
+> replacement entry, it drops the reference on the old entry itself:
+>=20
+> 	tmp =3D detail->alloc();
+> 	if (!tmp) {
+> 		cache_put(old, detail);
+> 		return NULL;
+> 	}
+>=20
+> So that exit is already balanced.
+>=20
+> > +out_put:
+> > +       cache_put(&res->h, cd);
+> >  out:
+>=20
+> On the update failure path, res is NULL here, and cache_put()
+> dereferences it. A shared label would need the "if (res)" guard that
+> expkey_parse() uses.
+>=20
+> A shared put label might be a reasonable clean-up, but for a fix
+> headed to stable, the two-line version Wentao posted looks OK
+> to me.
+>=20
 
-Thanks,
-Guenter
+I stand corrected then re: the other bug. It might be nice to clean
+that up and make the refcounting more evident, but I agree that should
+wait for a later patch.
 
+You can add this:
+
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
