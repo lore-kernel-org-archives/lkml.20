@@ -1,140 +1,100 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E8B4D6C5D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781F14E1C94;
+	Thu, 17 Sep 2026 13:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650277; cv=none; b=YibUMU22hnY6HGQYLKFd4eNY+EOqCzqJq5GUJWkjTwYakmgMGfrKb2VXrkxRADALVfmfdfTDmpQZzdvoFguCHnUmOBswi3/YyE2M/vjLXK6I6vDfFUiU3V0l3dt7SY7B5KHw6dHEHQzTDGTe/fveIyn4CKI7UXMAZ1d1pTCB8dQ=
+	t=1789650298; cv=none; b=YGZEPA4UxEgYfuf2Rw3yjcC5dniRBVz5C9cEA9qGyNmqt2VbU3ZzEpx+NTufYXniZyTdHucMz63hdU8ryeH+Bl2Mhq5odJWTtnPmzhuvwj2Qvs7ucfA0fuR3XUIO0SSjWil162yp2vOJNLUZlH7GkGTTvULvr+25z2YcBOSkkeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650277; c=relaxed/simple;
-	bh=Rp/BLc9CNLUciKOM5zKPdKUP5vUmnfeaCqEiy7XMhg8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=ZH3CtEeQTGv6SlfSBcghUEmKZclV+hfltAp6iNsjQHPqUNa7YctdP+nwOChYhToOE31h408k/MMRjFRMBrs0uD9y0OMtS/z8gj05S7LQNbN2jZ917S+7xeE2Grq7vV9mxgcmNbscbtonYhhH3uNkMRJZ4RRMCeUt7sebBxiWLq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TnS9BpH0; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TnS9BpH0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789650266;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=naiFAqVVLvn+9AEgh0Untd5WWTs3XcLs8AymZ6Lcz88=;
-	b=TnS9BpH0fDoV3Gg0IV6KhohK7EwgJZs718cJdy6tNYqqw+y3Uo9hA4Pdhp606sEwzs70II
-	nfAYrJ4AJdlOAEzjU/oUtZP6JOOl71MQ8qnvI3Zra/d5VbsQJUsAKIU67TvaOFImrDLXB/
-	DXoQwQ9kjXPVfBK3wYM7BL3LjDqkYmM=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-425-eUxI28GEMWyV_i1yegzz4Q-1; Thu,
- 17 Sep 2026 09:04:23 -0400
-X-MC-Unique: eUxI28GEMWyV_i1yegzz4Q-1
-X-Mimecast-MFC-AGG-ID: eUxI28GEMWyV_i1yegzz4Q_1789650262
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5E9761953971;
-	Thu, 17 Sep 2026 13:04:22 +0000 (UTC)
-Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3E6E71956095;
-	Thu, 17 Sep 2026 13:04:20 +0000 (UTC)
-Date: Thu, 17 Sep 2026 15:04:17 +0200 (CEST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-cc: dm-devel@lists.linux.dev, bmarzins@redhat.com, agk@redhat.com, 
-    snitzer@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dm-delay: advertise flush support when a flush delay
- is configured
-In-Reply-To: <20260917111742.1328396-1-matthias.goergens@gmail.com>
-Message-ID: <0ab89280-9279-f4dd-bf82-26997dbfcedd@redhat.com>
-References: <20260814045813.3148127-1-matthias.goergens@gmail.com> <20260917111742.1328396-1-matthias.goergens@gmail.com>
+	s=arc-20240116; t=1789650298; c=relaxed/simple;
+	bh=64Ylne07jTj2VXNOWf8yEG8Gw+xMkVMd8q+OECBl1HM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OoT1ly2mpno16QeN9HiRT/jficJOTk13JPo9Kzh8cPQ0udqGML/eeohqKKsSUFQ3GrU4tXp1Nqu3UmlJH3bFYX6JEDZNHn3DwWQBHyr5j+bl0Qrx1qNJlz8VRn98tKYETC22KGNg8IEABEtVF9Y2+xuZoFeYWdVFxpDXvrMxJUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACHuEJt5atqwRSBCA--.3396S2;
+	Thu, 17 Sep 2026 21:04:45 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: devicetree@vger.kernel.org
+Cc: grant.likely@linaro.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] of: unittest: Fix np reference leaks in of_unittest_platform_populate()
+Date: Thu, 17 Sep 2026 13:04:45 +0000
+Message-Id: <20260917130445.2152694-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACHuEJt5atqwRSBCA--.3396S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ww1kAF4kWw1fXF1Uuw43GFg_yoW8WFy8pr
+	W7GFWavrn8Ga17taykuryUuFyIyanI9rWrGryUK34kuan7A3W7AFy2gay0gFn3XrW8Wa98
+	A3W7trWDG3srt3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPIb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jw0_GFylx2IqxVAqx4xG
+	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
+	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E
+	14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+	1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UM
+	q2NUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qrrJquywABsR
 
-OK.
+np holds a reference obtained from of_find_node_by_path() but is
+reassigned several times without a matching of_node_put(). Drop the
+reference before each reassignment so it is not leaked on any path
+through the function.
 
-I updated the patch in the linux-dm repository.
+Fixes: 82c0f5897a87 ("of: selftest: add deferred probe interrupt test")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/of/unittest.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Mikulas
-
-
-
-On Thu, 17 Sep 2026, Matthias Goergens wrote:
-
-> dm-delay has a flush delay class: the 9-argument table form takes
-> <flush_device> <flush_offset> <flush_delay>, delay_map() routes
-> REQ_PREFLUSH bios to it, num_flush_bios is 1, and
-> Documentation/admin-guide/device-mapper/delay.rst documents it. But
-> the target never sets ti->flush_supported, so the dm device only
-> supports flushes when an underlying device stacks BLK_FEAT_WRITE_CACHE
-> into its limits. Over a write-through device (write_cache "write
-> through") it does not: submit_bio_noacct() strips REQ_PREFLUSH and
-> REQ_FUA before any bio reaches the target, and a configured flush
-> delay measures nothing.
-> 
-> Set ti->flush_supported when dc->flush.delay is non-zero. A configured
-> flush delay then always sees its flushes. Without one, dm-delay keeps
-> stacking flush support from the underlying device like the other
-> targets, so an undelayed dm-delay behaves like linear for flushes.
-> As for any table with flush support, the dm queue then also
-> advertises FUA; delay_map() keeps routing REQ_FUA writes to the
-> write class, and only REQ_PREFLUSH goes to the flush class.
-> 
-> Verified in a VM with dm-delay over a write-through virtio-scsi disk,
-> using a 9-argument table with write delay 0 and a flush delay of 200
-> or 800 ms. Without this change the dm queue reports write_cache "write
-> through", fua 0, and five 4 KiB dd oflag=dsync writes to the dm device
-> complete in 0-1 ms. With it the queue reports "write back", fua 1, and
-> the same writes take 204-210 ms and 812-880 ms. Zero-delay tables over
-> the write-through disk and over a write-back disk behave the same with
-> and without the change and keep the underlying queue's settings.
-> 
-> Suggested-by: Benjamin Marzinski <bmarzins@redhat.com>
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
-> Changes since v1:
-> - Set flush_supported only when dc->flush.delay is non-zero, so an
->   undelayed dm-delay behaves like linear for flushes (Ben).
-> - Commit message describes only the write-through case; otherwise dm
->   stacks flush support from the underlying device (Ben).
-> - Dropped the claim that FUA writes reach the wire: tracing the
->   underlying disk shows a plain data write and a REQ_PREFLUSH bio.
-> - Re-measured with write delay 0 so the timing isolates the flush class.
-> 
->  drivers/md/dm-delay.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/md/dm-delay.c b/drivers/md/dm-delay.c
-> index 4864671c2222f..96bb430215a32 100644
-> --- a/drivers/md/dm-delay.c
-> +++ b/drivers/md/dm-delay.c
-> @@ -301,6 +301,7 @@ static int delay_ctr(struct dm_target *ti, unsigned int argc, char **argv)
->  	}
->  
->  	ti->num_flush_bios = 1;
-> +	ti->flush_supported = dc->flush.delay != 0;
->  	ti->num_discard_bios = 1;
->  	ti->accounts_remapped_io = true;
->  	ti->per_io_data_size = sizeof(struct dm_delay_info);
-> @@ -451,7 +452,7 @@ static int delay_iterate_devices(struct dm_target *ti,
->  
->  static struct target_type delay_target = {
->  	.name	     = "delay",
-> -	.version     = {1, 5, 0},
-> +	.version     = {1, 5, 1},
->  	.features    = DM_TARGET_PASSES_INTEGRITY | DM_TARGET_ZONED_HM,
->  	.module      = THIS_MODULE,
->  	.ctr	     = delay_ctr,
-> -- 
-> 2.55.0
-> 
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index 6bc5babddf0a..4a8af9b992c4 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -1934,6 +1934,7 @@ static void __init of_unittest_platform_populate(void)
+ 
+ 	np = of_find_node_by_path("/testcase-data");
+ 	of_platform_default_populate(np, NULL, NULL);
++	of_node_put(np);
+ 
+ 	/* Test that a missing irq domain returns -EPROBE_DEFER */
+ 	np = of_find_node_by_path("/testcase-data/testcase-device1");
+@@ -1944,6 +1945,7 @@ static void __init of_unittest_platform_populate(void)
+ 		irq = platform_get_irq(pdev, 0);
+ 		unittest(irq == -EPROBE_DEFER,
+ 			 "device deferred probe failed - %d\n", irq);
++		of_node_put(np);
+ 
+ 		/* Test that a parsing failure does not return -EPROBE_DEFER */
+ 		np = of_find_node_by_path("/testcase-data/testcase-device2");
+@@ -1961,6 +1963,7 @@ static void __init of_unittest_platform_populate(void)
+ 		unittest(irq < 0 && irq != -EPROBE_DEFER,
+ 			 "device parsing error failed - %d\n", irq);
+ 	}
++	of_node_put(np);
+ 
+ 	np = of_find_node_by_path("/testcase-data/platform-tests");
+ 	unittest(np, "No testcase data in device tree\n");
+-- 
+2.34.1
 
