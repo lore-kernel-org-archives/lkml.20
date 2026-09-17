@@ -1,146 +1,114 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BA93812DB
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:17:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF2630E85D;
+	Thu, 17 Sep 2026 02:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.54.11.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611477; cv=none; b=FVowQWaCqfww5yfvHeeLKCZDie0FzQNIbB2TfgjG3N6P0juczxJoaQ5f/I/g5KHStguq9DGUlOLr1myldqEYxvV7lf0oULekJGQ5tyrXfr+nMBYhEnjdM8hom/8m36VSqKl4Z8dAMk1igcEuF2KekaBhefXWAa1QXQTJQZZCXDY=
+	t=1789611547; cv=none; b=rsAgCuzVV/FzCinG9qYK7ofd5N4/Sn7K0zYnOKj6X1wKVWL4S06abOEY18We0N25E0YSh91Gg1INh6MGndpsdOl3UWVw2Nx894YXz8v7DbWX365Mw+CBh1jtkM+ee3s8/Cjx658E+ZSjTvYFJkj08tK8eRD5btq6A6XU7wiwfmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789611477; c=relaxed/simple;
-	bh=iNBfcS6MDvr00DcTaevT0gyCh2J7vLAarU2nyk/qJjQ=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=JCwhAzX2Qy5bZlykTY27Xq1bFLmrUEShAKgKSAfP+TJtxGTwBBtYbqYG4PxGhcyZC0lCKiOb4WRNHGeL1q4Zw+WU4Gniq5S75QV6AwWbkVOc82z07DzMb5eryrzoVM261ND4uUykw5BQnibZGFjm5/Y05DTqDgI+abCZNOGDT8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n8+FBuIJ; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789611547; c=relaxed/simple;
+	bh=DV7IrZzhW0ZJOvw4MA4FduMyWNZzIwGfbg+jo4e5oKQ=;
+	h=MIME-Version:Content-Type:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID; b=ZiR4vGyGuBfQBhJp1HnqDy05Unwbg2ENHuWcGdOk8mFa9ox8ELT3zHpa4UEmMZsL/0a/jJzEozAHngLb2FzSREkodZPvgFornFm8ubUOJlXXkRxub91f2qpkr5BmQ/nizNKJ4aBZocSD0WiOKHCJXuwBBmdhVrUmcKkWerEF6bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br; spf=pass smtp.mailfrom=inf.ufrgs.br; dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b=QWz9KlBI; arc=none smtp.client-ip=143.54.11.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n8+FBuIJ"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e25187so192316b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:17:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789611476; x=1790216276; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=15AYesmDPyE/Pkb7voFatC1kEWMKzHw4E6qOfih9IzY=;
-        b=n8+FBuIJuDho1iO04wTcUOendOlL52ic7mHoFSFIjpk0GBHhB8hUEfJ9c3ksDzE+L4
-         JHe8V4tQtqhhlqGxSrIi2LK2uvsQl5YlFIz9xPPhpohxeRltZvxCnW6JV5jLuXNhLj3v
-         OtnH+nJthqoi9b2FWYLOP+60rzZ8vQHHfbA1XGzWNSXzC/d+nXjblV8bRR0jj+9GkAur
-         b87Cdif8DMCVHL2muWCOk7pU6SNXmycKeZJlIMCStg9d4stDfgXbccQJN5b1jukq6Vaj
-         PgHFDGZzPpUn302WaIjJTuKHDqI2umQTLJguyLcBzIwn1EVmGXqK2D7EWNZG7HO9Tvlg
-         pLXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789611476; x=1790216276;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=15AYesmDPyE/Pkb7voFatC1kEWMKzHw4E6qOfih9IzY=;
-        b=nOwAnogR8g5gA+MSRuOuYxkm3DTlSX/mTgdLAG26G+j7tYqOUgU77/XD29HrS+avQY
-         GFzy+wYxPZQVR6l2vjWy5fbxgMqdquu6OpGVaoqCt6yjIatOBzDmwtUSjlQfgRSifbzE
-         9uqTxMKCWMJJRC0kqWK8DyDcsWULooimudW2pl4XuQLiVo/Atjlp8q080C/J+lYCjBSs
-         b+Uc9radg3sj+vQ2osdCepIbT7SNSgymvuDfcaPCSIzaouS4hksnDyR/bFf9UIzOoPYt
-         qs14+rZx1t4rbHSHZhBfuP50fBUfPg4qUXEM20jYHE0Y1sDARXvZ//uI3Ax1Ip5T2bCo
-         wohQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwsqeEDApmdq4SdZyyeajnjIbgv2+i8MdrOS5RSav1zzRuaWXfpKtQLp4fpkFdlglGYpo22BCLNueOXM1Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kC+CzKALofMmdzOaMsq23dREeF1SE93l0uHFBF2mBKqmW5oXtQ
-	hcRlUQnfxAgPP714qMLGBHQxCUgsmOOEKUn8S+GQCxYKyKav3wRLEtZp
-X-Gm-Gg: AYBFou2Ltavt8zKWM4YU3YxrImdJiNepxzjpOOZzaV/DqLAfQQlxYKi7LA1dgoPmlTO
-	eCTAuE9CgjYvPMmPB81dEbf7zQOqDMDLUwpl5+9Y/spxLz5cAk/p72GHSgfWb2lSwvW4g0Ygzcc
-	vTfZ6/kF4q5ddSodc3fiqqZwVAbnCKcLnOGqv5yP77eemHsuFOr/v/5MuXEgFDdLOFVK3JI9z9d
-	NeVc5vMakDhyVtlcsekHODUMM8tuspG8JtDLhKtxZ8TX5atNek4xUi+eDgJ0VSySwsUqzls6BJK
-	SWTTBf30xe66W6/s1l2oAthsw8feOjaNeDKQGntiFPKr1M64pRYws2BOzp0GhHRT01571D0wnZS
-	wvWkeblx8ZNXF0OGnx/ZDSFdyJdD9UjgbsSF5dbwLM6kbLU72LhoQhdUm8N3JDOIltJdff8wVa+
-	6+Ps27wFseFo6naJNDW2rl0ktdnmVohSj580OA66rwFm77/WHXBqtOQg2BeYHgGC59KkKK3U0kY
-	bd6dw7nfj661MqLPy8C4LsIywvXppOwKYibgpFj7kwbbpYH+oBeqLE0p3d8pR8GsbUaiH9co/aR
-	lbvx
-X-Received: by 2002:a05:6a20:4308:b0:3da:6bdd:2c74 with SMTP id adf61e73a8af0-3dd5f466f35mr11180754637.10.1789611475781;
-        Wed, 16 Sep 2026 19:17:55 -0700 (PDT)
-Received: from localhost ([153.61.198.253])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50ab8ae01sm2452008a12.18.2026.09.16.19.17.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 19:17:54 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 17 Sep 2026 02:17:53 +0000
-Message-Id: <DLH8BLA0ZCFY.3U2Q1BS1DBTYU@gmail.com>
-Cc: "Emil Tsalapatis" <emil@etsalapatis.com>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
- Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
- <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
- <jolsa@kernel.org>, "Ihor Solodrai" <ihor.solodrai@linux.dev>, "John
- Fastabend" <john.fastabend@gmail.com>, "Shuah Khan" <shuah@kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH bpf-next v7 1/4] bpf: Add a sleepable page allocator for
- map memory
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Jiayuan Chen" <jiayuan.chen@linux.dev>, <bpf@vger.kernel.org>
-In-Reply-To: <20260917015618.7488-2-jiayuan.chen@linux.dev>
-References: <20260917015618.7488-1-jiayuan.chen@linux.dev> <20260917015618.7488-2-jiayuan.chen@linux.dev>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="QWz9KlBI"
+Received: from webmail.inf.ufrgs.br (webmail.inf.ufrgs.br [143.54.11.45])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 4E8C012025C;
+	Wed, 16 Sep 2026 23:19:00 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1789611540;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m4LJ6JTQUP6RLFPqNwfrGT1IcCZq1bI1TRPH/KCzkZ4=;
+	b=QWz9KlBISBRi07H1qGFRuzmtt6YlXS44hBRUR87hlGReT3cu9nQlKx32TzJp7z38Nmstjd
+	ru1gpYYeQ1kBoWMtnAkKcCg9dOUAzLgX7M9lfdZUp7WNkGElKVi57at6I7ZqGpdsACB0nz
+	bbgsfDGbVhFK7bmf+450zpRKQqyekQaM1etqE7CLgTcZyPai3LA9qCOoWGErlrHJcRmMti
+	jcplFRczC0OO4I/Nr3kS+2fn7Pxpj34w+HvnSukIQEQbDMuc3UrZUw6OMqje5H5xF5cboH
+	ctp1mFMt2ecew1obuB4e08rwxdtyIIW2AQiCTkixRHeqMlAZ46vdX9hibvKMCA==
+Received: from 186-210-028-117.xd-dynamic.algarnetsuper.com.br
+ ([186.210.28.117])
+ by webmail.inf.ufrgs.br
+ with HTTP (HTTP/1.1 POST); Wed, 16 Sep 2026 23:19:00 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 16 Sep 2026 23:19:00 -0300
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com, Andrew
+ Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 3/3] r8169: release firmware on application
+ failure
+In-Reply-To: <fcaf8c8c-f6df-46c0-ac9d-7924c732283c@lunn.ch>
+References: <20260916152444.167196-1-matheus.aalmeida@inf.ufrgs.br>
+ <20260916152444.167196-4-matheus.aalmeida@inf.ufrgs.br>
+ <fe23c6bb-2cdf-4641-aae8-25b03b38be42@lunn.ch>
+ <4ee3cd8a9a299d504fc95ba86a3f387a@inf.ufrgs.br>
+ <fcaf8c8c-f6df-46c0-ac9d-7924c732283c@lunn.ch>
+Message-ID: <cc15edcbf76e8e70c89dd5ef5d838c3a@inf.ufrgs.br>
+X-Sender: matheus.aalmeida@inf.ufrgs.br
+User-Agent: Roundcube Webmail/0.9.5
 
-On Thu, Sep 17, 2026 at 09:55 AM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
-> diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-> index e80963971f680..345fe4c2e6422 100644
-> --- a/include/linux/bpf.h
-> +++ b/include/linux/bpf.h
-> @@ -2786,6 +2786,7 @@ struct bpf_prog *bpf_prog_get_curr_or_next(u32 *id);
->
->  int bpf_map_alloc_pages(const struct bpf_map *map, int nid,
->  			unsigned long nr_pages, struct page **page_array);
-> +struct page *bpf_map_alloc_page_sleepable(const struct bpf_map *map);
+On 2026-09-16 19:02, Andrew Lunn wrote:
+> On Wed, Sep 16, 2026 at 06:15:00PM -0300, Matheus Alves de Almeida wrote:
+>> > If the firmware cannot be written, is the device dead? Should this
+>> > return an error, so the caller can abort the probe?
+>> 
+>> A timeout while applying firmware could indeed indicate a PHY access
+>> problem. However, firmware loading failures are already non-fatal,
+>> and the callers of r8169_apply_firmware() do not propagate errors
+>> either. Making firmware application failures fatal would require
+>> broader changes to several r8169 PHY initialization paths.
+> 
+> But you are making such changes, returning errors up the call chain.
+> Why are you making these changes? We either assume nothing can fail,
+> so we throw away the return code, or we should assume everything can
+> fail, and propagate the errors.
+> 
+> If we assume error can happen, if there is an error in firmware
+> download, isn't that fatal? Should we even care about care about PHY
+> read/write errors if firmware download has failed? And since firmware
+> download is probably the first thing to happen, if anything is likely
+> to fair, i would expect firmware download is what is going to fail.
+> 
+>    Andrew
 
-[...]
+Looking at this more in depth, I am leaning towards keeping the old
+non-fatal behavior.
 
-> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-> index c7bc9ba9b331f..abd0f67c68d97 100644
-> --- a/kernel/bpf/syscall.c
-> +++ b/kernel/bpf/syscall.c
+Right now, firmware application failures are ignored, so the device
+can keep going even if applying the firmware fails. The TODO also
+specifically says to release the firmware on failure, which seems to
+imply that continuing without it was the intended behavior, and that
+releasing it was mainly meant to prevent retrying the same failed
+firmware application later.
 
-[...]
+Making firmware application failures fatal also creates a state problem.
+If we release tp->rtl_fw after a failure, later initialization attempts
+will see no firmware and continue without retrying it. Avoiding that
+would require tracking the failure separately or keeping the firmware
+loaded, which would no longer follow what the TODO suggests.
 
-> @@ -636,6 +635,27 @@ int bpf_map_alloc_pages(const struct bpf_map *map, int nid,
->  	return ret;
->  }
->
-> +/*
-> + * Allocate a page for map memory with the blocking allocator so it can
-> + * reclaim. __GFP_RETRY_MAYFAIL keeps it from invoking the OOM killer: the
-> + * page is charged to
- the map's memcg, which need not be the caller's, so
-> + * an OOM there could kill unrelated tasks in the map's cgroup while a
-> + * foreign caller could never be its victim.
-> + *
-> + * bpf_map_alloc_pages() serves arbitrary BPF program context and stays
-> + * reentrancy-safe by falling back to the non-blocking allocator. This
-> + * helper always blocks, so a sleepable context alone is not enough: the
-> + * caller must guarantee it is not already inside the page allocator or
-> + * reclaim, where blocking here would reenter mm and deadlock. The only
-> + * user is arena_vm_fault(), a userspace page fault in task context.
-> + */
-> +struct page *bpf_map_alloc_page_sleepable(const struct bpf_map *map)
-> +{
-> +	might_sleep();
-> +	return alloc_pages_node(map->numa_node,
-> +				BPF_PAGE_GFP | __GFP_RETRY_MAYFAIL, 0);
-> +}
+At that point this becomes a larger behavior change and could possibly
+break hardware where firmware application failures are currently
+tolerated.
 
-Don't see the point in #define BPF_PAGE_GFP
+Because of that, I am leaning towards keeping the existing behavior:
+detect the failure, release the firmware as the TODO says, and continue
+without it.
 
-Just call
-  alloc_pages_node(map->numa_node, GFP_KERNEL | __GFP_ZERO |
-		   __GFP_ACCOUNT | __GFP_NOWARN 
-| __GFP_RETRY_MAYFAIL, 0);
-
-with a one line comment why RETRY_MAYFAIL, 
-drop this patch and fold mayfail+comment into patch 2.
-
-pw-bot: cr
+What do you think?
