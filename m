@@ -1,358 +1,149 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CEA49C4D0;
-	Thu, 17 Sep 2026 10:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247AD2BE7DD;
+	Thu, 17 Sep 2026 10:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640719; cv=none; b=NuacJkRQ2UXxf02Xv+RJYAqNKNuSR/Z+aFpm7r2NP8OVAM0BUewvoUVTlTmLPkzakiJel4sZj1ww9m53zjnNjGY84gbM0UjGCZJYZfNGv5o5XucG6HWNVSHkNFe9NmmgB6WWSqP9cX6IJlgm02ACCYhWK2G2sUc6I23cAJwPZQE=
+	t=1789640740; cv=none; b=Hi0/kmY/qo/Sdr9jLyT5LIROpQKjbxp0hZTcRS7S11XG13RWihzncxlHLKF3kWmsMVx5Fnoo/rNaj8ST2xcYZHKRxuSbWL+Nox5ybN/BlBhlLTsAiZYFjPfs6MCtYgF4KWDSA1008E/Z7MC9L8770XaRYaEbg1iXZ40bDb2ZFrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640719; c=relaxed/simple;
-	bh=vVyKcEh8bjQKJP85dLU/XivgsTdnME1XvFCpIruUu3Y=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=MC2Mux5ZsfRYeGEulgtM/3odTYs3OVLs/sz2NW7L4hV75Fa2PVrLptGxK7OsM5sA8xAcxGskaOclxgFoTETYWFHnZPuoCftuUKDk69qi2LfOiahevX+D1vKQzFEiNU+rHCbR7B94KTyeRBT+R4zuxC4UU4h+LlAGNsZxBoVxsT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DPPVbxZB; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789640740; c=relaxed/simple;
+	bh=eoQn4vdU1KLLxLZodAf4ZI4bGeCbB2Grf8T5bCuwIoA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Kwm7PLHDrcMu3ltU8Q6u2QMlXutplA2fa84FYJXavAc6AuOgpHziZS8Kv8AT1LWZFvISf9IUbIrKsBVBGXsnWQXKoY40o5JeSjA35nu1jvKHh6osjfsvBJJCUIu3uU/Rwg22w+cPcj+0A0hKzok1kw9nPKgN7bO4tt22298kVGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=DEMK3JhH; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DPPVbxZB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789640717; x=1821176717;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=vVyKcEh8bjQKJP85dLU/XivgsTdnME1XvFCpIruUu3Y=;
-  b=DPPVbxZBzr+rPkOELDMkfznOsOZEPzNRNbvAB+PaoB4k9KsYivu+7ngf
-   S7kNikUo1Q/JNwbYP/GdU6sVLqd0bhP+FLweu383zImBwZb3coyII7M24
-   baMzpzmrO21Xx/UOGLfUM8FUw5nEbtctLFEgtj4ky7HsbKQfLk9NDr7AA
-   MT5DKWnhrshKYkULEIlQXX/mAoQ5OUyF0MgWtNx7Q9hsqVCgEC2JLLT6p
-   wK84oyKpCjpFA4IKab0UQifOrv3xliKghVep2B3qdIumhXMQPlBXzLgmM
-   GhunjYKJLN1K0qGGVd7ZC2cI389nM6+qrUiVwSFKH14y3iqI44pszYTbD
-   A==;
-X-CSE-ConnectionGUID: PvQU7KfkT0adGYFc4TS/fw==
-X-CSE-MsgGUID: wksQTF+hTOutZDP5PgltHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93875858"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93875858"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 03:25:16 -0700
-X-CSE-ConnectionGUID: O4kPy73wR9qnyZp2HK6oMQ==
-X-CSE-MsgGUID: HnMmw6q0TcWPjSHe0ygbyQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="297191161"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.62])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 03:25:15 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 17 Sep 2026 13:25:11 +0300 (EEST)
-To: Armin Wolf <W_Armin@gmx.de>
-cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] platform/x86: dell-wmi-aio: Convert to use the bus-based
- WMI API
-In-Reply-To: <20260802124530.7116-1-W_Armin@gmx.de>
-Message-ID: <eaf1521d-f5dd-af7d-a866-1bd6aff9800b@linux.intel.com>
-References: <20260802124530.7116-1-W_Armin@gmx.de>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="DEMK3JhH"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 67174534022F;
+	Thu, 17 Sep 2026 12:25:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789640736;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=qNSuli57FKzTSzHxJ7/AxNBrvId18KuqyoSTZSdnCj0=;
+	b=DEMK3JhHrbElKasezK/h2XbJnewFbD9NbIjzMZ4qZCQYjmUA7Uhv4vBp4vpFgSSo+cXlss
+	iT0RvkMjg+UUzsqELzuGq1gQLdVRrRuXUoz8Y5Bh0RgRg+9D8wCh06XINk4teof3V/GHi6
+	oguJwPv5Zqi4qJ06EVnFyID15+1mkzc=
+Message-ID: <b324f0b8-0875-457f-936c-89b858d082fa@ixit.cz>
+Date: Thu, 17 Sep 2026 12:25:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Add Xiaomi Mi 8 family
+ compatibles
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
+ <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260915-dipper-v2-0-cbade54919ee@ixit.cz>
+ <20260915-dipper-v2-1-cbade54919ee@ixit.cz>
+ <20260917-heavenly-weasel-of-criticism-1add6b@quoll>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260917-heavenly-weasel-of-criticism-1add6b@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, 2 Aug 2026, Armin Wolf wrote:
-
-> It turns out that some devices like the Dell Inspiron One 2310
-> contain multiple WMI event devices with a matching GUID of
-> 284A0E6B-380E-472A-921F-E52786257FB4, each handling a separate
-> hotkey (volume up, volume down, ...). The dell-wmi-aio driver
-> however still uses the legacy GUID-based WMI API and can thus
-> only see the first of those WMI event devices, preventing the
-> remaining buttons from working.
+On 17/09/2026 12:21, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 04:32:24PM +0200, David Heidelberg wrote:
+>> +      - description: Xiaomi Mi 8 family
+>> +        items:
+>> +          - enum:
+>> +              - xiaomi,dipper
+>> +              - xiaomi,equuleus
+>> +              - xiaomi,ursa
+>> +          - const: xiaomi,dipper-common
 > 
-> Fix this by converting the driver to use the modern bus-based
-> WMI API. This also includes replacing the usage of
-> union acpi_object with struct wmi_buffer.
+> We do not make "common" compatibles.
+> git grep common -- Documentation/devicetree/bindings/arm/qcom.yaml
+
+TBH I have mental issue with calling it xiaomi,dipper-dipper
+
+All three devices are branded as own devices, just based on 99.9% same base.
+
+I'm not aware of any internal name which group these devices.
+
+I could call it like xiaomi,common, but there is the polaris and beryllium, 
+which aren't "that common" with these three.
+
+Do you have idea what to do in this situation?
+
+David
+
 > 
-> Tested using the ACPI-WMI ASL code from the Dell Inspiron One 2310
-> together with some changes to allow injecting events.
+> See other examples how this can be named, even one below:
 > 
-> Link: https://linux-hardware.org/?probe=e86d77e44d
-> Signed-off-by: Armin Wolf <W_Armin@gmx.de>
-> ---
->  drivers/platform/x86/dell/dell-wmi-aio.c | 198 +++++++++--------------
->  1 file changed, 78 insertions(+), 120 deletions(-)
+>> +          - const: qcom,sdm845
+>> +
+>>         - description: Xiaomi Poco F1
+>>           items:
+>>             - enum:
+>>                 - xiaomi,beryllium-ebbg
+>>                 - xiaomi,beryllium-tianma
+>>             - const: xiaomi,beryllium
+>>             - const: qcom,sdm845
 > 
-> diff --git a/drivers/platform/x86/dell/dell-wmi-aio.c b/drivers/platform/x86/dell/dell-wmi-aio.c
-> index 54096495719b..8849ad93480b 100644
-> --- a/drivers/platform/x86/dell/dell-wmi-aio.c
-> +++ b/drivers/platform/x86/dell/dell-wmi-aio.c
-> @@ -5,14 +5,20 @@
->  
->  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
->  
-> +#include <linux/cleanup.h>
-> +#include <linux/compiler_attributes.h>
-> +#include <linux/device.h>
-> +#include <linux/device/driver.h>
->  #include <linux/kernel.h>
->  #include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/overflow.h>
->  #include <linux/init.h>
->  #include <linux/types.h>
->  #include <linux/input.h>
->  #include <linux/input/sparse-keymap.h>
-> -#include <linux/acpi.h>
->  #include <linux/string.h>
-> +#include <linux/wmi.h>
->  
->  MODULE_DESCRIPTION("WMI hotkeys driver for Dell All-In-One series");
->  MODULE_LICENSE("GPL");
-> @@ -20,22 +26,19 @@ MODULE_LICENSE("GPL");
->  #define EVENT_GUID1 "284A0E6B-380E-472A-921F-E52786257FB4"
->  #define EVENT_GUID2 "02314822-307C-4F66-BF0E-48AEAEB26CC8"
->  
-> +struct dell_wmi_aio_data {
-> +	struct input_dev *input_device;
-> +	/* Protects the input sequence */
-> +	struct mutex input_lock;
-> +};
-> +
->  struct dell_wmi_event {
-> -	u16	length;
-> +	__le16	length;
->  	/* 0x000: A hot key pressed or an event occurred
->  	 * 0x00F: A sequence of hot keys are pressed */
-> -	u16	type;
-> -	u16	event[];
-> -};
-> -
-> -static const char *dell_wmi_aio_guids[] = {
-> -	EVENT_GUID1,
-> -	EVENT_GUID2,
-> -	NULL
-> -};
-> -
-> -MODULE_ALIAS("wmi:"EVENT_GUID1);
-> -MODULE_ALIAS("wmi:"EVENT_GUID2);
-> +	__le16	type;
-> +	__le16	event[];
-> +} __packed;
->  
->  static const struct key_entry dell_wmi_aio_keymap[] = {
->  	{ KE_KEY, 0xc0, { KEY_VOLUMEUP } },
-> @@ -50,137 +53,92 @@ static const struct key_entry dell_wmi_aio_keymap[] = {
->  	{ KE_END, 0 }
->  };
->  
-> -static struct input_dev *dell_wmi_aio_input_dev;
-> -
->  /*
->   * The new WMI event data format will follow the dell_wmi_event structure
->   * So, we will check if the buffer matches the format
->   */
-> -static bool dell_wmi_aio_event_check(u8 *buffer, int length)
-> +static bool dell_wmi_aio_event_check(const struct wmi_buffer *buffer)
->  {
-> -	struct dell_wmi_event *event = (struct dell_wmi_event *)buffer;
-> +	struct dell_wmi_event *event;
-> +	u16 length, type;
->  
-> -	if (event == NULL || length < 6)
-> +	if (buffer->length < struct_size(event, event, 1))
->  		return false;
->  
-> -	if ((event->type == 0 || event->type == 0xf) &&
-> -			event->length >= 2)
-> +	event = buffer->data;
-> +	length = le16_to_cpu(event->length);
-> +	type = le16_to_cpu(event->type);
-> +	if ((type == 0 || type == 0xf) && length >= 2)
-
-Hi Armin,
-
-I've applied this but could you please do another patch which converts 
-the first two literals (+ the related comments above) into named defines.
-
--- 
- i.
-
->  		return true;
->  
->  	return false;
->  }
->  
-> -static void dell_wmi_aio_notify(union acpi_object *obj, void *context)
-> +static void dell_wmi_aio_notify(struct wmi_device *wdev, const struct wmi_buffer *data)
->  {
-> -	struct dell_wmi_event *event;
-> -
-> -	if (obj) {
-> -		unsigned int scancode = 0;
-> -
-> -		switch (obj->type) {
-> -		case ACPI_TYPE_INTEGER:
-> -			/* Most All-In-One correctly return integer scancode */
-> -			scancode = obj->integer.value;
-> -			sparse_keymap_report_event(dell_wmi_aio_input_dev,
-> -				scancode, 1, true);
-> -			break;
-> -		case ACPI_TYPE_BUFFER:
-> -			if (dell_wmi_aio_event_check(obj->buffer.pointer,
-> -						obj->buffer.length)) {
-> -				event = (struct dell_wmi_event *)
-> -					obj->buffer.pointer;
-> -				scancode = event->event[0];
-> -			} else {
-> -				/* Broken machines return the scancode in a
-> -				   buffer */
-> -				if (obj->buffer.pointer &&
-> -						obj->buffer.length > 0)
-> -					scancode = obj->buffer.pointer[0];
-> -			}
-> -			if (scancode)
-> -				sparse_keymap_report_event(
-> -					dell_wmi_aio_input_dev,
-> -					scancode, 1, true);
-> -			break;
-> -		}
-> -	}
-> -}
-> -
-> -static int __init dell_wmi_aio_input_setup(void)
-> -{
-> -	int err;
-> -
-> -	dell_wmi_aio_input_dev = input_allocate_device();
-> -
-> -	if (!dell_wmi_aio_input_dev)
-> -		return -ENOMEM;
-> -
-> -	dell_wmi_aio_input_dev->name = "Dell AIO WMI hotkeys";
-> -	dell_wmi_aio_input_dev->phys = "wmi/input0";
-> -	dell_wmi_aio_input_dev->id.bustype = BUS_HOST;
-> -
-> -	err = sparse_keymap_setup(dell_wmi_aio_input_dev,
-> -			dell_wmi_aio_keymap, NULL);
-> -	if (err) {
-> -		pr_err("Unable to setup input device keymap\n");
-> -		goto err_free_dev;
-> -	}
-> -	err = input_register_device(dell_wmi_aio_input_dev);
-> -	if (err) {
-> -		pr_info("Unable to register input device\n");
-> -		goto err_free_dev;
-> +	struct dell_wmi_aio_data *drvdata = dev_get_drvdata(&wdev->dev);
-> +	const struct dell_wmi_event *new_event;
-> +	unsigned int scancode;
-> +	const u8 *old_event;
-> +
-> +	if (dell_wmi_aio_event_check(data)) {
-> +		new_event = data->data;
-> +		scancode = le16_to_cpu(new_event->event[0]);
-> +	} else {
-> +		old_event = data->data;
-> +		scancode = old_event[0];
->  	}
-> -	return 0;
-> -
-> -err_free_dev:
-> -	input_free_device(dell_wmi_aio_input_dev);
-> -	return err;
-> -}
-> -
-> -static const char *dell_wmi_aio_find(void)
-> -{
-> -	int i;
->  
-> -	for (i = 0; dell_wmi_aio_guids[i] != NULL; i++)
-> -		if (wmi_has_guid(dell_wmi_aio_guids[i]))
-> -			return dell_wmi_aio_guids[i];
-> +	guard(mutex)(&drvdata->input_lock);
->  
-> -	return NULL;
-> +	sparse_keymap_report_event(drvdata->input_device, scancode, 1, true);
->  }
->  
-> -static int __init dell_wmi_aio_init(void)
-> +static int dell_wmi_aio_probe(struct wmi_device *wdev, const void *context)
->  {
-> -	int err;
-> -	const char *guid;
-> +	struct dell_wmi_aio_data *data;
-> +	int ret;
->  
-> -	guid = dell_wmi_aio_find();
-> -	if (!guid) {
-> -		pr_warn("No known WMI GUID found\n");
-> -		return -ENXIO;
-> -	}
-> +	data = devm_kzalloc(&wdev->dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
->  
-> -	err = dell_wmi_aio_input_setup();
-> -	if (err)
-> -		return err;
-> +	dev_set_drvdata(&wdev->dev, data);
-> +	ret = devm_mutex_init(&wdev->dev, &data->input_lock);
-> +	if (ret < 0)
-> +		return ret;
->  
-> -	err = wmi_install_notify_handler(guid, dell_wmi_aio_notify, NULL);
-> -	if (err) {
-> -		pr_err("Unable to register notify handler - %d\n", err);
-> -		input_unregister_device(dell_wmi_aio_input_dev);
-> -		return err;
-> -	}
-> +	data->input_device = devm_input_allocate_device(&wdev->dev);
-> +	if (!data->input_device)
-> +		return -ENOMEM;
->  
-> -	return 0;
-> -}
-> +	data->input_device->name = "Dell AIO WMI hotkeys";
-> +	data->input_device->phys = "wmi/input0";
-> +	data->input_device->id.bustype = BUS_HOST;
->  
-> -static void __exit dell_wmi_aio_exit(void)
-> -{
-> -	const char *guid;
-> +	ret = sparse_keymap_setup(data->input_device, dell_wmi_aio_keymap, NULL);
-> +	if (ret < 0)
-> +		return ret;
->  
-> -	guid = dell_wmi_aio_find();
-> -	wmi_remove_notify_handler(guid);
-> -	input_unregister_device(dell_wmi_aio_input_dev);
-> +	return input_register_device(data->input_device);
->  }
->  
-> -module_init(dell_wmi_aio_init);
-> -module_exit(dell_wmi_aio_exit);
-> +static const struct wmi_device_id dell_wmi_aio_id_table[] = {
-> +	{ EVENT_GUID1, NULL },
-> +	{ EVENT_GUID2, NULL },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(wmi, dell_wmi_aio_id_table);
-> +
-> +static struct wmi_driver dell_wmi_aio_driver = {
-> +	.driver = {
-> +		.name = "dell-wmi-aio",
-> +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-> +	},
-> +	.id_table = dell_wmi_aio_id_table,
-> +	.probe = dell_wmi_aio_probe,
-> +	.notify_new = dell_wmi_aio_notify,
-> +	.min_event_size = sizeof(u8),
-> +	.no_singleton = true,
-> +};
-> +module_wmi_driver(dell_wmi_aio_driver);
+> Best regards,
+> Krzysztof
 > 
-
--- 
- i.
 
