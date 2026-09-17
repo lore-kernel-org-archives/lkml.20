@@ -1,102 +1,133 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6A94E06CD
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21763C1090
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648029; cv=none; b=juo+jZi2CXR7rhH5FpSEMt4HP2YABy3SqC79w/S2ffgm9AmLC9BWTL3JNNXjxNyDPU4Puf9+TdjbofmERUfByaflS7HWsNSh2UvwNA/AqhpUJCHd9yNTbJtiM3v8lYgqdQjzKEKwUNfBK/UJlDRiX178JPgHktpfoc43O3IWr00=
+	t=1789648045; cv=none; b=MS3S2vnaiNgPieQZiokCd50Iuz1jqfLW3peE0dbCw5oEwBNA7Zg7iJ/NSjQMuw6EWlu5gJ5KyU4FJO7PNMnM32MzP/SCdp5liPWSciGxmUIXWpx53JIyFhjMa5ckc9MZjspezJbky7dK0GFVgpk26ADq881Y0xydQCTJ+3jdEHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648029; c=relaxed/simple;
-	bh=vaJXnuN1+7gN3LnxmqGkVL3QjiTCwZCpSeRtfqwwwBA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aSv6uFuyXyftD0CufD0uYXQw49fxapiZ0bPB26DkK173p2hqCYGPV7yiCA/CoG5J/Iygy4WZRWxeK9Znhza6mRLFv0p+CZdajYl32uaU8OWawSdVcGh6nYwRk081m4zKxCgP/Ed6Tpa4TlgcW5C1CakT/F3e31PNTtuqAe78xAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=Yc0v/qpw; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ALN8pvoY; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1789648045; c=relaxed/simple;
+	bh=MP2FNncNzN5nDMuqa8c2mwv9xwXy0f3dmsWdn8BAIb0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xn/tD+KMBTnZ6P5BZmxCbhjf0nYSdEA0OENqyoTkdIFixz4KBma3gxppTT1z+WE8LYTkEi64vCSiJ+6o+Ev17D6rXB4tzzKODTatxeLeHcp475mZdzxIleKRTGxX6u9TjTcESrKlIiG0i1yDQsgcppXq6vBfAgh0GJjodbc66eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H0W0ljSc; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="Yc0v/qpw";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ALN8pvoY"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id BCC361D00019;
-	Thu, 17 Sep 2026 08:26:53 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Thu, 17 Sep 2026 08:26:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789648013; x=
-	1789734413; bh=0lyJ8zqBoEOycT5nzPuEdvgCgVgM2x5/iPvVMuCaVJY=; b=Y
-	c0v/qpweF+XkmUFfjS8UkDWrnJbtI7+FEdnJLT3S6mGvvyPZAEo7YZEANPn/fq+z
-	O28S+HKUZjjWNqF3JwyhyJKKwbAxIle1lxw4rL/ZKjmqB+STh1vy2CUi42FX9BTy
-	2L6HzF/M3WO24FuaQSUvE7d4HBWgbPEAy7wiVYsQLtJN7N71jXNoH2SDo1Rj6PM+
-	mCXnie2NZoYz6n4JNbQpXMo77/dUrBBMO6Ud/dnxAFR8Wm5roLQFV/e4eviOXTRS
-	q1+Ot8g4fSKXPZa8EIr1u+2hsQEH71EEsYambYO4Mwtqk/yPo4AAa6Wj46r9lAIO
-	Ql6QQGI3e6iBlSNX+eCDg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789648013; x=1789734413; bh=0lyJ8zqBoEOycT5nzPuEdvgCgVgM2x5/iPv
-	VMuCaVJY=; b=ALN8pvoYJsRMNe433abxYc6n5sOtCrv4CBuFxOaMJKsyCjQfJdG
-	QiKair/ubRVxfFl7+g0c6w7OWwEES5gjDl8qJbpOLcAm86RycrEEMwoDSaO143Mo
-	ObpVVDA9qTYYLde/gyWvs+THbAH6YP7OBl0F1mqZjRx2CAym3NhM8y+6GBAhHdqA
-	BGQZoLFmqRQ0i4fHeP9HNmF4uyOfuq5hI2+JKWrLPPT91uUPw+doU3Jsk/t4iNLr
-	fS0cgiw2aWzjPbGI1NIUfOiIpJRogfrB2GEAUc9WMser4WZwLiI8LU9rZMsMMGNw
-	9GMRSay8jiALrXKBZmMugPxuuAGU0ViB22A==
-X-ME-Sender: <xms:jdyrakRoZI92Tp6sc8CLBoOhDnwe92mamuZmAB2XALyp9poloaoEcg>
-    <xme:jdyravY3vadlYzNchPVd6w2zwZN9SUoC6gRe5tigCjmSxumI_2I9y8ArRgihc-tyd
-    jipFsucr9hpRfDfrWmZJoJF4NPuZ1WTUMCEktmeu2MlwfA2YYpRwGFS>
-X-ME-Received: <xmr:jdyrapNp2CUcfXxLANiniFIsJ7Ev3t6Wmil50whE255GfTZlYG3lp44Ghyg>
-X-ME-Proxy-Cause: dmFkZTGIiRiuQ5PMdB2WYxmL16h5CDXoi1BFdRa7lEVtBzpOMWHvb9A4/pu05WY++SyB+h
-    qExORmtkwcpdpBx8kTLTdD2wg0WhATVYsrhgOD5W+6ELkRdhoGJssibkTiIJKtVXEjtk7A
-    abZuYwWU65Tb9ms4R2+ualLkQ9DW57htukuLgBJ1T3SoWy8/WQzkTiBwuJv5n84UkwNxs5
-    M3SXhPj97KF9C7Fzth0o/d9Mv0/WeFzA4nIgaD/nn4wtzFBm6/B82Nx8Qb5vXsDuOk0wnJ
-    okZKZfIrf3eyA3N1pS9qk8io4H+hh41gcNmq+1pesqMZ+KVqRTIiVkArDwfY3zihPAo/cp
-    shq6EuhFEI+p78q5WfCrVdjXX6r/GfGohjsYha8rR2ghFknr8HzMI20hLV4AkFwzXcCotj
-    oDEh8kOdZ9V/fG5MToWJIhktomfB0yGIF0rLqhGX9hRLmte0KUdjqZ/sq2eRmnIvgwd+KQ
-    FrwwLRffN7dh8onZo2ufvtN0LasncW4XM/AACBKhjhzhGOZiMZQdQ5iC0BNOarm5fckdIB
-    +LXF4HO8ZzS97Ze5a+Vdw+vlJ15cERKPbcfCKPScZcVuarkG6laBE0ODrtaNV+js+SwXxA
-    Un+vN6ZcLtrhw/FhRk9d11voZB7nEz9UWPp38Xrpc1HK+2NU2L28Xqm5SYww
-X-ME-Proxy: <xmx:jdyragPSqitgC1MlxnXpN6bbVDo49IBbMen0y8FE8q9LkTXAAE-4Hw>
-    <xmx:jdyralPVFU_zzhXlw1oGsEuxEX3vmI98H7BAL7mN0tHGvMdCDw4zVA>
-    <xmx:jdyrakbnB9DM8HUjWyVvDaDbfkEeDiKaB8g4V_03s5FkbAFTiHll9w>
-    <xmx:jdyrarinjKDK4oeu8C-8eC1662fFcY_Idh8x26i2DejmRWtNbbn1vg>
-    <xmx:jdyraqhwaZ0ZEZMIr5H9bj7ikmZa54srOOa3YA6BcW051TM7hTWYIZ-F>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 17 Sep 2026 08:26:52 -0400 (EDT)
-Date: Thu, 17 Sep 2026 13:26:51 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>
-Subject: Re: [PATCH v3 00/12] mm/collapse: separate a collapse from its
- callers
-Message-ID: <aqvcElQxmtysJwbA@thinkstation>
-References: <20260916093145.4022188-1-kirill@shutemov.name>
- <20260916154826.a55591eec86b5514dab898ca@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H0W0ljSc"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so656219f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:27:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789648029; x=1790252829; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xhI8SzP7IG6+w349oQAHdsKcMYwgaoAFfY9n0UY/I0M=;
+        b=H0W0ljScT/p0ZQlrCpMHadS6P4ijOldNYdJOcOb7FDCpboHp5s7NWqaaCpfN+GNGHN
+         SwEBpDLuD9psw4i2GND+lg1Y5o38fX2Lcluw/77Fw2OTFj5qykBTMLLJo1l7KSyxiEdp
+         Lfr22du+j6gZ9uhLw4SiNg5IYu6s+w6vDQjWK88MPEBb7N6XD/hsFAeG49tdEZjKLKwB
+         9fG2a4wQ/cjd94aT/sYzhxb9lizSnnTkmgRwwV8rduvf1JmVUxKXYtq7y5878KxNfdv9
+         OIYEmX8QzrAlEX8GDbXQuf4mzWBKikftOd5r9veZEznEcVj8pOlDhyIvW5Vw/odLO7yp
+         TuXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789648029; x=1790252829;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xhI8SzP7IG6+w349oQAHdsKcMYwgaoAFfY9n0UY/I0M=;
+        b=UOxSPf9ohqvu1yFl8xU7l/r8/oi6wckMKc4ptLB/swR63VKXu0UQyte7GHQFwLHwQW
+         5ybKFL7PhPAjnYopd+VMLuai1op6wUnvSs+/XCMYPOfMI+YqqYIlEg0/MA0l0jyN/Wus
+         dKtowZZSLJwVQMW1XtFMfKUpMr28eADk4xPIjuoHaK9/1P9UWwGp3rXZLGj/MMU7yx1w
+         SkC72O+5JgyZM2gbac3ApGykQGuqprD+Ng9IMVp+nMiW4sCxYqt/50/lsn+Xrh20VkLK
+         HrI55pIx7Vf5Mgs41EudHtjpbwOFJsAIpJezTaN8+F8cJepqyO96Lf3Qjda1eTzSfMg7
+         nScg==
+X-Forwarded-Encrypted: i=1; AKwUvBzWF/fI6Qet+nOoNFzDnobGZQdZ15K/YwQrL4wPKfFv7YJ3VbE5s/oFJ3+jtudU/m7M+9i4qzCs6EL9UbM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSGFofqG/dfVX9h7+t1SqZHZs2UzLSGBsGyaYoJur9mdGkuwKo
+	cbOOgzPKlOZ9nROVrm1L2gFhKzRpuhsxRrUKlfP6SSwDIPJS0SaWyGXa
+X-Gm-Gg: AYBFou0msZdWsiuCY9EyDBvRD6HpinoIa6Cs412zzLru+L+LZRQnFMCuMMPCjVUK61g
+	TflzQzoUYmxJKH6qJAZkiw4XlFJCY5wYrjWoT5lLxIKYH96a4YVvUfHzk7sLu/78FhiXxNPVLSQ
+	8p3/xkD5Sde5Y3QJGXJc5dx9ZlPIth4V+kcOCpcmq4jpNnjP+uGwCM97GIgarNHT+n3WZM+vl2W
+	CU2Tlu9+zOUMqk//JTULFPJUMr6B7XUttirT5PLwiN5KIrvgxRppVn5tEkf08Iw82Nx5vT8Vykq
+	THeKzX6tImUGiju1lQvW7YnGX4XfaEIK4YuuUuhKhEfAJPzbdknl/7HzxU81CBgmgMv2bkfi6Zj
+	KqlSkDPZOOYFiz0gLRDQVOvstvnYYyuo+OHYep9yTnibtFrHCTqnYjmzxYqcYqaMN64Ybaxpvn6
+	apklS/OI+Ft6PVSIglbP44aAPDmO2z7/6JQnWGgKFNkNwIcBh/SlftO3IPwj3LEE3KI+ysJ2U6m
+	2OVAHjxlxmA1zlzAqA1c6251Gomoqw5o40HJNP/Cb9t5KYHqSMGlk7t1Jzh0LQ2fqLfKlVfynQS
+	3QdCPDrRdejet3jnHkkvU4LSDceQ
+X-Received: by 2002:a5d:584c:0:b0:487:d79:7cf7 with SMTP id ffacd0b85a97d-4870d797e09mr8077150f8f.52.1789648028528;
+        Thu, 17 Sep 2026 05:27:08 -0700 (PDT)
+Received: from iku.example.org ([2a06:5906:61b:2d00:881:57c7:8b8b:8936])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bef766dsm14780947f8f.4.2026.09.17.05.27.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 05:27:08 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH] arm64: dts: renesas: r9a09g047e57-smarc: Sort nodes alphabetically
+Date: Thu, 17 Sep 2026 13:27:01 +0100
+Message-ID: <20260917122701.160720-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916154826.a55591eec86b5514dab898ca@linux-foundation.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 03:48:26PM -0700, Andrew Morton wrote:
-> Here's how v3 altered mm.git:
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-BTW, is it helpful to append a range-diff to the cover letter on a new
-revision of a patchset? I can do it in the future if it is useful.
+Move the sound card node before the vqmmc regulator node to maintain
+alphabetical ordering of the nodes under the root node.
 
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+ .../boot/dts/renesas/r9a09g047e57-smarc.dts      | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts b/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
+index 14f5834082fa..8094599cc8e7 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
++++ b/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
+@@ -77,6 +77,14 @@ aliases {
+ 		mmc1 = &sdhi1;
+ 	};
+ 
++	sound_card: sound {
++		compatible = "audio-graph-card";
++
++		label = "snd-rzg3e";
++
++		dais = <&rsnd_port0>;	/* DA7212 */
++	};
++
+ 	vqmmc_sd1_pvdd: regulator-vqmmc-sd1-pvdd {
+ 		compatible = "regulator-gpio";
+ 		regulator-name = "SD1_PVDD";
+@@ -86,14 +94,6 @@ vqmmc_sd1_pvdd: regulator-vqmmc-sd1-pvdd {
+ 		gpios-states = <0>;
+ 		states = <3300000 0>, <1800000 1>;
+ 	};
+-
+-	sound_card: sound {
+-		compatible = "audio-graph-card";
+-
+-		label = "snd-rzg3e";
+-
+-		dais = <&rsnd_port0>;	/* DA7212 */
+-	};
+ };
+ 
+ &audio_clkb {
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.55.0
+
