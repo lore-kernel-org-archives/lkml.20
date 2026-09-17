@@ -1,186 +1,172 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011057.outbound.protection.outlook.com [40.107.208.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E44025B0A3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640369; cv=fail; b=tbKx/4VqGJ3vf0vGsIFMiUdNvaZQ8SEdvwr4sB9OsQZkofMPvXLNijACbsz2MS51L664q9OCtjxjUmx4TDNtnaozFsc1PKsF493KMfTnfwto+6l+qbJh/q189JV7gLYPKVt5ubbqCdzXoz+hbgwsXSP1B7sq+WD/rZw5GVERmZ0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640369; c=relaxed/simple;
-	bh=4+MvrbnZLPo6A0gUSILm8o9I4mtuY2HUSMfvIzMMAJM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Hr6SB2RPOTU1ViKDlmZA1hBpkLfGUvSTZgT70xw1WnfOd0bhwCUtMogofZlNwabH5nnk9o12IA1jA7+Qma2WcjQ8puZdXA0zr1kU1IiSxcB7QuN2DSmLZ1NW4qmIBc9BM6+IyabhCpFYxdAzKDHqFz5n6YHnXJ72f0ksOAL7OoQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IuChLmXH; arc=fail smtp.client-ip=40.107.208.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9004137B018
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:19:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789640375; cv=none; b=eAvqLd97OYs04mxIsMBg0dZc9UB4VsCtywAMfKiz3k64JRFk/NrfQVdFcjk/bvpUYQjy2aUmkwU/buHXWc5AJKm6i672Ycq58dKLcXe8O6e7FiPLPCx2A/OqtJGsXiCqBZufsY4I/kS/1mTxiQyAwWNiaMMdZaEiHlmLggw9ZOg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789640375; c=relaxed/simple;
+	bh=2MVZl6T9eAsw4fu9kLqtTXKDNHCIRq/Eu703/dv7bTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IneC8phVbVG4yVzWNLxhJ4bH7x2w/NYS9IXZoZGTsszsiSAzT3jgEJXf1gMRqh4h1QaEj+DuG7n2NqwHNAyegyp5mvXQWWwdY0S8+6gouFz3YbM8cYnmVVgAJZfsiUxcgC+vEmEuZ+4RED2ewANNYsy0Qrw8aj9mE3cMzBnbehw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dX0WJHtu; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IuChLmXH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oZLzzcYI4m6UhhO2zn1u+c9DHUIc505/F1MkX6lg9QhiqrlwVTngwH8HabeYddfJv8TfMTWWtlTQBXtNRxtCgqMAfIikCC/fewMffQrlMffUlq2YDQXxa7SoUP5wh6p3uW/SHCGbsMI3anRI/QHG2VilbE8eF7rXs+yw7OgAd9U4XtrUPJOcKOMnupxDHTIG1g10UGYo7fqqAUvFcF2/ldgCXJkavm7eAaP6jDrINRIY4RpIQQsVjBX60I00Q/urVjshxrVhOXpOPJm6BfOwma7QnQ4v5RD1yQmsV72Esl2WzeYoNHqbuxcZ2oWqFhLNRhh4tdDdmzNl3gPNaGb7rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nW8+IeKakByJAnyHDpTRaC4II2hpR5or8s9eUwu9ftg=;
- b=xexNKZiPipQ3uSkJHNC4nwM4YN2G/j76nzQsVoVaSi0oBXV0g1/ZIxqqFSBv8Dui+cvUaXuKADi7xkA5ve/yQq0XCrUmLfNCIBSczIez264GfbxxgVGgXVbKqxCnu6IixQonApCdF1UxTlvtF++Owq/z6HWTKHqlaHjNsXWlQRkuhbKlhcCzppUigOy4Lnz1revmDvYcO2xx8fJQPUN/dRO/QD6wgjcyiZGxNZMOSblO+JCMXrsUBMLd8x5PqR+BjX293uiKSX0k5QGSxjaaAjfW9V6vu/e8CQNCfVRNxJscjVnTDlYK4t85ujFGfeFUZ1T91g6GZg9uAqvkAuj8/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nW8+IeKakByJAnyHDpTRaC4II2hpR5or8s9eUwu9ftg=;
- b=IuChLmXHY7wQjiMzLaQE/xk4i8wtupqipw7gEgilS2p4WkFwE9MmDUO8XICznD+dTe0TaTRhFHScyLNiSxfEvlQii7o4Prl9lXcc2/19NGIpPWc++RY+zy0AO0tI3274c0BY0w8kecS21OFj5Di0ixqSxxmjYpnwJyuwfTdxnEGtI62fovE8yR1IvEzk8wmnhTIHRk55uefModbxFyWV62lLuEoRhg4UJifaKZqAl13cCf1ABG8ARk8iq9dxryGS4qjeXHRbFsS7JKFtoBP6jsCkmKEXosW4843UqeawFeO+2/DNPMymwsibW3+iEdYfFNkY0a9a20XzIdEDYFJ/fw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6802.namprd12.prod.outlook.com (2603:10b6:303:20f::19)
- by BY5PR12MB4243.namprd12.prod.outlook.com (2603:10b6:a03:20f::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 10:19:21 +0000
-Received: from MW4PR12MB6802.namprd12.prod.outlook.com
- ([fe80::51f4:a3d9:b44e:9587]) by MW4PR12MB6802.namprd12.prod.outlook.com
- ([fe80::51f4:a3d9:b44e:9587%4]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
- 10:19:21 +0000
-Message-ID: <a1f19a59-7dd5-4fb1-b5db-3efee8d249e7@nvidia.com>
-Date: Thu, 17 Sep 2026 13:19:12 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
-To: Johannes Weiner <hannes@cmpxchg.org>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>, Hugh Dickins
- <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>,
- Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dX0WJHtu"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso3270465e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:19:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789640372; x=1790245172; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lIbDzBYUic7atO3Tl8OUtyUr5JA3iHCUK5rlYQyhAyI=;
+        b=dX0WJHtul90eiD6mhZIYe7imaOxCrAEcnO7c/LB7l/lvADz/uaimMQwURQFZEdyOJ9
+         zlwIDzoj1Jh+YM4sYrwdb1yncld1nKIXMfBjOVQ+MMIznEn+o3GGD5xZAUWtReo1CNFm
+         /SqOqR5fAv4gBfqHRmtI9zJ17o/A4Bcp0p8DmVOfjDgPFHBG0jyetUgC3C8IuD/oJVp+
+         f0+EOWxSQPbWq5+PC9RrX0dv1YuCML07bk3sbYcZPoTgVuStLk6KZ5ls1FPZDxeK8M7R
+         oBqTVy+sot3AWoevW0mGNdz2rG4Yxjgy/j+Kn9PqA8tLD6ffcYXHj1dfg8SzUbBTZhtm
+         hKgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789640372; x=1790245172;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lIbDzBYUic7atO3Tl8OUtyUr5JA3iHCUK5rlYQyhAyI=;
+        b=yS96V1ENBeRDv4KyUy6QiU0D990lnI9tQIUPBiNESD/GbjifNuHEAxanPHoOjZlno2
+         4h0GlAW2w147RDmYij3y5xnQ2L6u+4CmGhZ7H/Snm+ItJDgOmslC2X6+hKcNOBP09J8v
+         ZsZ7Kg/LvLNS2gMIRfF8zAPOT6iTTurWmiGpXveYUkxu/ujoP8YukriH70sdiP+tPs6P
+         FP5yBhBkaoZQu553O3J+GsyoDmvqTDtpz0Jv9aycCBCg+GQdAmZ6DjVHxD6gnRXkCyqU
+         8SyovEZmNgzi1KvT1rfWs2SBrx3Kj4r1N8WflZJRPZzhpqoJ74DuyCsJ1cqfSrDvrhN6
+         vshA==
+X-Forwarded-Encrypted: i=1; AKwUvBxj2zmHHvu9/VPUm8Ee5840nXNUm2RnEpVL5jX/D2Z1nfufBSMdYz1IuoUWWNyfKLsC3tST4CC+PBJznk8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQT7INLte4HbLWKCkjmSloaax7Pcx7XCj6b8lxvAuC1pmdIFNJ
+	CPwh1Y/B8qRtkvDR2yF5VmCoMBEe3MjeKvJf9vdpuSrstu2VGAAh9hVE
+X-Gm-Gg: AYBFou0QEvYiDT+Fs/dTC8gfSseLbtgVVd0aHU2quDTaATz/OAG11QmK+aIksne319J
+	hSR0O2ySZAFfbrC9x9QFJbBq6Uuno1EUjdyWWyEzA+ZpQdMtGVeJt63EuCnF8YRlBQDYOBQgPiL
+	+46Fyq8a5Vcna+T9DjSYO+zbjRqoxiJhpnbjlof2bvyW+xml+MBfQfY/RjVegeKh7d2y+HEpAaI
+	ha2+b/pp0HWeMGyhvKL3pCxxcP4s7EQz9kG/apSVW2BuS9/lbriWQQQ6nXVbeKRl/kX5cMJrL9/
+	H/3dB1xptmGCPGuKJBieBUrC0z/VcJBTy2IpaHEyOlaB2KZ/uc4P3VEyHPMiVDmDT2RbYOQs2q8
+	M9/kV4s7JEbET4oiqI8wTbenAMkGFU1IQQjtiM/e558q5SRxGl73kxv6OwT3TCSdapp+4llhdB5
+	CMSCvpgiTQ0yscrzebzPkO3dN99xZ9yWT7KlweI4L+PrsE/oUmpOT1x2lHVDMCF/YRmFijDsVdE
+	XP0aqaBlpFq89QnNaEM1XjKyLF90lNBl5Q3
+X-Received: by 2002:a05:600c:a47:b0:49e:719e:e215 with SMTP id 5b1f17b1804b1-49eb732eeacmr66304395e9.26.1789640371628;
+        Thu, 17 Sep 2026 03:19:31 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd1d0978sm62964985e9.2.2026.09.17.03.19.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 03:19:31 -0700 (PDT)
+Date: Thu, 17 Sep 2026 11:19:30 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Arnd Bergmann" <arnd@arndb.de>, "Arnd Bergmann" <arnd@kernel.org>,
+ "Johannes Weiner" <hannes@cmpxchg.org>, "David Hildenbrand (Red Hat)"
+ <david@kernel.org>, "Michal Hocko" <mhocko@kernel.org>, "Qi Zheng"
+ <qi.zheng@linux.dev>, "Shakeel Butt" <shakeel.butt@linux.dev>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Barry Song"
+ <baohua@kernel.org>, "Axel Rasmussen" <axelrasmussen@google.com>, "Yuanchu
+ Xie" <yuanchu@google.com>, "Wei Xu" <weixugc@google.com>, "Baoquan He"
+ <baoquan.he@linux.dev>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Ridong Chen" <chenridong@xiaomi.com>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org
-References: <20260901190123.3511535-1-noren@nvidia.com>
- <20260902162323.GO3004@cmpxchg.org> <aphS2TancJAZLND7@gremlin>
- <20260902183752.GP3004@cmpxchg.org>
-Content-Language: en-US
-From: Nimrod Oren <noren@nvidia.com>
-In-Reply-To: <20260902183752.GP3004@cmpxchg.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR5P281CA0059.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f0::13) To MW4PR12MB6802.namprd12.prod.outlook.com
- (2603:10b6:303:20f::19)
+Subject: Re: [PATCH] mm/vmscan: avoid false-positive -Wuninitialized
+ warning, again
+Message-ID: <20260917111930.03a5f02b@pumpkin>
+In-Reply-To: <20260916230330.f0923cdb679de0b39d1c5d3a@linux-foundation.org>
+References: <20260916083456.4136132-1-arnd@kernel.org>
+	<20260916162816.39f0f33f6a48d30a71be3575@linux-foundation.org>
+	<20260916163044.3daa3811d9b2bf7d958f1f27@linux-foundation.org>
+	<75939625-482c-464f-83fb-fa12d3e1d79c@app.fastmail.com>
+	<20260916230330.f0923cdb679de0b39d1c5d3a@linux-foundation.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6802:EE_|BY5PR12MB4243:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e825784-666a-4011-f3b5-08df14a523c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	gXKwncl/XHaFufBaAsahEev/cVbgRPOfdYuMymW0Ig2i40UP/qJheROBQbduwWyRoSiwGBfCTs3FZVshQ5hqZSFFRG6U48YPQ1fnrmaMTb8uAlff+tilfC4uqFpAarh8rfNdG0JicflSHGneSIzvM1rOSe1qfGI+zbCJL4G4qZa2DIUXqjaCMMhiZ+29fEDRBzTCE9rI6NgBLHUB1itDSydmifv9m8PYPfin9VICWCxjpXmIbo2lc0son/d3aj5F9szpoArkYKznZhNCzs/OHVMoBshb+XmRM1kOpT5hr1nXLJz7Saw5rLlPFfOJbofzaVAXXclL4CdZJqLHAxZAjsFY9K0u7Nvgl1MuOyyUbSFS//5blwD4HNLGFwSrpnAz38vPE9VZ34IABY7iiyl1onB7lwHIewILHsDTojQ2in5kUU8kt3b1AHlMMEXTGLO0ejKWyblfgnsPQX27PSLPnHcaX/9OcJYXNMYqXVtYLoLezlOyk5CDxthOXm+uBKYNypqzEnhP8ortksFaNj6bMxmosAl9hEHrOg5vOQisZclgIGHEhtlI2uXiCInY3OJx+VeHS5//wFdD0HgIk6+r2Ubq8xr79Kk0vSK+gY4EoL+wXiKHNopHM8FdoiQXgU/nfn9uwGLmLEaBxNiDdCR9Eo6cULAl49PqoQJNCV1+D3Q=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6802.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ODZHaGpQYXhLdVl0eXR5VmpIcldNUXJTU1lveE5CU2xVWDdDN1psL2VTMGJO?=
- =?utf-8?B?aFV4NWFLL0ZVVkE0blQzQ1F6N0hzRHV6R3ZtaExjaWkybmVZNVRoL3ZoRFhV?=
- =?utf-8?B?YWFDMXg3TGhsL29Vam9MQ0lsNmV1QWhqdmNVbjljcG9nWTZwaGc0RzZlT3B3?=
- =?utf-8?B?bmdhaE12RDY0dXFZTU1tdmZFaTBFUHowRHljUC81U1Qzd2RLMkp2QVpjS244?=
- =?utf-8?B?UFhnME1TamJ2MzJSVHJ6TkVuZC9GRGFVbFZXdGppc2xPVGZzTlUwQnhEWXBR?=
- =?utf-8?B?S2dDbi9OTENBbFhjMzdZZkRsZ2xhSXN5YlpRbmVPVUZ3dCtCRmhJNzcvYmdq?=
- =?utf-8?B?YmtnQmJkdUNCWTlSenRBN1gxVXZPVGVVdjZJWHhVUDRad2tPMnhGelFCLy9P?=
- =?utf-8?B?NmJlRkYzc0NuQUxOT2piTWZURHpUZ2Z1MEdOVmxyZDhuTllrbnpYSlJ6bXZN?=
- =?utf-8?B?Rml0VTR5VUFrUHpCeFEydEF5eHlCNmd5dEVacWpPVGN3dFBvZDE5ZHNLNFlR?=
- =?utf-8?B?RzZPN01IN3hKcmRIRnZrdEVCemtyWVVqTWtLWGpMQWUxYk80WEZwMFZtMkZQ?=
- =?utf-8?B?VEU2dDg3RU9zOEo1eEZjT2tCZDltbWplZ0lLREI3Mnd5WEhUQmdKTzg0Y1Jp?=
- =?utf-8?B?bWZQeFpudGlqcEViVnZMeGN0aURVL3B5K29IaysvWnV6LzA3dUFaWkVzcnRx?=
- =?utf-8?B?c2czYVJsWEpBcnRTR3NDbGd1eXVyNXJPMytyS1pkZlY4VytDVWovZlQza3Fy?=
- =?utf-8?B?d3lTT21nTUloWi9ESHRhQklERk9mOUNSTk5kcmtoOEFjOTgzdzVibUdtV2Iz?=
- =?utf-8?B?TEpTM2FnM1ZJZUVweVBIWUVvNU9mMHhLU0VvWlVmcDh4WmpmQkFzc2w0enYy?=
- =?utf-8?B?MS9KQ2R0R0NvVnhOZFg4ODNPVkcyTlJnelIrS0V4QjBLVm5wTEJUSGxIUUJx?=
- =?utf-8?B?S0I1blZIOEFFR2tiTDZUTHdpaXdQTldhN1FjUGFIYUNQenFubEpPWkx3Sjhx?=
- =?utf-8?B?dmtMOG1RNGo0WGJrM1RTcHlCaUlTNGFhNk1BNHZkYkFuRmN5Y0hvakVqcGdC?=
- =?utf-8?B?ZTFoT2kvNnAwS2tMajdjb3hLQjdpc1grRVJMRTFLazNzSEtNZVlGU3lzNjlM?=
- =?utf-8?B?dFlrNzkrYW9yZlZHSVhtVzJEeEw3Q0pWaDlxSzc0OUszWkRINU5idXRWNXZn?=
- =?utf-8?B?MElJRmQ1eFM5ZHArRDdwUjUrZWtmNUorYitEcU9oTkdTR253ejh4bElRa3p6?=
- =?utf-8?B?aEt5cUFUN0lOdlhIb1RSRjFPc1FnNGlzbGI4YVI4WGppR0RzOXhBczlhUExw?=
- =?utf-8?B?aTV1R09RYTJVZEhqcDhnalRDMGpFTWo2OGFuNkNHc2Uzd1kzODhsYS9OTHR5?=
- =?utf-8?B?Z1ZGQUNUeStmdGk4MGc5Y0NqdlAzditGQnZTRHBMV1RWaTlaZFlsUi9nMy8y?=
- =?utf-8?B?MFZGRnNkeGkxNjZJR0tXZEppeFF5QVJRdnRrRGlFRTJyeXg5N0dmY0NGRjlD?=
- =?utf-8?B?SzZEU3JTdS9sNyttMStRclpGenJ3NUxpOFpZM3FpR3d5YkxtVkFlb0pjcUxa?=
- =?utf-8?B?a2ViNlN1dUZWWWF1ckk4b0Vrc3N0OENzTktvc1l6TGhHaTVjUjF4dHZVZ1Z0?=
- =?utf-8?B?UHN1Y21sUDM2YVBZY2VIYjlpbjNiTVY0eGEzRUN2OEFDOTNybkV5MVY1WER3?=
- =?utf-8?B?bzFTQXJ3Nzh3T3gyYm9FQUw3VUdxWmdWMWl5Vm9ldHREcXVYWHdBandZOWU4?=
- =?utf-8?B?MzVhVTZKTjkwQnhPZ0ZtdUtteDgwMDRsaFRHVUd4WFVxaUZCbTNONVdaWnRq?=
- =?utf-8?B?UGZZNHFYdmRBYU41c2lOOTdWWlBhZ28rYTh3N0o5QzQwSTZXMXNEVVNXWnJt?=
- =?utf-8?B?WW9ldGc5WnE4MFBmNFdtVmxIbEpQYUxQU2Nic2sxS2JjT2NZYlJpTjZveG1l?=
- =?utf-8?B?c2JDMHlXS1BHVlN3YzlFZExHWHhRRDBFT3FyUnI4UlAyMU0yNmlMRHc3akRy?=
- =?utf-8?B?RWprd1dSdTlCU1l3NnB5WnZhenoxNGI2eHZmZzcwWkM5WHNMdzBLZW11c3Fn?=
- =?utf-8?B?amhTVHo5RkI5QkNBZEpsazFkVUloQXgydzFueEEzWFcwdjREZ2ZOUTVUL3c5?=
- =?utf-8?B?ckxoenZERnRURUd1SUZOUC9FWDgzdGQ5QXFyZzdaT1J0cjdEOWxIV0t6bTI1?=
- =?utf-8?B?N1BKbzRGc1JjWDhZcjZJMVVNSDZpNDB2elBYQ2x3ZHcyV2gvT0Naa0Yvbk8x?=
- =?utf-8?B?a1psVWE1MWt5NXdDc2xuNkxNQVd1d0VFSlR4cmpNb1hNMFZGb0NydkdDa2NM?=
- =?utf-8?Q?TdEAOFNjyM4kBDYLxy?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e825784-666a-4011-f3b5-08df14a523c6
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6802.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 10:19:21.4597
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EOBsgjZ5nNiHj5OIEh8Orro/by7N3rc5YGD52LCCSx4GUQHlOKhipukNdBZxPX4QHY24ZWtuO8zy/59tX4Sitg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4243
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 02/09/2026 21:37, Johannes Weiner wrote:
-> On Wed, Sep 02, 2026 at 06:00:55PM +0100, Lorenzo Stoakes (ARM) wrote:
->> On Wed, Sep 02, 2026 at 12:23:23PM -0400, Johannes Weiner wrote:
->>> I'm not against carefully evaluating and testing out today's need for
->>> set_recommended_min_free_kbytes() in real world examples. But this is
->>> not that.
->>>
->>> Nacked-by: Johannes Weiner <hannes@cmpxchg.org>
->>
->> Isn't every possible change to address this kind of issue subject to
->> exactly the same kind of constraint?
->>
->> I'd like to know what not rolling that dice looks like :) or what
->> constitutes 'careful evaluation'.
+On Wed, 16 Sep 2026 23:03:30 -0700
+Andrew Morton <akpm@linux-foundation.org> wrote:
+
+> On Thu, 17 Sep 2026 07:50:43 +0200 "Arnd Bergmann" <arnd@arndb.de> wrote:
 > 
-> Usama gave some great examples in his other email. I'm not really
-> arguing to keep things out of tradition. But I think it's fair to say
-> let's at least test the common 4k/2M THP setups under memory pressure
-> before and after the change.
+> > On Thu, Sep 17, 2026, at 01:30, Andrew Morton wrote:  
+> > > On Wed, 16 Sep 2026 16:28:16 -0700 Andrew Morton  <akpm@linux-foundation.org> wrote:  
+> > >> >
+> > >> > --- a/mm/vmscan.c
+> > >> > +++ b/mm/vmscan.c
+> > >> > @@ -3274,8 +3274,10 @@ struct ctrl_pos {
+> > >> >  	int gain;
+> > >> >  };
+> > >> >  
+> > >> > -static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
+> > >> > -			  int tier_max, int gain, struct ctrl_pos *pos)
+> > >> > +/* __noipa works around  gcc-16 warning for uninitizled use of pos->refaulted */
+> > >> > +static __noipa void read_ctrl_pos(struct lruvec *lruvec, int type,
+> > >> > +				  int tier_min, int tier_max, int gain,
+> > >> > +				  struct ctrl_pos *pos)
+> > >> >  {
+> > >> >  	int i;
+> > >> >  	struct lru_gen_folio *lrugen = &lruvec->lrugen;  
+> > >> 
+> > >> Current code has changed here somewhat, but I expect the error is still
+> > >> there.  I fixed that "uninitizled" while in there.  Altered patch is
+> > >> below.  
+> > >
+> > >
+> > > Then the build blew up in unexpected ways.  gcc-15.2.0.
+> > >
+> > > The failure looks like a legit min() signedness thing which has been
+> > > there quite a while.  I'm thinking that __noipa surfaced this for some
+> > > reason?  
+> > 
+> > Right, I now saw the same thing here on the current linux-next.
+> > 
+> > What I found now is that the __noipa is only needed on top of 
+> > "mm/mglru: use explicit tier range in read_ctrl_pos()", which was
+> > in next-20260915 but disappeared in next-20260916. This patch
+> > also removed the min().  
+> 
+> So we don't need cc:stable?
+> 
+> > I think the reason why __noipa causes the warning about min() is
+> > that it prevents the constant propagation into read_ctrl_pos() and
+> > in turn the hack that suppresses warning about mixed types in
+> > minmax.h when both sides are constant.
+> > 
+> > Is the mglru series currently expected to make it into 7.4?  
+> 
+> Yes, "mm/mglru: use explicit tier range in read_ctrl_pos()" is in
+> mm-unstable at present.
+> 
+> > If not, I would withdraw my __noipa and hope that the next
+> > round of changes to read_ctrl_pos() does not run into this
+> > problem again.  
+> 
+> OK, I'll drop "mm/vmscan.c: fix min() signedness mismatch" and shall
+> rely on "mm/mglru: use explicit tier range in read_ctrl_pos()" to fix
+> the min() thing.
+> 
+> And I'll stage "mm/vmscan: avoid false-positive -Wuninitialized
+> warning, again".  ahead of "mm/mglru: use explicit tier range in
+> read_ctrl_pos()" to fix the build glitch wihout a bisection hole.
+> 
+> Does that sound sane?
+> 
 
-Hi,
+I've don't remember seeing that last patch, but I have looked at
+that function before and it is entirely horrible.
 
-I tested this on an x86-64 (4K/2M) virtual machine with one NUMA node
-and 16 GiB online memory, using mmtests config-workload-thpchallenge-fio
-with THPCHALLENGE_MADV_HUGEPAGE=yes.
-min_free_kbytes was 16 MiB patched and 66 MiB unpatched.
+It really does need to inlined to avoid really horrid code generation.
 
-I ran each kernel 30 times, rebooting before each run. The results did
-not show a regression in THP fault success rate or latency:
+But, in reality, it all ought to be reworked to avoid having a function
+that is called to either process one entry or all four.
 
-Average THP fault success (Percentage Faults Huge) increased from
-13.07% unpatched to 13.34% patched, and average fault latency
-(Fault Latencies) decreased by 6.5%.
-
-In contrast, compaction metrics were higher on average with the patch:
-
-  Compaction stalls:          1,635 -> 1,713        (+4.7%)
-  Compaction failures:        1,350 -> 1,416        (+4.9%)
-  Compaction migrate scanned: 4,812,254 -> 5,587,587 (+16.1%)
-
-Thanks,
-
+David
