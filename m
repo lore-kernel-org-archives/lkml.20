@@ -1,47 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF1A47CC8F;
-	Thu, 17 Sep 2026 09:08:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB85642467C;
+	Thu, 17 Sep 2026 09:08:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636125; cv=none; b=s8F+KkBF5sXtcg3STZtQ6hi6aXLWO6qp1q5xdR/OEUtTdM9v5CDOYC7jFGaoylAmthFzMMN/dlH4q7KpL+0nAttHPQ3fFnv7T32BP3clSD4xho4AV0eLiUL8y5XV1QimUyKX30Fd2zDhVy/2lEPkgZz/ZKwpSicUiosu5vdO2DU=
+	t=1789636131; cv=none; b=KDAsixkBtB18Ps2YiLZBiCLfFbh986xZRubYS7YLbfi+sbvRUxmi0fxgy9gjnRPHhfjdeoJs6CUCAPtikjZ+i/firJe/QEBijx1TVDep+cqs5R6CzQiLDeQBa1d7S9QDyv6DqQt34dptWjmvUNLTV0JY5oNSnJ/dggu1W2Cr4QE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636125; c=relaxed/simple;
-	bh=2ScCc0OepfhSsYTnQ76bG/Bvm4xN79bqyIZX5um0K78=;
+	s=arc-20240116; t=1789636131; c=relaxed/simple;
+	bh=sCImTtgex6RkAC5SI4v651xOFxCQuHKxp9fOw/jr6eY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i0sk3fdc2hE0vgBZoLrwPnjpd2CQ0DzLOOEFibu56LqJOzud2vZXWS1W+I8BD715St0S4gEzSQuo5VxSY1LIvwNgYFUyzonk+Eum8D7BliQhefeO2MxLRkhwY8alxhB0DfFMW4BHDRU8+YRSgxTeYbGH2y0i8asb1B3sWGH+2jI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0Fk0mm4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=aN9cpd5h9heYo3aYquLUfq+/8iaobTAaW/lEOXRyLBdeweebTweM5Q4982NJDp2kIit8oNeqsSiqZTyZ1eEM/howSzAB6sTWRsFuvD8vj08NlveMz6WoygqTyDYU3QL9jvIftqzDzAzSmugeR1Sxr8cM5z62Z47F414CK+RjA6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Mao+9DfD; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0Fk0mm4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76D281F000FF;
-	Thu, 17 Sep 2026 09:08:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789636122;
-	bh=vY3m/vwF9FHK+yR+LIlV5WHJI9mpj+7r7W70mHMu4JY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J0Fk0mm4Wh0Gc+87ftA9DSSDmBI8+GF8g118M1Cj5sy+cTXMqylQJgvFXs0XUikfe
-	 t8kNYNhEXCVOgCfrKsKnLJE2hRubp5nWoM5sOR/ojHaTEDcveuEJl5qBBl9H3u8AMh
-	 57GmgD03owi8oaHahZy0mD44opFH4WMKckl86N7hgOoiuMrhwIA+XC79rar4AqzLKC
-	 Cal4S2GHmlYsHM0YrkCPlPm7cqeqwBmMzm4al5kZDl69VJy6roKBaxj6SmD4I8BU5r
-	 ZEJUePucaDyBWdTrVEZzz19onkUe4M9woGgGfgiILkSKvxZBuaP0fxAyNdgFIejm/h
-	 vz2IpIgVY1fmQ==
-Date: Thu, 17 Sep 2026 10:08:38 +0100
-From: Simon Horman <horms@kernel.org>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Peter Korsgaard <peter@korsgaard.com>,
-	Ziyi Guo <n7l8m4@u.northwestern.edu>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	linux-usb@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: usb: catc: bound the RX packet length in
- catc_rx_done()
-Message-ID: <20260917090838.GY51261@horms.kernel.org>
-References: <AS8P251MB00015FD7716F38C345619B56C8BB2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Mao+9DfD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789636129; x=1821172129;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=sCImTtgex6RkAC5SI4v651xOFxCQuHKxp9fOw/jr6eY=;
+  b=Mao+9DfDevmQcY05HbmOeJUHCAlCGOlHHlabI5PhGk93WKQj7CeH8s6s
+   85kWqtWQGHvCPSu6D2+FHS8Zrpth8uN+fcn6JgbOU5fOicSXPyHslQKaj
+   V7RAuMCPIsQojYCCMkAKjmJvWCdR6PrM9X2E4xnxYtH1AM3OLoZajzTJU
+   6ykehFC2CkApUTvMM0fX4tVdgbolrN+5zMOSE5WjRSMhv5KqWXVVCucT4
+   m7yYzAXw4vZuqu2jsy6WGpOHkkfogARX/As7dTTUeMt3mdYcSXp7N1Us9
+   oqb+gjFj94S10GOjQUWQJt0RVL0LiP4U/kQNoHAhQwKRPqm/3dVP5KbF/
+   w==;
+X-CSE-ConnectionGUID: uf1AbyKPRk6DmuXF0Mb9Eg==
+X-CSE-MsgGUID: 03Kei1XvRIWR/2tVARBlYA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90055610"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90055610"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 02:08:48 -0700
+X-CSE-ConnectionGUID: 5PjGRrfhRbmrHznmpFaCFQ==
+X-CSE-MsgGUID: He8ZQOv3QT27/9OONngMLQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="270378840"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 02:08:46 -0700
+Date: Thu, 17 Sep 2026 12:08:44 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonas Rebmann <jre@pengutronix.de>
+Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel@pengutronix.de
+Subject: Re: [PATCH 3/5] lib/tests: string_helpers: introduce
+ test_string_unescape_one
+Message-ID: <aquuHKFFN7tGKbCf@ashevche-desk.local>
+References: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
+ <20260916-string_unescape-v1-3-7f8bd986fa33@pengutronix.de>
+ <aquVCG4NwM1ezLLm@ashevche-desk.local>
+ <7ad3889a-d9f9-426c-916f-3900d2c4ab8a@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,46 +65,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <AS8P251MB00015FD7716F38C345619B56C8BB2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+In-Reply-To: <7ad3889a-d9f9-426c-916f-3900d2c4ab8a@pengutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Sep 15, 2026 at 12:06:58AM +0100, Aamir Ahmed wrote:
-> catc_rx_done() walks a multi-packet URB, reading a two-byte length from
-> each packet header. Its bound, pkt_len > urb->actual_length, ignores the
-> header offset and compares against the whole transfer rather than the
-> bytes left from pkt_start, so a crafted packet header makes
-> skb_copy_to_linear_data() read past the buffer.
+On Thu, Sep 17, 2026 at 10:58:27AM +0200, Jonas Rebmann wrote:
+> On 2026-09-17 09:21, Andy Shevchenko wrote:
+> > On Wed, Sep 16, 2026 at 07:38:08PM +0200, Jonas Rebmann wrote:
+> > > The existing test_string_unescape() function follows a complex procedure
+> > > where it, given a set of UNESCAPE flags, appends multiple test fragments
+> > > and predicts their unescape result for the chosen set of flags. Rename
+> > > test_string_unescape() to a more descriptive
+> > > test_string_unescape_combined
+> > > 
+> > > In preparation to add simple regression tests, introduce
+> > > test_string_unescape_one() which asserts on exactly one call to
+> > > string_unescape.
+> > > 
+> > > Add some tests for corner cases which already pass.
+> > 
+> > So, this is two-in-one patch change. Needs a split, but I'm not sure why
+> > we even need this. Can't your case be incorporated into the existing
+> > "combined" variant?
 > 
-> A length below ETH_HLEN is also accepted, including zero, and
-> eth_type_trans() then reads a MAC header from the uninitialised tailroom
-> of a shorter skb. The is_f5u011 branch takes its length straight from
-> the transfer, so a zero-length URB reaches the same path.
-> 
-> Track the bytes remaining from the current packet, and reject a header
-> that does not fit, a length past what is left, and a length below an
-> Ethernet header.
-> 
-> A transfer shorter than an Ethernet header, including a zero-length one,
-> previously became a runt skb passed to netif_rx() and counted as
-> received; it is now counted in rx_length_errors and ends the walk.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Assisted-by: LLM
-> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
-> ---
-> v2:
->   - reject pkt_len below ETH_HLEN, covering the is_f5u011 branch too (Sashiko)
->   - hoist the remaining-bytes calculation so one check bounds both ends
->   - drop Cc: stable; no conforming device reaches this
->   - add Assisted-by: LLM
-> v1: https://lore.kernel.org/netdev/AS8P251MB00013A0DCA600A79DC58B0FEC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
-> 
-> Sashiko also suggested a sanity maximum on pkt_len. I left it out: PKT_SZ
-> would reject the 1537-1600 byte transfers the is_f5u011 path allows, since
-> RX_PKT_SZ is 1600, and dev->mtu excludes the MAC header that pkt_len
-> includes.
-> 
-> Built with W=1 (catc.o) on x86_64; no warnings. I have no CATC hardware,
-> so this is not runtime-tested.
+> They can not be incorporated into the combined variant because that
+> makes it impossible to control the size of the destination buffer. This
+> can not be fixed because the idea of the combined test is that all test
+> strings are combined into one buffer. The bugs fixed in this series only
+> occur when the destination buffer is limited.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+We may modify the loop to provide the length of the destination buffer to be
+exactly what we expect, no?
+
+> Furthermore, for the regression tests, I want each test tailored for a
+> specific case and when it fails, to show me which one failed.
+
+> I'll update the commit message and split the commit.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
