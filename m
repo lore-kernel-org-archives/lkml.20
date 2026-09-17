@@ -1,97 +1,93 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25ACA4349A7
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789630300; cv=pass; b=qhB9nfqlxJ7Ykro3u1mAZm3aRFLhAIpC+7LhMJnbl0LREOXw9jCClarfddH+SgBR7jruM9PjIAPG987NOEZH6HCQqXS9jhv8iZ3IqRZR+9jXONAzKmiSB1XUo1IdiqwbxJdUPd7DaEITC7vShZ1H7dvOwASIAbMnyLKtC2W7OOI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789630300; c=relaxed/simple;
-	bh=ae5tnOSxy7PX01fMqSfgZugTF/eY5ZCZKg3uruhZrKQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZQgfidnO4gxGkyVcQPI3f5JtIJVx5h0MEOv/hG17K5cpWI6uO7+JoXdSE8psOQOaQoiP+437johUdxtsOSRNQsI9TFnIjx8jZUaOG2m6Ng83zh3DD7YExM3/VHXWGlcuyOaVivj1TSPDEvHmHGUW5njS2rDfrHFjnfZ/WvUIJ1w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=J1XJKIZH; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DDF345CA1;
+	Thu, 17 Sep 2026 07:33:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789630387; cv=none; b=T9rYv8GPQsJLN7vgikUdV4Mnjaeo4d57i1dxmKH6M5c9Btf0z0NEQK+TgAIcrcb/6/dpRN4OUqRn5oYSzUUvX1MQy6EGQvg1Z/Z91cLUb/EsrcReAr8pANOTQ0CGfF2O6sCNLbwF+ELUdq1Ge9J8LiK6g6N61HzET/taqhDhrAo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789630387; c=relaxed/simple;
+	bh=gxiqBAElq9Xre5OAg7uTOQmxUlQteJwsBnd3ZBdbFzA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RgZgugh2YJmoyeNF0akeMWQpRvSOI3+2F8bQLvgSv2loFdqsNCXpHH7dv3sfadkjhc6yiyU2R2GHLovPkgF/iVDNcgjQjwAQ0sKwob9CXr5TN1EaC8YuYYxpAtgoBftfcEcxxrF94AePSKNvFQ/dKsPwLlH7UZrSLEajn+M+mzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hze9NxO6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="J1XJKIZH"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1b846so553261e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:31:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789630297; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XhLD5tQIzwmMaSfSzVbvyFMDORr0JYes/zYcwNoFzcHzYbvM0AN+jrpz+tmQNHd1iU
-         A1MGriFl8/lJG8rl12BTDZ1OHlOLsz91RoXQ6YrIFnLg+2zb1tIMJXAqB2CSprdpmxhn
-         li+7bLfwKQLEVqsoDgvU43y1O4RqdLuhRJC8G42NH5FHpgEqPqsAobPkMREgN3cIpvoR
-         qtD64msGKFvS6zCTVIWqYFbltw0mNJfrAKoyOkrXlFuiHXCXHiPvFah5qdNqPNtAr+H4
-         NRGqzbibRTaSopEuN4PvIMpmv2bAZqtbT5SiPgfqacTboyuj4ABjp8sDxR7pxBagPq7m
-         H12w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ae5tnOSxy7PX01fMqSfgZugTF/eY5ZCZKg3uruhZrKQ=;
-        fh=jiBolb6A7EQfLO8jfKNyey+o3FV7QBNeg2LQqBK0bHI=;
-        b=pgCYXD3MT5Yf1O05mTK7vXGIpcvCtmY/KdoBA+IDP/+2dzCKzeMjyZ+3uGueSBOwSj
-         co5DzrzPCcouV9Gcm6X1agUbPHnC79bC3ZO9wtd16sk3AG7f3sYUTqypjblEkrwlEjRN
-         hNx7BnET4xv3SkrCAOcNqaBQ7pD6Pd92EsJkmAFVIxcP8Hc4CnOSlGIJDrHo3U0Kqtqa
-         CGB4uTELeNZn1UWPbFTVsIzxrVci3nytAb2cbtg2JMYwvmkaX7p+of7c/cVSjv5utaVj
-         AgkvM4OF0+d5IeFJCExJJBozVC2b0Ve2qMqVsIVARX6CteXJQFp8RoEl3FrH8rpoyUXA
-         tykg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=khu.ac.kr; s=google; t=1789630297; x=1790235097; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ae5tnOSxy7PX01fMqSfgZugTF/eY5ZCZKg3uruhZrKQ=;
-        b=J1XJKIZHnR9GF1vsxtPxybFLmQeriTroIhrV6ObXesABxVVsDttd63+umIx0T3VJoW
-         j0g7+LK6RXGOVZybUBvOTrbdrJQOwcQCnWs8IYgnoTZolnIdY2emZRQcJ58ioHNuz2mA
-         kwBdzGFqwBCbkjC0ABTdXoUtYU3S3PW5ckJ8g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789630297; x=1790235097;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ae5tnOSxy7PX01fMqSfgZugTF/eY5ZCZKg3uruhZrKQ=;
-        b=TqMUFxxeYC+EZLjxz4DLE9GNRbW5SiRsXCVuoH95dF8aCCJ011115VyMfBC8oHdkYN
-         nycvvpukqNmB/xKUI7atbWkdY6BXa35zi9CHOXdOyIbaL4PFQotnvJEQ8SkmwNS9k4Ch
-         vimT2EdKcac5pIfDQ/DzpXKG59nqZqzN6wzIIMaV8d/NSJsB5TNEjbFOMRuItFrox1b8
-         lSjnfY2bcZ5enw9zxczJc5vieRVMifEsnbP74MqCs4lRnYXW6OuDWdlNfuFVK63QuwiE
-         iCpBsiYrgDUImrNErIJ34LQfmM8T+68xoFqJQrQJiVxziRNKjJQqqLl3Ys6uEr8GcyIR
-         KwQw==
-X-Forwarded-Encrypted: i=1; AKwUvBzpFU9p8TnRX4i3DLcpswhRFws6XdqI1ti1JHy3LXmrZApzVHmBPqNU2M5T4YRBshs9lH0q0WE1rEb/LEM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8pwvNgjj8uwZ9x4nqyDAVcvFTFljFpGSabZLdu6dL6e6V/Xfd
-	d06BpRhwem5DjsxpWx5f8Q91NLyG5jeBI28rz51pFJj5sL5k/lCWF1+b0IJRErn7i2oIy4ZmL9R
-	r4t/2zZlliJ99gJ9reUfwZetlBEADUZ0LVs51lmRG4A==
-X-Gm-Gg: AYBFou0G6loE3Ldh1cbW34/4nmN7hyUOyxXaZkocz5WxXseY83WTmvOak/ICZ/0NRUP
-	nFOaENmXFysvSWS6uTdPm7ZXI7IHdK19KrcNBG6Nc8gLVSn4p/WnYXImKTefzwxUeS5IYbDZD4W
-	EjecVpWqGRpGzxaHsVkEgrc9LT1ON4w43D4e97KhlO5PvKw65AnAG7oMvevvcRXwiyd6ANDEjEo
-	dcGP9AL/1pFGd/dY7Ug9lghmM5R+Ly7sWolWDwGXeAvTjkqJW/yaIzCKHWpLbRkSvE7rrMxcBAz
-	dZWTKITnwoVyLQtr5lHZSjASjk19wVnUzO0o0j/QCBG6HOSM49FfMao=
-X-Received: by 2002:ac2:4e11:0:b0:5b6:1a7c:aa20 with SMTP id
- 2adb3069b0e04-5b8b6655f65mr1537553e87.56.1789630297169; Thu, 17 Sep 2026
- 00:31:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hze9NxO6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9BB7AC2BCB9;
+	Thu, 17 Sep 2026 07:33:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789630386;
+	bh=gxiqBAElq9Xre5OAg7uTOQmxUlQteJwsBnd3ZBdbFzA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Hze9NxO6AqLpkNqahw3TdRpM+U4u9HEqCSCboe/Fwlc6aiq2TPj7YIIETtJCL2VmP
+	 uKfK2Na8oD3CC2nvdcm+iJqkQ8lTpE+2bklBdKxvO2ZSgeXLkmOxmP5VdZqT/PgVWb
+	 Toi+xmDzzfP70xiLkI6PJGOxQ7Vs0KiXQ8Mdn01cDc4gja8+JbNagFy3/3qIxHi32l
+	 uojBm9rNiHlByjvFM9QBmORRh0pTHDyWOboby3gPnOWiqdLMFRcQjDfW6sSC3WMQpq
+	 DHROUZ/lGcw7eEMBLwv0rGDDQl8tS4rBPK4RXy7BeClndb3WNdv3m8OQMv8tgIqRkh
+	 5Ki1qQS6Cuczw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7749BC982C1;
+	Thu, 17 Sep 2026 07:33:06 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Thu, 17 Sep 2026 10:32:06 +0300
+Subject: [PATCH 1/3] dt-bindings: usb: mtu3: add mt6595
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913-codex-rtw-rx-v2-v2-0-f09c964e0b96@khu.ac.kr>
- <20260913-codex-rtw-rx-v2-v2-1-f09c964e0b96@khu.ac.kr> <de086af71cc346d9ac8ca4e7bf8787e0@realtek.com>
- <CAH1Bc_xaD2kjBRp7aVjmAcz4Pv=zK2Tx7ro38UsdZZtXRY3Oig@mail.gmail.com>
-In-Reply-To: <CAH1Bc_xaD2kjBRp7aVjmAcz4Pv=zK2Tx7ro38UsdZZtXRY3Oig@mail.gmail.com>
-From: =?UTF-8?B?4oCN6rmA7Jqw7ISdW+2VmeyDnV0o7KCE7J6Q7KCV67O064yA7ZWZIOyghOyekOqzte2VmeqzvA==?=
-	=?UTF-8?B?KQ==?= <5mghybrid@khu.ac.kr>
-Date: Thu, 17 Sep 2026 16:31:23 +0900
-X-Gm-Features: AcwNN1VM7Ul5-ZzzznvgaBYRYVLvcxfNybxj9wjgAwgqIQF4TFclQX5o90vV-mg
-Message-ID: <CAH1Bc_xZD7m+=obYMAtMfbFxrJDS87OGSwd_Mu7vZjHF_K3SLw@mail.gmail.com>
-Subject: Re: [PATCH rtw-next v2 1/4] wifi: rtl8xxxu: free RX skb when URB
- submission fails
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, Jes Sorensen <Jes.Sorensen@gmail.com>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-6595-mtu3-v1-1-a2ba7c230d68@protonmail.com>
+References: <20260917-6595-mtu3-v1-0-a2ba7c230d68@protonmail.com>
+In-Reply-To: <20260917-6595-mtu3-v1-0-a2ba7c230d68@protonmail.com>
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789630384; l=785;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=obVpW7WHQG6DMltdTdYTZQf36G3lb4xafRlhZgLa8RM=;
+ b=eUwn67bk9XeiQJFx/p1Vss7TE4r0pmPT7jJNEVOa8SoYeZa6vqsStS/7HnYK9QY6+mcEIMjP4
+ BRQeAGy4QZ7DZdhzXBUjV2CSoZ6XS0rrU+rbC9QfMTGyE51AfUZ0Xqq
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-I'll use a more formal name in the Signed-off-by line for v3.
+From: Roman Vivchar <rva333@protonmail.com>
+
+Add a compatible string for the MTU3 IP found on the MediaTek mt6595 SoC.
+
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+ Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml b/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+index 21fc6bbe954f..4538df164a16 100644
+--- a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
++++ b/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+@@ -22,6 +22,7 @@ properties:
+     items:
+       - enum:
+           - mediatek,mt2712-mtu3
++          - mediatek,mt6595-mtu3
+           - mediatek,mt8173-mtu3
+           - mediatek,mt8183-mtu3
+           - mediatek,mt8186-mtu3
+
+-- 
+2.55.0
+
+
