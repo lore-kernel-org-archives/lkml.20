@@ -1,97 +1,93 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AAE583ADE;
-	Thu, 17 Sep 2026 14:31:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA8358FD2D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:32:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655520; cv=none; b=eSc5sO7dyVonkTPR4Z/9RbDu8WswyKSDnLyqTvrS84zZ87mpsGDa3Ow99L3RHi5zWh/+vREePUfldrYTyKcaZpKLTOMCCVBZ8L3CmODQjBzoHa8OV8MI6kFSBlUo+aqN5D2kbh4Tg94p+a/qrev528bIw5ulNWiINbGhiHQAj3g=
+	t=1789655541; cv=none; b=EjL74TIrO1O+64eKFrNvCN1V+AcM1ybkKE7yLc1rFpj/qYyO8cTrOgpiX/ATI1Cw6KOE7TyDuNlEIe+6kgQnHmHzZfM/H087AleRiFBKXID7zgfMtqNl8InxjJTKlfi2w9lIBPS6ipubgjJzzBOTuEy/vSzTEXa8Wp/d8DLDWIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655520; c=relaxed/simple;
-	bh=3iREv8eYmErGuk6pqVC2ANSpPFGU4rAX2RqCqRmuUs8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QGEnhBKUC+obTDT1NhbCCUO44Vt9L+1nX6DADxHj3fz0M75OODsP6gHUcGWQWXZmvlqibXr/v5EuIq7J2GLJPNkEQkAqH3REQsl1bps/jU4NUUSWanHJpQUT6qdJV6VEHWWIMK5pKFFi2OYnltVnR3xMgPYSgHEWY0fZh6gbVb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABn0Tvb+atqN4WCCA--.4787S2;
-	Thu, 17 Sep 2026 22:31:55 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: eblanc@baylibre.com,
-	jneanne@baylibre.com,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] regulator: tps6594-regulator: Fix np_pmic_parent leak in tps6594_regulator_probe()
-Date: Thu, 17 Sep 2026 14:31:55 +0000
-Message-Id: <20260917143155.2156974-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789655541; c=relaxed/simple;
+	bh=KTC24rDVpPzqokC0m2kS4a1IUb/8rsp+wM1+qPf+ytM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P2MhqOdjomzHSFiLBi6Sw4TTKdCeXUPbrMsC6Nwl4Tv9tp8oVW6QbNiu5y08QVUBjbMOaM/avm2ZrEnvwQX7We1RpgG4AQFn52FiFeplnUBVl43KZR+L0LwHFHxE2lSGWHt83dO0KWM1bsfQCf856rnvZ9djtosDNK+ghcsuXSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QjpiprcR; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QjpiprcR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482671F00893;
+	Thu, 17 Sep 2026 14:32:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789655540;
+	bh=5jl05X/VB2n88uxND/5yjViHDY91tVPj4RXTflzReqQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QjpiprcRqK3vCH4f4Etr8j638WmWy3VWyLBFZ724HWdTnUmUym27GROQOwWT9FVzF
+	 d0qfaPGf99hEXcqjW4QeoCsyxsFMgG4WgVbeN/UPDOXXDXxW4xIGz2U2JKjqBhW7Ui
+	 HrTE00kOTY7dl/86w75OHxE/joksE1TT4Iy1ZETiImJR9nRxAdzGd3HGuM1IcxOWNB
+	 esxkPNu196OlhF9Akcj6/1sEuvMIB+AH6iof6oZYN0R5cZYn91N5sHxLrg2LC5MLmD
+	 3x2gjfrlU36lit6F5EI3oMELGVIbwm/j4FJcM0Go0yRwRiH17NkrzuzXZKdp+iBHgR
+	 QIbum1OmeN8EQ==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id D24E3198005A;
+	Thu, 17 Sep 2026 10:32:15 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Thu, 17 Sep 2026 10:32:17 -0400
+X-ME-Sender: <xms:7_mrakqOox-1DH90pxvy9rxQZ4HGBwW5qZjVtl9mFXq9p7N0V6lA8g>
+    <xme:7_mramIYihn0xemjLPVSce-Sv-zF45ROyjeqCfZAemVagJtygloKr9a0euudsaL-n
+    R-0BV6QLnGM2Cqec9p5NLe8cLmbb7ODT9LpOwROCwBt3n_vFAKRMNI>
+X-ME-Received: <xmr:7_mravMkvU9BqVVKgyQZH9i99gxe9jAx-4QuRTf82fM5G4o_fwMZtMl0TbQ>
+X-ME-Proxy-Cause: dmFkZTFbhvfv6QAxTKLX7KYLpUU6bYLQl9nD8TDfhuzlXvIEAstW1SJyoWTvfI54B/0oCp
+    WrISYsacht0e+cZUNFLJhLNg/aQQGP9H4iKU7tXJROYipt8RGAKqklntwqu2rlbUszx//x
+    6CXVk0VCsfdLLoCuotdaw+OD6+xHO9iMzDT91daJqo8GKzOp36j0AZIXyXk7+AElXzoGmI
+    8Z8cneQVNE4FQh7S/R6PNAioI7nQgGwZxNr3VD2BjfGfcLVc6C2s0ZOW/IXvFeJYeBLS+E
+    q3dnZlMQTM0hDyA5GYSvaaCp/mthujNxyjGWuZ4NwjBE1p8jbKJTn8t8RB2DtL+FfcdWi/
+    fZbjvuf+15ZSrVTu1N21l1c+DnHqqfIeO/V/x7dLJaCvY9c3xTlZZmvYXoytqWr0Ad7sqZ
+    c0SmFKB2hzftKYY9UVOKEbA11CUqe9KjluTeDcltspGgP7Y3mlZK0Oa7CDKiwHf30ILBdY
+    deu/+BpjQZuk7885gubB8sH9Tuwx8DuzdYPKIObNUrdCsKyBnXW2FdblRZy/cv0pPYered
+    ukGtBxhEo9dkvvXlgOLiewL9VbsDGBIby+HIqxZMZKFWrHV6frGCi8KG6UiiOIv++tRrLL
+    dkmctRz4OJO64A2OMJckjLWSsV4AqOm8XVADFf7metkvGzkxxQnGqZ7HndzA
+X-ME-Proxy: <xmx:7_mrapriRuN2AvBtTMqFElIZB2NMUC5cCSPp4d2Y6FS8KgOgr9du1g>
+    <xmx:7_mrapEdlzmZca9jhprMtb3YVbYaRC5IKyiCHMOOsxgm2kg03CLJCQ>
+    <xmx:7_mramKY5GfguctbBD7FsDKjDa-8_vrYJsHIRO2qPMhRJjwbLq6hPg>
+    <xmx:7_mramiG2X0Wanrk3goNhv_lrKSuBFlcTwveHu-D0I5mXkGhvJVawA>
+    <xmx:7_mrao4CBEeLlGjcS0PXjgic62T4IEGwKeftYYtdE_1UIfBI70BBPdBX>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 17 Sep 2026 10:32:14 -0400 (EDT)
+Date: Thu, 17 Sep 2026 15:32:13 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] mm/huge_memory: disallow raw PMD mappings of the
+ huge zero page
+Message-ID: <aqv5r6Ar0vyKXa_x@thinkstation>
+References: <20260917121010.60966-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABn0Tvb+atqN4WCCA--.4787S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr17Jw47AF1xtr4UZry8AFb_yoW8WF1Up3
-	98CF9rCrW8Gr4xKanxCrnIya4agF4ay3yxAFyxt3WfZrs8JF13tr1DZrW5AFn5tFykCr4Y
-	vrWqvrWxXFyruFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUB2b7Iv0xC_Zr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
-	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
-	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
-	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
-	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6x
-	IIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF
-	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aV
-	CY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxUzJ5rUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUNA2qr9LYL1QAAsP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917121010.60966-1-lance.yang@linux.dev>
 
-tps6594_regulator_probe() takes a reference on the PMIC parent node
-with of_get_parent(), but never drops it, so the reference leaks on
-every loop iteration and on each error return of the probe.
+On Thu, Sep 17, 2026 at 08:10:10PM +0800, Lance Yang wrote:
+> vm_mixed_zeropage_allowed() validates zeropage insertion into
+> VM_MIXEDMAP VMAs. No in-tree user needs to insert the huge zero page
+> through vmf_insert_pfn_pmd().
+> 
+> Return VM_FAULT_SIGBUS if vmf_insert_pfn_pmd() is asked to map it.
+> 
+> Link: https://lore.kernel.org/linux-mm/f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org/
+> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Signed-off-by: Lance Yang <lance.yang@linux.dev>
 
-Release the reference after its last use.
+The patch looks fine, but don't we want to cover the same for non-huge
+zero page in vmf_insert_pfn_prot()?
 
-Fixes: f17ccc5deb4d ("regulator: tps6594-regulator: Add driver for TI TPS6594 regulators")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/regulator/tps6594-regulator.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/regulator/tps6594-regulator.c b/drivers/regulator/tps6594-regulator.c
-index 645e83462c64..e0ae2cac0b66 100644
---- a/drivers/regulator/tps6594-regulator.c
-+++ b/drivers/regulator/tps6594-regulator.c
-@@ -673,8 +673,10 @@ static int tps6594_regulator_probe(struct platform_device *pdev)
- 		np = of_find_node_by_name(tps->dev->of_node, multi_regs->supply_name);
- 		npname = of_node_full_name(np);
- 		np_pmic_parent = of_get_parent(of_get_parent(np));
--		if (of_node_cmp(of_node_full_name(np_pmic_parent), tps->dev->of_node->full_name))
-+		if (of_node_cmp(of_node_full_name(np_pmic_parent), tps->dev->of_node->full_name)) {
-+			of_node_put(np_pmic_parent);
- 			continue;
-+		}
- 		if (strcmp(npname, multi_regs->supply_name) == 0) {
- 			switch (multi) {
- 			case MULTI_BUCK12:
-@@ -706,6 +708,8 @@ static int tps6594_regulator_probe(struct platform_device *pdev)
- 				break;
- 			}
- 		}
-+
-+		of_node_put(np_pmic_parent);
- 	}
- 
- 	reg_irq_nb = desc->num_irq_types * (desc->num_buck_regs + desc->num_ldo_regs);
 -- 
-2.34.1
-
+  Kiryl Shutsemau / Kirill A. Shutemov
