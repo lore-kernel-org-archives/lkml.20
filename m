@@ -1,56 +1,56 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED523E410F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 602083EC812
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789620832; cv=none; b=duLslDJJ+DF1hVY9XJt9gfYqC8O3UznHEt2EPOInYVBujJ8uYyj9GKX7vfl7rFy2/JLGw/spvFasWZZfZ3ib7qQDlJ0n4/BSl/9kp26urJBGcOxHMZ8NLE9JJBCj2v/6jxfhQGtgB2oEMTY87zjz3HXGVg22xED+LTg2p+7dpPQ=
+	t=1789620836; cv=none; b=G+O+GsK3ZG3B22Aw+BCBZ30c0jcwaiMzEwQoIUvhnWF8IkMybtz0dRpCNeDZNYMXhoHlwJUAZnir6yqQODpz4UXZVDbpnljGrb/GjRTjJE64WO08JGk/wCn9tkN3FfO5JAMikAYq34fro2FLgeAhQ2inVQyspmjn5fWOOKxmGPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789620832; c=relaxed/simple;
-	bh=5DklQJpfCFJyN0EZrRZqRXjxXKTZyUSm4Q+g/bsrlA8=;
+	s=arc-20240116; t=1789620836; c=relaxed/simple;
+	bh=bomL0Fes29NNGiiCY3TzkSQ4pBsviafH0dPzLu651Cw=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=tOHoQfm0vpqKaQaIVR2JnNcqLh+yyHQtld4wPbBFdDZMCw7qAwirXK3wi0ZyTRaVFBCgvkjq99XNXHzHi63kg5MaGoSM5YzyDBAm0PSki1dtXmwxktjWyvWuvzM+dnsvf6QDDYngIhWMM4M/CtmYabXh3L+Q2gBkwYEJ6vRfQ4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OX25Gn7k; arc=none smtp.client-ip=209.85.215.198
+	 To:Cc:Content-Type; b=jbj1+vgFgVytzFEGdjocZRrMsDFXa7PLvua4/hXXdbEv+JQw1FUVUBmkTS0h/FsglnO9rRp0wH2UVAoqj17x5cWU+G9vIxXBk/gKkr4qpNoy86/LJu1blE4KhMn0R1y3VFKLR/w1OpFCvkXK2jV+8DHmpWyvpgEy0UmlaHpx3Go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=E4YsR1Rc; arc=none smtp.client-ip=209.85.216.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OX25Gn7k"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso566930a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:53:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="E4YsR1Rc"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39d8646b10eso524474a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:53:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789620829; x=1790225629; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789620834; x=1790225634; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ctknpE6kMV5LkwM9lNHtmlsQ1sWEmYmqXPSOFSZmCm4=;
-        b=OX25Gn7kOuOpuWa8t41EIB7Ldk7ZTJVHPh+brxsLz/koIVy6N3BmaKMyy30ZJcnP14
-         IysnRzr6GZQ6xmw953oqfvXTRqKfNp1jAsocJkhT8mw2ryxEG401KsxsFWa6Uam/LV4c
-         Zc5qTgNONK5oP12HGjRuGBEtsB1u3c2AlQ4sOh1zKQJfDc75y1o+3IKcylF83Xcf58aK
-         2lMOZZgRE3A9f2hKpHJq24r2RkGJMNlwUKDuDLXv2jfDLF5feWOpC8iiXbI6ncGVp1Pm
-         JyF8jmqhBGVTu5QIScBoI9EmqX+mmicfIhQnCCCJaf3BFnfwUPq4WiWkZzD9FD5Dfz4t
-         Tiog==
+        bh=VNSDlL+6jb41+CT06vw9CimUr/EO1PFanx+ib8Alnn8=;
+        b=E4YsR1Rc5VwddVLfFcCKLvVQ4n3fXwzmolbJo/U0heOXZdxP7l5r/VWJ7i2XotH2hp
+         u5OUxouki2xXj8uT7P6m/bnfEYGcslH5eYKnkbPlWU0zVZUO+5d4aR+jiBwzloYvZ5Js
+         pu/Y+ugk7ejLNr4aT7nXG3uaHQphHY+gk/IL7KL7QRryXIAg6NPYa1MDP3Mm+qI5ZdZ5
+         OHE3vGfWRL+S90wYyuNnFIbybT2F8dxE9xGolIXySHHLmoc+OcSTdWwg0K/F5vofeNvp
+         LK8MJcb29UXGHd3Q/xWefhSN0gSTCMvnQqzI8UxHy5wz5sF1C630ZC+hxO+VDJmkQBHr
+         0pvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789620829; x=1790225629;
+        d=1e100.net; s=20260707; t=1789620834; x=1790225634;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ctknpE6kMV5LkwM9lNHtmlsQ1sWEmYmqXPSOFSZmCm4=;
-        b=R2dtst94kRI36X5Dyi/o3emWByiJnkNYjsUy/q3w9oD90mT4HMY3K4lPBHeikjoe1a
-         KWeSmgKH3U/kYOl0IqjsFrl4ZRiewqYbFc3VJvU/efGWxbrG7Sigjug7hM6UYh3kUpBV
-         Gz0yxaCbbh20hAhDgm9idDt/zMrCOHfsmJ+XhbvRh0jaxufCL6GhtvcrrHRhmqictiHD
-         a+AOCWQsWCWFWyuTqYOz/Z6zTYKfwKLO+aKSUsDggk9+EEuNvsJ1EveTHJAsRn87w8gE
-         PTdoyVVx+Pgr/N7QcZcDBCBOnnVZ0ScFy0jXQUqYN8VCu1+X4nzVayxlnZOyFjhPhCxV
-         9aBA==
-X-Forwarded-Encrypted: i=1; AKwUvBxjrX4V02bhVgx8xmw0s/YUZEp/gJ/G/I/IY2IgD4yNn2I6++POC0zamABP8I3NBgS5L0t+of+H9dim44I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMAjQ+LY+YPm86Ls+gPeIqZdLpuk352dSVjq2TuiBqqlGbWj1f
-	YweyYE83/I9/oXGmyqEpBaGnqjOFOqcsry4wfWwd4hEeV528CfeRGfXfdWP+XwP10VGdSend9v2
-	6N+vfkAd9WQ==
-X-Received: from dycc4.prod.google.com ([2002:a05:693c:60c4:b0:336:afee:118c])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:2584:b0:3da:bea4:6215
- with SMTP id adf61e73a8af0-3dd5f72046cmr12464935637.19.1789620829321; Wed, 16
- Sep 2026 21:53:49 -0700 (PDT)
-Date: Wed, 16 Sep 2026 21:53:23 -0700
+        bh=VNSDlL+6jb41+CT06vw9CimUr/EO1PFanx+ib8Alnn8=;
+        b=rrtxvNKLKdwNdRbyTNBrkA8gUOokVjYyDf7vehLYlcrS3HYBtJEbdyzzCL+b1ClGHq
+         58u0g88Tfj6sOAMKSKcCFnnnwAukTagOl9kJTNYIFv/UAlww/jgj5b+1qvHHYOsdlms1
+         wC0ODaWWdoEemi8QU0kBdmyL9bxglEs3OJFY0IRkxX+b2MDLTIORK7rAEr83VUy0nT2v
+         tFZTYbuyHiKO//l7DwMaOx26ZH5Q7MdzY4Zwzzn95pk3QEngGmAIK0NiOnnvOqRP8n+R
+         /s5x+FWiqCVEhIxZq+TYbviDJmx5FEPCzzkjSyG1pr4CIWOHo0iOFlpJwOe3oQBDdK6t
+         EJYA==
+X-Forwarded-Encrypted: i=1; AKwUvByPzMYsddbi8Amwgw9+k2NohAvgYP4zZqolCT1YaKc032oPXiOMW0/PnU3u3J55CEVCS5UwD1bnLt1Bfqs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3T5pAbcXFxmBJlkrHIl4BzhA2oK99RkSucb8TkLZOcN5SZ/5B
+	36B/1NmjuqNHxWfc+lKIGnXOShCZkl89Sw3efYyCCeS1hX/6LIl4gAIHXm5eKYL+IJAMF5po5pj
+	xpbhh/rGCIg==
+X-Received: from dlbqq12.prod.google.com ([2002:a05:7022:ed0c:b0:143:6e21:5b07])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:544e:b0:39e:35e4:d31b
+ with SMTP id 98e67ed59e1d1-39e35e4d992mr9190203a91.5.1789620833545; Wed, 16
+ Sep 2026 21:53:53 -0700 (PDT)
+Date: Wed, 16 Sep 2026 21:53:25 -0700
 In-Reply-To: <20260917045326.63601-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260917045326.63601-1-irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260917045326.63601-8-irogers@google.com>
-Subject: [PATCH v1 08/11] perf annotate-data: missing <string.h> inclusion for
- libc string functions
+Message-ID: <20260917045326.63601-10-irogers@google.com>
+Subject: [PATCH v1 10/11] perf config: undeclared PATH_MAX due to missing
+ <limits.h> inclusion
 From: Ian Rogers <irogers@google.com>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
 	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
@@ -73,59 +73,38 @@ Content-Type: text/plain; charset="UTF-8"
 
 Sashiko reported:
 
-  When compiling the perf tool with musl libc,
-  tools/perf/util/annotate-data.c fails to build due to the missing
-  <string.h> header.
+  When compiling the perf tool against a strict C library such as musl
+  libc, a build failure occurs in home_perfconfig() and
+  perf_config__set_variable() due to an undeclared PATH_MAX
+  identifier.
 
-  The source file utilizes standard C library string and memory
-  functions, such as memset() in init_type_state() and strcmp() in
-  data_type_cmp(). While glibc implicitly pulls in <string.h> via
-  other standard headers, musl libc enforces stricter header
-  separation. Because the header is not explicitly included at the top
-  of the file, the compiler encounters implicit function declarations
-  for these standard string functions. This results in a direct
-  compile-time build error.
+  The PATH_MAX macro is defined in the standard POSIX <limits.h>
+  header.  Because tools/perf/util/config.c does not explicitly
+  include this header, build environments that lack implicit header
+  inclusion fail to resolve the identifier. This causes a compiler
+  error when evaluating the size of stack-allocated path arrays,
+  stopping the build.
 
-Add the header files and use git clang-format to sort.
+Add the header file.
 
 Reported-by: sashiko-bot@kernel.org
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/annotate-data.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ tools/perf/util/config.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-index aff60a630fd0..02df833504be 100644
---- a/tools/perf/util/annotate-data.c
-+++ b/tools/perf/util/annotate-data.c
-@@ -4,20 +4,23 @@
-  *
-  * Written by Namhyung Kim <namhyung@kernel.org>
-  */
-+#include "annotate-data.h"
-+
+diff --git a/tools/perf/util/config.c b/tools/perf/util/config.c
+index b2972c35c1ec..5d0cfd86ede6 100644
+--- a/tools/perf/util/config.c
++++ b/tools/perf/util/config.c
+@@ -12,6 +12,7 @@
+ #include "config.h"
+ 
  #include <errno.h>
-+#include <inttypes.h>
++#include <limits.h>
+ #include <stdbool.h>
  #include <stdio.h>
  #include <stdlib.h>
--#include <inttypes.h>
-+#include <string.h>
-+
- #include <linux/zalloc.h>
- 
- #include "annotate.h"
--#include "annotate-data.h"
--#include "debuginfo.h"
- #include "debug.h"
-+#include "debuginfo.h"
- #include "dso.h"
- #include "dwarf-regs.h"
--#include "evsel.h"
- #include "evlist.h"
-+#include "evsel.h"
- #include "map.h"
- #include "map_symbol.h"
- #include "sort.h"
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
