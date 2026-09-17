@@ -1,140 +1,134 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1008449A3D7
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:03:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2F54A3D48
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789686226; cv=none; b=icFkAmnUINxrqejshrQF91qiCmXks9mlHwwGZi61d1vbulSsLAk33sEkhq8E1Ez4K5tH103aS7Nd2fhLK3R1Z0FksdvSfqI3GfyL3E09FhTHt7kFSgc+OP4C1WdEXDbRhpvBqaXEz2IfE9ugzW/wtwk9p8pt7q4guZr87hT2ck0=
+	t=1789686420; cv=none; b=WM5o8w2nAXuq9Qy7+y3X6ha8wN3QBnMYSQvjEcEUgCbx5VMb5EJb5vfRNHkL5q5IC1qGN2cYIs4qPGy/LZgfimFeJj+Aqz+h+MRnCqXg1q1KNlEx0w1paxHCYTmWQJkGwNt4QojhBx0nJjgbPuECbErX3X2+87RJUedOWitzI2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789686226; c=relaxed/simple;
-	bh=fX8Mv2j3jfcMNfxZ/Vvl78fSymNk3CAWNNUODUyuZUQ=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=b62Pin4eAg2yjJfahnvneXTW5y2cxaa4eVOB5qSIRtyr/EA86WghqQzkS2jgR7L5LaEQyfLNfZnbfFOfBYRRjANlqwSRj9R5xNg5ZjXZqnTMYInCNr8QR1IoqqFV76DRKtyfcshZvjHlu1QFl1C5b3Wq0DDFY4S7s2NC5QETa50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--mclapinski.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=m2bxTF44; arc=none smtp.client-ip=209.85.128.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mclapinski.bounces.google.com
+	s=arc-20240116; t=1789686420; c=relaxed/simple;
+	bh=VSx21dpxUhIIA4lpOrFPg/4jNiVhr9XfnhyjQnpuBPo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cHlCPDdaHxP+iJuGQw7J02C0fYYum7B1bMLyG54V5pIym1NJE/zIvJB8k3R90iu02QLbxrCUBkn6NL8NH1SmHm3YJXquS6TMi08PSedYNEhfi6XOsYsV3+bekVGj8Tg6rRh26KTRLhbyiZEBsjg9zrSigsoD4Nz7Nt20ZoMwYzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d3t0ArlP; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="m2bxTF44"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49cd55ee2f7so1111605e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:03:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d3t0ArlP"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39d654f02baso134549a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:06:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789686212; x=1790291012; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oYAViEKIR6jmAp5mlWeLAMEKyuMg7x9lqO4x+CGM4FE=;
-        b=m2bxTF44XTcKTpY3xqttoDLnQN4QjQHAEimEgc7Xu1QCNtCVZ7+4itg/IbrUaQHQoE
-         gERpju5e6FjGobgSjq0jrR1froxe5iLWYu4KYGw9a82BowA+6m02Hm0iVp8qjHqJlf8o
-         gL8puHyceBbzWE7VhHAnmvSg6c3DKTnTXpM8QIEd93sEWZevxYfmeGR3ICPEEUkJOnbW
-         CuGPO2rAmL0SFPsfhYKn0h/PJMMZnuZDDbzQVsklDpAVDb17Ja4HPGbUKmakNkWHCnKu
-         ff7IygsqHzcnn+SgOEaOFLmZE3gkcPtTWUlOlYqeHvutXbh7d2882WGS6rt2+gyzNg6C
-         nCeQ==
+        d=gmail.com; s=20251104; t=1789686412; x=1790291212; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mq0fKELxNSd6gVZID70uil6xvUxTojj4D/0/Wv6m+2s=;
+        b=d3t0ArlPheTeGf32qgzPKvkTHpZzyxzkqRPtGoAYb/hwf8nVMW7mPyvBpHTYP76cWG
+         ZRuLGgOgEatUQdF/pY1mwsJDYscGRDIbKjTYbhYS5Guqffi/e1aWEKx6Me4uih34oO1B
+         /cilRwD2akAj+B2ftccGU6mLi2FccIxGZ4nA0GTXx5nFEmGmiqwNPZvtxmXOz0N9afdH
+         6CJYmm3D1JQ0rEW5FUCuff+zSf0VcbcfUypfY93ic7D0A+BoVQrFS+iIENCUTxtrkxhH
+         iyQzktqKvg4t2v6OVNqmPKteKJ33B4waFfZR6MDyMuAcikrrg2qMAikAMUO11JQw0SPg
+         kWKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789686212; x=1790291012;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oYAViEKIR6jmAp5mlWeLAMEKyuMg7x9lqO4x+CGM4FE=;
-        b=QoRxY/rzm3qowzxRvsiTiMYf4PPvmOmqTWNDE8ka1X5AU1UB7qftAmlsFUaRF0PltS
-         xgcHyPqSy1IFvUy0wwssk1hxbQvtJQWrqTOtamFu7jIyZuNSHyVkyZ8wFxtVt198iTRR
-         dx0IVMTRvMyDTokN2t9lbUjNEMlVJ6loXih8Ytmg06/ahi7YoR3rKDAnqdqGtjQ1pHI7
-         QT6rxxQ6b6OJ/rOmytRcTOzEKMA+/zf+BgNPnLm/HRsJCdpwt4C8yySsqrBWXa8BExjQ
-         01d1kwmkbJdo6oj4ZuteRoa3jQMD/wIh5vpXfXFeOr4FRqlqqftfFHGRFU7dw0iRT3jm
-         NTow==
-X-Forwarded-Encrypted: i=1; AKwUvBzg5lov/38injqbqlqdBJv6jHAWIGID6mkSWtI+gnJ4jBBDgaQYcg+ZhmXYNJ0RNKWBky3+ByX44u38XlU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUFOr7jGIHdAzwV5HjdcdhvJo0XX4W3lQsLZE7h9kA/VWDTlEz
-	gM5GGuVJ1Na4vonVrMKTLrFm5NARSgk2IrBRERTcH5DfCbcdiE7Ph1t2yyPDdoMIVQvHNW91YYG
-	Kz1rDAFEAyWtEis/NiU21Yw==
-X-Received: from wmbds16.prod.google.com ([2002:a05:600c:6290:b0:49e:78cc:d2b])
- (user=mclapinski job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4695:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-49fc55ac96emr5942785e9.0.1789686212281;
- Thu, 17 Sep 2026 16:03:32 -0700 (PDT)
-Date: Fri, 18 Sep 2026 01:03:23 +0200
+        d=1e100.net; s=20260707; t=1789686412; x=1790291212;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mq0fKELxNSd6gVZID70uil6xvUxTojj4D/0/Wv6m+2s=;
+        b=JaocennOdZKNBBHevsm317gbC+5lYt91z8lHSix3IW94nAbs9WouPC6Oj/P41uiVGg
+         GQXsmiegRv00zBvwcxB65PZBLjZuf+ReQ66FJcVysHJQxxRZM1N4OIDTayAbbh+XlF62
+         2UZXaLhRTORscJJRt0IS9d1W2mEpUme7EYKjl07PFmp88GxDnyWpYquDoKeWwoNKRefW
+         OiFzrY1C17edyo35Y6Fa41ikpSzCrfMJxMYsaJT6jHzbjMEJ/db7qPhsIqyTmu/VkK3z
+         rqEnxa5IE+o77OMmfKzfC3dWTfu+X2GGYMUXYxorVXrY81/txznZkf1BMn1g8+oUNQls
+         XKjw==
+X-Forwarded-Encrypted: i=1; AKwUvBybx2/uX2f2d4SrDbW5duTge1xSfD9FmjQBMT2f4UFDZjC/CoPBMkLqr/n48T8uGqGIQxLekcSV4HEBB8U=@vger.kernel.org
+X-Gm-Message-State: AFuF++m819igL0V03C8WvGVbFvfAbtjA1E2tQ6vOasI/rvKn3N4zlPMJ
+	YNl8DXo/M7CEn6FNA2U7u4uX9T/cAoKVKkPiHWiQWQEEHLel0JWAILsk
+X-Gm-Gg: AYBFou1l3IGXKRHD6exNdnN8nVbOT0oHMjN6cod0qG7QWmtfDP0RkMhAwxG0xd+5eko
+	5Y/TjsuzP+4CcXxVtsOt4KkXNNCMaZfveJ+BlZxjr3blDWfvck6Lfe+sqcQcrx4FJWdYaHzyvsq
+	qK1SYMOTYHunG7tYKmUO/DvVXo098xLXp6UTLQmYnRH9dgxMFnMlz7O1uNG7/5+XFWTUNj7Po/P
+	XBgNG4rvkuRgnNVBqSpCiOJHyFBtg8qkKj9HGHQpNoXaU/OmnkLnkGDUZBihRFPkmWkEWg4Sdeo
+	m7tIJb5BYPpTPTME+fqlHKlH4141wbZmUaIlMDqPL6bpuBwpuvlejO9UW8buzBvprlXCmAu0ewx
+	IZmpJPPQ5DTGqRKNDNUPFMZu2Bk1nfPD5WfCGm1cpeKi8bgekRhezCsagAHioElIm/ivaBmfBbE
+	nlWSIAKO3C16RFt88PaaoZGR3DTvXyDh5R+3nsMpgAjutM3YW1hzl5ticbJ0SGNTgXoegPzMqfS
+	+EXthLBD1YBT3/vakOXwrzFuJscI08ApjPmFk461EOfbCtglJRgV/hYdSM+Eeanuoff2j56e+gR
+	sTlazlK8xviIIm+kMnEIs7AHv8i8u9ZZtTI50D4QAObVMZ0+
+X-Received: by 2002:a17:90b:2c8c:b0:39e:433:23b5 with SMTP id 98e67ed59e1d1-39e54aa1442mr1380617a91.5.1789686411923;
+        Thu, 17 Sep 2026 16:06:51 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e360ddfc2sm7079782a91.16.2026.09.17.16.06.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 16:06:51 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2] gpio: mvebu: fix Armada XP per-CPU mask register save/restore
+Date: Thu, 17 Sep 2026 16:06:50 -0700
+Message-ID: <20260917230650.117403-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260917230323.3701743-1-mclapinski@google.com>
-Subject: [PATCH] PCI/DOE: Poll briefly for a response before sleeping
-From: Michal Clapinski <mclapinski@google.com>
-To: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org
-Cc: Lukas Wunner <lukas@wunner.de>, Jonathan Cameron <Jonathan.Cameron@huawei.com>, 
-	Ira Weiny <ira.weiny@intel.com>, Dan Williams <dan.j.williams@intel.com>, 
-	linux-kernel@vger.kernel.org, Michal Clapinski <mclapinski@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-doe_statemachine_work() waits for a response by sleeping
-PCI_DOE_POLL_INTERVAL (PCI_DOE_TIMEOUT / 128) between status reads,
-which is 7 ms at HZ=1000 and 4 ms at HZ=250. Exchanges are served from
-the device's local mailbox logic and typically complete within tens of
-microseconds, so nearly all of that sleep is wasted. Every DOE-capable
-endpoint pays it once per supported feature during enumeration.
+The Armada XP variant keeps the per-CPU edge/level mask registers in a
+second I/O window (percpu_regs) rather than in the main GPIO window.
+The suspend and resume paths however read and wrote them through
+mvchip->regs with the per-CPU offsets, which hits the global
+GPIO_EDGE_MASK / GPIO_LEVEL_MASK registers instead. Per-CPU mask state
+was therefore lost across suspend/resume, so a level line could end up
+unmasked behind genirq's back and trigger an interrupt storm once
+interrupts are re-enabled.
 
-Poll with usleep_range(20, 50) for the first ~2 ms before falling back
-to the jiffies-based wait. On an Intel Emerald Rapids system, time spent
-in pci_device_add() for a DOE-capable endpoint drops from 41.8 ms to
-14.0 ms.
+Use mvchip->percpu_regs for the Armada XP per-CPU mask registers in
+both the suspend save and the resume restore paths, matching the
+mask/unmask handlers and the probe-time masking.
 
-Signed-off-by: Michal Clapinski <mclapinski@google.com>
+Fixes: b5b7b487431b ("gpio: mvebu: add suspend/resume support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/pci/doe.c | 28 +++++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
+ v2: rebase
+ drivers/gpio/gpio-mvebu.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pci/doe.c b/drivers/pci/doe.c
-index ac95b1d2d999..6dc85133a88e 100644
---- a/drivers/pci/doe.c
-+++ b/drivers/pci/doe.c
-@@ -27,6 +27,9 @@
- /* Timeout of 1 second from 6.30.2 Operation, PCI Spec r6.0 */
- #define PCI_DOE_TIMEOUT HZ
- #define PCI_DOE_POLL_INTERVAL	(PCI_DOE_TIMEOUT / 128)
-+#define PCI_DOE_POLL_FAST_MIN_US	20
-+#define PCI_DOE_POLL_FAST_MAX_US	50
-+#define PCI_DOE_POLL_FAST_TRIES		40
- 
- #define PCI_DOE_FLAG_CANCEL	0
- #define PCI_DOE_FLAG_DEAD	1
-@@ -486,7 +489,7 @@ static void doe_statemachine_work(struct work_struct *work)
- 	int offset = doe_mb->cap_offset;
- 	unsigned long timeout_jiffies;
- 	u32 val;
--	int rc;
-+	int rc, tries = 0;
- 
- 	if (test_bit(PCI_DOE_FLAG_DEAD, &doe_mb->flags)) {
- 		signal_task_complete(task, -EIO);
-@@ -524,10 +527,25 @@ static void doe_statemachine_work(struct work_struct *work)
- 			signal_task_abort(task, -EIO);
- 			return;
+diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
+index 267e6d5bacd0..cdd918581540 100644
+--- a/drivers/gpio/gpio-mvebu.c
++++ b/drivers/gpio/gpio-mvebu.c
+@@ -1028,10 +1028,10 @@ static int mvebu_gpio_suspend(struct platform_device *pdev, pm_message_t state)
+ 		break;
+ 	case MVEBU_GPIO_SOC_VARIANT_ARMADAXP:
+ 		for (i = 0; i < 4; i++) {
+-			regmap_read(mvchip->regs,
++			regmap_read(mvchip->percpu_regs,
+ 				    GPIO_EDGE_MASK_ARMADAXP_OFF(i),
+ 				    &mvchip->edge_mask_regs[i]);
+-			regmap_read(mvchip->regs,
++			regmap_read(mvchip->percpu_regs,
+ 				    GPIO_LEVEL_MASK_ARMADAXP_OFF(i),
+ 				    &mvchip->level_mask_regs[i]);
  		}
--		rc = pci_doe_wait(doe_mb, PCI_DOE_POLL_INTERVAL);
--		if (rc) {
--			signal_task_abort(task, rc);
--			return;
-+		/*
-+		 * Exchanges are served from the device's local mailbox
-+		 * logic and usually complete in tens of microseconds, far
-+		 * below the jiffies granularity of PCI_DOE_POLL_INTERVAL.
-+		 * Poll for up to ~2 ms before falling back to it.
-+		 */
-+		if (tries++ < PCI_DOE_POLL_FAST_TRIES) {
-+			if (test_bit(PCI_DOE_FLAG_CANCEL, &doe_mb->flags)) {
-+				signal_task_abort(task, -EIO);
-+				return;
-+			}
-+			usleep_range(PCI_DOE_POLL_FAST_MIN_US,
-+				     PCI_DOE_POLL_FAST_MAX_US);
-+		} else {
-+			rc = pci_doe_wait(doe_mb, PCI_DOE_POLL_INTERVAL);
-+			if (rc) {
-+				signal_task_abort(task, rc);
-+				return;
-+			}
+@@ -1101,10 +1101,10 @@ static int mvebu_gpio_resume(struct platform_device *pdev)
+ 		break;
+ 	case MVEBU_GPIO_SOC_VARIANT_ARMADAXP:
+ 		for (i = 0; i < 4; i++) {
+-			regmap_write(mvchip->regs,
++			regmap_write(mvchip->percpu_regs,
+ 				     GPIO_EDGE_MASK_ARMADAXP_OFF(i),
+ 				     mvchip->edge_mask_regs[i] & edge_cache);
+-			regmap_write(mvchip->regs,
++			regmap_write(mvchip->percpu_regs,
+ 				     GPIO_LEVEL_MASK_ARMADAXP_OFF(i),
+ 				     mvchip->level_mask_regs[i] & level_cache);
  		}
- 		goto retry_resp;
- 	}
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+2.55.0
 
