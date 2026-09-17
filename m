@@ -1,49 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C331568FA0;
-	Thu, 17 Sep 2026 15:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58182342538;
+	Thu, 17 Sep 2026 15:56:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660602; cv=none; b=A2AjlV1OU9J7ersiRF+osXt6M1OGKoGrTUthkm34C4ZT6jzFqU/0OBeEaUUZj4L0N6LSAV/ttcR1oDfYeLKzDKvWhqbe2/+faIIkS+9wcddSJA0WEw/tkjSTEju0aSJv73ReH3biTyxxvD/tuHd+mVdD6+Y6gWW2fKQSmXMxdRA=
+	t=1789660618; cv=none; b=jcb6ShmoLL0xiL+0RG+o5H37ukHIzG8a6OU8Lnpe8XsKGcXqbf/FJuZEl+yyljunF9eeguGhzJNaV36KlY67bMrO/SMOW0ff5/3ur4RmyGLhO/kfhB7kINesV53+YEkzOfdvBIeXwwGW9lMwvoKM7qmdW6zGPnQZObUcOCBQQhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660602; c=relaxed/simple;
-	bh=zHcxKbrunYVsvNyJ+cuY8XMv04mlJthI8lf4qJuxCvM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=etBROGwHzIDU6KOvz6Dp+scKHOzAyBVah8LHjhX5i7n+YFloQINdU9CrFp43At5t15D9ChI6qPIA6Fh3PXjrM0hEr7jlwuTBZBYPWj/5hV3Q4o8YTUvIw+MZPW52cLrcR3jS5sa8ulPK9Nu7we7vPpgycgaV9KES55WNFReM4sU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ohd1aqAk; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ohd1aqAk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3EE21F000FF;
-	Thu, 17 Sep 2026 15:56:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789660601;
-	bh=T9/PygOUc5Sp8CyqFmmxdPTgMyswLof5Pol5Pa1EloE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ohd1aqAkQutlsIlLBI33fHp+tBCwNkBgf9MFHK3lQ5hMGgax2rGUkU3DKpDOjfKef
-	 aMbHigxeFWcBcmgPTwKcAYxlGJpD/9zfgquXi/0LnOYzYj8dlJvtsGdZW2oMrwzXJ1
-	 T5AkSeQrKcj3+OkUkSiTVuYBpcKsifFOE34fYqea/G4J8hME9MCpmg58dDSA5GcOZ0
-	 pFDX85ublTv0fiVhFnjDktp6pW1LZSI+FrLbcPPxf5R6n7mydOwB8z8mfqR2Nf76a3
-	 83JmRdsfPMtXwlg8DHauMijqxzHhk0zm1Z17ae+QeLkVRVD39sJieFGqtJma0u3bEB
-	 1xVyJ+w9XFgTQ==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
+	s=arc-20240116; t=1789660618; c=relaxed/simple;
+	bh=l/uy9ws6uDHU6z+5WCuv9BoP49zJ449mG0VxGCokVFs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Qe8QoPTXsx/ZGk+zg5WUVAUPDkt1QT+4zLpR3O7aKZxwMaMvafc59Du4De6yWMkNEeB5OHEVeOsY4ZrQEJAj9OReLc8bVHlQfGgpNASTGm1yMUbbpmaxbR99+FlO0+cUVb0gwOA00ot5W9A6CD2RMbZg507mB0iDB9JSddiFZ8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC3HzrCDaxqPPmDCA--.6369S2;
+	Thu, 17 Sep 2026 23:56:50 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: gregkh@linuxfoundation.org
+Cc: ilpo.jarvinen@linux.intel.com,
+	jirislaby@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH 15/15] perf mem record: Use the IBS swfilt filter when available
-Date: Thu, 17 Sep 2026 12:55:26 -0300
-Message-ID: <20260917155528.62607-16-acme@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917155528.62607-1-acme@kernel.org>
-References: <20260917155528.62607-1-acme@kernel.org>
+	linux-serial@vger.kernel.org,
+	schung@nuvoton.com,
+	ychuang3@nuvoton.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] serial: ma35d1: Fix clock reference leak in ma35d1serial_probe()
+Date: Thu, 17 Sep 2026 15:56:50 +0000
+Message-Id: <20260917155650.2161274-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,175 +38,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC3HzrCDaxqPPmDCA--.6369S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFWUXF1ktr4rCryxuw4DArb_yoW8Xw4xpF
+	srKrZ5KayUGa48tw1Duw15Zr4fZw4Uta4xCrW7Ga4fuanIqr93tryfJa4jva1UCFykWF47
+	Jr1Iy345uF4jy37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPSb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
+	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
+	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
+	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
+	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF
+	7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxV
+	W8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7I
+	U1oUDJUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgENA2qr888+PAAAs2
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+of_clk_get() returns a clock with a reference that has to be released
+with clk_put(). ma35d1serial_probe() never does that, so the reference
+is leaked on the probe error paths and also when the port is removed.
 
-IBS events with exclude_{user,kernel} bits, as used for per-thread
-recording when kernel samples are not allowed, are rejected by the
-kernel on hardware without the privilege filter, so per-thread 'perf mem
-record' fails on AMD:
+Release it on the error paths and in ma35d1serial_remove().
 
-  $ perf mem record -o /dev/null -- true
-  Error:
-  Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
-  Invalid event (ibs_op/ldlat=0/u) in per-thread mode, enable system wide with '-a'.
-
-Kernel v6.14 added swfilt, a software privilege filter exposed as the
-'swfilt' format term, making those events usable per-thread:
-
-  $ perf record -e ibs_op/ldlat=0,swfilt=1/ -- true
-
-Give the ibs_op memory events a name variant with the swfilt term, used
-when the PMU exposes it, even when the record ends up without exclude
-bits: 'perf record' adds those bits itself when the first open fails,
-after the name was built, and that retry needs the term.  This makes the
-per-thread 'perf mem record' the data type profiling shell test does
-work on AMD kernels with swfilt, and the test's event regex is adjusted
-for the added term.
-
-Suggested-by: Namhyung Kim <namhyung@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Fixes: 930cbf92db01 ("tty: serial: Add Nuvoton ma35d1 serial driver support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- tools/perf/arch/x86/util/mem-events.c      | 14 +++++++++++---
- tools/perf/tests/shell/test_data_symbol.sh |  6 ++++--
- tools/perf/util/mem-events.c               | 18 ++++++++++++++----
- tools/perf/util/mem-events.h               |  2 ++
- 4 files changed, 31 insertions(+), 9 deletions(-)
+ drivers/tty/serial/ma35d1_serial.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/tools/perf/arch/x86/util/mem-events.c b/tools/perf/arch/x86/util/mem-events.c
-index b38f519020ff8c6f..a12d410247dfd47e 100644
---- a/tools/perf/arch/x86/util/mem-events.c
-+++ b/tools/perf/arch/x86/util/mem-events.c
-@@ -7,7 +7,10 @@
+diff --git a/drivers/tty/serial/ma35d1_serial.c b/drivers/tty/serial/ma35d1_serial.c
+index 285b0fe41a86..a073648cc5e4 100644
+--- a/drivers/tty/serial/ma35d1_serial.c
++++ b/drivers/tty/serial/ma35d1_serial.c
+@@ -720,7 +720,7 @@ static int ma35d1serial_probe(struct platform_device *pdev)
  
- #define MEM_LOADS_AUX		0x8203
+ 	ret = clk_prepare_enable(up->clk);
+ 	if (ret)
+-		goto err_iounmap;
++		goto err_put_clk;
  
--#define E(t, n, s, l, a) { .tag = t, .name = n, .event_name = s, .ldlat = l, .aux_event = a }
-+#define E_INIT(t, n, s, l, a, sf) {					\
-+	.tag = t, .name = n, .event_name = s, .swfilt_name = sf,	\
-+	.ldlat = l, .aux_event = a }
-+#define E(t, n, s, l, a) E_INIT(t, n, s, l, a, NULL)
+ 	if (up->port.line != 0)
+ 		up->port.uartclk = clk_get_rate(up->clk);
+@@ -747,6 +747,9 @@ static int ma35d1serial_probe(struct platform_device *pdev)
+ err_clk_disable:
+ 	clk_disable_unprepare(up->clk);
  
- struct perf_mem_event perf_mem_events_intel[PERF_MEM_EVENTS__MAX] = {
- 	E("ldlat-loads",	"%s/mem-loads,ldlat=%u/P",	"mem-loads",	true,	0),
-@@ -21,14 +24,19 @@ struct perf_mem_event perf_mem_events_intel_aux[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,			NULL,				NULL,		false,	0),
- };
- 
-+/*
-+ * IBS events with exclude bits, as used for per-thread recording, are
-+ * rejected without the swfilt software filter, so carry a name variant
-+ * with the term, used when the PMU exposes it.
-+ */
- struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E(NULL,		NULL,		NULL,	false,	0),
--	E("mem-ldst",	"%s//",		NULL,	false,	0),
-+	E_INIT("mem-ldst",	"%s//",		NULL,	false,	0, "%s/swfilt=1/"),
- };
- 
- struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E(NULL,		NULL,		NULL,	false,	0),
--	E("mem-ldst",	"%s/ldlat=%u/",	NULL,	true,	0),
-+	E_INIT("mem-ldst",	"%s/ldlat=%u/",	NULL,	true,	0, "%s/ldlat=%u,swfilt=1/"),
- };
-diff --git a/tools/perf/tests/shell/test_data_symbol.sh b/tools/perf/tests/shell/test_data_symbol.sh
-index d61b5659a46d9a77..52c837fddb639595 100755
---- a/tools/perf/tests/shell/test_data_symbol.sh
-+++ b/tools/perf/tests/shell/test_data_symbol.sh
-@@ -65,15 +65,17 @@ if (($is_amd >= 1)); then
- 	# --ldlat on AMD:
- 	# o Zen4 and earlier uarch does not support ldlat
- 	# o Even on supported platforms, it's disabled (--ldlat=0) by default.
-+	# o Kernels with the swfilt term add it even when ldlat is not
-+	#   supported, so only check ldlat when the term is present.
- 	ldlat=${BASH_REMATCH[1]}
--	if [[ -n $ldlat ]]; then
-+	if [[ $ldlat == *ldlat=* ]]; then
- 		if ! [[ "$ldlat" =~ ldlat=0 ]]; then
- 			echo "ERROR: ldlat not initialized to 0?"
- 			exit 1
- 		fi
- 
- 		mem_events="$(perf mem record -v --ldlat=150 -e list 2>&1)"
--		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150/.*available ]]; then
-+		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150[,/].*available ]]; then
- 			echo "ERROR: --ldlat not honored?"
- 			exit 1
- 		fi
-diff --git a/tools/perf/util/mem-events.c b/tools/perf/util/mem-events.c
-index 0b49fce251fcc184..f45598aa89825d79 100644
---- a/tools/perf/util/mem-events.c
-+++ b/tools/perf/util/mem-events.c
-@@ -82,6 +82,7 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
- 					     char *buf, size_t buf_size)
- {
- 	struct perf_mem_event *e;
-+	const char *name;
- 
- 	if (i >= PERF_MEM_EVENTS__MAX || !pmu)
- 		return NULL;
-@@ -90,24 +91,33 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
- 	if (!e || !e->name)
- 		return NULL;
- 
-+	/*
-+	 * Use the swfilt variant when the PMU exposes the term: 'perf record'
-+	 * adds exclude bits itself when the first open fails, after this name
-+	 * was built, and that retry needs the term in the name.
-+	 */
-+	name = e->name;
-+	if (e->swfilt_name && perf_pmu__has_format(pmu, "swfilt"))
-+		name = e->swfilt_name;
++err_put_clk:
++	clk_put(up->clk);
 +
- 	if (i == PERF_MEM_EVENTS__LOAD || i == PERF_MEM_EVENTS__LOAD_STORE) {
- 		if (e->ldlat) {
- 			if (!e->aux_event) {
- 				/* ARM and Most of Intel */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name,
-+					  name, pmu->name,
- 					  perf_mem_events__loads_ldlat);
- 			} else {
- 				/* Intel with mem-loads-aux event */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name, pmu->name,
-+					  name, pmu->name, pmu->name,
- 					  perf_mem_events__loads_ldlat);
- 			}
- 		} else {
- 			if (!e->aux_event) {
- 				/* AMD and POWER */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name);
-+					  name, pmu->name);
- 			} else {
- 				return NULL;
- 			}
-@@ -117,7 +127,7 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
+ err_iounmap:
+ 	iounmap(up->port.membase);
+ 	return ret;
+@@ -762,6 +765,7 @@ static void ma35d1serial_remove(struct platform_device *dev)
  
- 	if (i == PERF_MEM_EVENTS__STORE) {
- 		scnprintf(buf, buf_size,
--			  e->name, pmu->name);
-+			  name, pmu->name);
- 		return buf;
- 	}
+ 	uart_remove_one_port(&ma35d1serial_reg, port);
+ 	clk_disable_unprepare(up->clk);
++	clk_put(up->clk);
+ }
  
-diff --git a/tools/perf/util/mem-events.h b/tools/perf/util/mem-events.h
-index 5b98076904b0b689..41f628fad10709b9 100644
---- a/tools/perf/util/mem-events.h
-+++ b/tools/perf/util/mem-events.h
-@@ -11,6 +11,8 @@ struct perf_mem_event {
- 	u32		aux_event;
- 	const char	*tag;
- 	const char	*name;
-+	/* Name with the swfilt software privilege filter, when supported. */
-+	const char	*swfilt_name;
- 	const char	*event_name;
- };
- 
+ static int ma35d1serial_suspend(struct platform_device *dev, pm_message_t state)
 -- 
-2.55.0
+2.34.1
 
