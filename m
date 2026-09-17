@@ -1,66 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2124B4E324A
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:51:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB264AAC72
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:53:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789674696; cv=none; b=JUkU183qizUNk7p3rgJ27HC+wYUxprr07bhUFDuRiMeLO+FhVTTvjakAe8FqjLPYU/xG96xkTL3Ejx6nP+h9ScovBkaTMEAuSeyoVRtsislibZrhH+kGwQRkmfjFUEoAffsZLI5QshVLpcOZz7FWu3Wt6Z8pxCBKNHPdgh8siMc=
+	t=1789674801; cv=none; b=Wg1sO0KffOjPDsc+pPzJHc4z0NjIngEjAlSmKY4qK+OXzgXp8GVkxXPHk2EVTAgI6V8Bex5EHM25xgsMI0HR46sSKcNeSc2LALySdBG7FvNJG0dGYHRgvvSqUHHxvpo+DlNweMA+QtcvkvWRe8EKxfgUJZY/ilj4iBM9HNIhfxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789674696; c=relaxed/simple;
-	bh=cnmnDNmuM5/t6RHT2YWu4h0QpQzgHzv5CGThSi+AsRY=;
+	s=arc-20240116; t=1789674801; c=relaxed/simple;
+	bh=2pT1vVhIA9dOAdtSzKkR5lCWOD+5pETJvHxl4DhSfqQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PaYPbQ8NYnUmEDlfsxcOR0ZOEhMyyNvxtsGWzzhlLkgNqzKC4bSchyFzZAv5cQVIhfkTv4gMOXQpiSgOWfEFC99KEJ30uHGYLssuaz3RqFAhuEHdfTmPGtBXz624BJ2BMOVm+1/rGhlAGLw2ahbThrcfhUPKvK03l/J+OfZxvOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gB9PTePX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WxIR4pL89jA2x+LO/CheDtoOuII2E0JXJ7JE1CaxutJaEaXA5P6LTL40h1SPh8TMEGmmRmYQozY6MQb8m3MCKqVSnamVLJ78QJMf4vy9VaobdmuZ1yX3N5nU2eRrvdHwQZZ1MHSiYuKYmQGRHlQV9GsLMOXY1K3F3wPOy8z30WI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9ciFUqs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gB9PTePX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0306D1F000FF;
-	Thu, 17 Sep 2026 19:51:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9ciFUqs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B3A1F000FF;
+	Thu, 17 Sep 2026 19:53:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789674694;
-	bh=286m7qqU+1+My40bWAQal2p0ydHLws71vmZkeNKrn+E=;
+	s=k20260515; t=1789674799;
+	bh=/bB1zlv4QaH8z0SQSRals0luwjzNLh9auRznOToW/aY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gB9PTePXbF3dauZ1CP3Ma7tHqUqd5YHVsVecXPlfNJ+NUCfHThYFSDLNzMr4GjILJ
-	 3qHuCDIMjzIq1xBGE7WugEHUGgsTY6tq/n5mzrD9U8XDFkOfzyNvsxrrONnPUv/nrM
-	 aBQh2VZzECZ0r394i/BXUwUcjcusRsxGgM6kP+25IowEDpZ82CjD3ODQS2g8QPuFBu
-	 x190+xbzPh6rGFMk9MT4pz5LPAyE4NnYwXkw4vuLCComMUx0KvaS1+mNz11WyCnTuX
-	 /PvalH5Vgv6+eLGaRf+ptzbFQK6VyTjvMOYz6i8kuZhTA5tK0LpJcwRSSAlODPHD36
-	 ZYuQkFxd+1oGQ==
-Date: Thu, 17 Sep 2026 13:51:32 -0600
+	b=F9ciFUqs6yvARJwh1q1NVSH260DNVgqwTys+21WMhSZUgeoN1SIZVT1wsT+hx+MYS
+	 /cV9cA7fZX7rTDcwdJP32zhtjmJd4a7GVTIfHNcW0lupQKjheg3R6zgVOujyVI2+/p
+	 +WmjNeNTmkvS+ePJdDwP80RkXDDDYCFO012RJAy+kPQd6GZ73KiScgOGep1bSAU1wf
+	 HSKqA9YkKAqPMzvUyQ1h4jN35JPaNzL4+ecuKTJPgzltQJ2RMXHAI3JTj4e5TewuAr
+	 e1Btl4XCdz1WSn11PlxTnBIBmEIA5AkdROX/K9jEP/TD+4gcwPQZSayJkUHw2JCp6G
+	 N2+2t+GT3Sviw==
+Date: Thu, 17 Sep 2026 13:53:16 -0600
 From: Keith Busch <kbusch@kernel.org>
 To: Arnd Bergmann <arnd@kernel.org>
 Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
+	Sagi Grimberg <sagi@grimberg.me>, Arnd Bergmann <arnd@arndb.de>,
+	Nilay Shroff <nilay@linux.ibm.com>, Hannes Reinecke <hare@suse.de>,
 	Maurizio Lombardi <mlombard@redhat.com>,
-	Arnd Bergmann <arnd@arndb.de>, Hannes Reinecke <hare@kernel.org>,
-	Nilay Shroff <nilay@linux.ibm.com>,
 	John Garry <john.g.garry@oracle.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nvme: work around -Wformat-security warning
-Message-ID: <aqxExPzdo2VMII7Q@kbusch-mbp>
-References: <20260916114533.237863-1-arnd@kernel.org>
+	Alistair Francis <alistair.francis@wdc.com>,
+	Eric Biggers <ebiggers@kernel.org>, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nvme: work around all -Wformat-security warnings
+Message-ID: <aqxFLAyJPD4D1EVC@kbusch-mbp>
+References: <20260917061459.1486026-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260916114533.237863-1-arnd@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260917061459.1486026-1-arnd@kernel.org>
 
-On Wed, Sep 16, 2026 at 01:44:51PM +0200, Arnd Bergmann wrote:
+On Thu, Sep 17, 2026 at 08:04:03AM +0200, Arnd Bergmann wrote:
 > From: Arnd Bergmann <arnd@arndb.de>
 > 
-> Passing a string variable into dev_set_name() causes a warning
-> when building with -Wformat-security enabled:
+> The sysfs code passes two string variables into sysfs_emit(), which is safe
+> in this instance but causes the compiler to warn when -Wformat-security
+> is enabled:
 > 
-> drivers/nvme/host/core.c: In function 'nvme_cdev_add':
-> drivers/nvme/host/core.c:3911:9: error: format not a string literal and no format arguments [-Werror=format-security]
->  3911 |         ret = dev_set_name(cdev_device, name);
+> host/sysfs.c: In function `cntrltype_show´:
+> host/sysfs.c:682:9: error: format not a string literal and no format arguments [-Werror=format-security]
+>    682 |         return sysfs_emit(buf, type[ctrl->cntrltype]);
 > 
-> Remove the temporary strings and let dev_set_name() do the
-> same thing internally.
+> Print these using a "%s" format like all other instances in the same file.
 
 Thanks, applied to nvme-7.3.
