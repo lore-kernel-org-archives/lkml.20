@@ -1,138 +1,122 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.94])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC9C4FC8E5;
-	Thu, 17 Sep 2026 12:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E744D796D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648198; cv=none; b=lPmT3WG29JphU3QDwyfBLN/TCdvvHi2lb+xgAp9rMUXEgk7wWeoDcFKBdBwT/90asImIutxPzuamwxsMl/2YVuRh9p60BVCUs8YmFL25vDIOCJ8BpryXnvSxF+oLLMNhQgyLZ6tbj+4+KI0ww0rY3XyEtebyPqeRe/Wmu/Q7Pnc=
+	t=1789648202; cv=none; b=Aa4hW5lRoQKsHqooqbwRgPaqVq3IsDQubWaE7q63KB9aPrqUQJkohgbLGLVe6OTWddoBFfTnls0FtSOLoeqMkEi/fobplfCKYoazF1NLwP3SLGDvVzaysvgWVeDnjoyKptXLI4aX4FJxogVhR3FCQlPqpiXcHxVV2OvoCSRmceU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648198; c=relaxed/simple;
-	bh=hE4YXXq9f/kz4Pqfu90t6YgBCb4aMDtxvj+Ig7ZfgOY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=jow+quWj47L4p/UwoRglY26zRZy6Se8v/GIcrJPIIfhuBPKsRTGCR6XVK3GZQ1mJLhnRUbl2OuxSuIqh7kJWqETGXWILd6UONod90AjGyf/Tdb258PzwpTZxPGo36MLfmp9gvKaxBl8sgMV8/d+2DSRrCHfqj0x6lLGyQe+6eRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=Nn3/gwWe; arc=none smtp.client-ip=212.42.244.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	s=arc-20240116; t=1789648202; c=relaxed/simple;
+	bh=NiBLOa+Ivz/MGMdtQtUORvBhVtPqCwg0j5rxwwVjFZI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BVmjMo+7AGQfQ2LRSeNAoSczvP5Y83AvmeSdHO7rsHCnD9GyN9opNq9/WV/wDgydEuaYelpGVNN8rzaBOyI41y9tVMwPqAs2chPbVqojZVBO4LugLhbFO2CMWjvcDkoF6dns4rb9mvL7B1dyiFhwsWD/SykB5ATSe4Jb8X56/Vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gU+5HCb6; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="Nn3/gwWe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1789648177; bh=hE4YXXq9f/kz4Pqfu90t6YgBCb4aMDtxvj+Ig7ZfgOY=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=Nn3/gwWemPcdz6OqIU+M4WARBgHgjNI8+RMG204vZBoH/x5d/b5UgnOGS/ag0RgZ6
-	 xDYSgDbAS0vjfGyb216frHmT8j5+L/5Ag1Xkd/OUY6LQOzdvsqh4z5NyfHHkICoKNj
-	 RFPzGSn2Mc2WpdlpBiRv/diuVpmoZ9znEk1lbNDJJFRSAPEiiwyTladJbgQMFYxxfA
-	 MFiV8z2ZkK0jzDLrfDnpP1+kUO619KC1YXezfPJHjBjhc37+hWX47xoTXgngSBODAM
-	 HfeYlkTf/PJ8Hh1pyuSCa/6VQwyfS2RUrdZ5ANVA1+6sjLXkz384DRtvLMKqnmiUz4
-	 tWcV19FkbgOmQ==
-Received: from [2001:bf0:244:244::71] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <t.martitz@fritz.com>)
-	id 6aabdd31-6dc7-7f0000032729-7f000001b6c2-1
-	for <multiple-recipients>; Thu, 17 Sep 2026 14:29:37 +0200
-Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [IPv6:2001:bf0:244:244::71])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Thu, 17 Sep 2026 14:29:37 +0200 (CEST)
-Message-ID: <d17cbd3e-d373-452c-9a7d-dd6d5a413565@fritz.com>
-Date: Thu, 17 Sep 2026 14:29:31 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gU+5HCb6"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so4683585e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:29:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789648180; x=1790252980; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Dtz+Uqi8FvhezfQGwgUreP+CufNocr9p+NqbDN0Xcok=;
+        b=gU+5HCb6NEhmBQLVaLIqnXzYCbuW3y+9zP3j/sbrylZD7lHYyFw9pFNkQiORNKn2+9
+         ecpocjM18AVXqhmb2SxpKUeXm8j+Y5YY0eqe95Ju9PSzoqQDNVvagBBBRiHmAyaNxoSO
+         yrF2knA4eFqyBkfUVMqfIAaC170alJV/Ke3NfGe5vcT8LsMUz1AkGiyw4nqOt58DrBeH
+         edFMUx8EXzNK34fToowfRsGPhAcUCtwcD78tvPUV2sxZL80o7IO0qH+1j5wD8x1fouxk
+         3I6nNpgWk3sZfc3RW+iF7VrURE/zt9+KM6ybjY5XT/davL5nsM4B5Uuztt8JxBvsRJbA
+         86GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789648180; x=1790252980;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Dtz+Uqi8FvhezfQGwgUreP+CufNocr9p+NqbDN0Xcok=;
+        b=z5m/nfEyamHWHUG16zEWzBivwL1L/V0F/G5odp0dyiJXVyZYzLByj9SMBD6ki8YArK
+         eCvgQ+eUzUUNwQBgFxG0qu3YABLLVIYdLvXThz/5pSLQcYYe9wj1EWqUOzAS9tNV3O/S
+         TYD24kOZa9d8xEllmZ7hzlGROCyCYFKUwU9DmxAQuNZRDVyaI4a4SR/wLd20+1tEVuOT
+         CfNU31tx/0eCzoJjIxRuIsMDRyrVyE6aeBvsXqczpJa5xWiZcTmrON2mibcIQZPyFCMC
+         cx4yy0ooKlnEQsr9F5i/Og4/fvMfJ9KUB6E3vmdCx32letts1cG1BqXD/GKS8nll5Myo
+         D5jQ==
+X-Forwarded-Encrypted: i=1; AKwUvByWfnCp4SOMK/5WXU0azc53mMNUuq63l9e0wQRc9Lqta2/U2GwJX8ikkn6y5urlS9U6cvERN8HMF4Dv5Lg=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6l9zp9PgJbkM0/QS628Vw27vs5quZvkGck0UZUOKj6MY1i+Dv
+	RjDiP9WGLNzg9qJ5d5NVh2+2dQFXhRD3Dvs5krQqhrvPJJSrjW5R5iLS
+X-Gm-Gg: AYBFou35rNLxpcRtueUpC1p+IkXmGiCOFvGBAmy9TkgXhCHtCzRHF+ARNiHuu8/nnkJ
+	7XReMNmTUUopjVzGvjFAC9qEKYhEirDaBfmKnAK4G+stq8BS9X53XgxFJ01xv81U/7+P5TOHCEK
+	rlXy3ib4IXCOYMS2q8neNVvAgSY/0d0CRIrmIT5apWNb0jOX+OtDTpQz+EZ89Bq8m5sxz/9D6Av
+	5sWUGbc4kmJ42mx5R1uu0CGd/ulQvTXX0AbY9MNTX6FiEskRmF+dPjpp0ZNDpC2q+zStCXEYd/j
+	JKI6UZbxMLW3rlzxHWiz1cwxQoCuGf2VGj4Z657swO5/+fPWzxR8E529v3sxvtwANUKiPn8dai0
+	yuVmveWCT72DHIOlogJZ21wcbGM/l+a8N/hbUzRzuOavJ4cyuIyRGqNYxisbH7tpOKqNDhxtmlt
+	xnCljvPK/O42olGDnKV3z4V76Dn7UjXQ/q4J0APoIrRJ1b8vqDiVXteArlN3HohMub7bTmj0A3q
+	+uliKkdlM57epEtVaBuh5YbL21E4BcFILCa
+X-Received: by 2002:a7b:c35a:0:b0:49f:bcb7:8e9 with SMTP id 5b1f17b1804b1-49fbcb70a1bmr64001725e9.9.1789648179633;
+        Thu, 17 Sep 2026 05:29:39 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd1ce79csm82621135e9.0.2026.09.17.05.29.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 05:29:39 -0700 (PDT)
+Date: Thu, 17 Sep 2026 13:29:37 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Jan Kara <jack@suse.cz>, linuxppc-dev@lists.ozlabs.org,
+ linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, wine-devel@list.winehq.org,
+ linux-xfs@vger.kernel.org, io-uring@vger.kernel.org, bpf@vger.kernel.org,
+ linux-mm@kvack.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] file: make struct fd_prepare const and kill its err
+ field
+Message-ID: <20260917132937.5a15904e@pumpkin>
+In-Reply-To: <20260917-work-file-fd_prepare-v1-4-b87534ca49f3@kernel.org>
+References: <20260917-work-file-fd_prepare-v1-0-b87534ca49f3@kernel.org>
+	<20260917-work-file-fd_prepare-v1-4-b87534ca49f3@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v5 0/1] macvlan: allow source mode devices along with
- passthru
-To: Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260917100258.2582568-1-t.martitz@fritz.com>
-Content-Language: de-DE
-From: Thomas Martitz <t.martitz@fritz.com>
-In-Reply-To: <20260917100258.2582568-1-t.martitz@fritz.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: 149429::1789648177-014BE0BC-FC2C784A/0/0
-X-purgate-type: clean
-X-purgate-size: 3232
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-03  mail-id: 8B5ACA0422  external: no
 
-Hello,
+On Thu, 17 Sep 2026 11:09:45 +0200
+Christian Brauner <brauner@kernel.org> wrote:
 
-Apologize for forgetting a changelog entry. I'm adding it inline and hopefully don't
-forget include it in the next posting (if any).
+> FD_PREPARE() releases the fd as soon as the file expression fails. The
+> fd either holds the descriptor or the error. The separate field is
+> redundant. Make fd and file plain members and struct fd_prepare simpler.
+> 
+> Callers of FD_PREPARE() get a const pointer to the guard. Simplify all
+> users as they can now easily access the trivial struct.
+> 
+...
+> @@ -191,35 +175,39 @@ static __always_inline struct fd_prepare __fd_prepare(int fd, struct file *file)
+>   * was allocated. If fd_publish() was called the fd and file are
+>   * published and cleanup becomes a nop.
+>   *
+> - * @_fdf: name of struct fd_prepare variable to define
+> + * @_fdf: name of the const struct fd_prepare pointer to define
+>   * @_fd_flags: flags for get_unused_fd_flags()
+>   * @_file_owned: struct file to take ownership of (can be expression)
+>   */
+> -#define FD_PREPARE(_fdf, _fd_flags, _file_owned)			\
+> -	struct fd_prepare _fdf __cleanup(__fd_prepare_cleanup) = ({	\
+> +#define __FD_PREPARE(_guard, _fdf, _fd_flags, _file_owned)		\
+> +	struct fd_prepare _guard __cleanup(__fd_prepare_cleanup) = ({	\
+>  		int __fd = get_unused_fd_flags(_fd_flags);		\
+>  		__fd_prepare(__fd, __fd < 0 ? NULL : (_file_owned));	\
+> -	})
+> +	});								\
+> +	const struct fd_prepare *const _fdf = &_guard
 
-BTW: I'll be attending at LPC in Prague. Would be great to have a chat with your guys there.
+Since the struct is only written by its initialiser, can't it just
+be 'const' ?
 
-Am 17.09.26 um 12:02 schrieb Thomas Martitz:
-> Hello,
-> 
-> we're trying to solve a use case on our devices where two SoC are
-> connected on the same board, using the only available high-speed interface.
-> 
-> One SoC runs the main Linux system including the full routing stack
-> (FRITZ!OS) and the other SoC implements most of the GPON ONT side.
-> 
-> The high-speed interface is of course also used for the user traffic.
-> Therefore we must tell the inter-SoC traffic apart from the user traffic.
-> 
-> We achieve this by matching the well-known MAC address of the ONT SoC.
-> The user traffic passes through the ONT SoC without modifying MAC headers.
-> Now we would like to use macvlan (with source mode devices) on the main
-> SoC side for this but our routing stack requires the rx_handler to be
-> available. Therefore macvlan is currently not an option.
-> 
-> With this patch macvlan becomes an option because the current limitation
-> of either "one passthru device" or "any other configuration" is relaxed
-> for the combination of passthru and any number of source mode devices.
-> 
-> This allows us to configure a source mode device for the other SoC and
-> register an rx_handler for further processing on the passthru device.
-> 
-> Thanks in advance!
-> 
----
-Changes in v5
-- Properly respect "macvlan_addr_busy()" again for non-passthru  interfaces (and avoid calling anymore for passthru interfaces)
-- Guard NETDEV_CHANGEADDR from messing with the lower device
-  address during passthru interface removal
-- restore unicast address (dev_add_uc/_del_uc) handling> Changes in v4
-> - Prevent macvlan_restore_mac() from changing the MAC address
->   of remaining source mode interfaces.
-> - Set MACVLAN_F_PASSTHRU on the macvlan_port only after adding
->   the passthru interface truly succeeds.
-> - Changing existing interfaces to passthru mode shouldn't become
->   allowed.
-> 
-> Changes in v3
-> - fix passthru port removal caused by passing the wrong 
->   device to macvlan_port_release_mac(). This was also
->   detected by syzbot.
-> - macvlan_port_release_mac() is now named macvlan_restore_mac()
->   and gets passed a "struct macvlan_port" directly.
-> - Link to v2: https://lore.kernel.org/netdev/20260709100512.1383421-1-t.martitz@fritz.com/
-> 
-> Changes in v2:
-> - changed several port-wide checks (macvlan_passthru()) to 
->   per-interface checks (vlan->mode == vlan->mode == MACVLAN_MODE_PASSTHRU)
-> - correctly handle removing the passthru interface when there are still
->   source interfaces
-> - Link to initial posting: https://lore.kernel.org/netdev/20260612092345.2352255-1-t.martitz@fritz.com/
-> ---
-> 
-> Thomas Martitz (1):
->   macvlan: allow source mode devices along with passthru
-> 
->  drivers/net/macvlan.c | 107 ++++++++++++++++++++++++++++--------------
->  1 file changed, 73 insertions(+), 34 deletions(-)
-> 
-
-Best regards
-
--- 
-Thomas Martitz <t.martitz@fritz.com>
-FRITZ! Technology GmbH, Berlin (Germany)
+David
