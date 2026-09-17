@@ -1,412 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AA64ED1BD;
-	Thu, 17 Sep 2026 16:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662518; cv=none; b=fIoA8/GRIt60oTxh/nSa+6AldVmFfNbcrMtrmDi0TUYu7wUGZU4tIWKsxrpjP85D8RK4l/QROac+l8x4CYN1yM/4CkrSruRTGOkjM2A/9QH0YaR/0rciSJ8+3HiqmJ4KsZhbTE8w2F3y7XIFuND2eUHJkc+qS/hGDuwlk+Lh+/4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662518; c=relaxed/simple;
-	bh=t2zMqz7GwrO9LwCoKVbfTLpQhoUUcOpzKx1NKvIhX3o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BeThh0zBwa7io6QwGGYFSsodm29OUdMDVZob7Nj2PJ4TcmDMklXAn3175vrPPVX4WGRuR7RqMXs9Ry3yhR0B8+MNRdOHPh2RG1DGhBQ96a193gpW5NiTcgo4k5GdAMZ4IEpLgISyKrA/pKnorxcA3oBEQT3pKH3v8RHMYaJFnE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eptxRHyb; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FAD519DF7
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:29:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789662543; cv=pass; b=kuyIbSrpfbZaC1eVeLM50Pm75MKI0+t8ULrvl1c/mU9ZkteZSvJK0lIFncvqyu/fF18Kq+D2KTumvDvDlupcvaoDfrHw8MFugYCvmHVuqSLXo/VAO4yrH2z24kRQbOUqD374gRy55vcXMRSEi1XNlJLlH89aMgeGgi3sozJRgIw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789662543; c=relaxed/simple;
+	bh=rvD7x46ttJWZaM5cVCvUskJpm2Xz/cV1oMWfQ5BnG+k=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Content-Type; b=F7SALGumjl40GH821ZK+QCLR1xe7kcub9+ita9Impwa/WgT2XHTb0WhWXSYu0If8i5uZgsNdaFlgkQ2vLV3Re3vr7D44PRIL5OA1fpauHP/DGtkmmjLSfFlz4aGIZateP70jWytG0U6vHCN5C2H4t3lk5kkuL2lmz8Q2KOk8yp4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pRo1uyBG; arc=pass smtp.client-ip=74.125.224.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eptxRHyb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2124A1F000FF;
-	Thu, 17 Sep 2026 16:28:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789662516;
-	bh=10L90PzOXSgbgk2Yp7RVeipj6WjV7mej+Ed4jbhmuXc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=eptxRHybXyah7jNOCIE+oNZ/IohTqXcA0mkjUlcUQNeIMBlwC5WNDaEuR8zKtnzp4
-	 d8gtAZBhi138AiUGojyUOlhSC6Bwi6+oyHGdcO6uaB+TO6TNwiasU++a5qxAMoMUOU
-	 8XiShLwMIh5+BqAn96wOTWp1Dc0vJZpa0rkoYOfM+K+a5qP8hlcAxkdbt9H+MGcfGy
-	 SuiBKUxlWP78pgDt3HtcFJ07iR5IUgdl05lka5bLNHOTdtpu07zevV83G1yl6K/X5j
-	 JUeen7SEg+ZMhnQNHztAL3ahdOERkML9Qe/Tsy/kHlDigHfQHtqNpfEX71xIsrSuE7
-	 N8yKvZuWdcGTw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:20 +0100
-Subject: [PATCH v3 11/40] infiniband: update hfi1 to use
- remap_vmalloc_range()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pRo1uyBG"
+Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-671017a4b55so1019702d50.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:29:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789662541; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jCq/XKmGqMT9A/BxdQDBaFfBNT3APZtZvXfH2DqYu7CfUWcxnVXwwSH7+KjvHgsig4
+         bA9pogmC8KGsAxe/AbjxKsr2IXTDCgRN/3BoVVdycwfiOye6cGIvK0MbeDc+t7IewCRO
+         p4RwYzOiY7sHM1K10CBNLxhFY4ld/urIOEFzRY6ozdRx/H7HMljR+Jn+TIO/ICJpMGwZ
+         bv+hvRHFoHzo1ZPIv3sWxsm73xROhsF+KFiRzy7c8iN6uP5+/WMlYasBD6Q4KKixKBtB
+         N9NOh6vo/Tj7/jQ8yzDRALTkGhQns86ZqdhTiBOxus/1ayFqqUI2wiA99wRW7tmx1CgP
+         VBHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=oedZKDoguVwNLbYxz2lRBjmCCu67v3k6W9evv7i7wzc=;
+        fh=hhIiv3dZ5RM+vbl9mZEW8fASDEtQeALkjm7AJQpRL1s=;
+        b=DkYKs8Gg6gf0kou+LjZAcjBZZ4Jqe2U458GpBdd7k5QGrbVd38PqZ4GceLSby+JMG7
+         eLI/VX5N79KUQTlDRObrAM2tiBQ1MRyxp6z8uJnwqaUzF4BGAVK9PTrGDEvKUG5M8lkS
+         /wqrOKXyiJPXPTTEe7M25wHsEiXQslJbx9CfrYl7rIUSXWN6sd0zBemKWhNLkP+Hqicu
+         t68W88OF6VC9KNd7mREyFHd9iHc/mnNub+xqX8Ti4rUdygC514qQWrxYKGZx1vWxibI0
+         aNR4+wcnCpfFnWGw1YIcD/WyU+9eSWVAA1V4RoDjmKmd5ptoXXQe+Vao8Iqp/23o+ZaX
+         /f5Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789662541; x=1790267341; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:mime-version:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=oedZKDoguVwNLbYxz2lRBjmCCu67v3k6W9evv7i7wzc=;
+        b=pRo1uyBG4AeX0tygq+zALrpaRCOQBcXlUzx0fp5AqjxJ+LBjZODOCE+xAAZGVJIvUl
+         fV4EF30C2Z3nBP6VFCKebqcZh8oYrgSekRdrrdL0bT5QTwmdfhqKBLzdcRaXrgoyA4Rr
+         09MrHNWOdtaAl01uHJOx+lcxWgbHztrEBY0kPs9Ch5FYB6UMNnrklUutLDllJEzEErzc
+         +SPBEa7+jPg5uTX6M1EC0YAQo35K4pTlnSA9XitC1beeCVNO5K7ASaBecNsksHOfy0cc
+         ca8gVtg3jsNXA4sK3PH9hCWwLR3Nbx0gVERVsFC8kntpjF5RLdF2ptpxheQuLOuDX4aZ
+         X0eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789662541; x=1790267341;
+        h=content-type:to:subject:message-id:date:mime-version:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oedZKDoguVwNLbYxz2lRBjmCCu67v3k6W9evv7i7wzc=;
+        b=2m6OahZOTrkOALJFt+XCjOyGTpRouupu5npeNeUbGxDFskfJaRB52f6vRmy44sLWbn
+         v9vgGd0+zSjYAe8UB8tleTmDr7r1hnOE2ajZ1WdH1fzbbu08g4GfB3pCnLPQU8kmNw5q
+         1fi1ubrnZtf68HDCmeCWI6SP9pZY7oNzT4q/PFWuTgqqtiwgP88obhv+GpJCqNgk/A+k
+         2Ni0+Eo0v/ssNLf6wfngqtdQzWSI1mfdPm4iQNoXSU25ftlk6NY8xjjQ7SL/0cyYCRmJ
+         +1hBHoMqasCFhHgKxK0EHZigAgSx+tpR5WWBRKrX1gpZiVGqGPbytZ1OgityggBuKMyM
+         wBFw==
+X-Forwarded-Encrypted: i=1; AKwUvBw30q7ceqytqZD+C3WnraStDVxEZzJuiBNrci0tW+6GQ5QDJA65AqwdvEQhq4O7ftrnFIYGQN75KMndu1k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfgXfzJsuzitWwLdaZ4ZtFWhSKk2QDRLubk/QMYrPm8XU4AVhm
+	sdjp0C3BZ0MhJl8J8ripfEwEucPiJcSJdiDrVkPIW/0VbjqnqiBI6OMdObBrPdJMtgWrkJO4I4p
+	wfipTGJ+WsvXp1Ro7HAYV0Axtoad2N0IX4g==
+X-Gm-Gg: AYBFou3qlocyNdLDvJbuD12mJBD081QiJODkkPrFlD4/7sJrRAac0t2HbMiI4rSM2q0
+	nuNA9hm4UmZRNtPpL1e0OoPFqssgly6wVRfg/sJAQNNTBwxLz+C8t9OudF0aeC5nX673n6pZoak
+	Nc5sgM21M4nE+vucpETn3lQuN68kxfqosxork4cRi5HhvruhmzjxLh9GX5IpIg0mYVZGjEahzJ3
+	02RRWmLg3T07zz+hfCM6CpfjZ4YoTaSK1yHJ5O2PdZtTegE6n/T8LKKovk2bIMp3SMGOs5boWu4
+	kA1ieR0yAxld5tk8hi30acrMNh4Cr5gBr+Yf00kWWlBjh4OqNTOxR4kwraOqTYI76NgAcubsFi9
+	NLhxvqrvdPuwcYO8neQ==
+X-Received: by 2002:a05:690e:428b:20b0:671:5c2e:82a8 with SMTP id
+ 956f58d0204a3-671632732afmr1767388d50.52.1789662541223; Thu, 17 Sep 2026
+ 09:29:01 -0700 (PDT)
+Received: from 313336824172 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 17 Sep 2026 09:29:00 -0700
+Received: from 313336824172 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 17 Sep 2026 09:29:00 -0700
+From: alan.hovgaard@gmail.com
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-11-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10306; i=ljs@kernel.org;
- h=from:subject:message-id; bh=t2zMqz7GwrO9LwCoKVbfTLpQhoUUcOpzKx1NKvIhX3o=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB/I5ar705nlbL5p8RP3w1ENcvnWn7/u+3DPM1z4x
- s7dtlNWdJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAioQsZGZbmbN6bpFR6+7/T
- KY9TJsH7NW+e73vXWf95deY+y18yvwwY/mmcfu6nElTK9/PA1i+9Bi9XdGeveP9BuvB0xKNzR2Z
- nfmAHAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Date: Thu, 17 Sep 2026 09:29:00 -0700
+X-Gm-Features: AcwNN1V7jOBqK4FdRC1JlcHGnDHEP0gBHD6CVBE-iRa0WkhDx235spPNxiQwXKk
+Message-ID: <CAJEbJRCH_YwTt68oPEmqz_-CGAgCJ5-dGocALr7k4zjyUUnY=Q@mail.gmail.com>
+Subject: False-positive missing-firmware warnings for devices not present on
+ the machine
+To: linux-firmware@kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-In cases which map chip memory from vmalloc()'d ranges, the hfi1 infiniband
-drivers currently installs a fault handler, and then smuggles the kernel
-virtual address of this range in vma->vm_pgoff.
+Hello linux-firmware maintainers and Linux kernel maintainers,
 
-This is exposing KASLR-sensitive internal kernel state in the VMA, and is
-entirely unnecessary.
+I am an Arch Linux user writing about a user-facing warning that
+appears on every kernel upgrade. It is driven by MODULE_FIRMWARE
+metadata on in-tree modules, then printed by the distro initramfs
+generator (mkinitcpio) as:
 
-Instead, use remap_vmalloc_range() to remap the VMA to the span, and
-eliminate the fault handler altogether.
+    WARNING: Possibly missing firmware for module: 'ast'
+    WARNING: Possibly missing firmware for module: 'xhci_pci_renesas'
+    WARNING: Possibly missing firmware for module: 'qla2xxx'
+    WARNING: Possibly missing firmware for module: 'qed'
+    WARNING: Possibly missing firmware for module: 'aic94xx'
+    WARNING: Possibly missing firmware for module: 'bfa'
+    WARNING: Possibly missing firmware for module: 'wd719x'
+    WARNING: Possibly missing firmware for module: 'qla1280'
 
-remap_vmalloc_range() checks that the VMA does not extend beyond the
-vmalloc area, and the driver already requires the VMA to exactly match the
-span of the memory being mapped, so this has no impact.
+None of that hardware is in this computer. I find it a strange
+antipattern to report missing firmware for devices that are not
+present. Treating that as a WARNING is, in my view, plain wrong and
+misleading. Why on earth is the default to warn about hardware that
+is not even in the machine?
 
-The memory is all preallocated so not having a fault handler has no impact
-either, other than pre-mapping the ranges which is beneficial.
+Machine: Lenovo Legion Pro 5 16IRX8 (laptop)
+GPU:     Intel Raptor Lake-S UHD + NVIDIA GeForce RTX 4070 Max-Q
+USB:     Intel 700 Series xHCI
+Storage: Samsung NVMe
+Ethernet: Realtek RTL8111
+Wi-Fi:   Intel CNVi
 
-We also remove the VM_IO flag as it's not appropriate here, and the
-VM_DONTEXPAND flag as remap_vmalloc_range() will set it (and also mark the
-range correctly as a mixed map).
+  Module              What it is                         On this PC
+  ------------------  ---------------------------------
+------------------------------------------
+  ast                 ASPEED BMC/IPMI server graphics    No -- Intel
+UHD + RTX 4070
+  xhci_pci_renesas    Renesas USB 3.0 xHCI firmware      No -- USB is
+Intel 700-series xHCI
+  qla2xxx             QLogic Fibre Channel HBA           No
+  qed                 QLogic FastLinQ enterprise NIC     No --
+ethernet is Realtek RTL8111
+  aic94xx             Adaptec SAS/SATA RAID              No
+  bfa                 Brocade Fibre Channel HBA          No
+  wd719x              Old Western Digital SCSI HBA       No
+  qla1280             Old QLogic SCSI HBA                No
 
-We also update the vmalloc paths to place the virtual kernel address in
-memvirt, rather than overloading the physical address memaddr. We predicate
-the vmalloc handling on the vmalloc flag before we check memvirt for the
-virtual address-derived PFN remap path, so this works fine.
+None of those modules are loaded. lspci shows no matching devices.
 
-remap_vmalloc_range() requires that the vmalloc()'d areas were all
-allocated using vmalloc_user() - each of cq->comps,
-uctxt->subctxt_rcvegrbuf, uctxt->subctxt_rcvhdr_base,
-uctxt->subctxt_uregbase and dd->events were allocated this way, so that
-requirement is satisfied.
+I understand MODULE_FIRMWARE lists every blob a driver might request
+for any supported device variant, not "firmware required on this
+host." Distros then treat that list as a checklist when they pack
+generic storage/USB/GPU modules into an initramfs. The result is
+false-positive WARNINGs on ordinary laptops for QLogic Fibre Channel,
+Brocade FC, Adaptec RAID, old SCSI cards, ASPEED BMC, and Renesas USB.
 
-We also remove VM_IO and VM_DONTEXPAND from the STATUS command, as these
-are both set on remap.
+A warning should mean something is actually wrong with this machine.
+I am asking for this default to change.
 
-Finally, we remove VM_DONTEXPAND from the PIO_BUFS, PIO_BUFS_SOP and UREGS
-commands, as these are also all set on remap. PIO_CRED retains it, as
-dma_mmap_coherent() may map via vm_insert_page() on the IOMMU-DMA path,
-which sets only VM_MIXEDMAP. The RCV_HDRQ, RCV_EGRBUF and RTAIL commands
-also map via dma_mmap_coherent() and never set VM_DONTEXPAND, so set it for
-them for the same reason.
+On the kernel / firmware-metadata side, that could mean:
 
-Note that we retain expected behaviour throughout - the vmalloc remapped
-ranges set VM_MIXEDMAP | VM_DONTDUMP | VM_DONTEXPAND for each range.
+  - Distinguishing required vs optional firmware in MODULE_FIRMWARE /
+    modinfo, so initramfs generators can stop false-positive warnings
+  - Or documenting a stable way for userspace to know that a firmware
+    blob is only needed if a given PCI ID is present
 
-VM_IO was never appropriate as the ranges are explicitly not MMIO, and the
-reference to the v3.7 VM_RESERVED semantics map on to VM_MIXEDMAP |
-VM_DONTDUMP | VM_DONTEXPAND correctly - no core dump, unmergeable, no
-normal vm page for purposes of reclaim/migration/etc.
+I am sending the same request to the Arch mkinitcpio maintainers,
+who emit the warning today. I would like the user-visible default to
+stop warning about devices that are not in the computer.
 
-There is a change in behaviour in that pages mapped using
-remap_vmalloc_range() will now have normal GUP-able pages, however this
-should have no impact as there is no reason not to allow this.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- drivers/infiniband/hw/hfi1/file_ops.c | 83 +++++++++++------------------------
- 1 file changed, 25 insertions(+), 58 deletions(-)
-
-diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
-index dc548e6802e2..b02d1f1dbb27 100644
---- a/drivers/infiniband/hw/hfi1/file_ops.c
-+++ b/drivers/infiniband/hw/hfi1/file_ops.c
-@@ -70,7 +70,6 @@ static int set_ctxt_pkey(struct hfi1_ctxtdata *uctxt, unsigned long arg);
- static int ctxt_reset(struct hfi1_ctxtdata *uctxt);
- static int manage_rcvq(struct hfi1_ctxtdata *uctxt, u16 subctxt,
- 		       unsigned long arg);
--static vm_fault_t vma_fault(struct vm_fault *vmf);
- static long hfi1_file_ioctl(struct file *fp, unsigned int cmd,
- 			    unsigned long arg);
- 
-@@ -85,10 +84,6 @@ static const struct file_operations hfi1_file_ops = {
- 	.llseek = noop_llseek,
- };
- 
--static const struct vm_operations_struct vm_ops = {
--	.fault = vma_fault,
--};
--
- /*
-  * Types of memories mapped into user processes' space
-  */
-@@ -304,13 +299,13 @@ static ssize_t hfi1_write_iter(struct kiocb *kiocb, struct iov_iter *from)
- 	return reqs;
- }
- 
--static inline void mmap_cdbg(u16 ctxt, u8 subctxt, u8 type, u8 mapio, u8 vmf,
-+static inline void mmap_cdbg(u16 ctxt, u8 subctxt, u8 type, u8 mapio, u8 is_vmalloc,
- 			     u64 memaddr, void *memvirt, dma_addr_t memdma,
- 			     ssize_t memlen, struct vm_area_struct *vma)
- {
- 	hfi1_cdbg(PROC,
--		  "%u:%u type:%u io/vf/dma:%d/%d/%d, addr:0x%llx, len:%lu(%lu), flags:0x%lx",
--		  ctxt, subctxt, type, mapio, vmf, !!memdma,
-+		  "%u:%u type:%u io/vmalloc/dma:%d/%d/%d, addr:0x%llx, len:%lu(%lu), flags:0x%lx",
-+		  ctxt, subctxt, type, mapio, is_vmalloc, !!memdma,
- 		  memaddr ?: (u64)memvirt, memlen,
- 		  vma->vm_end - vma->vm_start, vma->vm_flags);
- }
-@@ -325,7 +320,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		memaddr = 0;
- 	void *memvirt = NULL;
- 	dma_addr_t memdma = 0;
--	u8 subctxt, mapio = 0, vmf = 0, type;
-+	u8 subctxt, mapio = 0, is_vmalloc = 0, type;
- 	ssize_t memlen = 0;
- 	int ret = 0;
- 	u16 ctxt;
-@@ -347,7 +342,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 	/*
- 	 * vm_pgoff is used as a buffer selector cookie.  Always mmap from
- 	 * the beginning.
--	 */ 
-+	 */
- 	vma->vm_pgoff = 0;
- 	flags = vma->vm_flags;
- 
-@@ -366,7 +361,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		 */
- 		memlen = PAGE_ALIGN(uctxt->sc->credits * PIO_BLOCK_SIZE);
- 		flags &= ~VM_MAYREAD;
--		flags |= VM_DONTCOPY | VM_DONTEXPAND;
-+		flags |= VM_DONTCOPY;
- 		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
- 		mapio = 1;
- 		break;
-@@ -401,6 +396,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		memlen = rcvhdrq_size(uctxt);
- 		memvirt = uctxt->rcvhdrq;
- 		memdma = uctxt->rcvhdrq_dma;
-+		flags |= VM_DONTEXPAND;
- 		break;
- 	case RCV_EGRBUF: {
- 		unsigned long vm_start_save;
-@@ -422,7 +418,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 			ret = -EPERM;
- 			goto done;
- 		}
--		vm_flags_clear(vma, VM_MAYWRITE);
-+		vm_flags_mod(vma, VM_DONTEXPAND, VM_MAYWRITE);
- 		/*
- 		 * Mmap multiple separate allocations into a single vma.  From
- 		 * here, dma_mmap_coherent() calls dma_direct_mmap(), which
-@@ -438,7 +434,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 			memvirt = uctxt->egrbufs.buffers[i].addr;
- 			memdma = uctxt->egrbufs.buffers[i].dma;
- 			vma->vm_end += memlen;
--			mmap_cdbg(ctxt, subctxt, type, mapio, vmf, memaddr,
-+			mmap_cdbg(ctxt, subctxt, type, mapio, is_vmalloc, memaddr,
- 				  memvirt, memdma, memlen, vma);
- 			ret = dma_mmap_coherent(&dd->pcidev->dev, vma,
- 						memvirt, memdma, memlen);
-@@ -467,7 +463,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		 * user registers.
- 		 */
- 		memlen = PAGE_SIZE;
--		flags |= VM_DONTCOPY | VM_DONTEXPAND;
-+		flags |= VM_DONTCOPY;
- 		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
- 		mapio = 1;
- 		break;
-@@ -476,15 +472,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		 * Use the page where this context's flags are. User level
- 		 * knows where it's own bitmap is within the page.
- 		 */
--		memaddr = (unsigned long)
--			(dd->events + uctxt_offset(uctxt)) & PAGE_MASK;
-+		memvirt = dd->events + uctxt_offset(uctxt);
-+		memvirt = (void *)(((uintptr_t)memvirt) & PAGE_MASK);
- 		memlen = PAGE_SIZE;
--		/*
--		 * v3.7 removes VM_RESERVED but the effect is kept by
--		 * using VM_IO.
--		 */
--		flags |= VM_IO | VM_DONTEXPAND;
--		vmf = 1;
-+		is_vmalloc = 1;
- 		break;
- 	case STATUS:
- 		if (flags & VM_WRITE) {
-@@ -493,7 +484,6 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		}
- 		memaddr = kvirt_to_phys((void *)dd->status);
- 		memlen = PAGE_SIZE;
--		flags |= VM_IO | VM_DONTEXPAND;
- 		break;
- 	case RTAIL:
- 		if (!HFI1_CAP_IS_USET(DMA_RTAIL)) {
-@@ -512,25 +502,23 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		memvirt = (void *)hfi1_rcvhdrtail_kvaddr(uctxt);
- 		memdma = uctxt->rcvhdrqtailaddr_dma;
- 		flags &= ~VM_MAYWRITE;
-+		flags |= VM_DONTEXPAND;
- 		break;
- 	case SUBCTXT_UREGS:
--		memaddr = (u64)uctxt->subctxt_uregbase;
-+		memvirt = uctxt->subctxt_uregbase;
- 		memlen = PAGE_SIZE;
--		flags |= VM_IO | VM_DONTEXPAND;
--		vmf = 1;
-+		is_vmalloc = 1;
- 		break;
- 	case SUBCTXT_RCV_HDRQ:
--		memaddr = (u64)uctxt->subctxt_rcvhdr_base;
-+		memvirt = uctxt->subctxt_rcvhdr_base;
- 		memlen = rcvhdrq_size(uctxt) * uctxt->subctxt_cnt;
--		flags |= VM_IO | VM_DONTEXPAND;
--		vmf = 1;
-+		is_vmalloc = 1;
- 		break;
- 	case SUBCTXT_EGRBUF:
--		memaddr = (u64)uctxt->subctxt_rcvegrbuf;
-+		memvirt = uctxt->subctxt_rcvegrbuf;
- 		memlen = uctxt->egrbufs.size * uctxt->subctxt_cnt;
--		flags |= VM_IO | VM_DONTEXPAND;
- 		flags &= ~VM_MAYWRITE;
--		vmf = 1;
-+		is_vmalloc = 1;
- 		break;
- 	case SDMA_COMP: {
- 		struct hfi1_user_sdma_comp_q *cq = fd->cq;
-@@ -539,10 +527,9 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 			ret = -EFAULT;
- 			goto done;
- 		}
--		memaddr = (u64)cq->comps;
-+		memvirt = cq->comps;
- 		memlen = PAGE_ALIGN(sizeof(*cq->comps) * cq->nentries);
--		flags |= VM_IO | VM_DONTEXPAND;
--		vmf = 1;
-+		is_vmalloc = 1;
- 		break;
- 	}
- 	default:
-@@ -559,12 +546,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 	}
- 
- 	vm_flags_reset(vma, flags);
--	mmap_cdbg(ctxt, subctxt, type, mapio, vmf, memaddr, memvirt, memdma, 
-+	mmap_cdbg(ctxt, subctxt, type, mapio, is_vmalloc, memaddr, memvirt, memdma,
- 		  memlen, vma);
--	if (vmf) {
--		vma->vm_pgoff = PFN_DOWN(memaddr);
--		vma->vm_ops = &vm_ops;
--		ret = 0;
-+	if (is_vmalloc) {
-+		ret = remap_vmalloc_range(vma, memvirt, 0);
- 	} else if (memdma) {
- 		ret = dma_mmap_coherent(&dd->pcidev->dev, vma,
- 					memvirt, memdma, memlen);
-@@ -588,24 +573,6 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 	return ret;
- }
- 
--/*
-- * Local (non-chip) user memory is not mapped right away but as it is
-- * accessed by the user-level code.
-- */
--static vm_fault_t vma_fault(struct vm_fault *vmf)
--{
--	struct page *page;
--
--	page = vmalloc_to_page((void *)(vmf->pgoff << PAGE_SHIFT));
--	if (!page)
--		return VM_FAULT_SIGBUS;
--
--	get_page(page);
--	vmf->page = page;
--
--	return 0;
--}
--
- static __poll_t hfi1_poll(struct file *fp, struct poll_table_struct *pt)
- {
- 	struct hfi1_ctxtdata *uctxt;
-
--- 
-2.55.0
-
+Thank you,
+Alan Hovgaard
+Arch Linux user
