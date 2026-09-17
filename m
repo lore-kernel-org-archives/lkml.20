@@ -1,80 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46349409277;
-	Thu, 17 Sep 2026 22:33:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583A54A1E05;
+	Thu, 17 Sep 2026 22:34:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789684439; cv=none; b=Cl1nOvuBgQsLCYWmKw7gpALdjRlowdKQLRVofTi7OuSqGC91D6FGlGEJxm5xeo2tV7WQNREgXq4jQF2uhNifyO7R6XWw/9F/SIBjNsu7j9S/BtNVIEoMi1jsQQ0IMkSFoC7fGFd7JnO371YrJzrXL1+n9obYtqTz91EN+BAcmE8=
+	t=1789684441; cv=none; b=U81WjfOgXcz6fQSFSbrsqvDgC5Xtmss9o/3GI0JxIc8K/aneRm1eF01JFFqK4A0XlQT6hSD1ZhiqNFEHOXAdgqPxSvdoiaaBCoRH32EaozqxNkVZyINcb5l61JU/G9yr5z2DIyw5IyUeG8YFkmZBy+KFARnLnrRT0vW5AuZ4DlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789684439; c=relaxed/simple;
-	bh=2G1CPJjM6uhgtZBULO5YltYISxOjafoeCkhP9z7kLeg=;
+	s=arc-20240116; t=1789684441; c=relaxed/simple;
+	bh=tXkh16j/Thv+s9cP7UX0gqw0LlvCxf76Arv3zXbeDrY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X/Pg1CgR987Gi7zAmBlih2iV33sKgs8t3VzZQ8uoQUU/GILPZxYje/WL0HsNOjtRaBiHOidZZ9w7HVbelWCC4ZZ0tmlIfgh/jjIidCK4oACPmtmqC9+ukC7aA5F3PISm2Qdb+DhKFQ3EyBuqSCMN9U4/sJFLjRFF69C2OAb3CBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Itur1K5D; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fFPEGXz1/zlZrkmwJDt12sfuy9uH2VfWbB8GsnC6N3aGqXc1GC5KT6tW4OEZN3duYtvihKqCUOhScAP7AWVR3+IVMAUhzFMy0ngfICjGAFwDA/B50W8VnabXkHN7iS82sF3QrzuxuDIF9mYka8+lFD+c31ZCg5pPDbcgXVvl8x8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WNdgG5DS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Itur1K5D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D8C1F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WNdgG5DS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93EE61F000FF;
 	Thu, 17 Sep 2026 22:33:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789684437;
-	bh=yumYLHUvW3/1TS23nhuUD9hW8oj7UmGI7exEUoW5L3Y=;
+	s=k20260515; t=1789684440;
+	bh=tXkh16j/Thv+s9cP7UX0gqw0LlvCxf76Arv3zXbeDrY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Itur1K5DcIonMQiFwCuSHBNC+G+XgkC1by6FAyKs3y5O1/YfSdAXaH9OEQN3hR5AV
-	 rvBEyOiDZQYrAyqvbgJPSJWjXECGWbV/YJT5QX4ThTxAmqSbQSxG+j3ggXfuxCu3Pg
-	 +e9FkKsonOK5nog+e/qOAxVUbhvfFXxF/2KgcY+oc3ugc0ZjJrcVKUywXno/WfGr/d
-	 dM5WesB0jmc2W4QxyudRDtKmUZ+w1unw6lajm/d956LXWI3WssEghNuKZ049iVCWIJ
-	 dyxFwqs8sE1zQR3gS3UR+mY4AYP8ahkRcrJ7OSgi4oncb34suUc5a9NHY2zS/bHSJq
-	 hacZuzCMFWZAQ==
-Date: Thu, 17 Sep 2026 17:33:55 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Sven Peter <sven@kernel.org>
-Cc: Neal Gompa <neal@gompa.dev>, Janne Grunau <j@jannau.net>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>, devicetree@vger.kernel.org,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Mika Westerberg <westeri@kernel.org>, linux-usb@vger.kernel.org,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, asahi@lists.linux.dev,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 06/22] dt-bindings: thunderbolt: Add Apple
- USB4/Thunderbolt ACIO block
-Message-ID: <178968443469.4111891.16643051848376045316.robh@kernel.org>
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-6-1f80085f93fb@kernel.org>
+	b=WNdgG5DS3KQnHaWNU+TDLlgSaj3d54kvjXav4ma5fjCLAES1Bl113qxoQgiY1TrOj
+	 ZlqxNeiNKMsMqahjxk8FGzgsO30737PX2VT2GFlnoRCCvSqj92vT469DaDPG/Om2ah
+	 IdB7ICbLYWpxYHUbPz8OEpfkay4B2wVB1caQskAy1McvHiwpmp4ZJiqTMF5fciQ77S
+	 1ZG0i55cgy5rJd1ZiC20J0IlOfAewOjliScvCe21NmzCV382tiCh5/Zy+qmcrw02wL
+	 ojG+6OmI/81SJ8L19Jkn+tAHoUJtBLvwBipUpKeDSsaFeYt4qrn0CUzP56I6ldCqgG
+	 8pvulrTcU4XyA==
+Date: Thu, 17 Sep 2026 23:33:55 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, nicoleotsuka@gmail.com,
+	perex@perex.cz, shengjiu.wang@gmail.com, tiwai@suse.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ASoC: fsl-asoc-card: Fix ASRC device leak in
+ fsl_asoc_card_probe()
+Message-ID: <1d80b89f-7b33-4036-a450-bf32c603a238@sirena.org.uk>
+References: <20260917165430.2163372-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="P1ZmkZ7HWziaZSjA"
+Content-Disposition: inline
+In-Reply-To: <20260917165430.2163372-1-vulab@iscas.ac.cn>
+X-Cookie: Whip it, whip it good!
+
+
+--P1ZmkZ7HWziaZSjA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-6-1f80085f93fb@kernel.org>
 
+On Thu, Sep 17, 2026 at 04:54:30PM +0000, Wentao Liang wrote:
+> of_find_device_by_node() returns the ASRC platform device with a
+> reference taken, but asrc_pdev is only used during probe to set up the
+> DPCM DAI links and is never released. The shared exit path already drops
+> the CPU device reference, so release the ASRC one there too, covering
+> both the error paths and the successful registration path.
 
-On Sun, 06 Sep 2026 20:36:29 +0200, Sven Peter wrote:
-> Each Type-C port with USB4/Thunderbolt support on Apple Silicon SoCs
-> comes with block called ACIO ("Apple Converged I/O"). It contains a
-> Cortex-M3 co-processor, the hardware blocks implementing the USB4 host
-> router, the Native Host Interface (NHI) and a DART IOMMU. The
-> co-processor exposes the NHI and its DART to the main SoC bus while it
-> is running.
-> 
-> ACIO can only be powered on after the Type-C PHY has been switched to
-> USB4/Thunderbolt mode. The Type-C PD controller publishes the negotiated
-> mode and cable information through the Type-C class. ACIO finds the
-> corresponding Type-C port through the OF graph connection.
-> 
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
->  .../thunderbolt/apple,t8103-usb4-acio.yaml         | 213 +++++++++++++++++++++
->  MAINTAINERS                                        |   1 +
->  2 files changed, 214 insertions(+)
-> 
+This doesn't apply against current code, please check and resend.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+--P1ZmkZ7HWziaZSjA
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsatIACgkQJNaLcl1U
+h9C0Ygf/RPsRzvwwH4gsQUTDa5a8UQsKSpt0ClJpUzd9B3N82yCZlVAtHxZBcgUj
+tHCfZEKD+1B9Glr+QJGAN+8NesYn3HRKfbKiW4Jt5NESTK5QAIAjsMrWxhNrFN3x
+KD3sph6e2rbMmYV0ghCw0/S5EZ/uEtePvuWKIZ+c2bgfx5XVFfG1TvUOOlj6kXP8
+U8PLUZQeyUmnhexe09hMc5+i0SDW4IiM5p+vB4fHy6Aip6qz+zIX/NocqexZhrhd
+j22M3Qgvz3klweIoHpxTZqR/MLYY6lxLcL7Wj9mVCG8qzL/8dZh5HcE83TCzc139
+7+M0UMSahUdK1AC4hZiK15UGanLF7g==
+=+L6c
+-----END PGP SIGNATURE-----
+
+--P1ZmkZ7HWziaZSjA--
