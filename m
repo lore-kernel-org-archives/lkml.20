@@ -1,72 +1,76 @@
-Received: from smtp153-165.sina.com.cn (smtp153-165.sina.com.cn [61.135.153.165])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDB2D3A7F70
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8452D3A9610
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789616385; cv=none; b=a6Rc3d9Xm7XQuS73OnZDF7TGruLSvbA+RTn1J5tAPix6QU4SCtgVhQ5qqnYy/ApwosSUjndYumVSQAdP6BLW3J4r0wKc2UUmD6xXGTGQNeFHNPqDanQneIWE2OX1XOEgzEHlr4j6KtXbN9uHi6z1rpVem+ifYpPPlosY+SZ4Y+w=
+	t=1789616460; cv=none; b=p8v8BcKmAv2DSKHML4MtqLeH3Ez6AEgMwrtJxIXs1/+Y8viYwUd2kLCP4++pjm/y9XZU6wQmVA5dUjqDjbfd2epg/mbTFplQ3ouhy01T6xqOPo3ROEgXmA9bpxER8AnlNc06zP8bbYqGWnQeQKFsKjcfjfptpjA/UwuDNyRYeMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789616385; c=relaxed/simple;
-	bh=hzCEfXOexl9lRk2jtF0ia/E/xsY7QrkIlPOExC7aqJY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fqMMHM35kWnf3onBiXv6Slvg012+sgySWRE8g4i8/xGDrSRWCI/24LL0WPngkf4PCL+G5WdkhqxPUn05MORHSjAqVm+FbmQLOBAVXDIfPgryvQPd8h5K243bAhtMm1CDmJlSZK/OGThnDH7ZW1G8EbyftFgningx0WThwd9rmRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=mvUmGv6a; arc=none smtp.client-ip=61.135.153.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1789616460; c=relaxed/simple;
+	bh=hjdXtHl8coxbgw6KhLARZO92mQI8spGSx8rXxqI9z3s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M0rT6tJDyyB5+sXIvrOxh3DBEUICeJmT9FNAsSmmBf47IgfR79M/r/4t20VfiTzCmACiY+A4BDoBpCBbR2zVeXDSJSPXIIOJSaGDQgs8C5B7X8YHv3cz/4MuU4lDL+zbYASh0ICaIOB5MhzcTq39BWTUP3t7wbt3cxMtKU6SqPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oOetpGb+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="mvUmGv6a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789616377;
-	bh=wC4+AS6cPqlTramKIs63D4nQLoV2MgyPPge8BR8mEm0=;
-	h=From:Subject:Date:Message-ID;
-	b=mvUmGv6affwKKq1iy5KufZImX25G1GzWVA4NXVlunPK9M5wF25CZWaWCPBZFhxOdF
-	 VU09/6aBqRGWOiRZBjWADTSKU5qo79jHsSfBbu6qP+mTG75rCL0NHqk7vJqpGxksRv
-	 Wm//y6UHR7k3HIO0R98Bp7haABL9lA9BTi4T087A=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6AAB60ED00004DB2; Thu, 17 Sep 2026 11:39:27 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 5344464456699
-X-SMAIL-UIID: 092D2B0F0001456290E05F3D0F9D0B68-20260917-113927-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
-Date: Thu, 17 Sep 2026 11:39:24 +0800
-Message-ID: <20260917033925.981926-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6aaabb70.86093f18.33004f.0003.GAE@google.com>
-References: <6aaabb70.86093f18.33004f.0003.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oOetpGb+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AC481F000FF;
+	Thu, 17 Sep 2026 03:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789616458;
+	bh=WdZytDFux5XnrW+jquReOqJ2UV3d87OKKRnUrIg0b2Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oOetpGb+e6zC5JtDULljJXRYZmTaL77xZsZb3CaO2VuDPqqH43otufbeIpOln3v+h
+	 dgZ7Bl+sXyZW0ve86v8vgu/VGC5fIrJuXKJx/+bSQRvGR5r0GyzC27a267Nwzkwk43
+	 pvWdIyOPxgrnQ8GUiElptWhIA4frlcqRUDnY8pOm/6BRHHs1DtcBZnSPQDoa6HGFN3
+	 krr4OgTdw6oOQgUlafgDaeR5ZpFYqvP5Uy7agG5RTtxyF1KbPO4Oqr1OgKxOddowml
+	 LQ4d5nJWxlyom5P0djiPWYs/QxuhOg8aIAkVpW2cHgHL94kKMmVOCgg3Gmo5CqFZqg
+	 WkYg0wEJWqtmg==
+Message-ID: <cda5c92e-bc41-4cae-a199-8a7fdb9eb187@kernel.org>
+Date: Thu, 17 Sep 2026 10:40:51 +0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvme: work around -Wformat-security warning
+To: Arnd Bergmann <arnd@kernel.org>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, Maurizio Lombardi <mlombard@redhat.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Hannes Reinecke <hare@kernel.org>,
+ Nilay Shroff <nilay@linux.ibm.com>, John Garry <john.g.garry@oracle.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260916114533.237863-1-arnd@kernel.org>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20260916114533.237863-1-arnd@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Edward Aadm Davis <eadavis@sina.com>
+On 2026/09/16 18:44, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> Passing a string variable into dev_set_name() causes a warning
+> when building with -Wformat-security enabled:
+> 
+> drivers/nvme/host/core.c: In function 'nvme_cdev_add':
+> drivers/nvme/host/core.c:3911:9: error: format not a string literal and no format arguments [-Werror=format-security]
+>  3911 |         ret = dev_set_name(cdev_device, name);
+> 
+> Remove the temporary strings and let dev_set_name() do the
+> same thing internally.
+> 
+> Fixes: 26acdaa357cd ("nvme: fix crash and memory leak during invalid cdev teardown")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-#syz test: upstream f6e7b42bf05b
+Looks OK to me.
 
-diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
-index 51651314b7a6..a52ede408f1c 100644
---- a/fs/ecryptfs/keystore.c
-+++ b/fs/ecryptfs/keystore.c
-@@ -455,6 +455,9 @@ ecryptfs_verify_auth_tok_from_key(struct key *auth_tok_key,
- {
- 	int rc = 0;
- 
-+	if (auth_tok_key->datalen < sizeof(**auth_tok))
-+		return -EINVAL;
-+
- 	(*auth_tok) = ecryptfs_get_key_payload_data(auth_tok_key);
- 	if (IS_ERR(*auth_tok)) {
- 		rc = PTR_ERR(*auth_tok);
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+
+-- 
+Damien Le Moal
+Western Digital Research
