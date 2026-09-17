@@ -1,100 +1,116 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-lr2-f19.google.com (mail-lr2-f19.google.com [74.125.230.83])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78385947FD;
-	Thu, 17 Sep 2026 14:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F6D54DA52E
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655384; cv=none; b=Q1LzfGSYxUOIQ5j/ZH/8K1FSzRqFDrQKuXwe12gDyM7FNrFoVLinwZrM0X5gc9hxg/Jv/grUkdzmI+oHUGkG59/15QMPhav/Opi4ALehIR7j0HLPgG0+2NuwUfwV5YOpQ6tVBmwoi9HxPW1TxQiXNH7OwhBJsQLRCB6zKd4Vris=
+	t=1789655385; cv=none; b=V0jC04apCyacGmaqVu6+zUJyFi+HGEdmm8gsYb+HgntPpeGyPqPlnXlim43gWj6tp2J/xuLVNw7YjiDX/9/hESQuFGvIkWqj658XnF41Sht1xtklUjqNNnFY53wAvy0WC+LIaTz/W3euoU9h7YOYgVFrCWSGttoJekxhP95hsW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655384; c=relaxed/simple;
-	bh=pqi4GC9Nj6hhPcqPXeWCSwqxD+5oWHRCT236VBj+1vk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JTYxoBOHCTpVhxGhyG3xRTHOBVpJt2GRwhFSC1U+gE9wPiLI3Bggy6u4bsrscKxkoG3fFjLg/H55UJV0y2W9RcuJBPoqux6qBn09IewyZiySMZ+ra74UDMBSnc4msjmwv4fydYDdYuu4x3E9tDYTtEZ2ki9a2g5G/Bbt54/MB8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [127.0.1.1] (unknown [223.166.93.127])
-	by APP-05 (Coremail) with SMTP id zQCowABHtD5A+atqNnqCCA--.4692S2;
-	Thu, 17 Sep 2026 22:29:25 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-Subject: [PATCH 0/4] spi: sophgo: Fix SPI NOR errors and clock limits
-Date: Thu, 17 Sep 2026 22:29:18 +0800
-Message-Id: <20260917-fix-sg204xspi-v1-0-5c95dac429a8@iscas.ac.cn>
+	s=arc-20240116; t=1789655385; c=relaxed/simple;
+	bh=KK99SGOpVo0Sh2l7pX+m5thw7TySG15JTH25D7b445s=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XuDgpG29JZdI9IomDXLYXRa68QdgFV2Go1uKD8KmFzA/XJSxsYoaI6Z0MOU2XyDzR/i6fsIG05B9iU1PMyc9OL6Qfw5hw6GVoTkq837wOrvuNXcm2eKPsrvHI07WBRL5ZAmBxCm5pTFkX/iZ/rDserWCbA8w4B5vFGkTGAEdh4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=YjCZ1zJ2; arc=none smtp.client-ip=74.125.230.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="YjCZ1zJ2"
+Received: by mail-lr2-f19.google.com with SMTP id 38308e7fff4ca-3a30521edd8so2943631fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:29:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789655380; x=1790260180; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jLUsM28SSrjqBmi4DDelq5Ueb0+ylvS4bDAd6TEXb10=;
+        b=YjCZ1zJ2xBEAnj0paJGkrWY8WewXRlexrSxIG+7MouP3+uvJ+F39sfw3XuEI1rnpKk
+         GuL54IpC0w1bCVMiiiB677P4z/XBtTV+7MLZGzh667RJy6xLGhIfakH6Tx0NBH+HuTJD
+         EYjN5taBqcwBBsGm0uxgSmTLt+Fv6UeZNJRn2htSidUtzYDRaqfouI2Qv6dey6gJC1rT
+         FDVOXvNHivxQOBxUL4jpBWLvZYLoF1q+xHZF4pSafZQ/UYbiHkVaOHayUiCZiQGMAxts
+         Qy6uOJKrDoQGyOni+zbP1fRjIy834CMBO09/0AGCV7fYfxd1YurrD/WUIM+LDpQLxsIa
+         Ho+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789655380; x=1790260180;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jLUsM28SSrjqBmi4DDelq5Ueb0+ylvS4bDAd6TEXb10=;
+        b=enCKZb/XQOMUdeF++hNuC45T4ZIIqR9mYHu0u2zm33TTVfFvXIdjGg0ABDps1g84np
+         qJb1eeLe/Y9/ZZX+J8yjtBY9jjlFAvsKkO9ZYaBCABPxBIUUq9BMIiwknvCjR2WRWPLZ
+         4CgtRD1rdcTkCBS6WG2seVvAXHmZyTHlsReMR2YalPU9qH+PI+DTH2tATsuHjxDbLK9q
+         9BPTRtP+PrXZ9pEnArdew2cc+QxCZwbFYyQ3KrIJLGlhYVnzIKjqE5WPYcDg4HRR4rx4
+         L2B1z73GiWIfYgb5VrKz8iQ+UdcRsB5NIm3lg1TxIlMjgc5cTC+FcE2KpgbaOULDeK3w
+         XhCg==
+X-Forwarded-Encrypted: i=1; AKwUvByuhVWYNx0pWIqGolrovFdxLs010iK/lk9hMhL+i+vA3nQ+2vYv7h+iAAhJxHqJ0ipDjOJYI3iVbT75jr0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9n0j/tisKBkzFDOVHyyQtHKFGSbmRT6LOGJLru/mFDOZml4NA
+	qk2wB863V9FCe/vrNTGRJEVrYxvxrEpn7qG5cHJs6+GbR4n329BDkoXlPlVwnKYlN7k=
+X-Gm-Gg: AYBFou3D/VioATCcG29EcEEZEgXKG8vxEWaAJlkgbzOlpUPaDd00ejCCGjmGuuJoyOq
+	aOFAPv97aYuXlUyDThdOxVg5NZ8jB/WvhaTXZg2QSiUBQZmQadADSyldHj7jJ0QaUE0+UpeeQuX
+	CVjrIMXm6l/Nc8TIWyRQQLHRUU9SxuTZRlwqniln/WZXxSqBa0id5vSeF+XX6PKGIDZ/H2pVKo4
+	UXTOVNe295gsz+wb6oiKy3wUme3NC32wIagnVWRWicJkNGEHY8y+5C/ek1KIyi06Ck+/DUiGt2m
+	4HozV0MWpOxYoirv01Xncj7E6MUFhG/QlpO2IA+WCqdHURpZgNJSemWwPE1RPh03d0tKhhbF8bn
+	PmOkiNP+paLGM+fAlSRHCoxASOtpimITWdKdwfHBI+31AD0HQBNty/lNyY9yBGne4vdkUYXqTyM
+	LQTPtG3ghywQpYr+OdIXAK+vpQ74qcHASZAJtB+3VDgTuUaZP4G33guIvw1T/wP4d7fGCQzBN1G
+	YKNlw==
+X-Received: by 2002:a2e:bc10:0:b0:3a1:fa0f:5d21 with SMTP id 38308e7fff4ca-3a5e71460b2mr7532451fa.3.1789655379911;
+        Thu, 17 Sep 2026 07:29:39 -0700 (PDT)
+Received: from localhost ([82.145.119.8])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5dafee366sm15755461fa.42.2026.09.17.07.29.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 07:29:39 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Thu, 17 Sep 2026 16:33:18 +0200
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andrea.porta@suse.com, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, robh@kernel.org, saravanak@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] of: unittest: Fix np reference leak in
+ of_unittest_pci_empty_dma_ranges()
+Message-ID: <aqv6Lv5EZrziJVOR@apocalypse>
+References: <20260917130307.2152615-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAD75q2oC/x2MQQqAIBAAvxJ7TtAlKvtKdDDdai8mLoQg/T3pO
- DAzFYQyk8DSVcj0sPAdG5i+A3+5eJLi0BhQ46itmdTBRcmJeiiSWAUXcB4tzrvx0JqUqQn/b93
- e9wMVhb6AXwAAAA==
-X-Change-ID: 20260917-fix-sg204xspi-dad286928b1c
-To: Mark Brown <broonie@kernel.org>, Longbin Li <looong.bin@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
- Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: Han Gao <rabenda.cn@gmail.com>, linux-spi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- sophgo@lists.linux.dev, linux-riscv@lists.infradead.org, 
- Han Gao <gaohan@iscas.ac.cn>, Hangfan Li <lihangfan@iscas.ac.cn>
-X-Mailer: b4 0.14.2
-X-CM-TRANSID:zQCowABHtD5A+atqNnqCCA--.4692S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AF1xGF4DKFW3WrWkur17Wrg_yoW8Gr43pF
-	4xCanxtr1xGFyfAaySq3yIgF93Gr95GFW5Gr13Ww4ruw4qvryxGr92kF1xWF9rXr4rJ34v
-	krnxJFyrGw42vFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0pRiSdgUUUUU=
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiDAMNDGqr9nAGrAAAsj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917130307.2152615-1-vulab@iscas.ac.cn>
 
-The SG204x SPI NOR driver ignores transfer errors and clock limits.
-Fix both, enable SPI NOR on SRD3-10, and use 12.5 MHz on SRD3-10 and
-SG2042 to match EDK2 and the vendor kernel, respectively.
+Hi Wentao,
 
-Tested on SRD3-12 at 12.5 MHz: both flashes identify correctly, SFDP
-reads succeed, and two full 64 MiB reads per flash match.
+On 13:03 Thu 17 Sep     , Wentao Liang wrote:
+> of_pci_dma_range_parser_init() can fail when the node lacks a dma-ranges
+> property. That error path returns without dropping the reference taken
+> by of_find_node_by_path(). Add the missing of_node_put().
+> 
+> Fixes: 1a75e81baf4f ("of/unittest: Add empty dma-ranges address translation tests")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/of/unittest.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+> index 939cbff45ab1..6bc5babddf0a 100644
+> --- a/drivers/of/unittest.c
+> +++ b/drivers/of/unittest.c
+> @@ -1250,6 +1250,7 @@ static void __init of_unittest_pci_empty_dma_ranges(void)
+>  
+>  	if (of_pci_dma_range_parser_init(&parser, np)) {
+>  		pr_err("missing dma-ranges property\n");
+> +		of_node_put(np);
+>  		return;
+>  	}
+>  
+> -- 
+> 2.34.1
+>
 
-The SRD3-10 patch supersedes the earlier submission [1]. Please disregard
-that version, which used a 133 MHz flash clock limit.
+Thanks for your patch!
 
-[1] https://lore.kernel.org/all/20260902-sg2044-dts-v1-1-aa1fd1a4ec0d@iscas.ac.cn/
-
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
-Han Gao (3):
-      spi: sg2044-nor: Return transfer errors
-      spi: sg2044-nor: Honor SPI clock limits
-      riscv: dts: sophgo: Limit SG2042 SPI NOR to 12.5 MHz
-
-Hangfan Li (1):
-      riscv: dts: sophgo: Enable SPI NOR on SRD3-10
-
- arch/riscv/boot/dts/sophgo/sg2042-evb-v1.dts       |  4 +-
- arch/riscv/boot/dts/sophgo/sg2042-evb-v2.dts       |  2 +-
- .../riscv/boot/dts/sophgo/sg2042-milkv-pioneer.dts |  4 +-
- .../boot/dts/sophgo/sg2044-sophgo-srd3-10.dts      | 24 ++++++++++
- drivers/spi/spi-sg2044-nor.c                       | 52 ++++++++++++++++++----
- 5 files changed, 73 insertions(+), 13 deletions(-)
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260917-fix-sg204xspi-dad286928b1c
-
-Best regards,
--- 
-Han Gao <gaohan@iscas.ac.cn>
-
+Reviewed-by: Andrea della Porta <andrea.porta@suse.com>
