@@ -1,741 +1,247 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02C6643F8AE;
-	Thu, 17 Sep 2026 20:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789678208; cv=none; b=AvnAvDwziFAtqNorBM3gmOb2s13KMeMg2ze3dCY9AI4EMW/6w1uwOvTM/5h75v7r9+El8bQm4bR0gdEbAQM3VD2wHdLQsaKKua5PZP+tTnevWQKgPXoEsAB0GB+y5HsV/ODM4+FPxuU5uZKEJs0sbMtOPfk8xbvUvGLD5YXokzg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789678208; c=relaxed/simple;
-	bh=uc8JDM3qKolxO+LAFNsDubYVvMVlCYNV/6ya19CDU00=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=t5ql+xYgERj35KB/uxbIETEyVoa8WrYJpEN6bK9AbmaTv8LESYFVc2BN+x6zW9aOK8u/aZPIOtOTKP4R4u1KU+8R2QZax92246g14lfL2/SJn5D1QL9mtk/UCyLib9r5acNl2NHnQUV4CGtceS+D5SCFdte3B+LAoBUcXaK1jRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EqsiABRc; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6743F926D;
+	Thu, 17 Sep 2026 20:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789678214; cv=fail; b=TJMXiMJsqp3BZ7RMh1G4PpBbngUcH3dJejDeFM+benrutZmVve0ZRU/tLTelO6STZFr1PpE2zyi7WAfQ9nYLIVCfpufazzoejRHJJf7ARgzYUhRt5u4Cebdb0HsfNdDaCoUEuC9dDz3D0oe5d1GU9wAj1IpFi7lL0p8IWuNujUA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789678214; c=relaxed/simple;
+	bh=PuxuGs9l5yM/s0raGKSvVk1OIOjc04F8iSJYnw8uf5w=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=WCkHIk0712MduCk/3aBNg8aFCyGMmc1PJ6yfawtNCieAnN0gvUdO2ImDtLg21WO17HvDUjuSGIS97gaJ3ANsZD3w3X8yQuQIcrimnRccrWggPij7gG2tkfiXF5qDkXuLkQRa15UGLRtL5VoEZ3UsNrtEfYaQUdfbS+OTWQIYVk0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bHPWts7d; arc=fail smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EqsiABRc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303411F0089F;
-	Thu, 17 Sep 2026 20:50:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789678204;
-	bh=TMEeyMI4B51uEPXzMPkveZiZhFcfdN65YEovR0F0x/E=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EqsiABRcUFWwl6qUwlZONnOtDJpcLG0GO9muY45cZg8EWw6zVy+f3qf0HVBSKrz0x
-	 5f4XRDKooLygTs/ImLIpzK6cvAi5KOqtqYOyM7/65rF6VFNSKvweU9oACFgdUWuVGb
-	 PPEKWdBMsQNKuTeEvBkP34fYLfyAWmEYb8ksZ6L2G7SKF+P7O4ZjsIUpHQMTWoFnlj
-	 BVbUN8HSo2rJBQwjXN74xKxi9G7/WpK1adBfbhuiEw/9TV6Ie1ZDjjJEgzodpy3Fan
-	 f3m2scap/WtZyWmqvtOhrmrcy0eSClZ54NSZYRATg6Ohr3feWteyvy6aaYM0P3wu6N
-	 LpDUSGAFxo7+g==
-Subject:
- Re: [PATCH v2 net-next 7/7] net: dsa: mediatek: support EN751221 switch
-From: netdev-bot+sashiko@kernel.org
-To: cjd@cjdns.fr
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- chester.a.unal@arinc9.com, daniel@makrotopia.org, linux@armlinux.org.uk,
- arinc.unal@arinc9.com, Landen.Chao@mediatek.com, dqfext@gmail.com,
- sean.wang@mediatek.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, naseefkm@gmail.com, b.larsson@gmx.com
-Date: Thu, 17 Sep 2026 20:50:02 +0000
-Message-ID: <178967820271.22033.8178601854215098997@kernel.org>
-In-Reply-To: <20260915174643.253660-8-cjd@cjdns.fr>
-References: <20260915174643.253660-8-cjd@cjdns.fr>
-X-sashiko-severity: High
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bHPWts7d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789678211; x=1821214211;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=PuxuGs9l5yM/s0raGKSvVk1OIOjc04F8iSJYnw8uf5w=;
+  b=bHPWts7dBIs1UK0rwPVNutgKpazUMMwxYitirvHmGeL1cvXiFIOAA9QT
+   ffGCBnUzEHc7ek4g6wqQLZi8EvMOr0NyCeMbCg4QO7kLCzka3ZigxoBuX
+   ytFExH7eEKHCmt9x9PcenwduMh0Ik1+klclzDIZcKSsbANV0tktF2ToIo
+   nQR+aX3iGVH9j635LlTv6X6eQHIUwrU5AYpsSqBzT4ioehkTOKk7YgKg6
+   3d1EQOJFVQYEjW0oRvyY5pE/KHi7gRiBzxqIW4DxIg64rmtOTF60RngSA
+   b/9XEUadjFVcwu/6JUyTOonRDQZsL4JjzZwKg/ZjzxE3P+VZZAZyMA00P
+   w==;
+X-CSE-ConnectionGUID: kwPB68puQQagbhDAQInZnQ==
+X-CSE-MsgGUID: qsVbn/XoTBuZiF2voBgQjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100739988"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100739988"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 13:50:10 -0700
+X-CSE-ConnectionGUID: FrwMQoPuRIWUdZlQHGVYyA==
+X-CSE-MsgGUID: zkrrSUbgS5CFnFcRFwk7FA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="297503179"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 13:50:10 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 13:50:09 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 13:50:09 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.16) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 13:50:08 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RuCCTLF7rfRoOJ3GhFEUJk2ESV0WWIx/HOpcY0Uifg3Hisef/LPL+24Oz8t+H1OJP6+BjdFVXARws+AbM4cg+lHrGh+Xn6RGLkr3biXTuwgTWkJ9wSsIPVU6pPBc6vVMuflq77E8DmPQNaONONnb8H0vbOrnNRtT1WwhZ2iK8j0XlDMHGkDqBSsGhVirnzO6j5yhpij2p8cI3FSq0nwAQdDhsTxh7zqMYn84sr3xfp/kMpxBkSmbvaWL6N7iZ/skDhZIxWyVl9Wq6iOd059CLqzbsxmJO8LcgLE7mH2C1zQGZ/B9XBc2gYkPWxsd/M18dP2dOUSS2fa1k+RqKpT10w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PuxuGs9l5yM/s0raGKSvVk1OIOjc04F8iSJYnw8uf5w=;
+ b=iQSEGDJmRcNCu93IlQYOrW48uF3aIZpfeqd4O+xDP9GSAx0vSO2ck7lddONGwszjeSOX/hwsbnf/bAFLYxImz0Y+/pCatouSCfzzOXvIXG/dKXEPsXknFi1fDr2zrcFu1TeleRGLiecvq33tNcOh4c3o0BvVUGMsc/T6ZlRMRZih2e5dfS/oF4TL4RoWKGjx8g4aKyan4wP5E5BqjLV/2BEinSejpSlZQor1oi22AODwQ8/K8r84ErEnVgh2nKhMq97vNSfSQx71DRfTq+yv2drVQqfDyycP4BZLPBJoCs88VeA4s8TsMHpCTTP45DSacdRe2hS3cKBXsgrSYKw+Ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH0PR11MB5330.namprd11.prod.outlook.com (2603:10b6:610:bd::7)
+ by DM6PR11MB4673.namprd11.prod.outlook.com (2603:10b6:5:2a4::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Thu, 17 Sep
+ 2026 20:50:03 +0000
+Received: from CH0PR11MB5330.namprd11.prod.outlook.com
+ ([fe80::9d32:3dfb:c2f1:40e2]) by CH0PR11MB5330.namprd11.prod.outlook.com
+ ([fe80::9d32:3dfb:c2f1:40e2%3]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
+ 20:50:03 +0000
+From: "Winiarska, Iwona" <iwona.winiarska@intel.com>
+To: "linux@roeck-us.net" <linux@roeck-us.net>, "robh@kernel.org"
+	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"changhuang.liang@starfivetech.com" <changhuang.liang@starfivetech.com>
+CC: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1 6/6] hwmon: (peci/dimmtemp) Add support for Granite
+ Rapids (GNR)
+Thread-Topic: [PATCH v1 6/6] hwmon: (peci/dimmtemp) Add support for Granite
+ Rapids (GNR)
+Thread-Index: AQHdO6kij9Wa8aot0U+PLZS2kBqhurbLGoOAgADY3QCAB2GEgA==
+Date: Thu, 17 Sep 2026 20:50:03 +0000
+Message-ID: <f203548e535f3e60843fb12a8115efbe0030fc70.camel@intel.com>
+References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
+	 <20260903133408.110847-7-changhuang.liang@starfivetech.com>
+	 <c89f582d-57fe-40d5-835b-5e5ce38daccb@roeck-us.net>
+	 <ZQ4PR01MB1202109A402BBFDAD908C08EF2BC2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+In-Reply-To: <ZQ4PR01MB1202109A402BBFDAD908C08EF2BC2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+Accept-Language: en-US, pl-PL
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR11MB5330:EE_|DM6PR11MB4673:EE_
+x-ms-office365-filtering-correlation-id: dc1f54ed-54d7-4cf9-2d73-08df14fd3fa8
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10067099003|3023799007|6133799003|22082099003|18002099003|56012099006|11063799006|4143699003|38070700021;
+x-microsoft-antispam-message-info: sz21pC5+9g1x5BxOHCjgnjaFYqRv+va7AsoashZLwvkWdgEh1t3a5rgIijV0JVYw2ySMpbiusIUgKECIakKrmjBHPSNs4+kY6rNVEmBWpPg9hmA+zmXmqRYmFCb/IFtk2jLDrJAg0MCSzs5/IYzkogaToatszw92GPFnr/MyrGPxbwZM4W/2ceOWkd+bqLDjsZQpVwjwY+7G34nWwplXhTFfIEkK/fjF/ZeDiya9NMAcrfmY36LcpR1jR7bkhPq3U5bksJ4LQO8WoNRjOzw2tH97Af787Gncyq4nKgfMlYN8FWeyp2oYbs9XTPyhjOWXSyGKyK7W0fi6mZwNb0I09X/6eITWFatTff43/LXMFuKx/HZ0/wjUMMMzyWtf7+yyiBALMczTgXHYOwLX5h9TEf9BS7x9h7iP+FMsl1ielL8Ijm12CvM/fJaYp8E49vS6SKoWqg18viqnBYw/XzNBelwwaQ5AoTxSXHsreA0bEcOcaKhbZK2Mc6YeqUZE0a5HEmux9gSNsJ7wooeGVjrhjIlQuOo+toaNIy3dGlNEQQgY/LGcqYb6dVzGhBDn5ChfcT2Lc9qL/DyxWy/qyBkYgpx+zx8AmatP9yP44UWfp3s6CWS400OOn+KMAUX0a/C1ELXf7gR8YsYeK2owIIGV/7//2VPsaw1ervxbmYH+44i7GTSgbX7T71h03b2njkH4aw0TFQVq8fa450mkWDSYWP9hn5o+I9wrrH9tRqU19OU=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR11MB5330.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10067099003)(3023799007)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SVhHbFhRWFRBMS82MWxMWEp6eE02TTBUZ1B0WWxET1RRb2wvWWZjSStBUUx5?=
+ =?utf-8?B?UGlyb0hMYVlVMktleXJDQXVTV2l6WWpnMWZ5aXlXcDhYL1R2NTNRRktFMW05?=
+ =?utf-8?B?Y3ZsQXB5WjF1YXFYSVZkK2ZGSzdGNHpvWWIvV2p1Q0hrdlRUNG9DWHFoUG9s?=
+ =?utf-8?B?SGRwTnpnRnVLanVLVWNCNHk4aU8wTWV3NXZvVEVrSnpTRFM0Y3BEREExL3N5?=
+ =?utf-8?B?bzRGWFZNdEtkNlMrTGhBWmlYRkpuVXVuNk1jaDlpSE9iTTlvSEQwRkZway9L?=
+ =?utf-8?B?T1IwRk45VlAvZDQ2UGNiM00weHVpTW5jM3R2b0pmRnlCVG05Zitodlhyb21p?=
+ =?utf-8?B?cEJyZmZZdWtiMnRVZHo3bmlXNklNMGR3K09WWE5pQ2dwQUY4WldWVDNzcFdk?=
+ =?utf-8?B?dytsZmJla2JLampKd3Z2dCtpWHJOMitldHBBR0E5SXJRNmZIUWZUaUsyaHpM?=
+ =?utf-8?B?bmt2ZkIyZVcrL2l3NklKejVnNVB1YldpNmtQZXFKNE55cUZTNUlMYkZLZnNi?=
+ =?utf-8?B?cWdaN0ZEQTJYcFJxWk80MVZ5Y0U5eVhnZGd4M3BoRXRCVWlxNndjMlRHWUZO?=
+ =?utf-8?B?eEJQOUlMSzY2YzlTK2haSzBNaGNZNlpjZnNjNHh4ZkxRQW4vbTlkRDJNdVFK?=
+ =?utf-8?B?V09zZXA5MkFhem41eUdJOVdRcVJpQVFuaUoyQi9GQUE2NE9rZ2JHTmFEMWVz?=
+ =?utf-8?B?ek9VOWNhaWdxbEhHVHZ5NUlXb0V5Tk0rczNnaHBjMGVNaGtTTlovNXpJN01I?=
+ =?utf-8?B?QWFCRkxmRVcyYlZsV2NNb1JKb0x6cVRVRldvMEZKMGlrY1UxWWlKTU9INlh0?=
+ =?utf-8?B?ZUVGSnl0WUVKbW5VVlpZa29KVjVyMVJjdTJPYnlRNHJFR0trRmtMTTRqd29p?=
+ =?utf-8?B?SzNYekpGUHVrNVVKTUpYVjZjUVpSUXRYM1U2SmVZRlFoS0VPVE90MGc2eWtX?=
+ =?utf-8?B?Y0hGYU9tNVdhQnRGZ3ptUU5xblVycjlYWnltQ0kvSG8rb01uVnd1R2xUNjdw?=
+ =?utf-8?B?djZYYTVjMWVaTnZ1YjRCcGV5YStwR25IZGpXSHN2MFVCbnVDeW1UT00zUXFy?=
+ =?utf-8?B?Z3duWlE1d0xSZCtqM25qZ3kwKy9QN2pTVHZsUHlEdm1ZVGEzd2lLTTdVSjV3?=
+ =?utf-8?B?QWRNYXhHWTUrREN6MXNkNzg2MXd4U2FubDZCamhPYmRXcjA1V3Z6T2F2R1RH?=
+ =?utf-8?B?RDJQbHM0aXdDbHVTb2QzTlluTEJkRXUzVlR1VTRUUkxreVR4UmxjU1NYWnBN?=
+ =?utf-8?B?elJzc25IR0hHV1JZK0NoQUlqNUd1dHlQamNBaElNbGNVV3J6cmlCd3cyTlpp?=
+ =?utf-8?B?S250ejh1dGE2aU9rYjB2c2M4OTNKQ2xOdmFOUS9VREdiaHlmamM1R0lhNU9v?=
+ =?utf-8?B?VjhpbWw3Znl1MGVFSk9UTVpUNitWN2FnS0JyRlVEcXZlTG9WbWZlWkZOZmUr?=
+ =?utf-8?B?ZjU4YzBDNE9xYVpTU1A1bHJPQ2dodXN0TlgzRVlBdUNmTVI2WjR4Zk02a0JQ?=
+ =?utf-8?B?Y2o2MUJocFVzR2E0VVJtQjN4OFNQdFBvWWsydXBwdENKVDRzdEk5cVp6WFda?=
+ =?utf-8?B?QVRCYkxWcVRzVEIwbGFGQ1VTeFNBRTM4dEliNUJWdzFUaXRaVlkyZDd1TU8z?=
+ =?utf-8?B?anNEendPUENGK25kbzVHMHk2eGJEREdLWGJ1M01jSnk5NG9GK0ZRK1JJT0k4?=
+ =?utf-8?B?Z1VnMnJNZUMrcmptZXNva24vL0h3RnJQcCtSYWVTb2pHNEo5OE9uSWtIQWRs?=
+ =?utf-8?B?eGcrYzc4SWQ2V09DOG53R0JSK3JzdGdHU0FKMTl1eUsxbFJKZXkxQS9mSHVB?=
+ =?utf-8?B?YkdwcWlGNllIRlpqTDF2dktFWnRIdXBZbXRQekNUTlZTSGFRMzNzY3A4T0M1?=
+ =?utf-8?B?emJSWDFMeGM5RG9kdkVzcktJU0I3RFJzM0RvUUpSelVrc0RIME1CczY5MUUy?=
+ =?utf-8?B?cnVQcHZTTTFzdW5oWE1lNE9TUVh6SzNxdGxHTWxRWVM4dXViOUNBTGFxYUQ1?=
+ =?utf-8?B?cXZSaG42cXYzSmRyZy9KZmQrS1FHOTlCTmF4TlBnRHBtcWtuMDdtaEZLcS91?=
+ =?utf-8?B?T2hnVjlRbzRKcWhBdG9jQlhiZ3ZUSFJXR0Nnc3JSNFVCQVdQYUpJdyt0Vk5Q?=
+ =?utf-8?B?YzcvRDk2cTkxUFdXYTFGOW5ENkR0eEMvRE5pNHdRbWRNQnVlMXlqdmRCR1NU?=
+ =?utf-8?B?djQvTG9LMHNpQnZ4M01CZHIxZGh6anAyT0drQTRxLytwSDJ6aWlseVdHZmVS?=
+ =?utf-8?B?b1dIQm1wZDJIN1RZMDVYVk4ySDlpbHNhTEpLUVhJY1JUQk1pUWpUVWc2RDZ2?=
+ =?utf-8?B?Y2xQbWhXQWxET242aG5iMkNoYWthQzNmWTZ4bDZpNEhFSk0ya2J6ZFd1VWpw?=
+ =?utf-8?Q?KCaGZ8uVmo0cVvK4=3D?=
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-ID: <2A0A58B83507B247BCF6CE29198DF491@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 14 potential
-issue(s) to consider:
-
-Critical: 0 · High: 1 · Medium: 10 · Low: 3
-
-- [High] This patch makes the core_write()/core_rmw() MMD indirect-access
-  path reachable for an MMIO-attached switch (ID_EN751221 gets…
-- [Medium] en751221_trgmii_pair_setup() passes the wrong default_taps
-  array to each en751221_trgmii_calibrate_direction() call.
-- [Medium] On the EN751221 on-die switch the TRGMII cascade is port 5,
-  but mt7530_mac_config() dispatches port 5 to mt7530_setup_port5()…
-- [Medium] The MDIO of_match table now claims the compatible string
-  "econet,en751221" for the multi-chip-module MT7530, but that exact…
-- [Medium] mt7530_setup_irq() writes TOP_SIG_CTRL_NORMAL ("This register
-  must be set for MT7530 to properly fire interrupts") only for…
-- [Medium] en751221_trgmii_pair_setup() overwrites MT753X_PMCR_P() with
-  hardcoded full-register values (mcr_down, then mcr_up) on both the…
-- [Medium] The new TRGMII reset and training sequence ignores every
-  regmap return value, including accesses to the external switch which…
-- [Medium] en751221_trgmii_pair_setup() reaches into a different DSA
-  switch instance (the on-die switch's mt7530_priv, obtained from the…
-- [Medium] Connecting the MCM switch through the on-die switch's MDIO
-  child bus nests two mt7530_priv::reg_mutex instances of the same lock…
-- [Medium] For the on-die switch (ID_EN751221) the only place the TRGMII
-  transmit clock/DDS is programmed is mt7530_setup_port6(), reached from…
-- [Medium] net: dsa: mt7530: immediate PMSR read may cause spurious
-  calibration failure
-- [Low] The patch adds register/field definitions that no code uses
-  (TOP_SIG_CTRL_B0 with comment "Undocumented", and PMCR_IFG_XMIT_96 /…
-- [Low] The in-tree binding text for the EN751221 on-die switch says "3x
-  10/100 PHYs and 1x gigabit PHY", while the new…
-- [Low] For `econet,en751221-switch` the binding applies the generic
-  `builtin-dsa-port` definition, which only constrains ports carrying…
-
---
-
-net: dsa: mediatek: support EN751221 switch
-
-This adds two new mt753x IDs for the EcoNet EN751221: the on-die MT7530
-(memory mapped) and an optional second MT7530 attached as an MCM module over
-MDIO.  It also adds a TRGMII RX tap calibration routine that is run over the
-inter-switch link when it comes up.
-
-> diff --git a/drivers/net/dsa/mt7530-mdio.c b/drivers/net/dsa/mt7530-mdio.c
-> index 24ef54f3db2a6..2fd987ff85107 100644
-> --- a/drivers/net/dsa/mt7530-mdio.c
-> +++ b/drivers/net/dsa/mt7530-mdio.c
-> @@ -139,6 +139,7 @@ mt7531_create_sgmii(struct mt7530_priv *priv)
->  }
->  
->  static const struct of_device_id mt7530_of_match[] = {
-> +	{ .compatible = "econet,en751221", .data = &mt753x_table[ID_EN751221_EXT], },
-
-[Severity: Medium]
-Is it intentional to reuse the SoC root node compatible string for the MCM
-switch?  "econet,en751221" is already defined as the root node compatible:
-
-Documentation/devicetree/bindings/mips/econet.yaml
-  $nodename:
-    const: '/'
-
-  compatible:
-    oneOf:
-      - description: Boards with EcoNet EN751221 family SoC
-        items:
-          - enum:
-              - smartfiber,xp8421-b
-          - const: econet,en751221
-
-and arch/mips/boot/dts/econet/en751221.dtsi already uses it there:
-
-  / {
-        compatible = "econet,en751221";
-
-With the same string also declared in mediatek,mt7530.yaml as "Multi-chip
-module MT7530 in EN751221 SoC", one string now names two different device
-classes.
-
-Since dt-schema derives select from the compatible const/enum values, won't
-both schemas now select on it, so the switch node gets validated against
-mips/econet.yaml (failing $nodename and the two item compatible list) and
-every EN751221 board root node gets validated against mediatek,mt7530.yaml?
-
-Every other MCM/on-die variant in these tables uses a device specific
-string.  Would something like econet,en751221-mcm-switch work here, in both
-the driver and the binding?
-
-> 	{ .compatible = "mediatek,mt7621", .data = &mt753x_table[ID_MT7621], },
->  	{ .compatible = "mediatek,mt7530", .data = &mt753x_table[ID_MT7530], },
->  	{ .compatible = "mediatek,mt7531", .data = &mt753x_table[ID_MT7531], },
-> diff --git a/drivers/net/dsa/mt7530-mmio.c b/drivers/net/dsa/mt7530-mmio.c
-> index f387190a95391..b77e3cb655aa9 100644
-> --- a/drivers/net/dsa/mt7530-mmio.c
-> +++ b/drivers/net/dsa/mt7530-mmio.c
-> @@ -12,6 +12,7 @@
->  static const struct of_device_id mt7988_of_match[] = {
->  	{ .compatible = "airoha,an7583-switch", .data = &mt753x_table[ID_AN7583], },
->  	{ .compatible = "airoha,en7581-switch", .data = &mt753x_table[ID_EN7581], },
-> +	{ .compatible = "econet,en751221-switch", .data = &mt753x_table[ID_EN751221], },
-
-[Severity: Low]
-For this compatible the binding applies $defs/builtin-dsa-port, which only
-constrains ports that carry ethernet:
-
-  builtin-dsa-port:
-    patternProperties:
-      "^(ethernet-)?ports$":
-        patternProperties:
-          "^(ethernet-)?port@[0-6]$":
-            if:
-              required: [ ethernet ]
-            then:
-              properties:
-                phy-mode:
-                  const: internal
-
-Ports carrying link are left unconstrained, while en751221_mac_port_get_caps()
-advertises PHY_INTERFACE_MODE_TRGMII on port 5 only and INTERNAL everywhere
-else.
-
-Doesn't that let a DSA link on a port other than 5, a link on port 5 with a
-non-trgmii phy-mode, or a CPU port at reg = 5 with phy-mode = internal pass
-dt_binding_check and then get rejected by phylink at runtime?
-
-The sibling $defs/mt7530-passthrough-dsa-port used for the MCM side does
-constrain its link port to reg 6 and phy-mode trgmii - should the built-in
-side get an equivalent constraint?
-
->  	{ .compatible = "econet,en7528-switch", .data = &mt753x_table[ID_EN7528], },
->  	{ .compatible = "mediatek,mt7988-switch", .data = &mt753x_table[ID_MT7988], },
->  	{ /* sentinel */ }
-> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-> index fe93be1ece7d7..4f43454083b95 100644
-> --- a/drivers/net/dsa/mt7530.c
-> +++ b/drivers/net/dsa/mt7530.c
-> @@ -49,6 +49,9 @@ static const struct mt7530_mib_desc mt7530_mib[] = {
->  static int
->  mt753x_ctrl_phy_addr(struct mt7530_priv *priv)
->  {
-> +	if (priv->id == ID_EN751221)
-> +		return 12;
-> +
-
-[Severity: Low]
-This isn't a bug, but could the bare 12 get a comment or a #define?  Every
-other ID derives the control PHY address from the MDIO device address, and
-all core_write()/core_rmw() PLL programming for the on-die switch depends on
-this value, yet the commit message doesn't mention it.
-
-In the same spirit, en751221_trgmii_pair_setup() programs hardware with raw
-literals rather than the register names this header otherwise uses:
-
-	/* SOC: Undocumented */
-	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++)
-		regmap_write(ondie->regmap,  (0x7a14 + channel * 8),
-			     0x3227700);
-
-That address range overlaps the MT7530_TRGMII_RD() block - can it be
-expressed with a named macro?
-
-Finally, TOP_SIG_CTRL_B0, PMCR_IFG_XMIT_96 and PMCR_IFG_XMIT_RAND are added
-but never referenced anywhere in the tree (only PMCR_IFG_XMIT_64 is used).
-Was a register write hunk dropped when the patch was prepared?
-
->  	if (WARN_ON_ONCE(!priv->mdiodev))
->  		return 0;
->  
-> @@ -344,12 +347,19 @@ mt7530_setup_port6(struct dsa_switch *ds, phy_interface_t interface)
->  	regmap_read(priv->regmap, MT753X_MTRAP, &xtal);
->  	xtal &= MT7530_XTAL_MASK;
->  
-> +	/* EN751221 on-die does not report clock speed in MTRAP */
-> +	if (priv->id == ID_EN751221)
-> +		xtal = MT7530_XTAL_25MHZ;
-> +
->  	if (xtal == MT7530_XTAL_25MHZ)
->  		ssc_delta = 0x57;
->  	else
->  		ssc_delta = 0x87;
->  
-> -	if (priv->id == ID_MT7621) {
-> +	if (priv->id == ID_EN751221_EXT || priv->id == ID_EN751221) {
-> +		/* PLL frequency: 362.5Mhz */
-> +		ncpo1 = 0x1d00;
-
-[Severity: Medium]
-For the on-die switch, is this the only place the TRGMII clock and DDS get
-programmed, and is it ordered against the tap calibration?
-
-mt753x_phylink_mac_config() calls mac_port_config only for ports 5 and 6, and
-mt7530_mac_config() sends port 6 here.  mt7530_setup_port6() starts with:
-
-	/* Disable the MT7530 TRGMII clocks */
-	core_clear(priv, CORE_TRGMII_GSW_CLK_CG, REG_TRGMIICK_EN);
-
-and then rewrites CORE_PLL_GROUP2/4/5/6/7/10/11 for any interface that is not
-PHY_INTERFACE_MODE_RGMII, including the INTERNAL CPU link that
-en751221_mac_port_get_caps() declares for port 6.
-
-The calibration itself is triggered from the other switch's mac_link_up, and
-each dsa_port has its own phylink instance and resolve work, so the two are
-unordered.  Can a later port 6 mac_config (conduit down/up, resume,
-renegotiation) gate the clock off and relock the DDS underneath an already
-calibrated live link?  A fixed DSA link gets no further mac_link_up, so is
-there anything that re-runs the calibration afterwards?
-
->  	} else if (priv->id == ID_MT7621) {
->  		/* PLL frequency: 125MHz: 1.0GBit */
->  		if (xtal == MT7530_XTAL_40MHZ)
->  			ncpo1 = 0x0640;
-> @@ -466,6 +476,251 @@ mt7531_pll_setup(struct mt7530_priv *priv)
->  	usleep_range(25, 35);
->  }
->  
-> +static bool
-> +en751221_trgmii_cal_ok(struct mt7530_priv *rx, u32 reg)
-> +{
-> +	u32 val = 0;
-> +
-> +	regmap_read(rx->regmap, reg, &val);
-> +	regmap_write(rx->regmap, reg, val | EDGE_CHK);
-> +	regmap_write(rx->regmap, reg, val & ~EDGE_CHK);
-> +	regmap_read(rx->regmap, reg, &val);
-
-[Severity: Medium]
-What happens here if the first regmap_read() fails?  For the MCM switch these
-accesses go over MDIO (mt7530_regmap_read()/mt7530_regmap_write() in
-mt7530-mdio.c), where transactions can genuinely fail.
-
-val stays 0 and the two writes are full register writes, so the whole
-MT7530_TRGMII_RD(x) register for that lane is zeroed - clearing BSLIP_EN and
-RD_TAP - and the pass/fail verdict is computed from a value that never came
-from hardware.
-
-The rest of the sequence has the same property: a failed TX_RST/RX_RST
-deassert can leave a block in reset, a failed final
-
-	regmap_clear_bits(tx->regmap, MT7530_TRGMII_TXCTRL, TRAIN_TXEN);
-
-can leave the transmitter emitting training patterns, and a failed saved-tap
-read yields a fallback tap of 0, yet en751221_trgmii_pair_setup() still ends
-with an unconditional "TRGMII inter-switch link initialized".  Should these
-return values be checked and propagated?
-
-> +
-> +	return FIELD_GET(RD_VALUE_MASK, val) == TGMII_TD_PAT &&
-> +	       !FIELD_GET(RD_ERR_MASK, val);
-> +}
-> +
-> +static void
-> +en751221_trgmii_calibrate_direction(struct mt7530_priv *tx,
-> +				    struct mt7530_priv *rx,
-> +				    u8 *default_taps)
-> +{
-
-[ ... ]
-
-> +		if (best_tap > -1) {
-> +			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
-> +					   RD_TAP(best_tap));
-> +
-> +			log[best_tap] = 'X';
-> +
-> +			dev_info(rx->dev,
-> +				 "TRGMII lane %d: %s tap %d old %d\n",
-> +				 channel, log, best_tap, default_taps[channel]);
-> +		} else {
-> +			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
-> +					   RD_TAP(default_taps[channel]));
-> +
-> +			dev_warn(rx->dev,
-> +				 "TRGMII lane %d: %s calibration failed, preserving tap %u\n",
-> +				 channel, log, default_taps[channel]);
-> +		}
-
-[ ... ]
-
-> +static void
-> +en751221_set_tx_drive(struct mt7530_priv *priv, u8 drvp, u8 drvn, u8 clk_drvp,
-> +		      u8 clk_drvn)
-> +{
-
-[ ... ]
-
-> +static void
-> +en751221_trgmii_pair_setup(struct mt7530_priv *ext, int ext_port,
-> +			   struct mt7530_priv *ondie, int ondie_port)
-> +{
-> +	u8 default_taps_ondie[NUM_TRGMII_CTRL];
-> +	u8 default_taps_ext[NUM_TRGMII_CTRL];
-> +	u32 mcr_down, mcr_up;
-> +	int channel;
-> +	int reg_val;
-> +
-> +	/* BOTH: Put interfaces in a downed state */
-> +	mcr_down = PMCR_IFG_XMIT(PMCR_IFG_XMIT_64) | PMCR_MAC_MODE |
-> +		   MT7530_FORCE_MODE | PMCR_MAC_RX_EN | PMCR_BACKOFF_EN |
-> +		   PMCR_BACKPR_EN | PMCR_FORCE_SPEED_1000 | PMCR_FORCE_FDX;
-> +	regmap_write(ondie->regmap,  MT753X_PMCR_P(ondie_port), mcr_down);
-> +	regmap_write(ext->regmap, MT753X_PMCR_P(ext_port), mcr_down);
-> +	usleep_range(5000, 6000);
-> +
-
-[ ... ]
-
-> +	/* BOTH: Ports up */
-> +	mcr_up = mcr_down | PMCR_MAC_TX_EN | PMCR_FORCE_LNK;
-> +	regmap_write(ondie->regmap, MT753X_PMCR_P(ondie_port), mcr_up);
-> +	regmap_write(ext->regmap, MT753X_PMCR_P(ext_port), mcr_up);
-
-[Severity: Medium]
-These are full register writes rather than regmap_update_bits(), and this
-function runs from the tail of mt753x_phylink_mac_link_up().  Does that
-discard the PMCR bits phylink just programmed?
-
-mt753x_phylink_mac_link_up() builds:
-
-	if (duplex == DUPLEX_FULL) {
-		mcr |= PMCR_FORCE_FDX;
-		if (tx_pause)
-			mcr |= PMCR_FORCE_TX_FC_EN;
-		if (rx_pause)
-			mcr |= PMCR_FORCE_RX_FC_EN;
-	}
-
-	regmap_set_bits(priv->regmap, MT753X_PMCR_P(dp->index), mcr);
-
-and then calls into here, where mcr_down/mcr_up contain no flow control bits,
-no PMCR_FORCE_EEE1G/PMCR_FORCE_EEE100 and no PMCR_EXT_PHY.  Nothing appears
-to re-apply them afterwards, and the peer switch's port is force programmed
-behind its own phylink instance's back.  Should this use regmap_update_bits()
-with an explicit mask, or re-apply the phylink derived value?
-
-> +
-> +	/* MCM: Set Ext->SoC TX delay to 0 */
-> +	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++)
-> +		regmap_clear_bits(ext->regmap, EN7530_TRGMII_TD_CTRL(channel),
-> +				  TGMII_TD_TAP_MASK);
-> +
-
-[ ... ]
-
-> +	/* BOTH: Collect and then zero every RX TAP */
-> +	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++) {
-> +		reg_val = 0;
-> +		regmap_read(ext->regmap, MT7530_TRGMII_RD(channel), &reg_val);
-> +		default_taps_ext[channel] = FIELD_GET(RD_TAP_MASK, reg_val);
-> +		regmap_clear_bits(ext->regmap, MT7530_TRGMII_RD(channel),
-> +				  RD_TAP_MASK);
-> +
-> +		reg_val = 0;
-> +		regmap_read(ondie->regmap, MT7530_TRGMII_RD(channel), &reg_val);
-> +		default_taps_ondie[channel] = FIELD_GET(RD_TAP_MASK, reg_val);
-> +		regmap_clear_bits(ondie->regmap, MT7530_TRGMII_RD(channel),
-> +				  RD_TAP_MASK);
-> +	}
-> +
-> +	en751221_trgmii_calibrate_direction(ondie, ext, default_taps_ondie);
-> +	en751221_trgmii_calibrate_direction(ext, ondie, default_taps_ext);
-
-[Severity: Medium]
-Are the two default_taps arrays swapped here?
-
-The loop above stores each switch's own saved taps into its own array:
-default_taps_ext[] comes from ext->regmap, default_taps_ondie[] from
-ondie->regmap.
-
-In the calls, the second argument is rx:
-
-  en751221_trgmii_calibrate_direction(ondie, ext, default_taps_ondie);
-      rx = ext, taps = ondie's
-  en751221_trgmii_calibrate_direction(ext, ondie, default_taps_ext);
-      rx = ondie, taps = ext's
-
-and the callee only ever writes the array into rx:
-
-	regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
-			   RD_TAP(default_taps[channel]));
-
-So when a lane finds no passing tap, doesn't the receiver's RD_TAP get
-programmed with the peer chip's saved value, and doesn't the dev_warn() report
-a tap that was never in that register?  The values are not the same on both
-sides - mt7530_setup() programs RD_TAP(16) on the MDIO attached switch while
-the on-die switch keeps its reset/bootloader value.
-
-> +
-> +	dev_info(ondie->dev, "TRGMII inter-switch link initialized\n");
-> +}
-> +
-> +static void
-> +mt7530_cal_interswitch_trgmii(struct dsa_port *dp)
-> +{
-
-[ ... ]
-
-> +		peer = peer_ds->priv;
-> +
-> +		if (peer->id != ID_EN751221)
-> +			continue;
-> +
-> +		en751221_trgmii_pair_setup(priv, dp->index, peer,
-> +					   peer_dp->index);
-
-[Severity: Medium]
-What serializes this against the peer switch's own driver paths?
-
-en751221_trgmii_pair_setup() performs a long sleeping sequence on the peer
-instance - full PMCR overwrites, TX/RX resets, drive strength changes,
-RCK/RTT and per-lane RD_TAP read-modify-writes, plus core PLL access - but
-neither ondie->reg_mutex nor rtnl is held.  It runs from the ext switch's
-phylink resolve worker, which holds only that phylink instance's state_mutex.
-
-Meanwhile the on-die switch has its own per-port phylink workers, which can
-run concurrently:
-
-mt753x_phylink_mac_link_down()
-    regmap_clear_bits(priv->regmap, MT753X_PMCR_P(dp->index), mcr);
-
-mt7530_mac_config() -> mt7530_setup_port6()
-    core_clear(priv, CORE_TRGMII_GSW_CLK_CG, REG_TRGMIICK_EN);
-
-Can a concurrent link event on the on-die switch clobber the PMCR bits this
-sequence is writing, or gate the TRGMII clock off in the middle of the tap
-sweep so every lane "fails" and falls back to the default tap?
-
-> +	}
-> +}
-> +
->  static void
->  mt7530_mib_reset(struct dsa_switch *ds)
->  {
-> @@ -1408,7 +1663,8 @@ mt7530_port_enable(struct dsa_switch *ds, int port,
->  
->  	mutex_unlock(&priv->reg_mutex);
->  
-> -	if (priv->id != ID_MT7530 && priv->id != ID_MT7621)
-> +	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
-> +	    priv->id != ID_EN751221 && priv->id != ID_EN751221_EXT)
->  		return 0;
-
-[Severity: Medium]
-Does the new MCM-behind-on-die topology nest two reg_mutex instances of the
-same lock class?
-
-mt7530_port_enable() takes mutex_lock(&priv->reg_mutex) and issues regmap
-accesses while holding it.  For the MCM switch those accesses go through the
-on-die switch's MDIO child bus, whose read/write ops are the on-die
-info->phy_read_c22/phy_write_c22, i.e. mt7531_ind_c22_phy_read() and
-mt7531_ind_c22_phy_write(), and those take mutex_lock(&priv->reg_mutex) on the
-on-die priv.
-
-Both mutexes are initialised at the same mutex_init(&priv->reg_mutex) site in
-mt7530_probe_common(), so they share one lock class and both acquisitions use
-the default subclass.  Won't lockdep report possible recursive locking on
-every boot of a board with the MCM present, and disable further validation for
-the rest of the boot?  Would a mutex_lock_nested() annotation or separate lock
-classes be appropriate?
-
->  
->  	if (port == 5)
-> @@ -2980,6 +3243,44 @@ static void en7528_mac_port_get_caps(struct dsa_switch *ds, int port,
->  	}
->  }
->  
-> +static void en751221_mac_port_get_caps(struct dsa_switch *ds, int port,
-> +				       struct phylink_config *config)
-> +{
-> +	switch (port) {
-> +	/* EN751221 ports 0..3 are connected to the integrated FE PHYs. */
-> +	case 0 ... 3:
-
-[Severity: Low]
-This advertises four 10/100 ports and the commit message says "4 FE ports and
-1 GE port", but the binding text added by the preceding series patch says:
-
-  EcoNet EN751221 SoCs have a memory mapped MT7530 with 3x 10/100 PHYs and 1x
-  gigabit PHY.
-
-That binding patch's own changelog says "ports 0..3 are 10/100 only", so is
-the description text in
-Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml the part that
-needs fixing?  As it stands a DT author cannot tell whether port@3 is valid.
-
-> +		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-> +			  config->supported_interfaces);
-> +
-> +		config->mac_capabilities |= MAC_10 | MAC_100;
-> +		break;
-> +
-> +	/* Port 4 is connected to the standalone EN7512/EN7521 GPHY. */
-> +	case 4:
-> +		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-> +			  config->supported_interfaces);
-> +
-> +		config->mac_capabilities |= MAC_10 | MAC_100 | MAC_1000FD;
-> +		break;
-> +
-> +	/* Port 5 is the 1 Gbit/s TRGMII cascade to the external MT7530. */
-> +	case 5:
-> +		__set_bit(PHY_INTERFACE_MODE_TRGMII,
-> +			  config->supported_interfaces);
-
-[Severity: Medium]
-Port 5 is declared TRGMII here and port 6 INTERNAL, but mt7530_mac_config()
-dispatches by fixed port number:
-
-	if (port == 5)
-		mt7530_setup_port5(priv->ds, interface);
-	else if (port == 6)
-		mt7530_setup_port6(priv->ds, interface);
-
-mt7530_setup_port5() contains no TRGMII or PLL handling, only MTRAP muxing and
-RGMII pad/delay programming, and mt7530_setup_port6() only returns early for
-PHY_INTERFACE_MODE_RGMII.
-
-So for this variant, doesn't the INTERNAL CPU link on port 6 fall into the
-TRGMII branch - setting MT7530_P6ECR to P6_INTF_MODE(1) and reprogramming the
-DDS with the new xtal override and ncpo1 = 0x1d00 - while the port that
-actually reports TRGMII never reaches any TRGMII specific setup?  If the
-fallthrough is what the hardware wants, could that be spelled out in a
-comment?
-
-> +
-> +		config->mac_capabilities |= MAC_1000FD;
-> +		break;
-> +
-> +	/* Port 6 is the 1 Gbit/s CPU link to GDM1. */
-> +	case 6:
-> +		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-> +			  config->supported_interfaces);
-> +
-> +		config->mac_capabilities |= MAC_1000FD;
-> +		break;
-> +	}
-> +}
-> +
->  static void
->  mt7530_mac_config(struct dsa_switch *ds, int port, unsigned int mode,
->  		  phy_interface_t interface)
-> @@ -3129,6 +3430,9 @@ static void mt753x_phylink_mac_link_up(struct phylink_config *config,
->  	}
->  
->  	regmap_set_bits(priv->regmap, MT753X_PMCR_P(dp->index), mcr);
-> +
-> +	if (interface == PHY_INTERFACE_MODE_TRGMII)
-> +		mt7530_cal_interswitch_trgmii(dp);
->  }
->  
-> @@ -3670,6 +3975,28 @@ const struct mt753x_info mt753x_table[] = {
->  		.phy_write_c45 = mt7531_ind_c45_phy_write,
->  		.mac_port_get_caps = en7528_mac_port_get_caps,
->  	},
-> +	[ID_EN751221] = {
-> +		.id = ID_EN751221,
-> +		.pcs_ops = &mt7530_pcs_ops,
-> +		.sw_setup = mt7988_setup,
-> +		.phy_read_c22 = mt7531_ind_c22_phy_read,
-> +		.phy_write_c22 = mt7531_ind_c22_phy_write,
-> +		.phy_read_c45 = mt7531_ind_c45_phy_read,
-> +		.phy_write_c45 = mt7531_ind_c45_phy_write,
-> +		.mac_port_get_caps = en751221_mac_port_get_caps,
-> +		.mac_port_config = mt7530_mac_config,
-
-[Severity: Medium]
-Is this PMSR read guaranteed to observe the link state that was
-just forced a few instructions earlier?
-
-mt753x_phylink_mac_link_up() does
-
-	regmap_set_bits(priv->regmap, MT753X_PMCR_P(dp->index), mcr);
-
-with mcr containing PMCR_FORCE_LNK, and then calls straight into
-mt7530_cal_interswitch_trgmii(), which reads MT7530_PMSR_P(dp->index)
-and bails out unless PMSR_LINK is set. There is no delay and no
-regmap_read_poll_timeout() between the write and the read, so if the
-MAC needs any propagation time before the forced link shows up in the
-status register, the check fails and the whole calibration is skipped
-silently - no message is emitted on this path, unlike the dev_info()
-at the end of en751221_trgmii_pair_setup().
-
-Since this is a fixed DSA link that gets no further mac_link_up, a
-single early read would leave the inter-switch TRGMII running on
-whatever taps the bootloader left behind for the rest of the boot,
-which is exactly the failure mode this patch is meant to avoid.
-
-What does the hardware actually guarantee here? If PMSR is expected to
-reflect the forced link immediately, could that be stated in a comment?
-Otherwise, would a regmap_read_poll_timeout() on PMSR_LINK (with a
-dev_warn() on timeout so the skip is visible) be more robust? And is
-the PMSR check even needed - the caller is already in mac_link_up for
-a TRGMII interface, so what additional condition is it trying to
-rule out?
-
-[Severity: High]
-This is the first memory mapped ID to set .mac_port_config, which makes the
-indirect MMD core access path reachable for a switch where priv->bus is NULL:
-
-mt753x_phylink_mac_config() -> mt7530_mac_config() -> mt7530_setup_port6()
-    -> core_clear()/core_write()/core_set() -> core_rmw()
-
-Is the MDIO bus lock held on that path?  mt7530_mutex_lock() is:
-
-	if (priv->bus)
-		mutex_lock_nested(&priv->bus->mdio_lock, MDIO_MUTEX_NESTED);
-
-and for an MMIO probed switch priv->bus is NULL, so it is a no-op, while
-core_rmw() falls back to the child bus:
-
-	struct mii_bus *bus = priv->bus;
-	...
-	if (!bus)
-		bus = priv->child_bus;
-	...
-	ret = bus->write(bus, ctl_phy, MII_MMD_CTRL, MDIO_MMD_VEND2);
-
-The four transaction "select MMD devad, select MMD register, select function,
-read/write data" sequence is then issued on priv->child_bus without holding
-child_bus->mdio_lock, which every other user of that bus takes - phylib via
-mdiobus_read()/mdiobus_write(), and the MCM MT7530's regmap, whose lock is
-bus->mdio_lock.
-
-Can a concurrent transaction on that child bus interleave inside the MMD
-select/data sequence, so a core PLL value lands in whatever register the other
-user selected, or the read-modify-write picks up a foreign value?
-
-> +	},
-> +	[ID_EN751221_EXT] = {
-> +		.id = ID_EN751221_EXT,
-> +		.pcs_ops = &mt7530_pcs_ops,
-> +		.sw_setup = mt7530_setup,
-> +		.phy_read_c22 = mt7530_phy_read_c22,
-> +		.phy_write_c22 = mt7530_phy_write_c22,
-> +		.phy_read_c45 = mt7530_phy_read_c45,
-> +		.phy_write_c45 = mt7530_phy_write_c45,
-> +		.mac_port_get_caps = mt7530_mac_port_get_caps,
-> +		.mac_port_config = mt7530_mac_config,
-> +	},
->  };
->  EXPORT_SYMBOL_GPL(mt753x_table);
->  
-> diff --git a/drivers/net/dsa/mt7530.h b/drivers/net/dsa/mt7530.h
-> index c86bc4bca29b9..1a4329749c0f1 100644
-> --- a/drivers/net/dsa/mt7530.h
-> +++ b/drivers/net/dsa/mt7530.h
-> @@ -356,6 +358,9 @@ enum mt7530_vlan_port_acc_frm {
->  #define MT753X_PMCR_P(x)		(0x3000 + ((x) * 0x100))
->  #define  PMCR_IFG_XMIT_MASK		GENMASK(19, 18)
->  #define  PMCR_IFG_XMIT(x)		FIELD_PREP(PMCR_IFG_XMIT_MASK, x)
-> +#define    PMCR_IFG_XMIT_96		0
-> +#define    PMCR_IFG_XMIT_RAND		1
-> +#define    PMCR_IFG_XMIT_64		2
->  #define  PMCR_EXT_PHY			BIT(17)
->  #define  PMCR_MAC_MODE			BIT(16)
->  #define  MT7530_FORCE_MODE		BIT(15)
-> @@ -601,6 +607,8 @@ enum mt7531_xtal_fsel {
->  /* Register for TOP signal control */
->  #define MT7530_TOP_SIG_CTRL		0x7808
->  #define  TOP_SIG_CTRL_NORMAL		(BIT(17) | BIT(16))
-> +/* Undocumented */
-> +#define  TOP_SIG_CTRL_B0		BIT(0)
-
-[Severity: Medium]
-This new bit has no user, and the .c side of the same register was not
-touched.  Should ID_EN751221_EXT be added to the condition in
-mt7530_setup_irq()?
-
-	/* This register must be set for MT7530 to properly fire interrupts */
-	if (priv->id == ID_MT7530 || priv->id == ID_MT7621)
-		regmap_set_bits(priv->regmap, MT7530_TOP_SIG_CTRL,
-				TOP_SIG_CTRL_NORMAL);
-
-ID_EN751221_EXT is an MT7530 die probed through the MDIO driver and uses
-mt7530_setup(), and this patch extends three other "ID_MT7530 || ID_MT7621"
-predicates (mt7530_port_enable, mt7530_port_disable,
-mt753x_conduit_state_change) with the new IDs but not this one.
-
-If the MCM switch node declares interrupt-controller, the irq chip and domain
-are registered while the register that enables interrupt generation is never
-set - would that leave PHY/link interrupts undelivered?
-
->  
->  #define MT7531_TOP_SIG_SR		0x780c
->  #define  PAD_DUAL_SGMII_EN		BIT(1)
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915174643.253660-1-cjd%40cjdns.fr
+X-Exchange-RoutingPolicyChecked: uJTu0N9voLOludd9UA9L6Wi7s/Fwq7GhrtYP/RW6dhEeZEoCKJR//qTwTeYVOzYB2K3zwND6XetEP/nudVVnGBTj79qWlesax2xrly+Z1XmczfJ+XV0yLBQu1BI8EZ2ss3jUPTXnQV0pSAQ/W4/2fBP0DMMX+TR0qlQDY2iNUtcGPKCvGytWhkhAjBS+TrsxzSuG8UCTNg3Gvnr6RjCWDqR/MMVh7JoYISR6Se2qkLy5t3joWELl+YWXgeZ/KNrfH1OEG0H53LrRvaHeE3necxxUZD7jUG3/n4QdHfcg00TNTDEMwrrfdjxdpC76CqkucuB53F56VQDKgMiLnVgy2A==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5330.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc1f54ed-54d7-4cf9-2d73-08df14fd3fa8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 20:50:03.7039
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dTWQCcxoXt+PMcMmnGgIv/vrfTAsSOZvCn4bK3CLji+omxsxED1iTRln57++vVTR2JYVT5vSYLwIJPoQQwRagQGrbghi4xLh7zogtLCGkEY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4673
+X-OriginatorOrg: intel.com
+
+T24gU3VuLCAyMDI2LTA5LTEzIGF0IDA0OjA3ICswMDAwLCBDaGFuZ2h1YW5nIExpYW5nIHdyb3Rl
+Og0KPiBIaSwgR3VlbnRlcg0KPiANCj4gVGhhbmtzIGZvciB0aGUgcmV2aWV3Lg0KPiANCj4gPiBP
+biA5LzMvMjYgMDY6MzQsIENoYW5naHVhbmcgTGlhbmcgd3JvdGU6DQo+ID4gPiBBZGQgc3VwcG9y
+dCBmb3IgR3Jhbml0ZSBSYXBpZHMgKEdOUikgcGxhdGZvcm0gaW4gUEVDSSBESU1NIHRlbXBlcmF0
+dXJlDQo+ID4gPiBtb25pdG9yaW5nIGRyaXZlci4NCj4gPiA+IA0KPiA+ID4gVGhlIEdOUiBwbGF0
+Zm9ybSBoYXMgZGlmZmVyZW50IERJTU0gdG9wb2xvZ3kgZnJvbSBwcmV2aW91cw0KPiA+ID4gZ2Vu
+ZXJhdGlvbnMsIHdpdGggMTIgY2hhbm5lbCByYW5rcyAoQ0hBTl9SQU5LX01BWF9PTl9HTlIpIGFu
+ZCAyDQo+ID4gRElNTQ0KPiA+ID4gaW5kZXhlcyBwZXIgY2hhbm5lbC4gRGVmaW5lIHRoZXNlIG5l
+dyBjb25zdGFudHMgYW5kIHVwZGF0ZQ0KPiA+ID4gQ0hBTl9SQU5LX01BWCB0byB1c2UgdGhlIEdO
+UiB2YWx1ZSBzaW5jZSBpdCByZXByZXNlbnRzIHRoZSBtYXhpbXVtDQo+ID4gPiBhY3Jvc3MgYWxs
+IHN1cHBvcnRlZCBwbGF0Zm9ybXMuDQo+ID4gPiANCj4gPiA+IEkgYW0gbm90IHN1cmUgd2hldGhl
+ciBpdCBkaWZmZXJzIGZyb20gcHJldmlvdXMgbW9kZWxzLCBidXQgb24gR05SLA0KPiA+ID4gcmVx
+dWVzdHMgdG8gcmVhZCBESU1NIHRlbXBlcmF0dXJlIHRocmVzaG9sZHMgKERJTU1fVEVNUF9NQVgv
+DQo+ID4gPiBESU1NX1RFTVBfQ1JJVCkgdmlhIFBFQ0kgYXJlIHJlamVjdGVkIHdpdGggY29tcGxl
+dGlvbiBjb2RlIDB4OTANCj4gPiA+IChpbnZhbGlkIHJlcXVlc3QpLiBUbyBoYW5kbGUgdGhpcywg
+dGhlIHJlYWRfdGhyZXNob2xkcyBjYWxsYmFjayBpcyBub3QNCj4gPiA+IGRlZmluZWQgZm9yIEdO
+UiwgYW5kIHRoZSB2aXNpYmlsaXR5IGxvZ2ljIGlzIHVwZGF0ZWQgdG8gc2tpcCBleHBvc2luZw0K
+PiA+ID4gdGhlIG1heCBhbmQgY3JpdCB0ZW1wZXJhdHVyZSBhdHRyaWJ1dGVzIHdoZW4gdGhyZXNo
+b2xkcyBhcmUgbm90DQo+ID4gPiBzdXBwb3J0ZWQuDQo+ID4gPiANCj4gPiANCj4gPiBBcmUgeW91
+IHN1cmUgdGhpcyBkb2Vzbid0IGp1c3QgcmVxdWlyZSBkaWZmZXJlbnQgcGFyYW1ldGVyIGNvbnZl
+cnNpb24gd2hlbg0KPiA+IGNhbGxpbmcgcGVjaV9wY2lfbG9jYWxfcmVhZCgpID8gVGhlIHRyYW5z
+bGF0aW9uIGZyb20gZGltbV9vcmRlciBhbmQNCj4gPiBjaGFuX3JhbmsgdG8gdGhlIHJlZ2lzdGVy
+IG51bWJlciBzZWVtcyB0byBiZSBkaWZmZXJlbnQgZm9yIGVhY2gNCj4gPiBhcmNoaXRlY3R1cmUu
+DQo+ID4gDQo+IA0KPiBZZXMsIGRpZmZlcmVudCBtb2RlbHMgaGF2ZSBkaWZmZXJlbnQgY29uZmln
+dXJhdGlvbiBwYXJhbWV0ZXJzLiBUaGUgZm9sbG93aW5nDQo+IGNvbW1pdCBoYXMgYSByZWZlcmVu
+Y2UgZm9yIHRoaXMgcGFydC4NCj4gDQo+IGh0dHBzOi8vZ2l0aHViLmNvbS9vY3AtaG0tb3BlbmJt
+Yy1vcGYtYW1pL2xpbnV4L2NvbW1pdC9mODUxYTc5MTQzNTU2ZjBjMTM4NjE3ZDY4ZTkyNDA3MTQz
+NGQ4YmI3DQo+IA0KPiBIb3dldmVyLCBhZnRlciBteSBhY3R1YWwgdGVzdGluZywgSSBmb3VuZCB0
+aGF0IHRoaXMgbG9naWMgd291bGQgYWx3YXlzIGdldCBhbg0KPiBpbnZhbGlkIHJlcXVlc3QsIGNh
+dXNpbmcgaXQgdG8gZmFsbCANCj4gdGhyb3VnaCB0byB0aGUgc3RhdGVtZW50IGJlbG93Og0KPiAv
+KiBVc2UgZGVmYXVsdCBvciBwcmV2aW91cyB2YWx1ZSAqLywgDQo+IA0KPiBhbmQgaW4gdGhlIGVu
+ZCwgaXQgYWN0dWFsbHkgbmV2ZXIgb2J0YWluZWQgdmFsaWQgZGF0YSBmcm9tIHRoZSBwZWNpIGNs
+aWVudC4NCj4gDQo+IFNvIGluIG15IGN1cnJlbnQgdGVzdCBlbnZpcm9ubWVudCwgSSdsbCB0ZW1w
+b3JhcmlseSByZWdhcmQgdGhpcyBwYXJ0IGFzIGRlYWQNCj4gY29kZSBhbmQgbm90IGluY2x1ZGUg
+aXQgaW4gdGhpcyBzZXJpZXMuIA0KPiBJdCB3b3VsZCBiZSBncmVhdCBpZiBJd29uYSBjb3VsZCBo
+ZWxwIGNvbmZpcm0gdGhpcy4gVGhpcyBhbHNvIG5lZWRzIHRvIGJlDQo+IGltcHJvdmVkIGxhdGVy
+IGJ5IHNvbWVvbmUgd2hvIA0KPiB1bmRlcnN0YW5kcyB0aGlzIENQVSBtb2RlbCBiZXR0ZXIuDQoN
+ClNpbWlsYXIgdG8gdGhlIGNwdXRlbXAsIGl0IGRvZXNuJ3Qgd29yayBiZWNhdXNlIHdlIGRvbid0
+IHN1cHBvcnQgZG9tYWlucy4NCkZvciBHTlIsIHRoZSBJTUNzIGxpdmUgaW4gYSBkaWZmZXJlbnQg
+ZG9tYWluLCBhdHRlbXB0aW5nIHRvIHF1ZXJ5IHRoaXMgcmVnaXN0ZXINCnVzaW5nIGRvbWFpbiAw
+ICh3aGljaCBpcyB0aGUgY2FzZSBmb3IgYWxsIFBFQ0kgcmVxdWVzdHMgcmlnaHQgbm93IC0gYXMg
+d2UncmUgbm90DQpmaWxsaW5nIHRoaXMgZmllbGQpIHdpbGwgbGlrZWx5IGNhdXNlIHRoZSBiZWhh
+dmlvciB5b3UncmUgb2JzZXJ2aW5nLg0KDQpUaGFua3MNCi1Jd29uYQ0KDQo+IA0KPiA+ID4gVGhl
+IG1pbmltdW0gUEVDSSByZXZpc2lvbiByZXF1aXJlZCBmb3IgR05SIGlzIDB4NDAuDQo+ID4gPiAN
+Cj4gPiA+IFNpZ25lZC1vZmYtYnk6IENoYW5naHVhbmcgTGlhbmcgPGNoYW5naHVhbmcubGlhbmdA
+c3RhcmZpdmV0ZWNoLmNvbT4NCj4gPiA+IC0tLQ0KPiA+ID4gwqAgZHJpdmVycy9od21vbi9wZWNp
+L2RpbW10ZW1wLmMgfCAzNg0KPiA+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLS0t
+DQo+ID4gPiDCoCAxIGZpbGUgY2hhbmdlZCwgMzIgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMo
+LSkNCj4gPiA+IA0KPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHdtb24vcGVjaS9kaW1tdGVt
+cC5jDQo+ID4gPiBiL2RyaXZlcnMvaHdtb24vcGVjaS9kaW1tdGVtcC5jIGluZGV4IGJkM2U4NzE1
+ZGZlYy4uOWU5OGVmZmViOTI4DQo+ID4gPiAxMDA2NDQNCj4gPiA+IC0tLSBhL2RyaXZlcnMvaHdt
+b24vcGVjaS9kaW1tdGVtcC5jDQo+ID4gPiArKysgYi9kcml2ZXJzL2h3bW9uL3BlY2kvZGltbXRl
+bXAuYw0KPiA+ID4gQEAgLTM0LDggKzM0LDEwIEBADQo+ID4gPiDCoCAjZGVmaW5lIERJTU1fSURY
+X01BWF9PTl9TUFIJMg0KPiA+ID4gwqAgI2RlZmluZSBDSEFOX1JBTktfTUFYX09OX0VNUgk4DQo+
+ID4gPiDCoCAjZGVmaW5lIERJTU1fSURYX01BWF9PTl9FTVIJMg0KPiA+ID4gKyNkZWZpbmUgQ0hB
+Tl9SQU5LX01BWF9PTl9HTlIJMTINCj4gPiA+ICsjZGVmaW5lIERJTU1fSURYX01BWF9PTl9HTlIJ
+Mg0KPiA+ID4gDQo+ID4gPiAtI2RlZmluZSBDSEFOX1JBTktfTUFYCQlDSEFOX1JBTktfTUFYX09O
+X0hTWA0KPiA+ID4gKyNkZWZpbmUgQ0hBTl9SQU5LX01BWAkJQ0hBTl9SQU5LX01BWF9PTl9HTlIN
+Cj4gPiA+IMKgICNkZWZpbmUgRElNTV9JRFhfTUFYCQlESU1NX0lEWF9NQVhfT05fSFNYDQo+ID4g
+PiDCoCAjZGVmaW5lIERJTU1fTlVNU19NQVgJCShDSEFOX1JBTktfTUFYICoNCj4gPiBESU1NX0lE
+WF9NQVgpDQo+ID4gPiANCj4gPiA+IEBAIC0xMjUsNiArMTI3LDkgQEAgc3RhdGljIGludCB1cGRh
+dGVfdGhyZXNob2xkcyhzdHJ1Y3QgcGVjaV9kaW1tdGVtcA0KPiA+ICpwcml2LCBpbnQgZGltbV9u
+bykNCj4gPiA+IMKgwqAJaWYNCj4gPiAoIXBlY2lfc2Vuc29yX25lZWRfdXBkYXRlKCZwcml2LT5k
+aW1tW2RpbW1fbm9dLnRocmVzaG9sZHMuc3RhdGUpKQ0KPiA+ID4gwqDCoAkJcmV0dXJuIDA7DQo+
+ID4gPiANCj4gPiA+ICsJaWYgKCFwcml2LT5nZW5faW5mby0+cmVhZF90aHJlc2hvbGRzKQ0KPiA+
+ID4gKwkJcmV0dXJuIC1FT1BOT1RTVVBQOw0KPiA+ID4gKw0KPiA+IA0KPiA+IFRoaXMgY2hlY2sg
+aXMgdW5uZWNlc3Nhcnk6IFRoZSBhdHRyaWJ1dGVzIGFyZSBtYXJrZWQgYXMgbm90IHZpc2libGUg
+aWYNCj4gPiByZWFkX3RocmVzaG9sZHMgaXMgTlVMTCwgYW5kIHRoaXMgY29kZSB3aWxsIG5ldmVy
+IGJlIGNhbGxlZC4NCj4gDQo+IFdpbGwgZHJvcCBpdC4NCj4gDQo+IEJlc3QgUmVnYXJkcywNCj4g
+Q2hhbmdodWFuZw0K
