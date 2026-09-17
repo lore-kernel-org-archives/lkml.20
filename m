@@ -1,238 +1,502 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E4904EFFA6
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:42:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8B54B44B3
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659780; cv=pass; b=PnVZjsSgzAC2nWACjBrbk90VXjddM1SwGRbKig70aLTgoxlEiBWAi2i3KBIjouvuc009l1o6DgBuCCDzLu2MAHHHHQeoYsJ9Z51JCZROHeaMW8pK7hp5Tl5wLJ+GSEe7WAcyi6wimpK1Dz41/xUpO5PZgvzVSLRIcTvZX7kHNdQ=
+	t=1789659956; cv=pass; b=kncUe+QMqMyY2k46Ud8tiKjYVWDDcsF9ZIpCnXgVEw+GzkOBaTD4OtPsnbO4Q9znki7c65ZoPve4UDtkdTXLp9lbaDK68Wd03guy7NFO6zXhB/2PsRoq+r2+liaDF7Aws2obfCAnmA0pBO+ASmb/MMKI7TjxV3jFBHiRiCMdbIY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659780; c=relaxed/simple;
-	bh=gt0dv7lUskys8+OlSX0pL27DcpnnuyXu2ozj7ZYCfBo=;
+	s=arc-20240116; t=1789659956; c=relaxed/simple;
+	bh=2Mbxz4Fzgk6MkDGn4Hn2euC2CAbW2ZeexCeu6o2sCK8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kPebd9/I3AlFqsBUkP8crgmcATKYm1teLcqJQ0i3f3fKAAkMfOJ6zcdiEc6Osj+BdMvqNXlcLyUmLTJmy1Tyz8cW2jE6nIWf7pBVHTearu/3ZsW0uogTKcGigo5wkEzV+5WPFtWNf1FPDeXEf0dMbAmWDzzSSqFyQkV131E4Q4c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FVmqc6iN; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=uDq4mB3XcXKeL/ZQL4XIHvIk05c1amdUOANV1v+KO5hlchWZSjeNPlMpV4czUWNHLuiFl9Xs42Bm3zexB8JIVw+HaYuNNUwVVWPdxp/oQjzn4003KrjjCpGOtMfkIwRR/T4Q9h0HRG3YrRhVixq8Mw+QjbnWroSEp259eQgcmSE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=GFGK614e; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FVmqc6iN"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294af0caa8so161894966b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:42:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789659769; cv=none;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="GFGK614e"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9ab2a135dso1620824a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:45:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789659947; cv=none;
         d=google.com; s=arc-20260327;
-        b=bYA5drOQjMiWChsLj/DNBHQBGsbxN3cc2x/gUtiqI6ti/vkMr0gI//iYZj9hXN0i5o
-         IX/8F/Xw9Vp55WeW5t9T95hgoFHHZUyhTrlzIQgkidXvIDc0NuxAtElf95ulf8wgjDzr
-         rgdFAr7CvrQDTVeLP7NbY9HPySA5KVUnYxQxwRgwmsHFw1W+KR43pB2do+JSzGYZDi7C
-         M4wyHRVW1qU+XFskPrW4khfejh60KxQf6OV+Q2waEdmhplV1x40SEkiGi/3Bu/htItkM
-         c4EP294FcgIa7+iWhGMWVs22kcMtSo6suG9j3Xv7sfOIbhxzu16BoTlzLlwY7bdKsynv
-         zYSQ==
+        b=TcyDF8vIzLwKjLzsh2km7909kd64LfJPiBjeQkp0J5XygEGf7S7oUJcchXBzvwFarW
+         5stlxH+YjxS9hTPYDiyqH+mTIi1KC44NIeEQejCMe5NHWJGR4nphxy36qzQacDUfUSIa
+         vSTN9MZWtPEcuD3Wtyxd5WTHU8DXvEB/v87sozpI4XFFV6gk0cnchkmJvDGuqY/SRV7Z
+         sBx/t0RZhjImgqKjDM+hxCqSNVzku5/I1agx9sB9AM/OzB130qyFu64Bl6rIHHcf41Zy
+         luRlFKyuAhzGsx96s1IXP9U7hMWTPO9YgiFkLVj4Mnj7MT2SnLsN+jgukcSJMVNGB4BN
+         Lf6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=b6QcRMWdExnJJ8C8eYRzuUZ+eUGTgGISBUbWC62+eRY=;
-        fh=m3S90PxyPd+6QS4SqWIepORiIP+69o+sZrnCUAPpDTg=;
-        b=HZSSaJYsNTtnTHeqt1AQfz9eRqfadvZrtJhH4tkjf3U6q9xitk+9ILLWrkwwABo58E
-         ElUED8jKi9vsNCFGgJCEwlqyQi2F6xsGDs71/zZxN8emd6GrNmzosq/Jf0ahcAvm3IVf
-         PT4tFw1X/hNUevmA6fjrdTG1Tv68L302WaPeFKGeFlTRMB/goSOs1cgMyl45U5u546D3
-         WKZS0XSqzWs7w9afva9Busz/iY3iLhUYnqFLK+dYZH47AlGK5kB4FAk1RRT30WLrsph6
-         PDxJfSpOjrQZfzdugoC8ccsZdPo39Iw2C+piaSqVVvlc3rBA4V3PgPu+CxzqugTjSgVM
-         wzqQ==;
+        bh=0xnEztL1Qkn6wCE3IYANlcE0zYyxui23wzQHzEtpEpw=;
+        fh=xrozhfTfBVuBIS7x5KzfvPrjlM5csQXq59s4t1c846M=;
+        b=KuMJJ0QxVlIP5EQH+6/Vm9AdTLiC30NZnhaz3XFHEwsRsFHiLSDrsN3GlSVGGS9QCs
+         sipa/BRNuP2bg3BSxQWPvJewQGxVvunAriBJ6wmH3C82gSbiPQ/MIwlBybwpApPS0KaI
+         4unb5sEAeqYpHtOW+yJxPbfoZ5FGBg+wdjBk85bvadVX8Ok9DV2nn48V3NtJs5RVsn6G
+         XJakJPHEPysvHWddmsrKxuYdC/y+m1PHuOTDm2ZHvyNZacaB4mKat3VnLkpv++5uBPwg
+         4VtEy9sP1GrBTOdh522B2eE3B9wVrfTh3j/xC9dzaZoyMlyvFam9pHAf0os0bZSDwn6V
+         0+1Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789659769; x=1790264569; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1789659947; x=1790264747; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=b6QcRMWdExnJJ8C8eYRzuUZ+eUGTgGISBUbWC62+eRY=;
-        b=FVmqc6iNe9CVO5u5efXrUJTVIjT/dCzQbeRoYbazKkxyEpzRzfLd+8mGrLjF7ePVIT
-         1ixJunoD854qbJwhKJcvpZ+rAt1gkX04l2oc1sAeGUqIK120rc12jjIrxro0fe+KlK+M
-         15xQlJ+VQe9P5HqctP9qDybb5rqDU5M7/vjG37oT9Bgd00N9oE6rUtlv4qzTABK+S4L8
-         ZmR4VKf3/lRTtwXL/5b7us0z1qKSnHl9Q3C5Xv2D+YjpOWMYtLWfsFg8PQMRAVuk8R0J
-         SxVdorxMbxhG5Tc0qrIBVz6QKhPU+n0JrVkpryVtjjYDayL3NVltAa8hFLSA0O56mEcX
-         e7vA==
+        bh=0xnEztL1Qkn6wCE3IYANlcE0zYyxui23wzQHzEtpEpw=;
+        b=GFGK614eJdbP39VsUNUYjfgHZt2YcZRLz6cV6+AeBFYE+XfewY4v08lq7DsTW2fDdq
+         8qc0cT/bw/2a4+8eszwzq4yyhaGDFpoWaa7xFjb3PM8loTcbcTZVnr/51oyHEEzPA7aq
+         Y7N1oqTr+UaPBi7NolfLPAIZCr3QoZFJkAa3SgtJpBVpOLyxUP42oN4tzivzDR4IGpQ0
+         zERhtHARf7Vk+eGSNuOO3AmgD5Ysm1YrVPlbN31AdeZmNHu53T2rqhqM0BR5Te42ktT1
+         AnmehXpxYJjNDeUfsQQ+68VeJ7MKte26GCQn3ag/7u+CytANtP5U//RUH/S+m/aJSMWT
+         hqlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789659769; x=1790264569;
+        d=1e100.net; s=20260707; t=1789659947; x=1790264747;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=b6QcRMWdExnJJ8C8eYRzuUZ+eUGTgGISBUbWC62+eRY=;
-        b=INtAk4g2fH6Z1i5R7iaWdCK21/9y/6vt0Su7zWlsBiWlCAUqbVQ7J8xNL513mEppak
-         0V45MPL4W9WbBPA+ZY2ehmcfHALSCsuvdoVzPV3pWoiQiGqQK2o395aMbqoTqwFzQWxN
-         BYNkL7WOftaG2cs8R3/BA8NYq4o++4JEbWsXPko9xhco5/UVmshZQq3bzi70ATJOcWIU
-         xDozhAPouYSoKD5XMM51L5yWe0qt0xuSReYM//J6go5HcGaedruduCd4WppvaFIlv2uY
-         7AB+H7daWOB3pgsywrIZrhBab1Y7HMbA8ocA/Psmp+r56T5wrgOrbiwyreAiQyNOx7Gn
-         K/AQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzX3KlZDmMVMbBIYO1WX+2xhux3uo78rH4zggyYv7mTpmXq30EYzvi/MWb7UdGWjcm6rLq7Miqo7F7tiyI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhh04qXXR7gnK1gchNF8PW8NhZ2Y99ZWUnzDrdoMgzFVDqbg2y
-	LOryJSrYHwD+mztIt7+aAY6KuSMMzuQd1KQJUagw0ck6zC0YohDBM7vMvoCSSMKCfX8gW/BT5Ws
-	c679cfxurnCMXWW6TG9i7NGHxd9HmMkCG35E/
-X-Gm-Gg: AYBFou3gYSkpv0W9m375KHTxuPkjk5UEB6JAPaWApItvX2k4JodWc1Y6DYs7FQceBB1
-	HTZ7zyZ9FHwkfXlV/KjnLAqYJrvh8W/S2GIW/3arHng3xV2ugsQerSBUTMliO0w9NQgZJhTwOf9
-	MMrDQlfD8q+AdPbnKCe2jfiYujp2OiFpC6bDI8CxJeOJB0CcTmT17nftAkcs0m30+/HZsHU0s+6
-	xl0js/+Rnq68m0V2f4UXeAeQ3DCn48XJqk8QYahBeaTzZSIvEwTpTHyaMrTzHqOiEkgTzxQRRmr
-	OYZFeSSsCw/DdnqKdgc8IH1bgPiugJLkYSNjDVbRjxkyAs9AdauON8iodgNfgW3T491H6iyfFgE
-	mexFqG0oK+PLrUoOrlipOtVU=
-X-Received: by 2002:a17:907:1c12:b0:c26:19de:9adb with SMTP id
- a640c23a62f3a-c29e53956cbmr555627466b.26.1789659767907; Thu, 17 Sep 2026
- 08:42:47 -0700 (PDT)
+        bh=0xnEztL1Qkn6wCE3IYANlcE0zYyxui23wzQHzEtpEpw=;
+        b=VC6VGc9/ZXO1kahrnAXuIV0bYQjysSBTJRs1MgicLzSGSNM7RlW5FfJcRpecDICmwP
+         skF1ZjN9XDW21Nuz0P7DdZVRKJi2agwnMyvTQ2hYtv7ESCiJL4IPptR2ug2wz93Vm1gp
+         mPFM+CeCgmNSqW7tJQHImhVV7iTMCA+miyQTy64oAwz59IISou1AVKZ8sgIQK/avVihG
+         kl3rKZiglXlfRznhlGO1Q7BA3IQNjGPzARwdh8YfcYuADPlh/XvTNaKYIe8NcStPdMJi
+         H0j53tpA67Ai+XV/1Gi64u1FvUj0R+CK1QzeeUeWZv1Ku5T65JnVf9QQX0EHtUMovjFz
+         FzgA==
+X-Forwarded-Encrypted: i=1; AKwUvBzDDIJXHSS4UZHpGO7SYXrUUfhfHaCnSZFhsXqK8DXhOolrt4u+epOGgN0QCNO8+6cYbxXdeWKqAR/9zg4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nbQWsu5WesHNx65likp9g8h4NULE3RzP2Bu6xvfd+srVfiHDoN
+	QMlA/ylb0ig9bWi1XM9xoozH26M5pWRYmka2tLVZzsBtCFDCEMz4Ny86KS5Kz/HUn8CeMh+iy26
+	WiFH3vFqqX5453TEYwUwqhOjaLToRLeJ7NaOTDIyHRQ==
+X-Gm-Gg: AYBFou3Vrw5qEhsXI5M2sI5lCRDPOkZhHOI87xxhWN1nclXjJw06SPD792IO4wMYM7W
+	GmQBzDVRzpo/GfmrY/l452sK2AFd3c0TwS5zXjmbCuGTaQK5nzJXJo6uoh7WgEzeROTiWIlczAM
+	CY/uC1Ej3l5t3D4GTD4e+H10eFhVmwGvhoUnRtPsjGJ7uUof8yb3nVULnRpRaaIpHxG5qzLs708
+	d+bA8IeFifyb0srGk5NjNP0J/iBjwfmnETETo4E9VhfqoHk6x1+s7kbaDYy8FEfUGfTI2JvZVM/
+	GCUIm6jU7uP8kpzuww5E6CkLMXOAWGMO9eGoKIcdlD6/4vimErNdMj/9NgXg7Z67++qEapmRIYY
+	N4MWOjURx3QjQp4rGMvU8HK67
+X-Received: by 2002:a05:6402:440b:b0:6a7:e514:1d85 with SMTP id
+ 4fb4d7f45d1cf-6aa2236a40bmr5354857a12.13.1789659946538; Thu, 17 Sep 2026
+ 08:45:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CACygGA9s1oWO53NPamL5tkaNhUt-W8S736OVAJZcYCU_UOni+A@mail.gmail.com>
- <87zexggmqt.wl-tiwai@suse.de> <CACygGA9h-qehZVFxRMOgtt8y-kHMwSCuuvZwBSi_7R0xpp-dRg@mail.gmail.com>
- <874ifogc5x.wl-tiwai@suse.de>
-In-Reply-To: <874ifogc5x.wl-tiwai@suse.de>
-From: A Akhil <akhilarul324@gmail.com>
-Date: Thu, 17 Sep 2026 21:12:36 +0530
-X-Gm-Features: AcwNN1WOwF372b5aZN6jQqBMCpHzRibzvDuWmE-PpVzaGQvaHkZOCiWUYPsk9rY
-Message-ID: <CACygGA839V5fg=C7nBTTyT0hy=4LV7kKMz1AH-+E9z3s75p3Zg@mail.gmail.com>
-Subject: Re: Sound/seq: hung task in odev_open - unuse callback sleeps under list_mutex
-To: Takashi Iwai <tiwai@suse.de>
-Cc: tiwai@suse.com, perex@perex.cz, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+References: <20260902214453.634339-2-tanmay.shah@amd.com> <aqBNoaF7m_JEiVYY@p14s>
+ <281ad636-7963-43ad-b88a-8a196eab217b@amd.com> <aqQW7eOsFE7jRTXT@p14s>
+ <935f29ea-adf0-45c2-84fc-0df40b6f591b@amd.com> <CANLsYkzWXRbQiystuX101POObnkhSAyyP-6sOf9Fb+X5H_5y3A@mail.gmail.com>
+ <bb84213f-0168-425c-9803-24eb82415b52@amd.com> <aqq67R111xy20JC-@p14s>
+In-Reply-To: <aqq67R111xy20JC-@p14s>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Thu, 17 Sep 2026 09:45:34 -0600
+X-Gm-Features: AcwNN1Xb9uJ_zbaUYEpLQQ0Qks2LMmwJbS8_d7Rbjqq3ROK5ZoX3xKlXb1wMKj8
+Message-ID: <CANLsYkzg7HGJbrDkuSY6evohUqRv5n=sPcp_uZn3kCkgbmZojA@mail.gmail.com>
+Subject: Re: [PATCH] remoteproc: remoteproc_virtio: add acknowledged vdev reset
+To: tanmay.shah@amd.com
+Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Takashi,
-
-Fair enough on dropping, I'll leave that alone.
-
-I'd actually already tried the 1 second limit before your mail came in, so
-the short answer is yes, it holds up. Same rig as before, one thread
-opening and closing /dev/sequencer2 while two others open it, three runs
-each:
-
-  unpatched              hung 10, 10, 10    worst block ~130 s
-  your patch             hung  0,  0,  7    30.7 / 30.6 / 129.9 s
-  drain capped at 1*HZ   hung  0,  0,  0    20.6 / 18.4 / 21.8 s
-  progress detection     hung  0,  0,  0    11.0 / 11.1 / 11.6 s  <- new
-
-I was running with hung_task_timeout_secs=30 to make the failures turn up
-faster, so at the 120 s default the 1*HZ cap has plenty of room.
-
-The last row is new, and it's the one I'd rather pitch. Rather than
-picking a constant, it just checks whether the device is draining at all:
-wait in HZ/5 slices and give up once avail stops changing, with 10*HZ
-still there as the outer bound. A device that works drains completely as
-before, nothing gets truncated, and a stalled one gets spotted in about
-400 ms. Comes out at roughly half the teardown time of the 1 s cap here,
-and it's about 20 lines inside snd_rawmidi_drain_output(), nothing
-outside it.
-
-One note in case you do go with the cap. MIDI is 3125 bytes/s and the
-buffer is PAGE_SIZE, so a completely full 4K buffer needs 1.31 s to get
-out. 1*HZ would clip that, and 10*HZ already clips a full buffer on 64K
-page kernels. Unlikely to bite in practice since the buffer is rarely
-full at close, but it's the reason I went looking for something that
-doesn't depend on a fixed number.
-
-Also a correction to my last mail: I said about twenty substreams, which
-was wrong. It's one rawmidi device, midiC0D0, and the teardown just calls
-the drain repeatedly, around 31 times per cycle.
-
-If either of these looks fine to you I'll send it as a proper patch. And
-if I find something better in the meantime I'll pitch that instead.
-
-Enjoy your vacation.
-
-Thanks,
-Akhil Arul
-
-
-On Thu, 17 Sept 2026 at 20:25, Takashi Iwai <tiwai@suse.de> wrote:
+On Wed, 16 Sept 2026 at 09:51, Mathieu Poirier
+<mathieu.poirier@linaro.org> wrote:
 >
-> On Thu, 17 Sep 2026 16:11:27 +0200,
-> A Akhil wrote:
+> On Tue, Sep 15, 2026 at 12:20:34PM -0500, Shah, Tanmay wrote:
 > >
-> > Hi Takashi,
 > >
-> > Thanks for the quick patch. Right, it's not a deadlock, that was my
-> > reading of it too. Nothing locks up permanently, it's just a wait long
-> > enough to trip the detector. That's the reason I bothered with it though.
-> > On the syzbot run the wait was over 140 s, and for the whole of that
-> > anything else touching the sequencer is stuck behind it.
+> > On 9/14/2026 11:47 AM, Mathieu Poirier wrote:
+> > > On Fri, 11 Sept 2026 at 12:03, Shah, Tanmay <tanmays@amd.com> wrote:
+> > >>
+> > >>
+> > >>
+> > >> On 9/11/2026 9:57 AM, Mathieu Poirier wrote:
+> > >>> On Tue, Sep 08, 2026 at 02:21:53PM -0500, Shah, Tanmay wrote:
+> > >>>> Hello,
+> > >>>>
+> > >>>> Thank you for the reviews.
+> > >>>>
+> > >>>> On 9/8/2026 1:02 PM, Mathieu Poirier wrote:
+> > >>>>> Good day,
+> > >>>>>
+> > >>>>> On Wed, Sep 02, 2026 at 02:44:54PM -0700, Tanmay Shah wrote:
+> > >>>>>> The existing remoteproc virtio reset path clears the vdev status locally
+> > >>>>>> without notifying the remote processor. As a result, the host cannot tell
+> > >>>>>> whether the remote side has observed the reset request or completed its
+> > >>>>>> cleanup.
+> > >>>>>>
+> > >>>>>> Add a new resource type, RSC_VDEV_V2, for virtio vdevs that support an
+> > >>>>>> acknowledged reset protocol. For these resources, encode a reset request
+> > >>>>>> in the virtio status byte, kick the remote processor using the vdev notify
+> > >>>>>> ID, and wait for the remote side to clear the status back to 0.
+> > >>>>>>
+> > >>>>>> Keep the existing RSC_VDEV behavior for backwards compatibility by
+> > >>>>>> clearing the status locally. Also reset remoteproc-created virtio
+> > >>>>>> devices before unregistering them, and expose RSC_VDEV_V2 reset state
+> > >>>>>> in debugfs.
+> > >>>>>>
+> > >>>>>> Assisted-by: Codex:GPT-5
+> > >>>>>> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
+> > >>>>>> ---
+> > >>>>>>  drivers/remoteproc/remoteproc_core.c     |  3 +-
+> > >>>>>>  drivers/remoteproc/remoteproc_debugfs.c  | 29 +++++++++++++++-
+> > >>>>>>  drivers/remoteproc/remoteproc_internal.h | 21 +++++++++++
+> > >>>>>>  drivers/remoteproc/remoteproc_virtio.c   | 44 ++++++++++++++++++++++--
+> > >>>>>>  include/linux/rsc_table.h                |  5 ++-
+> > >>>>>>  5 files changed, 97 insertions(+), 5 deletions(-)
+> > >>>>>>
+> > >>>>>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> > >>>>>> index 1ed406714849..31d79684977c 100644
+> > >>>>>> --- a/drivers/remoteproc/remoteproc_core.c
+> > >>>>>> +++ b/drivers/remoteproc/remoteproc_core.c
+> > >>>>>> @@ -471,6 +471,7 @@ void rproc_remove_rvdev(struct rproc_vdev *rvdev)
+> > >>>>>>  static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+> > >>>>>>                         int offset, int avail)
+> > >>>>>>  {
+> > >>>>>> +  struct fw_rsc_hdr *hdr = ptr - sizeof(*hdr);
+> > >>>>>
+> > >>>>> Spurious change.
+> > >>>>>
+> > >>>>
+> > >>>> Ack will remove it.
+> > >>>>
+> > >>>>>>    struct fw_rsc_vdev *rsc = ptr;
+> > >>>>>>    struct device *dev = &rproc->dev;
+> > >>>>>>    struct rproc_vdev *rvdev;
+> > >>>>>> @@ -485,7 +486,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+> > >>>>>>            return -EINVAL;
+> > >>>>>>    }
+> > >>>>>>
+> > >>>>>> -  /* make sure reserved bytes are zeroes */
+> > >>>>>
+> > >>>>> Same
+> > >>>>
+> > >>>> Ack, will be removed.
+> > >>>>
+> > >>>>>
+> > >>>>>>    if (rsc->reserved[0] || rsc->reserved[1]) {
+> > >>>>>>            dev_err(dev, "vdev rsc has non zero reserved bytes\n");
+> > >>>>>>            return -EINVAL;
+> > >>>>>> @@ -1009,6 +1009,7 @@ static rproc_handle_resource_t rproc_loading_handlers[RSC_LAST] = {
+> > >>>>>>    [RSC_DEVMEM] = rproc_handle_devmem,
+> > >>>>>>    [RSC_TRACE] = rproc_handle_trace,
+> > >>>>>>    [RSC_VDEV] = rproc_handle_vdev,
+> > >>>>>> +  [RSC_VDEV_V2] = rproc_handle_vdev,
+> > >>>>>>  };
+> > >>>>>>
+> > >>>>>>  struct rproc_rsc_cb_data {
+> > >>>>>> diff --git a/drivers/remoteproc/remoteproc_debugfs.c b/drivers/remoteproc/remoteproc_debugfs.c
+> > >>>>>> index b86c1d09c70c..1fe99749f5b4 100644
+> > >>>>>> --- a/drivers/remoteproc/remoteproc_debugfs.c
+> > >>>>>> +++ b/drivers/remoteproc/remoteproc_debugfs.c
+> > >>>>>> @@ -274,7 +274,7 @@ static const struct file_operations rproc_crash_ops = {
+> > >>>>>>  /* Expose resource table content via debugfs */
+> > >>>>>>  static int rproc_rsc_table_show(struct seq_file *seq, void *p)
+> > >>>>>>  {
+> > >>>>>> -  static const char * const types[] = {"carveout", "devmem", "trace", "vdev"};
+> > >>>>>> +  static const char * const types[] = {"carveout", "devmem", "trace", "vdev", "vdev_v2"};
+> > >>>>>>    struct rproc *rproc = seq->private;
+> > >>>>>>    struct resource_table *table = rproc->table_ptr;
+> > >>>>>>    struct fw_rsc_carveout *c;
+> > >>>>>> @@ -336,6 +336,33 @@ static int rproc_rsc_table_show(struct seq_file *seq, void *p)
+> > >>>>>>                    seq_printf(seq, "  Reserved (should be zero) [%d][%d]\n\n",
+> > >>>>>>                               v->reserved[0], v->reserved[1]);
+> > >>>>>>
+> > >>>>>> +                  for (j = 0; j < v->num_of_vrings; j++) {
+> > >>>>>> +                          seq_printf(seq, "  Vring %d\n", j);
+> > >>>>>> +                          seq_printf(seq, "    Device Address 0x%x\n", v->vring[j].da);
+> > >>>>>> +                          seq_printf(seq, "    Alignment %d\n", v->vring[j].align);
+> > >>>>>> +                          seq_printf(seq, "    Number of buffers %d\n", v->vring[j].num);
+> > >>>>>> +                          seq_printf(seq, "    Notify ID %d\n", v->vring[j].notifyid);
+> > >>>>>> +                          seq_printf(seq, "    Physical Address 0x%x\n\n",
+> > >>>>>> +                                     v->vring[j].pa);
+> > >>>>>> +                  }
+> > >>>>>> +                  break;
+> > >>>>>> +          case RSC_VDEV_V2:
+> > >>>>>> +                  v = rsc;
+> > >>>>>> +                  seq_printf(seq, "Entry %d is of type %s\n", i, types[hdr->type]);
+> > >>>>>> +
+> > >>>>>> +                  seq_printf(seq, "  ID %d\n", v->id);
+> > >>>>>> +                  seq_printf(seq, "  Notify ID %d\n", v->notifyid);
+> > >>>>>> +                  seq_printf(seq, "  Device features 0x%x\n", v->dfeatures);
+> > >>>>>> +                  seq_printf(seq, "  Guest features 0x%x\n", v->gfeatures);
+> > >>>>>> +                  seq_printf(seq, "  Config length 0x%x\n", v->config_len);
+> > >>>>>> +                  seq_printf(seq, "  Status 0x%x\n", v->status);
+> > >>>>>> +                  seq_printf(seq, "  Number of vrings %d\n", v->num_of_vrings);
+> > >>>>>> +                  seq_printf(seq, "  Reset request pending %s\n",
+> > >>>>>> +                             rproc_rsc_vdev_reset_requested(v->status) ?
+> > >>>>>> +                             "yes" : "no");
+> > >>>>>> +                  seq_printf(seq, "  Reserved (should be zero) [%d][%d]\n\n",
+> > >>>>>> +                             v->reserved[0], v->reserved[1]);
+> > >>>>>> +
+> > >>>>>>                    for (j = 0; j < v->num_of_vrings; j++) {
+> > >>>>>>                            seq_printf(seq, "  Vring %d\n", j);
+> > >>>>>>                            seq_printf(seq, "    Device Address 0x%x\n", v->vring[j].da);
+> > >>>>>> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
+> > >>>>>> index 3a742ef6ef60..f07a96ff82a4 100644
+> > >>>>>> --- a/drivers/remoteproc/remoteproc_internal.h
+> > >>>>>> +++ b/drivers/remoteproc/remoteproc_internal.h
+> > >>>>>> @@ -14,6 +14,7 @@
+> > >>>>>>
+> > >>>>>>  #include <linux/irqreturn.h>
+> > >>>>>>  #include <linux/firmware.h>
+> > >>>>>> +#include <linux/virtio_config.h>
+> > >>>>>>  #ifdef CONFIG_HAS_IOMEM
+> > >>>>>>  #include <linux/io.h>
+> > >>>>>>  #endif
+> > >>>>>> @@ -42,6 +43,26 @@ struct rproc_vdev_data {
+> > >>>>>>    struct fw_rsc_vdev *rsc;
+> > >>>>>>  };
+> > >>>>>>
+> > >>>>>> +/*
+> > >>>>>> + * RSC_VDEV_V2 requests an acknowledged reset by writing an otherwise
+> > >>>>>> + * impossible virtio status pattern: DRIVER and FAILED set while
+> > >>>>>> + * ACKNOWLEDGE is clear. Other status bits are left unchanged.
+> > >>>>>> + */
+> > >>>>>> +static inline u8 rproc_rsc_vdev_reset_status(u8 status)
+> > >>>>>> +{
+> > >>>>>> +  status |= VIRTIO_CONFIG_S_DRIVER | VIRTIO_CONFIG_S_FAILED;
+> > >>>>>> +  status &= ~VIRTIO_CONFIG_S_ACKNOWLEDGE;
+> > >>>>>> +
+> > >>>>>> +  return status;
+> > >>>>>> +}
+> > >>>>>> +
+> > >>>>>> +static inline bool rproc_rsc_vdev_reset_requested(u8 status)
+> > >>>>>> +{
+> > >>>>>> +  return !(status & VIRTIO_CONFIG_S_ACKNOWLEDGE) &&
+> > >>>>>> +         (status & VIRTIO_CONFIG_S_DRIVER) &&
+> > >>>>>> +         (status & VIRTIO_CONFIG_S_FAILED);
+> > >>>>>> +}
+> > >>>>>> +
+> > >>>>>>  static inline bool rproc_has_feature(struct rproc *rproc, unsigned int feature)
+> > >>>>>>  {
+> > >>>>>>    return test_bit(feature, rproc->features);
+> > >>>>>> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+> > >>>>>> index d5e9ff045a28..e682caa546b2 100644
+> > >>>>>> --- a/drivers/remoteproc/remoteproc_virtio.c
+> > >>>>>> +++ b/drivers/remoteproc/remoteproc_virtio.c
+> > >>>>>> @@ -13,6 +13,7 @@
+> > >>>>>>  #include <linux/dma-map-ops.h>
+> > >>>>>>  #include <linux/dma-mapping.h>
+> > >>>>>>  #include <linux/export.h>
+> > >>>>>> +#include <linux/iopoll.h>
+> > >>>>>>  #include <linux/of_reserved_mem.h>
+> > >>>>>>  #include <linux/platform_device.h>
+> > >>>>>>  #include <linux/remoteproc.h>
+> > >>>>>> @@ -234,12 +235,48 @@ static void rproc_virtio_set_status(struct virtio_device *vdev, u8 status)
+> > >>>>>>  static void rproc_virtio_reset(struct virtio_device *vdev)
+> > >>>>>>  {
+> > >>>>>>    struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
+> > >>>>>> +  struct rproc *rproc = rvdev->rproc;
+> > >>>>>>    struct fw_rsc_vdev *rsc;
+> > >>>>>> +  struct fw_rsc_hdr *hdr;
+> > >>>>>> +  int ret;
+> > >>>>>> +  u8 val;
+> > >>>>>> +
+> > >>>>>> +  /*
+> > >>>>>> +   * During crash recovery, vdev can be stopped. But the driver can't reset
+> > >>>>>> +   * the device, as device is already crashed. In this case, reset becomes
+> > >>>>>> +   * no op.
+> > >>>>>> +   */
+> > >>>>>> +  if (rproc->state == RPROC_CRASHED)
+> > >>>>>> +          return;
+> > >>>>>>
+> > >>>>>>    rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
+> > >>>>>> +  hdr = (void *)rsc - sizeof(*hdr);
+> > >>>>>> +
+> > >>>>>> +  if (hdr->type == RSC_VDEV_V2) {
+> > >>>>>> +          /*
+> > >>>>>> +           * RSC_VDEV_V2 encodes an acknowledged reset request in the
+> > >>>>>> +           * status byte. The remote is expected to complete the reset
+> > >>>>>> +           * and then clear status back to 0.
+> > >>>>>> +           */
+> > >>>>>> +          rsc->status = rproc_rsc_vdev_reset_status(rsc->status);
+> > >>>>>> +
+> > >>>>>> +          /* after setting reset request, kick the device */
+> > >>>>>> +          rproc->ops->kick(rproc, rsc->notifyid);
+> > >>>>>>
+> > >>>>>> -  rsc->status = 0;
+> > >>>>>> -  dev_dbg(&vdev->dev, "reset !\n");
+> > >>>>>> +          /*
+> > >>>>>> +           * When device completes reset, it is expected to set status
+> > >>>>>> +           * to 0.
+> > >>>>>> +           */
+> > >>>>>> +          ret = readb_poll_timeout(&rsc->status, val, val == 0,
+> > >>>>>> +                                   1000,      /* 1ms between reads */
+> > >>>>>> +                                   3000000);  /* 3s total timeout */
+> > >>>>>> +          if (ret)
+> > >>>>>> +                  dev_warn(&vdev->dev, "vdev reset timed out\n");
+> > >>>>>
+> > >>>>> The problem here is that we are introducing behavior that is not compliant with
+> > >>>>> the virtio specifications.  One way to acheive the same behavior could be for
+> > >>>>> the remote processor to check rsc->status before sending a interrupt of using
+> > >>>>> the virtqueues.
+> > >>>>>
+> > >>>>
+> > >>>> That is what remote is supposed to do. But what if remote do not
+> > >>>> respond? If remote is deadlocked for some reason, then the Linux will
+> > >>>> hang at this point too. That is why we need some kind of timeout.
+> > >>>
+> > >>> If the remote is dead then a watchdog timer should fire at some point.
+> > >>> Moreover, that situation won't be different from other circumstances where a
+> > >>> remote processor locks up.
+> > >>>
+> > >>
+> > >> There are few concerns:
+> > >>
+> > >> 1) Heterogeneous system where Linux is handling many remotes, the
+> > >> watchdog might not be available to all the remotes or watchdog mechanism
+> > >> is not implemented at all on the remote side.
+> > >
+> > > If a watchdog is not available adding a timeout upon resetting
+> > > rsc-status won't help.
+> > >
+> > >>
+> > >> 2) Let's say watchdog is configured for 10s, or so then for that long
+> > >> Linux will be stuck too. I am trying to avoid this case where Linux gets
+> > >> stuck for long time.
+> > >
+> > > Same resoning as above - if the remote processor dies and a watchdog
+> > > timeout is set for 10 seconds, adding a shorter timeout when
+> > > rsc->status is modified will do very little.
+> > >
+> > >>> Looking at your patch, sending a kick() won't do anything for a dead remote
+> > >>> processor.  If the remote processor is alive, it should monitor rsc->status and
+> > >>> take action when it is set to '0' by the host.  If it is locked-up, the normal
+> > >>> lockup procedure should apply.
+> > >>>
+> > >>
+> > >> Notifying virtio device on the status change is standard virtio
+> > >> mechanism. In the virtio statck it's done via virtqueue_notify so I am
+> > >> trying to do the same. It also helps remote to avoid polling on status.
+> > >>
+> > >
+> > > Can you point me to that code?  Having the same mental picture will help.
+> > >
+> > >>> I'm not sure what problem this patch is trying to address.
+> > >>>
+> > >>
+> > >> Some platforms allow Linux and Remote boot independently.
+> > >>
+> > >> Let's say Linux reboots without reseting the remote then during next
+> > >> boot Linux will find virtio status is not in the reset state.
+> > >>
+> > >
+> > > That should be handled via the attach()/detach() state machine.
+> > >
+> > >> In such case, linux need to issue virtio device reset, and wait until
+> > >> RPU completes the reset and start the device again. The virtio framework
+> > >> already issues the reset during boot here:
+> > >> https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git/tree/drivers/virtio/virtio.c?h=for-next#n570
+> > >>
+> > >> However, the virtio_reset implementation for remoteproc_virtio simply
+> > >> set the status to 0, and doesn't wait for the remote to complete the
+> > >> reset. Due to this, attach operation becomes successfull, but the rpmsg
+> > >> channels are not created on the linux side.
+> > >>
+> > >
+> > > I think this situation should be handled in driver code rather than
+> > > the remoteproc framework.  We can consider adding this to the
+> > > remoteproc framework if/when several platforms implement the same
+> > > logic.  Otherwise I fear we'll bloat the framework with something that
+> > > isn't generic.
+> > >
 > >
-> > I ran it on the setup I used to find this in the first place. One thread
-> > opening and closing /dev/sequencer2 while two others try to open it,
-> > hung_task_timeout_secs=30, three runs each.
+> > Hi Mathieu,
 > >
-> >   variant                       hung tasks    worst opener block
-> >   ---------------------------------------------------------------
-> >   unpatched                     10, 10, 10    ~130 s
-> >   your patch                    0, 0, 7       30.7 / 30.6 / 129.9 s
-> >   yours + open_mutex narrowed   7, 0, 0       129.9 / 41.3 / 40.9 s
-> >   drain bounded to 1s           0, 0, 0       20.6 / 18.4 / 21.8 s
-> >   drop instead of drain         0, 0, 0       4.0 / 2.4 / 2.4 s
+> > The previous patch sent in this matter was doing the same:
+> > https://lore.kernel.org/linux-remoteproc/20260317201251.3920841-1-tanmay.shah@amd.com/
 > >
-> > Your patch builds clean and clearly helps, two of the three runs were
-> > completely quiet. The third still hung though, and when it does it's
-> > coming from the opening side rather than the closing side.
-> >
-> >   task 98:  odev_open                      holds register_mutex
-> >              snd_seq_oss_open
-> >               snd_seq_oss_synth_setup_midi
-> >                snd_seq_oss_midi_open+0x8e  blocked on mdev->open_mutex
-> >   tasks 97, 99: blocked on register_mutex owned by 98 -> hung task
-> >
-> > An opener grabs register_mutex, blocks deeper down, and sits on it while
-> > it waits.
-> >
-> > I tried stacking my earlier open_mutex narrowing in snd_seq_oss_midi_close
-> > on top of yours, so the closer would be holding neither lock over the
-> > drain. Still hung 1 in 3, and the wait had just moved further down again,
-> > this time into snd_seq_port_connect() on grp->list_mutex.
-> >
-> > Three attempts at moving locks around now (mine, yours, both together) and
-> > every one of them just shifts where the wait happens. I don't think the
-> > locking is really the problem here. It's the 10*HZ per substream.
-> >
-> > Bounding the drain to 1*HZ in midisynth_unuse() does stop the hangs, but
-> > the cap is per substream and there are about twenty of them, so teardown
-> > still runs ~20 s. Capping the total across the teardown would do better,
-> > though that's more surgery.
-> >
-> > The one that actually worked was swapping snd_rawmidi_drain_output() for
-> > snd_rawmidi_drop_output() in midisynth_unuse(). ~2.4 s, nothing hung in
-> > any run. Most of what's left there isn't even the data wait, it's the
-> > msleep(50) per substream for the Tx FIFOs.
-> >
-> > I did wonder about throwing the data away, so I went and looked. As far as
-> > I can tell snd_rawmidi_drain_output() already drops the buffer once the
-> > 10*HZ expires, so the bytes are gone either way and dropping early only
-> > costs whatever the device would have taken during the timeout. For a
-> > device that isn't draining, which is the case that gets us here, that's
-> > nothing. Tell me if I've misread that.
-> >
-> > So, do you want me to send the drop version as a proper patch? Or would
-> > you rather bound the drain, in which case I can try a total cap instead of
-> > a per substream one. I can also test a revised version of yours if you'd
-> > prefer to keep this inside seq_oss.
 >
-> Hm, dropping isn't optimal, as that's a clear behavior change; there
-> can be pending bytes even in the real use case.
+> I think this is a much better approach.  That said, I would really like to see
+> something like wait_for_completion_timeout() being used rather than
+> usleep_range().
 >
-> Actually, shortening the drain limit would be an easier way.
-> Practically seen, 1 second should be enough for the real hardware.
-> If this is enough for the syzkaller report, we can take it quickly.
->
-> Another option would be to offload the snd_seq_kernel_client_ctl()
-> calls in seq_oss_midi.c snd_seq_oss_midi_open() and close() to a work,
-> as you pointed out previously.  This would be relatively safe, I
-> suppose.
->
-> In general, I'd like to avoid touching too much outside the OSS
-> emulation layer.  The shortening of the drain limit would be OK, but
-> restructuring else isn't preferred.
->
-> In anyway, if you can pitch some good workaround, I'll happily take.
->
-> (But I'm going to be off from tomorrow, so it'll be continued after my
-> vacation.)
->
->
-> thanks,
->
-> Takashi
+
+Thinking back on this, function wait_event_timeout() would be a better choice.
+
+> > If you are okay, can I resend it ? I think if that is accepted then we
+> > don't need this patch atleast for now.
+> >
+> > Thank You,
+> > Tanmay
+> >
+> > >> This patch solves this issue. It changes the reset mechanism while
+> > >> maintaining the backward compatibility for old way of reseting the device.
+> > >>
+> > >> I had sent a different patch regarding this before:
+> > >> https://lore.kernel.org/linux-remoteproc/20260317201251.3920841-1-tanmay.shah@amd.com/
+> > >>
+> > >> Old patch was rejected because we decided to modify the reset mechanism
+> > >> instead:
+> > >> https://lists.openampproject.org/archives/list/openamp-rp@lists.openampproject.org/thread/DDIFUMGQQ2R7CQZJHK7EB6UDO3ISAAVU/
+> > >>
+> > >> Thank You,
+> > >> Tanmay
+> > >>
+> > >>
+> > >>>>
+> > >>>> I think timeout mechanism is better for AMP systems over waiting forever
+> > >>>> for remote to clear the status.
+> > >>>>
+> > >>>> Thanks,
+> > >>>> Tanmay
+> > >>>>
+> > >>>>
+> > >>>>>> +  } else {
+> > >>>>>> +          /* back compatible for RSC_VDEV type of rsc vdev */
+> > >>>>>> +          rsc->status = 0;
+> > >>>>>> +  }
+> > >>>>>> +  dev_info(&vdev->dev, "reset !\n");
+> > >>>>>>  }
+> > >>>>>>
+> > >>>>>>  /* provide the vdev features as retrieved from the firmware */
+> > >>>>>> @@ -469,6 +506,9 @@ static int rproc_remove_virtio_dev(struct device *dev, void *data)
+> > >>>>>>  {
+> > >>>>>>    struct virtio_device *vdev = dev_to_virtio(dev);
+> > >>>>>>
+> > >>>>>> +  /* reset virtio device before unregister */
+> > >>>>>> +  virtio_reset_device(vdev);
+> > >>>>>> +
+> > >>>>>
+> > >>>>> Regardless of this feature, I think it is wise to reset the device before
+> > >>>>> unregistering with the virtio subsystem.
+> > >>>>>
+> > >>>>
+> > >>>> Agreed. I intend to keep this.
+> > >>>>
+> > >>>>> Thanks,
+> > >>>>> Mathieu
+> > >>>>>
+> > >>>>>>    unregister_virtio_device(vdev);
+> > >>>>>>    return 0;
+> > >>>>>>  }
+> > >>>>>> diff --git a/include/linux/rsc_table.h b/include/linux/rsc_table.h
+> > >>>>>> index 71b60125310e..2398a6d7033e 100644
+> > >>>>>> --- a/include/linux/rsc_table.h
+> > >>>>>> +++ b/include/linux/rsc_table.h
+> > >>>>>> @@ -66,6 +66,8 @@ struct fw_rsc_hdr {
+> > >>>>>>   *                    the remote processor will be writing logs.
+> > >>>>>>   * @RSC_VDEV:       declare support for a virtio device, and serve as its
+> > >>>>>>   *                    virtio header.
+> > >>>>>> + * @RSC_VDEV_V2:    declare support for a virtio device whose reset request is
+> > >>>>>> + *                    encoded in the virtio status byte.
+> > >>>>>>   * @RSC_LAST:       just keep this one at the end of standard resources
+> > >>>>>>   * @RSC_VENDOR_START:     start of the vendor specific resource types range
+> > >>>>>>   * @RSC_VENDOR_END:       end of the vendor specific resource types range
+> > >>>>>> @@ -83,7 +85,8 @@ enum fw_resource_type {
+> > >>>>>>    RSC_DEVMEM              = 1,
+> > >>>>>>    RSC_TRACE               = 2,
+> > >>>>>>    RSC_VDEV                = 3,
+> > >>>>>> -  RSC_LAST                = 4,
+> > >>>>>> +  RSC_VDEV_V2             = 4,
+> > >>>>>> +  RSC_LAST                = 5,
+> > >>>>>>    RSC_VENDOR_START        = 128,
+> > >>>>>>    RSC_VENDOR_END          = 512,
+> > >>>>>>  };
+> > >>>>>>
+> > >>>>>> base-commit: d4d61a4b0a52e8f3cdb3e1578602850a3452ec3e
+> > >>>>>> --
+> > >>>>>> 2.43.0
+> > >>>>>>
+> > >>>>
+> > >>
+> >
