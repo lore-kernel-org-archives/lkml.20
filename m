@@ -1,51 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FB34E0B9F;
-	Thu, 17 Sep 2026 16:51:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12602DB79F;
+	Thu, 17 Sep 2026 16:51:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663892; cv=none; b=N+Ut2d3wG8Ukv7zLa0e4hAOADNLsyiqGS1LzxSS56JIN7aPicqvn7KCpoQzgD0CZVpACIynCzVbF3mIqGTzMEqoHgliOTN1ZSl5WZPPMujlly2TkDM9cc5xTrLoIFLJluAtjlHXtQESkkEd7lBWSwkoGANm/LFJ+P1hNaURqt7A=
+	t=1789663900; cv=none; b=EfcvxHlIQs1aQumraEUfZzzJ5AXjkAo939Ef3jNsCcMGIGL1SEluyeAWGloWexayzBt5bdaWQj53u2JLZgfYfngqrZUAHrrgRWNji+nCvgGGBOxWcBPtIqr0JrFbN3PafGHR5mqNw6H7Cp1eqaFCFr1L6ojixcA1fI1Jtok7RJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663892; c=relaxed/simple;
-	bh=6Y7vYf/xc/TsRZfeinhAcNhu9VUF65Y4YoGWlsYueBI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=O8TrIUh65rzZdySBd8HKdeJbW1xzNJlkYXkkwuxVvitlzPq+8GptJ+ELhRH9e3AZgsR9kqlHOYT8E/jp2M7uqbpbg8FVkUc5L7JnQm2GAlyCysJghAVQiLfwYRJVYoa/SrNtSr9QT7faBqKmu4ttdLjmI84Z8lOXQlQ40yEfE+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BxbZhCok; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BxbZhCok"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECAB91F000FF;
-	Thu, 17 Sep 2026 16:51:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789663891;
-	bh=6Y7vYf/xc/TsRZfeinhAcNhu9VUF65Y4YoGWlsYueBI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=BxbZhCokIJvEptEerSReRE182Pwyh87AVKxNe/KPTi793uljEy0jX0mmjLsvxMvv8
-	 h6H8/ObWUnCkxHvXqHJU/omftk+0oKf14aNsSNQoNsXSSLm4iEY4RgN7Mc9+l54udj
-	 HqrydwPpdlC9lMTWI7a8WcKhuWoKCQOdobbG1uWtkl9Fth8x0iEZbHo7Cph3n+vlfN
-	 DFvF1xLU2Y10fOUErgCOHXzGtSKf7sYl5F4HEmGdEmkbQONkSkNbyoI1oAbw/zDbW6
-	 T+KZWmN0kDMKz5bh0Jr0BD6cczIwMKN3F+xaqhv7gnlxyzpOQr+oS8YVoycokp7GBA
-	 ErU8Nc7DgnqLw==
-Date: Thu, 17 Sep 2026 06:51:30 -1000
-Message-ID: <613ba34982346602155a2f1ff5b6582a@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
- Changwoo Min <changwoo@igalia.com>
-Cc: Tejun Heo <tj@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
- Cheng-Yang Chou <yphbchou0911@gmail.com>, sched-ext@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.3-fixes] sched_ext: Derive
- SCX_RQ_IN_WAKEUP from the core enqueue flags
-In-Reply-To: <20260916215713.2701551-1-tj@kernel.org>
-References: <20260916215713.2701551-1-tj@kernel.org>
+	s=arc-20240116; t=1789663900; c=relaxed/simple;
+	bh=syyvC04pOKZpxGgq1oPwRcYuvMyyc7WD8rEDfR8kBCc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DZJFm27qlj9O87ojZQ6I/+/hF0RO8ylAH2EEjsDGSNp1kD6nlJzSq9B4UmRUngYB/28LLM+fWyST2izcN9ieDK9ifG6OKRDFxZY+u0I7N+cUC7g4XCPDxjSB5zllro65CNvs4qaTt7OE6OinlBcul49OHrdg68fophnMhHln45Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACH8z2SGqxq+9OECA--.7119S2;
+	Fri, 18 Sep 2026 00:51:30 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: broonie@kernel.org
+Cc: ckeepax@opensource.cirrus.com,
+	krzk@kernel.org,
+	lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	perex@perex.cz,
+	s.nawrocki@samsung.com,
+	tiwai@suse.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: codecs: wm8994: Fix runtime PM leak in wm8994_mic_detect()
+Date: Thu, 17 Sep 2026 16:51:30 +0000
+Message-Id: <20260917165130.2163278-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACH8z2SGqxq+9OECA--.7119S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7XrWUtryrWw1DXFy8GF1xZrb_yoWDtrg_Wa
+	n5Wa97Zry5KFZxKrZrKF4rZF93ZF4xC3y8tr90vrnxJa42yF4rJrn8JFs8CrW7Ww48Z3W3
+	ZFnI9F47AryIvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbfAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E
+	87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
+	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
+	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
+	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7Cj
+	xVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
+	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
+	0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbUPEDUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMNA2qr9thUTgAAs-
 
-Applied to sched_ext/for-7.3-fixes.
+wm8994_mic_detect() resumes the component before configuring the MICBIAS
+pins, but the default case of the micbias switch returns -EINVAL right
+after taking that reference, skipping the pm_runtime_put() on the
+success path. This leaks a runtime PM reference on every call with an
+invalid micbias.
 
-Thanks.
+Release the reference before returning -EINVAL.
 
---
-tejun
+Fixes: f5a2cda4f1db ("ASoC: wm8994: Ensure the device is resumed in wm89xx_mic_detect functions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ sound/soc/codecs/wm8994.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
+index 1d64c7c42ed1..bfbb8a56b563 100644
+--- a/sound/soc/codecs/wm8994.c
++++ b/sound/soc/codecs/wm8994.c
+@@ -3535,6 +3535,7 @@ int wm8994_mic_detect(struct snd_soc_component *component, struct snd_soc_jack *
+ 		break;
+ 	default:
+ 		dev_warn(component->dev, "Invalid MICBIAS %d\n", micbias);
++		pm_runtime_put(component->dev);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.34.1
+
