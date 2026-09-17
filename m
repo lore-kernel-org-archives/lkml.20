@@ -1,48 +1,33 @@
-Received: from mail-m16.yeah.net (mail-m16.yeah.net [1.95.21.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D254FDE61
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=1.95.21.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D36154F796E;
+	Thu, 17 Sep 2026 12:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649845; cv=none; b=swsur9Mx7fkBpRSKBW13ooPtD8k36dLTBHJkuAFyqSs9bDTne8rXJaX+7L1wwuz12jqgtmZEsMGVmEvbRf4Oypv2Rk+rXlyTCU+KuRi2pJGOCvlwFjETfhvcmUhFLHu97VzumfNrv0X8YW0lewDvB/i9XnFl8xx1i98a0fuaPcs=
+	t=1789649846; cv=none; b=ZDv4EiDYI9EImXfHZKhAKn24wQ9QDwK/bYOnKwnuOkvA9zl2X0XBrthf7f60C/vOD7KB5eNhwJEZ1fI+uWXnCYmyWiV4DnV9jRMqHsm6ctXj2G3YzPXmkuci5LR3teg0ek7yDcpJZVvHGY4v98T/NjVBm4VF/p6KpuWS90TauqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649845; c=relaxed/simple;
-	bh=MASPkbQOt8+v5DhrINNpRpBC5fcOe7PFfzzz+xzhTtU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CWnSIFfWpZJhYXaDgz1s/r37vt3zXlYn2/U8YE83JqB6VG9LCsoRMJO9WjEfqiWiSX0wKSOjqPhnEUHMUrVoHDqKfHnZBK/TqV0gpBBaht8wiEzbdnlIRwNPuiXFnA+f32WWhsaOEHil5FDv9a0DpLLup4PEkdSOII+RGFBq8xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yeah.net; spf=pass smtp.mailfrom=yeah.net; dkim=pass (1024-bit key) header.d=yeah.net header.i=@yeah.net header.b=qF61VdUJ; arc=none smtp.client-ip=1.95.21.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yeah.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yeah.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yeah.net header.i=@yeah.net header.b="qF61VdUJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yeah.net;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ah
-	3giLfJuk/TXnUarY/+RjA5PWAFHKErjJXcXmYpHp0=; b=qF61VdUJy0aurE7fK9
-	jXDAZfS8cf0tPORV5a/z9kRpoZg7joODLXvSzLPctxFao2vVrYfVZrDFoqYzG6jU
-	Ll143KLBtlPC0bHrS/XVTdHAoK8nFRKgArsE5knJ7cF77RBDdT833gWDR/LHNlzm
-	JfBoQ6NMSXQasbnKfstO2zz4k=
-Received: from deepin (unknown [])
-	by gzsmtp3 (Coremail) with UTF8SMTPA id M88vCgD3r5dQ46tqBSYYAA--.16246S4;
-	Thu, 17 Sep 2026 20:55:48 +0800 (CST)
-From: Ziran Zhang <zhangcoder@yeah.net>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>,
-	David Howells <dhowells@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Jordan R Abrahams-Whitehead <ajordanr@google.com>,
-	Marco Elver <elver@google.com>,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	Edward Cree <ecree@solarflare.com>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
+	s=arc-20240116; t=1789649846; c=relaxed/simple;
+	bh=oco9a85LGscLJtRKtxq+cy0jzX3sKo17VJcL+GUEixw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pkOU2oEceB4YEa27+kXTC0laUbqSZMC0uBqHHBonpH4Ua0xgDPNIWBDWz9WcXr7D2vWAu1XH9TvDIu7WNr0zuPDrH4NmLM3ZZ6K8hphJ8AqQ0yXUx+1B4BF4CxZbxnYO+6I2y5u1Sxs8SDcV1qSL6G8dDiiN/HBb9FaLJDzT5DA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACnFD+t46tqXPmACA--.3086S2;
+	Thu, 17 Sep 2026 20:57:17 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: devicetree@vger.kernel.org
+Cc: frowand.list@gmail.com,
 	linux-kernel@vger.kernel.org,
-	Ziran Zhang <zhangcoder@yeah.net>
-Subject: [PATCH v2 2/2] list: add KUnit test for list_cut_before() empty list case
-Date: Thu, 17 Sep 2026 20:55:05 +0800
-Message-ID: <20260917125505.50897-3-zhangcoder@yeah.net>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260917125505.50897-1-zhangcoder@yeah.net>
-References: <20260917125505.50897-1-zhangcoder@yeah.net>
+	robh@kernel.org,
+	saravanak@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] of: unittest: Fix of_symbols reference leak in of_unittest_overlay_high_level()
+Date: Thu, 17 Sep 2026 12:57:17 +0000
+Message-Id: <20260917125717.2152371-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,58 +35,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:M88vCgD3r5dQ46tqBSYYAA--.16246S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uF1UXw13GFWkGr18Zr13Arb_yoW8XFW8pr
-	98Kr1vgFWUJF1Igw1xWFyxKrZavF4kJryj9ryfC3ykZFyUAa1UArnrGrWUZrn3XrW8ZFZ8
-	Za1DtF17Jw4DJFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRUUUUUUUUU=
-X-CM-SenderInfo: x2kd0wpfrgv2o61htxgoqh3/1tbiNxSTVGqr41Q3gAAA3l
+X-CM-TRANSID:zQCowACnFD+t46tqXPmACA--.3086S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jr4xur4xAw4Utw17KFW3ZFb_yoWkKwc_KF
+	1kZasxXrW8CF4UurWSyry5Zr9F9ay5urW8XF1vkwnI93yayrnrXr1Y9rn5Jw15ZayFy3s0
+	kr4Du348Ar9FgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07jngAwUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq02xtAAAsx
 
-Add a test case covering list_cut_before() with an empty head
-and an entry not on the list.  Without the empty list guard,
-the call would corrupt the head list.
+of_get_child_by_name() returns a node with an elevated reference count,
+but the function never drops it: neither on the early return for an
+illegal node name, nor on the normal return, nor on the err_unlock
+path. Add the missing of_node_put() calls.
 
-Signed-off-by: Ziran Zhang <zhangcoder@yeah.net>
+Fixes: 81d0848fc8d2 ("of: Add unit tests for applying overlays")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- lib/tests/list-test.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/of/unittest.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/lib/tests/list-test.c b/lib/tests/list-test.c
-index 6d9227a2b..f54facdb7 100644
---- a/lib/tests/list-test.c
-+++ b/lib/tests/list-test.c
-@@ -446,6 +446,23 @@ static void list_test_list_cut_before(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, i, 3);
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index 900840850814..36c64d485a53 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -4091,6 +4091,7 @@ static __init void of_unittest_overlay_high_level(void)
+ 					 np);
+ 				of_node_put(np);
+ 				of_node_put(base_child);
++				of_node_put(of_symbols);
+ 				return;
+ 			}
+ 		}
+@@ -4289,10 +4290,13 @@ static __init void of_unittest_overlay_high_level(void)
+ 	EXPECT_END(KERN_ERR,
+ 		   "OF: resolver: node label 'this_label_does_not_exist' not found in live devicetree symbols table");
+ 
++	of_node_put(of_symbols);
++
+ 	return;
+ 
+ err_unlock:
+ 	mutex_unlock(&of_mutex);
++	of_node_put(of_symbols);
  }
  
-+static void list_test_list_cut_before_empty(struct kunit *test)
-+{
-+	LIST_HEAD(entry);
-+	LIST_HEAD(head);
-+	LIST_HEAD(list);
-+
-+	/*
-+	 * entry is initialized but not on head.  With an empty head
-+	 * this used to corrupt the list.
-+	 */
-+	list_cut_before(&list, &head, &entry);
-+
-+	KUNIT_EXPECT_TRUE(test, list_empty(&head));
-+	KUNIT_EXPECT_TRUE(test, list_empty(&list));
-+	KUNIT_EXPECT_TRUE(test, list_empty(&entry));
-+}
-+
- static void list_test_list_splice(struct kunit *test)
- {
- 	struct list_head entries[5], *cur;
-@@ -788,6 +805,7 @@ static struct kunit_case list_test_cases[] = {
- 	KUNIT_CASE(list_test_list_is_singular),
- 	KUNIT_CASE(list_test_list_cut_position),
- 	KUNIT_CASE(list_test_list_cut_before),
-+	KUNIT_CASE(list_test_list_cut_before_empty),
- 	KUNIT_CASE(list_test_list_splice),
- 	KUNIT_CASE(list_test_list_splice_tail),
- 	KUNIT_CASE(list_test_list_splice_init),
+ static int of_unittest_pci_dev_num;
 -- 
-2.51.0
+2.34.1
 
