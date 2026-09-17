@@ -1,401 +1,228 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F422F52844E
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:25:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789665954; cv=pass; b=qmr9FlBCfwE7VTfGanX13RmBItVOzcHZ+TkhfmATv6nMrlSpD7P8BDS6S6I6wkHBF3beMI7ftiYczuI0r/DOc7CZOzD2VLoSphWN33Qix4ekC0voollj1pPqXUsZSAvA1zY6mhO/q+kJ+IaqWQoCr9HV1XBuWJJNgTHbnlYJsB0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789665954; c=relaxed/simple;
-	bh=ykSGCDC5mG2ODpRQPd0vJL+tlN35Q5hi/KlRm9aqv1k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oe3FXtf1QtD4fN2mWWGAn9Bc6KQFq5B7/NmOoOWeAW4aUIh6dkoGyKNN6MW7bUJWLixoGnWIIEdaa7VWpvsUrA24eoxXf+nYCCjiM3qDvbKJNYloFFbFjUasVlTAYJH5cn8kqVI146gaCrVfPwO/j9LUFvscXuD05+OQVkXTeGM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fpieXGNv; arc=pass smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328824ED1AF;
+	Thu, 17 Sep 2026 17:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789665968; cv=none; b=FuxlbWXXGx+caa2oVM5S+5wXgJ4pp4ZFJXrsghqVF10FDM0dpEmwuwfvsokrWyRVRYWI9tULYrH21jLzD0m/6Z8y4/UITkkhtq5wGFS6ofxiIk4+Xg1qWaMm1geAzU2cO44wNDSL6q4L1WW6SCHKrsP/kOkDcQ3yApEMXwhZ50c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789665968; c=relaxed/simple;
+	bh=VFbnV6j9DuufYT6S60+uCjOEew2SHehBRlJUcQSjMe0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CTTdGQ3WhEwPPbr6IxiJFf0ZEP0rDJnIt5qSp8AbZqq9Y//sGDJO9fXgIepVMBLLeCRPR9DhZtWFsF8Vaf1jYthsR658PMUUVzgHBfsEp41tfOv3VilAFX7grLxVHu7uy6WohFZprwt18B9uqo8rNCnWPCZ95BQgVcRhD2mUUxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sandeen.net; spf=pass smtp.mailfrom=sandeen.net; dkim=pass (2048-bit key) header.d=sandeen.net header.i=@sandeen.net header.b=ClBAkLtT; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=gCiyXMY6; arc=none smtp.client-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sandeen.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sandeen.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fpieXGNv"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a5f9b036f9so424a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:25:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789665949; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N7KadsWCUT9HCP6LtNa6aWkHUlrdr2UUDxUVRY2an/2YB658qETx38SAzn03SVM35O
-         K+HaaTG899/qbJZx1yw/V7kZeeAnil3luwyHF0uLv/uMRhEW0jHU4uDacqLU2yIW+oIE
-         ah/UBJQ2ZZgql/ClPN1tv6q4Tke2T+cLUbNfX/yOButOgq1lN5tdpB8IXI1j5UzoQQaG
-         YzrKs6z0JT6yD13Fagf7hvit/n5dUql65perbsqq974jHc2eG9pIgGT5oCBFD1PZ8sQY
-         fUEBZgiEPxL0XBNEHwQe9vwvxBSDk8zB0ZGif0/7QdqO7XWm9lEJenO92dEksVUrVbaE
-         Yq+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KsTRDsiQkb6uPtn9uEZQZ4pGk/1dXT9fj39UbJRrdLw=;
-        fh=G7DZwDJMAcn5q1dvuv8W/0x/2rqwExZEaB2Zccx1hBk=;
-        b=Z6PJ1FsPz65R2jEVVhcNfmhcbfkmlu8QB/SPDLIWKve2vT7Z8/u8j6IkLajijHhLTv
-         VaH487onchCrHHVy3DDrEcYDjJSfWHOTY8HRxAz6BPyoN/xjvgzadXR4rOK6sSKlDnWG
-         bPMpacCF/1wA7UfxjgwPXvY4zM8/LglXU2+VebKm776qPQ6UfB7biU2bCs039s/GPKX5
-         kjjQlSZ/8uknAB00JmD3+A2NWv5APhiptCNOWS8XfUVvaC+lXNKl8KXdw7g7KhLTDjf6
-         utSaHVzSMeZqJsUmYJOzyestaW7Dhn+cn8qMARoRZpW5OP2PxLJLy5FVa1rQM5R3GTTH
-         XVwA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789665949; x=1790270749; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KsTRDsiQkb6uPtn9uEZQZ4pGk/1dXT9fj39UbJRrdLw=;
-        b=fpieXGNv/dpPCIHoM36bpK5baM9EzApt3uxLKii1Yz5JoQ+3tiERLf2PgetveMunjI
-         5JrOl90C8iGhRISj/bktHkC5W97XfV13IifKhYajjHJDBZj4vBYqQT/C0QNZzNPWkjUc
-         ycQZ8hJzoMsNPS5bibpdvupvX1XZv8/VhiudLve9jlQ8D0RS9gb8hnX3TM30l2DJz15H
-         JAtD/5Fr9WN2aB95LUul2mWFr+05WImN0K3+yDF7smf7grSCc2FwutDZICx4k1SpaGf4
-         SkgBv9AfD6Dc+ztbYAmamfnt5etJeYf/fS9aUwZKuX7gFyoSW577+mVKLJLrP3DicR24
-         /KDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789665949; x=1790270749;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KsTRDsiQkb6uPtn9uEZQZ4pGk/1dXT9fj39UbJRrdLw=;
-        b=fIb8HZFlLZ+SAUJzESHLja6j1joADYaifzxw8vadiBmucMKtATyd0ZGPzjRkQGJTGb
-         GQDRgcjJt0tpaLqzPPlg1XXmWXA5IfMoeuihfVIiXq4rrXOas0nKnN4Grpkvt5KKrv1u
-         h7B10u0NB2/x9aoUbnHJeOsOrmIAz7vZd2LfhJ/5uRUxe3A5m5KtjlkPeOsomiA+RG5E
-         ZLsXi6RzPimXTpeH/EQL2AKunVw+Y3+GSwT3XYD+YMOmjsP68gDJyGU6X1MuVPBqoNYp
-         0SY6d56k5s0/eGPFkxh8kI4Q5tDbqMPWfUWlSSSmGllqXDbeOunCDTnsMhVBtMxwBW2y
-         8BYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwJGuW5xUXewRLSNNBztzzAp5k+VMmopYIoCdfzZuPeQin2Rpdq6yboXtyyL5MGz4aQfLmnIxZH+1jH11Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLpl1b8MAmZ3j5KV70Jleb5x2VD2hnvF355wBMlaDRRf1Wayw2
-	XGPQQWQv6MjIEiIAUaY1bZ5f1dfUNQkBgNK3yxnI26hBJgNJvWi6MbDOG/de2YYDkRNgDHtzsDS
-	ncaT45IcDH6+2MvbujjaOqNWRrGLm2KmvOvzm868vru+fg+N3gweh/YgDTdg=
-X-Gm-Gg: AYBFou3X2KUzGtY+WcvoRjDm9x5nRiHT9adCD8ldI7AoCqdXmKRxyefg6jl80mvmgaz
-	gkykzIrwopTMaXqtp4+hq+6EWQZxUrLAr6bTvDD9/yT/4occ43jorjASTjyOAKEKZqi4rhHnrW4
-	/l+WMWe6D1KZJeIYyd9Ks9VJq71yVdgdXHeuAjGacbLHW3loDhi78E4icbo5ukpimaVyD5oUgiA
-	I7ZmHI7m55eXlNNJLZHir4CBJ+ywx6B5VZo17Kn5f6gaaWrlXdVUl4snuAP6dOH9oq8VTU7gdsS
-	kc3CV+Vhea/BcKk/R2pTjUtj8GBbSQF46cnhsUu7K02y3O2dJdMLYzVM4fTArl6Lk/7QFbrJBt8
-	xBAW/fvU=
-X-Received: by 2002:a05:6402:c318:b0:6a7:ef71:28e0 with SMTP id
- 4fb4d7f45d1cf-6aa4de2f154mr1263a12.0.1789665948368; Thu, 17 Sep 2026 10:25:48
- -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sandeen.net header.i=@sandeen.net header.b="ClBAkLtT";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gCiyXMY6"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfout.phl.internal (Postfix) with ESMTP id 510A1EC0193;
+	Thu, 17 Sep 2026 13:26:05 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-08.internal (MEProxy); Thu, 17 Sep 2026 13:26:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sandeen.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1789665965;
+	 x=1789752365; bh=D+o9trAtYGhDLpSMEEW1KG628RFEVK4YErYgH791//c=; b=
+	ClBAkLtTSjLikMfLTuc0rrDg0a7Th3U881Jx+SXn7WZNjNlZF8IY0LqeLvlOep8N
+	CcM/MCfbywEkYqywtAVfZJe++/6EsKLTDGp6Wk3Jfg/MhWR0OrvFol7r/xub0Rhl
+	YyMb2nXuLXo4vjz2mASc32BF40UghIvbRLUhcxYy/V5q7IOsBpQ7IUzWj/hfO43J
+	Hxp5jC93KhXOK9vFH4uXRf9XsuNieDJIhFKp0OjRmSOG7IIikq3EdvYbXBOc2s3B
+	m7Ew71Zgr7jlUmAdP7vyPPCa+JPkPXln0KRlkymrHNBGEB31xirkh2gtAaC744bM
+	IHsLqx8GhFxUQOdcqxtbuw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789665965; x=
+	1789752365; bh=D+o9trAtYGhDLpSMEEW1KG628RFEVK4YErYgH791//c=; b=g
+	CiyXMY69Zdi6wK6lub/sP0BBSGtz1bb64be01h3BuxzeeeOjLde2b/lLLBya/RpQ
+	TwbfEtFZomjjAnJKImFReUaeDsDVpG2aS4VkXRWTxm56vYPqmGLBs0HYj1ZA7yyB
+	bIpM67IACuHiZHD7x06eD01UoTYfIgJxVcUeTUMhF7J8oeD0apZIQ+ACBPK/5/A9
+	0s28S/oXbwzIMBaNVygifUD2TC3NTrwxQMeSVfp7qgfoha9WqvkoqpLcYFzzReaQ
+	WCaCJarpiwt/vJKpB36KPHoEcXM/q4jDp8bzOXvGsmPHHXn4vWdr3Ag7WQ3FyShE
+	qAW6Edkaw4xlDuMowkD1w==
+X-ME-Sender: <xms:rCKsapxFhbw3V54cKO8bRmz04m3E6Vr6qyfnZYNvAdrMNO9gHMl56A>
+    <xme:rCKsanHZOE6BF78t88U9i9FEcOr6M5pu5cYS3o-UdUKQychrFNb0tsw3F5yhp15lu
+    O7b7sxP54wAjqKLI9bONDLTb15bBIVAgsV6h6hLs17cDCpwGUr2OQR2kg>
+X-ME-Received: <xmr:rCKsatxQ_YByg4LLDctm4rdribvd3fNYDm4Lmd9v1V78m0xmIUXNsTllbT5Uyzg_u_L77-TFKBVwzaINH2-PmrZHf_3brA>
+X-ME-Proxy-Cause: dmFkZTFZPqA/zw/tJRZySJFJeqCvGa+EUItf0Hdmz7l5InvXBl7J++UJO+TqRTWdoWfhFT
+    fB5Udo2N7AuaSdTHXVDcPBRh8H9IJTP7jWC2iCrh23/gajQvvMvWjRSDLrbwI1/ArwgE2v
+    V24CGd2ZLZVJz+X88iVYNTLPm8zhyJwhl1FqVSU98HF4oTHE2TcoxIWhw+9cQSkWyWTSxe
+    WE/Q219c+kKmE54dx8AzU5uYsFGidgprK0bIgn6pUPEzRjW9vro0r48CBpm0oJxImdPzQ2
+    5FL7NLvpzqt4IfwyrGxT4VbyXcAdG+e16ccwz2M3bw+AQCDkM6lALnCS6j7CjXg/hMrjL0
+    fMBXRbaCzpQFldps68WMj4JnrklQY//1K1gkYNmEPJRYn65kOvWVvxgB4nzTHLeW/JT6s4
+    vEASy8YX7t80lOSjTd6uGQvZ0UpmrYMAMhY/1Sc8HM/iOdCm44/Wj8Uj2n9XzOoynPfzx7
+    CMUjcBO3hHhgw+23nekqTvvcQDZ5xFn1I+Rc23+qcmGiSSC/AbIgfZCEfoLxHhVTrsoij7
+    Be13Zl3vsH9uPiuR2UkEp7WZbgcswrkyO8MCAjq6iUNXbWWtjVjKFVQKhWX6/ylxfpcHaa
+    To8LeKcs3nnbGj2NDFHvuSanD7DjR928jnBbgecccYzYGrLY21ivm/A2dKEA
+X-ME-Proxy: <xmx:rCKsaotj5yMdbnm2q-DrpsT_d-Gx72BWHgBbA0zOCdhCbSucDPIGNQ>
+    <xmx:rSKsaq1XAwNHtAlUji65E4mHjr7VUgIi0mIVrS5W1SvwjvqqIJ1uwg>
+    <xmx:rSKsaj-p2j0dpM3G5N8p2p-UeYBE-CLZWmzBC8EpS5jhq2M8pfb8aA>
+    <xmx:rSKsarM8TxUSfOl6YS6FQerB5XacC4LiKR2eFHdZoqJf-RMGNpBh3Q>
+    <xmx:rSKsalbR6pNEr5F-O-9Fmlxz_38aVHbX6GaCADk5WXHJc2fcPuZ_X8rC>
+Feedback-ID: i2b59495a:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 17 Sep 2026 13:26:04 -0400 (EDT)
+Message-ID: <92b9d941-37b5-46b3-9e51-58ce75ad99ce@sandeen.net>
+Date: Thu, 17 Sep 2026 12:26:03 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915070001.113559-1-hao.ge@linux.dev> <20260915070001.113559-4-hao.ge@linux.dev>
-In-Reply-To: <20260915070001.113559-4-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 17 Sep 2026 10:25:34 -0700
-X-Gm-Features: AcwNN1XYvpWm4JKrRXV9ykFLQYiWSqvvLPav3S2pb3RC8LMV6NkXRBZ6FuHBL-c
-Message-ID: <CAJuCfpHz6V0zT5+QkYdQsBzG9kWCFhP+gris2XRrvSu4hHD6Hw@mail.gmail.com>
-Subject: Re: [PATCH v10 3/6] module: introduce SH_ENTSIZE_STANDALONE for
- separately allocated sections
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Aaron Tomlin <atomlin@atomlin.com>, Kent Overstreet <kent.overstreet@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] fs/xfs: out-of-bounds in xlog_recover_buf_reorder()
+To: co <co+af981e62f5c7171a@bugs.sh>, linux-xfs@vger.kernel.org,
+ Carlos Maiolino <cem@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+References: <1p0VZ9ucW56B8jIOVuXOhm0yFEYlXq2oDoOo@bugs.sh>
+Content-Language: en-US
+From: Eric Sandeen <sandeen@sandeen.net>
+In-Reply-To: <1p0VZ9ucW56B8jIOVuXOhm0yFEYlXq2oDoOo@bugs.sh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 11:59=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wrote:
->
-> SHF_ALLOC means, per the ELF spec, that a section occupies memory
-> during process execution. Some module sections occupy memory
-> outside the regular module layout, for example the percpu section
-> with its per-CPU allocations. The loader currently excludes such
-> a section from the layout by clearing its SHF_ALLOC, which
-> overloads the flag with a loader-internal meaning.
-> apply_relocations() needs a special case for the section, and
-> find_sec(".data..percpu") returns different results before and
-> after layout_and_allocate().
->
-> Introduce SH_ENTSIZE_STANDALONE to mark sections with a separate
-> allocation. The percpu section is its first user. layout_sections()
-> and move_module() skip marked sections, and apply_relocations() goes
-> back to testing only SHF_ALLOC. Based on a patch by Petr Pavlu [1].
->
-> .data..percpu keeps SHF_ALLOC, so it would now show up under
-> /sys/module/*/sections/. The section has one instance per CPU and no
-> single address to report, and the entry never existed before, so
-> skip it in add_sect_attrs(). add_notes_attrs() indexes its attrs[]
-> array and skips it too. No functional change otherwise.
+On 9/13/26 12:56 AM, co wrote:
+> This is a bug report, not a patch submission.
+> 
+> We found a bug reachable in:
+> 
+>     path    fs/xfs
+>     crash   out-of-bounds in xlog_recover_buf_reorder()
+>     commit  2709dd5ae32f ("Merge tag 'sched-urgent-2026-08-22' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip")
+> 
+> Config, environment, the sanitizer report and a C reproducer follow.
 
-And IIUC no userspace-visible changes too, right?
+A few thoughts here.
 
->
-> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compress=
-ion")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@su=
-se.com/ [1]
-> Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
-> Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+This looks very much like you have re-implemented syzkaller & syzbot,
+and are following in their missteps.
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+A filesystem bug report with a reproducer consisting of a big binary
+array in a C file is just about the least useful way to provide the
+report. The first thing anyone looking at it must do is reverse-engineer
+what is going on, what the inputs are, etc.
+"static const unsigned char img_blob[]" is not conducive to that.
 
+After a prolonged effort, syzbot now provides a filesystem image for
+reports like these, so that standard filesystem analysis and debugging
+tools can be used. At a minimum, you should do the same.
+
+I would also suggest that if you have compute resources to spare, you
+can do more than test only your targeted reproducer. We have a
+comprehensive test suite available, and anyone can run it. It's a fairly
+standard expectation that patches sent to the list have been well tested,
+and not left as work for others to do.
+
+But as a bigger picture, as Dave Chinner has said elsewhere on the
+list recently, these sorts of fuzzer/AI guided bugs and patches are
+not addressing problems holistically. They lead to lots of one-off
+fixes (or band-aids) sprinkled around the code, rather than looking
+at the problem in a comprehensive or systemic manner. Dave's doing work
+now to validate all on-disk data used during log replay,
+and it will almost certainly address the class of bug you've reported
+here.
+
+The problem we are facing more and more frequently is that it is becoming
+extremely easy for just about anyone to generate bug reports. It still
+falls to a small set of humans to evaluate and respond to those reports.
+
+The more reporters can do to reduce friction and increase confidence
+in the work being presented, the better.
+
+As a final thought, given that this looks very much like syzkaller, I
+would ask whether your framework does things that syzkaller cannot do.
+Syzkaller is well-established and well understood, with a good framework
+for tracking reports, fixes, etc. Re-inventing that is a burden on the
+whole community; if you have improvements over syzkaller, folding those
+back into the syzkaller project would be preferable to what looks essentially
+like a fork, and asking the kernel community to now deal with an entirely
+new, separate fuzzer-bug reporting and tracking framework.
+
+Thanks,
+-Eric
+
+> == Notes ===============================================================
+>     If you fix this bug, this tag credits the report and lets us
+>     close it on our side:
+> 
+> Reported-by: co+af981e62f5c7171a@bugs.sh
+> 
+>     Everything in this mail is validated by the reproducer below.
+> 
+>     We also hold an unreviewed LLM-generated analysis and candidate
+>     patch. The same reproducer panics the unpatched kernel and runs
+>     clean with that patch applied. Use it as a starting point, or ignore
+>     it and write your own:
+> 
+>         patch.diff  https://bugs.sh/b/af981e62f5c7171a/patch.diff
+>         report.md   https://bugs.sh/b/af981e62f5c7171a/report.md
+> 
+>     Happy to test patches. Complaints and suggestions about our work
+>     are welcome at:
+> 
+>         cedalion@bugs.sh
+> 
+> == Environment =========================================================
+>     Reproduced on  2709dd5ae32f ("Merge tag 'sched-urgent-2026-08-22' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip")
+>     VM setup       https://bugs.sh/b/af981e62f5c7171a/run.sh
+>     config         https://bugs.sh/b/af981e62f5c7171a/config.gz
+>     poc            https://bugs.sh/b/af981e62f5c7171a/repro.c
+> 
+> == Sanitizer Report ====================================================
+> BUG: KASAN: slab-out-of-bounds in xlog_recover_buf_reorder (fs/xfs/xfs_buf_item_recover.c:164)
+> Read of size 2 at addr ffff88800beee384 by task exploit/147
+> Call Trace:
+> dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+> print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+> kasan_report (mm/kasan/report.c:595)
+> xlog_recover_buf_reorder (fs/xfs/xfs_buf_item_recover.c:164)
+> xlog_recover_reorder_trans (fs/xfs/xfs_log_recover.c:1929)
+> xlog_recover_commit_trans (fs/xfs/xfs_log_recover.c:2053)
+> xlog_recovery_process_trans (fs/xfs/xfs_log_recover.c:2319)
+> xlog_recover_process_data (fs/xfs/xfs_log_recover.c:2510)
+> xlog_do_recovery_pass (fs/xfs/xfs_log_recover.c:3253)
+> xlog_do_log_recovery (fs/xfs/xfs_log_recover.c:3340)
+> xlog_do_recover (fs/xfs/xfs_log_recover.c:3377)
+> xlog_recover (fs/xfs/xfs_log_recover.c:3502)
+> xfs_log_mount (fs/xfs/xfs_log.c:617)
+> xfs_mountfs (fs/xfs/xfs_mount.c:1031)
+> xfs_fs_fill_super (fs/xfs/xfs_super.c:1987)
+> get_tree_bdev_flags (fs/super.c:1887)
+> vfs_get_tree (fs/super.c:1947)
+> fc_mount (fs/namespace.c:1198)
+> path_mount (fs/namespace.c:3772 fs/namespace.c:3848 fs/namespace.c:4168)
+> __x64_sys_mount (fs/namespace.c:4181 fs/namespace.c:4397 fs/namespace.c:4374 fs/namespace.c:4374)
+> do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+> entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+> The buggy address belongs to the object at ffff88800beee380
+> which belongs to the cache kmalloc-8 of size 8
+> The buggy address is located 0 bytes to the right of
+> 
+> 
 > ---
->  include/linux/module.h   |  2 ++
->  kernel/module/internal.h |  8 ++++++++
->  kernel/module/kallsyms.c | 13 +++----------
->  kernel/module/main.c     | 32 +++++++++++++++++---------------
->  kernel/module/sysfs.c    | 17 +++++++++++++----
->  5 files changed, 43 insertions(+), 29 deletions(-)
->
-> diff --git a/include/linux/module.h b/include/linux/module.h
-> index 96cc98568eea..0c6f32ddcbf2 100644
-> --- a/include/linux/module.h
-> +++ b/include/linux/module.h
-> @@ -325,6 +325,8 @@ enum mod_mem_type {
->         MOD_INIT_RODATA,
->
->         MOD_MEM_NUM_TYPES,
-> +
-> +       MOD_STANDALONE =3D -2,
->         MOD_INVALID =3D -1,
->  };
->
-> diff --git a/kernel/module/internal.h b/kernel/module/internal.h
-> index 061161cc79d9..4c738074a27b 100644
-> --- a/kernel/module/internal.h
-> +++ b/kernel/module/internal.h
-> @@ -29,6 +29,14 @@
->  #define SH_ENTSIZE_TYPE_MASK   ((1UL << SH_ENTSIZE_TYPE_BITS) - 1)
->  #define SH_ENTSIZE_OFFSET_MASK ((1UL << (BITS_PER_LONG - SH_ENTSIZE_TYPE=
-_BITS)) - 1)
->
-> +/*
-> + * Marker for sections with a separate allocation, which are not placed
-> + * into mod->mem[].
-> + */
-> +#define SH_ENTSIZE_STANDALONE                                  \
-> +       (((unsigned long)MOD_STANDALONE & SH_ENTSIZE_TYPE_MASK) \
-> +        << SH_ENTSIZE_TYPE_SHIFT)
-> +
->  /* Maximum number of characters written by module_flags() */
->  #define MODULE_FLAGS_BUF_SIZE (TAINT_FLAGS_COUNT + 4)
->
-> diff --git a/kernel/module/kallsyms.c b/kernel/module/kallsyms.c
-> index f23126d804b2..0dca6d40160e 100644
-> --- a/kernel/module/kallsyms.c
-> +++ b/kernel/module/kallsyms.c
-> @@ -76,7 +76,7 @@ static char elf_type(const Elf_Sym *sym, const struct l=
-oad_info *info)
->  }
->
->  static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
-> -                          unsigned int shnum, unsigned int pcpundx)
-> +                          unsigned int shnum)
->  {
->         const Elf_Shdr *sec;
->         enum mod_mem_type type;
-> @@ -86,11 +86,6 @@ static bool is_core_symbol(const Elf_Sym *src, const E=
-lf_Shdr *sechdrs,
->             !src->st_name)
->                 return false;
->
-> -#ifdef CONFIG_KALLSYMS_ALL
-> -       if (src->st_shndx =3D=3D pcpundx)
-> -               return true;
-> -#endif
-> -
->         sec =3D sechdrs + src->st_shndx;
->         type =3D sec->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
->         if (!(sec->sh_flags & SHF_ALLOC)
-> @@ -131,8 +126,7 @@ void layout_symtab(struct module *mod, struct load_in=
-fo *info)
->         /* Compute total space required for the core symbols' strtab. */
->         for (ndst =3D i =3D 0; i < nsrc; i++) {
->                 if (i =3D=3D 0 || is_livepatch_module(mod) ||
-> -                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_s=
-hnum,
-> -                                  info->index.pcpu)) {
-> +                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_s=
-hnum)) {
->                         strtab_size +=3D strlen(&info->strtab[src[i].st_n=
-ame]) + 1;
->                         ndst++;
->                 }
-> @@ -199,8 +193,7 @@ void add_kallsyms(struct module *mod, const struct lo=
-ad_info *info)
->         for (ndst =3D i =3D 0; i < kallsyms->num_symtab; i++) {
->                 kallsyms->typetab[i] =3D elf_type(src + i, info);
->                 if (i =3D=3D 0 || is_livepatch_module(mod) ||
-> -                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_s=
-hnum,
-> -                                  info->index.pcpu)) {
-> +                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_s=
-hnum)) {
->                         ssize_t ret;
->
->                         mod->core_kallsyms.typetab[ndst] =3D
-> diff --git a/kernel/module/main.c b/kernel/module/main.c
-> index c1b34dc1e89a..ae2678ac7840 100644
-> --- a/kernel/module/main.c
-> +++ b/kernel/module/main.c
-> @@ -1619,12 +1619,13 @@ static int apply_relocations(struct module *mod, =
-const struct load_info *info)
->
->                 /*
->                  * Don't bother with non-allocated sections.
-> -                * An exception is the percpu section, which has separate=
- allocations
-> -                * for individual CPUs. We relocate the percpu section in=
- the initial
-> -                * ELF template and subsequently copy it to the per-CPU d=
-estinations.
-> +                *
-> +                * Note that .data..percpu has separate allocations for
-> +                * individual CPUs. We relocate the section in the
-> +                * initial ELF template and subsequently copy it to the
-> +                * per-CPU destinations.
->                  */
-> -               if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC) &&
-> -                   (!infosec || infosec !=3D info->index.pcpu))
-> +               if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC))
->                         continue;
->
->                 if (info->sechdrs[i].sh_flags & SHF_RELA_LIVEPATCH)
-> @@ -1715,7 +1716,7 @@ static void __layout_sections(struct module *mod, s=
-truct load_info *info, bool i
->
->                         if ((s->sh_flags & masks[m][0]) !=3D masks[m][0]
->                             || (s->sh_flags & masks[m][1])
-> -                           || s->sh_entsize !=3D ~0UL
-> +                           || s->sh_entsize !=3D ~0UL /* offset or stand=
-alone */
->                             || is_init !=3D module_init_layout_section(sn=
-ame))
->                                 continue;
->
-> @@ -1745,16 +1746,10 @@ static void __layout_sections(struct module *mod,=
- struct load_info *info, bool i
->  /*
->   * Lay out the SHF_ALLOC sections in a way not dissimilar to how ld
->   * might -- code, read-only data, read-write data, small data.  Tally
-> - * sizes, and place the offsets into sh_entsize fields: high bit means i=
-t
-> - * belongs in init.
-> + * sizes, and place the offsets into sh_entsize fields.
->   */
->  static void layout_sections(struct module *mod, struct load_info *info)
->  {
-> -       unsigned int i;
-> -
-> -       for (i =3D 0; i < info->hdr->e_shnum; i++)
-> -               info->sechdrs[i].sh_entsize =3D ~0UL;
-> -
->         pr_debug("Core section allocation order for %s:\n", mod->name);
->         __layout_sections(mod, info, false);
->
-> @@ -2822,7 +2817,8 @@ static int move_module(struct module *mod, struct l=
-oad_info *info)
->                 Elf_Shdr *shdr =3D &info->sechdrs[i];
->                 const char *sname;
->
-> -               if (!(shdr->sh_flags & SHF_ALLOC))
-> +               if (!(shdr->sh_flags & SHF_ALLOC)
-> +                   || shdr->sh_entsize =3D=3D SH_ENTSIZE_STANDALONE)
->                         continue;
->
->                 sname =3D info->secstrings + shdr->sh_name;
-> @@ -2954,6 +2950,7 @@ core_param(module_blacklist, module_blacklist, char=
-p, 0400);
->  static struct module *layout_and_allocate(struct load_info *info, int fl=
-ags)
->  {
->         struct module *mod;
-> +       unsigned int i;
->         int err;
->
->         /* Allow arches to frob section contents and sizes.  */
-> @@ -2967,8 +2964,13 @@ static struct module *layout_and_allocate(struct l=
-oad_info *info, int flags)
->         if (err < 0)
->                 return ERR_PTR(err);
->
-> +       /* Repurpose sh_entsize to track where each section is allocated.=
- */
-> +       for (i =3D 0; i < info->hdr->e_shnum; i++)
-> +               info->sechdrs[i].sh_entsize =3D ~0UL;
-> +
->         /* We will do a special allocation for per-cpu sections later. */
-> -       info->sechdrs[info->index.pcpu].sh_flags &=3D ~(unsigned long)SHF=
-_ALLOC;
-> +       if (info->index.pcpu)
-> +               info->sechdrs[info->index.pcpu].sh_entsize =3D SH_ENTSIZE=
-_STANDALONE;
->
->         /*
->          * Mark relevant sections as SHF_RO_AFTER_INIT so layout_sections=
-() can
-> diff --git a/kernel/module/sysfs.c b/kernel/module/sysfs.c
-> index 01c65d608873..15c6baeb39c4 100644
-> --- a/kernel/module/sysfs.c
-> +++ b/kernel/module/sysfs.c
-> @@ -62,6 +62,15 @@ static void free_sect_attrs(struct module_sect_attrs *=
-sect_attrs)
->         kfree(sect_attrs);
->  }
->
-> +/*
-> + * .data..percpu has a separate allocation per CPU and no single
-> + * address to report.
-> + */
-> +static bool sect_visible(const struct load_info *info, unsigned int i)
-> +{
-> +       return !sect_empty(&info->sechdrs[i]) && i !=3D info->index.pcpu;
-> +}
-> +
->  static int add_sect_attrs(struct module *mod, const struct load_info *in=
-fo)
->  {
->         struct module_sect_attrs *sect_attrs;
-> @@ -72,7 +81,7 @@ static int add_sect_attrs(struct module *mod, const str=
-uct load_info *info)
->
->         /* Count loaded sections and allocate structures */
->         for (i =3D 0; i < info->hdr->e_shnum; i++)
-> -               if (!sect_empty(&info->sechdrs[i]))
-> +               if (sect_visible(info, i))
->                         nloaded++;
->         sect_attrs =3D kzalloc_flex(*sect_attrs, attrs, nloaded);
->         if (!sect_attrs)
-> @@ -92,7 +101,7 @@ static int add_sect_attrs(struct module *mod, const st=
-ruct load_info *info)
->         for (i =3D 0; i < info->hdr->e_shnum; i++) {
->                 Elf_Shdr *sec =3D &info->sechdrs[i];
->
-> -               if (sect_empty(sec))
-> +               if (!sect_visible(info, i))
->                         continue;
->                 sysfs_bin_attr_init(sattr);
->                 sattr->attr.name =3D
-> @@ -159,7 +168,7 @@ static int add_notes_attrs(struct module *mod, const =
-struct load_info *info)
->         /* Count notes sections and allocate structures.  */
->         notes =3D 0;
->         for (i =3D 0; i < info->hdr->e_shnum; i++)
-> -               if (!sect_empty(&info->sechdrs[i]) &&
-> +               if (sect_visible(info, i) &&
->                     info->sechdrs[i].sh_type =3D=3D SHT_NOTE)
->                         ++notes;
->
-> @@ -181,7 +190,7 @@ static int add_notes_attrs(struct module *mod, const =
-struct load_info *info)
->
->         nattr =3D &notes_attrs->attrs[0];
->         for (loaded =3D i =3D 0; i < info->hdr->e_shnum; ++i) {
-> -               if (sect_empty(&info->sechdrs[i]))
-> +               if (!sect_visible(info, i))
->                         continue;
->                 if (info->sechdrs[i].sh_type =3D=3D SHT_NOTE) {
->                         sysfs_bin_attr_init(nattr);
-> --
-> 2.25.1
->
+> The report format is based on syzbot bug report.
+> 
+> This report is generated by a bot. It may contain errors.
+> See https://github.com/n132/cedalion for more information.
+> 
+> For any issue with this report, reach out to cedalion@bugs.sh
+> 
+> If the report is already addressed, let us know by replying with:
+> #co fix: <commit hash>
+> 
+> If the report is a duplicate of another one, reply with:
+> #co dup: <lore link>
+> 
+> If you want to undo deduplication, reply with:
+> #co undup
+> 
+> 
+> 
+
