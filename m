@@ -1,97 +1,125 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D36154F796E;
-	Thu, 17 Sep 2026 12:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649846; cv=none; b=ZDv4EiDYI9EImXfHZKhAKn24wQ9QDwK/bYOnKwnuOkvA9zl2X0XBrthf7f60C/vOD7KB5eNhwJEZ1fI+uWXnCYmyWiV4DnV9jRMqHsm6ctXj2G3YzPXmkuci5LR3teg0ek7yDcpJZVvHGY4v98T/NjVBm4VF/p6KpuWS90TauqA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0034B04BA
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:57:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789649846; cv=pass; b=k4vxJslhR1OK9xf1r8U9o7A755J6A1MCzLxD+Fru3OZIOkX1sIVUsEUDBwWdlue8QQFBPeSPjtgHzI74zBXea+Zdem9WLCOtUUmr8L+CJMazFlDIlNZqKMTDSprfFalzt66HAkzu4i87fUtvNYTNd5+PKNtRSh3My3TBOOqgr+s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789649846; c=relaxed/simple;
-	bh=oco9a85LGscLJtRKtxq+cy0jzX3sKo17VJcL+GUEixw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pkOU2oEceB4YEa27+kXTC0laUbqSZMC0uBqHHBonpH4Ua0xgDPNIWBDWz9WcXr7D2vWAu1XH9TvDIu7WNr0zuPDrH4NmLM3ZZ6K8hphJ8AqQ0yXUx+1B4BF4CxZbxnYO+6I2y5u1Sxs8SDcV1qSL6G8dDiiN/HBb9FaLJDzT5DA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACnFD+t46tqXPmACA--.3086S2;
-	Thu, 17 Sep 2026 20:57:17 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: devicetree@vger.kernel.org
-Cc: frowand.list@gmail.com,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	saravanak@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] of: unittest: Fix of_symbols reference leak in of_unittest_overlay_high_level()
-Date: Thu, 17 Sep 2026 12:57:17 +0000
-Message-Id: <20260917125717.2152371-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	bh=yjGleyBftL4mc4+T7OaOkxuKfXAcAseCzpwWbCEkYR8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kHP4xPObtpu///SDzcJU1xfqpM7eONIVqQ08yFW6ceOmsOWfvJ/j5tG1P7VhCUUgWsfh9XenF0s2Oj1NCiRsAsJIkkGYBXq/AKhIPmyhAmHx+xUS2sMrAWjldNWfVaU+8WHCJ7bAxZOTtIzOjUC9V5Z9QUomN5P+s+3xOfqbLkw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qrwO6V5i; arc=pass smtp.client-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qrwO6V5i"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b7658501ccso1657e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:57:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789649840; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aG76nKYbTqJYmKYEXvWr6JH2Cr28cYulFnaBGHPPFeC8Y4z1iF2cePd1DX7faMepLb
+         Px26HSobmv4uil1dOlksFyWf3UCxCUTXg8z1IES4c1k2X7MmyJnrnECWIx2XGNOJO0jC
+         E3HhZVd6Pa7tDqh38ID9MRR20aGDHxdOHYNFOUymFb56c8V36GQJmcA81Okn2OBCYSUa
+         qEe7BHaT7k9kEbXOJkY9TOg1nUSN3ezyKAYRKN0kDmTz6+lStwn7mz5ajT6ZJIL85IXH
+         +OpuKeP0LAsG8vIENHvYyhDdqYRMgLAMTgqhMh/6d8QCl9oE3i6DMio/jHoCpw2sV3zp
+         YiaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=wCB7kYcnG02MJOJXUn6C/taoVXipNbSEcZ1HCYhjZfo=;
+        fh=Q+B/4OlQjUX+eWcTo6XVF8iJo5IpVuv3I7cShboIpxc=;
+        b=BsTm3UP358DlxZ8p/2daQBBQr4kKS9OqnRXtDYyqNO6OQLkAK0ux2ppEaAhbS++bds
+         eMZAckdR27B3OXVwovKRzDmSmYZCCxQy/oZq0FYLLOyRek+Zu4Bxw8IlikdKvuDzuL5e
+         7TFklBloOIfA5l2HOOYqXV0VTCShpjkoXggeMStmm9MHlZU4atYDeryS5n9HKfFC2LbC
+         hKPz6qIpXzdCVq23sJyOJWRv73OjBlJX/jUbMQdIqwXbh1Qwdu4b1x53UJX64dTJHj67
+         FDje9J2Zoc+61T4/m4kqux+/g+3GnJaA3/7f9IA61Khusa7p8eQteZQXktlSbWkE424o
+         5+Iw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789649840; x=1790254640; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wCB7kYcnG02MJOJXUn6C/taoVXipNbSEcZ1HCYhjZfo=;
+        b=qrwO6V5i+FcCrr5WEE+v8JMCeu3t7EO2A6l+G3mMxjKjAkV/enOF48qwJ2xTuFMvVp
+         FDeI78Fk44nAFgo/X5CP2pD2Tx52cekGiNOqzTq0RMm98zvGlY1chcMDNw2gHOEXOgkt
+         GACpXMy99WT5+lNcTgRJR1oLL1O+8z7BAMo7zBa00Ugc7OM9NRIrGYbaXberlmFzQRPs
+         Tem+ZcAMz7sQW4bp6i800niR35r+pQGe2Bb3HqH9XVbME628Rs9c0TYCnRaLp0PgqtQ1
+         iHWv6kFrYKGsmRSvzEQaq5Lupwd7WbxrEM19cGRUMETW4NoqfNGQg6HjFjTUUhK9Etj3
+         Q24w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789649840; x=1790254640;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wCB7kYcnG02MJOJXUn6C/taoVXipNbSEcZ1HCYhjZfo=;
+        b=BwHmOQtYwrqI6ul9MUCx1PvEogQQSdmhT5oGbgEeVPuG7watMex8mM8+5QUbRoW5Lq
+         H2Oq9Ta6hkxAFWomA30ssTHIaHFHCadByhTYKruHLNGezfjmZe6lcLF9ON1RCNmtHo3T
+         s3yn82Mh8/tJEGwdX7prtDUKcQUfVb8cRTnuMdmrKSxzrDV9fR4nX7pSNqb0XYC025Ea
+         2H+x4KJvc7BOxlexabvnGnqlMhhcd7GmC3izmnnrS9vej5p2YDpKttCUH+/TSIgat+/K
+         TMexLPMlxG2ZiZr9M3kIBOlpP1m1SnJJKFdju7A8qUhqVe8sltqRXiZagGcXEzX2aMW7
+         q1DQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwFqniQdJ+bLGYfYXzH6ks72Qg0SuqDYtik57qEV+ofJ0DMZUqKR/PPi/6lLyqFjot3hCACbZOlgQJdyb8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKGe0lWwl/4JDEgqLbjmFk9avHAZS8WRo9bW/+R3hFBhN/AKl0
+	fDswgFKNOiG0IKyCDlLRbHq26UqWTy9pta7hyaYex1GhkxldX/lcjD6TidU2RQeGn/cfH8/leKq
+	bKt9Vxt+KSQ7OGfkcFrkmWEw/2EFzRzu06iw6s9Fh
+X-Gm-Gg: AYBFou0BZ3qnKluuXGrIVL4pfyoHMBNahDI2B3vzDRrVIBDhZ7uUK6n2G0rP2KGrzuC
+	IbgSz5TJ4TMhoS3nMpEyUkuTTlnu4mDUwI/A0zqP09HgpPjWoEPsJEitSotRlg+sggLporaJodE
+	wIgBxaNhv72lq+3P41tiP64J9N4VdVS3DUBojLsMDmvS1AdQwd/oscp1AW0pd/d6MRFPxDFv7ci
+	JiDKrspC06aB1Q1kXjRd87FvI9zpA7sX2Eg+BpyOsP2dz/ep46NlBzCMnSjolQV3BiHroodKQ1G
+	9G5o4Uo2CqhXjSVx+w7TLORYzpCR60fEC6mMOlpNzpDcSnMMF9V+ATd1pDEf7ssGgGmvjCGrln2
+	JVVN2pKu41lhcdg==
+X-Received: by 2002:a05:6512:b97:b0:5b1:571f:715f with SMTP id
+ 2adb3069b0e04-5b8bff16793mr25923e87.3.1789649839151; Thu, 17 Sep 2026
+ 05:57:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACnFD+t46tqXPmACA--.3086S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jr4xur4xAw4Utw17KFW3ZFb_yoWkKwc_KF
-	1kZasxXrW8CF4UurWSyry5Zr9F9ay5urW8XF1vkwnI93yayrnrXr1Y9rn5Jw15ZayFy3s0
-	kr4Du348Ar9FgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07jngAwUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq02xtAAAsx
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com> <20260915160141.3543048-19-suzuki.poulose@arm.com>
+In-Reply-To: <20260915160141.3543048-19-suzuki.poulose@arm.com>
+From: Fuad Tabba <tabba@google.com>
+Date: Thu, 17 Sep 2026 13:57:00 +0100
+X-Gm-Features: AcwNN1X3rwZaClpg5QtpbmDuAi81nkVt-NA4XEMnqdzMUr4WqSiJJDooQvLcWZ4
+Message-ID: <CA+EHjTzKjjEuAuoOuzGG0uKyVZE-r+CEreca2H2kEQYuRPpgUw@mail.gmail.com>
+Subject: Re: [PATCH v18 18/23] KVM: arm64: CCA: Mandate VGIC_V3 for Realms
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
+	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
+	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Content-Type: text/plain; charset="UTF-8"
 
-of_get_child_by_name() returns a node with an elevated reference count,
-but the function never drops it: neither on the early return for an
-illegal node name, nor on the normal return, nor on the err_unlock
-path. Add the missing of_node_put() calls.
+Hi Suzuki,
 
-Fixes: 81d0848fc8d2 ("of: Add unit tests for applying overlays")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/of/unittest.c | 4 ++++
- 1 file changed, 4 insertions(+)
+On Tue, 15 Sep 2026 17:01:36 +0100, Suzuki K Poulose
+<suzuki.poulose@arm.com> wrote:
+[...]
+> diff --git a/arch/arm64/kvm/vgic/vgic-init.c b/arch/arm64/kvm/vgic/vgic-init.c
+[...]
+> @@ -84,6 +84,9 @@ int kvm_vgic_create(struct kvm *kvm, u32 type)
+>                  !kvm_vgic_global_state.can_emulate_gicv2)
+>                  return -ENODEV;
+>
+> +        /* Realms only support VGIC_V3 */
+> +        if (kvm_vm_is_realm(kvm) && type != KVM_DEV_TYPE_ARM_VGIC_V3)
+> +                return -ENODEV;
 
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index 900840850814..36c64d485a53 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -4091,6 +4091,7 @@ static __init void of_unittest_overlay_high_level(void)
- 					 np);
- 				of_node_put(np);
- 				of_node_put(base_child);
-+				of_node_put(of_symbols);
- 				return;
- 			}
- 		}
-@@ -4289,10 +4290,13 @@ static __init void of_unittest_overlay_high_level(void)
- 	EXPECT_END(KERN_ERR,
- 		   "OF: resolver: node label 'this_label_does_not_exist' not found in live devicetree symbols table");
- 
-+	of_node_put(of_symbols);
-+
- 	return;
- 
- err_unlock:
- 	mutex_unlock(&of_mutex);
-+	of_node_put(of_symbols);
- }
- 
- static int of_unittest_pci_dev_num;
--- 
-2.34.1
+Could this be kvm_vm_hyp_is_distrusting(kvm) (with patch 13's compare
+as >=) rather than a Realm-only check? A GICv2 isn't possible under
+pKVM either, but there the v2 mapping is only rejected later, in
+kvm_vgic_map_resources() at the first run; this would give both the
+same -ENODEV at KVM_CREATE_DEVICE.
 
+Cheers,
+/fuad
