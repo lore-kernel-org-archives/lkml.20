@@ -1,72 +1,89 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+Received: from sg-3-28.ptr.tlmpb.com (sg-3-28.ptr.tlmpb.com [101.45.255.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6953B2F8E9E
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108BA374185
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:05:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789610705; cv=none; b=BP81zzZvqaQCDWyKjGgmJM5cT18jT5Qyxg/txZ5CvFvkPqUU+GKR9Sbs6GOhdooRWfiUMgeIJx+FDXCgekf1IDEpy6gKT9RhlC4dmje38UUqLRCnuzchSy6G0Iksegc+6PrLYXZbrc4m6ZIik7w4OrVI6ka9idQbWUektCfDD1I=
+	t=1789610744; cv=none; b=YnBnK7ar+J95CncEJ0idlU30jEwUVMWbdXBgvsYi4d2CqXcqMcvHPWu/b4flssqusz2lON9rCIjZuPnjJZmcSos7/BfJiTmxJLheWGhxGfIyiI/pA98NZMdxTCedgQs2+2yYIiMT130fL26CFqPe5i2Q5lhXOq4heqkdRHRf7D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789610705; c=relaxed/simple;
-	bh=NJC34z8R3rZXRjQmTRJ8zhzZogwLckJPcT67zuj0oPo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=rZWuBg8jHmgMG3laAStTqucws9/C0qz3bgUc9zlYSMedfTUq3XL2GRxY0i3bxOhRq+jLfCDolu10N6gMEIDa6Xf60NPueuVitwzIX53BAIZoO+AOmugTccbd9I/CPCiLgopYTvjrotOWP6YDjTFMyY4GnWcl9hejwT59XiJflRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1b8b593a4so447820eaf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:05:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789610702; x=1790215502;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=V49j0cejcOuDsX1an4kfQ4ghEPLQ4rho3VEVPWqiJ6Y=;
-        b=rH2gJwtV4QQKz2tLPyb0udAfamF5KfVMU5O5lKCLf1Tf+MGYdPzzvjqKldJl9kQ5Zo
-         vkO6yopmYYOIyNEdJErJ2NWrygU0FetEnSpwh2T0TKrbZgZTNqqw9CKbD1IA6ZRmoZF0
-         e54HLrGFna+XO+13oECZAJBUfXFXQbTNp4KTW9Cz6cbbmR6ZXHbAlYhH3WOyRWsaHMdR
-         ID9fV1J4MuDWeRRzwJTlYddD8MPxtV9j8FE4m7G6RaQ2ZeY4Hp8ZRehUlr5ryTREfoZn
-         iNetJ9zRd+W/WdrqJzoLCg/wCS7Ppg/zmoSnBlvQywXjoEo7ym65KG4apviDc0fjKm/p
-         aaRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxarv7TCUtLw6BSymZPbbcXiHoAJMxlbsCXVSWlzO9KwGjw5Dy3uPTO7epTTVWf85F7wBVikO17YDMTIeg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpq930lgVNQcf77W5e1wfzNZAd5CJWZJ08s2hhq6PJkruzGCJD
-	3LBe4SbraXWpX6kF9dsoTdfFMwike0rZhdZrIj/awyc/PfONFu+PxRT+rf/yzrpmnzJlxvBFw4+
-	YBdBykzPf1FaJOaBUgJje6eQTuGSDU/TodeapYFZjj2Xq7ZRxzQ3rqx7g2JA=
+	s=arc-20240116; t=1789610744; c=relaxed/simple;
+	bh=Sxo18wVPwpf/v7g9jFtkgFrSGUWSgHhvfTGebiRsIiw=;
+	h=To:From:Message-Id:In-Reply-To:References:Cc:Date:Mime-Version:
+	 Subject:Content-Type; b=j93DN09Xi4lJXksGIveLotvpXgdUzHJWG04NThvJrbEpx503zCla1efkxLomVANWvr2vGX75dv1lLFvVEI8dcJh3YAbU+QI9eJghKyVEJRlh38C/SqUw0UrsBnufXu9zM/+OIWCXUsgsPKiAkurNjmgyZJfmjH/6w3BsFXJ2B1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com; spf=pass smtp.mailfrom=lanxincomputing.com; dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.b=mTqXAqnW; arc=none smtp.client-ip=101.45.255.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.b="mTqXAqnW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1789610690;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=MDsxntRODNgCNG5JeXxth+hLjZlO+v0hDLmbatGO5VY=;
+ b=mTqXAqnWaPFcsNiK+cyRsvkef7ovWgv/a91kjHhwtxxi0rz3WkmSgPKAb9tPxHu4cvsg7l
+ WPqFKWE/8rrtTXoJZ5FGUQ362TxDT/psZkJIsZAKOPWWFGkRbrWYHDAQdmQ+m3jhw7Tac5
+ V/UNueXEyE6eo7zK849y6ndNjtaInWuCCW7TqHQj4/ttpXgOdl33IsGTJtehb2FhwIPSUK
+ gETRKnwLg048G5crunUBk+XxN/Lnl7dBwwPNDK1oHRgQ+gnEW+et2Ww+ZjQIziI9UKsYCj
+ eFIeEizEg48VTZFN0XvxwJ2KlPenZi2TBoPJF8d88unoRFxVZ8eySU+wuSuTtA==
+User-Agent: Mozilla Thunderbird
+To: <sunilvl@oss.qualcomm.com>
+From: "BillXiang" <xiangwencheng@lanxincomputing.com>
+Message-Id: <9d469f95-73b4-4a0a-9c35-80a655a53225@lanxincomputing.com>
+X-Original-From: BillXiang <xiangwencheng@lanxincomputing.com>
+In-Reply-To: <CAB19ukHfFXmuPEaWdNPvFRkvMGpDQfVEpCHfqsHL20tpBytQRA@mail.gmail.com>
+References: <20260916112545.887461-1-xiangwencheng@lanxincomputing.com> <CAB19ukHfFXmuPEaWdNPvFRkvMGpDQfVEpCHfqsHL20tpBytQRA@mail.gmail.com>
+Cc: <sunilvl@ventanamicro.com>, <rafael@kernel.org>, <lenb@kernel.org>, 
+	<pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, 
+	<alex@ghiti.fr>, <linux-acpi@vger.kernel.org>, 
+	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
+	<iommu@lists.linux.dev>, <tjeznach@rivosinc.com>, 
+	<luxu.kernel@bytedance.com>, <guoren@linux.alibaba.com>, 
+	<jgg@nvidia.com>
+Date: Thu, 17 Sep 2026 10:04:34 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1507:b0:6ac:b6c0:2bf6 with SMTP id
- 006d021491bc7-6c7d0beddfdmr4857309eaf.5.1789610702401; Wed, 16 Sep 2026
- 19:05:02 -0700 (PDT)
-Date: Wed, 16 Sep 2026 19:05:02 -0700
-In-Reply-To: <6aab41f5.bf2fa351.1abf44.516aSMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab4ace.b398a7c9.1f86be.0008.GAE@google.com>
-Subject: Re: [syzbot] [nfs?] [net?] KASAN: vmalloc-out-of-bounds Read in rpc_queue_upcall
-From: syzbot <syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Language: en-US
+Subject: Re: [PATCH] riscv: iommu: ask for ACS to be enabled
+Content-Type: text/plain; charset=UTF-8
+Received: from [127.0.0.1] ([123.120.5.129]) by smtp.feishu.cn with ESMTPS; Thu, 17 Sep 2026 10:04:37 +0800
+Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26aab4ab7+977e05+vger.kernel.org+xiangwencheng@lanxincomputing.com>
 
-Hello,
+On 9/16/2026 8:18 PM, Sunil V L wrote:
+> On Wed, Sep 16, 2026 at 5:15=E2=80=AFPM BillXiang
+> <xiangwencheng@lanxincomputing.com> wrote:
+>>
+>> Make sure ACS will be enabled during PCI probe
+>>
+>> Signed-off-by: BillXiang <xiangwencheng@lanxincomputing.com>
+>> ---
+>>   drivers/acpi/riscv/rimt.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/acpi/riscv/rimt.c b/drivers/acpi/riscv/rimt.c
+>> index e4538fa6c2c8..30d2d0211d5e 100644
+>> --- a/drivers/acpi/riscv/rimt.c
+>> +++ b/drivers/acpi/riscv/rimt.c
+>> @@ -525,4 +525,5 @@ void __init riscv_acpi_rimt_init(void)
+>>
+>>                  return;
+>>          }
+>> +       pci_request_acs();
+>>   }
+>>
+> There is already a patch in the mailing list for this.
+>=20
+> https://lkml.org/lkml/2026/9/3/1930
+>=20
+> Thanks,
+> Sunil
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Thank you for pointing that out. Please just ignore my commit.
 
-Reported-by: syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com
-Tested-by: syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com
-
-Tested on:
-
-commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12eb93f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=d5c77cabf7a3492aa650
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1646dbf9580000
-
-Note: testing is done by a robot and is best-effort only.
+--
+BillXiang
