@@ -1,173 +1,148 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7D8563FC3;
-	Thu, 17 Sep 2026 14:11:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB8456E07A;
+	Thu, 17 Sep 2026 14:11:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654267; cv=none; b=AdirV2fwsV3d7GOrY3W8G0eSOegVaYAZRRfH5guFD8L5azIVOZhMYJqLTfjHGMdZmz8Uk1pt/PUAK1HnA6HPMTX8OMO+4dP3AJIqKdMCJ20RagIuyrS/ZECp5YnKC9I5e9NZhCf+6AbabKkCPN34ESkdPRQWhxhM/Ip+IhNxRxc=
+	t=1789654290; cv=none; b=eBlkSzg0ggCrhJhCEey2pF/VQiXFbudXhitQlYAnQ6/S5bGUMUl5gcK6ePxzdkpkXqHQzo/EL5/xRNbOGoK/lOBr6kWhNU5flIkHzje9PwJ0byOziGWtPoHzddAv5BFWU1RLveNaF5ld3JLb8wfFBVvsVIY9DySIKzP60ehmk94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654267; c=relaxed/simple;
-	bh=InzlW2ve+YHPEn1pSomI8BT4K/T6CWFhfHphGfISsSc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=j9asaPkbaGBleQjHHyV7MxudqRGnKYEGCDhhV/zZ7ja2XXuB1ArZj7eCj721V0hPrSrEAi3mvNeEBeTXGJI7Uic+Sy2l+NjyGB1Nvk7Q1usGEEXrv6agTjCETGj+dvV8dtyQ6XAWz89N42SDED5LCy4L5C4wzJXRtx9PyX47s6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=rkqR/xFc; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1789654290; c=relaxed/simple;
+	bh=ciU4WDb+lcH0Z5OvqNv8yitRvgapjBHaEXNFXV7O6QA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eM7pRtvzEeiz51bFJ6HLVK4ugJk1prRBKEzexSrAViZm2+xv9D6+ln6l7hN8Uvbsa9Uau26pr+bv/bwUO9So+YEuR2sL0YDtXY/Qcst8NWCVRxUKg9KJz9BgMFQfAqGAXczjGSoGVl1Fg+4LZI/ZBaZG+8zIgXLthvFkxi5hxxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aIaKJjIb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="rkqR/xFc"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1789654251;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Rp7ZN0Wng14T8faDdgjxE7PW0qy9iG5+mqbGdiSouZo=;
-	b=rkqR/xFch8NCA2+gRca2AQaSxjEldo3Dr0HUglwqchvc3GRnl6IBVv+zDApSqQjLLI3ZUS
-	srZno6zIDqvDEEzdnjDs78ohou2mQkX7V7vduFxKkb0H/SG2I8MWx0rZPJ05RIxzFkmBzJ
-	I9navNkU9Lnvyoh8QZFkAvKoQrk9h3K86XBvQiAJgo7e2ToK/W9dRhWUE0mxpYmh1JYSWh
-	ENqYYOk4K8el8TE0z/b7RzoDNFQP8Utj52clbtzgrBCJOCqirVnbr8yjxgReTTF5mP3zN+
-	1sKrN+Fvc7KnzcvBLujVP9XmjWHzttR2Ro8/Rlh200wiDVn6g/V5qqfyHaho7A==
-Date: Thu, 17 Sep 2026 16:10:15 +0200
-Subject: [PATCH] spi: fsl-qspi: Reprogram the clock rate when the operation
- frequency changes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aIaKJjIb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C4741F00893;
+	Thu, 17 Sep 2026 14:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789654284;
+	bh=sw4l7egVZZpkPzWMWuKshNPwKQcv/aeVFEewmWZph6U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aIaKJjIbccvkrYBH0+v46ZwCGpX8u2/Y7+TtCKCBGh6qM+mDBNq41vdcklxwv+kIv
+	 Yn5vdiVCHzlGfOciw/YRms0lPnT8om1qUARsis6mc4+ZHscBj2J+mXafkSH5xAAZzW
+	 viCO6XlKeTNkRbwB6BypWO6wKj6/t2QEei/K638tn6Suapt4WMtLvfVKsGyU/qU/uf
+	 jXW1VC9LaXRAYOK+JkVwirV9QlKiGKTgVriJyuRll/Bun0U2cJ4NKs1eGYtsmD0oOt
+	 JPWUreOx8VFkcdfFqVTht2Xe9j31J1WPSckRX5G0i9nTiIf5rxbX0LnoRGhbmoZecs
+	 agjxo/s79L0zA==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id DC180198004A;
+	Thu, 17 Sep 2026 10:11:17 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Thu, 17 Sep 2026 10:11:21 -0400
+X-ME-Sender: <xms:BfWrasERx0bB0bQpen8UY-FjGVSE7vCNnIZ2D0aRNJTX5pjpsZJkFg>
+    <xme:BfWrau3XEvQvuLMxZ9WELL-eWCyvs0ZTR171fgmFImTRM0M4G-DO2K_NUF6p9cQ_g
+    ixdxYBTMwsdbhqIguHadeIrfg2msPjONvCvamirrUh1PviCBlpRAONd>
+X-ME-Received: <xmr:BfWraqYKNKGLnqsM5J2q7-ZHNFwYUxgMtKlaJL_Mz4SgnHGx5nKaGoZTmkw>
+X-ME-Proxy-Cause: dmFkZTFQhJTCOy0YHIilx9900UfTpNvB34YFJiLNooiGSVb0X0+i17bCb5sAQsuLM4KruI
+    dvsoPorMOMMYqAxO2DV21waGwNq85WpddXnct2choRCqkriiPtWZwJSD/E+2sC/TR/5LJC
+    QAXCpBpPsqJAESSaRrlPaePdvhn7KHnK3U3kCpoo+lao8OupTd1eF1VCtRg0LwmpTVEpHm
+    WYB3aLcRIwUWTuU/E2rpNvbjSQwXo/nbf71ZypkmtdH5i3YDnrSNkgb2ZQZg4hCpLWQpap
+    ZS8iBYkdEdu7VwyUz17Hbw5Z1Ztfq2J376o2mKktQqYnxRczNYRLsD8XZ4ZIzI1LQoxvR4
+    7vfmFO60v62faua+6UuZ/FWXjMhET8yC0owKNgiolW8HG4g+JBBhKJZ1JGW5aTKw8/LnwK
+    vYfO9iVoP2uUVfzvkEbxeWeuHRr7etQL41JftUTG0QTvYmj762Ikfj8G60IjYN0aS54m4E
+    87UOdPS1OclRtHI5oHufH45DAiqQBfREpGW7qfaSjyk45Iy6Umfl5qmHXsn/ALoFC+ZinD
+    TygddqlYc4pXgQMnTmjbZI+gBUZ2YUMze9+L074Ub7p4Qz9IIc2XVs4VxnZN0RdS0avSxP
+    gDNtd2nFUxqJUJ0fzGHDpmm2qgtliD0UN1bnTXF0R5tOJajKPrDzMO998uZA
+X-ME-Proxy: <xmx:BfWralr3PphkjPXQ1w6ofPx7F9fh_RVIqjs7iioZ-5QP97J9akp7UQ>
+    <xmx:BfWraq1933UaajS6j7oE36Kyne2rgqCmOhxHTmssnyS7ALzgzy3uJA>
+    <xmx:BfWrauUM6FfwyBX7iyjn7m6bI7Ll9uUv0cRzvNmloyri599Lpb2G4A>
+    <xmx:BfWrarU_R-VIRJxSjt5VfBYNlNFCobVMeltrAZ3edhioruVNhPFrXA>
+    <xmx:BfWraiDP36XwqmVTsJk_pmZ0BVHsjaBgAmARcAGw24PmOEFtS11wilkY>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 17 Sep 2026 10:11:16 -0400 (EDT)
+Date: Thu, 17 Sep 2026 15:11:15 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Borislav Petkov <bp@alien8.de>, Ajay Kaher <ajay.kaher@broadcom.com>, 
+	Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org, Dennis Zhou <dennis@kernel.org>, 
+	Tejun Heo <tj@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev, 
+	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org, Christoph Lameter <cl@gentwo.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Bo Gan <bo.gan@broadcom.com>, linux-mm@kvack.org, linux-arch@vger.kernel.org, 
+	linux-coco@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v1 0/2] x86/vmware: Share steal-time storage in encrypted
+ guests
+Message-ID: <aqvxQoIoYhJTZpAC@thinkstation>
+References: <cover.1789488039.git.zack.rusin@broadcom.com>
+ <aqqGUAX65s4LdJkr@thinkstation>
+ <CABQX2QMAfszf3z+Auo0AdwGsf94kTX0DrTrd8k6G1PTNMYsdXQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-fsl-qspi-freq-op-fix-v1-1-5fbe6b02f738@kontron.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrB1IFKrtVcRFjTM6pSQxY0she
- Pemdvk9eH8GpSSkcKsyJHqLSvAFtq7ArXe/EMpcDI1pLuZqO2R94qZRkBNtGCKyfJDbnmmebGu
- NgXKNicp8Zofxb31ND3L7rwXH8QWUVIZZeAAAAA==
-X-Change-ID: 20260917-fsl-qspi-freq-op-fix-f38fedb13100
-To: Han Xu <han.xu@nxp.com>, Mark Brown <broonie@kernel.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: linux-spi@vger.kernel.org, imx@lists.linux.dev, 
- linux-kernel@vger.kernel.org, 
- Frieder Schrempf <frieder.schrempf@kontron.de>, stable@vger.kernel.org
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4593;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=QuPCZwPZK/7jN3Zazoesh9Cm5AUZ2xXgy7761nWqh2c=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWv1lwf79ocqG7tc5Hj5VrjMYH6csG4r24Hol8+kfjQYn
- 6yZ0X24o5SFQYyLQVZMkUWK3+K1rVmsj/yx6iiYOaxMIEMYuDgFYCLxAYwMf1qjIhjny13cdKTE
- Jy/2eNXJ7EjH4uXZ92I+6+xaZrPyDsM/TU0nsVXTVt1md9pU95bBQF+qYp+hwwQbw3092VP0uxr
- ZAQ==
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CABQX2QMAfszf3z+Auo0AdwGsf94kTX0DrTrd8k6G1PTNMYsdXQ@mail.gmail.com>
 
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
+On Wed, Sep 16, 2026 at 11:41:19AM -0400, Zack Rusin wrote:
+> > I acked 1/2, but I don't like where 2/2 does the conversion.
+> 
+> I saw that, thank you. Since I'll be respinning v2 of this I can go
+> ahead and drop the unused DECLARE_PER_CPU_DECRYPTED in that one if you
+> want as well.
 
-fsl_qspi_select_mem() returns early when the chip select has not changed,
-which happens before it reaches clk_set_rate(). Since the rate is now
-taken from the spi-mem operation rather than from the SPI device, the
-controller honours op->max_freq exactly once per chip select and ignores
-it for every operation after that.
+Yes, please.
 
-q->selected is only reset to -1 in fsl_qspi_default_setup(), i.e. at probe
-and on resume, so on the common single chip select board the very first
-operation latches a rate that all subsequent operations inherit, whatever
-frequency they asked for.
+> I went through the linked thread, including the dropped 2022
+> Quote-buffer alias approach and the 2024 netvsc work's kexec
+> regression, fix and re-review discussion. I will keep TDX vmalloc
+> support out of this series and correct the explanation to cover alias
+> consistency, direct-map splitting and load_unaligned_zeropad(),
+> including removing the suggestion that per-page GPA lookup alone
+> resolves it.
+> 
+> After tracing the boot paths, I think there are two distinct pieces
+> here. The SEV boot GHCB needs .bss..decrypted before BSS is cleared,
+> whereas the SMP per-CPU instances do not exist until
+> setup_per_cpu_areas(). KVM then registers its boot-CPU per-CPU buffers
+> in smp_prepare_boot_cpu(), so the common conversion needs the early
+> primitive you proposed. A shared early_initcall would be too late for
+> KVM. The UP registration path probably also needs handling separately
 
-This results in operations being issued with the wrong frequency.
+Agreed on all of that. Leave .bss..decrypted alone in this series; the
+SEV boot GHCB pins its conversion to the startup code and nothing on
+TDX needs it today.
 
-Cache the operation frequency the clock was programmed for next to the
-selected chip select, and redo the clock setup when either changes.
+With the primitive called before smp_prepare_boot_cpu() there is no
+readiness state to track.
 
-Fixes: 2438db5253eb ("spi: fsl-qspi: Support per spi-mem operation frequency switches")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
-The bug is visible on an i.MX6UL board with a Winbond SPI NAND and
-spi-max-frequency = <104000000>: the QSPI clock keeps the rate programmed
-for the first operation for the lifetime of the system, regardless of what
-later operations ask for.
+For the vmalloc-backed case, I would rather not handle it at all. Force
+the embed allocator when memory encryption is on: ignore
+percpu_alloc=page with a warning and don't fall back to page mode if
+embed fails, just let it hit the existing panic. On 64-bit embed only
+fails on memblock exhaustion at boot or when the NUMA groups spread over
+more than 3/4 of vmalloc space. Neither happens in a guest.
 
-Here is a simple showcase with a SPI NAND where the max freq for the
-read ops was artificially limited to 25 MHz.
+> My suggestion would be to do one of two things (or at least I think
+> those two options are realistic to me, given that I'm no expert here):
+> - add the central per-CPU infrastructure and migrate KVM/VMware
+> together, removing both loops and putting the TDX vmalloc rejection
+> and readiness state in common code. Would you and the KVM maintainers
+> be happy with that first, and generalizing .bss..decrypted separately
+> while preserving its earliest SEV setup? afaict the latter also needs
+> to broaden the annotation and linker guards, and changes kvmclock
+> storage and sharing on TDX-only builds.
+> - a smaller VMware fix using a separately allocated, direct-mapped
+> page per CPU while the common infrastructure is developed. Using the
+> normal allocator would also defer ordinary-guest registration, unless
+> I kept their current static storage as a second path. This option
+> would retain caller-managed sharing and buffer lifetime handling.
+> 
+> The second option is, of course, easier for me, but I'm happy to do
+> the first to get steal-time storage working for us. Do you have any
+> thoughts on this?
 
-cd /sys/kernel/debug/tracing
-echo 1 > events/clk/clk_set_rate/enable
-echo 1 > events/spi-mem/spi_mem_start_op/enable
-echo > trace
-dd if=/dev/mtd0 of=/dev/null bs=1k count=4
+The first one, please. It is the better long-term shape and it removes
+the KVM loop as well, so the per-CPU section finally does what its
+name says.
 
-Without fix the clock is set to the high rate initially and never changed:
-
-clk_set_rate: qspi1_podf 396000000
-clk_set_rate: qspi1 396000000
-[...]
-spi_mem_start_op: 21e0000.spi 1S-1S-0S @104000000 Hz op=[13-00-00-00] len=0 tx=[]
-spi_mem_start_op: 21e0000.spi 1S-1S-1S @104000000 Hz op=[0f-c0] len=1 tx=[]
-spi_mem_start_op: 21e0000.spi 1S-4S-4S @25000000 Hz op=[eb-00-00-ff-ff] len=1024 tx=[]
-spi_mem_start_op: 21e0000.spi 1S-4S-4S @25000000 Hz op=[eb-04-00-ff-ff] len=1024 tx=[]
-spi_mem_start_op: 21e0000.spi 1S-1S-0S @104000000 Hz op=[13-00-00-00] len=0 tx=[]
-spi_mem_start_op: 21e0000.spi 1S-1S-1S @104000000 Hz op=[0f-c0] len=1 tx=[]
-spi_mem_start_op: 21e0000.spi 1S-4S-4S @25000000 Hz op=[eb-00-00-ff-ff] len=1024 tx=[]
-spi_mem_start_op: 21e0000.spi 1S-4S-4S @25000000 Hz op=[eb-04-00-ff-ff] len=1024 tx=[]
-
-With the fix the clock is actually changed according to what was
-requested by the op:
-
-spi_mem_start_op: 21e0000.spi 1S-1S-0S @104000000 Hz op=[13-00-00-00] len=0 tx=[]
-clk_set_rate: qspi1_podf 396000000
-clk_set_rate: qspi1 396000000
-spi_mem_start_op: 21e0000.spi 1S-1S-1S @104000000 Hz op=[0f-c0] len=1 tx=[]
-spi_mem_start_op: 21e0000.spi 1S-4S-4S @25000000 Hz op=[eb-00-00-ff-ff] len=1024 tx=[]
-clk_set_rate: qspi1_podf 99000000
-clk_set_rate: qspi1 99000000
-spi_mem_start_op: 21e0000.spi 1S-4S-4S @25000000 Hz op=[eb-04-00-ff-ff] len=1024 tx=[]
-spi_mem_start_op: 21e0000.spi 1S-1S-0S @104000000 Hz op=[13-00-00-00] len=0 tx=[]
-clk_set_rate: qspi1_podf 396000000
-clk_set_rate: qspi1 396000000
-spi_mem_start_op: 21e0000.spi 1S-1S-1S @104000000 Hz op=[0f-c0] len=1 tx=[]
-spi_mem_start_op: 21e0000.spi 1S-4S-4S @25000000 Hz op=[eb-00-00-ff-ff] len=1024 tx=[]
-clk_set_rate: qspi1_podf 99000000
-clk_set_rate: qspi1 99000000
-spi_mem_start_op: 21e0000.spi 1S-4S-4S @25000000 Hz op=[eb-04-00-ff-ff] len=1024 tx=[]
----
- drivers/spi/spi-fsl-qspi.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/spi/spi-fsl-qspi.c b/drivers/spi/spi-fsl-qspi.c
-index 57358851029b..d2c2090442f8 100644
---- a/drivers/spi/spi-fsl-qspi.c
-+++ b/drivers/spi/spi-fsl-qspi.c
-@@ -289,6 +289,7 @@ struct fsl_qspi {
- 	struct pm_qos_request pm_qos_req;
- 	struct device *dev;
- 	int selected;
-+	u32 selected_freq;
- 	u32 memmap_phy;
- };
- 
-@@ -551,7 +552,8 @@ static void fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi,
- 	unsigned long rate = op->max_freq;
- 	int ret;
- 
--	if (q->selected == spi_get_chipselect(spi, 0))
-+	if (q->selected == spi_get_chipselect(spi, 0) &&
-+	    q->selected_freq == op->max_freq)
- 		return;
- 
- 	if (needs_4x_clock(q))
-@@ -571,6 +573,7 @@ static void fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi,
- 	}
- 
- 	q->selected = spi_get_chipselect(spi, 0);
-+	q->selected_freq = op->max_freq;
- 
- 	fsl_qspi_invalidate(q);
- }
-
----
-base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
-change-id: 20260917-fsl-qspi-freq-op-fix-f38fedb13100
-
-Best regards,
---  
-Frieder Schrempf <frieder.schrempf@kontron.de>
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
