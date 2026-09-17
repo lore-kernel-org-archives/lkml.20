@@ -1,172 +1,191 @@
-Received: from sender4-of-o54.zoho.com (sender4-of-o54.zoho.com [136.143.188.54])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425F13F23CF;
-	Thu, 17 Sep 2026 09:27:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789637232; cv=pass; b=Chd+hwfq39lm8H5W+mJliTrUcPoF87x419uHPwKUPRrxXvxUKslhS31bh8IpXmfPxAEtNYZvMtBMBbuLa0caXjkJYKnooiRyVdkZRt+ZXnJCXkNKaYX8cYyvv2SWzpncEihzhJ2dEhrY0yTH1hxQWK+982GQNp2zbPE8VhxVE0w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789637232; c=relaxed/simple;
-	bh=RMfpUzrNeHDlJNPLLvqSzyhwDsTSTz5ZhusnKzref8E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Q7H3mTyQF6M7kW7kGJdG0tnjvO6IKVmPZpTNIKky4FEhQ/sS5T/IS5F6OzPGoYzKkbm0gQhKfVue3VbRJ+twB4W/p3zskGrt5BwmwkijuL3hsvSiZ7rf773PAfERy6riGO8Rt9k5MtJlHUg3sRXA3DsPbuQ6AMUTRgveVJy22Vg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mpiricsoftware.com; spf=pass smtp.mailfrom=mpiricsoftware.com; dkim=fail (0-bit key) header.d=mpiricsoftware.com header.i=shardul.b@mpiricsoftware.com header.b=BmlSBb86 reason="key not found in DNS"; arc=pass smtp.client-ip=136.143.188.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mpiricsoftware.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mpiricsoftware.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629154AAC46;
+	Thu, 17 Sep 2026 09:30:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789637414; cv=none; b=szP8UBqoQgomhQhcrKmpiMNizBEFNOj75os94028PBpF7vWe9t2TncBmOyo8mi9ac/vvWoHV2zXW2vxj/KgEKDLEjx99fPEmNqxSrBxgpSvyynzJxL+3SSEVVMXPYdmnOadVyNvdypqZaJWHtxJ171ItoboGL0hZMW+7x/fv3ck=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789637414; c=relaxed/simple;
+	bh=wmqQKBrHdUJwjDL+VYRkGeFHQFxO/tU/C6grS/MeU48=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SBv97h1FE5kWdnYl1SS3jOGWBTFCXHT/gVfY+LZpeHbrkYyYYeonYEeGpBOnbito5v62vdynqcfENb9cVv9uDdmNIXMztSgNvG6DdZM4YjZRLt8C0cNrUC4FQ0lpWQQcb1ae6PKKVXyyimI7CWvbI1b/6hsknOqz7oiUD3pp784=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=y8FnOiY2; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mpiricsoftware.com header.i=shardul.b@mpiricsoftware.com header.b="BmlSBb86"
-ARC-Seal: i=1; a=rsa-sha256; t=1789637165; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XzYLyu2KeCOebmukHSAh8pzMdvXD2Y0ib2lYGb1PCv8DKDlso28ADN+jjHtpUT6x7pnX/Iz1NOxibahDUcSbt7CbwD4A1ZXKy4h5DYeHJ8sU/Y9iobBYa8qIAqD/TJdAEFDgYURbbIPqbvYgtFDLAX3bgNNkvLlncbL81oaStO8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789637165; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=oGZD2THSIvgZ4FyKe8rXPnccrDB8Ijp2S5sc4lTYoLY=; 
-	b=HkqSd+M2vUMkzGI0nYzDCd/xA3yyr33iwJfXp5p8mnh+ExmWs5i88bb4EYKOeqzQkWLNr5Ekujh4C78EbWhVUpi8WkUeqicmIB2+gj6Ul0WTQ6danywOh+XYIgqEWvnCoKL3pE4WEE1fBoBDV54m2y0KCNz01hfABYNu9CsuuWs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=mpiricsoftware.com;
-	spf=pass  smtp.mailfrom=shardul.b@mpiricsoftware.com;
-	dmarc=pass header.from=<shardul.b@mpiricsoftware.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789637165;
-	s=mpiric; d=mpiricsoftware.com; i=shardul.b@mpiricsoftware.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=oGZD2THSIvgZ4FyKe8rXPnccrDB8Ijp2S5sc4lTYoLY=;
-	b=BmlSBb86tHDcEeWMpjU0UIY9xcAK+HmsekKlBg/I8OngkkbRAW919bgY+v7N6vay
-	20YCD1taMIAOGckw8o84YVlnq7Km7iJf843xEc+Pn9TYUHWXXY/ekJtS+km2baAUPtD
-	+ntRY//qfDgzqUQa3unoVJ/rHFYX7++U3rMrxwRA=
-Received: by smtp.zohomail.com with SMTPS id 1789637163419124.35629496100057;
-	Thu, 17 Sep 2026 02:26:03 -0700 (PDT)
-From: Shardul Bankar <shardul.b@mpiricsoftware.com>
-Date: Thu, 17 Sep 2026 14:55:33 +0530
-Subject: [PATCH net 2/2] udp: remove a disconnected socket from the 4-tuple
- hash table
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="y8FnOiY2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1789637355;
+	bh=kh9FyDnReQmtz6IMuEQBtcbP+r397Btkd/rmaYc+gLw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=y8FnOiY2RBpzY37JE5y9OgzVnxfAybp55r0tO+PHwFleJucQF+f1DWvdS3Ow2HRy9
+	 A+Q5sClgfQmo4rViePByOdHzPltih/JyBoPs+2N1ci1sLLL5VGtEhQOZ/Pa68zt8dB
+	 Zke3NjQDB0IdKK63NjVpLrQREAzjUpnBgR+Xa7AM=
+X-QQ-mid: zesmtpgz5t1789637353tb8e1e7ef
+X-QQ-Originating-IP: C98l85GMVeVm74OzyvqEngGdoJc+3+/o61Zp27O1UR4=
+Received: from [127.0.0.1] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 17 Sep 2026 17:29:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 16510952149240529869
+Message-ID: <BA4ECE62CC750889+2da1a0db-8500-4332-8954-e9f126604258@linux.spacemit.com>
+Date: Thu, 17 Sep 2026 17:29:09 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 07/14] gtrace: Add function to copy into perf AUX
+ buffer
+To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <pjw@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Ian Rogers <irogers@google.com>
+Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Alexandre Ghiti
+ <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>,
+ Atish Patra <atish.patra@linux.dev>,
+ Andrew Jones <andrew.jones@oss.qualcomm.com>,
+ Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
+ <20260810152223.3946743-8-mayuresh.chitale@oss.qualcomm.com>
+From: Zane Leung <liangzhen@linux.spacemit.com>
+In-Reply-To: <20260810152223.3946743-8-mayuresh.chitale@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-udp_hash4_fix_v1-v1-2-718891af0d7a@mpiricsoftware.com>
-References: <20260917-udp_hash4_fix_v1-v1-0-718891af0d7a@mpiricsoftware.com>
-In-Reply-To: <20260917-udp_hash4_fix_v1-v1-0-718891af0d7a@mpiricsoftware.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Philo Lu <lulie@linux.alibaba.com>, 
- Fred Chen <fred.cc@alibaba-inc.com>, 
- Yubing Qiu <yubing.qiuyubing@alibaba-inc.com>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>, 
- Willem de Bruijn <willemb@google.com>, 
- Cambda Zhu <cambda@linux.alibaba.com>, Janak Bhatt <janak@mpiric.us>, 
- Kalpan Jani <kalpan.jani@mpiricsoftware.com>, 
- Shardul Bankar <shardulsb08@gmail.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Shardul Bankar <shardul.b@mpiricsoftware.com>
-X-Mailer: b4 0.15.2
-X-ZohoMailClient: External
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: M7SN0LSU40tUJ2gKkD7ZcfK2Pbm+XSPpWIIIZnp3fWXvPGlLZbsK9IPb
+	jt6fW3eU7YfW8vg3W5BMeTrKHC0MuPN5EYR7jfjoUihxNQBHZf0dEBVlq6Sv/sUsWRgzbpV
+	IvKUbSftPw07P84CNrJP+c7BOe6ijILNNd9Nn4nlabSsVV9NETdY9goR6Z7PRqQjrqzDpIb
+	JX8HGSuME7f7ld/ED2Nelon0iNs9zkWZI1wZPFeJIDQEn0My3qv0GzRfA1dHdT4f7qBgAee
+	eDmttcIziCKP67ZIEdXvRMjU2WjWpm+P+nQya5qwumQMme9hdl1b9VBxiNUVTJFrSrDFHvI
+	CuYRcgjAHVDEwOVdt3job0y8PYOZGh7s8iByIz7ZnIliesgndrSJRSlZ5GgEhSHuxed4ZyL
+	XE77DBU9unxcatusVnMpbwhgGCwgCU0vCGfX6VKrKq3hZLUoTjqYSH2Lk4sIDihkTRW8Ojo
+	yf5FnowVDhAZXLQxws5lhFrMVXPlp97wL8/aDml01XPofHgwqyo55JySFMGI4bgPT40w6fL
+	QfVv3Z9VIkFUueBUQUcocxgjHTEiS2nEJZdTW6aqsxX1tN0tKiyKJpxJhJWpU7K5n/62dm8
+	JTsq98AULHDmfdKyhB/39EL0d6SrDa3E7YR0F8tLZBhmAg+vpdffK7Hns5AUL2qSU4VCIHf
+	ZgAKhgFX2TGyWQ2tZcbQpyDEqj9NCUxg66j6g6J/FpFMsNrWk+zbkkaldx0RSpnF0x9GLZW
+	VGMn7UnfqaUC3dkEPvAr2MAGhLPC6B9h1w+Eiab2DRLrqpD7V7wTCzHI/K1Ew6wL9cS5CGE
+	zd6U1u1vZczI3gshEMcXQfqa2A+Xq8UinclPObTASd97spM5fJSPRLDlufHf0ICz/xU8ODh
+	6yZu02fxUI7qAwP7eJ34EAsfZFTuHKKUH1jBtfckbuPUtn6Z/5CM36YPLp9rpQt0/VMauni
+	kFfFBfxvnAedbGS8hh306jcsTi6yefy8mACTuChqKnN922U8gzjYsXVUYIqBjWtOUZPE5KE
+	4uRSTekA==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-A UDP socket bound to a specific address and port keeps its entry in the
-4-tuple hash table after it is disconnected:
+On 8/10/2026 11:22 PM, Mayuresh Chitale wrote:
 
-    sk binds to 127.0.0.1:21001
-    sk connects to 127.0.0.2:20001	// filed in the 4-tuple table
-    sk disconnects, connect(AF_UNSPEC)	// still filed, peer now 0.0.0.0:0
+> From: Anup Patel <anup.patel@oss.qualcomm.com>
+>
+> The RISC-V trace ramsink will need a mechanism to copy trace data
+> into the perf AUX buffer. Add gtrace_path_copyto_auxbuf() function
+> and corresponding trace driver callback copyto_auxbuf() for this
+> purpose.
+>
+> Co-developed-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+> Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+> Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
+> ---
+>  drivers/hwtracing/gtrace/gtrace-core.c | 22 ++++++++++++++++++++++
+>  include/linux/gtrace.h                 | 24 ++++++++++++++++++++++++
+>  2 files changed, 46 insertions(+)
+>
+> diff --git a/drivers/hwtracing/gtrace/gtrace-core.c b/drivers/hwtracing/gtrace/gtrace-core.c
+> index 6ff1b3087947..53a3679ba69f 100644
+> --- a/drivers/hwtracing/gtrace/gtrace-core.c
+> +++ b/drivers/hwtracing/gtrace/gtrace-core.c
+> @@ -626,6 +626,28 @@ int gtrace_path_stop(struct gtrace_path *path)
+>  }
+>  EXPORT_SYMBOL_GPL(gtrace_path_stop);
+>  
+> +int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
+> +			      struct gtrace_perf_auxbuf *buf,
+> +			      size_t *bytes_copied, u64 *format)
+> +{
+> +	const struct gtrace_driver *gtdrv;
+> +	struct gtrace_component *comp;
+> +	struct gtrace_path_node *node;
+> +
+> +	list_for_each_entry(node, &path->comp_list, head) {
+> +		comp = node->comp;
+> +		gtdrv = to_gtrace_driver(comp->dev.driver);
+> +		if (!gtdrv->copyto_auxbuf)
+> +			continue;
+> +
+> +		*bytes_copied = gtdrv->copyto_auxbuf(comp, buf, format);
+> +		return 0;
+> +	}
+> +
+> +	return -EOPNOTSUPP;
+> +}
+> +EXPORT_SYMBOL_GPL(gtrace_path_copyto_auxbuf);
 
-__udp_disconnect() takes a socket out of that table only as a side effect
-of ->rehash() or ->unhash(), and it skips ->rehash() when
-SOCK_BINDADDR_LOCK is set and ->unhash() when SOCK_BINDPORT_LOCK is set.
-commit 6996a2d2d0a6 ("udp: Unhash auto-bound connected sk from 4-tuple hash
-table when disconnected.") fixed the same end state for a wildcard-bound
-socket, by a path this one does not take.
+Is it really necessary to introduce `gtrace_path_copyto_auxbuf`? The buffer copy logic should be
+exclusive to the sink component.
+A cleaner approach would be to delegate this directly to the sink instance:
+```
+struct gtrace_component *sink = gtrace_path_sink(path);
+size = sink->copyto_auxbuf(sink, &event_data->buf, &format);
+```
 
-The entry is counted whether or not anything hits it. hash4_cnt on the
-hash2 slot stays raised for as long as the socket lives, so udp_has_hash4()
-keeps sending every packet for that address and port through the 4-tuple
-lookup first.
-
-On IPv6 it can also be hit. __udp_disconnect() does not clear sk_v6_daddr,
-so udp_v6_rehash() files the entry under the peer the socket was connected
-to with a zero dport, and inet6_match() compares that same
-field: a datagram from the former peer with a zero source port matches,
-and source port zero is accepted on receive. On IPv4 the peer is cleared,
-so a match would need a zero source address as well, which the routing
-layer rejects as martian. The stale sk_v6_daddr is a separate defect, not
-addressed here; removing the entry closes this path either way.
-
-The entry can also be relocated. __udp_disconnect() clears sk_bound_dev_if,
-so a subsequent SO_BINDTODEVICE calls ->rehash(), and because the receive
-address is still specific udp_lib_rehash() moves the entry instead of
-removing it, into the bucket that (rcv_saddr, num, 0, 0) hashes to -- a
-pure function of the address and port, so every socket reaching this state
-on one address and port collects in one bucket. The bucket cannot be chosen
-from outside, as udp_ehashfn() is seeded with a per-boot secret. This last
-one became reachable only with commit 644f9108f3a5 ("udp: Make rehash4
-independent in udp_lib_rehash()"), which moved the hash4 handling out of a
-branch a disconnected socket does not take; the stale entry itself dates
-from the commit in Fixes.
-
-Take the socket out of the table before __udp_disconnect() runs, while it
-still matches how it was filed. This also reaches the wildcard case ahead
-of udp_lib_rehash()'s udp_unhash4() branch, leaving that branch unreachable
-from udp_disconnect(); removing it belongs in net-next. udp_disconnect()
-and udp_abort() are the only UDP entries into __udp_disconnect(), which is
-shared with raw, ping and l2tp sockets that are not struct udp_sock:
-ping_prot.obj_size is sizeof(struct inet_sock), so udp_hashed4() on one
-would read past the allocation.
-
-Fixes: 78c91ae2c6de ("ipv4/udp: Add 4-tuple hash for connected socket")
-Assisted-by: LLM
-Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
----
- net/ipv4/udp.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
-
-diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-index 0fa3cdbdcc21..b090bd1f59e8 100644
---- a/net/ipv4/udp.c
-+++ b/net/ipv4/udp.c
-@@ -2206,9 +2206,31 @@ int __udp_disconnect(struct sock *sk, int flags)
- }
- EXPORT_SYMBOL(__udp_disconnect);
- 
-+/* __udp_disconnect() takes a socket out of the 4-tuple hash table only via
-+ * ->rehash() or ->unhash(), and neither runs for a socket bound to a
-+ * specific address and port. Remove it here, before its peer is cleared.
-+ */
-+static void udp_unhash4_on_disconnect(struct sock *sk)
-+{
-+	struct net *net = sock_net(sk);
-+	struct udp_table *udptable;
-+	struct udp_hslot *hslot;
-+
-+	if (!udp_hashed4(sk))
-+		return;
-+
-+	udptable = net->ipv4.udp_table;
-+	hslot = udp_hashslot(udptable, net, udp_sk(sk)->udp_port_hash);
-+
-+	spin_lock_bh(&hslot->lock);
-+	udp_unhash4(udptable, sk);
-+	spin_unlock_bh(&hslot->lock);
-+}
-+
- int udp_disconnect(struct sock *sk, int flags)
- {
- 	lock_sock(sk);
-+	udp_unhash4_on_disconnect(sk);
- 	__udp_disconnect(sk, flags);
- 	release_sock(sk);
- 	return 0;
-@@ -3140,6 +3162,7 @@ int udp_abort(struct sock *sk, int err)
- 
- 	sk->sk_err = err;
- 	sk_error_report(sk);
-+	udp_unhash4_on_disconnect(sk);
- 	__udp_disconnect(sk, 0);
- 
- out:
-
--- 
-2.34.1
-
+> +
+>  struct gtrace_path *gtrace_create_path(struct gtrace_component *source,
+>  				       struct gtrace_component *sink,
+>  				       enum gtrace_component_mode mode)
+> diff --git a/include/linux/gtrace.h b/include/linux/gtrace.h
+> index 78e2ead3db8e..bc82814e2738 100644
+> --- a/include/linux/gtrace.h
+> +++ b/include/linux/gtrace.h
+> @@ -257,9 +257,30 @@ void gtrace_destroy_path(struct gtrace_path *path);
+>  int gtrace_path_start(struct gtrace_path *path);
+>  int gtrace_path_stop(struct gtrace_path *path);
+>  
+> +/**
+> + * struct gtrace_perf_auxbuf - Representation of the perf AUX buffer.
+> + * @length:   Size of the AUX buffer.
+> + * @nr_pages: Number of pages of the AUX buffer.
+> + * @base:     Start address of AUX buffer.
+> + * @pos:      Position in the AUX buffer to commit traced data.
+> + */
+> +struct gtrace_perf_auxbuf {
+> +	size_t length;
+> +	int nr_pages;
+> +	void *base;
+> +	long pos;
+> +};
+> +
+> +int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
+> +			      struct gtrace_perf_auxbuf *buf,
+> +			      size_t *bytes_copied, u64 *format);
+> +
+>  /**
+>   * struct gtrace_driver - Representation of a trace driver.
+>   * @id_table:      Table to match components handled by the driver.
+> + * @copyto_auxbuf: Callback to copy data into perf AUX buffer. The driver
+> + *                 reports the PMU specific trace format of the copied data
+> + *                 via @format (see PERF_AUX_FLAG_PMU_FORMAT_TYPE_MASK).
+>   * @start:         Callback to start tracing.
+>   * @stop:          Callback to stop tracing.
+>   * @probe:         Driver probe() function.
+> @@ -270,6 +291,9 @@ int gtrace_path_stop(struct gtrace_path *path);
+>   */
+>  struct gtrace_driver {
+>  	const struct gtrace_component_id *id_table;
+> +	size_t			(*copyto_auxbuf)(struct gtrace_component *comp,
+> +						 struct gtrace_perf_auxbuf *buf,
+> +						 u64 *format);
+>  	int			(*start)(struct gtrace_component *comp);
+>  	int			(*stop)(struct gtrace_component *comp);
+>  	int			(*probe)(struct gtrace_component *comp);
