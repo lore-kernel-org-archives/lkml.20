@@ -1,210 +1,154 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E3F550DC2;
-	Thu, 17 Sep 2026 13:49:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB694E06D6
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652979; cv=none; b=nVZM7Lm/2vvrTyXycd/2kYHiovDpv8nCmSc4yhqMSySxxD015jfyDk5XntNVH0exMgswNH0QDJMHZmp/L64etE85MPm+x2KJTi6ajVzVeS8T0dlV0we1UIqv32psyxxNS3qgbAGZ6pxwLWsxwCpuVRY6+w7+w8jK1KgWlG3T/Js=
+	t=1789653003; cv=none; b=UcVOE0+L2+K1XA0hcMoBNYgKBxrPTMH2OiviFN85raHwboeDyP978z/uqseYJxZ26chNLCavf+CpGsIqwnYOGnbVjWMAe/EsaOJO1Sp//Uz3tBGPqgV40Z2QuFlan7YBAjLd0KkwnEBF/TCiiz3L0DY1WrrrJ5MfliBjCYzQNyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652979; c=relaxed/simple;
-	bh=Vwa4GrOJLj5QOmHKF3cPLVhahqIlD9N15DaKOL6XZow=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QT+3Odl3w+u/otR9XSgdZ6pN4/BTUC48lVDNqwALiI+t1Zs5vUv5oWutQir6N6PlN8TIU3ReSTUAoxt/Fz1sTXZfu5E4Nz1/ZsPCo/BGe2x15oOP54PeAPv5EPnkHKRDEI9+ed9RsFbsIaSl1TcFVKjAKOTXl7/tnhVUSjDDSQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=gfIW4wmO; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789653003; c=relaxed/simple;
+	bh=8lFICmfqJojG+kgOE2npvaipvOhxVqiPlB0ak/ZpJjU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F+WhAjFWUBvYR9x2Crz41xlfWfGjxtjBpLbXB0V1vmVWzRzRk+Adi3ELrkl1BDQ4V8H0pvm5NhQItxWMMl7aclocFFBMdhfQ/X1k9+Qsjpw/fvbGfP6yIJMMv3/jLeAsX++HzzFZ2G4CpRAcg16MTBWpv8YK6LaqYUk+mnMsJNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=FnRRCeZl; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="gfIW4wmO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789652962;
-	bh=Vwa4GrOJLj5QOmHKF3cPLVhahqIlD9N15DaKOL6XZow=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=gfIW4wmONU9quRWLErVqefc050kJuXV+HjWpM794SlGC8upnE2Mi5HHh3XO5s25qI
-	 rbDMGb3Sdp3Da8aowS0hL1aG89vmR+OiQYTi+wnM12oCRWM26kdbfjA/4OfybptgL+
-	 tfvUJoh7uvFSAnQmHamczcO/ZLy1hy+DiDlylmtrG7qjHEhBSS4SoNhH0OVgQw7ySe
-	 tgWmzhgQIBOGvZireXI6d/euEvtIA5abdrfROSFGy8LUKC2zOAKrd5GWrYsFykoUS0
-	 dU5DtIO7FhrSeFIgetjzoiQd9nJDnXedsbjF2Sl0AytF9IHoZk/SyVONee9hiBh4UR
-	 8PM3mEy/4DzgQ==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 205A417E0CFC;
-	Thu, 17 Sep 2026 15:49:22 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 8140E480035; Thu, 17 Sep 2026 15:49:21 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 17 Sep 2026 15:49:17 +0200
-Subject: [PATCH 5/8] PM / devfreq: rockchip-dfi: use bulk clock APIs
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="FnRRCeZl"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cc46c7so58132785a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:49:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1789652996; x=1790257796; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XRIStKi2LZ8v+jiCS8rV0NQyhsz0Xqewo2THt2Su17w=;
+        b=FnRRCeZla3ACAuBrd3KBcDdgSJt1Dxjs97QMFBq8mz17NvgajtNsbo3J+9MWpygz5B
+         PCbeCdbYyo/Ya403AYTIfpQw5nhbOY6uCKoymzSTMnpd5oofzpre8rf8R6mM9W8erWB6
+         HbUFBfw/aDs179TvNrwRm2LN7Y5lqshJSnaI925M3SszpMuJyLgLxZSc8jHUwqE+Bbbn
+         yy+RgB2oHgoIdJ/jDudJ95vkZNLaz7TVp3W6pyT8+D4E/S5eB/RiQ/1nPnxEpxpPDSnx
+         fjlIVdlsKBJ508UcG3xZjaaKHFn+RypERGXF/9R95+sbDQEujWGki4VZjTstJcK7tNjD
+         fWVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789652996; x=1790257796;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XRIStKi2LZ8v+jiCS8rV0NQyhsz0Xqewo2THt2Su17w=;
+        b=mu1J9bHE6jfmt+VwN947jmCJDzrFhc0PqaLcjv1LJ0QlnTog5goWUsx9/iL9kxHUt3
+         5DQGcfl9l7LH4aC9ZDKxQ11xt1Z7t4GtNGyCd6CPjs6jLv22Y7OvTjjQ5NLgqSlY5/Dj
+         xChggxE/3N1gzC73oW/8R1n+V7f7dwSwFR4pQeAKSdjkoE/ucRec2b5WuYTgKMl5uf2F
+         4FWTk3569Y6T/FLp156x78g2mEaIRQPVSfoQL02udC3L1MHNZgfqjvflI+EVHtgh+Jrh
+         h45tnRUsUPeyBT1bI9jO/EHdcZir1+NswIcIvHU+zKNH1gIM2iXVAo64897VxlZ4oWWv
+         tFtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwsvLMiMKMxwbqUvBmbLEcDqOyGORhQdgAiPvG81XEO1cvJk2faOsSLJwUfL3rYoWs4t416erIL0YUF6oA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCfX0fbZ3HnaNizx2c6BCOAIOSoMQQZKRy7z9QOXt7pdHAhdoe
+	kId5wlX6Y3HOXBiEW/u621kjoBnJaVbM/N/GRYU3oHsmPqYCAA/wBRhmeuIaeEZ9lXU=
+X-Gm-Gg: AYBFou3w+SAB+kZ4ZWsWkbDcipvCJLNyyYxmUCbLwNSFMUD/exabh1w4rx8j6lA8EAR
+	NJYcPDk6rhRk3Lz8GWA8dvp8KvEogs8c2lurSA0ng8ssfJBZJt+BEoPt+EOvFeLXJGMc1JYuyWD
+	/SxmHWso1rgMc1uX1A/b2g9H7upfYijB4639wWr+4sQ0/F031GO41etfFsirmzEMhknO1x66SwO
+	cJZyog2iCuPD7yhe3nXN4WOR54Gj6qVGnkTZeBdO3o3emxEJE9HTno/FFS5yb6RFcSXfdIergX9
+	REujw0Q6qPLfRWbK9yuSx2zr0+gPqKSfpLJAxUCEBYEf9Ydhh21DKummir2ASrVgNxNt6hjHN4/
+	jmmJ3MxHcIURFi8Ll5jdefcO4iIw/hZKhk/CQKpRzRM9u65t1vv5lXQ42aHp4MYgVsIcbFTQzGL
+	6uUn1DNm+s0cGJYu8TDvm1lzma4pf2OjJq24CQYfPNL7RTQ63l9jbBcCKUYv9hat1s1v73HZx7w
+	IV7cjAFOg==
+X-Received: by 2002:a05:620a:6489:b0:939:6c96:af6c with SMTP id af79cd13be357-93bb76dd1demr1109294885a.7.1789652995812;
+        Thu, 17 Sep 2026 06:49:55 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:1f35:22b6:fe30:2a34])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b81cf2568sm451922085a.36.2026.09.17.06.49.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 06:49:54 -0700 (PDT)
+Date: Thu, 17 Sep 2026 09:49:49 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Nimrod Oren <noren@nvidia.com>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Hugh Dickins <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>,
+	Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+Message-ID: <20260917134949.GB1344@cmpxchg.org>
+References: <20260901190123.3511535-1-noren@nvidia.com>
+ <20260902162323.GO3004@cmpxchg.org>
+ <aphS2TancJAZLND7@gremlin>
+ <20260902183752.GP3004@cmpxchg.org>
+ <a1f19a59-7dd5-4fb1-b5db-3efee8d249e7@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-rockchip-dfi-cleanup-v1-5-4f00a97a69a6@collabora.com>
-References: <20260917-rockchip-dfi-cleanup-v1-0-4f00a97a69a6@collabora.com>
-In-Reply-To: <20260917-rockchip-dfi-cleanup-v1-0-4f00a97a69a6@collabora.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Chanwoo Choi <cw00.choi@samsung.com>, 
- MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4096;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=lvpRuYQwgyj92YlzDFeJ2yAKSqPbRarTndix/sTx4H4=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqr7+FnCJy/jwMa05leUmYukEYxoMo7+2UL3
- rNxQP4QiU6RKYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqq+/hAAoJENju1/PI
- O/qahRYQAIcu0Ng3nsVFJwJZlYpx2G5XCANzt/usufe2TdKNle1X8R6GEtNEj6KUTo7LZV+U5+r
- 6nhf9OvEZrFgqOMBXHCey0Zk0jbklGACrA7uBR6RAdLbN6GMhvq3J75Sf4Sj8bUNBrGYHTG7i/q
- kBhv3OYcjV93VHPgRl1DYtaOsV5z7CRdD3nmXxT8tEBlo+OQFOD1NJ8goBtKo30BAScKw1VDabO
- 30Gz9cCf/PFYAtqUSQAI6kpCeWKPVe8VnNYxtmPbMu0nkVb6asaBw3CY/PnXG8zER52pshlqtdK
- cMfDxSmhaesilCm4R7WkMJkh7jSuC8NmvTnnXRxQBw1rnInxTvCi79OaLbDpEmC+rtQ0wljUPPi
- u3FmsOolDxiGwfutV30VBePzCbDm/19zPgRySlh2ChV0UcrDVIBgK1VtG4Olav5zYqFnbI/vxvs
- kmceHjBYQRE5dZkVD1Of6NJZruzp0WbbOEMMTJXOVa76F/9wxCkkZTAN7gg3Vbr5q6Mpe792JAb
- HVzXca3qoElo5ZqBI4hKZr1E01TAR6P1FC+EdM+L6Y5D4hV4+8pTzJscO805IOt68h/wkvUKiqc
- 6M6J1KddzhhW7ykW6yWSfc6Cs2++IrN1h6N3C8tcxJJFzW1KLXJRUnacmkx9VWYec1z/jsQSOp1
- sSgUTPASSXQQNJZf76GoqkA==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a1f19a59-7dd5-4fb1-b5db-3efee8d249e7@nvidia.com>
 
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+On Thu, Sep 17, 2026 at 01:19:12PM +0300, Nimrod Oren wrote:
+> On 02/09/2026 21:37, Johannes Weiner wrote:
+> > On Wed, Sep 02, 2026 at 06:00:55PM +0100, Lorenzo Stoakes (ARM) wrote:
+> >> On Wed, Sep 02, 2026 at 12:23:23PM -0400, Johannes Weiner wrote:
+> >>> I'm not against carefully evaluating and testing out today's need for
+> >>> set_recommended_min_free_kbytes() in real world examples. But this is
+> >>> not that.
+> >>>
+> >>> Nacked-by: Johannes Weiner <hannes@cmpxchg.org>
+> >>
+> >> Isn't every possible change to address this kind of issue subject to
+> >> exactly the same kind of constraint?
+> >>
+> >> I'd like to know what not rolling that dice looks like :) or what
+> >> constitutes 'careful evaluation'.
+> > 
+> > Usama gave some great examples in his other email. I'm not really
+> > arguing to keep things out of tradition. But I think it's fair to say
+> > let's at least test the common 4k/2M THP setups under memory pressure
+> > before and after the change.
+> 
+> Hi,
+> 
+> I tested this on an x86-64 (4K/2M) virtual machine with one NUMA node
+> and 16 GiB online memory, using mmtests config-workload-thpchallenge-fio
+> with THPCHALLENGE_MADV_HUGEPAGE=yes.
+> min_free_kbytes was 16 MiB patched and 66 MiB unpatched.
+> 
+> I ran each kernel 30 times, rebooting before each run. The results did
+> not show a regression in THP fault success rate or latency:
+> 
+> Average THP fault success (Percentage Faults Huge) increased from
+> 13.07% unpatched to 13.34% patched, and average fault latency
+> (Fault Latencies) decreased by 6.5%.
+> 
+> In contrast, compaction metrics were higher on average with the patch:
+> 
+>   Compaction stalls:          1,635 -> 1,713        (+4.7%)
+>   Compaction failures:        1,350 -> 1,416        (+4.9%)
+>   Compaction migrate scanned: 4,812,254 -> 5,587,587 (+16.1%)
 
-Currently, the only clock rockchip-dfi will ever use is on the rk3399,
-namely pclk_ddr_mon. However, this is mainly because every other SoC's
-mainline clock tree and bindings are probably lying and not telling us
-about some clock gate branches that do exist in hardware, but nothing
-happens ever gate.
+A 2% increase in THP success bought with a 16.1% increase in
+compaction work looks like a sizable efficiency regression.
 
-Get preparations out of the way to fix this by moving to the bulk clock
-APIs, which will make handling the one-clock-per-channel cases easier to
-deal with.
+A scan efficiency drop is in line with expectations of what happens
+when non-frag placement reserves are taken from the allocator. A
+comparison of trace_mm_page_alloc_extfrag rates could be instructive.
 
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/devfreq/event/rockchip-dfi.c | 39 +++++++++++++++++++++++++++---------
- 1 file changed, 30 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event/rockchip-dfi.c
-index dd9edfd6a674..b61ec500eaed 100644
---- a/drivers/devfreq/event/rockchip-dfi.c
-+++ b/drivers/devfreq/event/rockchip-dfi.c
-@@ -98,7 +98,7 @@ struct rockchip_dfi {
- 	struct device *dev;
- 	void __iomem *regs;
- 	struct regmap *regmap_pmu;
--	struct clk *clk;
-+	struct clk_bulk_data *clocks;
- 	int usecount;
- 	struct mutex mutex;
- 	u32 ddr_type;
-@@ -122,6 +122,8 @@ struct rockchip_dfi_variant {
- 	int stride;
- 	bool ctrl_single;
- 	unsigned int max_channels;
-+	const char * const *clk_names;
-+	unsigned int num_clks;
- };
- 
- static int rockchip_dfi_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl)
-@@ -183,9 +185,10 @@ static int rockchip_dfi_enable(struct rockchip_dfi *dfi)
- 	if (dfi->usecount > 1)
- 		goto out;
- 
--	ret = clk_prepare_enable(dfi->clk);
-+	ret = clk_bulk_prepare_enable(dfi->variant->num_clks, dfi->clocks);
- 	if (ret) {
--		dev_err(&dfi->edev->dev, "failed to enable dfi clk: %d\n", ret);
-+		dev_err(&dfi->edev->dev, "failed to enable dfi clocks: %pe\n",
-+			ERR_PTR(ret));
- 		goto out;
- 	}
- 
-@@ -245,7 +248,7 @@ static void rockchip_dfi_disable(struct rockchip_dfi *dfi)
- 			break;
- 	}
- 
--	clk_disable_unprepare(dfi->clk);
-+	clk_bulk_disable_unprepare(dfi->variant->num_clks, dfi->clocks);
- out:
- 	mutex_unlock(&dfi->mutex);
- }
-@@ -721,11 +724,6 @@ static int rk3399_dfi_init(struct rockchip_dfi *dfi)
- 	struct regmap *regmap_pmu = dfi->regmap_pmu;
- 	u32 val;
- 
--	dfi->clk = devm_clk_get(dfi->dev, "pclk_ddr_mon");
--	if (IS_ERR(dfi->clk))
--		return dev_err_probe(dfi->dev, PTR_ERR(dfi->clk),
--				     "Cannot get the clk pclk_ddr_mon\n");
--
- 	/* get ddr type */
- 	regmap_read(regmap_pmu, RK3399_PMUGRF_OS_REG2, &val);
- 	dfi->ddr_type = FIELD_GET(RK3399_PMUGRF_OS_REG2_DDRTYPE, val);
-@@ -802,11 +800,17 @@ static int rk3588_dfi_init(struct rockchip_dfi *dfi)
- 	return 0;
- };
- 
-+static const char * const rk3399_clk_names[] = {
-+	"pclk_ddr_mon",
-+};
-+
- static const struct rockchip_dfi_variant rk3399_variant = {
- 	.init = rk3399_dfi_init,
- 	.stride = 0x14,
- 	.ctrl_single = true,
- 	.max_channels = 2,
-+	.clk_names = rk3399_clk_names,
-+	.num_clks = ARRAY_SIZE(rk3399_clk_names),
- };
- 
- static const struct rockchip_dfi_variant rk3568_variant = {
-@@ -837,6 +841,7 @@ static int rockchip_dfi_probe(struct platform_device *pdev)
- 	struct rockchip_dfi *dfi;
- 	struct devfreq_event_desc *desc;
- 	struct device_node *np = pdev->dev.of_node, *node;
-+	unsigned int i;
- 	int ret;
- 
- 	dfi = devm_kzalloc(dev, sizeof(*dfi), GFP_KERNEL);
-@@ -868,6 +873,22 @@ static int rockchip_dfi_probe(struct platform_device *pdev)
- 	desc->driver_data = dfi;
- 	desc->name = np->name;
- 
-+	if (dfi->variant->num_clks) {
-+		/* NB: CCF is fine with us leaving this NULL if num_clks = 0 */
-+		dfi->clocks = devm_kcalloc(dev, dfi->variant->num_clks,
-+					   sizeof(*dfi->clocks), GFP_KERNEL);
-+		if (!dfi->clocks)
-+			return -ENOMEM;
-+
-+		for (i = 0; i < dfi->variant->num_clks; i++)
-+			dfi->clocks[i].id = dfi->variant->clk_names[i];
-+
-+		ret = devm_clk_bulk_get(dev, dfi->variant->num_clks,
-+					dfi->clocks);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to get clocks\n");
-+	}
-+
- 	ret = dfi->variant->init(dfi);
- 	if (ret)
- 		return ret;
-
--- 
-2.53.0
-
+Why the 2% success boost isn't quite clear to me. Allocation latency
+improving suggests the extra work is primarily picked up by background
+compaction. Reduced reserves could be making proactive compaction more
+aggressive. But the improvement is unlikely to hold once you run out
+of idle CPUs and the additional compaction work actually eats into the
+workload. It could be useful to look closer at who is doing the extra
+work and based on what triggers.
