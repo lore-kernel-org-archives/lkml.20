@@ -1,76 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6D83446AD;
-	Thu, 17 Sep 2026 08:32:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928A33DBD65;
+	Thu, 17 Sep 2026 08:33:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633986; cv=none; b=XAcNbQz7I+7zNZCKsBB/WBjvxXvcERlQ6tcEZ0Af7DHG2AfHKLAbQvJys0ToUtRWWO5wlIpu8Hpiv6tRKLQ4Suz2LC+ZtgNrhiPVPGbVQ0zQ7FkoubMUhxJbLI6Kxv4+XvY6u62WnLAjvJZZ5j9meiSK5+wSrePHWXD+/cbzRbw=
+	t=1789634009; cv=none; b=CkBfyiWKmUQ316ITxgli1Yl0i3bDUXOs+I9oRyk/bO+kH8oyACHXj7lzPhXpwESsla57sFDsSbTRXJ0eniGKnDY07xdiAF4nvxGQ6krHY8XEOOKroIp5PcBW1p6bbUPIkzgukimIGd3WfL5plgf1FHsSuiC0VCgJQQ+YlAfMUOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633986; c=relaxed/simple;
-	bh=rwCNwMAUxcHoq/DHRR4muy1ja9wj4fHCmk7n3IBuerU=;
+	s=arc-20240116; t=1789634009; c=relaxed/simple;
+	bh=pDMKA6qIRf+AndEbIesdGOG1IRINsDxNU9mkBH8CjVE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cmi7nOwRLlry6/nFDVhkIb8d9Gl667B53fpaOnbKWcdABY39q4wJw1S1Ahrk68HVvGY8N1btS66XNNvlr4xp3zQHmQLGUpKmoHYnELSTfBcFwH8C0DPl8E9dcNo/iFsnXk4deSkN5F2W8IBEyu0xidhaXBNS/2YhZrAeXwyO9QY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I+Da3UD2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=e8QlQRqjHyzG49CCHpfXpQitt+uIJhyqa4x+gBazjxbfluNZfoL6yz1uC6SeYQvoGlvqwzk6EuYmXJFOlxPCSdo5YK2YYik/a/7fl1/YcZoxJx90ElS2OX14PLPJQa0LQRqPiG00AxBUi4ne1ylwtRhszxY0y0pzFvw554bied8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Minpxb36; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I+Da3UD2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1571F000FF;
-	Thu, 17 Sep 2026 08:32:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Minpxb36"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A46891F000FF;
+	Thu, 17 Sep 2026 08:33:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789633976;
-	bh=f71E8Sz/bQUAXEhcv8HNhlyDl4r/YqtURmTywCuOuao=;
+	s=k20260515; t=1789633999;
+	bh=vekd0poqQzCqoyuw3DPmsc6osNEhDh9nMSKZScdJaRU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I+Da3UD27UdowHEezCrg/N5ypLx60/P9/ma/ByLzsBBJtnP9WNuWSRqzw7DqrGBeN
-	 rPyeV7CXVwQgw3MqPp9MXgrYuqcavj+eiH+PX1YeUOZiXUhkzCzHHd8usJ/5AVyrrM
-	 slv9TtkyHSE9tC4s3nUoCxl78Mp+y9D2y7IiAR51mx41wlnTQiUspsMiCmRNvwycUe
-	 qvPL2FeVrAcK+vWTQ1NYqzEktJiw9MMD37Rv2d2z+FMMOjytlDdPEMxChg/LUWCb9R
-	 1BTyJnjzJXIyGkm0nU/JIGTw+aQe+LmDQZni/WXik7KnxnAAan5TenL5nwS+WxPymb
-	 HF7l4fYotOSgA==
-Date: Thu, 17 Sep 2026 10:32:53 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Taniya Das <taniya.das@oss.qualcomm.com>, 
-	Vinod Koul <vkoul@kernel.org>, Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
-	Ajit Pandey <quic_ajipan@quicinc.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Imran Shaik <quic_imrashai@quicinc.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Tengfei Fan <tengfei.fan@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	b=Minpxb36rKkrHq+i94+gtYcUxuCbnsEvOyXdtsdRjvqloVMfLb84uy4vPKxktnPKk
+	 xB5idmk4UreX85dBB2IkoFSnlFQ+RL08QIiJR0rU7n6QSDfriTEc4uo4qECs9X/844
+	 PXQWSqF6lroKsD5EIWmOzbgy4YazYY2HHWe2gFP31vUS/nD/g2gbV7fOVuMBT6z0hp
+	 GLjDV0edHQdj0h9gpCrcnZ6xZDFRtV5cUi7XKggKKKrqWJDe0A63UEgTly/qczVrdV
+	 uJQArG0RD2OnIp+30KLNXfzmbSgLmCqSZTMhU1FHFzPJ3C86NRInTgF12wQVZ35WbB
+	 VSODgnrb0/X8g==
+Date: Thu, 17 Sep 2026 09:33:15 +0100
+From: Simon Horman <horms@kernel.org>
+To: Cong Nguyen <congnt264@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 14/52] dt-bindings: clock: qcom: sdx75-gcc: Add CX
- power domain
-Message-ID: <20260917-sly-amaranth-bear-949eca@quoll>
-References: <20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com>
- <20260914-qcom-tie-cx-to-gcc-v4-14-9d5a606ada33@oss.qualcomm.com>
+Subject: Re: [PATCH] nfc: llcp: fix sdreq TLV list leak on parse/alloc/send
+ failure
+Message-ID: <20260917083315.GX51261@horms.kernel.org>
+References: <20260914121129.2098606-1-congnt264@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914-qcom-tie-cx-to-gcc-v4-14-9d5a606ada33@oss.qualcomm.com>
+In-Reply-To: <20260914121129.2098606-1-congnt264@gmail.com>
 
-On Mon, Sep 14, 2026 at 03:47:13PM +0300, Abel Vesa wrote:
-> The GDSCs provided by the SDX75 GCC are supplied by the RPMh CX
-> power domain. Model that parent domain in the GCC binding so the
-> provider can describe the dependency in devicetree.
+On Mon, Sep 14, 2026 at 07:11:29PM +0700, Cong Nguyen wrote:
+> nfc_genl_llc_sdreq() builds a list of TLV nodes while walking nested
+> netlink attrs, but 3 error paths (nested-attr parse failure, TLV alloc
+> ENOMEM, nfc_llcp_send_snl_sdreq() failure) all skip freeing what was
+> already queued.
 > 
-> Add a single CX power-domain entry to the binding and make it required.
-> Without this dependency, GCC GDSC consumers cannot vote for CX and RPMh
-> may undervolt it.
+> Route them through a new free_list label, mirroring the SDRES path in
+> the same file which already does this. Harmless on the success path
+> too -- send_snl_sdreq() drains the list as it moves nodes, so it's
+> already empty by the time free_list runs.
 > 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/clock/qcom,sdx75-gcc.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
+> Fixes: d9b8d8e19b07 ("NFC: llcp: Service Name Lookup netlink interface")
+> Assisted-by: Claude:claude-opus-4
+> Signed-off-by: Cong Nguyen <congnt264@gmail.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+Reviewed-by: Simon Horman <horms@kernel.org>
 
