@@ -1,121 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934D93B42EE;
-	Thu, 17 Sep 2026 08:00:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F161332B13F;
+	Thu, 17 Sep 2026 08:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632013; cv=none; b=Hq0PAcOjCC1ogc567VAdvLDgaWrV7bLWuDDtT3g/v4vAmrHY7KxD3l/gKIByQI3LLKZN/Qromp9IiuOgLyBbfJA7EW63covWLVVUoZyVhx3l5q+o/8c+jWKiXUx3GtZEWqeCK2ClBS0L3GoZzzzvfG1IXzK9TCuZFdEgHuI2y8M=
+	t=1789632041; cv=none; b=cR+hbVV5Q7V1MD241P9bkwcXWkc5Eme9Eno8SWlGRnX2oTeZUvd6rw+jscmfMew9KP3iql+Be48wV9GMLNvSC/zG9K2Lx+i1Atye82JOZEyysl14d2hAyTjonp+hkPaiOkVpsF4Yonm94eDkVqwelAIU3F5GaPsy91RjYqLdFzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632013; c=relaxed/simple;
-	bh=t4eRF8+XBIuFbxJfnNVPbx4Ln4LJwPIhnhzoFSEuVvs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ByqOSi0FcTe2ItP7+VCVHO+s/t65tvtTDabPkckyIT167SyaY8NYu3zp5nYAsjoEvZVcbBfP0uHpXip1yTh2M4MVbKh4xMlXfG3vZFlFQGqQD1wf7gfgL2srV60NKOJgGt5/bEcImY0Z15Enip6SctIUPkIw09cP7+O7UdbIuYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MS8tPaGZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789632041; c=relaxed/simple;
+	bh=hqr0qEEdqIoe2AJI1B4LOV2ycNVlGo3yYJ71z0899z4=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=NhuAnxwvvv9ZiYCOrQ39F+36uMM/uCrsh4Wdrnr7r3EaG7gyenWUV27qKLlLerZzFyjxgH5qWnjhOUvoEwSUQ/BGlxXE0OV6BKaNVCxhHPMhBt4BIXN1R2wuu21HWJYCSvWYCyptfDGZjaROv5YzMavtktuG1bpjvNqq5qWaiiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Hh5xRLfq; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MS8tPaGZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160821F00898;
-	Thu, 17 Sep 2026 08:00:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789632012;
-	bh=uE9UWharQqy5/fAiwBZmsbswzhzEgqPDu8gY7vY8sVs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MS8tPaGZgC6kUVPjJLHzxqMpCYM03N/2wB6Qnl4lupTK5ptNWVq17LosxvW15sGBP
-	 ehIcGeieeaG/wHDo3v9sYYLhqyWuWejbMqVz2p/4OlYtWzH1RTfDKk25OlKzpktxgY
-	 yI3AV1TVMUTkIqdZyR2L8R9W7klFJZ+6E3g9wln7KcVyih9LZTIrQ95eoEAiR5k0Rb
-	 NYk0COnOf/tUEwetFCcBVjv7wCbIEhCXhQE4TdVMLz7hJIE0WPo8jS75yBk+eTsUPo
-	 js5ugsDU7Tt4bMnm9daNa/ZGBjhbF0jEWauFy7zCyLJMpTqRtD/jcUQq/QpYlfrSll
-	 qb0aTtu0JNjzA==
-Date: Thu, 17 Sep 2026 10:00:07 +0200
-From: Benjamin Tissoires <bentiss@kernel.org>
-To: Lee Jones <lee@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, 
-	Michael Zaidman <michael.zaidman@gmail.com>, jikos@kernel.org, brgl@kernel.org, linux-input@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/13] HID: ft260: add UART and GPIO support, plus I2C
- fixes
-Message-ID: <aqucXBi0Fmq-tCWr@beelink>
-References: <20260827205116.GJ2943942@google.com>
- <20260827222550.24634-1-michael.zaidman@gmail.com>
- <apaLLD4ZXhNV-Dph@beelink>
- <CAD++jLng_gdqoehT+c8sXoqy+tdUc7eAXXpAvhC_zJZwnX5tzA@mail.gmail.com>
- <20260916125806.GR11487@google.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Hh5xRLfq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=hqr0qEEdqIoe2AJI1B4LOV2ycNVlGo3yYJ71z0899z4=; b=H
+	h5xRLfq+lo+2hJJIXnJIU6Kz3YHGLx9NW3svT4JKvw9R4NMZ4VRqfehHeZGWja1N
+	ivJKqO9q8GzUHC7XzqKX5cXjXGOLUTL3NultZySUKBYMWN44AXV7YezZw7Bxu1zN
+	rXNXXld9+4SyDqSLQMm7VGHNtKQqxm6/iIlWuUsqZo=
+Received: from localhost (unknown [::1])
+	by gzsmtp6 (Coremail) with SMTP id TSWEB_0014CB51000021B66AAB9E01;
+	Thu, 17 Sep 2026 16:00:01 +0800 (CST)
+Received: from firefly0158$163.com ( [120.227.56.131] ) by
+ ajax-webmail-wmsvr-40-135 (Coremail) ; Mon, 14 Sep 2026 17:31:30 +0800
+ (CST)
+Date: Thu, 17 Sep 2026 16:00:00 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: gregkh@linuxfoundation.org, stern@rowland.harvard.edu, kees@kernel.org
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [BUG] usb: dummy_hcd: general protection fault in set_link_state on
+ unbind
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TC/+ct0oi5ieRZ+kdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/tPLxOpq2AVH9/wlRiZpYCg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260916125806.GR11487@google.com>
+Message-ID: <34667d49.9099.1a09f41e473.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:QSgvCgBHtcwFnqtq5PMfAA--.59364W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3RJwImqnvvL0wQAA3p
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Sep 16 2026, Lee Jones wrote:
-> On Mon, 14 Sep 2026, Linus Walleij wrote:
-> 
-> > Hi Benjamin, Lee,
-> > 
-> > On Tue, Sep 1, 2026 at 4:03 PM Benjamin Tissoires <bentiss@kernel.org> wrote:
-> > 
-> > > TBH, I'm not a big fan of having multiple subsystems children into HID.
-> > > Mostly because I can't review the best practive in each of them. However,
-> > > for quite a long time, HID was mostly for input devices, and input is a
-> > > different subsystem.
-> > >
-> > > That being said, there are 2 types of HID devices:
-> > > - ones with defined standard usages (keyboards, mice, touchscreen,
-> > >         battery, etc) and using MFD for those would certainly be overthinking
-> > > - others use raw HID device with a custom protocol (cp2112, mcp2221,
-> > >         ft260), these could be MFD candidates
-> > 
-> > Surely, as HID start to attract chips which clearly fall into the MFD
-> > category of things, with a plethora of subsystems hooking into the
-> > same HID device, we must find a way for HID devices to spawn
-> > MFD cells?
-> > 
-> > MFD solved and evolved a system for handling exactly this type
-> > of situation.
-> > 
-> > Whether there should be an MFD device in the middle spawning
-> > each a HID, GPIO, I2C, UART cell or whether HID device itself should
-> > sit in the nexus and gain the ability to simply spawn out MFD cells
-> > from itself is what we need to figure out.
-> 
-> There's no figuring that part out.
-> 
-> If you want to use the MFD API, the part that uses it must reside in
-> drivers/mfd.  Else it becomes a nightmare to maintain and things get
-> wild, quickly.
 
-Historically speaking, HID devices always have been under drivers/hid.
-They are usually leaf drivers, only hooking to input/battery/LEDs.
-
-As mentioned, hid-sensor-hub is an exception but this got sorted out by
-splitting the HID part from the IIO.
-
-Looking at the various MFD-like HID drivers, they all share the common
-point of not really being HID devices: they rely on a custom protocol
-handled in .raw_event().
-
-So I think I'd be OK to have those drivers moved to the mfd tree as long
-as they only rely on low level HID API, and do not have to deal with
-"generic" HID report descriptors. If that arise, I think we should split
-the HID/MFD parts like hid-sensor-hub does.
-
-So you can have my unformal acked-by for transfering those drivers.
-
-Last, I'm currently using a cp2112 as a i2c-hid bridge in my upstream
-CI. It's relying on a DSDT override in the VM to actually work, and I'd
-like to keep that around. So my main request here is to keep the
-equivalent of the DSDT override in the MFD cells, at least for this one.
-
-Cheers,
-Benjamin
-
-> 
-> You'd be surprised what "creative" engineers can do with it!
-> 
-> -- 
-> Lee Jones
-> 
+CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEgZ2VuZXJhbCBwcm90ZWN0aW9uIGZhdWx0IGluIHRoZSBk
+dW1teV9oY2QgbGluay1zdGF0ZSBoYW5kbGluZywKdHJpZ2dlcmVkIGJ5IGEgc3l6a2FsbGVyIFVT
+QiByZXByb2R1Y2VyLiAgVGhlIGlzc3VlIGlzIHJlcHJvZHVjaWJsZSB3aXRoIEhFQUQKY29tbWl0
+IGNlZTkzOTVhY2Q4MDQzYmUwNjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUgKHY3LjMtcmMxLCBMaW51
+eCA3LjMuMC1yYzEpLgoKClRoZSByZXByb2R1Y2VyIGNvbm5lY3RzIGEgc3ludGhldGljIEhJRCBV
+U0IgZGV2aWNlIHRocm91Z2ggZHVtbXlfaGNkIGFuZCB0aGVuCnVuYmluZHMgdGhlIGR1bW15X2hj
+ZC4wIHBsYXRmb3JtIGRldmljZSBieSB3cml0aW5nIGl0cyBuYW1lIHRvIHRoZSBkcml2ZXIncwp1
+bmJpbmQgYXR0cmlidXRlLiAgVGhlIGZhaWx1cmUgaGFwcGVucyBkdXJpbmcgdGhlIHRlYXJkb3du
+IHRoYXQgZm9sbG93cy4KCgpUaGUgY29uc29sZSBzaG93cyBhIGdlbmVyYWwgcHJvdGVjdGlvbiBm
+YXVsdCBmb3IgdGhlIG5vbi1jYW5vbmljYWwgYWRkcmVzcwoweGRmZmZmYzAwMDAwMDAwMDAgd2l0
+aCBhIEtBU0FOIG51bGwtcHRyLWRlcmVmIGluIHRoZSByYW5nZSBbMHgwLTB4N10sIGFuZCBSSVAK
+aW4gc2V0X2xpbmtfc3RhdGUuICBUaGUgcGF0aCByZWFjaGVzIGl0IHRocm91Z2ggdGhlIGdhZGdl
+dCBkaXNjb25uZWN0IGFuZAp1bmJpbmQgc2VxdWVuY2UgKHVzYl9nYWRnZXRfZGlzY29ubmVjdF9s
+b2NrZWQgLT4gZ2FkZ2V0X3VuYmluZF9kcml2ZXIgLT4KZGV2aWNlX3JlbW92ZSkgd2hpbGUgdGhl
+IGR1bW15IFVEQyBpcyBiZWluZyByZW1vdmVkLgoKCk9uZSBwb3NzaWJsZSBjYXVzZSBpcyB0aGF0
+IHRoZSBsaW5rLXN0YXRlIGhlbHBlciBydW5zIG9uIGEgVURDIHdob3NlIHByaXZhdGUKZGF0YSBo
+YXMgYWxyZWFkeSBiZWVuIHJlbGVhc2VkIGJ5IHRoZSB1bmJpbmQsIHNvIGl0IGRlcmVmZXJlbmNl
+cyBhIE5VTEwKcG9pbnRlci4gIFRoaXMgbG9va3MgbGlrZSBhbiBvcmRlcmluZy9saWZldGltZSBw
+cm9ibGVtIGJldHdlZW4gdGhlIHBsYXRmb3JtCmRyaXZlcidzIHJlbW92ZSBwYXRoIGFuZCB0aGUg
+Z2FkZ2V0IGRpc2Nvbm5lY3QgcGF0aC4gIEkgbm90ZSB0aGF0IGQ1ZTVjZDM2NTRkMgpmaXhlZCBh
+IHJlbGF0ZWQgZ2l2ZWJhY2sgbGlmZXRpbWUgaXNzdWUgaW4gdGhpcyBmaWxlIGJ1dCBkb2VzIG5v
+dCBjb3ZlcgpzZXRfbGlua19zdGF0ZS4gIEkgYW0gcmVwb3J0aW5nIHRoZSBmYXVsdCBhbmQgdGhl
+IHBhdGggYXMgb2JzZXJ2ZWQuCgoKVGhpcyBhcHBlYXJzIHRvIGJlIGEgcmVjdXJyZW5jZSBvZiB0
+aGUgc3l6Ym90IGlzc3VlIHdob3NlIGV4dGVybmFsIGlkIGlzCjgzZTM5YjgyMTU4NzA2NGJkN2Ez
+LiAgSXQgcmVtYWlucyByZXByb2R1Y2libGUgb24gdjcuMy1yYzEuCgoKUmVwcm9kdWNlcjoKCgpz
+eXogcmVwcm9kdWNlcjoKc3l6X3VzYl9jb25uZWN0JGhpZCgweDMsIDB4MzYsICYoMHg3ZjAwMDAw
+MDAxNDApPUFOWT1bQEFOWUJMT0I9IjEyMDEwMDAwMDAwMDAwMTBkODA0ZGQwMDAwMDAwMDAwMDAw
+MTA5MDIyNDAwMDEwMDAwMDAwMDA5MDQwMDAwMDEwMzAwMDAwMDA5MjEwNTAwMDAwMTIyMDUwMDA5
+MDU4MTAzMDAwMiJdLCAweDApCm1rZGlyYXQoMHhmZmZmZmZmZmZmZmZmZjljLCAmKDB4N2YwMDAw
+MDAwMDAwKT0nLi9teXN5c1x4MDAnLCAweDFmZikKbW91bnQoMHgwLCAmKDB4N2YwMDAwMDAwMDgw
+KT0nLi9teXN5c1x4MDAnLCAmKDB4N2YwMDAwMDAwMGMwKT0nc3lzZnNceDAwJywgMHgwLCAweDAp
+CnIwID0gb3BlbmF0KDB4ZmZmZmZmZmZmZmZmZmY5YywgJigweDdmMDAwMDAwMDEwMCk9Jy4vbXlz
+eXMvYnVzL3BsYXRmb3JtL2RyaXZlcnMvZHVtbXlfaGNkL3VuYmluZFx4MDAnLCAweDEsIDB4MCkK
+d3JpdGUocjAsICYoMHg3ZjAwMDAwMDAyMDApPSdkdW1teV9oY2QuMFx4MDAnLCAweGIpCgoKY29u
+c29sZSBvdXRwdXQ6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy8xQ05WZk1IdwprZXJuZWwgY29u
+ZmlnOiBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvMTlZdlRTRXAKCgpLZXJuZWw6CgoKSEVBRCBj
+b21taXQ6IGNlZTkzOTVhY2Q4MDQzYmUwNjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUKZ2l0IHRyZWU6
+IHVwc3RyZWFtIChsaW51eC5naXQpLCB0ZXN0ZWQgdGhyb3VnaCB0aGUgdjcuMy1yYzEgYW5ub3Rh
+dGVkIHRhZyBvYmplY3QKwqAgwqAgwqAgwqAgwqAgwqBlNWUwNDcyNmNkZDA0M2UzMDk2NzcwNzFh
+YjFiNjVhNGIxOGY0MjJiCmtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzEgIzEgUFJFRU1QVChmdWxs
+KQp0ZXN0ZWQgdGFnOiB2Ny4zLXJjMSAoTGludXggNy4zLXJjMSwgMjAyNi0wOC0zMCkKCgpMZXQg
+bWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCgpCZXN0IHJlZ2Fy
+ZHMsCkNoYW5namlhbg==
