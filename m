@@ -1,109 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98A54BFE74;
-	Thu, 17 Sep 2026 10:40:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE7F3DAAC8;
+	Thu, 17 Sep 2026 10:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789641645; cv=none; b=FZHSUlqpZUoBXTehwTc86hUnVfrTPYEQbq0BQKC1ntRFJo0JgdOK8QPRe6vx88j+ikKY/VZnZqKCjZ4wB0pJ5Odp03/jE6TdBIixnRT22akij7J3VbQCoQp5/JGUARNnPAi9vL8hj0JTOJalt8e5cqJIIDRx/y6xOc7LFqQo/Ow=
+	t=1789641752; cv=none; b=lHh72eX0HBGR5lfGFOhpschBfMpdE+wI4UThWKAnG7WH3GeIPjAstNw13FBqPh48Kt5d4LYWnMb58WbkAWwUX25YiGb5suG6qrBAOoLQ5pYW+w+5dxSd1ouR05qeCney3rLMjY1ukfS0Oh7VeNFLYCZdeEwhA9IJeNEPJEP8Ky4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789641645; c=relaxed/simple;
-	bh=e1w3CIrykqL3tQpgHrb7Jjufje0Dn9t/Wsa40MhCs7s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qs6GO7epOM67qnRPDpqSr5IrZ/2Br56KxJIUbsPypNz5Fz07YxDr3/QebFiy7QguUEw6GJw8i3U1Z7+HZQYJiFW24kKM8lakFt3BO5P4A1YPiIS/knfOpV8TOGcvIQ7obAXx9DhtIvqk7Xe/mD+viOHgxG3kgjZ4uHQZc2tpCtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0NdSTwT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789641752; c=relaxed/simple;
+	bh=Sdu1QdJXLl5fKN2H1Zmr8q1Q9k4eyWvsiHunJN2BLbE=;
+	h=Date:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y/MywNT1NhlfQDV+PapdW8o7MMTJxEzShUvsIW3DRGFKXfHFTB6w2+hmxSSN7SQhOEgsdkL5fayXJWQrZBtc1OHZU15x2vwZghhHDtZNb4dKd+Qm1ctESlSxaF9uj491N72dgG3b989cg9BZWb3NQx/WQusELPm3wTlkRcIxMZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ghoul.dev; spf=pass smtp.mailfrom=ghoul.dev; dkim=pass (2048-bit key) header.d=ghoul.dev header.i=@ghoul.dev header.b=e100mr5D; arc=none smtp.client-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ghoul.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghoul.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0NdSTwT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 223651F00893;
-	Thu, 17 Sep 2026 10:40:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789641630;
-	bh=B1y9pUsKx0AJ915GGc6qcee+i+Ha2X0DlbvDWbjL+wo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D0NdSTwTaGbDb/J8htFLNu6DxeWRMmZ1UFTfXLLMyvpKNpZXb3zPeTEy3FfMoMqb4
-	 Z8rqvOZ6MtcIsnEDh+p38EfX5VCVljC96Bz9K6R/GIfGKdDI26GeUr3gWcKEDO4DaA
-	 nCEhcz6LpHKV9Ay2yFlG2TbVbunzHXgdRFD0R9Dx/CdZR61ctR1BBvkpKfqH7G6K4A
-	 IYtsduH7bDAhmKblOz+/uPnDKUCs4tET13Bpw+CjVKjbsu/g81qvdsSVp6XLhgMSch
-	 MZmBe5UpXRyJOGhyz+OwBkJT05wU7FnC8wfX6i++3v7RxGGSULbaJG8XsdrEp8LG+4
-	 rDVViGSvnEIdQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] mtd: ubi: Fix UBI device reference leak in
- ubi_detach_mtd_dev()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wentao Liang" <vulab@iscas.ac.cn>, chengzhihao1@huawei.com
-Cc: richard@nod.at, daniel@makrotopia.org, linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org, vigneshr@ti.com, miquel.raynal@bootlin.com, stable@vger.kernel.org
-In-Reply-To: <20260917103102.2147038-1-vulab@iscas.ac.cn>
-References: <20260917103102.2147038-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 10:40:29 +0000
-Message-Id: <20260917104030.223651F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ghoul.dev header.i=@ghoul.dev header.b="e100mr5D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ghoul.dev;
+	s=protonmail2; t=1789641745; x=1789900945;
+	bh=hilsoWfRYvib+HqLqQ7I1by3R5QMFgv9V6/EFQHPy9k=;
+	h=Date:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=e100mr5DSYey8COjJpcMsoaJK7nWKDs2yXQdviODXSmMNHY8KFwCegmzYd1EOA5iQ
+	 7m/FREGVroLRVAJwKZeKm07Rf9h2ChvCyOnAauoTW329/XnUOOU8Ka+/cxZWKebBTr
+	 S6qIU7/5b+4ZKLhGErRDkJAAPBSJdfWv0jV1qDHpBr/k7Uay7GGaa4Wf6M0ltlXTDs
+	 /ju/44Vcwrt+JcNY7nY2ir3/gbwDN5wQHX0s6m5ESq62ri+B4IDGe+dua3x3vxiKE8
+	 wNcctoT+HcWDDsEpoDGfaIb4OCj1ftnDDX5i8qU33xZ4SIpKU0+GPftwUlIYu3hs7n
+	 B/pkpYCVSsFkA==
+Date: Thu, 17 Sep 2026 10:42:18 +0000
+From: Ahmed Yaseen <yaseen@ghoul.dev>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, Nir Yehoshua <nir@ciphersecuritylabs.com>
+Subject: Re: [PATCH v2] platform/x86: asus-wmi: validate custom fan curves on enable
+Message-ID: <475a75e6-6656-4f4b-a472-588c52ae3839@ghoul.dev>
+In-Reply-To: <20260831-fan-curve-validation-v2-1-36f4223aedf6@ghoul.dev>
+References: <20260831-fan-curve-validation-v2-1-36f4223aedf6@ghoul.dev>
+Feedback-ID: 177610485:user:proton
+X-Pm-Message-ID: bb4774e8e428a2b35ddfbe745889f913b3b7e5e0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mtd: ubi: double put of ubi_device in ubi_detach_mtd_dev()
---
+Hi, I have come to realize that this was delivered to all of you. This=20
+has no business being here. Apologies.
 
-commit dc1e1560c6a92e217dc3827eb13a6c41acadcafb
-Author: Wentao Liang <vulab@iscas.ac.cn>
+Cause: b4 reflect misfire
 
-mtd: ubi: Fix UBI device reference leak in ubi_detach_mtd_dev()
+On 8/31/26 23:45, Ahmed Yaseen wrote:
+> Custom fan curves reach firmware unchecked, so a curve whose temperature
+> or PWM decreases from one point to the next is accepted. The firmware
+> does not respect such a curve: a first point of 100% followed by 50%
+> leaves every point running at 100%. The kernel keeps reporting the
+> points that were written, so sysfs stops describing what the fans are
+> actually doing.
+>
+> Check the curve when enabling and reject it if it is invalid. Validation
+> is done on enable rather than on write because fan curves are written
+> one point at a time and are inconsistent mid-write.
+>
+> Fixes: 0f0ac158d28f ("platform/x86: asus-wmi: Add support for custom fan =
+curves")
+> Reported-by: Nir Yehoshua <nir@ciphersecuritylabs.com>
+> Signed-off-by: Ahmed Yaseen <yaseen@ghoul.dev>
+> ---
+> Changes in v2:
+> - Rephrased second paragraph of commit message (Ilpo)
+> - Link to v1: https://patch.msgid.link/20260828160743.31957-1-yaseen@ghou=
+l.dev
+> ---
+>   drivers/platform/x86/asus-wmi.c | 32 ++++++++++++++++++++++++++++++++
+>   1 file changed, 32 insertions(+)
+>
+> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-=
+wmi.c
+> index a65090429ca7..3b743fec5c64 100644
+> --- a/drivers/platform/x86/asus-wmi.c
+> +++ b/drivers/platform/x86/asus-wmi.c
+> @@ -3714,6 +3714,33 @@ static int fan_curve_write(struct asus_wmi *asus,
+>   =09=09=09=09=09 arg1, arg2, arg3, arg4, &ret);
+>   }
+>  =20
+> +/*
+> + * A fan curve is a set of points the firmware interpolates between, so =
+it
+> + * only makes sense if neither temperature nor PWM ever decreases along =
+it.
+> + */
+> +static int fan_curve_validate(struct device *dev, struct fan_curve_data =
+*data)
+> +{
+> +=09u8 *percents =3D data->percents;
+> +=09u8 *temps =3D data->temps;
+> +=09int i;
+> +
+> +=09for (i =3D 1; i < FAN_CURVE_POINTS; i++) {
+> +=09=09if (temps[i] < temps[i - 1]) {
+> +=09=09=09dev_warn(dev, "fan curve: temperature decreases at point %d (%u=
+ < %u)\n",
+> +=09=09=09=09 i, temps[i], temps[i - 1]);
+> +=09=09=09return -EINVAL;
+> +=09=09}
+> +
+> +=09=09if (percents[i] < percents[i - 1]) {
+> +=09=09=09dev_warn(dev, "fan curve: pwm decreases at point %d (%u < %u)\n=
+",
+> +=09=09=09=09 i, percents[i], percents[i - 1]);
+> +=09=09=09return -EINVAL;
+> +=09=09}
+> +=09}
+> +
+> +=09return 0;
+> +}
+> +
+>   static ssize_t fan_curve_store(struct device *dev,
+>   =09=09=09       struct device_attribute *attr, const char *buf,
+>   =09=09=09       size_t count)
+> @@ -3798,6 +3825,11 @@ static ssize_t fan_curve_enable_store(struct devic=
+e *dev,
+>   =09}
+>  =20
+>   =09if (data->enabled) {
+> +=09=09err =3D fan_curve_validate(dev, data);
+> +=09=09if (err) {
+> +=09=09=09data->enabled =3D false;
+> +=09=09=09return err;
+> +=09=09}
+>   =09=09err =3D fan_curve_write(asus, data);
+>   =09=09if (err)
+>   =09=09=09return err;
+>
+> ---
+> base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
+> change-id: 20260831-fan-curve-validation-991770300ff3
+>
+> Best regards,
+> --
+> Ahmed Yaseen <yaseen@ghoul.dev>
 
-ubi_detach_mtd_dev() takes a reference on the UBI device with ubi_get_devic=
-e()
-and attempts to drop it. This patch aims to fix a reference leak when retur=
-ning
--EBUSY.
-
-> diff --git a/drivers/mtd/ubi/build.c b/drivers/mtd/ubi/build.c
-> index a901f8edfa41d..866638c006494 100644
-> --- a/drivers/mtd/ubi/build.c
-> +++ b/drivers/mtd/ubi/build.c
-> @@ -1073,6 +1073,7 @@ int ubi_detach_mtd_dev(int ubi_num, int anyway)
->  	if (ubi->ref_count) {
->  		if (!anyway) {
->  			spin_unlock(&ubi_devices_lock);
-> +			put_device(&ubi->dev);
-
-[Severity: High]
-Does this code double-put the ubi_device on the error path?
-
-Looking at ubi_detach_mtd_dev() in drivers/mtd/ubi/build.c, put_device() is
-already called right before the ref_count check:
-
-	spin_lock(&ubi_devices_lock);
-	put_device(&ubi->dev);
-	ubi->ref_count -=3D 1;
-	if (ubi->ref_count) {
-		if (!anyway) {
-			spin_unlock(&ubi_devices_lock);
-
-Adding another put_device(&ubi->dev) here drops a kobject reference that the
-function does not own, leading to premature freeing of struct ubi_device me=
-mory
-via dev_release while it is still in use by other kernel components.
-
-If a user with CAP_SYS_RESOURCE calls the UBI_IOCDET ioctl on the UBI contr=
-ol
-device while the target UBI device is in use, ubi->ref_count is > 0, leading
-ubi_detach_mtd_dev() to return -EBUSY and execute this path.
-
-This appears to be a flawed backport intended for a newer kernel tree where
-put_device() was actually missing from this block (due to commit 7e84c961b2=
-eb).
-In this baseline, the reference is already correctly dropped before the -EB=
-USY
-check.
-
->  			return -EBUSY;
->  		}
->  		/* This may only happen if there is a bug */
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917103102.2147=
-038-1-vulab@iscas.ac.cn?part=3D1
