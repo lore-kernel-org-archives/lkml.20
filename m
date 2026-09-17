@@ -1,39 +1,95 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90AA4F3ECF;
-	Thu, 17 Sep 2026 16:54:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC6B515965
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:55:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664079; cv=none; b=mOqoxq1Ul3hQOdV1bj4cBy09vm9ePriO1DkQ5U/ORHL7IZAJjs4TNJJqmYwe70ypjUhJS6BOMMzutaUE+80vvWqOfSt1soO7zFEaZv/+3X4ASMIQtfehu3I4V/2KIidWmP9EuS3kj3qjXI6uCUgri4u0CV2LJngCc7DUx0lbvJ8=
+	t=1789664125; cv=none; b=rqH8Rrci9Edxq1Q13TSEPYgppz/rgq9R4kft0MlQ1uygdK4dRiG8olUxa2OlP8m6rhsVoW2rgDLxwNDaexYXfrOikpL3pY4hxDYzMi2k8og+pUVJm/ENAphEYtrD1+4gKrpGmPFpq+ZEC3ckL3w+OxHJKQ4D0j6L1vGH5CDqhQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664079; c=relaxed/simple;
-	bh=GahaTV1cYprA4Z37rqEEhD9QL7BlwJnxXyldrN+h4p0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pQNaX9TdYg0Xi07epEyb9uBuf7aRo1zgnTWebfoEUw4Q4W/frf9JOByIpzwfh3eBRdcLZuy9zg7ODrdP5ZgRLUzE3DgYecgPslVq43E60wRjbziKt4TEKaC9ASY1tNCFAktNbihO+Z+98xlDER/8HPGtqp/BGsfvNfAVNVSLqmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADXB0JGG6xqMOCECA--.875S2;
-	Fri, 18 Sep 2026 00:54:30 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Xiubo.Lee@gmail.com
-Cc: broonie@kernel.org,
-	festevam@gmail.com,
-	lgirdwood@gmail.com,
+	s=arc-20240116; t=1789664125; c=relaxed/simple;
+	bh=uFM67cPKfLWYr1cknpbN9X9bmeZeaeA+iW34fETQrrw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WZd8geJjSUlG1vF0MTxtzZXS52zbQI5JkLeac3orTNAbm2bq0O0GyaTR4CyfMz3mZA1kc9A+OlLgmWccPjZsOlyJwvsvMq42RUxVjmOm80HXombOy9IZjRvUgPOI//Li/ynGZ7XnAgeCuBj90bwU3fcMeTlPxMJtSK1k9HadLVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MW18vsR0; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MW18vsR0"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fbfe95bccso414935e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:55:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789664119; x=1790268919; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZZbqUQvpZjEYHw5MtCigN0b4pNyWyct+Z4yS5FcKJMw=;
+        b=MW18vsR0iglh15TqKDzSqW15Bd2M4tdv8AtJYDouPS5lI2ibF04w2biaJeB2EsKjDn
+         lAJLPw/AfjMmC0nkx2wGTl488idH4UjJrdG5IQd6Ilx3vF37VRpKcQJ3ZXlmoXHv9MNb
+         ESEVIqhpYxeo/j6oTgfjESz/DhxOA1T/E9D3mfY0XjSNFIIZ6TbUfJwW1GNu7Sk4Hgj5
+         DUgjGSlgOdlbHb9lQnVpmUCG4vESkCab/QnNTlEGFFpXy4UhfGd3bV6r4/hh+mVLImd0
+         LwrxsiKTJDLjV9Z1QytkcjjM55DNLxZjVOjGMYryoi9iqT7DCBbLDY+69XujnkKexFNy
+         1Wcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789664119; x=1790268919;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZZbqUQvpZjEYHw5MtCigN0b4pNyWyct+Z4yS5FcKJMw=;
+        b=tEBOEimpQyW2cPx1AjAlyv4GUxjv93VqBagaMAIqK4hHkEKFUY0BLKy+A/MzHq+CAE
+         v7I9WVTM7DJ7QH8tQ5ZY4qzmSy/R0MN/sJg+mMyZkNKLyCwlOdXib/56denYRA/DeZNI
+         rKafAYWRTilkiBuVrSC6NnH67pYKzlW52aIVvYvAbNcrw/CDcKO27Gp3oKsQAuuyLiKF
+         N/NcehrGBVf/xGeqEmG7KPDoA6YwfCnpXM+UFewEVrurcj9VJ1UmU6Sd17BGE4aS7mcX
+         V3puTQHeBZcxZV/6vzXg4aCJE35rVocLej0bYRf4nOp/sASsRGelRKmjLshQYmXQNLUn
+         uNDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0sUbGoZjEzi3orQIFuSPBG/4pUBL9DkKi3vhyoYW/bWP11DZWreMtu4DHoJ/gASWejMG+rY+Nc5+vlio=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzhv1UZYIJfdIapB9DDtgsDrSZXKCoBoMeopfKAvbRiYJNkD8I
+	VosjZipqAqnT1J/pI5yFapRk2liUzJma7f0CbL99hX+ZPwSDDSZ1vgaX
+X-Gm-Gg: AYBFou0eexyXx1mp3KdPI2FvhpZVgQLQLi3K6vaBeLFFpbHFw4/QwfxDUJPeVVoROtp
+	H2q4mC80ELnR0LU8bK2YC3vUo5bojSp8NUfjjGYX4IN4gn4OrIkDVrroG45ajaOABVTxI6VwhbY
+	W8C0bI/LgX50VXTwSE2a5/flo30k5Myxr0t2keZVcfdTNUocyHgyhZtTmRbK5nv2OG+xF6KaOkr
+	rkOXl+Nalz8Gwx0TJzxvXzMuhZuCwutFkizTORjemM6nUv/yFIiNGz0UUMO/nbxJhXig8Hz2/RH
+	OggA/Wvx530DjULf5Y9iTtKeZ/7f7GqSmMqMqr4eqrARL/kKwN2PEM5ZvGATyl9dvzhqMNQeWqr
+	J1o6MSAhPBT0X76XKafwubqDTzkQ60LqvvuVNzXEgvf6XlamgKFgp5nN33CTqdtAvUfLsFNI9by
+	7+xsQV/ydWH7OVus3p3AJlhozzIx7B/4u8zdnLosYI/+XHpcXsnOb3jhluhoRm4TWk+uaKByysc
+	VkRwbRhVZvK8pcveFcHxg==
+X-Received: by 2002:a05:600c:4e89:b0:49e:745d:5768 with SMTP id 5b1f17b1804b1-49eac4112e9mr83259075e9.0.1789664119289;
+        Thu, 17 Sep 2026 09:55:19 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd2356d1sm112722895e9.6.2026.09.17.09.55.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 09:55:18 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: arighi@nvidia.com
+Cc: bsegall@google.com,
+	christian.loehle@arm.com,
+	corbet@lwn.net,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	leitao@debian.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	nicoleotsuka@gmail.com,
-	perex@perex.cz,
-	shengjiu.wang@gmail.com,
-	tiwai@suse.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: fsl-asoc-card: Fix ASRC device leak in fsl_asoc_card_probe()
-Date: Thu, 17 Sep 2026 16:54:30 +0000
-Message-Id: <20260917165430.2163372-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	ltrager@nvidia.com,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	pauld@redhat.com,
+	peterz@infradead.org,
+	rdunlap@infradead.org,
+	rostedt@goodmis.org,
+	skhan@linuxfoundation.org,
+	srikar@linux.ibm.com,
+	sshegde@linux.ibm.com,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com,
+	vsethi@nvidia.com,
+	will@kernel.org
+Subject: Re: [PATCH 1/2] sched/fair: Honor asymmetric SMT priority in idle selection
+Date: Thu, 17 Sep 2026 19:55:15 +0300
+Message-ID: <20260917165515.17479-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917140707.3807229-2-arighi@nvidia.com>
+References: <20260917140707.3807229-2-arighi@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,51 +97,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADXB0JGG6xqMOCECA--.875S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrurW7ZF1UCFy8Gw1rJF4fKrg_yoWkGFX_t3
-	Wku3s3ZFy8Jrn2kry5Wrs8urn7urnFgay8G3yDKF18W34YqrW3Xay5tr98uFWqv3y0vwn3
-	J3WDZrWrXry3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfkFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2
-	jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzx
-	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x02
-	62kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr
-	1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
-	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxV
-	AFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwINA2qr9thV5wAAsW
 
-of_find_device_by_node() returns the ASRC platform device with a
-reference taken, but asrc_pdev is only used during probe to set up the
-DPCM DAI links and is never released. The shared exit path already drops
-the CPU device reference, so release the ASRC one there too, covering
-both the error paths and the successful registration path.
 
-Fixes: 708b4351f08c ("ASoC: fsl: Add Freescale Generic ASoC Sound Card with ASRC support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- sound/soc/fsl/fsl-asoc-card.c | 2 ++
- 1 file changed, 2 insertions(+)
+Hi Andrea,
 
-diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
-index 70a6159430ed..3fdc77d5968b 100644
---- a/sound/soc/fsl/fsl-asoc-card.c
-+++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -1069,6 +1069,8 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 	of_node_put(asrc_np);
- 	of_node_put(codec_np[0]);
- 	of_node_put(codec_np[1]);
-+	if (asrc_pdev)
-+		put_device(&asrc_pdev->dev);
- 	put_device(&cpu_pdev->dev);
- fail:
- 	of_node_put(cpu_np);
--- 
-2.34.1
+Hope I ain't got anything wrong, I'm a bit sick.
+
+> POWER7 uses SD_ASYM_PACKING at the shared-capacity SMT level to order
+> hardware threads, and NVIDIA Olympus benefits from the same policy. Idle
+> CPU selection does not consult that order, so a task can wake on an
+> arbitrary sibling and remain there until load balancing corrects the
+> placement. On these systems, that initial choice can prevent the core
+> from entering its preferred lower-thread resource mode and cause a large
+> and persistent performance loss.
+
+> When idle selection finds an available CPU in an SMT core, choose the
+> highest-priority available sibling. On SMT2 Olympus this only changes
+> selection on fully idle cores. A partially idle core has only one
+> available CPU. On wider SMT systems such as POWER7, it also fills
+> available siblings in priority order while the core is partially busy.
+
+> Apply the preference to idle-core and idle-CPU scans,
+> asymmetric-capacity scans, target, previous, recently-used CPU fast
+> paths and the slow path. Inspect the lowest scheduling domain directly,
+> but require both CPUs to share its span because isolcpus can split
+> hardware siblings across scheduling domains.
+
+> Keep physical-core capacity selection independent from SMT sibling
+> ordering. SD_ASYM_CPUCAPACITY first selects among cores with different
+> maximum capacities, then SD_ASYM_PACKING selects the preferred available
+> sibling inside the chosen core, whose siblings continue to share equal
+> capacity.
+
+
+> +/*
+> + * Redirect a CPU to a higher-priority available sibling in its SMT domain,
+> + * subject to task affinity.
+> + */
+> +static inline int select_idle_smt_cpu(struct task_struct *p, int cpu)
+> +{
+> +	struct sched_domain *sd;
+> +	int best = cpu;
+> +	int sibling;
+> +
+> +	if (!sched_smt_active())
+> +		return cpu;
+> +
+> +	sd = rcu_dereference_all(cpu_rq(cpu)->sd);
+> +	if (!sd || !(sd->flags & SD_SHARE_CPUCAPACITY) ||
+> +	    !(sd->flags & SD_ASYM_PACKING))
+> +		return cpu;
+> +
+> +	for_each_cpu_and(sibling, sched_domain_span(sd), p->cpus_ptr) {
+> +		if (sibling == best || !choose_idle_cpu(sibling, p))
+> +			continue;
+> +
+> +		if (sched_asym_prefer(sibling, best))
+> +			best = sibling;
+> +	}
+> +
+> +	return best;
+> +}
+
+> @@ -9061,14 +9099,18 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
+>  
+>  		if (!has_idle_core && cpus_share_cache(prev, target)) {
+>  			i = select_idle_smt(p, sd, prev);
+> -			if ((unsigned int)i < nr_cpumask_bits)
+> -				return i;
+> +			if ((unsigned int)i < nr_cpumask_bits) {
+> +				target = i;
+> +				goto select_smt_priority;
+> +			}
+>  		}
+>  	}
+
+The sched_smt_active() check on select_idle_smt_cpu seems to be redundant on here.
+
+We could remove this
+By moving the check on select_idle_smt_cpu() to goto block and
+adding one check before the select_idle_smt_cpu() on select_task_rq_fair(). And just calling
+select_idle_smt_cpu() on here.
+
+I also have a question, do we need select_idle_smt() call on here? If yes then why? I was really confused while reading.
+
+Thanks,
+Kayra :_:
+
 
