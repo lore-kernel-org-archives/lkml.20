@@ -1,260 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011021.outbound.protection.outlook.com [52.101.70.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273D45293F4;
-	Thu, 17 Sep 2026 15:56:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660587; cv=none; b=ilZPPfrMZ2bwmilRn1QTnWn9wEFP/iZWhdc4Qtke29YwAn/pQQrYXMoTfFNhyPrTpEuQUSJSdo05TKm4Ej26VawlCXgJ4+CM6nfZOSHENkg9xNLXbFueGJCRNuIyX2yAzAr7qpiI+2FySKGDKgeEpjioyxSU04EHV9BrgYYXHuA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660587; c=relaxed/simple;
-	bh=iLULfbRqUOyy8sxLo0T8y0j5XmaveAsYQ7eAm5INT10=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aC6RXNkjTZoqeViZJM4sTnJ9pWv6elY2yWdYpcgHf8lW97o+u/qfNghs5LI1EIO4VvuTbuTQTuLIuGLT3ShJGM+3lE/AxHRSeBWKxlgDhb9uEtxeapHStsIxF9Xgy5FhwpX/bHSWlPvytE8A1xKllxBvHsLKrJIgQ1jPo80cdUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GAsrrf2K; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1134E021E;
+	Thu, 17 Sep 2026 15:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789660589; cv=fail; b=I5YJQwotkP1nX2IwjynjNZtyNIfcw6Nza2L52fxpy8ldNK+IuwCgviTBBbzWBXKqyGxO1/DI9o7M6Pa2cbsAZDNKiUMkC6I5d76aCjbgPijO8zdq4zuX+RNeiLztMkfjHj5fheZVL/xVxm7ZGz4960m9/4eBQhgQyQVomqQ3D0A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789660589; c=relaxed/simple;
+	bh=Lpbh+q6ID0ZzNoYrpPAmpF5K5EJpD8ocYwfXSfW2TRU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=iN2C6XSPE9hjR3s9L9JbR9K6ETiAU0u6fRViVCWd3Ose5Ay5xlH5X3cxNRI2IvMcl7mRm9MZM/0LHLzYEzGF64B2xTk/lhYJqHDmuvHJdfW5cnSjY3PfXW42masZBT/2f7T2Yz98mRf1hGtK1GFvdmjlIru6J35CWr5LzTbykIo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=dAtSaNOp; arc=fail smtp.client-ip=52.101.70.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GAsrrf2K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0391D1F000FF;
-	Thu, 17 Sep 2026 15:56:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789660586;
-	bh=tlvNEhVstLx2sb9EmNRJfJzlsNgRVw9d8I//uWSkWn8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GAsrrf2KSNfUfrtjJLYovrUuBYd579NmleID6r/5esI+DPx6iSA5ves8nctTIsJvK
-	 d/Q4wUdcmScSl2/wDtwY4lpje1OXJe8rm6coOxsa4+LNogurkkOy8V7ejLPPqZxI5Y
-	 98PFWkM9p1PoibaCtYPllFYMZT9tiHESU05hncRN9jrSaczGdHZjAfpWYzHQfRCUIs
-	 us1EqZPudFBwuQmbuzTJzLZsqlVdt9jNjZ6KHmgO0KZpDlT3R9hnM+QypSEvx21xBZ
-	 p1AE0hDl5aqjzK6evFLIQG4nHABNt+X3B69QK3wI/8bdwzHvuB+h/vqGsZ5u40PIX4
-	 WHfoImPnFtGtA==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH 11/15] perf dwarf-aux: Add die_same_file() and die_get_type_die()
-Date: Thu, 17 Sep 2026 12:55:22 -0300
-Message-ID: <20260917155528.62607-12-acme@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917155528.62607-1-acme@kernel.org>
-References: <20260917155528.62607-1-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="dAtSaNOp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UvmtYiVvsmHOdNw55DZLDtDIFYrEjcJVPmdclWqC2OPUr0/lmjptbnuCpVNpr0+CPXQ8qvZFhBC+y0Fd8sh0vB59Gt2fsWNlcDtAy1RLexctL44MpHJpA30rYNJnrstszddjNpMuuIaOckteLO+uj+LJFEXPIMNSxIyfXR4kKrmJFQGQ/rkzzU/xQl+YFztgEMHZo52v/fNEvHh8zMY/WA42oJJhBbu9NepIdLoQ7SVFgGTH7amSBQvR2CfLGBWUUGadory/nP33arUS+yTMQ6zzkDhO/c/0JuQGi7VO3JFqjj53m5tZwq0E2a3cPkJsYR7YIodm3PsG1/EbjBtixg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wwZgb/y5CcQSIblwdvJdyc6N9VW/IX9eMISYq59jggs=;
+ b=xT1VTesUdhrpvyTXNj9ifGnguON3s3TdsVGhQOSE0lNiCGa/exG5mdqzLOLbWTSC9x9IIWclbcv4uL2LKQBfj+ROCqT8BHkIc5VcIWoEUDBgCnPBOZ01SyVnD0f1VNtMPi9J4DfE26HzHF3P7+0HotKrcSWVf0V0fHujTcHcLE92G31XYigEtxXt2sp9e7f3uAr3s2e9zREHENGweFOLKq16ZPVzu2MPe659HJjAjuYMM4W2xZqXLWhpNzt9JL+H0W/zPY5aM5y/hgHhW08n6xSYqrsTJYe1HGzBHzbTccyVQRMzD/DJVUthkLSTGDNzbj1uf1rbMMDkJWTkPR4ZQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wwZgb/y5CcQSIblwdvJdyc6N9VW/IX9eMISYq59jggs=;
+ b=dAtSaNOpE2HHj7Gq1dT//1AoZ7wTebvBXtpm++VtfwshB1ZTGVXQepn23BlHfYUxTOp+OISxzo+WUfwoZTq3CtAfZKaAOlVi5vMJ77mAdFVPRlRqd7eI4Ew8/NrD+CyjrgdiQKOT+ox+2EXpiOO4nkiL5kAlXb/5GY0BEMmOR0QvkVPGuAgdW8w07n4qbyY4ZrAGmpxsboiy3vKVNK41vHylgEn7hQ7Q2KnZRe6M/l3mWN+HMvmTsYmgfDBVqF3B+xvdoZvAxOCWIYUeYaIfvdCyOBtKdSH9szzx21ktDsHmnnJYxpv8RhMzWpOaF5hYWLkBoKONBycEMT3wlBT3eQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM7PR04MB7127.eurprd04.prod.outlook.com (2603:10a6:20b:113::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 15:56:23 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Thu, 17 Sep 2026
+ 15:56:23 +0000
+Date: Thu, 17 Sep 2026 10:56:14 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Devendra K Verma <devverma@amd.com>
+Cc: mani@kernel.org, vkoul@kernel.org, frank.li@kernel.org,
+	den@valinux.co.jp, dmaengine@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	michal.simek@amd.com
+Subject: Re: [PATCH v2 2/2] dmaengine: dw-edma: correct IP name in
+ xilinx_cpm6_dma_data comment
+Message-ID: <aqwNnrPrXCI2hVdm@SMW015318>
+References: <20260917103050.1020982-1-devverma@amd.com>
+ <20260917103050.1020982-3-devverma@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917103050.1020982-3-devverma@amd.com>
+X-ClientProxiedBy: CY5PR22CA0020.namprd22.prod.outlook.com
+ (2603:10b6:930:16::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM7PR04MB7127:EE_
+X-MS-Office365-Filtering-Correlation-Id: 54722fad-dc7d-4d76-daed-08df14d4386e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|19092799006|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	2U7IixsREOvJHplywi4D0iAtXrJ0M1madR3ef1pbEAovIxTPpO0EUo6/91FKz1FBp0dQcpiNxvrN2D1zC5qkxrggVuOUDM6emJOQI7atrJbMM37tOYkEGU8Ht4jHAE+Mji4lMWptfamQ0UwonlpuketwjdtS6bv5HPQ0rZurWyX5ybzP00TuULWh5MldQiHJEFyi81hyRbpuZyF39+USC61iqMS4TfFGOZlaPuX3OR4CrEDhHHv5bXVSAfVxKFIYCJdVrjM7y6bbSRNw6gTk1Jr40585mho8IqWuJbCsvZo/DlOUq7F967TdkdQ4QIkODIigDsXatVUWAERRPkAWwAG/Ou4EpBocU19yRVlGV6+zd4ZwxfOrFh0/Xp3OPgjqYLAPej4x5rzKsK0clUUddWB3lLhAx/nd6YJzctGltpsiBFWMlxDahZugVILe+eUhZdExLmeIwIAd6OrRk8/tRafM2pKSImFxSdFf7NgmzyDD5zarttlymdlOtdna7H97GDdTM9rBj7JkdlicZ7+q2RRivtYVtvZxdHifDWpPBKDu7KRUz3OjvQw+cQfmQ8whOREfY+6Ua9W4mssOJ4YGCgukydpwx/0geq9qS+Ilr7YSpoj1GiVoinm3NBuV1pDN/oQZKV4VAQ8WPD9zyO7Jmb7Czc+mlOvILLlmuBpE2NE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(19092799006)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?aNpHJTUXhb5M70Pf1tz/SWIEQgKrFZZlwOfkLqSs4jNtJwA2YSIi/71LaB6u?=
+ =?us-ascii?Q?QZkiqAndmpqmR/4NalwjUSDZ5oP9qP9MznxV1Bki08YhKMROeKS/K0DxmGje?=
+ =?us-ascii?Q?oVj3U0ojHugN4/VfDpCHK7f08dEB0lu6wIgorIgZjwrOfHk86knOmIHwJiEa?=
+ =?us-ascii?Q?L/WOwm1y8n95j1Dkrmp2Xaq1Su4yiCihw8Qv+OLUniOGAG8RnVgzNFulIGqU?=
+ =?us-ascii?Q?K1kQ5NAWbPNp2oRz5Eyg6GgALOYesIJac1idP+vpaTJgn9XfwFEiYa/G7Kz1?=
+ =?us-ascii?Q?QkLXO0uFo4LD5lFckSPb474yv4nWqi2AfNpYtm4xEWoBdGD9AwbPMVyZWozl?=
+ =?us-ascii?Q?XnmcBbJEQMu/q/D8lrnw7yQ81ZyLiyn3JDdn5NkSUQ3Q62FdESjUvNVe+OMK?=
+ =?us-ascii?Q?WaU9JYLIAZ/zSSxPjP46Rc6rOwbRz/30SQksmu6u5vYRhXWutSTdI4gFS4Eg?=
+ =?us-ascii?Q?NL5loWkoumujNwHjATHyMr0GbSe9euocBd2MBqFZloZer3751Abo2M0uyqoX?=
+ =?us-ascii?Q?80LUZsp6eT8bLZ4cSoWD+3FKhOaRhlLIeE8Uf3+vZVw1/vF5FVr/cNAAENUV?=
+ =?us-ascii?Q?iIru7f2JfdIlWy1apb6I5aH+Ftpp53DmVYzHJlsiD7hyzSPyTUq7tBbHco5J?=
+ =?us-ascii?Q?4xY78q6qHwU8hz6N5EFpcuUZYU6KmNxXr+ou8jLH6KI9uwEa2uRf3O2zxPdz?=
+ =?us-ascii?Q?io79x0NZ585i1q9kTGoCTIWAz+dyG7HJo6pk4Isz767LZ/5a7vnGaFSm4wh6?=
+ =?us-ascii?Q?eNANUmvS2yJaLrbFNXxQgAkwKSHgrfSH7uZE9+nBwTNNuCPtyfnIYlcvutpe?=
+ =?us-ascii?Q?CTHojgWQQEUnCNRums0OQiWSm/jPOssiFpiLQc8orimou1KYTZ4XX/Yw8GpV?=
+ =?us-ascii?Q?iua3Bn8kwmpZ/Y42Kus4w1JgefSWuwLNfGIZ5qSGzgxBj76XvswxYXe6taNw?=
+ =?us-ascii?Q?oPSdzhc7EfstAEOa+V+KgeuEO8LkVU91Ica4clb9K8sKh9pTwkP7bmPUgyEo?=
+ =?us-ascii?Q?rSxbJKVZ7/dHgzTqjWHgtLfXP17MXDfJMORCxejZgYcTNSecWC/r9O0k0EIL?=
+ =?us-ascii?Q?zcTGotUJH7Ks9noYK6H+MK/zNQ9IDAVLMfV0VT0Uhzlr6h3YOx0W5fRx63GP?=
+ =?us-ascii?Q?tHCRlpevOBeNBcCArSa4/Df9OsNVJGP4Grs2Q3/96TIKANvPqBK49S+UV0ED?=
+ =?us-ascii?Q?8BU0Igmr1Ak7suZjMQbPr+tkQLz1P/uTHYptxmCOWxu3ajeIW7hUu1OqgD2O?=
+ =?us-ascii?Q?kKtwKzX4zYf49L3uCthmRfDHCi7patf5ZdDmDxHmCL7zUlAgeOePsPeTvgqN?=
+ =?us-ascii?Q?3+r9LQkbrcG2JeWJHzJow9DixQ18ayYQNOKZGGhm9tAPyRvuROcK/6pVeUKl?=
+ =?us-ascii?Q?2ex9xw88YGPXfATTukjCUUex0/0ZOhY+0bCKjBTQ4peXTirGvHuwh4zXGCF5?=
+ =?us-ascii?Q?LpW/sKW1hYGe2k0qQ0LFtIGzd6+/mTEF4s5KaMMelV2RUbA802jL3sJBpgsh?=
+ =?us-ascii?Q?h3onajVTLZqN1DTysiHl8tWrXF4TmEfFfUjNqpgR4RI2kczzAVN1Hn+zpPR3?=
+ =?us-ascii?Q?P5FHngSs1NyawWLvn4FomvEYl+zjM6d7wRDNwR91vuUDX8KDYZZngqE6xCX9?=
+ =?us-ascii?Q?1AJBaIhDrlliCWJYLVep8xzyvHGU9EeQJOmAXMazrN3FGVoaL5bvGmdtWwfz?=
+ =?us-ascii?Q?xcv766vu6eU4VJS2RcjyFvFCcAO2NeBcnBF3Klf8+6XEndq6LQNg73EUPAch?=
+ =?us-ascii?Q?ClbMsflvUuF+1lhbD3fxyJhIyE1f6JpayjbJ73mVxJjMnDUU+K28?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54722fad-dc7d-4d76-daed-08df14d4386e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 15:56:23.3353
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tufhDKSRAQ13lBgVZP91JKCsJyD8xHEf+KXcka2314fv1xnfTLJDgnEU3hGJ7s6gh/dusZWUAS+hIvffetj8E1VOTqLrmyYDZcXIM+ESvjw3xj75zGFIUkAdit1iOT0q
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7127
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+On Thu, Sep 17, 2026 at 04:00:50PM +0530, Devendra K Verma wrote:
+> Replace 'MDB' with 'CPM6' in the xilinx_cpm6_dma_data comment to
+> fix the IP name typo.
+> No functional change.
+>
+> Signed-off-by: Devendra K Verma <devverma@amd.com>
+> ---
 
-dwarf_dieoffset() is relative to the file the DIE is in, so an offset
-saved by die_collect_vars()/die_collect_global_vars() is only
-meaningful in that file: add die_same_file(), comparing the Dwarf each
-DIE's CU belongs to, to record which file that is, and
-die_get_type_die() to resolve the offset in it, with the saved tag as a
-sanity check.  Resolving the offset in the main file instead parses
-whatever is at it when it came from the dwz common file.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-dwarf_cu_getdwarf() is new in elfutils 0.160, so the libdw feature test
-probes for it and Makefile.config says 0.160.
-
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/build/feature/test-libdw.c | 13 ++++++-
- tools/perf/Makefile.config       |  2 +-
- tools/perf/util/dwarf-aux.c      | 62 ++++++++++++++++++++++++++++++--
- tools/perf/util/dwarf-aux.h      | 17 +++++++++
- 4 files changed, 90 insertions(+), 4 deletions(-)
-
-diff --git a/tools/build/feature/test-libdw.c b/tools/build/feature/test-libdw.c
-index aabd63ca76b4d7e6..0ebe7bb4adf9d0bc 100644
---- a/tools/build/feature/test-libdw.c
-+++ b/tools/build/feature/test-libdw.c
-@@ -49,8 +49,19 @@ int test_elfutils(void)
- 	return 0;
- }
- 
-+/*
-+ * dwarf_cu_getdwarf() needs elfutils 0.160: take its address only, so
-+ * that older versions fail the probe instead of the link.
-+ */
-+int test_libdw_cu_getdwarf(void)
-+{
-+	void *sym = (void *)dwarf_cu_getdwarf;
-+
-+	return sym == NULL;
-+}
-+
- int main(void)
- {
- 	return test_libdw() + test_libdw_unwind() + test_libdw_getlocations() +
--	       test_libdw_getcfi() + test_elfutils();
-+	       test_libdw_getcfi() + test_libdw_cu_getdwarf() + test_elfutils();
- }
-diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
-index 4ee7393a39f91d85..0585d71e3182c6dd 100644
---- a/tools/perf/Makefile.config
-+++ b/tools/perf/Makefile.config
-@@ -470,7 +470,7 @@ else
-   else
-     ifneq ($(feature-libdw), 1)
-       ifndef NO_LIBDW
--        $(warning No libdw.h found or old libdw.h found or elfutils is older than 0.157, disables dwarf support. Please install new elfutils-devel/libdw-dev)
-+        $(warning No libdw.h found or old libdw.h found or elfutils is older than 0.160, disables dwarf support. Please install new elfutils-devel/libdw-dev)
-         NO_LIBDW := 1
-       endif
-     endif # Dwarf support
-diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
-index b5ffeea54446408d..de14d18a9d2f87d8 100644
---- a/tools/perf/util/dwarf-aux.c
-+++ b/tools/perf/util/dwarf-aux.c
-@@ -1680,6 +1680,16 @@ Dwarf_Die *die_find_variable_by_addr(Dwarf_Die *sc_die, Dwarf_Addr addr,
- 	return result;
- }
- 
-+/*
-+ * Whether two DIEs live in the same debug file, i.e. whether their
-+ * offsets have to be resolved in the same file: dwarf_dieoffset() is
-+ * relative to the file the DIE is in.
-+ */
-+bool die_same_file(Dwarf_Die *die_a, Dwarf_Die *die_b)
-+{
-+	return dwarf_cu_getdwarf(die_a->cu) == dwarf_cu_getdwarf(die_b->cu);
-+}
-+
- static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
- {
- 	struct die_var_type **var_types = arg;
-@@ -1724,6 +1734,8 @@ static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
- 			vt->is_reg_var_addr = true;
- 
- 		vt->die_off = dwarf_dieoffset(&type_die);
-+		vt->die_tag = dwarf_tag(&type_die);
-+		vt->from_alt = !die_same_file(die_mem, &type_die);
- 		vt->addr = start;
- 		vt->end = end;
- 		vt->has_range = (end != 0 || start != 0);
-@@ -1743,7 +1755,8 @@ static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
-  *
-  * Save all variables and parameters in the @sc_die and save them to @var_types.
-  * The @var_types is a singly-linked list containing type and location info.
-- * Actual type can be retrieved using dwarf_offdie() with 'die_off' later.
-+ * Actual type can be retrieved using die_get_type_die() with 'die_off',
-+ * 'die_tag' and 'from_alt' later.
-  *
-  * Callers should free @var_types.
-  */
-@@ -1789,6 +1802,8 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
- 		return DIE_FIND_CB_END;
- 
- 	vt->die_off = dwarf_dieoffset(&type_die);
-+	vt->die_tag = dwarf_tag(&type_die);
-+	vt->from_alt = !die_same_file(die_mem, &type_die);
- 	vt->addr = ops->number;
- 	vt->end = 0;
- 	vt->has_range = false;
-@@ -1800,6 +1815,48 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
- 	return DIE_FIND_CB_SIBLING;
- }
- 
-+/**
-+ * die_get_type_die - Get a type DIE saved by die_collect_vars()
-+ * @dbg: the main debug info
-+ * @die_off: offset of the type DIE, from dwarf_dieoffset()
-+ * @die_tag: tag that DIE had when the offset was saved
-+ * @from_alt: whether the type DIE is in the dwz alt file
-+ * @die_mem: where to store the resulting DIE
-+ *
-+ * Resolve @die_off in the file it was recorded as belonging to: the
-+ * offset is only meaningful there, and there is deliberately no
-+ * fallback, as resolving an alt file offset in the main file parses
-+ * whatever is at it.  @die_tag is a sanity check.
-+ */
-+Dwarf_Die *die_get_type_die(Dwarf *dbg, u64 die_off, int die_tag, bool from_alt,
-+			    Dwarf_Die *die_mem)
-+{
-+	Dwarf *target = dbg;
-+	Dwarf_Die die;
-+
-+	if (from_alt) {
-+		/*
-+		 * No fallback to the main file: resolving an alt file offset in it
-+		 * does not fail, it parses whatever is there as a DIE.
-+		 */
-+		target = dwarf_getalt(dbg);
-+		if (target == NULL) {
-+			pr_debug("DWARF: no alt (dwz) debug file to resolve the type DIE at offset 0x%lx in\n",
-+				 (unsigned long)die_off);
-+			return NULL;
-+		}
-+	}
-+
-+	if (dwarf_offdie(target, die_off, &die) && dwarf_tag(&die) == die_tag) {
-+		*die_mem = die;
-+		return die_mem;
-+	}
-+
-+	pr_debug("DWARF: no DIE with tag %d at offset 0x%lx in the %s debug file\n",
-+		 die_tag, (unsigned long)die_off, from_alt ? "alt" : "main");
-+	return NULL;
-+}
-+
- /**
-  * die_collect_global_vars - Save all global variables
-  * @cu_die: a CU DIE
-@@ -1807,7 +1864,8 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
-  *
-  * Save all global variables in the @cu_die and save them to @var_types.
-  * The @var_types is a singly-linked list containing type and location info.
-- * Actual type can be retrieved using dwarf_offdie() with 'die_off' later.
-+ * Actual type can be retrieved using die_get_type_die() with 'die_off',
-+ * 'die_tag' and 'from_alt' later.
-  *
-  * Callers should free @var_types.
-  */
-diff --git a/tools/perf/util/dwarf-aux.h b/tools/perf/util/dwarf-aux.h
-index 161f0bf980b6ee6a..299ffddab0358baa 100644
---- a/tools/perf/util/dwarf-aux.h
-+++ b/tools/perf/util/dwarf-aux.h
-@@ -152,6 +152,8 @@ int die_get_scopes(Dwarf_Die *cu_die, Dwarf_Addr pc, Dwarf_Die **scopes);
- struct die_var_type {
- 	struct die_var_type *next;
- 	u64 die_off;
-+	int die_tag;
-+	bool from_alt;	/* die_off is relative to the alt (dwz) file */
- 	u64 addr;
- 	u64 end;        /* end address of location range */
- 	int reg;
-@@ -183,6 +185,21 @@ Dwarf_Die *die_find_variable_by_addr(Dwarf_Die *sc_die, Dwarf_Addr addr,
- /* Save all variables and parameters in this scope */
- void die_collect_vars(Dwarf_Die *sc_die, struct die_var_type **var_types);
- 
-+/*
-+ * Get the type DIE saved by die_collect_vars()/die_collect_global_vars().
-+ *
-+ * Those save the dwarf_dieoffset() of the type DIE, which is relative
-+ * to the file it lives in, so @from_alt, recorded when the offset was
-+ * saved, says which file to resolve it in; @die_tag is a sanity check.
-+ * Resolving an alt file offset in the main file parses whatever is at
-+ * it, which is what hung 'perf report -s type'.
-+ */
-+Dwarf_Die *die_get_type_die(Dwarf *dbg, u64 die_off, int die_tag, bool from_alt,
-+			    Dwarf_Die *die_mem);
-+
-+/* Whether two DIEs live in the same debug file */
-+bool die_same_file(Dwarf_Die *die_a, Dwarf_Die *die_b);
-+
- /* Save all global variables in this CU */
- void die_collect_global_vars(Dwarf_Die *cu_die, struct die_var_type **var_types);
- 
--- 
-2.55.0
-
+> Changes in v1:
+>    o Corrected heading and body as per reviewer's suggestion
+> ---
+>  drivers/dma/dw-edma/dw-edma-pcie.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
+> index 006dea7d6322..762a693ab55b 100644
+> --- a/drivers/dma/dw-edma/dw-edma-pcie.c
+> +++ b/drivers/dma/dw-edma/dw-edma-pcie.c
+> @@ -146,7 +146,7 @@ static const struct dw_edma_pcie_data xilinx_mdb_data = {
+>  };
+>
+>  static const struct dw_edma_pcie_data xilinx_cpm6_dma_data = {
+> -	/* MDB registers location */
+> +	/* CPM6 registers location */
+>  	.rg.bar				= BAR_0,
+>  	.rg.off				= SZ_4K,	/*  4 Kbytes */
+>  	.rg.sz				= SZ_8K,	/*  8 Kbytes */
+> --
+> 2.43.0
+>
