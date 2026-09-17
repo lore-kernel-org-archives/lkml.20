@@ -1,161 +1,158 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B4F4F68C8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789667666; cv=pass; b=qQJajDhbN45hkWxA3wAh7+BACmRTplHDeLDDF9VsBxxiq5VYanAlnwF+zpNnGjS9YseaHHislELyRDbFD28ES0hCwvAoK3vqAmjp0r1D+Q67CoVCtU4gSaDcCGvg7PprLtGguhJhY6IFlWm7OD5wJUndt8S2TTZ7u4UW6c7f9l0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789667666; c=relaxed/simple;
-	bh=lV53x9iap7CWHKayETL36WLG11uBzdsYNl2pBib1Gp8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Dw9D/BD7t3eodcf0Blr4vW5PhA2dOI1Ym18UnPDGYawstHsg7CVmDAFilL4AZ+lPk89J6YGM93cyhDwS0NYpfURmWAchNNSVz2c0E6lZNyNbIZ4lBIqgAyq4p0Z0THzJYmkLS821TyMETEO/foSLMdouC5DBG0Lsw3bMbRCZbJI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mpPSHEmV; arc=pass smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3CE502779
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:55:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789667724; cv=none; b=WHFW42KqhHOTAtWloupwGxHknPdz3fMjshLrS3QdM7ZNxtnFpaSZbAZtNb48KtAIIT0N0nEh6LQMZye1r3q4IR8ryQvsEQMlqCjLXzunYMWDj9NnRXoYQimJmJIbp0XNtbflb/2uBSRobai4dRUo8cu1dWBD0kNdvmMupfLe8aE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789667724; c=relaxed/simple;
+	bh=V3VlQ/ggAL7FMDjaee6fyKxwwR97SAVyTjtCuxfkY6c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YVuD01HmrO7Myfy55iFKTd4fXwTIfnffy4XvIm/L6Q9Q+5Ws1B9NBsk0YxRKNjFjBYAdDDvlUvowmTFn6eXy2Zz4FCe0Wuk38/bWDIYdpkbifyY8KZ/x1rV1ABoLLztehbErOYyp8HWlq345zgxuMnUQ709+rLDEKibIjJhuQwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qnqiZVU1; arc=none smtp.client-ip=74.125.231.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mpPSHEmV"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1d00daaaso2169724a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:54:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789667662; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZF2/xo98nf7ZufjLM7wiK0UHg88CRH0D6e4pLtSbUCRx3zhx/k4dYDl9mKHp7L5Hva
-         AsqN3250rKXT0NXjGMSzVawI+yxt2FMJFGFfrkmq+PRFV8NxoYluOI/kWxyF47a9RsGJ
-         PDACRbSYzNRTYhaCTrOBh/0yMuUA2oNweTc9bTSQXsVtiJhO1VqlwysPyC5t8MugLQpR
-         EdjJ9Q6v5qxkIvLIqLrCpHmu4SsAENmiZNIRlBe0Wu11V/+OpA4528B3hfA2UkDBDRKs
-         pUZBxdUnn197etCj0BWMFVGavk1EdIa9OQJj8h8kHJytedwGRi0ug8Pd8DQv82UtPH5I
-         aCzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5Buk1YbOGNfq7p+FGXzo+IE9gOuA+FToX+F15GNq95I=;
-        fh=jW8gfCf7mN99bB+KVJ3tbjWo29oYDUl6WZSeUGkCNLA=;
-        b=cOs1Ke6fAHm6G1C+r7hBWSBFYjOFbIfZ8ro8SD95Vq4+AgF923++hQg4nWzL3JE6tC
-         MUkGzNDLwNInb/wXKwl1yFZF6Mtt6ZNT7iRDVvM6/dcilaA+hVcdyOTgtTbQZ1xWw/DV
-         3AcGih7huo/MEJfiBIer7xKLl5GJFNXJ3i3tVD8u75Ko+P0Q3Pf2zZDYeIYqSpJfUEr3
-         fLKmvvwEblg5Ytt0YBBN0lvem/QjHWze2vdqfW0tZ3jjX0YLe1dVvOu7KdP/kNbqPdr+
-         5/S3206lyF+Nn0I7QqM13ZegCMh9NRT9xjBc6lRXyxetwZEGerYqIWe1WLQBbgujR9Nj
-         XyKA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qnqiZVU1"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-46a63c34533so1242167fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:55:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789667662; x=1790272462; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Buk1YbOGNfq7p+FGXzo+IE9gOuA+FToX+F15GNq95I=;
-        b=mpPSHEmVzw3vcv8GfUUr/yPtx9dfgVBoOqkTtcEupeTV/34oICBDbPpiZJ+MyjYeq/
-         zxgG13txuumlE2Q6kcgEjDdWd8e1tHqMBosOpEG6lEzRV+rienp25DkasDniTkhBmSjl
-         XAEPuSF5bgbC7WYZS7lMzL0jFTHg8oUJCKa7FAUOPnGYISmAQvERPdqIWpALrBnrj8kT
-         r9iZbjtvXCJ8VVTMiU67L8scTTHToyNLx6diO/GDBNMLYNpMnaRrpoUXlklDk8rZtgOg
-         So8R6Q087gIi91I7+dt+XxIdHOr+jPAjKbJqofo+sHblWvHUsyiLsapZ0HuaGXy3gTNM
-         6DDg==
+        d=gmail.com; s=20251104; t=1789667721; x=1790272521; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rtt5XejF/bWF3GOuFvls4LbhkcGw1Hah+9I1v10tav4=;
+        b=qnqiZVU1xk2ci0JununmEKYH498dXr6yEVWpzQbyXyygkr+YPeNSI34rderpBDAaQ5
+         soZ2FITYXg9D9ENk+ijlqDQ5Je5hXT/jhmgNLlft1U8rd6TbaipRQRMNI8vEFWFL6FC6
+         xQTrFVEiruWbziLrrb36yEu638j+HIopMO0hp3xe8EHIbZLziGcGnju4g2gNxpOfDi03
+         wPjGBG3wiaNqfbW2UkqmjLht6FuS8xA08y9mnMLY+exkD7+jyCLLqywdqkx2kW+6I2Iu
+         UNJlCo6mL3Cs+qBSiZa5buBgK6xrUYDNJy7N9eaYMEHppW9Tu/rjPI25fke4txXO72I2
+         WdwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789667662; x=1790272462;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Buk1YbOGNfq7p+FGXzo+IE9gOuA+FToX+F15GNq95I=;
-        b=XASxdDWE3G40uww+RBLSeKBIwskwP1APPIL1n23oRl/5RGPvo+MZabllyoQZYqAKR+
-         DhDvmGfCv2Q1NfuvnuOAQO0ADSyKmMRGiGp8xhl5/557SY6EEuuXIOi0/HFq8+/TNvje
-         gUGduscc7UQ0rJkihuW/uD2Wp4uS5hXaQklRdbbrJzdkzv4cpbwgoXDGRKSLDWLz5ayr
-         z6HCSie81+0jvp0guRiqBsHhFxzBfGgfXywDenDDw1Xxdqwzp+0Pe/vS+opW+CetnhPG
-         otn6GBUPvGsI7PjQIFYcVxE4KpwSLy6vAnVxPmNelG7XibQcm3YmKfQNmeJZ1lIGuveK
-         L/og==
-X-Forwarded-Encrypted: i=1; AKwUvBzhmGXPR7dyCZQCgoJ5EiyDEHdPLcMHPqD7A3KM7w7Yum2X9EXFICv1B0jQSIGYas+QiRbzXoM5jP1k8kA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTT7rv1HWt+60tjKVsvbkjiDRneMNO20u0XiIAs3bev97rG0wW
-	Kl5+TnemhYtVfq7C1z2b8eVG9N8hIcdWdub7xMD3IP+1uQRYHkrx2S2bIut1+7ik3Zxkt8JSJDY
-	Fa7YOkorOJmD8Cs3XT2B+GxNfSh3HtUo=
-X-Gm-Gg: AYBFou3reduzb3WvptL46JBJZiOo84IfZ9QZdjKK2iJyFnbHQfiRW6g49hUTvHOLK5T
-	Bo2VeeUvRhM5SJmf4xlNBgTmoN2gc9LeJf0AtAuMwZGw52ynXRkRhr56ntmQJ2Mv7kz9B99u8Bk
-	0XR8Zx4sD8bUgeNmCXfhFeeed9noKCbMqDIhP1/bUomb8Jw7WknSUEYM1/nNiv9OqWQak6u+F7p
-	Mn21iX0g7a0NRTef1fBhUoGUVx2seKhaM7d6zR0nbyFOp2kyMj7/4jLXKlyBPo13WhHk2rvuUeU
-	CIYnpbeKz8esUeJXOnBoNoeTyi9pDrWyGIEd0V4O2DIW20UiImIjbkgYEIBcesbWcKcvPzKXnYf
-	8hWmV9f7jAJ16ztRDdBBkw4ajoCNEPE+ckJYKHoV8ng==
-X-Received: by 2002:a17:907:3e08:b0:c29:6092:39de with SMTP id
- a640c23a62f3a-c29e5311b55mr533263066b.48.1789667662379; Thu, 17 Sep 2026
- 10:54:22 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789667721; x=1790272521;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rtt5XejF/bWF3GOuFvls4LbhkcGw1Hah+9I1v10tav4=;
+        b=QToQWobm0gcUp4ZujaJ86pB9A4Pm9DG/EjdOGCOoTOUOwrF1LUx0N+qK6tdW80GKQP
+         /mKnN5DqfobclnhBcV14+o1cdlhnnwIzyKArweDZ/ulcfG3nawHgcpLjwcm2X52a/qhs
+         XHC2fuEZZPida+mlyp4w52p+CUSkWx7CGnv4AXHm0zEF4aFFDliuFp+DuBs87T3aQTlZ
+         g+nU8K8qpIuN8zkQXcNnuWTqafQ50rzfL69EPhd7DA4/lW1owxP3WjHsesSyHlTXE1Pb
+         BAYtms+i0Vc97kw7CNx6ugC4tuXuNm9PxHIRzodM6ocawwe5VdaveQEmAEqOsi3VWA7a
+         JCOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwAnN8RScrKlLdaZ8nAZjpM1DTTGyfhA/PuqWISBh3mBO7vOgKswCEV41GzAdscEzzzXZZ8j0a6fuksCiA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lv1cG1LBXCz8Fbi6ZVhpTZxhk3UT2ndwpO7YIPeAijzeIHbEh9
+	qrqozXGYJwT+/Z/itvMJwWWQ5InBLoo6459QAx/yo2dbLuxP2difvuTU
+X-Gm-Gg: AYBFou0umrdZlcftnDsYQGpbGiR4CcofVS2aHkHW98fWq2EXJUoNgE+2hwAJtRW08Yl
+	B3IxVbWmA9em/NOwrK5Nt8vCn31o/s60DqR9xKjnNdooRG9FZlUB0hjBZb+CnGefQJmYPZRd16E
+	/cUlDqiQyG+Zs2CavsDXSN2Hje4KI48hVkK6xEhLdcJ7lvvDRP4+MHceguxGz56shf0EVgKP/He
+	9PlnYy57Y8eqoOBTd30wQn4cXh2zM9xOZQgFK5k8KaDxEEqP2+0hsV9f+xv+71sdhlw9vQltaqA
+	aUQxd+Xcvd04SF7B8s3wfm+FF6HcsPmBArXR+0BCfwEcEfPR/zjnyQ0+ejZV5mFb7WWIb80dePg
+	+Ip+9WCDq38HBvd+IHtvdyLH5dn8SghN3xfUciW1GBCtus0hBaK3sgxv/TQZvqBhSpi9a66l4WC
+	7XQhI5GiDpiWm8HxlP4CZaDaDsYFdyH63ECOxQgIWp5Qrlmbpg9L/pGDWEjtrZbMjpRpMolVWiw
+	UPuJMx4+Pp1vqi1kECysjgTqDAla7u+TzT9gdHdCpJlxiMReQD+jfMFnDJNZe2Xn08O7fG+iMzR
+	h3frckIhwwLavSz+SiiVgZygAbiifdRwSmLFkkIYvGvqB58NI9L0CwXMayLIsoHp0mIfLQ0UxjK
+	+m/Hbo7ejdOqvHldKuMmA
+X-Received: by 2002:a05:6870:41d2:b0:475:a1ec:9613 with SMTP id 586e51a60fabf-48476c61b11mr7860909fac.21.1789667720572;
+        Thu, 17 Sep 2026 10:55:20 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-486ab6c1f31sm578446fac.10.2026.09.17.10.55.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 10:55:20 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH net-next v3 0/3] net: stmmac: add Allwinner H616 EMAC1
+ support
+Date: Thu, 17 Sep 2026 11:55:11 -0600
+Message-Id: <20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912-alpha-kernel-compression-v1-0-ce9d55330193@gmail.com>
- <20260912-alpha-kernel-compression-v1-1-ce9d55330193@gmail.com> <20260915220301.64f72f3f.lasse.collin@tukaani.org>
-In-Reply-To: <20260915220301.64f72f3f.lasse.collin@tukaani.org>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Thu, 17 Sep 2026 19:54:10 +0200
-X-Gm-Features: AcwNN1XFQaD3-In1KSOuGhL77cLzYksu55zUVpJQR1dIQvXxYtX117DrcpPGuP0
-Message-ID: <CA+=Fv5SSK4CXcHkyZMNyU1DigGzevJHYMR+dKPQZgGKdEeu4dw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] xz: add arch-specific tuning for alpha
-To: Lasse Collin <lasse.collin@tukaani.org>
-Cc: Matt Turner <mattst88@gmail.com>, Richard Henderson <richard.henderson@linaro.org>, 
-	Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42Oyw6CMBBFf4V0bU1fILjyP4yLtgxQI8W0tcEQ/
+ t1SXbhwYTKbm5l7zizIgzPg0bFYkINovJlsCnxXID1I2wM2bcqIEVaRhgrsH2o0AQ8VrTCMUlM
+ cKaaCHwivBZNKoVS9O+jMnLFnZCFgC3NAl/cmEa6gw0bdbgfjw+Se+YNIc+MjK3/L0hBMm7IFo
+ hTtannqR2luez2NWRHZPxCWIJwxxRkIAqr5hqzr+gK92Q3iGQEAAA==
+X-Change-ID: 20260914-submit-h616-emac1-v1-143703842abb
+To: Richard Genoud <richard.genoud@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>, 
+ Alastair D'Silva <alastair@d-silva.org>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-Hi Lasse,
+The H616 secondary EMAC supports RMII at 10/100 Mbps and uses a separate
+system-control clock register at offset 0x34. Add its binding and a
+sun8i stmmac variant using that register. A distinct compatible without
+an older fallback prevents the driver from using EMAC0's clock register.
 
-On Tue, Sep 15, 2026 at 9:03=E2=80=AFPM Lasse Collin <lasse.collin@tukaani.=
-org> wrote:
->
-> On 2026-09-12 Matt Turner wrote:
-> > Alpha has fixed-length, 4-byte-aligned instructions and no XZ BCJ
-> > filter, so it wants the same LZMA2 settings as the other
-> > 4-byte-aligned targets. Without an entry it hits the default case,
-> > which warns
-> >
-> >   scripts/xz_wrap.sh: Arch-specific tuning is missing for 'alpha'
-> >
-> > and conservatively assumes 2-byte alignment. Alpha gains
-> > HAVE_KERNEL_XZ later in this series; the correct alignment also
-> > shrinks a UP1500 kernel's XZ image from 6469320 to 6448840 bytes.
-> >
-> > Signed-off-by: Matt Turner <mattst88@gmail.com>
-> > ---
-> >  scripts/xz_wrap.sh | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> >
-> > diff --git a/scripts/xz_wrap.sh b/scripts/xz_wrap.sh
-> > index f19369687030..5af0d9045cbc 100755
-> > --- a/scripts/xz_wrap.sh
-> > +++ b/scripts/xz_wrap.sh
-> > @@ -10,6 +10,7 @@
-> >  # XZ-compressed kernel isn't currently supported on every listed arch.
-> >  #   Arch        Align   Notes
-> > +#   alpha         4
-> >  #   arm          2/4    ARM and ARM-Thumb2
-> >  #   arm64         4
-> >  #   csky          2
-> > @@ -44,6 +45,10 @@ BCJ=3D
-> >  # Set the BCJ filter if one is available.
-> >  # It must match the #ifdef usage in lib/decompress_unxz.c.
-> >  case $SRCARCH in
-> > +     alpha)
-> > +             ALIGN=3D4
-> > +             ;;
-> > +
-> >       arm)
-> >               if is_enabled CONFIG_THUMB2_KERNEL; then
-> >                       ALIGN=3D2
-> >
->
-> Thanks for Cc'ing me. For this patch:
->
-> Reviewed-by: Lasse Collin <lasse.collin@tukaani.org>
->
-> I looked at the other patches too and didn't see any issues around the
-> decompressor usage, but I didn't really review them.
->
-> --
-> Lasse Collin
+EMAC1 connects internally to the co-packaged AC200 or AC300 EPHY and has
+no external PHY pins. Leave PHY initialization to the PHY driver instead
+of using the H3 internal-PHY controls. The RMII-only variant does not
+expose the RGMII clock-delay properties.
 
-Collected your tag and added this to my for-next.
+First move the MAC software reset from probe to the DMA reset callback,
+after PHY initialization. This lets the MAC and its MDIO bus remain
+registered when the PHY driver or one of its suppliers is not ready yet.
+Keep the separate H3 MDIO-mux reset sequence unchanged.
 
-Thanks
+The AC200/AC300 EPHY driver and package bindings are already in
+net-next. This series separates the H616 EMAC1 MAC driver and binding
+support from the earlier combined series. PWM, MFD and device-tree
+enablement are being handled separately.
 
-Magnus
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v3:
+- Add a prerequisite fix moving the MAC software reset to the DMA reset
+  callback, after PHY initialization, so delayed module loading and
+  deferred PHY probes do not tear down the MAC and its MDIO bus.
+- Preserve the H3 MDIO-mux reset and propagate hardware-reset failures
+  through the normal stmmac hardware-setup error path.
+- Add Alastair D'Silva to Cc and rebase onto current net-next.
+- Link to v2: https://patch.msgid.link/20260915-submit-h616-emac1-v1-v2-0-322b32e40eb9@gmail.com
+
+Changes in v2:
+- Drop EMAC1 TX/RX clock-delay property support and keep the existing
+  RGMII-only delay descriptions unchanged, as requested by Maxime Ripard.
+- Clarify that EMAC1 connects internally to a co-packaged PHY, not an
+  external PHY or the H3-style internal-PHY controls.
+- Rebase onto current net-next.
+- Link to v1: https://patch.msgid.link/20260915-submit-h616-emac1-v1-v1-0-195de0bb1f8a@gmail.com
+
+---
+James Hilliard (3):
+      net: stmmac: sun8i: reset the MAC after PHY initialization
+      dt-bindings: net: allwinner: add H616 EMAC1
+      net: stmmac: sun8i: add support for Allwinner H616 EMAC1
+
+ .../bindings/net/allwinner,sun8i-a83t-emac.yaml    | 13 +++++
+ .../devicetree/bindings/net/snps,dwmac.yaml        |  2 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c  | 66 +++++++++++++---------
+ 3 files changed, 55 insertions(+), 26 deletions(-)
+---
+base-commit: 26ee8cd69d46a14b37ba5e512084fe80d730127a
+change-id: 20260914-submit-h616-emac1-v1-143703842abb
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
