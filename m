@@ -1,168 +1,169 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011008.outbound.protection.outlook.com [52.101.62.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450E64B4058
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:00:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639243; cv=none; b=pO/oZEiE+OidzAox7jFbxreJjtVePlEPeBhGLDSkJST8b1MPl4/w2ZAHAV8VRLGLphwXokvZ2+J4klFyIRycVLVPeszw+GQqd9lGuU6oLqc9dHqQQoqXR0RIrooeHc8LqBtFpvsBHK2M5TL/Ce1jlQLLqMz4w03DNl2yVroaOMo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639243; c=relaxed/simple;
-	bh=DbmJGTO38ZQmXXH83oMfgHUcchZlyuqt+YS72+gWZDM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GBqhEY7qz9mjOmyEWX5Wu7ixzSoGvoN7v7NKpPD7dmQgve/RB/zK37A67sCkXcx6LHNNyYEcn6m4doMFwg6ZWw8DsEx4YXFr5wvaXEsCltMtJf/laW83EHmnavQc1nQJKr/34I9vsWToQ4Wd1i876QsZMiy3nc1WZ6jlk/StU5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kw8qWcAT; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EACE4B4873;
+	Thu, 17 Sep 2026 10:01:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789639268; cv=fail; b=sHl/9/9dDGXYo5hPn0k+eaBT02rlskMUmsBCLhl3vVtiMy0ZkzJSrIttgHiiE+bKi/HZFTVuZ6DwV1GPT0EfrPJXSdcAYlG0vPqvxkSwtUPSUOOP4WSktL6Z2QTUl8aDrcFzrtKYR9xVvLpX/qaPCg/QOK3Ji68dyaqsbiETJzI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789639268; c=relaxed/simple;
+	bh=6tsvHX3ox2E99bq3unLpeCfP2x5uS8y4gu00H/DunEk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=COSwuXzaybRzSmzVYt9DPSI58r4Y1IWrdDeBBBe1KwXHoIEJFyeeCF6QvMkNiIvzbIuVn6120FStRUOBnX1kuIjn9n1S2vHCqDYNbCbNFbIcdZghxlpZhs2CVDCRYIUihHedCQGXFx71s0YQUE4BN/wOr7Kq04LmQbKQVigLbbc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=qpPvpeii; arc=fail smtp.client-ip=52.101.62.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kw8qWcAT"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so3940225e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:00:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789639226; x=1790244026; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jjyjniKVzwPmkW/8acQ86Rlei6X80JG8qnbW9s7w6qs=;
-        b=kw8qWcATS0dunpD+urqDBf0ua7rRO+qCvzeIWxMqLbAe1VhQF1EJAjaaBlR3FMl4zt
-         nFigtWJu1wzke++goTCERKnvfwhVM5Ub+drxIVXlLfQ88ZIPXG8jHaO8xIJldngnUKwr
-         000lb8tXkrBEUqOvtCbPA5GbPgHoFBO8n+pr5rUL6aXQAxwAJyCiY6H+wHNlCzLsvEkG
-         Emq5hXg+4gB9Sgz6S+UalmZQmnxJ9IJsg4WND+/OGpqbi4+Lx66be0nx2rqCQqrQE2dS
-         HMj9ioTZLKVeibju7aPUQ9brQFPCB6aTdxymShRuH2sJx3hUGA0JT2HY8UFg45zmPxSR
-         KXAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789639226; x=1790244026;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jjyjniKVzwPmkW/8acQ86Rlei6X80JG8qnbW9s7w6qs=;
-        b=mOdMuw0QN9elOnDtJsAVLuEuPDFZxLHWEO+xAVYkO4cvx9OnLFFw4bwMcL7nvKY4+P
-         dm7k0Uph/I37s6DVbCRdOfwUpKgbBBm507oofylU1BoBKtyNVPHHOFUDTAVA+abRDwuO
-         BP+FXPhXHP0ppcVVieeCmdpPck5o0+sjgmZ5Dwly/MFVoChJDebTYRFkuKm5j6ZH3YeT
-         QwLip1SpgE76MZpku50FuH3U/t1f5tjbehUTjkfDD9dM0RCfHX9GrBTwpYdTbs3g0VFn
-         FrtmbUtrKpQDaafW4pVxgL+qUsmUhaG4Q0rizm9DWibfAiDntIZBtx3ZAFj41q4ezy9J
-         zpHg==
-X-Forwarded-Encrypted: i=1; AKwUvBxYy5JlIBGs5HS0hEeQVQlBh97UiHZtapkFFIf3secQCikR/rJMYjDIniRu+6sA0A/9byx0PNW73novzFQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mg0zio9Ne4FIFjqy004kBATd0vJbPgUdyJ9XgU00Nbd3QYvSO6
-	oZhE9VRmnQLo1adYgQbu+dAVrBHNYRY8HhSDvD1/x/E8Q3e7uV9zlC+C
-X-Gm-Gg: AYBFou3lZDH9YCM30CUrlKUSjj11Z0VX768RDO7qhgXP2lB4Gg/nLpVTnLRmTJ8T5P5
-	aw6kow6OO8fHHQiu4hRQr64w6pq9VgyK9PiTi5BAEJrVUuwq/T8qBnnSG7+FRbxHDFnPNjih8ei
-	Pp26L4dwZtFetxzn096m+Y657pFfZQJP2/nEfsnKGALibRtcWGp4wWNHZGSFV6nXSy+Au0iiPcW
-	7q1y+gClYb3Y9J2JesbxSBSg9mLzk+lTOK+7dRxksuyAP2bq/rid0mrb8Mf1bfhsjmfeXXqKYD1
-	X12LuWgbam/iJqE+93xEy/cjOolqQaZsX19kwVmUO+P0mNe05PMvH7E+QLJVfme2exFD7LKj//p
-	W47yu2GMesMJMEgX2ta6mAnlxaIU+9xHu9eGf3RVz8Vvy/xtWSHHXXbynP2TgWI/KkNN5JYGamX
-	4aHH2/C1WZz1kWJGo+mJR7jkfuYtFVlQWSa5+DaxaAfJTvYSq5a1L1Zfq0EG1ERmwamjdlGo7r9
-	TGzRKwmcSwBC5jLGhbDuMHAVkYaOJ6pXXib
-X-Received: by 2002:a05:600c:8a09:20b0:49f:bc0d:2e9 with SMTP id 5b1f17b1804b1-49fbc0d032dmr85940075e9.0.1789639224488;
-        Thu, 17 Sep 2026 03:00:24 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf37e69sm14296463f8f.29.2026.09.17.03.00.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 03:00:23 -0700 (PDT)
-Date: Thu, 17 Sep 2026 11:00:22 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Edward Adam Davis <eadavis@sina.com>,
- syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com, dakr@kernel.org,
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- rafael@kernel.org, syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH] sysfs: prevent writing excessively large files
-Message-ID: <20260917110022.06614ba3@pumpkin>
-In-Reply-To: <2026091700-baritone-clapping-685d@gregkh>
-References: <6aa82301.a211d2ce.1a5198.0296.GAE@google.com>
-	<20260915122018.924041-1-eadavis@sina.com>
-	<2026091700-baritone-clapping-685d@gregkh>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="qpPvpeii"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XKkWawRIIt9mDU5/mu/EO+iJYWmF/hAmZzBskQZV0tz6QVs4Vq1nxcubVMH9W4WeURPkjssF+y/IQckz8oyGeTuwRmWYufwG1LWLPbhGAAQk9WdEISIn7T6eIV5NLOZ4Fs+/6S+QeCdpa2xSiP92HB7qpGAWnWqg5XaDjdAAVm1gAqDmfP5R9CVVgmwErm3OulHdH/wGcjuWRicVRUvkWm683WwxY8rHjYAc/gqedHwgLZ8yAEZmQqniOc51wDCswQUmrqtis/+X4kqMNhBR54MfvCNAGrVWeI0jMHvyQtQbzZsddOpfaLzFPD3GdgXo/74bX55M87qiemPMAJJhKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aueaJj0oO3KKa8SHG8TqCid9ON0Iatts6M1ZB4Bd/IQ=;
+ b=bPmJDkAe23E+ebs2hkZJXv2u8/iWkerYO0oNtf3yJyPMV5PwNiqc03iYJRi9ixDbC2pZc2eV+RYFA7QcK0AJSpZG8OTa8AXFrkDOMpakQxQad6qtHjGpYdDfmozCC107njeIQ/0keZ1IpA8L1HmK55DdpSqzC/wZMcYNG9Yf9QKjZLOEOs+bIHP4gmVaefOxwuXoOoWZRY4UVZrqo4UJiUM58wzcVJ2wx9P4lWfWfuOUy7R6iJ2cMofpFfuxNLji36nkI+SX6fRs9KgtIx46yGRsz8jL4YVZMrOvCBgrg6TpzRCKXLjkHOVdmQuQeoBEEv87JwT6KcgOl5y7tWmagA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aueaJj0oO3KKa8SHG8TqCid9ON0Iatts6M1ZB4Bd/IQ=;
+ b=qpPvpeiih/XEVg5glp8Tt7X/JWTqelm/PdX9XIUvUb2JGIQvUDwZTQw3IXn1x5/1LOOvJ0ZZL7LxccJMIduyV1+wv1SanRFLC9ELW7q35/ALgsx75nYPktBTHvIbosjulOecKv0ScoXJAAeVojvXjGzfqbJPQoxLlRit2DsWrwk=
+Received: from CH5PR03CA0022.namprd03.prod.outlook.com (2603:10b6:610:1f1::8)
+ by SA3PR12MB8762.namprd12.prod.outlook.com (2603:10b6:806:31f::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 10:00:34 +0000
+Received: from CH2PEPF00000141.namprd02.prod.outlook.com
+ (2603:10b6:610:1f1:cafe::1f) by CH5PR03CA0022.outlook.office365.com
+ (2603:10b6:610:1f1::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
+ 17 Sep 2026 10:00:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF00000141.mail.protection.outlook.com (10.167.244.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 10:00:34 +0000
+Received: from sindhu.amdval.net (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 05:00:29 -0500
+From: Sandipan Das <sandipan.das@amd.com>
+To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
+ Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	Borislav Petkov <bp@alien8.de>, Ravi Bangoria <ravi.bangoria@amd.com>,
+	"Ananth Narayan" <ananth.narayan@amd.com>, Sandipan Das
+	<sandipan.das@amd.com>
+Subject: [PATCH] perf jevents: Limit the number of JSON reading workers
+Date: Thu, 17 Sep 2026 15:29:21 +0530
+Message-ID: <20260917095921.2802275-1-sandipan.das@amd.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000141:EE_|SA3PR12MB8762:EE_
+X-MS-Office365-Filtering-Correlation-Id: 590c9ad3-cc7e-40c8-d03e-08df14a28434
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|23010399003|56012099006|11063799006|10067099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	tBe3yts2tXMPxcYtujwE+rkmNFt2wolYqVIN+85UqJih3DK/g1GA2TfiR519IEQWwvnpdVgeDLlKwYM17VyAM9JKqN5w0UcF3c/4bHuF1wAEEhjnDPYAx1MPQqGd3xWEJX0utUkFoJWVjeYa4XQunNuD51H5oGqHISti/9i8UN/WxD3oBa62bmkUY6cvwT/UmAM9KzXLo0d8GqvVgF8eiNBjHy4YC5CkmqvNhD5P1UyqPR/79nI1xbcL5b1eoC7wKY4IAS130JHmwFmeiFwwPOrCnDD/mAlM4pLIUMaNgv7Mrb9b4MVx3J2iXX1KxIr8KZtLCwiSPESUuzkomNzRvvH35cdmEHfymNucH+bNtn2kfvhsUAvI90mtGbbggNb4Is2qPmLMb5/b/e+eojJK2iZ+262GjFvGPW3qr8hSiaGes+ve6O2dy8lBy4GZyU7YUOVr49rxSkCFD9vxFUSaE+O1uCRxslUosXSLQoUdpJOeh61ohu1X5fx0e1I3fJ5zvydhTJHYZ9RtiN08zoWXpgAhYk0yLbjKkqpG3Cseo96eARD2KjXTEEH9HwHqdGS4uBRDMoyBPp8xKylHy9VKfILwSaTe2ePwvLPP2OHbBgYNL0VpNCUg3dNECpY83jAEOLaYvvsClKPqQOLx//hTMMz6ZdUlV9mxkcV5pwrmnwxqzJpyjdDFXXq6zzv0E2zZ0ep315zIviyLEs8kUq5LiQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ZAm9IOleoHBX0j+GqDuKqhCq4F/kKNDhaGloQG1D/Msa4KBGLWBqyW9xUrWttVtvscXddi1kC9bopCxlM0csqt/6tNGW+cJlO27Cac437rqHOQBBx2edfij+C7ui6vaiSZ9sMZcaQrhbSvMvnyw5D2evid1C64Hm1umy2QKtiTQuRmAcLZf5Tl5eLc12y0e5tJWXEXdAqnHWxyNnSH7J87BZDPw6VyH6Tl+d5tSwg+wYe0ydQKnHhuVN2H3yy5lGDq7CjMoOmHVntp5N2G6t1JRF6bfC9AguBAswYB5EHB6RHrwQrPhLF4KbpcWCydFrCMRwzt+O7REL8Jj8elQ/h7J0jEu0OlUNKXF+svNROkvIkMiul6A5zhE9XuhweFYw/+7fORYWKU4XGtwkanWT3+QoP7WY1zVJsVlPXaMJrwt0oVQIFRTuhgGk7l7fIvv1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 10:00:34.4917
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 590c9ad3-cc7e-40c8-d03e-08df14a28434
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000141.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8762
 
-On Thu, 17 Sep 2026 08:34:46 +0100
-Greg KH <gregkh@linuxfoundation.org> wrote:
+The ProcessPoolExecutor is created without max_workers, so
+concurrent.futures defaults to one worker per CPU and forks all of them
+when the first task is submitted. Each worker costs the parent a few
+file descriptors. For systems with high core-count processors like the
+AMD EPYC 9996, the pool can easily exhaust RLIMIT_NOFILE as seen below.
 
-> On Tue, Sep 15, 2026 at 08:20:17PM +0800, Edward Adam Davis wrote:
-> > Since atomic_write_len is not configured for sysfs_file_kfops_rw, a large
-> > file write via sysfs_kf_write() may result in an out-of-bounds read when
-> > checking for the null terminator of a string element in the kobject_actions
-> > array within kobject_action_type(), potentially hitting:
-> > 
-> > BUG: KASAN: global-out-of-bounds in kobject_action_type lib/kobject_uevent.c:86 [inline]
-> > BUG: KASAN: global-out-of-bounds in kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
-> > Read of size 1 at addr ffffffff8d72559f by task syz.0.17/5917
-> > Call Trace:
-> >  kobject_action_type lib/kobject_uevent.c:86 [inline]
-> >  kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
-> >  bus_uevent_store+0x3d/0x90 drivers/base/bus.c:917
-> >  bus_attr_store+0x74/0xb0 drivers/base/bus.c:172
-> >  sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
-> >  kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
-> >  new_sync_write fs/read_write.c:595 [inline]
-> >  vfs_write+0x6af/0x1050 fs/read_write.c:687
-> > 
-> > Add atomic_write_len for sysfs_file_kfops_rw and sysfs_file_kfops_wo
-> > properly.
-> > 
-> > Fixes: f6acf8bb6a40 ("sysfs, kernfs: introduce kernfs_ops")
-> > Reported-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=9a321aea9d851b299486
-> > Tested-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
-> > Signed-off-by: Edward Adam Davis <eadavis@sina.com>
-> > ---
-> >  fs/sysfs/file.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/fs/sysfs/file.c b/fs/sysfs/file.c
-> > index cd5bb0f9fee6..a63130d18680 100644
-> > --- a/fs/sysfs/file.c
-> > +++ b/fs/sysfs/file.c
-> > @@ -228,10 +228,12 @@ static const struct kernfs_ops sysfs_file_kfops_ro = {
-> >  };
-> >  
-> >  static const struct kernfs_ops sysfs_file_kfops_wo = {
-> > +	.atomic_write_len	= PAGE_SIZE,
-> >  	.write		= sysfs_kf_write,
-> >  };
-> >  
-> >  static const struct kernfs_ops sysfs_file_kfops_rw = {
-> > +	.atomic_write_len	= PAGE_SIZE,
-> >  	.seq_show	= sysfs_kf_seq_show,
-> >  	.write		= sysfs_kf_write,
-> >  };
-> > -- 
-> > 2.43.0
-> >   
-> 
-> Are you sure this will not break those sysfs files that want larger page
-> sizes?  Given the age of this "issue" it's really worrying to me to
-> change it now...
+  File ".../multiprocessing/popen_fork.py", line 65, in _launch
+    child_r, parent_w = os.pipe()
+  OSError: [Errno 24] Too many open files
 
-If you allowed to leave atomic_write_len as zero then the code shouldn't
-let an overlong write through (or should truncate it).
-So there must be a bug somewhere else.
+The error is reported, but jevents.py does not exit. The workers that
+did start stay blocked waiting for work and are never joined, so the
+build eventually hangs. Other targets keep building in the meantime,
+leaving the traceback several lines above the point where the build
+stalls.
 
-Do we know the length for the test that failed?
+Limit the pool instead of sizing it against the descriptor limit, which
+would mean relying on how many descriptors concurrent.futures needs for
+each worker. At least for recent AMD EPYC processors, reading the JSON
+files does not need many workers to be fast and things typically stop
+scaling beyond 32 workers. Hence, a small upper bound keeps the speedup
+and stays well inside any usable limit.
 
-'atomic_write_len' is also badly named - probably historical.
-There is no code to loop over the fragments of a long write and (IIRC) the
-write offset is always zero.
+Fixes: eaab2eb09dc2 ("perf pmu-events: Parallelize JSON and metric pre-computation in jevents.py")
+Signed-off-by: Sandipan Das <sandipan.das@amd.com>
+---
+ tools/perf/pmu-events/jevents.py | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-There is also some (horrid) related code that can reserve a page buffer
-(per node) just in case an access is made when kernel memory isn't
-available.
-(a flag and a single global page would suffice...)
-
-David
-
-
-> 
-> thanks,
-> 
-> greg k-h
-> 
+diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
+index 860027bb71b2..d81fe6757915 100755
+--- a/tools/perf/pmu-events/jevents.py
++++ b/tools/perf/pmu-events/jevents.py
+@@ -1450,6 +1450,13 @@ const char *describe_metricgroup(const char *group)
+ }
+ """)
+ 
++# Upper bound on the number of workers reading JSON files in parallel.
++_max_parallel_workers = 32
++
++def _parallel_worker_count(num_tasks: int) -> int:
++  return max(1, min(getattr(os, 'process_cpu_count', os.cpu_count)() or 1,
++                    _max_parallel_workers, num_tasks))
++
+ def _parallel_read_json_events(task: Tuple[str, str]) -> Tuple[str, str, Sequence[JsonEvent]]:
+   path, topic = task
+   return path, topic, _read_json_events_impl(path, topic)
+@@ -1549,7 +1556,9 @@ struct pmu_table_entry {
+     preprocess_arch_std_files(arch_path)
+     ftw(arch_path, [], collect_json)
+ 
+-  with concurrent.futures.ProcessPoolExecutor(initializer=_init_worker, initargs=(_arch_std_events,)) as executor:
++  with concurrent.futures.ProcessPoolExecutor(max_workers=_parallel_worker_count(len(tasks)),
++                                              initializer=_init_worker,
++                                              initargs=(_arch_std_events,)) as executor:
+     for path, topic, events in executor.map(_parallel_read_json_events, tasks):
+       _json_cache[(path, topic)] = events
+ 
+-- 
+2.53.0
 
