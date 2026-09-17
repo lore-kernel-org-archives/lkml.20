@@ -1,221 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3834519A4;
-	Thu, 17 Sep 2026 13:41:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 115CA5452B3;
+	Thu, 17 Sep 2026 13:41:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652487; cv=none; b=BPJWF+A5S+FuYfeV4p7oeByT8etDrbgVoLaBqF7tOfonjarVlohF3M3HM6PdRz6UlscproT6CEfzpXhp+TIbFw0+X9I+FYaFybTCaboU5H8wZr78Zt1MRbtbEG51a0uxnIKY2U/1gPIfsjiGh22MyN+e9WsFP0WsPMJieuSB8Jw=
+	t=1789652491; cv=none; b=TElaSXQAGQQQaJ6oIAowwutBE+WCqB/oZJMUjohM/RPKIS7X9zfe6x3QBvsiaieUbLkG6JcX8lQeX858pWSl2TYjFyDNR5wzcM7xOr7oOB+q7Egjtyykb9DAz56JE5uk+Z2ZtTUxqeWkdFD8+FnnLZdUQ0UuDpleaT7uzzq07gI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652487; c=relaxed/simple;
-	bh=aCTCTf1hJkbyK1McE/Xr9U+luipp7i7g69aeirSJt1g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HFhuzus7rkblJz1TfcHZCBnEAngs1v5jmUDo0PrsfjbfuJ/6O5p/RgUZuHu6JyMMnOCfY/yPZ7smXHQG3tFbx8xaofQMgqZJResUtKzvXe9Jf5Q67uc8In1Xm61kN7bmFoSfcYYEZqV2ZntsxoaBwBZrCZ2MFcnW3IUm/PVvAW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMKJQHv6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789652491; c=relaxed/simple;
+	bh=2I8IYPE4jK4J/34TcT0rn/Ucik7A413Pi2ivi1Aafkc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WXqrmMJuBkHAbQjGoiMp8+vmvmY+dfQ9LKbYbUaeS8LMqmKz2Us9g5q9PvBMJeHrapAnEgWevCeXPxqVts47a6Nwk2PsiLR1Uz3QU8Ot8lRy9fLPZAbxZqq7UNh6Pdotm/+U+4Syv5jt1xyo+h2ZPmDATch4z33I83Ktjyo5q54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Yor3PFAs; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMKJQHv6"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3E837C2BCB9;
-	Thu, 17 Sep 2026 13:41:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789652486;
-	bh=aCTCTf1hJkbyK1McE/Xr9U+luipp7i7g69aeirSJt1g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=IMKJQHv6AkZSP459LFZfVwcQQSC1iFijhzk9pD42id1kUUtTTOIIcpVp9n1/hPnBr
-	 jCoji1GR1uxPrjhzRF2Upo/yDEAs0i98d1UtA9m2nHd48uVyo8L9VHMNhQ3VH39jSI
-	 BkOlzzpTw4c++FWr48GJytatYAEvCYtz2NMyBZsrUECAvTL1eZr86Ull1AS4v+WQX7
-	 EcjRQRnPNO52CNQ6wMaIdttavuzZJPpZe7qQJ9A5/81C9lGNFWb21rJCSJ+u9BnomN
-	 0cUHgt5yo1mVyoYtkjpdbofSLuglWPKR46GhvzriCz2GFd0VSkOVdZtagMWSJOgmEG
-	 bO2jxsRMSO4aw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D98CC982D1;
-	Thu, 17 Sep 2026 13:41:26 +0000 (UTC)
-From: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
-Date: Thu, 17 Sep 2026 06:41:22 -0700
-Subject: [PATCH net-next v4 1/2] tcp: annotate lockless access to
- sk->sk_err
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Yor3PFAs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789652475;
+	bh=2I8IYPE4jK4J/34TcT0rn/Ucik7A413Pi2ivi1Aafkc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Yor3PFAsld/Sk7hwTH66NORlEGrS2Z5+yn28LYDI8ReNtlNWl9eNl3T5TgfUx3nhY
+	 cw81iZ6gxoL4n+v0BE5JGblEOaqYTlgd96wq5B1babozBEPPrlV4RRrmh9Ur5ngSie
+	 8p8KzekU+itHLKDpYUFYTor1fBw/Xzl8YpHVsv2mb8asHZoQ6maGFNFsb+0IQzZOq7
+	 5zcdUrVrnA8jOKJJLY6Gma5L3NXS3T+IKXGfv38/RFmh7tFe/4Od/C02dtaSn5/RX8
+	 YStcKMvtTrDD2s3vBBTH49IFIeUEmPkTC6NJJJkaR86nuommroKVWjodhd5IYCRkwB
+	 F2d3W0GAwJh+A==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id F40AF17E03B6;
+	Thu, 17 Sep 2026 15:41:14 +0200 (CEST)
+Message-ID: <b3b2f2ae-1eb1-4d3d-9f4b-4de3868802f1@collabora.com>
+Date: Thu, 17 Sep 2026 15:41:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] usb: mtu3: introduce platform data
+To: rva333@protonmail.com, Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260917-6595-mtu3-v1-0-a2ba7c230d68@protonmail.com>
+ <20260917-6595-mtu3-v1-2-a2ba7c230d68@protonmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260917-6595-mtu3-v1-2-a2ba7c230d68@protonmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-mptcp-sk-err-net-v4-1-1f04f52f2561@proton.me>
-References: <20260917-mptcp-sk-err-net-v4-0-1f04f52f2561@proton.me>
-In-Reply-To: <20260917-mptcp-sk-err-net-v4-0-1f04f52f2561@proton.me>
-To: Eric Dumazet <edumazet@google.com>, 
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- Geliang Tang <geliang@kernel.org>, Mat Martineau <martineau@kernel.org>, 
- Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789652484; l=5666;
- i=quanyeyang@proton.me; s=20260801; h=from:subject:message-id;
- bh=Ix5sfC38WPodAhwSsSWFlgULEhsUjMU6HvhZTqKvtI4=;
- b=XICKJEvnlVPQ+97Fkk7kzz2TXOIPC0u4SU70VxENFCg9mTMdpbvoYsgF5FrOno8iFMsUYDete
- ake6vNE06oVCZbStYS6bvYYM7bmUiWViNwMOvz5XsIi+QmJ4ddWptgV
-X-Developer-Key: i=quanyeyang@proton.me; a=ed25519;
- pk=9L9FrcvzMgxPaBRU6XV0EnqTgjDqVO596rQKSZ9qZoY=
-X-Endpoint-Received: by B4 Relay for quanyeyang@proton.me/20260801 with
- auth_id=963
-X-Original-From: Quanye Yang <quanyeyang@proton.me>
-Reply-To: quanyeyang@proton.me
 
-From: Quanye Yang <quanyeyang@proton.me>
+On 9/17/26 09:32, Roman Vivchar via B4 Relay wrote:
+> From: Roman Vivchar <rva333@protonmail.com>
+> 
 
-BUG: KCSAN: data-race in do_recvmmsg / mptcp_recvmsg
+That's good, but the commit title doesn't explain anything.
 
-read-write (marked) to 0xffff8880134d391c of 4 bytes by task 2619 on cpu 1:
- instrument_atomic_read_write include/linux/instrumented.h:113 [inline]
- sock_error include/net/sock.h:2565 [inline]
- do_recvmmsg+0x50c/0x580 net/socket.c:3049
- __sys_recvmmsg net/socket.c:3144 [inline]
- __do_sys_recvmmsg net/socket.c:3167 [inline]
- __se_sys_recvmmsg net/socket.c:3160 [inline]
- __x64_sys_recvmmsg+0x161/0x180 net/socket.c:3160
- x64_sys_call+0x19c7/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:300
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+usb: mtu3: Add SoC platform data for FIFO slots ?
 
-read to 0xffff8880134d391c of 4 bytes by task 2620 on cpu 0:
- tcp_recv_should_stop include/net/tcp.h:3086 [inline]
- mptcp_recvmsg+0x54d/0xd50 net/mptcp/protocol.c:2466
- inet_recvmsg+0x204/0x210 net/ipv4/af_inet.c:894
- sock_recvmsg_nosec net/socket.c:1151 [inline]
- sock_recvmsg+0x11a/0x140 net/socket.c:1173
- ____sys_recvmsg+0x14b/0x3c0 net/socket.c:2933
- ___sys_recvmsg+0x116/0x160 net/socket.c:2975
- __sys_recvmsg net/socket.c:3008 [inline]
- __do_sys_recvmsg net/socket.c:3014 [inline]
- __se_sys_recvmsg net/socket.c:3011 [inline]
- __x64_sys_recvmsg+0xeb/0x160 net/socket.c:3011
- x64_sys_call+0x1319/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:48
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+...or anything else that actually explains what you're doing.
 
-value changed: 0x0000006b -> 0x00000000
+> Some SoCs, such as mt6595, require specific quirks for the MTU3 to
+> function properly.
+> 
+> The mt6595 IP block doesn't support multiple slots for the FIFO,
+> resulting FIFO wrap.
+> 
+> Fix this by adding platform data with a field to handle FIFO limitation.
 
-Reported by Kernel Concurrency Sanitizer on:
-CPU: 0 UID: 0 PID: 2620 Comm: syz.2.33 Not tainted 7.2.0-g39d4f32c5d53 #76 PREEMPT(full)
-Hardware name: QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
+Well, also say that this commit brings no functional differences for the
+currently supported SoCs :-)
 
-do_recvmmsg() and getsockopt(SO_ERROR) call sock_error() without the
-socket lock. sock_error() clears sk_err with xchg(), which races with
-unmarked loads of the same field.
+> 
+> Assisted-by: LLM (debugging)
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> ---
+>   drivers/usb/mtu3/mtu3.h        | 9 +++++++++
+>   drivers/usb/mtu3/mtu3_core.c   | 5 +++++
+>   drivers/usb/mtu3/mtu3_gadget.c | 8 ++++++--
+>   drivers/usb/mtu3/mtu3_plat.c   | 8 ++++++--
+>   4 files changed, 26 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/usb/mtu3/mtu3.h b/drivers/usb/mtu3/mtu3.h
+> index ba5a63669e5f..1258aa7483aa 100644
+> --- a/drivers/usb/mtu3/mtu3.h
+> +++ b/drivers/usb/mtu3/mtu3.h
+> @@ -315,6 +315,14 @@ static inline struct ssusb_mtk *dev_to_ssusb(struct device *dev)
+>   	return dev_get_drvdata(dev);
+>   }
+>   
+> +/**
+> + * struct mtu3_platform_data - platform data for the driver.
+> + * @single_slot: the IP can handle only one buffer for bulk transfers
+> + */
+> +struct mtu3_platform_data {
+> +	bool single_slot;
 
-KCSAN reported the unmarked peek in tcp_recv_should_stop(). The same
-lockless writer races with the other plain sk_err reads on the TCP
-send, recv and splice paths.
+bool fifo_single_slot ?
 
-Annotate those peeks with READ_ONCE(). No extra ordering is needed:
-the value is only used to decide whether I/O should stop. This does
-not consume sk_err; the check-then-sock_error() TOCTOU on the no-data
-paths is a separate issue. MPTCP peeks are handled in the next patch.
+> +};
+> +
+>   /**
+>    * struct mtu3 - device driver instance data.
+>    * @slot: MTU3_U2_IP_SLOT_DEFAULT for U2 IP only,
+> @@ -369,6 +377,7 @@ struct mtu3 {
+>   	unsigned connected:1;
+>   	unsigned async_callbacks:1;
+>   	unsigned separate_fifo:1;
+> +	unsigned single_slot:1;
 
-Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Link: https://lore.kernel.org/netdev/8bbee583-6f21-4817-bfeb-2d60057380a3@linux.dev/
-Reported-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/632
-Signed-off-by: Quanye Yang <quanyeyang@proton.me>
----
- include/net/tcp.h  | 3 ++-
- net/core/stream.c  | 2 +-
- net/ipv4/tcp.c     | 6 +++---
- net/ipv4/tcp_bpf.c | 7 +++----
- 4 files changed, 9 insertions(+), 9 deletions(-)
+unsigned fifo_single_slot:1 ?
 
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 5e5f5f9b89a3..6ee513bdb503 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -3093,7 +3093,8 @@ enum skb_drop_reason tcp_inbound_hash(struct sock *sk,
- 
- static inline int tcp_recv_should_stop(struct sock *sk)
- {
--	return sk->sk_err ||
-+	/* sk_err can be cleared locklessly by sock_error(). */
-+	return READ_ONCE(sk->sk_err) ||
- 	       sk->sk_state == TCP_CLOSE ||
- 	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
- 	       signal_pending(current);
-diff --git a/net/core/stream.c b/net/core/stream.c
-index 2d748581862d..5c0adc3077f0 100644
---- a/net/core/stream.c
-+++ b/net/core/stream.c
-@@ -133,7 +133,7 @@ int sk_stream_wait_memory(struct sock *sk, long *timeo_p)
- 	while (1) {
- 		sk_set_bit(SOCKWQ_ASYNC_NOSPACE, sk);
- 
--		if (sk->sk_err || (sk->sk_shutdown & SEND_SHUTDOWN))
-+		if (READ_ONCE(sk->sk_err) || (sk->sk_shutdown & SEND_SHUTDOWN))
- 			goto do_error;
- 		if (!*timeo_p)
- 			goto do_eagain;
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index 1c867a302444..9e7fa7e39726 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -843,7 +843,7 @@ ssize_t tcp_splice_read(struct socket *sock, loff_t *ppos,
- 				break;
- 			if (sock_flag(sk, SOCK_DONE))
- 				break;
--			if (sk->sk_err) {
-+			if (READ_ONCE(sk->sk_err)) {
- 				ret = sock_error(sk);
- 				break;
- 			}
-@@ -1228,7 +1228,7 @@ int tcp_sendmsg_locked(struct sock *sk, struct msghdr *msg, size_t size)
- 	mss_now = tcp_send_mss(sk, &size_goal, flags);
- 
- 	err = -EPIPE;
--	if (sk->sk_err || (sk->sk_shutdown & SEND_SHUTDOWN))
-+	if (READ_ONCE(sk->sk_err) || (sk->sk_shutdown & SEND_SHUTDOWN))
- 		goto do_error;
- 
- 	while (msg_data_left(msg)) {
-@@ -2760,7 +2760,7 @@ static int tcp_recvmsg_locked(struct sock *sk, struct msghdr *msg, size_t len,
- 			if (sock_flag(sk, SOCK_DONE))
- 				break;
- 
--			if (sk->sk_err) {
-+			if (READ_ONCE(sk->sk_err)) {
- 				copied = sock_error(sk);
- 				break;
- 			}
-diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
-index 2e234d155b5e..a96323e65758 100644
---- a/net/ipv4/tcp_bpf.c
-+++ b/net/ipv4/tcp_bpf.c
-@@ -286,7 +286,7 @@ static int tcp_bpf_recvmsg_parser(struct sock *sk,
- 		if (sock_flag(sk, SOCK_DONE))
- 			goto out;
- 
--		if (sk->sk_err) {
-+		if (READ_ONCE(sk->sk_err)) {
- 			copied = sock_error(sk);
- 			goto out;
- 		}
-@@ -553,10 +553,9 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 		bool enospc = false;
- 		u32 copy, osize;
- 
--		if (sk->sk_err) {
--			err = -sk->sk_err;
-+		err = -READ_ONCE(sk->sk_err);
-+		if (err)
- 			goto out_err;
--		}
- 
- 		copy = msg_data_left(msg);
- 		if (!sk_stream_memory_free(sk))
+...or you can bring the entire pdata structure in there for easy future extension.
+Your choice.
 
--- 
-2.55.0
+>   
+>   	u8 address;
+>   	u8 test_mode_nr;
+> diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
+> index 66dbfe1705d5..03e28c93bc51 100644
+> --- a/drivers/usb/mtu3/mtu3_core.c
+> +++ b/drivers/usb/mtu3/mtu3_core.c
+> @@ -923,6 +923,7 @@ int ssusb_gadget_init(struct ssusb_mtk *ssusb)
+>   {
+>   	struct device *dev = ssusb->dev;
+>   	struct platform_device *pdev = to_platform_device(dev);
+> +	const struct mtu3_platform_data *pdata = NULL;
+>   	struct mtu3 *mtu = NULL;
+>   	int ret = -ENOMEM;
+>   
+> @@ -930,6 +931,10 @@ int ssusb_gadget_init(struct ssusb_mtk *ssusb)
+>   	if (mtu == NULL)
+>   		return -ENOMEM;
+>   
+> +	pdata = device_get_match_data(dev);
+> +	if (pdata)
 
+Checking if there's any pdata is redundant, since you have already correctly
+assigned pdata to all of the of_match entries.
+
+Cheers,
+Angelo
+
+> +		mtu->single_slot = pdata->single_slot;
+> +
+>   	mtu->irq = platform_get_irq_byname_optional(pdev, "device");
+>   	if (mtu->irq < 0) {
+>   		if (mtu->irq == -EPROBE_DEFER)
+> diff --git a/drivers/usb/mtu3/mtu3_gadget.c b/drivers/usb/mtu3/mtu3_gadget.c
+> index f224f2ee379a..bfacb1ba152e 100644
+> --- a/drivers/usb/mtu3/mtu3_gadget.c
+> +++ b/drivers/usb/mtu3/mtu3_gadget.c
+> @@ -112,8 +112,12 @@ static int mtu3_ep_enable(struct mtu3_ep *mep)
+>   	mep->ep.desc = desc;
+>   	mep->ep.comp_desc = comp_desc;
+>   
+> -	/* slot mainly affects bulk/isoc transfer, so ignore int */
+> -	mep->slot = usb_endpoint_xfer_int(desc) ? 0 : mtu->slot;
+> +	if (mtu->single_slot)
+> +		/* older IPs can handle only one slot reliably */
+> +		mep->slot = 0;
+> +	else
+> +		/* slot mainly affects bulk/isoc transfer, so ignore int */
+> +		mep->slot = usb_endpoint_xfer_int(desc) ? 0 : mtu->slot;
+>   
+>   	ret = mtu3_config_ep(mtu, mep, interval, burst, mult);
+>   	if (ret < 0)
+> diff --git a/drivers/usb/mtu3/mtu3_plat.c b/drivers/usb/mtu3/mtu3_plat.c
+> index cc8a864dbd63..bc65acdfb0de 100644
+> --- a/drivers/usb/mtu3/mtu3_plat.c
+> +++ b/drivers/usb/mtu3/mtu3_plat.c
+> @@ -611,9 +611,13 @@ static const struct dev_pm_ops mtu3_pm_ops = {
+>   
+>   #define DEV_PM_OPS (IS_ENABLED(CONFIG_PM) ? &mtu3_pm_ops : NULL)
+>   
+> +static const struct mtu3_platform_data mt8173_platform_data = {
+> +	.single_slot = false,
+> +};
+> +
+>   static const struct of_device_id mtu3_of_match[] = {
+> -	{.compatible = "mediatek,mt8173-mtu3",},
+> -	{.compatible = "mediatek,mtu3",},
+> +	{ .compatible = "mediatek,mt8173-mtu3", .data = &mt8173_platform_data },
+> +	{ .compatible = "mediatek,mtu3", .data = &mt8173_platform_data },
+>   	{},
+>   };
+>   MODULE_DEVICE_TABLE(of, mtu3_of_match);
+> 
 
