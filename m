@@ -1,53 +1,59 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE5873CB57F;
-	Thu, 17 Sep 2026 10:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3B647F788;
+	Thu, 17 Sep 2026 10:45:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789641951; cv=none; b=ax0vqHT9YoJzxu6UKGJs1Lgucvx3kd2G52PaDudEj77GYMhkNO+xr0YP2uRGxHCmwjzHGLyfPnD5AjrmeTs/XllyuClzaQ7mz+n5ZkqXw9eaO9ureEANg72h2YSlCHiGzv/Li+YhCtaPG8P71sPnBYaEphcvBMNnsRvD7Tcv7kA=
+	t=1789641953; cv=none; b=DaYCToJkER4TR1mC1jh4pawO9YZ1v0k/VXolQwLb9Q5RAycWRo2cc3Tmndo8Xe6Ru4NnvJ0IGv7DkWY1nT66DqxCabJbMO8JUrPZdREgl2iZJq8/9nD8vHg7+MgHS+rj7+aFYDx6UXeCc7r/FjT2b7BKeYpqi0rozWRbxl94yTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789641951; c=relaxed/simple;
-	bh=A1qJUzoEx4MjxX5KJ5zP6XztKc5+3XRYmk3SylEfKJg=;
+	s=arc-20240116; t=1789641953; c=relaxed/simple;
+	bh=ECo9cdo977FkiesxllRgUw3yGG4DUboNuVLo4Q7lpYg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AbEWxWtgK65LhlP8rWd6ILVo1d9FP2VU43dm7CW7cCgROz5MQx/P8gRpszYlaCkZm+5Hfy5QIG5u/Wts7/WcucD43k0LIAor3OilKatQkfp9OHgXD+OBb783GqQ/qID2QhuQLsMRb5ezVsQM+JXYVyMDX0R0HTZlHBia6uNxcWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=n3EKRXU7; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=cj2fPcKuGThNWY10JitFbpknsMJ0ZPlHNvL+5oJ5oReangeLulOsIopQKymTQMXbf57jxo+ML6Vbkly05v2l6z0SHT6nSr+Wcn4qzABpgndX1PtoJkF4nQBvNOaSfygiz+xYRY1BxlsyhkhaMHUxh8ZsCK+BCha2WhWD0t+1TEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Zop+mrjL; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IjKXUjsu; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="n3EKRXU7"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 77CEF1476;
-	Thu, 17 Sep 2026 03:45:45 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 830FF3F882;
-	Thu, 17 Sep 2026 03:45:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789641949; bh=A1qJUzoEx4MjxX5KJ5zP6XztKc5+3XRYmk3SylEfKJg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=n3EKRXU7Cq0DBTHyOGTTXwg29ME9vRYoBg/Zu9Qo8a/ZRg4WR/J/U0BVm+v1OMi4g
-	 HNkWPW0bXHN9fcTqmsv5rJx7nhcBoRmjzGf42teEOckKeKZ3kfBaAjMrxSeXMoZqoc
-	 j6309z9kZ3G1alSAYIaABBDQGB2YjpiPXZfdXtnw=
-Date: Thu, 17 Sep 2026 11:45:43 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Florian Weimer <fweimer@redhat.com>,
-	Darren Hart <dvhart@infradead.org>, Ingo Molnar <mingo@kernel.org>,
-	Davidlohr Bueso <dave@stgolabs.net>, Arnd Bergmann <arnd@arndb.de>,
-	Uros Bizjak <ubizjak@gmail.com>,
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org, kernel-dev@igalia.com
-Subject: Re: [PATCH v8 2/4] arm64: vdso: Implement
- __vdso_futex_robust_try_unlock()
-Message-ID: <aqvE1w1-FQPD4AoM@J2N7QTR9R3>
-References: <20260821-tonyk-robust_arm-v8-0-077707b6f1c7@igalia.com>
- <20260821-tonyk-robust_arm-v8-2-077707b6f1c7@igalia.com>
- <aqqkX8GyxgdtoOmc@J2N7QTR9R3>
- <9d9a804f-c1f3-4c0c-b12a-975206f6c34c@igalia.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Zop+mrjL";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IjKXUjsu"
+Date: Thu, 17 Sep 2026 12:45:44 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789641950;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iTPmmmxEvbkY6yRJOu+LwHlz+vZaSs5Q5lGUiSehc0g=;
+	b=Zop+mrjLVSwa6YNF0PYj+B7tNsAhRULqgtoiBcyWSOOzgPW5fCutxkK0csbN1RdDac7AB1
+	C+9RXDu5HRkLR3xx0FkFDkU5SloeM1y+y1ainxX/Ha8WbfTM+AJPF/ypJUVipMPMdf3Dcc
+	T/Qsbe5F3LM2n0ysVcoEgTasjqcThOvRQYQ24/VMynKNQ8UEy3QqEiFKiqPYQh/yA2ONKI
+	N3ZDF2NErGvCXU8dYsn3FGY4KmV87XatDS3QZovYROuOnL8LKuBWDEzwOTlrCpdG+yCzgv
+	i6QFyi66LJYOPQX2ZFgsyKSuI5VTwqcX88J/zR5+lk/4kkxxsjuHv2G7Nb0CnA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789641950;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iTPmmmxEvbkY6yRJOu+LwHlz+vZaSs5Q5lGUiSehc0g=;
+	b=IjKXUjsu4IxVTuMW0xCBcGaYuuEqMPKHAbcejSkWIKlgq7fVoHitp8O7rltsI5wyQ4h1i5
+	XFTWHeY6uJgEj3CA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
+	Arnd Bergmann <arnd@kernel.org>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, Tingmao Wang <m@maowtm.org>,
+	Justin Suess <utilityemal77@gmail.com>,
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] [v2] landlock: work around gcc-16 -Wuninitialized warning
+Message-ID: <20260917104544.3trW9Jq1@linutronix.de>
+References: <20260915201036.3527935-1-arnd@kernel.org>
+ <20260916084947.6QDy8KZQ@linutronix.de>
+ <20260916.shai0tha3IPa@digikod.net>
+ <57b5869d-7411-46e8-ade6-6d2a7fea02ac@app.fastmail.com>
+ <20260917070915.Ix8TOn5Y@linutronix.de>
+ <1192c2df-d39a-4d43-ad57-68b0167759f5@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,38 +62,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9d9a804f-c1f3-4c0c-b12a-975206f6c34c@igalia.com>
+In-Reply-To: <1192c2df-d39a-4d43-ad57-68b0167759f5@app.fastmail.com>
 
-On Wed, Sep 16, 2026 at 10:06:25PM -0300, André Almeida wrote:
-> If I understood correctly, the correct approach here would be to use pop_reg
-> as an input operand, making sure that we store the address hold by *pop on
-> x2 register right? So something along the lines:
-> 
-> __u32 __vdso_futex_robust_list64_try_unlock(__u32 *lock, __u32 tid, __u64
-> *pop)
-> {
-> 	register __u64 pop_reg asm("x2") = (__u64) pop;
-> 
-> ...
-> 
-> 		"	str 	xzr, [%x[pop_reg]]		\n"
-> ...
-> 
-> 		: [val] "=&r" (val),
-> 		  [result] "=&r" (result_reg),
-> 		  [lock] "+Q" (*lock)
-> 		: [tid] "r" (tid),
-> 		  [pop_reg] "r" (pop_reg)
-> 		: "cc", "memory"
-> 
-> Does that looks right?
+On 2026-09-17 12:26:17 [+0200], Arnd Bergmann wrote:
+> I checked again and found that this is a config that did produce
+> the issue a few weeks ago, but doesn't today for me.
+> I found a different config from this week and managed to reproduce
+> the problem on today's linux-next using both gcc-16.2 and gcc-17.0
+> from yesterday, so there is still a related issue that is not
+> fixed in gcc, even though one at least one of them was fixed.
 
-Yep; that should work!
+Confirmed. I see the warning on arm64 while x86-64 is quiet. The patch
+fixes the issue.
 
-Just for completeness: another option would be to drop the memory
-clobber, and have separate constraints for the "pop" memory location and
-the "pop_reg" register. I think your suggestion above is simpler, so
-let's go with that.
+You might need to update gcc bug tracker.
 
-Mark.
+>       Arnd
+
+Sebastian
