@@ -1,112 +1,84 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7422F48989F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:43:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C061D86FF;
+	Thu, 17 Sep 2026 12:44:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649042; cv=none; b=rz3oeO/UMYHqHLpLMp5Wq/DtaMBBm+FvWjAPM9rsae3otcy+vELHmH0gyAeNDN8PXaHXzDduVtfTDXbMNnyjvO8haN5u9XTASXS14OMTeIsWugGM+dSSB/tFi3VJYZLyRTlGiEczpUHpUtAoYe/9zXk2YO7+DlpDSzvHClxm7tA=
+	t=1789649052; cv=none; b=s6vaeIcrjbRHhHI07ago1f8EczZvd60MGvTfD6f2C5dCNGx/Uf7LrK6lL2NsSH1itCiFc3Rlm8oj2fEwArE+tGViGU6zwFeF+UHd8mJYXF49uANToL4ue8YLM+/tWajrG4jHTUMQcvsiAjsmD1q3oPGpiBQDjpk6K7Xi7DoR0Y0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649042; c=relaxed/simple;
-	bh=X++7KAk2FmgKKTdfe031N+A5JegX9n/upfzGbRy0M9U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HzkFEO7FCijBrLMkmtjSLxjeN4uyEmVEZU+r6StLcru6hvWKGbsf5MzIl89xIy1LEQSuwEizKRFL0np8xp/CpBAqFD+QAImzE0QCDB+mSFdhXCPVtx4OjqQunKFUiCigHsbyLI8aVq38XaF9QzfhCeV8OG3vkM5C8oyYkWMGqMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=H+K9UVO/; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="H+K9UVO/"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a64c7cdb46so1341276a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:43:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789649035; x=1790253835; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T7EV5DL8qRH0a/MP26yVs5lc2kWIGglCyt84hDRgCrI=;
-        b=H+K9UVO/rzs+TITURqIIFQIdtEsgnkt36Gcksij51sflBHS7pb0Tf0ho02panhb/gi
-         ZmyLiNLheYB/+rvei3VN6O4nQmhSHo9RdtPa4J0pUQJd2bos6Ln5ciSUlHHrUS5z4Tsm
-         YgdTixm3vBp/N4rxxojEaMQR3D+osNRqIYO2PEDo2KFFT/KdJBsFa4YagcIj0Nctr0iE
-         DFg+epZMXHQdT+mH3oPNYFrV3gdIdflt+Tn/2i3Hf/kuGugxLE+gxwUIzjUsLLfScMX+
-         rgvYppHKqbhKn3BupkNje3PGrJO/i2BF9S4omEic+GJo7eiH2E3dDw2iowKsaq7E/vFl
-         sVdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789649035; x=1790253835;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T7EV5DL8qRH0a/MP26yVs5lc2kWIGglCyt84hDRgCrI=;
-        b=pin//LJv/R7ldASJSgnSrVFxexwD4/so8nR7Q28ft5T22+RY2Qvgeo5xyb66t3kXvo
-         N/9vzd7IZ7fIklOSY4WphXi7Ts0pOcobUu3EffCp7sXTG0LwRuKCQygQJ/8hPiEifuVQ
-         B+bJ37YCALzu1lOaZaPvyCNFpuYfc/dWQIcENGrEQ1aoHTAc1p5DxSQeNe+Ml3XMDwnG
-         C8fk+ZcP0+JNEE2d4hAD8NBMwgP1rbmBr2HusSdse8u9AegRKQJysr00O96rA2MEC0yl
-         C4xIWd1Gr1A/325BcaZbSDqzTy+FrDoYvhTctMqIq6w8RbskODImxywFAuTIfubH3pw4
-         r8yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBztHJSjPVhtG+zq6gVS5/9u4ml/6IWLbHGsE3X4Rwib1w9X/yrJSQLw7cuRpTvNOQyMWeibWC+eL/qveN0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9WOtUFP5wiwAzIgSfWBGMqdLcyvL6ntBZoYPElh6wFyczRdCv
-	UrKDie7K/IVYj7QoNx+q1/fujnTGtrVsvidvJ0QZ/h2D/7aCJ1PJiA8pHZE0BIMs3Ew=
-X-Gm-Gg: AYBFou1v5X+ULfEsX9D471Cy/8BTi+AFaLJL2yqIbhBRT+Omt7la+QSJLtNlTIrvA5M
-	7Ua/Fh0+85EEbQwyDPnQw8ajv9S5THe6Xpvlzrm729DHJ2WqCiLFWsoq9blSkLrK0UvI3U/D3ph
-	bi0TYma6dzVIxaf2VIbvryYxdKawNQC/rKpgSshLS8dcjfeED11PSyRsMlTiBeW0I1WVMLw2NzO
-	1bVLvA0a6lsXN5LcQ/eqo7CiHP6wj69Q8wzGnJWP6prtsogeU9zZUSmHlVm3xGrejfdaJoktiF+
-	jUEjqxU5x8fhvNJWSM4rhQectRQV+MhKw3K1rBMtKbWICGeoTz/18oWk40zq2QnAgmgzFqA8OXI
-	hmcsr1riaidRhi6vvAdNEtdEKEM3tNEFXX/OGUJpfQQxQB6AKgoaOf/66SFZ8ZA+TvMI/ckXBBV
-	2wkcOE9R4au5DN7qalQt7QVGiRIyL2giyDK+u1eu0p0Nthq5xCiiv5jEpy78Wu7xlKcbz5EuDVA
-	Yq5TZpufV4=
-X-Received: by 2002:a05:6402:360d:b0:6a7:ea53:f62c with SMTP id 4fb4d7f45d1cf-6aa2246021dmr5023762a12.43.1789649034670;
-        Thu, 17 Sep 2026 05:43:54 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.29.130])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d228baesm3705562a12.9.2026.09.17.05.43.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 05:43:54 -0700 (PDT)
-Message-ID: <be9f9890-1bca-4f25-9005-faa5a4413e98@linaro.org>
-Date: Thu, 17 Sep 2026 13:43:52 +0100
+	s=arc-20240116; t=1789649052; c=relaxed/simple;
+	bh=BO1pOyd2mSHKq5WFDL+5mtxfGZAZ8PqaREwoGsapXyk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KaIZLCDxMZe4l7t2y9IZK8UNDPZc0Sy/BCduth/TkWTVAZuUZPnaokZyRlQaq8tYxzrrczPRPYb65giBZpwDrM43EYGeOOZA3wx6UOaN9r8UWvNmhes6MRfbr+wEshlAhGBGXJ6fnEea9X/6ga7sCuiqxMwKcefVqfCVl+iro2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAHcz2K4Ktqy8OACA--.43459S2;
+	Thu, 17 Sep 2026 20:43:54 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: devicetree@vger.kernel.org
+Cc: gaurav.minocha.os@gmail.com,
+	grant.likely@linaro.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] of: unittest: Fix dup node reference leak in attach_node_and_children()
+Date: Thu, 17 Sep 2026 12:43:54 +0000
+Message-Id: <20260917124354.2151738-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 3/5] phy: core: Add devm_phy_get_by_of_node()
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
- Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-0-f85c9103177e@linaro.org>
- <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-3-f85c9103177e@linaro.org>
- <9e8ae55f-6d95-48a9-bef1-ab653d0f1c7d@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <9e8ae55f-6d95-48a9-bef1-ab653d0f1c7d@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHcz2K4Ktqy8OACA--.43459S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JryfGr1ruFW5tF4rGFy3Jwb_yoWfXrX_CF
+	yvvr92qrWkAF1kWFZ3Xr43ZF9Iy3W8WrWkJw1Iya1Sk34YvF45Xr1Y9rn5J345X3yF9F9r
+	tr1Dur1FkrnrXjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07je0PfUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq02o6wAAs3
 
-On 17/09/2026 13:32, Neil Armstrong wrote:
->> +++ b/drivers/phy/phy-core.c
->> @@ -833,7 +833,7 @@ struct phy *phy_get(struct device *dev, const char 
->> *string)
->>       link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
->>       if (!link)
->> -        dev_dbg(dev, "failed to create device link to %s\n",
->> +        dev_err(dev, "failed to create device link to %s\n",
->>               dev_name(phy->dev.parent));
-> 
-> This change belongs in another patch.
+of_find_node_by_path() returns a node with an elevated reference count.
+When a matching node is found in the live tree the function updates the
+node properties and returns without dropping that reference. Add the
+missing of_node_put() so the reference is not leaked.
 
-yeah you're right I messed up my rebase ..
+Fixes: ae9304c9d311 ("Adding selftest testdata dynamically into live tree")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/of/unittest.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index 4078569a0f96..c4d4c10ceaa2 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -2072,6 +2072,7 @@ static void attach_node_and_children(struct device_node *np)
+ 	kfree(full_name);
+ 	if (dup) {
+ 		update_node_properties(np, dup);
++		of_node_put(dup);
+ 		return;
+ 	}
+ 
+-- 
+2.34.1
+
