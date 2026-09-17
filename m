@@ -1,77 +1,77 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 84827420476;
-	Thu, 17 Sep 2026 10:01:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E533B52F8
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639308; cv=none; b=BvXeGDK0YUhA+5gmZpEBshc4KMmH7ahjfqAJ6kJa7VxUP87AIHANPm30ui0V84YsS5Z5Lo5RmXW6HbKmnciqAF5XYeV7YETjUKTEhEeu414uQCd5Mtge/eFdQH3rrwi0oUe+Cb0uPG6X5kFaK9RuJWLWk7lDewOft5wNKVH1WUI=
+	t=1789639312; cv=none; b=EwMJXjBRWf1rXdVeGn/XwxAHJbzTci0Ui+ODhXmiXbOLoCdL/JItxFGxDgfrCG0XuWztURiz5EBrizTgexfPzINMll37ZJ+b7P6dmnHxq/zS9YpfuldjnjesBrhpvlfU7gI+QMs40/a81lKszHfewzXhCW8jvf5Q+eRMUbrCF/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639308; c=relaxed/simple;
-	bh=1pwwAA8ZeOmKPOIlnHk+XRlZJTnA6zBlBTY2TxR85cU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j1SykDim4Zj9miPb7KF0ttVnpON7WlrVZR0oZmWRbPTRAvZzwu/sZhGWDDHAFpE9PWhZgrzEnWuXZMRWzP3Tyc/q7ceoHqXWe6UteMHj9W9T9n5NQqR/0ocvT+DYlKaAi7nysGhi06XAES3AqnUEFU3IMw8mKftRW66NF7DC6Hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SvAAG4W6; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789639312; c=relaxed/simple;
+	bh=0FltFsY6ankPumYo1oeKxNcQO+Ae9X3mJpO+iWWNVrs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MVQy1N+2SLJrEf0K9XMwR2A0gGg9G58yC87e9zTqzPaWc8mn+9DBGLZ+ox3bEAxCy+BroZZv5u3uRo/CSY5HybSHy8Vcb3ZkqS/32gPA06hvX+NjxNP1sJMyv4L20+DFbvhjyOPXx1NBmQO+W8muCyfikrXklFD/fuEZIjXzCA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SkYDjtFz; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SvAAG4W6"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5102E1476;
-	Thu, 17 Sep 2026 03:01:32 -0700 (PDT)
-Received: from [10.57.74.102] (unknown [10.57.74.102])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0CE963F7B4;
-	Thu, 17 Sep 2026 03:01:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789639295; bh=1pwwAA8ZeOmKPOIlnHk+XRlZJTnA6zBlBTY2TxR85cU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=SvAAG4W6pCrBYl8UpXFPHTB71j6RSyCdPuWmd6UkpE0cOM3aNKMGhTZAlgIGEB7fV
-	 Cd4IX/FcwNi0bAPpT+dbXe03++P3TJBX21zD+nSnKRWo8w05d+mhGf6NjzzytfXlME
-	 YQWqbo5gb1j49X8rnLzxfNNa3piSKywqbAZlc1EM=
-Message-ID: <6f2907ec-848e-4e60-98b2-a3b7a905b880@arm.com>
-Date: Thu, 17 Sep 2026 12:01:31 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SkYDjtFz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789639282;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0FltFsY6ankPumYo1oeKxNcQO+Ae9X3mJpO+iWWNVrs=;
+	b=SkYDjtFzY6LLUgk5+yAU5T/C+OVD6Kp63dG2o1+WE2mxCJdjTUJPv4chaH713g4WS6/XMN
+	vUVsEWmjCbgEAbvYDiUPD+6R4gwfjOGvlOzYUxdw7zlmZzIVJU6oU+lHm3To6t+CO+VuRW
+	lgit/Wdp6uE/VwIk+Fda3gMVw6lnJxM=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-541--vhghsE7NXybKx5g-qswkQ-1; Thu,
+ 17 Sep 2026 06:00:56 -0400
+X-MC-Unique: -vhghsE7NXybKx5g-qswkQ-1
+X-Mimecast-MFC-AGG-ID: -vhghsE7NXybKx5g-qswkQ_1789639250
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E53291977008;
+	Thu, 17 Sep 2026 10:00:49 +0000 (UTC)
+Received: from fedora.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0B6541956089;
+	Thu, 17 Sep 2026 10:00:47 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: nbd@nbd.name
+Cc: ryder.lee@mediatek.com,
+	shayne.chen@mediatek.com,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] wifi: mt76: mt7996: fix NULL pointer dereference in MLD AP recovery
+Date: Thu, 17 Sep 2026 12:00:44 +0200
+Message-ID: <20260917100046.31142-1-jtornosm@redhat.com>
+In-Reply-To: <20260727161353.962426-1-jtornosm@redhat.com>
+References: <20260727161353.962426-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] arm64: topology: fix arch_freq_get_on_cpu()
- overflow above 4.19 GHz
-To: Oleg Keri <okerixx@gmail.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Sumit Gupta <sumitg@nvidia.com>,
- Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
- Beata Michalska <beata.michalska@arm.com>,
- Russell King <linux@armlinux.org.uk>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Sudeep Holla <sudeep.holla@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <55538466-2203-42ec-a0bd-b743c04a3b38@arm.com>
- <178955779940.30466.10860982419496123467@gmail.com>
-Content-Language: en-GB
-From: Dietmar Eggemann <dietmar.eggemann@arm.com>
-In-Reply-To: <178955779940.30466.10860982419496123467@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Hi Oleg,
+Hi Felix,
 
-On 16.09.26 13:23, Oleg Keri wrote:
-> Hi Dietmar,
-> 
-> On Wed, Sep 16, 2026, Dietmar Eggemann wrote:
+Friendly ping on this patch. It fixes a NULL pointer dereference during
+MLD AP recovery caused by stale valid_links after full hardware reset.
 
-[...]
+Any further comments, or anything I can do to move forward?
 
-> Fine by me, that reads better than open-coding the shift. Your diff
-> builds here on arm64 (topology.o and kernel/sched/), so I will fold it
-> into v4 and add the scheduler maintainers to Cc for the header move.
-> 
-> Since the diff is yours: is a Suggested-by enough, or would you rather
-> have Co-developed-by and your Signed-off-by on the patch?
+Thanks
 
-Don't worry, I will give my 'Reviewed-By' for the final version.
+Best regards
+José Ignacio
+
