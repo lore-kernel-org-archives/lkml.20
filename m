@@ -1,96 +1,75 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4093921DE
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8E74E50AE;
+	Thu, 17 Sep 2026 07:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789631372; cv=none; b=q5AYLL9zoIEILg61+4a6Aba2bZY8XPl97qjNSAPSYtg3hXh1a6R70tbrjcT3U4AfsYo2pFC2S+EsrHhY1fik13JHwZJglF3dSBPOE9NzQzl7e4OFfAsA/qPA5tQzHweBcW2bs/O0dnOCphl4TMftWx58hlogOZmbcvNP/+18B7s=
+	t=1789631397; cv=none; b=Ex61eOaVGOcK+lxBi+wwChaFJ9APMrcoGHGy0HbjTUPwDj9jlVihwjYtLVrIU1W4K9bmctELShaMZAGiObx6F06Q7unPDhPRJftNfg6tbK7WoK2aF9Ji9K5XdvhOEUkDmHI7w5u3QEH4aNODK0Wt4ks8/JY+q5cPe+UZc64DFa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789631372; c=relaxed/simple;
-	bh=6WFtxOwbTGAnJVVIwPxyjEIJvq7yi35MlXVMFGyeNW0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VgrUDjR4n8XEpmoPnTPBku9lKCMwxlhX//ZxYlI8pHdvfoD5VO3XtVHE+FQG+zL0kR7arGaqY0fSNcNglrWyZlo9kAFDynJAk+rjMUprXMVQLJPvhqEL2jWsBvZjd8JWgeClkZrE9/8LduRkbWe+o18If0gg0dUZTrSthB8H+lI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TxSezOch; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789631397; c=relaxed/simple;
+	bh=Csn9svdRUIBhfL6XpLE7sgCf9d1GK+Z2GFz0pU1YrcE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hNTgeHbK3LvBiQAqWbELeMbR+e2HCsYOUCbr+Mi3fDivcGgSOXULz7lgvEh4ynGw15xP5YADn2o507jy68dzyrk1YpOKtlHJg+108NQloMvK9+7Mukz0GdjdfjuWKvOPupjTRrdCQLEuHdRJyLE1ZEOEgMuKIMg/Sl0S7K82FrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mPrnrGDl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TxSezOch"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=3T
-	Ahw8kdQ1bkc+p6ARnCv8c+rD9/bfuYAfSjbI9rJ7I=; b=TxSezOchSCRBSPleHp
-	Cdt/NR9KrUKQzeMR12NCqPLsa79kxzDpiw6imQshkdVQhNxwYRi42zJWPiVOHh9A
-	hj/H7FFN4VQBaRGvMxAvfCGVbmszyjCJ0ZHKUxB5wHh44zFyn7xjQ8fB5brsLAid
-	Z8KFyeR04+B9Hfd+eyDP+LSjU=
-Received: from thinkpadx13gen2i.. (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wC327hgm6tqF7HwBA--.39980S2;
-	Thu, 17 Sep 2026 15:48:49 +0800 (CST)
-From: Zongmin Zhou <min_halo@163.com>
-To: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr
-Cc: linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Zongmin Zhou <zhouzongmin@kylinos.cn>
-Subject: [PATCH] riscv: errata: select RISCV_ALTERNATIVE_EARLY for THEAD GHOSTWRITE
-Date: Thu, 17 Sep 2026 15:48:43 +0800
-Message-Id: <20260917074843.52716-1-min_halo@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mPrnrGDl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26FA1F000FF;
+	Thu, 17 Sep 2026 07:49:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789631395;
+	bh=GCqSR8xT+K91LfjRnuBwTlwBBPOS+Tdfm5v39XYfcwA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mPrnrGDl1B0O0DCjj5NSbukmuO+NaJ/CVMhVOTh8pz/dER+cyNq+5QbbPOYN5OoTs
+	 CuHsuK9JrztoMrYyANJfzVPU6BdOM3vB1DYAvVe0RE2P3aP6MDSt7zHqQTj4h7+Vpo
+	 ME/8jK0SEHE79sp2vlmJqtgVSstMCn/iT86UOBp9UKHfMnJW2oFRGnQtXz3dhcxNDf
+	 5HXmthe8259/mMkoJZFj2gaHLA0T+/0LnyqaXOLkr/nFBpenGCE2/DduX+HQBuJYms
+	 wtCASsQnZlyL/mth6PwCKBLbkxQM2O6yyHz0u2WEizQ4fEZ42FYu2ZHmZlhvziGKc3
+	 0I9yPBG3NeBlw==
+Date: Thu, 17 Sep 2026 08:49:46 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: syzbot <syzbot+c3178b6b512446632bac@syzkaller.appspotmail.com>, 
+	akpm@linux-foundation.org, dwmw2@infradead.org, dwmw@amazon.co.uk, kvm@vger.kernel.org, 
+	liam.howlett@oracle.com, liam@infradead.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev, lkp@intel.com, 
+	llvm@lists.linux.dev, lorenzo.stoakes@oracle.com, me@brighamcampbell.com, 
+	mhocko@suse.com, nogikh@google.com, oe-kbuild-all@lists.linux.dev, 
+	pbonzini@redhat.com, rientjes@google.com, rppt@kernel.org, seanjc@google.com, 
+	shaikhkamal2012@gmail.com, shakeel.butt@linux.dev, skhan@linuxfoundation.org, 
+	surenb@google.com, syzkaller-bugs@googlegroups.com, vbabka@kernel.org
+Subject: Re: [syzbot] [kvm?] BUG: sleeping function called from invalid
+ context in kvm_mmu_notifier_invalidate_range_start
+Message-ID: <aqubYaxM1zQMdGN1@gremlin>
+References: <6936812a.a70a0220.38f243.0090.GAE@google.com>
+ <6aaaa2da.86093f18.33004f.0001.GAE@google.com>
+ <aqrZMReaQPG0M9oV@gremlin>
+ <20260917073931.iggMficE@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wC327hgm6tqF7HwBA--.39980S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uFyxuFWkWw4rCr4rCrW3Jrb_yoW8Ar45pr
-	Z5Kr1rK395XFyxArsrGrW8Kws093yfX3y3G34Du347Jw47ArWjgr4kKF4Dta1qyrn5Xw45
-	XF4SkFyIkayqyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UXXoxUUUUU=
-X-CM-SenderInfo: pplqsxxdorqiywtou0bp/xtbC9AGEMGqrm2F8ngAA3Y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917073931.iggMficE@linutronix.de>
 
-From: Zongmin Zhou <zhouzongmin@kylinos.cn>
+On Thu, Sep 17, 2026 at 09:39:31AM +0200, Sebastian Andrzej Siewior wrote:
+> On 2026-09-16 19:05:03 [+0100], Lorenzo Stoakes (ARM) wrote:
+> > > dashboard link: https://syzkaller.appspot.com/bug?extid=c3178b6b512446632bac
+>
+> > Seems like a false positive and an RT thing?
+>
+> yes, it does. The proposed patch has a matching reported-by of the
+> report. dwmw2 did test it via his tree
+> 	https://lore.kernel.org/all/6a8d9a7e.a5a502ce.31d34.0069.GAE@google.com/
 
-errata_probe_ghostwrite() only marks the CPU as vulnerable when it is
-called at the RISCV_ALTERNATIVES_EARLY_BOOT stage, and the mitigation
-in ghostwrite_enable_mitigation() only takes effect if the vulnerable
-state was recorded before the boot alternatives are patched.
+Thanks! I may try that here then as my attempt at a test failed, but I think
+v. v. likely this is what it is.
 
-The early boot stage is only executed when CONFIG_RISCV_ALTERNATIVE_EARLY
-is enabled, which currently is only selected by ERRATA_THEAD_MAE. In a
-kernel built with ERRATA_THEAD_GHOSTWRITE=y but ERRATA_THEAD_MAE=n, the
-early alternatives never run, so ghostwrite_state is never set to
-VULNERABLE: ghostwrite_enable_mitigation() returns false, xtheadvector
-remains enabled, and sysfs reports "Not affected" on a vulnerable
-T-Head C9xx CPU.
+>
+> Sebastian
 
-Select RISCV_ALTERNATIVE_EARLY from ERRATA_THEAD_GHOSTWRITE so that the
-vulnerability is detected in the early boot stage and the default
-mitigation is applied.
-
-Fixes: 4bf97069239b ("riscv: Add ghostwrite vulnerability")
-Signed-off-by: Zongmin Zhou <zhouzongmin@kylinos.cn>
----
- arch/riscv/Kconfig.errata | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/riscv/Kconfig.errata b/arch/riscv/Kconfig.errata
-index 3c945d086c7d..6121ba83cfa6 100644
---- a/arch/riscv/Kconfig.errata
-+++ b/arch/riscv/Kconfig.errata
-@@ -146,6 +146,7 @@ config ERRATA_THEAD_PMU
- config ERRATA_THEAD_GHOSTWRITE
- 	bool "Apply T-Head Ghostwrite errata"
- 	depends on ERRATA_THEAD && RISCV_ISA_XTHEADVECTOR
-+	select RISCV_ALTERNATIVE_EARLY
- 	default y
- 	help
- 	  The T-Head C9xx cores have a vulnerability in the xtheadvector
--- 
-2.34.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
-
+--
+Cheers, Lorenzo
