@@ -1,37 +1,87 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F3E4E2F31;
-	Thu, 17 Sep 2026 13:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E3452B1C5
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789651802; cv=none; b=bEeQKO+dnBQn5taSYu5n/gdVBtVgyDMz/RD4fwLNBaxLEjrpEfxpB415LS3a05kLxy7bFc1UQ3iRfqLxngsGhtFRm2fEv2MzhQMTNQ4ddWX9FaMuUsf+K6owEZ2pY/v4lTEJVlnkGQR0CpIn1WmfwEvtKpRgaTueNdnVWi/xdms=
+	t=1789651800; cv=none; b=UZL8fuRE+VI+gGXjwa4fX+2KgRsWhmYvLvlLaR01ZmiqZZLucliYqw0dlKoQlbJC4OzhIJG71c+ZmoMDjta/94abTbGvI12wxaL6w1JLfJ2y9h1ccD+feGHxpG0A/RlaQbXdyhJm6jscdGT0mAgYaPFzuKWuBvZnvuCSguVNJ5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789651802; c=relaxed/simple;
-	bh=IHKyhwi9VOur496O1HNCX9aPf++wgIxyKFwtl5/Je8s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DhPpLgypFX1yJ62CJ7V6nnoK05PrYkyfIzre3+/DLaNsnMZYb+CiL///0XuqNj+TjoQsVPv5XOp9Jmyza1dqCQ8NrxEpRwhSxn2SItfY158NO0qXlbfrHCh6T9I+b2ZErSuMF4vgE4/VxIVsyOONU6U3t7CW0ZisJNX2LcG44JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXADtI66tqC3qBCA--.3599S2;
-	Thu, 17 Sep 2026 21:29:44 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: bhelgaas@google.com
-Cc: boris.ostrovsky@oracle.com,
-	jgross@suse.com,
+	s=arc-20240116; t=1789651800; c=relaxed/simple;
+	bh=dXnLeOc9+ZJIVZID1P8Qpbq024iE85sRajVA+G6bckA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oOLU4/OiQC3lOrHyrRlWhccO2hAVWKpNwy+dyPq83WAi99lgR6Zg3rxalTPqGa3/VOQE5mEwKpZ9t/8sWOrA1PGnWcNmw0G011cOaySE2Ydew+qZNy7u5aBEhZYdBGwiyRbZoUewHenQjSeyiw5VqwCn2bRsAKgTymmSe+mDk14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems; spf=pass smtp.mailfrom=starlabs.systems; dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b=0GpUkFTJ; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starlabs.systems
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="0GpUkFTJ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so4108405e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:29:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1789651793; x=1790256593; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kc8SSZKaYeSDYTduIzKtgY7SY2vSIslvd8ziXmdFBEs=;
+        b=0GpUkFTJ1DzSFvpaCcNcrf1B3dKDAuuztdNJ0x80FEwlnEsOeALHBcMKTM+KKK93ys
+         96iFRHCFoy9slyl5POGPVU5f+kITrRrEVO0QKFfJqiJKt008upMW52trd7nGn9B9h45L
+         VonzcCpLLCKrFMeZUVxCRs11Nx/If2g4BRfnpBd25SmJIn6RQgHbFdwskvINnJ43aW0S
+         p5L5E2S+UtpEZBdB6Cgm0ORNTIE+H6ZfggBHrpye41dB1SKU//9fZBY7Tr/svCJ1LiMh
+         jg5VKHjbNh+k7V58asMTv1FqkLJyYF7AR2UBkrSVLyK7wZXMuvZQOLUnNk73ogHxlz82
+         V7Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789651793; x=1790256593;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kc8SSZKaYeSDYTduIzKtgY7SY2vSIslvd8ziXmdFBEs=;
+        b=EKQKO9og4A8v1ADK0K9y28YAOqjk1cy3q8bmq404PZhv4JLyfIt7iUnXMn8vcbGO+/
+         QSc03dOhBEbMAT1dWfvvaJ2jKUxycdEy1OSaa4wq4930MobLzLLyvcgDOlQEnPNp7NdE
+         AFM9ws0DrPAnEerQrWUhzt74oeHomhhV4r/UYdHIaRnfPbDAIGGjdObnZevN2eTp8e50
+         2EL3LI4Y6TEd7vIu48NGLkEHJvtuLDQJizSO+7K+n3deaAIZpMSbPjmA6jeRsRbFfQh5
+         qeamwzLh95LIDqfjuc8bC/xGaSh1eeWXhthzxCRvT/Sk63rJdohVnNbnk5FeYjCl2UX0
+         JpYA==
+X-Forwarded-Encrypted: i=1; AKwUvBxsjQMgnqC7dN3o9uExsqJZ0Ihtwo8S/wg11rY9Ai2j4wWFtcDnN/8VKZQdymcV2SqFhzKdsFUf/el3hWk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mby6JcNJQSbs7sUUCfoohLU4KInL7ucD8QTR2XG6ADOsbPNLa7
+	2C9n8Fq41LVibHKoR5uL9f3Zwme9WxzqPvG5a8szTP83xiC9x9OrflfmVrNOSemtoQ==
+X-Gm-Gg: AYBFou2Y3Nw5arInx7FN/O9LbRwG+lNVZahpibFOVKR7QV4LOdHAmwTNU1b99YK7QEC
+	wOgjdc+vyshgRy2Wm0JtGz5cBf3mefWfezkagrVTCIJSbdZEQVeMRNWe/104KUPzj8ZVsmkIoQW
+	njBLVmn40s4MNZzV0pzu2ezLXAEUnWaUvaQ4M6/LlYAlHV9M9+383EXU8aegwTDgmi2E+yP+zO9
+	iG/h1L4ppIn0WIJCXhK4yIL7YI5TZi/SWxt0iUqFXhPV1NEOyhfmCXiqDhNZsLL8Q855BoNBizD
+	24FJ0UMTDntPoTf8cArvJQEp0r8NM+4z5URZI3IvWYnt2sGBUK+dsa3VZukDSYKAGIe82vq2dRo
+	VgsoRrN4DTLnHQmsA6Zab1TC4IjbdoL+MykCbRgSMYKV55+7AnFqu2Ri9nDocS6VgYKfYRMMZUL
+	3ln62NJjGKhVwYfQ7nOpWcaWqzCxKD94gKsgLcmVsjvg/tIrJG1aNQUnPwi5pEVbjokpsZqJhAL
+	PySufLUKqWaLqSjUY6lVIORFA4=
+X-Received: by 2002:a05:600c:46ce:b0:49c:dca4:94c with SMTP id 5b1f17b1804b1-49eb7339895mr154172245e9.13.1789651793298;
+        Thu, 17 Sep 2026 06:29:53 -0700 (PDT)
+Received: from fighter ([216.128.28.240])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd2356d1sm97548275e9.6.2026.09.17.06.29.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 06:29:52 -0700 (PDT)
+From: Sean Rhodes <sean@starlabs.systems>
+To: linux-pm@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Evan Green <evgreen@chromium.org>,
+	Sean Rhodes <sean@starlabs.systems>,
 	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	oleksandr_tyshchenko@epam.com,
-	sstabellini@kernel.org,
-	u.kleine-koenig@pengutronix.de,
-	xen-devel@lists.xenproject.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] xen/pcifront: Fix PCI device reference leak in pcifront_common_process()
-Date: Thu, 17 Sep 2026 13:29:44 +0000
-Message-Id: <20260917132944.2153421-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	Jens Axboe <axboe@kernel.dk>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	linux-block@vger.kernel.org,
+	linux-mm@kvack.org,
+	Xueqin Luo <luoxueqin@kylinos.cn>,
+	Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>
+Subject: [PATCH v3 RESEND 0/4] PM: hibernate: encrypted snapshots under lockdown
+Date: Thu, 17 Sep 2026 14:29:46 +0100
+Message-ID: <cover.1789651778.git.sean@starlabs.systems>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,85 +89,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXADtI66tqC3qBCA--.3599S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WF1Uur1rKw1fAFWxWry5twb_yoW8uw1fp3
-	98AF13Ars0ya40qrZxAF4jga45ZFsrJ3y7C3ySg3s7X34aq3Z5Jw15JF1a9r48G395Zrnx
-	trnxJa1UZF1UXaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
-	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
-	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
-	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
-	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF
-	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
-	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
-	07bb5rxUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgQNA2qrq3bHZgAAsx
 
-pcifront_common_process() gets a reference to the PCI device with
-pci_get_domain_bus_and_slot() and only drops it on the early error
-path.  Returning directly from the AER handler switch instead of
-recording the result and falling through to the common
-pci_dev_put(pcidev) leaks the reference on every successful call.
+Lockdown disables hibernation because resume restores kernel memory from an
+image userspace can modify. This also prevents a TPM-backed uswsusp
+implementation from using /dev/snapshot under lockdown.
 
-Collect the handler result in a variable and drop the reference on the
-single exit path again.
+This series encrypts and authenticates the snapshot in the kernel. The kernel
+generates the image key and wraps it with a seed supplied by trusted early
+userspace. TPM policy and unsealing remain outside the PM code.
 
-Fixes: 34ab316d7287 ("xen/pcifront: Drop pcifront_common_process() tests of pcidev, pdrv")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/pci/xen-pcifront.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+The seed interface is first-writer-wins and does not provide freshness.
+Trusted early userspace must provision it before untrusted privileged code
+runs and enforce the required TPM policy, rollback protection and recovery
+handling.
 
-diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
-index cffc32d66032..5fdce7c41af5 100644
---- a/drivers/pci/xen-pcifront.c
-+++ b/drivers/pci/xen-pcifront.c
-@@ -579,6 +579,7 @@ static pci_ers_result_t pcifront_common_process(int cmd,
- 	int bus = pdev->sh_info->aer_op.bus;
- 	int devfn = pdev->sh_info->aer_op.devfn;
- 	int domain = pdev->sh_info->aer_op.domain;
-+	pci_ers_result_t result = PCI_ERS_RESULT_NONE;
- 	struct pci_dev *pcidev;
- 
- 	dev_dbg(&pdev->xdev->dev,
-@@ -597,21 +598,25 @@ static pci_ers_result_t pcifront_common_process(int cmd,
- 		pci_dbg(pcidev, "trying to call AER service\n");
- 		switch (cmd) {
- 		case XEN_PCI_OP_aer_detected:
--			return pdrv->err_handler->error_detected(pcidev, state);
-+			result = pdrv->err_handler->error_detected(pcidev, state);
-+			break;
- 		case XEN_PCI_OP_aer_mmio:
--			return pdrv->err_handler->mmio_enabled(pcidev);
-+			result = pdrv->err_handler->mmio_enabled(pcidev);
-+			break;
- 		case XEN_PCI_OP_aer_slotreset:
--			return pdrv->err_handler->slot_reset(pcidev);
-+			result = pdrv->err_handler->slot_reset(pcidev);
-+			break;
- 		case XEN_PCI_OP_aer_resume:
- 			pdrv->err_handler->resume(pcidev);
--			return PCI_ERS_RESULT_NONE;
-+			break;
- 		default:
- 			dev_err(&pdev->xdev->dev,
- 				"bad request in aer recovery operation!\n");
- 		}
- 	}
- 
--	return PCI_ERS_RESULT_NONE;
-+	pci_dev_put(pcidev);
-+	return result;
- }
- 
- 
--- 
-2.34.1
+Tested on StarFighter MTL with Secure Boot disabled, integrity lockdown
+selected manually and a TPM-sealed seed. Keyless and user-key S4 cycles
+resumed the same process and boot ID with the swap header restored. Corrupted
+wrapped data, invalid magic, a corrupted complete-chunk tag and a wrong user
+key were rejected. On exact v3, the user-key cycle and the allocation, free
+and reallocation path used by swap-write confinement also passed.
+
+Previous version as it was updated whist waiting review:
+https://lore.kernel.org/all/cover.1785838445.git.sean@starlabs.systems/
+
+Changes in v3:
+- Rebase on current upstream master.
+- Preserve and validate the saved encrypted metadata boundary on resume.
+- Drain buffered metadata before a late user-key transition.
+- Reserve enough encrypted image space if userspace adds a user key after
+  querying the image size.
+- Apply swap-write confinement before enabling the lockdown exception, while
+  preserving the ordinary availability check which routes lockdown writes to
+  the confined path.
+- Account the pages actually allocated through the snapshot API instead of
+  assuming a userspace swap-map format.
+- Document the first-writer, anti-replay and userspace I/O requirements.
+- Remove an unused swap reverse-mapping helper and tighten local naming.
+
+Changes in v2:
+- Keep raw writes to active swap blocked under lockdown.
+- Track encrypted snapshot bytes and header writes before allowing
+  lockdown-time image writes.
+- Split the encrypted stream at the metadata boundary only when a user-key
+  transition is used.
+- Return -EFAULT for userspace copy failures.
+- Document resume meta_size handling.
+
+Evan Green (1):
+  PM: hibernate: add seed-wrapped encrypted snapshots
+
+Sean Rhodes (3):
+  PM: hibernate: confine encrypted snapshot writes
+  PM: hibernate: permit encrypted snapshot device under lockdown
+  PM: hibernate: document encrypted snapshot seed ABI
+
+ Documentation/ABI/testing/sysfs-power   |  18 +
+ Documentation/power/userland-swsusp.rst |  33 +
+ block/fops.c                            |  58 +-
+ include/linux/suspend.h                 |  24 +
+ include/linux/swap.h                    |   9 +
+ include/uapi/linux/suspend_ioctls.h     |  31 +-
+ kernel/power/Kconfig                    |  15 +
+ kernel/power/Makefile                   |   1 +
+ kernel/power/hibernate.c                |  32 +
+ kernel/power/power.h                    |   3 +
+ kernel/power/snapenc.c                  | 952 ++++++++++++++++++++++++
+ kernel/power/snapshot.c                 |   5 +
+ kernel/power/swap.c                     |  87 +++
+ kernel/power/user.c                     | 272 ++++++-
+ kernel/power/user.h                     | 150 ++++
+ mm/swapfile.c                           |  25 +
+ 16 files changed, 1683 insertions(+), 32 deletions(-)
+ create mode 100644 kernel/power/snapenc.c
+ create mode 100644 kernel/power/user.h
 
