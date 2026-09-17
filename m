@@ -1,145 +1,125 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66420402436;
-	Thu, 17 Sep 2026 08:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9DF404BE3
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633163; cv=none; b=qfcGx7g93gysNscx5NssDPay5Kl8tKqu8RlrIi1irxRfBR+8EwNULTFaFQkr7QcQnE/6oA4FFFOXvvYF+/jZqTSu5Lwpq4HQVXB7D6PnuyhmZKn4Czz0mYfVczsRlsGJIk6jFMX7ihpsn0/FadDuVkDAUUEpWmPDh/QsLuuAF1E=
+	t=1789633174; cv=none; b=lnNSwttGjPqnfv1CcnVPz8CF6Chmosy5yL3RNT1xR5/aiWMfR+rhkw1MyhTw2fHWbm5aUZXM8MKLHi8mdPpkGBEiEZhcAdiM/KbikI3p2OxFaKiJtESbdHHRSvfUWAKDB4Oe+DrgsPV7ipZYHeU15TNJuUp9lXXoG+9KHH0ziUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633163; c=relaxed/simple;
-	bh=LS99K8Op4slw1Q3V2zznD24yITjo1HPU1HStlTL3Ldg=;
+	s=arc-20240116; t=1789633174; c=relaxed/simple;
+	bh=vihXrLriQOvLlnrPibh11AIJDiMSfGA+uFFnwcE7e8Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kDCTXm6ac7e0Lcdbhppckwk+YWPkdQ/NWl4am0LWB+12x222jSkSev87Fgvw22EwdxLU0yJ+Dtzrnp79S8q/fiR4wwp1xRNINOYhWcs8jL+K1+EjNlU0uADVSR6v5P/vFlGs5/xSnlvuYGOY7spKk0RUz5m/Hs2/UPJapNYxCj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uTFwO27X; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=O6Xr1ScNGwxpC0+svXzYNVIfw53gRcfP0El3KJqcys7Im+CT2zhijWxTntLKD06GvicLipMh1WLgKY36sBKWfsplc+wFKIuShxV2D7D59qUW5id14QKlj95q58atG0Z28hCroaSRGfOAWGTIq5+OxkcbFqnrKN9EMncwC7Cr3yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=N13n9903; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uTFwO27X"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 942DB512;
-	Thu, 17 Sep 2026 10:17:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789633056;
-	bh=LS99K8Op4slw1Q3V2zznD24yITjo1HPU1HStlTL3Ldg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uTFwO27XdrmQIcRxWvyqKbRrtAt0F2Z5jOGUrbXKX+k9RSjYlRf/36wVgt9WDMmhP
-	 ogVToOnFrlhfS6IE4a5IpMbyyYpy/OLND/JQIJHPNXJ39uq83yhYpwV5mNIGcQLvFX
-	 2pKzZF1x3wIM80PjU2x5uV471p5Sbq90NaR0TYAw=
-Date: Thu, 17 Sep 2026 11:19:17 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Richard Leitner <richard.leitner@linux.dev>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
- vision-components,mipi-module-controller
-Message-ID: <20260917081917.GB21347@killaraus.ideasonboard.com>
-References: <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
- <20260916-daft-relaxed-mouse-9bfaf4@quoll>
- <aqpC8fxO4F3bFjF4@bombadil>
- <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org>
- <aqpYqrtKTY20IW_0@bombadil>
- <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org>
- <20260916165244.GB191870@killaraus.ideasonboard.com>
- <f20daf57-88cf-44e1-a2af-8769d3500176@kernel.org>
- <aquan_6JiKkEw-Kp@bombadil>
- <3dc63afd-ab21-4e3c-b6da-0fb51584ca9a@kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="N13n9903"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso1232545e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:19:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789633167; x=1790237967; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vihXrLriQOvLlnrPibh11AIJDiMSfGA+uFFnwcE7e8Y=;
+        b=N13n9903cRYavQDJcy/ICxyQN69MxpRL7oCeGY1RwpPRjh1rAoalWiClS8jEy2iEWO
+         pGQEQ1HxNPW78/d/1vYVNx/n/ny2tNTS6/JwKw4EcLrboBBnQXGH0w46ZU5Ac0ZdqbXk
+         TMRQSXCmdV0zSUcdYqrUF60VvbvJmCCa6Ghqu/x7+UcXMBnaSIUdvLoZ7JBO8vhWFQfg
+         UbY8BeztmRObBM7+0wflVma4PJXicoq92s2C7LZxaJOLZe3qgzIog87xnLOduqS/q5yR
+         c7uRo+3uvrqpf5n47aaoz352hF5zOHDctWhSmgBoUn8lXwN37eI1txW5pa1bdBwAhrd+
+         sxgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789633167; x=1790237967;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vihXrLriQOvLlnrPibh11AIJDiMSfGA+uFFnwcE7e8Y=;
+        b=2Z6v5l2H6amgw/SJnc/zpoh9j4z6jO2lrqOfk3dVi6j9jprlLfLG7KCa0xutoN3veL
+         AvAN3YACpRG6gMGMlu1gp3DiL6vtMsZQg3SGpr50d2fJFg8czd/aJtakEU+lk85pNyTA
+         CjLZRfmvmhWhK7lM4FxqPmV1PgCcfPhzPQBfvNBmUZXxKMzUDUJoguyIfmzmW4FVarq/
+         HA5m2Nstjddi/fmUlCzVRnmyRNl2D+ePLih2gZZi/K3xSOloI7lodK8qUgMg+HzQyVT+
+         6wfPs2gpBZnmaW3cP/t8RD8QhLaDlgMTa2BrGBUv9mDeBKgxif2MNpSJHrtklVrhbRm3
+         U/2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy813O3gfRBKR+sT2w3YSKDtDSiukE3EwiSTHarhLeNjDttonftBQdBhL8J93rT3y+ur7McRBiWCkML/aI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxcRdyg40rHCEPv+1t8wFzX5UXRGpoMcZTyQ9tZ+a9LJ0xtwJ3
+	jvUAEpyaUKWF0bmd0AIUxcXQRLr7oONIjaH3OW+ZGpjX3rUW2nhqsknPk1Mmo9n6TwU=
+X-Gm-Gg: AYBFou3wB9XwT+6TwZvvT8rKOrO3zncLOLCWltZp4p/hwjbGuA2SOwhdXaQGgLf+xum
+	s2A6sTYNYdo/K1yRDxCa6U9ADlOolWLxttnC7squFuAnSWySrIqv946pHJ3wKprX0601lvFrR1o
+	efMZEX/u3XC7BTf0rKwOBroiS9lVEVvT/55b/8yRKu6yUdt5MQjcRyj12fOjD6rbmeFilLrPXK0
+	W1xb/EuAw8mFEfL5+YtCoAOQm3c6iAKmPv3TL9/ayKBdHN/gQub9nlCF9cvBhBRaA0suoL361cq
+	7Xm8j0X6RFx+rAl8ZFOLz9bFWPRXgha/VWioJOsME6t1uAt4SIfKZIm1/jne65lyxVlYwWzWSYa
+	LvKmzBS1fmmVY6So2hCuwMSe+6v9H7uU75zjmYR+L1F62l+uZSxO8+MnDH/YMd9kFKiq2CCiajY
+	vjUK1yrI+IzVDwrks3SkpX1mgVFGInMnHCwBER+iLNVf4G/upPsW5VU1rdwS1b4msoCMjMvqkw4
+	3nCcH1BuvZ6oXFe1wlmpsR0h9VuLelSnajiANpG7wH6E0SYoFPRO2FCL+Iqsw==
+X-Received: by 2002:a05:600c:1d25:b0:49d:1916:2133 with SMTP id 5b1f17b1804b1-49fbd1ccc32mr42772625e9.8.1789633166769;
+        Thu, 17 Sep 2026 01:19:26 -0700 (PDT)
+Received: from localhost (p200300f65f19a904ca0f7403c08a2e26.dip0.t-ipconnect.de. [2003:f6:5f19:a904:ca0f:7403:c08a:2e26])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fbd24a6basm59658185e9.12.2026.09.17.01.19.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 01:19:25 -0700 (PDT)
+Date: Thu, 17 Sep 2026 10:19:24 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Dominik Brodowski <linux@dominikbrodowski.net>, 
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: pcmcia: Update location of PCMCIA_DEV_ID_MATCH_*
+ constants
+Message-ID: <aquiM-BdSq43WaTa@monoceros>
+References: <20260917062537.112663-2-u.kleine-koenig@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qhq3bq62uv4wtksa"
 Content-Disposition: inline
-In-Reply-To: <3dc63afd-ab21-4e3c-b6da-0fb51584ca9a@kernel.org>
+In-Reply-To: <20260917062537.112663-2-u.kleine-koenig@baylibre.com>
 
-On Thu, Sep 17, 2026 at 10:08:15AM +0200, Krzysztof Kozlowski wrote:
-> On 17/09/2026 09:55, Richard Leitner wrote:
-> >> There is no "clocks" property in the binding. If there is input, then
-> >> there is a "clocks".
-> >>
-> >> Then we never describe external oscillators with "clock-frequency"
-> >> property. ACPI does, but not DT.
-> > 
-> > So how would that be best solved in DT?
-> > 
-> > Should there be a "fixed-clock" child node for that external oscillator?
-> > Something like:
-> > 
-> > vc_mipi_ctrl: controller@10 {
-> >   ...
-> > 
-> >   vc_mipi_clk: clock {
-> >     compatible = "fixed-clock";
-> >     #clock-cells = <0>;
-> >     clock-frequency = <37125000>;
-> >   };
-> > 
-> 
-> Oh, wait, I misread. The external oscillator is not external to the
-> module? Below...
-> 
-> >   i2c-tunnel {
-> >     ...
-> > 
-> >     vc_mipi_sensor: camera@60 {
-> >       ...
-> > 
-> >       clocks = <&vc_mipi_clk>;
-> >       clock-names = "inck";
-> >     };
-> > };
-> > 
-> > Or should (as discussed in the other branch of this thread) there be a
-> > separate compatible for every vc-mipi sensor variant board? Then this
-> > could also be part of the compatible-dependent driver data.
-> > 
-> > Or are there any other/better approaches to this?
-> > 
-> >>
-> >>
-> >>> uses it for internal purpose, and also to provide a clock to the sensor.
-> >>> Very roughly speaking, and ignoring power supplies as we focus on the
-> >>> clocks, the camera module is architectured this way:
-> >>>
-> >>> Connector
-> >>>    ||                                       +--------+
-> >>>    || <------------ MIPI CSI-2 ------------ |        |
-> >>>    ||               +-------+               |        |
-> >>>    || <--- I2C ---> |       | <--- I2C ---> | Sensor |
-> >>>    ||               | FPGA  |               |        |
-> >>>    ||               |       | --- Clock --> |        |
-> >>>    ||               +-------+               +--------+
-> >>>                         ^
-> >>>                         |
-> >>>                     +-------+
-> >>>                     | Clock |
-> >>>                     | Osc.  |
-> >>>                     +-------+
-> >>>
-> >>> The frequency of the external clock oscillator is what the
-> >>> clock-frequency models.
-> 
-> ... this sentence confused me. If the oscillator is part of the module,
-> then clock-frequency property is applicable or it is implied by the
-> compatible.
 
-Our replies have crossed each other. I should have waited, it would have
-saved me time writing a long message :-)
+--qhq3bq62uv4wtksa
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] docs: pcmcia: Update location of PCMCIA_DEV_ID_MATCH_*
+ constants
+MIME-Version: 1.0
 
-Yes, the external oscillator is in the module. That's why I initially
-proposed using the clock-frequency property. We could still model it as
-a separate DT node (see my other e-mail), but I think it brings
-complexity for little gain.
+Hello,
 
--- 
-Regards,
+On Thu, Sep 17, 2026 at 08:25:36AM +0200, Uwe Kleine-K=F6nig wrote:
+> Recently <linux/mod_devicetable.h> was split into per-bus headers in
+> commit ad428f5811bd ("mod_devicetable.h: Split into per subsystem
+> headers"). Update the pcmcia documentation to refer to the new location
+> of the mentioned #defines.
 
-Laurent Pinchart
+oops, I had the wrong branch checked out when I diagnosed this patch was
+necessary.
+
+https://lore.kernel.org/all/20260908070031.32833-1-kmehltretter@gmail.com/
+is the better patch, please drop this one.
+
+Best regards
+Uwe
+
+--qhq3bq62uv4wtksa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqrooEACgkQj4D7WH0S
+/k76rggAoIgk2UF9wJTH0A/TXgFvN0TUsEzPMnlib5Npxev2fWawKm6NMPWTJTvr
+dEvXyoTHoNKXeR+8XDHhk25hdrAAAGWjKu6i0US8aOXhwe+QTyuzzxPhutN9jfWu
+8E1dBU9Q+abLzsaji2/0QIVHbWc5jNRCkKmkzXGZNdNZ9E4SOUz/fYc//LUJKaaJ
+eTPSnuUwPt3UjOHtxtvskdO4UVvdy1zuHupqgQBXGdKuhnlg/k/1ys+AIvb14+pg
+Tck8mVfkOutyVaxijF9PYS20R23rLGXwK3IcRubw3/oM9XVbMbSQbPNMGv5cLJgr
+kJaUF6/0my/vE3jz6WgAp5LGgsPWpA==
+=ZUpQ
+-----END PGP SIGNATURE-----
+
+--qhq3bq62uv4wtksa--
