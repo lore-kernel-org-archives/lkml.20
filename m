@@ -1,35 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C94F58FD1D;
-	Thu, 17 Sep 2026 14:22:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B845908B5;
+	Thu, 17 Sep 2026 14:22:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654926; cv=none; b=e4sg/gtnDobBXI0zP0sWMpbeNehyOIH6/ZCHyYoNYMEXQh553KoVZH4pReO+UzqTsjWB9cFfPeBldiwI3MKH+tdYLrMMENMCiFW5Kw8aN3sWWg0WMTY7Bb83bbbH6bAyoepdkz1OQBs28rblyTsKeMwz6hvWITaxATiKwQgXrxY=
+	t=1789654941; cv=none; b=muVo63Hg3C4jXGtKTP4r6PpipPQT1FayYWgL8TZOuYlCgiN2UQSPRi+T0WKsSqdR7nVtVzxGLoZp+mlWsMf7rxoC2hGv9AQyQIu+M7JRfZtbE9p+nNTppOvV6YnnSG6+b3Gi7c8rKOI/63JkPZHAEGsoXBimREM44beschW8bqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654926; c=relaxed/simple;
-	bh=ip1flpcRIjMldJWNOit5YtRQaHkCJwO5mD9/2P4s+HY=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=s98rA5vS7mOY1Zsbfm9Z6Kctix84Hb5SXMaRWItmOkfBZ2ymRQh/seK6Ea4JhhQ3tKLb1jfBP5XvIEYyN5CezO+p5Kv3Pck0yVQovRUFXzEm+WtteTC6Lp+GMlsLeZVScY4rM745WlpxnrcdruD9YNTpfJMsfzrbQTiajDrfElQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=luOLLHi8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789654941; c=relaxed/simple;
+	bh=5x3DivB9gQB5lxNvwTlsjIfeudSnzImQeh4vtHJ1uLw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dZLDjtPNzMQGrjKday7WC2Vp5uPiO8ysnWDcBq0ZiYXijF3oxCg9aAvlUy1KcwJU7U0VBIeKb4f3uuJ3jzbSZjUlfmxOrNBucUC5y3gIKQMkcDxnmBBqs/NalJCldFmG3Geiz9zdUh5wvdRSbR7qJjCIuYt0wvi4vgOd4LY3XQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ybj0/BVy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="luOLLHi8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03DDD1F000FF;
-	Thu, 17 Sep 2026 14:22:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ybj0/BVy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C39F31F00898;
+	Thu, 17 Sep 2026 14:22:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789654925;
-	bh=Q+kB1vPD/x4kkH8oa2bN4dsg1HODvpdInHMMuRK6EA4=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=luOLLHi8PurtGd4Kz5EWPBP9DpEEYaUdmt2vpFRYr5KYYx37dVvdkUh0xfyB7RxuC
-	 +vrfA4ZC1nkkUsypPhGk/94CT63MQYp2GTk8IZSTMjAHREbxHKIMzJdYox9PPA0+nh
-	 WjakmP0oHn2Rle1DedIZbEP+WTZTD2A7SktdYjqpDZuI73f3g/dx/P+Bj4A2ymcERp
-	 OWwxVq0blM9Nul2lrfynRCwGMlDbj5BdjqigwT4tzPTKpsSUN4KTAmW1Z7vHw+1IrO
-	 bzF8LBEtQ+fk9VE9TsmmBA/V0aIF0r6OjZmsNuawkGQus429crnhtiCCdoRCthwoBc
-	 Z511TiEXj9mXw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A91381196A;
-	Thu, 17 Sep 2026 14:20:59 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1789654939;
+	bh=T7NGmBAgLNyxB6QRiSTsc0KXNRJO/iSY1w2o1E3csW0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ybj0/BVybpVYjI52lmYjn6CSqa7w0qBacucLk7YHbAiTAl7Q94Kyqhxgfd3mwuOSb
+	 Y+b9VurEDucUbgBMrq8NEzYM5HqPVxdg8LEUkeFI00h/MqIJfrSnkrSDVb2cVrrqlB
+	 Rae2oLyzMmfBor6ViRSYc/GpIAdKnM8Vbfe8USRFmk9dcTd7uwi6fPMmTUB5BY9XwD
+	 QyNEhN7x6lAh/w1Ug+rYSeyWDp8DpcKbJjNy21Xc12juc7h4VJCfP4WnLQxQSi/Nj1
+	 /xcOfbSZOAnwv8QANoux2AAuA5iFgaYv9pPwHCfbmNrrTQImUmP9XXiPYDQHaYUFPQ
+	 fqhAfvPZj18bA==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 01/10] mm/damon/api: remove NR_DAMOS_FILTER_TYPES
+Date: Thu, 17 Sep 2026 07:21:59 -0700
+Message-ID: <20260917142210.90829-2-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260917142210.90829-1-sj@kernel.org>
+References: <20260917142210.90829-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,43 +45,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v2] netlink: specs: fix duplicate if/then keys in
- netlink-raw schema
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178965485830.3670790.9144403134041634623.git-patchwork-notify@kernel.org>
-Date: Thu, 17 Sep 2026 14:20:58 +0000
-References: <20260914-ynl-robustness-v2-1-c6125003b21e@gmail.com>
-In-Reply-To: <20260914-ynl-robustness-v2-1-c6125003b21e@gmail.com>
-To: Taylor Bates <tmbates12@gmail.com>
-Cc: donald.hunter@gmail.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org, jiri@resnulli.us,
- sdf@fomichev.me, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
+Nobody uses NR_DAMOS_FILTER_TYPES.  Remove it.
 
-This patch was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ include/linux/damon.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-On Mon, 14 Sep 2026 21:53:15 -0400 you wrote:
-> Currently netlink-raw.yaml contains two if keys and two then keys in a
-> single mapping that enforces a "len" for "pad" members and a "len" or
-> "struct" for binary members.
-> 
-> During validation PyYAML resolves duplicate keys last-wins, so only the
-> binary rule survives. Pad has not been validated since commit
-> bf08f32c8ced ("tools/net/ynl: Add support for nested structs") added
-> the second if/then pair in January 2024.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next,v2] netlink: specs: fix duplicate if/then keys in netlink-raw schema
-    https://git.kernel.org/netdev/net-next/c/5ccdfb2c3203
-
-You are awesome, thank you!
+diff --git a/include/linux/damon.h b/include/linux/damon.h
+index bbb190b474015..836353c4ab9aa 100644
+--- a/include/linux/damon.h
++++ b/include/linux/damon.h
+@@ -400,7 +400,6 @@ struct damos_stat {
+  * @DAMOS_FILTER_TYPE_ADDR:	Address range.
+  * @DAMOS_FILTER_TYPE_TARGET:	Data Access Monitoring target.
+  * @DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:	probe_hits weighted sum range.
+- * @NR_DAMOS_FILTER_TYPES:	Number of filter types.
+  *
+  * All types except &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET and
+  * &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM are handled by the underlying &struct
+@@ -422,7 +421,6 @@ enum damos_filter_type {
+ 	DAMOS_FILTER_TYPE_ADDR,
+ 	DAMOS_FILTER_TYPE_TARGET,
+ 	DAMOS_FILTER_TYPE_PROBE_HITS_WSUM,
+-	NR_DAMOS_FILTER_TYPES,
+ };
+ 
+ /**
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+2.47.3
