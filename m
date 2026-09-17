@@ -1,145 +1,197 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295A159D61A;
-	Thu, 17 Sep 2026 14:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789656074; cv=none; b=jnKyYzhC9LrcG5pTSElPKZ6iPxbQ4hyld87KvWHbHd6vhNbrl11XySBAqv1bSOAuGQMmZDAQieStWSt1zIRvG+SPu3kmA/mZJtau6jk/cQOVO9qtqQTnd/JRpirGZCzrOYMWVib+dTchFU7bq+vXVVrBvlc/4uYxelvKGXBUlco=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789656074; c=relaxed/simple;
-	bh=t+39SyfiaHgnqydfzkiFgoo21jF3tEkcnsN9WO2AfCE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CQESn4oargqNo8vSRcy9lg80RIOmHYErQPV9wFRH7cf7AKn5JhYz6G617J63gIroVXDZtMne25sTtZeo+cSC+VmqbZO8TQD1EKGSUy2e65sIoepURgiDHkuM86q8MDDx2Nt50F9LeEFSlNAIzMWmRK9tX9sPIWwHsHAeDAwJIOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=s6+OPOS4; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDC459B690
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789656072; cv=pass; b=MKWW6z4M4fbIlFHWI+5O0CM1uQmWDw1XFetRq0+maOZUvNvTtDJy9P0LDgqMreTW1dPT2bopVXCLEzmBngzg+giyHwpUIVdXuCoPl0vWD8ONP88mxWZvWb2FppML8FDM5/9iaNwzB9pSpB6rK8bKIIwl26Ch70WSRhgcF0L9QEg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789656072; c=relaxed/simple;
+	bh=Z5+KW6IM/u2XWsqVnGSlw3xSk2hRd1vadCxlUNJqr0A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ABhwoZ669hNOsTEoJn0OfAYHJdv2LPEJzE6St9iXxxl7lp/XVmAIGjDMm3dwTIVDY1/uFmGDGSowhmtwNHNLYt3Ey7WDHih6E6Q3itmddIRpqRqBj3Yyt5rd6GFH9Ca6A1VY373zXe3KTzETOdlXCm8C03XXusrcNywQCAD+/9Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=msTUwZog; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="s6+OPOS4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=luaGer/wyE+IKlz1ehjzIlh5ZjZGTMka5bZxq7yuqOY=; b=s6+OPOS4CHmKTtSY/aVpc8sTRe
-	0QcYGXMDKxqjX0o7fy8xdztussa/3sZf9AlKxW45l70OSeNbX/TDjKqcE/emBRVSeifvhe/zVslGK
-	jxCtRvccth7EyFUVtfjCsDyLN2y3kGGuwWJJS5AO0khHAd/HmkF4gOj6xaVsyAY8IWsbM8W9v7nx6
-	H9bXFEfTwYMyNcJqwxyGLNSMTlyYlU0b3bSL7lFQlshK2x2s9bx8YPMc9wep4j5DxvMvMi2MPTxS1
-	wv7X356lYFgXGZ1j4SjyOmH8jbjtJDiDJ8+kzbJsjkXBrdp60bHukzkozskIjDag+cs7RKWiCGOiC
-	eSc/wNPg==;
-Received: from [177.172.123.214] (helo=[192.168.15.100])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1x7DHw-003Tz7-3M; Thu, 17 Sep 2026 16:40:36 +0200
-Message-ID: <c3d9e024-90a0-45c4-8116-4eb19d8f4cd3@igalia.com>
-Date: Thu, 17 Sep 2026 11:40:33 -0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="msTUwZog"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so4990155e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:40:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789656057; cv=none;
+        d=google.com; s=arc-20260327;
+        b=boa97rvzB5R4e0XjvmFpYCzxLhg+JgY//mIicyHg1w2MYfz0/e/uYBIIHUYw7hda7u
+         KC0Aw1CORCCvzXezR1k/4BFLsNYA18oBRv+0dGW6TwXzdjXuPQTN5bcp8bCmkfL2776E
+         66XWzuuOwBJFeKyJzTVz4MfNnjeCN/hVfSHachmJ0C4rsdLa8+CF4nt0C4UuSVhTR4oT
+         6ha7AHJy0zlkh+zdobCPBD/rPGTQOK4kuqeK8mFkoRX4zI/4xOMbOcWiuWnPuqH/XMpN
+         WugSk350ZwTmhe2iBpepIWthAcZJS1gWdXPoFOJujszBPO9pRa6alEVQYYChVUS4YAXl
+         ydDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tKlGaZ7QcAexG2kTHUATEVY4bTePWKI9i02YcMMarMU=;
+        fh=qX6vGdsAU7SKB8Xmyhg2q43u/onCyN5hdR21cF6wGz8=;
+        b=r87s0uJXi0LjMpZ4cDp7lQYaB2uZWLdCpeX6DIaumVVR1y4T8npP4BNF8h/yWVrDIq
+         IHzqB+swqnPCURH3DKBBwgbGzRyDr9nm8JIx/fUyPSSn6fxfTvJz7AS3UF29Turb9Sko
+         9djkyU7xLkg79Br4zK1vaSkOwHdi5RUb4UG3eH7PhYliDRV7F+S6j2S8bEpnibhhGNT0
+         2k6f6hg7e89Sdw7eZfAfAMrMvcsDlnebMTVkzDSMDyCl0rXH+73NJVYmJ7jolW1QEyLt
+         sOYwT17qAwcdUj1NBJ+/LaxqU+D+Kt+a6nAiCpSpoTdxCQgKFZobqojWpl9BJuRPApAZ
+         GfBQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789656057; x=1790260857; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tKlGaZ7QcAexG2kTHUATEVY4bTePWKI9i02YcMMarMU=;
+        b=msTUwZogYcy4yEeL1JF8xGqrPSUCr7vYwvPNsRTlJBfVC7JmGsK8hidhUyb1f0dJK4
+         lrEtHlxGaS1yvqcrqbQuLxw9CyrK3HpsESwNnuBF5+4xR26hlimul7FHvHgEx8iVOlBG
+         Qof6emPU7y2MrAvXIbfIk18uib7BCrLZaT2rfVE6SPJqTTfIfa8sbkU1xFaflye2XMGh
+         jCctEOm1O+7QeTeDKsK4bH05QyxqlYGwkmbdeh73ECC8P1aOZ+rdn5ff021IMAteIJ0D
+         XEIzTkkYKmn3JLWpmpeoR8EbRSHb0rzpVi13IV1RnZr5OIXok8SMJZEkN18z9n4nyQl5
+         /Kww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789656057; x=1790260857;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tKlGaZ7QcAexG2kTHUATEVY4bTePWKI9i02YcMMarMU=;
+        b=GBf+IjNBxaD7J19lgan1f3U64ah/IyDqmCL9C3ADoN4iAH9bcmHm6R5TUJLGTItjZ8
+         4o5qWK2xD1XxXoxpavYBRysQ4iuYYDCy/1l5kT44a8U8AgRFUzUQRKJfqbVlSgDI+6Dq
+         Jxf6O3Q6JXbrMv1jzLxZAW0mmX5m7Tq16ymnkUWmbfLgnekL/j4fTn7sQ0IRR3x7K1gL
+         G4V1ea/PVYidncl8lJO1dpQg6OVs+zHXB/wOwTmodOI13TdKbhz78w+mAGAuYTswy5t9
+         d/aUAXp62K+sjz2cRP2Ck7Xro0mPskF3rvWoCxBXvEoIdtgVp9YhJPThFcT/dREpjVnx
+         9Fpw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1jmrXCkx7AkqPzMKt5b+g3PlQXwOmMYlWLDBpELeVPHzyjVHbHDD6grMxpvf0DKVvy0YVXTAc5XW7kco=@vger.kernel.org
+X-Gm-Message-State: AFuF++nykzYuKSV1EzSquEzygr8whrRABuAGWHonroLyQehwAPuhnRvP
+	OIYX8hO2e0eV0Nb5yYbcuLGZfweYDHRQYNKUcY7cBHq4sYoZggTLAjXyGX32Ub+bG7xhdrkmR67
+	rt7+7yRnR+hXiVSHMng2XT4d7lbIB9Kc=
+X-Gm-Gg: AYBFou2xDbLoK5MtmPU+KbRchFqhcph91krpyHtLte3rYY5ukfnCMGBdodtJXSPpGlz
+	Xkg2CvGmYUUQWtiGLRmti2WrUgnk41lQOIGXjETOt1xd1qVDNNNHrbRuj9w9FteUk3gTAJZFuO8
+	+duy+tu1GqQUM6kHtC2f1x7hpzcLXePykfJ/TFp08g7JuHg+snb7bspNEFDWlhyvWUFmxOPaTqR
+	PSQWO9X/ux5Kfa7ayx1rnl4qU0b4kUSq0rderd/plkvtUVN6PHaGh3Gac9c1ARXFqtPGUWBnYEp
+	2EJDK5xOjWEIdV4ogOeWcTyImK4c5MdM3kptiKulXyGNsdsoTHRgK7qS
+X-Received: by 2002:a05:600c:c490:b0:49c:e37e:4389 with SMTP id
+ 5b1f17b1804b1-49fbd1b7e82mr50298125e9.4.1789656056433; Thu, 17 Sep 2026
+ 07:40:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/4] arm64: vdso: Prepare for robust futex unlock
- support
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Peter Zijlstra <peterz@infradead.org>, Florian Weimer <fweimer@redhat.com>,
- Darren Hart <dvhart@infradead.org>, Ingo Molnar <mingo@kernel.org>,
- Davidlohr Bueso <dave@stgolabs.net>, Arnd Bergmann <arnd@arndb.de>,
- Uros Bizjak <ubizjak@gmail.com>, =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?=
- <linux@weissschuh.net>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
- kernel-dev@igalia.com
-References: <20260821-tonyk-robust_arm-v8-0-077707b6f1c7@igalia.com>
- <20260821-tonyk-robust_arm-v8-1-077707b6f1c7@igalia.com>
- <aqqmmNTDnzT5d-ZT@J2N7QTR9R3>
- <4cc1a199-8917-4a93-91f8-138ca1511cff@igalia.com>
- <aqu6ZzMpunlKDIwm@J2N7QTR9R3>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <aqu6ZzMpunlKDIwm@J2N7QTR9R3>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
+ <20260917052933.188679-4-jiangwenxiaomi@gmail.com> <27072d94-13bf-4bea-948a-d8a67976601e@kernel.org>
+In-Reply-To: <27072d94-13bf-4bea-948a-d8a67976601e@kernel.org>
+From: Wen Jiang <jiangwenxiaomi@gmail.com>
+Date: Thu, 17 Sep 2026 22:40:46 +0800
+X-Gm-Features: AcwNN1Xe57v3xkT9n8VgdwgVRkLfN2sWNkgkjHSUvI4F8KcWXjC4skCrmqkDzZ4
+Message-ID: <CAHKocdE_zyUQT459AiTBDzQHk0jh+VpXuSMDdgHjkg-dAkgBNg@mail.gmail.com>
+Subject: Re: [PATCH v8 03/10] mm/vmalloc: use pte_set_huge()/pte_clear_huge()
+ for PTE-level block mappings
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org, 
+	urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com, 
+	ajd@linux.ibm.com, anshuman.khandual@arm.com, baohua@kernel.org, 
+	david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com, leo.yan@arm.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au, 
+	npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Em 17/09/2026 07:01, Mark Rutland escreveu:
-> On Wed, Sep 16, 2026 at 10:05:38PM -0300, André Almeida wrote:
->> Em 16/09/2026 11:24, Mark Rutland escreveu:
->>> I reckon this might also be clearer as:
->>>
->>> | 	if (regs->regs[3])
->>> | 		return NULL;
->>> | 	
->>> | 	return (void __user *)regs->regs[2];
->>>
->>> Do we need a __force cast here, or is sparse happy without that?
->>
->> I've just re-compiled those patches with C=1, and didn't find any warning
->> for this.
-> 
-> Perfect, thanks for confirming!
-> 
-> [...]
-> 
->>>> +	futex_set_vdso_cs_range(fd, is_32bit ? 1 : 0, start, end, is_32bit);
->>>
->>> On arm64 (and every architecture other than x86, AFAICT), the
->>> native/compat VDSOs are mutually exclusive, and a single mm can only
->>> have one of them.
->>>
->>> Given that, I think we can make this:
->>>
->>> 	futex_set_vdso_cs_range(fd, 0, start, end, is_32bit);
->>>
->>> That way we'll avoid confusing/bikesheeding over 'is_32bit ? 1 : 0',
->>> without having to add mnemnonics for the native/compat CS indices.
->>
->> Perfect, I will simplify that then.
->>
->>> That said, what's the plan for 32-bit robust lists on a 64-bit host?
->>> IIUC you wanted that for emulation, and AFAICT you have no way to call
->>> __vdso_futex_robust_list32_try_unlock() from a native task.
->>
->> Yes, the plan is to be able to use the 32-bit robust lists on a 64-bit
->> hosts, with a new interface (set/get_robust_list2[1]). That means that a
->> 64-bit kernel will be able to process an user robust list made of 32-bit
->> pointers. So the emulator will call set_robust_list2() one time for it's own
->> list, and another time for the emulated app list.
->>
->> However, what we have agreed for the moment is that, while there's no
->> support for that, we will not expose the 32-bit functions yet [2]:
-> 
-> Ah, thanks for the pointer! I had mistakenly assumed that some of
-> that had already happened.
-> 
-> I guess the common logic for futex_set_vdso_cs_range() will need to
-> change at that point I guess if/when that happens, you'd expect to add
-> __vdso_futex_robust_list32_try_unlock() into the 64-bit VDSO, regardless
-> of compat?
-> 
+On Thu, 17 Sept 2026 at 22:00, Christophe Leroy (CS GROUP)
+<chleroy@kernel.org> wrote:
+>
+>
+>
+> Le 17/09/2026 =C3=A0 07:29, Wen Jiang a =C3=A9crit :
+> > From: Wen Jiang <jiangwen6@xiaomi.com>
+> >
+> > vmap installs PTE-level block mappings by reusing set_huge_pte_at() and
+> > huge_ptep_get_and_clear() under #ifdef CONFIG_HUGETLB_PAGE. This makes
+> > the feature silently unavailable on CONFIG_HUGETLB_PAGE=3Dn kernels and
+> > couples mm/vmalloc.c to HugeTLB internals it does not otherwise need.
+> >
+> > Now that arm64 and powerpc/8xx provide pte_set_huge() and
+> > pte_clear_huge(), add the generic fallbacks next to the existing
+> > pmd/pud_set_huge() family and convert vmap_pte_range() and
+> > vunmap_pte_range() to the new helpers. The CONFIG_HUGETLB_PAGE guards
+> > around the block-mapping paths are dropped, so PTE-level block mappings
+> > now also work on CONFIG_HUGETLB_PAGE=3Dn kernels, and mm/vmalloc.c no
+> > longer includes <linux/hugetlb.h>.
+> >
+> > The fallbacks exist only to keep the build working on architectures
+> > without PTE-level block mapping support. They are unreachable there:
+> > the callers only run when arch_vmap_pte_range_map_size() or
+> > arch_vmap_pte_range_unmap_size() return a size other than PAGE_SIZE,
+> > which requires an arch implementation. WARN_ON_ONCE() makes that
+> > explicit rather than silently doing nothing.
+> >
+> > Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+> > ---
+> >   include/linux/pgtable.h | 29 +++++++++++++++++++++++++++++
+> >   mm/vmalloc.c            | 19 ++++++-------------
+> >   2 files changed, 35 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+> > index cdd68ed3ae1a9..349ced999f959 100644
+> > --- a/include/linux/pgtable.h
+> > +++ b/include/linux/pgtable.h
+> > @@ -2134,6 +2134,35 @@ static inline int pmd_free_pte_page(pmd_t *pmd, =
+unsigned long addr)
+> >   }
+> >   #endif      /* CONFIG_HAVE_ARCH_HUGE_VMAP */
+> >
+> > +/*
+> > + * PTE-level block mappings for vmap.
+> > + *
+> > + * pte_set_huge() only has to be implemented by architectures whose
+> > + * arch_vmap_pte_range_map_size() can return a size other than PAGE_SI=
+ZE.
+> > + */
+> > +#ifndef __HAVE_ARCH_PTE_SET_HUGE
+> > +static inline void pte_set_huge(pte_t *ptep, unsigned long addr,
+> > +                             phys_addr_t phys, pgprot_t prot,
+> > +                             unsigned long size)
+> > +{
+> > +     WARN_ON_ONCE(1);
+>
+> BUILD_BUG_ON() would be better here.
+>
+> It should be possible because fallback arch_vmap_pte_range_map_size()
+> will constant-fold PAGE_SIZE so pte_set_huge() will never be called.
+>
 
-Yes, given __vdso_futex_robust_list64_try_unlock() would write a 64-bit 
-zero word in a 32-bit pointer, I probably need someway to expose 
-__vdso_futex_robust_list32_try_unlock().
+Agreed. These fallbacks exist only to keep the build working on
+architectures with PTE-level block mappings and should never actually
+be reached, so BUILD_BUG_ON() is right. I'll make that change in v9.
 
-However, this will be need when a x86-32 bit app is running on top of 
-the emulator, where the 32-bit glibc would eventually call the x86-32 
-version of the VDSO. I will check what the emulator does with the other 
-VDSOs, if they redirect to the native arm versions or what.
-
-> Mark.
-> 
->> "...that requires also the ability to register a 32-bit robust list for a
->> 64-bit process, which is not supported right now. So no, we are not exposing
->> something half functional..."
->>
->> So yes, in the near future I will need to expose
->> __vdso_futex_robust_list32_try_unlock() to 64-bit apps as well, to be able
->> to do this handling with 32-bit pointers, but we are not doing it right now.
->>
->> [1] https://lore.kernel.org/lkml/20251122-tonyk-robust_futex-v6-0-05fea005a0fd@igalia.com/
->>
->> [2] https://lore.kernel.org/lkml/878q9vwote.ffs@tglx/
->>
-
+Thanks,
+Wen
+> > +}
+> > +#endif
+> > +
+> > +/*
+> > + * Likewise, pte_clear_huge() only has to be implemented by architectu=
+res
+> > + * whose arch_vmap_pte_range_unmap_size() can return a size other than
+> > + * PAGE_SIZE.
+> > + */
+> > +#ifndef __HAVE_ARCH_PTE_CLEAR_HUGE
+> > +static inline pte_t pte_clear_huge(pte_t *ptep, unsigned long addr,
+> > +                                unsigned long size)
+> > +{
+> > +     WARN_ON_ONCE(1);
+> > +     return __pte(0);
+>
+> Same I guess.
+>
+> > +}
+> > +#endif
+> > +
+> >   #ifndef __HAVE_ARCH_FLUSH_PMD_TLB_RANGE
+> >   #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+> >   /*
