@@ -1,126 +1,127 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CCB233929;
-	Thu, 17 Sep 2026 08:06:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9F33612F3
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:07:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632397; cv=none; b=eKBZB2Y/7WirrV6PPz6bpvfoQaLscD/jSn4xJHGUxyVoFnRIllb6nuLAoQ/88dsDPlpkYz1pdzJd3G8NIRihyoE0O7+rWcPqXRcg0Lb7O14gSQuOGQHoWwKSwCFI1gWPbaX4lqrIL5+wvpnGi5mk4nXvVMqbWaL3aq1Fms3b7Yg=
+	t=1789632429; cv=none; b=ttvZcuw4gGUKPBHGxbF+EgsTB6Qgc2Cy6EkC5Cy9tfRu0vS+MZJCCH2N87UjIE/QOGvkfROi3E2icEFq41BroObdyGFlvaNShfWBAPeCPNo/dxYYXFdXDO/CRr2wARCP6L3wLdpYnLRM/naLr1jNEi8EgHrgm/ybhbNnOU93RmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632397; c=relaxed/simple;
-	bh=fqo8gm+019yK2fDOK8QTXcn7yDZrLVdxkB0gsooJVWU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Oc9+XG/nQpf4j4m5khmDb04VqAuFNC//iQlI/8fwRhQP+dCOFm/gGYt1zl/7DQoOnMfgLqdIoqsWljRG/MuvPOUvMytLzmrnDotdloC+VGTUxWwVWuL65VE2GwErgfGjx6twWbCuZvUdYb4Vc5QVb7l49Xib2p01fGYquKoZ1uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DvtATqvS; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DvtATqvS"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H60sBa1031543;
-	Thu, 17 Sep 2026 08:06:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=mgyaIekK9JpKqTtbgFAM34v0fKjmoY4G4/4
-	neLEAoRo=; b=DvtATqvSpEPfiQpWuyTQxntNpKK83RsLl8OnLhbRbuFzxnpVD35
-	CgzJeusPZrFtIQTV9OBQn4mNUH2ZBJQWLDs38nJ7crPFz2oh/iCxN13VZPf7eV/f
-	Q7RpKLpPST2r9Wx1WBgo7F57P7xDIXPbmuANpiTbHNrHmYDWT0xlX6dXH1tX3OA5
-	UlfGtMo5N08/9rjzYhNCH3LlE+YPzOaEZMpM6K5Ni6fgA7Alwc5VqweyEFq47QEC
-	cy3fgg7nYCJFd2/TBXdgKqzCXI8HMOyPgvai+JYSJ3ZBGXDBCBFFkVXnE3vjZ5qX
-	c7tWm2WjUozo6tvCVVfWjgrWqOMLECZ3dng==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqy7hb6jc-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 08:06:29 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68H86Qfx1712615;
-	Thu, 17 Sep 2026 08:06:26 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com ([10.213.101.157])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 68H86PKh1712602
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 08:06:25 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2342877)
-	id D287B648; Thu, 17 Sep 2026 13:36:24 +0530 (+0530)
-From: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-To: vkoul@kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
-        neil.armstrong@linaro.org, mani@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-phy@lists.infradead.org,
-        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH V3] dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Add QMP UFS PHY compatible for Maili
-Date: Thu, 17 Sep 2026 13:36:22 +0530
-Message-Id: <20260917080622.824253-1-nitin.rawat@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789632429; c=relaxed/simple;
+	bh=qf4Z/Wab6W5GL4Sinbl+uCK7C7f+qmxZxKQBDuJWh9U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=o7J/8LQ2Nn3YPetP7qhVNJ6Y/cTBQo4iTwNkSqYCoGJ+0PTqWfKh9XPW/w1+vZLVeWTL8NvgXRNDYZ4IR6D7ojgDnWaMCZF2SvWmuP8t5RQUCTe1vSDxlPqmnXmdyOyrle5InWdS4q6SA6kPgDJ0aCmvQrq1Jh0HTer65bvmzpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e52ff5dso377719e0c.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:07:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789632427; x=1790237227;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jrUfKqIAU8KdEdqG0jEkfz64jh4Vm1/h0EwrowMtP0c=;
+        b=FJrw6SObRIPlB1TgHveS2jsgxRN5TlpXesda4r3Ix7cPhD2AS34FP56riZsSM5pu0l
+         P/zKQWaa5Bo8Fc5sp84VnTyzzTKKEQFUTpfRLxew+9ZgRl1iAKksDi57XmKZBAwI/bEV
+         7i4IP2t45R31inQAyrmlL1fts8tvZwg71sKm9c/4W26hJDlbrxFa59BhPnefEBo3MzV+
+         bUL/iqkCo4Xf4Wlz81u4Nkb+X2rVB28ePJBwPQfKhvTO+DjD1pfizWI+Py6yEpp7anLm
+         4ugPmyaVDgXyCUkDRubZZ2bu+vIRqKRGgJur/TnN4nqeQdOeKZVYptQpuflmdoBXJl0f
+         YUpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwlnanVHv17MzwBbB+fkRwUOfyw6rtM/rj7eJV019aBp/jgJkg/83RG1eOMzmSu9BYp3E7NyFJ12H6I1jg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0oOfKH+fqirFZRGnHcNufTgx6OfGgXe4mOMOt9BygZek4cZcr
+	257dpw5MxvyXcPSL472qNzNI38Iu/RHi4BjeUR20UC3mDZE6GyraPpqeg/3ha4GzD9c=
+X-Gm-Gg: AYBFou2pwjhVZPAWV8URQnqaG5yRaSth/kB3WE4fz0OsKod5PQYv1NHKXGeO54QnbYj
+	qnOOxfeNY+I+SGyfbu6zRWn+zPlJat1EDD3Y2ER1GKO0OYC/HfmomWRWOq4+HiXu/01IqSHgBLv
+	WW59m6m/O8ZBkoZ/S8aEPRBYD1E8HrgmqBqU9eTUI9P10Lni3q0jTxxP7jVxP3UJhooYfZ4Bqqy
+	OaCAnBWfjRLbRnOcjI5nEXsS5vAPSxH3WdEp/tcrUbAfXwqYSm6mgIh/oV7XjDSappVq3X+gdrH
+	XcxACA0gnYogZ3+amsaeFoaGpTwhfl7wfAw2RbFj0E0Wi4hge2J3+b23loj2CPEqEKg2F+IuAFT
+	08w3+h4WVJuD0UsNMkzQy4L6Du9TDDw4WpqWbFnksL4D3zCyTwBDTH6P76en16/GO76zPiLw5nS
+	054YtEplxveN1HMG6r1Djvl69O5chYzsAiGTEoAzENpxDwI9R6Skhj0d4Eh+auNmUNeK4pasGnb
+	8BzJeTDBMwAoJDuMVfkU77rhVCp4aedSjTP
+X-Received: by 2002:a05:6122:893:b0:5c9:983e:79e4 with SMTP id 71dfb90a1353d-5c99ad82876mr6293116e0c.7.1789632427394;
+        Thu, 17 Sep 2026 01:07:07 -0700 (PDT)
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com. [74.125.227.41])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9a53e6001sm1949647e0c.10.2026.09.17.01.07.06
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 01:07:07 -0700 (PDT)
+Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-785692e5907so338449137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:07:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxtteDqwxENAaje4Y358cKL7ie+W2wnxLwqe8rL+HzwgDq8dEqF9QXUCqvVPXKOBxGIk2xktxgo04btebI=@vger.kernel.org
+X-Received: by 2002:a05:6102:918:b0:7a1:f951:6653 with SMTP id
+ ada2fe7eead31-7a1f9516b82mr1577084137.26.1789632426525; Thu, 17 Sep 2026
+ 01:07:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDEwOSBTYWx0ZWRfX2SEO/Py5hus7
- OD8PqQn7jjFdXN/ny09QWpQEzpCZGAFTmep0CscX/gKCwCbH/48zYDB7Ob3ljA5zydqgpovTW9v
- 1bRFvP4SNXmYnZII5293O1mCk2c01K9np0+Lo2R0U//6G26RRByNO+9p6DmvpOEFXbRuvF41DC3
- ibdW3EVm13JB6Po+ETykikzFitgIj4urcf54Y/72hpg5voJ/sSwQJc/SVwwYdwjV1E32RRSh57L
- VxFrkur4ZfKnIlGKQoyz14jnBfGqOoKGK2d+35wwtjicXaKqJhN8vo3r+G5m4m9VSruBO4yX1xv
- L+TOz9Nw51QjLDP8m2Mu/L9oY0GbxdxFZdDO84HW0BvcFtBtg07llnw2D4FpzZx5Whg6g+2MxjM
- dCt4yZnBYytUV8jWjXzr888+w/130CTz+atA4yq79gHdX9SA9xYmRUAniu3vNFDWx93UQ2Bu7wk
- 9WkBwdkvU7cxshNWgNg==
-X-Authority-Analysis: v=2.4 cv=L8aI0OT8 c=1 sm=1 tr=0 ts=6aab9f85 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=UH2bE8EBJgXlDjawRugA:9
-X-Proofpoint-GUID: Jl19jelWa-OXCnfRLrHGcCF5NJfZgXOJ
-X-Proofpoint-ORIG-GUID: Jl19jelWa-OXCnfRLrHGcCF5NJfZgXOJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDEwOSBTYWx0ZWRfX4KVBusxPfJGE
- lQIdht3yThQcZAwV/7bjbLX8IajC/VrnHDC2N62S5+BrKOgPe6zMwWehlfCrKelfaMtAfOSengt
- 23ei5QiDe7zzFQU973vF8Eoqx9yBB9Q=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_01,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 spamscore=0 phishscore=0 bulkscore=0
- clxscore=1011 suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170109
+References: <20260917035438.523010-1-marek.vasut+renesas@mailbox.org> <20260917035438.523010-2-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260917035438.523010-2-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 17 Sep 2026 10:06:54 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUKJYtZ=0r2rXbrsTcVyLmVs7m-jGbD2b7CgP_GRMeWdw@mail.gmail.com>
+X-Gm-Features: AcwNN1XfAZfrsW2pvaRzJQf-phJcWcSDCPkogzibQkcINXJ4SIBpgbRww5eIOW0
+Message-ID: <CAMuHMdUKJYtZ=0r2rXbrsTcVyLmVs7m-jGbD2b7CgP_GRMeWdw@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Document the QMP UFS PHY compatible for Qualcomm Maili to support
-physical layer functionality for UFS found on the SoC. Use fallback to
-indicate the compatibility of the QMP UFS PHY on the Maili with that on
-the Hawi.
+On Thu, 17 Sept 2026 at 05:54, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> R-Car X5H (R8A78000) is the first member of the R-Car Gen5 family.
+> Add support for R-Car X5H, which has slightly different GPIO block
+> register layout compared to previous generations. Introduce offset
+> remap table which performs 1:1 remap for R-Car Gen1..4 and a bit
+> more complex remap for R-Car Gen5.
+>
+> The GPIO block register offsets on R-Car Gen5 changed and the change
+> can be divided into five groups, registers which remained at the
+> same offset, INDT register shifted by +0x10, OUTDTSEL register
+> shifted by -0x34, INEN register shifted by -0x38 and the rest of
+> the registers used by the driver shifted by +0x70 .
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> Cc: Bartosz Golaszewski <brgl@kernel.org>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Linus Walleij <linusw@kernel.org>
+> Cc: Magnus Damm <magnus.damm@gmail.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-gpio@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+> V2: Rewrite this into a table look up
+> V3: - Use enum gpio_rcar_reg
+>     - Drop the IOINTSEL initializer
+>     - Drop REG_COUNT
+>     - s/int offs/enum gpio_rcar_reg reg/
+>     - Make offsetmap into two maps, and static const
+>     - Use C99-style initializers
+>     - Drop BUILD_BUG_ON
+>     - Store a pointer to the offset map table to use in priv
+> V4: Rebase on current next-20260916
 
-Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
----
-Change from V2:
-1. Addressed Mani's comment and dropped Jingyi's s-o-b tag.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Change from V1:
-1. Fixed Signed-off-by chain order.
----
- .../devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml    | 4 ++++
- 1 file changed, 4 insertions(+)
+Gr{oetje,eeting}s,
 
-diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-index 4efe40c0dc97..eb289c09906a 100644
---- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-@@ -16,6 +16,10 @@ description:
- properties:
-   compatible:
-     oneOf:
-+      - items:
-+          - enum:
-+              - qcom,maili-qmp-ufs-phy
-+          - const: qcom,hawi-qmp-ufs-phy
-       - items:
-           - enum:
-               - qcom,qcs8300-qmp-ufs-phy
---
-2.34.1
+                        Geert
 
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
