@@ -1,99 +1,118 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F8C4E73C7;
-	Thu, 17 Sep 2026 15:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592164DDB56
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657985; cv=none; b=EOk0NhLYrTfsHqgeNmOR493tv9djuA4usYtV64MUFTKMdV+LtF252tOVX65qbZruOjpwthagH1Bk1q8wAiR+cRQM8eQevyQCFehWYd06DQUaJUvWokWTt4HZF0UzdPej9UF5PvTIbnoF6KvO45diIgKum9dW7T2SgMWsjjkKYjA=
+	t=1789657997; cv=none; b=E76sG70tAdF6WVATEh17U1dDoxfKNxrok7fLZWizhKkLUmmEsUFdExBLC8nlG0JK7V+S/xzzm62XKiUF6aO5f6VOE3mkUs0bnTviIka16xKg5UoyKNBVmPJCsUPyHQQZFBGC90GI/menbDIMh5nO9KYSTH13PhoeqHddrKq5t8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657985; c=relaxed/simple;
-	bh=6p3gKvGXubWNvqcEvvNLR+vxK1mo1LbFSfvspunoQTg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fAR2pVAPjkGoZdvOS/Whz3b28MP5twRK7fBhq5m06MhwirW2GQ9Bp5LSihAgHmJTJRYrGy6F3gp3lQdCQo/qAPYiK/gJP32FsDgcHyhKzjEOKCfG6IJ1Ffxg+HOi9soJdCYshZ62qX1LtLdpQITL7CllJLZ5LW4sekF6oiAbUZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABXwz1wA6xq40iDCA--.46537S2;
-	Thu, 17 Sep 2026 23:12:48 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: James.Bottomley@HansenPartnership.com
-Cc: MPT-FusionLinux.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	martin.petersen@oracle.com,
-	ranjan.kumar@broadcom.com,
-	sathya.prakash@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	suganath-prabu.subramani@broadcom.com,
-	Wentao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH] scsi: mpt3sas: Fix pcie_device reference leak in _scsih_ublock_io_device_wait()
-Date: Thu, 17 Sep 2026 15:12:48 +0000
-Message-Id: <20260917151248.2158493-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789657997; c=relaxed/simple;
+	bh=nE3yOBYFFqYYkkgQfghfhhNaCFe7JvMndx4HdCjUOkg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p8+2WVrACxpAYRk+QtfcSaEt+uPyE7YmXnbS8wogaNN2zBoLL2CDV2OV8hFxQARFLJItD/QN3bDnaKmQ41bR5LZp48DXpB3Nn0PQHwmiYzdItevCLgr5G8Eu9eUnTIYZibGF5c3SGmoXz7QjSXvYOR+/lBh+FrrrRgaYftbVAzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=ZHQLtzjb; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="ZHQLtzjb"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55efebso165804066b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:13:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1789657982; x=1790262782; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UXyMySlTneT5OxJWs5j3wToWbg7gTC+b+9BlWFDMiew=;
+        b=ZHQLtzjbssryWleiIrc2Wan159dA1sxhddyC4uzrwIdod406QjnnvGONy+F9ZYCzID
+         2xxoy6APpXi4qjTBnu1NvuMuXf67DnVPo9xcmN/llePi3R/tHuecCYwzuLvJjPvOpp3F
+         Bv4QoopGQYlYGA42XP5yAOsSKQFNJ4su7dyaQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789657982; x=1790262782;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UXyMySlTneT5OxJWs5j3wToWbg7gTC+b+9BlWFDMiew=;
+        b=ogY5lRXZ43PLfR3z/IFmWPZEIFPfqhL+JY4KiIncW3lwsIEgIcu9miUncH5EnVybwp
+         HChsORipF6oFk54Yhs/1U9PqnbqVS0SFyVTGop8M0Hu8Rqzs0J/+wmj4ATOqslQl42w0
+         KL66JhC6EdAAlD1Jf1IuVtTxd0Rli3rrAx7dzXq7KFP1TOPhXCIS0meicAlQkVpAG1f5
+         fE1LFjxJzo+jtwRlKMIHyN8u+9oY6cenqWALWot0ddlNjgfj/27ilkYS5JYIazCun5Pe
+         njBdeYzTczuzJxMh2v+NuLqGOh9AW5CZ4IUsX3Eer2WYCsHlXV+PzECh55EpvSbWK/j+
+         Fgfg==
+X-Gm-Message-State: AFuF++nw7vYOJO3g1htrAB2Q1yiqtBhziQpem+EGUu7tKz90jWaDSql3
+	7vIDLN4mI5PlxIzqHdZ/zhxDE1hAn9+6HG1F1cKDRdHL38sUg+qn6RywIlDEH2+5Ji0=
+X-Gm-Gg: AYBFou1KwmRuxgCs2Dp7U8s7XAM1YV4oP8vbXCZfHYfCOCofV28JT356aGf1UfZ8gcV
+	EkKmmQ+G4rQqjMrpewm/nFRjt+er6J7v+O/pPqKPOBUuY1cevq4xVbs/GDKATiehiosWi7eorkD
+	yu+MzA0yzsTD+lI4HnhmEybXLz2qRtlEqvfR2Wixna1E3AbYS8KNiimC4qT5z9On03BrYlKq2fC
+	R9PuaA2pzUVg0vbOHAhD+Rp7PKV2v5lQaHl4JNavFqvzXXwRcI6NGIZnKD5qPZBqLzuhsCHHXn+
+	m0JvdQOvFwttPW+4vgdwYaYUUF/eAzVfXcnxlT1gShgjExgws2HG3cgcDNDcIEKBuLKX6JixATc
+	/VOJq1fYz7zty8NTUxz+N9m/9IfxDKfgpudPc0mx7MPfSRJL8lvfe1uMJfPxntDhqqp0GKzG16O
+	x90iT8hB/4zWbh43I4W7ZXahmtcUyt9GYvhmBIgdyI+Ql9AR/EWkpxfnnHm2iBHAUh/YeVtYzzl
+	ehO3oA=
+X-Received: by 2002:a17:907:3f13:b0:c29:4311:e23c with SMTP id a640c23a62f3a-c29e52b4043mr521614766b.28.1789657981872;
+        Thu, 17 Sep 2026 08:13:01 -0700 (PDT)
+Received: from cabron.k.g ([95.111.117.177])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29e801cdfesm263168566b.58.2026.09.17.08.13.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 08:13:01 -0700 (PDT)
+Date: Thu, 17 Sep 2026 18:13:00 +0300
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	dinguyen@kernel.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: vendor-prefixes: add Draeger AG
+Message-ID: <20260917151300.GE4583@cabron.k.g>
+References: <20260915133805.3249587-1-petko.manolov@konsulko.com>
+ <20260915133805.3249587-2-petko.manolov@konsulko.com>
+ <20260915-swore-armadillo-12f821bb00fc@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABXwz1wA6xq40iDCA--.46537S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KFy5XF4rWF43GryUXw48tFb_yoW8WFy5pF
-	WkCa4YyFyDGr4Ig3W7uw4Uury5AasIkr95tF40qa4I9ws5JFyFyr92krZ8J3WUJFZ3ta98
-	XrnrJr93CFW5JrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
-	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
-	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
-	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
-	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
-	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
-	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
-	vjxUDdgADUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwYNA2qr9tgevQAAsD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915-swore-armadillo-12f821bb00fc@spud>
 
-The reference taken by mpt3sas_get_pdev_by_handle() is only dropped at
-the bottom of the retry loop. When the device is not ready the loop
-takes the continue before that point, so the reference is leaked on
-every retry.
+On 26-09-15 17:29:29, Conor Dooley wrote:
+> On Tue, Sep 15, 2026 at 04:38:02PM +0300, Petko Manolov wrote:
+> > Add a vendor prefix for Draegar AG, which is Draegerwerk AG & Co. KGaA
+> > 
+> > Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+> 
+> A Link: to their website would be nice.
 
-Drop the reference right after the reset parameters have been read, so
-it is always released once per iteration.
+I assume the link is supposed to go in the commit message, correct?
 
-Fixes: aee682fad6cd ("scsi: mpt3sas: Improve device discovery and readiness handling for slow devices")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/scsi/mpt3sas/mpt3sas_scsih.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/mpt3sas/mpt3sas_scsih.c b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-index 12caffeed3a0..c841fe1706c7 100644
---- a/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-+++ b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-@@ -4093,6 +4093,8 @@ _scsih_ublock_io_device_wait(struct MPT3SAS_ADAPTER *ioc, u64 sas_address,
- 				tr_timeout = pcie_device->reset_timeout;
- 				tr_method = MPI26_SCSITASKMGMT_MSGFLAGS_PROTOCOL_LVL_RST_PCIE;
- 			}
-+			if (pcie_device)
-+				pcie_device_put(pcie_device);
- 			rc = _scsih_wait_for_device_to_become_ready(ioc,
- 			      sas_target->handle, 0, (sas_target->flags &
- 			      MPT_TARGET_FLAGS_RAID_COMPONENT), sdev->lun, tr_timeout, tr_method);
-@@ -4114,8 +4116,6 @@ _scsih_ublock_io_device_wait(struct MPT3SAS_ADAPTER *ioc, u64 sas_address,
- 				}
- 				continue;
- 			}
--			if (pcie_device)
--				pcie_device_put(pcie_device);
- 		} while ((rc == DEVICE_RETRY || rc == DEVICE_START_UNIT ||
- 		    rc == DEVICE_STOP_UNIT || rc == DEVICE_RETRY_UA)
- 			&& count++ <= command_retry_count);
--- 
-2.34.1
+		Petko
+
+
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> pw-bot: not-applicable
+> 
+> > ---
+> >  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+> >  1 file changed, 2 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > index ba2002969373..276d62b848d5 100644
+> > --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > @@ -467,6 +467,8 @@ patternProperties:
+> >      description: DPTechnics
+> >    "^dptel,.*":
+> >      description: Guangdong Dapu Telecom Co., Ltd.
+> > +  "^draeger,.*":
+> > +    description: Draegerwerk AG & Co. KGaA
+> >    "^dragino,.*":
+> >      description: Dragino Technology Co., Limited
+> >    "^dream,.*":
+> > -- 
+> > 2.47.3
+> > 
+
 
