@@ -1,374 +1,318 @@
-Received: from mail-ej2-f26.google.com (mail-ej2-f26.google.com [74.125.228.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021121.outbound.protection.outlook.com [52.101.100.121])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC6758F099
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:11:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79CE585994;
+	Thu, 17 Sep 2026 14:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.121
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654309; cv=pass; b=K+L8DWPowNX3kNLbfI9rlSeMImgA4+LRMri2flmKrDp7INWu2VpnSppnFaat5Fms07NFtx8fjO/FRyOlN1rccWfMZdxL5+ivxsCw11pjIaSrfk+H3VDXxB+BKCgMlGfM1kAuL9lLJpA2TG+eeYvBfxD1xZ77FjifsdViQ/Yu9Tw=
+	t=1789654334; cv=fail; b=vCcWz7T1u5cR6FeHoN/f7U2zVHWSrCS4easIZ82FePT61/ppBU4kIdgLGpcKqV4aixKlmvqbLNRnWcrkTH7US/IsNQduYmWS71oo+6sUE+2t/LMOtA3EZ2EVjAIRJ5gXjKHdbtLoOfz+6HG3QWDUqEYpTnkTEFQKm+rs1o/QL40=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654309; c=relaxed/simple;
-	bh=Ir34GXWxbcbDOhDCiBrhFDNN/xt3YvnGacI703DSBRo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=k+uXjdNB6UgN9xaIa9RPBXi8HW38VBrGkD6K+kLKr0Vd6XRmlYEcAZy/er63thMGsjLBS0uBgnpiBGu038CTg/5D/ECArmTddWabzt54lsIZgpd0a+/CgMHt6UfevIDjyLRg5ktb5MzlRaYQPitz2j6LprEx0OW0cTD+BigBxFg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FkOcTjvw; arc=pass smtp.client-ip=74.125.228.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789654334; c=relaxed/simple;
+	bh=VTgcxYaHvLsaRlKoO9F6sjJ1fODgHgUl7o60a+h/0Tg=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=nKKHfsdzQJMxaIc50zUZymRnxBb3TNgMne3XmP0Y5Z/VGFmOKwtkO+LIaZHcjNGzAuaXBa5LNR4yKGLFl77MAP7Du2CVfGcy0UtwBZw483sw49MJi/cv6YvCz308OA8Sj28AK9XGnK1/JWQoFQthqXyTVkXqywwNJC/hjNf9F08=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=e1n/nBFE; arc=fail smtp.client-ip=52.101.100.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FkOcTjvw"
-Received: by mail-ej2-f26.google.com with SMTP id a640c23a62f3a-c2940ef15d3so127592466b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:11:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789654300; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BovgsGBEVlgohYi9+oHFEzAEGQIg/72a9vuQRznaWpBZhZRJM/qtVTSSTonPDEDTra
-         P46gPGKcyKUW5qLG856NlD9XkPi9wS5ArxUVdKKCVaObU/Dv7rvY8rRyndgk9P7i4Y+1
-         xgdQODJ2JPecaxQzcQe0Zp3wtfb2FxBgCPmOEo6U8pXMauh5vDO2FOzPB+vj0vs7IBGY
-         FE1UP6zkeErN62W8WfxhZXhh8p0su9/RB2ikpqEIm6p0hfmZVbWxfsJKba9wDBrQ7ThZ
-         aQ30iQr1tlVBSKH2jY0xfZ6bolELGHMcnMeHq2ceXxqt43+BdmCOiZaJIAXnuvoakzuH
-         MXeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=R++7tFeBChA+zj9nKyQxFFd14Y5rYmO9osxU6fVJXRc=;
-        fh=qifS97xeSCHI4RFWgctATN7RX2cDk7SI3p6OmJd+iVE=;
-        b=TgtEiTa6SRz4DqmNamqyXHNblZvN+I/so2r9JGRQrAIEndAJ/Frb177/uQYZ6x/2P2
-         0x6btKpTLqUUT8ItKCvKpgSLdZSSFMichmdBeFWxHnRvMpMvHVVTNQ8jXaOqq9QWa1mP
-         fVoWLUvm2CAhduVU1KnTAKVG0F72tCuRdAE+B/LIS+YbExtJefC2tdGbBu2dICr5mhkx
-         esWmC3GuJkbq593A9717p+tvggFNK6mM0c411KYYne11f4q+eD31yxcOosJ5tzwrBXif
-         tVnUbrvGArRCoAXvN2CD1ULwxq04vt8nsO14t09oK3523gT3iFSsOnDg701y7J6F9uRL
-         xs1g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789654300; x=1790259100; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R++7tFeBChA+zj9nKyQxFFd14Y5rYmO9osxU6fVJXRc=;
-        b=FkOcTjvw3LTxJ/E7NjZHHSjuMHdMnKCULTRx9mTlKihewEZD4Zne+Zu3mb1xPbvIOQ
-         cDVretDh+B9wx/iJ+8WlNYdYsjPveExaHw5uHhP9v8TS7yi1HtcQPxcWrsDIogqveq2b
-         IuZpYOSJ46TiyOkWY3JfoLCLocdrvm0IotJW/HDZVkvsbP/LEN+HWzwRbJLRp5D32fyV
-         YrhLP0ar1gjyb//+8N6bU+hKFkTJSJ4JQLMhAVij1+xNT+gveAVZqCzF29eeJSQ+YOzA
-         KgD2P3NsK7RSpqYJmbcTKalSode6gA5vFtUCAZJBiSeCKbKil6pWC8zAjIl80qXryk78
-         1UEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789654300; x=1790259100;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=R++7tFeBChA+zj9nKyQxFFd14Y5rYmO9osxU6fVJXRc=;
-        b=LZN+l9Ra2LVJC7wulLohzTDr9DxkVcVICA645iXUMmbEaOUpxb9E0dmBWnOvNj0IBD
-         NzcqHvIWutZkTiAxqcg7QqEYAQ32vHsv5hL11BWBT8U4iwOvnoFLBBOk5i5Z2wEev4q/
-         J3tSjUj9Jo4UhhPtJaEm2C2igOZaCo00qD8Tq4/9nXedV38MOeAk44u5qldxaMgjpC5E
-         41/rN1w5x42FhkdhHdEyVMHApXworknJvrpeP25q7wsqO+VFob0omgAiZfiwgZtNAV1A
-         WOMjXAihdaoFiHc254DrRWSfhbDztvjo4TlU4DzaoFZFeaPFIF7Xc8F3lVH7MLnh3oZe
-         ju8A==
-X-Forwarded-Encrypted: i=1; AKwUvBwZLv9SsonvBZ9BcnKtLk3WpVo64eR8WT0iT/cEsLodYfK38eNLtUx04BQkuo4/BIS1wnQ9rVInGvye6Mg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ktdVKXzlWZYioFw0oE+3X6OWN4IbjTNl4itpqBHXvTHSdhZgYW
-	35bmwTSXLaUdFl2/dJvb2uYvhtkSE7IfCMpGlosr+bz2LcbrGw66sqTODJnTbsHQfnxwSJL6XSf
-	BgbMjsQ+sbReoBcmgG7H3VeMvnpivc7k=
-X-Gm-Gg: AYBFou1mkLMGZbQcXMRkZPUhBoCaX7/tjY+oy1wwfuT5Ij/ivmXHM/k3+bxyqzJKrzT
-	UMGuK3TWg0glfctLjXxkSA8JGdXa6e9eOXdxLeR93s/XdE2nYA9jsRXqUSoaZ8wp6A+C4kvQhps
-	vqDE8wbdf/5QhU8qO0tPog2qthCJpGAl8Ob/PbGX88zqO8CE8OEoxTwIS3hlHa2l8KGbqYexvVc
-	gbsBj6bvSvVSqtpBGMrAwQi/xp6Kwm5hW+IZOQg9I/suBYCRiEzPYt9xnd1MtJUjn++yGFBm5+E
-	7exOMnWTekHW4ztPf6eOg+Ro2Zgd19lGWaAVPfL7IUnMuFJSfFIKyugvWZDRPiXHw/uXX8FvRVk
-	63PHKedHSIyzX
-X-Received: by 2002:a17:907:5c3:b0:c29:f5d5:5aa2 with SMTP id
- a640c23a62f3a-c29f5d56248mr259313266b.44.1789654300128; Thu, 17 Sep 2026
- 07:11:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="e1n/nBFE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qWBVxyI7VjKhKX0ViMqe9Cna7u3QkGF2/Nyej8rYpl6AfkjRyQ+JFqGYh5PDBkVUNu61LScgNf3p1w1wANmCGAwJuNKehETEWPsuVk6dXg5irxG6Sr6a6oQNn+fYGkWHirHVWMT1yQUNMLixQC+MknfE0NaTJ49eQpNiog9COJ/RnH0tbLQRlXLPlyY+BD90wMpLsOp30T9xL2G/rvjaXtwJXyLJBfRW6fQV/9S24F4pk/LKI87CT751gBmkeM53Etvb8ybqrjS8IILO9eIp5GvQ7B0ibMSb1ZxuXgcWlTQkPpHA19MNpxwwp+O5HPPIJBnatyF1fJlMIP5p2xas9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/GTBUbxIYdrrls3ajb782VF9lFDja0m6URUpIRpwyLw=;
+ b=p//sEy40f3AD7/5ZJ+33y9UYMwXfVcxcRxwTBZqPaVrdrG1Dd1AgwwPnBl7mQDHAqH2Q8onRTYdej4d+nAZgypA8Y13tyb4QYXQ5ragqi6xEGWM7Cn6uZQ2fETKdpiqR7NoxvLJ0SphYjH5tXmYw9Sfmwz38cKcWW91RCRpJHFTzefIsxutmjUFVqcrQwaYJE1Z9mkerRM6BstyK3BjaMYp+9bHJiC2dDH5I8fChHc+UCC9KIboFFSumyZ3VakIXGprMEFNm6ARYfLIkfXnEQmH3CawAJDbe4plUgJxHHzIedE6Xul6kJDwacnlXvlnMfT1jaSO1miQNejr4Ht/SfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/GTBUbxIYdrrls3ajb782VF9lFDja0m6URUpIRpwyLw=;
+ b=e1n/nBFE/klFbQTr1RhwsQMjyjVPkFor0InCA2SSOcelBw720kVqwFE5HQAo6Jcg6UVPULEpVnlnwq9poTtRNm0dATke61ZojBQC1w8PlJd/hstExhm9KojvdD5vFfCt4T6alMna/VS1QlBj8DhwXhXoxOuXriQj25dSoXvXEsk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
+ by LO0P265MB8971.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4a4::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
+ 2026 14:12:04 +0000
+Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
+ 14:12:03 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 15:12:00 +0100
+Message-Id: <DLHNICVL6Z3P.RRA9TJ2P7XHC@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Gary Guo" <gary@garyguo.net>,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 7/8] gpu: nova-core: add NVKV typed decoding
+X-Mailer: aerc 0.22.0
+References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
+ <DLEQBIQ50C39.23F0YZK9D7VUD@nvidia.com>
+ <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
+ <DLHFGW1ISL53.3D3X360WD8HPV@garyguo.net>
+ <DLHGE0SNY9CO.1OPWR5QXKJLAZ@nvidia.com>
+ <DLHGPFAO0A8J.TU9XW1AZ8XAK@garyguo.net>
+ <DLHKBLIVFIX8.346WFGAIJBL9D@nvidia.com>
+In-Reply-To: <DLHKBLIVFIX8.346WFGAIJBL9D@nvidia.com>
+X-ClientProxiedBy: MA3P292CA0028.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:47::18) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4b4::24)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CACygGA9s1oWO53NPamL5tkaNhUt-W8S736OVAJZcYCU_UOni+A@mail.gmail.com>
- <87zexggmqt.wl-tiwai@suse.de>
-In-Reply-To: <87zexggmqt.wl-tiwai@suse.de>
-From: A Akhil <akhilarul324@gmail.com>
-Date: Thu, 17 Sep 2026 19:41:27 +0530
-X-Gm-Features: AcwNN1X3MmZRFLbe_AwFmuOCxiIUGExvPhDBWu2t1ea76UIL4-mhn_Dgb5IwQSA
-Message-ID: <CACygGA9h-qehZVFxRMOgtt8y-kHMwSCuuvZwBSi_7R0xpp-dRg@mail.gmail.com>
-Subject: Re: Sound/seq: hung task in odev_open - unuse callback sleeps under list_mutex
-To: Takashi Iwai <tiwai@suse.de>
-Cc: tiwai@suse.com, perex@perex.cz, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|LO0P265MB8971:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8f1fde7-8aca-43eb-6f24-08df14c5a5fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|10067099003|56012099006|4143699003|18002099003|22082099003|10063799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	H+Z+FMR7r+kDZ60/Gt6H3NbzixRMBxJ9lL5BkbtRLUTHgTOIuecaYAf3MDeFo8OcZ/WTSCMJVG4BZNx4Wwe2OklXU7IULIpfvUs0UppoTgc5cQWSxtXmQSYi1FCPxsKdO/0G8aTB10ycKYU6S9d+ocFZ6iRgouEYSLN3h4ebIs9ImkQywMznKtxNXOjyaMerqrmUhTcNsWLG3ECmmrn/EigahXDf1CYA/E6eolRxF7xhtsl0jAm5KX6o2xgu/t+S5t21O1msxESXE4SbyyX8X/AvF26gY6zSqQ9EEOBsIy9KiC53Y8BS5Cfw21gYviL01oiO6flYaE4yGCRO9hfM5+y+r3/zWZb68PzE54eXir6L0EtjpxeQiloPJ7Wst29SYEBPIyTMYIGxucvUBl0spxCESnqwEP222goFw5V/ZCldcJdoFFsVEgpCkYds86wgkMyrg88snd3+Kzi2ShheCLGwWWLzY96vA0rtIiV9mzOs3/gO23fs4Ku6ZXFRZEy+0Z5yOJWXw4Y6x7nHUeg0X5MCtDEtIeXvQIAvS/ou30/dH+zidI10p7qHE8AIkXZkFyHXRp5FSKXwXhjJWaYRrXc4be9caOGWMI8FCpgh7+rZRqqt6zBzopXLO6eWALS1rxhdfMCpMvto14YAMGkzYjaE4PhHXi8IkmvnbzAH7RM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003)(10063799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ejVVTmY1eWpkcDZSZUV1V1dlQmw4R2p2LzZjRHRCakc1aTlPL0lSOGdsS0Mv?=
+ =?utf-8?B?aGlPM0twdkxudzdRQm1zZkx0cUNveGgveWhJd200MXpsR292cjhwa00yNHVP?=
+ =?utf-8?B?b291YmVBL1ozb2JBaTRlNjVRckQwa0J4WGpWSVRQVzdoZnlWQTFJT2VRRGVo?=
+ =?utf-8?B?UGRiMEN4SUNGZWh0aFNIclJmYWNqOHZYclFQUFdMOE9vNWMxNnFzVlV1ejNU?=
+ =?utf-8?B?Rm0zRTVwZWc1UC94T0gzSWhjTHp6QithTzNEU2dudWI4TUtjc2lQdDVxejJD?=
+ =?utf-8?B?Qll3VVc4dGxWdjV2Z0dhOVdsdFV5V2JMRnI1YjdaVXZORUozamtwRjdLYnVV?=
+ =?utf-8?B?bWV3UWo1a2JVdXhJZTR1VWI1ZVFQMjRudlRic0x0V0xrODQvak5OZ1NDZVBR?=
+ =?utf-8?B?ZHkwVFFyN1RhTlIySVFkTUNQQVlRNFdqVno0WlhsVFBjSU9XYnA1N0VCN2sv?=
+ =?utf-8?B?aVFYaDlBbGxDdHdMU0pCSEo0N24waEM0OEdaMnRuNms5eEk2UitNYXhCcE5z?=
+ =?utf-8?B?dXh0dk5jOUp3aE0vZ1pTV0VZb1g4OFBlNTQvVm1wREViSE9MN0xLOEpOODBO?=
+ =?utf-8?B?SnkvUXg5cHc1cHZRaGc2WHgxQ3NHbDZ5UmtVckNtdXVIQXhXNlNvYU91Vzc4?=
+ =?utf-8?B?T3U0SEY3alRXV241bTdwdUFvalN0cnhtTUt6TDVwQVgwQWE1MjduTFpkUjVJ?=
+ =?utf-8?B?OERmQnBHMG5nMDhCaExncWJJUGpseHVSazNSa2VmbnJmSHZEMmRKSmpsYVNC?=
+ =?utf-8?B?WUVWZGRFVTZXeFg3eG95NnVNRnhvaExIQUF6eVJKSXVvM2FqS2VVcFUwbU0r?=
+ =?utf-8?B?WFBVM1lXVDM0dDN5eTNIUVlpU3pVRnd1VDNVZE50QTYxMzg1REhJcktlMzN5?=
+ =?utf-8?B?ZWVVOE9nbEtwemx2c2I4ZXQ2OG1Ma0s3UEdZRk5CM0dGQWtTN0VFcGFDNEtN?=
+ =?utf-8?B?RWl6dTFPejFoWm9XVzl3Z2UvRG0vTjBxSXVhc2R6ZjlyaXJaQ0UrK1l1TTlL?=
+ =?utf-8?B?UlhUaUhma2lpTUFBSDIxVHpIVHZYcitKMCt6MHRrSUcwSEZYYzJHSENpZTdn?=
+ =?utf-8?B?eVJXMTVEekY5VDVsL0s1bDlFRmxwRWljVEV0bzdpUnNSZGg3SmlyYmthSVhO?=
+ =?utf-8?B?aXYwN2VEZmVrU0N1Yy9pZmlTV1pyczF0RUZxYWJFRUYyWEtPTDBVYzQrMldn?=
+ =?utf-8?B?NTNSeXBhREp5ZW9GTkxLcXcwbkVIVGxKODIwTENvTk5RTStORzFwdzRuemZE?=
+ =?utf-8?B?S3FRL2FMTzdidElMRTlXU1NpdjhPRko1MWFsZHJVSUJta0x2Tlk5U1JqYllh?=
+ =?utf-8?B?KzNGaVRMWUxpd1J6ZHArWTBpRDA5SWR5S2FpQS9ranpEWGY5WmJBUzBuT0R5?=
+ =?utf-8?B?OGxUaTdQcDYyS1ZhTHJ5cW5RRnJ3QjgyY0Z2K3dNRjFQamVFd1p0NTlGa3Zt?=
+ =?utf-8?B?WXo5NXVtdzUrdk9iR1JNUGtEVmIxN0ZEa2xkZnVKMllqVXhyNTBnS1E2ZDB3?=
+ =?utf-8?B?RVg0YzNDOU5NQ0k2cmxGRytFUnFzWnFKYUFoZU1wNHJMbkhNY200dEFBS1Rm?=
+ =?utf-8?B?eGhMcmxsa1hKRGh0YkEwZXN0OHZsdUZlcXhlcnJSckpaaC96ckZ2a3NLRVVS?=
+ =?utf-8?B?cCtiOFdENU84eDJYUjJPenJyR1FydUtRTmkxT3RRUFcwaXBhdHhMNVNoYzN6?=
+ =?utf-8?B?aGk4d25LZTIva0M4Vkt5WUU5eXNMajh2cU9lY1dpelkyanlOay9GMEZPNlJ1?=
+ =?utf-8?B?anlmVnRXRFRIaWU0Si9EY3VVRXhncjQ0bnFXU2Nhd2k4ZDZVNFoyQVMyWGxH?=
+ =?utf-8?B?U0NPVVN6R0Z6MjFtRDlPU0F4TWFDSUFMcVVTcEpadGFwWUV2cUYwaWFxYVZT?=
+ =?utf-8?B?VXRTalVFSjhqK0diMlB4ZFBqSzIzTldpMWNJNjBRMHFyQm5nZkprTGlJV2No?=
+ =?utf-8?B?K1lpQjBLcTJPTm5LWnljV3YrU2RUa3RkODRsbDBJVkFwZkNKS2dYMFVGQUd2?=
+ =?utf-8?B?V251eFdnTzRTN3JaUytJNUtpakl0NWxvN2d3WFpLZU5TS29wdXJ4dk0vb1Vj?=
+ =?utf-8?B?VnlKcWtjaDh2YkdGQ01KRkRQNG9NM0VxUnRnMnpZUnJ4TE5QVURTb2RxbUEr?=
+ =?utf-8?B?M3o4clc5dzZGYUJHR2g1T2V1SFdwc2R6T1ROeFRNa0MrN1lFcndUejJ5cXJz?=
+ =?utf-8?B?MXVibWNVSVJ0R0FPMGRDV0VvbkF4ZmJTMHM1Y0Vaak1GbTB1NERyTFl3YkRu?=
+ =?utf-8?B?eW42bjVOa2dHZ05xNExIL0t3NFhKZ1dzcnFxSGZJdmdaWVN3TmdPN3Q5L2hU?=
+ =?utf-8?Q?puFQMu51DTPWkBUC0/?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8f1fde7-8aca-43eb-6f24-08df14c5a5fe
+X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 14:12:03.7170
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N4ZpnRiwcm/k3pQrnmb8o8LPR5gI7EkcbFCnGATonKTn2WH0aWoC7qjQ4moUQ5hi5MvSIkvZUNhjX1GP2h0tMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB8971
 
-Hi Takashi,
+On Thu Sep 17, 2026 at 12:42 PM BST, Eliot Courtney wrote:
+> On Thu Sep 17, 2026 at 5:52 PM JST, Gary Guo wrote:
+>> On Thu Sep 17, 2026 at 9:37 AM BST, Alexandre Courbot wrote:
+>>> On Thu Sep 17, 2026 at 8:53 AM BST, Gary Guo wrote:
+>>>> On Mon Sep 14, 2026 at 7:55 AM BST, Eliot Courtney wrote:
+>>>>> On Mon Sep 14, 2026 at 12:46 PM JST, Alexandre Courbot wrote:
+>>>>>> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
+>>>>>>>  use crate::gsp::nvkv::{
+>>>>>>> +    Array,
+>>>>>>>      Index,
+>>>>>>> +    Key,
+>>>>>>>      KeyId,
+>>>>>>>      Op,
+>>>>>>>      Opcode, //
+>>>>>>>  };
+>>>>>>>  use crate::num;
+>>>>>>> =20
+>>>>>>> +/// Defines a schema struct together with its [`Schema`] implement=
+ation that decodes into `$target`.
+>>>>>>> +///
+>>>>>>> +/// Each member of the struct should implement `Schema`. For every=
+ (key, index, value) triple
+>>>>>>> +/// decoded from the NVKV stream, the generated parent `Schema` im=
+plementation will call each member
+>>>>>>> +/// in declaration order with that triple. If a member consumes th=
+at triple, it will stop there.
+>>>>>>> +/// Otherwise it will keep going until all members are tried.
+>>>>>>> +///
+>>>>>>> +/// The schema struct holds the state required by the schema imple=
+mentation to do the decode. It's
+>>>>>>> +/// recommended to use one of the existing Schema kinds (`Required=
+`, `Accumulated`, `Key`, `Array`,
+>>>>>>> +/// `Indexed`) for each member.
+>>>>>>> +///
+>>>>>>> +/// # Examples
+>>>>>>> +///
+>>>>>>> +/// ```
+>>>>>>> +/// nvkv_decode! {
+>>>>>>> +///     struct RequestSchema =3D> Request {
+>>>>>>> +///         id: Required<u32, 0x0001>,
+>>>>>>> +///         name: Array<u8, 64, 0x0002>,
+>>>>>>> +///     }
+>>>>>>> +/// }
+>>>>>>> +/// ```
+>>>>>>> +macro_rules! nvkv_decode {
+>>>>>>> +    (
+>>>>>>> +        $(#[$attr:meta])*
+>>>>>>> +        $vis:vis struct $name:ident =3D> $target:ident {
+>>>>>>> +            $(
+>>>>>>> +                $(#[$field_attr:meta])*
+>>>>>>> +                $field_vis:vis $field:ident : $ty:ty
+>>>>>>> +            ),* $(,)?
+>>>>>>> +        }
+>>>>>>> +    ) =3D> {
+>>>>>>> +        $(#[$attr])*
+>>>>>>> +        $vis struct $name {
+>>>>>>> +            $(
+>>>>>>> +                $(#[$field_attr])*
+>>>>>>> +                $field_vis $field: $ty,
+>>>>>>> +            )*
+>>>>>>> +        }
+>>>>>>> +
+>>>>>>> +        impl $crate::gsp::nvkv::Schema for $name {
+>>>>>>> +            type Target =3D $target;
+>>>>>>> +
+>>>>>>> +            fn init() -> impl ::kernel::prelude::Init<Self> {
+>>>>>>> +                ::pin_init::init!(Self {
+>>>>>>> +                    $( $field <- <$ty as $crate::gsp::nvkv::Schema=
+>::init(), )*
+>>>>>>> +                })
+>>>>>>> +            }
+>>>>>>> +
+>>>>>>> +            fn visit(
+>>>>>>> +                &mut self,
+>>>>>>> +                key: $crate::gsp::nvkv::KeyId,
+>>>>>>> +                index: $crate::gsp::nvkv::Index,
+>>>>>>> +                value: $crate::gsp::nvkv::DecoderValue<'_>,
+>>>>>>> +            ) -> ::kernel::error::Result<bool> {
+>>>>>>> +                Ok(false
+>>>>>>> +                    $( || $crate::gsp::nvkv::Schema::visit(&mut se=
+lf.$field, key, index, value)? )*)
+>>>>>>
+>>>>>> Mmm looks like this is going to be `O(n)` with `n` being the number =
+of
+>>>>>> fields?
+>>>>>>
+>>>>>> This is ok for a first implementation but eventually I hope we can
+>>>>>> switch to a more efficient dispatch.
+>>>>>
+>>>>> I thought quite a bit about this while writing this code, since we ne=
+ed
+>>>>> the escape hatch to imperative decode (custom Schema impl basically).=
+ To
+>>>>> be able to get it down to a match on the key, we need to know ahead o=
+f
+>>>>> time which keys a Schema will consume. That duplicates the info from =
+the
+>>>>> visit() implementation.
+>>>>>
+>>>>> I thought up a few methods but it's unclear to me which one is best, =
+so
+>>>>> I just left it for now. Please LMK if you think this is urgent, I can
+>>>>> try in a follow up to improve this. Here are my ideas (when I say O(1=
+)
+>>>>> lookup I mean modulo how the compiler decides to do it with the set o=
+f
+>>>>> key IDs it gets):
+>>>>>
+>>>>> 1. current code - just visit()
+>>>>> pros: key source of truth not duplicates
+>>>>> cons: O(field) visit as you say
+>>>>>
+>>>>> 2. Associated const KEY_ID: Option<KeyId> - None if a Schema accepts =
+multiple keys.
+>>>>> You can match on each associated const in the macro.
+>>>>> pros: O(1) if the current key goes to a field with KEY_ID =3D Some(..=
+.)
+>>>>> cons: O(#fields accepting multiple keys) if current key is one of the=
+m
+>>>>>
+>>>>> 3. fn accepts() -> bool
+>>>>> You can match on `if F::accepts(key)` for each field. We could potent=
+ially make
+>>>>> this const with Gary's const traits polyfill.
+>>>>> pros: O(1) if you write an inline-able+optimizable implementation.
+>>>>>
+>>>>> 4. Associated const KEYS table; use tricks to concat tables
+>>>>> pros: O(1) lookup=20
+>>>>> cons: actually MSRV can't get this to optimize down to O(1)=20
+>>>>>   if you use slice::contains(), but stable can.
+>>>>
+>>>> Hmm, am I missing the obvious? Why not generate a `match` expression o=
+n IDs of
+>>>> fields? It looks like in the example all keys would have a known ID to=
+ the
+>>>> macro.
+>>>
+>>> Some keys may come from embedded structs, which the macro has no way to
+>>> see.
+>>
+>> You can match all keys that you can see, and delegate to embedded struct=
+s if
+>> keys are not known.
+>>
+>> This is essentially the same pattern that `#[serde(flatten)]` uses, just
+>> replacing identifier names with keys.
+>>
+>> The keys don't need be part of the type system, and it just additional m=
+etadata
+>> for the macro to generate correct impl.
+>>
+>> Best,
+>> Gary
+>
+> This sounds approximately equivalent to the option #2 I mentioned
+> (w.r.t. delegating if the keys are not known).
+>
+> I considered a serde-like approach where the metadata is annotated for
+> the macro rather than by the type system, but I wanted to keep the macro
+> simple and not introduce more macro-DSL than I need to. And also keep it
+> kinda easy to write manual Schemas by not keeping the deserialization
+> info in macro metadata.
 
-Thanks for the quick patch. Right, it's not a deadlock, that was my
-reading of it too. Nothing locks up permanently, it's just a wait long
-enough to trip the detector. That's the reason I bothered with it though.
-On the syzbot run the wait was over 140 s, and for the whole of that
-anything else touching the sequencer is stuck behind it.
+I guess that given that your schema types are completely separate from the
+struct definitions, it is okay.
 
-I ran it on the setup I used to find this in the first place. One thread
-opening and closing /dev/sequencer2 while two others try to open it,
-hung_task_timeout_secs=30, three runs each.
-
-  variant                       hung tasks    worst opener block
-  ---------------------------------------------------------------
-  unpatched                     10, 10, 10    ~130 s
-  your patch                    0, 0, 7       30.7 / 30.6 / 129.9 s
-  yours + open_mutex narrowed   7, 0, 0       129.9 / 41.3 / 40.9 s
-  drain bounded to 1s           0, 0, 0       20.6 / 18.4 / 21.8 s
-  drop instead of drain         0, 0, 0       4.0 / 2.4 / 2.4 s
-
-Your patch builds clean and clearly helps, two of the three runs were
-completely quiet. The third still hung though, and when it does it's
-coming from the opening side rather than the closing side.
-
-  task 98:  odev_open                      holds register_mutex
-             snd_seq_oss_open
-              snd_seq_oss_synth_setup_midi
-               snd_seq_oss_midi_open+0x8e  blocked on mdev->open_mutex
-  tasks 97, 99: blocked on register_mutex owned by 98 -> hung task
-
-An opener grabs register_mutex, blocks deeper down, and sits on it while
-it waits.
-
-I tried stacking my earlier open_mutex narrowing in snd_seq_oss_midi_close
-on top of yours, so the closer would be holding neither lock over the
-drain. Still hung 1 in 3, and the wait had just moved further down again,
-this time into snd_seq_port_connect() on grp->list_mutex.
-
-Three attempts at moving locks around now (mine, yours, both together) and
-every one of them just shifts where the wait happens. I don't think the
-locking is really the problem here. It's the 10*HZ per substream.
-
-Bounding the drain to 1*HZ in midisynth_unuse() does stop the hangs, but
-the cap is per substream and there are about twenty of them, so teardown
-still runs ~20 s. Capping the total across the teardown would do better,
-though that's more surgery.
-
-The one that actually worked was swapping snd_rawmidi_drain_output() for
-snd_rawmidi_drop_output() in midisynth_unuse(). ~2.4 s, nothing hung in
-any run. Most of what's left there isn't even the data wait, it's the
-msleep(50) per substream for the Tx FIFOs.
-
-I did wonder about throwing the data away, so I went and looked. As far as
-I can tell snd_rawmidi_drain_output() already drops the buffer once the
-10*HZ expires, so the bytes are gone either way and dropping early only
-costs whatever the device would have taken during the timeout. For a
-device that isn't draining, which is the case that gets us here, that's
-nothing. Tell me if I've misread that.
-
-So, do you want me to send the drop version as a proper patch? Or would
-you rather bound the drain, in which case I can try a total cap instead of
-a per substream one. I can also test a revised version of yours if you'd
-prefer to keep this inside seq_oss.
-
-Thanks,
-Akhil Arul
-
-
-
-
-On Thu, 17 Sept 2026 at 16:37, Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Thu, 17 Sep 2026 04:41:31 +0200,
-> A Akhil wrote:
-> >
-> >
-> > To: tiwai@suse.com, perex@perex.cz
-> > Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-> >     syzkaller-bugs@googlegroups.com
-> > Subject: sound/seq: hung task in odev_open - unuse callback sleeps under
-> > list_mutex
-> >
-> > Hi,
-> >
-> > I've been looking at this syzbot report:
-> >
-> >   INFO: task hung in odev_open (5)
-> >   https://syzkaller.appspot.com/bug?extid=825b7e3a03dd072c187f
-> >
-> > The hang isn't really in the OSS code where it gets reported. syzbot only
-> > shows the task waiting on register_mutex in odev_open(); the one actually
-> > holding things up is this:
-> >
-> >   odev_release                            takes register_mutex
-> >    snd_seq_oss_release / snd_seq_oss_reset
-> >     snd_seq_oss_synth_reset
-> >      snd_seq_oss_midi_close               takes mdev->open_mutex
-> >       snd_seq_ioctl_unsubscribe_port
-> >        snd_seq_port_disconnect
-> >         __delete_and_unsubscribe_port     called with grp->list_mutex held
-> >          midisynth_unuse                  seq_midi.c:298
-> >           snd_rawmidi_drain_output        sleeps 10*HZ per substream
-> >            schedule_timeout
-> >
-> > delete_and_unsubscribe_port() holds grp->list_mutex for write while the
-> > unuse callback runs, and midisynth_unuse() ends up in
-> > snd_rawmidi_drain_output(), which waits 10*HZ per substream. With ~8
-> > substreams I measured close() taking 82 seconds. Anything calling
-> > snd_seq_port_connect() blocks on the same rwsem, and in the OSS path that
-> > connect runs under register_mutex, so every other odev_open() piles up
-> > behind it and the hung task detector fires.
-> >
-> > I tried narrowing register_mutex in odev_release, and then open_mutex in
-> > snd_seq_oss_midi_close. Both build, both still hang - the wait just moves
-> > down a level each time, ending up in snd_seq_port_connect().
-> >
-> > Moving unsubscribe_port() out of the rwsem looked wrong to me: grp->count
-> > is protected by it, and the comment above subscribe_port() says open and
-> > close are only invoked on the 0->1 and 1->0 transitions. If close ran
-> > unlocked, a concurrent subscribe could call open first.
-> >
-> > That pairing also means an opener of the same port has to wait for a close
-> > in progress anyway, so I don't think lock narrowing can fix this - the
-> > teardown just has to stop taking tens of seconds.
-> >
-> > So the drain has to stop blocking the teardown. I can see three ways to do
-> > that, but all of them change when or whether pending MIDI output gets
-> > flushed, and that's not something I want to decide on my own:
-> >
-> >   - drop the output instead of draining it in midisynth_unuse()
-> >   - move the drain to a workqueue so the unuse callback doesn't sleep
-> >   - keep draining but cap the total wait
-> >
-> > Which of those would you take? I can write it and test it.
-> >
-> > (v7.3-rc3, 9b87fdc9af2f, qemu with dummy_hcd + raw-gadget. The syz repro
-> > alone didn't trigger it for me - I needed a second thread opening
-> > /dev/sequencer2 while another one closes it. That hits the hang in under a
-> > minute.)
->
-> IIUC, this is no real "hang" that locks up forever but just went over
-> threshold in mutex?  If so, we can avoid taking too long mutex like
-> the (totally untested) patch below?
->
->
-> thanks,
->
-> Takashi
->
-> -- 8< --
-> diff --git a/sound/core/seq/oss/seq_oss.c b/sound/core/seq/oss/seq_oss.c
-> index 2835576040ed..c790b1cd451a 100644
-> --- a/sound/core/seq/oss/seq_oss.c
-> +++ b/sound/core/seq/oss/seq_oss.c
-> @@ -132,13 +132,19 @@ static int
->  odev_release(struct inode *inode, struct file *file)
->  {
->         struct seq_oss_devinfo *dp;
-> +       int index;
->
->         dp = file->private_data;
->         if (!dp)
->                 return 0;
->
-> -       guard(mutex)(&register_mutex);
-> +       scoped_guard(mutex, &register_mutex)
-> +               snd_seq_oss_detach(dp);
-> +       index = dp->index;
->         snd_seq_oss_release(dp);
-> +       scoped_guard(mutex, &register_mutex)
-> +               snd_seq_oss_detach_done(index);
-> +
->         return 0;
->  }
->
-> @@ -149,6 +155,8 @@ odev_read(struct file *file, char __user *buf, size_t count, loff_t *offset)
->         dp = file->private_data;
->         if (snd_BUG_ON(!dp))
->                 return -ENXIO;
-> +       if (dp->closing)
-> +               return -EBADFD;
->         return snd_seq_oss_read(dp, buf, count);
->  }
->
-> @@ -160,6 +168,8 @@ odev_write(struct file *file, const char __user *buf, size_t count, loff_t *offs
->         dp = file->private_data;
->         if (snd_BUG_ON(!dp))
->                 return -ENXIO;
-> +       if (dp->closing)
-> +               return -EBADFD;
->         return snd_seq_oss_write(dp, buf, count, file);
->  }
->
-> diff --git a/sound/core/seq/oss/seq_oss_device.h b/sound/core/seq/oss/seq_oss_device.h
-> index 935cf3df0b30..ee318ea1a096 100644
-> --- a/sound/core/seq/oss/seq_oss_device.h
-> +++ b/sound/core/seq/oss/seq_oss_device.h
-> @@ -72,6 +72,7 @@ struct seq_oss_devinfo {
->         int cseq;       /* sequencer client number */
->         int port;       /* sequencer port number */
->         int queue;      /* sequencer queue number */
-> +       bool closing;
->
->         struct snd_seq_addr addr;       /* address of this device */
->
-> @@ -107,7 +108,9 @@ int snd_seq_oss_delete_client(void);
->
->  /* device file interface */
->  int snd_seq_oss_open(struct file *file, int level);
-> +void snd_seq_oss_detach(struct seq_oss_devinfo *dp);
->  void snd_seq_oss_release(struct seq_oss_devinfo *dp);
-> +void snd_seq_oss_detach_done(int index);
->  int snd_seq_oss_ioctl(struct seq_oss_devinfo *dp, unsigned int cmd, unsigned long arg);
->  int snd_seq_oss_read(struct seq_oss_devinfo *dev, char __user *buf, int count);
->  int snd_seq_oss_write(struct seq_oss_devinfo *dp, const char __user *buf, int count, struct file *opt);
-> diff --git a/sound/core/seq/oss/seq_oss_init.c b/sound/core/seq/oss/seq_oss_init.c
-> index 6586e07431c3..3aece0d2981a 100644
-> --- a/sound/core/seq/oss/seq_oss_init.c
-> +++ b/sound/core/seq/oss/seq_oss_init.c
-> @@ -33,6 +33,7 @@ static int system_port __ro_after_init = -1;
->  static int num_clients;
->  static struct seq_oss_devinfo *client_table[SNDRV_SEQ_OSS_MAX_CLIENTS];
->
-> +#define SEQ_OSS_DETACHED       ((struct seq_oss_devinfo *)-1)
->
->  /*
->   * prototypes
-> @@ -396,14 +397,23 @@ free_devinfo(void *private)
->  /*
->   * close sequencer device
->   */
-> +void snd_seq_oss_detach(struct seq_oss_devinfo *dp)
-> +{
-> +       dp->closing = true;
-> +       client_table[dp->index] = SEQ_OSS_DETACHED;
-> +       num_clients--;
-> +}
-> +
-> +void snd_seq_oss_detach_done(int index)
-> +{
-> +       client_table[index] = NULL;
-> +}
-> +
->  void
->  snd_seq_oss_release(struct seq_oss_devinfo *dp)
->  {
->         int queue;
->
-> -       client_table[dp->index] = NULL;
-> -       num_clients--;
-> -
->         snd_seq_oss_reset(dp);
->
->         snd_seq_oss_synth_cleanup(dp);
-> @@ -475,7 +485,7 @@ snd_seq_oss_system_info_read(struct snd_info_buffer *buf)
->         for (i = 0; i < num_clients; i++) {
->                 snd_iprintf(buf, "\nApplication %d: ", i);
->                 dp = client_table[i];
-> -               if (!dp) {
-> +               if (!dp || dp == SEQ_OSS_DETACHED) {
->                         snd_iprintf(buf, "*empty*\n");
->                         continue;
->                 }
-> diff --git a/sound/core/seq/oss/seq_oss_ioctl.c b/sound/core/seq/oss/seq_oss_ioctl.c
-> index f1a79776773f..2b4930a56a22 100644
-> --- a/sound/core/seq/oss/seq_oss_ioctl.c
-> +++ b/sound/core/seq/oss/seq_oss_ioctl.c
-> @@ -66,6 +66,9 @@ snd_seq_oss_ioctl(struct seq_oss_devinfo *dp, unsigned int cmd, unsigned long ca
->         void __user *arg = (void __user *)carg;
->         int __user *p = arg;
->
-> +       if (dp->closing)
-> +               return -EBADFD;
-> +
->         switch (cmd) {
->         case SNDCTL_TMR_TIMEBASE:
->         case SNDCTL_TMR_TEMPO:
+Best,
+Gary
