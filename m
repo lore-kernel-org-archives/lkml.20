@@ -1,178 +1,421 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886594CA796
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EE649EC6E;
+	Thu, 17 Sep 2026 21:20:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789680001; cv=none; b=pNYYnTAB/s4f0BLwWu3ejjQPsoPQU6ND0xJqnb5OzA0LRw2p+t9C1EqlM+aKe32lFLLPMDV/SpdKbZsc2XtHryAbONXNDxmLIESfvDhV6Me1CTCY7oDny4e048YiNjbbd2nLerwdU0bydcAbMOjRj8LDrRrR8ck60RBOzM0485U=
+	t=1789680035; cv=none; b=rYQ+sKaMrkk0ket2RttyXhSXSSdxlV4uS5rt4cesdkewK3AlRwFZio79lleGADI8HYTB4t2ZikFYQakhiJn4AfdaL1VdeKqB4KqyDN8klK4a0oMcUVlmN6HYpS1MADSKarDDpJjRZKielCRz14DAseAonlPH+cPXkHBDAJhbJG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789680001; c=relaxed/simple;
-	bh=LZSYtjDL6rm8OvTl3dPnZdBgXJ4Krf0C8RDMVYvhpEA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LFEHcskYAuF4rBlyMTG8rx2QMLYlyZQUeJT95F22bQ67P8ti1FLxpXYzyiamx02sbj4obrcJgX7djo6nbnLk/LeHG6PxtVYzpEikoc60B3IaVdj2sccafG6k3Uk696877lLpW+IH08TFOLtY7xXRyyEdyvPp0cM0V8AXqRJ94ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems; spf=pass smtp.mailfrom=starlabs.systems; dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b=VYxTMxcp; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starlabs.systems
+	s=arc-20240116; t=1789680035; c=relaxed/simple;
+	bh=PK/vI3gJpOjSUbmuWp8bS7qffOZFRo9YhPSotm7E0YE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=r5gyDrieqN0tDI5xHLaFyd1xiMUJ4Vv8hIUlqHX5E9U5ZEYb0fLre+aDF97rxKrNE2OIpVBT7iPe5dhwBfwSR4x+QqxCqolWXouqPN48xxtpvOh9jPhoIoRMKVIslTkVXKviYaWlxNjLH8DQnBfYhu4oBvkL3NyO6CS98/U2sTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H9HYC50+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="VYxTMxcp"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633cd80so8304f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:19:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1789679996; x=1790284796; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WP+SvTWO/ZPwSJKpdGUFyW4Q/3Pnzr6Y0d7TgXRZl/o=;
-        b=VYxTMxcp7tA5lGA4BEqF26q+tfaT3B6fbUay846gOumc6aJL3f3brTI9W3v4wK+Z5P
-         SktgngZIwTrRcoYepxIwqLd52f7nqW+vWU2CMaV0BwiackXY+aalE+1k847zWBWA/wQe
-         CiMKNT0C/cJ4r7Sx4FGa3tIzX6YWlRPRUulfibfSsxrV2B15Gsc6VCNdzg0Rb0pGVoyy
-         ZyF/lnDp1IETrYQW0mKyVswEFOVswD9b3kXDb0cVDcClBQ32e0uGYFD6UNxRCnOa+dpj
-         tbqF7SXnT3SdeREuKX4Q8EKwCr6NcxghWmCRKgs9AyahdTaTp4p9+d50HHPWFBmV+BEr
-         JaTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789679996; x=1790284796;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WP+SvTWO/ZPwSJKpdGUFyW4Q/3Pnzr6Y0d7TgXRZl/o=;
-        b=LOaXiXA+H9U4P+e4wwHqZJEEQd+ki8ZoIAhx4PmCLZyWA11mc5xfNyqiu6Q5myzTrp
-         WYoNUsPMucSkHAJZwegEoM6nEUAqjljHNY86UdtLgI7O6giqjlKEemlWSNyeE80yz7x6
-         MajrhUQQZfA9iLGmL0lefbXU/8VBCtMoxl4qPwbHsnjsJvlaVuTkN6x/rakiP0ngUopn
-         qsZGsWfiQWIjI5lh0wFu0wuuBNCykh1hGCYvInKW7zCMaKQI8Ys/QMFAHA/ACYqBDYLT
-         0dunDo/285nyGLQx2nsfrlxWeO/VoJfXoQv8qNfO92wgO6+eBzT29l+uCpLFQ9CEpyIz
-         RYDg==
-X-Forwarded-Encrypted: i=1; AKwUvBwnLDwLhn+Fynw7XsSoLWSwzSCrVQapgiRL5kdNIGOaF5vCJw9SGJaHnyIH9QsvWBSBEyf6pP7iGIZpyD8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmLSsYinT5SnvjfW7VX3SHOt4TJfTlMMcn6bg9fr+B1Vm+2Qh/
-	Mj3PxRf+70kDWvC0RW5+KtwOQOfQz3YHo5UCLAKvlTPl5Zd90b5XXELc5WeTcTgVNg==
-X-Gm-Gg: AYBFou3ip6anNY8NNiIV13JMaqIyT5Ey2g1JHU55D0wWp4ay5JtqnmeNt/YMk+KEUrU
-	qBBoTJF7qIEatmwtJ56bKFM97mqhv9cOzAW9PHOegJBkeMUVm4V/M37Ykz3190+6InoIsRUGnhU
-	GzGOmM9MZR/QoU7FXmRpe5unC9nuijEYocsxIJ1p1i/KQpbiqg4REwtjiYk+bVpZtjKg2NI6rvO
-	QkkgZaAeoBewd9hLPMhIEHCSrovGyjTkXcl/2wjdJInWnCjBwBaQ/YbQRbLceBHO8fc93cb4Mx9
-	ehVpGZRMRhDVcMD+p1WQDkmrd2migFtnQ6GDh9MRyXM7G5e3FDfjeT2tNue73dQ9Y9fMP29Jk6T
-	bjR5Xfs5olM+Af+oJ3SWgP1+0frZxsSjizmMVYnefmsjZXa6zG6t3HugA05L5PekT+EFwTvvWdr
-	1glaKZzuwIpTK/VP3QbHT7F/LwCBd5QCgzRDt0vzIigVaHJipB0l1yv0CDNPqAWK1Oief/pQ1Cv
-	58QWdQTOiYQ3N7Vv4gP0GTjDw==
-X-Received: by 2002:a05:6000:220f:b0:487:34c:81e with SMTP id ffacd0b85a97d-4871e226b3bmr226024f8f.20.1789679996270;
-        Thu, 17 Sep 2026 14:19:56 -0700 (PDT)
-Received: from fighter ([217.155.46.38])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1f6cfsm19086828f8f.13.2026.09.17.14.19.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 14:19:55 -0700 (PDT)
-From: Sean Rhodes <sean@starlabs.systems>
-To: linux-bluetooth@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sean Rhodes <sean@starlabs.systems>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	"Chia-Lin Kao (AceLan)" <acelan.kao@canonical.com>,
-	Xu Yang <xu.yang_2@nxp.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-usb@vger.kernel.org,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Paul Menzel <pmenzel@molgen.mpg.de>
-Subject: [PATCH v2 2/2] Bluetooth: btusb: restore powered-off Intel adapters
-Date: Thu, 17 Sep 2026 22:19:52 +0100
-Message-ID: <479fdb2638f34ccb02f35a40a34fcdc7cc41ccdf.1789679981.git.sean@starlabs.systems>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1789679980.git.sean@starlabs.systems>
-References: <cover.1789679980.git.sean@starlabs.systems>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H9HYC50+"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 41F06C2BCB3;
+	Thu, 17 Sep 2026 21:20:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789680035;
+	bh=PK/vI3gJpOjSUbmuWp8bS7qffOZFRo9YhPSotm7E0YE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=H9HYC50+2G2bvKO6y0HMMe/v4PcAhQyZZEi+bfOlcnsY4bgbGHvGhSbL+3YYHimXX
+	 e0a1pCY2tOmXKB2+FPBS9YJ4sTITnP4gEOXMNxhnpcTgPyPivV7fdqpUFaz6BJwVEq
+	 Z1YTiUh/jt0zJxI9iJ9V35ob6WaHjAb8rD/REW1J78MeHgqfBD7+HOGt58/1Tm4xyH
+	 no+CubNOWe4C0rDeFOI/3ECul3fSsWUz9wKb0H47d6EuhrvDlAtKrrx7cfdXWYgYhM
+	 4SpsgHxI1aE7l8SmmeN0y0BA3/KNUpxQB0a8a7my4AOy0mb9G8tbBts/2jzgeU3xZX
+	 lwsSDkGoUvq9g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F1E5C982D0;
+	Thu, 17 Sep 2026 21:20:35 +0000 (UTC)
+From: 0xSmash0th via B4 Relay <devnull+0xSmash0th.gmail.com@kernel.org>
+Date: Thu, 17 Sep 2026 17:20:24 -0400
+Subject: [PATCH] firmware: tegra: ivc: back off when a peer stalls the
+ handshake
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-ivc-resync-backoff-v1-1-dd41ef3a1390@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBuwIM2uEi10GmsILBSiiO6et
+ HyL/x/InIQzDNUDiU/JsseCpq6AVhcXRpmLoVWtVrYxKCdh4nxHQu9o20NAb3TfacteEUEJj8R
+ Brn86Tu/7AazuO8VkAAAA
+X-Change-ID: 20260917-ivc-resync-backoff-b768569eb0cc
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ 0xSmash0th <0xSmash0th@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789680034; l=13677;
+ i=0xSmash0th@gmail.com; s=20260917; h=from:subject:message-id;
+ bh=xI23HGnd1O7JPgGTS/M47lGy5+o/8IZV4S5U1Ah6NHw=;
+ b=GM9OUxc05mtbQd3pbhl3RcsXMbSB7uqdjcegbRRk+L+IrGaBBaCj7H1rcOuczia/9STMK+0RK
+ NxOYCWLMOcDAYEhkzzRwlqmVoxEM9vpJVxxtx5e6NAJAJNNsKRh/JiQ
+X-Developer-Key: i=0xSmash0th@gmail.com; a=ed25519;
+ pk=zVeoR0UBzAAUPJSb7skqhhRlouyNu+2xwsW4ThiH5YU=
+X-Endpoint-Received: by B4 Relay for 0xSmash0th@gmail.com/20260917 with
+ auth_id=1034
+X-Original-From: 0xSmash0th <0xSmash0th@gmail.com>
+Reply-To: 0xSmash0th@gmail.com
 
-ACPI-managed internal USB ports can lose power while the Bluetooth
-adapter is closed. The USB core then reset-resumes the device and, because
-btusb has no reset-resume callback, rebinds its interfaces.
+From: 0xSmash0th <0xSmash0th@gmail.com>
 
-For a closed, fixed Intel combined adapter on an ACPI-power-manageable
-port, preserve the binding and run the Intel setup again when the adapter
-is next opened. Keep the existing rebind behavior while HCI is running and
-keep runtime autosuspend blocked for other reset-resume-quirked adapters.
+An untrusted peer can wedge a channel for ever: park its state word on
+SYNC and stop touching the ring.  No path in tegra_ivc_notified() can
+change the victim's rx word, so rx_state stays SYNC and the loop is
+absorbing rather than slow -- pass 7,651,085 is indistinguishable from
+pass 1.  Each pass rewrites the ACK already in tx.state, re-zeroes both
+counters, rings the doorbell and returns -EAGAIN.
 
-Tested on a Star Labs Lite Mk IV with Intel 8087:0aaa. Three Bluetooth
-off/on cycles reached ACPI D3cold, restored the same hci0 without a USB
-disconnect, and discovery found nearby devices after resume.
+The only in-tree caller, tegra186_bpmp_channel_reset(), retries on that
+with no timeout, no iteration cap and no cpu_relax(), on both the probe
+and the resume path, so the victim burns a core at roughly 1.5M
+iterations per second for as long as the peer stays quiet.
 
-Signed-off-by: Sean Rhodes <sean@starlabs.systems>
+A peer is a service, not a VM: one untrusted guest can hold a channel to
+each of a rack of service partitions, and nothing here makes wedging the
+tenth harder than the first.
+
+This is not a new class of concern for ivc.c.  tegra_ivc_empty() already
+carries an over-full check "to prevent denial of service attacks", and
+calls that condition "an invalid case caused by a potentially malicious
+peer".  That defence covers the counters; the handshake has none.
+
+Apply geometric backoff to calls that make no progress, modelled on
+xen_irq_lateeoi_locked(): a saturating count, a doubling delay, a hard
+cap, and a reset the moment the peer moves.  Progress is detected by
+reading tx.state back rather than by tracking which branch ran, so the
+states from which no branch can escape are covered too.  The wait is a
+bounded busy-wait by default because tegra_bpmp_transfer_atomic() reaches
+this with interrupts disabled, and it uses local_clock() because the
+resume path can run with timekeeping suspended.
+
+This is a floor, not a fix.  The return value is unchanged, the caller
+still retries for ever and probe or resume still never completes -- the
+spin just stops costing what other channels have to share.  Bounding the
+loop belongs in the caller.
+
+Assisted-by: LLM
+Signed-off-by: 0xSmash0th <0xSmash0th@gmail.com>
 ---
- drivers/bluetooth/btusb_main.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+Precedent
+---------
+ivc.c already models a hostile peer.  tegra_ivc_empty() carries an
+over-full check "to prevent denial of service attacks", and calls the
+condition "an invalid case caused by a potentially malicious peer".  That
+defence covers the counters; the handshake has none.  This closes the
+second path, not a new class of concern.
 
-diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_main.c
-index be47ac894b6c..4b6ac67f182f 100644
---- a/drivers/bluetooth/btusb_main.c
-+++ b/drivers/bluetooth/btusb_main.c
-@@ -2190,6 +2190,16 @@ static void btusb_prepare_reset(struct hci_dev *hdev)
- 	usb_kill_anchored_urbs(&data->tx_anchor);
- }
+The handshake has never been revisited: since 2016, every patch to ivc.c
+has been the import itself or a tree-wide sweep.
+
+Scope
+-----
+A peer is a service on one channel, not a VM: DRIVE OS is one untrusted
+Linux guest with a channel to each of about ten service partitions.  One
+hostile peer wedges one channel, and nothing makes wedging the tenth
+harder than the first.
+
+Whether x services down becomes the SoC down, I cannot show.  That needs
+the spinning partitions to share cores rather than being pinned apart by
+the PCT, and the hypervisor to enforce no per-partition CPU budget.  I
+have no Tegra hardware and have not looked at the hypervisor -- treat the
+SoC-wide version as something to check, not a claim made here.
+
+Measurements
+------------
+Keying the test on the first branch -- where the doorbell amplification
+lives -- would cover only a third of the reachable cases.  Over 30 inputs
+that stall the loop:
+
+    looping endpoint                  n    before        after
+    rx=SYNC, tx=ACK   (branch A)      9   ~7,700,000      50-64
+    rx=SYNC, tx=SYNC  (enters A)      2   ~7,700,000         65
+    tx=SYNC, rx=EST   (empty else)   15    8,387,013      63-64
+    tx=SYNC, rx=OTHER (empty else)    3    7,648,606         64
+    tx=OTHER, rx=EST  (no escape)     1    8,244,347         64
+
+Two thirds are the do-nothing else at the end of the chain, which emits no
+doorbell at all -- silent, and so easier to miss.  The last row is an
+out-of-enum tx.state from which no branch can escape.
+
+Why only a floor
+----------------
+xen-netback puts five layers between a hostile frontend and the host that
+IVC has none of: a thread per peer, a blocking wait, stall detection that
+parks and recovers, a per-peer quota, and a fatal way to declare one peer
+dead.  Backoff is the floor under those, not a substitute.
+
+The two tunables and two counters are documented at their declarations in
+ivc.h.  Nothing in the tree sets or reads them yet.
+
+Testing
+-------
+Exercised under LKL with a userspace fuzzer driving ivc.c directly; the
+numbers above are from those runs.
+
+arm64 defconfig builds clean to vmlinux and Image under W=1 with TEGRA_IVC,
+TEGRA_BPMP and the 186/194/234/264 SoC options on.  ivc.o also builds clean
+for 32-bit ARM and pulls in no 64-bit division helper.  Not run on Tegra
+hardware.
+
+Tool assistance
+---------------
+AI tooling was used throughout -- audit, fuzzing setup, patch and changelog
+-- but never fully automated; every step was hand-checked.  The Assisted-by
+trailer is on the patch.
+---
+ drivers/firmware/tegra/ivc.c | 132 +++++++++++++++++++++++++++++++++++++++++++
+ include/soc/tegra/ivc.h      |  44 +++++++++++++++
+ 2 files changed, 176 insertions(+)
+
+diff --git a/drivers/firmware/tegra/ivc.c b/drivers/firmware/tegra/ivc.c
+index 8c9aff9804c0..2b7d7a240aa6 100644
+--- a/drivers/firmware/tegra/ivc.c
++++ b/drivers/firmware/tegra/ivc.c
+@@ -3,6 +3,12 @@
+  * Copyright (c) 2014-2016, NVIDIA CORPORATION.  All rights reserved.
+  */
  
-+static bool btusb_intel_acpi_power_manageable(struct btusb_data *data)
++#include <linux/delay.h>
++#include <linux/math64.h>
++#include <linux/minmax.h>
++#include <linux/sched/clock.h>
++#include <linux/time64.h>
++
+ #include <soc/tegra/ivc.h>
+ 
+ #define TEGRA_IVC_ALIGN 64
+@@ -395,10 +401,111 @@ int tegra_ivc_write_advance(struct tegra_ivc *ivc)
+ }
+ EXPORT_SYMBOL(tegra_ivc_write_advance);
+ 
++/*
++ * A peer that moves to the SYNC state and then stops responding leaves this
++ * end with nothing to do. Each call to tegra_ivc_notified() repeats the same
++ * work, changes no state and returns -EAGAIN again, and the only in-tree
++ * caller retries in a loop with no timeout and no iteration limit. The result
++ * is a doorbell and several shared memory writes per iteration, for as long as
++ * the peer stays silent.
++ *
++ * Delay the call instead of skipping the work. Each call still does everything
++ * it did before, so the behaviour a caller sees is unchanged apart from how
++ * long the call takes. The delay doubles on each fruitless call, up to
++ * TEGRA_IVC_RESYNC_MAX_NS, which reduces the doorbell rate, the memory traffic
++ * and the CPU time together.
++ *
++ * A call counts as fruitless if it did not change this end's own state and is
++ * about to return -EAGAIN. That covers every case where a peer can stall the
++ * handshake, including the states from which no branch below can make
++ * progress, without naming any of them.
++ *
++ * The loop itself is not bounded by this. The channel really is not ready, so
++ * the return value does not change and a caller that retries forever still
++ * does. Only the cost of retrying falls.
++ */
++#define TEGRA_IVC_RESYNC_MIN_NS		(10 * NSEC_PER_USEC)
++#define TEGRA_IVC_RESYNC_MAX_NS		(100 * NSEC_PER_MSEC)
++#define TEGRA_IVC_RESYNC_MAX_SHIFT	16
++#define TEGRA_IVC_RESYNC_THRESHOLD	1
++
++/*
++ * resync_count stops increasing at U8_MAX, so a threshold near that value
++ * would leave no room for the delay to grow and the backoff would never take
++ * effect. Clamp the threshold so that a larger value always means a longer
++ * grace period, and leave TEGRA_IVC_RESYNC_DISABLED as the only way to turn
++ * the backoff off.
++ */
++#define TEGRA_IVC_RESYNC_THRESHOLD_MAX	32
++
++static void tegra_ivc_resync_restart(struct tegra_ivc *ivc)
 +{
-+	return IS_ENABLED(CONFIG_ACPI) &&
-+	       data->match_id->driver_info & BTUSB_INTEL_COMBINED &&
-+	       data->udev->dev.removable == DEVICE_FIXED &&
-+	       data->udev->parent && data->udev->portnum &&
-+	       usb_acpi_power_manageable(data->udev->parent,
-+					 data->udev->portnum - 1);
++	ivc->resync_count = 0;
 +}
 +
- static int btusb_close(struct hci_dev *hdev)
- {
- 	struct btusb_data *data = hci_get_drvdata(hdev);
-@@ -4595,6 +4605,9 @@ static int btusb_probe(struct usb_interface *intf,
- 		hdev->send = btusb_send_frame_intel;
- 		hdev->reset = btusb_intel_reset;
- 
-+		if (btusb_intel_acpi_power_manageable(data))
-+			hci_set_quirk(hdev, HCI_QUIRK_NON_PERSISTENT_SETUP);
-+
- 		if (id->driver_info & BTUSB_INTEL_NO_WBS_SUPPORT)
- 			btintel_set_flag(hdev, INTEL_ROM_LEGACY_NO_WBS_SUPPORT);
- 
-@@ -4912,6 +4925,12 @@ static int btusb_suspend(struct usb_interface *intf, pm_message_t message)
- 
- 	BT_DBG("intf %p", intf);
- 
-+	/* reset_resume is only safe for the Intel ACPI path below. */
-+	if (PMSG_IS_AUTO(message) &&
-+	    (data->udev->quirks & USB_QUIRK_RESET_RESUME) &&
-+	    !btusb_intel_acpi_power_manageable(data))
-+		return -EBUSY;
-+
- 	/*
- 	 * It is reported that remote wakeup events could sometimes cause some
- 	 * adapters completely unresponsive. Resetting the xHCI root hub doesn't
-@@ -5076,6 +5095,19 @@ static int btusb_resume(struct usb_interface *intf)
- 	return err;
- }
- 
-+static int btusb_reset_resume(struct usb_interface *intf)
++static void tegra_ivc_resync_wait(struct tegra_ivc *ivc)
 +{
-+	struct btusb_data *data = usb_get_intfdata(intf);
++	unsigned int threshold = ivc->resync_threshold;
++	unsigned int shift;
++	u64 deadline;
++	u64 delay;
 +
-+	if (!btusb_intel_acpi_power_manageable(data) ||
-+	    test_bit(HCI_RUNNING, &data->hdev->flags)) {
-+		intf->needs_binding = 1;
-+		return 0;
++	if (threshold == TEGRA_IVC_RESYNC_DISABLED)
++		return;
++
++	if (!threshold)
++		threshold = TEGRA_IVC_RESYNC_THRESHOLD;
++	else if (threshold > TEGRA_IVC_RESYNC_THRESHOLD_MAX)
++		threshold = TEGRA_IVC_RESYNC_THRESHOLD_MAX;
++
++	ivc->resync_events++;
++
++	if (ivc->resync_count != U8_MAX)
++		ivc->resync_count++;
++
++	/*
++	 * A small number of fruitless calls is normal while a peer catches
++	 * up, so they are not delayed. Still yield to any sibling thread,
++	 * because the caller is likely to be spinning.
++	 */
++	if (ivc->resync_count <= threshold) {
++		cpu_relax();
++		return;
 +	}
 +
-+	return btusb_resume(intf);
++	shift = ivc->resync_count - 1 - threshold;
++	if (shift >= TEGRA_IVC_RESYNC_MAX_SHIFT)
++		delay = TEGRA_IVC_RESYNC_MAX_NS;
++	else
++		delay = min_t(u64, TEGRA_IVC_RESYNC_MIN_NS << shift,
++			      TEGRA_IVC_RESYNC_MAX_NS);
++
++	ivc->resync_delayed_ns += delay;
++
++	if (ivc->resync_can_sleep) {
++		might_sleep();
++		fsleep(div_u64(delay, NSEC_PER_USEC));
++		return;
++	}
++
++	/*
++	 * This can be reached while the device is suspended, where
++	 * timekeeping may also be suspended and ktime_get() would warn and
++	 * return a clock that is not advancing. local_clock() remains valid
++	 * there, and tegra_bpmp_wait_request_channel_free() busy-waits the
++	 * same way for the same reason.
++	 */
++	deadline = local_clock() + delay;
++	while (local_clock() < deadline)
++		cpu_relax();
 +}
 +
- #ifdef CONFIG_DEV_COREDUMP
- static void btusb_coredump(struct device *dev)
+ void tegra_ivc_reset(struct tegra_ivc *ivc)
  {
-@@ -5093,6 +5125,7 @@ static struct usb_driver btusb_driver = {
- 	.disconnect	= btusb_disconnect,
- 	.suspend	= pm_ptr(btusb_suspend),
- 	.resume		= pm_ptr(btusb_resume),
-+	.reset_resume	= pm_ptr(btusb_reset_resume),
- 	.id_table	= btusb_table,
- 	.supports_autosuspend = 1,
- 	.disable_hub_initiated_lpm = 1,
+ 	unsigned int offset = offsetof(struct tegra_ivc_header, tx.count);
+ 
++	tegra_ivc_resync_restart(ivc);
++
+ 	tegra_ivc_header_write_field(&ivc->tx.map, tx.state, TEGRA_IVC_STATE_SYNC);
+ 	tegra_ivc_flush(ivc, ivc->tx.phys + offset);
+ 	ivc->notify(ivc, ivc->notify_data);
+@@ -546,6 +653,17 @@ int tegra_ivc_notified(struct tegra_ivc *ivc)
+ 		 */
+ 	}
+ 
++	/*
++	 * Read the state back to find out whether any of the branches above
++	 * changed it, rather than tracking which branch ran. A peer that is
++	 * making progress moves us along and resets the backoff; a peer that
++	 * has stopped leaves the value sampled at the top of this function.
++	 */
++	if (tegra_ivc_header_read_field(&ivc->tx.map, tx.state) != tx_state)
++		tegra_ivc_resync_restart(ivc);
++	else if (tx_state != TEGRA_IVC_STATE_ESTABLISHED)
++		tegra_ivc_resync_wait(ivc);
++
+ 	if (tx_state != TEGRA_IVC_STATE_ESTABLISHED)
+ 		return -EAGAIN;
+ 
+@@ -702,6 +820,20 @@ int tegra_ivc_init(struct tegra_ivc *ivc, struct device *peer, const struct iosy
+ 	ivc->tx.position = 0;
+ 	ivc->rx.position = 0;
+ 
++	/*
++	 * This function assigns the fields it uses and does not zero the
++	 * structure, so clear the backoff state explicitly. A caller that
++	 * passes an uninitialised structure would otherwise inherit a random
++	 * resync_can_sleep and could end up sleeping in atomic context. Both
++	 * of the caller-settable fields are cleared here, so they have to be
++	 * set after this function returns.
++	 */
++	ivc->resync_can_sleep = false;
++	ivc->resync_threshold = 0;
++	ivc->resync_count = 0;
++	ivc->resync_events = 0;
++	ivc->resync_delayed_ns = 0;
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL(tegra_ivc_init);
+diff --git a/include/soc/tegra/ivc.h b/include/soc/tegra/ivc.h
+index be45d5f5adea..548512e3113f 100644
+--- a/include/soc/tegra/ivc.h
++++ b/include/soc/tegra/ivc.h
+@@ -7,12 +7,20 @@
+ #define __TEGRA_IVC_H
+ 
+ #include <linux/device.h>
++#include <linux/limits.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/iosys-map.h>
+ #include <linux/types.h>
+ 
+ struct tegra_ivc_header;
+ 
++/*
++ * Store this in tegra_ivc.resync_threshold to turn the re-synchronisation
++ * backoff off. tegra_ivc_notified() then behaves as it did before the backoff
++ * was added, and the counters below stay at zero.
++ */
++#define TEGRA_IVC_RESYNC_DISABLED	U8_MAX
++
+ struct tegra_ivc {
+ 	struct device *peer;
+ 
+@@ -27,6 +35,42 @@ struct tegra_ivc {
+ 
+ 	unsigned int num_frames;
+ 	size_t frame_size;
++
++	/*
++	 * Backoff applied when a peer stops responding and calls to
++	 * tegra_ivc_notified() stop making progress. The call is delayed
++	 * rather than skipped, so the work it does is unchanged and only the
++	 * rate at which a retrying caller can repeat it falls. See the comment
++	 * above TEGRA_IVC_RESYNC_MIN_NS in ivc.c.
++	 *
++	 * @resync_can_sleep: set only if every call site of
++	 * tegra_ivc_notified() is allowed to sleep. When false, which is the
++	 * default, the delay is a bounded busy-wait that is safe in any
++	 * context. Do not set it just because the common path can sleep, as
++	 * tegra_bpmp_transfer_atomic() reaches this code with interrupts
++	 * disabled.
++	 *
++	 * @resync_threshold: how many calls that make no progress are allowed
++	 * through before the delay begins. Zero selects a default. Values
++	 * above TEGRA_IVC_RESYNC_THRESHOLD_MAX are clamped, so a larger value
++	 * always means a longer grace period and never disables the backoff.
++	 *
++	 * Both of the above are cleared by tegra_ivc_init(), so set them after
++	 * calling it.
++	 *
++	 * @resync_count: how many calls in a row have made no progress. Reset
++	 * whenever the state changes and by tegra_ivc_reset(). Internal.
++	 *
++	 * @resync_events: how many calls have made no progress in total.
++	 * @resync_delayed_ns: how long this channel has spent delayed, in
++	 * nanoseconds. Both are for diagnostics, are only cleared by
++	 * tegra_ivc_init(), and are not used elsewhere in the kernel.
++	 */
++	bool resync_can_sleep;
++	u8 resync_threshold;
++	u8 resync_count;
++	u32 resync_events;
++	u64 resync_delayed_ns;
+ };
+ 
+ /**
+
+---
+base-commit: dc9c9c4fcb88a5660259dcef93c1ef5acd767189
+change-id: 20260917-ivc-resync-backoff-b768569eb0cc
+
+Best regards,
+-- 
+0xSmash0th <0xSmash0th@gmail.com>
+
+
