@@ -1,138 +1,90 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B1138F638;
-	Thu, 17 Sep 2026 09:34:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAAE4A206D;
+	Thu, 17 Sep 2026 09:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789637697; cv=none; b=sHDxh4FynpB0H3oxwvmfcz2HhUMm1f27dlvH6VTEZLbAMDCcC7pmBCohaQmr/zoqGzGahTul0guBp4IEVnDCxsBBuWdrk+8Hv3bX7Q2IEXbsTO4jt/vZ2FtKTNiqVHVd1JAyxQnU+CVHj8vaA79l4giTo+TXaEaTbf/A8LBhEEo=
+	t=1789637743; cv=none; b=oaIk2TV+iT9fMgxD7HxqPmc+RoerSZCb4lDIY/3ksZ8pdsRkAt5B+QUiu9vPVpRQlSimBRvrC3FWu4pBv3bgQRin3uJi7XQDhgBDGW28A5X5rMRIm3JQJzl04eilgG5DArgoitNlXw9H/u2B0GW7OvpszWPfQSK4SoAS+V/5e3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789637697; c=relaxed/simple;
-	bh=iEJ8tWOm6j7QW3Y+Bm51JMp/raKxamDpAPkxzazLpqs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=ICufkZzEjs9kp/HR7BzHkMR58Uv27FQdjHzHWnB6g53LMDz8JaqgG/ON6+ELbAKXh6ugD1C2XLbVv6/Aqxj7/e4iZfKqiREX7T/mAIwXgIJKf87U6RumL8nMtDa/nMBcKNFj1cktAuj+i6bT/VIz3MYtGrBB06sIEDlfGscoML0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GKCMTVxa; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789637743; c=relaxed/simple;
+	bh=Pziy3GyxVaLVNQGPnPGUWY0b4UTr67i47uVByFhvx/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OgRIwb9s1aKyzPedhDWMTUYygbo+rKJus3EXCLLnBPvkDm6zP/6uzUeTNtk5U5xzuNt65DUVLxG/V+YL4eJJ0eglFX3eHltR7wwmhGv+lHUKn8Mt4BuOJSQsEFHdGo4VYCl7LsXHoBSiHxIVtI7kqjlB8DQYaNXYgwPhfGpVKWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nuDHQyhY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GKCMTVxa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=iEJ8tWOm6j7QW3Y+Bm51JMp/raKxamDpAPkxzazLpqs=; b=G
-	KCMTVxa3j+GBnM781xCXeieCYy+WV7ZcnVNecXexYiLhIowO4ChU19dhy/Z2PQZj
-	VSgsgyxHQKJEffSdaNcuk8nqOT8x6vHIfvrJuEgk2FewNafbmV164su+hfaKNyOI
-	JMszju/1QVZSbFJRpcG5RfL0o/4TOQZSQ+tOzxLywo=
-Date: Thu, 17 Sep 2026 17:34:15 +0800 (CST)
-From: =?GBK?B?wO7T07roIA==?= <dayou5941@163.com>
-To: yukuai@fygo.io
-Cc: song@kernel.org, magiclinan@didiglobal.com, xiao@kernel.org,
-	linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"Li Youhong" <liyouhong@kylinos.cn>,
-	syzbot+68e1f51046d68329940f@syzkaller.appspotmail.com
-Subject: Re:Re: [PATCH] md: don't flush md_misc_wq from md_alloc()
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <9cd00dc3-765c-4cc1-871c-692ddb86b0c8@fygo.io>
-References: <20260915083354.1603416-1-dayou5941@163.com>
- <9cd00dc3-765c-4cc1-871c-692ddb86b0c8@fygo.io>
-X-NTES-SC: AL_Qu2TC/qYuE4u4yaZYOkckk4Wjug8Wcexufwj34NTc8oEly3j+zInTFFRBFfI6s+2IT2VjDawUx580MNaQ4d45gxMBp/7ArUZe78CuzzgCg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nuDHQyhY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B080C1F000FF;
+	Thu, 17 Sep 2026 09:35:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789637728;
+	bh=y3Bksu4nsuzmvX3mOHjIHS2i6H1vZRzqxHYcTA5sqo0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nuDHQyhY1tFTfXzEcitVxdNcIWBaKVfVhqNf/PPt6+RICZxO4y9vXAo15zeRHhez6
+	 ZYVtQKn8riSQngpHGpuvoqTIMQxO95EUJ/hKjGCAHck4llBQZhW1tq21dhIBWkcvAP
+	 /nTO/yOm1UgB303s24+yuGBfuCNIwlsAvMX5mookX/A0fGLQpCzs7pOzWc0r0+T1u5
+	 UZFgKi5Vwb4PDZOKr4oWG+LRz5ColAj14EU7RTeDMkD00mm/XRdvYXIakeaRD32e+E
+	 LWkp6xawGWqxVp5lQzX8rfxwm3Cc8s75wy9erACQQTK5tB+1SB72DqWFqQUpQdsVsZ
+	 xl6dVuwb7jaFw==
+From: Christian Brauner <brauner@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Paulo Alcantara <pc@manguebit.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] super: make iterate_supers_type() deletion-safe
+Date: Thu, 17 Sep 2026 11:34:54 +0200
+Message-ID: <20260917-ablegen-mitgearbeitet-syntaktisch-7dbfdb681783@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909193034.7467-1-kmehltretter@gmail.com>
+References: <20260909193034.7467-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <31ecae4e.8680.1a0aeb77c45.Coremail.dayou5941@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:fCgvCgBXd4sYtKtqmM5IAA--.35308W
-X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3hi4Z2qrtBg6TAAA3C
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1576; i=brauner@kernel.org; h=from:subject:message-id; bh=Pziy3GyxVaLVNQGPnPGUWY0b4UTr67i47uVByFhvx/4=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt3hLFzhMTtFnpRn7DMd7l9c+VKrU99n28G661fVJMq 0jmK7/vHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABMxkWT4X5fjxsGZNO+VcuFb u3XX61ad4DNzm3PM0a747vwlH2aeFmJk+Nkyc+EmlSO6/t079R8bFU92u+/huVxY1m7LnWMBVS2 OnAA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-CgoKCgoKCgoKCgoKCgoKCgpBdCAyMDI2LTA5LTE3IDE1OjQxOjM4LCAieXUga3VhaSIgPHl1a3Vh
-aUBmeWdvLmlvPiB3cm90ZToKPkhpLAo+Cj7U2iAyMDI2LzkvMTUgMTY6MzMsIExpIFlvdWhvbmcg
-0LS1wDoKPj4gRnJvbTogTGkgWW91aG9uZyA8bGl5b3Vob25nQGt5bGlub3MuY24+Cj4+Cj4+IG1k
-X2FsbG9jKCkgaXMgY2FsbGVkIGZyb20gbWRfcHJvYmUoKSwgd2hpbGUgYmxrX3Byb2JlX2Rldigp
-IHN0aWxsIGhvbGRzCj4+IG1ham9yX25hbWVzX2xvY2suIFRoZSBmbHVzaCBvZiBtZF9taXNjX3dx
-IGluIG1kX2FsbG9jKCkgaXMgb25seSBtZWFudCB0bwo+PiB3YWl0IGZvciB0aGUgcHJldmlvdXMg
-bWRkZXZfZGVsYXllZF9kZWxldGUoKSB0byBmaW5pc2guCj4+Cj4+IG1kX21pc2Nfd3EgYWxzbyBy
-dW5zIHN5bmNfd29yayAobWRfc3RhcnRfc3luYyksIGFuZCBtZF9zdGFydF9zeW5jIHRha2VzCj4+
-IHJlY29uZmlnX211dGV4LiBPbiB0aGUgb3RoZXIgcGF0aCwgbWRfaW9jdGwoKSBhbHJlYWR5IGhv
-bGRzCj4+IHJlY29uZmlnX211dGV4IHdoZW4gbWRfaW1wb3J0X2RldmljZSgpIG9wZW5zIGEgYmRl
-diBhbmQgdGFrZXMKPj4gbWFqb3JfbmFtZXNfbG9jay4KPj4KPj4gRmx1c2hpbmcgbWRfbWlzY193
-cSB1bmRlciBtYWpvcl9uYW1lc19sb2NrIHRoZXJlZm9yZSBjcmVhdGVzIGEgbG9ja2RlcAo+PiBj
-eWNsZToKPj4KPj4gICAgbWFqb3JfbmFtZXNfbG9jayAtPiBtZF9taXNjX3dxIC0+IHJlY29uZmln
-X211dGV4IC0+IG1ham9yX25hbWVzX2xvY2sKPj4KPj4gTW92ZSBkZWxfd29yayB0byBhIGRlZGlj
-YXRlZCB3b3JrcXVldWUgYW5kIGZsdXNoIG9ubHkgdGhhdCBxdWV1ZSBmcm9tCj4+IG1kX2FsbG9j
-KCkuIExlYXZlIHN5bmNfd29yayBvbiBtZF9taXNjX3dxLgo+Pgo+PiBSZXBvcnRlZC1ieTogc3l6
-Ym90KzY4ZTFmNTEwNDZkNjgzMjk5NDBmQHN5emthbGxlci5hcHBzcG90bWFpbC5jb20KPj4gQ2xv
-c2VzOiBodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS9idWc/ZXh0aWQ9NjhlMWY1MTA0NmQ2
-ODMyOTk0MGYKPj4gRml4ZXM6IGU4MDRhYzc4MGUyZiAoIm1kOiBmaXggYW5kIHVwZGF0ZSB3b3Jr
-cXVldWUgdXNhZ2UiKQo+PiBTaWduZWQtb2ZmLWJ5OiBMaSBZb3Vob25nIDxsaXlvdWhvbmdAa3ls
-aW5vcy5jbj4KPj4gLS0tCj4+ICAgZHJpdmVycy9tZC9tZC5jIHwgMjggKysrKysrKysrKysrKysr
-KysrKysrLS0tLS0tLQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCAyMSBpbnNlcnRpb25zKCspLCA3IGRl
-bGV0aW9ucygtKQo+Cj5QYXRjaCBpdHNlbGYgbG9vayBjb3JyZWN0LCBob3dldmVyLCB0aGlzIGlz
-IG5vdCB0aGUgc29sdXRpb24gSSdkIGxpa2UuCj5TaW5jZSBsZWdhY3lfYXN5bmNfZGVsX2dlbmRp
-c2sgaXMgaW50cm9kdWNlZCBhIGxvbmcgdGltZSBub3csIEkgdGhpbmsgaXQncwo+dGltZSB0byBy
-ZW1vdmUgdGhlIHJlbGF0ZWQgbGVnYWN5IGFzeW5jIGNvZGUsIHNvIHRoZXJlIGlzIG5vIG5lZWQg
-dG8ga2VlcAo+ZGVsX3dvcmssIGFuZCB0aGVuIHRoZSBmbHVzaF93b3JrcXVldWUoKSBmcm9tIG1k
-X2FsbG9jKCkgaXMgbm90IG5lZWRlZCBhbnltb3JlLgoKPgoKCkFncmVlZC4gSSdsbCBkcm9wIHRo
-ZSBleHRyYSB3b3JrcXVldWUgYW5kIHBvc3QgYSB2MiB0aGF0IHJlbW92ZXMKCmxlZ2FjeV9hc3lu
-Y19kZWxfZ2VuZGlzaywgZGVsX3dvcmssIGFuZCB0aGUgZmx1c2ggZnJvbSBtZF9hbGxvYygpLgoK
-ClRoYW5rcywKTGkgWW91aG9uZwoKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWQvbWQuYyBi
-L2RyaXZlcnMvbWQvbWQuYwo+PiBpbmRleCA2ODBiMzRhNjNjYjMuLjg3YTg1MTQ2Njg5MiAxMDA2
-NDQKPj4gLS0tIGEvZHJpdmVycy9tZC9tZC5jCj4+ICsrKyBiL2RyaXZlcnMvbWQvbWQuYwo+PiBA
-QCAtODYsMTMgKzg2LDE2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qga29ial90eXBlIG1kX2t0eXBl
-Owo+PiAgIHN0YXRpYyBERUNMQVJFX1dBSVRfUVVFVUVfSEVBRChyZXN5bmNfd2FpdCk7Cj4+ICAg
-Cj4+ICAgLyoKPj4gLSAqIFRoaXMgd29ya3F1ZXVlIGlzIHVzZWQgZm9yIHN5bmNfd29yayB0byBy
-ZWdpc3RlciBuZXcgc3luY190aHJlYWQsIGFuZCBmb3IKPj4gLSAqIGRlbF93b3JrIHRvIHJlbW92
-ZSByZGV2LCBhbmQgZm9yIGV2ZW50X3dvcmsgdGhhdCBpcyBvbmx5IHNldCBieSBkbS1yYWlkLgo+
-PiArICogbWRfbWlzY193cSBydW5zIHN5bmNfd29yayAobmV3IHN5bmNfdGhyZWFkKSBhbmQgZXZl
-bnRfd29yayAoZG0tcmFpZCkuCj4+ICsgKiBzeW5jX3dvcmsgZ3JhYnMgcmVjb25maWdfbXV0ZXgs
-IHNvIHRoaXMgcXVldWUgbXVzdCBub3QgYmUgZmx1c2hlZCB3aGlsZQo+PiArICogaG9sZGluZyBy
-ZWNvbmZpZ19tdXRleCwgbm9yIHdoaWxlIGhvbGRpbmcgbWFqb3JfbmFtZXNfbG9jayAobWRfcHJv
-YmUgLwo+PiArICogbWRfYWxsb2MgaXMgY2FsbGVkIGZyb20gYmxrX3Byb2JlX2RldiB3aXRoIHRo
-YXQgbG9jayBoZWxkKS4KPj4gICAgKgo+PiAtICogTm90ZWQgdGhhdCBzeW5jX3dvcmsgd2lsbCBn
-cmFiIHJlY29uZmlnX211dGV4LCBoZW5jZSBuZXZlciBmbHVzaCB0aGlzCj4+IC0gKiB3b3JrcXVl
-dWUgd2hpdGggcmVjb25maWdfbXV0ZXggZ3JhYmJlZC4KPj4gKyAqIG1kX2RlbF93cSBydW5zIG9u
-bHkgZGVsX3dvcmsgKG1kZGV2X2RlbGF5ZWRfZGVsZXRlKS4gbWRfYWxsb2MoKSBmbHVzaGVzCj4+
-ICsgKiB0aGlzIHF1ZXVlIHRvIHdhaXQgZm9yIGEgcHJldmlvdXMgaW5zdGFuY2Ugb2YgdGhlIHNh
-bWUgZGV2aWNlIHRvIGdvIGF3YXkuCj4+ICAgICovCj4+ICAgc3RhdGljIHN0cnVjdCB3b3JrcXVl
-dWVfc3RydWN0ICptZF9taXNjX3dxOwo+PiArc3RhdGljIHN0cnVjdCB3b3JrcXVldWVfc3RydWN0
-ICptZF9kZWxfd3E7Cj4+ICAgCj4+ICAgc3RhdGljIGludCByZW1vdmVfYW5kX2FkZF9zcGFyZXMo
-c3RydWN0IG1kZGV2ICptZGRldiwKPj4gICAJCQkJIHN0cnVjdCBtZF9yZGV2ICp0aGlzKTsKPj4g
-QEAgLTY1MSw3ICs2NTQsNyBAQCBzdGF0aWMgdm9pZCBfX21kZGV2X3B1dChzdHJ1Y3QgbWRkZXYg
-Km1kZGV2KQo+PiAgIAkgKiBDYWxsIHF1ZXVlX3dvcmsgaW5zaWRlIHRoZSBzcGlubG9jayBzbyB0
-aGF0IGZsdXNoX3dvcmtxdWV1ZSgpIGFmdGVyCj4+ICAgCSAqIG1kZGV2X2ZpbmQgd2lsbCBzdWNj
-ZWVkIGluIHdhaXRpbmcgZm9yIHRoZSB3b3JrIHRvIGJlIGRvbmUuCj4+ICAgCSAqLwo+PiAtCXF1
-ZXVlX3dvcmsobWRfbWlzY193cSwgJm1kZGV2LT5kZWxfd29yayk7Cj4+ICsJcXVldWVfd29yayht
-ZF9kZWxfd3EsICZtZGRldi0+ZGVsX3dvcmspOwo+PiAgIH0KPj4gICAKPj4gICBzdGF0aWMgdm9p
-ZCBtZGRldl9wdXRfbG9ja2VkKHN0cnVjdCBtZGRldiAqbWRkZXYpCj4+IEBAIC02MzI5LDkgKzYz
-MzIsMTIgQEAgc3RydWN0IG1kZGV2ICptZF9hbGxvYyhkZXZfdCBkZXYsIGNoYXIgKm5hbWUpCj4+
-ICAgCj4+ICAgCS8qCj4+ICAgCSAqIFdhaXQgZm9yIGFueSBwcmV2aW91cyBpbnN0YW5jZSBvZiB0
-aGlzIGRldmljZSB0byBiZSBjb21wbGV0ZWx5Cj4+IC0JICogcmVtb3ZlZCAobWRkZXZfZGVsYXll
-ZF9kZWxldGUpLgo+PiArCSAqIHJlbW92ZWQgKG1kZGV2X2RlbGF5ZWRfZGVsZXRlKS4gRG8gbm90
-IGZsdXNoIG1kX21pc2Nfd3E6IGl0IGFsc28KPj4gKwkgKiBydW5zIHN5bmNfd29yaywgd2hpY2gg
-dGFrZXMgcmVjb25maWdfbXV0ZXggYW5kIGNhbiB0YWtlCj4+ICsJICogbWFqb3JfbmFtZXNfbG9j
-ayB2aWEgbWRfaW1wb3J0X2RldmljZSgpLiBtZF9hbGxvYygpIGlzIGNhbGxlZCBmcm9tCj4+ICsJ
-ICogbWRfcHJvYmUoKSB3aGlsZSBibGtfcHJvYmVfZGV2KCkgYWxyZWFkeSBob2xkcyBtYWpvcl9u
-YW1lc19sb2NrLgo+PiAgIAkgKi8KPj4gLQlmbHVzaF93b3JrcXVldWUobWRfbWlzY193cSk7Cj4+
-ICsJZmx1c2hfd29ya3F1ZXVlKG1kX2RlbF93cSk7Cj4+ICAgCj4+ICAgCW11dGV4X2xvY2soJmRp
-c2tzX211dGV4KTsKPj4gICAJbWRkZXYgPSBtZGRldl9hbGxvYyhkZXYpOwo+PiBAQCAtMTA3NjUs
-NiArMTA3NzEsMTAgQEAgc3RhdGljIGludCBfX2luaXQgbWRfaW5pdCh2b2lkKQo+PiAgIAlpZiAo
-IW1kX21pc2Nfd3EpCj4+ICAgCQlnb3RvIGVycl9taXNjX3dxOwo+PiAgIAo+PiArCW1kX2RlbF93
-cSA9IGFsbG9jX3dvcmtxdWV1ZSgibWRfZGVsIiwgV1FfUEVSQ1BVLCAwKTsKPj4gKwlpZiAoIW1k
-X2RlbF93cSkKPj4gKwkJZ290byBlcnJfZGVsX3dxOwo+PiArCj4+ICAgCXJldCA9IF9fcmVnaXN0
-ZXJfYmxrZGV2KE1EX01BSk9SLCAibWQiLCBtZF9wcm9iZSk7Cj4+ICAgCWlmIChyZXQgPCAwKQo+
-PiAgIAkJZ290byBlcnJfbWQ7Cj4+IEBAIC0xMDc4Myw2ICsxMDc5Myw4IEBAIHN0YXRpYyBpbnQg
-X19pbml0IG1kX2luaXQodm9pZCkKPj4gICBlcnJfbWRwOgo+PiAgIAl1bnJlZ2lzdGVyX2Jsa2Rl
-dihNRF9NQUpPUiwgIm1kIik7Cj4+ICAgZXJyX21kOgo+PiArCWRlc3Ryb3lfd29ya3F1ZXVlKG1k
-X2RlbF93cSk7Cj4+ICtlcnJfZGVsX3dxOgo+PiAgIAlkZXN0cm95X3dvcmtxdWV1ZShtZF9taXNj
-X3dxKTsKPj4gICBlcnJfbWlzY193cToKPj4gICAJbWRfbGxiaXRtYXBfZXhpdCgpOwo+PiBAQCAt
-MTEwOTMsNiArMTExMDUsNyBAQCBzdGF0aWMgX19leGl0IHZvaWQgbWRfZXhpdCh2b2lkKQo+PiAg
-IAlzcGluX3VubG9jaygmYWxsX21kZGV2c19sb2NrKTsKPj4gICAKPj4gICAJZGVzdHJveV93b3Jr
-cXVldWUobWRfbWlzY193cSk7Cj4+ICsJZGVzdHJveV93b3JrcXVldWUobWRfZGVsX3dxKTsKPj4g
-ICAJbWRfYml0bWFwX2V4aXQoKTsKPj4gICB9Cj4+ICAgCj4KPi0tIAo+VGhhbmtzLAo+S3VhaQo=
+On Wed, 09 Sep 2026 21:30:34 +0200, Karl Mehltretter wrote:
+> iterate_supers_type() drops sb_lock while invoking the callback and keeps
+> only a passive reference to the current superblock. That reference keeps
+> the object allocated, but does not keep its s_instances node linked.
+> 
+> After the iterator releases s_umount, final teardown can unlink the current
+> s_instances node. The iterator then advances through a reinitialized node.
+> With the current hlist it stops without visiting the remaining superblocks.
+> The unlink moved from generic_shutdown_super() to kill_super_notify(), but
+> the cursor lifetime has been unsafe since the helper was introduced.
+> 
+> [...]
 
+I'm moving this into vfs-7.4.misc for now but will bump it to vfs.fixes once
+I'm confident this is safe.
+
+---
+
+Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.misc
+
+[1/1] super: make iterate_supers_type() deletion-safe
+      https://git.kernel.org/vfs/vfs/c/d1ac530407a3
