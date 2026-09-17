@@ -1,239 +1,278 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012022.outbound.protection.outlook.com [40.93.195.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A554BEE37;
-	Thu, 17 Sep 2026 20:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789675254; cv=fail; b=qWkG+jXI+HQK68sRUgzMxh6PwxnQHoDx5VPWtZu8kyHrgz/W4xH2r75YF+vCr+Q+cW13fk/Eo25VaUIq7u3Oj5c+VH2NDPFdaLS1JUB7mfgbBmQ8Q9TvjQ3yDAdt+hZIfzoHpfbQV7ZJ92liXsRqMvX9P87yT+eHefpjFoHf8Tc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789675254; c=relaxed/simple;
-	bh=JYi5kuJ682vr4rCOUXRHfp2y+Z5GIKwHtV4ZmDuflhs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=AS1GW+CaZG8RobMMvRio8glzfwP6OeXqYHJh08LoszLdlmEcp+H8IyjvAEA5jxyx92vFVEyphp6uOI16dWIS8+gzN6fpflgrZstbGzaNgTCnSD6PgziEnnj87+edqO12llhSpGul09xIc94nJqcg/PT69ynqKaZdjbUC30CcuiI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=okfGyiTs; arc=fail smtp.client-ip=40.93.195.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26224E73BC
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:01:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789675263; cv=none; b=o/yXSV49fzT2HGVdyISFA79pUx7+5KlmxQ2Wpe5cACkWQoD86wDb6KAMV2vastOq+n3NtB8xH+0cD4Q3VmHSb5Of7FxkLEPae3AHvloTa+JbLgiSZdoVxa+0S6sgvpAs0VzwMH3mt8Uarz1yHm1eXo3D4YNweZZBqeL7JPH+bLI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789675263; c=relaxed/simple;
+	bh=qxcmgvHOEjnIuw5qmLXvVlzWQ/o/BZK1q3oFOTHg2to=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FaZZfetaS2cYrjS9+BaXM8RJPgXuF1O7b5eUczC8gUiZE5tAomA2J3sTUdV5ap2KkS4HuGlJNP5TE4L1NO5Q7QRJZ7p+BQHD2nT4rYHeQq8nl1YH0X4WIU7qjNfTKbACNbTu3k/dBaI2LpY0r8uFwKn9Id+39Olf3zRVUw3nxes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BanTezuO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="okfGyiTs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EZPYERhENCGcQoTzlhGoFcd0e049HLZedOAlHAMIG9/LQCF+TBKGqAQYlMcy7R8WUQpgIVIxUd0pl8aOPGqf7BJQ4h5ZaKhjT3gbDIpmtDgpovztpXUB38Ev/SxCeEXAmDK6MqyZkqEt9yZXGvb0G8RI1To6uubaIWn/Cjwf2RjseVNRwB/WXaMSAMKqlD74qApS+cHL3N2CBuXWLk0nQUzfyROFYpFpMINogmfaG6NhxSBAB56vEGbE7QqK63lbX29JKNg3uNQOgzhh+MlJ8Pi8pvE8sJeZHBfRw42R3HYTIOC0rItvf4pUAb7IHELuqhQfhq9c2wEjkhEEWOQGVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aSULpbotcOIiLD8O8r3GUcPpbY7ZdsYa4myXNWCcS7I=;
- b=AM9XMMNrrldWn5n4jjgQ2mfQp8rQf2yPKXfVwcLLLg0xxCf0jpcTVSV/ViQZGdFe36tpJVwnAamYdNVN417qeQWmnEUUmObsl6YZsGco7hR08alEt68RgmV341yDQMqoOJHcl/Y7BZyTwKHQDiEpjv0DhvM4PXuUL4ciSkq5x64xs2tdxtpdbBwxSGVkFC7A5NEzpdgpzixDtkZxJ81HRyhoN3V6VA/UQZYUL3hFZS/DRvKhATnM1NEayitfDLODs4s/uxE7K7HK8OZI6ZzeG+PIkMcyNYwDnFp66ciYlIHgejDA5hlDy6S3xEGhVbyu+vf0Auw41gVPvmnW67eOQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aSULpbotcOIiLD8O8r3GUcPpbY7ZdsYa4myXNWCcS7I=;
- b=okfGyiTs+qG5TQqFmcrT6GeMEHh6uFte6dMIFZx5m1uRGzshxYo68therTqESqYB86pFjkD4EvtStyDmajvit5XGr6XHFSesNJIKEgGuOFSwFauH+ZutN8DeLYjDX4THRfoFCKMmufcByIcqoWog9ialSWRQylVzYuUzva0xHkM8/Ncte2quqesBNLPDDxkYSIafyg1OldI/naoT5ThQK+/NGqG58+nJBnGvwLhYU1Bcshp1SDU+KsKyNfR/whaSF7I3zGhjX0357vbvd/VPoSSlALTIAqhU8RruG2EbCriu+9fQilgQ9wGEqfYi8qhWcoeFsSrdZp6S1ruA9fPb7g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by BY5PR12MB4050.namprd12.prod.outlook.com (2603:10b6:a03:207::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Thu, 17 Sep
- 2026 20:00:49 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
- 20:00:49 +0000
-Date: Thu, 17 Sep 2026 23:00:39 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Flo =?iso-8859-1?Q?M=FCller?= <flo@max06.net>
-Cc: Sasha Levin <sashal@kernel.org>, patches@lists.linux.dev,
-	stable@vger.kernel.org, David Ahern <dsahern@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, davem@davemloft.net,
-	edumazet@google.com, pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-5.10] ipv6: Honor oif when choosing nexthop
- for locally generated traffic
-Message-ID: <20260917200039.GA1454296@shredder>
-References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-211-sashal@kernel.org>
- <6b4dfa7d-09c1-4717-bd4a-5bca2d984139@app.fastmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6b4dfa7d-09c1-4717-bd4a-5bca2d984139@app.fastmail.com>
-X-ClientProxiedBy: TL2P290CA0026.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:3::13) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BanTezuO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2D31F0089A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:01:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789675261;
+	bh=KalH+4JYqq60RIUeriN/AZiwYomckR9FBAi+z5xvFFA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=BanTezuOPR1+3L6VBn1t5BRhFWjMv8R6e3iou97lFdBTcl/jnm4I9XcLl7G51rVfo
+	 kdYZaaHsHNGTXEbaC8aJZl6c+/hPA3R+KzKkgWYS+hGiQIzmh1WzbnOHL7CNkJujxB
+	 68CUhp2h/q2VG/k0wIrfcU03+AI59EFsG44/a5WHjV6eshY/BVsQfCqZWv+CSovz3h
+	 IhsHJrC/9USwmz0+lG8ZvqeXr1E0b2iIYAYZOOh5y1Hm9AZC8Mi4FaNbNONeE5ezPT
+	 7sGb5PWgt2XTiJwSOw7i4MDR5qr4sOwg5vFxITcb7WExg+W88an56ic9MY/v2lBoMB
+	 8noA1wRix2OfQ==
+Received: by mail-lr2-f40.google.com with SMTP id 38308e7fff4ca-3a5da7416f9so245511fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:01:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzfc8OtExlXxQ9e6k6mXQVfBMQv8Io1j00OmDmh3L5pVD+SdU4bmrCaWX1gn6Km7hz/d3MzJx+VBGLICKA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nU89J1XZGwYGk+BEQhGCkd1UINZ5Tp69AeXuubFW16vOr7vbO1
+	fmvgAIjsOqNpvOsE60THBKxL0w5stRjugxvrHPtAhOsGGd6vQ8IsbJd7f4YzyUcFAXkw8DHFHIM
+	KxbMf2Fwf93IZAqiUY9qvQLfsuwxLKX4=
+X-Received: by 2002:a2e:bcc9:0:b0:3a1:980f:5907 with SMTP id
+ 38308e7fff4ca-3a5fbec22e7mr18031fa.8.1789675259785; Thu, 17 Sep 2026 13:00:59
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|BY5PR12MB4050:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03483055-0450-4230-0a35-08df14f65e95
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|56012099006|4143699003|10067099003|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	KwDLDyJJz/0++q9FTuODoq0DG7ofYFigupICdoORofN4mAbsBqHqSJ3sVEBZfI7GzmGxBMARWWl5Y3BUKwSYvpX94YprlFBJgssOywBgeZu8rL0Vq87HMcqGQxENF/lkbAxp5SU8LYVHSJrJx/aXObrYMff9mwFU1Qwr4luwFfgjRrIN2VpcSzVZp2QpF5IFd0a5OnM8mkL7Yivfa0ySfhDlzqTI0DQlKrGnrqP+Qp7ZybkwUfjOMpwe5SfZGxYvXKGh+enuXwlLO9dTTyFYF3liXOUJbWAUZooDJ9iP/lYRMzd0FzpQAGDqEq+ZSodIXwM9sjwMkjVW9lzLDVmeMfOX1r87dQp5WGhWeZpP/K/nsj65Dxdz5yepfDdXwrArADtPYpaPRS5zt1sy4kdzZx0kSWlSoLqiSMcLYO0vyHH4uHk64J80SNskPh9cr+Rx7lJawtuu/qNZlfv3Ha7Q/jQXKYNcJl/kej8ZLVrRvEksOEjY0Qx1waI8+TeQbPrkKshq2hJ/9e3we9juyJIAywJ3qJvqfbqq7Gse1ccHWchN85NDpFaBqTDOex+XW8YHQhz2CUz7r7+DjKwsI0Z+4n2Sn1M2b+9MBdS9H0DkGyY6g8wZuoDPyDf4JYJsbkFCSEqdIwNlsXRnWUuA0wmMGW6rvEJtla6dCYgTBx4Xm6I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(56012099006)(4143699003)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SXpqY0MrN2Y4MmRrcHNTYXRQRVJNMkJKMWZrOWNnSmRjaWgwK3pxMzUveFEz?=
- =?utf-8?B?NTB1amdUdVdPMjNtREduQ2dFejRTSXBLZmNhQldFUFVGN0xCTnF2b0tVUUd5?=
- =?utf-8?B?aDdKTmQzK3BLZ1dxUmlFK3NMV21QUGZpZENyYVFQNTlkZFlCZUZVaW5BOGF4?=
- =?utf-8?B?WHZRQ05pVFF4T2RYa1JkVHdTd3hVVGl0QXVPeHE2bGdxK1YrMzlWZDNKL0ls?=
- =?utf-8?B?dFA3dEVmNTFPempDazBpazVWSDh5NnkvVUpXdUt1SnQ4S3FnN1NRN0p0blIv?=
- =?utf-8?B?T1B6eS8vRmtVaGhMb2RkZ0RUL3FubUlTNHFGU0RjRTVuNjJEYUtiOU96NXNW?=
- =?utf-8?B?TXB4V2syN0FuRmxaTExkeUR4WGZlZlFoTTlQbTRtNFhGckFwR2xWckZjbVpH?=
- =?utf-8?B?QXJidkM3c01VTzJaVEJtZjFBd2tXYzd4c2dvRkorVEhxVTIyZkxVWFRCU2FC?=
- =?utf-8?B?UGNQOFhDMjVEd1BEZlZ4NTRraU5rdlBLV0xrdnlETW1KL2g1THNpLzRHTnI5?=
- =?utf-8?B?Z2lxUFp5Yk5xR00wZU5NczcrUjRlVzVMTnJlSklTbXRqVnF4UXRBWVhXZTFH?=
- =?utf-8?B?TlpEQTl6MDQ5c0x5N3BSbFV6b0kreWJhQlE5YlJlUFZDV0VjdkM1a2FGbEhS?=
- =?utf-8?B?cDJ4RFpRS3YzNDJ1WkgvekZtY2ZOcmp2YkRTU0hrdEFCcTcwSUthdXh6WWRp?=
- =?utf-8?B?Y0JINVVyVGZMak96dDVIcHJESXQ0Qks0dlg5WEpsdVdLODNUMk9JSHdoVjI0?=
- =?utf-8?B?bWtUUXlIOFh1Y2hnYkRITXVUckZSdDg5ZFh6S2VMeVdJU3FoT3lObG5DU2pp?=
- =?utf-8?B?TDhLVi9IOU9BUkdNbWRWVmdvQndKbElwenNYM3p6S1owWVh3V2pVS2dnaGhF?=
- =?utf-8?B?dmhoVGx1M3pkQ2h1MFhYM0VUR21TaXpkVzdxUFhpSnFrUG9nbWtndStjTEZr?=
- =?utf-8?B?aEZ6NXJFQjg3dFZ4VG1TU203UERqdmM2VXVJRDJNTGFzYloxT3htMkdpWnJD?=
- =?utf-8?B?UjhzNG1xV09NKy9nLzlZRkFIZ3drWG1ORWhKZFFEYjYydmI1aTdmMUEzS295?=
- =?utf-8?B?R1VLZ0VQNmN5ZDFIdFJTOXBVZC83QnEyenRVODNZdmhpUzVMUDdDdUJDd0JZ?=
- =?utf-8?B?TTh0djRSbnhqK0tVRE13RHE0eWllNjdESVYxWklOZ1hCN1I5aDFHbXRnUktZ?=
- =?utf-8?B?Y3Rsc1FFcytrQmszTjk2Vy9oOGszN2VESWJacjhKaFU2TWpZS0lvL2tOMkUr?=
- =?utf-8?B?cGF4SS91dnNscTNPajZrY0lxdVhFTVErdzMrOTBjQUFnL1N0ek1uM0pwbzB3?=
- =?utf-8?B?T2lKY2JPeXN4eENHTEdKNUlJcVlRUU1TT0hITENxdU1rSXN0ajR2WDNqbU9p?=
- =?utf-8?B?RTRnY2RUS0U1QXI5S2p5VXFnZ0EybjVES0FGeXBidk9mWUhOLzF3TnB5YkdQ?=
- =?utf-8?B?dmVvZTFSV0ZqNCtXNCtFRGYrbWNTRVdVc1JuaEhldnRnelFiRkN0RElmYXhC?=
- =?utf-8?B?eDlpUHlXRVd3QjVqU0J3dVlWODZlaVFuZi9xRWZIUkdYM2VhRU85UGJCV2FG?=
- =?utf-8?B?Qmo4eFVqSHk3dEhTczMyQ2pXMXBlTkdhVUxBbzFUaU1CWDVJMXFvQU82dlJU?=
- =?utf-8?B?KzZBb29QNCtMa1FWWUxoREQxUGtnNE43WTRORFhJWGRzRkJmUlI4RHBxTTVl?=
- =?utf-8?B?WWlOVU9lMFZGL1lYZDI2Y3VjMlNsbWVwUnVvU0hVbG5mTVc5ZTlib1RWYWxp?=
- =?utf-8?B?dzl0UTJjbjJaNG9QSmMxLzJEU2ozZGw3VjRWVVZvVDhLcFJpT2UzOXN0RVo3?=
- =?utf-8?B?UHd5Z25rcC8yL1FUQW5rUHA5c25IbGFqb1hhNmdVcnMvMG9jV0dORUVIN1Zs?=
- =?utf-8?B?eUk1NDg0Y0lmYS8rVm1GazdWYkhMN1NpMW5kRlBSNEwwaG5rYkFqbFVLMVZC?=
- =?utf-8?B?SXpOZFZWZEJqbGdPQ3dNZk9VazdyWHlLc1M3MmpaVUdudlI4cXNtRTU5NU5J?=
- =?utf-8?B?ZUsyVnArU1d3TXpPSUF0TEJXbXVWYXRiK1FjSkFBT3VwUnZITmRFSVFnb0tF?=
- =?utf-8?B?a0I1ME5vQzFFdXdzdUdPeDh5NWFPazBYYnpnT3hsY1RJRUgrN3FrQ2lNWjFj?=
- =?utf-8?B?MHNsMUVTVGZYQWovTExxRGZhL1hkelg0K0x3aFJ3cFd1MllWM2tJV2szUDJG?=
- =?utf-8?B?WGt6Q3c0SWw2UHBEMmliVzNNKzZBZFc4T3Q0MVUzWlZpdE83dmNqbExqU0pX?=
- =?utf-8?B?cExJN2FZSmg2WlBSYWhZcHZ3WDE5dHFaZ2JLUGJWNTU4SnR0cHBsNXJicWxT?=
- =?utf-8?B?ejlJbEI5ZmRaUGcweDlTVmR1OFdJNEpxVVk0QlpiTmlDWGFndkZZdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03483055-0450-4230-0a35-08df14f65e95
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 20:00:49.4162
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k2F7OsZhgDYHfBbtwXbvt/oeNCGhfM0FvwC/hwwelGFHh77caSvbJl72WsVFDOya0UeQ5XkgHdm3iby6AIS/vw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4050
+References: <20260904212000.4167880-1-briannorris@chromium.org> <20260904141215.6.I45a794e4452e3df22419acdd8f11e2b788b3413f@changeid>
+In-Reply-To: <20260904141215.6.I45a794e4452e3df22419acdd8f11e2b788b3413f@changeid>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 17 Sep 2026 21:59:36 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0ivQ25s_+fvhSaBJX+F80fjvBsrKtibMf=xEsi6n0FOAw@mail.gmail.com>
+X-Gm-Features: AcwNN1VV-GU_KckE4dxsn5pto6RaE1DAGcRvsGkgaClI-Jx9jLSfal-wfvHGi0c
+Message-ID: <CAJZ5v0ivQ25s_+fvhSaBJX+F80fjvBsrKtibMf=xEsi6n0FOAw@mail.gmail.com>
+Subject: Re: [PATCH 06/11] PM: runtime: Expand introduction with core concepts
+ and structure
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org, 
+	Len Brown <lenb@kernel.org>, Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org, 
+	Pavel Machek <pavel@kernel.org>, Doug Anderson <dianders@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 08:56:17PM +0200, Flo Müller wrote:
-> On Mon, Aug 31, 2026 at 09:23:59AM -0400, Sasha Levin wrote:
-> > From: Ido Schimmel <idosch@nvidia.com>
-> >
-> > [ Upstream commit d25e7e9d8a6c1e2afb854613e417c6aa1a28ce6f ]
-> [...]
-> > **Step 3.5 — Dependencies**
-> > Record: Patch 2 is **standalone for classic multipath routes**
-> > (reproducer in commit message). For **nexthop object** multipath, patch
-> > 1/3 is also needed so `fib6_table_lookup()` picks the best-scoring
-> > nexthop before path selection is skipped. Patch 1 not in tree; patch 2
-> > alone does not worsen nexthop-object behavior.
-> [...]
-> > **Recommendation for v6.18.y:** Backport this commit. Ideally backport
-> > patch 1/3 from the same series together for complete nexthop-object
-> > multipath coverage; patch 2 alone is still valuable and safe for classic
-> > multipath routes.
-> 
-> Hi Sasha,
-> 
-> we are the nexthop-object case from your dependency note, hit in
-> production on 6.12.y, so here is a real-world data point and a request
-> to carry patch 1/3 along.
+On Fri, Sep 4, 2026 at 11:20=E2=80=AFPM Brian Norris <briannorris@chromium.=
+org> wrote:
+>
+> I commonly see people have difficulty learning how runtime PM works
+> because of the following key points [*]:
+>
+>  1) there are several boolean concepts in runtime PM, with somewhat
+>     similar meanings:
+>
+>      enabled / disabled
+>      active / suspended
+>      allowed / forbidden
+>
+>  2) if these concepts are documented at all, they're scattered across
+>     the kerneldoc or Documentation/
+>
+>  3) the runtime_pm.rst docs don't make any attempt to ease a reader into
+>     understanding the concepts, and instead jump straight into how it's
+>     implemented (queues, 'struct device' fields, helpers).
+>
+> Let's try to remedy this a bit by discussing the core concepts and
+> highlights at the top of the introduction, and introduce a few
+> sub-headings, so it's easier to navigate different aspects of the
+> introduction.
+>
+> While shuffling the intro around, I also see that the existing text
+> largely mirrors the layout of the following sections (2, 3, and 4), but
+> does so out of order. Reorder those, and point to section numbers.
+>
+> [*] In addition to API complexity. I count 61 pm_*() helpers, 7 of which
+>     are variations of put() and 8 of which are variations of get().
+>
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
+> ---
+>
+>  Documentation/power/runtime_pm.rst | 87 +++++++++++++++++++++++-------
+>  1 file changed, 68 insertions(+), 19 deletions(-)
+>
+> diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/run=
+time_pm.rst
+> index 39fdeeda7a1e..620b6988deca 100644
+> --- a/Documentation/power/runtime_pm.rst
+> +++ b/Documentation/power/runtime_pm.rst
+> @@ -11,31 +11,80 @@ Runtime Power Management Framework for I/O Devices
+>  1. Introduction
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> -Support for runtime power management (runtime PM) of I/O devices is prov=
+ided
+> -at the power management core (PM core) level by means of:
+> -
+> -* The power management workqueue pm_wq in which bus types and device dri=
+vers can
+> -  put their PM-related work items.  It is strongly recommended that pm_w=
+q be
+> -  used for queuing all work items related to runtime PM, because this al=
+lows
+> -  them to be synchronized with system-wide power transitions (suspend to=
+ RAM,
+> -  hibernation and resume from system sleep states).  pm_wq is declared i=
+n
+> -  include/linux/pm_runtime.h and defined in kernel/power/main.c.
+> -
+> -* A number of runtime PM fields in the 'power' member of 'struct device'=
+ (which
+> -  is of the type 'struct dev_pm_info', defined in include/linux/pm.h) th=
+at can
+> -  be used for synchronizing runtime PM operations with one another.
+> +Runtime power management (or runtime PM, sometimes shortened to RPM) all=
+ows
+> +individual I/O devices to transition between high and low-power states
+> +dynamically while the system is running, conserving power without waitin=
+g for a
+> +system-wide sleep state.
+> +
+> +Core Concepts
+> +-------------
+> +
+> +Understanding runtime PM requires distinguishing between several pairs o=
+f
+> +complementary states that operate orthogonally: **active** / **suspended=
+**,
+> +**enabled** / **disabled**, and **allowed** / **forbidden**.
+> +
+> +* **Active**: The PM core tracks a device's runtime status as either **a=
+ctive**
+> +  (the device is operational, having completed its resume callback) or
+> +  **suspended** (the device is idle or in a low-power state, having
+> +  completed its suspend callback), along with transitional **suspending*=
+*
+> +  and **resuming** phases. State transitions are primarily driven by
+> +  reference counting: drivers call pm_runtime_get() (or related variants=
+)
+> +  when the hardware is needed (ensuring the device is active) and
+> +  pm_runtime_put() when work completes, allowing the PM core to initiate
+> +  suspension (immediately or after an autosuspend delay) once the usage
+> +  counter and any active child dependencies reach zero.
 
-Just to be clear, this report is from a kernel that lacks both patches,
-right? I fetched linux-6.12.y and I can't find my patches there.
+While the above is fine IMV, the enabled/disabled concept is more
+fundamental because "active" and "suspended" are not really relevant
+when runtime PM is disabled.  Yes, they need to be set properly before
+enabling it and there is some complexity related to the integration
+with system-wide PM, but generally speaking, if runtime PM is disabled
+for a given device, its active/suspended status is irrelevant.
 
-Note that I targeted both patches at net-next since they don't fix
-regressions. This use case never worked correctly.
+> +
+> +* **Enabled**: Orthogonal to whether a device is currently active or sus=
+pended
+> +  is whether runtime PM is **enabled** or **disabled**.
 
-> 
-> (Disclaimer: Analysis below done by AI, watched and confirmed by human)
-> 
-> Setup: Debian 13 host, kernel 6.12.101, dual-homed to two ToR switches
-> over unnumbered eBGP (FRR). FRR installs the default route through a
-> nexthop group, which is what every FRR or Cilium dual-homed host looks
-> like:
-> 
->   $ ip -6 route show default
->   default nhid 20 proto bgp metric 20 pref medium
->           nexthop via fe80::<tor-a> dev ens31f0np0 weight 1
->           nexthop via fe80::<tor-b> dev ens30f0np0 weight 1
->           nexthop via fe80::<tor-a> dev ens31f1np1 weight 1
->           nexthop via fe80::<tor-b> dev ens30f1np1 weight 1
-> 
-> The kernel's own lookup ignores the oif for this route, with and
-> without a source address:
-> 
->   $ ip -6 route get 2606:4700:4700::1111 oif ens31f1np1
->   2606:4700:4700::1111 from :: via fe80::<tor-b> dev ens30f1np1 \
->       proto bgp src fd00:2:1::11 metric 20 pref medium
->   $ ip -6 route get 2606:4700:4700::1111 oif ens31f1np1 from 2001:db8:a::1
->   2606:4700:4700::1111 from 2001:db8:a::1 via fe80::<tor-b> dev ens30f1np1 \
->       proto bgp src fd00:2:1::11 metric 20 pref medium
+So it is not orthogonal.
 
-fib6_select_path() overwrites whatever fib6_table_lookup() returned and
-selects a nexthop based on the calculated hash. In this case, both
-hashes ended up picking the same nexthop.
+> This is governed by an
+> +  internal disable counter (``disable_depth``). All devices are initiali=
+zed
+> +  with runtime PM disabled (``disable_depth =3D=3D 1``)
 
-> 
-> Same for a socket. A test tool sends UDP on an AF_INET6/SOCK_RAW/
-> IPPROTO_UDP socket with IPV6_HDRINCL and SO_BINDTODEVICE=ens31f1np1
-> (root; the source address is a service address of the host, not the
-> interface address). The option is accepted and readable back:
-> 
->   setsockopt(SO_BINDTODEVICE, "ens31f1np1") = 0
->   getsockopt(SO_BINDTODEVICE) -> "ens31f1np1"
-> 
-> but the frames leave the sibling interface. tcpdump on both NICs while
-> 3 packets are sent:
-> 
->   ens31f1np1 (the bound device):  0 packets captured
->   ens30f1np1:                     3 packets captured
->     IP6 2001:db8:a::1.41022 > 2606:4700:4700::1111.53: ...
-> 
-> Impact for us: anything that pins traffic to one uplink of a dual-homed
-> BGP host (per-link probes, validation of switch-side policy routing)
-> silently takes another link. We lost a day to it before suspecting the
-> kernel.
+This is only partially true because the PCI bus type, for instance,
+enables runtime PM for all PCI devices and so it is enabled when
+drivers get to them.
 
-I don't think that it matters if you bind to a device or not. AFAICT,
-with nexthop groups, 6.12.y completely ignores the oif and simply
-chooses a nexthop based on the calculated hash.
+> and can also be disabled
+> +  during system sleep transitions or explicitly via pm_runtime_disable()=
+. In
+> +  the disabled state, the PM core ignores idle and suspend requests and =
+will
+> +  not execute runtime PM callbacks (->runtime_suspend(), ->runtime_resum=
+e(),
+> +  ->runtime_idle()).
 
-> 
-> From reading 6.12 route.c: with nexthop objects, fib6_table_lookup()
-> returns the first nexthop of the group unless the lookup is strict, so
-> the have_oif_match test that this patch adds to ip6_pol_route() only
-> becomes true for nexthop groups once 484bb9d164df ("ipv6: Select best
-> matching nexthop object in fib6_table_lookup()") makes the table lookup
-> prefer the oif-matching nexthop. Its commit message describes it as
-> preparation for this patch. For nexthop-object users this patch is
-> therefore incomplete on its own; please consider queueing both:
-> 
->   484bb9d164df ipv6: Select best matching nexthop object in fib6_table_lookup()
->   d25e7e9d8a6c ipv6: Honor oif when choosing nexthop for locally generated traffic
-> 
->   https://patch.msgid.link/20260611154605.992528-2-idosch@nvidia.com
->   https://patch.msgid.link/20260611154605.992528-3-idosch@nvidia.com
-> 
-> Happy to test a 6.12.y tree with one or both applied on these hosts and
-> report back.
+Moreover, parent-child and supplied-consumer dependencies are
+generally not tracked for devices with disabled runtime PM.
 
-Can you test 7.2.y? It already has both patches.
+> A driver activates runtime PM processing during
+> +  initialization or probe by calling pm_runtime_enable(), decrementing
+> +  ``disable_depth`` to zero.
+
+Yes, and it needs to set the active/suspended status to reflect the
+current physical state of the device before calling
+pm_runtime_enable().
+
+> +
+> +* **Allowed**: System policy and user space govern whether dynamic suspe=
+nsion
+> +  is permitted through the concepts of **allowed** and **forbidden**,
+> +  manipulated in-kernel via pm_runtime_allow() and pm_runtime_forbid() a=
+nd
+> +  exposed to user space through the ``/sys/devices/.../power/control``
+> +  attribute. When runtime PM is forbidden (``control`` set to ``on``), t=
+he PM
+> +  core increments the device's usage counter, forcing the device to rema=
+in
+> +  active regardless of whether the driver is idle. When runtime PM is al=
+lowed
+> +  (``control`` set to ``auto``), this reference is dropped, permitting t=
+he PM
+> +  core to automatically suspend the device whenever its driver and child
+> +  devices are no longer using it.
+> +
+> +Notably, runtime PM also has a feature called "autosuspend." This is dif=
+ferent
+> +than the ``control`` notion of "auto" (i.e., "allowed"). Autosuspend is
+> +described in more detail in Section 9.
+
+Yup, and the changes below look good.
+
+> +
+> +Implementation Structure
+> +------------------------
+> +
+> +Support for runtime power management is provided at the power management=
+ core
+> +(PM core) level by means of:
+>
+>  * Three device runtime PM callbacks in 'struct dev_pm_ops' (defined in
+> -  include/linux/pm.h).
+> +  include/linux/pm.h). See Section 2.
+> +
+> +* A number of runtime PM fields in the 'power' member of 'struct device'=
+ that
+> +  can be used for synchronizing runtime PM operations with one another. =
+These
+> +  are covered in Section 3.
+>
+>  * A set of helper functions defined in drivers/base/power/runtime.c that=
+ can be
+>    used for carrying out runtime PM operations in such a way that the
+> -  synchronization between them is taken care of by the PM core.  Bus typ=
+es and
+> -  device drivers are encouraged to use these functions.
+> +  synchronization between them is taken care of by the PM core. Bus type=
+s and
+> +  device drivers are encouraged to use these functions. They are covered=
+ in
+> +  Section 4.
+>
+> -The runtime PM callbacks present in 'struct dev_pm_ops', the device runt=
+ime PM
+> -fields of 'struct dev_pm_info' and the core helper functions provided fo=
+r
+> -runtime PM are described below.
+> +* The power management workqueue pm_wq in which bus types and device dri=
+vers can
+> +  put their PM-related work items. It is strongly recommended that pm_wq=
+ be
+> +  used for queuing all work items related to runtime PM, because this al=
+lows
+> +  them to be synchronized with system-wide power transitions (suspend to=
+ RAM,
+> +  hibernation and resume from system sleep states). pm_wq is declared in
+> +  include/linux/pm_runtime.h and defined in kernel/power/main.c.
+>
+>  2. Device Runtime PM Callbacks
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+> --
+> 2.55.0.979.g7e5102b832-goog
+
+Do the subsequent patches in the series depend on this one?
