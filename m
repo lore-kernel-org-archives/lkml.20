@@ -1,209 +1,107 @@
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3B64D37D5
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645926; cv=pass; b=h8fQbxo2W+mq2CrQueTXe7VkD20MaMplgjoK2jmNMcgzry+0sS+5IO99hxnsxNKd8TwbzNYrYqbhr+xCK489Ul7XI87Km5bc3+n1N820FXOdC66C0kJWPEDHQb4HU7cbarmtlHaNe2Uq4PBb5W3kaw4bgiSE5mLdJ3x1cb/xeuM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645926; c=relaxed/simple;
-	bh=kseQKRvQdNnN8LYBnsMt6SWVvkkwfz7j+iCs7tAx5Sw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jp15HZ6GdK77+gSI03afHDB1q6zQF0UB3mMHcjJTKCSGj78+vR2VZsCYsa5dzOZhw6QDj5RlE3f/n2p6QmFtfz70TakKCuwvYSqf9R5QOChoyTxwXJf7rvXFVIZhSiKiduXn6Fn6LSNO4kZovgZeDqfL+WOqmPaoaO3wEjtL61o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=EcwjcfxS; arc=pass smtp.client-ip=165.173.180.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="EcwjcfxS"
-ARC-Seal: i=1; a=rsa-sha256; t=1789645872; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Pd82UWvfSs6YpVrv1vAog2PUcpE+Ombq1RArsu0V0jTFZTQtWDh0bYMe6p2rTteg9h++P5hRHi4cDvwe9KTHSgt5I+nSV+Y1BmfeAxqi0foyCAdK3OaWDXaCc/gyIeRHM7oMFN22tAmqqQPlK1pP6+5y4DzvhMkxKfkwOE0trTk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789645872; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=kseQKRvQdNnN8LYBnsMt6SWVvkkwfz7j+iCs7tAx5Sw=; 
-	b=bKNa4ZfgdhmY6u6pSqaA/IS4XO5OJNN59WJTndP4weOKGmlMy7BMyjWaI+Ab+hLd8RTpB2VikQ7KMh02VopEmjgf7/ExO9TVTr5Z0aFd0mZthVYX/NEPis2wME2wrbGTF2G5wLFEkqZCcWyestNKUwsfRls7x1fooQ8ooqeIWQw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789645872;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=kseQKRvQdNnN8LYBnsMt6SWVvkkwfz7j+iCs7tAx5Sw=;
-	b=EcwjcfxStg1/MXXpii5AtWo3avKE4bU5Fkdyodhl8QYdZlmR2jz2kZC9/NL/xnYL
-	A+ZyeFJfs+U9gbLyO94UdPXQHJ6LVvAg9mvUovNw5Kfjfhl4SQV7xmGW0H/G9PncBSL
-	0/jTXWOqZXEY4skU+BoGiZDgTBzePxvpCjDWKVQMEPVHdCMJ6tU0hK3hC6FGEbSPIaT
-	vpHHuJ7MIt+BJ5CGp4NqR8tOab8PwdbFqHBWZEPzZHFtTffjW+6ZsUReOVExE6zZmP4
-	A5MucyOfpQUmneVrHeDziFb84wPTO9VCboxzUcBiiQq2qiCEPl30c6XC5dp1OV2W9cy
-	UsdO2QKvZQ==
-Received: by smtp.zohomail.com with SMTPS id 1789645871551851.4316439919276;
-	Thu, 17 Sep 2026 04:51:11 -0700 (PDT)
-Message-ID: <c70b6dbe42aa5ba489dba7634ad604b41925146a.camel@icenowy.me>
-Subject: Re: [PATCH RFT v2 0/5] drm: Add and use
- drm_fb_dma_get_gem_clipped_addr() helper
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Liu Ying <victor.liu@nxp.com>, Laurentiu Palcu
- <laurentiu.palcu@oss.nxp.com>,  Lucas Stach <l.stach@pengutronix.de>,
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej@kernel.org>,  Samuel
- Holland <samuel@sholland.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard	 <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie	 <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 	linux-sunxi@lists.linux.dev,
- imx@lists.linux.dev, 	dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org
-Date: Thu, 17 Sep 2026 19:51:05 +0800
-In-Reply-To: <CAGXv+5FHiW8umZ=wLLb5wK5Qz3hf-mbxC_zH5v+pwxxyUNTwew@mail.gmail.com>
-References: <20260916033327.3054126-1-wenst@chromium.org>
-	 <6d21e808d343283264665ec16d297317000fdf4d.camel@icenowy.me>
-	 <CAGXv+5FHiW8umZ=wLLb5wK5Qz3hf-mbxC_zH5v+pwxxyUNTwew@mail.gmail.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C734DA9C6;
+	Thu, 17 Sep 2026 11:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789645962; cv=none; b=MREMkdQfUuhKVT0wtyDIANfMcoCxDx66BmgFfyJD35+lfYtQm8kOHpg/9dwxjSJmuP3+0SmxhpBQDl/5TjZvP025MvAxudZxrpuD5fev/N6E9TT+2rWalbTDC7xbT795pQg0jtPW4sLBjSKArQwEZWOQrtND9mjDSGcyM6r3cso=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789645962; c=relaxed/simple;
+	bh=bVswK+dkCyTbPCTTduNsxpsGcVttkURQYjJqvedOub8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LF5HUd1VEGWeHeK1na7HAISJG7qEUfCNNtbhabX+yjvzhnTZ5g6kYM3Ki01U9MbEezDq5HovZLttxcQhHfEqd1JF10shDzlXNn0ETMgXXFvR/6YAyPUTdJQ3Lx5GWr+AI+QIYN3sT6r3yzD9WBs8s7M4BVPxNVap0Hq8wLdX4jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAXgDpw1Ktqm_B_CA--.65344S2;
+	Thu, 17 Sep 2026 19:52:16 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrew+netdev@lunn.ch
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	elder@kernel.org,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: ipa: Fix enabled_state leak in ipa_smp2p_init()
+Date: Thu, 17 Sep 2026 11:52:16 +0000
+Message-Id: <20260917115216.2149867-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAXgDpw1Ktqm_B_CA--.65344S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZF13Zw1xCw18AFWkKF1Dtrb_yoW8XF1DpF
+	s8Zaya9r95WF4xK3W7WFy8Wr9Yvw4xKry5G3s0y3s5Cay3Ar1rtF1vkFyFya1kAFW8GFn8
+	tr1ayFn8uayrZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
+	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
+	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
+	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
+	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvE
+	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
+	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
+	Xa7IU878n5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwENA2qrrRl3TwAAsF
 
-=E5=9C=A8 2026-09-17=E5=9B=9B=E7=9A=84 19:42 +0800=EF=BC=8CChen-Yu Tsai=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Thu, Sep 17, 2026 at 7:16=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me> wr=
-ote:
-> >=20
-> > =E5=9C=A8 2026-09-16=E4=B8=89=E7=9A=84 11:33 +0800=EF=BC=8CChen-Yu Tsai=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > Hi,
-> > >=20
-> > > This is v2 of my drm_fb_dma_get_gem_clipped_addr() series.
-> > >=20
-> > > Changes since v1:
-> > > - Add and use new drm_framebuffer_get_block_offset() helper
-> > > (Thomas)
-> > >=20
-> > >=20
-> > > This series adds a helper to retrieve the buffer starting address
-> > > of
-> > > a
-> > > "clipped" framebuffer. This contrasts with
-> > > drm_fb_dma_get_gem_addr(),
-> > > which gives the address of the full buffer.
-> >=20
-> > Should vs_fb_get_dma_addr() in verisilicon/vs_plane.c be replaced
-> > with
-> > this helper too?
-> >=20
-> > I implemented manual framebuffer offset addition here.
->=20
-> Didn't I replace vs_fb_get_dma_addr() with drm_fb_dma_get_gem_addr()
+qcom_smem_state_get() takes a reference on the state, but
+ipa_smp2p_init() returns without releasing the "ipa-clock-enabled" state
+when the bit number is out of range, when the smp2p structure cannot be
+allocated, and on the error paths that free the structure. Release the
+reference on all of these paths.
 
-Yes, it seems so. I checked newest rc, but this change is in drm-misc-
-next. Sorry for the noise.
+Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/ipa/ipa_smp2p.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-> already? At the time only primary and cursor planes were supported by
-> the driver. The primary plane can't be clipped, and the cursor plane
-> had some custom clipping, but seemed to want the unclipped address.
+diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
+index 2f0ccdd937cc..78f6df2cad76 100644
+--- a/drivers/net/ipa/ipa_smp2p.c
++++ b/drivers/net/ipa/ipa_smp2p.c
+@@ -239,12 +239,16 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
+ 					    &enabled_bit);
+ 	if (IS_ERR(enabled_state))
+ 		return PTR_ERR(enabled_state);
+-	if (enabled_bit >= 32)		/* BITS_PER_U32 */
++	if (enabled_bit >= 32) {	/* BITS_PER_U32 */
++		qcom_smem_state_put(enabled_state);
+ 		return -EINVAL;
++	}
+ 
+ 	smp2p = kzalloc_obj(*smp2p);
+-	if (!smp2p)
++	if (!smp2p) {
++		qcom_smem_state_put(enabled_state);
+ 		return -ENOMEM;
++	}
+ 
+ 	smp2p->ipa = ipa;
+ 
+@@ -288,6 +292,7 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
+ err_null_smp2p:
+ 	ipa->smp2p = NULL;
+ 	mutex_destroy(&smp2p->mutex);
++	qcom_smem_state_put(enabled_state);
+ 	kfree(smp2p);
+ 
+ 	return ret;
+-- 
+2.34.1
 
-Yes it looks like thedrm_fb_dma_get_gem_addr() helper already handled
-the non-clipping source offset.
-
-Thanks,
-Icenowy
-
->=20
->=20
-> ChenYu
->=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > >=20
-> > > Some drivers program their hardware with clipped dimensions, so
-> > > they
-> > > should be using the clipped buffer address as well, unless the
-> > > hardware
-> > > can advance the scanout directly. (Side note: many drivers still
-> > > use
-> > > the non-clipped dimensions.)
-> > >=20
-> > > While at it, also pull out the offset calculation of
-> > > drm_fb_dma_get_gem_addr()
-> > > into a separate helper in drm_framebuffer.[ch], thereby
-> > > separating
-> > > responsibilities.
-> > >=20
-> > > The sun4i driver was recently incorrectly converted to use the
-> > > unclipped
-> > > drm_fb_dma_get_gem_addr() helper. This broke offsets into
-> > > subsampled
-> > > pixel groups, but also exposed the mismatch between the
-> > > dimensions
-> > > used
-> > > vs the buffer address. Two other drivers were also touched.
-> > >=20
-> > >=20
-> > > Patch 1 adds a new helper to return the byte offset into a
-> > > framebuffer
-> > > for the start of the pixel block of the given pixel coordinates.
-> > >=20
-> > > Patch 2 adds the new helper to return the buffer address based on
-> > > clipped coordinates.
-> > >=20
-> > > Patch 3 switches the sun4i driver to the new helper, and fixes
-> > > the
-> > > luma plane buffer address offset for subsampled YUV formats.
-> > >=20
-> > > Patch 4 converts the imx/dc driver to use the new helper. This
-> > > fixes
-> > > a
-> > > mismatch between the programmed coordinates and the buffer
-> > > address.
-> > >=20
-> > > Patch 5 replaces the open coded buffer address calculation in the
-> > > imx/dcss driver with the new helper. Existing behavior, which
-> > > might
-> > > be
-> > > wrong, is preserved.
-> > >=20
-> > >=20
-> > > Please help test. The series is only compile tested on my end.
-> > > The
-> > > sun4i
-> > > changes should revert its behavior to before the
-> > > drm_fb_dma_get_gem_addr()
-> > > was adopted. The imx/dcss changes should not have any behavioral
-> > > difference.
-> > >=20
-> > >=20
-> > > Thanks
-> > > ChenYu
-> > >=20
-> > > Chen-Yu Tsai (5):
-> > > =C2=A0 drm: Split framebuffer pixel offset calculation from
-> > > =C2=A0=C2=A0=C2=A0 drm_fb_dma_get_gem_addr()
-> > > =C2=A0 drm/fb-dma-helper: Add drm_fb_dma_get_gem_clipped_addr()
-> > > =C2=A0 drm/sun4i: layers: Fix VI buffer address for clipped offsets
-> > > =C2=A0 drm/imx/dc: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
-> > > =C2=A0 drm/imx/dcss: plane: Switch to
-> > > drm_fb_dma_get_gem_clipped_addr()
-> > >=20
-> > > =C2=A0drivers/gpu/drm/drm_fb_dma_helper.c=C2=A0=C2=A0=C2=A0 | 61 ++++=
-++++++++++------
-> > > ----
-> > > --
-> > > =C2=A0drivers/gpu/drm/drm_framebuffer.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 45 +++++++++++++++++++
-> > > =C2=A0drivers/gpu/drm/imx/dc/dc-plane.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0 4 +-
-> > > =C2=A0drivers/gpu/drm/imx/dcss/dcss-plane.c=C2=A0 | 34 ++++++--------
-> > > =C2=A0drivers/gpu/drm/sun4i/sun8i_ui_layer.c |=C2=A0 2 +-
-> > > =C2=A0drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 16 ++++++-
-> > > =C2=A0include/drm/drm_fb_dma_helper.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 4 ++
-> > > =C2=A0include/drm/drm_framebuffer.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++
-> > > =C2=A08 files changed, 118 insertions(+), 51 deletions(-)
