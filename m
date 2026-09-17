@@ -1,145 +1,89 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074CC5650EB
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:31:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655467; cv=pass; b=TcOOCpTLRg59w/cAbF1Ke3ItTVdHaW3g6/gM4NQB7dIy6mC1OdkpaRRDBBYrViq9uqgYsp2Q6DBGFe1GymL7IIfFEEsVi7p+BrY7SGkSzDsUclRrp6+rZf7IqQgagEnhv4ggX/IoYlK+WYAFt+t3gB5bjGcC6BBndMxmbcDHEnc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655467; c=relaxed/simple;
-	bh=9f+78wGlcBOKNtXkR7f5aCpx4x+d4ZjfQVQNRxt8esQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nOj5ar5BbhJYtpvw37+pekfB8XxG/yuXKnZOAOpA+J1KOc8eVxy6ZaWTcK1cNLjcglAIRPoicI+kxsHX+4gLIrRKXn/1mnxhUcDsS/OyK7jzOB1qNmdD/1x+vyrL8suagpObMhgr6/k6pat8EDQCBxuhrbtcYmhUfIpHS6IQLCc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FM1syymo; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5C75947EF;
+	Thu, 17 Sep 2026 14:31:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789655473; cv=none; b=jPZJ0eWwQ7mR5R498ES2sPTzIcVLqm1JYr69G2HDrVnX2gw7wMmqx5VfIICifMEyJyojfFXHZn7EmGPNCB0J1R5uMqkblhr6t9LFRO/9ByItO/Pk5mYf7RxeEqT/FXbwkDK3qPjRt3aBXdz7E2HEC1Qcbv8wRLQvhuDz6FIQbIY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789655473; c=relaxed/simple;
+	bh=uEl4EECKGXhBp9GF2kkvwWzKjgeAIHxbVYK7tvBgEEQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=rVSkU5i3i/OjR9/clJQ1ntnjH6Po9WPtoeJMkcoOGUJ3Ep+hOB5/D7Pr00ufvuI1vJVBUs2+N/eAoohabwxxEktY3IAxJY+RW74zoOnT8hPKCe1d5357Gx58AiC4veWFVo/iXiYAoTl8b5GZBGNN+us5ZB+Uppr4kjri/v7ILPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kaGmDRP7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FM1syymo"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633cd78so510794f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:31:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789655464; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fUWsYpgNfGUuWFD6DOk4oPVk+mr+pUnDkNYtsIMTREmwporDlvqspwsy1hGXJejWw5
-         xygHkEhH5tN1fn/glvE+VZLmgOI8Rjyi7mWDGJA7Djoi6Hguz9ZxFsX45HuD+9u+H/G0
-         Yt58Pb6gMeNhfWoxpjmWustvCL/ldg99RdxmUSVc4x6oH+hkg9csGY6Y5UFzOX9aoPdl
-         rU7AvjCTjSBucQfXBaqpA2aBNQ8XnpXud2V/KOzVXAiVOecmjkk37EWfw/07UtZHP4w8
-         QLqSZsKwhCsxxZ8OFj/3Athdpp6mAvoJ+wOjf1qnoOYfkG9hAwkAo0GOp/YlO7xIN4RQ
-         Kqaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OL1rW9y9mHZ7kkv/coK63PMmFR1002GsoxxgXvkjsnU=;
-        fh=9vU9aUVjwlYWitvDz52hVisc8FO1yGOqsk+DqPCRVYU=;
-        b=Gz6T3YcbcrvzN2bG6IE6adPyJt6Qpd1rDi1nKwzmGpGTYglBpDyIKaKiK8f9WznMhu
-         3xQdqvSwJwZdzirJSdlZfj+lgL3rqZI6OMPPZZGTE8r3j5TP75srQJFN0UUDzE/wEIaz
-         usl87bQik24MoxnWd3QCYTe3osCsbPyS7UsG0nUkwqwNOwk3PON8kf+A3LDIIbVWNQSh
-         jayTSWf28kzT7gSY80zeXUbyhs3fQl0X+L0zUPX7L4Pso0KaBh+Bc5TmQRkOtlm/Wq08
-         qbPcoAKYeDGH2pyB8zVuiEc4hrSBNQwQ1mmG+B9+m9ccBqXZEI+MSbTRAw9IQA+TisKy
-         rwtQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789655464; x=1790260264; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OL1rW9y9mHZ7kkv/coK63PMmFR1002GsoxxgXvkjsnU=;
-        b=FM1syymo12AJ1W8Z6UsRCjeuEmOebn3VL/xFBbaej64az9lCQzK2wB891HjZ19aGgK
-         xJL2714fsU5FoEPVXmx/XyqwjTp+m/AWbFGG2JqqBroZL3d/fljv5yOmpfQ0y5RupUfj
-         zA/BvAQnEW9Wj/NlJIsvtdgtQrj/MAYq2JxDRGF3ObjGSHt2svFI+aFrWXfMTADktMBL
-         6MWw/M+kKQ27KaSBgybTN6YwIFHk0NnWavx0JjNKC/6D9UcPbfiZdXOlWrZYY1SgDoXK
-         rd1PrWSWSi2k16qF3DWcqAsKJS4dz2WL+NTSr+A2Kuh3uOar+TWtwTwRpxQfQhJv2LBM
-         VSZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789655464; x=1790260264;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OL1rW9y9mHZ7kkv/coK63PMmFR1002GsoxxgXvkjsnU=;
-        b=2SWSygP1dy1qWsBJZ1EOlonZhX41ASuFB5zVa7yzAR5URM1GicgQWNie3DmC6iEICK
-         /MAwm9iS2hXP9vlyO0pKi/TAo7zM5Ti5yivFiO8pNN9+eVyhd1R275ft+QnGIJ1caIQK
-         RItV5INKr4Ns4xNhxsBqc1A2CavYHYcLLgCAhw2L+lugZXfabawwI88ntS8uJAKeKlqb
-         afMQb0CtL4RlLwcaSNcR9RHDXIUT6jPdybooB63GvjWl4OdAqejqbdb/D3MzI2hh6GY8
-         sUJqsLpfL4I16EYvhuTW0k7rsM0HGW25pbomxC+Jl6p194W3zUkxjZcP13huJPvj4uVS
-         9+qg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3kARVaN5wBks3J0HBmU02PYc4wugb9yu0iplsa/QwuOB9gidCJkK+s4N0tWUv7V35+tl0SO5ZBh6ZQeo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k62OxtCIwM56YY2o/fBuCWZCGndpftif7FfECHIKmS9REpzq/C
-	8fvJUMLxve5E0FqyfFFLek4J1guJXPl2OarIWNRUzqXLTy4EURJg7ealflKrcfIXl8FIaIX6g+S
-	5lSH07pYJR4lV/Sl26/COALh0IE2lPEo=
-X-Gm-Gg: AYBFou37b5hDdbR1cZxYRRi4aEtRbSkySv1WpQCksz2DSMbxBIfqfVj5RFarMuLQ3mg
-	wGuX/J71RGs5dbR6CiUO+QKkjcAn0QDi3hP3WCZLXJBOQCWDHZMBgokGRmHLk9Pv86k9iHOd43s
-	Dnk4i7FGoD0iBnEeRoMBwWr7JdUjNQEU5SBpFxQ3yEd/ZzqU78+ih9vMOCXr0blfAOS1xF6BhEM
-	c43iJjv5+Pnk+gzh851/H1DBOgpuVTQjiHJ2WQveTQiFQZUyBDlVyDEeLRlxC10SZfAc4Mr80Dd
-	5tSNbL8LpeDjAICzkTQq3SxO+dP/Uf4B6lbcs7DnlB86HuDw3lJzDZjdRhD3crl0mTg=
-X-Received: by 2002:a05:6000:26d2:b0:487:cd:f1ad with SMTP id
- ffacd0b85a97d-4870d03f013mr9657861f8f.45.1789655463783; Thu, 17 Sep 2026
- 07:31:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kaGmDRP7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F38B1F00898;
+	Thu, 17 Sep 2026 14:31:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789655471;
+	bh=KHa8g/o3ojjpCzhC1dcYtNo1S27K7jUNp+brVCmz6W4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=kaGmDRP73EAovXlnIrU6yFrohP/3C41V3F1V5eOLlQ8PPQY88qQe954FUjgFwJs6g
+	 BRBBoddxrQ42MyM3JBwLkoNgJHT8TLmvaYMl7shJ/NsY/vpn18sIUv2NJ0s0UK0g80
+	 afv91FNBC8jobE7Tu07hUsZR/cEvYLJ1Io12qfFKl4XlK1rwDNBuVLqEvYAA/Pba/f
+	 cD9gHSxKBSdcG2D/F3Sy4wqY88YvTFWla/36oiQyRcGfAysK0jH8AzRRgn5nWBiu4S
+	 ZoBaD+dj4acH/DzgcoxrLI5UBQFeqlaqRv3jaTTUVaWVYvLUvQ5HpJg2rYKEJ8Gfgh
+	 D3fdrlqV1CGNw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A57381196A;
+	Thu, 17 Sep 2026 14:30:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
- <493ef264-eab3-4be3-a80e-357f01ae1b37@kernel.org> <c92a1202-1fa6-4cd8-9d82-b46a1b5d8f56@kernel.org>
-In-Reply-To: <c92a1202-1fa6-4cd8-9d82-b46a1b5d8f56@kernel.org>
-From: Wen Jiang <jiangwenxiaomi@gmail.com>
-Date: Thu, 17 Sep 2026 22:30:54 +0800
-X-Gm-Features: AcwNN1VjxeYLM2KzGJsJYtKrFkqVeJG4mjk-7CUC4wBfKBcPA0GlNQxygqiRut8
-Message-ID: <CAHKocdGWem4xW=vZ03maqtHaRLReYmAWkh0rAj63AW7e1+MjPw@mail.gmail.com>
-Subject: Re: [PATCH v8 00/10] mm/vmalloc: Speed up ioremap, vmalloc and vmap
- with contiguous memory
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org, 
-	urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com, 
-	ajd@linux.ibm.com, anshuman.khandual@arm.com, baohua@kernel.org, 
-	david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com, leo.yan@arm.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au, 
-	npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v8] net: qualcomm: rmnet: require CAP_NET_ADMIN
+ in
+ the real device netns for config ops
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178965540489.3675117.1032576692809888118.git-patchwork-notify@kernel.org>
+Date: Thu, 17 Sep 2026 14:30:04 +0000
+References: <20260915195642.1912-1-suruurism@gmail.com>
+In-Reply-To: <20260915195642.1912-1-suruurism@gmail.com>
+To: Abdifatah Suruur <suruurism@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ subash.a.kasiviswanathan@oss.qualcomm.com, sean.tranchetti@oss.qualcomm.com,
+ horms@kernel.org, kuba@kernel.org
 
-On Thu, 17 Sept 2026 at 21:56, Christophe Leroy (CS GROUP)
-<chleroy@kernel.org> wrote:
->
->
->
-> Le 17/09/2026 =C3=A0 14:17, Christophe Leroy (CS GROUP) a =C3=A9crit :
-> > Hi,
-> >
+Hello:
 
-Hi Christophe,
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Thanks for reviewing,
+On Tue, 15 Sep 2026 22:56:42 +0300 you wrote:
+> An rmnet device may be created with its real device in a different
+> netns than the rmnet device itself (rmnet_newlink() resolves it in
+> link_net), and the config paths below only check CAP_NET_ADMIN against
+> dev_net(dev), while mutating rmnet port state attached to the real
+> device:
+> 
+> - rmnet_changelink() rewrites the endpoint mux table and
+>   port->data_format and, via rmnet_vnd_update_dev_mtu(), can shrink the
+>   MTU of the rmnet endpoint netdevs.
+> - rmnet_add_bridge() and rmnet_del_bridge(), reachable via
+>   ndo_add_slave/ndo_del_slave through RTM_SETLINK IFLA_MASTER, flip
+>   port->rmnet_mode and port->bridge_ep on the real device's port; with
+>   bridge_ep pointing at a caller-owned device, rmnet_rx_handler() then
+>   forwards real-device ingress frames to it.
+> - rmnet_set_coalesce() rewrites the port aggregation parameters via
+>   ETHTOOL_SCOALESCE (ioctl) or ETHTOOL_MSG_COALESCE_SET (netlink),
+>   whose capability checks likewise only cover dev's netns.
+> 
+> [...]
 
-> > Le 17/09/2026 =C3=A0 07:29, Wen Jiang a =C3=A9crit :
-> >> From: Wen Jiang <jiangwen6@xiaomi.com>
-> >>
-> >> This patchset accelerates ioremap, vmalloc, and vmap when the memory i=
-s
-> >> physically fully or partially contiguous. Two techniques are used:
-> >>
-> >> 1. Avoid page table rewalk when setting PTEs/PMDs for multiple memory
-> >>     segments
-> >> 2. Use batched mappings wherever possible in both vmalloc and ARM64
-> >>     layers
-> >>
-> >> Besides accelerating the mapping path, this also enables large
-> >> mappings (PMD and cont-PTE) for vmap, which are currently not
-> >> supported.
-> >
-> > This series doesn't apply. I tried to apply it on top of v7.2, v7.3-rc3
-> > and next-20260916
-> >
-> > Can you tell how to apply it ?
->
->
-> Finaly I was able to apply it on top of v7.1
->
+Here is the summary with links:
+  - [net-next,v8] net: qualcomm: rmnet: require CAP_NET_ADMIN in the real device netns for config ops
+    https://git.kernel.org/netdev/net-next/c/26ee8cd69d46
 
-Yes. This series was based on v7.1. I'll rebase it onto the mainline
-in the next version.
-> Christophe
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
