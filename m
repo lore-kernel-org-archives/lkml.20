@@ -1,344 +1,96 @@
-Received: from mta0.migadu.com (out-142.mta0.migadu.com [91.218.175.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925B23093C1
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD2022A4E1;
+	Thu, 17 Sep 2026 03:13:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789614754; cv=none; b=QXaH4aveaDBTeXQxsskLiO58WS/HzuxwlEpphIcLn8XYH7/HbhHIaH7AnqpsdpXkbSDZEmeLuANQzXFGae3JuXtElZyySNEyKw18YtiaFAPrTykgX/vr/0Tlb9qH7dBRdR6peX5ORwf6ELvg3z9f0k2w2O2uZc2xawUGrxx8iE0=
+	t=1789614791; cv=none; b=qPjjxj917IAmkoj9rQH8HHLxiMHEc04vX8Uum9I4ajsydJaH6OIfCG066RvGcbAVLo9+8CFQxjSwO+8QquQr1Aa4TaHAwbMNexkT9de4KpAOWeg6KbRoqul9S36JmyqYEYd+fH4ABNKX4QW/h22zRw9Cq8SY436j8d+jAn5WQcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789614754; c=relaxed/simple;
-	bh=wlXY4hkKJ2x6HeDI5mm83kXFqFN7NEczA5K4T7MCPdQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kC0uHThD/lq7DIHrd4xSj0LnPWlgBa2j/oKR5yr6sJYxAX2FvQrY3gEjKMIP8xPv3RT1bohRKPCKmttTEME6mww3H8s7iGmvAKPP8al7QG6ix9y8js+Hdroxcqey1CDBlLA4nJAdSSZQ4OYskvQvAnL0v6g6rczJ+nWUWonez7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tMAkWKCU; arc=none smtp.client-ip=91.218.175.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789614791; c=relaxed/simple;
+	bh=FeKcoJ3loGn8FJEmciBgvprU0VZac3yRZ7pwrvMBqgQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=uMeT7O7ugOrLiE6L7x5THDYmBYcJi3vYa1ZTxlSusNb2MLBf9CWzgihsLif9yeEQeHp5l9RkcFMBsD5BVBHfJyg/mskAOpxxwEBznvJjmjZDhnjZOvOge9DBLz1gWjS27QOL6acPAZ5mixMv2FksYn7gT7jcxBz8M2TT93Ay2QI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=hBiJNpgS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tMAkWKCU"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wlXY4hkKJ2x6HeDI5mm83kXFqFN7NEczA5K4T7MCPdQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789614749; v=1; x=1790219549;
- b=tMAkWKCUt6N5v3B44qvr/kBsBKPWmWMFMPbTOfRCgGxQJRNXbElDsVonCQ9mMMT79AsBUW00
- 2qlDj2bolZ434QZQOy1rcdXTS+4NTsFHI2hu23YzRISdZEDKIhS3Un6mrTSRxCOytkZnDvy5Aqs
- 2dmrgM66A4DzPczBcBV/NkaI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 03f180ae3d787af5;
-	Thu, 17 Sep 2026 03:12:29 +0000
-X-Mizu-Trace-ID: 03f180ae3d787af5
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <34ffedaf-8f98-48eb-b3a9-d42f273a261d@linux.dev>
-Date: Thu, 17 Sep 2026 11:12:20 +0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="hBiJNpgS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585591F000FF;
+	Thu, 17 Sep 2026 03:13:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789614789;
+	bh=4+BlsAYVIvUfCkO04DyxIYq5YEbiYoDvPQdBOWVcg8o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hBiJNpgSIbLu448u25HbOQo5bMiPEncJqYfjeZJAyyhF3R2RWKukQ0My/1W9qgG3R
+	 q3ZcrXWQhRwuXALKX0cvM2ivn55BXK0d66EDShx8vS4aXs2nPxIzsrdzkPWUeXzqDh
+	 N54rEOf2/SDOY4l38oMMQhB+BQjSTR5m7Mz1loYY=
+Date: Wed, 16 Sep 2026 20:13:07 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: ackerleytng@google.com
+Cc: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>,
+ Alex Shi <alexs@kernel.org>, David Hildenbrand <david@kernel.org>,
+ Dongliang Mu <dzm91@hust.edu.cn>, Hongxiang Lou <louhongxiang@huawei.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin
+ <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, Nhat Pham
+ <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu
+ <peterx@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin
+ <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Shuah
+ Khan <skhan@linuxfoundation.org>, Suren Baghdasaryan <surenb@google.com>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Wupeng Ma <mawupeng1@huawei.com>, Yanteng Si <si.yanteng@linux.dev>, Naoya
+ Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com,
+ jthoughton@google.com, rientjes@google.com, vannapurve@google.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
+Message-Id: <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
+In-Reply-To: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
+References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] mm/mglru: add tracepoint for scan_folios()
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
- "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20260911102939.2485750-1-ridong.chen@linux.dev>
- <20260911102939.2485750-3-ridong.chen@linux.dev> <aqkoeJvFzqpoGeaP@fedora>
- <e38f2b80-20f2-4787-9e07-fb601552f550@linux.dev> <aqn7h3BVCCRFI2TI@fedora>
- <ce8c2ebf-7eb4-4afc-a007-1cfcec439ede@linux.dev> <aqs9auiVq2EplTha@fedora>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <aqs9auiVq2EplTha@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Wed, 16 Sep 2026 16:39:00 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
 
+> HugeTLB subpools currently only track used pages (used_hpages) when a
+> maximum size limit (max_hpages) is configured on the mount.
+> 
+> ...
+> 
+> This series addresses three problem areas resulting from untracked usage
+> and asymmetric error handling:
 
-On 9/17/2026 9:07 AM, Baoquan He wrote:
-> On 09/16/26 at 08:17pm, Ridong Chen wrote:
->>
->>
->> On 9/16/2026 10:14 AM, Baoquan He wrote:
->>> On 09/15/26 at 08:17pm, Ridong Chen wrote:
->>>>
->>>>
->>>> On 9/15/2026 7:14 PM, Baoquan He wrote:
->>>>> On 09/11/26 at 06:29pm, Ridong Chen wrote:
->>>>>> From: Ridong Chen <chenridong@xiaomi.com>
->>>>> ...snip...
->>>>>> ---
->>>>>>     include/trace/events/vmscan.h | 63 +++++++++++++++++++++++++++++++++++
->>>>>>     mm/vmscan.c                   |  6 ++++
->>>>>>     2 files changed, 69 insertions(+)
->>>>>>
->>>>>> diff --git a/include/trace/events/vmscan.h b/include/trace/events/vmscan.h
->>>>>> index 8a872990b4be..5defa8f6719c 100644
->>>>>> --- a/include/trace/events/vmscan.h
->>>>>> +++ b/include/trace/events/vmscan.h
->>>>>> @@ -392,6 +392,69 @@ TRACE_EVENT(mm_vmscan_lru_isolate,
->>>>>>     		__print_symbolic(__entry->lru, LRU_NAMES))
->>>>>>     );
->>>>>> +TRACE_EVENT(mm_mglru_scan_folios,
->>>>>> +
->>>>>> +	TP_PROTO(struct lruvec *lruvec,
->>>>>> +		int highest_zoneidx,
->>>>>> +		int order,
->>>>>> +		unsigned long nr_requested,
->>>>>> +		unsigned long nr_scanned,
->>>>>> +		unsigned long nr_sorted,
->>>>>> +		unsigned long nr_skipped,
->>>>>> +		unsigned long nr_taken,
->>>>>> +		int lru,
->>>>>> +		unsigned long max_seq,
->>>>>> +		int tier,
->>>>>> +		unsigned long min_seq),
->>>>>
->>>>
->>>> Thank you for your review.
->>>>
->>>>> Do we need show nid? Guess phone vendor doesn't care about multi-NUMA
->>>>> system.
->>>>>
->>>>
->>>> Eh, nid is not an mglru-specific key. Since there are 12 elements here, it
->>>> can't be added here.
->>>
->>> Hmm, we print memcg_id but not nid, it may not be so clear. How do you
->                                 ^~~~ typo, s/not/no/
-> 
->>> differentiate several lruvec-s on one memcg? I am not very familiar with
->>> trace mechanism, do we have a element number limit?
->>>
->>
->> Yes, it will fail to compile if there are more than 12 elements.
->>
->> With AI's help, see
->>
->> include/trace/bpf_probe.h
->> ```
->> 30 #define __CAST1(a,...) __CAST_TO_U64(a)
->>   31 #define __CAST2(a,...) __CAST_TO_U64(a), __CAST1(__VA_ARGS__)
->>   32 #define __CAST3(a,...) __CAST_TO_U64(a), __CAST2(__VA_ARGS__)
->>   33 #define __CAST4(a,...) __CAST_TO_U64(a), __CAST3(__VA_ARGS__)
->>   34 #define __CAST5(a,...) __CAST_TO_U64(a), __CAST4(__VA_ARGS__)
->>   35 #define __CAST6(a,...) __CAST_TO_U64(a), __CAST5(__VA_ARGS__)
->>   36 #define __CAST7(a,...) __CAST_TO_U64(a), __CAST6(__VA_ARGS__)
->>   37 #define __CAST8(a,...) __CAST_TO_U64(a), __CAST7(__VA_ARGS__)
->>   38 #define __CAST9(a,...) __CAST_TO_U64(a), __CAST8(__VA_ARGS__)
->>   39 #define __CAST10(a,...) __CAST_TO_U64(a), __CAST9(__VA_ARGS__)
->>   40 #define __CAST11(a,...) __CAST_TO_U64(a), __CAST10(__VA_ARGS__)
->>   41 #define __CAST12(a,...) __CAST_TO_U64(a), __CAST11(__VA_ARGS__)
->> /* tracepoints with more than 12 arguments will hit build error */
->> ```
->>
->>> Imagine I only want to trace this function, now I can see memcg_id,
->>> zone_idex, while don't know node/lruvec, that's a little pitty. Just my
->>> personal opinion, I could miss anything.
->>>
->>
->> Yeah, you are right. In my personal experience, I always enable
->> trace_mm_vmscan_lru_isolate and trace_mm_vmscan_lru_shrink_inactive, which
->> contain node_id. So we can see how the lruvec is scanned and shrunk, and we
->> can get node_id from trace_mm_vmscan_lru_shrink_inactive. I am not arguing
->> that this is exactly the 'correct' way to use these tracepoints, but I think
->> it is a common usage.
->>
->> I am open to that. If we want to record node_id, we have to remove an
->> element. Maybe tier? But I would strongly recommend record memcg_id, we
->> frequently need to check the reclaim behavior of a memcg, and most of our
-> 
-> Sorry, that's my typo which could cause misunderstanding. I meant "we print
-> memcg_id but no nid, it may not be so clear". I agree with you that
-> memcg_id is undispensable.
-> 
->> scenarios are non-NUMA.
-> 
-> Understood, mobile phone mostly is non-NUMA, while server is different.
-> About adding nid, I cousulted AI too, it says it's doable.
-> 
-> It says The 12-argument limit only counts the TP_PROTO arguments (that's
-> the BPF __CAST12/bpf_trace_run12 path), not the __entry fields in
-> TP_STRUCT__entry. And nid doesn't have to be a 13th argument at all. We
-> already pass lruvec, so nid can be derived from it in TP_fast_assign with
-> lruvec_pgdat(lruvec)->node_id.
->                                                                                                        
-> e.g. for mm_mglru_scan_folios:
->                                                                                                        
->     TP_STRUCT__entry(
->        __field(u64, memcg_id)
->        __field(int, nid)
->        __field(int, highest_zoneidx)
->        __field(int, order)
->        __field(unsigned long, nr_requested)
->        __field(unsigned long, nr_scanned)
->        __field(unsigned long, nr_sorted)
->        __field(unsigned long, nr_skipped)
->        __field(unsigned long, nr_taken)
->        __field(int, lru)
->        __field(unsigned long, max_seq)
->        __field(int, tier)
->        __field(unsigned long, min_seq)
->     ),
->                                                                                                        
->     TP_fast_assign(
->        __entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
->        __entry->nid      = lruvec_pgdat(lruvec)->node_id;
->        __entry->highest_zoneidx = highest_zoneidx;
->        ...
->     ),
->                                                                                                        
->     TP_printk("memcg_id=%llu nid=%d classzone=%d order=%d ...",
->        __entry->memcg_id,
->        __entry->nid,
->        __entry->highest_zoneidx,
->        ...)
->                                                                                                        
-> lruvec_pgdat() comes from include/linux/mmzone.h, which vmscan.h already
-> pulls in via linux/mm.h, so no extra include is needed. The same pattern
-> applies to mm_mglru_inc_max_seq in patch 3 if you want nid there too.
-> I didn't try it though, please feel free to give it a shot.
-> 
+These are rather serious-sounding problems.
 
-Good. It works, I just tested it. Will add nid.
+I'm seeing Fixes: for 10-year-old patches, for one last year and one
+this year.  The fourth patch doesn't identify what to fix.
 
-> 
->>
-> 
->>>>
->>>>
->>>>> And I checked v1 thread, seems Steven suggested to move the two int to
->>>>> avoid extra padding.
->>>>>
->>>>
->>>> Yeah, I will update it. I updated v2 to fix Sashiko's issue, before Steven
->>>> had any comment.
->>>>
->>>>
->>>>>> +
->>>>>> +	TP_ARGS(lruvec, highest_zoneidx, order, nr_requested, nr_scanned,
->>>>>> +		nr_sorted, nr_skipped, nr_taken, lru, max_seq, tier, min_seq),
->>>>>> +
->>>>>> +	TP_STRUCT__entry(
->>>>>> +		__field(u64, memcg_id)
->>>>>> +		__field(int, highest_zoneidx)
->>>>>> +		__field(int, order)
->>>>>> +		__field(unsigned long, nr_requested)
->>>>>> +		__field(unsigned long, nr_scanned)
->>>>>> +		__field(unsigned long, nr_sorted)
->>>>>> +		__field(unsigned long, nr_skipped)
->>>>>> +		__field(unsigned long, nr_taken)
->>>>>> +		__field(int, lru)
->>>>>> +		__field(unsigned long, max_seq)
->>>>>> +		__field(int, tier)
->>>>>> +		__field(unsigned long, min_seq)
->>>>>> +	),
->>>>>> +
->>>>>> +	TP_fast_assign(
->>>>>> +		__entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
->>>>>> +		__entry->highest_zoneidx = highest_zoneidx;
->>>>>> +		__entry->order = order;
->>>>>> +		__entry->nr_requested = nr_requested;
->>>>>> +		__entry->nr_scanned = nr_scanned;
->>>>>> +		__entry->nr_sorted = nr_sorted;
->>>>>> +		__entry->nr_skipped = nr_skipped;
->>>>>> +		__entry->nr_taken = nr_taken;
->>>>>> +		__entry->lru = lru;
->>>>>> +		__entry->max_seq = max_seq;
->>>>>> +		__entry->tier = tier;
->>>>>> +		__entry->min_seq = min_seq;
->>>>>> +	),
->>>>>> +
->>>>>> +	TP_printk("memcg_id=%llu classzone=%d order=%d nr_requested=%lu nr_scanned=%lu nr_sorted=%lu nr_skipped=%lu nr_taken=%lu lru=%s max_seq=%lu tier=%d min_seq=%lu",
->>>>>> +		__entry->memcg_id,
->>>>>> +		__entry->highest_zoneidx,
->>>>>> +		__entry->order,
->>>>>> +		__entry->nr_requested,
->>>>>> +		__entry->nr_scanned,
->>>>>> +		__entry->nr_sorted,
->>>>>> +		__entry->nr_skipped,
->>>>>> +		__entry->nr_taken,
->>>>>> +		__print_symbolic(__entry->lru, LRU_NAMES),
->>>>>> +		__entry->max_seq,
->>>>>> +		__entry->tier,
->>>>>> +		__entry->min_seq)
->>>>>> +);
->>>>>> +
->>>>>>     TRACE_EVENT(mm_vmscan_write_folio,
->>>>>>     	TP_PROTO(struct folio *folio),
->>>>>> diff --git a/mm/vmscan.c b/mm/vmscan.c
->>>>>> index 2554a6513aa8..67f59aa73fb9 100644
->>>>>> --- a/mm/vmscan.c
->>>>>> +++ b/mm/vmscan.c
->>>>>> @@ -4876,6 +4876,12 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
->>>>>>     	trace_mm_vmscan_lru_isolate(sc->reclaim_idx, sc->order, nr_to_scan,
->>>>>>     				scanned, skipped, isolated,
->>>>>>     				type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
->>>>>> +	trace_mm_mglru_scan_folios(lruvec,
->>>>>> +				   sc->reclaim_idx, sc->order, nr_to_scan,
->>>>>> +				   scanned, sorted, skipped, isolated,
->>>>>> +				   type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON,
->>>>>> +				   lrugen->max_seq, tier,
->>>>>> +				   lrugen->min_seq[type]);
->>>>>
->>>>> And seems Steven also suggested to calculate lru, max_seq, min_seq in
->>>>> TP_fast_assign() in v1 which could be missed.
->>>>>
->>>>
->>>> Thanks, I will update it following Steven's suggestions.
->>>>
->>>>
->>>>>            TP_fast_assign(
->>>>>                    __entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
->>>>>                    __entry->highest_zoneidx = sc->reclaim_idx;
->>>>>                    __entry->order = sc->order;
->>>>>                    __entry->nr_requested = nr_requested;
->>>>>                    __entry->nr_scanned = nr_scanned;
->>>>>                    __entry->nr_sorted = nr_sorted;
->>>>>                    __entry->nr_skipped = nr_skipped;
->>>>>                    __entry->nr_taken = nr_taken;
->>>>>                    __entry->lru = type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON;
->>>>>                    __entry->max_seq = lrugen->max_seq;
->>>>>                    __entry->tier = tier;
->>>>>                    __entry->min_seq = lrugen->min_seq;
->>>>>            ),
->>>>>
->>>>
->>>> However, 'sc' is an internal structure, so sc->order cannot be accessed in
->>>> TP_fast_assign(), and I don't think it is worth making scan_control an
->>>> external structure just for this.
->>>
->>> Agree.
->>>
->>>>
->>>>>
->>>>>>     	*isolatedp = isolated;
->>>>>>     	return scanned;
->>>>>> -- 
->>>>>> 2.34.1
->>>>>>
->>>>
->>>> -- 
->>>> Best regards
->>>> Ridong
->>>>
->>
->> -- 
->> Best regards
->> Ridong
->>
+So if downstream people (-stable maintainers, others) follow our
+recommendations, some kernels will get two of these patches, other
+kernel versions will get three and some lucky kernels might get all
+four.  Are you confident that the patches can be split apart in this
+fashion and still produce a good result?  After all, we're sending
+downstream some patch combinations which we didn't test.
 
--- 
-Best regards
-Ridong
+Also, can you speculate about why these things took so long to
+discover?
+
+Ho hum, complicated.  Let's at least slap a Fixes: on [4/4].  My
+trillion-dollar sidekick suggests a9e443086489 ("hugetlb: disable
+region_add file_region coalescing").
+
+Our other little friend is talking to us:
+	https://sashiko.dev/#/patchset/20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com
+
+I'd like to queue this up promptly because it fixes things.  But let's
+seek additional review input and argue with Sashiko before taking that
+step.
 
