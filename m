@@ -1,81 +1,81 @@
-Received: from mail-ot1-f100.google.com (mail-ot1-f100.google.com [209.85.210.100])
+Received: from mail-yw1-f225.google.com (mail-yw1-f225.google.com [209.85.128.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7894E25B0B8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:00:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B412D0617
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789603261; cv=none; b=krl7VySyNOclkfMbmfyyBs1oiig+w8eFb0Z95ttkAqk+QZOflUzHQTxwDUCZ+npfsGtstMJuaH6+r0fHwr1FsC0w75Gkb7/bjQF8/eBzggPs732ZX3wY6WtfD/f9yFnnjQnWKwc6e7rSqJUcYsLSZkyR/+XGsQxz5ohpHqDMzi4=
+	t=1789603290; cv=none; b=PeOUlATQnZSbqLRQCNHUfq9bIP1gwnBrWZXrludycSEUcQfQ9atphsxQ0s8Kr6q+RnLffb3OYuqR8Vuk6aSH85YUsApvQ+wLBEOluNarlWs2yh2d9AF//lvG6l2BrkfKL9R9jy/yBmxoeCwXMDStcFw2VawQhldKkiMeHXjVVlQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789603261; c=relaxed/simple;
-	bh=IdWYhX7fUEenQ8Jfb3hg51Dx3Sy7F5AHXQddTv3Adeo=;
+	s=arc-20240116; t=1789603290; c=relaxed/simple;
+	bh=havp6OXbc7alV/WLx4jLw++iHS0bqicCCYO1lAy6GlM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l44d7ZnAl7qHMksosz4jnUD4rJjziKjJahJQlvvjASDjBvHwm1yA7ox8BkMiURn2tXICumKvjwdjtx8q4YIkglObDdWF+rA7s4aDLXw6ic9Xjn/zIfwZ7AqVPGwhPgFdyncXqzbIS6Ia00LimvYjpAo/g6ek8bCo0/AeuOb0dpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=csCSYJmU; arc=none smtp.client-ip=209.85.210.100
+	 In-Reply-To:Content-Type; b=QcD4MYoExOV9kaXPNO8AkMDTc0nFDBpy5cGG13+rYd4+1ZbjEI6vwUQKZjBR/8t4Lz613UhSiga1ezNTOg7ajK/Dt8sCd2U8XEdHv70hxRz7SVCg3dtuHOaZ8ms8FSP4dTicXDI1/oi5tpGCdoSoiijdJFCSELCXkgC3h9+xMxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=eS4eVjPy; arc=none smtp.client-ip=209.85.128.225
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="csCSYJmU"
-Received: by mail-ot1-f100.google.com with SMTP id 46e09a7af769-7f432ac553fso96887a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:00:57 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="eS4eVjPy"
+Received: by mail-yw1-f225.google.com with SMTP id 00721157ae682-85a50f6a7f7so280407b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:01:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789603255; x=1790208055;
+        d=1e100.net; s=20260707; t=1789603277; x=1790208077;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=rnYsw47RhsCpAUpS/1U4sBUyj70+B1dKJy3nD1W6Sig=;
-        b=CTRUYMXk6Zqj9rklOAWmYKr3NrZtZjW5NpPMv2Bi7/AA2YA/CF86xM/u42JtRNW1V+
-         5Mj/yCJKp3JRna2H90On/joye62wxMD2P00yVQCk2e5c6mQA5DWO+somdsk9fAp4T7D4
-         I8wiBX2TsbVHlD2cRC0bk8u5285xyQDyjeIiaaE6jRZVwCvP6qHYgOByRiNvcstVHsXI
-         ZjnR2BQQnjXOMcL5OB/YsyU/S4OClmX1UQL5P6RyDJbBJoJby7wzTlNy/5PY0j/hzO5+
-         Y8jOJK5E3brmDkUgn55I3DqdLpwvF6SiYRquuD4mUTSMEiisGsAzB5xLzKgb5aakWi6/
-         pX3Q==
-X-Forwarded-Encrypted: i=1; AKwUvByJ9qa/y0Mueo4pHqsxT45SXgMwdms+XsaS/6i7tPx7wMA7XcfEbBYF4895v+GgZ7tJNQKDRHaxZIZqsL8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHZNXX/aiV1K6vIECkKeAAqfE+CDc+IbmogKa1vAyAWsSZsR9a
-	KSWyBbqYJsF15XV/1TEcMm0ddpLzecqbmi2Yng48l5E7zwZ0l8TND98/zYNT/UvM+0ok5wF2ize
-	XM16O0qvI73gJCCfAl7bfdD0YqZtIAftQ1ZriPgAYns55cx31n/zueehgJOr6YcOQe7aSVrXzDu
-	4J7NuN4KqyTVo5FrQJHPUiAmHWfd7ry0G0qAf8owzz3kyeOq7IFND4ZTTegVZjSa2X19XmiKUKK
-	TLqlVJaCT2n8GFVuTYnVvFu
-X-Gm-Gg: AYBFou1Fq2a/bqpKBE9/zBH80vE2fxpdsewYlk6I7PiUZc+O0sT5US1+6DGS6UU6qE0
-	DMpyBUoTvysiejMRD+fXT1aW43ISPk/cxdaeCfd1+VMCunUmXbppVMNcEA6Q4Wc6A8Vf9Z0uPXb
-	nehAYsoG6uVpjSWaAwIJ4aOfFTUpY/lwrpmY0Lvv6lU+Ui1gvb+fBhzSxq25fuSq9gJa1sA/Kte
-	CKtFty82obez56kEkpCh2MVFOQxLvWus/8zcsOual3NVrOSTSdzHf6/zixyKqilqy3QvIBQpL53
-	eiymaFw+G239+AkFUKyPb+KzPF5LOaMuWSSZ4EIO2pmZ7tOa3NFqzZvCeBqJD7ZCoyK6ZbGsppP
-	OwZDLeqKhZE2BoUibndr3Yw+4MTkRf/slQQTuoP9m2ET1e/9DAb189TFdb7ckHKp6J8xYDUp7v3
-	fAEPDhgRPHlkIpM9Suc1D/0OvjjcxBiXJ4ooPrUFT3FfM=
-X-Received: by 2002:a05:6830:43aa:b0:805:b3e5:18d9 with SMTP id 46e09a7af769-80b2df3d320mr9202890a34.10.1789603254717;
-        Wed, 16 Sep 2026 17:00:54 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 46e09a7af769-80c470bab23sm585272a34.8.2026.09.16.17.00.54
+        bh=la3EFGPTmY4WhuQJZNNkENF+jYrhdOvMI5n97zyEnQ4=;
+        b=K4+tJszbKmEgm9teKxX31tWCVnEu3GrQcSXW48uZp5554cgE68zCLCBsKFwiY/ieJQ
+         tPKvFNxqR4Uc3O+ut/eYAgrvE0YIjvIP51rgPYWEmQk5gaMLDjnRTa4+23fPXujb5dDd
+         NJTG1lIMzBWPnDWWsr8dDuM1KFEqGrclfThvZPtLEeUx5S8xqZm7Cm7nXvuAGR02oXrx
+         msdf4QOpLOIbQopOTM6PtOrr6aZXUwM6sxNMAdvFFHV+RCZKCyMCtGppfg+KTl36J9jV
+         Svpa3jeOZg0KaZV1nVSExizuCw4ign7vhWNrLQhd5d3C4Y64+G9bd5ZKeiqYBClpYE71
+         UlOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzqsJHqDtpW6wuuk3mDpS+cfd7bHY9fkwDr2nGd1VgYPscZdkfmG1/u+FxbGu1VRF/aEFweA2Q/PRKevSc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQJFtFHuFQzsGrBB2KMw+k++2wuIIx2d3grcw2f8RukLFGrIxF
+	rNU537MKXjMbvf2858Y0VWWWUJjSTGGKo2jY+lk3KOsSfGfwqCWtv5k+wP6ucaS4g071lbUkaXv
+	f6QLBcTcgrhTjFNmzzw8bpBcp3scz6jaG6yFgyFqn4YaA7SQ1e4RRPAi5EdvXvnpIbjVvnCCniK
+	YPp2VLtuLsz6TRI+fADgnzsp5A8Xsgl69yhjXS9aARVYdBTAwVEViC4DaNm27wSk6lBVTlb60v/
+	5hMm95KBxc6LeUx3zUNZOFH
+X-Gm-Gg: AYBFou2/m6AETaHijDdoAtsx84gwyS1UVFqV4QJoHDj5T/WxQTYTAkdry5xg+bTc+LX
+	Ex1CurmbJpDbV1xyY0B5ChHMuarowJJPcnY/3F+BfkdZ8eBDqp8UKw0DUObCBh/TWMdE7U1gcok
+	JF8JXNu4Cr4T4odFJW7y3TQBTgWJEI08aOT0a+DyaSs6362FLJHJfTJxR9n+alsYc8+ovjU1gly
+	IFYfKNoJhxtSx/+KUXIvb0xV0slN9JaXmZzu32fep35+lwiUYXUSn0kFk950sh4JDwILGk6iCAd
+	Ha50Yqu924w3Ed5mvVIX9qqs6ppzRH74UOnXZBybZcjXvDQnB/8ij7bHHD3gY+XxixSG86/6XTV
+	4+3GlrERGj0/ejEpzkRfDa/fcwgupjjxOE4SZKAlaQPLznR/ruzOkx625zZKU5o39I7ibfQf7D8
+	KErxgSZVATODzmFydFiQgPY+z6OE9O+2/B5vQZ/B2f
+X-Received: by 2002:a05:690e:1301:b0:671:5206:72f5 with SMTP id 956f58d0204a3-671632908c4mr1665048d50.64.1789603276952;
+        Wed, 16 Sep 2026 17:01:16 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-6715fb7c262sm218470d50.20.2026.09.16.17.01.16
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 16 Sep 2026 17:00:54 -0700 (PDT)
+        Wed, 16 Sep 2026 17:01:16 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so314021a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:00:54 -0700 (PDT)
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7f4fa572ba2so203722a34.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:01:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789603253; x=1790208053; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1789603276; x=1790208076; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rnYsw47RhsCpAUpS/1U4sBUyj70+B1dKJy3nD1W6Sig=;
-        b=csCSYJmUSAD4KZ4z7qC7RSiXsYs1Trhft/ZmruAk7tejF5SiZ1vEzVj5N1R+N2g4DC
-         NpXY42H8aO3mTf9sTYnNuhN7YM5cV7H872sw57/yFW+d0jc//tmDUVXjuu9hIKiiLbHZ
-         CVZfwN6G8BLdIPGKywsYDAPMwWzDb8U+WjrrI=
-X-Forwarded-Encrypted: i=1; AKwUvBzjO4rh7a20ec15KNlDG4HGSX0Par1QITmEZ9NXzzqbii4qp7WVi93oQTl6DUU3NG2i/al6u+qH/Jj/4/M=@vger.kernel.org
-X-Received: by 2002:a17:90b:510a:b0:39e:423:bb8f with SMTP id 98e67ed59e1d1-39e1e24fa7amr14368872a91.1.1789603253369;
-        Wed, 16 Sep 2026 17:00:53 -0700 (PDT)
-X-Received: by 2002:a17:90b:510a:b0:39e:423:bb8f with SMTP id 98e67ed59e1d1-39e1e24fa7amr14368771a91.1.1789603252848;
-        Wed, 16 Sep 2026 17:00:52 -0700 (PDT)
+        bh=la3EFGPTmY4WhuQJZNNkENF+jYrhdOvMI5n97zyEnQ4=;
+        b=eS4eVjPyxKw/2QfKUhSBrrfLHNi3BP1ZeAVZpGMGTUPiQIU/VtnGXhIga2UqJP+lzd
+         hTdt+4S2sVSPvlI/hXxv3s6Fq6rjMvaULhDT9hyyg72ECCp96K2GWZJtc9BilDqSHj6S
+         mn1abzeWa7mzekKKOt/WoP/+4RCANGWdff4do=
+X-Forwarded-Encrypted: i=1; AKwUvBzeUVA8lHJkfd9Z74okgkca5+IgMVjcnucuYwqI3xwGpdFgj+9v7ZGj10m5atylHY6BiDoJ4s5Rh00BEzM=@vger.kernel.org
+X-Received: by 2002:a05:6820:8ca:b0:6b7:46e9:9708 with SMTP id 006d021491bc7-6c7d46e3955mr4212755eaf.56.1789603276068;
+        Wed, 16 Sep 2026 17:01:16 -0700 (PDT)
+X-Received: by 2002:a05:6820:8ca:b0:6b7:46e9:9708 with SMTP id 006d021491bc7-6c7d46e3955mr4212698eaf.56.1789603275627;
+        Wed, 16 Sep 2026 17:01:15 -0700 (PDT)
 Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5aee8b0sm21263234eec.23.2026.09.16.17.00.51
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a182sm11174848eec.8.2026.09.16.17.01.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 17:00:52 -0700 (PDT)
-Message-ID: <f93d3063-956b-432d-a106-7b0e092d8ef5@broadcom.com>
-Date: Wed, 16 Sep 2026 17:00:50 -0700
+        Wed, 16 Sep 2026 17:01:15 -0700 (PDT)
+Message-ID: <fbf36dfa-b3d4-4102-8573-1911814e93fa@broadcom.com>
+Date: Wed, 16 Sep 2026 17:01:13 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,7 +83,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/13] PCI: brcmstb: Add Broadcom quirks macro
+Subject: Re: [PATCH 04/13] PCI: brcmstb: Declare and assign quirk
+ OB_WIN_32BIT_ADDR
 To: Jim Quinlan <james.quinlan@broadcom.com>, linux-pci@vger.kernel.org,
  Nicolas Saenz Julienne <nsaenz@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>,
@@ -98,7 +99,7 @@ Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
  <linux-arm-kernel@lists.infradead.org>,
  open list <linux-kernel@vger.kernel.org>
 References: <20260911233541.1650895-1-james.quinlan@broadcom.com>
- <20260911233541.1650895-4-james.quinlan@broadcom.com>
+ <20260911233541.1650895-5-james.quinlan@broadcom.com>
 Content-Language: en-US, fr-FR
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -133,14 +134,15 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260911233541.1650895-4-james.quinlan@broadcom.com>
+In-Reply-To: <20260911233541.1650895-5-james.quinlan@broadcom.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
 On 9/11/26 16:35, Jim Quinlan wrote:
-> Introduce a 'BQUIRK()' macro to shorten the calculation of a specific
-> quirk's value.
+> Even though only BMIPs chips have this quirk, it is more uniform and
+> readable to define this specific quirk in which the outbound region must
+> reside in the lower 4GB region.
 > 
 > Signed-off-by: Jim Quinlan <james.quinlan@broadcom.com>
 
