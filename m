@@ -1,94 +1,91 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail.zipdox.net (195-240-81-79.fixed.kpn.net [195.240.81.79])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21E558F092;
-	Thu, 17 Sep 2026 14:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B1C5908AC;
+	Thu, 17 Sep 2026 14:23:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.240.81.79
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655035; cv=none; b=dPyupzKAwydjM52Wxi4tqgIyLkor7zcwXhS25HbfDDHehnMrOynPhw2yo1J9clX5lMqUT5vf2lFhXXvFcLlV2xjPjCzYFxyN8xrL0j8tD8wojuVJQmZyvWzGiGqpB4hAVhM3vxz+qkv1JIVooXjmJrXuliDcumpb6vhYLyxXK0Y=
+	t=1789655040; cv=none; b=Gl6DnkbQFSELZf7kL05fA4OgIB3idtOF8N6fkvllK2P/yt49du3vWJS//XCrb40ODLnOs8avx7wcJWPDfEj+5klS4RmkHbpuHD12HqO49iTyH2f0iGbrV9CnSjx4rgP8oGPB32rezS4anpqyOPSG9eXmjdhEhMewGbcxcN+DJVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655035; c=relaxed/simple;
-	bh=AbPGuFvrX+Y/Z/llspYtmWkIySpxasLTu86xOBq0XPM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NfPi+tskDQjnd8HJDvC9cdBPqVXQLVhphTpLcFUvjwxjI/3K3nfnWwfU7M/ClV/DltFX3zGvuCyLXm1vvJnbLNbeYMQGcb4F0vYy5iPzagwRapuqu8sybcNyn5celk29s9yZlc2/V5HzYu62SAG3FHpSV5aLlnOn2NVy/S3QFtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADH+ELp96tqBV+CCA--.45567S2;
-	Thu, 17 Sep 2026 22:23:37 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andrew+netdev@lunn.ch
-Cc: arkadiusz.kubalewski@intel.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	jiri@resnulli.us,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	richardcochran@gmail.com,
-	vadim.fedorenko@linux.dev,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ptp: ocp: Fix dpll device reference leak in ptp_ocp_probe()
-Date: Thu, 17 Sep 2026 14:23:37 +0000
-Message-Id: <20260917142337.2156652-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789655040; c=relaxed/simple;
+	bh=jsmkWGdkOXjl5vCehHtXpCIFIRPU1ahWWGONREhd7AQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b/b+tJtdO/ZMjR0xCtVGnbvSh2rCcbpWpxLame7O9GMX89bPHMXEIQHwt49vExXEBDdIcpVaKWAWlENFlRpoPsUTYTP658aIaYRFq9xupMS34w9k60iipZIZbkTjiTOg6jpRy2gY7rxhQvNswLh+dEv72cHUlHJvmsElnthVtL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net; spf=pass smtp.mailfrom=zipdox.net; dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b=A8pUoPok; arc=none smtp.client-ip=195.240.81.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zipdox.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b="A8pUoPok"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F326D9214C4;
+	Thu, 17 Sep 2026 16:23:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zipdox.net; s=dkim;
+	t=1789655027; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=A/+4s5tba7S/aVWS7Khr8WD3jS2p0L3YwMxihJqGpMQ=;
+	b=A8pUoPokHBcXvbjwQaHAfr+qS1yvdg9SZRPRkGh4L6d/DvgDkt5GkFH28wCFyhhyHNAr6B
+	YoSIXAh1VRb2XdJFJ1Vhw+GpmFtlgxOmUP/9u60h2O/wV+TKaKfDlMz6PkYZZDKc6QQ3Nb
+	4c2udji/Qk7pHU2+Z14oUl4Hc55W5RxWLxpfPzCPhlJyxef85OVLlAlMAK2fETSyk9z/0v
+	y9MAq9ZE67NGhfNwW+FiiO/Njw6ugVMZTyGwSZBqq7ArfUnC0mM4PKdVreZ2kreAlgcz/F
+	mrnVuKg+CHBTfVC0L0mWhsfNM/bLHZYXC2NkPpNaFqXfYRHIvJjjj3HAA0s8Hw==
+Message-ID: <895b9e3d-bc81-4688-8513-8aa42d40e4fa@zipdox.net>
+Date: Thu, 17 Sep 2026 16:23:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADH+ELp96tqBV+CCA--.45567S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKryrGrWrAF4kCr15GFWfXwb_yoWDJFc_C3
-	4jvF9rXF1DuF18Kw18AryDZry0kFnFqr48Kr4ktrs3J345XFyYgrZ09Fn8Gw1vgr1rAryD
-	ZasxXrsxAFsFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbqAYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lFIxG
-	xcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42
-	xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
-	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
-	ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
-	4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxU
-	rdb1UUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQNA2qr9nADpwAAsl
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR
+ and RANGE
+To: Takashi Iwai <tiwai@suse.de>
+Cc: linux-sound@vger.kernel.org, perex@perex.cz,
+ linux-kernel@vger.kernel.org, tiwai@suse.com
+References: <d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net>
+ <87bj9yn55n.wl-tiwai@suse.de>
+ <59b3dc9b-f324-42e7-ab03-a01c04e8b915@zipdox.net>
+ <8733vamwaz.wl-tiwai@suse.de>
+ <da56664f-901e-497b-a74c-ae41cbc5cac4@zipdox.net>
+ <87a4phjjay.wl-tiwai@suse.de> <8733v9jfp1.wl-tiwai@suse.de>
+ <87y0d1hx9y.wl-tiwai@suse.de>
+Content-Language: en-US
+From: Zipdox <zipdox@zipdox.net>
+In-Reply-To: <87y0d1hx9y.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-ptp_ocp_probe() takes a reference on the dpll device with
-dpll_device_get(), but jumps to the out label without dropping it when
-dpll_device_register() fails, so the reference leaks. Put it before
-returning.
 
-Fixes: 09eeb3aecc6c ("ptp_ocp: implement DPLL ops")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/ptp/ptp_ocp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-index beacc2ffb166..dacb941da8e9 100644
---- a/drivers/ptp/ptp_ocp.c
-+++ b/drivers/ptp/ptp_ocp.c
-@@ -5106,8 +5106,10 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	}
- 
- 	err = dpll_device_register(bp->dpll, DPLL_TYPE_PPS, &dpll_ops, bp);
--	if (err)
-+	if (err) {
-+		dpll_device_put(bp->dpll, &bp->tracker);
- 		goto out;
-+	}
- 
- 	for (i = 0; i < OCP_SMA_NUM; i++) {
- 		bp->sma[i].dpll_pin = dpll_pin_get(clkid, i, THIS_MODULE,
--- 
-2.34.1
-
+On 9/16/26 8:22 PM, Takashi Iwai wrote:
+> 
+> ... or maybe a less cryptic version like below.
+> 
+> 
+> Takashi
+> 
+> -- 8< --
+> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+> index 33a6a1281410..c6639a45fb24 100644
+> --- a/sound/usb/mixer.c
+> +++ b/sound/usb/mixer.c
+> @@ -335,6 +335,16 @@ static int get_ctl_value_v1(struct usb_mixer_elem_info *cval, int request,
+>   	return -EINVAL;
+>   }
+>   
+> +/* convert the given UAC1 wValue (ICN+1|OCN+1) to UAC2 MCN */
+> +static unsigned int to_mcn(const struct usb_mixer_elem_info *cval,
+> +			   unsigned int validx)
+> +{
+> +	unsigned char m = (validx >> 8) & 0xff;
+> +	unsigned char v = validx & 0xff;
+> +
+> +	return (m - 1) * cval->num_outputs * (v - 1);
+> +}
+You used multiplication instead of addition for the last part. I assume 
+this is a mistake? Also you should probably also bitwise and that with 
+0xFF to make sure it's not more than one byte. The product of the number 
+of input and output channels must be no greater than 256 according to 
+the spec. I don't know if this is checked elsewhere. Other than that it 
+looks good for a patch to get it working. I'll try it out and send a 
+follow-up email shortly.
