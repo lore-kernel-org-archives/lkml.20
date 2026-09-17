@@ -1,49 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC2B40B0EC;
-	Thu, 17 Sep 2026 20:50:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C739440DB49;
+	Thu, 17 Sep 2026 20:50:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789678205; cv=none; b=PU43jNGUcB+3251kmYqTCN3rq4cgXpLaXChF0n4ND0OVoR0/Zl0GVJBBR1iJ38TLrglMKVN05drWSKZc26TrzLnhVhmk92zKMXxVdsouvW47eORkLGXFrWnGDEwVyYmQeCAr7zLYvCrOiJ5H/hDjJNWmcfpUoNZ2C4Uduww4QQA=
+	t=1789678209; cv=none; b=ZNyjrn4a+BEebkk3UAx+FEkZ+DxJcJ7Ga007hFLA9LaHJgGfGXnuBVE+zpRmzmXIHqBJaZOvtqhRq6YPnoRa0ckZN4RSQINVJk//ymANcx6RwZqeFonGsSPVbdriWNKPzVJtn+jN2YHZ44BHzRRacR8sMs+WNIkMQ5NBoKk3E+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789678205; c=relaxed/simple;
-	bh=tATHDU3HrcesJEJqzIqEMQQbVjuF5L06ze10pOunSWE=;
+	s=arc-20240116; t=1789678209; c=relaxed/simple;
+	bh=3I67ru3zQ6JSYfl7FI9SD3hBhP7MbAKufd5kUe3hRFM=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uZwl5VYwsbsbEKpzVi5buD3FRFMCMaY8DSmH5gGVHgixZPma6J13ZXi7P4ckM27iRJ/TRHLtKW27rqOMg6nde7WXM5Tp5yepOAondcTbzwvePaU9Bpg5/pbSNNe9BVa/Yb12X8aZGfobeovepp29iCrfH4K2MQRalYph8Ght4Cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xsti3UDi; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=br2E9Whc2R2n9SCCV7N2Cnok93rX36FzZadSXgu/VB8VaqNStPckwpXdtrHXhcTsn95+8nTk1Fnp8gPc0Q4r57CdCzlLI0Rsu9jZFGEInwwNzqz+bRIYRsUfwg5zdBiIjzzM/bFmnkADcBWxFGS8ZgokDncof0ugxSLrReEGy14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gUihnvQo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xsti3UDi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF2641F000FF;
-	Thu, 17 Sep 2026 20:50:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gUihnvQo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85AB81F00893;
+	Thu, 17 Sep 2026 20:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789678202;
-	bh=9SgyiGf32A0qCeIe4MMlsFd2r4nEIcNL3uAUmFwBb1s=;
+	s=k20260515; t=1789678206;
+	bh=nTkTs7INuJGhkrArkZI4GklS4lL5iFoE1EJCsFhI22E=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Xsti3UDiKxUYtVjuLq32KnFTerEA7bHL/81vPf1hPanNvpBkZXOmKU0kPDfZR4DkF
-	 K6RsPWcez5NDlVLMlsEQ0d9RD8ZbWxJ2PCqwvjk3TcwehBzr+PkILT0zcgBqbtPJ07
-	 yYlCVkzzfHcG8l7ymzSVKfsS2XO280M0GtsRdD1ZdT9gOls3a2StanaPi8xoLYq1Nb
-	 m2wc/IVaaEoRh8vhAYXTX63uccp/P4MBB/oP/6avUmvLB94bawkmtizwqHbTrTV77l
-	 R9FyiWgctkZbWfKgxOO2TZK6BLQg7DtveMPj05YJ+gbFZ/GDWXE2N3JEsJy/kVQnAn
-	 IZcw9+8v7ybvw==
-Subject: Re: [PATCH v2 net-next 6/7] dt-bindings: net: dsa: mediatek,mt7530:
- add econet,en751221
+	b=gUihnvQoUCYhNeNds6EwHbtB6HXVklmR2OeRHtpnRQWqk4qcpQO3+5dJYVC6AO8Q5
+	 UHmyPGu//gdn31QNMqDUj2aek87axpqE02Nw799+bge9/ka2Ff2YpIpwpBEAMWsoAn
+	 Ze4OrhZtSW0dx6gfRbsfFprhxrHNexNgQV0OMbObCtjlRzZWobQCJvhS72abWfBaQ8
+	 8dY+WIAhPQ446WRVaMk9i1edeZNWUKfQU8dxUUYoAL0iPO15US1efPefSSliNH6AVd
+	 ttZjxVREsjYD366cEBy9VXc4weIJrnLzt7SddR/y7s6c15phbcDQjdL11bln3UA+ly
+	 GRehBBBToAO9Q==
+Subject: Re: [PATCH] net: sxgbe: dispose IRQ mappings on device removal
 From: netdev-bot+sashiko@kernel.org
-To: cjd@cjdns.fr
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- chester.a.unal@arinc9.com, daniel@makrotopia.org, linux@armlinux.org.uk,
- arinc.unal@arinc9.com, Landen.Chao@mediatek.com, dqfext@gmail.com,
- sean.wang@mediatek.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, naseefkm@gmail.com, b.larsson@gmx.com
-Date: Thu, 17 Sep 2026 20:50:00 +0000
-Message-ID: <178967820050.22033.18093714968849770785@kernel.org>
-In-Reply-To: <20260915174643.253660-7-cjd@cjdns.fr>
-References: <20260915174643.253660-7-cjd@cjdns.fr>
-X-sashiko-severity: High
+To: lgs201920130244@gmail.com
+Cc: bh74.an@samsung.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ siva.kallam@samsung.com, vipul.pandya@samsung.com, ks.giri@samsung.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 20:50:05 +0000
+Message-ID: <178967820509.22033.14956659662376868592@kernel.org>
+In-Reply-To: <20260916054841.2908429-1-lgs201920130244@gmail.com>
+References: <20260916054841.2908429-1-lgs201920130244@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -53,319 +47,272 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 7 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider:
 
-Critical: 0 · High: 1 · Medium: 4 · Low: 2
+Critical: 0 · High: 0 (2) · Medium: 1 (1) · Low: 2
 
-- [High] net: dsa: lockless child_bus access causes MDIO race condition
-- [Medium] The new switch-device compatible `econet,en751221`
-  (mediatek,mt7530.yaml line 126) is the identical string already…
-- [Medium] The new `econet,en751221` conditional (mediatek,mt7530.yaml
-  lines 369-377) applies only `$ref: "#/$defs/mt7530-passthrough-dsa-…
-- [Medium] The series patch "net: dsa: mediatek: support MDIO switch
-  downstream of MMIO switch" moved `mt7530_setup_mdio_irq()` out of…
-- [Medium] In passthrough mode `mt753x_cpu_port_enable()` (added by the
-  series patch "net: dsa: mediatek: add support for passthrough mode")…
-- [Low] The paragraph added to the binding description
-  (mediatek,mt7530.yaml lines 32-36) states that "EcoNet EN751221 SoCs…
-- [Low] Concern that neither `econet,en751221-switch` nor
-  `econet,en751221` has any consumer: at this commit…
+- [Medium] The devres ordering guarantee claimed by the commit message
+  can be violated by a probe/open race.
+- [Low] Coding-style defects in the new code in sxgbe_platform_probe():
+  the RX-queue devm_add_action_or_reset() call has a misaligned…
+- [Low] All four newly added devm_add_action_or_reset() call sites in
+  sxgbe_platform_probe() store the helper's return value in `ret` and…
+
+Pre-existing issues:
+- [High] Use-after-free window at unbind: every IRQ handler is installed
+  with devm_request_irq(priv->device /* == &pdev->dev */, ...) in…
+- [High] Unbalanced IRQ acquire/release across open/close: sxgbe_open()
+  acquires all IRQs with devm_request_irq() but sxgbe_release()…
+- [Medium] DT binding vs. driver mismatch for the LPI interrupt:
+  Documentation/devicetree/bindings/net/samsung-sxgbe.txt documents…
 
 --
 
-dt-bindings: net: dsa: mediatek,mt7530: add econet,en751221
+net: sxgbe: dispose IRQ mappings on device removal
 
-This adds two compatible strings to the MT7530 binding: econet,en751221-switch
-for the memory mapped switch built into the EcoNet EN751221 SoC, and
-econet,en751221 for the MT7530 multi-chip module that some EN751221 packages
-attach to port 5 of the on-die switch via TRGMII. A new $defs block constrains
-the DSA link port of the multi-chip module.
+This converts the open-coded irq_dispose_mapping() unwind in
+sxgbe_platform_probe() into a devres action registered right after each
+irq_of_parse_and_map() call, so the common, TX, RX and LPI mappings are also
+disposed when the device is removed after a successful probe.
 
-A few questions on the schema below, plus two observations about other
-patches in the same series.
+A few questions on the new code and on the surrounding IRQ lifetime.
 
-> diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> index e29fb86934981..106c4087528d7 100644
-> --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> @@ -29,6 +29,12 @@ description: |
->    and the switch registers are directly mapped into SoC's memory map rather than
->    using MDIO. The DSA driver currently doesn't support MT7620 variants.
->  
-> +  EcoNet EN751221 SoCs have a memory mapped MT7530 with 3x 10/100 PHYs and 1x
-                                                          ^^^^
-
-[Severity: Low]
-Should this be 4x 10/100 PHYs?  The commit message of this patch says
-"ports 0..3 are 10/100 only, port 4 has a gigabit PHY", which is four fast
-ethernet PHYs, and en751221_mac_port_get_caps() in the later driver patch of
-this series agrees:
-
-	/* EN751221 ports 0..3 are connected to the integrated FE PHYs. */
-	case 0 ... 3:
-		__set_bit(PHY_INTERFACE_MODE_INTERNAL, config->supported_interfaces);
-		config->mac_capabilities |= MAC_10 | MAC_100;
-
-Since there is no in-tree EN751221 switch DTS yet, this paragraph is the only
-port reference a DT author has.
-
-> +  gigabit PHY. Some EN751221 chips such as EN7513G and EN7526G have a multi-chip
-> +  module implementation of the MT7530 as well as the on-die switch. In these
-> +  packages, the multi-chip module is connected to port 5 of the on-die switch
-> +  via a TRGMII link.
-> +
->    There is only the standalone version of MT7531.
->  
->    Port 5 on MT7530 supports various configurations:
-> @@ -111,6 +117,14 @@ properties:
->            Built-in switch of the EcoNet EN7528 SoC
->          const: econet,en7528-switch
->  
-> +      - description:
-> +          Built-in switch of EcoNet EN751221 SoC
-> +        const: econet,en751221-switch
-> +
-> +      - description:
-> +          Multi-chip module MT7530 in EN751221 SoC
-> +        const: econet,en751221
-
-[Severity: Medium]
-Can this string collide with the existing SoC compatible?  econet,en751221 is
-already documented as the EN751221 root node compatible in
-Documentation/devicetree/bindings/mips/econet.yaml:
-
-  properties:
-    $nodename:
-      const: '/'
-
-    compatible:
-      oneOf:
-        - description: Boards with EcoNet EN751221 family SoC
-          items:
-            - enum:
-                - smartfiber,xp8421-b
-            - const: econet,en751221
-
-and arch/mips/boot/dts/econet/en751221.dtsi uses it on the root node:
-
-  / {
-	compatible = "econet,en751221";
-
-dtschema derives the select clause of a binding from the strings enumerated
-under properties:compatible, so after this patch mediatek,mt7530.yaml is also
-selected for that root node.  The switch schema has required: [compatible,
-reg], unevaluatedProperties: false, and via the new conditional below also
-required: [mediatek,mcm] (which in turn pulls in resets and reset-names).  Does
-make dtbs_check on arch/mips/boot/dts/econet/en751221_smartfiber_xp8421-b.dtb
-now report the root node as an invalid MT7530 switch node?
-
-The reverse direction looks affected too: a switch@... node carrying
-compatible = "econet,en751221" is selected by mips/econet.yaml and fails its
-$nodename: const: '/' and its two-entry board/SoC compatible list.
-
-The analogous MT7621 case does not collide because the SoC root uses
-mediatek,mt7621-soc.  Since the SoC compatible is already released, would a
-distinct string for the switch, e.g. econet,en751221-mcm-switch, work here?
-
-> +
->    reg:
->      maxItems: 1
->  
+> diff --git a/drivers/net/ethernet/samsung/sxgbe/sxgbe_platform.c b/drivers/net/ethernet/samsung/sxgbe/sxgbe_platform.c
+> index e4701b29e1a0f..cd8d39a1afff2 100644
+> --- a/drivers/net/ethernet/samsung/sxgbe/sxgbe_platform.c
+> +++ b/drivers/net/ethernet/samsung/sxgbe/sxgbe_platform.c
 
 [ ... ]
 
-> @@ -223,6 +237,20 @@ $defs:
->                  phy-mode:
->                    const: internal
+> @@ -116,6 +123,11 @@ static int sxgbe_platform_probe(struct platform_device *pdev)
+>  		goto err_drv_remove;
+>  	}
 >  
-> +  mt7530-passthrough-dsa-port:
-> +    patternProperties:
-> +      "^(ethernet-)?ports$":
-> +        patternProperties:
-> +          "^(ethernet-)?port@[0-6]$":
-> +            if:
-> +              required: [ link ]
-> +            then:
-> +              properties:
-> +                reg:
-> +                  const: 6
-> +                phy-mode:
-> +                  const: trgmii
+> +	ret = devm_add_action_or_reset(dev, sxgbe_irq_dispose_mapping,
+> +				       (void *)(unsigned long)priv->irq);
+> +	if (ret)
+> +		goto err_drv_remove;
 > +
->    mt7530-dsa-port:
->      patternProperties:
->        "^(ethernet-)?ports$":
-> @@ -330,6 +358,7 @@ allOf:
->              - airoha,en7581-switch
->              - airoha,an7583-switch
->              - econet,en7528-switch
-> +            - econet,en751221-switch
->      then:
->        $ref: "#/$defs/builtin-dsa-port"
->        properties:
-> @@ -337,6 +366,16 @@ allOf:
->          mediatek,mcm: false
->          reset-names: false
+
+[Severity: Low]
+
+Is ret read anywhere after these assignments?  All four new
+devm_add_action_or_reset() call sites in sxgbe_platform_probe() store the
+return value and then jump to err_drv_remove, which falls through to:
+
+err_drv_remove:
+	sxgbe_drv_remove(priv->dev);
+err_out:
+	return -ENODEV;
+
+devm_add_action_or_reset() returns -ENOMEM when the devres node cannot be
+allocated, so a transient allocation failure is reported to the driver core
+as -ENODEV, which is the same value used for an unparsable DT interrupt.
+
+Would it make sense to return ret on the new paths?
+
+>  	/* Get MAC address if available (DT) */
+>  	of_get_ethdev_address(node, priv->dev);
 >  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - econet,en751221
-> +    then:
-> +      $ref: "#/$defs/mt7530-passthrough-dsa-port"
-> +      required:
-> +        - mediatek,mcm
+> @@ -124,38 +136,43 @@ static int sxgbe_platform_probe(struct platform_device *pdev)
+>  		priv->txq[i]->irq_no = irq_of_parse_and_map(node, chan++);
+>  		if (priv->txq[i]->irq_no <= 0) {
+>  			dev_err(dev, "sxgbe tx irq parsing failed\n");
+> -			goto err_tx_irq_unmap;
+> +			goto err_drv_remove;
+>  		}
+> +		ret = devm_add_action_or_reset(dev, sxgbe_irq_dispose_mapping,
+> +					       (void *)(unsigned long)
+> +					       priv->txq[i]->irq_no);
+> +		if (ret)
+> +			goto err_drv_remove;
+>  	}
+>  
+>  	for (i = 0; i < SXGBE_RX_QUEUES; i++) {
+>  		priv->rxq[i]->irq_no = irq_of_parse_and_map(node, chan++);
+>  		if (priv->rxq[i]->irq_no <= 0) {
+>  			dev_err(dev, "sxgbe rx irq parsing failed\n");
+> -			goto err_rx_irq_unmap;
+> +			goto err_drv_remove;
+>  		}
+> +		ret = devm_add_action_or_reset(dev, sxgbe_irq_dispose_mapping,
+> +					       (void *)(unsigned long)
+> +				       priv->rxq[i]->irq_no);
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: Low]
+
+This isn't a bug, but the continuation line carrying priv->rxq[i]->irq_no is
+indented with less whitespace than the identical TX call just above and does
+not line up with the open parenthesis, so checkpatch reports "Alignment
+should match open parenthesis" here.
+
+In the hunk below, the blank line that separated the LPI interrupt handling
+from platform_set_drvdata() is also dropped, so the new if (ret) goto
+err_drv_remove; runs straight into platform_set_drvdata().
+
+> +		if (ret)
+> +			goto err_drv_remove;
+>  	}
+>  
+>  	priv->lpi_irq = irq_of_parse_and_map(node, chan);
+>  	if (priv->lpi_irq <= 0) {
+>  		dev_err(dev, "sxgbe lpi irq parsing failed\n");
+> -		goto err_rx_irq_unmap;
+> +		goto err_drv_remove;
+>  	}
+
+[Severity: Medium]
+
+This is a pre-existing disagreement and not something this patch introduces,
+but since the LPI error path is being rewritten here it may be worth a look.
+
+Documentation/devicetree/bindings/net/samsung-sxgbe.txt describes the
+interrupts property as:
+
+  index 1 to 25 - 8 variable transmit interrupts, variable 16 receive interrupts
+  and 1 optional lpi interrupt.
+
+A DT that follows that wording and omits the 26th specifier makes
+irq_of_parse_and_map(node, chan) return 0, so probe logs "sxgbe lpi irq
+parsing failed", calls sxgbe_drv_remove() and fails with -ENODEV.
+
+sxgbe_open() on the other hand is written to cope with the LPI line not
+being distinct:
+
+	if (priv->lpi_irq != dev->irq) {
+
+Which of the two is right, the binding or the mandatory treatment in probe?
+
+> -
+> +	ret = devm_add_action_or_reset(dev, sxgbe_irq_dispose_mapping,
+> +				       (void *)(unsigned long)priv->lpi_irq);
+> +	if (ret)
+> +		goto err_drv_remove;
+
+[Severity: Medium]
+
+Can the ordering guarantee in the changelog be broken by a probe/open race?
+
+register_netdev() runs inside sxgbe_drv_probe(), which sxgbe_platform_probe()
+calls before any of this IRQ setup:
+
+	ret = register_netdev(ndev);
+	if (ret) {
+		pr_err("%s: ERROR %i registering the device\n", __func__, ret);
+		goto error_mdio_unregister;
+	}
+
+So the interface is visible to userspace while the mappings and these new
+dispose actions are still being registered.
+
+If userspace brings the interface up in that window, sxgbe_open()'s
+devm_request_irq() nodes land in the &pdev->dev devres list before the
+still-pending dispose actions.  release_nodes() unwinds in reverse insertion
+order:
+
+list_for_each_entry_safe_reverse(dr, tmp, todo, node.entry)
+
+which would run irq_dispose_mapping() for those IRQs before the devm
+free_irq() that removes and synchronizes the handler on them.
+
+In the same window, a failing devm_add_action_or_reset() immediately runs the
+dispose action, tearing down a mapping on which a racing open may already
+have installed a handler.
+
+Would moving register_netdev() after the IRQ setup remove the need to rely on
+devres insertion order here?
+
+>  	platform_set_drvdata(pdev, priv->dev);
+>  
+>  	pr_debug("platform driver registration completed\n");
+>  
+>  	return 0;
+>  
+> -err_rx_irq_unmap:
+> -	while (i--)
+> -		irq_dispose_mapping(priv->rxq[i]->irq_no);
+> -	i = SXGBE_TX_QUEUES;
+> -err_tx_irq_unmap:
+> -	while (i--)
+> -		irq_dispose_mapping(priv->txq[i]->irq_no);
+> -	irq_dispose_mapping(priv->irq);
+>  err_drv_remove:
+>  	sxgbe_drv_remove(priv->dev);
+>  err_out:
 
 [Severity: High]
-One more observation about another patch in this series, so there is
-no hunk to quote for it either.
 
-In "net: dsa: mediatek: support PLL setup on MMIO MT7530", is the MDIO
-bus lock lost for the new child_bus path?  core_write() and core_rmw()
-now do:
+This isn't a bug introduced by this patch, but it sits in the same IRQ
+lifetime the changelog reasons about, so does the handler-versus-netdev
+ordering also need attention?
 
-	if (!bus)
-		bus = priv->child_bus;
+sxgbe_open() installs every handler on the platform device with
+device-lifetime devres, using the netdev or the queue structures as dev_id:
 
-	if (WARN_ON_ONCE(!bus))
-		return;
+	ret = devm_request_irq(priv->device, priv->irq, sxgbe_common_interrupt,
+			       IRQF_SHARED, dev->name, dev);
 
-	mt7530_mutex_lock(priv);
+There is no free_irq() or devm_free_irq() anywhere in the driver, and
+sxgbe_release() (ndo_stop) only stops the PHY, DMA and MTL.  The handlers
+therefore stay installed until devres_release_all(), which the driver core
+runs from device_unbind_cleanup() after .remove has returned:
 
-	/* Write the desired MMD Devad */
-	ret = bus->write(bus, ctl_phy, MII_MMD_CTRL, MDIO_MMD_VEND2);
+drivers/base/dd.c:device_unbind_cleanup() {
+	...
+	devres_release_all(dev);
+	...
+}
 
-but mt7530_mutex_lock() only knows about priv->bus:
+By then sxgbe_platform_remove() -> sxgbe_drv_remove() has already done:
 
-	if (priv->bus)
-		mutex_lock_nested(&priv->bus->mdio_lock, MDIO_MUTEX_NESTED);
+	kfree(priv->hw);
 
-On an MMIO switch priv->bus is NULL, so the guard makes
-mt7530_mutex_lock()/mt7530_mutex_unlock() a no-op while the following
-bus->write()/bus->read() calls are raw driver callbacks issued on
-child_bus without child_bus->mdio_lock held.  The indirect MMD sequence
-(MII_MMD_CTRL devad, MII_MMD_DATA address, then the data phase) is not
-atomic on the wire, so a concurrent mdiobus_read()/mdiobus_write() on
-the same child bus - phylib polling the downstream MT7530 PHYs, or a
-regmap access from the mt7530 MDIO path - can interleave and leave the
-MMD devad/address latch pointing somewhere else, giving a read or write
-to the wrong core register.  This is reachable from mt7530_setup_port6()
-and the PLL setup path whenever a port changes state, i.e. during normal
-operation, and the missing lock is invisible to lockdep because nothing
-is taken at all.
+	free_netdev(ndev);
 
-Should mt7530_mutex_lock()/mt7530_mutex_unlock() fall back to
-priv->child_bus->mdio_lock the same way core_write()/core_rmw() do, or
-would it be cleaner for the child_bus path to call mdiobus_write()/
-mdiobus_read() (which take the lock themselves) instead of the raw
-bus->write()/bus->read() callbacks?  Either way the two places that
-pick the bus should agree on which lock protects it.
+and priv, priv->txq[] and priv->rxq[] live in the netdev private area.  An
+interrupt taken on one of those still-registered lines in that window (the
+common and LPI lines are IRQF_SHARED, so a co-tenant device on the same line
+is enough) enters:
 
-[Severity: Medium]
-Are the MT7530 per-port interface-mode constraints intentionally dropped for
-this compatible?  The commit message says the multi-chip module "is similar to
-the MT7621 multi-chip module", and the mediatek,mt7621 conditional in the same
-allOf applies:
+	struct sxgbe_priv_data *priv = netdev_priv(netdev);
+	int status;
 
-      $ref: "#/$defs/mt7530-dsa-port"
-      required:
-        - mediatek,mcm
+	status = priv->hw->mac->host_irq_status(priv->ioaddr, &priv->xstats);
 
-A JSON-Schema object can only carry one $ref, so referencing
-mt7530-passthrough-dsa-port here means $defs/mt7530-dsa-port (port 5:
-gmii/mii/rgmii, other ports: rgmii/trgmii) is never evaluated.  A DT giving
-this multi-chip module an ethernet (CPU) port with phy-mode = "sgmii",
-"2500base-x" or "internal" would then pass dtbs_check and only fail later in
-mt7530_mac_config()/phylink.
+which reads priv->hw and writes priv->xstats in freed memory.  Should the
+driver free and synchronize the IRQs before free_netdev()?
 
-Related to that, the new $defs/mt7530-passthrough-dsa-port rule is gated on:
+[Severity: High]
 
-            if:
-              required: [ link ]
+This is also pre-existing rather than something this patch changes, but it
+follows from the same asymmetry: can the interface be brought up more than
+once per bind?
 
-so a node with no DSA link port gets no port validation at all, and ports
-carrying ethernet are unconstrained.
+sxgbe_open() requests the TX and RX DMA interrupts with flags 0:
 
-On the on-die side, econet,en751221-switch is only added to the builtin enum,
-whose $defs/builtin-dsa-port rule keys off required: [ ethernet ].  Nothing
-pins the cascade port to port 5 with trgmii as the added description states, so
-link can be declared on port@0..port@4, which en751221_mac_port_get_caps()
-wires to the internal FE/GE PHYs and which offers TRGMII on port 5 only.
+		ret = devm_request_irq(priv->device,
+				       (priv->txq[queue_num])->irq_no,
+				       sxgbe_tx_interrupt, 0,
+				       dev->name, priv->txq[queue_num]);
 
-Should an example be added for the new on-die plus multi-chip module topology?
-Without one, the new $def, the required mediatek,mcm and the implied
-resets/reset-names combination are never exercised by dt_binding_check.
+sxgbe_release() does not free them, and devres entries are only released at
+unbind, so a second open re-requests a virq the driver already owns and
+__setup_irq() takes the mismatch path:
 
-> +
->  unevaluatedProperties: false
->  
->  examples:
+kernel/irq/manage.c:__setup_irq() {
+	...
+		if (!((old->flags & new->flags) & IRQF_SHARED) ||
+		    (oldtype != (new->flags & IRQF_TRIGGER_MASK)))
+			goto mismatch;
+	...
+}
 
-Two further observations concern other patches in the same series, so there are
-no hunks to quote here.
-
-[Severity: Medium]
-In "net: dsa: mediatek: support MDIO switch downstream of MMIO switch", is the
-new call site of mt7530_setup_mdio_irq() too late?  It used to run inside
-mt7530_setup_mdio() before devm_of_mdiobus_register(), and now runs in
-mt753x_setup() after mt7530_setup_mdio() has returned:
-
-	ret = mt7530_setup_mdio(priv);
-	if (ret)
-		return ret;
-
-	if (priv->irq_domain && ds->user_mii_bus)
-		mt7530_setup_mdio_irq(priv);
-
-Bus registration creates the phy_devices, and phy_device_create() copies the
-IRQ once at creation time:
-
-	dev->irq = bus->irq[addr];
-
-mdiobus_alloc_size() pre-fills bus->irq[i] = PHY_POLL, so the internal PHYs are
-created with phydev->irq == PHY_POLL and the later
-ds->user_mii_bus->irq[p] = irq_create_mapping(...) writes an array that is not
-read again.  Does this leave every MT7530/MT7531 board that declares
-interrupt-controller on the switch node and has no mdio child node (binding
-examples 3 to 7, MT7621 boards) on polled link detection instead of the
-switch PHY link-change interrupt?  The ordering is unchanged at the end of the
-series.
-
-[Severity: Medium]
-In "net: dsa: mediatek: add support for passthrough mode", is the egress tag
-setting for the upstream port immediately overwritten?
-mt753x_cpu_port_enable() programs:
-
-	if (priv->is_passthrough) {
-		/* Disable parsing of the DSA tag ... */
-		regmap_write(priv->regmap, MT7530_PVC_P(port),
-			     VLAN_ATTR(MT7530_VLAN_TRANSPARENT) |
-			     PVC_EG_TAG(MT7530_VLAN_EG_DISABLED));
-
-but both callers, mt7530_setup() and mt7531_setup_common(), do this in the same
-loop iteration right after the call:
-
-		if (dsa_is_upstream_port(ds, i)) {
-			mt753x_cpu_port_enable(ds, i);
-		} else {
-			...
-		}
-		/* Enable consistent egress tag */
-		regmap_update_bits(priv->regmap, MT7530_PVC_P(i),
-				   PVC_EG_TAG_MASK,
-				   PVC_EG_TAG(MT7530_VLAN_EG_CONSISTENT));
-
-MT7530_VLAN_EG_DISABLED is 0 and MT7530_VLAN_EG_CONSISTENT is 1 in
-drivers/net/dsa/mt7530.h, so the field really changes.  The downstream DSA link
-port is re-programmed to PVC_EG_TAG(MT7530_VLAN_EG_DISABLED) later in
-mt7530_port_enable(), but with priv->is_passthrough set the upstream port takes
-neither the user port branch nor the dsa_port_is_dsa(dp) && dp->index !=
-upstream_pt branch there, so there is no later write for it.  Is the write in
-mt753x_cpu_port_enable() then dead, or should the EG_CONSISTENT update be
-skipped for the upstream port in passthrough mode?  The commit message of that
-patch states both ports end up at MT7530_VLAN_EG_DISABLED.
+so ip link set dev X down followed by ip link set dev X up returns -EBUSY,
+after the shared common and LPI handlers have been installed a second time
+as extra devres nodes.  Would releasing the IRQs in ndo_stop fix both this
+and the free_netdev() ordering above?
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915174643.253660-1-cjd%40cjdns.fr
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916054841.2908429-1-lgs201920130244%40gmail.com
