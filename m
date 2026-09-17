@@ -1,171 +1,163 @@
-Received: from mail-qk2-f7.google.com (mail-qk2-f7.google.com [74.125.230.199])
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBE551FCB0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789651041; cv=none; b=SV3+FJQg2YVYtD6xr5Isap4ofW1gKJNsIK3PBY5O7BBcZcU322zWrzS2CzKdIdGeYIFPZJ0riLud0BfsUoCZuAN54eZvE736sjjxe0G2XNxxmAlJ9wh+aAYFx0w1kzwmBkE+kD40HaKpIiPo+djgd8ze7lQKQFZ2nGKnimpFhGU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789651041; c=relaxed/simple;
-	bh=EcHJeYP5GTKRnI2a1t2aAYXBOzj45/EWftqB3gHbb4U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g8GI/p9PSyFfmr5Qm5PcRLWYsfnd0mOt8XuCrdElE6QEY5j2qHgWMi2y70MOJx4bWoGzKAmLPXTXLTYkgjVQ/yeDVFpmpLzjpIpTyh6NcgQwTHoVB/D2ZZ3j7NLR9rXygkjX7AX8Hf5VzU33WUFW1Y5y1phgO2QirNTpsAqmXvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=UQoDOtaV; arc=none smtp.client-ip=74.125.230.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B327151FCC4
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:17:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789651046; cv=pass; b=CC+cIWlnetNVFfkRG4YkXx0FAetAOEVKvqhnkax7FNljmefCRZeWMhj1Sh+tceJ1c1d4xlNC3WMxt9xx48EtLVCMRG1uqLK9XOsQKLRTb/dj3ilH/ji8EGDa5s4ZZq8JjA9LSobo2uZqHwchrhrsfz5QcX11Hur/F7ZhdSAyQ54=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789651046; c=relaxed/simple;
+	bh=kO4HLKikSv+g/tlkono8w2r9mfJw0DOnYzMEnSqFOZQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PXi0ZN/RP/LNRKCvm8gwa3+35U7cGSa3rhZ8XeF0ml7WLK/eMiy+YIhurFzTOg0viG4ZvOxHk5pU0qc5isINw62YDDSfpL14NeRjbqMT6px1CDnjuDe9w5/lsMPgVg89AvITmvlXrSJ2EK31hd9TcFKGOPztSGFtvMarrqazLdE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ckfnxtz2; arc=pass smtp.client-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="UQoDOtaV"
-Received: by mail-qk2-f7.google.com with SMTP id af79cd13be357-936b6f4b44dso46852285a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:17:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ckfnxtz2"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b83c1421ecso1848e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:17:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789651042; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gJzhVNE9LqYOAImRk+9yUYm8mV2o2aDTlklWN8Syn0RO9aStJUIQiipH4QhcYXrbK1
+         iRnrQM3HVnuv1zkcM3yac36Cw5lMUmvBePHpamzW0/DegNxhARdvfX6Kiwdmt0v3G+Zm
+         BnkqSYOpACdvGJWbembSG3z1jksObxD129B8qV9xQXpZmiMDfcLtf6pv2ra5U6iVNuQO
+         fwRZCEJuIvCY4tGab7m0eZUNjmWWOfzMmed+akORy4nMHgvpJa7wYwTxlQE6t+kiv+Ol
+         /K9zHu3XGX5PuLIkz/TgIw6yl9U6kUHiKzR0ge2jDz57i6EilyGa+re/goLDfy/10063
+         qrjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=yvMJselGvAoMrhysUaGitx662yndDSgH+0mQM9lz22E=;
+        fh=6B9i0RHT9D6F/QzJYdPopbWCddz+UWyzCf02QKgDf3k=;
+        b=SghsApwIfhhroo1j1hOnCyqcxK24qqUmmV+hLMrS1iEF6prOAlpOC0uHflCtu1f+Ie
+         Lj/8VmdtATyOE2MLMS+4xp0mxMNZmGbfq8lqB6kR/zO6G2Fw68hfigip6I9sRdrBry0m
+         s4yyjA6G97Eyfi4lXaMmntwNT7+HQ/eNtynyJQnNK57AEbkZooCrZx2Yj9s070+n/3Ot
+         LlDvOoFu2u7NZYy20EW/H7uv7OaYJt59z84MB3WV1VHUjLmdr4z8+HeUGQJCD8dlJ0s2
+         Mv2b1eJsN5WxFRmgd4Am0I+tB9XFq0HAyHJB/iEh6q1Yl5O6bwZi5e1ZZnnWuR4xe3/c
+         pMxw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1789651037; x=1790255837; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TYiGnhlo+OU9YMA0gh1fz1xutnFRgnBy7GWsxB2kBCM=;
-        b=UQoDOtaVI0SJr9CXbXhdLXeYtlWhLYcUS/vP4Vo2olTnIy6E19YJ7w+RKBl9VxfuJc
-         /D2EY40fLfegq74MHJOMFOFncyT7pSfcROYaGTCOznwwXm5O4ByzKnCZKU+eqXZ7o6Ia
-         r6iijvagH416nEgQCJBeDyrESJmcmYNJbM+FXTgUv+5TD31S18fWMEDebNlJsTstP+Ag
-         XZ1zqubtSLWPNT0bwIVQVx6sxt9AEAgqY+iH8Z81ee/eBmKD/epfZwv5/SKO4hejNGeJ
-         EXJHBYFLRu0vaF6qlhKmxct5Z33AyEwBXWnbqmOZApBqak9QXFH49+DFuymfKGfX1b69
-         4zSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789651037; x=1790255837;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789651042; x=1790255842; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TYiGnhlo+OU9YMA0gh1fz1xutnFRgnBy7GWsxB2kBCM=;
-        b=zl/HZKaMRs8kSms4RinNuMcb7Kbb9IdBbLmReRAdXSE0SlB4L5xLZ9a1w7WzOazzqW
-         thh07dSctX2Rra79VuqMHwsS/JhhN/HeqAkpg/dnIs4nw1CmxQYIFLb0s4+sGPBpF4r4
-         EAF7fxTxaKLW+62hvpTc6gkuMkbIn3T/OJdmYW/rblGeSuYkxKF/1msQkjUbc6wT3wch
-         12M3s7cga4p2/UxZO3oN6gLW3wRBRETQGTO6AeTH2bnBnh1PdI0TlsZSX1ShghO1Gys4
-         4ETDKFgG164NisaytXtfMWWDUo39bYS+4pOr3pxSVTmqY9fH4a4bIJW9/e0/vx7P5tRz
-         vCNg==
-X-Forwarded-Encrypted: i=1; AKwUvBx1oD9AVUwqzYydH0T9H+T2GcXFLdfThvgwnFxeui3GwOb5d9YOYuxJZ57Co+/tHl8VJO8dq91ESbzXVos=@vger.kernel.org
-X-Gm-Message-State: AFuF++mofDT7xKaTk/eLk9uO9mZn81npq0hdDjLv4i2S1v96Sqdm66xQ
-	CL1XZuLa12hZgUY2R6Rxm45BOcEHCWVPQXsjbB14Z+ViaZBFSgMZLM7qb6RsXpGqwmwpRAImLn8
-	zsc2jdPjmzg==
-X-Gm-Gg: AYBFou2Ms6i2IXDzHeBX757HD8wnVkMDs/TgkbVDIvrpZOvZXa/ZLfLV2eF5lZgKtkl
-	AN0IUoTuRM3HruP92Ir5Cx75IBSgPwkTNYJnTn+ilDL3zaoyl8GzBoiEF4aVRe+w8vA9k0GXxpB
-	BX7ylXaq7M5FaomPZdfNDuDdLA/mZ+x3dbRxnpcsWMCU5lQQLDFLPIAbGNEodixGnN2Vx5UVoVA
-	UeJ/a60XrpAY53tLn0yFxrqI7ImOh5pCCi1Ews+cmTmESLc25mnIMZmAZ45MACtolU+xf4+bnGK
-	0sP7KCNm8Yc/EUbDKDn/NuRsqtozO0WT0MhSQeKqhP3K2PnL+m17NOVktXbrrP+aeoc1ZEo2lwN
-	25eMW1PEEEHCsDysq13m/bhSZmL408h9JpfREvL38a6Lnp4mO1iChs+vA+7aMeQbFDVMtsz8T09
-	DG/P3HeWMpwANKj6+L5irAMpJ4Haap2cn3UFLBy6gz//8M/BZqoW3y2ZIpGmcdcSBHapnzqQ==
-X-Received: by 2002:a05:620a:6406:b0:93b:d7a2:83cc with SMTP id af79cd13be357-93bd7a299f8mr48578585a.59.1789651037044;
-        Thu, 17 Sep 2026 06:17:17 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:1f35:22b6:fe30:2a34])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b7821d231sm463905785a.21.2026.09.17.06.17.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 06:17:16 -0700 (PDT)
-Date: Thu, 17 Sep 2026 09:17:12 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
-	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
-	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com,
-	yosry@kernel.org, shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev, david@kernel.org,
-	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
-Subject: Re: [PATCH v3 00/14] mm, swap: extendable swap devices (xswap)
-Message-ID: <20260917131712.GA1344@cmpxchg.org>
-References: <20260916101929.149106-1-hebaoquan@kylinos.cn>
- <aqrHjfHwyEtRIr5S@cmpxchg.org>
- <aquWKJoP5JLP8Ci7@fedora>
+        bh=yvMJselGvAoMrhysUaGitx662yndDSgH+0mQM9lz22E=;
+        b=ckfnxtz2wGezph2qLayTqSjlDtfsqRO8GHSC0w7wIxNZHmVm7ha5M95vnusVcyL+sJ
+         b9nIfsSPmBHDlQ7Mwxix/hDUSkysGfD85T2p0qqldo4lEwGKsAj+tRFg1Zzavzb9FUaZ
+         IzV4+JnTWkvMZDAv7uBbEWBdXY5EIoazjG/qRZ3emYT96M4s7eYJhqI2kviyt9bLK83W
+         qXEQfD1Q34401WnQK2DMEq+1iOZAjJgytem3QWH4DogmglY1I3Ood9SEgU+tygQDdAGA
+         fV1AgX0FJOmRz0qecHVwebdw8k7ZUYZWSRG44DeWwCo3TY8xKsy/xPSKS4PwOejVEwpa
+         fs7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789651042; x=1790255842;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yvMJselGvAoMrhysUaGitx662yndDSgH+0mQM9lz22E=;
+        b=DtdgMaTEqZu69w0jEf7AeIKg4H5obu0wc61Ot/JNkZeMNBfHpR6hcj+q0pFej9Q+9X
+         kXN/22EOqBX/mR2Yu2bnaX5kM1hVF8e/MpI4Aixe9VpWjVXNsxFsqxJC6eVKMTREhyLX
+         2/A5hUzPgMiaLWXkXB+8BuZmB+Q3h1S6r9mBpw8ORORXpHn+3lFGcV8M9/Nlgf/g5wIO
+         /N8nw474UNz1DPjZASrn8Nu+k+3kqqB0kDNIit0J35cex2i4y+vThKIde0ogambCa5uw
+         wPLBPeeDMH1Vi5MesX2XWEpHaqwYNIk8mp6F5sPwW7eIYBYltP/+OTyTxzfWyaVbnJSb
+         YlnA==
+X-Forwarded-Encrypted: i=1; AKwUvBzo5LtH3LYGrqw/4JyuIuZOM+2YDLwAaWsJzmnC2mUvFXjBgOY8vPQb+QvOHyWLiJpzTBIk2Blzm4LCtlU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/PRdwOtJ8iTJbmIQAQezgN4yhcM8zIiBzmyjWkDmS05iOPjkD
+	DpmmU7aHeKkvNaFE2jnqbsUVZ1hTGIgcOsAwSMO2bk8+VhyYNF476FysQF8joGLweX5+QStV0qW
+	sz8XP0zDlNjzIGvjy6nFE/WMCDKeUojU228fdjC2I
+X-Gm-Gg: AYBFou3nEDbus1hZ9xqtscmDL58uIxr0XraK7GYtjAn7vjUvKkmvixVLivpXw3Gf8mH
+	WjUEDpdRsUFBk3BoVNw60e4QIcCRXvVYDtjB5Hz5Whse6Ex16G+HXtoS8Fwzp+9+L8ST6ZEPCzy
+	e5Brh0mohxiSpTdVTVUYBqH8ELveAedKRINEqfUSoGQZBvCcUTbzyX0VGRN56DYoiqVyGo+7hM/
+	g1JrEb+87BvpIRs29AlflK+T64ycdkDREImpWTbWwsBTHRjkbtWU9YgZcr+6QZQ/b6ym53VaPrh
+	C1RXqK2qCuhez1Z3HdckeLS6SoVKyqGEBYiINhsilqMEjX5n2f6k3ABrR+tUlXmF4tCCHrlzy9x
+	vnVVcZQhmvFRlhQ==
+X-Received: by 2002:ac2:4c50:0:b0:5b2:8963:e5d4 with SMTP id
+ 2adb3069b0e04-5b8bff1d051mr39681e87.5.1789651041084; Thu, 17 Sep 2026
+ 06:17:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aquWKJoP5JLP8Ci7@fedora>
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com> <20260915160141.3543048-21-suzuki.poulose@arm.com>
+In-Reply-To: <20260915160141.3543048-21-suzuki.poulose@arm.com>
+From: Fuad Tabba <tabba@google.com>
+Date: Thu, 17 Sep 2026 14:16:44 +0100
+X-Gm-Features: AcwNN1VtWWKyrr6h6sFHMUccgZH0Chs5OMidTNSOoiZ_fDx_6ZmQhtU1SR2DO2Y
+Message-ID: <CA+EHjTwYqTFzGdNPproWW5L6j5pNqmuWeFuu9HbHa8LBLPvY2A@mail.gmail.com>
+Subject: Re: [PATCH v18 20/23] KVM: arm64: CCA: Don't expose unsupported
+ capabilities for realm guests
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
+	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
+	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 17, 2026 at 03:31:23PM +0800, Baoquan He wrote:
-> On 09/16/26 at 12:45pm, Johannes Weiner wrote:
-> > On Wed, Sep 16, 2026 at 06:19:07PM +0800, Baoquan He wrote:
-> > > xswap is a swap device with no backing storage. Swapped-out pages live                                
-> > > in zswap. Its cluster_info[] array lives in a VM_SPARSE vmalloc area,                                 
-> > > and the area is grown and shrunk on demand as swap usage changes.                                     
-> > >                                                                                                       
-> > > The problem being solved is the static size of compressed swap. Both   
-> > > zram and zswap need the size fixed in advance, and neither gives memory 
-> > > back when the workload shrinks. The solution should be a device whose
-> > > size can scale up/down as per usage. xswap does that by mapping the
-> > > metadata lazily instead of reserving it for the whole range.
-> > > 
-> > > Design   
-> > > ------                           
-> > > - si->cluster_info[] stays a plain array. Access is still
-> > >   &si->cluster_info[offset / SWAPFILE_CLUSTER]: no per-access branch, no 
-> > >   RCU discipline, no tear-down state machine, no NULL return.              
-> > > - Only an initial chunk is mapped at creation. The rest of the address     
-> > >   space is reserved, not allocated, so an idle device costs nothing.
-> > > - Growth is driven by allocation. When no free cluster is left and the       
-> > >   address space has room, the next chunk is mapped and added to the free  
-> > >   list. No userspace involvement.
-> > > - Shrink is driven by frees. The free tail is scanned, and whole chunks
-> > >   are unmapped once the mapped range is at most half in use and several
-> > >   chunks can go. One chunk is left mapped as slack, so the next                                       
-> > >   allocation does not map it straight back. A ceiling lowered below the                               
-> > >   mapped range skips the half-in-use rule and is enforced at once.
-> > 
-> > If the swap maintainers prefer the VM_SPARSE route, I'm happy to defer
-> > to them on that.
-> > 
-> > However, from the cgroup and zswap camp, two stipulations that I
-> > reasoned out in the other thread[1]:
-> 
-> > 
-> > 1. You must not charge compression space as swap space to the cgroup.
-> 
-> Hmm, I don't have a stance on this. However, isn't this an issue
-> zswap/zram have been doing? It feels like an independent issue which
-> should be done separately?
+Hi Suzuki,
 
-If you have 3 containers using compression space, and two of them have
-writeback enabled to a shared swapfile, the memory.swap.* controls
-need to work to manage fair access to that swapfile. They do not work
-if compression space itself is conflated in.
+On Tue, 15 Sep 2026 17:01:38 +0100, Suzuki K Poulose
+<suzuki.poulose@arm.com> wrote:
+[...]
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+[...]
+> +static inline bool kvm_realm_ext_allowed(long ext)
+> +{
+> +        switch (ext) {
+> +        case KVM_CAP_ARM_PSCI:
+> +        case KVM_CAP_ARM_PSCI_0_2:
+> +        case KVM_CAP_NR_VCPUS:
+> +        case KVM_CAP_MAX_VCPUS:
+> +        case KVM_CAP_MAX_VCPU_ID:
+> +        case KVM_CAP_MSI_DEVID:
+> +        case KVM_CAP_ARM_VM_IPA_SIZE:
+> +        case KVM_CAP_ARM_SVE:
+> +        case KVM_CAP_ONE_REG:
+> +        case KVM_CAP_ARM_PTRAUTH_ADDRESS:
+> +        case KVM_CAP_ARM_PTRAUTH_GENERIC:
+> +        case KVM_CAP_SYNC_MMU:
+> +                return true;
+> +        }
+> +        return false;
+> +}
 
-Right now zswap entries actually consume physical swapfile space, even
-before writeback. Charging the space is correct. But the whole point
-is to decouple compression space from physical swap space.
+I'd keep KVM_CAP_IRQCHIP in this list. api.rst has it advertising
+KVM_IRQ_LINE as well as KVM_CREATE_IRQCHIP, so the cap means in-kernel
+irqchip rather than GICv2, and the GICv2 case is already rejected by
+patch 18 in kvm_vgic_create(). It also keeps the two protected lists
+the same where the support is the same. And could this live in
+kvm_rmi.h, next to where kvm_pkvm_ext_allowed() lives in kvm_pkvm.h,
+rather than in arm.c?
 
-This is not something that can be done later. It would be a dramatic
-user-visible change to how the resource is categorized and managed.
+[...]
+> +static inline bool kvm_arch_vm_ioctl_allowed(struct kvm *kvm, unsigned int ioctl)
+> +{
+> +        long ext;
+> +        int r;
+> +
+> +        r = kvm_get_cap_for_kvm_ioctl(ioctl, &ext);
+> +        if (WARN_ON_ONCE(r < 0))
+> +                return false;
 
-> > 2. You must make the compression space large enough to be outside the
-> >    range where users can hit space limits before hitting memory limits.
-> 
-> We may need a way to define 'large enough' at first.
+You told Sashiko my fix covers this one [1], but that fix changes
+kvm_pkvm_ioctl_allowed(), which this patch deletes, so the `if (r <
+0)` has to go into this copy too. The guard you posted for the second
+finding still leaves the WARN reachable on pKVM and Realm hosts, which
+is the case the fix removed.
 
-I've tried to lay this out in the other thread, and highlighted the
-usability issues that result from hitting compression space limits
-prematurely. It's kind of your call whether you want to seriously
-engage with this or not.
+nit: kvm_arch_ is the prefix generic KVM uses for the hooks it calls
+into the arch. For two static helpers in arm.c, kvm_vm_ext_allowed()
+and kvm_vm_ioctl_allowed() would avoid the collision, and the same for
+kvm_arch_vm_ext_allowed() above.
 
-But ultimately it's your claim that a static size can be made to work,
-so it's on you to make a convincing case.
+Cheers,
+/fuad
 
-> >    That also means not allowing setups where this is possible.
-> 
-> And the limit is only an optional knob. If the admin does not set it,
-> the device grows to the full address space, so there is no space limit
-> to hit at all. It already behaves the way you want by default. The knob
-> is only for admins who want a ceiling, they can use it or not. I hope
-> this would not be a problem for your use case.                                                  
-
-No, I've laid this out already as well.
-
-This isn't about "my" usecase. It's about designing a coherent
-interface that works well with a large number of usecases, and other
-pieces of kernel infrastructure commonly used in conjunction.
-
-The other proposal in the room needs no such interface. The burden of
-proof for adding one is on you.
-
-> > [1] https://lore.kernel.org/linux-mm/aqLi6cIjD2wJwk0B@cmpxchg.org/
+[1] https://lore.kernel.org/all/20260914093838.1082637-1-fuad.tabba@linux.dev/
