@@ -1,310 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A94D4FDE74;
-	Thu, 17 Sep 2026 12:27:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DC74F0526;
+	Thu, 17 Sep 2026 12:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648076; cv=none; b=RG1Fz8jmThPFY93Ag0oEDDsgOxoE09S8oFFwv7niCTh3v5ZryCZ4uEpk2npNihyXJkNgiyyrP0YNsOIndZUqewSqt0hohxO79IAub+rOsJe7wGL3q9RCzBzA2TjuOdEaZOBiLDIQbpu6xWAf6ZNLe9/gGUuIei/Sv3SgL5ZCMEk=
+	t=1789648099; cv=none; b=QBveOFAieInZ3eEpBpwqEVCxxu3impzdQn96PbB2d4relqfPO9aanGUlAwlcxVj2QyNt0dey0sFvnVrpVFQ90rIAzul6Cdpt60sFDs8pLjufQBs4cQPFsb/38lNyW2kDW8ae2XFSi8AD/YNNJ7U3iK0aBk8z0JQmF/KnAUiy+c8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648076; c=relaxed/simple;
-	bh=eieRPwPonrLr6k1TPvd2vHx+CwUXH2oUR3uiDTLhIqQ=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=U/8ta63GoVvXypb6mlTFkCE3acWOnC0JJlEsW8pvGYzIskUfoz7oJLuvbvFSFtgdHeiqRZYu84kQdjGBYL/0dN7YvFqa4GMuQrLkc4BKHhGQqui1AxHLp2YzgF8PM2CatU2qJP+gJ9H/tGrIdtKxQOb7+D5l+3aLiuhwqJeS/5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jIpWYmNG; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789648099; c=relaxed/simple;
+	bh=dNhv9mq4obzH55lT4kIxVd8uB+BycKnB0uQ6jBCNrw0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=D8sEA17dyZ74Lk4nA0fbY+PLayZW0fd6xhPsc9P0cF0Rif7sRcE9wTHVLoB003cBm2bvPtQpNDX0fK/jCovht+Nn56hNtQhUx0gw8+vycfOxXUz+KRagW6Vc0lcAba9Ts0U5wPXhhHRnX8b20UIV/iv6GDKBP5UmCSjjNeyCymg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=gaRQMYbK; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jIpWYmNG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789648064; x=1821184064;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=eieRPwPonrLr6k1TPvd2vHx+CwUXH2oUR3uiDTLhIqQ=;
-  b=jIpWYmNGSElSZyW/Sw0RUoT0bbSLKKQPqBip33n4iVzHmWgPkkDYrSQu
-   q8VE2tQ8sTzjpCvMVhp4og6rTCI7DisecFBSJtWr+K3QFzicKbE9qSF99
-   W1/h+zjDYtk3Z0a5AiZXPexSauaWlMJv+2JS2tq8qyVVM5vpdq7POq1TU
-   LSaRcwD3m6T97+xNlVgU4xCWsZS7fJPAoKnHyJF/ZOTouq487ZgagtZ5F
-   Hxhn/wlkKXpkIDXw5Ip1jMvIWzgJnO7eYVth/sJHHQDcvmL5JmjEpZq/O
-   AJDD1R18XDfKRlR+R+fU3MYnk2OEtdVejHx+5ZhbLBfQQ1xqe1nN4SeeU
-   w==;
-X-CSE-ConnectionGUID: 8B/pMrMJS4OTE3IpInxc9g==
-X-CSE-MsgGUID: hm4kFvw5SF+T5CrnnAMeHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92573530"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="92573530"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 05:27:39 -0700
-X-CSE-ConnectionGUID: P+HQzeDkQWarMObjHut31w==
-X-CSE-MsgGUID: acZHy5J+SJqGcM0/A57LNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="270070629"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.62])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 05:27:36 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 17 Sep 2026 15:27:31 +0300 (EEST)
-To: Hilgad Montelo <hilgad.montelo@gmail.com>
-cc: kenneth.t.chan@gmail.com, Hans de Goede <hansg@kernel.org>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/3] platform/x86: panasonic-laptop: Add driver for
- CF-33 A1/A2 buttons (TBTN)
-In-Reply-To: <20260813221744.25668-3-hilgad.montelo@gmail.com>
-Message-ID: <963b17f0-2489-e5f5-709b-a8d1c07a1d39@linux.intel.com>
-References: <20260813221744.25668-1-hilgad.montelo@gmail.com> <20260813221744.25668-3-hilgad.montelo@gmail.com>
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="gaRQMYbK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=GH7VmVCs4ONMESSMDsg1J1910mif7egOaATVIQHKpQE=; t=1789648093;
+	x=1790252893; b=gaRQMYbK7fJaq1Jo1/B79w100BGWf07lhE/ihKnuAOzgYWfzjdNAocGfzkWGo
+	P84Fk8vzp30bx3IX0irKILvl/rN8qLs2mVFnIgMowz2gu9AxRVtih0vxTXhFeYmScPcW1lSmDnU7c
+	/kiZ0iBgdSY1ADPab4eGA8Whf5Cq1BxXpl9zbU1NPXhGQNu5p3iCOBnjoFpnO3z8asukrqpatg2Lj
+	tc6S+6BGuZaMSKxo84653kmH7RQ5JAVWfkQAnMwknk5uvqv8+mSYffDeprj0cX6an5YkUCQ5gxQTr
+	RvNwQ0TIPMk0glR2N9BWMcqvIQ5b5mmokIR1UpxauxhGBNMMyA==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1x7BDk-00000001wUA-0zvx; Thu, 17 Sep 2026 14:28:08 +0200
+Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1x7BDk-000000027ri-02Af; Thu, 17 Sep 2026 14:28:08 +0200
+Message-ID: <9470a0100b9f890c6ce700fad53f95f8ac07d357.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH 1/2] sh: mach-x3proto: add software node for GPIO
+ controller
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Yoshinori Sato
+	 <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>,  Arnd Bergmann	 <arnd@arndb.de>,
+ linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 17 Sep 2026 14:28:07 +0200
+In-Reply-To: <20260704-sh-x3proto-swnode-v1-1-0c039549dc46@gmail.com>
+References: <20260704-sh-x3proto-swnode-v1-0-0c039549dc46@gmail.com>
+	 <20260704-sh-x3proto-swnode-v1-1-0c039549dc46@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-On Thu, 13 Aug 2026, Hilgad Montelo wrote:
+Hi Dmitry,
 
-> On the Panasonic Toughbook CF-33 the bezel A1/A2 buttons are wired to
-> a separate ACPI device, MAT003C (ACPI path \_SB.TBTN), rather than the
-> main Hotkey device (MAT0019/HKEY) this driver already talks to.
-> MAT003C was present in the ACPI namespace but had no driver bound to
-> it, so A1/A2 produced no signal through any channel: no evdev events,
-> no ACPI notify (nothing logged), no WMI device, and no correlated ACPI
-> GPE interrupt activity.
-> 
-> Found by dumping and disassembling the platform's ACPI tables
-> (acpidump -b + iasl -d) and searching for EC _Qxx query handlers that
-> push scancodes into a hotkey queue. TBTN turned out to implement its
-> own HINF/HIND/SQTY/SINF method quartet, structurally a clone of HKEY's:
-> _Qxx handlers call TBTN.HIND(code) then Notify(TBTN, 0x80); HINF()
-> dequeues one scancode from a small EC-side FIFO. Confirmed scancodes:
-> 0x38/0x39 = A1 press/release, 0x42/0x43 = A2 press/release. Unlike
-> HKEY, TBTN's codes never set the high bit -- press and release are
-> distinct scancodes rather than one code plus an up/down flag.
-> 
-> TBTN.SQTY returns 1 (it has no brightness/battery data, just a
-> button-availability flag), so it cannot be probed via the existing
-> acpi_pcc_hotkey_probe(), which requires num_sifr > SINF_DC_CUR_BRIGHT
-> (assumes every device has the full brightness/eco-mode/battery SINF
-> block). Add a second, minimal platform_driver bound to MAT003C
-> instead, with its own small input device reporting KEY_PROG2 (A1) and
-> KEY_PROG3 (A2) -- both already carry standard XKB keysym mappings
-> (XF86Launch2/XF86Launch3), so no udev/hwdb work is needed for desktop
-> environments to bind them to actions.
-> 
-> Verified on a CF-33 Mk1: evtest shows clean KEY_PROG2/KEY_PROG3
-> press/release pairs with real physical timing; confirmed bindable as
-> GNOME custom shortcuts and launching applications correctly.
-> 
-> Signed-off-by: Hilgad Montelo <hilgad.montelo@gmail.com>
+On Sat, 2026-07-04 at 22:04 -0700, Dmitry Torokhov wrote:
+> We want to convert the legacy gpio-keys platform device on the SH-X3
+> Prototype board to use software nodes. To do this properly and allow
+> referencing the GPIO controller by address rather than relying on
+> name-based matching (which is being removed from the gpiolib core),
+> we need to associate the GPIO controller with a software node.
+>=20
+> Introduce x3proto_gpiochip_node, register it, and associate it with
+> x3proto_gpio_chip.
+>=20
+> Assisted-by: Antigravity:gemini-3.5-flash
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 > ---
->  drivers/platform/x86/panasonic-laptop.c | 168 +++++++++++++++++++++++-
->  1 file changed, 167 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/platform/x86/panasonic-laptop.c b/drivers/platform/x86/panasonic-laptop.c
-> index 0c0e4a6..93e6511 100644
-> --- a/drivers/platform/x86/panasonic-laptop.c
-> +++ b/drivers/platform/x86/panasonic-laptop.c
-> @@ -197,6 +197,42 @@ static const struct acpi_device_id pcc_device_ids[] = {
->  };
->  MODULE_DEVICE_TABLE(acpi, pcc_device_ids);
->  
-> +/*
-> + * On the CF-33 the bezel A1/A2 buttons are wired to a separate ACPI device
-> + * (MAT003C, ACPI path \_SB.TBTN) rather than the main Hotkey (MAT0019/HKEY)
-> + * device the rest of this driver talks to. TBTN implements its own
-> + * HINF/HIND/SQTY/SINF method quartet, structurally a clone of HKEY's, but
-> + * SQTY only reports a single SIFR element (a button-availability flag) --
-> + * it has none of HKEY's brightness/battery/backlight state, so it can't be
-> + * probed via acpi_pcc_hotkey_probe(), which requires the full SINF block.
-> + * Register a second, minimal platform_driver for it instead.
-> + */
-> +#define METHOD_TBTN_QUERY	"HINF"
-> +#define TBTN_NOTIFY		0x80
-> +
-> +static const struct acpi_device_id tbtn_device_ids[] = {
-> +	{ "MAT003C", 0},
-> +	{ "", 0},
-
-{ } is enough to initialize default values, and no trailing comma for the 
-terminator.
-
-> +};
-> +MODULE_DEVICE_TABLE(acpi, tbtn_device_ids);
-> +
-> +struct tbtn_acpi {
-> +	acpi_handle		handle;
-> +	struct input_dev	*input_dev;
-> +};
-> +
-> +static int tbtn_probe(struct platform_device *pdev);
-> +static void tbtn_remove(struct platform_device *pdev);
-
-Please reorganize the struct/code so that these forward-declarations are 
-avoided.
-
-> +static struct platform_driver acpi_tbtn_driver = {
-> +	.probe = tbtn_probe,
-> +	.remove = tbtn_remove,
-> +	.driver = {
-> +		.name = "Panasonic Tablet Buttons",
-> +		.acpi_match_table = tbtn_device_ids,
-> +	},
-> +};
-> +
->  #ifdef CONFIG_PM_SLEEP
->  static int acpi_pcc_hotkey_resume(struct device *dev);
->  #endif
-> @@ -961,6 +997,112 @@ static void acpi_pcc_hotkey_notify(acpi_handle handle, u32 event, void *data)
->  	}
+>  arch/sh/boards/mach-x3proto/gpio.c           | 15 ++++++++++++++-
+>  arch/sh/include/mach-x3proto/mach/hardware.h |  2 ++
+>  2 files changed, 16 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/arch/sh/boards/mach-x3proto/gpio.c b/arch/sh/boards/mach-x3p=
+roto/gpio.c
+> index c13d51b29702..a09cafc782b4 100644
+> --- a/arch/sh/boards/mach-x3proto/gpio.c
+> +++ b/arch/sh/boards/mach-x3proto/gpio.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/io.h>
+>  #include <mach/ilsel.h>
+>  #include <mach/hardware.h>
+> +#include <linux/property.h>
+> =20
+>  #define KEYCTLR	0xb81c0000
+>  #define KEYOUTR	0xb81c0002
+> @@ -73,6 +74,10 @@ static void x3proto_gpio_irq_handler(struct irq_desc *=
+desc)
+>  	chip->irq_unmask(data);
 >  }
->  
-> +/*
-> + * TBTN's HINF dequeues one raw scancode from a small EC-side FIFO (0 if
-> + * empty) and re-Notify()s itself if more than one entry was pending, so a
-> + * single evaluate-and-report per notification is sufficient here -- unlike
-> + * HKEY, TBTN's codes never set the high bit, since press and release are
-> + * distinct scancodes rather than one code plus an up/down flag.
-> + */
-> +static void tbtn_report_key(struct tbtn_acpi *tbtn, unsigned int code)
-> +{
-> +	static const struct {
-> +		unsigned int code;
-> +		unsigned int keycode;
-> +		bool down;
-> +	} keymap[] = {
-> +		{ 0x38, KEY_PROG2, true },  /* A1 press */
-> +		{ 0x39, KEY_PROG2, false }, /* A1 release */
-> +		{ 0x42, KEY_PROG3, true },  /* A2 press */
-> +		{ 0x43, KEY_PROG3, false }, /* A2 release */
-> +	};
-> +	int i;
+> =20
+> +const struct software_node x3proto_gpiochip_node =3D {
+> +	.name =3D "x3proto-gpio",
+> +};
 > +
-> +	for (i = 0; i < ARRAY_SIZE(keymap); i++) {
-> +		if (keymap[i].code != code)
-> +			continue;
-> +		input_report_key(tbtn->input_dev, keymap[i].keycode, keymap[i].down);
-> +		input_sync(tbtn->input_dev);
+>  struct gpio_chip x3proto_gpio_chip =3D {
+>  	.label			=3D "x3proto-gpio",
+>  	.direction_input	=3D x3proto_gpio_direction_input,
+> @@ -104,9 +109,15 @@ int __init x3proto_gpio_setup(void)
+>  	if (unlikely(ilsel < 0))
+>  		return ilsel;
+> =20
+> +	ret =3D software_node_register(&x3proto_gpiochip_node);
+> +	if (ret)
+> +		goto err_gpio;
+> +
+> +	x3proto_gpio_chip.fwnode =3D software_node_fwnode(&x3proto_gpiochip_nod=
+e);
+> +
+>  	ret =3D gpiochip_add_data(&x3proto_gpio_chip, NULL);
+>  	if (unlikely(ret))
+> -		goto err_gpio;
+> +		goto err_swnode;
+> =20
+>  	x3proto_irq_domain =3D irq_domain_create_linear(NULL, NR_BASEBOARD_GPIO=
+S,
+>  						   &x3proto_gpio_irq_ops, NULL);
+> @@ -127,6 +138,8 @@ int __init x3proto_gpio_setup(void)
+>  err_irq:
+>  	gpiochip_remove(&x3proto_gpio_chip);
+>  	ret =3D 0;
+> +err_swnode:
+> +	software_node_unregister(&x3proto_gpiochip_node);
+>  err_gpio:
+>  	synchronize_irq(ilsel);
+> =20
+> diff --git a/arch/sh/include/mach-x3proto/mach/hardware.h b/arch/sh/inclu=
+de/mach-x3proto/mach/hardware.h
+> index 57ea4a5cca35..1ee5a404973c 100644
+> --- a/arch/sh/include/mach-x3proto/mach/hardware.h
+> +++ b/arch/sh/include/mach-x3proto/mach/hardware.h
+> @@ -3,10 +3,12 @@
+>  #define __MACH_X3PROTO_HARDWARE_H
+> =20
+>  struct gpio_chip;
+> +struct software_node;
+> =20
+>  /* arch/sh/boards/mach-x3proto/gpio.c */
+>  int x3proto_gpio_setup(void);
+>  extern struct gpio_chip x3proto_gpio_chip;
+> +extern const struct software_node x3proto_gpiochip_node;
+> =20
+>  #define NR_BASEBOARD_GPIOS	16
+> =20
 
-Doesn't this duplicate input's sparse keymap handling?
+Looks good to me, will pick this up for v7.4.
 
-> +		return;
-> +	}
-> +
-> +	pr_info("Unknown TBTN hotkey event: 0x%02x\n", code);
-> +}
-> +
-> +static void tbtn_notify(acpi_handle handle, u32 event, void *data)
-> +{
-> +	struct tbtn_acpi *tbtn = data;
-> +	unsigned long long result;
-> +	acpi_status status;
-> +
-> +	if (event != TBTN_NOTIFY)
-> +		return;
-> +
-> +	status = acpi_evaluate_integer(tbtn->handle, METHOD_TBTN_QUERY,
-> +				       NULL, &result);
-> +	if (ACPI_FAILURE(status)) {
-> +		pr_err("TBTN: error getting hotkey status\n");
-> +		return;
-> +	}
-> +
-> +	if (result)
-> +		tbtn_report_key(tbtn, result);
-> +}
-> +
-> +static int tbtn_probe(struct platform_device *pdev)
-> +{
-> +	struct acpi_device *device = ACPI_COMPANION(&pdev->dev);
-> +	struct tbtn_acpi *tbtn;
-> +	struct input_dev *input_dev;
-> +	int error;
-> +
-> +	if (!device)
+Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 
-adev is usually used for acpi_device variables.
+Reviewing part 2 will take slightly longer due to the size of the changes.
 
-> +		return -ENODEV;
-> +
-> +	tbtn = devm_kzalloc(&pdev->dev, sizeof(*tbtn), GFP_KERNEL);
-> +	if (!tbtn)
-> +		return -ENOMEM;
-> +
-> +	tbtn->handle = device->handle;
-> +	device->driver_data = tbtn;
-> +
-> +	input_dev = devm_input_allocate_device(&pdev->dev);
-> +	if (!input_dev)
-> +		return -ENOMEM;
-> +
-> +	input_dev->name = "Panasonic Tablet Buttons";
-> +	input_dev->phys = "panasonic/tbtn0";
-> +	input_dev->id.bustype = BUS_HOST;
-> +	input_dev->id.vendor = 0x0001;
-> +	input_dev->id.product = 0x0002;
-> +	input_dev->id.version = 0x0100;
-> +	input_set_capability(input_dev, EV_KEY, KEY_PROG2);
-> +	input_set_capability(input_dev, EV_KEY, KEY_PROG3);
-> +
-> +	error = input_register_device(input_dev);
-> +	if (error) {
-> +		pr_err("TBTN: unable to register input device\n");
-> +		return error;
-> +	}
-> +
-> +	tbtn->input_dev = input_dev;
-> +
-> +	error = acpi_dev_install_notify_handler(device, ACPI_DEVICE_NOTIFY,
-> +						tbtn_notify, tbtn);
-> +	if (error)
-> +		return error;
-> +
-> +	return 0;
-> +}
-> +
-> +static void tbtn_remove(struct platform_device *pdev)
-> +{
-> +	struct acpi_device *device = ACPI_COMPANION(&pdev->dev);
-> +
-> +	acpi_dev_remove_notify_handler(device, ACPI_DEVICE_NOTIFY, tbtn_notify);
-> +	device->driver_data = NULL;
-> +}
-> +
->  static void pcc_optd_notify(acpi_handle handle, u32 event, void *data)
->  {
->  	if (event != ACPI_NOTIFY_EJECT_REQUEST)
-> @@ -1221,4 +1363,28 @@ static void acpi_pcc_hotkey_remove(struct platform_device *pdev)
->  	kfree(pcc);
->  }
->  
-> -module_platform_driver(acpi_pcc_driver);
-> +static int __init panasonic_module_init(void)
-> +{
-> +	int error;
-> +
-> +	error = platform_driver_register(&acpi_pcc_driver);
-> +	if (error)
-> +		return error;
-> +
-> +	error = platform_driver_register(&acpi_tbtn_driver);
-> +	if (error) {
-> +		platform_driver_unregister(&acpi_pcc_driver);
-> +		return error;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void __exit panasonic_module_exit(void)
-> +{
-> +	platform_driver_unregister(&acpi_tbtn_driver);
-> +	platform_driver_unregister(&acpi_pcc_driver);
-> +}
-> +
-> +module_init(panasonic_module_init);
-> +module_exit(panasonic_module_exit);
-> 
+Adrian
 
--- 
- i.
-
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
