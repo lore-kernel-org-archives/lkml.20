@@ -1,47 +1,37 @@
-Received: from mta0.migadu.com (out-132.mta0.migadu.com [91.218.175.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DC14BD34E
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:46:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891A34E06DB;
+	Thu, 17 Sep 2026 11:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645583; cv=none; b=au2A7VS+g1bax46PA8DrCAmiMgxs7zbYqXuprjBpLcys+vRj6tEMGDSMaZQdRdMXKnpInZES78KpEW4zf8v7PxRNrUEMd8PuGcyn2/VwqgDSAZ50H4/nwE7pW654P65o41mIQML8NnzzvFMkF6MPygYczQGB5rtf73YVk6QQYtk=
+	t=1789645595; cv=none; b=fIH8WQjLE14yZkH9YsWQllRmyKlz3w5rIis0EnxnfN9xhxFT12yY9VSW8m8J62OwHZxmnfY1DH2H2HBSIJCsbr3kSFFVNgroj9SHG4va+fEIRKVqGl1/hL1HWRDVy9eKcJMdmlfe1wP6HG/S++7kF2XwbSQGSZuWcHbirO0fYTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645583; c=relaxed/simple;
-	bh=I+y/yZhjqmrKJ1vXwT9TgPxkQscaL8DMJp5rQ22dsrc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a9BZrBvrc6Fqrx5sbcknk1Envb9jIa94JbkNkuDpNuCiLk7k0aoKh/U834/jzIy+IuPTJCp4W8JC3XJPhRwWvyMT6cAzZUBCaxMDEyUUyK2NGFMFDAiRXdGX6/bkG4B8vpjZv9F+Y7ZHcHTYSjHj6LK0YxBZxyeQxh2L4Z3RZE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=idNUoWmC; arc=none smtp.client-ip=91.218.175.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="idNUoWmC"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=I+y/yZhjqmrKJ1vXwT9TgPxkQscaL8DMJp5rQ22dsrc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789645573; v=1; x=1790250373;
- b=idNUoWmCSpPAg8zsXKrtRgklDgCHJwseeWf+tM83SaFSBsv2BejnrbtclsPcM79HRu9LHBpz
- msxKlIsyQCNsjhN5mesfMpIfZrunrROLrHolVWxiaBS0WErevSFh34HshSlpFtmwGgHZSPoVHCB
- 2MGUpHB4EvfbiImEPiVxgosY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9c4b709d4d1133f3;
-	Thu, 17 Sep 2026 11:46:13 +0000
-X-Mizu-Trace-ID: 9c4b709d4d1133f3
-X-Migadu-Flow: FLOW_OUT
-From: Zenghui Yu <zenghui.yu@linux.dev>
-To: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: pbonzini@redhat.com,
-	seanjc@google.com,
-	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-Subject: [PATCH 3/3] KVM: selftests: Remove destroy_cgroup() from access_tracking_perf_test
-Date: Thu, 17 Sep 2026 19:45:43 +0800
-Message-ID: <20260917114543.85044-4-zenghui.yu@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917114543.85044-1-zenghui.yu@linux.dev>
-References: <20260917114543.85044-1-zenghui.yu@linux.dev>
+	s=arc-20240116; t=1789645595; c=relaxed/simple;
+	bh=ELAGzky4r3tizqr7AhUo0wQ99KmBzMkbaVyLIMmXrEM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pNDOyGfIHntLic96W7tzqKfpmwQT9w6x13zhAl2FZ78Ulnv9bh/Ammyi8u91CnsQGW2++xljK6Lp5XJgia9TFns5msw0DdWnZKiiLN8NJpXWKEwY0BXrS0Go4urcwFmFn7toishowjL7dOS2ppEcyV78vP0QwwEE9GJb+QthbQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC3HzoI06tqb9h_CA--.2055S2;
+	Thu, 17 Sep 2026 19:46:16 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrew+netdev@lunn.ch
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	grygorii.strashko@ti.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	richardcochran@gmail.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: ethernet: ti: cpts: Fix refclk node leak in cpts_of_mux_clk_setup()
+Date: Thu, 17 Sep 2026 11:46:16 +0000
+Message-Id: <20260917114616.2149617-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,32 +39,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC3HzoI06tqb9h_CA--.2055S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZF1kKFWkuF48AFWktryDAwb_yoWDGrg_Gr
+	1IgFn5tayUGrsYkw47trsxZasIkasrZa4fXay29FW3Xry7Gr10yr98Cwn3X3yUWr48GFyD
+	JwnrAa9rZ342vjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbgkYjsxI4VW3JwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
+	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
+	vjxU2kucDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMNA2qrrRlz5wAAsr
 
-From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+cpts_of_mux_clk_setup() takes a reference on the "cpts-refclk-mux" child
+node that is only released on the mux_fail error path. When the mux clock
+provider is registered successfully, the reference is leaked.
+of_clk_add_hw_provider() keeps its own reference on the node, so release
+the one taken here before returning.
 
-destroy_cgroup() is not called anywhere.  Remove the dead helper.
-
-Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+Fixes: a3047a81ba13 ("net: ethernet: ti: cpts: add support for ext rftclk selection")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- tools/testing/selftests/kvm/access_tracking_perf_test.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/net/ethernet/ti/cpts.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/tools/testing/selftests/kvm/access_tracking_perf_test.c b/tools/testing/selftests/kvm/access_tracking_perf_test.c
-index 98ace8b8b4ac..9b83e4efcaf9 100644
---- a/tools/testing/selftests/kvm/access_tracking_perf_test.c
-+++ b/tools/testing/selftests/kvm/access_tracking_perf_test.c
-@@ -523,11 +523,6 @@ static void help(char *name)
- 	exit(0);
- }
+diff --git a/drivers/net/ethernet/ti/cpts.c b/drivers/net/ethernet/ti/cpts.c
+index 2ba4c8795d60..372cef13d81e 100644
+--- a/drivers/net/ethernet/ti/cpts.c
++++ b/drivers/net/ethernet/ti/cpts.c
+@@ -714,6 +714,8 @@ static int cpts_of_mux_clk_setup(struct cpts *cpts, struct device_node *node)
+ 		goto mux_fail;
+ 	}
  
--void destroy_cgroup(char *cg)
--{
--	printf("Destroying cgroup: %s\n", cg);
--}
--
- int main(int argc, char *argv[])
- {
- 	struct test_params params = {
++	of_node_put(refclk_np);
++
+ 	return ret;
+ 
+ mux_fail:
 -- 
-2.53.0
+2.34.1
 
