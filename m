@@ -1,104 +1,99 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EAC4D4884;
-	Thu, 17 Sep 2026 15:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F8C4E73C7;
+	Thu, 17 Sep 2026 15:12:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657971; cv=none; b=ZmYGdrbpxAbx/0bE0us+2Z69dJJ6WvLzzmWXQK05ghuVAo5CV2zuvq2dH9m9f8Vt5aHZacYR6GYN8+X0xTplmDLT6Xw8p7qR7ROj9ZYhv2Hbq+bfo3zJcNmVRA12DJ0vKAdIFisbs3+8WGeA7/zJABcf87M9QjnIWKMep3mUX9Q=
+	t=1789657985; cv=none; b=EOk0NhLYrTfsHqgeNmOR493tv9djuA4usYtV64MUFTKMdV+LtF252tOVX65qbZruOjpwthagH1Bk1q8wAiR+cRQM8eQevyQCFehWYd06DQUaJUvWokWTt4HZF0UzdPej9UF5PvTIbnoF6KvO45diIgKum9dW7T2SgMWsjjkKYjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657971; c=relaxed/simple;
-	bh=MU1bN7FoveAYVzgvWXqpr3G4LDwEGMOhXhVWYa3VoGw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ERRSNRWovJyyr3jAjevF8HZ60oYwF9cIwsBRehGzOF94Gfmik1HwylfpJQiRU04vKZEnz8CBXOQ6+1oHZ9iLlln0eMkyIWBxc3dsfyLdoha9ZaucRQeU5ViAT0TKh1yKfvA/KX923wnb7VYnv9hLvIOry43ynlhd6q5bbxGn8Hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=Av195hmA; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="Av195hmA"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 802EF4C301B;
-	Thu, 17 Sep 2026 17:11:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1789657928; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=DqWR7hYROWy/62+C7c2MOHPyBP86rK/9sHBnklMxuv4=;
-	b=Av195hmAG2se1bBc2mVvC49xtmKl9Yp5Oas2Ym7ZMeqIeDJJuFVeOSOCrZHVqDsaPpd1Pq
-	NmlAu0x+lthIV2wgWo5QoIh82AnoABImmODhDYqZURjLUaK9+EVnxzZmOIMBCujizfLdIB
-	T9m8U+jHAq7FNAWnwq109d2A2LJw8ix6SLBZ1McjkUbZUurQLlmRVmgaNVPCUDpWVFIUJI
-	Z9D6p6MuuchHb7bYL17q5HzeEIEwaf7y69GXZrnH+336B6l32ERRNoBhSRZ2ki1/Atm84x
-	ub/ATHK8HrNGbtju02el2Y9T0e65+6qBlqv/Dd7QydfFkqlo/k5Jl6n9NDKjIA==
-Message-ID: <95202df5-fdbb-4325-b77b-5f45ac8b1732@cjdns.fr>
-Date: Thu, 17 Sep 2026 17:11:50 +0200
+	s=arc-20240116; t=1789657985; c=relaxed/simple;
+	bh=6p3gKvGXubWNvqcEvvNLR+vxK1mo1LbFSfvspunoQTg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fAR2pVAPjkGoZdvOS/Whz3b28MP5twRK7fBhq5m06MhwirW2GQ9Bp5LSihAgHmJTJRYrGy6F3gp3lQdCQo/qAPYiK/gJP32FsDgcHyhKzjEOKCfG6IJ1Ffxg+HOi9soJdCYshZ62qX1LtLdpQITL7CllJLZ5LW4sekF6oiAbUZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABXwz1wA6xq40iDCA--.46537S2;
+	Thu, 17 Sep 2026 23:12:48 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: James.Bottomley@HansenPartnership.com
+Cc: MPT-FusionLinux.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	ranjan.kumar@broadcom.com,
+	sathya.prakash@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	suganath-prabu.subramani@broadcom.com,
+	Wentao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH] scsi: mpt3sas: Fix pcie_device reference leak in _scsih_ublock_io_device_wait()
+Date: Thu, 17 Sep 2026 15:12:48 +0000
+Message-Id: <20260917151248.2158493-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v5 net-next] net: phy: mediatek: support MT7530 PHYs on
- EN71221 MCM
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: netdev@vger.kernel.org, dqfext@gmail.com, SkyLake.Huang@mediatek.com,
- andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-References: <20260915113427.113296-1-cjd@cjdns.fr>
- <aqkwYd5dTmHDCIW9@makrotopia.org>
- <2a7edfd0-b784-4b60-b9f9-769fe00286b7@cjdns.fr>
- <aqv92pZsobVEdipZ@makrotopia.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <aqv92pZsobVEdipZ@makrotopia.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABXwz1wA6xq40iDCA--.46537S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFy5XF4rWF43GryUXw48tFb_yoW8WFy5pF
+	WkCa4YyFyDGr4Ig3W7uw4Uury5AasIkr95tF40qa4I9ws5JFyFyr92krZ8J3WUJFZ3ta98
+	XrnrJr93CFW5JrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
+	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
+	vjxUDdgADUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwYNA2qr9tgevQAAsD
 
+The reference taken by mpt3sas_get_pdev_by_handle() is only dropped at
+the bottom of the retry loop. When the device is not ready the loop
+takes the continue before that point, so the reference is leaked on
+every retry.
 
-On 17/09/2026 16:48, Daniel Golle wrote:
-> On Tue, Sep 15, 2026 at 02:01:29PM +0200, Caleb James DeLisle wrote:
->> On 15/09/2026 13:47, Daniel Golle wrote:
->>> On Tue, Sep 15, 2026 at 11:34:27AM +0000, Caleb James DeLisle wrote:
->>>> @@ -135,6 +199,23 @@ static struct phy_driver mtk_gephy_driver[] = {
->>>>    		 */
->>>>    		.config_intr	= genphy_no_config_intr,
->>>>    		.handle_interrupt = genphy_handle_interrupt_no_ack,
->>>> +		.match_phy_device = mt7530_phy_match,
->>>> +		.suspend	= genphy_suspend,
->>>> +		.resume		= genphy_resume,
->>>> +		.read_page	= mtk_phy_read_page,
->>>> +		.write_page	= mtk_phy_write_page,
->>>> +	},
->>>> +	{
->>>> +		PHY_ID_MATCH_EXACT(MTK_GPHY_ID_MT7530),
->>> I'd suggest to actually use phy_id and phy_id_mask assigned by the
->>> PHY_ID_MATCH_EXACT macro by calling genphy_match_phy_device() in your
->>> match functions above instead of open-coding the ID match.
->>> Or drop PHY_ID_MATCH_EXACT from *both* drivers.
->> I suppose the latter is easier because then I don't have to re-think
->> mt7530_is_gphy() which would be lying if it wasn't actually checking ID is
->> MTK_GPHY_ID_MT7530.
->>
-> I would have preferred to call genphy_match_phy_device() in your match
-> functions instead of open-coding phy_id_compare() which is best
-> reached via genphy_match_phy_device() in this situation -- that would
-> express the code intent in the most obvious way imho.
+Drop the reference right after the reset parameters have been read, so
+it is always released once per iteration.
 
+Fixes: aee682fad6cd ("scsi: mpt3sas: Improve device discovery and readiness handling for slow devices")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/scsi/mpt3sas/mpt3sas_scsih.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I did it this way because the name mt7530_is_gphy() implies "Is this an 
-MT7530 gigabit PHY?" which if it doesn't match on MTK_GPHY_ID_MT7530 
-then that's not what it does so there's a little bit more thought involved.
-
-
-If I'd have known this was really your preference I'd have done that, 
-but I already just sent v6 so I guess I can send v7 tomorrow.
-
-
-Thanks,
-
-Caleb
-
+diff --git a/drivers/scsi/mpt3sas/mpt3sas_scsih.c b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
+index 12caffeed3a0..c841fe1706c7 100644
+--- a/drivers/scsi/mpt3sas/mpt3sas_scsih.c
++++ b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
+@@ -4093,6 +4093,8 @@ _scsih_ublock_io_device_wait(struct MPT3SAS_ADAPTER *ioc, u64 sas_address,
+ 				tr_timeout = pcie_device->reset_timeout;
+ 				tr_method = MPI26_SCSITASKMGMT_MSGFLAGS_PROTOCOL_LVL_RST_PCIE;
+ 			}
++			if (pcie_device)
++				pcie_device_put(pcie_device);
+ 			rc = _scsih_wait_for_device_to_become_ready(ioc,
+ 			      sas_target->handle, 0, (sas_target->flags &
+ 			      MPT_TARGET_FLAGS_RAID_COMPONENT), sdev->lun, tr_timeout, tr_method);
+@@ -4114,8 +4116,6 @@ _scsih_ublock_io_device_wait(struct MPT3SAS_ADAPTER *ioc, u64 sas_address,
+ 				}
+ 				continue;
+ 			}
+-			if (pcie_device)
+-				pcie_device_put(pcie_device);
+ 		} while ((rc == DEVICE_RETRY || rc == DEVICE_START_UNIT ||
+ 		    rc == DEVICE_STOP_UNIT || rc == DEVICE_RETRY_UA)
+ 			&& count++ <= command_retry_count);
+-- 
+2.34.1
 
