@@ -1,81 +1,94 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC02A4D0CE1;
-	Thu, 17 Sep 2026 12:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4B14FECE8
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649230; cv=none; b=qw4sJXkTtCb/3N4dJuoYibv/f80bTWAy3L8QOLBIJ9N5+ctnFNAqOnbk0P4r+wVi1vFjxRldyQeCASAaX9aWZLorRYW02hnAvAxn9gPrB0113K1Np8u8NoLACcXaQwULU6XGRDfL2QLUZ+zzNHlk2TAd30YW6niYHTsXUT24jQA=
+	t=1789649235; cv=none; b=GFyqIQR+QUEUrTi2UPUqDQq+aEqCFTgw6646Lr8oEJON9ULjU4sdO/eS/jXJNVtEHbkd8gxJK4Y5m8cn8gjex85j9psYIhkC74eriHsGbxF9WeoYexFFC6jyi9gbrWn+PF+c6Nw7Wxj+DgvXTFKUPVtyOEz4psjRRqIvy/9sqr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649230; c=relaxed/simple;
-	bh=62WRxwQae42z9n6SQ2uBqamJn+Rw8Ji0Bi2NI9NBb1w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=alQJvkE3YonB3BF0u8TkjCMTnLqEFu0xO/LPtiUf/MRtGmaL4C4nOtzYd7+DT3Y2u5ChStOVlD49ihreTccf74tV8aOMxOnN1I0beNiGezWpML4sPabzMeGmePMz4G8iAyKhB2tmPoJxPYH8HEU6qJ9dTxWGuPYi4pqaXX8Ur/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3oDo94atqs86ACA--.2858S2;
-	Thu, 17 Sep 2026 20:46:53 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	saravanak@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] of: unittest: Fix np reference leak in of_unittest_bus_3cell_ranges()
-Date: Thu, 17 Sep 2026 12:46:53 +0000
-Message-Id: <20260917124653.2151894-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789649235; c=relaxed/simple;
+	bh=gILUbaoT7fKQcvTHAlwvSON/RkpV2LxEuI0qJh2Jgms=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=uhUqhqVcgLkJCQ1GuGOk+GBMOY/rqISpdarsgcva78Ud/rKWBTdgimMIUMphjlq1AKvfdtoXQ12e1ueu49Fmb53eIqmuVU936pRmZTIhLXD1TKyIpNb9wLQFspeK4fb3tbHRlSaDGOBCf1XgfC6iRpP+lcwSe3GnmPrektFycLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=x0CBO3Tk; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="x0CBO3Tk"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 3E4841A092C
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:46:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 120E55FAA3;
+	Thu, 17 Sep 2026 12:46:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8CAF611C7A082;
+	Thu, 17 Sep 2026 14:46:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789649213; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=gILUbaoT7fKQcvTHAlwvSON/RkpV2LxEuI0qJh2Jgms=;
+	b=x0CBO3Tksv36MnOcMm74cMyyRxyUhrNIirc1jJrZ2eU9h6YvfZOhrEsadWTw650LzfXJy/
+	OtcX5NRbEq5BHePRfhR9GVgmd3lgif0ROF56YDsTBpCsJ0/Z5DyS6MtLzi5Dvfjg3ctObc
+	RVBW8NkY2P+K4HyLrqhJcwAsHbJOHzs0QaSdSoCGynuswRw3ZrAFoyqBl3FsTUHwk51Sr9
+	3N4EATdeVmBY/Sj/9QivMNySqRykWsWejGnaIHpkb9CysakKayQqGMjMPQLi7P5tl7j1Kl
+	5jawGJ1Vzc3qV4Ic4nhgSniJPskklka3eDfr14zu9xh6r3s8g/k+Ru3pMXb9Fg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Orgad Shaneh <orgads@gmail.com>
+Cc: linux-mtd@lists.infradead.org,  linux-kernel@vger.kernel.org,
+  richard@nod.at,  vigneshr@ti.com
+Subject: Re: [PATCH v2] mtd: cfi_cmdset_0002: cap the write-buffer chunk at
+ 256 bytes on an x8 device
+In-Reply-To: <20260916162746.308008-1-orgads@gmail.com> (Orgad Shaneh's
+	message of "Wed, 16 Sep 2026 16:27:45 +0000")
+References: <8733v9mdro.fsf@bootlin.com>
+	<20260916162746.308008-1-orgads@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 17 Sep 2026 14:46:52 +0200
+Message-ID: <87ecesjb9f.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3oDo94atqs86ACA--.2858S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7JFyDtr4rWFW5Wr4rKF1DGFg_yoW3ZFb_WF
-	9293ZrWF1rCF40g343Ar13Zr9F9a4UWrWkAr1qyasxCayjvr17Xr1I9r95Jw1rAF4Y93sr
-	A3yqgr18trnrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07jngAwUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwENA2qrrRmfPwAAsd
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-of_range_parser_init() can fail when the node lacks a ranges property.
-That error path returns without dropping the reference taken by
-of_find_node_by_path(). Add the missing of_node_put().
+On 16/09/2026 at 16:27:45 GMT, Orgad Shaneh <orgads@gmail.com> wrote:
 
-Fixes: 3d5089c4263d ("of/address: Add support for 3 address cell bus")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/of/unittest.c | 1 +
- 1 file changed, 1 insertion(+)
+> Hi Miquel,
+>
+> Thanks for the review. v3 sent as a reply to v2.
+>
+>> This sentence does not mean anything, I'm sorry.
+>
+> Rewritten: the count goes out as a single bus word, CMD() replicates it
+> into every device lane, and an x8 part reads it off eight data lines, so
+> anything above 255 is truncated there.
+>
+>> failed? do you have hardware that actually triggered that issue?
+>
+> Yes - a Cavium Octeon CN6335 board whose NOR is an M29EW strapped to x8.
+> The log in the commit message is from it, and the clamp fixes it. v3
+> names the board.
 
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index 226debdaa5c1..e8257aff17b3 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -1350,6 +1350,7 @@ static void __init of_unittest_bus_3cell_ranges(void)
- 
- 	if (of_range_parser_init(&parser, np)) {
- 		pr_err("missing ranges property\n");
-+		of_node_put(np);
- 		return;
- 	}
- 
--- 
-2.34.1
+Ok, this matters a lot to me today, because we get dozens and dozens of
+hardening changes which do not always have an actual reality. If you fix
+a real problem you encountered, that's relevant.
 
+>
+>> That's incorrect. It indicates until when we need to backport it.
+>
+> Added. I checked the code is really there: 1da177e4c3f4 already sends
+> CMD(words - 1) and already takes the chunk size from MaxBufWriteSize.
+>
+> Vignesh is on To: for v3.
+
+You should use checkpatch.pl or b4's option --auto-to-cc to create the Cc
+list.
+
+Thanks for the v3.
+
+Miqu=C3=A8l
