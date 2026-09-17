@@ -1,105 +1,143 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C19547059
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:50:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965183DDAF6;
+	Thu, 17 Sep 2026 17:51:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789667406; cv=none; b=Z7Omb/qOVCYIb0QxoxSaJeKqV52UiouQprcaQeVODuQrpMk/1gRP/7PvkgAfsCXZuHSb5MOJhh0lqLyEcklJQVegYiOn9ui8fAa5FAk6oniBAAfNwHs8SfNouS7BlLSyzWUOXr8TWZr5CUI68NV9QcBLkPMjfVOm875Ks6/gOo0=
+	t=1789667467; cv=none; b=ovVUOrBeWAUkSTHbz3nQE625o9+SPVvhF4PAh1isjb8MTeQGUZ2D6KTdRSzMoGAlmxGB7gaNr2iuqo5DMDexiQ5pKA4Mjgg9KnnC+yOOdpKgLJDIFRlhkqqG4nhXUoUvKNNNWIblbsj9Nuj932NSHXrnZwpVWIbsjthtai/BN0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789667406; c=relaxed/simple;
-	bh=kxmvT20bENOkL2EQz4CX9Gsm4DHopRLHwVAbk1QAa5Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BSrYsK1xZnL8KVk4rRhxmag+qzTnpWA0GeGqF91TZml0n8QThdOP+sojmxZIO84KhpsFrJ6O1EpZFzoaJGRvfXtmTvU2Lxjx++KZPz7Xk156iU8pmt53ANLjfbv9ByvfI7OuBsJdsuA6K5WkkvxZSjUoZR2Jd38XLrVZYDC9RTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=G4/CgNPz; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789667467; c=relaxed/simple;
+	bh=rO1Ik4p5OqNrKi9+t040GMoT8/Wmm3FTFu6OtLw5xGg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c1FLut8t1tYWV96Gh+j3lKwpHZmTWXhN//6QQhGnLWJXTnei+icRWXVfqI3IBakGmc77ZKrRRM2K5Z2gcJjZnSF3jYceNG1RtZUBhfZEjBdVzgV8cZrC1lvFkqwmBDRC5kRHrgMU0nhykUMEnJfzAjjG9S0lG+EIpJMnc2lk2no=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=LMA6JBWP; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="G4/CgNPz"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id AB9E34E407BD;
-	Thu, 17 Sep 2026 17:50:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 69E0F60580;
-	Thu, 17 Sep 2026 17:50:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 43EE011C787D7;
-	Thu, 17 Sep 2026 19:49:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789667399; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=koYHEmHF992hOO59AVBGv9/ygNafcPNBRRwBEev9dCQ=;
-	b=G4/CgNPzK5E12/9/EmIjENcc7TwannYkXgttdS+iILgEN7rNK/7/lxeRP4Rs239QsVgmen
-	Rp3kNHvYHrs3mGRmJrvApN9xaKwcGKQuTpPWV6yz2JLBGdat02GKuHEFpEGQrQ747dGkU+
-	MrXIpL/cxj/qtmOthtuu5m8HTGt7YKHhmsyZXx3xMQh/Z+CDaceLZMKhx9wW6l55R7Ma1m
-	9QBma3nANPpD6Zct7/pj8wZZXCkxDgSTTzq2drihxjgANR+lqsFWiErbW2qWKmiX5ShCFX
-	J1M84qWKPQFODr/Hpe24iPlkSckPc6Tzx+smdmz9A8gYEIG7KlS1SsWJnRGs5g==
-Date: Thu, 17 Sep 2026 19:49:53 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: broonie@kernel.org, chleroy@kernel.org, leoyang.li@nxp.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, qiang.zhao@nxp.com, stable@vger.kernel.org
-Subject: Re: [PATCH] soc: fsl: cpm1: tsa: Fix clock leak in
- tsa_of_parse_tdms()
-Message-ID: <20260917194953.69dfd873@bootlin.com>
-In-Reply-To: <20260917152719.2160395-1-vulab@iscas.ac.cn>
-References: <20260917152719.2160395-1-vulab@iscas.ac.cn>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="LMA6JBWP"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HHVXun1980278;
+	Thu, 17 Sep 2026 17:51:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=UGvFvv
+	QOM4sRf57C29rkYRpFpFt4RjaCHQN5iT8PtVw=; b=LMA6JBWPOXTYwbLR6/5qbw
+	uJG5bkmnwwhVLh4CwstZ0L0qjjVy9vHg/N2T3LobxtK63xMibbNEmZlGsJsMDUh2
+	hy8koJLmA0BakWl7VffGSHz9IGCD9VIJWj3aTJtBUcQ8zaIdzANIeK/PGU3OfRuV
+	S7NOelbOeo4DZsBV2UGOVKL9Gim2qoY1j3tjE1duDSJoDTJNVHqUXb+ws0A1oKk8
+	sw6kYdiv+IrlsiFeiCdcH/XJqz4ppUZaiS1+IRzlRrxX6za2CrSYDqzLack8PF5C
+	xhp1lUvrttT9jjHOH/b5BtwTWQs6a+u+zCA1QCxS4kYMZNni+Wvufx7qKGSGv60w
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmw5ebgve-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 17:51:04 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68HH95lO3510163;
+	Thu, 17 Sep 2026 17:51:03 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gr5xa3gu2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 17:51:03 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68HHp29F19333856
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 17 Sep 2026 17:51:02 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5F1185805D;
+	Thu, 17 Sep 2026 17:51:02 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C424858043;
+	Thu, 17 Sep 2026 17:51:00 +0000 (GMT)
+Received: from [9.61.246.38] (unknown [9.61.246.38])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 17 Sep 2026 17:51:00 +0000 (GMT)
+Message-ID: <0a7b4087-3c9a-4e2a-8c80-2709790b3812@linux.ibm.com>
+Date: Thu, 17 Sep 2026 10:51:00 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] s390/pci: Fix leak of struct pci_dev reference in
+ zpci_report_status()
+To: Niklas Schnelle <schnelle@linux.ibm.com>,
+        Gerd Bayer <gbayer@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Benjamin Block <bblock@linux.ibm.com>,
+        Julian Ruess <julianr@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ramesh Errabolu <ramesh@linux.ibm.com>,
+        Tobias Schumacher <ts@linux.ibm.com>,
+        Halil Pasic <pasic@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260916-fix_zpci_report_status_pdev_leak-v3-0-61a2f980e71d@linux.ibm.com>
+ <20260916-fix_zpci_report_status_pdev_leak-v3-1-61a2f980e71d@linux.ibm.com>
+Content-Language: en-US
+From: Farhan Ali <alifm@linux.ibm.com>
+In-Reply-To: <20260916-fix_zpci_report_status_pdev_leak-v3-1-61a2f980e71d@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDI1MCBTYWx0ZWRfX6tOBfg5Wx1yU
+ 7yffwaLQ+GLRJyTBaI/mg3IkWpUMgaXikYONdn9e5Cf1WK5+YsJEJFNhg8fhsvgezrKGKYsSfCB
+ soXGv62npsQB7vbYRVw5/gDn+agE7ytLDIs2ivp8S36GNcJ2jrkdFCK1L9Egz5+w3fmvzeOjQUg
+ AIU/omRH5yU2zg6KlzTQyOJLWdEsY5Gy6bH67AyMJLsV28JEpEQcR0rJ7Sgm+3FkNLLjygNTriP
+ XPDEszXpYTFNXMLHVNATsQO1qr8/9qk3sQ3E05UtImMxeUGT0SxCrOtgXLQzsPdhmiAAI+mEyB2
+ /D+DO522fwkTr44yU6fr3bMMpU+uA68P3zC5c8s+Ql0jv3w2J9Qcsf83MNvAJ4O8YH7CEYHoPHO
+ ryjnXLMWNOxOw3GiXcgu1d5QXr11B+garC3jhOryc3MclPODQCL8BacSfxUA93Y4s4jjRFEj88k
+ pDIYUL1bsdsKZDnA2ag==
+X-Authority-Analysis: v=2.4 cv=E/NYNqdl c=1 sm=1 tr=0 ts=6aac2888 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=_3ZQhW_Asnu8ubVhLK4A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: OxRgtGUZZlGRyhyTmGFHQtFy4TeMC68S
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDI1MCBTYWx0ZWRfX2OHrVj2A4STb
+ cmAqOwYwnh5AfjBqaH6M3kZsARmbXzqHlbDHOBeULSOcPeR+buJXteu/mJm1aQM+rKFxrg7yLiq
+ pxPqTwctSJnJfHHDDe8g/EX6h3GwxeM=
+X-Proofpoint-GUID: OxRgtGUZZlGRyhyTmGFHQtFy4TeMC68S
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609170250
 
-Hi Wentao,
 
-On Thu, 17 Sep 2026 15:27:19 +0000
-Wentao Liang <vulab@iscas.ac.cn> wrote:
-
-> The error cleanup loop puts l1rsync_clk and l1rclk_clk a second time
-> and never puts l1tsync_clk or l1tclk_clk, because the branches that
-> guard the transmit clocks use the receive clock field names.
-> 
-> Use the matching field in each branch so every clock acquired by
-> tsa_of_parse_tdms() is released exactly once.
-> 
-> Fixes: 1d4ba0b81c1c ("soc: fsl: cpm1: Add support for TSA")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+On 9/16/2026 8:14 AM, Niklas Schnelle wrote:
+> In zpci_report_status(), a reference to the pdev associated with the
+> zdev being reported about is acquired using pci_get_slot(). This
+> reference needs to be dropped with pci_dev_put(), but this call is
+> missing, thus leaking the reference. On subsequent hot unplug, this will
+> cause the struct pci_dev to not be released, leaking memory and
+> preventing reattach.
+>
+> At the same time, the only existing caller already holds a pdev
+> reference. So instead of reacquiring and then dropping another reference,
+> simply pass the existing pdev pointer to zpci_report_status(). This gets
+> rid of the need for pci_get_slot() as well as the zdev->zbus check.
+>
+> Cc:stable@vger.kernel.org
+> Fixes: 4ec6054e7321 ("s390/pci: Report PCI error recovery results via SCLP")
+> Signed-off-by: Niklas Schnelle<schnelle@linux.ibm.com>
 > ---
->  drivers/soc/fsl/qe/tsa.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/soc/fsl/qe/tsa.c b/drivers/soc/fsl/qe/tsa.c
-> index 4a88e54d25b9..94691369353e 100644
-> --- a/drivers/soc/fsl/qe/tsa.c
-> +++ b/drivers/soc/fsl/qe/tsa.c
-> @@ -865,12 +865,12 @@ static int tsa_of_parse_tdms(struct tsa *tsa, struct device_node *np)
->  			clk_put(tsa->tdm[i].l1rclk_clk);
->  		}
->  		if (tsa->tdm[i].l1tsync_clk) {
-> -			clk_disable_unprepare(tsa->tdm[i].l1rsync_clk);
-> -			clk_put(tsa->tdm[i].l1rsync_clk);
-> +			clk_disable_unprepare(tsa->tdm[i].l1tsync_clk);
-> +			clk_put(tsa->tdm[i].l1tsync_clk);
->  		}
->  		if (tsa->tdm[i].l1tclk_clk) {
-> -			clk_disable_unprepare(tsa->tdm[i].l1rclk_clk);
-> -			clk_put(tsa->tdm[i].l1rclk_clk);
-> +			clk_disable_unprepare(tsa->tdm[i].l1tclk_clk);
-> +			clk_put(tsa->tdm[i].l1tclk_clk);
->  		}
->  	}
->  	return ret;
+>   arch/s390/pci/pci_event.c  |  2 +-
+>   arch/s390/pci/pci_report.c | 11 +++++------
+>   arch/s390/pci/pci_report.h |  4 +++-
+>   3 files changed, 9 insertions(+), 8 deletions(-)
 
-Indeed, good catch!
+Reviewed-by: Farhan Ali <alifm@linux.ibm.com>
 
-Reviewed-by: Herve Codina <herve.codina@bootlin.com>
 
-Best regards,
-Hervé
