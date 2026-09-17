@@ -1,61 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D6E50279D;
-	Thu, 17 Sep 2026 17:13:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A2E4F7CCA;
+	Thu, 17 Sep 2026 17:13:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789665220; cv=none; b=AHh3OqefOUA2fS0xChYVsvqxZhk33YvkghGeqWrhKx5m9s/XjUCtntyz+RjYEQg2cpVuarBSTW907TWw1N4A5lLCuDleaHku6RKxGpdVtuWoTH9CTmzpAncXRNBt7GeH6XxWTH3FXbUN6yD/PbcmzxlaVP9DLdiTCX5T1QZ9fgY=
+	t=1789665221; cv=none; b=lnCLenOGpqe/+wc2R19u4W8letg5lVgBM3aQmcvcvv+f69G4AjgjVtVoDqy+ZuSgZLPcNqRalEvg1qa5HevmJx8AB2E73QRuDw0ENeJo1RMZOJI53pxf7w/aoWFNXk+yffg7cp4wnH4KIcI9si5N1XrZImWh+7MO9d54D7DX1UI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789665220; c=relaxed/simple;
-	bh=sZD/DnlV7yU3MsXv7r+/KzRhOulnYxgwUkzzdcu7F3E=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=Znr7oWDl7636AHvwJGjUy2ndVEeTXxQ2JWOIpREMtM2uPwOTIauI27z8MQxXTUDbIW/iuEOuY2ykCyDe5yhv2fv2/ftUTZs2x74y+c0VCs8O2lqky0DsUiM3AhYvQWzRztDyeuqwWAV5SVYSrbEH2tyXkUVPnNx6/cOgDjj8jY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQpRypiR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789665221; c=relaxed/simple;
+	bh=IhKZeT7nc6AX8Ra6U7tmrqmPEULR1hogtGxYxcCON3s=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=QO1YbVa5DQwb7PnTK2550v1SiSaCX8dN8JvO9azyMQBav6tMRBdqoI5/bm512iBCfS/iwC/0VEVUPZvECTlXAFX3wwlBhfrnkdI3uhVk3QsmiLNvhcEmg2eaTV6OUjZn2a4wmWT+2lcL+cdi9RyEGoLrn9w9O+qo7TNzyze6LCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n0K/Coad; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQpRypiR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10BC71F00898;
-	Thu, 17 Sep 2026 17:13:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n0K/Coad"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F8221F000FF;
+	Thu, 17 Sep 2026 17:13:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789665215;
-	bh=HRU18s6JcAMuZnh4jIWXw0Z3VXt+PTZWLiSMD+jgSro=;
+	s=k20260515; t=1789665218;
+	bh=htveQh0RcvfgSmJFALoXUqaX+CYZp3rUc3N54AeNyiQ=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=RQpRypiRLkEB8l24E0K6ej9fqztNfBqeM6/TCA6FNqix5f3l9DFkJXg0uRTceQc0O
-	 jAlYFvDNdXsbC2XE56eZXWWrXF5alPnSCeXW43BTEM9YrPIKQ5HOyLB0iJuLfgqJzF
-	 iEfm3cfCgfLlzTGUGLVbCRQMVPjC525jJtNCsWGF7PsSzTDHoNH82kBbEabgvd4E0X
-	 R67X2wUI0L7oep8YXk4T3r8fUQzA9cbBThFLEzr5O5VOpCVe8GsEp1FOlsrff4aduA
-	 fmcZhuou+8beIBrwn8ZTFVGCjGRKe5N4+AK6AAcqSTXejlsIkmV2caXL7JkXxoUmlj
-	 Oan61W8Ho8Qdg==
+	b=n0K/CoadakRAxKvwTfe0gI/UZXtLOc1zaFcr2r7CJd9IHy7IYjoe7Dk09Ww/vFay/
+	 oKnGsBv79acETo4YfR0VXLyh6HnvRPxeUG7NNbFualKyNEv25PbxUY/UeUYPcrUdAA
+	 FD3VP6GC7mukw4ELix4Zu2GTz6ByOmTqkSE7He3n5BMCTyqdm4ZZEcyBqcfHVWv1U9
+	 bnGjIb2p3ictV2RqLDPCucm9Bv0nZ+GBgpc03LfXumw49by1GawFP92sC71OFhEhCl
+	 Ojliilv5WP3qEnXDg8BymT2ErEpTJyol/ETo08xbcO8ajhtAmxT8NrRW2ZkugQ5w29
+	 qA86hQ8cVEvMg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0EF8381197E;
-	Thu, 17 Sep 2026 17:12:29 +0000 (UTC)
-Subject: Re: [GIT PULL] dma-mapping fixes for Linux 7.3
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B5E381197E;
+	Thu, 17 Sep 2026 17:12:32 +0000 (UTC)
+Subject: Re: [GIT PULL] power sequencing fixes for v7.3-rc4
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <20260917092443.342396-1-m.szyprowski@samsung.com>
-References: <CGME20260917092456eucas1p138229ed33c56428e9c0f2247245bad18@eucas1p1.samsung.com> <20260917092443.342396-1-m.szyprowski@samsung.com>
+In-Reply-To: <20260917093904.6692-1-bartosz.golaszewski@oss.qualcomm.com>
+References: <20260917093904.6692-1-bartosz.golaszewski@oss.qualcomm.com>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20260917092443.342396-1-m.szyprowski@samsung.com>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/mszyprowski/linux.git tags/dma-mapping-7.3-2026-09-17
-X-PR-Tracked-Commit-Id: 55a8e1451869233db837a97e8f3cbf9983bc8678
+X-PR-Tracked-Message-Id: <20260917093904.6692-1-bartosz.golaszewski@oss.qualcomm.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/pwrseq-fixes-for-v7.3-rc4
+X-PR-Tracked-Commit-Id: 242da4318d97380741516b595af3920207b2f0f1
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 4aec9ad1c668755b253bff4d95a9d82a17d2d434
-Message-Id: <178966514833.3773542.10450757662913674151.pr-tracker-bot@kernel.org>
-Date: Thu, 17 Sep 2026 17:12:28 +0000
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, iommu@lists.linux.dev, Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, "Aneesh
- Kumar K . V" <aneesh.kumar@kernel.org>, Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+X-PR-Merge-Commit-Id: f143ea21cf834b4d57d70b47b99e582461f2dfaf
+Message-Id: <178966515149.3773542.5095924675652747761.pr-tracker-bot@kernel.org>
+Date: Thu, 17 Sep 2026 17:12:31 +0000
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The pull request you sent on Thu, 17 Sep 2026 11:24:42 +0200:
+The pull request you sent on Thu, 17 Sep 2026 11:39:04 +0200:
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/mszyprowski/linux.git tags/dma-mapping-7.3-2026-09-17
+> git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/pwrseq-fixes-for-v7.3-rc4
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/4aec9ad1c668755b253bff4d95a9d82a17d2d434
+https://git.kernel.org/torvalds/c/f143ea21cf834b4d57d70b47b99e582461f2dfaf
 
 Thank you!
 
