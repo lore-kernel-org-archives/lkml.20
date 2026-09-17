@@ -1,56 +1,56 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6576843C05B
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E7543D4E9
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:43:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627382; cv=none; b=o2DezmpfHnsR1c2G0x0CkGBzE9DCrWsqoxtY+SSSh6It9PS+7as2xUoaOVEmMM9EKRL2TP/F76kK9hUrgh+MdWZCvC4ElGm2MA5LJNrGW7/vN9sXaMLx5mA1lZHWPN79jsO+TOSsOmJWhjUA1GTJ6YksS28RTBq2FpUuQ5QMon0=
+	t=1789627384; cv=none; b=VoUweisQx0Z4i4Wkcx+UDvB4KCQo2iCxHX4wZ1vsznp2fjxqtLGjlHTvEuIs3U2DQTUJdI8EfKDL01JfLNEcNqvS7nQJM2AohUeDANKWeF12j/D3UyatKx+hDiVyaRbwpCr2hGsrz+C0DHG5Pqewl/7yk0kevtVhkcjivf0wTZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627382; c=relaxed/simple;
-	bh=ijr3LP2P40ZUq1DuBNqRk+AgK81THBcVB9Y2LVWBVcs=;
+	s=arc-20240116; t=1789627384; c=relaxed/simple;
+	bh=Efwg6Lp4URje4K6ap1NY7WHw9tf5g4FaF0Uk7IwjA5I=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=jy4pBCJXiKkSefM/CRKbG7MauDTdvXFQe6ROP1ciCQjaWId0nfVdaCFL34vh+c6pOShqNAeT9xBqEvsJewvfnS0F3KfzlOjKcbUXAzg8IRCvsolQgcvIdVyqh1aPE6h21xA3KSzZDuk/AK1U7Fb/Qysir6nwDPdVaO5zUJrlVKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=g1QZU5l9; arc=none smtp.client-ip=209.85.215.198
+	 To:Cc:Content-Type; b=CGyBq4BhjAViyX5IXbexrKXGzl/MQM/zGZFdSxD4H7BUWmGyChNECV3Gy1xc4FiXaY0Fq6eL/R9RkD+hc4Ggq2XNlqqxtXgOKCSM27S5qq3FaaTNU5zlOnj0faVWHGcVvoYAF1MRWqnM5NqL1HG5S957nwLs/mflZwJ721rhf/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KPcz8wpy; arc=none smtp.client-ip=209.85.216.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="g1QZU5l9"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc42a07d04aso434922a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:43:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KPcz8wpy"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so647976a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:43:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789627380; x=1790232180; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789627381; x=1790232181; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1MnZowd6oTOfaxXZbzT35kcRhO2jRSIVNLLWdFtgUAI=;
-        b=g1QZU5l92FrF56BSE5S8NYmAqQe6Vu9k9YZy5n0saBB26zvahaStdb+/WmCykdutvs
-         VkcYbFWZrq4L3YfS+CniXX2sgKAtzXogN+cid04uPF4JXxMmXty0HJGVDBXSdjvCPK4s
-         ln3wHkFxPQpduckgQNyON3Les6mkZ9ulYb8Rgs8+GIaQiN6QnSC/8dG6znEz155cM+Ic
-         ++H/KZN8CYBqUIZNju/QLLxG8J+3OLMeNJaefZm8eGnJ0VAxaW4PkHcUMsI8Pft2Gktz
-         T07Io4BxshRdCYFLYn1rFquCOddwL1TEuPu/Tr6Rsxi9J8ivpQaubtsnO6wdtfJKWzGl
-         r1QA==
+        bh=Aji62SWFx1lY4aZnTGM78az2i6brsVbPSUcmX+4ftqQ=;
+        b=KPcz8wpy8e+zWZnq1guMIyqtclqam5iDNFqK67z0LTFx9Zlu+jjWkXe3Gu1W30hGO6
+         sqBV4UUMrLH5xmbyh3h4vxMHXtDZBfsENCpBkljnlOnfVMHWSXoWlMEU41Q0TXk9nMqz
+         s0POZy52AXVTYgElOs90tGCxneWPPblJkHmgKiqRDWSuZ55biWfuvoUX4dbtYU/s0wfV
+         Y0j20UcIiBe4P5fs+g7ZSiGfSPr5gLBWswrl51u+LTGimAwcXJ1N1AdC1VmDcMFoubhs
+         q65rUQXdd08K49ItKD6N7N3j//gwibf0W+ChFi3IcmcnrDoK9Xrp9h0eL/z/lmOLv3Ts
+         LWjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789627380; x=1790232180;
+        d=1e100.net; s=20260707; t=1789627381; x=1790232181;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1MnZowd6oTOfaxXZbzT35kcRhO2jRSIVNLLWdFtgUAI=;
-        b=jsZN/qHIzzBZ2Y98opPGVziVnur78qDnwLUtuZEArjOdOTQv+ZsflV+CcLicjEv0OU
-         durJhJgcNfRI7+kpywkoXOok3uXeWeJaPix6BtvoA9ekohgDnIQhupOetJxuXb0hBKTK
-         H+ppdql+R/a/O4uhC/rY2icW16N5VPFJwdoS4e1XZKIEkW3uhrXFyWeKybBxM8qgbM5U
-         azvxJjuvJOUCybXQxKE+SRFxd1xTAlA8pkJDo9bUNK4K4ByRKA4m94lQH7WUHB3Q7nDm
-         gmye+jebgG1/iLF5qJr0zZXr0ufQJqU6LHUHJzVGcjxIvtfyd955URtWha1DL6TQU8GG
-         Yw5w==
-X-Forwarded-Encrypted: i=1; AKwUvBzh0TaudB4BexnBfdLERTb8p25fHCvisSlLgNxkFu5srYSXXACMLKCxZmV1KdKQY3+fLjFkRw6mWloOPxE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJinwwlhtXYaKA5pUfC/0uFuLzOeQnXAIosWEFyDlszXnbB+Cp
-	DRPHdOIpc18DnW7OHXxGry2YpFeUbObu27FVXlf4pXov3rcQilkk3OsBUBPzWs3nbn2plnIbT+p
-	U3XW/WHOfwA==
-X-Received: from dleb1-n2.prod.google.com ([2002:a05:701b:4241:20b0:144:4896:d41])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:6a0b:b0:3d3:ae1f:d7f3
- with SMTP id adf61e73a8af0-3dd5f73ef30mr14251445637.19.1789627379362; Wed, 16
- Sep 2026 23:42:59 -0700 (PDT)
-Date: Wed, 16 Sep 2026 23:42:28 -0700
+        bh=Aji62SWFx1lY4aZnTGM78az2i6brsVbPSUcmX+4ftqQ=;
+        b=EJzGcS+SRewmxvWNpHy4VQC0i0sNzjlfzUw5TW8npgAiqnvBuFGZ8gnodPi6ia9FUA
+         3yzIMWwuVTyGbsaJ+hLD64Zy3qkKajdF9Q3pXjzDKN85zTr7Gro8ev58JCEaCH1Ya2ss
+         BIHgohYJd4N+rgVCKXRoJj/Xb49heROrQyekfezoWse271weVLM4ry+rpEZ1ppT+8ui9
+         HAer1VuklSRbaac+OFbRotHqF6VPuQfz2hUe/c/J2eUIFQtKJ924KhxJtnpw3k8dniRI
+         OxxpMd7BQzVr5mp3dfwT7N5UepfPEfOPmUdosh6wfoMtKJIC34jGJH86/aM+lDAjzZqM
+         JBgQ==
+X-Forwarded-Encrypted: i=1; AKwUvByIAHMkbXkSvYQEKJYJ8ZHJgr06BVY+JmOg1mfd7tZxa8Bk6Etr2w0vL0E2LkkZzMglRB9S/x6RMtU4GiY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7VceoxGRY+tZ8bKXLdGL8OfQyXylvk5NqbvSCgfOlTCAlZAcs
+	XCI8iRP3WbYtJ1dSWhPbdcO8cYb2197yRxivua2rgy0Lae0Yq5b2FTYnfygeqsDna/REkX8IK0b
+	VXopAI/vI5Q==
+X-Received: from dldyq26-n2.prod.google.com ([2002:a05:701b:455a:20b0:144:58aa:2e86])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3885:b0:39d:f253:ed66
+ with SMTP id 98e67ed59e1d1-39e1e51d828mr12013395a91.22.1789627381072; Wed, 16
+ Sep 2026 23:43:01 -0700 (PDT)
+Date: Wed, 16 Sep 2026 23:42:29 -0700
 In-Reply-To: <cover.1789626977.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789626977.git.irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <d1ed9832b1d73eb04405a78425a1aa4afa4a8cb6.1789626978.git.irogers@google.com>
-Subject: [PATCH v1 06/13] perf test test_task_analyzer: Isolate in temporary
- directory and make non-exclusive
+Message-ID: <390cfc25923c5be2636ee0bd59a0b33d29ba0e71.1789626978.git.irogers@google.com>
+Subject: [PATCH v1 07/13] perf test common: Do not globally disable tracing
+ events in clear_all_probes
 From: Ian Rogers <irogers@google.com>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
 Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
@@ -71,62 +71,31 @@ Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri 
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-test_task_analyzer.sh writes perf.data and temporary files directly into
-the current working directory, causing collisions when running tests in
-parallel.
+`echo 0 > /sys/kernel/debug/tracing/events/enable` disables tracepoint
+events system-wide. When running tests in parallel, this kills active
+tracing and recording sessions in concurrent tests (such as perf trace
+and perf record).
 
-As a temporary measure until `perf script report` supports an input file
-option, resolve perfdir to an absolute path, change directory into $tmpdir
-for the test duration, and clean up in the exit trap. Remove the
-(exclusive) tag so the test runs in parallel.
-
-perfdir is derived from $0, which may be relative, so it has to be
-resolved before the cd into $tmpdir, otherwise both PERF_EXEC_PATH and
-the cleanup trap point at paths that no longer exist.
+Remove the global event disable from clear_all_probes().
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/tests/shell/test_task_analyzer.sh | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ tools/perf/tests/shell/common/init.sh | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/tools/perf/tests/shell/test_task_analyzer.sh b/tools/perf/tests/shell/test_task_analyzer.sh
-index 0314412e63b4..6f729d9508f8 100755
---- a/tools/perf/tests/shell/test_task_analyzer.sh
-+++ b/tools/perf/tests/shell/test_task_analyzer.sh
-@@ -1,8 +1,13 @@
- #!/bin/bash
--# perf script task-analyzer tests (exclusive)
-+# perf script task-analyzer tests
- # SPDX-License-Identifier: GPL-2.0
+diff --git a/tools/perf/tests/shell/common/init.sh b/tools/perf/tests/shell/common/init.sh
+index cbfc78bec974..d2c7a31e2c6f 100644
+--- a/tools/perf/tests/shell/common/init.sh
++++ b/tools/perf/tests/shell/common/init.sh
+@@ -132,7 +132,6 @@ check_uprobes_available()
  
-+# Resolve the source directory before changing the working directory below,
-+# $0 may be a relative path and would no longer resolve from $tmpdir.
-+perfdir=$(cd "$(dirname "$0")/../.." && pwd)
-+
- tmpdir=$(mktemp -d /tmp/perf-script-task-analyzer-XXXXX)
-+cd "$tmpdir" || exit 1
- # TODO: perf script report only supports input from the CWD perf.data file, make
- # it support input from any file.
- perfdata="perf.data"
-@@ -11,7 +16,6 @@ csvsummary="$tmpdir/csvsummary"
- err=0
- 
- # set PERF_EXEC_PATH to find scripts in the source directory
--perfdir=$(dirname "$0")/../..
- if [ -e "$perfdir/scripts/python/Perf-Trace-Util" ]; then
-   export PERF_EXEC_PATH=$perfdir
- fi
-@@ -20,8 +24,7 @@ fi
- export ASAN_OPTIONS=detect_leaks=0
- 
- cleanup() {
--  rm -f "${perfdata}"
--  rm -f "${perfdata}".old
-+  cd "$perfdir" || cd /tmp || exit
-   rm -rf "$tmpdir"
- 
-   trap - exit term int
+ clear_all_probes()
+ {
+-	echo 0 > /sys/kernel/debug/tracing/events/enable
+ 	check_kprobes_available && echo > /sys/kernel/debug/tracing/kprobe_events
+ 	check_uprobes_available && echo > /sys/kernel/debug/tracing/uprobe_events
+ }
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
