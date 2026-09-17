@@ -1,187 +1,251 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021084.outbound.protection.outlook.com [52.101.95.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399A13B42E6;
-	Thu, 17 Sep 2026 07:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789629122; cv=none; b=LNsTU0hQi9lSKd2OewdyAYFyc2LBIh0bHDbq2Wt4x6Uv1OWb/lNcFeESa52f6tVB+jF4+/aT15tFjuN9xx3BXMeO0SqpY0zmcOvgzZBIcL6k6aYupJ2p59VlDEAob4Eoae5qEHnqGjo6+8++XqgYv/DtmtLZK38bvok2uW1WmqA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789629122; c=relaxed/simple;
-	bh=Xn1OBadHWVaPTEqbMA1foV4rLoLSSPbQZxUyg+8DgOA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=eRb0oCJPV6xf9Cx37YC20tmYCCl7Ff4l5x+gX/W+Z10qx2s8EOVXSMrS56jnDUdnKa1Kmmjc1OmGGmNsWfWpfVyW138OvHshhkpUDL/RxmiBSPyAmGLqKTzMTsjSKqSd+KT1cAGuPfKzzOmRugs5yyknVmQENN3SrGL3FZ7gxpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KXmVaRXz; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2232E3B0589;
+	Thu, 17 Sep 2026 07:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.84
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789629152; cv=fail; b=hD5BmuyJfde9l9xg3A5jzUHPDYfOiXrqt1+x/b9H5IcIQL6skNe1yXN4Pj2jOiC1JTxUMmp7azG78RfGyRCYdQg+EM6qvdYUe0QeJtGcXX11rZRJ2ii+UKmQQJQiXRGquT6Y8SfGDEC0A3DwznTNte4sZo/VL8O7YUoaa3IJcW8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789629152; c=relaxed/simple;
+	bh=voWT8VeoRyeDB+0btPcuMZS4n6M5Ji7X9hbLEeS6aX8=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=XLRBPKXwhGvzhGiCBgzSzfhEg6kmb8PQjnWF+A2b9FThQbbtSjfGTUKOa/m2ZWa8b1O/xx9MSMbalLyYXYIGDXydDoEwGT1h+Kxdjd/ZoKrp8tYhp3U1NQlADaQ4WDGL0q8WKfVmGf9dL9pOve1gqTR8fs9aOcdXrRkU9UYVCWc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=oej7CMCa; arc=fail smtp.client-ip=52.101.95.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KXmVaRXz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0805A1F000FF;
-	Thu, 17 Sep 2026 07:11:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789629121;
-	bh=QZWvj0y2qYypNkhqYeG+rMh9NEA31Cl9OJ6XafQCJgo=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=KXmVaRXzE1da74MR6oQokswU3bLeCRwAHFedrXabp3UUCO9Kdvx/MeoI9kbDmWQUO
-	 qpEXLyjlVso3sqxxU8Uj72ZMRq2zLWFh5YeIeMy8BKf9sM2EadUMah8Ob5d+k4ewMa
-	 FBZmEdIxskTVIN5zwgQ8XYetPzqONy2GM5a6KuYkpoh3HoYDOXPa+kC6/jlD2lmMzS
-	 +W7K5JLQlqlPXAbxnSZ/BQ6vDZ716L47RkcoGHyRzQ5+rL4srEOOlUO2AnzkYKSSy2
-	 exiINVlRe+lg86z+EmDNHHYRWzJHJLUTZ6XOA4meMGwiSinqXmIoPEGcte+ClYw6tL
-	 KO84VWL75ywoA==
-Message-ID: <ad32f584-ea27-4da9-9397-147b887a7d68@kernel.org>
-Date: Thu, 17 Sep 2026 09:11:50 +0200
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="oej7CMCa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=icLmA1pdD34iBpPqyawGnY56mXHkMB/Wft6MDSqPeT7J9oKMvz4rTFgIgnEUwi9n+8gj8PBpYqolRITCHoFR3LGY/bAwydI7hj93maR0Pi90/b5QQ6etKl/nDUOMVxDdbHDK41b8/jkaAaK6f2B5wlUtw8K5XfEio+D+hlJDsb6A9cI7nrjXohPyOqoQbC3r9B6geT0JMDNATnNe+iOUA3qS80wSsecMK1xY4KWEI5hDGLxqyXSfE2x6OuqaP/Rz9s5jbDymz6ZAzt5GN6Oy4DsmunJqlq3zck8IjaOh3C52jOya3MJSNgU17ThTRzTyvUMKo7hPVFdPqB5s58UTyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ERVxJiEPwsq9um/Ms+5vrqYTPmNsYFUxk3xXvcXQl18=;
+ b=UjrlIigl9dS3uYJ+Q2q17O8Rqg1PCxfbxQ8c/eSaLzuvEDn0/g7nAi4f3zzW3C7j9f1H0s5TY8ObEOzH+NFtPpu8AWwhJ6b/9eQE5tHhhjNmLL3W9+DI1SyNhUHe3Z8unStP7CVEQgzmW3rCptK99lDM0ajg8aiW3wjvn4WIMogN1BfThc3JNKDqRMM1dA/55c0CBZaC3A7rNKz54rNObFUjePQlyWrlQ3SSq/dHk8v0zlYrc6GgclvaJsYG7d3J7OSfqeEOp0/NhkFkRRK+pApm/brMcKa5/AuRPjakmnQuEdc6P5C2Ka71eNXtmqyotDdnl3OnO6/op4ELW6flgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ERVxJiEPwsq9um/Ms+5vrqYTPmNsYFUxk3xXvcXQl18=;
+ b=oej7CMCaH8taxI1Tij7kWj7xHFOuE1XZnOpRUiiiMT+rclwle0ppz4FokKUbGv8jYjjTaMpBYK2rvYdo7MAyIa5rKjhChZbjYFoyX4QfND7GROIxV9cEld72aw7T/cie6Kyg7eUTv0iRA3+8wgEYV89hJeBp/l3/dDrTGwBOu/4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
+ by CW1P265MB8814.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:279::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 07:12:27 +0000
+Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
+ 07:12:26 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 08:12:21 +0100
+Message-Id: <DLHEL1SN5YD4.2UD5Y2ZFLLKLS@garyguo.net>
+Cc: "Jason Gunthorpe" <jgg@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
+ <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
+ <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+ <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+ <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <kvm@vger.kernel.org>
+Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
+ variant driver
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alex Williamson" <alex@shazbot.org>, "Danilo Krummrich"
+ <dakr@kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20260905081116.106613-1-zhiw@nvidia.com>
+ <20260905081116.106613-13-zhiw@nvidia.com>
+ <DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
+ <20260914121217.70fa0d93@shazbot.org>
+ <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
+ <20260915120148.7548a8ca@shazbot.org>
+In-Reply-To: <20260915120148.7548a8ca@shazbot.org>
+X-ClientProxiedBy: LO4P123CA0493.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1ab::12) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4b4::24)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 0/9] media: iris: Add support for glymur platform
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260917-glymur-v11-0-e0c8bc914742@oss.qualcomm.com>
- <20260917-dangerous-illegal-honeybee-cf479a@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260917-dangerous-illegal-honeybee-cf479a@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|CW1P265MB8814:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5d18a59-f2cd-47d4-44c2-08df148b0768
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|7416014|10067099003|6133799003|22082099003|18002099003|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	bVCjftMUX24Dte888bkeo3eaCXybqFIMWWEMXxc82d2A2pv2pjYSbua5icy8ECp0IMVqtwm29JcHzZ/jsnrFececiNnnBREVQor2lz2Knkk3yNaqyQTmF6AOSt3FJC+Z7Ybbz04+NTbB+IJ7O8uvc8naypRs86Zeq1KxilKsw6fXs2WFST/qpj/hUhDWVSbCuTWX3SSQCaxEKoWzME8pRSL1KWsfelMNmoLNkIzghHaKMGQ64IhTuLuCF8nMVZzZg4jI025a/v6vE+1y5bskwyKGytlj+ZFGntPoTyM1gYJung8OMjsv9FNGgbxDSuURG1E2hkTca9tSW+DhcuPMQ/H5D+FALkTnhGxQUNn4rm0mCbIoYMev2kURdmZX3UQHH3VdBkUZXbOSaPAemozZsCAyLK/JpZBmaijZSFuYSbkxVoqzfAZSoCDd3PhA4QIucHfIZLV5J5xXJanpB9hgxhunNplQIdcbsxI86RyJ65xFMxIK5NMkC+pmnyoUpTi0iR3hN2G/A41ARPIGALB1WEjaA02KA20wPwxGDxkTBoFolirhF5+ZBWtzVfnwN8FEEO0T/KIhEJh+OgdT81wYPPNu1vrgfJB9o9ZrOT7hnKzu3OAHiRrnNwtC5TfMyzZ2Tci/fYzRhdd6dPkygbtGlw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(7416014)(10067099003)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?czkvaFRGTXZSbTA4NDdzdFc0a1A2OHpxT05idXVZVmtveVpJL2tCU2JCTFNH?=
+ =?utf-8?B?Wjh3K3JYM25pdFRWRGxtMkR4aU5LUU5ZUDVSRHR6ckxPbEpwNHlIS2hPMFdR?=
+ =?utf-8?B?M0FaREVxemthRDlBQml4VUhQSXc5Y0ljN2RhZ0FMcmZXejh2Y2FldzZydTBB?=
+ =?utf-8?B?WnJIOXkxeUp6cktRZlJESjZKcFJ5bmxzU2JDK0tQRDFFSTYwZktDM0p5d1Bl?=
+ =?utf-8?B?QUxLS1g2TkhCNkRzdWk2YkU1L0lPKzJabFBSdnRKTEJLazNUS3NxZ0xQdGF1?=
+ =?utf-8?B?SndURnBuZ1BoaU9sdzc0WDZ1ZFpndWNJaFRuMXNXWVBpWGFsR0xVKytRSGxw?=
+ =?utf-8?B?WUpKMTJac254d3d6bWZjYktzWU1lcXQ3ZG1kL3AyTUNMUFBVNUtNbU9TdDdV?=
+ =?utf-8?B?RDZHRHprNTlVT2ZlVTU1b3MvUWJwZTJBeTF4VlJmRkY5RFBMYkYxL01zWmZ6?=
+ =?utf-8?B?UUV4NDVPZHlybmI2S05EeG8yUGt0YVZ1ejRhY0xYWEdYNTNmSytOdEpXY2pw?=
+ =?utf-8?B?cEVzWVpiTTJQVGhjNzU3aDdsVGlmUVlTZVRwa1VTSUcwQnQ2UXpVclRXZmZi?=
+ =?utf-8?B?VUtTUmUwRWJVY2xzM1V5UWZsM0ZwdllCc2tSa0VKMnNmbmRvdlk5MkM3Vk9O?=
+ =?utf-8?B?Vmg3Y2RSRWFhcmFyaCtVMmNpbnhJVUtlRzdiWjhCWE5lbkVKYUtWTG1ROVhU?=
+ =?utf-8?B?OUNvRnpZZFhEc0U4RXFLK2NNNFBpRUpkckw4aG5VaC9hS244MHM2c0FSZGVk?=
+ =?utf-8?B?OWlGYzNSMUJMU2xtdWhrYTkvU3Y2eExYMVQrNGR2c3ZWL1BxZDJud0NoR3or?=
+ =?utf-8?B?TDVyTERnL0JESkdpbkIwWkJXSENNdGJJYVJiRFNzYnFrdmttRFVSSmlrdmtq?=
+ =?utf-8?B?YTJUc0I1NDVFRjBmVDhZS2NVYm01TXNCWDNQZzE0L2hGRi93ZE5KU3dMR1Q4?=
+ =?utf-8?B?STlvRU5GSlN1VFhsejUxd2hYNEJTNU9TYlhnS0VtM2U3SzZQbGM5SUNDWCtS?=
+ =?utf-8?B?MFJVTWFlaXFiaUkzU29TSFk1UG1rWDIwQ1NXcUZZZ1JZcDhUcEF3Q2hiY0pN?=
+ =?utf-8?B?Wld6WDB3MWM5c2dydnNPTTBmTXh6czhibmFyWVhvZ3BpUWFxWTNHSUtZTU5v?=
+ =?utf-8?B?M2FJSWVWODltcllaNG5jTHNzbWtYVk1TTktiN292dldneGhmOWUvVkxRVmdG?=
+ =?utf-8?B?TFkxdHVDWGpNN1dRenRrQ2djbnI5aEhzeThxeGxWMlgrOVZwZURkYk8xSXBv?=
+ =?utf-8?B?ZmpWWXhpWmlBZDNhM1ZYblBZaDlmbTdpRkhNdkdqajZ6MElrbUJDU0J3cnlu?=
+ =?utf-8?B?MTFuU0NKL005a0h6VmZrQXdyRUJYNjZJQUNzWHpVZVU0cVRaczJlZGl1cFBK?=
+ =?utf-8?B?OU9wR1FRbW5SRW04b1huS3ROb3ZjMi9OME1KQUhiWndrb2NKQWtsUXZVRkRj?=
+ =?utf-8?B?QWRsZzNlbVJiSjRGRlNscTNlak9yRzZPT0xxK0N1MittS21VTnI5SVdaakx1?=
+ =?utf-8?B?cGZydkFEeitIMzZybWMyQTNTYWZ1MkRXNmN2VmlTQUwrUEtSUHBIR1htelkz?=
+ =?utf-8?B?L3Z4R29ETFJ6MFRtcHF5aXFYYmZNeHFSV1JPTWhBOTczOHJyMG13N20yL0xI?=
+ =?utf-8?B?TG1qejgwaFpJQjBHaFh0YUdZcjNYR2Z3NjBhdUh6QnYwS21WZjhtcW1JUVk2?=
+ =?utf-8?B?YzFPWDFDY3dNK2U0K2pUdHFQRjlCdXR1OFFtK29VQ2VoZGJ2aS9sS0x3VEY4?=
+ =?utf-8?B?aTZSZmlvNXYvNmVwdEthemJxYUsrSlZjL1lENFdRcmM3MTMwUzhFUUhoUFFk?=
+ =?utf-8?B?c3BLVHFMZHViQVFrY0FuaU8wVVB1aG1LNHFDcFZHVytvdFVLSDZSbERGM1N0?=
+ =?utf-8?B?NFVSd1BmdHlRMm5ZTzZCa0Z4RHM1VVA5UHBOMUxwTENuOStjTDIzanRxSDJQ?=
+ =?utf-8?B?RnBTemg5Q2IvbHhVZnJpbmovc1p4Z1Nvc09vd01XUzdSU0FQZnI3NjFYRlNO?=
+ =?utf-8?B?MGhqM0FUclVlSkwrNTV2T2hhVW4wR2FPVmcyZ3FTNVUyNmU5TXFvd1BDQkVu?=
+ =?utf-8?B?SHpaQ2NJQmduVUlsZVBXbThoaVRIMklHc25ZTlp4UWo0SzJyTXJYM2JSZlZi?=
+ =?utf-8?B?ZFJDOElwV3d1Zlk4UHhVamxNNCsxOUk0WGgwa0Nqc2pWWUp5c3FSelRaZE5v?=
+ =?utf-8?B?MTF5QUpYenBHeHd2ZWIxRE1Udnpkc3kxejNRVEJMM0JGSmpuN1I1cWVJazFZ?=
+ =?utf-8?B?S1Z5dGROTTRjM0FKazE3TTh4TzF0UXd0am5ENy90VmhldC9nTEVnZTVtMEts?=
+ =?utf-8?Q?BZqtUCwbDzO+d4eAQk?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5d18a59-f2cd-47d4-44c2-08df148b0768
+X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 07:12:26.8440
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EBo+5dUmB5tzYsXzN7rQDOtAb/YK/FljfmABX1gxbbzE22/j5+tDBGx6p8F0AuaNI7yKe4V0QIFzn6Z1SdjPXg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8814
 
-On 17/09/2026 09:09, Krzysztof Kozlowski wrote:
-> On Thu, Sep 17, 2026 at 10:30:19AM +0530, Vishnu Reddy wrote:
->> ---
->> Mukesh Ojha (1):
->>       media: iris: Enable Secure PAS support with IOMMU managed by Linux
->>
->> Vishnu Reddy (8):
->>       dt-bindings: media: qcom,glymur-iris: Add glymur video codec
->>       media: iris: Replace enum-indexed clock and power domain tables with per-block structures
->>       media: iris: Add power sequence for glymur
->>       media: iris: Handle CPU_CS_SCIACMDARG3 register write via program bootup registers hook
->>       media: iris: Add support to select core for dual core platforms
->>       media: iris: Add platform data for glymur
->>       arm64: dts: qcom: glymur: Add iris video node
->>       arm64: dts: qcom: glymur-crd: Enable iris video codec node
->>
->>  .../bindings/media/qcom,glymur-iris.yaml           | 218 +++++++++++++++++++++
->>  .../bindings/media/qcom,sm8550-iris.yaml           |   6 +
->>  .../bindings/media/qcom,sm8750-iris.yaml           |   6 +
->>  .../bindings/media/qcom,venus-common.yaml          |  11 +-
->>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi           |  10 +
->>  arch/arm64/boot/dts/qcom/glymur.dtsi               | 120 ++++++++++++
->>  drivers/media/platform/qcom/iris/Makefile          |   1 +
->>  drivers/media/platform/qcom/iris/iris_common.c     |  10 +
->>  drivers/media/platform/qcom/iris/iris_common.h     |   1 +
->>  drivers/media/platform/qcom/iris/iris_core.h       |  32 ++-
->>  drivers/media/platform/qcom/iris/iris_firmware.c   |  69 +++++--
->>  drivers/media/platform/qcom/iris/iris_hfi_common.h |   1 +
->>  .../platform/qcom/iris/iris_hfi_gen2_command.c     |  19 ++
->>  .../platform/qcom/iris/iris_hfi_gen2_defines.h     |   1 +
->>  drivers/media/platform/qcom/iris/iris_instance.h   |   2 +
->>  .../platform/qcom/iris/iris_platform_common.h      |  46 ++---
->>  .../platform/qcom/iris/iris_platform_glymur.c      |  78 ++++++++
->>  .../platform/qcom/iris/iris_platform_glymur.h      |  15 ++
->>  .../platform/qcom/iris/iris_platform_sc7280.h      |  28 ++-
->>  .../platform/qcom/iris/iris_platform_sm8250.h      |  26 ++-
->>  .../platform/qcom/iris/iris_platform_sm8550.h      |  26 ++-
->>  .../platform/qcom/iris/iris_platform_sm8750.h      |  29 ++-
->>  .../media/platform/qcom/iris/iris_platform_vpu2.c  |  20 +-
->>  .../media/platform/qcom/iris/iris_platform_vpu3x.c |  67 ++++---
->>  .../platform/qcom/iris/iris_platform_x1p42100.h    |  27 ++-
->>  drivers/media/platform/qcom/iris/iris_power.c      |  20 +-
->>  drivers/media/platform/qcom/iris/iris_probe.c      | 153 +++++++++++++--
->>  drivers/media/platform/qcom/iris/iris_resources.c  |  81 ++++----
->>  drivers/media/platform/qcom/iris/iris_resources.h  |   8 +-
->>  drivers/media/platform/qcom/iris/iris_utils.c      |  58 ++++--
->>  drivers/media/platform/qcom/iris/iris_utils.h      |   3 +-
->>  drivers/media/platform/qcom/iris/iris_vb2.c        |   4 +
->>  drivers/media/platform/qcom/iris/iris_vidc.c       |   6 +-
->>  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 216 +++++++++++++++++---
->>  drivers/media/platform/qcom/iris/iris_vpu4x.c      | 137 ++-----------
->>  drivers/media/platform/qcom/iris/iris_vpu_common.c | 102 ++--------
->>  drivers/media/platform/qcom/iris/iris_vpu_common.h |   3 +
->>  .../platform/qcom/iris/iris_vpu_register_defines.h |  13 ++
->>  38 files changed, 1229 insertions(+), 444 deletions(-)
->> ---
->> base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
->> change-id: 20260917-glymur-627d049900e0
-> 
-> Look here:
-> https://lore.kernel.org/all/20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com/
-> change-id: 20260601-glymur-4fcd4d832ecc
-> 
-> so now does this work?
-> 	b4 diff '20260917-glymur-v11-1-e0c8bc914742@oss.qualcomm.com'
-> 
-> No, it does not. You are sending bigger work, multi-version one, part of
-> even bigger work, so please get the process working correct to make
-> reviews easier.
-> 
+On Tue Sep 15, 2026 at 7:01 PM BST, Alex Williamson wrote:
+> On Mon, 14 Sep 2026 23:36:24 +0200
+> "Danilo Krummrich" <dakr@kernel.org> wrote:
+>> On Mon Sep 14, 2026 at 8:12 PM CEST, Alex Williamson wrote:
+>> > The one piece here that I can actually review is [5], where
+>> > dev_get_drvdata() is replaced with a vfio-pci-core struct pointer
+>> > embedded in the struct pci_dev, which is a non-starter as far as havin=
+g
+>> > a common PCI-core shared by various drivers. =20
+>>=20
+>> Well, that was just a quick hack to get it out of the way. :)
+>>=20
+>> I think there are a couple of options.
+>>=20
+>>   (1) Make the PM helpers take a struct vfio_pci_core_device * in the fi=
+rst
+>>       place and let the driver forward to the helpers in its own PM call=
+backs.
+>>=20
+>>   (2) Provide an (optional?) driver callback that translates a struct pc=
+i_dev to
+>>       struct vfio_pci_core_device.
+>>=20
+>>   (3) Provide a macro for drivers to define PM ops, letting drivers prov=
+ide the
+>>       function that translates struct pci_dev to struct vfio_pci_core_de=
+vice.
+>>=20
+>>   (4) Give struct vfio_pci_core_device its own PM domain (which is proba=
+bly a
+>>       bit overkill :).
+>>=20
+>> I understand that the idea is to hide the PM handling in the vfio-pci fr=
+amwork,
+>> but I think the existing implementation is a bit of a layering violation=
+, since
+>> class device implementations shouldn't impose requirements on the bus de=
+vice
+>> private data layout.
+>>=20
+>> I also think that the approach to fully hide it in the framework is only=
+ really
+>> worth if it doesn't otherwise impose subtle requirements on the driver (=
+such as
+>> the layout requirement of the bus device private data).
+>>=20
+>> Thus, I'd personally just go with (1) as it is the most honest approach =
+in terms
+>> of driver layering. But I think (2) is a good alternative that is not mo=
+re
+>> invasive than asking drivers to set the bus device private data to
+>> struct vfio_pci_core_device *.
+>
+> I'd position this more as a library convention than a class layering
+> violation.  vfio-pci was originally one driver, vfio-pci-core was
+> pulled out to enable device specific support, ex. migration, in a more
+> manageable way.  struct vfio_pci_core_device is not strictly a class,
+> it's the object used by the library that variant drivers opt to use
+> rather than re-implementing vfio-pci from the ground up.
+>
+> The conventions of that library mean variant drivers get things like
+> VGA routing and power management for free, in adherence with how these
+> features are exported by the core, and can choose to opt-in to common
+> error handling.
+>
+> The use of drvdata is part of that convention and audited by the core
+> such that failed compliance is rejected on registration.  Clearly we
+> could allow variant drivers to provide ops for their own callbacks and
+> export core helpers they can use, but only a Rust driver requires this
+> and we need to figure out how to do this without degrading the audit in
+> the core.
+>
+> Turning vfio-pci-core into a proper class to be able to have a real
+> layering violation claim seems like a much larger project.
+>
+>> > My concerns are of course who is going to review the Rust vfio-pci
+>> > variant drivers from a vfio perspective, not just a drm driver
+>> > viewpoint. =20
 
-And it is getting even better:
-v6 change id was:
-	change-id: 20260515-glymur-6e69bc258fb0
+FWIW, if we want vfio-pci to be a middle layer (looks like there're some
+disagreements about this), we could quite simply achieve this by define
 
-https://lore.kernel.org/all/20260515-glymur-v6-0-f6a99cb43a24@oss.qualcomm.com/
+    mod vfio_pci {
 
-???
+        trait Driver {
+            /* callbacks here */
+        }
 
-Best regards,
-Krzysztof
+        struct Adapter<D: Driver>(D);
+
+        impl pci::Driver for Adapter {
+            ...
+        }
+
+    }
+
+and then the way for people to be using this would to create the "Adapter" =
+which
+does the middle layering and register *that* as pci driver instead. Then
+all PCI callbacks will first land in vfio-pci abstration's code before it
+filters through things in the driver. This way, vfio-pci-core imlements the=
+ pci
+driver then it controls its drvdata layout.=20
+
+Best,
+Gary
