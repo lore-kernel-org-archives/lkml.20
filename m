@@ -1,64 +1,64 @@
-Received: from mail-pj2-f28.google.com (mail-pj2-f28.google.com [74.125.227.156])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F614B7A44
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:52:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7B64D1797
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671127; cv=none; b=s/AtI+0LJAV3CbJ3a0wd9qkub+Ew9UHKFQtODVFOaY6yauy4I/rNLI81roRMJnhZdxiAnN0nkZBUL/xuLHaVblN5YaQqR3TtC+xAwmj9Tq31RgyNlJr7+bqtd8JkYtspj/TnMmbaf8rWR1o9wq2ZeElZO283cg42YPKRx72bzdw=
+	t=1789671130; cv=none; b=GMTr19qcowunU1G9qERsKzUk94YrGfGJyee4ksDdNOPaojSpIt+nYc9xuAJAbBTrtCnGIZJGUiOFliFDzHNtn6txj7fRsa4JjFE7Ok9nW1HmrIRf03d7qsaYorMUGc2giGwLtiR0WnWfuiqajSzuQFRtG6OsCgT+ozdFcZLMQ5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671127; c=relaxed/simple;
-	bh=t2Rh5HicDYfUhDshXxIV+ToBVIxCOdkpflXNAhRUTLk=;
+	s=arc-20240116; t=1789671130; c=relaxed/simple;
+	bh=YuVnVbkxesHUrvTiDDRRP7qicf2K8BySrtV+L0OtK/E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gpYI2Px6h1TwSyWry4V/T89r5rOEOAysW7cqbA4up17NcNmtUjYRPwzSM2iTbkcTisV67X0sZ/6i8ZMSX2pCCI9X1eE7yJL3KfSnIJ5NrRnhUqhj8aE1I8804oEXCf/9ndBBH3Z3+Su4rM8XyUubAvYEG1F853KrrtsZFT7/PYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T5pxtX+6; arc=none smtp.client-ip=74.125.227.156
+	 MIME-Version; b=tl+jYIBTdkCqoeGjJvH+kOr69OjNQTudev7NMcZ4t9VQiaq9c56Z+TjTvgt5KzizGSBkB3B9LM7iq3zkbx+AJZDwCyi22EFHv2o6l5HyCv4ADwtStqIHNd5GF/ZWeedmRpXBe7MLF4al1sLUNQmAXlSpOYPHGY+w1lSB5lPpW0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q9MirAp1; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T5pxtX+6"
-Received: by mail-pj2-f28.google.com with SMTP id d9443c01a7336-2d91c22d27dso8068055ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:52:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q9MirAp1"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d91ede8035so14191775ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:52:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789671125; x=1790275925; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789671128; x=1790275928; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NmX2iathH1BothbInV/Ke+WVEC5Ed3SbwmWKrISd/bc=;
-        b=T5pxtX+6IDQgsCLgsdHKya62Qy+iLqBixxRGItznFZ2qExnkwK5zPbLPSU97n09kPT
-         kwSt6zXMgzK5GW74d2FoX9hiHPPFBOCfGqtFsQsCQpCRZcJMPT0TbJWX+vEuB8ND7gxe
-         a5gIp9KfPXyuGLmVfXh0uAxbdWthhDShicbT2vRKYMEmCLx5WFRKkMQv1hvzrF8JRAZT
-         mum8WZXoiIihZ4UzF0dOBZtyvPg8RO60tc1APefWtFN1WfhRuCeCzEEVfrWNZZRsK+GP
-         DPSEiLZeompA7Ns+0ShqNrFEhhlf98ubFsm1xnX+vjxtlSj+1gmWaZG4nxoTSS9alAVY
-         hn4Q==
+        bh=nUdkePa1f6mE21SLiU0MIHgY8wUKKU9ZP9pTIcp6WpA=;
+        b=q9MirAp1+FgH1LS200NF60mel2o+AQU0aUEIdF/X93vlSl0Y+9jWiVdCdBr54oG/7H
+         sdMPGY3smdLY10ipk/JPU7DB7L5FGyax6Co9zPtRAh0Fv0vlnDfCfzs/LhrUXuu/+wX1
+         8GAMQX4rsQR2IAmM9NYnsKQ3zaa/DqxRDfv/imzHxtRJk2pLhGiFJ55oUBCxNWMhiIJG
+         xSCmhcK3KrTMtkPfnQg5omD0S3LukH9YLQk+gQDLUQgDVfBJxFGESiSO9ownK5ixADpb
+         HU6xV+AX7gKGZpzoF9uV/jxXLIclqqzzRYCCRCcI7NNMhWCvdDRoWEx+5yZqTgAV3yWa
+         biGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789671125; x=1790275925;
+        d=1e100.net; s=20260707; t=1789671128; x=1790275928;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NmX2iathH1BothbInV/Ke+WVEC5Ed3SbwmWKrISd/bc=;
-        b=zrzYhRKZkFPOSA7Qs6h4mVIcmBcfKIT+EK79Hb/quboghweYUjuUErOmQa8P9DwFBE
-         RhdIEeFZyqpJhueTt7zOwh2+jCRd/Zbd77FlBOsOhx5mURhdqV4JLVHqDKaHrzg2XSSq
-         4Kccii557PGIr0T+XnbjZA2wvWQNapyq2fGvIfAAjThFFaTazOpHe/Jf8krVsK95585a
-         BOHokUD6PhDLTC2Bm80/S8hjN+TWrUpFVHn9WTqs8sahotp7d/qWf8IIbF4uDTLBAPSc
-         AfjzsgIxrRffaaoJmpkCqL9hstWRXFlBf0FU3v6N5OOCnIN1FVdb7nx1PJIsCNttHcHH
-         uOQw==
-X-Forwarded-Encrypted: i=1; AKwUvBx+yYl+cyK0Em/BUOr23w/+/REAGrPGyoRmAZT8iV7Bn76u9NKAzlPVMvHUZd2S3KYGH2hrWZDsl6wooug=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLnaTgOxOIaH/K53bLcs94lM8TUNXbKJE6NRiAQfmzIzJCOEVb
-	OK5rN++XuOMNOhkmZBKGGfq7eLc0KIg1Xl8lm7o91kVebrSd+mfxZsps
-X-Gm-Gg: AYBFou0O17h5Mm5izxArgUQMaxMrM+hfv/h1k3wKJVFR4snpdHlGTSCdPj82P6nxF8D
-	oEGZ+BWw6bqBAXg1A+oW+7eqJS29mMFDVO3CNa+P8baWCojwD3QBxI8Sdi9oMaC400vjD/mTZcE
-	BiKBq3HaYkc/tjmu3mnSSSsZhLdKY4P56JZT/pk+6DohToTI4JZHwiu5OP/OXVU1W7SQMrv4aLi
-	q3gDV9RuxJliv0S57lU1K6tCDYJzDJRitGR245LzjNqsi6jx79PzWUTdTjkK8w1XkfrfoTdzXcF
-	L/C1XRbJQPgM7BOXMjPzWvJiEQxtwKgP2ZYUPxEksg6DbHCBpP9+RnFW1tW83wLGpBM+Gb9D0Jo
-	z9iWwzOz0Z6GNK1yqSTjzEt+PzdrQtr4GBX8ERCn39sqLGub2ONNh7Xwd09cUmh/F+ftM/UKjmq
-	pLxRks8YXuveqEdcfBoX0swhwuka4aLBuCJeDkuhPtDi9ST0grRcU5PVeIWZ/+hL4vFq5sOMHjN
-	mxFeOwzGCmURVzmBrY3JfcgRQ==
-X-Received: by 2002:a17:902:d4c4:b0:2d8:d4dd:24c0 with SMTP id d9443c01a7336-2ddb1b97ee1mr2276265ad.21.1789671124852;
-        Thu, 17 Sep 2026 11:52:04 -0700 (PDT)
+        bh=nUdkePa1f6mE21SLiU0MIHgY8wUKKU9ZP9pTIcp6WpA=;
+        b=T/O7YfennCUurTU0WKr0vGn0w29Xsaa1gvMZGVgLP1CFfgqE7r/ap+KBRmZ9zPmcS6
+         L/FDYwSOCgVV5OjgP882JyVEAyD1YpsLQMoz5kdGkwnfZBXraGg3SqmWFkUfVVCSlztr
+         BO7yVCkAGV1nM5zVo1iVZWMQ6SvcNeVJnXWtXbu0RmKGbWTk4rMPTdfHoTCYEPlL3T79
+         ISOYIUNvXecSh4xqv0jqL4n2pDc1EhYmcREWo0eZLkin0WsHKWiwnjIU9OeSA6lqDM6n
+         1UyeoaipYtY/5D+yjM9emuLOrHddydN0SXDTIasHM97d0cLmf17ZeIXXzb2m5o05Sqtl
+         1EQg==
+X-Forwarded-Encrypted: i=1; AKwUvBzi8UNtRGIPjDpbyWiSWPAjOxC9SefVQKoIStRbL3G0JEfRjTJYmgJ6Z+IOb2ZDrqHwViBEjWA3Jtje0Zo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mk6idv7j2IZbF3maLBNhqXKjx+tkTfIHDm7SSftaEQZfm6qDyH
+	CM7BbFC8azkHH7/1G2ZiRRBR94QUD1ryFaAIKGRBGo4fbAa6c31KebCZHrqnR3lI
+X-Gm-Gg: AYBFou3X3YzO+0eJA5thRVXX/4cpdKjyVBmltJ2c+sD9wiPsDqmaIPUDunCtSSl5B7S
+	hHm1Dr4mR4M7n3vO4UIiuiFP6aH3vqamsDwdSrKmtztEHcPT/G7CXj28KMKxVudDwbC3R9qoCWD
+	SFhPWxDa0TpvarxN6dRewDgBs0FZ2IjyFef0lDXa3mJME3Ulb+0rgC2aEV3K5LPNmgiw6IR+Ebc
+	HASBaRY00dBYmzXlg+uaPFByKPYHba85GZ/U8OI1D4+5JJWvePPFuUy80PZgK+MrfP2T1Z5n8uu
+	tSGIjQGwqFmP1RmQ2SFI0x9ecpNlyhYQ5GQMQ3zCt/YMwkpkKG+wvXdlIlrCBD+m3BTSaIxnthF
+	cGTQYV7z+QLAbdxCZk+XWWUEAZ7Yl/SW/1qQIChkhc/XXVsPhvAth2Waa5rjI3GWEevlip/ZxlH
+	TQvoJFGrXxfG+0owJAEp9u+NswVWuA03s6s8FR7hYI0JoVkbC4YPDl9uTsGu0aj+0RUlmE7jnTN
+	58JmAFISwyOO00g+yELt4IE0Q==
+X-Received: by 2002:a17:903:234d:b0:2d6:e074:9cad with SMTP id d9443c01a7336-2ddb1acad2dmr2893325ad.6.1789671127782;
+        Thu, 17 Sep 2026 11:52:07 -0700 (PDT)
 Received: from d.home.yangfl.dn42 ([2a09:bac5:661a:1232::1d0:c5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f331b7sm31032655ad.82.2026.09.17.11.52.01
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f331b7sm31032655ad.82.2026.09.17.11.52.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 11:52:04 -0700 (PDT)
+        Thu, 17 Sep 2026 11:52:07 -0700 (PDT)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -70,9 +70,9 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Russell King <linux@armlinux.org.uk>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 1/8] net: dsa: motorcomm: Remove YT921X_PORT_MASK_* macros
-Date: Fri, 18 Sep 2026 02:49:48 +0800
-Message-ID: <20260917185010.3189199-2-mmyangfl@gmail.com>
+Subject: [PATCH net-next v3 2/8] net: dsa: motorcomm: Split xMII and SERDES port masks
+Date: Fri, 18 Sep 2026 02:49:49 +0800
+Message-ID: <20260917185010.3189199-3-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260917185010.3189199-1-mmyangfl@gmail.com>
 References: <20260917185010.3189199-1-mmyangfl@gmail.com>
@@ -84,79 +84,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Remove YT921X_PORT_MASK_* macros since they are only thin wrappers
-around BIT() and GENMASK() and are not used in other places (plain BIT()
-and GENMASK() are used there). No functional change.
+Replace external_mask with xmii_mask and serdes_mask, and advertise the
+interface modes it actually supports.
+
+Also move struct yt921x_info into chip.h for future use.
 
 Signed-off-by: David Yang <mmyangfl@gmail.com>
 ---
- drivers/net/dsa/motorcomm/chip.c | 31 +++++++++++++------------------
- 1 file changed, 13 insertions(+), 18 deletions(-)
+ drivers/net/dsa/motorcomm/chip.c | 39 ++++++++++++--------------------
+ drivers/net/dsa/motorcomm/chip.h | 13 +++++++++++
+ 2 files changed, 27 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index d663af010f43..5acd7d27ff40 100644
+index 5acd7d27ff40..b527a9cfd3e8 100644
 --- a/drivers/net/dsa/motorcomm/chip.c
 +++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -108,46 +108,41 @@ struct yt921x_info {
- 	u16 external_mask;
+@@ -96,53 +96,48 @@ static const struct yt921x_mib_desc yt921x_mib_descs[] = {
+ 	MIB_DESC(1, YT921X_MIB_DATA_TX_OAM, "TxOAM"),
  };
  
--#define YT921X_PORT_MASK_INTn(port)	BIT(port)
--#define YT921X_PORT_MASK_INT0_n(n)	GENMASK((n) - 1, 0)
--#define YT921X_PORT_MASK_EXT0		BIT(8)
--#define YT921X_PORT_MASK_EXT1		BIT(9)
+-struct yt921x_info {
+-	const char *name;
+-	u16 major;
+-	/* Unknown, seems to be plain enumeration */
+-	u8 mode;
+-	u8 extmode;
+-	/* Ports with integral GbE PHYs, not including MCU Port 10 */
+-	u16 internal_mask;
+-	/* TODO: see comments in yt921x_dsa_phylink_get_caps() */
+-	u16 external_mask;
+-};
 -
  static const struct yt921x_info yt921x_infos[] = {
  	{
  		"YT9215SC", YT9215_MAJOR, 1, 0,
--		YT921X_PORT_MASK_INT0_n(5),
--		YT921X_PORT_MASK_EXT0 | YT921X_PORT_MASK_EXT1,
-+		GENMASK(4, 0),
-+		BIT(8) | BIT(9),
+ 		GENMASK(4, 0),
++		BIT(9),
+ 		BIT(8) | BIT(9),
  	},
  	{
  		"YT9215S", YT9215_MAJOR, 2, 0,
--		YT921X_PORT_MASK_INT0_n(5),
--		YT921X_PORT_MASK_EXT0 | YT921X_PORT_MASK_EXT1,
-+		GENMASK(4, 0),
-+		BIT(8) | BIT(9),
+ 		GENMASK(4, 0),
+-		BIT(8) | BIT(9),
++		BIT(9),
++		BIT(8),
  	},
  	{
  		"YT9215RB", YT9215_MAJOR, 3, 0,
--		YT921X_PORT_MASK_INT0_n(5),
--		YT921X_PORT_MASK_EXT0 | YT921X_PORT_MASK_EXT1,
-+		GENMASK(4, 0),
-+		BIT(8) | BIT(9),
+ 		GENMASK(4, 0),
+ 		BIT(8) | BIT(9),
++		0,
  	},
  	{
  		"YT9214NB", YT9215_MAJOR, 3, 2,
--		YT921X_PORT_MASK_INTn(1) | YT921X_PORT_MASK_INTn(3),
--		YT921X_PORT_MASK_EXT0 | YT921X_PORT_MASK_EXT1,
-+		BIT(1) | BIT(3),
-+		BIT(8) | BIT(9),
+ 		BIT(1) | BIT(3),
+-		BIT(8) | BIT(9),
++		BIT(9),
++		BIT(8),
  	},
  	{
  		"YT9213NB", YT9215_MAJOR, 3, 3,
--		YT921X_PORT_MASK_INTn(1) | YT921X_PORT_MASK_INTn(3),
--		YT921X_PORT_MASK_EXT1,
-+		BIT(1) | BIT(3),
+ 		BIT(1) | BIT(3),
+ 		BIT(9),
 +		BIT(9),
  	},
  	{
  		"YT9218N", YT9218_MAJOR, 0, 0,
--		YT921X_PORT_MASK_INT0_n(8),
-+		GENMASK(7, 0),
+ 		GENMASK(7, 0),
  		0,
++		0,
  	},
  	{
  		"YT9218MB", YT9218_MAJOR, 1, 0,
--		YT921X_PORT_MASK_INT0_n(8),
--		YT921X_PORT_MASK_EXT0 | YT921X_PORT_MASK_EXT1,
-+		GENMASK(7, 0),
+ 		GENMASK(7, 0),
+ 		BIT(8) | BIT(9),
 +		BIT(8) | BIT(9),
  	},
  	{}
  };
+@@ -4021,15 +4016,10 @@ yt921x_dsa_phylink_get_caps(struct dsa_switch *ds, int port,
+ 		 */
+ 		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
+ 			  config->supported_interfaces);
+-	} else if (info->external_mask & BIT(port)) {
+-		/* TODO: external ports may support SERDES only, XMII only, or
+-		 * SERDES + XMII depending on the chip. However, we can't get
+-		 * the accurate config table due to lack of document, thus
+-		 * we simply declare SERDES + XMII and rely on the correctness
+-		 * of devicetree for now.
+-		 */
++		return;
++	}
+ 
+-		/* SERDES */
++	if (BIT(port) & info->serdes_mask) {
+ 		__set_bit(PHY_INTERFACE_MODE_SGMII,
+ 			  config->supported_interfaces);
+ 		/* REVSGMII (SGMII in PHY role) should go here, once
+@@ -4042,9 +4032,8 @@ yt921x_dsa_phylink_get_caps(struct dsa_switch *ds, int port,
+ 		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
+ 			  config->supported_interfaces);
+ 		config->mac_capabilities |= MAC_2500FD;
+-
+-		/* XMII */
+-
++	}
++	if (BIT(port) & info->xmii_mask) {
+ 		/* Not tested. To add support for XMII:
+ 		 *   - Add proper interface modes below
+ 		 *   - Handle them in yt921x_port_config()
+diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
+index 83cd454955dd..83e76cefbccd 100644
+--- a/drivers/net/dsa/motorcomm/chip.h
++++ b/drivers/net/dsa/motorcomm/chip.h
+@@ -960,6 +960,19 @@ struct yt921x_reg_ops {
+ 	int (*write)(void *context, u32 reg, u32 val);
+ };
+ 
++struct yt921x_info {
++	const char *name;
++	u16 major;
++	/* Unknown, seems to be plain enumeration */
++	u8 mode;
++	u8 extmode;
++	/* Ports with integral GbE PHYs, not including MCU Port 10 */
++	u16 internal_mask;
++	/* Note: xmii_mask and serdes_mask may overlap */
++	u16 xmii_mask;
++	u16 serdes_mask;
++};
++
+ struct yt921x_priv {
+ 	struct dsa_switch ds;
+ 
 -- 
 2.53.0
 
