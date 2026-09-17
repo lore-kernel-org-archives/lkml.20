@@ -1,89 +1,308 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-222.mta0.migadu.com [91.218.175.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4858D4A3866
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47EBB439F62
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636426; cv=none; b=pgtQ8MB2vZ7j2+aNjKLxDNFBm1lFZhkQ9ak3I8sgHYKQ5Nk+2k0otvo8hRhkKmv1jv1VGjXz4Pz1A+gn6ZNDzBO3BQbJFpySHOicYAhb8y3O6atgr5MHZ0NAeSXE+2Z+ki/EBayod6MA3MiwyzNawnwrcTkY0N27oBXhQW7xtXE=
+	t=1789636431; cv=none; b=cp1K+RHHde6gN2DKApg9b8zQx7GDrmT/xmHIndtRuKeUUI7tNXgJKaB1N4yZzTx0a6NrTMfUUYfyGK99WJa1kLXEBUXR8E4Vox7PFV7puns36qGHTl50Qhf87Lfvgm/uLT3Z87dUA+D31RkjKlY98h5mx/r1THA8XwtyElElCzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636426; c=relaxed/simple;
-	bh=HDLCyYMXjeLbAmwYg6ykun65beRY/Xe43LPVoBMshhQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lis0YdEbCcysn29HsF1O5pAIJUZAXdIUtal8il3Ebuio1hLFuuBK8V+QdJtx7M8MyHW/qQTfOag++pujY+QAfEcQRSbhbH9/1ioj9MIlwkW6yky7Ove1cuVHpd4Te/B64T7SaWawLby/vUY9iXWisdV1MiLDSz06Bpu0mtfRuU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YyghOKBu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789636431; c=relaxed/simple;
+	bh=BvI+zmx0bHsSDRwo8/eGXtzYLY6Y0EC/pcKbtQ5XLG8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dPaGrUtxYI/bVxdl0IASnCZljFPx8IEYYEgCuXHNaTJuTATMr17XA+X1jN2mzgPhCTrqNexEXlIZftbNgY0s9pzD+yAFLHxWNeWzRts8JJ1sof/+TfNa8aULO+m06+V595QT1hQxp3qDWbiz1YyL9yFUfxDI6hmoww+RXXiHVHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QRy2KXqQ; arc=none smtp.client-ip=91.218.175.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YyghOKBu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99491F000FF;
-	Thu, 17 Sep 2026 09:13:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789636424;
-	bh=lKKNVKamgJXzUQksg+fc5sC0ecR8r5laMo+vgvG2iqE=;
-	h=From:Date:Subject:To:Cc;
-	b=YyghOKBuTO7G0vhHogNGVEHe/ROTh29dOIiiYdDX62TmNVaXWLfCRmsd6vKNiHyIn
-	 fmnqaY6gDp/9GIsMs+pqwcQDWT5SvE28FR97xWZmsxEA1jt6ndFcHJAjIQTwyWqWlJ
-	 9soWoYTpNT+k6CqhXj6FRUqxYyDJXxhQ2/eRK1jbzxQizMlt94lsCZA7iHGCcfkU0w
-	 zwOC/sJ/9oMtiFNweI8KAlqYvNZ52chCZeUbu7SBJZ+6Bn+50VYSZHvF+QJOSlBA6k
-	 XH7xhWyxT33bkpXNX0/xI/Tow0ZwbvQl7n2uzZCRiPMhkfS2wgIrXD6xmXhOoknKNM
-	 d7xqUExyV6x5Q==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Thu, 17 Sep 2026 11:13:32 +0200
-Subject: [PATCH] mailmap: Update Jingyi Wang's email address
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QRy2KXqQ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BvI+zmx0bHsSDRwo8/eGXtzYLY6Y0EC/pcKbtQ5XLG8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789636426; v=1; x=1790241226;
+ b=QRy2KXqQu6WCdJRyUYRN2Tg1fZOy//8PfYrpGbsf7QCOQd8NyM0i6hjR88ZEhcxdxBb4TERl
+ i9bRu34LxQbzjSS3tDfZkO9+8JKRt5dKsM1KVurw4QuKt7ff6PHV6OQg+BVg0jY6dK7V3DdW4Fj
+ 8RZ/hKulSICy/cI5dRnUMqkE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ec8b15142238164a;
+	Thu, 17 Sep 2026 09:13:45 +0000
+X-Mizu-Trace-ID: ec8b15142238164a
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 17 Sep 2026 17:13:39 +0800
+From: Hao Li <hao.li@linux.dev>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Pedro Falcato <pfalcato@suse.de>, harry@kernel.org, 
+	akpm@linux-foundation.org, cl@gentwo.org, rientjes@google.com, roman.gushchin@linux.dev, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 2/2] mm/slub: introduce slab parking to reduce
+ list_lock contention
+Message-ID: <aqun4pdMge4QVmnL@fedora>
+References: <20260824122004.3652-1-hao.li@linux.dev>
+ <20260824122513.3829-1-hao.li@linux.dev>
+ <20260824122513.3829-2-hao.li@linux.dev>
+ <8d73f087-42e2-454c-8e5f-93c1b64cb969@kernel.org>
+ <aqPlMzUIw-4g2iOX@fedora>
+ <23b15032-01c3-43fa-866f-296138228b5a@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-topic-mailmap_jingyi-v1-1-10873acea2cf@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6DIBRF0a2YP5YEGJTYrTSNQfjqMxUJ2KaNc
- e9FHZ7BvRtlTuBM92qjxB9kLKFA1RW50YaBBXwxaalvslFGrEuEE7PFa7axnRCGH4Qz0mvfdKZ
- XikoaE/f4ntvH83J+dxO79XjRvv8BJ5jl7XgAAAA=
-X-Change-ID: 20260917-topic-mailmap_jingyi-c70d2d9b7f11
-To: linux-kernel@vger.kernel.org
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789636423; l=1237;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=6iuMG1KmVkfnJqL+sEpwbXyY5tRN3Q0MyoAoa7LAl78=;
- b=tT2P+w1vci5XamBMOKfECxI73d5peOP/sBeDt5/3syRoeOi/uDT6ORORK40i8SnPMS8d7uI3C
- 0qpCH57DAZqD44LGsFZObpV2haa07NZ65wZ2BHQO6qGk4kJBK+bpcf+
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <23b15032-01c3-43fa-866f-296138228b5a@kernel.org>
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Wed, Sep 16, 2026 at 10:01:00AM +0200, Vlastimil Babka (SUSE) wrote:
+> On 9/11/26 15:06, Hao Li wrote:
+> > --- >8 ---
+> > mm/slub: refill prefilled sheaves from the barn
+> > 
+> > For evaluation.
+> > 
+> > ---
+> >  mm/slub.c | 118 +++++++++++++++++++++++++++++++++++++++++++++++++++---
+> >  1 file changed, 112 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/mm/slub.c b/mm/slub.c
+> > index 27a78d63f537..7d337dbe26a5 100644
+> > --- a/mm/slub.c
+> > +++ b/mm/slub.c
+> > @@ -427,6 +427,8 @@ struct node_barn {
+> >  	spinlock_t lock;
+> >  	struct list_head sheaves_full;
+> >  	struct list_head sheaves_empty;
+> > +	/* leftovers of prefill or refill, protected by barn->lock */
+> 
+> All the fields are protected by the lock so I don't think it's worth
+> pointing out specifically.
 
-The quic_username@quicinc.com emails have been deprecated inside
-Qualcomm for a while now in favor of firstname.lastname@oss.qualcomm.com
-Re-route the emails to Jingyi's current OSS email address to avoid
-Outlook bounces ("recipient's inbox is full").
+Yeah, make sense to me.
 
-Cc: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- .mailmap | 1 +
- 1 file changed, 1 insertion(+)
+> "prefill or refill" sounds like it may include also internal sheaf refill,
+> which is not the case
 
-diff --git a/.mailmap b/.mailmap
-index b27f33fcf9a1..792825bc699b 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -444,6 +444,7 @@ Jessica Zhang <jesszhan0024@gmail.com> <jesszhan@codeaurora.org>
- Jessica Zhang <jesszhan0024@gmail.com> <quic_jesszhan@quicinc.com>
- Jessica Zhang <jesszhan0024@gmail.com> <jessica.zhang@oss.qualcomm.com>
- Jilai Wang <quic_jilaiw@quicinc.com> <jilaiw@codeaurora.org>
-+Jingyi Wang <jingyi.wang@oss.qualcomm.com> <quic_jingyw@quicinc.com>
- Jiri Kosina <jikos@kernel.org> <jikos@jikos.cz>
- Jiri Kosina <jikos@kernel.org> <jkosina@suse.cz>
- Jiri Kosina <jikos@kernel.org> <jkosina@suse.com>
+Yeah, agreed, refill is a generic word, so I will remove the comment and let
+the code speak for itself.
 
----
-base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
-change-id: 20260917-topic-mailmap_jingyi-c70d2d9b7f11
+> (but maybe something worth exploring later)
 
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Yes! later we can see if partial_sheaf can have more use cases.
 
+> 
+> > +	struct slab_sheaf *sheaf_partial;
+> >  	unsigned int nr_full;
+> >  	unsigned int nr_empty;
+> >  };
+> > @@ -3183,6 +3185,69 @@ static struct slab_sheaf *barn_get_empty_sheaf(struct node_barn *barn,
+> >  	return empty;
+> >  }
+> >  
+> > +/*
+> > + * Exchange @sheaf, which holds fewer objects than requested, for a full sheaf
+> > + * from the barn. The objects of @sheaf stay in the barn: it becomes the barn's
+> > + * partial sheaf, or its objects are merged into the existing one, which becomes
+> > + * a full sheaf when it reaches capacity. That way the leftovers neither occupy
+> > + * a full-sheaf count nor have to be flushed.
+> > + *
+> > + * Returns NULL if the barn has no full sheaf.
+> > + */
+> > +static struct slab_sheaf *barn_replace_partial_sheaf(struct kmem_cache *s,
+> > +						     struct node_barn *barn,
+> > +						     struct slab_sheaf *sheaf)
+> > +{
+> > +	struct slab_sheaf *full, *partial;
+> > +	unsigned int to_move;
+> > +	unsigned long flags;
+> > +
+> > +	if (!data_race(barn->nr_full))
+> > +		return NULL;
+> > +
+> > +	spin_lock_irqsave(&barn->lock, flags);
+> > +
+> > +	if (unlikely(!barn->nr_full)) {
+> > +		spin_unlock_irqrestore(&barn->lock, flags);
+> > +		return NULL;
+> 
+> Hmm what if there's no full, but there's sheaf_partial with enough objects
+> to make a full sheaf together with @sheaf?
+
+This is very inspiring, thanks!
+
+And I feel this doesn't just apply when barn->nr_full == 0. At any time, as
+long as the @sheaf and sheaf_partial together have enough objects to make a
+full sheaf, we can always complete a full sheaf out of the two and skip the
+barn list operations entirely.
+
+This small optimization is essentially equivalent to what the current patch
+does, because the current code basically takes a full sheaf from the barn, then
+put the newly assembled full sheaf back into the barn, which is an
+unnecessary round trip.
+
+On top of that, to be more efficient, we could compare their sizes first to
+make sure we always copy from the one with fewer objects to the one with more.
+
+I ran a quick test, the performance and stats difference isn't very noticeable,
+but logically it feels much more elegant.
+
+I'll roll this into a non-rfc patch and send it out later.
+
+> 
+> > +	}
+> > +
+> > +	full = list_first_entry(&barn->sheaves_full, struct slab_sheaf,
+> > +				barn_list);
+> > +	list_del(&full->barn_list);
+> > +	barn->nr_full--;
+> > +
+> > +	partial = barn->sheaf_partial;
+> > +	if (partial) {
+> > +		to_move = min(sheaf->size, s->sheaf_capacity - partial->size);
+> > +		sheaf->size -= to_move;
+> > +		memcpy(&partial->objects[partial->size],
+> > +		       &sheaf->objects[sheaf->size], to_move * sizeof(void *));
+> > +		partial->size += to_move;
+> > +
+> > +		if (partial->size == s->sheaf_capacity) {
+> > +			list_add(&partial->barn_list, &barn->sheaves_full);
+> > +			barn->nr_full++;
+> > +			barn->sheaf_partial = NULL;
+> > +		}
+> > +	}
+> > +
+> > +	if (sheaf->size) {
+> > +		/* no partial sheaf, or it just became full */
+> > +		barn->sheaf_partial = sheaf;
+> > +	} else {
+> > +		list_add(&sheaf->barn_list, &barn->sheaves_empty);
+> > +		barn->nr_empty++;
+> > +	}
+> > +
+> > +	spin_unlock_irqrestore(&barn->lock, flags);
+> > +
+> > +	full->capacity = s->sheaf_capacity;
+> > +	full->pfmemalloc = false;
+> 
+> I think this belongs more to the caller which deals with the prefilled
+> sheaves specifically, and this helper is more low level.
+
+Makes sense to me! will do.
+
+> 
+> Otherwise LGTM!
+
+Awesome, thanks!
+
+> 
+> > +
+> > +	return full;
+> > +}
+> > +
+> >  /*
+> >   * The following two functions are used mainly in cases where we have to undo an
+> >   * intended action due to a race or cpu migration. Thus they do not check the
+> > @@ -3317,6 +3382,7 @@ static void barn_init(struct node_barn *barn)
+> >  	spin_lock_init(&barn->lock);
+> >  	INIT_LIST_HEAD(&barn->sheaves_full);
+> >  	INIT_LIST_HEAD(&barn->sheaves_empty);
+> > +	barn->sheaf_partial = NULL;
+> >  	barn->nr_full = 0;
+> >  	barn->nr_empty = 0;
+> >  }
+> > @@ -3334,6 +3400,10 @@ static void barn_shrink(struct kmem_cache *s, struct node_barn *barn)
+> >  	barn->nr_full = 0;
+> >  	list_splice_init(&barn->sheaves_empty, &empty_list);
+> >  	barn->nr_empty = 0;
+> > +	if (barn->sheaf_partial) {
+> > +		list_add(&barn->sheaf_partial->barn_list, &full_list);
+> > +		barn->sheaf_partial = NULL;
+> > +	}
+> >  
+> >  	spin_unlock_irqrestore(&barn->lock, flags);
+> >  
+> > @@ -5233,12 +5303,49 @@ void *kmem_cache_alloc_node_noprof(struct kmem_cache *s, gfp_t gfpflags, int nod
+> >  }
+> >  EXPORT_SYMBOL(kmem_cache_alloc_node_noprof);
+> >  
+> > +/*
+> > + * Refill by swapping *@sheafp for a full sheaf from the barn. The old sheaf and
+> > + * its objects stay in the barn. Returns true when the new sheaf is full.
+> > + */
+> > +static bool refill_sheaf_from_barn(struct kmem_cache *s,
+> > +				   struct slab_sheaf **sheafp)
+> > +{
+> > +	struct node_barn *barn = get_barn(s);
+> > +	struct slab_sheaf *sheaf = *sheafp;
+> > +	struct slab_sheaf *full;
+> > +
+> > +	/* objects from pfmemalloc slabs must not enter the barn */
+> > +	if (!barn || sheaf->pfmemalloc)
+> > +		return false;
+> > +
+> > +	full = barn_replace_partial_sheaf(s, barn, sheaf);
+> > +	if (!full)
+> > +		return false;
+> > +
+> > +	stat(s, BARN_GET);
+> > +	*sheafp = full;
+> > +
+> > +	/*
+> > +	 * The sheaf may hold fewer than capacity objects: rcu_free_sheaf()
+> > +	 * puts it in the barn as full even when slab_free_hook() has taken
+> > +	 * some out (KFENCE, KASAN). __prefill_sheaf_pfmemalloc() then
+> > +	 * continues to refill it.
+> > +	 */
+> > +	return full->size == s->sheaf_capacity;
+> > +}
+> > +
+> >  static int __prefill_sheaf_pfmemalloc(struct kmem_cache *s,
+> > -				      struct slab_sheaf *sheaf, gfp_t gfp)
+> > +				      struct slab_sheaf **sheafp, gfp_t gfp)
+> >  {
+> > +	struct slab_sheaf *sheaf;
+> >  	gfp_t gfp_nomemalloc;
+> >  	int ret;
+> >  
+> > +	if (refill_sheaf_from_barn(s, sheafp))
+> > +		return 0;
+> > +
+> > +	sheaf = *sheafp;
+> > +
+> >  	gfp_nomemalloc = gfp | __GFP_NOMEMALLOC;
+> >  	if (gfp_pfmemalloc_allowed(gfp))
+> >  		gfp_nomemalloc |= __GFP_NOWARN;
+> > @@ -5331,7 +5438,7 @@ kmem_cache_prefill_sheaf(struct kmem_cache *s, gfp_t gfp, unsigned int size)
+> >  		sheaf->pfmemalloc = false;
+> >  
+> >  		if (sheaf->size < size &&
+> > -		    __prefill_sheaf_pfmemalloc(s, sheaf, gfp)) {
+> > +		    __prefill_sheaf_pfmemalloc(s, &sheaf, gfp)) {
+> >  			sheaf_flush_unused(s, sheaf);
+> >  			free_empty_sheaf(s, sheaf);
+> >  			sheaf = NULL;
+> > @@ -5401,11 +5508,10 @@ void kmem_cache_return_sheaf(struct kmem_cache *s, gfp_t gfp,
+> >   * the given size.
+> >   *
+> >   * Return: 0 on success. The sheaf will contain at least @size objects.
+> > - * The sheaf might have been replaced with a new one if more than
+> > - * sheaf->capacity objects are requested.
+> > + * The sheaf might have been replaced with a new one.
+> >   *
+> >   * Return: -ENOMEM on failure. Some objects might have been added to the sheaf
+> > - * but the sheaf will not be replaced.
+> > + * and the sheaf might have been replaced.
+> >   *
+> >   * In practice we always refill to full sheaf's capacity.
+> >   */
+> > @@ -5427,7 +5533,7 @@ int kmem_cache_refill_sheaf(struct kmem_cache *s, gfp_t gfp,
+> >  
+> >  	if (likely(sheaf->capacity >= size)) {
+> >  		if (likely(sheaf->capacity == s->sheaf_capacity))
+> > -			return __prefill_sheaf_pfmemalloc(s, sheaf, gfp);
+> > +			return __prefill_sheaf_pfmemalloc(s, sheafp, gfp);
+> >  
+> >  		if (!__kmem_cache_alloc_bulk(s, gfp, sheaf->capacity - sheaf->size,
+> >  					     &sheaf->objects[sheaf->size]))
+> > 
+> 
