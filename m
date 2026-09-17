@@ -1,162 +1,196 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011049.outbound.protection.outlook.com [40.107.74.49])
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675F139F190;
-	Thu, 17 Sep 2026 02:49:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613402; cv=fail; b=rvvms7O7joVRaVT7kO5/QpbjLVXI/O2NZ6eQtH5cFeUP+IiOM1hwmOmAgC4Brt1MnJyw5H5qISub+QR+lIWE2WBDQBtPsl0cv1gl+sOCdIeeFj+5rbsE1UtZ8u8dN9KbUymWHPgozFzoBSYvUBMbJtZ+jrHsvLAYlJiDZd8ev8g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613402; c=relaxed/simple;
-	bh=qPxWsCMhOTEOA/afsFjVKEELsfbX36hpqjntXeNSsZg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=GsEBF2lZ6EFC+jVt6XJDFG03/vnyPpTVZ23asbM99hwIcgXJhLkdqlYYJiG4ssn8MoTA4TNFXCS4Pz9vbuPK0AS8nMXzATg4/6TLuvegzL9fPycUfp5o0gJc8huM2DcmUtYHm8EGdOGQHitrUzv9/EoqmRZGS35DOY0N9tRub9s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=WYwl3hhT; arc=fail smtp.client-ip=40.107.74.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3ADD3A2556;
+	Thu, 17 Sep 2026 02:50:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789613439; cv=none; b=hX+IRDkYBhr3p/6g013pUPwzImUyvi/CY58BI2Yq6wVylfGyO6VkwEOwN54MEgeEGg0m8OUm4UPRaFIKGJ7p1uZ7Zu52iWVEhzlQcb76sWPKpGFpM3m+uaqrUvyLXhKWpE8AJZe8aUo6KiP7sxJr+CsIGIauAi8zNQu/lJNBDd8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789613439; c=relaxed/simple;
+	bh=aGa+R4CVm6Z7Z5yqLsifND01+EWY62Q5EOY/mDesFm8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=txsN2p0c3UZwjeVb8W7QRZ6XKn4HOqruhMo913+khWGAStQCvRzWW1GDa9GcYoWUM24rJtfX2nkYmC9OPJgaZDQ7AVKlYK/Hzszm1GsTeDNRroQb86UqYMZH7btAmGI2d4DfP5mLPKVtL0kH1CW5FqBcOmTyxentEdRrhe9wXPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=N0LWOl1r; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="WYwl3hhT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tVCsaT+n/c6QDqdW7r2sp2G0EOe0wD9/f/UjQ7NhX9i6HcgFE5mb/xM6pC55WqvHjTEmN0WGo068n9CRaC46yWkKC+iWuSFYZ3AKFLD5W0whWyfJ4iSid8bu4iCIBZiLG4tWPWW46wMyucKNebP2wJKLLdm6fVZQ5B7ZPftbZDDaNdl7Rzc7qFvS1LsrvPCx1vSWOJWG4RWP8Oh6rcQGMi6ndQT4LqzJ3CAZmK7UjTClJdtXniEuKnd4dG7RlXbRNMT5WeDC/wH2ZuwDMZtLLERqU8orp4KaYQv+ib6XslX6/rrwZfPcUk3c8HMRqQfyDjlz6lGOb+WrAc/KvybhsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qPxWsCMhOTEOA/afsFjVKEELsfbX36hpqjntXeNSsZg=;
- b=cOBmoupR/iJHcvcjlaJQxhlVfQ/y6jJxYQ8pr+M7H3w0m+5FWVbOUsu2fkTKQmO1KhejFK47KbymBGY4gMX6T7AVdevSpZdbpgs7kf8ZoE5npXo4Ug++6O/0ghZ9N0OicL62pkBbMrOH1sjjq1bd3+Bl5H1sz/vQdQmUUwFVGHQqA/Wnkl6vNA+AEgUZSy/0D/FGYQYPTU2+RvEmtUSPLYuXFZ6XD+pQ14kUrfZuqTRWCX7omPopX0BHtVDSlppVD4+ObZuh0IKB89qWrLYrhy61xmRA/XnvmcmMlqmFwCeeyKoRy1OteWQZXabbQvP3/5bUJ5/n+eY9g6AQC8DNPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qPxWsCMhOTEOA/afsFjVKEELsfbX36hpqjntXeNSsZg=;
- b=WYwl3hhTa0OGZ09rvCYT3PXTWchkg34qo0b0zKmK0tefCbi1PONrpjzLD4F+rmDhcSBPIFo2z0HSXheXxZzubw4Zr5zp/GUpqJMHeMP7VzuYQRLDwn7gZdjw4NnJmMsqcbHKonIN56dP0f+L8ud/rU4VxTJez3egl0iwBo8KTvs=
-Received: from TYCPR01MB7481.jpnprd01.prod.outlook.com (2603:1096:400:f4::5)
- by TYRPR01MB15821.jpnprd01.prod.outlook.com (2603:1096:405:2ce::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Thu, 17 Sep
- 2026 02:49:30 +0000
-Received: from TYCPR01MB7481.jpnprd01.prod.outlook.com
- ([fe80::8071:f03b:77d1:aeaf]) by TYCPR01MB7481.jpnprd01.prod.outlook.com
- ([fe80::8071:f03b:77d1:aeaf%7]) with mapi id 15.21.0428.009; Thu, 17 Sep 2026
- 02:49:29 +0000
-From: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
-To: =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>, Andrew Lunn
-	<andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Russell King
-	<linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>
-CC: Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH net v2] net: pcs: rzn1-miic: Reset PRCMD state before
- unprotect sequence
-Thread-Topic: [PATCH net v2] net: pcs: rzn1-miic: Reset PRCMD state before
- unprotect sequence
-Thread-Index: AQHdRk8pQQg5yBPFg0i+b+y+ykWM9Q==
-Date: Thu, 17 Sep 2026 02:49:29 +0000
-Message-ID:
- <TYCPR01MB748157ECB6B92D8E3FFD433BA4B82@TYCPR01MB7481.jpnprd01.prod.outlook.com>
-References:
- <TYCPR01MB748139F059DF2459B9813416A4B92@TYCPR01MB7481.jpnprd01.prod.outlook.com>
-In-Reply-To:
- <TYCPR01MB748139F059DF2459B9813416A4B92@TYCPR01MB7481.jpnprd01.prod.outlook.com>
-Accept-Language: ja-JP, en-US
-Content-Language: ja-JP
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYCPR01MB7481:EE_|TYRPR01MB15821:EE_
-x-ms-office365-filtering-correlation-id: c0876fb9-8795-4785-ac1a-08df14664b95
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|7416014|23010399003|10067099003|22082099003|18002099003|56012099006|11063799006|38070700021;
-x-microsoft-antispam-message-info:
- 3tIEw1G/O05J0OusRoz1Rlbw1//chiJlE9VMMoEHxy8GxGQUQwUoRIT0WYGKzL8uhS3YUy8IFar/+CsvnJhaWG5OLoMGKs9tnHjOZ0pg8IV1I3P8wE+0/Uv5U+8mUqieq5zhwHHmn1Ib5o4rZo4W1EGgt7wSlOhYX+LMINrhM9zNcjXRFN2aosdYUSTaIXwkQX6TUlKM76nMk5uWQ3INWv7zG/quHnl4MZT1udrl9Mn6P4hK6YQpGLYIZZh5ab1GtUgz36s0Gr+eU/u21ZdnEymlIoAJNAmpiELya3yQEW1nufh0m0tDmDFiKw3qttGnz/k98jyIX+dQO7qKuU2L3Cz+rcxnENx29YLVs+2t9sIbLVSpsKKbXSYc5jKKjqFY11xi5B6E0gFyewiGyGUVtOD0sL/I1x4NDVbR4hfCI6SpkcyNkDIbmkYGZigCCqGHsl5LSJsT0+1BAgjLk+EiyhA0eXJphWpuJG8iSQtg8e3dq4XS5uFJHCsDCHztnpI1YmcjYn39c8gPMqnwXPWOVz4ZSzCkNnucbRpreF0IVcgelWxEEIzgTZuVUWmQSG9jsVzEjrzrV2xGFIz7MPz37SfHP7UvCIu/eYL0tFF8IDFB3d5I5C3Vfub6hw2xKZazINvWKorXcvbhaiNHKl3IkAtW+T5679hzqFgeab9jCbNnMRTxb/FLh9/ePEtHF1PIphoODXkON44J4lA5KULTGXEBI15G27wqkzt9gs4IKKI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB7481.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(23010399003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?R0tGMEorbmhxVW44NTNCNGU1K3VtZFQwZzZpS0g0ajBteWJnRXZtSC9NR1pw?=
- =?utf-8?B?bzRQT0l3ZHRzSjc3WGtWMCtzWWs2N2NCaURzVU9GUjJ6QlFXb2lYaThtQ29R?=
- =?utf-8?B?Q3RvcVVDRllscU85amJjS1hURDNvM0J0M0p0WXJjd3ZmTUFuWXV5a2xJUnZn?=
- =?utf-8?B?L0JxakFqRHZYRkxuL1NwbzJkcnMyOUZwRFNWMFhxSldTcHZuS1FMTDNDdlF5?=
- =?utf-8?B?dWUrY0JaVVlTWFZqRnR5ZkJseU81YTJHaVMzTnJQdzVTSzVZMVBudUg4dm41?=
- =?utf-8?B?YWNMcmYrSEU3Y2tHTXh0blI4T0xVdGp0RHZYRlMyUHJRRHhKbS8rd1ViaTRw?=
- =?utf-8?B?cFZ1ZkxMeVIxRnBwQlQyL2VuVlZ1bWNFQVZRR2ozQ1ZEdXg1b1BWd2FodmNY?=
- =?utf-8?B?NTBSbVFnUTkvSnFUOE5mR1ViUzhCVmNIMXlwU3lVdU9uY2QrL1J4TnNFcUlI?=
- =?utf-8?B?b0lBVGpRRW1iMG9VSHh3eHBsVVljZ2dKMVp5YkhKMmsvSm1rSHBrZ29NTXBh?=
- =?utf-8?B?WUF0S3NFK2tVTWhVZ0pGRW1MdXhJbmY2NHBMQm9JL1JkZmJvYU5DdWxGOHZS?=
- =?utf-8?B?djkwWTI3U3B2QWF1dnNZNHZNajV2Z0p1U0hLTHFoOHJmMlU1V01ZaGNLZmxF?=
- =?utf-8?B?NklKUEFLMW9PSzM4NWhobXpoemZuOXM3TWYvWmNYeWdrT1IyeDhjZVNZOU1w?=
- =?utf-8?B?a0lSZHdHb0wrdGlPdHc5VkRkMWlPUUczaEl2bGNPSUtnT2o5RUU4ZSt6Wmd3?=
- =?utf-8?B?QjdiU2xTMS9zT3FST2tBeUF1cVdCZWowWkZoUGZwZWxWZ2FSRkcrcnRyQWVv?=
- =?utf-8?B?enhmZ2lmL0ovdDUyKzJzODg4TXhHemRXdGFxUWNhNGdQWU51WkZodW1mV0Qx?=
- =?utf-8?B?aW9SSzhVUHdHNUdCQ1ZORTNEN3kvSHcvTlNuMHFsdmVrcU0zanNuMWlIcXZ6?=
- =?utf-8?B?RFl1VzY0bUJDTEZzbzMvYzU3YjVsZU0xU0NTclZ3VW1JemlHZzBEclJFQlNh?=
- =?utf-8?B?OC9aeEFxRlp6SWVWakozQnFkVnpwNFc0RTFYNU9tRDlRSXp1ckZualNYSUNr?=
- =?utf-8?B?dTM2aU02bFFyNk5aQXViSFVVL25jZnpyczNEVlNGQTZaWXBYUUI4NzlrM1VE?=
- =?utf-8?B?SGFVUTBJZkpwd2xTM2tITkRCM3hLeWF3cmlaQzFUZnFXSk95SHl2bG5tbHZ3?=
- =?utf-8?B?ZlRBSzFRQ1NPWGtDTVFRckV5T0s1eFY1bStYRlpiS1JyajBudkdIdzJTUFlK?=
- =?utf-8?B?N3J0WUV3cnBkQXAzZUtDL2xQcCtvUWJiV1M1Z1hCcDRqOFZSU0JsQVNZYmRq?=
- =?utf-8?B?OUpoNGRuWVoyVEUvNzgvN3F5QUFVdE5PV0E3aERiWk80OHZaYlFkSXBzYWNo?=
- =?utf-8?B?enJhaWhRdHorbGw4ZnlUdWZIazdGNzY2Y2s0c1hQTE9hTzEwQndodHNNRW5L?=
- =?utf-8?B?VkkyQW9lODFZR0puOE8wUmRGZDBFSlV0YnpnZGtweElDTnNYeHBPb0ZlSlZM?=
- =?utf-8?B?Z05tME5xRVJrRVNzUUNFTjM0RnBjOFY3MjZURmtGdlRwWmNnOENaRU1XVllN?=
- =?utf-8?B?UWtsdm92c2s0REJnNVErSTFFaXlRSEN4Z3hHTlhJSHRIRVpJblU0LzZESDBi?=
- =?utf-8?B?L2ZFRmNHYkNoRm9LRzJza0MzaFphUEdTMUlrM2J3L0NtUW9TdnJiN1QrOU45?=
- =?utf-8?B?czk3UE5aNDJYWWcyMzhtT3creVU5Y3JsajVKS0NCRHJqelg4b2pGaitrdHFy?=
- =?utf-8?B?MXNoVit6SDhUMnpPSUpOd2pQcTcwV3hrSUhVbWFWK3o1eSsrL0hQMWp4V3Q1?=
- =?utf-8?B?SkpPaEdFaVpsSjdjK1d2TGZsOS9idUt2bXNVdXlvNjlhUlRXenMrK0NQY2U5?=
- =?utf-8?B?MjlRUmJ6M09nNGxvZURhUkhnZE5oUXRrVDlKRlNZbEQ2b2FuTUhhVSs2Yi9X?=
- =?utf-8?B?Zkptam1vRTZ0N3FHckowUXpHYk92WkdQeDVDWnhOc2xJOUp5cjBTVGxhblpQ?=
- =?utf-8?B?RzRyalRPd0xFVW40WGZwTHNhVnFoOVp3NElJQjUxMkRsNWdKcmdVbDJ4eDhy?=
- =?utf-8?B?YStqd28za2RJZWU5V0NBYlVZVEUzaGJveHZ5MEk0cGZVOFloOTlDNEMrNy9W?=
- =?utf-8?B?MS9pd3pSV0hhSDFzQUFCNjRyN1Q2WmlpU2pQRExVK29uWHhyVEJUUWQyT2dv?=
- =?utf-8?B?c2VRUXpkQWREVXE2ZDRxeWJkYW4wT0tyNjgzUHUrWFRVZk13dWR2ZUg5bURz?=
- =?utf-8?B?c2cwQ0F3VEpiczFKM09zbXNvZlAwVWN5NXBNaVhScncxN0ZQbGhCVVpnMDUz?=
- =?utf-8?B?OTdDdGpicFltRS9SWkZwOFEyK1prTWN3ZXBtR0xaTXJOUFBiTUdrbDlnZUJS?=
- =?utf-8?Q?qGi2BTAlSL/L6us0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="N0LWOl1r"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=tVDvHIicrcLkocQWr0K70sGvb0i/8LhsaYqL36DA6rA=;
+	b=N0LWOl1rUQ+RUXaGdr+aoVGqetXcb4Snbr7hOHxDXp4JGtfs9qVp7+GIzyoDDPzC0+B360DCs
+	ufBC/ljeJasIrwEtoGJTUMcW0hDY/aTlu7tUSIvJGgR0dHCwhufWnrDiySBWJMXAySitkQaX3bc
+	XnagZQ7qeQJxGUfuxXO+gYs=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hlg1b0pTpz1prLc;
+	Thu, 17 Sep 2026 10:38:59 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 966E440561;
+	Thu, 17 Sep 2026 10:49:59 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by whupemo200011.china.huawei.com
+ (7.152.185.179) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
+ 2026 10:49:58 +0800
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+To: <song@kernel.org>, <yukuai@fygo.io>, <xiao@kernel.org>,
+	<magiclinan@didiglobal.com>, <eadavis@sina.com>, <abd.masalkhi@gmail.com>
+CC: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: [PATCH v2] md: Fix the null-ptr-deref of 'mddev->private' while submitting IO
+Date: Thu, 17 Sep 2026 10:42:05 +0800
+Message-ID: <20260917024205.2331019-1-chengzhihao1@huawei.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB7481.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0876fb9-8795-4785-ac1a-08df14664b95
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 02:49:29.6449
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GUaovxwkVhGooVZQQAQpnW1tk07Fh2kh1HuZ5lF2PWYh/b/h/xQnW9qDDYTtPO60zZGAGMVkJ++7KLpbFu5Of5ttFIGWTYZn4jNb0KSTA8zk7lMD0deb1ruFzg8OKPGJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB15821
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-T24gUlovVDJIIE1JSUMsIHdyaXRpbmcgMHgwMDAwIHRvIFBSQ01EIHJlc2V0cyB0aGUgY29tbWFu
-ZCBzdGF0ZQ0KbWFjaGluZSB0byB0aGUgSURMRSBzdGF0ZS4NCg0KUmVzZXQgUFJDTUQgYmVmb3Jl
-IGlzc3VpbmcgdGhlIHVucHJvdGVjdCBzZXF1ZW5jZSBzbyB0aGF0IGl0IGFsd2F5cw0Kc3RhcnRz
-IGZyb20gYSBrbm93biBzdGF0ZSwgcmVnYXJkbGVzcyBvZiBhbnkgcHJldmlvdXMgUFJDTUQgYWN0
-aXZpdHkuDQoNClNpZ25lZC1vZmYtYnk6IFlvc2hpaGlzYSBZYW1hbW90byA8eW9zaGloaXNhLnlh
-bWFtb3RvLnhuQHJlbmVzYXMuY29tPg0KLS0tDQoNCnYyOg0KLSBGaXggaW5kZW50YXRpb24NCg0K
-IGRyaXZlcnMvbmV0L3Bjcy9wY3MtcnpuMS1taWljLmMgfCAzICsrKw0KIDEgZmlsZSBjaGFuZ2Vk
-LCAzIGluc2VydGlvbnMoKykNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3Bjcy9wY3Mtcnpu
-MS1taWljLmMgYi9kcml2ZXJzL25ldC9wY3MvcGNzLXJ6bjEtbWlpYy5jDQppbmRleCAyYjcyZmE5
-OGQuLjgxODc1NmJiOCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvbmV0L3Bjcy9wY3MtcnpuMS1taWlj
-LmMNCisrKyBiL2RyaXZlcnMvbmV0L3Bjcy9wY3MtcnpuMS1taWljLmMNCkBAIC0yNzAsNiArMjcw
-LDkgQEAgc3RhdGljIHN0cnVjdCBtaWljX3BvcnQgKnBoeWxpbmtfcGNzX3RvX21paWNfcG9ydChz
-dHJ1Y3QgcGh5bGlua19wY3MgKnBjcykNCiANCiBzdGF0aWMgdm9pZCBtaWljX3VubG9ja19yZWdz
-KHN0cnVjdCBtaWljICptaWljKQ0KIHsNCisJLyogUmVzZXQgUFJDTUQgc3RhdGUgYmVmb3JlIHVu
-cHJvdGVjdCBzZXF1ZW5jZSAqLw0KKwl3cml0ZWwoMHgwMDAwLCBtaWljLT5iYXNlICsgTUlJQ19Q
-UkNNRCk7DQorDQogCS8qIFVucHJvdGVjdCByZWdpc3RlciB3cml0ZXMgKi8NCiAJd3JpdGVsKDB4
-MDBBNSwgbWlpYy0+YmFzZSArIE1JSUNfUFJDTUQpOw0KIAl3cml0ZWwoMHgwMDAxLCBtaWljLT5i
-YXNlICsgTUlJQ19QUkNNRCk7DQotLSANCjIuMzQuMQ0K
+Concurrent processes md_stop and IO submitting could trigger a
+null-ptr-deref of 'mddev->private':
+
+ BUG: kernel NULL pointer dereference, address: 0000000000000070
+ RIP: 0010:_wait_barrier+0x2f/0x250
+ Call Trace:
+  raid1_make_request+0x150/0xf50
+  md_handle_request+0x104/0x530
+  md_submit_bio+0x76/0x130
+  submit_bio+0xdd/0x250
+  submit_bio_wait+0x1f/0x40
+  __blkdev_direct_IO_simple+0x1f6/0x370
+  blkdev_write_iter+0x3b2/0x520
+  ksys_write+0x7d/0x190
+
+              P1
+  fd = open(/dev/md0, O_RDWR)
+	                      P2 (forked from P1, fd' <= fd)
+  write(fd)
+   submit_bio
+    md_handle_request
+     raid1_make_request
+      raid1_write_request
+                                  ioctl(fd, STOP_ARRAY)
+		                   mddev_set_closing_and_sync_blockdev
+				   // check passed, mddev->openers = 1,
+				   // because md_open() is only called
+				   // once in P1->open
+				   do_md_stop
+				    __md_stop
+				     mddev->private = NULL
+
+       conf = mddev->private // NULL
+        wait_barrier(conf, sector) // null-ptr-deref !
+
+It is a common problem for raid0/1/10/5, and __md_stop could be
+triggered by several paths(eg. ioctl, sysfs, ->dtr). Fix it by
+replacing mddev_lock() with mddev_suspend_and_lock() for all
+__md_stop() callers. The caller dm_table_destroy() is guaranteed
+being invoked with device suspended, so raid_dtr() could keep
+using mddev_lock_nointr(). Besides, fail the submitting IO in
+md_handle_request() if the 'mddev->pers' becomes NULL.
+
+Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=222020
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
+Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+---
+ v1->v2:
+  1. Add 'mddev->pers != NULL' check before make_request
+  2. Delete dm-raid caller(->dtr) modifications
+  3. Move memalloc_noio_restore after mddev_unlock_and_resume
+ drivers/md/md.c | 32 +++++++++++++++++++++++++++++---
+ 1 file changed, 29 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63cb3..3dfc34caa2dc 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, struct bio *bio)
+ 		if (!percpu_ref_tryget_live(&mddev->active_io))
+ 			goto check_suspended;
+ 	}
++	if (!mddev->pers) {
++		/*
++		 * The __md_stop() sets 'mddev->private' to NULL during
++		 * the IO submitting, check 'mddev->pers' before the IO
++		 * being processed by specific driver to avoid the
++		 * null-ptr-deref of 'mddev-><member>'. The check is
++		 * safe because the IO has got the 'mddev->active_io'
++		 * reference, and all __md_stop() callers will wait for
++		 * the reference to be zero.
++		 */
++		bio_io_error(bio);
++		percpu_ref_put(&mddev->active_io);
++		return true;
++	}
+ 	if (!mddev->pers->make_request(mddev, bio)) {
+ 		percpu_ref_put(&mddev->active_io);
+ 		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
+@@ -4657,6 +4671,8 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ {
+ 	int err = 0;
+ 	enum array_state st = match_word(buf, array_states);
++	unsigned int noio_flags = 0;
++	bool suspend = false;
+ 
+ 	/* No lock dependent actions */
+ 	switch (st) {
+@@ -4666,9 +4682,11 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 	case broken:		/* cannot be set */
+ 	case bad_word:
+ 		return -EINVAL;
++	case inactive:
+ 	case clear:
++		suspend = true;
++		fallthrough;
+ 	case readonly:
+-	case inactive:
+ 	case read_auto:
+ 		if (!mddev->pers || !md_is_rdwr(mddev))
+ 			break;
+@@ -4702,9 +4720,11 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 		spin_unlock(&mddev->lock);
+ 		return err ?: len;
+ 	}
+-	err = mddev_lock(mddev);
++	err = suspend ? mddev_suspend_and_lock(mddev) : mddev_lock(mddev);
+ 	if (err)
+ 		return err;
++	if (suspend)
++		noio_flags = memalloc_noio_save();
+ 
+ 	switch (st) {
+ 	case inactive:
+@@ -4775,7 +4795,12 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 			mddev->hold_active = 0;
+ 		sysfs_notify_dirent_safe(mddev->sysfs_state);
+ 	}
+-	mddev_unlock(mddev);
++	if (suspend) {
++		mddev_unlock_and_resume(mddev);
++		memalloc_noio_restore(noio_flags);
++	} else {
++		mddev_unlock(mddev);
++	}
+ 
+ 	if (st == readonly || st == read_auto || st == inactive ||
+ 	    (err && st == clear))
+@@ -8299,6 +8324,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
+ 	case HOT_REMOVE_DISK:
+ 	case SET_BITMAP_FILE:
+ 	case SET_ARRAY_INFO:
++	case STOP_ARRAY:
+ 		return true;
+ 	default:
+ 		return false;
+-- 
+2.52.0
+
