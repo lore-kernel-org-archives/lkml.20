@@ -1,94 +1,170 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B95939B97F;
-	Thu, 17 Sep 2026 02:48:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD793A254B;
+	Thu, 17 Sep 2026 02:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613330; cv=none; b=rcb6IYPdABaYInzOAecmk31WaKjqzMc4cK0V+XoRyi/vag7tuuYff7dJcs2Q3XI54Uj5TZLywDwVEBfULnwP+5/Q0BfhuIeZLZ9q/OV+mfB0U4MDuhGM3Zr53S+Xb2MlGTCRT8CHIwIjdm4J8uYaZi6Ctgf3eELoZEs4zolkQAM=
+	t=1789613330; cv=none; b=KGCH/LaEoKZJk3Jch9MAtKRBnbMV2mt9dCXwbo5Bg/OJl+hTOf7m7uOOK6fKEuAh1SBKC+imUDsqM6RHcImQtv1CU6186D8BpGVlLnEvcq7D6D6SYOD9jLmwIDWZSuO7Bo5xMHlNqQp8DkyltUmICOTSPT8DunidknClChE14NY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789613330; c=relaxed/simple;
-	bh=kDOIPqP+efTmpLTDL5liLUAjNuKXNVCs5Q/OQrEO4eI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sOsSndf0S0ZvtSSNU28CNK2z6saJAXw8uuiHiinMvgQDymuTk/TiE/BICrB6vZEV2s3v8YrTbRIeJQusHgCu3WuEdFTEhTSgbNySt+VtaLkA0r9IfaghUwGpP32+uJM1QfdVVfoSds4Mq+F1duPnUck2o1EAvy/t9BjXDndy+LE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=AElDVOJY; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	bh=qWSNGS9pPFL7xFTEy2HcAJx/FZa1qI52mW2AVp8/ZpE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hbtAjEs27YJ8zrk4Kv9tJZ+SQOWkC+H0W3eTDAPjkB2UPy54nFlD1+a+KvBP3LkATYvpWSD11n9ZkFJ1oXuAuZYReQfUwUlezHJcbuoaWqDqUFmVqw2PmaJIisyOzyA15xFAx8bNksfaEDyu9L+PuMbVAOqyXxLQNOlc3LEzvLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RTpvHynK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="AElDVOJY"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 220831048B5;
-	Thu, 17 Sep 2026 04:48:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789613304; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=lqlwrGRYUG/d7xxGP0ZQnSBcVdG04+uSSkXr4oUxCHw=;
-	b=AElDVOJY1uJXMjw0cnEDw/kqDIHAMeiBpZCQ4Otr2ejPKuob3Hhc02lupoGjAhAZeeQXZW
-	JIzC6ip8rPIDBXXzRXou4bEkDzgDMykDlkBcqnZun3KO8yYY/9z0kGQylTvklciJYz/8it
-	114RSx55NeWrwgo0k7mkjPULCyTqRtbeKGyysi6pApz1ii+M7mj15RWAT6J9Gi0F41fIbq
-	X87EMFBGPMZy+SNjG/Y/ueCLlz58Bwm7ka4/b8WRgDSXi1rl816Je1qQhD1lOAvoYezrOH
-	77SoSvTTwT9BU+jrI7JpQeEg1Cp/IDvmhfGzHGGNUG1sKf/Wn28FivN/GwR3vw==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Aswath Govindraju <a-govindraju@ti.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/3] dt-bindings: phy: ti,tcan104x-can: Document Microchip ATA6563
-Date: Thu, 17 Sep 2026 04:47:33 +0200
-Message-ID: <20260917024805.517030-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RTpvHynK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750D31F000FF;
+	Thu, 17 Sep 2026 02:48:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789613310;
+	bh=xxfNvR0QRrW759Cop4lKa4JjEDFebmB4r0lDUyI+0xE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=RTpvHynKWrrwy4ls3Abk1vTEyAtXYIdGgdCNX1XrOFeDuHge2cMWBzNWi8J8pj3F5
+	 4+iQfyPuWR58PPDRRKDiSkMtpqcf0r7cRiaR1StyjKQX1SRCD+YNWTL1qESGidSDKt
+	 B+DHWEC+0yWICKYmw7ijn+IdsuAYgQVVKxBPVepzPDLqGEyCAPcw8cwYZhQtykvXrs
+	 duEeFp0rSbNUPlmHlbS6PqalDsLvzF8QhY0LgT3HDLgnI1mzpsL5sg3BcNMNlzdNpc
+	 FgSBoHvoiW/z/lV9TObR/PlJcNWOBc6G4x3Cvrwb/dD6xNCRjJFAy6vfyIiwipU1b9
+	 zz2pRr82NGMfA==
+Date: Thu, 17 Sep 2026 03:48:23 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Chang Yu <marcus.yu.56@gmail.com>, Joshua Crofts
+ <joshua.crofts1@gmail.com>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Shi Hao
+ <i.shihao.999@gmail.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: light: add as7343
+Message-ID: <20260917034823.03940ac4@jic23-hlaptop>
+In-Reply-To: <20260915-gleeful-jester-c8114edf28ff@spud>
+References: <20260907210042.32552-1-marcus.yu.56@gmail.com>
+	<20260907210042.32552-2-marcus.yu.56@gmail.com>
+	<20260908-dinner-shelve-1d61e19ee3b7@spud>
+	<20260913014203.2bae2222@jic23-hlaptop>
+	<20260915-gleeful-jester-c8114edf28ff@spud>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Microchip ATA6563 is High-Speed CAN Transceiver with Standby Mode.
-It is pin-compatible with TI TCAN1042 and has a compatible programming
-model, therefore use ti,tcan1042 as fallback compatible.
+On Tue, 15 Sep 2026 18:11:17 +0100
+Conor Dooley <conor@kernel.org> wrote:
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Aswath Govindraju <a-govindraju@ti.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-can@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
-V2: No change
-V3: No change
----
- Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml | 1 +
- 1 file changed, 1 insertion(+)
+> On Sun, Sep 13, 2026 at 01:42:03AM +0100, Jonathan Cameron wrote:
+> > On Tue, 8 Sep 2026 19:13:55 +0100
+> > Conor Dooley <conor@kernel.org> wrote:
+> >   
+> > > On Mon, Sep 07, 2026 at 02:00:41PM -0700, Chang Yu wrote:  
+> > > > Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+> > > > with i2c address of 0x39.
+> > > > 
+> > > > The GPIO pin is described as a generic GPIO for now. Binding design for the
+> > > > more advanced measurement/LED synchronization use cases are deferred to
+> > > > future patches.    
+> > > 
+> > > Unfortunately, you can't change what you document, so picking something
+> > > correct now is needed - even if the driver doesn't use it yet.  
+> > 
+> > Definitely needs an outline of how it would be backwards compatible and
+> > an explanation of why not now.  Sometimes a portion of the binding is
+> > so uncertain that we do kick it back from initial version but we 'must'
+> > be sure we can extend the binding to new configurations.  Normally this
+> > is one of those we are fairly sure, but not entirely sure cases - or
+> > picking between two options where consensus isn't being reached.
+> > 
+> > Chang Yu: This sort of things needs discussion and is one of the reasons to
+> > go slowly.  
+> 
+> Ye, I note that there are 2 more versions of this since I left this
+> comment, but you seem to be on top of that.
+> 
+> > > > Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> > > > Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> > > > ---
+> > > > Changes in v2:
+> > > >   - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
+> > > >   - Fix node name and unit address mismatch.
+> > > >   - Include MAINTAINERS changes.
+> > > > 
+> > > >  .../bindings/iio/light/ams,as7343.yaml        | 69 +++++++++++++++++++
+> > > >  MAINTAINERS                                   |  6 ++
+> > > >  2 files changed, 75 insertions(+)
+> > > >  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..b06d445b92b3
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > > > @@ -0,0 +1,69 @@
+> > > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > +
+> > > > +title: AMS AS7343 14-Channel Multi-Spectral Sensor
+> > > > +
+> > > > +maintainers:
+> > > > +  - Chang Yu <marcus.yu.56@gmail.com>
+> > > > +
+> > > > +description: |
+> > > > +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
+> > > > +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> > > > +
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    enum:
+> > > > +      - ams,as7343
+> > > > +
+> > > > +  reg:
+> > > > +    description:
+> > > > +      I2C address of the device (0x39).
+> > > > +    maxItems: 1
+> > > > +
+> > > > +  interrupts:
+> > > > +    description:
+> > > > +      Open drain output active low interrupt pin.
+> > > > +    maxItems: 1
+> > > > +
+> > > > +  vdd-supply: true
+> > > > +
+> > > > +  ams,led-current-microamp:
+> > > > +    description:
+> > > > +      The driver current for the external LED connected to the LDR pin.
+> > > > +    minimum: 4000
+> > > > +    maximum: 258000
+> > > > +    multipleOf: 2000
+> > > > +    default: 12000    
+> > > 
+> > > Rather than a custom property, the tsl2772 uses led-max-microamp:
+> > > tsl2772.yaml
+> > > 46:  led-max-microamp:
+> > > 81:                led-max-microamp = <100000>;
+> > > 
+> > > I wonder if the same should be done here, or if there should be an leds
+> > > subnode? Perhaps the IIO folks can comment on that.  
+> > 
+> > I don't think we've ever bothered with a subnode as there only tends
+> > to be one of them.  Given the enabling etc is all hardware controlled
+> > I'm not sure a more generic LED binding makes sense. I don't know that
+> > much about the led bindings though so maybe it is worth doing a subnode
+> > just to use the leds/common.yaml definition of led-max-microamp?  
+> 
+> Could always just put a ref in to leds/common.yaml and not bother with a
+> child node. I'd stick with the additionalProperties: false, since
+> there's lots of leds properties that probably don't apply to a device
+> like this.
+> 
+Sounds good to me.
 
-diff --git a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-index 9f5c37ca6496a..75c276548e122 100644
---- a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-+++ b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-@@ -18,6 +18,7 @@ properties:
-       - items:
-           - enum:
-               - microchip,ata6561
-+              - microchip,ata6563
-               - ti,tcan1051
-           - const: ti,tcan1042
-       - items:
--- 
-2.53.0
+> Cheers,
+> Conor.
 
