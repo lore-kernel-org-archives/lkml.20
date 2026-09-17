@@ -1,84 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D335939DBD4;
-	Thu, 17 Sep 2026 21:41:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CB54A6CCB
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:42:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789681295; cv=none; b=Pxv2QOlR0aDPynycQtiwiUnvcLiK0qMkZOvcsN/CXh3+KgEQq51DafEL4vR0SwZKZidDHn3EbHF4FZF0pijWL8bWIQ7BiclhySiJ0hocqvNpW2j9cvV38NQRzc7C1FTBdKxQTivL7Z7Sqy+o048McQA0qVUD/gholvbemw2LG3o=
+	t=1789681339; cv=none; b=X+niewwi8k5IwlVjweQjinS1c/Y4un6pHIVfbuwq0RZBaps9ns1cPnUz7msvW8GtM8LQIlIUniSXTZCRCMyG/lJ+xXmZ8e6Cotf4++5TanIpmR/Jhdj10aaGXEeQnZiTAUSTMn/TE+PMrWIduC3uv1z5nvZ91038xsnndGWaCns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789681295; c=relaxed/simple;
-	bh=boUHk/skY66kP+y3bHiEAtk+qGJNkIAMMWTZ+35HUJs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LdgDWGkMnXjCQyq0YRYScU8/cwdNCg3N5j3+pBh1+CuRW/JAtvFe7ETRt7iXvuXNYg1BXACwxrGRsJ+R6UYyEQfp4SsvndxRHw1snW7q+s+/PbTpYei58EDVvg8Ltyu5eKkotVOKaW9/WOJZdG7Ev3dEojUshEZe1n4NwRTYrJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgxYBXBK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789681339; c=relaxed/simple;
+	bh=J08RF0JippXzOPX16V0ztB6TMUEWSeMwnzGLCutLPYE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kTrpeVdPx43wQ/wlpfdlKJ4zLZRAitg0LLAHLhZ9X5iIeV6xjn+wZCmPIZnDiotCouz0xotdMfWcxRLYpUJ0k/0NvyQwFiaXj7kyb7raXcEC7KpBoV3jZ7VUcwq/+/QdJxrrV5blQoP2IAQ4vmUqS8D1R/y2zSzn4O4Wi+B76I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BtJsgdiv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgxYBXBK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5831F000FF;
-	Thu, 17 Sep 2026 21:41:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BtJsgdiv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C331F0089A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:42:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789681294;
-	bh=4vNKMNshTA/HjzXjwQ/qVz15MnrjiCLTEuI/UAhq7cQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cgxYBXBK1emnwC2JEmWau0y7s/pn/ofxYWw2FGorAz9UdDJ+mZW6Au6ZwpaRGgwey
-	 UrRadFsL3nd3olKwx90J6r4bACnbq5sR/2OK02nnOz8CGweMSMC4aUKcDWzEtUgOlS
-	 yiBnC4j91xF6TKHGSqvMixBNRumZr4EZm0ADSiZcTnX2n9ZdIBlT5iH2i78qjEZNhI
-	 9ffddxJ2UeQVtgcBIJKhCCsaNyCEh2y0z2Ih/BGz/OZzexrNKnY5w2/Sa//aZjZwN6
-	 mCGmak+3lCrKygQelJt7qgzhWoNuH3toqJtjJhD2+aRQTFtk/oBMKiLldeX3IzQUEQ
-	 3qCJAVi6QBO+w==
-Date: Thu, 17 Sep 2026 16:41:32 -0500
-From: Rob Herring <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Grant Likely <grant.likely@secretlab.ca>,
-	Grant Likely <grant.likely@linaro.org>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	David Daney <david.daney@cavium.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Sashiko AI <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v7 00/10] of: teach overlay code to keep /aliases in sync
-Message-ID: <20260917214132.GA3844826-robh@kernel.org>
-References: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
+	s=k20260515; t=1789681337;
+	bh=+Vd37vlqPgoR34jGq+5SarCAahPWAWe4kwjRPQidlrk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=BtJsgdiv4lMiFIQVgmdR8uPTGBE3SksCFUE0VRGf/7plR5BsKss0wk44kg/IGESuy
+	 5o+jLQ+1nk25fhFU9JgEkagFuLHUQ8UYBIQQX/A5gtdGuybvyN6BKeNY1tB+Qos5n/
+	 nGQbSEqmvaOlUery2nP3gouw25q/6al1JCWu3lbTAgXC+ezfwSYIy0IPnOSUBIcIsC
+	 7HGmzNbbxOTFkYectDy6svosEuc4md1omiI9N8nRk0Ji7lc/KSfNfeuBrdx/80t0Gr
+	 7NEdQOOCzJWxZ08qaZHCoePZWUF1GKnLJHqiDEdXlhu+8H2B8syRuqxpDHTKVGx5gz
+	 vtOhO9zii+3zA==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1651bso74040e87.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:42:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx+/F2Ej/UCMmhC8vXHIPaFjLtPGlva6Zohxe2csOgNXMXlQsFrFXnSDkaV9aWrC6xGycNeWLKsD2LTXPQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfJATrMt0k+QFGcBrnkCM/y9n+nuDL9tITu0k730jh4W5HxiIF
+	RxntiR9OhejSzxcG+J/06ijNu+04t0CXPWGQ/yNmXsQP+s+RoSbIL6NazhHchuNhH+oix/UWmXI
+	iFBfiGLpUkj5MPaSQ2Hi8zCLEQyufqjw=
+X-Received: by 2002:a05:6512:3baa:b0:5b6:4ae:3ff7 with SMTP id
+ 2adb3069b0e04-5b8c18449abmr61087e87.31.1789681336165; Thu, 17 Sep 2026
+ 14:42:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
+References: <20260917204240.1284796-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20260917204240.1284796-1-Frank.Li@oss.nxp.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 17 Sep 2026 23:42:04 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=uWFLWB_8T_q9UwbY1KzB+tcjJwOo4GheRF-72eU59Sg@mail.gmail.com>
+X-Gm-Features: AcwNN1UfNjWV7KrU9iWOWhdNsDlRn7O6RazPK4CNMASiCssILCbrQZDav7Nv7A0
+Message-ID: <CAD++jL=uWFLWB_8T_q9UwbY1KzB+tcjJwOo4GheRF-72eU59Sg@mail.gmail.com>
+Subject: Re: [PATCH 1/1] mmc: use dmaengine_get_dma_device() instead of chan->device->dev
+To: Frank.Li@oss.nxp.com
+Cc: Aubin Constans <aubin.constans@microchip.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Paul Cercueil <paul@crapouillou.net>, Russell King <linux@armlinux.org.uk>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, Jesper Nilsson <jesper.nilsson@axis.com>, 
+	Lars Persson <lars.persson@axis.com>, Fan Wu <fanwu01@zju.edu.cn>, Frank Li <Frank.Li@nxp.com>, 
+	Rosen Penev <rosenp@gmail.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
+	Zhan Xusheng <zhanxusheng1024@gmail.com>, Pan Chuang <panchuang@vivo.com>, 
+	Pedro Demarchi Gomes <pedrodemargomes@gmail.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	Rakuram Eswaran <rakuram.e96@gmail.com>, Khalid Aziz <khalid@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Runyu Xiao <runyu.xiao@seu.edu.cn>, 
+	"open list:MULTIMEDIA CARD (MMC), SECURE DIGITAL (SD) AND..." <linux-mmc@vger.kernel.org>, 
+	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>, 
+	open list <linux-kernel@vger.kernel.org>, 
+	"open list:INGENIC JZ47xx SoCs" <linux-mips@vger.kernel.org>, 
+	"open list:OMAP HS MMC SUPPORT" <linux-omap@vger.kernel.org>, 
+	"open list:TMIO/SDHI MMC DRIVER" <linux-renesas-soc@vger.kernel.org>, 
+	"open list:ARM/ARTPEC MACHINE SUPPORT" <linux-arm-kernel@axis.com>, imx@lists.linux.dev, vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 06:29:18PM -0700, Abdurrahman Hussain wrote:
-> /aliases entries added by a device-tree overlay are stored in the live
-> tree but never enter the global aliases_lookup list that of_alias_scan()
-> builds at boot. As a result, of_alias_get_id() returns -ENODEV for
-> aliases declared inside overlays, and any driver that relies on
-> alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
-> pinned id and falls back to auto-assignment.
+On Thu, Sep 17, 2026 at 10:42=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
 
-[...]
+> Replace direct dma_chan::device::dev access with the proper
+> dmaengine_get_dma_device() for consumer API
+>
+> chan->device->dev is not always the device used for DMA mapping.
+> Some DMA engines support per-channel IOMMU mappings, so different
+> channels may use different DMA devices.  dmaengine_get_dma_device()
+> returns the correct device for each channel.
+>
+> This also prepares for making the DMA engine provider data structures
+> private. DMA consumers should not access DMA engine internals directly.
+>
+> Assisted-by: LLM
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-> Assisted-by: Claude:claude-fable-5 [Claude Code]
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> ---
-> Abdurrahman Hussain (10):
->       of: hold a reference on of_aliases during alias path resolution
->       of: update /aliases lookup on reconfig notifications
->       of/overlay: look up absolute target-paths absolutely
+This looks good to me. Thanks for fixing all the sites!
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
->       of/overlay: put property on deadprops only after changeset add succeeds
->       of/overlay: only treat a positive changeset id as registered
->       of/overlay: don't leak fragment references when changeset init fails
->       of/overlay: don't create "//" paths for fragments targeting the root
-
-Patches 4-7 applied.
-
->       of/overlay: return ERR_PTR from dup_and_fixup_symbol_prop()
->       of/overlay: rewrite /aliases path values to live-tree paths
->       of: unittest: cover /aliases updates from overlay apply/revert
+Yours,
+Linus Walleij
