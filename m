@@ -1,85 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1FD55821F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:56:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8121053D0B0;
+	Thu, 17 Sep 2026 13:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789653370; cv=none; b=p8jRUUw1Z/SkOy01HxkBoiLAMkyds10vsWwonWlnsBnPQMABxrvVBD6VkdndduyswA069I4ZkE7I2FUlR4QDrNAQALCDOGH16Pg8ldRZmhlPvKErh8e2z+JDUuVlG2OFXKzj5VPpjrFnHkjEPd6iKNDyD8dLLg1qh8PMUJTLVrQ=
+	t=1789653382; cv=none; b=HnazbbbCI8ldMBhG9lrUz4BmuVB7xPLlrIJz0LEqKsXJA4VVMTYrjJkSUNZMWD1xfOBQtf+dKuUUeLMslsWZqrYW+vrX0HEPosByKD35mj+C4kKLHrwkN0puZJkxZDrpfOeJa6gNRyr/Sm+YCKs6ZlyY4p1gWt2X5VWxYlO0C0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789653370; c=relaxed/simple;
-	bh=sYno5MhzgVoeuOLG6AaOilw+sKgLZLHW0ctGKrL1wuA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=F1pzpAn342G7kI1ra4Gq49jHn6VM5yaEHP10FoypMYe3ev8WeKzBBOzGy/djsBdI4wvgVYcTJKlkM6hyKupNpb9v0UNQYFt1LeQWE+ganroZihslwN5KWL7NA/37vIxrfv0QTb0yh41JXRZcl3ty/YDIfTyUM6xcLXUjxwm94Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f0o1NCLo; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f0o1NCLo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DB311F000FF;
-	Thu, 17 Sep 2026 13:55:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789653362;
-	bh=AU8CGgy6Pa5vfZgK02vvr6pONCCFzHgT9ly82BtluUM=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=f0o1NCLoIaKYvHe6FBZBBPQIdVjNHSj17+boe4ixXC3+KOmFDflYlsRC5fnT5VKxe
-	 HiRy4SVb68ngiM7azj5+u6m0xyNju5V08cQfHJi2NV7PnWKPKN0HohbudLio9W316d
-	 /edQAOX6ErcG27FlD7aI7nIlFvgogzkRyJF2d47a43MYtpOIbd3z+9IDQOratubN4N
-	 ZuFV4D+qsmLiDJtiANyhBpkxPnBMa9HwkwVS+ElI9GOaUk8mXNshPSlsKTwpKcv5iZ
-	 W69f14zdA0DevKSl2Y8ooTN16Hqf4yJJ0lXRIWagnyzIQCBiYdtgcfS7LhiSuDGGLp
-	 iwWBqDVpHt2jw==
-Message-ID: <c92a1202-1fa6-4cd8-9d82-b46a1b5d8f56@kernel.org>
-Date: Thu, 17 Sep 2026 15:55:55 +0200
+	s=arc-20240116; t=1789653382; c=relaxed/simple;
+	bh=077i/Q1INZ15yogyP3Tqe/H/1eH6uwCHt37vpOaMT70=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IqSgvJEgnopN+es2tRj7DeiL7dXMIDB8yNzh5lH3juwBjTvmb73F/6zCYpUPx/vfXwjNQqrAKfKSJma0PzyPo6nJisahsBvWJwgs6HA6ly5Uc7I+pjEtSJwvLxlwmzwBWn9xI3oOPuCwVcmrD2s0mwgSjB6W2uJk8Eb2V38C4hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADH+EJ38atqg+aBCA--.45091S2;
+	Thu, 17 Sep 2026 21:56:07 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: hansg@kernel.org
+Cc: ilpo.jarvinen@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	luzmaximilian@gmail.com,
+	platform-driver-x86@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] platform/surface: aggregator: Fix use-after-free in ssh_ptl_shutdown()
+Date: Thu, 17 Sep 2026 13:56:07 +0000
+Message-Id: <20260917135607.2154130-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 00/10] mm/vmalloc: Speed up ioremap, vmalloc and vmap
- with contiguous memory
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-To: Wen Jiang <jiangwenxiaomi@gmail.com>, akpm@linux-foundation.org,
- catalin.marinas@arm.com, linux-mm@kvack.org, urezki@gmail.com,
- will@kernel.org
-Cc: Xueyuan.chen21@gmail.com, ajd@linux.ibm.com, anshuman.khandual@arm.com,
- baohua@kernel.org, david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com,
- leo.yan@arm.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, rppt@kernel.org,
- ryan.roberts@arm.com
-References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
- <493ef264-eab3-4be3-a80e-357f01ae1b37@kernel.org>
-Content-Language: fr-FR
-In-Reply-To: <493ef264-eab3-4be3-a80e-357f01ae1b37@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADH+EJ38atqg+aBCA--.45091S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tFyxWF15XF13JFWrCw47twb_yoW8Zr1Dpr
+	Wjk3ySkr4kJrsrtw48Ka1Uur4UZa9Yy3yjkrWFkwn8ZrnxXrnIqa4I9r1ruFZ0kFZrX3ya
+	kr48Kr15C3W0vrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UNTmhUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUNA2qrrRnMEQAAsk
 
+ssh_packet_put() is called on the loop variable of both
+list_for_each_entry() loops in ssh_ptl_shutdown(), freeing the packet
+before the iterator advances past it. Use list_for_each_entry_safe()
+and move pending packets to complete_p, as their links use
+pending_node, so that each loop walks a single list.
 
+Fixes: c167b9c7e3d6 ("platform/surface: Add Surface Aggregator subsystem")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/platform/surface/aggregator/ssh_packet_layer.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Le 17/09/2026 à 14:17, Christophe Leroy (CS GROUP) a écrit :
-> Hi,
-> 
-> Le 17/09/2026 à 07:29, Wen Jiang a écrit :
->> From: Wen Jiang <jiangwen6@xiaomi.com>
->>
->> This patchset accelerates ioremap, vmalloc, and vmap when the memory is
->> physically fully or partially contiguous. Two techniques are used:
->>
->> 1. Avoid page table rewalk when setting PTEs/PMDs for multiple memory
->>     segments
->> 2. Use batched mappings wherever possible in both vmalloc and ARM64
->>     layers
->>
->> Besides accelerating the mapping path, this also enables large
->> mappings (PMD and cont-PTE) for vmap, which are currently not
->> supported.
-> 
-> This series doesn't apply. I tried to apply it on top of v7.2, v7.3-rc3 
-> and next-20260916
-> 
-> Can you tell how to apply it ?
+diff --git a/drivers/platform/surface/aggregator/ssh_packet_layer.c b/drivers/platform/surface/aggregator/ssh_packet_layer.c
+index 3dd22856570f..871780828419 100644
+--- a/drivers/platform/surface/aggregator/ssh_packet_layer.c
++++ b/drivers/platform/surface/aggregator/ssh_packet_layer.c
+@@ -1983,13 +1983,13 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
+ 		smp_mb__before_atomic();
+ 		clear_bit(SSH_PACKET_SF_PENDING_BIT, &p->state);
+ 
+-		list_move_tail(&p->pending_node, &complete_q);
++		list_move_tail(&p->pending_node, &complete_p);
+ 	}
+ 	atomic_set(&ptl->pending.count, 0);
+ 	spin_unlock(&ptl->pending.lock);
+ 
+ 	/* Complete and drop packets on complete_q. */
+-	list_for_each_entry(p, &complete_q, queue_node) {
++	list_for_each_entry_safe(p, n, &complete_q, queue_node) {
+ 		if (!test_and_set_bit(SSH_PACKET_SF_COMPLETED_BIT, &p->state))
+ 			__ssh_ptl_complete(p, -ESHUTDOWN);
+ 
+@@ -1997,7 +1997,7 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
+ 	}
+ 
+ 	/* Complete and drop packets on complete_p. */
+-	list_for_each_entry(p, &complete_p, pending_node) {
++	list_for_each_entry_safe(p, n, &complete_p, pending_node) {
+ 		if (!test_and_set_bit(SSH_PACKET_SF_COMPLETED_BIT, &p->state))
+ 			__ssh_ptl_complete(p, -ESHUTDOWN);
+ 
+-- 
+2.34.1
 
-
-Finaly I was able to apply it on top of v7.1
-
-Christophe
