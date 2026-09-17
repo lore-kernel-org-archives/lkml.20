@@ -1,111 +1,186 @@
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC30A4AB3BF
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C924ABBD2;
+	Thu, 17 Sep 2026 22:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789685612; cv=none; b=N+dGuENkneiwZV9/sLbLrRNd+zvp8vDMu+gLHf7Oq6NkUNUvmyfAvxZ0pd/Q8qjh8jrJXeNDVr0hMTx5d1E1jFSbLWMfl5sE+YmxY0rJ+Ep6a+cVEBocxLzxK/nHZza9o2FyMS4B8Cym3JcMnOszT2yMozfWuVyFAb4o8NHbvb0=
+	t=1789685613; cv=none; b=eS+IidKcj7pFajzG/7ZJqzXNdnA1LR25lM4JG/Ux/YC+l+C2Lf12fmKdGXBIQ6H/HO3FgM/IePj65jdqXIeaVB5mU84+YAvSiAvf/4f2g39KJoh+Whx2wV7o7shOqCRQUCJ5JRSYi6ZNl1x/uuZCBRg++7xpYkpxS4bR7/034Q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789685612; c=relaxed/simple;
-	bh=eBlyipAYFd/qj5vAmvhk97kBWbFw2Mr2NeFMS/VyvgI=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=G2SUH++o5Er36NXY/7hdsxqoAYcH8mzb1h1MZnESHwZfXJBmM8ZIBywpJBsc3D6GTaYo06WF0mgHz0rfq1w+O9pIhxgQyhIaqVVtgoNcBS4cUpr2EL0xB5arYVjLa2rgLfBPEpOe/U7zXAtmLDGiuR0hfVHD6sg3I2WXQZ0Zivk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=lkQUuZD7; arc=none smtp.client-ip=212.77.101.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	s=arc-20240116; t=1789685613; c=relaxed/simple;
+	bh=ExxYnWYn6C/No6i6oyBCisOAYxdrZZJINsyBxsN5ZLs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=fuPug7DikRC4Ud4OVzPnGXzxSRFT1iEQBhr1vM0ax6kSdXPsUwKjg3Urfy1gzYomej8R0WPjDJWZTTSNQoDNy5oKqIyNUW18jSduyA4osBCsMiW7znsHxu9QD4BTZNB3/Y9V4sef+FhmjFtBhwmpOb5Hp/59jmD/t2Z4jFmTlVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CWDH0coQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="lkQUuZD7"
-Received: (wp-smtpd smtp.wp.pl 32800 invoked from network); 18 Sep 2026 00:53:21 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
-          t=1789685601; bh=+Tvl9RGSjd3N9HgM2+Is42KPtj6OKWFn7K89chpkvCU=;
-          h=From:To:Subject;
-          b=lkQUuZD7GDSlzqvQPn/74qM7mrduxHzTPGM6PY5not2MNAgk0fxDlq4HADLz6XBOW
-           HwEP4l1RRU9iR2LJHrZlsIgwziXDwsz5tZXKV3NzJeb5Cm2bfBZ7wyubcdE8LnY7fp
-           K/kLRlBRhUzvBZgGi2byqD9XstdpP0qi5RRwS1j2H7/ID77IC1m08gZvMFYbwX+z4a
-           3O0xib7rFw5wx1R8wOm+/RgxR00VLgUq4efczCPcS3jA7SqlTsSRGxpLsE5PAtITor
-           eYaRGEQU+mhkTKdNDi+GlQelQFgJKeirTnNSFDc17dFSyXlI1NWX3u8fth0QTwoHp0
-           tKCc9QQd9XDNQ==
-Received: from abajkowski.lan (83.5.247.11.ipv4.supernova.orange.pl [83.5.247.11])
-          (envelope-sender <olek2@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <robh@kernel.org>; 18 Sep 2026 00:53:21 +0200
-From: Aleksander Jan Bajkowski <olek2@wp.pl>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	michal.simek@amd.com,
-	olek2@wp.pl,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm: dts: xilinx: parallella: Enable QSPI and NOR flash
-Date: Fri, 18 Sep 2026 00:53:08 +0200
-Message-ID: <20260917225317.319745-1-olek2@wp.pl>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CWDH0coQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA1AC1F000FF;
+	Thu, 17 Sep 2026 22:53:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789685611;
+	bh=IXOjluZcFhH/flCEevB3M2TpvgfJxkLhPY+HcD+KzfE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=CWDH0coQlEF0AK9ifcMlkpSjaSisLZfGRekijJzsGseP8S+XXRhiiios8D2k0rtzp
+	 8/F2Bs5PXVT3Wm6PKbjY/N/xKFxDn+G2SJQYyFztHY2uSQssWBTWg2H1D2f3JkUvBG
+	 uBLJVuF2bF8/cLdT+UqQWjo4GhxvECq2Rw1+/GDaCG7mazusN32fcbR2i8pW0M1NTw
+	 lGoVq2TGGab8GVy2iaN81U1qpD5SGZutBlq8Ahx5AaJJrVcFie30Cl0ULk2P+VqvdH
+	 BcKFgdjLsHj0EKzKGY0l3hdaAVKhUxO1f+aF2+MND+job3dbmW3MtoNId3U8Fltliw
+	 SQDq8cROLWhYA==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Sourabh Jain <sourabhjain@linux.ibm.com>
+Cc: George Guo <dongtai.guo@linux.dev>,  rppt@kernel.org,
+  pasha.tatashin@soleen.com,  pratyush@kernel.org,  graf@amazon.com,
+  changyuanl@google.com,  akpm@linux-foundation.org,
+  chenhuacai@kernel.org,  liukexin@kylinos.cn,  guodongtai@kylinos.cn,
+  kexec@lists.infradead.org,  linux-mm@kvack.org,
+  loongarch@lists.linux.dev,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] liveupdate: kho: calculate per-node scratch sizes
+ before allocation
+In-Reply-To: <0969ede4-f617-4e24-b32e-c5e30a96880e@linux.ibm.com> (Sourabh
+	Jain's message of "Thu, 17 Sep 2026 16:00:00 +0530")
+References: <20260904025101.9959-1-dongtai.guo@linux.dev>
+	<616daf17-4598-4a30-8574-16480dfc23cb@linux.ibm.com>
+	<0969ede4-f617-4e24-b32e-c5e30a96880e@linux.ibm.com>
+Date: Fri, 18 Sep 2026 00:53:27 +0200
+Message-ID: <2vxz1par7amw.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-WP-MailID: cc02f3c7c051f7c6be1c70d3a8911eea
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000003 [8eC9]                               
+Content-Type: text/plain
 
-The Parallella board has a SPI-NOR flash connected to the QSPI controller.
-Enable the QSPI controller and add the corresponding SPI-NOR flash node
-to allow the system to access it.
+On Thu, Sep 17 2026, Sourabh Jain wrote:
 
-Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
----
- arch/arm/boot/dts/xilinx/zynq-parallella.dts | 33 ++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+> Hello George,
+>
+> On 12/09/26 12:03, Sourabh Jain wrote:
+>> Hello George,
+>>
+>> On 04/09/26 08:21, George Guo wrote:
+>>> From: George Guo <guodongtai@kylinos.cn>
+>>>
+>>> The default percentage-based policy sizes scratch areas from the current
+>>> kernel's MEMBLOCK_RSRV_KERN footprint. This is a reasonable heuristic for
+>>> predicting the early memory demand of the next kernel.
+>>>
+>>> scratch_size_update() calculates the lowmem and global sizes before either
+>>> area is allocated. However, kho_reserve_scratch() calculates each per-node
+>>> size only after allocating the lowmem and global areas. Since memblock
+>>> allocations are marked MEMBLOCK_RSRV_KERN, the per-node calculation
+>>> includes those newly allocated scratch areas and scales them again.
+>>
+>> I may be missing something here, but doesn't memblock_reserved_kern_size()
+>> check the node ID of the region before checking the region flag
+>> (MEMBLOCK_RSRV_KERN)?
+>>
+>> Code snippet from memblock_reserved_kern_size()
+>> ```
+>> if (nid == memblock_get_region_node(r) || !numa_valid_node(nid))
+>>     if (r->flags & MEMBLOCK_RSRV_KERN)
+>>         total += size;
+>> ```
+>>
+>> For a valid nid, my understanding is that the global and lowmem scratch
+>> areas should not be counted because they are allocated with NUMA_NO_NODE
+>> (-1). So, ideally, these regions should be excluded when calculating the
+>> reserved memory for a specific node ID.
+>>
+>> Based on this, I am not sure that marking the lowmem and global areas as
+>> MEMBLOCK_RSRV_KERN is what causes the per-node size calculation to be
+>> inflated. I am looking into the code further to better understand the
+>> actual cause of the issue that this patch is trying to address.
+>
+> I added some prints in kho_reserve_scratch() and found that the per-node size
+> calculation is not impacted by the lowmem and global scratch memory allocations.
+>
+> KHO: Before low and global scratch allocations
+> KHO: low size = 899 KB
+> KHO: global size = 137 MB
+> KHO: Per node 2 = 80 MB
+>
+> KHO: After low and global scratch allocations
+> KHO: low size = 312195 KB
+> KHO: global size = 441 MB
+> KHO: Per node 2 = 80 MB
+>
+> KHO: After per node allocation
+> KHO: low size = 394115 KB
+> KHO: global size = 521 MB
+> KHO: Per node 2 = 240 MB
+>
+> I only had one NUMA node (nid=2), and the per-NUMA
+> allocation before and after the lowmem and global scratch
+> memory allocations remained the same at 80 MB.
+>
+> The experiment was done on the PowerPC architecture.
+>
+> I am wondering how the per-NUMA allocation in your setup is
+> getting inflated due to the lowmem and global scratch memory
+> reservations.
 
-diff --git a/arch/arm/boot/dts/xilinx/zynq-parallella.dts b/arch/arm/boot/dts/xilinx/zynq-parallella.dts
-index 366af4fcf8d9..1903aa1cd83b 100644
---- a/arch/arm/boot/dts/xilinx/zynq-parallella.dts
-+++ b/arch/arm/boot/dts/xilinx/zynq-parallella.dts
-@@ -78,6 +78,39 @@ ldo2 {
- 	};
- };
- 
-+&qspi {
-+	bootph-all;
-+	status = "okay";
-+	num-cs = <1>;
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-tx-bus-width = <4>;
-+		spi-rx-bus-width = <4>;
-+		spi-max-frequency = <50000000>;
-+		m25p,fast-read;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			partition@0 {
-+				label = "uboot";
-+				reg = <0x0 0x4e0000>;
-+				read-only;
-+			};
-+
-+			partition@4e0000 {
-+				label = "uboot-env";
-+				reg = <0x4e0000 0x10000>;
-+				read-only;
-+			};
-+		};
-+	};
-+};
-+
- &sdhci1 {
- 	status = "okay";
- };
+I had the same question, so I asked AI. Here's what it says:
+
+--- 8< ---
+
+The bug was reported and tested using the KHO self-test runner
+(tools/testing/selftests/kho/vmtest.sh), which builds a test kernel
+using make olddefconfig with only a minimal set of CONFIG_* options.
+Crucially, CONFIG_NUMA is not enabled.
+
+When CONFIG_NUMA is disabled:
+
+    #ifndef CONFIG_NUMA
+    static inline void memblock_set_region_node(struct memblock_region *r, int nid)
+    {
+    }
+    
+    static inline int memblock_get_region_node(const struct memblock_region *r)
+    {
+        return 0;
+    }
+    #endif
+
+
+struct memblock_region does not even contain an nid member.
+
+memblock_set_region_node() is a no-op (the NUMA_NO_NODE argument is
+simply discarded), and memblock_get_region_node() is hardcoded to always
+return 0.
+
+There is only one node (nid = 0), so for_each_node_state(nid, N_MEMORY)
+loops once for nid = 0.
+
+Both memblock_phys_alloc_range() and memblock_phys_alloc() mark their
+allocations with MEMBLOCK_RSRV_KERN. Therefore, when
+scratch_size_node(0) runs after allocating the lowmem scratch buffer,
+memblock_get_region_node(r) returns 0 for that lowmem scratch buffer,
+and r->flags & MEMBLOCK_RSRV_KERN is true. As a result,
+scratch_size_node(0) counts the lowmem scratch area as part of Node 0's
+kernel footprint and scales it by scratch_scale (200%) again.
+
+--- >8 ---
+
+I didn't look closer, but it does seem to make sense.
+
+But in practice, this problem is only on CONFIG_NUMA=n and I don't think
+in practice KHO or LUO is being used in non-NUMA systems. So while I
+think it is worth fixing, I think we should also have a test where we
+enable CONFIG_NUMA.
+
+Your system probably has CONFIG_NUMA=y and that's why you aren't able to
+reproduce this bug.
+
+I think on NUMA systems the problem is the other way round. The
+calculation for the global scratch also counts per-node allocations.
+
+So I think the proper fix for scratch sizing is what this patch does and
+then a fixup for the global scratch calculation as well.
+
+[...]
+
 -- 
-2.53.0
-
+Regards,
+Pratyush Yadav
