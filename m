@@ -1,300 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB6D04F85C8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:58:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789667895; cv=none; b=Lo/Rh8DZ3WxYXYU+4pS+F+FvNplLfFaCOZGV8lRR2V6EfukxgP5y7W3kEq7crU63LJyKF10S8BZcXUqI0imA1ySvIn1YgtrYlVcr4z4v/OuQ5zhYMU6ChJElHqPhnCFuDSQj9rhNOYBcvRjOvE6TRYP3t0HYZrr4nGQu1XEiTpk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789667895; c=relaxed/simple;
-	bh=dAGirz+xKzOw6okpbMtB1sev1cFxSY0QjU/Gf2VfuAQ=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C8C4F93B0
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:58:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789667910; cv=pass; b=nvxpre4leYG02/4jFzVNNf3yfWN+RSr7/lTazbDDiRnSSWYVua0ZVstMae33J2pYga2CiSN7um/k3DjmeFoDhuoY8iOiVZPLcQVjeKV4aHwFaUu9D/y7XgomVnGOjTy/GeNlEOxcxblI1FRPBh+7EOofPty7kjJs6qV1aixqETE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789667910; c=relaxed/simple;
+	bh=l+PocN5637M3qEv3P3iBxpViv1nZB+zPWLXTvof1XcA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oecNxAtDjoP504xtv7ZtxJq06oBjpU5ro4aw/0iKk5N9/jDA907XreFdpKcR+35ae9JGHflm1T72JQDsLFkeOR5sGiQyHN5A1yAAiAv+eSmRHNFvVwQ0Ng/vc4VGFmbpUrUHvNr11Y0riHPAUaeQ/tPd/eNDlu/BPepTyO2DvrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahceBJ8d; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=FVdENm9n8wyqzMUOB0TmQYBmt/SxxZD/Yl8WDimLA4PVSt+Lz+Uxg9pom3zGGNYaOzUCiPyZSJv347WKGvZr3k9zSY36NVZzIipeXmAsi2binK65ljjmVXhtG3czPd4SkhLZbrOmMFmPnRgyJ7bkyXSqWVOxahi73hlOD3yAwkI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nS475XRZ; arc=pass smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahceBJ8d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF6E71F0089A
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:58:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789667893;
-	bh=dDaYRTViiO8k6OdCzc9U02IRW6iOXT+m24w7Wy9I/lw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ahceBJ8dcuv8LTtkuY9Jqi9y8i4D53PKIQ1Yakv/87PKSQCpMOWFLO2cIVxqfnJJB
-	 lYzSk46vGoKo7LSbP3ccDL7BR3zqtXsgUPNAM70dsJ5QzmBjeUkCGbOi9UiJ0qz5PV
-	 LNZ44tyEYsmJcYCUfjMUm4uDQDW8XeJgZp0Q7j9QHZ2Pry7oh/kERjd9robQI4UmuY
-	 /yiUXFAt+0CD/XwZ6h1vOTRTcfIu8dGMiUQ46aqRPiKi3RKQWS80jQhDwVEE71EZNl
-	 f58v0cwaet+lr9k8xv8lG/HoI8YM1YgSU2ZUg92j82lMQJAXAhyYZ1ugoJ9JThTxyS
-	 C6+kqgPyzbLeQ==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a59fa3112cso9531441fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:58:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwWPHRYI/bpqd3Q/3EH7ylB/GuVMtZfKMmWeYugUbRdvezj9+jhGpk9bkZOlMrTRy9obhPi0L5PWjnYxRc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBwqFVNaxLLox/E3Pp4e9+d5BuNzAM4VPm6EVMuMD3FKMXiuU7
-	N/c9HeKukERm6ADZAma7ZJV0dN3pagEHoGzcG6JNmXJ5urwkcnuHwSuQf2dtR/LZySQgzVnJ0lY
-	xbBpwnWvahQlPMXUIPm1n+eO9o/itcjA=
-X-Received: by 2002:a05:651c:b25:b0:3a5:defc:81f2 with SMTP id
- 38308e7fff4ca-3a5f8e0868cmr1207391fa.22.1789667892044; Thu, 17 Sep 2026
- 10:58:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nS475XRZ"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53113d72966so30211cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:58:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789667908; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Uz7aJOhjBqHo0+H8q5GW0Cidl+Uh62S5WPYhNHmRUH6hutLV6iJjOeyBbaz4Z7rhz1
+         hJpGO1+SY38A7lv3TDq6C3Lo8rE6D5FhNsANbXmScKlrZOq6+uTomBxujkI1M8kw1Mve
+         7lxn/5bAoQRRldlNDtDjlDFHukakMMAxjB31EgM311+ndGHbLUez22FHwEUXuF62yBcg
+         X3GkeIV7cwIIg5FHHPMoITySLYNctFYhRmeoFIm3kn44h0Bl9oDOsXrbZ0x3KbSE0ltt
+         1OrRxCYtt2SCWGv4EYg9lbowgfRYHzgCOWcrSeqhG5LmHRQnHa/qvkJL5JFDVJ4Qcc0M
+         EfZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zH1jP0g6rTZl7HFb520QhPTGTp2IGGyzoCj2sKE0ORQ=;
+        fh=BRmuJFdwvCx1rBhjEwJRhrDqQQYK0VSTsRp1Ic+CqwU=;
+        b=gO+6T+JpGzNooaZk+5E1tpDVMz6R4of+Dpmdxwuh7N/neyFwNOiv2B7b2SNQseuZ2d
+         FElT7AxE4YAlN3fUPuqR4mw/W1QKi6FBFCsNr4o5R4V7iS0ZYZpT2qbGzv7hJGJ71fQk
+         Bzh/S6Bcp323DkpM6toMqLl0D5w1VGwq0WB0BIpMQLmI8QwZ4FeiISx8XSzrshZVZCWE
+         S8ExjPddzZwIsOjh4YlAqG1qL2hkgOpuvozF0Sm0OiZjOUfLPUi30v+OfxFGlGn8EJl2
+         fMzt16s+xvDYd83Cf7FFi4OpCFKQIsU4opdhlPCvK59Dl9XdDqH4v8vKc0cyvkJJgt2i
+         m7rw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789667908; x=1790272708; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zH1jP0g6rTZl7HFb520QhPTGTp2IGGyzoCj2sKE0ORQ=;
+        b=nS475XRZcKf2WpZ12yrVucIuTj5dls9lalnp4sRQqhgyrR5dIjL4ivv21QugIPIdsR
+         7c+FXCKa0uvVawQ9TQc/b0M1uQk+Culy2OM4z9XLj/zP+cq6D+7FRLWFNN9RwYLlcJtP
+         VzDBPc0WL9uRVZs02yy/rdaEws4tUFdckmIvufcpNxYeuKv0x63loOf8CX9Ay9k9rTz8
+         llVwUXgNRy0Q8mJt1ZiagV9u5Qo0vUZ3c37zjq9cFIULSsbI0/3gcSHcb237cmuuuebo
+         9ei+pptBavz0z5MKP1FYAuzkkp8NGRW+d0P2rihpjPwisQN0+kTPrqNHAxaDwOSMhs5R
+         ae0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789667908; x=1790272708;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zH1jP0g6rTZl7HFb520QhPTGTp2IGGyzoCj2sKE0ORQ=;
+        b=QQpqvAnFUuxvFxB46f9D4Ll+h7DWQYFg55WMp8e0yqGOHZ6sEL06ojQPFnTRR7WEAV
+         hnf2mifB/o0s67B5G/yWXJJrK7IFNmF4vaYrr4BtPl8taW9sxTSp7dvevjiBubYUazv7
+         EmDlbqCgLTrbDbjLVk11znCUJPV8pb+ziDUWDpuC2Xi6kLTD7IEZ+TSc8Zao1U8A7wIF
+         R1WYaFSYHCgOq2YbZRfA/xo73Sox4SFmvCf2KqJbgCfQ32Nnl4yBYk/yku9XhTdtsdDE
+         gtYajDgxaU6jg0GdN1GlapzeJgKJX2xElW/VWk1rc2Hc6ZYXOB5LHzm17TsNvgFgATA9
+         txaA==
+X-Forwarded-Encrypted: i=1; AKwUvBytAFEYFd8g1BD+5P0wIr3EI2tnK7AuEKCmYmwxvfDfzikYItx3g5B5ZDCpmlC9GM5zcGQgoNm0UN/tBZI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nu6REJ5b+OhQP+W5UQDJlh2nL5jBzDNQozm5+8srFZPAv3TRph
+	m8CCLOnQUltaz7DGS69blyyNkVAb0StbhDUstY7V3ntUM1IsDqkhp8gCcapFbRooMu6SFqdLkVW
+	dW7MMKq6NBTbyPz6/Nefj4CaW4CQbZoNox/Osit7f
+X-Gm-Gg: AYBFou1MlNPq8GorjM4TNDkr8AvHV1DmpSQHL8sB/lfsiYMKQ7UbenD1nMzN2/lly3H
+	P8ZO8+bnbJhzD5uIipDR4xHyHl427GBmZ0wgqcGwprWAOoQYPfkJpKrJWPhLKnES9hsV0lCXU7P
+	eAXB9vCT7iJn+2VlY+DarAokMWU6E8QQqkiIRHL74gE55WmJG7s2DrlpVd5zR7WePl0dmqMRv9S
+	zQyZzNTLgl/SI6UeoiXpkVSgOyr/aOZmQroxmyp8hke2JDFDieCoc7RFOFICMl6GKC+lprfaNQr
+	S8hvS43A1cYdvHEcFyBHhNobaONvXKvTn2T/ICPnH3phBsOqklYEwaK9MQN+JRtujMBqNB16qdP
+	3hZw0NAp/
+X-Received: by 2002:a05:622a:e111:10b0:530:ac23:ff40 with SMTP id
+ d75a77b69052e-5329d84d69emr874811cf.5.1789667907464; Thu, 17 Sep 2026
+ 10:58:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916140926740-DCokXh6dAgtqDn1EWdCh@zte.com.cn>
-In-Reply-To: <20260916140926740-DCokXh6dAgtqDn1EWdCh@zte.com.cn>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 17 Sep 2026 19:56:47 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jQxtypZoeKTQDnMKtq4qjVty8__XPN5SMw1542TSUH+g@mail.gmail.com>
-X-Gm-Features: AcwNN1V7IUr1k24KlR_n7-ljae3EvsoW4FQ-CMALyz8TyzW2Gd2siROBabKIXbg
-Message-ID: <CAJZ5v0jQxtypZoeKTQDnMKtq4qjVty8__XPN5SMw1542TSUH+g@mail.gmail.com>
-Subject: Re: [PATCH v2] cpufreq: conservative: Restrict deferred downscaling
- to low load
-To: hu.shengming@zte.com.cn
-Cc: rafael@kernel.org, viresh.kumar@linaro.org, zhongqiu.han@oss.qualcomm.com, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	luo.haiyang@zte.com.cn, zhang.run@zte.com.cn
+References: <20260917155528.62607-1-acme@kernel.org> <20260917155528.62607-2-acme@kernel.org>
+In-Reply-To: <20260917155528.62607-2-acme@kernel.org>
+From: Ian Rogers <irogers@google.com>
+Date: Thu, 17 Sep 2026 10:58:15 -0700
+X-Gm-Features: AcwNN1Vxnw54th8UHPKp5uTzWVtQcuNf7uY8my8GErrk-09F_GrhQCeHOeOoHhw
+Message-ID: <CAP-5=fX5+7K_9eApj-t87iFVSbUPZDpgnMYWfSoCcDynrYqixA@mail.gmail.com>
+Subject: Re: [PATCH 01/15] perf debuginfo: Fetch debuginfo keyed by build ID
+ using debuginfod
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, James Clark <james.clark@linaro.org>, 
+	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 8:09=E2=80=AFAM <hu.shengming@zte.com.cn> wrote:
->
-> From: Shengming Hu <hu.shengming@zte.com.cn>
->
-> For a shared cpufreq policy, dbs_update() derives the load used for the
-> frequency decision from the maximum load among its CPUs, but it may
-> also record deferred idle periods accumulated by an idle CPU in the
-> policy.
->
-> Consequently, a single update can contain both a high decision load
-> from one CPU and multiple deferred idle periods from another CPU. The
-> conservative governor applies the deferred down steps before evaluating
-> the decision load. If that load subsequently triggers an up step, the
-> deferred down steps can outweigh the single up step and produce a net
-> frequency reduction.
->
-> This was observed on a policy shared by CPUs 2 and 3. A CPU-bound
-> SCHED_EXT task kept CPU 2 fully utilized while CPU 3 remained idle.
-> On this system, SCHED_EXT generated update-util callbacks less
-> frequently than CFS, resulting in sparse DBS updates such as:
->
->  load=3D100 idle_periods=3D7 interval=3D59 ms
->  load=3D100 idle_periods=3D4 interval=3D39 ms
->  load=3D100 idle_periods=3D2 interval=3D19 ms
->  load=3D100 idle_periods=3D7 interval=3D59 ms
->
-> With the default 5% frequency step and a 2.6 GHz policy maximum, seven
-> deferred periods reduce the requested frequency by seven 130 MHz steps
-> before the high decision load adds only one step. Repeated updates
-> therefore keep the policy near 530 MHz even though CPU 2 is fully
-> utilized.
->
-> There are two load values relevant to this behavior:
->
->   * sample_load is calculated from the busy and elapsed time of the
->     current sample.
->
->   * decision_load is returned by dbs_update() for the governor's
->     frequency decision. After a long idle interval, it may reuse
->     prev_load to improve the response to a waking task and can therefore
->     differ from sample_load.
->
-> The problem is that idle_periods is derived from accumulated idle time
-> and is applied independently of whether the current sample load is in
-> the conservative governor's downscaling region. A high sample load and
-> multiple deferred idle periods can therefore coexist, particularly
-> when updates are sparse.
->
-> As suggested by Zhongqiu Han, calculate the sample load separately from
-> the decision load. If no time has elapsed, use prev_load for the sample
-> load as the existing load calculation does, since no load can be
-> calculated for that interval.
->
-> Record the maximum sample load for the policy and apply deferred down
-> steps only when it is below down_threshold. This makes deferred
-> downscaling follow the same threshold that the conservative governor
-> normally uses to determine whether the policy load is low enough to
-> reduce the frequency.
->
-> The existing code applies deferred down steps whenever idle_periods is
-> valid, regardless of the sample load. When the decision load is in the
-> hold region, the locally adjusted frequency is not submitted unless
-> another frequency-update branch is taken. Thus, when the sample and
-> decision loads are the same and both are in the hold region, this
-> change does not alter the requested frequency.
->
-> The difference becomes visible when the decision load causes a
-> frequency update. In particular, if it exceeds up_threshold, the
-> governor applies a single up step after the deferred down steps and
-> submits the resulting request. Multiple deferred down steps can then
-> outweigh that up step and cause a frequency reduction even when the
-> sample load is above down_threshold.
->
-> With this change, deferred down steps are skipped whenever the maximum
-> sample load is at or above down_threshold, keeping deferred downscaling
-> consistent with the conservative governor's threshold semantics. The
-> requested frequency may therefore be higher than with the existing
-> behavior when deferred idle periods are present and the decision load
-> causes a frequency update. This is intentional, because the lower
-> request previously resulted from applying deferred downscaling while
-> the sampled policy load was outside the governor's downscaling region.
-> Accelerated deferred downscaling remains available when the policy
-> sample load is below down_threshold, including after a workload has
-> completed and the policy has become idle.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 00bfe05889e9 ("cpufreq: conservative: Decrease frequency faster fo=
-r deferred updates")
-> Reviewed-by: Luo Haiyang <luo.haiyang@zte.com.cn>
-> Reviewed-by: Run Zhang <zhang.run@zte.com.cn>
-> Suggested-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-> Signed-off-by: Shengming Hu <hu.shengming@zte.com.cn>
+On Thu, Sep 17, 2026 at 8:55=E2=80=AFAM Arnaldo Carvalho de Melo
+<acme@kernel.org> wrote:
 
-Applied as 7.4 material, thanks!
+[snip]
 
-> ---
-> Changes in v2:
->
-> - Calculate the sample load separately from the decision load that may
->   reuse prev_load after a long idle interval, as suggested by Zhongqiu Ha=
-n.
-> - Preserve the existing prev_load fallback when time_elapsed is zero.
-> - Gate deferred down steps on down_threshold.
-> - Link to v1: https://lore.kernel.org/all/2026090215474182681fN7LLOSpqIc3=
-s3OqJaW@zte.com.cn/
->
-> ---
->  drivers/cpufreq/cpufreq_conservative.c |  8 ++++---
->  drivers/cpufreq/cpufreq_governor.c     | 29 +++++++++++++++++++-------
->  drivers/cpufreq/cpufreq_governor.h     |  2 ++
->  3 files changed, 29 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/cpufreq/cpufreq_conservative.c b/drivers/cpufreq/cpu=
-freq_conservative.c
-> index 0b32ae28ec85..02bfd46543e9 100644
-> --- a/drivers/cpufreq/cpufreq_conservative.c
-> +++ b/drivers/cpufreq/cpufreq_conservative.c
-> @@ -85,10 +85,12 @@ static unsigned int cs_dbs_update(struct cpufreq_poli=
-cy *policy)
->         freq_step =3D get_freq_step(cs_tuners, policy);
->
->         /*
-> -        * Decrease requested_freq one freq_step for each idle period tha=
-t
-> -        * we didn't update the frequency.
-> +        * Apply deferred down steps only when the policy sample load is
-> +        * below down_threshold. Otherwise, multiple deferred down steps =
-may
-> +        * cause a net frequency decrease outside the downscaling region.
->          */
-> -       if (policy_dbs->idle_periods < UINT_MAX) {
-> +       if (policy_dbs->max_sample_load < cs_tuners->down_threshold &&
-> +           policy_dbs->idle_periods < UINT_MAX) {
->                 unsigned int freq_steps =3D policy_dbs->idle_periods * fr=
-eq_step;
->
->                 if (requested_freq > policy->min + freq_steps)
-> diff --git a/drivers/cpufreq/cpufreq_governor.c b/drivers/cpufreq/cpufreq=
-_governor.c
-> index 710d93ec89b5..f3bd3dbe7c41 100644
-> --- a/drivers/cpufreq/cpufreq_governor.c
-> +++ b/drivers/cpufreq/cpufreq_governor.c
-> @@ -124,7 +124,8 @@ unsigned int dbs_update(struct cpufreq_policy *policy=
-)
->         struct policy_dbs_info *policy_dbs =3D policy->governor_data;
->         struct dbs_data *dbs_data =3D policy_dbs->dbs_data;
->         unsigned int ignore_nice =3D dbs_data->ignore_nice_load;
-> -       unsigned int max_load =3D 0, idle_periods =3D UINT_MAX;
-> +       unsigned int max_load =3D 0, max_sample_load =3D 0;
-> +       unsigned int idle_periods =3D UINT_MAX;
->         unsigned int sampling_rate, io_busy, j;
->         u64 cur_nice;
->
-> @@ -147,7 +148,7 @@ unsigned int dbs_update(struct cpufreq_policy *policy=
-)
->                 struct cpu_dbs_info *j_cdbs =3D &per_cpu(cpu_dbs, j);
->                 u64 update_time, cur_idle_time;
->                 unsigned int idle_time, time_elapsed;
-> -               unsigned int load;
-> +               unsigned int load, sample_load;
->
->                 cur_idle_time =3D get_cpu_idle_time(j, &update_time, io_b=
-usy);
->
-> @@ -186,6 +187,20 @@ unsigned int dbs_update(struct cpufreq_policy *polic=
-y)
->
->                 j_cdbs->prev_cpu_nice =3D cur_nice;
->
-> +               /*
-> +                * Compute the sample load separately from the prev_load =
-value
-> +                * that may be reused after a long idle interval. The con=
-servative
-> +                * governor uses it to decide whether to apply deferred d=
-own steps.
-> +                * If no time has elapsed, retain the existing behavior a=
-nd use
-> +                * prev_load.
-> +                */
-> +               if (unlikely(!time_elapsed))
-> +                       sample_load =3D j_cdbs->prev_load;
-> +               else if (time_elapsed > idle_time)
-> +                       sample_load =3D 100 * (time_elapsed - idle_time) =
-/ time_elapsed;
-> +               else
-> +                       sample_load =3D 0;
+> +/*
+> + * The build IDs already fetched in this session, and the path of the fi=
+le
+> + * that came back for each, so that the repeated requests for the same b=
+uild
+> + * ID, dso__debuginfo() is called per symbol annotated, are answered wit=
+h a
+> + * strdup() instead of another client: the file is in the debuginfod cli=
+ent
+> + * cache already and its path checked before being handed out, in case t=
+hat
+> + * cache is cleaned from under us.
+> + *
+> + * Guarded by debuginfod__fetch_lock.  Only a fetch that brought a file =
+back
+> + * gets an entry: one that didn't is recorded in debuginfod__misses as a=
+ miss,
+> + * and that is what keeps the rest of the session from asking for it aga=
+in.
+> + * Like debuginfod__misses this grows with the number of build IDs in th=
+e
+> + * workload, one small entry each, and is not trimmed.
+> + */
+> +struct debuginfo_lookup {
+> +       struct list_head         node;
+> +       struct build_id          bid;
+> +       char                    *path;
+> +};
 > +
->                 if (unlikely(!time_elapsed)) {
->                         /*
->                          * That can only happen when this function is cal=
-led
-> @@ -220,11 +235,7 @@ unsigned int dbs_update(struct cpufreq_policy *polic=
-y)
->                         load =3D j_cdbs->prev_load;
->                         j_cdbs->prev_load =3D 0;
->                 } else {
-> -                       if (time_elapsed > idle_time)
-> -                               load =3D 100 * (time_elapsed - idle_time)=
- / time_elapsed;
-> -                       else
-> -                               load =3D 0;
-> -
-> +                       load =3D sample_load;
->                         j_cdbs->prev_load =3D load;
->                 }
->
-> @@ -237,9 +248,13 @@ unsigned int dbs_update(struct cpufreq_policy *polic=
-y)
->
->                 if (load > max_load)
->                         max_load =3D load;
-> +
-> +               if (sample_load > max_sample_load)
-> +                       max_sample_load =3D sample_load;
->         }
->
->         policy_dbs->idle_periods =3D idle_periods;
-> +       policy_dbs->max_sample_load =3D max_sample_load;
->
->         return max_load;
->  }
-> diff --git a/drivers/cpufreq/cpufreq_governor.h b/drivers/cpufreq/cpufreq=
-_governor.h
-> index 73b8ed7cfaae..806d8fb4dff1 100644
-> --- a/drivers/cpufreq/cpufreq_governor.h
-> +++ b/drivers/cpufreq/cpufreq_governor.h
-> @@ -95,6 +95,8 @@ struct policy_dbs_info {
->         /* Multiplier for increasing sample delay temporarily. */
->         unsigned int rate_mult;
->         unsigned int idle_periods;      /* For conservative */
-> +       /* Maximum load from the current policy sample. */
-> +       unsigned int max_sample_load;
->         /* Status indicators */
->         bool is_shared;         /* This object is used by multiple CPUs *=
-/
->         bool work_in_progress;  /* Work is being queued up or in progress=
- */
-> --
-> 2.25.1
->
+> +static LIST_HEAD(debuginfo_lookups);
+
+I'd still prefer keeping the debuginfos owned by the DSOs rather than
+having debuginfo use a global cache of debuginfos - I expect the
+debuginfos to have some non-trivial memory overhead. With the
+debuginfo in the DSO, when/if the DSO goes away we can reclaim all the
+memory without worrying about a separate global data structure. We can
+find DSOs in multiple ways with dsos__findnew_id:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
+t/tree/tools/perf/util/dsos.c#n343
+We match by name, but if those differ:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
+t/tree/tools/perf/util/dsos.c#n117
+We match by inode and/or build ID:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
+t/tree/tools/perf/util/dso.c#n1473
+
+So struct dsos is a build ID indexed store of DSOs and their owned
+debuginfo. We find DSOs off a machine, but I believe we always have
+access to the relevant struct machine. In the worst case for probes,
+for example, we need to set up a host machine. Using machines
+inherently provides some lock sharding, and they also have the ability
+to reclaim memory.
+
+Thanks,
+Ian
