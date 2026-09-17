@@ -1,233 +1,204 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B023DD85E
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:52:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671180; cv=none; b=A+Dlf8SLxhVdvqv0awBlGRp0js2M4Ahei+bqdIndFQMIUWbmO8fFJEDP9uIFykVVzeX46BvhBbOfp5rvl2KULHFtF/f4fGmpL3vYExec5HxgYSt5Q21C5ZV9yRQyeM8R6WtZSiucgL8jsaqXJNyo0glfMRJCgrIqZfUrgwftpq8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671180; c=relaxed/simple;
-	bh=slbYEUvrH90tKygO20tkCgL7rYqDlTepCQwgrcWNqYE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tQgaA/xLB3bdyDcK+aYS0cd4bOOyhdlnnG2b28w/pcz8qNxwNOlAX5eMh0eAjCVxwQt4mCtauO9E+1FcmjND5MxR+P2/A63Y7YRwWbft9TDVoyejqDXYOMZtDVikigKPP3cE6zsHq/giD/oCMIMrnJ0iZpucay2MM0UCTQR0RVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I+IHPyQZ; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312CC4DA9A0;
+	Thu, 17 Sep 2026 18:53:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789671183; cv=fail; b=hR2rT56cNmTUfa6E6VG1qBngrjh0sntEKx+EPiFJjWp41iLnuAf4MBMZBjZU/gDcUzJDUEY9F4b4ls/WNb/LsA9alX6R/I+1q2Z3yvnV1o3XzQeNLw2izJrjTh4NMOIHLE7j598Lzhg0TQvqg88lFhYCl1GN5Ng6pD6g2ozCaTE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789671183; c=relaxed/simple;
+	bh=gKHLFK0Huwd9mKFgtrHhxSV+itELw57e4z5VDA3Woi4=;
+	h=Message-ID:Date:From:Subject:To:CC:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=G8G+HlgNuHDXqzGA/F4XqAWaEpLQtyh2NdkQmeiSAqeBsyYXXCoFkd+2vjfsUwx2DksQ6Ee2KZAApaQgVXdiuz8iUhdbkUEs1setJpFWSZOI2qKFAZj3n/eYYr0EgcUSPSiP9Arwgg5Og703XyDwoo/avBr4T+mCn5WjDz5N90U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OTJ4EdIY; arc=fail smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I+IHPyQZ"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99c5de614so1686080a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:52:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789671176; x=1790275976; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rja8CkyCHKN0BB+9VZU25/yAjyQ+Z2Lz6sA9AfSQojE=;
-        b=I+IHPyQZztmQ5JBMFzrVOlGNrdkAqReJ6px/WAd5x097MGYIW6EDdiSCuHseob48v7
-         4w+MK332fgI9GTcAuy2yxJnc8AqZNTck/xy/DdUFHhGpBOZUeoQi3O/dy0wQsDE3bioM
-         3zdZ22Ad6WGGRnWPBaoiEW3ZgzLEMKZjy0f/dwatC4mSvvlEd+q0mXiXWN0RW98slXaf
-         4KHzfipY9lAmHHVNsF8tfbetbDDt/U8PG6SC43pZ3vrU6Vq8TS8W+aeB+EEhkZODvATp
-         SlejqfXSHhMtYUgNvAbEskBwe7FLmUcu0pM+8m2Nel9dBD7rpm8qGC+9Ybzd8q0nkxV2
-         5qOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789671176; x=1790275976;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Rja8CkyCHKN0BB+9VZU25/yAjyQ+Z2Lz6sA9AfSQojE=;
-        b=LsHSz4CXGB0xtE8xtjWPCkmpobEdXQJ3wi43aLqFJwhNKqT5lespHcJAUZjgR3FaBv
-         5hh/NZj4ZFJyJZB6tWEYFqp7O+JCgGct+8S4gI2HGpMsNVm8si12bHkU7kg6Cb9tqbfi
-         g26JWwol+2Q3t372jmwBcCgoAQ6NbaR21tgjHCASgSv6W9H4C/ZDn+lVgi3wpwXYVwfh
-         eCi7g0uvTG7w/xMDOl67SLadgajxGc+phPkg4akv6v31sWom2NJyfDRJOyxmwhArTqm9
-         Uc3SxtNOKvEK9o27Jy2gdZaP/VpDeHClR7Bl8bbcksmFyjF+T3VGWJ37YPi+ypUF9PB8
-         QsPw==
-X-Forwarded-Encrypted: i=1; AKwUvBxIyhsQurHZlR1c05XFvrqG2/blBUWYqNMm4WTYQDEmA+63SP1sgQ1hoQUTgjxxnG5q8vI4pmbzCK6XDtw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNCf8VtV+e6QR00VMe+ljkaCUGNgIn1k+0DoIWBje6uhmorVu7
-	7uru8nynmvy9CBRiUbUq7UA+jd2bWc0VxrnZGaTuRcswSN1yp1Kb1fka4P48NzLwxdg=
-X-Gm-Gg: AYBFou0/n/QLVmIz2t4HOmEfXZO5Dt2ur87eDJeMiRYKM6Pk3GFBK7J27R2Cy3Hxr+l
-	O+KzrJnT9NOwa8UgvIZ1RWUqjoJitzTTw/DikUFZ0LzBj82QTN62wfFufeWhWgpCTk0DAe0Dnb2
-	sW6rm6dY4BjC/ba9MjAsFD9Of0uhePKMyadCzpo2fkYhjRLQ/UehhgaM8h4nFQgbL+du7E/Bw4t
-	kC+1QHC+smzGByz3CCiPCCWaY1qEsNl+j+NLQO8muduUZIh6WQR6UamaRm2GIn5QWrSHsDaNORR
-	FRZqmIGuJFSa2TqbtnSncKTUusDsI/YtD2ZbKS56ycFog+wwmpce7lsnoF0HIfrbetQMB1wyi5r
-	9CDKoM7JP48U82X/PwQnoMNVF5Hn6e7in4DAY4N/ZC3AJTckaEYoQ46/9NxUjNWfVBuURrfpmi+
-	RIzdw0l7F33Q+OClJM/mHurz0AOSeTwjOQy6egTYKV2J7g8qc8LQBDUDNFMXDIRgJ4yWI=
-X-Received: by 2002:a05:6402:24c5:b0:6aa:13a8:beea with SMTP id 4fb4d7f45d1cf-6aa22452a31mr10658257a12.21.1789671175963;
-        Thu, 17 Sep 2026 11:52:55 -0700 (PDT)
-Received: from cartold ([77.213.69.61])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d286e76sm3610549a12.23.2026.09.17.11.52.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 11:52:55 -0700 (PDT)
-From: Theo Andersen Carton <andersen.theo@gmail.com>
-To: jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com
-Cc: joonas.lahtinen@linux.intel.com,
-	tursulin@ursulin.net,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Theo Andersen Carton <andersen.theo@gmail.com>
-Subject: [PATCH v3] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple MacBookPro11,5
-Date: Thu, 17 Sep 2026 20:52:35 +0200
-Message-ID: <20260917185235.23792-1-andersen.theo@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OTJ4EdIY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789671182; x=1821207182;
+  h=message-id:date:from:subject:to:cc:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=gKHLFK0Huwd9mKFgtrHhxSV+itELw57e4z5VDA3Woi4=;
+  b=OTJ4EdIYmUBED+P6EGgWLhDAA+ITvmI8dwWxz+MMpfl/3piuAPzI9RrZ
+   uGVmHV8pLnob6V5xgfKZuuQCU4c+wITERFQuJhF/GZSzE94tGEhHIn654
+   ucwipKFrsmr9F4//++vaPP7KeB0jHjkDpoup/AfyJzN9t1gxR1X9y7ONR
+   WO6dYxVkTdpMjUmVcfmejCxOKWMeHGlejGMk8+8cOBPwDwsqwgAMeuD+1
+   NdtCzEjSgsgEgSvhdY+VHDmdtGsXci7VWhVE+Eu0KlP7pjR++HZIlVrvF
+   4vzjPBvue7jwawBq86nQ+v+8hEOrOKxz+uDwC0M0xdk2xncUbE7GI0jcV
+   g==;
+X-CSE-ConnectionGUID: VTaD+VefTm+Cm8jcuep59A==
+X-CSE-MsgGUID: 7a8J+my1Rb+6IblPxTTB/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89063321"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89063321"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 11:52:49 -0700
+X-CSE-ConnectionGUID: YXpm/JoCR2GeTMTQKrqXyg==
+X-CSE-MsgGUID: 5TDHgytXQ46BhJpWqLz8hA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2162803"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa011.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 11:52:50 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 11:52:47 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 11:52:47 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.59) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 11:52:47 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Nw76UUL0lnVSKccEL8cM46uVmFditHkzCs8e1LG+d0bNCCAb1lHKL2xEmh/eFVoUafrrhmWOry/KZmmg03X7tb4EyogCkzpbO6MNsD+u4EvtcCnKV8DuCmZHOMEGEjrfoPLlxtzhZ13+ufmo9/mev+vxdcgT7jFw73nlqHVAPNw4q49lZS5Vfk2gMce76UT/OIHoD67Osg55mS2GGC4/pOw78Kh7BQOzWFivN0ZsJFWGAgtduFWzLgppT47HhC+V7DVzZzmuXwcbjJzvDvJgqhA0cf0tuI5zM1yS0vWzNXu92ELUgM9SVbAtXvTsrFkLhs4QtXpGuH2LcBUAI8tbUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hxpUnFLdm9nrfAyPCfOdyV0eeXVo8fNMB/zO8I+GVT0=;
+ b=rn2450V3NJ3mgRO2rA7XONzMP4/2m57toNf6Rq7UPSpwJ8S2A+MuFUl/M6FeQsGjpgHzteZcK3mGi8C4cvw079O8hNMGz+kwnL1u9+nX2htRLPaQQdOIi3O2MjAVKJw0/n1BLBzDvL4PI0gj4ReqiIOdlyAnUkYHj3v9ONF3U0j5ymH3syPnXtKquw0Bf4hC0W5NMkM+E7HNBay+u1JRtH+JakuWCG1wWmWKdTzNrI3wRY1d63KFM/GOxrPP0MtGbOpzhYn9P0ntho+IQwct6PSnspHe2C5n7jl6mStjIuvXoUjka86sYh6+iaisFerrjxnCrBWvHXdAFzzIMbs1JA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
+ DS0PR11MB7216.namprd11.prod.outlook.com (2603:10b6:8:11c::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.9; Thu, 17 Sep 2026 18:52:39 +0000
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84%7]) with mapi id 15.21.0428.008; Thu, 17 Sep 2026
+ 18:52:39 +0000
+Message-ID: <0604bfab-3783-4fc0-a276-a632dd7526ae@intel.com>
+Date: Thu, 17 Sep 2026 18:25:54 +0000
+User-Agent: Mozilla Thunderbird
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+Subject: Re: [PATCH v3] x86/microcode/intel: Reject problematic loading on
+ Granite Rapids systems
+To: "Van De Ven, Arjan" <arjan.van.de.ven@intel.com>, "Mehta, Sohil"
+	<sohil.mehta@intel.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+CC: "x86@kernel.org" <x86@kernel.org>, "tglx@kernel.org" <tglx@kernel.org>,
+	"mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "hpa@zytor.com"
+	<hpa@zytor.com>, "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20260908223209.916758-1-chang.seok.bae@intel.com>
+ <20260916225939.1144524-1-chang.seok.bae@intel.com>
+ <51f6a0e2-25bb-4ac3-9b3e-2883ef7e57e3@intel.com>
+ <66a43c1b-656d-4dec-95b1-3f56c9f9057e@intel.com>
+ <LV1PR11MB8850F9AE30CE6C60F372262F92B82@LV1PR11MB8850.namprd11.prod.outlook.com>
+Content-Language: en-US
+In-Reply-To: <LV1PR11MB8850F9AE30CE6C60F372262F92B82@LV1PR11MB8850.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY1P220CA0010.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:59d::12) To DS0PR11MB7925.namprd11.prod.outlook.com
+ (2603:10b6:8:f8::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|DS0PR11MB7216:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1abab48-0228-4fb7-0e5e-08df14ecd880
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|11063799006|18002099003|22082099003|10067099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: fF3jyNkHYloSaYEY7oZkuLFZSdVywZ019yF4m1VOpZVsYzJvurjnGVgi0uMy5p4Ny17eBXSCEbo1rPfDNf3LUhbGXcS0X4Djm3n7INzJNiON+v59nx/3EbqH8ScQYyogn5z/9ioG1RldJY4gSBKdLNKZzNC3NGVsxB5Mb3n5uBE4k3NX0Xwwk4VGxfHgOt2TBWDjoAowxOZ0AG6ZnS9VW5Ng0wgW7JMPGDcwhe8pij3uKahQ2R1tJnqFxe5MlWY9Jgr0XnQDdJPLDUy++VJutUD0Sv9ckcIoNsiak21cJwqXWlDAMajQspMaLRrKafFrZfHyDTJJyiS2s05tY80w+hB6e7nDhshm3KX51mOiZ8KCm1mOhzkcs0OkUgSAuMxImox4+qZTiNmN+csYOxDmzSfRPa8z/J016DUssGkWFxgLdYOvYcZ9RmxXsZ0iP9pr27/PuZACDFrgvVsHV8CQffcqlf0I9euHkAuOeMPqcESIcDsd7UvT6qR4rAINjyAamy7UHKnHKFzA/YMZmz12ibSmweMLWz8gVY8dNqUf1G+cOVHWg2JGqKAfNeGNiWPG1K1z7lalTJeYj7zvQ9eODng7PqECZJvsDw1zgUAa6a2DFormX/Dd4Ig0e89lksvu
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aG1EVGptWW1NQnVDUTYrNTdRc3ltbUc5SXVWZ0VzZE8xbmF1ZCtSeUJyLytO?=
+ =?utf-8?B?Y0dpaTBwcGhsNFJLeSszTjhycW1RVTA4ZFVaUVpVNkc1YmFTRFpSN0RIUjdB?=
+ =?utf-8?B?TzNhZDVTLzluUjFTaVNoSGIvd1NYRHg1d0NqaEpxVEJjVFc1RDh6OHFJUEV4?=
+ =?utf-8?B?R1IxcVZnVVozQlJ3V3NYNzVrQXpSWjYvTTJHWnZUN1NYVys5RmtEQmQ4QTFI?=
+ =?utf-8?B?TjZoWnljQUt3bXV3RDl0bGROYVVML2tPK2RESnh0MmtTSWlZVllWS1VuVFpQ?=
+ =?utf-8?B?NmFJV3B1ZUYyeG9MNEI3MGlsemw2bEdkK2hkODNHS1NnKy8wREJYSDdtZXZz?=
+ =?utf-8?B?Q2p5eVdEWWxxamgwbUE0ZkRVejlwLzV5TE9rVmNrZ1lINkRsUlpEenp0S3pG?=
+ =?utf-8?B?bEVqVURnVk80L0F6blFDeTN0MHdCb3psL0NXdjhoQUlwbStXVTdid1RuSTRs?=
+ =?utf-8?B?cWI3MFgyWjdoM0ZjWW5tNTFrUWdlK3NlcUg0SjNlaktPejdjUXVKa2dNeFJp?=
+ =?utf-8?B?KytoRWJOd2xIRE05QmFlK1dIYjJoWG9BMTIyYVBncnNxVDhGMkMrRnJVbTRI?=
+ =?utf-8?B?ZStvVzJiMXdoTlBabmdmZTZ0UmVCQzlNMi9tdWV1QS9pMXRCYWJDVWRvV0M4?=
+ =?utf-8?B?akxUU1pOQk94NWlmQWh6cmRsOXpITU1OUVFiTy9JZy9RVGRoL0VZayt5WEt0?=
+ =?utf-8?B?WHhoVHRzSm9HbjlGdVRhU3VlMk5DUTJDNE0vcmk2NGJwaE9nWWlueUZQaHl3?=
+ =?utf-8?B?M3RzS1JsalZLd3cyM25KTGMzb3p4dGw4RFdpV1VZLzB4eVF2UDNuaEt3bHlK?=
+ =?utf-8?B?cmt4Lzh0NnRVZ0VlbUo0YWltQ0d3S3dKZVh4bWI1bmhScStjZk1YdFBLVDhx?=
+ =?utf-8?B?S1ZocXlVQnhlKzRqVWpzaWJBTHdWaHFVeVU5L3dNV1hWYlJmUzNzaWcxRFZM?=
+ =?utf-8?B?VlJxTVo5ZXFjcE9Zc2k4NEs2a05mdkVycmVET0MwMlhvTjFnd3RzRUFpRFly?=
+ =?utf-8?B?QWRKTWZDVFcyUGZpYXdpbVJkTzlJakUvN1pMZitmRTE4SUVyRWVVckkwTWhF?=
+ =?utf-8?B?cWxBdkw1SHExYXRYbUl2dGVQM3VaZXRBRUlxQWx0UGduZVpkMTJlNGtRMVFH?=
+ =?utf-8?B?aW9BL1dSUHVkamIzMksrMDlvRW81NTVxZ2VoVW5Ucy9RRWF2aFQveS82d1hl?=
+ =?utf-8?B?VmdlM2pZajk2Z1V5eWxHK0NNd3I3N2FOQnMzTEZWYnVTY1ZidUlLOVdVMjJw?=
+ =?utf-8?B?MkVyL1VwMCtwSFB0L3ZXbUtKbWJPMTVDSlp6WWpncDNpem10dG1xOHh6RVlZ?=
+ =?utf-8?B?TFRadUo3dWo0SlFrZXdIV0x4RjF3ZU9vTDliRnovZW1XS0ZRSnBET1dWU1c3?=
+ =?utf-8?B?ME1HTElhdWJOdlFKVmpQb3JpZ2RmWFNjdktIZ1hBSmdRS2N0ak9kWmRJaGVS?=
+ =?utf-8?B?di9TaThUMjg3Sm16aDhmL0dBYzJUaXZZanlvWENoNmJLZTRnM2wwVGR5Wld2?=
+ =?utf-8?B?bUp5VHh2RGN5THhrK2dCMWR5YWZFRnZvMWNDNW9oSnYvR2grVzhtS0owZk9R?=
+ =?utf-8?B?aUlsYzdpTkJyeUh4SUZ0Vmh0UGFQNENha2ZvUVZ4bVp0SHJTWUFaSkJDbU9x?=
+ =?utf-8?B?V2oxRU9yT2IyeUtNajdmcEdEQ2xkRXlkMFZBOEd0anRSSERqT2ltTW9ETFlP?=
+ =?utf-8?B?U3pjQ3NrMjQ0ekV2eXZneTF5M1lEcmJZNXEvQlhON3N1djFaWEMyVzROd0cx?=
+ =?utf-8?B?akVvZHZ1Y2R6bWd1dXRISFVSTjdQSTltdG5HVHJYRW02WGpOaXF3Y24wRGM1?=
+ =?utf-8?B?ZXNUQzBwMDBHdFJTZS9QMUhDaHZMd29ubHhCTlpHNkcvV0hySTNCc0RWa25m?=
+ =?utf-8?B?OStIRVlwaVI5U1c2RDhCUkxrWGhzQmRIUlk2ZjkzcktFWURzQi9RMUt2MjZv?=
+ =?utf-8?B?R29LbXpNczdINUtMYlRKc1d5bG54R01JdEQrYlBxUVk3SFFjWUNNLzJnS2hC?=
+ =?utf-8?B?cFlKdHZQamVsd1lCYlF3NXp4OVZ6MHd3R0Q5RUlORTFqa09OTlZFQlRJTE1S?=
+ =?utf-8?B?V2JiakVrRWlZM1dzOEp6VmZkTGJWTHVMRFFiNHl3WTFWOFZTTThkdzVxaHlX?=
+ =?utf-8?B?UWNNbjBvdHBLV2RpTHNKR2xHUGpnTkJvR1pjYUt0SmY0SisyRWIzdTk3Umg0?=
+ =?utf-8?B?dWVHTjhoajlxdVFaRjAveEFwM25qNnBwNmh4S0dPUi83ZUt2SmxwYmgydnBR?=
+ =?utf-8?B?Um42Y3REKzV2d3BmR29rMVVGeEhCNFIvajZ5Wk9ucnQzUE45SXVlV0hzM2M0?=
+ =?utf-8?B?R2h2MnRhdTZWc0x6K2pTQ09FU2sxOWlNZHJLMG9yZmRBc01IVXZMUT09?=
+X-Exchange-RoutingPolicyChecked: YZ6pWo/emxjWszxvuctxL3VgF8XQs00LivWk94FAL5MoLEzIcDV98ESv+nq0cDnK4yXQ34klPSZ0WHj3SISO3F8DHYO4R31gVS7hqS1iooXnGZIos+VnBFVBlmAQB27OWOvsR9cG4PVvOAXGAJPPzMsOG5fpBp3s7Gy1WiAkHvhL0MEA/3tCU2LE4P168QcXF2jPvlEhLNxPZNbMUWVjX92YihE2AIU2H/pxiPxvoKA9IgpjVw3OpyWvEsYrooDx5bZ0j+6C1/BW8rdOnjQN2f3H0jKYNCqad/YvLjstNOsUVzC2fystZi/nT6+pXNMi+DuqxtOIRqBcs4+T4DcsnQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1abab48-0228-4fb7-0e5e-08df14ecd880
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 18:52:38.9646
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bnsX2QhBFMV7Z/At5XxslchSQ8czSoT6Hd//OhPZh7ghxWXan2rFd/FW2Qp+9luDNFm5EbXfPQbOYvBPgSqCZL9/CDAGqgJEvcL56UDtjCg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7216
+X-OriginatorOrg: intel.com
 
-On dual-GPU Retina MacBooks the internal panel is muxed to the discrete
-GPU at boot, so Apple's firmware never lights up eDP on the Intel side.
-As a result it never sets DDI_A_4_LANES, and intel_ddi_max_lanes() reads
-back a source maximum of two lanes for port A.
+On 9/17/2026 11:43 AM, Van De Ven, Arjan wrote:
+> 
+> But we could, on the actual application, at least check if the ucode 
+ > already got upgraded to EXACTLY the target version, and skip the
+ > actual application if it has been upgraded. That is a simple check
+ > with basically no policy ("identity") but with huge savings
 
-intel_dp_max_common_lane_count() then takes min3(source_max = 2,
-sink_max = 4, ...) = 2, giving 2 x 2.7 Gbps x 8/10 = 4.32 Gbps of link
-bandwidth. The panel's native 2880x1800@60 8bpc mode needs 8.1 Gbps, so
-every mode is rejected with MODE_CLOCK_HIGH and the connector comes up
-with no usable modes at all -- the panel stays dark whenever i915 is
-made to drive it, which looks like a hardware limitation but is not.
+Yes, I think that' what we do now:
 
-The lanes are physically there. Reading the panel's DPCD from the AMD
-side, where amdgpu drives it correctly, reports MAX_LANE_COUNT = 0x84,
-i.e. 4 lanes, and amdgpu's own link_settings shows it running the panel
-at 4 lanes / HBR. macOS likewise drives this panel from the iGPU at its
-native resolution, so all four lanes are routed through the gmux to
-DDI A. Only the register bit is unset.
+__apply_microcode(..., struct microcode_intel *mc, ...)
+{
+	u32 rev;
 
-intel_ddi_a_force_4_lanes() already exists for exactly this situation --
-its neighbouring comment notes that "Some BIOS might fail to set this
-bit on port A if eDP wasn't lit up at boot" -- but it only covers
-Broxton and Geminilake. Extend it with a DMI quirk so affected Macs get
-the correct lane count too.
+	if (!mc)
+		return UCODE_NFOUND;
 
-The DMI match is deliberately narrow. Other dual-GPU models in the same
-family are very likely affected identically, but they are untested, so
-widen the match only as reports come in.
+	*cur_rev = intel_get_microcode_revision();
+                    ^ read MSR0x8b (aka MSR_IA32_UCODE_REV)
+	if (*cur_rev >= mc->hdr.rev) {
+		uci->cpu_sig.rev = *cur_rev;
+		return UCODE_OK;
+		^ we skip the loading if updated
+	}
 
-Tested on a MacBookPro11,5 (Haswell Crystal Well, Iris Pro 5200 +
-Radeon R9 M370X): with the quirk, DDI A comes up as 4 lanes, link
-training passes at link rate 270000 / lane count 4, and i915 drives the
-internal panel at its native 2880x1800.
+	/* write microcode via MSR 0x79 */
+	native_wrmsrq(MSR_IA32_UCODE_WRITE, (unsigned long)mc->bits);
+	...
+}
 
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17087
-Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
----
-Numbering note: neither earlier posting was labelled, so to match the
-numbering already used on the list this is v3. v1 [1] was pasted into a
-mail client by hand, which hard-wrapped the diff and detabbed it, leaving
-it unapplicable. v2 [2] was the same patch resent with git send-email,
-unlabelled.
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/kernel/cpu/microcode/intel.c#n646
 
-v3:
-- No functional change since v2.
-- Commit message: the machine is Haswell (Crystal Well), not Broadwell as
-  v1/v2 claimed. The DMI match was always by model, so no code change.
-- Added Closes: tag for the bug report, which carries the failing-case
-  logs, the VBT dump and the EDID.
-
-[1] https://lore.kernel.org/r/CANFnrspHiK7ii28XPdLkOMyhSZcJ9xz6CT-kNX+oiiF+8N-2Fg@mail.gmail.com
-[2] https://lore.kernel.org/lkml/20260912091805.531666-1-andersen.theo@gmail.com/
- drivers/gpu/drm/i915/display/intel_ddi.c    |  7 +++++
- drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
- 3 files changed, 42 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 02a53c9848e1..f746287830b3 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4976,6 +4976,13 @@ static bool intel_ddi_a_force_4_lanes(struct intel_digital_port *dig_port)
- 	if (display->platform.geminilake || display->platform.broxton)
- 		return true;
- 
-+	/*
-+	 * Machines whose firmware leaves eDP dark on the Intel side never set
-+	 * the bit, so trust the quirk rather than the register.
-+	 */
-+	if (intel_has_quirk(display, QUIRK_DDI_A_FORCE_4_LANES))
-+		return true;
-+
- 	return false;
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 33245f44c0d5..feb28956a013 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -100,6 +100,20 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+/*
-+ * Dual-GPU Macs boot with the internal panel muxed to the discrete GPU, so
-+ * the firmware never lights up eDP on the Intel side and consequently never
-+ * sets DDI_A_4_LANES -- even though all four lanes are wired through the gmux
-+ * to DDI A. Without the bit, port A is capped at two lanes, which is not
-+ * enough bandwidth for the panel's native mode, leaving the connector with no
-+ * usable modes at all.
-+ */
-+static void quirk_ddi_a_force_4_lanes(struct intel_display *display)
-+{
-+	intel_set_quirk(display, QUIRK_DDI_A_FORCE_4_LANES);
-+	drm_info(display->drm, "Applying DDI A force 4 lanes quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -142,6 +156,13 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
- 	return 1;
- }
- 
-+static int intel_dmi_ddi_a_force_4_lanes(const struct dmi_system_id *id)
-+{
-+	DRM_INFO("DDI A is 4 lanes despite firmware on %s\n", id->ident);
-+
-+	return 1;
-+}
-+
- static const struct intel_dmi_quirk intel_dmi_quirks[] = {
- 	{
- 		.dmi_id_list = &(const struct dmi_system_id[]) {
-@@ -188,6 +209,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
- 		},
- 		.hook = quirk_no_pps_backlight_power_hook,
- 	},
-+	{
-+		.dmi_id_list = &(const struct dmi_system_id[]) {
-+			{
-+				.callback = intel_dmi_ddi_a_force_4_lanes,
-+				.ident = "Apple MacBookPro11,5",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro11,5"),
-+				},
-+			},
-+			{ }
-+		},
-+		.hook = quirk_ddi_a_force_4_lanes,
-+	},
- };
- 
- static struct intel_quirk intel_quirks[] = {
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe52faf..d2b8e9183c62 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_DDI_A_FORCE_4_LANES,
- };
- 
- void intel_init_quirks(struct intel_display *display);
-
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
--- 
-2.55.0
-
+Thanks,
+Chang
