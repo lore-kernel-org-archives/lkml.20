@@ -1,123 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7133B3B42D6;
-	Thu, 17 Sep 2026 07:58:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 02BF53D8103;
+	Thu, 17 Sep 2026 07:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789631908; cv=none; b=kdGt+VHRy+bnNbZDpw8PixNU5SxsoXl/OtenVQBMe3rXesGKpj84zLeCcwiLV6CV4tmzdPn+6EF/hnA99ShYAM6IEd+iqy1aSZDVuNOfgZjP50TNUOgASYp6dQWRkINFUbXod9Oia8O/jS6viRJi/LtqDh9PDuZamEzwZOwkxzk=
+	t=1789631913; cv=none; b=jjY3egHphIRB3t+4Z/v0Fdfjj5cVba22b23F4o0CWA9kuBSYbGXXZd99gN+2OU7ve2grjceEooLXeaM69f7KApHFVhgy4RAIsXEpV4FQd93DymZhSWsyO/9/+dRG1sg/HLgy6MKMVdCARpo+7NHGpwUUBZnrYbK19BYa6vHqTsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789631908; c=relaxed/simple;
-	bh=8c+92Jd/gm+FWqvIgfkDHVoxph3tLgrEuSoKU/ASSho=;
+	s=arc-20240116; t=1789631913; c=relaxed/simple;
+	bh=RRfDq16oxGgKtBw9UeQmNtYm4ST9qaYOgq1HK0Ny8A8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YYtmSd3q0nETbUDnfS0XHOK1hk82SS/z/jcflb8dBZJIQoDhnaRy6XaPZ+0xOxhqp5GN8bJpvJ6anY2OWYpJsjIT49UD/jte9jKUNQmCE5DYz9xViHIkQq1/qfA9NKxudy/IsIxmw2MATnnzBJ3QTeWzh2j+OUF5DFBdFBn8Pu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mQqv+3/E; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q6a5xLJyrE2AWDLvpnqwTdxkXJvGl6lR0X3T0WDakhNmVTDNDeH/RRYFgK6utTuJkJ5UfzczvxvsGO1zPjMuwBjfH0R+RxV4q5D4QJ0bVaCFyEFXbW1VOdKPUrYtk3D9+cD0A5bM8WZE90X6Gu+NmE2GaF7Xuox4UwhHsdcTHTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=f4wC/Tvn; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mQqv+3/E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1C871F000FF;
-	Thu, 17 Sep 2026 07:58:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789631907;
-	bh=9++Cplf6jCa1OoloXqzPgof2bhpi5ETowpfawlNDVm0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mQqv+3/E7QwJcb0I5Ns0cHgT8TTuV/nvp/UzSP3aseIZ+h48q2X2iWXzXAqCm8xIy
-	 NNAxtyOIealg1sDOn2n4q5J1VGiyPlKPoZfSxB57VcZLO9K/5W3pa3WTYwxdTMZ65k
-	 BF60DZTolqzOQWzc6uo8yC17InS408oLsQI+21ddgFjlZmhQswejBFrX7fNtJnnmh4
-	 Na3k04bfVhZqYec/EiIkgrUsjGQr/nbk4XRgI4xHxA1wHcyRm7KuoEk0s2/6/Fluia
-	 Yxu3JjFahJsqA97hVkOqhrsMOGcTOHoz8dAfx2CdzMTq61JAsxmaA2m5We3hSfCxTo
-	 UaS+a5q2wZ+SA==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1x770i-00000006OfM-23F8;
-	Thu, 17 Sep 2026 09:58:24 +0200
-Date: Thu, 17 Sep 2026 09:58:24 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: linux-mmc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
-	Rui Miguel Silva <rmfrfs@gmail.com>, Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] mmc: core: Turn mmc_alloc|free_host() into static
- functions
-Message-ID: <aqudoCAtZTgq_31Y@hovoldconsulting.com>
-References: <20260915132052.273212-1-ulf.hansson@oss.qualcomm.com>
- <20260915132052.273212-3-ulf.hansson@oss.qualcomm.com>
- <aqpIl5NWCFiuKy9b@hovoldconsulting.com>
- <CAPx+jO86Sy+of41dw3Gi5CNfyc5+iOyDU4CZypz4YGzG27QW0A@mail.gmail.com>
- <aqpovla0rTDnmwRh@hovoldconsulting.com>
- <CAPx+jO8WS3MqzS3txy1B3FnQ9OzRjDGzxMLLZ+Mys-jqego3_w@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="f4wC/Tvn"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C4F851476;
+	Thu, 17 Sep 2026 00:58:26 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B1D4B3F7B4;
+	Thu, 17 Sep 2026 00:58:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789631910; bh=RRfDq16oxGgKtBw9UeQmNtYm4ST9qaYOgq1HK0Ny8A8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=f4wC/TvnWaNgPI27Dfy+Nrnm0xEIKICSS0D4shLai0nf6X//HHrkuIFoWvfQ+w1mP
+	 XBlhRCgFI09l+Ayz0I9KRZNU4Uol8xNufG0CUKYMPjKpPh7zh4QZ1X3bc38dYeR9RW
+	 Z7cso9/xLARHAJCe+Be3ye8vh/HNKsc1XvD/la1s=
+Date: Thu, 17 Sep 2026 08:58:25 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+	will@kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
+Message-ID: <aqudod8kM5AjkCFY@arm.com>
+References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
+ <aqrGPK0lFBFXL2qY@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPx+jO8WS3MqzS3txy1B3FnQ9OzRjDGzxMLLZ+Mys-jqego3_w@mail.gmail.com>
+In-Reply-To: <aqrGPK0lFBFXL2qY@arm.com>
 
-On Wed, Sep 16, 2026 at 04:12:10PM +0200, Ulf Hansson wrote:
-> On Wed, Sep 16, 2026 at 12:00 PM Johan Hovold <johan@kernel.org> wrote:
-
-> > Devres generally only works when all resources are device managed.
-> > Therefore you should always provide the underlying non-devres manages
-> > interface as well so that you don't force devres on drivers where it
-> > could cause trouble.
-> >
-> > > > Especially with the work cancellations present in mmc_free_host() (which
-> > > > I have pointed out elsewhere should not be there), a driver may need to
-> > > > free the host before tearing down other non-devres managed resources
-> > > > during unbind.
-> > >
-> > > Can you please point me to such an example so I can try to understand better?
-> >
-> > We just discussed the renesas driver which can schedule rescan work
-> > before registering the host controller. [1]
+On Wed, Sep 16, 2026 at 05:39:24PM +0100, Catalin Marinas wrote:
+> However, can we end up delegating a non-guest_memfd memslot page as
+> protected?
 > 
-> That isn't a problem, but it's not the right thing to do as
-> host->rescan_disable is set.
+> I played a bit with codex and it reckons it's possible if a guest_memfd
+> memslot is deleted after its IPA range has been initialised with
+> RIPAS=RAM. Removing the memslot unmaps and undelegates any data pages
+> but leaves the RMM state as RAM. The VMM can then install an ordinary
+> memslot over the same GPA range.
 
-Ok, good, I see now that you also cancel the rescan work when the host
-is stopped so that seems fine even if the second cancel when freeing the
-host is unexpected and bit misleading (as it was added to work around a
-driver doing something it should not have).
+After some more digging, I think RIPAS becomes DESTROYED after
+undelegation but it doesn't change much. A subsequent guest access to
+the private IPA still exits to the host which will attempt to delegate
+it again even if it's no longer guest_memfd. RIPAS remains DESTROYED but
+GPT is now REALM (and potentially a valid user mapping).
 
-> > If such a driver also has non-devres managed resources that are freed
-> > before the work is cancelled you have a use-after-free.
-> 
-> If you are referring to the mmc rescan work; mmc_rescan() will just
-> bail out as host->rescan_disable has been set as soon as
-> mmc_remove_host() is called (see mmc_stop_host()). In other words, I
-> don't see how a use-after-free would be possible in this regard.
-
-Looks like you also recently fixed a related issue with sdio interrupt
-work which also wasn't stopped (see commit 6feadbecdae6 ("mmc: core:
-Cancel SDIO IRQ work before freeing host")).
-
-So I was referring to all work which may still be running after
-mmc_remove_host() and potentially call back into the driver being
-unbound.
-
-A quick look at a driver using sdio_signal_irq() indicates that this may
-still be racy. In dw_mci_remove() the host is removed and clocks
-disabled before freeing the host and cancelling the sdio work. A racing
-interrupt could have scheduled work that may result in MMIO accesses
-with clocks disabled.
-
-> > I only pointed at greybus as an example of a driver which has non-devres
-> > managed resources. If there is (rescan) work still scheduled after
-> > probe() or remove() returns, there's a potential use-after-free.
-> 
-> See above. This should not be an issue, at least it has nothing to do
-> whether we are using managed resources or not.
-
-Sure, if mmc core guarantees that no callbacks are made despite the work
-being left running it should be fine. But that does not seem to be the
-case with sdio interrupts currently.
-
-But regardless of any potential races in mmc core, my devres comment is
-a more general one: subsystems should not force devres on anyone.
-
-Johan
+-- 
+Catalin
