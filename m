@@ -1,80 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E2643D51E;
-	Thu, 17 Sep 2026 08:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140AB3AE194;
+	Thu, 17 Sep 2026 08:31:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633886; cv=none; b=UHdxhFZxv1+QVAhzWAeUPCYlO9wGCF7t0XLD60yMoQWMzEFfRqrYuyMIYI0xqR22sdBP8tFfW1nvr1dYWFsNQrWhOYtZv0QNiT2CZBa8TC/DiVIjmsVPNhsKgVz2er0ZiMx4S4NbT+3gVDgC+H4FN9d4bf9iWXZui3ltLaNJPSA=
+	t=1789633897; cv=none; b=Mj6qPgNRBfA+rALwGQCKSpjwcZhW81wiG+Vzla6AfH8DREx7gumtllDp7RhwO03T3vInWwehUCsHLA8Jt3/FYTsaIpo7gQvyQkN5XBhb6rr7SJQFsyKaUmOeF8F9ZXIAquV5aUjPhqa58kP1qrajaYh48jMS7Os0WfJ7hYphLXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633886; c=relaxed/simple;
-	bh=sZgkRwiRrlqYyrfJRMGp3n0c5/aSEtnD8nXpMVOL6gU=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=T+caDJt7c1TnlOU4kTZfp/A0ndCqHcaMmQODLgIaJmUSimebjutnQ6tjxgOppG0tklhZWIpF4SkvOt3DPv7GR0/ZIgoimaoTFLGDgSrpLEFfAf06X0j+H6FV0VMJtoRqqsIyb2AIYP4JF6ACFhpOu7ZoQV7H1hJl5PzeeQPWF9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fcTU/q7R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789633897; c=relaxed/simple;
+	bh=EFCU3slXLF6wyCu5lUqFknXNpyZ/q2iPl7EvRTCkv74=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s8CUcbiDHarLCKEvA4ZD3Dr1VR9w0R2tsuFTGwTekWsmmUPThhTvxLyW/JOO+KQk6DAYEMc/ZldZUnGWrYdILhNYTDrLRjC8suxPoLCXj1ZJMLxGtXYrjJp+DMZOq5wybeTcWq/WVJcyeQoG33kGUxS+SoEkyC9dhtaaMmmx5Hg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bfMIC04L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fcTU/q7R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4B731F00898;
-	Thu, 17 Sep 2026 08:31:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bfMIC04L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A65BC1F000FF;
+	Thu, 17 Sep 2026 08:31:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789633870;
-	bh=LO9eaufMm0duk8wGY4ihfDIzUgYxdIMkz6Fmb6I1oSE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=fcTU/q7RIlFTHV3pFT2K65KSjMm5NJG3KeZ+tZCez/13nwMjXCT5gwW9wGtXwlvJd
-	 FqXBZBRtexw++vnpEEmmUeoSa/VUDaAdDxennNWOG9CKP/Et8dRC39Oac/L27kh9Op
-	 z0siz+kDI+bJHA3ViwI3aKCdtgOddfYAXZdDPEpdHdGWydW7lN1n8juimcSuRn9UWz
-	 r1e5noqygU2uv/97R16HBE4TZEvo63HosOvEYm+guGH2srl5Wiys8oAbSiCIkw2Zh9
-	 grRX8/SzsZOrjo4oIkK0UPxcm9M65rGyotFo+ucr+VSnViJ3bCms/NuaoE/N756cZs
-	 ZTEvFVLo1mOqA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93A60380CFEC;
-	Thu, 17 Sep 2026 08:30:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1789633884;
+	bh=ANxejpccKcabPui2bCS5FVmFl6M7lax2nCiJAhpXUPk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bfMIC04LfYIdVeWvgh+puMJgUx8Xe5yTyLRVeuk9Fk3DqojxRnJ8ej//mlgfamWKB
+	 G7Gvits7Ayz7pM9D914dlpMoMeCEkuXeihmtZkhHmn/+ORFQyQHnJsYQaah5W3c+1w
+	 MjEE70REJcTWfSmML5x18EbttX4xFummhCMKiRehq6B/khNdly5OjdDfqfF2sM7zJD
+	 RG5XmusQ1CCpbHaBNUd62mjQLpp2BHkAieM+hVO5uDgXywZH89lYqihKep9t7yvpKw
+	 3YUZa4GL/rmIQmJh0qhYzhcf0BIMPyq8fOExhUQq74R86Yx+UxLV4QPvnHNqPJpt4N
+	 Y6hfR2F/f6hYA==
+Date: Thu, 17 Sep 2026 10:31:20 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Taniya Das <taniya.das@oss.qualcomm.com>, 
+	Vinod Koul <vkoul@kernel.org>, Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
+	Ajit Pandey <quic_ajipan@quicinc.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Imran Shaik <quic_imrashai@quicinc.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Tengfei Fan <tengfei.fan@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 09/52] dt-bindings: clock: qcom: sm8750-gcc: Add CX
+ power domain
+Message-ID: <20260917-spry-controversial-snail-bb62ea@quoll>
+References: <20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com>
+ <20260914-qcom-tie-cx-to-gcc-v4-9-9d5a606ada33@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 net-next] ppp_synctty: Use common error handling code
- in
- ppp_sync_txmunge()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178963380438.3497657.12392153187415676873.git-patchwork-notify@kernel.org>
-Date: Thu, 17 Sep 2026 08:30:04 +0000
-References: <15f151c7-58c8-4116-8a03-e985fd132b0f@web.de>
-In-Reply-To: <15f151c7-58c8-4116-8a03-e985fd132b0f@web.de>
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: linux-ppp@vger.kernel.org, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- jirislaby@kernel.org, pabeni@redhat.com, qingfang.deng@linux.dev,
- tparkin@katalix.com, linux-kernel@vger.kernel.org, kees@kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260914-qcom-tie-cx-to-gcc-v4-9-9d5a606ada33@oss.qualcomm.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Tue, 15 Sep 2026 11:23:01 +0200 you wrote:
-> From: Markus Elfring <elfring@users.sourceforge.net>
-> Date: Tue, 15 Sep 2026 10:48:11 +0200
+On Mon, Sep 14, 2026 at 03:47:08PM +0300, Abel Vesa wrote:
+> The GDSCs provided by the SM8750 and Kaanapali GCCs are supplied by the
+> RPMh CX power domain. Model that parent domain in the GCC binding so the
+> provider can describe the dependency in devicetree.
 > 
-> Use an additional label so that a bit of exception handling can be better
-> reused at the end of this function implementation.
+> Add a single CX power-domain entry to the binding and make it required.
+> Without this dependency, GCC GDSC consumers cannot vote for CX and RPMh may
+> undervolt it.
 > 
-> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-> 
-> [...]
+> Fixes: 342d2a607450 ("dt-bindings: clock: qcom: Add Kaanapali Global clock controller")
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/clock/qcom,sm8750-gcc.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
 
-Here is the summary with links:
-  - [v2,net-next] ppp_synctty: Use common error handling code in ppp_sync_txmunge()
-    https://git.kernel.org/netdev/net-next/c/063510768490
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Best regards,
+Krzysztof
 
