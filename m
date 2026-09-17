@@ -1,197 +1,124 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013050.outbound.protection.outlook.com [40.107.159.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26F33769EA
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F26835F16B
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:32:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608586; cv=fail; b=qVXwIMdwV0LBQyKfgVAr3aVRnoEBbUt/ZmrvnKWbB57Cubs/T1Lh8oHHTXSKdHOkYyRcXG+BKQkorFdKahd0C3qlAob5xeov8RY2JPyYjxBhXl55Y84BfOrKb/Gfcu/3VvBOlBFyQFemRQ5xwqZAf6Q9YjRCO/q/c5pmUFw4k/A=
+	t=1789608744; cv=pass; b=fKcJiM80mte5XnekialturooBIVhA96K7oz5n4sacgnUAqq50k4PZRTpcM6M4hujGeXzO/JKhUPzs9397bpX9ziRU2fJWErxNJhPoAv0QPEyDwFLDMAE63o5M/S71Zukg453PunWqVypFuyl+Q4Eu/3K3it79dQxH5ht22sSafg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608586; c=relaxed/simple;
-	bh=BfU7LPGobMi/DTKH/bIrkpzuL6aUYJC1vXu7bGdseFA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=A76Vnpu/5DN1eXarFeMWH1t8xv5LtOo+OWuqX6maSKPKz1UgsLUQIzP35dbG/MGry8z2AfNKiDvvICPoCsS9e5LiQEzan4gpkMtjm8nVqIMlLFZf/0i2hX3LLKkNXYif0woE5aPobgNHC9xewUp/GRlm2KUVT6kwMYB1gyXOwi0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ONq0Kqfj; arc=fail smtp.client-ip=40.107.159.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1789608744; c=relaxed/simple;
+	bh=A+lyblawb+dgZi1Z+Fh12EBBr9ZxtiKYKrx5lLTeJY0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fZ5zZhjousBQk+UkjR4PiDc3USKYJuQw8JQMia92RbdUu5dQ53v5WWNv6la19n7sUiyDNkBFPpKZM/lnQWd3OEQ4vlejtbxm9ECUARf/vjaP1Gc/BLUd9iD8WxWYB0EmkjFL+3Y5ibzky8epQhtxV4/uGdrYL1YiK8CONxj5ZhQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F0reQ/xI; arc=pass smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ONq0Kqfj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aMLJ8/a10F39Gm+U7/x/wpp+jN0k+YxREGYM27yuiL/QZnPfqbPHJMqxK3KdYwq2qxyBsHQqWCZNXieCa/7IZC3GkEdzRCeJABIRYPHAHfI5MilXru0f+Ty59ZI5y4j6uIViNn4kYmP3g950A3se6E4XhSge8HSJrOctwJkdQt6KgaKloIc1d20yjjj5G0s+Mlytxo8u26mQxLyWO9qlIOK7SFIOS6FPHYkNLESAl8ZECgIpb++aVV71fbLDpN/RFmNAROWqKBL0Nfq7sKpf8XdwSTrzefexviIAvNfGBhFiVedrcVQdszLokfB0CjgKld7W5IiF4YC4DLFw9XsAJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TrDm+w5JVDK58UejizeyXKNYWhQ9/YdYtHwWPcPi0rk=;
- b=yy2Zwk40kSoJadbMk30J0iI8cF1R796rVAU5hTVhMVlUEViBJ6R1h4kT5lrFIcO6G7MsfjfW54YfwUFTePXoVebUaTkTzi+uqPbPnPQ2S0tSt7NxWph0ZfagDy0P8vtgar2N4a4ZVFk5Nz6MUQMDdrUSu6PJv4aVmoqaFVWAcquDxsJgmbH66KQ8QdoiX13IVXS/7KxmobH8qYnfkvH8of6LAdMa7FdXLqEgc1tnhV0EKE3pgg4Gh31+6VDGwnBUkQeMNSAvVGJAkSyqAW5zYUgD7HXjxej2G9jfFzj+LwuUP/lYnwquCywCGk2JrqYdaR7Z3h0lOqNRBPiXJTOMOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TrDm+w5JVDK58UejizeyXKNYWhQ9/YdYtHwWPcPi0rk=;
- b=ONq0KqfjEsTr3IVvtI38WORc5ogj/KI/j+emlohr5QKijS3VRv5IsEQApSwkYgbdElGb0T1uovZm1/F0IaY/JJcCX5OqN/o8dEPUb9Eh4J2y1WF8w4XgMw0DO7XhEAPUl7NjFLeG6AfbskerTFq2ha41bMdtKH0nXoOCB4BfHOSf/6OwWXUvCzLStl9hL+PYwPxw9YYi0pyxQ4aTWuuv9nv3nnLl9XC0S1fjkPm6iM2o/CPmYT6xmTBxxsu6YhAGtia2ZuJr51yNN9duLz9GholX/OvrQ5GpMi2jRedOAvM4czoycReRR2Yf4HoyHM01ZFcKfmtYUauqzDDvyey6tA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by PAWPR04MB9910.eurprd04.prod.outlook.com (2603:10a6:102:380::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 01:29:38 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.009; Thu, 17 Sep 2026
- 01:29:38 +0000
-Date: Thu, 17 Sep 2026 09:33:55 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC 0/4] iommu/arm-smmu-v3: Support shared Stream IDs
-Message-ID: <aqtDg1EH95RYOdCJ@shlinux89>
-References: <20260916-smmu-shared-sid-v1-0-517384504aee@nxp.com>
- <20260916161018.GE3196566@ziepe.ca>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916161018.GE3196566@ziepe.ca>
-X-ClientProxiedBy: MA5P287CA0071.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b3::10) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F0reQ/xI"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910cc46c7so18768385a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:32:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789608741; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GEDKXRkVvYm4NBJ1e6fGbFngx6DQLQaS6GGqTIX5lQ76GE/GKoEGF+TxKZReh1m6DB
+         aVh1yTEaERkVHCT+J6uJeatGnLOsQPJpD8DjcJAGwpnxmY2V2ZulaXUm3x8w2IZSC0zq
+         vIYbIQ/1pF4DefXPpNLFWHjiH7J4CYPx5pkl0299ljAYyvFSR1tKwrDOW84tYjNRlRcT
+         2t2j7e7JNsbnzS0bLWkYVRY99A1PUirSiTkuWNAG78KEXNDtQMOhNg3p8LRvS+79V01x
+         x/X+nfnE/J5/AyaAgyYxjkBi7AulSHaZt3datPvmHm4Mp7wa8loECP5N0sdZ/N2DWUpo
+         Fzpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OQRUPW6YJQIkC46/KpIizzCCGCnEQ9KqApfgS7uijf8=;
+        fh=di1BSuQOlGaYnHqpGysdF5H5yowUKX80FiU4Sz15OqI=;
+        b=EyYFOjJIPKGxP5CRK1abuLWornOdxa5SuxUO4rlPPbeWuXlblHOp/0SowBT+Cr/7hf
+         RF8yeCoBmeBAwE5lFiuh0Rg04R7ayeHFgBf/eHqjAvjb3fYU8y0wNFPz8ApBYR69taar
+         NujPjyD+EYKEt3oRk0/desnSNGy4YDneyPCQdk/jGLJyz2GfT5BeQJLVq1xBGNrUQeqT
+         AVwRu69sqp6myEOds/r0LzWo9UYbMCfyoWdcwgwLUS1ICEhVzKIAr4ZatKge/Hfxa14O
+         fJ09YCTbmiWW+kwtM8hHo/Gl2nFq91+hpYzKv5bwdYTrCmdJHetUH9MZeClKm6P0WfNf
+         ykYw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789608741; x=1790213541; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OQRUPW6YJQIkC46/KpIizzCCGCnEQ9KqApfgS7uijf8=;
+        b=F0reQ/xItJ0VwokY3OtU4QLiubH1w2NzLbVOUcIFza0DztIZBwX5Ipa2CP5jFq60lI
+         8L3gaEirKnzXT7NH1gMhsEv7yo+GB34NyhH7LkisZ6QjaxRsKzBl3rpCdLvLQ3+812rP
+         /WMsfQdG2AyAQjkLcKcyfvusBhE2DVmO7DtVmiNdjvAkt1e8StYSgMzK6oOtVysYCaIt
+         CpSIOW0yw9Bb6gbXF3l77t9zVubEMrr9sadXgUqzXBEP+lM7G7AT7WP46zrHwPNzaVmZ
+         plbL7uPu0u+HMprcbH6yhlhrIG1DOwDhj7d5gsMehHLkZDhtklB0FvxLb/SfCwbrbi03
+         PLCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789608741; x=1790213541;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OQRUPW6YJQIkC46/KpIizzCCGCnEQ9KqApfgS7uijf8=;
+        b=xgd8bStQCO1NCrSdKHU5Mj8t5yk3jlqqLERCVRGlHfgRq1hr5VabFSjXtOqYzDC1z5
+         AulzNCKGBaiwu7aF0gpOwx7aVjfcmiU+1zIi6ufLo4FSQH/dwYYn8jjZUUjnieyOz4mx
+         kt0MJdDkcooRERffiwDeonNUifxUpWETfNV0gg0c5fUYwgOh43av6SoLkksm7z7ajaGo
+         EGfsPnUJj2qwpvRV83iT3lyvtZZEzavWMibNlX6PC3gK7HDviUlkYR+1MJwFZu4VQ5Oq
+         jXHlRsZaiVxVaqNVSzuwIGdwIlaHOeu947cyuDgDprTF7kSniBXG5eNwl1NhIg6/mI54
+         E4/A==
+X-Forwarded-Encrypted: i=1; AKwUvBxi6X02mHmkXsZDsNxVnVkltfEDd01tlq3wH+gbm9JrJj0LsqlhFDPheIxprPb0jI0XR/U92KZ/nPuzbS8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqYvC64inS6Pw1qopJC8BwmG7Jd5wRbx9Y0Vm9NKR0kj/JG32O
+	UvtRFBrBzHcziyii0vdxPT2PDHH5AB8fqJ7bUOtzE0Xx64x0c8JLNIWjph9AlVUGxhQTWS4dEzI
+	ynpojQNnWkwgKto9zmyxAV+4/URJBYfFyYA==
+X-Gm-Gg: AYBFou1Z81t0Tg+ieggdE5tg6PLWCRUxb9nRjdP1KLDnkvbQpMVj5ga6+s3ogOju8lf
+	L+ugIf49kcMgGSCrTFqXJfU37Xciv8CTQgqs7GWOtt8YPIApz5cloesGhaPwWz58qRO+gMwTOsl
+	6AShRt0jtZAhlUXP2Qnb9XPl+p1sQBgPNPJExr2HqTnpug6TjkxeaMjBz4rPThJz6xdG55vidIw
+	RvBBYT6Fw3bd1WXzto3oYBznhD0YNUlXHPn3ydIeTp8rUzq23gln2kqSelx9H6u8GZvN9OdlaYj
+	3d6tyA6B+8k0Kw3WBTlZ5BI1BMeVhSVg08b0jBcy8Qq6+an432ZssNts/fZ90wtf1NkyhxHwri5
+	ZalXE8HoISo9/5IX4tLMDvdNzZE4BJpAqQnE7pHD47UrU7bnmPlvqPO1G5MMz1EsnzBR1yEwjP8
+	tSC6VGwlu4
+X-Received: by 2002:a05:620a:2b49:b0:939:10dd:9c01 with SMTP id
+ af79cd13be357-93bb78ecc33mr880261085a.38.1789608740708; Wed, 16 Sep 2026
+ 18:32:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|PAWPR04MB9910:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39356197-8c90-4d36-ad72-08df145b2377
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|19092799006|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	4SpdiQvtVZ6rMAHemZ5Vh1UsFLjEtiLzWWvTmKT6KDkPibAB4CPPVEZ+0CWHPGR9hZDiYKICT8nqDYno7nc8WNgZDCoL3GVdDPTyizna6b7UYRz8Niijqyp6caOsJv+Q9tUktD0QhpJ3vO9Gxh8gh+k+CnT0BUSyJcZRcfRx6fFJ/4bYpxsiq3wvFh+2XT74De82nUYr4LDZ2Avtab0zcF+//6GVsbVg/v9H8EATzUzuW7yd1BjuVIczCLMqVeALRYKR8tIyCTot6WZB/+yEtndHiF6jK0J5CiIBUoSeF5cbZRZw0TTZWho67C87iF72rNoM4Uf+MGmxHLF6sOg0wE7V9ItOPwxW81t+JAT/tLuYGR4FYdHJxqalx6SW1c94s5JJs83cGf/hiYeo6AUEIIgoDO5nXA/M/pIN6zxJthQfUBwevZ2Z8VxurReVqx9P61THuuUzpx3n+e9EhQxfdugXs2xPaskc50IzRgDZfXQL32kJs5Bxxe2UDCkETPPITx1XX/V2i/WqdLtEMl4WA/xtt9X9i253+UghZcONfvBbsWmClKL1dzhilU9GQgSZhojShtGlDssTkyxxB2QH86qqAvs4d/pQt6ha+W+faUIbhuc2ZDTt/e6t/QFGo3id7RxezCP8DSoPC6GJ7h3hIfeytMiu/YYoUnBv5S4MFes=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(19092799006)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?D0rn1KXhDlYYBtfRaU9nUBHp66Yhw8xOSvd6NTmBxcwXsCycFFWa88cWA0et?=
- =?us-ascii?Q?2RIdHi/icFBKX8qB2aJavT2AwCZCngTtMHlYkW2AOYRv0e3JvSz1WkaUkDMy?=
- =?us-ascii?Q?67vLl0vBuBTCROhdbbV1h2T7tCKkduzoTT0LFDE4OTnVh0l1FwSUiRNuzvvS?=
- =?us-ascii?Q?ZIBXRMmCq4OkkdHvVGMJV3t9DXLoSQZ5bZTUioKfTg/1xNLIGsQjskIvtAvJ?=
- =?us-ascii?Q?LqZXkxAKNtA8O8thdC7Q4QvNN/eY6nmKKbPQxgaKq8gbk1uUrrpII7+pgrhU?=
- =?us-ascii?Q?bQAZ8Ll0FvPskZaM9FjmqfrH8kQzYRtegfhmtdLJeUlGdvx06Db2N51ARDrK?=
- =?us-ascii?Q?1I3ChGH59If5L8PXYHJBxkB4uXiHazONgUw27S3nu8z8Mj09OMqc/HXMGBUt?=
- =?us-ascii?Q?lWZuYu1miWktWRJ0PXVcW88NrPabzSzpG34nv8IYT3A9NxLbrpeX7Nvnrb18?=
- =?us-ascii?Q?xYNCvCGUVsBIjsbeCxvUzqVljFsIqJgMHKY8X4ySAINqKkrz6urbjU78lsBW?=
- =?us-ascii?Q?i3kw2a5P6Xy2dAm9+rra8EF3GQkX3+s4PWdHW1jFeNBimIgALcNJVxYiLahk?=
- =?us-ascii?Q?YgQrZlDxcmfq/V407sSGNYnyQezXQte0GHSxqPHhRG+jr6mtyjxBZga8qvvr?=
- =?us-ascii?Q?xn4pJ75DdhbzZSYKbzzLEamjPtAJzkbjUzZEjCSi2NTAf/GH0uy/OM910QbP?=
- =?us-ascii?Q?UkrhI7wEqKEqEMrhIhk9SAwoq7e3JGHDEZmITBN5Z6sFCX6gSrcfkHb+yqV5?=
- =?us-ascii?Q?8VgEhfQqDlM2S0tUUkDEPGYG3yT5YYXDR97C/Ep63rlXYHZ/QSt/14wUYf+W?=
- =?us-ascii?Q?7R/t+wkxsQjsprQ4KuW4qNbFstfwK9q4u/r2MCCIsw87HTTGafxhvZJIwCAB?=
- =?us-ascii?Q?KUMr+jKju2Zut4KLpwgqRIGrFaTKOVpilchVfeyHbWMzP9ArBMW8qKWQOGQ9?=
- =?us-ascii?Q?71awdTAa5/2/t84GA2SRvciNCfysG631c/Q2j437Yp5WahvMoYxN8r4l7xbJ?=
- =?us-ascii?Q?JT/MllKFFkQ6houSzo1PSdCVwH0RfDMrReQj6yw8jREZgI7ZqrEk6z92wDOH?=
- =?us-ascii?Q?CCFAi63YN3sSSu+cQFJEGcSiy0gkNAZjJ0mh00aDXMyQEJFteD01I8G/n9M/?=
- =?us-ascii?Q?uX6mIInzPtxhvk8tKuw3qIAIxEiBJKcIOc89o2Hyhd3ZU6sAtVEiruAhCNxy?=
- =?us-ascii?Q?bCZZcQiZul9oafEpEDzdS3Wm4DA2bW8B72/urz4oMHdsBmF+kQuxxq2uCP22?=
- =?us-ascii?Q?4RFv/6SyOCG45lIFxjVCOQxMH9RQ6HF8FNY+aTLWiURJUvoC7Sdp65y3ItkT?=
- =?us-ascii?Q?EZeO3nApIntLj9ElHSEfeHQkm0n6LtfhpeBDcw7NgcdO20mfouulQFYo1nwN?=
- =?us-ascii?Q?8pCt/2i59RVx8dEUpRJ0egsYBNPunuMnNeZZruCSuugFQIwks99LypbAihCp?=
- =?us-ascii?Q?SMEMCXibYJyWPK0b7gQ4mqLrpqwg/22yeiCDye1ukjMmDJNkv3mvo8lhgcSI?=
- =?us-ascii?Q?xrJvZKJaVKtA1m7scTiZn8fENF5oXG3Vv0X9rpy2Y1eiJVEk49LDO3FYuFYA?=
- =?us-ascii?Q?jzZSnAsVdW+WZap0eRK4IWGbSdVpZ1SZ+yhwsiJC6OJDZya1hQLyaLddD0T6?=
- =?us-ascii?Q?/bkQcNj2oCrWceaxl+yl41G2img6Mh+ud8iZdM9OsQTDJEfmMYMDbI5BUoXS?=
- =?us-ascii?Q?nlUUlKct29UuPKWIZVRGAZGhxA4+F7y3T2VzkvDb1BMKXW94NxbHkUlBpdWR?=
- =?us-ascii?Q?g4WqrcVkRUQVj8Em8YpFijke0wFTLjnDg4BDyOkbTMymVPLkaTik?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39356197-8c90-4d36-ad72-08df145b2377
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 01:29:38.3171
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d8r/luRDXD9mjSK2VQkDOiNZaI4vJhcwNNy+4/3w276XdtMNhsYNDZcL/d5IU9eic1Z3VyVC46Ci4MnwmxoyymejHAKKqkSXG61AA1P857Clte5eG71bI6Nc3KhLkh+4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9910
+References: <20260916200215.21774-1-brads@mainlining.org> <20260916200215.21774-6-brads@mainlining.org>
+In-Reply-To: <20260916200215.21774-6-brads@mainlining.org>
+From: Max Filippov <jcmvbkbc@gmail.com>
+Date: Wed, 16 Sep 2026 18:32:08 -0700
+X-Gm-Features: AcwNN1WCG_JOJrf2Xbrmh8jFY2fRzqOy5q6E4Cc5_T2BPoTD4KB-hY5Oy_mqGNs
+Message-ID: <CAMo8BfLSWyDpxZuePsOdwRks9CuwXiUQBOR5ioSx4GHf_NeZAQ@mail.gmail.com>
+Subject: Re: [PATCH v2 5/5] xtensa: Emulate two-byte cmpxchg
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Vineet Gupta <vgupta@kernel.org>, 
+	Guo Ren <guoren@kernel.org>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
+	Rich Felker <dalias@libc.org>, Chris Zankel <chris@zankel.net>, Arnd Bergmann <arnd@arndb.de>, 
+	"Paul E . McKenney" <paulmck@kernel.org>, David Laight <david.laight.linux@gmail.com>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, linux-snps-arc@lists.infradead.org, 
+	linux-csky@vger.kernel.org, linux-sh@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jason,
-
-On Wed, Sep 16, 2026 at 01:10:18PM -0300, Jason Gunthorpe wrote:
->On Wed, Sep 16, 2026 at 11:12:33PM +0800, Peng Fan (OSS) wrote:
->> Some SoCs have a limited number of IOMMU Stream IDs (SIDs) and
->> hardware that inherently shares them. For example, the NXP i.MX95
->> eDMA controller has 64 channels where each TX/RX pair is assigned
->> a single SID by the hardware - the two channel devices are distinct
->> from Linux's perspective but present the same SID to the SMMU.
+On Wed, Sep 16, 2026 at 1:02=E2=80=AFPM Bradley Morgan <brads@mainlining.or=
+g> wrote:
 >
->Is that a reflection of poor DT modelling though?
+> Xtensa has no two-byte atomic compare and swap, so the __cmpxchg()
+> switch lets case 2 fall through to __cmpxchg_called_with_bad_pointer(),
+> which is declared but never defined, so a two-byte cmpxchg() fails at
+> link time. Route case 2 through the new cmpxchg_emu_u16(), which takes
+> natural u16 arguments, so the unsigned long old and new narrow at the
+> function boundary.
 >
->Why must a TX/RX *PAIR* have two platform_devices nodes?
->
->Fix it there and you don't need any of this? Or is there more?
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> ---
+>  arch/xtensa/include/asm/cmpxchg.h | 1 +
+>  1 file changed, 1 insertion(+)
 
-I think there may be a misunderstanding about the device topology here.
+Reviewed-by: Max Filippov <jcmvbkbc@gmail.com>
 
-There is only one platform device node for the eDMA controller
-(dma-controller@42000000). There are no separate platform device nodes per
-channel pair.
-
-What happens instead:
-The fsl-edma driver probes the single platform device. During
-dmaenginem_async_device_register(), the dmaengine core calls
-__dma_async_device_channel_register() for each channel, which creates a
-struct dma_chan_dev containing a struct device - registered via
-device_register() with class = &dma_devclass and parent = edma_platform_dev
-(see drivers/dma/dmaengine.c line 1115-1125)
-
-For a 64-channel eDMA, this creates 64 channel devices: dma0chan[0-63]
-These channel devices are not platform devices. They are class devices under
-the dma device class. They have no DT node, no of_node. They are purely
-software constructs created by the dmaengine framework.
-
-The iommu-map property sits on the eDMA controller's DT node. At channel
-allocation time (xlate), the driver calls of_dma_configure_id(chan_dev,
-edma_np, true, &chan_id) to look up the channel index in the eDMA node's
-iommu-map and attach an IOMMU domain to that specific channel device. The
-dmaengine framework's dmaengine_get_dma_device() API
-(which checks chan->dev->chan_dma_dev) then returns the per-channel device
-instead of the parent platform device, so DMA clients map buffers through
-the correct IOMMU context.
-
-The shared-SID situation arises because in hardware, each TX/RX channel
-pair presents the same Stream ID to the SMMU. So dma0chan0 and dma0chan1
-both get configured with SID 0x30 via:
-iommu-map = <2  &smmu 0x30 1>,
-            <3  &smmu 0x30 1>,
-            ...
-Both channel devices end up in the same IOMMU group, but currently the SMMU
-driver rejects the second device trying to register the same SID. That is
-what this series fixes.
-
-And merging TX and RX into a single channel device is not possible -
-the dmaengine framework allocates one dma_chan (and thus one dma_chan_dev) per
-direction. SPI/I2C/UART clients call dma_request_chan() separately
-for "tx" and "rx", each returning an independent channel with its own device.
-The two channels have different source ids (e.g. 83 for TX, 84 for RX) and
-are independently programmable hardware resources - they only share a SID per
-hardware design.
-
-one more point to support SID sharing is that i.MX95 only support 64 SIDs,
-however there are more than 64 DMA initiators. 
-
-Hope this explains well.
-
-Thanks,
-Peng
-
->
->Jason
->
->
+--=20
+Thanks.
+-- Max
