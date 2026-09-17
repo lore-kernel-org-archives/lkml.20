@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C7A4FD26B;
-	Thu, 17 Sep 2026 21:25:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB334FD7B9;
+	Thu, 17 Sep 2026 21:25:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789680307; cv=none; b=bhrcnyn/RjIyBBCPe/etvSuC4uFuBScg4TrCzxRICZL8AfrR2JGcw41XV7SfCIgdMzJ0ey3DZpjka3mFsDIjAsr3s4jWDhaMP0lGzZ18HBFTPqqUIj/mMDaWuT5Zxqy1lTDs0nBllkS+2AHG03tErVzL1DBgz61+kCupJ9S33jg=
+	t=1789680310; cv=none; b=Fy5VoNcLR5hgUoYqi9xnk9wOE5/NMoKGy3JV31xjiYFOrEtWe6UtusmezgeSUQa+FI48zwnmzmQLdSy7DdUq4WTgqltIFBe4yc1xR8x+a++KR70VfDeAPKWzDAmbeqTTEodwwxFcPZRwC+DWU9WwTBIbF2RBp9jW75seXayp8gE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789680307; c=relaxed/simple;
-	bh=ROS23SvRoVv8gu9K2RSHS7jdg6lODRBfbf8f3ttCKVA=;
+	s=arc-20240116; t=1789680310; c=relaxed/simple;
+	bh=qisEgIS/5chZ/VJn8+lVuOWhXvQD1f4T7SJBz4X5VDI=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MO4P0mJcYATED/0p0zw0Ke6yg8LOM89ad/dsQ+/d1AK60WGqERWILNIW5EeShwGhXzA7ozGfTq9YXeGX47UEyWikthUJh4/ILAqXJDE6mY6ALoKEiISrF2e15q1U32GSO1gjXpd2QBSH70giHWKdzhAHXkAp9b4nDQnRk7C6mTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S5cbvghN; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=nRA0xv4osn2Gr4cKb0imQbOwopZPJ8N4+k36I18wmS16vjdgKPD64nv9XwhtbMpEIKOybuCYMy8gMGliFVpLDDUDhVdwZHt6GbXup3xnPQubEHjzWWs3Ea4h4rFTmTWaPG1LdyyRvg169cMVwp+VoVXvH5JkS3aGNOpl+pISptM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEZM/0uu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S5cbvghN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DD8D1F00898;
-	Thu, 17 Sep 2026 21:25:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEZM/0uu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA1721F000FF;
+	Thu, 17 Sep 2026 21:25:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789680304;
-	bh=RnN8zERFC8N6QZcmfGab3nNI19sQk5F/+G4lcfC6Ryw=;
+	s=k20260515; t=1789680307;
+	bh=4u4Kx7uMFTKGeAvr9D5KBr+pxP+rbnGZ/Uaz86jsU6Q=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=S5cbvghNgJ42XB79SjvaYNGBdh016ZHW9LHfziPr2ILC2bxniumW3UfVIcQwfW89U
-	 k8BOEcglXi4umRVkOewuAreG7WTd5okXqLIkBhTrHfFshj0jJX+LEwYYfVAziWeb7S
-	 k0Tir+h+OSfdpw2K7RhYNS3uleYyoUf1LYPllkcv8dA2QS9maIEkvxXq9rWL+CGZEo
-	 3M7d3knPMdr6MNSZ0rTKxz/PWVnl+TmBbdtIxD6H7QwfnTS+UiWFFLkTMKTH6R1uLn
-	 rwmpFWrx4EJEbsHyydSYJbWkuhTniAYv5RCx56iF7JrLxLYDD84xcCatTEdUTMWlyX
-	 p1SOYQXGEmA8g==
-Subject: Re: [PATCH net-next v12 11/15] ax88179_178a: Add Suspend/resume
- support for AX88179A/772D/279
+	b=oEZM/0uuEuNUW/R3jUeTLUWjD2d0FYVvCgSYr4w/zhs6anMKUhUHbNDxnk0mu6wxY
+	 IanWLQ48wjvp6dKVORLGTe+aF+ECy9kP4tsUOptnaiXWIxleP/apsw0pLFf8/faDvZ
+	 2iVjnPuV0yJQaGmTVamgmF9RWp1iwBbAxrs29iK4IsvkoqJyGIx23muzPqGXnoy82m
+	 CnHwBHE/7nuh1cal0hGGWkDbc/XAvTP9g/dxwPG3XyMwToSMk8CGSnmIhyA0+4AEm9
+	 Rkxv8LdQqaBDmdxnzn9cIzgUZz2KlKbV8hp62QsHKwm2J9eFBl6obmNYiTa5xLoRrF
+	 3U8Jo6VxfOWbg==
+Subject: Re: [PATCH net-next v12 13/15] ax88179_178a: Update driver name and
+ information
 From: netdev-bot+sashiko@kernel.org
 To: mail@birger-koblitz.de
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk, andrew@lunn.ch,
  hkallweit1@gmail.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, neuromoments@gmail.com
-Date: Thu, 17 Sep 2026 21:25:03 +0000
-Message-ID: <178968030357.22033.18257401689515949008@kernel.org>
-In-Reply-To: <20260916-ax88179a-v12-11-60c04c9924a2@birger-koblitz.de>
-References: <20260916-ax88179a-v12-11-60c04c9924a2@birger-koblitz.de>
-X-sashiko-severity: High
+Date: Thu, 17 Sep 2026 21:25:06 +0000
+Message-ID: <178968030633.22033.16665978438548871360@kernel.org>
+In-Reply-To: <20260916-ax88179a-v12-13-60c04c9924a2@birger-koblitz.de>
+References: <20260916-ax88179a-v12-13-60c04c9924a2@birger-koblitz.de>
+X-sashiko-severity: Critical
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -48,393 +48,222 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 9 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issue(s) to consider:
 
-Critical: 0 · High: 2 · Medium: 4 · Low: 3
+Critical: 1 · High: 0 · Medium: 1 · Low: 3
 
-- [High] ax88179a_suspend() (drivers/net/usb/ax88179a_devices.c:170-172)
-  calls usbnet_suspend(intf, message) but discards its return value and…
-- [High] ax88179a_resume() (drivers/net/usb/ax88179a_devices.c:210-214)
-  and ax88179a_suspend() (:138-142) call rtnl_lock() from inside the…
-- [Medium] The new WoL programming in ax88179a_suspend()
-  (drivers/net/usb/ax88179a_devices.c:146-152) performs a purely…
-- [Medium] The new PM callbacks consume the results of ax88179_read_cmd()
-  without checking the status, and for one-byte reads the destination is…
-- [Medium] ax88179a_stop() (drivers/net/usb/ax88179a_devices.c:1163-1165)
-  sets 'reg8 = 0;' and then calls ax88179_read_cmd(dev,…
-- [Medium] The new ax88179a_resume() calls ax88179a_reset()
-  (drivers/net/usb/ax88179a_devices.c:208), which unconditionally…
-- [Low] The comment added in ax88179a_reset()
-  (drivers/net/usb/ax88179a_devices.c:1140-1142) claims that when the…
-- [Low] The comment added in ax88179a_resume()
-  (drivers/net/usb/ax88179a_devices.c:201-203) says 'PHY-power is re-…
-- [Low] The new PM callbacks issue a chain of vendor control transfers
-  whose results are all discarded and then report success.
+- [Critical] usb: net: sysfs ABI and module name breakage for ax88179
+- [Medium] Undisclosed Kconfig symbol rename leaves two in-tree
+  defconfigs orphaned.
+- [Low] FALSE POSITIVE (retained only per validation policy): the concern
+  claims `select AX88796B_PHY` is bogus because the synthetic PHY IDs…
+- [Low] The Kconfig prompt/help and MODULE_DESCRIPTION updated by this
+  patch still describe the module as Gigabit-only while the device list…
+- [Low] Firmware-version producer/consumer mismatch: ax88179a_bind()
+  (drivers/net/usb/ax88179a_devices.c:761-766) reads only three bytes…
 
 --
 
-ax88179_178a: Add Suspend/resume support for AX88179A/772D/279
+ax88179_178a: Update driver name and information
 
-This adds suspend and resume handling for the AX88179A/772D/279 chips by
-storing per-device suspend/resume function pointers in struct ax88179_data
-and calling them from new wrapper functions registered in the single
-usb_driver instance. A few questions on the new PM paths below.
+This renames the Kconfig symbol for the ax88179 driver, extends the Kconfig
+prompt and help text with the newly supported chips, and adds selects for
+PHYLINK and AX88796B_PHY. It also renames the usb_driver structure and its
+.name string and updates MODULE_DESCRIPTION.
+
+> diff --git a/drivers/net/usb/Kconfig b/drivers/net/usb/Kconfig
+> index 115990b0d9537..4158455a2da76 100644
+> --- a/drivers/net/usb/Kconfig
+> +++ b/drivers/net/usb/Kconfig
+> @@ -195,11 +195,12 @@ config USB_NET_AX8817X
+>  	  This driver creates an interface named "ethX", where X depends on
+>  	  what other networking devices you have in use.
+>  
+> -config USB_NET_AX88179_178A
+> -	tristate "ASIX AX88179/178A USB 3.0/2.0 to Gigabit Ethernet"
+> +config USB_NET_AX88179
+> +	tristate "ASIX AX88179/179A/178A USB 3.0/2.0 to Gigabit Ethernet"
+>  	depends on USB_USBNET
+> -	select CRC32
+>  	select PHYLINK
+> +	select AX88796B_PHY
+> +	select CRC32
+>  	default y
+
+[Severity: Medium]
+Does this rename leave the two loongarch defconfigs behind?  Both
+arch/loongarch/configs/loongson32_defconfig and
+arch/loongarch/configs/loongson64_defconfig still carry:
+
+    # CONFIG_USB_NET_AX88179_178A is not set
+
+Since Kconfig silently ignores unknown symbols, and USB_NET_AX88179 keeps
+"default y" while both defconfigs have CONFIG_USB_USBNET=m, doesn't
+USB_NET_AX88179 come out as m there and the module get built on platforms
+that explicitly disabled it?  The same silent flip would happen to any
+existing .config with the old symbol disabled when run through
+make oldconfig.
+
+Should the two defconfig lines be renamed in the same patch?
+
+The commit message says only:
+
+    Add additionally supported devices to Kconfig description, add
+    further requirements such as PHYLINK.
+
+    Update driver name in usb_driver and update MODULE_DESCRIPTION
+    to include the additionally supported chips.
+
+The user-visible Kconfig symbol rename from USB_NET_AX88179_178A to
+USB_NET_AX88179 is not mentioned at all.  Could the changelog call it out
+so backporters know to look for defconfig fallout?
+
+>  	help
+>  	  This option adds support for ASIX AX88179 based USB 3.0/2.0
+> @@ -207,6 +208,9 @@ config USB_NET_AX88179_178A
+>  
+>  	  This driver should work with at least the following devices:
+>  	    * ASIX AX88179
+> +	    * ASIX AX88179A/B
+> +	    * ASIX AX88279
+> +	    * ASIX AX88772D/E
+>  	    * ASIX AX88178A
+>  	    * Sitcomm LN-032
+>  
+
+[Severity: Low]
+This isn't a bug, but the prompt and help text still say Gigabit only,
+while the list now includes a Fast Ethernet part and a 2.5G part.  The
+prompt reads "ASIX AX88179/179A/178A USB 3.0/2.0 to Gigabit Ethernet" and
+the help text says "to Gigabit Ethernet adapters", yet the added entries
+are AX88279 and AX88772D/E.
+
+The device table comments in ax88179_178a.c describe them as:
+
+	/* ASIX AX88772D USB 2.0 100Mbit Ethernet */
+	/* ASIX AX88279 USB 3.2 2500Mbit Ethernet */
+
+and ax88179a_phylink_setup() in ax88179a_devices.c matches that:
+
+	data->phylink_config.mac_capabilities = MAC_SYM_PAUSE | MAC_ASYM_PAUSE | MAC_100;
+	if (data->is_ax88772d)
+		data->phylink_config.mac_capabilities |= MAC_10;
+	else if (data->chip_version < AX_VERSION_AX88279)
+		data->phylink_config.mac_capabilities |= MAC_10 | MAC_1000;
+	else
+		data->phylink_config.mac_capabilities |= MAC_1000 | MAC_2500FD;
+
+Could the wording be widened to cover 10/100 and 2.5G as well?
+
+> diff --git a/drivers/net/usb/Makefile b/drivers/net/usb/Makefile
+> index 2ecead0181eaf..4026f19ecb826 100644
+> --- a/drivers/net/usb/Makefile
+> +++ b/drivers/net/usb/Makefile
+> @@ -12,7 +12,7 @@ obj-$(CONFIG_USB_HSO)		+= hso.o
+>  obj-$(CONFIG_USB_LAN78XX)	+= lan78xx.o
+>  obj-$(CONFIG_USB_NET_AX8817X)	+= asix.o
+>  asix-y := asix_devices.o asix_common.o ax88172a.o
+> -obj-$(CONFIG_USB_NET_AX88179_178A)      += ax88179.o
+> +obj-$(CONFIG_USB_NET_AX88179)      += ax88179.o
+>  ax88179-y := ax88179_178a.o ax88179a_devices.o ax88179_lib.o
+
+[ ... ]
 
 > diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
-> index a2c596305f798..93031b9ee92bc 100644
+> index 93031b9ee92bc..2601a8875b9e2 100644
 > --- a/drivers/net/usb/ax88179_178a.c
 > +++ b/drivers/net/usb/ax88179_178a.c
 
 [ ... ]
 
-> @@ -1342,9 +1345,9 @@ static struct usb_driver ax88179_178a_driver = {
->  	.name =		"ax88179_178a",
+> @@ -1353,7 +1353,7 @@ static struct usb_driver ax88179_178a_driver = {
+>  	.disable_hub_initiated_lpm = 1,
+>  };
+>  
+> -module_usb_driver(ax88179_178a_driver);
+> +module_usb_driver(ax88179_driver);
+>  
+> -MODULE_DESCRIPTION("ASIX AX88179/178A based USB 3.0/2.0 Gigabit Ethernet Devices");
+> +MODULE_DESCRIPTION("ASIX AX88179/179A/178A based USB 3.0/2.0 Gigabit Ethernet Devices");
+>  MODULE_LICENSE("GPL");
+
+[Severity: Low]
+Same wording question here: the new MODULE_DESCRIPTION still says
+"USB 3.0/2.0 Gigabit Ethernet Devices" although the driver now also binds
+the 10/100 AX88772D and the 2.5G AX88279.  Would it be worth updating this
+string too?
+
+One more observation, in code this patch does not touch but which comes
+from earlier patches in the same series and is still present at the end of
+the series:
+
+[Severity: Low]
+Is the reported firmware version short one byte?  ax88179a_bind() in
+drivers/net/usb/ax88179a_devices.c fills only three entries:
+
+	for (int i = 0; i < 3; i++) {
+		ret = ax88179_read_cmd(dev, AX88179A_ACCESS_BL, (0xFD + i),
+				       1, 1, &ax179_data->fw_version[i]);
+		if (ret < 0)
+			ax179_data->fw_version[i] = 0xff;
+	}
+	netdev_info(dev->net, "AX88179A/279/772D Chip Version: %x, FW: %d.%d.%d.%d\n", ...
+
+but both consumers print four, the probe message above and the ethtool
+path in ax88179a_get_drvinfo():
+
+	snprintf(info->fw_version, sizeof(info->fw_version), "%d.%d.%d.%d",
+		 priv->fw_version[0], priv->fw_version[1],
+		 priv->fw_version[2], priv->fw_version[3]);
+
+struct ax88179_data is allocated with kzalloc_obj(), so fw_version[3] is
+always zero rather than firmware data, and ethtool -i reports a trailing
+".0" that never came from the device.  Should the fourth byte be read from
+its real source, or should the stored and displayed version consistently
+use three components?
+
+[ ... ]
+
+> @@ -1341,8 +1341,8 @@ static const struct usb_device_id products[] = {
+>  };
+>  MODULE_DEVICE_TABLE(usb, products);
+>  
+> -static struct usb_driver ax88179_178a_driver = {
+> -	.name =		"ax88179_178a",
+> +static struct usb_driver ax88179_driver = {
+> +	.name =		"ax88179",
 >  	.id_table =	products,
 >  	.probe =	usbnet_probe,
-> -	.suspend =	ax88179_suspend,
-> -	.resume =	ax88179_resume,
-> -	.reset_resume =	ax88179_resume,
-> +	.suspend =	ax88179_suspend_wrapper,
-> +	.resume =	ax88179_resume_wrapper,
-> +	.reset_resume =	ax88179_resume_wrapper,
->  	.disconnect =	ax88179_disconnect,
->  	.supports_autosuspend = 1,
->  	.disable_hub_initiated_lpm = 1,
-> diff --git a/drivers/net/usb/ax88179_lib.c b/drivers/net/usb/ax88179_lib.c
-> index 708b0b23f1363..3b498206c50d5 100644
-> --- a/drivers/net/usb/ax88179_lib.c
-> +++ b/drivers/net/usb/ax88179_lib.c
-> @@ -455,3 +455,22 @@ int ax88179_set_mac_addr(struct net_device *net, void *p)
->  	return 0;
->  }
->  
-> +int ax88179_suspend_wrapper(struct usb_interface *intf, pm_message_t message)
-> +{
-> +	struct usbnet *dev = usb_get_intfdata(intf);
-> +	struct ax88179_data *priv;
-> +
-> +	priv = dev->driver_priv;
-> +
-> +	return priv->suspend(intf, message);
-> +}
-> +
-> +int ax88179_resume_wrapper(struct usb_interface *intf)
-> +{
-> +	struct usbnet *dev = usb_get_intfdata(intf);
-> +	struct ax88179_data *priv;
-> +
-> +	priv = dev->driver_priv;
-> +	return priv->resume(intf);
-> +}
-> +
-> diff --git a/drivers/net/usb/ax88179a_devices.c b/drivers/net/usb/ax88179a_devices.c
-> index e77450bc3299f..ff41d20c219d4 100644
-> --- a/drivers/net/usb/ax88179a_devices.c
-> +++ b/drivers/net/usb/ax88179a_devices.c
+>  	.suspend =	ax88179_suspend_wrapper,
 
-[ ... ]
+[Severity: Critical]
+This renames things that are visible to userspace, and I don't see
+any compatibility shim for them.
 
-> @@ -123,6 +125,53 @@ static void ax88179a_status(struct usbnet *dev, struct urb *urb)
->  	phylink_mac_interrupt(data->phylink);
->  }
->  
-> +static int ax88179a_suspend(struct usb_interface *intf, pm_message_t message)
-> +{
-> +	struct usbnet *dev = usb_get_intfdata(intf);
-> +	struct ax88179_data *priv;
-> +	u16 tmp16;
-> +	u8 tmp8;
-> +
-> +	priv = dev->driver_priv;
-> +	ax88179_set_pm_mode(dev, true);
-> +
-> +	if (netif_running(dev->net)) {
-> +		rtnl_lock();
-> +		phylink_suspend(priv->phylink, !!priv->wolopts);
-> +		rtnl_unlock();
-> +	}
-> +
-> +	/* Enable WoL */
-> +	if (priv->wolopts) {
-> +		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_MONITOR_MOD, 1, 1, &tmp8);
+usb_register() uses struct usb_driver .name verbatim for the driver
+directory, so /sys/bus/usb/drivers/ax88179_178a becomes
+/sys/bus/usb/drivers/ax88179 with this patch.  Anything that pokes
+bind, unbind or new_id under the old path - udev rules, suspend/resume
+helper scripts, test harnesses - silently stops finding the directory
+after a kernel upgrade.
 
-[Severity: Medium]
-tmp8 is declared without an initialiser and the read status is dropped
-here.  For a one-byte access ax88179_read_cmd() hands the caller's variable
-straight to __usbnet_read_cmd(), which only fills it in when the control
-transfer returns a positive length:
+The module name changes too: the Makefile hunk in this patch keeps
+ax88179-y := ax88179_178a.o ax88179a_devices.o ax88179_lib.o, so the
+object is now ax88179.ko where it used to be ax88179_178a.ko.  Explicit
+modprobe ax88179_178a invocations and any /etc/modprobe.d/ entries
+(blacklist ax88179_178a, options ax88179_178a ...) no longer resolve.
+Hotplug autoloading should still work since it goes through the
+MODULE_DEVICE_TABLE(usb, products) modaliases, but the by-name cases
+do not.
 
-drivers/net/usb/ax88179_lib.c:ax88179_read_cmd() {
-	if (size == 2) {
-		u16 buf = 0;
-	...
-	} else {
-		ret = __ax88179_read_cmd(dev, cmd, value, index, size, data);
-	}
-}
-
-If that read fails or comes back zero-length, is an indeterminate stack byte
-then ORed with the WoL bits, written into the MAC monitor-mode register and
-sent out on the control pipe to the device?
-
-The same shape appears in ax88179a_resume() below, where the uninitialised
-reg8 is tested immediately after an unchecked AX88179A_PHY_POWER read.
-Would initialising both variables and checking the read status help here?
-
-The legacy ax88179_suspend() has the same unchecked read-modify-write, but
-these are new instances.
-
-> +		if (priv->wolopts & WAKE_PHY)
-> +			tmp8 |= AX_MONITOR_MODE_RWLC;
-> +		if (priv->wolopts & WAKE_MAGIC)
-> +			tmp8 |= AX_MONITOR_MODE_RWMP;
-> +
-> +		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MONITOR_MOD, 1, 1, &tmp8);
-
-[Severity: Medium]
-This read-modify-write only sets wake-source bits, it never clears the ones
-that are already set.  ax88179a_reset() seeds that register with
-magic-packet wake on every open and on every resume:
-
-	if (ax179_data->chip_version < AX_VERSION_AX88179A)
-		*tmp = AX_MONITOR_MODE_PMETYPE | AX_MONITOR_MODE_PMEPOL | AX_MONITOR_MODE_RWMP;
-	else
-		*tmp = AX_MONITOR_MODE_RWMP;
-	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MONITOR_MOD, 1, 1, tmp);
-
-Does selecting WAKE_PHY alone therefore leave magic-packet wake still armed?
-
-And with wolopts == 0 this branch is skipped entirely, so does RWMP stay
-armed even though userspace asked for no WoL, while ax88179_get_wol()
-reports 0?
-
-> +
-> +		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE, 2, 2, &tmp16);
-> +		tmp16 |= AX_MEDIUM_RECEIVE_EN;
-> +		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE, 2, 2, &tmp16);
-> +
-> +		if (priv->chip_version == AX_VERSION_AX88279)
-> +			ax88179_write_cmd(dev, AX88179A_WAKEUP_SETTING, 8,
-> +					  EPHY_LOW_POWER_EN | S5_WOL_EN
-> +					  | S5_WOL_LOW_POWER | 0x8000, 0, NULL);
-> +		else
-> +			ax88179_write_cmd(dev, AX88179A_WAKEUP_SETTING, 0,
-> +					  EPHY_LOW_POWER_EN, 0, NULL);
-> +
-> +	} else if (priv->chip_version == AX_VERSION_AX88279) {
-> +		ax88179_write_cmd(dev, AX88179A_WAKEUP_SETTING, 8, 0x8000, 0, NULL);
-> +	}
-> +
-> +	usbnet_suspend(intf, message);
-> +	ax88179_set_pm_mode(dev, false);
-> +	return 0;
-> +}
-
-[Severity: High]
-usbnet_suspend() can fail, and its result is discarded here:
-
-drivers/net/usb/usbnet.c:usbnet_suspend() {
-	if (!dev->suspend_count++) {
-		spin_lock_irq(&dev->txq.lock);
-		/* don't autosuspend while transmitting */
-		if (dev->txq.qlen && PMSG_IS_AUTO(message)) {
-			dev->suspend_count--;
-			spin_unlock_irq(&dev->txq.lock);
-			return -EBUSY;
-	...
-}
-
-On that path no detach or URB teardown happens and suspend_count is put back
-to 0, yet ax88179a_suspend() returns 0 and ax88179_suspend_wrapper() passes
-that 0 to the USB core, so the interface is suspended anyway.
-
-The following resume then runs usbnet_resume():
-
-	if (!--dev->suspend_count) {
-
-on a zero unsigned char, which wraps to 255, so the status URB restart, the
-RX URB resubmission, the deferred TX anchor flush and the EVENT_DEV_ASLEEP
-clearing are all skipped, and suspend_count stays off by one for the rest of
-the binding.  Does the receive path stay dead until ifdown/ifup or a replug?
-
-The driver keeps .supports_autosuspend = 1 and takes no PM usage reference,
-and ax88179a_info sets FLAG_AVOID_UNLINK_URBS so usbnet_stop() does not call
-usbnet_terminate_urbs(), which leaves txq.qlen non-zero when the autosuspend
-timer fires, i.e. exactly the -EBUSY condition.
-
-Should the error be propagated, and the WoL/phylink work above unwound on
-that path?
-
->  
->  static int ax88179a_auto_detach(struct usbnet *dev)
->  {
->  	u16 tmp16;
-> @@ -132,6 +181,43 @@ static int ax88179a_auto_detach(struct usbnet *dev)
->  	return 0;
->  }
->  
-> +static int ax88179a_resume(struct usb_interface *intf)
-> +{
-> +	struct usbnet *dev = usb_get_intfdata(intf);
-> +	struct ax88179_data *ax179_data;
-> +	u8 reg8;
-> +
-> +	ax179_data = dev->driver_priv;
-> +	ax88179_set_pm_mode(dev, true);
-> +
-> +	ax88179_read_cmd(dev, AX88179A_PHY_POWER, 0, 0, 1, &reg8);
-> +	if (!(reg8 & AX_PHY_POWER)) {
-
-[Severity: Medium]
-This branch depends on the PHY power register, and ax88179a_stop() looks
-like it meant to write that register but calls the read helper instead:
-
-drivers/net/usb/ax88179a_devices.c:ax88179a_stop() {
-	reg8 = 0;
-	ax88179_read_cmd(dev, AX88179A_PHY_POWER, 0, 0, 1, &reg8);
-}
-
-ax88179a_unbind() does the power-down with a write:
-
-	tmp8 = 0;
-	ax88179_write_cmd(dev, AX88179A_PHY_POWER, 0, 0, 1, &tmp8);
-
-Does the PHY stay powered after 'ip link set <dev> down', and does the new
-resume code above then read a state that the stop path was supposed to have
-cleared?  This came in with the earlier series patch adding the AX179A chip
-support rather than with this patch, but this patch is the first code to
-branch on that register's contents.
-
-> +		reg8 = AX_PHY_POWER;
-> +		ax88179_write_cmd(dev, AX88179A_PHY_POWER, 0, 0, 1, &reg8);
-> +		msleep(250);
-> +	}
-> +	ax88179_write_cmd(dev, AX_FW_MODE, AX_FW_MODE_179A, 0, 0, NULL);
-> +
-> +	/* Now, that AX_FW_MODE_179A is enabled, the PHY needs a power-cycle.
-> +	 * PHY-power is re-enabled in ax88179_reset()
-> +	 */
-
-[Severity: Low]
-The call below is ax88179a_reset(), while the comment names ax88179_reset(),
-which is a different file-static function in ax88179_178a.c and is not on
-this path.  Should the comment say ax88179a_reset()?
-
-> +	reg8 = 0;
-> +	ax88179_write_cmd(dev, AX88179A_PHY_POWER, 0, 0, 1, &reg8);
-> +	msleep(250);
-> +
-> +	ax88179a_reset(dev);
-
-[Severity: Medium]
-ax88179a_reset() rewrites both the cached and the hardware receive mode with
-cold-start defaults:
-
-	ax179_data->rxctl = AX_RX_CTL_DROPCRCERR | AX_RX_CTL_START |
-			    AX_RX_CTL_AP | AX_RX_CTL_AMALL | AX_RX_CTL_AB;
-	...
-	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_RX_CTL, 2, 2, &ax179_data->rxctl);
-
-AX_RX_CTL_PRO is not part of that set, and nothing on the resume path calls
-ndo_set_rx_mode/ax88179_set_multicast() again; usbnet_resume() does not
-re-push the RX mode and ax88179a_mac_link_up() writes the same overwritten
-ax179_data->rxctl cache.
-
-Does a promiscuous interface, for example a bridge port or a running
-capture, stop receiving foreign unicast frames after a suspend/resume cycle
-while net->flags still has IFF_PROMISC?
-
-> +
-> +	if (netif_running(dev->net)) {
-> +		rtnl_lock();
-
-[Severity: High]
-Can this take rtnl_mutex recursively?  The usb_driver .resume callback runs
-synchronously in the caller's context:
-
-__dev_open()			/* holds rtnl_mutex, sets __LINK_STATE_START */
-  usbnet_open()
-    usb_autopm_get_interface()
-      pm_runtime_resume_and_get()
-        usb_resume_interface()
-          ax88179_resume_wrapper()
-            ax88179a_resume()
-              rtnl_lock()	<-- rtnl_mutex already held by this task
-
-netif_running() is already true at that point because __dev_open() sets
-__LINK_STATE_START before calling ndo_open, so bringing up a runtime
-suspended adapter would hit this.
-
-ax88179a_suspend() has the mirror exposure: a task holding RTNL blocks in
-pm_runtime while the suspend callback waits for RTNL.
-
-asix_devices.c documents this hazard for ax88772 and blocks autosuspend with
-pm_runtime_get_noresume(&intf->dev) in ax88772_bind().  This driver keeps
-.supports_autosuspend = 1 and there is no pm_runtime_*/usb_autopm_* call in
-ax88179_178a.c, ax88179_lib.c or ax88179a_devices.c.  Should the same
-approach be used here, or the phylink calls moved out of the PM callbacks?
-
-> +		phylink_resume(ax179_data->phylink);
-> +		rtnl_unlock();
-> +	}
-> +
-> +	ax88179_set_pm_mode(dev, false);
-> +
-> +	return usbnet_resume(intf);
-> +}
-
-[Severity: Low]
-None of the control transfers in this callback are checked, the
-ax88179a_reset() return value is dropped, and usbnet_resume() always returns
-0, so a failed firmware-mode or PHY power restore is reported to the USB
-core as a successful resume, including on the .reset_resume path.
-
-ax88179_write_cmd() does propagate -EPIPE/-EPROTO/-ESHUTDOWN from
-usbnet_write_cmd(_nopm), and the msleep(250) delays do not confirm that the
-transition happened.  The AX_MONITOR_MOD, AX_MEDIUM_STATUS_MODE and
-AX88179A_WAKEUP_SETTING writes in ax88179a_suspend() are unchecked in the
-same way while the callback claims WoL was armed.
-
-Would checking these and returning the error be preferable?
-
->  
->  static void ax88179a_bulkin_config(struct usbnet *dev, u8 link_sts, u8 speed, bool full_duplex)
->  {
->  	struct ax88179_data *ax179_data = dev->driver_priv;
-
-[ ... ]
-
-> @@ -1048,7 +1137,11 @@ static int ax88179a_reset(struct usbnet *dev)
->  			     1, 1, &tmp) > 0)
->  		ax179_data->wol_supported = WAKE_MAGIC | WAKE_PHY;
->  
-> -	phylink_start(ax179_data->phylink);
-> +	/* ax88179a_reset() may also be called from resume context, phylink
-> +	 * is already started, then.
-> +	 */
-
-[Severity: Low]
-Is phylink really already started when this runs from ax88179a_resume()?
-ax88179a_suspend() passes mac_wol = !!priv->wolopts, and with WoL off
-phylink_suspend() takes the else branch:
-
-drivers/net/phy/phylink.c:phylink_suspend() {
-	...
-	} else {
-		phylink_stop(pl);
-	}
-}
-
-so phylink is stopped at this point and is only restarted by the
-phylink_resume() call that follows the reset.  Would wording along the lines
-of "phylink_resume() will start it" describe the guard more accurately?
-
-> +	if (!ax179_data->in_pm)
-> +		phylink_start(ax179_data->phylink);
->  
->  	usbnet_link_change(dev, 0, 0);
->
+Would you consider adding MODULE_ALIAS("ax88179_178a") next to the
+updated MODULE_DESCRIPTION so the old module name keeps resolving, or
+is the view that the old name is young enough that nothing depends on
+it?  Either way, could the changelog state explicitly that the usb
+driver .name and the module name change, since right now it only
+mentions "Update driver name in usb_driver" without noting the
+user-visible consequences?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916-ax88179a-v12-0-60c04c9924a2%40birger-koblitz.de
