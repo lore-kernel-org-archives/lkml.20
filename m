@@ -1,177 +1,90 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFDF49A3B4
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:10:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE4644470E;
+	Thu, 17 Sep 2026 22:10:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789683012; cv=none; b=uRQswF5MVdQdUszgQ+/k13HTymYrawA74yx6B+lYnFYfk7zhLJr9n2+NAnT9doK6kcZeCG6JUOQ05xRiyHxmT4ZGXJSw0nhNdiskmmOutfq9tp28V30R2Xgm6+YQmjuOgw+BiOALN7qyRl/RMu16eRYluF2uwG28AxL+rPDfy4o=
+	t=1789683057; cv=none; b=PF073dGxfY6TUoD+JXEnZhdTcvygo9dstKoP0JKiSIFtxcsdlrV5ECnVXNz4TLLJAEnUgSJwX/OPEJtxsnrqCrDipLJm6FHNBdVlo0bsdyjGLw7VbIdpM7p8bZaxd6xjxdTTffloYLbNvVh6f8Bo7jefjEMeDmcQN3kkfli02nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789683012; c=relaxed/simple;
-	bh=12ZdNO7zSI97z1JPZ+K2FUDIbHGKQ4ykZe7DLc4rB7k=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EUTSYBk3+Sx6sQfNEipf1JIGDzQCJNvLgGbFCLQkRXqynaC/5t2E7dkqtCOkfTXAKYcT9zlS4Xc1EzFoqLHdYh2SoiZn0VCYxf9SByA5UHwJ0KdTWvhtl+J/5OVv2QDZl70TpN3B16OFl6Xoh3aCsuAKUjpgI+EWr4m4dF528g8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Yu0T3zI2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NTMfz2lS; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789683057; c=relaxed/simple;
+	bh=cM7LXzY/KGPME5J+mRrtRkF0NI3utk1cOSA142rVDEc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Nf5D4/zrnDqJNya6Psn1amGPPwG9Tr1gdoKeVdF0fuT2eLIjZAjcfBJvPiNkSXJ4dGGCijwE1K+MrWvXU4gwGef4VzDQiawK4G0n9ayV4FLBEAfhdUXIlWPyLxCARh9vDXgj/xqhX3FH+ArlZHhOKDAsmoWqefjSHbmN6Itew6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gkYlB7cA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Yu0T3zI2";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NTMfz2lS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789683009;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8z7jGkncFvYX44ONKGgmNu9yUifGbhbRMAl3u7dsO+Y=;
-	b=Yu0T3zI2kaVbKBqcjdHKigmTqHbDV2kSwdUY6dg+ZquyB8+ECWYpTR7qXhTgQ8wSWN6ncH
-	iI6DNk+5TyNxEeYlZICIvk4p9hVXuUmpIGBqSA9KNMlbskqm2jmG6PuJ4/v7XnK7IFXH7F
-	xgNgh0cIAL4FuYLkvbZiMj1f58I2mRk=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-630-C4FMd91zPWujR30I8sArBA-1; Thu, 17 Sep 2026 18:10:08 -0400
-X-MC-Unique: C4FMd91zPWujR30I8sArBA-1
-X-Mimecast-MFC-AGG-ID: C4FMd91zPWujR30I8sArBA_1789683008
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-912330dd4dbso29469186d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:10:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789683008; x=1790287808; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:to:from:subject:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8z7jGkncFvYX44ONKGgmNu9yUifGbhbRMAl3u7dsO+Y=;
-        b=NTMfz2lSR7X+hkySfNi6kz6ecEFL/BowIfKAsz+TM2DlFCfK19iF/XaUx/tBnc0a6r
-         2yXKAPn+kPcJqha8Zuolr4FBeGGNQITsj5liDmUmG5YzXXCO7L1OdUGFFSt3pgRzqQ2u
-         6hYBXaN+sDA7shpKu4wWgEV+4zjvbh0MGWheUeiJcU7t+A7N6V6Z1XfDiMw1IADYTBvb
-         8KIo40L4m8ultqCOZwdt5gpdtabOlJYwmbqiFsjuP5NzvreX3Yfi+GmuxtCqLk/7PZkb
-         9m6PU3ZU+ZSiGnrFHiwb6BVMr2Cc2U0/9n3DW3s//5vrgYoCr+ezIsGMqgkoxzXiWpE9
-         IwPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789683008; x=1790287808;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8z7jGkncFvYX44ONKGgmNu9yUifGbhbRMAl3u7dsO+Y=;
-        b=wIPFlOBKebvcRPoRlw8SPYAHgERvso2CnECNdKzDrMOT6ZHs6i0uaNfuk+Ba5F4MoI
-         kNSGiphKu/JfZ1ZT4dWZUzVBSX443Kcct3FluDLLrRUA7Xrwf5Z29gMlq8advLhcu5Xc
-         Xe7dq0PXCQSujqbnr4IANUamvwcLyv0MRiETxMpvRB2ArNnZnLW+BgsurXC8W2rn5PqK
-         bY2jL3pGhcShrs84PEG1hHRLia8Bj+Ci0cRkyf4sFjI+5Aireb76ZDTYOB6pL120A6VP
-         OfhTlrTnRO09zUQ1ELGMyHDAd9ahI74dU+q88camajH+B0vAUPY4+C/GC/GkbfXWfFX8
-         Yzzw==
-X-Forwarded-Encrypted: i=1; AKwUvByjfcwIEL2KmR20qwUkwi8eepLzOYaAq7YADlYJL+r84pEL0minRGNbG0/FEbwhZDkojcTq3BkDgKweLHY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOyXEtSDqK/4QQX1QqeS+Om9eN/pUhqJ2VWKlSDae1t9fcOdDW
-	olACcbjjEhNlkWV6abSObiJ7ORwo8hH1Me2wsuZoeb/TEDJAcxUjHDRMXECYkNnPR2OO9Gnb2ba
-	eGHHPIv7KDdXazZmmv8T6MWlLypC+Uu1QxbxztjsK8V53kQSP4hDUJ6fT1F5QHyyiyg==
-X-Gm-Gg: AYBFou1izBA/SWM+c6KYCW4whxHZzCS0EATqgkpM48c10X2v0oHIiL18wTe7GYOtu+M
-	j8lzPUcjBRl/baXi0Vg77jNrf0w3IF10P7SKESxUN6d9A3WZexr10taUy7E15GifLxc6lDpe69K
-	Pr39mEgYC7D7XKeSZKRabCkeznRrlLlbciioiPA+5IH8UghjRo0l2bOUZT1/hAHR6LHXOINsvvk
-	fKBvBl+PH+Wy0pPpGDKha/etwtRC++7eAxnl2THzDjx43HaiZaLIHfuO3NbEs9elvQP37WuIf3I
-	30irJ6o1w2/KT+LwJPwMc5O2bGtfdbeCLStVcZ5Tz/t02RsoT2/A31lDzYOGax3S1XZFPeJ2
-X-Received: by 2002:a05:620a:1a17:b0:93a:1091:e692 with SMTP id af79cd13be357-93bdbaa321dmr92009685a.7.1789683007745;
-        Thu, 17 Sep 2026 15:10:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a17:b0:93a:1091:e692 with SMTP id af79cd13be357-93bdbaa321dmr92006185a.7.1789683007243;
-        Thu, 17 Sep 2026 15:10:07 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b781dfde3sm572372785a.12.2026.09.17.15.10.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 15:10:06 -0700 (PDT)
-Message-ID: <ff3015a1c4b08088b0638b00670e86d612a27978.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau: Fix memory leaks in debugfs and hwmon init
- error paths
-From: lyude@redhat.com
-To: liupeng <liupeng01@kylinos.cn>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Guenter Roeck
- <linux@roeck-us.net>, "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
-	 <dri-devel@lists.freedesktop.org>, "open list:DRM DRIVER FOR NVIDIA
- GEFORCE/QUADRO GPUS" <nouveau@lists.freedesktop.org>, open list
- <linux-kernel@vger.kernel.org>, "open list:HARDWARE 
- ""MONITORING:Keyword:(devm_)?hwmon_device_(un)?register(|_with_groups|_with_info)"
-	 <linux-hwmon@vger.kernel.org>
-Date: Thu, 17 Sep 2026 18:10:05 -0400
-In-Reply-To: <20260824090505.49913-1-liupeng01@kylinos.cn>
-References: <20260824090505.49913-1-liupeng01@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gkYlB7cA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F082E1F0089B;
+	Thu, 17 Sep 2026 22:10:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789683055;
+	bh=uAFCops9AjEdn+AgQKpAoDwx2IEBXFVaVXoi0wLl/CU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gkYlB7cA4c6FOosBjPSsYpFvZ2hZHLlLGUj9BKzFJIG9X0hKbLs9Q3WlU7wfZe+Cw
+	 XrRra8s1NSaedC+Hpv7xmUjhwm8DDjMzegqYx/aIe1ifWVc6y1y34WrP/JmuM9svpf
+	 /c3Q32KBbdkQ1QIqwKcNQbibtNB+oZqIInUy3QzJqf4II/kcMLKA3MjywxD9IDya/0
+	 rbTC2F3Kd9lIRsRmLRRe/q9roND1tsWhEFC/agrVK/HWVl+SkiQgw6um2w7ciJhgKB
+	 tzomNSp/NtUG6bFb9LwfM5uRZFr6hKq0t02xbMOVIHpzhnIrOz6HSZFEv+W6rUxPvS
+	 kciFKPAvDZbxw==
+Message-ID: <d885255a-c3f6-4c96-8ebb-f611ffa29418@kernel.org>
+Date: Thu, 17 Sep 2026 23:10:52 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] slimbus: messaging: fix leaked PM vote on tid allocation
+ failure
+To: Zongmin Zhou <min_halo@163.com>, srini@kernel.org,
+ gregkh@linuxfoundation.org
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Zongmin Zhou <zhouzongmin@kylinos.cn>
+References: <20260827021409.24500-1-min_halo@163.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260827021409.24500-1-min_halo@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Mind adding the proper Fixes: tags and Cc: tags here?
 
-On Mon, 2026-08-24 at 17:05 +0800, liupeng wrote:
-> In nouveau_debugfs_init(), if nvif_object_ctor() fails, the
-> previously
-> allocated drm->debugfs is leaked because the function returns the
-> error code directly.
->=20
-> In nouveau_hwmon_init(), if hwmon_device_register_with_info() fails,
-> the allocated hwmon structure is leaked because the function returns
-> the error code directly.
->=20
-> Fix both by freeing the allocated memory and clearing the pointer on
-> the error paths.
->=20
-> Signed-off-by: liupeng <liupeng01@kylinos.cn>
+
+On 8/27/26 3:14 AM, Zongmin Zhou wrote:
+> From: Zongmin Zhou <zhouzongmin@kylinos.cn>
+> 
+> In slim_do_transfer(), when a transaction needs a tid and
+> slim_alloc_txn_tid() fails, the function returns directly instead of
+> jumping to slim_xfer_err. The runtime PM vote taken earlier with
+> pm_runtime_get_sync() is then never released, leaving the controller
+> permanently powered up.
+> 
+> As txn->tid is still 0 at that point, jumping to slim_xfer_err drops
+> the vote exactly like it is done for other failed transactions.
+> 
+Patch itself looks fine, was this bug hit on real hardware or is this
+generated from some AI.
+
+How are you testing this patch?
+
+> Fixes: d3062a2109309 ("slimbus: messaging: add slim_alloc/free_txn_tid()")
+Missing CC stable
+> Signed-off-by: Zongmin Zhou <zhouzongmin@kylinos.cn>
 > ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_debugfs.c | 15 ++++++++++++---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_hwmon.c=C2=A0=C2=A0 |=C2=A0 2 ++
-> =C2=A02 files changed, 14 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> index 47d5579c568d..88223931f382 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> @@ -295,13 +295,22 @@ nouveau_drm_debugfs_init(struct drm_minor
-> *minor)
-> =C2=A0int
-> =C2=A0nouveau_debugfs_init(struct nouveau_drm *drm)
-> =C2=A0{
-> +	int ret;
-> +
-> =C2=A0	drm->debugfs =3D kzalloc_obj(*drm->debugfs);
-> =C2=A0	if (!drm->debugfs)
-> =C2=A0		return -ENOMEM;
-> =C2=A0
-> -	return nvif_object_ctor(&drm->client.device.object,
-> "debugfsCtrl", 0,
-> -				NVIF_CLASS_CONTROL, NULL, 0,
-> -				&drm->debugfs->ctrl);
-> +	ret =3D nvif_object_ctor(&drm->client.device.object,
-> "debugfsCtrl", 0,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NVIF_CLASS_CONTROL, NULL, 0,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &drm->debugfs->ctrl);
-> +	if (ret) {
-> +		kfree(drm->debugfs);
-> +		drm->debugfs =3D NULL;
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> =C2=A0}
-> =C2=A0
-> =C2=A0void
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> index 726397ab035d..ffbe7f542ab0 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> @@ -697,6 +697,8 @@ nouveau_hwmon_init(struct drm_device *dev)
-> =C2=A0	if (IS_ERR(hwmon_dev)) {
-> =C2=A0		ret =3D PTR_ERR(hwmon_dev);
-> =C2=A0		NV_ERROR(drm, "Unable to register hwmon device:
-> %d\n", ret);
-> +		drm->hwmon =3D NULL;
-> +		kfree(hwmon);
-> =C2=A0		return ret;
-> =C2=A0	}
-> =C2=A0
+>  drivers/slimbus/messaging.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/slimbus/messaging.c b/drivers/slimbus/messaging.c
+> index e2dbe4a..ee127ef 100644
+> --- a/drivers/slimbus/messaging.c
+> +++ b/drivers/slimbus/messaging.c
+> @@ -139,7 +139,7 @@ int slim_do_transfer(struct slim_controller *ctrl, struct slim_msg_txn *txn)
+>  	if (need_tid) {
+>  		ret = slim_alloc_txn_tid(ctrl, txn);
+>  		if (ret)
+> -			return ret;
+> +			goto slim_xfer_err;
+>  
+>  		if (!txn->msg->comp)
+>  			txn->comp = &done;
 
