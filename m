@@ -1,81 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13493546EA
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:34:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9132931C7
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789623284; cv=none; b=Sm9i7o4QVHcKvE6B+2j25ujoZmyeWIE61N2+mNBuXTkWW/wqBIouMbBriORiO2ScICUc/fkYfkEIy8f04FSXfLzcAv9mqEurQPTufKfF0CW7m9w4lxJa8mDXLOmK+dmfoJpNVcbkVd/IcP/kgrZBQ0ABqkroGktBmzzayV1CaPg=
+	t=1789623329; cv=none; b=p5MvRmm013Q3dLXx02sjnzqnbzUM7G0w80yedaUbxMszdHjWuNoUSQCZKooxor7PMifkgBdHeNx4vSIxaU5gy8T3STuPBXVSvpC8sJb+1FZbvHNI8SU17lxxCAWqc6krXAsg5bLAaSYvSxFVkW2wLvl2MlVJmVOB+XIJJwDlpV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789623284; c=relaxed/simple;
-	bh=s9jMr4RE4MtMwzFs8m0X1J0xrdOxY4NLkJsIJOiLyTU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E1oVKORt+ykcamahyqBIRcy01nixowK00sMzyF4PtddORivn9OxTDJLY0cZ+dyENZP2S0JUtzUnQif8FeWU0sRdu204jvLNcPt0Z5DkkhXR6kFgJM3RnS0spY/ghCY/3lLWyd/rQNPcGU1qz1zBXOrN6YRLx7EYRIxgQ5LudcWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LWjcg8oi; arc=none smtp.client-ip=192.198.163.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789623329; c=relaxed/simple;
+	bh=LDoaXxYyXuD8LClMN5+HnZQcP+VuNNaN4IVCaalDO5o=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=crA/c3Zc9j5z3ZlJrZYpF0Gk1Px3cqOvZIqe0aKCd0J29EKuKOQrahIXf33hH8hvVkIv7l1g+Cr+ogOxsIPvVpfA957XweQD5v/EE0hg7FeQ57Qc+3ZMOheaMOJHaYMo/W8CDMg16DDDy5Qs1sT2xOlawGOEe0ncUs4lM1QeOIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=sRFmYT6o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LWjcg8oi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789623282; x=1821159282;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=s9jMr4RE4MtMwzFs8m0X1J0xrdOxY4NLkJsIJOiLyTU=;
-  b=LWjcg8oivxbAORogn9DppfNzjC6tBS2rX5sF+9Zq5HG0lnZVmPd48sZh
-   7ANkqIl+DBeH78dUpFtUaqUfCaRG/hOtX8p6XuXa9gjuAeEqcQWqS5Fmd
-   yNYoFGEyT4BjNy2cOgNjeCK1XtNItQyC/ZjGbgBTLJiFqqurZujHVXGI4
-   KRm6MhuVYyL+cvzhFRwJboyevOZAZSVzFQbZflRlmtPENcAd0Cb5ABv2m
-   65nx7XXjmhLC9fQfllF8DjaZAZ/NmDhkzYxU1HgjH2sbktvIep7w0qJEt
-   pP1Z015lo+mj3hLvEyNGIeyE07/Aaq7v+VZjSw+P2Zf3TQeivj7vXvZFB
-   A==;
-X-CSE-ConnectionGUID: o5/sboyHT9WcUiIKr9Hv7A==
-X-CSE-MsgGUID: O9YIJJSOSlWmfum9WMH3IA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="518767"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="518767"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 22:34:41 -0700
-X-CSE-ConnectionGUID: Tp1ko1bNQxK5k1hhbAe9ww==
-X-CSE-MsgGUID: fsCHY03cTEqxPHDoeguR+A==
-X-ExtLoop1: 1
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 22:34:40 -0700
-Date: Thu, 17 Sep 2026 08:34:37 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Maria Lisina <sekoohaka.sarisan@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 0/4] mfd: intel-lpss: Clean up and modernize DebugFS
- usage
-Message-ID: <aqt77bXKuXhsyQ3o@ashevche-desk.local>
-References: <20260916-intel-lpss-debugfs-v7-0-eb51d41f55e0@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="sRFmYT6o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EBF51F000FF;
+	Thu, 17 Sep 2026 05:35:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789623327;
+	bh=5LDe9JBY33kVRmTAOxxfbfg2OmHYv79TUa9VIuLFDDA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=sRFmYT6oG5XNkNhzD4PX0oeq57NPguBwfSqG4ah+CHJSstWgg5SOHFilDgkzZK/RO
+	 X3w+VcDuaWccad5MKLqlsNrO7mXkMPkKpLYmFafSeU50BpVU/e2z/OmI60wQNuRdBI
+	 nboJ6Zxsil7L3eTvARfiCmr38fVTreIOGf7ruykg=
+Date: Wed, 16 Sep 2026 22:35:25 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
+ rppt@kernel.org, surenb@google.com, mhocko@suse.com, mingo@redhat.com,
+ peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+ ziy@nvidia.com, baolin.wang@linux.alibaba.com, nico.pache@linux.dev,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org,
+ matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
+ jannh@google.com, pfalcato@suse.de, osalvador@suse.de, hannes@cmpxchg.org,
+ raghavendra.kt@amd.com
+Subject: Re: [PATCH v2 0/4] sched/numa: stop VMA scan filters from gating
+ promotion
+Message-Id: <20260916223525.65ae1628b1457a716efc298f@linux-foundation.org>
+In-Reply-To: <20260911001826.2109390-1-gourry@gourry.net>
+References: <20260911001826.2109390-1-gourry@gourry.net>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-intel-lpss-debugfs-v7-0-eb51d41f55e0@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 09:23:46PM +0500, Maria Lisina wrote:
-> This series cleans up DebugFS code, modernizes it by replacing
-> obsoleted macros and removes redundant error checking.
+On Thu, 10 Sep 2026 20:18:22 -0400 Gregory Price <gourry@gourry.net> wrote:
 
-> Signed-off-by: Maria Lisina <sekoohaka.sarisan@gmail.com>
-> ---
-> Changes in v7:
-> - The final corrections after review.
-> - Link to v6: https://lore.kernel.org/r/20260916-intel-lpss-debugfs-v6-0-5c118ac430ed@gmail.com
+> NUMA balancing uses hinting faults for both task placement and memory-tier
+> promotion. Several filters designed to avoid unproductive socket-placement
+> faults can also prevent promotion.
+> 
+> Read-only file mappings and VMAs without recent PID activity may never be
+> scanned, while lower MM layers reject some shared folios. Hot memory in
+> these mappings can therefore remain on a slow tier indefinitely.
+> 
+> Separate promotion-only scans from socket-placement scans.
+> 
+> MM_CP_PROT_NUMA_PROMO_ONLY carries that choice for one protection walk, so
+> the PTE and PMD paths can restrict hinting faults to promotion candidates.
+> Keeping this transient state in the protection flags avoids per-mm state and
+> its associated lifetime, concurrency, and VMA identity problems.
+> 
+>   - Allow eligible shared folios to be promoted to a fast tier.
+>   - Scan read-only file mappings and PID-inactive VMAs for promotion
+>     without re-enabling placement sampling.
+>   - Track the last placement scan separately so promotion-only scans
+>     cannot postpone the existing placement-starvation fallback.
+> 
+> The series is ordered as follows:
+> 
+>   1. Add promotion-only NUMA protection walks without changing behavior.
+>   2. Permit eligible shared folios to be promoted to a fast tier.
+>   3. Scan read-only file mappings using promotion-only scans.
+>   4. Scan PID-inactive VMAs for promotion and account for placement scans
+>      separately.
+> 
+> Tested on a host with 768GB/256GB DRAM/CXL.
+> Ran 2 ~430GB database workloads with large (>300GB) shmem VMAs.
+> 
+> Before change:
+>   - 150-200GB/s DRAM bandwidth usage
+>   - 40-45GB/s CXL bandwidth usage (maxed out)
+>   - request latencies over 5ms (longer tails)
+> 
+> After chage:
+>   - 250GB/s+ sustained DRAM bandwidth usage
+>   - ~10GB/s sustained CXL bandwidth usage
+>   - request latencies 800us-2ms.
+> 
+> Functional observation:
+>   A 20 GB hash table VMA that previously remained entirely on CXL was
+>   split evenly between DRAM and CXL after the changes - and tier
+>   residency tracked hotness.  This was previously affected by the
+>   stavation issue caused by the "unaccessed VMA" filter.
 
-Great! Thanks for the clean up mini-series!
+This seems very significant?
 
--- 
-With Best Regards,
-Andy Shevchenko
-
+Why cc:stable and Fixes:?  Is this something which ran at these sorts
+of speeds before the offending commits?
 
