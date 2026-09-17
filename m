@@ -1,86 +1,66 @@
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9297643D503;
-	Thu, 17 Sep 2026 08:56:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.145.95.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5B33955CD;
+	Thu, 17 Sep 2026 08:57:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789635411; cv=none; b=KDkN5+Iv4w/mGLqadI3633xmxI/ebXXN0dRHzLOcCChekO6cXadoUBwIqpcR0ZjlBt3JHo1JFZlwvbWYwSt+MJiOzKiyE9DCyTGUxL6CkSdl6Gn4p4q38k12Oua67kq/3RzMQqan4fCTtxThm8tCTmcJTBWTAGSPBkWl2sxbKKQ=
+	t=1789635435; cv=none; b=BV6igoeX1QB+oeS1BARUCTU6diMWgjELJ0wllAm4rpbmv1FSMeAvS6F2tPCECAbp3nWFTRJU1tKI3dFGgSzZ6KXYIGJtGKAZT+forxv2oyPJ78vy0LecG+sfbg4jwbUO6ooVJ0pjBZczoJAmvx0uWCanH/8wM6nLktaDYCL+7NM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789635411; c=relaxed/simple;
-	bh=s5u2AyGTEY7qVivI6JscsmSZSmPFDoG29XJMQntgNm0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=d/Am0pst1wUAV3dXNHsl3OcD7VIShaTWdiQPOvd8EFa6b20e2tJvLHpSC4UxVF3k9sGJx5kRs4jkVQdqkB4K/RZ7tBcyUkofLd86c67KgVRD8vEXaIUZ77DR6EWRRaBUPft9iUQsa1iM7Jhk9vleProxauHOGj8f1+yF+XP+k5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk; spf=pass smtp.mailfrom=toke.dk; arc=none smtp.client-ip=45.145.95.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>, Pengpeng Hou
- <pengpeng@iscas.ac.cn>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] wifi: ath9k: reject short WMI command responses
-In-Reply-To: <8c2dbacf-63ec-428c-b283-50198579cb89@oss.qualcomm.com>
-References: <20260814075837.20005-1-pengpeng@iscas.ac.cn>
- <8c2dbacf-63ec-428c-b283-50198579cb89@oss.qualcomm.com>
-Date: Thu, 17 Sep 2026 10:56:33 +0200
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <87cxucuugu.fsf@toke.dk>
+	s=arc-20240116; t=1789635435; c=relaxed/simple;
+	bh=185K7E+yDGpdqm72K1yyJEdvhz2PLVSX2+A8CdqzS6I=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=bPcTpheqh6hMx4BgA8YVkz09TZiPL7aAiRscYgNg5V3tr1vCgDh2vdfz4KU4XQF7uGa+a0+HOCnL+FKayDctALIqM8uBLhN7DReHwzbjUslAYjZxL7/GGSPaJfTOyJLFptxACJiVmVJu7LZ8MWJMECCVKEZaGmCGlI/5JVBBnwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPwotUdR; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPwotUdR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 767731F000FF;
+	Thu, 17 Sep 2026 08:57:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789635433;
+	bh=185K7E+yDGpdqm72K1yyJEdvhz2PLVSX2+A8CdqzS6I=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=lPwotUdRj/KhDUwr6PxOoMJXRA3U3CJGfvY955sz8mLgUGfdhysIeIfTAN+uLZSXb
+	 luvwBhp6oqA53N6tbBpBviSzZWlcMa7CzlKasGyxkvRTfrYbYT4o/6mYEYlyxZf4r4
+	 H5nI9/akUADQ3NHayuTtYJw3/zOMLYR+mYC2pqfeGpkHZL4M5VbwtUEuY1G48+cGz9
+	 HUr3w5hczsSFKBMQKX1IebxiASM0Mr0+xIfbBOfZsFY5UsIpTruW2aZBK8xDUezhTG
+	 9V7nBw9s2Wq5fvtqtQ2JZrpepVHc7NAUgXkvEWum7ZzFZQSUHT41PJSy4n02ZHuk3y
+	 qtlwfNC3ew7mw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 10:57:08 +0200
+Message-Id: <DLHGT9SR5T1E.2Z3D1088WA64H@kernel.org>
+Subject: Re: [PATCH v4 2/2] gpu: nova-core: use cv! for constant casts
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260917-cv-v4-0-547ef5727451@nvidia.com>
+ <20260917-cv-v4-2-547ef5727451@nvidia.com>
+In-Reply-To: <20260917-cv-v4-2-547ef5727451@nvidia.com>
 
-Jeff Johnson <jeff.johnson@oss.qualcomm.com> writes:
-
-> On 8/14/2026 12:58 AM, Pengpeng Hou wrote:
->> ath9k_wmi_rsp_callback() removes the validated WMI header and copies
->> the number of bytes expected by the waiting command into its response
->> buffer. A device response shorter than that expectation can therefore
->> be read beyond the skb payload.
->> 
->> Record -EMSGSIZE for a short response, complete the waiter, and return
->> the stored status from the command path. This also prevents callers from
->> consuming stale response bytes as a successful reply.
->> 
->> Fixes: fb9987d0f748 ("ath9k_htc: Support for AR9271 chipset.")
->> Assisted-by: Codex:gpt-5
->> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
->> ---
->> Changes since v1: https://lore.kernel.org/all/20260704011405.55089-1-pengpeng@iscas.ac.cn/
->> - return a stored response error to the waiting command
->> - retain acceptance of replies longer than the requested prefix
->> - recheck callback synchronization under the existing WMI lock
->> 
->> The WMI callback and waiter synchronization were reviewed statically; no
->> ath9k firmware fault injection was performed.
->> 
->>  drivers/net/wireless/ath/ath9k/wmi.c | 17 +++++++++++++++--
->>  drivers/net/wireless/ath/ath9k/wmi.h |  1 +
->>  2 files changed, 16 insertions(+), 2 deletions(-)
->> 
->> diff --git a/drivers/net/wireless/ath/ath9k/wmi.c b/drivers/net/wireless/ath/ath9k/wmi.c
->> index 284e8c13b043..06d9975f9717 100644
->> --- a/drivers/net/wireless/ath/ath9k/wmi.c
->> +++ b/drivers/net/wireless/ath/ath9k/wmi.c
->> @@ -206,8 +206,16 @@ static void ath9k_wmi_rsp_callback(struct wmi *wmi, struct sk_buff *skb)
->>  {
->>  	skb_pull(skb, sizeof(struct wmi_cmd_hdr));
->>  
->> -	if (wmi->cmd_rsp_buf != NULL && wmi->cmd_rsp_len != 0)
->> +	if (wmi->cmd_rsp_buf && wmi->cmd_rsp_len) {
->> +		if (skb->len < wmi->cmd_rsp_len) {
->> +			wmi->cmd_rsp_status = -EMSGSIZE;
+On Thu Sep 17, 2026 at 10:34 AM CEST, Eliot Courtney wrote:
+> The new `cv!` macro allows safe casting of constant expressions in a
+> const context. Update code in nova-core to use it.
 >
-> my review agent notes that if this path is taken that there is no debug
-> message alerting this. see my suggestion on dealing with this below...
+> Reviewed-by: Gary Guo <gary@garyguo.net>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-I think you're being pedantic here. I'm pretty sure there's no real
-hardware that does this; merging this is meant to protect against a
-USB device pretending to be an ath9k_htc and trying to exploit the
-kernel. So I think it's fine to merge as-is.
-
--Toke
+Reviewed-by: Danilo Krummrich <dakr@kernel.org>
