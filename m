@@ -1,146 +1,142 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A4A3FA5C4
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789682997; cv=pass; b=haavH3cymTJyfYS9TCnvuwvj3fHEog0dT6074x73vxqq+tLG+jQY6vMdTjy66kUrnVUrmig2NX1xcTdLZcrO1OvpamfOy2AAj+r+qJ1vYfoxM6973pkH1DtYeYZKJ2ff/vcNV0sDGsByBXE0aeNWDCV4hVGrwRnEtU6ZHgwyvwI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789682997; c=relaxed/simple;
-	bh=J6SyjgSH6kKttxlcaQY5Q56ih5xn1TTo0a++egsS52Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oWdPPp0ZQ90pEnIM8hno9E41U0s7nfOuhRRHJfdnAA8G2vZ5w/Q1AT+QgQ83LoVNC0VP020oqsHvhY5GQcOfMtbKEx1NTCcH+uS4/px+8AvVObE+8NvfeEBYtQRsaTmV2+uPwiC8mLl1l9F1db8g6xC/zWTw4Dln9emiWowEA/0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lswfejBb; arc=pass smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCECB49B44F;
+	Thu, 17 Sep 2026 22:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789683006; cv=none; b=IuzpmurS6p6nRTBBQ+vfNT3dgr1chGawFyvL9oJ5cezAdJA0EHYxq+YGtTeyK3Uq3b1vVz7ZbbStDSv1R6ceTu7KXnfw/0D2d8cY/nTQdl7X6DV8JxpzrgDjpPRqD6mUnpsS2mXT5fyMRbnmCoAbS9CWUm9zuU9YB84GxBf5W74=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789683006; c=relaxed/simple;
+	bh=mCpl6QvIFmZxeLmdoMUfxKfCOG+tsTZ73OkJqmhqtOQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hxPZZFznieh2Pq7P0oVtpVxezet6ZQ7T1tlM3YdxKXUXhIWUp5TmNWSY40WkKw07bVniRo+bLNczotDVHDApeNOsvSlVKWID9044gDGM1zaaIbph3dc+EwTzhiTCDIFrQ/+k3MaSzZvOsAvcJ0gyqsdO2+KZ9WZRTgOIOX6UJzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=j/4Vg1or; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lswfejBb"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso31246a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:09:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789682995; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NUjwlLpuSFhOFRsbWU4aPqPuqyt02NXMVfU4hyymgIvoae+7VEGsSQUTjB2xssgyRt
-         FcteeU8k0cz+2pEyO+wG2mh1zQBBUZkHuwkkhCAfby9tusoqDT7r4NUyYyb8WJbTwvZB
-         HIXg1AI0K5GwyQqIe/7xsLxDsTqEe9rq7oGwGIjjZTvmv6KZoC5CnL9MJK70Vsct6+Cz
-         8OQLv8+Kpo+mflJRYQHXgu4kQjUx+4YJbqin3DNYeuhusG8GOB+ePNGrHOTini2pooUy
-         1Wc2WFJCLuCBz6352U1JElMKrjNw+h9WnTN1kTCR9Mf7PDeOYJYhBy7ZkRqSzkCb3yUx
-         xPyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wQRtY5QKl9FkRvfYTUErV4Q5sEVG3iTso9QeFHxPq6U=;
-        fh=JUnBa0iS7Yg72dYoGuNAYTs0qnP4G7TFFB8etBwzEqI=;
-        b=ag4DCwU41c74uc0Mw1im27x/xbnuMBTXQHPuPpI2rhUC5YbntixU7Atz+FZUplfub2
-         duIdtXHMVnOgQ4yD6CjIo/Y3IEnfPv7x2hahxTae2AVhb+47ZB1FXSh9o1FZZ35/EjFh
-         gOpwGSOsJIQR9yeI37mtFKPpUvZBBl7QK5FosccJbShgq0+ODjRWa/YpacL9XtiFQ9kr
-         J58N64+wplUZKhmbFYaeWMJIdpl8X7m1DZXCwoy/b1HKLW1P19KVIBz0a6oiZ2jjQaE/
-         522AARVZ3rGZ3ewYC74E+4RImfi9vuY+EeCmaOMhPaTZYQ6HkVKBeFXD53pvP+fzf/+N
-         /4Ag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789682995; x=1790287795; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wQRtY5QKl9FkRvfYTUErV4Q5sEVG3iTso9QeFHxPq6U=;
-        b=lswfejBbnFiro7zTvnv7ohsJkWJ7rkQ1ar3et/tAPsK7KCiI/9CXgArI/dsb9GWkUN
-         VSTQAo1g+yFzRB4fjqbtjJ65hNPnRMAfD+XHLB1mb8sWHr9PcIVo1mls15WPx2ZrQbO4
-         4xVmL/J7G0kXnneNoyXTLdPF80TGG4m03Url4JcYatOduQdzvKLUsP/7DQYqXPn7fNeb
-         ZyDPOMdhIILHCL6/nCNgE9NkxpcYL6193RXoDeW27Z49FA81Y8B5lT5TDqjVaP5UVhob
-         3Z81S4P+evxtrrBvnImQCgC2NoVLOYQR2BOm2TEYEr3sT8Q9ji3/6W3qqb6ffHF3InIC
-         eiYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789682995; x=1790287795;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wQRtY5QKl9FkRvfYTUErV4Q5sEVG3iTso9QeFHxPq6U=;
-        b=1XFHf05KK7hJ8qhiemfGB9iiYTtzX2/p8fJXHGQH4czfFgvJra/g2SZePuSnk/7JGT
-         sJlS/5vRT9SCUwKrNXhUac9b5+kMeYB905y2Z+FBrNKSCQd5bdI9mWrbl9GsRfpEWFSR
-         SyI9snr7zYbN2+i9adf9mMqBCHLvUoh+HNbwDKpz25VCNJFrklduiZedgmoZyF0F1WWF
-         yV8cVYJext2lGi4MatXjyAG/IdIOToS31Pl2zcZl+DpGv8s+1yflB5w9hb8efIWhSrhT
-         AlelvvKhm1Y/xPs6bwULj0bfmCROsDskXJ+PE5by3SsJ3fJo3gGVf05u05gg9M9qczBu
-         90TA==
-X-Forwarded-Encrypted: i=1; AKwUvBxn25bIW2rD+sZ9JJC7Byoo+krVglynGG8jMl8bfsX5IfGMfwkNhBbGGvCLlpRV2V5UNiiQ/ZjsVao/NS8=@vger.kernel.org
-X-Gm-Message-State: AFuF++npkwIGK94xptixmhPcwq8jQRVfKUgWe3feC0nCLJOTwvpf10Dv
-	pNZpaJmUw7pwOweaP3e+jmetlMsJTiV3fv4OdqquN4zvVQD+YaUDj0ltSBmfXzfC8As1LL6CFMQ
-	sDOC9RAsqIPrSvH4w3zGlKwuCKxkAKD8=
-X-Gm-Gg: AYBFou2ycbwBnaoxv5xds3skbRlWxa6Qb9kmM+jya2rRA7rRxJ7GQy70NfZRgurTewc
-	eYwelkNRyMOPFCx58NKzctE2lH8ndGFvkEdzs0CAUcBT9b5Sfpf4lvV0wlFQWwhl8uGZlwLW6lH
-	eAP0HJvb7C1uFRvodVBMvnatQzHjmm5X2eBWMwnRxZFeM86/b4p6aLgUsQoaIY7KSfCiwK72tPp
-	bG4KqU95S7bDYFK5lBUFOdUh2oNInQGibgcuKeeX2vPUXrxo5VaygT3sDpThMBiBaQiNzNWX0Rv
-	zTMqJDG0bvCtEwjlNyniZUoNI70oB07F2kCTk4zOxZZVtTKkpt6bSFcZvWLb+LOf4xQS7q9xvC5
-	1i5eF47ldQapvLly7xlUDWkexbFx7ObDvu2vCJHf4V+JtMjgGpwfW
-X-Received: by 2002:a17:90b:5143:b0:39b:5622:d645 with SMTP id
- 98e67ed59e1d1-39e5513d689mr482743a91.0.1789682995305; Thu, 17 Sep 2026
- 15:09:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="j/4Vg1or"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id E38C753401DD;
+	Fri, 18 Sep 2026 00:10:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789683001;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=w542DP45Fab9ijkwZo5VGiQ54TLBbOLVPnee5WaS4as=;
+	b=j/4Vg1orluWplRkwEdZE6ATs2D6kCLuIcSMCfQb4oZH84n6A28CrKfsBTk/15uGjBpcn6J
+	rRhd5wcHRuGcMPiNfXY5JamS9sRF9pBT+eBbu9w7F8jT7O2bBF5EkTIUU2LcfWyCvq3S9y
+	KwPNu67boLcLCBqrtZZNW+uVOJCk3AE=
+Message-ID: <34d95e25-be4a-406c-b486-0ad9e7c86838@ixit.cz>
+Date: Fri, 18 Sep 2026 00:10:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915080255.48929-1-tasos.papagiannnis@gmail.com> <20260915080255.48929-3-tasos.papagiannnis@gmail.com>
-In-Reply-To: <20260915080255.48929-3-tasos.papagiannnis@gmail.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Thu, 17 Sep 2026 15:09:41 -0700
-X-Gm-Features: AcwNN1WTXc_NwWK6MQi-iRZUsTUWGjz1v6pzQXRB3O-GWxbyeKhFKxC4Xn1Cz6w
-Message-ID: <CAEf4BzbfScpCi+x+QTdLifbaXPOR=DJ-7nM7F-Lki7vzD9L4OA@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v7 2/5] exec: Clear bprm->mm before dropping its reference
-To: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>, brauner@kernel.org
-Cc: bpf@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, david@kernel.org, 
-	akpm@linux-foundation.org, andrii@kernel.org, ast@kernel.org, 
-	daniel@iogearbox.net, eddyz87@gmail.com, kpsingh@kernel.org, ljs@kernel.org, 
-	matt@bobrowski.net, memxor@gmail.com, song@kernel.org, 
-	sun.jian.kdev@gmail.com, utilityemal77@gmail.com, viro@zeniv.linux.org.uk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] serial: qcom-geni: keep registered console runtime active
+To: Konrad Dybcio <konradybcio@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>,
+ Praveen Talari <praveen.talari@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260819-topic-geni_console_poweredoff-v1-1-7f7bb3aad8da@oss.qualcomm.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260819-topic-geni_console_poweredoff-v1-1-7f7bb3aad8da@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 1:03=E2=80=AFAM Anastasios Papagiannis
-<tasos.papagiannnis@gmail.com> wrote:
->
-> Once mmput() drops the final reference to bprm->mm, the pointer must no
-> longer remain accessible through struct linux_binprm.
->
-> The successful exec path and the bprm initialization error path already
-> clear bprm->mm when ownership is transferred or released. Do the same in
-> free_bprm() before calling mmput().
->
-> This is required for BPF kfuncs where bprm->mm is either NULL or points
-> to a live mm_struct to ensure safe access.
->
-> Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-> Reviewed-by: Sun Jian <sun.jian.kdev@gmail.com>
+On 19/08/2026 18:46, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Commit aee1f94dab13 ("serial: qcom-geni: remove .pm callback, use
+> runtime PM in startup/shutdown") moved runtime PM references from the
+> serial-core PM callback to the port startup and shutdown callbacks.
+> 
+> The serial core used to leave the console port powered after
+> registration, but after the callback was removed the temporary probe
+> reference is always released. Console writes are not tied to an open TTY
+> and can run from contexts which cannot resume the device, so a
+> runtime-suspended console can stall. This was observed on a Qualcomm
+> X1E80100 CRD device, as the boot console became flakey across boots.
+> 
+> Acquire a runtime PM reference when the console is set up and release it
+> through the console exit callback. This keeps the device active only
+> while the console is registered and balances the reference when the
+> console is disabled or re-enabled through sysfs.
+> 
+> Fixes: aee1f94dab13 ("serial: qcom-geni: remove .pm callback, use runtime PM in startup/shutdown")
+> Assisted-by: LLM
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > ---
->  fs/exec.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
+>   drivers/tty/serial/qcom_geni_serial.c | 26 ++++++++++++++++++++++++--
+>   1 file changed, 24 insertions(+), 2 deletions(-)
+> 
+This also fixes a regression on sdm845: since v7.3-rc1 (or on next-20260820), 
+OnePlus 6 and 6T crash into the Qualcomm crash dump mode on every s2idle suspend 
+attempt (no kernel output, warm reset via PS_HOLD with the TZ download cookie 
+set, no panic in ramoops).
 
-Christian, you ok if we take this through bpf-next? ack?
+Tested-by: David Heidelberg <david@ixit.cz> # OnePlus 6T (sdm845)
 
-> diff --git a/fs/exec.c b/fs/exec.c
-> index 745f6eb5279e..4ddd403fd91c 100644
-> --- a/fs/exec.c
-> +++ b/fs/exec.c
-> @@ -1456,9 +1456,12 @@ void bprm_drop_loader(struct linux_binprm *bprm)
->
->  static void free_bprm(struct linux_binprm *bprm)
->  {
-> -       if (bprm->mm) {
-> +       struct mm_struct *mm =3D bprm->mm;
-> +
-> +       if (mm) {
->                 acct_arg_size(bprm, 0);
-> -               mmput(bprm->mm);
-> +               bprm->mm =3D NULL;
-> +               mmput(mm);
->         }
->         if (bprm->user_ns)
->                 put_user_ns(bprm->user_ns);
-> --
-> 2.55.0
->
+One thing this leaves open: with the console holding a single reference,
+pm_runtime_force_suspend() goes through pm_runtime_need_not_resume() and
+pm_runtime_force_resume() does not power the port back up, so
+uart_resume_port() programs the termios and resumes the console on a
+powered-down port; it only comes back through startup() if the tty was
+open. I'll send a patch on top for that.
+
+Thank you
+David
