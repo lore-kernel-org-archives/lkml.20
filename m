@@ -1,130 +1,86 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910E6495AC4
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9297643D503;
+	Thu, 17 Sep 2026 08:56:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.145.95.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789635399; cv=none; b=hSssW3pSFkW2Cm2UtN6Gb22UAQBBIwxgTEbQgiZX2VHsqXxDsrfKtutrtid0bBa6RAsGz4EZhDCrIZtiEcmUiDcH6FLnXUJ58QpYB1tyEnlxdKKUrUyDTeML0F53SEoje21xK2F0X+hUJyWPh8XdgGmRCdZxJRG0cEWTSACr7j0=
+	t=1789635411; cv=none; b=KDkN5+Iv4w/mGLqadI3633xmxI/ebXXN0dRHzLOcCChekO6cXadoUBwIqpcR0ZjlBt3JHo1JFZlwvbWYwSt+MJiOzKiyE9DCyTGUxL6CkSdl6Gn4p4q38k12Oua67kq/3RzMQqan4fCTtxThm8tCTmcJTBWTAGSPBkWl2sxbKKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789635399; c=relaxed/simple;
-	bh=kdiOnh+GsU5d1rD2flvYj89P5gX1Dk5qBVQX7c3DlOM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ndxeas1WpM/6VG1GXfo87zRMuh9Kv48q6lYTu7quhnbHFGj9R0lu7CxxB9x+vDvtoAkvPekrv1V6fXop+3bh60vXyzfxnodx1TNbuLK4/3EB1sUr5+dND8834M/8k5kq4wwJ3Xzg9X2Nv7V/GwJUKWI839AG3JLMSz340dVQkO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=yHXNJPhS; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="yHXNJPhS"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id D3BA3C63440;
-	Thu, 17 Sep 2026 08:57:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7D54B5FAA3;
-	Thu, 17 Sep 2026 08:56:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9B40611C7B06C;
-	Thu, 17 Sep 2026 10:56:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789635377; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=wxmtzGTHOhJMvWhaJPsR2kpeTDmIIsU636OajBBsDHk=;
-	b=yHXNJPhS1JuJHa+fh5seY0/UlpEd+emuizCS/Ld0O1sdgqxnqROCk+GPRXGYrA1MHExECw
-	V4DQ47jHxtTjgaOhRk6tP4LUg8m/2Xr2p5+7c+xLTMXiyteP5cHAISnU7BNzpTQd6za835
-	cmop59GrN+Z7HdMU88D45VdGaz5DA5eAojA8JpjE5MKFA1f4PdjJ/P33U+aMwalGgNwheY
-	4+lmivIoM60fXxC8vgAgStgKCgnbTEtEvwg2r8IMY/fWoOAILJkCgEmGsXVQd6z0X+90Hl
-	cPKTdEk7s3ihO2HMb1XRi52i0/v2oSdvWFoXg3iBtHbWBgM9EJENMNMkKIAHRQ==
-Date: Thu, 17 Sep 2026 10:56:12 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <20260917105612.0900797b@bootlin.com>
-In-Reply-To: <aqS6XbyzTmVIv4vr@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-7-herve.codina@bootlin.com>
-	<aqJBOdFPJbDKHt_9@gractus.seuss>
-	<20260910095823.1f5abc2b@bootlin.com>
-	<aqJ7SC9s5z1FRML1@gractus.seuss>
-	<20260911095339.14833b5d@bootlin.com>
-	<aqS6XbyzTmVIv4vr@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=arc-20240116; t=1789635411; c=relaxed/simple;
+	bh=s5u2AyGTEY7qVivI6JscsmSZSmPFDoG29XJMQntgNm0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=d/Am0pst1wUAV3dXNHsl3OcD7VIShaTWdiQPOvd8EFa6b20e2tJvLHpSC4UxVF3k9sGJx5kRs4jkVQdqkB4K/RZ7tBcyUkofLd86c67KgVRD8vEXaIUZ77DR6EWRRaBUPft9iUQsa1iM7Jhk9vleProxauHOGj8f1+yF+XP+k5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk; spf=pass smtp.mailfrom=toke.dk; arc=none smtp.client-ip=45.145.95.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
+Authentication-Results: mail.toke.dk; dkim=none
+From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>, Pengpeng Hou
+ <pengpeng@iscas.ac.cn>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] wifi: ath9k: reject short WMI command responses
+In-Reply-To: <8c2dbacf-63ec-428c-b283-50198579cb89@oss.qualcomm.com>
+References: <20260814075837.20005-1-pengpeng@iscas.ac.cn>
+ <8c2dbacf-63ec-428c-b283-50198579cb89@oss.qualcomm.com>
+Date: Thu, 17 Sep 2026 10:56:33 +0200
+X-Clacks-Overhead: GNU Terry Pratchett
+Message-ID: <87cxucuugu.fsf@toke.dk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
 
-Hi David,
+Jeff Johnson <jeff.johnson@oss.qualcomm.com> writes:
 
-On Sat, 12 Sep 2026 12:35:10 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+> On 8/14/2026 12:58 AM, Pengpeng Hou wrote:
+>> ath9k_wmi_rsp_callback() removes the validated WMI header and copies
+>> the number of bytes expected by the waiting command into its response
+>> buffer. A device response shorter than that expectation can therefore
+>> be read beyond the skb payload.
+>> 
+>> Record -EMSGSIZE for a short response, complete the waiter, and return
+>> the stored status from the command path. This also prevents callers from
+>> consuming stale response bytes as a successful reply.
+>> 
+>> Fixes: fb9987d0f748 ("ath9k_htc: Support for AR9271 chipset.")
+>> Assisted-by: Codex:gpt-5
+>> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+>> ---
+>> Changes since v1: https://lore.kernel.org/all/20260704011405.55089-1-pengpeng@iscas.ac.cn/
+>> - return a stored response error to the waiting command
+>> - retain acceptance of replies longer than the requested prefix
+>> - recheck callback synchronization under the existing WMI lock
+>> 
+>> The WMI callback and waiter synchronization were reviewed statically; no
+>> ath9k firmware fault injection was performed.
+>> 
+>>  drivers/net/wireless/ath/ath9k/wmi.c | 17 +++++++++++++++--
+>>  drivers/net/wireless/ath/ath9k/wmi.h |  1 +
+>>  2 files changed, 16 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/drivers/net/wireless/ath/ath9k/wmi.c b/drivers/net/wireless/ath/ath9k/wmi.c
+>> index 284e8c13b043..06d9975f9717 100644
+>> --- a/drivers/net/wireless/ath/ath9k/wmi.c
+>> +++ b/drivers/net/wireless/ath/ath9k/wmi.c
+>> @@ -206,8 +206,16 @@ static void ath9k_wmi_rsp_callback(struct wmi *wmi, struct sk_buff *skb)
+>>  {
+>>  	skb_pull(skb, sizeof(struct wmi_cmd_hdr));
+>>  
+>> -	if (wmi->cmd_rsp_buf != NULL && wmi->cmd_rsp_len != 0)
+>> +	if (wmi->cmd_rsp_buf && wmi->cmd_rsp_len) {
+>> +		if (skb->len < wmi->cmd_rsp_len) {
+>> +			wmi->cmd_rsp_status = -EMSGSIZE;
+>
+> my review agent notes that if this path is taken that there is no debug
+> message alerting this. see my suggestion on dealing with this below...
 
-> On Fri, Sep 11, 2026 at 09:53:39AM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Thu, 10 Sep 2026 19:41:42 +1000
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > 
-> > ...  
-> > > > > > +/* Tests reserved tags */
-> > > > > > +#define FDT_TEST_NONE_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_NONE, 0)
-> > > > > > +#define FDT_TEST_1CELL_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_1CELL, 0)
-> > > > > > +#define FDT_TEST_2CELLS_CAN_SKIP	FDT_TAG_CAN_SKIP(FDT_TAG_DATA_2CELLS, 0)
-> > > > > > +#define FDT_TEST_VARLEN_CAN_SKIP	FDT_TAG_CAN_SKIP(FDT_TAG_DATA_VARLEN, 0)
-> > > > > > +#define FDT_TEST_NONE_NO_SKIP		FDT_TAG_NO_SKIP(FDT_TAG_DATA_NONE, 0)      
-> > > > >   
-> > ...
-> >   
-> > > > 
-> > > > /*
-> > > >  * Tests reserved tags
-> > > >  *
-> > > >  * A TAG_ID range in "structured tags" is reserved to tests tags.
-> > > >  * This tests reserved range is from tag_id 0 to tag_id 0x100.
-> > > >  *
-> > > >  * When those tags are encountered they should be considered as "unknown"
-> > > >  * tags and rules related to "unknown" tags must be followed.
-> > > >  *
-> > > >  * Readers should skip them or fail depending on the SKIP_SAFE flag. Writers
-> > > >  * should never use those tags. Their usage is only acceptable in test cases.
-> > > >  */
-> > > > 
-> > > > Is it ok?    
-> > > 
-> > > I'd probably put the reserved range up high somewhere rather than
-> > > starting at 0.  Otherwise it looks good.
-> > > 
-> > >   
-> > 
-> > Ok I will move the reserved range at an higher area and probable the
-> > highest possible area.  
-> 
-> Sounds good.
-> 
-> > Will choose also the highest possible value for FDT_TEST_NONE_NO_SKIP
-> > Indeed, this one is a non-skippable tag and so should use "old style"
-> > tag.  
-> 
-> With non-skippable new-style tags no longer being a thing, do you even
-> need this tag and test?
-> 
+I think you're being pedantic here. I'm pretty sure there's no real
+hardware that does this; merging this is meant to protect against a
+USB device pretending to be an ath9k_htc and trying to exploit the
+kernel. So I think it's fine to merge as-is.
 
-Yes indeed, the test and the FDT_TEST_NONE_NO_SKIP tag can be just removed.
-I will remove them in the next iteration.
-
-Best regards,
-Herve
+-Toke
