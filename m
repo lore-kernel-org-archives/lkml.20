@@ -1,178 +1,282 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EFF4D795F;
-	Thu, 17 Sep 2026 11:08:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D6A4A689C
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:08:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789643317; cv=none; b=GOWb7OLEmOzXR92emjTfjkzS9jqTEA2aoq7JXl3RfJ/8Yx+sLS53CGSGZwpbgIaAqKn8pfNibEiL4sFsT5aF1N5UiIPgvhCBvx7Cv3IzpIAYMOI0fQ3PONcaPXSCWK0OBgdZcHZ5ZDeKijnJ7rPRg9GB8i1+4rFrj6u0HZN8qj4=
+	t=1789643334; cv=none; b=swIf4TyYE8Aizq3nX/hb3p8j/WTh44iu97aC9AMR4JBIAMJKPJ19GJOO+MF5CbkOVoqxT4xUEctZY0DfOThch2SY4Wv7EvS07E0y3kVBrBGDfF6x3sHC4PfjDDr2ogTQMFO2amWoQA8zBS/IyaioKrwA5e4QYmzjDYLFHtEo6lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789643317; c=relaxed/simple;
-	bh=U6sRt3MH61AETE0tQWH8DY2BopUUu9nziSOIAOJRU2E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tBsxCtPH2HKquGSylrugnCgdqXVDuouXP9SFPikdMhaFF4C/fko6La2X5nMyZMUIA/08sHPEwfiVK21uUGvwIAKfCBkSW8I/1KBl0+kDXOvF7usx404yNEE7L5i8HDwVAxOl2Xa1c5MR7sij82/XDQZE87MRNM8V3GcWQfEHFTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=IHSiW0KJ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789643334; c=relaxed/simple;
+	bh=jvWI5bCo2G0nPMiyIWWUCCvc8PV85ddqSgmXfNNkRqI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RmdLnPvpWWBOzxJ2zflp0lWNLh56M+TyNppTFGI8sWe6WbindM+ZzjvxXUB6zYWkWppQacuuS9kJY2rpNgCH5iGhhWngHzUrM3C1in3KrV3k3sMJ10gWhivcTLOOxFO/bzM3dCLzeiIOBxSO1gl3EvA9DKDxRrDAyTkBd2X4tME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=amRZXAIM; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="IHSiW0KJ"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HA1bb52232904;
-	Thu, 17 Sep 2026 11:07:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=4WuSM5
-	6Hoz16tISafbBQ67/yekGRCtTtY+uMPijQV6U=; b=IHSiW0KJ1Uwc7rKvZo/0m9
-	CznRcEo1/QD/CiqdWum/JbgRIopRP+Y4qCCrQ/xApMsLbvyPxMPGWDy5aHe259YP
-	xlmBgQ1PcLEmbS+eZ3yxf1VOp5dOpOBlggJjXtLiOoVag0zVJ+QHuE9qQv1wphXx
-	CJvClFcQ2uRIxBgQ7FD0oDphiFiV2zrT2Gyhs4lqr6FQuxYT9NZwDx6iK6S4K1OT
-	CFjIJp8ddmLbobVjgFV1nbaQtXCsj3gKfnM17WT9uU2RrL7QbIQXoWH+Lapa7HQF
-	zNTv9EYveIk5zv+NsnGVOcZ9DXuC/rwnCghIQz9OoHlg6WwWv+t8DqvwwmNjHpew
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcv9dyy-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 11:07:53 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68H9aTbw2917896;
-	Thu, 17 Sep 2026 11:07:52 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gr5xa1xy2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 11:07:52 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68HB7mVE43319692
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 17 Sep 2026 11:07:48 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AFB0920043;
-	Thu, 17 Sep 2026 11:07:48 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EC55B20040;
-	Thu, 17 Sep 2026 11:07:47 +0000 (GMT)
-Received: from [9.224.77.173] (unknown [9.224.77.173])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 17 Sep 2026 11:07:47 +0000 (GMT)
-Message-ID: <51286424-e802-4ea9-b958-925fee8025ed@linux.ibm.com>
-Date: Thu, 17 Sep 2026 13:07:47 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="amRZXAIM"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60590a85cso1486116a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:08:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789643286; x=1790248086; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P6nCQrtjn5sjZ36INdWU9AmImwt4exmEpBcYwRBKS5A=;
+        b=amRZXAIM2HT6n1xYQ1g4xhnUXi9Nws/e3Mxr0J2muU6vHMAIT5rQyaKZcnM2Pa9j6r
+         mOsNGj31vC+n1J8FTIXzknNGbzMBc4RSXa0Nn26p1WN/xBL1+E/BtpiVLPKGPRh532lR
+         /0ZSEYNkiAczGgTazWsa0zYbA8b4QFf8CphcPBKsFAZJahyLOxg3H2qdxUq8+PTOY176
+         AcWYhL51xDPg19RwbGE2e/3L18li3sEH6y3MKnbogNN9mtjhjwd58qTax++a+ZpDFplP
+         RiF8YaMXlwYs6T4zEs55yx1Pk9brItPSm/igptA7fD/2qqACLpVHPFKx56Ty18YemiEx
+         kcew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789643286; x=1790248086;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P6nCQrtjn5sjZ36INdWU9AmImwt4exmEpBcYwRBKS5A=;
+        b=1/6fbA2wd/8JLEVrp0W+D37sNtlbegX4VBLNSm7Y8yFvEpmEnLu7dtXxo5SmmE8Bfl
+         Ma4FG4kY20KGN0sIuCkdP2V39ZtoH//hnEzxu5JYy4ZbvTVtQkSxOfqKnvc1EhgFa3B2
+         yS2jI3iMHaLNNjEBYtBvPWpAQcTE4ze3fK3cJFQzGzNJqLFhg34T1jME9tZypV8scMww
+         gCKHhTsNGefiEf4X7+ocQ3+OGtZYzB8lCz2az/08kHQESOEgflolHG8/yF447jQQqTDb
+         DGz+hP03aUNLXMmAYAIcAEFj19RJNXexqJFLVGKx1cWgXMEsOggTwa6yAmEKlh0tnxRH
+         Pp+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwTujDi2O4CU9kGZF5A3saqjk9hqUbzehb+U0T6xA1nTubJwx7pH8d3KCI3op1VqWyKqgofaO0UK6KQnJA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nnH6NQFWW8BULR6g8P9vlGEYTHQs88gKy+QUQhhNMk1Z4rJuOz
+	c3zg9dSvOKLg/fwXXnSZJKsjVOW+pFTn/uREWxfQVYgOzBJAU1s8s+LkxebszFK5ZAs=
+X-Gm-Gg: AYBFou0CcGSHCw/8gv2wlsSu6laGpLfnVlRj9wBu0DbBJERAoQxmVuJpEWjatIT82Qf
+	nvlEb1aQ3COy0wOq2uyj2Vd+bb5MtRsaL0f99Mv4ZjfXLIDvZ4MFmd1SZjg69VBYYII2VsQZnGM
+	6nS7Gv9ShXojAustwNUDlVfCDwNYVih87dgmEG8r7SSoofDPcYJek/rO2uKwG0cOyXxt4jDE+qz
+	aQjafz+EHsQnFYb1eSg/CcQynF2XtzjGB0v2BVuuEctXEJ+1DxRDXRphWvJT0rOB4SqKtD0esag
+	U3gLHSEoZiAjvyDzRBFXv94uF9l7ZJ+gbtJT5fE5aUohusUaO2n4+Ik9T4hZBxe93N4ernypTvT
+	cCoqMkD6mT66Zu/XCV5/xBdPhaTgDFSUGaaAHgmddwJp9PFcWfnAkUg31t+Fivq4206L5VrydtA
+	Byr3WoTYU2mxj/owbSL6oFxbe7BX1aaPbCpuswFNg1SmUgF43b2/grAZY9LJfoap1pkDgALdmpZ
+	PFtIY8zaPwi25Bw9Mxm
+X-Received: by 2002:a05:6402:4613:b0:6a9:8d5e:66a6 with SMTP id 4fb4d7f45d1cf-6aa22250e8emr3965332a12.11.1789643285855;
+        Thu, 17 Sep 2026 04:08:05 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.29.130])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d27ad36sm3175656a12.21.2026.09.17.04.08.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 04:08:05 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Date: Thu, 17 Sep 2026 12:07:55 +0100
+Subject: [PATCH v18 2/5] phy: core: Add phy_get_by_of_node()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 23/23] KVM: s390: arm64: Add KVM_S390_ARM64 Kconfig and
- Makefile
-To: Sean Christopherson <seanjc@google.com>,
-        Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter
- <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik
- <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-References: <20260831144802.834315-1-seiden@linux.ibm.com>
- <20260831144802.834315-24-seiden@linux.ibm.com> <aphMx5hsoXwIpNjt@google.com>
- <20260903083857.33034-B-seiden@linux.ibm.com> <apmHrnxRLl9BuVhn@google.com>
- <20260903154317.246414-A-seiden@linux.ibm.com> <apmhX8H-WUc3U4_N@google.com>
-Content-Language: en-US
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-In-Reply-To: <apmhX8H-WUc3U4_N@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDE1MyBTYWx0ZWRfXxvXgm8oqRp19
- nQrhg9EQ/0iT2IXEFt08BHaHhUsgrKyvoPi+NFAeU3UU5WQjtMwZp8b7tXugIn2k7CFo6eFSYwM
- tQwG/muNP2QjgP5jk4v4+zXUwT3/rLA=
-X-Proofpoint-ORIG-GUID: 6Ugh16w0kSKYc6k82HwIr7iH6p4aBU1L
-X-Proofpoint-GUID: pYhdyPFgJVLZ4pZZ3Lh06XuplLJMgZjH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDE1MyBTYWx0ZWRfX/J3l0K/K4T4/
- k1Qu9iTB8gKSi3qzkVLZPgP5TuALabaJDnd0MM3f5Gfs6A3UuW2z5HRDT37VSdiByJGRkKXsnt/
- XOynhvAAg3kUEdrZQAY9MefMR0mynOoSp0QD+EiQJsNr8q3FYo0H2f9/gwmBogBuA7yIZWL7vXa
- 2OdgbCkRNP6cGH52IOdVvccZYRJr+ZGXqtsHoQzsIKw0y06Uxy20/0kbI6c71TV/3pkRUS/xPpp
- aYFNvov7S/8RkhmCAX8Wd5caY/2pU2zltPV9DvQjkG3v1RUDfNSlPLSdq+i19bOaDJ3R7dbeZGJ
- a2XzEvBlGSfRqWfT3/Yytvo4VkqO6/KSzA0ca6GBLbLuLDPYODZTwW1N+kLnoXRCKAtTK3Ari4L
- Boxt4IoBYN6InRSXQuM1d7iJT+Gsl0k1gKTlXbDsX+JifTUSAMxeYELUMQKy9/uWQw77Vpwc87J
- J/UxAnI0um8eOvNI4wg==
-X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aabca0a cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=nRLfC78URy_-QQUzUV8A:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1011 malwarescore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170153
+Message-Id: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-2-f85c9103177e@linaro.org>
+References: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-0-f85c9103177e@linaro.org>
+In-Reply-To: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-0-f85c9103177e@linaro.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+ Todor Tomov <todor.too@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5277;
+ i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
+ bh=jvWI5bCo2G0nPMiyIWWUCCvc8PV85ddqSgmXfNNkRqI=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqq8oNQFwYjOrE5sJSPDVGnBsCu7pHv0Xs4Nip5
+ +q6A5L2XnSJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCaqvKDQAKCRAicTuzoY3I
+ OoN/D/9/ujwtfypWaiH4Z1lIQEe5mE67i5ps3oTGkIyMPMGUlL1YT4d1xW65q1Hb8qHoTMqKOIY
+ 7MB/6mlluGLLvEqx0lKoFOMUI6eklV7KSqaJbzQU071gtGJCXyxQ71IfPienvv2DovfDawKIQGV
+ E5cWLUjeH1d/Jz7GwXQ7aXduTbbE6AvhJMFkLJ4IBJpMjspjPFgVzy08wnje3bdEzgpud0WvQah
+ HZ05ort2X2ceV34Xq/ohdulHB2ePbsw0K/WGSw0XBjkwJJGrxIux31pJJezuqhJv3stLntTIgdi
+ oVi0FSUTiHWtJqVeLZBJBpAS+uZUaYE04bO0tzluUFDG1Cl5OFmmjHYpBA4hIVYTJB0BNGB8eQr
+ CCNps0y9bDpFf0ICj6O1Zg+whA1H7QTYlpP01ZBuxJg6Uvr+u78uol404/zLUU52PHL1Rgm1np1
+ P13peA4UH49/RzipVuUqda09koVEKMzn+MNt/U4JRZlYyfaqc082baNNyUErJrQVLfpZcLcDe/D
+ G8XhN/sg9hZWojTgel2EECFFHQOuZMP3/IKT6d8vlrHP/M+sHe33x8ZV6tf74tPCrJS62A3wBe7
+ MDow1qYEbg6bd9QBTH1gXDyacLiZ2DaYS5EXTamnnWfZ+2bPCZ53K7lfrF8GUvQcvhNHzQrnJz6
+ fXC5li+1i8oILnA==
+X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
+Add new function phy_get_by_of_node() allowing lookup of a phy by
+device_node. Separates existing logic in _of_phy_get() into an internal
+helper method _of_phy_get_with_args() to allow for reuse in new method.
 
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+ drivers/phy/phy-core.c  | 95 +++++++++++++++++++++++++++++++++++++------------
+ include/linux/phy/phy.h |  6 ++++
+ 2 files changed, 78 insertions(+), 23 deletions(-)
 
-Am 03.09.26 um 18:33 schrieb Sean Christopherson:
-> On Thu, Sep 03, 2026, Steffen Eiden wrote:
->> On Thu, Sep 03, 2026 at 07:43:58AM -0700, Sean Christopherson wrote:
->>> And FWIW, while it might seem daunting, from my perspective it's not actually that
->>> much churn to do things "right".  Provide KVM_S390_NATIVE, and then have KVM reflect
->>> the "weakest" of S390_NATIVE vs. S390_ARCH.  I.e. make KVM=m if either of the "real"
->>> KVMs will be a module.  That requires some creative shenanigans, but it's not hard,
->>> just weird.
->>
->> FYI the first versions of this series had a 3 configs approach very
->> similar to yours.
->>
->> IIRC it was not so much the churn we have in (upstream) kernel code but
->> more on the distro side and to everyone building the kernel in their
->> favourite architecture (s390 :))
-> 
-> How many people are running distro kernels on s390 hardware?  And how many distros
-> actually change the default KVM settings, e.g. to build KVM as a module instead of
-> baking it into the kernel?  My guess is "not many" and "almost none", i.e. the
-> actual impact on downstream users is likely miniscule.
-> 
->> Suddenly the KVM config changed its behaviour (effectively becoming a noop)
-> 
-> Not really, because "KVM" itself is inaccessible (well, unless someone is hand-
-> editing .configs or generating them by script, but that's their own fault).
-> E.g. upgrading to a new kernel will explicitly prompt the user to choose for both
-> KVM_S390_NATIVE and KVM_S390_ARM64 (or whatever they get called).
-> 
->> I am starting to think that having no separate config option for arm on
->> s390 might be the easisest way. Just KVM and guard both modules behind
->> it. It reduces the config space bloat and I do not see a reason why somoeone
->> should only compile one KVM module but not the other. kvm-arm64 won't
->> load if you do not have the hardware anyways.
-> 
-> Because there may be an unforseen need down the road?  Smushing things together
-> after the fact is generally easy, pulling things apart without breaking everything
-> is usually much, much harder.
-> 
->> But I am not opposed to the x86 approach. Just thinking loud.
->>
->> Anyways, I am off for vacation expect a reduced reply frequency from my
->> side :)
-Yet another option
-I think there is value in keeping the config space simpte for users.
-Why not simply keep CONFIG_KVM and it will disable, module build, compile-in
-both variants.
+diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+index 89addd732bff3..490a7cde6d40a 100644
+--- a/drivers/phy/phy-core.c
++++ b/drivers/phy/phy-core.c
+@@ -606,22 +606,51 @@ int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
+ }
+ EXPORT_SYMBOL_GPL(phy_validate);
+ 
++/**
++ * _of_phy_get_with_args() - lookup and obtain a reference to a phy by of_phandle_args
++ * @args: of_phandle_args to the phy
++ *
++ * Returns the phy from the provider's of_xlate, -ENODEV if disabled,
++ * -EPROBE_DEFER if the provider is not yet registered.
++ */
++static struct phy *_of_phy_get_with_args(struct of_phandle_args *args)
++{
++	struct phy *phy;
++	struct phy_provider *phy_provider;
++
++	lockdep_assert_held(&phy_provider_mutex);
++
++	phy_provider = of_phy_provider_lookup(args->np);
++	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner))
++		return ERR_PTR(-EPROBE_DEFER);
++
++	if (!of_device_is_available(args->np)) {
++		dev_warn(phy_provider->dev, "Requested PHY is disabled\n");
++		phy = ERR_PTR(-ENODEV);
++		goto out_put_module;
++	}
++
++	phy = phy_provider->of_xlate(phy_provider->dev, args);
++
++out_put_module:
++	module_put(phy_provider->owner);
++
++	return phy;
++}
++
+ /**
+  * _of_phy_get() - lookup and obtain a reference to a phy by phandle
+  * @np: device_node for which to get the phy
+  * @index: the index of the phy
+  *
+- * Returns the phy associated with the given phandle value,
+- * after getting a refcount to it or -ENODEV if there is no such phy or
+- * -EPROBE_DEFER if there is a phandle to the phy, but the device is
+- * not yet loaded. This function uses of_xlate call back function provided
+- * while registering the phy_provider to find the phy instance.
++ * Returns the phy associated with the given phandle value after getting
++ * a refcount to it; -ENODEV if there is no such phy or the phy is
++ * disabled; -EPROBE_DEFER if the phy provider is not yet available.
+  */
+ static struct phy *_of_phy_get(struct device_node *np, int index)
+ {
+ 	int ret;
+-	struct phy_provider *phy_provider;
+-	struct phy *phy = NULL;
++	struct phy *phy;
+ 	struct of_phandle_args args;
+ 
+ 	lockdep_assert_held(&phy_provider_mutex);
+@@ -637,22 +666,7 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
+ 		goto out_put_node;
+ 	}
+ 
+-	phy_provider = of_phy_provider_lookup(args.np);
+-	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner)) {
+-		phy = ERR_PTR(-EPROBE_DEFER);
+-		goto out_put_node;
+-	}
+-
+-	if (!of_device_is_available(args.np)) {
+-		dev_warn(phy_provider->dev, "Requested PHY is disabled\n");
+-		phy = ERR_PTR(-ENODEV);
+-		goto out_put_module;
+-	}
+-
+-	phy = phy_provider->of_xlate(phy_provider->dev, &args);
+-
+-out_put_module:
+-	module_put(phy_provider->owner);
++	phy = _of_phy_get_with_args(&args);
+ 
+ out_put_node:
+ 	of_node_put(args.np);
+@@ -1001,6 +1015,41 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+ }
+ EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+ 
++/**
++ * phy_get_by_of_node() - lookup and obtain a reference to a phy by device_node
++ * @np: node containing the phy
++ *
++ * Returns the phy associated with the device node or ERR_PTR.
++ */
++struct phy *phy_get_by_of_node(struct device_node *np)
++{
++	struct of_phandle_args args = { .np = np, .args_count = 0 };
++	struct phy *phy;
++
++	if (!np)
++		return ERR_PTR(-EINVAL);
++
++	mutex_lock(&phy_provider_mutex);
++
++	phy = _of_phy_get_with_args(&args);
++
++	if (IS_ERR(phy))
++		goto out_unlock;
++
++	if (!try_module_get(phy->ops->owner)) {
++		phy = ERR_PTR(-EPROBE_DEFER);
++		goto out_unlock;
++	}
++
++	get_device(&phy->dev);
++
++out_unlock:
++	mutex_unlock(&phy_provider_mutex);
++
++	return phy;
++}
++EXPORT_SYMBOL_GPL(phy_get_by_of_node);
++
+ /**
+  * phy_create() - create a new phy
+  * @dev: device that is creating the new phy
+diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+index ea47975e288ae..71c2e16397130 100644
+--- a/include/linux/phy/phy.h
++++ b/include/linux/phy/phy.h
+@@ -284,6 +284,7 @@ struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
+ 				     const char *con_id);
+ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+ 				     int index);
++struct phy *phy_get_by_of_node(struct device_node *np);
+ void of_phy_put(struct phy *phy);
+ void phy_put(struct device *dev, struct phy *phy);
+ void devm_phy_put(struct device *dev, struct phy *phy);
+@@ -493,6 +494,11 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
+ 	return ERR_PTR(-ENOSYS);
+ }
+ 
++static inline struct phy *phy_get_by_of_node(struct device_node *np)
++{
++	return ERR_PTR(-ENOSYS);
++}
++
+ static inline void of_phy_put(struct phy *phy)
+ {
+ }
+
+-- 
+2.55.0
+
