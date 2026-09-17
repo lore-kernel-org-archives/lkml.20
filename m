@@ -1,248 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-143.mta0.migadu.com [91.218.175.143])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B15A4E77E8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0874A3AEF54
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789666807; cv=none; b=UuKgwVx8cf10BBVw3+E/iSPRUGKeN8RnamaHLlFlpJUCOzYXGD8bIjr7N5SwFteDGxW1RDVocgmFrFbHuIuOFbhzgVKOJdoD6jrjFYU0dD0yhrDjra18NELUpbILPnd1voXX7Z88P64erXaUBl4+mSsYq61+L2XOa0mcTbZJMmM=
+	t=1789666900; cv=none; b=cMjP4S35WPDLB6unZ09cDYtKqGh0/QQUR9sCfzkKF5XmJZzpdBzKJtZTT+61T6GOvklKnMYpbcw67CjK1My93MhDM7kiBs8VmLBnBjnyzQWsl8/MBZMCQEtnMcrVwhCn+iIc1bUlZMdwwt7Lwb8/bza9CodOTMclvsCENqcARjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789666807; c=relaxed/simple;
-	bh=blW9R+7vnIrek2uF+WxAEIXKnkjIklh0LLDGEqIl4mE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u1PAXldl7o6Rdw0+ZU+f6DMzNpgpG2zEAHsiM4bqdfi65ysASCHlIKUEfiFJ2XkDa5aiOe9qvL2tIqQdRjbnCph/6wqBB17fZjo0uZgbkp6NiDuxb4iqNoWqfJkse30CsZPn+UXCOFIPUeyreGiOeorQ589LUWRGS3Hq3+MSXuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BU5zy7Sv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789666900; c=relaxed/simple;
+	bh=+guZnFTM+M/5i9rrqq4ZVstz7/uElKhJ8UAetROi8VU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j6/X6wdK5I1N6RKrRRqdEFwXDPhOcRM3kM4k816Uq7kADDMxdc5iqIC+odfscnKgYQxk8EdTWb04Ya1LnuFJ3LfbRqRN+pDUJfu6B/ciIb/F3iRGS6tWwDwmfWIhBVVrhgRgZ81D5S91SONfG1NJ8Mp7kHeW3ZtkyWFWX75Juxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JWeAO2sj; arc=none smtp.client-ip=91.218.175.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BU5zy7Sv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBA351F0089F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789666805;
-	bh=PbJ/Kc47hAhrgRgg4YeuzXPd4EE0XeBlUFiD6KaVUt4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BU5zy7SvjK+JukLqns0JVMU3MoRZxb6Nz+ZClUpS7vt8ps6/O+RzUzJS8CLMmIwfZ
-	 uT6LLY4PMhLU9+HO+aG8EWkSIhopmjSjsgn3T9J1+EISKBcs8o0fVMEg0VfozR8fK5
-	 AkD/XHah+lcYgxIM9gfms/8eKu8CYtWf1BApDEtSOcOMpy1LlaOKeS/GdmDiqAu4Sx
-	 WXXiHnhd0CuOvLhV8zLmo95J7aoSn/NCYps2N82sWmgzBIM4NrNdaI4e5pQXexww20
-	 3WhTOXOZc+e1n27fNQzWAd1deSIqpQ3gyYwtcLONu/MlNDDCXadz3TKgmK36CiQk2R
-	 GaVnxFUvjeKnQ==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d7eso10253541fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:40:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx+vaZGBE2jqlPrYPXMz+tHgwLJkohExI9BIYe50rHtgvOZ911yPoOa73CHYv4wYTVJPEiX7vUBGsxrC7A=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmN4gvQyoWHT9Zl2ip0t6sbOpGNcVSmipaBWONUrQGyo1Z5pFK
-	zzM3cw3FqhsGm0q56nSvjjeFjIgvx8TlyO1K25l378UXKwqa4iHGgISLAg0BT0/o1zHZ2IW3XHW
-	psaZqKX4i+H2DiB7G4+5f3lK/ukyKaHU=
-X-Received: by 2002:a05:651c:1503:b0:3a4:99ed:beac with SMTP id
- 38308e7fff4ca-3a5dc9b2ffemr20454221fa.4.1789666803984; Thu, 17 Sep 2026
- 10:40:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JWeAO2sj"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+guZnFTM+M/5i9rrqq4ZVstz7/uElKhJ8UAetROi8VU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789666895; v=1; x=1790271695;
+ b=JWeAO2sj2b6aMQlEZYJiXhoJ4h4i9XP0fDHk8sCRNVczW05g3IkWuY/Avykzu36TdiNOvLDd
+ e0bBrSXfW6B5RinQELMYJLGyUJ5j1V72QfwwbBfAG+/xs3519/JQOj2tePrSbEskSTx3IflWzMC
+ aldudO9UHkkcJRs6+R6qkHL0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2e90bbb2c356c51a;
+	Thu, 17 Sep 2026 17:41:35 +0000
+X-Mizu-Trace-ID: 2e90bbb2c356c51a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7d5f54bc-6daa-45c3-b57b-23d3204d3e7e@linux.dev>
+Date: Thu, 17 Sep 2026 18:41:32 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915065747.1671965-1-wujianyong@hygon.cn>
-In-Reply-To: <20260915065747.1671965-1-wujianyong@hygon.cn>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 17 Sep 2026 19:38:40 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0g2d6fY8hM0FVH8tiOUhXm0PZM+Qn7OxM9YNXm8i0pYmg@mail.gmail.com>
-X-Gm-Features: AcwNN1VTmLCPhyZPJ_sS60J0ZwVtuPaN4TtZiM2tsLLytdZtRJKbc8A5ZDcur58
-Message-ID: <CAJZ5v0g2d6fY8hM0FVH8tiOUhXm0PZM+Qn7OxM9YNXm8i0pYmg@mail.gmail.com>
-Subject: Re: [PATCH] cpufreq: Use a non-boost reference frequency for pressure calculation
-To: Jianyong Wu <wujianyong@hygon.cn>
-Cc: viresh.kumar@linaro.org, kprateek.nayak@amd.com, 
-	vincent.guittot@linaro.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ray.huang@amd.com, mario.limonciello@amd.com, 
-	perry.yuan@amd.com, zhanjie9@hisilicon.com, zhenglifeng1@huawei.com, 
-	pierre.gondois@arm.com, sumitg@nvidia.com, 
-	srinivas.pandruvada@linux.intel.com, hongyan.xia@transsion.com, 
-	zhongqiu.han@oss.qualcomm.com, jianyong.wu@outlook.com, wangfengyu@hygon.cn, 
-	zhongyuan@hygon.cn, huangsj@hygon.cn, 
-	Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] blk-cgroup: skip rstat flush for cgroups without blkgs
+To: Tejun Heo <tj@kernel.org>
+Cc: axboe@kernel.dk, cgroups@vger.kernel.org, josef@toxicpanda.com,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ hannes@cmpxchg.org, mkoutny@suse.com, shakeel.butt@linux.dev,
+ riel@surriel.com
+References: <20260917161020.4139163-1-usama.arif@linux.dev>
+ <aqwV9cjg7Yj2OtBG@slm.duckdns.org>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <aqwV9cjg7Yj2OtBG@slm.duckdns.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 9:03=E2=80=AFAM Jianyong Wu <wujianyong@hygon.cn> w=
-rote:
->
-> Commit d2d5c129d07e ("cpufreq: Make cpufreq_update_pressure() fall
-> back to cpuinfo.max_freq") introduced cpuinfo.max_freq as the reference
-> frequency for cpufreq pressure when arch_scale_freq_ref() returns zero.
->
-> However, cpuinfo.max_freq may include boost frequencies and therefore
-> does not necessarily represent the maximum sustainable frequency.
 
-And then it really matters what is sustainable and for how long.
 
-> On some systems using acpi-cpufreq, cpuinfo.max_freq includes boost while
-> the frequency table only contains non-boost frequencies.
+On 17/09/2026 17:31, Tejun Heo wrote:
+> On Thu, Sep 17, 2026 at 09:10:20AM -0700, Usama Arif wrote:
+>> Non-root io.stat reads flush the blkcg rstat subtree before walking
+>> ->blkg_list. This takes the subsystem rstat lock and checks for pending
+>> updates on every possible CPU, even when there is no per-device state to
+>> print.
+>>
+>> Blkg creation is hierarchical. A descendant blkg implies an ancestor
+>> blkg on the same device, so an empty ->blkg_list means the subtree cannot
+>> contribute any output. Return early in that case.
+>>
+>> A concurrent first blkg may be deferred to the next read. This is
+>> consistent with the existing non-atomic flush and list walk.
+>>
+>> This is not rare: 340 of 969 io.stat files were empty on a 316-CPU host.
+>> In a 16-vCPU lockdep-enabled guest, the median
+> 
+> Can you please test on a kernel w/ lockdep disabled? It doesn't make much
+> sense to compare performance numbers with lockdep enabled.
+> 
 
-In which case selecting freq_table[0] may give the processor a license
-to go to the turbo (or boost) frequency range.
+The updated numbers without lockdep are:
 
-> Consequently, cpufreq pressure remains nonzero even without an additional
-> frequency limit.
+                             before    after
+      empty io.stat           7.02 us   5.47 us
+      populated io.stat       7.84 us   7.83 us
 
-So when and where does this matter?
+    The median paired reduction for empty reads was 22.1% (20.0-22.4% across
+    pairs). System CPU time per read fell by 22.8%. Populated reads showed no
+    consiste
 
-> Furthermore, drivers may update cpuinfo.max_freq when boost is enabled
-> or disabled. With a fixed policy limit below the maximum non-boost
-> frequency, this changes the pressure reference and hence the reported
-> pressure, although the non-boost frequency limit remains unchanged.
 
-If the capacity is updated though along with the cpuinfo.max_freq
-change, then this is all fine because the pressure is then computed
-relative to the new capacity.  intel_pstate does that.
 
-> Add max_sustainable_freq to struct cpufreq_cpuinfo to provide a reference
-> frequency excluding boost. Populate it from the nominal frequency in
-> amd-pstate and cppc_cpufreq, the maximum non-turbo frequency in
-> intel_pstate, and the highest frequency-table entry in acpi-cpufreq.
->
-> Use this value when arch_scale_freq_ref() returns zero. Preserve the
-> existing cpuinfo.max_freq fallback for drivers that leave the new field
-> at zero.
->
-> Tested with acpi-cpufreq, intel_pstate, and amd-pstate in active and
-> passive modes. With no additional frequency limit, pressure is zero.
-> With a fixed limit below the non-boost reference frequency, pressure
-> remains unchanged across boost transitions.
+>> open/read/close time over 35 batches of 20,000 reads changed as follows:
+>>
+>>                          before     after
+>>   empty io.stat          49.1 us   41.0 us
+>>   populated io.stat      49.9 us   50.2 us
+>>
+>> This is a 16.6% reduction for empty reads. Populated reads were unchanged
+>> within measurement noise.
+>>
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> 
+> That said, I don't see any downsides:
+> 
+> Acked-by: Tejun Heo <tj@kernel.org>
+> 
+> Thanks.
+> 
 
-Which may not be what is intended.
-
-> Fixes: d2d5c129d07e ("cpufreq: Make cpufreq_update_pressure() fall back t=
-o cpuinfo.max_freq")
-> Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
-> ---
-> The earlier fix was incorrect and has been abandoned. This patch takes
-> a different approach.
->
-> Previous discussion: https://lore.kernel.org/all/SI2PR04MB4931A8BA0EF213B=
-0238BD9E4E3BD2@SI2PR04MB4931.apcprd04.prod.outlook.com/
->
->  drivers/cpufreq/acpi-cpufreq.c | 3 +++
->  drivers/cpufreq/amd-pstate.c   | 2 ++
->  drivers/cpufreq/cppc_cpufreq.c | 3 ++-
->  drivers/cpufreq/cpufreq.c      | 4 +++-
->  drivers/cpufreq/intel_pstate.c | 2 ++
->  include/linux/cpufreq.h        | 2 ++
->  6 files changed, 14 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/cpufreq/acpi-cpufreq.c b/drivers/cpufreq/acpi-cpufre=
-q.c
-> index 21639d9ac753..e7b22456ebb8 100644
-> --- a/drivers/cpufreq/acpi-cpufreq.c
-> +++ b/drivers/cpufreq/acpi-cpufreq.c
-> @@ -856,6 +856,9 @@ static int acpi_cpufreq_cpu_init(struct cpufreq_polic=
-y *policy)
->         }
->         freq_table[valid_states].frequency =3D CPUFREQ_TABLE_END;
->
-> +       /* Init max sustainable cpu frequency */
-> +       policy->cpuinfo.max_sustainable_freq =3D freq_table[0].frequency;
-> +
->         max_boost_ratio =3D get_max_boost_ratio(cpu, &nominal_freq);
->         if (max_boost_ratio) {
->                 unsigned int freq =3D nominal_freq;
-> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-> index 3a6b4b224a66..6fc28bb1499b 100644
-> --- a/drivers/cpufreq/amd-pstate.c
-> +++ b/drivers/cpufreq/amd-pstate.c
-> @@ -1085,6 +1085,7 @@ static int amd_pstate_cpu_init(struct cpufreq_polic=
-y *policy)
->                                                 perf.lowest_perf);
->         policy->cpuinfo.max_freq =3D cpudata->max_freq;
->
-> +       policy->cpuinfo.max_sustainable_freq =3D cpudata->nominal_freq;
->         policy->driver_data =3D cpudata;
->         ret =3D amd_pstate_cppc_enable(policy);
->         if (ret)
-> @@ -1912,6 +1913,7 @@ static int amd_pstate_epp_cpu_init(struct cpufreq_p=
-olicy *policy)
->         policy->cpuinfo.min_freq =3D perf_to_freq(perf, cpudata->nominal_=
-freq,
->                                                 perf.lowest_perf);
->         policy->cpuinfo.max_freq =3D cpudata->max_freq;
-> +       policy->cpuinfo.max_sustainable_freq =3D cpudata->nominal_freq;
->         policy->driver_data =3D cpudata;
->
->         ret =3D amd_pstate_cppc_enable(policy);
-> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufre=
-q.c
-> index 6fe0e972952a..f803fcdca483 100644
-> --- a/drivers/cpufreq/cppc_cpufreq.c
-> +++ b/drivers/cpufreq/cppc_cpufreq.c
-> @@ -682,7 +682,8 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_polic=
-y *policy)
->         policy->cpuinfo.min_freq =3D cppc_perf_to_khz(caps, caps->lowest_=
-perf);
->         policy->cpuinfo.max_freq =3D cppc_perf_to_khz(caps, policy->boost=
-_enabled ?
->                                                     caps->highest_perf : =
-caps->nominal_perf);
-> -
-> +       policy->cpuinfo.max_sustainable_freq =3D
-> +               cppc_perf_to_khz(caps, caps->nominal_perf);
->         policy->transition_delay_us =3D cppc_cpufreq_get_transition_delay=
-_us(cpu);
->         policy->shared_type =3D cpu_data->shared_type;
->
-> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-> index b898b6544069..c1d54a22265d 100644
-> --- a/drivers/cpufreq/cpufreq.c
-> +++ b/drivers/cpufreq/cpufreq.c
-> @@ -2587,7 +2587,9 @@ static void cpufreq_update_pressure(struct cpufreq_=
-policy *policy)
->         cpu =3D cpumask_first(policy->related_cpus);
->         max_freq =3D arch_scale_freq_ref(cpu);
->         if (!max_freq)
-> -               max_freq =3D policy->cpuinfo.max_freq;
-> +               max_freq =3D policy->cpuinfo.max_sustainable_freq ?
-> +                                policy->cpuinfo.max_sustainable_freq :
-> +                                policy->cpuinfo.max_freq;
->
->         capped_freq =3D policy->max;
->
-> diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstat=
-e.c
-> index 6e984c114d96..daef7e99fead 100644
-> --- a/drivers/cpufreq/intel_pstate.c
-> +++ b/drivers/cpufreq/intel_pstate.c
-> @@ -1474,6 +1474,7 @@ static void __intel_pstate_update_max_freq(struct c=
-pufreq_policy *policy,
->
->         policy->cpuinfo.max_freq =3D READ_ONCE(global.no_turbo) ?
->                         cpudata->pstate.max_freq : cpudata->pstate.turbo_=
-freq;
-> +       policy->cpuinfo.max_sustainable_freq =3D cpudata->pstate.max_freq=
-;
->
->         refresh_frequency_limits(policy);
->  }
-> @@ -3052,6 +3053,7 @@ static int __intel_pstate_cpu_init(struct cpufreq_p=
-olicy *policy)
->         policy->cpuinfo.min_freq =3D cpu->pstate.min_freq;
->         policy->cpuinfo.max_freq =3D READ_ONCE(global.no_turbo) ?
->                         cpu->pstate.max_freq : cpu->pstate.turbo_freq;
-> +       policy->cpuinfo.max_sustainable_freq =3D cpu->pstate.max_freq;
->
->         intel_pstate_init_acpi_perf_limits(policy);
->
-> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-> index ae9d1ce4f49c..aa3f60a167be 100644
-> --- a/include/linux/cpufreq.h
-> +++ b/include/linux/cpufreq.h
-> @@ -45,6 +45,8 @@ enum cpufreq_table_sorting {
->  struct cpufreq_cpuinfo {
->         unsigned int            max_freq;
->         unsigned int            min_freq;
-> +       /* Maximum sustainable frequency excluding boost, or 0 if unknown=
-. */
-> +       unsigned int            max_sustainable_freq;
->
->         /* in 10^(-9) s =3D nanoseconds */
->         unsigned int            transition_latency;
-> --
-> 2.34.1
->
->
