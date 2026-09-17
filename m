@@ -1,201 +1,891 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outbound.ci.icloud.com (ci-2005d-snip4-3.eps.apple.com [57.103.89.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C519A5476FC;
-	Thu, 17 Sep 2026 16:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65599596501
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:07:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.89.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661253; cv=none; b=SQCP7sIW6SODM98bkQwoA63TswdSKAFI7K3uHGThv8JHvNKv3OV53Ppm4F6wGbiffTrjux5TUXIUr9CIJcYWXpoGCsrdB/yKbYaO1rgoWuwaLc6Uv9LW3ebopgmfulpGH6SVpN4lvl/i74t+T4V0gDftK24hsva+B4QWGO224uA=
+	t=1789661255; cv=none; b=ikuMJJr/XOscMZJb9GN6yA0qSiWVJGSyZnFVnETtOvX0ap04z562cRqsb4ZxQcarsr8GT0LOake4qt0Ih8FeJwWGMnAKljoN7Vy18gvvHvzhohOhvrTFOZi9kxzo3DRBuFcwedkHLVI5PzaHXHRlzlrBMlnpdbVIrzfWemjTwm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661253; c=relaxed/simple;
-	bh=4iA14ccJ3tToIuW0JxnDcx57dEM9zZDephjwK3h1FOo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=igm9XP3nBd/kvyIo8WJtPXfA7mlYKsCp2avqdxgO0LAD3YumSyx4TyKZaxmAYFhH18seTI6H41CU7PDIM1SI8w617VkqlRWp9s+IZsFVu3gffMhgdQ6pg7wEykT5EoincYSB6fF5kg1XS52E6CejKmfVX5nItJgxdIncRi8x61I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GWGLSD7z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789661255; c=relaxed/simple;
+	bh=eQGfgiMTjK2tB0G8LHpjWBXDyEkkC2l8ciu5bywKfV0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=M5+OAOh5anBZckBzlmk9VqPX0asdxzXVoyr+qiKix6cqdWfjZR1a3gdVTl3EJu/YQIIuaQ36VXYiUCFq86lpm0CITDHRbGv7XxFRuxOOAC4biejOSiTpeOPzVQX8QuNyfIXgHvuSNGRXF8rPhjGcahBKzmjgJARwVlcsXXMGajY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=matias.me; spf=pass smtp.mailfrom=matias.me; dkim=pass (2048-bit key) header.d=matias.me header.i=@matias.me header.b=Utwd0NWp; arc=none smtp.client-ip=57.103.89.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=matias.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matias.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GWGLSD7z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3221F00898;
-	Thu, 17 Sep 2026 16:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789661251;
-	bh=01qdzsZbCvqL8FdMyc8gaErER1nQlt9KVctHGyxLt4o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=GWGLSD7z6HhCoVc8RandRhUOJMGit8anM07+7UbL+fN1gfK471bcyLrDCsokaTbFY
-	 4Um4x0I9nfIqpNt0Wczf2QpCG50rycsf3e1daBzy5PM/my6T2R3t+CgNc0n5nif5O0
-	 7+QaSEXAK5F4IQWcFNp/fXsCCj+lo9UvWSsdV2a7pnl4Rox/5e0gU6pqC3cGIPm0i9
-	 D04zGHVBMlM89c54x2ZI6akY6KagLmRC66FedW3TLMEBPJd6CIapU2UIvAUoX7bJ0X
-	 UnCQDrb4VLC+86nVBLtrGT7t3j8PjpNKeaDiHvJHXtny9EB3SmOyiGX7QaAJ0MKzuO
-	 /TEajP/w18n/w==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:06:14 +0100
-Subject: [PATCH v3 04/20] kbuild: do not sort nm output where the order is
- irrelevant
+	dkim=pass (2048-bit key) header.d=matias.me header.i=@matias.me header.b="Utwd0NWp"
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-2 (Postfix) with ESMTPS id 7C9B018005FF;
+	Thu, 17 Sep 2026 16:07:27 +0000 (UTC)
+X-ICL-RepId: 01a0b01f-77b5-7d13-9d9f-a187647f43b3
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQhAAkMDWBxBDUAdVQFLVxQEEFYBWwRyHVgMWgxERV8VGR5XUFoKRhlYCx0AUktAEwRJA01fDl4fBBdGGVUERx5dVlAEGQJRHFYNV0NUBF9QSQxBUGxaAEcXSB1dGVlvUF0cDgBWH1sRSlZeCBcGWxQERAFdBV0CSQhPAlsHXABCF0AKXg5aH0EUEFYBWwRyHVgMWgxERV8VB1hHFEcODxNMC0cCWjRWH1QZWgM=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=matias.me; s=sig1; t=1789661250; x=1792253250; bh=1cH5bPhE/QlNOMzFVDgX9PKKl/vEVywp/gKvjRIVetI=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=Utwd0NWpg59V49cPpY2/GwS/i4U/2A0/EKh6MG7496BOiHEJtVSzYbiExlKHkd0VtupmdSTSpI3F1g3EBHuUKFKowpPhcgf1rJBd+4xouID4koLbSQflSKdQEyFefFNbVDiyYlhYBJw+eXH13fJjZ/ss133n+fAlj11EnGwFiU5BtQw69hmaYDsSZWbPkMZuZ4ixPNI0jIT15M1+Fk868GS69TwAxsnU0oASznH7qBY0v95yg+lk3nuxHOKFXfh4pMLysR2aeYZ7ByJxW1WDMqjTXZwEuj7DGX7wzWjeDaZz/Us7dYR7kgRIXltv3qBelUWmOsWCBwYw6E4SH1Q2ug==
+mail-alias-created-date: 1705102286191
+Received: from localhost.localdomain (unknown [17.57.156.36])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-2 (Postfix) with ESMTPSA id 1364618005C6;
+	Thu, 17 Sep 2026 16:07:24 +0000 (UTC)
+From: =?UTF-8?q?Mat=C3=ADas=20Mart=C3=ADnez?= <hello@matias.me>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Antheas Kapenekakis <lkml@antheas.dev>,
+	Denis Benato <denis.benato@linux.dev>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Armin Wolf <W_Armin@gmx.de>
+Subject: [PATCH v3] HID: ayaneo: Add AYANEO 3 detachable controller driver
+Date: Thu, 17 Sep 2026 13:07:22 -0300
+Message-ID: <20260917160722.89391-1-hello@matias.me>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260824223103.93947-1-hello@matias.me>
+References: <20260824223103.93947-1-hello@matias.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-build-speedup-v3-4-9ecf4163ff36@kernel.org>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
-In-Reply-To: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
- linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4994; i=ljs@kernel.org;
- h=from:subject:message-id; bh=4iA14ccJ3tToIuW0JxnDcx57dEM9zZDephjwK3h1FOo=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLW8P9VFXvnq1zjzHTpiZ33i+71c5acV7S4NDNmpvL7f
- RYHa/JPdZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiS68z/BW+GXxApuHFppvv
- PmmwljWXLrYUWnrv7pyk4zMP/vuU6hfHyPD9IduKx9FXY5dl+Z5TmMrKvDupVnPPbANH67Z7F+w
- iFvMDAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDIyOSBTYWx0ZWRfX73avBE9LRF5O
+ nEXI+W80cvyXCzCY7CZODALlStOEs+eV+VRq3B1Sssss61bWeVcWgirVFiFht8Pl+pSmDkq2HDd
+ f7svq8iEAh8wDCrS9fxoJ9sFQGdczRhxjArOb36PG+cQy/USR2ABVkPfreBOtyQah8B2Qd8cuh4
+ i5tXpMgTnSzFNhaAX4eQQfA5HTAOpKMZ0+ogsq5BHYBL+wzPhq2p/pNIkwoOVuSJh7nANx+v4c/
+ eWooeogHazccGLgW11rXTpTdngRe/CK7lm+e661bIvH3tajIkAtpEzJu8S8spENwl+6wFEBrpdH
+ v13JfvqHMLKeRkuxKM5o1eduf60LfuaqVgZV5R7vDopNqkOG4sW7YdlisL2jEQ=
+X-Proofpoint-ORIG-GUID: LE105nC-0T9HnZ7wc3Z--QGlkZXk4QsV
+X-Proofpoint-GUID: LE105nC-0T9HnZ7wc3Z--QGlkZXk4QsV
+X-Authority-Info-Out: v=2.4 cv=D8VK6/Rj c=1 sm=1 tr=0 ts=6aac1040
+ cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
+ a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=IkcTkHD0fZMA:10 a=MKtGQD3n3ToA:10
+ a=1oJP67jkp3AA:10 a=VdqzKS8jKosA:10 a=M51BFTxLslgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=K7sd-67Ag2WYOsdk6k0A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-JNJ: AAAAAAABabn3uel956DRIn22HzqzjcbhRY9i/9mXX+ixiWMeHDJW6w0MyQf2a1XJj0+RMk3eVQaDghUArF6COw1QL3S5Msx+/YYxQBmB9SaMhxRPYF+y0x6xv0AcjwvBFu5kBo7fq9+CoxftCoirU71TYUYDh0h+06dukGRlLhiKywkf2ZgA7hGmFggxkCmYB66F2SwVZxde9CKNDsxDB227SEkRpOrK4Y6uWXSPJ8HwdpTio8JLVqKQ7vyS57IeLYuq67NkrffOCRCfaZtwZK71ggWxAB9f5iakaSSZFBjJu/fR/+yWBcyzRcdMziTCqqNHmmVhe5ceg13ZHiFztD+7/IUHtsvIhaT0R7zkK2bqE5Kp+cd2GFoTNxxdw5aG63bTsN+wwD2l3vuxI67nVgz5M+0I9pfQY5HBRxDu6LPJKrQbvxM86Zl2dDNH4PN0Et4oTrCeNXaWvf9xv2aQoinnkJ/1SCmDosl25+LVcRw1L92FA/WzSJQ8NDPoJnYbX2DdpRWRv0L2idkkI/vrrMGDhtIsJx14lWhIpeSnQrRy4WdppIFAlbo/ICJAahIvmTyWj57bulA4r9h/2l8Suxql/auBz6x8ACLh9XWKsIArpCPTl5IFRGDeMqd8fmulg7ZYtbyuHxKUKwg3mF3hhYR0xJZAX5iFicm+F7vzBkeBex26dHb8K4R7gEH8vDydv6BfkAw4NOdEf6rcsUDqUkP27XQ1eE3ZjRMrWeieXXSnxcIqyN4/dbFERnF8yC5SWJBJ0by3By08DqNj7cDx0jMNHWVZWjUf/l5Xt3aWws1DrdztzaFTYOjYGy/aFOHqUXusBV6DE8YepFrr+YdhUnNDbGLhbLUaS8BEji8rrVySQxu56cdqv4esGeywDF+9O3L7MSnscpxD1OkQqSH1abrGSDmSkQ5P3jMD8yw8GRjKXu9Dm+pGqifK9C1IYRLognLranvzmY/uqWd9PLfP3wxQW0iCOLN
+ GZ8bEG8muhYgZBPcOPLdo0m556WnRPHtgLDQaVcsR+tpDlQDa6EeQV5Zm1YdHN4dPDNZBSYnvchlE2yBrlKgyB9U1+SY0OHzLkYTcO0y98WLFQQQ919JHw4kOGz0/ARpR8B7L/cFuOfQDXbAY+ds/6GjviV9xX6Mim0YrAev2nXS9dFyLULrmga6FtvH2nP9XahcWNMcBH0PeNlUWQPWXLabPnbM+t7UbcA5j0NSo4a0R+rOW7legGyrS/NPTu7nhR6YTT6FV6x8LqfDwn3YreX/q9C6rOYaiPV7DSATGCH+PxNl+lkIjpQT5t40Ze80y98GVAikZQYpEU7tTSXR+iIf/b5Hv0t7nLUrMNbs0eZC0EEY=
 
-Unless instructed otherwise, nm sorts by name.
+From: Matías Martínez <hello@matias.me>
 
-There are places where this is unnecessary - an invocation from
-scripts/sorttable every vmlinux link, scripts/check-function-names.sh run
-after every vmlinux.o link, and the x86 VOFFSET and ZOFFSET listings
-between vmlinux and bzImage.
+The AYANEO 3 handheld has a detachable controller with swappable
+modules ("Magic Modules"). The controller exposes three USB HID
+interfaces behind 1c4f:0002 (a generic SigmaMicro VID/PID, hence the
+DMI gate): a gamepad, a keyboard for the extra buttons, and a vendor
+interface accepting 65-byte commands.
 
-Both GNU nm and llvm-nm accept the same '-p' parameter to disable sorting
-in these instances, so use that to prevent this unnecessary work.
+Add a driver for the vendor interface providing module identification
+(module_left/module_right sysfs attributes), software eject of the
+modules (eject sysfs attribute, blocking until the firmware confirms
+the release handshake), and RGB control of the joystick rings as a
+multicolor LED class device ("<device name>:rgb:joystick_rings";
+userspace such as InputPlumber matches the function suffix). The
+firmware's fixed breathing pattern is exposed through the hw_pattern
+trigger ABI.
 
-Each nm run on its own, x86-64, median of 5:
+This complements the ayaneo-ec platform driver, which exposes module
+attach state and controller power. A full physical eject is performed
+by writing to eject and then cutting power through ayaneo-ec's
+controller_power attribute; that orchestration is deliberately left
+to userspace.
 
-                             GNU nm 2.47              llvm-nm 22
-                          before  after   delta    before  after   delta
-  defconfig
-  sorttable, nm -S vmlinux 0.080s 0.039s -0.041s   0.265s 0.113s -0.152s
-  check-function-names.sh  0.072s 0.033s -0.039s   0.244s 0.102s -0.142s
-  VOFFSET                  0.077s 0.034s -0.043s   0.261s 0.113s -0.148s
-  ZOFFSET                  0.007s 0.005s -0.002s   0.005s 0.005s  0.000s
-  TOTAL                                  -0.125s                 -0.442s
-
-  allmodconfig
-  sorttable, nm -S vmlinux 0.156s 0.063s -0.093s   0.539s 0.223s -0.316s
-  check-function-names.sh  0.149s 0.054s -0.095s   0.537s 0.217s -0.320s
-  VOFFSET                  0.146s 0.052s -0.094s   0.524s 0.221s -0.303s
-  ZOFFSET                  0.007s 0.005s -0.002s   0.006s 0.004s -0.002s
-  TOTAL                                  -0.284s                 -0.941s
-
-llvm-nm appears to be a lot slower than GNU nm, so these builds naturally
-improve the most.
-
-The four run one after another in the serial tail of every build that links
-vmlinux so impact kernel builds directly.
-
-In an allmodconfig the decompressor is built in parallel while the modules,
-so only the two before the vmlinux link contribute to build time.
-
-The build outputs remain unchanged.
-
-Whole build, 128-thread Threadripper 9980X, best of N runs:
-
-                                          before    after     delta
-                                        ---------------------------------
-  x86 defconfig, touch mm/vma.c, gcc        9.7s     9.5s    -0.18s (-2%)
-  x86 defconfig, touch mm/vma.c, clang      9.3s     9.0s    -0.27s (-3%)
-  x86 defconfig, clean, gcc                30.3s    30.1s    -0.16s (-1%)
-  x86 defconfig, clean, clang              31.7s    31.2s    -0.55s (-2%)
-  x86 allmodconfig, touch mm/vma.c, clang  36.4s    35.8s    -0.67s (-2%)
-
-Assisted-by: LLM
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+The protocol was reverse engineered in the Handheld Daemon project by
+Antheas Kapenekakis. Tested on an AYANEO 3: module identification,
+RGB solid and breathing, a full eject/reinsert/repower cycle, and
+repeated driver unbinds under a concurrent brightness-write load.
+Signed-off-by: Matías Martínez <hello@matias.me>
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
 ---
- arch/x86/boot/Makefile            | 2 +-
- arch/x86/boot/compressed/Makefile | 2 +-
- scripts/check-function-names.sh   | 3 ++-
- scripts/link-vmlinux.sh           | 2 +-
- 4 files changed, 5 insertions(+), 4 deletions(-)
+Changes in v3:
+- Use a generic ayaneo_ prefix for entry points and driver structure
+  so a future device or protocol revision slots in without churn;
+  wire-protocol constants stay AYA3_* since they are specific to
+  this firmware generation. [Derek J. Clark]
+- Describe the wire format with packed aya3_config/aya3_resp structs,
+  static_assert their sizes against the report sizes, and name every
+  firmware vibration level in an enum instead of a lone default
+  define. [Derek J. Clark]
+- Take the command lock with scoped_cond_guard(mutex_intr, ...) at
+  every interruptible lock site so the unlock cannot be dropped in a
+  future edit. [Derek J. Clark]
+- Mark the LED class device LED_COLOR_ID_RGB so userspace can detect
+  the RGB interface generically. [Derek J. Clark]
+- Name the firmware timing constants and record where the timings
+  come from and what was validated on hardware.
 
-diff --git a/arch/x86/boot/Makefile b/arch/x86/boot/Makefile
-index 3f9fb3698d66..4a9bce32586d 100644
---- a/arch/x86/boot/Makefile
-+++ b/arch/x86/boot/Makefile
-@@ -74,7 +74,7 @@ SETUP_OBJS = $(addprefix $(obj)/,$(setup-y))
- sed-zoffset := -e 's/^\([0-9a-fA-F]*\) [a-zA-Z] \(startup_32\|efi.._stub_entry\|efi\(32\)\?_pe_entry\|input_data\|kernel_info\|_end\|_ehead\|_text\|_e\?data\|_e\?sbat\|z_.*\)$$/\#define ZO_\2 0x\1/p'
- 
- quiet_cmd_zoffset = ZOFFSET $@
--      cmd_zoffset = $(NM) $< | sed -n $(sed-zoffset) > $@
-+      cmd_zoffset = $(NM) -p $< | sed -n $(sed-zoffset) > $@
- 
- targets += zoffset.h
- $(obj)/zoffset.h: $(obj)/compressed/vmlinux FORCE
-diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
-index 06934f9691d6..6ec5e031db1d 100644
---- a/arch/x86/boot/compressed/Makefile
-+++ b/arch/x86/boot/compressed/Makefile
-@@ -76,7 +76,7 @@ HOST_EXTRACFLAGS += -I$(srctree)/tools/include
- sed-voffset := -e 's/^\([0-9a-fA-F]*\) [ABbCDGRSTtVW] \(_text\|__start_rodata\|_sinittext\|__inittext_end\|__bss_start\|_end\)$$/\#define VO_\2 _AC(0x\1,UL)/p'
- 
- quiet_cmd_voffset = VOFFSET $@
--      cmd_voffset = $(NM) $< | sed -n $(sed-voffset) > $@
-+      cmd_voffset = $(NM) -p $< | sed -n $(sed-voffset) > $@
- 
- targets += ../voffset.h
- 
-diff --git a/scripts/check-function-names.sh b/scripts/check-function-names.sh
-index 08071133e5a5..94883e690627 100755
---- a/scripts/check-function-names.sh
-+++ b/scripts/check-function-names.sh
-@@ -13,7 +13,8 @@ if [ ! -f "$objfile" ]; then
- 	exit 1
- fi
- 
--bad_symbols=$(${NM:-nm} "$objfile" | awk '$2 ~ /^[TtWw]$/ {print $3}' | grep -E '^(startup|exit|split|unlikely|hot|unknown)(\.|$)')
-+bad_symbols=$(${NM:-nm} -p "$objfile" | awk '$2 ~ /^[TtWw]$/ {print $3}' |
-+	      grep -E '^(startup|exit|split|unlikely|hot|unknown)(\.|$)')
- 
- if [ -n "$bad_symbols" ]; then
- 	echo "$bad_symbols" | while read -r sym; do
-diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index e88604150d2c..970ca10f8fa9 100755
---- a/scripts/link-vmlinux.sh
-+++ b/scripts/link-vmlinux.sh
-@@ -161,7 +161,7 @@ mksysmap()
- 
- sorttable()
- {
--	${NM} -S ${1} > .tmp_vmlinux.nm-sort
-+	${NM} -p -S ${1} > .tmp_vmlinux.nm-sort
- 	${objtree}/scripts/sorttable -s .tmp_vmlinux.nm-sort ${1}
- }
- 
+No functional change relative to v2. The rework was prompted by
+Derek J. Clark's review of the driver in the OpenGamingCollective
+tree and retested on an AYANEO 3: module identification, RGB solid
+and breathing via hw_pattern, rejection of malformed hw_pattern
+writes, and repeated bind/unbind cycles, all with a clean dmesg.
 
+One question from that review was whether RGB sysfs writes need
+debouncing, since Steam emits one write per slider increment during
+a color drag. They do not: the driver registers only
+brightness_set_blocking, so the LED core defers stores to its
+set_brightness_work and coalesces bursts to the latest state.
+Measured on hardware, a command+ACK round trip averages 5.3 ms
+(3.8-8 ms over 100 samples) and 1000 back-to-back multi_intensity
+stores return in 12 ms total, reaching the device as two to three
+commands.
+
+Also suggested in that review, but held out of the patch while the
+driver's scope is under discussion: a rumble_intensity attribute
+(the firmware takes three vibration levels), an eject_index
+attribute, and a notification path from hid-ayaneo to ayaneo-ec so
+the EC driver could react to ejects. The last one concerns the
+ayaneo-ec/pdx86 side, hence the added Cc.
+
+Changes in v2:
+- Unregister the LED class device before tearing down the HID
+  transport, and flush a late-queued brightness work item that can
+  race the unregister; the work could otherwise run against freed
+  memory. Found by stress-testing rmmod under a brightness-write
+  loop; also reachable whenever the controller power-cycles (resume,
+  module eject) while userspace writes the LED. [sashiko, Denis]
+- Abort the eject wait as soon as the transport reports a fatal
+  error instead of polling for up to 8 seconds. [sashiko]
+- Reject report descriptors with no collections explicitly. [sashiko]
+- Document why a late reply to a timed-out command is harmless.
+  [sashiko]
+- Stop writing the joystick-sensitivity bytes in the config command
+  so RGB updates no longer clobber the firmware setting; verified on
+  hardware that RGB and eject work without them. [Antheas]
+- Expose the firmware's breathing mode through the hw_pattern
+  trigger ABI, with an ABI document. [Antheas]
+
+ .../testing/sysfs-class-led-driver-hid-ayaneo |  15 +
+ .../ABI/testing/sysfs-driver-hid-ayaneo       |  36 ++
+ MAINTAINERS                                   |   8 +
+ drivers/hid/Kconfig                           |  14 +
+ drivers/hid/Makefile                          |   1 +
+ drivers/hid/hid-ayaneo.c                      | 594 ++++++++++++++++++
+ 6 files changed, 668 insertions(+)
+ create mode 100644 Documentation/ABI/testing/sysfs-class-led-driver-hid-ayaneo
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-ayaneo
+ create mode 100644 drivers/hid/hid-ayaneo.c
+
+diff --git a/Documentation/ABI/testing/sysfs-class-led-driver-hid-ayaneo b/Documentation/ABI/testing/sysfs-class-led-driver-hid-ayaneo
+new file mode 100644
+index 000000000..00f100dba
+--- /dev/null
++++ b/Documentation/ABI/testing/sysfs-class-led-driver-hid-ayaneo
+@@ -0,0 +1,15 @@
++What:		/sys/class/leds/<led>/hw_pattern
++Date:		August 2026
++KernelVersion:	7.3
++Contact:	Matías Martínez <hello@matias.me>
++Description:
++		Specify a hardware pattern for the AYANEO 3 joystick
++		rings LED. The firmware supports a single breathing
++		pattern, pulsing the current colour at a fixed,
++		firmware-controlled period:
++
++		"0 <t> <brightness> <t>"
++
++		Both delta_t values are accepted but ignored, as the
++		period is not configurable. <brightness> must be
++		non-zero. Any other pattern is rejected.
+diff --git a/Documentation/ABI/testing/sysfs-driver-hid-ayaneo b/Documentation/ABI/testing/sysfs-driver-hid-ayaneo
+new file mode 100644
+index 000000000..807c4fc9d
+--- /dev/null
++++ b/Documentation/ABI/testing/sysfs-driver-hid-ayaneo
+@@ -0,0 +1,36 @@
++What:		/sys/bus/hid/drivers/hid-ayaneo/<dev>/module_left
++What:		/sys/bus/hid/drivers/hid-ayaneo/<dev>/module_right
++Date:		August 2026
++KernelVersion:	7.3
++Contact:	Matías Martínez <hello@matias.me>
++Description:
++		Reports the type of the module currently inserted in the
++		left/right slot of the AYANEO 3 detachable controller, as
++		the raw identifier reported by the controller firmware in
++		hexadecimal (e.g. "0x04"). Bits 0-5 encode the module
++		type, bit 6 indicates the module is inserted rotated.
++
++		Reading these attributes queries the controller and can
++		take up to a second.
++
++What:		/sys/bus/hid/drivers/hid-ayaneo/<dev>/eject
++Date:		August 2026
++KernelVersion:	7.3
++Contact:	Matías Martínez <hello@matias.me>
++Description:
++		Write-only. Writing "left", "right" or "both" asks the
++		controller firmware to release the corresponding
++		module(s). The write blocks until the firmware confirms
++		the release handshake (typically a few seconds). The
++		module is physically released once controller power is
++		subsequently cut through the ayaneo-ec platform driver's
++		controller_power attribute; that final step is left to
++		userspace.
++
++What:		/sys/bus/hid/drivers/hid-ayaneo/<dev>/reset
++Date:		August 2026
++KernelVersion:	7.3
++Contact:	Matías Martínez <hello@matias.me>
++Description:
++		Write-only. Writing "1" asks the controller firmware to
++		perform a quick reset of the controller configuration.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8b14f290c..3290d9957 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4508,6 +4508,14 @@ F:	Documentation/devicetree/bindings/spi/axiado,ax3000-spi.yaml
+ F:	drivers/spi/spi-axiado.c
+ F:	drivers/spi/spi-axiado.h
+ 
++AYANEO 3 CONTROLLER HID DRIVER
++M:	Matías Martínez <hello@matias.me>
++L:	linux-input@vger.kernel.org
++S:	Maintained
++F:	Documentation/ABI/testing/sysfs-class-led-driver-hid-ayaneo
++F:	Documentation/ABI/testing/sysfs-driver-hid-ayaneo
++F:	drivers/hid/hid-ayaneo.c
++
+ AYANEO PLATFORM EC DRIVER
+ M:	Antheas Kapenekakis <lkml@antheas.dev>
+ L:	platform-driver-x86@vger.kernel.org
+diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+index 0e3a0ccd6..319eda887 100644
+--- a/drivers/hid/Kconfig
++++ b/drivers/hid/Kconfig
+@@ -205,6 +205,20 @@ config HID_AUREAL
+ 	help
+ 	Support for Aureal Cy se W-01RN Remote Controller and other Aureal derived remotes.
+ 
++config HID_AYANEO
++	tristate "AYANEO 3 detachable controller support"
++	depends on USB_HID
++	depends on DMI
++	depends on LEDS_CLASS_MULTICOLOR
++	help
++	  Provides support for the detachable controller ("Magic Modules")
++	  of the AYANEO 3 handheld: module identification, software eject
++	  and RGB control of the joystick rings. Complements the ayaneo-ec
++	  platform driver, which handles module attach state and controller
++	  power.
++
++	  Say Y or M here if you have an AYANEO 3.
++
+ config HID_BELKIN
+ 	tristate "Belkin Flip KVM and Wireless keyboard"
+ 	help
+diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
+index 79384d905..2f74f2867 100644
+--- a/drivers/hid/Makefile
++++ b/drivers/hid/Makefile
+@@ -35,6 +35,7 @@ obj-$(CONFIG_HID_APPLETB_KBD)	+= hid-appletb-kbd.o
+ obj-$(CONFIG_HID_CREATIVE_SB0540)	+= hid-creative-sb0540.o
+ obj-$(CONFIG_HID_ASUS)		+= hid-asus.o
+ obj-$(CONFIG_HID_AUREAL)	+= hid-aureal.o
++obj-$(CONFIG_HID_AYANEO)	+= hid-ayaneo.o
+ obj-$(CONFIG_HID_BELKIN)	+= hid-belkin.o
+ obj-$(CONFIG_HID_BETOP_FF)	+= hid-betopff.o
+ obj-$(CONFIG_HID_BIGBEN_FF)	+= hid-bigbenff.o
+diff --git a/drivers/hid/hid-ayaneo.c b/drivers/hid/hid-ayaneo.c
+new file mode 100644
+index 000000000..3a7af5918
+--- /dev/null
++++ b/drivers/hid/hid-ayaneo.c
+@@ -0,0 +1,594 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * HID driver for the AYANEO 3 detachable controller ("Magic Modules").
++ *
++ * The AYANEO 3 controller exposes three USB HID interfaces behind
++ * VID 0x1c4f PID 0x0002 (a generic SigmaMicro ID, hence the DMI gate):
++ * a gamepad, a keyboard for the extra buttons, and a vendor interface
++ * (application usage 0xff000001) accepting 65-byte commands.
++ *
++ * This driver binds the vendor interface and provides:
++ *  - module identification (which module type is inserted on each side)
++ *  - software eject of the left/right modules
++ *  - RGB control of the joystick rings as a multicolor LED class device
++ *
++ * It complements the ayaneo-ec platform driver, which exposes module
++ * attach state and controller power. A full eject is: write to this
++ * driver's "eject" attribute, then power the controller off through
++ * ayaneo-ec's controller_power once the eject completes.
++ *
++ * The protocol was reverse engineered in the Handheld Daemon project by
++ * Antheas Kapenekakis.
++ *
++ * Command format (65 bytes, unnumbered report):
++ *   [0]   report id (0)
++ *   [1:3] little-endian sum of bytes 7..64
++ *   [3]   command
++ *   [4]   subcommand
++ *   [5:]  payload
++ * The device replies with a 64-byte report echoing the subcommand at
++ * byte 3.
++ *
++ * Copyright (C) 2026 Matías Martínez <hello@matias.me>
++ */
++
++#include <linux/build_bug.h>
++#include <linux/cleanup.h>
++#include <linux/delay.h>
++#include <linux/dmi.h>
++#include <linux/hid.h>
++#include <linux/led-class-multicolor.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/sysfs.h>
++#include <linux/unaligned.h>
++#include <linux/workqueue.h>
++
++#define AYA3_REPORT_SIZE	65
++#define AYA3_RESP_SIZE		64
++
++/*
++ * Empirical timings, inherited from the Handheld Daemon
++ * implementation of this protocol and validated on hardware: the
++ * device answers well within 300ms or not at all, needs about half
++ * a second to settle after a reset before it accepts a new
++ * configuration, and completes an eject handshake within a few
++ * seconds (polled below at a rate that keeps the sysfs write
++ * responsive).
++ */
++#define AYA3_CMD_TIMEOUT_MS	300
++#define AYA3_CMD_ATTEMPTS	3
++#define AYA3_RESET_SETTLE_MS	500
++#define AYA3_EJECT_POLL_MS	400
++#define AYA3_EJECT_POLLS	20
++
++/* Subcommands (byte 4); byte 3 is 0x00 except for the config command */
++#define AYA3_SUBCMD_CHECK	0x08
++#define AYA3_CMD_CONFIG		0x21
++#define AYA3_SUBCMD_CONFIG	0x09
++
++/* Bits that stay set in the eject status byte after an eject completes */
++#define AYA3_EJECT_DONE_MASK	0x11
++
++/* Config command eject/reset field */
++#define AYA3_EJECT_LEFT		0x07
++#define AYA3_EJECT_RIGHT	0x70
++#define AYA3_RESET		0x88
++
++/* Config command RGB modes */
++#define AYA3_RGB_SOLID		0x01
++#define AYA3_RGB_PULSE		0x02
++#define AYA3_RGB_OFF		0xff
++
++/* Config command vibration levels, stored in the high nibble */
++enum aya3_vibration {
++	AYA3_VIBRATION_LOW	= 0x1,
++	AYA3_VIBRATION_MEDIUM	= 0x2,
++	AYA3_VIBRATION_HIGH	= 0x3,
++	AYA3_VIBRATION_OFF	= 0x4,
++};
++
++struct aya3_rgb {
++	u8 mode;
++	u8 r;
++	u8 g;
++	u8 b;
++} __packed;
++
++/*
++ * The 65-byte config command. The checksum is the little-endian sum of
++ * bytes 7..64; unk* fields are sent as zero.
++ */
++struct aya3_config {
++	u8 report_id;
++	__le16 csum;
++	u8 cmd;
++	u8 subcmd;
++	u8 unk5[3];
++	struct aya3_rgb right;
++	struct aya3_rgb left;
++	u8 unk16[4];
++	u8 eject;
++	u8 unk21;
++	u8 sensitivity[2];
++	u8 vibration;
++	u8 unk25[7];
++	u8 magic;
++	u8 unk33[32];
++} __packed;
++static_assert(sizeof(struct aya3_config) == AYA3_REPORT_SIZE);
++
++/* Replies echo the subcommand they answer at byte 3 */
++struct aya3_resp {
++	u8 unk0[3];
++	u8 subcmd;
++	u8 unk4[15];
++	u8 eject_status;
++	u8 unk20[12];
++	u8 module_left;
++	u8 module_right;
++	u8 unk34[30];
++} __packed;
++static_assert(sizeof(struct aya3_resp) == AYA3_RESP_SIZE);
++
++struct ayaneo {
++	struct hid_device *hdev;
++	/* DMA-safe command buffer; guarded by lock */
++	u8 *xfer;
++	/* Serializes commands and cached-config access */
++	struct mutex lock;
++	struct completion resp_done;
++	struct aya3_resp resp;
++	u8 resp_expect;
++	bool resp_pending;
++
++	u8 rgb[3];
++	bool pulse;
++	u8 vibration;
++
++	struct led_classdev_mc mcled;
++	struct mc_subled subleds[3];
++};
++
++static int ayaneo_send(struct ayaneo *aya)
++{
++	int ret;
++
++	ret = hid_hw_output_report(aya->hdev, aya->xfer, AYA3_REPORT_SIZE);
++	if (ret == -ENOSYS)
++		ret = hid_hw_raw_request(aya->hdev, aya->xfer[0], aya->xfer,
++					 AYA3_REPORT_SIZE, HID_OUTPUT_REPORT,
++					 HID_REQ_SET_REPORT);
++	if (ret < 0)
++		return ret;
++	return 0;
++}
++
++/**
++ * ayaneo_cmd() - send the command in aya->xfer and wait for the reply
++ * @aya: driver data; @aya->xfer holds the fully built 65-byte command
++ * @resp: destination for the reply, or NULL to discard it
++ *
++ * The device echoes the subcommand byte of the command it is answering,
++ * which ayaneo_raw_event() uses to match replies. Unanswered commands are
++ * retried up to AYA3_CMD_ATTEMPTS times.
++ *
++ * Context: process context; the caller must hold @aya->lock, which
++ *          protects @aya->xfer and the reply state.
++ * Return: 0 on success, -ETIMEDOUT if every attempt went unanswered, or
++ *         a negative errno if sending failed.
++ */
++static int ayaneo_cmd(struct ayaneo *aya, struct aya3_resp *resp)
++{
++	int attempt, ret;
++
++	lockdep_assert_held(&aya->lock);
++
++	for (attempt = 0; attempt < AYA3_CMD_ATTEMPTS; attempt++) {
++		reinit_completion(&aya->resp_done);
++		aya->resp_expect = aya->xfer[4];
++		WRITE_ONCE(aya->resp_pending, true);
++
++		ret = ayaneo_send(aya);
++		if (ret) {
++			WRITE_ONCE(aya->resp_pending, false);
++			return ret;
++		}
++
++		if (wait_for_completion_timeout(&aya->resp_done,
++						msecs_to_jiffies(AYA3_CMD_TIMEOUT_MS))) {
++			if (resp)
++				memcpy(resp, &aya->resp, sizeof(*resp));
++			return 0;
++		}
++	}
++	WRITE_ONCE(aya->resp_pending, false);
++	return -ETIMEDOUT;
++}
++
++static void ayaneo_checksum(u8 *buf)
++{
++	u16 sum = 0;
++	int i;
++
++	for (i = 7; i < AYA3_REPORT_SIZE; i++)
++		sum += buf[i];
++	put_unaligned_le16(sum, buf + 1);
++}
++
++static int ayaneo_check(struct ayaneo *aya, struct aya3_resp *resp)
++{
++	memset(aya->xfer, 0, AYA3_REPORT_SIZE);
++	aya->xfer[4] = AYA3_SUBCMD_CHECK;
++	return ayaneo_cmd(aya, resp);
++}
++
++/*
++ * The config command sets everything at once: RGB for both rings,
++ * vibration strength and the eject/reset field. The command can also
++ * carry joystick sensitivity; those bytes are left zero so the
++ * firmware setting is not clobbered on every RGB update.
++ */
++static int ayaneo_send_config(struct ayaneo *aya, u8 eject)
++{
++	static const struct aya3_config template = {
++		.cmd = AYA3_CMD_CONFIG,
++		.subcmd = AYA3_SUBCMD_CONFIG,
++		.magic = 0x01,
++	};
++	struct aya3_config *cfg = (struct aya3_config *)aya->xfer;
++	u8 mode = AYA3_RGB_OFF;
++
++	if (aya->rgb[0] || aya->rgb[1] || aya->rgb[2])
++		mode = aya->pulse ? AYA3_RGB_PULSE : AYA3_RGB_SOLID;
++
++	*cfg = template;
++	cfg->right.mode = mode;
++	cfg->right.r = aya->rgb[0];
++	cfg->right.g = aya->rgb[1];
++	cfg->right.b = aya->rgb[2];
++	cfg->left = cfg->right;
++	cfg->eject = eject;
++	cfg->vibration = aya->vibration << 4;
++	ayaneo_checksum(aya->xfer);
++
++	return ayaneo_cmd(aya, NULL);
++}
++
++static int ayaneo_raw_event(struct hid_device *hdev, struct hid_report *report,
++			    u8 *data, int size)
++{
++	struct ayaneo *aya = hid_get_drvdata(hdev);
++	const struct aya3_resp *resp = (const struct aya3_resp *)data;
++
++	if (!READ_ONCE(aya->resp_pending) || size < AYA3_RESP_SIZE)
++		return 0;
++	/*
++	 * Replies carry no sequence number, only the subcommand echo. A
++	 * late reply to a timed-out command can thus complete a newer
++	 * command with the same subcommand; such replies are snapshots
++	 * of the same query milliseconds apart, so this is harmless.
++	 * Replies to a different subcommand are dropped here.
++	 */
++	if (resp->subcmd != aya->resp_expect)
++		return 0;
++
++	memcpy(&aya->resp, data, sizeof(aya->resp));
++	WRITE_ONCE(aya->resp_pending, false);
++	complete(&aya->resp_done);
++	return 0;
++}
++
++static ssize_t ayaneo_module_show(struct device *dev, char *buf, bool right)
++{
++	struct ayaneo *aya = dev_get_drvdata(dev);
++	struct aya3_resp resp;
++	int ret = 0;
++
++	scoped_cond_guard(mutex_intr, return -EINTR, &aya->lock)
++		ret = ayaneo_check(aya, &resp);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "0x%02x\n",
++			  right ? resp.module_right : resp.module_left);
++}
++
++static ssize_t module_left_show(struct device *dev,
++				struct device_attribute *attr, char *buf)
++{
++	return ayaneo_module_show(dev, buf, false);
++}
++static DEVICE_ATTR_RO(module_left);
++
++static ssize_t module_right_show(struct device *dev,
++				 struct device_attribute *attr, char *buf)
++{
++	return ayaneo_module_show(dev, buf, true);
++}
++static DEVICE_ATTR_RO(module_right);
++
++static ssize_t eject_store(struct device *dev, struct device_attribute *attr,
++			   const char *buf, size_t count)
++{
++	struct ayaneo *aya = dev_get_drvdata(dev);
++	struct aya3_resp resp;
++	u8 eject;
++	int ret = 0, err, i;
++
++	if (sysfs_streq(buf, "left"))
++		eject = AYA3_EJECT_LEFT;
++	else if (sysfs_streq(buf, "right"))
++		eject = AYA3_EJECT_RIGHT;
++	else if (sysfs_streq(buf, "both"))
++		eject = AYA3_EJECT_LEFT | AYA3_EJECT_RIGHT;
++	else
++		return -EINVAL;
++
++	scoped_cond_guard(mutex_intr, return -EINTR, &aya->lock) {
++		ret = ayaneo_send_config(aya, eject);
++		if (ret)
++			break;
++
++		/*
++		 * Wait for the firmware to report the eject as done.
++		 * Userspace must then cut power through ayaneo-ec's
++		 * controller_power for the module to be physically
++		 * released.
++		 */
++		ret = -ETIMEDOUT;
++		for (i = 0; i < AYA3_EJECT_POLLS; i++) {
++			msleep(AYA3_EJECT_POLL_MS);
++			err = ayaneo_check(aya, &resp);
++			if (err == -ETIMEDOUT)
++				continue;	/* busy mid-eject, keep polling */
++			if (err) {
++				ret = err;
++				break;
++			}
++			if (!(resp.eject_status & ~AYA3_EJECT_DONE_MASK)) {
++				ret = 0;
++				break;
++			}
++		}
++	}
++	return ret ? ret : count;
++}
++static DEVICE_ATTR_WO(eject);
++
++static ssize_t reset_store(struct device *dev, struct device_attribute *attr,
++			   const char *buf, size_t count)
++{
++	struct ayaneo *aya = dev_get_drvdata(dev);
++	bool value;
++	int ret;
++
++	ret = kstrtobool(buf, &value);
++	if (ret)
++		return ret;
++	if (!value)
++		return count;
++
++	scoped_cond_guard(mutex_intr, return -EINTR, &aya->lock) {
++		ret = ayaneo_send_config(aya, AYA3_RESET);
++		if (!ret) {
++			msleep(AYA3_RESET_SETTLE_MS);
++			ret = ayaneo_send_config(aya, 0);
++		}
++	}
++	return ret ? ret : count;
++}
++static DEVICE_ATTR_WO(reset);
++
++static struct attribute *ayaneo_attrs[] = {
++	&dev_attr_module_left.attr,
++	&dev_attr_module_right.attr,
++	&dev_attr_eject.attr,
++	&dev_attr_reset.attr,
++	NULL
++};
++ATTRIBUTE_GROUPS(ayaneo);
++
++static int ayaneo_led_set(struct led_classdev *cdev, enum led_brightness value)
++{
++	struct led_classdev_mc *mc = lcdev_to_mccdev(cdev);
++	struct ayaneo *aya = container_of(mc, struct ayaneo, mcled);
++	int ret = 0, i;
++
++	scoped_cond_guard(mutex_intr, return -EINTR, &aya->lock) {
++		led_mc_calc_color_components(mc, value);
++		for (i = 0; i < 3; i++)
++			aya->rgb[i] = min_t(unsigned int,
++					    aya->subleds[i].brightness, 255);
++
++		ret = ayaneo_send_config(aya, 0);
++		if (ret)
++			hid_err(aya->hdev,
++				"failed to update RGB config: %d\n", ret);
++	}
++	return ret;
++}
++
++/*
++ * The firmware offers one fixed breathing pattern, pulsing the current
++ * colour at a period it controls. Expose it through the hw_pattern
++ * trigger ABI as the two-step pattern "0 <t> <brightness> <t>"; the
++ * delta_t values and the repeat count are accepted but not tunable
++ * (the firmware always repeats indefinitely).
++ */
++static int ayaneo_pattern_set(struct led_classdev *cdev,
++			      struct led_pattern *pattern, u32 len, int repeat)
++{
++	struct led_classdev_mc *mc = lcdev_to_mccdev(cdev);
++	struct ayaneo *aya = container_of(mc, struct ayaneo, mcled);
++	int ret = 0;
++
++	if (len != 2 || pattern[0].brightness || !pattern[1].brightness)
++		return -EINVAL;
++
++	scoped_cond_guard(mutex_intr, return -EINTR, &aya->lock) {
++		aya->pulse = true;
++		ret = ayaneo_send_config(aya, 0);
++	}
++	return ret;
++}
++
++static int ayaneo_pattern_clear(struct led_classdev *cdev)
++{
++	struct led_classdev_mc *mc = lcdev_to_mccdev(cdev);
++	struct ayaneo *aya = container_of(mc, struct ayaneo, mcled);
++	int ret = 0;
++
++	scoped_cond_guard(mutex_intr, return -EINTR, &aya->lock) {
++		aya->pulse = false;
++		ret = ayaneo_send_config(aya, 0);
++	}
++	return ret;
++}
++
++static int ayaneo_register_led(struct ayaneo *aya)
++{
++	struct led_classdev *cdev = &aya->mcled.led_cdev;
++
++	aya->subleds[0].color_index = LED_COLOR_ID_RED;
++	aya->subleds[1].color_index = LED_COLOR_ID_GREEN;
++	aya->subleds[2].color_index = LED_COLOR_ID_BLUE;
++	aya->mcled.subled_info = aya->subleds;
++	aya->mcled.num_colors = 3;
++
++	cdev->name = devm_kasprintf(&aya->hdev->dev, GFP_KERNEL,
++				    "%s:rgb:joystick_rings",
++				    dev_name(&aya->hdev->dev));
++	if (!cdev->name)
++		return -ENOMEM;
++	cdev->color = LED_COLOR_ID_RGB;
++	cdev->brightness = 0;
++	cdev->max_brightness = 255;
++	cdev->brightness_set_blocking = ayaneo_led_set;
++	cdev->pattern_set = ayaneo_pattern_set;
++	cdev->pattern_clear = ayaneo_pattern_clear;
++
++	/*
++	 * Not devm: the LED must be unregistered before hid_hw_stop() in
++	 * remove, or a concurrent brightness write could reach a torn
++	 * down transport.
++	 */
++	return led_classdev_multicolor_register(&aya->hdev->dev,
++						&aya->mcled);
++}
++
++static const struct dmi_system_id ayaneo_dmi_table[] = {
++	{
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "AYANEO"),
++			DMI_MATCH(DMI_BOARD_NAME, "AYANEO 3"),
++		},
++	},
++	{}
++};
++
++static int ayaneo_probe(struct hid_device *hdev, const struct hid_device_id *id)
++{
++	struct ayaneo *aya;
++	int ret;
++
++	/* The VID/PID is a generic SigmaMicro ID; bind on AYANEO 3 only */
++	if (!dmi_check_system(ayaneo_dmi_table))
++		return -ENODEV;
++
++	if (!hid_is_usb(hdev))
++		return -ENODEV;
++
++	ret = hid_parse(hdev);
++	if (ret)
++		return ret;
++
++	/* Bind only the vendor interface, not the gamepad/keyboard ones */
++	if (!hdev->maxcollection ||
++	    hdev->collection->usage != (HID_UP_MSVENDOR | 0x0001))
++		return -ENODEV;
++
++	aya = devm_kzalloc(&hdev->dev, sizeof(*aya), GFP_KERNEL);
++	if (!aya)
++		return -ENOMEM;
++
++	aya->xfer = devm_kzalloc(&hdev->dev, AYA3_REPORT_SIZE, GFP_KERNEL);
++	if (!aya->xfer)
++		return -ENOMEM;
++
++	aya->hdev = hdev;
++	aya->vibration = AYA3_VIBRATION_MEDIUM;
++	init_completion(&aya->resp_done);
++	ret = devm_mutex_init(&hdev->dev, &aya->lock);
++	if (ret)
++		return ret;
++	hid_set_drvdata(hdev, aya);
++
++	ret = hid_hw_start(hdev, HID_CONNECT_HIDRAW);
++	if (ret)
++		return ret;
++
++	ret = hid_hw_open(hdev);
++	if (ret)
++		goto err_stop;
++
++	/* Input reports are not delivered during probe by default */
++	hid_device_io_start(hdev);
++
++	scoped_guard(mutex, &aya->lock)
++		ret = ayaneo_check(aya, NULL);
++	if (ret)
++		hid_warn(hdev, "controller did not answer status check: %d\n",
++			 ret);
++
++	ret = ayaneo_register_led(aya);
++	if (ret)
++		goto err_close;
++
++	return 0;
++
++err_close:
++	hid_hw_close(hdev);
++err_stop:
++	hid_hw_stop(hdev);
++	return ret;
++}
++
++static void ayaneo_remove(struct hid_device *hdev)
++{
++	struct ayaneo *aya = hid_get_drvdata(hdev);
++
++	led_classdev_multicolor_unregister(&aya->mcled);
++	/*
++	 * A brightness store racing with the unregister can requeue
++	 * set_brightness_work after the flush inside
++	 * led_classdev_unregister() runs but before the sysfs node is
++	 * removed. Flush again now that nothing can requeue it, while
++	 * the transport is still up.
++	 */
++	flush_work(&aya->mcled.led_cdev.set_brightness_work);
++	hid_hw_close(hdev);
++	hid_hw_stop(hdev);
++}
++
++static const struct hid_device_id ayaneo_devices[] = {
++	{ HID_USB_DEVICE(0x1c4f, 0x0002) },
++	{}
++};
++MODULE_DEVICE_TABLE(hid, ayaneo_devices);
++
++static struct hid_driver ayaneo_driver = {
++	.name = "hid-ayaneo",
++	.id_table = ayaneo_devices,
++	.probe = ayaneo_probe,
++	.remove = ayaneo_remove,
++	.raw_event = ayaneo_raw_event,
++	.driver = {
++		.dev_groups = ayaneo_groups,
++	},
++};
++module_hid_driver(ayaneo_driver);
++
++MODULE_AUTHOR("Matías Martínez <hello@matias.me>");
++MODULE_DESCRIPTION("AYANEO 3 detachable controller driver");
++MODULE_LICENSE("GPL");
 -- 
-2.55.0
+2.54.0 (Apple Git-157)
 
