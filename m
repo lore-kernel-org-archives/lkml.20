@@ -1,96 +1,120 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770132E737E;
-	Thu, 17 Sep 2026 01:19:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789607966; cv=none; b=GMOvEPFU/Fb2lS976fPCe+eSsthe+vno59C7jcIc2tCN26f9PvpVjguxuVmRWqHOjAtJ0dFIZaq8VX/tgcNSyv5E5ovbs/tU/nwwFo0rUGo9Dd0At5yfTe5D9cFzqpNILr+9akk6H0ABg4H75VR0Y0A8Km7STzXnkmnks3yu/p0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789607966; c=relaxed/simple;
-	bh=vZR3spMFjMRLPqMDvKKt4CDJ4eAGxnrRrjdclCNYlbg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=HTXGKCdyCEi7Jg25XCEDK6QPPf9icTe9OSxTkAHPg5JWqHTmOR1Nn0dEitfievM3uF+AqLna18UPhurwgGKygHfg6L3OZGApuZR4Gyt3ohq9Be7HEvIHZYiv/q4k8Wk3tjyqCAJ0LE9JbrtW+VHdtVvmbrkJbo6xsFMVdEMfP6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=JLWEcMo3; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDD9331EBA
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789608049; cv=pass; b=YEhvSf7Gu299U/2g2VblTVHGCp2JR5WVOmxQFHUuzxcOPUrH5tsr8stC+PHoJQNDN97HlJYdxgnqHMdrcfzs+v1TsrjqMXuYD9m0hWXzoz8WFGM3XRGK2ZbKXCCpxAI9KKXzGE2bRRBSGFUGfLhBwvSlFY8+tFnGfs8vhIMDFj8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789608049; c=relaxed/simple;
+	bh=JE6JhFt7uwibX+/JwtwXQf+od6j4Kxf+0SEGWI7CQAQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=p3st6OpRZcKP76meU/lju488JPHa3QhcaKAtMZde+xNPDdRP5EQNlWWniwPnl+jo0ZhSkPLp4ug6hsycecT21aZrdefbfFy9FOj1xCeJzkcCA/gW5bs/LU/1W+k7R6XfzJuf1MTadtkzLCdBBXyZ9VUTZRPjtJeGXEWAhiHQbOw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dvgdmQjr; arc=pass smtp.client-ip=74.125.230.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="JLWEcMo3"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68H1JJRi82881999, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789607959; bh=vZR3spMFjMRLPqMDvKKt4CDJ4eAGxnrRrjdclCNYlbg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=JLWEcMo3JGfQxmsMkmBlxGO3zXzIP0c7kGdbHdwOK8g7xy3butYUMN9oD2q/8FNMx
-	 eGH5xgNhU3VU2/2sniZAVKMqfUvUsvb2zqNoK2zZWTS5kLt5DakarGVUEg0vtFlejy
-	 ZLLd4zRG6tY7CmnvxgyyapjiYeVcqwIClSFV210zkDP45Wl/YZFjX/LMozzfKhMP7u
-	 vNbaztgwYTH/76ZajdaugSTyduZY4Nr3LnBeMfHJngNX5iQLhucNj1zpokM6nL5/Nn
-	 kMSCToX+JrT7mk7sU8PVT+6qrEOlWd6GyEyml7QlownSbfB9mRjGwja9l9m5IUo3w5
-	 zeHuVK+0AZpBA==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68H1JJRi82881999
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 17 Sep 2026 09:19:19 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 17 Sep 2026 09:19:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 17 Sep 2026 09:19:18 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Thu, 17 Sep 2026 09:19:18 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: kimwooseok <5mghybrid@khu.ac.kr>, Jes Sorensen <Jes.Sorensen@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH wireless 1/4] wifi: rtl8xxxu: free RX skb when URB
- submission fails
-Thread-Topic: [PATCH wireless 1/4] wifi: rtl8xxxu: free RX skb when URB
- submission fails
-Thread-Index: AQHdQvXIGvF0I1VmF0mL7Gmxnqj2RLbR/JqQgAACSQA=
-Date: Thu, 17 Sep 2026 01:19:18 +0000
-Message-ID: <25ce622248254cefbb3226fda18df6ff@realtek.com>
-References: <CAH1Bc_wBUmmNyzF3c2H1aFBRBbAPSw0hR=1MnPOAcCXypVL_Dg@mail.gmail.com>
- <CAH1Bc_xSxOrEUjx11NtTE9Y6WVitF8K0mVws8s3623C8O=Lpkw@mail.gmail.com>
- <0b970cf2ade94c569eab459ca996acab@realtek.com>
-In-Reply-To: <0b970cf2ade94c569eab459ca996acab@realtek.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dvgdmQjr"
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5e548cd7dso2740661fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:20:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789608046; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jx5P85dDczJKFphLf+JSR6PMDew9YTa4GcDHvkTw44dHX0m+Cu55x3PfuPbuxhEbJw
+         EUylN5Q8ODaviCUSrWxAEmsg/E1zrx6IIdbchL/9z1ZMiESAxL5J8/5MlfGoTv6d5g1Q
+         jvgjswmmhwFclzCv2m4QSR3OfpAR0Ig7kILR/aejlTTFXrhxmdPVoCEvWi1dwwdcN83l
+         6cMcCBh1GGUt6kCk+8XgjUbQC4okhxUTE96Q5CJv/haxL4NIOoGq2Y36wKM+w2Aqx3gd
+         bYlRAiRvDOeCjazFF+i3RffFOoyzV1wDyFhAUP9Ah0RpgqlUiK/qzR9dQmPgLdecprIo
+         uq/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nOOMHObQRBAIss4LauCRNXpDdTW1eSIKzzXC9H3Alhc=;
+        fh=PiMVznodrur1SEBMNEeELcf6pRvpf1H8jzqF3ZKr8q8=;
+        b=lV/3nxQ1H8MnedrxF01gVd8ElrecZKDhFjpQ/U/1EsaaeEGSsMHLlADrBwKJVYdtWa
+         wVf7YrQXNe7/4aU0BPTjCKKg/NhnAebyyJT/1jKW6Nci6jAxzbFj0hD+SXNxPVlmEXX5
+         Yrzr/6uom/yre4W+P90cEGMmYCIe1A3UWqNYtGtLZ1N6rDpToHjjy/kjKgxGeITBoXBE
+         1D7rqwCdptWorWnVqUPW8OZoD8r4S/Dtud0MvZpHTerqMX7T5gOLLOVamWtfqure7H30
+         dzFk2djppAQ884sFWdR9ozQB9ONd29ssOCh3UkSegzC97XbUhcxkgTt4M/mu2c4T2bRD
+         7DMw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789608046; x=1790212846; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nOOMHObQRBAIss4LauCRNXpDdTW1eSIKzzXC9H3Alhc=;
+        b=dvgdmQjrb1SXh7DQfch2NI+Wmlnb/4wTBgmBRnr7A8k/LlGOtY2X2bSagtfGEzJq6l
+         fRDRuk/dhYSQ/QpTgzK/wgEFGDuSQzuLeCHKBrYW4YS+8nylX7Fd7IM9dFdLmSx3K2FI
+         NGrw31WenG4IQ3MMICRGJuTMEF56Cthio/+kt4SBV8PeFnn6xezAtOoClYQpseo50uax
+         2UhKzRqYg5qn1lvTqmcJXY5/ZdnCGc/kBLiZbReqSqFraGDqGXaLRCBV1Hii8soQadr6
+         frT2sNCtv5uJzKNL98ZDHFbrTpAcYIW982z/+ZumgSe7fL4ooX58xxriv9KipAtraGaH
+         TWIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789608046; x=1790212846;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nOOMHObQRBAIss4LauCRNXpDdTW1eSIKzzXC9H3Alhc=;
+        b=Vy6fxcAkceeE58HWiWP5618Kutr0k3nevm43aZd3+WnTHWLwaraiS4wEwouqRVpHgA
+         fhr5/mgg0vvL+gBBTvpux68HQCY0P757oGh3lKvb8payiC0Y8kcQQHrSTrbCmGPvJLCp
+         Zg+ooG96GVI7eRJWrGF2PE84bKjCxufuieAr6YwC2Ei+n5V5DlD0CtAJ2rFq4buyTDu+
+         Ifmsdgta96lNrhvdKvs1oJBWpCCvAnrDSbm8LaMyRSHlCnsju7jAHAUIF+nqSQZpb2cD
+         DOclTg+kziuv5NQ8nOLeDa90gRAfVyakfnMM4IugYAl5TPtgolWJBTMzPdGisikJRp6p
+         lSmA==
+X-Forwarded-Encrypted: i=1; AKwUvBxIF4B+0HRU/SmQWdTjLSI54X7EHiBDEmaNI3BHEop+g4bth4VWaesau4ey5lVYKDCvz18+YFDT3CEPXdc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nijFFqGSsP807V/m0c2yRHcs+txLZtiPfWFQN1zurErpIQPaMa
+	F9MroXPCtSmKTRkl50V3eyl3RxQxqoBqUiMnmgaDa3vIIWRpIwd0FgcHr4CUy2As9yUr830gZoY
+	CptVcaMyGoAk6Cco+PeXIo6CxOB0vUtY=
+X-Gm-Gg: AYBFou0//jNiAOh2JEycI8HCwTT4BxJA6uS4zRE+/tqkDmR+WfYChFECOhTNTInZxGX
+	+b+70On9mRC4iW6XdOl802PTh2jFpGNkHIj3AESFF0JVOn0xvTBdErFxA8OoAgingIPMwt9uVkP
+	kN8SfcvdGGMQHhaAnBMtkBJnblRv4qtY53QyA8IGzEvSCszSbPaDYB5nksJyvLEjii3iaFWVNFJ
+	AzqJdXFSx5nyT84CAxUQKPQMmm8nREPTqg1tIbw8QPwjeefselyA+SsyzsBuDpKL63GIBLvsnKz
+	eVfqaGmxD8sQeIXz7RII+epapDV+kOaO5D0eFv1uWAMHmDuh2ECceUSKEHUWW6ysHxPdAwHvJ1V
+	cx2UrNg4ImyrADg==
+X-Received: by 2002:a2e:bc1e:0:b0:3a5:f041:d7c4 with SMTP id
+ 38308e7fff4ca-3a5f041da54mr299311fa.17.1789608045973; Wed, 16 Sep 2026
+ 18:20:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260915052021.6959-1-syhuang3@nuvoton.com> <f60a440e-1b9d-457b-865f-b3c4778d966b@roeck-us.net>
+In-Reply-To: <f60a440e-1b9d-457b-865f-b3c4778d966b@roeck-us.net>
+From: Sheng-Yuan Huang <hsyemail2@gmail.com>
+Date: Thu, 17 Sep 2026 09:20:33 +0800
+X-Gm-Features: AcwNN1UXSRHVsaDtbTNimMW42Y1gjHq9uS4TxC2W27XMSX28femBTxPDTsjGqk0
+Message-ID: <CACW=pY7u2wOzgc05gHfRVJFx12CXGvZe7fCwgPZ_y8dSo02PSQ@mail.gmail.com>
+Subject: Re: [PATCH v3] hwmon: (lm75) Add support for Nuvoton NCT7715
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, Sheng-Yuan Huang <syhuang3@nuvoton.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Jean Delvare <jdelvare@suse.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-UGluZy1LZSBTaGloIDxwa3NoaWhAcmVhbHRlay5jb20+IHdyb3RlOg0KPiBraW13b29zZW9rIDw1
-bWdoeWJyaWRAa2h1LmFjLmtyPiB3cm90ZToNCj4gPiBBIGZhaWxlZCBSWCBVUkIgc3VibWlzc2lv
-biBjYW4gbGVhayB0aGUgc2tiIGFsbG9jYXRlZCBmb3IgdGhhdCBhdHRlbXB0Lg0KPiA+IHJ0bDh4
-eHh1X3N1Ym1pdF9yeF91cmIoKSBhbGxvY2F0ZXMgdGhlIGJ1ZmZlciBhbmQgc3RvcmVzIGl0IGlu
-IHVyYi5jb250ZXh0LA0KPiA+IGJ1dCBpZiB1c2Jfc3VibWl0X3VyYigpIGZhaWxzLCBpdCBvbmx5
-IHVuYW5jaG9ycyB0aGUgVVJCLiBUaGUgUlggd29ya2VyDQo+ID4gcXVldWVzIEVOT01FTS9FQUdB
-SU4gZmFpbHVyZXMgZm9yIHJldHJ5IHdpdGggdGhhdCBidWZmZXIgc3RpbGwgYXR0YWNoZWQuDQo+
-ID4NCj4gPiBPbiB0aGUgbmV4dCBhdHRlbXB0LCBydGw4eHh4dV9zdWJtaXRfcnhfdXJiKCkgYWxs
-b2NhdGVzIGFub3RoZXIgc2tiIGFuZA0KPiA+IG92ZXJ3cml0ZXMgdXJiLmNvbnRleHQsIGxvc2lu
-ZyB0aGUgcmVmZXJlbmNlIHRvIHRoZSBwcmV2aW91cyBidWZmZXIuDQo+ID4gU3RvcHBpbmcgYmVm
-b3JlIHRoZSByZXRyeSBhbHNvIGxlYWtzIHRoZSBidWZmZXIgYmVjYXVzZSBwZW5kaW5nLXJlcXVl
-c3QNCj4gPiBjbGVhbnVwIGZyZWVzIG9ubHkgdGhlIFVSQi4NCj4gPg0KPiA+IEZpeCB0aGUgbGVh
-ayBhdCB0aGUgc3VibWlzc2lvbiBmYWlsdXJlIGJ5IG1ha2luZyBydGw4eHh4dV9zdWJtaXRfcnhf
-dXJiKCkNCj4gPiByZXNwb25zaWJsZSBmb3IgYm90aCBhbGxvY2F0aW5nIHRoZSBza2IgYW5kIHJl
-bGVhc2luZyBpdCB3aGVuIHN1Ym1pc3Npb24NCj4gPiBmYWlscy4gRnJlZSB0aGUgbmV3bHkgYWxs
-b2NhdGVkIHNrYiBhbmQgY2xlYXIgdXJiLmNvbnRleHQgYmVmb3JlIHJldHVybmluZw0KPiA+IHRo
-ZSBlcnJvciwgc28gbmVpdGhlciByZXRyeSBub3Igc3RvcCByZWNlaXZlcyBhIHBlbmRpbmcgVVJC
-IHRoYXQgc3RpbGwNCj4gPiBvd25zIGEgYnVmZmVyLiBSZW1vdmUgdGhlIGNhbGxlci1zaWRlIHNr
-YiBjbGVhbnVwIGZyb20gc3RhcnQgYW5kIHRoZSBSWA0KPiA+IHdvcmtlcjsgdGhvc2UgY2FsbGVy
-cyBub3cgaGFuZGxlIG9ubHkgd2hldGhlciB0byByZXRyeSBvciByZWxlYXNlIHRoZSBVUkIuDQo+
-ID4NCj4gPiBGaXhlczogMjZmMWZhZDI5YWQ5ICgiTmV3IGRyaXZlcjogcnRsOHh4eHUgKG1hYzgw
-MjExKSIpDQo+ID4gQXNzaXN0ZWQtYnk6IEdQVC02IEFzdHJhDQo+ID4gU2lnbmVkLW9mZi1ieTog
-a2ltd29vc2VvayA8NW1naHlicmlkQGtodS5hYy5rcj4NCj4gDQo+IENhbiB5b3UgZ2l2ZSB5b3Vy
-IHMtby1iIG1vcmUgZm9ybWFsPyBMaWtlLCBLaW0gV29vLVNlb2s/DQo+IA0KPiBSZXZpZXdlZC1i
-eTogUGluZy1LZSBTaGloIDxwa3NoaWhAcmVhbHRlay5jb20+DQo+IA0KDQpJZ25vcmUgdGhpcy4g
-SSBzaG91bGQgcmVwbHkgdjIuDQoNCg0K
+Guenter Roeck <linux@roeck-us.net> =E6=96=BC 2026=E5=B9=B49=E6=9C=8815=E6=
+=97=A5=E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=8810:37=E5=AF=AB=E9=81=93=EF=BC=9A
+
+> > @@ -1129,7 +1147,8 @@ static int lm75_suspend(struct device *dev)
+> >   {
+> >       struct lm75_data *data =3D dev_get_drvdata(dev);
+> >
+> > -     return regmap_update_bits(data->regmap, LM75_REG_CONF, LM75_SHUTD=
+OWN, LM75_SHUTDOWN);
+> > +     return regmap_update_bits(data->regmap, LM75_REG_CONF,
+> > +                               LM75_SHUTDOWN, LM75_SHUTDOWN);
+>
+> Drop this change.
+>
+
+Thank you for pointing this out. I will address it in the next patch.
+
+Thanks,
+Sheng-Yuan Huang
