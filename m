@@ -1,150 +1,132 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f26.google.com (mail-ej2-f26.google.com [74.125.228.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE163ED13B
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:11:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D48F49B47F
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:11:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789683105; cv=none; b=MLU2G40Q/hj8rLKHMcgE9B7MehJb1ByCfT8KMpI4ImaqmUHNlh7Ji00/ij5zzzitVXobK9eFEYctXpyGQCkbUQMoxk80txfiujN9XTxYsyoqLK/M0Mdq8fzPttVMOKV4fa9PHDQHWbUYMg5SXkmVMINMGtQ1/L2b7d5I+bA8KrE=
+	t=1789683106; cv=none; b=CGW53xLQztYXM/4lUnVURg3Wx8OA5h+/r2Uzj+xRhOshaSPCSitOYmFxM9++HU9blwgA+R8qfP1HjPu+5WuiUQMXBWVFvz+cNoYbLk/YuL/I3Md9f/upcbdLInTawpR65hcy//V2TYIfb29zjoIySj8UutFCXpwKnamcZbMWmzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789683105; c=relaxed/simple;
-	bh=RFFY9k7Gm1W4Nre5AsaOcL68AdxzG+ESLVmFUUBmgLg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=m1r5xzpXu6nf4d1Ekw2kKYiWor3OSKn0LFEleYy4nDq1Ed2keicn0u5fyyZPcZuWB5RvmIxVtRmL2FEixO7wAkVhmAbdZpsorrMTtbwZeXZ/6W784zIr7prM2hy3SxK9mi0KNBbYKrnXw4zZ7ys4jCQQwSZZBFeaq/hs1WxgA9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W2ZP/RLf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tqqxnmNl; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789683106; c=relaxed/simple;
+	bh=jOlxdf/m6Y+j1QfMQQ12WJCRFexc8gkPxAks8z8FOGM=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=mQfpxYR0B7sJj1FfMVxAorJPRjUZFqqHW7kYsdGZMksufZ5Fig5OsM2JmMbX1ltckJ8wgh//VjZ7wcNa58mOGtNuKfeQzoiGp2PZ9qbyYsCK11rY9kO7N8w6xoeKZpG6MgoiTWR80rBhahtDL47CBb4tEuermPYvmrAwfubR64k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie; spf=pass smtp.mailfrom=conchuod.ie; dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b=dIcanz0T; arc=none smtp.client-ip=74.125.228.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=conchuod.ie
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W2ZP/RLf";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tqqxnmNl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789683101;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O71094SnvEzOsUSd9r3JWt4fCSADbtCWy3jIsFoSJ/s=;
-	b=W2ZP/RLfE9JAWkExQbTXNWJKURWlogNyJzoDVNQYwoHEB60uQFrgFnLDRTIX+Bf5HPSi8o
-	UXBj9fvZPdyRnc8E1iRZpqqEHtrqYZ/coD2YvTe58VovCWdqexCn0MUzWJn6ky06GQqERW
-	e90AUJRm+olpFoCQkzT8E9qmWfEI76I=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-18-rLBQH_pLNA6bTOK7IjYKcg-1; Thu, 17 Sep 2026 18:11:40 -0400
-X-MC-Unique: rLBQH_pLNA6bTOK7IjYKcg-1
-X-Mimecast-MFC-AGG-ID: rLBQH_pLNA6bTOK7IjYKcg_1789683100
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90cdc69a7b5so3847726d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:11:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b="dIcanz0T"
+Received: by mail-ej2-f26.google.com with SMTP id a640c23a62f3a-c2940ef15d3so13644466b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:11:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789683099; x=1790287899; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+        d=conchuod.ie; s=google; t=1789683101; x=1790287901; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=O71094SnvEzOsUSd9r3JWt4fCSADbtCWy3jIsFoSJ/s=;
-        b=tqqxnmNlBMSlizkQIfMCaOp82wk1YQ1qyP3daz6E03yJIRKq+LdGTjE64PpYV7+fK4
-         kitvt8IhwAfvIutq2TlFpv8u/MXl3b85i5ANoFGiMRHJnHYNgzT6rw4Nvjty/USWm1kV
-         yYDPlDsvLgEAjaOJPASeYoSXxwUrAGbszqBHB8QwyU0AmN5BlW2A8qYeUqk7LKpvvoS0
-         TSQspeg3YezHpemAqUkn0OkBJmC5hL8dB4NjN71Oa40MgOzqNERJ07rvBJSTSYwS3y+Y
-         S+mPNsKG+1iCK/TspCaeh7hCK2vWAMu0efJUlDvloJK+Gp1FMJ7iHiOc0qU2R1n5S1zg
-         T9Zg==
+        bh=Mb7i+gbo6kzJmT1apFAi0LX87LEqLWxo+73kgMMvIAM=;
+        b=dIcanz0TCelQJY9YfrgzqE6S0EG+I8klaUHjbnbKO0kVa9rCRhtiMil9QXmkgR8flg
+         I61DS+fsVbBQ/qlHuyhIUh/XRtdKZlFx9v5+bcI6bIWO1kWDMNTcna6aJdUT1M6zmEGQ
+         hkeu7PU12e5fdypgpz3ySKbR6MTTul6uQ+BMmMO1N/CtSKDvCvD4u/YS05EyrK+X63U7
+         ppkbzDhHFLiFxx2iXuqNza5GREU3ySppgxjMjQUQw7wR6WcqfV8o+/ckrm7kzJjMJLTW
+         huansbpLWzcqGuXcW6VIL8yFO6cLGYCnDGbrrUx1N6xxC2ro3e3f/hs20DePPbX2H9sC
+         n/Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789683099; x=1790287899;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1789683101; x=1790287901;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=O71094SnvEzOsUSd9r3JWt4fCSADbtCWy3jIsFoSJ/s=;
-        b=RBhXA3Au4GvrHC/ajKLNZlRg8Ugi/95XokIXC3TIssbSTbuLyeNoVjg+eCaGK2IUt/
-         S1Z9CoqgOzOqtO9xCBgIBWrNl6gvHJRmSYiiZcsqXPoS9GrdXqLq3Fsk5SdH5AwtpT2V
-         glj9im1RzsX3hwJHDYeqK7sr1nJHy2rFYze7V4dnHNP1HPLb2wYIUvBw1qqp1YlmjkSr
-         0TqQWQpqkMXhVQ3LJp22lVbELF0RibWe4hvBhiLouK2aPgD82UFVx0ZPbYFAv4WOKcqr
-         WNbEWEAGV5sNAeiU5bg/EUgY3qdVvO6eFJ2rhUaPd0z/zqw9WNeK6sefW/j6hgbCVor2
-         8ZOA==
-X-Forwarded-Encrypted: i=1; AKwUvBwlWVxE3kBfNSGD6c6/jM5d3uNXO04xlI004yuPh00PB1OFfFQl9GU9us8S5nxQHrAYwkDarbPdxficC9U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJWcn1QcsiRDs9cklsX2W4nJGEFK832nJJ99XLVqq+qON3sSpk
-	xMQJeo/JsXJ6FL7fjhPq3j6AGPXqwbJg2yrq9FCpOHKyf1j9e5uvhgJ4IHE2Zvy9M1S7taWWXZa
-	TftAh3VcGFQMyM7g37RsKm2AlvN7HaA+w/U1WoGwc26lPjrFr8FiNoLXNMsz1nWxJbw==
-X-Gm-Gg: AYBFou1pRC9Oij+Ivp8TyvWsjoSscRkRTwagbep0UYcE/6r3YYo1OIywucavEG/ajsE
-	d7SIFcWjudzJzGNQNC4noW6fWhazknjxGW8OtdWFYAQfsUtfXMfHNTFsDN8WKJ0i//FlG2KhlgK
-	ugl2xO0CFYz1opYNZMZPgGFng4krgIXiUfo3WE65mrEIaOpCr2rd4Vz2fXbPygxJefuRme3oS2T
-	YqB/i61zHmfkHNfr+SUTiJnm3+8FyNeIiJqVinXAsNVQib1AbE4xOEo6LgvLmEkyxJ3FJx68NQp
-	FsNe1ZhN2n/Nxbj9DaI57EGwCig4v/deYljdArBAl1g+mryuyLGs/sVmRF/lSpF9pEAepqCP
-X-Received: by 2002:a05:6214:6110:b0:912:517b:913 with SMTP id 6a1803df08f44-91254cd0952mr9604966d6.50.1789683099504;
-        Thu, 17 Sep 2026 15:11:39 -0700 (PDT)
-X-Received: by 2002:a05:6214:6110:b0:912:517b:913 with SMTP id 6a1803df08f44-91254cd0952mr9604356d6.50.1789683098863;
-        Thu, 17 Sep 2026 15:11:38 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-912568b9646sm142846d6.31.2026.09.17.15.11.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 15:11:37 -0700 (PDT)
-Message-ID: <8ae8462fb2f74d0ab1a1d6ac663fa3a90d57ff5d.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau: fix autosuspend cleanup during teardown
-From: lyude@redhat.com
-To: Guangshuo Li <lgs201920130244@gmail.com>, Danilo Krummrich
- <dakr@kernel.org>,  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann	
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter	
- <simona@ffwll.ch>, Dave Airlie <airlied@redhat.com>, 
-	dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 18:11:36 -0400
-In-Reply-To: <20260808134137.2864847-1-lgs201920130244@gmail.com>
-References: <20260808134137.2864847-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+        bh=Mb7i+gbo6kzJmT1apFAi0LX87LEqLWxo+73kgMMvIAM=;
+        b=mX8zIeHz/rLPH14K5gu1ZsIhTvrse0C797p/Q31T+3/g8cWcdRwtASp+O0oZDjDL3T
+         ffYz6jh8uBUWJX6St4is03cW5f2D+YkCbSwQQTFbfOUt3l4Co6qpEuPxOqIVajZc8pKn
+         8yFVU8w9pEjUu9yzHjBJM87x8dHHlnscAulAombKOfwB2XpMNk2yO0HCARbdj36SpfjY
+         EpDOjAM+3osX1Il9RLgBjHMBLqyTV9ISd/JxFFwOMKeWDYewJGqlp/YapFP3I7z7ucrB
+         YCBBiOr6PqPVUQ357vmzWGB3pEHhChUyO2cwlog8j8PiKfl8HkywqMlonuP4HfeliNKi
+         iIKg==
+X-Gm-Message-State: AFuF++mqpdby9okSFOoxmMftyj7pSt/YKkpkSi++PHUYTqLOIysNwHh8
+	3bONiJAZjovU1Bxw+lmk3muK3hJyFCIB3RixE+gbpALvRedWd7Ns8KmVJ55sqssSNiA=
+X-Gm-Gg: AYBFou1s3ZXLIpRdvkUhms3OHtpvCHzVEIR0AzzszMgX/MP45yxGpT1cj+vAiwoey53
+	WcWLSc+f304qVkkboWfbfRHuFCz1ZTk0gfHX9wNafS5e5auLIvj4QTIsmIIt0eXfMCietuvDtDU
+	SK6ML2XDi94KNNk1QWsaHSD9yrKay0a7SI+W94+VehbvpCLYrCinI4aWwNVmGZoaQbZxYwgDQx4
+	liq4W+vzaoB6jrJfZdaCOL2rNoxVQ7MtvE2Iiint8r2LsgGhNqcQtOh74yU/uev6JgnKDrTLSfS
+	SdHJhJO2Cq7yecYy810xlaoKBL6k+3UGtfBOkYeDZyYXfrzjTvWGUdwiaaAII8YL0Rr77AHPwM0
+	0Ms3LmlAVlk+rjSb4ZoT5GabwszvBpuDYKyBI0LZk7o48XIXGB6R5nNOgARZ/u+3Dp30s4eeXMm
+	LBUgudZ6Zy8AiZwICfGk6ustpIARaA/gKBq+oTwp3LK/qi6ZqpmV0Ndy+qhteAplwZQbd0i3RiI
+	T9vNFsaL/ptaaPLxztzF4lKQJqShKgvnZGXwMbL1ohaSXc+SQ5mCwuvQGzYpA==
+X-Received: by 2002:a17:906:f584:b0:c29:f5d5:5a91 with SMTP id a640c23a62f3a-c2a15810956mr55914166b.27.1789683101299;
+        Thu, 17 Sep 2026 15:11:41 -0700 (PDT)
+Received: from ehlo.thunderbird.net (ip-077-020-009-205.vkd66.pools.vodafone-ip.de. [77.20.9.205])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de07ef15sm347128266b.9.2026.09.17.15.11.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 15:11:40 -0700 (PDT)
+Date: Fri, 18 Sep 2026 00:11:39 +0200
+From: Conor <mail@conchuod.ie>
+To: Petko Manolov <petko.manolov@konsulko.com>, Conor Dooley <conor@kernel.org>
+CC: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, dinguyen@kernel.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: vendor-prefixes: add Draeger AG
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20260917151300.GE4583@cabron.k.g>
+References: <20260915133805.3249587-1-petko.manolov@konsulko.com> <20260915133805.3249587-2-petko.manolov@konsulko.com> <20260915-swore-armadillo-12f821bb00fc@spud> <20260917151300.GE4583@cabron.k.g>
+Message-ID: <B1132C07-1C13-474A-9086-84F6B94E4BF8@conchuod.ie>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Will push to drm-misc-fixes in just a moment
 
-On Sat, 2026-08-08 at 21:41 +0800, Guangshuo Li wrote:
-> nouveau_drm_device_init() calls pm_runtime_use_autosuspend(), but
-> nouveau_drm_device_fini() does not call the matching
-> pm_runtime_dont_use_autosuspend().
->=20
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> during teardown, this reference is not dropped and usage_count
-> remains
-> unbalanced.
->=20
-> The documentation for pm_runtime_use_autosuspend() also notes that it
-> is important to undo it with pm_runtime_dont_use_autosuspend() at
-> driver exit time, unless runtime PM was initially enabled with
-> devm_pm_runtime_enable().
->=20
-> Add the missing pm_runtime_dont_use_autosuspend() call to the common
-> device teardown path.
->=20
-> This issue was found by manual code inspection.
->=20
-> Fixes: 5addcf0a5f0f ("nouveau: add runtime PM support (v0.9)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_drm.c | 1 +
-> =C2=A01 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> index e16f59b00f6f..1579a4b0785e 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> @@ -585,6 +585,7 @@ nouveau_drm_device_fini(struct nouveau_drm *drm)
-> =C2=A0	if (nouveau_pmops_runtime()) {
-> =C2=A0		pm_runtime_get_sync(dev->dev);
-> =C2=A0		pm_runtime_forbid(dev->dev);
-> +		pm_runtime_dont_use_autosuspend(dev->dev);
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	nouveau_led_fini(dev);
+On 17 September 2026 17:13:00 GMT+02:00, Petko Manolov <petko=2Emanolov@ko=
+nsulko=2Ecom> wrote:
+>On 26-09-15 17:29:29, Conor Dooley wrote:
+>> On Tue, Sep 15, 2026 at 04:38:02PM +0300, Petko Manolov wrote:
+>> > Add a vendor prefix for Draegar AG, which is Draegerwerk AG & Co=2E K=
+GaA
+>> >=20
+>> > Signed-off-by: Petko Manolov <petko=2Emanolov@konsulko=2Ecom>
+>>=20
+>> A Link: to their website would be nice=2E
+>
+>I assume the link is supposed to go in the commit message, correct?
 
+Yes=2E
+
+Thanks,
+Conor=2E
+
+>
+>
+>		Petko
+>
+>
+>> Acked-by: Conor Dooley <conor=2Edooley@microchip=2Ecom>
+>> pw-bot: not-applicable
+>>=20
+>> > ---
+>> >  Documentation/devicetree/bindings/vendor-prefixes=2Eyaml | 2 ++
+>> >  1 file changed, 2 insertions(+)
+>> >=20
+>> > diff --git a/Documentation/devicetree/bindings/vendor-prefixes=2Eyaml=
+ b/Documentation/devicetree/bindings/vendor-prefixes=2Eyaml
+>> > index ba2002969373=2E=2E276d62b848d5 100644
+>> > --- a/Documentation/devicetree/bindings/vendor-prefixes=2Eyaml
+>> > +++ b/Documentation/devicetree/bindings/vendor-prefixes=2Eyaml
+>> > @@ -467,6 +467,8 @@ patternProperties:
+>> >      description: DPTechnics
+>> >    "^dptel,=2E*":
+>> >      description: Guangdong Dapu Telecom Co=2E, Ltd=2E
+>> > +  "^draeger,=2E*":
+>> > +    description: Draegerwerk AG & Co=2E KGaA
+>> >    "^dragino,=2E*":
+>> >      description: Dragino Technology Co=2E, Limited
+>> >    "^dream,=2E*":
+>> > --=20
+>> > 2=2E47=2E3
+>> >=20
+>
+>
