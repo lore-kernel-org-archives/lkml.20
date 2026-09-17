@@ -1,104 +1,152 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988624ED1BF
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:39:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11284A4EF4;
+	Thu, 17 Sep 2026 20:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789677556; cv=none; b=W/bdbrl6vT1tNcIUiDkKKAP9sTu8IH9N4DgPFOUYIb9vwZJtH9y7x8wOsQIQi3rsjAPqoEaLjVre8z/xMwAInY2R2dYTUpSSE1yUHFZKY0fP+Gd+HeNoUyeqVY3GgExvrtBF2jmmx1DF2j8hSVz0opXOo5klckcKmu10D5fK0PY=
+	t=1789677582; cv=none; b=BCs0UDAlUdVRhLbTFjVylBLeWBoWjyGFlB18hpxv6qnWnCHH7riGuCCzD+19PAqj/9YtMcL69oN/COv5tvaZWwSX6SpglFFfIZ4W9Bce84sbv3Y19uhmD9U3ovQQyMNAidarpzvguCnYQkiy2PIpyRS75rypzORBpkAKUJpkNN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789677556; c=relaxed/simple;
-	bh=jjW01VLSoIPxZW4fDFMR7nraOFBGpt6W4TKrJ1/nJ+I=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=KVsp5a7QBiTogDB52TCuClNXg2MA6yotWO13XqgWSLwAp2hGz7OIZxr3QdNs0l/3mJhhvy/rYT6w94dYcOH/nwQsZcK1vzDEA6Z5kqdp1WF+SOhOCJMniem8PysMUtCHOEz8gUlAkqpH6civWFg0QT4HNMd/6/i83xoHCSXgLhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-8064fadbb1dso1884a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:39:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789677553; x=1790282353;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0NwrCQwkqCO4ZxeGRRn18jLE7nKNEmEBo4oXo+KExrQ=;
-        b=mcLJqED22mVToCaLEd2rFuK+gL1MtVre0lW3VtUP+hawllprgM5SaE/sdjx9yVc49p
-         bQBzba/w7uwmhp5Cc6q/3/sUBeDnCQt1lq6CrrDemTOugZlu3QcVeQlQcHWNQzP43usW
-         EFQ3RrxRUg2jiLTDMwKTSwXgmPUicWzwGOITH/0vuMXUbYlmGfYfMLAbN9tal22odbrU
-         2BTO0kg6IGtuxZBeU2yT3cVCYtTghg1Ypas2HQqROZ1g4vcYvAmXCxvdYnEmI+f3oX7v
-         XljoApHQaE6X6DvI9Zb6fT9v0SleM+0RCe2SzFW1NxCOavErs4sGWdt0RrsqidON+BxJ
-         HLqg==
-X-Gm-Message-State: AFuF++kv0+/6JhKMBZzV/lbB1/XVrxtUWUJxMVR0lrlJ2bzbXHvwtu+E
-	KVa4T3KSvnz072WyvfAbjoourJ62nVZX1F1j8g3KSkwWEdxNOddmYTstfPG9SiUISkHzR6iaWeZ
-	7t1/TV4pS+sjdSFvQP4zf2FAtklG4yYCcWa15bsAIDUxcA4kS0OdD6CcAfr0=
+	s=arc-20240116; t=1789677582; c=relaxed/simple;
+	bh=cg7BCvR1cLAHYckn6sXbcMfbGYSZh3IvF6MOBd1cfDA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lLI6mMLARbQ0pg4EXcmdj4gvAMMwTxPTFUzDSHBkH4oCQAs8iCIPmpcaNehN3jQKBflwIud0DSIF1BVgWBfcnCR6Sq90hyAU5ZIkXahdVWJ+bueFTN2OSNwvYu2I7oqJEUfcDXNP+lzwirFJmnHzoPQJJGhBFPj7WlvzEwQws2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKbdwe4H; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKbdwe4H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568831F000FF;
+	Thu, 17 Sep 2026 20:39:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789677580;
+	bh=8F8vuRKsQlvpmUswJ4XE1PgRyZZ1pDeb65uVpTL9SmQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZKbdwe4HeSL1dEjr23I2q7ywMJ/zdRa72oxd6e64/QZrrH6SDT2P6G8nibieI8Mr/
+	 kltPQzLqUhcR+tAqEJoJAp0LqkGqwCBAunK170nxqB4YywJNC8Tr7XwjTOXsegw1wK
+	 68t1GV9KHLrwX/xe70h9zSI6Opm5D/xjZDgB7x+nG2Vd7yPnvrAIOKFfBoTh6ZS6dk
+	 XH6dUOYQSjCKmhywFppM0yQKzUX+KFpcGkrJlmWF+xvZOsqasCqHL85oxWYWg+Phog
+	 jNnGHuX7nNkVWu/OMvd8G+/0c6FrXO1LOCL2MF9qxGjbfchcXkVNHjzEzjaEMzE9+5
+	 nNQKKpmAAk2bg==
+Date: Thu, 17 Sep 2026 15:39:38 -0500
+From: Rob Herring <robh@kernel.org>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Saravana Kannan <saravanak@kernel.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Grant Likely <grant.likely@secretlab.ca>,
+	Grant Likely <grant.likely@linaro.org>,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	David Daney <david.daney@cavium.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Sashiko AI <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v7 00/10] of: teach overlay code to keep /aliases in sync
+Message-ID: <20260917203938.GA3480871-robh@kernel.org>
+References: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1f03:b0:6b7:8396:f3cf with SMTP id
- 006d021491bc7-6ca9ca59dfbmr191178eaf.49.1789677553429; Thu, 17 Sep 2026
- 13:39:13 -0700 (PDT)
-Date: Thu, 17 Sep 2026 13:39:13 -0700
-In-Reply-To: <6aa96ab7.4c28b7d0.c1bba.003d.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aac4ff1.87c06881.1db2b3.0019.GAE@google.com>
-Subject: Forwarded: [PATCH] can: dev: fix missing skb header initialization in init_can_skb
-From: syzbot <syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Mon, Aug 31, 2026 at 06:29:18PM -0700, Abdurrahman Hussain wrote:
+> /aliases entries added by a device-tree overlay are stored in the live
+> tree but never enter the global aliases_lookup list that of_alias_scan()
+> builds at boot. As a result, of_alias_get_id() returns -ENODEV for
+> aliases declared inside overlays, and any driver that relies on
+> alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
+> pinned id and falls back to auto-assignment.
+> 
+> The gap has been public since 2015 [1] and reproduces trivially: apply
+> an overlay that declares e.g. `i2c99 = &foo;`, ask
+> of_alias_get_id(foo, "i2c") -> -ENODEV.
+> 
+> The core fix (patch 2) is a reconfig notifier that mirrors /aliases
+> property changes into aliases_lookup. Patch 1 prepares the alias path
+> lookup for /aliases becoming dynamic. Patches 3, 8 and 9 are the
+> overlay-code changes the use case needs; patches 4-7 fix pre-existing
+> bugs on paths the series exercises. Patch 10 adds a
+> unittest.
+> 
+> Prior art
+> ---------
+> 
+> Geert Uytterhoeven posted a 3-patch RFC in June 2015 [1] with the same
+> alias-tracking design shape. Grant Likely reviewed positively; merge
+> was gated on missing unittests and an object-lifetime concern the
+> author self-flagged, and the series was never reposted as non-RFC. Ten
+> years later, drivers/of/overlay.c still contains zero references to
+> aliases, of_alias_scan, or aliases_lookup.
 
-***
+There was another posting in 2024 of Geert's patches and AFAICT my
+comment there[1] still applies. To repeat, what happens if the alias 
+number already got used because the subsystems can pick any of the 
+numbers without an alias. The only way I see to solve that is make 
+possible alias numbers and dynamic numbers non-overlapping or only allow 
+alias names that are not present in the base DT to be used/honored in 
+overlays.
 
-Subject: [PATCH] can: dev: fix missing skb header initialization in init_can_skb
-Author: shaunakkdatar@gmail.com
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> Series contents
+> ---------------
+> Patch 1 makes of_find_node_opts_by_path() hold a reference on
+> of_aliases across the alias walk (the walk itself stays lock-free, as
+> does the pointer load: of_aliases always holds a reference on the
+> node it points to) and validates alias values before dereferencing
+> them.
+> 
+> Patch 2 adds a reconfig notifier that mirrors /aliases property
+> changes into aliases_lookup. It also refactors of_alias_scan()'s
+> per-property body into a helper of_alias_create() shared by the
+> boot-time scan and the runtime notifier. A one-bit `owned` flag on
+> struct alias_prop distinguishes kmalloc'd (overlay-time) entries
+> (kstrdup'd alias name, of_node_get'd target) from memblock-backed
+> (boot-time) ones so the remove path can't kfree the wrong storage.
+> The notifier keys off structural properties of the target node
+> (name + root-parent) rather than the of_aliases global, so overlays
+> that create /aliases from scratch on a system without a boot-time
+> aliases node are covered too. All aliases_lookup readers and writers
+> serialize on a dedicated aliases_mutex.
+> 
+> Patch 3 fixes find_target() so an overlay applied with a non-NULL
+> target base can still reach the DT root via target-path="/foo". The
+> current code unconditionally concatenates base + target-path via
+> "%pOF%s", so target-path="/aliases" resolves to "<base>/aliases" and
+> target-path="/" produces "<base>/" (never a valid node). After this
+> patch, an empty target-path continues to mean "the target base
+> itself" — preserving the shape used by drivers/misc/lan966x_pci.c,
+> the only in-tree caller of of_overlay_fdt_apply() that passes a
+> non-NULL base — while any non-empty target-path is looked up
+> absolutely.
+> 
+> Patch 4 fixes a pre-existing double-free in add_changeset_property():
+> a property freed on the of_changeset_add_property() error path stayed
+> linked in the target node's deadprops list and was freed again at
+> node release.
+> 
+> Patch 5 fixes a pre-existing NULL dereference in
+> of_overlay_fdt_apply()'s idr_alloc() error path (negative id stored,
+> list_del() on an uninitialized list head) by only treating a positive
+> id as registered in free_overlay_changeset().
+> 
+> Patch 6 fixes a pre-existing reference leak in
+> init_overlay_changeset(): on a mid-loop failure, the target and
+> overlay references of the fragments initialized so far were never
+> dropped because ovcs->count was still 0 when free_overlay_changeset()
+> ran its cleanup loop.
+> 
+> Patch 7 fixes pre-existing "//" result paths from
+> dup_and_fixup_symbol_prop() when a fragment targets the root node.
 
-__alloc_skb() sets skb->mac_header to (typeof(skb->mac_header))~0U via
-__finalize_skb_around(). skb_reset_mac_len() checks if the value has been
-updated via the skb_mac_header_was_set() and fires
-DEBUG_NET_WARN_ON_ONCE(1) if not.
+Fixes should come first in a series. Then I can apply them if ready even 
+if the feature patches are not ready.
 
-init_can_skb() previously included three header reset calls:
+Rob
 
-skb_reset_mac_header(skb)
-skb_reset_network_header(skb)
-skb_reset_transport_header(skb)
-
-Commit 9f10374bb024 ("can: remove private CAN skb headroom
-infrastructure") dropped these calls which leads to the skb->mac_header
-retaining the original value.
-
-Restore the three missing calls in the init_can_skb().
-
-Fixes: 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
-Reported-by: syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1aae11dc8d42ec1a87ec
-Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
----
- drivers/net/can/dev/skb.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
-index 95fcdc1026f8..9cbddc1edd41 100644
---- a/drivers/net/can/dev/skb.c
-+++ b/drivers/net/can/dev/skb.c
-@@ -210,6 +210,9 @@ static void init_can_skb(struct sk_buff *skb)
- {
- 	skb->pkt_type = PACKET_BROADCAST;
- 	skb->ip_summed = CHECKSUM_UNNECESSARY;
-+	skb_reset_mac_header(skb);
-+	skb_reset_network_header(skb);
-+	skb_reset_transport_header(skb);
- }
- 
- struct sk_buff *alloc_can_skb(struct net_device *dev, struct can_frame **cf)
--- 
-2.53.0
-
+[1] https://lore.kernel.org/all/CAL_Jsq+72Q6LyOj1va_qcyCVkSRwqGNvBFfB9NNOgYXasAFYJQ@mail.gmail.com/
