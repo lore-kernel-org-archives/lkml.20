@@ -1,200 +1,150 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBB24848B1
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:50:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671055; cv=none; b=m5IFAjVm9b5NjCtzDMkJXD4mEUHK/xqddy1Uf+4lLy1DO/bHbfrV+EkSBdHHX+FQmwsjpJZEUec7z0h544X3rNU7Ob5uJMc/x6eiyYWX1GlCnsNZszG9Krqn6Pz8yLAZ6gMonM9smqKHKTsSShn+kuxKxTJFgVEikjs25qcF5zE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671055; c=relaxed/simple;
-	bh=tcnM7Zij8zPswf2puRpPE2is3PVN8B+kToNLGsHwEGE=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=TfpvmbstJqt9LLsICllIJ5NCpnDtc2mFNSsqOG6+J0NICcoYiX5Nyv4I2BBm7YxQUV1w/F5UDoqT/sqLtwArDYRIP2dr9NMx8VItJ3NjAno7f5sLrShi5WwXePdoWh7JXRJw9awWQwygkbOkQ78Xs1SBJptirtiuNV467zgjjMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZSEiK/F3; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D2354706C
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789671071; cv=pass; b=JoSTSTeQQTn4/AOx3gSmhwEbuwqeh76orz8dJJOSMOaC5CzOxdMW1Shhh6ymGwICgbjBjjUIoxHzXZSBQc4YHWj6PhK2SeawdClR8j7AoUIoTSkzpQEJUbIio1zSqd6LkpxHiQYL5EKJHAVkGH/eHtvVV2LIcveinRt6DkZa0OI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789671071; c=relaxed/simple;
+	bh=R58MLDHtjISdkSkWuZvl1J/uOi2P/dUSCBQUN3KxrUg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UB91A9oesFF4VnqWWz1RXN4yUgIVX7tAgv8aF2G6VbzfpnF44/GtbF1i1RWMWuWbYx9n0pi7KxA2w+sTx9k5/gth4xwb2LLOtXeQh/1k7C4kxUvX8NAdj3DY/Gb1tE0Sd6L8dasKZLhBN7odokiAlAXjqjWsCt5TMWLJrRmhqP0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=klbBFolU; arc=pass smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZSEiK/F3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789671052; x=1821207052;
-  h=date:from:to:cc:subject:message-id;
-  bh=tcnM7Zij8zPswf2puRpPE2is3PVN8B+kToNLGsHwEGE=;
-  b=ZSEiK/F3atTf0JVgUqCfAoaCKeCeiVNk5u7HvzK00UZrvb9OalxJcPvd
-   Y1UvgobPg2tOlS9d8/tfkVwE+Hp2wZJRnO3OyBiyhb1mztUdNBezg1l+N
-   axckJxTX0dsQsyLmqSHd5jYqx99D3zEYTkxCgUFM4NxvCzGLIg6Lam7Hf
-   wP1WOs0odLKtlpKRE//nIQZBvo1zJe2MtpLBRnFYKp4F5VbXnMSsztjlY
-   BOoEZkMssMfR740vZfS2td4mU4Ki7ES31cdA9JzFj5x16kklFeVuAACuh
-   S/0ZlhS/TN3W4rdS4kzR15ixUGN1GavXYhR96yK+0Dk8pd7BIFc79VRq6
-   A==;
-X-CSE-ConnectionGUID: nPrnvJgMRf6cIhllxpnoyQ==
-X-CSE-MsgGUID: XizuT6fYRqqRuQrkJjiOBQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90260525"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90260525"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 11:50:51 -0700
-X-CSE-ConnectionGUID: nlmC/WZTQNaHEt+hNsw7EQ==
-X-CSE-MsgGUID: c94Dbl97SFmItl6agyodSw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271310446"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 17 Sep 2026 11:50:49 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7HC3-000000008PB-0aeX;
-	Thu, 17 Sep 2026 18:50:47 +0000
-Date: Fri, 18 Sep 2026 02:50:23 +0800
-From: kernel test robot <lkp@intel.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Andrea Righi <arighi@nvidia.com>
-Subject: kernel/sched/idle.c:511:45: sparse: sparse: incorrect type
- in argument 1 (different address spaces)
-Message-ID: <202609180239.7Jr6Miwi-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="klbBFolU"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c254f9f7db0so189857066b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:51:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789671067; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gG/IdcSOLbG9pCZs7gaoKrXnphqUSvG0zQP3JEzDJ9VVSHqTT0/XC7ZR5982geKRg6
+         3exh+D2xMfn9ZMkSv46nEPAw7vIQA8NCEULv/8cvTgji8au35OZTQ52eeC+Ly+g9X3KT
+         fMq4hCLSyKb+Kt9Q3Oouzp+NxTwpgJB1ws99RfE+uKWwKi+uUW2GZw6ZMZOhcnboRuw8
+         NPgx6k3RZ/ol/wOoDmT607LEbdYB0F/p96MpP/MZIzwiEEgQzDSEMqeEOVTen3fLOk5M
+         LgEovKyMYDi0P1rN0bnKojQeDauQ5QuqeaI0YgAw3s6K+++Udgty6XLBb9tA8n9vvvcz
+         oKSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=9kVz82MAvAbBww+/Fr0+me1zCzCm1neo4UwNfXq+b7A=;
+        fh=iGk3+Hnxwtc3ekQ5CjaG7e8iIuJo/cpYb8t1p8QQLeQ=;
+        b=CpaUjqJzgCkTdRVJjmOm7frrhO+F/T4VN8T+20ojvi40ZKNvFJSZ2jMq8TxvLumqLS
+         DB7wYi2CJLvhqpbhpR3p7rCfgzuJ6X19ZGjRvw+UV7/WTFrQnFfw4uHiIKKX3dS/gGUm
+         occRyduGTwFp6oKd96yIBGBHM+K66lFNEn9p7qUP4Da3hzid3NvtMDKKS1XWVY590pA0
+         PBMYnrmjEndNjAXzQX2zJK6x6CALG23DEeWLUPYmEbtj84iWDsHH/xxFccgK6eqGTkqs
+         tcFj7Ehu11JvS0JGDEQqKyVp+ok89i9sGwFp375vgnxGEwoLT2Q+Z84ASRdAX2xN55Um
+         ktgA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789671067; x=1790275867; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9kVz82MAvAbBww+/Fr0+me1zCzCm1neo4UwNfXq+b7A=;
+        b=klbBFolUxkGbWx+rTPQMxG+hwJTNamdTz/xXaaZROQGAk4xBNQ3KRbpVqHh+bRh84w
+         EOL3nEPHtUlvVtvNuArEykjkh45/vW59S5nhRGHhrtk2nAH1YI+Rf3yiYZsc1MP/M9Pz
+         uSDtw77oaayrdXlE/BN95A45KjSP1S2o9Bbsyu8PhjgNnCOv5ltxz48kxWB5MwYUUWCN
+         Ymsb5HYNO9uzgoM3igf8IMaW0Nlpcfv8TFOvhkrC4zOrOJWAHn4kJ5D1/ytK2YHXkdDG
+         T+iFbQTqcw+P9bkfvs0+9+1RQCA+wwuaQfzyo+NfVbiIc/qPR8QwJk0xS2taEeULh6xG
+         1yMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789671067; x=1790275867;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9kVz82MAvAbBww+/Fr0+me1zCzCm1neo4UwNfXq+b7A=;
+        b=DJS4hd0rQD5AQPPlA1ddpyloHgQ7D+0dW2kJS9u40qxhfLfIxCMthXy9zFUVTBDHS9
+         0esdIEr2XRseEkzbsKrUVQz7OowPflYINIG3wE5T5hboX6MK3a5CVFLTs8ErGAEbYkcG
+         KpeJMj9INffJ09NRGPFsVoK9e30fMfIaHRw6WzbfmvJ3Q0il+hRQwV4h4BtlLVS8gqBY
+         XRKrb3EbX3f8fJtF5mwInzNmQA9xprW4WHcW7q4uuAqX9DiU2Ge5Fc0xRtySoTfMyiMP
+         3WeVP4YrSJPnhSw6tqFi69+1GtBlzoXuC3xX40tmUUQDpYnmREL7WVh2ZViRo8F+UviO
+         1bmA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTC394aGY9Dy3VFd2pGXI1NKxey/SmrlqWFR5FeWqIZIFnbn8NQDrZzANsMOYetX903ecANpap56fIzfo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWNfxR8WQF7+Zs1PyFmw+zeFmRSx66YPMXeJhY2di3KH00Lbft
+	PiynHuMizDuGEtQPK7z92yOE/yR52RinF4ZniE1rWyQmvGrnpzNocw8w+uDjJBCn36/RdaB6t6n
+	FPqUmsjwxMZnMyVBMbYF+8bknIs2ZxTY=
+X-Gm-Gg: AYBFou1XEBj0dL108A+S6UNEyz1tYP/QjuGjBAZuSjOZUir04q1BVmSnsbtepD0bBL3
+	laXXdiN9PBn1yzEGEV+6++whsFW4fC5RGWn6U3Wt++O5sIP5gXAHWjA3njBOOKU/fQ9tjiHs8OV
+	9u53l6Kl0aCoIGTHWrb1/G9b9MCNk1shroCO/PTCN9aITR6RpXDq2xDSwDMsTDtBvLborwg7z3e
+	YizvEuDapbAuINf86Nu71bI9n9DEmewIf79aGqIQh1qjEhGL4op3uX7EXT77OJtnDUWP+IpvXu7
+	SqSpgxbiI+ratwKE4yqCLUBkK43tYnGC2WSjYyR43KsLCAvmvhVOvQ==
+X-Received: by 2002:a17:907:6d06:b0:c29:3a1b:ec8e with SMTP id
+ a640c23a62f3a-c2a1569b034mr13494966b.3.1789671067393; Thu, 17 Sep 2026
+ 11:51:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260912091805.531666-1-andersen.theo@gmail.com> <c7215b173c533cd697d8eb37b56c2a1890ea7c41@intel.com>
+In-Reply-To: <c7215b173c533cd697d8eb37b56c2a1890ea7c41@intel.com>
+From: Theo Andersen Carton <andersen.theo@gmail.com>
+Date: Thu, 17 Sep 2026 20:50:56 +0200
+X-Gm-Features: AcwNN1WHuc8o-nFGlfzO4INLAjuamK1x7axEj4QEzHLMTpq90hpTZl6XJiyGKjA
+Message-ID: <CANFnrsrR-benwg2i=mGs1RywuwcxkFE9Pzw8O7kGRQnNyit-tw@mail.gmail.com>
+Subject: Re: [PATCH] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple MacBookPro11,5
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, 
+	tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch, 
+	intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
-commit: ca3aec453d64d2ad89156c10a2e1b15a93b9fe50 sched_ext: Route ops.update_idle() to sub-schedulers and re-notify owed scheds
-date:   9 weeks ago
-config: x86_64-randconfig-1300-20260917 (https://download.01.org/0day-ci/archive/20260918/202609180239.7Jr6Miwi-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609180239.7Jr6Miwi-lkp@intel.com/reproduce)
+> I'm guessing this is v2 of [1], but I shouldn't have to guess.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: ca3aec453d64 ("sched_ext: Route ops.update_idle() to sub-schedulers and re-notify owed scheds")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609180239.7Jr6Miwi-lkp@intel.com/
+You're right, it is effectively v2 of [1] -- same patch, no functional
+change. Sorry for not labelling it.
 
-sparse warnings: (new ones prefixed by >>)
-   kernel/sched/build_policy.c: note: in included file:
->> kernel/sched/idle.c:511:45: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct const *p @@     got struct task_struct [noderef] __rcu *curr @@
-   kernel/sched/idle.c:511:45: sparse:     expected struct task_struct const *p
-   kernel/sched/idle.c:511:45: sparse:     got struct task_struct [noderef] __rcu *curr
-   kernel/sched/build_policy.c: note: in included file:
-   kernel/sched/rt.c:2325:25: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/sched/rt.c:2325:25: sparse:    struct task_struct *
-   kernel/sched/rt.c:2325:25: sparse:    struct task_struct [noderef] __rcu *
-   kernel/sched/rt.c:976:39: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct task_struct *donor @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/rt.c:976:39: sparse:     expected struct task_struct *donor
-   kernel/sched/rt.c:976:39: sparse:     got struct task_struct [noderef] __rcu *donor
-   kernel/sched/rt.c:1498:31: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/rt.c:1498:31: sparse:     expected struct task_struct *p
-   kernel/sched/rt.c:1498:31: sparse:     got struct task_struct [noderef] __rcu *donor
-   kernel/sched/rt.c:1826:9: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/rt.c:1826:9: sparse:     expected struct sched_domain *[assigned] sd
-   kernel/sched/rt.c:1826:9: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/rt.c:1517:14: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct task_struct *curr @@     got struct task_struct [noderef] __rcu * @@
-   kernel/sched/rt.c:1517:14: sparse:     expected struct task_struct *curr
-   kernel/sched/rt.c:1517:14: sparse:     got struct task_struct [noderef] __rcu *
-   kernel/sched/rt.c:1518:15: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct task_struct *donor @@     got struct task_struct [noderef] __rcu * @@
-   kernel/sched/rt.c:1518:15: sparse:     expected struct task_struct *donor
-   kernel/sched/rt.c:1518:15: sparse:     got struct task_struct [noderef] __rcu *
-   kernel/sched/rt.c:1579:45: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/rt.c:1579:45: sparse:     expected struct task_struct *p
-   kernel/sched/rt.c:1579:45: sparse:     got struct task_struct [noderef] __rcu *donor
-   kernel/sched/rt.c:1605:35: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/rt.c:1605:35: sparse:     expected struct task_struct *p
-   kernel/sched/rt.c:1605:35: sparse:     got struct task_struct [noderef] __rcu *donor
-   kernel/sched/rt.c:1627:39: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct task_struct *donor @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/rt.c:1627:39: sparse:     expected struct task_struct *donor
-   kernel/sched/rt.c:1627:39: sparse:     got struct task_struct [noderef] __rcu *donor
-   kernel/sched/rt.c:1652:64: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *tsk @@     got struct task_struct [noderef] __rcu *curr @@
-   kernel/sched/rt.c:1652:64: sparse:     expected struct task_struct *tsk
-   kernel/sched/rt.c:1652:64: sparse:     got struct task_struct [noderef] __rcu *curr
-   kernel/sched/rt.c:2002:40: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *task @@     got struct task_struct [noderef] __rcu *curr @@
-   kernel/sched/rt.c:2002:40: sparse:     expected struct task_struct *task
-   kernel/sched/rt.c:2002:40: sparse:     got struct task_struct [noderef] __rcu *curr
-   kernel/sched/rt.c:2025:13: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/sched/rt.c:2025:13: sparse:    struct task_struct *
-   kernel/sched/rt.c:2025:13: sparse:    struct task_struct [noderef] __rcu *
-   kernel/sched/rt.c:2376:54: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *tsk @@     got struct task_struct [noderef] __rcu *curr @@
-   kernel/sched/rt.c:2376:54: sparse:     expected struct task_struct *tsk
-   kernel/sched/rt.c:2376:54: sparse:     got struct task_struct [noderef] __rcu *curr
-   kernel/sched/rt.c:2378:40: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/rt.c:2378:40: sparse:     expected struct task_struct *p
-   kernel/sched/rt.c:2378:40: sparse:     got struct task_struct [noderef] __rcu *donor
-   kernel/sched/rt.c:2378:62: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/rt.c:2378:62: sparse:     expected struct task_struct *p
-   kernel/sched/rt.c:2378:62: sparse:     got struct task_struct [noderef] __rcu *donor
-   kernel/sched/build_policy.c: note: in included file:
-   kernel/sched/cpudeadline.c:255:24: sparse: sparse: undefined identifier '__builtin_infer_alloc_token'
-   kernel/sched/cpudeadline.c:255:24: sparse: sparse: undefined identifier '__builtin_infer_alloc_token'
-   kernel/sched/cpudeadline.c:255:24: sparse: sparse: undefined identifier '__builtin_infer_alloc_token'
-   kernel/sched/build_policy.c: note: in included file:
-   kernel/sched/deadline.c:3151:23: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/deadline.c:3151:23: sparse:     expected struct task_struct *p
-   kernel/sched/deadline.c:3151:23: sparse:     got struct task_struct [noderef] __rcu *donor
-   kernel/sched/deadline.c:3161:13: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/sched/deadline.c:3161:13: sparse:    struct task_struct *
-   kernel/sched/deadline.c:3161:13: sparse:    struct task_struct [noderef] __rcu *
-   kernel/sched/deadline.c:3267:25: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/sched/deadline.c:3267:25: sparse:    struct task_struct *
-   kernel/sched/deadline.c:3267:25: sparse:    struct task_struct [noderef] __rcu *
-   kernel/sched/deadline.c:2744:42: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected struct sched_dl_entity const *b @@     got struct sched_dl_entity [noderef] __rcu * @@
-   kernel/sched/deadline.c:2744:42: sparse:     expected struct sched_dl_entity const *b
-   kernel/sched/deadline.c:2744:42: sparse:     got struct sched_dl_entity [noderef] __rcu *
-   kernel/sched/deadline.c:2754:38: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *tsk @@     got struct task_struct [noderef] __rcu *curr @@
-   kernel/sched/deadline.c:2754:38: sparse:     expected struct task_struct *tsk
-   kernel/sched/deadline.c:2754:38: sparse:     got struct task_struct [noderef] __rcu *curr
-   kernel/sched/deadline.c:1188:39: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *curr @@
-   kernel/sched/deadline.c:1188:39: sparse:     expected struct task_struct *p
-   kernel/sched/deadline.c:1188:39: sparse:     got struct task_struct [noderef] __rcu *curr
-   kernel/sched/deadline.c:1188:85: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected struct sched_dl_entity const *b @@     got struct sched_dl_entity [noderef] __rcu * @@
-   kernel/sched/deadline.c:1188:85: sparse:     expected struct sched_dl_entity const *b
-   kernel/sched/deadline.c:1188:85: sparse:     got struct sched_dl_entity [noderef] __rcu *
-   kernel/sched/deadline.c:1286:23: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/deadline.c:1286:23: sparse:     expected struct task_struct *p
-   kernel/sched/deadline.c:1286:23: sparse:     got struct task_struct [noderef] __rcu *donor
-   kernel/sched/deadline.c:1815:31: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *curr @@
-   kernel/sched/deadline.c:1815:31: sparse:     expected struct task_struct *p
-   kernel/sched/deadline.c:1815:31: sparse:     got struct task_struct [noderef] __rcu *curr
-   kernel/sched/deadline.c:1815:70: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected struct sched_dl_entity const *b @@     got struct sched_dl_entity [noderef] __rcu * @@
-   kernel/sched/deadline.c:1815:70: sparse:     expected struct sched_dl_entity const *b
-   kernel/sched/deadline.c:1815:70: sparse:     got struct sched_dl_entity [noderef] __rcu *
-   kernel/sched/deadline.c:2130:39: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct task_struct *donor @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/deadline.c:2130:39: sparse:     expected struct task_struct *donor
-   kernel/sched/deadline.c:2130:39: sparse:     got struct task_struct [noderef] __rcu *donor
-   kernel/sched/deadline.c:2973:9: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/deadline.c:2973:9: sparse:     expected struct sched_domain *[assigned] sd
-   kernel/sched/deadline.c:2973:9: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/deadline.c:2618:14: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct task_struct *curr @@     got struct task_struct [noderef] __rcu * @@
-   kernel/sched/deadline.c:2618:14: sparse:     expected struct task_struct *curr
-   kernel/sched/deadline.c:2618:14: sparse:     got struct task_struct [noderef] __rcu *
-   kernel/sched/deadline.c:2619:15: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct task_struct *donor @@     got struct task_struct [noderef] __rcu * @@
-   kernel/sched/deadline.c:2619:15: sparse:     expected struct task_struct *donor
-   kernel/sched/deadline.c:2619:15: sparse:     got struct task_struct [noderef] __rcu *
-   kernel/sched/deadline.c:2693:43: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/deadline.c:2693:43: sparse:     expected struct task_struct *p
-   kernel/sched/deadline.c:2693:43: sparse:     got struct task_struct [noderef] __rcu *donor
-   kernel/sched/deadline.c:2713:35: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *donor @@
-   kernel/sched/deadline.c:2713:35: sparse:     expected struct task_struct *p
+[1] was pasted into a mail client by hand, which hard-wrapped the
+"diff --git" lines and turned the leading tabs into spaces. It did reach
+the lists, but not as an applicable patch, so I resent it with
+git send-email and didn't think of it as a revision. I'll use proper vN
+and changelogs from here on.
 
-vim +511 kernel/sched/idle.c
+> Is there a bug report about this? Would be nice to see the logs in the
+> failing case. See [2].
 
-   503	
-   504	struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf)
-   505	{
-   506		/*
-   507		 * Notify scx only on an idle-to-idle re-pick (the cpu was already idle).
-   508		 * A real task->idle transition is delivered by set_next_task_idle(), so
-   509		 * calling here too would duplicate it.
-   510		 */
- > 511		if (scx_enabled() && is_idle_task(rq->curr))
-   512			scx_update_idle(rq, true, false);
-   513		return rq->idle;
-   514	}
-   515	
+There wasn't one -- I went straight to the list. Filed now:
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+  https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17087
+
+It has the full failing-case log with drm debug enabled, on an unpatched
+i915 with the panel muxed to the iGPU. AUX and EDID are fine, and then the
+panel's only mode is pruned:
+
+  [drm:intel_dp_print_rates] sink rates: 162000, 270000
+  [drm:update_display_info] [CONNECTOR:93:eDP-1] Assigning EDID-1.4
+digital sink color depth as 8 bpc.
+  [drm:drm_mode_prune_invalid] Rejected mode: "2880x1800": 60 337750
+2880 2928 2960 3040 1800 1803 1809 1852 0x48 0x9 (CLOCK_HIGH)
+
+because intel_ddi_max_lanes() reports a source maximum of 2 for port A.
+The matching log with the quirk applied is attached too, where the same
+link trains at lane count 4.
+
+> i915_vbt from debugfs would also be interesting.
+
+Attached to the bug as i915_vbt.bin, 6144 bytes -- a $VBT HASWELL block,
+BIOS build 1215 dated 12/13/2012, on Apple firmware 427.140.8.0.0. Say the
+word if you'd rather have a specific block dumped inline.
+
+> The patch itself looks sane.
+
+Thanks. One thing I got wrong in the commit message, which v3 fixes: I
+wrote Broadwell, but the machine is Haswell Crystal Well -- i7-4980HQ,
+8086:0d26, $VBT HASWELL, and i915 logs "Found haswell". Apple's ACPI DMAR
+OEM string says BDW, which is what misled me. No code change; the quirk
+matches on DMI model either way.
+
+I'll send it as v3 rather than v2, to match the numbering you used
+above -- neither earlier posting was labelled, and renumbering them now
+would just recreate the ambiguity. It has that fix, a Closes: tag for the
+bug, and a changelog spelling out what v1 and v2 were.
+
+BR,
+Theo
