@@ -1,63 +1,127 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06025A5121;
-	Thu, 17 Sep 2026 14:56:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77BFA50AC30
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:56:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657020; cv=none; b=a/xP47xt9RkBhNqZ+SXlhlPxpKZTko5SAh/w1QHqiCZN80iM1ZjSACndUCY+1rV9RXhDR9YRzhxIHdwDu41re7ZMHj+KFpb4oWtDXRnp3V5i5prMDf6MfCZHXZVk1VTMRBeyKs+eIRRX1YldUzuwxR9mggl8NuGa0nIjoYPK3wY=
+	t=1789657022; cv=none; b=DdPWiRldNKz0vYd16YsXL37HxAK+WxU6Lq2DovC8jcRZeDYqM9Zn1b68EJImamrIgx6B9GZqUvLhqAkrbOXoZn3j66rc+7pZUdQgVk6Di/q7FMwyIGlQO0iX4TkuXOhWtLrL1TRaNC0pepWcMFrOh3YweRxzbQJx8FwalaMt+BY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657020; c=relaxed/simple;
-	bh=GbWu6D//pleUKG4KsB5vWUuB7L5XpKl8uA++urGCcvc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vAroqTTNSMxkY0gMB7VdxCnGfV9lGKXLCxUN80AG32jBM+IpumhdNTxX7TxLLFmqa/b2yLZDXaWzKtTo5rVM0u8WDXfUFpmSji3So9tExDNVeNQjArF3yi9anbE0wKjk6602BzahvFkrphAhIS4zNKGZAsJ5UQkY+UVq9jSknj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=v7DAdW/g; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789657022; c=relaxed/simple;
+	bh=lb4IRP+Y1Hz2fJbSNi4TVLYctKlrDlgtGYuXAuzDSJk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AccOmFWxj1ISzBKvyvKrUX3s4thT9VR1Dl30tJBFH/X+alWfxG985EdiDUM1F4FCE3W1ltxW6/EREbJiVgwDtYe7LbhySdBlGQlRzqRGIgV1MHpI+zNL91e5gBz8gotCtQt8RWg5o6wZRAutcap5YKV1yTrTzktOnr3pTT7Q4bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nr/3FAiG; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="v7DAdW/g"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=2CCjRSePQK87rby+Jo+8UB7gqMUek6+WZFLJ8cqsPxc=; b=v7DAdW/grCSGofGdk47k0YE6TF
-	VrgoTQek/r/FKfCyEHbAvXKc/ou8tbRAekvDuvJri0SHr5r2mbGo27ZpkXX4jb//NrCyncYwLIvBf
-	oFy3slC3zawvslDoI9jiQkkngI81GAkTpcJ19ZyCoev+mr/GMw9K4lKygYKsNY87b3zU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x7DXM-005hBY-O1; Thu, 17 Sep 2026 16:56:32 +0200
-Date: Thu, 17 Sep 2026 16:56:32 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCHv2 net-next] net: fec_mpc52xx: remove dead resource size
- check
-Message-ID: <1ce3192c-d052-4936-9567-8a1d9b13f54a@lunn.ch>
-References: <20260916223228.271815-1-rosenp@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nr/3FAiG"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E4821F91;
+	Thu, 17 Sep 2026 07:56:30 -0700 (PDT)
+Received: from e134344.cambridge.arm.com (unknown [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 54DBF3F86F;
+	Thu, 17 Sep 2026 07:56:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789656993; bh=lb4IRP+Y1Hz2fJbSNi4TVLYctKlrDlgtGYuXAuzDSJk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=nr/3FAiGv7IZVAPqm9GBEIy/0+t1vKHstf/mzx+RjYYIEe7/+PDk81EwkzBgG995Z
+	 a/ecN+6wPCPhEMzpyDbaq+QUFGHPkPyXEREU3Irk49O44GJs+eNXfPeiplSo+mzv3H
+	 IcIBpYHxf+2jze7w9j2rD/utgrFcwMDxJKk0Kqc0=
+From: Ben Horgan <ben.horgan@arm.com>
+To: ben.horgan@arm.com
+Cc: james.morse@arm.com,
+	reinette.chatre@intel.com,
+	fenghuay@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	dave.martin@arm.com,
+	andre.przywara@arm.com,
+	Gavin Shan <gshan@redhat.com>
+Subject: [PATCH v2 04/12] arm_mpam: Add missing mon_sel locking in MBWU save and restore
+Date: Thu, 17 Sep 2026 15:56:09 +0100
+Message-ID: <20260917145617.2202986-5-ben.horgan@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260917145617.2202986-1-ben.horgan@arm.com>
+References: <20260917145617.2202986-1-ben.horgan@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916223228.271815-1-rosenp@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 03:32:28PM -0700, Rosen Penev wrote:
-> The check bails out if the FEC register resource is smaller than
-> sizeof(struct mpc52xx_fec), but every in-tree device tree describes
-> the FEC node as a 0x400 byte region, which is exactly the size of the
-> struct, so the condition can never be true.
+The mon_sel_lock is used to protect the mbwu_state, as well as h/w accesses
+that use MPAMCFG_MON_SEL. However, in mpam_restore/save_mbwu_state(),
+mbwu_state is accessed without holding the mon_sel_lock.
 
-We generally don't fully trust DT blobs.
+Add the missing locking.
 
-Does this test do any actual harm in its current state?
-Why remove it?
+Fixes: 41e8a14950e1 ("arm_mpam: Track bandwidth counter state for power management")
+Signed-off-by: Ben Horgan <ben.horgan@arm.com>
+Tested-by: Gavin Shan <gshan@redhat.com>
+Reviewed-by: Gavin Shan <gshan@redhat.com>
+---
+Changes since v1:
 
-	Andrew
+'continue' if monitor enabled
+move locking earlier in mpam_save_mbwu_state() and adjust commit message
+---
+ drivers/resctrl/mpam_devices.c | 27 ++++++++++++++++++---------
+ 1 file changed, 18 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index e349db525882..d39d210574a6 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -1652,17 +1652,26 @@ static int mpam_restore_mbwu_state(void *_ris)
+ 	u64 val;
+ 	struct mon_read mwbu_arg;
+ 	struct mpam_msc_ris *ris = _ris;
++	struct mpam_msc *msc = ris->vmsc->msc;
+ 	struct mpam_class *class = ris->vmsc->comp->class;
+ 
+ 	for (i = 0; i < ris->props.num_mbwu_mon; i++) {
+-		if (ris->mbwu_state[i].enabled) {
+-			mwbu_arg.ris = ris;
+-			mwbu_arg.ctx = &ris->mbwu_state[i].cfg;
+-			mwbu_arg.type = mpam_msmon_choose_counter(class);
+-			mwbu_arg.val = &val;
++		if (WARN_ON_ONCE(!mpam_mon_sel_lock(msc)))
++			return -EIO;
+ 
+-			__ris_msmon_read(&mwbu_arg);
++		if (!ris->mbwu_state[i].enabled) {
++			mpam_mon_sel_unlock(msc);
++			continue;
+ 		}
++
++		mwbu_arg.ris = ris;
++		mwbu_arg.ctx = &ris->mbwu_state[i].cfg;
++		mwbu_arg.type = mpam_msmon_choose_counter(class);
++		mwbu_arg.val = &val;
++
++		mpam_mon_sel_unlock(msc);
++
++		__ris_msmon_read(&mwbu_arg);
+ 	}
+ 
+ 	return 0;
+@@ -1680,12 +1689,12 @@ static int mpam_save_mbwu_state(void *arg)
+ 	struct mpam_msc *msc = ris->vmsc->msc;
+ 
+ 	for (i = 0; i < ris->props.num_mbwu_mon; i++) {
+-		mbwu_state = &ris->mbwu_state[i];
+-		cfg = &mbwu_state->cfg;
+-
+ 		if (WARN_ON_ONCE(!mpam_mon_sel_lock(msc)))
+ 			return -EIO;
+ 
++		mbwu_state = &ris->mbwu_state[i];
++		cfg = &mbwu_state->cfg;
++
+ 		mon_sel = FIELD_PREP(MSMON_CFG_MON_SEL_MON_SEL, i) |
+ 			  FIELD_PREP(MSMON_CFG_MON_SEL_RIS, ris->ris_idx);
+ 		mpam_write_monsel_reg(msc, CFG_MON_SEL, mon_sel);
+-- 
+2.43.0
+
