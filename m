@@ -1,132 +1,265 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gentwo.org (gentwo.org [62.72.0.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CFD3DDB17
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC6149D5BF;
+	Thu, 17 Sep 2026 19:16:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789672526; cv=none; b=RmKt2pAJV9s577ja78wXkNzSCEpoDoroBCrGkJCni36O8uOudbl7c8SuE87GEEZ/OKTpKzHoOKpkRsiHOtUg/amSqfV1/XoT3EuzGm5wPakI9RvxGxjN4Ue8Z5d0k59VySr51e69YAOyF1+pxxavxfRVqlI1pcbR8VHuk7Koz6s=
+	t=1789672620; cv=none; b=EKM9KmXf6/iBf2lASepPPrnqvBnQ7h5F3xPi7aCqKiq9cfmYbRSP5Cg55gt2nk6oAwRV4qWOhjeeIzCM8YDfyBjOMa1fbhBNCljmOzXIyID/ieSpJY9LPhjs0aioKybJAMT39UfjsFHPwMBc9aQ2sAJv59LDBIagUQQbGKAawj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789672526; c=relaxed/simple;
-	bh=suehwzQIugL8LAVRtlroYOOn+Zi38wpItFbk8gGbq7s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TDGaTte9nZMIM/RMjObdWZbnF4zEsg2LFB4eaCE+Qbu9XF9ooxV+lpAt4LuV15pFFRpNFw17Uz2Of3HgwMh9wljHTinzxkwqSG2Sd7U/vcA/VrWwqT4XYZknrAgTy/ksXxxyG0iVN0Gz4d093gTG529rmcBd+hlbE1hZcy9VPcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tgg/id1m; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789672620; c=relaxed/simple;
+	bh=+QvQJ+Tkg8ulkGryhPKG37cAssAhiwb20Zm7VBecE7E=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=ZJ2D5iZG6spJZTNejyy+lcs9UTS/sadDbYSeHpHGbzlMLt1goL0wwIXYf2pare8y8fDngO8hFhTzO0tPF5URSVODz0nYGLeHlhdR8DFf+nvb8XkeE6v1J6SFNb3X1d9Qfmb/ds/t3VAVdddJEmXOjBWydZdtKndoQF7pygK7Xds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=ksPzSYvM; arc=none smtp.client-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tgg/id1m"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f8694aeso82554666b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:15:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789672523; x=1790277323; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UVO42avi1AUnneieHW+g4jz1dvgdxwcJ0ctKNKrRziI=;
-        b=Tgg/id1meL8mItMN9eOYqFDX3HbeBfUMX9wfGUGE4gXXuHW7Sd7RspawlIqsOoot/h
-         Y1zVXiNMmPLJcmDGkdivISkimm3rHbu7Sak9yPclDZq6S/3B21suklFr/jIQm/uZCerB
-         vgJCt6QJgtYJ6Sz8dos8ZcijA/vmUKL45t7KxNjvdU9Jeuzp03HNtkrLUT4Xl1z9FBZO
-         Si1Mw8Q4FTT6tEWS0zML9tEk7xi7Us6hu7G47X9uEoEwRYlQtvtXLMEn+GLd2mrDfrJz
-         yBy31XeQFSHKUjLwusfsgpAr2O/Nq+01TT1ewJDtmdPLam9fCZQUr4y4JAeJ51FORtSA
-         Ru4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789672523; x=1790277323;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UVO42avi1AUnneieHW+g4jz1dvgdxwcJ0ctKNKrRziI=;
-        b=RcWkRrAbMfk99EgeDECMPLThyRZR4OL5zwIbFnT8bMNo0SNDdZj4NInlRVNBm0H+UY
-         Mx9+bLGtHgmSRMWCHCGIlW6+ZoWKLkiq9EADEA+E6DeNQLf57H5ShSq0wLTZnY5e+VC2
-         5DCjGxwqI77PoKCtvw+2ifrqIy1zrnWuOxIMexC1AE9p0h0e3MnkeKsJqlyW1T6ieIrB
-         fazGkVtlkQI5C2Ne4dU9mOgLVihrjh5sYGcOzyLh/p/Sp25WDddEAc+hd5/Ln2BnNBNg
-         DIdXp1l2MnFRpB2EN3beQ/Hu2L5vO4Alby9T6WFQlW0DirJHnyyrsZnzMMAirMw6AEMX
-         08+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxMUz5qFyKUf06BuDgm2xlDwtzwjjZ43o7wrOXMziWpgtXYEBv+d+e3k0Cuu5/8NPszuqDSAULth5n8wx4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNSypyYcQFQqvmYblTBObrEsGzEsohb7alSjnSJmCVH7lyX/Cd
-	FDlPaeWT0dZGkhI2lhlyTrTHs5kSu8qZOLL6KoHBlW0vI4mHhpE95PZL
-X-Gm-Gg: AYBFou2qHmuOCL2iMQrtGnb/k9H6TFTzD04ri7HvraM5Jm3A5aHyn0FYwovgA9XeF5R
-	HPw8MbMy382Ne/jX1ROMmnTjk9NC0zACjA9bmzoy/Hm4Hmz3FsYwL98a9S5PByECOYseJBuuabY
-	+n+iBkJzbyDSy5c/u1Zj5K8xkjH/eFzsxpiATJeMMP3mw9IoTril76tmJfwLCD6Zj/NzHofoT9I
-	qJrpOjRkH9GWwLyahuBCWzym2N7Hy/+4iI87CuhLY7EvOIlaHUz4sJYJuntdvBm6SDG22pa1iXT
-	ieN48Z32qzDD2BUjR7rTqtun/vlGiceBY4kSns/mEX/UjEbidSN29TGp16dXiLyTMASbP9hyIPf
-	U5ZR3zArqxGeiCSn0EWLbAgIpIEuGv5zbu16pzEfLaaT7H9rdgQpluObXy9QeuCRE2G5W07AWrF
-	9EnSf3runhx/aic3j2wfkmK3seKkd6wGa9gkUX5NbVd36KhzoRrW30Ek0CEKa4mmqjDfI=
-X-Received: by 2002:a17:907:9703:b0:c24:6382:2648 with SMTP id a640c23a62f3a-c2a16403e1fmr9238266b.5.1789672523059;
-        Thu, 17 Sep 2026 12:15:23 -0700 (PDT)
-Received: from cartold ([77.213.69.61])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de454b4csm333264166b.17.2026.09.17.12.15.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 12:15:22 -0700 (PDT)
-From: Theo Andersen Carton <andersen.theo@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: airlied@gmail.com,
-	simona@ffwll.ch,
-	kai.heng.feng@canonical.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Theo Andersen Carton <andersen.theo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: skip the noirq suspend reset for a switcheroo-parked GPU
-Date: Thu, 17 Sep 2026 21:15:12 +0200
-Message-ID: <20260917191512.38838-1-andersen.theo@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="ksPzSYvM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1789672005;
+	bh=+QvQJ+Tkg8ulkGryhPKG37cAssAhiwb20Zm7VBecE7E=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=ksPzSYvM9zDh7MKaIWcd7fHOj5WqLp5uioycxVg/Q3KCyCdvzrjmXYBG2BwBC/fZ4
+	 q2P4o+vY5uhic56uclApTMEzbVwwkWViSTzOzUGWQaEEgGQ+oMPbNXJXCj/Nd3beUs
+	 X6jiRVWfYLj8F69bspBjJvJnkDeqmyY9HxxKTFvI=
+Received: by gentwo.org (Postfix, from userid 1007)
+	id D74724027F; Thu, 17 Sep 2026 12:06:45 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTP id D271B401E1;
+	Thu, 17 Sep 2026 12:06:45 -0700 (PDT)
+Date: Thu, 17 Sep 2026 12:06:45 -0700 (PDT)
+From: Shubhang <sh@gentwo.org>
+To: Madadi Vineeth Reddy <vineethr@linux.ibm.com>
+cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+    Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+    Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+    Vincent Guittot <vincent.guittot@linaro.org>, 
+    Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+    Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+    Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+    K Prateek Nayak <kprateek.nayak@amd.com>, 
+    Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+    Christopher Lameter <clameter@amperecomputing.com>, 
+    Shrikanth Hegde <sshegde@linux.ibm.com>, linux-doc@vger.kernel.org, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/2] sched: Document WF_SYNC wakeup placement
+ semantics
+In-Reply-To: <d52d3775-ded0-4b7a-8315-6e940ba90f4a@linux.ibm.com>
+Message-ID: <40b2c45a-edbc-ec7b-1fb3-354200bffe96@gentwo.org>
+References: <20260825-sched-wf-sync-doc-v1-0-f899edb44ff5@gentwo.org> <20260825-sched-wf-sync-doc-v1-1-f899edb44ff5@gentwo.org> <d52d3775-ded0-4b7a-8315-6e940ba90f4a@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
-amdgpu_pmops_suspend_noirq() resets the ASIC unconditionally. When the GPU
-has been parked by vga_switcheroo it has neither power nor a PCIe link, so
-the reset cannot reach it: pci_set_power_state() reports the device as
-inaccessible and amdgpu_asic_reset() returns -EINVAL. A failure there
-aborts the entire noirq suspend phase, and with it the system suspend, so
-the machine cannot sleep at all while the GPU is switched off.
+Hi Vineeth,
 
-amdgpu_device_prepare(), amdgpu_device_suspend() and amdgpu_device_resume()
-all bail out early on DRM_SWITCH_POWER_OFF. This callback was added later,
-for an unrelated reason, and did not inherit the check. nouveau guards
-every one of its PM callbacks the same way.
+Thank you for the review.
 
-Bail out the same way here. On a single-GPU system switch_power_state is
-never DRM_SWITCH_POWER_OFF, so this is a no-op there.
+My intent was to document the observable WF_SYNC semantics because the
+waitqueue API currently states a stronger no-migration guarantee than
+the scheduler provides. In particular, I wanted to make clear that
+WF_SYNC is an advisory hint i.e. it can affect fair class placement and
+preemption, but it doesn't require the wakee to stay on the waker CPU,
+avoid migration, or preempt immediately.
 
-Found on a MacBookPro11,5, where the Radeon is powered down through
-apple-gmux so that the internal panel can be driven by the iGPU instead.
-Every suspend failed in amdgpu_pmops_suspend_noirq() while the card was
-off; with this check a full S3 cycle completes.
+I included the call flow to support those conclusions and to distinguish
+them from a stronger placement policy. But I agree that reproducing helper
+names, predicates and the current ordering makes the document too
+implementation specific and likely to become stale.
 
-Fixes: 9e051720f9d3 ("drm/amdgpu: Ensure HDA function is suspended before ASIC reset")
-Cc: stable@vger.kernel.org
-Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+So I will rework it to retain the detailed placement and preemption
+behavior, expressed as scheduler level policy and observable outcomes
+rather than the implementation flow.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 5c33c19fd9bc..d9d794a7db96 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2664,6 +2664,14 @@ static int amdgpu_pmops_suspend_noirq(struct device *dev)
- 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
- 	int r;
- 
-+	/*
-+	 * A GPU parked by vga_switcheroo has no power and no PCIe link, so the
-+	 * ASIC reset below would fail and abort the whole noirq suspend phase.
-+	 * Bail out like amdgpu_device_prepare/suspend/resume() already do.
-+	 */
-+	if (drm_dev->switch_power_state == DRM_SWITCH_POWER_OFF)
-+		return 0;
-+
- 	if (amdgpu_acpi_should_gpu_reset(adev)) {
- 		amdgpu_device_lock_reset_domain(adev->reset_domain);
- 		r = amdgpu_asic_reset(adev);
+Thanks,
+Shubhang Kaushik
 
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
--- 
-2.55.0
+On Thu, 3 Sep 2026, Madadi Vineeth Reddy wrote:
 
+> On 26/08/26 04:16, Shubhang Kaushik (Ampere) wrote:
+>> WF_SYNC is supplied by callers that expect the waker to schedule away
+>> soon. The fair-class wakeup path uses it as a heuristic, but its
+>> placement and preemption behavior is not documented.
+>>
+>> Document the current behavior from try_to_wake_up() through
+>> select_task_rq_fair(), select_idle_sibling(), and preempt_sync(). In
+>> particular, document that WF_SYNC does not bypass wake_wide(), does not
+>> make wake_affine()'s target final, and does not require immediate wakee
+>> preemption.
+>>
+>> This documents existing behavior only. It does not establish a new
+>> WF_SYNC placement policy.
+>>
+>> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+>> ---
+>>  Documentation/scheduler/index.rst               |   1 +
+>>  Documentation/scheduler/sched-wake-affinity.rst | 133 ++++++++++++++++++++++++
+>>  2 files changed, 134 insertions(+)
+>>
+>> diff --git a/Documentation/scheduler/index.rst b/Documentation/scheduler/index.rst
+>> index 17ce8d76befc1bb1dc289e9243bdca98c9ccb172..ac95c79617fd2c03564ea4a9dad362091b9d1b86 100644
+>> --- a/Documentation/scheduler/index.rst
+>> +++ b/Documentation/scheduler/index.rst
+>> @@ -14,6 +14,7 @@ Scheduler
+>>      sched-design-CFS
+>>      sched-eevdf
+>>      sched-domains
+>> +    sched-wake-affinity
+>>      sched-capacity
+>>      sched-energy
+>>      schedutil
+>> diff --git a/Documentation/scheduler/sched-wake-affinity.rst b/Documentation/scheduler/sched-wake-affinity.rst
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..6b0dc83da537ad576130ef165a2bb1cf5abd814a
+>> --- /dev/null
+>> +++ b/Documentation/scheduler/sched-wake-affinity.rst
+>> @@ -0,0 +1,133 @@
+>> +.. SPDX-License-Identifier: GPL-2.0
+>> +
+>> +==============================
+>> +WF_SYNC Wakeup Placement Hints
+>> +==============================
+>> +
+>> +WF_SYNC is a wakeup flag supplied by callers that expect the waking task
+>> +to schedule away soon after waking another task. It is a scheduler hint,
+>> +not a CPU-placement request.
+>> +
+>> +The synchronous waitqueue helpers pass WF_SYNC to try_to_wake_up(). The
+>> +wakeup path adds WF_TTWU before invoking the scheduler. WF_SYNC itself
+>> +does not block, yield, or otherwise change the state of the waker.
+>> +
+>> +This document describes the current behavior for the fair scheduler.
+>> +Other scheduler classes may ignore WF_SYNC or apply their own policy.
+>> +
+>> +Wakeup paths
+>> +============
+>> +
+>> +A successful wakeup does not always select a CPU. If the wakee is already
+>> +queued, try_to_wake_up() can complete the wakeup through ttwu_runnable().
+>> +That path retains the wakee's current runqueue, although it can still
+>> +invoke wakeup_preempt().
+>> +
+>> +For a wakee that is not queued, try_to_wake_up() calls
+>> +select_task_rq(). If the wakee has one allowed CPU or migration is
+>> +disabled, select_task_rq() bypasses the scheduler-class CPU-selection
+>> +method and selects an allowed CPU directly.
+>> +
+>> +Fair-class CPU selection
+>> +========================
+>> +
+>> +For a fair-class wakee, select_task_rq_fair() derives its local sync
+>> +state as::
+>> +
+>> +        sync = (wake_flags & WF_SYNC) &&
+>> +               !(current->flags & PF_EXITING);
+>> +
+>> +Thus, WF_SYNC does not influence wake-affine selection when the current
+>> +task is exiting.
+>> +
+>> +For WF_TTWU wakeups, select_task_rq_fair() first calls record_wakee().
+>> +It can then return before wake-affine selection in either of these cases:
+>> +
+>> +* WF_CURRENT_CPU is set and the waking CPU is allowed; or
+>> +* find_energy_efficient_cpu() selects a CPU while the root domain is not
+>> +  overutilized.
+>> +
+>> +Otherwise, the fair scheduler computes::
+>> +
+>> +        want_affine = !wake_wide(p) &&
+>> +                      cpumask_test_cpu(cpu, p->cpus_ptr);
+>> +
+>> +wake_wide() uses the wakee-flip state maintained by record_wakee() to
+>> +identify broad wakeup relationships. WF_SYNC does not override this
+>> +classification.
+>> +
+>> +Wake affinity is considered only when want_affine is true, the domain has
+>> +SD_WAKE_AFFINE set, and the wakee's previous CPU belongs to that domain.
+>> +wake_affine() considers only two CPUs: the waking CPU and the wakee's
+>> +previous CPU.
+>> +
+>> +With WF_SYNC, wake_affine_idle() can prefer the waking CPU when::
+>> +
+>> +        rq->nr_running - cfs_h_nr_delayed(rq) == 1
+>> +
+>> +wake_affine_weight() also adjusts the effective load comparison by
+>> +removing the current task's load from the waking CPU and biasing the
+>> +previous-CPU effective load.
+>> +
+>> +The result of wake_affine() is only a candidate. For WF_TTWU wakeups,
+>> +select_task_rq_fair() passes that candidate to select_idle_sibling().
+>
+> This document reproduces the implementation literally like want_affine,
+> nr_running, helper names. This could quickly go stale with code changes
+> and nothing will tell us then. I think the contract doesn't need the
+> call flow.
+>
+> Thanks,
+> Vineeth
+>
+>> +
+>> +Idle CPU selection
+>> +==================
+>> +
+>> +select_idle_sibling() first tests whether the candidate CPU is idle and
+>> +can run the wakee. If not, it can select:
+>> +
+>> +* the previous CPU when it is cache-affine and idle;
+>> +* a recently used CPU when it is cache-affine and idle;
+>> +* an idle SMT sibling; or
+>> +* another idle CPU in the relevant search domain.
+>> +
+>> +On asymmetric-capacity systems, the search uses sd_asym_cpucapacity when
+>> +available. Otherwise, it uses sd_llc for the candidate CPU.
+>> +
+>> +Consequently, WF_SYNC does not guarantee that the wakee runs on the
+>> +waker CPU, remains on its previous CPU, avoids migration, or shares a
+>> +core with the waker.
+>> +
+>> +Fair-class wakeup preemption
+>> +============================
+>> +
+>> +WF_SYNC can also affect wakeup_preempt_fair(). The normal fair-class
+>> +preemption checks run first. In particular, a non-idle wakee can preempt
+>> +an idle entity, and PREEMPT_SHORT can select the wakee before the
+>> +WF_SYNC-specific path is reached.
+>> +
+>> +If the wakee becomes the next buddy after those checks, preempt_sync()
+>> +uses WF_SYNC to decide whether to request rescheduling. The wakee must
+>> +be earlier than the current entity, and the current entity must have run
+>> +for at least the applicable threshold. The threshold is
+>> +sysctl_sched_migration_cost, divided by four when WF_RQ_SELECTED is set.
+>> +
+>> +If those conditions are not met, preempt_sync() returns
+>> +PREEMPT_WAKEUP_NONE. Consequently, WF_SYNC neither guarantees nor
+>> +prevents immediate wakee preemption. On UP, it can avoid an unnecessary
+>> +preemption when the waker is expected to schedule away.
+>> +
+>> +Semantics and policy
+>> +====================
+>> +
+>> +WF_SYNC is a non-binding hint. It does not guarantee that the wakee:
+>> +
+>> +* runs on the waker CPU;
+>> +* remains on its previous CPU;
+>> +* avoids migration;
+>> +* shares a core with the waker; or
+>> +* immediately preempts the current task.
+>> +
+>> +The scheduler does not verify that the waker subsequently blocks.
+>> +Callers may therefore use WF_SYNC where the waker continues to execute,
+>> +or where several wakeups are issued before it schedules away.
+>> +
+>> +The current policy leaves the locality, parallelism, topology, load, and
+>> +capacity tradeoffs to the scheduler. It does not require the wakee to
+>> +remain on the waker CPU when that CPU has no other runnable task.
+>> +
+>> +Any future policy that strengthens WF_SYNC placement semantics must
+>> +consider the different call sites, workload patterns, and hardware
+>> +topologies that use the flag.
+>>
+>
