@@ -1,63 +1,71 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010053.outbound.protection.outlook.com [40.93.198.53])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013019.outbound.protection.outlook.com [52.101.83.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E793B42C0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCDC3B42E6;
+	Thu, 17 Sep 2026 07:08:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.19
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789628888; cv=fail; b=le083slVsi5pxlEMMqi8eUnumNLY6IBIhFotKDgtWnX9MYdLc2V9qOJZtNXFpF77MPhkQTQE0ts3HPp3FLrF6XhF/nmSyHgGJ9bsc4wdgJM9sW0EG2cC3JZO/kPDW0Rin5xnkVChUu+uwdRd8WcFMBpETpZ/r7YOf3dzUmn/98c=
+	t=1789628896; cv=fail; b=GMtgORiw1WB+QjLi1dsxreWloJORzIVhBArr/LKZEyJ7qsrWVX9nrbmqRbovzw4UaR4b4xInn7GpqzHvaMjQXStUTroR6x7OXT+S5+LIRsjeT3xDL7OjYDQD7TvejtGo/ujKBMoEWbnG9dVczYDDk4/ZOeNNvHHnRrM2vsOOkV4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789628888; c=relaxed/simple;
-	bh=CuoLwoLTpQOtma0ugsJmQIsDYBxG2QfKiL9VDnHxh3Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=sbuIi5zmcn/GoKugWkDzO4xni/J+1W2B18bpO8QyngZxXXabfGLEAbaobrzAICT40K/dOmK5ZHjilmv2WWWePAcdqY04EEL26MtV3Gch44VkAKdHtoIQB4tD4oOd9hI9mbPWekhAz0OMkrcBF7t28gCegvKgakHCZloImeZ7ROw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=O7FqqITX; arc=fail smtp.client-ip=40.93.198.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1789628896; c=relaxed/simple;
+	bh=OdtstjUTKym58CQvg6zCrPbChcbAseotgwPu39r/z1I=;
+	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=ZR6QAvKGtA9Bti0boicCZUs4kqDxlai04AoR7lyLHumjnxFA27f+92UT95f9fQU9Z45Eumi5Wd5fEpWDBvD277LW+Iyd8wwFm3u5nCn9E6qN/GtXvGVBrtfxYfcm580+MZjKZTRH73pxdRbUUC8156ysOc6FzjAtFYjWFRmy9Zs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Wx6m6EL6; arc=fail smtp.client-ip=52.101.83.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="O7FqqITX"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Wx6m6EL6"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jlC5kZI3YQ3z0Fhvk2exZxEAxj2Fh3RINDpij2r5Q5k3ymlPdGdkzY0+ndp3LdJw38+0to0cln+Qgbr0jPLv7woZOmMqBZM3VOb8uRbo6CLNm4ntoJimgypGY6Iqhz9O+WCWShLYHUoWjICOK4eT37+M5XbVu+9GNH0cNnnOanpSSr1TYadaAvFaEzCDIDfw2RTN4fVUeXDFbd+/f6bxwH60zm/WCMqzq+Cm/iRh3LUoAc2X4SCupBF2HnowRMW+HZBvGJQPynzszyHxHVLSoE110LTk0I9gKBMHBw8xAolGCw9IdPL4hcvSlIgBG2MxFihpW4eUJGqDqa2QkEbUnA==
+ b=oIehevAkIYvlLuJmWSTJ6zbkHtLiE99arcmYwpBc7WsaBM8cOjAyEB7Degy5NJKW1xywHA13wJFImlhsrz2Ng/D2vg+nMNXulvvepY6ijchLhQ4vYAJCHm4cUzOhpc7E1E8pjkPE/mnIdN/oiuhGnZPky9Izz885R18L8igRu4EciXH7kNgUvZTeGZsJWcP9eRN3oIbZ3ksQ+NO88uKaG5LgTY90FuLYcsmBV4I9DAeh/PJqocKE+o+Nom0mtZVR+OaBGAWAaUTfHNuPoHIm491xMcim71hjbPMv2uX0eyqitxDk33XSOyJLFVFBuxiiYMXiFz915bDKRIOahCSFJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cBOGkVeyJPInxBnbxblSXI8MwWaO2vLdD6cq+Yp97tY=;
- b=SgMADEf8kwOegMpdJ08rNdPIFondG3mJ5Jw/o+qhz5JPzBBlhFbW8lTfMNFbbUlkNQ5FmxB9o4g6vDUjgKvCF3QSpczACqIhai+0f9EJ6JKI8iFi7zsQ3q2GP//ug0xe4eOKYY6bwH9A6StUDBA/ZimIZrdO+d3xrl0+geRiR5Y9LSaeS3baXJKNmsMR7mWH6p0Ca/NV4V5bmkqFYecG4fx75lT59lfxR0punbf+U74aNa4RA2XpnHHiCDlTDYOLDxFr83Z/YvjM4DsM2JR/HMbh4cvQI9IeiLiw3Id1jV2MP7tLD6tWs8ocSGIVjOpmjKMNZsXEqC2z1df9Bv8btg==
+ bh=hRpOXH60BHyzsWr977I5r448Wmo4G3kZBAbQ0HK4E+M=;
+ b=kZ5dtPZU3trjrR6YZndJAB0igiITgAz1n0Emnki2FwYBJUrtdo1C3JNF/VsF81lTjO6IO1oGseDsgdQk4mXorEoPQbnvmSnRG2XvvwX1T4iuDxa9HlBVm/TsC+Lr6AExktn91bnHQ5aM+o3ADR1m9P8+/e4X5CIOQJfDid3vFpDl7ayxIWnI9VKi4577gqOkt1jSWiUlU3lEBhES1S8VB4iEUmiv+dPcB+D7n29txa6KlP3MMzF0DAfgcDSX058AzYfJmqHs+Ffvmz5zot9FOEdQXkZbFyIkSuYHhAx6kuYEyD5X3ivKsNo2ROHf6Tbc6g5zV7ItnB/POwgyteMAcw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cBOGkVeyJPInxBnbxblSXI8MwWaO2vLdD6cq+Yp97tY=;
- b=O7FqqITX2vPaRgkaCX/mLpCmu5R+GbB4LySe1k/aUnXRwfd7FbxWrRfgZOUsFBkI4QmUbxTjN4VinXum5N7LQKg1UnZY4GqaS4GpzW/vtWzbhhKjoA3k41C/7efPE7PxDtWBzxIw2pxCjaqHYA95NcqH8t2zEqZQD5p2izFmM+jr9xHmd9qnAFwyi7L2kGtj5vefIPIcn3gJKqgOEVjwpTjy5d6IedWZdHshNVGappS7aVMeA0ULr/Uf+FW4wRA+JGCU5rsjJxCXthWFwCd3RuvCIAxIvcbHvl+0CYFYHgTD8LWkAv9xyInoyeMT5c8/JHs/V5nZC7wmk2ST2oTLUA==
+ bh=hRpOXH60BHyzsWr977I5r448Wmo4G3kZBAbQ0HK4E+M=;
+ b=Wx6m6EL61xGdAcKOCOO8v3shm3yiIHxhjl4EPJA6SEKWKz1yULYUBRG5KmwLpsPrvmHKE1CYO2hqDx+P/fxYd1sM82YoKrvZHift1OcETuL6gq2QEmkSRDXH7g+DqPjVZkzWrd3KMl2EdWkqfWVgX12neDF5MKssgkYTSN6q9EnnvVixMMtjw0zU3lYajTaR7irnaLp26j69LlUUvFPiY+cFNQjYSJqXCGp7eNTG/VsBnTxaI7PopR9/xkJYTGNXt+v4+kcc9PkUcw51hzGl0PgdB+NN90wrCry2sPObppM9Ii97PUejmNHYACmWiQ66064wDaaNgwhO+b4Vey5Fvg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by IA0PR12MB8647.namprd12.prod.outlook.com (2603:10b6:208:480::8) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DB7PR04MB4698.eurprd04.prod.outlook.com (2603:10a6:10:1c::21)
+ by BR2PR04MB562213.eurprd04.prod.outlook.com (2603:10a6:2c8:5::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 17 Sep
- 2026 07:08:02 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0428.008; Thu, 17 Sep 2026
- 07:08:02 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: Emil Tsalapatis <etsal@meta.com>,
-	Cheng-Yang Chou <yphbchou0911@gmail.com>,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCHSET v6 sched_ext/for-7.4] sched_ext: Add lazy preemption support
-Date: Thu, 17 Sep 2026 09:02:51 +0200
-Message-ID: <20260917070751.3617935-1-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MI0P293CA0003.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:290:44::9) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Thu, 17 Sep
+ 2026 07:08:11 +0000
+Received: from DB7PR04MB4698.eurprd04.prod.outlook.com
+ ([fe80::c571:bdf2:afe7:c03c]) by DB7PR04MB4698.eurprd04.prod.outlook.com
+ ([fe80::c571:bdf2:afe7:c03c%4]) with mapi id 15.21.0428.009; Thu, 17 Sep 2026
+ 07:08:11 +0000
+From: Ming Qian <ming.qian@oss.nxp.com>
+Date: Thu, 17 Sep 2026 16:07:54 +0900
+Subject: [PATCH v2] pmdomain: imx8m-blk-ctrl: Serialize power on/off across
+ sibling domains
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-imx8mp-blk-ctrl-v2-1-81d29e907a5d@oss.nxp.com>
+X-B4-Tracking: v=1; b=H4sIAMmRq2oC/2WNQQ6CMBBFr0Jm7RBasEVW3sOwsHWQUaCkRYIh3
+ F3AuHL5kvffnyGQZwpQRDN4Gjmw61aQhwhsfe3uhHxbGWQiVXISArmd8rZH0zzRDr5Bm6lKKp2
+ niU5hXfWeKp724qX8cniZB9lhy2xGzWFw/r1fjmLzfvXjX30UKNCkJiNFmpRWZxdC3E19bF0L5
+ bIsHwbkLtPCAAAA
+X-Change-ID: 20260911-imx8mp-blk-ctrl-c46f26783073
+To: Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
+ Peng Fan <peng.fan@nxp.com>, Lucas Stach <l.stach@pengutronix.de>
+Cc: linux-pm@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Zhou Peng <eagle.zhou@nxp.com>, Xiahong Bao <xiahong.bao@nxp.com>, 
+ Ming Zhou <ming.zhou@nxp.com>, Ming Qian <ming.qian@oss.nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: MA0PR01CA0032.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:b8::19) To DB7PR04MB4698.eurprd04.prod.outlook.com
+ (2603:10a6:10:1c::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,187 +73,230 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|IA0PR12MB8647:EE_
-X-MS-Office365-Filtering-Correlation-Id: a22d8a96-2274-4d70-dfe4-08df148a69cd
+X-MS-TrafficTypeDiagnostic: DB7PR04MB4698:EE_|BR2PR04MB562213:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e277066-93e7-45b0-f44d-08df148a6ef4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|6133799003|18002099003|11063799006|56012099006|10067099003|3023799007;
+	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|7416014|376014|366016|6133799003|10067099003|11063799006|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	a/5XjxayT6X/HRPrrTyD7J2qNURWmW7oQKCUVIkH34RMeOO6K3fqVY43afpFlfpEBOEBl/94+GaG9RH8+bFR9zx0L7KdwrM4Ev/5xXDEoTriA3EzDPxpKaNtpLSmCVLpxdDFX6LfpweysDrxP9DMlo/XLMaCq3dWOfVM0lfgNnEYN8EypuiBUndOh0COF4m6HPbZbjiNWRr5pjsEMvvyBrLQizW1Kosu4IiUA5bz7JE5x6T5qG1ikgbOZrArUGw/7kq3JOx8dosF/71aO1Matm/K+L0zmqWAGaZFe1q6OX3kmIVDCq7Z+com8g1hJvHUGuethNlamVu8qgxgPvFAZRqLSw/4DKAbzqpDswM5gEZcPTSkkAgGWFyejRdODvKsR4azWlIW3TMa7gVzJayl34UG41ote7SubYRrcVs60Q8Nv83kLrXbptO5ipEJvHOO9iBgdwg7zACl8x4eO45qzKzCEtpw+5FIHfjSBPkyxSHTQ93VMHovHW3/Ns1hyWWBkNBV1VIYf4eySbQDR9tammioQYl9fE+UrraLDC1zv042VNsGDIaMxM0J/mEbdrUJ5IWgQWIH+GleG/tcjsNsNvYnKGG6IZ7O+pgFLDiw+KnVR2WpfHJcAxk6ub4UTqXV5ZDt3pbl6Ys0717TaQwBaRKzOnMv8epPkOgTiRrh1vU=
+	smYSV1O4RN8IRKA3rMYHDRVaZlODiw+MJuWCaKDt0hL7AO8F+lTUj34tAY5nS2EoNrS7VGMfI0J5AU5OnrRkCRtcjvTP7ShjWjECfKk0CGuIq1oQ1jU+J8SC9UHLU+fZcARuJt4vF3NzM8Y4lamnO9uOpIW2jYYH4CZbYKYO2tw8ZbtfWQec1TlN2JyTsuUzGVLFql2SfYc8bdwlTF1ENtMK/0Bqvn9jW/Z4wDm6hph7yPGVpKQdmGxI4JbMzn+uuhuIFsURbI/qjNVLOQJXytEA/0BG64RSeNPCZo7Pt+hFCHzcq8QUcZJPvGCCNBB+srOgxtwwQqdX3z/rQgLaNaxm01pn8edqNESN+hOuC20JP//8i08wdEcqrwqdYEnBK++mAvJj5nnb0epZ1WI+dCIXf8QDIlAgeWEfVr0EODgJPV1hB+kdMbttwm10j1PTRAAfWiBihI5CTSsFjdTKV2WzrgyoHoCLuEOFwx8yQer7KgTzcHsreuFs1d7dUf/7eL/suxmiutJ0aPqOIMKUnIjV/vI+YFicp7aOEay59h8P/UeIxwICLvWMMnNokisNe4v/go/rlomAb/wyvToN6YB35FvAxGI57oFakl9IpTbD8tcQaNstPtJp6u8iEr23
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(6133799003)(18002099003)(11063799006)(56012099006)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR04MB4698.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(7416014)(376014)(366016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kGkm8EjxocQDjDJwan3vzQHJ5B8ISlL5f/adLAT9ylmEDpm+d6E+jph/Vza4?=
- =?us-ascii?Q?KPdCyVQl54gC+Kt207YCDuY9xK34dBTB1AmdgEpH4KpUzzoZaaMSkaj7Sz95?=
- =?us-ascii?Q?SgBoKXQ2LRYjLg3xksYWLre7gf7Acovjzvst+cshSeIAseZ5rIEyiJzWwvha?=
- =?us-ascii?Q?jBhCCgs71JdmZgyvrbjdpWUDNfMIqGdZ1rUcyy1rsNTyKCv5KNgj3zHY0dTT?=
- =?us-ascii?Q?Un9/YJjpcsQYVskhcewmoisxgmL7aSzxh4g1noXps2+VVkhfd04bXRZN7jYO?=
- =?us-ascii?Q?YMPt1b2Ih/3zhcr4tMs6Fj9dzGlkjlgEmw8AlJOSRIoBFaWiOa7CqfFWifCD?=
- =?us-ascii?Q?1vQD1jK9H4VCGZH/kYBRAdIQn3y9n70uAVepAnYksHfKhlN1LJ2yiL2CIaCa?=
- =?us-ascii?Q?giE/3prwJ7Xr/8Sd7CsUgUy6MsWXu941YW2oTywo5CkoqqpRGpjA3/lE6OO6?=
- =?us-ascii?Q?HjB2505wd1NsbxBqQagL1pYNRWNrG0zGx2uv52sKyakP3N8Y057yxQ32m/C4?=
- =?us-ascii?Q?RQ1Z8dfs0Ju/UDmF3Th2acZZ2Wdxf6ItXnasqBKFZSDM3Z39A8cuYPK87I84?=
- =?us-ascii?Q?DTO3qdtFxem74PSTZbwRa4Y5Eej6cDvFoNQHEWcXxxJRmLfhHmk2PFUFZQSY?=
- =?us-ascii?Q?naOE2Bzbrx+cmGBMaEjRj5LRCWvBjs77RSLdqyRXyn/Qe/OGRC2xNECv/KTu?=
- =?us-ascii?Q?uzWAfbdiEw22aNQdtqy2DAHKHVlznn9w246k0lh9OEoNh7jr+X1r8z4ByfmZ?=
- =?us-ascii?Q?zDO2BBeQo9pjpmdrPSiz9+36pZam6LFHYa8Wfr94edAcsYxxKbWVfzLK3k9f?=
- =?us-ascii?Q?jsXAKOBBudHKFLxxx7U+1XfH64EDEewmtL70HgNVBeJGSitq17bkXJ4jtZH3?=
- =?us-ascii?Q?qMG73O7T02xxdbfSm+KAocad7ono5opDfr9ScGnnqQ69VpfCkBEbEsePTZy7?=
- =?us-ascii?Q?oaKDkbUJiIZB8mvBknLydmy57wknMXuQfAwFAGsY5acjf7u0sOHgpmlHxE4a?=
- =?us-ascii?Q?wKIiWiUXm1ZgvffwOXQm2yeqUvn/054lZqvcHLXkFvKdff4Yk/8gCJURxCqJ?=
- =?us-ascii?Q?ndZzNZChHdFeFbP1ZD6P1+5ZC5DHOsF2mGjFDA8ruQPO0xJWxjga4E4DNhpa?=
- =?us-ascii?Q?NCWQadJKJq7tTEUZLRYVhH72k6ySSwR85whV7sfaLPywuUDtEhZhD/udW3j3?=
- =?us-ascii?Q?qs983j05e2IK9Z/YjMaegqgP+/By8Zx4+8TT6WQQtU5ECxG28BGpCWBmQu6F?=
- =?us-ascii?Q?r2Os/GDdYiunqhETYlWTB/T38cN5rgrAeJrycPHPj1aRDcmiUIl/gjSsGXbR?=
- =?us-ascii?Q?wItUReYVYk83QFWb4XxTNsGWRmISqdCE7gWqkgTOG5fhM5iv7qJOcRnIzOkS?=
- =?us-ascii?Q?xT8Vn2gHkZ1exO8cIQuUnP4kQTSaEV9rUuH4WtWoglnTcFeI9NmGsycqSoVg?=
- =?us-ascii?Q?2Q3ODHqE/Kj7ehJVX+/f5RsC5rkqCtV20os/ySYRT9VxJtgsLIVuG7ezI1/B?=
- =?us-ascii?Q?PHgv85lE1Er4SXusii3mvgM4EguaiQ6qqhD+CI5U0X9erqaiHvZYYqXU3yLm?=
- =?us-ascii?Q?tOk2mcy0VPVG4NnEYNrgr/umvdGF7RrXmAj4ZaIIpJdInihuA1cl346sa++0?=
- =?us-ascii?Q?FmKe6TIabXk93a8fjIwIJcjnX/VYrqVcYrAH+Wkd5UICXAxV7TEcJBHIbaS1?=
- =?us-ascii?Q?Adp7k3BgrbWCnKNMt6KBuNIzTI5L/oQ7cK73yF8kw21d15ZyYtBYBZr63SAX?=
- =?us-ascii?Q?t8hsxn1GiQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a22d8a96-2274-4d70-dfe4-08df148a69cd
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+	=?utf-8?B?TG1UdG1Bc1N5eHBkb1ZWTEpPd25WTm9OQWYwMDNEbTBTcVdiSWYwUDdWSW1G?=
+ =?utf-8?B?dTJMMVpvVWxPR3YvU3Q1ZTBNRFVWOGZMOWdMbEZ6b2Rza2ZzZjR4R1h2MWs5?=
+ =?utf-8?B?bUhQWVVnekc0U2tDdFF1UEJtK3JzbXBtT3AwVE1qemVNMm5NVlljbmltdjRJ?=
+ =?utf-8?B?VDVRK2NSbEVndmE1ZVo0MmdKQWI3bTJjNitaOG14bnhua0tnQXBqSGh0RC95?=
+ =?utf-8?B?eWV5NjhKWWVxR0ZNdWMvSGY2eDNQSWFMem1HVlFzejBzOVU3djl6NUhhZVRn?=
+ =?utf-8?B?S05FSkhub3F4cHlCZGdTU0RoU1RwSkVTRFBCK1krQWRpS0tpTkFOaWFJZVpL?=
+ =?utf-8?B?SElLQzRNaVozQ1dtTXRpTmFESVk1V0h3SjFXQ0FFY1pGZ3JGSWNSNm84VTMw?=
+ =?utf-8?B?WXVmRjU1RjlIaE9hN0ZzUGJtZldJNndNdEVFQ2crY1V1Z3h3VGNWWHhFYmhL?=
+ =?utf-8?B?a1JibURLSFZkMnU4eThYNUMySU9keWtTSzBwb2VTbVdnamlBMmp6LzRaRVpR?=
+ =?utf-8?B?Z0wyQXRrRTRocFdieEhnT3BBdG95dFFpbk9sOHdaKzZTODIwUzFJMDR0L1lC?=
+ =?utf-8?B?ZmZBQmJISEVneE9TYVhyL29ZblNKM0hWOGg2Sko0M2g3aTJnWVZyRTR5UlR1?=
+ =?utf-8?B?ZGlPWXFMTjFLY3JXVkRtQ0lkVm5ySVlOZlNKNW1sRCt5VHRabHMwUi9sc3J3?=
+ =?utf-8?B?cVNxd1BGZGdKM2xNYkJaUGQxUjB6Z0p3TDMrYzdGT25kRVNLTzBpNzlJV2pW?=
+ =?utf-8?B?aGVhc1ROWW5sa3E4c2dOdG9WNDZYS2tyOHJGU3pCTE9NakIwR1dmSi8rOVZT?=
+ =?utf-8?B?WjNBbDM2YTZRMXRkemJXY2NKYm0xU2YxbEtQUkk0aEdrUEkrQm41ZnNtY29w?=
+ =?utf-8?B?eEFsa25XUjV5ZzBLaEE0ZklsT3FVVFlvVGtCRmxFY0ZqVlp6TGlvWlVqbk1v?=
+ =?utf-8?B?dzJUZWxRMkU4b2FVVG44YlY0UHBWcE1hR05CZGx6bjdackwycnZDTWxIQzMw?=
+ =?utf-8?B?N1J1Q0Y3aS8yUXBYengrdzBqM2RIbVMxUUpVakNTSVI1Z0pmdmxJQlpjTDl6?=
+ =?utf-8?B?RnJONlg5d1Y5Yno4YVVSNmNTazhCSSsxWkZZOEpxb3Rac1RvUi9SQmZiV0Zz?=
+ =?utf-8?B?L0pZeTNwanRPV2I4OVlkb1B0VE9Yd3pMcDlwOXQzSmZSdmYzTlhwS1hqa2NQ?=
+ =?utf-8?B?RTZqMHdmNzhhdTJhcGRzR2llTlhSQzBxZVFXQmg1bWZObHBzdHk2Q1QxMnVC?=
+ =?utf-8?B?Y05meVp6VENSb2d6eVcwYWRuem9FdTF5THpCZXhmN1Y0emFjVWNTeitTN2cv?=
+ =?utf-8?B?QU9BQndtYVBnNkJ2RWNOS2ZyMU56MUhTLzQrSFZORS9vbFpuUG1WZHNWYmxS?=
+ =?utf-8?B?MmxqTU0vTDhDeG1oZ0w0UDFPYXhoNm15cURMWFFpZ1NTY1FTdElGdG0zMitY?=
+ =?utf-8?B?MmttOUNpdE9FOWlQSVJJVU5XYXNQSUFJUHlQa1hsU2QrTG1LdnFnbFdkOXpk?=
+ =?utf-8?B?NXBNUWVpL2tqQlVXKy9PQ01hQ2tZTjZyQ2x6M2t3K2pBMGN3TTl4SVNDSzRX?=
+ =?utf-8?B?ckk1MUY4T0UzNWJ2VllOS0VyeDEvMDFPRHNOaG9CUzRQRWluN3k2Ry9HekJl?=
+ =?utf-8?B?YTBoOEp1RjB4ZDRZVzBybE5UK1UzZXZ4Z0M5dis1VE1FcG80R0IvY3VtZVF4?=
+ =?utf-8?B?cTRnUWt6WlJQZXIrYVZMc1RZcFc3Znc2bm1sL0UxREszSXRaakZVMHpoTjRs?=
+ =?utf-8?B?QXE1VEFWSzIxa29hZ2laSGJENFR6TzBWYnVBMENJcnV2U3FvdlB5MXNyMEln?=
+ =?utf-8?B?em8wMlJSNHZGSkE1SEVNck9vTHhhbG10YkwyS1laemhxdGN6MUI5clI3bXFI?=
+ =?utf-8?B?WGRTdmlneFp5RHpIa3ZTeXlWZmo3ajhNLzlnVDlNak9zZjZURzVldUxvOGtG?=
+ =?utf-8?B?UC9WYVg3ajB2VDFnRmRpSUdldndFdXBTSG9xQzI5eU5WUzRMR3p3R1lSbzly?=
+ =?utf-8?B?enJVempVTFlrVkVKNk9CUGR3RCtFdTNKalN5SytSSEwzS0ozQkZBa1JZM2lK?=
+ =?utf-8?B?WmUwZE1xS2xQNTl1bzRGcUg2QWlyTDdaaHdmRXp2eXV1QTYrTjNJVXRRVEZx?=
+ =?utf-8?B?ZWFlZGVqVHFlRXZYNUhkMFFoeFlQR3p1VTIxc3FkSytoS09TelNmeVJKRFFT?=
+ =?utf-8?B?b2pIci9rQ1J1aGNIZUk1U3VFbjZySUt5V3hxYkxROG4rczFXV2lTbnNXbGtP?=
+ =?utf-8?B?TGVBL0NtRWJXeHlVdVFnQU1oRS9aam9lT2RmSXJ3aTNBckpFdDFpVG9kOVRB?=
+ =?utf-8?B?bFdHaHpVRlZZTmM4U1FQM3R0OVlGOUtzRllQRmFSTDF1NHo5SHJsMUswVm5a?=
+ =?utf-8?Q?dXSMnxWzRuanfINwMCb8C9/M60lSUiymwyhah?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e277066-93e7-45b0-f44d-08df148a6ef4
+X-MS-Exchange-CrossTenant-AuthSource: DB7PR04MB4698.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 07:08:02.4859
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 07:08:11.2179
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: L/G9Hvk0ThmlGFCVXU4yOc2GvpNcPbmLF7tlEe9lqFYwy2KRRvdh/kQ1U6Qla6zjS95jOwYPrLagZGIlk1mKNg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8647
+X-MS-Exchange-CrossTenant-UserPrincipalName: e/Qiwhvs0DdxUq/YyYkFB+L1qYtztmWXPwxa5vuxxASNqCr02bxnxWkf4k4gi4NajvW8CFaJX/mC49xvkNdaBPRDPMjKazUVqp5QuKH0SyB1yIDkZ3mwngw8eTSVUHJb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR2PR04MB562213
 
-The fair scheduling class can defer a scheduling boundary through lazy
-rescheduling, but sched_ext currently exposes only immediate preemption to BPF
-schedulers.
+On i.MX8MP the VPU blk-ctrl exposes G1, G2 and VC8000E as three separate
+genpds, each serialized only by its own genpd lock, so their power_on and
+power_off callbacks can run concurrently on SMP.
 
-This series adds lazy variants of the enqueue and kick preemption flags. They
-expire the running sched_ext task's slice while allowing the scheduling boundary
-to be deferred until a return to user space or the next scheduler tick.
+The sequences are not independent: they share the VPUMIX bus domain, the
+VPU_NOC and the ADB400 handshake. On power up the GPC cannot ack-verify
+the ADB400 handshake - the ack only completes once blk-ctrl sets the bus
+clk-en bit - so it just waits a fixed delay instead of polling hskack. A
+sibling transition landing inside another domain's reset window disturbs
+that shared clock and handshake timing, the victim's reset does not take
+effect, and its block registers read back all zeros: the decoder times
+out or the encoder fails its format check.
 
-SCX_OPS_LAZY_SLICE_EXPIRY selects lazy slice expiry by default. Schedulers can
-override that default in either direction for individual tasks through
-scx_bpf_task_set_slice_expiry(). The helper preserves sub-scheduler task
-ownership boundaries. Bypass continues to force immediate rescheduling.
+Serialize the blk-ctrl reset sequence with a per-blk-ctrl mutex; the
+driver deliberately avoids a genpd hierarchy, so the genpd core gives no
+cross-sibling serialization.
 
-Lazy enqueue and kick requests also restore the scheduler tick when targeting an
-infinite-slice task on a NO_HZ_FULL CPU. The reschedule request is set first so
-that the dependency update's IPI can serve it on return to user space, while the
-restored tick guarantees eventual promotion otherwise.
+Fixes: a1a5f15f7f6c ("soc: imx: imx8m-blk-ctrl: add i.MX8MP VPU blk ctrl")
+Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+---
+Problem:
+On i.MX8MP, running the VC8000E encoder and the G1/G2 decoders
+concurrently rarely and non-deterministically leaves a VPU stuck in
+reset: its block registers read back all zeros. A decoder then times out
+or the encoder fails its format check.
 
-The selftests cover immediate and lazy preemption, coalescing and precedence
-between kick modes, enqueue preemption, per-task slice-expiry overrides, invalid
-flags, and lazy preemption of infinite-slice tasks on NO_HZ_FULL CPUs.  The
-NO_HZ_FULL cases verify that the tick has stopped before issuing the lazy
-request.
+Root cause:
+The VPU blk-ctrl exposes G1, G2 and VC8000E as three separate genpds,
+serialized only by the per-genpd lock, so on SMP their power_on/power_off
+callbacks can run concurrently. The sequences share the VPUMIX bus
+domain, the VPU_NOC and the ADB400 handshake. On power up the GPC does
+not ack-verify the ADB400 handshake - the ack only completes once
+blk-ctrl sets the bus clk-en bit - so it just waits a fixed delay. A
+sibling transition landing inside another domain's reset window disturbs
+that shared clock and handshake timing, the victim's reset fails to take
+effect, and its block is left in reset with registers reading zero.
 
-Tested in separate virtme-ng runs, covering preempt=lazy and nohz_full:
+Fix:
+Serialize the blk-ctrl reset sequence with a per-blk-ctrl mutex, so a
+sibling domain cannot run its sequence while another is inside its reset
+window. The driver deliberately avoids a genpd hierarchy, so the genpd
+core provides no cross-sibling serialization.
 
- $ vng -a "preempt=lazy" -- \
-     tools/testing/selftests/sched_ext/runner -t kick
-
-  kick:
-    PASSED:  6
-    SKIPPED: 0
-    FAILED:  0
-
- $ vng --cpus 4 -a "nohz_full=1-3" -- \
-     tools/testing/selftests/sched_ext/runner -t nohz_tick
-
-  nohz_tick:
-    CPU 1 received 6 finite-slice ticks
-    PASSED:  1
-    SKIPPED: 0
-    FAILED:  0
-
-The mode-sensitive kick_lazy and kick_tick cases also passed after switching
-/sys/kernel/debug/sched/preempt between lazy and full.
-
-Changes in v6:
- - Pack slice_expires_lazy next to scx.disallow instead of growing task_struct
-   by eight bytes (Tejun Heo).
- - Correct the SCX_OPS_LAZY_SLICE_EXPIRY documentation for PREEMPT_DYNAMIC and
-   bypass (Tejun Heo).
- - Set the lazy reschedule request before restoring the tick dependency, so the
-   dependency update's IPI can serve it on return to user space (Tejun Heo).
- - Explain the pinned rq locking and the newly rejected unknown kick flags in
-   the patch description (Tejun Heo).
- - Regenerate the enum headers in definition order (Tejun Heo).
- - kselftest: use SCX_OPS_ENQ_LAST to drive kick-test victims through
-   ops.stopping() (Tejun Heo).
- - kselftest: poll for the SCX_KICK_WAIT callback after ops.stopping()
-   (Tejun Heo).
- - kselftest: skip trace-based tests when their BTF targets are unavailable
-   (Tejun Heo).
- - kselftest: verify that the NO_HZ_FULL tick has stopped before testing lazy
-   enqueue and kick requests (Tejun Heo).
- - Link to v5: https://lore.kernel.org/r/20260915194611.2674127-1-arighi@nvidia.com
-
-Changes in v5:
- - kselftest: detect static lazy preemption when CONFIG_PREEMPT_DYNAMIC is
-   disabled and the sched/preempt debugfs file is unavailable (Cheng-Yang Chou).
- - Link to v4: https://lore.kernel.org/r/20260915090127.2321020-1-arighi@nvidia.com
-
-Changes in v4:
- - Preserve SCX_KICK_WAIT synchronization when it is combined with
-   SCX_KICK_PREEMPT_LAZY (Sashiko).
- - Restore the scheduler tick dependency when ops.tick() lazily expires an
-   infinite slice, ensuring the request is promoted by a later tick (Sashiko).
- - kselftest: verify that the deferred SCX_KICK_WAIT callback runs (Sashiko).
- - kselftest: keep the kick test controller off the victim CPU and skip cleanly
-   when a second allowed CPU is unavailable (Sashiko).
- - kselftest: select the nohz_tick controller from allowed housekeeping CPUs
-   outside the NOHZ_FULL mask and skip when the required topology is
-   unavailable.
- - Link to v3: https://lore.kernel.org/r/20260914144620.2032614-1-arighi@nvidia.com
-
-Changes in v3:
- - Avoid redundant rq clock updates when restoring the tick dependency and use
-   the pinned rq lock helpers for lazy kick delivery (Sashiko).
- - Set PR_SET_PDEATHSIG for the indefinitely spinning kick test workers so they
-   don't survive unexpected test-runner exit (Sashiko).
- - Wait for a delta in nr_lazy_victim_running instead of an absolute count that
-   may include reschedules from the previous phase (Sashiko).
- - Increase the nohz_tick scheduler watchdog and phase timeouts to tolerate
-   scheduling delays in oversubscribed test VMs.
- - Link to v2: https://lore.kernel.org/r/20260914084955.1798562-1-arighi@nvidia.com
-
+Test:
+i.MX8MP, Android 6.18 kernel, concurrent H.264 decode and encode. Without
+this patch the failure reproduces within one to two hours. With it the
+same test ran overnight, over 14 hours, without a single occurrence.
+---
 Changes in v2:
- - Make lazy slice expiry a per-task property (Tejun Heo).
- - Add scx_bpf_task_set_slice_expiry() for per-task overrides from any sched_ext
-   callback (preserving sub-scheduler task ownership).
- - Restore the scheduler tick dependency for lazy enqueue and kick preemption of
-   infinite-slice tasks on NO_HZ_FULL CPUs (Tejun Heo).
- - Accumulate immediate and lazy kick requests independently and resolve their
-   precedence in kick_one_cpu() (Tejun Heo).
- - Allow PREEMPT|PREEMPT_LAZY and WAIT|PREEMPT_LAZY, immediate preemption, WAIT
-   and plain kicks take precedence over lazy preemption (Tejun Heo).
- - Clear both preemption masks together when processing or skipping a preemption
-   request (Tejun Heo).
- - Extend the kselftests with combined and ordered kick requests, per-task
-   expiry overrides and NO_HZ_FULL coverage.
- - Link to v1: https://lore.kernel.org/r/20260911195800.974364-1-arighi@nvidia.com
+- Replace guard(mutex) with explicit mutex_lock()/mutex_unlock():
+  power_on() already unwinds errors with goto, and cleanup.h asks not to
+  mix goto and scope-based cleanup in one function (sashiko-bot).
+- Shorten the commit message to the essentials and move the detailed
+  hardware analysis into this cover letter (Frank Li).
+- Link to v1: https://patch.msgid.link/20260915-imx8mp-blk-ctrl-v1-1-b3b4e6e7e676@oss.nxp.com
 
-Andrea Righi (2):
-  sched_ext: Add lazy preemption support
-  selftests/sched_ext: Add lazy preemption tests
+To: Ulf Hansson <ulfh@kernel.org>
+To: Frank Li <Frank.Li@nxp.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+To: Pengutronix Kernel Team <kernel@pengutronix.de>
+To: Fabio Estevam <festevam@gmail.com>
+To: Shawn Guo <shawnguo@kernel.org>
+To: Peng Fan <peng.fan@nxp.com>
+Cc: linux-pm@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/pmdomain/imx/imx8m-blk-ctrl.c | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
- include/linux/sched/ext.h                         |   8 +
- kernel/sched/ext/ext.c                            | 152 ++++-
- kernel/sched/ext/internal.h                       |  40 +-
- kernel/sched/ext/sub.c                            |  15 +-
- tools/sched_ext/include/scx/compat.bpf.h          |  17 +
- tools/sched_ext/include/scx/enum_defs.autogen.h   |   3 +
- tools/sched_ext/include/scx/enums.autogen.bpf.h   |   6 +
- tools/sched_ext/include/scx/enums.autogen.h       |   2 +
- tools/sched_ext/include/scx/enums_abi.autogen.h   |   5 +-
- tools/testing/selftests/sched_ext/Makefile        |   1 +
- tools/testing/selftests/sched_ext/kick.bpf.c      | 191 +++++++
- tools/testing/selftests/sched_ext/kick.c          | 655 ++++++++++++++++++++++
- tools/testing/selftests/sched_ext/nohz_tick.bpf.c |  62 +-
- tools/testing/selftests/sched_ext/nohz_tick.c     | 280 ++++++++-
- 14 files changed, 1372 insertions(+), 65 deletions(-)
+diff --git a/drivers/pmdomain/imx/imx8m-blk-ctrl.c b/drivers/pmdomain/imx/imx8m-blk-ctrl.c
+index 479789009c7f..270f43229fe7 100644
+--- a/drivers/pmdomain/imx/imx8m-blk-ctrl.c
++++ b/drivers/pmdomain/imx/imx8m-blk-ctrl.c
+@@ -15,6 +15,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/clk.h>
++#include <linux/mutex.h>
+ 
+ #include <dt-bindings/power/imx8mm-power.h>
+ #include <dt-bindings/power/imx8mn-power.h>
+@@ -34,6 +35,12 @@ struct imx8m_blk_ctrl {
+ 	struct regmap *regmap;
+ 	struct imx8m_blk_ctrl_domain *domains;
+ 	struct genpd_onecell_data onecell_data;
++	/*
++	 * Serializes the blk-ctrl reset/clock sequence across sibling domains;
++	 * their transitions interact through the shared VPUMIX bus domain,
++	 * VPU_NOC and the not-ack-verified ADB400 handshake (ERR050531).
++	 */
++	struct mutex power_lock;
+ };
+ 
+ struct imx8m_blk_ctrl_domain_data {
+@@ -98,12 +105,14 @@ static int imx8m_blk_ctrl_power_on(struct generic_pm_domain *genpd)
+ 	struct imx8m_blk_ctrl *bc = domain->bc;
+ 	int ret;
+ 
++	mutex_lock(&bc->power_lock);
++
+ 	/* make sure bus domain is awake */
+ 	ret = pm_runtime_get_sync(bc->bus_power_dev);
+ 	if (ret < 0) {
+ 		pm_runtime_put_noidle(bc->bus_power_dev);
+ 		dev_err(bc->dev, "failed to power up bus domain\n");
+-		return ret;
++		goto unlock;
+ 	}
+ 
+ 	/* put devices into reset */
+@@ -148,12 +157,16 @@ static int imx8m_blk_ctrl_power_on(struct generic_pm_domain *genpd)
+ 	/* disable upstream clocks */
+ 	clk_bulk_disable_unprepare(data->num_clks, domain->clks);
+ 
++	mutex_unlock(&bc->power_lock);
++
+ 	return 0;
+ 
+ clk_disable:
+ 	clk_bulk_disable_unprepare(data->num_clks, domain->clks);
+ bus_put:
+ 	pm_runtime_put(bc->bus_power_dev);
++unlock:
++	mutex_unlock(&bc->power_lock);
+ 
+ 	return ret;
+ }
+@@ -164,6 +177,8 @@ static int imx8m_blk_ctrl_power_off(struct generic_pm_domain *genpd)
+ 	const struct imx8m_blk_ctrl_domain_data *data = domain->data;
+ 	struct imx8m_blk_ctrl *bc = domain->bc;
+ 
++	mutex_lock(&bc->power_lock);
++
+ 	/* put devices into reset and disable clocks */
+ 	if (data->mipi_phy_rst_mask)
+ 		regmap_clear_bits(bc->regmap, BLK_MIPI_RESET_DIV, data->mipi_phy_rst_mask);
+@@ -177,6 +192,8 @@ static int imx8m_blk_ctrl_power_off(struct generic_pm_domain *genpd)
+ 	/* allow bus domain to suspend */
+ 	pm_runtime_put(bc->bus_power_dev);
+ 
++	mutex_unlock(&bc->power_lock);
++
+ 	return 0;
+ }
+ 
+@@ -202,6 +219,10 @@ static int imx8m_blk_ctrl_probe(struct platform_device *pdev)
+ 
+ 	bc->dev = dev;
+ 
++	ret = devm_mutex_init(dev, &bc->power_lock);
++	if (ret)
++		return ret;
++
+ 	bc_data = of_device_get_match_data(dev);
+ 
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+
+---
+base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+change-id: 20260911-imx8mp-blk-ctrl-c46f26783073
+
