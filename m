@@ -1,263 +1,348 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138564E01E3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:21:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FAC4DEC1D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789672871; cv=none; b=tyH/eGCnjjzXm2g0R9Ay2SPnmpTOfuPK4zu0wydxofxJIQZhnhS13ILXM3+6m4kfB2Dp/Yaw9kGjHC84/0UOq2Ef5lDlb8bSv2xLKK/ll96lcbZwZQzq9NkxmuXVysVpq0l9aMRRJ0CJjqRlhYg/L8t900/gM7WoTU2Qr1Ys+fg=
+	t=1789672873; cv=none; b=Rg3R6BoSsiKcirWhfG92VLvriD1zT0/0S/pNwJcNcH6F/6uvod6mwAQECdM/yVqhzgdDMHLMkSRirajhb5Sn08xsYpsKY8ZkVkWZoJJDqJ2v5p4ZJnHlaFjI3uLtteVKg+z+MDvPvljVgbfMkD5q9fZW2sJg3BgnVBV+8TnhQ4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789672871; c=relaxed/simple;
-	bh=9/PLeGutW/K6U+nlg7g/u26bEQRwEQjLvyZeFh0yc2c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UK9n5cASuqeWXlIOJ+Bly30pUd7WLPwYLa0FbyASE8NfOyPvxfycgPdy7s4evZaihoQRKsZPU0mJhIUa2EWtswpDMt9/TIaxA9RjUJY+tzd+WuxERcPluSoUBbRupneWxi5b7XBtJdg/lcgQD0QAdvX9QsAlgpuJUpNRVBozJ14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=c1TpSbMN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TE83NdIL; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789672873; c=relaxed/simple;
+	bh=mYGiz/CEbz7ceeH+3m8KRoylZ+mF07bwI3rwVGiNXCQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QtbV3f+kG9C7iBpIaXFawK6yFcZwHk2S8HAcXT23XV4stV8JI7lPQdPeHJywlb3+OsL30qvS23iT21fRauA/Am2jM6bRCTDX8ZKvg/nWqE/u7vMQ84JrRPse9Sv9IP3vAjxwGlUyVEiCSiMNF5Is6hLjkYyNoKAxJNV46w3nzAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NWUS2Rlj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NNyJBi65; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="c1TpSbMN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TE83NdIL"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HH5DbU3242580
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:21:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IPnDJDcRj/tiJwf3z35D8zbS6cr4m6dIivt4rL4VpY0=; b=c1TpSbMNfYLoL91R
-	rkplFg7+k/kqsFY1R8EsaEG27EjLIfi+UySfoIBfc592AAxIr40cyxd0WhtEH9Oc
-	ES7pBZ94/eKOHA5nkKd/4ve8hvFN/Hg+fZm0RwzKToEkfAnyjamRj8meaRkTT+JA
-	Y9cpCoEbRqYSKUol7wzryh33QOFEfzAn8Lxa2j+5GUPjw9vWgGwMKWSjjcdCD3ZL
-	B3jBsZvR9+ACHQEFI8wE3eTNYZ+pl81FULg3W1g1sKI+q1nCDymogKKvHpLeSFW7
-	2LoWW/y3My0hGalw71a8wWi97NsmqKE9+HwZhp61fTVYgHj9wP5qXFmEfhOjnqL9
-	AnnYbQ==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grkcugx7s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:21:08 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-86a7bb1dd95so1509744b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:21:08 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NWUS2Rlj";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NNyJBi65"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789672869;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kpLLCOIJaNkZQflZrI+TWuCqX2syaV6YM6JlIfmZxEk=;
+	b=NWUS2RljvXvbBitSziElseWu4KmtLO8u03qt0R3bzmBvsar8u9gpxAdJK6XgtNtwx/Y9cb
+	G9jVxcmUeoee/SmGht3S0OsKkjDssFyZfg/7J5m9G56Muxn+83RpaKZzN3+NILJWQ1bUEu
+	5PD17HmmqqqqOFJGBNjb+R8w4Kc5g/g=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-688-3f4poqyHMOqTmYyj1_wQxg-1; Thu, 17 Sep 2026 15:21:07 -0400
+X-MC-Unique: 3f4poqyHMOqTmYyj1_wQxg-1
+X-Mimecast-MFC-AGG-ID: 3f4poqyHMOqTmYyj1_wQxg_1789672867
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ae8e7e546so228162585a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:21:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789672867; x=1790277667; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IPnDJDcRj/tiJwf3z35D8zbS6cr4m6dIivt4rL4VpY0=;
-        b=TE83NdILO1B8jw1MM9eEJiDMQoIUoCljQqyV4IVvODviA4NlA3ZSE8/e+8j6untKRJ
-         6SjoiLUIiNbeZIYcFmARPIwmpRPYC4/bxBT0vBA4GgKc/4hs9WDJuIkFT3ZtNppeBJXV
-         oWrRlPe8lQQzRZW51hoIPRaPRfTCgNJCN/1wxUBjRdr0OAjYuKKTjmIH6LpcCSFWw0ws
-         Sq4P6jsdSY8utKuwXZvRaEl4qn+Q6J6601ooMbHI/6Vqe8Abg1F1ybdDMxzQ5wINd/Me
-         duD05hqGcr46z9zf6p/jBRbpatKXZut37qKFSO9j5SYRtGJXKlKxxrsmt3FqkvqPYB06
-         GDYA==
+        d=redhat.com; s=google; t=1789672867; x=1790277667; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=kpLLCOIJaNkZQflZrI+TWuCqX2syaV6YM6JlIfmZxEk=;
+        b=NNyJBi65r4owQlIQ4uW9dcBsjd8VtmT6McFlDHqg5YXXly8u7KJXBptigc8EdCoLpv
+         Y4LgXjZf6jlbMdiD3K2NGYm7A3kfp1BlUeYwUW0usZZUfj2+GHAjuHSktJ7bCy8fdqFq
+         pFUr5BKi2wYaIXBB58Jc9hSE/OQ+tNszjGtLGhDtNlQA07lu1X76FLwFmu9O16sVh+wc
+         aXLHrNmkOMDq6ZxNz1QQq7TUp6UzU/D9q59mAtipb571wldvmyDYWXguKlPCq/ViUgbN
+         jZGedWUamwRSlnVOyA5K8/El4fgrVpLSrSTCleeyD3y8TRFhbhj1M6imIr5tsG9/dApV
+         QHoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789672867; x=1790277667;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IPnDJDcRj/tiJwf3z35D8zbS6cr4m6dIivt4rL4VpY0=;
-        b=kMe/2QK/zeiPqPRZKtYJulRibLmjjr8ILTGRTfGsfhFD72sjjiWmtt+Y+IV47osvkd
-         PpWFD7jTPGNfgt1vBRMiKlCUMRtbtvfB8pOouAK9pXfqkiX2qQVE+XrI+YUzou8q/ze5
-         fW2i0meSJZnMfXWS9fN6+I1vOp3S1XUHsKeLpMhBkaY2Dl4wRNpMIg9hhKcJAcwgXA/I
-         G1KIvRqMN2I5Q0ZsU5PvNeYLTBlRwB0v9pIbrCxiz6tnDL6h7dKuhky0wMqIEfRdtNzh
-         Xro5mk6Lr746Q/h5FC1toHpYMZvoBh7xp9TcscNfXdQmpdIqNexfSLBhh+OxVRowyGwq
-         x5xg==
-X-Forwarded-Encrypted: i=1; AKwUvBx8ucEOWrVXKfYmWSOfaTv821q+jnAnzz7pJBmNbAQ2muQq0Pk4bUO3ylobyOe1CXnM1RDE050mTTPg424=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8SHYhEAKEu/Bo0bp35bhoMtboQenz1ahVqhVmJyx5xt77oHvk
-	7vlNCqm615kRuEVB6xqMNfFBxl8YmEL61iCG+p6J41d8eC4l4A+o7o98wsZK/ujuHSxbO9g0a+z
-	6uYa3BMSJt276lreWymj7uAgVJdCKBoRbWEMkrGbPBiaIbEbwi4mx34dE2SBfhg/GG6A=
-X-Gm-Gg: AYBFou01RY23nveAzzsZwY6Pw70f4jGIloSvx7D9ZKWyQfEJ6tJ0nYsOwPJ2E94pH80
-	cEiuWHc1hpkyClBSMPQCh7CNsQqegdWK5Gk1z6shDPqZoNBSDI/DW3gryB6PzIW3Y8M7fmdObp4
-	uqhl8whRh25IcB+3WbCfUOZi54BR1AFWwzSo7urmc6Bg72j4IwyzDgWElcEq9+VCMSqNUPetFb1
-	kZRAkfJFVo1H9N7ovALzqIPwtdxNeP6CxuWCPLEeGvxFSesAzca0iDfKGLydoL/cvaWbbGYcG0j
-	Onpcg3a9sF1ugoes7+tHnZNyg5l/6jfIel4Ce4H/rjrCXOq3EDbPGIsZaSR8ONGzLolC+QXwX8A
-	6RpuF0nEWgKfqhGPZtrMAi/jctMqPsV9VEhE=
-X-Received: by 2002:a05:6a00:4b51:b0:867:bb96:52b2 with SMTP id d2e1a72fcca58-874d2c8b9c6mr122145b3a.5.1789672867387;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kpLLCOIJaNkZQflZrI+TWuCqX2syaV6YM6JlIfmZxEk=;
+        b=nyL80qLHjomYUAaUerDsPd4ajxWz3bmdXkYMLetLvfcmn4I7HbdUDYg47In2pqPyCX
+         7FAfuAKRNaBWKn7WgfqOaa1qUrqlgCgCFwTimPfFU1vefPJwzWRwqVfI807KUi8Dn1Xi
+         pKx9avCGNQU9YYr9zS3gKeB7T5sbBHB14l1uauvDwwYKpLeBjZcO1jOgMnMJ+2iLhBRs
+         SafDQcgCg7OMMlBSo0UouF6UP/QTuUxbnr5TUlYxXTRRW5sKWPYmjzRH+dTkQAckjkSt
+         1qEQz67cwTdrHAOtXKFoaSOX6qN4QoniY7wLdeLyaNjD5ebA6nrKELTwMlM2lzEdrWoR
+         4dFw==
+X-Gm-Message-State: AFuF++ldioJu/z/PWxc88vEg1y0ci3urv3mWAozf+mYZNxpi4PHMQHN8
+	aykuDpAg4TrT4EqRCg55S90MVyKYGRbnIxSbfePFd/iE1BKd1zzXIRfi2SA/bbx+Km9qqP1iP7F
+	wShwbvpNpPAVh7ClDoJF6045jkH+IOyrut+jfI+d+6Hp3lovE35bz145y0iWrLq+bGA==
+X-Gm-Gg: AYBFou2EFLkEiSZiXLz8c8xSx16JFjLMyLvvISnuBnyO3e+drUl3tQtwkk799hF3aGV
+	2rAV/1tUMW1QX+fMKtFleEwCZYMtSVx4wCBU79gkH/ZL8TN8n6AU9QNcY8Vp53nhtH/6/pWSEXq
+	KTJmUmdKH+NH82mT/LWT5iQkClYI+LFoH75raaOvsorBwKhyJDkOWaKCEEGbQFvTf8BqW5shBn0
+	qtlM10cG/Iflb87W7N/7+Lo/SYRV3kdJ55AKvXD3Shd//ajM2NyGH878KlYdHg+EjajkVmv/KHi
+	GmrXN+2eGp75I7YxFOGVOIXhSxqRYPfZ3c1pbBWKD0SVZ7+QEuShCSFHGRlBFoVnUmHXuitp
+X-Received: by 2002:a05:620a:4147:b0:939:ba2e:455f with SMTP id af79cd13be357-93bb797001amr1475898985a.51.1789672867190;
         Thu, 17 Sep 2026 12:21:07 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4b51:b0:867:bb96:52b2 with SMTP id d2e1a72fcca58-874d2c8b9c6mr122127b3a.5.1789672866613;
-        Thu, 17 Sep 2026 12:21:06 -0700 (PDT)
-Received: from [192.168.1.5] ([106.222.235.102])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8720173842csm3307185b3a.41.2026.09.17.12.21.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 12:21:05 -0700 (PDT)
-Message-ID: <84d2f245-1493-40e1-8b20-e5b88170c564@oss.qualcomm.com>
-Date: Fri, 18 Sep 2026 00:50:58 +0530
+X-Received: by 2002:a05:620a:4147:b0:939:ba2e:455f with SMTP id af79cd13be357-93bb797001amr1475870885a.51.1789672863572;
+        Thu, 17 Sep 2026 12:21:03 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b780cfa83sm522700085a.3.2026.09.17.12.21.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 12:21:03 -0700 (PDT)
+Message-ID: <9fd4458240f45ea1ea6d4d79362f72d847b958aa.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau: fix double-free in nvif_vmm_dtor
+From: lyude@redhat.com
+To: Peiyang He <peiyang_he@smail.nju.edu.cn>, dakr@kernel.org, 
+	dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ bskeggs@redhat.com, 	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de
+Date: Thu, 17 Sep 2026 15:21:02 -0400
+In-Reply-To: <03BA723D9E5FF725+20260916103138.2651605-1-peiyang_he@smail.nju.edu.cn>
+References: 
+	<03BA723D9E5FF725+20260916103138.2651605-1-peiyang_he@smail.nju.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dmaengine: qcom-gpi: Add I2C High-Speed mode
- configuration support
-To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
-References: <20260912-i2c-hs-v2-0-b0901791e244@oss.qualcomm.com>
- <20260912-i2c-hs-v2-1-b0901791e244@oss.qualcomm.com>
-Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <20260912-i2c-hs-v2-1-b0901791e244@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDI3NyBTYWx0ZWRfX07/CCUykmJUB
- 8JxLAZmhFGs2HRARDykVT+MUZbfjPrc1TmZiMcF0zadcJlVbhTIacdVQvuv16lXUFcrQ+xcAsCD
- Lq9HF+WfDoFh5M4NH+f1zEg02yQrUjM=
-X-Authority-Analysis: v=2.4 cv=XttvqlF9 c=1 sm=1 tr=0 ts=6aac3da4 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=/ba+GChBmZZUisokHISCpA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=pOrFmiSUyACN_rSOyqsA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-ORIG-GUID: J06zY2B9hjUxWfa4mzPQeTcHcXWCs3ux
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDI3NyBTYWx0ZWRfXyFf+43v/mjYz
- isQw3YAXMpHWBRVjdJEWRMyiGYDX/fbsFZmSoXr6sjsZUqG1zfyuYnQsrp6Gnm0m6i8pqwxgcvA
- wnl0gGVi60IDKMV7GN1gbV/yvnw1QZ/boV7Ar2e0WgPmPcpMTxXl//UdkbciPRUE9ZmSGO5NcBo
- gDxEZUfC5bM6qHNssDmGyE1R0s5bbiAGJttijCzv/aWMB2jV+uMccD406pCjxoof+EkVLBkBK6a
- At5cIQUwFAy1uPMr/fnLA/OSs2urlPNa8res5uzevF9N1BjgaMySKdZt/96oexspTHcTY6zTKKH
- HTj6oyAS6U/vtHOXzBNFw5cSt+M2Qy+GdAdA1g+p/QQZr42daViUm8Wuryma/shkA2DGACorpJL
- VqZxV5jpLqvrnYka9dpxM2bcj/RCMSXjUOxleQd6U5SID/SMlAqpDQDToKFG94BHJ4XG9YWk+A5
- hGKlED6JSd0+ySczYUA==
-X-Proofpoint-GUID: J06zY2B9hjUxWfa4mzPQeTcHcXWCs3ux
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
- suspectscore=0 adultscore=0 priorityscore=1501 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170277
 
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
+Will push to drm-misc-fixes in a moment
 
-On 9/12/2026 6:34 PM, Jyothi Kumar Seerapu wrote:
-> Add support in the Qualcomm GPI (Generic Packet Interface) DMA engine
-> for I2C High-Speed (HS) mode transfers
-> 
-> Introduce support for CONFIG1 Transfer Ring Element (TRE) to convey
-> HS-specific timing parameters to the Qualcomm GPI DMA engine.
-> 
-> Define a new gpi_i2c_config1 structure containing tcycle_cnt and
-> tlow_cnt fields, with default values of 28 and 38 respectively,
-> as required for 3.4 MHz HS mode operation.
-> 
-> Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+On Wed, 2026-09-16 at 18:31 +0800, Peiyang He wrote:
+> On failure, nouveau_cli_init() calls nouveau_cli_fini() to tear
+> the client down. Then, nouveau_drm_open() also enters into its
+> cleanup path and calls nouveau_cli_fini() AGAIN. nouveau_cli_fini()
+> calls nouveau_vmm_fini():
+>=20
+> 	void
+> 	nouveau_vmm_fini(struct nouveau_vmm *vmm)
+> 	{
+> 		nouveau_svmm_fini(&vmm->svmm);
+> 		nvif_vmm_dtor(&vmm->vmm);
+> 		vmm->cli =3D NULL;
+> 	}
+>=20
+> Inside nvif_vmm_dtor(), vmm->page is freed unconditionally:
+>=20
+> 	void
+> 	nvif_vmm_dtor(struct nvif_vmm *vmm)
+> 	{
+> 		kfree(vmm->page);
+> 		nvif_object_dtor(&vmm->object);
+> 	}
+>=20
+> vmm->page is never cleared after being freed, so the second call of
+> nvif_vmm_dtor() will cause a double-free.
+>=20
+> Found by fuzzing the nouveau driver with a modified Syzkaller:
+>=20
+> 	BUG: KASAN: double-free in nvif_vmm_dtor+0x31/0x50
+> drivers/gpu/drm/nouveau/nvif/vmm.c:194
+> 	Free of addr ffff888010fcdc30 by task syz.0.173/2567
+>=20
+> 	CPU: 1 UID: 0 PID: 2567 Comm: syz.0.173 Not tainted 7.2.0
+> #24 PREEMPT(lazy)=20
+> 	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
+> 1.16.3-debian-1.16.3-2 04/01/2014
+> 	Call Trace:
+> 	<TASK>
+> 	__dump_stack lib/dump_stack.c:94 [inline]
+> 	dump_stack_lvl+0x95/0xe0 lib/dump_stack.c:120
+> 	print_address_description mm/kasan/report.c:378 [inline]
+> 	print_report+0xcb/0x5a0 mm/kasan/report.c:482
+> 	kasan_report_invalid_free+0xaa/0xd0 mm/kasan/report.c:557
+> 	check_slab_allocation+0xe4/0x110 mm/kasan/common.c:235
+> 	kasan_slab_pre_free include/linux/kasan.h:199 [inline]
+> 	slab_free_hook mm/slub.c:2622 [inline]
+> 	slab_free mm/slub.c:6377 [inline]
+> 	kfree+0x192/0x590 mm/slub.c:6692
+> 	nvif_vmm_dtor+0x31/0x50
+> drivers/gpu/drm/nouveau/nvif/vmm.c:194
+> 	nouveau_vmm_fini+0x16/0x50
+> drivers/gpu/drm/nouveau/nouveau_vmm.c:127
+> 	nouveau_cli_fini+0x10e/0x210
+> drivers/gpu/drm/nouveau/nouveau_drm.c:225
+> 	nouveau_drm_open+0x24e/0x740
+> drivers/gpu/drm/nouveau/nouveau_drm.c:1255
+> 	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
+> 	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
+> 	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
+> 	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
+> 	chrdev_open+0x21c/0x660 fs/char_dev.c:411
+> 	do_dentry_open+0x59d/0x12b0 fs/open.c:947
+> 	vfs_open+0x82/0x390 fs/open.c:1052
+> 	do_open fs/namei.c:4700 [inline]
+> 	path_openat+0x2345/0x3420 fs/namei.c:4863
+> 	do_file_open+0x207/0x460 fs/namei.c:4892
+> 	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
+> 	do_sys_open fs/open.c:1374 [inline]
+> 	__do_sys_openat fs/open.c:1390 [inline]
+> 	__se_sys_openat fs/open.c:1385 [inline]
+> 	__x64_sys_openat+0x144/0x200 fs/open.c:1385
+> 	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+> 	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+> 	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 	RIP: 0033:0x7fc6d687594d
+> 	Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48
+> 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f
+> 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01
+> 48
+> 	RSP: 002b:00007fc6d5295008 EFLAGS: 00000246 ORIG_RAX:
+> 0000000000000101
+> 	RAX: ffffffffffffffda RBX: 00007fc6d6b06180 RCX:
+> 00007fc6d687594d
+> 	RDX: 0000000000022501 RSI: 0000200000000000 RDI:
+> ffffffffffffff9c
+> 	RBP: 00007fc6d691c303 R08: 0000000000000000 R09:
+> 0000000000000000
+> 	R10: 0000000000000000 R11: 0000000000000246 R12:
+> 0000000000000000
+> 	R13: 00007fc6d6b06218 R14: 00007fc6d6b06180 R15:
+> 00007ffd9451d760
+> 	</TASK>
+>=20
+> 	Allocated by task 2567 on cpu 1 at 163.593900s:
+> 	kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+> 	kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+> 	poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+> 	__kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+> 	kasan_kmalloc include/linux/kasan.h:263 [inline]
+> 	__do_kmalloc_node mm/slub.c:5334 [inline]
+> 	__kmalloc_noprof+0x304/0x7c0 mm/slub.c:5359
+> 	_kmalloc_noprof include/linux/slab.h:992 [inline]
+> 	nvif_vmm_ctor+0x3c0/0x7e0
+> drivers/gpu/drm/nouveau/nvif/vmm.c:237
+> 	nouveau_vmm_init+0x40/0x90
+> drivers/gpu/drm/nouveau/nouveau_vmm.c:134
+> 	nouveau_cli_init+0x7b9/0xe10
+> drivers/gpu/drm/nouveau/nouveau_drm.c:293
+> 	nouveau_drm_open+0x236/0x740
+> drivers/gpu/drm/nouveau/nouveau_drm.c:1243
+> 	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
+> 	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
+> 	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
+> 	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
+> 	chrdev_open+0x21c/0x660 fs/char_dev.c:411
+> 	do_dentry_open+0x59d/0x12b0 fs/open.c:947
+> 	vfs_open+0x82/0x390 fs/open.c:1052
+> 	do_open fs/namei.c:4700 [inline]
+> 	path_openat+0x2345/0x3420 fs/namei.c:4863
+> 	do_file_open+0x207/0x460 fs/namei.c:4892
+> 	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
+> 	do_sys_open fs/open.c:1374 [inline]
+> 	__do_sys_openat fs/open.c:1390 [inline]
+> 	__se_sys_openat fs/open.c:1385 [inline]
+> 	__x64_sys_openat+0x144/0x200 fs/open.c:1385
+> 	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+> 	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+> 	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>=20
+> 	Freed by task 2567 on cpu 1 at 163.601355s:
+> 	kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+> 	kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+> 	kasan_save_free_info+0x3b/0x60 mm/kasan/generic.c:584
+> 	poison_slab_object mm/kasan/common.c:253 [inline]
+> 	__kasan_slab_free+0x61/0x80 mm/kasan/common.c:285
+> 	kasan_slab_free include/linux/kasan.h:235 [inline]
+> 	slab_free_hook mm/slub.c:2677 [inline]
+> 	slab_free mm/slub.c:6377 [inline]
+> 	kfree+0x383/0x590 mm/slub.c:6692
+> 	nvif_vmm_dtor+0x31/0x50
+> drivers/gpu/drm/nouveau/nvif/vmm.c:194
+> 	nouveau_vmm_fini+0x16/0x50
+> drivers/gpu/drm/nouveau/nouveau_vmm.c:127
+> 	nouveau_cli_fini+0x10e/0x210
+> drivers/gpu/drm/nouveau/nouveau_drm.c:225
+> 	nouveau_cli_init+0x593/0xe10
+> drivers/gpu/drm/nouveau/nouveau_drm.c:324
+> 	nouveau_drm_open+0x236/0x740
+> drivers/gpu/drm/nouveau/nouveau_drm.c:1243
+> 	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
+> 	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
+> 	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
+> 	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
+> 	chrdev_open+0x21c/0x660 fs/char_dev.c:411
+> 	do_dentry_open+0x59d/0x12b0 fs/open.c:947
+> 	vfs_open+0x82/0x390 fs/open.c:1052
+> 	do_open fs/namei.c:4700 [inline]
+> 	path_openat+0x2345/0x3420 fs/namei.c:4863
+> 	do_file_open+0x207/0x460 fs/namei.c:4892
+> 	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
+> 	do_sys_open fs/open.c:1374 [inline]
+> 	__do_sys_openat fs/open.c:1390 [inline]
+> 	__se_sys_openat fs/open.c:1385 [inline]
+> 	__x64_sys_openat+0x144/0x200 fs/open.c:1385
+> 	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+> 	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+> 	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>=20
+> 	The buggy address belongs to the object at ffff888010fcdc30
+> 	which belongs to the cache kmalloc-16 of size 16
+> 	The buggy address is located 0 bytes inside of
+> 	16-byte region [ffff888010fcdc30, ffff888010fcdc40)
+>=20
+> 	The buggy address belongs to the physical page:
+> 	page: refcount:0 mapcount:0 mapping:0000000000000000
+> index:0x0 pfn:0x10fcd
+> 	flags: 0x100000000000000(node=3D0|zone=3D1)
+> 	page_type: f5(slab)
+> 	raw: 0100000000000000 ffff88800d441640 dead000000000100
+> dead000000000122
+> 	raw: 0000000000000000 0000000000550055 00000000f5000000
+> 0000000000000000
+> 	page dumped because: kasan: bad access detected
+>=20
+> 	Memory state around the buggy address:
+> 	ffff888010fcdb00: fc fc 00 04 fc fc fc fc fa fb fc fc fc fc
+> fa fb
+> 	ffff888010fcdb80: fc fc fc fc fa fb fc fc fc fc 00 07 fc fc
+> fc fc
+> 	>ffff888010fcdc00: fa fb fc fc fc fc fa fb fc fc fc fc fa fb
+> fc fc
+> 							=09
+> 		^
+> 	ffff888010fcdc80: fc fc fa fb fc fc fc fc 00 04 fc fc fc fc
+> fa fb
+> 	ffff888010fcdd00: fc fc fc fc 00 00 fc fc fc fc fa fb fc fc
+> fc fc
+>=20
+> Fix by removing the redundant teardown in nouveau_drm_open(),
+> since nouveau_cli_init() already does the cleanup work.
+> Also clear vmm->page after its freeing.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 20d8a88e557a ("drm/nouveau: tidy up the client init/fini
+> interfaces")
+> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+> Assisted-by: LLM
 > ---
->   drivers/dma/qcom/gpi.c           | 56 +++++++++++++++++++++++++++++++++++-----
->   include/linux/dma/qcom-gpi-dma.h | 28 +++++++++++++++++++-
->   2 files changed, 76 insertions(+), 8 deletions(-)
-
-[...]
-
->   struct gpi_desc {
->   	struct virt_dma_desc vd;
-> @@ -1631,7 +1637,7 @@ static int gpi_create_i2c_tre(struct gchan *chan, struct gpi_desc *desc,
->   	struct gpi_tre *tre;
->   	unsigned int i;
->   
-> -	/* first create config tre if applicable */
-> +	/* first create config0 tre if applicable */
-But the variable name is still set_config, not set_config0 ?>   	if 
-(i2c->set_config) {
->   		tre = &desc->tre[tre_idx];
->   		tre_idx++;
-> @@ -1645,20 +1651,48 @@ static int gpi_create_i2c_tre(struct gchan *chan, struct gpi_desc *desc,
->   		tre->dword[1] = 0;
->   
->   		tre->dword[2] = u32_encode_bits(i2c->clk_div, TRE_C0_CLK_DIV);
-> +		tre->dword[2] |= u32_encode_bits(i2c->clk_src, TRE_C0_CLK_SRC);
->   
->   		tre->dword[3] = u32_encode_bits(TRE_TYPE_CONFIG0, TRE_FLAGS_TYPE);
->   		tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_CHAIN);
->   	}
->   
-> -	/* create the GO tre for Tx */
-> -	if (i2c->op == I2C_WRITE) {
-> +	/* Create CONFIG1 TRE if requested */
-same style as set_config, write in lower case.> +	if (i2c->set_config1) {
->   		tre = &desc->tre[tre_idx];
->   		tre_idx++;
->   
-> +		/* CONFIG1 TRE with timing parameters */
-Lower or upper letters ?> +		tre->dword[0] = 
-u32_encode_bits(i2c->config1.tlow_cnt, TRE_I2C_C1_TLOW);
-> +		tre->dword[0] |= u32_encode_bits(i2c->config1.tcycle_cnt, TRE_I2C_C1_TCYCLE);
-> +		tre->dword[1] = 0;
-> +		tre->dword[2] = 0;
-> +		tre->dword[3] = u32_encode_bits(TRE_TYPE_CONFIG1, TRE_FLAGS_TYPE);
-> +		tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_CHAIN);
-> +	}
-> +
-> +	/* create the GO tre for Tx */
-tre/TRE ? keep it uniform way across.> +	if (i2c->op == I2C_WRITE || 
-i2c->op == I2C_HS_WRITE) {
-> +		u8 master_code = 0;
-> +		u32 cmd_opcode;
-> +		bool is_hs_mode = false;
-> +
-> +		tre = &desc->tre[tre_idx];
-> +		tre_idx++;
-> +
-> +		is_hs_mode = (i2c->op == I2C_HS_WRITE || i2c->op == I2C_HS_READ);
-> +
-> +		/* Select HS-mode or standard I2C opcode */
-Should you move this inside and just above selection cmd_opcode ? I 
-think the comment is covering multi_msg condition.>   		if (i2c->multi_msg)
-> -			tre->dword[0] = u32_encode_bits(I2C_READ, TRE_I2C_GO_CMD);
-> +			cmd_opcode = is_hs_mode ? I2C_HS_READ : I2C_READ;
->   		else
-> -			tre->dword[0] = u32_encode_bits(i2c->op, TRE_I2C_GO_CMD);
-> +			/* I2C HS write vs Regular I2C write */
-> +			cmd_opcode = is_hs_mode ? I2C_HS_WRITE : i2c->op;
-> +
-> +		tre->dword[0] = u32_encode_bits(cmd_opcode, TRE_I2C_GO_CMD);
-> +
-> +		if (is_hs_mode)
-> +			tre->dword[0] |= u32_encode_bits(master_code, TRE_I2C_GO_MASTER_CODE);
->   
->   		tre->dword[0] |= u32_encode_bits(i2c->addr, TRE_I2C_GO_ADDR);
->   		tre->dword[0] |= u32_encode_bits(i2c->stretch, TRE_I2C_GO_STRETCH);
-> @@ -1674,7 +1708,7 @@ static int gpi_create_i2c_tre(struct gchan *chan, struct gpi_desc *desc,
->   			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_CHAIN);
->   	}
-
-[...]
-
->   /**
-> @@ -62,15 +82,19 @@ enum i2c_op {
->    * @high_count: high period of clock
->    * @low_count: low period of clock
->    * @clk_div: source clock divider
-> + * @clk_src: source clock
->    * @addr: i2c bus address
->    * @stretch: stretch the clock at eot
-> - * @set_config: set peripheral config
-> + * @set_config: set peripheral config (CONFIG0)
-set_config0 now ?> + * @set_config1: set peripheral config1 (CONFIG1)
-purpose or usage not clear, looks mostly similar to variable name.> + * 
-@config1: I2C HS mode timing configuration (CONFIG1 TRE parameters)
->    * @rx_len: receive length for buffer
->    * @op: i2c cmd
->    * @multi_msg: is part of multi i2c r-w msgs
->    */
->   struct gpi_i2c_config {
->   	u8 set_config;
-> +	u8 set_config1;
->   	u8 pack_enable;
->   	u8 cycle_count;
->   	u8 high_count;
-> @@ -78,6 +102,8 @@ struct gpi_i2c_config {
->   	u8 addr;
->   	u8 stretch;
->   	u16 clk_div;
-> +	u32 clk_src;
-> +	struct gpi_i2c_config1 config1;
->   	u32 rx_len;
->   	enum i2c_op op;
->   	bool multi_msg;
-> 
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_drm.c | 4 +---
+> =C2=A0drivers/gpu/drm/nouveau/nvif/vmm.c=C2=A0=C2=A0=C2=A0 | 1 +
+> =C2=A02 files changed, 2 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> index e16f59b00f6f..c465d59ef0a6 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -1251,10 +1251,8 @@ nouveau_drm_open(struct drm_device *dev,
+> struct drm_file *fpriv)
+> =C2=A0	mutex_unlock(&drm->clients_lock);
+> =C2=A0
+> =C2=A0done:
+> -	if (ret && cli) {
+> -		nouveau_cli_fini(cli);
+> +	if (ret && cli)
+> =C2=A0		kfree(cli);
+> -	}
+> =C2=A0
+> =C2=A0	pm_runtime_mark_last_busy(dev->dev);
+> =C2=A0	pm_runtime_put_autosuspend(dev->dev);
+> diff --git a/drivers/gpu/drm/nouveau/nvif/vmm.c
+> b/drivers/gpu/drm/nouveau/nvif/vmm.c
+> index 65c3e883b119..579af70766f2 100644
+> --- a/drivers/gpu/drm/nouveau/nvif/vmm.c
+> +++ b/drivers/gpu/drm/nouveau/nvif/vmm.c
+> @@ -192,6 +192,7 @@ void
+> =C2=A0nvif_vmm_dtor(struct nvif_vmm *vmm)
+> =C2=A0{
+> =C2=A0	kfree(vmm->page);
+> +	vmm->page =3D NULL;
+> =C2=A0	nvif_object_dtor(&vmm->object);
+> =C2=A0}
+> =C2=A0
 
