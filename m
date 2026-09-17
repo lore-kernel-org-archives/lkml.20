@@ -1,102 +1,139 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DCD351C2E;
-	Thu, 17 Sep 2026 02:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF2337F8C7
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611207; cv=none; b=qnArnxgCAQoxTYZSWo+z7zHQeoEIZ8do0mG4SwuIjFb73mlRlmhBM0fTNs6sTPSmJHKqi+rtC22LE+greFzBnFfUsmms488j42lH484guO2R+WAz70XlcEsDK13D0V0Lz8dKEFaC+1nNGrXT+D1nVZ8gTbCjEaQ64cfOoiipWCg=
+	t=1789611208; cv=none; b=Rr2SQtgHsMWG/uQXRQZ/pD6P4N9GWRZyCoMineII+Npru8S7SxE/i/6nVsAWJfln54YAaMhqzhU3NuqkJI8YA5RPfXoIcyJormz3Ra8Lk25HoHtOJTs6NVc/Q3CAqSMyqGT8IQ9aCWLYgjQyT80j64/mtBvH8pvSmS7Q23OvSOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789611207; c=relaxed/simple;
-	bh=Ito34hIZ5NPw9kRJ6XsglDhkv2eNuqKtvpYi3myN748=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=HwUIynKRwY51AN33Ol++SC1Q4wDjBjS8BjRbpaeIQtYG1L24wpwadk8gMMugqoWqtreU9kfUZAoWfOLkFoyy6lYayG0NdjN/mxHDJ+mbAvHRBNQp1XE4xHX2HmiXy6wWPoD/mTbSyl7GU1W11qRe+TJk6V5aG8ec8hoVjAiveJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=u6a9FiNd; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789611208; c=relaxed/simple;
+	bh=27JvdaM8KVg5NMgGg5WqEucr2iQAjqA1fdc+FK2gsvI=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version; b=rYB/oZHmxgAfdzfIunT5NmZ/0yMb2SP5ZGQAYGmNtdygwAqzC3P9RO/6GffFXWvLiWcpNQDkF4YqQOUpS0TvzasRV3nJAm7usIqq7Q4Xl6xrqR8qjIM+Kx8aV/Q7+w2c3gSOJOrYQUwvxSLrQ2AiNIYXNPZ9gTzNgk7NTf9dT5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=miw4STgR; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="u6a9FiNd"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=NY/KaMce+VjwVt0dOR8ch7NEguPF4WSe3KMxe/KFxiI=;
-	b=u6a9FiNdZ6v2gLFp7ofUcRzMJ5gMtkpaKpnr32U9lXNn0lGb/zM+n9vbfzS1BdqVqhaToZS0e
-	F3EcZqb1AY1CXT8bNb/1sid9A0qp0OrB99RRCJYMlhe5UR6UDvtgoEY7g5SU9/oCy0pRLOLiw0M
-	07kYSQHr/yvbAU0iEmS0Gwc=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hlfC40zL1z12LHk;
-	Thu, 17 Sep 2026 10:02:08 +0800 (CST)
-Received: from whupemk200014.china.huawei.com (unknown [7.152.185.79])
-	by mail.maildlp.com (Postfix) with ESMTPS id DB7F2203C1;
-	Thu, 17 Sep 2026 10:13:15 +0800 (CST)
-Received: from [10.174.179.24] (10.174.179.24) by
- whupemk200014.china.huawei.com (7.152.185.79) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 17 Sep 2026 10:13:13 +0800
-Subject: Re: [PATCH v4 1/3] RAS: Fix inverted context info bounds check in ARM
- processor errors
-To: Abbott Liu <liuwenliang@huawei.com>, <tony.luck@intel.com>,
-	<bp@alien8.de>, <ardb@kernel.org>, <mchehab+huawei@kernel.org>,
-	<rafael.j.wysocki@intel.com>, <jic23@kernel.org>,
-	<jason@os.amperecomputing.com>, <danielf@os.amperecomputing.com>,
-	<luoshengwei@huawei.com>, <linux-edac@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <yangzhuohao1@huawei.com>, <douzhaolei@huawei.com>,
-	<zouyipeng@huawei.com>, <wangbing6@huawei.com>, <nixiaoming@huawei.com>, ACPI
- Devel Maling List <linux-acpi@vger.kernel.org>
-References: <20260909112832.805314-1-liuwenliang@huawei.com>
- <20260909112832.805314-2-liuwenliang@huawei.com>
-From: Hanjun Guo <guohanjun@huawei.com>
-Message-ID: <46b53a0e-b2f8-d179-113d-0b7030e78058@huawei.com>
-Date: Thu, 17 Sep 2026 10:13:13 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="miw4STgR"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b910bdf2eso198991a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:13:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789611206; x=1790216006; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q8ZIqDfKScffiOQ6mnRDy/JSG8BKfdrJqzxEUV+If2k=;
+        b=miw4STgRACi5f2486fFJnz9uvGRtxQAKFT1Sg7BYyqomu0slKk96eAzy3KcY0T1+ns
+         srb30WAuBEfOqY1bCBhhMPrB7CrFtLirf5a6Xg24y3QQdgUJcAjOH1cCffcg7xP3tRh+
+         hOGS0jaZRqNNyzoEdI9gCd5+PfxdoFkw4MzZIMNLekK/goeouElWFK6HdYo6fut/QMSV
+         WsusLMsFEX9VRvP77wBuJq0Y9aR7MqWzY0/s+2pr7IJHvjsEb2z5qGZ4P8FigiXMfGmA
+         bhDmRg4IuhtfnOvGTzEt5l+A8LRDhQQvZTOY/7q7ZutdTj+9iroNgEkjHquYp/jhFS16
+         +xAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789611206; x=1790216006;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q8ZIqDfKScffiOQ6mnRDy/JSG8BKfdrJqzxEUV+If2k=;
+        b=Oztj132LIKu9hGw8havX0QG4lyIVOjywuGytKxQgSWwOwC338/MBCiJ1e5bSm09q+Z
+         2NS5B9kFk6Su351whlNet0vE11yhBKu6hGZuJ2cTXxzeZjQq2XRw7KzzkiZTEhohi0h+
+         oZTvj8lhyD7OXLicSLCzIVS/S8LSfT/aV5G9QZoSSMtoHKt7k5pV/FwamhEFWj1nCihx
+         zqvMEhhk9YkGEoUajUQyqSpOJLVXpVEsQGUuOL7OKCyuB2yJPFvTSiadcd8VqjBhTOdu
+         sZzFqYPVmq68zCR+TkZMqmRcjvjfzdlte6fj1Kyh9NnAtHFTlEGomNiYd41VHm9uzrQX
+         99XA==
+X-Gm-Message-State: AFuF++mnkmypowEu3EzvmRKechBuZlZVc9KLvISP8mK2S/00bx5BfmCS
+	IHklov8g+QyHAkmqJHBTIuUSxRpfxVTcnsaCtOy8CwpRebKGmHXkTuiV
+X-Gm-Gg: AYBFou3/aDQAygwRfQXFtQ9/R3EQGglCbGJAFxQn8MsnDH6zniqokQxFahIcnc0/TGM
+	ReXdDib3yzFnomZXWK1zKPUT0UOC9FnrRYsGYE0htfL0T/9U40oa42wc52FG8MIeCvK8OjX5EmC
+	biGofuNjrgsXCiG6H5JExIOtp4H8wVP4qm1cxmPmlak6SQ1JicjntrYhmDOnKlPRdK1b5HkUzni
+	YzawmGjABJ8lCIc2xZ//fszkmIzLW2/VrkQrPnppJ4R3QlzPDvmZ3kh0ge6/bXhzc1p+zPNcFPt
+	p+O/ujfTar1PLSAECWh+f4wTKHI8CJg3CY2pKkD93XjpQguWR7P/9H2Os7zi3OZ4w3iywJP6NL1
+	nl+w/OXMwxWqQwn9DFkv1B6Ii8fXt/2RWYHiYlrE9xbYRUivR7ZzOcWhN92dL/U31xfnIkX5NfD
+	QX5D3i7pvbUAea5Rt0/QpvcJUXPsVPDaW0NJtIeg97ZOeskNeu+kXaFjzM+BR9Gl+6lXdntm3Rn
+	3UatyNvO6DNgtYQRD6BscFblhgi4SfUQlqdrvzzWB+Y3M/Z5jGyqJuQEdmXHMS475tP/2HPuIGp
+	ZwBB
+X-Received: by 2002:a17:90b:4ac6:b0:39e:135e:130e with SMTP id 98e67ed59e1d1-39e1e26599bmr10747977a91.3.1789611206357;
+        Wed, 16 Sep 2026 19:13:26 -0700 (PDT)
+Received: from localhost ([153.61.198.248])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35e4e0c6sm2319034a91.8.2026.09.16.19.13.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 19:13:25 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 02:13:25 +0000
+Message-Id: <DLH885YMOP9K.3AH1G96TD81UL@gmail.com>
+Cc: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH 1/2] selftests: bpf: run test_xdp_features in its own
+ netns
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Eva Kurchatova" <eva.kurchatova@virtuozzo.com>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "David S. Miller" <davem@davemloft.net>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Jesper Dangaard Brouer" <hawk@kernel.org>,
+ "John Fastabend" <john.fastabend@gmail.com>, "Stanislav Fomichev"
+ <sdf@fomichev.me>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
+ <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
+ <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
+ Solodrai" <ihor.solodrai@linux.dev>, "Shuah Khan" <shuah@kernel.org>
+In-Reply-To: <20260917015605.2464043-1-eva.kurchatova@virtuozzo.com>
+References: <20260917015605.2464043-1-eva.kurchatova@virtuozzo.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260909112832.805314-2-liuwenliang@huawei.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemk200014.china.huawei.com (7.152.185.79)
 
-On 2026/9/9 19:28, Abbott Liu wrote:
-> Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
-> allocated memory") added bounds checks for malformed ARM processor
-> error records but contained a bug:
-> 
->    In log_arm_hw_error(), the ctx_info bounds check is inverted. The
->    condition "sz + (long)ctx_info - (long)err >= err->section_length"
->    adds ctx_info->size when the context header is already past the end
->    of the section instead of when it is within bounds. So change the
->    comparison to <=.
-> 
-> Fixes: 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past allocated memory")
-> Signed-off-by: Abbott Liu <liuwenliang@huawei.com>
-> ---
->   drivers/ras/ras.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/ras/ras.c b/drivers/ras/ras.c
-> index 03df3db62334..2540538a16a8 100644
-> --- a/drivers/ras/ras.c
-> +++ b/drivers/ras/ras.c
-> @@ -74,7 +74,7 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
->   	for (n = 0; n < err->context_info_num; n++) {
->   		sz = sizeof(struct cper_arm_ctx_info);
->   
-> -		if (sz + (long)ctx_info - (long)err >= err->section_length)
-> +		if (sz + (long)ctx_info - (long)err <= err->section_length)
->   			sz += ctx_info->size;
->   
->   		ctx_info = (struct cper_arm_ctx_info *)((long)ctx_info + sz);
-> 
+On Thu, Sep 17, 2026 at 04:55 AM Eva Kurchatova <eva.kurchatova@virtuozzo.com> wrote:
+> The test creates its devices in the namespace it is started in and binds
+> an IPv6 socket to talk between the two ends. Both are unnecessary
+> demands on the host it runs on.
+>
+> The device name is fixed, v1, so a host that already has a device by
+> that name cannot run the test at all. The IPv6 control socket depends on
+> the host's firewall rules, and where those reject ICMPv6 or the port the
+> test picks, the two ends never meet:
+>
+>   Failed connecting to the Device Under Test control socket
+>
+> Cleanup is trapped for signals only, not for a normal exit, so a run
+> that fails leaves both the device and the namespace behind. Every later
+> run then stops in setup, before it prints anything.
 
-Reviewed-by: Hanjun Guo <guohanjun@huawei.com>
+This script is not run by BPF CI and it's in the middle of being
+reworked and moved to tools/testing/selftests/drivers/net/hw/ via
+net-next, see Bochao's "Track test_xdp_features DUT processe
+s" and
+Daniel's replies there:
+https://lore.kernel.org/bpf/20260904-xdp-dut-process-lifecycle-gmail-v3-1-5b7eee4f7009@gmail.com/
+https://lore.kernel.org/bpf/10886894-081b-499f-abce-fca62b120615@iogearbox.net/
+That patch already switches to trap cleanup EXIT and tracks the DUT
+pid, and this one conflicts with it. Pls sync with Bochao and netdev
+folks and, if the netns part is still wanted, send it against net-next
+on top of that work.
 
-Thanks
-Hanjun
+Also patch 2 has nothing to do with this one. Don't send unrelated
+patches as a series, and use a proper subject prefix
+(see Documentation/bpf/bpf_devel_QA.rst).
+
+> Re-exec in a new network namespace, where the device name is free and no
+> rule of the host applies, and everything the test made goes away with
+> the namespace when it exits.
+
+That last part isn't true in the failure case you describe. unshare -n
+doesn't give a new mount namespace, so 'ip netns add ${NS}' in setup()
+still creates /var/run/netns/${NS} on the host and nothing
+ deletes it.
+And when the tester fails to connect, set -e exits the script while
+the background './xdp_features ... v1 &' is still blocked in accept()
+in dut_run(). That orphan keeps the unshared netns alive, so v1, v0,
+${NS} and a stray xdp_features process are all left behind on every
+failed run. They just don't collide with the next run anymore.
+trap cleanup EXIT is what fixes the leftovers, with or without unshare.
+
+pw-bot: cr
