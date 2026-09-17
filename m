@@ -1,158 +1,131 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93843B42E8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:56:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16420411FAE;
+	Thu, 17 Sep 2026 20:57:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789678611; cv=none; b=k7HB7PuafmlI7ORxYx5dQ9pMJehngR/wGqYCgb9+dOQ7QN4h5IeqvlxbhsWA0FfhtLb4hVA1t8dAeomDfpyyzs2a7NVMUfLfveZL+3r9W+/E2uYu3XwcvuPhIdbkl6m651scLmYGFwPZ2VjluiheQcuRcnYHlAmumOpmBkyFDDQ=
+	t=1789678675; cv=none; b=u0i64EBqJ7uNjl5ShFptldd3ywlZ6P/Nr30BYqc9ISMCCIgHItuk2lgNvEr6pC3MoYlwZCzfKeIj8j6HmbelFd8QLdJTob8UwoB+LzXYvZnanlQlFAIUHQwS3W+4czoiAtrP3UyF2JIs56TCGC3QqA9ayGEv3oQlPs2iYi9geJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789678611; c=relaxed/simple;
-	bh=6rDteH8vS7udJq9ISI9vCJOm6KNKVIpUeToGR/U/a48=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dg6RQAdBVZ0KoEoZnd6gqGcSXyeBou7HG7rLatqyaFuIAt62gjq61o24FY6ueWX5G1MUxr4x5JMa/w8eNL1u43Q2WRImy+PigGY4m/mlY1ot/Zh3V0rsWC4VOCpngsTeuIKD1M17BxgFvfWvDzCOx03sQElCJeHnjvKUbKfOBm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XSQ/2hWu; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=TE0MqMu0; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789678675; c=relaxed/simple;
+	bh=m9Eqjq+uWpQw4y6MM5sDSwcNiErvUajNUqfCbK5xGEQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bS42/15iNxvOVey2mF4C2tCUMs0N2dAyFoUrOZ0qo0WOwO8CY/Wmxg5b8R8bWzVhcbu/IR757C2qTS2nnoyiYLwv1EKQZLRNnUaoAQAXQnqwLFL7Jo+SNUNQ+MufY0CPiN1/vrL7VYX8mxesDK4GS64scXyg2ljikmeqZ+8fl90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=EYpAifWm; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XSQ/2hWu";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="TE0MqMu0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789678608;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=K/Cg05CbpIvavYCVyx9/3zE/8H3+/AOemaPQ8wmlxF8=;
-	b=XSQ/2hWuqwP9l4ttS6hPQrk1ubxbETInh3IsLd/ZtDYm0TpWyXX1CqVcorZzLiOGNDaWvX
-	l4BCBGA6T5wV72t6RQXLWsJNrCJ7WESyDjgyRTrM0YLAvxGhF3fNcGa2fl5cg8+qMCl5n1
-	Yw3sNU+swbnAS+ndAHWDiL1H66MmmBY=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-399-CwA983EMOfm_ERMj16nA6g-1; Thu, 17 Sep 2026 16:56:47 -0400
-X-MC-Unique: CwA983EMOfm_ERMj16nA6g-1
-X-Mimecast-MFC-AGG-ID: CwA983EMOfm_ERMj16nA6g_1789678607
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a1bffc2eeso12207585a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:56:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789678607; x=1790283407; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=K/Cg05CbpIvavYCVyx9/3zE/8H3+/AOemaPQ8wmlxF8=;
-        b=TE0MqMu0TrQzz7CfF7hfktCGE5uHbP0gin9qs7DFMRwZotQ6lvZ/tYZ+L/ucZSrZcw
-         5iLLZqUPCyi70rlwPSjvdUJ6+/MH+4JfHLDGZptbwh2JIMi3NKiYoi1Z7TrfTQmHVFDo
-         pyGoisyC5nqJyECNQenyf1Qt/iPgaeiO5NktMsNbJ+QoJMypcg33w/fK655tCkp4IyEX
-         M/7AmXBcfRzcwfd/qdOqh2pWV+slzi07pH211Y24v/uyfyE2PuzfqE6rX5eJIcTTxYkN
-         xtBBCwCuIAtgyqIh9/IyY8lrtGarWdiUn2bWLlnboWZSvIW0wnwztg+SbbFACBO+oGcE
-         sUTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789678607; x=1790283407;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K/Cg05CbpIvavYCVyx9/3zE/8H3+/AOemaPQ8wmlxF8=;
-        b=nZRwC4f02jb7fZXHxUvQVKheCpRP27o7KWTr5h1FSIXXwSveqblOjvuh7GhhiwLwEY
-         U68+6bgTNILIf83Rlg3EKzTn2uUp5tZIwPmN/MkaRrbzoernaiTmycqRLowSqExATBQT
-         W0VW5yiGcg3mZAftaFI0izqh/sx1arBSFwHI8XCGLgD8b5zS7oPtsfes6WEltm56NZca
-         qHuHMGWxbt1AsvcJrtS0LDs4uMuhKbwV13/dQwBy+4GyqZPnuuC/485zK9QQfmf6wfAH
-         dS9U/Sod9ISAQya7x3Mr+LoBbxlGTWmLp16XmrxpvFwooYQ6iJKNoJkTYlKZxMaAVID2
-         70aQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzWZbIA4zAIKzK2xIMfXAg+NSdp9FMUqJR1EM+hLB3034AR0Xi+b7fyawPu+QJqrODsjC2RSpJTPfo6aO8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4yzam3dXDJ5pAS7H0iFiDCpTB36zhsZF2vb84FUaF4EwyPOgG
-	d4PEya+r41Sem2GHqY9fO/uvh69IEnOioyR5BXz/Ww6syq6CSZftSuoStrcivKPalgRndpvDB/U
-	XGhminxVESrh0slFEj3dzeZttM5fs2tAv+/Jqe90eJIvJO98rjoCkpMQNB+hbWt9EhA==
-X-Gm-Gg: AYBFou0izal1PCFFAMiqh9j0WotwstBKk7asrOIp9+u5iBEKdYHpmt6EPtBMLvG+1mg
-	So2UU+0fWkp0e2JBC7yzS7m+cJshqzguHAm93Oa8sihX84jmctVWjOWPZ2rLEhQhmIONr8l+bQz
-	KQ28/8G2zXoHFQGzGJX1EJbsM1pKhNYSozseh2lCONm6B3jxlvYO7+7WPJZ9X1xC762ofeu6V4K
-	+0iT7y3OC3rWAtOK1CVXs91Oc48Svi8MyrzL7qI7L4DaR8s7igX4s8KblixY902NiAWuho0sO57
-	TYZA1y2lCk2MvadCU3Sv1KvRtoPM7VDTtKoBsVb5h1x9SeyylYe6wiFsk7WlXmJI+vzUCEnI
-X-Received: by 2002:a05:620a:8086:b0:937:7836:1501 with SMTP id af79cd13be357-93bdc6a7a23mr29332985a.10.1789678606712;
-        Thu, 17 Sep 2026 13:56:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:8086:b0:937:7836:1501 with SMTP id af79cd13be357-93bdc6a7a23mr29329085a.10.1789678606225;
-        Thu, 17 Sep 2026 13:56:46 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b781d94c0sm539461985a.10.2026.09.17.13.56.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 13:56:44 -0700 (PDT)
-Message-ID: <ad023b5df1495ced25aa681d10f57628df41ac13.camel@redhat.com>
-Subject: Re: [PATCH v2 1/4] drm/nouveau/clk: fix list cursor use after loop
- in nvkm_clk_ustate_update
-From: lyude@redhat.com
-To: Francesco Magazzu <postadelmaga@gmail.com>, Danilo Krummrich
-	 <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Dan Carpenter <dan.carpenter@linaro.org>,
- Karol Herbst <kherbst@redhat.com>
-Date: Thu, 17 Sep 2026 16:56:44 -0400
-In-Reply-To: <20260712123616.1180830-2-postadelmaga@gmail.com>
-References: <20260712123616.1180830-1-postadelmaga@gmail.com>
-	 <20260712123616.1180830-2-postadelmaga@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="EYpAifWm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=ZjCkgmfnhsr/nRvgJrfgsAtyK/FU0kzhYD9tqIxNJHc=; b=EYpAifWmPhZbrYASxGj3nPTZbf
+	YDnpBq5yJx6NSwLFO/irqjcLAdwZ2+utaODd8dzZZ0tPMyAf6Z8Xq9k4hrydRnUi5FnH2YcHUJVL3
+	EqglfTr3w8y7M4Q9Th5WFVsmilF43Zt0yf7n268BPpCkm9xr4hgQBxGQQxRXIui97GDwQpCT7nDvz
+	zyCiJMMQCSULW+hOIaSy58hJsIhUeNj8U129nT1fVus1sL2VFcM1Bj+HEgTTY0yN/HPDzE30bh22X
+	AaqhoA9MpkKeVTjGw3138C1MWjXy9dlauIws6HngKqEO04DwJ9EcL5TX9/QsVkhDBfx6xAddhO4Ac
+	bkGUbI9A==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1x7JAt-003eL1-W4; Thu, 17 Sep 2026 22:57:44 +0200
+Message-ID: <7bd0f461-1b1d-416e-a68c-c0389b04f325@igalia.com>
+Date: Thu, 17 Sep 2026 17:57:39 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/v3d: Fix perfmon reference leak in
+ v3d_perfmon_set_global_ioctl()
+To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
+Cc: cgmeiner@igalia.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, mwen@igalia.com, simona@ffwll.ch, tzimmermann@suse.de,
+ stable@vger.kernel.org
+References: <20260916183100.2092174-1-vulab@iscas.ac.cn>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260916183100.2092174-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This patch looks fine to me, but but if this was posted by Dan
-Carpenter originally would you mind switching the authorship over to
-their name?
+Hi Wentao,
 
-On Sun, 2026-07-12 at 14:36 +0200, Francesco Magazzu wrote:
-> If the requested pstate id is not present in the state list (or the
-> list is empty, e.g. broken/missing perf tables), the
-> list_for_each_entry
-> cursor runs off the end of the list and the subsequent
-> pstate->pstate !=3D req check dereferences the list head cast to a
-> struct nvkm_pstate, which is an out-of-bounds read.
->=20
-> Track whether the entry was actually found instead of inspecting the
-> cursor after the loop.
->=20
-> Fixes: 7c8565220697 ("drm/nouveau/clk: implement power state and
-> engine clock control in core")
-> Signed-off-by: Francesco Magazzu <postadelmaga@gmail.com>
+On 16/09/26 15:31, Wentao Liang wrote:
+> v3d_perfmon_find() takes a reference to the perfmon which the ioctl
+> transfers to the global pointer on success.  The error paths are
+> missing this transfer: clearing the global perfmon while none is set,
+> and setting a global perfmon when one is already configured both
+> return without dropping the reference.  Release it on both paths.
+> 
+> Fixes: c6eabbab359c ("drm/v3d: Add DRM_IOCTL_V3D_PERFMON_SET_GLOBAL")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+
+Already addressed in [1].
+
+[1] 
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=6bf7e2affc6e62da7add393d7f352d4040f5bc27
+
+Best regards,
+- Maíra
+
 > ---
-> Note: essentially the same fix was posted by Dan Carpenter in 2022
-> and
-> never picked up; the bug is still present in drm-misc-next.=C2=A0 Credit
-> for
-> spotting it goes to him.
-> Link: https://lore.kernel.org/dri-devel/YvSkKAdk8Pe0g2K9@kili/
->=20
-> =C2=A0drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c | 8 ++++++--
-> =C2=A01 file changed, 6 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-> b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-> index 572e63846..42f3709e0 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
-> @@ -479,13 +479,17 @@ nvkm_clk_ustate_update(struct nvkm_clk *clk,
-> int req)
-> =C2=A0		return -ENOSYS;
-> =C2=A0
-> =C2=A0	if (req !=3D -1 && req !=3D -2) {
-> +		bool found =3D false;
-> +
-> =C2=A0		list_for_each_entry(pstate, &clk->states, head) {
-> -			if (pstate->pstate =3D=3D req)
-> +			if (pstate->pstate =3D=3D req) {
-> +				found =3D true;
-> =C2=A0				break;
-> +			}
-> =C2=A0			i++;
-> =C2=A0		}
-> =C2=A0
-> -		if (pstate->pstate !=3D req)
-> +		if (!found)
-> =C2=A0			return -EINVAL;
-> =C2=A0		req =3D i;
-> =C2=A0	}
+>   drivers/gpu/drm/v3d/v3d_perfmon.c | 8 ++++++--
+>   1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c b/drivers/gpu/drm/v3d/v3d_perfmon.c
+> index 8e0249580bba..12bb1b087fa9 100644
+> --- a/drivers/gpu/drm/v3d/v3d_perfmon.c
+> +++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
+> @@ -461,16 +461,20 @@ int v3d_perfmon_set_global_ioctl(struct drm_device *dev, void *data,
+>   
+>   	/* If the request is to clear the global performance monitor */
+>   	if (req->flags & DRM_V3D_PERFMON_CLEAR_GLOBAL) {
+> -		if (!v3d->global_perfmon)
+> +		if (!v3d->global_perfmon) {
+> +			v3d_perfmon_put(perfmon);
+>   			return -EINVAL;
+> +		}
+>   
+>   		xchg(&v3d->global_perfmon, NULL);
+>   
+>   		return 0;
+>   	}
+>   
+> -	if (cmpxchg(&v3d->global_perfmon, NULL, perfmon))
+> +	if (cmpxchg(&v3d->global_perfmon, NULL, perfmon)) {
+> +		v3d_perfmon_put(perfmon);
+>   		return -EBUSY;
+> +	}
+>   
+>   	return 0;
+>   }
 
