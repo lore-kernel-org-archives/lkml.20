@@ -1,96 +1,137 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7CB4A99B2;
-	Thu, 17 Sep 2026 09:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AF3AD4BD7BD;
+	Thu, 17 Sep 2026 09:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639080; cv=none; b=Alhm+2t+lDz4J63LkAwikj5QKH3KeTX5ATvbrefg79ZCkpMYTGToOd44d/lXWjxgVV/wpkRHTw99VCJQz2ohUS7br/U6aNpF+YbHHFWQwp6gUYBP4WYD+s+PMkDGLqcMALMmWBsINOvXmFY4hVPDDCZnH+qN0TqJABWy7EL9Y+w=
+	t=1789639091; cv=none; b=fiwNQEolMe694V6UgTAJQt+fF0Ad3fwSVxchrO9IDWv2jqi2OxgBkOrvswbedeuDoYswY++d980HEsUOneO+MCrIvP1GrxxokqRTGxPKTRBNgDcklW5E0qxjXEErXblk+IXzCuHNoKpjaol5K9aLUb5KdtAiZ2u6GZ3CWIPqfXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639080; c=relaxed/simple;
-	bh=9SyJKiJepEfMQWbT4FNVuAnhkGCKZ4VOJepZafznQeY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DHxVl/tMUsz7lFkq9aqyILTAHoxvBqj05UAz3iKWZMFuYwLYhCVc5z1qQ6EwJGtfIUx9Jfb+wuW76YCunYVGj7GtY23t3BavIlQ4QgrnaMDH7GLo4TZQ34j37eBI5W3JHKx2asNkMe+HZoYVBb6v6tqXqKXpBNjtuLCBo5EbcxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAHcz2VuatqnSN+CA--.40646S2;
-	Thu, 17 Sep 2026 17:57:41 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: abhinav.kumar@linux.dev
-Cc: bod@kernel.org,
-	dikshita.agarwal@oss.qualcomm.com,
-	hverkuil@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	stefan.schmidt@linaro.org,
-	vikash.garodia@oss.qualcomm.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: iris: Fix runtime PM imbalance in iris_enable_power_domains()
-Date: Thu, 17 Sep 2026 09:57:41 +0000
-Message-Id: <20260917095741.2145688-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789639091; c=relaxed/simple;
+	bh=VXqLon1IWeQzTI8dDj4hKxc7saHoW6A0Hg3046jh/QI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aX0Hulh9cBnqhj/pkmqtyjNaC9FK8gwPNv2MPWllPbZ3WcWL+0oK3pSWQs45Nd4MLzIAy60TUfGkPVKqaB1sL0PKY1zz4u6kCJFj7vQQPLUHJhSJ6IXftz3DjoEOUAuzD9vPkrYEEoqEE3K1iK5wk1LZ1qeCQqjRkUbqdc52wpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vja3M8VA; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vja3M8VA"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E7CA91476;
+	Thu, 17 Sep 2026 02:57:58 -0700 (PDT)
+Received: from [10.57.74.102] (unknown [10.57.74.102])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD88E3F7B4;
+	Thu, 17 Sep 2026 02:57:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789639082; bh=VXqLon1IWeQzTI8dDj4hKxc7saHoW6A0Hg3046jh/QI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vja3M8VABVOrmZ2ChYzc/upsrhetTGKhEnf/pEqYK+HiSbSu/clHPeW+o3eKoIK4Z
+	 0+Wx3stikCeAmbXeqVmEvNHb/v78HBmo4ovtzTcV7kdJ1PuFCDwMqvcvyMeHDTyFTu
+	 Uj8E/utZDL2YEdMx2GCJKyelvgXqlKah9PS1wewY=
+Message-ID: <f8b0745c-d265-4112-90fe-79a08ad01553@arm.com>
+Date: Thu, 17 Sep 2026 11:57:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAHcz2VuatqnSN+CA--.40646S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Xw4rXr4fWrWkXF13Xr1UWrg_yoWkArb_Cr
-	n3uF1xXr45trsrKw15tw15u34Y9rZ3Ww1kJa1ftFW3KrW3CFn7XrZFvr98Aw47urn29r17
-	tFn8CFy3Cr97ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbg8YjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
-	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
-	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
-	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
-	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF
-	7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxV
-	W8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7I
-	U8OdbUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMNA2qrrRkwBgAAsJ
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] cpufreq: update capacity_freq_ref when the boost
+ state changes
+To: Oleg Keri <okerixx@gmail.com>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Sumit Gupta <sumitg@nvidia.com>,
+ Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+ Beata Michalska <beata.michalska@arm.com>,
+ Russell King <linux@armlinux.org.uk>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, driver-core@lists.linux.dev,
+ linux-pm@vger.kernel.org, jonathan.cameron@oss.qualcomm.com,
+ sibi.sankar@oss.qualcomm.com
+References: <20260910063440.4677-1-okerixx@gmail.com>
+ <20260910063440.4677-3-okerixx@gmail.com>
+Content-Language: en-GB
+From: Dietmar Eggemann <dietmar.eggemann@arm.com>
+In-Reply-To: <20260910063440.4677-3-okerixx@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-pm_runtime_get_sync() leaves the runtime PM usage count of pd_dev
-incremented even when resuming the device fails, and
-iris_enable_power_domains() returns immediately in that case, so
-the reference is never dropped.
+On 10.09.26 08:34, Oleg Keri wrote:
+> capacity_freq_ref is latched from policy->cpuinfo.max_freq by
+> init_cpu_capacity_callback() on CPUFREQ_CREATE_POLICY, and never
+> updated afterwards.
+> 
+> cpufreq_frequency_table_cpuinfo() excludes CPUFREQ_BOOST_FREQ entries
+> while boost is disabled, so on a system that boots with boost off the
+> latched value is the non-boost maximum.  Enabling boost later raises
+> policy->cpuinfo.max_freq but leaves capacity_freq_ref behind.
+> 
+> Two things then go wrong on arm64, where the AMU drives frequency
+> invariance.  amu_scale_freq_tick() caps the computed scale at
+> SCHED_CAPACITY_SCALE, so a CPU running above capacity_freq_ref
+> saturates at 1024: the scheduler cannot tell a boosted CPU from one at
+> the sustained maximum, and utilisation is underestimated.  And
 
-Roll the usage count back with pm_runtime_put_noidle() on the error
-path.
+IMHO, this is where the concept of 'cpufreq pressure' on CPU capacity
+comes in.
 
-Fixes: bb8a95aa038e ("media: iris: implement power management")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/media/platform/qcom/iris/iris_resources.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+The cpu_capacity value is calculated based on highest_perf.	(1)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
-index 773f6548370a..d56bc8cc66ed 100644
---- a/drivers/media/platform/qcom/iris/iris_resources.c
-+++ b/drivers/media/platform/qcom/iris/iris_resources.c
-@@ -79,8 +79,10 @@ int iris_enable_power_domains(struct iris_core *core, struct device *pd_dev)
- 		return ret;
- 
- 	ret = pm_runtime_get_sync(pd_dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(pd_dev);
- 		return ret;
-+	}
- 
- 	return ret;
- }
--- 
-2.34.1
+In case you start with 'boost == 0' nominal_perf might might be lower
+than highest_perf.
 
+cpufreq_update_pressure() calculates this value:
+
+cpufreq_pressure = Cmax * (1 - fcapped - fmax)			(2)
+
+[ fcapped = policy->max, fmax = capacity_freq_ref ]
+
+Example on RADXA Orion 06 CPU10:
+
+$ grep . /sys/devices/system/cpu/cpu10/acpi_cppc/*
+...
+/sys/devices/system/cpu/cpu10/acpi_cppc/highest_perf:7876
+/sys/devices/system/cpu/cpu10/acpi_cppc/lowest_freq:800
+/sys/devices/system/cpu/cpu10/acpi_cppc/lowest_nonlinear_perf:2520
+/sys/devices/system/cpu/cpu10/acpi_cppc/lowest_perf:2520
+/sys/devices/system/cpu/cpu10/acpi_cppc/nominal_freq:2500
+/sys/devices/system/cpu/cpu10/acpi_cppc/nominal_perf:6600   <-- hacked
+/sys/devices/system/cpu/cpu10/acpi_cppc/reference_perf:1000
+...
+
+# cat /sys/devices/system/cpu/cpu10/cpu_capacity	<-- (1)
+984
+
+# cat /sys/devices/system/cpu/cpu10/cpufreq/boost
+0
+
+dmesg (added log)
+
+[    8.065337] cpufreq_update_pressure(): policy->related_cpus=[10-11]
+policy->max=2500000 pressure=173			<-- (2)
+
+# echo 1 > /sys/devices/system/cpu/cpufreq/boost
+
+# cat /sys/devices/system/cpu/cpu10/cpufreq/boost
+1
+
+dmesg (added log)
+
+[38137.194134] cpufreq_update_pressure(): policy->related_cpus=[10-11]
+policy->max=3031666 pressure=0				<-- (2)
+
+The task scheduler gets informed via:
+
+get_actual_cpu_capacity(int cpu)
+
+  capacity = arch_scale_cpu_capacity(cpu);
+
+  capacity -= max(hw_load_avg(cpu_rq(cpu)), cpufreq_get_pressure(cpu));
+                                            ^^^^^^^^^^^^^^^^^^^^
+  return capacity;
+
+[...]
