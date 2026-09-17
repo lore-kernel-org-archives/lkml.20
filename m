@@ -1,286 +1,164 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013033.outbound.protection.outlook.com [40.93.201.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5351D49AA22;
-	Thu, 17 Sep 2026 09:06:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636011; cv=fail; b=hV4BjU+u1VhY1Dhkw5R+HcHoCx390scTEoJ3qhkHegnBKUN3RMIYsiXm6W0UmkDbtDpo+BvCCG0oHElDPEdaq1aaMxhoeckMoSXq0RSfCb5wzDQks6tm45li7FfmfjKyS1jcSKjXc3rLLD5UkrIMixe9pZJR9cxxIQ1t4j6662o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636011; c=relaxed/simple;
-	bh=E9tqmBiC8AMUfQaYDDwF75pzJAn0NZ1U4s2dpMPPYO0=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=liC6pnv4cqysq2OHNAjLT9mTq0i1J7Q8Xhdterb6ZvkqcxlAbBoIoQInWD2HV0i10JHhZKLjCsFfY+tdIj64Vl2uRbOtHu48AgasdB8wzvU93Tsj9MTyuhurCaHkCZOpMwmsvVWgS3TcZbIpj771n5KG4thGy55Wh17Onf++0qs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MTtKjmAk; arc=fail smtp.client-ip=40.93.201.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EB94A2633
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:07:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789636030; cv=none; b=LVzcWrkIPMRV2j+4ohBUE3VVYNH1SbR5LklJ4RTYCnqEIfu1+Gxv6VzPzi98mXcLp1LpOdHtJYgx5U9wRZDe5Sb2SrYM+RJVU0QJ1HzISYEcRQ4ZiDa0iVOF7F+dVcxckVo6pdELISglAJxSTgCwbMTp6yKIk6mEddeX8Olu5tI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789636030; c=relaxed/simple;
+	bh=W6DTvRWLmpIsiFAlB1cla3wKAoWr3XT+ojA5ZsdvDrE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=opqf4QmcRjt6tDL8AqhjcvxLsJNx/kFw73YnKd971Mj8JURNSnn0lp10oKMn0X07OEcx9g1z3LBXAXCI2wu2NZKiHpU455yI15ZmujBsCbPgmpiChDQiLCwzfgjzQDSvZlk6T2xHzw7Ita4ciQKcUljzDTJ78SlUzsbORf00I+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cG4RECjJ; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MTtKjmAk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v0gH+Zk1+syRkLeWXIxWAul4oD/qhpJYlp+pTEAVTWPwPgxHL2MIbqCZnyx8vKudGlioshY3LNW3YQUTmUi/CqVlI2qqj3lv9pCsEKciTfpv5mOQlfUd2W3/lLpUHBFvDV7DhswUVvT21YffOXaYXeQMcrw75WAfF3qBQ5c2NtRQH7+MzxePsTz+7ZMsUgUIFAqkCjYkMJPuil93J/0QjMy/xWJqMXS1bGuSg09K/RxcTxREm0yPLzCISIOVvKAEunfLFihCq6YsroRkUd5USAK71xCB0kO8qvpSWv7AanLDTn/ZMRK3DgHWZo4f3jYioPzfAuXZVt890wFjPNH9+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZrW/tQB4Efje/QfUsfqMBckXUpxudzxdDvaANUYR5+o=;
- b=VZMcW8Z7owf9Gol+LH1zg6e1P0kU9eEL5C7FKeGygNM+3AkfvVuroze8vv2zoFUpMVg0LzmPKoowuylInSJ0fW+Kghfv5ByKxAooo1bpWW+dKvxA75HJcDKFbyPre1WwmW5P4d9nvQVYSY9P0oKw/DkfvKO+T3Eq0gy1If4JbQIfQzizcG89oZf9FWO2qoK4Jx64PlLPp/CLAsMVEa3W9RuYn7p/RRMxxBmyDmV0V+GeIZJvx5otKs6gaYr2SmI180kWB5QBsB5k2sd+ayspraCvTap3lLZ65U8bpf6oKDFonfFmKKsKd9MaQZ8wF0CjYz70azP33p2GfXedf5xReQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZrW/tQB4Efje/QfUsfqMBckXUpxudzxdDvaANUYR5+o=;
- b=MTtKjmAk731QkavxrosOhrcwRr3/0n/OV1jDGIz9SPgauvW+yYuUbnIoeyKZKMemnJXJxDsUYM6F9gdWjpei+pHbutZMxkk6qhw8eLjvh+6+GeWl7EzxUyPc8Km7qhgsHL/yLMQzgw0JfdDZrUqD1KsdejtW3bDXZZpFQpdhTaa27sS3dX9MR6oxR54QuB6PThdRttI909m2pnLmyYixwRLnLLj8F/JwBuJVuO//4qEfa9C/S2QWpdFofZZkNwpNEptvEcH2FuCTaw3MB5537hFNh5s+8DHVaxu4Se6tKq56IvQNKYcZOeFa/ZsfFSUzRu/f42uslcroxHJ3tu+KZQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SJ1PR12MB6241.namprd12.prod.outlook.com (2603:10b6:a03:458::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
- 2026 09:06:41 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
- 09:06:41 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 17 Sep 2026 10:06:38 +0100
-Message-Id: <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
-Cc: "Gary Guo" <gary@garyguo.net>, "Robin Murphy" <robin.murphy@arm.com>,
- "Matteo Kloiber" <kernel@matt3o12.de>, <aliceryhl@google.com>,
- <ojeda@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
- <a.hindborg@kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
- segment size
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-References: <20260831233215.287881-1-kernel@matt3o12.de>
- <20260831233215.287881-3-kernel@matt3o12.de>
- <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
- <20260913210806.125589-1-kernel@matt3o12.de>
- <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
- <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
- <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
- <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
- <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
- <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
-In-Reply-To: <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
-X-ClientProxiedBy: FR4P281CA0291.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e7::17) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cG4RECjJ"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49e73611928so2615115e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:07:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789636026; x=1790240826; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jxbi13ouQTHyRdtBDlCDYfBDO36J/sfcBmF9VRStXnQ=;
+        b=cG4RECjJ17+bcikV0X96lOtKHY1cwuunqUHAZoRCAMND3KD720QAH1vMtZtugQD+Af
+         j+Yvio1WMCimAq0c6ZddZ7iaNLcyw3Uy/3PTSXn8Mwxu8cXX+bzZLCNGLgew4KSEfgWE
+         Zs48XxpUB6AGZEhQ1YgcC4Kn7LsW7w7f6QJdvEiJq/IkagyixJ0WzbMhTZKZUqGFiDMs
+         wdupwHSS8DMXoiDm9IFl36L2//M3W3XXfnE9WHb3WQk2+CO/drpHrkOssnjve7RScD+U
+         yQnTPdhcmPAu3Dbgrkiv1EGr1sPVoGwnGA5PCXeeltKi4HlYqcmZfzMDo1YulvM627Hh
+         CGVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789636026; x=1790240826;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jxbi13ouQTHyRdtBDlCDYfBDO36J/sfcBmF9VRStXnQ=;
+        b=U42VvgydGrHked3Vf2jfXhcFWdrEc3Q5sluO/6rzE5aLpSgXjEVhl9PhMvfZskphU+
+         VH4gO7Plw6HADAAA/HKOgnMl+PPiwbxfcw4zgAKTEKV31FpAgJ6LDOP8n6BMve12IwnE
+         jTxCH23D01r5rcMfrAoXzIw07OKDHU8h+YN4HiukVsx+kDKkcPFnJzxu5/rZUmsCsrMu
+         XTVakoxO/1BR/I7BrNehemo6AHXfgYoQDmplmqG9aaD6Dah2ncHBFN45wPAi9ZJ9ZgHb
+         7TvgRvymhiLNXfs0EW3fpy3UtxHL2AM2bdhCTcH1kgayESFx6wZrIuM3yOhJDgPs46+I
+         lmjw==
+X-Forwarded-Encrypted: i=1; AKwUvBx7jUXG/Tstq/iQkAFj7UID+c0SyzrlCKfA3Bq3Voxq5c+4JZS1b4QV+qCL1k3ZnPAk/ygFIcxnp74RKkw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGn8P5CjMM9xv4lPRAwjh3UPfeVOdpfBfjuiAl63J0v/A00r23
+	NFerhJxF2qBQKX3bfe10mefgzaldCQ9X01BiZkJjZ2aCbz5l0eKIlf6RMa37D9fWOOo=
+X-Gm-Gg: AYBFou1aezL2wqM2zpK3alif2LbW4TaRzJUA8tG68ZTOYhRm4umgNu4AVclkldeFvvk
+	DKSaNjX8wLI0s8Fc3QydFpIHh1BUVxeDCEnHlzKqSMkS1E6ElmPwan4M3KexyXOtXrZk9LbWQ0o
+	sTmaLYu3iOpUrherxmC6Mpx8koOZ1rI+RSxX/NH9jMaNI4Shhr4yWBaTnDU6fC2GoyLirVWUPk/
+	Mese+wbTEcA01dA2pJNvD+Ga65+evJIpe5HLL943WfOYobPAN5ecXUvN+6ZJFStYvcQwFsPEmcX
+	fv/1hRX7LxnwHlBQuSgg7kLec9A+rWQufQMIku3/UyRlntUADxmx8DJseqhiw3l0tDKgQqHEetg
+	ybDesRbPhXIQASh8ot/xHI/sjeCVb5KFTxfgahixSBNTEz9qsUoNDEQTYntf6DZBxMc7ZCa/Mfd
+	GhIOlgdsP+8SUCWodevI6vBrc8mSr7OjCvVD5GMX+Bl62fKvIjA//yU34qBzKXH8cfh2kpl4V7
+X-Received: by 2002:a05:600c:e555:20b0:49d:27ee:79c9 with SMTP id 5b1f17b1804b1-49fbd1c4afamr25264695e9.8.1789636025806;
+        Thu, 17 Sep 2026 02:07:05 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1fad3sm12476177f8f.12.2026.09.17.02.07.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 02:07:05 -0700 (PDT)
+Date: Thu, 17 Sep 2026 11:07:02 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Borislav Petkov <bp@alien8.de>, Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org,
+	Joel Granados <joel.granados@kernel.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
+	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
+	John Ogness <john.ogness@linutronix.de>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Kees Cook <kees@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Dave Young <ruirui.yang@linux.dev>,
+	Jonathan Corbet <corbet@lwn.net>, Bo Gan <bo.gan@broadcom.com>,
+	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
+	kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Subject: Re: [PATCH v1 4/4] x86/vmware: Run panic diagnostics before kdump by
+ default
+Message-ID: <aquttpMVKX8e6zGB@pathway.suse.cz>
+References: <cover.1788414671.git.zack.rusin@broadcom.com>
+ <7487011dfb95aadda9515b22a5852680df1982c5.1788414671.git.zack.rusin@broadcom.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SJ1PR12MB6241:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4c73df12-00ab-440b-9dba-08df149afcee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|18002099003|22082099003|3023799007|4143699003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	flubXO2oDj551EyPBDM6O+hz2YyNmDd+kARNznFSZcVjqpdU+QjlmVE+f54sDMTLZLMt1o9P2o9NdxChV027UMdylBiiV9ve9CnTpqC5ZgebN7q6Zjl9jq+PuGN7fxYwwt2ZmrGC0hto6auN7FR36G2WFkCzxIMJ4DAB/nArqw3RrzHKD8FM2yKzHMtgf8pTyWbkjaMjK0frjFVHGxn4czn7W2zs+udxRvPUcqrSU2sPeXCXyaiz9gNK2tg6jY714U4eMeohAeSucz18XuBLFXL899Hw03A41PjOUkI7prYjozMjOxaMjAulrRL4wn/UWYHpM1sd2qwBdQN+Kmhn8B42GpSqe0FRpycEoBNtA3Wr9xFvRWAPof/WpE9kxL8lNfRPYY5nDmTYj5h3obYOp7nISYPaFUN3OVIipc8ZdrbER32UVNZbCY3QoH57qMtqxy8Ki3DfJSqVu+4M0acRUuexrEI+Uob3H8fo2Pg25gG33r2fVcfH8RCYxV02zn27ofyvd4F3Zks3DUYxLq6Ly9Laf1e0pAqwU1S2zZhr5aTw0qLXGWHGkkZ/ugqdOM2Uu7ceoP7Z9QlHtqsljEJmyK0L4x6p+MFlOzNx16g2ZmSLHNtPZLd2jdANyanuBbJPw0n+YakULxhz//HhZ3GXGp2rCrnSTe/0C86VQCX7j2c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(3023799007)(4143699003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TmtEN1hyZDFjTU9WeDJYMVZWSFh3ZU9DTE1Qa0RpaHBLUmFDblhRV0ZuelNW?=
- =?utf-8?B?cVdnRXpKcjZiOUF1RXYxRUhTTklkZTM0ZU5iUDM0QWZwMnk0dUVBOWxZaWE2?=
- =?utf-8?B?bE5vY3lLeVJkWFQvNjNRWXFpSkpCUmJhNXpxUjUzYTBNVC9ZdUdqejNzNGhx?=
- =?utf-8?B?dTIrUk1ReGhUWkx1NTVzU1VLMHN2RFRkWi92aTcrdDBjVzVydXFXMU95SU1t?=
- =?utf-8?B?eXFDMlJKN3N0UXphdUhqS2Q5TTN5SEF5L1dYOUQ3ZWdJNEYzd1l6Z1JVVGgv?=
- =?utf-8?B?bUlEdVdKMzFvd2xGZS9aZkVxdlplYTFnNWo0YVhKb0xuTXBaTWk1SThJQ3Bw?=
- =?utf-8?B?ZnptNzNNMjNwR0YwNWhSQjdOdzJCWHlyVU5MU21Pd0dDdXBvNHdNNGtlY0Vn?=
- =?utf-8?B?aUR4U0w4QXZxUGRzcUNGU0xxSzliOUx4WDh0L2ZDRTNoU1Z5VEVVWHlDYTRx?=
- =?utf-8?B?QXZ2VjE3THpFcHoweDNSVFJaMUM3VjFTeDdsRFB2andWem95SFhoM3M4blYw?=
- =?utf-8?B?b3doRWp6VXMwd20vYnN1U05TNit4N2h3TFU5dDJQaWxmT3ZhM3I1SnMvNDA1?=
- =?utf-8?B?dzNITkpObE5najJoQWpsTjhxUERDZnNnbklud1lLODlDNnRpbDdQdm8xOTVG?=
- =?utf-8?B?USt5ZHVWMFJDTkNZNExDR3dpNWtaeTUrN0duNlFXY0U0OVVqVXg2a1ZCQnlZ?=
- =?utf-8?B?M0ovS0dOaStLcGtKSldpVzFLbnMybXlQNG1uYVM1VnhqZ3F6d2tTSUcwTGR1?=
- =?utf-8?B?RGNvY3F4Vzd6c3RjTlBTcDhVSk9QaForNEZqMG1lQ3Y3ZG5hbEVFQk5VTGtK?=
- =?utf-8?B?YnFpWkloeCtrRk5ucDFWdTRMWXJNN2xlZDFqekRiNFU2aldXZytQU3dvUkZi?=
- =?utf-8?B?eGowalZ1d0pmTmxpdHNkSEc3ZjFlbnpIRVZPb1N6RkN5M2hraDQ4SjBrZngr?=
- =?utf-8?B?NkZaaEhJWlNkb3lTcXl4cWszV2k3SW5XOU1iK1c0QkM5bXZQWWxJY2Q0TmQ4?=
- =?utf-8?B?dGgwVmZuYzB2SWFnbmN4NHpzQ1BKc3BHUGlnd3BoMktIV1JEM3BRb3RUOGFo?=
- =?utf-8?B?VFFnZGtySm1pZThuMy84bjRld053RVlzN1JWVjhaaFNUVWJYY2p0ZmVtTmlV?=
- =?utf-8?B?T3hraGVMczlmYUlaaWRBRkhIcStvR0xmUk13Rk9iblBESUViT3JoTko2K011?=
- =?utf-8?B?VEVTWUFhTFgvbVhGcC8xNDdyS1prSDJrZ1dyWjhNazBjM0g3UEh2a0NXNVRO?=
- =?utf-8?B?dG52VGJTSWFkR2Y4dHhTdkZud0JYaUlIdlduVGlidEJWN0ZlMjU4ZjQvcFND?=
- =?utf-8?B?MHNMZWltZlVuTkEzU3poK3ZXR0Q3TmxlclExNzBPRHI0THFRd1RJK3B0UlhL?=
- =?utf-8?B?UFkyTm9ueVBObjBQWkkvTG1QdTdkS0hYV1FOeER0b0tZRWJ5d2taOTVtOVJI?=
- =?utf-8?B?NUhpOFVIdWNHRFMyNzlqWjBKQ04xL09GK0NpZ3k2cThwM25tUUxNSHpabGJM?=
- =?utf-8?B?ZHFVT2VKdjhtcTRlSU03YnY3RzZLbWM0MVJXaHNLbWkyT1ZtUmU5MlJsU0xV?=
- =?utf-8?B?NVkyRmw1cmJwUzhUT01LcXJuUW9lc3JkQ2ZVOVlzTGhGTGJxMUk0UGxRZEd3?=
- =?utf-8?B?YmdtdXFMb3dzakl3SVJhNUVtd08xYi9NbWpPSjZrVEk0dDEyOGNOVXQ5MjAy?=
- =?utf-8?B?Y25mUEM3QTUwbTU5TFY0NTdMRDA2WnZoYjNBQXMrQ1FlOFB5ZWkwc3BxQ2g2?=
- =?utf-8?B?OFlnUk1STHBLQ3hoTVJNWWlVWFUrMkNLN2wvQldTc3pweXhhTzBwS0ExYVdM?=
- =?utf-8?B?d0VmY1hjNXBBTU45cW5QL2FUREdFS1dJT0NKTE1YbU5mZzdLRHVGM0dsaEEx?=
- =?utf-8?B?Z2RhSE9yUGpFSHNjU2tseFYzWHZqbUI1M0JKMmxUZG5BTDZMY1ViQ01PN3VP?=
- =?utf-8?B?UUVQSzd3TkNGNlN0ZWx3dnA2dEpaZEtCS0gvOUc0YnZnQlgxY29TUTh1aEFn?=
- =?utf-8?B?cVQ4MnZYVWQzRmJpT2w1UU5ZK0lvVTJtSFpIOEc5bVhCV0dXMG5FMTJ4bHVM?=
- =?utf-8?B?TUxiM0ZwbU13bEZ1Y2U0cXVkb0xsT3pGWkFmdHNVeU80OTllMEJobTJySDZL?=
- =?utf-8?B?enNONWNzc25HaVJQL1VISCtLbUoyUHdpanM4amZCRmFDRW5VZUY3b2RmZ0s1?=
- =?utf-8?B?Ui80Z3dvOUZnS1dhWlVHSjlTWnN6aGY4ZStmcWVMK3d0Z1FlN2QzNHRmdUxr?=
- =?utf-8?B?a0ZJM1l4d21Qd1pHVEJ1eTVtaFZIMkVZdmU2S1dFQ2RTWFdxRGliT0wxOEda?=
- =?utf-8?B?VVQrOTdNLzBic0dUMit3SnRFNkhMcmNJa2RvUE1TZFc4YUNxUFVzZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c73df12-00ab-440b-9dba-08df149afcee
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 09:06:41.3351
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kfoEx9EUuOkIiyHH0E5Ix3E377hz59OH4grHffOO43f4tVTFNMK/458TuGpmoiA9sWDpE+Ufn37AeorGcSlOLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6241
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7487011dfb95aadda9515b22a5852680df1982c5.1788414671.git.zack.rusin@broadcom.com>
 
-On Mon Sep 14, 2026 at 2:57 PM BST, Danilo Krummrich wrote:
-> On Mon Sep 14, 2026 at 3:17 PM CEST, Gary Guo wrote:
->> On Mon Sep 14, 2026 at 1:17 PM BST, Robin Murphy wrote:
->>> On 14/09/2026 11:22 am, Gary Guo wrote:
->>>> On Mon Sep 14, 2026 at 10:58 AM BST, Danilo Krummrich wrote:
->>>>> On Mon Sep 14, 2026 at 2:45 AM CEST, Alexandre Courbot wrote:
->>>>>> On Mon Sep 14, 2026 at 6:08 AM JST, Matteo Kloiber wrote:
->>>>>>> On Mon Sep 7, 2026 at 11:43 AM JST, Alexandre Courbot wrote:
->>>>>>>> It also means that without patch 1, nova-core would split the firm=
-ware
->>>>>>>> into hundreds of 64KB SG entries, which is not breaking but still
->>>>>>>> something we want to avoid. The correct fix is to make sure that
->>>>>>>> `dma_set_max_seg_size` is called by the driver, and while we are a=
-t it
->>>>>>>> we also want every driver to call `dma_set_mask_and_coherent`. Ide=
-ally
->>>>>>>> we would use the type system to make sure that both functions are =
-called
->>>>>>>> before any DMA operation can take place (using a safe interface), =
-but
->>>>>>>> I'm not quite sure yet how we can do this.
->>>>>>>
->>>>>>> This sounds sensible indeed. Should I open a thread regarding that =
-on Zulip?
->>>>>>
->>>>>> Probably not necessary, the mailing-list has a larger audience and i=
-s
->>>>>> the right place for this. I expect people will jump in here with the=
-ir
->>>>>> thoughts.
->>>>>
->>>>> The problem with those is not that they must strictly be called befor=
-e
->>>>> allocating DMA memory, but they must not be called concurrently with =
-other DMA
->>>>> operations, such as allocating DMA memory, as it would technically be=
- a data
->>>>> race.
->>>>=20
->>>> Do they really have to be called *before* allocating DMA memory, not d=
-o they
->>>> just need not be called *concurrent* to DMA memory allocation?
->>>
->>> Similar to DMA masks, the segment parameters should be set appropriatel=
-y=20
->>> before any dma_map_sg() operation. Plus since they likely influence=20
->>> scatterlist geometry, that means typically they're also going to need t=
-o=20
->>> be set before building the scatterlist to be mapped in the first place.
->>
->> Right, in that case I think we have the following options:
->>
->> 1.  Have setters these being unsafe, with precondition that they must be=
- done
->>     before creation of DMA mappings.
->
-> As mentioned, I don't think the safety requirement has to be before using=
- other
-> DMA APIs, but just requiring to not do it concurrently. Not doing it woul=
-d be a
-> semantic bug, but it shouldn't have any safety implications.
+Adding Guilherme G. Piccoli into Cc.
 
-Agreed on the safety requirement; but Robin's reply does suggest that we
-really have no reason to not go the extra step and require these
-parameters to be set before any DMA op takes place. Which is honestly
-the answer I was hoping for as it makes things much simpler (see below).
+On Tue 2026-09-08 14:07:16, Zack Rusin wrote:
+> The core panic path enters a loaded crash kernel before running kmsg
+> dumpers, so the VMware logger cannot preserve the panic in the host log.
+> Set crash_kexec_post_notifiers during VMware platform setup. setup_arch()
+> runs before ordinary core parameters are parsed, so an explicit
+> crash_kexec_post_notifiers=0 still overrides this default. The 0644
+> parameter also remains writable at runtime.
+> 
+> VMware exposes no capability bit for this behavior, so the default changes
+> for every VMware guest. Running the logger first adds work to the panic
+> path and can reduce kdump reliability.
 
->
->> 2.  Have a `dma_info()` method like Danilo mentioned. However, we cannot=
- expose
->>     `&Device<Core<'_>>` inside such callbacks, because otherwise driver =
-would be
->>     able create DMA mappings. This however is too restrictive to be the =
-only way
->>     of setting DMA masks, because Nova needs to access the bar before se=
-tting the
->>     DMA masks.
->
-> Just to clarify, I mentioned this to be something we could do in addition=
- to (1)
-> for drivers where those values are statically known.
->
->> 3.  Use wrapper type instead of generics for typestate. Then, we can exp=
-ress the
->>     pattern of typestate transformation (generics cannot do this because=
- we
->>     always place it behind a reference).
->>
->>     For example, we can have `Device` to mean `Device<Normal>`, and then=
- have
->>     `Bound<Device>` to mean `Device<Bound>` (both of which are behind a =
-shared
->>     reference, like today, and `Bound<D>` can deref to `&D`).
->>
->>     Then, for `Core` typestate, we can instead have
->>
->>         struct Core<'a, D>(&'a Bound<Device>);
->>
->>     where it's passed by value. We can then define the DMA setters metho=
-ds to
->>     operate on `Core` like we did today, but safely. Instead of providin=
-g a
->>     `Deref` impl that turns `&Core<'_, D>` to `&Bound<D>`, we only imple=
-ment
->>     forwarding functions for APIs that can work without DMA configured (=
-e.g. PCI
->>     bar).
->>
->>     Then, provide a `into_bound()` method which *consumes* `Core<'a, D>`=
- and
->>     give out `&'a Bound<Device>` (this is why typestate generics cannot =
-work,
->>     because `&'a Device<Core<'_>>` is Copy and we cannot represent the o=
-wnership
->>     consumption).
->
-> Yeah, we had this discussion in the past with similar ideas; it is the ki=
-nd of
-> complication that we concluded not to be worth it and that I mentioned in=
- my
-> initial reply.
+AFAIK, the quality of the notifiers is varying. Running all notifiers
+might reduce the kdump reliability even more.
 
-How about this:=20
+I do not like much the hack with crash_kexec_post_notifiers. It is
+an all or nothing option.
 
-  fn probe<'bound>(
-      pdev: &'bound pci::Device<Core<'_>>,
-      dma: dma::Setup<'bound>,
-      _info: Option<&'bound Self::IdInfo>,
-  ) -> ...
+Also it was introduced as a quick hack so that users could decide
+what is more important for them. But it is not longer a "user"
+decision when some platforms enforce the ordering because they
+depend on the notifier.
 
-`dma::Setup` is a token carrying the DMA capability. You turn it into a
-`dma::Handle<'bound>` by acknowledging the DMA masks and segment
-parameters using setters and a `finish` method. Then all DMA operations
-are performed on that `dma::Handle`. This proves the DMA setup has been
-performed before any operation takes place.
+panic() is problematic and it is about compromises. And we need
+to balance what is important, what is safe, and what is optional.
+This is why I suggested to introduce more notifiers some time ago,
+see https://lore.kernel.org/lkml/YfPxvzSzDLjO5ldp@alley/
 
-It doesn't complicate `Device` any further, and drivers that don't need
-DMA can just drop the token and don't need to think about it anymore.
+Guillermo implemented this, see
+https://lore.kernel.org/all/20220427224924.592546-1-gpiccoli@igalia.com/
+But it has stalled because it touched too many subsystems and it was
+hard to get an agreement.
 
-The DMA token is not opened from the `Device` because it needs to be
-unique, so this adds one extra argument to probe, but this removes the
-need to use `unsafe` while strictly enforcing the ordering (and staying
-trivial to use).
+Maybe, we should start with something simple, and introduce
+one more panic notifier as a start. It might be called either:
+
+  + "panic_hypervisor_list" because "crash_kexec_post_notifiers = true"
+    seems to be primary set on hypervisors.
+
+But I would rather make it more generic and call it
+
+  + panic_pre_crash_kexec or panic_pre_kdump because there might be
+    more notifiers which are either 100% safe and useful or are worth
+    the risk before calling crash dump.
+
+We could put there x86/vmware notifiers as a start. And we could later
+move there other important notifiers.
+
+How does that sound, please?
+
+> A full log transfer uses 1027 low-bandwidth hypercalls; three checkpoint
+> attempts are bounded at 3077. In vmcall tests, a maximum-size transfer
+> took at most 7.47 ms; three complete transfers comprising 3081 calls took
+> at most 21.58 ms.
+> 
+> The crash report remains suppressed while a crash kernel is loaded because
+> the host may terminate the VM inside that call. A future report from the
+> crash kernel or kdump userspace can restore the event after saving the
+> vmcore.
+
+Best Regards,
+Petr
