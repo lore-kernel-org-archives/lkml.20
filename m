@@ -1,82 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805DA3921C1;
-	Thu, 17 Sep 2026 10:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A93F4BC00B;
+	Thu, 17 Sep 2026 10:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640879; cv=none; b=opiSZC2p+U7SFkY5vdG3blrB2Ew9bzhYP7+Q8ZC+KigsCrqurdTqecyRDRIe6OBJEcDr68KXCLoYE6O5TbB/tUMHhAVAdx+0mc1xSBTSAukHLQRrfoxPtV5Z5NowCUl01INfbgF2fNv4OwY0ooyWjOo7qjSx5rJiCDBLwHa3fzM=
+	t=1789640900; cv=none; b=E90azIXAOt+Jgtf2ct1CsUClHLFOAqQAqpNKYP9xlBtviI9xWLpgmRZjQeL9+QR+sR014WZWUofeZVTUXeRDNcNL58PIklFiTErBTsFkexvMdzKN0ufxTWzdi/iGtB3B1pOxfQprWKezJJ3KuBDsgFetq0UnCXN4TcVJgUCGKFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640879; c=relaxed/simple;
-	bh=MjxPemX7u6QvWceCtzXMtGre1zecfRugdHyEfrYesZo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NP36/AuWTJX4I7/M3LAITtluDFQgCrhpN0RLprZekfnlxTR1nuWKaNobcYLeozB8peM1tdFtPXOjYr1e/22lQpJQngcCIyjavbBTDK+xczLojO0qJsm7BodMe5fVVGxyRQ0Rr64FovC+FhS0itndJxfepCj94fKzTJluSaW1lCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k1HiC3u3; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k1HiC3u3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AACCC1F000FF;
-	Thu, 17 Sep 2026 10:27:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789640875;
-	bh=orbnNtgIcmvlUMlvcfVnBTDTsam1qoFJ64c6f7ycEpY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k1HiC3u3ExvQ9fqZxKoWkDm6EilWVvho7Gy4x3NMxgGrZs6J20HUtC4R1dZN7LfKz
-	 +jcby38/N8WJ1p2sTeRE2UJrs3lTNnRn1jw9tMOcqt79ghUF2EhdVyJCFqx6dfc+zQ
-	 S2MWHmrrOB1TEn9TsvX6GCEWXwe75z4ZzNsAy3/RRKWhcAgqQ92kfzzsFSZEzX00kj
-	 4Qklg0GyAIW0XcP+puKjg5rTyE9OAEoIEqYJN15F9+Mr/N3qkniBKO1vdgGHaNSlLL
-	 BrhX710YfVVOdwGOQz07gc16L3RwmLOeWVpUUoAHpwTqRqmWIt5/p65tIHNOjbvES9
-	 yR04F0oC8/2+A==
-From: Christian Brauner <brauner@kernel.org>
-To: Christian Brauner <brauner@kernel.org>,
-	David Howells <dhowells@redhat.com>
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	linux-afs@lists.infradead.org,
-	netfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] netfs, afs: Fix symlink reading
-Date: Thu, 17 Sep 2026 12:27:50 +0200
-Message-ID: <20260917-allrad-zerreden-gehen-fb6dcaa8dc0a@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <3912795.1789489319@warthog.procyon.org.uk>
-References: <3912795.1789489319@warthog.procyon.org.uk>
+	s=arc-20240116; t=1789640900; c=relaxed/simple;
+	bh=fLAwyxJU/avsaVgGvmVbChT34DCHO2PGP7Xf6y4z8w0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=m+cKYJYoorgH/vpNrxolhGPs0yY/cv6tOIJQ3m5X2M5/N/fH0GSx/vE8psjnTkILdKpx6EqDB0yuyxqpx5TIDj/d803Ytv1UBY86/uEGGk9KcXJrZPiCze45BEa4VNnBiRm8f7l2zIwhG7rlXs25762TZBbV4xk12kH1uEGmQHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAXgDq0wKtqR5x+CA--.63922S2;
+	Thu, 17 Sep 2026 18:28:04 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexandre.belloni@bootlin.com
+Cc: bbrezillon@kernel.org,
+	claudiu.beznea@tuxon.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
+	miquel.raynal@bootlin.com,
+	nicolas.ferre@microchip.com,
+	richard@nod.at,
+	vigneshr@ti.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] mtd: rawnand: atmel: Fix HSMC clock leak in legacy controller init
+Date: Thu, 17 Sep 2026 10:28:04 +0000
+Message-Id: <20260917102804.2146887-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1225; i=brauner@kernel.org; h=from:subject:message-id; bh=MjxPemX7u6QvWceCtzXMtGre1zecfRugdHyEfrYesZo=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWStPrDsXc80j4e5/eIH+te+Ssu5Mm2r2NaHE/ZY/N44/ eLbrLO7T3SUsjCIcTHIiimyOLSbhMst56nYbJSpATOHlQlkCAMXpwBMZJY5I8ME9d0NQf+WxnPf LG+TeF3uaii/fvnsW29F/C/c9DmdzPOWkWG9VJneyr1XilRNDrYKyh641pKT76c6uUu5xUooyOD qNxYA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAXgDq0wKtqR5x+CA--.63922S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJF47Aw1UXryxKFyfJFyrJFb_yoW5uFyxpF
+	W7XFWxGw18XayfZFZrKa1UWF1FqFs7KFyDCwsxW34fZw4aqryqyF1rZFyFqFW5GFWfXw43
+	Za17t3W8CFn5A3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
+	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
+	vjxUqdHjUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggNA2qrq3ZOXQABsO
 
-On Tue, 15 Sep 2026 17:21:59 +0100, David Howells wrote:
-> Fix the reading of symlinks from the cache in afs by making netfslib trim
-> the amount read down to i_size.  The problem is that afs sets the size of
-> the iterator to the size of the buffer (PAGE_SIZE) so that the cache can
-> round the read size up to the cache's DIO size.
-> 
-> Note that this also impacts the reading of AFS mountpoints as they're just
-> stored as symlinks with an odd file mode.
-> 
-> [...]
+atmel_hsmc_nand_controller_legacy_init() takes a reference to the
+HSMC clock with of_clk_get() and enables it, but the error paths
+that follow only release the device node, so both the reference and
+the enable are leaked whenever the controller cannot be fully
+initialized.  The probe fails in that case and never reaches
+atmel_hsmc_nand_controller_remove(), which is where the clock is
+normally disabled and put.
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+Add an err_disable_clk path that disables and releases the clock
+before jumping to the existing out path.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Fixes: f88fc122cc34 ("mtd: nand: Cleanup/rework the atmel_nand driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/mtd/nand/raw/atmel/nand-controller.c | 25 +++++++++++++-------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+diff --git a/drivers/mtd/nand/raw/atmel/nand-controller.c b/drivers/mtd/nand/raw/atmel/nand-controller.c
+index e7fdf532c5fe..87d9227f6ecc 100644
+--- a/drivers/mtd/nand/raw/atmel/nand-controller.c
++++ b/drivers/mtd/nand/raw/atmel/nand-controller.c
+@@ -2184,6 +2184,7 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
+ 	if (ret) {
+ 		dev_err(dev, "Failed to enable the HSMC clock (err = %d)\n",
+ 			ret);
++		clk_put(nc->clk);
+ 		goto out;
+ 	}
+ 
+@@ -2193,20 +2194,20 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
+ 		if (ret != -EPROBE_DEFER)
+ 			dev_err(dev, "Failed to get IRQ number (err = %d)\n",
+ 				ret);
+-		goto out;
++		goto err_disable_clk;
+ 	}
+ 
+ 	ret = of_address_to_resource(nfc_np, 0, &res);
+ 	if (ret) {
+ 		dev_err(dev, "Invalid or missing NFC IO resource (err = %d)\n",
+ 			ret);
+-		goto out;
++		goto err_disable_clk;
+ 	}
+ 
+ 	iomem = devm_ioremap_resource(dev, &res);
+ 	if (IS_ERR(iomem)) {
+ 		ret = PTR_ERR(iomem);
+-		goto out;
++		goto err_disable_clk;
+ 	}
+ 
+ 	regmap_conf.name = "nfc-io";
+@@ -2216,20 +2217,20 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
+ 		ret = PTR_ERR(nc->io);
+ 		dev_err(dev, "Could not create NFC IO regmap (err = %d)\n",
+ 			ret);
+-		goto out;
++		goto err_disable_clk;
+ 	}
+ 
+ 	ret = of_address_to_resource(nfc_np, 1, &res);
+ 	if (ret) {
+ 		dev_err(dev, "Invalid or missing HSMC resource (err = %d)\n",
+ 			ret);
+-		goto out;
++		goto err_disable_clk;
+ 	}
+ 
+ 	iomem = devm_ioremap_resource(dev, &res);
+ 	if (IS_ERR(iomem)) {
+ 		ret = PTR_ERR(iomem);
+-		goto out;
++		goto err_disable_clk;
+ 	}
+ 
+ 	regmap_conf.name = "smc";
+@@ -2239,20 +2240,20 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
+ 		ret = PTR_ERR(nc->base.smc);
+ 		dev_err(dev, "Could not create NFC IO regmap (err = %d)\n",
+ 			ret);
+-		goto out;
++		goto err_disable_clk;
+ 	}
+ 
+ 	ret = of_address_to_resource(nfc_np, 2, &res);
+ 	if (ret) {
+ 		dev_err(dev, "Invalid or missing SRAM resource (err = %d)\n",
+ 			ret);
+-		goto out;
++		goto err_disable_clk;
+ 	}
+ 
+ 	nc->sram.virt = devm_ioremap_resource(dev, &res);
+ 	if (IS_ERR(nc->sram.virt)) {
+ 		ret = PTR_ERR(nc->sram.virt);
+-		goto out;
++		goto err_disable_clk;
+ 	}
+ 
+ 	nc->sram.dma = res.start;
+@@ -2261,6 +2262,12 @@ atmel_hsmc_nand_controller_legacy_init(struct atmel_hsmc_nand_controller *nc)
+ 	of_node_put(nfc_np);
+ 
+ 	return ret;
++
++err_disable_clk:
++	clk_disable_unprepare(nc->clk);
++	clk_put(nc->clk);
++
++	goto out;
+ }
+ 
+ static int
+-- 
+2.34.1
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] netfs, afs: Fix symlink reading
-      https://git.kernel.org/vfs/vfs/c/c51e89c5b5db
