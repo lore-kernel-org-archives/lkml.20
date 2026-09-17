@@ -1,137 +1,287 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f5.google.com (mail-qv2-f5.google.com [74.125.230.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CCC2BEFF6
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789616504; cv=none; b=aRIDep5AM9i5f3wnxktx+I3tA7siXSOaLzYmoroexO+bH57dr5Yrcog9MpPj+8noIULcEVgJzX0I9bfCrgpJaplLs3269hLiD8nDa6v9LMw2082wImzVFNNiRSuW5G5jgng6ll3p6JyEOucYj4ulGIhKwtqcM/+vJQxvBnlAnjQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789616504; c=relaxed/simple;
-	bh=4XhJsmVizhzHozwZPuPySnL45oeWWBP+08eCboV7Wms=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RdOJRczREG/i4a1RHdmhpCtK+msrWiY6aX8V0XMesbC5aeAYweEaO6UfQWYy5xSLdh1a1r6cXj0YihDl1cfGfB+PcD8l4f2LfDTw6pitD3PMAwr35/A4NvUSl/RyD/JwmY7wlcAbRudTSowPVPexDieGC5YFiWx/6+g3qlBjfnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NzC194yH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NbLberWq; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E272A34F247
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.133
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789616585; cv=pass; b=HMspwWCvZy7REjUTj4j405M1aHQ+Q9BTUgAIANTIR4Uy2Zb1YQU2y10CREDBKsgGe1aDuMGraudXEBUEOgOhORGOOONtSiyoPbbbOgUOrO6NxbftoitasEsSBdQf9vm873deVOZwmBW9B0V8GmFixas3yP+m5WSMP7y9JR/v9bE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789616585; c=relaxed/simple;
+	bh=HqkdQHk7vGIuRdqQeXYqrP9OmNw41tjLpuhU2wHfwVI=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=EADLrxSO/pyza8TG7q/ioeoC3Z60Ehk+zPSI0DcCREeWWKTcGJNYLCY9JkyCYWNM3tP2R+9mHMdvQaVxClxCsy5mCyMCeUJAtV3rhdz+W0NG/Ij311BdFNALZ8y5OmMpeVfB5PCHB9AfqZxeAS/Ixm1RLEgegAUT/fWy809p274=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c326Lo1K; arc=pass smtp.client-ip=74.125.230.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NzC194yH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NbLberWq"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H2tSlq3305135
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:41:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=B5C8wjP4LGLq/ehI6YaOhoiR
-	mBukehjstLcbOo1B3qM=; b=NzC194yHrdG/MscmREOBfbUZ903PjJFPlId0LMff
-	8LF7xeLYFhyMg8L9w8CLKaR+2cERYqDWwH+C196qRU8pHzBZVJhhwzpd9mwH/n/l
-	t6jTQje1Z8NMCeZTrx5UXR7VaeJanhYmwnvfWfQFSNQPyfeplHymxCpdk92Oi5iA
-	X1KA89i6kUS3t9mCtzBYai3aseimxWYadyXtiPzl6bdT9dvjAWS17aakMMKI6o8E
-	AXAy+ENC/VZ5nDE3g1BxNmEWPFKZLagcPnDotRnMhsoK6xCLtNfjoSbBfwYNQ92z
-	3L11sFXAbM8EXoKx2kYheR0IR0mhgOgjoIoBOxCJGYCQzQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gr7uc854v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:41:42 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2dd1631d291so5823795ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:41:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c326Lo1K"
+Received: by mail-qv2-f5.google.com with SMTP id 6a1803df08f44-90cd1be1f12so1208646d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:43:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789616583; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NfCtMngawpMnRwodhNLI4deLngIXLcLJ7YizBxZvzkU4psMSqByQgL55HjcsMMW4UT
+         DETAtCQ3IMOoIRdXU7KBZQOClvN9HLyvTmXcVgbuU7iwe0H/B2FE9tREALD5D7AkJ0HC
+         hDBzRGuiWfktibfSyvT6mSxyq+6oTmR5/IkChPorIFdlF2Kmf4rA4WumG81ich1ui2S9
+         PtnAQ6Xgbin1MylrvEMyBDn1g5iPZx9W/YpXZTtQAM3ZvRez+nnxaCsdtF/+E7OJiOPK
+         xq51IXu7JjFZked7e61JHn6kaejBZvLNIuCeNTRsHYkRgZjVqZX3vaUNn/640h9e6r3J
+         0Qig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:reply-to:mime-version
+         :dkim-signature;
+        bh=uUKooj3G6MZFzE1OIpQtE6ekzTvNkzFnwYCrZqQvghU=;
+        fh=pWavc8Gt8I9NbkvsiXwuxwjUcqGgVgW0U852DJTLCT8=;
+        b=rvEDyrSRo9SzHF8+q1Yh+47JP3n/URXF1BrvWQo0WUshJkchP3/JK+3AxmXRBkBs3M
+         NhGXUVuiAdfixnmw/4ZaDQcyn51J2z4/9najNQijto61yTryKhOEHd6AfiEN9zIbkHq0
+         tw6VII25kOxpOdwYPRR18/mJ1jAgmCJtO/awlZeNZgD5XDA0vbytCgTAPEYgiJ6N/VYH
+         ry1uF2hyNLavJlHJinjAuRFDrYbxnlEC2ZX5zvKbdCFo+0Kn3z/OEDJsYFEQLsWq+PDu
+         rTeEbyjaANpdAXCqMjWf4ZhPa9ru/mrTU37g+8GSnvW+dOYy8sSGFyAV+5gYAhRuXx97
+         E7DQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789616502; x=1790221302; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B5C8wjP4LGLq/ehI6YaOhoiRmBukehjstLcbOo1B3qM=;
-        b=NbLberWqtJYKv+HqLZDItfWUd2V26KJB0AtdtCCBn1r3yaBgGem2qM2t/fCTwIkTCa
-         ntF1dZVhi527FRuxJJtuCSMPg779A137rh5sUhq6tE2zFe4gLtHvbJ0CAtsylk48e0Xk
-         CAx+85fNOksVC2P9UjLbTSi/ui/JYdIBYVdsXBuIs9aEiK0hKm9T1uzDN5sX2wq2eUrY
-         08H37RqOQqOavR0UOkSMreQYGb3rdcWar5CTDvxaCY5N2uCyfMO7IxQSCABA4rA1BDG8
-         L5qm1hNfeYH+cw4B6pVjKTmRlO3sBS6IvzlZUTCov27+rBemdgSFACMDR3i7zN+YbFjX
-         KCWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789616502; x=1790221302;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789616583; x=1790221383; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:reply-to
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=B5C8wjP4LGLq/ehI6YaOhoiRmBukehjstLcbOo1B3qM=;
-        b=fqSHj5bthK2cJORHqFu7SLuWwU53L4tdx353tgFjlEgEs/wu3CWYmCtGG7Qjj2hur3
-         JH0NMrtW1D/dot7aYUQC3OCr+AD7IDcp4e6jfrllgpYRkt0kDlzOJCT3tr27f3iyKQkR
-         GJ+kHYd9HCeiE5sOKrMFLhGRvMWnheAZdOlOa5kfiLivfNx7WuSnDkBKVr+CW/mG6tA9
-         OvcAR/AcXRgHQGG5h9Wq4v3UlCGwCuRPhQMf0S91I/HWvB2lBVr4bHBnOzQl3fEW+BFI
-         GjLkCwONcPrKQWLX/e0Fvi6kyvfmUgQWdXpYPIFYbJnANE29QPgkOlwX2OOaY5DCcJ5w
-         LP5Q==
-X-Forwarded-Encrypted: i=1; AKwUvByTuxqOu3Tu47+XTjBE275fbGIW85Jzrtdog0sV2Ixo8NgpIZ1PPLJIziweVtmX9uOiyTP1vQ9ZcqQHVcE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUi0tTxkQOJEilRSMptlds90O9LKHBuAiwp9zxcDAW4mX1fCnG
-	VOT04L0gHqBglmltGiEyCIKDk41DxUF4axpjRCp1MNjGNyojrjDP0ahnOYLHid/mwaJpXtdJOsZ
-	PFSUwBF4KWZkeeYov+7/GUdZUE2rJN0S5kHFdBCakET5sN+Jj8dqJQC4nz2s1mDc9lo4=
-X-Gm-Gg: AYBFou3aDMuE+i5hnVsVHEUFYldK0lx6HJTRyETv8130KC9I2FivfjFTHZQ++xD5Y75
-	hbaVMmFG/QNzrqUZjukcM+xb6Ibdd5iTqeUN5uy3FYOt86Tdkc0ZYKXfsqqh8DAxZLOJn4QTGTL
-	5nQCIYzoTr1rqO4YMKjbq+0ITgZho5w0oDMX/8ATFd2sqpnBg1cNKF2dkfzKVMNENFGqO9kLSX6
-	mcWqJj0pJBbpCjp+cHcm5ZU/jJwy8VrbUOPYuUxYoHA7aD61gu47lClybmP3zefy2c3Ayu00VJf
-	ThwLTNe/wxcP+4rNFnRrzN6ULPJIaSG6Y1HWrpuRcceOUwTkVxtcaKSVpw0ONgzqCqJHT3Fg35L
-	Z3YKmkcrm/ubGgPVC1ILIFHRLU7/Q4wRUo9W/FJOLOO0=
-X-Received: by 2002:a17:902:cf03:b0:2db:31d5:1448 with SMTP id d9443c01a7336-2dd8e77cddcmr113408655ad.22.1789616501755;
-        Wed, 16 Sep 2026 20:41:41 -0700 (PDT)
-X-Received: by 2002:a17:902:cf03:b0:2db:31d5:1448 with SMTP id d9443c01a7336-2dd8e77cddcmr113408045ad.22.1789616501347;
-        Wed, 16 Sep 2026 20:41:41 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5aee8b0sm22826369eec.23.2026.09.16.20.41.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 20:41:41 -0700 (PDT)
-Date: Thu, 17 Sep 2026 11:41:35 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Shawn Guo <shawnguo@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org,
-        linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: dma: qcom,gpi: Document the Nord GPI DMA
- engine
-Message-ID: <aqthb96f2zj_dlK5@QCOM-aGQu4IUr3Y>
-References: <20260916-nord-gpi-dt-bindings-v1-1-857bf9e84999@oss.qualcomm.com>
+        bh=uUKooj3G6MZFzE1OIpQtE6ekzTvNkzFnwYCrZqQvghU=;
+        b=c326Lo1KGUJtILfh7jqZxqCyYswff43LjawyLfC9MX3mYjwniqPiMQEXvappNUUOi9
+         r2vhYXrHmf3JU6cSW9LcayWUzwRNzQN1k8zdnA7FQscxcLUUCsMSa3qFdpCC7pDbtxbd
+         wEzdqF+VXqniOJ8TdHlLgpJk/GGGd8qVwFl4gmseijkxgZE1uBEStedDSz/eQwG7LdLG
+         bxyuQeYu2ehcrLox88/dtdOxMgxsabeHSTBHt6ViEiFoDyVlj+BGMVRCtHUg2eCPJMuN
+         zG7pdFKo+sfsd5EhV23n+Nj+46PzgGGlwVcO17fOnf1vw1OW5guVf5dIpaQVbKry+Dxx
+         JuXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789616583; x=1790221383;
+        h=content-type:cc:to:subject:message-id:date:from:reply-to
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uUKooj3G6MZFzE1OIpQtE6ekzTvNkzFnwYCrZqQvghU=;
+        b=PVoDWHX8T/MAsJByCd8wLMBwl/rjz/v1weEklLeho/WTN0dTMWvevpIXPN0rBZptnz
+         6OmW8tMsWUa/uLdfk0+MWNsiDvb3nd5gWEEIH9CNDfF7NKqQr3CdMzU17zBje8f8dVyI
+         HMOMawgDJ1SGom4Ih/jpD/bYs9C1pKxfi0ZCgUtWk2yy0C/YNoLk5+AmL41qNFQfLjAd
+         EkhmjbK8NjRzLByrUKKd+3RfrIyHGt7YT9Wjtr/A7qSo/En/6pm2Ni63qpPRZbg8IWmK
+         NqY/3AyHEaoOmKdFQCzPmy6Noc1XZjaxDAbAwCMXxs62D1sB/QRQVfAfQM3vt4DLOiGR
+         b0ZQ==
+X-Gm-Message-State: AFuF++kWz68Zxt8WQHRIreDE7TMkJfS/e12s2+D/TGJe7kzHn4TxsaAZ
+	KaG5Rx5fB3UEQPgum993CSTqYjWxHPo7pzXKYCHqe2Lxd5O4OAehSjda6pNMoGewX1ZbaWGGMsC
+	r5zQirOa0HVZ99uBvsSxWF72iymHQyZS+c9oh4ZVEMe0g
+X-Gm-Gg: AYBFou3jOIcdgqu0obrrXXRxoZ5sgHfHcriH6Rn7ER5/pZ6SQ5F1fs5fkk22W6kjaXY
+	ujkACmGY24jH1y+lbjlFc0CAQ3u3gQ7rOh/MsRNQzrpPhx/uhy7DRvyRjWjViUmj5gw41n6MrbS
+	rIxCeKqnsSPjJMfsziUDKyblQbd2bniLcNjAcMROFSiWSsUFns14snOVm4lq/Fj1vaLdxCWz1yz
+	y+P63SqVsvk/ABtjhqbehjMvDFoRDMlC9ejMlXqhuIogf8KQOSVxq9S8HBmVPMxO6Yzm1VP7byO
+	HWDIvT3rDrX22eFTBmAbUxVLR9uLnikV62yHsjRve1j0X1LaF+BFPHqyqNz6FByxqSkdkwtGrxs
+	nD8zXhRcziY2NVsnrDSs8b1ly23YH37NTYs/vKc0ZPpl0vQBHSQrKCUKFJR2kC8UDaTWJPg==
+X-Received: by 2002:a05:6214:248f:b0:90e:939f:70bf with SMTP id
+ 6a1803df08f44-9123d7314bamr91512256d6.15.1789616582652; Wed, 16 Sep 2026
+ 20:43:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-nord-gpi-dt-bindings-v1-1-857bf9e84999@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDA0MyBTYWx0ZWRfXxgGoWlC4UhfK
- IPi9I1vY/3fnblXd1VFkmL0l3A7gx4WemtYhQ0B3VydA4V1N42SGNo4lIDYxs+TpePr75w+lcbC
- T9cCLE1p4IV3tqwQVq0Zt70gTKPAcnZbXIMCvaT5fEPGZycxKg5Fic1SiyxN8SgcJmKJmzGCjRb
- vf0//VA9cBbb3KVXD4i5PF6e3fT3U0hLfHj6b/nZpY6/Mz499eXjByegtB7Jmihxz3212ZS0ghi
- jqN8PaDxZWruTd9Nz1QQgF/bwG2jVQyDnJRmU7IEHer0Rq66WEA6t2FsgVPMUwW11ZDFxAclkSJ
- 3RYLEffaw2haVablmZAIfzvRAeI2QtYvQ7NmHX4IlyXicyk38AtxKxyhNrQ/b5wPqlEH/2Tv1Wg
- qVkqgSwVH+Y8kpfsd1QSq08A7K9HJEYKpIWEZrrBJtUIYMe21jUDNqGKGHyZddIPgP7HGfU9ie8
- quPUkpNMuDa3nxbCzQQ==
-X-Proofpoint-GUID: sOrTrsoH_QBmyIHK3jqlpHLdAZ-Z6VJa
-X-Proofpoint-ORIG-GUID: sOrTrsoH_QBmyIHK3jqlpHLdAZ-Z6VJa
-X-Authority-Analysis: v=2.4 cv=F9zC5ahN c=1 sm=1 tr=0 ts=6aab6176 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=yOFVgSGORKUhaciPrRkA:9 a=CjuIK1q_8ugA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDA0MyBTYWx0ZWRfX9tgxnUxAlk+F
- MqDIZWQpzQP8ScOBAR9BISuc/0/JvUeFapHyXwghnaw/+1TWTtsnqzKsJJFb31HaTKAfaOSC8JQ
- ogZK0wnGPjdddBW91K0KjQtdf2hVfTU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- clxscore=1015 impostorscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170043
+Reply-To: www.rokinthanp03@gmail.com
+From: Rokinthan p <rokinthanp03@gmail.com>
+Date: Thu, 17 Sep 2026 09:12:44 +0530
+X-Gm-Features: AcwNN1Vya4oV7C-YT2uCrjkL_4u_96CmWQoS-YQbFFbSVnGdRrUHXUWYyce2KsY
+Message-ID: <CAHzb5FFF3C12pCWa0kdDGv8FRPeZJ5+wevz7Lvyd+AzGK7MBug@mail.gmail.com>
+Subject: [PATCH v3] media: v4l2-ctrls: do nothing if controls[0] == NULL in
+ cluster functions
+To: linux-kernel@vger.kernel.org
+Cc: Hans Verkuil <hverkuil@kernel.org>, 
+	syzbot+9f7405999979761b6cfc@syzkaller.appspotmail.com, 
+	linux-media@vger.kernelorg, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	syzbot+cf896de36144391bcde1@syzkaller.appspotmail.com
+Content-Type: multipart/mixed; boundary="000000000000b191ea065ba594ef"
 
-On Wed, Sep 16, 2026 at 05:21:29PM +0200, Bartosz Golaszewski wrote:
-> Add the compatible string for the GPI DMA engine found on the Nord
-> family of SoCs.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+--000000000000b191ea065ba594ef
+Content-Type: text/plain; charset="UTF-8"
 
-Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+The V4L2 control framework is designed to allow drivers to instantiate
+    controls and clusters without checking for errors after each call,
+    checking hdl->error only once at the end.
+
+    However, if allocating the master control (controls[0]) fails, e.g. due to
+    memory allocation failure, v4l2_ctrl_cluster() triggers a WARNING:
+      ncontrols == 0 || controls[0] == NULL
+      WARNING: drivers/media/v4l2-core/v4l2-ctrls-core.c:2525 at
+  v4l2_ctrl_cluster
+
+    Additionally, v4l2_ctrl_auto_cluster() attempts to dereference
+    master->minimum without checking if controls[0] is NULL, leading to a
+    NULL pointer dereference when master control creation fails.
+
+    Update both v4l2_ctrl_cluster() and v4l2_ctrl_auto_cluster() to silently
+    return if controls[0] is NULL, preserving the design that control
+    creation errors are caught at the end when the driver checks hdl->error.
+    Also update function documentation in include/media/v4l2-ctrls.h.
+
+    Fixes: 71c689dc2e73 ("media: v4l2-ctrls: split up into four source files")
+    Reported-by: syzbot+cf896de36144391bcde1@syzkaller.appspotmail.com
+    Closes: https://syzkaller.appspot.com/bug?extid=cf896de36144391bcde1
+    Suggested-by: Hans Verkuil <hverkuil@kernel.org>
+    Signed-off-by: Rohinthan <rokinthanp03@gmail.com>
+    ---
+    v2 -> v3:
+    - Fix the issue in the V4L2 core (v4l2-ctrls-core.c) instead of hackrf,
+      as suggested by Hans Verkuil.
+    - Return early if controls[0] == NULL in both v4l2_ctrl_cluster() and
+      v4l2_ctrl_auto_cluster().
+    - Update function documentation in include/media/v4l2-ctrls.h.
+    - Revert hackrf driver changes.
+
+    v1 -> v2:
+    - Corrected commit hash in Fixes tag.
+
+     drivers/media/v4l2-core/v4l2-ctrls-core.c | 16 ++++++++++++----
+     include/media/v4l2-ctrls.h                |  4 ++++
+     2 files changed, 16 insertions(+), 4 deletions(-)
+
+    diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-
+  core/v4l2-ctrls-core.c
+    --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+    +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+    @@ -2490,7 +2490,10 @@ void v4l2_ctrl_cluster(unsigned ncontrols, struct
+  v4l2_ctrl **controls)
+         int i;
+
+         /* The first control is the master control and it must not be
+NULL */
+    -    if (WARN_ON(ncontrols == 0 || controls[0] == NULL))
+    +    if (WARN_ON(ncontrols == 0))
+    +        return;
+    +
+    +    if (!controls[0])
+             return;
+
+         for (i = 0; i < ncontrols; i++) {
+    @@ -2508,12 +2511,17 @@ EXPORT_SYMBOL(v4l2_ctrl_cluster);
+     void v4l2_ctrl_auto_cluster(unsigned ncontrols, struct v4l2_ctrl
+**controls,
+                     u8 manual_val, bool set_volatile)
+     {
+    -    struct v4l2_ctrl *master = controls[0];
+    +    struct v4l2_ctrl *master;
+         u32 flag = 0;
+         int i;
+
+    +    if (WARN_ON(ncontrols <= 1))
+    +        return;
+    +
+    +    if (!controls[0])
+    +        return;
+    +
+    +    master = controls[0];
+         v4l2_ctrl_cluster(ncontrols, controls);
+    -    WARN_ON(ncontrols <= 1);
+         WARN_ON(manual_val < master->minimum || manual_val > master->maximum);
+         WARN_ON(set_volatile && !has_op(master, g_volatile_ctrl));
+         master->is_auto = true;
+    diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+    --- a/include/media/v4l2-ctrls.h
+    +++ b/include/media/v4l2-ctrls.h
+    @@ -834,6 +834,8 @@ struct v4l2_ctrl_config {
+      *
+      * @ncontrols:    The number of controls in this cluster.
+      * @controls:    The cluster control array of size @ncontrols.
+    + *
+    + * If controls[0] is NULL, then this function does nothing and
+just returns.
+      */
+     void v4l2_ctrl_cluster(unsigned int ncontrols, struct v4l2_ctrl
+**controls);
+
+    @@ -868,6 +870,8 @@ void v4l2_ctrl_cluster(unsigned int ncontrols, struct
+  v4l2_ctrl **controls);
+      * In addition, this function will set the %V4L2_CTRL_FLAG_UPDATE flag
+      * on the autofoo control and %V4L2_CTRL_FLAG_INACTIVE on the foo
+  control(s)
+      * if autofoo is in auto mode.
+    + *
+    + * If controls[0] is NULL, then this function does nothing and
+just returns.
+      */
+     void v4l2_ctrl_auto_cluster(unsigned int ncontrols,
+                     struct v4l2_ctrl **controls,
+
+--000000000000b191ea065ba594ef
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-media-v4l2-ctrls-do-nothing-if-controls-0-is-NULL-in.patch"
+Content-Disposition: attachment; 
+	filename="0001-media-v4l2-ctrls-do-nothing-if-controls-0-is-NULL-in.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mu4zhl020>
+X-Attachment-Id: f_mu4zhl020
+
+RnJvbTogUm9oaW50aGFuIDxyb2tpbnRoYW5wMDNAZ21haWwuY29tPgpTdWJqZWN0OiBbUEFUQ0gg
+djNdIG1lZGlhOiB2NGwyLWN0cmxzOiBkbyBub3RoaW5nIGlmIGNvbnRyb2xzWzBdID09IE5VTEwg
+aW4gY2x1c3RlciBmdW5jdGlvbnMKRGF0ZTogRnJpLCAxMSBTZXAgMjAyNiAxODo1NTowMCArMDUz
+MAoKVGhlIFY0TDIgY29udHJvbCBmcmFtZXdvcmsgaXMgZGVzaWduZWQgdG8gYWxsb3cgZHJpdmVy
+cyB0byBpbnN0YW50aWF0ZQpjb250cm9scyBhbmQgY2x1c3RlcnMgd2l0aG91dCBjaGVja2luZyBm
+b3IgZXJyb3JzIGFmdGVyIGVhY2ggY2FsbCwKY2hlY2tpbmcgaGRsLT5lcnJvciBvbmx5IG9uY2Ug
+YXQgdGhlIGVuZC4KCkhvd2V2ZXIsIGlmIGFsbG9jYXRpbmcgdGhlIG1hc3RlciBjb250cm9sIChj
+b250cm9sc1swXSkgZmFpbHMsIGUuZy4gZHVlIHRvCm1lbW9yeSBhbGxvY2F0aW9uIGZhaWx1cmUs
+IHY0bDJfY3RybF9jbHVzdGVyKCkgdHJpZ2dlcnMgYSBXQVJOSU5HOgogIG5jb250cm9scyA9PSAw
+IHx8IGNvbnRyb2xzWzBdID09IE5VTEwKICBXQVJOSU5HOiBkcml2ZXJzL21lZGlhL3Y0bDItY29y
+ZS92NGwyLWN0cmxzLWNvcmUuYzoyNTI1IGF0IHY0bDJfY3RybF9jbHVzdGVyCgpBZGRpdGlvbmFs
+bHksIHY0bDJfY3RybF9hdXRvX2NsdXN0ZXIoKSBhdHRlbXB0cyB0byBkZXJlZmVyZW5jZQptYXN0
+ZXItPm1pbmltdW0gd2l0aG91dCBjaGVja2luZyBpZiBjb250cm9sc1swXSBpcyBOVUxMLCBsZWFk
+aW5nIHRvIGEKTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIHdoZW4gbWFzdGVyIGNvbnRyb2wgY3Jl
+YXRpb24gZmFpbHMuCgpVcGRhdGUgYm90aCB2NGwyX2N0cmxfY2x1c3RlcigpIGFuZCB2NGwyX2N0
+cmxfYXV0b19jbHVzdGVyKCkgdG8gc2lsZW50bHkKcmV0dXJuIGlmIGNvbnRyb2xzWzBdIGlzIE5V
+TEwsIHByZXNlcnZpbmcgdGhlIGRlc2lnbiB0aGF0IGNvbnRyb2wKY3JlYXRpb24gZXJyb3JzIGFy
+ZSBjYXVnaHQgYXQgdGhlIGVuZCB3aGVuIHRoZSBkcml2ZXIgY2hlY2tzIGhkbC0+ZXJyb3IuCkFs
+c28gdXBkYXRlIGZ1bmN0aW9uIGRvY3VtZW50YXRpb24gaW4gaW5jbHVkZS9tZWRpYS92NGwyLWN0
+cmxzLmguCgpGaXhlczogNzFjNjg5ZGMyZTczICgibWVkaWE6IHY0bDItY3RybHM6IHNwbGl0IHVw
+IGludG8gZm91ciBzb3VyY2UgZmlsZXMiKQpSZXBvcnRlZC1ieTogc3l6Ym90K2NmODk2ZGUzNjE0
+NDM5MWJjZGUxQHN5emthbGxlci5hcHBzcG90bWFpbC5jb20KQ2xvc2VzOiBodHRwczovL3N5emth
+bGxlci5hcHBzcG90LmNvbS9idWc/ZXh0aWQ9Y2Y4OTZkZTM2MTQ0MzkxYmNkZTEKU3VnZ2VzdGVk
+LWJ5OiBIYW5zIFZlcmt1aWwgPGh2ZXJrdWlsQGtlcm5lbC5vcmc+ClNpZ25lZC1vZmYtYnk6IFJv
+aGludGhhbiA8cm9raW50aGFucDAzQGdtYWlsLmNvbT4KLS0tCnYyIC0+IHYzOgotIEZpeCB0aGUg
+aXNzdWUgaW4gdGhlIFY0TDIgY29yZSAodjRsMi1jdHJscy1jb3JlLmMpIGluc3RlYWQgb2YgaGFj
+a3JmLAogIGFzIHN1Z2dlc3RlZCBieSBIYW5zIFZlcmt1aWwuCi0gUmV0dXJuIGVhcmx5IGlmIGNv
+bnRyb2xzWzBdID09IE5VTEwgaW4gYm90aCB2NGwyX2N0cmxfY2x1c3RlcigpIGFuZAogIHY0bDJf
+Y3RybF9hdXRvX2NsdXN0ZXIoKS4KLSBVcGRhdGUgZnVuY3Rpb24gZG9jdW1lbnRhdGlvbiBpbiBp
+bmNsdWRlL21lZGlhL3Y0bDItY3RybHMuaC4KLSBSZXZlcnQgaGFja3JmIGRyaXZlciBjaGFuZ2Vz
+LgoKdjEgLT4gdjI6Ci0gQ29ycmVjdGVkIGNvbW1pdCBoYXNoIGluIEZpeGVzIHRhZy4KCiBkcml2
+ZXJzL21lZGlhL3Y0bDItY29yZS92NGwyLWN0cmxzLWNvcmUuYyB8IDE2ICsrKysrKysrKysrKy0t
+LS0KIGluY2x1ZGUvbWVkaWEvdjRsMi1jdHJscy5oICAgICAgICAgICAgICAgIHwgIDQgKysrKwog
+MiBmaWxlcyBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvbWVkaWEvdjRsMi1jb3JlL3Y0bDItY3RybHMtY29yZS5jIGIvZHJpdmVy
+cy9tZWRpYS92NGwyLWNvcmUvdjRsMi1jdHJscy1jb3JlLmMKLS0tIGEvZHJpdmVycy9tZWRpYS92
+NGwyLWNvcmUvdjRsMi1jdHJscy1jb3JlLmMKKysrIGIvZHJpdmVycy9tZWRpYS92NGwyLWNvcmUv
+djRsMi1jdHJscy1jb3JlLmMKQEAgLTI0OTAsNyArMjQ5MCwxMCBAQCB2b2lkIHY0bDJfY3RybF9j
+bHVzdGVyKHVuc2lnbmVkIG5jb250cm9scywgc3RydWN0IHY0bDJfY3RybCAqKmNvbnRyb2xzKQog
+CWludCBpOwogCiAJLyogVGhlIGZpcnN0IGNvbnRyb2wgaXMgdGhlIG1hc3RlciBjb250cm9sIGFu
+ZCBpdCBtdXN0IG5vdCBiZSBOVUxMICovCi0JaWYgKFdBUk5fT04obmNvbnRyb2xzID09IDAgfHwg
+Y29udHJvbHNbMF0gPT0gTlVMTCkpCisJaWYgKFdBUk5fT04obmNvbnRyb2xzID09IDApKQorCQly
+ZXR1cm47CisKKwlpZiAoIWNvbnRyb2xzWzBdKQogCQlyZXR1cm47CiAKIAlmb3IgKGkgPSAwOyBp
+IDwgbmNvbnRyb2xzOyBpKyspIHsKQEAgLTI1MDgsMTIgKzI1MTEsMTcgQEAgRVhQT1JUX1NZTUJP
+TCh2NGwyX2N0cmxfY2x1c3Rlcik7CiB2b2lkIHY0bDJfY3RybF9hdXRvX2NsdXN0ZXIodW5zaWdu
+ZWQgbmNvbnRyb2xzLCBzdHJ1Y3QgdjRsMl9jdHJsICoqY29udHJvbHMsCiAJCQkgICAgdTggbWFu
+dWFsX3ZhbCwgYm9vbCBzZXRfdm9sYXRpbGUpCiB7Ci0Jc3RydWN0IHY0bDJfY3RybCAqbWFzdGVy
+ID0gY29udHJvbHNbMF07CisJc3RydWN0IHY0bDJfY3RybCAqbWFzdGVyOwogCXUzMiBmbGFnID0g
+MDsKIAlpbnQgaTsKIAorCWlmIChXQVJOX09OKG5jb250cm9scyA8PSAxKSkKKwkJcmV0dXJuOwor
+CisJaWYgKCFjb250cm9sc1swXSkKKwkJcmV0dXJuOworCisJbWFzdGVyID0gY29udHJvbHNbMF07
+CiAJdjRsMl9jdHJsX2NsdXN0ZXIobmNvbnRyb2xzLCBjb250cm9scyk7Ci0JV0FSTl9PTihuY29u
+dHJvbHMgPD0gMSk7CiAJV0FSTl9PTihtYW51YWxfdmFsIDwgbWFzdGVyLT5taW5pbXVtIHx8IG1h
+bnVhbF92YWwgPiBtYXN0ZXItPm1heGltdW0pOwogCVdBUk5fT04oc2V0X3ZvbGF0aWxlICYmICFo
+YXNfb3AobWFzdGVyLCBnX3ZvbGF0aWxlX2N0cmwpKTsKIAltYXN0ZXItPmlzX2F1dG8gPSB0cnVl
+OwpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9tZWRpYS92NGwyLWN0cmxzLmggYi9pbmNsdWRlL21lZGlh
+L3Y0bDItY3RybHMuaAotLS0gYS9pbmNsdWRlL21lZGlhL3Y0bDItY3RybHMuaAorKysgYi9pbmNs
+dWRlL21lZGlhL3Y0bDItY3RybHMuaApAQCAtODM0LDYgKzgzNCw4IEBAIHN0cnVjdCB2NGwyX2N0
+cmxfY29uZmlnIHsKICAqCiAgKiBAbmNvbnRyb2xzOglUaGUgbnVtYmVyIG9mIGNvbnRyb2xzIGlu
+IHRoaXMgY2x1c3Rlci4KICAqIEBjb250cm9sczoJVGhlIGNsdXN0ZXIgY29udHJvbCBhcnJheSBv
+ZiBzaXplIEBuY29udHJvbHMuCisgKgorICogSWYgY29udHJvbHNbMF0gaXMgTlVMTCwgdGhlbiB0
+aGlzIGZ1bmN0aW9uIGRvZXMgbm90aGluZyBhbmQganVzdCByZXR1cm5zLgogICovCiB2b2lkIHY0
+bDJfY3RybF9jbHVzdGVyKHVuc2lnbmVkIGludCBuY29udHJvbHMsIHN0cnVjdCB2NGwyX2N0cmwg
+Kipjb250cm9scyk7CiAKQEAgLTg2OCw2ICs4NzAsOCBAQCB2b2lkIHY0bDJfY3RybF9jbHVzdGVy
+KHVuc2lnbmVkIGludCBuY29udHJvbHMsIHN0cnVjdCB2NGwyX2N0cmwgKipjb250cm9scyk7CiAg
+KiBJbiBhZGRpdGlvbiwgdGhpcyBmdW5jdGlvbiB3aWxsIHNldCB0aGUgJVY0TDJfQ1RSTF9GTEFH
+X1VQREFURSBmbGFnCiAgKiBvbiB0aGUgYXV0b2ZvbyBjb250cm9sIGFuZCAlVjRMMl9DVFJMX0ZM
+QUdfSU5BQ1RJVkUgb24gdGhlIGZvbyBjb250cm9sKHMpCiAgKiBpZiBhdXRvZm9vIGlzIGluIGF1
+dG8gbW9kZS4KKyAqCisgKiBJZiBjb250cm9sc1swXSBpcyBOVUxMLCB0aGVuIHRoaXMgZnVuY3Rp
+b24gZG9lcyBub3RoaW5nIGFuZCBqdXN0IHJldHVybnMuCiAgKi8KIHZvaWQgdjRsMl9jdHJsX2F1
+dG9fY2x1c3Rlcih1bnNpZ25lZCBpbnQgbmNvbnRyb2xzLAogCQkJICAgIHN0cnVjdCB2NGwyX2N0
+cmwgKipjb250cm9scywKLS0gCg==
+--000000000000b191ea065ba594ef--
