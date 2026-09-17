@@ -1,81 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com [115.124.28.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88A74C6523
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E947E4C2265;
+	Thu, 17 Sep 2026 10:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789641113; cv=none; b=FjB/9f9iOhJVn3AAuONiTKSqRFz21PFjH1dtfozjoEU4o7oh3hUplfwwYxBITNkswWegfiS55xthsf8GWHpcdWbw144TFzHVu2RPDEVhaFyq9thsdM3O+Se77gfzBmPSVGOSdx0b/5mn1cDok8mAWUI+JjLyDg1eIK76Z3Qj/bU=
+	t=1789641131; cv=none; b=qtKMm/IECFlDU449QaElNPnskEMrJ6qKeqJMkWuYQMg/csbCukK4Xn78RnPhJPwwUEA9ZUKW4QRsxr4QwNeVbMMHh9QWwCSQ9AIUDlEzJljcoNySB1cCVH/MrCoVFRHvJhWcx7sHlYh13gF8MSpYGUfqmJsfOv9qbr9OB29Rf5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789641113; c=relaxed/simple;
-	bh=Az1NTaTuqv2Z4fxUHIUgSUcjzTph0EfLku+jKq4xMGk=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VQpH/SmmQbFvkVi3Z0cJMKmUWaml+uc2A5m+ycplRYkEupV7hWo860i3beiLlEimYsP1jxxdyO91HCHOc0EQm2BSAL+VJgponZ/zKTTwurVDmlv9FZKHNOeqZoTPIv2tKnj1OyKXGDRP/awp2mJXL5H2A3bptDqyNTd5NMHMmgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yfmw+7QB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789641131; c=relaxed/simple;
+	bh=J7IzSTzcbAW8tUvAwlOLox/7EhQXlW6N5S0aFC2A/Ac=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HYJCKl8GCxzz3ULF5h62j0E5emjbBEEnC+4E1F/dcL4ecLW6/1/rDsMkyCREyLpg1VGUaWAYPneH//1dDAv/MV3IEIYdOvXbSLner+V9MuL82DIYWI3xYkcMYUYq6rqbhA9mOhhNhTboyG+w/+FC7rZMYMig1jYZRiJLkOt6J64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=E2037CIk; arc=none smtp.client-ip=115.124.28.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yfmw+7QB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B771F00893
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:31:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789641105;
-	bh=X6y0i64G8XR5kWUDmoKYu5is4U9uRtb6q6ksCG34bnA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Yfmw+7QBKwvhgdIt/Pey/q7cKNhwLiGX9VCJQrM5k54TQMMj3qoQXrSTdhh0XzUG5
-	 1UmMObj1Z81wzQiSFt7lOxJzzdtF5LqzvuFDbIZPf666rpR0D+gDGv0vweUXnzL/qv
-	 3uKrbI+KdTti/XIfwbzrds4CstNiVRElBR52iLMVjHAwuReXcB9rQ9/g5ngnyllEDq
-	 3jaVINU5iBAysjrDOuSs+x5UJNB9ul7b04K2RIqrKtj3RGQBvRDw/TfHW8128SpvG8
-	 5VVWnkijILlrv/1z+K09HfpO2eYnGC2XP2nM5doNSbcxKAR0Xmv3F3e1WwG7s7D+5p
-	 yDYsfeDdMqZUQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1e023so242339e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:31:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBysYN//t5ASKSk1Awo/fJdgVkBZq5yiIiTai1Cbt8tV7K90Fb73Sxx2GWRTqQLabvn40WqWIyKYUPzjcJs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nE+slzhSpePNWqKWOV6oEJNCuNvga8dlMdN/NYQW+C2WcEeeL0
-	DPqvPN9lsEHxIW1B4sBOqOi9wyJGvdxRDdPNYMQ+a0/YKyX7n4XQrmTuRCiEhWzKdGuuILTvjfD
-	V9g1Rt9mIREek/BcyZk73YaqqncAhJobntQtddlN7jA==
-X-Received: by 2002:a05:6512:6698:10b0:5b7:6665:1028 with SMTP id
- 2adb3069b0e04-5b8ba5dabe5mr536793e87.9.1789641104047; Thu, 17 Sep 2026
- 03:31:44 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 17 Sep 2026 06:31:42 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 17 Sep 2026 06:31:42 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260912123529.7951-4-tzungbi@kernel.org>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="E2037CIk"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789641109; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=igroM6/Wnnesnam1veBe3z7L7Uq9BdvzbgCjNVnLJOc=;
+	b=E2037CIkuQO1IGQ+44lZOpjVTPo/gzPPYXjxnKW5f870J7tNyMbi/1i0zc1QQD0wlTtaxmqdkD0FQTmnzCZebhKBmOcO8gUEnQ6uOakIC+81wmwUUVPcDewIldEyApYbJmOCjGqFeWXjoPNqo7UI9MvXCKdh0pV4jLRfIIUrNFg=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2691761|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00108014-0.00179103-0.997129;FP=10402610938895811888|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037021217;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jFxIJ2U_1789641107;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jFxIJ2U_1789641107 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 17 Sep 2026 18:31:48 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: peter.chen@kernel.org,
+	pawell@cadence.com
+Cc: rogerq@kernel.org,
+	gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	liuwb@xiaopeng.com,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH] usb: cdns3: validate endpoint index from setup packet
+Date: Thu, 17 Sep 2026 18:31:45 +0800
+Message-ID: <20260917103145.3047850-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912123529.7951-1-tzungbi@kernel.org> <20260912123529.7951-4-tzungbi@kernel.org>
-Date: Thu, 17 Sep 2026 06:31:42 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mc-jfNSsGMFOhisSjqj+oTg=F=qshT-PnAj0hNRq1YF8g@mail.gmail.com>
-X-Gm-Features: AcwNN1WHTK_ZaQL8Joo86WLcYu_OJK6Bh5z_a4jrWdowNu63hZMOOqCp1G1Hm-E
-Message-ID: <CAMRc=Mc-jfNSsGMFOhisSjqj+oTg=F=qshT-PnAj0hNRq1YF8g@mail.gmail.com>
-Subject: Re: [PATCH v13 3/3] gpio: Leverage revocable for accessing struct gpio_chip
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Sat, 12 Sep 2026 14:35:29 +0200, Tzung-Bi Shih <tzungbi@kernel.org> said:
-> The underlying chip can be removed asynchronously.  `gdev->srcu` is used
-> to ensure the synchronization before accessing `gdev->chip`.
->
-> Revocable encapsulates the details.  Leverage revocable for accessing
-> the struct gpio_chip and remove the `gdev->srcu`.
->
-> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
-> ---
-> Bartosz: I dropped your T-b tag.  The patch itself didn't change too
->          much however the revocable core changed a bit.
+cdns3_ep_addr_to_index() computes (ep_addr & 0x7F) + 16 for IN
+endpoints.  wIndex is supplied by the USB host, so ep_addr & 0x7F can
+be up to 127, giving an index up to 143.  The eps[] array has only
+CDNS3_ENDPOINTS_MAX_COUNT (32) entries.
 
-I re-added it for the entire series. This patch looks good to me. The rest
-seems to still have some issues pointed out by sashiko that I think should be
-addressed. As I said before: I'm OK with this being introduced.
+Both cdns3_ep0_handle_status() (GET_STATUS) and
+cdns3_ep0_feature_handle_endpoint() (SET/CLEAR_FEATURE) pass the
+unvalidated index straight into priv_dev->eps[index] and then
+dereference the result.
 
-Bart
+This is the same class of vulnerability that was fixed in renesas_usb3
+by commit ee0d382feb44 (CVE-2026-31615).
+
+Add a bounds check against CDNS3_ENDPOINTS_MAX_COUNT in both functions.
+
+Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+---
+ drivers/usb/cdns3/cdns3-ep0.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/usb/cdns3/cdns3-ep0.c b/drivers/usb/cdns3/cdns3-ep0.c
+index e29989d57..76642eaaf 100644
+--- a/drivers/usb/cdns3/cdns3-ep0.c
++++ b/drivers/usb/cdns3/cdns3-ep0.c
+@@ -251,6 +251,8 @@ static int cdns3_req_ep0_get_status(struct cdns3_device *priv_dev,
+ 		return cdns3_ep0_delegate_req(priv_dev, ctrl);
+ 	case USB_RECIP_ENDPOINT:
+ 		index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
++		if (index >= CDNS3_ENDPOINTS_MAX_COUNT)
++			return -EINVAL;
+ 		priv_ep = priv_dev->eps[index];
+ 
+ 		/* check if endpoint is stalled or stall is pending */
+@@ -368,6 +370,8 @@ static int cdns3_ep0_feature_handle_endpoint(struct cdns3_device *priv_dev,
+ 		return 0;
+ 
+ 	index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
++	if (index >= CDNS3_ENDPOINTS_MAX_COUNT)
++		return -EINVAL;
+ 	priv_ep = priv_dev->eps[index];
+ 
+ 	cdns3_select_ep(priv_dev, le16_to_cpu(ctrl->wIndex));
+-- 
+2.50.1
+
