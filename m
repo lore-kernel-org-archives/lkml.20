@@ -1,136 +1,151 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D144E06CB;
-	Thu, 17 Sep 2026 12:19:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBD44DE70D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789647607; cv=none; b=Is0hCsiT+JZho8aH7VwmqxU9F8BfVnwqPRJLG0BwG+adJY+Ql6FbyE5ibnkmR88qCD1Lpm/z5qzYnY3XJ44jtJmvR3I4UXL4Mupw6/S8B2jL8mbWAOh0rAGBkITzfBY7VZe2jm2SAVNoeomlwfVJkK800Tft/F8mLlfdYCVKVqg=
+	t=1789647612; cv=none; b=SVQTdtDDhAzfCz3A9Ftxd6ND6vgHpyIqPBe56kuMO3KeTba8c1d4M/PRrZQ4Qo1UJgDhDS0H8ggaV6ewbht/cKEN6waaBjjSXLNfypHpUYb3xOEk3/mTKJWeEbDT276t5rtEbRf27eLcS/eu6/+Q/mD3SYNCPvOge5uNeqSkd4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789647607; c=relaxed/simple;
-	bh=/Ht/uW410A02q5PTUmIvyoNBxZk0HXuv+pzlZ8dp03k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=H/qHkVoqgyKiZabdfemPz7IPmY0rhhNktuBX24F70vphK5YTX6QVYxcxTf1b3mpWcCfhh2xLGXf5VYlMcEG4oouDEkA1iyl6rzGkl7Z5E+gBbK2Z0eTyXyp/iOu00a9V+BRiun/SoEDx6i8iPnD1EMvkpNmBt6bQ/UY+/Gr3L/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAHKkPg2qtq5l+ACA--.43080S2;
-	Thu, 17 Sep 2026 20:19:44 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: angelogioacchino.delregno@collabora.com
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	lorenzo@kernel.org,
-	matthias.bgg@gmail.com,
-	nbd@nbd.name,
-	ryder.lee@mediatek.com,
-	sean.wang@mediatek.com,
-	shayne.chen@mediatek.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: mt76: Fix of_node reference leak in mt76_get_rate_power_limits()
-Date: Thu, 17 Sep 2026 12:19:44 +0000
-Message-Id: <20260917121944.2150737-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789647612; c=relaxed/simple;
+	bh=BUpmdv3yOABSaaCiExNiD0lkwdJRXVvydhQLoJCt0a4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=NA3RSgK8Unho4uGzSRFm4lQdA8dGDLRT5c0TkFp8T9ZVxofsCw2VMZMArYE1AdxK+/Cz6rzCmIpv0+rY00J6WrEd4Clu2SCoF+xS7kKF3yiCliD2Enbkbl8NHBZ/qhqhOIEz4AvOdeVaTgo+821O8J99gpYXYOjTlOSv//UjVb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dWHpNKBh; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dWHpNKBh"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so4039805e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:19:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789647584; x=1790252384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YWz1IO4gEG1KiaogT+jmIsPzwVgEJdUuS/B+omVUn1A=;
+        b=dWHpNKBhGHckTq266MbrnLtOaPJ5IbMlgozG3vwygezPqbPquI+7A1glG3evpIusPn
+         RVff95mat7aTMKZwkLk/Q6t0TxwX3fFDIzl3ub+slNQmtJYZebKWp/K7LFGO7hE4k0EC
+         77LGvx3mNkG2B/TJMinBEz2RHQkt9Dz14V2wehV5dbSa2wunQLX9MbBIjgoeYPq1ST5J
+         jK+X+p/e/J/cJNIsRCZMWLFtQFlQEZvnGsf6iY1BFwRCbqbdCSMNiwSeSiVSZqhSowah
+         gAbOZZT9PmJEKjzZvGaEdf5XX1JELrI5sZflX9nngWmDqXpHxyVx50F0eo4kOPZ16Quj
+         /09Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789647584; x=1790252384;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YWz1IO4gEG1KiaogT+jmIsPzwVgEJdUuS/B+omVUn1A=;
+        b=OSbSOGoqcYF8ORGWwbbjSIxsS1xq59N3COxx3JuTVL2Tq+rnmh76uBieNikmKpUtXa
+         0SVR2MnW9S7qJ5N+hnEYMSz7LiSUxiHWc/oYuBDYroKYfaAXdWxD7r3eQYX5OvI//DG9
+         mG6spnESF8s+ag+WOSsBUeCdd4MGvpe4x9sS32+wHm0PO5034QKdPSQk8HfsnQ4b0p42
+         Jgw4bkJHP2dDZtWVvaYVg0eDHQj0p9jGYhmn5o+Jv9ebBK095bL6ngM1meXjTSUWqv58
+         iFuDNF0Zm5/NPgCLuVS76lipkdgqxf6lOuWxkrfQH7EunPxC3bbxcokBNHngXsNbJgXK
+         86+w==
+X-Forwarded-Encrypted: i=1; AKwUvBxaIkcol7GuBG6uw/lpU9G6GfWRYa1Pl0pvxjKgBFFTTdQhmQjxWFv4+kdCbzKqg0tvcAFN77aMrB9yaCU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+xH73I8hrQE4G/aHyrxf+lG6iIRYDaCRShDYQGZfCZwSaYFvA
+	VTYon2/VPqv4+rXkpbJIfxY/QMDzwEIyGI4uNCK73UdBwPNjEW9COX4D0me+4u6gwYo=
+X-Gm-Gg: AYBFou0X3GqZKnjiPU/ZjxpEeroioxRCI61/mMWnYg93qBjKZUfkcvui2tHb3JvLzlH
+	34pX6bfah73BoogKua+3I0UuFNlpjqceRW599ay3MWLldCkDQBs4ek+4+TDC3Haca0kW/BCCjZB
+	VgCsT6OUs6HZ24F6OWKTi3meK/w7V8vEo4quOdZL6XcGKc4BCnCUOUQwxu6hdkJ+gqYdHOex97F
+	OOBBUgzSbRWJ1IAjLvVayNO+nXeIMBud8gQa2BmSq2HCL4DE2bdFcSRgtt2qeUj0Q22JL8pGWN/
+	VKERvpGooOYW8LMkfucxjcU56mEoavSk49lF9r/usJFOa829VyfXxnbWgOHdZsF3EGHoOQf4tS4
+	gpYWmmwdQFU6qZgECX6E22YS4bWtxRO9swDawtyAkXVPRfeDgpGI/n7R8OOOH3Co58qTbxzcvfb
+	yOf/6SqhRk2VYGeIsNAoeCyqxz4EtY5pGAMUVZFzFAMa/R73kY8Kieg3wOacFNxOQRlDZ+k+Igv
+	jY738b554csFOgAaLL650oFrhFx918Gq4rW4ZYslcluXbv+wk2BlA==
+X-Received: by 2002:a05:600c:4f14:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49fbd51fc62mr44068345e9.10.1789647583958;
+        Thu, 17 Sep 2026 05:19:43 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:b5f0:971e:8fd2:f1c9? ([2a01:e0a:106d:1080:b5f0:971e:8fd2:f1c9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd24a6basm75812395e9.12.2026.09.17.05.19.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 05:19:43 -0700 (PDT)
+Message-ID: <95577e52-918d-4346-a5c2-f3e73e730959@linaro.org>
+Date: Thu, 17 Sep 2026 14:19:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAHKkPg2qtq5l+ACA--.43080S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar47KryrZw1rZr1UGw4fGrg_yoW8KF45pF
-	W293yYkr1UJay7G3WIqF4fAa45tan2k3yUuF97G34rCws5uwn0qF12qa1YvF13AFy8ua4Y
-	yr1Ut3ZrGFWS9r7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
-	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
-	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
-	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY
-	1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
-	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
-	07jbl19UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq02VlQAAs0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] soc: qcom: geni-se: ignore invalid PROG_RAM_DEPTH when
+ checking for firmware size
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260917-topic-sm8x50-i2c-hub-fw-ram-v1-1-f49286d8c8db@linaro.org>
+ <0c4ee857-d8b7-4bd1-a74b-6618b45d4be2@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <0c4ee857-d8b7-4bd1-a74b-6618b45d4be2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-mt76_find_power_limits_node() and mt76_find_channel_node() return nodes
-with the reference held, but mt76_get_rate_power_limits() overwrites the
-"txpower-<band>" node reference and never releases the channel node
-reference, leaking both.
+On 9/17/26 11:21, Konrad Dybcio wrote:
+> On 9/17/26 11:07 AM, Neil Armstrong wrote:
+>> The I2C Hub serial elements lacks DMA, so the SE_HW_PARAM_2 register which
+>> is in the DMA register space doesn't exist for those instances.
+>>
+>> Simply ignore the ram depth if it return 0.
+>>
+>> Fixes: 522bfb4f33c0 ("soc: qcom: geni-se: Use HW PROG_RAM_DEPTH to validate firmware size")
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+>>   drivers/soc/qcom/qcom-geni-se.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni-se.c
+>> index 873bfbd6b2b7..e75349f2c15d 100644
+>> --- a/drivers/soc/qcom/qcom-geni-se.c
+>> +++ b/drivers/soc/qcom/qcom-geni-se.c
+>> @@ -1308,7 +1308,7 @@ static struct se_fw_hdr *geni_find_protocol_fw(struct geni_se *se, const struct
+>>   
+>>   		prog_ram_depth = FIELD_GET(PROG_RAM_DEPTH_MSK,
+>>   					   readl_relaxed(se->base + SE_HW_PARAM_2));
+>> -		if (fw_size >= prog_ram_depth) {
+>> +		if (prog_ram_depth && fw_size >= prog_ram_depth) {
+>>   			dev_err(dev, "Firmware size (%u) exceeds RAM size (%u)\n",
+>>   				fw_size, prog_ram_depth);
+> 
+> The RAM size on 8650's i2c master hub SEs is 1020 registers (correct,
+> not 1024) - Viken, would that be true for all implementations?
 
-Drop the intermediate and the channel node reference on every exit path,
-and take a reference on the fallback node returned by
-mt76_find_power_limits_node() so the caller's of_node_put() is balanced.
+Seems to be right for 8650, if all HUB Ses have 1020 I'll prepare
+a v2 with the prog_ram_depth in the se_desc
 
-Fixes: 22b980badc0f ("mt76: add functions for parsing rate power limits from DT")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/net/wireless/mediatek/mt76/eeprom.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+Thanks,
+Neil
 
-diff --git a/drivers/net/wireless/mediatek/mt76/eeprom.c b/drivers/net/wireless/mediatek/mt76/eeprom.c
-index afdb73661866..86f3fbb7e940 100644
---- a/drivers/net/wireless/mediatek/mt76/eeprom.c
-+++ b/drivers/net/wireless/mediatek/mt76/eeprom.c
-@@ -231,7 +231,8 @@ mt76_find_power_limits_node(struct mt76_dev *dev)
- 		struct property *regd = of_find_property(cur, "regdomain", NULL);
- 
- 		if (!country && !regd) {
--			fallback = cur;
-+			of_node_put(fallback);
-+			fallback = of_node_get(cur);
- 			continue;
- 		}
- 
-@@ -429,7 +430,7 @@ s8 mt76_get_rate_power_limits(struct mt76_phy *phy,
- 			      s8 target_power)
- {
- 	struct mt76_dev *dev = phy->dev;
--	struct device_node *np;
-+	struct device_node *np, *band_np;
- 	const s8 *val;
- 	char name[16];
- 	char band;
-@@ -459,15 +460,18 @@ s8 mt76_get_rate_power_limits(struct mt76_phy *phy,
- 		band = '6';
- 		break;
- 	default:
-+		of_node_put(np);
- 		return target_power;
- 	}
- 
- 	snprintf(name, sizeof(name), "txpower-%cg", band);
--	np = of_get_child_by_name(np, name);
--	if (!np)
-+	band_np = of_get_child_by_name(np, name);
-+	of_node_put(np);
-+	if (!band_np)
- 		return target_power;
- 
--	np = mt76_find_channel_node(np, chan);
-+	np = mt76_find_channel_node(band_np, chan);
-+	of_node_put(band_np);
- 	if (!np)
- 		return target_power;
- 
-@@ -514,6 +518,8 @@ s8 mt76_get_rate_power_limits(struct mt76_phy *phy,
- 				     ARRAY_SIZE(dest->path.ru_bf), val, len, target_power,
- 				     txs_delta, &max_power, n_chains, MT76_SKU_BACKOFF);
- 
-+	of_node_put(np);
-+
- 	return max_power;
- }
- EXPORT_SYMBOL_GPL(mt76_get_rate_power_limits);
--- 
-2.34.1
+> 
+> Konrad
 
