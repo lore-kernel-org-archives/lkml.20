@@ -1,113 +1,202 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F034A2040
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF303A75A2
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789682399; cv=none; b=spfyVYGAduyS/0sYLueUMjxSYri6M9FRXrvvn1XQFilKF/r9g3Wh+h4+9Vs5E65YhDmwA/dp6dwx0oR8svIMw+3BjG2mcgrdvKIAP7ltG2LQWBYNIS9t7mnDiXS+xiEkSgLDhd0gDEiO7XT0a7YZOTqkDkRo6QGW7gUT8pRjQLc=
+	t=1789682503; cv=none; b=s9rgbETuEWFMWiHljvAicLE3DM3Wk13uCdcze/47PqJa5rpnFhOt5LSyHMS0cxypIxU277bzcU5xMSjnegk9d0HE8TWiwHnKZwJhFj+Yth/MLrL7uVd3ambuRx/IgFelNSwPw+oG0DKooILKXT5sEMsKpmusNeBkcPH4EXK5ttk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789682399; c=relaxed/simple;
-	bh=ip41HoXWI4YcOSbW1mEcNQBv0yfH8oGIibej8w1DMvA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mfs/3tciLc5lrF/NuNBgpwYBgyk2XL2oh70TBZx7xZvrPR083bosAnIxWm8cXE7o4Mf/9k8wsJKF86EYTxB6a2Pdnci5obNtR8jJVTSnmcnP5JqSI1Iff4S7u7PgzLK2cYZaPyf7XenLPYXmE4eaEbt1JZxnLhso7G/d3uaIBIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=HRh7bnsf; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789682503; c=relaxed/simple;
+	bh=3FbVHQnTkGovq9MgVS1AQASJkqVSWyehhrk2OYOMakI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oAL04jvigWqs7ajYXw4iEPsMlO1PCcLGMlJbggOEH4kt32EKD3bqqvCmCqoCpPl26qTTlojeD06QTcq6xfXu4Jaw1KGt+cqfomziAeNk9NpDPRZiSI6aCLZ0eqCuExMAK2uUb2a4a9vdJf8BnTfhbYbGNxGty4EFIwnkTyenceQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p1mutKsU; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="HRh7bnsf"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c264788fd58so15458366b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:59:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p1mutKsU"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccafb74fso137866a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:01:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789682395; x=1790287195; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r4cnNziyY5ivazygxhgE+WIDjeZucbip+tFrsvHGAeg=;
-        b=HRh7bnsf5/jUBcvfJ8Zp+mxY42hIHGPDJm1Q3pCnXP+ZKLKVpda/k/q6OFJoL1/+I0
-         UoWWzxADo8TYTAvgWx7k0c/D5KuqdySxt3AWCL9G4lCqaBfXKUYqVsnTuXEeaI1OOZ/q
-         yvinHrJIrsvHNilrdW+kSuls/2hMWlgeIaTWw=
+        d=gmail.com; s=20251104; t=1789682500; x=1790287300; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s26IKeArHLYvAsw8SAUC36S/S5ndCgDyvi2cfvHZSzE=;
+        b=p1mutKsUJfYS5DICIzP1SbGJtbXs6bFz50GqM6/1fpxp6XCMpmNA4+uHR7YVV/NTYh
+         wprRa08STJaxRoeBO/3JzSLB0YM7dZTkOZ/odqIeKfQNnMxMcMLAlIRh07Z5M46fRiTI
+         WuE1hIaUOaHvVkc+vWJTU2z2VwsACDPCU+cLFumui28cxLbgNTiZFWL5BGB6iWfWvdUI
+         AlplhNZdXvZ2N/3+S02EdoQPbA5RSrG56lZl+Ei93fHoONjBiXAlAhdym4++DcxR0Mn3
+         95mdWWJc4/lFnMK2L93IBIkLPRnJW4MqCsgz2UJihk1Cg0vb5Vd7o+EmjnDbswaOgrSl
+         ytDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789682395; x=1790287195;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r4cnNziyY5ivazygxhgE+WIDjeZucbip+tFrsvHGAeg=;
-        b=tNwm/wlDSVXME0R25MDtqElVGY7jIZw6SeUajwq9RGs90TkVFjyJ4xqD5LFbaYnsPh
-         sAC1i/OTnpjvVRF8UuhU58LC7h6QOZ3IJWFdQ6VgU+QkIh+E/skEAlxHTCbkm02GaEJp
-         2sFrDlk5OMyiEPj+dbruCf9/YL6JbLCT8kUxaEqZ+IOvoD2lLwa/+eCY/RUewkVh2E9p
-         08uHKV4ESR0WAVc5yKctp1rIBFvLylt01nr23FcCuOtTmdba1HI5S3cG8QexglXSJd5A
-         HQpgxHvDkrPJXiVdBWGbWxj2RWN8yCvZhKEc5WIBHml9kux1wb4sS+dC7QLwD6/8p8O2
-         8b/A==
-X-Forwarded-Encrypted: i=1; AKwUvByFuRmQRAnlTesGnYKQktCIiOPbtVT4ln7idlEmKs60tgAT91w7s2yTmh+5iHgEfJZqXGXLnXWDq+SYTNk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwvxNlq0+w9MbPxBh/pv3owm1SuOPryOGEKSpLHQBF8/9C6dTD
-	OUro6eh9xqrQWJJs3DRKwdUooUQDh/KoTKElVWox+vvassVO6Okpu6PLSp/JYPZOy3jouWT4/HK
-	v0JmxZQ==
-X-Gm-Gg: AYBFou1PEJ2ODlR8HIzSdnF6G+7T26XEf9jLbnPvQCGxwBb9cULtwqyzCWuQl8dTKd1
-	gNdo+45hdEU2XcXejoNy7TY4bYFYdXsh4IDvM3bmNVndbHYGt05IR+Q9h4E0nnumqpDrRnmENAJ
-	06Jfi/1joNrIQvLkeUdBFfkfrIVW919khwS28XBMYSlOogGbYjgHcpjeJU9UVeFNzl4HWMgzuhD
-	ioLlt2MShyCBWM0l43L6ma7lcp3ipltczoHqog4vjK/kKIgV4XJTw342Vmd3khH1PSeZDnBXEb8
-	UZ2uJ8TO2au4EBF88PNyOuE/X/4oNFm7aW9pbn8Cy331Z+KMZABLS5i+38+MBAt1/Va7bTubi06
-	vN5Wge1H/eqR+3gbsPyP4flQHPg0RYU7Wd7iDPklXAFyuS+Q8fU/hyUcSeVNRlqe0SFkyQo8JsT
-	xmqxOdT1J6EClutfDgnCnS0XoLiifN4Dlvrl7rpFn1BJ4SDik77VKKauJLoBV0tmfX00Z3coj8B
-	xp9pHfd6XtGSJQTTJYAZNYgPLysTlIPR1MxG18=
-X-Received: by 2002:a17:907:a909:b0:c29:3838:dd5e with SMTP id a640c23a62f3a-c2a15e3d384mr50102866b.40.1789682395469;
-        Thu, 17 Sep 2026 14:59:55 -0700 (PDT)
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com. [74.125.225.76])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de487970sm348759866b.29.2026.09.17.14.59.53
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 14:59:53 -0700 (PDT)
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso28772f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:59:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxnRIz4rCE7sxT7qk0sFoss6dwe3SsgWy9GpUxcqBSGKWvyCzMvIZkdQqtBXdIzGgClxBcjgS2J4RKOLR4=@vger.kernel.org
-X-Received: by 2002:a05:6000:2211:b0:487:a49:69d3 with SMTP id
- ffacd0b85a97d-4871e373af6mr289328f8f.55.1789682392891; Thu, 17 Sep 2026
- 14:59:52 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789682500; x=1790287300;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s26IKeArHLYvAsw8SAUC36S/S5ndCgDyvi2cfvHZSzE=;
+        b=pJiTdjUiG1hc+LcPU7Wv9uel+d1QLF8T1PEcp4mIXE3RZv0qZl6khjZsg5vcs1wQDy
+         +fLICkLyGOr9CknBS4yXiU5vo8ww7Myn5oS6MRElnJd7+0+0onhe7KJhlkTIV1Mwq1iA
+         BTLbb4FftLzKzOzIj9ui19hHzfxoaGv4uaZz43GXIfzDxMVo0UvGbwkeZj7yTylZFgB7
+         5b45IkRoQVRHpaQ5924+JOkHr/py+cgNXzsU0gZvqWZsykHLk6wNpWm3jIuVjAliOZlB
+         UhSikP5tozfWKTA2W2dRDRSlhxeqaVj8/s0jYOtrR1opcAsTa3gax3stTjK4aZpv/QMz
+         /B6w==
+X-Forwarded-Encrypted: i=1; AKwUvByP7XyVTdKuwn9KzNJey3kxmqgNmMjF3Lt+0AE/64mKFIqCC+r3OcTZJMiQPSLjoYK2Jx0MJsZ/xu+f4P0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqsSepSplyRfMjP+HkUFbYcm+lDD0tECy1a7xbgcJGzF+/x4rQ
+	Kgc1QnFebiFX6lJVWrxsho8PhUHKmRpJgCEvs5i5b+chItudpjbuyaIv
+X-Gm-Gg: AYBFou1G3dNhESpxF8r+GDiXT/IbAr048C72ijkNka8HUS0QBhMXbp54igTVB3qbnoq
+	MxqKfYcLKbdOM8yHVhPFfgHxZBdCBa9GZj77pr7pk1dDOp+g/YvJWyQUotTPazAR3C27awaX/jL
+	LPFKg+/ir5AsB2w0bcKkj4cuaeUmQk1KOEFryEfhIqxATuJTH7Vp3+Iv+sYSwu47yPNfFE5kZQA
+	tALpBXZzeqWsf+svOoqFv+oJQPIVZN008Qarag6ALv8ejk2G4ZQKQFTKErS2zGGqDaiA7iwZrV9
+	KlEnWsH8hwaN5k0AHnv/G2nDjNXZ9RyNPz/dI5UClcT8EiR+HfLcm9BPDq6SI34xRP2BdG34VgL
+	qpj2dXpcDtTs3sxJ+6t0u7Y07ML/TkuJlGG/ZOV0QeEXEV94OfPhV+XKqqFb+xSdoynU6Q+17GD
+	Q/4L5Z8EznfGa1FnXKg9weGxZDkw7wCHyrk+fN0JqdLGVtMS60EGiWVrD7nxU25eCMYyPO1s1Am
+	BhFGGwIWdav6k8UY0j9jYAXab+UdJbjSu+k2vWYFZzxpbPuzOcj9L9NzfvTALZjPVHwxTOsG7ew
+	oaLz/NHfKLejwnVviGY21typw18RRI3ydnP4eQCEwo+o4qVrh598jToKQoA=
+X-Received: by 2002:a17:90b:380b:b0:39e:4fec:d6e5 with SMTP id 98e67ed59e1d1-39e550707e6mr1200498a91.16.1789682499730;
+        Thu, 17 Sep 2026 15:01:39 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395cfb0b1sm14235004c88.5.2026.09.17.15.01.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 15:01:38 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Michael Stapelberg <michael@stapelberg.de>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net] net: phy: marvell: keep WOL_EIE across interrupt reconfiguration
+Date: Thu, 17 Sep 2026 15:01:36 -0700
+Message-ID: <20260917220136.97017-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917155523.2161202-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260917155523.2161202-1-vulab@iscas.ac.cn>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 17 Sep 2026 14:59:41 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VTr4Q7gOQts8HasSQoeovYMLu7ic8V2fkuy2TgyUuB3A@mail.gmail.com>
-X-Gm-Features: AcwNN1UiO2RFa1YhyTUqFm7bdR6dSYURtFzuPkFnJib2ceEhsCbcSdyptjfk5VE
-Message-ID: <CAD=FV=VTr4Q7gOQts8HasSQoeovYMLu7ic8V2fkuy2TgyUuB3A@mail.gmail.com>
-Subject: Re: [PATCH] kgdboc: Fix tty driver reference leak in configure_kgdboc()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: alan@redhat.com, danielt@kernel.org, gregkh@linuxfoundation.org, 
-	jason.wessel@windriver.com, jirislaby@kernel.org, 
-	kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On the 88E1318S/88E1510, copper page register 0x12 is both the
+MII_M1011_IMASK interrupt mask used by marvell_config_intr() and the
+CSIER register in which m88e1318_set_wol() arms the WoL interrupt
+(MII_88E1318S_PHY_CSIER_WOL_EIE). marvell_config_intr() rewrote the
+whole register, so any interrupt reconfiguration (for example the
+phy_disable_interrupts() on link down behind mvneta) silently cleared
+WOL_EIE: m88e1318_get_wol() still reported WAKE_MAGIC, but a matched
+magic packet was no longer routed to INTn and the board did not wake.
 
-On Thu, Sep 17, 2026 at 8:55=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
->
-> tty_find_polling_driver() returns the tty driver with an extra
-> reference taken by tty_driver_kref_get(). configure_kgdboc() stores it
-> in kgdb_tty_driver but the reference is never dropped: it is leaked when
-> kgdb_register_io_module() fails, when the configuration is cleared, and
-> on every reconfigure.
->
-> Release the reference both when unconfiguring and on the error path.
->
-> Fixes: 7d7b93c1452f ("tty: kref the tty driver object")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/tty/serial/kgdboc.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+Give these two PHYs a dedicated config_intr that preserves WOL_EIE with
+a read-modify-write, and a handle_interrupt that also claims the WoL
+event mirrored in the interrupt status register. Other Marvell PHYs keep
+the plain marvell_config_intr()/marvell_handle_interrupt().
 
-Looks right to me. Even the "Fixes" looks right since the tty change
-landed after kgdb was added to the mainline kernel (by a ~6 months).
+Fixes: 3871c3876f80 ("mv643xx_eth with 88E1318S: support Wake on LAN")
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/phy/marvell.c | 70 ++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 66 insertions(+), 4 deletions(-)
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+index f71cffa88406..0897cfcd6ab7 100644
+--- a/drivers/net/phy/marvell.c
++++ b/drivers/net/phy/marvell.c
+@@ -425,6 +425,68 @@ static irqreturn_t marvell_handle_interrupt(struct phy_device *phydev)
+ 	return IRQ_HANDLED;
+ }
+ 
++/*
++ * On the 88E1318S/88E1510, copper page register 0x12 serves two
++ * masters: it is the MII_M1011_IMASK interrupt mask for the generic
++ * Marvell interrupt handling, and m88e1318_set_wol() sets the WoL
++ * interrupt enable bit (MII_88E1318S_PHY_CSIER_WOL_EIE) in it. The
++ * interrupt routines below therefore preserve that bit, so reconfiguring
++ * the PHY interrupts cannot disarm Wake-on-LAN behind the user's back.
++ */
++static int m88e1318_config_intr(struct phy_device *phydev)
++{
++	int val, err;
++
++	val = phy_read(phydev, MII_88E1318S_PHY_CSIER);
++	if (val < 0)
++		return val;
++
++	if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
++		err = marvell_ack_interrupt(phydev);
++		if (err < 0)
++			return err;
++
++		err = phy_write(phydev, MII_88E1318S_PHY_CSIER,
++				MII_M1011_IMASK_INIT |
++				(val & MII_88E1318S_PHY_CSIER_WOL_EIE));
++	} else {
++		/* Disable the PHY interrupts, but keep WOL_EIE set so an
++		 * armed magic packet still asserts INTn while the
++		 * interface is down or the machine is suspended.
++		 */
++		err = phy_write(phydev, MII_88E1318S_PHY_CSIER,
++				val & MII_88E1318S_PHY_CSIER_WOL_EIE);
++		if (err < 0)
++			return err;
++
++		err = marvell_ack_interrupt(phydev);
++	}
++
++	return err;
++}
++
++static irqreturn_t m88e1318_handle_interrupt(struct phy_device *phydev)
++{
++	int irq_status;
++
++	irq_status = phy_read(phydev, MII_M1011_IEVENT);
++	if (irq_status < 0) {
++		phy_error(phydev);
++		return IRQ_NONE;
++	}
++
++	/* Claim events from the IMASK_INIT set as well as the WoL event
++	 * mirrored from WOL_EIE in the enable register.
++	 */
++	if (!(irq_status & (MII_M1011_IMASK_INIT |
++			    MII_88E1318S_PHY_CSIER_WOL_EIE)))
++		return IRQ_NONE;
++
++	phy_trigger_machine(phydev);
++
++	return IRQ_HANDLED;
++}
++
+ static int marvell_set_polarity(struct phy_device *phydev, int polarity)
+ {
+ 	u16 val;
+@@ -3817,8 +3879,8 @@ static struct phy_driver marvell_drivers[] = {
+ 		.config_init = m88e1318_config_init,
+ 		.config_aneg = m88e1318_config_aneg,
+ 		.read_status = marvell_read_status,
+-		.config_intr = marvell_config_intr,
+-		.handle_interrupt = marvell_handle_interrupt,
++		.config_intr = m88e1318_config_intr,
++		.handle_interrupt = m88e1318_handle_interrupt,
+ 		.get_wol = m88e1318_get_wol,
+ 		.set_wol = m88e1318_set_wol,
+ 		.resume = genphy_resume,
+@@ -3925,8 +3987,8 @@ static struct phy_driver marvell_drivers[] = {
+ 		.config_init = m88e1510_config_init,
+ 		.config_aneg = m88e1510_config_aneg,
+ 		.read_status = marvell_read_status,
+-		.config_intr = marvell_config_intr,
+-		.handle_interrupt = marvell_handle_interrupt,
++		.config_intr = m88e1318_config_intr,
++		.handle_interrupt = m88e1318_handle_interrupt,
+ 		.get_wol = m88e1318_get_wol,
+ 		.set_wol = m88e1318_set_wol,
+ 		.resume = m88e1510_resume,
+-- 
+2.55.0
+
