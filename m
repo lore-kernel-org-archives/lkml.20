@@ -1,121 +1,126 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5962495AF7
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:03:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05CB495AF5;
+	Thu, 17 Sep 2026 21:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789678989; cv=none; b=I9RY4hRfwpbsGAYlRwqe+IrgTbCIppb6jvYhCXVJwG5cgnGRo245Tr/yAD9QDDejEXhhPHxaXGKTwDhofe+UdxihyO7hv8IPbaT4u0EGPDde/WM0j5zDEY8MVtxhctZGvlsDTQFkE0OM8TM2i9QfhSwIqOLHCl/HGBpWBdon/Go=
+	t=1789679030; cv=none; b=RuxV8nIMxVIbyArmGQf40CIynVuLRsGjHKogorOU55m/s63UfyhqV1mvSB9L/QyTEyt2sEeWNmiLGyPfD7THKzTW9EmFBfOsyuzUVTnzs6fSDWLhN0c7giOlJa8nYDbRmBCQrFzxGZR2hJOYc1urtmcshMAjHvoD6OkXTROU3yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789678989; c=relaxed/simple;
-	bh=X7CO8plt9rXRb+sFi8w8w6XkMwhE0mA/u5iv6DISDeg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dezf/DrwMm4M5sgte/HTbSTgJ9pe8pEKUxKnrhr96Zzt4tQHEEreClUWYlyaN5L3hpPY9NSODiTfzF9MR5IXmoLcuYT7HyvOIQHUayUX8IYLlqfgc8PRz5iF8kcr3LxtgIlYxM8LOOqfu7yKn+yjqSUQHPV+8ZmIKfHi5ir0ALY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dqsjbx+w; arc=none smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789679030; c=relaxed/simple;
+	bh=Ru2PT7ya3nmd82WlgT1N/Dq4zTwS1PQn2JkRk3sId60=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CPxOoIOw6C01A+4I4cb3WAVWF/wYbXfxZXr5VskrqqpUUI8Cvz1J2+wWHkMnwxqHrCgpx+GDhxx2XXMGZ3qrkfAwMhhh3mttjyuSasAbK9AZVI8oS3dAbWRWHEtCiEAFx++yaFbYAiIOdSprN865G6c3nJ7jyyn54Yta2zZeC1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=Ms5tB0nJ; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dqsjbx+w"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d5eso930801fa.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:03:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789678986; x=1790283786; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xBjt8nETg6odEPjXmUPOag2PgcmXewPZyiuP3+CiCYA=;
-        b=dqsjbx+wjAXLLHT8yfCoIFCUF2oyQYSyhjSK791qZF9g6+oM3fPE0If1HK8OroyR31
-         9w5f/R8EGdRRBZmm5+oWl7lZ9xuD0nyIp+NS2ayxGNIsOo7GvrLHo7nzxCbXAba63z3n
-         h9V2Y6u+HRHep6M8Q9Uja4lDs6GVr+puWgFe6ETIXKtGwnDCJliLRcdRp6EQOdX4TPUv
-         YSXH/rs4e/t8de8XSpw1y8tBuhNj1ejoXPRsjmyvzdfcIPm/YlqctavDf0Gndm50+bgm
-         V9CnljYnv2DFWBi5b2IgU/HCzZLtZBCLp3Vj58Pweki6/jTOeLOFfA56YEk/psDePOx0
-         8rOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789678986; x=1790283786;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xBjt8nETg6odEPjXmUPOag2PgcmXewPZyiuP3+CiCYA=;
-        b=PJmdi1Cg86H31lga5tu40SKCvA/ftSyHoN83LOCtY5n2/xTkzmXbrcTDvuPgiY8Ekj
-         EWd79zybn1gaQL8zFeqtRNMUyfVLs8hvbSB5J1m0kIryVIYiu8ZWCO/x/rXiXqY95TRu
-         aIq811gLE3/ccXwoyUQx8vqYTVy0F98U9j9eeZFq782aUD+QXiuD9dricFyEYsYuV0RR
-         TTQY4d9L6ZqGwv4xzua+3AnGuSTjLudW3U2LfWV1Y4qOC+tUlgqBMB4W4kGOpRQ1xd+G
-         2HTzdezhQcDHuXwkbiL6VEx9lbpNxxTyhnx4ExKBwaTaGziWHIJc4lvXRBM09iuRbSfH
-         ssgw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZj80HH0gWELmdVTZAocrZI+nTVkccYSAozL/8IEr7vC4bJkiXe0rfDDAqV/R1Uw3oA3d+E4kEab+r3tQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0wqLjqwB9RWEeK0oANNZk3khWB1ZC58egC1TAULFe/7+Q+amU
-	M3gH5b+lWoT3OXwvXZQM4BRYZnAlD+8PGci6EUG5nNVf7/M4Xk6jkZBaV+elJrPx
-X-Gm-Gg: AYBFou3eJ0SYz99wjumexiX6yuZEzuKkEPV9P9NLaMHrj06TrM+q5RdChPPcpjMXM4c
-	cpug/NEa3LVwKXWTyi4/ZK5RuC49aza3LkzqTpEm9+BJ+5RV0EbbMZl3emE5DXlkKgzUC0AQuzj
-	GePBt71EyZ8Ttd0hdKf8NFSmiM2WflhIzBPYonPX4AxGk/FKgtLlJmtY5MWEq0TdfHxnKCW5NM3
-	eTyVsPRL7/yP00KZ4kSsqFnhoQ7MsfiB158/oLCw5DIR0RJ4NHlp337bDfrZcH65zYi593TYFNY
-	6XcoTWPauuKHQquDwCsSIYSoB9zrnTi6DcxI/lUdb8HiI9QL2/hG3mVO7dRncTnGTpnmFHHbDUd
-	mNgqlZOm37jsGnDhWBEO0SeK7ln8ZJs/wWojGbxMNivWI6Uk6cVLd7jeBxRUI9m/aYAu5mH964V
-	EHhaRrQndXo2+pzJEXbl3hmOhHQ464Y6eOjMTMHYD0A1S6jFyj59Ryb8grnhjtnjWV4KEwTY85s
-	lH1
-X-Received: by 2002:a05:600c:190b:b0:49d:870:7a69 with SMTP id 5b1f17b1804b1-49eb73309d8mr172142985e9.12.1789672289184;
-        Thu, 17 Sep 2026 12:11:29 -0700 (PDT)
-Received: from chicken.. ([2a02:2f02:5101:7300:c13:5a93:c17c:533d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc5295fb9sm1057055e9.4.2026.09.17.12.11.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 12:11:28 -0700 (PDT)
-From: Daniel Matyas <matyasdaniel006@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Daniel Matyas <matyasdaniel006@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Matyas <matyasdaniel005@gmail.com>,
-	linux-staging@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: axis-fifo: Added missing binding
-Date: Thu, 17 Sep 2026 22:11:21 +0300
-Message-ID: <20260917191123.592659-1-matyasdaniel006@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <458017cd-c188-4e41-a93f-bd6bb123179b@kernel.org>
-References: 
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="Ms5tB0nJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=WPT3loKEvy34Kug8Bmer100Ee2Gt1ulHDe7e2kGuSXg=; b=Ms5tB0nJi0A24/8w46w76OyMRe
+	NdlPcjXq4ThABtjg7m1CKKnR54RL+p4EJKb59z0XVNwwwpPEvKg/iWc8CNkYY1jpZMXHm8zCbmR7f
+	Vwzz6JakArbAZrj+cju0QzX/M2fVWwpZFG15sZ88ariMlEXZTKFwuuadvE7Z91XmKu3iOjkEEvg0a
+	hBXqJCcwkUkDJLrEe9SCXdKM8UPdFqY+9uvFmlPDr1xWmnXycYNmdKXBXi3upFiQ6f10wPf5hwHI4
+	zYtherua1A9NulCus1z0Iy+HT/LwQxDYiHiCj7NmgyAAf+vRp6lqVftB7ApSDw614n1Z68zYiE7Tl
+	eGgNny5g==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1x7JGb-003eRT-51; Thu, 17 Sep 2026 23:03:37 +0200
+Message-ID: <5f80ac77-c1f4-42cc-bdcd-e4222f72d853@igalia.com>
+Date: Thu, 17 Sep 2026 18:03:30 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
+To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
+Cc: dave.stevenson@raspberrypi.com, dri-devel@lists.freedesktop.org,
+ kernel-list@raspberrypi.com, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ tzimmermann@suse.de, stable@vger.kernel.org
+References: <20260916154137.2058618-1-vulab@iscas.ac.cn>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260916154137.2058618-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On Thu, 17 Sep 2026 20:24:56 +0200 Krzysztof Kozlowski <krzk@kernel.org> wrote:
+Hi Wentao,
 
-> On 17/09/2026 13:48, Daniel Matyas wrote:
-> > From: Daniel Matyas <matyasdaniel005@gmail.com>
-> > 
-> > drivers/staging/axis-fifo/axis-fifo.txt file described how the
-> > devicetree of the driver should look like. Convert it to .yaml file.
-> > Issue found by checkpatch.
-> > 
-> > Signed-off-by: Daniel Matyas <matyasdaniel005@gmail.com>
-> > Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
-> > ---
-> > 
-> > Sorry for adding another email. I got locked out of the first one for 30
+On 16/09/26 12:41, Wentao Liang wrote:
+> The firmware reference taken via rpi_firmware_get() is leaked when
+> either of the devm_clk_get() calls for the core or display clocks
+> fails, as both error paths return without releasing it.
 > 
-> I already you no and provided previous discussions giving the proper
-> reasons.
+> Put the firmware reference before returning from both clock lookup
+> error paths.
 > 
-> Why did you just ignore that?
+> Fixes: 2a001ca00ad5 ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>   drivers/gpu/drm/vc4/vc4_hvs.c | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
-> NAK for this and any other future axis-fifo stuff like this.
-> 
-> Best regards,
-> Krzysztof
+> diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
+> index ee8d0738501b..20dde4150068 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hvs.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hvs.c
+> @@ -1680,6 +1680,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+>   					     (vc4->gen >= VC4_GEN_6_C) ? "core" : NULL);
+>   		if (IS_ERR(hvs->core_clk)) {
+>   			dev_err(&pdev->dev, "Couldn't get core clock\n");
+> +			rpi_firmware_put(firmware);
 
-I am sorry, I rushed with v2 without checking all the replies. I will pay
-closer attention next time.
+Instead of adding this line twice, move the line `firmware =
+rpi_firmware_get(node)` closer to its actual use. Then, you don't need
+to add these `rpi_firmware_put()` calls.
 
-Thank you for pointing me to existing discussions about this conversion.
-I will drop this patch.
+The same comment applies to your other PATCH: `[PATCH] drm/vc4: Fix
+firmware reference leak in vc4_drm_bind()`.
 
-Kind regards,
-Daniel M
+Best regards,
+- Maíra
 
-Sent using hkml (https://github.com/sjp38/hackermail)
+>   			return PTR_ERR(hvs->core_clk);
+>   		}
+>   
+> @@ -1687,6 +1688,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+>   					     (vc4->gen >= VC4_GEN_6_C) ? "disp" : NULL);
+>   		if (IS_ERR(hvs->disp_clk)) {
+>   			dev_err(&pdev->dev, "Couldn't get disp clock\n");
+> +			rpi_firmware_put(firmware);
+>   			return PTR_ERR(hvs->disp_clk);
+>   		}
+>   
+
