@@ -1,54 +1,39 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510525921F9;
-	Thu, 17 Sep 2026 14:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21E558F092;
+	Thu, 17 Sep 2026 14:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654945; cv=none; b=SX6uigBJL6R6S3MS/9LYEKbqe6L9uHp1Pc1M9oD/A51TO29HZBXYyFnb+6otEAD2bkdAD+qs5flgRsjh4Netu8Kp24dVjwahMLogoIAHcwa8FX+m0EuohaY6/MT5nySL28BJygEgGfka51gim8+3UKW6vO1FNFUpfHZnYPUyjj0=
+	t=1789655035; cv=none; b=dPyupzKAwydjM52Wxi4tqgIyLkor7zcwXhS25HbfDDHehnMrOynPhw2yo1J9clX5lMqUT5vf2lFhXXvFcLlV2xjPjCzYFxyN8xrL0j8tD8wojuVJQmZyvWzGiGqpB4hAVhM3vxz+qkv1JIVooXjmJrXuliDcumpb6vhYLyxXK0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654945; c=relaxed/simple;
-	bh=Eqre9EVQ7YlVbIBp2jqspJzGDFxFiz5ITzxRB7dmjSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WOb9ZcXhiylDSypHBiPyl5sF9qRJ5lBOQOfeFhN4jHwF7K/VxaitmKKK6sxKUiB2YZgFYwSX1GDwrcabNVKR5K/n5uY6bvArE7vbdy7HhjrSfRcADg/winRN4DvFG8DTUnpxD7oXwG/gbMgQZcBoNgYi/4NIdD7J1c41xdqOmp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fbxk3B1k; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fbxk3B1k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8CD41F0089F;
-	Thu, 17 Sep 2026 14:22:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789654942;
-	bh=Mozf9eR83klndQFJraTt18kHcl1hxd6yOHCmDoYKrX8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fbxk3B1kVQa/Rmy2plmyyuHyctTxT8yCGXvhut/j2pz7uiz+QbAlLv8/6UztAXe41
-	 tLJg8cKGIynm6fLnBghsnGt6GCd+jYC7M+RYUhe1vzhfTqX3dOZ4C1BId14gforUo+
-	 Mpqj4T/S6kQMSBWZ180eQEfmNUJFLRFNss0AzQc3oQrGPO3n5O+L7sZsfgrNHslSA5
-	 aGPofrVcWeRQSeyLDDMfGqp36KBQBcc2Kpb/M1Zuol0PY0FqPB/wrkDwU9zD5C7/EA
-	 xT3EQzQInjk9Cx/S/7zF+BBGo6a7I5x/aPeqb6BVAs+d4FNyYRhwezk/i5o+sFkLYR
-	 EPfhO8Oy0rVtA==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	David Hildenbrand <david@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
+	s=arc-20240116; t=1789655035; c=relaxed/simple;
+	bh=AbPGuFvrX+Y/Z/llspYtmWkIySpxasLTu86xOBq0XPM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NfPi+tskDQjnd8HJDvC9cdBPqVXQLVhphTpLcFUvjwxjI/3K3nfnWwfU7M/ClV/DltFX3zGvuCyLXm1vvJnbLNbeYMQGcb4F0vYy5iPzagwRapuqu8sybcNyn5celk29s9yZlc2/V5HzYu62SAG3FHpSV5aLlnOn2NVy/S3QFtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADH+ELp96tqBV+CCA--.45567S2;
+	Thu, 17 Sep 2026 22:23:37 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrew+netdev@lunn.ch
+Cc: arkadiusz.kubalewski@intel.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	jiri@resnulli.us,
+	kuba@kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 10/10] Docs/mm/damon/design: clarify bp is basis point
-Date: Thu, 17 Sep 2026 07:22:08 -0700
-Message-ID: <20260917142210.90829-11-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260917142210.90829-1-sj@kernel.org>
-References: <20260917142210.90829-1-sj@kernel.org>
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	richardcochran@gmail.com,
+	vadim.fedorenko@linux.dev,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ptp: ocp: Fix dpll device reference leak in ptp_ocp_probe()
+Date: Thu, 17 Sep 2026 14:23:37 +0000
+Message-Id: <20260917142337.2156652-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,41 +41,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADH+ELp96tqBV+CCA--.45567S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKryrGrWrAF4kCr15GFWfXwb_yoWDJFc_C3
+	4jvF9rXF1DuF18Kw18AryDZry0kFnFqr48Kr4ktrs3J345XFyYgrZ09Fn8Gw1vgr1rAryD
+	ZasxXrsxAFsFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbqAYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lFIxG
+	xcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42
+	xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
+	ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
+	4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxU
+	rdb1UUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQNA2qr9nADpwAAsl
 
-DAMON design document uses "bp" for "basis point" in multiple places.
-Because it is not clearly mentioned, it is difficult to understand what
-"bp" stands for.  Add the clarification.
+ptp_ocp_probe() takes a reference on the dpll device with
+dpll_device_get(), but jumps to the out label without dropping it when
+dpll_device_register() fails, so the reference leaks. Put it before
+returning.
 
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-Closes: https://lore.kernel.org/107dc6ba-697e-4b25-ba3e-8ce2499cac9a@infradead.org
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Signed-off-by: SJ Park <sj@kernel.org>
+Fixes: 09eeb3aecc6c ("ptp_ocp: implement DPLL ops")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- Documentation/mm/damon/design.rst | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/ptp/ptp_ocp.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
-index 0a86792f90a18..e82390e77a70a 100644
---- a/Documentation/mm/damon/design.rst
-+++ b/Documentation/mm/damon/design.rst
-@@ -445,7 +445,7 @@ users to set the aimed amount of access events to observe via DAMON within
- given time interval.  The target can be specified by the user as a ratio of
- DAMON-observed access events to the theoretical maximum amount of the events
- (``access_bp``) that measured within a given number of aggregations
--(``aggrs``).
-+(``aggrs``).  The ratio is in basis point (bp or 1/10,000).
+diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
+index beacc2ffb166..dacb941da8e9 100644
+--- a/drivers/ptp/ptp_ocp.c
++++ b/drivers/ptp/ptp_ocp.c
+@@ -5106,8 +5106,10 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	}
  
- The DAMON-observed access events are calculated in byte granularity based on
- DAMON :ref:`region assumption <damon_design_region_based_sampling>`.  For
-@@ -717,7 +717,8 @@ mechanism tries to make ``current_value`` of ``target_metric`` be same to
-   in microseconds that measured from last quota reset to next quota reset.
-   DAMOS does the measurement on its own, so only ``target_value`` need to be
-   set by users at the initial time.  In other words, DAMOS does self-feedback.
--- ``node_mem_used_bp``: Specific NUMA node's used memory ratio in bp (1/10,000).
-+- ``node_mem_used_bp``: Specific NUMA node's used memory ratio in basis point
-+  (bp or 1/10,000).
- - ``node_mem_free_bp``: Specific NUMA node's free memory ratio in bp (1/10,000).
- - ``node_memcg_used_bp``: Specific cgroup's node used memory ratio for a
-   specific NUMA node, in bp (1/10,000).
+ 	err = dpll_device_register(bp->dpll, DPLL_TYPE_PPS, &dpll_ops, bp);
+-	if (err)
++	if (err) {
++		dpll_device_put(bp->dpll, &bp->tracker);
+ 		goto out;
++	}
+ 
+ 	for (i = 0; i < OCP_SMA_NUM; i++) {
+ 		bp->sma[i].dpll_pin = dpll_pin_get(clkid, i, THIS_MODULE,
 -- 
-2.47.3
+2.34.1
+
