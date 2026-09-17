@@ -1,439 +1,137 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7843403E0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789605375; cv=none; b=XK9F8wceD0R6Nayq3qRyCoeTjYPZ7hYlpIRz62xim3DJX+dEqmk5rv0FZt/5BEw5sLIYzpQ6vDYMqBA71XMfYa3gPT2izJ2pUbHZkG4sShqbemqaSQhx/L/TU/xlY/F5lJSdg4jWGvqllwdVh5sq9SFlgCbj6v9fCAVXh5Q82Ts=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789605375; c=relaxed/simple;
-	bh=AiXdD5gR4k+YhauHJojheLQ+V27HgaB1xEOafEbe/bY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=geeTxvth47ZeDaXAALggynNP5aNpeEfltzJNrVOxAHa/e95zt/vBOb8oRVDfFKw4Jqw385LVsSh2+Cw1SMXOZjSkogIeWYBpI0l2QaI/J5u7YzqRCE3toMgu+IAx4PZ7VYYZ5teuEqmPEAWwrLvmCf64Xs+QTAD69FB7SjSbH4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VfQBY6DJ; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D70432ED21
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:36:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789605402; cv=pass; b=HEKOfDzGG9hffPLkZF3rQOIB9QW6BLtcGZNESQpTNkRpnw9DBN1I2s5zqcLt31iD0UrZ5lJAoSGoDZtWfet15EXl3EFnxntgz3yKO42dNN1mPMiX0HlDAVasKmH6dix0QyQ6/fe+dIRF2LuwF8i6LD9gMz7Z//ZA+EdI62GpeoU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789605402; c=relaxed/simple;
+	bh=ePVneiu8f7HOysaEQkzPf7UPOZIwpLI2NG8wQeL1rIo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Su7SygXvhktVnS6qeshUcdHo4bxaWNPiJIj8W5XyS99MlhkTwu0Tyn1wax9sa7b1Pl3SzYGYMi/EWK6f6UXkYLuqWgCHep5a+RoDAmBHmXB2DQg+Dud6VZns3WmTk6TEcnige86JHw+Ne9x55aSNPbu7EB2AdczIHS6UhG6/1uI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TsogayB/; arc=pass smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VfQBY6DJ"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398a147688bso237503a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:36:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TsogayB/"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469e25187so160096b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:36:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789605396; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Eu0QOH811zYjXM8tRmCbHiIxh0eJuXwR9myDlHDuCUJB8wJZ6FU3Ll3BNNC8N6q4gl
+         Y3crGhfDYjl6x9DZer4VlYEAC6LtkAHLVyeQJNBJZ7nPwhblxLfIDpiyF9uiXtZTfEya
+         0OoGy0fgdJQ7HnR2xUcDq5S4Qh+jl2BYJKcid0s9/ovzhEhR8Me8MLbdY4EX5eCwCI40
+         S79bYF6N+4+z/VZHnSD/GKwu5ztWHLd6UBsWaKB4cXGB5M1QiyR+FNNnI76UPOb2Dogd
+         u4/YDVzlTxloz64+7O0N/5/AtNSyOB9BMGLk1dbpigDuWhQDqBD84/Dy7D7czHwg2bKe
+         933w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=z3t40gbdtLCD1G2xLbWdqCI7O6nv21XGGKYIiPoR+Ps=;
+        fh=cZPwjWIhlJi2XSoz8yPkXQwYeXuQ9638SgOW5Ae4qHg=;
+        b=hPKgw8O1tAZ8sHD56Nq031mKZEugjWHhNCChugiNSsj+ol7zcb5w8wjydm58jTaCEq
+         5r3NdgLV4a/7jCS+Uv/r+/lmU7UPgZcc+vyTVwoS3ONRfJIvHcyWqXf11BsTXLlSe6oO
+         eT4kJHc9kH6QzbKPrsjJPVhg/lRa0XFB+luo01uHKx06/cgsiopYMKeiSBoh0eslwpDT
+         rePZ/FKHKkouP61L+8RVfuOnqpzEEFQBOi+4WIJmcwAtoSvOu3f9Wh8SglB7Rl5Xpj1L
+         ekiCf9+HSzh/uxKVSkc5JH1/YbHHbrB404DQhPuDtSVV+s3IUZhrOEyLTVG+8urULe2M
+         uigw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789605367; x=1790210167; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xwJTJdNBgS/rtyknRednfqg6/8S30G/8tgACWLX5raI=;
-        b=VfQBY6DJ8eRg2OZCE4a8hTOFo9M5jUTNVubwKSaZtP5hA8JXNIPF14z/ZNLL8fG3SL
-         qT/CFVaKmXCrgGD4T8idqFTFzHjiExirmKNqhY8gWmm5M+iduLqQxxOIQPEH3tYx5Rht
-         77lzRM4odYbUVPtJEy/24hcT8jLzF4rJTfIfL1akM6uVxiUKlqOpEY8ej46dxV36ITE8
-         a8v7CpzQM9RLxSCYisBj7zOHEfbdfVtwtGlAq7LPWIqIg3MeySPhkzVBVMl+/RL2pv+/
-         JSP3s97ONVwpIARDgLLlbVQVGy60mqUNAAFkYRg/DBXt+4Ssqhu0bA8HAl8NCFUCmwB9
-         nzkw==
+        d=gmail.com; s=20251104; t=1789605396; x=1790210196; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=z3t40gbdtLCD1G2xLbWdqCI7O6nv21XGGKYIiPoR+Ps=;
+        b=TsogayB/+IpRHhnz2DwNm62FAk2EHgYbawS3Z6sx3RD2VGhurlv6sJhlNn+T+9zbx0
+         COknBFb2b681fvXkln/uR1k0d36lT9jeKImG72cHiS+fGf2sre496ZD+A95YwID5vWjN
+         RFt4NQKI2IPOMUPnjYDaM6zGfbWAB/yD9Bx42V7nM2lyjiW8wHEQTr7yqfkviGfzn9S6
+         uQfO8chLF2isgWfqPI9t5sar7KMbSUzPNa4u/3wdGXbFAJADOoGYJBfkqYcVUeTazVTb
+         KQLI3TKayjbQa1QSzRxEJkfcB94tk1o4CbnrGk/Tk4C2SZBN/LIHxEJ3CbyY18jZE9Om
+         tT6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789605367; x=1790210167;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xwJTJdNBgS/rtyknRednfqg6/8S30G/8tgACWLX5raI=;
-        b=2kmaz7vg4va+V7tnYU6X9gv5xcda7vFIY9pE79VAyOcwz/MUj/n7FitMPpZnCGY7Nc
-         Q/MO8GyJ+964qJL5p3blvNotTkG2Vt8nVn196XHOXTX0oZ0Kkq5EkWMjm9J7KRecbiw1
-         ycPa80+dkLosjcZBk7mOPzhXQUipRazRvR4LqBZ5DXmBcx5+wb/rIpwBZqTGq/JldXgZ
-         81He26PTGkSCKbkJdKA4sQgPR/Ue9xuuwoavxpfNjryWNfHPn0g8zC6VsMDAFbkc42uu
-         rYtEgVtjascnN3ca5gKbS+Bf0s7brwgWvgK4UMRXms2pkRw23pADBGz/xWZSuY670+at
-         woMA==
-X-Forwarded-Encrypted: i=1; AKwUvBzs3Zcp095uMFC+cs8JxnrIMecy/OuVAMS9i5WU17ztGBgCnDRP/F3AGh8KiVATXArMm614Z3QY5hS6gQw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBXoa3jendV4NyRrFsJo+PJH4+BiqBWNlpH+W+WWQ8An9dShzB
-	4Z5vot7C5eANIfBSas9WWvtvdt9OSHaLuwuJur/BKB3HulG1EFQfHKU=
-X-Gm-Gg: AYBFou0h5kHSz6tg0fwysFsjYOXyc6oiRMtptKrJ8Tj9iEh8X/WhOo3t/cV+sKXMQYu
-	fY+tQGKwgrITGtJshqEcqFC7vXpOnPjlxpJ6xu1PKgdGzRxtqCq9IeQ7H+OBPXl0W5ZZKhP8+F1
-	c7R6u369pkm4tmeCPAFRQ/GipJQR3z1lytbGr4ttUUSMbm8+pY8XaIze4lrUEBtDRoaoWpHFQ44
-	LeUxIFizacNcKY0dZzopaQiEIym9cWs4m1s+wPckXCkjjkqeacH7T0wcUrTmGiPt0qvLINFwC7B
-	kyAMoXxya+ryXZiJPgy1ovmTsm0I+O3PIzQMbgqi3RO8myhFhx77RFymujSpfrousmOK9WbSzNv
-	O9GXZOgLi2/kvwMfoI20ieMhD4glgOREDeY5G2fifpbkmI7nY4O4d96f4t0hjZDJyHweom8ZDER
-	SjXrERpSOuGMLgbtyghx8FuyC9pSac1yAwNqAgYggzILeVtBHBE9p2l+s1/EpenXwbosnemSOqq
-	DMiZoC4r4xzz8V88zBaIjPYiJA=
-X-Received: by 2002:a17:90b:5847:b0:39d:ec1b:9651 with SMTP id 98e67ed59e1d1-39e1e484b90mr10744846a91.13.1789605366824;
-        Wed, 16 Sep 2026 17:36:06 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:3990:d106:a51f:be7c])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e36115cc8sm1722374a91.3.2026.09.16.17.36.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 17:36:06 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: [PATCH v1 2/2] mm/damon/tests/core-kunit: test the size charged for a filter-trimmed region
-Date: Thu, 17 Sep 2026 09:35:53 +0900
-Message-ID: <20260917003553.2465523-3-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917003553.2465523-1-donggeunyoo.kernel@gmail.com>
-References: <20260917003553.2465523-1-donggeunyoo.kernel@gmail.com>
+        d=1e100.net; s=20260707; t=1789605396; x=1790210196;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z3t40gbdtLCD1G2xLbWdqCI7O6nv21XGGKYIiPoR+Ps=;
+        b=hAbkMsHHEQ30npfqruDLo/YLzJmX4U5enI+SnQ42KEgwIUp5PKhg+VviuujFFdF7GM
+         5cOP1+wJZo0TLfO+QTSGdCXwhtmZvXsAMx/FXu51ndOfavxxu3ldeydYTQnYomzCRP+2
+         3HTzV+6nrTpKgUPc1MGS7ThZIplzsNiEY0iArWLjsE6yzMbHx3YDp+inN+K29ACiEIuk
+         n3Exyq1o1FJVIaVK113/g21xOAPKbiqYW3iAUtlWsV3HBaiE9pFOGzMMh9tHewDARRZb
+         vq0FdNl/QntNft3sx+EIajf3d2KRD7cW0F2laF9LnSXEcoWJc8PoV84QKWROBx4dnpiF
+         ExlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypus8aHhBl8tmv7AtqNdFOa/3krndhsU58zr1+CynNnGO9bhi7wbvW+G6DJvqy1Jf3tknNPDpAJ8QItq0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kclLWl+c2+0sGisVGvjyVvK1JLykU2F4ZRUqZCeZf0dywtJnao
+	LJ834dxSHhx0yOk19Nz2crXz4C4W6zM4nJGk/iloGjkD+1p/73Ms5bMV9UT1b3bE5VUQe0lFrsR
+	P7u7/frrLp0swVYMeKT3JFTUKHQp+brc=
+X-Gm-Gg: AYBFou3HGYnSb8+GRDCZGEvnV+LG3rctpU4pgQIDddbalZpuoiftgtuGc3Rh898QWY5
+	6TzoqZ1mVjUL+DDTMvkfTTZ1u7J2qyAMzwOk6BOiNU3XWKfm9ZlYPcIBo0SnRMBNQySaep2e9vY
+	dMKw+P8K05k5jzmE7ZCuRNqP2IDsP0u8lvuOERMXRQSQHtBJzHkhFR2HPSGT59/KIioFroAGBod
+	RSo/ujolSaXoKYn+UIYYVilRb7Vt+69nLbD0uQoWN42Sc7jNudsh/1yH1STbo1i47xtJVauCZO5
+	/oLaOZbgkOdF/1Nf0FcRVS5gtFBCpz1rQhR6+t76o/KHY25r5Fb7E/RCH3GgOugk/I32bN+IlIe
+	foDQqERvXLalePpDVxQI/WM0R9CXc9dUX7MJGoB3arRlLp9gC2Ci4
+X-Received: by 2002:a05:6a20:548d:b0:3d2:df:1854 with SMTP id
+ adf61e73a8af0-3dd5f403cd9mr11548203637.6.1789605395452; Wed, 16 Sep 2026
+ 17:36:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+ <20260910164635.459558-2-vineet.gupta@linux.dev> <DLDKB6BTHVXE.PFK87O3QY1J5@gmail.com>
+ <f575fe19-a5a0-4f43-b1bd-cdec2c6e9830@linux.dev> <DLH1MDZPU5G0.228555JR34D3N@gmail.com>
+ <76ca0a2e-dd9a-41c9-90e4-5fd3c9171172@linux.dev>
+In-Reply-To: <76ca0a2e-dd9a-41c9-90e4-5fd3c9171172@linux.dev>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Wed, 16 Sep 2026 17:36:24 -0700
+X-Gm-Features: AcwNN1XO4HwAR37E3WIkB8E7DX_-wst1NccGMR8T31Mz-rEIep-eXEJg6HLexr8
+Message-ID: <CAADnVQKKWBV+pFMAStB_-POKveeO83RiXU+VKeua3odSu-Xrmg@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of
+ bpf_reg_state->id [NFC]
+To: Vineet Gupta <vineet.gupta@linux.dev>
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>, bpf <bpf@vger.kernel.org>, 
+	LKML <linux-kernel@vger.kernel.org>, 
+	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-damos_test_filter_out() checks that an address range filter splits a
-region at the filter boundary, and stops there.  Nothing checks what
-damos_apply_scheme() then charges to the quota and reports as tried.
+On Wed, Sep 16, 2026 at 2:24=E2=80=AFPM Vineet Gupta <vineet.gupta@linux.de=
+v> wrote:
+>
+> On 9/16/26 2:02 PM, Alexei Starovoitov wrote:
+> > On Tue Sep 15, 2026 at 1:17 AM UTC, Vineet Gupta wrote:
+> >> Back when I started, keeping it NFC made more sense. But with all the
+> >> nuances discovered in the process, I'm inclined to drop the NFC stance
+> > What is NFC ?
+>
+> non functional change aka refactoring.
+> Like I said when I started I wanted to keep the id / flag breakout
+> purely non functional. But given that splitting it does change one thing
+> (mentioned below) - I'm dropping NFC attribution.
+>
+> >> and make functional changes - there's at least one which is the
+> >> following accepted pre-series and now rejected.
+> >>
+> >>         old {r2.id=3DA+delta32}         vs cur {r2.id=3DB+delta64}
+> > that's a red flag, no? The refactoring patch shouldn't have
+> > any changes to selftest and veristat numbers?
+> > Unless I'm missing it again.
+>
+> Yes understood except that it is no longer refactoring.
 
-damos_test_apply_scheme_filtered_sz() covers the two ways such a filter
-trims a region: one that starts before the filter's range, and one that
-starts inside it.
-
-damos_test_apply_scheme_filter_sz_unchanged() and
-damos_test_apply_scheme_quota_sz() cover the cases whose accounting must
-not change: a region wholly inside a reject range, one wholly inside an
-allow range, two filters trimming in a single call, a filter type that
-never splits, no filter at all, a region the quota trims, and a quota
-remainder too small for one region.
-
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
- mm/damon/tests/core-kunit.h | 316 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 316 insertions(+)
-
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 5da84caf4124..82c542afaa60 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -1676,6 +1676,319 @@ static void damos_test_filter_out(struct kunit *test)
- 	damos_free_filter(f);
- }
- 
-+static unsigned long damos_test_apply_scheme_stub(struct damon_ctx *c,
-+		struct damon_target *t, struct damon_region *r,
-+		struct damos *s, unsigned long *sz_filter_passed)
-+{
-+	return 0;
-+}
-+
-+static void damos_test_apply_scheme_filtered_sz(struct kunit *test)
-+{
-+	struct damos_access_pattern pattern = {
-+		.min_sz_region = 0,
-+		.max_sz_region = ULONG_MAX,
-+		.min_nr_accesses = 0,
-+		.max_nr_accesses = UINT_MAX,
-+		.min_age_region = 0,
-+		.max_age_region = UINT_MAX,
-+	};
-+	unsigned long min_sz = DAMON_MIN_REGION_SZ;
-+	struct damos_watermarks wmarks = {};
-+	struct damos_quota quota = {};
-+	struct damon_ctx *c;
-+	struct damon_target *t;
-+	struct damon_region *r;
-+	struct damos_filter *f;
-+	struct damos *s;
-+
-+	c = damon_new_ctx();
-+	if (!c)
-+		kunit_skip(test, "ctx alloc fail");
-+	c->ops.apply_scheme = damos_test_apply_scheme_stub;
-+
-+	s = damon_new_scheme(&pattern, DAMOS_STAT, 0, &quota, &wmarks,
-+			NUMA_NO_NODE);
-+	if (!s) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "scheme alloc fail");
-+	}
-+	damon_add_scheme(c, s);
-+
-+	t = damon_new_target();
-+	if (!t) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "target alloc fail");
-+	}
-+	damon_add_target(c, t);
-+
-+	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
-+	if (!f) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "filter alloc fail");
-+	}
-+	f->addr_range = (struct damon_addr_range){
-+		.start = 2 * min_sz,
-+		.end = 8 * min_sz
-+	};
-+	damos_add_filter(s, f);
-+	damos_set_filters_default_reject(s);
-+
-+	/* reject filter, region starting before the range */
-+	r = damon_new_region(0, 4 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 2);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 2 * min_sz);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 2 * min_sz);
-+
-+	if (damon_nr_regions(t) != 2)
-+		goto out;
-+	damon_destroy_region(damon_next_region(r), t);
-+	damon_destroy_region(r, t);
-+	s->stat = (struct damos_stat){};
-+
-+	/* allow filter, region starting inside the range */
-+	f->allow = true;
-+	damos_set_filters_default_reject(s);
-+	r = damon_new_region(2 * min_sz, 10 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 2);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 8 * min_sz);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 6 * min_sz);
-+
-+out:
-+	damon_destroy_ctx(c);
-+}
-+
-+static void damos_test_apply_scheme_filter_sz_unchanged(struct kunit *test)
-+{
-+	struct damos_access_pattern pattern = {
-+		.min_sz_region = 0,
-+		.max_sz_region = ULONG_MAX,
-+		.min_nr_accesses = 0,
-+		.max_nr_accesses = UINT_MAX,
-+		.min_age_region = 0,
-+		.max_age_region = UINT_MAX,
-+	};
-+	unsigned long min_sz = DAMON_MIN_REGION_SZ;
-+	struct damos_watermarks wmarks = {};
-+	struct damos_quota quota = {};
-+	struct damos_filter *f, *f2;
-+	struct damon_ctx *c;
-+	struct damon_target *t;
-+	struct damon_region *r;
-+	struct damos *s;
-+
-+	c = damon_new_ctx();
-+	if (!c)
-+		kunit_skip(test, "ctx alloc fail");
-+	c->ops.apply_scheme = damos_test_apply_scheme_stub;
-+
-+	s = damon_new_scheme(&pattern, DAMOS_STAT, 0, &quota, &wmarks,
-+			NUMA_NO_NODE);
-+	if (!s) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "scheme alloc fail");
-+	}
-+	damon_add_scheme(c, s);
-+
-+	t = damon_new_target();
-+	if (!t) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "target alloc fail");
-+	}
-+	damon_add_target(c, t);
-+
-+	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
-+	if (!f) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "filter alloc fail");
-+	}
-+	f->addr_range = (struct damon_addr_range){
-+		.start = 2 * min_sz, .end = 8 * min_sz};
-+	damos_add_filter(s, f);
-+	damos_set_filters_default_reject(s);
-+
-+	/* wholly inside a reject range: not counted at all */
-+	r = damon_new_region(4 * min_sz, 6 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, s->stat.nr_tried, 0);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 0);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
-+
-+	/* wholly inside an allow range: counted whole, not split */
-+	f->allow = true;
-+	damos_set_filters_default_reject(s);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 2 * min_sz);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
-+
-+	/* two filters, each trimming: the size left after both is counted */
-+	damon_destroy_region(r, t);
-+	s->stat = (struct damos_stat){};
-+	f->allow = false;
-+	f->addr_range = (struct damon_addr_range){
-+		.start = 4 * min_sz, .end = 12 * min_sz};
-+	f2 = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
-+	if (!f2) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "filter alloc fail");
-+	}
-+	f2->addr_range = (struct damon_addr_range){
-+		.start = 2 * min_sz, .end = 3 * min_sz};
-+	damos_add_filter(s, f2);
-+	damos_set_filters_default_reject(s);
-+
-+	r = damon_new_region(0, 8 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 3);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 2 * min_sz);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 2 * min_sz);
-+
-+	/* a core filter that never splits: counted whole */
-+	damos_destroy_filter(f2);
-+	damos_destroy_filter(f);
-+	f = damos_new_filter(DAMOS_FILTER_TYPE_TARGET, true, true);
-+	if (!f) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "filter alloc fail");
-+	}
-+	f->target_idx = 0;
-+	damos_add_filter(s, f);
-+	damos_set_filters_default_reject(s);
-+	s->stat = (struct damos_stat){};
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 3);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 2 * min_sz);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 2 * min_sz);
-+
-+	damon_destroy_ctx(c);
-+}
-+
-+static void damos_test_apply_scheme_quota_sz(struct kunit *test)
-+{
-+	struct damos_access_pattern pattern = {
-+		.min_sz_region = 0,
-+		.max_sz_region = ULONG_MAX,
-+		.min_nr_accesses = 0,
-+		.max_nr_accesses = UINT_MAX,
-+		.min_age_region = 0,
-+		.max_age_region = UINT_MAX,
-+	};
-+	unsigned long min_sz = DAMON_MIN_REGION_SZ;
-+	struct damos_watermarks wmarks = {};
-+	struct damos_quota quota = {};
-+	struct damon_region *r, *next;
-+	struct damon_ctx *c;
-+	struct damon_target *t;
-+	struct damos *s;
-+
-+	c = damon_new_ctx();
-+	if (!c)
-+		kunit_skip(test, "ctx alloc fail");
-+
-+	s = damon_new_scheme(&pattern, DAMOS_STAT, 0, &quota, &wmarks,
-+			NUMA_NO_NODE);
-+	if (!s) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "scheme alloc fail");
-+	}
-+	damon_add_scheme(c, s);
-+	damos_set_filters_default_reject(s);
-+
-+	t = damon_new_target();
-+	if (!t) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "target alloc fail");
-+	}
-+	damon_add_target(c, t);
-+
-+	/* no apply_scheme operation: the whole region is counted */
-+	r = damon_new_region(0, 4 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 4 * min_sz);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
-+
-+	/* no filter and no quota: the whole region is counted */
-+	c->ops.apply_scheme = damos_test_apply_scheme_stub;
-+	s->stat = (struct damos_stat){};
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 4 * min_sz);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
-+
-+	/* the quota trims the region: the trimmed size is counted */
-+	damon_for_each_region_safe(r, next, t)
-+		damon_destroy_region(r, t);
-+	s->stat = (struct damos_stat){};
-+	s->quota.esz = 2 * min_sz;
-+	s->quota.charged_sz = 0;
-+
-+	r = damon_new_region(0, 8 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 2 * min_sz);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 2 * min_sz);
-+
-+	/* quota remainder below one region: tried, but nothing counted */
-+	damon_for_each_region_safe(r, next, t)
-+		damon_destroy_region(r, t);
-+	s->stat = (struct damos_stat){};
-+	s->quota.esz = 1;
-+	s->quota.charged_sz = 0;
-+
-+	r = damon_new_region(0, 4 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, s->stat.nr_tried, 1);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 0);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 4 * min_sz);
-+
-+	damon_destroy_ctx(c);
-+}
-+
- static void damon_test_feed_loop_next_input(struct kunit *test)
- {
- 	unsigned long last_input = 900000, current_score = 200;
-@@ -1929,6 +2242,9 @@ static struct kunit_case damon_test_cases[] = {
- 	KUNIT_CASE(damon_test_commit_ctx),
- 	KUNIT_CASE(damon_test_valid_probe_params),
- 	KUNIT_CASE(damos_test_filter_out),
-+	KUNIT_CASE(damos_test_apply_scheme_filtered_sz),
-+	KUNIT_CASE(damos_test_apply_scheme_filter_sz_unchanged),
-+	KUNIT_CASE(damos_test_apply_scheme_quota_sz),
- 	KUNIT_CASE(damon_test_feed_loop_next_input),
- 	KUNIT_CASE(damon_test_set_filters_default_reject),
- 	KUNIT_CASE(damon_test_apply_min_nr_regions),
--- 
-2.53.0
-
+NFC is gcc probably lingvo? In kernel people just put in the commit
+log "No functional changes", so it's easier for humans and for AI
+to review patches.
+So pls skip such unusual tags in the future,
+but keep the first patch as "No functional change".
