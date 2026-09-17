@@ -1,86 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80F7448CEC;
-	Thu, 17 Sep 2026 08:51:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D9A39479C;
+	Thu, 17 Sep 2026 08:51:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789635071; cv=none; b=fFxOpE7kylSH3P/GFXLFq0sMDyq8VXeYf3pDQ4sEYnNCLrEKgBAHorhBhBA8s7uUoD5SqsOTgZIvzCXlOGuQdW73RdMrWjc0Zw2HQTBKItEGhmwp/Tygc6K0hB3v61nRrJTtiQqTlKM2KIBhOhNz2aAszGYp5zWEFxQWBMAZlV4=
+	t=1789635106; cv=none; b=iBlQiHLyJqCu0MkPvdpeB5GmqXYCFstH8Hjb/lSbYLo/5hIypnQDVp08/pNxlcpU4Ox0HfkTJ+eBy4GztLoRdWtZwoArwYS1XxYerdQ9fgboloXrihH4v0DBFcNVVVFdIbRHsd7Yw32JzRVdcv8YlbgreRHCTVyVOYt9KvD11G8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789635071; c=relaxed/simple;
-	bh=ZhuQHomawxLk9rQqvM39AmBak2r/Ub1GZwtl/wLVXyk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=Frf1Mb5EatlwYzWiU63COAeXEGOiZHkmFbypvVvOoZQWM8hclsGIM5LVTCFUjhUZ1fvIIe3wfFAmY0GLn1oJvAlnB+Fbai+VW0rVJb55MvOltNrbUEzqwMaXRu+DhtOC2fGP3qjjyOlVe5Jd0SeZlTSHdjicMQBIeTyN8VDEJfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K16aZhmh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789635106; c=relaxed/simple;
+	bh=d1o7qfb40X4omjhsolZFB7mf29Q53A+4b78/bqfTq4k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RhI/7yTHtwjqbDlwBEbbNrEkksYAwlmE+AkO9T886uiQlIMfPjVPj9SyT2SO2dRp3fUkQFWJDGZcqsXmjT7FKcab8S1j8bi6fE4p9/j+9IX1KTNJShWxqhFcOeerxgasXaRCGpMMMHLRy7cAa23niC8IO9wDtudttQns6R+MtuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eXD2Xq2J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K16aZhmh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4585C1F000FF;
-	Thu, 17 Sep 2026 08:51:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789635064;
-	bh=ZhuQHomawxLk9rQqvM39AmBak2r/Ub1GZwtl/wLVXyk=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=K16aZhmhKthNV915bJgiNIphPE26uyCyZSe3Qniutu0IGBLXxBYinl9yY8x/sFM0l
-	 sbu7oVMWCQFB41/9l9uhSh3vrkWYMRpZBzvVDdhOUrnA27NAyleyMFrFRTUoVgU60X
-	 KZ0AKyxDko99+ePCJy1tHIAhAyEzouaAKJ5TMXxBTQXzDodnoZMTvFCAjCw9qHIMeT
-	 QWPPNV4KLsY0+193h9mmXAEUxHbPDYqR8BlxoIPqFwiCENDmNnbtQiD28Saexi9X+A
-	 w3rK2aVyegcU6pbnUPv+IExie1oO9qBLzuKtCmMMkq3ssYqnuvxZXC79QaWPbZhca3
-	 yf1qIN0nnc84g==
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eXD2Xq2J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A8B41F000FF;
+	Thu, 17 Sep 2026 08:51:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789635099;
+	bh=bLPzNdH/e2aiM5uLRu+9nan5ENmrqmsmiYaJuDfZNpw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eXD2Xq2J77CAFqPq+F6Rv1oKL6MSY1Bg4y7CU6rPmPwFnIUHuz9A9+Mv/6dlZliT1
+	 Ms0AmCuS2LWNoTqwwfTeEujmXbHfIEjUNBx1VH6MoAIxiShxuoFHjWNdEWEOh2cdvW
+	 C49PCzH1WVsXLvoQ2Rzdjqr44s3gi+H0kQUuHDf0=
+Date: Thu, 17 Sep 2026 09:49:44 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Philippe Schenker <philippe.schenker@impulsing.ch>
+Cc: "rafael@kernel.org" <rafael@kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-rtc@vger.kernel.org" <linux-rtc@vger.kernel.org>,
+	"nathan@kernel.org" <nathan@kernel.org>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>
+Subject: Re: [PATCH v2] rtc: cmos: Use platform_get_irq_optional() in
+ cmos_platform_probe()
+Message-ID: <2026091732-postage-lunacy-fb5e@gregkh>
+References: <12857714.O9o76ZdvQC@rafael.j.wysocki>
+ <d35e7730006ac5a2ccaa08092201994afea668cb.camel@impulsing.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 17 Sep 2026 10:50:58 +0200
-Message-Id: <DLHGOK4T4SCX.37QOVMLFTYFFQ@kernel.org>
-Subject: Re: [PATCH v4 1/2] rust: num: add cv! macro to create values from
- constant expressions
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260917-cv-v4-0-547ef5727451@nvidia.com>
- <20260917-cv-v4-1-547ef5727451@nvidia.com>
-In-Reply-To: <20260917-cv-v4-1-547ef5727451@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d35e7730006ac5a2ccaa08092201994afea668cb.camel@impulsing.ch>
 
-On Thu Sep 17, 2026 at 10:34 AM CEST, Eliot Courtney wrote:
-> Currently, using NonZero/Bounded constants is quite verbose. It's
-> unfortunate because it disincentivizes using it in interface boundaries.
-> Introduce a macro to make it nicer to use. The macro `cv!` (for constant
-> value) takes a const integer expression and widens it to i128 (at build
-> time only) before passing it as a const generic value to a new trait
-> `FromConst`. The value is then converted and appears in the
-> associated constant `FromConst::VALUE`. The trait is implemented by
-> NonZero, Bounded, and Alignment and lets values of each be constructed
-> from constants without a verbose turbofish syntax.
-> For example, `const { NonZero::new(1).unwrap() }` can be written as
-> `cv!(1)`.
->
-> Add the `cv!` macro to the prelude so it doesn't need to be imported
-> explicitly to use it.
->
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Reviewed-by: Gary Guo <gary@garyguo.net>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+On Thu, Sep 17, 2026 at 08:26:10AM +0000, Philippe Schenker wrote:
+> Hi,
+> 
+> this patch did not carry a Cc: stable tag, but the platform device
+> binding changes it fixes have meanwhile been backported to 6.18.y
+> (6.18.51), including:
+> 
+>   ACPI: x86/rtc-cmos: Use platform device for driver binding
+> 
+> This fix was not backported with it, so 6.18.51 is now affected by
+> exactly the problem Nathan reported in
+> 
+> https://lore.kernel.org/linux-acpi/20260303060752.GA2749263@ax162/
+> 
+> On my HP ProBook 445 G8 (AMD) the boot log changed as follows:
+> 
+> 6.18.49 (good):
+>   rtc_cmos 00:00: alarms up to one month, y3k, 114 bytes nvram
+> 
+> 6.18.51 (bad):
+>   rtc_cmos PNP0B00:00: error -ENXIO: IRQ index 0 not found
+>   rtc_cmos PNP0B00:00: no alarms, y3k, 114 bytes nvram
+> 
+> On stable this is more than a confusing message. Without an IRQ the
+> RTC has no alarm support, so CLOCK_BOOTTIME_ALARM is not available
+> and systemd (261) refuses suspend-then-hibernate:
+> 
+>   systemd-logind: CLOCK_BOOTTIME_ALARM is not supported, can't
+>   perform suspend-then-hibernate.
+>   Call to SuspendThenHibernate failed: Sleep verb
+>   'suspend-then-hibernate' is not configured or configuration is
+>   not supported by kernel
+> 
+> Plain suspend and hibernate still work. RTC wake alarms are also
+> broken:
+> 
+>   # rtcwake -m no -s 120
+>   rtcwake: set rtc wake alarm failed: Invalid argument
+> 
+> The fix is in mainline since v7.0 as:
+> 
+>   e9f850ba66cd ("rtc: cmos: Use platform_get_irq_optional() in cmos_platform_probe()")
+> 
+> Stable team, could you please queue it for 6.18.y? Any other stable
+> series that received the rtc-cmos platform device binding backport
+> would need it as well.
 
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+It's already queued up, thanks.
 
-> +/// use core::num::NonZero;
-> +/// use kernel::num::Bounded;
-> +/// use kernel::ptr::Alignment;
-
-NIT: Let's use the kernel's import style.
+greg k-h
