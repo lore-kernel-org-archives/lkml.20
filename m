@@ -1,255 +1,332 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CC5366074
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:12:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1406366074
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789607563; cv=none; b=jecAHuGhf40pS2YYwbF2KmbEx5KRQhIrnXMQxtyyWkuRu2zU36j86wd0Z14xsaRPAvFbGfjLfnJqUep/APOjsB3L/mYJkIQmEhRnhWvhoKaE4PIbykkE7UuoSaubm33PtaIpC6Iohb3zyj63oZoogbygoGuO/0nvIdiR1NBJ+fo=
+	t=1789607646; cv=none; b=gs0hutztOrukbMnnVqWaP0Ezz0SEB42EgXJZkglkzybc6JAlPsxLAzary4PpLwkwULuI+5WsmremJ+2TqYbQSOHww5UcKWDpVdOWujVuRQFk0qsAwjri1+24SW3DTmALqeZ8TKBdhG2IeeOzdcwVNs2tttIMl8wqiL2dcfdT/50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789607563; c=relaxed/simple;
-	bh=0sgrUmuLux8uqAjTw4R5acvawZAe98RyRfcyeOWTiE8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vGZfdl4yveCgvm//EtwQ515j8EyrYQwE8/DQVUlAmZi772IiMls5aXE8VBMDSGNPR3rMDEcwjFlbYh4gDvJnItBEmToSdEkA83MRYbgkidbNdIvvSNd4EP8Gtmm1ShwIQebD4I6tTaVvuQFpvWc88CyAgThynDCDksF2ZknUfHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qrhIRjYy; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789607646; c=relaxed/simple;
+	bh=Ul6j9WsyP/r/ydqbSfLgKbi1bbJx+nz92awCbQVj1eM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=b8gvGs0WeLwKe/RFPj5+0PM+ToFBXA6W4DsGYt9/CSyk4oo9D76B7hqJ/c0zH248w5n61wZkbrXdDpCTFeWmHuD7vpI3AYTC5edHPeCfu5qPjnhVqtbpJmlXhyuWAQUmlRZYR7ocNg7qsgvSFGgF7Pi+hHqXGZRj2D+jQj4XFOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LTruY1Ul; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qrhIRjYy"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccb1a990so220519a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:12:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LTruY1Ul"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d55d8cd938so5730655ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:14:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789607553; x=1790212353; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gc9KJ4Es/WQkdtrMV7rs5Raq2WwCB0243UqBQVk7iok=;
-        b=qrhIRjYySn7zRD69FKEBoOmk7KIEjglnQKT63Uae09qyLVAe8UqMRiZOeV4tudS443
-         q5nDHk/RGmgsj3b0dmx3/sKgwAlgNbLkzePjq1rKoUMWfHhyClOU5ltgdHzDXgECPDLC
-         A+2Gi8lhYEzMZQso+AakTZkOU7ZPQo+O39BN/ZTsgOiWjYYwVnqC6AfxgsmJgym8AVnu
-         GQqDtI3huOWapN2+J8TMI7ZTXPzZeeh+PXNCzmcmEuN/q/SJMrDWUTu1FfK4lY6u2qnB
-         4ivLyrjt8yjUFKXio9YSOBkIH6XTFLBQ0CNQmNadtQZl7JuRNBAnutR1PQlOfzmmAyGj
-         ETfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789607553; x=1790212353;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789607643; x=1790212443; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gc9KJ4Es/WQkdtrMV7rs5Raq2WwCB0243UqBQVk7iok=;
-        b=Yk8eA/R3h2B5XCbp3WTGEABAyYANtmUZoiUFZmlKt14M70klsX6kOv4TcwpX7wLsIp
-         QOzoM5rw63R7Enqk2x16RKFNZvcK1kQiw4ks5FrZhfhDXO0Rd8xqhciZJ6kS59Kr+sTV
-         8PJA0Qh/N3xAB/qu0b9VeTcJdrOqhppP1ONOixLJenV8zO27PDcyoUY0ECF5yReTbV9O
-         +PEteuDFOL38LZKCdx71cnaVd834QWbrKNSbiKvynj9C/gyGUv+ZErap9wkA8lrvB7Dl
-         RmkigWMbNKqQfzBcRg2tsROGq8THbDAqkEy24u+432G4IDeBUDcXaYepGAxMD9/zs597
-         4YYw==
-X-Forwarded-Encrypted: i=1; AKwUvBwv3d+73MZ4r4pmqkgQPtA3jW8Cr1p4VryCC6lTimKfoqmQsifO6cCAC741BdpK7qCb5m7hzokPU2Ul4kQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBsjdQkUfud9ZYQ3Ohi4aQ/E6pcQjPIsdiD4DANltH/g9JAkGf
-	uY+TQzNLro5PTnWxYlbKWEQT5zRymYYO6YDWiQshg9qdwyDTRlQwXhKc
-X-Gm-Gg: AYBFou1iQWcV+glfRhHTI668/rpP2QiWXnq1MIBU+J/iwTkl4y85mhxNXqgiJSfYmBq
-	OrUwFf/gopgD9jt8H7YJHOTOa9Zj9KaiGQ1Un9NLOwAllQSIbrRG5RfvknDN3msmXJuJ4uF0JhW
-	hYmRjxDtZ/Qv+MHG+LmHavcTJfpsOirvQ4g2C5M4MZ1iN3u2Wqqo04oX0wLVmVcIasiOpXFrHpQ
-	GD9/AfCnWm2tCROnGn5xUQZeHZ1lo2dtDj70R6Dc+fdf4HWEL4D3C7+eVz3mmHM78C4x7ase/8Z
-	6xpL/OkN2WpbakvDsr1tDOmCU+qK66d6q9VdEcYn2X57UkYpZbpAlQXHTUv6F/A7A5LMaMf+H/2
-	vyhhSgoSB+xHqtDFb9tiIN8p7Aj1vAUYFBbxK70qmrmfvOHhFO8EXHeItr5FQSSyXGHKTf57DaD
-	shLlbo9Ib/wfWd64Qj10AwRDhIdvpdQZgaGUIEQc1AD5vTfzBOU7MzG2VES5fofaQCLHRYoATTA
-	1j/68bSvSpN
-X-Received: by 2002:a17:90b:50c7:b0:39e:b15:7950 with SMTP id 98e67ed59e1d1-39e1e4eaeacmr11330851a91.23.1789607552672;
-        Wed, 16 Sep 2026 18:12:32 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e361b7266sm1836383a91.13.2026.09.16.18.12.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 18:12:31 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 18:12:31 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v4 5/7] watchdog: rzv2h: Add syscon support for WDTDCR
-Message-ID: <87577cdb-7f1d-4a9f-8a61-ff1f272234d9@roeck-us.net>
-References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260817192540.423994-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+        bh=a+CdnO7yh4efRshGKkV5OBVfJv13nuMpKztWCTLiXjE=;
+        b=LTruY1Ul670RJDhVV+Rl9kI7Chsnp+tcmrzI/yfpY/dwxpYOM9pshD68YCW/FRpGV0
+         Z8uaaxOe5Qch8gojqY3oGPTdpmeaHdAYb2KjyzTrg8rB0KOf6sFYC5Mty3R+KZCmWbTt
+         Gz7zapMTW3cdKdrhnmj19FbBy6z/+Z7ozcciQQFSChx9xIMkxN/MchvWO8MP6lTrEs9M
+         DH3Uu8oV8w0AU7S0BghX4mP1DfbO7fqv6s3qLBxPx8FiCI+292MWk8/hKCxH2BvkCb2b
+         Hx7fvbj069/NwbrZD4/RV9GjIENeEG4zU6kd5TPzaOBkVLSLPWi5ZyzVX5sp+m3wybsd
+         Vasw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789607643; x=1790212443;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a+CdnO7yh4efRshGKkV5OBVfJv13nuMpKztWCTLiXjE=;
+        b=oodbHJUw277WPr/kRD9jfCL/lpQ43/u9CquDOAPILfQfAmaVYf84kA2wFMHzJ6Cs0y
+         hsvyW3Av2aMAHq0XX0P9k5EY9N0vUBTHMvu8Gfy1U+xOhJ0K/SG1bZBSJf32Ww70csf0
+         NxkcinEDpNuwuP1HdXKS3xQEJJpexECEcWfG6KFqq4dO/wCOkuDLUuFtNUy+H5T6Jq+V
+         8cMpyoJSfX7veyr+b3CegqSgKG0Q8KLlQ/03uOCfTeUxyK+bFk3ZKPPAX1Ik82TtZlPC
+         6ummdUpR+rm6KEKPJPOS/F/YrEPoCrt0Euo8/qCH8mBIg3Pn24xJNDb2wgZgUE0vSmJV
+         vqiA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9jC7teFegMOAWpZLe6F5APtgYpyZJ5gTN3WxSpg1otrciwHO89Uvn7w7sSRAg4wPh75ElfLD4cAVLGAI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3PAnZN4QC84eIxW5M9ggJwpcHqp1Ina5FL8UvfRlLJyr2S8pd
+	SgzD5Dcl2U9ytWgm8dqKrE9bu1ntPfVl+Gkhm7xtAW5vlt8sVSp5/aRp8F3pd27lVSEZw+xYOvK
+	w
+X-Received: from plcg5.prod.google.com ([2002:a17:902:c985:b0:2db:6c6c:8a80])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:b0b:b0:2dd:7646:35cd
+ with SMTP id d9443c01a7336-2dd8ccccf6fmr106356295ad.0.1789607642593; Wed, 16
+ Sep 2026 18:14:02 -0700 (PDT)
+Date: Thu, 17 Sep 2026 01:13:59 +0000
+In-Reply-To: <20260916222125.1259631-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260817192540.423994-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Mime-Version: 1.0
+References: <20260916222125.1259631-1-morbo@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260917011359.1585961-1-morbo@google.com>
+Subject: [PATCH v3] seq_buf: add seq_buf_strlen(), seq_buf_init_append(), seq_buf_puts_trunc()
+From: Bill Wendling <morbo@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Kees Cook <kees@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, Bill Wendling <morbo@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Converting some strlcat() call sites seq_buf need behavior seq_buf
+doesn't currently provide, either directly or without introducing subtle
+bugs:
 
-On Mon, Aug 17, 2026 at 08:25:38PM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> On RZ/T2H and RZ/N2H SoCs, the WDTDCR (WDT Debug Control Register) resides
-> in the second register region of the CPG/MSSR block. Since this
-> multi-function block is shared with other peripherals, it is exposed via a
-> syscon regmap interface.
-> 
-> Look up the SYSC regmap using the optional "renesas,sysc" property and
-> derive the WDTDCR offset from the watchdog instance index.
-> 
-> Retain the existing MMIO-based access method when the "renesas,sysc"
-> property is absent to preserve compatibility with existing DT's.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+ - seq_buf_strlen(): seq_buf_used() reports the full buffer size when
+   the buffer is completely filled, even though seq_buf_str() then
+   overwrites the final byte with a NUL terminator, leaving only size -
+   1 bytes of actual content. Callers that need the true length of the
+   NUL-terminated string have to fall back to strlen(seq_buf_str(s)).
+   seq_buf_strlen() mirrors seq_buf_str()'s NUL-termination logic but
+   returns the resulting string's length directly.
 
-Can I apply this patch without the other patches of the series ?
+ - seq_buf_init_append(): seq_buf_init() always clears the buffer it's
+   given via seq_buf_clear(). Code migrating from strlcat(buf, ...),
+   which appends to whatever @buf already contains, can't use
+   seq_buf_init() without silently discarding that existing content.
+   seq_buf_init_append() preserves it and positions the seq_buf to
+   append after it.
 
-Thanks,
-Guenter
+ - seq_buf_puts_trunc(): seq_buf_puts() (like seq_buf_printf() and
+   friends) writes nothing at all if the string doesn't fully fit,
+   whereas strlcat() always copies as much of the source as there is
+   room for. Converting a strlcat() call site that relied on that
+   partial-copy behavior to plain seq_buf_puts() can silently drop
+   content that used to survive truncated. seq_buf_puts_trunc() keeps
+   the leading bytes of the string that fit.
 
-> ---
-> v3->v4:
-> - No change
-> 
-> v2->v3:
-> - Made use of the new "renesas,sysc" phandle-array property to access the
->   WDTDCR register via the CPG/MSSR syscon node.
-> - Updated commit message
-> 
-> v1->v2:
-> - No change.
-> ---
->  drivers/watchdog/Kconfig     |  1 +
->  drivers/watchdog/rzv2h_wdt.c | 56 +++++++++++++++++++++++++++++-------
->  2 files changed, 46 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-> index f7d0a0c2c0ef..3c4fc9916d8c 100644
-> --- a/drivers/watchdog/Kconfig
-> +++ b/drivers/watchdog/Kconfig
-> @@ -1046,6 +1046,7 @@ config RENESAS_RZV2HWDT
->  	depends on ARCH_RENESAS || COMPILE_TEST
->  	depends on PM || COMPILE_TEST
->  	select WATCHDOG_CORE
-> +	select MFD_SYSCON
->  	help
->  	  This driver adds watchdog support for the integrated watchdogs in the
->  	  Renesas RZ/{G3E,V2H(P)} SoCs. These watchdogs can be used to reset a
-> diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
-> index 8af2f33b5680..04ea962da837 100644
-> --- a/drivers/watchdog/rzv2h_wdt.c
-> +++ b/drivers/watchdog/rzv2h_wdt.c
-> @@ -8,6 +8,7 @@
->  #include <linux/delay.h>
->  #include <linux/io.h>
->  #include <linux/kernel.h>
-> +#include <linux/mfd/syscon.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/platform_device.h>
-> @@ -44,6 +45,11 @@
->  
->  #define WDT_DEFAULT_TIMEOUT	60U
->  
-> +#define RZT2H_WDT_MAX_INSTANCES	6
-> +
-> +#define RZT2H_SYS_BLOCK1(n)	(BIT(16) | (0x5100 + (n) * 4))
-> +#define RZT2H_WDTDCR_OFFSET(n)	RZT2H_SYS_BLOCK1(n)
-> +
->  static bool nowayout = WATCHDOG_NOWAYOUT;
->  module_param(nowayout, bool, 0);
->  MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
-> @@ -64,14 +70,19 @@ struct rzv2h_of_data {
->  	bool wdtdcr;
->  };
->  
-> +struct rzv2h_sysc_wdtdcr {
-> +	struct regmap *regmap;
-> +	unsigned int offset;
-> +};
-> +
->  struct rzv2h_wdt_priv {
->  	void __iomem *base;
-> -	struct regmap *wdtdcr_regmap;
->  	struct clk *pclk;
->  	struct clk *oscclk;
->  	struct reset_control *rstc;
->  	struct watchdog_device wdev;
->  	const struct rzv2h_of_data *of_data;
-> +	struct rzv2h_sysc_wdtdcr sysc;
->  };
->  
->  static int rzv2h_wdt_ping(struct watchdog_device *wdev)
-> @@ -90,12 +101,16 @@ static int rzv2h_wdt_ping(struct watchdog_device *wdev)
->  
->  static int rzt2h_wdt_wdtdcr_count_stop(struct rzv2h_wdt_priv *priv)
->  {
-> -	return regmap_set_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTSTOPCTRL);
-> +	struct rzv2h_sysc_wdtdcr *sysc = &priv->sysc;
-> +
-> +	return regmap_set_bits(sysc->regmap, sysc->offset, WDTDCR_WDTSTOPCTRL);
->  }
->  
->  static int rzt2h_wdt_wdtdcr_count_start(struct rzv2h_wdt_priv *priv)
->  {
-> -	return regmap_clear_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTSTOPCTRL);
-> +	struct rzv2h_sysc_wdtdcr *sysc = &priv->sysc;
-> +
-> +	return regmap_clear_bits(sysc->regmap, sysc->offset, WDTDCR_WDTSTOPCTRL);
->  }
->  
->  static void rzv2h_wdt_setup(struct watchdog_device *wdev, u16 wdtcr)
-> @@ -284,17 +299,36 @@ static const struct regmap_config rzv2h_wdtdcr_regmap_config = {
->  static int rzt2h_wdt_wdtdcr_init(struct platform_device *pdev,
->  				 struct rzv2h_wdt_priv *priv)
->  {
-> -	void __iomem *wdtdcr;
-> +	struct device_node *np = pdev->dev.of_node;
-> +	bool syscon_present = of_property_present(np, "renesas,sysc");
-> +	struct rzv2h_sysc_wdtdcr *sysc = &priv->sysc;
->  	int ret;
->  
-> -	wdtdcr = devm_platform_ioremap_resource(pdev, 1);
-> -	if (IS_ERR(wdtdcr))
-> -		return PTR_ERR(wdtdcr);
-> +	if (syscon_present) {
-> +		unsigned int wdt_index;
->  
-> -	priv->wdtdcr_regmap = devm_regmap_init_mmio(&pdev->dev, wdtdcr,
-> -						    &rzv2h_wdtdcr_regmap_config);
-> -	if (IS_ERR(priv->wdtdcr_regmap))
-> -		return PTR_ERR(priv->wdtdcr_regmap);
-> +		sysc->regmap = syscon_regmap_lookup_by_phandle_args(np, "renesas,sysc",
-> +								    1, &wdt_index);
-> +		if (IS_ERR(sysc->regmap))
-> +			return PTR_ERR(sysc->regmap);
-> +
-> +		if (wdt_index >= RZT2H_WDT_MAX_INSTANCES)
-> +			return -EINVAL;
-> +
-> +		sysc->offset = RZT2H_WDTDCR_OFFSET(wdt_index);
-> +	} else {
-> +		void __iomem *wdtdcr;
-> +
-> +		wdtdcr = devm_platform_ioremap_resource(pdev, 1);
-> +		if (IS_ERR(wdtdcr))
-> +			return PTR_ERR(wdtdcr);
-> +
-> +		sysc->regmap = devm_regmap_init_mmio(&pdev->dev, wdtdcr,
-> +						     &rzv2h_wdtdcr_regmap_config);
-> +		if (IS_ERR(sysc->regmap))
-> +			return PTR_ERR(sysc->regmap);
-> +		sysc->offset = WDTDCR;
-> +	}
->  
->  	ret = pm_runtime_resume_and_get(&pdev->dev);
->  	if (ret)
+Assisted-by: LLM
+Suggested-by: Kees Cook <kees@kernel.org>
+Signed-off-by: Bill Wendling <morbo@google.com>
+---
+v2: Reword the commit message to be clearer and not refer to a series of
+    patches
+v3: Add EXPORT_SYMBOL_GPL, make sure to overflow when truncating, correct
+    some logic discovered by the KUnit tests, and add KUnit tests.
+---
+ include/linux/seq_buf.h   | 60 +++++++++++++++++++++++++++++++++++++++
+ lib/seq_buf.c             | 33 +++++++++++++++++++++
+ lib/tests/seq_buf_kunit.c | 48 +++++++++++++++++++++++++++++++
+ 3 files changed, 141 insertions(+)
+
+diff --git a/include/linux/seq_buf.h b/include/linux/seq_buf.h
+index 9f2839e73f8a..a552bcaab07f 100644
+--- a/include/linux/seq_buf.h
++++ b/include/linux/seq_buf.h
+@@ -30,6 +30,10 @@ struct seq_buf {
+ 		.size = SIZE,				\
+ 	}
+ 
++/**
++ * seq_buf_clear - reset the seq_buf to be read / appended from the beginning
++ * @s: the seq_buf handle
++ */
+ static inline void seq_buf_clear(struct seq_buf *s)
+ {
+ 	s->len = 0;
+@@ -37,6 +41,14 @@ static inline void seq_buf_clear(struct seq_buf *s)
+ 		s->buffer[0] = '\0';
+ }
+ 
++/**
++ * seq_buf_init - initialize a seq_buf
++ * @s: the seq_buf handle
++ * @buf: pointer to the buffer
++ * @size: total size of @buf
++ *
++ * The contents of the buffer are ignored.
++ */
+ static inline void
+ seq_buf_init(struct seq_buf *s, char *buf, unsigned int size)
+ {
+@@ -45,6 +57,26 @@ seq_buf_init(struct seq_buf *s, char *buf, unsigned int size)
+ 	seq_buf_clear(s);
+ }
+ 
++/**
++ * seq_buf_init_append - initialize a seq_buf over a buffer that may
++ *			 already hold NUL-terminated content
++ * @s: the seq_buf handle
++ * @buf: pointer to the (possibly non-empty) buffer
++ * @size: total size of @buf
++ *
++ * Unlike seq_buf_init(), which always clears @buf, this preserves
++ * whatever NUL-terminated content @buf already holds and positions
++ * @s to append after it. Useful for converting code that used to
++ * append to an existing buffer with strlcat()/scnprintf() and friends.
++ */
++static inline void
++seq_buf_init_append(struct seq_buf *s, char *buf, unsigned int size)
++{
++	s->buffer = buf;
++	s->size = size;
++	s->len = strnlen(buf, size);
++}
++
+ /*
+  * seq_buf have a buffer that might overflow. When this happens
+  * len is set to be greater than size.
+@@ -108,6 +140,33 @@ static inline const char *seq_buf_str(struct seq_buf *s)
+ 	return s->buffer;
+ }
+ 
++/**
++ * seq_buf_strlen - get the length of the NUL-terminated string in seq_buf
++ * @s: the seq_buf handle
++ *
++ * Like seq_buf_str(), this makes sure that the buffer in @s is
++ * NUL-terminated, and returns the length of the resulting string.
++ * Unlike seq_buf_used(), the returned length is always correct, even
++ * when the buffer is completely full: in that case seq_buf_used()
++ * reports @s->size, but the last byte was overwritten with the
++ * trailing NUL, so only @s->size - 1 bytes of content remain.
++ *
++ * Returns: the length of the NUL-terminated string in @s->buffer.
++ */
++static inline size_t seq_buf_strlen(struct seq_buf *s)
++{
++	if (WARN_ON(s->size == 0))
++		return 0;
++
++	if (seq_buf_buffer_left(s)) {
++		s->buffer[s->len] = 0;
++		return s->len;
++	}
++
++	s->buffer[s->size - 1] = 0;
++	return s->size - 1;
++}
++
+ /**
+  * seq_buf_get_buf - get buffer to write arbitrary data to
+  * @s: the seq_buf handle
+@@ -179,6 +238,7 @@ extern int seq_buf_putmem(struct seq_buf *s, const void *mem, unsigned int len);
+ extern int seq_buf_putmem_hex(struct seq_buf *s, const void *mem,
+ 			      unsigned int len);
+ extern int seq_buf_path(struct seq_buf *s, const struct path *path, const char *esc);
++extern size_t seq_buf_puts_trunc(struct seq_buf *s, const char *str);
+ extern int seq_buf_hex_dump(struct seq_buf *s, const char *prefix_str,
+ 			    int prefix_type, int rowsize, int groupsize,
+ 			    const void *buf, size_t len, bool ascii);
+diff --git a/lib/seq_buf.c b/lib/seq_buf.c
+index a92093f346da..831a1542fb78 100644
+--- a/lib/seq_buf.c
++++ b/lib/seq_buf.c
+@@ -199,6 +199,39 @@ int seq_buf_puts(struct seq_buf *s, const char *str)
+ }
+ EXPORT_SYMBOL_GPL(seq_buf_puts);
+ 
++/**
++ * seq_buf_puts_trunc - append as much of a string as fits, keeping any of it
++ * @s: the seq_buf handle
++ * @str: the string to append
++ *
++ * This copies the leading bytes of @str that fit, reserving room for the NUL
++ * terminator later added by seq_buf_str(). This differs from seq_buf_puts(),
++ * which writes nothing at all if @str doesn't fully fit.
++ *
++ * Unlike seq_buf_puts(), this does NOT NUL-terminate @s->buffer as it
++ * goes (it copies raw bytes via seq_buf_putmem(), not @str's own
++ * terminator). Callers MUST call seq_buf_str() or seq_buf_strlen()
++ * before using @s->buffer as a C string.
++ *
++ * Returns: the number of bytes copied from @str.
++ */
++size_t seq_buf_puts_trunc(struct seq_buf *s, const char *str)
++{
++	size_t len = strlen(str);
++
++	WARN_ON(s->size == 0);
++
++	if (seq_buf_can_fit(s, len))
++		return seq_buf_puts(s, str);
++
++	/* Truncate the string to fit the buffer. */
++	len = s->size - s->len;
++	memcpy(s->buffer + s->len, str, len);
++	seq_buf_set_overflow(s);
++	return len;
++}
++EXPORT_SYMBOL_GPL(seq_buf_puts_trunc);
++
+ /**
+  * seq_buf_putc - sequence printing of simple character
+  * @s: seq_buf descriptor
+diff --git a/lib/tests/seq_buf_kunit.c b/lib/tests/seq_buf_kunit.c
+index eb466386bbef..a16b1365b503 100644
+--- a/lib/tests/seq_buf_kunit.c
++++ b/lib/tests/seq_buf_kunit.c
+@@ -23,6 +23,21 @@ static void seq_buf_init_test(struct kunit *test)
+ 	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "");
+ }
+ 
++static void seq_buf_init_append_test(struct kunit *test)
++{
++	char buf[32] = "hello world";
++	struct seq_buf s;
++
++	seq_buf_init_append(&s, buf, sizeof(buf));
++
++	KUNIT_EXPECT_EQ(test, s.size, 32);
++	KUNIT_EXPECT_EQ(test, s.len, 11);
++	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&s));
++	KUNIT_EXPECT_EQ(test, seq_buf_buffer_left(&s), 32 - 11);
++	KUNIT_EXPECT_EQ(test, seq_buf_used(&s), 11);
++	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "hello world");
++}
++
+ static void seq_buf_declare_test(struct kunit *test)
+ {
+ 	DECLARE_SEQ_BUF(s, 24);
+@@ -51,6 +66,36 @@ static void seq_buf_clear_test(struct kunit *test)
+ 	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "");
+ }
+ 
++static void seq_buf_strlen_test(struct kunit *test)
++{
++	DECLARE_SEQ_BUF(s, 16);
++
++	seq_buf_puts(&s, "hello world!");
++	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&s), 12);
++	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&s));
++	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "hello world!");
++
++	seq_buf_puts(&s, " It's a small world!");
++	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&s), s.size - 1);
++	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&s));
++	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "hello world!");
++}
++
++static void seq_buf_puts_trunc_test(struct kunit *test)
++{
++	DECLARE_SEQ_BUF(s, 10);
++
++	seq_buf_puts(&s, "hello");
++	KUNIT_EXPECT_EQ(test, seq_buf_used(&s), 5);
++	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&s));
++	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "hello");
++
++	seq_buf_puts_trunc(&s, " world!");
++	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&s), s.size - 1);
++	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&s));
++	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "hello wor");
++}
++
+ static void seq_buf_puts_test(struct kunit *test)
+ {
+ 	DECLARE_SEQ_BUF(s, 16);
+@@ -218,8 +263,11 @@ static void seq_buf_putmem_hex_overflow_test(struct kunit *test)
+ 
+ static struct kunit_case seq_buf_test_cases[] = {
+ 	KUNIT_CASE(seq_buf_init_test),
++	KUNIT_CASE(seq_buf_init_append_test),
+ 	KUNIT_CASE(seq_buf_declare_test),
+ 	KUNIT_CASE(seq_buf_clear_test),
++	KUNIT_CASE(seq_buf_strlen_test),
++	KUNIT_CASE(seq_buf_puts_trunc_test),
+ 	KUNIT_CASE(seq_buf_puts_test),
+ 	KUNIT_CASE(seq_buf_puts_overflow_test),
+ 	KUNIT_CASE(seq_buf_putc_test),
+-- 
+2.55.0.1082.g2b9226bbc0-goog
+
